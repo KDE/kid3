@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
+"POT-Creation-Date: 2013-08-04 12:07+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -34,6 +33,9 @@ msgstr "Команды пользователя"
 
 msgid "Network"
 msgstr "Сеть"
+
+msgid "Plugins"
+msgstr "Модули"
 
 msgid "Main Toolbar"
 msgstr "Основная панель инструментов"
@@ -76,9 +78,6 @@ msgstr "&Импорт..."
 
 msgid "Import from %1..."
 msgstr "Импорт из %1..."
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz \"отпечатка пальцев\""
 
 msgid "Automatic I&mport..."
 msgstr "Автоматически и&мпортировать..."
@@ -234,6 +233,9 @@ msgstr "&Команды пользователя"
 
 msgid "&Network"
 msgstr "&Сеть"
+
+msgid "&Plugins"
+msgstr "&Модули"
 
 msgid "&Keyboard Shortcuts"
 msgstr "&Клавиши быстрого доступа"
@@ -439,302 +441,8 @@ msgstr "Дополнительные теги"
 msgid "Cover Art"
 msgstr "Обложки"
 
-msgid "AENC - Audio encryption"
-msgstr "AENC - Аудио-кодирование"
-
-msgid "APIC - Attached picture"
-msgstr "APIC - Прикрепленная картинка"
-
-msgid "COMM - Comments"
-msgstr "COMM - Комментарии"
-
-msgid "COMR - Commercial"
-msgstr "COMR - Реклама"
-
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Encryption method registration"
-
-msgid "EQUA - Equalization"
-msgstr "EQUA - Equalization"
-
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Event timing codes"
-
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - General encapsulated object"
-
-msgid "GRID - Group identification registration"
-msgstr "GRID - Group identification registration"
-
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Involved people list"
-
-msgid "LINK - Linked information"
-msgstr "LINK - Linked information"
-
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Music CD identifier"
-
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG location lookup table"
-
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Ownership frame"
-
-msgid "PRIV - Private frame"
-msgstr "PRIV - Private frame"
-
-msgid "PCNT - Play counter"
-msgstr "PCNT - Play counter"
-
-msgid "POPM - Popularimeter"
-msgstr "POPM - Popularimeter"
-
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Position synchronisation frame"
-
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Recommended buffer size"
-
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Relative volume adjustment"
-
-msgid "RVRB - Reverb"
-msgstr "RVRB - Reverb"
-
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Synchronized lyric/text"
-
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Synchronized tempo codes"
-
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album/Movie/Show title"
-
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (beats per minute)"
-
-msgid "TCOM - Composer"
-msgstr "TCOM - Composer"
-
-msgid "TCON - Content type"
-msgstr "TCON - Content type"
-
-msgid "TCOP - Copyright message"
-msgstr "TCOP - Copyright message"
-
-msgid "TDAT - Date"
-msgstr "TDAT - Date"
-
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - Playlist delay"
-
-msgid "TENC - Encoded by"
-msgstr "TENC - Encoded by"
-
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Lyricist/Text writer"
-
-msgid "TFLT - File type"
-msgstr "TFLT - File type"
-
-msgid "TIME - Time"
-msgstr "TIME - Time"
-
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - Content group description"
-
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Title/songname/content description"
-
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Subtitle/Description refinement"
-
-msgid "TKEY - Initial key"
-msgstr "TKEY - Initial key"
-
-msgid "TLAN - Language(s)"
-msgstr "TLAN - Язык(и)"
-
-msgid "TLEN - Length"
-msgstr "TLEN - Длина"
-
-msgid "TMED - Media type"
-msgstr "TMED - Тип носителя"
-
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Original album/movie/show title"
-
-msgid "TOFN - Original filename"
-msgstr "TOFN - Original filename"
-
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Original lyricist(s)/text writer(s)"
-
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Original artist(s)/performer(s)"
-
-msgid "TORY - Original release year"
-msgstr "TORY - Original release year"
-
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - File owner/licensee"
-
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Lead performer(s)/Soloist(s)"
-
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Band/orchestra/accompaniment"
-
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Conductor/performer refinement"
-
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Interpreted, remixed, or otherwise modified by"
-
-msgid "TPOS - Part of a set"
-msgstr "TPOS - Part of a set"
-
-msgid "TPUB - Publisher"
-msgstr "TPUB - Publisher"
-
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Track number/Position in set"
-
-msgid "TRDA - Recording dates"
-msgstr "TRDA - Recording dates"
-
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Internet radio station name"
-
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Internet radio station owner"
-
-msgid "TSIZ - Size"
-msgstr "TSIZ - Size"
-
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (international standard recording code)"
-
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Software/Hardware and settings used for encoding"
-
-msgid "TXXX - User defined text information"
-msgstr "TXXX - User defined text information"
-
-msgid "TYER - Year"
-msgstr "TYER - Year"
-
-msgid "UFID - Unique file identifier"
-msgstr "UFID - Unique file identifier"
-
-msgid "USER - Terms of use"
-msgstr "USER - Terms of use"
-
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Unsynchronized lyric/text transcription"
-
-msgid "WCOM - Commercial information"
-msgstr "WCOM - Commercial information"
-
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Copyright/Legal information"
-
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Official audio file webpage"
-
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Official artist/performer webpage"
-
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Official audio source webpage"
-
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Official internet radio station homepage"
-
-msgid "WPAY - Payment"
-msgstr "WPAY - Payment"
-
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Official publisher webpage"
-
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - User defined URL link"
-
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Audio seek point index"
-
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Equalisation (2)"
-
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - Relative volume adjustment (2)"
-
-msgid "SEEK - Seek frame"
-msgstr "SEEK - Seek frame"
-
-msgid "SIGN - Signature frame"
-msgstr "SIGN - Signature frame"
-
-msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes сборник"
-
-msgid "TDEN - Encoding time"
-msgstr "TDEN - Encoding time"
-
-msgid "TDOR - Original release time"
-msgstr "TDOR - Original release time"
-
-msgid "TDRC - Recording time"
-msgstr "TDRC - Recording time"
-
-msgid "TDRL - Release time"
-msgstr "TDRL - Release time"
-
-msgid "TDTG - Tagging time"
-msgstr "TDTG - Tagging time"
-
-msgid "TIPL - Involved people list"
-msgstr "TIPL - Involved people list"
-
-msgid "TMCL - Musician credits list"
-msgstr "TMCL - Musician credits list"
-
-msgid "TMOO - Mood"
-msgstr "TMOO - Mood"
-
-msgid "TPRO - Produced notice"
-msgstr "TPRO - Produced notice"
-
-msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Порядок сортировки исполнителей альбомов"
-
-msgid "TSOA - Album sort order"
-msgstr "TSOA - Album sort order"
-
-msgid "TSOC - Composer sort order"
-msgstr "TSOC - порядок композитор рода"
-
-msgid "TSOP - Performer sort order"
-msgstr "TSOP - Performer sort order"
-
-msgid "TSOT - Title sort order"
-msgstr "TSOT - Title sort order"
-
-msgid "TSST - Set subtitle"
-msgstr "TSST - Set subtitle"
-
-msgid "Amazon"
-msgstr "Amazon"
-
 msgid "Invalid File"
 msgstr "Неверный файл"
-
-msgid "Discogs"
-msgstr "Discogs"
-
-msgid "gnudb.org"
-msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Полученные сведения: %1"
@@ -750,30 +458,6 @@ msgstr "Год"
 
 msgid "Length"
 msgstr "Длительность"
-
-msgid "Unrecognized"
-msgstr "Непризнанный"
-
-msgid "Recognized"
-msgstr "Признанный"
-
-msgid "User Selection"
-msgstr "Выбор"
-
-msgid "ID Lookup"
-msgstr "Поиск ID"
-
-msgid "Fingerprint"
-msgstr "Отпечатка пальцев"
-
-msgid "Metadata Lookup"
-msgstr "Чтение метаданных"
-
-msgid "MusicBrainz Release"
-msgstr "MusicBrainz альбом"
-
-msgid "TrackType.org"
-msgstr "TrackType.org"
 
 msgid "Filenames"
 msgstr "Имена файлов"
@@ -858,6 +542,9 @@ msgstr "Логического отрицания"
 
 msgid "Data"
 msgstr "Дата"
+
+msgid "%1 is not writable"
+msgstr "Файл %1 только для чтения"
 
 msgid "All Supported Files"
 msgstr "Все поддерживаемые файлы"
@@ -1168,14 +855,11 @@ msgstr "UTF8"
 msgid "&Version used for new tags:"
 msgstr "&Версия, используемая для нового тегов:"
 
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ID3v2.3.0 (id3lib)"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
 
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ID3v2.4.0 (TagLib)"
-
-msgid "ID3v2.3.0 (TagLib)"
-msgstr "ID3v2.3.0 (TagLib)"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
 
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
@@ -1255,6 +939,15 @@ msgstr "&Имя пользователя прокси:"
 
 msgid "Proxy pass&word:"
 msgstr "П&ароль прокси:"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "&Метаданные расширения && Приоритет"
+
+msgid "A&vailable Plugins"
+msgstr "&Доступные дополнения"
+
+msgid "Changes take only effect after a restart!"
+msgstr "Изменения вступят в силу только после следующего запуска!"
 
 msgid "From Clip&board"
 msgstr "Из &Буфера Обмена"
@@ -1487,18 +1180,6 @@ msgstr "&Дорожка"
 msgid "&Title"
 msgstr "&Название"
 
-msgid "Track Title/Artist - Album"
-msgstr "Число Название/Исполнитель - Альбом"
-
-msgid "State"
-msgstr "Состояние"
-
-msgid "No result"
-msgstr "Не удалось найти"
-
-msgid "No result selected"
-msgstr "Никакой отобранный результат"
-
 msgid "&Start number:"
 msgstr "&Число начала:"
 
@@ -1582,6 +1263,18 @@ msgstr "&Найти"
 
 msgid "C&GI Path:"
 msgstr "Путь к C&GI:"
+
+msgid "Track Title/Artist - Album"
+msgstr "Число Название/Исполнитель - Альбом"
+
+msgid "State"
+msgstr "Состояние"
+
+msgid "No result"
+msgstr "Не удалось найти"
+
+msgid "No result selected"
+msgstr "Никакой отобранный результат"
 
 msgid "Import from Tags"
 msgstr "Импорт из тег"
@@ -1799,3 +1492,324 @@ msgstr "Добавить элемент"
 
 msgid "Edit Item"
 msgstr "Изменить элемент"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz \"отпечатка пальцев\""
+
+msgid "Unrecognized"
+msgstr "Непризнанный"
+
+msgid "Recognized"
+msgstr "Признанный"
+
+msgid "User Selection"
+msgstr "Выбор"
+
+msgid "ID Lookup"
+msgstr "Поиск ID"
+
+msgid "Fingerprint"
+msgstr "Отпечатка пальцев"
+
+msgid "Metadata Lookup"
+msgstr "Чтение метаданных"
+
+msgid "Amazon"
+msgstr "Amazon"
+
+msgid "Discogs"
+msgstr "Discogs"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC - Аудио-кодирование"
+
+msgid "APIC - Attached picture"
+msgstr "APIC - Прикрепленная картинка"
+
+msgid "COMM - Comments"
+msgstr "COMM - Комментарии"
+
+msgid "COMR - Commercial"
+msgstr "COMR - Реклама"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Encryption method registration"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA - Equalization"
+
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Event timing codes"
+
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - General encapsulated object"
+
+msgid "GRID - Group identification registration"
+msgstr "GRID - Group identification registration"
+
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Involved people list"
+
+msgid "LINK - Linked information"
+msgstr "LINK - Linked information"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Music CD identifier"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG location lookup table"
+
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Ownership frame"
+
+msgid "PRIV - Private frame"
+msgstr "PRIV - Private frame"
+
+msgid "PCNT - Play counter"
+msgstr "PCNT - Play counter"
+
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popularimeter"
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Position synchronisation frame"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Recommended buffer size"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relative volume adjustment"
+
+msgid "RVRB - Reverb"
+msgstr "RVRB - Reverb"
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Synchronized lyric/text"
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Synchronized tempo codes"
+
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/Movie/Show title"
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (beats per minute)"
+
+msgid "TCOM - Composer"
+msgstr "TCOM - Composer"
+
+msgid "TCON - Content type"
+msgstr "TCON - Content type"
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Copyright message"
+
+msgid "TDAT - Date"
+msgstr "TDAT - Date"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Playlist delay"
+
+msgid "TENC - Encoded by"
+msgstr "TENC - Encoded by"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Lyricist/Text writer"
+
+msgid "TFLT - File type"
+msgstr "TFLT - File type"
+
+msgid "TIME - Time"
+msgstr "TIME - Time"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Content group description"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Title/songname/content description"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Subtitle/Description refinement"
+
+msgid "TKEY - Initial key"
+msgstr "TKEY - Initial key"
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Язык(и)"
+
+msgid "TLEN - Length"
+msgstr "TLEN - Длина"
+
+msgid "TMED - Media type"
+msgstr "TMED - Тип носителя"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Original album/movie/show title"
+
+msgid "TOFN - Original filename"
+msgstr "TOFN - Original filename"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Original lyricist(s)/text writer(s)"
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Original artist(s)/performer(s)"
+
+msgid "TORY - Original release year"
+msgstr "TORY - Original release year"
+
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - File owner/licensee"
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Lead performer(s)/Soloist(s)"
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Band/orchestra/accompaniment"
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Conductor/performer refinement"
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Interpreted, remixed, or otherwise modified by"
+
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Part of a set"
+
+msgid "TPUB - Publisher"
+msgstr "TPUB - Publisher"
+
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Track number/Position in set"
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Recording dates"
+
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Internet radio station name"
+
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Internet radio station owner"
+
+msgid "TSIZ - Size"
+msgstr "TSIZ - Size"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (international standard recording code)"
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware and settings used for encoding"
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX - User defined text information"
+
+msgid "TYER - Year"
+msgstr "TYER - Year"
+
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unique file identifier"
+
+msgid "USER - Terms of use"
+msgstr "USER - Terms of use"
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Unsynchronized lyric/text transcription"
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Commercial information"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Copyright/Legal information"
+
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Official audio file webpage"
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Official artist/performer webpage"
+
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Official audio source webpage"
+
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Official internet radio station homepage"
+
+msgid "WPAY - Payment"
+msgstr "WPAY - Payment"
+
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Official publisher webpage"
+
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - User defined URL link"
+
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz альбом"
+
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Audio seek point index"
+
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Equalisation (2)"
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Relative volume adjustment (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Seek frame"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Signature frame"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes сборник"
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Encoding time"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR - Original release time"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC - Recording time"
+
+msgid "TDRL - Release time"
+msgstr "TDRL - Release time"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Tagging time"
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Involved people list"
+
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Musician credits list"
+
+msgid "TMOO - Mood"
+msgstr "TMOO - Mood"
+
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Produced notice"
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - Порядок сортировки исполнителей альбомов"
+
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Album sort order"
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - порядок композитор рода"
+
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Performer sort order"
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Title sort order"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST - Set subtitle"

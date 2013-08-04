@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
+"POT-Creation-Date: 2013-08-04 12:07+0200\n"
 "PO-Revision-Date: 2013-03-14 23:39+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -32,6 +32,9 @@ msgstr "Käyttäjän toimet"
 
 msgid "Network"
 msgstr "Verkko"
+
+msgid "Plugins"
+msgstr "Liitännäiset"
 
 msgid "Main Toolbar"
 msgstr "Päätyökalupalkki"
@@ -74,9 +77,6 @@ msgstr "T&uo..."
 
 msgid "Import from %1..."
 msgstr "Tuo %1ista..."
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainzin sormenjälki"
 
 msgid "Automatic I&mport..."
 msgstr "Tuo auto&maattisesti..."
@@ -232,6 +232,9 @@ msgstr "&Käyttäjän toimet"
 
 msgid "&Network"
 msgstr "&Verkko"
+
+msgid "&Plugins"
+msgstr "&Liitännäiset"
 
 msgid "&Keyboard Shortcuts"
 msgstr "Näppäimistön pi&kavalinnat"
@@ -437,302 +440,8 @@ msgstr "Lisätagit"
 msgid "Cover Art"
 msgstr "Kansikuvat"
 
-msgid "AENC - Audio encryption"
-msgstr "AENC – Äänen koodaus"
-
-msgid "APIC - Attached picture"
-msgstr "APIC – Liitetty kuva"
-
-msgid "COMM - Comments"
-msgstr "COMM – Kommentit"
-
-msgid "COMR - Commercial"
-msgstr "COMR – Kaupallinen"
-
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR – Salausmenetelmän rekisteröinti"
-
-msgid "EQUA - Equalization"
-msgstr "EQUA – Ekvalisointi"
-
-msgid "ETCO - Event timing codes"
-msgstr "ETCO – Tapahtumien aikakoodit"
-
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB – Yleinen sisällytetty objekti"
-
-msgid "GRID - Group identification registration"
-msgstr "GRID – Ryhmätunnisteen rekisteröinti"
-
-msgid "IPLS - Involved people list"
-msgstr "IPLS – Mukana olleiden henkilöiden luettelo"
-
-msgid "LINK - Linked information"
-msgstr "LINK – Linkattu tieto"
-
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI – Musiikki-CD:n tunniste"
-
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT – MPEGin sijainninhakutaulukko"
-
-msgid "OWNE - Ownership frame"
-msgstr "OWNE – Omistajakehys"
-
-msgid "PRIV - Private frame"
-msgstr "PRIV – Yksityiskehys"
-
-msgid "PCNT - Play counter"
-msgstr "PCNT – Soittokertalaskuri"
-
-msgid "POPM - Popularimeter"
-msgstr "POPM – Suosiomittari"
-
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS – Sijainnin tahdistuskehys"
-
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF – Suositeltu puskurikoko"
-
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD – Äänenvoimakkuuden suhteellinen säätö"
-
-msgid "RVRB - Reverb"
-msgstr "RVRB – Kaikuefekti"
-
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT – Tahdistettu sanoitus/teksti"
-
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC – Tahdistetut tempokoodit"
-
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB – Levyn/elokuvan/sarjan otsikko"
-
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM – BPM (iskua minuutissa)"
-
-msgid "TCOM - Composer"
-msgstr "TCOM – Säveltäjä"
-
-msgid "TCON - Content type"
-msgstr "TCON – Sisältötyyppi"
-
-msgid "TCOP - Copyright message"
-msgstr "TCOP – Tekijänoikeustiedote"
-
-msgid "TDAT - Date"
-msgstr "TDAT – Päiväys"
-
-msgid "TDLY - Playlist delay"
-msgstr "TDLY – Soittolistan viive"
-
-msgid "TENC - Encoded by"
-msgstr "TENC – Koodaaja"
-
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT – Sanoittaja/tekstin kirjoittaja"
-
-msgid "TFLT - File type"
-msgstr "TFLT – Tiedoston tyyppi"
-
-msgid "TIME - Time"
-msgstr "TIME – Aika"
-
-msgid "TIT1 - Content group description"
-msgstr "TIT1 – Sisältöryhmän kuvaus"
-
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 – Otsikon/kappaleen nimen/sisällön kuvaus"
-
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 – Tekstitys/kuvauksen täsmennys"
-
-msgid "TKEY - Initial key"
-msgstr "TKEY – Alkusävellaji"
-
-msgid "TLAN - Language(s)"
-msgstr "TLAN – Kieli tai kielet"
-
-msgid "TLEN - Length"
-msgstr "TLEN – Kesto"
-
-msgid "TMED - Media type"
-msgstr "TMED – Mediatyyppi"
-
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL – Alkuperäinen levyn/elokuvan/sarjan otsikko"
-
-msgid "TOFN - Original filename"
-msgstr "TOFN – Alkuperäinen tiedostonimi"
-
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY – Alkuperäinen sanoittaja/tekstin kirjoittaja"
-
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE – Alkuperäinen artisti/esiintyjä"
-
-msgid "TORY - Original release year"
-msgstr "TORY – Alkuperäinen julkaisuvuosi"
-
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN – Tiedoston omistaja/lisenssi"
-
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 – Pääesiintyjä(t)/sooloartisti(t)"
-
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 – Yhtye/orkesteri/säestys"
-
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 – Kapellimestari tai esityksen parantelija"
-
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 – Tulkinnut, uudelleen miksannut tai muuten muokannut"
-
-msgid "TPOS - Part of a set"
-msgstr "TPOS – Osa joukkoa"
-
-msgid "TPUB - Publisher"
-msgstr "TPUB – Julkaisija"
-
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK – Kappaleen raita/sijainti joukossa"
-
-msgid "TRDA - Recording dates"
-msgstr "TRDA – Tallennuspäivät"
-
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN – Internet-radioaseman nimi"
-
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO – Internetin radioaseman omistaja"
-
-msgid "TSIZ - Size"
-msgstr "TSIZ – Koko"
-
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC – ISRC (kansainvälinen standardi nauhoituskoodi)"
-
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE – Koodauksessa käytetty ohjelmisto tai laitteisto sekä asetukset"
-
-msgid "TXXX - User defined text information"
-msgstr "TXXX – Käyttäjän määrittämä tekstitieto"
-
-msgid "TYER - Year"
-msgstr "TYER – Vuosi"
-
-msgid "UFID - Unique file identifier"
-msgstr "UFID – Tiedoston ainutkertainen tunniste"
-
-msgid "USER - Terms of use"
-msgstr "USER – Käyttöehdot"
-
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT – Tahdistamaton sanoitus tai tekstitranskriptio"
-
-msgid "WCOM - Commercial information"
-msgstr "WCOM – Kaupallinen tieto"
-
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP – Tekijänoikeustiedot"
-
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF – Äänitiedoston virallinen verkkosivu"
-
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR – Artistin/esiintyjän virallinen verkkosivu"
-
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS – Äänilähteen virallinen verkkosivu"
-
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS – Internetin radioaseman virallinen verkkosivu"
-
-msgid "WPAY - Payment"
-msgstr "WPAY – Maksaminen"
-
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB – Julkaisijan virallinen verkkosivu"
-
-msgid "WXXX - User defined URL link"
-msgstr "WXXX – Käyttäjän määrittämä verkko-osoite"
-
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI – Äänihaun sijainti-indeksi"
-
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 – Ekvalisaatio (2)"
-
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 – Suhteellinen äänenvoimakkuuden säätö (2)"
-
-msgid "SEEK - Seek frame"
-msgstr "SEEK – Hakukehys"
-
-msgid "SIGN - Signature frame"
-msgstr "SIGN – Allekirjoituskehys"
-
-msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes kokoelma"
-
-msgid "TDEN - Encoding time"
-msgstr "TDEN – Koodausajankohta"
-
-msgid "TDOR - Original release time"
-msgstr "TDOR – Alkuperäinen julkaisuajankohta"
-
-msgid "TDRC - Recording time"
-msgstr "TDRC – Äänitysajankohta"
-
-msgid "TDRL - Release time"
-msgstr "TRDL – Julkaisuajankohta"
-
-msgid "TDTG - Tagging time"
-msgstr "TDTG – Luokitusajankohta"
-
-msgid "TIPL - Involved people list"
-msgstr "TIPL – Mukana olleiden henkilöiden luettelo"
-
-msgid "TMCL - Musician credits list"
-msgstr "TMCL – Ansioituneiden muusikkojen luettelo"
-
-msgid "TMOO - Mood"
-msgstr "TMOO – Tunnelma"
-
-msgid "TPRO - Produced notice"
-msgstr "TPRO – Tuotantoilmoitus"
-
-msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 – Albumiartistien lajittelujärjestys"
-
-msgid "TSOA - Album sort order"
-msgstr "TSOA – Levyjen lajittelujärjestys"
-
-msgid "TSOC - Composer sort order"
-msgstr "TSOC – Säveltäjien lajittelujärjestys"
-
-msgid "TSOP - Performer sort order"
-msgstr "TSOP – Esittäjien lajittelujärjestys"
-
-msgid "TSOT - Title sort order"
-msgstr "TSOT – Nimikkeiden lajittelujärjestys"
-
-msgid "TSST - Set subtitle"
-msgstr "TSST – Aseta tekstitys"
-
-msgid "Amazon"
-msgstr "Amazon"
-
 msgid "Invalid File"
 msgstr "Virheellinen tiedosto"
-
-msgid "Discogs"
-msgstr "Discogs"
-
-msgid "gnudb.org"
-msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Vastaanotettu data: %1"
@@ -748,30 +457,6 @@ msgstr "Vuosi"
 
 msgid "Length"
 msgstr "Kesto"
-
-msgid "Unrecognized"
-msgstr "Tunnistamaton"
-
-msgid "Recognized"
-msgstr "Tunnistettu"
-
-msgid "User Selection"
-msgstr "Käyttäjän valinta"
-
-msgid "ID Lookup"
-msgstr "ID-haku"
-
-msgid "Fingerprint"
-msgstr "Sormenjälki"
-
-msgid "Metadata Lookup"
-msgstr "Metadata luettu"
-
-msgid "MusicBrainz Release"
-msgstr "MusicBrainzin julkaisu"
-
-msgid "TrackType.org"
-msgstr "TrackType.org"
 
 msgid "Filenames"
 msgstr "Tiedostot"
@@ -856,6 +541,9 @@ msgstr "Looginen kielto"
 
 msgid "Data"
 msgstr "Data"
+
+msgid "%1 is not writable"
+msgstr "%1 ei voi kirjoittaa"
 
 msgid "All Supported Files"
 msgstr "Kaikki tuetut tiedostot"
@@ -1166,14 +854,11 @@ msgstr "UTF-8"
 msgid "&Version used for new tags:"
 msgstr "&Uusien tagien versio:"
 
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ID3v2.3.0 (id3lib)"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
 
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ID3v2.4.0 (TagLib)"
-
-msgid "ID3v2.3.0 (TagLib)"
-msgstr "ID3v2.3.0 (TagLib)"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
 
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
@@ -1252,6 +937,15 @@ msgstr "K&äyttäjätunnus:"
 
 msgid "Proxy pass&word:"
 msgstr "&Salasana:"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "&Metatiedot liitännäiset && Prioriteetti"
+
+msgid "A&vailable Plugins"
+msgstr "&Käytettävissä olevat liitännäiset"
+
+msgid "Changes take only effect after a restart!"
+msgstr "Muutos astuu voimaan uudelleenkäynnistettäessä!"
 
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
@@ -1484,18 +1178,6 @@ msgstr "&Raitaan"
 msgid "&Title"
 msgstr "&Nimeen"
 
-msgid "Track Title/Artist - Album"
-msgstr "Kappaleen nimi/artisti - levy"
-
-msgid "State"
-msgstr "Tila"
-
-msgid "No result"
-msgstr "Ei tuloksia"
-
-msgid "No result selected"
-msgstr "Ei valittuja tuloksia"
-
 msgid "&Start number:"
 msgstr "&Aloittava numero:"
 
@@ -1579,6 +1261,18 @@ msgstr "&Etsi"
 
 msgid "C&GI Path:"
 msgstr "&CGI-polku:"
+
+msgid "Track Title/Artist - Album"
+msgstr "Kappaleen nimi/artisti - levy"
+
+msgid "State"
+msgstr "Tila"
+
+msgid "No result"
+msgstr "Ei tuloksia"
+
+msgid "No result selected"
+msgstr "Ei valittuja tuloksia"
 
 msgid "Import from Tags"
 msgstr "Tuo tagista"
@@ -1796,3 +1490,324 @@ msgstr "Lisää osa"
 
 msgid "Edit Item"
 msgstr "Muokkaa osaa"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainzin sormenjälki"
+
+msgid "Unrecognized"
+msgstr "Tunnistamaton"
+
+msgid "Recognized"
+msgstr "Tunnistettu"
+
+msgid "User Selection"
+msgstr "Käyttäjän valinta"
+
+msgid "ID Lookup"
+msgstr "ID-haku"
+
+msgid "Fingerprint"
+msgstr "Sormenjälki"
+
+msgid "Metadata Lookup"
+msgstr "Metadata luettu"
+
+msgid "Amazon"
+msgstr "Amazon"
+
+msgid "Discogs"
+msgstr "Discogs"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC – Äänen koodaus"
+
+msgid "APIC - Attached picture"
+msgstr "APIC – Liitetty kuva"
+
+msgid "COMM - Comments"
+msgstr "COMM – Kommentit"
+
+msgid "COMR - Commercial"
+msgstr "COMR – Kaupallinen"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR – Salausmenetelmän rekisteröinti"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA – Ekvalisointi"
+
+msgid "ETCO - Event timing codes"
+msgstr "ETCO – Tapahtumien aikakoodit"
+
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB – Yleinen sisällytetty objekti"
+
+msgid "GRID - Group identification registration"
+msgstr "GRID – Ryhmätunnisteen rekisteröinti"
+
+msgid "IPLS - Involved people list"
+msgstr "IPLS – Mukana olleiden henkilöiden luettelo"
+
+msgid "LINK - Linked information"
+msgstr "LINK – Linkattu tieto"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI – Musiikki-CD:n tunniste"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT – MPEGin sijainninhakutaulukko"
+
+msgid "OWNE - Ownership frame"
+msgstr "OWNE – Omistajakehys"
+
+msgid "PRIV - Private frame"
+msgstr "PRIV – Yksityiskehys"
+
+msgid "PCNT - Play counter"
+msgstr "PCNT – Soittokertalaskuri"
+
+msgid "POPM - Popularimeter"
+msgstr "POPM – Suosiomittari"
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS – Sijainnin tahdistuskehys"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF – Suositeltu puskurikoko"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD – Äänenvoimakkuuden suhteellinen säätö"
+
+msgid "RVRB - Reverb"
+msgstr "RVRB – Kaikuefekti"
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT – Tahdistettu sanoitus/teksti"
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC – Tahdistetut tempokoodit"
+
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB – Levyn/elokuvan/sarjan otsikko"
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM – BPM (iskua minuutissa)"
+
+msgid "TCOM - Composer"
+msgstr "TCOM – Säveltäjä"
+
+msgid "TCON - Content type"
+msgstr "TCON – Sisältötyyppi"
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP – Tekijänoikeustiedote"
+
+msgid "TDAT - Date"
+msgstr "TDAT – Päiväys"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY – Soittolistan viive"
+
+msgid "TENC - Encoded by"
+msgstr "TENC – Koodaaja"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT – Sanoittaja/tekstin kirjoittaja"
+
+msgid "TFLT - File type"
+msgstr "TFLT – Tiedoston tyyppi"
+
+msgid "TIME - Time"
+msgstr "TIME – Aika"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 – Sisältöryhmän kuvaus"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 – Otsikon/kappaleen nimen/sisällön kuvaus"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 – Tekstitys/kuvauksen täsmennys"
+
+msgid "TKEY - Initial key"
+msgstr "TKEY – Alkusävellaji"
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN – Kieli tai kielet"
+
+msgid "TLEN - Length"
+msgstr "TLEN – Kesto"
+
+msgid "TMED - Media type"
+msgstr "TMED – Mediatyyppi"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL – Alkuperäinen levyn/elokuvan/sarjan otsikko"
+
+msgid "TOFN - Original filename"
+msgstr "TOFN – Alkuperäinen tiedostonimi"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY – Alkuperäinen sanoittaja/tekstin kirjoittaja"
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE – Alkuperäinen artisti/esiintyjä"
+
+msgid "TORY - Original release year"
+msgstr "TORY – Alkuperäinen julkaisuvuosi"
+
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN – Tiedoston omistaja/lisenssi"
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 – Pääesiintyjä(t)/sooloartisti(t)"
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 – Yhtye/orkesteri/säestys"
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 – Kapellimestari tai esityksen parantelija"
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 – Tulkinnut, uudelleen miksannut tai muuten muokannut"
+
+msgid "TPOS - Part of a set"
+msgstr "TPOS – Osa joukkoa"
+
+msgid "TPUB - Publisher"
+msgstr "TPUB – Julkaisija"
+
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK – Kappaleen raita/sijainti joukossa"
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA – Tallennuspäivät"
+
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN – Internet-radioaseman nimi"
+
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO – Internetin radioaseman omistaja"
+
+msgid "TSIZ - Size"
+msgstr "TSIZ – Koko"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC – ISRC (kansainvälinen standardi nauhoituskoodi)"
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE – Koodauksessa käytetty ohjelmisto tai laitteisto sekä asetukset"
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX – Käyttäjän määrittämä tekstitieto"
+
+msgid "TYER - Year"
+msgstr "TYER – Vuosi"
+
+msgid "UFID - Unique file identifier"
+msgstr "UFID – Tiedoston ainutkertainen tunniste"
+
+msgid "USER - Terms of use"
+msgstr "USER – Käyttöehdot"
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT – Tahdistamaton sanoitus tai tekstitranskriptio"
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM – Kaupallinen tieto"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP – Tekijänoikeustiedot"
+
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF – Äänitiedoston virallinen verkkosivu"
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR – Artistin/esiintyjän virallinen verkkosivu"
+
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS – Äänilähteen virallinen verkkosivu"
+
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS – Internetin radioaseman virallinen verkkosivu"
+
+msgid "WPAY - Payment"
+msgstr "WPAY – Maksaminen"
+
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB – Julkaisijan virallinen verkkosivu"
+
+msgid "WXXX - User defined URL link"
+msgstr "WXXX – Käyttäjän määrittämä verkko-osoite"
+
+msgid "MusicBrainz Release"
+msgstr "MusicBrainzin julkaisu"
+
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI – Äänihaun sijainti-indeksi"
+
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 – Ekvalisaatio (2)"
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 – Suhteellinen äänenvoimakkuuden säätö (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK – Hakukehys"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN – Allekirjoituskehys"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes kokoelma"
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN – Koodausajankohta"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR – Alkuperäinen julkaisuajankohta"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC – Äänitysajankohta"
+
+msgid "TDRL - Release time"
+msgstr "TRDL – Julkaisuajankohta"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG – Luokitusajankohta"
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL – Mukana olleiden henkilöiden luettelo"
+
+msgid "TMCL - Musician credits list"
+msgstr "TMCL – Ansioituneiden muusikkojen luettelo"
+
+msgid "TMOO - Mood"
+msgstr "TMOO – Tunnelma"
+
+msgid "TPRO - Produced notice"
+msgstr "TPRO – Tuotantoilmoitus"
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 – Albumiartistien lajittelujärjestys"
+
+msgid "TSOA - Album sort order"
+msgstr "TSOA – Levyjen lajittelujärjestys"
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC – Säveltäjien lajittelujärjestys"
+
+msgid "TSOP - Performer sort order"
+msgstr "TSOP – Esittäjien lajittelujärjestys"
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT – Nimikkeiden lajittelujärjestys"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST – Aseta tekstitys"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
+"POT-Creation-Date: 2013-08-04 12:07+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -32,6 +32,9 @@ msgstr "Gebruikersacties"
 
 msgid "Network"
 msgstr "Netwerk"
+
+msgid "Plugins"
+msgstr "Plugins"
 
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
@@ -74,9 +77,6 @@ msgstr "&Importeren..."
 
 msgid "Import from %1..."
 msgstr "Importeren van %1..."
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Automatic I&mport..."
 msgstr "Automatisch i&mporteren..."
@@ -233,6 +233,9 @@ msgstr "&Gebruikersacties"
 
 msgid "&Network"
 msgstr "&Netwerk"
+
+msgid "&Plugins"
+msgstr "&Plugins"
 
 msgid "&Keyboard Shortcuts"
 msgstr "&Sneltoetsen"
@@ -438,302 +441,8 @@ msgstr "Additionele tags"
 msgid "Cover Art"
 msgstr "Hoesafbeelding"
 
-msgid "AENC - Audio encryption"
-msgstr "AENC - Audio versleuteling"
-
-msgid "APIC - Attached picture"
-msgstr "APIC - Bijgevoegde afbeelding"
-
-msgid "COMM - Comments"
-msgstr "COMM - Opmerkingen"
-
-msgid "COMR - Commercial"
-msgstr "COMR - Commercieel"
-
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Registratie van encryptie methode"
-
-msgid "EQUA - Equalization"
-msgstr "EQUA - Egalisatie"
-
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Gebeurtenis timing codes"
-
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Algemeen ingekapselde object"
-
-msgid "GRID - Group identification registration"
-msgstr "GRID - Registratie van groep identificatie"
-
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Betrokken personenlijst"
-
-msgid "LINK - Linked information"
-msgstr "LINK - Gelinkte informatie"
-
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Muziek CD identificatie"
-
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - Opzoektabel van MPEG locatie"
-
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Eigendom frame"
-
-msgid "PRIV - Private frame"
-msgstr "PRIV - Privé frame"
-
-msgid "PCNT - Play counter"
-msgstr "PCNT - Afspeelteller"
-
-msgid "POPM - Popularimeter"
-msgstr "POPM - Popularimeter"
-
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Positie synchronisatie frame"
-
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Aanbevolen buffer grootte"
-
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Relatief volume aanpassing"
-
-msgid "RVRB - Reverb"
-msgstr "RVRB - Galm"
-
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Gesynchroniseerde liedtekst"
-
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Gesynchroniseerde tempo codes"
-
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album/film/show titel"
-
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (slagen per minuut)"
-
-msgid "TCOM - Composer"
-msgstr "TCOM - Componist"
-
-msgid "TCON - Content type"
-msgstr "TCON - Soort inhoud"
-
-msgid "TCOP - Copyright message"
-msgstr "TCOP - Auteursrecht boodschap"
-
-msgid "TDAT - Date"
-msgstr "TDAT - Datum"
-
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - Speellijst vertraging"
-
-msgid "TENC - Encoded by"
-msgstr "TENC - Geëncodeerd door"
-
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Tekstschrijver"
-
-msgid "TFLT - File type"
-msgstr "TFLT - Soort bestand"
-
-msgid "TIME - Time"
-msgstr "TIME - Tijd"
-
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - Inhoud van groep omschrijving"
-
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Titel/inhoudsbeschrijving"
-
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Verfijning van ondertitel/omschrijving"
-
-msgid "TKEY - Initial key"
-msgstr "TKEY - Initiële sleutel"
-
-msgid "TLAN - Language(s)"
-msgstr "TLAN - Talen"
-
-msgid "TLEN - Length"
-msgstr "TLEN - Lengte"
-
-msgid "TMED - Media type"
-msgstr "TMED - Soort media"
-
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Titel van originele album/film/show"
-
-msgid "TOFN - Original filename"
-msgstr "TOFN - Originele bestandsnaam"
-
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Originele tekstschrijver(s)"
-
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Originele artiest(s)/uitvoerende"
-
-msgid "TORY - Original release year"
-msgstr "TORY - Originele vrijgavejaar"
-
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Eigenaar/licentiehouder van bestand"
-
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Hoofd uitvoerende"
-
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Begeleidende band/orkest"
-
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Dirigent/uitvoerende verfijning"
-
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Geïnterpreteerd, remixen, of op andere wijze gewijzigd"
-
-msgid "TPOS - Part of a set"
-msgstr "TPOS - Deel van een set"
-
-msgid "TPUB - Publisher"
-msgstr "TPUB - Uitgever"
-
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Tracknummer/positie in een set"
-
-msgid "TRDA - Recording dates"
-msgstr "TRDA - Opnamedata"
-
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Naam van internet radiostation"
-
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Eigenaar van internet radiostation"
-
-msgid "TSIZ - Size"
-msgstr "TSIZ - Grootte"
-
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (internationale standaard opnamecode)"
-
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Instellingen die worden gebruikt voor het coderen"
-
-msgid "TXXX - User defined text information"
-msgstr "TXXX - Gedefinieerde gebruikersinformatie"
-
-msgid "TYER - Year"
-msgstr "TYER - Jaar"
-
-msgid "UFID - Unique file identifier"
-msgstr "UFID - Unieke bestand herkenner"
-
-msgid "USER - Terms of use"
-msgstr "USER - Voorwaarden voor het gebruik"
-
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - ongesynchroniseerde liedtekst"
-
-msgid "WCOM - Commercial information"
-msgstr "WCOM - Commerciële informatie"
-
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Auteursrecht informatie"
-
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Officiële website van audio bestand"
-
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Officiële website van artiest/uitvoerende"
-
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Officiële website van audio bron"
-
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Officiële website van internet radiostation"
-
-msgid "WPAY - Payment"
-msgstr "WPAY - Betaling"
-
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Officiële website van uitgever"
-
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - Gedefinieerde link van gebruiker"
-
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Audio zoeken punt-index"
-
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Egalisatie (2)"
-
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVAD - Aanpassing van relatief volume (2)"
-
-msgid "SEEK - Seek frame"
-msgstr "SEEK - zoek frame"
-
-msgid "SIGN - Signature frame"
-msgstr "SIGN - Handtekening frame"
-
-msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes compilatie flag"
-
-msgid "TDEN - Encoding time"
-msgstr "TDEN - Tijd encodering"
-
-msgid "TDOR - Original release time"
-msgstr "TDOR - Originele vrijgavetijd"
-
-msgid "TDRC - Recording time"
-msgstr "TDRC - Opnametijd"
-
-msgid "TDRL - Release time"
-msgstr "TDRL - Vrijgavetijd"
-
-msgid "TDTG - Tagging time"
-msgstr "TDTG - Tag tijd"
-
-msgid "TIPL - Involved people list"
-msgstr "TIPL - Personenlijst van betrokkenen"
-
-msgid "TMCL - Musician credits list"
-msgstr "TMCL - Credits van muzikant"
-
-msgid "TMOO - Mood"
-msgstr "TMOO - Stemming"
-
-msgid "TPRO - Produced notice"
-msgstr "TPRO - Bericht producent"
-
-msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Sorteervolgorde albumartiest"
-
-msgid "TSOA - Album sort order"
-msgstr "TSOA - Sorteervolgorde album"
-
-msgid "TSOC - Composer sort order"
-msgstr "TSOC - Sorteervolgorde componist"
-
-msgid "TSOP - Performer sort order"
-msgstr "TSOP - Sorteervolgorde uitvoerende"
-
-msgid "TSOT - Title sort order"
-msgstr "TSOT - Sorteervolgorde titel"
-
-msgid "TSST - Set subtitle"
-msgstr "TSST - ingestelde ondertitel"
-
-msgid "Amazon"
-msgstr "Amazon"
-
 msgid "Invalid File"
 msgstr "Ongeldig bestand"
-
-msgid "Discogs"
-msgstr "Discogs"
-
-msgid "gnudb.org"
-msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Gegevens ontvangen: %1"
@@ -749,30 +458,6 @@ msgstr "Jaar"
 
 msgid "Length"
 msgstr "Lengte"
-
-msgid "Unrecognized"
-msgstr "Niet herkend"
-
-msgid "Recognized"
-msgstr "Herkend"
-
-msgid "User Selection"
-msgstr "Gebruikerselectie"
-
-msgid "ID Lookup"
-msgstr "ID-zoekactie"
-
-msgid "Fingerprint"
-msgstr "Vingerafdruk"
-
-msgid "Metadata Lookup"
-msgstr "Metadata zoekactie"
-
-msgid "MusicBrainz Release"
-msgstr "MusicBrainz vrijgave"
-
-msgid "TrackType.org"
-msgstr "TrackType.org"
 
 msgid "Filenames"
 msgstr "Bestandsnamen"
@@ -857,6 +542,9 @@ msgstr "Booleaanse NEE"
 
 msgid "Data"
 msgstr "Gegevens"
+
+msgid "%1 is not writable"
+msgstr "%1 is niet schrijfbaar"
 
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
@@ -1167,14 +855,11 @@ msgstr "UTF8"
 msgid "&Version used for new tags:"
 msgstr "Gebruikte &versie voor nieuwe Tags:"
 
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ID3v2.3.0 (id3lib)"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
 
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ID3v2.4.0 (TagLib)"
-
-msgid "ID3v2.3.0 (TagLib)"
-msgstr "ID3v2.3.0 (TagLib)"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
 
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
@@ -1253,6 +938,15 @@ msgstr "P&roxygebruikersnaam:"
 
 msgid "Proxy pass&word:"
 msgstr "Proxy&wachtwoord:"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "&Metadata plugins && Prioriteit"
+
+msgid "A&vailable Plugins"
+msgstr "&Beschikbare plugins"
+
+msgid "Changes take only effect after a restart!"
+msgstr "Wijzigingen worden pas doorgevoerd na een herstart!"
 
 msgid "From Clip&board"
 msgstr "Van Klem&bord"
@@ -1485,18 +1179,6 @@ msgstr "&Nummer"
 msgid "&Title"
 msgstr "&Titel"
 
-msgid "Track Title/Artist - Album"
-msgstr "Nummer Titel / Artiest - Album"
-
-msgid "State"
-msgstr "Status"
-
-msgid "No result"
-msgstr "Geen resultaat"
-
-msgid "No result selected"
-msgstr "Geen resultaat geselecteerd"
-
 msgid "&Start number:"
 msgstr "&Start nummer:"
 
@@ -1580,6 +1262,18 @@ msgstr "&Zoeken"
 
 msgid "C&GI Path:"
 msgstr "C&GI Locatie:"
+
+msgid "Track Title/Artist - Album"
+msgstr "Nummer Titel / Artiest - Album"
+
+msgid "State"
+msgstr "Status"
+
+msgid "No result"
+msgstr "Geen resultaat"
+
+msgid "No result selected"
+msgstr "Geen resultaat geselecteerd"
 
 msgid "Import from Tags"
 msgstr "Importeer van Tags"
@@ -1799,3 +1493,324 @@ msgstr "Item toevoegen"
 
 msgid "Edit Item"
 msgstr "Item bewerken"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Unrecognized"
+msgstr "Niet herkend"
+
+msgid "Recognized"
+msgstr "Herkend"
+
+msgid "User Selection"
+msgstr "Gebruikerselectie"
+
+msgid "ID Lookup"
+msgstr "ID-zoekactie"
+
+msgid "Fingerprint"
+msgstr "Vingerafdruk"
+
+msgid "Metadata Lookup"
+msgstr "Metadata zoekactie"
+
+msgid "Amazon"
+msgstr "Amazon"
+
+msgid "Discogs"
+msgstr "Discogs"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC - Audio versleuteling"
+
+msgid "APIC - Attached picture"
+msgstr "APIC - Bijgevoegde afbeelding"
+
+msgid "COMM - Comments"
+msgstr "COMM - Opmerkingen"
+
+msgid "COMR - Commercial"
+msgstr "COMR - Commercieel"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Registratie van encryptie methode"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA - Egalisatie"
+
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Gebeurtenis timing codes"
+
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Algemeen ingekapselde object"
+
+msgid "GRID - Group identification registration"
+msgstr "GRID - Registratie van groep identificatie"
+
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Betrokken personenlijst"
+
+msgid "LINK - Linked information"
+msgstr "LINK - Gelinkte informatie"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Muziek CD identificatie"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - Opzoektabel van MPEG locatie"
+
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Eigendom frame"
+
+msgid "PRIV - Private frame"
+msgstr "PRIV - Privé frame"
+
+msgid "PCNT - Play counter"
+msgstr "PCNT - Afspeelteller"
+
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popularimeter"
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Positie synchronisatie frame"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Aanbevolen buffer grootte"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relatief volume aanpassing"
+
+msgid "RVRB - Reverb"
+msgstr "RVRB - Galm"
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Gesynchroniseerde liedtekst"
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Gesynchroniseerde tempo codes"
+
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/film/show titel"
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (slagen per minuut)"
+
+msgid "TCOM - Composer"
+msgstr "TCOM - Componist"
+
+msgid "TCON - Content type"
+msgstr "TCON - Soort inhoud"
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Auteursrecht boodschap"
+
+msgid "TDAT - Date"
+msgstr "TDAT - Datum"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Speellijst vertraging"
+
+msgid "TENC - Encoded by"
+msgstr "TENC - Geëncodeerd door"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Tekstschrijver"
+
+msgid "TFLT - File type"
+msgstr "TFLT - Soort bestand"
+
+msgid "TIME - Time"
+msgstr "TIME - Tijd"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Inhoud van groep omschrijving"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Titel/inhoudsbeschrijving"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Verfijning van ondertitel/omschrijving"
+
+msgid "TKEY - Initial key"
+msgstr "TKEY - Initiële sleutel"
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Talen"
+
+msgid "TLEN - Length"
+msgstr "TLEN - Lengte"
+
+msgid "TMED - Media type"
+msgstr "TMED - Soort media"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Titel van originele album/film/show"
+
+msgid "TOFN - Original filename"
+msgstr "TOFN - Originele bestandsnaam"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Originele tekstschrijver(s)"
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Originele artiest(s)/uitvoerende"
+
+msgid "TORY - Original release year"
+msgstr "TORY - Originele vrijgavejaar"
+
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Eigenaar/licentiehouder van bestand"
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Hoofd uitvoerende"
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Begeleidende band/orkest"
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Dirigent/uitvoerende verfijning"
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Geïnterpreteerd, remixen, of op andere wijze gewijzigd"
+
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Deel van een set"
+
+msgid "TPUB - Publisher"
+msgstr "TPUB - Uitgever"
+
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Tracknummer/positie in een set"
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Opnamedata"
+
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Naam van internet radiostation"
+
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Eigenaar van internet radiostation"
+
+msgid "TSIZ - Size"
+msgstr "TSIZ - Grootte"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (internationale standaard opnamecode)"
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Instellingen die worden gebruikt voor het coderen"
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Gedefinieerde gebruikersinformatie"
+
+msgid "TYER - Year"
+msgstr "TYER - Jaar"
+
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unieke bestand herkenner"
+
+msgid "USER - Terms of use"
+msgstr "USER - Voorwaarden voor het gebruik"
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - ongesynchroniseerde liedtekst"
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Commerciële informatie"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Auteursrecht informatie"
+
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Officiële website van audio bestand"
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Officiële website van artiest/uitvoerende"
+
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Officiële website van audio bron"
+
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Officiële website van internet radiostation"
+
+msgid "WPAY - Payment"
+msgstr "WPAY - Betaling"
+
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Officiële website van uitgever"
+
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Gedefinieerde link van gebruiker"
+
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz vrijgave"
+
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Audio zoeken punt-index"
+
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Egalisatie (2)"
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVAD - Aanpassing van relatief volume (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK - zoek frame"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Handtekening frame"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes compilatie flag"
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Tijd encodering"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR - Originele vrijgavetijd"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC - Opnametijd"
+
+msgid "TDRL - Release time"
+msgstr "TDRL - Vrijgavetijd"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Tag tijd"
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Personenlijst van betrokkenen"
+
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Credits van muzikant"
+
+msgid "TMOO - Mood"
+msgstr "TMOO - Stemming"
+
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Bericht producent"
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - Sorteervolgorde albumartiest"
+
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Sorteervolgorde album"
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - Sorteervolgorde componist"
+
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Sorteervolgorde uitvoerende"
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Sorteervolgorde titel"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST - ingestelde ondertitel"

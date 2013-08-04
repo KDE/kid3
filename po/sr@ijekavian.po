@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
+"POT-Creation-Date: 2013-08-04 12:07+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -16,8 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
@@ -32,6 +31,9 @@ msgstr "Радње корисника"
 
 msgid "Network"
 msgstr "Мрежа"
+
+msgid "Plugins"
+msgstr "Прикључци"
 
 msgid "Main Toolbar"
 msgstr "Главна трака"
@@ -74,9 +76,6 @@ msgstr "&Увези..."
 
 msgid "Import from %1..."
 msgstr "Увези са %1..."
-
-msgid "MusicBrainz Fingerprint"
-msgstr "МјузикБрејнз Отисак прста"
 
 msgid "Automatic I&mport..."
 msgstr "Ауто&матски увози..."
@@ -232,6 +231,9 @@ msgstr "Радње &корисника"
 
 msgid "&Network"
 msgstr "&Мрежа"
+
+msgid "&Plugins"
+msgstr "&Прикључци"
 
 msgid "&Keyboard Shortcuts"
 msgstr "Пречице &тастатуре"
@@ -437,302 +439,8 @@ msgstr "Додатне ознаке"
 msgid "Cover Art"
 msgstr "Омот албума"
 
-msgid "AENC - Audio encryption"
-msgstr "AENC - аудио шифровање"
-
-msgid "APIC - Attached picture"
-msgstr "APIC - приложена слика"
-
-msgid "COMM - Comments"
-msgstr "COMM - коментари"
-
-msgid "COMR - Commercial"
-msgstr "COMR - комерцијално"
-
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - регистрација методе шифровања"
-
-msgid "EQUA - Equalization"
-msgstr "EQUA - једначење"
-
-msgid "ETCO - Event timing codes"
-msgstr ""
-
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - општи угнијежђени објекат"
-
-msgid "GRID - Group identification registration"
-msgstr "GRID - регистрација идентификације групе"
-
-msgid "IPLS - Involved people list"
-msgstr "IPLS - списак укључених људи"
-
-msgid "LINK - Linked information"
-msgstr "LINK - повезана информација"
-
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - идентификатор музичког ЦД-а"
-
-msgid "MLLT - MPEG location lookup table"
-msgstr ""
-
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - власнички оквир"
-
-msgid "PRIV - Private frame"
-msgstr "PRIV - приватни оквир"
-
-msgid "PCNT - Play counter"
-msgstr "PCNT - бројач репродукције"
-
-msgid "POPM - Popularimeter"
-msgstr "POPM - мјерач популарности"
-
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - кадар синхронизације позиције"
-
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - препоручена величина бафера"
-
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - подешавање релативне јачине звука"
-
-msgid "RVRB - Reverb"
-msgstr "RVRB - реверберација"
-
-msgid "SYLT - Synchronized lyric/text"
-msgstr ""
-
-msgid "SYTC - Synchronized tempo codes"
-msgstr ""
-
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - наслов албума/филма/емисије"
-
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - БПМ (откуцаја у минути)"
-
-msgid "TCOM - Composer"
-msgstr "TCOM - композитор"
-
-msgid "TCON - Content type"
-msgstr "TCON - тип садржаја"
-
-msgid "TCOP - Copyright message"
-msgstr "TCOP - порука ауторског права"
-
-msgid "TDAT - Date"
-msgstr "TDAT - датум"
-
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - кашњење листе нумера"
-
-msgid "TENC - Encoded by"
-msgstr "TENC - кодер"
-
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - пјесник/текстописац"
-
-msgid "TFLT - File type"
-msgstr "TFLT - тип фајла"
-
-msgid "TIME - Time"
-msgstr "TIME - вријеме"
-
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - опис групе садржаја"
-
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - наслов/име пјесме/опис садржаја"
-
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
-
-msgid "TKEY - Initial key"
-msgstr "TKEY - почетни кључ"
-
-msgid "TLAN - Language(s)"
-msgstr "TLAN - језик (језици)"
-
-msgid "TLEN - Length"
-msgstr "TLEN - трајање"
-
-msgid "TMED - Media type"
-msgstr "TMED - тип медија"
-
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - изворни наслов албума/филма/емисије"
-
-msgid "TOFN - Original filename"
-msgstr "TOFN - изворно име"
-
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr ""
-
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr ""
-
-msgid "TORY - Original release year"
-msgstr "TORY - изворна година издавања"
-
-msgid "TOWN - File owner/licensee"
-msgstr ""
-
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr ""
-
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr ""
-
-msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
-
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
-
-msgid "TPOS - Part of a set"
-msgstr ""
-
-msgid "TPUB - Publisher"
-msgstr "TPUB - издавач"
-
-msgid "TRCK - Track number/Position in set"
-msgstr ""
-
-msgid "TRDA - Recording dates"
-msgstr "TRDA - датуми снимања"
-
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - име интернет радио станице"
-
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - власник интернет радио станице"
-
-msgid "TSIZ - Size"
-msgstr "TSIZ - величина"
-
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ИСРЦ (међународни стандардни кôд снимања)"
-
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr ""
-
-msgid "TXXX - User defined text information"
-msgstr "TXXX - кориснички дефинисана текстуална информација"
-
-msgid "TYER - Year"
-msgstr "TYER - година"
-
-msgid "UFID - Unique file identifier"
-msgstr "UFID - јединствени идентификатор фајла"
-
-msgid "USER - Terms of use"
-msgstr "USER - услови коришћења"
-
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
-
-msgid "WCOM - Commercial information"
-msgstr "WCOM - подаци о комерцијализовању"
-
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - ауторско право/правне информације"
-
-msgid "WOAF - Official audio file webpage"
-msgstr ""
-
-msgid "WOAR - Official artist/performer webpage"
-msgstr ""
-
-msgid "WOAS - Official audio source webpage"
-msgstr ""
-
-msgid "WORS - Official internet radio station homepage"
-msgstr ""
-
-msgid "WPAY - Payment"
-msgstr "WPAY - плаћање"
-
-msgid "WPUB - Official publisher webpage"
-msgstr ""
-
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - кориснички дефинисана УРЛ веза"
-
-msgid "ASPI - Audio seek point index"
-msgstr ""
-
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - једначење (2)"
-
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - подешавање релативне јачине звука (2)"
-
-msgid "SEEK - Seek frame"
-msgstr "SEEK - кадар тражења"
-
-msgid "SIGN - Signature frame"
-msgstr "SIGN - кадар потписа"
-
-msgid "TCMP - iTunes compilation flag"
-msgstr ""
-
-msgid "TDEN - Encoding time"
-msgstr "TDEN - вријеме кодирања"
-
-msgid "TDOR - Original release time"
-msgstr "TDOR - вријеме издавања оригинала"
-
-msgid "TDRC - Recording time"
-msgstr "TDRC - вријеме снимања"
-
-msgid "TDRL - Release time"
-msgstr "TDRL - вријеме издавања"
-
-msgid "TDTG - Tagging time"
-msgstr "TDTG - вријеме означавања"
-
-msgid "TIPL - Involved people list"
-msgstr "TIPL - списак укључених људи"
-
-msgid "TMCL - Musician credits list"
-msgstr ""
-
-msgid "TMOO - Mood"
-msgstr "TMOO - расположење"
-
-msgid "TPRO - Produced notice"
-msgstr ""
-
-msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - редослијед сортирања аутора албума"
-
-msgid "TSOA - Album sort order"
-msgstr "TSOA - редослијед сортирања албума"
-
-msgid "TSOC - Composer sort order"
-msgstr "TSOC - редослијед сортирања композитора"
-
-msgid "TSOP - Performer sort order"
-msgstr "TSOP - редослијед сортирања извођача"
-
-msgid "TSOT - Title sort order"
-msgstr "TSOT - редослијед сортирања наслова"
-
-msgid "TSST - Set subtitle"
-msgstr "TSST - постави поднаслов"
-
-msgid "Amazon"
-msgstr "Амазон"
-
 msgid "Invalid File"
 msgstr "Неисправна датотека"
-
-msgid "Discogs"
-msgstr "Дискогс"
-
-msgid "gnudb.org"
-msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Подаци примљени: %1"
@@ -748,30 +456,6 @@ msgstr "Година"
 
 msgid "Length"
 msgstr "Трајање"
-
-msgid "Unrecognized"
-msgstr "Није препознато"
-
-msgid "Recognized"
-msgstr "Препознато"
-
-msgid "User Selection"
-msgstr "Корисников одабир"
-
-msgid "ID Lookup"
-msgstr "ИД претрага"
-
-msgid "Fingerprint"
-msgstr "Отисак прста"
-
-msgid "Metadata Lookup"
-msgstr "Претрага метаподатака"
-
-msgid "MusicBrainz Release"
-msgstr "МјузикБрејнз издање"
-
-msgid "TrackType.org"
-msgstr "ТрекТајп.орг"
 
 msgid "Filenames"
 msgstr "Имена фајлова"
@@ -856,6 +540,9 @@ msgstr "Логичка негација"
 
 msgid "Data"
 msgstr "Подаци"
+
+msgid "%1 is not writable"
+msgstr "%1 се не може писати"
 
 msgid "All Supported Files"
 msgstr "Сви подржани фајлови"
@@ -1166,14 +853,11 @@ msgstr "UTF-8"
 msgid "&Version used for new tags:"
 msgstr "И&здање за нове ознаке:"
 
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ИД3в2.3.0 (id3lib)"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
 
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ИД3в2.4.0 (TagLib)"
-
-msgid "ID3v2.3.0 (TagLib)"
-msgstr "ИД3в2.3.0 (TagLib)"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
 
 msgid "Ogg/Vorbis"
 msgstr "Огг/Ворбис"
@@ -1252,6 +936,15 @@ msgstr "Корисничко &име за прокси:"
 
 msgid "Proxy pass&word:"
 msgstr "Л&озинка за прокси:"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "&Метаподаци прикључци && Приоритет"
+
+msgid "A&vailable Plugins"
+msgstr "&Доступни прикључци"
+
+msgid "Changes take only effect after a restart!"
+msgstr "Неке измене неће бити укључене пре поновног покретања!"
 
 msgid "From Clip&board"
 msgstr "Из клип&борда"
@@ -1484,18 +1177,6 @@ msgstr "&нумером"
 msgid "&Title"
 msgstr "нас&ловом"
 
-msgid "Track Title/Artist - Album"
-msgstr "Нумера/извођач - албум"
-
-msgid "State"
-msgstr "Стање"
-
-msgid "No result"
-msgstr "Нема резултата"
-
-msgid "No result selected"
-msgstr "Ништа није изабрано"
-
 msgid "&Start number:"
 msgstr "&Почетни број:"
 
@@ -1579,6 +1260,18 @@ msgstr "&Нађи"
 
 msgid "C&GI Path:"
 msgstr "Ц&ГИ путања:"
+
+msgid "Track Title/Artist - Album"
+msgstr "Нумера/извођач - албум"
+
+msgid "State"
+msgstr "Стање"
+
+msgid "No result"
+msgstr "Нема резултата"
+
+msgid "No result selected"
+msgstr "Ништа није изабрано"
 
 msgid "Import from Tags"
 msgstr "Увези из ознака"
@@ -1796,3 +1489,324 @@ msgstr "Додај ставку"
 
 msgid "Edit Item"
 msgstr "Уреди ставку"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "МјузикБрејнз Отисак прста"
+
+msgid "Unrecognized"
+msgstr "Није препознато"
+
+msgid "Recognized"
+msgstr "Препознато"
+
+msgid "User Selection"
+msgstr "Корисников одабир"
+
+msgid "ID Lookup"
+msgstr "ИД претрага"
+
+msgid "Fingerprint"
+msgstr "Отисак прста"
+
+msgid "Metadata Lookup"
+msgstr "Претрага метаподатака"
+
+msgid "Amazon"
+msgstr "Амазон"
+
+msgid "Discogs"
+msgstr "Дискогс"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "ТрекТајп.орг"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC - аудио шифровање"
+
+msgid "APIC - Attached picture"
+msgstr "APIC - приложена слика"
+
+msgid "COMM - Comments"
+msgstr "COMM - коментари"
+
+msgid "COMR - Commercial"
+msgstr "COMR - комерцијално"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - регистрација методе шифровања"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA - једначење"
+
+msgid "ETCO - Event timing codes"
+msgstr ""
+
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - општи угнијежђени објекат"
+
+msgid "GRID - Group identification registration"
+msgstr "GRID - регистрација идентификације групе"
+
+msgid "IPLS - Involved people list"
+msgstr "IPLS - списак укључених људи"
+
+msgid "LINK - Linked information"
+msgstr "LINK - повезана информација"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - идентификатор музичког ЦД-а"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr ""
+
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - власнички оквир"
+
+msgid "PRIV - Private frame"
+msgstr "PRIV - приватни оквир"
+
+msgid "PCNT - Play counter"
+msgstr "PCNT - бројач репродукције"
+
+msgid "POPM - Popularimeter"
+msgstr "POPM - мјерач популарности"
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - кадар синхронизације позиције"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - препоручена величина бафера"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - подешавање релативне јачине звука"
+
+msgid "RVRB - Reverb"
+msgstr "RVRB - реверберација"
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr ""
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr ""
+
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - наслов албума/филма/емисије"
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - БПМ (откуцаја у минути)"
+
+msgid "TCOM - Composer"
+msgstr "TCOM - композитор"
+
+msgid "TCON - Content type"
+msgstr "TCON - тип садржаја"
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP - порука ауторског права"
+
+msgid "TDAT - Date"
+msgstr "TDAT - датум"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - кашњење листе нумера"
+
+msgid "TENC - Encoded by"
+msgstr "TENC - кодер"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - пјесник/текстописац"
+
+msgid "TFLT - File type"
+msgstr "TFLT - тип фајла"
+
+msgid "TIME - Time"
+msgstr "TIME - вријеме"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - опис групе садржаја"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - наслов/име пјесме/опис садржаја"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr ""
+
+msgid "TKEY - Initial key"
+msgstr "TKEY - почетни кључ"
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN - језик (језици)"
+
+msgid "TLEN - Length"
+msgstr "TLEN - трајање"
+
+msgid "TMED - Media type"
+msgstr "TMED - тип медија"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - изворни наслов албума/филма/емисије"
+
+msgid "TOFN - Original filename"
+msgstr "TOFN - изворно име"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr ""
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr ""
+
+msgid "TORY - Original release year"
+msgstr "TORY - изворна година издавања"
+
+msgid "TOWN - File owner/licensee"
+msgstr ""
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr ""
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr ""
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr ""
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr ""
+
+msgid "TPOS - Part of a set"
+msgstr ""
+
+msgid "TPUB - Publisher"
+msgstr "TPUB - издавач"
+
+msgid "TRCK - Track number/Position in set"
+msgstr ""
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA - датуми снимања"
+
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - име интернет радио станице"
+
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - власник интернет радио станице"
+
+msgid "TSIZ - Size"
+msgstr "TSIZ - величина"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ИСРЦ (међународни стандардни кôд снимања)"
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr ""
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX - кориснички дефинисана текстуална информација"
+
+msgid "TYER - Year"
+msgstr "TYER - година"
+
+msgid "UFID - Unique file identifier"
+msgstr "UFID - јединствени идентификатор фајла"
+
+msgid "USER - Terms of use"
+msgstr "USER - услови коришћења"
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr ""
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM - подаци о комерцијализовању"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - ауторско право/правне информације"
+
+msgid "WOAF - Official audio file webpage"
+msgstr ""
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr ""
+
+msgid "WOAS - Official audio source webpage"
+msgstr ""
+
+msgid "WORS - Official internet radio station homepage"
+msgstr ""
+
+msgid "WPAY - Payment"
+msgstr "WPAY - плаћање"
+
+msgid "WPUB - Official publisher webpage"
+msgstr ""
+
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - кориснички дефинисана УРЛ веза"
+
+msgid "MusicBrainz Release"
+msgstr "МјузикБрејнз издање"
+
+msgid "ASPI - Audio seek point index"
+msgstr ""
+
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - једначење (2)"
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - подешавање релативне јачине звука (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK - кадар тражења"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN - кадар потписа"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr ""
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN - вријеме кодирања"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR - вријеме издавања оригинала"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC - вријеме снимања"
+
+msgid "TDRL - Release time"
+msgstr "TDRL - вријеме издавања"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG - вријеме означавања"
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL - списак укључених људи"
+
+msgid "TMCL - Musician credits list"
+msgstr ""
+
+msgid "TMOO - Mood"
+msgstr "TMOO - расположење"
+
+msgid "TPRO - Produced notice"
+msgstr ""
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - редослијед сортирања аутора албума"
+
+msgid "TSOA - Album sort order"
+msgstr "TSOA - редослијед сортирања албума"
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - редослијед сортирања композитора"
+
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - редослијед сортирања извођача"
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT - редослијед сортирања наслова"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST - постави поднаслов"

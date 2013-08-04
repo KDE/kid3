@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
+"POT-Creation-Date: 2013-08-04 12:07+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -34,6 +34,9 @@ msgstr "自訂動作"
 
 msgid "Network"
 msgstr "網路"
+
+msgid "Plugins"
+msgstr "外掛"
 
 msgid "Main Toolbar"
 msgstr "主工具列"
@@ -76,9 +79,6 @@ msgstr "匯入(&I)..."
 
 msgid "Import from %1..."
 msgstr "從 %1 匯入..."
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Automatic I&mport..."
 msgstr "自動匯入(&M)..."
@@ -234,6 +234,9 @@ msgstr "自訂動作(&U)"
 
 msgid "&Network"
 msgstr "網路(&N)"
+
+msgid "&Plugins"
+msgstr "外掛(&P)"
 
 msgid "&Keyboard Shortcuts"
 msgstr "捷徑鍵(&K)"
@@ -439,302 +442,8 @@ msgstr "額外標籤"
 msgid "Cover Art"
 msgstr "封面"
 
-msgid "AENC - Audio encryption"
-msgstr "AENC - 音效加密"
-
-msgid "APIC - Attached picture"
-msgstr "APIC - 附加圖片"
-
-msgid "COMM - Comments"
-msgstr "COMM - 評論"
-
-msgid "COMR - Commercial"
-msgstr "COMR - 商業"
-
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - 加密方法註冊"
-
-msgid "EQUA - Equalization"
-msgstr "EQUA - 等化"
-
-msgid "ETCO - Event timing codes"
-msgstr ""
-
-msgid "GEOB - General encapsulated object"
-msgstr ""
-
-msgid "GRID - Group identification registration"
-msgstr ""
-
-msgid "IPLS - Involved people list"
-msgstr ""
-
-msgid "LINK - Linked information"
-msgstr "LINK - 連結資訊"
-
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - 音樂光碟識別"
-
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG 位置查詢表"
-
-msgid "OWNE - Ownership frame"
-msgstr ""
-
-msgid "PRIV - Private frame"
-msgstr ""
-
-msgid "PCNT - Play counter"
-msgstr "PCNT - 播放計數器"
-
-msgid "POPM - Popularimeter"
-msgstr ""
-
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - 位置同步訊框"
-
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - 建議緩衝器大小"
-
-msgid "RVAD - Relative volume adjustment"
-msgstr ""
-
-msgid "RVRB - Reverb"
-msgstr ""
-
-msgid "SYLT - Synchronized lyric/text"
-msgstr ""
-
-msgid "SYTC - Synchronized tempo codes"
-msgstr ""
-
-msgid "TALB - Album/Movie/Show title"
-msgstr ""
-
-msgid "TBPM - BPM (beats per minute)"
-msgstr ""
-
-msgid "TCOM - Composer"
-msgstr ""
-
-msgid "TCON - Content type"
-msgstr ""
-
-msgid "TCOP - Copyright message"
-msgstr "TCOP - 版權訊息"
-
-msgid "TDAT - Date"
-msgstr "TDAT - 日期"
-
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - 播放清單延遲"
-
-msgid "TENC - Encoded by"
-msgstr "TENC - 編碼方式"
-
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - 作詞者"
-
-msgid "TFLT - File type"
-msgstr "TFLT - 檔案型態"
-
-msgid "TIME - Time"
-msgstr "TIME - 時間"
-
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - 內容群組描述"
-
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - 標題/歌名/內容描述"
-
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
-
-msgid "TKEY - Initial key"
-msgstr ""
-
-msgid "TLAN - Language(s)"
-msgstr "TLAN - 語言"
-
-msgid "TLEN - Length"
-msgstr "TLEN - 長度"
-
-msgid "TMED - Media type"
-msgstr "TMED - 媒體型態"
-
-msgid "TOAL - Original album/movie/show title"
-msgstr ""
-
-msgid "TOFN - Original filename"
-msgstr "TOFN - 原始檔名"
-
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - 原始作詞者"
-
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - 原始演出者"
-
-msgid "TORY - Original release year"
-msgstr "TORY - 原始發行年份"
-
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - 檔案擁有者/授權者"
-
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - 首席表演者/獨唱者"
-
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - 樂團"
-
-msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
-
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
-
-msgid "TPOS - Part of a set"
-msgstr ""
-
-msgid "TPUB - Publisher"
-msgstr "TPUB - 發行者"
-
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - 音軌編號/位置"
-
-msgid "TRDA - Recording dates"
-msgstr "TRDA - 錄製日期"
-
-msgid "TRSN - Internet radio station name"
-msgstr ""
-
-msgid "TRSO - Internet radio station owner"
-msgstr ""
-
-msgid "TSIZ - Size"
-msgstr "TSIZ - 大小"
-
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
-
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - 用於編碼的軟硬體設定"
-
-msgid "TXXX - User defined text information"
-msgstr "TXXX - 使用者定義文字資訊"
-
-msgid "TYER - Year"
-msgstr "TYER - 年份"
-
-msgid "UFID - Unique file identifier"
-msgstr ""
-
-msgid "USER - Terms of use"
-msgstr ""
-
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
-
-msgid "WCOM - Commercial information"
-msgstr "WCOM - 商業資訊"
-
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - 版權資訊"
-
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - 正式音效檔網頁"
-
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - 正式演出者網頁"
-
-msgid "WOAS - Official audio source webpage"
-msgstr ""
-
-msgid "WORS - Official internet radio station homepage"
-msgstr ""
-
-msgid "WPAY - Payment"
-msgstr ""
-
-msgid "WPUB - Official publisher webpage"
-msgstr ""
-
-msgid "WXXX - User defined URL link"
-msgstr ""
-
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI - 音效搜尋點索引"
-
-msgid "EQU2 - Equalisation (2)"
-msgstr ""
-
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - 相對音量調整 (2)"
-
-msgid "SEEK - Seek frame"
-msgstr "SEEK - 尋找訊框"
-
-msgid "SIGN - Signature frame"
-msgstr "SIGN - 簽章訊框"
-
-msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes的編譯"
-
-msgid "TDEN - Encoding time"
-msgstr "TDEN - 編碼時間"
-
-msgid "TDOR - Original release time"
-msgstr "TDOR - 原始發行時間"
-
-msgid "TDRC - Recording time"
-msgstr "TDRC - 錄音時間"
-
-msgid "TDRL - Release time"
-msgstr "TDRL - 發行時間"
-
-msgid "TDTG - Tagging time"
-msgstr "TDTG - 標籤時間 "
-
-msgid "TIPL - Involved people list"
-msgstr "TIPL - 參與人員清單"
-
-msgid "TMCL - Musician credits list"
-msgstr "TMCL - 音樂誌謝清單"
-
-msgid "TMOO - Mood"
-msgstr ""
-
-msgid "TPRO - Produced notice"
-msgstr ""
-
-msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - 艺术家专辑排序"
-
-msgid "TSOA - Album sort order"
-msgstr ""
-
-msgid "TSOC - Composer sort order"
-msgstr "TSOC - 作曲家篩選秩序"
-
-msgid "TSOP - Performer sort order"
-msgstr ""
-
-msgid "TSOT - Title sort order"
-msgstr "TSOT - 標題排序順序"
-
-msgid "TSST - Set subtitle"
-msgstr "TSST - 設定字幕"
-
-msgid "Amazon"
-msgstr "Amazon"
-
 msgid "Invalid File"
 msgstr "檔案無效"
-
-msgid "Discogs"
-msgstr "Discogs"
-
-msgid "gnudb.org"
-msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "接收 %1 資料中"
@@ -750,30 +459,6 @@ msgstr "年"
 
 msgid "Length"
 msgstr "長度"
-
-msgid "Unrecognized"
-msgstr "未辨識"
-
-msgid "Recognized"
-msgstr "已辨識"
-
-msgid "User Selection"
-msgstr "使用者選擇"
-
-msgid "ID Lookup"
-msgstr ""
-
-msgid "Fingerprint"
-msgstr "Fingerprint"
-
-msgid "Metadata Lookup"
-msgstr ""
-
-msgid "MusicBrainz Release"
-msgstr "MusicBrainz Release"
-
-msgid "TrackType.org"
-msgstr "TrackType.org"
 
 msgid "Filenames"
 msgstr "檔名"
@@ -858,6 +543,9 @@ msgstr "邏輯 NOT"
 
 msgid "Data"
 msgstr "資料"
+
+msgid "%1 is not writable"
+msgstr "%1 檔案無法寫入"
 
 msgid "All Supported Files"
 msgstr "所有支援檔案"
@@ -1168,14 +856,11 @@ msgstr "UTF8"
 msgid "&Version used for new tags:"
 msgstr "使用新標籤版本(&V):"
 
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ID3v2.3.0 (id3lib)"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
 
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ID3v2.4.0 (TagLib)"
-
-msgid "ID3v2.3.0 (TagLib)"
-msgstr "ID3v2.3.0 (TagLib)"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
 
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
@@ -1255,6 +940,15 @@ msgstr "代理伺服器帳號(&n):"
 
 msgid "Proxy pass&word:"
 msgstr "代理伺服器密碼(&w):"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "中繼資料外掛工具 && 優先級(&M)"
+
+msgid "A&vailable Plugins"
+msgstr "可用的外掛程式(&V)"
+
+msgid "Changes take only effect after a restart!"
+msgstr "某些變更在重新啟動後才會生效!"
 
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
@@ -1487,18 +1181,6 @@ msgstr "音軌(&R)"
 msgid "&Title"
 msgstr "歌(曲)名(&T)"
 
-msgid "Track Title/Artist - Album"
-msgstr "音軌標題/演出者 - 專輯標題"
-
-msgid "State"
-msgstr "狀態"
-
-msgid "No result"
-msgstr "沒有結果"
-
-msgid "No result selected"
-msgstr "沒有選擇結果"
-
 msgid "&Start number:"
 msgstr "起始編號(&S):"
 
@@ -1582,6 +1264,18 @@ msgstr "尋找(&F)"
 
 msgid "C&GI Path:"
 msgstr "CGI路徑(&G):"
+
+msgid "Track Title/Artist - Album"
+msgstr "音軌標題/演出者 - 專輯標題"
+
+msgid "State"
+msgstr "狀態"
+
+msgid "No result"
+msgstr "沒有結果"
+
+msgid "No result selected"
+msgstr "沒有選擇結果"
 
 msgid "Import from Tags"
 msgstr "從標籤"
@@ -1799,3 +1493,324 @@ msgstr "新增項目"
 
 msgid "Edit Item"
 msgstr "編輯項目"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Unrecognized"
+msgstr "未辨識"
+
+msgid "Recognized"
+msgstr "已辨識"
+
+msgid "User Selection"
+msgstr "使用者選擇"
+
+msgid "ID Lookup"
+msgstr ""
+
+msgid "Fingerprint"
+msgstr "Fingerprint"
+
+msgid "Metadata Lookup"
+msgstr ""
+
+msgid "Amazon"
+msgstr "Amazon"
+
+msgid "Discogs"
+msgstr "Discogs"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC - 音效加密"
+
+msgid "APIC - Attached picture"
+msgstr "APIC - 附加圖片"
+
+msgid "COMM - Comments"
+msgstr "COMM - 評論"
+
+msgid "COMR - Commercial"
+msgstr "COMR - 商業"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - 加密方法註冊"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA - 等化"
+
+msgid "ETCO - Event timing codes"
+msgstr ""
+
+msgid "GEOB - General encapsulated object"
+msgstr ""
+
+msgid "GRID - Group identification registration"
+msgstr ""
+
+msgid "IPLS - Involved people list"
+msgstr ""
+
+msgid "LINK - Linked information"
+msgstr "LINK - 連結資訊"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - 音樂光碟識別"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG 位置查詢表"
+
+msgid "OWNE - Ownership frame"
+msgstr ""
+
+msgid "PRIV - Private frame"
+msgstr ""
+
+msgid "PCNT - Play counter"
+msgstr "PCNT - 播放計數器"
+
+msgid "POPM - Popularimeter"
+msgstr ""
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - 位置同步訊框"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - 建議緩衝器大小"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr ""
+
+msgid "RVRB - Reverb"
+msgstr ""
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr ""
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr ""
+
+msgid "TALB - Album/Movie/Show title"
+msgstr ""
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr ""
+
+msgid "TCOM - Composer"
+msgstr ""
+
+msgid "TCON - Content type"
+msgstr ""
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP - 版權訊息"
+
+msgid "TDAT - Date"
+msgstr "TDAT - 日期"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - 播放清單延遲"
+
+msgid "TENC - Encoded by"
+msgstr "TENC - 編碼方式"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - 作詞者"
+
+msgid "TFLT - File type"
+msgstr "TFLT - 檔案型態"
+
+msgid "TIME - Time"
+msgstr "TIME - 時間"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - 內容群組描述"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - 標題/歌名/內容描述"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr ""
+
+msgid "TKEY - Initial key"
+msgstr ""
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN - 語言"
+
+msgid "TLEN - Length"
+msgstr "TLEN - 長度"
+
+msgid "TMED - Media type"
+msgstr "TMED - 媒體型態"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr ""
+
+msgid "TOFN - Original filename"
+msgstr "TOFN - 原始檔名"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - 原始作詞者"
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - 原始演出者"
+
+msgid "TORY - Original release year"
+msgstr "TORY - 原始發行年份"
+
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - 檔案擁有者/授權者"
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - 首席表演者/獨唱者"
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - 樂團"
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr ""
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr ""
+
+msgid "TPOS - Part of a set"
+msgstr ""
+
+msgid "TPUB - Publisher"
+msgstr "TPUB - 發行者"
+
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - 音軌編號/位置"
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA - 錄製日期"
+
+msgid "TRSN - Internet radio station name"
+msgstr ""
+
+msgid "TRSO - Internet radio station owner"
+msgstr ""
+
+msgid "TSIZ - Size"
+msgstr "TSIZ - 大小"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr ""
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - 用於編碼的軟硬體設定"
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX - 使用者定義文字資訊"
+
+msgid "TYER - Year"
+msgstr "TYER - 年份"
+
+msgid "UFID - Unique file identifier"
+msgstr ""
+
+msgid "USER - Terms of use"
+msgstr ""
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr ""
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM - 商業資訊"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - 版權資訊"
+
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - 正式音效檔網頁"
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - 正式演出者網頁"
+
+msgid "WOAS - Official audio source webpage"
+msgstr ""
+
+msgid "WORS - Official internet radio station homepage"
+msgstr ""
+
+msgid "WPAY - Payment"
+msgstr ""
+
+msgid "WPUB - Official publisher webpage"
+msgstr ""
+
+msgid "WXXX - User defined URL link"
+msgstr ""
+
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz Release"
+
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - 音效搜尋點索引"
+
+msgid "EQU2 - Equalisation (2)"
+msgstr ""
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - 相對音量調整 (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK - 尋找訊框"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN - 簽章訊框"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes的編譯"
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN - 編碼時間"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR - 原始發行時間"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC - 錄音時間"
+
+msgid "TDRL - Release time"
+msgstr "TDRL - 發行時間"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG - 標籤時間 "
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL - 參與人員清單"
+
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - 音樂誌謝清單"
+
+msgid "TMOO - Mood"
+msgstr ""
+
+msgid "TPRO - Produced notice"
+msgstr ""
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - 艺术家专辑排序"
+
+msgid "TSOA - Album sort order"
+msgstr ""
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - 作曲家篩選秩序"
+
+msgid "TSOP - Performer sort order"
+msgstr ""
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT - 標題排序順序"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST - 設定字幕"
