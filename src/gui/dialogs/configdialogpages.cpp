@@ -409,8 +409,10 @@ QWidget* ConfigDialogPages::createPluginsPage()
 
 
   QVBoxLayout* metadataPluginsLayout = new QVBoxLayout(metadataGroupBox);
-  m_enabledMetadataPluginsModel = new CheckableStringListModel(metadataGroupBox);
-  StringListEdit* metadataEdit = new StringListEdit(m_enabledMetadataPluginsModel, metadataGroupBox);
+  m_enabledMetadataPluginsModel =
+      new CheckableStringListModel(metadataGroupBox);
+  StringListEdit* metadataEdit =
+      new StringListEdit(m_enabledMetadataPluginsModel, metadataGroupBox);
   metadataEdit->setEditingDisabled(true);
   metadataPluginsLayout->addWidget(metadataEdit);
   vlayout->addWidget(metadataGroupBox);
@@ -425,6 +427,8 @@ QWidget* ConfigDialogPages::createPluginsPage()
   vlayout->addWidget(pluginsGroupBox);
 
   vlayout->addStretch();
+  vlayout->addWidget(
+        new QLabel(tr("Changes take only effect after a restart!")));
   return pluginsPage;
 }
 
