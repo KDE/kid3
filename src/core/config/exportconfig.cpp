@@ -95,8 +95,8 @@ ExportConfig::ExportConfig() :
   m_exportFormatTrailers.append(QLatin1String("NumberOfEntries=%{tracks}\\nVersion=2"));
 
   m_exportFormatNames.append(QLatin1String("HTML"));
-  m_exportFormatHeaders.append(QLatin1String("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>"));
-  m_exportFormatTracks.append(QLatin1String("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>"));
+  m_exportFormatHeaders.append(QLatin1String("<html>\\n <head>\\n  <title>%h{artist} - %h{album}</title>\\n </head>\\n <body>\\n  <h1>%h{artist} - %h{album}</h1>\\n  <dl>"));
+  m_exportFormatTracks.append(QLatin1String("   <dt><a href=\"%{url}\">%h{track}. %h{title}</a></dt>"));
   m_exportFormatTrailers.append(QLatin1String("  </dl>\\n </body>\\n</html>"));
 
   m_exportFormatNames.append(QLatin1String("Kover XML"));
@@ -188,4 +188,15 @@ void ExportConfig::readFromConfig(ISettings* config)
 
   if (m_exportFormatIdx >=  static_cast<int>(m_exportFormatNames.size()))
     m_exportFormatIdx = 0;
+
+  // Use HTML escaping for old HTML export format.
+  int htmlIdx = m_exportFormatNames.indexOf(QLatin1String("HTML"));
+  if (htmlIdx != -1) {
+    if (m_exportFormatHeaders.at(htmlIdx) == QLatin1String("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>")) {
+      m_exportFormatHeaders[htmlIdx] = QLatin1String("<html>\\n <head>\\n  <title>%h{artist} - %h{album}</title>\\n </head>\\n <body>\\n  <h1>%h{artist} - %h{album}</h1>\\n  <dl>");
+    }
+    if (m_exportFormatTracks.at(htmlIdx) == QLatin1String("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>")) {
+      m_exportFormatTracks[htmlIdx] = QLatin1String("   <dt><a href=\"%{url}\">%h{track}. %h{title}</a></dt>");
+    }
+  }
 }

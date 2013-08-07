@@ -86,7 +86,7 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         { 'v', "vbr" },
         { 'r', "samplerate" },
         { 'm', "mode" },
-        { 'h', "channels" },
+        { 'C', "channels" },
         { 'k', "codec" }
       };
       const char c = code[0].toLatin1();
@@ -225,12 +225,16 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 
   str += QLatin1String("<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n");
 
-  str += QLatin1String("<tr><td>%h</td><td>%{channels}</td><td>");
+  str += QLatin1String("<tr><td>%C</td><td>%{channels}</td><td>");
   str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Channels"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%k</td><td>%{codec}</td><td>");
   str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Codec"));
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td>%ha...</td><td>%h{artist}...</td><td>");
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Escape for HTML"));
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");
@@ -365,7 +369,7 @@ QString TrackData::formatString(const QString& format) const
 {
   TrackDataFormatReplacer fmt(*this, format);
   fmt.replaceEscapedChars();
-  fmt.replacePercentCodes();
+  fmt.replacePercentCodes(FormatReplacer::FSF_SupportHtmlEscape);
   return fmt.getString();
 }
 

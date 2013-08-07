@@ -79,7 +79,10 @@ void FormatReplacer::replaceEscapedChars()
  * @param flags flags: FSF_SupportUrlEncode to support modifier u
  *              (with code c "%uc") to URL encode,
  *              FSF_ReplaceSeparators to replace directory separators
- *              ('/', '\\', ':') in tags.
+ *              ('/', '\\', ':') in tags,
+ *              FSF_SupportHtmlEscape to support modifier h
+ *              (with code c "%hc") to replace HTML metacharacters
+ *              ('<', '>', '&', '"', ''', non-ascii) in tags.
  */
 void FormatReplacer::replacePercentCodes(unsigned flags)
 {
@@ -91,10 +94,15 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
       int codePos = pos + 1;
       int codeLen = 0;
       bool urlEncode = false;
+      bool htmlEscape = false;
       QString repl;
       if ((flags & FSF_SupportUrlEncode) && m_str[codePos] == QLatin1Char('u')) {
         ++codePos;
         urlEncode = true;
+      }
+      if ((flags & FSF_SupportHtmlEscape) && m_str[codePos] == QLatin1Char('h')) {
+        ++codePos;
+        htmlEscape = true;
       }
       if (m_str[codePos] == QLatin1Char('{')) {
         int closingBracePos = m_str.indexOf(QLatin1Char('}'), codePos + 1);
@@ -118,6 +126,9 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
         if (urlEncode) {
           repl = QString::fromLatin1(QUrl::toPercentEncoding(repl));
         }
+        if (htmlEscape) {
+          repl = escapeHtml(repl);
+        }
         if (!repl.isNull() || codeLen > 2) {
           m_str.replace(pos, codeLen, repl);
           pos += repl.length();
@@ -129,4 +140,34 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
       }
     }
   }
+}
+
+/**
+ * Converts the plain text string @a plain to a HTML string with
+ * HTML metacharacters replaced by HTML entities.
+ * @param plain plain text
+ * @return html text with HTML entities.
+ */
+QString FormatReplacer::escapeHtml(const QString& plain)
+{
+  QString rich;
+  rich.reserve(int(plain.length() * qreal(1.1)));
+  for (int i = 0; i < plain.length(); ++i) {
+    ushort ch = plain.at(i).unicode();
+    if (ch == '<')
+      rich += QLatin1String("&lt;");
+    else if (ch == '>')
+      rich += QLatin1String("&gt;");
+    else if (ch == '&')
+      rich += QLatin1String("&amp;");
+    else if (ch == '"')
+      rich += QLatin1String("&quot;");
+    else if (ch == '\'')
+      rich += QLatin1String("&apos;");
+    else if (ch >= 128)
+      rich += QString(QLatin1String("&#%1;")).arg(ch);
+    else
+      rich += plain.at(i);
+  }
+  return rich;
 }

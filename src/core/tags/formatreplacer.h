@@ -21,7 +21,8 @@ public:
   /** Flags for replacePercentCodes(). */
   enum FormatStringFlags {
     FSF_SupportUrlEncode  = (1 << 0),
-    FSF_ReplaceSeparators = (1 << 1)
+    FSF_ReplaceSeparators = (1 << 1),
+    FSF_SupportHtmlEscape = (1 << 2)
   };
 
   /**
@@ -63,9 +64,20 @@ public:
    * @param flags flags: FSF_SupportUrlEncode to support modifier u
    *              (with code c "%uc") to URL encode,
    *              FSF_ReplaceSeparators to replace directory separators
-   *              ('/', '\\', ':') in tags.
+   *              ('/', '\\', ':') in tags,
+   *              FSF_SupportHtmlEscape to support modifier h
+   *              (with code c "%hc") to replace HTML metacharacters
+   *              ('<', '>', '&', '"', ''', non-ascii) in tags.
    */
   void replacePercentCodes(unsigned flags = 0);
+
+  /**
+   * Converts the plain text string @a plain to a HTML string with
+   * HTML metacharacters replaced by HTML entities.
+   * @param plain plain text
+   * @return html text with HTML entities.
+   */
+  static QString escapeHtml(const QString& plain);
 
 protected:
   /**
