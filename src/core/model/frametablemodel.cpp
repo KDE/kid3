@@ -593,17 +593,17 @@ QWidget* FrameItemDelegate::createEditor(
       } else {
         cb->addItems(strList);
       }
+      QStringList customGenres = TagConfig::instance().customGenres();
       if (id3v1) {
-        for (QStringList::const_iterator it =
-               TagConfig::instance().customGenres().begin();
-             it != TagConfig::instance().customGenres().end();
+        for (QStringList::const_iterator it = customGenres.begin();
+             it != customGenres.end();
              ++it) {
           if (Genres::getNumber(*it) != 255) {
             cb->addItem(*it);
           }
         }
       } else {
-        cb->addItems(TagConfig::instance().customGenres());
+        cb->addItems(customGenres);
       }
       return cb;
     } else if (id3v1 &&
