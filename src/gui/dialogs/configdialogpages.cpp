@@ -492,12 +492,13 @@ void ConfigDialogPages::setConfig()
   m_proxyPasswordLineEdit->setText(networkCfg.m_proxyPassword);
 
   QStringList metadataPlugins;
-  if (!tagCfg.pluginOrder().isEmpty()) {
-    for (int i = 0; i < tagCfg.pluginOrder().size(); ++i) {
+  QStringList pluginOrder = tagCfg.pluginOrder();
+  if (!pluginOrder.isEmpty()) {
+    for (int i = 0; i < pluginOrder.size(); ++i) {
       metadataPlugins.append(QString());
     }
     foreach (const QString& pluginName, tagCfg.getAvailablePlugins()) {
-      int idx = tagCfg.pluginOrder().indexOf(pluginName);
+      int idx = pluginOrder.indexOf(pluginName);
       if (idx >= 0) {
         metadataPlugins[idx] = pluginName;
       } else {
@@ -510,8 +511,9 @@ void ConfigDialogPages::setConfig()
   }
   quint64 metadataPluginsMask = 0;
   quint64 mask = 1;
+  QStringList disabledTagPlugins = tagCfg.disabledPlugins();
   for (int i = 0; i < metadataPlugins.size(); ++i, mask <<= 1) {
-    if (!tagCfg.disabledPlugins().contains(metadataPlugins.at(i))) {
+    if (!disabledTagPlugins.contains(metadataPlugins.at(i))) {
       metadataPluginsMask |= mask;
     }
   }

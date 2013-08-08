@@ -198,13 +198,14 @@ void Kid3Application::initPlugins()
     checkPlugin(plugin);
   }
   // Order the meta data plugins as configured.
-  if (!tagCfg.pluginOrder().isEmpty()) {
+  QStringList pluginOrder = tagCfg.pluginOrder();
+  if (!pluginOrder.isEmpty()) {
     QList<ITaggedFileFactory*> orderedFactories;
-    for (int i = 0; i < tagCfg.pluginOrder().size(); ++i) {
+    for (int i = 0; i < pluginOrder.size(); ++i) {
       orderedFactories.append(0);
     }
     foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
-      int idx = tagCfg.pluginOrder().indexOf(factory->name());
+      int idx = pluginOrder.indexOf(factory->name());
       if (idx >= 0) {
         orderedFactories[idx] = factory;
       } else {
@@ -264,7 +265,8 @@ QObjectList Kid3Application::loadPlugins()
                                            pluginName);
     }
     QMap<QString, QString> disabledTagPluginFileNames;
-    foreach (const QString& pluginName, tagCfg.disabledPlugins()) {
+    QStringList disabledTagPlugins = tagCfg.disabledPlugins();
+    foreach (const QString& pluginName, disabledTagPlugins) {
       disabledTagPluginFileNames.insert(pluginFileName(pluginName),
                                         pluginName);
     }
@@ -287,7 +289,7 @@ QObjectList Kid3Application::loadPlugins()
         if (importCfg.m_disabledPlugins.contains(name)) {
           importCfg.availablePlugins().append(name);
           loader.unload();
-        } else if (tagCfg.disabledPlugins().contains(name)) {
+        } else if (disabledTagPlugins.contains(name)) {
           tagCfg.availablePlugins().append(name);
           loader.unload();
         } else {
