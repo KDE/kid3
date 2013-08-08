@@ -140,6 +140,15 @@ bool FrameTable::acceptEdit()
 }
 
 /**
+ * Get current editor widget if the table is currently in edit state.
+ * @return current editor widget, 0 if not in edit state.
+ */
+const QWidget* FrameTable::getCurrentEditor() const
+{
+  return state() == EditingState ? m_currentEditor : 0;
+}
+
+/**
  * Display context menu.
  *
  * @param row row at which context menu is displayed

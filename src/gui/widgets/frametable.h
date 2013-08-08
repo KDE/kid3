@@ -73,6 +73,12 @@ public:
    */
   bool acceptEdit();
 
+  /**
+   * Get current editor widget if the table is currently in edit state.
+   * @return current editor widget, 0 if not in edit state.
+   */
+  const QWidget* getCurrentEditor() const;
+
 private slots:
   /**
    * Display context menu.

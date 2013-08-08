@@ -277,6 +277,24 @@ public slots:
   void selectAllInDirectory();
 
   /**
+   * Set the next file as the current file.
+   *
+   * @param select true to select the file
+   *
+   * @return true if a next file exists.
+   */
+  bool nextFile(bool select = true);
+
+  /**
+   * Set the previous file as the current file.
+   *
+   * @param select true to select the file
+   *
+   * @return true if a previous file exists.
+   */
+  bool previousFile(bool select = true);
+
+  /**
    * Set the root index of the directory and file lists.
    *
    * @param directoryIndex root index of directory in file system model
@@ -295,6 +313,14 @@ private:
    */
   void formatLineEdit(QLineEdit* le, const QString& txt,
             const FormatConfig* fcfg);
+
+  /**
+   * Get frame table which is currently in editing state.
+   * The returned frame table can be used to restore the editing state after
+   * changing the current file.
+   * @return frame table which is in editing state, 0 if none.
+   */
+  FrameTable* getEditingFrameTable() const;
 
   FileList* m_fileListBox;
   QComboBox* m_formatComboBox;

@@ -299,7 +299,7 @@ void Kid3MainWindow::initActions()
   editPreviousFile->setObjectName(QLatin1String("previous_file"));
   m_shortcutsModel->registerAction(editPreviousFile, menuTitle);
   connect(editPreviousFile, SIGNAL(triggered()),
-    app(), SLOT(previousFile()));
+    form(), SLOT(previousFile()));
   editMenu->addAction(editPreviousFile);
   toolBar->addAction(editPreviousFile);
 
@@ -311,7 +311,7 @@ void Kid3MainWindow::initActions()
   editNextFile->setObjectName(QLatin1String("next_file"));
   m_shortcutsModel->registerAction(editNextFile, menuTitle);
   connect(editNextFile, SIGNAL(triggered()),
-    app(), SLOT(nextFile()));
+    form(), SLOT(nextFile()));
   editMenu->addAction(editNextFile);
   toolBar->addAction(editNextFile);
 

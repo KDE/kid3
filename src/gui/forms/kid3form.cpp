@@ -912,6 +912,58 @@ void Kid3Form::selectAllInDirectory()
 }
 
 /**
+ * Set the next file as the current file.
+ *
+ * @param select true to select the file
+ *
+ * @return true if a next file exists.
+ */
+bool Kid3Form::nextFile(bool select)
+{
+  FrameTable* editingFrameTable = getEditingFrameTable();
+  bool ok = m_app->nextFile(select);
+  if (ok && editingFrameTable) {
+    editingFrameTable->edit(editingFrameTable->currentIndex());
+  }
+  return ok;
+}
+
+/**
+ * Set the previous file as the current file.
+ *
+ * @param select true to select the file
+ *
+ * @return true if a previous file exists.
+ */
+bool Kid3Form::previousFile(bool select)
+{
+  FrameTable* editingFrameTable = getEditingFrameTable();
+  bool ok = m_app->previousFile(select);
+  if (ok && editingFrameTable) {
+    editingFrameTable->edit(editingFrameTable->currentIndex());
+  }
+  return ok;
+}
+
+/**
+ * Get frame table which is currently in editing state.
+ * The returned frame table can be used to restore the editing state after
+ * changing the current file.
+ * @return frame table which is in editing state, 0 if none.
+ */
+FrameTable* Kid3Form::getEditingFrameTable() const
+{
+  if (QWidget* focusWidget = QApplication::focusWidget()) {
+    if (m_framesV1Table->getCurrentEditor() == focusWidget) {
+      return m_framesV1Table;
+    } else if (m_framesV2Table->getCurrentEditor() == focusWidget) {
+      return m_framesV2Table;
+    }
+  }
+  return 0;
+}
+
+/**
  * Set the root index of the directory and file lists.
  *
  * @param directoryIndex root index of directory in file system model
