@@ -1797,6 +1797,75 @@ The <guilabel>Network</guilabel> page contains only a field to insert the proxy
 address and optionally the port, separated by a colon. The proxy will be used
 when importing from an internet server when the checkbox is checked.
 </para>
+<para>
+In the <guilabel>Plugins</guilabel> page, available plugins can be enabled or
+disabled. The plugins are separated into two sections. The <guilabel>Metadata
+Plugins &amp; Priority</guilabel> list contains plugins which support audio
+file formats. The order of the plugins is important because they are tried from
+top to bottom. Some formats are supported by multiple plugins, so files will
+be opened with the first plugin supporting them. The
+<guilabel>TaglibMetadata</guilabel> supports most formats, if it is at the top
+of the list, it will open most of the files. If you want to use a different
+plugin for a file format, make sure that it is listed before the
+<guilabel>TaglibMetadata</guilabel> plugin. Details about the metadata plugin
+and why you may want to use them instead of TagLib are listed below.
+
+<itemizedlist>
+<listitem><para><guilabel>Id3libMetadata</guilabel>:
+Uses <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> for ID3v1.1
+and ID3v2.3 tags in MP3, MP2, AAC files. Supports a few more frame types
+than TagLib. Another reason to use it is that TagLib only supports
+ID3v2.3 since version 1.8.</para></listitem>
+<listitem><para><guilabel>OggFlacMetadata</guilabel>:
+Uses <ulink url="http://xiph.org/ogg/">libogg</ulink>,
+<ulink url="http://xiph.org/vorbis/">libvorbis, libvorbisfile</ulink> for Ogg
+files, and additionally <ulink url="http://flac.sourceforge.net">libFLAC++
+and libFLAC</ulink> for FLAC files. Reasons to use them are pictures in Ogg
+files, which are not supported by TagLib and that these are the official
+libraries for these formats.</para></listitem>
+<listitem><para><guilabel>TaglibMetadata</guilabel>:
+Uses <ulink url="http://taglib.github.io/">TagLib</ulink> which supports a
+lot of audio file formats. Since version 1.8, it also supports ID3v2.3, so it
+can be used for all audio files supported by &kid3;.</para></listitem>
+<listitem><para><guilabel>Mp4v2Metadata</guilabel>:
+<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> was originally used
+by &kid3; to support M4A files. However, newer versions of TagLib provide good
+M4A support, so this plugin is not built by default.
+</para></listitem>
+</itemizedlist>
+
+The <guilabel>Available Plugins</guilabel> sections lists the remaining
+plugins. Their order is not important, but they can be enabled or disabled
+using the check boxes.
+
+<itemizedlist>
+<listitem><para><guilabel>AmazonImport</guilabel>:
+Used for the <guimenuitem>Import from Amazon...</guimenuitem> function.
+</para></listitem>
+<listitem><para><guilabel>DiscogsImport</guilabel>:
+Used for the <guimenuitem>Import from Discogs...</guimenuitem> function.
+</para></listitem>
+<listitem><para><guilabel>FreedbImport</guilabel>:
+Used for the <guimenuitem>Import from gnudb.org...</guimenuitem>
+and <guimenuitem>Import from TrackType.org...</guimenuitem> functions.
+</para></listitem>
+<listitem><para><guilabel>MusicBrainzImport</guilabel>:
+Used for the <guimenuitem>Import from MusicBrainz Release...</guimenuitem>
+function.
+</para></listitem>
+<listitem><para><guilabel>AcoustidImport</guilabel>:
+Used for the <guimenuitem>Import from MusicBrainz Fingerprint...</guimenuitem>
+function, which depends on
+the <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
+and <ulink url="http://libav.org/">libav</ulink> libraries.
+</para></listitem>
+</itemizedlist>
+</para>
+<para>
+Plugins which are disabled will not be loaded. This can be used to optimize
+resource usage and startup time. The settings on this page take only effect
+after a restart of &kid3;.
+</para>
 </listitem>
 </varlistentry>
 
@@ -1899,7 +1968,7 @@ and libFLAC</ulink>.
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> is required for
 MP4 files.
 These four formats are also supported by
-<ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
+<ulink url="http://taglib.github.io/">TagLib</ulink>,
 which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
 files and tracker modules.
 To import from acoustic fingerprints,

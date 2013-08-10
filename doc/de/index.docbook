@@ -1920,6 +1920,79 @@ Adresse des Netzwerk Proxys und optional der Portnummer, abgetrennt durch
 einen Doppelpunkt. Dieser Proxy wird für den Import von einem Internet Server
 verwendet, wenn das Kästchen davor markiert ist.
 </para>
+
+<para>
+Die verfügbaren Plugins können in der Seite <guilabel>Erweiterungen</guilabel>
+ein- bzw. ausgeschaltet werden. Die Plugins sind in zwei Listen unterteilt.
+<guilabel>Metadaten Plugins &amp; Priorität</guilabel> enthält Plugins, welche
+Audio-Datei-Formate unterstützen. Die Reihenfolge der Einträge ist
+entscheidend, denn sie werden der Reihe nach durchprobiert. Gewisse Formate
+werden von mehreren Plugins unterstützt, daher werden Dateien durch das erste
+Plugin, welches sie unterstützt, geöffnet. <guilabel>TaglibMetadata</guilabel>
+unterstützt die meisten Formate; wenn es zuoberst in der Liste ist, wird es
+die meisten Dateien öffnen. Um ein anderes Plugin zu verwenden, muss es vor
+<guilabel>TaglibMetadata</guilabel> in der Liste stehen. Details über die
+Metadaten Plugins und Gründe, warum man sie statt TagLib verwenden möchte,
+folgen.
+
+<itemizedlist>
+<listitem><para><guilabel>Id3libMetadata</guilabel>:
+Benutzt <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> für ID3v1.1
+und ID3v2.3 Tags in MP3, MP2 und AAC Dateien; unterstützt einige Frame-Typen
+mehr als TagLib. Ein weiterer Grund für die Verwendung ist, dass TagLib
+ID3v2.3 erst seit Version 1.8 unterstützt.</para></listitem>
+<listitem><para><guilabel>OggFlacMetadata</guilabel>:
+Benutzt <ulink url="http://xiph.org/ogg/">libogg</ulink>,
+<ulink url="http://xiph.org/vorbis/">libvorbis und libvorbisfile</ulink> für Ogg
+Dateien und zusätzlich <ulink url="http://flac.sourceforge.net">libFLAC++
+und libFLAC</ulink> für FLAC Dateien. Gründe für die Benutzung sind Bilder in
+Ogg Dateien - solche werden von TagLib nicht unterstützt - und dass es die
+offiziellen Bibliotheken dieser Formate sind.</para></listitem>
+<listitem><para><guilabel>TaglibMetadata</guilabel>:
+Benutzt <ulink url="http://taglib.github.io/">TagLib</ulink>, welche viele
+Datei-Formate unterstützt, seit Version 1.8 auch ID3v2.3, so dass sie für
+alle Audio-Dateien verwendet werden kann, welche &kid3; unterstützt.
+</para></listitem>
+<listitem><para><guilabel>Mp4v2Metadata</guilabel>:
+<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> wurde ursprünglich
+von &kid3; für M4A-Dateien verwendet. Mittlerweile ist die Unterstützung von
+TagLib für dieses Format so gut, dass dieses Plugin nur erstellt wird, wenn
+dies explizit gefordert wird.
+</para></listitem>
+</itemizedlist>
+
+<guilabel>Verfügbare Erweiterungen</guilabel> listet die verbleibenden Plugins
+auf. Ihre Reihenfolge ist unwichtig, sie können über die Kästchen links
+ein- oder ausgeschaltet werden.
+
+<itemizedlist>
+<listitem><para><guilabel>AmazonImport</guilabel>:
+Benutzt für die <guimenuitem>Importieren von Amazon...</guimenuitem> Funktion.
+</para></listitem>
+<listitem><para><guilabel>DiscogsImport</guilabel>:
+Benutzt für die <guimenuitem>Importieren von Discogs...</guimenuitem> Funktion.
+</para></listitem>
+<listitem><para><guilabel>FreedbImport</guilabel>:
+Benutzt für die <guimenuitem>Importieren von gnudb.org...</guimenuitem>
+und <guimenuitem>Importieren von TrackType.org...</guimenuitem> Funktionen.
+</para></listitem>
+<listitem><para><guilabel>MusicBrainzImport</guilabel>:
+Benutzt für die <guimenuitem>Importieren von MusicBrainz-Album...</guimenuitem>
+Funktion.
+</para></listitem>
+<listitem><para><guilabel>AcoustidImport</guilabel>:
+Benutzt für die <guimenuitem>Importieren von MusicBrainz-Fingerprint...</guimenuitem>
+Funktion, welche von den Bibliotheken
+<ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
+und <ulink url="http://libav.org/">libav</ulink> abhängig ist.
+</para></listitem>
+</itemizedlist>
+</para>
+<para>
+Deaktivierte Erweiterungen werden nicht geladen, damit lässt sich also der
+Speicherverbrauch und die Ladezeit optimieren. Die Einstellungen auf dieser
+Seite werden aber erst nach einem Neustart von &kid3; aktiv.
+</para>
 </listitem>
 </varlistentry>
 
@@ -2021,7 +2094,7 @@ verwendet.
 Für MP4 Dateien wird 
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
 Für diese vier Formate kann auch
-die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
+die <ulink url="http://taglib.github.io/">TagLib</ulink>
 verwendet werden, welche zudem auch MPC, APE, MP2, Speex, TrueAudio, WavPack,
 WMA, WAV, AIFF Dateien und Tracker Module unterstützt.
 Für das Importieren über akustische Fingerabdrücke
