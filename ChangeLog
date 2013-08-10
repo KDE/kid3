@@ -1,3 +1,27 @@
+Sat Aug 10 12:45:42 CEST 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 2.4
+
+	* New:
+	  + Use common shared libraries for KDE and Qt-only versions.
+	  + Plugins for metadata libraries and importers.
+	  + Support Opus files with TagLib 1.9.
+	  + Support GStreamer 1.0.
+	  + Support libavresample 0.0.3.
+
+	* Improved:
+	  + Editing without leaving the keyboard.
+	  + When saving a file fails, tell user if it is not writable.
+	  + Escape metacharacters in HTML export.
+	  + Updated Czech translation.
+	  + Updated Finnish translation.
+	  + Cleaned up configuration option sections.
+
+	* Fixed:
+	  + Crash when saving non-FLAC file with flac extension.
+	  + Support minimum Mac OS X version 10.5.
+	  + Load Qt libraries only from bundle on Mac OS X.
+
 Sat Mar  2 09:36:02 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 2.3
