@@ -760,21 +760,14 @@ void BaseMainWindowImpl::updateCurrentSelection()
 {
   const QList<QPersistentModelIndex>& selItems =
     m_form->getFileList()->getCurrentSelection();
-  int numFiles = selItems.size();
-  if (numFiles > 0) {
+  if (!selItems.isEmpty()) {
     m_form->frameTableV1()->acceptEdit();
     m_form->frameTableV2()->acceptEdit();
-    FrameCollection framesV1(m_app->frameModelV1()->getEnabledFrames());
-    FrameCollection framesV2(m_app->frameModelV2()->getEnabledFrames());
-    for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
-         it != selItems.end();
-         ++it) {
-      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
-        taggedFile->setFramesV1(framesV1);
-        taggedFile->setFramesV2(framesV2);
-        if (m_form->isFilenameEditEnabled()) {
-          taggedFile->setFilename(m_form->getFilename());
-        }
+    m_app->frameModelsToTags(selItems);
+    if (m_form->isFilenameEditEnabled()) {
+      if (TaggedFile* taggedFile =
+          FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
+        taggedFile->setFilename(m_form->getFilename());
       }
     }
   }
@@ -788,82 +781,26 @@ void BaseMainWindowImpl::updateCurrentSelection()
  */
 void BaseMainWindowImpl::updateGuiControls()
 {
-  TaggedFile* single_v2_file = 0;
-  int num_v1_selected = 0;
-  int num_v2_selected = 0;
-  bool tagV1Supported = false;
-  bool hasTagV1 = false;
-  bool hasTagV2 = false;
-
   m_form->getFileList()->updateCurrentSelection();
   const QList<QPersistentModelIndex>& selItems =
       m_form->getFileList()->getCurrentSelection();
 
-  for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
-       it != selItems.end();
-       ++it) {
-    TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
-    if (taggedFile) {
-      taggedFile->readTags(false);
-
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
-
-      if (taggedFile->isTagV1Supported()) {
-        if (num_v1_selected == 0) {
-          FrameCollection frames;
-          taggedFile->getAllFramesV1(frames);
-          m_app->frameModelV1()->transferFrames(frames);
-        }
-        else {
-          FrameCollection fileFrames;
-          taggedFile->getAllFramesV1(fileFrames);
-          m_app->frameModelV1()->filterDifferent(fileFrames);
-        }
-        ++num_v1_selected;
-        tagV1Supported = true;
-      }
-      if (num_v2_selected == 0) {
-        FrameCollection frames;
-        taggedFile->getAllFramesV2(frames);
-        m_app->frameModelV2()->transferFrames(frames);
-        single_v2_file = taggedFile;
-      }
-      else {
-        FrameCollection fileFrames;
-        taggedFile->getAllFramesV2(fileFrames);
-        m_app->frameModelV2()->filterDifferent(fileFrames);
-        single_v2_file = 0;
-      }
-      ++num_v2_selected;
-
-      hasTagV1 = hasTagV1 || taggedFile->hasTagV1();
-      hasTagV2 = hasTagV2 || taggedFile->hasTagV2();
-    }
-  }
+  m_app->tagsToFrameModels(selItems);
 
   TaggedFile::DetailInfo info;
-  if (single_v2_file) {
-    m_app->getFrameList()->setTaggedFile(single_v2_file);
+  if (const TaggedFile* selectedFile = m_app->selectionSingleFile()) {
     m_form->setFilenameEditEnabled(true);
-    m_form->setFilename(single_v2_file->getFilename());
-    single_v2_file->getDetailInfo(info);
+    m_form->setFilename(selectedFile->getFilename());
+    selectedFile->getDetailInfo(info);
     m_form->setDetailInfo(info);
-    m_form->setTagFormatV1(single_v2_file->getTagFormatV1());
-    m_form->setTagFormatV2(single_v2_file->getTagFormatV2());
+    m_form->setTagFormatV1(selectedFile->getTagFormatV1());
+    m_form->setTagFormatV2(selectedFile->getTagFormatV2());
 
-    if (TagConfig::instance().markTruncations()) {
-      m_app->frameModelV1()->markRows(single_v2_file->getTruncationFlags());
-    }
     if (FileConfig::instance().m_markChanges) {
-      m_app->frameModelV1()->markChangedFrames(
-        single_v2_file->getChangedFramesV1());
-      m_app->frameModelV2()->markChangedFrames(
-        single_v2_file->getChangedFramesV2());
-      m_form->markChangedFilename(single_v2_file->isFilenameChanged());
+      m_form->markChangedFilename(selectedFile->isFilenameChanged());
     }
-  }
-  else {
-    if (num_v2_selected > 1) {
+  } else {
+    if (m_app->selectionFileCount() > 1) {
       m_form->setFilenameEditEnabled(false);
       m_form->setFilename(Frame::differentRepresentation());
     }
@@ -871,18 +808,15 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setTagFormatV1(QString::null);
     m_form->setTagFormatV2(QString::null);
 
-    if (TagConfig::instance().markTruncations()) {
-      m_app->frameModelV1()->markRows(0);
-    }
     if (FileConfig::instance().m_markChanges) {
-      m_app->frameModelV1()->markChangedFrames(0);
-      m_app->frameModelV2()->markChangedFrames(0);
       m_form->markChangedFilename(false);
     }
   }
+
   if (!GuiConfig::instance().m_hidePicture) {
     FrameCollection::const_iterator it =
-      m_app->frameModelV2()->frames().find(Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
+      m_app->frameModelV2()->frames().find(
+          Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
     if (it == m_app->frameModelV2()->frames().end() ||
         it->isInactive()) {
       m_form->setPictureData(0);
@@ -891,42 +825,14 @@ void BaseMainWindowImpl::updateGuiControls()
       m_form->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
     }
   }
-  m_app->frameModelV1()->setAllCheckStates(num_v1_selected == 1);
-  m_app->frameModelV2()->setAllCheckStates(num_v2_selected == 1);
   updateModificationState();
 
-  if (num_v1_selected == 0 && num_v2_selected == 0) {
-    tagV1Supported = true;
-  }
-  m_form->enableControlsV1(tagV1Supported);
+  m_form->enableControlsV1(m_app->selectionTagV1SupportedCount() > 0 ||
+                           m_app->selectionFileCount() == 0);
 
   if (GuiConfig::instance().m_autoHideTags) {
-    // If a tag is supposed to be absent, make sure that there is really no
-    // unsaved data in the tag.
-    if (!hasTagV1 && tagV1Supported) {
-      const FrameCollection& frames = m_app->frameModelV1()->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          hasTagV1 = true;
-          break;
-        }
-      }
-    }
-    if (!hasTagV2) {
-      const FrameCollection& frames = m_app->frameModelV2()->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          hasTagV2 = true;
-          break;
-        }
-      }
-    }
-    m_form->hideV1(!hasTagV1);
-    m_form->hideV2(!hasTagV2);
+    m_form->hideV1(!m_app->selectionHasTagV1());
+    m_form->hideV2(!m_app->selectionHasTagV2());
   }
 }
 

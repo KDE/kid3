@@ -56,6 +56,7 @@
 #include "tagconfig.h"
 #include "fileconfig.h"
 #include "importconfig.h"
+#include "guiconfig.h"
 #include "playlistconfig.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
@@ -130,7 +131,12 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
-  m_downloadImageDest(ImageForSelectedFiles)
+  m_downloadImageDest(ImageForSelectedFiles),
+  m_selectionSingleFile(0),
+  m_selectionTagV1SupportedCount(0), m_selectionFileCount(0),
+  m_selectionHasTagV1(false), m_selectionHasTagV2(false),
+  m_fileFilter(0),
+  m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone)
 {
   setObjectName(QLatin1String("Kid3Application"));
   m_openDirectoryTimeoutTimer->setSingleShot(true);
@@ -549,6 +555,135 @@ QStringList Kid3Application::saveDirectory()
   }
 
   return errorFiles;
+}
+
+/**
+ * Update tags of selected files to contain contents of frame models.
+ *
+ * @param selItems list of selected file indexes
+ */
+void Kid3Application::frameModelsToTags(
+    const QList<QPersistentModelIndex>& selItems)
+{
+  if (!selItems.isEmpty()) {
+    FrameCollection framesV1(m_framesV1Model->getEnabledFrames());
+    FrameCollection framesV2(m_framesV2Model->getEnabledFrames());
+    for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
+         it != selItems.end();
+         ++it) {
+      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
+        taggedFile->setFramesV1(framesV1);
+        taggedFile->setFramesV2(framesV2);
+      }
+    }
+  }
+}
+
+/**
+ * Update frame models to contain contents of selected files.
+ * The properties starting with "selection" will be set by this method.
+ *
+ * @param selItems list of selected file indexes
+ */
+void Kid3Application::tagsToFrameModels(
+    const QList<QPersistentModelIndex>& selItems)
+{
+  m_selectionSingleFile = 0;
+  m_selectionTagV1SupportedCount = 0;
+  m_selectionFileCount = 0;
+  m_selectionHasTagV1 = false;
+  m_selectionHasTagV2 = false;
+
+  for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
+       it != selItems.end();
+       ++it) {
+    TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
+    if (taggedFile) {
+      taggedFile->readTags(false);
+
+      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+
+      if (taggedFile->isTagV1Supported()) {
+        if (m_selectionTagV1SupportedCount == 0) {
+          FrameCollection frames;
+          taggedFile->getAllFramesV1(frames);
+          m_framesV1Model->transferFrames(frames);
+        } else {
+          FrameCollection fileFrames;
+          taggedFile->getAllFramesV1(fileFrames);
+          m_framesV1Model->filterDifferent(fileFrames);
+        }
+        ++m_selectionTagV1SupportedCount;
+      }
+      if (m_selectionFileCount == 0) {
+        FrameCollection frames;
+        taggedFile->getAllFramesV2(frames);
+        m_framesV2Model->transferFrames(frames);
+        m_selectionSingleFile = taggedFile;
+      } else {
+        FrameCollection fileFrames;
+        taggedFile->getAllFramesV2(fileFrames);
+        m_framesV2Model->filterDifferent(fileFrames);
+        m_selectionSingleFile = 0;
+      }
+      ++m_selectionFileCount;
+
+      m_selectionHasTagV1 = m_selectionHasTagV1 || taggedFile->hasTagV1();
+      m_selectionHasTagV2 = m_selectionHasTagV2 || taggedFile->hasTagV2();
+    }
+  }
+
+  m_framesV1Model->setAllCheckStates(m_selectionTagV1SupportedCount == 1);
+  m_framesV2Model->setAllCheckStates(m_selectionFileCount == 1);
+  if (GuiConfig::instance().m_autoHideTags) {
+    // If a tag is supposed to be absent, make sure that there is really no
+    // unsaved data in the tag.
+    if (!m_selectionHasTagV1 &&
+        (m_selectionTagV1SupportedCount > 0 || m_selectionFileCount == 0)) {
+      const FrameCollection& frames = m_framesV1Model->frames();
+      for (FrameCollection::const_iterator it = frames.begin();
+           it != frames.end();
+           ++it) {
+        if (!(*it).getValue().isEmpty()) {
+          m_selectionHasTagV1 = true;
+          break;
+        }
+      }
+    }
+    if (!m_selectionHasTagV2) {
+      const FrameCollection& frames = m_framesV2Model->frames();
+      for (FrameCollection::const_iterator it = frames.begin();
+           it != frames.end();
+           ++it) {
+        if (!(*it).getValue().isEmpty()) {
+          m_selectionHasTagV2 = true;
+          break;
+        }
+      }
+    }
+  }
+
+  if (m_selectionSingleFile) {
+    m_framelist->setTaggedFile(m_selectionSingleFile);
+
+    if (TagConfig::instance().markTruncations()) {
+      m_framesV1Model->markRows(m_selectionSingleFile->getTruncationFlags());
+    }
+    if (FileConfig::instance().m_markChanges) {
+      m_framesV1Model->markChangedFrames(
+        m_selectionSingleFile->getChangedFramesV1());
+      m_framesV2Model->markChangedFrames(
+        m_selectionSingleFile->getChangedFramesV2());
+    }
+  } else {
+    if (TagConfig::instance().markTruncations()) {
+      m_framesV1Model->markRows(0);
+    }
+    if (FileConfig::instance().m_markChanges) {
+      m_framesV1Model->markChangedFrames(0);
+      m_framesV2Model->markChangedFrames(0);
+    }
+  }
 }
 
 /**

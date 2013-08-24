@@ -262,6 +262,57 @@ public:
   QStringList saveDirectory();
 
   /**
+   * Update tags of selected files to contain contents of frame models.
+   *
+   * @param selItems list of selected file indexes
+   */
+  void frameModelsToTags(const QList<QPersistentModelIndex>& selItems);
+
+  /**
+   * Update frame models to contain contents of selected files.
+   * The properties starting with "selection" will be set by this method.
+   *
+   * @param selItems list of selected file indexes
+   */
+  void tagsToFrameModels(const QList<QPersistentModelIndex>& selItems);
+
+  /**
+   * Check if a single file is selected.
+   * @return if a single file is selected, this tagged file, else 0.
+   */
+  const TaggedFile* selectionSingleFile() const {
+    return m_selectionSingleFile;
+  }
+
+  /**
+   * Number of selected files which support tag 1.
+   * @return number of selected files which support tag 1.
+   */
+  int selectionTagV1SupportedCount() const {
+    return m_selectionTagV1SupportedCount;
+  }
+
+  /**
+   * Number of selected files.
+   * @return number of selected files which support tag 2.
+   */
+  int selectionFileCount() const {
+    return m_selectionFileCount;
+  }
+
+  /**
+   * Check if any of the selected files has a tag 1.
+   * @return true if any of the selected files has a tag 1.
+   */
+  bool selectionHasTagV1() const { return m_selectionHasTagV1; }
+
+  /**
+   * Check if any of the selected files has a tag 2.
+   * @return true if any of the selected files has a tag 2.
+   */
+  bool selectionHasTagV2() const { return m_selectionHasTagV2; }
+
+  /**
    * Import.
    *
    * @param tagMask tag mask
@@ -957,6 +1008,18 @@ private:
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */
   QList<ServerTrackImporter*> m_trackImporters;
+
+  /* Context for updateFrameModels() */
+  /** If a single file is selected, this tagged file, else 0 */
+  TaggedFile* m_selectionSingleFile;
+  /** Number of selected files which support tag 1 */
+  int m_selectionTagV1SupportedCount;
+  /** Number of selected files */
+  int m_selectionFileCount;
+  /** true if any of the selected files has a tag 1 */
+  bool m_selectionHasTagV1;
+  /** true if any of the selected files has a tag 2 */
+  bool m_selectionHasTagV2;
 
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;
