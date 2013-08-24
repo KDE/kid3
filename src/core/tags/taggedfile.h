@@ -50,7 +50,7 @@ public:
   };
 
   /** Information about file. */
-  struct DetailInfo {
+  struct KID3_CORE_EXPORT DetailInfo {
     /** Channel mode. */
     enum ChannelMode { CM_None, CM_Stereo, CM_JointStereo };
 
@@ -66,6 +66,12 @@ public:
     unsigned sampleRate;     /**< sample rate in Hz > 0 */
     unsigned bitrate;        /**< 0 < bitrate in kbps < 999 */
     unsigned long duration;  /**< duration in seconds > 0 */
+
+    /**
+     * Get string representation of detail information.
+     * @return information summary as string.
+     */
+    QString toString() const;
   };
 
 

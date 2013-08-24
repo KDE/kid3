@@ -833,36 +833,7 @@ void Kid3Form::setPictureData(const QByteArray* data)
  */
 void Kid3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
 {
-  QString str;
-  if (info.valid) {
-    str = info.format;
-    str += QLatin1Char(' ');
-    if (info.bitrate > 0 && info.bitrate < 999) {
-      if (info.vbr) str += QLatin1String("VBR ");
-      str += QString::number(info.bitrate);
-      str += QLatin1String(" kbps ");
-    }
-    if (info.sampleRate > 0) {
-      str += QString::number(info.sampleRate);
-      str += QLatin1String(" Hz ");
-    }
-    switch (info.channelMode) {
-      case TaggedFile::DetailInfo::CM_Stereo:
-        str += QLatin1String("Stereo ");
-        break;
-      case TaggedFile::DetailInfo::CM_JointStereo:
-        str += QLatin1String("Joint Stereo ");
-        break;
-      default:
-        if (info.channels > 0) {
-          str += QString::number(info.channels);
-          str += QLatin1String(" Channels ");
-        }
-    }
-    if (info.duration > 0) {
-      str += TaggedFile::formatTime(info.duration);
-    }
-  }
+  QString str = info.toString();
   if (!str.isEmpty()) {
     str = tr("F&ile") + QLatin1String(": ") + str;
   } else {
@@ -966,12 +937,13 @@ FrameTable* Kid3Form::getEditingFrameTable() const
 /**
  * Set the root index of the directory and file lists.
  *
- * @param directoryIndex root index of directory in file system model
- * @param fileIndex index of file to select
+ * @param directoryIndex root index of directory in file proxy model
+ * @param fileIndex index of file to select in file proxy model
  */
 void Kid3Form::setDirectoryIndex(const QModelIndex& directoryIndex,
                                  const QModelIndex& fileIndex)
 {
   m_fileListBox->readDir(directoryIndex, fileIndex);
-  m_dirListBox->readDir(directoryIndex);
+  m_dirListBox->readDir(
+        m_app->getFileProxyModel()->mapToSource(directoryIndex));
 }

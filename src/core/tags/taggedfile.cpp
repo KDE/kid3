@@ -1142,3 +1142,43 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
     }
   }
 }
+
+
+/**
+ * Get string representation of detail information.
+ * @return information summary as string.
+ */
+QString TaggedFile::DetailInfo::toString() const
+{
+  QString str;
+  if (valid) {
+    str = format;
+    str += QLatin1Char(' ');
+    if (bitrate > 0 && bitrate < 999) {
+      if (vbr) str += QLatin1String("VBR ");
+      str += QString::number(bitrate);
+      str += QLatin1String(" kbps ");
+    }
+    if (sampleRate > 0) {
+      str += QString::number(sampleRate);
+      str += QLatin1String(" Hz ");
+    }
+    switch (channelMode) {
+      case TaggedFile::DetailInfo::CM_Stereo:
+        str += QLatin1String("Stereo ");
+        break;
+      case TaggedFile::DetailInfo::CM_JointStereo:
+        str += QLatin1String("Joint Stereo ");
+        break;
+      default:
+        if (channels > 0) {
+          str += QString::number(channels);
+          str += QLatin1String(" Channels ");
+        }
+    }
+    if (duration > 0) {
+      str += TaggedFile::formatTime(duration);
+    }
+  }
+  return str;
+}
