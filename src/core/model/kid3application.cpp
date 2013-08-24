@@ -126,12 +126,15 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
+  m_openDirectoryTimeoutTimer(new QTimer(this)),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
   m_downloadImageDest(ImageForSelectedFiles)
 {
   setObjectName(QLatin1String("Kid3Application"));
+  m_openDirectoryTimeoutTimer->setSingleShot(true);
+  m_openDirectoryTimeoutTimer->setInterval(1000);
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
 
@@ -432,10 +435,59 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
     setModified(false);
     setFiltered(false);
     setDirName(dir);
+    QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
     m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
-    emit directoryOpened(rootIndex, fileIndex);
+    m_fileProxyModelFileIndex = m_fileProxyModel->mapFromSource(fileIndex);
+    if (m_fileProxyModelRootIndex != oldRootIndex) {
+#if QT_VERSION >= 0x040700
+      connect(m_fileProxyModel, SIGNAL(directoryLoaded(QString)),
+              this, SLOT(onDirectoryLoaded()));
+#else
+      // Qt < 4.7 does not have a directoryLoaded() signal, so
+      // rowsInserted() is used.
+      connect(m_fileProxyModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+              this, SLOT(onDirectoryLoaded()));
+#endif
+      // Last resort timeout for the case that directoryLoaded() would not be
+      // fired and for empty directories with Qt < 4.7
+      connect(m_openDirectoryTimeoutTimer, SIGNAL(timeout()),
+              this, SLOT(onDirectoryLoaded()));
+      m_openDirectoryTimeoutTimer->start();
+    } else {
+      QTimer::singleShot(0, this, SLOT(emitDirectoryOpened()));
+    }
+  }
+  if (!ok) {
+    QTimer::singleShot(0, this, SLOT(emitDirectoryOpened()));
   }
   return ok;
+}
+
+/**
+ * Emit directoryOpened().
+ */
+void Kid3Application::emitDirectoryOpened()
+{
+  emit directoryOpened(m_fileProxyModelRootIndex, m_fileProxyModelFileIndex);
+}
+
+/**
+ * Called when the gatherer thread has finished to load the directory.
+ */
+void Kid3Application::onDirectoryLoaded()
+{
+#if QT_VERSION >= 0x040700
+  disconnect(m_fileProxyModel, SIGNAL(directoryLoaded(QString)),
+             this, SLOT(onDirectoryLoaded()));
+#else
+  disconnect(m_fileProxyModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+             this, SLOT(onDirectoryLoaded()));
+#endif
+  disconnect(m_openDirectoryTimeoutTimer, SIGNAL(timeout()),
+             this, SLOT(onDirectoryLoaded()));
+  m_openDirectoryTimeoutTimer->stop();
+  // Do not directly emit so that directory can be sorted.
+  QTimer::singleShot(100, this, SLOT(emitDirectoryOpened()));
 }
 
 /**

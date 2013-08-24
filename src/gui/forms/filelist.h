@@ -62,8 +62,8 @@ public:
   /**
    * Fill the filelist with the files found in a directory.
    *
-   * @param dirIndex index of directory in filesystem model
-   * @param fileIndex index of file to select in filesystem model (optional,
+   * @param dirIndex index of directory in file proxy model
+   * @param fileIndex index of file to select in file proxy model (optional,
    * else invalid)
    *
    * @return false if name is not directory path, else true.

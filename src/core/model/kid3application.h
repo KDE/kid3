@@ -39,6 +39,7 @@ class QFileSystemModel;
 class QItemSelectionModel;
 class QModelIndex;
 class QNetworkAccessManager;
+class QTimer;
 class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
@@ -770,8 +771,8 @@ public slots:
 signals:
   /**
    * Emitted when a new directory is opened.
-   * @param directoryIndex root path file system model index
-   * @param fileIndex file path index in the file system model
+   * @param directoryIndex root path file proxy model index
+   * @param fileIndex file path index in the file proxy model
    */
   void directoryOpened(const QModelIndex& directoryIndex,
                        const QModelIndex& fileIndex);
@@ -871,6 +872,16 @@ private slots:
    */
   void scheduleNextRenameAction(const QPersistentModelIndex& index);
 
+  /**
+   * Emit directoryOpened().
+   */
+  void emitDirectoryOpened();
+
+  /**
+   * Called when the gatherer thread has finished to load the directory.
+   */
+  void onDirectoryLoaded();
+
 private:
   /**
    * Load and initialize plugins depending on configuration.
@@ -920,6 +931,8 @@ private:
   DirRenamer* m_dirRenamer;
   /** Batch importer */
   BatchImporter* m_batchImporter;
+  /** Timeout timer for openDirectory() */
+  QTimer* m_openDirectoryTimeoutTimer;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Audio player */
   AudioPlayer* m_player;
@@ -934,6 +947,8 @@ private:
   bool m_filtered;
   /** Root index in file proxy model */
   QPersistentModelIndex m_fileProxyModelRootIndex;
+  /** Index of opened file in file proxy model */
+  QPersistentModelIndex m_fileProxyModelFileIndex;
   /** Format to generate tags from filename */
   QString m_filenameToTagsFormat;
   /** Format to generate filename from tags */
