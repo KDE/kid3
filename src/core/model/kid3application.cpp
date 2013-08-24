@@ -1726,12 +1726,12 @@ bool Kid3Application::selectCurrentFile(bool select)
  */
 void Kid3Application::selectAllFiles()
 {
-  if (firstFile(false)) {
-    selectCurrentFile(true);
-    while (nextFile(false)) {
-      selectCurrentFile(true);
-    }
+  QItemSelection selection;
+  ModelIterator it(m_fileProxyModelRootIndex);
+  while (it.hasNext()) {
+    selection.append(QItemSelectionRange(it.next()));
   }
+  m_fileSelectionModel->select(selection, QItemSelectionModel::SelectCurrent);
 }
 
 /**
