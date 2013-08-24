@@ -18,6 +18,7 @@ set(config_SRCS
   config/playlistconfig.cpp
   config/serverimporterconfig.cpp
   config/isettings.cpp
+  config/kid3settings.cpp
 )
 
 set(config_MOC_HDRS

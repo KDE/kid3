@@ -28,6 +28,7 @@
 #define PLATFORMTOOLS_H
 
 #include "iplatformtools.h"
+#include "coreplatformtools.h"
 
 class QSettings;
 class BrowserDialog;
@@ -35,7 +36,7 @@ class BrowserDialog;
 /**
  * Platform specific tools.
  */
-class PlatformTools : public IPlatformTools {
+class PlatformTools : public IPlatformTools, private CorePlatformTools {
 public:
   /**
    * Constructor.
@@ -170,8 +171,6 @@ public:
       const QString& text, const QStringList& strlist, const QString& caption);
 
 private:
-  QSettings* m_settings;
-  ISettings* m_config;
   BrowserDialog* m_helpBrowser;
 };
 

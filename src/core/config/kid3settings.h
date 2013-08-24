@@ -34,7 +34,7 @@ class QSettings;
 /**
  * Wrapper for KDE application settings.
  */
-class Kid3Settings : public ISettings {
+class KID3_CORE_EXPORT Kid3Settings : public ISettings {
 public:
   /**
    * Constructor.

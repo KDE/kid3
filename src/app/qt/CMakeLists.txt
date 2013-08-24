@@ -9,7 +9,6 @@ set(qt_SRCS
   mainwindowconfig.cpp
   shortcutsmodel.cpp
   shortcutsdelegate.cpp
-  kid3settings.cpp
 )
 set(qt_MOC_HDRS
   kid3mainwindow.h
