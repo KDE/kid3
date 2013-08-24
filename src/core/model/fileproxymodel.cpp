@@ -111,6 +111,23 @@ bool FileProxyModel::rmdir(const QModelIndex& index) const
 }
 
 /**
+ * Get index for given path and column.
+ * @param path path to file or directory
+ * @param column model column
+ * @return model index, invalid if not found.
+ */
+QModelIndex FileProxyModel::index(const QString& path, int column) const
+{
+  if (m_fsModel) {
+    QModelIndex sourceIndex = m_fsModel->index(path, column);
+    if (sourceIndex.isValid()) {
+      return mapFromSource(sourceIndex);
+    }
+  }
+  return QModelIndex();
+}
+
+/**
  * Update the TaggedFile contents for rows inserted into the model.
  * @param parent parent model index
  * @param start starting row

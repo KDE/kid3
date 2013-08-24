@@ -173,6 +173,16 @@ public:
   bool rmdir(const QModelIndex& index) const;
 
   /**
+   * Get index for given path and column.
+   * @param path path to file or directory
+   * @param column model column
+   * @return model index, invalid if not found.
+   */
+  QModelIndex index(const QString& path, int column = 0) const;
+
+  using QSortFilterProxyModel::index;
+
+  /**
    * Access to tagged file factories.
    * @return reference to tagged file factories.
    */
