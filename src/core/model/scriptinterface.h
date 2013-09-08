@@ -389,6 +389,9 @@ public slots:
   void playAudio();
 #endif
 
+private slots:
+  void onRenameActionsScheduled();
+
 private:
   Kid3Application* m_app;
   QString m_errorMsg;

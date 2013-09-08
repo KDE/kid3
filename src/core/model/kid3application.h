@@ -363,17 +363,18 @@ public:
   /**
    * Set the directory name from the tags.
    * The directory must not have modified files.
+   * renameActionsScheduled() is emitted when the rename actions have been
+   * scheduled. Then performRenameActions() has to be called to effectively
+   * rename the directory.
    *
    * @param tagMask tag mask
    * @param format  directory name format
    * @param create  true to create, false to rename
-   * @param errStr  if not 0, a string describing the error is returned here
    *
    * @return true if ok.
    */
   bool renameDirectory(TrackData::TagVersion tagMask,
-                       const QString& format,
-                       bool create, QString* errStr);
+                       const QString& format, bool create);
 
   /**
    * Number tracks in selected files of directory.
@@ -787,6 +788,7 @@ public slots:
 
   /**
    * Schedule actions to rename a directory.
+   * When finished renameActionsScheduled() is emitted.
    */
   void scheduleRenameActions();
 
@@ -900,6 +902,12 @@ signals:
    * The GUI can display a player when receiving this signal.
    */
   void aboutToPlayAudio();
+
+  /**
+   * Emitted when all rename actions have been scheduled.
+   * @see scheduleRenameActions()
+   */
+  void renameActionsScheduled();
 
 private slots:
   /**

@@ -1905,6 +1905,7 @@ void Kid3Application::fileSelected()
 
 /**
  * Schedule actions to rename a directory.
+ * When finished renameActionsScheduled() is emitted.
  */
 void Kid3Application::scheduleRenameActions()
 {
@@ -1949,6 +1950,7 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
     m_fileProxyModelIterator->abort();
     disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
                this, SLOT(scheduleNextRenameAction(QPersistentModelIndex)));
+    emit renameActionsScheduled();
   }
 }
 
@@ -2057,19 +2059,19 @@ QString Kid3Application::performRenameActions()
 /**
  * Set the directory name from the tags.
  * The directory must not have modified files.
+ * renameActionsScheduled() is emitted when the rename actions have been
+ * scheduled. Then performRenameActions() has to be called to effectively
+ * rename the directory.
  *
  * @param tagMask tag mask
  * @param format  directory name format
  * @param create  true to create, false to rename
- * @param errStr  if not 0, a string describing the error is returned here
  *
  * @return true if ok.
  */
 bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
-                                     const QString& format,
-                                     bool create, QString* errStr)
+                                     const QString& format, bool create)
 {
-  bool ok = false;
   TaggedFile* taggedFile =
     TaggedFileOfDirectoryIterator::first(currentOrRootIndex());
   if (!isModified() && taggedFile) {
@@ -2077,13 +2079,9 @@ bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
     m_dirRenamer->setFormat(format);
     m_dirRenamer->setAction(create);
     scheduleRenameActions();
-    QString errorMsg(performRenameActions());
-    ok = errorMsg.isEmpty();
-    if (errStr) {
-      *errStr = errorMsg;
-    }
+    return true;
   }
-  return ok;
+  return false;
 }
 
 /**
