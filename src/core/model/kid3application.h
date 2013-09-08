@@ -417,6 +417,30 @@ public:
   void downloadImage(const QString& url, DownloadImageDestination dest);
 
   /**
+   * Get value of frame.
+   * To get binary data like a picture, the name of a file to write can be
+   * added after the @a name, e.g. "Picture:/path/to/file".
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param name    name of frame (e.g. "artist")
+   */
+  QString getFrame(TrackData::TagVersion tagMask, const QString& name);
+
+  /**
+   * Set value of frame.
+   * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
+   * is added, if @a value is empty, the frame is deleted.
+   * To add binary data like a picture, a file can be added after the
+   * @a name, e.g. "Picture:/path/to/file".
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param name    name of frame (e.g. "artist")
+   * @param value   value of frame
+   */
+  bool setFrame(TrackData::TagVersion tagMask, const QString& name,
+                const QString& value);
+
+  /**
    * Format a filename if format while editing is switched on.
    *
    * @param taggedFile file to modify
@@ -601,6 +625,13 @@ public slots:
   void copyTagsV2();
 
   /**
+   * Copy tags into copy buffer.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void copyTags(TrackData::TagVersion tagMask);
+
+  /**
    * Paste from copy buffer to ID3v1 tags.
    */
   void pasteTagsV1();
@@ -609,6 +640,13 @@ public slots:
    * Paste from copy buffer to ID3v2 tags.
    */
   void pasteTagsV2();
+
+  /**
+   * Paste from copy buffer to tags.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void pasteTags(TrackData::TagVersion tagMask);
 
   /**
    * Copy ID3v1 tags to ID3v2 tags of selected files.
@@ -621,6 +659,13 @@ public slots:
   void copyV2ToV1();
 
   /**
+   * Set tag from other tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void copyToOtherTag(TrackData::TagVersion tagMask);
+
+  /**
    * Remove ID3v1 tags in selected files.
    */
   void removeTagsV1();
@@ -629,6 +674,13 @@ public slots:
    * Remove ID3v2 tags in selected files.
    */
   void removeTagsV2();
+
+  /**
+   * Remove tags in selected files.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void removeTags(TrackData::TagVersion tagMask);
 
   /**
    * Set ID3v1 tags according to filename.
@@ -643,6 +695,13 @@ public slots:
    * are set, else the tags in the multiple selected files.
    */
   void getTagsFromFilenameV2();
+
+  /**
+   * Set tags according to filename.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void getTagsFromFilename(TrackData::TagVersion tagMask);
 
   /**
    * Set format used to generate filename from tags.

@@ -382,7 +382,7 @@ public slots:
    */
   void reparseConfiguration();
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play selected audio files.
    */

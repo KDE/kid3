@@ -1191,6 +1191,20 @@ void Kid3Application::copyTagsV2()
 }
 
 /**
+ * Copy tags into copy buffer.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ */
+void Kid3Application::copyTags(TrackData::TagVersion tagMask)
+{
+  if (tagMask & TrackData::TagV1) {
+    copyTagsV1();
+  } else if (tagMask & TrackData::TagV2) {
+    copyTagsV2();
+  }
+}
+
+/**
  * Paste from copy buffer to ID3v1 tags.
  */
 void Kid3Application::pasteTagsV1()
@@ -1224,6 +1238,20 @@ void Kid3Application::pasteTagsV2()
     it.next()->setFramesV2(frames, false);
   }
   emit selectedFilesUpdated();
+}
+
+/**
+ * Paste from copy buffer to tags.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ */
+void Kid3Application::pasteTags(TrackData::TagVersion tagMask)
+{
+  if (tagMask & TrackData::TagV1) {
+    pasteTagsV1();
+  } else if (tagMask & TrackData::TagV2) {
+    pasteTagsV2();
+  }
 }
 
 /**
@@ -1269,6 +1297,20 @@ void Kid3Application::copyV2ToV1()
 }
 
 /**
+ * Set tag from other tag.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ */
+void Kid3Application::copyToOtherTag(TrackData::TagVersion tagMask)
+{
+  if (tagMask & TrackData::TagV1) {
+    copyV2ToV1();
+  } else if (tagMask & TrackData::TagV2) {
+    copyV1ToV2();
+  }
+}
+
+/**
  * Remove ID3v1 tags in selected files.
  */
 void Kid3Application::removeTagsV1()
@@ -1298,6 +1340,20 @@ void Kid3Application::removeTagsV2()
     it.next()->deleteFramesV2(flt);
   }
   emit selectedFilesUpdated();
+}
+
+/**
+ * Remove tags in selected files.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ */
+void Kid3Application::removeTags(TrackData::TagVersion tagMask)
+{
+  if (tagMask & TrackData::TagV1) {
+    removeTagsV1();
+  } else if (tagMask & TrackData::TagV2) {
+    removeTagsV2();
+  }
 }
 
 /**
@@ -1348,6 +1404,20 @@ void Kid3Application::getTagsFromFilenameV2()
     taggedFile->setFramesV2(frames);
   }
   emit selectedFilesUpdated();
+}
+
+/**
+ * Set tags according to filename.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ */
+void Kid3Application::getTagsFromFilename(TrackData::TagVersion tagMask)
+{
+  if (tagMask & TrackData::TagV1) {
+    getTagsFromFilenameV1();
+  } else if (tagMask & TrackData::TagV2) {
+    getTagsFromFilenameV2();
+  }
 }
 
 /**
@@ -2355,4 +2425,91 @@ void Kid3Application::convertToId3v23()
     }
   }
   emit selectedFilesUpdated();
+}
+
+/**
+ * Get value of frame.
+ * To get binary data like a picture, the name of a file to write can be
+ * added after the @a name, e.g. "Picture:/path/to/file".
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ * @param name    name of frame (e.g. "Artist")
+ */
+QString Kid3Application::getFrame(TrackData::TagVersion tagMask,
+                                  const QString& name)
+{
+  QString frameName(name);
+  QString dataFileName;
+  int colonIndex = frameName.indexOf(QLatin1Char(':'));
+  if (colonIndex != -1) {
+    dataFileName = frameName.mid(colonIndex + 1);
+    frameName.truncate(colonIndex);
+  }
+  FrameTableModel* ft = (tagMask & TrackData::TagV2) ? m_framesV2Model :
+    m_framesV1Model;
+  FrameCollection::const_iterator it = ft->frames().findByName(frameName);
+  if (it != ft->frames().end()) {
+    if (!dataFileName.isEmpty()) {
+      PictureFrame::writeDataToFile(*it, dataFileName);
+    }
+    return it->getValue();
+  } else {
+    return QLatin1String("");
+  }
+}
+
+/**
+ * Set value of frame.
+ * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
+ * is added, if @a value is empty, the frame is deleted.
+ * To add binary data like a picture, a file can be added after the
+ * @a name, e.g. "Picture:/path/to/file".
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ * @param name    name of frame (e.g. "Artist")
+ * @param value   value of frame
+ */
+bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
+                               const QString& name, const QString& value)
+{
+  QString frameName(name);
+  QString dataFileName;
+  int colonIndex = frameName.indexOf(QLatin1Char(':'));
+  if (colonIndex != -1) {
+    dataFileName = frameName.mid(colonIndex + 1);
+    frameName.truncate(colonIndex);
+  }
+  FrameTableModel* ft = (tagMask & TrackData::TagV2) ? m_framesV2Model :
+    m_framesV1Model;
+  FrameCollection frames(ft->frames());
+  FrameCollection::iterator it = frames.findByName(frameName);
+  if (it != frames.end()) {
+    if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
+        (tagMask & 2) != 0) {
+      deleteFrame(it->getName());
+      PictureFrame frame;
+      PictureFrame::setDescription(frame, value);
+      PictureFrame::setDataFromFile(frame, dataFileName);
+      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+      addFrame(&frame);
+    } else if (value.isEmpty() && (tagMask & 2) != 0) {
+      deleteFrame(it->getName());
+    } else {
+      Frame& frame = const_cast<Frame&>(*it);
+      frame.setValueIfChanged(value);
+      ft->transferFrames(frames);
+    }
+    return true;
+  } else if (tagMask & 2) {
+    Frame frame(Frame::ExtendedType(frameName), value, -1);
+    if (frame.getType() == Frame::FT_Picture && !dataFileName.isEmpty()) {
+      PictureFrame::setFields(frame);
+      PictureFrame::setDescription(frame, value);
+      PictureFrame::setDataFromFile(frame, dataFileName);
+      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+    }
+    addFrame(&frame);
+    return true;
+  }
+  return false;
 }

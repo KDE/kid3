@@ -452,24 +452,7 @@ void ScriptInterface::setFileNameFromTag(int tagMask)
  */
 QString ScriptInterface::getFrame(int tagMask, const QString& name)
 {
-  QString frameName(name);
-  QString dataFileName;
-  int colonIndex = frameName.indexOf(QLatin1Char(':'));
-  if (colonIndex != -1) {
-    dataFileName = frameName.mid(colonIndex + 1);
-    frameName.truncate(colonIndex);
-  }
-  FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
-    m_app->frameModelV1();
-  FrameCollection::const_iterator it = ft->frames().findByName(frameName);
-  if (it != ft->frames().end()) {
-    if (!dataFileName.isEmpty()) {
-      PictureFrame::writeDataToFile(*it, dataFileName);
-    }
-    return it->getValue();
-  } else {
-    return QLatin1String("");
-  }
+  return m_app->getFrame(TrackData::tagVersionCast(tagMask), name);
 }
 
 /**
@@ -486,46 +469,7 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 bool ScriptInterface::setFrame(int tagMask, const QString& name,
                            const QString& value)
 {
-  QString frameName(name);
-  QString dataFileName;
-  int colonIndex = frameName.indexOf(QLatin1Char(':'));
-  if (colonIndex != -1) {
-    dataFileName = frameName.mid(colonIndex + 1);
-    frameName.truncate(colonIndex);
-  }
-  FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
-    m_app->frameModelV1();
-  FrameCollection frames(ft->frames());
-  FrameCollection::iterator it = frames.findByName(frameName);
-  if (it != frames.end()) {
-    if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
-        (tagMask & 2) != 0) {
-      m_app->deleteFrame(it->getName());
-      PictureFrame frame;
-      PictureFrame::setDescription(frame, value);
-      PictureFrame::setDataFromFile(frame, dataFileName);
-      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-      m_app->addFrame(&frame);
-    } else if (value.isEmpty() && (tagMask & 2) != 0) {
-      m_app->deleteFrame(it->getName());
-    } else {
-      Frame& frame = const_cast<Frame&>(*it);
-      frame.setValueIfChanged(value);
-      ft->transferFrames(frames);
-    }
-    return true;
-  } else if (tagMask & 2) {
-    Frame frame(Frame::ExtendedType(frameName), value, -1);
-    if (frame.getType() == Frame::FT_Picture && !dataFileName.isEmpty()) {
-      PictureFrame::setFields(frame);
-      PictureFrame::setDescription(frame, value);
-      PictureFrame::setDataFromFile(frame, dataFileName);
-      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-    }
-    m_app->addFrame(&frame);
-    return true;
-  }
-  return false;
+  return m_app->setFrame(TrackData::tagVersionCast(tagMask), name, value);
 }
 
 /**
@@ -607,11 +551,7 @@ QStringList ScriptInterface::getInformation()
  */
 void ScriptInterface::setTagFromFileName(int tagMask)
 {
-  if (tagMask & 1) {
-    m_app->getTagsFromFilenameV1();
-  } else if (tagMask & 2) {
-    m_app->getTagsFromFilenameV2();
-  }
+  m_app->getTagsFromFilename(TrackData::tagVersionCast(tagMask));
 }
 
 /**
@@ -621,11 +561,7 @@ void ScriptInterface::setTagFromFileName(int tagMask)
  */
 void ScriptInterface::setTagFromOtherTag(int tagMask)
 {
-  if (tagMask & 1) {
-    m_app->copyV2ToV1();
-  } else if (tagMask & 2) {
-    m_app->copyV1ToV2();
-  }
+  m_app->copyToOtherTag(TrackData::tagVersionCast(tagMask));
 }
 
 /**
@@ -635,11 +571,7 @@ void ScriptInterface::setTagFromOtherTag(int tagMask)
  */
 void ScriptInterface::copyTag(int tagMask)
 {
-  if (tagMask & 1) {
-    m_app->copyTagsV1();
-  } else if (tagMask & 2) {
-    m_app->copyTagsV2();
-  }
+  m_app->copyTags(TrackData::tagVersionCast(tagMask));
 }
 
 /**
@@ -649,11 +581,7 @@ void ScriptInterface::copyTag(int tagMask)
  */
 void ScriptInterface::pasteTag(int tagMask)
 {
-  if (tagMask & 1) {
-    m_app->pasteTagsV1();
-  } else if (tagMask & 2) {
-    m_app->pasteTagsV2();
-  }
+  m_app->pasteTags(TrackData::tagVersionCast(tagMask));
 }
 
 /**
@@ -663,11 +591,7 @@ void ScriptInterface::pasteTag(int tagMask)
  */
 void ScriptInterface::removeTag(int tagMask)
 {
-  if (tagMask & 1) {
-    m_app->removeTagsV1();
-  } else if (tagMask & 2) {
-    m_app->removeTagsV2();
-  }
+  m_app->removeTags(TrackData::tagVersionCast(tagMask));
 }
 
 /**
@@ -680,7 +604,7 @@ void ScriptInterface::reparseConfiguration()
   m_app->readConfig();
 }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play selected audio files.
  */
