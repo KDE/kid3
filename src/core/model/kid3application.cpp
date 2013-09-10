@@ -248,7 +248,8 @@ QObjectList Kid3Application::loadPlugins()
   }
 #endif
   bool pluginsDirFound = pluginsDir.cd(QLatin1String(
-      (dirName == QLatin1String("qt") || dirName == QLatin1String("kde"))
+      (dirName == QLatin1String("qt") || dirName == QLatin1String("kde") ||
+       dirName == QLatin1String("cli"))
       ? "../../plugins"
       : dirName == QLatin1String("test")
         ? "../plugins"
@@ -708,6 +709,22 @@ void Kid3Application::revertFileModifications()
   else {
     emit fileModified();
   }
+}
+
+/**
+ * Update modification state from files.
+ */
+void Kid3Application::updateModified()
+{
+  TaggedFileIterator it(m_fileProxyModelRootIndex);
+  while (it.hasNext()) {
+    TaggedFile* taggedFile = it.next();
+    if (taggedFile->isChanged()) {
+      m_modified = true;
+      return;
+    }
+  }
+  m_modified = false;
 }
 
 /**

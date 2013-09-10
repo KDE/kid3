@@ -520,6 +520,11 @@ public:
   bool isModified() { return m_modified; }
 
   /**
+   * Update modification state from files.
+   */
+  void updateModified();
+
+  /**
    * Set filter state.
    *
    * @param val true if list is filtered
@@ -532,6 +537,14 @@ public:
    * @return true if list is filtered.
    */
   bool isFiltered() { return m_filtered; }
+
+  /**
+   * Get format used to generate filename from tags.
+   * @return format
+   */
+  QString getFilenameToTagsFormat() const {
+    return m_filenameToTagsFormat;
+  }
 
   /**
    * Get format used to generate tags from filename.

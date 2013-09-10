@@ -261,6 +261,11 @@ public slots:
    */
   void deselectAllFrames();
 
+  /**
+   * Select changed frames in the table.
+   */
+  void selectChangedFrames();
+
 private:
   /**
    * Get the frame at a specific position in the collection.

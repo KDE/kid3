@@ -502,6 +502,22 @@ void FrameTableModel::deselectAllFrames()
 }
 
 /**
+ * Select changed frames in the table.
+ */
+void FrameTableModel::selectChangedFrames()
+{
+  int row;
+  FrameCollection::const_iterator it;
+  for (row = 0, it = m_frames.begin();
+       row < m_frameSelected.size() && it != m_frames.end();
+       ++row, ++it) {
+    if (it->isValueChanged()) {
+      m_frameSelected[row] = true;
+    }
+  }
+}
+
+/**
  * Resize the bit array with the frame selection to match the frames size.
  */
 void FrameTableModel::resizeFrameSelected()

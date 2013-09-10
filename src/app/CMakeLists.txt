@@ -12,6 +12,8 @@ if (BUILD_QT_APP)
   add_subdirectory(qt)
 endif (BUILD_QT_APP)
 
+add_subdirectory(cli)
+
 if (BUILD_KDE_APP)
   find_package(KDE4 REQUIRED)
   include (KDE4Defaults)
