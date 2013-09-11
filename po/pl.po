@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -22,8 +22,221 @@ msgstr ""
 "X-Language: pl\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Limit czasu"
+
+msgid "Usage:"
+msgstr "Użycie:"
+
+msgid "Help"
+msgstr "Pomoc"
+
+msgid "Command name"
+msgstr "Nazwa polecenia"
+
+msgid "Quit application"
+msgstr "Kończy program"
+
+msgid "The current directory has been modified."
+msgstr "Bieżący katalog został zmodyfikowany."
+
+msgid "Type 'exit force' to quit."
+msgstr "Typ 'exit force' aby zakończyć."
+
+msgid "Change directory"
+msgstr "Zmień katalog"
+
+msgid "%1 does not exist"
+msgstr "%1 nie istnieje"
+
+msgid "Print the filename of the current working directory"
+msgstr "Wypisanie pełnej nazwy bieżącego katalogu"
+
+msgid "Directory list"
+msgstr "Lista katalogów"
+
+msgid "Saves the changed files"
+msgstr "Zapisuje zmienione pliki"
+
+msgid "Error while writing file:\n"
+msgstr "Błąd podczas zapisu pliku:\n"
+
+msgid "Select file"
+msgstr "Wybierz plik"
+
+msgid "%1 not found"
+msgstr "%1 nie odnaleziony"
+
+msgid "Select tag"
+msgstr "Wybór znacznika"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Nie można ustawić \"%1\" dla %2"
+
+msgid "Revert"
+msgstr "Odwróć"
+
+msgid "Import from file or clipboard"
+msgstr "Importuj plik ze schowka"
+
+msgid "Format name"
+msgstr "Nazwa formatu"
+
+msgid "%1 not found."
+msgstr "Nie znaleziono %1."
+
+msgid "Available"
+msgstr "Dostępne"
+
+msgid "Error"
+msgstr "Błąd"
+
+msgid "Automatic import"
+msgstr "Automatycznie importuj"
+
+msgid "Profile name"
+msgstr "Nazwa profilu"
+
+msgid "Reading Directory"
+msgstr "Czytanie katalogu"
+
+msgid "Started"
+msgstr "Uruchomiono"
+
+msgid "Source"
+msgstr "Źródło"
+
+msgid "Querying"
+msgstr "Odpytywanie"
+
+msgid "Fetching"
+msgstr "Pobieranie"
+
+msgid "Data received"
+msgstr "Otrzymano dane"
+
+msgid "Cover"
+msgstr "Okładka"
+
+msgid "Finished"
+msgstr "Zakończono"
+
+msgid "Aborted"
+msgstr "Przerwane"
+
+msgid "Download album cover artwork"
+msgstr "Pobierz okładkę"
+
+msgid "Export to file or clipboard"
+msgstr "Eksportuj do pliku lub schowka"
+
+msgid "Create playlist"
+msgstr "Stwórz listę odtwarzania"
+
+msgid "Apply filename format"
+msgstr "Zastosuj formatowanie nazwy pliku"
+
+msgid "Apply tag format"
+msgstr "Zastosuj formatowanie znacznika"
+
+msgid "Apply text encoding"
+msgstr "Zastosuj kodowanie tekstu"
+
+msgid "Rename directory"
+msgstr "Zmień nazwę katalogu"
+
+msgid "Number tracks"
+msgstr "Numeruj ścieżki"
+
+msgid "Track number"
+msgstr "Numer ścieżki"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Filter name"
+msgstr "Nazwa filtru"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Konwertuj ID3v2.3 do ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Konwertuj ID3v2.4 do ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "Nazwa pliku ze znacznika"
+
+msgid "Tag from filename"
+msgstr "Znacznik wczytaj z nazwy pliku"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Kopiuj"
+
+msgid "Paste"
+msgstr "Wklej"
+
+msgid "Remove"
+msgstr "Usuń"
+
+msgid "Play"
+msgstr "Odtwarzaj"
+
+msgid "Parameter"
+msgstr "Parametr"
+
+msgid "File path"
+msgstr "Ścieżka pliku"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Numer ścieżki"
+
+msgid "Frame name"
+msgstr "Nazwa ramki"
+
+msgid "Frame value"
+msgstr "Wartość ramki"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Command specific"
+msgstr "Polecenie"
+
+msgid "Available Commands"
+msgstr "Dostępne polecenia"
+
+msgid "File"
+msgstr "Plik"
+
+msgid "Name"
+msgstr "Nazwa"
+
+msgid "Tag 2"
+msgstr "Znacznik 2"
+
+msgid "Tag 1"
+msgstr "Znacznik 1"
+
 msgid "Tags"
 msgstr "Znaczniki"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Nieznane polecenie '%1'. Wpisz 'help' dla pomocy."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Nieznane polecenie '%1', -h podaje pomoc."
 
 msgid "Files"
 msgstr "Pliki"
@@ -48,9 +261,6 @@ msgstr "Otwiera poprzednio używany katalog"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Przywraca do poprzedniego stanu zmiany we wszystkich wybranych plikach"
-
-msgid "Saves the changed files"
-msgstr "Zapisuje zmienione pliki"
 
 msgid "Quits the application"
 msgstr "Kończy program"
@@ -133,26 +343,11 @@ msgstr "&Poprzedni plik"
 msgid "&Next File"
 msgstr "&Następny plik"
 
-msgid "Tag 1"
-msgstr "Znacznik 1"
-
 msgid "From Filename"
 msgstr "Wczytaj z nazwy pliku"
 
 msgid "From Tag 2"
 msgstr "Ze znacznika 2"
-
-msgid "Copy"
-msgstr "Kopiuj"
-
-msgid "Paste"
-msgstr "Wklej"
-
-msgid "Remove"
-msgstr "Usuń"
-
-msgid "Tag 2"
-msgstr "Znacznik 2"
 
 msgid "From Tag 1"
 msgstr "Ze znacznika 1"
@@ -285,20 +480,11 @@ msgstr "&Zapisz"
 msgid "Re&vert"
 msgstr "Od&wróć"
 
-msgid "Import from file or clipboard"
-msgstr "Importuj plik ze schowka"
-
 msgid "Import from %1"
 msgstr "Importuj z %1"
 
-msgid "Automatic import"
-msgstr "Automatycznie importuj"
-
 msgid "Browse album cover artwork"
 msgstr "Pobierz okładkę"
-
-msgid "Export to file or clipboard"
-msgstr "Eksportuj do pliku lub schowka"
 
 msgid "Create M3U Playlist"
 msgstr "Utwórz listę odtwarzania M3U"
@@ -341,18 +527,6 @@ msgstr "Zmień nazwę katalogu"
 
 msgid "Number Tracks"
 msgstr "Numeruj ścieżki"
-
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Konwertuj ID3v2.3 do ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Konwertuj ID3v2.4 do ID3v2.3"
-
-msgid "Play"
-msgstr "Odtwarzaj"
 
 msgid "&Settings"
 msgstr "&Ustawienia"
@@ -447,9 +621,6 @@ msgstr "Niewłaściwy plik"
 msgid "Data received: %1"
 msgstr "Otrzymano dane: %1"
 
-msgid "Error"
-msgstr "Błąd"
-
 msgid "Request sent..."
 msgstr "Wysłano zapytanie..."
 
@@ -477,9 +648,6 @@ msgstr "Potwierdź"
 msgid "Output"
 msgstr "Wyjście"
 
-msgid "Name"
-msgstr "Nazwa"
-
 msgid "Command"
 msgstr "Polecenie"
 
@@ -506,9 +674,6 @@ msgstr "Nowe nazwa katalogu jest też różne\n"
 
 msgid "Create directory"
 msgstr "Utwórz katalog"
-
-msgid "Rename directory"
-msgstr "Zmień nazwę katalogu"
 
 msgid "Rename file"
 msgstr "Zmień nazwę pliku"
@@ -720,6 +885,9 @@ msgstr "Kanały"
 msgid "Codec"
 msgstr "Kodek"
 
+msgid "Escape for HTML"
+msgstr "Wyjdź HTML"
+
 msgid "Automatic Import"
 msgstr "Automatycznie importuj"
 
@@ -737,33 +905,6 @@ msgstr "&Zapisz ustawienia"
 
 msgid "New"
 msgstr "Nowy"
-
-msgid "Reading Directory"
-msgstr "Czytanie katalogu"
-
-msgid "Started"
-msgstr "Uruchomiono"
-
-msgid "Source"
-msgstr "Źródło"
-
-msgid "Querying"
-msgstr "Odpytywanie"
-
-msgid "Fetching"
-msgstr "Pobieranie"
-
-msgid "Data received"
-msgstr "Otrzymano dane"
-
-msgid "Cover"
-msgstr "Okładka"
-
-msgid "Finished"
-msgstr "Zakończono"
-
-msgid "Aborted"
-msgstr "Przerwane"
 
 msgid "A&bort"
 msgstr "&Przerwij"
@@ -967,9 +1108,6 @@ msgstr "Kodowanie tekstu"
 msgid "Text"
 msgstr "Tekst"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Opis"
 
@@ -1135,9 +1273,6 @@ msgstr "&Źródło:"
 msgid "File Error"
 msgstr "Błąd otwarcia pliku"
 
-msgid "Error while writing file:\n"
-msgstr "Błąd podczas zapisu pliku:\n"
-
 msgid "&Filter:"
 msgstr "&Filtr:"
 
@@ -1161,9 +1296,6 @@ msgstr "Ze zn&acznika..."
 
 msgid "&From Server:"
 msgstr "Z se&rwera:"
-
-msgid "Revert"
-msgstr "Odwróć"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Sprawdź dopuszczalną &różnicę czasu (sek.):"
@@ -1239,9 +1371,6 @@ msgstr "Tylko &listy plików"
 
 msgid "Write &info using"
 msgstr "Dodatkowa &informacja z maski"
-
-msgid "Format"
-msgstr "Format"
 
 msgid "Preview"
 msgstr "Podgląd"

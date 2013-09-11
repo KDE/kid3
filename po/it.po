@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -20,8 +20,221 @@ msgstr ""
 "X-Language: it\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Tempo massimo"
+
+msgid "Usage:"
+msgstr "Utilizzo:"
+
+msgid "Help"
+msgstr "Aiuto"
+
+msgid "Command name"
+msgstr "Nome comando"
+
+msgid "Quit application"
+msgstr "Esce dall'applicazione"
+
+msgid "The current directory has been modified."
+msgstr "La cartella in uso è stata modificata."
+
+msgid "Type 'exit force' to quit."
+msgstr "Digitate 'exit force' per uscire."
+
+msgid "Change directory"
+msgstr "Cambia cartella"
+
+msgid "%1 does not exist"
+msgstr "%1 non esiste"
+
+msgid "Print the filename of the current working directory"
+msgstr "Stampa il nome dell'attuale directory di lavoro"
+
+msgid "Directory list"
+msgstr "Lista delle cartelle"
+
+msgid "Saves the changed files"
+msgstr "Salva i file modificati"
+
+msgid "Error while writing file:\n"
+msgstr "Errore durante la scrittura del file:\n"
+
+msgid "Select file"
+msgstr "Seleziona file"
+
+msgid "%1 not found"
+msgstr "%1 non trovato"
+
+msgid "Select tag"
+msgstr "Seleziona tag"
+
+msgid "Get tag frame"
+msgstr "Ottienei tag frame"
+
+msgid "Set tag frame"
+msgstr "Imposta tag frame"
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Impossibile impostare %2 a \"%1\""
+
+msgid "Revert"
+msgstr "Ripristina"
+
+msgid "Import from file or clipboard"
+msgstr "Importa da file o dagli appunti"
+
+msgid "Format name"
+msgstr "Nome del formato"
+
+msgid "%1 not found."
+msgstr "%1 non trovata."
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Error"
+msgstr "Errore"
+
+msgid "Automatic import"
+msgstr "Importa automaticamente"
+
+msgid "Profile name"
+msgstr "Nome profilo"
+
+msgid "Reading Directory"
+msgstr "Lettura cartella"
+
+msgid "Started"
+msgstr "Cominciato"
+
+msgid "Source"
+msgstr "Origine"
+
+msgid "Querying"
+msgstr "Interrogazione"
+
+msgid "Fetching"
+msgstr "Recupero"
+
+msgid "Data received"
+msgstr "Dati ricevuti"
+
+msgid "Cover"
+msgstr "Copertina"
+
+msgid "Finished"
+msgstr "Finito"
+
+msgid "Aborted"
+msgstr "Interrotto"
+
+msgid "Download album cover artwork"
+msgstr "Preleva copertina"
+
+msgid "Export to file or clipboard"
+msgstr "Esporta in un file o negli appunti"
+
+msgid "Create playlist"
+msgstr "Crea Playlist"
+
+msgid "Apply filename format"
+msgstr "Applica formato Nome file"
+
+msgid "Apply tag format"
+msgstr "Applica formato Tag"
+
+msgid "Apply text encoding"
+msgstr "Applica codifica del testo"
+
+msgid "Rename directory"
+msgstr "Rinomina cartella"
+
+msgid "Number tracks"
+msgstr "Numero tracce"
+
+msgid "Track number"
+msgstr "Numero traccia"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Filter name"
+msgstr "Nome del filtro"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converti ID3v2.3 in ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converti ID3v2.4 in ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "Nome file da Tag"
+
+msgid "Tag from filename"
+msgstr "Tag dal Nome file"
+
+msgid "Tag to other tag"
+msgstr "Tag dal altro tag"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Paste"
+msgstr "Incolla"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Play"
+msgstr "Riproduci"
+
+msgid "Parameter"
+msgstr "Parametro"
+
+msgid "File path"
+msgstr "Percorso file"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Numero tag"
+
+msgid "Frame name"
+msgstr "Nome frame"
+
+msgid "Frame value"
+msgstr "Valore frame"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Command specific"
+msgstr "Specifico di un comando"
+
+msgid "Available Commands"
+msgstr "Comandi disponibili"
+
+msgid "File"
+msgstr "File"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
 msgid "Tags"
 msgstr "Tag"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Comando sconosciuto '%1'. Esegui 'help' per un aiuto."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Comando sconosciuto '%1', -h per l'aiuto."
 
 msgid "Files"
 msgstr "File"
@@ -46,9 +259,6 @@ msgstr "Apre una cartella usata di recente"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Annulla le modifiche eseguite su tutti i file o quelli selezionati"
-
-msgid "Saves the changed files"
-msgstr "Salva i file modificati"
 
 msgid "Quits the application"
 msgstr "Esce dall'applicazione"
@@ -131,26 +341,11 @@ msgstr "File &precedente"
 msgid "&Next File"
 msgstr "File &successivo"
 
-msgid "Tag 1"
-msgstr "Tag 1"
-
 msgid "From Filename"
 msgstr "Dal Nome file"
 
 msgid "From Tag 2"
 msgstr "Da Tag 2"
-
-msgid "Copy"
-msgstr "Copia"
-
-msgid "Paste"
-msgstr "Incolla"
-
-msgid "Remove"
-msgstr "Rimuovi"
-
-msgid "Tag 2"
-msgstr "Tag 2"
 
 msgid "From Tag 1"
 msgstr "Da Tag 1"
@@ -283,20 +478,11 @@ msgstr "&Salva"
 msgid "Re&vert"
 msgstr "Ri&pristina"
 
-msgid "Import from file or clipboard"
-msgstr "Importa da file o dagli appunti"
-
 msgid "Import from %1"
 msgstr "Importa da %1"
 
-msgid "Automatic import"
-msgstr "Importa automaticamente"
-
 msgid "Browse album cover artwork"
 msgstr "Preleva copertina"
-
-msgid "Export to file or clipboard"
-msgstr "Esporta in un file o negli appunti"
 
 msgid "Create M3U Playlist"
 msgstr "Crea Playlist M3U"
@@ -339,18 +525,6 @@ msgstr "Rinomina cartella"
 
 msgid "Number Tracks"
 msgstr "Numero tracce"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Converti ID3v2.3 in ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Converti ID3v2.4 in ID3v2.3"
-
-msgid "Play"
-msgstr "Riproduci"
 
 msgid "&Settings"
 msgstr "Imp&ostazioni"
@@ -445,9 +619,6 @@ msgstr "File non valido"
 msgid "Data received: %1"
 msgstr "Dati ricevuti: %1"
 
-msgid "Error"
-msgstr "Errore"
-
 msgid "Request sent..."
 msgstr "Richiesta inviata..."
 
@@ -475,9 +646,6 @@ msgstr "Conferma"
 msgid "Output"
 msgstr "Output"
 
-msgid "Name"
-msgstr "Nome"
-
 msgid "Command"
 msgstr "Comando"
 
@@ -504,9 +672,6 @@ msgstr "Il nuovo nome della cartella è troppo diverso\n"
 
 msgid "Create directory"
 msgstr "Crea cartella"
-
-msgid "Rename directory"
-msgstr "Rinomina cartella"
 
 msgid "Rename file"
 msgstr "Rinomina file"
@@ -718,6 +883,9 @@ msgstr "Canali"
 msgid "Codec"
 msgstr "Codec"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Importa automaticamente"
 
@@ -735,33 +903,6 @@ msgstr "&Salva impostazioni"
 
 msgid "New"
 msgstr "Nuovi"
-
-msgid "Reading Directory"
-msgstr "Lettura cartella"
-
-msgid "Started"
-msgstr "Cominciato"
-
-msgid "Source"
-msgstr "Origine"
-
-msgid "Querying"
-msgstr "Interrogazione"
-
-msgid "Fetching"
-msgstr "Recupero"
-
-msgid "Data received"
-msgstr "Dati ricevuti"
-
-msgid "Cover"
-msgstr "Copertina"
-
-msgid "Finished"
-msgstr "Finito"
-
-msgid "Aborted"
-msgstr "Interrotto"
 
 msgid "A&bort"
 msgstr "Inte&rrompi"
@@ -964,9 +1105,6 @@ msgstr "Codifica del testo"
 msgid "Text"
 msgstr "Testo"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Descrizione"
 
@@ -1132,9 +1270,6 @@ msgstr "Ori&gine:"
 msgid "File Error"
 msgstr "Errore del file"
 
-msgid "Error while writing file:\n"
-msgstr "Errore durante la scrittura del file:\n"
-
 msgid "&Filter:"
 msgstr "&Filtro:"
 
@@ -1158,9 +1293,6 @@ msgstr "Da T&ag..."
 
 msgid "&From Server:"
 msgstr "Dal Ser&ver:"
-
-msgid "Revert"
-msgstr "Ripristina"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Controlla &differenza tempo max ammissibile (sec):"
@@ -1236,9 +1368,6 @@ msgstr "Scrivi solo la &lista dei file"
 
 msgid "Write &info using"
 msgstr "Scrivi le &informazioni usando"
-
-msgid "Format"
-msgstr "Formato"
 
 msgid "Preview"
 msgstr "Anteprima"

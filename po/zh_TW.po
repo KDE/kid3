@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -23,8 +23,221 @@ msgstr ""
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "逾時"
+
+msgid "Usage:"
+msgstr "用法:"
+
+msgid "Help"
+msgstr "求助"
+
+msgid "Command name"
+msgstr "指令"
+
+msgid "Quit application"
+msgstr "離開應用程式"
+
+msgid "The current directory has been modified."
+msgstr "目前目錄已更動."
+
+msgid "Type 'exit force' to quit."
+msgstr "類型 'exit force' 離開."
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr "%1 不存在"
+
+msgid "Print the filename of the current working directory"
+msgstr ""
+
+msgid "Directory list"
+msgstr "目錄清單"
+
+msgid "Saves the changed files"
+msgstr "儲存更動的檔案"
+
+msgid "Error while writing file:\n"
+msgstr "寫入檔案錯誤:\n"
+
+msgid "Select file"
+msgstr "選取檔案"
+
+msgid "%1 not found"
+msgstr "沒有找到 %1"
+
+msgid "Select tag"
+msgstr "選取標籤"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr ""
+
+msgid "Revert"
+msgstr "還原"
+
+msgid "Import from file or clipboard"
+msgstr "自剪貼簿匯入"
+
+msgid "Format name"
+msgstr "格式"
+
+msgid "%1 not found."
+msgstr "未找到 %1."
+
+msgid "Available"
+msgstr "可用"
+
+msgid "Error"
+msgstr "錯誤"
+
+msgid "Automatic import"
+msgstr "自動匯入"
+
+msgid "Profile name"
+msgstr "設定檔名稱"
+
+msgid "Reading Directory"
+msgstr "正在讀取目錄"
+
+msgid "Started"
+msgstr "已開始"
+
+msgid "Source"
+msgstr "來源"
+
+msgid "Querying"
+msgstr "正查詢"
+
+msgid "Fetching"
+msgstr "接收中"
+
+msgid "Data received"
+msgstr "获得的数据进行"
+
+msgid "Cover"
+msgstr "封面"
+
+msgid "Finished"
+msgstr "已完成"
+
+msgid "Aborted"
+msgstr "已中止"
+
+msgid "Download album cover artwork"
+msgstr "瀏覽專輯封面"
+
+msgid "Export to file or clipboard"
+msgstr "匯出至檔案或剪貼簿"
+
+msgid "Create playlist"
+msgstr "建立播放清單"
+
+msgid "Apply filename format"
+msgstr "套用檔名格式"
+
+msgid "Apply tag format"
+msgstr "套用 Tag 格式"
+
+msgid "Apply text encoding"
+msgstr "将字符编码"
+
+msgid "Rename directory"
+msgstr "更改目錄名稱"
+
+msgid "Number tracks"
+msgstr "音軌編號"
+
+msgid "Track number"
+msgstr "音軌編號"
+
+msgid "Filter"
+msgstr "篩選"
+
+msgid "Filter name"
+msgstr "檔名"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "從 ID3v2.3 轉換成 ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "從 ID3v2.4 轉換成 ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "檔名從標籤"
+
+msgid "Tag from filename"
+msgstr "標籤從檔名"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Paste"
+msgstr "貼上"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Play"
+msgstr "播放"
+
+msgid "Parameter"
+msgstr "參數"
+
+msgid "File path"
+msgstr "檔案路徑"
+
+msgid "URL"
+msgstr "網址"
+
+msgid "Tag numbers"
+msgstr "音軌編號"
+
+msgid "Frame name"
+msgstr "從檔名"
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr "格式"
+
+msgid "Command specific"
+msgstr "指令"
+
+msgid "Available Commands"
+msgstr "可用的指令"
+
+msgid "File"
+msgstr "檔案"
+
+msgid "Name"
+msgstr "名稱"
+
+msgid "Tag 2"
+msgstr "標籤 2"
+
+msgid "Tag 1"
+msgstr "標籤 1"
+
 msgid "Tags"
 msgstr "標籤"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "未知的指令 '%1'. 輸入 'help' 就可以閱讀幫助訊息."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "未知的指令 '%1', 或用 -h 求助."
 
 msgid "Files"
 msgstr "檔案"
@@ -49,9 +262,6 @@ msgstr "開啟目前所在的目錄"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "還原全部有更動的檔案或只有選取部份"
-
-msgid "Saves the changed files"
-msgstr "儲存更動的檔案"
 
 msgid "Quits the application"
 msgstr "離開應用程式"
@@ -134,26 +344,11 @@ msgstr "上一個檔案(&P)"
 msgid "&Next File"
 msgstr "下一個檔案(&N)"
 
-msgid "Tag 1"
-msgstr "標籤 1"
-
 msgid "From Filename"
 msgstr "從檔名"
 
 msgid "From Tag 2"
 msgstr "從標籤 2"
-
-msgid "Copy"
-msgstr "複製"
-
-msgid "Paste"
-msgstr "貼上"
-
-msgid "Remove"
-msgstr "移除"
-
-msgid "Tag 2"
-msgstr "標籤 2"
 
 msgid "From Tag 1"
 msgstr "從標籤 1"
@@ -286,20 +481,11 @@ msgstr "儲存(&S)"
 msgid "Re&vert"
 msgstr "還原(&V)"
 
-msgid "Import from file or clipboard"
-msgstr "自剪貼簿匯入"
-
 msgid "Import from %1"
 msgstr "自 %1 匯入"
 
-msgid "Automatic import"
-msgstr "自動匯入"
-
 msgid "Browse album cover artwork"
 msgstr "瀏覽專輯封面"
-
-msgid "Export to file or clipboard"
-msgstr "匯出至檔案或剪貼簿"
 
 msgid "Create M3U Playlist"
 msgstr "建立 M3U 播放清單"
@@ -342,18 +528,6 @@ msgstr "更改目錄名稱"
 
 msgid "Number Tracks"
 msgstr "音軌編號"
-
-msgid "Filter"
-msgstr "篩選"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "從 ID3v2.3 轉換成 ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "從 ID3v2.4 轉換成 ID3v2.3"
-
-msgid "Play"
-msgstr "播放"
 
 msgid "&Settings"
 msgstr "設定(&S)"
@@ -448,9 +622,6 @@ msgstr "檔案無效"
 msgid "Data received: %1"
 msgstr "接收 %1 資料中"
 
-msgid "Error"
-msgstr "錯誤"
-
 msgid "Request sent..."
 msgstr "送出連線要求..."
 
@@ -478,9 +649,6 @@ msgstr "確認"
 msgid "Output"
 msgstr "輸出"
 
-msgid "Name"
-msgstr "名稱"
-
 msgid "Command"
 msgstr "指令"
 
@@ -507,9 +675,6 @@ msgstr "新目錄名稱太奇怪\n"
 
 msgid "Create directory"
 msgstr "建立目錄"
-
-msgid "Rename directory"
-msgstr "更改目錄名稱"
 
 msgid "Rename file"
 msgstr "更改檔案名稱"
@@ -721,6 +886,9 @@ msgstr "頻道"
 msgid "Codec"
 msgstr "Codec"
 
+msgid "Escape for HTML"
+msgstr "脫逸 HTML"
+
 msgid "Automatic Import"
 msgstr "自動匯入"
 
@@ -738,33 +906,6 @@ msgstr "儲存設定(&S)"
 
 msgid "New"
 msgstr "新增"
-
-msgid "Reading Directory"
-msgstr "正在讀取目錄"
-
-msgid "Started"
-msgstr "已開始"
-
-msgid "Source"
-msgstr "來源"
-
-msgid "Querying"
-msgstr "正查詢"
-
-msgid "Fetching"
-msgstr "接收中"
-
-msgid "Data received"
-msgstr "获得的数据进行"
-
-msgid "Cover"
-msgstr "封面"
-
-msgid "Finished"
-msgstr "已完成"
-
-msgid "Aborted"
-msgstr "已中止"
 
 msgid "A&bort"
 msgstr "中斷(&B)"
@@ -968,9 +1109,6 @@ msgstr "字元編碼"
 msgid "Text"
 msgstr "文字"
 
-msgid "URL"
-msgstr "網址"
-
 msgid "Description"
 msgstr "描述"
 
@@ -1136,9 +1274,6 @@ msgstr "來源(&S):"
 msgid "File Error"
 msgstr "檔案錯誤"
 
-msgid "Error while writing file:\n"
-msgstr "寫入檔案錯誤:\n"
-
 msgid "&Filter:"
 msgstr "篩選(&F):"
 
@@ -1162,9 +1297,6 @@ msgstr "從標籤(&a)..."
 
 msgid "&From Server:"
 msgstr "從伺服器(&F):"
-
-msgid "Revert"
-msgstr "還原"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "請勾選最大可允許的時間差異(單位為秒)(&D)："
@@ -1240,9 +1372,6 @@ msgstr "僅依據檔案清單來寫入(&L)"
 
 msgid "Write &info using"
 msgstr "寫入依據(&I)"
-
-msgid "Format"
-msgstr "格式"
 
 msgid "Preview"
 msgstr "預覽"

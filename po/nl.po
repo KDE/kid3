@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -21,8 +21,221 @@ msgstr ""
 "X-Language: nl\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Tijdslimiet"
+
+msgid "Usage:"
+msgstr "Gebruik:"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Command name"
+msgstr "Commandonaam"
+
+msgid "Quit application"
+msgstr "Sluit de toepassing"
+
+msgid "The current directory has been modified."
+msgstr "De huidige map is gewijzigd."
+
+msgid "Type 'exit force' to quit."
+msgstr "Type 'exit force' als u klaar bent."
+
+msgid "Change directory"
+msgstr "Verander map"
+
+msgid "%1 does not exist"
+msgstr "%1 bestaat niet"
+
+msgid "Print the filename of the current working directory"
+msgstr "Toon de bestandsnaam van de huidige werkmap"
+
+msgid "Directory list"
+msgstr "Mappenlijst"
+
+msgid "Saves the changed files"
+msgstr "Slaat de gewijzigde bestanden op"
+
+msgid "Error while writing file:\n"
+msgstr "Er is een fout opgetreden tijdens het opslaan van het bestand:\n"
+
+msgid "Select file"
+msgstr "Bestand selecteren"
+
+msgid "%1 not found"
+msgstr "%1 niet gevonden"
+
+msgid "Select tag"
+msgstr "Tag selecteren"
+
+msgid "Get tag frame"
+msgstr "Frame ophalen"
+
+msgid "Set tag frame"
+msgstr "Frame instellen"
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Kon \"%1\" niet instellen voor %2"
+
+msgid "Revert"
+msgstr "Ongedaan maken"
+
+msgid "Import from file or clipboard"
+msgstr "Importeer van bestand of klembord"
+
+msgid "Format name"
+msgstr "Naam van format"
+
+msgid "%1 not found."
+msgstr "%1 niet gevonden."
+
+msgid "Available"
+msgstr "Beschikbaar"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Automatic import"
+msgstr "Automatisch importeren"
+
+msgid "Profile name"
+msgstr "Profielnaam"
+
+msgid "Reading Directory"
+msgstr "Directory lezen"
+
+msgid "Started"
+msgstr "Begonnen"
+
+msgid "Source"
+msgstr "Bron"
+
+msgid "Querying"
+msgstr "Aanvraag loopt"
+
+msgid "Fetching"
+msgstr "Ophalen"
+
+msgid "Data received"
+msgstr "Gegevens ontvangen"
+
+msgid "Cover"
+msgstr "Hoes"
+
+msgid "Finished"
+msgstr "Voltooid"
+
+msgid "Aborted"
+msgstr "Afgebroken"
+
+msgid "Download album cover artwork"
+msgstr "Hoes ophalen"
+
+msgid "Export to file or clipboard"
+msgstr "Exporteer naar bestand of klembord"
+
+msgid "Create playlist"
+msgstr "Multimedia afspeellijst maken"
+
+msgid "Apply filename format"
+msgstr "Bestandsnaamstructuur Toepassen"
+
+msgid "Apply tag format"
+msgstr "Tagstructuur toepassen"
+
+msgid "Apply text encoding"
+msgstr "Tekst-codering toepassen"
+
+msgid "Rename directory"
+msgstr "Map hernoemen"
+
+msgid "Number tracks"
+msgstr "Tracks nummeren"
+
+msgid "Track number"
+msgstr "Tracknummer"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Filter name"
+msgstr "Filternaam"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 omzetten"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 omzetten"
+
+msgid "Filename from tag"
+msgstr "Bestandsnaam van Tag"
+
+msgid "Tag from filename"
+msgstr "Tag van bestandsnaam"
+
+msgid "Tag to other tag"
+msgstr "Tag van ander tag"
+
+msgid "Copy"
+msgstr "Tag kopiëren"
+
+msgid "Paste"
+msgstr "Tag plakken"
+
+msgid "Remove"
+msgstr "Tag verwijderen"
+
+msgid "Play"
+msgstr "Afspelen"
+
+msgid "Parameter"
+msgstr "Parameter"
+
+msgid "File path"
+msgstr "Bestandspad"
+
+msgid "URL"
+msgstr "URL-adres"
+
+msgid "Tag numbers"
+msgstr "Tagnummer"
+
+msgid "Frame name"
+msgstr "Framenaam"
+
+msgid "Frame value"
+msgstr "Framewaarde"
+
+msgid "Format"
+msgstr "Opmaak"
+
+msgid "Command specific"
+msgstr "Commandospecifieke"
+
+msgid "Available Commands"
+msgstr "Beschikbare opdrachten"
+
+msgid "File"
+msgstr "Bestand"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
 msgid "Tags"
 msgstr "Tags"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Onbekend commando '%1'. Typ 'help' voor help."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Onbekend commando '%1', -h voor help."
 
 msgid "Files"
 msgstr "Bestanden"
@@ -47,9 +260,6 @@ msgstr "Opent een recent geopende map"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Maakt de wijzigingen van alle of de geselcteerde bestanden ongedaan"
-
-msgid "Saves the changed files"
-msgstr "Slaat de gewijzigde bestanden op"
 
 msgid "Quits the application"
 msgstr "Sluit de toepassing"
@@ -132,26 +342,11 @@ msgstr "&Vorig bestand"
 msgid "&Next File"
 msgstr "Volge&nd bestand"
 
-msgid "Tag 1"
-msgstr "Tag 1"
-
 msgid "From Filename"
 msgstr "Van bestandsnaam"
 
 msgid "From Tag 2"
 msgstr "Van Tag 2"
-
-msgid "Copy"
-msgstr "Tag kopiëren"
-
-msgid "Paste"
-msgstr "Tag plakken"
-
-msgid "Remove"
-msgstr "Tag verwijderen"
-
-msgid "Tag 2"
-msgstr "Tag 2"
 
 msgid "From Tag 1"
 msgstr "Van Tag 1"
@@ -186,7 +381,6 @@ msgstr "Kid3 instellen"
 msgid "Open"
 msgstr "Openen"
 
-#, fuzzy
 msgid "Save As"
 msgstr "Opslaan als"
 
@@ -285,20 +479,11 @@ msgstr "Op&slaan"
 msgid "Re&vert"
 msgstr "On&gedaan maken"
 
-msgid "Import from file or clipboard"
-msgstr "Importeer van bestand of klembord"
-
 msgid "Import from %1"
 msgstr "Importeer van %1"
 
-msgid "Automatic import"
-msgstr "Automatisch importeren"
-
 msgid "Browse album cover artwork"
 msgstr "Hoes ophalen"
-
-msgid "Export to file or clipboard"
-msgstr "Exporteer naar bestand of klembord"
 
 msgid "Create M3U Playlist"
 msgstr "M3U speellijst aanmaken"
@@ -341,18 +526,6 @@ msgstr "Map hernoemen"
 
 msgid "Number Tracks"
 msgstr "Tracks nummeren"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "ID3v2.3 naar ID3v2.4 omzetten"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "ID3v2.4 naar ID3v2.3 omzetten"
-
-msgid "Play"
-msgstr "Afspelen"
 
 msgid "&Settings"
 msgstr "&Instellingen"
@@ -447,9 +620,6 @@ msgstr "Ongeldig bestand"
 msgid "Data received: %1"
 msgstr "Gegevens ontvangen: %1"
 
-msgid "Error"
-msgstr "Fout"
-
 msgid "Request sent..."
 msgstr "Verzoek verzonden..."
 
@@ -477,9 +647,6 @@ msgstr "Bevestigen"
 msgid "Output"
 msgstr "Uitvoer"
 
-msgid "Name"
-msgstr "Naam"
-
 msgid "Command"
 msgstr "Commando"
 
@@ -506,9 +673,6 @@ msgstr "De nieuwe mapnaam is te verschillend\n"
 
 msgid "Create directory"
 msgstr "Map aanmaken"
-
-msgid "Rename directory"
-msgstr "Map hernoemen"
 
 msgid "Rename file"
 msgstr "Bestand hernoemen"
@@ -720,6 +884,9 @@ msgstr "Kanalen"
 msgid "Codec"
 msgstr "Codec"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Automatisch importeren"
 
@@ -737,33 +904,6 @@ msgstr "&Instellingen opslaan"
 
 msgid "New"
 msgstr "Nieuwe"
-
-msgid "Reading Directory"
-msgstr "Directory lezen"
-
-msgid "Started"
-msgstr "Begonnen"
-
-msgid "Source"
-msgstr "Bron"
-
-msgid "Querying"
-msgstr "Aanvraag loopt"
-
-msgid "Fetching"
-msgstr "Ophalen"
-
-msgid "Data received"
-msgstr "Gegevens ontvangen"
-
-msgid "Cover"
-msgstr "Hoes"
-
-msgid "Finished"
-msgstr "Voltooid"
-
-msgid "Aborted"
-msgstr "Afgebroken"
 
 msgid "A&bort"
 msgstr "Af&breken"
@@ -966,9 +1106,6 @@ msgstr "Tekst-Codering"
 msgid "Text"
 msgstr "Tekst"
 
-msgid "URL"
-msgstr "URL-adres"
-
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -1134,9 +1271,6 @@ msgstr "T&agbron:"
 msgid "File Error"
 msgstr "Bestandsfout"
 
-msgid "Error while writing file:\n"
-msgstr "Er is een fout opgetreden tijdens het opslaan van het bestand:\n"
-
 msgid "&Filter:"
 msgstr "&Filter:"
 
@@ -1160,9 +1294,6 @@ msgstr "Van &tags..."
 
 msgid "&From Server:"
 msgstr "Van &server:"
-
-msgid "Revert"
-msgstr "Ongedaan maken"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "&Maximum tijdverschil (sec):"
@@ -1238,9 +1369,6 @@ msgstr "Bewaar enkel &lijst met bestanden"
 
 msgid "Write &info using"
 msgstr "Bewaar &info gebruik makend van"
-
-msgid "Format"
-msgstr "Opmaak"
 
 msgid "Preview"
 msgstr "Voorbeeld"

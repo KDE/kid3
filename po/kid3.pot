@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,220 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Timeout"
+msgstr ""
+
+msgid "Usage:"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Command name"
+msgstr ""
+
+msgid "Quit application"
+msgstr ""
+
+msgid "The current directory has been modified."
+msgstr ""
+
+msgid "Type 'exit force' to quit."
+msgstr ""
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr ""
+
+msgid "Print the filename of the current working directory"
+msgstr ""
+
+msgid "Directory list"
+msgstr ""
+
+msgid "Saves the changed files"
+msgstr ""
+
+msgid "Error while writing file:\n"
+msgstr ""
+
+msgid "Select file"
+msgstr ""
+
+msgid "%1 not found"
+msgstr ""
+
+msgid "Select tag"
+msgstr ""
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr ""
+
+msgid "Revert"
+msgstr ""
+
+msgid "Import from file or clipboard"
+msgstr ""
+
+msgid "Format name"
+msgstr ""
+
+msgid "%1 not found."
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Automatic import"
+msgstr ""
+
+msgid "Profile name"
+msgstr ""
+
+msgid "Reading Directory"
+msgstr ""
+
+msgid "Started"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Querying"
+msgstr ""
+
+msgid "Fetching"
+msgstr ""
+
+msgid "Data received"
+msgstr ""
+
+msgid "Cover"
+msgstr ""
+
+msgid "Finished"
+msgstr ""
+
+msgid "Aborted"
+msgstr ""
+
+msgid "Download album cover artwork"
+msgstr ""
+
+msgid "Export to file or clipboard"
+msgstr ""
+
+msgid "Create playlist"
+msgstr ""
+
+msgid "Apply filename format"
+msgstr ""
+
+msgid "Apply tag format"
+msgstr ""
+
+msgid "Apply text encoding"
+msgstr ""
+
+msgid "Rename directory"
+msgstr ""
+
+msgid "Number tracks"
+msgstr ""
+
+msgid "Track number"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Filter name"
+msgstr ""
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr ""
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr ""
+
+msgid "Filename from tag"
+msgstr ""
+
+msgid "Tag from filename"
+msgstr ""
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
+msgid "Paste"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Play"
+msgstr ""
+
+msgid "Parameter"
+msgstr ""
+
+msgid "File path"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Tag numbers"
+msgstr ""
+
+msgid "Frame name"
+msgstr ""
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Command specific"
+msgstr ""
+
+msgid "Available Commands"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Tag 2"
+msgstr ""
+
+msgid "Tag 1"
+msgstr ""
+
 msgid "Tags"
+msgstr ""
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr ""
+
+msgid "Unknown command '%1', -h for help."
 msgstr ""
 
 msgid "Files"
@@ -42,9 +255,6 @@ msgid "Opens a recently used directory"
 msgstr ""
 
 msgid "Reverts the changes of all or the selected files"
-msgstr ""
-
-msgid "Saves the changed files"
 msgstr ""
 
 msgid "Quits the application"
@@ -128,25 +338,10 @@ msgstr ""
 msgid "&Next File"
 msgstr ""
 
-msgid "Tag 1"
-msgstr ""
-
 msgid "From Filename"
 msgstr ""
 
 msgid "From Tag 2"
-msgstr ""
-
-msgid "Copy"
-msgstr ""
-
-msgid "Paste"
-msgstr ""
-
-msgid "Remove"
-msgstr ""
-
-msgid "Tag 2"
 msgstr ""
 
 msgid "From Tag 1"
@@ -280,19 +475,10 @@ msgstr ""
 msgid "Re&vert"
 msgstr ""
 
-msgid "Import from file or clipboard"
-msgstr ""
-
 msgid "Import from %1"
 msgstr ""
 
-msgid "Automatic import"
-msgstr ""
-
 msgid "Browse album cover artwork"
-msgstr ""
-
-msgid "Export to file or clipboard"
 msgstr ""
 
 msgid "Create M3U Playlist"
@@ -335,18 +521,6 @@ msgid "Rename Directory"
 msgstr ""
 
 msgid "Number Tracks"
-msgstr ""
-
-msgid "Filter"
-msgstr ""
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
-
-msgid "Play"
 msgstr ""
 
 msgid "&Settings"
@@ -442,9 +616,6 @@ msgstr ""
 msgid "Data received: %1"
 msgstr ""
 
-msgid "Error"
-msgstr ""
-
 msgid "Request sent..."
 msgstr ""
 
@@ -472,9 +643,6 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
 msgid "Command"
 msgstr ""
 
@@ -500,9 +668,6 @@ msgid "New directory name is too different\n"
 msgstr ""
 
 msgid "Create directory"
-msgstr ""
-
-msgid "Rename directory"
 msgstr ""
 
 msgid "Rename file"
@@ -715,6 +880,9 @@ msgstr ""
 msgid "Codec"
 msgstr ""
 
+msgid "Escape for HTML"
+msgstr ""
+
 msgid "Automatic Import"
 msgstr ""
 
@@ -731,33 +899,6 @@ msgid "&Save Settings"
 msgstr ""
 
 msgid "New"
-msgstr ""
-
-msgid "Reading Directory"
-msgstr ""
-
-msgid "Started"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
-msgid "Querying"
-msgstr ""
-
-msgid "Fetching"
-msgstr ""
-
-msgid "Data received"
-msgstr ""
-
-msgid "Cover"
-msgstr ""
-
-msgid "Finished"
-msgstr ""
-
-msgid "Aborted"
 msgstr ""
 
 msgid "A&bort"
@@ -961,9 +1102,6 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-msgid "URL"
-msgstr ""
-
 msgid "Description"
 msgstr ""
 
@@ -1129,9 +1267,6 @@ msgstr ""
 msgid "File Error"
 msgstr ""
 
-msgid "Error while writing file:\n"
-msgstr ""
-
 msgid "&Filter:"
 msgstr ""
 
@@ -1154,9 +1289,6 @@ msgid "From T&ags..."
 msgstr ""
 
 msgid "&From Server:"
-msgstr ""
-
-msgid "Revert"
 msgstr ""
 
 msgid "Check maximum allowable time &difference (sec):"
@@ -1232,9 +1364,6 @@ msgid "Write only &list of files"
 msgstr ""
 
 msgid "Write &info using"
-msgstr ""
-
-msgid "Format"
 msgstr ""
 
 msgid "Preview"

@@ -181,7 +181,7 @@ void CliCommand::showUsage()
 
 HelpCommand::HelpCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("help"), tr("Help"),
-             QLatin1String("[S]\nS = ") + tr("command name"))
+             QLatin1String("[S]\nS = ") + tr("Command name"))
 {
 }
 
@@ -415,7 +415,7 @@ void RevertCommand::startCommand()
 ImportCommand::ImportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("import"),
              tr("Import from file or clipboard"),
-             QLatin1String("P S [T]\nS = ") + tr("format name"))
+             QLatin1String("P S [T]\nS = ") + tr("Format name"))
 {
 }
 
@@ -454,7 +454,7 @@ void ImportCommand::startCommand()
 BatchImportCommand::BatchImportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("autoimport"),
              tr("Automatic import"), QLatin1String("[S] [T]\nS = ") +
-             tr("profile name"))
+             tr("Profile name"))
 {
   setTimeout(60000);
 }
@@ -596,7 +596,7 @@ void AlbumArtCommand::onDownloadFinished(
 ExportCommand::ExportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("export"),
              tr("Export to file or clipboard"),
-             QLatin1String("P S [T]\nS = ") + tr("format name"))
+             QLatin1String("P S [T]\nS = ") + tr("Format name"))
 {
 }
 
@@ -772,7 +772,7 @@ void RenameDirectoryCommand::onRenameActionsScheduled()
 
 NumberTracksCommand::NumberTracksCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("numbertracks"), tr("Number tracks"),
-             QLatin1String("[S] [T]\nS = ") + tr("track number"))
+             QLatin1String("[S] [T]\nS = ") + tr("Track number"))
 {
 }
 
@@ -794,7 +794,7 @@ void NumberTracksCommand::startCommand()
 
 FilterCommand::FilterCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("filter"), tr("Filter"),
-             QLatin1String("F|S\nS = ") + tr("filter name"))
+             QLatin1String("F|S\nS = ") + tr("Filter name"))
 {
   setTimeout(60000);
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2013-03-14 23:39+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -21,8 +21,221 @@ msgstr ""
 "X-Language: fi\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Aikakatkaisu"
+
+msgid "Usage:"
+msgstr "Käyttö:"
+
+msgid "Help"
+msgstr "Ohje"
+
+msgid "Command name"
+msgstr "Komentonimi"
+
+msgid "Quit application"
+msgstr "Sulkee sovelluksen"
+
+msgid "The current directory has been modified."
+msgstr "Nykyistä kansiota on muokattu."
+
+msgid "Type 'exit force' to quit."
+msgstr "Kirjoita 'exit force' poistuaksesi."
+
+msgid "Change directory"
+msgstr "Vaihda hakemistoa"
+
+msgid "%1 does not exist"
+msgstr "%1 ei ole olemassa"
+
+msgid "Print the filename of the current working directory"
+msgstr "Tulosta työhakemiston täydellinen nimi"
+
+msgid "Directory list"
+msgstr "Hakemistolista"
+
+msgid "Saves the changed files"
+msgstr "Tallentaa muuttuneet tiedostot"
+
+msgid "Error while writing file:\n"
+msgstr "Virhe kirjoitettaessa tiedostoa:\n"
+
+msgid "Select file"
+msgstr "Valitse tiedosto"
+
+msgid "%1 not found"
+msgstr "kohdetta %1 ei löytynyt"
+
+msgid "Select tag"
+msgstr "Valitse luokitus"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Ei voitu asettaa \"%1\" %2"
+
+msgid "Revert"
+msgstr "Kumoa"
+
+msgid "Import from file or clipboard"
+msgstr "Tuo tiedostosta tai leikepöydältä"
+
+msgid "Format name"
+msgstr "Muodon nimi"
+
+msgid "%1 not found."
+msgstr "%1 ei löytynyt."
+
+msgid "Available"
+msgstr "Käytettävissä"
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "Automatic import"
+msgstr "Tuo automaattisesti"
+
+msgid "Profile name"
+msgstr "Profiilin nimi"
+
+msgid "Reading Directory"
+msgstr "Luetaan hakemistoa"
+
+msgid "Started"
+msgstr "Aloitettu"
+
+msgid "Source"
+msgstr "Lähde"
+
+msgid "Querying"
+msgstr "Kysytään"
+
+msgid "Fetching"
+msgstr "Noudetaan"
+
+msgid "Data received"
+msgstr "Vastaanotettu data"
+
+msgid "Cover"
+msgstr "Kansikuvat"
+
+msgid "Finished"
+msgstr "Valmis"
+
+msgid "Aborted"
+msgstr "Keskeytetty"
+
+msgid "Download album cover artwork"
+msgstr "Selaa kansikuvia"
+
+msgid "Export to file or clipboard"
+msgstr "Vie tiedostoon tai leikepöydälle"
+
+msgid "Create playlist"
+msgstr "Luo soittolista"
+
+msgid "Apply filename format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply tag format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply text encoding"
+msgstr "Ota merkistökoodaus"
+
+msgid "Rename directory"
+msgstr "Muuta kansion nimeä"
+
+msgid "Number tracks"
+msgstr "Kappaleiden numerointi"
+
+msgid "Track number"
+msgstr "Kappaleen raita"
+
+msgid "Filter"
+msgstr "Suodin"
+
+msgid "Filter name"
+msgstr "Suodattimen nimi"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Muunna ID3v2.3:sta ID3v2.4:ksi"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
+
+msgid "Filename from tag"
+msgstr "Tiedostonimi tagista"
+
+msgid "Tag from filename"
+msgstr "Tagi tiedostonimestä"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Kopioi"
+
+msgid "Paste"
+msgstr "Liitä"
+
+msgid "Remove"
+msgstr "Poista"
+
+msgid "Play"
+msgstr "Soita"
+
+msgid "Parameter"
+msgstr "Parametri"
+
+msgid "File path"
+msgstr "Tiedostopolku"
+
+msgid "URL"
+msgstr "Osoite"
+
+msgid "Tag numbers"
+msgstr "Kappaleen raita"
+
+msgid "Frame name"
+msgstr "Tiedostonimestä"
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr "Muoto"
+
+msgid "Command specific"
+msgstr "Komento"
+
+msgid "Available Commands"
+msgstr "Käytössäolevat komennot"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Tag 2"
+msgstr "2-tagi"
+
+msgid "Tag 1"
+msgstr "1-tagi"
+
 msgid "Tags"
 msgstr "Tagit"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Tuntematon komento '%1'. Kirjoita 'help' saadaksesi apua."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Tuntematon komento '%1', -h näyttää ohjeen."
 
 msgid "Files"
 msgstr "Tiedostot"
@@ -47,9 +260,6 @@ msgstr "Avaa viimeaikaisen kansion"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Kumoaa muutokset kaikkiin tai valittuihin tiedostoihin"
-
-msgid "Saves the changed files"
-msgstr "Tallentaa muuttuneet tiedostot"
 
 msgid "Quits the application"
 msgstr "Sulkee sovelluksen"
@@ -132,26 +342,11 @@ msgstr "&Edellinen tiedosto"
 msgid "&Next File"
 msgstr "&Seuraava tiedosto"
 
-msgid "Tag 1"
-msgstr "1-tagi"
-
 msgid "From Filename"
 msgstr "Tiedostonimestä"
 
 msgid "From Tag 2"
 msgstr "2-tagista"
-
-msgid "Copy"
-msgstr "Kopioi"
-
-msgid "Paste"
-msgstr "Liitä"
-
-msgid "Remove"
-msgstr "Poista"
-
-msgid "Tag 2"
-msgstr "2-tagi"
 
 msgid "From Tag 1"
 msgstr "1-tagista"
@@ -284,20 +479,11 @@ msgstr "&Tallenna"
 msgid "Re&vert"
 msgstr "K&umoa"
 
-msgid "Import from file or clipboard"
-msgstr "Tuo tiedostosta tai leikepöydältä"
-
 msgid "Import from %1"
 msgstr "Tuo %1ista"
 
-msgid "Automatic import"
-msgstr "Tuo automaattisesti"
-
 msgid "Browse album cover artwork"
 msgstr "Selaa kansikuvia"
-
-msgid "Export to file or clipboard"
-msgstr "Vie tiedostoon tai leikepöydälle"
 
 msgid "Create M3U Playlist"
 msgstr "Luo soittolista"
@@ -340,18 +526,6 @@ msgstr "Muuta kansion nimeä"
 
 msgid "Number Tracks"
 msgstr "Kappaleiden numerointi"
-
-msgid "Filter"
-msgstr "Suodin"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Muunna ID3v2.3:sta ID3v2.4:ksi"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
-
-msgid "Play"
-msgstr "Soita"
 
 msgid "&Settings"
 msgstr "&Asetukset"
@@ -446,9 +620,6 @@ msgstr "Virheellinen tiedosto"
 msgid "Data received: %1"
 msgstr "Vastaanotettu data: %1"
 
-msgid "Error"
-msgstr "Virhe"
-
 msgid "Request sent..."
 msgstr "Pyyntö lähetetty..."
 
@@ -476,9 +647,6 @@ msgstr "Vahvista"
 msgid "Output"
 msgstr "Tulos"
 
-msgid "Name"
-msgstr "Nimi"
-
 msgid "Command"
 msgstr "Komento"
 
@@ -505,9 +673,6 @@ msgstr "Hakemiston uusi nimi on liian erilainen\n"
 
 msgid "Create directory"
 msgstr "Luo kansio"
-
-msgid "Rename directory"
-msgstr "Muuta kansion nimeä"
 
 msgid "Rename file"
 msgstr "Muuta tiedoston nimeä"
@@ -719,6 +884,9 @@ msgstr "Kanavat"
 msgid "Codec"
 msgstr "Koodekki"
 
+msgid "Escape for HTML"
+msgstr ""
+
 msgid "Automatic Import"
 msgstr "Tuo automaattisesti"
 
@@ -736,33 +904,6 @@ msgstr "&Tallenna asetukset"
 
 msgid "New"
 msgstr "Uusi"
-
-msgid "Reading Directory"
-msgstr "Luetaan hakemistoa"
-
-msgid "Started"
-msgstr "Aloitettu"
-
-msgid "Source"
-msgstr "Lähde"
-
-msgid "Querying"
-msgstr "Kysytään"
-
-msgid "Fetching"
-msgstr "Noudetaan"
-
-msgid "Data received"
-msgstr "Vastaanotettu data"
-
-msgid "Cover"
-msgstr "Kansikuvat"
-
-msgid "Finished"
-msgstr "Valmis"
-
-msgid "Aborted"
-msgstr "Keskeytetty"
 
 msgid "A&bort"
 msgstr "&Keskeytä"
@@ -965,9 +1106,6 @@ msgstr "Merkistökoodaus"
 msgid "Text"
 msgstr "Teksti"
 
-msgid "URL"
-msgstr "Osoite"
-
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -1133,9 +1271,6 @@ msgstr "&Lähde:"
 msgid "File Error"
 msgstr "Tiedostovirhe"
 
-msgid "Error while writing file:\n"
-msgstr "Virhe kirjoitettaessa tiedostoa:\n"
-
 msgid "&Filter:"
 msgstr "&Suodin:"
 
@@ -1159,9 +1294,6 @@ msgstr "T&agista..."
 
 msgid "&From Server:"
 msgstr "&Palvelimelta:"
-
-msgid "Revert"
-msgstr "Kumoa"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Aseta &enimmäisaikaero (s):"
@@ -1237,9 +1369,6 @@ msgstr "Kirjoita &vain tiedostoluettelo"
 
 msgid "Write &info using"
 msgstr "Kirjoita tieto k&äyttäen"
-
-msgid "Format"
-msgstr "Muoto"
 
 msgid "Preview"
 msgstr "Esikatselu"

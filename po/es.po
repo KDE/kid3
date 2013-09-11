@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -22,8 +22,221 @@ msgstr ""
 "X-Language: es\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Tiempo de espera"
+
+msgid "Usage:"
+msgstr "Uso:"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "Command name"
+msgstr "Nombre de comando"
+
+msgid "Quit application"
+msgstr "Sale del programa"
+
+msgid "The current directory has been modified."
+msgstr "El directorio actual ha sido modificado."
+
+msgid "Type 'exit force' to quit."
+msgstr "Pulsa 'exit force' para salir."
+
+msgid "Change directory"
+msgstr "Cambiar de directorio"
+
+msgid "%1 does not exist"
+msgstr "%1 no existe"
+
+msgid "Print the filename of the current working directory"
+msgstr "Muestra el nombre del directorio de trabajo actual"
+
+msgid "Directory list"
+msgstr "Lista de directorios"
+
+msgid "Saves the changed files"
+msgstr "Guarda los archivos cambiados"
+
+msgid "Error while writing file:\n"
+msgstr "Error al escribir en el archivo:\n"
+
+msgid "Select file"
+msgstr "Seleccionar archivo"
+
+msgid "%1 not found"
+msgstr "no se encontró %1"
+
+msgid "Select tag"
+msgstr "Seleccionar etiqueta"
+
+msgid "Get tag frame"
+msgstr "Obtener campo d'etiqueta"
+
+msgid "Set tag frame"
+msgstr "Establecer campo d'etiqueta"
+
+msgid "Could not set \"%1\" for %2"
+msgstr "No se pudo establecer \"%1\" para %2"
+
+msgid "Revert"
+msgstr "Deshacer"
+
+msgid "Import from file or clipboard"
+msgstr "Importar de archivo o portapapeles"
+
+msgid "Format name"
+msgstr "Nombre de formato"
+
+msgid "%1 not found."
+msgstr "%1 no encontrado."
+
+msgid "Available"
+msgstr "Disponible"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Automatic import"
+msgstr "Importar automáticamente"
+
+msgid "Profile name"
+msgstr "Nombre del perfil"
+
+msgid "Reading Directory"
+msgstr "Leyendo directorio"
+
+msgid "Started"
+msgstr "Iniciado"
+
+msgid "Source"
+msgstr "Origen"
+
+msgid "Querying"
+msgstr "Consultando"
+
+msgid "Fetching"
+msgstr "Obteniendo"
+
+msgid "Data received"
+msgstr "Datos recibidos"
+
+msgid "Cover"
+msgstr "Portada"
+
+msgid "Finished"
+msgstr "Finalizado"
+
+msgid "Aborted"
+msgstr "Abortado"
+
+msgid "Download album cover artwork"
+msgstr "Descargar las imágenes de las portadas"
+
+msgid "Export to file or clipboard"
+msgstr "Exportar en archivo o al portapapeles"
+
+msgid "Create playlist"
+msgstr "Crear lista de reproducción"
+
+msgid "Apply filename format"
+msgstr "Aplicar formato de nombre de archivo"
+
+msgid "Apply tag format"
+msgstr "Aplicar formato de etiqueta"
+
+msgid "Apply text encoding"
+msgstr "Aplicar codificación del texto"
+
+msgid "Rename directory"
+msgstr "Renombrar directorio"
+
+msgid "Number tracks"
+msgstr "Numerar pistas"
+
+msgid "Track number"
+msgstr "Número de pista"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Filter name"
+msgstr "Nombre del filtro"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Convertir ID3v2.3 en ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Convertir ID3v2.4 en ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "Nombre de archivo de etiqueta"
+
+msgid "Tag from filename"
+msgstr "Etiqueta desde nombre de archivo"
+
+msgid "Tag to other tag"
+msgstr "Etiqueta desde otra etiqueta"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Paste"
+msgstr "Pegar"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Play"
+msgstr "Reproducir"
+
+msgid "Parameter"
+msgstr "Parámetro"
+
+msgid "File path"
+msgstr "Ruta del archivo"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Número de etiqueta"
+
+msgid "Frame name"
+msgstr "Nombre de campo"
+
+msgid "Frame value"
+msgstr "Valor de campo"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Command specific"
+msgstr "Específicos de la orden"
+
+msgid "Available Commands"
+msgstr "Comandos disponibles"
+
+msgid "File"
+msgstr "Archivo"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Tag 2"
+msgstr "Etiqueta 2"
+
+msgid "Tag 1"
+msgstr "Etiqueta 1"
+
 msgid "Tags"
 msgstr "Etiquetas"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Comando desconocido '%1'. Escribe `help' para ayuda."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Comando desconocido '%1', -h para ayuda."
 
 msgid "Files"
 msgstr "Archivos"
@@ -48,9 +261,6 @@ msgstr "Abre un directorio usado recientemente"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Deshace los cambios de los archivos seleccionados o de todos"
-
-msgid "Saves the changed files"
-msgstr "Guarda los archivos cambiados"
 
 msgid "Quits the application"
 msgstr "Sale del programa"
@@ -133,26 +343,11 @@ msgstr "&Anterior archivo"
 msgid "&Next File"
 msgstr "&Siguiente archivo"
 
-msgid "Tag 1"
-msgstr "Etiqueta 1"
-
 msgid "From Filename"
 msgstr "Desde nombre de archivo"
 
 msgid "From Tag 2"
 msgstr "De etiqueta 2"
-
-msgid "Copy"
-msgstr "Copiar"
-
-msgid "Paste"
-msgstr "Pegar"
-
-msgid "Remove"
-msgstr "Eliminar"
-
-msgid "Tag 2"
-msgstr "Etiqueta 2"
 
 msgid "From Tag 1"
 msgstr "De etiqueta 1"
@@ -285,20 +480,11 @@ msgstr "&Guardar"
 msgid "Re&vert"
 msgstr "&Deshacer"
 
-msgid "Import from file or clipboard"
-msgstr "Importar de archivo o portapapeles"
-
 msgid "Import from %1"
 msgstr "Importar de %1"
 
-msgid "Automatic import"
-msgstr "Importar automáticamente"
-
 msgid "Browse album cover artwork"
 msgstr "Descargar las imágenes de las portadas"
-
-msgid "Export to file or clipboard"
-msgstr "Exportar en archivo o al portapapeles"
 
 msgid "Create M3U Playlist"
 msgstr "Crear lista m3u"
@@ -341,18 +527,6 @@ msgstr "Renombrar directorio"
 
 msgid "Number Tracks"
 msgstr "Numerar pistas"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Convertir ID3v2.3 en ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Convertir ID3v2.4 en ID3v2.3"
-
-msgid "Play"
-msgstr "Reproducir"
 
 msgid "&Settings"
 msgstr "&Preferencias"
@@ -447,9 +621,6 @@ msgstr "Archivo no válido"
 msgid "Data received: %1"
 msgstr "Datos recibidos: %1"
 
-msgid "Error"
-msgstr "Error"
-
 msgid "Request sent..."
 msgstr "Petición enviada..."
 
@@ -477,9 +648,6 @@ msgstr "Confirmar"
 msgid "Output"
 msgstr "Salida"
 
-msgid "Name"
-msgstr "Nombre"
-
 msgid "Command"
 msgstr "Comando"
 
@@ -506,9 +674,6 @@ msgstr "El nuevo nombre del directorio es demasiado diferente\n"
 
 msgid "Create directory"
 msgstr "Crear directorio"
-
-msgid "Rename directory"
-msgstr "Renombrar directorio"
 
 msgid "Rename file"
 msgstr "Renombrar archivo"
@@ -720,6 +885,9 @@ msgstr "Canales"
 msgid "Codec"
 msgstr "Codec"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Importar automáticamente"
 
@@ -737,33 +905,6 @@ msgstr "&Guardar configuración"
 
 msgid "New"
 msgstr "Nuevo"
-
-msgid "Reading Directory"
-msgstr "Leyendo directorio"
-
-msgid "Started"
-msgstr "Iniciado"
-
-msgid "Source"
-msgstr "Origen"
-
-msgid "Querying"
-msgstr "Consultando"
-
-msgid "Fetching"
-msgstr "Obteniendo"
-
-msgid "Data received"
-msgstr "Datos recibidos"
-
-msgid "Cover"
-msgstr "Portada"
-
-msgid "Finished"
-msgstr "Finalizado"
-
-msgid "Aborted"
-msgstr "Abortado"
 
 msgid "A&bort"
 msgstr "A&bortar"
@@ -967,9 +1108,6 @@ msgstr "Codificación del texto"
 msgid "Text"
 msgstr "Texto"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Descripción"
 
@@ -1135,9 +1273,6 @@ msgstr "&Origen:"
 msgid "File Error"
 msgstr "Error en archivo"
 
-msgid "Error while writing file:\n"
-msgstr "Error al escribir en el archivo:\n"
-
 msgid "&Filter:"
 msgstr "&Filtro:"
 
@@ -1161,9 +1296,6 @@ msgstr "De etiquet&a..."
 
 msgid "&From Server:"
 msgstr "&De servidor:"
-
-msgid "Revert"
-msgstr "Deshacer"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Comprobar máxima &diferencia de tiempo permitida (seg):"
@@ -1239,9 +1371,6 @@ msgstr "Escribir sólo la &lista de archivos"
 
 msgid "Write &info using"
 msgstr "Escribir &información usando"
-
-msgid "Format"
-msgstr "Formato"
 
 msgid "Preview"
 msgstr "Vista previa"

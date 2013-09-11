@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -20,8 +20,221 @@ msgstr ""
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
+msgid "Timeout"
+msgstr "Прековреме"
+
+msgid "Usage:"
+msgstr "Употреба:"
+
+msgid "Help"
+msgstr "Помоћ"
+
+msgid "Command name"
+msgstr "Наредба"
+
+msgid "Quit application"
+msgstr "Напушта апликацију"
+
+msgid "The current directory has been modified."
+msgstr "Тренутни директоријум је измењен."
+
+msgid "Type 'exit force' to quit."
+msgstr "Унесите 'exit force' за излаз."
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr "%1 не постоји"
+
+msgid "Print the filename of the current working directory"
+msgstr "Штампај пуно име фајла текућег активног директоријума"
+
+msgid "Directory list"
+msgstr "Списак фасцикли"
+
+msgid "Saves the changed files"
+msgstr "Уписује измене фајлова"
+
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+msgid "Select file"
+msgstr "Изабери фајл"
+
+msgid "%1 not found"
+msgstr "%1 није пронађено"
+
+msgid "Select tag"
+msgstr "Избор ознаке"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Не могу да поставим \"%1\" за %2"
+
+msgid "Revert"
+msgstr "Врати"
+
+msgid "Import from file or clipboard"
+msgstr "Увези из фајла или клипборда"
+
+msgid "Format name"
+msgstr "Формат имена"
+
+msgid "%1 not found."
+msgstr "%1 није нађен."
+
+msgid "Available"
+msgstr "Доступно"
+
+msgid "Error"
+msgstr "Грешка"
+
+msgid "Automatic import"
+msgstr "Аутоматски увози"
+
+msgid "Profile name"
+msgstr "Име поставке"
+
+msgid "Reading Directory"
+msgstr "Приликом читања директоријума"
+
+msgid "Started"
+msgstr "Започет"
+
+msgid "Source"
+msgstr "Извор"
+
+msgid "Querying"
+msgstr "Затражујем"
+
+msgid "Fetching"
+msgstr "Добављам"
+
+msgid "Data received"
+msgstr "Подаци примљени"
+
+msgid "Cover"
+msgstr "Омот"
+
+msgid "Finished"
+msgstr "Завршено"
+
+msgid "Aborted"
+msgstr "Обустављено"
+
+msgid "Download album cover artwork"
+msgstr "Потражи слику омота албума"
+
+msgid "Export to file or clipboard"
+msgstr "Извези у фајл или клипборд"
+
+msgid "Create playlist"
+msgstr "Направи листу нумера"
+
+msgid "Apply filename format"
+msgstr "Примени формат назива фајла"
+
+msgid "Apply tag format"
+msgstr "Примени формат ознаке"
+
+msgid "Apply text encoding"
+msgstr "Примени кодирање текста"
+
+msgid "Rename directory"
+msgstr "Преименуј директоријум"
+
+msgid "Number tracks"
+msgstr "Нумериши"
+
+msgid "Track number"
+msgstr "Број нумере"
+
+msgid "Filter"
+msgstr "Филтер"
+
+msgid "Filter name"
+msgstr "Име фајла"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.3"
+
+msgid "Filename from tag"
+msgstr "ознаке у име фајла"
+
+msgid "Tag from filename"
+msgstr "ознаку из имена фајла"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Копирај"
+
+msgid "Paste"
+msgstr "Налепи"
+
+msgid "Remove"
+msgstr "Уклони"
+
+msgid "Play"
+msgstr "Репродукција"
+
+msgid "Parameter"
+msgstr "Параметар"
+
+msgid "File path"
+msgstr "Путања фајла"
+
+msgid "URL"
+msgstr "УРЛ"
+
+msgid "Tag numbers"
+msgstr "Број нумере"
+
+msgid "Frame name"
+msgstr "Из имена фајла"
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr "Формат"
+
+msgid "Command specific"
+msgstr "Наредба"
+
+msgid "Available Commands"
+msgstr "Наредбе на располагању"
+
+msgid "File"
+msgstr "Фајл"
+
+msgid "Name"
+msgstr "Име"
+
+msgid "Tag 2"
+msgstr "ознака 2"
+
+msgid "Tag 1"
+msgstr "ознака 1"
+
 msgid "Tags"
 msgstr "Ознаке"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Непозната наредба '%1'. Користите 'help' да бисте добили помоћ."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Непозната наредба '%1', -h за помоћ."
 
 msgid "Files"
 msgstr "Фајлови"
@@ -46,9 +259,6 @@ msgstr "Отвара недавно коришћен директоријум"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Поништава измене свих или изабраних фајлова"
-
-msgid "Saves the changed files"
-msgstr "Уписује измене фајлова"
 
 msgid "Quits the application"
 msgstr "Напушта апликацију"
@@ -131,26 +341,11 @@ msgstr "&Претходни фајл"
 msgid "&Next File"
 msgstr "&Следећи фајл"
 
-msgid "Tag 1"
-msgstr "ознака 1"
-
 msgid "From Filename"
 msgstr "Из имена фајла"
 
 msgid "From Tag 2"
 msgstr "Из ознаке 2"
-
-msgid "Copy"
-msgstr "Копирај"
-
-msgid "Paste"
-msgstr "Налепи"
-
-msgid "Remove"
-msgstr "Уклони"
-
-msgid "Tag 2"
-msgstr "ознака 2"
 
 msgid "From Tag 1"
 msgstr "Из ознаке 1"
@@ -283,20 +478,11 @@ msgstr "&Сачувај"
 msgid "Re&vert"
 msgstr "&Врати"
 
-msgid "Import from file or clipboard"
-msgstr "Увези из фајла или клипборда"
-
 msgid "Import from %1"
 msgstr "Увези са %1"
 
-msgid "Automatic import"
-msgstr "Аутоматски увози"
-
 msgid "Browse album cover artwork"
 msgstr "Потражи слику омота албума"
-
-msgid "Export to file or clipboard"
-msgstr "Извези у фајл или клипборд"
 
 msgid "Create M3U Playlist"
 msgstr "Направи М3У листу нумера"
@@ -339,18 +525,6 @@ msgstr "Преименуј директоријум"
 
 msgid "Number Tracks"
 msgstr "Нумериши"
-
-msgid "Filter"
-msgstr "Филтер"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Претвори ИД3в2.3 у ИД3в2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Претвори ИД3в2.4 у ИД3в2.3"
-
-msgid "Play"
-msgstr "Репродукција"
 
 msgid "&Settings"
 msgstr "&Подешавање"
@@ -445,9 +619,6 @@ msgstr "Неисправна датотека"
 msgid "Data received: %1"
 msgstr "Подаци примљени: %1"
 
-msgid "Error"
-msgstr "Грешка"
-
 msgid "Request sent..."
 msgstr "Захтев послат..."
 
@@ -475,9 +646,6 @@ msgstr "Потврди"
 msgid "Output"
 msgstr "Излаз"
 
-msgid "Name"
-msgstr "Име"
-
 msgid "Command"
 msgstr "Наредба"
 
@@ -504,9 +672,6 @@ msgstr "Ново име директоријума је превише разл�
 
 msgid "Create directory"
 msgstr "Направи директоријум"
-
-msgid "Rename directory"
-msgstr "Преименуј директоријум"
 
 msgid "Rename file"
 msgstr "Преименуј фајл"
@@ -718,6 +883,9 @@ msgstr "Канала"
 msgid "Codec"
 msgstr "Кодек"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Аутоматски увози"
 
@@ -735,33 +903,6 @@ msgstr "&Сачувај подешавања"
 
 msgid "New"
 msgstr "Ново"
-
-msgid "Reading Directory"
-msgstr "Приликом читања директоријума"
-
-msgid "Started"
-msgstr "Започет"
-
-msgid "Source"
-msgstr "Извор"
-
-msgid "Querying"
-msgstr "Затражујем"
-
-msgid "Fetching"
-msgstr "Добављам"
-
-msgid "Data received"
-msgstr "Подаци примљени"
-
-msgid "Cover"
-msgstr "Омот"
-
-msgid "Finished"
-msgstr "Завршено"
-
-msgid "Aborted"
-msgstr "Обустављено"
 
 msgid "A&bort"
 msgstr "Обуста&ви"
@@ -964,9 +1105,6 @@ msgstr "Кодирање текста"
 msgid "Text"
 msgstr "Текст"
 
-msgid "URL"
-msgstr "УРЛ"
-
 msgid "Description"
 msgstr "Опис"
 
@@ -1132,9 +1270,6 @@ msgstr "&Извор:"
 msgid "File Error"
 msgstr "Грешка фајла"
 
-msgid "Error while writing file:\n"
-msgstr "Грешка приликом уписа фајла:\n"
-
 msgid "&Filter:"
 msgstr "&Филтер:"
 
@@ -1158,9 +1293,6 @@ msgstr "Из о&знака..."
 
 msgid "&From Server:"
 msgstr "С&а сервера:"
-
-msgid "Revert"
-msgstr "Врати"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Провери највећу дозвољену &временску разлику (сек):"
@@ -1236,9 +1368,6 @@ msgstr "Упиши само &списак фајлова"
 
 msgid "Write &info using"
 msgstr "Упиши &информације користећи"
-
-msgid "Format"
-msgstr "Формат"
 
 msgid "Preview"
 msgstr "Преглед"

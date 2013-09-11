@@ -189,16 +189,16 @@ void Kid3Cli::writeHelp(const QString& cmdName)
 {
   if (cmdName.isEmpty()) {
     writeLine(tr("Parameter"));
-    writeLine(QLatin1String("  P = ") + tr("file path"));
+    writeLine(QLatin1String("  P = ") + tr("File path"));
     writeLine(QLatin1String("  U = ") + tr("URL"));
-    writeLine(QLatin1String("  T = ") + tr("tag numbers") +
+    writeLine(QLatin1String("  T = ") + tr("Tag numbers") +
               QLatin1String(" \"1\" | \"2\" | \"12\""));
-    writeLine(QLatin1String("  N = ") + tr("frame name") +
+    writeLine(QLatin1String("  N = ") + tr("Frame name") +
               QLatin1String(" \"album\" | \"album artist\" | \"arranger\" | "
                             "\" artist\" | ..."));
-    writeLine(QLatin1String("  V = ") + tr("frame value"));
-    writeLine(QLatin1String("  F = ") + tr("format"));
-    writeLine(QLatin1String("  S = ") + tr("command specific"));
+    writeLine(QLatin1String("  V = ") + tr("Frame value"));
+    writeLine(QLatin1String("  F = ") + tr("Format"));
+    writeLine(QLatin1String("  S = ") + tr("Command specific"));
     writeLine(tr("Available Commands"));
   }
   QList<QStringList> cmdStrs;
@@ -558,8 +558,8 @@ bool Kid3Cli::parseOptions()
     } else if (arg == QLatin1String("-c")) {
       isCommand = true;
     } else if (arg == QLatin1String("-h") || arg == QLatin1String("--help")) {
-      cout() << QLatin1String(
-          "usage: kid3-cli [-c command1] [-c command2 ...] [path ...]\n");
+      cout() << tr("Usage:") + QLatin1String(
+          " kid3-cli [-c command1] [-c command2 ...] [path ...]\n");
       writeHelp();
       cout().flush();
       terminate();

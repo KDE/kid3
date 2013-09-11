@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -22,8 +22,221 @@ msgstr ""
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Время ожидания"
+
+msgid "Usage:"
+msgstr "Использовано:"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "Command name"
+msgstr "Имя команды"
+
+msgid "Quit application"
+msgstr "Завершить приложение"
+
+msgid "The current directory has been modified."
+msgstr "Текущий каталог был изменен."
+
+msgid "Type 'exit force' to quit."
+msgstr "Для выхода нажмите 'exit force'."
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr "%1 не существует"
+
+msgid "Print the filename of the current working directory"
+msgstr "Печатает полное имя текущего рабочего каталога"
+
+msgid "Directory list"
+msgstr "Содержимое каталога"
+
+msgid "Saves the changed files"
+msgstr "Сохранить измененные файлы"
+
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+msgid "Select file"
+msgstr "Выберите файл"
+
+msgid "%1 not found"
+msgstr "файл %1 не найден"
+
+msgid "Select tag"
+msgstr "Выбрать тег"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr ""
+
+msgid "Revert"
+msgstr "Отменить"
+
+msgid "Import from file or clipboard"
+msgstr "Импортировать файл или буфер обмена"
+
+msgid "Format name"
+msgstr "Название формата"
+
+msgid "%1 not found."
+msgstr "%1 не найден."
+
+msgid "Available"
+msgstr "Доступные"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Automatic import"
+msgstr "Автоматически импортировать"
+
+msgid "Profile name"
+msgstr "Имя профиля"
+
+msgid "Reading Directory"
+msgstr "Чтение каталога"
+
+msgid "Started"
+msgstr "Запущено"
+
+msgid "Source"
+msgstr "Источник"
+
+msgid "Querying"
+msgstr "Запрос"
+
+msgid "Fetching"
+msgstr "Получение"
+
+msgid "Data received"
+msgstr "Полученные сведения"
+
+msgid "Cover"
+msgstr "Обложки"
+
+msgid "Finished"
+msgstr "Готово"
+
+msgid "Aborted"
+msgstr "Прервано"
+
+msgid "Download album cover artwork"
+msgstr "Найти обложки"
+
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или Буфера Обмена"
+
+msgid "Create playlist"
+msgstr "Cоздать список песен"
+
+msgid "Apply filename format"
+msgstr "Применить Формат имени файла"
+
+msgid "Apply tag format"
+msgstr "Применить формат тэга"
+
+msgid "Apply text encoding"
+msgstr "Применить Кодировка Текста"
+
+msgid "Rename directory"
+msgstr "Переименовать Каталог"
+
+msgid "Number tracks"
+msgstr "Пронумеровать дорожки по порядку"
+
+msgid "Track number"
+msgstr "Номер дорожки"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Filter name"
+msgstr "Имя фильтра"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "Имя файла из тег"
+
+msgid "Tag from filename"
+msgstr "Тег из имени файла"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Play"
+msgstr "Играть"
+
+msgid "Parameter"
+msgstr "Параметр"
+
+msgid "File path"
+msgstr "Путь к файлу"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Номер дорожки"
+
+msgid "Frame name"
+msgstr "Имя фрейма"
+
+msgid "Frame value"
+msgstr "Значение фрейма"
+
+msgid "Format"
+msgstr "Формат"
+
+msgid "Command specific"
+msgstr "Команда"
+
+msgid "Available Commands"
+msgstr "Доступные команды"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Tag 2"
+msgstr "Тег 2"
+
+msgid "Tag 1"
+msgstr "Тег 1"
+
 msgid "Tags"
 msgstr "Теги"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Неизвестная команда '%1'. Введите 'help' для справки."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Неизвестная команда '%1', -h для подсказки."
 
 msgid "Files"
 msgstr "Файлы"
@@ -48,9 +261,6 @@ msgstr "Открыть недавний каталог"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Отменить изменения всех выделенных файлов"
-
-msgid "Saves the changed files"
-msgstr "Сохранить измененные файлы"
 
 msgid "Quits the application"
 msgstr "Завершить приложение"
@@ -133,26 +343,11 @@ msgstr "&Предыдущий файл"
 msgid "&Next File"
 msgstr "&Следующий файл"
 
-msgid "Tag 1"
-msgstr "Тег 1"
-
 msgid "From Filename"
 msgstr "Из имени файла"
 
 msgid "From Tag 2"
 msgstr "Из тег 2"
-
-msgid "Copy"
-msgstr "Копировать"
-
-msgid "Paste"
-msgstr "Вставить"
-
-msgid "Remove"
-msgstr "Удалить"
-
-msgid "Tag 2"
-msgstr "Тег 2"
 
 msgid "From Tag 1"
 msgstr "Из тег 1"
@@ -285,20 +480,11 @@ msgstr "&Сохранить"
 msgid "Re&vert"
 msgstr "&Отменить"
 
-msgid "Import from file or clipboard"
-msgstr "Импортировать файл или буфер обмена"
-
 msgid "Import from %1"
 msgstr "Импорт из %1"
 
-msgid "Automatic import"
-msgstr "Автоматически импортировать"
-
 msgid "Browse album cover artwork"
 msgstr "Найти обложки"
-
-msgid "Export to file or clipboard"
-msgstr "Экспорт в файл или Буфера Обмена"
 
 msgid "Create M3U Playlist"
 msgstr "Создать список M3U"
@@ -341,18 +527,6 @@ msgstr "Переименовать Каталог"
 
 msgid "Number Tracks"
 msgstr "Пронумеровать дорожки по порядку"
-
-msgid "Filter"
-msgstr "Фильтр"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
-
-msgid "Play"
-msgstr "Играть"
 
 msgid "&Settings"
 msgstr "&Настройка"
@@ -447,9 +621,6 @@ msgstr "Неверный файл"
 msgid "Data received: %1"
 msgstr "Полученные сведения: %1"
 
-msgid "Error"
-msgstr "Ошибка"
-
 msgid "Request sent..."
 msgstr "Передано..."
 
@@ -477,9 +648,6 @@ msgstr "Подтверждение"
 msgid "Output"
 msgstr "Вывод"
 
-msgid "Name"
-msgstr "Имя"
-
 msgid "Command"
 msgstr "Команда"
 
@@ -506,9 +674,6 @@ msgstr "Новое название каталога слишком отличн
 
 msgid "Create directory"
 msgstr "Создать Каталог"
-
-msgid "Rename directory"
-msgstr "Переименовать Каталог"
 
 msgid "Rename file"
 msgstr "Переименовать файл"
@@ -720,6 +885,9 @@ msgstr "Каналы"
 msgid "Codec"
 msgstr "Кодек"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Автоматически импортировать"
 
@@ -737,33 +905,6 @@ msgstr "&Сохранить настройки"
 
 msgid "New"
 msgstr "Новая"
-
-msgid "Reading Directory"
-msgstr "Чтение каталога"
-
-msgid "Started"
-msgstr "Запущено"
-
-msgid "Source"
-msgstr "Источник"
-
-msgid "Querying"
-msgstr "Запрос"
-
-msgid "Fetching"
-msgstr "Получение"
-
-msgid "Data received"
-msgstr "Полученные сведения"
-
-msgid "Cover"
-msgstr "Обложки"
-
-msgid "Finished"
-msgstr "Готово"
-
-msgid "Aborted"
-msgstr "Прервано"
 
 msgid "A&bort"
 msgstr "Прер&вать"
@@ -967,9 +1108,6 @@ msgstr "Кодировка Текста"
 msgid "Text"
 msgstr "Текст"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Описание"
 
@@ -1135,9 +1273,6 @@ msgstr "&Источник:"
 msgid "File Error"
 msgstr "Ошибка файла"
 
-msgid "Error while writing file:\n"
-msgstr "Ошибка при записи файла:\n"
-
 msgid "&Filter:"
 msgstr "&Фильтр:"
 
@@ -1161,9 +1296,6 @@ msgstr "Из т&ег..."
 
 msgid "&From Server:"
 msgstr "&Из сервер:"
-
-msgid "Revert"
-msgstr "Отменить"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Проверить максимальную допустимую &разницу во времени (секунды):"
@@ -1239,9 +1371,6 @@ msgstr "Записать только &список файлов"
 
 msgid "Write &info using"
 msgstr "Записать &информацию используя"
-
-msgid "Format"
-msgstr "Формат"
 
 msgid "Preview"
 msgstr "Просмотр"

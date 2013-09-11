@@ -86,6 +86,7 @@ sub setTsTranslations($$%)
       $source =~ s/&lt;/</g;
       $source =~ s/&gt;/>/g;
       $source =~ s/&apos;/'/g;
+      $source =~ s/&quot;/\\"/g;
       $source =~ s/\n/\\n/g;
       if (exists $trans{$source}) {
         $translation = $trans{$source};

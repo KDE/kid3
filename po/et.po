@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -21,8 +21,221 @@ msgstr ""
 "X-Language: et\n"
 "X-Source-Language: en\n"
 
+msgid "Timeout"
+msgstr "Aegumine"
+
+msgid "Usage:"
+msgstr "Kasutamine:"
+
+msgid "Help"
+msgstr "Abi"
+
+msgid "Command name"
+msgstr "Käsu nimi"
+
+msgid "Quit application"
+msgstr "Sulgeb rakenduse"
+
+msgid "The current directory has been modified."
+msgstr "Kataloogi sisu on muudetud."
+
+msgid "Type 'exit force' to quit."
+msgstr "Kui valmis saad, sisesta 'exit force'."
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr "%1 ei ole olemas"
+
+msgid "Print the filename of the current working directory"
+msgstr "Väljasta jooksva töökataloogi täielik nimi"
+
+msgid "Directory list"
+msgstr "Kataloogide loetelu"
+
+msgid "Saves the changed files"
+msgstr "Salvestab muudetud failid"
+
+msgid "Error while writing file:\n"
+msgstr "Viga kirjutamisel:\n"
+
+msgid "Select file"
+msgstr "Vali fail"
+
+msgid "%1 not found"
+msgstr "%1 ei leitud"
+
+msgid "Select tag"
+msgstr "Vali märksõna"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr ""
+
+msgid "Revert"
+msgstr "Ennista"
+
+msgid "Import from file or clipboard"
+msgstr "Avab failist või lõikepuhvrist importimise dialoogi"
+
+msgid "Format name"
+msgstr "Vormingu nimi"
+
+msgid "%1 not found."
+msgstr "%1 ei leitud."
+
+msgid "Available"
+msgstr "Saadaval"
+
+msgid "Error"
+msgstr "Viga"
+
+msgid "Automatic import"
+msgstr "Imporditakse automaatselt"
+
+msgid "Profile name"
+msgstr "Profiili nimi"
+
+msgid "Reading Directory"
+msgstr "Kataloogi lugemine"
+
+msgid "Started"
+msgstr "Käivitatud"
+
+msgid "Source"
+msgstr "Allikas"
+
+msgid "Querying"
+msgstr "Päring"
+
+msgid "Fetching"
+msgstr "Allalaadimine"
+
+msgid "Data received"
+msgstr "Vastuvõetud andmed"
+
+msgid "Cover"
+msgstr "Kaanepilt"
+
+msgid "Finished"
+msgstr "Lõpetatud"
+
+msgid "Aborted"
+msgstr "Katkestatud"
+
+msgid "Download album cover artwork"
+msgstr "Avab albumi kaanepildi otsimise dialoogi"
+
+msgid "Export to file or clipboard"
+msgstr "Avab lõikepuhvrisse või faili eksportimise dialoogi"
+
+msgid "Create playlist"
+msgstr "Esitusloendi loomine"
+
+msgid "Apply filename format"
+msgstr "Rakendab failinime vormingu"
+
+msgid "Apply tag format"
+msgstr "Rakendab sildivormingu"
+
+msgid "Apply text encoding"
+msgstr "Rakenda teksti kodeering"
+
+msgid "Rename directory"
+msgstr "Kataloogi ümbernimetamine"
+
+msgid "Number tracks"
+msgstr "Lugude nummerdamine"
+
+msgid "Track number"
+msgstr "Loo number"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Filter name"
+msgstr "Filtri nimi"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Teisendab ID3v2.3 sildid ID3v2.4-ks"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Teisendab ID3v2.4 sildid ID3v2.3-ks"
+
+msgid "Filename from tag"
+msgstr "Failinimi silt põhjal"
+
+msgid "Tag from filename"
+msgstr "Silt failinime põhjal"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Kopeeri"
+
+msgid "Paste"
+msgstr "Aseta"
+
+msgid "Remove"
+msgstr "Eemalda"
+
+msgid "Play"
+msgstr "Mängib valitud lugu"
+
+msgid "Parameter"
+msgstr "Parameeter"
+
+msgid "File path"
+msgstr "Faili asukoht"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Silt number"
+
+msgid "Frame name"
+msgstr "Failinime põhjal"
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr "Vorming"
+
+msgid "Command specific"
+msgstr "Käsk"
+
+msgid "Available Commands"
+msgstr "Saadaolevad käsud"
+
+msgid "File"
+msgstr "Fail"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Tag 2"
+msgstr "Silt 2"
+
+msgid "Tag 1"
+msgstr "Silt 1"
+
 msgid "Tags"
 msgstr "Sildid"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Tundmatu käsk '%1'. Abiteabe jaoks käivita 'help'."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Tundmatu käsk '%1', -h näitab abiinfot."
 
 msgid "Files"
 msgstr "Failid"
@@ -47,9 +260,6 @@ msgstr "Avab hiljuti kasutatud kataloogi"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Ennistab kõik muutused valitud elementidel"
-
-msgid "Saves the changed files"
-msgstr "Salvestab muudetud failid"
 
 msgid "Quits the application"
 msgstr "Sulgeb rakenduse"
@@ -132,26 +342,11 @@ msgstr "&Eelmine fail"
 msgid "&Next File"
 msgstr "&Järgmine fail"
 
-msgid "Tag 1"
-msgstr "Silt 1"
-
 msgid "From Filename"
 msgstr "Failinime põhjal"
 
 msgid "From Tag 2"
 msgstr "Silt 2 põhjal"
-
-msgid "Copy"
-msgstr "Kopeeri"
-
-msgid "Paste"
-msgstr "Aseta"
-
-msgid "Remove"
-msgstr "Eemalda"
-
-msgid "Tag 2"
-msgstr "Silt 2"
 
 msgid "From Tag 1"
 msgstr "Silt 1 põhjal"
@@ -284,20 +479,11 @@ msgstr "&Salvesta"
 msgid "Re&vert"
 msgstr "E&nnista"
 
-msgid "Import from file or clipboard"
-msgstr "Avab failist või lõikepuhvrist importimise dialoogi"
-
 msgid "Import from %1"
 msgstr "Impordib %1-ist"
 
-msgid "Automatic import"
-msgstr "Imporditakse automaatselt"
-
 msgid "Browse album cover artwork"
 msgstr "Avab albumi kaanepildi otsimise dialoogi"
-
-msgid "Export to file or clipboard"
-msgstr "Avab lõikepuhvrisse või faili eksportimise dialoogi"
 
 msgid "Create M3U Playlist"
 msgstr "Loob M3U-esitusnimekirja"
@@ -340,18 +526,6 @@ msgstr "Kataloogi ümbernimetamine"
 
 msgid "Number Tracks"
 msgstr "Lugude nummerdamine"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Teisendab ID3v2.3 sildid ID3v2.4-ks"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Teisendab ID3v2.4 sildid ID3v2.3-ks"
-
-msgid "Play"
-msgstr "Mängib valitud lugu"
 
 msgid "&Settings"
 msgstr "&Seadistused"
@@ -446,9 +620,6 @@ msgstr "Vigane fail"
 msgid "Data received: %1"
 msgstr "Vastuvõetud andmed: %1"
 
-msgid "Error"
-msgstr "Viga"
-
 msgid "Request sent..."
 msgstr "Taotlus saadetud..."
 
@@ -476,9 +647,6 @@ msgstr "Kinnita"
 msgid "Output"
 msgstr "Väljund"
 
-msgid "Name"
-msgstr "Nimi"
-
 msgid "Command"
 msgstr "Käsk"
 
@@ -505,9 +673,6 @@ msgstr "Uue kataloogi nimi on liiga erinev\n"
 
 msgid "Create directory"
 msgstr "Kataloogi loomine"
-
-msgid "Rename directory"
-msgstr "Kataloogi ümbernimetamine"
 
 msgid "Rename file"
 msgstr "Faili ümbernimetamine"
@@ -719,6 +884,9 @@ msgstr "Kanaleid"
 msgid "Codec"
 msgstr "Koodek"
 
+msgid "Escape for HTML"
+msgstr "Paoklahv HTML"
+
 msgid "Automatic Import"
 msgstr "Imporditakse automaatselt"
 
@@ -736,33 +904,6 @@ msgstr "&Salvesta seaded"
 
 msgid "New"
 msgstr "Uus"
-
-msgid "Reading Directory"
-msgstr "Kataloogi lugemine"
-
-msgid "Started"
-msgstr "Käivitatud"
-
-msgid "Source"
-msgstr "Allikas"
-
-msgid "Querying"
-msgstr "Päring"
-
-msgid "Fetching"
-msgstr "Allalaadimine"
-
-msgid "Data received"
-msgstr "Vastuvõetud andmed"
-
-msgid "Cover"
-msgstr "Kaanepilt"
-
-msgid "Finished"
-msgstr "Lõpetatud"
-
-msgid "Aborted"
-msgstr "Katkestatud"
 
 msgid "A&bort"
 msgstr "&Katkesta"
@@ -966,9 +1107,6 @@ msgstr "Teksti kodeering"
 msgid "Text"
 msgstr "Tekst"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Kirjeldus"
 
@@ -1134,9 +1272,6 @@ msgstr "&Allikas:"
 msgid "File Error"
 msgstr "Failiviga"
 
-msgid "Error while writing file:\n"
-msgstr "Viga kirjutamisel:\n"
-
 msgid "&Filter:"
 msgstr "&Filter:"
 
@@ -1160,9 +1295,6 @@ msgstr "Silt põhj&al..."
 
 msgid "&From Server:"
 msgstr "&Serverist:"
-
-msgid "Revert"
-msgstr "Ennista"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "S&uurim lubatav ajaline erinevus (s):"
@@ -1238,9 +1370,6 @@ msgstr "Kirjutatakse ainult failide &loend"
 
 msgid "Write &info using"
 msgstr "Kirjutatakse &info"
-
-msgid "Format"
-msgstr "Vorming"
 
 msgid "Preview"
 msgstr "Eelvaade"

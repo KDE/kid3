@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-08-04 12:07+0200\n"
+"POT-Creation-Date: 2013-09-11 21:22+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -20,8 +20,221 @@ msgstr ""
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
+msgid "Timeout"
+msgstr "Prekovrijeme"
+
+msgid "Usage:"
+msgstr "Upotreba:"
+
+msgid "Help"
+msgstr "Pomoć"
+
+msgid "Command name"
+msgstr "Naredba"
+
+msgid "Quit application"
+msgstr "Napušta aplikaciju"
+
+msgid "The current directory has been modified."
+msgstr "Trenutni direktorijum je izmijenjen."
+
+msgid "Type 'exit force' to quit."
+msgstr "Unesite 'exit force' za izlaz."
+
+msgid "Change directory"
+msgstr ""
+
+msgid "%1 does not exist"
+msgstr "%1 ne postoji"
+
+msgid "Print the filename of the current working directory"
+msgstr ""
+
+msgid "Directory list"
+msgstr "Spisak fascikli"
+
+msgid "Saves the changed files"
+msgstr "Upisuje izmjene fajlova"
+
+msgid "Error while writing file:\n"
+msgstr "Greška prilikom upisa fajla:\n"
+
+msgid "Select file"
+msgstr "Izaberi fajl"
+
+msgid "%1 not found"
+msgstr "%1 nije nađena"
+
+msgid "Select tag"
+msgstr "Izbor oznake"
+
+msgid "Get tag frame"
+msgstr ""
+
+msgid "Set tag frame"
+msgstr ""
+
+msgid "Could not set \"%1\" for %2"
+msgstr ""
+
+msgid "Revert"
+msgstr "Vrati"
+
+msgid "Import from file or clipboard"
+msgstr "Uvezi iz fajla ili klipborda"
+
+msgid "Format name"
+msgstr "Format imena"
+
+msgid "%1 not found."
+msgstr "%1 nije nađen."
+
+msgid "Available"
+msgstr "Dostupno"
+
+msgid "Error"
+msgstr "Greška"
+
+msgid "Automatic import"
+msgstr "Automatski uvozi"
+
+msgid "Profile name"
+msgstr "Ime profila"
+
+msgid "Reading Directory"
+msgstr ""
+
+msgid "Started"
+msgstr "Započet"
+
+msgid "Source"
+msgstr "Izvor"
+
+msgid "Querying"
+msgstr "Zatražujem"
+
+msgid "Fetching"
+msgstr "Dobavljam"
+
+msgid "Data received"
+msgstr "Podaci primljeni"
+
+msgid "Cover"
+msgstr "Omot"
+
+msgid "Finished"
+msgstr "Završeno"
+
+msgid "Aborted"
+msgstr "Obustavljen"
+
+msgid "Download album cover artwork"
+msgstr "Potraži sliku omota albuma"
+
+msgid "Export to file or clipboard"
+msgstr "Izvezi u fajl ili klipbord"
+
+msgid "Create playlist"
+msgstr "Napravi listu numera"
+
+msgid "Apply filename format"
+msgstr "Primijeni format naziva fajla"
+
+msgid "Apply tag format"
+msgstr "Primijeni format oznake"
+
+msgid "Apply text encoding"
+msgstr "Primijeni kodiranje teksta"
+
+msgid "Rename directory"
+msgstr "Preimenuj direktorijum"
+
+msgid "Number tracks"
+msgstr "Numeriši"
+
+msgid "Track number"
+msgstr "Broj numere"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Filter name"
+msgstr "Ime fajla"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Pretvori ID3v2.3 u ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Pretvori ID3v2.4 u ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "oznake u ime fajla"
+
+msgid "Tag from filename"
+msgstr "oznaku iz imena fajla"
+
+msgid "Tag to other tag"
+msgstr ""
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+msgid "Paste"
+msgstr "Nalijepi"
+
+msgid "Remove"
+msgstr "Ukloni"
+
+msgid "Play"
+msgstr "Reprodukcija"
+
+msgid "Parameter"
+msgstr "Parametar"
+
+msgid "File path"
+msgstr "Putanja fajla"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Broj numere"
+
+msgid "Frame name"
+msgstr "Iz imena fajla"
+
+msgid "Frame value"
+msgstr ""
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Command specific"
+msgstr "Naredba"
+
+msgid "Available Commands"
+msgstr "Naredbe na raspolaganju"
+
+msgid "File"
+msgstr "Fajl"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Tag 2"
+msgstr "oznaka 2"
+
+msgid "Tag 1"
+msgstr "oznaka 1"
+
 msgid "Tags"
 msgstr "Oznake"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Nepoznata naredba '%1'. Ukucajte 'help'."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Nepoznata naredba '%1', -h za pomoć."
 
 msgid "Files"
 msgstr "Fajlovi"
@@ -46,9 +259,6 @@ msgstr "Otvara nedavno korišćen direktorijum"
 
 msgid "Reverts the changes of all or the selected files"
 msgstr "Poništava izmjene svih ili izabranih fajlova"
-
-msgid "Saves the changed files"
-msgstr "Upisuje izmjene fajlova"
 
 msgid "Quits the application"
 msgstr "Napušta aplikaciju"
@@ -131,26 +341,11 @@ msgstr "&Prethodni fajl"
 msgid "&Next File"
 msgstr "&Sljedeći fajl"
 
-msgid "Tag 1"
-msgstr "oznaka 1"
-
 msgid "From Filename"
 msgstr "Iz imena fajla"
 
 msgid "From Tag 2"
 msgstr "Iz oznake 2"
-
-msgid "Copy"
-msgstr "Kopiraj"
-
-msgid "Paste"
-msgstr "Nalijepi"
-
-msgid "Remove"
-msgstr "Ukloni"
-
-msgid "Tag 2"
-msgstr "oznaka 2"
 
 msgid "From Tag 1"
 msgstr "Iz oznake 1"
@@ -283,20 +478,11 @@ msgstr "&Sačuvaj"
 msgid "Re&vert"
 msgstr "&Vrati"
 
-msgid "Import from file or clipboard"
-msgstr "Uvezi iz fajla ili klipborda"
-
 msgid "Import from %1"
 msgstr "Uvezi sa %1"
 
-msgid "Automatic import"
-msgstr "Automatski uvozi"
-
 msgid "Browse album cover artwork"
 msgstr "Potraži sliku omota albuma"
-
-msgid "Export to file or clipboard"
-msgstr "Izvezi u fajl ili klipbord"
 
 msgid "Create M3U Playlist"
 msgstr "Napravi M3U listu numera"
@@ -339,18 +525,6 @@ msgstr "Preimenuj direktorijum"
 
 msgid "Number Tracks"
 msgstr "Numeriši"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Pretvori ID3v2.3 u ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Pretvori ID3v2.4 u ID3v2.3"
-
-msgid "Play"
-msgstr "Reprodukcija"
 
 msgid "&Settings"
 msgstr "&Podešavanje"
@@ -445,9 +619,6 @@ msgstr "Neispravna datoteka"
 msgid "Data received: %1"
 msgstr "Podaci primljeni: %1"
 
-msgid "Error"
-msgstr "Greška"
-
 msgid "Request sent..."
 msgstr "Zahtjev poslat..."
 
@@ -475,9 +646,6 @@ msgstr "Potvrdi"
 msgid "Output"
 msgstr "Izlaz"
 
-msgid "Name"
-msgstr "Ime"
-
 msgid "Command"
 msgstr "Naredba"
 
@@ -504,9 +672,6 @@ msgstr "Novo ime direktorijuma je previše različito\n"
 
 msgid "Create directory"
 msgstr "Napravi direktorijum"
-
-msgid "Rename directory"
-msgstr "Preimenuj direktorijum"
 
 msgid "Rename file"
 msgstr "Preimenuj fajl"
@@ -718,6 +883,9 @@ msgstr "Kanala"
 msgid "Codec"
 msgstr "Kodek"
 
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
 msgid "Automatic Import"
 msgstr "Automatski uvozi"
 
@@ -735,33 +903,6 @@ msgstr "&Sačuvaj podešavanja"
 
 msgid "New"
 msgstr "Novo"
-
-msgid "Reading Directory"
-msgstr ""
-
-msgid "Started"
-msgstr "Započet"
-
-msgid "Source"
-msgstr "Izvor"
-
-msgid "Querying"
-msgstr "Zatražujem"
-
-msgid "Fetching"
-msgstr "Dobavljam"
-
-msgid "Data received"
-msgstr "Podaci primljeni"
-
-msgid "Cover"
-msgstr "Omot"
-
-msgid "Finished"
-msgstr "Završeno"
-
-msgid "Aborted"
-msgstr "Obustavljen"
 
 msgid "A&bort"
 msgstr "O&bustavi"
@@ -964,9 +1105,6 @@ msgstr "Kodiranje teksta"
 msgid "Text"
 msgstr "Tekst"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "Description"
 msgstr "Opis"
 
@@ -1132,9 +1270,6 @@ msgstr "&Izvor:"
 msgid "File Error"
 msgstr "Greška fajla"
 
-msgid "Error while writing file:\n"
-msgstr "Greška prilikom upisa fajla:\n"
-
 msgid "&Filter:"
 msgstr "&Filter:"
 
@@ -1158,9 +1293,6 @@ msgstr "Iz o&znaka..."
 
 msgid "&From Server:"
 msgstr "S&a servera:"
-
-msgid "Revert"
-msgstr "Vrati"
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Provjeri najveću dozvoljenu &vremensku razliku (sek):"
@@ -1236,9 +1368,6 @@ msgstr "Upiši samo &spisak fajlova"
 
 msgid "Write &info using"
 msgstr "Upiši &informacije koristeći"
-
-msgid "Format"
-msgstr "Format"
 
 msgid "Preview"
 msgstr "Pregled"
