@@ -33,13 +33,14 @@ set(WITH_FFMPEG OFF CACHE BOOL "force use of FFmpeg for Chromaprint decoding")
 set(WITH_CHROMAPRINT_FFMPEG OFF CACHE BOOL "link FFmpeg only for Chromaprint FFT")
 set(WITH_GSTREAMER OFF CACHE BOOL "force use of GStreamer for Chromaprint decoding")
 set(WITH_QAUDIODECODER OFF CACHE BOOL "force use of QAudioDecoder for Chromaprint decoding")
-set(WITH_DBUS ON CACHE BOOL "build with QtDBus")
 set(WITH_PHONON ON CACHE BOOL "build with Phonon")
 set(WITH_GCC_PCH OFF CACHE BOOL "enable precompiled headers")
 if (APPLE OR WIN32)
-  set(WITH_APPS "Qt" CACHE STRING "build applications (Qt;Test)")
+  set(WITH_DBUS OFF CACHE BOOL "build with QtDBus")
+  set(WITH_APPS "Qt;CLI" CACHE STRING "build applications (Qt;CLI;Test)")
 else (APPLE OR WIN32)
-  set(WITH_APPS "Qt;KDE" CACHE STRING "build applications (Qt;KDE;Test)")
+  set(WITH_DBUS ON CACHE BOOL "build with QtDBus")
+  set(WITH_APPS "Qt;CLI;KDE" CACHE STRING "build applications (Qt;CLI;KDE;Test)")
 endif (APPLE OR WIN32)
 
 if (DEFINED WITH_KDE)
@@ -47,11 +48,10 @@ if (DEFINED WITH_KDE)
   message(FATAL_ERROR "The variable WITH_KDE is no longer used. The KDE and Qt "
                       "applications can now be built together using common "
                       "libraries. Use WITH_APPS with a value of \"KDE\" for "
-                      "the KDE application, \"Qt\" for the Qt application or "
-                      "\"Qt;KDE\" for both. Default is -DWITH_APPS="
-                      "\"${WITH_APPS}\". If you build multiple applications, "
-                      "consider using -DBUILD_SHARED_LIBS=ON to build shared "
-                      "dynamic libraries.")
+                      "the KDE application, \"Qt\" for the Qt application, "
+                      "\"CLI\" for the command line application or "
+                      "\"Qt;CLI;KDE\" for all. Default is -DWITH_APPS="
+                      "\"${WITH_APPS}\".")
 endif (DEFINED WITH_KDE)
 
 if (WITH_APPS)
@@ -59,6 +59,8 @@ if (WITH_APPS)
   foreach (_app ${_apps_lower})
     if (_app STREQUAL "qt")
       set(BUILD_QT_APP ON)
+    elseif (_app STREQUAL "cli")
+      set(BUILD_CLI_APP ON)
     elseif (_app STREQUAL "kde")
       set(BUILD_KDE_APP ON)
     elseif (_app STREQUAL "test")

@@ -276,6 +276,7 @@ void PwdCommand::startCommand()
 LsCommand::LsCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("ls"), tr("Directory list"))
 {
+  setTimeout(10000);
 }
 
 void LsCommand::startCommand()

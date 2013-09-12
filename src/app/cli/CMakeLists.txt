@@ -19,6 +19,12 @@ add_executable(kid3-cli ${cli_SRCS} ${cli_GEN_RCS})
 
 target_link_libraries(kid3-cli kid3-core)
 
+if (APPLE)
+  set(cli_BINDIR ${WITH_LIBDIR})
+else (APPLE)
+  set(cli_BINDIR ${WITH_BINDIR})
+endif (APPLE)
+
 install(TARGETS kid3-cli
   BUNDLE DESTINATION .
-  RUNTIME DESTINATION ${WITH_BINDIR})
+  RUNTIME DESTINATION ${cli_BINDIR})
