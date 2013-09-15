@@ -349,13 +349,13 @@ void BaseMainWindowImpl::slotFileOpen()
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
     QString filter(FileConfig::instance().m_nameFilter);
-    QString dir = m_platformTools->getOpenFileName(
+    QStringList dirs = m_platformTools->getOpenFileNames(
       m_w, QString(), m_app->getDirName(), flt, &filter);
-    if (!dir.isEmpty()) {
+    if (!dirs.isEmpty()) {
       if (!filter.isEmpty()) {
         FileConfig::instance().m_nameFilter = filter;
       }
-      m_app->openDirectory(QStringList() << dir);
+      m_app->openDirectory(dirs);
     }
   }
 }

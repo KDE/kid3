@@ -177,6 +177,25 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
 }
 
 /**
+ * Display dialog to select existing files.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected files, empty if canceled.
+ */
+QStringList PlatformTools::getOpenFileNames(QWidget* parent,
+    const QString& caption, const QString& dir,
+    const QString& filter, QString* selectedFilter)
+{
+  return QFileDialog::getOpenFileNames(
+        parent, caption, dir, filter, selectedFilter,
+        MainWindowConfig::instance().m_dontUseNativeDialogs
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+}
+
+/**
  * Display dialog to select a file to save.
  * @param parent parent widget
  * @param caption caption

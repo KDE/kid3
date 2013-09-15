@@ -90,6 +90,18 @@ public:
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) = 0;
 
+  /**
+   * Display dialog to select existing files.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected files, empty if canceled.
+   */
+  virtual QStringList getOpenFileNames(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter) = 0;
 
   /**
    * Display dialog to select a file to save.

@@ -213,6 +213,36 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
   }
 }
 
+/**
+ * Display dialog to select existing files.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected files, empty if canceled.
+ */
+QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
+    const QString& caption, const QString& dir,
+    const QString& filter, QString* selectedFilter)
+{
+  if (selectedFilter) {
+    QStringList selectedFiles;
+    KFileDialog diag(dir, filter, parent);
+    diag.setWindowTitle(caption.isEmpty()
+                        ? QCoreApplication::translate("@default",
+                              QT_TRANSLATE_NOOP("@default", "Open"))
+                        : caption);
+    diag.setMode(KFile::Files | KFile::LocalOnly);
+    if (diag.exec() == QDialog::Accepted) {
+      selectedFiles = diag.selectedFiles();
+      *selectedFilter = diag.currentFilter();
+    }
+    return selectedFiles;
+  } else {
+    return KFileDialog::getOpenFileNames(dir, filter, parent, caption);
+  }
+}
 
 /**
  * Display dialog to select a file to save.
