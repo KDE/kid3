@@ -175,8 +175,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox = new DirList(m_vSplitter);
   m_dirListBox->setModel(m_app->getDirProxyModel());
 
-  connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-          this, SLOT(setDirectoryIndex(QModelIndex,QModelIndex)));
+  connect(m_app,
+   SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+   this,
+   SLOT(setDirectoryIndex(QPersistentModelIndex,QList<QPersistentModelIndex>)));
 
   m_rightHalfVBox = new QWidget;
   QScrollArea* scrollView = new QScrollArea(this);
@@ -561,7 +563,7 @@ void Kid3Form::dirSelected(const QModelIndex& index)
     m_dirListBox->setEntryToSelect(
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
     m_mainWin->updateCurrentSelection();
-    m_mainWin->confirmedOpenDirectory(dirPath);
+    m_mainWin->confirmedOpenDirectory(QStringList() << dirPath);
   }
 }
 
@@ -938,12 +940,12 @@ FrameTable* Kid3Form::getEditingFrameTable() const
  * Set the root index of the directory and file lists.
  *
  * @param directoryIndex root index of directory in file proxy model
- * @param fileIndex index of file to select in file proxy model
+ * @param fileIndexes indexes of files to select in file proxy model
  */
-void Kid3Form::setDirectoryIndex(const QModelIndex& directoryIndex,
-                                 const QModelIndex& fileIndex)
+void Kid3Form::setDirectoryIndex(const QPersistentModelIndex& directoryIndex,
+                                 const QList<QPersistentModelIndex>& fileIndexes)
 {
-  m_fileListBox->readDir(directoryIndex, fileIndex);
+  m_fileListBox->readDir(directoryIndex, fileIndexes);
   m_dirListBox->readDir(
         m_app->getFileProxyModel()->mapToSource(directoryIndex));
 }

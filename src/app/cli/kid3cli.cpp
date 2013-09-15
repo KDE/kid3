@@ -245,17 +245,16 @@ void Kid3Cli::execute()
 
 /**
  * Open directory
- * @param path directory or file path
+ * @param paths directory or file paths
  * @return true if ok.
  */
-bool Kid3Cli::openDirectory(const QString& path)
+bool Kid3Cli::openDirectory(const QStringList& paths)
 {
   bool ok = false;
-  QFileInfo fi(path);
-  if (fi.exists()) {
-    QDir::setCurrent(fi.isDir() ? fi.absoluteFilePath() : fi.absolutePath());
-    ok = m_app->openDirectory(fi.absoluteFilePath(), false);
+  if (!paths.isEmpty() && QFileInfo(paths.first()).exists()) {
+    ok = m_app->openDirectory(paths);
     if (ok) {
+      QDir::setCurrent(m_app->getDirPath());
       m_app->getFileSelectionModel()->clearSelection();
     }
   }
@@ -572,9 +571,11 @@ bool Kid3Cli::parseOptions()
   if (paths.isEmpty()) {
     paths.append(QDir::currentPath());
   }
-  connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-          this, SLOT(onInitialDirectoryOpened(QModelIndex,QModelIndex)));
-  openDirectory(paths.first());
+  connect(m_app,
+    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+    this,
+    SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
+  openDirectory(paths);
   //! @todo select all given paths (incl. wildcards).
   return !m_argCommands.isEmpty();
 }
@@ -583,17 +584,24 @@ bool Kid3Cli::parseOptions()
  * Select files passed as command line arguments after the intial directory has
  * been opened. Start execution of commands if existing.
  * @param dirIndex file proxy model index of opened directory
- * @param fileIndex file proxy model index of selected file
+ * @param fileIndexes file proxy model indexes of selected files
  */
-void Kid3Cli::onInitialDirectoryOpened(const QModelIndex& dirIndex,
-                                       const QModelIndex& fileIndex)
+void Kid3Cli::onInitialDirectoryOpened(
+    const QPersistentModelIndex& dirIndex,
+    const QList<QPersistentModelIndex>& fileIndexes)
 {
   Q_UNUSED(dirIndex)
-  disconnect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-             this, SLOT(onInitialDirectoryOpened(QModelIndex,QModelIndex)));
-  if (fileIndex.isValid()) {
-    m_app->getFileSelectionModel()->setCurrentIndex(
-          fileIndex, QItemSelectionModel::SelectCurrent);
+  disconnect(m_app,
+    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+    this,
+    SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
+  QItemSelectionModel* selModel = m_app->getFileSelectionModel();
+  if (selModel && !fileIndexes.isEmpty()) {
+    foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
+      selModel->select(fileIndex, QItemSelectionModel::Select);
+    }
+    selModel->setCurrentIndex(fileIndexes.first(),
+                              QItemSelectionModel::NoUpdate);
   }
   if (!m_argCommands.isEmpty()) {
     executeNextArgCommand();

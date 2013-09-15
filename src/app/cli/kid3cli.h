@@ -67,10 +67,10 @@ public:
 
   /**
    * Open directory.
-   * @param path directory or file path
+   * @param paths directory or file paths
    * @return true if ok.
    */
-  bool openDirectory(const QString& path);
+  bool openDirectory(const QStringList& paths);
 
   /**
    * Select a file in the current directory.
@@ -144,10 +144,10 @@ private slots:
    * Select files passed as command line arguments after the intial directory has
    * been opened. Start execution of commands if existing.
    * @param dirIndex file proxy model index of opened directory
-   * @param fileIndex file proxy model index of selected file
+   * @param fileIndexes file proxy model indexes of selected files
    */
-  void onInitialDirectoryOpened(const QModelIndex& dirIndex,
-                                const QModelIndex& fileIndex);
+  void onInitialDirectoryOpened(const QPersistentModelIndex& dirIndex,
+                               const QList<QPersistentModelIndex>& fileIndexes);
 
   /**
    * Called when a command is finished.

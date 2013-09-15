@@ -407,27 +407,58 @@ void Kid3Application::readConfig()
 /**
  * Open directory.
  *
- * @param dir       directory or file path
- * @param fileCheck if true and dir in not directory, only open directory
- *                  if dir is a valid file path
+ * @param paths file or directory paths, if multiple paths are given, the
+ * common directory is opened and the files are selected
+ * @param fileCheck if true, only open directory if paths contains a valid
+ * file path
  *
  * @return true if ok, directoryOpened() is emitted.
  */
-bool Kid3Application::openDirectory(QString dir, bool fileCheck)
+bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
-  if (dir.isEmpty()) {
+  if (paths.isEmpty()) {
     return false;
   }
-  QFileInfo file(dir);
-  QString filePath;
-  if (!file.isDir()) {
-    if (fileCheck && !file.isFile()) {
-      return false;
+  QStringList filePaths;
+  QStringList dirComponents;
+  foreach (const QString& path, paths) {
+    if (!path.isEmpty()) {
+      QFileInfo fileInfo(path);
+      QString dirPath;
+      if (!fileInfo.isDir()) {
+        dirPath = fileInfo.absolutePath();
+        if (fileInfo.isFile()) {
+          filePaths.append(fileInfo.absoluteFilePath());
+        } else if (fileCheck) {
+          return false;
+        }
+      } else {
+        dirPath = QDir(path).absolutePath();
+      }
+      QStringList dirPathComponents = dirPath.split(QDir::separator());
+      if (dirComponents.isEmpty()) {
+        dirComponents = dirPathComponents;
+      } else {
+        // Reduce dirPath to common prefix.
+        QStringList::iterator dirIt = dirComponents.begin();
+        QStringList::const_iterator dirPathIt = dirPathComponents.constBegin();
+        while (dirIt != dirComponents.end() &&
+               dirPathIt != dirPathComponents.constEnd() &&
+               *dirIt == *dirPathIt) {
+          ++dirIt;
+          ++dirPathIt;
+        }
+        dirComponents.erase(dirIt, dirComponents.end());
+      }
     }
-    dir = file.absolutePath();
-    filePath = file.absoluteFilePath();
-  } else {
-    dir = QDir(dir).absolutePath();
+  }
+  QString dir = dirComponents.join(QDir::separator());
+  if (dir.isEmpty()) {
+    if (filePaths.isEmpty()) {
+      return false;
+    } else {
+      dir = QDir::rootPath();
+    }
   }
 
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
@@ -436,7 +467,10 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
   QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
-  QModelIndex fileIndex = m_fileSystemModel->index(filePath);
+  QModelIndexList fileIndexes;
+  foreach (const QString& filePath, filePaths) {
+    fileIndexes.append(m_fileSystemModel->index(filePath));
+  }
   bool ok = rootIndex.isValid();
   if (ok) {
     setModified(false);
@@ -444,7 +478,11 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
     setDirName(dir);
     QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
     m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
-    m_fileProxyModelFileIndex = m_fileProxyModel->mapFromSource(fileIndex);
+    m_fileProxyModelFileIndexes.clear();
+    foreach (const QModelIndex& fileIndex, fileIndexes) {
+      m_fileProxyModelFileIndexes.append(
+            m_fileProxyModel->mapFromSource(fileIndex));
+    }
     if (m_fileProxyModelRootIndex != oldRootIndex) {
 #if QT_VERSION >= 0x040700
       connect(m_fileProxyModel, SIGNAL(directoryLoaded(QString)),
@@ -475,7 +513,7 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
  */
 void Kid3Application::emitDirectoryOpened()
 {
-  emit directoryOpened(m_fileProxyModelRootIndex, m_fileProxyModelFileIndex);
+  emit directoryOpened(m_fileProxyModelRootIndex, m_fileProxyModelFileIndexes);
 }
 
 /**
@@ -1775,7 +1813,7 @@ void Kid3Application::openDrop(QString txt)
       }
     } else {
       emit fileSelectionUpdateRequested();
-      emit confirmedOpenDirectoryRequested(dir);
+      emit confirmedOpenDirectoryRequested(QStringList() << dir);
     }
   }
 }
@@ -2138,7 +2176,7 @@ QString Kid3Application::performRenameActions()
   m_dirRenamer->setDirName(getDirName());
   m_dirRenamer->performActions(&errorMsg);
   if (m_dirRenamer->getDirName() != getDirName()) {
-    openDirectory(m_dirRenamer->getDirName());
+    openDirectory(QStringList() << m_dirRenamer->getDirName());
   }
   return errorMsg;
 }

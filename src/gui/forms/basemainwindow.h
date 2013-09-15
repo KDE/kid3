@@ -165,9 +165,9 @@ public slots:
   /**
    * Open directory, user has to confirm if current directory modified.
    *
-   * @param dir directory or file path
+   * @param paths directory or file paths
    */
-  void confirmedOpenDirectory(const QString& dir);
+  void confirmedOpenDirectory(const QStringList& paths);
 
   /**
    * Update the recent file list and the caption when a new directory
@@ -512,9 +512,9 @@ public:
   /**
    * Open directory, user has to confirm if current directory modified.
    *
-   * @param dir directory or file path
+   * @param paths directory or file paths
    */
-  void confirmedOpenDirectory(const QString& dir);
+  void confirmedOpenDirectory(const QStringList& paths);
 
   /**
    * Access to implementation object.

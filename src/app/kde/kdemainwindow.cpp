@@ -375,7 +375,7 @@ void KdeMainWindow::saveProperties(KConfigGroup& cfg)
  */
 void KdeMainWindow::readProperties(const KConfigGroup& cfg)
 {
-  app()->openDirectory(cfg.readEntry("dirname", ""));
+  app()->openDirectory(QStringList() << cfg.readEntry("dirname", ""));
 }
 
 /**

@@ -225,32 +225,46 @@ CdCommand::CdCommand(Kid3Cli* processor) :
 
 void CdCommand::startCommand()
 {
-  QString path = args().size() > 1 ? args().at(1) : QDir::homePath();
-  if (!cli()->openDirectory(path)) {
-    setError(tr("%1 does not exist").arg(path));
+  QStringList paths;
+  if (args().size() > 1) {
+    paths = args().mid(1);
+  } else {
+    paths.append(QDir::homePath());
+  }
+  if (!cli()->openDirectory(paths)) {
+    setError(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
     terminate();
   }
 }
 
 void CdCommand::connectResultSignal()
 {
-  connect(cli()->app(), SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-          this, SLOT(onDirectoryOpened(QModelIndex,QModelIndex)));
+  connect(cli()->app(),
+    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+    this,
+    SLOT(onDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
 }
 
 void CdCommand::disconnectResultSignal()
 {
-  disconnect(cli()->app(), SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-             this, SLOT(onDirectoryOpened(QModelIndex,QModelIndex)));
+  disconnect(cli()->app(),
+    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+    this,
+    SLOT(onDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
 }
 
-void CdCommand::onDirectoryOpened(const QModelIndex& dirIndex,
-                                  const QModelIndex& fileIndex)
+void CdCommand::onDirectoryOpened(
+    const QPersistentModelIndex& dirIndex,
+    const QList<QPersistentModelIndex>& fileIndexes)
 {
   Q_UNUSED(dirIndex)
-  if (fileIndex.isValid()) {
-    cli()->app()->getFileSelectionModel()->select(fileIndex,
-                                           QItemSelectionModel::SelectCurrent);
+  QItemSelectionModel* selModel = cli()->app()->getFileSelectionModel();
+  if (selModel && !fileIndexes.isEmpty()) {
+    foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
+      selModel->select(fileIndex, QItemSelectionModel::Select);
+    }
+    selModel->setCurrentIndex(fileIndexes.first(),
+                              QItemSelectionModel::NoUpdate);
   }
   terminate();
 }
@@ -267,7 +281,7 @@ void PwdCommand::startCommand()
   QString path = cli()->app()->getDirPath();
   if (path.isNull()) {
     path = QDir::currentPath();
-    cli()->app()->openDirectory(path);
+    cli()->app()->openDirectory(QStringList() << path);
   }
   cli()->writeLine(path);
 }

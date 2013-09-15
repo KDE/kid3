@@ -127,10 +127,11 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateAfterFrameModification(TaggedFile*)));
   connect(m_app, SIGNAL(fileModified()),
           this, SLOT(updateModificationState()));
-  connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QString)),
-          this, SLOT(confirmedOpenDirectory(QString)));
-  connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
-          this, SLOT(onDirectoryOpened()));
+  connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
+          this, SLOT(confirmedOpenDirectory(QStringList)));
+  connect(m_app,
+    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
+    this, SLOT(onDirectoryOpened()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
@@ -173,9 +174,9 @@ void BaseMainWindowImpl::init()
 /**
  * Open directory, user has to confirm if current directory modified.
  *
- * @param dir directory or file path
+ * @param paths directory or file paths
  */
-void BaseMainWindowImpl::confirmedOpenDirectory(const QString& dir)
+void BaseMainWindowImpl::confirmedOpenDirectory(const QStringList& paths)
 {
   if (!saveModified()) {
     return;
@@ -183,7 +184,7 @@ void BaseMainWindowImpl::confirmedOpenDirectory(const QString& dir)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   slotStatusMsg(tr("Opening directory..."));
 
-  m_app->openDirectory(dir, false);
+  m_app->openDirectory(paths, false);
 
   slotStatusMsg(tr("Ready."));
   QApplication::restoreOverrideCursor();
@@ -354,7 +355,7 @@ void BaseMainWindowImpl::slotFileOpen()
       if (!filter.isEmpty()) {
         FileConfig::instance().m_nameFilter = filter;
       }
-      m_app->openDirectory(dir);
+      m_app->openDirectory(QStringList() << dir);
     }
   }
 }
@@ -369,7 +370,7 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
     QString dir = m_platformTools->getExistingDirectory(m_w, QString(),
                                                         m_app->getDirName());
     if (!dir.isEmpty()) {
-      m_app->openDirectory(dir);
+      m_app->openDirectory(QStringList() << dir);
     }
   }
 }
@@ -382,7 +383,7 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
 void BaseMainWindowImpl::openRecentDirectory(const QString& dir)
 {
   updateCurrentSelection();
-  confirmedOpenDirectory(dir);
+  confirmedOpenDirectory(QStringList() << dir);
 }
 
 /**
@@ -1216,11 +1217,11 @@ void BaseMainWindow::updateCurrentSelection()
 /**
  * Open directory, user has to confirm if current directory modified.
  *
- * @param dir directory or file path
+ * @param paths directory or file paths
  */
-void BaseMainWindow::confirmedOpenDirectory(const QString& dir)
+void BaseMainWindow::confirmedOpenDirectory(const QStringList& paths)
 {
-  m_impl->confirmedOpenDirectory(dir);
+  m_impl->confirmedOpenDirectory(paths);
 }
 
 /**

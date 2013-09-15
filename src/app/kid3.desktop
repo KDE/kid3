@@ -2,7 +2,7 @@
 Name=Kid3
 Name[sr]=Кид3
 Name[sr@ijekavian]=Кид3
-Exec=kid3 %f
+Exec=kid3 %F
 Icon=kid3
 Type=Application
 X-DocPath=kid3/index.html

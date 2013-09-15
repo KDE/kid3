@@ -89,10 +89,11 @@ int main(int argc, char* argv[])
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
     if (args->count()) {
-      kid3->confirmedOpenDirectory(args->arg(0));
+      kid3->confirmedOpenDirectory(args->allArguments().mid(1));
     } else if (FileConfig::instance().m_loadLastOpenedFile &&
                !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
-      kid3->confirmedOpenDirectory(FileConfig::instance().m_lastOpenedFile);
+      kid3->confirmedOpenDirectory(QStringList()
+                                   << FileConfig::instance().m_lastOpenedFile);
     }
     args->clear();
   }

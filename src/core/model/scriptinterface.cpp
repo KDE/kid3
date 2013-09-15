@@ -69,7 +69,7 @@ ScriptInterface::~ScriptInterface()
  */
 bool ScriptInterface::openDirectory(const QString& path)
 {
-  return m_app->openDirectory(path, true);
+  return m_app->openDirectory(QStringList() << path, true);
 }
 
 /**

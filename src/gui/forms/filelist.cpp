@@ -83,22 +83,29 @@ QSize FileList::sizeHint() const
  * Fill the filelist with the files found in a directory.
  *
  * @param dirIndex index of directory in file proxy model
- * @param fileIndex index of file to select in file proxy model (optional,
- * else invalid)
+ * @param fileIndexes indexes of files to select in file proxy model
+ * (optional, else empty)
  *
  * @return false if name is not directory path, else true.
  */
-bool FileList::readDir(const QModelIndex& dirIndex,
-                       const QModelIndex& fileIndex) {
+bool FileList::readDir(const QPersistentModelIndex& dirIndex,
+                       const QList<QPersistentModelIndex>& fileIndexes) {
   if (dirIndex.isValid()) {
     setRootIndex(dirIndex);
-    if (fileIndex.isValid()) {
-      setCurrentIndex(fileIndex);
-    } else {
-      setCurrentIndex(dirIndex);
-      // Make sure that this invisible root index item is not selected
-      if (selectionModel())
-        selectionModel()->clearSelection();
+    if (QItemSelectionModel* selModel = selectionModel()) {
+      selModel->clearSelection();
+      if (!fileIndexes.isEmpty()) {
+        foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
+          selModel->select(fileIndex, QItemSelectionModel::Select);
+          scrollTo(fileIndex);
+        }
+        selModel->setCurrentIndex(fileIndexes.first(),
+                                  QItemSelectionModel::NoUpdate);
+      } else {
+        setCurrentIndex(dirIndex);
+        // Make sure that this invisible root index item is not selected
+        selModel->clearSelection();
+      }
     }
     return true;
   }

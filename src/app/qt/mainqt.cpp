@@ -63,10 +63,11 @@ int main(int argc, char* argv[])
   kid3->setAttribute(Qt::WA_DeleteOnClose);
   kid3->show();
   if (argc > 1) {
-    kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
+    kid3->confirmedOpenDirectory(QApplication::arguments().mid(1));
   } else if (FileConfig::instance().m_loadLastOpenedFile &&
              !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
-    kid3->confirmedOpenDirectory(FileConfig::instance().m_lastOpenedFile);
+    kid3->confirmedOpenDirectory(QStringList()
+                                 << FileConfig::instance().m_lastOpenedFile);
   }
   return app.exec();
 }

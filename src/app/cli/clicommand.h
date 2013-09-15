@@ -255,8 +255,8 @@ protected:
   virtual void disconnectResultSignal();
 
 private slots:
-  void onDirectoryOpened(const QModelIndex& dirIndex,
-                         const QModelIndex& fileIndex);
+  void onDirectoryOpened(const QPersistentModelIndex& dirIndex,
+                         const QList<QPersistentModelIndex>& fileIndexes);
 };
 
 

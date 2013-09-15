@@ -231,13 +231,14 @@ public:
   /**
    * Open directory.
    *
-   * @param dir       directory or file path
-   * @param fileCheck if true and dir in not directory, only open directory
-   *                  if dir is a valid file path
+   * @param paths file or directory paths, if multiple paths are given, the
+   * common directory is opened and the files are selected
+   * @param fileCheck if true, only open directory if paths contains a valid
+   * file path
    *
    * @return true if ok, directoryOpened() is emitted.
    */
-  bool openDirectory(QString dir, bool fileCheck = false);
+  bool openDirectory(const QStringList& paths, bool fileCheck = false);
 
   /**
    * Get root index of opened directory in file proxy model.
@@ -897,16 +898,16 @@ signals:
   /**
    * Emitted when a new directory is opened.
    * @param directoryIndex root path file proxy model index
-   * @param fileIndex file path index in the file proxy model
+   * @param fileIndexes file path indexes in the file proxy model
    */
-  void directoryOpened(const QModelIndex& directoryIndex,
-                       const QModelIndex& fileIndex);
+  void directoryOpened(const QPersistentModelIndex& directoryIndex,
+                       const QList<QPersistentModelIndex>& fileIndexes);
 
   /**
    * Emitted when a confirmed opening of a directory or file is requested.
-   * @param dir directory or file path
+   * @param paths directory or file paths
    */
-  void confirmedOpenDirectoryRequested(const QString& dir);
+  void confirmedOpenDirectoryRequested(const QStringList& paths);
 
   /**
    * Emitted when saving files is started.
@@ -1078,8 +1079,8 @@ private:
   bool m_filtered;
   /** Root index in file proxy model */
   QPersistentModelIndex m_fileProxyModelRootIndex;
-  /** Index of opened file in file proxy model */
-  QPersistentModelIndex m_fileProxyModelFileIndex;
+  /** Indexes of opened file in file proxy model */
+  QList<QPersistentModelIndex> m_fileProxyModelFileIndexes;
   /** Format to generate tags from filename */
   QString m_filenameToTagsFormat;
   /** Format to generate filename from tags */

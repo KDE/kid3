@@ -298,10 +298,10 @@ public slots:
    * Set the root index of the directory and file lists.
    *
    * @param directoryIndex root index of directory in file system model
-   * @param fileIndex index of file to select
+   * @param fileIndexes indexes of files to select
    */
-  void setDirectoryIndex(const QModelIndex& directoryIndex,
-                         const QModelIndex& fileIndex);
+  void setDirectoryIndex(const QPersistentModelIndex& directoryIndex,
+                         const QList<QPersistentModelIndex>& fileIndexes);
 
 private:
   /**
