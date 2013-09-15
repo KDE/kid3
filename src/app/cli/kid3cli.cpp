@@ -272,7 +272,7 @@ bool Kid3Cli::selectFile(const QString& fileName)
   QModelIndex index = model->index(fileName);
   if (index.isValid()) {
     m_app->getFileSelectionModel()->setCurrentIndex(
-          index, QItemSelectionModel::SelectCurrent);
+          index, QItemSelectionModel::Select);
     return true;
   }
   return false;

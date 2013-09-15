@@ -1904,7 +1904,7 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
 bool Kid3Application::firstFile(bool select)
 {
   m_fileSelectionModel->setCurrentIndex(getRootIndex(),
-    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
+                                        QItemSelectionModel::NoUpdate);
   return nextFile(select);
 }
 
@@ -1940,7 +1940,8 @@ bool Kid3Application::nextFile(bool select)
   if (!next.isValid())
     return false;
   m_fileSelectionModel->setCurrentIndex(next,
-    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
+    select ? QItemSelectionModel::ClearAndSelect
+           : QItemSelectionModel::Current);
   return true;
 }
 
@@ -1970,7 +1971,8 @@ bool Kid3Application::previousFile(bool select)
   if (!previous.isValid() || previous == getRootIndex())
     return false;
   m_fileSelectionModel->setCurrentIndex(previous,
-    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
+    select ? QItemSelectionModel::ClearAndSelect
+           : QItemSelectionModel::Current);
   return true;
 }
 
@@ -2002,7 +2004,7 @@ void Kid3Application::selectAllFiles()
   while (it.hasNext()) {
     selection.append(QItemSelectionRange(it.next()));
   }
-  m_fileSelectionModel->select(selection, QItemSelectionModel::SelectCurrent);
+  m_fileSelectionModel->select(selection, QItemSelectionModel::Select);
 }
 
 /**
