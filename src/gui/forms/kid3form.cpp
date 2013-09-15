@@ -452,11 +452,14 @@ void Kid3Form::dropEvent(QDropEvent* ev)
   QList<QUrl> urls = ev->mimeData()->urls();
   if (urls.isEmpty())
     return;
-  QString text = urls.first().toLocalFile();
-  if (!text.isEmpty()) {
-    m_app->openDrop(text);
+  if (urls.first().isLocalFile()) {
+    QStringList localFiles;
+    foreach (const QUrl& url, urls) {
+      localFiles.append(url.toLocalFile());
+    }
+    m_app->openDrop(localFiles);
   } else {
-    text = urls.first().toString();
+    QString text = urls.first().toString();
     if (text.startsWith(QLatin1String("http://"))) {
       m_app->dropUrl(text);
     }

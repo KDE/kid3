@@ -1779,29 +1779,43 @@ void Kid3Application::editOrAddPicture(IFrameEditor* frameEditor)
 }
 
 /**
- * Open directory on drop.
+ * Open directory or add pictures on drop.
  *
- * @param txt URL of directory or file in directory
+ * @param paths paths of directories or files in directory
  */
-void Kid3Application::openDrop(QString txt)
+void Kid3Application::openDrop(const QStringList& paths)
 {
-  int lfPos = txt.indexOf(QLatin1Char('\n'));
-  if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
-    txt.truncate(lfPos + 1);
-  }
-  QUrl url(txt);
-  if (!url.path().isEmpty()) {
+  QStringList filePaths;
+  QStringList picturePaths;
+  foreach (QString txt, paths) {
+    int lfPos = txt.indexOf(QLatin1Char('\n'));
+    if (lfPos > 0 && lfPos < static_cast<int>(txt.length()) - 1) {
+      txt.truncate(lfPos + 1);
+    }
+    QUrl url(txt);
+    if (!url.path().isEmpty()) {
 #ifdef Q_OS_WIN32
-    QString dir = url.toString();
+      QString dir = url.toString();
 #else
-    QString dir = url.path().trimmed();
+      QString dir = url.path().trimmed();
 #endif
-    if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
-        dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
-        dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+      if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
+          dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+          dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+        picturePaths.append(dir);
+      } else {
+        filePaths.append(dir);
+      }
+    }
+  }
+  if (!filePaths.isEmpty()) {
+    emit fileSelectionUpdateRequested();
+    emit confirmedOpenDirectoryRequested(filePaths);
+  } else if (!picturePaths.isEmpty()) {
+    foreach (const QString& picturePath, picturePaths) {
       PictureFrame frame;
-      if (PictureFrame::setDataFromFile(frame, dir)) {
-        QString fileName(dir);
+      if (PictureFrame::setDataFromFile(frame, picturePath)) {
+        QString fileName(picturePath);
         int slashPos = fileName.lastIndexOf(QLatin1Char('/'));
         if (slashPos != -1) {
           fileName = fileName.mid(slashPos + 1);
@@ -1811,9 +1825,6 @@ void Kid3Application::openDrop(QString txt)
         addFrame(&frame);
         emit selectedFilesUpdated();
       }
-    } else {
-      emit fileSelectionUpdateRequested();
-      emit confirmedOpenDirectoryRequested(QStringList() << dir);
     }
   }
 }

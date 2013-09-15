@@ -456,11 +456,11 @@ public:
   void formatFramesIfEnabled(FrameCollection& frames) const;
 
   /**
-   * Open directory on drop.
+   * Open directory or add pictures on drop.
    *
-   * @param txt URL of directory or file in directory
+   * @param paths paths of directories or files in directory
    */
-  void openDrop(QString txt);
+  void openDrop(const QStringList& paths);
 
   /**
    * Add picture on drop.
