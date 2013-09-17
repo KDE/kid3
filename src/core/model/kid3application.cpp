@@ -406,31 +406,31 @@ void Kid3Application::readConfig()
 
 /**
  * Open directory.
+ * When finished directoryOpened() is emitted, also if false is returned.
  *
  * @param paths file or directory paths, if multiple paths are given, the
  * common directory is opened and the files are selected
- * @param fileCheck if true, only open directory if paths contains a valid
- * file path
+ * @param fileCheck if true, only open directory if paths exist
  *
- * @return true if ok, directoryOpened() is emitted.
+ * @return true if ok.
  */
 bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
-  if (paths.isEmpty()) {
-    return false;
-  }
+  bool ok = true;
   QStringList filePaths;
   QStringList dirComponents;
   foreach (const QString& path, paths) {
     if (!path.isEmpty()) {
       QFileInfo fileInfo(path);
+      if (fileCheck && !fileInfo.exists()) {
+        ok = false;
+        break;
+      }
       QString dirPath;
       if (!fileInfo.isDir()) {
         dirPath = fileInfo.absolutePath();
         if (fileInfo.isFile()) {
           filePaths.append(fileInfo.absoluteFilePath());
-        } else if (fileCheck) {
-          return false;
         }
       } else {
         dirPath = QDir(path).absolutePath();
@@ -452,26 +452,28 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
       }
     }
   }
-  QString dir = dirComponents.join(QDir::separator());
-  if (dir.isEmpty()) {
-    if (filePaths.isEmpty()) {
-      return false;
-    } else {
+  QString dir;
+  if (ok) {
+    dir = dirComponents.join(QDir::separator());
+    if (dir.isEmpty() && !filePaths.isEmpty()) {
       dir = QDir::rootPath();
     }
+    ok = !dir.isEmpty();
   }
-
-  QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                            FileConfig::instance().m_nameFilter).
-                          split(QLatin1Char(' ')));
-  m_fileProxyModel->setNameFilters(nameFilters);
-  m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
-  QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
+  QModelIndex rootIndex;
   QModelIndexList fileIndexes;
-  foreach (const QString& filePath, filePaths) {
-    fileIndexes.append(m_fileSystemModel->index(filePath));
+  if (ok) {
+    QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+                              FileConfig::instance().m_nameFilter).
+                            split(QLatin1Char(' ')));
+    m_fileProxyModel->setNameFilters(nameFilters);
+    m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
+    rootIndex = m_fileSystemModel->setRootPath(dir);
+    foreach (const QString& filePath, filePaths) {
+      fileIndexes.append(m_fileSystemModel->index(filePath));
+    }
+    ok = rootIndex.isValid();
   }
-  bool ok = rootIndex.isValid();
   if (ok) {
     setModified(false);
     setFiltered(false);

@@ -230,13 +230,13 @@ public:
 
   /**
    * Open directory.
+   * When finished directoryOpened() is emitted, also if false is returned.
    *
    * @param paths file or directory paths, if multiple paths are given, the
    * common directory is opened and the files are selected
-   * @param fileCheck if true, only open directory if paths contains a valid
-   * file path
+   * @param fileCheck if true, only open directory if paths exist
    *
-   * @return true if ok, directoryOpened() is emitted.
+   * @return true if ok.
    */
   bool openDirectory(const QStringList& paths, bool fileCheck = false);
 

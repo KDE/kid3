@@ -250,15 +250,12 @@ void Kid3Cli::execute()
  */
 bool Kid3Cli::openDirectory(const QStringList& paths)
 {
-  bool ok = false;
-  if (!paths.isEmpty() && QFileInfo(paths.first()).exists()) {
-    ok = m_app->openDirectory(paths);
-    if (ok) {
-      QDir::setCurrent(m_app->getDirPath());
-      m_app->getFileSelectionModel()->clearSelection();
-    }
+  if (m_app->openDirectory(paths, true)) {
+    QDir::setCurrent(m_app->getDirPath());
+    m_app->getFileSelectionModel()->clearSelection();
+    return true;
   }
-  return ok;
+  return false;
 }
 
 /**
@@ -575,7 +572,9 @@ bool Kid3Cli::parseOptions()
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this,
     SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
-  openDirectory(paths);
+  if (!openDirectory(paths)) {
+    writeErrorLine(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
+  }
   //! @todo select all given paths (incl. wildcards).
   return !m_argCommands.isEmpty();
 }
@@ -590,7 +589,6 @@ void Kid3Cli::onInitialDirectoryOpened(
     const QPersistentModelIndex& dirIndex,
     const QList<QPersistentModelIndex>& fileIndexes)
 {
-  Q_UNUSED(dirIndex)
   disconnect(m_app,
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this,
@@ -604,6 +602,10 @@ void Kid3Cli::onInitialDirectoryOpened(
                               QItemSelectionModel::NoUpdate);
   }
   if (!m_argCommands.isEmpty()) {
+    if (!dirIndex.isValid()) {
+      // Do not execute commands if directory could not be opened.
+      m_argCommands.clear();
+    }
     executeNextArgCommand();
   }
 }
