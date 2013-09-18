@@ -259,20 +259,67 @@ bool Kid3Cli::openDirectory(const QStringList& paths)
 }
 
 /**
- * Select a file in the current directory.
- * @param fileName file name
- * @return true if file found and selected.
+ * Expand wildcards in path list.
+ * @param paths paths to expand
+ * @return expanded paths.
  */
-bool Kid3Cli::selectFile(const QString& fileName)
+QStringList Kid3Cli::expandWildcards(const QStringList& paths)
 {
-  FileProxyModel* model = m_app->getFileProxyModel();
-  QModelIndex index = model->index(fileName);
-  if (index.isValid()) {
-    m_app->getFileSelectionModel()->setCurrentIndex(
-          index, QItemSelectionModel::Select);
-    return true;
+  QStringList expandedPaths;
+  foreach (const QString& path, paths) {
+    QStringList expandedPath;
+    int wcIdx = path.indexOf(QRegExp(QLatin1String("[?*]")));
+    if (wcIdx != -1) {
+      QString partBefore, partAfter;
+      int beforeIdx = path.lastIndexOf(QDir::separator(), wcIdx);
+      partBefore = path.left(beforeIdx + 1);
+      int afterIdx = path.indexOf(QDir::separator(), wcIdx);
+      if (afterIdx == -1) {
+        afterIdx = path.length();
+      }
+      partAfter = path.mid(afterIdx + 1);
+      QString wildcardPart = path.mid(beforeIdx + 1, afterIdx - beforeIdx);
+      if (!wildcardPart.isEmpty()) {
+        QDir dir(partBefore);
+        if (!dir.exists(wildcardPart)) {
+          QStringList entries = dir.entryList(QStringList() << wildcardPart,
+                                    QDir::AllEntries | QDir::NoDotAndDotDot);
+          if (!entries.isEmpty()) {
+            foreach (const QString& entry, entries) {
+              expandedPath.append(partBefore + entry + partAfter);
+            }
+          }
+        }
+      }
+    }
+    if (expandedPath.isEmpty()) {
+      expandedPaths.append(path);
+    } else {
+      expandedPaths.append(expandedPath);
+    }
   }
-  return false;
+  return expandedPaths;
+}
+
+/**
+ * Select files in the current directory.
+ * @param paths file names
+ * @return true if files found and selected.
+ */
+bool Kid3Cli::selectFile(const QStringList& paths)
+{
+  bool ok = true;
+  FileProxyModel* model = m_app->getFileProxyModel();
+  foreach (const QString& fileName, paths) {
+    QModelIndex index = model->index(fileName);
+    if (index.isValid()) {
+      m_app->getFileSelectionModel()->setCurrentIndex(
+            index, QItemSelectionModel::Select);
+    } else {
+      ok = false;
+    }
+  }
+  return ok;
 }
 
 /**
@@ -572,10 +619,9 @@ bool Kid3Cli::parseOptions()
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this,
     SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
-  if (!openDirectory(paths)) {
+  if (!openDirectory(expandWildcards(paths))) {
     writeErrorLine(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
   }
-  //! @todo select all given paths (incl. wildcards).
   return !m_argCommands.isEmpty();
 }
 

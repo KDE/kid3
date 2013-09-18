@@ -231,7 +231,7 @@ void CdCommand::startCommand()
   } else {
     paths.append(QDir::homePath());
   }
-  if (!cli()->openDirectory(paths)) {
+  if (!cli()->openDirectory(cli()->expandWildcards(paths))) {
     setError(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
     terminate();
   }
@@ -337,8 +337,11 @@ void SelectCommand::startCommand()
       setResult(cli()->app()->previousFile(true) ? 0 : 1);
     } else if (param == QLatin1String("next")) {
       setResult(cli()->app()->nextFile(true) ? 0 : 1);
-    } else if (!cli()->selectFile(param)) {
-      setError(tr("%1 not found").arg(args().at(1)));
+    } else {
+      QStringList paths = args().mid(1);
+      if (!cli()->selectFile(cli()->expandWildcards(paths))) {
+        setError(tr("%1 not found").arg(paths.join(QLatin1String(", "))));
+      }
     }
   } else {
     cli()->updateSelection();

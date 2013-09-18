@@ -73,11 +73,11 @@ public:
   bool openDirectory(const QStringList& paths);
 
   /**
-   * Select a file in the current directory.
-   * @param fileName file name
-   * @return true if file found and selected.
+   * Select files in the current directory.
+   * @param paths file names
+   * @return true if files found and selected.
    */
-  bool selectFile(const QString& fileName);
+  bool selectFile(const QStringList &paths);
 
   /**
    * Get indexes of selected files.
@@ -119,6 +119,13 @@ public:
    * @param tagMask tag bits
    */
   void setTagMask(TrackData::TagVersion tagMask);
+
+  /**
+   * Expand wildcards in path list.
+   * @param paths paths to expand
+   * @return expanded paths.
+   */
+  static QStringList expandWildcards(const QStringList& paths);
 
 public slots:
   /**
