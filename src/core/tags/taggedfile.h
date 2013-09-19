@@ -55,8 +55,9 @@ public:
     enum ChannelMode { CM_None, CM_Stereo, CM_JointStereo };
 
     /** Constructor. */
-    DetailInfo() : valid(false), vbr(false), channelMode(CM_None), channels(0),
-                   sampleRate(0), bitrate(0), duration(0) {}
+    DetailInfo();
+    /** Destructor. */
+    ~DetailInfo();
 
     bool valid;              /**< true if information valid */
     bool vbr;                /**< true if variable bitrate */

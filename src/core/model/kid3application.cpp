@@ -2552,7 +2552,7 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
   FrameTableModel* ft = (tagMask & TrackData::TagV2) ? m_framesV2Model :
     m_framesV1Model;
   FrameCollection frames(ft->frames());
-  FrameCollection::iterator it = frames.findByName(frameName);
+  FrameCollection::const_iterator it = frames.findByName(frameName);
   if (it != frames.end()) {
     if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
         (tagMask & 2) != 0) {

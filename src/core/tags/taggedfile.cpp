@@ -1145,6 +1145,21 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 
 
 /**
+ * Constructor.
+ */
+TaggedFile::DetailInfo::DetailInfo() : valid(false), vbr(false),
+  channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0)
+{
+}
+
+/**
+ * Destructor.
+ */
+TaggedFile::DetailInfo::~DetailInfo()
+{
+}
+
+/**
  * Get string representation of detail information.
  * @return information summary as string.
  */
