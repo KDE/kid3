@@ -56,6 +56,25 @@ AbstractCli::~AbstractCli()
 }
 
 /**
+ * Set prompt.
+ * @param prompt command line prompt
+ */
+void AbstractCli::setPrompt(const char* prompt)
+{
+  m_stdinReader->setPrompt(prompt);
+}
+
+/**
+ * Prompt next line from standard input.
+ * Has to be called when the processing in readLine() is finished and
+ * the user shall be prompted for the next line.
+ */
+void AbstractCli::promptNextLine()
+{
+  m_stdinReader->next();
+}
+
+/**
  * Execute process.
  */
 void AbstractCli::execute()

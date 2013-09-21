@@ -50,6 +50,12 @@ public:
   virtual ~AbstractCli();
 
   /**
+   * Set prompt.
+   * @param prompt command line prompt
+   */
+  void setPrompt(const char* prompt);
+
+  /**
    * Write a line to standard output.
    * @param line line to write
    */
@@ -60,6 +66,13 @@ public:
    * @param line line to write
    */
   void writeErrorLine(const QString& line);
+
+  /**
+   * Prompt next line from standard input.
+   * Has to be called when the processing in readLine() is finished and
+   * the user shall be prompted for the next line.
+   */
+  void promptNextLine();
 
 public slots:
   /**

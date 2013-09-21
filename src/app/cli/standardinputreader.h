@@ -28,8 +28,8 @@
 #define STANDARDINPUTREADER_H
 
 #include <QThread>
-
-class QTextStream;
+#include <QMutex>
+#include <QWaitCondition>
 
 /**
  * Thread reading lines from standard input.
@@ -47,6 +47,17 @@ public:
    * Destructor.
    */
   virtual ~StandardInputReader();
+
+  /**
+   * Set prompt.
+   * @param prompt command line prompt
+   */
+  void setPrompt(const char* prompt) { m_prompt = prompt; }
+
+  /**
+   * Read the next line.
+   */
+  void next();
 
   /**
    * Stop thread.
@@ -67,7 +78,9 @@ protected:
   virtual void run();
 
 private:
-  QTextStream* m_stdIn;
+  const char* m_prompt;
+  QMutex m_mutex;
+  QWaitCondition m_lineProcessed;
   volatile bool m_running;
 };
 

@@ -34,6 +34,130 @@
 #include "frametablemodel.h"
 #include "coreplatformtools.h"
 #include "clicommand.h"
+#include "cliconfig.h"
+
+#ifdef HAVE_READLINE
+
+#include "readlinecompleter.h"
+
+class Kid3CliCompleter : public ReadlineCompleter {
+public:
+  explicit Kid3CliCompleter(const QList<CliCommand*>& cmds);
+  virtual ~Kid3CliCompleter();
+
+  virtual QList<QByteArray> getCommandList() const;
+  virtual QList<QByteArray> getParameterList() const;
+  virtual bool updateParameterList(const char* buffer);
+
+private:
+  const QList<CliCommand*>& m_cmds;
+  QList<QByteArray> m_commands;
+  QList<QByteArray> m_parameters;
+};
+
+Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds) :
+  m_cmds(cmds)
+{
+  foreach (const CliCommand* cmd, cmds) {
+    m_commands.append(cmd->name().toLocal8Bit());
+  }
+}
+
+Kid3CliCompleter::~Kid3CliCompleter()
+{
+}
+
+QList<QByteArray> Kid3CliCompleter::getCommandList() const
+{
+  return m_commands;
+}
+
+QList<QByteArray> Kid3CliCompleter::getParameterList() const
+{
+  return m_parameters;
+}
+
+bool Kid3CliCompleter::updateParameterList(const char* buffer)
+{
+  QString cmdName = QString::fromLocal8Bit(buffer);
+  bool isFirstParameter = true;
+  int cmdNameEndIdx = cmdName.indexOf(QLatin1Char(' '));
+  if (cmdNameEndIdx != -1) {
+    isFirstParameter =
+        cmdName.indexOf(QLatin1Char(' '), cmdNameEndIdx + 1) == -1;
+    cmdName.truncate(cmdNameEndIdx);
+  }
+
+  QString argSpec;
+  if (isFirstParameter) {
+    foreach (const CliCommand* cmd, m_cmds) {
+      if (cmdName == cmd->name()) {
+        argSpec = cmd->argumentSpecification();
+        break;
+      }
+    }
+  }
+
+  m_parameters.clear();
+  if (!argSpec.isEmpty()) {
+    QStringList argSpecs = argSpec.split(QLatin1Char('\n'));
+    if (!argSpecs.isEmpty()) {
+      QString argTypes = argSpecs.first().
+          remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+      if (!argTypes.isEmpty()) {
+        char argType = argTypes.at(0).toLatin1();
+        switch (argType) {
+        case 'P':
+          // file path
+          return false;
+        case 'T':
+          // tagnumbers
+          m_parameters << "1" << "2" << "12";
+          break;
+        case 'N':
+        {
+          // frame name
+          static QList<QByteArray> frameNames;
+          if (frameNames.isEmpty()) {
+            for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
+              frameNames.append(
+                    Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                        QLatin1String("")).
+                    getName().toLower().remove(QLatin1Char(' ')).toLocal8Bit());
+            }
+          }
+          m_parameters = frameNames;
+          break;
+        }
+        case 'S':
+          // specific command
+          if (argSpecs.size() > 0) {
+            const QString& valuesStr = argSpecs.at(1);
+            int valuesIdx = valuesStr.indexOf(QLatin1String("S = \""));
+            if (valuesIdx != -1) {
+              QStringList values =
+                  valuesStr.mid(valuesIdx + 4).split(QLatin1String(" | "));
+              foreach (QString value, values) {
+                if (value.startsWith(QLatin1Char('"')) &&
+                    value.endsWith(QLatin1Char('"'))) {
+                  m_parameters.append(
+                        value.mid(1, value.length() - 2).toLocal8Bit());
+                }
+              }
+            }
+          }
+          break;
+        default:
+          break;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+#endif // HAVE_READLINE
+
 
 /** @cond */
 namespace {
@@ -111,6 +235,7 @@ Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli(parent),
   m_app(new Kid3Application(m_platformtools, this)),
   m_tagMask(TrackData::TagV2V1), m_fileNameChanged(false)
 {
+  setPrompt("kid3-cli> ");
   m_cmds << new HelpCommand(this)
          << new QuitCommand(this)
          << new CdCommand(this)
@@ -146,6 +271,10 @@ Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli(parent),
           this, SLOT(updateSelectedFiles()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),
           this, SLOT(updateSelection()));
+#ifdef HAVE_READLINE
+  m_completer = new Kid3CliCompleter(m_cmds);
+  m_completer->install();
+#endif
 }
 
 /**
@@ -153,6 +282,9 @@ Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli(parent),
  */
 Kid3Cli::~Kid3Cli()
 {
+#ifdef HAVE_READLINE
+  delete m_completer;
+#endif
 }
 
 /**
@@ -195,7 +327,7 @@ void Kid3Cli::writeHelp(const QString& cmdName)
               QLatin1String(" \"1\" | \"2\" | \"12\""));
     writeLine(QLatin1String("  N = ") + tr("Frame name") +
               QLatin1String(" \"album\" | \"album artist\" | \"arranger\" | "
-                            "\" artist\" | ..."));
+                            "\"artist\" | ..."));
     writeLine(QLatin1String("  V = ") + tr("Frame value"));
     writeLine(QLatin1String("  F = ") + tr("Format"));
     writeLine(QLatin1String("  S = ") + tr("Command specific"));
@@ -239,7 +371,6 @@ void Kid3Cli::execute()
   if (!parseOptions()) {
     // Interactive mode
     AbstractCli::execute();
-    writePrompt();
   }
 }
 
@@ -549,7 +680,7 @@ void Kid3Cli::readLine(const QString& line)
     cmd->execute();
   } else {
     writeErrorLine(tr("Unknown command '%1'. Type 'help' for help.").arg(line));
-    writePrompt();
+    promptNextLine();
   }
 }
 
@@ -563,7 +694,7 @@ void Kid3Cli::onCommandFinished() {
       writeErrorLine(cmd->getErrorMessage());
     }
     cmd->clear();
-    writePrompt();
+    promptNextLine();
   }
 }
 
@@ -581,12 +712,6 @@ void Kid3Cli::onArgCommandFinished() {
       cmd->clear();
     }
   }
-}
-
-void Kid3Cli::writePrompt()
-{
-  cout() << QLatin1String("kid3-cli> ");
-  cout().flush();
 }
 
 bool Kid3Cli::parseOptions()

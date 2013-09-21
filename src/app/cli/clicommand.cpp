@@ -409,6 +409,7 @@ void SetCommand::startCommand()
     TrackData::TagVersion tagMask = getTagMaskParameter(3);
     if (cli()->app()->setFrame(tagMask, name, value)) {
       cli()->updateSelectedFiles();
+      cli()->updateSelection();
     } else {
       setError(tr("Could not set \"%1\" for %2").arg(value).arg(name));
     }

@@ -25,15 +25,19 @@
  */
 
 #include "standardinputreader.h"
+#include "cliconfig.h"
 #include <QTextStream>
+#ifdef HAVE_READLINE
+#include <readline/readline.h>
+#include <readline/history.h>
+#endif
 
 /**
  * Constructor.
  * @param parent parent object
  */
 StandardInputReader::StandardInputReader(QObject* parent) :
-  QThread(parent),
-  m_stdIn(new QTextStream(stdin, QIODevice::ReadOnly)), m_running(false)
+  QThread(parent), m_prompt(""), m_running(false)
 {
 }
 
@@ -42,7 +46,6 @@ StandardInputReader::StandardInputReader(QObject* parent) :
  */
 StandardInputReader::~StandardInputReader()
 {
-  delete m_stdIn;
 }
 
 /**
@@ -51,9 +54,15 @@ StandardInputReader::~StandardInputReader()
 void StandardInputReader::stop()
 {
   m_running = false;
-  m_stdIn->flush();
-  terminate();
-  wait();
+  next();
+  wait(500);
+  if (isRunning()) {
+    terminate();
+    wait();
+  }
+#ifdef HAVE_READLINE
+  ::rl_cleanup_after_signal();
+#endif
 }
 
 /**
@@ -63,10 +72,36 @@ void StandardInputReader::run()
 {
   m_running = true;
   while (m_running) {
-    QString line = m_stdIn->readLine();
+#ifdef HAVE_READLINE
+    char* lineRead = ::readline(m_prompt);
+    if (lineRead && *lineRead) {
+      ::add_history(lineRead);
+    }
+    QString line = QString::fromLocal8Bit(lineRead);
+    ::rl_free(lineRead);
+#else
+    QTextStream stdOut(stdout, QIODevice::WriteOnly);
+    stdOut << m_prompt;
+    stdOut.flush();
+    QTextStream stdIn(stdin, QIODevice::ReadOnly);
+    QString line = stdIn.readLine();
+#endif
     if (line.isNull()) {
       break;
     }
     emit lineReady(line);
+    m_mutex.lock();
+    m_lineProcessed.wait(&m_mutex);
+    m_mutex.unlock();
   }
+}
+
+/**
+ * Read the next line.
+ */
+void StandardInputReader::next()
+{
+  m_mutex.lock();
+  m_lineProcessed.wakeOne();
+  m_mutex.unlock();
 }

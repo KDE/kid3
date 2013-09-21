@@ -30,12 +30,17 @@
 #include "abstractcli.h"
 #include "taggedfile.h"
 #include "trackdata.h"
+#include "cliconfig.h"
 
 class QTimer;
 class ICorePlatformTools;
 class Kid3Application;
 class FileProxyModel;
 class CliCommand;
+
+#ifdef HAVE_READLINE
+class Kid3CliCompleter;
+#endif
 
 /**
  * Command line interface for Kid3.
@@ -176,12 +181,14 @@ private:
 
   void printFileProxyModel(const FileProxyModel* model,
                            const QModelIndex& parent, int indent);
-  void writePrompt();
   bool parseOptions();
   void executeNextArgCommand();
 
   ICorePlatformTools* m_platformtools;
   Kid3Application* m_app;
+#ifdef HAVE_READLINE
+  Kid3CliCompleter* m_completer;
+#endif
   QList<CliCommand*> m_cmds;
   QStringList m_argCommands;
   TaggedFile::DetailInfo m_detailInfo;
