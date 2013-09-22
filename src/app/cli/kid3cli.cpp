@@ -784,6 +784,15 @@ void Kid3Cli::onInitialDirectoryOpened(
 void Kid3Cli::executeNextArgCommand()
 {
   if (m_argCommands.isEmpty()) {
+    m_app->updateModified();
+    if (m_app->isModified() && !m_app->getDirName().isEmpty()) {
+      // Automatically save changes in command mode.
+      QStringList errorFiles = m_app->saveDirectory();
+      if (!errorFiles.isEmpty()) {
+        writeErrorLine(tr("Error while writing file:\n") +
+                       errorFiles.join(QLatin1String("\n")));
+      }
+    }
     terminate();
     return;
   }
