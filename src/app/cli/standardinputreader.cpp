@@ -30,6 +30,8 @@
 #ifdef HAVE_READLINE
 #include <readline/readline.h>
 #include <readline/history.h>
+#elif defined Q_OS_WIN32
+#include <windows.h>
 #endif
 
 /**
@@ -79,6 +81,23 @@ void StandardInputReader::run()
     }
     QString line = QString::fromLocal8Bit(lineRead);
     ::rl_free(lineRead);
+#elif defined Q_OS_WIN32
+    WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE),
+                  m_prompt, qstrlen(m_prompt), 0, 0);
+    const int numCharsInBuf = 512;
+    wchar_t buf[numCharsInBuf];
+    DWORD numCharsRead;
+    QString line;
+    do {
+      ReadConsoleW(GetStdHandle(STD_INPUT_HANDLE),
+          buf, numCharsInBuf, &numCharsRead, 0);
+      line += QString::fromWCharArray(buf, numCharsRead);
+    } while (numCharsRead > 0 && line[line.length() - 1] != QLatin1Char('\n'));
+    while (line.length() > 0 &&
+           (line[line.length() - 1] == QLatin1Char('\r') ||
+            line[line.length() - 1] == QLatin1Char('\n'))) {
+      line.truncate(line.length() - 1);
+    }
 #else
     QTextStream stdOut(stdout, QIODevice::WriteOnly);
     stdOut << m_prompt;

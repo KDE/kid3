@@ -27,21 +27,19 @@
 #include "abstractcli.h"
 #include <QTimer>
 #include <QCoreApplication>
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#endif
 #include "standardinputreader.h"
-
-namespace {
-
-static QTextStream stdOut(stdout, QIODevice::WriteOnly);
-static QTextStream stdErr(stderr, QIODevice::WriteOnly);
-
-}
 
 /**
  * Constructor.
  * @param parent parent object
  */
 AbstractCli::AbstractCli(QObject* parent) : QObject(parent),
+#ifndef Q_OS_WIN32
   m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly),
+#endif
   m_stdinReader(new StandardInputReader(this))
 {
   connect(m_stdinReader, SIGNAL(lineReady(QString)),
@@ -87,7 +85,7 @@ void AbstractCli::execute()
  */
 void AbstractCli::terminate()
 {
-  m_cout.flush();
+  flushStandardOutput();
   m_stdinReader->stop();
   QTimer::singleShot(0, qApp, SLOT(quit()));
 }
@@ -98,9 +96,15 @@ void AbstractCli::terminate()
  */
 void AbstractCli::writeLine(const QString& line)
 {
+#ifdef Q_OS_WIN32
+  QString str = line + QLatin1Char('\n');
+  WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE),
+      str.utf16(), str.size(), 0, 0);
+#else
   m_cout << line;
   m_cout << QLatin1Char('\n');
   m_cout.flush();
+#endif
 }
 
 /**
@@ -109,7 +113,23 @@ void AbstractCli::writeLine(const QString& line)
  */
 void AbstractCli::writeErrorLine(const QString& line)
 {
+#ifdef Q_OS_WIN32
+  QString str = line + QLatin1Char('\n');
+  WriteConsoleW(GetStdHandle(STD_ERROR_HANDLE),
+      str.utf16(), str.size(), 0, 0);
+#else
   m_cerr << line;
   m_cerr << QLatin1Char('\n');
   m_cerr.flush();
+#endif
+}
+
+/**
+ * Flush the standard output.
+ */
+void AbstractCli::flushStandardOutput()
+{
+#ifndef Q_OS_WIN32
+  m_cout.flush();
+#endif
 }

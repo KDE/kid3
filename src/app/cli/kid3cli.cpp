@@ -673,7 +673,7 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
  */
 void Kid3Cli::readLine(const QString& line)
 {
-  cout().flush();
+  flushStandardOutput();
   CliCommand* cmd = commandForArgs(line);
   if (cmd) {
     connect(cmd, SIGNAL(finished()), this, SLOT(onCommandFinished()));
@@ -726,10 +726,10 @@ bool Kid3Cli::parseOptions()
     } else if (arg == QLatin1String("-c")) {
       isCommand = true;
     } else if (arg == QLatin1String("-h") || arg == QLatin1String("--help")) {
-      cout() << tr("Usage:") + QLatin1String(
-          " kid3-cli [-c command1] [-c command2 ...] [path ...]\n");
+      writeLine(tr("Usage:") + QLatin1String(
+          " kid3-cli [-c command1] [-c command2 ...] [path ...]"));
       writeHelp();
-      cout().flush();
+      flushStandardOutput();
       terminate();
       return true;
     } else {

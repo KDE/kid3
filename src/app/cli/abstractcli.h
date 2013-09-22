@@ -28,7 +28,9 @@
 #define ABSTRACTCLI_H
 
 #include <QObject>
+#ifndef Q_OS_WIN32
 #include <QTextStream>
+#endif
 
 class StandardInputReader;
 
@@ -68,6 +70,11 @@ public:
   void writeErrorLine(const QString& line);
 
   /**
+   * Flush the standard output.
+   */
+  void flushStandardOutput();
+
+  /**
    * Prompt next line from standard input.
    * Has to be called when the processing in readLine() is finished and
    * the user shall be prompted for the next line.
@@ -85,19 +92,6 @@ public slots:
    */
   virtual void terminate();
 
-protected:
-  /**
-   * Standard output stream.
-   * @return reference to standard output stream.
-   */
-  QTextStream& cout() { return m_cout; }
-
-  /**
-   * Standard error stream.
-   * @return reference to standard error stream.
-   */
-  QTextStream& cerr() { return m_cerr; }
-
 protected slots:
   /**
    * Process command line.
@@ -107,8 +101,10 @@ protected slots:
   virtual void readLine(const QString& line) = 0;
 
 private:
+#ifndef Q_OS_WIN32
   QTextStream m_cout;
   QTextStream m_cerr;
+#endif
   StandardInputReader* m_stdinReader;
 };
 
