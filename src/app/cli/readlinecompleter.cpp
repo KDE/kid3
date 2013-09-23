@@ -46,8 +46,12 @@ void ReadlineCompleter::install()
 {
   s_completer = this;
   ::rl_attempted_completion_function = completion;
+#if RL_READLINE_VERSION > 0x0402
   ::rl_completer_quote_characters = "\"";
   ::rl_filename_quote_characters = " '\"\\\t";
+#else
+  ::rl_completer_quote_characters = const_cast<char*>("\"");
+#endif
 }
 
 /**
@@ -71,7 +75,9 @@ char** ReadlineCompleter::completion(const char* text, int start, int end)
         ::rl_attempted_completion_over = 1;
       }
     } else {
+#if RL_READLINE_VERSION > 0x0402
       ::rl_filename_quoting_desired = 1;
+#endif
     }
   }
 

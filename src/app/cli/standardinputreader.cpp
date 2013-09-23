@@ -30,6 +30,9 @@
 #ifdef HAVE_READLINE
 #include <readline/readline.h>
 #include <readline/history.h>
+#if RL_READLINE_VERSION < 0x0600
+#include <cstdlib>
+#endif
 #elif defined Q_OS_WIN32
 #include <windows.h>
 #endif
@@ -80,7 +83,11 @@ void StandardInputReader::run()
       ::add_history(lineRead);
     }
     QString line = QString::fromLocal8Bit(lineRead);
+#if RL_READLINE_VERSION >= 0x0600
     ::rl_free(lineRead);
+#else
+    ::free(lineRead);
+#endif
 #elif defined Q_OS_WIN32
     WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE),
                   m_prompt, qstrlen(m_prompt), 0, 0);
