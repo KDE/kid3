@@ -1,6 +1,6 @@
 /**
  * \file standardinputreader.cpp
- * Thread reading lines from standard input.
+ * Reader for lines from standard input.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -26,7 +26,6 @@
 
 #include "standardinputreader.h"
 #include "cliconfig.h"
-#include <QTextStream>
 #ifdef HAVE_READLINE
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -35,14 +34,17 @@
 #endif
 #elif defined Q_OS_WIN32
 #include <windows.h>
+#else
+#include <QTextStream>
 #endif
 
 /**
  * Constructor.
+ * @param prompt command line prompt
  * @param parent parent object
  */
-StandardInputReader::StandardInputReader(QObject* parent) :
-  QThread(parent), m_prompt(""), m_running(false)
+StandardInputReader::StandardInputReader(const char* prompt, QObject* parent) :
+  QObject(parent), m_prompt(prompt)
 {
 }
 
@@ -51,83 +53,50 @@ StandardInputReader::StandardInputReader(QObject* parent) :
  */
 StandardInputReader::~StandardInputReader()
 {
-}
-
-/**
- * Stop thread.
- */
-void StandardInputReader::stop()
-{
-  m_running = false;
-  next();
-  wait(500);
-  if (isRunning()) {
-    terminate();
-    wait();
-  }
 #ifdef HAVE_READLINE
   ::rl_cleanup_after_signal();
 #endif
 }
 
 /**
- * Start thread.
- */
-void StandardInputReader::run()
-{
-  m_running = true;
-  while (m_running) {
-#ifdef HAVE_READLINE
-    char* lineRead = ::readline(m_prompt);
-    if (lineRead && *lineRead) {
-      ::add_history(lineRead);
-    }
-    QString line = QString::fromLocal8Bit(lineRead);
-#if RL_READLINE_VERSION >= 0x0600
-    ::rl_free(lineRead);
-#else
-    ::free(lineRead);
-#endif
-#elif defined Q_OS_WIN32
-    WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE),
-                  m_prompt, qstrlen(m_prompt), 0, 0);
-    const int numCharsInBuf = 512;
-    wchar_t buf[numCharsInBuf];
-    DWORD numCharsRead;
-    QString line;
-    do {
-      ReadConsoleW(GetStdHandle(STD_INPUT_HANDLE),
-          buf, numCharsInBuf, &numCharsRead, 0);
-      line += QString::fromWCharArray(buf, numCharsRead);
-    } while (numCharsRead > 0 && line[line.length() - 1] != QLatin1Char('\n'));
-    while (line.length() > 0 &&
-           (line[line.length() - 1] == QLatin1Char('\r') ||
-            line[line.length() - 1] == QLatin1Char('\n'))) {
-      line.truncate(line.length() - 1);
-    }
-#else
-    QTextStream stdOut(stdout, QIODevice::WriteOnly);
-    stdOut << m_prompt;
-    stdOut.flush();
-    QTextStream stdIn(stdin, QIODevice::ReadOnly);
-    QString line = stdIn.readLine();
-#endif
-    if (line.isNull()) {
-      break;
-    }
-    emit lineReady(line);
-    m_mutex.lock();
-    m_lineProcessed.wait(&m_mutex);
-    m_mutex.unlock();
-  }
-}
-
-/**
  * Read the next line.
  */
-void StandardInputReader::next()
+void StandardInputReader::readLine()
 {
-  m_mutex.lock();
-  m_lineProcessed.wakeOne();
-  m_mutex.unlock();
+#ifdef HAVE_READLINE
+  char* lineRead = ::readline(m_prompt);
+  if (lineRead && *lineRead) {
+    ::add_history(lineRead);
+  }
+  QString line = QString::fromLocal8Bit(lineRead);
+#if RL_READLINE_VERSION >= 0x0600
+  ::rl_free(lineRead);
+#else
+  ::free(lineRead);
+#endif
+#elif defined Q_OS_WIN32
+  WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE),
+                m_prompt, qstrlen(m_prompt), 0, 0);
+  const int numCharsInBuf = 512;
+  wchar_t buf[numCharsInBuf];
+  DWORD numCharsRead;
+  QString line;
+  do {
+    ReadConsoleW(GetStdHandle(STD_INPUT_HANDLE),
+        buf, numCharsInBuf, &numCharsRead, 0);
+    line += QString::fromWCharArray(buf, numCharsRead);
+  } while (numCharsRead > 0 && line[line.length() - 1] != QLatin1Char('\n'));
+  while (line.length() > 0 &&
+         (line[line.length() - 1] == QLatin1Char('\r') ||
+          line[line.length() - 1] == QLatin1Char('\n'))) {
+    line.truncate(line.length() - 1);
+  }
+#else
+  QTextStream stdOut(stdout, QIODevice::WriteOnly);
+  stdOut << m_prompt;
+  stdOut.flush();
+  QTextStream stdIn(stdin, QIODevice::ReadOnly);
+  QString line = stdIn.readLine();
+#endif
+  emit lineReady(line);
 }

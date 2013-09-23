@@ -27,6 +27,7 @@
 #include "abstractcli.h"
 #include <QTimer>
 #include <QCoreApplication>
+#include <QThread>
 #ifdef Q_OS_WIN32
 #include <windows.h>
 #endif
@@ -34,16 +35,15 @@
 
 /**
  * Constructor.
+ * @param prompt command line prompt
  * @param parent parent object
  */
-AbstractCli::AbstractCli(QObject* parent) : QObject(parent),
+AbstractCli::AbstractCli(const char* prompt, QObject* parent) : QObject(parent),
 #ifndef Q_OS_WIN32
   m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly),
 #endif
-  m_stdinReader(new StandardInputReader(this))
+  m_stdinReader(new StandardInputReader(prompt))
 {
-  connect(m_stdinReader, SIGNAL(lineReady(QString)),
-          this, SLOT(readLine(QString)));
 }
 
 /**
@@ -54,22 +54,13 @@ AbstractCli::~AbstractCli()
 }
 
 /**
- * Set prompt.
- * @param prompt command line prompt
- */
-void AbstractCli::setPrompt(const char* prompt)
-{
-  m_stdinReader->setPrompt(prompt);
-}
-
-/**
  * Prompt next line from standard input.
  * Has to be called when the processing in readLine() is finished and
  * the user shall be prompted for the next line.
  */
 void AbstractCli::promptNextLine()
 {
-  m_stdinReader->next();
+  emit requestNextLine();
 }
 
 /**
@@ -77,7 +68,23 @@ void AbstractCli::promptNextLine()
  */
 void AbstractCli::execute()
 {
-  m_stdinReader->start();
+  QThread* conInThread = new QThread;
+  conInThread->setObjectName(QLatin1String("conInThread"));
+
+  connect(conInThread, SIGNAL(started()), m_stdinReader, SLOT(readLine()));
+  connect(conInThread, SIGNAL(finished()), m_stdinReader, SLOT(deleteLater()));
+  connect(m_stdinReader, SIGNAL(lineReady(QString)),
+          this, SLOT(readLine(QString)), Qt::QueuedConnection);
+  connect(this, SIGNAL(requestNextLine()),
+          m_stdinReader, SLOT(readLine()), Qt::QueuedConnection);
+  connect(this, SIGNAL(requestTermination()), conInThread, SLOT(quit()));
+  connect(conInThread, SIGNAL(finished()), conInThread, SLOT(deleteLater()));
+#if QT_VERSION < 0x050000
+  connect(conInThread, SIGNAL(terminated()), conInThread, SLOT(deleteLater()));
+#endif
+  m_stdinReader->moveToThread(conInThread);
+
+  conInThread->start();
 }
 
 /**
@@ -86,7 +93,7 @@ void AbstractCli::execute()
 void AbstractCli::terminate()
 {
   flushStandardOutput();
-  m_stdinReader->stop();
+  emit requestTermination();
   QTimer::singleShot(0, qApp, SLOT(quit()));
 }
 

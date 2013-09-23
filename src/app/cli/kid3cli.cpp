@@ -230,12 +230,11 @@ QStringList splitArgs(const QString& str)
  * Constructor.
  * @param parent parent object
  */
-Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli(parent),
+Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli("kid3-cli> ", parent),
   m_platformtools(new CorePlatformTools),
   m_app(new Kid3Application(m_platformtools, this)),
   m_tagMask(TrackData::TagV2V1), m_fileNameChanged(false)
 {
-  setPrompt("kid3-cli> ");
   m_cmds << new HelpCommand(this)
          << new QuitCommand(this)
          << new CdCommand(this)

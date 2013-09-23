@@ -208,6 +208,7 @@ void QuitCommand::startCommand()
       return;
     }
   }
+  disconnect(this, SIGNAL(finished()), cli(), SLOT(onCommandFinished()));
   cli()->terminate();
 }
 

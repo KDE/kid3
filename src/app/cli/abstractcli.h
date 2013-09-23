@@ -42,20 +42,15 @@ class AbstractCli : public QObject {
 public:
   /**
    * Constructor.
+   * @param prompt command line prompt
    * @param parent parent object
    */
-  explicit AbstractCli(QObject* parent = 0);
+  explicit AbstractCli(const char* prompt = "", QObject* parent = 0);
 
   /**
    * Destructor.
    */
   virtual ~AbstractCli();
-
-  /**
-   * Set prompt.
-   * @param prompt command line prompt
-   */
-  void setPrompt(const char* prompt);
 
   /**
    * Write a line to standard output.
@@ -91,6 +86,17 @@ public slots:
    * Terminate command line processor.
    */
   virtual void terminate();
+
+signals:
+  /**
+   * Emitted when the next line shall be read.
+   */
+  void requestNextLine();
+
+  /**
+   * Emitted to request termination.
+   */
+  void requestTermination();
 
 protected slots:
   /**

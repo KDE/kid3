@@ -1,6 +1,6 @@
 /**
  * \file standardinputreader.h
- * Thread reading lines from standard input.
+ * Reader for lines from standard input.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -27,42 +27,39 @@
 #ifndef STANDARDINPUTREADER_H
 #define STANDARDINPUTREADER_H
 
-#include <QThread>
-#include <QMutex>
-#include <QWaitCondition>
+#include <QObject>
 
 /**
- * Thread reading lines from standard input.
+ * Reader for lines from standard input.
+ *
+ * An instance of this class can be used as a worker in a worker thread.
+ * The blocking readLine() method can be called when the thread is
+ * started and then after lines have been processed. Availability of a new
+ * line is signaled with lineReady(). The controlling thread should only
+ * communicate with the worker thread using queued signal-slot connections.
  */
-class StandardInputReader : public QThread {
+class StandardInputReader : public QObject {
   Q_OBJECT
 public:
   /**
    * Constructor.
+   * @param prompt command line prompt
    * @param parent parent object
    */
-  explicit StandardInputReader(QObject* parent = 0);
+  explicit StandardInputReader(const char* prompt = "", QObject* parent = 0);
 
   /**
    * Destructor.
    */
   virtual ~StandardInputReader();
 
-  /**
-   * Set prompt.
-   * @param prompt command line prompt
-   */
-  void setPrompt(const char* prompt) { m_prompt = prompt; }
-
+public slots:
   /**
    * Read the next line.
+   * This method will block until a line is read from standard input.
+   * When the line is ready, lineReady() is emitted.
    */
-  void next();
-
-  /**
-   * Stop thread.
-   */
-  void stop();
+  void readLine();
 
 signals:
   /**
@@ -71,17 +68,8 @@ signals:
    */
   void lineReady(const QString& line);
 
-protected:
-  /**
-   * Start thread.
-   */
-  virtual void run();
-
 private:
   const char* m_prompt;
-  QMutex m_mutex;
-  QWaitCondition m_lineProcessed;
-  volatile bool m_running;
 };
 
 #endif // STANDARDINPUTREADER_H
