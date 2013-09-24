@@ -222,7 +222,11 @@ void Kid3Application::initPlugins()
       }
     }
     orderedFactories.removeAll(0);
+#if QT_VERSION >= 0x040800
     FileProxyModel::taggedFileFactories().swap(orderedFactories);
+#else
+    FileProxyModel::taggedFileFactories() = orderedFactories;
+#endif
   }
 }
 

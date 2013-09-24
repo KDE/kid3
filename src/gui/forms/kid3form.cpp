@@ -452,7 +452,13 @@ void Kid3Form::dropEvent(QDropEvent* ev)
   QList<QUrl> urls = ev->mimeData()->urls();
   if (urls.isEmpty())
     return;
-  if (urls.first().isLocalFile()) {
+  if (
+#if QT_VERSION >= 0x040800
+    urls.first().isLocalFile()
+#else
+    !urls.first().toLocalFile().isEmpty()
+#endif
+    ) {
     QStringList localFiles;
     foreach (const QUrl& url, urls) {
       localFiles.append(url.toLocalFile());

@@ -76,9 +76,11 @@ int main(int argc, char* argv[])
         ki18n("%1").subs(QCoreApplication::translate("@default",
             // i18n EMAIL OF TRANSLATORS
             QT_TRANSLATE_NOOP("@default", "Your emails"))));
+#if KDE_VERSION >= 0x040500
   // Should not be used, but seems to be the only way to update the "about data"
   // with translated information.
   KGlobal::activeComponent().setAboutData(aboutData);
+#endif
 
   if (app.isSessionRestored()) {
     RESTORE(KdeMainWindow)
@@ -89,7 +91,14 @@ int main(int argc, char* argv[])
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
     if (args->count()) {
+#if KDE_VERSION >= 0x040600
       kid3->confirmedOpenDirectory(args->allArguments().mid(1));
+#else
+      QStringList args1;
+      for (int i = 0; i < args->count(); ++i)
+        args1.append(args->arg(i));
+      kid3->confirmedOpenDirectory(args1);
+#endif
     } else if (FileConfig::instance().m_loadLastOpenedFile &&
                !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
       kid3->confirmedOpenDirectory(QStringList()
