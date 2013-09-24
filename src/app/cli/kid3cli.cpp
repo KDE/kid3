@@ -179,7 +179,18 @@ QStringList splitArgs(const QString& str)
         return params;
       c = str.at(pos++);
     } while (c.isSpace());
-    QString param;
+    QString param = QLatin1String("");
+    if (c == QLatin1Char('~')) {
+      if (pos >= str.size() || str.at(pos).isSpace()) {
+        params.append(QDir::homePath());
+        continue;
+      }
+      if (str.at(pos) == QLatin1Char('/')) {
+        param = QDir::homePath();
+        c = QLatin1Char('/');
+        ++pos;
+      }
+    }
     do {
       if (c == QLatin1Char('\'')) {
         int spos = pos;
