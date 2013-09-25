@@ -736,6 +736,8 @@ bool Kid3Cli::parseOptions()
     } else if (arg == QLatin1String("-c")) {
       isCommand = true;
     } else if (arg == QLatin1String("-h") || arg == QLatin1String("--help")) {
+      writeLine(QLatin1String("kid3-qt " VERSION " (c) " RELEASE_YEAR
+                              " Urs Fleisch"));
       writeLine(tr("Usage:") + QLatin1String(
           " kid3-cli [-c command1] [-c command2 ...] [path ...]"));
       writeHelp();
