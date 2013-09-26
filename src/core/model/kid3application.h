@@ -1069,6 +1069,7 @@ private:
   /** Audio player */
   AudioPlayer* m_player;
 #endif
+  FileFilter* m_expressionFileFilter;
   /** Affected files to add frame when downloading image */
   DownloadImageDestination m_downloadImageDest;
   /** Copy buffer */

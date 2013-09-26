@@ -49,8 +49,9 @@ public:
 
   /**
    * Constructor.
+   * @param parent parent object
    */
-  FileFilter();
+  explicit FileFilter(QObject* parent = 0);
 
   /**
    * Destructor.

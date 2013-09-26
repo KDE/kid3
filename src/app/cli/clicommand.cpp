@@ -78,7 +78,6 @@ void CliCommand::clear()
     killTimer(m_timerId);
     m_timerId = 0;
   }
-  m_timeoutMs = DEFAULT_TIMEOUT_MS;
   m_errorMsg.clear();
   m_args.clear();
   m_result = 0;
@@ -155,12 +154,14 @@ TrackData::TagVersion CliCommand::getTagMaskParameter(int nr,
   int tagMask = 0;
   if (m_args.size() > nr) {
     const QString& tagStr = m_args.at(nr);
-    if (tagStr.contains(QLatin1Char('1')))
-      tagMask |= 1;
-    if (tagStr.contains(QLatin1Char('2')))
-      tagMask |= 2;
-    if (tagStr == QLatin1String("3"))
-      tagMask = 3;
+    if (!tagStr.isEmpty() && tagStr.at(0).isDigit()) {
+      if (tagStr.contains(QLatin1Char('1')))
+        tagMask |= 1;
+      if (tagStr.contains(QLatin1Char('2')))
+        tagMask |= 2;
+      if (tagStr == QLatin1String("3"))
+        tagMask = 3;
+    }
   }
   if (tagMask == 0 && useDefault) {
     tagMask = m_processor->tagMask();
@@ -826,6 +827,19 @@ void FilterCommand::startCommand()
     int fltIdx = FilterConfig::instance().m_filterNames.indexOf(expression);
     if (fltIdx != -1) {
       expression = FilterConfig::instance().m_filterExpressions.at(fltIdx);
+    } else if (!expression.isEmpty() &&
+               !expression.contains(QLatin1Char('%'))) {
+      // Probably an invalid expression
+      QString errMsg = tr("%1 not found.").arg(expression);
+      errMsg += QLatin1Char('\n');
+      errMsg += tr("Available");
+      errMsg += QLatin1String(": ");
+      errMsg += FilterConfig::instance().m_filterNames.join(
+            QLatin1String(", "));
+      errMsg += QLatin1Char('.');
+      setError(errMsg);
+      terminate();
+      return;
     }
     cli()->app()->applyFilter(expression);
   } else {
@@ -975,15 +989,19 @@ void FilenameToTagCommand::startCommand()
 
 
 TagToOtherTagCommand::TagToOtherTagCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("synctag"), tr("Tag to other tag"),
-             QLatin1String("[T]"))
+  CliCommand(processor, QLatin1String("syncto"), tr("Tag to other tag"),
+             QLatin1String("T"))
 {
 }
 
 void TagToOtherTagCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1);
-  cli()->app()->copyToOtherTag(tagMask);
+  TrackData::TagVersion tagMask = getTagMaskParameter(1, false);
+  if (tagMask != TrackData::TagNone) {
+    cli()->app()->copyToOtherTag(tagMask);
+  } else {
+    showUsage();
+  }
 }
 
 

@@ -131,6 +131,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
+  m_expressionFileFilter(0),
   m_downloadImageDest(ImageForSelectedFiles),
   m_selectionSingleFile(0),
   m_selectionTagV1SupportedCount(0), m_selectionFileCount(0),
@@ -2177,10 +2178,13 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
  */
 void Kid3Application::applyFilter(const QString& expression)
 {
-  FileFilter filter;
-  filter.setFilterExpression(expression);
-  filter.initParser();
-  applyFilter(filter);
+  if (!m_expressionFileFilter) {
+    m_expressionFileFilter = new FileFilter(this);
+  }
+  m_expressionFileFilter->clearAborted();
+  m_expressionFileFilter->setFilterExpression(expression);
+  m_expressionFileFilter->initParser();
+  applyFilter(*m_expressionFileFilter);
 }
 
 /**

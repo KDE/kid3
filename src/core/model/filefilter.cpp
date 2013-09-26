@@ -31,9 +31,12 @@
 
 /**
  * Constructor.
+ * @param parent parent object
  */
-FileFilter::FileFilter() :
-  m_parser(QStringList() << QLatin1String("equals") << QLatin1String("contains") << QLatin1String("matches")),
+FileFilter::FileFilter(QObject* parent) : QObject(parent),
+  m_parser(QStringList() << QLatin1String("equals")
+                         << QLatin1String("contains")
+                         << QLatin1String("matches")),
   m_aborted(false)
 {
 }
