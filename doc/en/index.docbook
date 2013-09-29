@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!ENTITY kid3 '<application>Kid3</application>'>
+  <!ENTITY doublehyphen '--'>
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
 ]>
@@ -16,6 +17,7 @@
 <affiliation>
 <address><email>ufleisch@users.sourceforge.net</email></address>
 </affiliation>
+<contrib>Software development</contrib>
 </author>
 </authorgroup>
 
@@ -68,6 +70,131 @@ generate the tags from the file name or vice versa.
 </keywordset>
 
 </bookinfo>
+
+<!--<refmeta>
+<refentrytitle>kid3</refentrytitle>
+<manvolnum>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname>kid3</refname>
+<refname>kid3-qt</refname>
+<refname>kid3-cli</refname>
+<refpurpose>Kid3 ID3 Tagger</refpurpose>
+</refnamediv>-->
+
+<!--<refsynopsisdiv>--><preface><title>Synopsis</title>
+<cmdsynopsis>
+<command>kid3</command>
+<group>
+<arg choice="plain"><option>&doublehyphen;help</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-qt</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-kde</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-all</option></arg>
+<sbr/>
+<arg choice="plain"><option>&doublehyphen;author</option></arg>
+<arg choice="plain"><option>&doublehyphen;version</option></arg>
+<arg choice="plain"><option>&doublehyphen;license</option></arg>
+</group>
+<arg rep="repeat"><replaceable>FILE</replaceable></arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>kid3-qt</command>
+<arg><option>Qt-options</option></arg>
+<arg rep="repeat"><replaceable>FILE</replaceable></arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>kid3-cli</command>
+<group>
+<arg choice="plain"><option>-h</option></arg>
+<arg choice="plain"><option>&doublehyphen;help</option></arg>
+</group>
+<arg><option>-c COMMAND1</option></arg>
+<arg rep="repeat"><option>-c COMMAND2</option></arg>
+<arg rep="repeat"><replaceable>FILE</replaceable></arg>
+</cmdsynopsis>
+<!--</refsynopsisdiv>--></preface>
+
+<preface><title>Options</title>
+
+<variablelist>
+<varlistentry>
+<term><replaceable>FILE</replaceable></term>
+<listitem><para>If <filename><replaceable>FILE</replaceable></filename> is the
+path to a directory, it will be opened. If one or more file paths are given,
+their common directory is opened and the files are selected.
+ </para></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1><title>kid3</title>
+<variablelist>
+<varlistentry>
+<term><option>&doublehyphen;help</option></term>
+<listitem><para>Show help about options.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-qt</option></term>
+<listitem><para>Show Qt specific options, see
+<citerefentry><refentrytitle>qtoptions</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-kde</option></term>
+<listitem><para>Show KDE specific options, see
+<citerefentry><refentrytitle>kdeoptions</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-all</option></term>
+<listitem><para>Show all options.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;author</option></term>
+<listitem><para>Show author information.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;version</option></term>
+<listitem><para>Show version information.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;license</option></term>
+<listitem><para>Show license information.</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1><title>kid3-qt</title>
+<variablelist>
+<varlistentry>
+<term><option>Qt-options</option></term>
+<listitem><para>See <citerefentry><refentrytitle>qtoptions</refentrytitle>
+<manvolnum>7</manvolnum></citerefentry>, however, the options have "-" as a
+prefix, not "&doublehyphen;".</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1><title>kid3-cli</title>
+<variablelist>
+
+<varlistentry>
+<term><option>-c</option></term>
+<listitem><para>Execute a command. Multiple <option>-c</option> options are
+possible, they are executed in sequence. See the section about
+<link linkend="kid3-cli">kid3-cli</link> for a description of the available
+commands.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-h</option>|<option>&doublehyphen;help</option></term>
+<listitem><para>Show help about options and commands.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect1>
+
+</preface>
 
 <chapter id="introduction">
 <title>Introduction</title>
@@ -266,7 +393,7 @@ without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 <para>
 Shows information about the encoding
 (MP3, Ogg, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
-bitrate, sample rate, channels and the length of the file.
+bit rate, sample rate, channels and the length of the file.
 </para>
 <para>
 The <guilabel>Name</guilabel> line edit contains the name of the file
@@ -290,7 +417,7 @@ into the filename:
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>   %{ignore} Ignored when generating tags from the file name</para></listitem>
 </itemizedlist>
@@ -299,7 +426,7 @@ into the filename:
 The format codes are not restricted to the examples given above. Any frame
 name can be used, for instance unified frame names
 like <userinput>%{bpm}</userinput> or format specific names
-like <userinput>%{popm}</userinput>. 
+like <userinput>%{popm}</userinput>.
 </para>
 
 <para>
@@ -444,7 +571,9 @@ browser or file manager and will be displayed here. Picture frames can be
 edited or added by double clicking on this control.
 </para>
 
-<sect3 id="frame-list">
+</sect2>
+
+<sect2 id="frame-list">
 <title>Frame List</title>
 
 <para>
@@ -546,8 +675,6 @@ offer this information.
 </para></listitem>
 </itemizedlist>
 </para>
-
-</sect3>
 
 </sect2>
 
@@ -697,7 +824,7 @@ used as a simple format for this purpose.
 </para>
 
 <para>
-The next format, "freedb HTML 
+The next format, "freedb HTML
 text", can be used to copy information from an HTML page of
 <ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
 and if the desired information is displayed in the web browser, copy the
@@ -732,7 +859,7 @@ which is most of the what Perl offers. Bracketing constructs "(..)" create
 capture buffers for the fields to import and are preceded by &kid3; specific
 codes to specify which field to capture. The codes are the same as used for
 the filename format, besides the codes listed below, any frame name is
-possible: 
+possible:
 </para>
 
 <itemizedlist id="format-codes">
@@ -747,7 +874,7 @@ possible:
 </itemizedlist>
 
 <para>
-For example, a track regular expression (second line) to import from an 
+For example, a track regular expression (second line) to import from an
 .m3u playlist could be "%{track}(\d+)\s+%{title}(\S[^\r\n]*)\.mp3[\r\n]". All formats can
 be changed by editing the regular expressions and the name and then clicking
 <guibutton>Save Settings</guibutton>. They will be stored in the
@@ -783,7 +910,7 @@ down, and then dropped at the new location.
 </para>
 <para>
 When the import dialog is opened, it contains the actual contents of the
-tags. The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the 
+tags. The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
 <guilabel>Destination</guilabel> combo box. The button on the right of this
 combo box can be used to revert the table to the current contents of the
 tags. The checkboxes in the first table column can be used to select the
@@ -796,7 +923,7 @@ To identify the tracks which are imported, it is possible to display the file
 names or the full paths to the files using the context menu of the table
 header. The values in the import table can be edited.  The revert-button to
 the right of the <guilabel>Destination</guilabel> combo box can be used to
-restore the contents of the tags, which can also be useful after changing the 
+restore the contents of the tags, which can also be useful after changing the
 <guilabel>Destination</guilabel>.
 </para>
 <para>
@@ -824,7 +951,7 @@ format using <guibutton>Add</guibutton> and set a new name, e.g.
 "Subtitle to Comment". Then enter "%{subtitle}" in
 <guilabel>Source</guilabel> and "%{comment}(.*)" for
 <guilabel>Extraction</guilabel> and click <guibutton>Save
-Settings</guibutton>. 
+Settings</guibutton>.
 </para>
 <para>
 The expression in <guilabel>Source</guilabel> can contain
@@ -849,7 +976,7 @@ way as for the <link linkend="import-text">import from file/clipboard</link>.
 using gnudb.org album search.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>gnudb.org</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -860,7 +987,7 @@ dialog.</para></listitem>
 <listitem><para><action>Import from the TrackType.org server.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>TrackType.org</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -872,7 +999,7 @@ dialog.</para></listitem>
 This menu item opens the same import dialog as
 <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From Discogs</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -884,7 +1011,7 @@ dialog.</para></listitem>
 This menu item opens the same import dialog as
 <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From Amazon</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -896,7 +1023,7 @@ dialog.</para></listitem>
 This menu item opens the same import dialog as
 <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From MusicBrainz Release</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -907,7 +1034,7 @@ dialog.</para></listitem>
 <listitem><para><action>Import from a MusicBrainz server.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
-dialog.</para></listitem> 
+dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry id="batch-import">
@@ -922,7 +1049,7 @@ list, track data for the selected directories will be imported. If no
 directory is selected, all directories in the file list will be imported.
 </para>
 <para>
-The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the 
+The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
 <guilabel>Destination</guilabel> combo box.
 </para>
 <para>
@@ -957,7 +1084,7 @@ at the top of the dialog. The process can be aborted with the
 <guibutton>Abort</guibutton> button.
 </para>
 <para>
-</para></listitem> 
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="browse_pictures">
@@ -1035,7 +1162,7 @@ codes listed below but all tag frame names can be used.
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Path</para></listitem>
@@ -1048,10 +1175,10 @@ codes listed below but all tag frame names can be used.
 existing)</para></listitem>
 <listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF, or empty if not existing)</para></listitem>
-<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%b %{bitrate} Bit rate in kbit/s</para></listitem>
 <listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
 id3lib)</para></listitem>
-<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
@@ -1068,7 +1195,7 @@ the fields shall not contain any double quotes when this format is used.
 and absolute path names. "HTML" can be used to generate an HTML page with
 hyperlinks to the tracks. "Kover XML" creates a file which can be imported by
 the cover printing program Kover. "Technical Details" provides information
-about bitrate, samplerate, channels, etc. Finally, "Custom Format" is left empty for
+about bit rate, sample rate, channels, etc. Finally, "Custom Format" is left empty for
 definition of a custom format. You can define more formats of your own by
 adding lines in the file <filename>kid3rc</filename> in the configuration
 directory. The other formats can be adapted to your needs.
@@ -1081,7 +1208,7 @@ box. Pushing <guibutton>To File</guibutton> or
 clipboard. <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close
 the dialog, whereas <guibutton>OK</guibutton> accepts the current dialog
 settings.
-</para></listitem> 
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="create-playlist">
@@ -1148,7 +1275,7 @@ When <guibutton>Write only list of files</guibutton> is set, the playlist
 will only contain the paths to the files. To generate an extended playlist
 with additional information, a format string can be set using
 the <guibutton>Write info using</guibutton> control.
-</para> 
+</para>
 </listitem>
 </varlistentry>
 
@@ -1234,7 +1361,7 @@ the <guibutton>Write info using</guibutton> control.
 <para>
 <variablelist>
 
-<varlistentry>
+<varlistentry id="apply-filename-format">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Filename Format</guimenuitem>
@@ -1248,7 +1375,7 @@ changed (and therefore marked with a disk symbol in the file listbox).
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="apply-tag-format">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Tag Format</guimenuitem>
@@ -1262,7 +1389,7 @@ changed (and therefore marked with a disk symbol in the file listbox).
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="apply-text-encoding">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Text Encoding</guimenuitem>
@@ -1293,7 +1420,7 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
 
@@ -1354,7 +1481,7 @@ name format, import and export.
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Absolute path to file</para></listitem>
@@ -1363,10 +1490,10 @@ name format, import and export.
 existing)</para></listitem>
 <listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF, or empty if not existing)</para></listitem>
-<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%b %{bitrate} Bit rate in kbit/s</para></listitem>
 <listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
 id3lib)</para></listitem>
-<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
@@ -1759,7 +1886,7 @@ codes:
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%b %{browser} Command to start the web browser</para></listitem>
 </itemizedlist>
@@ -1788,14 +1915,14 @@ with drag and drop. You can also add an image with <guibutton>Add</guibutton>, t
 the Picture frame and import an image file or paste from the
 clipboard. Picture frames are supported for ID3v2, MP4, FLAC, Ogg and ASF tags.
 </para>
-<para> 
+<para>
 To add and delete entries in the table, a context menu can be
 used.
 </para>
 <para>
 The <guilabel>Network</guilabel> page contains only a field to insert the proxy
 address and optionally the port, separated by a colon. The proxy will be used
-when importing from an internet server when the checkbox is checked.
+when importing from an Internet server when the checkbox is checked.
 </para>
 <para>
 In the <guilabel>Plugins</guilabel> page, available plugins can be enabled or
@@ -1834,7 +1961,7 @@ M4A support, so this plugin is not built by default.
 </para></listitem>
 </itemizedlist>
 
-The <guilabel>Available Plugins</guilabel> sections lists the remaining
+The <guilabel>Available Plugins</guilabel> section lists the remaining
 plugins. Their order is not important, but they can be enabled or disabled
 using the check boxes.
 
@@ -1918,6 +2045,521 @@ button available, e.g. next file, previous file, select all.
 
 </chapter>
 
+<chapter id="kid3-cli">
+<title>kid3-cli</title>
+<sect1 id="kid3-cli-commands">
+<title>Commands</title>
+<para>
+<command>kid3-cli</command> offers a command-line-interface for &kid3;. If a
+directory path is used, the directory is opened. If one or more file paths are
+given, the common directory is opened and the files are selected. Subsequent
+commands will then work on these files. Commands are specified using
+<option>-c</option> options. If multiple commands are passed, they are
+executed in the given order. If files are modified by the commands, they will
+be saved at the end. If no command options are passed,
+<command>kid3-cli</command> starts in interactive mode. Commands can be
+entered and will operate on the current selection. The following sections
+list all available commands.
+</para>
+
+<sect2 id="cli-help">
+<title>Help</title>
+<cmdsynopsis>
+<command>help</command>
+<arg><replaceable>COMMAND-NAME</replaceable></arg>
+</cmdsynopsis>
+<para>Displays help about the parameters of
+<replaceable>COMMAND-NAME</replaceable> or about all commands if no command
+name is given.
+</para>
+</sect2>
+
+<sect2 id="cli-exit">
+<title>Quit application</title>
+<cmdsynopsis>
+<command>exit</command>
+<arg>force</arg>
+</cmdsynopsis>
+<para>Exit application. If there are modified unsaved files, the <parameter
+class="command">force</parameter> parameter is required.
+</para>
+</sect2>
+
+<sect2 id="cli-cd">
+<title>Change directory</title>
+<cmdsynopsis>
+<command>cd</command>
+<arg><replaceable>DIRECTORY</replaceable></arg>
+</cmdsynopsis>
+<para>If no <replaceable>DIRECTORY</replaceable> is given, change to the home
+directory. If a directory is given, change into the directory. If one or more
+file paths are given, change to their common directory and select the files.
+</para>
+</sect2>
+
+<sect2 id="cli-pwd">
+<title>Print the current working directory</title>
+<cmdsynopsis>
+<command>pwd</command>
+</cmdsynopsis>
+<para>Print the filename of the current working directory.</para>
+</sect2>
+
+<sect2 id="cli-ls">
+<title>Directory list</title>
+<cmdsynopsis>
+<command>ls</command>
+</cmdsynopsis>
+<para>List the contents of the current directory. This corresponds to the file
+list in the &kid3; GUI. Four characters before the file names show the state
+of the file.
+</para>
+
+<itemizedlist>
+<listitem><para><computeroutput>&gt;</computeroutput> File is selected.
+</para></listitem>
+<listitem><para><computeroutput>*</computeroutput> File is modified.
+</para></listitem>
+<listitem><para><computeroutput>1</computeroutput> File has a tag 1,
+otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
+<listitem><para><computeroutput>2</computeroutput> File has a tag 2,
+otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
+</itemizedlist>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput></screen>
+
+<para>In this example, all files have a tag 1, the second file also has a tag
+2 and it is selected. The third file is modified.
+</para>
+</sect2>
+
+<sect2 id="cli-save">
+<title>Save the changed files</title>
+<cmdsynopsis>
+<command>save</command>
+</cmdsynopsis>
+<para>
+</para>
+</sect2>
+
+<sect2 id="cli-select">
+<title>Select file</title>
+<cmdsynopsis>
+<command>select</command>
+<group>
+<arg choice="plain">all</arg>
+<arg choice="plain">none</arg>
+<arg choice="plain">first</arg>
+<arg choice="plain">previous</arg>
+<arg choice="plain">next</arg>
+<arg choice="plain" rep="repeat"><replaceable>FILE</replaceable></arg>
+</group>
+</cmdsynopsis>
+<para>To select all files, enter <userinput>select all</userinput>, to
+deselect all files, enter <userinput>select none</userinput>. To traverse the
+files in the current directory start with <userinput>select first</userinput>,
+then go forward using <userinput>select next</userinput> or backward using
+<userinput>select previous</userinput>. Specific files can be added to the
+current selection by giving their file names. Wildcards are possible, so
+<userinput>select *.mp3</userinput> will select all MP3 files in the current
+directory.
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>select first</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+> 1- 01 Intro.mp3
+  12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>select next</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>select *.mp3</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+> 1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+>*1- 03 Outro.mp3</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-tag">
+<title>Select tag</title>
+<cmdsynopsis>
+<command>tag</command>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Many commands have an optional <replaceable>TAG-NUMBERS</replaceable>
+parameter, which specifies whether the command operates on tag 1 or tag 2. If
+this parameter is omitted, the default tag numbers are used, which can be set
+by this command. At startup, is is set to <literal>12</literal> which means
+that information is read from tag 2 if available, else from tag 1;
+modifications are done on tag 2. The
+<option><replaceable>TAG-NUMBERS</replaceable></option> can be set to
+<userinput>1</userinput> or <userinput>2</userinput> to operate only on the
+corresponding tag. If the parameter is omitted, the current setting is
+displayed.
+</para>
+</sect2>
+
+<sect2 id="cli-get">
+<title>Get tag frame</title>
+<cmdsynopsis>
+<command>get</command>
+<group>
+<arg choice="plain">all</arg>
+<arg choice="plain"><replaceable>FRAME-NAME</replaceable></arg>
+</group>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>This command can be used to read the value of a specific tag frame or
+get information about all tag frames (if the argument is omitted or
+<option>all</option> is used). Modified frames are marked with a
+'<computeroutput>*</computeroutput>'.
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>get</userinput><computeroutput>
+File: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo 
+  Name: 01 Intro.mp3
+Tag 1: ID3v1.1
+  Title         Intro
+  Artist        One Hit Wonder
+  Album         Let's Tag
+  Date          2013
+  Track Number  1
+  Genre         Pop</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
+Intro</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-set">
+<title>Set tag frame</title>
+<cmdsynopsis>
+<command>set</command>
+<arg choice="req"><replaceable>FRAME-NAME</replaceable></arg>
+<arg choice="req"><replaceable>FRAME-VALUE</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>This command sets the value of a specific tag frame.
+</para>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
+<para>To set the contents of a picture frame from a file, use 
+<screen width="65"><userinput>set picture:"/path/to/folder.jpg" "Picture Description"</userinput></screen>
+</para>
+</sect2>
+
+<sect2 id="cli-revert">
+<title>Revert</title>
+<cmdsynopsis>
+<command>revert</command>
+</cmdsynopsis>
+<para>Revert all modifications in the selected files (or all files if no files
+are selected).
+</para>
+</sect2>
+
+<sect2 id="cli-import">
+<title>Import from file or clipboard</title>
+<cmdsynopsis>
+<command>import</command>
+<arg choice="req"><replaceable>FILE</replaceable></arg>
+<arg choice="req"><replaceable>FORMAT-NAME</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Tags are imported from the file <replaceable>FILE</replaceable> (or from
+the clipboard if <userinput>clipboard</userinput> is used for
+<replaceable>FILE</replaceable>) in the format with the name
+<replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
+unquoted"</userinput>, see <link linkend="import-text">Import</link>).
+</para>
+</sect2>
+
+<sect2 id="cli-autoimport">
+<title>Automatic import</title>
+<cmdsynopsis>
+<command>autoimport</command>
+<arg><replaceable>PROFILE-NAME</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Batch import using profile <replaceable>PROFILE-NAME</replaceable> (see
+<link linkend="batch-import">Automatic Import</link>,
+<userinput>"All"</userinput> is used if omitted).
+</para>
+</sect2>
+
+<sect2 id="cli-albumart">
+<title>Download album cover artwork</title>
+<cmdsynopsis>
+<command>albumart</command>
+<arg choice="req"><replaceable>URL</replaceable></arg>
+<arg>all</arg>
+</cmdsynopsis>
+<para>Set the album artwork by downloading a picture from
+<replaceable>URL</replaceable>. The rules defined in the <link
+linkend="browse_pictures">Browse Cover Art</link> dialog are used to transform
+general URLs (e.g. from Amazon) to a picture URL. To set the album cover from
+a local picture file, use the <link linkend="cli-set">set</link> command.
+</para>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>albumart
+http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen>
+</sect2>
+
+<sect2 id="cli-export">
+<title>Export to file or clipboard</title>
+<cmdsynopsis>
+<command>export</command>
+<arg choice="req"><replaceable>FILE</replaceable></arg>
+<arg choice="req"><replaceable>FORMAT-NAME</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Tags are exported to file <replaceable>FILE</replaceable> (or to
+the clipboard if <userinput>clipboard</userinput> is used for
+<replaceable>FILE</replaceable>) in the format with the name
+<replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
+unquoted"</userinput>, see <link linkend="export">Export</link>).
+</para>
+</sect2>
+
+<sect2 id="cli-playlist">
+<title>Create playlist</title>
+<cmdsynopsis>
+<command>playlist</command>
+</cmdsynopsis>
+<para>Create playlist in the format set in the configuration, see <link
+linkend="create-playlist">Create Playlist</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-filenameformat">
+<title>Apply filename format</title>
+<cmdsynopsis>
+<command>filenameformat</command>
+</cmdsynopsis>
+<para>Apply file name format set in the configuration, see <link linkend="apply-filename-format">Apply Filename Format</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-tagformat">
+<title>Apply tag format</title>
+<cmdsynopsis>
+<command>tagformat</command>
+</cmdsynopsis>
+<para>Apply tag name format set in the configuration, see <link linkend="apply-tag-format">Apply Tag Format</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-textencoding">
+<title>Apply text encoding</title>
+<cmdsynopsis>
+<command>textencoding</command>
+</cmdsynopsis>
+<para>Apply text encoding set in the configuration, see <link linkend="apply-text-encoding">Apply Text Encoding</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-renamedir">
+<title>Rename directory</title>
+<cmdsynopsis>
+<command>renamedir</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<group>
+<arg choice="plain">create</arg>
+<arg choice="plain">rename</arg>
+<arg choice="plain">dryrun</arg>
+</group>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Rename or create directories from the values in the
+tags according to a given <replaceable>FORMAT</replaceable>
+(e.g. <userinput>%{artist} - %{album}</userinput>, see <link
+linkend="rename-directory">Rename Directory</link>), if no format is given,
+the format defined in the <guilabel>Rename directory</guilabel> dialog is
+used. The default mode is <option>rename</option>; to create directories,
+<option>create</option> must be given explicitly. The rename actions will be
+performed immediately, to just see what would be done, use the
+<option>dryrun</option> option. 
+</para>
+</sect2>
+
+<sect2 id="cli-numbertracks">
+<title>Number tracks</title>
+<cmdsynopsis>
+<command>numbertracks</command>
+<arg><replaceable>TRACK-NUMBER</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Number the selected tracks starting with
+<replaceable>TRACK-NUMBER</replaceable> (<literal>1</literal> if omitted).
+</para>
+</sect2>
+
+<sect2 id="cli-filter">
+<title>Filter</title>
+<cmdsynopsis>
+<command>filter</command>
+<group>
+<arg choice="plain"><replaceable>FILTER-NAME</replaceable></arg>
+<arg choice="plain"><replaceable>FILTER-FORMAT</replaceable></arg>
+</group>
+</cmdsynopsis>
+<para>Filter the files so that only the files matching the
+<replaceable>FILTER-FORMAT</replaceable> are visible. The name of a predefined
+filter expression (e.g. <userinput>"Filename Tag Mismatch"</userinput>) can be
+used instead of a filter expression, see <link linkend="filter">Filter</link>.
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>filter '%{title} contains "tro"'</userinput><computeroutput>
+Started
+  /home/urs/One Hit Wonder - Let's Tag
++ 01 Intro.mp3
+- 02 We Only Got This One.mp3
++ 03 Outro.mp3
+Finished</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+  1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>filter All</userinput><computeroutput>
+Started
+  /home/urs/One Hit Wonder - Let's Tag
++ 01 Intro.mp3
++ 02 We Only Got This One.mp3
++ 03 Outro.mp3
+Finished</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+  12 02 We Only Got This One.mp3
+  1- 03 Outro.mp3</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-to24">
+<title>Convert ID3v2.3 to ID3v2.4</title>
+<cmdsynopsis>
+<command>to24</command>
+</cmdsynopsis>
+</sect2>
+
+<sect2 id="cli-to23">
+<title>Convert ID3v2.4 to ID3v2.3</title>
+<cmdsynopsis>
+<command>to23</command>
+</cmdsynopsis>
+</sect2>
+
+<sect2 id="cli-fromtag">
+<title>Filename from tag</title>
+<cmdsynopsis>
+<command>fromtag</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Set the file names of the selected files from values in the tags, for
+example <userinput>fromtag "%{track} - %{title}" 1</userinput>. If no format
+is specified, the format set in the GUI is used.
+</para>
+</sect2>
+
+<sect2 id="cli-totag">
+<title>Tag from filename</title>
+<cmdsynopsis>
+<command>totag</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<arg><replaceable>TAG-NUMBERS</replaceable></arg>
+</cmdsynopsis>
+<para>Set the tag frames from the file names, for example <userinput>totag
+"%{albumartist} - %{album}/%{track} %{title}" 2</userinput>. If no format
+is specified, the format set in the GUI is used. If the format
+of the filename does not match this pattern, a few other commonly used formats
+are tried.
+</para>
+</sect2>
+
+<sect2 id="cli-syncto">
+<title>Tag to other tag</title>
+<cmdsynopsis>
+<command>syncto</command>
+<arg choice="req"><replaceable>TAG-NUMBER</replaceable></arg>
+</cmdsynopsis>
+<para>Copy the tag frames from one tag to the other tag, e.g. to set the ID3v2
+tag from the ID3v1 tag, use <userinput>syncto 2</userinput>.
+</para>
+</sect2>
+
+<sect2 id="cli-copy">
+<title>Copy</title>
+<cmdsynopsis>
+<command>copy</command>
+<arg><replaceable>TAG-NUMBER</replaceable></arg>
+</cmdsynopsis>
+<para>Copy the tag frames of the selected file to the internal copy
+buffer. They can then be set on another file using the
+<command>paste</command> command.
+</para>
+</sect2>
+
+<sect2 id="cli-paste">
+<title>Paste</title>
+<cmdsynopsis>
+<command>paste</command>
+<arg><replaceable>TAG-NUMBER</replaceable></arg>
+</cmdsynopsis>
+<para>Set tag frames from the contents of the <command>copy</command> buffer
+in the selected files.
+</para>
+</sect2>
+
+<sect2 id="cli-remove">
+<title>Remove</title>
+<cmdsynopsis>
+<command>remove</command>
+<arg><replaceable>TAG-NUMBER</replaceable></arg>
+</cmdsynopsis>
+<para>Remove a tag.
+</para>
+</sect2>
+
+<sect2 id="cli-play">
+<title>Play</title>
+<cmdsynopsis>
+<command>play</command>
+<group>
+<arg choice="plain">pause</arg>
+<arg choice="plain">stop</arg>
+<arg choice="plain">previous</arg>
+<arg choice="plain">next</arg>
+</group>
+</cmdsynopsis>
+<para>Start audio playback. Once it has been started, it can be controlled
+with the <option>pause</option> (to pause and resume), <option>stop</option>,
+<option>previous</option> and <option>next</option> options.
+</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="kid3-cli-examples">
+<title>Examples</title>
+<para>Set album cover in all files of a directory using the batch import
+function:</para>
+<screen width="65"><userinput>kid3-cli -c 'autoimport "Cover Art"' /path/to/dir</userinput></screen>
+
+<para>Remove comment frames and apply the tag format in both tags of all MP3
+files of a directory:</para>
+<screen width="65"><userinput>kid3-cli -c 'set comment "" 1' -c 'set comment "" 2' \
+-c 'tagformat 1' -c 'tagformat 2' /path/to/dir/*.mp3</userinput></screen>
+
+<para>Automatically import tag 2, synchronize to tag 1, set file names from
+tag 2 and finally create a playlist:</para>
+<screen width="65"><userinput>kid3-cli -c autoimport -c 'syncto 1' -c fromtag -c playlist \
+  /path/to/dir/*.mp3</userinput></screen>
+
+<para>For all files with an ID3v2.4.0 tag, convert to ID3v2.3.0 and remove
+the arranger frame:</para>
+<screen width="65"><userinput>kid3-cli -c "filter 'ID3v2.4.0 Tag'" -c "select all" -c to23 \
+  -c "set arranger ''" /path/to/dir</userinput></screen>
+</sect1>
+</chapter>
 
 <chapter id="credits">
 
@@ -1952,7 +2594,7 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <title>Requirements</title>
 
 <para>
-&kid3; needs <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+&kid3; needs <ulink url="http://qt-project.org/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
 systems where these libraries are available, e.g. for GNU/Linux, Windows
@@ -1965,8 +2607,6 @@ required, for FLAC files <ulink url="http://flac.sourceforge.net">libFLAC++
 and libFLAC</ulink>.
 <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
  files.
-<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> is required for
-MP4 files.
 These four formats are also supported by
 <ulink url="http://taglib.github.io/">TagLib</ulink>,
 which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
@@ -1991,7 +2631,7 @@ You can compile &kid3; with or without KDE. Without KDE, &kid3; is a
 simple Qt application and lacks some configuration and session features.
 </para>
 <para>
-For a KDE 4 version, go into the top directory and type 
+For a KDE 4 version, go into the top directory and type
 <screen width="40">
 <prompt>%</prompt> <userinput>cmake .</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -2041,8 +2681,8 @@ filename and ID3 formats, the toolbar and statusbar
 settings as well as the window size will be be saved in the standard
 location in file <filename>kid3rc</filename>.
 As a Qt application, this file is
-in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>. On Windows,
-the configuration is stored in the registry. 
+in <filename>.config/Kid3/Kid3.conf</filename>. On Windows,
+the configuration is stored in the registry.
 </para>
 
 </sect1>
@@ -2126,7 +2766,7 @@ following methods:
   <paramdef>string <parameter>path</parameter> path to file or directory</paramdef>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-save">
@@ -2137,7 +2777,7 @@ following methods:
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-getErrorMessage">
@@ -2182,7 +2822,7 @@ following methods:
   <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-downloadAlbumArt">
@@ -2208,7 +2848,7 @@ following methods:
   <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-createPlaylist">
@@ -2219,7 +2859,7 @@ following methods:
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-quit">
@@ -2382,7 +3022,7 @@ following methods:
   <paramdef>boolean <parameter>create</parameter> true to create, false to rename</paramdef>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok, else the error message is available using getErrorMessage().</para>
+<para>Returns true if OK, else the error message is available using getErrorMessage().</para>
 </sect2>
 
 <sect2 id="dbus-numberTracks">
@@ -2424,7 +3064,7 @@ following methods:
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-getDirectoryName">
@@ -2508,7 +3148,7 @@ following methods:
       is added, if <parameter>value</parameter> is empty, the frame is deleted.
       To add binary data like a picture, a file can be added after the
       <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
-<para>Returns true if ok.</para>
+<para>Returns true if OK.</para>
 </sect2>
 
 <sect2 id="dbus-getTag">
@@ -2616,10 +3256,6 @@ following methods:
 </book>
 <!--
 Local Variables:
-mode: sgml
-sgml-minimize-attributes:nil
-sgml-general-insert-case:lower
-sgml-indent-step:0
-sgml-indent-data:nil
+mode: nxml
 End:
 -->

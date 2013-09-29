@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!ENTITY kid3 '<application>Kid3</application>'>
+  <!ENTITY doublehyphen '--'>
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % German "INCLUDE"><!-- change language only here -->
 ]>
@@ -16,6 +17,7 @@
 <affiliation>
 <address><email>ufleisch@users.sourceforge.net</email></address>
 </affiliation>
+<contrib>Software Entwicklung</contrib>
 </author>
 </authorgroup>
 
@@ -68,6 +70,132 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 </keywordset>
 
 </bookinfo>
+
+<!--<refmeta>
+<refentrytitle>kid3</refentrytitle>
+<manvolnum>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname>kid3</refname>
+<refname>kid3-qt</refname>
+<refname>kid3-cli</refname>
+<refpurpose>Kid3 ID3 Tagger</refpurpose>
+</refnamediv>-->
+
+<!--<refsynopsisdiv>--><preface><title>Übersicht</title>
+<cmdsynopsis>
+<command>kid3</command>
+<group>
+<arg choice="plain"><option>&doublehyphen;help</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-qt</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-kde</option></arg>
+<arg choice="plain"><option>&doublehyphen;help-all</option></arg>
+<sbr/>
+<arg choice="plain"><option>&doublehyphen;author</option></arg>
+<arg choice="plain"><option>&doublehyphen;version</option></arg>
+<arg choice="plain"><option>&doublehyphen;license</option></arg>
+</group>
+<arg rep="repeat"><replaceable>DATEI</replaceable></arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>kid3-qt</command>
+<arg><option>Qt-Optionen</option></arg>
+<arg rep="repeat"><replaceable>DATEI</replaceable></arg>
+</cmdsynopsis>
+<cmdsynopsis>
+<command>kid3-cli</command>
+<group>
+<arg choice="plain"><option>-h</option></arg>
+<arg choice="plain"><option>&doublehyphen;help</option></arg>
+</group>
+<arg><option>-c BEFEHL1</option></arg>
+<arg rep="repeat"><option>-c BEFEHL2</option></arg>
+<arg rep="repeat"><replaceable>DATEI</replaceable></arg>
+</cmdsynopsis>
+<!--</refsynopsisdiv>--></preface>
+
+<preface><title>Optionen</title>
+
+<variablelist>
+<varlistentry>
+<term><replaceable>DATEI</replaceable></term>
+<listitem><para>Wenn <filename><replaceable>DATEI</replaceable></filename> der
+Pfad auf ein Verzeichnis ist, so wird es geöffnet. Wenn einer oder mehrere
+Datei-Pfade gegeben werden, so wird deren gemeinsames Verzeichnis geöffnet und
+die Dateien werden ausgewählt.
+ </para></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1><title>kid3</title>
+<variablelist>
+<varlistentry>
+<term><option>&doublehyphen;help</option></term>
+<listitem><para>Hilfe zu verfügbaren Optionen anzeigen.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-qt</option></term>
+<listitem><para>Spezielle Optionen zu Qt anzeigen, siehe
+<citerefentry><refentrytitle>qtoptions</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-kde</option></term>
+<listitem><para>Spezielle Optionen zu KDE anzeigen, siehe
+<citerefentry><refentrytitle>kdeoptions</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;help-all</option></term>
+<listitem><para>Alle Optionen anzeigen.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;author</option></term>
+<listitem><para>Autoren-Information anzeigen.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;version</option></term>
+<listitem><para>Versionsinformation anzeigen.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;license</option></term>
+<listitem><para>Lizenz-Informationen anzeigen.</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1><title>kid3-qt</title>
+<variablelist>
+<varlistentry>
+<term><option>Qt-Optionen</option></term>
+<listitem><para>Siehe <citerefentry><refentrytitle>qtoptions</refentrytitle>
+<manvolnum>7</manvolnum></citerefentry>, die Optionen haben jedoch einen "-"
+als Präfix, und nicht "&doublehyphen;".</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1><title>kid3-cli</title>
+<variablelist>
+
+<varlistentry>
+<term><option>-c</option></term>
+<listitem><para>Führe einen Befehl aus. Mehrere <option>-c</option> Optionen sind möglich, die Befehle werden in der entsprechenden Reihenfolge ausgeführt.
+Siehe den Abschnitt über <link linkend="kid3-cli">kid3-cli</link> für eine
+Beschreibung der verfügbaren Befehle.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-h</option>|<option>&doublehyphen;help</option></term>
+<listitem><para>Hilfe zu verfügbaren Optionen und Befehlen anzeigen.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect1>
+
+</preface>
 
 <chapter id="introduction">
 <title>Einleitung</title>
@@ -142,7 +270,7 @@ TrueAudio, WavPack, WMA, WAV und AIFF Tags</para></listitem>
 und anderen Quellen</para></listitem>
 <listitem><para>Export als CSV, HTML, Stückliste, Kover XML oder in
 anderen Formaten. Exportierte CSV-Dateien können wieder importiert
-werden.</para></listitem> 
+werden.</para></listitem>
 </itemizedlist>
 </sect1>
 
@@ -202,7 +330,7 @@ im Verzeichnis.
 <para>
 Die &kid3; Benutzeroberfläche ist in fünf Sektionen aufgeteilt: Links finden sich das
 Dateilistenfeld und das Verzeichnislistenfeld, die rechte Seite enthält
-die <guilabel>Datei</guilabel>, 
+die <guilabel>Datei</guilabel>,
 <guilabel>Tag 1</guilabel> und <guilabel>Tag 2</guilabel>
 Sektionen.
 </para>
@@ -406,7 +534,7 @@ Befehle angewendet werden. So werden beim Kopieren, Einfügen und Transferieren
 zwischen Tags 1 und 2 nur markierte Felder verwendet. Um die Bedienung zu
 vereinfachen, wenn mehrere Dateien ausgewählt sind und daher alle
 Markierungsfelder inaktiv sind, verhalten sich diese Befehle wenn alle
-Markierungsfelder inaktiv sind gleich als wären alle markiert. 
+Markierungsfelder inaktiv sind gleich als wären alle markiert.
 </para>
 <para>
 <guibutton>Von Tag 2</guibutton>: Die Tag 1 Felder werden auf die gleichen
@@ -458,7 +586,7 @@ Dateien angewendet, welche solch ein Element enthalten.
 unterstützten Elementtypen wird angezeigt und  ein Element des gewählten
 Typs kann editiert und zu der Datei hinzugefügt werden. Dies funktioniert
 auch, wenn mehrere Dateien ausgewählt sind; das Element wird dann bei allen
-ausgewählten Dateien hinzugefügt. 
+ausgewählten Dateien hinzugefügt.
 </para>
 <para>
 <guibutton>Löschen</guibutton>: Löscht das ausgewählte Element
@@ -472,7 +600,9 @@ Editieren oder Hinzufügen eines Bild-Elements kann mit einem Doppelklick
 ausgelöst werden.
 </para>
 
-<sect3 id="frame-list">
+</sect2>
+
+<sect2 id="frame-list">
 <title>Frame-Liste</title>
 
 <para>
@@ -487,7 +617,7 @@ formatspezifische Bezeichnung erreicht werden.
   <title>Zuordnung der vereinheitlichten Frame-Namen in den unterschiedlichen Formaten</title>
    <tgroup cols="6">
      <thead>
-       <row><entry>Unified</entry>          <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry></row>
+       <row><entry>Vereinheitlicht</entry>          <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry></row>
      </thead>
      <tbody>
        <row><entry>Titel</entry>            <entry>TIT2</entry>    <entry>TIT2</entry>    <entry>©nam</entry>           <entry>Title</entry>                      <entry>TITLE</entry></row>
@@ -578,8 +708,6 @@ gesetzt.
 </para></listitem>
 </itemizedlist>
 </para>
-
-</sect3>
 
 </sect2>
 
@@ -713,7 +841,7 @@ den Zustand der MusicBrainz-Abfrage, welche gleich mit dem Öffnen des Dialogs
 mit "Suche läuft" beginnt. Es folgen dann ein Abfrage des Fingerprints und,
 falls diese kein Ergebnis liefert, eine Suche anhand der in der Datei
 vorhandenen Tags. Für eine erfolgreiche MusicBrainz-Suche kann es daher
-hilfreich sein, vorhandene Informationen (z.B. Interpret und Album) vorgängig
+hilfreich sein, vorhandene Informationen (z.B. Interpret und Album) vorangehend
 in den Tags zu speichern. Wenn ein Resultat gefunden wurde, so endet die Suche
 im Zustand "Erkannt", andernfalls wurde nichts gefunden oder gleich mehrere
 mögliche Resultate, von den der Benutzer eines auswählen kann.
@@ -836,7 +964,7 @@ rechts von diesem Auswahlfeld dient dazu, die Tabelle auf die in den Tags
 gespeicherten Werte zurückzusetzen. Über die Markierungsfelder in der ersten
 Tabellenspalte können die Stücke gewählt werden, deren Tags importiert werden
 sollen. Dies kann z.B. dann nützlich sein, wenn ein Verzeichnis alle Stücke
-eines Doppelalbums enthält, aber bloss die Stücke der zweiten CD importiert
+eines Doppelalbums enthält, aber bloß die Stücke der zweiten CD importiert
 werden sollen.
 </para>
 <para>
@@ -907,7 +1035,7 @@ zum <link linkend="import-text">Import von Datei/Clipboard
 mit Album-Suche auf gnudb.org.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>gnudb.org</guibutton> Dialog.</para></listitem> 
+den <guibutton>gnudb.org</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -918,7 +1046,7 @@ den <guibutton>gnudb.org</guibutton> Dialog.</para></listitem>
 <listitem><para><action>Importieren vom TrackType.org Server.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>TrackType.org</guibutton> Dialog.</para></listitem> 
+den <guibutton>TrackType.org</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -929,7 +1057,7 @@ den <guibutton>TrackType.org</guibutton> Dialog.</para></listitem>
 <listitem><para><action>Importieren vom Discogs Server.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>Discogs</guibutton> Dialog.</para></listitem> 
+den <guibutton>Discogs</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -940,7 +1068,7 @@ den <guibutton>Discogs</guibutton> Dialog.</para></listitem>
 <listitem><para><action>Importieren von Amazon.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>Amazon</guibutton> Dialog.</para></listitem> 
+den <guibutton>Amazon</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -951,7 +1079,7 @@ den <guibutton>Amazon</guibutton> Dialog.</para></listitem>
 <listitem><para><action>Importieren von der MusicBrainz Album Datenbank.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem> 
+den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -962,7 +1090,7 @@ den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem>
 <listitem><para><action>Importieren von einem MusicBrainz Server.</action>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
-den <guibutton>Von MusicBrainz Fingerprint</guibutton> Dialog.</para></listitem> 
+den <guibutton>Von MusicBrainz Fingerprint</guibutton> Dialog.</para></listitem>
 </varlistentry>
 
 <varlistentry id="batch-import">
@@ -1001,7 +1129,7 @@ Auswahl stellt dieselben Server zur Verfügung wie die Import-Funktionen.
 <guilabel>Zusätzliche Tags</guilabel>
 und <guilabel>Cover-Bilder</guilabel> bestimmen die Informationen, welche
 vom Server geholt werden sollen. Die <guilabel>Genauigkeit</guilabel>
-schliesslich bestimmt die minimale Übereinstimmung, welche erreicht werden
+schließlich bestimmt die minimale Übereinstimmung, welche erreicht werden
 muss, damit die importierten Daten akzeptiert werden. Ist sie ungenügend, so
 wird ein Import mit dem nächsten Server versucht. Dieser Dialog mit den
 Server-Eigenschaften wird auch angezeigt wenn
@@ -1016,7 +1144,7 @@ werden im Dialog oben angezeigt. <guibutton>Abbrechen</guibutton> führt zu
 einer vorzeitigen Beendigung des Imports.
 </para>
 <para>
-</para></listitem> 
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="browse_pictures">
@@ -1032,7 +1160,7 @@ aus den Tags übernommen. <guilabel>Quelle</guilabel> stellt eine Vielzahl von
 Websites mit Cover-Bildern zur Verfügung. Unter dem Namen ist die URL mit
 Interpret und Album als Parametern angegeben. Für URL-codierte Werte können
 dabei <userinput>%u{artist}</userinput> und <userinput>%u{album}</userinput>
-angegeben werden oder auch andere Werte aus 
+angegeben werden oder auch andere Werte aus
 den Tags, wie in <link linkend="configure-kid3">Kid3 einrichten</link>
 bei <guilabel>Benutzerbefehle</guilabel> beschrieben. Nach "Custom Source"
 können auch eigene Quellen hinzugefügt werden. Dazu wird "Custom Source" durch
@@ -1048,7 +1176,7 @@ Dateien gesetzt.
 <para>
 Da nicht alle Browser Drag'n'Drop von Bildern unterstützen und häufig die
 Bilder auf Websites mit einer URL unterlegt sind, erhält &kid3; in solchen
-Fällen bloss die entsprechende URL und nicht das Bild. Wenn die URL auf ein
+Fällen bloß die entsprechende URL und nicht das Bild. Wenn die URL auf ein
 Bild zeigt, wird dieses heruntergeladen. Falls die URL jedoch auf sonst eine
 Website hinweist, so muss von dieser auf das gewünschte Cover-Bild geschlossen
 werden. Dies ist die Aufgabe der Tabelle <guilabel>URL
@@ -1149,7 +1277,7 @@ werden. Ein Klick auf <guibutton>In Datei</guibutton> bzw.
 oder der Zwischenablage. <guibutton>OK</guibutton>
 und <guibutton>Abbrechen</guibutton> beenden den Dialog,
 wobei <guibutton>OK</guibutton> die aktuellen Einstellungen übernimmt.
-</para></listitem> 
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="create-playlist">
@@ -1159,7 +1287,7 @@ wobei <guibutton>OK</guibutton> die aktuellen Einstellungen übernimmt.
 </menuchoice></term>
 <listitem><para><action>Erzeugt eine Stückliste.</action> Das Format und der
 Inhalt der Stückliste können mit verschiedenen Optionen bestimmt werden.
-</para> 
+</para>
 <para>
 <guibutton>Wie Verzeichnisname</guibutton> generiert den Dateinamen der
 Wiedergabeliste aus dem Namen des Verzeichnisses. Es kann aber auch ein
@@ -1171,7 +1299,7 @@ Dateierweiterung richtet sich nach dem Format der Stückliste.
 </para>
 <para>
 Wo die Wiedergabeliste erstellt wird, kann bestimmt werden mit der
-Auswahlliste <guilabel>Erstelle in</guilabel> 
+Auswahlliste <guilabel>Erstelle in</guilabel>
 <variablelist>
 <varlistentry><term>Aktuellem Verzeichnis</term>
 <listitem><para>Die Stückliste wird im aktuellen Verzeichnis erstellt und
@@ -1223,7 +1351,7 @@ Stückliste nur die Pfade zu den Dateien enthält. Wünscht man zusätzliche
 Informationen, so steht <guibutton>Schreibe Informationen mit</guibutton>
 einer Format-Zeichenfolge zur Verfügung, und es wird eine erweiterte
 Stückliste generiert.
-</para> 
+</para>
 </listitem>
 </varlistentry>
 
@@ -1310,7 +1438,7 @@ Verzeichnis.</para></listitem>
 <para>
 <variablelist>
 
-<varlistentry>
+<varlistentry id="apply-filename-format">
 <term><menuchoice>
 <guimenu>Extras</guimenu>
 <guimenuitem>Dateinamenformat anwenden</guimenuitem>
@@ -1328,7 +1456,7 @@ rückgängig gemacht werden.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="apply-tag-format">
 <term><menuchoice>
 <guimenu>Extras</guimenu>
 <guimenuitem>Tag-Format anwenden</guimenuitem>
@@ -1346,7 +1474,7 @@ rückgängig gemacht werden.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="apply-text-encoding">
 <term><menuchoice>
 <guimenu>Extras</guimenu>
 <guimenuitem>Textkodierung anwenden</guimenuitem>
@@ -1411,13 +1539,13 @@ Falls die Track-Nummern in den Tags nicht vorhanden oder falsch sind, so
 lassen sich mit dieser Funktion <action>die Tracks automatisch aufsteigend
 nummerieren</action>. Im Dialog kann die <guilabel>Startnummer</guilabel>
 angegeben werden. Falls nur ein Teil der Tracks nummeriert werden soll, so
-sind diese vorgängig auszuwählen.
+sind diese im Voraus auszuwählen.
 </para><para>
 Wenn <guilabel>Anzahl Stücke</guilabel> markiert ist, wird auch
 die Anzahl Tracks in den Tags gesetzt.
 </para><para>
 Es können auch die Tracks über mehrere Ordner hinweg nummeriert werden. Dazu
-müssen die Verzeichnisse aufgeklappt und selektiert werden. 
+müssen die Verzeichnisse aufgeklappt und selektiert werden.
 </para></listitem>
 </varlistentry>
 
@@ -1430,7 +1558,7 @@ müssen die Verzeichnisse aufgeklappt und selektiert werden.
 <para>
 Der Filter kann dazu verwendet werden, nur diejenigen Dateien anzeigen, welche
 gewisse Eigenschaften erfüllen. Dies kann dann nützlich sein, wenn man die
-Tags oder Dateinamen in einer grösseren Sammlung bereinigen möchte, jedoch nur
+Tags oder Dateinamen in einer größeren Sammlung bereinigen möchte, jedoch nur
 diejenigen Dateien bearbeiten möchte, welche nicht dem gewünschten Schema
 entsprechen. Der Ausdruck, der bestimmt, welche Dateien angezeigt werden,
 benutzt dieselben Formatcodes, welche auch beim Dateinamenformat, Importieren
@@ -1697,7 +1825,7 @@ aufklappen.
 <guimenu>Einstellungen</guimenu>
 <guimenuitem>Kid3 einrichten...</guimenuitem>
 </menuchoice></term>
-<listitem><para>Öffnet den <action>Konfigurationsdialog</action>, 
+<listitem><para>Öffnet den <action>Konfigurationsdialog</action>,
 der aus verschiedenen Seiten besteht, mit Optionen für Tags, Dateien, Benutzerbefehle und Netzwerk.
 </para>
 <para>
@@ -1718,10 +1846,10 @@ wird entfernt, nachdem das Feld editiert worden ist.
 <para>
 Mit <guilabel>Text Codierung</guilabel> für <guilabel>ID3v1</guilabel> kann
 die Codierung, welche für ID3v1 Tags verwendet wird, eingestellt werden.
-Standardmässig wird hier ISO-8859-1 erwartet, daher wird empfohlen, diese
+Standardmäßig wird hier ISO-8859-1 erwartet, daher wird empfohlen, diese
 Einstellung so zu lassen. Da jedoch Tags mit anderer Codierung anzutreffen
 sind, kann hier eine andere Codierung gewählt werden, so dass dann die ID3v1
-Tags nach ID3v2 transferiert werden können, welches Unicode Zeichen unterstüzt.
+Tags nach ID3v2 transferiert werden können, welches Unicode Zeichen unterstützt.
 </para>
 <para>
 Das Markierungsfeld
@@ -1742,7 +1870,7 @@ Geräten zu verbessern, welche die Codes nicht korrekt interpretieren.
 <para>
 <guilabel>Text Codierung</guilabel> bestimmt die Codierung von ID3v2
 Elementen und kann
-auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder 
+auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder
 <guilabel>UTF8</guilabel> gesetzt werden. <guilabel>UTF8</guilabel> ist für
 ID3v2.3.0 nicht gültig; wenn dieser Wert gesetzt ist, wird
 stattdessen <guilabel>UTF16</guilabel> verwendet.
@@ -1814,7 +1942,7 @@ Knopf zu drücken.
 <guilabel>Tag Format</guilabel> enthält Einstellungen für das Format
 der Tags.
 Wenn <guilabel>Während dem Editieren formatieren</guilabel> aktiviert ist,
-wird die Eingabe während dem Editieren automatisch formatiert. 
+wird die Eingabe während dem Editieren automatisch formatiert.
 <guilabel>Groß/Kleinschreibung</guilabel> kann auf <guilabel>Keine
 Änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
 <guilabel>Alles Großbuchstaben</guilabel>, <guilabel>Den ersten Buchstaben
@@ -1910,7 +2038,7 @@ mit <guibutton>Hinzufügen</guibutton> eines Bild Elementes und Importieren
 einer Datei oder Einfügen aus der Zwischenablage in ein Tag gebracht
 werden. Unterstützt sind Bilder für ID3v2, MP4, FLAC, Ogg und ASF Tags.
 </para>
-<para> 
+<para>
 Zum Löschen und Hinzufügen von
 Einträgen steht in der Tabelle ein Kontext Menü zur Verfügung.
 </para>
@@ -2046,6 +2174,538 @@ alles auswählen.
 
 </chapter>
 
+<chapter id="kid3-cli">
+<title>kid3-cli</title>
+<sect1 id="kid3-cli-commands">
+<title>Befehle</title>
+<para>
+<command>kid3-cli</command> bietet eine Kommandozeile für &kid3;. Wenn ein
+Verzeichnispfad als Parameter verwendet wird, so wird das Verzeichnis
+geöffnet. Bei einem oder mehreren Dateipfaden wird das übergeordnete
+Verzeichnis geöffnet, und die Dateien werden ausgewählt. Befehle werden dann
+auf diese Dateien angewendet. Befehle werden mit <option>-c</option> Optionen
+angegeben, wenn mehrere vorhanden sind, so werden sie der Reihe nach
+ausgeführt. Falls Dateien durch die Befehle verändert werden, so werden sie am
+Ende gespeichert. Wenn keine Befehlsoptionen vorhanden sind, so startet
+<command>kid3-cli</command> im interaktiven Modus. Dort können Befehle
+eingegeben werden, welche auf die ausgewählten Dateien angewendet werden. Die
+folgenden Abschnitte beschreiben alle verfügbaren Befehle.
+</para>
+
+<sect2 id="cli-help">
+<title>Hilfe</title>
+<cmdsynopsis>
+<command>help</command>
+<arg><replaceable>BEFEHLSNAME</replaceable></arg>
+</cmdsynopsis>
+<para>Zeigt Hilfe über die Parameter von
+<replaceable>BEFEHLSNAME</replaceable> oder über alle Befehle falls kein
+Befehlsname angegeben wird.
+</para>
+</sect2>
+
+<sect2 id="cli-exit">
+<title>Anwendung beenden</title>
+<cmdsynopsis>
+<command>exit</command>
+<arg>force</arg>
+</cmdsynopsis>
+<para>Beendet die Anwendung. Falls veränderte Dateien existieren, so muss der
+Parameter <parameter class="command">force</parameter> mitgegeben werden.
+</para>
+</sect2>
+
+<sect2 id="cli-cd">
+<title>Verzeichnis wechseln</title>
+<cmdsynopsis>
+<command>cd</command>
+<arg><replaceable>VERZEICHNIS</replaceable></arg>
+</cmdsynopsis>
+<para>Wenn kein <replaceable>VERZEICHNIS</replaceable> angegeben wird, so wird
+ins Benutzerverzeichnis gewechselt, sonst in das angegebene Verzeichnis. Bei
+einem oder mehreren Dateipfaden wird das übergeordnete Verzeichnis geöffnet,
+und die Dateien werden ausgewählt.
+</para>
+</sect2>
+
+<sect2 id="cli-pwd">
+<title>Aktuelles Verzeichnis ausgeben</title>
+<cmdsynopsis>
+<command>pwd</command>
+</cmdsynopsis>
+<para>Gibt den Pfad des aktuellen Verzeichnisses aus.</para>
+</sect2>
+
+<sect2 id="cli-ls">
+<title>Verzeichnisliste</title>
+<cmdsynopsis>
+<command>ls</command>
+</cmdsynopsis>
+<para>Zeigt den Inhalt des aktuellen Verzeichnisses an. Dies entspricht der
+Dateiliste im &kid3; GUI. Vier Zeichen auf der linken Seite des Dateinamens
+zeigen Zustandsinformationen an.
+</para>
+
+<itemizedlist>
+<listitem><para><computeroutput>&gt;</computeroutput> Datei ist ausgewählt.
+</para></listitem>
+<listitem><para><computeroutput>*</computeroutput> Datei ist verändert.
+</para></listitem>
+<listitem><para><computeroutput>1</computeroutput> Datei hat ein Tag 1,
+sonst wird '<computeroutput>-</computeroutput>' angezeigt.</para></listitem>
+<listitem><para><computeroutput>2</computeroutput> Datei hat ein Tag 2,
+sonst wird '<computeroutput>-</computeroutput>' angezeigt.</para></listitem>
+</itemizedlist>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput></screen>
+
+<para>In diesem Beispiel haben alle Dateien ein Tag 1, die zweite Datei hat
+auch ein Tag 2 und ist ausgewählt. Die dritte Datei ist verändert.
+</para>
+</sect2>
+
+<sect2 id="cli-save">
+<title>Veränderte Dateien speichern</title>
+<cmdsynopsis>
+<command>save</command>
+</cmdsynopsis>
+<para>
+</para>
+</sect2>
+
+<sect2 id="cli-select">
+<title>Datei wählen</title>
+<cmdsynopsis>
+<command>select</command>
+<group>
+<arg choice="plain">all</arg>
+<arg choice="plain">none</arg>
+<arg choice="plain">first</arg>
+<arg choice="plain">previous</arg>
+<arg choice="plain">next</arg>
+<arg choice="plain" rep="repeat"><replaceable>DATEI</replaceable></arg>
+</group>
+</cmdsynopsis>
+<para>Alle Dateien werden mit <userinput>select all</userinput> ausgewählt,
+mit <userinput>select none</userinput> wird die Selektion aufgehoben. Um die
+Dateien des aktuellen Verzeichnisses zu traversieren, wird mit
+<userinput>select first</userinput> gestartet, vorwärts geht es mit
+<userinput>select next</userinput> und rückwärts mit <userinput>select
+previous</userinput>. Dateien können über ihren Namen zur Auswahl hinzugefügt
+werden. Wildcards sind möglich, so werden mit <userinput>select
+*.mp3</userinput> alle MP3-Dateien im aktuellen Verzeichnis ausgewählt.
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>select first</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+> 1- 01 Intro.mp3
+  12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>select next</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+ *1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>select *.mp3</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+> 1- 01 Intro.mp3
+> 12 02 We Only Got This One.mp3
+>*1- 03 Outro.mp3</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-tag">
+<title>Tag auswählen</title>
+<cmdsynopsis>
+<command>tag</command>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Viele Befehle haben einen optionalen <replaceable>TAGNUMMERN</replaceable>
+Parameter, welcher festlegt, ob der Befehl auf Tag 1 oder 2 wirkt. Wenn dieser
+Parameter weggelassen wird, so werden die standardmäßigen Tagnummern
+verwendet, welche mit dem Befehl <command>tag</command> festgelegt werden
+können. Voreingestellt ist ein Wert von <literal>12</literal>, was bedeutet,
+dass Informationen vom Tag 2 geholt werden, falls es vorhanden ist, sonst vom
+Tag 1. Änderungen werden am Tag 2 durchgeführt. Die
+<option><replaceable>TAGNUMMERN</replaceable></option> können auf
+<userinput>1</userinput> oder <userinput>2</userinput> gesetzt werden, damit
+nur das entsprechende Tag verwendet wird. Wird kein Parameter angegeben, so
+wird die momentane Einstellung angezeigt.
+</para>
+</sect2>
+
+<sect2 id="cli-get">
+<title>Tag-Element holen</title>
+<cmdsynopsis>
+<command>get</command>
+<group>
+<arg choice="plain">all</arg>
+<arg choice="plain"><replaceable>ELEMENTNAME</replaceable></arg>
+</group>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Dieser Befehl kann dazu benutzt werden, den Wert eines bestimmten
+Tag-Elements zu lesen oder um Informationen über alle Tag-Elemente zu holen
+(wenn kein Parameter vorhanden ist oder <option>all</option> verwendet
+wird). Veränderte Elemente werden mit einem
+'<computeroutput>*</computeroutput>' markiert.
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>get</userinput><computeroutput>
+Datei: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo 
+  Name: 01 Intro.mp3
+Tag 1: ID3v1.1
+  Titel         Intro
+  Interpret     One Hit Wonder
+  Album         Let's Tag
+  Datum         2013
+  Tracknummer   1
+  Stil          Pop</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
+Intro</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-set">
+<title>Tag-Element setzen</title>
+<cmdsynopsis>
+<command>set</command>
+<arg choice="req"><replaceable>ELEMENTNAME</replaceable></arg>
+<arg choice="req"><replaceable>ELEMENTWERT</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Dieser Befehl setzt den Wert eines bestimmten Tag-Elements.
+</para>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
+<para>Um den Inhalt eines Bild-Elements aus einer Datei zu befüllen, kann
+<screen width="65"><userinput>set picture:"/pfad/zu/folder.jpg" "Bildbeschreibung"</userinput></screen>
+verwendet werden.
+</para>
+</sect2>
+
+<sect2 id="cli-revert">
+<title>Änderungen rückgängig machen</title>
+<cmdsynopsis>
+<command>revert</command>
+</cmdsynopsis>
+<para>Macht alle Änderungen an den ausgewählten Dateien rückgängig (oder an
+allen Dateien, falls keine selektiert sind).
+</para>
+</sect2>
+
+<sect2 id="cli-import">
+<title>Von Datei oder Zwischenablage importieren</title>
+<cmdsynopsis>
+<command>import</command>
+<arg choice="req"><replaceable>DATEI</replaceable></arg>
+<arg choice="req"><replaceable>FORMATNAME</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Die Tags werden aus <replaceable>DATEI</replaceable> importiert (oder
+von der Zwischenablage falls <userinput>clipboard</userinput> für
+<replaceable>DATEI</replaceable> angegeben wird) im Format
+<replaceable>FORMATNAME</replaceable> (z.B. <userinput>"CSV
+unquoted"</userinput>, siehe <link linkend="import-text">Importieren</link>).
+</para>
+</sect2>
+
+<sect2 id="cli-autoimport">
+<title>Automatisch importieren</title>
+<cmdsynopsis>
+<command>autoimport</command>
+<arg><replaceable>PROFILNAME</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Es wird automatisch importiert unter Verwendung des Profils
+<replaceable>PROFILNAME</replaceable> (siehe <link
+linkend="batch-import">Automatisch importieren</link>,
+<userinput>"All"</userinput> wird benutzt, falls kein Profil angegeben
+wird).
+</para>
+</sect2>
+
+<sect2 id="cli-albumart">
+<title>Cover-Bilder herunterladen</title>
+<cmdsynopsis>
+<command>albumart</command>
+<arg choice="req"><replaceable>URL</replaceable></arg>
+<arg>all</arg>
+</cmdsynopsis>
+<para>Setzt das Albumcover mit einem von <replaceable>URL</replaceable>
+heruntergeladenen Bild. Die Regeln zur Umwandlung einer allgemeinen URL
+(z.B. von Amazon) zu einer Bild-URL werden verwendet, diese können im <link
+linkend="browse_pictures">Nach Cover-Bildern suchen</link> Dialog definiert
+werden. Um das Albumcover mit einer lokalen Datei zu setzen kann der <link
+linkend="cli-set">set</link> Befehl verwendet werden.
+</para>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>albumart
+http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen>
+</sect2>
+
+<sect2 id="cli-export">
+<title>In Datei oder Zwischenablage exportieren</title>
+<cmdsynopsis>
+<command>export</command>
+<arg choice="req"><replaceable>DATEI</replaceable></arg>
+<arg choice="req"><replaceable>FORMATNAME</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Tags werden in die Datei <replaceable>DATEI</replaceable> exportiert
+(oder in die Zwischenablage, falls <userinput>clipboard</userinput> für
+<replaceable>DATEI</replaceable> angegeben wird) im Format
+<replaceable>FORMATNAME</replaceable> (z.B. <userinput>"CSV
+unquoted"</userinput>, siehe <link linkend="export">Exportieren</link>).
+</para>
+</sect2>
+
+<sect2 id="cli-playlist">
+<title>Stückliste erstellen</title>
+<cmdsynopsis>
+<command>playlist</command>
+</cmdsynopsis>
+<para>Erstellt eine Stückliste in dem in der Konfiguration gesetzten Format,
+siehe <link linkend="create-playlist">Stückliste erstellen</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-filenameformat">
+<title>Dateinamenformat anwenden</title>
+<cmdsynopsis>
+<command>filenameformat</command>
+</cmdsynopsis>
+<para>Wendet das Dateinamenformat an, welches in der Konfiguration gesetzt ist,
+siehe <link linkend="apply-filename-format">Dateinamenformat anwenden</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-tagformat">
+<title>Tag-Format anwenden</title>
+<cmdsynopsis>
+<command>tagformat</command>
+</cmdsynopsis>
+<para>Wendet das Tag-Format an, welches in der Konfiguration gesetzt ist,
+siehe <link linkend="apply-tag-format">Tag-Format anwenden</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-textencoding">
+<title>Textkodierung anwenden</title>
+<cmdsynopsis>
+<command>textencoding</command>
+</cmdsynopsis>
+<para>Wendet die Textkodierung an, welche in der Konfiguration gesetzt ist,
+siehe <link linkend="apply-text-encoding">Textkodierung anwenden</link>.
+</para>
+</sect2>
+
+<sect2 id="cli-renamedir">
+<title>Verzeichnis umbenennen</title>
+<cmdsynopsis>
+<command>renamedir</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<group>
+<arg choice="plain">create</arg>
+<arg choice="plain">rename</arg>
+<arg choice="plain">dryrun</arg>
+</group>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Mit diesem Befehl werden Verzeichnisse umbenannt oder neu erstellt
+anhand der Werte in den Tags nach einem bestimmten
+<replaceable>FORMAT</replaceable> (z.B. <userinput>%{artist} -
+%{album}</userinput>, siehe <link linkend="rename-directory">Verzeichnis
+umbenennen</link>), wenn kein Format angegeben wird, so wird dasjenige
+verwendet, welches im <guilabel>Verzeichnis umbenennen</guilabel> Dialog
+gesetzt ist. Normalerweise wird der Modus <option>rename</option> verwendet;
+um neue Verzeichnisse zu erstellen, muss <option>create</option> explizit
+angegeben werden. Die zum Umbenennen nötigen Aktionen werden sofort
+ausgeführt, um bloß eine Vorschau über diese Aktionen zu sehen, kann die
+<option>dryrun</option> Option verwendet werden.
+</para>
+</sect2>
+
+<sect2 id="cli-numbertracks">
+<title>Tracks nummerieren</title>
+<cmdsynopsis>
+<command>numbertracks</command>
+<arg><replaceable>TRACKNUMMER</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Nummeriert die ausgewählten Dateien beginnend mit
+<replaceable>TRACKNUMMER</replaceable> (<literal>1</literal> wenn nichts
+angegeben wird).
+</para>
+</sect2>
+
+<sect2 id="cli-filter">
+<title>Filter</title>
+<cmdsynopsis>
+<command>filter</command>
+<group>
+<arg choice="plain"><replaceable>FILTERNAME</replaceable></arg>
+<arg choice="plain"><replaceable>FILTERFORMAT</replaceable></arg>
+</group>
+</cmdsynopsis>
+<para>Filtert die Dateien, so dass nur Dateien angezeigt werden, welche dem
+<replaceable>FILTERFORMAT</replaceable> entsprechen. Der Name eines
+vordefinierten Filterausdrucks (z.B. <userinput>"Filename Tag
+Mismatch"</userinput>) kann anstelle eines Filterausdrucks verwendet werden,
+siehe <link linkend="filter">Filter</link>. 
+</para>
+
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>filter '%{title} contains "tro"'</userinput><computeroutput>
+Begonnen
+  /home/urs/One Hit Wonder - Let's Tag
++ 01 Intro.mp3
+- 02 We Only Got This One.mp3
++ 03 Outro.mp3
+Fertig</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+  1- 03 Outro.mp3</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>filter All</userinput><computeroutput>
+Begonnen
+  /home/urs/One Hit Wonder - Let's Tag
++ 01 Intro.mp3
++ 02 We Only Got This One.mp3
++ 03 Outro.mp3
+Fertig</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
+  1- 01 Intro.mp3
+  12 02 We Only Got This One.mp3
+  1- 03 Outro.mp3</computeroutput></screen>
+</sect2>
+
+<sect2 id="cli-to24">
+<title>ID3v2.3 nach ID3v2.4 konvertieren</title>
+<cmdsynopsis>
+<command>to24</command>
+</cmdsynopsis>
+</sect2>
+
+<sect2 id="cli-to23">
+<title>ID3v2.4 nach ID3v2.3 konvertieren</title>
+<cmdsynopsis>
+<command>to23</command>
+</cmdsynopsis>
+</sect2>
+
+<sect2 id="cli-fromtag">
+<title>Dateiname von Tag</title>
+<cmdsynopsis>
+<command>fromtag</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Setzt die Dateinamen der ausgewählten Dateien anhand der Werte in den
+Tags, z.B. <userinput>fromtag "%{track} - %{title}" 1</userinput>. Wenn kein
+Format angegeben wird, wird dasjenige verwendet, welches im GUI gesetzt ist.
+</para>
+</sect2>
+
+<sect2 id="cli-totag">
+<title>Tag von Dateiname</title>
+<cmdsynopsis>
+<command>totag</command>
+<arg><replaceable>FORMAT</replaceable></arg>
+<arg><replaceable>TAGNUMMERN</replaceable></arg>
+</cmdsynopsis>
+<para>Setzt die Tag-Elemente anhand der Dateinamen, z.B. <userinput>totag
+"%{albumartist} - %{album}/%{track} %{title}" 2</userinput>. Wenn kein
+Format angegeben wird, wird dasjenige verwendet, welches im GUI gesetzt ist.
+Falls der Dateiname nicht diesem Format entspricht, werden noch
+einige andere, gängige Formate ausprobiert.
+</para>
+</sect2>
+
+<sect2 id="cli-syncto">
+<title>Tag zu anderem Tag</title>
+<cmdsynopsis>
+<command>syncto</command>
+<arg choice="req"><replaceable>TAGNUMMER</replaceable></arg>
+</cmdsynopsis>
+<para>Kopiert die Tag-Elemente von einem Tag zum anderen Tag, um
+beispielsweise das ID3v2 Tag anhand der Werte im ID3v1 Tag zu setzen, wird
+<userinput>syncto 2</userinput> verwendet.
+</para>
+</sect2>
+
+<sect2 id="cli-copy">
+<title>Kopieren</title>
+<cmdsynopsis>
+<command>copy</command>
+<arg><replaceable>TAGNUMMER</replaceable></arg>
+</cmdsynopsis>
+<para>Kopiert die Tag-Elemente der selektierten Datei in die interne
+Ablage. Sie können dann in einer anderen Datei mit dem
+<command>paste</command> Befehl gesetzt werden.
+</para>
+</sect2>
+
+<sect2 id="cli-paste">
+<title>Einfügen</title>
+<cmdsynopsis>
+<command>paste</command>
+<arg><replaceable>TAGNUMMER</replaceable></arg>
+</cmdsynopsis>
+<para>Setzt die Tag-Elemente gemäß dem Inhalt der <command>copy</command>
+Ablage in den ausgewählten Dateien.
+</para>
+</sect2>
+
+<sect2 id="cli-remove">
+<title>Entfernen</title>
+<cmdsynopsis>
+<command>remove</command>
+<arg><replaceable>TAGNUMMER</replaceable></arg>
+</cmdsynopsis>
+<para>Entfernt ein Tag.
+</para>
+</sect2>
+
+<sect2 id="cli-play">
+<title>Wiedergabe</title>
+<cmdsynopsis>
+<command>play</command>
+<group>
+<arg choice="plain">pause</arg>
+<arg choice="plain">stop</arg>
+<arg choice="plain">previous</arg>
+<arg choice="plain">next</arg>
+</group>
+</cmdsynopsis>
+<para>Startet die Wiedergabe, danach kann sie mit den Optionen
+<option>pause</option> (um zu pausieren und weiterzufahren),
+<option>stop</option>, <option>previous</option> und <option>next</option>
+kontrolliert werden.
+</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="kid3-cli-examples">
+<title>Beispiele</title>
+<para>Setze das Albumcover in allen Dateien eines Verzeichnisses unter
+Verwendung der automatischen Import-Funktion:</para>
+<screen width="65"><userinput>kid3-cli -c 'autoimport "Cover Art"' /pfad/zum/verzeichnis</userinput></screen>
+
+<para>Entferne Kommentar und wende Tag-Format an für beide Tags in allen
+MP3-Dateien eines Verzeichnisses:</para>
+<screen width="65"><userinput>kid3-cli -c 'set comment "" 1' -c 'set comment "" 2' \
+-c 'tagformat 1' -c 'tagformat 2' /pfad/zum/verzeichnis/*.mp3</userinput></screen>
+
+<para>Automatischer Import in Tag 2, auch ins Tag 1 kopieren, die Dateinamen
+aus Tag 2 setzen und schließlich eine Stückliste erstellen:</para>
+<screen width="65"><userinput>kid3-cli -c autoimport -c 'syncto 1' -c fromtag -c playlist \
+  /pfad/zum/verzeichnis/*.mp3</userinput></screen>
+
+<para>Für alle Dateien mit einem ID3v2.4.0 Tag, dieses nach ID3v2.3.0
+konvertieren und das Arrangierung Element entfernen:</para>
+<screen width="65"><userinput>kid3-cli -c "filter 'ID3v2.4.0 Tag'" -c "select all" -c to23 \
+  -c "set arranger ''" /pfad/zum/verzeichnis</userinput></screen>
+</sect1>
+</chapter>
 
 <chapter id="credits">
 
@@ -2079,7 +2739,7 @@ Programmiert von Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <title>Anforderungen</title>
 
 <para>
-&kid3; braucht <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+&kid3; braucht <ulink url="http://qt-project.org/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> ist empfohlen aber nicht notwendig,
 denn &kid3; kann auch als reine Qt Applikation kompiliert werden. &kid3;
 läuft auf Systemen, wo diese Programmbibliotheken vorhanden sind,
@@ -2091,8 +2751,6 @@ benötigt, für FLAC Dateien <ulink url="http://flac.sourceforge.net">libFLAC++
 und libFLAC</ulink>. Für MP3 Dateien
 wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
 verwendet.
-Für MP4 Dateien wird 
-<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
 Für diese vier Formate kann auch
 die <ulink url="http://taglib.github.io/">TagLib</ulink>
 verwendet werden, welche zudem auch MPC, APE, MP2, Speex, TrueAudio, WavPack,
@@ -2164,8 +2822,8 @@ Importformate, die Dateinamen- und ID3-Formate, die
 Einstellungen für die Werkzeug- und Statusleiste sowie die Fenstergröße im
 Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.
 Als Qt-Anwendung liegt diese Datei
-in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>. Unter
-Windows wird die Konfiguration in der Registry gespeichert. 
+in <filename>.config/Kid3/Kid3.conf</filename>. Unter
+Windows wird die Konfiguration in der Registry gespeichert.
 </para>
 
 </sect1>
@@ -2265,14 +2923,14 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </sect2>
 
 <sect2 id="dbus-getErrorMessage">
-<title>Detailierte Fehlermeldung für einige Methoden</title>
+<title>Detaillierte Fehlermeldung für einige Methoden</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>string <function>getErrorMessage</function></funcdef>
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Gibt eine detailierte Fehlermeldung zurück.</para>
+<para>Gibt eine detaillierte Fehlermeldung zurück.</para>
 </sect2>
 
 <sect2 id="dbus-revert">
@@ -2560,7 +3218,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Gibt den aboluten Verzeichnispfad zurück.</para>
+<para>Gibt den absoluten Verzeichnispfad zurück.</para>
 </sect2>
 
 <sect2 id="dbus-getFileName">
@@ -2571,7 +3229,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Gibt den aboluten Dateinamen zurück, wenn es ein Verzeichnis ist, endet
+<para>Gibt den absoluten Dateinamen zurück, wenn es ein Verzeichnis ist, endet
       er mit "/".</para>
 </sect2>
 
@@ -2724,7 +3382,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcprototype>
 </funcsynopsis>
 <para>Automatisierte Konfigurationsänderungen sind durch direktes Modifizieren
-      der Konfigurationsdatei und anschliessendes Einlesen möglich.</para>
+      der Konfigurationsdatei und anschließendes Einlesen möglich.</para>
 </sect2>
 
 <sect2 id="dbus-playAudio">
@@ -2745,10 +3403,6 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </book>
 <!--
 Local Variables:
-mode: sgml
-sgml-minimize-attributes:nil
-sgml-general-insert-case:lower
-sgml-indent-step:0
-sgml-indent-data:nil
+mode: nxml
 End:
 -->
