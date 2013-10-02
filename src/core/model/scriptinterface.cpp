@@ -112,7 +112,7 @@ void ScriptInterface::revert()
  * Import tags from a file.
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
- * @param path    path of file
+ * @param path    path of file, "clipboard" for import from clipboard
  * @param fmtIdx  index of format
  *
  * @return true if ok.
@@ -158,7 +158,7 @@ void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
  * Export tags to a file.
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
- * @param path    path of file
+ * @param path    path of file, "clipboard" for export to clipboard
  * @param fmtIdx  index of format
  *
  * @return true if ok.

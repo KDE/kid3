@@ -35,8 +35,6 @@
 #include <QTableView>
 #include <QComboBox>
 #include <QDir>
-#include <QApplication>
-#include <QClipboard>
 #include <QUrl>
 #include <QMessageBox>
 #include <QHBoxLayout>
@@ -173,8 +171,7 @@ void ExportDialog::slotToFile()
  */
 void ExportDialog::slotToClipboard()
 {
-  QApplication::clipboard()->setText(
-    m_textExporter->getText(), QClipboard::Clipboard);
+  m_textExporter->exportToClipboard();
 }
 
 /**

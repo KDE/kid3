@@ -33,6 +33,7 @@
 #include <QNetworkAccessManager>
 #include <QTimer>
 #include <QApplication>
+#include <QClipboard>
 #include <QPluginLoader>
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
@@ -776,7 +777,7 @@ void Kid3Application::updateModified()
  * Import.
  *
  * @param tagMask tag mask
- * @param path    path of file
+ * @param path    path of file, "clipboard" for import from clipboard
  * @param fmtIdx  index of format
  *
  * @return true if ok.
@@ -785,14 +786,25 @@ bool Kid3Application::importTags(TrackData::TagVersion tagMask,
                                  const QString& path, int fmtIdx)
 {
   filesToTrackDataModel(ImportConfig::instance().m_importDest);
-  QFile file(path);
-  if (file.open(QIODevice::ReadOnly) &&
+  QString text;
+  if (path == QLatin1String("clipboard")) {
+    QClipboard* cb = QApplication::clipboard();
+    text = cb->text(QClipboard::Clipboard);
+    if (text.isNull())
+      text = cb->text(QClipboard::Selection);
+  } else {
+    QFile file(path);
+    if (file.open(QIODevice::ReadOnly)) {
+      text = QTextStream(&file).readAll();
+      file.close();
+    }
+  }
+  if (!text.isNull() &&
       fmtIdx < ImportConfig::instance().m_importFormatHeaders.size()) {
     TextImporter(getTrackDataModel()).updateTrackData(
-      QTextStream(&file).readAll(),
+      text,
       ImportConfig::instance().m_importFormatHeaders.at(fmtIdx),
       ImportConfig::instance().m_importFormatTracks.at(fmtIdx));
-    file.close();
     trackDataModelToFiles(tagMask);
     return true;
   }
@@ -803,7 +815,7 @@ bool Kid3Application::importTags(TrackData::TagVersion tagMask,
  * Export.
  *
  * @param tagVersion tag version
- * @param path   path of file
+ * @param path   path of file, "clipboard" for export to clipboard
  * @param fmtIdx index of format
  *
  * @return true if ok.
@@ -815,7 +827,12 @@ bool Kid3Application::exportTags(TrackData::TagVersion tagVersion,
   filesToTrackData(tagVersion, trackDataVector);
   m_textExporter->setTrackData(trackDataVector);
   m_textExporter->updateTextUsingConfig(fmtIdx);
-  return m_textExporter->exportToFile(path);
+  if (path == QLatin1String("clipboard")) {
+    m_textExporter->exportToClipboard();
+    return true;
+  } else {
+    return m_textExporter->exportToFile(path);
+  }
 }
 
 /**

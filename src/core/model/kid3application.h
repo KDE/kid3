@@ -317,7 +317,7 @@ public:
    * Import.
    *
    * @param tagMask tag mask
-   * @param path    path of file
+   * @param path    path of file, "clipboard" for import from clipboard
    * @param fmtIdx  index of format
    *
    * @return true if ok.
@@ -329,7 +329,7 @@ public:
    * Export.
    *
    * @param tagVersion tag version
-   * @param path   path of file
+   * @param path   path of file, "clipboard" for export to clipboard
    * @param fmtIdx index of format
    *
    * @return true if ok.

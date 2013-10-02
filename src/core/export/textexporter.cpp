@@ -29,6 +29,8 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QTextStream>
+#include <QApplication>
+#include <QClipboard>
 #include "exportconfig.h"
 #include "importconfig.h"
 
@@ -118,4 +120,12 @@ bool TextExporter::exportToFile(const QString& fn)
     }
   }
   return false;
+}
+
+/**
+ * Export to clipboard.
+ */
+void TextExporter::exportToClipboard()
+{
+  QApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
 }
