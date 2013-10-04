@@ -176,6 +176,7 @@ void CliCommand::showUsage()
 {
   cli()->writeLine(tr("Usage:"));
   cli()->writeHelp(name());
+  setError(QLatin1String("_Usage"));
 }
 
 

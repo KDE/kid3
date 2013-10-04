@@ -76,6 +76,12 @@ public:
    */
   void promptNextLine();
 
+  /**
+   * Set return code of application.
+   * @param code return code, 0 means success
+   */
+  void setReturnCode(int code);
+
 public slots:
   /**
    * Execute process.
@@ -106,12 +112,19 @@ protected slots:
    */
   virtual void readLine(const QString& line) = 0;
 
+private slots:
+  /**
+   * Exit application with return code.
+   */
+  void quitApplicationWithReturnCode();
+
 private:
 #ifndef Q_OS_WIN32
   QTextStream m_cout;
   QTextStream m_cerr;
 #endif
   StandardInputReader* m_stdinReader;
+  int m_returnCode;
 };
 
 #endif // ABSTRACTCLI_H

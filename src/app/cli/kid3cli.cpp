@@ -701,7 +701,10 @@ void Kid3Cli::onCommandFinished() {
   if (CliCommand* cmd = qobject_cast<CliCommand*>(sender())) {
     disconnect(cmd, SIGNAL(finished()), this, SLOT(onCommandFinished()));
     if (cmd->hasError()) {
-      writeErrorLine(cmd->getErrorMessage());
+      QString msg(cmd->getErrorMessage());
+      if (!msg.startsWith(QLatin1Char('_'))) {
+        writeErrorLine(msg);
+      }
     }
     cmd->clear();
     promptNextLine();
@@ -718,8 +721,13 @@ void Kid3Cli::onArgCommandFinished() {
       cmd->clear();
       executeNextArgCommand();
     } else {
-      writeErrorLine(cmd->getErrorMessage());
+      QString msg(cmd->getErrorMessage());
+      if (!msg.startsWith(QLatin1Char('_'))) {
+        writeErrorLine(msg);
+      }
       cmd->clear();
+      setReturnCode(1);
+      terminate();
     }
   }
 }
@@ -803,6 +811,7 @@ void Kid3Cli::executeNextArgCommand()
       if (!errorFiles.isEmpty()) {
         writeErrorLine(tr("Error while writing file:\n") +
                        errorFiles.join(QLatin1String("\n")));
+        setReturnCode(1);
       }
     }
     terminate();
@@ -816,6 +825,7 @@ void Kid3Cli::executeNextArgCommand()
     cmd->execute();
   } else {
     writeErrorLine(tr("Unknown command '%1', -h for help.").arg(line));
+    setReturnCode(1);
     terminate();
   }
 }

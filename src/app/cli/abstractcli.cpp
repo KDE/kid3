@@ -42,7 +42,7 @@ AbstractCli::AbstractCli(const char* prompt, QObject* parent) : QObject(parent),
 #ifndef Q_OS_WIN32
   m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly),
 #endif
-  m_stdinReader(new StandardInputReader(prompt))
+  m_stdinReader(new StandardInputReader(prompt)), m_returnCode(0)
 {
 }
 
@@ -61,6 +61,23 @@ AbstractCli::~AbstractCli()
 void AbstractCli::promptNextLine()
 {
   emit requestNextLine();
+}
+
+/**
+ * Set return code of application.
+ * @param code return code, 0 means success
+ */
+void AbstractCli::setReturnCode(int code)
+{
+  m_returnCode = code;
+}
+
+/**
+ * Exit application with return code.
+ */
+void AbstractCli::quitApplicationWithReturnCode()
+{
+  QCoreApplication::exit(m_returnCode);
 }
 
 /**
@@ -94,7 +111,11 @@ void AbstractCli::terminate()
 {
   flushStandardOutput();
   emit requestTermination();
-  QTimer::singleShot(0, qApp, SLOT(quit()));
+  if (m_returnCode == 0) {
+    QTimer::singleShot(0, qApp, SLOT(quit()));
+  } else {
+    QTimer::singleShot(0, this, SLOT(quitApplicationWithReturnCode()));
+  }
 }
 
 /**
