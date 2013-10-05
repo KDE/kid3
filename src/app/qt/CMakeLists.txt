@@ -88,7 +88,7 @@ qt4_add_resources(qt_GEN_RCS ${qt_RESOURCES})
 add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
   ${qt_SRCS} ${qt_GEN_RCS})
 
-target_link_libraries(${KID3_EXECUTABLE} kid3-gui)
+target_link_libraries(${KID3_EXECUTABLE} kid3-gui -lstdc++)
 
 install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
