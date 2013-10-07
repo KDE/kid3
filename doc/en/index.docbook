@@ -83,7 +83,7 @@ generate the tags from the file name or vice versa.
 <refpurpose>Kid3 ID3 Tagger</refpurpose>
 </refnamediv>-->
 
-<!--<refsynopsisdiv>--><preface><title>Synopsis</title>
+<!--<refsynopsisdiv>--><preface id="synopsis"><title>Synopsis</title>
 <cmdsynopsis>
 <command>kid3</command>
 <group>
@@ -115,7 +115,7 @@ generate the tags from the file name or vice versa.
 </cmdsynopsis>
 <!--</refsynopsisdiv>--></preface>
 
-<preface><title>Options</title>
+<preface id="options"><title>Options</title>
 
 <variablelist>
 <varlistentry>
@@ -127,7 +127,7 @@ their common directory is opened and the files are selected.
 </varlistentry>
 </variablelist>
 
-<sect1><title>kid3</title>
+<sect1 id="options-kid3"><title>kid3</title>
 <variablelist>
 <varlistentry>
 <term><option>&doublehyphen;help</option></term>
@@ -164,7 +164,7 @@ their common directory is opened and the files are selected.
 </variablelist>
 </sect1>
 
-<sect1><title>kid3-qt</title>
+<sect1 id="options-kid3-qt"><title>kid3-qt</title>
 <variablelist>
 <varlistentry>
 <term><option>Qt-options</option></term>
@@ -175,7 +175,7 @@ prefix, not "&doublehyphen;".</para></listitem>
 </variablelist>
 </sect1>
 
-<sect1><title>kid3-cli</title>
+<sect1 id="options-kid3-cli"><title>kid3-cli</title>
 <variablelist>
 
 <varlistentry>
@@ -583,7 +583,7 @@ between files with different formats. Frames which are not unified can be access
 format specific frames.
 </para>
 
-<table>
+<table id="table-frame-list">
   <title>Mapping of Unified Frame Types to Various Formats</title>
    <tgroup cols="6">
      <thead>
@@ -862,7 +862,8 @@ the filename format, besides the codes listed below, any frame name is
 possible:
 </para>
 
-<itemizedlist id="format-codes">
+<para id="format-codes">
+<itemizedlist>
 <listitem><para>%s %{title} Title (Song)</para></listitem>
 <listitem><para>%a %{artist} Artist</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
@@ -872,6 +873,7 @@ possible:
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%d %{duration} Duration</para></listitem>
 </itemizedlist>
+</para>
 
 <para>
 For example, a track regular expression (second line) to import from an

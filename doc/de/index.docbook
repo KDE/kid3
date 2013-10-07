@@ -83,7 +83,7 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <refpurpose>Kid3 ID3 Tagger</refpurpose>
 </refnamediv>-->
 
-<!--<refsynopsisdiv>--><preface><title>Übersicht</title>
+<!--<refsynopsisdiv>--><preface id="synopsis"><title>Übersicht</title>
 <cmdsynopsis>
 <command>kid3</command>
 <group>
@@ -115,7 +115,7 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 </cmdsynopsis>
 <!--</refsynopsisdiv>--></preface>
 
-<preface><title>Optionen</title>
+<preface id="options"><title>Optionen</title>
 
 <variablelist>
 <varlistentry>
@@ -128,7 +128,7 @@ die Dateien werden ausgewählt.
 </varlistentry>
 </variablelist>
 
-<sect1><title>kid3</title>
+<sect1 id="options-kid3"><title>kid3</title>
 <variablelist>
 <varlistentry>
 <term><option>&doublehyphen;help</option></term>
@@ -165,7 +165,7 @@ die Dateien werden ausgewählt.
 </variablelist>
 </sect1>
 
-<sect1><title>kid3-qt</title>
+<sect1 id="options-kid3-qt"><title>kid3-qt</title>
 <variablelist>
 <varlistentry>
 <term><option>Qt-Optionen</option></term>
@@ -176,7 +176,7 @@ als Präfix, und nicht "&doublehyphen;".</para></listitem>
 </variablelist>
 </sect1>
 
-<sect1><title>kid3-cli</title>
+<sect1 id="options-kid3-cli"><title>kid3-cli</title>
 <variablelist>
 
 <varlistentry>
@@ -613,7 +613,7 @@ ausgetauscht werden können. Frames ohne vereinheitlichte Namen können über di
 formatspezifische Bezeichnung erreicht werden.
 </para>
 
-<table>
+<table id="table-frame-list">
   <title>Zuordnung der vereinheitlichten Frame-Namen in den unterschiedlichen Formaten</title>
    <tgroup cols="6">
      <thead>
@@ -907,7 +907,8 @@ eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat, auch hier
 sind nebst den unten aufgelisteten Codes beliebige Framenamen möglich:
 </para>
 
-<itemizedlist id="format-codes">
+<para id="format-codes">
+<itemizedlist>
 <listitem><para>%s %{title} Titel (Song)</para></listitem>
 <listitem><para>%a %{artist} Interpret (Artist)</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
@@ -917,6 +918,7 @@ sind nebst den unten aufgelisteten Codes beliebige Framenamen möglich:
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 <listitem><para>%d %{duration} Länge (Dauer)</para></listitem>
 </itemizedlist>
+</para>
 
 <para>
 Beispiel: Ein regulärer Ausdruck für die zweite Zeile, um Titel aus einer .m3u
