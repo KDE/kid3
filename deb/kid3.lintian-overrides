@@ -1,3 +1,0 @@
-kid3: package-contains-broken-symlink usr/share/doc/kde/HTML/de/kid3/common ../../en/common
-kid3: package-contains-broken-symlink usr/share/doc/kde/HTML/en/kid3/common ../common
-kid3: hardening-no-fortify-functions usr/bin/kid3

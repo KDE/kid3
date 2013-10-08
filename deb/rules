@@ -60,6 +60,8 @@ build-stamp:
 	mkdir kid3-build
 	cd kid3-build && cmake .. $(CMAKE_FLAGS)
 	$(MAKE) -C kid3-build
+	cp kid3-build/doc/en/kid3.1 kid3-build/doc/en/kid3-core.1
+	cp kid3-build/doc/de/kid3.1 kid3-build/doc/de/kid3-core.de.1
 	touch build-stamp
 
 clean:
