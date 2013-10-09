@@ -21,6 +21,7 @@ BuildRequires:  flac-devel
 # Mandriva: BuildRequires:  libflac++-devel
 BuildRequires:  libchromaprint-devel
 BuildRequires:  libvorbis-devel
+BuildRequires:  readline-devel
 BuildRequires:  gettext
 Requires:       xdg-utils
 
@@ -63,7 +64,6 @@ cd ..
 %install
 mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}
 make -C kid3-build install DESTDIR=${RPM_BUILD_ROOT}
-install -Dpm 644 deb/kid3.1 $RPM_BUILD_ROOT%{_mandir}/man1/kid3.1
 
 test -d $RPM_BUILD_ROOT/usr/bin && strip $RPM_BUILD_ROOT/usr/bin/*
 find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
@@ -81,7 +81,6 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %{_datadir}/kde4/apps/kid3/
 %{_datadir}/doc/kde/HTML/en/kid3/
 %{_datadir}/doc/kde/HTML/de/kid3/
-%{_mandir}/man1/kid3.1*
 
 
 %package qt
@@ -120,6 +119,8 @@ Authors: Urs Fleisch
 %{_datadir}/icons/hicolor/*x*/apps/kid3-qt.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3-qt.svg
 %{_datadir}/doc/kid3-qt/
+%{_mandir}/man1/kid3-qt.1.gz
+%{_mandir}/de/man1/kid3-qt.1.gz
 
 %package core
 Group:        Applications/Multimedia
@@ -136,3 +137,41 @@ Authors: Urs Fleisch
 %{_libdir}/kid3/*
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/kid3/translations/
+%{_mandir}/man1/kid3.1.gz
+%{_mandir}/de/man1/kid3.1.gz
+
+%package cli
+Group:        Applications/Multimedia
+Summary:      Efficient ID3 tag editor
+
+%description cli
+With Kid3 you can:
+
+- Edit ID3v1.1 tags
+- Edit all ID3v2.3 and ID3v2.4 frames
+- Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
+- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+  TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD,
+  S3M, IT, XM).
+- Edit tags of multiple files, e.g. the artist, album, year and genre
+  of all files of an album typically have the same values and can be
+  set together.
+- Generate tags from filenames
+- Generate tags from the contents of tag fields
+- Generate filenames from tags
+- Generate playlist files
+- Automatic case conversion and string translation
+- Import and export album data
+- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+
+This package contains a command line interface for Kid3, for a GUI you can
+use kid3-qt or kid3.
+
+Authors: Urs Fleisch
+
+%files cli
+%defattr(-,root,root,-)
+%doc AUTHORS ChangeLog COPYING LICENSE README
+%{_bindir}/kid3-cli
+%{_mandir}/man1/kid3-cli.1.gz
+%{_mandir}/de/man1/kid3-cli.1.gz
