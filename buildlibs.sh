@@ -122,8 +122,8 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f flac_1.3.0-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.3.0-1.debian.tar.gz
+test -f flac_1.3.0-2.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.3.0-2.debian.tar.gz
 test -f flac_1.3.0.orig.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.3.0.orig.tar.xz
 
@@ -142,10 +142,8 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3
 test -f libvorbis_1.3.2.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-test -f taglib_1.8-2.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8-2.debian.tar.gz
-test -f taglib_1.8.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8.orig.tar.gz
+test -f taglib-1.9.tar.gz ||
+$DOWNLOAD http://taglib.github.io/releases/taglib-1.9.tar.gz
 
 test -f zlib_1.2.8.dfsg-1.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg-1.debian.tar.gz
@@ -160,16 +158,16 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7.orig.
 test -f libav_0.8.7-1.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7-1.debian.tar.gz
 else
-test -f libav_9.8.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.8.orig.tar.xz
-test -f libav_9.8-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.8-1.debian.tar.gz
+test -f libav_9.9.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.9.orig.tar.xz
+test -f libav_9.9-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.9-1.debian.tar.gz
 fi
 
 test -f chromaprint_0.7.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7.orig.tar.gz
-test -f chromaprint_0.7-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7-1.debian.tar.gz
+test -f chromaprint_0.7-2.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7-2.debian.tar.gz
 
 #test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
 #$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
@@ -370,22 +368,6 @@ diff -ru id3lib-3.8.3.orig/src/io_helpers.cpp id3lib-3.8.3/src/io_helpers.cpp
 
 EOF
 
-test -f taglib-xm-file-save.patch ||
-cat >taglib-xm-file-save.patch <<"EOF"
-diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
---- taglib-1.8.orig/taglib/xm/xmfile.cpp	2012-09-06 20:03:15.000000000 +0200
-+++ taglib-1.8/taglib/xm/xmfile.cpp	2012-09-22 08:55:07.052052207 +0200
-@@ -443,7 +443,7 @@
-       return false;
- 
-     uint len = std::min(22UL, instrumentHeaderSize - 4U);
--    if(i > lines.size())
-+    if(i >= lines.size())
-       writeString(String::null, len);
-     else
-       writeString(lines[i], len);
-EOF
-
 test -f taglib-msvc.patch ||
 cat >taglib-msvc.patch <<"EOF"
 diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
@@ -402,30 +384,6 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  if(APPLE)
  	option(BUILD_FRAMEWORK "Build an OS X framework" OFF)
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
-EOF
-
-test -f taglib-no-id3-duplication.patch ||
-cat >taglib-no-id3-duplication.patch <<"EOF"
-diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
-index c73da41..af53ac1 100644
---- a/taglib/mpeg/mpegfile.cpp
-+++ b/taglib/mpeg/mpegfile.cpp
-@@ -203,15 +203,6 @@ bool MPEG::File::save(int tags, bool stripOthers, int id3v2Version)
-     return false;
-   }
- 
--  // Create the tags if we've been asked to.  Copy the values from the tag that
--  // does exist into the new tag, except if the existing tag is to be stripped.
--
--  if((tags & ID3v2) && ID3v1Tag() && !(stripOthers && !(tags & ID3v1)))
--    Tag::duplicate(ID3v1Tag(), ID3v2Tag(true), false);
--
--  if((tags & ID3v1) && d->tag[ID3v2Index] && !(stripOthers && !(tags & ID3v2)))
--    Tag::duplicate(ID3v2Tag(), ID3v1Tag(true), false);
--
-   bool success = true;
- 
-   if(ID3v2 & tags) {
 EOF
 
 if test "$libav_version" = "0.8.7"; then
@@ -489,7 +447,7 @@ echo "### Extracting libflac"
 if ! test -d flac-1.3.0; then
 unxz -c source/flac_1.3.0.orig.tar.xz | tar x
 cd flac-1.3.0/
-tar xzf ../source/flac_1.3.0-1.debian.tar.gz
+tar xzf ../source/flac_1.3.0-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
@@ -516,14 +474,10 @@ fi
 
 echo "### Extracting taglib"
 
-if ! test -d taglib-1.8; then
-tar xzf source/taglib_1.8.orig.tar.gz
-cd taglib-1.8/
-tar xzf ../source/taglib_1.8-2.debian.tar.gz
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-patch -p1 <../source/taglib-xm-file-save.patch
+if ! test -d taglib-1.9; then
+tar xzf source/taglib-1.9.tar.gz
+cd taglib-1.9/
 patch -p1 <../source/taglib-msvc.patch
-patch -p1 <../source/taglib-no-id3-duplication.patch
 cd ..
 fi
 
@@ -547,10 +501,10 @@ patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
-if ! test -d libav-9.8; then
-unxz -c source/libav_9.8.orig.tar.xz | tar x
-cd libav-9.8/
-tar xzf ../source/libav_9.8-1.debian.tar.gz
+if ! test -d libav-9.9; then
+unxz -c source/libav_9.9.orig.tar.xz | tar x
+cd libav-9.9/
+tar xzf ../source/libav_9.9-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -561,7 +515,7 @@ echo "### Extracting chromaprint"
 if ! test -d chromaprint-0.7; then
 tar xzf source/chromaprint_0.7.orig.tar.gz
 cd chromaprint-0.7/
-tar xzf ../source/chromaprint_0.7-1.debian.tar.gz
+tar xzf ../source/chromaprint_0.7-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -624,7 +578,7 @@ cd ../..
 
 echo "### Building taglib"
 
-cd taglib-1.8/
+cd taglib-1.9/
 test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
 mkdir -p instd
 DESTDIR=instd cmake --build . --config Debug --target install
@@ -636,7 +590,7 @@ mkdir -p inst/lib
 mv inst/Debug inst/Release inst/lib/
 rm -rf instd
 cd inst
-tar czf ../../bin/taglib-1.8.tgz include lib
+tar czf ../../bin/taglib-1.9.tgz include lib
 cd ../..
 
 echo "### Installing to root directory"
@@ -723,14 +677,14 @@ cd ../..
 
 echo "### Building taglib"
 
-cd taglib-1.8/
+cd taglib-1.9/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/taglib-1.8.tgz usr
+tar czf ../../bin/taglib-1.9.tgz usr
 cd ../..
 
 echo "### Building libav"
@@ -834,7 +788,7 @@ cd inst
 tar czf ../../bin/libav-0.8.7.tgz usr
 cd ../..
 else
-cd libav-9.8
+cd libav-9.9
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -928,7 +882,7 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-9.8.tgz usr
+tar czf ../../bin/libav-9.9.tgz usr
 cd ../..
 fi
 
@@ -972,7 +926,7 @@ EOF
       cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=$BUILDPREFIX/lib/pkgconfig
-cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=$BUILDPREFIX -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS=Qt -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -I$BUILDPREFIX/include -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=$BUILDPREFIX -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
     fi
     chmod +x kid3/build.sh
@@ -986,7 +940,7 @@ tar xzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.3.0.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.8.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.9.tgz -C $BUILDROOT
 tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.7.tgz -C $BUILDROOT
 #tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT

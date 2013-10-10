@@ -654,6 +654,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 #if TAGLIB_VERSION >= 0x010800
                            , m_id3v2Version
 #endif
+#if TAGLIB_VERSION >= 0x010900
+                           , false
+#endif
                            )) {
           fileChanged = true;
           if (saveMask & TagLib::MPEG::File::ID3v1) {
