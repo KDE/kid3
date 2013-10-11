@@ -71,7 +71,8 @@ generate the tags from the file name or vice versa.
 
 </bookinfo>
 
-<!--<refmeta>
+<!--begin manpage include
+<refmeta>
 <refentrytitle>kid3</refentrytitle>
 <manvolnum>1</manvolnum>
 </refmeta>
@@ -81,9 +82,10 @@ generate the tags from the file name or vice versa.
 <refname>kid3-qt</refname>
 <refname>kid3-cli</refname>
 <refpurpose>Kid3 ID3 Tagger</refpurpose>
-</refnamediv>-->
+</refnamediv>
+end manpage include-->
 
-<!--<refsynopsisdiv>--><preface id="synopsis"><title>Synopsis</title>
+<!--change manpage<refsynopsisdiv>--><preface id="synopsis"><title>Synopsis</title>
 <cmdsynopsis>
 <command>kid3</command>
 <group>
@@ -113,7 +115,7 @@ generate the tags from the file name or vice versa.
 <arg rep="repeat"><option>-c COMMAND2</option></arg>
 <arg rep="repeat"><replaceable>FILE</replaceable></arg>
 </cmdsynopsis>
-<!--</refsynopsisdiv>--></preface>
+<!--change manpage</refsynopsisdiv>--></preface>
 
 <preface id="options"><title>Options</title>
 
@@ -573,6 +575,7 @@ edited or added by double clicking on this control.
 
 </sect2>
 
+<!--begin manpage ignore-->
 <sect2 id="frame-list">
 <title>Frame List</title>
 
@@ -621,7 +624,7 @@ format specific frames.
        <row><entry>Original Album</entry>  <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
        <row><entry>Original Artist</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
        <row><entry>Original Date</entry>   <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
-       <row><entry>Part</entry>            <entry>TSST</entry>    <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
+       <row><entry>Part</entry>            <entry></entry>        <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
        <row><entry>Performer</entry>       <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
        <row><entry>Picture</entry>         <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
        <row><entry>Publisher</entry>       <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
@@ -677,6 +680,7 @@ offer this information.
 </para>
 
 </sect2>
+<!--end manpage ignore-->
 
 </sect1>
 
@@ -2223,7 +2227,7 @@ get information about all tag frames (if the argument is omitted or
 </para>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>get</userinput><computeroutput>
-File: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo 
+File: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo
   Name: 01 Intro.mp3
 Tag 1: ID3v1.1
   Title         Intro
@@ -2247,7 +2251,7 @@ Intro</computeroutput></screen>
 <para>This command sets the value of a specific tag frame.
 </para>
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
-<para>To set the contents of a picture frame from a file, use 
+<para>To set the contents of a picture frame from a file, use
 <screen width="65"><userinput>set picture:"/path/to/folder.jpg" "Picture Description"</userinput></screen>
 </para>
 </sect2>
@@ -2381,7 +2385,7 @@ the format defined in the <guilabel>Rename directory</guilabel> dialog is
 used. The default mode is <option>rename</option>; to create directories,
 <option>create</option> must be given explicitly. The rename actions will be
 performed immediately, to just see what would be done, use the
-<option>dryrun</option> option. 
+<option>dryrun</option> option.
 </para>
 </sect2>
 
@@ -2765,9 +2769,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>openDirectory</function></funcdef>
-  <paramdef>string <parameter>path</parameter> path to file or directory</paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>path to file or directory</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Returns true if OK.</para>
 </sect2>
 
@@ -2808,10 +2818,20 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>batchImport</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
-  <paramdef>string <parameter>profileName</parameter> name of batch import profile to use</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>profileName</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag mask (bit 0 for tag 1, bit 1 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>profileName</replaceable></term>
+    <listitem><para>name of batch import profile to use</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-importFromFile">
@@ -2819,11 +2839,25 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>importFromFile</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
-  <paramdef>string <parameter>path</parameter> path of file</paramdef>
-  <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>path of file</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>fmtIdx</replaceable></term>
+    <listitem><para>index of format</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Returns true if OK.</para>
 </sect2>
 
@@ -2832,12 +2866,22 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>downloadAlbumArt</function></funcdef>
-  <paramdef>string <parameter>url</parameter> URL of picture file or album art
-  resource</paramdef>
-  <paramdef>boolean <parameter>allFilesInDir</parameter> true to add the image
-  to all files in the directory</paramdef>
+  <paramdef>string <parameter>url</parameter></paramdef>
+  <paramdef>boolean <parameter>allFilesInDir</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>url</replaceable></term>
+    <listitem><para>URL of picture file or album art
+    resource</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>allFilesInDir</replaceable></term>
+    <listitem><para>true to add the image to all files in the
+    directory</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-exportToFile">
@@ -2845,11 +2889,25 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>exportToFile</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
-  <paramdef>string <parameter>path</parameter> path of file</paramdef>
-  <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>path of file</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>fmtIdx</replaceable></term>
+    <listitem><para>index of format</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Returns true if OK.</para>
 </sect2>
 
@@ -3019,11 +3077,25 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>setDirNameFromTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
-  <paramdef>string <parameter>format</parameter> directory name format</paramdef>
-  <paramdef>boolean <parameter>create</parameter> true to create, false to rename</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>format</parameter></paramdef>
+  <paramdef>boolean <parameter>create</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag mask (bit 0 for tag 1, bit 1 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>format</replaceable></term>
+    <listitem><para>directory name format</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>create</replaceable></term>
+    <listitem><para>true to create, false to rename</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Returns true if OK, else the error message is available using getErrorMessage().</para>
 </sect2>
 
@@ -3032,10 +3104,20 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>numberTracks</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
-  <paramdef>int32 <parameter>firstTrackNr</parameter> number to use for first file</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>int32 <parameter>firstTrackNr</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag mask (bit 0 for tag 1, bit 1 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>firstTrackNr</replaceable></term>
+    <listitem><para>number to use for first file</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-filter">
@@ -3043,9 +3125,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>filter</function></funcdef>
-  <paramdef>string <parameter>expression</parameter> filter expression</paramdef>
+  <paramdef>string <parameter>expression</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>expression</replaceable></term>
+    <listitem><para>filter expression</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-convertToId3v24">
@@ -3096,9 +3184,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileName</function></funcdef>
-  <paramdef>string <parameter>name</parameter> file name</paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>file name</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>The file will be renamed when the directory is saved.</para>
 </sect2>
 
@@ -3107,9 +3201,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileNameFormat</function></funcdef>
-  <paramdef>string <parameter>format</parameter> file name format</paramdef>
+  <paramdef>string <parameter>format</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>format</replaceable></term>
+    <listitem><para>file name format</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-setFileNameFromTag">
@@ -3117,9 +3217,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileNameFromTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-getFrame">
@@ -3127,10 +3233,20 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>string <function>getFrame</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
-  <paramdef>string <parameter>name</parameter> name of frame (e.g. "artist")</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>name of frame (e.g. "artist")</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>To get binary data like a picture, the name of a file to write can be
       added after the <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
 <para>Returns value of frame.</para>
@@ -3141,11 +3257,25 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>setFrame</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
-  <paramdef>string <parameter>name</parameter> name of frame (e.g. "artist")</paramdef>
-  <paramdef>string <parameter>value</parameter> value of frame</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
+  <paramdef>string <parameter>value</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>name of frame (e.g. "artist")</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>value</replaceable></term>
+    <listitem><para>value of frame</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>For tag 2 (<parameter>tagMask</parameter> 2), if no frame with <parameter>name</parameter> exists, a new frame
       is added, if <parameter>value</parameter> is empty, the frame is deleted.
       To add binary data like a picture, a file can be added after the
@@ -3158,9 +3288,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef>array of string <function>getTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Returns list with alternating frame names and values.</para>
 </sect2>
 
@@ -3183,9 +3319,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setTagFromFileName</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-setTagFromOtherTag">
@@ -3193,9 +3335,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setTagFromOtherTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-copyTag">
@@ -3203,9 +3351,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>copyTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-pasteTag">
@@ -3213,9 +3367,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>pasteTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-removeTag">
@@ -3223,9 +3383,15 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>removeTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>tag bit (1 for tag 1, 2 for tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-reparseConfiguration">

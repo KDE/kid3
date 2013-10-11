@@ -71,7 +71,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 
 </bookinfo>
 
-<!--<refmeta>
+<!--begin manpage include
+<refmeta>
 <refentrytitle>kid3</refentrytitle>
 <manvolnum>1</manvolnum>
 </refmeta>
@@ -81,9 +82,10 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <refname>kid3-qt</refname>
 <refname>kid3-cli</refname>
 <refpurpose>Kid3 ID3 Tagger</refpurpose>
-</refnamediv>-->
+</refnamediv>
+end manpage include-->
 
-<!--<refsynopsisdiv>--><preface id="synopsis"><title>Übersicht</title>
+<!--change manpage<refsynopsisdiv>--><preface id="synopsis"><title>Übersicht</title>
 <cmdsynopsis>
 <command>kid3</command>
 <group>
@@ -113,7 +115,7 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <arg rep="repeat"><option>-c BEFEHL2</option></arg>
 <arg rep="repeat"><replaceable>DATEI</replaceable></arg>
 </cmdsynopsis>
-<!--</refsynopsisdiv>--></preface>
+<!--change manpage</refsynopsisdiv>--></preface>
 
 <preface id="options"><title>Optionen</title>
 
@@ -602,6 +604,7 @@ ausgelöst werden.
 
 </sect2>
 
+<!--begin manpage ignore-->
 <sect2 id="frame-list">
 <title>Frame-Liste</title>
 
@@ -651,7 +654,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Originalalbum</entry>    <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
        <row><entry>Originalkünstler</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
        <row><entry>Originaldatum</entry>    <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
-       <row><entry>Teil</entry>             <entry>TSST</entry>    <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
+       <row><entry>Teil</entry>             <entry></entry>        <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
        <row><entry>Interpret</entry>        <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
        <row><entry>Bild</entry>             <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
        <row><entry>Herausgeber</entry>      <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
@@ -710,6 +713,7 @@ gesetzt.
 </para>
 
 </sect2>
+<!--end manpage ignore-->
 
 </sect1>
 
@@ -2356,7 +2360,7 @@ wird). Veränderte Elemente werden mit einem
 </para>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>get</userinput><computeroutput>
-Datei: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo 
+Datei: MPEG 1 Layer 3 192 kbps 44100 Hz Joint Stereo
   Name: 01 Intro.mp3
 Tag 1: ID3v1.1
   Titel         Intro
@@ -2553,7 +2557,7 @@ angegeben wird).
 <replaceable>FILTERFORMAT</replaceable> entsprechen. Der Name eines
 vordefinierten Filterausdrucks (z.B. <userinput>"Filename Tag
 Mismatch"</userinput>) kann anstelle eines Filterausdrucks verwendet werden,
-siehe <link linkend="filter">Filter</link>. 
+siehe <link linkend="filter">Filter</link>.
 </para>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>filter '%{title} contains "tro"'</userinput><computeroutput>
@@ -2907,9 +2911,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>openDirectory</function></funcdef>
-  <paramdef>string <parameter>path</parameter> Pfad zu Datei oder Verzeichnis</paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>Pfad zu Datei oder Verzeichnis</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 
@@ -2950,10 +2960,20 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>batchImport</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</paramdef>
-  <paramdef>string <parameter>profileName</parameter> Name des zu verwendenden Profils</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>profileName</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>profileName</replaceable></term>
+    <listitem><para>Name des zu verwendenden Profils</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-importFromFile">
@@ -2961,11 +2981,25 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>importFromFile</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
-  <paramdef>string <parameter>path</parameter> Pfad zu Datei</paramdef>
-  <paramdef>int32 <parameter>fmtIdx</parameter> Format Index</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>Pfad zu Datei</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>fmtIdx</replaceable></term>
+    <listitem><para>Format Index</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 
@@ -2974,12 +3008,22 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>downloadAlbumArt</function></funcdef>
-  <paramdef>string <parameter>url</parameter> URL des Bildes oder einer
-  dazugehörigen Website</paramdef>
-  <paramdef>boolean <parameter>allFilesInDir</parameter> falls true, wird das
-  Bild in allen Dateien des Verzeichnisses hinzugefügt</paramdef>
+  <paramdef>string <parameter>url</parameter></paramdef>
+  <paramdef>boolean <parameter>allFilesInDir</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>url</replaceable></term>
+    <listitem><para>URL des Bildes oder einer dazugehörigen
+    Website</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>allFilesInDir</replaceable></term>
+    <listitem><para>falls true, wird das Bild in allen Dateien des
+    Verzeichnisses hinzugefügt</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-exportToFile">
@@ -2987,11 +3031,25 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>exportToFile</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
-  <paramdef>string <parameter>path</parameter> Pfad zu Datei</paramdef>
-  <paramdef>int32 <parameter>fmtIdx</parameter> Format Index</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>Pfad zu Datei</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>fmtIdx</replaceable></term>
+    <listitem><para>Format Index</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 
@@ -3161,11 +3219,25 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>setDirNameFromTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</paramdef>
-  <paramdef>string <parameter>format</parameter> Verzeichnisformat</paramdef>
-  <paramdef>boolean <parameter>create</parameter> true zum Erstellen, false zum Umbenennen</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>format</parameter></paramdef>
+  <paramdef>boolean <parameter>create</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>format</replaceable></term>
+    <listitem><para>Verzeichnisformat</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>create</replaceable></term>
+    <listitem><para>true zum Erstellen, false zum Umbenennen</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Wenn OK wird true zurückgegeben, sonst ist eine Fehlermeldung mit
       getErrorMessage() abrufbar.</para>
 </sect2>
@@ -3175,10 +3247,20 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>numberTracks</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</paramdef>
-  <paramdef>int32 <parameter>firstTrackNr</parameter> Nummer für erste Datei</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>int32 <parameter>firstTrackNr</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>firstTrackNr</replaceable></term>
+    <listitem><para>Nummer für erste Datei</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-filter">
@@ -3186,9 +3268,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>filter</function></funcdef>
-  <paramdef>string <parameter>expression</parameter> Filter Ausdruck</paramdef>
+  <paramdef>string <parameter>expression</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>expression</replaceable></term>
+    <listitem><para>Filter Ausdruck</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-convertToId3v24">
@@ -3240,9 +3328,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileName</function></funcdef>
-  <paramdef>string <parameter>name</parameter> Dateiname</paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>Dateiname</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Die Datei wird umbenannt, wenn das Verzeichnis gespeichert wird.</para>
 </sect2>
 
@@ -3251,9 +3345,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileNameFormat</function></funcdef>
-  <paramdef>string <parameter>format</parameter> Dateinamenformat</paramdef>
+  <paramdef>string <parameter>format</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>format</replaceable></term>
+    <listitem><para>Dateinamenformat</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-setFileNameFromTag">
@@ -3261,9 +3361,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setFileNameFromTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-getFrame">
@@ -3271,10 +3377,20 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>string <function>getFrame</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
-  <paramdef>string <parameter>name</parameter> Elementname (z.B. "artist")</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>Elementname (z.B. "artist")</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Um binäre Daten wie ein Bild von einem Element in einer Datei zu
       speichern, kann der Dateiname dem Elementnamen hinzugefügt werden,
       z.B. "Picture:/Pfad/zu/Datei".</para>
@@ -3286,11 +3402,25 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>setFrame</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
-  <paramdef>string <parameter>name</parameter> Elementname (z.B. "artist")</paramdef>
-  <paramdef>string <parameter>value</parameter> Wert des Elementes</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>name</parameter></paramdef>
+  <paramdef>string <parameter>value</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>name</replaceable></term>
+    <listitem><para>Elementname (z.B. "artist")</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>value</replaceable></term>
+    <listitem><para>Wert des Elementes</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Für Tag 2 (<parameter>tagMask</parameter> 2) gilt: Wenn kein Element
       mit <parameter>name</parameter> existiert, so wird ein neues Element
       hinzugefügt, wenn <parameter>value</parameter> leer ist, so wird das
@@ -3305,9 +3435,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef>array of string <function>getTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 <para>Gibt eine Liste mit abwechselnd Elementnamen und -werten zurück.</para>
 </sect2>
 
@@ -3330,9 +3466,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setTagFromFileName</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-setTagFromOtherTag">
@@ -3340,9 +3482,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>setTagFromOtherTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-copyTag">
@@ -3350,9 +3498,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>copyTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-pasteTag">
@@ -3360,9 +3514,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>pasteTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-removeTag">
@@ -3370,9 +3530,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>removeTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="dbus-reparseConfiguration">
