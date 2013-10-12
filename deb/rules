@@ -97,7 +97,7 @@ binary-arch: build install
 	dh_strip
 	dh_compress --exclude=.docbook
 	dh_fixperms
-	dh_makeshlibs
+	dh_makeshlibs --noscripts
 	dh_shlibdeps
 	dh_installdeb
 	dh_gencontrol
