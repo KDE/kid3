@@ -383,7 +383,7 @@ private:
      * @param fn file name
      * @return true if ok.
      */
-    bool read(const char* fn);
+    bool read(const QString& fn);
 
     bool valid;      /**< true if read() was successful */
     int version;     /**< vorbis encoder version */

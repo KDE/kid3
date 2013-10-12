@@ -482,11 +482,7 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
 	}
 }
 
-int vcedit_open(vcedit_state *state, FILE *in)
-{
-	return vcedit_open_callbacks(state, (void *)in, 
-			(vcedit_read_func)fread, (vcedit_write_func)fwrite);
-}
+/* kid3 vcedit_open() removed */
 
 int vcedit_open_callbacks(vcedit_state *state, void *in,
 		vcedit_read_func read_func, vcedit_write_func write_func)
@@ -497,6 +493,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	int chunks = 0;
 	int read_bos, test_supported, page_pending;
 	int have_vorbis;
+	size_t vendor_size;
 	ogg_packet *header;
 	ogg_packet	header_main;
 	ogg_packet  header_comments;
@@ -684,8 +681,10 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	}
 
 	/* Copy the vendor tag */
-	state->vendor = malloc(strlen(state->vc->vendor) +1);
-	strcpy(state->vendor, state->vc->vendor);
+	/* kid3 */
+	vendor_size = strlen(state->vc->vendor) +1;
+	state->vendor = malloc(vendor_size);
+	memcpy(state->vendor, state->vc->vendor, vendor_size);
 
 	/* Headers are done! */
 	return 0;

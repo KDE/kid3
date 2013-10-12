@@ -44,6 +44,104 @@
 #include "pictureframe.h"
 #include "tagconfig.h"
 
+namespace {
+
+/*
+ * The following functions are used to access an Ogg/Vorbis file
+ * using a QIODevice. They are used by vcedit_open_callbacks() and
+ * ov_open_callbacks().
+ */
+
+/**
+ * Read from a QIODevice using an fread() like interface.
+ * @param ptr location to store data read
+ * @param size size of one element in bytes
+ * @param nmemb number of elements to read
+ * @param stream QIODevice* to read from
+ * @return number of elements read.
+ */
+size_t oggread(void* ptr, size_t size, size_t nmemb, void* stream)
+{
+  if (!stream || !size)
+    return 0;
+
+  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  qint64 len = iodev->read(reinterpret_cast<char*>(ptr), size * nmemb);
+  return len / size;
+}
+
+/**
+ * Write to a QIODevice using an fwrite() like interface.
+ * @param ptr location of data to write
+ * @param size size of one element in bytes
+ * @param nmemb number of elements to write
+ * @param stream QIODevice* to write to
+ * @return number of elements written.
+ */
+size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
+{
+  if (!stream || !size)
+    return 0;
+
+  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  qint64 len = iodev->write(reinterpret_cast<const char*>(ptr), size * nmemb);
+  return len / size;
+}
+
+/**
+ * Seek in a QIODevice using an fseek() like interface.
+ * @param stream QIODevice* to seek
+ * @param offset byte position
+ * @param whence SEEK_SET, SEEK_CUR, or SEEK_END
+ * @return 0 if ok, -1 on error.
+ */
+int oggseek(void* stream, int64_t offset, int whence)
+{
+  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  if (!iodev || iodev->isSequential())
+    return -1;
+
+  qint64 pos = offset;
+  if (whence == SEEK_END) {
+    pos += iodev->size();
+  } else if (whence == SEEK_CUR) {
+    pos += iodev->pos();
+  }
+
+  if (iodev->seek(pos))
+    return 0;
+  return -1;
+}
+
+/**
+ * Close QIODevice using an fclose() like interface.
+ * @param stream QIODevice* to close
+ * @return 0 if ok.
+ */
+int oggclose(void* stream)
+{
+  if (QIODevice* iodev = reinterpret_cast<QIODevice*>(stream)) {
+    iodev->close();
+    return 0;
+  }
+  return -1;
+}
+
+/**
+ * Get position in QIODevice using an ftell() like interface.
+ * @param stream QIODevice*
+ * @return current position, -1 on error.
+ */
+long oggtell(void* stream)
+{
+  if (QIODevice* iodev = reinterpret_cast<QIODevice*>(stream)) {
+    return iodev->pos();
+  }
+  return -1;
+}
+
+}
+
 /**
  * Constructor.
  *
@@ -94,14 +192,14 @@ void OggFile::readTags(bool force)
     m_comments.clear();
     markTag2Unchanged();
     m_fileRead = true;
-    QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
+    QString fnIn = getDirname() + QDir::separator() + currentFilename();
 
     if (m_fileInfo.read(fnIn)) {
-      FILE* fpIn = ::fopen(fnIn, "rb");
-      if (fpIn) {
+      QFile fpIn(fnIn);
+      if (fpIn.open(QIODevice::ReadOnly)) {
         vcedit_state* state = ::vcedit_new_state();
         if (state) {
-          if (::vcedit_open(state, fpIn) >= 0) {
+          if (::vcedit_open_callbacks(state, &fpIn, oggread, oggwrite) >= 0) {
             vorbis_comment* vc = ::vcedit_comments(state);
             if (vc) {
               for (int i = 0; i < vc->comments; ++i) {
@@ -123,7 +221,7 @@ void OggFile::readTags(bool force)
           }
           ::vcedit_clear(state);
         }
-        ::fclose(fpIn);
+        fpIn.close();
       }
     }
   }
@@ -159,18 +257,16 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
     if (!renameFile(currentFilename(), tempFilename)) {
       return false;
     }
-    QByteArray fnIn = QFile::encodeName(dirname + QDir::separator() +
-                                          tempFilename);
-    QByteArray fnOut = QFile::encodeName(dirname + QDir::separator() +
-                                           getFilename());
-    FILE* fpIn = ::fopen(fnIn, "rb");
-    if (fpIn) {
+    QString fnIn = dirname + QDir::separator() + tempFilename;
+    QString fnOut = dirname + QDir::separator() + getFilename();
+    QFile fpIn(fnIn);
+    if (fpIn.open(QIODevice::ReadOnly)) {
 
       // store time stamp if it has to be preserved
       bool setUtime = false;
       struct utimbuf times;
       if (preserve) {
-        int fd = fileno(fpIn);
+        int fd = fpIn.handle();
         if (fd >= 0) {
           struct stat fileStat;
           if (::fstat(fd, &fileStat) == 0) {
@@ -181,11 +277,11 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
         }
       }
 
-      FILE* fpOut = ::fopen(fnOut, "wb");
-      if (fpOut) {
+      QFile fpOut(fnOut);
+      if (fpOut.open(QIODevice::WriteOnly)) {
         vcedit_state* state = ::vcedit_new_state();
         if (state) {
-          if (::vcedit_open(state, fpIn) >= 0) {
+          if (::vcedit_open_callbacks(state, &fpIn, oggread, oggwrite) >= 0) {
             vorbis_comment* vc = ::vcedit_comments(state);
             if (vc) {
               ::vorbis_comment_clear(vc);
@@ -204,20 +300,20 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
                   it = m_comments.erase(it);
                 }
               }
-              if (::vcedit_write(state, fpOut) >= 0) {
+              if (::vcedit_write(state, &fpOut) >= 0) {
                 writeOk = true;
               }
             }
           }
           ::vcedit_clear(state);
         }
-        ::fclose(fpOut);
+        fpOut.close();
       }
-      ::fclose(fpIn);
+      fpIn.close();
 
       // restore time stamp
       if (setUtime) {
-        ::utime(fnOut, &times);
+        ::utime(QFile::encodeName(fnOut), &times);
       }
     }
     if (!writeOk) {
@@ -856,13 +952,16 @@ QStringList OggFile::getFrameIds() const
  * @param fn file name
  * @return true if ok.
  */
-bool OggFile::FileInfo::read(const char* fn)
+bool OggFile::FileInfo::read(const QString& fn)
 {
+  static ::ov_callbacks ovcb = {
+    oggread, oggseek, oggclose, oggtell
+  };
   valid = false;
-  FILE* fp = ::fopen(fn, "rb");
-  if (fp) {
+  QFile fp(fn);
+  if (fp.open(QIODevice::ReadOnly)) {
     OggVorbis_File vf;
-    if (::ov_open(fp, &vf, NULL, 0) == 0) {
+    if (::ov_open_callbacks(&fp, &vf, 0, 0, ovcb) == 0) {
       vorbis_info* vi = ::ov_info(&vf, -1);
       if (vi) {
         valid = true;
@@ -880,7 +979,7 @@ bool OggFile::FileInfo::read(const char* fn)
       duration = static_cast<long>(::ov_time_total(&vf, -1));
       ::ov_clear(&vf); // closes file, do not use ::fclose()
     } else {
-      ::fclose(fp);
+      fp.close();
     }
   }
   return valid;
