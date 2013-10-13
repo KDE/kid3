@@ -5,7 +5,7 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>,
  Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 7),
+Build-Depends: debhelper (>= 9),
  libqt4-dev,
  kdelibs5-dev,
  cmake,
