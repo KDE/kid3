@@ -1,8 +1,8 @@
-kid3 (2.4~git20131005) unstable; urgency=low
+kid3 (3.0-0) unstable; urgency=low
 
-  * Internal test release.
+  * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 05 Oct 2013 06:56:54 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 14 Oct 2013 21:32:58 +0200
 
 kid3 (2.3-1) experimental; urgency=low
 

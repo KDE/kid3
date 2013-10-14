@@ -24,8 +24,8 @@ Build-Depends: debhelper (>= 9),
  xsltproc
 Standards-Version: 3.9.4
 Homepage: http://kid3.sourceforge.net/
-Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
+Vcs-Svn: svn://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/trunk/
 
 Package: kid3-core
 Architecture: any

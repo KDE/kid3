@@ -1,9 +1,10 @@
-Sat Aug 10 12:45:42 CEST 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Mon Oct 14 21:30:42 CEST 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
-	* Release 2.4
+	* Release 3.0
 
 	* New:
-	  + Use common shared libraries for KDE and Qt-only versions.
+	  + Command-line interface kid3-cli.
+	  + Use common shared libraries for KDE, Qt-only and CLI versions.
 	  + Plugins for metadata libraries and importers.
 	  + Support Opus files with TagLib 1.9.
 	  + Support GStreamer 1.0.
