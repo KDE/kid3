@@ -218,7 +218,7 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
  * @return true if string has hex format.
  */
 bool AttributeData::isHexString(const QString& str, char lastAllowedLetter,
-                                const QString additionalChars)
+                                const QString& additionalChars)
 {
   if (str.isEmpty()) {
     return false;

@@ -673,7 +673,7 @@ const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
     QT_TRANSLATE_NOOP("@default", "Date"),
     QT_TRANSLATE_NOOP("@default", "Seller")
   };
-  class not_used { int array_size_check[
+  struct not_used { int array_size_check[
       sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_Seller + 1
       ? 1 : -1 ]; };
   return idStr[id <= Frame::Field::ID_Seller ? id : 0];

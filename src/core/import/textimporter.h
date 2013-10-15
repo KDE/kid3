@@ -77,6 +77,8 @@ public:
     ImportTrackDataVector& trackDataVector);
 
 private:
+  Q_DISABLE_COPY(TextImporter)
+
   /**
    * Look for album specific information (artist, album, year, genre) in
    * a header.

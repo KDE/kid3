@@ -73,7 +73,20 @@ static QString getTextEncodingV1CodecName(const QString& comboEntry)
 /**
  * Constructor.
  */
-ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent)
+ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent),
+  m_loadLastOpenedFileCheckBox(0), m_preserveTimeCheckBox(0),
+  m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
+  m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
+  m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
+  m_pictureNameComboBox(0), m_genreNotNumericCheckBox(0),
+  m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
+  m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_id3FormatBox(0),
+  m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
+  m_quickAccessTagsModel(0), m_playOnDoubleClickCheckBox(0),
+  m_commandsTable(0), m_commandsTableModel(0), m_browserLineEdit(0),
+  m_proxyCheckBox(0), m_proxyLineEdit(0), m_proxyAuthenticationCheckBox(0),
+  m_proxyUserNameLineEdit(0), m_proxyPasswordLineEdit(0),
+  m_enabledMetadataPluginsModel(0), m_enabledPluginsModel(0)
 {
 }
 

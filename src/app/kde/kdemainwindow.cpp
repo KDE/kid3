@@ -55,7 +55,10 @@
  */
 KdeMainWindow::KdeMainWindow(QWidget* parent) :
   KXmlGuiWindow(parent),
-  BaseMainWindow(this, m_platformTools = new KdePlatformTools) {
+  BaseMainWindow(this, m_platformTools = new KdePlatformTools),
+  m_fileOpenRecent(0), m_viewToolBar(0), m_viewStatusBar(0),
+  m_settingsAutoHideTags(0), m_settingsShowHidePicture(0)
+{
   init();
 }
 

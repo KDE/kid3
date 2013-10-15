@@ -373,7 +373,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
 
     ImportTrackDataVector::iterator it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
-    int discNr = 1, trackNr = 1, position;
+    int discNr = 1, trackNr = 1;
     bool ok;
     FrameCollection frames(framesHdr);
     QDomElement mediumList = release.namedItem(QLatin1String("medium-list")).toElement();
@@ -381,7 +381,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     for (QDomNode mediumNode = mediumList.namedItem(QLatin1String("medium"));
          !mediumNode.isNull();
          mediumNode = mediumNode.nextSibling()) {
-      position = mediumNode.namedItem(QLatin1String("position")).toElement().text().toInt(&ok);
+      int position = mediumNode.namedItem(QLatin1String("position")).toElement().text().toInt(&ok);
       if (ok) {
         discNr = position;
       }

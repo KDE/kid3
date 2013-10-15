@@ -239,11 +239,12 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   QList<int>::const_iterator tdit = trackDuration.begin();
   bool atTrackDataListEnd = (it == trackDataVector.end());
   int pos = 0;
-  int idx, oldpos = pos;
+  int oldpos = pos;
   int tracknr = 0;
   for (;;) {
     QRegExp fdre(QString(QLatin1String("TTITLE%1=([^\\r\\n]+)[\\r\\n]")).arg(tracknr));
     QString title;
+    int idx;
     while ((idx = fdre.indexIn(text, pos)) != -1) {
       title += fdre.cap(1);
       pos = idx + fdre.matchedLength();

@@ -1648,9 +1648,6 @@ void TagLibFile::readAudioProperties()
   if (!m_fileRef.isNull() &&
       (audioProperties = m_fileRef.audioProperties()) != 0) {
     TagLib::MPEG::Properties* mpegProperties;
-    TagLib::Vorbis::Properties* oggProperties;
-    TagLib::FLAC::Properties* flacProperties;
-    TagLib::MPC::Properties* mpcProperties;
     TagLib::Ogg::Speex::Properties* speexProperties;
     TagLib::TrueAudio::Properties* ttaProperties;
     TagLib::WavPack::Properties* wvProperties;
@@ -1707,16 +1704,12 @@ void TagLibFile::readAudioProperties()
           m_detailInfo.channels = 1;
           break;
       }
-    } else if ((oggProperties =
-                dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties)) !=
+    } else if (dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties) !=
                0) {
       m_detailInfo.format = QLatin1String("Ogg Vorbis");
-    } else if ((flacProperties =
-                dynamic_cast<TagLib::FLAC::Properties*>(audioProperties)) !=
-               0) {
+    } else if (dynamic_cast<TagLib::FLAC::Properties*>(audioProperties) != 0) {
       m_detailInfo.format = QLatin1String("FLAC");
-    } else if ((mpcProperties =
-                dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
+    } else if (dynamic_cast<TagLib::MPC::Properties*>(audioProperties) != 0) {
       m_detailInfo.format = QLatin1String("MPC");
     } else if ((speexProperties =
                 dynamic_cast<TagLib::Ogg::Speex::Properties*>(audioProperties)) != 0) {
@@ -1856,11 +1849,8 @@ QString TagLibFile::getFileExtension() const
 QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
 {
   if (tag && !tag->isEmpty()) {
-    const TagLib::ID3v1::Tag* id3v1Tag;
     const TagLib::ID3v2::Tag* id3v2Tag;
-    const TagLib::Ogg::XiphComment* oggTag;
-    const TagLib::APE::Tag* apeTag;
-    if ((id3v1Tag = dynamic_cast<const TagLib::ID3v1::Tag*>(tag)) != 0) {
+    if (dynamic_cast<const TagLib::ID3v1::Tag*>(tag) != 0) {
       type = TT_Id3v1;
       return QLatin1String("ID3v1.1");
     } else if ((id3v2Tag = dynamic_cast<const TagLib::ID3v2::Tag*>(tag)) != 0) {
@@ -1880,10 +1870,10 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
       } else {
         return QLatin1String("ID3v2");
       }
-    } else if ((oggTag = dynamic_cast<const TagLib::Ogg::XiphComment*>(tag)) != 0) {
+    } else if (dynamic_cast<const TagLib::Ogg::XiphComment*>(tag) != 0) {
       type = TT_Vorbis;
       return QLatin1String("Vorbis");
-    } else if ((apeTag = dynamic_cast<const TagLib::APE::Tag*>(tag)) != 0) {
+    } else if (dynamic_cast<const TagLib::APE::Tag*>(tag) != 0) {
       type = TT_Ape;
       return QLatin1String("APE");
 #if TAGLIB_VERSION >= 0x010600
@@ -3269,7 +3259,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
                        // FT_LastFrame = FT_WWWAudioSource
   };
-  class not_used { int array_size_check[
+  struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
   return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
@@ -5315,6 +5305,8 @@ public:
   void init();
 
 private:
+  Q_DISABLE_COPY(TagLibInitializer)
+
 #if TAGLIB_VERSION <= 0x010400
   SpeexFileTypeResolver* m_speexFileTypeResolver;
   WavPackFileTypeResolver* m_wavPackFileTypeResolver;

@@ -257,10 +257,9 @@ void FileList::executeContextCommand(int id)
     QString cmd = menuCmd.getCommand();
 
     int len = cmd.length();
-    int begin;
     int end = 0;
     while (end < len) {
-      begin = end;
+      int begin = end;
       while (begin < len && cmd[begin] == QLatin1Char(' ')) ++begin;
       if (begin >= len) break;
       if (cmd[begin] == QLatin1Char('"')) {

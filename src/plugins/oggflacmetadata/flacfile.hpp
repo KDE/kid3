@@ -162,6 +162,9 @@ private:
 
   /** Information about a FLAC file. */
   struct FileInfo {
+    FileInfo() : valid(false), channels(0), sampleRate(0), bitrate(0),
+      duration(0) {}
+
     /**
      * Read information about a FLAC file.
      * @param si stream info

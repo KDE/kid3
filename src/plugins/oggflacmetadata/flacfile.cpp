@@ -136,10 +136,6 @@ void FlacFile::readTags(bool force)
 {
   if (force || !m_fileRead) {
     m_comments.clear();
-#ifdef HAVE_FLAC_PICTURE
-    m_pictures.clear();
-    int pictureNr = 0;
-#endif
     markTag2Unchanged();
     m_fileRead = true;
     QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
@@ -149,6 +145,10 @@ void FlacFile::readTags(bool force)
     }
     if (m_chain && m_chain->is_valid()) {
       if (m_chain->read(fnIn)) {
+#ifdef HAVE_FLAC_PICTURE
+        m_pictures.clear();
+        int pictureNr = 0;
+#endif
         FLAC::Metadata::Iterator mdit;
         mdit.init(*m_chain);
         while (mdit.is_valid()) {

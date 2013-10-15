@@ -1376,8 +1376,8 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WXXX - User defined URL link") }                            /* WXXX */
 };
 
-/** Not instantiated class to check array size at compilation time. */
-class not_used { int array_size_check[
+/** Not instantiated struct to check array size at compilation time. */
+struct not_used { int array_size_check[
     sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1
     ? 1 : -1 ]; };
 
@@ -1558,12 +1558,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 {
   ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
   ID3_FrameID id3Id = id3Frame->GetID();
-  ID3_Field* id3Field;
   ID3_TextEnc enc = ID3TE_NONE;
   for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
        fldIt != frame.getFieldList().end();
        ++fldIt) {
-    id3Field = iter->GetNext();
+    ID3_Field* id3Field = iter->GetNext();
     if (!id3Field) {
       qDebug("early end of ID3 fields");
       break;

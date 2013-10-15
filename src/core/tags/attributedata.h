@@ -102,7 +102,7 @@ public:
    * @return true if string has hex format.
    */
   static bool isHexString(const QString& str, char lastAllowedLetter = 'F',
-                          const QString additionalChars = QString());
+                          const QString& additionalChars = QString());
 
 private:
   Type m_type;

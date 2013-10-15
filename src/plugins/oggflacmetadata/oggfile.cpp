@@ -399,7 +399,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
                        // FT_LastFrame = FT_WWWAudioSource
   };
-  class not_used { int array_size_check[
+  struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
   if (type == Frame::FT_Picture &&
