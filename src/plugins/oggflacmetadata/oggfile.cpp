@@ -95,7 +95,7 @@ size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
  * @param whence SEEK_SET, SEEK_CUR, or SEEK_END
  * @return 0 if ok, -1 on error.
  */
-int oggseek(void* stream, int64_t offset, int whence)
+int oggseek(void* stream, ogg_int64_t offset, int whence)
 {
   QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
   if (!iodev || iodev->isSequential())

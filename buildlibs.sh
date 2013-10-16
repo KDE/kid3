@@ -268,15 +268,14 @@ diff -ruN flac-1.2.1/patches/nasm.h.patch flac-1.2.1.new/patches/nasm.h.patch
 + %else
 + 	%error unsupported object format!
 + %endif
-diff -ruN flac-1.2.1/src/plugin_xmms/Makefile.in flac-1.2.1.new/src/plugin_xmms/Makefile.in
---- flac-1.2.1/src/plugin_xmms/Makefile.in	2007-09-16 16:05:18.000000000 -0400
-+++ flac-1.2.1.new/src/plugin_xmms/Makefile.in	2008-02-18 19:48:45.000000000 -0500
-@@ -265,7 +265,6 @@
+diff -ru flac-1.3.0/src/plugin_xmms/Makefile.in flac-1.3.0.new/src/plugin_xmms/Makefile.in
+--- flac-1.3.0/src/plugin_xmms/Makefile.in	2013-05-27 10:11:57.000000000 +0200
++++ flac-1.3.0.new/src/plugin_xmms/Makefile.in	2013-10-16 13:30:02.000000000 +0200
+@@ -361,7 +361,6 @@
  	$(top_builddir)/src/share/replaygain_synthesis/libreplaygain_synthesis.la \
  	$(top_builddir)/src/share/utf8/libutf8.la \
  	$(top_builddir)/src/libFLAC/libFLAC.la \
 -	-L$(top_builddir)/src/libFLAC/.libs \
- 	@OGG_LIBS@ \
  	@XMMS_LIBS@ \
  	@LIBICONV@
 EOF
@@ -608,10 +607,10 @@ echo "### Building zlib"
 cd zlib-1.2.8/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
-make install -f win32/Makefile.gcc SHARED_MODE=1 INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 elif test "$compiler" = "cross-mingw"; then
 make -f win32/Makefile.gcc PREFIX=i586-mingw32msvc-
-make install -f win32/Makefile.gcc SHARED_MODE=1 INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
 CFLAGS="$CFLAGS -O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
