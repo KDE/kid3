@@ -275,9 +275,14 @@ void BatchImportSourcesModel::getBatchImportSource(
 void BatchImportSourcesModel::setBatchImportSources(
     const QList<BatchImportProfile::Source>& sources)
 {
+#if QT_VERSION >= 0x040600
   beginResetModel();
   m_sources = sources;
   endResetModel();
+#else
+  m_sources = sources;
+  reset();
+#endif
 }
 
 /**

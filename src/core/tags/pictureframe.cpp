@@ -642,7 +642,11 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
       width = image.width();
       height = image.height();
       depth = image.depth();
+#if QT_VERSION >= 0x040600
       numColors = image.colorCount();
+#else
+      numColors = image.numColors();
+#endif
     }
     renderBigEndianULongToByteArray(width, ba, index);
     index += 4;

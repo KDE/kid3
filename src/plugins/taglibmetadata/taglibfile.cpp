@@ -155,7 +155,11 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
     pic->setWidth(image.width());
     pic->setHeight(image.height());
     pic->setColorDepth(image.depth());
+#if QT_VERSION >= 0x040600
     pic->setNumColors(image.colorCount());
+#else
+    pic->setNumColors(image.numColors());
+#endif
   }
 }
 #endif

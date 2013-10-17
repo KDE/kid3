@@ -106,7 +106,11 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
     pic->set_width(image.width());
     pic->set_height(image.height());
     pic->set_depth(image.depth());
+#if QT_VERSION >= 0x040600
     pic->set_colors(image.colorCount());
+#else
+    pic->set_colors(image.numColors());
+#endif
   }
   pic->set_mime_type(mimeType.toLatin1());
   pic->set_type(
