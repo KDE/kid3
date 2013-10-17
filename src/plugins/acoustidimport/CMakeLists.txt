@@ -114,6 +114,13 @@ if(WITH_CHROMAPRINT)
 
   add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
   target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES} ${CHROMAPRINT_LIBS})
+  if (APPLE AND CMAKE_EXE_LINKER_FLAGS MATCHES "-arch i386")
+    # To suppress linker error
+    # ld: illegal text-relocation to non_lazy_ptr in ../libavformat.a
+    # (allformats.o) from _av_register_all in ../libavformat.a(allformats.o)
+    # for architecture i386
+    SET_TARGET_PROPERTIES(${plugin_TARGET} PROPERTIES LINK_FLAGS -Wl,-read_only_relocs,suppress)
+  endif (APPLE AND CMAKE_EXE_LINKER_FLAGS MATCHES "-arch i386")
 
   INSTALL_KID3_PLUGIN(${plugin_TARGET} ${plugin_NAME})
 endif(WITH_CHROMAPRINT)

@@ -451,7 +451,9 @@ for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
 patch -p1 <../source/fink_flac.patch
+if test "$ARCH" != "i386"; then
 patch -p0 <patches/ltmain.sh.patch
+fi
 patch -p0 <patches/nasm.h.patch
 fi
 cd ..
