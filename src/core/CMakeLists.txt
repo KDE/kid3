@@ -12,9 +12,8 @@ add_definitions(-DKID3_BUILD_CORE_LIB)
 if (NOT BUILD_SHARED_LIBS)
   add_definitions(${QT_EXECUTABLE_COMPILE_FLAGS})
 endif (NOT BUILD_SHARED_LIBS)
-
 if (WITH_GCC_PCH)
-  ADD_KID3_PCH_RULE(core_SRCS)
+  add_definitions(${GCC_PCH_COMPILE_FLAGS})
 endif (WITH_GCC_PCH)
 
 qt4_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS})

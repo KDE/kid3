@@ -57,7 +57,7 @@ if(WITH_MP4V2)
   set(plugin_NAME Mp4v2Metadata)
 
   if (WITH_GCC_PCH)
-    ADD_KID3_PCH_RULE(plugin_SRCS)
+    add_definitions(${GCC_PCH_COMPILE_FLAGS})
   endif (WITH_GCC_PCH)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)

@@ -75,7 +75,7 @@ if(HAVE_VORBIS OR HAVE_FLAC)
   set(plugin_NAME OggFlacMetadata)
 
   if (WITH_GCC_PCH)
-    ADD_KID3_PCH_RULE(plugin_SRCS)
+    add_definitions(${GCC_PCH_COMPILE_FLAGS})
   endif (WITH_GCC_PCH)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)

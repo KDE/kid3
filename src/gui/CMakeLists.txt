@@ -15,9 +15,8 @@ add_definitions(-DKID3_BUILD_GUI_LIB)
 if (NOT BUILD_SHARED_LIBS)
   add_definitions(${QT_EXECUTABLE_COMPILE_FLAGS})
 endif (NOT BUILD_SHARED_LIBS)
-
 if (WITH_GCC_PCH)
-  ADD_KID3_PCH_RULE(gui_SRCS)
+  add_definitions(${GCC_PCH_COMPILE_FLAGS})
 endif (WITH_GCC_PCH)
 
 qt4_wrap_cpp(gui_GEN_MOC_SRCS ${gui_MOC_HDRS})

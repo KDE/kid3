@@ -143,10 +143,6 @@ else (APPLE)
 file(RELATIVE_PATH CFG_PLUGINSDIR /${WITH_BINDIR} /${WITH_PLUGINSDIR})
 endif (APPLE)
 
-if (WITH_GCC_PCH)
-include(GccPchMacros.cmake)
-endif (WITH_GCC_PCH)
-
 find_package(Threads)
 find_package(Perl REQUIRED)
 include (CheckCXXSourceCompiles)
