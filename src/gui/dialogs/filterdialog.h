@@ -46,7 +46,7 @@ public:
    *
    * @param parent parent widget
    */
-  FilterDialog(QWidget* parent);
+  explicit FilterDialog(QWidget* parent);
 
   /**
    * Destructor.

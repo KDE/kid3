@@ -144,18 +144,18 @@ ServerTrackImportDialog::~ServerTrackImportDialog()
 void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
 {
   if (m_client) {
-    disconnect(m_client, SIGNAL(statusChanged(int, QString)),
-               this, SLOT(setFileStatus(int, QString)));
-    disconnect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
-               this, SLOT(setResults(int, ImportTrackDataVector&)));
+    disconnect(m_client, SIGNAL(statusChanged(int,QString)),
+               this, SLOT(setFileStatus(int,QString)));
+    disconnect(m_client, SIGNAL(resultsReceived(int,ImportTrackDataVector&)),
+               this, SLOT(setResults(int,ImportTrackDataVector&)));
   }
   m_client = source;
 
   if (m_client) {
-    connect(m_client, SIGNAL(statusChanged(int, QString)),
-            this, SLOT(setFileStatus(int, QString)));
-    connect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
-            this, SLOT(setResults(int, ImportTrackDataVector&)));
+    connect(m_client, SIGNAL(statusChanged(int,QString)),
+            this, SLOT(setFileStatus(int,QString)));
+    connect(m_client, SIGNAL(resultsReceived(int,ImportTrackDataVector&)),
+            this, SLOT(setResults(int,ImportTrackDataVector&)));
 
     setWindowTitle(QCoreApplication::translate("@default", m_client->name()));
     if (m_client->defaultServer()) {

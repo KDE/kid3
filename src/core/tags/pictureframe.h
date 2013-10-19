@@ -82,7 +82,7 @@ public:
    *
    * @param frame general frame
    */
-  PictureFrame(const Frame& frame);
+  explicit PictureFrame(const Frame& frame);
 
   /**
    * Destructor.

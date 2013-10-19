@@ -127,7 +127,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   formatLayout->addWidget(formatLabel);
   formatLayout->addWidget(m_formatComboBox);
   connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-  connect(m_formatComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_formatComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(slotUpdateNewDirname()));
   vlayout->addLayout(formatLayout);
 
   QGridLayout* fromToLayout = new QGridLayout;

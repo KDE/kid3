@@ -45,7 +45,7 @@ public:
    *
    * @param parent parent widget
    */
-  NumberTracksDialog(QWidget* parent);
+  explicit NumberTracksDialog(QWidget* parent);
 
   /**
    * Destructor.

@@ -371,7 +371,7 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
 
   AVStream* stream = 0;
   Codec codec;
-  for (unsigned i = 0; i < format.numStreams(); i++) {
+  for (unsigned i = 0; i < format.numStreams(); ++i) {
     codec.assign(format.streams()[i]->codec);
     if (codec.codecTypeIsAudio()) {
       stream = format.streams()[i];

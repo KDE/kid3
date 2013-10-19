@@ -46,7 +46,7 @@ public:
    *
    * @param parent  parent widget
    */
-  PlaylistDialog(QWidget* parent);
+  explicit PlaylistDialog(QWidget* parent);
 
   /**
    * Destructor.

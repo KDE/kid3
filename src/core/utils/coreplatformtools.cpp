@@ -240,8 +240,8 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
   QString topDir;
   QString trashDir;
   if (pathStat.st_dev == trashStat.st_dev) {
-    char* xdhEnv = ::getenv("XDG_DATA_HOME");
-    topDir = xdhEnv ? QString::fromLatin1(xdhEnv) : QDir::homePath() + QLatin1String("/.local/share");
+    QByteArray xdhEnv = qgetenv("XDG_DATA_HOME");
+    topDir = !xdhEnv.isEmpty() ? QString::fromLatin1(xdhEnv) : QDir::homePath() + QLatin1String("/.local/share");
     trashDir = topDir + QLatin1String("/Trash");
   } else if (!(findMountPoint(pathStat.st_dev, topDir) &&
                findExtVolumeTrash(topDir, trashDir))) {

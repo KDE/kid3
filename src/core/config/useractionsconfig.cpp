@@ -94,7 +94,7 @@ void UserActionsConfig::readFromConfig(ISettings* config)
 
   if (cmdNr == 1) {
 #ifdef Q_OS_WIN32
-    QString prgDir = QString::fromLocal8Bit(::getenv("ProgramFiles"));
+    QString prgDir = QString::fromLocal8Bit(qgetenv("ProgramFiles"));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(
         QLatin1String("Windows Media Player"),

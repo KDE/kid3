@@ -125,7 +125,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
 
 #ifdef HAVE_PHONON
   connect(mediaObject, SIGNAL(tick(qint64)), this, SLOT(tick(qint64)));
-  connect(mediaObject, SIGNAL(stateChanged(Phonon::State, Phonon::State)),
+  connect(mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
           this, SLOT(stateChanged(Phonon::State)));
 #else
   connect(mediaPlayer, SIGNAL(positionChanged(qint64)),

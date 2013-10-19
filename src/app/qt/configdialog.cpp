@@ -118,7 +118,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
     m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
     connect(m_applicationFontButton, SIGNAL(clicked()), this, SLOT(slotSelectFont()));
-    connect(m_applicationStyleComboBox, SIGNAL(activated(const QString&)), this, SLOT(slotSelectStyle(const QString&)));
+    connect(m_applicationStyleComboBox, SIGNAL(activated(QString)), this, SLOT(slotSelectStyle(QString)));
     connect(m_useApplicationFontCheckBox, SIGNAL(toggled(bool)), m_applicationFontButton, SLOT(setEnabled(bool)));
     connect(m_useApplicationStyleCheckBox, SIGNAL(toggled(bool)), m_applicationStyleComboBox, SLOT(setEnabled(bool)));
     vlayout->addLayout(fontStyleLayout);

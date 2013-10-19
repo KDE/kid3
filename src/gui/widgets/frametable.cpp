@@ -79,8 +79,8 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
   setEditTriggers(AllEditTriggers);
   viewport()->installEventFilter(this); // keep track of editors
   setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-      this, SLOT(customContextMenu(const QPoint&)));
+  connect(this, SIGNAL(customContextMenuRequested(QPoint)),
+      this, SLOT(customContextMenu(QPoint)));
 }
 
 /**

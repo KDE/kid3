@@ -190,7 +190,7 @@ signals:
 private:
   class ShortcutItem {
   public:
-    ShortcutItem(QAction* act);
+    explicit ShortcutItem(QAction* act);
 
     QAction* action() { return m_action; }
     const QAction* action() const { return m_action; }
@@ -225,7 +225,7 @@ private:
 
   class ShortcutGroup : public QList<ShortcutItem> {
   public:
-    ShortcutGroup(const QString& ctx);
+    explicit ShortcutGroup(const QString& ctx);
 
     QString context() const { return m_context; }
 

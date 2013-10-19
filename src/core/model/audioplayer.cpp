@@ -59,7 +59,7 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
 
   connect(m_mediaObject, SIGNAL(aboutToFinish()),
           this, SLOT(aboutToFinish()));
-  connect(m_mediaObject, SIGNAL(currentSourceChanged(const Phonon::MediaSource&)),
+  connect(m_mediaObject, SIGNAL(currentSourceChanged(Phonon::MediaSource)),
           this, SLOT(currentSourceChanged()));
 #else
   m_mediaPlayer = new QMediaPlayer(this);

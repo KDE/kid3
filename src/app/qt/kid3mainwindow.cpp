@@ -114,8 +114,8 @@ void Kid3MainWindow::initActions()
   toolBar->addAction(fileOpen);
 
   m_fileOpenRecent = new RecentFilesMenu(fileMenu);
-  connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
-          this, SLOT(slotFileOpenRecentDirectory(const QString&)));
+  connect(m_fileOpenRecent, SIGNAL(loadFile(QString)),
+          this, SLOT(slotFileOpenRecentDirectory(QString)));
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   m_fileOpenRecent->setTitle(tr("Open &Recent"));
   m_fileOpenRecent->setIcon(QCM_QIcon_fromTheme("document-open-recent"));

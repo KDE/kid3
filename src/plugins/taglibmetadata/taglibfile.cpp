@@ -801,7 +801,7 @@ QString TagLibFile::getTitleV1()
     TagLib::String str = m_tagV1->title();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -819,7 +819,7 @@ QString TagLibFile::getArtistV1()
     TagLib::String str = m_tagV1->artist();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -837,7 +837,7 @@ QString TagLibFile::getAlbumV1()
     TagLib::String str = m_tagV1->album();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -861,7 +861,7 @@ QString TagLibFile::getCommentV1()
       return qstr;
     }
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -913,7 +913,7 @@ QString TagLibFile::getGenreV1()
     TagLib::String str = m_tagV1->genre();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -931,7 +931,7 @@ QString TagLibFile::getTitleV2()
     TagLib::String str = m_tagV2->title();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -949,7 +949,7 @@ QString TagLibFile::getArtistV2()
     TagLib::String str = m_tagV2->artist();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -967,7 +967,7 @@ QString TagLibFile::getAlbumV2()
     TagLib::String str = m_tagV2->album();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -985,7 +985,7 @@ QString TagLibFile::getCommentV2()
     TagLib::String str = m_tagV2->comment();
     return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -1023,7 +1023,7 @@ QString TagLibFile::getTrackV2()
     else
       return QString::number(nr);
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -1070,7 +1070,7 @@ QString TagLibFile::getGenreV2()
   if (m_tagV2) {
     return getGenreString(m_tagV2->genre());
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -1895,7 +1895,7 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
     }
   }
   type = TT_Unknown;
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -4876,7 +4876,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       }
 #if TAGLIB_VERSION >= 0x010700
       if (m_pictures.isRead()) {
-        foreach (Frame frame, m_pictures) {
+        foreach (const Frame& frame, m_pictures) {
           frames.insert(frame);
         }
       }

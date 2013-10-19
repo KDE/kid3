@@ -49,8 +49,8 @@ public:
      * @param confirm true if confirmation required
      * @param showOutput true if output of command shall be shown
      */
-    explicit MenuCommand(const QString& name = QString::null,
-                         const QString& cmd = QString::null,
+    explicit MenuCommand(const QString& name = QString(),
+                         const QString& cmd = QString(),
                          bool confirm = false, bool showOutput = false);
 
     /**

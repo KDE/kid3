@@ -39,7 +39,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  DirList(QWidget* parent = 0);
+  explicit DirList(QWidget* parent = 0);
 
   /**
    * Destructor.

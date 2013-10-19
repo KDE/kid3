@@ -25,7 +25,7 @@
  */
 
 #include "testdiscogsimporter.h"
-#include <QtTest>
+#include <QTest>
 #include "serverimporter.h"
 #include "trackdatamodel.h"
 

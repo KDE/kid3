@@ -41,7 +41,7 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
 {
   setObjectName(QLatin1String("FileProxyModel"));
-  connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
+  connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)),
           this, SLOT(updateInsertedRows(QModelIndex,int,int)));
 }
 
@@ -278,7 +278,7 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
 {
   QRegExp wildcardRe(QLatin1String("\\.\\w+"));
   QSet<QString> exts;
-  foreach (QString filter, filters) {
+  foreach (const QString& filter, filters) {
     int pos = 0;
     while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
       int len = wildcardRe.matchedLength();

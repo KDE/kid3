@@ -49,7 +49,7 @@ public:
    *
    * @param parent parent widget
    */
-  BrowseCoverArtDialog(QWidget* parent);
+  explicit BrowseCoverArtDialog(QWidget* parent);
 
   /**
    * Destructor.

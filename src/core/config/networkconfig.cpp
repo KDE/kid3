@@ -88,7 +88,7 @@ void NetworkConfig::readFromConfig(ISettings* config)
 #ifdef Q_OS_WIN32
   m_browser = config->value(QLatin1String("Browser"), QString()).toString();
   if (m_browser.isEmpty()) {
-    m_browser = QString::fromLocal8Bit(::getenv("ProgramFiles"));
+    m_browser = QString::fromLocal8Bit(qgetenv("ProgramFiles"));
     m_browser += QLatin1String("\\Internet Explorer\\IEXPLORE.EXE");
   }
 #else

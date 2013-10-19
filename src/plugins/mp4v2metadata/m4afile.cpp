@@ -211,7 +211,7 @@ static QString getNameForType(Frame::Type type)
       return *it;
     }
   }
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -941,7 +941,7 @@ QString M4aFile::getTextField(const QString& name) const
     }
     return QLatin1String("");
   }
-  return QString::null;
+  return QString();
 }
 
 /**

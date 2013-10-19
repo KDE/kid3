@@ -25,7 +25,7 @@
  */
 
 #include "testutils.h"
-#include <QtTest>
+#include <QTest>
 #include <QRegExp>
 #include <cstdio>
 

@@ -14,8 +14,8 @@
 #In ffmpeg code, old version use "#include <header.h>" and newer use "#include <libname/header.h>"
 #In OSG ffmpeg plugin, we use "#include <header.h>" for compatibility with old version of ffmpeg
 
-#We have to search the path which contain the header.h (usefull for old version)
-#and search the path which contain the libname/header.h (usefull for new version)
+#We have to search the path which contain the header.h (useful for old version)
+#and search the path which contain the libname/header.h (useful for new version)
 
 #Then we need to include ${FFMPEG_libname_INCLUDE_DIRS} (in old version case, use by ffmpeg header and osg plugin code)
 #                                                       (in new version case, use by ffmpeg header) 

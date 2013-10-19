@@ -302,7 +302,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     }
 
     ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-    trackDataVector.setCoverArtUrl(QString::null);
+    trackDataVector.setCoverArtUrl(QString());
     const bool coverArt = getCoverArt();
     if (coverArt) {
       QString asin(release.namedItem(QLatin1String("asin")).toElement().text());

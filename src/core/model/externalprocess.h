@@ -53,7 +53,7 @@ public:
      *
      * @param parent parent widget
      */
-    OutputViewer(QWidget* parent);
+    explicit OutputViewer(QWidget* parent);
 
     /**
      * Destructor.

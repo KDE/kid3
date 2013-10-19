@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  ~FrameList();
+  virtual ~FrameList();
 
   /**
    * Set tagged file.

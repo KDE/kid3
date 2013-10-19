@@ -26,11 +26,8 @@
 
 #define __STDC_CONSTANT_MACROS
 #include "fingerprintcalculator.h"
-
 #include <chromaprint.h>
-#include "abstractfingerprintdecoder.h"
 #include "config.h"
-
 #include "abstractfingerprintdecoder.h"
 
 /**
@@ -68,7 +65,7 @@ FingerprintCalculator::~FingerprintCalculator()
  */
 void FingerprintCalculator::start(const QString& fileName) {
   if (!m_chromaprintCtx) {
-    // Lazy intialization to save resources if not used
+    // Lazy initialization to save resources if not used
     m_chromaprintCtx = ::chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT);
   }
   m_decoder->start(fileName);

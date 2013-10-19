@@ -371,7 +371,7 @@ static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
                             const QTextCodec* codec = 0)
 {
   if (!tag) {
-    return QString::null;
+    return QString();
   }
   QString str(QLatin1String(""));
   ID3_Field* fld;
@@ -775,7 +775,7 @@ QString Mp3File::getGenreV1()
 {
   int num = getGenreNum(m_tagV1);
   if (num == -1) {
-    return QString::null;
+    return QString();
   } else if (num == 0xff) {
     return QLatin1String("");
   } else {
@@ -1273,7 +1273,7 @@ QString Mp3File::getTagFormatV2() const
         break;
     }
   }
-  return QString::null;
+  return QString();
 }
 
 /** Types and descriptions for id3lib frame IDs */
@@ -1379,7 +1379,7 @@ static const struct TypeStrOfId {
 /** Not instantiated struct to check array size at compilation time. */
 struct not_used { int array_size_check[
     sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1
-    ? 1 : -1 ]; };
+    ? 1 : -1 ]; /**< not used */ };
 
 /**
  * Get type and description of frame.
@@ -1437,7 +1437,8 @@ static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
 static ID3_FrameID getId3libFrameIdForName(const QString& name)
 {
   if (name.length() >= 4) {
-    const char* nameStr = name.toLatin1().data();
+    QByteArray nameBytes = name.toLatin1();
+    const char* nameStr = nameBytes.constData();
     for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
       const char* s = typeStrOfId[i].str;
       if (s && ::strncmp(s, nameStr, 4) == 0) {

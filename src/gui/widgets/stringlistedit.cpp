@@ -56,8 +56,8 @@ void StringListEdit::addItem()
 {
   bool ok;
   QString txt = QInputDialog::getText(
-    this, tr("Add Item"), QString::null, QLineEdit::Normal,
-    QString::null, &ok);
+    this, tr("Add Item"), QString(), QLineEdit::Normal,
+    QString(), &ok);
   if (ok && !txt.isEmpty()) {
     QAbstractItemModel* model = getItemView()->model();
     int row = model->rowCount();
@@ -76,7 +76,7 @@ void StringListEdit::editItem()
     QAbstractItemModel* model = getItemView()->model();
     bool ok;
     QString txt = QInputDialog::getText(
-      this, tr("Edit Item"), QString::null, QLineEdit::Normal,
+      this, tr("Edit Item"), QString(), QLineEdit::Normal,
       model->data(index, Qt::EditRole).toString(), &ok);
     if (ok && !txt.isEmpty()) {
       model->setData(index, txt);

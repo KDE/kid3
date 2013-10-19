@@ -309,7 +309,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  FrameTableLineEdit(QWidget* parent);
+  explicit FrameTableLineEdit(QWidget* parent);
 
   /**
    * Destructor.
@@ -332,7 +332,7 @@ public:
    * Constructor.
    * @param parent parent QTableView
    */
-  FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {
+  explicit FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {
     setObjectName(QLatin1String("FrameItemDelegate"));
   }
 

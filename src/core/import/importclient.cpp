@@ -40,8 +40,8 @@ ImportClient::ImportClient(QNetworkAccessManager* netMgr) :
   HttpClient(netMgr), m_requestType(RT_None)
 {
   setObjectName(QLatin1String("ImportClient"));
-  connect(this, SIGNAL(bytesReceived(const QByteArray&)),
-          this, SLOT(requestFinished(const QByteArray&)));
+  connect(this, SIGNAL(bytesReceived(QByteArray)),
+          this, SLOT(requestFinished(QByteArray)));
 }
 
 /**

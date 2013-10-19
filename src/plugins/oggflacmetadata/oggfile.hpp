@@ -293,8 +293,8 @@ protected:
   class CommentField {
   public:
     /** Constructor. */
-    CommentField(const QString& name = QString::null,
-                 const QString& value = QString::null) :
+    CommentField(const QString& name = QString(),
+                 const QString& value = QString()) :
       m_name(name), m_value(value) {}
     /** Destructor. */
     ~CommentField() {}

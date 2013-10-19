@@ -361,7 +361,7 @@ public:
   /**
    * Set frame inactive.
    */
-  void setInactive() { m_value = QString::null; }
+  void setInactive() { m_value = QString(); }
 
   /**
    * Check if frame represents different frames in multiple files.

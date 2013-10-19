@@ -52,8 +52,8 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
   setSelectionMode(ExtendedSelection);
   setSortingEnabled(false);
   setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-      this, SLOT(customContextMenu(const QPoint&)));
+  connect(this, SIGNAL(customContextMenuRequested(QPoint)),
+      this, SLOT(customContextMenu(QPoint)));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(this, SIGNAL(doubleClicked(QModelIndex)),
           this, SLOT(playIfTaggedFile(QModelIndex)));
@@ -120,7 +120,7 @@ void FileList::updateCurrentSelection()
   if (!selectionModel())
     return;
   m_currentSelection.clear();
-  foreach (QModelIndex index, selectionModel()->selectedIndexes()) {
+  foreach (const QModelIndex& index, selectionModel()->selectedIndexes()) {
     m_currentSelection.append(QPersistentModelIndex(index));
   }
 }
@@ -186,7 +186,7 @@ QStringList FileList::formatStringList(const QStringList& format)
   TaggedFile* firstSelectedFile = 0;
   QModelIndexList selItems(selectionModel()
        ? selectionModel()->selectedIndexes() : QModelIndexList());
-  foreach (QModelIndex index, selItems) {
+  foreach (const QModelIndex& index, selItems) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       if (!firstSelectedFile) {
         firstSelectedFile = taggedFile;

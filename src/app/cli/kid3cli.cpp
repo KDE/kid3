@@ -137,7 +137,7 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
             if (valuesIdx != -1) {
               QStringList values =
                   valuesStr.mid(valuesIdx + 4).split(QLatin1String(" | "));
-              foreach (QString value, values) {
+              foreach (const QString& value, values) {
                 if (value.startsWith(QLatin1Char('"')) &&
                     value.endsWith(QLatin1Char('"'))) {
                   m_parameters.append(
@@ -471,7 +471,7 @@ QList<QPersistentModelIndex> Kid3Cli::getSelection() const
 {
   QList<QPersistentModelIndex> selection;
   if (QItemSelectionModel* selModel = m_app->getFileSelectionModel()) {
-    foreach (QModelIndex index, selModel->selectedIndexes()) {
+    foreach (const QModelIndex& index, selModel->selectedIndexes()) {
       selection.append(QPersistentModelIndex(index));
     }
   }
@@ -671,7 +671,7 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
       indexesWithChildren.append(idx);
     }
     writeLine(propsStr + indentStr + nameStr);
-    foreach (QModelIndex idx, indexesWithChildren) {
+    foreach (const QModelIndex& idx, indexesWithChildren) {
       printFileProxyModel(model, idx, indent + 2);
     }
   }
@@ -771,7 +771,7 @@ bool Kid3Cli::parseOptions()
 }
 
 /**
- * Select files passed as command line arguments after the intial directory has
+ * Select files passed as command line arguments after the initial directory has
  * been opened. Start execution of commands if existing.
  * @param dirIndex file proxy model index of opened directory
  * @param fileIndexes file proxy model indexes of selected files

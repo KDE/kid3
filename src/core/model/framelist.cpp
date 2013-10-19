@@ -101,7 +101,7 @@ QString FrameList::getSelectedName() const
 {
   const Frame* currentFrame =
     m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
-  return currentFrame ? currentFrame->getName() : QString::null;
+  return currentFrame ? currentFrame->getName() : QString();
 }
 
 /**

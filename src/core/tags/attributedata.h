@@ -48,7 +48,7 @@ public:
    *
    * @param type type
    */
-  AttributeData(Type type)
+  explicit AttributeData(Type type)
   {
     m_type = type;
   }
@@ -58,7 +58,7 @@ public:
    *
    * @param name owner of Windows media PRIV frame
    */
-  AttributeData(const QString& name);
+  explicit AttributeData(const QString& name);
 
   /**
    * Destructor.

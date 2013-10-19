@@ -546,8 +546,8 @@ FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
   QLineEdit(parent)
 {
   setObjectName(QLatin1String("FrameTableLineEdit"));
-  connect(this, SIGNAL(textChanged(const QString&)),
-          this, SLOT(formatTextIfEnabled(const QString&)));
+  connect(this, SIGNAL(textChanged(QString)),
+          this, SLOT(formatTextIfEnabled(QString)));
 }
 
 /**

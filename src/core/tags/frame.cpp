@@ -517,7 +517,7 @@ void FrameCollection::addMissingStandardFrames()
        i <= Frame::FT_LastFrame;
        ++i, mask <<= 1) {
     if (s_quickAccessFrames & mask) {
-      Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
+      Frame frame(static_cast<Frame::Type>(i), QString(), QString(), -1);
       FrameCollection::const_iterator it = find(frame);
       if (it == end()) {
         insert(frame);
@@ -708,7 +708,7 @@ QString FrameCollection::getValue(Frame::Type type) const
 {
   Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
   const_iterator it = find(frame);
-  return it != end() ? it->getValue() : QString::null;
+  return it != end() ? it->getValue() : QString();
 }
 
 /**
@@ -723,7 +723,7 @@ QString FrameCollection::getValue(Frame::Type type) const
 QString FrameCollection::getValue(const Frame::ExtendedType& type) const
 {
   const_iterator it = findByExtendedType(type);
-  return it != end() ? it->getValue() : QString::null;
+  return it != end() ? it->getValue() : QString();
 }
 
 /**

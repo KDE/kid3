@@ -45,7 +45,7 @@ public:
    * @param model item model
    * @param parent parent widget
    */
-  ConfigTable(QAbstractItemModel* model, QWidget* parent = 0);
+  explicit ConfigTable(QAbstractItemModel* model, QWidget* parent = 0);
 
   /**
    * Destructor.

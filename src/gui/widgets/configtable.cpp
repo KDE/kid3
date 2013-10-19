@@ -39,8 +39,8 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
   setObjectName(QLatin1String("ConfigTable"));
   hideEditButton();
   m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(m_tableView, SIGNAL(customContextMenuRequested(const QPoint&)),
-      this, SLOT(customContextMenu(const QPoint&)));
+  connect(m_tableView, SIGNAL(customContextMenuRequested(QPoint)),
+      this, SLOT(customContextMenu(QPoint)));
 }
 
 /**

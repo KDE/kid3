@@ -25,7 +25,6 @@
  */
 
 #include "importdialog.h"
-#include "config.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
@@ -47,6 +46,7 @@
 #include <QDir>
 #include <QMenu>
 #include <QCoreApplication>
+#include "config.h"
 #include "genres.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
@@ -61,7 +61,6 @@
 #include "frametablemodel.h"
 #include "trackdatamatcher.h"
 #include "qtcompatmac.h"
-#include "config.h"
 #include "iplatformtools.h"
 
 namespace {
@@ -126,8 +125,8 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
 #endif
   m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
         Qt::CustomContextMenu);
-  connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),
-          this, SLOT(moveTableRow(int, int, int)));
+  connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int,int,int)),
+          this, SLOT(moveTableRow(int,int,int)));
   connect(m_trackDataTable->horizontalHeader(),
           SIGNAL(customContextMenuRequested(QPoint)),
       this, SLOT(showTableHeaderContextMenu(QPoint)));
@@ -524,9 +523,9 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
   QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
   if (vHeader) {
     // revert movement, but avoid recursion
-    disconnect(vHeader, SIGNAL(sectionMoved(int, int, int)), 0, 0);
+    disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), 0, 0);
     vHeader->moveSection(toIndex, fromIndex);
-    connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+    connect(vHeader, SIGNAL(sectionMoved(int,int,int)), this, SLOT(moveTableRow(int,int,int)));
   }
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   int numTracks = static_cast<int>(trackDataVector.size());

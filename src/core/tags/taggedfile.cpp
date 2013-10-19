@@ -99,7 +99,7 @@ void TaggedFile::setActiveTaggedFileFeatures(int features)
  */
 QString TaggedFile::getTitleV1()
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -111,7 +111,7 @@ QString TaggedFile::getTitleV1()
  */
 QString TaggedFile::getArtistV1()
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -123,7 +123,7 @@ QString TaggedFile::getArtistV1()
  */
 QString TaggedFile::getAlbumV1()
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -135,7 +135,7 @@ QString TaggedFile::getAlbumV1()
  */
 QString TaggedFile::getCommentV1()
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -171,7 +171,7 @@ int TaggedFile::getTrackNumV1()
  */
 QString TaggedFile::getGenreV1()
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -746,7 +746,7 @@ void TaggedFile::deleteFramesV2(const FrameFilter& flt)
  */
 QString TaggedFile::getTagFormatV1() const
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -758,7 +758,7 @@ QString TaggedFile::getTagFormatV1() const
  */
 QString TaggedFile::getTagFormatV2() const
 {
-  return QString::null;
+  return QString();
 }
 
 /**
@@ -780,7 +780,7 @@ QString TaggedFile::checkTruncation(
     return s;
   } else {
     m_truncation &= ~flag;
-    return QString::null;
+    return QString();
   }
 }
 

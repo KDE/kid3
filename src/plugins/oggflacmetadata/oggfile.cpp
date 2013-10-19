@@ -580,7 +580,7 @@ QString OggFile::getTextField(const QString& name) const
   if (m_fileRead) {
     return m_comments.getValue(name);
   }
-  return QString::null;
+  return QString();
 }
 
 /**

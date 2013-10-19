@@ -25,7 +25,7 @@
  */
 
 #include "testserverimporterbase.h"
-#include <QtTest>
+#include <QTest>
 #include <QNetworkAccessManager>
 #include "dummysettings.h"
 #include "kid3application.h"

@@ -80,7 +80,7 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
         indexesWithChildren.append(idx);
     }
     qDebug("%s", qPrintable(rowStr));
-    foreach (QModelIndex idx, indexesWithChildren) {
+    foreach (const QModelIndex& idx, indexesWithChildren) {
       dumpModel(model, idx, indent + 2);
     }
   }

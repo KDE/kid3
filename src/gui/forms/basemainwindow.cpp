@@ -38,7 +38,6 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QApplication>
-#include "qtcompatmac.h"
 #include "kid3form.h"
 #include "kid3application.h"
 #include "framelist.h"
@@ -115,9 +114,9 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   connect(m_downloadDialog, SIGNAL(canceled()),
           downloadClient, SLOT(cancelDownload()));
   connect(downloadClient,
-    SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
+    SIGNAL(downloadFinished(QByteArray,QString,QString)),
     m_app,
-    SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
+    SLOT(imageDownloaded(QByteArray,QString,QString)));
 
   connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
           this, SLOT(updateCurrentSelection()));
@@ -712,8 +711,8 @@ void BaseMainWindowImpl::showPlayToolBar()
     m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), m_w);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
     m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
-    connect(m_playToolBar, SIGNAL(errorMessage(const QString&)),
-            this, SLOT(slotStatusMsg(const QString&)));
+    connect(m_playToolBar, SIGNAL(errorMessage(QString)),
+            this, SLOT(slotStatusMsg(QString)));
   }
   m_playToolBar->show();
 }
@@ -806,8 +805,8 @@ void BaseMainWindowImpl::updateGuiControls()
       m_form->setFilename(Frame::differentRepresentation());
     }
     m_form->setDetailInfo(info);
-    m_form->setTagFormatV1(QString::null);
-    m_form->setTagFormatV2(QString::null);
+    m_form->setTagFormatV1(QString());
+    m_form->setTagFormatV2(QString());
 
     if (FileConfig::instance().m_markChanges) {
       m_form->markChangedFilename(false);
@@ -963,9 +962,9 @@ void BaseMainWindowImpl::renameFile()
     return;
 
   QList<QPersistentModelIndex> selItems;
-  foreach (QModelIndex index, selectModel->selectedIndexes())
+  foreach (const QModelIndex& index, selectModel->selectedIndexes())
     selItems.append(index);
-  foreach (QPersistentModelIndex index, selItems) {
+  foreach (const QPersistentModelIndex& index, selItems) {
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index);
     QString absFilename, dirName, fileName;
     if (taggedFile) {
@@ -1027,9 +1026,9 @@ void BaseMainWindowImpl::deleteFile()
 
   QStringList files;
   QList<QPersistentModelIndex> selItems;
-  foreach (QModelIndex index, selectModel->selectedIndexes())
+  foreach (const QModelIndex& index, selectModel->selectedIndexes())
     selItems.append(index);
-  foreach (QPersistentModelIndex index, selItems) {
+  foreach (const QPersistentModelIndex& index, selItems) {
     files.append(model->filePath(index));
   }
 
@@ -1045,7 +1044,7 @@ void BaseMainWindowImpl::deleteFile()
           tr("Move to Trash"))) {
       bool rmdirError = false;
       files.clear();
-      foreach (QPersistentModelIndex index, selItems) {
+      foreach (const QPersistentModelIndex& index, selItems) {
         QString absFilename(model->filePath(index));
         if (model->isDir(index)) {
           if (!m_platformTools->moveToTrash(absFilename)) {

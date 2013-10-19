@@ -138,22 +138,22 @@ ServerImportDialog::~ServerImportDialog()
 void ServerImportDialog::setImportSource(ServerImporter* source)
 {
   if (m_source) {
-    disconnect(m_source, SIGNAL(progress(const QString&, int, int)),
-        this, SLOT(showStatusMessage(const QString&)));
-    disconnect(m_source, SIGNAL(findFinished(const QByteArray&)),
-        this, SLOT(slotFindFinished(const QByteArray&)));
-    disconnect(m_source, SIGNAL(albumFinished(const QByteArray&)),
-        this, SLOT(slotAlbumFinished(const QByteArray&)));
+    disconnect(m_source, SIGNAL(progress(QString,int,int)),
+        this, SLOT(showStatusMessage(QString)));
+    disconnect(m_source, SIGNAL(findFinished(QByteArray)),
+        this, SLOT(slotFindFinished(QByteArray)));
+    disconnect(m_source, SIGNAL(albumFinished(QByteArray)),
+        this, SLOT(slotAlbumFinished(QByteArray)));
   }
   m_source = source;
 
   if (m_source) {
-    connect(m_source, SIGNAL(progress(const QString&, int, int)),
-        this, SLOT(showStatusMessage(const QString&)));
-    connect(m_source, SIGNAL(findFinished(const QByteArray&)),
-        this, SLOT(slotFindFinished(const QByteArray&)));
-    connect(m_source, SIGNAL(albumFinished(const QByteArray&)),
-        this, SLOT(slotAlbumFinished(const QByteArray&)));
+    connect(m_source, SIGNAL(progress(QString,int,int)),
+        this, SLOT(showStatusMessage(QString)));
+    connect(m_source, SIGNAL(findFinished(QByteArray)),
+        this, SLOT(slotFindFinished(QByteArray)));
+    connect(m_source, SIGNAL(albumFinished(QByteArray)),
+        this, SLOT(slotAlbumFinished(QByteArray)));
 
     setWindowTitle(QCoreApplication::translate("@default", m_source->name()));
     if (m_source->defaultServer()) {
@@ -229,7 +229,7 @@ QString ServerImportDialog::getServer() const
     }
     return server;
   } else {
-    return QString::null;
+    return QString();
   }
 }
 
@@ -265,7 +265,7 @@ QString ServerImportDialog::getCgiPath() const
     }
     return cgi;
   } else {
-    return QString::null;
+    return QString();
   }
 }
 

@@ -82,7 +82,7 @@ void KdeMainWindow::initActions()
       impl(), SLOT(slotFileOpen()), actionCollection());
   m_fileOpenRecent = KStandardAction::openRecent(
       this,
-      SLOT(slotFileOpenRecentUrl(const KUrl&)),
+      SLOT(slotFileOpenRecentUrl(KUrl)),
       actionCollection());
   KAction* fileRevert = KStandardAction::revert(
       app(), SLOT(revertFileModifications()), actionCollection());

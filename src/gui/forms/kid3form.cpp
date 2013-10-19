@@ -386,8 +386,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           m_app, SLOT(getTagsFromFilenameV1()));
   connect(toTagV2Button, SIGNAL(clicked()),
           m_app, SLOT(getTagsFromFilenameV2()));
-  connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
-      SLOT(nameLineEditChanged(const QString&)));
+  connect(m_nameLineEdit, SIGNAL(textChanged(QString)), this,
+      SLOT(nameLineEditChanged(QString)));
   connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
       SLOT(dirSelected(QModelIndex)));
   connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));

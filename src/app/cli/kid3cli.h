@@ -153,7 +153,7 @@ protected:
 
 private slots:
   /**
-   * Select files passed as command line arguments after the intial directory has
+   * Select files passed as command line arguments after the initial directory has
    * been opened. Start execution of commands if existing.
    * @param dirIndex file proxy model index of opened directory
    * @param fileIndexes file proxy model indexes of selected files
