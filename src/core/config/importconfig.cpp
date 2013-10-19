@@ -220,18 +220,12 @@ ImportConfig::ImportConfig() :
   m_pictureSourceUrls.append(QLatin1String("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}"));
   m_pictureSourceNames.append(QLatin1String("HMV"));
   m_pictureSourceUrls.append(QLatin1String("http://hmv.com/hmvweb/advancedSearch.do?searchType=2&artist=%u{artist}&title=%u{album}"));
-  m_pictureSourceNames.append(QLatin1String("CD Baby"));
-  m_pictureSourceUrls.append(QLatin1String("http://cdbaby.com/found?artist=%u{artist}&album=%u{album}"));
-  m_pictureSourceNames.append(QLatin1String("Jamendo"));
-  m_pictureSourceUrls.append(QLatin1String("http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Custom Source"));
   m_pictureSourceUrls.append(QLatin1String(""));
 
-  m_matchPictureUrlMap[QLatin1String("http://images.google.com/.*imgurl=([^&]+)&.*")] =
+  m_matchPictureUrlMap[QLatin1String("http://www.google.com/.*imgurl=([^&]+)&.*")] =
     QLatin1String("\\1");
-  m_matchPictureUrlMap[QLatin1String("http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*")] =
-    QLatin1String("http%253A%252F%252F\\1");
-  m_matchPictureUrlMap[QLatin1String("http://rds.yahoo.com/.*&imgurl=([^&]+)&.*")] =
+  m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
     QLatin1String("http%3A%2F%2F\\1");
   m_matchPictureUrlMap[QLatin1String("http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*")] =
     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
@@ -239,10 +233,6 @@ ImportConfig::ImportConfig() :
     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
   m_matchPictureUrlMap[QLatin1String("http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*")] =
     QLatin1String("http://www.freecovers.net/preview/\\1/\\2/big.jpg");
-  m_matchPictureUrlMap[QLatin1String("http://cdbaby.com/cd/(\\w)(\\w)(\\w+)")] =
-    QLatin1String("http://cdbaby.name/\\1/\\2/\\1\\2\\3.jpg");
-  m_matchPictureUrlMap[QLatin1String("http://www.jamendo.com/en/album/(\\d+)")] =
-    QLatin1String("http://imgjam.com/albums/\\1/covers/1.0.jpg");
 }
 
 /**
@@ -401,4 +391,30 @@ void ImportConfig::readFromConfig(ISettings* config)
     m_importTagsIdx = 0;
   if (m_pictureSourceIdx >=  static_cast<int>(m_pictureSourceNames.size()))
     m_pictureSourceIdx = 0;
+
+  // Replace mappings which do no longer work.
+  if (m_pictureSourceUrls.removeOne(QLatin1String(
+      "http://cdbaby.com/found?artist=%u{artist}&album=%u{album}"))) {
+    m_pictureSourceNames.removeOne(QLatin1String("CD Baby"));
+  }
+  if (m_pictureSourceUrls.removeOne(QLatin1String(
+      "http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}"))) {
+    m_pictureSourceNames.removeOne(QLatin1String("Jamendo"));
+  }
+  if (m_matchPictureUrlMap.remove(QLatin1String(
+      "http://images.google.com/.*imgurl=([^&]+)&.*")) != 0) {
+    m_matchPictureUrlMap[QLatin1String("http://www.google.com/.*imgurl=([^&]+)&.*")] =
+      QLatin1String("\\1");
+  }
+  if (m_matchPictureUrlMap.remove(QLatin1String(
+      "http://rds.yahoo.com/.*&imgurl=([^&]+)&.*")) != 0) {
+    m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
+      QLatin1String("http%3A%2F%2F\\1");
+  }
+  m_matchPictureUrlMap.remove(QLatin1String(
+      "http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*"));
+  m_matchPictureUrlMap.remove(QLatin1String(
+      "http://cdbaby.com/cd/(\\w)(\\w)(\\w+)"));
+  m_matchPictureUrlMap.remove(QLatin1String(
+      "http://www.jamendo.com/en/album/(\\d+)"));
 }
