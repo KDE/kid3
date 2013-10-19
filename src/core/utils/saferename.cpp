@@ -33,7 +33,7 @@ bool Utils::hasIllegalFileNameCharacters(const QString& fileName)
 {
   static const char illegalChars[] = "<>:\"|?*";
   QString fileNameWithoutDrive(
-      (QDir::isAbsolutePath(fileName) && fileName.mid(1, 2) == QLatin1String(":/"))
+      (QDir::isAbsolutePath(fileName) && fileName.midRef(1, 2) == QLatin1String(":/"))
         ? fileName.mid(3) : fileName);
   for (const char* chPtr = illegalChars; *chPtr; ++chPtr) {
     if (fileNameWithoutDrive.contains(QLatin1Char(*chPtr))) {

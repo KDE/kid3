@@ -628,11 +628,11 @@ FrameCollection::const_iterator FrameCollection::searchByName(
   int len = ucName.length();
   for (it = begin(); it != end(); ++it) {
     QString ucFrameName(it->getName().toUpper().remove(QLatin1Char('/')));
-    if (ucName == ucFrameName.left(len)) {
+    if (ucName == ucFrameName.leftRef(len)) {
       break;
     }
     int nlPos = ucFrameName.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len)) {
+    if (nlPos > 0 && ucName == ucFrameName.midRef(nlPos + 1, len)) {
       // Description in TXXX, WXXX, COMM, PRIV matches
       break;
     }

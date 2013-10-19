@@ -199,7 +199,7 @@ QStringList splitArgs(const QString& str)
             return QStringList();
           c = str.at(pos++);
         } while (c != QLatin1Char('\''));
-        param += str.mid(spos, pos - spos - 1);
+        param += str.midRef(spos, pos - spos - 1);
       } else if (c == QLatin1Char('"')) {
         for (;;) {
           if (pos >= str.size())

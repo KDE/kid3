@@ -195,7 +195,7 @@ void FormatConfig::formatString(QString& str) const
                 ++j;
               }
               if (j > i) {
-                newstr.append(str.mid(i, j - i));
+                newstr.append(str.midRef(i, j - i));
                 i = j - 1;
                 continue;
               }
