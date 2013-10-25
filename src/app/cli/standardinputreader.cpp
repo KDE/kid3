@@ -27,6 +27,7 @@
 #include "standardinputreader.h"
 #include "cliconfig.h"
 #ifdef HAVE_READLINE
+#include <cstdio>
 #include <readline/readline.h>
 #include <readline/history.h>
 #if RL_READLINE_VERSION < 0x0600

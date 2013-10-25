@@ -26,6 +26,7 @@
 
 #include "readlinecompleter.h"
 
+#include <cstdio>
 #include <readline/readline.h>
 #include <cstdlib>
 
