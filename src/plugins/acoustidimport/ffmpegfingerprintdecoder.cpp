@@ -66,9 +66,15 @@ int av_audio_convert(AVAudioConvert *ctx,
 #define AVMEDIA_TYPE_AUDIO CODEC_TYPE_AUDIO
 #endif
 
+#ifdef AVCODEC_MAX_AUDIO_FRAME_SIZE
+#define MAX_AUDIO_FRAME_SIZE AVCODEC_MAX_AUDIO_FRAME_SIZE
+#else
+#define MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
+#endif
+
 namespace {
 
-const int BUFFER_SIZE = AVCODEC_MAX_AUDIO_FRAME_SIZE * 2;
+const int BUFFER_SIZE = MAX_AUDIO_FRAME_SIZE * 2;
 
 /*
  * The following classes are used to benefit from the C++
