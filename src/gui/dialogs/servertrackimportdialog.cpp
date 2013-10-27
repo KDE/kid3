@@ -87,7 +87,6 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
   m_albumTable->resizeColumnsToContents();
   m_albumTable->setItemDelegateForColumn(0, new ComboBoxDelegate(this));
-  m_albumTable->setEditTriggers(QAbstractItemView::AllEditTriggers);
   m_albumTableModel->setHorizontalHeaderLabels(
     QStringList() <<
     tr("Track Title/Artist - Album") <<
