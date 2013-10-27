@@ -347,6 +347,7 @@ FilenameFormatConfig::FilenameFormatConfig() :
   StoredConfig<FilenameFormatConfig, FormatConfig>(
     QLatin1String("FilenameFormat"))
 {
+  setAsFilenameFormatter();
 }
 
 /**

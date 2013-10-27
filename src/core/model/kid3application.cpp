@@ -152,7 +152,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 
   setModified(false);
   setFiltered(false);
-  FilenameFormatConfig::instance().setAsFilenameFormatter();
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
