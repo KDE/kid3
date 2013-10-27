@@ -316,7 +316,9 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
     httpClient()->sendRequest(QLatin1String("api.acoustid.org"), path);
   } else {
     emit statusChanged(m_currentIndex, tr("Error"));
-    processNextTrack();
+    if (m_state != Idle) {
+      processNextTrack();
+    }
   }
 }
 
