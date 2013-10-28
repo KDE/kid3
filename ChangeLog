@@ -1,3 +1,17 @@
+Mon Oct 28 05:05:16 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.0.1
+
+	* Fixed:
+	  + Incorrect conversion of configuration in KDE version.
+	  + No result selection in first track of fingerprint import.
+	  + Crash at exit after canceling fingerprint import with
+	    GStreamer.
+	  + Prefer GStreamer 0.10 over 1.0 to avoid hang in Phonon.
+	  + Build with readline needing termcap (as used in Slackware).
+	  + Build with FFmpeg 2.0 (as used in openSUSE 12.3).
+	  + Honor LIB_SUFFIX if set (as used in Fedora).
+
 Mon Oct 14 21:30:42 CEST 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.0
