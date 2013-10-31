@@ -49,7 +49,12 @@ PlatformTools::PlatformTools() :
  */
 PlatformTools::~PlatformTools()
 {
-  delete m_helpBrowser;
+  if (m_helpBrowser) {
+    // Without close() the application will not quit when the main window is
+    // closed but the help browser is still open.
+    m_helpBrowser->close();
+    delete m_helpBrowser;
+  }
 }
 
 /**
