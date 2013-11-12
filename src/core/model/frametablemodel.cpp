@@ -618,6 +618,11 @@ QWidget* FrameItemDelegate::createEditor(
             cb->addItem(*it);
           }
         }
+        if (cb->count() <= 1) {
+          // No custom genres for ID3v1 => Show standard genres
+          cb->clear();
+          cb->addItems(strList);
+        }
       } else {
         cb->addItems(customGenres);
       }
