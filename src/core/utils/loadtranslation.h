@@ -40,6 +40,13 @@ namespace Utils {
  */
 void KID3_CORE_EXPORT loadTranslation(const QString& lang = QString());
 
+/**
+ * Prepend the application directory path to a path if it is relative.
+ *
+ * @param path file or directory path, will be modified if relative
+ */
+void KID3_CORE_EXPORT prependApplicationDirPathIfRelative(QString& path);
+
 }
 
 #endif // LOADTRANSLATION_H

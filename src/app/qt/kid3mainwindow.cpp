@@ -49,6 +49,7 @@
 #include "serverimporter.h"
 #include "servertrackimporter.h"
 #include "platformtools.h"
+#include "loadtranslation.h"
 
 /**
  * Constructor.
@@ -61,8 +62,11 @@ Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
   m_shortcutsModel(new ShortcutsModel(this))
 {
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
+  QString dataRootDir(QLatin1String(CFG_DATAROOTDIR));
+  Utils::prependApplicationDirPathIfRelative(dataRootDir);
+
   QPixmap icon;
-  if (icon.load(QLatin1String(CFG_DATAROOTDIR) +
+  if (icon.load(dataRootDir +
 #ifndef Q_OS_MAC
                 QLatin1String("/icons/hicolor/48x48/apps/kid3-qt.png")
 #else

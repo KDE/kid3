@@ -30,6 +30,7 @@
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QTranslator>
+#include <QFileInfo>
 #include "config.h"
 
 /**
@@ -53,20 +54,31 @@ void Utils::loadTranslation(const QString& lang)
     languages.prepend(lang);
   }
 
+  QString translationsDir;
+#ifdef CFG_TRANSLATIONSDIR
+  translationsDir = QLatin1String(CFG_TRANSLATIONSDIR);
+  prependApplicationDirPathIfRelative(translationsDir);
+#endif
+
+  // '-' is added to default delimiters because it is used on Mac OS X instead
+  // of '_'.
+  const QString searchDelimiters(QLatin1String("_.-"));
+
   // translation file for Qt
   QTranslator* qtTr = new QTranslator(qApp);
   foreach (const QString& localeName, languages) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
 #if defined Q_OS_WIN32 || defined Q_OS_MAC
-#ifdef CFG_TRANSLATIONSDIR
-        qtTr->load(QLatin1String("qt_") + localeName,
-                   QLatin1String(CFG_TRANSLATIONSDIR)) ||
-#endif
-        qtTr->load(QLatin1String("qt_") + localeName, QLatin1String("."))
+        (!translationsDir.isNull() &&
+         qtTr->load(QLatin1String("qt_") + localeName, translationsDir,
+                    searchDelimiters)) ||
+        qtTr->load(QLatin1String("qt_") + localeName, QLatin1String("."),
+                   searchDelimiters)
 #else
         qtTr->load(QLatin1String("qt_") + localeName,
-                   QLibraryInfo::location(QLibraryInfo::TranslationsPath))
+                   QLibraryInfo::location(QLibraryInfo::TranslationsPath),
+                   searchDelimiters)
 #endif
         ) {
       break;
@@ -79,14 +91,32 @@ void Utils::loadTranslation(const QString& lang)
   foreach (const QString& localeName, languages) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
-#ifdef CFG_TRANSLATIONSDIR
-        kid3Tr->load(QLatin1String("kid3_") + localeName,
-                     QLatin1String(CFG_TRANSLATIONSDIR)) ||
-#endif
-        kid3Tr->load(QLatin1String("kid3_") + localeName, QLatin1String("."))
+        (!translationsDir.isNull() &&
+         kid3Tr->load(QLatin1String("kid3_") + localeName, translationsDir,
+                      searchDelimiters)) ||
+        kid3Tr->load(QLatin1String("kid3_") + localeName, QLatin1String("."),
+                     searchDelimiters)
         ) {
       break;
     }
   }
   qApp->installTranslator(kid3Tr);
+}
+
+/**
+ * Prepend the application directory path to a path if it is relative.
+ *
+ * @param path file or directory path, will be modified if relative
+ */
+void Utils::prependApplicationDirPathIfRelative(QString& path)
+{
+  if (QFileInfo(path).isRelative()) {
+    QString appDir = QCoreApplication::applicationDirPath();
+    if (!appDir.isEmpty()) {
+      if (!appDir.endsWith(QLatin1Char('/'))) {
+        appDir.append(QLatin1Char('/'));
+      }
+      path.prepend(appDir);
+    }
+  }
 }

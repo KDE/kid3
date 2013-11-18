@@ -36,6 +36,7 @@
 #include <QStyle>
 #include <QAction>
 #include "config.h"
+#include "loadtranslation.h"
 
 /**
  * Constructor.
@@ -50,22 +51,28 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
 
+  QString docDir;
+#ifdef CFG_DOCDIR
+  docDir = QLatin1String(CFG_DOCDIR);
+  Utils::prependApplicationDirPathIfRelative(docDir);
+#endif
+
   QLocale locale;
   QStringList docPaths;
 #if QT_VERSION >= 0x040800 && !defined Q_OS_WIN32
   foreach (const QString& uiLang, locale.uiLanguages()) {
     QString lang(uiLang.left(2));
     docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
-#ifdef CFG_DOCDIR
-    docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_") + lang + QLatin1String(".html");
-#endif
+    if (!docDir.isNull()) {
+      docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+    }
   }
 #endif
   QString lang(locale.name().left(2));
-#ifdef CFG_DOCDIR
-  docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_") + lang + QLatin1String(".html");
-  docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_en.html");
-#endif
+  if (!docDir.isNull()) {
+    docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+    docPaths += docDir + QLatin1String("/kid3_en.html");
+  }
   docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
   docPaths += QDir::currentPath() + QLatin1String("/kid3_en.html");
   for (QStringList::const_iterator it = docPaths.begin();

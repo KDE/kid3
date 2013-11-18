@@ -80,6 +80,10 @@ if (UNIX AND NOT APPLE)
   install(FILES ../hi16-app-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
           RENAME kid3-qt.png)
+elseif (APPLE)
+  install(FILES ../hi48-app-kid3.png
+          DESTINATION ${WITH_DATAROOTDIR}
+          RENAME kid3.png)
 endif (UNIX AND NOT APPLE)
 
 add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
