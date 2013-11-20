@@ -49,7 +49,7 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=4.8.4
+qt_version=4.8.5
 zlib_version=1.2.8
 libogg_version=1.3.1
 libav_version=0.8.7
@@ -79,7 +79,7 @@ if test $kernel = "Darwin" && test $(uname -m) = "x86_64"; then
 #ARCH=i386
 if test "$ARCH" = "i386"; then
   # To build a 32-bit Mac OS X version of Kid3 use:
-  # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-4.8.4-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
+  # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-4.8.5-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
   # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
   # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
   ARCH_FLAG="-arch i386"
@@ -921,8 +921,40 @@ if test $kernel = "Linux"; then
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
 EOF
+      cat >kid3/make_package.sh <<"EOF"
+#!/bin/sh
+VERSION=$(grep VERSION config.h | cut -d'"' -f2)
+INSTDIR=kid3-$VERSION-win32
+QT_PREFIX=$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
+QT_BIN_DIR=${QT_PREFIX}bin
+QT_TRANSLATIONS_DIR=${QT_PREFIX}translations
+MINGW_DIR=/windows/msys/1.0/mingw/bin
+
+make install/strip DESTDIR=$(pwd)/$INSTDIR
+echo "### Ignore make error"
+
+cp -f po/*.qm doc/*/kid3*.html $INSTDIR
+
+for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll; do
+  cp $QT_BIN_DIR/$f $INSTDIR
+done
+
+for f in libgcc_s_dw2-1.dll; do
+  cp $MINGW_DIR/$f $INSTDIR
+done
+
+for f in po/*.qm; do
+  l=${f#*_};
+  l=${l%.qm};
+  test -f $QT_TRANSLATIONS_DIR/qt_$l.qm && cp $QT_TRANSLATIONS_DIR/qt_$l.qm $INSTDIR
+done
+
+rm -f $INSTDIR.zip
+7z a $INSTDIR.zip $INSTDIR
+EOF
+      chmod +x kid3/make_package.sh
     else
       cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
