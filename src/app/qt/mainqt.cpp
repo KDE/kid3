@@ -35,6 +35,31 @@
 #include "kid3mainwindow.h"
 
 /**
+ * QApplication subclass with adapted session management.
+ */
+class Kid3QtApplication : public QApplication {
+public:
+  /**
+   * Constructor.
+   * @param argc number of arguments (including command)
+   * @param argv arguments
+   */
+  Kid3QtApplication(int& argc, char** argv) : QApplication(argc, argv) {}
+
+  /**
+   * Called when session manager wants application to commit all its data.
+   *
+   * This method is reimplemented to avoid closing all top level widgets and
+   * make restoring with the KDE window manager working.
+   *
+   * @param manager session manager
+   */
+  virtual void commitData(QSessionManager& manager) {
+    emit commitDataRequest(manager);
+  }
+};
+
+/**
  * Main program.
  *
  * @param argc number of arguments including command name
@@ -47,7 +72,7 @@ int main(int argc, char* argv[])
 {
   Q_INIT_RESOURCE(kid3);
 
-  QApplication app(argc, argv);
+  Kid3QtApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
 
   Utils::loadTranslation();
@@ -64,7 +89,8 @@ int main(int argc, char* argv[])
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QApplication::arguments().mid(1));
-  } else if (FileConfig::instance().m_loadLastOpenedFile &&
+  } else if ((FileConfig::instance().m_loadLastOpenedFile ||
+              app.isSessionRestored()) &&
              !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
     kid3->confirmedOpenDirectory(QStringList()
                                  << FileConfig::instance().m_lastOpenedFile);

@@ -35,6 +35,7 @@
 #include <QAction>
 #include <QStyle>
 #include <QStatusBar>
+#include <QSessionManager>
 #include "config.h"
 #include "qtcompatmac.h"
 #include "recentfilesmenu.h"
@@ -45,11 +46,13 @@
 #include "configdialog.h"
 #include "guiconfig.h"
 #include "tagconfig.h"
+#include "fileconfig.h"
 #include "contexthelp.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
 #include "platformtools.h"
 #include "loadtranslation.h"
+#include "fileproxymodel.h"
 
 /**
  * Constructor.
@@ -78,6 +81,9 @@ Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
 #endif
   readFontAndStyleOptions();
   init();
+
+  connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)),
+          this, SLOT(onCommitDataRequest(QSessionManager&)));
 }
 
 /**
@@ -736,5 +742,29 @@ void Kid3MainWindow::slotSettingsConfigure()
   if (dialog->exec() == QDialog::Accepted) {
     dialog->getConfig();
     impl()->applyChangedConfiguration();
+  }
+}
+
+/**
+ * Called when session manager wants application to commit its data.
+ * @param manager session manager
+ */
+void Kid3MainWindow::onCommitDataRequest(QSessionManager& manager)
+{
+  // Make sure that current file is saved even if "load last opened file"
+  // is not enabled.
+  FileConfig& fileCfg = FileConfig::instance();
+  if (!fileCfg.m_loadLastOpenedFile) {
+    fileCfg.m_lastOpenedFile =
+        app()->getFileProxyModel()->filePath(app()->currentOrRootIndex());
+  }
+
+  // Ask user if there are unsaved data.
+  if (manager.allowsInteraction()) {
+    if (queryBeforeClosing()) {
+      manager.release();
+    } else {
+      manager.cancel();
+    }
   }
 }

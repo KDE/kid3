@@ -31,6 +31,7 @@
 #include "basemainwindow.h"
 
 class QAction;
+class QSessionManager;
 class RecentFilesMenu;
 class ShortcutsModel;
 class IPlatformTools;
@@ -135,6 +136,12 @@ private slots:
    * Display "About Qt" dialog.
    */
   void slotHelpAboutQt();
+
+  /**
+   * Called when session manager wants application to commit its data.
+   * @param manager session manager
+   */
+  void onCommitDataRequest(QSessionManager& manager);
 
 private:
   /**
