@@ -82,9 +82,9 @@ public:
 
   /** Number of genres */
 #ifdef Q_OS_WIN32
-  enum { count = 148 };
+  enum { count = 192 };
 #else
-  static const int count = 148;
+  static const int count = 192;
 #endif
   /**
    * Pointer to alphabetic list of genres.
