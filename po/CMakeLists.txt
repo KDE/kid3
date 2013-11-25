@@ -22,13 +22,15 @@ if (APPLE OR WIN32)
   endforeach (_currentPoFile)
 endif (APPLE OR WIN32)
 
-add_custom_command(
-   OUTPUT ${_tsFiles}
-   COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl
-     ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
-     ${CMAKE_CURRENT_SOURCE_DIR}/../src
-   DEPENDS ${_poFiles}
-)
+if (_tsFiles)
+  add_custom_command(
+     OUTPUT ${_tsFiles}
+     COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl
+       ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
+       ${CMAKE_CURRENT_SOURCE_DIR}/../src
+     DEPENDS ${_poFiles}
+  )
+endif (_tsFiles)
 if (APPLE OR WIN32)
   qt4_add_translation(_qmFiles ${_tsFiles} ${_qtTsFiles})
   add_custom_target(translations "ALL" DEPENDS ${_qmFiles})
