@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2013-10-28</date>
-<releaseinfo>3.0.1</releaseinfo>
+<date>2013-11-27</date>
+<releaseinfo>3.0.2</releaseinfo>
 
 <abstract>
 <para>
@@ -2804,6 +2804,14 @@ Um &kid3; als Qt Applikation ohne KDE zu kompilieren, wird die
 <userinput>cmake</userinput> Option <userinput>-DWITH_APPS=Qt</userinput> benutzt.
 Um sowohl eine KDE als auch eine Qt Applikation zu kompilieren, wird
 <userinput>-DWITH_APPS="Qt;KDE"</userinput> gesetzt.
+</para>
+<para>
+Qt 4 oder Qt 5 können verwendet werden. Um Qt 4 zu erzwingen, kann
+<userinput>-DWITH_QT4=ON</userinput> gesetzt werden, entsprechend
+<userinput>-DWITH_QT5=ON</userinput> für Qt 5, wenn beide Optionen
+ausgeschaltet sind (Standardeinstellung), so wird Qt 4 bevorzugt, wenn beide
+Versionen installiert sind. Um eine bestimmte Qt-Installation zu nutzen, kann
+<userinput>-DQT_QMAKE_EXECUTABLE=/Pfad/zu/qmake</userinput> gesetzt werden.
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>

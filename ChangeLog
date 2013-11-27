@@ -1,3 +1,20 @@
+Wed Nov 27 17:39:57 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.0.2
+
+	* Fixed:
+	  + Translations and handbook are not found on Mac OS X 10.9 Mavericks.
+	  + Application termination when main window is closed while handbook
+	    is open.
+	  + Tag 1 genre combobox is empty if "show only custom genres" is set.
+	  + Session restoration.
+	  + Detection of installed Qt 5.
+	  + KDE application does not find libraries if prefix is not /usr.
+	  + Build if all translations are disabled.
+
+	* Improved:
+	  + Added new genres introduced in Winamp 5.6.
+
 Tue Oct 29 18:15:04 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.0.1

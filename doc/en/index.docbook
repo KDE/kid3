@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2013-10-28</date>
-<releaseinfo>3.0.1</releaseinfo>
+<date>2013-11-27</date>
+<releaseinfo>3.0.2</releaseinfo>
 
 <abstract>
 <para>
@@ -2663,6 +2663,14 @@ To build &kid3; as a Qt application without KDE, use the
 <userinput>cmake</userinput> option <userinput>-DWITH_APPS=Qt</userinput>.
 To build both a KDE and a Qt application, set
 <userinput>-DWITH_APPS="Qt;KDE"</userinput>.
+</para>
+<para>
+Qt 4 or Qt 5 can be used. To force the use of Qt 4, set
+<userinput>-DWITH_QT4=ON</userinput>, to force the use of Qt 5, set
+<userinput>-DWITH_QT5=ON</userinput>, if both these options are OFF (default),
+Qt 4 is preferred if both versions are installed. To use a specific Qt
+installation, set
+<userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>. 
 </para>
 <para>
 Generation of RPM-Packages is supported by the
