@@ -94,6 +94,13 @@ add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
 
 target_link_libraries(${KID3_EXECUTABLE} kid3-gui -lstdc++)
 
+if (APPLE)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../macosx/Info.plist.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
+  set_target_properties(${KID3_EXECUTABLE} PROPERTIES
+      MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
+endif (APPLE)
+
 install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${WITH_BINDIR})
