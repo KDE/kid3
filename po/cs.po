@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2013-09-11 21:22+0200\n"
-"PO-Revision-Date: 2013-06-26 21:43+0200\n"
+"PO-Revision-Date: 2013-11-30 09:42+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -175,7 +175,7 @@ msgid "Tag from filename"
 msgstr "Značka z názvu souboru"
 
 msgid "Tag to other tag"
-msgstr ""
+msgstr "Značka do jiné značky"
 
 msgid "Copy"
 msgstr "Kopírovat"
@@ -196,16 +196,16 @@ msgid "File path"
 msgstr "Cesta k souboru"
 
 msgid "URL"
-msgstr "URL"
+msgstr "Adresa (URL)"
 
 msgid "Tag numbers"
 msgstr "Číslo značky"
 
 msgid "Frame name"
-msgstr "Z názvu souboru"
+msgstr "Název prvku"
 
 msgid "Frame value"
-msgstr ""
+msgstr "Hodnota prvku"
 
 msgid "Format"
 msgstr "Formát"
