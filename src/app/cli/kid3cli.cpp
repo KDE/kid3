@@ -276,7 +276,10 @@ Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli("kid3-cli> ", parent),
          << new CopyCommand(this)
          << new PasteCommand(this)
          << new RemoveCommand(this)
-         << new PlayCommand(this);
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+         << new PlayCommand(this)
+#endif
+         ;
   connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
           this, SLOT(updateSelectedFiles()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),
