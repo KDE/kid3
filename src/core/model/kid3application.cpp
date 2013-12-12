@@ -1832,6 +1832,18 @@ void Kid3Application::openDrop(const QStringList& paths)
     }
   }
   if (!filePaths.isEmpty()) {
+    // Check if the file filter has to be removed to open the dropped files.
+    QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+                FileConfig::instance().m_nameFilter).split(QLatin1Char(' ')));
+    if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
+      foreach (const QString& filePath, filePaths) {
+        if (!QDir::match(nameFilters, filePath) &&
+            !QFileInfo(filePath).isDir()) {
+          FileConfig::instance().m_nameFilter = QLatin1String("");
+          break;
+        }
+      }
+    }
     emit fileSelectionUpdateRequested();
     emit confirmedOpenDirectoryRequested(filePaths);
   } else if (!picturePaths.isEmpty()) {
