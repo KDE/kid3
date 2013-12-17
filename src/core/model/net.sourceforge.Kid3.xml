@@ -67,6 +67,8 @@
     <method name="expandDirectory">
       <arg type="b" direction="out"/>
     </method>
+    <method name="expandFileList">
+    </method>
     <method name="applyFilenameFormat">
     </method>
     <method name="applyTagFormat">

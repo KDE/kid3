@@ -860,6 +860,11 @@ public slots:
   void expandDirectory(const QModelIndex& index);
 
   /**
+   * Expand the whole file list if GUI available.
+   */
+  void requestExpandFileList();
+
+  /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
    */
@@ -994,6 +999,11 @@ signals:
    * @param index index of directory item
    */
   void toggleExpandedRequested(const QModelIndex& index);
+
+  /**
+   * Emitted to request expanding of all directories in the file list.
+   */
+  void expandFileListRequested();
 
 private slots:
   /**

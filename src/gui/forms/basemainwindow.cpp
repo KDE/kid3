@@ -130,6 +130,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(confirmedOpenDirectory(QStringList)));
   connect(m_app, SIGNAL(toggleExpandedRequested(QModelIndex)),
           this, SLOT(toggleExpanded(QModelIndex)));
+  connect(m_app, SIGNAL(expandFileListRequested()),
+          this, SLOT(expandFileList()));
   connect(m_app,
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this, SLOT(onDirectoryOpened()));

@@ -209,6 +209,11 @@ public slots:
   bool expandDirectory();
 
   /**
+   * Expand the file list.
+   */
+  void expandFileList();
+
+  /**
    * Apply the file name format.
    */
   void applyFilenameFormat();

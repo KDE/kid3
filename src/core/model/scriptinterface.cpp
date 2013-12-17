@@ -294,6 +294,14 @@ bool ScriptInterface::expandDirectory()
 }
 
 /**
+ * Expand the file list.
+ */
+void ScriptInterface::expandFileList()
+{
+  m_app->requestExpandFileList();
+}
+
+/**
  * Apply the file name format.
  */
 void ScriptInterface::applyFilenameFormat()

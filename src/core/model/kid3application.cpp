@@ -2077,6 +2077,14 @@ void Kid3Application::expandDirectory(const QModelIndex& index)
 }
 
 /**
+ * Expand the whole file list if GUI available.
+ */
+void Kid3Application::requestExpandFileList()
+{
+  emit expandFileListRequested();
+}
+
+/**
  * Process change of selection.
  * The GUI is signaled to update the current selection and the controls.
  */
