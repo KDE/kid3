@@ -325,6 +325,12 @@ private slots:
    */
   void applyImportedTrackData();
 
+  /**
+   * Toggle expanded state of directory in the file list.
+   * @param index index of directory
+   */
+  void toggleExpanded(const QModelIndex& index);
+
 private:
   /**
    * Free allocated resources.

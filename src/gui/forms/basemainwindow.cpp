@@ -128,6 +128,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateModificationState()));
   connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
           this, SLOT(confirmedOpenDirectory(QStringList)));
+  connect(m_app, SIGNAL(toggleExpandedRequested(QModelIndex)),
+          this, SLOT(toggleExpanded(QModelIndex)));
   connect(m_app,
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this, SLOT(onDirectoryOpened()));
@@ -1072,6 +1074,16 @@ void BaseMainWindowImpl::deleteFile()
       }
     }
   }
+}
+
+/**
+ * Toggle expanded state of directory in the file list.
+ * @param index index of directory
+ */
+void BaseMainWindowImpl::toggleExpanded(const QModelIndex& index)
+{
+  QTreeView* fileList = m_form->getFileList();
+  fileList->setExpanded(index, !fileList->isExpanded(index));
 }
 
 /**

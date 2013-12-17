@@ -2067,6 +2067,16 @@ void Kid3Application::fetchDirectory(const QModelIndex& index)
 }
 
 /**
+ * Fetch entries of directory and toggle expanded state if GUI available.
+ * @param index index of directory item
+ */
+void Kid3Application::expandDirectory(const QModelIndex& index)
+{
+  fetchDirectory(index);
+  emit toggleExpandedRequested(index);
+}
+
+/**
  * Process change of selection.
  * The GUI is signaled to update the current selection and the controls.
  */

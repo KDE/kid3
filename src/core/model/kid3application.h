@@ -854,6 +854,12 @@ public slots:
   void fetchDirectory(const QModelIndex& index);
 
   /**
+   * Fetch entries of directory and toggle expanded state if GUI available.
+   * @param index index of directory item
+   */
+  void expandDirectory(const QModelIndex& index);
+
+  /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
    */
@@ -981,6 +987,13 @@ signals:
    * @see scheduleRenameActions()
    */
   void renameActionsScheduled();
+
+  /**
+   * Emitted to request toggling of the expanded state of a directory in the
+   * file list.
+   * @param index index of directory item
+   */
+  void toggleExpandedRequested(const QModelIndex& index);
 
 private slots:
   /**

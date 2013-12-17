@@ -287,7 +287,7 @@ bool ScriptInterface::expandDirectory()
 {
   QModelIndex index(m_app->getFileSelectionModel()->currentIndex());
   if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
-    m_app->fetchDirectory(index);
+    m_app->expandDirectory(index);
     return true;
   }
   return false;
