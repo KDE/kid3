@@ -52,7 +52,7 @@ compiler="gcc"
 qt_version=4.8.5
 zlib_version=1.2.8
 libogg_version=1.3.1
-libav_version=0.8.7
+libav_version=0.8.9
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
@@ -142,8 +142,8 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3
 test -f libvorbis_1.3.2.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-test -f taglib-1.9.tar.gz ||
-$DOWNLOAD http://taglib.github.io/releases/taglib-1.9.tar.gz
+test -f taglib-1.9.1.tar.gz ||
+$DOWNLOAD http://taglib.github.io/releases/taglib-1.9.1.tar.gz
 
 test -f zlib_1.2.8.dfsg-1.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg-1.debian.tar.gz
@@ -152,22 +152,22 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg.orig.
 
 # With the new libav 9.5, some M4A fingerprints are not recognized,
 # so we'll stick with the old.
-if test "$libav_version" = "0.8.7"; then
-test -f libav_0.8.7.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7.orig.tar.xz
-test -f libav_0.8.7-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7-1.debian.tar.gz
+if test "$libav_version" = "0.8.9"; then
+test -f libav_0.8.9.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.9.orig.tar.xz
+test -f libav_0.8.9-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.9-1.debian.tar.gz
 else
-test -f libav_9.9.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.9.orig.tar.xz
-test -f libav_9.9-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.9-1.debian.tar.gz
+test -f libav_9.10.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10.orig.tar.xz
+test -f libav_9.10-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10-1.debian.tar.gz
 fi
 
-test -f chromaprint_0.7.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7.orig.tar.gz
-test -f chromaprint_0.7-2.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7-2.debian.tar.gz
+test -f chromaprint_1.1.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.1.orig.tar.gz
+test -f chromaprint_1.1-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.1-1.debian.tar.gz
 
 #test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
 #$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
@@ -385,7 +385,7 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
-if test "$libav_version" = "0.8.7"; then
+if test "$libav_version" = "0.8.9"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -404,6 +404,149 @@ cat >libav_sws.patch <<"EOF"
      if (!(p = strchr(opt, ':')))
 EOF
 fi
+
+test -f chromaprint_fpcalc_static.patch ||
+cat >chromaprint_fpcalc_static.patch <<"EOF"
+diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
+index ed27094..36f161b 100644
+--- a/examples/CMakeLists.txt
++++ b/examples/CMakeLists.txt
+@@ -19,26 +19,31 @@ include_directories(
+ 	${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
+ )
+ 
+-add_executable(fpcalc fpcalc.c)
+-
+-target_link_libraries(fpcalc chromaprint
++set(fpcalc_LIBS
++	chromaprint
+ 	${FFMPEG_LIBAVFORMAT_LIBRARIES}
+-	${FFMPEG_LIBAVCODEC_LIBRARIES}
+-	${FFMPEG_LIBAVUTIL_LIBRARIES}
+-	${EXTRA_LIBS})
++	${FFMPEG_LIBAVCODEC_LIBRARIES})
+ 
+ if(FFMPEG_LIBSWRESAMPLE_FOUND)
+ 	add_definitions(-DHAVE_SWRESAMPLE)
+ 	include_directories(${FFMPEG_LIBSWRESAMPLE_INCLUDE_DIRS})
+-	target_link_libraries(fpcalc ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
++	set(fpcalc_LIBS ${fpcalc_LIBS} ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
+ elseif(FFMPEG_LIBAVRESAMPLE_FOUND)
+ 	add_definitions(-DHAVE_AVRESAMPLE)
+ 	include_directories(${FFMPEG_LIBAVRESAMPLE_INCLUDE_DIRS})
+-	target_link_libraries(fpcalc ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
++	set(fpcalc_LIBS ${fpcalc_LIBS} ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
+ else()
+ 	message(STATUS "Building without audio conversion support, please install FFmpeg with libswresample")
+ endif()
+ 
++set(fpcalc_LIBS ${fpcalc_LIBS}
++	${FFMPEG_LIBAVUTIL_LIBRARIES}
++	${EXTRA_LIBS})
++
++add_executable(fpcalc fpcalc.c)
++
++target_link_libraries(fpcalc ${fpcalc_LIBS})
++
+ install(TARGETS fpcalc
+ 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+ )
+EOF
+
+test -f chromaprint_fpcalc_noresample.patch ||
+cat >chromaprint_fpcalc_noresample.patch <<"EOF"
+diff --git a/examples/fpcalc.c b/examples/fpcalc.c
+index a4b0ff9..b59a8e4 100644
+--- a/examples/fpcalc.c
++++ b/examples/fpcalc.c
+@@ -75,6 +75,7 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
+ 		goto done;
+ 	}
+ 
++#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
+ 	if (codec_ctx->sample_fmt != AV_SAMPLE_FMT_S16) {
+ 		int64_t channel_layout = codec_ctx->channel_layout;
+ 		if (!channel_layout) {
+@@ -111,6 +112,7 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
+ 		}
+ #endif
+ 	}
++#endif
+ 
+ 	if (stream->duration != AV_NOPTS_VALUE) {
+ 		*duration = stream->time_base.num * stream->duration / stream->time_base.den;
+@@ -145,15 +147,16 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
+ 
+ 			if (got_frame) {
+ 				data = frame->data;
+-				if (convert_ctx) {
+-					if (frame->nb_samples > max_dst_nb_samples) {
+-						av_freep(&dst_data[0]);
+-						if (av_samples_alloc(dst_data, &dst_linsize, codec_ctx->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
+-							fprintf(stderr, "ERROR: couldn't allocate audio converter buffer\n");
+-							goto done;
+-						}
+-						max_dst_nb_samples = frame->nb_samples;
++				if (frame->nb_samples > max_dst_nb_samples) {
++					av_freep(&dst_data[0]);
++					if (av_samples_alloc(dst_data, &dst_linsize, codec_ctx->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
++						fprintf(stderr, "ERROR: couldn't allocate audio converter buffer\n");
++						goto done;
+ 					}
++					max_dst_nb_samples = frame->nb_samples;
++				}
++#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
++				if (convert_ctx) {
+ #if defined(HAVE_SWRESAMPLE)
+ 					if (swr_convert(convert_ctx, dst_data, frame->nb_samples, (const uint8_t **)frame->data, frame->nb_samples) < 0) {
+ #elif defined(HAVE_AVRESAMPLE)
+@@ -162,18 +165,19 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
+ 						fprintf(stderr, "ERROR: couldn't convert the audio\n");
+ 						goto done;
+ 					}
+-					data = dst_data;
+-				}
+-				length = MIN(remaining, frame->nb_samples * codec_ctx->channels);
+-				if (!chromaprint_feed(chromaprint_ctx, data[0], length)) {
+-					goto done;
+ 				}
++#endif
++				data = dst_data;
++			}
++			length = MIN(remaining, frame->nb_samples * codec_ctx->channels);
++			if (!chromaprint_feed(chromaprint_ctx, data[0], length)) {
++				goto done;
++			}
+ 
+-				if (max_length) {
+-					remaining -= length;
+-					if (remaining <= 0) {
+-						goto finish;
+-					}
++			if (max_length) {
++				remaining -= length;
++				if (remaining <= 0) {
++					goto finish;
+ 				}
+ 			}
+ 		}
+@@ -195,6 +199,7 @@ done:
+ 	if (dst_data[0]) {
+ 		av_freep(&dst_data[0]);
+ 	}
++#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
+ 	if (convert_ctx) {
+ #if defined(HAVE_SWRESAMPLE)
+ 		swr_free(&convert_ctx);
+@@ -202,6 +207,7 @@ done:
+ 		avresample_free(&convert_ctx);
+ #endif
+ 	}
++#endif
+ 	if (codec_ctx_opened) {
+ 		avcodec_close(codec_ctx);
+ 	}
+EOF
 
 cd ..
 
@@ -475,20 +618,20 @@ fi
 
 echo "### Extracting taglib"
 
-if ! test -d taglib-1.9; then
-tar xzf source/taglib-1.9.tar.gz
-cd taglib-1.9/
+if ! test -d taglib-1.9.1; then
+tar xzf source/taglib-1.9.1.tar.gz
+cd taglib-1.9.1/
 patch -p1 <../source/taglib-msvc.patch
 cd ..
 fi
 
 echo "### Extracting libav"
 
-if test "$libav_version" = "0.8.7"; then
-if ! test -d libav-0.8.7; then
-unxz -c source/libav_0.8.7.orig.tar.xz | tar x
-cd libav-0.8.7/
-tar xzf ../source/libav_0.8.7-1.debian.tar.gz
+if test "$libav_version" = "0.8.9"; then
+if ! test -d libav-0.8.9; then
+unxz -c source/libav_0.8.9.orig.tar.xz | tar x
+cd libav-0.8.9/
+tar xzf ../source/libav_0.8.9-1.debian.tar.gz
 oldifs=$IFS
 IFS='
 '
@@ -502,10 +645,10 @@ patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
-if ! test -d libav-9.9; then
-unxz -c source/libav_9.9.orig.tar.xz | tar x
-cd libav-9.9/
-tar xzf ../source/libav_9.9-1.debian.tar.gz
+if ! test -d libav-9.10; then
+unxz -c source/libav_9.10.orig.tar.xz | tar x
+cd libav-9.10/
+tar xzf ../source/libav_9.10-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -513,10 +656,12 @@ fi
 
 echo "### Extracting chromaprint"
 
-if ! test -d chromaprint-0.7; then
-tar xzf source/chromaprint_0.7.orig.tar.gz
-cd chromaprint-0.7/
-tar xzf ../source/chromaprint_0.7-2.debian.tar.gz
+if ! test -d chromaprint-1.1; then
+tar xzf source/chromaprint_1.1.orig.tar.gz
+cd chromaprint-1.1/
+patch -p1 <../source/chromaprint_fpcalc_static.patch
+patch -p1 <../source/chromaprint_fpcalc_noresample.patch
+tar xzf ../source/chromaprint_1.1-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -579,7 +724,7 @@ cd ../..
 
 echo "### Building taglib"
 
-cd taglib-1.9/
+cd taglib-1.9.1/
 test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
 mkdir -p instd
 DESTDIR=instd cmake --build . --config Debug --target install
@@ -591,7 +736,7 @@ mkdir -p inst/lib
 mv inst/Debug inst/Release inst/lib/
 rm -rf instd
 cd inst
-tar czf ../../bin/taglib-1.9.tgz include lib
+tar czf ../../bin/taglib-1.9.1.tgz include lib
 cd ../..
 
 echo "### Installing to root directory"
@@ -678,20 +823,20 @@ cd ../..
 
 echo "### Building taglib"
 
-cd taglib-1.9/
+cd taglib-1.9.1/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/taglib-1.9.tgz usr
+tar czf ../../bin/taglib-1.9.1.tgz usr
 cd ../..
 
 echo "### Building libav"
 
-if test "$libav_version" = "0.8.7"; then
-cd libav-0.8.7
+if test "$libav_version" = "0.8.9"; then
+cd libav-0.8.9
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -786,10 +931,10 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.7.tgz usr
+tar czf ../../bin/libav-0.8.9.tgz usr
 cd ../..
 else
-cd libav-9.9
+cd libav-9.10
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -883,20 +1028,20 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-9.9.tgz usr
+tar czf ../../bin/libav-9.10.tgz usr
 cd ../..
 fi
 
 echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
-cd chromaprint-0.7/
+cd chromaprint-1.1/
 test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/chromaprint-0.7.tgz usr
+tar czf ../../bin/chromaprint-1.1.tgz usr
 cd ../..
 
 #echo "### Building mp4v2"
@@ -973,9 +1118,9 @@ tar xzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.3.0.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.9.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.9.1.tgz -C $BUILDROOT
 tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
-tar xzf bin/chromaprint-0.7.tgz -C $BUILDROOT
+tar xzf bin/chromaprint-1.1.tgz -C $BUILDROOT
 #tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
