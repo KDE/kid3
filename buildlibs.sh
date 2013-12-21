@@ -579,8 +579,8 @@ if ! test -d libvorbis-1.3.2; then
 tar xzf source/libvorbis_1.3.2.orig.tar.gz
 cd libvorbis-1.3.2/
 gunzip -c ../source/libvorbis_1.3.2-1.3.diff.gz | patch -p1
-test -f win32/VS2008/libogg.vsprops.orig || mv win32/VS2008/libogg.vsprops win32/VS2008/libogg.vsprops.orig
-sed "s/Value=\"1.1.4\"/Value=\"$libogg_version\"/" win32/VS2008/libogg.vsprops.orig >win32/VS2008/libogg.vsprops
+test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
+sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
 cd ..
 fi
 
@@ -685,11 +685,11 @@ if test "$compiler" = "msvc"; then
 echo "### Building libogg"
 
 cd libogg-1.3.1/
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Release;Platform=Win32"
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Release;Platform=Win32"
 mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
-cp win32/VS2008/Win32/Debug/libogg_static.lib inst/lib/Debug/
-cp win32/VS2008/Win32/Release/libogg_static.lib inst/lib/Release/
+cp win32/VS2010/Win32/Debug/libogg_static.lib inst/lib/Debug/
+cp win32/VS2010/Win32/Release/libogg_static.lib inst/lib/Release/
 cp include/ogg/*.h inst/include/ogg/
 cd inst
 tar czf ../../bin/libogg-1.3.1.tgz include lib
@@ -698,11 +698,11 @@ cd ../..
 echo "### Building libvorbis"
 
 cd libvorbis-1.3.2/
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
 mkdir -p inst/include/vorbis inst/lib/Debug inst/lib/Release
-cp win32/VS2008/Win32/Debug/*.lib inst/lib/Debug/
-cp win32/VS2008/Win32/Release/*.lib inst/lib/Release/
+cp win32/VS2010/Win32/Debug/*.lib inst/lib/Debug/
+cp win32/VS2010/Win32/Release/*.lib inst/lib/Release/
 cp include/vorbis/*.h inst/include/vorbis/
 cd inst
 tar czf ../../bin/libvorbis-1.3.2.tgz include lib
@@ -711,9 +711,9 @@ cd ../..
 echo "### Building id3lib"
 
 cd id3lib-3.8.3/
-test -f config.h || cp config.h.win32 config.h
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
-$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
+test -f config.h || sed 's/^#define CXX_HAS_BUGGY_FOR_LOOPS 1/\/\/#define CXX_HAS_BUGGY_FOR_LOOPS 1/' config.h.win32 >config.h
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
+$COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
 mkdir -p inst/include inst/lib/Debug inst/lib/Release
 cp -a include/id3* inst/include
 cp id3libd.lib inst/lib/Debug/id3lib.lib
@@ -725,7 +725,7 @@ cd ../..
 echo "### Building taglib"
 
 cd taglib-1.9.1/
-test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
+test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
 mkdir -p instd
 DESTDIR=instd cmake --build . --config Debug --target install
 mkdir -p inst
