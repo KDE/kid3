@@ -66,6 +66,10 @@ int av_audio_convert(AVAudioConvert *ctx,
 #define AVMEDIA_TYPE_AUDIO CODEC_TYPE_AUDIO
 #endif
 
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(54, 28, 0)
+#define avcodec_free_frame av_freep
+#endif
+
 #ifdef AVCODEC_MAX_AUDIO_FRAME_SIZE
 #define MAX_AUDIO_FRAME_SIZE AVCODEC_MAX_AUDIO_FRAME_SIZE
 #else
@@ -95,13 +99,99 @@ public:
     }
   }
 
+  int streamIndex() const { return m_ptr ? m_ptr->stream_index : -1; }
+
 private:
   AVPacket* m_ptr;
 };
 
+class Codec {
+public:
+  explicit Codec(AVCodecContext* ptr = 0) : m_ptr(ptr), m_impl(0), m_frame(0),
+    m_opened(false) {
+  }
+
+  ~Codec() {
+    if (m_frame)
+      ::avcodec_free_frame(&m_frame);
+    if (m_opened)
+      ::avcodec_close(m_ptr);
+  }
+
+  bool isNull() const { return m_ptr == 0; }
+
+  void assign(AVCodecContext* ptr) { m_ptr = ptr; }
+
+  bool open() {
+    m_opened = false;
+    if (m_ptr && m_impl) {
+      m_opened =
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 5, 0)
+        ::avcodec_open(m_ptr, m_impl) >= 0
+#else
+        ::avcodec_open2(m_ptr, m_impl, 0) >= 0
+#endif
+          ;
+    }
+    return m_opened;
+  }
+
+  int channels() const { return m_ptr->channels; }
+
+  AVSampleFormat sampleFormat() const { return m_ptr->sample_fmt; }
+
+  int sampleRate() const { return m_ptr->sample_rate; }
+
+  uint64_t channelLayout() const { return m_ptr->channel_layout; }
+
+  int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 23, 0)
+    return ::avcodec_decode_audio2(m_ptr,
+      samples, frameSize, pkt->data, pkt->size);
+#elif LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 25, 0)
+    return ::avcodec_decode_audio3(m_ptr,
+      samples, frameSize, pkt);
+#else
+    if (!m_frame)
+      m_frame = ::avcodec_alloc_frame();
+    ::avcodec_get_frame_defaults(m_frame);
+    int decoded = 0;
+    int len = ::avcodec_decode_audio4(m_ptr, m_frame, &decoded, pkt);
+    if (len >= 0 && decoded) {
+      int planar = ::av_sample_fmt_is_planar(m_ptr->sample_fmt);
+      int planeSize;
+      int dataSize = ::av_samples_get_buffer_size(&planeSize, m_ptr->channels,
+                         m_frame->nb_samples, m_ptr->sample_fmt, 1);
+      if (*frameSize < dataSize)
+        return -1;
+      ::memcpy(samples, m_frame->extended_data[0], planeSize);
+      if (planar && m_ptr->channels > 1) {
+        uint8_t* out = reinterpret_cast<uint8_t*>(samples) + planeSize;
+        for (int ch = 1; ch < m_ptr->channels; ++ch) {
+          ::memcpy(out, m_frame->extended_data[ch], planeSize);
+          out += planeSize;
+        }
+      }
+      *frameSize = dataSize;
+    } else {
+      *frameSize = 0;
+    }
+    return len;
+#endif
+  }
+
+private:
+  friend class Format;
+  friend class Converter;
+  AVCodecContext* m_ptr;
+  AVCodec* m_impl;
+  AVFrame* m_frame;
+  bool m_opened;
+};
+
 class Format {
 public:
-  Format(const char* fileName) : m_ptr(0), m_hasError(false) {
+  Format(const char* fileName) : m_ptr(0), m_streamIndex(-1), m_hasError(false) {
     if (
 #if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 2, 0)
         ::av_open_input_file(&m_ptr, fileName, 0, 0, 0) != 0
@@ -129,11 +219,37 @@ public:
 
   bool hasError() const { return m_hasError; }
 
-  unsigned int numStreams() const {
-    return m_ptr->nb_streams;
+  AVStream* findAudioStream(Codec* codec) {
+    AVStream* stream = 0;
+#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(52, 91, 0)
+    for (unsigned i = 0; i < m_ptr->nb_streams; ++i) {
+      codec->m_ptr = m_ptr->streams[i]->codec;
+      if (codec->m_ptr && codec->m_ptr->codec_type == AVMEDIA_TYPE_AUDIO) {
+        stream = m_ptr->streams[i];
+        m_streamIndex = i;
+        break;
+      }
+    }
+    codec->m_impl = ::avcodec_find_decoder(codec->m_ptr->codec_id);
+#else
+    m_streamIndex = ::av_find_best_stream(m_ptr, AVMEDIA_TYPE_AUDIO, -1, -1,
+                                          &codec->m_impl, 0);
+    if (m_streamIndex >= 0) {
+      stream = m_ptr->streams[m_streamIndex];
+    }
+    if (stream) {
+      codec->m_ptr = stream->codec;
+    }
+#endif
+    if (codec->m_ptr) {
+      codec->m_ptr->request_sample_fmt = AV_SAMPLE_FMT_S16;
+    }
+    return stream;
   }
 
-  AVStream** streams() const { return m_ptr->streams; }
+  int64_t duration() const { return m_ptr ? m_ptr->duration : AV_NOPTS_VALUE; }
+
+  int streamIndex() const { return m_streamIndex; }
 
   bool readFrame(Packet& packet) {
     return ::av_read_frame(m_ptr, packet.data()) >= 0;
@@ -141,115 +257,41 @@ public:
 
 private:
   AVFormatContext* m_ptr;
+  int m_streamIndex;
   bool m_hasError;
-};
-
-class Codec {
-public:
-  explicit Codec(AVCodecContext* ptr = 0) : m_ptr(ptr), m_opened(false) {
-  }
-
-  ~Codec() {
-    if (m_opened)
-      ::avcodec_close(m_ptr);
-  }
-
-  bool isNull() const { return m_ptr == 0; }
-
-  void assign(AVCodecContext* ptr) { m_ptr = ptr; }
-
-  bool codecTypeIsAudio() const {
-    return m_ptr && m_ptr->codec_type == AVMEDIA_TYPE_AUDIO;
-  }
-
-  bool open() {
-    AVCodec* codec;
-    m_opened = false;
-    if (m_ptr &&
-        (codec = ::avcodec_find_decoder(m_ptr->codec_id)) != 0) {
-      m_ptr->request_sample_fmt = AV_SAMPLE_FMT_S16;
-      m_opened =
-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 5, 0)
-        ::avcodec_open(m_ptr, codec) >= 0
-#else
-        ::avcodec_open2(m_ptr, codec, 0) >= 0
-#endif
-          ;
-    }
-    return m_opened;
-  }
-
-  int channels() const { return m_ptr->channels; }
-
-  AVSampleFormat sampleFormat() const { return m_ptr->sample_fmt; }
-
-  int sampleRate() const { return m_ptr->sample_rate; }
-
-  uint64_t channelLayout() const { return m_ptr->channel_layout; }
-
-  int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 23, 0)
-    return ::avcodec_decode_audio2(m_ptr,
-      samples, frameSize, pkt->data, pkt->size);
-#elif LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 25, 0)
-    return ::avcodec_decode_audio3(m_ptr,
-      samples, frameSize, pkt);
-#else
-    AVFrame frame;
-    ::memset(&frame, 0, sizeof(frame));
-    ::avcodec_get_frame_defaults(&frame);
-    int decoded = 0;
-    int len = ::avcodec_decode_audio4(m_ptr, &frame, &decoded, pkt);
-    if (len >= 0 && decoded) {
-      int planar = ::av_sample_fmt_is_planar(m_ptr->sample_fmt);
-      int planeSize;
-      int dataSize = ::av_samples_get_buffer_size(&planeSize, m_ptr->channels,
-                         frame.nb_samples, m_ptr->sample_fmt, 1);
-      if (*frameSize < dataSize)
-        return -1;
-      ::memcpy(samples, frame.extended_data[0], planeSize);
-      if (planar && m_ptr->channels > 1) {
-        uint8_t* out = reinterpret_cast<uint8_t*>(samples) + planeSize;
-        for (int ch = 1; ch < m_ptr->channels; ++ch) {
-          ::memcpy(out, frame.extended_data[ch], planeSize);
-          out += planeSize;
-        }
-      }
-      *frameSize = dataSize;
-    } else {
-      *frameSize = 0;
-    }
-    return len;
-#endif
-  }
-
-private:
-  AVCodecContext* m_ptr;
-  bool m_opened;
 };
 
 #ifdef HAVE_AVRESAMPLE
 class Converter {
 public:
-  Converter() : m_ptr(0), m_isOpen(false) {}
+  Converter() : m_ptr(0), m_maxDstNumSamples(0), m_isOpen(false) {
+    m_dstData[0] = 0;
+  }
 
   ~Converter() {
+    if (m_dstData[0]) {
+      ::av_freep(&m_dstData[0]);
+    }
     if (m_ptr) {
       if (m_isOpen) {
         ::avresample_close(m_ptr);
       }
-      ::avresample_close(m_ptr);
+      ::avresample_free(&m_ptr);
     }
   }
 
   bool createForCodec(const Codec& codecCtx) {
+    int64_t channelLayout = codecCtx.channelLayout();
+    if (!channelLayout) {
+      channelLayout = ::av_get_default_channel_layout(codecCtx.channels());
+    }
     if ((m_ptr = ::avresample_alloc_context()) != 0) {
-      ::av_opt_set_int(m_ptr, "in_channel_layout",  codecCtx.channelLayout(), 0);
+      ::av_opt_set_int(m_ptr, "in_channel_layout",  channelLayout, 0);
       ::av_opt_set_int(m_ptr, "in_sample_fmt",      codecCtx.sampleFormat(), 0);
       ::av_opt_set_int(m_ptr, "in_sample_rate",     codecCtx.sampleRate(), 0);
-      ::av_opt_set_int(m_ptr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+      ::av_opt_set_int(m_ptr, "out_channel_layout", channelLayout, 0);
       ::av_opt_set_int(m_ptr, "out_sample_fmt",     AV_SAMPLE_FMT_S16, 0);
-      ::av_opt_set_int(m_ptr, "out_sample_rate",    44100, 0);
+      ::av_opt_set_int(m_ptr, "out_sample_rate",    codecCtx.sampleRate(), 0);
       m_isOpen = ::avresample_open(m_ptr) >= 0;
       return m_isOpen;
     }
@@ -260,25 +302,54 @@ public:
                    int16_t* buffer1, int16_t* buffer2,
                    int& bufferSize) {
     if (m_ptr) {
-      int bytesPerSample = ::av_get_bytes_per_sample(codecCtx.sampleFormat());
-      int numSamplesIn = bufferSize / bytesPerSample;
-      int linesizeIn;
-      ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
-          numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+      int numSamplesOut;
+      int16_t* result;
+      if (codecCtx.m_frame) {
+        if (codecCtx.m_frame->nb_samples > m_maxDstNumSamples) {
+          ::av_freep(&m_dstData[0]);
+          int dstLinesize = 0;
+          if (::av_samples_alloc(m_dstData, &dstLinesize, codecCtx.channels(),
+                      codecCtx.m_frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
+            return 0;
+          }
+          m_maxDstNumSamples = codecCtx.m_frame->nb_samples;
+        }
 #if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
-      int numSamplesOut = ::avresample_convert(
-            m_ptr, reinterpret_cast<void**>(&buffer2), 0, BUFFER_SIZE,
-            reinterpret_cast<void**>(&buffer1), linesizeIn, numSamplesIn);
+        numSamplesOut = ::avresample_convert(
+              m_ptr, reinterpret_cast<void**>(m_dstData), 0,
+              codecCtx.m_frame->nb_samples,
+              reinterpret_cast<void**>(codecCtx.m_frame->data), 0,
+              codecCtx.m_frame->nb_samples);
 #else
-      int numSamplesOut = ::avresample_convert(
-            m_ptr, reinterpret_cast<uint8_t**>(&buffer2), 0, BUFFER_SIZE,
-            reinterpret_cast<uint8_t**>(&buffer1), linesizeIn, numSamplesIn);
+        numSamplesOut = ::avresample_convert(
+              m_ptr, m_dstData, 0, codecCtx.m_frame->nb_samples,
+              reinterpret_cast<uint8_t**>(codecCtx.m_frame->data), 0,
+              codecCtx.m_frame->nb_samples);
 #endif
+        result = reinterpret_cast<int16_t*>(m_dstData[0]);
+      } else {
+        int bytesPerSample = ::av_get_bytes_per_sample(codecCtx.sampleFormat());
+        int numSamplesIn = bufferSize / bytesPerSample;
+        int linesizeIn;
+        ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
+            numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+#if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
+        numSamplesOut = ::avresample_convert(
+              m_ptr, reinterpret_cast<void**>(&buffer2), 0, BUFFER_SIZE,
+              reinterpret_cast<void**>(&buffer1), linesizeIn, numSamplesIn);
+#else
+        numSamplesOut = ::avresample_convert(
+              m_ptr, reinterpret_cast<uint8_t**>(&buffer2), 0, BUFFER_SIZE,
+              reinterpret_cast<uint8_t**>(&buffer1), linesizeIn, numSamplesIn);
+#endif
+        result = buffer2;
+      }
       if (numSamplesOut < 0) {
         return 0;
       }
-      bufferSize = numSamplesOut * 2;
-      return buffer2;
+      bufferSize = ::av_samples_get_buffer_size(0, codecCtx.channels(),
+                   numSamplesOut, AV_SAMPLE_FMT_S16, 1);
+      return result;
     } else {
       return buffer1;
     }
@@ -286,6 +357,8 @@ public:
 
 private:
   AVAudioResampleContext* m_ptr;
+  uint8_t* m_dstData[1];
+  int m_maxDstNumSamples;
   bool m_isOpen;
 };
 #elif defined HAVE_AV_AUDIO_CONVERT
@@ -375,15 +448,8 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
     return;
   }
 
-  AVStream* stream = 0;
   Codec codec;
-  for (unsigned i = 0; i < format.numStreams(); ++i) {
-    codec.assign(format.streams()[i]->codec);
-    if (codec.codecTypeIsAudio()) {
-      stream = format.streams()[i];
-      break;
-    }
-  }
+  AVStream* stream = format.findAudioStream(&codec);
   if (!stream) {
     err = FingerprintCalculator::NoStreamFound;
     emit error(err);
@@ -405,7 +471,15 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
     }
   }
 
-  duration = stream->time_base.num * stream->duration / stream->time_base.den;
+  if (stream->duration != static_cast<int64_t>(AV_NOPTS_VALUE)) {
+    duration = stream->time_base.num * stream->duration / stream->time_base.den;
+  } else if (format.duration() != static_cast<int64_t>(AV_NOPTS_VALUE)) {
+    duration = format.duration() / AV_TIME_BASE;
+  } else {
+    err = FingerprintCalculator::NoStreamFound;
+    emit error(err);
+    return;
+  }
 
   AVPacket packet, packetTemp;
   ::av_init_packet(&packet);
@@ -420,39 +494,41 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
     if (!format.readFrame(pkt))
       break;
 
-    packetTemp.data = packet.data;
-    packetTemp.size = packet.size;
+    if (pkt.streamIndex() == format.streamIndex()) {
+      packetTemp.data = packet.data;
+      packetTemp.size = packet.size;
 
-    while (packetTemp.size > 0) {
-      int bufferSize = BUFFER_SIZE;
-      int consumed = codec.decode(m_buffer1, &bufferSize, &packetTemp);
+      while (packetTemp.size > 0) {
+        int bufferSize = BUFFER_SIZE;
+        int consumed = codec.decode(m_buffer1, &bufferSize, &packetTemp);
 
-      if (consumed < 0) {
-        break;
-      }
+        if (consumed < 0) {
+          break;
+        }
 
-      packetTemp.data += consumed;
-      packetTemp.size -= consumed;
+        packetTemp.data += consumed;
+        packetTemp.size -= consumed;
 
-      if (bufferSize <= 0 || bufferSize > BUFFER_SIZE) {
-        continue;
-      }
+        if (bufferSize <= 0 || bufferSize > BUFFER_SIZE) {
+          continue;
+        }
 
-      int16_t *buffer = converter.convert(codec, m_buffer1, m_buffer2, bufferSize);
-      if (!buffer)
-        break;
+        int16_t *buffer = converter.convert(codec, m_buffer1, m_buffer2, bufferSize);
+        if (!buffer)
+          break;
 
-      int length = qMin(remaining, bufferSize / 2);
-      emit bufferReady(QByteArray(reinterpret_cast<char*>(buffer), length * 2));
-      if (isStopped()) {
-        err = FingerprintCalculator::FingerprintCalculationFailed;
-        emit error(err);
-        return;
-      }
+        int length = qMin(remaining, bufferSize / 2);
+        emit bufferReady(QByteArray(reinterpret_cast<char*>(buffer), length * 2));
+        if (isStopped()) {
+          err = FingerprintCalculator::FingerprintCalculationFailed;
+          emit error(err);
+          return;
+        }
 
-      remaining -= length;
-      if (remaining <= 0) {
-        break;
+        remaining -= length;
+        if (remaining <= 0) {
+          break;
+        }
       }
     }
   }
