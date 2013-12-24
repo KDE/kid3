@@ -37,6 +37,8 @@ extern "C" {
 #ifdef HAVE_AVRESAMPLE
 #include <libavresample/avresample.h>
 #include <libavutil/opt.h>
+#elif defined HAVE_SWRESAMPLE
+#include <libswresample/swresample.h>
 #elif defined HAVE_AV_AUDIO_CONVERT
 #include <libavutil/audioconvert.h>
 #include <libavutil/samplefmt.h>
@@ -261,7 +263,7 @@ private:
   bool m_hasError;
 };
 
-#ifdef HAVE_AVRESAMPLE
+#if defined HAVE_AVRESAMPLE || defined HAVE_SWRESAMPLE
 class Converter {
 public:
   Converter() : m_ptr(0), m_maxDstNumSamples(0), m_isOpen(false) {
@@ -273,10 +275,14 @@ public:
       ::av_freep(&m_dstData[0]);
     }
     if (m_ptr) {
+#ifdef HAVE_AVRESAMPLE
       if (m_isOpen) {
         ::avresample_close(m_ptr);
       }
       ::avresample_free(&m_ptr);
+#elif defined HAVE_SWRESAMPLE
+      ::swr_free(&m_ptr);
+#endif
     }
   }
 
@@ -285,6 +291,7 @@ public:
     if (!channelLayout) {
       channelLayout = ::av_get_default_channel_layout(codecCtx.channels());
     }
+#ifdef HAVE_AVRESAMPLE
     if ((m_ptr = ::avresample_alloc_context()) != 0) {
       ::av_opt_set_int(m_ptr, "in_channel_layout",  channelLayout, 0);
       ::av_opt_set_int(m_ptr, "in_sample_fmt",      codecCtx.sampleFormat(), 0);
@@ -295,6 +302,15 @@ public:
       m_isOpen = ::avresample_open(m_ptr) >= 0;
       return m_isOpen;
     }
+#elif defined HAVE_SWRESAMPLE
+    if ((m_ptr = ::swr_alloc_set_opts(
+           0, channelLayout, AV_SAMPLE_FMT_S16, codecCtx.sampleRate(),
+           channelLayout, codecCtx.sampleFormat(), codecCtx.sampleRate(),
+           0, 0)) != 0) {
+      m_isOpen = ::swr_init(m_ptr) >= 0;
+      return m_isOpen;
+    }
+#endif
     return false;
   }
 
@@ -314,6 +330,7 @@ public:
           }
           m_maxDstNumSamples = codecCtx.m_frame->nb_samples;
         }
+#ifdef HAVE_AVRESAMPLE
 #if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
         numSamplesOut = ::avresample_convert(
               m_ptr, reinterpret_cast<void**>(m_dstData), 0,
@@ -326,6 +343,13 @@ public:
               reinterpret_cast<uint8_t**>(codecCtx.m_frame->data), 0,
               codecCtx.m_frame->nb_samples);
 #endif
+#elif defined HAVE_SWRESAMPLE
+        numSamplesOut = ::swr_convert(
+              m_ptr, m_dstData, codecCtx.m_frame->nb_samples,
+              const_cast<const uint8_t**>(reinterpret_cast<uint8_t**>(
+                                            codecCtx.m_frame->data)),
+              codecCtx.m_frame->nb_samples);
+#endif
         result = reinterpret_cast<int16_t*>(m_dstData[0]);
       } else {
         int bytesPerSample = ::av_get_bytes_per_sample(codecCtx.sampleFormat());
@@ -333,6 +357,7 @@ public:
         int linesizeIn;
         ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
             numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+#ifdef HAVE_AVRESAMPLE
 #if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
         numSamplesOut = ::avresample_convert(
               m_ptr, reinterpret_cast<void**>(&buffer2), 0, BUFFER_SIZE,
@@ -341,6 +366,12 @@ public:
         numSamplesOut = ::avresample_convert(
               m_ptr, reinterpret_cast<uint8_t**>(&buffer2), 0, BUFFER_SIZE,
               reinterpret_cast<uint8_t**>(&buffer1), linesizeIn, numSamplesIn);
+#endif
+#elif defined HAVE_SWRESAMPLE
+        numSamplesOut = ::swr_convert(
+              m_ptr, reinterpret_cast<uint8_t**>(&buffer2), BUFFER_SIZE,
+              const_cast<const uint8_t**>(reinterpret_cast<uint8_t**>(&buffer1)),
+              numSamplesIn);
 #endif
         result = buffer2;
       }
@@ -356,7 +387,11 @@ public:
   }
 
 private:
+#ifdef HAVE_AVRESAMPLE
   AVAudioResampleContext* m_ptr;
+#elif defined HAVE_SWRESAMPLE
+  SwrContext* m_ptr;
+#endif
   uint8_t* m_dstData[1];
   int m_maxDstNumSamples;
   bool m_isOpen;
