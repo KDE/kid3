@@ -3248,7 +3248,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "ORIGINALDATE",    // FT_OriginalDate,
     "PART",            // FT_Part,
     "PERFORMER",       // FT_Performer,
-    "UNKNOWN",         // FT_Picture,
+    "METADATA_BLOCK_PICTURE", // FT_Picture,
     "PUBLISHER",       // FT_Publisher,
     "RELEASECOUNTRY",  // FT_ReleaseCountry,
     "REMIXER",         // FT_Remixer,
@@ -3266,6 +3266,10 @@ static const char* getVorbisNameFromType(Frame::Type type)
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
+  if (type == Frame::FT_Picture &&
+      TagConfig::instance().pictureNameItem() == TagConfig::VP_COVERART) {
+    return "COVERART";
+  }
   return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
 }
 
@@ -3286,6 +3290,8 @@ static Frame::Type getTypeFromVorbisName(QString name)
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
     strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);
+    strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
+    strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
   QMap<QString, int>::const_iterator it =
     strNumMap.find(name.remove(QLatin1Char('=')).toUpper());
@@ -4034,13 +4040,14 @@ bool TagLibFile::setFrameV2(const Frame& frame)
         return true;
       }
     } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+      QString frameValue(frame.getValue());
       if (frame.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x010700
         if (m_pictures.isRead()) {
           int index = frame.getIndex();
           if (index >= 0 && index < m_pictures.size()) {
             Frame newFrame(frame);
-            PictureFrame::setDescription(newFrame, frame.getValue());
+            PictureFrame::setDescription(newFrame, frameValue);
             if (PictureFrame::areFieldsEqual(m_pictures[index], newFrame)) {
               m_pictures[index].setValueChanged(false);
             } else {
@@ -4048,13 +4055,24 @@ bool TagLibFile::setFrameV2(const Frame& frame)
               markTag2Changed(Frame::FT_Picture);
             }
             return true;
+          } else {
+            return false;
+          }
+        } else {
+          PictureFrame::getFieldsToBase64(frame, frameValue);
+          if (!frameValue.isEmpty() &&
+              frame.getInternalName() == QLatin1String("COVERART")) {
+            QString mimeType;
+            PictureFrame::getMimeType(frame, mimeType);
+            oggTag->addField("COVERARTMIME", QSTRING_TO_TSTRING(mimeType), true);
           }
         }
-#endif
+#else
         return false;
+#endif
       }
       TagLib::String key = QSTRING_TO_TSTRING(getVorbisName(frame));
-      TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
+      TagLib::String value = QSTRING_TO_TSTRING(frameValue);
 #if TAGLIB_VERSION <= 0x010400
       // Remove all fields with that key, because TagLib <= 1.4 crashes
       // using an invalidated iterator after calling erase().
@@ -4347,26 +4365,30 @@ bool TagLibFile::addFrameV2(Frame& frame)
         return true;
       }
     } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+      QString name(getVorbisName(frame));
+      QString value(frame.getValue());
       if (frame.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x010700
+        if (frame.getFieldList().empty()) {
+          PictureFrame::setFields(
+            frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+            PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
+        }
         if (m_pictures.isRead()) {
-          if (frame.getFieldList().empty()) {
-            PictureFrame::setFields(
-              frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
-              PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
-          }
-          PictureFrame::setDescription(frame, frame.getValue());
+          PictureFrame::setDescription(frame, value);
           frame.setIndex(m_pictures.size());
           m_pictures.append(frame);
           markTag2Changed(Frame::FT_Picture);
           return true;
+        } else {
+          PictureFrame::getFieldsToBase64(frame, value);
         }
-#endif
+#else
         return false;
+#endif
       }
-      QString name(getVorbisName(frame));
       TagLib::String tname = QSTRING_TO_TSTRING(name);
-      TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+      TagLib::String tvalue = QSTRING_TO_TSTRING(value);
       if (tvalue.isEmpty()) {
         tvalue = " "; // empty values are not added by TagLib
       }
@@ -4539,6 +4561,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
         return true;
       }
     } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+      QString frameValue(frame.getValue());
 #if TAGLIB_VERSION >= 0x010700
       if (frame.getType() == Frame::FT_Picture) {
         if (m_pictures.isRead()) {
@@ -4548,6 +4571,8 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
             markTag2Changed(Frame::FT_Picture);
             return true;
           }
+        } else {
+          PictureFrame::getFieldsToBase64(frame, frameValue);
         }
       }
 #endif
@@ -4558,7 +4583,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
       // using an invalidated iterator after calling erase().
       oggTag->removeField(key);
 #else
-      oggTag->removeField(key, QSTRING_TO_TSTRING(frame.getValue()));
+      oggTag->removeField(key, QSTRING_TO_TSTRING(frameValue));
 #endif
       markTag2Changed(frame.getType());
       return true;
@@ -4870,8 +4895,21 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
         for (TagLib::StringList::ConstIterator slit = stringList.begin();
              slit != stringList.end();
              ++slit) {
-          frames.insert(Frame(type, TStringToQString(TagLib::String(*slit)),
-                                 name, i++));
+          if (type == Frame::FT_Picture) {
+            Frame frame(type, QLatin1String(""), name, i++);
+            PictureFrame::setFieldsFromBase64(
+                  frame, TStringToQString(TagLib::String(*slit)));
+            if (name == QLatin1String("COVERART")) {
+              TagLib::StringList mt = oggTag->fieldListMap()["COVERARTMIME"];
+              if (!mt.isEmpty()) {
+                PictureFrame::setMimeType(frame, TStringToQString(mt.front()));
+              }
+            }
+            frames.insert(frame);
+          } else {
+            frames.insert(Frame(type, TStringToQString(TagLib::String(*slit)),
+                                name, i++));
+          }
         }
       }
 #if TAGLIB_VERSION >= 0x010700
@@ -5182,7 +5220,8 @@ QStringList TagLibFile::getFrameIds() const
       "VOLUME"
     };
 #if TAGLIB_VERSION >= 0x010700
-    const bool picturesSupported = m_pictures.isRead();
+    const bool picturesSupported = m_pictures.isRead() ||
+        m_tagTypeV2 == TT_Vorbis;
 #else
     const bool picturesSupported = false;
 #endif

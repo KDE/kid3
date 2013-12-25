@@ -76,6 +76,9 @@ int TaglibMetadataPlugin::taggedFileFeatures(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
     return TaggedFile::TF_ID3v11 | TaggedFile::TF_ID3v22 |
+#if TAGLIB_VERSION >= 0x010700
+        TaggedFile::TF_OggPictures |
+#endif
 #if TAGLIB_VERSION >= 0x010800
         TaggedFile::TF_ID3v23 |
 #endif
