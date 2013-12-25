@@ -427,6 +427,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
     }
     strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
+    strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
   QMap<QString, int>::const_iterator it =
     strNumMap.find(name.remove(QLatin1Char('=')).toUpper());
