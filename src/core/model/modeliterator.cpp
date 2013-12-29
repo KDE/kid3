@@ -288,7 +288,7 @@ TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
     const QModelIndex& index) :
     m_row(0), m_model(index.model()),
     m_parentIdx(m_model && m_model->hasChildren(index)
-                ? index: index.parent()) {
+                ? index: index.parent()), m_nextFile(0) {
   next();
 }
 

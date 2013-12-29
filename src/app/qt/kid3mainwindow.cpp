@@ -425,11 +425,11 @@ void Kid3MainWindow::initActions()
     m_viewToolBar->setText(tr("Show &Toolbar"));
     m_viewToolBar->setObjectName(QLatin1String("options_configure_toolbars"));
     m_shortcutsModel->registerAction(m_viewToolBar, menuTitle);
+    m_viewToolBar->setChecked(!MainWindowConfig::instance().m_hideToolBar);
+    settingsMenu->addAction(m_viewToolBar);
   }
   if (MainWindowConfig::instance().m_hideToolBar)
     toolBar->hide();
-  m_viewToolBar->setChecked(!MainWindowConfig::instance().m_hideToolBar);
-  settingsMenu->addAction(m_viewToolBar);
 
   m_viewStatusBar = new QAction(this);
   m_viewStatusBar->setStatusTip(tr("Enables/disables the statusbar"));

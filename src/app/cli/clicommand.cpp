@@ -1062,13 +1062,21 @@ void PlayCommand::startCommand()
     player = cli()->app()->getAudioPlayer();
   }
   if (param == QLatin1String("pause")) {
-    player->playOrPause();
+    if (player) {
+      player->playOrPause();
+    }
   } else if (param == QLatin1String("stop")) {
-    player->stop();
+    if (player) {
+      player->stop();
+    }
   } else if (param == QLatin1String("previous")) {
-    player->previous();
+    if (player) {
+      player->previous();
+    }
   } else if (param == QLatin1String("next")) {
-    player->next();
+    if (player) {
+      player->next();
+    }
   } else {
     cli()->app()->playAudio();
   }

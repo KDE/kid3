@@ -67,6 +67,9 @@ void ConfigStore::writeToConfig()
 int ConfigStore::addConfiguration(GeneralConfig* cfg)
 {
   Q_ASSERT(cfg);
+  if (!cfg)
+    return -1;
+
   int index = m_configurations.size();
   m_configurations.append(cfg);
   cfg->readFromConfig(m_config);

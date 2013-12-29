@@ -500,6 +500,10 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	ogg_packet	header_codebooks;
 	ogg_page    og;
 
+	/* kid3, to fix LLVM scan-build error "Assigned value is garbage or undefined"
+	   in line "state->mainlen = header_main.bytes;" */
+	memset(&header_main, 0, sizeof(header_main));
+
 	state->in = in;
 	state->read = read_func;
 	state->write = write_func;
