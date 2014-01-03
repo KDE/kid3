@@ -52,7 +52,7 @@ compiler="gcc"
 qt_version=4.8.5
 zlib_version=1.2.8
 libogg_version=1.3.1
-libav_version=0.8.9
+libav_version=9.10
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
@@ -405,149 +405,6 @@ cat >libav_sws.patch <<"EOF"
 EOF
 fi
 
-test -f chromaprint_fpcalc_static.patch ||
-cat >chromaprint_fpcalc_static.patch <<"EOF"
-diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
-index ed27094..36f161b 100644
---- a/examples/CMakeLists.txt
-+++ b/examples/CMakeLists.txt
-@@ -19,26 +19,31 @@ include_directories(
- 	${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
- )
- 
--add_executable(fpcalc fpcalc.c)
--
--target_link_libraries(fpcalc chromaprint
-+set(fpcalc_LIBS
-+	chromaprint
- 	${FFMPEG_LIBAVFORMAT_LIBRARIES}
--	${FFMPEG_LIBAVCODEC_LIBRARIES}
--	${FFMPEG_LIBAVUTIL_LIBRARIES}
--	${EXTRA_LIBS})
-+	${FFMPEG_LIBAVCODEC_LIBRARIES})
- 
- if(FFMPEG_LIBSWRESAMPLE_FOUND)
- 	add_definitions(-DHAVE_SWRESAMPLE)
- 	include_directories(${FFMPEG_LIBSWRESAMPLE_INCLUDE_DIRS})
--	target_link_libraries(fpcalc ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
-+	set(fpcalc_LIBS ${fpcalc_LIBS} ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
- elseif(FFMPEG_LIBAVRESAMPLE_FOUND)
- 	add_definitions(-DHAVE_AVRESAMPLE)
- 	include_directories(${FFMPEG_LIBAVRESAMPLE_INCLUDE_DIRS})
--	target_link_libraries(fpcalc ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
-+	set(fpcalc_LIBS ${fpcalc_LIBS} ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
- else()
- 	message(STATUS "Building without audio conversion support, please install FFmpeg with libswresample")
- endif()
- 
-+set(fpcalc_LIBS ${fpcalc_LIBS}
-+	${FFMPEG_LIBAVUTIL_LIBRARIES}
-+	${EXTRA_LIBS})
-+
-+add_executable(fpcalc fpcalc.c)
-+
-+target_link_libraries(fpcalc ${fpcalc_LIBS})
-+
- install(TARGETS fpcalc
- 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
- )
-EOF
-
-test -f chromaprint_fpcalc_noresample.patch ||
-cat >chromaprint_fpcalc_noresample.patch <<"EOF"
-diff --git a/examples/fpcalc.c b/examples/fpcalc.c
-index a4b0ff9..b59a8e4 100644
---- a/examples/fpcalc.c
-+++ b/examples/fpcalc.c
-@@ -75,6 +75,7 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
- 		goto done;
- 	}
- 
-+#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
- 	if (codec_ctx->sample_fmt != AV_SAMPLE_FMT_S16) {
- 		int64_t channel_layout = codec_ctx->channel_layout;
- 		if (!channel_layout) {
-@@ -111,6 +112,7 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
- 		}
- #endif
- 	}
-+#endif
- 
- 	if (stream->duration != AV_NOPTS_VALUE) {
- 		*duration = stream->time_base.num * stream->duration / stream->time_base.den;
-@@ -145,15 +147,16 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
- 
- 			if (got_frame) {
- 				data = frame->data;
--				if (convert_ctx) {
--					if (frame->nb_samples > max_dst_nb_samples) {
--						av_freep(&dst_data[0]);
--						if (av_samples_alloc(dst_data, &dst_linsize, codec_ctx->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
--							fprintf(stderr, "ERROR: couldn't allocate audio converter buffer\n");
--							goto done;
--						}
--						max_dst_nb_samples = frame->nb_samples;
-+				if (frame->nb_samples > max_dst_nb_samples) {
-+					av_freep(&dst_data[0]);
-+					if (av_samples_alloc(dst_data, &dst_linsize, codec_ctx->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
-+						fprintf(stderr, "ERROR: couldn't allocate audio converter buffer\n");
-+						goto done;
- 					}
-+					max_dst_nb_samples = frame->nb_samples;
-+				}
-+#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
-+				if (convert_ctx) {
- #if defined(HAVE_SWRESAMPLE)
- 					if (swr_convert(convert_ctx, dst_data, frame->nb_samples, (const uint8_t **)frame->data, frame->nb_samples) < 0) {
- #elif defined(HAVE_AVRESAMPLE)
-@@ -162,18 +165,19 @@ int decode_audio_file(ChromaprintContext *chromaprint_ctx, const char *file_name
- 						fprintf(stderr, "ERROR: couldn't convert the audio\n");
- 						goto done;
- 					}
--					data = dst_data;
--				}
--				length = MIN(remaining, frame->nb_samples * codec_ctx->channels);
--				if (!chromaprint_feed(chromaprint_ctx, data[0], length)) {
--					goto done;
- 				}
-+#endif
-+				data = dst_data;
-+			}
-+			length = MIN(remaining, frame->nb_samples * codec_ctx->channels);
-+			if (!chromaprint_feed(chromaprint_ctx, data[0], length)) {
-+				goto done;
-+			}
- 
--				if (max_length) {
--					remaining -= length;
--					if (remaining <= 0) {
--						goto finish;
--					}
-+			if (max_length) {
-+				remaining -= length;
-+				if (remaining <= 0) {
-+					goto finish;
- 				}
- 			}
- 		}
-@@ -195,6 +199,7 @@ done:
- 	if (dst_data[0]) {
- 		av_freep(&dst_data[0]);
- 	}
-+#if defined(HAVE_SWRESAMPLE) || defined(HAVE_AVRESAMPLE)
- 	if (convert_ctx) {
- #if defined(HAVE_SWRESAMPLE)
- 		swr_free(&convert_ctx);
-@@ -202,6 +207,7 @@ done:
- 		avresample_free(&convert_ctx);
- #endif
- 	}
-+#endif
- 	if (codec_ctx_opened) {
- 		avcodec_close(codec_ctx);
- 	}
-EOF
-
 cd ..
 
 
@@ -659,8 +516,6 @@ echo "### Extracting chromaprint"
 if ! test -d chromaprint-1.1; then
 tar xzf source/chromaprint_1.1.orig.tar.gz
 cd chromaprint-1.1/
-patch -p1 <../source/chromaprint_fpcalc_static.patch
-patch -p1 <../source/chromaprint_fpcalc_noresample.patch
 tar xzf ../source/chromaprint_1.1-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
@@ -1036,7 +891,7 @@ echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-1.1/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
