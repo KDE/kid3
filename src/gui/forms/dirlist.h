@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Jul 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,13 +27,12 @@
 #ifndef DIRLIST_H
 #define DIRLIST_H
 
-#include <QListView>
-#include "kid3api.h"
+#include "configurabletreeview.h"
 
 /**
  * List of directories to operate on.
  */
-class KID3_CORE_EXPORT DirList : public QListView {
+class DirList : public ConfigurableTreeView {
 public:
   /**
    * Constructor.

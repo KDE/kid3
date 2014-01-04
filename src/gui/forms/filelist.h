@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,8 +27,8 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-#include <QTreeView>
 #include <QList>
+#include "configurabletreeview.h"
 #include "config.h"
 
 class BaseMainWindowImpl;
@@ -37,7 +37,7 @@ class ExternalProcess;
 /**
  * List of files to operate on.
  */
-class FileList : public QTreeView {
+class FileList : public ConfigurableTreeView {
 Q_OBJECT
 
 public:

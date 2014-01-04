@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,11 +46,10 @@
  * @param mainWin main window
  */
 FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
-  QTreeView(parent), m_process(0), m_mainWin(mainWin)
+  ConfigurableTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
   setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
-  setSortingEnabled(false);
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(QPoint)),
       this, SLOT(customContextMenu(QPoint)));
@@ -58,7 +57,6 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
   connect(this, SIGNAL(doubleClicked(QModelIndex)),
           this, SLOT(playIfTaggedFile(QModelIndex)));
 #endif
-  header()->hide();
 }
 
 /**

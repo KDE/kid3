@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,24 +61,6 @@ public:
    * Destructor.
    */
   virtual ~FileProxyModel();
-
-  /**
-   * Get number of columns.
-   * @param parent parent model index, invalid for table models
-   * @return number of columns,
-   * if parent is valid number of children (0 for table models)
-   */
-  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const;
-
-  /**
-   * Get data for header section.
-   * @param section column or row
-   * @param orientation horizontal or vertical
-   * @param role item data role
-   * @return header data for role
-   */
-  virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role=Qt::DisplayRole) const;
 
   /**
    * Get data for a given role.

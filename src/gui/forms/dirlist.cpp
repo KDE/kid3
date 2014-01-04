@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Jul 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,9 +31,11 @@
  * Constructor.
  * @param parent parent widget
  */
-DirList::DirList(QWidget* parent) : QListView(parent)
+DirList::DirList(QWidget* parent) : ConfigurableTreeView(parent)
 {
   setObjectName(QLatin1String("DirList"));
+  setItemsExpandable(false);
+  setRootIsDecorated(false);
 }
 
 /**

@@ -338,6 +338,14 @@ selection determines the files which are affected by the operations which
 are available by using the buttons described below.
 </para>
 <para>
+Besides <guilabel>Name</guilabel>, also other columns
+<guilabel>Size</guilabel>, <guilabel>Type</guilabel>, <guilabel>Date
+Modified</guilabel> with file details can be displayed. Columns can be hidden
+by unchecking their name in the context menu of the list header. The order of
+the columns can be changed by drag'n'drop. The sort order can be toggled by
+clicking on the column header.
+</para>
+<para>
 At the left of the names an icon can be displayed: a disc to show that the
 file has been modified or information about which tags are present (V1, V2,
 V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
@@ -386,6 +394,10 @@ The directory list contains the names of the directories in the opened
 directory, as well as the current (<filename>.</filename>) and the parent
 (<filename>..</filename>) directory. It allows to quickly change the directory
 without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
+</para>
+<para>
+Column visiblity, order and sorting can be configured as described in the
+section about the <link linkend="file-list">file list</link>.
 </para>
 </sect2>
 

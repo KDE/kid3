@@ -351,6 +351,15 @@ Dateieinträge geklickt werden. Die Auswahl bestimmt die Dateien, welche
 durch die unten beschriebenen Operationen verändert werden.
 </para>
 <para>
+Nebst <guilabel>Name</guilabel> können noch andere Spalten
+<guilabel>Größe</guilabel>, <guilabel>Typ</guilabel> und
+<guilabel>Änderungsdatum</guilabel> mit Details zu den Dateien dargestellt
+werden. Eine Spalte wird angezeigt, wenn das Häkchen bei ihrem Namen im
+Kontextmenü der Kopfzeile gesetzt ist. Die Reihenfolge der Spalten kann
+mittels Drag'n'Drop verändert werden. Die Sortierreihenfolge kann durch
+Klicken auf den Spaltenkopf umgeschaltet werden.
+</para>
+<para>
 Links von den Namen kann ein Symbol dargestellt werden: eine Diskette, um
 zu zeigen, dass die Datei verändert wurde, oder Information über die Tags
 welche vorhanden sind (V1, V2, V1V2 oder NO TAG, wenn nichts dargestellt wird,
@@ -404,6 +413,11 @@ Verzeichnis enthält, sowie das aktuelle (<filename>.</filename>) und das
 übergeordnete (<filename>..</filename>) Verzeichnis. Sie erlaubt den raschen
 Wechsel zwischen Verzeichnissen, ohne den Umweg über die
 <guimenuitem>Öffnen...</guimenuitem> Funktion oder "Drag and Drop".
+</para>
+<para>
+Die Anzeige, Reihenfolge und Sortierung der Spalten kann auf dieselbe Weise
+eingestellt werden wie bei der <link linkend="file-list">Dateiliste</link>
+beschrieben.
 </para>
 </sect2>
 

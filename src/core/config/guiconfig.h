@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,6 +72,18 @@ public:
   bool m_hidePicture;
   /** true to play file on double click */
   bool m_playOnDoubleClick;
+  /** sorted column in file list */
+  int m_fileListSortColumn;
+  /** sort order in file list */
+  Qt::SortOrder m_fileListSortOrder;
+  /** visible columns in file list */
+  QList<int> m_fileListVisibleColumns;
+  /** sorted column in directory list */
+  int m_dirListSortColumn;
+  /** sort order in directory list */
+  Qt::SortOrder m_dirListSortOrder;
+  /** visible columns in directory list */
+  QList<int> m_dirListVisibleColumns;
   /** size of splitter in main window */
   QList<int> m_splitterSizes;
   /** size of file/dirlist splitter */

@@ -4,7 +4,6 @@ set(model_SRCS
   model/commandformatreplacer.cpp
   model/commandstablemodel.cpp
   model/configtablemodel.cpp
-  model/dirlist.cpp
   model/dirproxymodel.cpp
   model/dirrenamer.cpp
   model/downloadclient.cpp

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,8 +25,41 @@
  */
 
 #include "guiconfig.h"
+#include <QStringList>
 
 int GuiConfig::s_index = -1;
+
+namespace {
+
+/**
+ * Convert list of integers to list of strings.
+ * @param intList list of integers
+ * @return list of strings.
+ */
+QStringList intListToStringList(const QList<int>& intList)
+{
+  QStringList result;
+  foreach (int value, intList) {
+    result.append(QString::number(value));
+  }
+  return result;
+}
+
+/**
+ * Convert list of strings to list of integers.
+ * @param strList list of strings
+ * @return list of integers.
+ */
+QList<int> stringListToIntList(const QStringList& strList)
+{
+  QList<int> result;
+  foreach (const QString& value, strList) {
+    result.append(value.toInt());
+  }
+  return result;
+}
+
+}
 
 
 /**
@@ -39,7 +72,11 @@ GuiConfig::GuiConfig() :
   m_hideV1(false),
   m_hideV2(false),
   m_hidePicture(false),
-  m_playOnDoubleClick(false)
+  m_playOnDoubleClick(false),
+  m_fileListSortColumn(0),
+  m_fileListSortOrder(Qt::AscendingOrder),
+  m_dirListSortColumn(0),
+  m_dirListSortOrder(Qt::AscendingOrder)
 {
 }
 
@@ -62,6 +99,18 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("HideV2"), QVariant(m_hideV2));
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
   config->setValue(QLatin1String("PlayOnDoubleClick"), QVariant(m_playOnDoubleClick));
+  config->setValue(QLatin1String("FileListSortColumn"),
+                   QVariant(m_fileListSortColumn));
+  config->setValue(QLatin1String("FileListSortOrder"),
+                   QVariant(m_fileListSortOrder));
+  config->setValue(QLatin1String("FileListVisibleColumns"),
+                   QVariant(intListToStringList(m_fileListVisibleColumns)));
+  config->setValue(QLatin1String("DirListSortColumn"),
+                   QVariant(m_dirListSortColumn));
+  config->setValue(QLatin1String("DirListSortOrder"),
+                   QVariant(m_dirListSortOrder));
+  config->setValue(QLatin1String("DirListVisibleColumns"),
+                   QVariant(intListToStringList(m_dirListVisibleColumns)));
 
   QList<int>::const_iterator it;
   int i;
@@ -92,6 +141,30 @@ void GuiConfig::readFromConfig(ISettings* config)
   m_hideV2 = config->value(QLatin1String("HideV2"), m_hideV2).toBool();
   m_hidePicture = config->value(QLatin1String("HidePicture"), m_hidePicture).toBool();
   m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"), m_playOnDoubleClick).toBool();
+  m_fileListSortColumn = config->value(QLatin1String("FileListSortColumn"),
+                                       m_fileListSortColumn).toInt();
+  m_fileListSortOrder = static_cast<Qt::SortOrder>(
+        config->value(QLatin1String("FileListSortOrder"),
+                      static_cast<int>(m_fileListSortOrder)).toInt());
+  m_fileListVisibleColumns = stringListToIntList(
+        config->value(QLatin1String("FileListVisibleColumns"), QStringList()).
+        toStringList());
+  if (m_fileListVisibleColumns.isEmpty()) {
+    // Uninitialized, otherwise there is at least the value 0 in the list.
+    m_fileListVisibleColumns << 0 << 1 << 3;
+  }
+  m_dirListSortColumn = config->value(QLatin1String("DirListSortColumn"),
+                                       m_dirListSortColumn).toInt();
+  m_dirListSortOrder = static_cast<Qt::SortOrder>(
+        config->value(QLatin1String("DirListSortOrder"),
+                      static_cast<int>(m_dirListSortOrder)).toInt());
+  m_dirListVisibleColumns = stringListToIntList(
+        config->value(QLatin1String("DirListVisibleColumns"), QStringList()).
+        toStringList());
+  if (m_dirListVisibleColumns.isEmpty()) {
+    // Uninitialized, otherwise there is at least the value 0 in the list.
+    m_dirListVisibleColumns << 0 << 3;
+  }
 
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {

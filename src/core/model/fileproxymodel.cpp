@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -151,29 +151,6 @@ FileProxyModel::~FileProxyModel()
 {
   clearTaggedFileStore();
   delete m_iconProvider;
-}
-
-/**
- * Get number of columns.
- * @param parent parent model index, invalid for table models
- * @return number of columns,
- * if parent is valid number of children (0 for table models)
- */
-int FileProxyModel::columnCount(const QModelIndex&) const
-{
-  return 1;
-}
-
-/**
- * Get data for header section.
- * @param section column or row
- * @param orientation horizontal or vertical
- * @param role item data role
- * @return header data for role
- */
-QVariant FileProxyModel::headerData(int, Qt::Orientation, int) const
-{
-  return QVariant();
 }
 
 /**
