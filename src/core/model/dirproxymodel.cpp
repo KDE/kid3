@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19-Mar-2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,6 +26,7 @@
 
 #include "dirproxymodel.h"
 #include <QFileSystemModel>
+#include <QDateTime>
 
 /**
  * Constructor.
@@ -52,4 +53,51 @@ bool DirProxyModel::filterAcceptsRow(int srcRow, const QModelIndex& srcParent) c
     return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
   }
   return false;
+}
+
+/**
+ * Sort comparision function.
+ * @param left index of left item in source model
+ * @param right index of right item in source model
+ * @return true if left is less than right.
+ */
+bool DirProxyModel::lessThan(const QModelIndex& left,
+                             const QModelIndex& right) const
+{
+  // "." and ".." shall be in the first and second row.
+  bool orderIsAscending = sortOrder() == Qt::AscendingOrder;
+  QString leftName = left.sibling(left.row(), 0).data().toString();
+  if (leftName == QLatin1String(".")) {
+    return orderIsAscending;
+  }
+  QString rightName = right.sibling(right.row(), 0).data().toString();
+  if (rightName == QLatin1String(".")) {
+    return !orderIsAscending;
+  }
+  if (leftName == QLatin1String("..")) {
+    return orderIsAscending;
+  }
+  if (rightName == QLatin1String("..")) {
+    return !orderIsAscending;
+  }
+
+  // The data() in QFileSystemModel are String QVariants, therefore
+  // QSortFilterProxyModel::lessThan() is of no use here, custom sorting
+  // has to be used.
+  Q_ASSERT_X(sourceModel()->metaObject() == &QFileSystemModel::staticMetaObject,
+             "lessThan", "source model must be QFileSystemModel");
+  QFileSystemModel* fsModel = static_cast<QFileSystemModel*>(sourceModel());
+  switch (sortColumn()) {
+  case 0:
+    return left.data().toString().compare(right.data().toString());
+  case 1:
+    return fsModel->size(left) < fsModel->size(right);
+  case 2:
+    return fsModel->type(left) < fsModel->type(right);
+  case 3:
+    return fsModel->lastModified(left) < fsModel->lastModified(right);
+  }
+  qWarning("DirProxyModel: Invalid sort column %d",
+           sortColumn());
+  return QSortFilterProxyModel::lessThan(left, right);
 }

@@ -95,6 +95,18 @@ public:
   virtual void fetchMore(const QModelIndex& parent);
 
   /**
+   * Sort model.
+   *
+   * This method will directly call QFileSystemModel::sort() on the
+   * sourceModel() to take advantage of that specialized behavior. This
+   * will change the order in the souce model.
+   *
+   * @param column column to sort
+   * @param order ascending or descending order
+   */
+  virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
+
+  /**
    * Check if the model is currently loading a directory.
    * @return true if loading is in progress.
    */

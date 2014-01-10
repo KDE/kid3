@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,6 +51,14 @@ protected:
    * @return true to include row.
    */
   virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
+
+  /**
+   * Sort comparision function.
+   * @param left index of left item in source model
+   * @param right index of right item in source model
+   * @return true if left is less than right.
+   */
+  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
 };
 
 #endif // DIRPROXYMODEL_H

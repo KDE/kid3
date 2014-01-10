@@ -320,6 +320,24 @@ void FileProxyModel::fetchMore(const QModelIndex& parent)
 }
 
 /**
+ * Sort model.
+ *
+ * This method will directly call QFileSystemModel::sort() on the
+ * sourceModel() to take advantage of that specialized behavior. This
+ * will change the order in the souce model.
+ *
+ * @param column column to sort
+ * @param order ascending or descending order
+ */
+void FileProxyModel::sort(int column, Qt::SortOrder order)
+{
+  QAbstractItemModel* srcModel;
+  if (rowCount() > 0 && (srcModel = sourceModel()) != 0) {
+    srcModel->sort(column, order);
+  }
+}
+
+/**
  * Sets the name filters to apply against the existing files.
  * @param filters list of strings containing wildcards like "*.mp3"
  */
