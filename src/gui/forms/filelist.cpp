@@ -94,7 +94,8 @@ bool FileList::readDir(const QPersistentModelIndex& dirIndex,
       selModel->clearSelection();
       if (!fileIndexes.isEmpty()) {
         foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
-          selModel->select(fileIndex, QItemSelectionModel::Select);
+          selModel->select(fileIndex,
+              QItemSelectionModel::Select | QItemSelectionModel::Rows);
           scrollTo(fileIndex);
         }
         selModel->setCurrentIndex(fileIndexes.first(),
@@ -118,7 +119,7 @@ void FileList::updateCurrentSelection()
   if (!selectionModel())
     return;
   m_currentSelection.clear();
-  foreach (const QModelIndex& index, selectionModel()->selectedIndexes()) {
+  foreach (const QModelIndex& index, selectionModel()->selectedRows()) {
     m_currentSelection.append(QPersistentModelIndex(index));
   }
 }
@@ -183,7 +184,7 @@ QStringList FileList::formatStringList(const QStringList& format)
   QStringList files;
   TaggedFile* firstSelectedFile = 0;
   QModelIndexList selItems(selectionModel()
-       ? selectionModel()->selectedIndexes() : QModelIndexList());
+       ? selectionModel()->selectedRows() : QModelIndexList());
   foreach (const QModelIndex& index, selItems) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       if (!firstSelectedFile) {

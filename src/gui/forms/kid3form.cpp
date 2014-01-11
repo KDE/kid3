@@ -904,7 +904,8 @@ void Kid3Form::selectAllInDirectory()
       }
     }
     if (QItemSelectionModel* selModel = m_fileListBox->selectionModel()) {
-      selModel->select(selection, QItemSelectionModel::Select);
+      selModel->select(selection,
+                       QItemSelectionModel::Select | QItemSelectionModel::Rows);
     }
   }
 }

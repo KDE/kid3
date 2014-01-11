@@ -966,7 +966,7 @@ void BaseMainWindowImpl::renameFile()
     return;
 
   QList<QPersistentModelIndex> selItems;
-  foreach (const QModelIndex& index, selectModel->selectedIndexes())
+  foreach (const QModelIndex& index, selectModel->selectedRows())
     selItems.append(index);
   foreach (const QPersistentModelIndex& index, selItems) {
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index);
@@ -1030,7 +1030,7 @@ void BaseMainWindowImpl::deleteFile()
 
   QStringList files;
   QList<QPersistentModelIndex> selItems;
-  foreach (const QModelIndex& index, selectModel->selectedIndexes())
+  foreach (const QModelIndex& index, selectModel->selectedRows())
     selItems.append(index);
   foreach (const QPersistentModelIndex& index, selItems) {
     files.append(model->filePath(index));

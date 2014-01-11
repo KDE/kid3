@@ -264,7 +264,8 @@ void CdCommand::onDirectoryOpened(
   QItemSelectionModel* selModel = cli()->app()->getFileSelectionModel();
   if (selModel && !fileIndexes.isEmpty()) {
     foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
-      selModel->select(fileIndex, QItemSelectionModel::Select);
+      selModel->select(fileIndex,
+                       QItemSelectionModel::Select | QItemSelectionModel::Rows);
     }
     selModel->setCurrentIndex(fileIndexes.first(),
                               QItemSelectionModel::NoUpdate);

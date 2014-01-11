@@ -1001,7 +1001,7 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
                                          QString());
   // If no directories are selected, process files of the current directory.
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedIndexes()) {
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
     if (m_fileProxyModel->isDir(index)) {
       indexes.append(index);
     }
@@ -1557,7 +1557,7 @@ void Kid3Application::setTagsToFilenameFormatWithoutSignaling(
 TaggedFile* Kid3Application::getSelectedFile()
 {
   QModelIndexList selItems(
-      m_fileSelectionModel->selectedIndexes());
+      m_fileSelectionModel->selectedRows());
   if (selItems.size() != 1)
     return 0;
 
@@ -1951,7 +1951,7 @@ bool Kid3Application::nextFile(bool select)
   if (!next.isValid())
     return false;
   m_fileSelectionModel->setCurrentIndex(next,
-    select ? QItemSelectionModel::ClearAndSelect
+    select ? QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows
            : QItemSelectionModel::Current);
   return true;
 }
@@ -1982,7 +1982,7 @@ bool Kid3Application::previousFile(bool select)
   if (!previous.isValid() || previous == getRootIndex())
     return false;
   m_fileSelectionModel->setCurrentIndex(previous,
-    select ? QItemSelectionModel::ClearAndSelect
+    select ? QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows
            : QItemSelectionModel::Current);
   return true;
 }
@@ -2001,7 +2001,8 @@ bool Kid3Application::selectCurrentFile(bool select)
     return false;
 
   m_fileSelectionModel->setCurrentIndex(currentIdx,
-    select ? QItemSelectionModel::Select : QItemSelectionModel::Deselect);
+    (select ? QItemSelectionModel::Select : QItemSelectionModel::Deselect) |
+    QItemSelectionModel::Rows);
   return true;
 }
 
@@ -2015,7 +2016,8 @@ void Kid3Application::selectAllFiles()
   while (it.hasNext()) {
     selection.append(QItemSelectionRange(it.next()));
   }
-  m_fileSelectionModel->select(selection, QItemSelectionModel::Select);
+  m_fileSelectionModel->select(selection,
+      QItemSelectionModel::Select | QItemSelectionModel::Rows);
 }
 
 /**
@@ -2081,7 +2083,7 @@ void Kid3Application::scheduleRenameActions()
   // If directories are selected, rename them, else process files of the
   // current directory.
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedIndexes()) {
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
     if (m_fileProxyModel->isDir(index)) {
       indexes.append(index);
     }
@@ -2329,7 +2331,7 @@ void Kid3Application::playAudio()
 {
   QStringList files;
   int fileNr = 0;
-  if (m_fileSelectionModel->selectedIndexes().size() > 1) {
+  if (m_fileSelectionModel->selectedRows().size() > 1) {
     // play only the selected files if more than one is selected
     SelectedTaggedFileIterator it(m_fileProxyModelRootIndex,
                                   m_fileSelectionModel,

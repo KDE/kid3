@@ -458,7 +458,7 @@ bool Kid3Cli::selectFile(const QStringList& paths)
     QModelIndex index = model->index(fileName);
     if (index.isValid()) {
       m_app->getFileSelectionModel()->setCurrentIndex(
-            index, QItemSelectionModel::Select);
+            index, QItemSelectionModel::Select | QItemSelectionModel::Rows);
     } else {
       ok = false;
     }
@@ -474,7 +474,7 @@ QList<QPersistentModelIndex> Kid3Cli::getSelection() const
 {
   QList<QPersistentModelIndex> selection;
   if (QItemSelectionModel* selModel = m_app->getFileSelectionModel()) {
-    foreach (const QModelIndex& index, selModel->selectedIndexes()) {
+    foreach (const QModelIndex& index, selModel->selectedRows()) {
       selection.append(QPersistentModelIndex(index));
     }
   }
@@ -790,7 +790,8 @@ void Kid3Cli::onInitialDirectoryOpened(
   QItemSelectionModel* selModel = m_app->getFileSelectionModel();
   if (selModel && !fileIndexes.isEmpty()) {
     foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
-      selModel->select(fileIndex, QItemSelectionModel::Select);
+      selModel->select(fileIndex,
+                       QItemSelectionModel::Select | QItemSelectionModel::Rows);
     }
     selModel->setCurrentIndex(fileIndexes.first(),
                               QItemSelectionModel::NoUpdate);
