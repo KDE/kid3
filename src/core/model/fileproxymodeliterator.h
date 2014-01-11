@@ -33,7 +33,6 @@
 #include "iabortable.h"
 #include "kid3api.h"
 
-class QTimer;
 class FileProxyModel;
 
 /**
@@ -103,19 +102,10 @@ signals:
   void nextReady(const QPersistentModelIndex& idx);
 
 private slots:
-#if QT_VERSION >= 0x040700
   /**
-   * Called when the gatherer thread has finished to load the @a path.
-   *
-   * @param path directory fetched due to fetchMore() call.
+   * Called when the gatherer thread has finished to load.
    */
-  void onDirectoryLoaded(const QString& path);
-#else
-  /**
-   * Check if the directory has been loaded.
-   */
-  void onRowsInserted();
-#endif
+  void onDirectoryLoaded();
 
   /**
    * Fetch next index.
@@ -128,7 +118,6 @@ private:
   FileProxyModel* m_model;
   QPersistentModelIndex m_nextIdx;
   bool m_aborted;
-  QTimer* m_timeoutTimer;
 };
 
 #endif // FILEPROXYMODELITERATOR_H

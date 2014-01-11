@@ -26,6 +26,7 @@
 
 #include "fileproxymodel.h"
 #include <QFileSystemModel>
+#include <QTimer>
 #include "taggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
 #include "config.h"
@@ -38,11 +39,19 @@ QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
  * @param parent parent object
  */
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
-  m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
+  m_iconProvider(new TaggedFileIconProvider), m_fsModel(0),
+  m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
+  m_isLoading(false)
 {
   setObjectName(QLatin1String("FileProxyModel"));
   connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)),
           this, SLOT(updateInsertedRows(QModelIndex,int,int)));
+  m_loadTimer->setSingleShot(true);
+  m_loadTimer->setInterval(1000);
+  connect(m_loadTimer, SIGNAL(timeout()), this, SLOT(onDirectoryLoaded()));
+  m_sortTimer->setSingleShot(true);
+  m_sortTimer->setInterval(100);
+  connect(m_sortTimer, SIGNAL(timeout()), this, SLOT(emitSortingFinished()));
 }
 
 /**
@@ -236,15 +245,78 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
  */
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
-  m_fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
-  Q_ASSERT_X(m_fsModel != 0 , "setSourceModel",
+  QFileSystemModel* fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
+  Q_ASSERT_X(fsModel != 0 , "setSourceModel",
              "sourceModel is not QFileSystemModel");
+  if (fsModel != m_fsModel) {
+    if (m_fsModel) {
+      m_isLoading = false;
+      disconnect(m_fsModel, SIGNAL(rootPathChanged(QString)),
+                 this, SLOT(onStartLoading()));
 #if QT_VERSION >= 0x040700
-  disconnect(this, SIGNAL(directoryLoaded(QString)));
-  connect(m_fsModel, SIGNAL(directoryLoaded(QString)),
-          this, SIGNAL(directoryLoaded(QString)));
+      disconnect(m_fsModel, SIGNAL(directoryLoaded(QString)),
+                 this, SLOT(onDirectoryLoaded()));
+#else
+      disconnect(m_fsModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+                 this, SLOT(onDirectoryLoaded()));
 #endif
+    }
+    m_fsModel = fsModel;
+    if (m_fsModel) {
+      connect(m_fsModel, SIGNAL(rootPathChanged(QString)),
+              this, SLOT(onStartLoading()));
+#if QT_VERSION >= 0x040700
+      connect(m_fsModel, SIGNAL(directoryLoaded(QString)),
+              this, SLOT(onDirectoryLoaded()));
+#else
+      // Qt < 4.7 does not have a directoryLoaded() signal, so
+      // rowsInserted() and a slow timeout for empty directories
+      // are used.
+      connect(m_fsModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+              this, SLOT(onDirectoryLoaded()));
+#endif
+    }
+  }
   QSortFilterProxyModel::setSourceModel(sourceModel);
+}
+
+/**
+ * Called when directoryLoaded() is emitted.
+ */
+void FileProxyModel::onDirectoryLoaded()
+{
+  m_loadTimer->stop();
+  m_sortTimer->start();
+}
+
+/**
+ * Emit sortingFinished().
+ */
+void FileProxyModel::emitSortingFinished()
+{
+  m_isLoading = false;
+  emit sortingFinished();
+}
+
+/**
+ * Called when loading the directory starts.
+ */
+void FileProxyModel::onStartLoading()
+{
+  m_isLoading = true;
+  // Last resort timeout for the case that directoryLoaded() would not be
+  // fired and for empty directories with Qt < 4.7
+  m_loadTimer->start();
+}
+
+/**
+ * Fetches any available data.
+ * @param parent parent index of items to fetch
+ */
+void FileProxyModel::fetchMore(const QModelIndex& parent)
+{
+  onStartLoading();
+  QSortFilterProxyModel::fetchMore(parent);
 }
 
 /**

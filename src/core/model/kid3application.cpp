@@ -128,7 +128,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
-  m_openDirectoryTimeoutTimer(new QTimer(this)),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
@@ -141,8 +140,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone)
 {
   setObjectName(QLatin1String("Kid3Application"));
-  m_openDirectoryTimeoutTimer->setSingleShot(true);
-  m_openDirectoryTimeoutTimer->setInterval(1000);
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
 
@@ -491,20 +488,8 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
             m_fileProxyModel->mapFromSource(fileIndex));
     }
     if (m_fileProxyModelRootIndex != oldRootIndex) {
-#if QT_VERSION >= 0x040700
-      connect(m_fileProxyModel, SIGNAL(directoryLoaded(QString)),
+      connect(m_fileProxyModel, SIGNAL(sortingFinished()),
               this, SLOT(onDirectoryLoaded()));
-#else
-      // Qt < 4.7 does not have a directoryLoaded() signal, so
-      // rowsInserted() is used.
-      connect(m_fileProxyModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-              this, SLOT(onDirectoryLoaded()));
-#endif
-      // Last resort timeout for the case that directoryLoaded() would not be
-      // fired and for empty directories with Qt < 4.7
-      connect(m_openDirectoryTimeoutTimer, SIGNAL(timeout()),
-              this, SLOT(onDirectoryLoaded()));
-      m_openDirectoryTimeoutTimer->start();
     } else {
       QTimer::singleShot(0, this, SLOT(emitDirectoryOpened()));
     }
@@ -528,18 +513,9 @@ void Kid3Application::emitDirectoryOpened()
  */
 void Kid3Application::onDirectoryLoaded()
 {
-#if QT_VERSION >= 0x040700
-  disconnect(m_fileProxyModel, SIGNAL(directoryLoaded(QString)),
+  disconnect(m_fileProxyModel, SIGNAL(sortingFinished()),
              this, SLOT(onDirectoryLoaded()));
-#else
-  disconnect(m_fileProxyModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-             this, SLOT(onDirectoryLoaded()));
-#endif
-  disconnect(m_openDirectoryTimeoutTimer, SIGNAL(timeout()),
-             this, SLOT(onDirectoryLoaded()));
-  m_openDirectoryTimeoutTimer->stop();
-  // Do not directly emit so that directory can be sorted.
-  QTimer::singleShot(100, this, SLOT(emitDirectoryOpened()));
+  emitDirectoryOpened();
 }
 
 /**

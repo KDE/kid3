@@ -54,13 +54,6 @@ public:
 FileProxyModelIterator::FileProxyModelIterator(FileProxyModel* model) :
   QObject(model), m_model(model), m_aborted(false)
 {
-#if QT_VERSION >= 0x040700
-  m_timeoutTimer = 0;
-#else
-  m_timeoutTimer = new QTimer(this);
-  m_timeoutTimer->setSingleShot(true);
-  m_timeoutTimer->setInterval(1000);
-#endif
 }
 
 /**
@@ -140,19 +133,8 @@ void FileProxyModelIterator::fetchNext()
     m_nextIdx = m_nodes.top();
     if (m_nextIdx.isValid()) {
       if (m_model->isDir(m_nextIdx) && m_model->canFetchMore(m_nextIdx)) {
-#if QT_VERSION >= 0x040700
-        connect(m_model, SIGNAL(directoryLoaded(QString)),
-                this, SLOT(onDirectoryLoaded(QString)));
-#else
-        // Qt < 4.7 does not have a directoryLoaded() signal, so
-        // rowsInserted() and a slow timeout for empty directories
-        // are used.
-        connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)),
-                this, SLOT(onRowsInserted()));
-        connect(m_timeoutTimer, SIGNAL(timeout()),
-                this, SLOT(onRowsInserted()));
-        m_timeoutTimer->start();
-#endif
+        connect(m_model, SIGNAL(sortingFinished()),
+                this, SLOT(onDirectoryLoaded()));
         m_model->fetchMore(m_nextIdx);
         return;
       }
@@ -178,34 +160,12 @@ void FileProxyModelIterator::fetchNext()
   emit nextReady(m_nextIdx);
 }
 
-#if QT_VERSION >= 0x040700
-
 /**
- * Called when the gatherer thread has finished to load the @a path.
- *
- * @param path directory fetched due to fetchMore() call.
+ * Called when the gatherer thread has finished to load.
  */
-void FileProxyModelIterator::onDirectoryLoaded(const QString& path)
+void FileProxyModelIterator::onDirectoryLoaded()
 {
-  Q_UNUSED(path)
-  disconnect(m_model, SIGNAL(directoryLoaded(QString)),
-             this, SLOT(onDirectoryLoaded(QString)));
+  disconnect(m_model, SIGNAL(sortingFinished()),
+             this, SLOT(onDirectoryLoaded()));
   fetchNext();
 }
-
-#else
-
-/**
- * Check if the directory has been loaded.
- */
-void FileProxyModelIterator::onRowsInserted()
-{
-  disconnect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)),
-             this, SLOT(onRowsInserted()));
-  disconnect(m_timeoutTimer, SIGNAL(timeout()),
-             this, SLOT(onRowsInserted()));
-  m_timeoutTimer->stop();
-  fetchNext();
-}
-
-#endif

@@ -36,6 +36,7 @@
 #include "kid3api.h"
 
 class QFileSystemModel;
+class QTimer;
 class TaggedFileIconProvider;
 class ITaggedFileFactory;
 
@@ -86,6 +87,18 @@ public:
    * @param sourceModel source model, must be QFileSystemModel
    */
   virtual void setSourceModel(QAbstractItemModel* sourceModel);
+
+  /**
+   * Fetches any available data.
+   * @param parent parent index of items to fetch
+   */
+  virtual void fetchMore(const QModelIndex& parent);
+
+  /**
+   * Check if the model is currently loading a directory.
+   * @return true if loading is in progress.
+   */
+  bool isLoading() const { return m_isLoading; }
 
   /**
    * Sets the name filters to apply against the existing files.
@@ -260,15 +273,12 @@ public:
   static TaggedFile* readWithId3V24IfId3V24(TaggedFile* taggedFile);
 
 signals:
-#if QT_VERSION >= 0x040700
   /**
-   * This signal is emitted when the gatherer thread has finished to load the
-   * @a path.
-   *
-   * @param path directory fetched due to fetchMore() call.
+   * Emitted after directory loading when sorting is probably finished.
+   * This signal is not accurate, it will be emitted 100 ms after
+   * directoryLoaded() because it is not known when sorting is really finished.
    */
-  void directoryLoaded(const QString& path);
-#endif
+  void sortingFinished();
 
 private slots:
   /**
@@ -278,6 +288,21 @@ private slots:
    * @param end ending row
    */
   void updateInsertedRows(const QModelIndex& parent, int start, int end);
+
+  /**
+   * Called when the source model emits directoryLoaded().
+   */
+  void onDirectoryLoaded();
+
+  /**
+   * Emit sortingFinished().
+   */
+  void emitSortingFinished();
+
+  /**
+   * Called when loading the directory starts.
+   */
+  void onStartLoading();
 
 protected:
   /**
@@ -322,7 +347,10 @@ private:
   QSet<QPersistentModelIndex> m_filteredOut;
   TaggedFileIconProvider* m_iconProvider;
   QFileSystemModel* m_fsModel;
+  QTimer* m_loadTimer;
+  QTimer* m_sortTimer;
   QStringList m_extensions;
+  bool m_isLoading;
 
   static QList<ITaggedFileFactory*> s_taggedFileFactories;
 };

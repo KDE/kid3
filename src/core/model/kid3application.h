@@ -39,7 +39,6 @@ class QFileSystemModel;
 class QItemSelectionModel;
 class QModelIndex;
 class QNetworkAccessManager;
-class QTimer;
 class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
@@ -1086,8 +1085,6 @@ private:
   DirRenamer* m_dirRenamer;
   /** Batch importer */
   BatchImporter* m_batchImporter;
-  /** Timeout timer for openDirectory() */
-  QTimer* m_openDirectoryTimeoutTimer;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Audio player */
   AudioPlayer* m_player;
