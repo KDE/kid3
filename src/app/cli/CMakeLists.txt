@@ -42,7 +42,7 @@ set(cli_SRCS
   abstractcli.cpp
   kid3cli.cpp
   clicommand.cpp
-  standardinputreader.cpp
+  standardiohandler.cpp
 )
 if (HAVE_READLINE)
   set(cli_SRCS ${cli_SRCS} readlinecompleter.cpp)
@@ -52,7 +52,7 @@ set(cli_MOC_HDRS
   abstractcli.h
   kid3cli.h
   clicommand.h
-  standardinputreader.h
+  standardiohandler.h
 )
 qt4_wrap_cpp(cli_GEN_MOC_SRCS ${cli_MOC_HDRS})
 set(cli_SRCS ${cli_SRCS} ${cli_GEN_MOC_SRCS})

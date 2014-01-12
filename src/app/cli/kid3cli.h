@@ -50,9 +50,10 @@ class Kid3Cli : public AbstractCli {
 public:
   /**
    * Constructor.
+   * @param io I/O handler
    * @param parent parent object
    */
-  explicit Kid3Cli(QObject* parent = 0);
+  explicit Kid3Cli(AbstractCliIO* io, QObject* parent = 0);
 
   /**
    * Destructor.

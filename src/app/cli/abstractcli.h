@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,11 +28,63 @@
 #define ABSTRACTCLI_H
 
 #include <QObject>
-#ifndef Q_OS_WIN32
-#include <QTextStream>
-#endif
 
-class StandardInputReader;
+/**
+ * Abstract base class for command line I/O handler.
+ */
+class AbstractCliIO : public QObject {
+  Q_OBJECT
+public:
+  /**
+   * Destructor.
+   */
+  virtual ~AbstractCliIO() = 0;
+
+  /**
+   * Write a line to standard output.
+   * @param line line to write
+   */
+  virtual void writeLine(const QString& line) = 0;
+
+  /**
+   * Write a line to standard error.
+   * @param line line to write
+   */
+  virtual void writeErrorLine(const QString& line) = 0;
+
+  /**
+   * Flush the standard output.
+   */
+  virtual void flushStandardOutput() = 0;
+
+  /**
+   * Read the next line.
+   * When the line is ready, lineReady() is emitted.
+   */
+  virtual void readLine() = 0;
+
+public slots:
+  /**
+   * Start processing.
+   * lineReady() is emitted when the first line is ready. To request
+   * subsequent lines, readLine() has to be called.
+   */
+  virtual void start() = 0;
+
+  /**
+   * Stop processing.
+   * Implementations must finally call deleteLater() to delete this object.
+   */
+  virtual void stop() = 0;
+
+signals:
+  /**
+   * Emitted when a line from standard input is ready.
+   * @param line line read from standard input
+   */
+  void lineReady(const QString& line);
+};
+
 
 /**
  * Abstract base class for command line interface.
@@ -42,10 +94,10 @@ class AbstractCli : public QObject {
 public:
   /**
    * Constructor.
-   * @param prompt command line prompt
+   * @param io I/O handler
    * @param parent parent object
    */
-  explicit AbstractCli(const char* prompt = "", QObject* parent = 0);
+  explicit AbstractCli(AbstractCliIO* io, QObject* parent = 0);
 
   /**
    * Destructor.
@@ -93,17 +145,6 @@ public slots:
    */
   virtual void terminate();
 
-signals:
-  /**
-   * Emitted when the next line shall be read.
-   */
-  void requestNextLine();
-
-  /**
-   * Emitted to request termination.
-   */
-  void requestTermination();
-
 protected slots:
   /**
    * Process command line.
@@ -119,11 +160,7 @@ private slots:
   void quitApplicationWithReturnCode();
 
 private:
-#ifndef Q_OS_WIN32
-  QTextStream m_cout;
-  QTextStream m_cerr;
-#endif
-  StandardInputReader* m_stdinReader;
+  AbstractCliIO* m_io;
   int m_returnCode;
 };
 

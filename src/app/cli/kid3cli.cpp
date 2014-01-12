@@ -239,9 +239,11 @@ QStringList splitArgs(const QString& str)
 
 /**
  * Constructor.
+ * @param io I/O handler
  * @param parent parent object
  */
-Kid3Cli::Kid3Cli(QObject* parent) : AbstractCli("kid3-cli> ", parent),
+Kid3Cli::Kid3Cli(AbstractCliIO* io, QObject* parent) :
+  AbstractCli(io, parent),
   m_platformtools(new CorePlatformTools),
   m_app(new Kid3Application(m_platformtools, this)),
   m_tagMask(TrackData::TagV2V1), m_fileNameChanged(false)

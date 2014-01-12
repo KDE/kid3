@@ -30,6 +30,7 @@
 #include <QTimer>
 #include "kid3cli.h"
 #include "loadtranslation.h"
+#include "standardiohandler.h"
 
 /**
  * Main program for command line interface.
@@ -53,7 +54,7 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
- Kid3Cli kid3cli;
+ Kid3Cli kid3cli(new StandardIOHandler("kid3-cli> "));
  QTimer::singleShot(0, &kid3cli, SLOT(execute()));
  return app.exec();
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,22 +27,23 @@
 #include "abstractcli.h"
 #include <QTimer>
 #include <QCoreApplication>
-#include <QThread>
-#ifdef Q_OS_WIN32
-#include <windows.h>
-#endif
-#include "standardinputreader.h"
+#include "standardiohandler.h"
+
+/**
+ * Destructor.
+ */
+AbstractCliIO::~AbstractCliIO()
+{
+}
+
 
 /**
  * Constructor.
- * @param prompt command line prompt
+ * @param io I/O handler
  * @param parent parent object
  */
-AbstractCli::AbstractCli(const char* prompt, QObject* parent) : QObject(parent),
-#ifndef Q_OS_WIN32
-  m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly),
-#endif
-  m_stdinReader(new StandardInputReader(prompt)), m_returnCode(0)
+AbstractCli::AbstractCli(AbstractCliIO* io, QObject* parent) : QObject(parent),
+  m_io(io), m_returnCode(0)
 {
 }
 
@@ -60,7 +61,7 @@ AbstractCli::~AbstractCli()
  */
 void AbstractCli::promptNextLine()
 {
-  emit requestNextLine();
+  m_io->readLine();
 }
 
 /**
@@ -85,23 +86,9 @@ void AbstractCli::quitApplicationWithReturnCode()
  */
 void AbstractCli::execute()
 {
-  QThread* conInThread = new QThread;
-  conInThread->setObjectName(QLatin1String("conInThread"));
-
-  connect(conInThread, SIGNAL(started()), m_stdinReader, SLOT(readLine()));
-  connect(conInThread, SIGNAL(finished()), m_stdinReader, SLOT(deleteLater()));
-  connect(m_stdinReader, SIGNAL(lineReady(QString)),
+  connect(m_io, SIGNAL(lineReady(QString)),
           this, SLOT(readLine(QString)), Qt::QueuedConnection);
-  connect(this, SIGNAL(requestNextLine()),
-          m_stdinReader, SLOT(readLine()), Qt::QueuedConnection);
-  connect(this, SIGNAL(requestTermination()), conInThread, SLOT(quit()));
-  connect(conInThread, SIGNAL(finished()), conInThread, SLOT(deleteLater()));
-#if QT_VERSION < 0x050000
-  connect(conInThread, SIGNAL(terminated()), conInThread, SLOT(deleteLater()));
-#endif
-  m_stdinReader->moveToThread(conInThread);
-
-  conInThread->start();
+  m_io->start();
 }
 
 /**
@@ -110,7 +97,7 @@ void AbstractCli::execute()
 void AbstractCli::terminate()
 {
   flushStandardOutput();
-  emit requestTermination();
+  m_io->stop();
   if (m_returnCode == 0) {
     QTimer::singleShot(0, qApp, SLOT(quit()));
   } else {
@@ -124,15 +111,7 @@ void AbstractCli::terminate()
  */
 void AbstractCli::writeLine(const QString& line)
 {
-#ifdef Q_OS_WIN32
-  QString str = line + QLatin1Char('\n');
-  WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE),
-      str.utf16(), str.size(), 0, 0);
-#else
-  m_cout << line;
-  m_cout << QLatin1Char('\n');
-  m_cout.flush();
-#endif
+  m_io->writeLine(line);
 }
 
 /**
@@ -141,15 +120,7 @@ void AbstractCli::writeLine(const QString& line)
  */
 void AbstractCli::writeErrorLine(const QString& line)
 {
-#ifdef Q_OS_WIN32
-  QString str = line + QLatin1Char('\n');
-  WriteConsoleW(GetStdHandle(STD_ERROR_HANDLE),
-      str.utf16(), str.size(), 0, 0);
-#else
-  m_cerr << line;
-  m_cerr << QLatin1Char('\n');
-  m_cerr.flush();
-#endif
+  m_io->writeErrorLine(line);
 }
 
 /**
@@ -157,7 +128,5 @@ void AbstractCli::writeErrorLine(const QString& line)
  */
 void AbstractCli::flushStandardOutput()
 {
-#ifndef Q_OS_WIN32
-  m_cout.flush();
-#endif
+  m_io->flushStandardOutput();
 }
