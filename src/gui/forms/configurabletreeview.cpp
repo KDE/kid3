@@ -38,7 +38,11 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
 {
   QHeaderView* headerView = header();
   setSortingEnabled(true);
+#if QT_VERSION >= 0x050000
+  headerView->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
   headerView->setResizeMode(QHeaderView::ResizeToContents);
+#endif
   headerView->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(header(), SIGNAL(customContextMenuRequested(QPoint)),
           this, SLOT(showHeaderContextMenu(QPoint)));
