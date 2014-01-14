@@ -257,7 +257,12 @@ void ImportConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("ImportFormatIdx"), QVariant(m_importFormatIdx));
   config->setValue(QLatin1String("EnableTimeDifferenceCheck"), QVariant(m_enableTimeDifferenceCheck));
   config->setValue(QLatin1String("MaxTimeDifference"), QVariant(m_maxTimeDifference));
+#ifdef Q_OS_MAC
+  // Convince Mac OS X to store a 64-bit value.
+  config->setValue(QLatin1String("ImportVisibleColumns"), QVariant(m_importVisibleColumns | (Q_UINT64_C(1) << 63)));
+#else
   config->setValue(QLatin1String("ImportVisibleColumns"), QVariant(m_importVisibleColumns));
+#endif
   config->setValue(QLatin1String("ImportWindowGeometry"), QVariant(m_importWindowGeometry));
 
   config->setValue(QLatin1String("ImportTagsNames"), QVariant(m_importTagsNames));
@@ -299,6 +304,9 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_enableTimeDifferenceCheck = config->value(QLatin1String("EnableTimeDifferenceCheck"), m_enableTimeDifferenceCheck).toBool();
   m_maxTimeDifference = config->value(QLatin1String("MaxTimeDifference"), m_maxTimeDifference).toInt();
   m_importVisibleColumns = config->value(QLatin1String("ImportVisibleColumns"), m_importVisibleColumns).toULongLong();
+#ifdef Q_OS_MAC
+  m_importVisibleColumns &= ~(Q_UINT64_C(1) << 63);
+#endif
   m_importWindowGeometry = config->value(QLatin1String("ImportWindowGeometry"), m_importWindowGeometry).toByteArray();
 
   tagsNames = config->value(QLatin1String("ImportTagsNames"), m_importTagsNames).toStringList();

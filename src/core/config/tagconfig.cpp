@@ -87,7 +87,12 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("ID3v2Version"), QVariant(m_id3v2Version));
   config->setValue(QLatin1String("TextEncodingV1"), QVariant(m_textEncodingV1));
   config->setValue(QLatin1String("TextEncoding"), QVariant(m_textEncoding));
+#ifdef Q_OS_MAC
+  // Convince Mac OS X to store a 64-bit value.
+  config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames | (Q_UINT64_C(1) << 63)));
+#else
   config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames));
+#endif
   config->setValue(QLatin1String("TrackNumberDigits"), QVariant(m_trackNumberDigits));
   config->setValue(QLatin1String("OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
   config->setValue(QLatin1String("PluginOrder"), QVariant(m_pluginOrder));
@@ -115,6 +120,9 @@ void TagConfig::readFromConfig(ISettings* config)
   m_textEncoding = config->value(QLatin1String("TextEncoding"), TE_ISO8859_1).toInt();
   m_quickAccessFrames = config->value(QLatin1String("QuickAccessFrames"),
                                      FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toULongLong();
+#ifdef Q_OS_MAC
+  m_quickAccessFrames &= ~(Q_UINT64_C(1) << 63);
+#endif
   m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
   m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
   m_pluginOrder = config->value(QLatin1String("PluginOrder"),
