@@ -114,7 +114,7 @@ void TagConfig::readFromConfig(ISettings* config)
   m_textEncodingV1 = config->value(QLatin1String("TextEncodingV1"), QLatin1String("ISO-8859-1")).toString();
   m_textEncoding = config->value(QLatin1String("TextEncoding"), TE_ISO8859_1).toInt();
   m_quickAccessFrames = config->value(QLatin1String("QuickAccessFrames"),
-                                     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toUInt();
+                                     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toULongLong();
   m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
   m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
   m_pluginOrder = config->value(QLatin1String("PluginOrder"),
