@@ -75,7 +75,8 @@ CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake
 CONFIGURE_OPTIONS="--host=i586-mingw32msvc"
 fi
 
-if test $kernel = "Darwin" && test $(uname -m) = "x86_64"; then
+if test $kernel = "Darwin"; then
+ARCH=$(uname -m)
 #ARCH=i386
 if test "$ARCH" = "i386"; then
   # To build a 32-bit Mac OS X version of Kid3 use:
@@ -83,6 +84,8 @@ if test "$ARCH" = "i386"; then
   # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
   # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
   ARCH_FLAG="-arch i386"
+  export CC=gcc
+  export CXX=g++
 else
   ARCH_FLAG="-Xarch_x86_64"
 fi
@@ -160,8 +163,8 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.9-1.deb
 else
 test -f libav_9.10.orig.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10.orig.tar.xz
-test -f libav_9.10-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10-1.debian.tar.gz
+test -f libav_9.10-2.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10-2.debian.tar.gz
 fi
 
 test -f chromaprint_1.1.orig.tar.gz ||
@@ -451,9 +454,6 @@ for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
 patch -p1 <../source/fink_flac.patch
-if test "$ARCH" != "i386"; then
-patch -p0 <patches/ltmain.sh.patch
-fi
 patch -p0 <patches/nasm.h.patch
 fi
 cd ..
@@ -505,7 +505,7 @@ else
 if ! test -d libav-9.10; then
 unxz -c source/libav_9.10.orig.tar.xz | tar x
 cd libav-9.10/
-tar xzf ../source/libav_9.10-1.debian.tar.gz
+tar xzf ../source/libav_9.10-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -718,6 +718,7 @@ fi
 	--disable-muxers \
 	--disable-demuxers \
 	--disable-sse \
+	--disable-doc \
 	--enable-rdft \
 	--enable-demuxer=aac \
 	--enable-demuxer=ac3 \
@@ -815,6 +816,7 @@ fi
 	--disable-muxers \
 	--disable-demuxers \
 	--disable-sse \
+	--disable-doc \
 	--enable-rdft \
 	--enable-demuxer=aac \
 	--enable-demuxer=ac3 \
