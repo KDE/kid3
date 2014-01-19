@@ -27,7 +27,6 @@
 #include "abstractcli.h"
 #include <QTimer>
 #include <QCoreApplication>
-#include "standardiohandler.h"
 
 /**
  * Destructor.
