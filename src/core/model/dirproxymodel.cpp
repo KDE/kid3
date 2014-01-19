@@ -89,7 +89,7 @@ bool DirProxyModel::lessThan(const QModelIndex& left,
   QFileSystemModel* fsModel = static_cast<QFileSystemModel*>(sourceModel());
   switch (sortColumn()) {
   case 0:
-    return left.data().toString().compare(right.data().toString());
+    return left.data().toString().compare(right.data().toString()) < 0;
   case 1:
     return fsModel->size(left) < fsModel->size(right);
   case 2:
