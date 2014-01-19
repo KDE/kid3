@@ -159,6 +159,7 @@ void Kid3MainWindow::initActions()
   fileRevert->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
   fileRevert->setText(tr("Re&vert"));
+  fileRevert->setShortcut(QKeySequence::Undo);
   fileRevert->setIcon(QCM_QIcon_fromTheme("document-revert"));
   fileRevert->setObjectName(QLatin1String("file_revert"));
   m_shortcutsModel->registerAction(fileRevert, menuTitle);

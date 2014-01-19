@@ -107,6 +107,7 @@ void KdeMainWindow::initActions()
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   fileRevert->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
+  fileRevert->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::Undo));
   fileSave->setStatusTip(tr("Saves the changed files"));
   fileQuit->setStatusTip(tr("Quits the application"));
   editSelectAll->setStatusTip(tr("Select all files"));
