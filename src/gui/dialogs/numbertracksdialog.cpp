@@ -93,6 +93,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 
   QHBoxLayout* hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
@@ -106,10 +107,13 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   hlayout->addItem(hspacer);
 
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  okButton->setAutoDefault(false);
+  okButton->setDefault(true);
   hlayout->addWidget(okButton);
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  cancelButton->setAutoDefault(false);
   hlayout->addWidget(cancelButton);
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 

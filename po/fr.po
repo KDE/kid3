@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-09-11 21:22+0200\n"
+"POT-Creation-Date: 2014-01-20 21:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -1248,17 +1248,17 @@ msgstr "Trivia/pop up"
 msgid "Export"
 msgstr "Exporter"
 
-msgid "Format:"
-msgstr "Format:"
+msgid "&Format:"
+msgstr "&Format:"
 
-msgid "Header:"
-msgstr "En-tête:"
+msgid "H&eader:"
+msgstr "&En-tête:"
 
-msgid "Tracks:"
-msgstr "Morceaux"
+msgid "&Tracks:"
+msgstr "&Morceaux:"
 
-msgid "Footer:"
-msgstr "Bas de page:"
+msgid "F&ooter:"
+msgstr "&Bas de page:"
 
 msgid "To F&ile"
 msgstr "Dans un f&ichier"
@@ -1329,9 +1329,6 @@ msgstr "Nom de la liste de lecture"
 msgid "Same as &directory name"
 msgstr "I&dentique au nom du répertoire"
 
-msgid "&Format:"
-msgstr "&Format:"
-
 msgid "Cr&eate in:"
 msgstr "Cré&er dans:"
 
@@ -1377,6 +1374,9 @@ msgstr "Aperçu"
 msgid "Create Directory"
 msgstr "Créer répertoire"
 
+msgid "&Action:"
+msgstr "A&ction:"
+
 msgid "From Tag 2 and Tag 1"
 msgstr "Depuis balise 2 et balise 1"
 
@@ -1407,11 +1407,20 @@ msgstr "Pas de résultat sélectionné"
 msgid "Import from Tags"
 msgstr "Importer depuis balises"
 
+msgid "Format:"
+msgstr "Format:"
+
 msgid "Extraction:"
 msgstr "Extraction:"
 
 msgid "Import from File/Clipboard"
 msgstr "Importer depuis fichier/presse-papier"
+
+msgid "Header:"
+msgstr "En-tête:"
+
+msgid "Tracks:"
+msgstr "Morceaux"
 
 msgid "From F&ile"
 msgstr "Depuis f&ichier"

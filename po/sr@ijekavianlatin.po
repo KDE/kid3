@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-09-11 21:22+0200\n"
+"POT-Creation-Date: 2014-01-20 21:19+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1246,17 +1246,17 @@ msgstr ""
 msgid "Export"
 msgstr "Izvezi"
 
-msgid "Format:"
-msgstr "Format:"
+msgid "&Format:"
+msgstr "&Format:"
 
-msgid "Header:"
-msgstr "Zaglavlje:"
+msgid "H&eader:"
+msgstr "Za&glavlje:"
 
-msgid "Tracks:"
-msgstr "Numere:"
+msgid "&Tracks:"
+msgstr "N&umere:"
 
-msgid "Footer:"
-msgstr "Podnožje:"
+msgid "F&ooter:"
+msgstr "&Podnožje:"
 
 msgid "To F&ile"
 msgstr "U f&ajl"
@@ -1327,9 +1327,6 @@ msgstr "Ime fajla liste numera"
 msgid "Same as &directory name"
 msgstr "Isto kao ime &direktorijuma"
 
-msgid "&Format:"
-msgstr "&Format:"
-
 msgid "Cr&eate in:"
 msgstr "N&apravi u:"
 
@@ -1375,6 +1372,9 @@ msgstr "Pregled"
 msgid "Create Directory"
 msgstr "Napravi direktorijum"
 
+msgid "&Action:"
+msgstr "&Radnja:"
+
 msgid "From Tag 2 and Tag 1"
 msgstr "Iz oznake 2 i oznake 1"
 
@@ -1405,11 +1405,20 @@ msgstr "Ništa nije izabrano"
 msgid "Import from Tags"
 msgstr "Uvezi iz oznaka"
 
+msgid "Format:"
+msgstr "Format:"
+
 msgid "Extraction:"
 msgstr "Izvlačenje:"
 
 msgid "Import from File/Clipboard"
 msgstr "Uvezi iz fajla/klipborda"
+
+msgid "Header:"
+msgstr "Zaglavlje:"
+
+msgid "Tracks:"
+msgstr "Numere:"
 
 msgid "From F&ile"
 msgstr "Iz &fajla"

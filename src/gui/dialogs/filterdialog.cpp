@@ -82,6 +82,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   setAbortButton(false);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_applyButton->setAutoDefault(false);
+  m_applyButton->setDefault(true);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_applyButton);
   hlayout->addWidget(closeButton);

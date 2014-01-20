@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-09-11 21:22+0200\n"
+"POT-Creation-Date: 2014-01-20 21:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1247,17 +1247,17 @@ msgstr "Trivia/pop up"
 msgid "Export"
 msgstr "Dışa Aktar"
 
-msgid "Format:"
-msgstr "Biçim:"
+msgid "&Format:"
+msgstr "&Biçim:"
 
-msgid "Header:"
-msgstr "Üst Bilgi:"
+msgid "H&eader:"
+msgstr "&Üst Bilgi:"
 
-msgid "Tracks:"
-msgstr "Parçalar:"
+msgid "&Tracks:"
+msgstr "Pa&rçalar:"
 
-msgid "Footer:"
-msgstr "Altlık:"
+msgid "F&ooter:"
+msgstr "Al&tlık:"
 
 msgid "To F&ile"
 msgstr "&Dosyaya"
@@ -1328,9 +1328,6 @@ msgstr ""
 msgid "Same as &directory name"
 msgstr ""
 
-msgid "&Format:"
-msgstr "&Biçim:"
-
 msgid "Cr&eate in:"
 msgstr "&Oluşturulacak:"
 
@@ -1376,6 +1373,9 @@ msgstr "Önizleme"
 msgid "Create Directory"
 msgstr "Dizin Yarat"
 
+msgid "&Action:"
+msgstr "&Eylem:"
+
 msgid "From Tag 2 and Tag 1"
 msgstr "Tag 2 ve Tag 1'den"
 
@@ -1406,11 +1406,20 @@ msgstr "Hiç sonuç seçilmedi"
 msgid "Import from Tags"
 msgstr "Tag'den Al"
 
+msgid "Format:"
+msgstr "Biçim:"
+
 msgid "Extraction:"
 msgstr "Çıkarma:"
 
 msgid "Import from File/Clipboard"
 msgstr "Dosya veya Pano'dan Al"
+
+msgid "Header:"
+msgstr "Üst Bilgi:"
+
+msgid "Tracks:"
+msgstr "Parçalar:"
 
 msgid "From F&ile"
 msgstr "&Dosyadan"

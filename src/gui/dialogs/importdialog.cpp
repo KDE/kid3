@@ -186,6 +186,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   revertButton->setIcon(
         m_platformTools->iconFromTheme(QLatin1String("document-revert")));
   revertButton->setToolTip(tr("Revert"));
+  revertButton->setShortcut(QKeySequence::Undo);
   connect(revertButton, SIGNAL(clicked()),
           this, SLOT(changeTagDestination()));
   butlayout->addWidget(revertButton);

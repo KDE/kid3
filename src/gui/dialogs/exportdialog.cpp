@@ -78,10 +78,10 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   QString formatToolTip = ImportTrackData::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("Format:")
-                      << tr("Header:")
-                      << tr("Tracks:")
-                      << tr("Footer:"),
+        QStringList() << tr("&Format:")
+                      << tr("H&eader:")
+                      << tr("&Tracks:")
+                      << tr("F&ooter:"),
         QStringList() << QString()
                       << formatToolTip
                       << formatToolTip

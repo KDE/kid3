@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-09-11 21:22+0200\n"
+"POT-Creation-Date: 2014-01-20 21:19+0100\n"
 "PO-Revision-Date: 2013-03-14 23:39+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1247,17 +1247,17 @@ msgstr "Nippelitietoa"
 msgid "Export"
 msgstr "Vie"
 
-msgid "Format:"
-msgstr "Muoto:"
+msgid "&Format:"
+msgstr "&Muoto:"
 
-msgid "Header:"
-msgstr "Ylätunniste"
+msgid "H&eader:"
+msgstr "&Ylätunniste:"
 
-msgid "Tracks:"
-msgstr "Kappale:"
+msgid "&Tracks:"
+msgstr "&Kappale:"
 
-msgid "Footer:"
-msgstr "Alatunniste:"
+msgid "F&ooter:"
+msgstr "&Alatunniste:"
 
 msgid "To F&ile"
 msgstr "T&iedostoon"
@@ -1328,9 +1328,6 @@ msgstr "Soittolistatiedoston nimi"
 msgid "Same as &directory name"
 msgstr "Käytä &kansion nimeä"
 
-msgid "&Format:"
-msgstr "&Muoto:"
-
 msgid "Cr&eate in:"
 msgstr "&Luo kansioon:"
 
@@ -1376,6 +1373,9 @@ msgstr "Esikatselu"
 msgid "Create Directory"
 msgstr "Luo kansio"
 
+msgid "&Action:"
+msgstr "T&oiminto:"
+
 msgid "From Tag 2 and Tag 1"
 msgstr "2- ja 1-tageista"
 
@@ -1406,11 +1406,20 @@ msgstr "Ei valittuja tuloksia"
 msgid "Import from Tags"
 msgstr "Tuo tagista"
 
+msgid "Format:"
+msgstr "Muoto:"
+
 msgid "Extraction:"
 msgstr "Uuttaminen:"
 
 msgid "Import from File/Clipboard"
 msgstr "Tuo tiedostosta/leikepöydältä"
+
+msgid "Header:"
+msgstr "Ylätunniste"
+
+msgid "Tracks:"
+msgstr "Kappale:"
 
 msgid "From F&ile"
 msgstr "&Tiedostosta"

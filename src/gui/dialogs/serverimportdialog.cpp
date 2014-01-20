@@ -59,6 +59,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_artistLineEdit = new QComboBox(this);
   m_albumLineEdit = new QComboBox(this);
   m_findButton = new QPushButton(tr("&Find"), this);
+  m_findButton->setAutoDefault(false);
   m_artistLineEdit->setEditable(true);
   m_artistLineEdit->setAutoCompletion(true);
   m_artistLineEdit->setDuplicatesEnabled(false);
@@ -67,7 +68,6 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_albumLineEdit->setDuplicatesEnabled(false);
   m_artistLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   m_albumLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-  m_findButton->setDefault(true);
   findLayout->addWidget(m_artistLineEdit);
   findLayout->addWidget(m_albumLineEdit);
   findLayout->addWidget(m_findButton);
@@ -105,8 +105,11 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
   m_helpButton = new QPushButton(tr("&Help"), this);
+  m_helpButton->setAutoDefault(false);
   m_saveButton = new QPushButton(tr("&Save Settings"), this);
+  m_saveButton->setAutoDefault(false);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  closeButton->setAutoDefault(false);
   buttonLayout->addWidget(m_helpButton);
   connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
   buttonLayout->addWidget(m_saveButton);
@@ -446,6 +449,14 @@ void ServerImportDialog::slotFindFinished(const QByteArray& searchStr)
   if (m_source)
     m_source->parseFindResults(searchStr);
   m_albumListBox->setFocus();
+  if (QItemSelectionModel* selModel = m_albumListBox->selectionModel()) {
+    if (QAbstractItemModel* model = m_albumListBox->model()) {
+      if (model->rowCount() > 0) {
+        selModel->select(model->index(0, 0),
+            QItemSelectionModel::Select | QItemSelectionModel::Rows);
+      }
+    }
+  }
 }
 
 /**

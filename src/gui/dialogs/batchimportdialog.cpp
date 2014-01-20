@@ -240,6 +240,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   setAbortButton(false);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_startAbortButton->setAutoDefault(false);
+  m_startAbortButton->setDefault(true);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_startAbortButton);
   hlayout->addWidget(closeButton);

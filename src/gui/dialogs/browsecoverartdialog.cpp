@@ -140,6 +140,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   QPushButton* browseButton = new QPushButton(tr("&Browse"), this);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   browseButton->setAutoDefault(false);
+  browseButton->setDefault(true);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(browseButton);
   hlayout->addWidget(cancelButton);
