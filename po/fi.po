@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 09:44+0100\n"
+"POT-Creation-Date: 2014-01-25 10:44+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -703,6 +703,18 @@ msgstr "Looginen TAI"
 
 msgid "Logical negation"
 msgstr "Looginen kielto"
+
+msgid "Size"
+msgstr "Koko"
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "Kind"
+msgstr "Tyyppi"
+
+msgid "Date Modified"
+msgstr "Muokattu"
 
 msgid "Data"
 msgstr "Data"

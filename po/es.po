@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-20 21:19+0100\n"
+"POT-Creation-Date: 2014-01-25 10:44+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -704,6 +704,18 @@ msgstr "La función lógica OR"
 
 msgid "Logical negation"
 msgstr "La función lógica NOT"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Kind"
+msgstr "Clase"
+
+msgid "Date Modified"
+msgstr "Última modificación"
 
 msgid "Data"
 msgstr "Datos"

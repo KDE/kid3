@@ -31,6 +31,18 @@
 #include "itaggedfilefactory.h"
 #include "config.h"
 
+/** Only defined for generation of translation files */
+#define NAME_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Name")
+/** Only defined for generation of translation files */
+#define SIZE_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Size")
+/** Only defined for generation of translation files */
+#define TYPE_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Type")
+/** Only defined for generation of translation files */
+#define KIND_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Kind")
+/** Only defined for generation of translation files */
+#define DATE_MODIFIED_FOR_PO \
+  QT_TRANSLATE_NOOP("QFileSystemModel", "Date Modified")
+
 QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
 
 /**

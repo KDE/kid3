@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-20 21:19+0100\n"
+"POT-Creation-Date: 2014-01-25 10:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -698,6 +698,18 @@ msgid "Logical OR"
 msgstr ""
 
 msgid "Logical negation"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Kind"
+msgstr ""
+
+msgid "Date Modified"
 msgstr ""
 
 msgid "Data"

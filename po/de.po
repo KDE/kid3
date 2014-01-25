@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-20 21:19+0100\n"
+"POT-Creation-Date: 2014-01-25 10:44+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -704,6 +704,18 @@ msgstr "Logisches ODER"
 
 msgid "Logical negation"
 msgstr "Logische Verneinung"
+
+msgid "Size"
+msgstr "Größe"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Kind"
+msgstr "Art"
+
+msgid "Date Modified"
+msgstr "Änderungsdatum"
 
 msgid "Data"
 msgstr "Daten"

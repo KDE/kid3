@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-20 21:19+0100\n"
+"POT-Creation-Date: 2014-01-25 10:44+0100\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -703,6 +703,18 @@ msgstr "Booleaanse OF"
 
 msgid "Logical negation"
 msgstr "Booleaanse NEE"
+
+msgid "Size"
+msgstr "Grootte"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Kind"
+msgstr "Type"
+
+msgid "Date Modified"
+msgstr "Laatst gewijzigd"
 
 msgid "Data"
 msgstr "Gegevens"
