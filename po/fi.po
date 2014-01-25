@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-20 21:19+0100\n"
-"PO-Revision-Date: 2013-03-14 23:39+0200\n"
-"Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
+"POT-Creation-Date: 2014-01-25 09:44+0100\n"
+"PO-Revision-Date: 2014-01-25 00:31+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid "The current directory has been modified."
 msgstr "Nykyistä kansiota on muokattu."
 
 msgid "Type 'exit force' to quit."
-msgstr "Kirjoita 'exit force' poistuaksesi."
+msgstr "Poistu kirjoittamalla ”exit force”."
 
 msgid "Change directory"
 msgstr "Vaihda hakemistoa"
@@ -70,13 +70,13 @@ msgid "Select tag"
 msgstr "Valitse luokitus"
 
 msgid "Get tag frame"
-msgstr ""
+msgstr "Nouda tunnisteen kehys"
 
 msgid "Set tag frame"
-msgstr ""
+msgstr "Aseta tunnisteen kehys"
 
 msgid "Could not set \"%1\" for %2"
-msgstr "Ei voitu asettaa \"%1\" %2"
+msgstr "Ei voitu asettaa ”%1” kohteelle %2"
 
 msgid "Revert"
 msgstr "Kumoa"
@@ -169,13 +169,13 @@ msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
 
 msgid "Filename from tag"
-msgstr "Tiedostonimi tagista"
+msgstr "Tiedostonimi tunnisteesta"
 
 msgid "Tag from filename"
-msgstr "Tagi tiedostonimestä"
+msgstr "Tunniste tiedostonimestä"
 
 msgid "Tag to other tag"
-msgstr ""
+msgstr "Tunniste toiseen tunnisteeseen"
 
 msgid "Copy"
 msgstr "Kopioi"
@@ -205,7 +205,7 @@ msgid "Frame name"
 msgstr "Tiedostonimestä"
 
 msgid "Frame value"
-msgstr ""
+msgstr "Kehyksen arvo"
 
 msgid "Format"
 msgstr "Muoto"
@@ -223,19 +223,19 @@ msgid "Name"
 msgstr "Nimi"
 
 msgid "Tag 2"
-msgstr "2-tagi"
+msgstr "2-tunniste"
 
 msgid "Tag 1"
-msgstr "1-tagi"
+msgstr "1-tunniste"
 
 msgid "Tags"
-msgstr "Tagit"
+msgstr "Tunnisteet"
 
 msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Tuntematon komento '%1'. Kirjoita 'help' saadaksesi apua."
+msgstr "Tuntematon komento ”%1”. Saat ohjeen kirjoittamalla ”help”."
 
 msgid "Unknown command '%1', -h for help."
-msgstr "Tuntematon komento '%1', -h näyttää ohjeen."
+msgstr "Tuntematon komento ”%1”, -h näyttää ohjeen."
 
 msgid "Files"
 msgstr "Tiedostot"
@@ -304,10 +304,10 @@ msgid "Apply &Filename Format"
 msgstr "Ota tiedosto&nimimuutokset käyttöön"
 
 msgid "Apply &Tag Format"
-msgstr "Ota ta&gimuutokset käyttöön"
+msgstr "Ota t&unnistemuutokset käyttöön"
 
 msgid "Apply Text &Encoding"
-msgstr "Ota m&erkistökoodaus"
+msgstr "Ota m&erkistökoodaus käyttöön"
 
 msgid "&Rename Directory..."
 msgstr "Muuta &kansion nimeä..."
@@ -346,10 +346,10 @@ msgid "From Filename"
 msgstr "Tiedostonimestä"
 
 msgid "From Tag 2"
-msgstr "2-tagista"
+msgstr "2-tunnisteesta"
 
 msgid "From Tag 1"
-msgstr "1-tagista"
+msgstr "1-tunnisteesta"
 
 msgid "Frames:"
 msgstr "Kehykset:"
@@ -373,7 +373,7 @@ msgid "File List"
 msgstr "Tiedostoluettelo"
 
 msgid "Directory List"
-msgstr "Hakemistolista"
+msgstr "Kansioluettelo"
 
 msgid "Configure - Kid3"
 msgstr "Asetukset – Kid3"
@@ -388,7 +388,7 @@ msgid "directory to open"
 msgstr "avattava kansio"
 
 msgid "Kid3 ID3 Tagger"
-msgstr "Kid3, ID3-tagimuokkaaja"
+msgstr "Kid3, ID3-tunnistemuokkain"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -417,7 +417,7 @@ msgid "&Close"
 msgstr "&Sulje"
 
 msgid "&Tags"
-msgstr "&Tagit"
+msgstr "T&unnisteet"
 
 msgid "&Files"
 msgstr "&Tiedostot"
@@ -462,7 +462,7 @@ msgid "&Cancel"
 msgstr "&Peruuta"
 
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Pikanäppäin '%1' on jo kytketty toimintoon '%2'."
+msgstr "Pikanäppäin ”%1” on jo kytketty toimintoon ”%2”."
 
 msgid "&File"
 msgstr "&Tiedosto"
@@ -591,7 +591,7 @@ msgid "Reset"
 msgstr "Nollaa"
 
 msgid "Press F2 or double click to edit cell contents."
-msgstr ""
+msgstr "Muokkaa solun sisältö painamalla F2 tai kaksoisnapsauttamalla."
 
 msgid "Action"
 msgstr "Toiminto"
@@ -606,10 +606,10 @@ msgid "Accuracy"
 msgstr "Tarkkuus"
 
 msgid "Standard Tags"
-msgstr "Standardit tagit"
+msgstr "Vakiotunnisteet"
 
 msgid "Additional Tags"
-msgstr "Lisätagit"
+msgstr "Lisätunnisteet"
 
 msgid "Cover Art"
 msgstr "Kansikuvat"
@@ -639,7 +639,7 @@ msgid "Directory name"
 msgstr "Kansion nimi"
 
 msgid "Encode as URL"
-msgstr "Koodaa URLiksi"
+msgstr "Koodaa verkko-osoitteeksi"
 
 msgid "Confirm"
 msgstr "Vahvista"
@@ -894,7 +894,7 @@ msgid "D&estination:"
 msgstr "Koh&de:"
 
 msgid "Tag 1 and Tag 2"
-msgstr "1- ja 2-tagit"
+msgstr "1- ja 2-tunnisteet"
 
 msgid "&Profile:"
 msgstr "&Profiili:"
@@ -921,10 +921,10 @@ msgid "&Accuracy:"
 msgstr "T&arkkuus:"
 
 msgid "&Standard Tags"
-msgstr "&Standardit tagit"
+msgstr "&Vakiotunnisteet"
 
 msgid "&Additional Tags"
-msgstr "&Lisätagit"
+msgstr "&Lisätunnisteet"
 
 msgid "C&over Art"
 msgstr "&Kansikuvat"
@@ -993,7 +993,7 @@ msgid "UTF8"
 msgstr "UTF-8"
 
 msgid "&Version used for new tags:"
-msgstr "&Uusien tagien versio:"
+msgstr "&Uusien tunnisteiden versio:"
 
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
@@ -1017,19 +1017,19 @@ msgid "&Show only custom genres"
 msgstr "Näytä &vain omat tyylilajit"
 
 msgid "&Quick Access Tags"
-msgstr ""
+msgstr "Tunniste&oikopolut"
 
 msgid "&Tag Format"
-msgstr "Ta&gin muoto"
+msgstr "T&unnisteen muoto"
 
 msgid "Tag &1"
-msgstr "&1-tagi"
+msgstr "&1-tunniste"
 
 msgid "Tag &2"
-msgstr "&2-tagi"
+msgstr "&2-tunniste"
 
 msgid "Tag 1 a&nd Tag 2"
-msgstr "1- &ja 2-tagit"
+msgstr "1- &ja 2-tunnisteet"
 
 msgid "Startup"
 msgstr "Käynnistys"
@@ -1056,13 +1056,13 @@ msgid "Browser"
 msgstr "Selain"
 
 msgid "Web &browser:"
-msgstr "&Web-selain:"
+msgstr "&WWW-selain:"
 
 msgid "Context &Menu Commands"
 msgstr "&Kontekstivalikon komennot"
 
 msgid "&Play on double click"
-msgstr "&Soita tuplaklikkaamalla"
+msgstr "&Soita kaksoisnapsauttamalla"
 
 msgid "Proxy"
 msgstr "Välityspalvelin"
@@ -1080,13 +1080,13 @@ msgid "Proxy pass&word:"
 msgstr "&Salasana:"
 
 msgid "&Metadata Plugins && Priority"
-msgstr "&Metatiedot liitännäiset && Prioriteetti"
+msgstr "&Metatietoliitännäiset ja prioriteetti"
 
 msgid "A&vailable Plugins"
 msgstr "&Käytettävissä olevat liitännäiset"
 
 msgid "Changes take only effect after a restart!"
-msgstr "Muutos astuu voimaan uudelleenkäynnistettäessä!"
+msgstr "Muutokset tulevat voimaan uudelleenkäynnistyksen jälkeen!"
 
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
@@ -1290,7 +1290,7 @@ msgid "From F&ile/Clipboard..."
 msgstr "Tiedostosta/&leikepöydältä..."
 
 msgid "From T&ags..."
-msgstr "T&agista..."
+msgstr "T&unnisteista..."
 
 msgid "&From Server:"
 msgstr "&Palvelimelta:"
@@ -1305,7 +1305,7 @@ msgid "&Length"
 msgstr "&Kestoon"
 
 msgid "T&rack"
-msgstr "&Raitaan"
+msgstr "Ka&ppaleeseen"
 
 msgid "&Title"
 msgstr "&Nimeen"
@@ -1353,7 +1353,7 @@ msgid "Sort by file &name"
 msgstr "Lajittele tiedosto&nimen mukaan"
 
 msgid "Sort by &tag field"
-msgstr "Lajittele ta&gin mukaan"
+msgstr "Lajittele t&unnisteen mukaan"
 
 msgid "Use &relative path for files in playlist"
 msgstr "Käytä soittolistan tiedostoille s&uhteellista polkua"
@@ -1377,7 +1377,7 @@ msgid "&Action:"
 msgstr "T&oiminto:"
 
 msgid "From Tag 2 and Tag 1"
-msgstr "2- ja 1-tageista"
+msgstr "2- ja 1-tunnisteista"
 
 msgid "From:"
 msgstr "Alkuperäinen:"
@@ -1404,19 +1404,19 @@ msgid "No result selected"
 msgstr "Ei valittuja tuloksia"
 
 msgid "Import from Tags"
-msgstr "Tuo tagista"
+msgstr "Tuo tunnisteesta"
 
 msgid "Format:"
 msgstr "Muoto:"
 
 msgid "Extraction:"
-msgstr "Uuttaminen:"
+msgstr "Purku:"
 
 msgid "Import from File/Clipboard"
 msgstr "Tuo tiedostosta/leikepöydältä"
 
 msgid "Header:"
-msgstr "Ylätunniste"
+msgstr "Ylätunniste:"
 
 msgid "Tracks:"
 msgstr "Kappale:"
@@ -1510,16 +1510,16 @@ msgid "Name:"
 msgstr "Nimi:"
 
 msgid "Filename from Tag 1"
-msgstr "Tiedostonimi 1-tagista"
+msgstr "Tiedostonimi 1-tunnisteesta"
 
 msgid "Filename from Tag 2"
-msgstr "Tiedostonimi 2-tagista"
+msgstr "Tiedostonimi 2-tunnisteesta"
 
 msgid "Tag 1 from Filename"
-msgstr "1-tagi tiedostonimestä"
+msgstr "1-tunniste tiedostonimestä"
 
 msgid "Tag 2 from Filename"
-msgstr "2-tagi tiedostonimestä"
+msgstr "2-tunniste tiedostonimestä"
 
 msgid "&Add..."
 msgstr "L&isää..."
