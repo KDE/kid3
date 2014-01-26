@@ -109,6 +109,11 @@ ExportConfig::ExportConfig() :
   m_exportFormatTracks.append(QLatin1String("%{file}\\t%{bitrate}\\t%{vbr}\\t%{duration}\\t%{samplerate}\\t%{channels}\\t%{mode}\\t%{codec}"));
   m_exportFormatTrailers.append(QLatin1String(""));
 
+  m_exportFormatNames.append(QLatin1String("CDRDAO TOC"));
+  m_exportFormatHeaders.append(QLatin1String("CD_DA\\nCD_TEXT {\\n  LANGUAGE_MAP {\\n    0 : EN\\n  }\\n  LANGUAGE 0 {\\n    TITLE \"%{album}\"\\n    PERFORMER \"%{artist}\"\\n  }\\n}\\n"));
+  m_exportFormatTracks.append(QLatin1String("TRACK AUDIO\\nCD_TEXT {\\n  LANGUAGE 0 {\\n    TITLE \"%{title}\"\\n    PERFORMER \"%{artist}\"\\n  }\\n}\\nFILE \"%{file}\" 0\\n"));
+  m_exportFormatTrailers.append(QLatin1String(""));
+
   m_exportFormatNames.append(QLatin1String("Custom Format"));
   m_exportFormatHeaders.append(QLatin1String(""));
   m_exportFormatTracks.append(QLatin1String(""));
