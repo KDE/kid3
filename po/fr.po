@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -236,7 +236,7 @@ msgid "Unknown command '%1'. Type 'help' for help."
 msgstr "Commande inconnue '%1', tapez 'help' pour obtenir de l’aide."
 
 msgid "Unknown command '%1', -h for help."
-msgstr "Commande inconnue '%1', -h pour l'aide"
+msgstr "Commande inconnue '%1', -h pour l'aide."
 
 msgid "Files"
 msgstr "Fichiers"
@@ -1272,8 +1272,8 @@ msgstr "&Morceaux:"
 msgid "F&ooter:"
 msgstr "&Bas de page:"
 
-msgid "To F&ile"
-msgstr "Dans un f&ichier"
+msgid "To F&ile..."
+msgstr "Dans un f&ichier..."
 
 msgid "To Clip&board"
 msgstr "Dans le &presse-papiers"
@@ -1305,8 +1305,8 @@ msgstr "Depuis f&ichier/presse-papier..."
 msgid "From T&ags..."
 msgstr "Depuis b&alises..."
 
-msgid "&From Server:"
-msgstr "&Depuis serveur:"
+msgid "&From Server..."
+msgstr "&Depuis serveur..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Vérifier le temps de &différence maximum permis (sec):"
@@ -1432,10 +1432,10 @@ msgid "Header:"
 msgstr "En-tête:"
 
 msgid "Tracks:"
-msgstr "Morceaux"
+msgstr "Morceaux:"
 
-msgid "From F&ile"
-msgstr "Depuis f&ichier"
+msgid "From F&ile..."
+msgstr "Depuis f&ichier..."
 
 msgid "Download"
 msgstr "Télécharger"
@@ -1534,6 +1534,12 @@ msgstr "Balise 1 depuis le nom de fichier"
 msgid "Tag 2 from Filename"
 msgstr "Balise 2 depuis le nom de fichier"
 
+msgid "Edit..."
+msgstr "Modifier..."
+
+msgid "Add..."
+msgstr "Ajouter..."
+
 msgid "&Add..."
 msgstr "&Ajouter..."
 
@@ -1548,6 +1554,9 @@ msgstr "M&odifier..."
 
 msgid "&Remove"
 msgstr "Su&pprimer"
+
+msgid "&Add"
+msgstr "&Ajouter"
 
 msgid "&Insert row"
 msgstr "&Insérer ligne"
@@ -1593,9 +1602,6 @@ msgstr "De"
 
 msgid "To"
 msgstr "À"
-
-msgid "&Add"
-msgstr "&Ajouter"
 
 msgid "&Select all"
 msgstr "Sé&lectionner tout"

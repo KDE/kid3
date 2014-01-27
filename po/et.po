@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -355,10 +355,10 @@ msgid "Frames:"
 msgstr "Raamid:"
 
 msgid "Edit"
-msgstr "R&edigeeri..."
+msgstr "Redigeeri"
 
 msgid "Add"
-msgstr "&Lisa..."
+msgstr "Lisa"
 
 msgid "Delete"
 msgstr "Kustuta"
@@ -1271,8 +1271,8 @@ msgstr "&Lood:"
 msgid "F&ooter:"
 msgstr "&Jalus:"
 
-msgid "To F&ile"
-msgstr "&Faili"
+msgid "To F&ile..."
+msgstr "&Faili..."
 
 msgid "To Clip&board"
 msgstr "&Lõikepuhvrisse"
@@ -1304,8 +1304,8 @@ msgstr "Failist/&lõikepuhvrist..."
 msgid "From T&ags..."
 msgstr "S&iltidest..."
 
-msgid "&From Server:"
-msgstr "&Serverist:"
+msgid "&From Server..."
+msgstr "&Serverist..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "S&uurim lubatav ajaline erinevus (s):"
@@ -1377,7 +1377,7 @@ msgid "Write only &list of files"
 msgstr "Kirjutatakse ainult failide &loend"
 
 msgid "Write &info using"
-msgstr "Kirjutatakse &info:"
+msgstr "Kirjutatakse &info"
 
 msgid "Preview"
 msgstr "Eelvaade"
@@ -1433,8 +1433,8 @@ msgstr "Päis:"
 msgid "Tracks:"
 msgstr "Lood:"
 
-msgid "From F&ile"
-msgstr "&Failist"
+msgid "From F&ile..."
+msgstr "&Failist..."
 
 msgid "Download"
 msgstr "Allalaadimine"
@@ -1474,7 +1474,7 @@ msgid "Add Frame"
 msgstr "Raami lisamine"
 
 msgid "Select the frame ID"
-msgstr "Raami ID:"
+msgstr "Raami ID"
 
 msgid "Rename File"
 msgstr "Faili ümbernimetamine"
@@ -1533,6 +1533,12 @@ msgstr "Silt 1 failinime põhjal"
 msgid "Tag 2 from Filename"
 msgstr "Silt 2 failinime põhjal"
 
+msgid "Edit..."
+msgstr "Muuda..."
+
+msgid "Add..."
+msgstr "Lisa..."
+
 msgid "&Add..."
 msgstr "L&isa..."
 
@@ -1547,6 +1553,9 @@ msgstr "&Muuda..."
 
 msgid "&Remove"
 msgstr "&Eemalda"
+
+msgid "&Add"
+msgstr "&Lisa"
 
 msgid "&Insert row"
 msgstr "&Sisesta rida"
@@ -1592,9 +1601,6 @@ msgstr "Asendatav"
 
 msgid "To"
 msgstr "Asendaja"
-
-msgid "&Add"
-msgstr "&Lisa..."
 
 msgid "&Select all"
 msgstr "&Vali kõik"

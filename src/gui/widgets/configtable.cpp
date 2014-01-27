@@ -37,6 +37,7 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
   AbstractListEdit(m_tableView = new QTableView, model, parent)
 {
   setObjectName(QLatin1String("ConfigTable"));
+  setAddButtonText(tr("&Add"));
   hideEditButton();
   m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(m_tableView, SIGNAL(customContextMenuRequested(QPoint)),

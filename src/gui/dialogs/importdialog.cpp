@@ -153,7 +153,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   QPushButton* tagsButton = new QPushButton(tr("From T&ags..."));
   tagsButton->setAutoDefault(false);
   butlayout->addWidget(tagsButton);
-  QPushButton* serverButton = new QPushButton(tr("&From Server:"));
+  QPushButton* serverButton = new QPushButton(tr("&From Server..."));
   serverButton->setAutoDefault(false);
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox;

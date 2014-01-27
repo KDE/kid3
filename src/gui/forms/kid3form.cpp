@@ -349,10 +349,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   buttonsV2VBoxLayout->addWidget(frameLine);
 
   QPushButton* editFramesPushButton =
-    new QPushButton(tr("Edit"), m_tag2Widget);
+    new QPushButton(tr("Edit..."), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(editFramesPushButton);
   QPushButton* framesAddPushButton =
-    new QPushButton(tr("Add"), m_tag2Widget);
+    new QPushButton(tr("Add..."), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(framesAddPushButton);
   QPushButton* deleteFramesPushButton =
     new QPushButton(tr("Delete"), m_tag2Widget);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1271,8 +1271,8 @@ msgstr "Pa&rçalar:"
 msgid "F&ooter:"
 msgstr "Al&tlık:"
 
-msgid "To F&ile"
-msgstr "&Dosyaya"
+msgid "To F&ile..."
+msgstr "&Dosyaya..."
 
 msgid "To Clip&board"
 msgstr "&Panoya"
@@ -1304,8 +1304,8 @@ msgstr "D&osya veya Pano'dan Al..."
 msgid "From T&ags..."
 msgstr "T&ag'den..."
 
-msgid "&From Server:"
-msgstr "&Sunucudan:"
+msgid "&From Server..."
+msgstr "&Sunucudan..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Kabul e&dilebilir en fazla süre farkı (saniye):"
@@ -1433,8 +1433,8 @@ msgstr "Üst Bilgi:"
 msgid "Tracks:"
 msgstr "Parçalar:"
 
-msgid "From F&ile"
-msgstr "&Dosyadan"
+msgid "From F&ile..."
+msgstr "&Dosyadan..."
 
 msgid "Download"
 msgstr "İndir"
@@ -1533,6 +1533,12 @@ msgstr "Tag 1 dosya adından"
 msgid "Tag 2 from Filename"
 msgstr "Tag 2 dosya adından"
 
+msgid "Edit..."
+msgstr "Düzen..."
+
+msgid "Add..."
+msgstr "Ekle..."
+
 msgid "&Add..."
 msgstr "&Ekle..."
 
@@ -1547,6 +1553,9 @@ msgstr "Dü&zen..."
 
 msgid "&Remove"
 msgstr "Ka&ldır"
+
+msgid "&Add"
+msgstr "&Ekle"
 
 msgid "&Insert row"
 msgstr "Satır &Ekle"
@@ -1592,9 +1601,6 @@ msgstr "Şuradan"
 
 msgid "To"
 msgstr "Şuraya"
-
-msgid "&Add"
-msgstr "&Ekle"
 
 msgid "&Select all"
 msgstr "&Tümünü Seç"

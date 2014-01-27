@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1270,8 +1270,8 @@ msgstr "Н&умере:"
 msgid "F&ooter:"
 msgstr "&Подножје:"
 
-msgid "To F&ile"
-msgstr "У ф&ајл"
+msgid "To F&ile..."
+msgstr "У ф&ајл..."
 
 msgid "To Clip&board"
 msgstr "У клип&борд"
@@ -1303,8 +1303,8 @@ msgstr "Из &фајла/клипборда..."
 msgid "From T&ags..."
 msgstr "Из о&знака..."
 
-msgid "&From Server:"
-msgstr "С&а сервера:"
+msgid "&From Server..."
+msgstr "С&а сервера..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Провери највећу дозвољену &временску разлику (сек):"
@@ -1432,8 +1432,8 @@ msgstr "Заглавље:"
 msgid "Tracks:"
 msgstr "Нумере:"
 
-msgid "From F&ile"
-msgstr "Из &фајла"
+msgid "From F&ile..."
+msgstr "Из &фајла..."
 
 msgid "Download"
 msgstr "Преузми"
@@ -1485,7 +1485,7 @@ msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Желите ли заиста да преместите ових %1 ставки у смеће?"
 
 msgid "Do you really want to move this item to the trash?"
-msgstr "Желите ли заиста да преместите ову %1 ставку у смеће?"
+msgstr "Желите ли заиста да преместите ову ставку у смеће?"
 
 msgid "Move to Trash"
 msgstr "Премести у смеће"
@@ -1532,6 +1532,12 @@ msgstr "ознаку 1 из имена фајла"
 msgid "Tag 2 from Filename"
 msgstr "ознаку 2 из имена фајла"
 
+msgid "Edit..."
+msgstr "Уреди..."
+
+msgid "Add..."
+msgstr "Додај..."
+
 msgid "&Add..."
 msgstr "&Додај..."
 
@@ -1546,6 +1552,9 @@ msgstr "У&реди..."
 
 msgid "&Remove"
 msgstr "У&клони"
+
+msgid "&Add"
+msgstr "&Додај"
 
 msgid "&Insert row"
 msgstr "&Убаци ред"
@@ -1591,9 +1600,6 @@ msgstr "из"
 
 msgid "To"
 msgstr "у"
-
-msgid "&Add"
-msgstr "&Додај"
 
 msgid "&Select all"
 msgstr "И&забери све"

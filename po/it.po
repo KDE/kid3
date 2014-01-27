@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -1270,8 +1270,8 @@ msgstr "&Tracce:"
 msgid "F&ooter:"
 msgstr "Pi&è di pagina:"
 
-msgid "To F&ile"
-msgstr "In F&ile"
+msgid "To F&ile..."
+msgstr "In F&ile..."
 
 msgid "To Clip&board"
 msgstr "Negli Ap&punti"
@@ -1303,8 +1303,8 @@ msgstr "Da f&ile/appunti..."
 msgid "From T&ags..."
 msgstr "Da T&ag..."
 
-msgid "&From Server:"
-msgstr "Dal Ser&ver:"
+msgid "&From Server..."
+msgstr "Dal Ser&ver..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Controlla &differenza tempo max ammissibile (sec):"
@@ -1432,8 +1432,8 @@ msgstr "Intestazione:"
 msgid "Tracks:"
 msgstr "Tracce:"
 
-msgid "From F&ile"
-msgstr "Da f&ile"
+msgid "From F&ile..."
+msgstr "Da f&ile..."
 
 msgid "Download"
 msgstr "Scarica"
@@ -1532,6 +1532,12 @@ msgstr "Tag 1 dal Nome file"
 msgid "Tag 2 from Filename"
 msgstr "Tag 2 dal Nome file"
 
+msgid "Edit..."
+msgstr "Modifica..."
+
+msgid "Add..."
+msgstr "Aggiungi..."
+
 msgid "&Add..."
 msgstr "&Aggiungi..."
 
@@ -1546,6 +1552,9 @@ msgstr "&Modifica..."
 
 msgid "&Remove"
 msgstr "&Rimuovi"
+
+msgid "&Add"
+msgstr "&Aggiungi"
 
 msgid "&Insert row"
 msgstr "&Inserisci riga"
@@ -1591,9 +1600,6 @@ msgstr "Da"
 
 msgid "To"
 msgstr "A"
-
-msgid "&Add"
-msgstr "&Aggiungi"
 
 msgid "&Select all"
 msgstr "&Seleziona tutto"

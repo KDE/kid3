@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2013-11-30 09:42+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1273,8 +1273,8 @@ msgstr "S&topy:"
 msgid "F&ooter:"
 msgstr "Z&ápatí:"
 
-msgid "To F&ile"
-msgstr "Do sou&boru"
+msgid "To F&ile..."
+msgstr "Do sou&boru..."
 
 msgid "To Clip&board"
 msgstr "Do sch&ránky"
@@ -1306,8 +1306,8 @@ msgstr "Zavést ze souboru/s&chránky..."
 msgid "From T&ags..."
 msgstr "Ze zn&ačky..."
 
-msgid "&From Server:"
-msgstr "&Ze serveru:"
+msgid "&From Server..."
+msgstr "&Ze serveru..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Vyzkoušet největší možný přípustný časový &rozdíl (s):"
@@ -1435,8 +1435,8 @@ msgstr "Záhlaví:"
 msgid "Tracks:"
 msgstr "Stopy:"
 
-msgid "From F&ile"
-msgstr "Ze soubor&u"
+msgid "From F&ile..."
+msgstr "Ze soubor&u..."
 
 msgid "Download"
 msgstr "Stáhnout"
@@ -1535,6 +1535,12 @@ msgstr "Značka 1 z názvu souboru"
 msgid "Tag 2 from Filename"
 msgstr "Značka 2 z názvu souboru"
 
+msgid "Edit..."
+msgstr "Upravit..."
+
+msgid "Add..."
+msgstr "Přidat..."
+
 msgid "&Add..."
 msgstr "&Přidat..."
 
@@ -1549,6 +1555,9 @@ msgstr "&Upravit..."
 
 msgid "&Remove"
 msgstr "&Odstranit"
+
+msgid "&Add"
+msgstr "&Přidat"
 
 msgid "&Insert row"
 msgstr "&Vložit řádek"
@@ -1594,9 +1603,6 @@ msgstr "Z"
 
 msgid "To"
 msgstr "Do"
-
-msgid "&Add"
-msgstr "&Přidat"
 
 msgid "&Select all"
 msgstr "&Vybrat vše"

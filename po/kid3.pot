@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1267,7 +1267,7 @@ msgstr ""
 msgid "F&ooter:"
 msgstr ""
 
-msgid "To F&ile"
+msgid "To F&ile..."
 msgstr ""
 
 msgid "To Clip&board"
@@ -1300,7 +1300,7 @@ msgstr ""
 msgid "From T&ags..."
 msgstr ""
 
-msgid "&From Server:"
+msgid "&From Server..."
 msgstr ""
 
 msgid "Check maximum allowable time &difference (sec):"
@@ -1429,7 +1429,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr ""
 
-msgid "From F&ile"
+msgid "From F&ile..."
 msgstr ""
 
 msgid "Download"
@@ -1527,6 +1527,12 @@ msgstr ""
 msgid "Tag 2 from Filename"
 msgstr ""
 
+msgid "Edit..."
+msgstr ""
+
+msgid "Add..."
+msgstr ""
+
 msgid "&Add..."
 msgstr ""
 
@@ -1540,6 +1546,9 @@ msgid "&Edit..."
 msgstr ""
 
 msgid "&Remove"
+msgstr ""
+
+msgid "&Add"
 msgstr ""
 
 msgid "&Insert row"
@@ -1585,9 +1594,6 @@ msgid "From"
 msgstr ""
 
 msgid "To"
-msgstr ""
-
-msgid "&Add"
 msgstr ""
 
 msgid "&Select all"

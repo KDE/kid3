@@ -92,7 +92,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   vlayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* butlayout = new QHBoxLayout;
-  m_fileButton = new QPushButton(tr("To F&ile"), this);
+  m_fileButton = new QPushButton(tr("To F&ile..."), this);
   m_fileButton->setAutoDefault(false);
   butlayout->addWidget(m_fileButton);
   connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotToFile()));

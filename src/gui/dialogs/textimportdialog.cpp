@@ -81,7 +81,7 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
   buttonLayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
   buttonLayout->addStretch();
-  QPushButton* fileButton = new QPushButton(tr("From F&ile"), this);
+  QPushButton* fileButton = new QPushButton(tr("From F&ile..."), this);
   fileButton->setAutoDefault(false);
   buttonLayout->addWidget(fileButton);
   connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));

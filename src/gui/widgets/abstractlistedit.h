@@ -62,6 +62,12 @@ public:
    */
   void setEditingDisabled(bool disable);
 
+  /**
+   * Set text for Add button.
+   * @param text button text
+   */
+  void setAddButtonText(const QString& text);
+
 public slots:
   /**
    * Add a new item.

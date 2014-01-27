@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1273,8 +1273,8 @@ msgstr "U&twory:"
 msgid "F&ooter:"
 msgstr "Na&główek:"
 
-msgid "To F&ile"
-msgstr "Do p&liku"
+msgid "To F&ile..."
+msgstr "Do p&liku..."
 
 msgid "To Clip&board"
 msgstr "Do &schowka"
@@ -1306,8 +1306,8 @@ msgstr "Ze pl&ik/schowka..."
 msgid "From T&ags..."
 msgstr "Ze zn&acznika..."
 
-msgid "&From Server:"
-msgstr "Z se&rwera:"
+msgid "&From Server..."
+msgstr "Z se&rwera..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Sprawdź dopuszczalną &różnicę czasu (sek.):"
@@ -1435,8 +1435,8 @@ msgstr "Nagłówek:"
 msgid "Tracks:"
 msgstr "Utwory:"
 
-msgid "From F&ile"
-msgstr "Wczytaj z p&liku"
+msgid "From F&ile..."
+msgstr "Wczytaj z p&liku..."
 
 msgid "Download"
 msgstr "Pobieranie"
@@ -1536,6 +1536,12 @@ msgstr "Znacznik 1 wczytaj z nazwy pliku"
 msgid "Tag 2 from Filename"
 msgstr "Znacznik 2 wczytaj z nazwy pliku"
 
+msgid "Edit..."
+msgstr "Edycja..."
+
+msgid "Add..."
+msgstr "Dodaj..."
+
 msgid "&Add..."
 msgstr "&Dodaj..."
 
@@ -1550,6 +1556,9 @@ msgstr "&Edycja..."
 
 msgid "&Remove"
 msgstr "&Usuń"
+
+msgid "&Add"
+msgstr "&Dodaj"
 
 msgid "&Insert row"
 msgstr "&Wstaw wiersz"
@@ -1595,9 +1604,6 @@ msgstr "Z"
 
 msgid "To"
 msgstr "Do"
-
-msgid "&Add"
-msgstr "&Dodaj"
 
 msgid "&Select all"
 msgstr "&Zaznacz wszystko"

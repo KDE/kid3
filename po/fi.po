@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1271,8 +1271,8 @@ msgstr "&Kappale:"
 msgid "F&ooter:"
 msgstr "&Alatunniste:"
 
-msgid "To F&ile"
-msgstr "T&iedostoon"
+msgid "To F&ile..."
+msgstr "T&iedostoon..."
 
 msgid "To Clip&board"
 msgstr "&Leikepöydälle"
@@ -1304,8 +1304,8 @@ msgstr "Tiedostosta/&leikepöydältä..."
 msgid "From T&ags..."
 msgstr "T&unnisteista..."
 
-msgid "&From Server:"
-msgstr "&Palvelimelta:"
+msgid "&From Server..."
+msgstr "&Palvelimelta..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Aseta &enimmäisaikaero (s):"
@@ -1433,8 +1433,8 @@ msgstr "Ylätunniste:"
 msgid "Tracks:"
 msgstr "Kappale:"
 
-msgid "From F&ile"
-msgstr "&Tiedostosta"
+msgid "From F&ile..."
+msgstr "&Tiedostosta..."
 
 msgid "Download"
 msgstr "Lataa"
@@ -1533,6 +1533,12 @@ msgstr "1-tunniste tiedostonimestä"
 msgid "Tag 2 from Filename"
 msgstr "2-tunniste tiedostonimestä"
 
+msgid "Edit..."
+msgstr "Muokkaa..."
+
+msgid "Add..."
+msgstr "Lisää..."
+
 msgid "&Add..."
 msgstr "L&isää..."
 
@@ -1547,6 +1553,9 @@ msgstr "&Muokkaa..."
 
 msgid "&Remove"
 msgstr "&Poista"
+
+msgid "&Add"
+msgstr "L&isää"
 
 msgid "&Insert row"
 msgstr "&Lisää rivi"
@@ -1592,9 +1601,6 @@ msgstr "Korvattava"
 
 msgid "To"
 msgstr "Korvaava"
-
-msgid "&Add"
-msgstr "L&isää"
 
 msgid "&Select all"
 msgstr "&Valitse kaikki"

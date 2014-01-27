@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-25 10:44+0100\n"
+"POT-Creation-Date: 2014-01-27 17:19+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -1273,8 +1273,8 @@ msgstr "Д&орожки:"
 msgid "F&ooter:"
 msgstr "С&носка:"
 
-msgid "To F&ile"
-msgstr "В фа&йл"
+msgid "To F&ile..."
+msgstr "В фа&йл..."
 
 msgid "To Clip&board"
 msgstr "В &Буфера Обмена"
@@ -1306,8 +1306,8 @@ msgstr "Из файл или &буфер обмена..."
 msgid "From T&ags..."
 msgstr "Из т&ег..."
 
-msgid "&From Server:"
-msgstr "&Из сервер:"
+msgid "&From Server..."
+msgstr "&Из сервер..."
 
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Проверить максимальную допустимую &разницу во времени (секунды):"
@@ -1435,8 +1435,8 @@ msgstr "Заголовок:"
 msgid "Tracks:"
 msgstr "Дорожки:"
 
-msgid "From F&ile"
-msgstr "Из имени фа&йла"
+msgid "From F&ile..."
+msgstr "Из имени фа&йла..."
 
 msgid "Download"
 msgstr "Закачка"
@@ -1535,6 +1535,12 @@ msgstr "Тег 1 из имени файла"
 msgid "Tag 2 from Filename"
 msgstr "Тег 1 из имени файла"
 
+msgid "Edit..."
+msgstr "Изменить..."
+
+msgid "Add..."
+msgstr "Добавить..."
+
 msgid "&Add..."
 msgstr "&Добавить..."
 
@@ -1549,6 +1555,9 @@ msgstr "&Изменить..."
 
 msgid "&Remove"
 msgstr "&Удалить"
+
+msgid "&Add"
+msgstr "&Добавить"
 
 msgid "&Insert row"
 msgstr "&Вставить строку"
@@ -1594,9 +1603,6 @@ msgstr "От"
 
 msgid "To"
 msgstr "к"
-
-msgid "&Add"
-msgstr "&Добавить"
 
 msgid "&Select all"
 msgstr "Выбрать в&се"

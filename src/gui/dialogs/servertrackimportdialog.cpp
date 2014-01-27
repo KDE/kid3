@@ -98,7 +98,9 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   m_helpButton = new QPushButton(tr("&Help"), this);
+  m_helpButton->setAutoDefault(false);
   m_saveButton = new QPushButton(tr("&Save Settings"), this);
+  m_saveButton->setAutoDefault(false);
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
   QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
@@ -111,6 +113,7 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   // auto default is switched off to use the return key to set the server
   // configuration
   okButton->setAutoDefault(false);
+  okButton->setDefault(true);
   cancelButton->setAutoDefault(false);
   applyButton->setAutoDefault(false);
   connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));

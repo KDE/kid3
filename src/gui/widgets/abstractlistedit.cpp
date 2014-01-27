@@ -92,6 +92,15 @@ void AbstractListEdit::setEditingDisabled(bool disable)
 }
 
 /**
+ * Set text for Add button.
+ * @param text button text
+ */
+void AbstractListEdit::setAddButtonText(const QString& text)
+{
+  m_addPushButton->setText(text);
+}
+
+/**
  * Remove the selected item.
  */
 void AbstractListEdit::removeItem()
