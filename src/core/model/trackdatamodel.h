@@ -224,8 +224,8 @@ public:
 private:
   ImportTrackDataVector m_trackDataVector;
   QList<Frame::ExtendedType> m_frameTypes;
-  bool m_diffCheckEnabled;
   int m_maxDiff;
+  bool m_diffCheckEnabled;
 };
 
 #endif // TRACKDATAMODEL_H

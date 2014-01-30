@@ -198,7 +198,7 @@ void ServerTrackImportDialog::initTable()
     setServer(m_client->config()->m_server);
   }
 
-  unsigned numRows = 0;
+  int numRows = 0;
   const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
   for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
        it != trackDataVector.constEnd();
@@ -210,7 +210,7 @@ void ServerTrackImportDialog::initTable()
 
   m_trackResults.resize(numRows);
   m_albumTableModel->setRowCount(numRows);
-  for (unsigned i = 0; i < numRows; ++i) {
+  for (int i = 0; i < numRows; ++i) {
     QStandardItem* item = new QStandardItem;
     QStringList cbItems;
     cbItems << tr("No result") << tr("Unknown");
@@ -229,8 +229,8 @@ void ServerTrackImportDialog::initTable()
  */
 void ServerTrackImportDialog::clearResults()
 {
-  unsigned numRows = m_trackResults.size();
-  for (unsigned i = 0; i < numRows; ++i) {
+  const int numRows = m_trackResults.size();
+  for (int i = 0; i < numRows; ++i) {
     m_trackResults[i].clear();
     setFileStatus(i, tr("Unknown"));
     updateFileTrackData(i);
@@ -289,8 +289,8 @@ void ServerTrackImportDialog::apply()
   trackDataVector.setCoverArtUrl(QString());
   ImportTrackDataVector::iterator it = trackDataVector.begin();
   bool newTrackData = false;
-  unsigned numRows = m_albumTableModel->rowCount();
-  for (unsigned index = 0; index < numRows; ++index) {
+  int numRows = m_albumTableModel->rowCount();
+  for (int index = 0; index < numRows; ++index) {
     while (it != trackDataVector.end() && !it->isEnabled()) {
       ++it;
     }
@@ -350,7 +350,7 @@ void ServerTrackImportDialog::setFileStatus(int index, const QString& status)
 void ServerTrackImportDialog::updateFileTrackData(int index)
 {
   QStringList stringList;
-  unsigned numResults = m_trackResults[index].size();
+  const int numResults = m_trackResults[index].size();
   QString str(numResults == 0 ?
               tr("No result") : tr("No result selected"));
   stringList.push_back(str);
@@ -441,7 +441,7 @@ void ServerTrackImportDialog::showHelp()
 /**
  * Show the name of the current track in the status bar.
  *
- * @param row table row
+ * @param index model index
  */
 void ServerTrackImportDialog::showFilenameInStatusBar(const QModelIndex& index)
 {

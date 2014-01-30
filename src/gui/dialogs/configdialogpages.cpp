@@ -511,9 +511,9 @@ void ConfigDialogPages::setConfig()
       metadataPlugins.append(QString());
     }
     foreach (const QString& pluginName, tagCfg.getAvailablePlugins()) {
-      int idx = pluginOrder.indexOf(pluginName);
-      if (idx >= 0) {
-        metadataPlugins[idx] = pluginName;
+      int pluginIdx = pluginOrder.indexOf(pluginName);
+      if (pluginIdx >= 0) {
+        metadataPlugins[pluginIdx] = pluginName;
       } else {
         metadataPlugins.append(pluginName);
       }

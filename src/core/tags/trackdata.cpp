@@ -70,24 +70,24 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 
     if (code.length() == 1) {
       static const struct {
-        char shortCode;
         const char* longCode;
+        char shortCode;
       } shortToLong[] = {
-        { 'f', "file" },
-        { 'p', "filepath" },
-        { 'u', "url" },
-        { 'd', "duration" },
-        { 'D', "seconds" },
-        { 'n', "tracks" },
-        { 'e', "extension" },
-        { 'O', "tag1" },
-        { 'o', "tag2" },
-        { 'b', "bitrate" },
-        { 'v', "vbr" },
-        { 'r', "samplerate" },
-        { 'm', "mode" },
-        { 'C', "channels" },
-        { 'k', "codec" }
+        { "file", 'f' },
+        { "filepath", 'p' },
+        { "url", 'u' },
+        { "duration", 'd' },
+        { "seconds", 'D' },
+        { "tracks", 'n' },
+        { "extension", 'e' },
+        { "tag1", 'O' },
+        { "tag2", 'o' },
+        { "bitrate", 'b' },
+        { "vbr", 'v' },
+        { "samplerate", 'r' },
+        { "mode", 'm' },
+        { "channels", 'C' },
+        { "codec", 'k' }
       };
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {

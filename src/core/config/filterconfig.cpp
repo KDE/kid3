@@ -108,8 +108,8 @@ void FilterConfig::readFromConfig(ISettings* config)
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
-  unsigned numNames = names.size();
-  while (static_cast<unsigned>(expressions.size()) < numNames)
+  const int numNames = names.size();
+  while (expressions.size() < numNames)
     expressions.append(QLatin1String(""));
 
   /* Use defaults if no configuration found */
@@ -143,4 +143,3 @@ void FilterConfig::setFilenameFormat(const QString& format)
       format + QLatin1String("\")");
   }
 }
-

@@ -296,8 +296,8 @@ private:
   QBitArray m_frameSelected;
   quint64 m_markedRows;
   quint64 m_changedFrames;
-  bool m_id3v1;
   FrameCollection m_frames;
+  bool m_id3v1;
 };
 
 

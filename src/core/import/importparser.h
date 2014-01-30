@@ -83,12 +83,12 @@ private:
   QString m_pattern;
   /** regexp object */
   QRegExp m_re;
-  /** true if automatic track number incrementing is used */
-  bool m_trackIncrEnabled;
   /** automatically incremented track number */
   int m_trackIncrNr;
   QMap<QString, int> m_codePos;
   QList<int> m_trackDuration;
+  /** true if automatic track number incrementing is used */
+  bool m_trackIncrEnabled;
 };
 
 #endif

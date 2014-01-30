@@ -159,7 +159,7 @@ private slots:
   /**
    * Show the name of the current track in the status bar.
    *
-   * @param row table row
+   * @param index model index
    */
   void showFilenameInStatusBar(const QModelIndex& index);
 

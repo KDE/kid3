@@ -88,8 +88,6 @@ public:
   QStringList m_importFormatTracks;
   /** selected import format */
   int m_importFormatIdx;
-  /** check maximum allowable time difference */
-  bool m_enableTimeDifferenceCheck;
   /** maximum allowable time difference */
   int m_maxTimeDifference;
   /** visible optional columns in import table */
@@ -122,12 +120,14 @@ public:
 
   /** Disabled plugins */
   QStringList m_disabledPlugins;
+private:
+  QStringList m_availablePlugins;
+public:
+  /** check maximum allowable time difference */
+  bool m_enableTimeDifferenceCheck;
 
   /** Index in configuration storage */
   static int s_index;
-
-private:
-  QStringList m_availablePlugins;
 };
 
 #endif

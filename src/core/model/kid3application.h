@@ -1094,10 +1094,6 @@ private:
   DownloadImageDestination m_downloadImageDest;
   /** Copy buffer */
   FrameCollection m_copyTags;
-  /** true if any file was modified */
-  bool m_modified;
-  /** true if list is filtered */
-  bool m_filtered;
   /** Root index in file proxy model */
   QPersistentModelIndex m_fileProxyModelRootIndex;
   /** Indexes of opened file in file proxy model */
@@ -1118,10 +1114,6 @@ private:
   int m_selectionTagV1SupportedCount;
   /** Number of selected files */
   int m_selectionFileCount;
-  /** true if any of the selected files has a tag 1 */
-  bool m_selectionHasTagV1;
-  /** true if any of the selected files has a tag 2 */
-  bool m_selectionHasTagV2;
 
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;
@@ -1131,6 +1123,14 @@ private:
   TrackData::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;
   ImportTrackDataVector m_batchImportTrackDataList;
+  /** true if any file was modified */
+  bool m_modified;
+  /** true if list is filtered */
+  bool m_filtered;
+  /** true if any of the selected files has a tag 1 */
+  bool m_selectionHasTagV1;
+  /** true if any of the selected files has a tag 2 */
+  bool m_selectionHasTagV2;
 
   /** Current directory */
   static QString s_dirName;

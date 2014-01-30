@@ -70,12 +70,12 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
 
     if (code.length() == 1) {
       static const struct {
-        char shortCode;
         const char* longCode;
+        char shortCode;
       } shortToLong[] = {
-        { 'f', "file" },
-        { 'd', "directory" },
-        { 'b', "browser" }
+        { "file", 'f' },
+        { "directory", 'd' },
+        { "browser", 'b' }
       };
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {

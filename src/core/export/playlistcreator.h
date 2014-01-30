@@ -98,10 +98,10 @@ public:
     QString formatString(const QString& format);
 
     PlaylistCreator& m_ctr;
-    bool m_isDir;
     TaggedFile* m_taggedFile;
     ImportTrackData* m_trackData;
     QString m_dirName;
+    bool m_isDir;
   };
 
   /**

@@ -79,16 +79,6 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** Use file name format if true, else directory name */
-  bool m_useFileNameFormat;
-  /** Include only selected files if true, else all files */
-  bool m_onlySelectedFiles;
-  /** Sort by tag field if true, else file name */
-  bool m_useSortTagField;
-  /** Use full path for files in playlist if true, else relative path */
-  bool m_useFullPath;
-  /** Write info format, else only list of files */
-  bool m_writeInfo;
   /** Playlist location */
   PlaylistLocation m_location;
   /** Playlist format */
@@ -99,6 +89,16 @@ public:
   QString m_sortTagField;
   /** Format for additional information */
   QString m_infoFormat;
+  /** Use file name format if true, else directory name */
+  bool m_useFileNameFormat;
+  /** Include only selected files if true, else all files */
+  bool m_onlySelectedFiles;
+  /** Sort by tag field if true, else file name */
+  bool m_useSortTagField;
+  /** Use full path for files in playlist if true, else relative path */
+  bool m_useFullPath;
+  /** Write info format, else only list of files */
+  bool m_writeInfo;
 
   /** Index in configuration storage */
   static int s_index;

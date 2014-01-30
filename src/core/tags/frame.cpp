@@ -167,8 +167,8 @@ Frame::Frame() :
  */
 Frame::Frame(Type type, const QString& value,
              const QString& name, int index) :
-  m_extendedType(type, name), m_index(index), m_valueChanged(false),
-  m_value(value)
+  m_extendedType(type, name), m_index(index), m_value(value),
+  m_valueChanged(false)
 {
 }
 
@@ -179,7 +179,7 @@ Frame::Frame(Type type, const QString& value,
  * @param index index inside tag, -1 if unknown
  */
 Frame::Frame(const ExtendedType& type, const QString& value, int index) :
-  m_extendedType(type), m_index(index), m_valueChanged(false), m_value(value)
+  m_extendedType(type), m_index(index), m_value(value), m_valueChanged(false)
 {
 }
 
@@ -952,17 +952,17 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
   if (code.length() == 1) {
     static const struct {
-      char shortCode;
       const char* longCode;
+      char shortCode;
     } shortToLong[] = {
-      { 's', "title" },
-      { 'l', "album" },
-      { 'a', "artist" },
-      { 'c', "comment" },
-      { 'y', "year" },
-      { 't', "track" },
-      { 'T', "tracknumber" },
-      { 'g', "genre" }
+      { "title", 's' },
+      { "album", 'l' },
+      { "artist", 'a' },
+      { "comment", 'c' },
+      { "year", 'y' },
+      { "track", 't' },
+      { "tracknumber", 'T' },
+      { "genre", 'g' }
     };
     const char c = code[0].toLatin1();
     for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {

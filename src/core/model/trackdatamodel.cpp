@@ -32,7 +32,7 @@
  * @param parent parent widget
  */
 TrackDataModel::TrackDataModel(QObject* parent) :
-  QAbstractTableModel(parent), m_diffCheckEnabled(false), m_maxDiff(0)
+  QAbstractTableModel(parent), m_maxDiff(0), m_diffCheckEnabled(false)
 {
   setObjectName(QLatin1String("TrackDataModel"));
 }
@@ -495,4 +495,3 @@ int TrackDataModel::columnForFrameType(int frameType) const
   return m_frameTypes.indexOf(
         Frame::ExtendedType(static_cast<Frame::Type>(frameType), QLatin1String("")));
 }
-

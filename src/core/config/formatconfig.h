@@ -118,14 +118,10 @@ public:
    */
   void setLocaleName(const QString& localeName);
 
-  /** true to enable formating in line edits */
-  bool m_formatWhileEditing;
-  /** Case conversion option */
-  CaseConversion m_caseConversion;
-  /** true if string replacement enabled */
-  bool m_strRepEnabled;
   /** Mapping for string replacement */
   QMap<QString, QString> m_strRepMap;
+  /** Case conversion option */
+  CaseConversion m_caseConversion;
 
 private:
   /** Locale to use for case conversion */
@@ -142,6 +138,12 @@ private:
 
   /** true if it is a file formatter */
   bool m_filenameFormatter;
+
+public:
+  /** true to enable formating in line edits */
+  bool m_formatWhileEditing;
+  /** true if string replacement enabled */
+  bool m_strRepEnabled;
 };
 
 

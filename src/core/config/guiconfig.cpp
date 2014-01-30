@@ -67,16 +67,16 @@ QList<int> stringListToIntList(const QStringList& strList)
  */
 GuiConfig::GuiConfig() :
   StoredConfig<GuiConfig>(QLatin1String("GUI")),
+  m_fileListSortColumn(0),
+  m_fileListSortOrder(Qt::AscendingOrder),
+  m_dirListSortColumn(0),
+  m_dirListSortOrder(Qt::AscendingOrder),
   m_autoHideTags(true),
   m_hideFile(false),
   m_hideV1(false),
   m_hideV2(false),
   m_hidePicture(false),
-  m_playOnDoubleClick(false),
-  m_fileListSortColumn(0),
-  m_fileListSortOrder(Qt::AscendingOrder),
-  m_dirListSortColumn(0),
-  m_dirListSortOrder(Qt::AscendingOrder)
+  m_playOnDoubleClick(false)
 {
 }
 

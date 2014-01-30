@@ -36,8 +36,8 @@ namespace FLAC {
     class VorbisComment;
     class StreamInfo;
     class Picture;
-  };
-};
+  }
+}
 
  /** List box item containing FLAC file */
 class FlacFile : public OggFile {
@@ -162,8 +162,8 @@ private:
 
   /** Information about a FLAC file. */
   struct FileInfo {
-    FileInfo() : valid(false), channels(0), sampleRate(0), bitrate(0),
-      duration(0) {}
+    FileInfo() : channels(0), sampleRate(0), bitrate(0),
+      duration(0), valid(false) {}
 
     /**
      * Read information about a FLAC file.
@@ -172,11 +172,11 @@ private:
      */
     bool read(FLAC::Metadata::StreamInfo* si);
 
-    bool valid;             /**< true if read() was successful */
     unsigned channels;      /**< number of channels */
     unsigned sampleRate;    /**< sample rate in Hz */
     unsigned long bitrate;  /**< bitrate in bits/s */
     unsigned long duration; /**< duration in seconds */
+    bool valid;             /**< true if read() was successful */
   };
 
   /**

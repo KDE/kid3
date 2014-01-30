@@ -437,7 +437,7 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
   if (!fileName.isEmpty()) {
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly)) {
-      size_t size = file.size();
+      int size = file.size();
       char* data = new char[size];
       QDataStream stream(&file);
       stream.readRawData(data, size);

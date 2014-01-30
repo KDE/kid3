@@ -130,7 +130,7 @@ private slots:
    *
    * @param code error code
    */
-  void networkReplyError(QNetworkReply::NetworkError);
+  void networkReplyError(QNetworkReply::NetworkError code);
 
   /**
    * Called to start delayed sendRequest().

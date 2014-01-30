@@ -61,10 +61,6 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** true to preserve file time stamps */
-  bool m_preserveTime;
-  /** true to mark changed fields */
-  bool m_markChanges;
   /** filter of file names to be opened */
   QString m_nameFilter;
   /** filename format */
@@ -81,10 +77,14 @@ public:
   QStringList m_formatFromFilenameItems;
   /** default file name to save cover art */
   QString m_defaultCoverFileName;
-  /** true to open last opened file on startup */
-  bool m_loadLastOpenedFile;
   /** path to last opened file */
   QString m_lastOpenedFile;
+  /** true to preserve file time stamps */
+  bool m_preserveTime;
+  /** true to mark changed fields */
+  bool m_markChanges;
+  /** true to open last opened file on startup */
+  bool m_loadLastOpenedFile;
 
   /** Index in configuration storage */
   static int s_index;

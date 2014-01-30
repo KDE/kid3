@@ -166,10 +166,10 @@ void ExportConfig::readFromConfig(ISettings* config)
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
-  unsigned numExpNames = expNames.size();
-  while (static_cast<unsigned>(expHeaders.size()) < numExpNames) expHeaders.append(QLatin1String(""));
-  while (static_cast<unsigned>(expTracks.size()) < numExpNames) expTracks.append(QLatin1String(""));
-  while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append(QLatin1String(""));
+  const int numExpNames = expNames.size();
+  while (expHeaders.size() < numExpNames) expHeaders.append(QLatin1String(""));
+  while (expTracks.size() < numExpNames) expTracks.append(QLatin1String(""));
+  while (expTrailers.size() < numExpNames) expTrailers.append(QLatin1String(""));
 
   QStringList::const_iterator expNamesIt, expHeadersIt, expTracksIt,
     expTrailersIt;

@@ -60,22 +60,22 @@ public:
   virtual void readFromConfig(ISettings* config);
 
 
-  /** true to hide toolbar */
-  bool m_hideToolBar;
-  /** true to hide statusbar */
-  bool m_hideStatusBar;
   /** mainwindow geometry */
   QByteArray m_geometry;
   /** mainwindow state */
   QByteArray m_windowState;
-  /** true if custom application font is used */
-  bool m_useFont;
   /** custom application font family */
   QString m_fontFamily;
   /** custom application font size */
   int m_fontSize;
   /** custom application style, empty if not used */
   QString m_style;
+  /** true if custom application font is used */
+  bool m_useFont;
+  /** true to hide toolbar */
+  bool m_hideToolBar;
+  /** true to hide statusbar */
+  bool m_hideStatusBar;
   /** Don't use the native file dialog if true */
   bool m_dontUseNativeDialogs;
 

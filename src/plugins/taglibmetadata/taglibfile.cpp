@@ -255,10 +255,10 @@ TagLibFile::TagLibFile(const QString& dn, const QString& fn,
 #if TAGLIB_VERSION >= 0x010800
   m_id3v2Version(0),
 #endif
-  m_activatedFeatures(0), m_fileRead(false),
+  m_activatedFeatures(0), m_duration(0),
+  m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown),
   m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
-  m_isTagV1Supported(false), m_duration(0),
-  m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
+  m_isTagV1Supported(false), m_fileRead(false)
 {
 }
 
@@ -1361,7 +1361,7 @@ static void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
  *
  * @return true if an ID3v2 Unicode field was written.
  */
-bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String& tstr, const char* frameId)
+static bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String& tstr, const char* frameId)
 {
   TagLib::ID3v2::Tag* id3v2Tag;
   if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != 0) {
@@ -2574,14 +2574,14 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 #endif
 #ifndef TAGLIB_SUPPORTS_USLT_FRAMES
       if (id.startsWith("USLT")) {
-        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrame(frame->render());
-        return getFieldsFromUsltFrame(&usltFrame, fields);
+        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(frame->render());
+        return getFieldsFromUsltFrame(&usltFrm, fields);
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
       if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrame(frame->render());
-        return getFieldsFromGeobFrame(&geobFrame, fields);
+        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(frame->render());
+        return getFieldsFromGeobFrame(&geobFrm, fields);
       } else
 #endif
         return getFieldsFromUnknownFrame(frame, fields);
@@ -3185,16 +3185,16 @@ void TagLibFile::setId3v2Frame(
 #endif
 #ifndef TAGLIB_SUPPORTS_USLT_FRAMES
       if (id.startsWith("USLT")) {
-        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrame(id3Frame->render());
-        setTagLibFrame(this, &usltFrame, frame);
-        id3Frame->setData(usltFrame.render());
+        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(id3Frame->render());
+        setTagLibFrame(this, &usltFrm, frame);
+        id3Frame->setData(usltFrm.render());
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
       if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrame(id3Frame->render());
-        setTagLibFrame(this, &geobFrame, frame);
-        id3Frame->setData(geobFrame.render());
+        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(id3Frame->render());
+        setTagLibFrame(this, &geobFrm, frame);
+        id3Frame->setData(geobFrm.render());
       } else
 #endif
       {
@@ -4044,14 +4044,14 @@ bool TagLibFile::setFrameV2(const Frame& frame)
       if (frame.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x010700
         if (m_pictures.isRead()) {
-          int index = frame.getIndex();
-          if (index >= 0 && index < m_pictures.size()) {
+          int idx = frame.getIndex();
+          if (idx >= 0 && idx < m_pictures.size()) {
             Frame newFrame(frame);
             PictureFrame::setDescription(newFrame, frameValue);
-            if (PictureFrame::areFieldsEqual(m_pictures[index], newFrame)) {
-              m_pictures[index].setValueChanged(false);
+            if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
+              m_pictures[idx].setValueChanged(false);
             } else {
-              m_pictures[index] = newFrame;
+              m_pictures[idx] = newFrame;
               markTag2Changed(Frame::FT_Picture);
             }
             return true;
@@ -4565,9 +4565,9 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 #if TAGLIB_VERSION >= 0x010700
       if (frame.getType() == Frame::FT_Picture) {
         if (m_pictures.isRead()) {
-          int index = frame.getIndex();
-          if (index >= 0 && index < m_pictures.size()) {
-            m_pictures.removeAt(index);
+          int idx = frame.getIndex();
+          if (idx >= 0 && idx < m_pictures.size()) {
+            m_pictures.removeAt(idx);
             markTag2Changed(Frame::FT_Picture);
             return true;
           }

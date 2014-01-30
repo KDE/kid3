@@ -59,10 +59,11 @@ int ImportConfig::s_index = -1;
 ImportConfig::ImportConfig() :
   StoredConfig<ImportConfig>(QLatin1String("Import")), m_importServer(0),
   m_importDest(TrackData::TagV1), m_importFormatIdx(0),
-  m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
+  m_maxTimeDifference(3),
   m_importVisibleColumns(0x2000000000ULL),
   m_importTagsIdx(0),
-  m_pictureSourceIdx(0)
+  m_pictureSourceIdx(0),
+  m_enableTimeDifferenceCheck(true)
 {
   /**
    * Preset import format regular expressions.
@@ -339,11 +340,11 @@ void ImportConfig::readFromConfig(ISettings* config)
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
-  unsigned numNames = names.size();
-  while (static_cast<unsigned>(headers.size()) < numNames) headers.append(QLatin1String(""));
-  while (static_cast<unsigned>(tracks.size()) < numNames) tracks.append(QLatin1String(""));
-  unsigned numPicNames = picNames.size();
-  while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append(QLatin1String(""));
+  const int numNames = names.size();
+  while (headers.size() < numNames) headers.append(QLatin1String(""));
+  while (tracks.size() < numNames) tracks.append(QLatin1String(""));
+  const int numPicNames = picNames.size();
+  while (picUrls.size() < numPicNames) picUrls.append(QLatin1String(""));
 
   /* Use defaults if no configuration found */
   QStringList::const_iterator namesIt, headersIt, tracksIt;

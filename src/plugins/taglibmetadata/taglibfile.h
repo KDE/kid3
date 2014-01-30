@@ -631,13 +631,8 @@ private:
   int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
 #endif
   int m_activatedFeatures;   /**< TF_ID3v23, TF_ID3v24, or 0 */
-  bool m_fileRead;           /**< true if file has been read */
 
   /* Cached information updated in readTags() */
-  bool m_tagInformationRead;
-  bool m_hasTagV1;
-  bool m_hasTagV2;
-  bool m_isTagV1Supported;
   unsigned m_duration;
   TagType m_tagTypeV1;
   TagType m_tagTypeV2;
@@ -659,6 +654,13 @@ private:
 
   Pictures m_pictures;
 #endif
+
+  bool m_tagInformationRead;
+  bool m_hasTagV1;
+  bool m_hasTagV2;
+  bool m_isTagV1Supported;
+
+  bool m_fileRead;           /**< true if file has been read */
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;

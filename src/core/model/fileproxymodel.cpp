@@ -343,7 +343,7 @@ void FileProxyModel::fetchMore(const QModelIndex& parent)
  */
 void FileProxyModel::sort(int column, Qt::SortOrder order)
 {
-  QAbstractItemModel* srcModel;
+  QAbstractItemModel* srcModel = 0;
   if (rowCount() > 0 && (srcModel = sourceModel()) != 0) {
     srcModel->sort(column, order);
   }

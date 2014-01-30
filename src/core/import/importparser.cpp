@@ -32,7 +32,7 @@
 /**
  * Constructor.
  */
-ImportParser::ImportParser() : m_trackIncrEnabled(false), m_trackIncrNr(0)
+ImportParser::ImportParser() : m_trackIncrNr(0), m_trackIncrEnabled(false)
 {
 }
 

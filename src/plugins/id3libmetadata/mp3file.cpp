@@ -467,9 +467,9 @@ static unicode_t* newFixedUpUnicode(const QString& text)
   // work around these bugs, but there is no solution for the
   // LSB >= 0x80 bug.
   const QChar* qcarray = text.unicode();
-  uint unicode_size = text.length();
+  int unicode_size = text.length();
   unicode_t* unicode = new unicode_t[unicode_size + 1];
-  for (uint i = 0; i < unicode_size; i++) {
+  for (int i = 0; i < unicode_size; ++i) {
     unicode[i] = (ushort)qcarray[i].unicode();
     if (UNICODE_SUPPORT_BUGGY) {
       unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
@@ -599,9 +599,9 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
             getDefaultTextEncoding() : ID3TE_ISO8859_1;
           if (allowUnicode && enc == ID3TE_ISO8859_1) {
             // check if information is lost if the string is not unicode
-            uint i, unicode_size = text.length();
+            int i, unicode_size = text.length();
             const QChar* qcarray = text.unicode();
-            for (i = 0; i < unicode_size; i++) {
+            for (i = 0; i < unicode_size; ++i) {
               char ch = qcarray[i].toLatin1();
               if (ch == 0 || (ch & 0x80) != 0) {
                 enc = ID3TE_UTF16;
@@ -1473,8 +1473,8 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
       field.m_value = id3Field->Get();
     }
     else if (type == ID3FTY_BINARY) {
-      QByteArray ba((const char *)id3Field->GetRawBinary(),
-                    (unsigned int)id3Field->Size());
+      QByteArray ba(reinterpret_cast<const char*>(id3Field->GetRawBinary()),
+                    static_cast<int>(id3Field->Size()));
       field.m_value = ba;
     }
     else if (type == ID3FTY_TEXTSTRING) {
@@ -1603,7 +1603,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
       {
         const QByteArray& ba = fld.m_value.toByteArray();
         id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
-                      ba.size());
+                      static_cast<size_t>(ba.size()));
         break;
       }
 
@@ -1674,7 +1674,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
           }
           if (newEnc == ID3TE_ISO8859_1) {
             // check if information is lost if the string is not unicode
-            uint i, unicode_size = value.length();
+            int i, unicode_size = value.length();
             const QChar* qcarray = value.unicode();
             for (i = 0; i < unicode_size; i++) {
               char ch = qcarray[i].toLatin1();
@@ -1704,8 +1704,8 @@ bool Mp3File::setFrameV2(const Frame& frame)
           QByteArray newData, oldData;
           if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
               AttributeData(owner).toByteArray(value, newData)) {
-            oldData = QByteArray((const char *)fld->GetRawBinary(),
-                                 (unsigned int)fld->Size());
+            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                 static_cast<int>(fld->Size()));
             if (newData != oldData) {
               fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                        newData.size());
@@ -1718,11 +1718,11 @@ bool Mp3File::setFrameV2(const Frame& frame)
           QByteArray newData, oldData;
           if (AttributeData::isHexString(value, 'F', QLatin1String("+")) &&
               AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
-            oldData = QByteArray((const char *)fld->GetRawBinary(),
-                                 (unsigned int)fld->Size());
+            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                 static_cast<int>(fld->Size()));
             if (newData != oldData) {
               fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
-                       newData.size());
+                       static_cast<size_t>(newData.size()));
               markTag2Changed(frame.getType());
             }
             return true;
@@ -1732,11 +1732,11 @@ bool Mp3File::setFrameV2(const Frame& frame)
           QByteArray newData, oldData;
           if (AttributeData::isHexString(value, 'Z')) {
             newData = (value + QLatin1Char('\0')).toLatin1();
-            oldData = QByteArray((const char *)fld->GetRawBinary(),
-                                 (unsigned int)fld->Size());
+            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                 static_cast<int>(fld->Size()));
             if (newData != oldData) {
               fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
-                       newData.size());
+                       static_cast<size_t>(newData.size()));
               markTag2Changed(frame.getType());
             }
             return true;
@@ -1827,7 +1827,7 @@ bool Mp3File::addFrameV2(Frame& frame)
           fld = id3Frame->GetField(ID3FN_DATA);
           if (fld) {
             fld->Set(reinterpret_cast<const unsigned char*>(data.data()),
-                     data.size());
+                     static_cast<size_t>(data.size()));
           }
         }
       }
@@ -1838,7 +1838,7 @@ bool Mp3File::addFrameV2(Frame& frame)
         fld = id3Frame->GetField(ID3FN_DATA);
         if (fld) {
           fld->Set(reinterpret_cast<const unsigned char*>(data.data()),
-                   data.size());
+                   static_cast<size_t>(data.size()));
         }
       }
     } else if (id == ID3FID_PICTURE) {

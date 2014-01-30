@@ -37,11 +37,11 @@
  */
 FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
-  m_formatWhileEditing(false),
   m_caseConversion(AllFirstLettersUppercase),
-  m_strRepEnabled(false),
   m_locale(0),
-  m_filenameFormatter(false)
+  m_filenameFormatter(false),
+  m_formatWhileEditing(false),
+  m_strRepEnabled(false)
 {
   m_strRepMap.clear();
 }
@@ -171,8 +171,8 @@ void FormatConfig::formatString(QString& str) const
         static const QString romanLetters(QLatin1String("IVXLCDM"));
         QString newstr;
         bool wordstart = true;
-        const unsigned strLen = static_cast<unsigned>(str.length());
-        for (unsigned i = 0; i < strLen; ++i) {
+        const int strLen = str.length();
+        for (int i = 0; i < strLen; ++i) {
           QChar ch = str.at(i);
           if (!ch.isLetterOrNumber() &&
             ch != QLatin1Char('\'') && ch != QLatin1Char('`')) {
@@ -183,7 +183,7 @@ void FormatConfig::formatString(QString& str) const
 
             // Skip word if it is a roman number
             if (romanLetters.contains(ch)) {
-              unsigned j = i + 1;
+              int j = i + 1;
               while (j < strLen) {
                 QChar c = str.at(j);
                 if (!c.isLetterOrNumber()) {

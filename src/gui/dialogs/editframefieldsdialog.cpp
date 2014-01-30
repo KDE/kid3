@@ -586,7 +586,7 @@ void BinaryOpenSave::loadData()
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
-      size_t size = file.size();
+      int size = file.size();
       char* data = new char[size];
       QDataStream stream(&file);
       stream.readRawData(data, size);

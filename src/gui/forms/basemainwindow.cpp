@@ -1036,7 +1036,7 @@ void BaseMainWindowImpl::deleteFile()
     files.append(model->filePath(index));
   }
 
-  unsigned numFiles = files.size();
+  const int numFiles = files.size();
   if (numFiles > 0) {
     if (m_platformTools->warningContinueCancelList(
           m_w,

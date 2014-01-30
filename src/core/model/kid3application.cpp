@@ -135,9 +135,10 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_downloadImageDest(ImageForSelectedFiles),
   m_selectionSingleFile(0),
   m_selectionTagV1SupportedCount(0), m_selectionFileCount(0),
-  m_selectionHasTagV1(false), m_selectionHasTagV2(false),
   m_fileFilter(0),
-  m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone)
+  m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
+  m_modified(false), m_filtered(false),
+  m_selectionHasTagV1(false), m_selectionHasTagV2(false)
 {
   setObjectName(QLatin1String("Kid3Application"));
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -146,9 +147,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
-
-  setModified(false);
-  setFiltered(false);
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
@@ -2304,9 +2302,9 @@ void Kid3Application::numberTracks(int nr, int total,
       FrameCollection frames;
       taggedFile->getAllFramesV2(frames);
       Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
-      FrameCollection::const_iterator it = frames.find(frame);
-      if (it != frames.end()) {
-        frame = *it;
+      FrameCollection::const_iterator frameIt = frames.find(frame);
+      if (frameIt != frames.end()) {
+        frame = *frameIt;
         frame.setValueIfChanged(value);
         if (frame.isValueChanged()) {
           taggedFile->setFrameV2(frame);

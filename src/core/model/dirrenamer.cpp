@@ -36,8 +36,8 @@
  * Constructor.
  * @param parent parent object
  */
-DirRenamer::DirRenamer(QObject* parent) : QObject(parent), m_aborted(false),
-  m_tagVersion(TrackData::TagV2V1), m_actionCreate(false)
+DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
+  m_tagVersion(TrackData::TagV2V1), m_aborted(false), m_actionCreate(false)
 {
   setObjectName(QLatin1String("DirRenamer"));
 }

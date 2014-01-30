@@ -34,12 +34,12 @@ int PlaylistConfig::s_index = -1;
  */
 PlaylistConfig::PlaylistConfig() :
   StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
-  m_useFileNameFormat(false),
-  m_onlySelectedFiles(false),
-  m_useSortTagField(false), m_useFullPath(false), m_writeInfo(false),
   m_location(PL_CurrentDirectory), m_format(PF_M3U),
   m_fileNameFormat(QLatin1String("%{artist} - %{album}")), m_sortTagField(QLatin1String("%{track.3}")),
-  m_infoFormat(QLatin1String("%{artist} - %{title}"))
+  m_infoFormat(QLatin1String("%{artist} - %{title}")),
+  m_useFileNameFormat(false),
+  m_onlySelectedFiles(false),
+  m_useSortTagField(false), m_useFullPath(false), m_writeInfo(false)
 {
 }
 

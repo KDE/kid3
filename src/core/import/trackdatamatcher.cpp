@@ -49,11 +49,11 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  unsigned numTracks = trackDataVector.size();
+  const int numTracks = trackDataVector.size();
   if (numTracks > 0) {
     MatchData* md = new MatchData[numTracks];
-    unsigned numFiles = 0, numImports = 0;
-    unsigned i = 0;
+    int numFiles = 0, numImports = 0;
+    int i = 0;
     for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
          it != trackDataVector.end();
          ++it) {
@@ -92,7 +92,7 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           int bestTrack = -1;
           int bestDiff = INT_MAX;
           // Find the unassigned import with the best difference
-          for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+          for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
               int comparedDiff = md[i].fileLen > md[comparedTrack].importLen ?
                 md[i].fileLen - md[comparedTrack].importLen :
@@ -120,7 +120,7 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           int bestTrack = -1;
           int bestDiff = INT_MAX;
           // Find the unassigned file with the best difference
-          for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+          for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
               int comparedDiff = md[comparedTrack].fileLen > md[i].importLen ?
                 md[comparedTrack].fileLen - md[i].importLen :
@@ -174,12 +174,12 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  unsigned numTracks = trackDataVector.size();
+  const int numTracks = trackDataVector.size();
   if (numTracks > 0) {
     MatchData* md = new MatchData[numTracks];
 
     // 1st pass: Get track data and keep correct assignments.
-    unsigned i = 0;
+    int i = 0;
     for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
          it != trackDataVector.end();
          ++it) {
@@ -212,7 +212,7 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
     }
 
     // 3rd pass: Assign remaining tracks.
-    unsigned unassignedTrack = 0;
+    int unassignedTrack = 0;
     for (i = 0; i < numTracks; ++i) {
       if (md[i].assignedFrom == -1) {
         while (unassignedTrack < numTracks) {
@@ -262,11 +262,11 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  unsigned numTracks = trackDataVector.size();
+  const int numTracks = trackDataVector.size();
   if (numTracks > 0) {
     MatchData* md = new MatchData[numTracks];
-    unsigned numFiles = 0, numImports = 0;
-    unsigned i = 0;
+    int numFiles = 0, numImports = 0;
+    int i = 0;
     for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
          it != trackDataVector.end();
          ++it) {
@@ -293,7 +293,7 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           int bestTrack = -1;
           int bestMatch = -1;
           // Find the unassigned import with the best match
-          for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+          for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
               int comparedMatch =
                   (md[i].fileWords & md[comparedTrack].titleWords).size();
@@ -320,7 +320,7 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           int bestTrack = -1;
           int bestMatch = -1;
           // Find the unassigned file with the best match
-          for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+          for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
               int comparedMatch =
                   (md[comparedTrack].fileWords & md[i].titleWords).size();

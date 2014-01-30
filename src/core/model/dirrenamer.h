@@ -293,11 +293,11 @@ private:
   QStringList describeAction(const RenameAction& action) const;
 
   RenameActionList m_actions;
-  bool m_aborted;
   TrackData::TagVersion m_tagVersion;
-  bool m_actionCreate;
   QString m_format;
   QString m_dirName;
+  bool m_aborted;
+  bool m_actionCreate;
 };
 
 #endif // DIRRENAMER_H

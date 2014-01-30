@@ -167,7 +167,8 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
     m_delayedSendRequestContext.server = server;
     m_delayedSendRequestContext.path = path;
     m_delayedSendRequestContext.headers = headers;
-    m_requestTimer->start(minimumRequestInterval - msSinceLastRequest);
+    m_requestTimer->start(minimumRequestInterval -
+                          static_cast<int>(msSinceLastRequest));
     return;
   }
 
@@ -184,7 +185,8 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
     username = NetworkConfig::instance().m_proxyUserName;
     password = NetworkConfig::instance().m_proxyPassword;
   }
-  m_netMgr->setProxy(QNetworkProxy(proxyType, proxy, proxyPort,
+  m_netMgr->setProxy(QNetworkProxy(proxyType, proxy,
+                                   static_cast<quint16>(proxyPort),
                                    username, password));
 
   QUrl url;

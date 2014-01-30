@@ -252,19 +252,19 @@ bool ExpressionParser::evaluate(QString& op, QString& var1, QString& var2)
   while (m_rpnIterator != m_rpnStack.end()) {
     QString token = *m_rpnIterator++;
     if (token == QLatin1String("and")) {
-      bool var1, var2;
-      if (!popTwoBools(var1, var2)) {
+      bool b1, b2;
+      if (!popTwoBools(b1, b2)) {
         m_error = true;
         break;
       }
-      pushBool(var1 && var2);
+      pushBool(b1 && b2);
     } else if (token == QLatin1String("or")) {
-      bool var1, var2;
-      if (!popTwoBools(var1, var2)) {
+      bool b1, b2;
+      if (!popTwoBools(b1, b2)) {
         m_error = true;
         break;
       }
-      pushBool(var1 || var2);
+      pushBool(b1 || b2);
     } else if (token == QLatin1String("not")) {
       bool var;
       if (!popBool(var)) {

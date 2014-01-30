@@ -120,10 +120,6 @@ public:
       ::avcodec_close(m_ptr);
   }
 
-  bool isNull() const { return m_ptr == 0; }
-
-  void assign(AVCodecContext* ptr) { m_ptr = ptr; }
-
   bool open() {
     m_opened = false;
     if (m_ptr && m_impl) {
@@ -144,7 +140,9 @@ public:
 
   int sampleRate() const { return m_ptr->sample_rate; }
 
+#if defined HAVE_AVRESAMPLE || defined HAVE_SWRESAMPLE
   uint64_t channelLayout() const { return m_ptr->channel_layout; }
+#endif
 
   int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
 #if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 23, 0)

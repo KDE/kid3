@@ -62,8 +62,8 @@ void TextExporter::updateText(
   const QString& trailerFormat)
 {
   m_text.clear();
-  unsigned numTracks = m_trackDataVector.size();
-  unsigned trackNr = 0;
+  const int numTracks = m_trackDataVector.size();
+  int trackNr = 0;
   for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
        it != m_trackDataVector.end();
        ++it) {

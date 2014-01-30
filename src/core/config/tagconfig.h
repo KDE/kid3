@@ -238,9 +238,6 @@ public:
   static int s_index;
 
 private:
-  bool m_markTruncations;
-  bool m_enableTotalNumberOfTracks;
-  bool m_genreNotNumeric;
   QString m_commentName;
   int m_pictureNameItem;
   QStringList m_customGenres;
@@ -249,12 +246,14 @@ private:
   int m_textEncoding;
   quint64 m_quickAccessFrames;
   int m_trackNumberDigits;
-  bool m_onlyCustomGenres;
   QStringList m_pluginOrder;
   QStringList m_disabledPlugins;
-
   QStringList m_availablePlugins;
   int m_taggedFileFeatures;
+  bool m_onlyCustomGenres;
+  bool m_markTruncations;
+  bool m_enableTotalNumberOfTracks;
+  bool m_genreNotNumeric;
 };
 
 #endif

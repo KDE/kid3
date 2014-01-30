@@ -166,10 +166,10 @@ private:
   QList<BatchImportProfile> m_profiles;
   /** Index of currently selected profile */
   int m_profileIdx;
-  /** true if m_startAbortButton is an Abort button */
-  bool m_isAbortButton;
   /** Currently used batch import profile */
   BatchImportProfile m_currentProfile;
+  /** true if m_startAbortButton is an Abort button */
+  bool m_isAbortButton;
 };
 
 #endif

@@ -44,8 +44,8 @@
 TaggedFile::TaggedFile(const QString& dn, const QString& fn,
                        const QPersistentModelIndex& idx) :
   m_dirname(dn), m_filename(fn), m_newFilename(fn), m_index(idx),
-  m_changedV1(false), m_changedFramesV1(0),
-  m_changedV2(false), m_changedFramesV2(0), m_truncation(0)
+  m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
+  m_changedV1(false), m_changedV2(false)
 {
 }
 
@@ -365,9 +365,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 
   // escape regexp characters
   QString pattern;
-  uint fmtLen = fmt.length();
+  const int fmtLen = fmt.length();
   static const QString escChars(QLatin1String("+?.*^$()[]{}|\\"));
-  for (uint i = 0; i < fmtLen; ++i) {
+  for (int i = 0; i < fmtLen; ++i) {
     const QChar ch = fmt.at(i);
     if (escChars.contains(ch)) {
       pattern += QLatin1Char('\\');
@@ -1147,8 +1147,9 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 /**
  * Constructor.
  */
-TaggedFile::DetailInfo::DetailInfo() : valid(false), vbr(false),
-  channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0)
+TaggedFile::DetailInfo::DetailInfo() :
+  channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0),
+  valid(false), vbr(false)
 {
 }
 

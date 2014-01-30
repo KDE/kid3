@@ -60,18 +60,6 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** true to automatically hide unused tags */
-  bool m_autoHideTags;
-  /** true to hide file controls */
-  bool m_hideFile;
-  /** true to hide ID3v1.1 controls */
-  bool m_hideV1;
-  /** true to hide ID3v2.3 controls */
-  bool m_hideV2;
-  /** true to hide picture preview */
-  bool m_hidePicture;
-  /** true to play file on double click */
-  bool m_playOnDoubleClick;
   /** sorted column in file list */
   int m_fileListSortColumn;
   /** sort order in file list */
@@ -88,6 +76,18 @@ public:
   QList<int> m_splitterSizes;
   /** size of file/dirlist splitter */
   QList<int> m_vSplitterSizes;
+  /** true to automatically hide unused tags */
+  bool m_autoHideTags;
+  /** true to hide file controls */
+  bool m_hideFile;
+  /** true to hide ID3v1.1 controls */
+  bool m_hideV1;
+  /** true to hide ID3v2.3 controls */
+  bool m_hideV2;
+  /** true to hide picture preview */
+  bool m_hidePicture;
+  /** true to play file on double click */
+  bool m_playOnDoubleClick;
 
   /** Index in configuration storage */
   static int s_index;

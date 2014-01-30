@@ -33,9 +33,10 @@ int MainWindowConfig::s_index = -1;
  */
 MainWindowConfig::MainWindowConfig() :
   StoredConfig<MainWindowConfig>(QLatin1String("MainWindow")),
+  m_fontSize(-1),
+  m_useFont(false),
   m_hideToolBar(false),
   m_hideStatusBar(false),
-  m_useFont(false), m_fontSize(-1),
   m_dontUseNativeDialogs(
 #if defined Q_OS_WIN32 || defined Q_OS_MAC
     false

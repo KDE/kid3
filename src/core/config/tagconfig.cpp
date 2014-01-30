@@ -50,9 +50,6 @@ int TagConfig::s_index = -1;
  */
 TagConfig::TagConfig() :
   StoredConfig<TagConfig>(QLatin1String("Tags")),
-  m_markTruncations(true),
-  m_enableTotalNumberOfTracks(false),
-  m_genreNotNumeric(false),
   m_commentName(QString::fromLatin1(defaultCommentName)),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
   m_id3v2Version(ID3v2_3_0),
@@ -60,8 +57,11 @@ TagConfig::TagConfig() :
   m_textEncoding(TE_ISO8859_1),
   m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
+  m_taggedFileFeatures(0),
   m_onlyCustomGenres(false),
-  m_taggedFileFeatures(0)
+  m_markTruncations(true),
+  m_enableTotalNumberOfTracks(false),
+  m_genreNotNumeric(false)
 {
 }
 

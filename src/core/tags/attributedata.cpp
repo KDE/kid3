@@ -142,7 +142,6 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
       break;
     case Binary:
     case Unknown:
-    default:
       ;
   }
   return false;
@@ -201,7 +200,6 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
     }
     case Binary:
     case Unknown:
-    default:
       ;
   }
   return false;

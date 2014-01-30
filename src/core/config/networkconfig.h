@@ -60,18 +60,18 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** true if proxy is used */
-  bool m_useProxy;
   /** proxy used for access */
   QString m_proxy;
-  /** true to use proxy authentication */
-  bool m_useProxyAuthentication;
   /** proxy user name */
   QString m_proxyUserName;
   /** proxy password */
   QString m_proxyPassword;
   /** web browser substituted for %b */
   QString m_browser;
+  /** true if proxy is used */
+  bool m_useProxy;
+  /** true to use proxy authentication */
+  bool m_useProxyAuthentication;
 
   /** Index in configuration storage */
   static int s_index;

@@ -118,8 +118,6 @@ class BinaryOpenSave : public QWidget {
   IPlatformTools* m_platformTools;
   /** Array with binary data */
   QByteArray m_byteArray;
-  /** true if m_byteArray changed */
-  bool m_isChanged;
   /** Label left of buttons */
   QLabel* m_label;
   /** From Clipboard button */
@@ -130,6 +128,8 @@ class BinaryOpenSave : public QWidget {
   QString m_defaultFile;
   /** Filter names */
   QString m_filter;
+  /** true if m_byteArray changed */
+  bool m_isChanged;
 };
 
 

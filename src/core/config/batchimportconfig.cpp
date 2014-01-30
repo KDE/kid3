@@ -100,8 +100,8 @@ void BatchImportConfig::readFromConfig(ISettings* config)
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
-  unsigned numNames = names.size();
-  while (static_cast<unsigned>(sources.size()) < numNames)
+  const int numNames = names.size();
+  while (sources.size() < numNames)
     sources.append(QLatin1String(""));
   /* Use defaults if no configuration found */
   QStringList::const_iterator namesIt, sourcesIt;

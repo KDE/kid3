@@ -475,9 +475,9 @@ private:
 
   ExtendedType m_extendedType;
   int m_index;
-  bool m_valueChanged;
   QString m_value;
   FieldList m_fieldList;
+  bool m_valueChanged;
 };
 
 /** Filter to enable a subset of frame types. */

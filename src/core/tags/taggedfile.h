@@ -59,14 +59,14 @@ public:
     /** Destructor. */
     ~DetailInfo();
 
-    bool valid;              /**< true if information valid */
-    bool vbr;                /**< true if variable bitrate */
     QString format;          /**< format description */
     ChannelMode channelMode; /**< channel mode */
     unsigned channels;       /**< number of channels > 0 */
     unsigned sampleRate;     /**< sample rate in Hz > 0 */
     unsigned bitrate;        /**< 0 < bitrate in kbps < 999 */
     unsigned long duration;  /**< duration in seconds > 0 */
+    bool valid;              /**< true if information valid */
+    bool vbr;                /**< true if variable bitrate */
 
     /**
      * Get string representation of detail information.
@@ -832,16 +832,16 @@ private:
   QString m_newFilename;
   /** Index of file in model */
   QPersistentModelIndex m_index;
-  /** true if ID3v1 tags were changed */
-  bool m_changedV1;
   /** changed tag 1 frame types */
   quint64 m_changedFramesV1;
-  /** true if ID3v2 tags were changed */
-  bool m_changedV2;
   /** changed tag 2 frame types */
   quint64 m_changedFramesV2;
   /** Truncation flags. */
   quint64 m_truncation;
+  /** true if ID3v1 tags were changed */
+  bool m_changedV1;
+  /** true if ID3v2 tags were changed */
+  bool m_changedV2;
 };
 
 #endif // TAGGEDFILE_H

@@ -362,11 +362,6 @@ protected:
   void setTextField(const QString& name, const QString& value,
                     Frame::Type type);
 
-  /** Comments of this file. */
-  CommentList m_comments;
-  /** true if file has been read. */
-  bool m_fileRead;
-
 private:
   OggFile(const OggFile&);
   OggFile& operator=(const OggFile&);
@@ -375,8 +370,8 @@ private:
   /** Information about Ogg/Vorbis file. */
   struct FileInfo {
     /** Constructor. */
-    FileInfo() : valid(false), version(0), channels(0),
-      sampleRate(0), bitrate(0), duration(0) {}
+    FileInfo() : version(0), channels(0),
+      sampleRate(0), bitrate(0), duration(0), valid(false) {}
 
     /**
      * Read information about an Ogg/Vorbis file.
@@ -385,17 +380,23 @@ private:
      */
     bool read(const QString& fn);
 
-    bool valid;      /**< true if read() was successful */
     int version;     /**< vorbis encoder version */
     int channels;    /**< number of channels */
     long sampleRate; /**< sample rate in Hz */
     long bitrate;    /**< bitrate in bits/s */
     long duration;   /**< duration in seconds */
+    bool valid;      /**< true if read() was successful */
   };
 
   /** Info about file. */
   FileInfo m_fileInfo;
 #endif // HAVE_VORBIS
+
+protected:
+  /** Comments of this file. */
+  CommentList m_comments;
+  /** true if file has been read. */
+  bool m_fileRead;
 };
 
 #endif // OGGFILE_H

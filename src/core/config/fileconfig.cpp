@@ -75,14 +75,14 @@ static const char* defaultFromFilenameFormats[] = {
  */
 FileConfig::FileConfig() :
   StoredConfig<FileConfig>(QLatin1String("Files")),
-  m_preserveTime(false),
-  m_markChanges(true),
   m_nameFilter(QLatin1String("")),
   m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
   m_formatItem(0),
   m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
   m_formatFromFilenameItem(0),
   m_defaultCoverFileName(QLatin1String("folder.jpg")),
+  m_preserveTime(false),
+  m_markChanges(true),
   m_loadLastOpenedFile(false)
 {
 }

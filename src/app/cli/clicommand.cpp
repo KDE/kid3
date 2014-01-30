@@ -802,7 +802,7 @@ NumberTracksCommand::NumberTracksCommand(Kid3Cli* processor) :
 void NumberTracksCommand::startCommand()
 {
   int numArgs = args().size();
-  int firstTrackNr;
+  int firstTrackNr = 1;
   bool ok = false;
   if (numArgs > 1) {
     firstTrackNr = args().at(1).toInt(&ok);
