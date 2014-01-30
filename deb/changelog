@@ -1,20 +1,42 @@
-kid3 (3.0.2-0) unstable; urgency=low
+kid3 (3.0.2-2) unstable; urgency=low
 
+  [ Ana Guerrero Lopez ]
+  * Remove myself from Uploaders.
+
+  [ Patrick Matthäi ]
+  * Reintroduce kid3-qt package.
+  * Add kid3-core package on which the other variants depend.
+  * Cosmetic fix in last changelog entry.
+  * Use manpages from upstream packaging.
+  * Overwrite debian-watch-may-check-gpg-signature, no GPG signature available.
+  * Add patch 01-desktop-keywords to fix lintian warning
+    desktop-entry-lacks-keywords-entry.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 30 Jan 2014 12:53:19 +0100
+
+kid3 (3.0.2-1) unstable; urgency=low
+
+  [ Patrick Matthäi ]
   * New upstream release.
+    - Add new libreadline-dev build dependency.
+  * Don't explicitly request xz compression - dpkg 1.17 does this by default.
+  * Bump Standards-Version to 3.9.5 (no changes needed).
+  * Fix Vcs-Browser control field.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Wed, 27 Nov 2013 17:39:57 +0100
+  [ Mark Purcell ]
+  * Switch to dh - reduce debian/rules bloat
+  * kid3 Replaces kid3-qt - low popcon, reduce archive bloat
+  * Fix vcs-field-not-canonical
+  * debian/compat -> 9
+  * Update Description:
 
-kid3 (3.0.1-0) unstable; urgency=low
+ -- Mark Purcell <msp@debian.org>  Sat, 30 Nov 2013 15:44:59 +1100
 
-  * New upstream release.
+kid3 (2.3-2) unstable; urgency=low
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 29 Oct 2013 18:17:24 +0100
+  * Upload to unstable
 
-kid3 (3.0-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 14 Oct 2013 21:32:58 +0200
+ -- Mark Purcell <msp@debian.org>  Sat, 11 May 2013 21:00:00 +1000
 
 kid3 (2.3-1) experimental; urgency=low
 

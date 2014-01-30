@@ -24,3 +24,4 @@ Terminal=false
 Categories=Qt;KDE;AudioVideo;Audio;AudioVideoEditing;
 StartupNotify=true
 StartupWMClass=kid3
+Keywords=audio;id3;tag;editor;id3v1;id3v2;mp3;

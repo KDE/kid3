@@ -1,25 +1,25 @@
 #!/usr/bin/make -f
 
-%:
-	dh $@ --builddirectory=kid3-build
-
 DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
 
+%:
+	dh $@ --parallel --builddirectory=kid3-build
+
 override_dh_auto_configure:
 	dh_auto_configure -- \
-	-DSYSCONF_INSTALL_DIR=/etc \
-	-DCMAKE_INSTALL_PREFIX=$(DEB_CMAKE_PREFIX) \
-	-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
-	-DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
-	-DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
-	-DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg \
-	-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib/kid3 \
-	-DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
-	-DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
-	-DCMAKE_C_FLAGS="$(CFLAGS)" \
-	-DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
+		-DSYSCONF_INSTALL_DIR=/etc \
+		-DCMAKE_INSTALL_PREFIX=$(DEB_CMAKE_PREFIX) \
+		-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
+		-DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
+		-DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
+		-DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg \
+		-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib/kid3 \
+		-DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
+		-DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
+		-DCMAKE_C_FLAGS="$(CFLAGS)" \
+		-DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
 
 override_dh_auto_build:
 	dh_auto_build
@@ -30,31 +30,8 @@ override_dh_auto_install:
 	dh_auto_install
 	rm $(CURDIR)/debian/tmp/usr/share/doc/kde/HTML/*/kid3/common
 
-override_dh_installdocs:
-	dh_installdocs -A AUTHORS README
-
-override_dh_installchangelogs:
-	dh_installchangelogs ChangeLog
-
 override_dh_makeshlibs:
 	dh_makeshlibs --noscripts
 
 override_dh_compress:
 	dh_compress --exclude=.docbook
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
-
-DEBVERSION:=$(shell head -n 1 debian/changelog \
-                    | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
-UPVERSION:=$(shell echo $(DEBVERSION) | sed -e 's/^.*://' -e 's/-[0-9.]*$$//' -e 's/.dfsg$$//')
-
-FILENAME := kid3_$(UPVERSION).orig.tar.gz
-UPFILENAME := kid3-$(UPVERSION).tar.gz
-URL = http://heanet.dl.sourceforge.net/kid3/$(UPFILENAME)
-
-get-orig-source:
-	@@dh_testdir
-	@@[ -d ../tarballs/. ]||mkdir -p ../tarballs
-	@@echo Downloading $(UPFILENAME) from $(URL) ...
-	@@wget -N -nv -T10 -t3 -O ../tarballs/$(FILENAME) $(URL)

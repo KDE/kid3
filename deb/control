@@ -13,23 +13,21 @@ Build-Depends: debhelper (>= 9),
  libflac++-dev,
  libvorbis-dev,
  libtag1-dev,
+ libchromaprint-dev,
  libavformat-dev,
  libavcodec-dev,
- libchromaprint-dev,
- libreadline-dev,
  hardening-wrapper,
- pkg-config,
- lsb-release,
  docbook-xsl,
+ pkg-config,
+ libreadline-dev,
  xsltproc
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
-Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/trunk/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/
 
 Package: kid3-core
 Architecture: any
-Pre-Depends: dpkg (>= 1.15.6~)
 Depends: ${shlibs:Depends},
  ${misc:Depends}
 Description: Audio tag editor core libraries and data
@@ -37,10 +35,9 @@ Description: Audio tag editor core libraries and data
 
 Package: kid3
 Architecture: any
-Pre-Depends: dpkg (>= 1.15.6~)
-Depends: kid3-core,
- ${shlibs:Depends},
- ${misc:Depends}
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ kid3-core (= ${binary:Version})
 Description: KDE audio tag editor
  With Kid3, an ID3 tag editor for KDE you can:
   * Edit ID3v1.1 tags in your MP3 files
@@ -62,12 +59,10 @@ Description: KDE audio tag editor
  This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
 
 Package: kid3-qt
-Section: sound
 Architecture: any
-Pre-Depends: dpkg (>= 1.15.6~)
-Depends: kid3-core,
- ${shlibs:Depends},
- ${misc:Depends}
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ kid3-core (= ${binary:Version})
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files
@@ -89,13 +84,10 @@ Description: Audio tag editor
  This package does not use KDE libraries, if you use KDE you should use kid3.
 
 Package: kid3-cli
-Section: sound
 Architecture: any
-Pre-Depends: dpkg (>= 1.15.6~)
-Depends: kid3-core,
- ${shlibs:Depends},
- ${misc:Depends}
-Suggests: kid3-qt
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ kid3-core (= ${binary:Version})
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files
