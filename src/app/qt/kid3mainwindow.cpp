@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,6 +42,7 @@
 #include "shortcutsmodel.h"
 #include "mainwindowconfig.h"
 #include "kid3form.h"
+#include "filelist.h"
 #include "kid3application.h"
 #include "configdialog.h"
 #include "guiconfig.h"
@@ -543,6 +544,20 @@ void Kid3MainWindow::initFormActions()
   initAction(tr("Focus"), QLatin1String("v2_focus"), form(), SLOT(setFocusV2()), ctx);
   ctx = tr("File List");
   initAction(tr("Focus"), QLatin1String("filelist_focus"), form(), SLOT(setFocusFileList()), ctx);
+  QAction* renameAction = new QAction(tr("&Rename"), this);
+  renameAction->setObjectName(QLatin1String("filelist_rename"));
+  renameAction->setShortcut(QKeySequence(Qt::Key_F2));
+  renameAction->setShortcutContext(Qt::WidgetShortcut);
+  connect(renameAction, SIGNAL(triggered()), impl(), SLOT(renameFile()));
+  form()->getFileList()->setRenameAction(renameAction);
+  m_shortcutsModel->registerAction(renameAction, ctx);
+  QAction* deleteAction = new QAction(tr("&Move to Trash"), this);
+  deleteAction->setObjectName(QLatin1String("filelist_delete"));
+  deleteAction->setShortcut(QKeySequence::Delete);
+  deleteAction->setShortcutContext(Qt::WidgetShortcut);
+  connect(deleteAction, SIGNAL(triggered()), impl(), SLOT(deleteFile()));
+  form()->getFileList()->setDeleteAction(deleteAction);
+  m_shortcutsModel->registerAction(deleteAction, ctx);
   ctx = tr("Directory List");
   initAction(tr("Focus"), QLatin1String("dirlist_focus"), form(), SLOT(setFocusDirList()), ctx);
 }

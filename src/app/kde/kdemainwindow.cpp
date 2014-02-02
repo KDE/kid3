@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,6 +40,7 @@
 #include "config.h"
 #include "qtcompatmac.h"
 #include "kid3form.h"
+#include "filelist.h"
 #include "kid3application.h"
 #include "kdeconfigdialog.h"
 #include "guiconfig.h"
@@ -280,6 +281,18 @@ void KdeMainWindow::initActions()
   KAction* actionFileListFocus = new KAction(tr("File List") + QLatin1String(": ") + tr("Focus"), this);
   actionCollection()->addAction(QLatin1String("filelist_focus"), actionFileListFocus);
   connect(actionFileListFocus, SIGNAL(triggered()), form(), SLOT(setFocusFileList()));
+  KAction* actionFileListRename = new KAction(tr("&Rename"), this);
+  actionFileListRename->setShortcut(QKeySequence(Qt::Key_F2));
+  actionFileListRename->setShortcutContext(Qt::WidgetShortcut);
+  connect(actionFileListRename, SIGNAL(triggered()), impl(), SLOT(renameFile()));
+  actionCollection()->addAction(QLatin1String("filelist_rename"), actionFileListRename);
+  form()->getFileList()->setRenameAction(actionFileListRename);
+  KAction* actionFileListDelete = new KAction(tr("&Move to Trash"), this);
+  actionFileListDelete->setShortcut(QKeySequence::Delete);
+  actionFileListDelete->setShortcutContext(Qt::WidgetShortcut);
+  connect(actionFileListDelete, SIGNAL(triggered()), impl(), SLOT(deleteFile()));
+  actionCollection()->addAction(QLatin1String("filelist_delete"), actionFileListDelete);
+  form()->getFileList()->setDeleteAction(actionFileListDelete);
   KAction* actionDirListFocus = new KAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"), this);
   actionCollection()->addAction(QLatin1String("dirlist_focus"), actionDirListFocus);
   connect(actionDirListFocus, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));

@@ -30,6 +30,7 @@
 #include <QList>
 #include "configurabletreeview.h"
 #include "config.h"
+#include "kid3api.h"
 
 class BaseMainWindowImpl;
 class ExternalProcess;
@@ -37,7 +38,7 @@ class ExternalProcess;
 /**
  * List of files to operate on.
  */
-class FileList : public ConfigurableTreeView {
+class KID3_GUI_EXPORT FileList : public ConfigurableTreeView {
 Q_OBJECT
 
 public:
@@ -97,6 +98,18 @@ public:
   QModelIndex currentOrRootIndex() const {
     return currentIndex().isValid() ? currentIndex() : rootIndex();
   }
+
+  /**
+   * Set rename action.
+   * @param action rename action
+   */
+  void setRenameAction(QAction* action);
+
+  /**
+   * Set delete action.
+   * @param action delete action
+   */
+  void setDeleteAction(QAction* action);
 
 private slots:
   /**
@@ -167,6 +180,8 @@ private:
   ExternalProcess* m_process;
   QList<QPersistentModelIndex> m_currentSelection;
   BaseMainWindowImpl* m_mainWin;
+  QAction* m_renameAction;
+  QAction* m_deleteAction;
 };
 
 #endif // FILELIST_H

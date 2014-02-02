@@ -46,7 +46,8 @@
  * @param mainWin main window
  */
 FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
-  ConfigurableTreeView(parent), m_process(0), m_mainWin(mainWin)
+  ConfigurableTreeView(parent), m_process(0), m_mainWin(mainWin),
+  m_renameAction(0), m_deleteAction(0)
 {
   setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
@@ -136,8 +137,12 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     QMenu menu(this);
     menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
     menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
-    menu.addAction(tr("&Rename"), m_mainWin, SLOT(renameFile()));
-    menu.addAction(tr("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
+    if (m_renameAction) {
+      menu.addAction(m_renameAction);
+    }
+    if (m_deleteAction) {
+      menu.addAction(m_deleteAction);
+    }
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
@@ -342,3 +347,33 @@ void FileList::playIfTaggedFile(const QModelIndex& index)
   }
 }
 #endif
+
+/**
+ * Set rename action.
+ * @param action rename action
+ */
+void FileList::setRenameAction(QAction* action)
+{
+  if (m_renameAction) {
+    removeAction(m_renameAction);
+  }
+  m_renameAction = action;
+  if (m_renameAction) {
+    addAction(m_renameAction);
+  }
+}
+
+/**
+ * Set delete action.
+ * @param action delete action
+ */
+void FileList::setDeleteAction(QAction* action)
+{
+  if (m_deleteAction) {
+    removeAction(m_deleteAction);
+  }
+  m_deleteAction = action;
+  if (m_deleteAction) {
+    addAction(m_deleteAction);
+  }
+}
