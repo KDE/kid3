@@ -203,7 +203,8 @@ private:
     void assignCustomShortcut();
 
     bool isCustomShortcutChanged() const {
-      return m_customShortcut != m_oldCustomShortcut;
+      return m_customShortcut != m_oldCustomShortcut ||
+          m_customShortcut.isNull() != m_oldCustomShortcut.isNull();
     }
 
     QString activeShortcut() const {

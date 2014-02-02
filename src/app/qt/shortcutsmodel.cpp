@@ -340,7 +340,7 @@ void ShortcutsModel::writeToConfig(ISettings* config) const
          ++iit) {
       QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
       if (!actionName.isEmpty()) {
-        if (!iit->customShortcut().isEmpty()) {
+        if (iit->isCustomShortcutActive()) {
           config->setValue(actionName, iit->customShortcut());
         }
       } else {
