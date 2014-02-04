@@ -144,7 +144,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FieldControl() {}
+  virtual ~FieldControl();
 
   /**
    * Update field from data in field control.

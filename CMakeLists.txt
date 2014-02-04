@@ -370,7 +370,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif (CMAKE_COMPILER_IS_GNUCXX)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -D_REENTRANT")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -Woverloaded-virtual -fno-exceptions -fno-common -Werror=return-type -D_REENTRANT")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -Woverloaded-virtual -fno-exceptions -fno-common -Werror=return-type -Wweak-vtables -D_REENTRANT")
 endif ()
 if (MSVC)
   # Treat wchar_t as built-in type, else QString::fromWCharArray is unresolved

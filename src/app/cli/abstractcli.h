@@ -38,7 +38,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCliIO() = 0;
+  virtual ~AbstractCliIO();
 
   /**
    * Write a line to standard output.

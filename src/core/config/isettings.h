@@ -40,7 +40,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ISettings() = 0;
+  virtual ~ISettings();
 
   /**
    * Use settings subgroup.

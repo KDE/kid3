@@ -41,7 +41,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IPlatformTools() = 0;
+  virtual ~IPlatformTools();
 
   /**
    * Display help for a topic.

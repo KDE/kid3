@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IServerImporterFactory() = 0;
+  virtual ~IServerImporterFactory();
 
   /**
    * Get keys of available server importers.

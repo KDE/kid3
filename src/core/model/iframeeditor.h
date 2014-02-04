@@ -40,7 +40,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IFrameEditor() = 0;
+  virtual ~IFrameEditor();
 
   /**
    * Let user edit a frame and then update the fields

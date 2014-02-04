@@ -37,7 +37,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IAbortable() = 0;
+  virtual ~IAbortable();
 
   /**
    * Abort operation.

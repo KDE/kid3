@@ -162,7 +162,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractTaggedFileIterator() = 0;
+  virtual ~AbstractTaggedFileIterator();
 
   /**
    * Check if a next item exists.

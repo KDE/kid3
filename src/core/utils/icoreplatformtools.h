@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ICorePlatformTools() = 0;
+  virtual ~ICorePlatformTools();
 
   /**
    * Get application settings.

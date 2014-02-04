@@ -56,6 +56,11 @@ public:
   LabeledTextEdit(QWidget* parent);
 
   /**
+   * Destructor.
+   */
+  virtual ~LabeledTextEdit();
+
+  /**
    * Get text.
    *
    * @return text.
@@ -106,6 +111,11 @@ public:
   LabeledLineEdit(QWidget* parent);
 
   /**
+   * Destructor.
+   */
+  virtual ~LabeledLineEdit();
+
+  /**
    * Get text.
    *
    * @return text.
@@ -144,6 +154,11 @@ public:
    * @param strlst list with ComboBox items, terminated by NULL
    */
   LabeledComboBox(QWidget* parent, const char** strlst);
+
+  /**
+   * Destructor.
+   */
+  virtual ~LabeledComboBox();
 
   /**
    * Get index of selected item.
@@ -187,6 +202,11 @@ public:
    * @param parent parent widget
    */
   LabeledSpinBox(QWidget* parent);
+
+  /**
+   * Destructor.
+   */
+  virtual ~LabeledSpinBox();
 
   /**
    * Get value.
@@ -236,6 +256,13 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
 }
 
 /**
+ * Destructor.
+ */
+LabeledTextEdit::~LabeledTextEdit()
+{
+}
+
+/**
  * Constructor.
  *
  * @param parent parent widget
@@ -250,6 +277,13 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_edit);
+}
+
+/**
+ * Destructor.
+ */
+LabeledLineEdit::~LabeledLineEdit()
+{
 }
 
 /**
@@ -276,6 +310,13 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 }
 
 /**
+ * Destructor.
+ */
+LabeledComboBox::~LabeledComboBox()
+{
+}
+
+/**
  * Constructor.
  *
  * @param parent parent widget
@@ -295,6 +336,21 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
   }
 }
 
+/**
+ * Destructor.
+ */
+LabeledSpinBox::~LabeledSpinBox()
+{
+}
+
+
+/**
+ * Destructor.
+ */
+FieldControl::~FieldControl()
+{
+}
+
 
 /** Base class for MP3 field controls */
 class Mp3FieldControl : public FieldControl {
@@ -309,7 +365,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Mp3FieldControl() {}
+  virtual ~Mp3FieldControl();
 
 protected:
   /**
@@ -323,6 +379,13 @@ protected:
   /** field */
   Frame::Field& m_field;
 };
+
+/**
+ * Destructor.
+ */
+Mp3FieldControl::~Mp3FieldControl()
+{
+}
 
 /** Control to edit standard UTF text fields */
 class TextFieldControl : public Mp3FieldControl {

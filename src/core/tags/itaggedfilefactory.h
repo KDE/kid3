@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ITaggedFileFactory() = 0;
+  virtual ~ITaggedFileFactory();
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.
