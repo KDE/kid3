@@ -95,6 +95,10 @@ void KdeMainWindow::initActions()
       form(), SLOT(selectAllFiles()), actionCollection());
   KAction* editDeselect = KStandardAction::deselect(
       form(), SLOT(deselectAllFiles()), actionCollection());
+  KAction* editFind = KStandardAction::find(
+      impl(), SLOT(find()), actionCollection());
+  KAction* editReplace = KStandardAction::replace(
+      impl(), SLOT(findReplace()), actionCollection());
   setStandardToolBarMenuEnabled(true);
   createStandardStatusBarAction();
   KAction* settingsShortcuts = KStandardAction::keyBindings(
@@ -114,6 +118,8 @@ void KdeMainWindow::initActions()
   editSelectAll->setStatusTip(tr("Select all files"));
   editSelectAll->setShortcut(KShortcut(QLatin1String("Alt+Shift+A")));
   editDeselect->setStatusTip(tr("Deselect all files"));
+  editFind->setStatusTip(tr("Find"));
+  editReplace->setStatusTip(tr("Find and replace"));
   settingsShortcuts->setStatusTip(tr("Configure Shortcuts"));
   settingsToolbars->setStatusTip(tr("Configure Toolbars"));
   settingsConfigure->setStatusTip(tr("Preferences dialog"));

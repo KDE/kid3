@@ -126,6 +126,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_netMgr(new QNetworkAccessManager(this)),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
+  m_tagSearcher(new TagSearcher(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -2068,6 +2069,39 @@ void Kid3Application::fileSelected()
 {
   emit fileSelectionUpdateRequested();
   emit selectedFilesUpdated();
+}
+
+/**
+ * Search in tags for a given text.
+ * @param params search parameters
+ */
+void Kid3Application::findText(const TagSearcher::Parameters& params)
+{
+  m_tagSearcher->setModel(m_fileProxyModel);
+  m_tagSearcher->setRootIndex(m_fileProxyModelRootIndex);
+  m_tagSearcher->find(params);
+}
+
+/**
+ * Replace found text.
+ * @param params search parameters
+ */
+void Kid3Application::replaceText(const TagSearcher::Parameters& params)
+{
+  m_tagSearcher->setModel(m_fileProxyModel);
+  m_tagSearcher->setRootIndex(m_fileProxyModelRootIndex);
+  m_tagSearcher->replace(params);
+}
+
+/**
+ * Replace all occurrences.
+ * @param params search parameters
+ */
+void Kid3Application::replaceAll(const TagSearcher::Parameters& params)
+{
+  m_tagSearcher->setModel(m_fileProxyModel);
+  m_tagSearcher->setRootIndex(m_fileProxyModelRootIndex);
+  m_tagSearcher->replaceAll(params);
 }
 
 /**

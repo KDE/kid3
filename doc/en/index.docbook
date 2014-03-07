@@ -1370,6 +1370,38 @@ the <guibutton>Write info using</guibutton> control.
 <listitem><para>Selects the next file.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Find...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Find strings in the file names and the tags. The
+<guilabel>Find</guilabel> dialog is a subset of the
+<guilabel>Replace</guilabel> dialog, which is described below.
+ </para></listitem>
+</varlistentry>
+
+<varlistentry id="find-replace">
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>R</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Replace...</guimenuitem>
+</menuchoice></term>
+<listitem><para>This function opens a dialog to find and replace strings in the
+file names and the tags. The set of frames where the search is performed can
+be restricted by deactivating the <guilabel>Select all</guilabel> checkbox and
+selecting the frames which shall be searched. There are also search options
+available to search backwards, case sensitively, and to use regular
+expressions.</para>
+<para>Depending on the number of files, the search might take some
+time, therefore it can be aborted by closing the dialog.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect1>

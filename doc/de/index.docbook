@@ -1449,6 +1449,37 @@ Verzeichnis.</para></listitem>
 <listitem><para>Selektiert die nächste Datei.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Suchen...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Sucht Zeichenketten in den Dateinamen und Tags. Der
+<guilabel>Suchen</guilabel> Dialog ist eine Teilmenge des <guilabel>Ersetzen</guilabel>-Dialogs, welcher unten beschrieben ist.
+ </para></listitem>
+</varlistentry>
+
+<varlistentry id="find-replace">
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>R</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Ersetzen...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Ein Dialog wird geöffnet, mit welchem sich Zeichenketten in
+den Dateinamen und Tags suchen und ersetzen lassen. Die Suche kann auf
+bestimmte Elemente eingeschränkt werden, indem bei <guilabel>Alles
+selektieren</guilabel> das Häkchen entfernt wird und die gewünschten Elemente
+ausgewählt werden. Es sind auch Optionen vorhanden, um rückwärts zu suchen,
+Groß- und Kleinbuchstaben zu unterscheiden und für reguläre Ausdrücke.</para>
+<para>Abhängig von der Anzahl Dateien kann die Suche etwas dauern, daher kann
+sie durch Schließen des Dialogs abgebrochen werden.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect1>

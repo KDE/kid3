@@ -47,6 +47,8 @@
 #include "batchimportdialog.h"
 #include "browsecoverartdialog.h"
 #include "exportdialog.h"
+#include "findreplacedialog.h"
+#include "tagsearcher.h"
 #include "numbertracksdialog.h"
 #include "filterdialog.h"
 #include "rendirdialog.h"
@@ -94,13 +96,14 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_platformTools(platformTools), m_w(mainWin), m_self(0),
   m_app(new Kid3Application(m_platformTools, this)),
   m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
-  m_exportDialog(0), m_renDirDialog(0),
+  m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(0), m_progressDialog(0)
+  m_playlistDialog(0), m_progressDialog(0),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
-  , m_playToolBar(0)
+  m_playToolBar(0),
 #endif
+  m_findReplaceActive(false)
 {
   ContextHelp::init(m_platformTools);
 
@@ -621,6 +624,97 @@ void BaseMainWindowImpl::applyChangedConfiguration()
   if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
     FrameCollection::setQuickAccessFrames(
           TagConfig::instance().quickAccessFrames());
+    updateGuiControls();
+  }
+}
+
+/**
+ * Find and replace in tags of files.
+ * @param findOnly true to display only find part of dialog
+ */
+void BaseMainWindowImpl::findReplace(bool findOnly)
+{
+  TagSearcher* tagSearcher = m_app->getTagSearcher();
+  if (!m_findReplaceDialog) {
+    m_findReplaceDialog = new FindReplaceDialog(m_w);
+    connect(m_findReplaceDialog, SIGNAL(findRequested(TagSearcher::Parameters)),
+            m_app, SLOT(findText(TagSearcher::Parameters)));
+    connect(m_findReplaceDialog,
+            SIGNAL(replaceRequested(TagSearcher::Parameters)),
+            m_app, SLOT(replaceText(TagSearcher::Parameters)));
+    connect(m_findReplaceDialog,
+            SIGNAL(replaceAllRequested(TagSearcher::Parameters)),
+            m_app, SLOT(replaceAll(TagSearcher::Parameters)));
+    connect(m_findReplaceDialog, SIGNAL(finished(int)),
+            this, SLOT(deactivateFindReplace()));
+    connect(tagSearcher, SIGNAL(progress(QString)),
+            m_findReplaceDialog, SLOT(showProgress(QString)));
+  }
+  m_findReplaceDialog->init(findOnly);
+  m_findReplaceDialog->show();
+  if (!m_findReplaceActive) {
+    QModelIndexList selItems(m_app->getFileSelectionModel()->selectedRows());
+    if (selItems.size() == 1) {
+      tagSearcher->setStartIndex(selItems.first());
+    }
+    connect(tagSearcher, SIGNAL(textFound()),
+            this, SLOT(showFoundText()));
+    connect(tagSearcher, SIGNAL(textReplaced()),
+            this, SLOT(updateReplacedText()));
+    m_findReplaceActive = true;
+  }
+}
+
+/**
+ * Deactivate showing of find replace results.
+ */
+void BaseMainWindowImpl::deactivateFindReplace()
+{
+  if (m_findReplaceActive) {
+    TagSearcher* tagSearcher = m_app->getTagSearcher();
+    tagSearcher->abort();
+    disconnect(tagSearcher, SIGNAL(textFound()),
+               this, SLOT(showFoundText()));
+    disconnect(tagSearcher, SIGNAL(textReplaced()),
+               this, SLOT(updateReplacedText()));
+    m_findReplaceActive = false;
+  }
+}
+
+/**
+ * Ensure that found text is made visible in the GUI.
+ */
+void BaseMainWindowImpl::showFoundText()
+{
+  const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
+  if (pos.isValid()) {
+    m_app->getFileSelectionModel()->setCurrentIndex(pos.getFileIndex(),
+        QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+    switch (pos.getPart()) {
+    case TagSearcher::Position::FileName:
+      m_form->setFilenameSelection(pos.getMatchedPos(), pos.getMatchedLength());
+      break;
+    case TagSearcher::Position::Tag1:
+      m_form->frameTableV1()->setValueSelection(
+            pos.getFrameIndex(), pos.getMatchedPos(), pos.getMatchedLength());
+      break;
+    case TagSearcher::Position::Tag2:
+      m_form->frameTableV2()->setValueSelection(
+            pos.getFrameIndex(), pos.getMatchedPos(), pos.getMatchedLength());
+      break;
+    }
+  }
+}
+
+/**
+ * Update GUI controls after text has been replaced.
+ */
+void BaseMainWindowImpl::updateReplacedText()
+{
+  const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
+  if (pos.isValid()) {
+    m_app->getFileSelectionModel()->setCurrentIndex(pos.getFileIndex(),
+        QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
     updateGuiControls();
   }
 }

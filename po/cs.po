@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2013-11-30 09:42+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -270,6 +270,12 @@ msgstr "Vybrat všechny soubory"
 msgid "Deselect all files"
 msgstr "Zrušit výběr všech souborů"
 
+msgid "Find"
+msgstr "Najít"
+
+msgid "Find and replace"
+msgstr "Hledat a nahradit"
+
 msgid "Configure Shortcuts"
 msgstr "Nastavit zkratky"
 
@@ -371,6 +377,12 @@ msgstr "Zaměření"
 
 msgid "File List"
 msgstr "Seznam souborů"
+
+msgid "&Rename"
+msgstr "Pře&jmenovat"
+
+msgid "&Move to Trash"
+msgstr "&Přesunout do koše"
 
 msgid "Directory List"
 msgstr "Výpis adresáře"
@@ -508,6 +520,12 @@ msgstr "Vybrat předchozí soubor"
 
 msgid "Select next file"
 msgstr "Vybrat další soubor"
+
+msgid "&Find..."
+msgstr "&Hledat..."
+
+msgid "&Replace..."
+msgstr "&Nahradit..."
 
 msgid "&Tools"
 msgstr "&Nástroje"
@@ -729,6 +747,9 @@ msgstr "Všechny podporované soubory"
 
 msgid "All Files"
 msgstr "Všechny soubory"
+
+msgid "Search finished"
+msgstr "Hledání ukončeno"
 
 msgid "Track"
 msgstr "Stopa"
@@ -1294,6 +1315,39 @@ msgstr "&Výraz:"
 msgid "&Apply"
 msgstr "&Použít"
 
+msgid "Find and Replace"
+msgstr "Hledat a nahradit"
+
+msgid "F&ind:"
+msgstr "H&ledat:"
+
+msgid "&Find"
+msgstr "&Hledat"
+
+msgid "Re&place:"
+msgstr "Nahra&dit:"
+
+msgid "&Replace"
+msgstr "&Nahradit"
+
+msgid "Replace &all"
+msgstr "N&ahradit vše"
+
+msgid "Options"
+msgstr "Možnosti"
+
+msgid "&Match case"
+msgstr "&Rozlišovat velikost písmen"
+
+msgid "&Backwards"
+msgstr "&Pozpátku"
+
+msgid "Regular &expression"
+msgstr "Re&gulární výraz"
+
+msgid "Select a&ll"
+msgstr "V&ybrat vše"
+
 msgid "Accuracy:"
 msgstr "Přesnost:"
 
@@ -1398,9 +1452,6 @@ msgstr "Z:"
 
 msgid "To:"
 msgstr "Do:"
-
-msgid "&Find"
-msgstr "&Hledat"
 
 msgid "C&GI Path:"
 msgstr "Cesta C&GI:"
@@ -1507,12 +1558,6 @@ msgstr "&Rozbalit vše"
 
 msgid "&Collapse all"
 msgstr "&Složit vše"
-
-msgid "&Rename"
-msgstr "Pře&jmenovat"
-
-msgid "&Move to Trash"
-msgstr "&Přesunout do koše"
 
 msgid "Kid3"
 msgstr "Kid3"

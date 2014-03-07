@@ -182,3 +182,25 @@ void FrameTable::customContextMenu(const QPoint& pos)
     contextMenu(index.row(), index.column(), mapToGlobal(pos));
   }
 }
+
+/**
+ * Select in the editor of a value row.
+ * @param row row number
+ * @param start start position
+ * @param length number of characters to select
+ */
+void FrameTable::setValueSelection(int row, int start, int length)
+{
+  if (const FrameTableModel* ftModel =
+      qobject_cast<const FrameTableModel*>(model())) {
+    QModelIndex idx = ftModel->index(row, FrameTableModel::CI_Value);
+    if (idx.isValid()) {
+      scrollTo(idx);
+      setCurrentIndex(idx);
+      edit(idx);
+      if (QLineEdit* le = qobject_cast<QLineEdit*>(indexWidget(idx))) {
+        le->setSelection(start, length);
+      }
+    }
+  }
+}

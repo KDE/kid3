@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -269,6 +269,12 @@ msgstr "Seleziona tutti i file"
 msgid "Deselect all files"
 msgstr "Deseleziona tutti i file"
 
+msgid "Find"
+msgstr "Trova"
+
+msgid "Find and replace"
+msgstr "Trova e sostituisci"
+
 msgid "Configure Shortcuts"
 msgstr "Configura le scorciatoie"
 
@@ -370,6 +376,12 @@ msgstr "Punto focale"
 
 msgid "File List"
 msgstr "Lista File"
+
+msgid "&Rename"
+msgstr "&Rinomina"
+
+msgid "&Move to Trash"
+msgstr "Cesti&na"
 
 msgid "Directory List"
 msgstr "Lista delle cartelle"
@@ -507,6 +519,12 @@ msgstr "Seleziona file precedente"
 
 msgid "Select next file"
 msgstr "Seleziona file successivo"
+
+msgid "&Find..."
+msgstr "T&rova..."
+
+msgid "&Replace..."
+msgstr "S&ostituisci..."
 
 msgid "&Tools"
 msgstr "S&trumenti"
@@ -726,6 +744,9 @@ msgstr "Tutti i file supportati"
 
 msgid "All Files"
 msgstr "Tutti i file"
+
+msgid "Search finished"
+msgstr "Ricerca terminata"
 
 msgid "Track"
 msgstr "Traccia"
@@ -1291,6 +1312,39 @@ msgstr "&Espressione:"
 msgid "&Apply"
 msgstr "A&pplica"
 
+msgid "Find and Replace"
+msgstr "Trova e sostituisci"
+
+msgid "F&ind:"
+msgstr "Tro&va:"
+
+msgid "&Find"
+msgstr "Trov&a"
+
+msgid "Re&place:"
+msgstr "Sost&ituisci:"
+
+msgid "&Replace"
+msgstr "S&ostituisci"
+
+msgid "Replace &all"
+msgstr "Sostituisci &tutto"
+
+msgid "Options"
+msgstr "Opzioni"
+
+msgid "&Match case"
+msgstr "&Distingui le maiuscole"
+
+msgid "&Backwards"
+msgstr "I&ndietro"
+
+msgid "Regular &expression"
+msgstr "Espressione &regolare"
+
+msgid "Select a&ll"
+msgstr "Sele&ziona tutto"
+
 msgid "Accuracy:"
 msgstr "Accuratezza:"
 
@@ -1395,9 +1449,6 @@ msgstr "Da:"
 
 msgid "To:"
 msgstr "A:"
-
-msgid "&Find"
-msgstr "&Trova"
 
 msgid "C&GI Path:"
 msgstr "Percorso C&GI:"
@@ -1504,12 +1555,6 @@ msgstr "&Espandi tutto"
 
 msgid "&Collapse all"
 msgstr "&Raccogli tutto"
-
-msgid "&Rename"
-msgstr "&Rinomina"
-
-msgid "&Move to Trash"
-msgstr "Cesti&na"
 
 msgid "Kid3"
 msgstr "Kid3"

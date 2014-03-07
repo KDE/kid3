@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -270,6 +270,12 @@ msgstr "Valib kõik failid"
 msgid "Deselect all files"
 msgstr "Tühistab valiku kõikidel failidel"
 
+msgid "Find"
+msgstr "Otsi"
+
+msgid "Find and replace"
+msgstr "Otsi ja asenda"
+
 msgid "Configure Shortcuts"
 msgstr "Kiirklahvide seadistamine"
 
@@ -371,6 +377,12 @@ msgstr "Fookusesse"
 
 msgid "File List"
 msgstr "Faililoend"
+
+msgid "&Rename"
+msgstr "&Nimeta ümber"
+
+msgid "&Move to Trash"
+msgstr "&Viska prügikasti"
 
 msgid "Directory List"
 msgstr "Kataloogiloend"
@@ -508,6 +520,12 @@ msgstr "Valib eelmise faili"
 
 msgid "Select next file"
 msgstr "Valib järgmise faili"
+
+msgid "&Find..."
+msgstr "&Otsi..."
+
+msgid "&Replace..."
+msgstr "Ase&nda..."
 
 msgid "&Tools"
 msgstr "&Tööriistad"
@@ -727,6 +745,9 @@ msgstr "Kõik toetatud failid"
 
 msgid "All Files"
 msgstr "Kõik failid"
+
+msgid "Search finished"
+msgstr "Otsimine lõpetatud"
 
 msgid "Track"
 msgstr "Loo nr"
@@ -1292,6 +1313,39 @@ msgstr "&Avaldis:"
 msgid "&Apply"
 msgstr "&Rakenda"
 
+msgid "Find and Replace"
+msgstr "Otsi ja asenda"
+
+msgid "F&ind:"
+msgstr "Ots&i:"
+
+msgid "&Find"
+msgstr "&Otsi"
+
+msgid "Re&place:"
+msgstr "Ase&nda:"
+
+msgid "&Replace"
+msgstr "As&enda"
+
+msgid "Replace &all"
+msgstr "Asenda &kõik"
+
+msgid "Options"
+msgstr "Valikud"
+
+msgid "&Match case"
+msgstr "&Tõstutundlik"
+
+msgid "&Backwards"
+msgstr "Ta&gasi"
+
+msgid "Regular &expression"
+msgstr "&Regulaaravaldis"
+
+msgid "Select a&ll"
+msgstr "&Vali kõik"
+
 msgid "Accuracy:"
 msgstr "Täpsus:"
 
@@ -1396,9 +1450,6 @@ msgstr "Faili nimeks:"
 
 msgid "To:"
 msgstr "Faili nimest:"
-
-msgid "&Find"
-msgstr "&Otsi"
 
 msgid "C&GI Path:"
 msgstr "C&GI tee:"
@@ -1505,12 +1556,6 @@ msgstr "&Laienda kõik"
 
 msgid "&Collapse all"
 msgstr "&Ahenda kõik"
-
-msgid "&Rename"
-msgstr "&Nimeta ümber"
-
-msgid "&Move to Trash"
-msgstr "&Viska prügikasti"
 
 msgid "Kid3"
 msgstr "Kid3"

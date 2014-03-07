@@ -327,6 +327,28 @@ void Kid3MainWindow::initActions()
   editMenu->addAction(editNextFile);
   toolBar->addAction(editNextFile);
 
+  QAction* editFind = new QAction(this);
+  editFind->setStatusTip(tr("Find"));
+  editFind->setText(tr("&Find..."));
+  editFind->setShortcut(QKeySequence::Find);
+  editFind->setIcon(QCM_QIcon_fromTheme("edit-find"));
+  editFind->setObjectName(QLatin1String("edit_find"));
+  m_shortcutsModel->registerAction(editFind, menuTitle);
+  connect(editFind, SIGNAL(triggered()),
+    impl(), SLOT(find()));
+  editMenu->addAction(editFind);
+
+  QAction* editReplace = new QAction(this);
+  editReplace->setStatusTip(tr("Find and replace"));
+  editReplace->setText(tr("&Replace..."));
+  editReplace->setShortcut(QKeySequence::Replace);
+  editReplace->setIcon(QCM_QIcon_fromTheme("edit-find-replace"));
+  editReplace->setObjectName(QLatin1String("edit_replace"));
+  m_shortcutsModel->registerAction(editReplace, menuTitle);
+  connect(editReplace, SIGNAL(triggered()),
+    impl(), SLOT(findReplace()));
+  editMenu->addAction(editReplace);
+
   menuTitle = tr("&Tools");
   QMenu* toolsMenu = menubar->addMenu(menuTitle);
   QAction* toolsApplyFilenameFormat = new QAction(this);

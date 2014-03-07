@@ -19,6 +19,7 @@ set(config_SRCS
   config/serverimporterconfig.cpp
   config/isettings.cpp
   config/kid3settings.cpp
+  config/findreplaceconfig.cpp
 )
 
 set(config_MOC_HDRS

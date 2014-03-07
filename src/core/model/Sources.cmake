@@ -12,6 +12,7 @@ set(model_SRCS
   model/filefilter.cpp
   model/fileproxymodel.cpp
   model/fileproxymodeliterator.cpp
+  model/bidirfileproxymodeliterator.cpp
   model/framelist.cpp
   model/frametablemodel.cpp
   model/iframeeditor.cpp
@@ -21,6 +22,7 @@ set(model_SRCS
   model/texttablemodel.cpp
   model/trackdatamodel.cpp
   model/checkablestringlistmodel.cpp
+  model/tagsearcher.cpp
 )
 
 set(model_MOC_HDRS
@@ -32,9 +34,11 @@ set(model_MOC_HDRS
   model/filefilter.h
   model/fileproxymodel.h
   model/fileproxymodeliterator.h
+  model/bidirfileproxymodeliterator.h
   model/frametablemodel.h
   model/kid3application.h
   model/trackdatamodel.h
+  model/tagsearcher.h
 )
 
 if (HAVE_QTDBUS)

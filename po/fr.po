@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -271,6 +271,12 @@ msgstr "Sélectionner tout"
 msgid "Deselect all files"
 msgstr "Déselectionner tout"
 
+msgid "Find"
+msgstr "Chercher"
+
+msgid "Find and replace"
+msgstr "Chercher et remplacer"
+
 msgid "Configure Shortcuts"
 msgstr "Configurer les raccourcis"
 
@@ -372,6 +378,12 @@ msgstr "Focus"
 
 msgid "File List"
 msgstr "Liste des fichiers"
+
+msgid "&Rename"
+msgstr "&Renommer"
+
+msgid "&Move to Trash"
+msgstr "Me&ttre à la corbeille"
 
 msgid "Directory List"
 msgstr "Liste des répertoires"
@@ -509,6 +521,12 @@ msgstr "Fichier précédant"
 
 msgid "Select next file"
 msgstr "Fichier suivant"
+
+msgid "&Find..."
+msgstr "Tr&ouver..."
+
+msgid "&Replace..."
+msgstr "R&emplacer..."
 
 msgid "&Tools"
 msgstr "O&utils"
@@ -728,6 +746,9 @@ msgstr "Tous les fichiers pris en charge"
 
 msgid "All Files"
 msgstr "Tous les fichiers"
+
+msgid "Search finished"
+msgstr "Recherche terminée"
 
 msgid "Track"
 msgstr "Piste"
@@ -1293,6 +1314,39 @@ msgstr "&Expression:"
 msgid "&Apply"
 msgstr "&Appliquer"
 
+msgid "Find and Replace"
+msgstr "Chercher et remplacer"
+
+msgid "F&ind:"
+msgstr "Tro&uver:"
+
+msgid "&Find"
+msgstr "&Trouver"
+
+msgid "Re&place:"
+msgstr "R&emplacer:"
+
+msgid "&Replace"
+msgstr "&Remplacer"
+
+msgid "Replace &all"
+msgstr "T&out remplacer"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "&Match case"
+msgstr "Respecter la &casse"
+
+msgid "&Backwards"
+msgstr "Vers le &haut"
+
+msgid "Regular &expression"
+msgstr "E&xpression rationnelle"
+
+msgid "Select a&ll"
+msgstr "&Sélectionner tout"
+
 msgid "Accuracy:"
 msgstr "Précision:"
 
@@ -1397,9 +1451,6 @@ msgstr "De:"
 
 msgid "To:"
 msgstr "À:"
-
-msgid "&Find"
-msgstr "&Trouver"
 
 msgid "C&GI Path:"
 msgstr "Dossier du C&GI:"
@@ -1506,12 +1557,6 @@ msgstr "Tout &développer"
 
 msgid "&Collapse all"
 msgstr "Tout &réduire"
-
-msgid "&Rename"
-msgstr "&Renommer"
-
-msgid "&Move to Trash"
-msgstr "Me&ttre à la corbeille"
 
 msgid "Kid3"
 msgstr "Kid3"

@@ -41,6 +41,7 @@ class TaggedFile;
 class ImportDialog;
 class BatchImportDialog;
 class ExportDialog;
+class FindReplaceDialog;
 class BrowseCoverArtDialog;
 class RenDirDialog;
 class NumberTracksDialog;
@@ -245,6 +246,17 @@ public slots:
   void slotSettingsShowHidePicture();
 
   /**
+   * Find in tags of files.
+   */
+  void find() { findReplace(true); }
+
+  /**
+   * Find and replace in tags of files.
+   * @param findOnly true to display only find part of dialog
+   */
+  void findReplace(bool findOnly = false);
+
+  /**
    * Rename directory.
    */
   void slotRenameDirectory();
@@ -331,6 +343,21 @@ private slots:
    */
   void toggleExpanded(const QModelIndex& index);
 
+  /**
+   * Deactivate showing of find replace results.
+   */
+  void deactivateFindReplace();
+
+  /**
+   * Ensure that found text is made visible in the GUI.
+   */
+  void showFoundText();
+
+  /**
+   * Update GUI controls after text has been replaced.
+   */
+  void updateReplacedText();
+
 private:
   /**
    * Free allocated resources.
@@ -395,6 +422,8 @@ private:
   BrowseCoverArtDialog* m_browseCoverArtDialog;
   /** Export dialog */
   ExportDialog* m_exportDialog;
+  /** Find and replace dialog */
+  FindReplaceDialog* m_findReplaceDialog;
   /** Rename directory dialog */
   RenDirDialog* m_renDirDialog;
   /** Number tracks dialog */
@@ -412,6 +441,7 @@ private:
   PlayToolBar* m_playToolBar;
 #endif
   QDateTime m_expandFileListStartTime;
+  bool m_findReplaceActive;
 };
 
 

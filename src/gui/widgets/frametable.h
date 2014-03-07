@@ -79,6 +79,14 @@ public:
    */
   const QWidget* getCurrentEditor() const;
 
+  /**
+   * Select in the editor of a value row.
+   * @param row row number
+   * @param start start position
+   * @param length number of characters to select
+   */
+  void setValueSelection(int row, int start, int length);
+
 private slots:
   /**
    * Display context menu.

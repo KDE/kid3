@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,6 +266,12 @@ msgstr ""
 msgid "Deselect all files"
 msgstr ""
 
+msgid "Find"
+msgstr ""
+
+msgid "Find and replace"
+msgstr ""
+
 msgid "Configure Shortcuts"
 msgstr ""
 
@@ -366,6 +372,12 @@ msgid "Focus"
 msgstr ""
 
 msgid "File List"
+msgstr ""
+
+msgid "&Rename"
+msgstr ""
+
+msgid "&Move to Trash"
 msgstr ""
 
 msgid "Directory List"
@@ -503,6 +515,12 @@ msgid "Select previous file"
 msgstr ""
 
 msgid "Select next file"
+msgstr ""
+
+msgid "&Find..."
+msgstr ""
+
+msgid "&Replace..."
 msgstr ""
 
 msgid "&Tools"
@@ -722,6 +740,9 @@ msgid "All Supported Files"
 msgstr ""
 
 msgid "All Files"
+msgstr ""
+
+msgid "Search finished"
 msgstr ""
 
 msgid "Track"
@@ -1288,6 +1309,39 @@ msgstr ""
 msgid "&Apply"
 msgstr ""
 
+msgid "Find and Replace"
+msgstr ""
+
+msgid "F&ind:"
+msgstr ""
+
+msgid "&Find"
+msgstr ""
+
+msgid "Re&place:"
+msgstr ""
+
+msgid "&Replace"
+msgstr ""
+
+msgid "Replace &all"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "&Match case"
+msgstr ""
+
+msgid "&Backwards"
+msgstr ""
+
+msgid "Regular &expression"
+msgstr ""
+
+msgid "Select a&ll"
+msgstr ""
+
 msgid "Accuracy:"
 msgstr ""
 
@@ -1393,9 +1447,6 @@ msgstr ""
 msgid "To:"
 msgstr ""
 
-msgid "&Find"
-msgstr ""
-
 msgid "C&GI Path:"
 msgstr ""
 
@@ -1498,12 +1549,6 @@ msgid "&Expand all"
 msgstr ""
 
 msgid "&Collapse all"
-msgstr ""
-
-msgid "&Rename"
-msgstr ""
-
-msgid "&Move to Trash"
 msgstr ""
 
 msgid "Kid3"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -271,6 +271,12 @@ msgstr "Seleccionar todo"
 msgid "Deselect all files"
 msgstr "Deseleccionar todo"
 
+msgid "Find"
+msgstr "Buscar"
+
+msgid "Find and replace"
+msgstr "Buscar y reemplazar"
+
 msgid "Configure Shortcuts"
 msgstr "Configura los atajos de teclado"
 
@@ -372,6 +378,12 @@ msgstr "Foco"
 
 msgid "File List"
 msgstr "Lista de Archivos"
+
+msgid "&Rename"
+msgstr "&Renombrar"
+
+msgid "&Move to Trash"
+msgstr "&Mover a la papelera"
 
 msgid "Directory List"
 msgstr "Lista de directorios"
@@ -509,6 +521,12 @@ msgstr "Anterior archivo"
 
 msgid "Select next file"
 msgstr "Siguiente archivo"
+
+msgid "&Find..."
+msgstr "&Buscar..."
+
+msgid "&Replace..."
+msgstr "&Reemplazar..."
 
 msgid "&Tools"
 msgstr "&Herramientas"
@@ -728,6 +746,9 @@ msgstr "Todos los archivos soportados"
 
 msgid "All Files"
 msgstr "Todos los archivos"
+
+msgid "Search finished"
+msgstr "Búsqueda finalizada"
 
 msgid "Track"
 msgstr "Pista"
@@ -1294,6 +1315,39 @@ msgstr "&Expresión:"
 msgid "&Apply"
 msgstr "&Aplicar"
 
+msgid "Find and Replace"
+msgstr "Buscar y reemplazar"
+
+msgid "F&ind:"
+msgstr "B&uscar:"
+
+msgid "&Find"
+msgstr "&Buscar"
+
+msgid "Re&place:"
+msgstr "Ree&mplazar:"
+
+msgid "&Replace"
+msgstr "R&eemplazar"
+
+msgid "Replace &all"
+msgstr "Reempl&azar todo"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "&Match case"
+msgstr "Coi&ncidir con capitalización"
+
+msgid "&Backwards"
+msgstr "&Hacia atrás"
+
+msgid "Regular &expression"
+msgstr "Expresión &regular"
+
+msgid "Select a&ll"
+msgstr "&Seleccionar todo"
+
 msgid "Accuracy:"
 msgstr "Precisión:"
 
@@ -1398,9 +1452,6 @@ msgstr "De:"
 
 msgid "To:"
 msgstr "A:"
-
-msgid "&Find"
-msgstr "&Buscar"
 
 msgid "C&GI Path:"
 msgstr "Ruta de C&GI:"
@@ -1507,12 +1558,6 @@ msgstr "&Expandir todo"
 
 msgid "&Collapse all"
 msgstr "&Plegar todo"
-
-msgid "&Rename"
-msgstr "&Renombrar"
-
-msgid "&Move to Trash"
-msgstr "&Mover a la papelera"
 
 msgid "Kid3"
 msgstr "Kid3"

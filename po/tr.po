@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -269,6 +269,12 @@ msgstr "Tüm Dosyaları Seç"
 msgid "Deselect all files"
 msgstr "Hiçbir dosyayı seçme"
 
+msgid "Find"
+msgstr "Bul"
+
+msgid "Find and replace"
+msgstr "Bul ve değiştir"
+
 msgid "Configure Shortcuts"
 msgstr "Kısayolları yapılandır"
 
@@ -370,6 +376,12 @@ msgstr "Odaklama"
 
 msgid "File List"
 msgstr "Dosya Listesi"
+
+msgid "&Rename"
+msgstr "Ad Değişti&r"
+
+msgid "&Move to Trash"
+msgstr "Çöp &Kutusuna Taşı"
 
 msgid "Directory List"
 msgstr "Dizin listesi"
@@ -507,6 +519,12 @@ msgstr "Önceki dosya"
 
 msgid "Select next file"
 msgstr "Sonraki dosya"
+
+msgid "&Find..."
+msgstr "B&ul..."
+
+msgid "&Replace..."
+msgstr "D&eğiştir..."
 
 msgid "&Tools"
 msgstr "&Araçlar"
@@ -726,6 +744,9 @@ msgstr "Desteklenen Bütün Dosyalar"
 
 msgid "All Files"
 msgstr "Tüm Dosyalar"
+
+msgid "Search finished"
+msgstr "Arama tamamlandı"
 
 msgid "Track"
 msgstr "Parça No"
@@ -1292,6 +1313,39 @@ msgstr "&İfade:"
 msgid "&Apply"
 msgstr "&Uygula"
 
+msgid "Find and Replace"
+msgstr "Bul ve değiştir"
+
+msgid "F&ind:"
+msgstr "&Bul:"
+
+msgid "&Find"
+msgstr "B&ul"
+
+msgid "Re&place:"
+msgstr "Değ&iştir:"
+
+msgid "&Replace"
+msgstr "&Değiştir"
+
+msgid "Replace &all"
+msgstr "Tü&münü değiştir"
+
+msgid "Options"
+msgstr "Seçenekler"
+
+msgid "&Match case"
+msgstr "&Eşleşme durumu"
+
+msgid "&Backwards"
+msgstr "&Geriye doğru"
+
+msgid "Regular &expression"
+msgstr "Dü&zenli ifade"
+
+msgid "Select a&ll"
+msgstr "Tümünü &Seç"
+
 msgid "Accuracy:"
 msgstr "Doğruluk:"
 
@@ -1396,9 +1450,6 @@ msgstr "Şuradan:"
 
 msgid "To:"
 msgstr "Şuraya:"
-
-msgid "&Find"
-msgstr "B&ul"
 
 msgid "C&GI Path:"
 msgstr "C&GI Yolu:"
@@ -1505,12 +1556,6 @@ msgstr "&Tümünü Aç"
 
 msgid "&Collapse all"
 msgstr "Tümünü &Kapat"
-
-msgid "&Rename"
-msgstr "Ad Değişti&r"
-
-msgid "&Move to Trash"
-msgstr "Çöp &Kutusuna Taşı"
 
 msgid "Kid3"
 msgstr "Kid3"

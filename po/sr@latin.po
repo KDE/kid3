@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -269,6 +269,12 @@ msgstr "Izaberi sve fajlove"
 msgid "Deselect all files"
 msgstr "Poništi izbor svih fajlova"
 
+msgid "Find"
+msgstr "Nađi"
+
+msgid "Find and replace"
+msgstr "Nađi i zameni"
+
 msgid "Configure Shortcuts"
 msgstr "Podesi prečice"
 
@@ -370,6 +376,12 @@ msgstr "Fokus"
 
 msgid "File List"
 msgstr "Spisak fajlova"
+
+msgid "&Rename"
+msgstr "P&reimenuj"
+
+msgid "&Move to Trash"
+msgstr "Premesti u &smeće"
 
 msgid "Directory List"
 msgstr "Spisak fascikli"
@@ -507,6 +519,12 @@ msgstr "Izaberi prethodni fajl"
 
 msgid "Select next file"
 msgstr "Izaberi sledeći fajl"
+
+msgid "&Find..."
+msgstr "N&ađi..."
+
+msgid "&Replace..."
+msgstr "&Zameni..."
 
 msgid "&Tools"
 msgstr "&Alatke"
@@ -726,6 +744,9 @@ msgstr "Svi podržani fajlovi"
 
 msgid "All Files"
 msgstr "Svi fajlovi"
+
+msgid "Search finished"
+msgstr "Pretraga završena"
 
 msgid "Track"
 msgstr "Numera"
@@ -1291,6 +1312,39 @@ msgstr "&Izraz:"
 msgid "&Apply"
 msgstr "&Primeni"
 
+msgid "Find and Replace"
+msgstr "Nađi i zameni"
+
+msgid "F&ind:"
+msgstr "Na&đi:"
+
+msgid "&Find"
+msgstr "&Nađi"
+
+msgid "Re&place:"
+msgstr "Zam&eni:"
+
+msgid "&Replace"
+msgstr "Z&ameni"
+
+msgid "Replace &all"
+msgstr "Zameni s&ve"
+
+msgid "Options"
+msgstr "Opcije"
+
+msgid "&Match case"
+msgstr "&Poklopi veličinu"
+
+msgid "&Backwards"
+msgstr "&Unazad"
+
+msgid "Regular &expression"
+msgstr "&Regularni izraz"
+
+msgid "Select a&ll"
+msgstr "&Izaberi sve"
+
 msgid "Accuracy:"
 msgstr "Preciznost:"
 
@@ -1395,9 +1449,6 @@ msgstr "Iz:"
 
 msgid "To:"
 msgstr "U:"
-
-msgid "&Find"
-msgstr "&Nađi"
 
 msgid "C&GI Path:"
 msgstr "C&GI putanja:"
@@ -1504,12 +1555,6 @@ msgstr "Raz&granaj sve"
 
 msgid "&Collapse all"
 msgstr "&Sakupi sve"
-
-msgid "&Rename"
-msgstr "P&reimenuj"
-
-msgid "&Move to Trash"
-msgstr "Premesti u &smeće"
 
 msgid "Kid3"
 msgstr "Kid3"

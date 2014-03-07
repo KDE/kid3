@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -272,6 +272,12 @@ msgstr "選擇全部檔案"
 msgid "Deselect all files"
 msgstr "全部不選"
 
+msgid "Find"
+msgstr "尋找"
+
+msgid "Find and replace"
+msgstr "尋找與取代"
+
 msgid "Configure Shortcuts"
 msgstr "設定捷徑"
 
@@ -373,6 +379,12 @@ msgstr "焦點"
 
 msgid "File List"
 msgstr "檔案清單"
+
+msgid "&Rename"
+msgstr "更名(&R)"
+
+msgid "&Move to Trash"
+msgstr "移至垃圾桶(&M)"
 
 msgid "Directory List"
 msgstr "目錄清單"
@@ -510,6 +522,12 @@ msgstr "選擇上一個檔案"
 
 msgid "Select next file"
 msgstr "選擇下一個檔案"
+
+msgid "&Find..."
+msgstr "尋找(&F)..."
+
+msgid "&Replace..."
+msgstr "取代(&R)..."
 
 msgid "&Tools"
 msgstr "工具(&T)"
@@ -729,6 +747,9 @@ msgstr "所有支援檔案"
 
 msgid "All Files"
 msgstr "所有檔案"
+
+msgid "Search finished"
+msgstr "搜尋結束"
 
 msgid "Track"
 msgstr "音軌"
@@ -1295,6 +1316,39 @@ msgstr "算式(&E):"
 msgid "&Apply"
 msgstr "套用(&A)"
 
+msgid "Find and Replace"
+msgstr "尋找與取代"
+
+msgid "F&ind:"
+msgstr "尋找(&I):"
+
+msgid "&Find"
+msgstr "尋找(&F)"
+
+msgid "Re&place:"
+msgstr "取代(&P):"
+
+msgid "&Replace"
+msgstr "取代(&R)"
+
+msgid "Replace &all"
+msgstr "全部取代(&A)"
+
+msgid "Options"
+msgstr "選項"
+
+msgid "&Match case"
+msgstr "符合大小寫(&M)"
+
+msgid "&Backwards"
+msgstr "向後(&B)"
+
+msgid "Regular &expression"
+msgstr "正規表示式(&E)"
+
+msgid "Select a&ll"
+msgstr "全選(&L)"
+
 msgid "Accuracy:"
 msgstr "正確率:"
 
@@ -1399,9 +1453,6 @@ msgstr "從："
 
 msgid "To:"
 msgstr "至："
-
-msgid "&Find"
-msgstr "尋找(&F)"
 
 msgid "C&GI Path:"
 msgstr "CGI路徑(&G):"
@@ -1508,12 +1559,6 @@ msgstr "全部展開(&E)"
 
 msgid "&Collapse all"
 msgstr "全部折疊(&C)"
-
-msgid "&Rename"
-msgstr "更名(&R)"
-
-msgid "&Move to Trash"
-msgstr "移至垃圾桶(&M)"
 
 msgid "Kid3"
 msgstr "Kid3"

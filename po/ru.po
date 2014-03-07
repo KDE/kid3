@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -271,6 +271,12 @@ msgstr "Выделить все"
 msgid "Deselect all files"
 msgstr "Отменить выбор"
 
+msgid "Find"
+msgstr "Поиск"
+
+msgid "Find and replace"
+msgstr "Поиск и замена"
+
 msgid "Configure Shortcuts"
 msgstr "Настройка быстрых клавиш"
 
@@ -372,6 +378,12 @@ msgstr "Фокус"
 
 msgid "File List"
 msgstr "Список файлов"
+
+msgid "&Rename"
+msgstr "&Переименовать"
+
+msgid "&Move to Trash"
+msgstr "&Выбросить в корзину"
 
 msgid "Directory List"
 msgstr "Содержимое каталога"
@@ -509,6 +521,12 @@ msgstr "Предыдущий файл"
 
 msgid "Select next file"
 msgstr "Следующий файл"
+
+msgid "&Find..."
+msgstr "&Найти..."
+
+msgid "&Replace..."
+msgstr "&Заменить..."
 
 msgid "&Tools"
 msgstr "&Сервис"
@@ -728,6 +746,9 @@ msgstr "Все поддерживаемые файлы"
 
 msgid "All Files"
 msgstr "Все файлы"
+
+msgid "Search finished"
+msgstr "Поиск завершён"
 
 msgid "Track"
 msgstr "Дорожка"
@@ -1294,6 +1315,39 @@ msgstr "&Выражение:"
 msgid "&Apply"
 msgstr "&Применить"
 
+msgid "Find and Replace"
+msgstr "Поиск и замена"
+
+msgid "F&ind:"
+msgstr "На&йти:"
+
+msgid "&Find"
+msgstr "&Найти"
+
+msgid "Re&place:"
+msgstr "За&менить:"
+
+msgid "&Replace"
+msgstr "З&аменить"
+
+msgid "Replace &all"
+msgstr "Заменить &все"
+
+msgid "Options"
+msgstr "Параметры"
+
+msgid "&Match case"
+msgstr "Учитывать &регистр"
+
+msgid "&Backwards"
+msgstr "Наза&д"
+
+msgid "Regular &expression"
+msgstr "Регулярное выра&жение"
+
+msgid "Select a&ll"
+msgstr "Вы&делить все"
+
 msgid "Accuracy:"
 msgstr "Точность:"
 
@@ -1398,9 +1452,6 @@ msgstr "От:"
 
 msgid "To:"
 msgstr "На:"
-
-msgid "&Find"
-msgstr "&Найти"
 
 msgid "C&GI Path:"
 msgstr "Путь к C&GI:"
@@ -1507,12 +1558,6 @@ msgstr "&Развернуть всё"
 
 msgid "&Collapse all"
 msgstr "&Свернуть всё"
-
-msgid "&Rename"
-msgstr "&Переименовать"
-
-msgid "&Move to Trash"
-msgstr "&Выбросить в корзину"
 
 msgid "Kid3"
 msgstr "Kid3"

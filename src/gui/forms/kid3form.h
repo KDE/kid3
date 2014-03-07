@@ -161,6 +161,16 @@ public:
   void setFilenameEditEnabled(bool en) { m_nameLineEdit->setEnabled(en); }
 
   /**
+   * Select in the filename line edit.
+   * @param start start position
+   * @param length number of characters to select
+   */
+  void setFilenameSelection(int start, int length) {
+    m_nameLineEdit->setSelection(start, length);
+    m_nameLineEdit->setFocus();
+  }
+
+  /**
    * Mark the filename as changed.
    * @param en true to mark as changed
    */

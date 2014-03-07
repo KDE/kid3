@@ -32,6 +32,7 @@
 #include "frame.h"
 #include "trackdata.h"
 #include "filefilter.h"
+#include "tagsearcher.h"
 #include "generalconfig.h"
 #include "config.h"
 
@@ -189,6 +190,12 @@ public:
   QList<ServerTrackImporter*> getServerTrackImporters() {
     return m_trackImporters;
   }
+
+  /**
+   * Get tag searcher.
+   * @return tag searcher.
+   */
+  TagSearcher* getTagSearcher() const { return m_tagSearcher; }
 
   /**
    * Get directory renamer.
@@ -870,6 +877,24 @@ public slots:
   void fileSelected();
 
   /**
+   * Search in tags for a given text.
+   * @param params search parameters
+   */
+  void findText(const TagSearcher::Parameters& params);
+
+  /**
+   * Replace found text.
+   * @param params search parameters
+   */
+  void replaceText(const TagSearcher::Parameters& params);
+
+  /**
+   * Replace all occurrences.
+   * @param params search parameters
+   */
+  void replaceAll(const TagSearcher::Parameters& params);
+
+  /**
    * Schedule actions to rename a directory.
    * When finished renameActionsScheduled() is emitted.
    */
@@ -1081,6 +1106,8 @@ private:
   DownloadClient* m_downloadClient;
   /** Text exporter */
   TextExporter* m_textExporter;
+  /** Tag searcher */
+  TagSearcher* m_tagSearcher;
   /** Directory renamer */
   DirRenamer* m_dirRenamer;
   /** Batch importer */

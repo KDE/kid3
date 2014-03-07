@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-01-27 17:19+0100\n"
+"POT-Creation-Date: 2014-03-07 14:20+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -270,6 +270,12 @@ msgstr "Valitse kaikki tiedostot"
 msgid "Deselect all files"
 msgstr "Poista kaikki valinnat"
 
+msgid "Find"
+msgstr "Etsi"
+
+msgid "Find and replace"
+msgstr "Etsi ja korvaa"
+
 msgid "Configure Shortcuts"
 msgstr "Aseta pikanäppäimet"
 
@@ -371,6 +377,12 @@ msgstr "Kohdistus"
 
 msgid "File List"
 msgstr "Tiedostoluettelo"
+
+msgid "&Rename"
+msgstr "M&uuta nimeä"
+
+msgid "&Move to Trash"
+msgstr "&Siirrä roskakoriin"
 
 msgid "Directory List"
 msgstr "Kansioluettelo"
@@ -508,6 +520,12 @@ msgstr "Edellinen tiedosto"
 
 msgid "Select next file"
 msgstr "Seuraava tiedosto"
+
+msgid "&Find..."
+msgstr "E&tsi..."
+
+msgid "&Replace..."
+msgstr "K&orvaa..."
 
 msgid "&Tools"
 msgstr "T&yökalut"
@@ -727,6 +745,9 @@ msgstr "Kaikki tuetut tiedostot"
 
 msgid "All Files"
 msgstr "Kaikki tiedostot"
+
+msgid "Search finished"
+msgstr "Haku valmis"
 
 msgid "Track"
 msgstr "Raita"
@@ -1292,6 +1313,39 @@ msgstr "&Lauseke:"
 msgid "&Apply"
 msgstr "&Käytä"
 
+msgid "Find and Replace"
+msgstr "Etsi ja korvaa"
+
+msgid "F&ind:"
+msgstr "Ets&i:"
+
+msgid "&Find"
+msgstr "&Etsi"
+
+msgid "Re&place:"
+msgstr "K&orvaa:"
+
+msgid "&Replace"
+msgstr "&Korvaa"
+
+msgid "Replace &all"
+msgstr "Korvaa k&aikki"
+
+msgid "Options"
+msgstr "Asetukset"
+
+msgid "&Match case"
+msgstr "Sama kir&jainkoko"
+
+msgid "&Backwards"
+msgstr "Taka&perin"
+
+msgid "Regular &expression"
+msgstr "Säännöllinen &lauseke"
+
+msgid "Select a&ll"
+msgstr "&Valitse kaikki"
+
 msgid "Accuracy:"
 msgstr "Tarkkuus:"
 
@@ -1396,9 +1450,6 @@ msgstr "Alkuperäinen:"
 
 msgid "To:"
 msgstr "Uusi:"
-
-msgid "&Find"
-msgstr "&Etsi"
 
 msgid "C&GI Path:"
 msgstr "&CGI-polku:"
@@ -1505,12 +1556,6 @@ msgstr "&Levitä kaikki"
 
 msgid "&Collapse all"
 msgstr "&Kokoa kaikki"
-
-msgid "&Rename"
-msgstr "M&uuta nimeä"
-
-msgid "&Move to Trash"
-msgstr "&Siirrä roskakoriin"
 
 msgid "Kid3"
 msgstr "Kid3"

@@ -17,6 +17,7 @@ set(dialogs_SRCS
   dialogs/serverimportdialog.cpp
   dialogs/tagimportdialog.cpp
   dialogs/textimportdialog.cpp
+  dialogs/findreplacedialog.cpp
 )
 
 set(dialogs_MOC_HDRS
@@ -37,4 +38,5 @@ set(dialogs_MOC_HDRS
   dialogs/serverimportdialog.h
   dialogs/tagimportdialog.h
   dialogs/textimportdialog.h
+  dialogs/findreplacedialog.h
 )
