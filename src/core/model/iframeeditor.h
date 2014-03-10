@@ -29,6 +29,7 @@
 
 #include "kid3api.h"
 
+class QObject;
 class Frame;
 class TaggedFile;
 
@@ -45,13 +46,14 @@ public:
   /**
    * Let user edit a frame and then update the fields
    * when the edits are accepted.
+   * frameEdited() is emitted when the edit dialog is closed with the edited
+   * frame as a parameter if it was accepted.
    *
    * @param frame frame to edit
    * @param taggedFile tagged file where frame has to be set
-   *
-   * @return true if frame edits are accepted.
    */
-  virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile) = 0;
+  virtual void editFrameOfTaggedFile(const Frame* frame,
+                                     TaggedFile* taggedFile) = 0;
 
   /**
    * Let user select a frame type.
@@ -62,6 +64,14 @@ public:
    * @return false if no frame selected.
    */
   virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile) = 0;
+
+  /**
+   * Return object which emits frameEdited() signal.
+   *
+   * @return object which emits frameEdited() when dialog is closed, its
+   * parameter is the edited frame if the dialog is accepted.
+   */
+  virtual QObject* frameEditedEmitter() = 0;
 };
 
 #endif // IFRAMEEDITOR_H

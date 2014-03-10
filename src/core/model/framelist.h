@@ -39,6 +39,7 @@ class IFrameEditor;
  * List of frames.
  */
 class FrameList : public QObject {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -74,13 +75,21 @@ public:
   bool deleteFrame();
 
   /**
+   * Let the user select and edit a frame type and then edit the frame.
+   * Add the frame if the edits are accepted.
+   * frameEdited() is emitted with the added frame.
+   *
+   * @param frameEditor frame editor
+   */
+  void selectAddAndEditFrame(IFrameEditor* frameEditor);
+
+  /**
    * Add and edit a new frame.
+   * frameEdited() is emitted with the added frame.
    *
    * @param frameEditor editor for frame fields
-   *
-   * @return true if frame added.
    */
-  bool addAndEditFrame(IFrameEditor* frameEditor);
+  void addAndEditFrame(IFrameEditor* frameEditor);
 
   /**
    * Paste the selected frame from the copy buffer.
@@ -88,6 +97,12 @@ public:
    * @return true if frame pasted.
    */
   bool pasteFrame();
+
+  /**
+   * Get the frame in the copy buffer.
+   * @return frame from copy buffer.
+   */
+  const Frame& getFrame() const { return m_frame; }
 
   /**
    * Set the frame in the copy buffer.
@@ -132,6 +147,16 @@ public:
    */
   void setSelectedId(int id);
 
+signals:
+  /**
+   * Emitted when the dialog to add and edit a frame is closed.
+   * @param frame edited frame if dialog was accepted, else 0
+   */
+  void frameEdited(const Frame* frame);
+
+private slots:
+  void onFrameEdited(const Frame* frame);
+
 private:
   FrameList(const FrameList&);
   FrameList& operator=(const FrameList&);
@@ -160,6 +185,8 @@ private:
    */
   void setModelFromTaggedFile();
 
+  /** Set of old changed frames stored while in the edit dialog */
+  quint64 m_oldChangedFrames;
   /** File containing tags */
   TaggedFile* m_taggedFile;
   /** Frame used to add, edit and paste */

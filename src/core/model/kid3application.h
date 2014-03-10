@@ -1061,6 +1061,18 @@ private slots:
    */
   void onDirectoryLoaded();
 
+  /**
+   * Called when a frame is edited.
+   * @param frame edited frame, 0 if canceled
+   */
+  void onFrameEdited(const Frame* frame);
+
+  /**
+   * Called when a frame is added.
+   * @param frame added frame, 0 if canceled
+   */
+  void onFrameAdded(const Frame* frame);
+
 private:
   /**
    * Load and initialize plugins depending on configuration.
@@ -1072,16 +1084,6 @@ private:
    * @param plugin instance returned by plugin loader
    */
   void checkPlugin(QObject* plugin);
-
-  /**
-   * Let the user select and edit a frame type and then edit the frame.
-   * Add the frame if the edits are accepted.
-   *
-   * @param frameEditor frame editor
-   *
-   * @return true if edits accepted.
-   */
-  bool selectAddAndEditFrame(IFrameEditor* frameEditor);
 
   ICorePlatformTools* m_platformTools;
   /** model of filesystem */
@@ -1150,6 +1152,14 @@ private:
   TrackData::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;
   ImportTrackDataVector m_batchImportTrackDataList;
+
+  /* Context for editFrame() */
+  TaggedFile* m_editFrameTaggedFile;
+  QString m_editFrameName;
+
+  /* Context for addFrame() */
+  TaggedFile* m_addFrameTaggedFile;
+
   /** true if any file was modified */
   bool m_modified;
   /** true if list is filtered */

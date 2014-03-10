@@ -37,7 +37,7 @@
  * @param selModel item selection model
  */
 FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
-  QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
+  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(0), m_frameTableModel(ftm),
   m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
 {
   setObjectName(QLatin1String("FrameList"));
@@ -153,33 +153,71 @@ bool FrameList::deleteFrame()
 }
 
 /**
- * Add and edit a new frame.
+ * Let the user select and edit a frame type and then edit the frame.
+ * Add the frame if the edits are accepted.
+ * frameEdited() is emitted with the added frame.
  *
- * @param frameEditor editor for frame fields
- *
- * @return true if frame added.
+ * @param frameEditor frame editor
  */
-bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
+void FrameList::selectAddAndEditFrame(IFrameEditor* frameEditor)
 {
   if (m_taggedFile) {
-    quint64 oldChangedFrames = m_taggedFile->getChangedFramesV2();
+    Frame frame;
+    if (frameEditor->selectFrame(&frame, m_taggedFile)) {
+      m_frame = frame;
+      addAndEditFrame(frameEditor);
+      return;
+    }
+  }
+  emit frameEdited(0);
+}
+
+/**
+ * Add and edit a new frame.
+ * frameEdited() is emitted with the added frame.
+ *
+ * @param frameEditor editor for frame fields
+ */
+void FrameList::addAndEditFrame(IFrameEditor* frameEditor)
+{
+  if (m_taggedFile) {
+    m_oldChangedFrames = m_taggedFile->getChangedFramesV2();
     if (!m_taggedFile->addFrameV2(m_frame)) {
-      return false;
+      emit frameEdited(0);
+    } else if (frameEditor) {
+      connect(frameEditor->frameEditedEmitter(),
+              SIGNAL(frameEdited(const Frame*)),
+              this, SLOT(onFrameEdited(const Frame*)), Qt::UniqueConnection);
+      frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
+    } else {
+      onFrameEdited(&m_frame);
     }
-    if (frameEditor &&
-        !frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile)) {
-      m_taggedFile->deleteFrameV2(m_frame);
-      m_taggedFile->setChangedFramesV2(oldChangedFrames);
-      return false;
-    }
-    int index = m_frame.getIndex();
+  } else {
+    emit frameEdited(0);
+  }
+}
+
+/**
+ * Called when the frame is edited.
+ * @param frame edited frame, 0 if canceled
+ */
+void FrameList::onFrameEdited(const Frame* frame)
+{
+  if (QObject* emitter = sender()) {
+    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+               this, SLOT(onFrameEdited(const Frame*)));
+  }
+  if (frame) {
+    int index = frame->getIndex();
     setModelFromTaggedFile();
     if (index != -1) {
       setSelectedId(index);
     }
-    return true;
+  } else {
+    m_taggedFile->deleteFrameV2(m_frame);
+    m_taggedFile->setChangedFramesV2(m_oldChangedFrames);
   }
-  return false;
+  emit frameEdited(frame);
 }
 
 /**

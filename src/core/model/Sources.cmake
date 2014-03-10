@@ -35,6 +35,7 @@ set(model_MOC_HDRS
   model/fileproxymodel.h
   model/fileproxymodeliterator.h
   model/bidirfileproxymodeliterator.h
+  model/framelist.h
   model/frametablemodel.h
   model/kid3application.h
   model/trackdatamodel.h

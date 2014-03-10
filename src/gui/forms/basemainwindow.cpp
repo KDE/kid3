@@ -55,7 +55,6 @@
 #include "downloadclient.h"
 #include "downloaddialog.h"
 #include "playlistdialog.h"
-#include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
@@ -99,11 +98,11 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(0), m_progressDialog(0),
+  m_playlistDialog(0), m_progressDialog(0), m_editFrameDialog(0),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
 #endif
-  m_findReplaceActive(false)
+  m_editFrameTaggedFile(0), m_findReplaceActive(false)
 {
   ContextHelp::init(m_platformTools);
 
@@ -999,21 +998,39 @@ bool BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 }
 
 /**
+ * Return object which emits frameEdited() signal.
+ *
+ * @return object which emits frameEdited() when dialog is closed, its
+ * parameter is the edited frame if the dialog is accepted.
+ */
+QObject* BaseMainWindowImpl::frameEditedEmitter()
+{
+  return this;
+}
+
+/**
  * Create dialog to edit a frame and update the fields
  * if Ok is returned.
+ * frameEdited() is emitted when the edit dialog is closed with the edited
+ * frame as a parameter if it was accepted.
  *
  * @param frame frame to edit
  * @param taggedFile tagged file where frame has to be set
- *
- * @return true if Ok selected in dialog.
  */
-bool BaseMainWindowImpl::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
+void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
+                                               TaggedFile* taggedFile)
 {
-  if (!frame || !taggedFile)
-    return false;
+  if (!frame || !taggedFile) {
+    emit frameEdited(0);
+    return;
+  }
 
-  bool result = true;
-  QString name(frame->getInternalName());
+  m_editFrame = *frame;
+  m_editFrameTaggedFile = taggedFile;
+  QString name(m_editFrame.getInternalName());
+  if (name.isEmpty()) {
+    name = m_editFrame.getName();
+  }
   if (!name.isEmpty()) {
     int nlPos = name.indexOf(QLatin1Char('\n'));
     if (nlPos > 0) {
@@ -1023,29 +1040,38 @@ bool BaseMainWindowImpl::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedF
     }
     name = QCoreApplication::translate("@default", name.toLatin1().data());
   }
-  if (frame->getFieldList().empty()) {
-    EditFrameDialog* dialog =
-      new EditFrameDialog(m_w, name, frame->getValue());
-    result = dialog && dialog->exec() == QDialog::Accepted;
-    if (result) {
-      frame->setValue(dialog->getText());
-    }
-  } else {
-    EditFrameFieldsDialog* dialog =
-      new EditFrameFieldsDialog(m_platformTools,
-                                m_w, name, *frame, taggedFile);
-    result = dialog && dialog->exec() == QDialog::Accepted;
-    if (result) {
-      frame->setFieldList(dialog->getUpdatedFieldList());
-      frame->setValueFromFieldList();
+  if (!m_editFrameDialog) {
+    m_editFrameDialog = new EditFrameFieldsDialog(m_platformTools, m_w);
+    connect(m_editFrameDialog, SIGNAL(finished(int)),
+            this, SLOT(onEditFrameDialogFinished(int)));
+  }
+  m_editFrameDialog->setWindowTitle(name);
+  m_editFrameDialog->setFrame(m_editFrame, m_editFrameTaggedFile);
+  m_editFrameDialog->show();
+}
+
+/**
+ * Called when the edit fram dialog is finished.
+ * @param result dialog result
+ */
+void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
+{
+  if (EditFrameFieldsDialog* dialog =
+      qobject_cast<EditFrameFieldsDialog*>(sender())) {
+    if (result == QDialog::Accepted) {
+      const Frame::FieldList& fields = dialog->getUpdatedFieldList();
+      if (fields.isEmpty()) {
+        m_editFrame.setValue(dialog->getFrameValue());
+      } else {
+        m_editFrame.setFieldList(fields);
+        m_editFrame.setValueFromFieldList();
+      }
+      if (m_editFrameTaggedFile->setFrameV2(m_editFrame)) {
+        m_editFrameTaggedFile->markTag2Changed(m_editFrame.getType());
+      }
     }
   }
-  if (result) {
-    if (taggedFile->setFrameV2(*frame)) {
-      taggedFile->markTag2Changed(frame->getType());
-    }
-  }
-  return result;
+  emit frameEdited(result == QDialog::Accepted ? &m_editFrame : 0);
 }
 
 /**
@@ -1280,17 +1306,29 @@ bool BaseMainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 }
 
 /**
+ * Return object which emits frameEdited() signal.
+ *
+ * @return object which emits frameEdited() when dialog is closed, its
+ * parameter is the edited frame if the dialog is accepted.
+ */
+QObject* BaseMainWindow::frameEditedEmitter()
+{
+  return m_impl;
+}
+
+/**
  * Create dialog to edit a frame and update the fields
  * if Ok is returned.
+ * frameEdited() is emitted when the edit dialog is closed with the edited
+ * frame as a parameter if it was accepted.
  *
  * @param frame frame to edit
  * @param taggedFile tagged file where frame has to be set
- *
- * @return true if Ok selected in dialog.
  */
-bool BaseMainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
+void BaseMainWindow::editFrameOfTaggedFile(const Frame* frame,
+                                           TaggedFile* taggedFile)
 {
-  return m_impl->editFrameOfTaggedFile(frame, taggedFile);
+  m_impl->editFrameOfTaggedFile(frame, taggedFile);
 }
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000

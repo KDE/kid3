@@ -51,6 +51,7 @@ class FileFilter;
 class DownloadDialog;
 class PlaylistDialog;
 class PlaylistConfig;
+class EditFrameFieldsDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class PlayToolBar;
 #endif
@@ -89,13 +90,13 @@ public:
   /**
    * Create dialog to edit a frame and update the fields
    * if Ok is returned.
+   * frameEdited() is emitted when the edit dialog is closed with the edited
+   * frame as a parameter if it was accepted.
    *
    * @param frame frame to edit
    * @param taggedFile tagged file where frame has to be set
-   *
-   * @return true if Ok selected in dialog.
    */
-  virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile);
+  virtual void editFrameOfTaggedFile(const Frame* frame, TaggedFile* taggedFile);
 
   /**
    * Let user select a frame type.
@@ -106,6 +107,14 @@ public:
    * @return false if no frame selected.
    */
   virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
+
+  /**
+   * Return object which emits frameEdited() signal.
+   *
+   * @return object which emits frameEdited() when dialog is closed, its
+   * parameter is true if the dialog is accepted.
+   */
+  virtual QObject* frameEditedEmitter();
 
   /**
    * Set back pointer for implementation class.
@@ -305,6 +314,13 @@ public slots:
    */
   void expandFileList();
 
+signals:
+  /**
+   * Emitted when the dialog to add and edit a frame is closed.
+   * @param frame edited frame if dialog was accepted, else 0
+   */
+  void frameEdited(const Frame* frame);
+
 private slots:
   /**
    * Update ID3v2 tags in GUI controls from file displayed in frame list.
@@ -336,6 +352,12 @@ private slots:
    * Set tagged files of directory from imported track data model.
    */
   void applyImportedTrackData();
+
+  /**
+   * Called when the edit fram dialog is finished.
+   * @param result dialog result
+   */
+  void onEditFrameDialogFinished(int result);
 
   /**
    * Toggle expanded state of directory in the file list.
@@ -436,10 +458,14 @@ private:
   PlaylistDialog* m_playlistDialog;
   /** Progress dialog */
   QProgressDialog* m_progressDialog;
+  /** Edit frame dialog */
+  EditFrameFieldsDialog* m_editFrameDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Play toolbar */
   PlayToolBar* m_playToolBar;
 #endif
+  Frame m_editFrame;
+  TaggedFile* m_editFrameTaggedFile;
   QDateTime m_expandFileListStartTime;
   bool m_findReplaceActive;
 };
@@ -515,13 +541,14 @@ public:
   /**
    * Create dialog to edit a frame and update the fields
    * if Ok is returned.
+   * frameEdited() is emitted when the edit dialog is closed with the edited
+   * frame as a parameter if it was accepted.
    *
    * @param frame frame to edit
    * @param taggedFile tagged file where frame has to be set
-   *
-   * @return true if Ok selected in dialog.
    */
-  virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile);
+  virtual void editFrameOfTaggedFile(const Frame* frame,
+                                     TaggedFile* taggedFile);
 
   /**
    * Let user select a frame type.
@@ -532,6 +559,14 @@ public:
    * @return false if no frame selected.
    */
   virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
+
+  /**
+   * Return object which emits frameEdited() signal.
+   *
+   * @return object which emits frameEdited() when dialog is closed, its
+   * parameter is the edited frame the dialog is accepted.
+   */
+  virtual QObject* frameEditedEmitter();
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**

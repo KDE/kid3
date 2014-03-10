@@ -878,42 +878,67 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 
 
 /**
- * Update fields and get edited fields.
- *
- * @return field list.
- */
-const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
-{
-  QListIterator<FieldControl*> it(m_fieldcontrols);
-  while (it.hasNext()) {
-    it.next()->updateTag();
-  }
-  return m_fields;
-}
-
-
-/**
  * Constructor.
  *
  * @param platformTools platform tools
  * @param parent     parent widget
- * @param caption    caption
+ */
+EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
+                                             QWidget* parent) :
+  QDialog(parent), m_platformTools(platformTools)
+{
+  setObjectName(QLatin1String("EditFrameFieldsDialog"));
+  m_vlayout = new QVBoxLayout(this);
+
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+             QSizePolicy::Minimum);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(okButton);
+  hlayout->addWidget(cancelButton);
+  okButton->setDefault(true);
+  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  m_vlayout->addLayout(hlayout);
+  setMinimumWidth(525);
+}
+
+/**
+ * Destructor.
+ */
+EditFrameFieldsDialog::~EditFrameFieldsDialog()
+{
+  qDeleteAll(m_fieldcontrols);
+  m_fieldcontrols.clear();
+}
+
+/**
+ * Set frame to edit.
+ *
  * @param frame      frame with fields to edit
  * @param taggedFile file
  */
-EditFrameFieldsDialog::EditFrameFieldsDialog(
-  IPlatformTools* platformTools,
-  QWidget* parent, const QString& caption,
-  const Frame& frame, const TaggedFile* taggedFile) :
-  QDialog(parent),
-  m_platformTools(platformTools), m_fields(frame.getFieldList())
+void EditFrameFieldsDialog::setFrame(const Frame& frame,
+                                     const TaggedFile* taggedFile)
 {
-  setObjectName(QLatin1String("EditFrameFieldsDialog"));
-  setModal(true);
-  setWindowTitle(caption);
+  m_fields = frame.getFieldList();
+
+  // Remove all items, keep the last item.
+  QLayoutItem* lastItem = 0;
+  while (QLayoutItem* item = m_vlayout->takeAt(0)) {
+    if (lastItem) {
+      if (QWidget* widget = lastItem->widget()) {
+        delete widget;
+      }
+      delete lastItem;
+    }
+    lastItem = item;
+  }
+
   qDeleteAll(m_fieldcontrols);
   m_fieldcontrols.clear();
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
 
   for (Frame::FieldList::iterator fldIt = m_fields.begin();
        fldIt != m_fields.end();
@@ -1016,31 +1041,48 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
     }
   }
 
-  QListIterator<FieldControl*> it(m_fieldcontrols);
-  while (it.hasNext()) {
-    vlayout->addWidget(it.next()->createWidget(this));
+  // Handle case for frames without fields, just a value.
+  m_valueField.m_id = Frame::Field::ID_Text;
+  if (m_fields.isEmpty()) {
+    m_valueField.m_value = frame.getValue();
+    m_fieldcontrols.append(new TextFieldControl(m_valueField));
+  } else {
+    m_valueField.m_value = QString();
   }
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-             QSizePolicy::Minimum);
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
-  hlayout->addItem(hspacer);
-  hlayout->addWidget(okButton);
-  hlayout->addWidget(cancelButton);
-  okButton->setDefault(true);
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-  vlayout->addLayout(hlayout);
-  setMinimumWidth(525);
+  QListIterator<FieldControl*> it(m_fieldcontrols);
+  while (it.hasNext()) {
+    m_vlayout->addWidget(it.next()->createWidget(this));
+  }
+
+  // Restore the last item.
+  if (lastItem) {
+    m_vlayout->addItem(lastItem);
+  }
 }
 
 /**
- * Destructor.
+ * Update fields and get edited fields.
+ *
+ * @return field list.
  */
-EditFrameFieldsDialog::~EditFrameFieldsDialog()
+const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 {
-  qDeleteAll(m_fieldcontrols);
-  m_fieldcontrols.clear();
+  QListIterator<FieldControl*> it(m_fieldcontrols);
+  while (it.hasNext()) {
+    it.next()->updateTag();
+  }
+  return m_fields;
+}
+
+/**
+ * Get value of frame for frames without a field list.
+ * First getUpdatedFieldList() has to be called, if the returned field list
+ * is empty, the frame value is available with this method.
+ *
+ * @return frame value.
+ */
+QString EditFrameFieldsDialog::getFrameValue() const
+{
+  return m_valueField.m_value.toString();
 }

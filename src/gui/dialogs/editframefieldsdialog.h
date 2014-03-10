@@ -32,6 +32,7 @@
 #include "frame.h"
 #include <QList>
 
+class QVBoxLayout;
 class TaggedFile;
 class IPlatformTools;
 
@@ -171,18 +172,21 @@ public:
    *
    * @param platformTools platform tools
    * @param parent     parent widget
-   * @param caption    caption
-   * @param frame      frame with fields to edit
-   * @param taggedFile file
    */
-  EditFrameFieldsDialog(IPlatformTools* platformTools, QWidget* parent,
-                        const QString& caption,
-                        const Frame& frame, const TaggedFile* taggedFile);
+  EditFrameFieldsDialog(IPlatformTools* platformTools, QWidget* parent = 0);
 
   /**
    * Destructor.
    */
   virtual ~EditFrameFieldsDialog();
+
+  /**
+   * Set frame to edit.
+   *
+   * @param frame      frame with fields to edit
+   * @param taggedFile file
+   */
+  void setFrame(const Frame& frame, const TaggedFile* taggedFile);
 
   /**
    * Update fields and get edited fields.
@@ -191,9 +195,20 @@ public:
    */
   const Frame::FieldList& getUpdatedFieldList();
 
+  /**
+   * Get value of frame for frames without a field list.
+   * First getUpdatedFieldList() has to be called, if the returned field list
+   * is empty, the frame value is available with this method.
+   *
+   * @return frame value.
+   */
+  QString getFrameValue() const;
+
 private:
+  QVBoxLayout* m_vlayout;
   IPlatformTools* m_platformTools;
   Frame::FieldList m_fields;
+  Frame::Field m_valueField;
   QList<FieldControl*> m_fieldcontrols;
 };
 

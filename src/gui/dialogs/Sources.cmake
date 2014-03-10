@@ -5,7 +5,6 @@ set(dialogs_SRCS
   dialogs/configdialogpages.cpp
   dialogs/contexthelp.cpp
   dialogs/downloaddialog.cpp
-  dialogs/editframedialog.cpp
   dialogs/editframefieldsdialog.cpp
   dialogs/exportdialog.cpp
   dialogs/filterdialog.cpp
@@ -26,7 +25,6 @@ set(dialogs_MOC_HDRS
   dialogs/browsecoverartdialog.h
   dialogs/configdialogpages.h
   dialogs/downloaddialog.h
-  dialogs/editframedialog.h
   dialogs/editframefieldsdialog.h
   dialogs/exportdialog.h
   dialogs/filterdialog.h

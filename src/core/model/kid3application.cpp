@@ -138,6 +138,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_selectionTagV1SupportedCount(0), m_selectionFileCount(0),
   m_fileFilter(0),
   m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
+  m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
   m_modified(false), m_filtered(false),
   m_selectionHasTagV1(false), m_selectionHasTagV2(false)
 {
@@ -1572,49 +1573,74 @@ TaggedFile* Kid3Application::getSelectedFile()
 void Kid3Application::editFrame(IFrameEditor* frameEditor)
 {
   emit fileSelectionUpdateRequested();
-  TaggedFile* taggedFile = getSelectedFile();
+  m_editFrameTaggedFile = getSelectedFile();
   if (const Frame* selectedFrame = frameModelV2()->getFrameOfIndex(
         getFramesV2SelectionModel()->currentIndex())) {
-    Frame frame(*selectedFrame);
-    if (taggedFile && frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
-      emit frameModified(taggedFile);
-    } else if (!taggedFile) {
+    if (m_editFrameTaggedFile) {
+      connect(frameEditor->frameEditedEmitter(),
+              SIGNAL(frameEdited(const Frame*)),
+              this, SLOT(onFrameEdited(const Frame*)), Qt::UniqueConnection);
+      frameEditor->editFrameOfTaggedFile(selectedFrame, m_editFrameTaggedFile);
+    } else {
       // multiple files selected
       // Get the first selected file by using a temporary iterator.
-      taggedFile = SelectedTaggedFileIterator(
+      TaggedFile* firstFile = SelectedTaggedFileIterator(
             getRootIndex(), getFileSelectionModel(), false).peekNext();
-      if (taggedFile) {
-        m_framelist->setTaggedFile(taggedFile);
-        QString name = m_framelist->getSelectedName();
-        if (!name.isEmpty() &&
-            frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
-          m_framelist->setFrame(frame);
-
-          // Start a new iteration because the file selection model can be
-          // changed by editFrameOfTaggedFile(), e.g. when a file is exported
-          // from a picture frame.
-          SelectedTaggedFileIterator tfit(getRootIndex(),
-                                          getFileSelectionModel(),
-                                          false);
-          while (tfit.hasNext()) {
-            TaggedFile* currentFile = tfit.next();
-            FrameCollection frames;
-            currentFile->getAllFramesV2(frames);
-            for (FrameCollection::const_iterator it = frames.begin();
-                 it != frames.end();
-                 ++it) {
-              if (it->getName() == name) {
-                currentFile->deleteFrameV2(*it);
-                m_framelist->setTaggedFile(currentFile);
-                m_framelist->pasteFrame();
-                break;
-              }
-            }
-          }
+      if (firstFile) {
+        m_framelist->setTaggedFile(firstFile);
+        m_editFrameName = m_framelist->getSelectedName();
+        if (!m_editFrameName.isEmpty()) {
+          connect(frameEditor->frameEditedEmitter(),
+                  SIGNAL(frameEdited(const Frame*)),
+                  this, SLOT(onFrameEdited(const Frame*)),
+                  Qt::UniqueConnection);
+          frameEditor->editFrameOfTaggedFile(selectedFrame, firstFile);
         }
       }
-      emit selectedFilesUpdated();
     }
+  }
+}
+
+/**
+ * Called when a frame is edited.
+ * @param frame edited frame, 0 if canceled
+ */
+void Kid3Application::onFrameEdited(const Frame* frame)
+{
+  if (QObject* emitter = sender()) {
+    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+               this, SLOT(onFrameEdited(const Frame*)));
+  }
+  if (!frame)
+    return;
+
+  if (m_editFrameTaggedFile) {
+    emit frameModified(m_editFrameTaggedFile);
+  } else {
+    m_framelist->setFrame(*frame);
+
+    // Start a new iteration because the file selection model can be
+    // changed by editFrameOfTaggedFile(), e.g. when a file is exported
+    // from a picture frame.
+    SelectedTaggedFileIterator tfit(getRootIndex(),
+                                    getFileSelectionModel(),
+                                    false);
+    while (tfit.hasNext()) {
+      TaggedFile* currentFile = tfit.next();
+      FrameCollection frames;
+      currentFile->getAllFramesV2(frames);
+      for (FrameCollection::const_iterator it = frames.begin();
+           it != frames.end();
+           ++it) {
+        if (it->getName() == m_editFrameName) {
+          currentFile->deleteFrameV2(*it);
+          m_framelist->setTaggedFile(currentFile);
+          m_framelist->pasteFrame();
+          break;
+        }
+      }
+    }
+    emit selectedFilesUpdated();
   }
 }
 
@@ -1666,26 +1692,6 @@ void Kid3Application::deleteFrame(const QString& frameName)
 }
 
 /**
- * Let the user select and edit a frame type and then edit the frame.
- * Add the frame if the edits are accepted.
- *
- * @param frameEditor frame editor
- *
- * @return true if edits accepted.
- */
-bool Kid3Application::selectAddAndEditFrame(IFrameEditor* frameEditor)
-{
-  if (TaggedFile* taggedFile = m_framelist->getTaggedFile()) {
-    Frame frame;
-    if (frameEditor->selectFrame(&frame, taggedFile)) {
-      m_framelist->setFrame(frame);
-      return m_framelist->addAndEditFrame(frameEditor);
-    }
-  }
-  return false;
-}
-
-/**
  * Select a frame type and add such a frame to frame list.
  *
  * @param frame frame to add, if 0 the user has to select and edit the frame
@@ -1695,29 +1701,63 @@ bool Kid3Application::selectAddAndEditFrame(IFrameEditor* frameEditor)
 void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
 {
   emit fileSelectionUpdateRequested();
-  TaggedFile* taggedFile = getSelectedFile();
-  if (taggedFile) {
-    bool frameAdded;
-    if (!frame) {
-      frameAdded = selectAddAndEditFrame(frameEditor);
-    } else if (frameEditor) {
-      m_framelist->setFrame(*frame);
-      frameAdded = m_framelist->addAndEditFrame(frameEditor);
+  TaggedFile* currentFile = 0;
+  m_addFrameTaggedFile = getSelectedFile();
+  if (m_addFrameTaggedFile) {
+    currentFile = m_addFrameTaggedFile;
+  } else {
+    // multiple files selected
+    SelectedTaggedFileIterator tfit(getRootIndex(),
+                                    getFileSelectionModel(),
+                                    false);
+    if (tfit.hasNext()) {
+      currentFile = tfit.next();
+      m_framelist->setTaggedFile(currentFile);
+    }
+  }
+
+  if (currentFile) {
+    if (frameEditor) {
+      connect(m_framelist, SIGNAL(frameEdited(const Frame*)),
+              this, SLOT(onFrameAdded(const Frame*)), Qt::UniqueConnection);
+      if (frame) {
+        m_framelist->setFrame(*frame);
+        m_framelist->addAndEditFrame(frameEditor);
+      } else {
+        m_framelist->selectAddAndEditFrame(frameEditor);
+      }
     } else {
       m_framelist->setFrame(*frame);
-      frameAdded = m_framelist->pasteFrame();
+      onFrameAdded(m_framelist->pasteFrame() ? &m_framelist->getFrame() : 0);
     }
-    if (frameAdded) {
-      emit frameModified(taggedFile);
-      if (m_framelist->isPictureFrame()) {
-        // update preview picture
-        emit selectedFilesUpdated();
-      }
+  }
+}
+
+/**
+ * Called when a frame is added.
+ * @param frame edited frame, 0 if canceled
+ */
+void Kid3Application::onFrameAdded(const Frame* frame)
+{
+  if (QObject* emitter = sender()) {
+    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+               this, SLOT(onFrameAdded(const Frame*)));
+  }
+  if (!frame)
+    return;
+
+  if (m_addFrameTaggedFile) {
+    emit frameModified(m_addFrameTaggedFile);
+    if (m_framelist->isPictureFrame()) {
+      // update preview picture
+      emit selectedFilesUpdated();
     }
   } else {
     // multiple files selected
     bool firstFile = true;
     int frameId = -1;
+    m_framelist->setFrame(*frame);
+
     SelectedTaggedFileIterator tfit(getRootIndex(),
                                     getFileSelectionModel(),
                                     false);
@@ -1725,35 +1765,15 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
       TaggedFile* currentFile = tfit.next();
       if (firstFile) {
         firstFile = false;
-        taggedFile = currentFile;
+        m_addFrameTaggedFile = currentFile;
         m_framelist->setTaggedFile(currentFile);
-        if (!frame) {
-          if (selectAddAndEditFrame(frameEditor)) {
-            frameId = m_framelist->getSelectedId();
-          } else {
-            break;
-          }
-        } else if (frameEditor) {
-          m_framelist->setFrame(*frame);
-          if (m_framelist->addAndEditFrame(frameEditor)) {
-            frameId = m_framelist->getSelectedId();
-          } else {
-            break;
-          }
-        } else {
-          m_framelist->setFrame(*frame);
-          if (m_framelist->pasteFrame()) {
-            frameId = m_framelist->getSelectedId();
-          } else {
-            break;
-          }
-        }
+        frameId = m_framelist->getSelectedId();
       } else {
         m_framelist->setTaggedFile(currentFile);
         m_framelist->pasteFrame();
       }
     }
-    m_framelist->setTaggedFile(taggedFile);
+    m_framelist->setTaggedFile(m_addFrameTaggedFile);
     if (frameId != -1) {
       m_framelist->setSelectedId(frameId);
     }
