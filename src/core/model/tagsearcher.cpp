@@ -160,12 +160,19 @@ void TagSearcher::findNext(int advanceChars)
     if (m_started) {
       continueSearch(advanceChars);
     } else {
+      bool continueFromCurrentPosition = false;
       if (m_startIndex.isValid()) {
+        continueFromCurrentPosition = m_currentPosition.isValid() &&
+            m_currentPosition.getFileIndex() == m_startIndex;
         m_iterator->setCurrentIndex(m_startIndex);
         m_startIndex = QPersistentModelIndex();
       }
       m_started = true;
-      m_iterator->start();
+      if (continueFromCurrentPosition) {
+        continueSearch(advanceChars);
+      } else {
+        m_iterator->start();
+      }
     }
   }
 }
