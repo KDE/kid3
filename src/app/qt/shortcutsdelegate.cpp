@@ -30,6 +30,9 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#if QT_VERSION >= 0x050200
+#include <QKeySequenceEdit>
+#endif
 
 /**
  * Constructor.
@@ -100,7 +103,7 @@ void ShortcutsDelegate::clearAndCloseEditor()
 {
   if (ShortcutsDelegateEditor* editor =
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
-    editor->getLineEdit()->clear();
+    editor->getEditor()->clear();
     emit commitData(editor);
     emit closeEditor(editor);
   }
@@ -116,7 +119,7 @@ void ShortcutsDelegate::setEditorData(
 {
   if (ShortcutsDelegateEditor* compoundWidget =
       qobject_cast<ShortcutsDelegateEditor*>(editor)) {
-    QItemDelegate::setEditorData(compoundWidget->getLineEdit(), index);
+    QItemDelegate::setEditorData(compoundWidget->getEditor(), index);
   }
 }
 
@@ -135,7 +138,7 @@ void ShortcutsDelegate::setModelData(
       m_resetFlag = false;
       model->setData(index, QVariant(), Qt::EditRole);
     } else {
-      QItemDelegate::setModelData(compoundWidget->getLineEdit(), model, index);
+      QItemDelegate::setModelData(compoundWidget->getEditor(), model, index);
     }
   }
 }
@@ -177,10 +180,20 @@ void ShortcutsDelegate::updateEditorGeometry(
  */
 ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   QLineEdit* lineEdit, QWidget* parent) :
-  QFrame(parent), m_lineEdit(lineEdit) {
+  QFrame(parent) {
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   hlayout->setContentsMargins(0, 0, 0, 0);
-  hlayout->addWidget(m_lineEdit, 0, Qt::AlignLeft);
+#if QT_VERSION >= 0x050200
+  delete lineEdit;
+  m_editor = new QKeySequenceEdit(parent);
+  connect(m_editor, SIGNAL(editingFinished()), this, SIGNAL(valueEntered()));
+#else
+  m_editor = lineEdit;
+  m_editor->setReadOnly(true);
+  m_editor->installEventFilter(this);
+#endif
+  setFocusProxy(m_editor);
+  hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
   QToolButton* clearButton = new QToolButton(this);
   clearButton->setText(tr("Clear"));
   connect(clearButton, SIGNAL(clicked()), this, SIGNAL(clearClicked()));
@@ -189,9 +202,6 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   resetButton->setText(tr("Reset"));
   connect(resetButton, SIGNAL(clicked()), this, SIGNAL(resetClicked()));
   hlayout->addWidget(resetButton);
-  setFocusProxy(m_lineEdit);
-  m_lineEdit->setReadOnly(true);
-  m_lineEdit->installEventFilter(this);
 }
 
 /**
@@ -201,7 +211,7 @@ ShortcutsDelegateEditor::~ShortcutsDelegateEditor()
 {
 }
 
-
+#if QT_VERSION < 0x050200
 bool ShortcutsDelegateEditor::event(QEvent* ev)
 {
   QEvent::Type eventType = ev->type();
@@ -247,7 +257,7 @@ bool ShortcutsDelegateEditor::event(QEvent* ev)
 
     QString keyString = QKeySequence(keyCode).toString();
     if (!keyString.endsWith(QLatin1Char('+'))) {
-      m_lineEdit->setText(keyString);
+      m_editor->setText(keyString);
       emit valueEntered();
     }
   }
@@ -271,3 +281,4 @@ bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* ev)
   else
     return QFrame::eventFilter(watched, ev);
 }
+#endif
