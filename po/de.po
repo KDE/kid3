@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-07 14:20+0100\n"
+"POT-Creation-Date: 2014-03-22 11:29+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -696,6 +696,132 @@ msgstr "Verzeichnis erstellen"
 msgid "Rename file"
 msgstr "Datei umbenennen"
 
+msgid "padding (has no meaning)"
+msgstr "Füllung (hat keine Bedeutung)"
+
+msgid "end of initial silence"
+msgstr "Ende der anfänglichen Stille"
+
+msgid "intro start"
+msgstr "Anfang des Intros"
+
+msgid "main part start"
+msgstr "Anfang des Hauptteils"
+
+msgid "outro start"
+msgstr "Anfang des Outros"
+
+msgid "outro end"
+msgstr "Ende des Outros"
+
+msgid "verse start"
+msgstr "Anfang des Verses"
+
+msgid "refrain start"
+msgstr "Anfang des Refrains"
+
+msgid "interlude start"
+msgstr "Anfang des Zwischenspiels"
+
+msgid "theme start"
+msgstr "Anfang des Themas"
+
+msgid "variation start"
+msgstr "Anfang der Variation"
+
+msgid "key change"
+msgstr "Änderung der Tonart"
+
+msgid "time change"
+msgstr "Taktwechsel"
+
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "Momentane unerwünschte Geräusche (Klicken, Knistern & Knacken)"
+
+msgid "sustained noise"
+msgstr "Anhaltende Geräusche"
+
+msgid "sustained noise end"
+msgstr "Ende der anhaltenden Geräusche"
+
+msgid "intro end"
+msgstr "Ende des Intros"
+
+msgid "main part end"
+msgstr "Ende des Hauptteils"
+
+msgid "verse end"
+msgstr "Ende des Verses"
+
+msgid "refrain end"
+msgstr "Ende des Refrains"
+
+msgid "theme end"
+msgstr "Ende des Themas"
+
+msgid "profanity"
+msgstr "Vulgäre Ausdrücke"
+
+msgid "profanity end"
+msgstr "Ende der vulgären Ausdrücke"
+
+msgid "not predefined synch 0"
+msgstr "Nicht vordefinierte Synchronisierung 0"
+
+msgid "not predefined synch 1"
+msgstr "Nicht vordefinierte Synchronisierung 1"
+
+msgid "not predefined synch 2"
+msgstr "Nicht vordefinierte Synchronisierung 2"
+
+msgid "not predefined synch 3"
+msgstr "Nicht vordefinierte Synchronisierung 3"
+
+msgid "not predefined synch 4"
+msgstr "Nicht vordefinierte Synchronisierung 4"
+
+msgid "not predefined synch 5"
+msgstr "Nicht vordefinierte Synchronisierung 5"
+
+msgid "not predefined synch 6"
+msgstr "Nicht vordefinierte Synchronisierung 6"
+
+msgid "not predefined synch 7"
+msgstr "Nicht vordefinierte Synchronisierung 7"
+
+msgid "not predefined synch 8"
+msgstr "Nicht vordefinierte Synchronisierung 8"
+
+msgid "not predefined synch 9"
+msgstr "Nicht vordefinierte Synchronisierung 9"
+
+msgid "not predefined synch A"
+msgstr "Nicht vordefinierte Synchronisierung A"
+
+msgid "not predefined synch B"
+msgstr "Nicht vordefinierte Synchronisierung B"
+
+msgid "not predefined synch C"
+msgstr "Nicht vordefinierte Synchronisierung C"
+
+msgid "not predefined synch D"
+msgstr "Nicht vordefinierte Synchronisierung D"
+
+msgid "not predefined synch E"
+msgstr "Nicht vordefinierte Synchronisierung E"
+
+msgid "not predefined synch F"
+msgstr "Nicht vordefinierte Synchronisierung F"
+
+msgid "audio end (start of silence)"
+msgstr "Ende Audio (Begin von Stille)"
+
+msgid "audio file ends"
+msgstr "Audio-Datei endet"
+
+msgid "reserved for future use %1"
+msgstr "Reserviert für spätere Verwendung %1"
+
 msgid "C&lear"
 msgstr "&Löschen"
 
@@ -749,6 +875,15 @@ msgstr "Alle Dateien"
 
 msgid "Search finished"
 msgstr "Suche abgeschlossen"
+
+msgid "Time"
+msgstr "Zeit"
+
+msgid "Event Code"
+msgstr "Ereigniscode"
+
+msgid "Text"
+msgstr "Text"
 
 msgid "Track"
 msgstr "Stück"
@@ -1136,9 +1271,6 @@ msgstr "&Ansicht"
 
 msgid "Text Encoding"
 msgstr "Textkodierung"
-
-msgid "Text"
-msgstr "Text"
 
 msgid "Description"
 msgstr "Beschreibung"
@@ -1692,6 +1824,24 @@ msgstr "Element hinzufügen"
 
 msgid "Edit Item"
 msgstr "Element bearbeiten"
+
+msgid "&Delete"
+msgstr "&Löschen"
+
+msgid "Offset"
+msgstr "Zeitabstand"
+
+msgid "Milliseconds"
+msgstr "Millisekunden"
+
+msgid "&Delete rows"
+msgstr "Zeilen ent&fernen"
+
+msgid "&Add offset..."
+msgstr "Zeitabstand &hinzufügen..."
+
+msgid "&Seek to position"
+msgstr "&Zur Position springen"
 
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz-Fingerprint"

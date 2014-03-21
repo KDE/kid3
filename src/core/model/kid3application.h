@@ -927,6 +927,11 @@ public slots:
    * Play audio file.
    */
   void playAudio();
+
+  /**
+   * Show play tool bar.
+   */
+  void showAudioPlayer();
 #endif
 
 signals:

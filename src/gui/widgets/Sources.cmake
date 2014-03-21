@@ -9,6 +9,10 @@ set(widgets_SRCS
   widgets/picturelabel.cpp
   widgets/playtoolbar.cpp
   widgets/stringlistedit.cpp
+  widgets/timeeventeditor.cpp
+  widgets/enumdelegate.cpp
+  widgets/eventcodedelegate.cpp
+  widgets/timestampdelegate.cpp
 )
 
 set(widgets_MOC_HDRS
@@ -20,4 +24,6 @@ set(widgets_MOC_HDRS
   widgets/imageviewer.h
   widgets/playtoolbar.h
   widgets/stringlistedit.h
+  widgets/timeeventeditor.h
+  widgets/timestampdelegate.h
 )

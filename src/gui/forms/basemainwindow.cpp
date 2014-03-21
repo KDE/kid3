@@ -1041,7 +1041,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
     name = QCoreApplication::translate("@default", name.toLatin1().data());
   }
   if (!m_editFrameDialog) {
-    m_editFrameDialog = new EditFrameFieldsDialog(m_platformTools, m_w);
+    m_editFrameDialog = new EditFrameFieldsDialog(m_platformTools, m_app, m_w);
     connect(m_editFrameDialog, SIGNAL(finished(int)),
             this, SLOT(onEditFrameDialogFinished(int)));
   }

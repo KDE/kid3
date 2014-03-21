@@ -1850,6 +1850,19 @@ bool Mp3File::addFrameV2(Frame& frame)
       if (fld) {
         fld->Set(ID3PT_COVERFRONT);
       }
+    } else if (id == ID3FID_SYNCEDLYRICS) {
+      fld = id3Frame->GetField(ID3FN_LANGUAGE);
+      if (fld) {
+        setString(fld, QLatin1String("eng"));
+      }
+      fld = id3Frame->GetField(ID3FN_TIMESTAMPFORMAT);
+      if (fld) {
+        fld->Set(ID3TSF_MS);
+      }
+      fld = id3Frame->GetField(ID3FN_CONTENTTYPE);
+      if (fld) {
+        fld->Set(ID3CT_LYRICS);
+      }
     }
     if (!frame.fieldList().empty()) {
       setId3v2Frame(id3Frame, frame);

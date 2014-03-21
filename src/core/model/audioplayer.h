@@ -68,9 +68,27 @@ public:
    * Set files to be played.
    *
    * @param files  paths to files
-   * @param fileNr index of file to play (default 0)
+   * @param fileNr index of file to play (default 0), -1 to set without playing
    */
   void setFiles(const QStringList& files, int fileNr = 0);
+
+  /**
+   * Get name of current file.
+   * @return file name.
+   */
+  QString getFileName() const;
+
+  /**
+   * Get the current playback position in milliseconds.
+   * @return time in milliseconds.
+   */
+  quint64 getCurrentPosition() const;
+
+  /**
+   * Set the current playback position.
+   * @param position time in milliseconds
+   */
+  void setCurrentPosition(quint64 position);
 
 #ifdef HAVE_PHONON
   /**
@@ -107,6 +125,12 @@ signals:
    * @param hasNext true if a next track is available
    */
   void trackChanged(const QString& filePath, bool hasPrevious, bool hasNext);
+
+  /**
+   * Emitted when the current track position changed.
+   * @param position time in milliseconds
+   */
+  void 	positionChanged(qint64 position);
 
 public slots:
   /**

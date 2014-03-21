@@ -2409,6 +2409,14 @@ void Kid3Application::playAudio()
   emit aboutToPlayAudio();
   getAudioPlayer()->setFiles(files, fileNr);
 }
+
+/**
+ * Show play tool bar.
+ */
+void Kid3Application::showAudioPlayer()
+{
+  emit aboutToPlayAudio();
+}
 #endif
 
 /**

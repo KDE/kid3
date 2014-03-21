@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-07 14:20+0100\n"
+"POT-Creation-Date: 2014-03-22 11:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -691,6 +691,132 @@ msgstr ""
 msgid "Rename file"
 msgstr ""
 
+msgid "padding (has no meaning)"
+msgstr ""
+
+msgid "end of initial silence"
+msgstr ""
+
+msgid "intro start"
+msgstr ""
+
+msgid "main part start"
+msgstr ""
+
+msgid "outro start"
+msgstr ""
+
+msgid "outro end"
+msgstr ""
+
+msgid "verse start"
+msgstr ""
+
+msgid "refrain start"
+msgstr ""
+
+msgid "interlude start"
+msgstr ""
+
+msgid "theme start"
+msgstr ""
+
+msgid "variation start"
+msgstr ""
+
+msgid "key change"
+msgstr ""
+
+msgid "time change"
+msgstr ""
+
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr ""
+
+msgid "sustained noise"
+msgstr ""
+
+msgid "sustained noise end"
+msgstr ""
+
+msgid "intro end"
+msgstr ""
+
+msgid "main part end"
+msgstr ""
+
+msgid "verse end"
+msgstr ""
+
+msgid "refrain end"
+msgstr ""
+
+msgid "theme end"
+msgstr ""
+
+msgid "profanity"
+msgstr ""
+
+msgid "profanity end"
+msgstr ""
+
+msgid "not predefined synch 0"
+msgstr ""
+
+msgid "not predefined synch 1"
+msgstr ""
+
+msgid "not predefined synch 2"
+msgstr ""
+
+msgid "not predefined synch 3"
+msgstr ""
+
+msgid "not predefined synch 4"
+msgstr ""
+
+msgid "not predefined synch 5"
+msgstr ""
+
+msgid "not predefined synch 6"
+msgstr ""
+
+msgid "not predefined synch 7"
+msgstr ""
+
+msgid "not predefined synch 8"
+msgstr ""
+
+msgid "not predefined synch 9"
+msgstr ""
+
+msgid "not predefined synch A"
+msgstr ""
+
+msgid "not predefined synch B"
+msgstr ""
+
+msgid "not predefined synch C"
+msgstr ""
+
+msgid "not predefined synch D"
+msgstr ""
+
+msgid "not predefined synch E"
+msgstr ""
+
+msgid "not predefined synch F"
+msgstr ""
+
+msgid "audio end (start of silence)"
+msgstr ""
+
+msgid "audio file ends"
+msgstr ""
+
+msgid "reserved for future use %1"
+msgstr ""
+
 msgid "C&lear"
 msgstr ""
 
@@ -743,6 +869,15 @@ msgid "All Files"
 msgstr ""
 
 msgid "Search finished"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Event Code"
+msgstr ""
+
+msgid "Text"
 msgstr ""
 
 msgid "Track"
@@ -1130,9 +1265,6 @@ msgid "&View"
 msgstr ""
 
 msgid "Text Encoding"
-msgstr ""
-
-msgid "Text"
 msgstr ""
 
 msgid "Description"
@@ -1681,6 +1813,24 @@ msgid "Add Item"
 msgstr ""
 
 msgid "Edit Item"
+msgstr ""
+
+msgid "&Delete"
+msgstr ""
+
+msgid "Offset"
+msgstr ""
+
+msgid "Milliseconds"
+msgstr ""
+
+msgid "&Delete rows"
+msgstr ""
+
+msgid "&Add offset..."
+msgstr ""
+
+msgid "&Seek to position"
 msgstr ""
 
 msgid "MusicBrainz Fingerprint"

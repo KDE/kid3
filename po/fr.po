@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-07 14:20+0100\n"
+"POT-Creation-Date: 2014-03-22 11:29+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -696,6 +696,132 @@ msgstr "Créer répertoire"
 msgid "Rename file"
 msgstr "Renommer fichier"
 
+msgid "padding (has no meaning)"
+msgstr "Remplissage (n'a pas de sens)"
+
+msgid "end of initial silence"
+msgstr "Fin de la silence initiale"
+
+msgid "intro start"
+msgstr "Début de l'intro"
+
+msgid "main part start"
+msgstr "Début de la part principale"
+
+msgid "outro start"
+msgstr "Début de l'outro"
+
+msgid "outro end"
+msgstr "Fin de l'outro"
+
+msgid "verse start"
+msgstr "Début du vers"
+
+msgid "refrain start"
+msgstr "Début du refrain"
+
+msgid "interlude start"
+msgstr "Début de l'intermède"
+
+msgid "theme start"
+msgstr "Début du thème"
+
+msgid "variation start"
+msgstr "Début de la variation"
+
+msgid "key change"
+msgstr "Changement de tonalité"
+
+msgid "time change"
+msgstr "Changement de mesure"
+
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "Bruits indésirables momentanée (clic, grésillement & claquement)"
+
+msgid "sustained noise"
+msgstr "Bruit soutenue"
+
+msgid "sustained noise end"
+msgstr "Fin du bruit soutenue"
+
+msgid "intro end"
+msgstr "Fin de l'intro"
+
+msgid "main part end"
+msgstr "Fin de la part principale"
+
+msgid "verse end"
+msgstr "Fin du vers"
+
+msgid "refrain end"
+msgstr "Fin du refrain"
+
+msgid "theme end"
+msgstr "Début du thème"
+
+msgid "profanity"
+msgstr "Paroles grossières"
+
+msgid "profanity end"
+msgstr "Fin des paroles grossières"
+
+msgid "not predefined synch 0"
+msgstr "Synchronisation pas prédéfinie 0"
+
+msgid "not predefined synch 1"
+msgstr "Synchronisation pas prédéfinie 1"
+
+msgid "not predefined synch 2"
+msgstr "Synchronisation pas prédéfinie 2"
+
+msgid "not predefined synch 3"
+msgstr "Synchronisation pas prédéfinie 3"
+
+msgid "not predefined synch 4"
+msgstr "Synchronisation pas prédéfinie 4"
+
+msgid "not predefined synch 5"
+msgstr "Synchronisation pas prédéfinie 5"
+
+msgid "not predefined synch 6"
+msgstr "Synchronisation pas prédéfinie 6"
+
+msgid "not predefined synch 7"
+msgstr "Synchronisation pas prédéfinie 7"
+
+msgid "not predefined synch 8"
+msgstr "Synchronisation pas prédéfinie 8"
+
+msgid "not predefined synch 9"
+msgstr "Synchronisation pas prédéfinie 9"
+
+msgid "not predefined synch A"
+msgstr "Synchronisation pas prédéfinie A"
+
+msgid "not predefined synch B"
+msgstr "Synchronisation pas prédéfinie B"
+
+msgid "not predefined synch C"
+msgstr "Synchronisation pas prédéfinie C"
+
+msgid "not predefined synch D"
+msgstr "Synchronisation pas prédéfinie D"
+
+msgid "not predefined synch E"
+msgstr "Synchronisation pas prédéfinie E"
+
+msgid "not predefined synch F"
+msgstr "Synchronisation pas prédéfinie F"
+
+msgid "audio end (start of silence)"
+msgstr "Fin audio (début de silence)"
+
+msgid "audio file ends"
+msgstr "Fichier audio finit"
+
+msgid "reserved for future use %1"
+msgstr "Réservé pour une utilisation future %1"
+
 msgid "C&lear"
 msgstr "E&ffacer"
 
@@ -749,6 +875,15 @@ msgstr "Tous les fichiers"
 
 msgid "Search finished"
 msgstr "Recherche terminée"
+
+msgid "Time"
+msgstr "Temps"
+
+msgid "Event Code"
+msgstr "Code d'événement"
+
+msgid "Text"
+msgstr "Texte"
 
 msgid "Track"
 msgstr "Piste"
@@ -1136,9 +1271,6 @@ msgstr "&Affichage"
 
 msgid "Text Encoding"
 msgstr "Encodage du texte"
-
-msgid "Text"
-msgstr "Texte"
 
 msgid "Description"
 msgstr "Description"
@@ -1692,6 +1824,24 @@ msgstr "Ajouter un élément"
 
 msgid "Edit Item"
 msgstr "Modifier l'élément"
+
+msgid "&Delete"
+msgstr "&Supprimer"
+
+msgid "Offset"
+msgstr "Décalage"
+
+msgid "Milliseconds"
+msgstr "Millisecondes"
+
+msgid "&Delete rows"
+msgstr "&Supprimer lignes"
+
+msgid "&Add offset..."
+msgstr "Ajouter un &décalage..."
+
+msgid "&Seek to position"
+msgstr "&Aller à la position"
 
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz empreinte"

@@ -61,12 +61,16 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
           this, SLOT(aboutToFinish()));
   connect(m_mediaObject, SIGNAL(currentSourceChanged(Phonon::MediaSource)),
           this, SLOT(currentSourceChanged()));
+  connect(m_mediaObject, SIGNAL(tick(qint64)),
+          this, SIGNAL(positionChanged(qint64)));
 #else
   m_mediaPlayer = new QMediaPlayer(this);
   m_mediaPlaylist = new QMediaPlaylist(m_mediaPlayer);
   m_mediaPlayer->setPlaylist(m_mediaPlaylist);
   connect(m_mediaPlaylist, SIGNAL(currentIndexChanged(int)),
           this, SLOT(currentIndexChanged(int)));
+  connect(m_mediaPlayer, SIGNAL(positionChanged(qint64)),
+          this, SIGNAL(positionChanged(qint64)));
 #endif
 }
 
@@ -82,20 +86,70 @@ AudioPlayer::~AudioPlayer()
  * Set files to be played.
  *
  * @param files  paths to files
- * @param fileNr index of file to play (default 0)
+ * @param fileNr index of file to play (default 0), -1 to set without playing
  */
 void AudioPlayer::setFiles(const QStringList& files, int fileNr)
 {
 #ifdef HAVE_PHONON
   m_files = files;
-  playTrack(fileNr);
+  if (fileNr != -1) {
+    playTrack(fileNr);
+  } else {
+    selectTrack(0, false);
+  }
 #else
   m_mediaPlaylist->clear();
   foreach (const QString& file, files) {
     m_mediaPlaylist->addMedia(QUrl::fromLocalFile(file));
   }
-  m_mediaPlaylist->setCurrentIndex(fileNr);
-  m_mediaPlayer->play();
+  if (fileNr != -1) {
+    m_mediaPlaylist->setCurrentIndex(fileNr);
+    m_mediaPlayer->play();
+  } else {
+    m_mediaPlaylist->setCurrentIndex(0);
+  }
+#endif
+}
+
+/**
+ * Get name of current file.
+ * @return file name.
+ */
+QString AudioPlayer::getFileName() const
+{
+#ifdef HAVE_PHONON
+  if (m_fileNr >= 0 && m_fileNr < m_files.size()) {
+    return m_files.at(m_fileNr);
+  }
+  return QString();
+#else
+  return m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
+#endif
+}
+
+/**
+ * Get the current playback position in milliseconds.
+ * @return time in milliseconds.
+ */
+quint64 AudioPlayer::getCurrentPosition() const
+{
+#ifdef HAVE_PHONON
+  return m_mediaObject->currentTime();
+#else
+  return m_mediaPlayer->position();
+#endif
+}
+
+/**
+ * Set the current playback position.
+ * @param position time in milliseconds
+ */
+void AudioPlayer::setCurrentPosition(quint64 position)
+{
+#ifdef HAVE_PHONON
+  return m_mediaObject->seek(position);
+#else
+  return m_mediaPlayer->setPosition(position);
 #endif
 }
 
@@ -116,6 +170,9 @@ void AudioPlayer::selectTrack(int fileNr, bool play)
       m_mediaObject->setCurrentSource(fileName);
       if (play) {
         m_mediaObject->play();
+      } else {
+        emit trackChanged(fileName,
+                          m_fileNr > 0, m_fileNr + 1 < m_files.size());
       }
     }
   } else {
@@ -213,8 +270,9 @@ void AudioPlayer::aboutToFinish()
 void AudioPlayer::currentIndexChanged(int position)
 {
   if (position >= 0 && position < m_mediaPlaylist->mediaCount()) {
-    emit trackChanged(m_mediaPlaylist->currentMedia().canonicalUrl().toString(),
-                    position > 0, position + 1 < m_mediaPlaylist->mediaCount());
+    emit trackChanged(
+          m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile(),
+          position > 0, position + 1 < m_mediaPlaylist->mediaCount());
   }
 }
 #endif

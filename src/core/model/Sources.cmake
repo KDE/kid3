@@ -23,6 +23,8 @@ set(model_SRCS
   model/trackdatamodel.cpp
   model/checkablestringlistmodel.cpp
   model/tagsearcher.cpp
+  model/timeeventmodel.cpp
+  model/eventtimingcode.cpp
 )
 
 set(model_MOC_HDRS
@@ -40,6 +42,7 @@ set(model_MOC_HDRS
   model/kid3application.h
   model/trackdatamodel.h
   model/tagsearcher.h
+  model/timeeventmodel.h
 )
 
 if (HAVE_QTDBUS)

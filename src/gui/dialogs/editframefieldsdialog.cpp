@@ -44,6 +44,8 @@
 #include "config.h"
 #include "fileconfig.h"
 #include "iplatformtools.h"
+#include "timeeventmodel.h"
+#include "timeeventeditor.h"
 
 /** QTextEdit with label above */
 class LabeledTextEdit : public QWidget {
@@ -572,6 +574,60 @@ protected:
   const TaggedFile* m_taggedFile;
 };
 
+/**
+ * Control to edit time event fields (synchronized lyrics and event timing
+ * codes).
+ */
+class TimeEventFieldControl : public Mp3FieldControl {
+public:
+  /**
+   * Constructor.
+   * @param platformTools platform tools
+   * @param app application context
+   * @param field field to edit
+   * @param fields fields of frame to edit
+   * @param taggedFile file
+   * @param type SynchronizedLyrics or EventTimingCodes
+   */
+  TimeEventFieldControl(IPlatformTools* platformTools,
+                        Kid3Application* app, Frame::Field& field,
+                        Frame::FieldList& fields, const TaggedFile* taggedFile,
+                        TimeEventModel::Type type);
+
+  /**
+   * Destructor.
+   */
+  virtual ~TimeEventFieldControl();
+
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
+
+protected:
+  /** Platform dependent tools */
+  IPlatformTools* m_platformTools;
+  /** application context */
+  Kid3Application* m_app;
+  /** frame with fields to edit */
+  Frame::FieldList& m_fields;
+  /** tagged file */
+  const TaggedFile* m_taggedFile;
+  /** item model */
+  TimeEventModel* m_model;
+  /** editor widget */
+  TimeEventEditor* m_editor;
+};
+
 
 /**
  * Constructor.
@@ -876,6 +932,63 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
   return m_bos;
 }
 
+/**
+ * Constructor.
+ * @param platformTools platform tools
+ * @param app application context
+ * @param field field to edit
+ * @param fields fields of frame to edit
+ * @param taggedFile file
+ * @param type SynchronizedLyrics or EventTimingCodes
+ */
+TimeEventFieldControl::TimeEventFieldControl(
+    IPlatformTools* platformTools, Kid3Application* app, Frame::Field& field,
+    Frame::FieldList& fields, const TaggedFile* taggedFile,
+    TimeEventModel::Type type) :
+  Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
+  m_fields(fields), m_taggedFile(taggedFile), m_model(new TimeEventModel(this))
+{
+  m_model->setType(type);
+  if (type == TimeEventModel::EventTimingCodes) {
+    m_model->fromEtcoFrame(m_fields);
+  } else {
+    m_model->fromSyltFrame(m_fields);
+  }
+}
+
+/**
+ * Destructor.
+ */
+TimeEventFieldControl::~TimeEventFieldControl()
+{
+}
+
+/**
+ * Update field with data from dialog.
+ */
+void TimeEventFieldControl::updateTag()
+{
+  if (m_model->getType() == TimeEventModel::EventTimingCodes) {
+    m_model->toEtcoFrame(m_fields);
+  } else {
+    m_model->toSyltFrame(m_fields);
+  }
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
+{
+  m_editor = new TimeEventEditor(m_platformTools, m_app, parent,
+                                 m_field, m_taggedFile);
+  m_editor->setModel(m_model);
+  return m_editor;
+}
+
 
 /**
  * Constructor.
@@ -884,8 +997,9 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
  * @param parent     parent widget
  */
 EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
+                                             Kid3Application* app,
                                              QWidget* parent) :
-  QDialog(parent), m_platformTools(platformTools)
+  QDialog(parent), m_platformTools(platformTools), m_app(app)
 {
   setObjectName(QLatin1String("EditFrameFieldsDialog"));
   m_vlayout = new QVBoxLayout(this);
@@ -898,7 +1012,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
-  okButton->setDefault(true);
+  okButton->setAutoDefault(false);
+  cancelButton->setAutoDefault(false);
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   m_vlayout->addLayout(hlayout);
@@ -1030,9 +1145,22 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 
       case QVariant::ByteArray:
       {
-        BinFieldControl* binctl = new BinFieldControl(
-              m_platformTools, fld, frame, taggedFile);
-        m_fieldcontrols.append(binctl);
+        QString frameName = frame.getName();
+        if (frameName.startsWith(QLatin1String("SYLT"))) {
+          TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
+                m_platformTools, m_app, fld, m_fields, taggedFile,
+                TimeEventModel::SynchronizedLyrics);
+          m_fieldcontrols.append(timeEventCtl);
+        } else if (frameName.startsWith(QLatin1String("ETCO"))) {
+          TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
+                m_platformTools, m_app, fld, m_fields, taggedFile,
+                TimeEventModel::EventTimingCodes);
+          m_fieldcontrols.append(timeEventCtl);
+        } else {
+          BinFieldControl* binctl = new BinFieldControl(
+                m_platformTools, fld, frame, taggedFile);
+          m_fieldcontrols.append(binctl);
+        }
         break;
       }
 

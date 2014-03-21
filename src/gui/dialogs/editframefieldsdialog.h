@@ -35,6 +35,7 @@
 class QVBoxLayout;
 class TaggedFile;
 class IPlatformTools;
+class Kid3Application;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
@@ -171,9 +172,11 @@ public:
    * Constructor.
    *
    * @param platformTools platform tools
+   * @param app application context
    * @param parent     parent widget
    */
-  EditFrameFieldsDialog(IPlatformTools* platformTools, QWidget* parent = 0);
+  EditFrameFieldsDialog(IPlatformTools* platformTools, Kid3Application* app,
+                        QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -207,6 +210,7 @@ public:
 private:
   QVBoxLayout* m_vlayout;
   IPlatformTools* m_platformTools;
+  Kid3Application* m_app;
   Frame::FieldList m_fields;
   Frame::Field m_valueField;
   QList<FieldControl*> m_fieldcontrols;

@@ -124,12 +124,9 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   addAction(closeAction);
 
 #ifdef HAVE_PHONON
-  connect(mediaObject, SIGNAL(tick(qint64)), this, SLOT(tick(qint64)));
   connect(mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
           this, SLOT(stateChanged(Phonon::State)));
 #else
-  connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
-          this, SLOT(tick(qint64)));
   connect(mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
           this, SLOT(stateChanged(QMediaPlayer::State)));
   connect(mediaPlayer, SIGNAL(error(QMediaPlayer::Error)),
@@ -140,6 +137,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
           this, SLOT(setVolumeToolTip(int)));
   connect(m_muteAction, SIGNAL(triggered()), this, SLOT(toggleMute()));
 #endif
+  connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(tick(qint64)));
   connect(m_player, SIGNAL(trackChanged(QString,bool,bool)),
           this, SLOT(trackChanged(QString,bool,bool)));
   connect(m_playOrPauseAction, SIGNAL(triggered()),
@@ -179,6 +177,9 @@ void PlayToolBar::tick(qint64 msec)
 {
   int minutes = (msec / (60 * 1000)) % 60;
   int seconds = (msec / 1000) % 60;
+  if (msec % 1000 >= 500) {
+    ++seconds;
+  }
   m_timeLcd->display(QString(QLatin1String("%1:%2")).arg(minutes, 2, 10, QLatin1Char(' '))
                      .arg(seconds, 2, 10, QLatin1Char('0')));
 #ifndef HAVE_PHONON
@@ -328,7 +329,6 @@ void  PlayToolBar::trackChanged(const QString& filePath,
                                 bool hasPrevious, bool hasNext)
 {
 #ifdef HAVE_PHONON
-  m_playOrPauseAction->setIcon(m_pauseIcon);
   m_timeLcd->display(zeroTime);
   QFileInfo fi(filePath);
   m_titleLabel->setText(fi.fileName());
