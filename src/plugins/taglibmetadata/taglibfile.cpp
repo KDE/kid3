@@ -552,10 +552,10 @@ void TagLibFile::closeFile(bool force)
  *
  * @param force true to force reopening of file even if it is already open
  */
-void TagLibFile::makeFileOpen(bool force)
+void TagLibFile::makeFileOpen(bool force) const
 {
   if (!m_fileRead || force) {
-    readTags(force);
+    const_cast<TagLibFile*>(this)->readTags(force);
   }
 }
 
@@ -794,7 +794,7 @@ void TagLibFile::deleteFramesV1(const FrameFilter& flt)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getTitleV1()
+QString TagLibFile::getTitleV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -812,7 +812,7 @@ QString TagLibFile::getTitleV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getArtistV1()
+QString TagLibFile::getArtistV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -830,7 +830,7 @@ QString TagLibFile::getArtistV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getAlbumV1()
+QString TagLibFile::getAlbumV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -848,7 +848,7 @@ QString TagLibFile::getAlbumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getCommentV1()
+QString TagLibFile::getCommentV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -872,7 +872,7 @@ QString TagLibFile::getCommentV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int TagLibFile::getYearV1()
+int TagLibFile::getYearV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -889,7 +889,7 @@ int TagLibFile::getYearV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int TagLibFile::getTrackNumV1()
+int TagLibFile::getTrackNumV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -906,7 +906,7 @@ int TagLibFile::getTrackNumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getGenreV1()
+QString TagLibFile::getGenreV1() const
 {
   makeFileOpen();
   if (m_tagV1) {
@@ -924,7 +924,7 @@ QString TagLibFile::getGenreV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getTitleV2()
+QString TagLibFile::getTitleV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -942,7 +942,7 @@ QString TagLibFile::getTitleV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getArtistV2()
+QString TagLibFile::getArtistV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -960,7 +960,7 @@ QString TagLibFile::getArtistV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getAlbumV2()
+QString TagLibFile::getAlbumV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -978,7 +978,7 @@ QString TagLibFile::getAlbumV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getCommentV2()
+QString TagLibFile::getCommentV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -996,7 +996,7 @@ QString TagLibFile::getCommentV2()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int TagLibFile::getYearV2()
+int TagLibFile::getYearV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -1013,7 +1013,7 @@ int TagLibFile::getYearV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getTrackV2()
+QString TagLibFile::getTrackV2() const
 {
   makeFileOpen();
   if (m_tagV2) {
@@ -1064,7 +1064,7 @@ static QString getGenreString(const TagLib::String& str)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TagLibFile::getGenreV2()
+QString TagLibFile::getGenreV2() const
 {
   makeFileOpen();
   if (m_tagV2) {

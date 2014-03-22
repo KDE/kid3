@@ -106,7 +106,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getTitleV1();
+  virtual QString getTitleV1() const;
 
   /**
    * Get ID3v1 artist.
@@ -115,7 +115,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getArtistV1();
+  virtual QString getArtistV1() const;
 
   /**
    * Get ID3v1 album.
@@ -124,7 +124,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getAlbumV1();
+  virtual QString getAlbumV1() const;
 
   /**
    * Get ID3v1 comment.
@@ -133,7 +133,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getCommentV1();
+  virtual QString getCommentV1() const;
 
   /**
    * Get ID3v1 year.
@@ -142,7 +142,7 @@ public:
    *         0 if the field does not exist,
    *         -1 if the tags do not exist.
    */
-  virtual int getYearV1();
+  virtual int getYearV1() const;
 
   /**
    * Get ID3v1 track.
@@ -151,7 +151,7 @@ public:
    *         0 if the field does not exist,
    *         -1 if the tags do not exist.
    */
-  virtual int getTrackNumV1();
+  virtual int getTrackNumV1() const;
 
   /**
    * Get ID3v1 genre.
@@ -160,7 +160,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getGenreV1();
+  virtual QString getGenreV1() const;
 
   /**
    * Get ID3v2 title.
@@ -169,7 +169,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getTitleV2();
+  virtual QString getTitleV2() const;
 
   /**
    * Get ID3v2 artist.
@@ -178,7 +178,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getArtistV2();
+  virtual QString getArtistV2() const;
 
   /**
    * Get ID3v2 album.
@@ -187,7 +187,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getAlbumV2();
+  virtual QString getAlbumV2() const;
 
   /**
    * Get ID3v2 comment.
@@ -196,7 +196,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getCommentV2();
+  virtual QString getCommentV2() const;
 
   /**
    * Get ID3v2 year.
@@ -205,7 +205,7 @@ public:
    *         0 if the field does not exist,
    *         -1 if the tags do not exist.
    */
-  virtual int getYearV2();
+  virtual int getYearV2() const;
 
   /**
    * Get ID3v2 track.
@@ -214,7 +214,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getTrackV2();
+  virtual QString getTrackV2() const;
 
   /**
    * Get ID3v2 genre as text.
@@ -223,7 +223,7 @@ public:
    *         "" if the field does not exist,
    *         QString::null if the tags do not exist.
    */
-  virtual QString getGenreV2();
+  virtual QString getGenreV2() const;
 
   /**
    * Set ID3v1 title.

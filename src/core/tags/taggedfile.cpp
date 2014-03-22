@@ -97,7 +97,7 @@ void TaggedFile::setActiveTaggedFileFeatures(int features)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TaggedFile::getTitleV1()
+QString TaggedFile::getTitleV1() const
 {
   return QString();
 }
@@ -109,7 +109,7 @@ QString TaggedFile::getTitleV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TaggedFile::getArtistV1()
+QString TaggedFile::getArtistV1() const
 {
   return QString();
 }
@@ -121,7 +121,7 @@ QString TaggedFile::getArtistV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TaggedFile::getAlbumV1()
+QString TaggedFile::getAlbumV1() const
 {
   return QString();
 }
@@ -133,7 +133,7 @@ QString TaggedFile::getAlbumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TaggedFile::getCommentV1()
+QString TaggedFile::getCommentV1() const
 {
   return QString();
 }
@@ -145,7 +145,7 @@ QString TaggedFile::getCommentV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int TaggedFile::getYearV1()
+int TaggedFile::getYearV1() const
 {
   return -1;
 }
@@ -157,7 +157,7 @@ int TaggedFile::getYearV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int TaggedFile::getTrackNumV1()
+int TaggedFile::getTrackNumV1() const
 {
   return -1;
 }
@@ -169,7 +169,7 @@ int TaggedFile::getTrackNumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString TaggedFile::getGenreV1()
+QString TaggedFile::getGenreV1() const
 {
   return QString();
 }

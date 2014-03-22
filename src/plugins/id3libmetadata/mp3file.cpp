@@ -699,7 +699,7 @@ static bool setGenreNum(ID3_Tag* tag, int num)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getTitleV1()
+QString Mp3File::getTitleV1() const
 {
   return getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1);
 }
@@ -711,7 +711,7 @@ QString Mp3File::getTitleV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getArtistV1()
+QString Mp3File::getArtistV1() const
 {
   return getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1);
 }
@@ -723,7 +723,7 @@ QString Mp3File::getArtistV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getAlbumV1()
+QString Mp3File::getAlbumV1() const
 {
   return getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1);
 }
@@ -735,7 +735,7 @@ QString Mp3File::getAlbumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getCommentV1()
+QString Mp3File::getCommentV1() const
 {
   return getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1);
 }
@@ -747,7 +747,7 @@ QString Mp3File::getCommentV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getYearV1()
+int Mp3File::getYearV1() const
 {
   return getYear(m_tagV1);
 }
@@ -759,7 +759,7 @@ int Mp3File::getYearV1()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getTrackNumV1()
+int Mp3File::getTrackNumV1() const
 {
   return getTrackNum(m_tagV1);
 }
@@ -771,7 +771,7 @@ int Mp3File::getTrackNumV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getGenreV1()
+QString Mp3File::getGenreV1() const
 {
   int num = getGenreNum(m_tagV1);
   if (num == -1) {
@@ -790,7 +790,7 @@ QString Mp3File::getGenreV1()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getTitleV2()
+QString Mp3File::getTitleV2() const
 {
   return getTextField(m_tagV2, ID3FID_TITLE);
 }
@@ -802,7 +802,7 @@ QString Mp3File::getTitleV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getArtistV2()
+QString Mp3File::getArtistV2() const
 {
   return getTextField(m_tagV2, ID3FID_LEADARTIST);
 }
@@ -814,7 +814,7 @@ QString Mp3File::getArtistV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getAlbumV2()
+QString Mp3File::getAlbumV2() const
 {
   return getTextField(m_tagV2, ID3FID_ALBUM);
 }
@@ -826,7 +826,7 @@ QString Mp3File::getAlbumV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getCommentV2()
+QString Mp3File::getCommentV2() const
 {
   return getTextField(m_tagV2, ID3FID_COMMENT);
 }
@@ -838,7 +838,7 @@ QString Mp3File::getCommentV2()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getYearV2()
+int Mp3File::getYearV2() const
 {
   return getYear(m_tagV2);
 }
@@ -850,7 +850,7 @@ int Mp3File::getYearV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getTrackV2()
+QString Mp3File::getTrackV2() const
 {
   return getTextField(m_tagV2, ID3FID_TRACKNUM);
 }
@@ -862,7 +862,7 @@ QString Mp3File::getTrackV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getGenreV2()
+QString Mp3File::getGenreV2() const
 {
   int num = getGenreNum(m_tagV2);
   if (num != 0xff && num != -1) {

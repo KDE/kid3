@@ -978,7 +978,7 @@ void M4aFile::setTextField(const QString& name, const QString& value,
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getTitleV2()
+QString M4aFile::getTitleV2() const
 {
   return getTextField(QLatin1String("\251nam"));
 }
@@ -990,7 +990,7 @@ QString M4aFile::getTitleV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getArtistV2()
+QString M4aFile::getArtistV2() const
 {
   return getTextField(QLatin1String("\251ART"));
 }
@@ -1002,7 +1002,7 @@ QString M4aFile::getArtistV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getAlbumV2()
+QString M4aFile::getAlbumV2() const
 {
   return getTextField(QLatin1String("\251alb"));
 }
@@ -1014,7 +1014,7 @@ QString M4aFile::getAlbumV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getCommentV2()
+QString M4aFile::getCommentV2() const
 {
   return getTextField(QLatin1String("\251cmt"));
 }
@@ -1026,7 +1026,7 @@ QString M4aFile::getCommentV2()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int M4aFile::getYearV2()
+int M4aFile::getYearV2() const
 {
   QString str(getTextField(QLatin1String("\251day")));
   if (!str.isNull()) {
@@ -1042,7 +1042,7 @@ int M4aFile::getYearV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getTrackV2()
+QString M4aFile::getTrackV2() const
 {
   return getTextField(QLatin1String("trkn"));
 }
@@ -1054,7 +1054,7 @@ QString M4aFile::getTrackV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString M4aFile::getGenreV2()
+QString M4aFile::getGenreV2() const
 {
   QString str(getTextField(QLatin1String("\251gen")));
   if (str.isEmpty()) {

@@ -489,7 +489,7 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getTitleV2()
+QString OggFile::getTitleV2() const
 {
   return getTextField(QLatin1String("TITLE"));
 }
@@ -501,7 +501,7 @@ QString OggFile::getTitleV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getArtistV2()
+QString OggFile::getArtistV2() const
 {
   return getTextField(QLatin1String("ARTIST"));
 }
@@ -513,7 +513,7 @@ QString OggFile::getArtistV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getAlbumV2()
+QString OggFile::getAlbumV2() const
 {
   return getTextField(QLatin1String("ALBUM"));
 }
@@ -525,7 +525,7 @@ QString OggFile::getAlbumV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getCommentV2()
+QString OggFile::getCommentV2() const
 {
   return getTextField(getCommentFieldName());
 }
@@ -537,7 +537,7 @@ QString OggFile::getCommentV2()
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int OggFile::getYearV2()
+int OggFile::getYearV2() const
 {
   QString str = getTextField(QLatin1String("DATE"));
   if (str.isNull()) return -1;
@@ -552,7 +552,7 @@ int OggFile::getYearV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getTrackV2()
+QString OggFile::getTrackV2() const
 {
   return getTextField(QLatin1String("TRACKNUMBER"));
 }
@@ -564,7 +564,7 @@ QString OggFile::getTrackV2()
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString OggFile::getGenreV2()
+QString OggFile::getGenreV2() const
 {
   return getTextField(QLatin1String("GENRE"));
 }
