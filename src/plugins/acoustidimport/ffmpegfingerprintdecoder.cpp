@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** Needed for UINT64_C, INT64_C macros used by libav includes. */
 #define __STDC_CONSTANT_MACROS
 #include "ffmpegfingerprintdecoder.h"
 #include "acoustidconfig.h"
@@ -72,6 +73,7 @@ int av_audio_convert(AVAudioConvert *ctx,
 #define avcodec_free_frame av_freep
 #endif
 
+/** Bytes needed for 1 second of 48khz 32bit audio. */
 #ifdef AVCODEC_MAX_AUDIO_FRAME_SIZE
 #define MAX_AUDIO_FRAME_SIZE AVCODEC_MAX_AUDIO_FRAME_SIZE
 #else
