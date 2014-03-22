@@ -33,7 +33,6 @@
 #include "cliconfig.h"
 
 class QTimer;
-class ICorePlatformTools;
 class Kid3Application;
 class FileProxyModel;
 class CliCommand;
@@ -50,10 +49,12 @@ class Kid3Cli : public AbstractCli {
 public:
   /**
    * Constructor.
+   * @param app application context
    * @param io I/O handler
    * @param parent parent object
    */
-  explicit Kid3Cli(AbstractCliIO* io, QObject* parent = 0);
+  explicit Kid3Cli(Kid3Application* app,
+                   AbstractCliIO* io, QObject* parent = 0);
 
   /**
    * Destructor.
@@ -185,7 +186,6 @@ private:
   bool parseOptions();
   void executeNextArgCommand();
 
-  ICorePlatformTools* m_platformtools;
   Kid3Application* m_app;
 #ifdef HAVE_READLINE
   Kid3CliCompleter* m_completer;

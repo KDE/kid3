@@ -31,6 +31,8 @@
 #include "kid3cli.h"
 #include "loadtranslation.h"
 #include "standardiohandler.h"
+#include "coreplatformtools.h"
+#include "kid3application.h"
 
 /**
  * Main program for command line interface.
@@ -54,7 +56,12 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
- Kid3Cli kid3cli(new StandardIOHandler("kid3-cli> "));
+ ICorePlatformTools* platformTools = new CorePlatformTools;
+ Kid3Application* kid3App = new Kid3Application(platformTools);
+ Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "));
  QTimer::singleShot(0, &kid3cli, SLOT(execute()));
- return app.exec();
+ int rc = app.exec();
+ delete kid3App;
+ delete platformTools;
+ return rc;
 }

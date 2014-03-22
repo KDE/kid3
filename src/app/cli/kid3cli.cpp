@@ -32,7 +32,6 @@
 #include "kid3application.h"
 #include "fileproxymodel.h"
 #include "frametablemodel.h"
-#include "coreplatformtools.h"
 #include "clicommand.h"
 #include "cliconfig.h"
 
@@ -239,13 +238,14 @@ QStringList splitArgs(const QString& str)
 
 /**
  * Constructor.
+ * @param app application context
  * @param io I/O handler
  * @param parent parent object
  */
-Kid3Cli::Kid3Cli(AbstractCliIO* io, QObject* parent) :
+Kid3Cli::Kid3Cli(Kid3Application* app,
+                 AbstractCliIO* io, QObject* parent) :
   AbstractCli(io, parent),
-  m_platformtools(new CorePlatformTools),
-  m_app(new Kid3Application(m_platformtools, this)),
+  m_app(app),
   m_tagMask(TrackData::TagV2V1), m_fileNameChanged(false)
 {
   m_cmds << new HelpCommand(this)

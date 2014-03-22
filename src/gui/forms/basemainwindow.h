@@ -80,7 +80,7 @@ public:
    * @param mainWin main window widget
    * @param platformTools platform specific tools
    */
-  BaseMainWindowImpl(QMainWindow* mainWin, IPlatformTools* platformTools);
+  BaseMainWindowImpl(QMainWindow* mainWin, IPlatformTools* platformTools, Kid3Application *app);
 
   /**
    * Destructor.
@@ -486,10 +486,12 @@ public:
   /**
    * Constructor.
    *
-   * @param mainWin main window instance
+   * @param mainWin main window
    * @param platformTools platform specific tools
+   * @param app application context
    */
-  BaseMainWindow(QMainWindow* mainWin, IPlatformTools* platformTools);
+  BaseMainWindow(QMainWindow* mainWin, IPlatformTools* platformTools,
+                 Kid3Application *app);
 
   /**
    * Destructor.

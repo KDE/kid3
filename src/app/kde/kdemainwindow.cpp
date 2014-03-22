@@ -47,16 +47,18 @@
 #include "tagconfig.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
-#include "kdeplatformtools.h"
 
 /**
  * Constructor.
  *
+ * @param platformTools platform specific tools
+ * @param app application context
  * @param parent parent widget
  */
-KdeMainWindow::KdeMainWindow(QWidget* parent) :
+KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
+                             Kid3Application* app, QWidget* parent) :
   KXmlGuiWindow(parent),
-  BaseMainWindow(this, m_platformTools = new KdePlatformTools),
+  BaseMainWindow(this, platformTools, app),
   m_fileOpenRecent(0), m_viewToolBar(0), m_viewStatusBar(0),
   m_settingsAutoHideTags(0), m_settingsShowHidePicture(0)
 {
@@ -68,7 +70,6 @@ KdeMainWindow::KdeMainWindow(QWidget* parent) :
  */
 KdeMainWindow::~KdeMainWindow()
 {
-  delete m_platformTools;
 }
 
 /** Only defined for generation of translation files */

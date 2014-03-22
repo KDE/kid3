@@ -45,9 +45,12 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform specific tools
+   * @param app application context
    * @param parent parent widget
    */
-  explicit KdeMainWindow(QWidget* parent = 0);
+  explicit KdeMainWindow(IPlatformTools* platformTools,
+                         Kid3Application* app, QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -145,7 +148,6 @@ private slots:
   void slotSettingsConfigure();
 
 private:
-  IPlatformTools* m_platformTools;
   /** Actions */
   KRecentFilesAction* m_fileOpenRecent;
   KToggleAction* m_viewToolBar;

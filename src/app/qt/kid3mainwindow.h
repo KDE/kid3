@@ -34,7 +34,6 @@ class QAction;
 class QSessionManager;
 class RecentFilesMenu;
 class ShortcutsModel;
-class IPlatformTools;
 
 /**
  * Kid3 main window.
@@ -45,9 +44,12 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform specific tools
+   * @param app application context
    * @param parent parent widget
    */
-  explicit Kid3MainWindow(QWidget* parent = 0);
+  explicit Kid3MainWindow(IPlatformTools* platformTools, Kid3Application* app,
+                          QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -161,7 +163,6 @@ private:
                   const QObject* receiver, const char* slot,
                   const QString& context);
 
-  IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;
   ShortcutsModel* m_shortcutsModel;
   QAction* m_viewToolBar;

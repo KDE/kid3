@@ -89,11 +89,13 @@
  *
  * @param mainWin main window widget
  * @param platformTools platform specific tools
+ * @param app application context
  */
 BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
-                                       IPlatformTools* platformTools) :
+                                       IPlatformTools* platformTools,
+                                       Kid3Application* app) :
   m_platformTools(platformTools), m_w(mainWin), m_self(0),
-  m_app(new Kid3Application(m_platformTools, this)),
+  m_app(app),
   m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
   m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
@@ -1266,11 +1268,14 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
 /**
  * Constructor.
  *
+ * @param mainWin main window
  * @param platformTools platform specific tools
+ * @param app application context
  */
 BaseMainWindow::BaseMainWindow(QMainWindow* mainWin,
-                               IPlatformTools* platformTools) :
-  m_impl(new BaseMainWindowImpl(mainWin, platformTools))
+                               IPlatformTools* platformTools,
+                               Kid3Application* app) :
+  m_impl(new BaseMainWindowImpl(mainWin, platformTools, app))
 {
   m_impl->setBackPointer(this);
 }

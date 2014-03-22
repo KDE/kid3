@@ -33,6 +33,8 @@
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kid3mainwindow.h"
+#include "platformtools.h"
+#include "kid3application.h"
 
 /**
  * QApplication subclass with adapted session management.
@@ -96,7 +98,9 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
-  Kid3MainWindow* kid3 = new Kid3MainWindow;
+  IPlatformTools* platformTools = new PlatformTools;
+  Kid3Application* kid3App = new Kid3Application(platformTools);
+  Kid3MainWindow* kid3 = new Kid3MainWindow(platformTools, kid3App);
   kid3->setAttribute(Qt::WA_DeleteOnClose);
   kid3->show();
   if (argc > 1) {
@@ -107,5 +111,8 @@ int main(int argc, char* argv[])
     kid3->confirmedOpenDirectory(QStringList()
                                  << FileConfig::instance().m_lastOpenedFile);
   }
-  return app.exec();
+  int rc = app.exec();
+  delete kid3App;
+  delete platformTools;
+  return rc;
 }

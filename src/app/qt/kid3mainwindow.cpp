@@ -51,18 +51,20 @@
 #include "contexthelp.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
-#include "platformtools.h"
 #include "loadtranslation.h"
 #include "fileproxymodel.h"
 
 /**
  * Constructor.
  *
+ * @param platformTools platform specific tools
+ * @param app application context
  * @param parent parent widget
  */
-Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
+Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
+                               Kid3Application* app, QWidget* parent) :
   QMainWindow(parent),
-  BaseMainWindow(this, m_platformTools = new PlatformTools),
+  BaseMainWindow(this, platformTools, app),
   m_shortcutsModel(new ShortcutsModel(this))
 {
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
@@ -92,7 +94,6 @@ Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
  */
 Kid3MainWindow::~Kid3MainWindow()
 {
-  delete m_platformTools;
 }
 
 /** Only defined for generation of translation files */

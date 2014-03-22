@@ -34,6 +34,11 @@
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kdemainwindow.h"
+#include "kdeplatformtools.h"
+#include "kid3application.h"
+
+/** To use a constructor with arguments in RESTORE(). */
+#define KdeMainWindow_pt_app KdeMainWindow(platformTools, kid3App)
 
 /**
  * Main program.
@@ -43,7 +48,6 @@
  *
  * @return exit code of application.
  */
-
 int main(int argc, char* argv[])
 {
   KAboutData aboutData(
@@ -82,10 +86,12 @@ int main(int argc, char* argv[])
   KGlobal::activeComponent().setAboutData(aboutData);
 #endif
 
+  IPlatformTools* platformTools = new KdePlatformTools;
+  Kid3Application* kid3App = new Kid3Application(platformTools);
   if (app.isSessionRestored()) {
-    RESTORE(KdeMainWindow)
+    RESTORE(KdeMainWindow_pt_app)
   } else {
-    KdeMainWindow* kid3 = new KdeMainWindow;
+    KdeMainWindow* kid3 = new KdeMainWindow(platformTools, kid3App);
     kid3->show();
 
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
@@ -107,5 +113,8 @@ int main(int argc, char* argv[])
     args->clear();
   }
 
-  return app.exec();
+  int rc = app.exec();
+  delete kid3App;
+  delete platformTools;
+  return rc;
 }
