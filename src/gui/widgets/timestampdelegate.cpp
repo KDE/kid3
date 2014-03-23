@@ -48,13 +48,16 @@ TimeStampDelegate::~TimeStampDelegate()
 /**
  * Create an editor to edit the cell contents.
  * @param parent parent widget
+ * @param index  index of item
  * @return combo box editor widget.
  */
 QWidget* TimeStampDelegate::createEditor(
-  QWidget* parent, const QStyleOptionViewItem&, const QModelIndex&) const
+  QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const
 {
+  QTime time = index.data().toTime();
   QTimeEdit* timeEdit = new QTimeEdit(parent);
-  timeEdit->setDisplayFormat(QLatin1String("h:mm:ss.zzz"));
+  timeEdit->setDisplayFormat(time.hour() == 0 ? QLatin1String("mm:ss.zzz")
+                                              : QLatin1String("hh:mm:ss.zzz"));
   connect(timeEdit, SIGNAL(editingFinished()),
           this, SLOT(commitAndCloseEditor()));
   return timeEdit;
