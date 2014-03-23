@@ -239,6 +239,7 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
   }
 
   QList<TimeEvent> timeEvents;
+  bool newLinesStartWithLineBreak = false;
   const int numBytes = bytes.size();
   int textBegin = 0, textEnd;
   while (textBegin < numBytes) {
@@ -279,11 +280,21 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
     if (textBegin > numBytes)
       break;
 
+    if (timeEvents.isEmpty() && str.startsWith(QLatin1Char('\n'))) {
+      // The first entry determines if new lines have to start with a new line
+      // character or if all entries are supposed to be new lines.
+      newLinesStartWithLineBreak = true;
+    }
+
+    bool isNewLine = !newLinesStartWithLineBreak;
     if (str.startsWith(QLatin1Char('\n'))) {
       // New lines start with a new line character, which is removed.
+      isNewLine = true;
+      str.remove(0, 1);
+    }
+    if (isNewLine) {
       // If the resulting line starts with one of the special characters
       // (' ', '-', '_'), it is escaped with '#'.
-      str.remove(0, 1);
       if (str.length() > 0) {
         QChar ch = str.at(0);
         if (ch == QLatin1Char(' ') || ch == QLatin1Char('-') ||
