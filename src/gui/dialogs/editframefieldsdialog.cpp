@@ -1002,6 +1002,11 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   QDialog(parent), m_platformTools(platformTools), m_app(app)
 {
   setObjectName(QLatin1String("EditFrameFieldsDialog"));
+
+  // Make sure that window stays on top, is necessary to keep the dialog
+  // visible on Mac OS X while operating with the player for SYLT/ETCO frames.
+  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+
   m_vlayout = new QVBoxLayout(this);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
