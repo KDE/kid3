@@ -1150,6 +1150,14 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 
       case QVariant::ByteArray:
       {
+        BinFieldControl* binctl = new BinFieldControl(
+              m_platformTools, fld, frame, taggedFile);
+        m_fieldcontrols.append(binctl);
+        break;
+      }
+
+      case QVariant::List:
+      {
         QString frameName = frame.getName();
         if (frameName.startsWith(QLatin1String("SYLT"))) {
           TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
@@ -1162,9 +1170,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
                 TimeEventModel::EventTimingCodes);
           m_fieldcontrols.append(timeEventCtl);
         } else {
-          BinFieldControl* binctl = new BinFieldControl(
-                m_platformTools, fld, frame, taggedFile);
-          m_fieldcontrols.append(binctl);
+          qDebug("Unexpected QVariantList in field %d", fld.m_id);
         }
         break;
       }

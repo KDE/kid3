@@ -27,7 +27,6 @@
 #include "timeeventmodel.h"
 #include <QApplication>
 #include <QTextStream>
-#include <QtEndian>
 #include "eventtimingcode.h"
 
 /**
@@ -222,64 +221,28 @@ QList<TimeEventModel::TimeEvent> TimeEventModel::getTimeEvents() const
  */
 void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
 {
-  QByteArray bytes;
-  Frame::Field::TextEncoding enc = Frame::Field::TE_ISO8859_1;
+  QVariantList synchedData;
   bool unitIsFrames = false;
   for (Frame::FieldList::const_iterator it = fields.constBegin();
        it != fields.constEnd();
        ++it) {
     const Frame::Field& fld = *it;
-    if (fld.m_id == Frame::Field::ID_TextEnc) {
-      enc = static_cast<Frame::Field::TextEncoding>(fld.m_value.toInt());
-    } else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+    if (fld.m_id == Frame::Field::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
-    } else if (fld.m_value.type() == QVariant::ByteArray) {
-      bytes = fld.m_value.toByteArray();
+    } else if (fld.m_value.type() == QVariant::List) {
+      synchedData = fld.m_value.toList();
     }
   }
 
-  QList<TimeEvent> timeEvents;
   bool newLinesStartWithLineBreak = false;
-  const int numBytes = bytes.size();
-  int textBegin = 0, textEnd;
-  while (textBegin < numBytes) {
-    if (enc == Frame::Field::TE_ISO8859_1 || enc == Frame::Field::TE_UTF8) {
-      textEnd = bytes.indexOf('\0', textBegin);
-      if (textEnd != -1) {
-        ++textEnd;
-      }
-    } else {
-      const ushort* unicode =
-          reinterpret_cast<const ushort*>(bytes.constData() + textBegin);
-      textEnd = textBegin;
-      while (textEnd < numBytes) {
-        textEnd += 2;
-        if (*unicode++ == 0) {
-          break;
-        }
-      }
-    }
-    if (textEnd < 0 || textEnd >= numBytes)
+  QList<TimeEvent> timeEvents;
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 milliseconds = it.next().toUInt();
+    if (!it.hasNext())
       break;
 
-    QString str;
-    QByteArray text = bytes.mid(textBegin, textEnd - textBegin);
-    switch (enc) {
-    case Frame::Field::TE_UTF16:
-    case Frame::Field::TE_UTF16BE:
-      str = QString::fromUtf16(reinterpret_cast<const ushort*>(text.constData()));
-      break;
-    case Frame::Field::TE_UTF8:
-      str = QString::fromUtf8(text.constData());
-      break;
-    case Frame::Field::TE_ISO8859_1:
-    default:
-      str = QString::fromLatin1(text.constData());
-    }
-    textBegin = textEnd + 4;
-    if (textBegin > numBytes)
-      break;
-
+    QString str = it.next().toString();
     if (timeEvents.isEmpty() && str.startsWith(QLatin1Char('\n'))) {
       // The first entry determines if new lines have to start with a new line
       // character or if all entries are supposed to be new lines.
@@ -310,8 +273,6 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
       str.prepend(QLatin1Char('_'));
     }
 
-    quint32 milliseconds = qFromBigEndian<quint32>(
-          reinterpret_cast<const uchar*>(bytes.constData()) + textEnd);
     QVariant timeStamp = unitIsFrames
         ? QVariant(milliseconds)
         : QVariant(QTime(0, 0).addMSecs(milliseconds));
@@ -326,22 +287,19 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
  */
 void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
 {
-  Frame::Field::TextEncoding enc = Frame::Field::TE_ISO8859_1;
   Frame::FieldList::iterator timeStampFormatIt = fields.end();
   Frame::FieldList::iterator dataIt = fields.end();
   for (Frame::FieldList::iterator it = fields.begin();
        it != fields.end();
        ++it) {
-    if (it->m_id == Frame::Field::ID_TextEnc) {
-      enc = static_cast<Frame::Field::TextEncoding>(it->m_value.toInt());
-    } else if (it->m_id == Frame::Field::ID_TimestampFormat) {
+    if (it->m_id == Frame::Field::ID_TimestampFormat) {
       timeStampFormatIt = it;
-    } else if (it->m_value.type() == QVariant::ByteArray) {
+    } else if (it->m_value.type() == QVariant::List) {
       dataIt = it;
     }
   }
 
-  QByteArray bytes;
+  QVariantList synchedData;
   bool hasMsTimeStamps = false;
   foreach (const TimeEvent& timeEvent, m_timeEvents) {
     if (!timeEvent.time.isNull()) {
@@ -363,36 +321,8 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
       } else {
         milliseconds = timeEvent.data.toUInt();
       }
-      switch (enc) {
-      case Frame::Field::TE_UTF16:
-      case Frame::Field::TE_UTF16BE:
-      {
-        const ushort* unicode = str.utf16();
-        do {
-          uchar lsb = *unicode & 0xff;
-          uchar msb = *unicode >> 8;
-          if (enc == Frame::Field::TE_UTF16) {
-            bytes.append(static_cast<char>(lsb));
-            bytes.append(static_cast<char>(msb));
-          } else {
-            bytes.append(static_cast<char>(msb));
-            bytes.append(static_cast<char>(lsb));
-          }
-        } while (*unicode++);
-        break;
-      }
-      case Frame::Field::TE_UTF8:
-        bytes.append(str.toUtf8());
-        bytes.append('\0');
-        break;
-      case Frame::Field::TE_ISO8859_1:
-      default:
-        bytes.append(str.toLatin1());
-        bytes.append('\0');
-      }
-      uchar timeStamp[4];
-      qToBigEndian(milliseconds, timeStamp);
-      bytes.append(reinterpret_cast<const char*>(timeStamp), sizeof(timeStamp));
+      synchedData.append(milliseconds);
+      synchedData.append(str);
     }
   }
 
@@ -400,13 +330,7 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
     timeStampFormatIt->m_value = 2;
   }
   if (dataIt != fields.end()) {
-    if (bytes.isEmpty()) {
-      // id3lib bug: Empty binary fields are not written, so add a minimal field
-      bytes = QByteArray(4 + (enc == Frame::Field::TE_UTF16 ||
-                              enc == Frame::Field::TE_UTF16BE ? 2 : 1),
-                         '\0');
-    }
-    dataIt->m_value = bytes;
+    dataIt->m_value = synchedData;
   }
 }
 
@@ -416,39 +340,27 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
  */
 void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
 {
-  QByteArray bytes;
-  bool hasTimestampFormatField = false;
+  QVariantList synchedData;
   bool unitIsFrames = false;
   for (Frame::FieldList::const_iterator it = fields.constBegin();
        it != fields.constEnd();
        ++it) {
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::Field::ID_TimestampFormat) {
-      hasTimestampFormatField = true;
       unitIsFrames = fld.m_value.toInt() == 1;
-    } else if (fld.m_value.type() == QVariant::ByteArray) {
-      bytes = fld.m_value.toByteArray();
+    } else if (fld.m_value.type() == QVariant::List) {
+      synchedData = fld.m_value.toList();
     }
-  }
-  if (!hasTimestampFormatField && !bytes.isEmpty()) {
-    // id3lib bug: There is only a single data field for ETCO frames,
-    // but it should be preceeded by an ID_TimestampFormat field.
-    unitIsFrames = bytes.at(0) == 1;
-    bytes.remove(0, 1);
   }
 
   QList<TimeEvent> timeEvents;
-  const int numBytes = bytes.size();
-  int pos = 0;
-  while (pos < numBytes) {
-    int code = static_cast<uchar>(bytes.at(pos));
-    ++pos;
-    if (pos + 4 > numBytes)
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 milliseconds = it.next().toUInt();
+    if (!it.hasNext())
       break;
 
-    quint32 milliseconds = qFromBigEndian<quint32>(
-          reinterpret_cast<const uchar*>(bytes.constData()) + pos);
-    pos += 4;
+    int code = it.next().toInt();
     QVariant timeStamp = unitIsFrames
         ? QVariant(milliseconds)
         : QVariant(QTime(0, 0).addMSecs(milliseconds));
@@ -470,17 +382,16 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
        ++it) {
     if (it->m_id == Frame::Field::ID_TimestampFormat) {
       timeStampFormatIt = it;
-    } else if (it->m_value.type() == QVariant::ByteArray) {
+    } else if (it->m_value.type() == QVariant::List) {
       dataIt = it;
     }
   }
 
-  QByteArray bytes;
+  QVariantList synchedData;
   bool hasMsTimeStamps = false;
   foreach (const TimeEvent& timeEvent, m_timeEvents) {
     if (!timeEvent.time.isNull()) {
       int code = timeEvent.data.toInt();
-      bytes.append(static_cast<char>(code));
 
       quint32 milliseconds;
       if (timeEvent.time.type() == QVariant::Time) {
@@ -489,21 +400,16 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
       } else {
         milliseconds = timeEvent.data.toUInt();
       }
-      uchar timeStamp[4];
-      qToBigEndian(milliseconds, timeStamp);
-      bytes.append(reinterpret_cast<const char*>(timeStamp), sizeof(timeStamp));
+      synchedData.append(milliseconds);
+      synchedData.append(code);
     }
   }
 
-  if (timeStampFormatIt == fields.end()) {
-    // id3lib bug: There is only a single data field for ETCO frames,
-    // but it should be preceeded by an ID_TimestampFormat field.
-    bytes.prepend(2);
-  } else if (hasMsTimeStamps) {
+  if (timeStampFormatIt != fields.end() && hasMsTimeStamps) {
     timeStampFormatIt->m_value = 2;
   }
   if (dataIt != fields.end()) {
-    dataIt->m_value = bytes;
+    dataIt->m_value = synchedData;
   }
 }
 

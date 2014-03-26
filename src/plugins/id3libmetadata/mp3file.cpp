@@ -31,6 +31,7 @@
 #include <QTextCodec>
 #include <QByteArray>
 #include <QCoreApplication>
+#include <QtEndian>
 
 #include <cstring>
 #include <sys/stat.h>
@@ -1450,6 +1451,174 @@ static ID3_FrameID getId3libFrameIdForName(const QString& name)
 }
 
 /**
+ * Convert the binary field of a SYLT frame to a list of alternating
+ * time stamps and strings.
+ * @param bytes binary field
+ * @param enc encoding
+ * @return list containing time, text, time, text, ...
+ */
+static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
+{
+  QVariantList timeEvents;
+  const int numBytes = bytes.size();
+  int textBegin = 0, textEnd;
+  while (textBegin < numBytes) {
+    if (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8) {
+      textEnd = bytes.indexOf('\0', textBegin);
+      if (textEnd != -1) {
+        ++textEnd;
+      }
+    } else {
+      const ushort* unicode =
+          reinterpret_cast<const ushort*>(bytes.constData() + textBegin);
+      textEnd = textBegin;
+      while (textEnd < numBytes) {
+        textEnd += 2;
+        if (*unicode++ == 0) {
+          break;
+        }
+      }
+    }
+    if (textEnd < 0 || textEnd >= numBytes)
+      break;
+
+    QString str;
+    QByteArray text = bytes.mid(textBegin, textEnd - textBegin);
+    switch (enc) {
+    case ID3TE_UTF16:
+    case ID3TE_UTF16BE:
+      str = QString::fromUtf16(reinterpret_cast<const ushort*>(text.constData()));
+      break;
+    case ID3TE_UTF8:
+      str = QString::fromUtf8(text.constData());
+      break;
+    case ID3TE_ISO8859_1:
+    default:
+      str = QString::fromLatin1(text.constData());
+    }
+    textBegin = textEnd + 4;
+    if (textBegin > numBytes)
+      break;
+
+    quint32 time = qFromBigEndian<quint32>(
+          reinterpret_cast<const uchar*>(bytes.constData()) + textEnd);
+    timeEvents.append(time);
+    timeEvents.append(str);
+  }
+  return timeEvents;
+}
+
+/**
+ * Convert a list of alternating time stamps and strings to the binary field of
+ * a SYLT frame.
+ * @param synchedData list containing time, text, time, text, ...
+ * @return binary field bytes.
+ */
+static QByteArray syltListToBytes(const QVariantList& synchedData,
+                                  ID3_TextEnc enc)
+{
+  QByteArray bytes;
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 milliseconds = it.next().toUInt();
+    if (!it.hasNext())
+      break;
+
+    QString str = it.next().toString();
+    switch (enc) {
+    case ID3TE_UTF16:
+    case ID3TE_UTF16BE:
+    {
+      const ushort* unicode = str.utf16();
+      do {
+        uchar lsb = *unicode & 0xff;
+        uchar msb = *unicode >> 8;
+        if (enc == ID3TE_UTF16) {
+          bytes.append(static_cast<char>(lsb));
+          bytes.append(static_cast<char>(msb));
+        } else {
+          bytes.append(static_cast<char>(msb));
+          bytes.append(static_cast<char>(lsb));
+        }
+      } while (*unicode++);
+      break;
+    }
+    case ID3TE_UTF8:
+      bytes.append(str.toUtf8());
+      bytes.append('\0');
+      break;
+    case ID3TE_ISO8859_1:
+    default:
+      bytes.append(str.toLatin1());
+      bytes.append('\0');
+    }
+    uchar timeStamp[4];
+    qToBigEndian(milliseconds, timeStamp);
+    bytes.append(reinterpret_cast<const char*>(timeStamp), sizeof(timeStamp));
+  }
+  if (bytes.isEmpty()) {
+    // id3lib bug: Empty binary fields are not written, so add a minimal field
+    bytes = QByteArray(4 + (enc == ID3TE_UTF16 ||
+                            enc == ID3TE_UTF16BE ? 2 : 1),
+                       '\0');
+  }
+  return bytes;
+}
+
+/**
+ * Convert the binary field of an ETCO frame to a list of alternating
+ * time stamps and codes.
+ * @param bytes binary field
+ * @return list containing time, code, time, code, ...
+ */
+static QVariantList etcoBytesToList(const QByteArray& bytes)
+{
+  QVariantList timeEvents;
+  const int numBytes = bytes.size();
+  // id3lib bug: There is only a single data field for ETCO frames,
+  // but it should be preceeded by an ID_TimestampFormat field.
+  // Start with the second byte.
+  int pos = 1;
+  while (pos < numBytes) {
+    int code = static_cast<uchar>(bytes.at(pos));
+    ++pos;
+    if (pos + 4 > numBytes)
+      break;
+
+    quint32 time = qFromBigEndian<quint32>(
+          reinterpret_cast<const uchar*>(bytes.constData()) + pos);
+    pos += 4;
+    timeEvents.append(time);
+    timeEvents.append(code);
+  }
+  return timeEvents;
+}
+
+/**
+ * Convert a list of alternating time stamps and codes to the binary field of
+ * an ETCO frame.
+ * @param synchedData list containing time, code, time, code, ...
+ * @return binary field bytes.
+ */
+static QByteArray etcoListToBytes(const QVariantList& synchedData)
+{
+  QByteArray bytes;
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 milliseconds = it.next().toUInt();
+    if (!it.hasNext())
+      break;
+
+    int code = it.next().toInt();
+    bytes.append(static_cast<char>(code));
+    uchar timeStamp[4];
+    qToBigEndian(milliseconds, timeStamp);
+    bytes.append(reinterpret_cast<const char*>(timeStamp), sizeof(timeStamp));
+  }
+  return bytes;
+}
+
+/**
  * Get the fields from an ID3v2 tag.
  *
  * @param id3Frame frame
@@ -1463,6 +1632,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
   QString text;
   ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
   ID3_FrameID id3Id = id3Frame->GetID();
+  ID3_TextEnc enc = ID3TE_NONE;
   ID3_Field* id3Field;
   Frame::Field field;
   while ((id3Field = iter->GetNext()) != 0) {
@@ -1470,12 +1640,22 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
     ID3_FieldType type = id3Field->GetType();
     field.m_id = id;
     if (type == ID3FTY_INTEGER) {
-      field.m_value = id3Field->Get();
+      uint32 intVal = id3Field->Get();
+      field.m_value = intVal;
+      if (id == ID3FN_TEXTENC) {
+        enc = static_cast<ID3_TextEnc>(intVal);
+      }
     }
     else if (type == ID3FTY_BINARY) {
       QByteArray ba(reinterpret_cast<const char*>(id3Field->GetRawBinary()),
                     static_cast<int>(id3Field->Size()));
-      field.m_value = ba;
+      if (id3Id == ID3FID_SYNCEDLYRICS) {
+        field.m_value = syltBytesToList(ba, enc);
+      } else if (id3Id == ID3FID_EVENTTIMING) {
+        field.m_value = etcoBytesToList(ba);
+      } else {
+        field.m_value = ba;
+      }
     }
     else if (type == ID3FTY_TEXTSTRING) {
       if (id == ID3FN_TEXT || id == ID3FN_DESCRIPTION || id == ID3FN_URL) {
@@ -1604,6 +1784,25 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         const QByteArray& ba = fld.m_value.toByteArray();
         id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
                       static_cast<size_t>(ba.size()));
+        break;
+      }
+
+      case QVariant::List:
+      {
+        if (id3Id == ID3FID_SYNCEDLYRICS) {
+          QByteArray ba = syltListToBytes(fld.m_value.toList(), enc);
+          id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
+                        static_cast<size_t>(ba.size()));
+        } else if (id3Id == ID3FID_EVENTTIMING) {
+          QByteArray ba = etcoListToBytes(fld.m_value.toList());
+          // id3lib bug: There is only a single data field for ETCO frames,
+          // but it should be preceeded by an ID_TimestampFormat field.
+          ba.prepend(2);
+          id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
+                        static_cast<size_t>(ba.size()));
+        } else {
+          qDebug("Unexpected QVariantList in field %d", fld.m_id);
+        }
         break;
       }
 
