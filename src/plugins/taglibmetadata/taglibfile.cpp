@@ -110,6 +110,7 @@
 
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
+#include "taglibext/synchronizedlyricsframe.h"
 
 namespace {
 
@@ -1970,7 +1971,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVRB - Reverb"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SEEK - Seek frame"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SIGN - Signature frame"), false },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYLT - Synchronized lyric/text"), false },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYLT - Synchronized lyric/text"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYTC - Synchronized tempo codes"), false },
   { Frame::FT_Album,          QT_TRANSLATE_NOOP("@default", "TALB - Album/Movie/Show title"), true },
   { Frame::FT_Bpm,            QT_TRANSLATE_NOOP("@default", "TBPM - BPM (beats per minute)"), true },
@@ -2370,6 +2371,59 @@ static QString getFieldsFromUsltFrame(
   return text;
 }
 
+/**
+ * Get the fields from a synchronized lyrics frame.
+ *
+ * @param syltFrame synchronized lyrics frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromSyltFrame(
+  const TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame,
+  Frame::FieldList& fields)
+{
+  QString text;
+  Frame::Field field;
+  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_value = syltFrame->textEncoding();
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Language;
+  TagLib::ByteVector bvLang = syltFrame->language();
+  field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_TimestampFormat;
+  field.m_value = syltFrame->timestampFormat();
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_ContentType;
+  field.m_value = syltFrame->type();
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Description;
+  text = TStringToQString(syltFrame->description());
+  field.m_value = text;
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Data;
+  QVariantList synchedData;
+  TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList stl =
+      syltFrame->synchedText();
+  for (TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList::ConstIterator
+       it = stl.begin();
+       it != stl.end();
+       ++it) {
+    synchedData.append(static_cast<quint32>(it->time));
+    synchedData.append(TStringToQString(it->text));
+  }
+  field.m_value = synchedData;
+  fields.push_back(field);
+
+  return text;
+}
+
 #if TAGLIB_VERSION >= 0x010600
 /**
  * Get the fields from a private frame.
@@ -2513,6 +2567,7 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
     const TagLib::ID3v2::UrlLinkFrame* wFrame;
     const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+    const TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
 #if TAGLIB_VERSION >= 0x010600
     const TagLib::ID3v2::PrivateFrame* privFrame;
     const TagLib::ID3v2::PopularimeterFrame* popmFrame;
@@ -2548,6 +2603,9 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     } else if ((usltFrame = dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(
                 frame)) != 0) {
       return getFieldsFromUsltFrame(usltFrame, fields);
+    } else if ((syltFrame = dynamic_cast<const TagLib::ID3v2::SynchronizedLyricsFrame*>(
+                frame)) != 0) {
+      return getFieldsFromSyltFrame(syltFrame, fields);
 #if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<const TagLib::ID3v2::PrivateFrame*>(
                 frame)) != 0) {
@@ -2576,6 +2634,12 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
       if (id.startsWith("USLT")) {
         TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(frame->render());
         return getFieldsFromUsltFrame(&usltFrm, fields);
+      } else
+#endif
+#ifndef TAGLIB_SUPPORTS_SYLT_FRAMES
+      if (id.startsWith("SYLT")) {
+        TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(frame->render());
+        return getFieldsFromSyltFrame(&syltFrm, fields);
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
@@ -2660,6 +2724,13 @@ void setTextEncoding(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
   f->setTextEncoding(enc);
 }
 
+template <>
+void setTextEncoding(TagLib::ID3v2::SynchronizedLyricsFrame* f,
+                     TagLib::String::Type enc)
+{
+  f->setTextEncoding(enc);
+}
+
 
 template <class T>
 void setDescription(T*, const Frame::Field&) {}
@@ -2699,6 +2770,13 @@ void setDescription(TagLib::ID3v2::UserUrlLinkFrame* f, const Frame::Field& fld)
 
 template <>
 void setDescription(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
+                    const Frame::Field& fld)
+{
+  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setDescription(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                     const Frame::Field& fld)
 {
   f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
@@ -2766,6 +2844,24 @@ void setData(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
   f->setIdentifier(TagLib::ByteVector(ba.data(), ba.size()));
 }
 
+template <>
+void setData(TagLib::ID3v2::SynchronizedLyricsFrame* f,
+             const Frame::Field& fld)
+{
+  TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList stl;
+  QVariantList synchedData(fld.m_value.toList());
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 time = it.next().toUInt();
+    if (!it.hasNext())
+      break;
+
+    TagLib::String text = QSTRING_TO_TSTRING(it.next().toString());
+    stl.append(TagLib::ID3v2::SynchronizedLyricsFrame::SynchedText(time, text));
+  }
+  f->setSynchedText(stl);
+}
+
 template <class T>
 void setLanguage(T*, const Frame::Field&) {}
 
@@ -2777,6 +2873,13 @@ void setLanguage(TagLib::ID3v2::CommentsFrame* f, const Frame::Field& fld)
 
 template <>
 void setLanguage(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
+                 const Frame::Field& fld)
+{
+  f->setLanguage(languageCodeByteVector(fld.m_value.toString()));
+}
+
+template <>
+void setLanguage(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                  const Frame::Field& fld)
 {
   f->setLanguage(languageCodeByteVector(fld.m_value.toString()));
@@ -2889,6 +2992,12 @@ void setValue(TagLib::ID3v2::UniqueFileIdentifierFrame* f, const TagLib::String&
   }
 }
 
+template <>
+void setValue(TagLib::ID3v2::SynchronizedLyricsFrame* f, const TagLib::String& text)
+{
+  f->setDescription(text);
+}
+
 #if TAGLIB_VERSION >= 0x010600
 template <>
 void setValue(TagLib::ID3v2::PrivateFrame* f, const TagLib::String& text)
@@ -2993,6 +3102,30 @@ void setValue(TagLib::ID3v2::OwnershipFrame* f, const TagLib::String& text)
   f->setSeller(text);
 }
 #endif
+
+template <class T>
+void setTimestampFormat(T*, const Frame::Field&) {}
+
+template <>
+void setTimestampFormat(TagLib::ID3v2::SynchronizedLyricsFrame* f,
+                        const Frame::Field& fld)
+{
+  f->setTimeStampFormat(
+        static_cast<TagLib::ID3v2::SynchronizedLyricsFrame::TimestampFormat>(
+          fld.m_value.toInt()));
+}
+
+template <class T>
+void setContentType(T*, const Frame::Field&) {}
+
+template <>
+void setContentType(TagLib::ID3v2::SynchronizedLyricsFrame* f,
+                    const Frame::Field& fld)
+{
+  f->setType(static_cast<TagLib::ID3v2::SynchronizedLyricsFrame::Type>(
+               fld.m_value.toInt()));
+}
+
 //! @endcond
 
 /**
@@ -3090,6 +3223,12 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
           setSeller(tFrame, fld);
           break;
 #endif
+        case Frame::Field::ID_TimestampFormat:
+          setTimestampFormat(tFrame, fld);
+          break;
+        case Frame::Field::ID_ContentType:
+          setContentType(tFrame, fld);
+          break;
       }
     }
   }
@@ -3113,6 +3252,7 @@ void TagLibFile::setId3v2Frame(
     TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
     TagLib::ID3v2::UrlLinkFrame* wFrame;
     TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+    TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
 #if TAGLIB_VERSION >= 0x010600
     TagLib::ID3v2::PrivateFrame* privFrame;
     TagLib::ID3v2::PopularimeterFrame* popmFrame;
@@ -3155,6 +3295,10 @@ void TagLibFile::setId3v2Frame(
                 dynamic_cast<TagLib::ID3v2::UnsynchronizedLyricsFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(this, usltFrame, frame);
+    } else if ((syltFrame =
+                dynamic_cast<TagLib::ID3v2::SynchronizedLyricsFrame*>(
+                  id3Frame)) != 0) {
+      setTagLibFrame(this, syltFrame, frame);
 #if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<TagLib::ID3v2::PrivateFrame*>(
                   id3Frame)) != 0) {
@@ -3188,6 +3332,13 @@ void TagLibFile::setId3v2Frame(
         TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(id3Frame->render());
         setTagLibFrame(this, &usltFrm, frame);
         id3Frame->setData(usltFrm.render());
+      } else
+#endif
+#ifndef TAGLIB_SUPPORTS_SYLT_FRAMES
+      if (id.startsWith("SYLT")) {
+        TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(id3Frame->render());
+        setTagLibFrame(this, &syltFrm, frame);
+        id3Frame->setData(syltFrm.render());
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
@@ -4299,6 +4450,9 @@ bool TagLibFile::addFrameV2(Frame& frame)
       } else if (frameId == QLatin1String("USLT")) {
         id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
         ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+      } else if (frameId == QLatin1String("SYLT")) {
+        id3Frame = new TagLib::ID3v2::SynchronizedLyricsFrame(enc);
+        ((TagLib::ID3v2::SynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
 #if TAGLIB_VERSION >= 0x010600
       } else if (frameId == QLatin1String("POPM")) {
         id3Frame = new TagLib::ID3v2::PopularimeterFrame;
