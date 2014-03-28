@@ -51,6 +51,7 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
     taglibext/aac/aacfiletyperesolver.cpp
     taglibext/mp2/mp2filetyperesolver.cpp
     taglibext/synchronizedlyricsframe.cpp
+    taglibext/eventtimingcodesframe.cpp
   )
 
   if (TAGLIB_VERSION STREQUAL "1.4")

@@ -111,6 +111,7 @@
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 #include "taglibext/synchronizedlyricsframe.h"
+#include "taglibext/eventtimingcodesframe.h"
 
 namespace {
 
@@ -1937,7 +1938,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "COMR - Commercial"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ENCR - Encryption method registration"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "EQU2 - Equalisation (2)"), false },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes"), false },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "GEOB - General encapsulated object"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "GRID - Group identification registration"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "LINK - Linked information"), false },
@@ -2424,6 +2425,40 @@ static QString getFieldsFromSyltFrame(
   return text;
 }
 
+/**
+ * Get the fields from an event timing codes frame.
+ *
+ * @param etcoFrame event timing codes frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromEtcoFrame(
+  const TagLib::ID3v2::EventTimingCodesFrame* etcoFrame,
+  Frame::FieldList& fields)
+{
+  Frame::Field field;
+  field.m_id = Frame::Field::ID_TimestampFormat;
+  field.m_value = etcoFrame->timestampFormat();
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Data;
+  QVariantList synchedData;
+  TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList sel =
+      etcoFrame->synchedEvents();
+  for (TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList::ConstIterator
+       it = sel.begin();
+       it != sel.end();
+       ++it) {
+    synchedData.append(static_cast<quint32>(it->time));
+    synchedData.append(static_cast<int>(it->type));
+  }
+  field.m_value = synchedData;
+  fields.push_back(field);
+
+  return QString();
+}
+
 #if TAGLIB_VERSION >= 0x010600
 /**
  * Get the fields from a private frame.
@@ -2568,6 +2603,7 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     const TagLib::ID3v2::UrlLinkFrame* wFrame;
     const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
     const TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
+    const TagLib::ID3v2::EventTimingCodesFrame* etcoFrame;
 #if TAGLIB_VERSION >= 0x010600
     const TagLib::ID3v2::PrivateFrame* privFrame;
     const TagLib::ID3v2::PopularimeterFrame* popmFrame;
@@ -2606,6 +2642,9 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     } else if ((syltFrame = dynamic_cast<const TagLib::ID3v2::SynchronizedLyricsFrame*>(
                 frame)) != 0) {
       return getFieldsFromSyltFrame(syltFrame, fields);
+    } else if ((etcoFrame = dynamic_cast<const TagLib::ID3v2::EventTimingCodesFrame*>(
+                frame)) != 0) {
+      return getFieldsFromEtcoFrame(etcoFrame, fields);
 #if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<const TagLib::ID3v2::PrivateFrame*>(
                 frame)) != 0) {
@@ -2640,6 +2679,12 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
       if (id.startsWith("SYLT")) {
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(frame->render());
         return getFieldsFromSyltFrame(&syltFrm, fields);
+      } else
+#endif
+#ifndef TAGLIB_SUPPORTS_ETCO_FRAMES
+      if (id.startsWith("ETCO")) {
+        TagLib::ID3v2::EventTimingCodesFrame etcoFrm(frame->render());
+        return getFieldsFromEtcoFrame(&etcoFrm, fields);
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
@@ -2860,6 +2905,26 @@ void setData(TagLib::ID3v2::SynchronizedLyricsFrame* f,
     stl.append(TagLib::ID3v2::SynchronizedLyricsFrame::SynchedText(time, text));
   }
   f->setSynchedText(stl);
+}
+
+template <>
+void setData(TagLib::ID3v2::EventTimingCodesFrame* f,
+             const Frame::Field& fld)
+{
+  TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList sel;
+  QVariantList synchedData(fld.m_value.toList());
+  QListIterator<QVariant> it(synchedData);
+  while (it.hasNext()) {
+    quint32 time = it.next().toUInt();
+    if (!it.hasNext())
+      break;
+
+    TagLib::ID3v2::EventTimingCodesFrame::EventType type =
+        static_cast<TagLib::ID3v2::EventTimingCodesFrame::EventType>(
+          it.next().toInt());
+    sel.append(TagLib::ID3v2::EventTimingCodesFrame::SynchedEvent(time, type));
+  }
+  f->setSynchedEvents(sel);
 }
 
 template <class T>
@@ -3115,6 +3180,15 @@ void setTimestampFormat(TagLib::ID3v2::SynchronizedLyricsFrame* f,
           fld.m_value.toInt()));
 }
 
+template <>
+void setTimestampFormat(TagLib::ID3v2::EventTimingCodesFrame* f,
+                        const Frame::Field& fld)
+{
+  f->setTimeStampFormat(
+        static_cast<TagLib::ID3v2::EventTimingCodesFrame::TimestampFormat>(
+          fld.m_value.toInt()));
+}
+
 template <class T>
 void setContentType(T*, const Frame::Field&) {}
 
@@ -3253,6 +3327,7 @@ void TagLibFile::setId3v2Frame(
     TagLib::ID3v2::UrlLinkFrame* wFrame;
     TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
     TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
+    TagLib::ID3v2::EventTimingCodesFrame* etcoFrame;
 #if TAGLIB_VERSION >= 0x010600
     TagLib::ID3v2::PrivateFrame* privFrame;
     TagLib::ID3v2::PopularimeterFrame* popmFrame;
@@ -3299,6 +3374,10 @@ void TagLibFile::setId3v2Frame(
                 dynamic_cast<TagLib::ID3v2::SynchronizedLyricsFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(this, syltFrame, frame);
+    } else if ((etcoFrame =
+                dynamic_cast<TagLib::ID3v2::EventTimingCodesFrame*>(
+                  id3Frame)) != 0) {
+      setTagLibFrame(this, etcoFrame, frame);
 #if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<TagLib::ID3v2::PrivateFrame*>(
                   id3Frame)) != 0) {
@@ -3339,6 +3418,13 @@ void TagLibFile::setId3v2Frame(
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(id3Frame->render());
         setTagLibFrame(this, &syltFrm, frame);
         id3Frame->setData(syltFrm.render());
+      } else
+#endif
+#ifndef TAGLIB_SUPPORTS_ETCO_FRAMES
+      if (id.startsWith("ETCO")) {
+        TagLib::ID3v2::EventTimingCodesFrame etcoFrm(id3Frame->render());
+        setTagLibFrame(this, &etcoFrm, frame);
+        id3Frame->setData(etcoFrm.render());
       } else
 #endif
 #ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
@@ -4453,6 +4539,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
       } else if (frameId == QLatin1String("SYLT")) {
         id3Frame = new TagLib::ID3v2::SynchronizedLyricsFrame(enc);
         ((TagLib::ID3v2::SynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+      } else if (frameId == QLatin1String("ETCO")) {
+        id3Frame = new TagLib::ID3v2::EventTimingCodesFrame;
 #if TAGLIB_VERSION >= 0x010600
       } else if (frameId == QLatin1String("POPM")) {
         id3Frame = new TagLib::ID3v2::PopularimeterFrame;
