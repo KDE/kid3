@@ -1485,8 +1485,11 @@ static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
     QString str;
     QByteArray text = bytes.mid(textBegin, textEnd - textBegin);
     switch (enc) {
-    case ID3TE_UTF16:
     case ID3TE_UTF16BE:
+      text.prepend(0xff);
+      text.prepend(0xfe);
+      // fallthrough starting with FEFF BOM
+    case ID3TE_UTF16:
       str = QString::fromUtf16(reinterpret_cast<const ushort*>(text.constData()));
       break;
     case ID3TE_UTF8:
@@ -1853,11 +1856,12 @@ bool Mp3File::setFrameV2(const Frame& frame)
           return true;
         } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
             (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
-          if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
+          ID3_FrameID id = id3Frame->GetID();
+          if (id == ID3FID_CONTENTTYPE) {
             if (!TagConfig::instance().genreNotNumeric()) {
               value = Genres::getNumberString(value, true);
             }
-          } else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
+          } else if (id == ID3FID_TRACKNUM) {
             formatTrackNumberIfEnabled(value, true);
           }
           bool hasEnc;
@@ -1883,7 +1887,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
               }
             }
           }
-          if (enc != newEnc) {
+          if (enc != newEnc && id != ID3FID_SYNCEDLYRICS) {
             ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
             if (encfld) {
               encfld->Set(newEnc);
