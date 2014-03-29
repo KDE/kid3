@@ -1530,6 +1530,9 @@ static QByteArray syltListToBytes(const QVariantList& synchedData,
     QString str = it.next().toString();
     switch (enc) {
     case ID3TE_UTF16:
+      bytes.append(0xff);
+      bytes.append(0xfe);
+      // fallthrough starting with FFFE BOM
     case ID3TE_UTF16BE:
     {
       const ushort* unicode = str.utf16();
