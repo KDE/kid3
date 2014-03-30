@@ -3175,7 +3175,7 @@ template <>
 void setTimestampFormat(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                         const Frame::Field& fld)
 {
-  f->setTimeStampFormat(
+  f->setTimestampFormat(
         static_cast<TagLib::ID3v2::SynchronizedLyricsFrame::TimestampFormat>(
           fld.m_value.toInt()));
 }
@@ -3184,7 +3184,7 @@ template <>
 void setTimestampFormat(TagLib::ID3v2::EventTimingCodesFrame* f,
                         const Frame::Field& fld)
 {
-  f->setTimeStampFormat(
+  f->setTimestampFormat(
         static_cast<TagLib::ID3v2::EventTimingCodesFrame::TimestampFormat>(
           fld.m_value.toInt()));
 }

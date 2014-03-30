@@ -122,7 +122,7 @@ void SynchronizedLyricsFrame::setLanguage(const ByteVector &languageEncoding)
   d->language = languageEncoding.mid(0, 3);
 }
 
-void SynchronizedLyricsFrame::setTimeStampFormat(
+void SynchronizedLyricsFrame::setTimestampFormat(
     SynchronizedLyricsFrame::TimestampFormat f)
 {
   d->timestampFormat = f;

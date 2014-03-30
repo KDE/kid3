@@ -185,7 +185,7 @@ namespace TagLib {
        *
        * \see timestampFormat()
        */
-      void setTimeStampFormat(TimestampFormat f);
+      void setTimestampFormat(TimestampFormat f);
 
       /*!
        * Set the type of text contained.

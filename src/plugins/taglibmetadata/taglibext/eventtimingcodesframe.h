@@ -153,7 +153,7 @@ namespace TagLib {
        *
        * \see timestampFormat()
        */
-      void setTimeStampFormat(TimestampFormat f);
+      void setTimestampFormat(TimestampFormat f);
 
       /*!
        * Sets the text with the time stamps.

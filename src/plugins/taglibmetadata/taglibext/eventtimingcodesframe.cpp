@@ -85,7 +85,7 @@ EventTimingCodesFrame::synchedEvents() const
   return d->synchedEvents;
 }
 
-void EventTimingCodesFrame::setTimeStampFormat(
+void EventTimingCodesFrame::setTimestampFormat(
     EventTimingCodesFrame::TimestampFormat f)
 {
   d->timestampFormat = f;
