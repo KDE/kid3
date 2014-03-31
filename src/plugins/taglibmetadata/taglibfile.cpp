@@ -4360,6 +4360,14 @@ bool TagLibFile::setFrameV2(const Frame& frame)
       TagLib::String name;
       TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
       if (item.isValid()) {
+        int numTracks;
+        if (name == "trkn" &&
+            (numTracks = getTotalNumberOfTracksIfEnabled()) > 0) {
+          TagLib::MP4::Item::IntPair pair = item.toIntPair();
+          if (pair.second != numTracks) {
+            item = TagLib::MP4::Item(pair.first, numTracks);
+          }
+        }
         mp4Tag->itemListMap()[name] = item;
         markTag2Changed(frame.getType());
       }
