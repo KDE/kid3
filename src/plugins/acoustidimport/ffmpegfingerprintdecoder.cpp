@@ -69,10 +69,6 @@ int av_audio_convert(AVAudioConvert *ctx,
 #define AVMEDIA_TYPE_AUDIO CODEC_TYPE_AUDIO
 #endif
 
-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(54, 28, 0)
-#define avcodec_free_frame av_freep
-#endif
-
 /** Bytes needed for 1 second of 48khz 32bit audio. */
 #ifdef AVCODEC_MAX_AUDIO_FRAME_SIZE
 #define MAX_AUDIO_FRAME_SIZE AVCODEC_MAX_AUDIO_FRAME_SIZE
@@ -117,7 +113,13 @@ public:
 
   ~Codec() {
     if (m_frame)
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(54, 28, 0)
+      ::av_freep(&m_frame);
+#elif LIBAVCODEC_VERSION_INT < AV_VERSION_INT(55, 28, 1)
       ::avcodec_free_frame(&m_frame);
+#else
+      ::av_frame_free(&m_frame);
+#endif
     if (m_opened)
       ::avcodec_close(m_ptr);
   }
@@ -154,9 +156,15 @@ public:
     return ::avcodec_decode_audio3(m_ptr,
       samples, frameSize, pkt);
 #else
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(55, 28, 1)
     if (!m_frame)
       m_frame = ::avcodec_alloc_frame();
     ::avcodec_get_frame_defaults(m_frame);
+#else
+    if (!m_frame)
+      m_frame = ::av_frame_alloc();
+    ::av_frame_unref(m_frame);
+#endif
     int decoded = 0;
     int len = ::avcodec_decode_audio4(m_ptr, m_frame, &decoded, pkt);
     if (len >= 0 && decoded) {

@@ -52,7 +52,7 @@ compiler="gcc"
 qt_version=4.8.5
 zlib_version=1.2.8
 libogg_version=1.3.1
-libav_version=9.10
+libav_version=10
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
@@ -153,18 +153,16 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg-1.deb
 test -f zlib_1.2.8.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg.orig.tar.gz
 
-# With the new libav 9.5, some M4A fingerprints are not recognized,
-# so we'll stick with the old.
-if test "$libav_version" = "0.8.9"; then
-test -f libav_0.8.9.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.9.orig.tar.xz
-test -f libav_0.8.9-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.9-1.debian.tar.gz
+if test "$libav_version" = "0.8.10"; then
+test -f libav_0.8.10.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.10.orig.tar.gz
+test -f libav_0.8.10-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.10-1.debian.tar.gz
 else
-test -f libav_9.10.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10.orig.tar.xz
-test -f libav_9.10-2.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.10-2.debian.tar.gz
+test -f libav_10.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_10.orig.tar.xz
+test -f libav_10-1.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_10-1.debian.tar.xz
 fi
 
 test -f chromaprint_1.1.orig.tar.gz ||
@@ -172,10 +170,10 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.
 test -f chromaprint_1.1-1.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.1-1.debian.tar.gz
 
-#test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
-#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
-#test -f mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz ||
-#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
+#test -f mp4v2_2.0.0~dfsg0.orig.tar.bz2 ||
+#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0.orig.tar.bz2
+#test -f mp4v2_2.0.0~dfsg0-2.debian.tar.gz ||
+#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
 
 # Create patch files
 
@@ -388,7 +386,7 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
-if test "$libav_version" = "0.8.9"; then
+if test "$libav_version" = "0.8.10"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -484,11 +482,11 @@ fi
 
 echo "### Extracting libav"
 
-if test "$libav_version" = "0.8.9"; then
-if ! test -d libav-0.8.9; then
-unxz -c source/libav_0.8.9.orig.tar.xz | tar x
-cd libav-0.8.9/
-tar xzf ../source/libav_0.8.9-1.debian.tar.gz
+if test "$libav_version" = "0.8.10"; then
+if ! test -d libav-0.8.10; then
+tar xzf source/libav_0.8.10.orig.tar.gz
+cd libav-0.8.10/
+tar xzf ../source/libav_0.8.10-1.debian.tar.gz
 oldifs=$IFS
 IFS='
 '
@@ -502,10 +500,10 @@ patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
-if ! test -d libav-9.10; then
-unxz -c source/libav_9.10.orig.tar.xz | tar x
-cd libav-9.10/
-tar xzf ../source/libav_9.10-2.debian.tar.gz
+if ! test -d libav-10; then
+unxz -c source/libav_10.orig.tar.xz | tar x
+cd libav-10/
+unxz ../source/libav_10-1.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -523,10 +521,10 @@ fi
 
 #echo "### Extracting mp4v2"
 #
-#if ! test -d mp4v2-1.9.1+svn479~dfsg0; then
-#tar xjf source/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
-#cd mp4v2-1.9.1+svn479~dfsg0/
-#tar xzf ../source/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
+#if ! test -d mp4v2-2.0.0; then
+#tar xjf source/mp4v2_2.0.0~dfsg0.orig.tar.bz2
+#cd mp4v2-2.0.0/
+#tar xzf ../source/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
 #cd ..
 #fi
 
@@ -690,8 +688,8 @@ cd ../..
 
 echo "### Building libav"
 
-if test "$libav_version" = "0.8.9"; then
-cd libav-0.8.9
+if test "$libav_version" = "0.8.10"; then
+cd libav-0.8.10
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -704,11 +702,15 @@ if test "$compiler" = "cross-mingw"; then
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
 AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include"
 fi
+if test -z "$ENABLE_DEBUG"; then
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
+else
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --enable-debug=3"
+fi
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
 	--enable-static \
-	--disable-debug \
 	--disable-avdevice \
 	--disable-avfilter \
 	--disable-pthreads \
@@ -787,10 +789,10 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.9.tgz usr
+tar czf ../../bin/libav-0.8.10.tgz usr
 cd ../..
 else
-cd libav-9.10
+cd libav-10
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -803,11 +805,15 @@ if test "$compiler" = "cross-mingw"; then
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
 AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include"
 fi
+if test -z "$ENABLE_DEBUG"; then
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
+else
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --enable-debug=3"
+fi
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
 	--enable-static \
-	--disable-debug \
 	--disable-avdevice \
 	--disable-avfilter \
 	--disable-pthreads \
@@ -885,7 +891,7 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-9.10.tgz usr
+tar czf ../../bin/libav-10.tgz usr
 cd ../..
 fi
 
@@ -903,12 +909,12 @@ cd ../..
 
 #echo "### Building mp4v2"
 #
-#cd mp4v2-1.9.1+svn479~dfsg0/
+#cd mp4v2-2.0.0/
 #test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
-#mkdir inst
+#mkdir -p inst
 #make install DESTDIR=`pwd`/inst
 #cd inst
-#tar czf ../../bin/mp4v2-1.9.1+svn479.tgz usr
+#tar czf ../../bin/mp4v2-2.0.0.tgz usr
 #cd ../..
 
 
@@ -978,7 +984,7 @@ tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.9.1.tgz -C $BUILDROOT
 tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-1.1.tgz -C $BUILDROOT
-#tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT
+#tar xzf bin/mp4v2-2.0.0.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local
