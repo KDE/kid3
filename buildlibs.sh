@@ -503,7 +503,7 @@ else
 if ! test -d libav-10; then
 unxz -c source/libav_10.orig.tar.xz | tar x
 cd libav-10/
-unxz ../source/libav_10-1.debian.tar.xz | tar x
+unxz -c ../source/libav_10-1.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -801,9 +801,13 @@ cd libav-10
 # Later versions (tested with libav-HEAD-5d2be71) do not have
 # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
 # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
+# The --extra-cflags=-march=i486 is to avoid error "Threading is enabled, but
+# there is no implementation of atomic operations available", libav bug 471.
 if test "$compiler" = "cross-mingw"; then
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
-AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include"
+AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include --extra-cflags=-march=i486"
+elif test $kernel = "MINGW"; then
+AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
 fi
 if test -z "$ENABLE_DEBUG"; then
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
