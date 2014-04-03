@@ -51,6 +51,13 @@
 
 class QTextCodec;
 
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+  namespace TagLib {
+    namespace MP4 {
+      class Tag;
+    }
+  }
+#endif
 
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
@@ -581,6 +588,15 @@ private:
    * @return tracker name, null if not found.
    */
   QString getTrackerName() const;
+#endif
+
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+  /**
+   * Set a frame in an MP4 tag.
+   * @param frame frame to set
+   * @param mp4Tag MP4 tag
+   */
+  void setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag);
 #endif
 
   /**

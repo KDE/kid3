@@ -1523,6 +1523,9 @@ void TagLibFile::setTrackV2(const QString& track)
     QString str = trackNumberString(num, numTracks);
     if (num != static_cast<int>(m_tagV2->track())) {
       TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+      TagLib::MP4::Tag* mp4Tag;
+#endif
       if (id3v2Tag) {
         TagLib::String tstr = str.isEmpty() ?
           TagLib::String::null : QSTRING_TO_TSTRING(str);
@@ -1544,6 +1547,12 @@ void TagLibFile::setTrackV2(const QString& track)
           id3v2Tag->addFrame(frame);
 #endif
         }
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+      } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
+        // Set a frame in order to store the total number too.
+        Frame frame(Frame::FT_Track, track, QString(), -1);
+        setMp4Frame(frame, mp4Tag);
+#endif
       } else {
         m_tagV2->setTrack(num);
       }
@@ -3894,6 +3903,31 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       return TagLib::MP4::Item();
   }
 }
+
+#if TAGLIB_VERSION >= 0x010600
+/**
+ * Set a frame in an MP4 tag.
+ * @param frame frame to set
+ * @param mp4Tag MP4 tag
+ */
+void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
+{
+  TagLib::String name;
+  TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
+  if (item.isValid()) {
+    int numTracks;
+    if (name == "trkn" &&
+        (numTracks = getTotalNumberOfTracksIfEnabled()) > 0) {
+      TagLib::MP4::Item::IntPair pair = item.toIntPair();
+      if (pair.second != numTracks) {
+        item = TagLib::MP4::Item(pair.first, numTracks);
+      }
+    }
+    mp4Tag->itemListMap()[name] = item;
+    markTag2Changed(frame.getType());
+  }
+}
+#endif
 #endif
 
 #ifdef TAGLIB_WITH_ASF
@@ -4357,20 +4391,7 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
-      TagLib::String name;
-      TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
-      if (item.isValid()) {
-        int numTracks;
-        if (name == "trkn" &&
-            (numTracks = getTotalNumberOfTracksIfEnabled()) > 0) {
-          TagLib::MP4::Item::IntPair pair = item.toIntPair();
-          if (pair.second != numTracks) {
-            item = TagLib::MP4::Item(pair.first, numTracks);
-          }
-        }
-        mp4Tag->itemListMap()[name] = item;
-        markTag2Changed(frame.getType());
-      }
+      setMp4Frame(frame, mp4Tag);
       return true;
 #endif
 #ifdef TAGLIB_WITH_ASF
