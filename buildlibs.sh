@@ -980,15 +980,15 @@ elif test $kernel = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
-tar xzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
-tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
-tar xzf bin/flac-1.3.0.tgz -C $BUILDROOT
-tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.9.1.tgz -C $BUILDROOT
-tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
-tar xzf bin/chromaprint-1.1.tgz -C $BUILDROOT
-#tar xzf bin/mp4v2-2.0.0.tgz -C $BUILDROOT
+tar xmzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+tar xmzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
+tar xmzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
+tar xmzf bin/flac-1.3.0.tgz -C $BUILDROOT
+tar xmzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
+tar xmzf bin/taglib-1.9.1.tgz -C $BUILDROOT
+tar xmzf bin/libav-${libav_version}.tgz -C $BUILDROOT
+tar xmzf bin/chromaprint-1.1.tgz -C $BUILDROOT
+#tar xmzf bin/mp4v2-2.0.0.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local

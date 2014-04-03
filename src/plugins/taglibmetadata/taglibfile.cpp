@@ -44,19 +44,19 @@
 // Just using include <oggfile.h>, include <flacfile.h> as recommended in the
 // TagLib documentation does not work, as there are files with these names
 // in this directory.
-#include <taglib/mpegfile.h>
-#include <taglib/oggfile.h>
-#include <taglib/vorbisfile.h>
-#include <taglib/flacfile.h>
-#include <taglib/mpcfile.h>
-#include <taglib/id3v1tag.h>
-#include <taglib/id3v2tag.h>
-#include <taglib/id3v2header.h>
-#include <taglib/apetag.h>
-#include <taglib/textidentificationframe.h>
-#include <taglib/commentsframe.h>
-#include <taglib/attachedpictureframe.h>
-#include <taglib/uniquefileidentifierframe.h>
+#include <mpegfile.h>
+#include <oggfile.h>
+#include <vorbisfile.h>
+#include <flacfile.h>
+#include <mpcfile.h>
+#include <id3v1tag.h>
+#include <id3v2tag.h>
+#include <id3v2header.h>
+#include <apetag.h>
+#include <textidentificationframe.h>
+#include <commentsframe.h>
+#include <attachedpictureframe.h>
+#include <uniquefileidentifierframe.h>
 
 #if TAGLIB_VERSION <= 0x010400
 #include "taglibext/generalencapsulatedobjectframe.h"
@@ -69,43 +69,43 @@
 #include "taglibext/wavpack/wvfile.h"
 #include "taglibext/wavpack/taglib_wavpackfiletyperesolver.h"
 #else
-#include <taglib/generalencapsulatedobjectframe.h>
-#include <taglib/urllinkframe.h>
-#include <taglib/unsynchronizedlyricsframe.h>
-#include <taglib/speexfile.h>
-#include <taglib/trueaudiofile.h>
-#include <taglib/wavpackfile.h>
+#include <generalencapsulatedobjectframe.h>
+#include <urllinkframe.h>
+#include <unsynchronizedlyricsframe.h>
+#include <speexfile.h>
+#include <trueaudiofile.h>
+#include <wavpackfile.h>
 #endif
 
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
-#include <taglib/mp4file.h>
+#include <mp4file.h>
 #endif
 #ifdef TAGLIB_WITH_ASF
-#include <taglib/asffile.h>
+#include <asffile.h>
 #endif
-#include <taglib/aifffile.h>
-#include <taglib/wavfile.h>
-#include <taglib/popularimeterframe.h>
-#include <taglib/privateframe.h>
+#include <aifffile.h>
+#include <wavfile.h>
+#include <popularimeterframe.h>
+#include <privateframe.h>
 #endif
 
 #if TAGLIB_VERSION >= 0x010700
-#include <taglib/apefile.h>
+#include <apefile.h>
 #endif
 
 #if TAGLIB_VERSION >= 0x010800
-#include <taglib/ownershipframe.h>
-#include <taglib/modfile.h>
-#include <taglib/s3mfile.h>
-#include <taglib/itfile.h>
+#include <ownershipframe.h>
+#include <modfile.h>
+#include <s3mfile.h>
+#include <itfile.h>
 #ifdef HAVE_TAGLIB_XM_SUPPORT
-#include <taglib/xmfile.h>
+#include <xmfile.h>
 #endif
 #endif
 
 #if TAGLIB_VERSION >= 0x010900
-#include <taglib/opusfile.h>
+#include <opusfile.h>
 #endif
 
 #include "taglibext/aac/aacfiletyperesolver.h"

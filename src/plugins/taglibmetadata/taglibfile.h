@@ -32,10 +32,10 @@
 #include <QtGlobal>
 #include "taggedfile.h"
 #include "tagconfig.h"
-#include <taglib/taglib.h>
-#include <taglib/fileref.h>
-#include <taglib/tag.h>
-#include <taglib/id3v2frame.h>
+#include <taglib.h>
+#include <fileref.h>
+#include <tag.h>
+#include <id3v2frame.h>
 
 /** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
