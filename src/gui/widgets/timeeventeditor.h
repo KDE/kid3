@@ -31,13 +31,13 @@
 #include "frame.h"
 
 class QLabel;
-class QTableView;
 class QModelIndex;
 class IPlatformTools;
 class Kid3Application;
 class TimeEventModel;
 class EventCodeDelegate;
 class TaggedFile;
+class TimeEventTableView;
 
 /**
  * Editor for time events (synchronized lyrics and event timing codes).
@@ -153,7 +153,7 @@ private:
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   QLabel* m_label;
-  QTableView* m_tableView;
+  TimeEventTableView* m_tableView;
   EventCodeDelegate* m_eventCodeDelegate;
   TimeEventModel* m_model;
   const TaggedFile* m_taggedFile;

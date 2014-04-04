@@ -37,6 +37,7 @@
 #include <QInputDialog>
 #include <QFile>
 #include <QTextStream>
+#include <QKeyEvent>
 #include "config.h"
 #include "timeeventmodel.h"
 #include "timestampdelegate.h"
@@ -44,6 +45,36 @@
 #include "kid3application.h"
 #include "audioplayer.h"
 #include "iplatformtools.h"
+
+/** Table to edit time events. */
+class TimeEventTableView : public QTableView {
+public:
+  /** Constructor. */
+  TimeEventTableView(QWidget* parent = 0) : QTableView(parent) {}
+  /** Destructor. */
+  virtual ~TimeEventTableView() {}
+
+protected:
+  /**
+   * Handle key events, delete cell contents if Delete key is pressed.
+   * @param event key event
+   */
+  virtual void keyPressEvent(QKeyEvent* event);
+};
+
+void TimeEventTableView::keyPressEvent(QKeyEvent* event)
+{
+  if (event->key() == Qt::Key_Delete) {
+    QModelIndex idx = currentIndex();
+    QAbstractItemModel* mdl = model();
+    if (mdl && idx.isValid()) {
+      mdl->setData(idx, QVariant(idx.data().type()));
+      return;
+    }
+  }
+  QTableView::keyPressEvent(event);
+}
+
 
 /**
  * Constructor.
@@ -88,7 +119,7 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   connect(importButton, SIGNAL(clicked()), this, SLOT(importData()));
   connect(exportButton, SIGNAL(clicked()), this, SLOT(exportData()));
   vlayout->addLayout(buttonLayout);
-  m_tableView = new QTableView;
+  m_tableView = new TimeEventTableView;
   m_tableView->verticalHeader()->hide();
   m_tableView->horizontalHeader()->setStretchLastSection(true);
   m_tableView->setItemDelegateForColumn(0, new TimeStampDelegate(this));
