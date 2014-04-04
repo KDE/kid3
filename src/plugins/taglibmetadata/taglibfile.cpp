@@ -1550,7 +1550,7 @@ void TagLibFile::setTrackV2(const QString& track)
 #if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
         // Set a frame in order to store the total number too.
-        Frame frame(Frame::FT_Track, track, QString(), -1);
+        Frame frame(Frame::FT_Track, track, QLatin1String(""), -1);
         setMp4Frame(frame, mp4Tag);
 #endif
       } else {
@@ -3919,7 +3919,7 @@ void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
     if (name == "trkn" &&
         (numTracks = getTotalNumberOfTracksIfEnabled()) > 0) {
       TagLib::MP4::Item::IntPair pair = item.toIntPair();
-      if (pair.second != numTracks) {
+      if (pair.second == 0) {
         item = TagLib::MP4::Item(pair.first, numTracks);
       }
     }
