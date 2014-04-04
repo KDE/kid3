@@ -1,3 +1,19 @@
+kid3 (3.0.2-4) unstable; urgency=low
+
+  * Add missing breaks/replaces.
+    Closes: #738712
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 20 Feb 2014 11:20:28 +0100
+
+kid3 (3.0.2-3) unstable; urgency=low
+
+  * Do not compress docbooks.
+  * Add missing license in debian/copyright for vcedit.*
+    Closes: #738630
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 12 Feb 2014 09:39:06 +0100
+
 kid3 (3.0.2-2) unstable; urgency=low
 
   [ Ana Guerrero Lopez ]

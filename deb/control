@@ -2,8 +2,7 @@ Source: kid3
 Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
-Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>,
- Mark Purcell <msp@debian.org>,
+Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 9),
  libqt4-dev,
@@ -30,6 +29,8 @@ Package: kid3-core
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends}
+Breaks: kid3 (<< 3.0.2-2)
+Replaces: kid3 (<< 3.0.2-2)
 Description: Audio tag editor core libraries and data
  This package contains common libraries and data used by both kid3 and kid3-qt.
 
@@ -88,6 +89,8 @@ Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  kid3-core (= ${binary:Version})
+Breaks: kid3 (<< 3.0.2-2)
+Replaces: kid3 (<< 3.0.2-2)
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files

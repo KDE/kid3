@@ -1,23 +1,30 @@
 This package was debianized by Aurelien Jarno <aurelien@aurel32.net> on
 Sat, 17 Apr 2004 19:02:08 +0100.
 
-Maintenance was taken over by Ana Beatriz Guerrero López
-<ana@debian.org> on Fri, 27 Oct 2006 19:26:06 +0200
+Maintenance was taken over by Patrick Matthäi <pmatthaei@debian.org> on
+Wed, 20 May 2009 16:12:30 +0200.
 
 It was downloaded from  http://kid3.sourceforge.net/
 
 Upstream Author: Urs Fleisch <ufleisch@users.sourceforge.net>
 
-Copyright:
+Copyright: 2003-2014 Urs Fleisch <ufleisch@users.sourceforge.net>
 
-Copyright 2003-2014 Urs Fleisch <ufleisch@users.sourceforge.net>
 
-License:
+License (src/plugins/oggflacmetadata/vcedit.*):
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+    This program is licensed under the GNU Library General Public License,
+	version 2.
 
-On Debian GNU/Linux systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL-2'.
+    On Debian GNU/Linux systems, the complete text of the GNU Library General
+    Public License can be found in `/usr/share/common-licenses/LGPL-2'.
+
+License (everything else):
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    On Debian GNU/Linux systems, the complete text of the GNU General
+    Public License can be found in `/usr/share/common-licenses/GPL-2'.
