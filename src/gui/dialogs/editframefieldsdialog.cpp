@@ -646,9 +646,9 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   QHBoxLayout* layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(tr("From Clip&board"), this);
-  QPushButton* openButton = new QPushButton(tr("&Import"), this);
-  QPushButton* saveButton = new QPushButton(tr("&Export"), this);
-  QPushButton* viewButton = new QPushButton(tr("&View"), this);
+  QPushButton* openButton = new QPushButton(tr("&Import..."), this);
+  QPushButton* saveButton = new QPushButton(tr("&Export..."), this);
+  QPushButton* viewButton = new QPushButton(tr("&View..."), this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_clipButton);

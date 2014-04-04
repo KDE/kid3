@@ -94,6 +94,11 @@ private slots:
   void addItem();
 
   /**
+   * Load LRC data from clipboard.
+   */
+  void clipData();
+
+  /**
    * Import data in LRC format.
    */
   void importData();

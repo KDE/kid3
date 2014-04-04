@@ -38,6 +38,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QKeyEvent>
+#include <QApplication>
+#include <QClipboard>
+#include <QMimeData>
 #include "config.h"
 #include "timeeventmodel.h"
 #include "timestampdelegate.h"
@@ -104,18 +107,22 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   addButton->setAutoDefault(false);
   QPushButton* deleteButton = new QPushButton(tr("&Delete"), this);
   deleteButton->setAutoDefault(false);
-  QPushButton* importButton = new QPushButton(tr("&Import"), this);
+  QPushButton* clipButton = new QPushButton(tr("From Clip&board"), this);
+  clipButton->setAutoDefault(false);
+  QPushButton* importButton = new QPushButton(tr("&Import..."), this);
   importButton->setAutoDefault(false);
-  QPushButton* exportButton = new QPushButton(tr("&Export"), this);
+  QPushButton* exportButton = new QPushButton(tr("&Export..."), this);
   exportButton->setAutoDefault(false);
   buttonLayout->setContentsMargins(0, 0, 0, 0);
   buttonLayout->addWidget(addButton);
   buttonLayout->addWidget(deleteButton);
+  buttonLayout->addWidget(clipButton);
   buttonLayout->addWidget(importButton);
   buttonLayout->addWidget(exportButton);
   buttonLayout->addStretch();
   connect(addButton, SIGNAL(clicked()), this, SLOT(addItem()));
   connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteRows()));
+  connect(clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
   connect(importButton, SIGNAL(clicked()), this, SLOT(importData()));
   connect(exportButton, SIGNAL(clicked()), this, SLOT(exportData()));
   vlayout->addLayout(buttonLayout);
@@ -229,6 +236,19 @@ void TimeEventEditor::addItem()
     }
     m_model->setData(index, timeStamp);
     m_tableView->scrollTo(index);
+  }
+}
+
+/**
+ * Load LRC data from clipboard.
+ */
+void TimeEventEditor::clipData()
+{
+  QClipboard* cb = QApplication::clipboard();
+  if (cb && cb->mimeData()->hasText()) {
+    QString text = cb->text();
+    QTextStream stream(&text, QIODevice::ReadOnly);
+    m_model->fromLrcFile(stream);
   }
 }
 
