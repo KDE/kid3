@@ -220,18 +220,27 @@ void TimeEventEditor::addItem()
 #endif
   if (m_model) {
     // If the current row is empty, set the time stamp there, else insert a new
-    // row sorted by time stamps.
+    // row sorted by time stamps or use the first empty row.
     QModelIndex index = m_tableView->currentIndex();
     if (!(index.isValid() &&
           (index = index.sibling(index.row(), TimeEventModel::CI_Time)).
           data().isNull())) {
       int row = 0;
-      while (row < m_model->rowCount() &&
-             m_model->index(row, TimeEventModel::CI_Time).
-             data().toTime() <= timeStamp) {
+      bool insertRow = true;
+      while (row < m_model->rowCount()) {
+        QTime time = m_model->index(row, TimeEventModel::CI_Time).
+            data().toTime();
+        if (time.isNull()) {
+          insertRow = false;
+          break;
+        } else if (time > timeStamp) {
+          break;
+        }
         ++row;
       }
-      m_model->insertRow(row);
+      if (insertRow) {
+        m_model->insertRow(row);
+      }
       index = m_model->index(row, TimeEventModel::CI_Time);
     }
     m_model->setData(index, timeStamp);

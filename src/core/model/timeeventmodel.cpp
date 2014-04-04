@@ -475,10 +475,26 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
   QRegExp timeStampRe(QLatin1String(
                         "([[<])(\\d\\d):(\\d\\d)(?:\\.(\\d{1,3}))?([\\]>])"));
   QList<TimeEvent> timeEvents;
+  bool isFirstLine = true;
   forever {
     QString line = stream.readLine();
     if (line.isNull())
       break;
+
+    if (line.isEmpty())
+      continue;
+
+    // If the first line does not contain a '[' character, assume that this is
+    // not an LRC file and only import lines without time stamps.
+    if (isFirstLine) {
+      if (line.contains(QLatin1Char('['))) {
+        isFirstLine = false;
+      } else {
+        stream.seek(0);
+        fromTextFile(stream);
+        return;
+      }
+    }
 
     QList<QTime> emptyEvents;
     char firstChar = '\0';
@@ -544,6 +560,23 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
     }
   }
   qSort(timeEvents);
+  setTimeEvents(timeEvents);
+}
+
+/**
+ * Set the model from a text file.
+ * @param stream text file stream
+ */
+void TimeEventModel::fromTextFile(QTextStream& stream)
+{
+  QList<TimeEvent> timeEvents;
+  forever {
+    QString line = stream.readLine();
+    if (line.isNull())
+      break;
+
+    timeEvents.append(TimeEvent(QTime(), line));
+  }
   setTimeEvents(timeEvents);
 }
 

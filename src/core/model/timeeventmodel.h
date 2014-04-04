@@ -254,6 +254,12 @@ public:
   static QString timeStampToString(const QTime& time);
 
 private:
+  /**
+   * Set the model from a text file.
+   * @param stream text file stream
+   */
+  void fromTextFile(QTextStream& stream);
+
   Type m_type;
   int m_markedRow;
   QList<TimeEvent> m_timeEvents;
