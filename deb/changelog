@@ -1,3 +1,9 @@
+kid3 (3.1-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 04 Apr 2014 12:07:43 +0200
+
 kid3 (3.0.2-4) unstable; urgency=low
 
   * Add missing breaks/replaces.

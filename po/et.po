@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.0.2\n"
+"Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-22 11:29+0100\n"
+"POT-Creation-Date: 2014-04-04 12:09+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1259,14 +1259,8 @@ msgstr "Muudatused jõustuvad pärast taaskäivitamist!"
 msgid "From Clip&board"
 msgstr "&Lõikepuhvrist"
 
-msgid "&Import"
-msgstr "&Impordi"
-
-msgid "&Export"
-msgstr "&Ekspordi"
-
-msgid "&View"
-msgstr "&Näita"
+msgid "&View..."
+msgstr "&Näita..."
 
 msgid "Text Encoding"
 msgstr "Teksti kodeering"

@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.0.2\n"
+"Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-22 11:29+0100\n"
+"POT-Creation-Date: 2014-04-04 12:09+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1259,14 +1259,8 @@ msgstr "Muutokset tulevat voimaan uudelleenkäynnistyksen jälkeen!"
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
 
-msgid "&Import"
-msgstr "&Tuo"
-
-msgid "&Export"
-msgstr "&Vie"
-
-msgid "&View"
-msgstr "&Näytä"
+msgid "&View..."
+msgstr "&Näytä..."
 
 msgid "Text Encoding"
 msgstr "Merkistökoodaus"

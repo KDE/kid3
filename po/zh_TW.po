@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.0.2\n"
+"Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-03-22 11:29+0100\n"
+"POT-Creation-Date: 2014-04-04 12:09+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1262,14 +1262,8 @@ msgstr "某些變更在重新啟動後才會生效!"
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
 
-msgid "&Import"
-msgstr "匯入(&I)"
-
-msgid "&Export"
-msgstr "匯出(&E)"
-
-msgid "&View"
-msgstr "檢視(&V)"
+msgid "&View..."
+msgstr "檢視(&V)..."
 
 msgid "Text Encoding"
 msgstr "字元編碼"

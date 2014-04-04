@@ -1,3 +1,27 @@
+Fri Apr  4 12:07:43 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.1
+
+	* New:
+	  + Support for synchronized lyrics and event timing codes.
+	  + Find and replace strings in tags and file names.
+	  + Display details and sort columns in file list.
+	  + Support Ogg and Opus cover art.
+	  + Export format CDRDAO TOC for CDs with CD-text from WAV tags.
+	  + D-Bus command expandFileList() to expand the whole file list.
+
+	* Improved:
+	  + Updated Czech, Finnish, Estonian translations.
+	  + GUI and usability, keyboard navigation.
+
+	* Fixed:
+	  + Restore Quick Access Tags settings properly.
+	  + Support tags from file name with 2 character extensions (e.g. ".wv").
+	  + Keyboard shortcuts settings with Mac OS X 10.9.
+	  + Build without Phonon.
+	  + Fingerprint decoding and resampling with libav.
+	  + D-Bus command expandDirectory().
+
 Wed Nov 27 17:39:57 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.0.2
