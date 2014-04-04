@@ -32,7 +32,6 @@
 #else
 #include <tdebug.h>
 #endif
-#include <tpropertymap.h>
 
 using namespace TagLib;
 using namespace ID3v2;
@@ -211,12 +210,14 @@ ByteVector SynchronizedLyricsFrame::renderFields() const
 
   String::Type encoding = d->textEncoding;
 
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010700
   encoding = checkTextEncoding(d->description, encoding);
   for(SynchedTextList::ConstIterator it = d->synchedText.begin();
       it != d->synchedText.end();
       ++it) {
     encoding = checkTextEncoding(it->text, encoding);
   }
+#endif
 
   v.append(char(encoding));
   v.append(d->language.size() == 3 ? d->language : "XXX");

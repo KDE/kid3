@@ -32,7 +32,6 @@
 #else
 #include <tdebug.h>
 #endif
-#include <tpropertymap.h>
 
 using namespace TagLib;
 using namespace ID3v2;
