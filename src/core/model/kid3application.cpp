@@ -1608,8 +1608,11 @@ void Kid3Application::editFrame(IFrameEditor* frameEditor)
 void Kid3Application::onFrameEdited(const Frame* frame)
 {
   if (QObject* emitter = sender()) {
-    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-               this, SLOT(onFrameEdited(const Frame*)));
+    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
+    {
+      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+                 this, SLOT(onFrameEdited(const Frame*)));
+    }
   }
   if (!frame)
     return;
@@ -1740,8 +1743,11 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
 void Kid3Application::onFrameAdded(const Frame* frame)
 {
   if (QObject* emitter = sender()) {
-    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-               this, SLOT(onFrameAdded(const Frame*)));
+    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
+    {
+      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+                 this, SLOT(onFrameAdded(const Frame*)));
+    }
   }
   if (!frame)
     return;

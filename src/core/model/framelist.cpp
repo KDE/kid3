@@ -204,8 +204,11 @@ void FrameList::addAndEditFrame(IFrameEditor* frameEditor)
 void FrameList::onFrameEdited(const Frame* frame)
 {
   if (QObject* emitter = sender()) {
-    disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-               this, SLOT(onFrameEdited(const Frame*)));
+    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
+    {
+      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
+                 this, SLOT(onFrameEdited(const Frame*)));
+    }
   }
   if (frame) {
     int index = frame->getIndex();
