@@ -29,12 +29,12 @@
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 
 #include <QFile>
+#include <QUrl>
 #ifdef HAVE_PHONON
 #include <phonon/phononnamespace.h>
 #include <phonon/audiooutput.h>
 #include <phonon/mediaobject.h>
 #else
-#include <QUrl>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #endif
@@ -167,7 +167,7 @@ void AudioPlayer::selectTrack(int fileNr, bool play)
     const QString& fileName = m_files[m_fileNr];
     if (QFile::exists(fileName)) {
       m_mediaObject->clearQueue();
-      m_mediaObject->setCurrentSource(fileName);
+      m_mediaObject->setCurrentSource(QUrl::fromLocalFile(fileName));
       if (play) {
         m_mediaObject->play();
       } else {
@@ -257,7 +257,7 @@ void AudioPlayer::aboutToFinish()
     m_fileNr = nextFileNr;
     const QString& fileName = m_files[m_fileNr];
     if (QFile::exists(fileName)) {
-      Phonon::MediaSource source(fileName);
+      Phonon::MediaSource source(QUrl::fromLocalFile(fileName));
       m_mediaObject->enqueue(source);
     }
   }

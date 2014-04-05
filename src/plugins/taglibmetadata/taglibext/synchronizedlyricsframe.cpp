@@ -32,6 +32,7 @@
 #else
 #include <tdebug.h>
 #endif
+#include <tstringlist.h>
 
 using namespace TagLib;
 using namespace ID3v2;
