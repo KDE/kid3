@@ -82,6 +82,9 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
     if (QFile::exists(m_filename)) break;
   }
   m_textBrowser = new QTextBrowser(this);
+#if QT_VERSION >= 0x040200
+  m_textBrowser->setOpenExternalLinks(true);
+#endif
   m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
   vlayout->addWidget(m_textBrowser);
 
