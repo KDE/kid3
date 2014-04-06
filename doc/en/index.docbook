@@ -694,6 +694,99 @@ offer this information.
 </sect2>
 <!--end manpage ignore-->
 
+<sect2>
+<title>Synchronized Lyrics and Event Timing Codes</title>
+
+<para>
+For information synchronized with the audio data, a specific editor is
+available. These frames are supported for ID3v2.3.0 and ID3v2.4.0 tags. To add
+such a frame, the specific frame name has to be selected in the list which
+appears when the <guibutton>Add</guibutton> button is clicked - <guilabel>SYLT
+- Synchronized lyric/text</guilabel> or <guilabel>ETCO - Event timing
+codes</guilabel>, respectively. The editor is the same for both types, for the
+event timing codes, only a predefined set of events is available whereas for
+the synchronized lyrics, text has to be entered. In the following, editing
+synchronized lyrics is explained.
+</para>
+<para>
+A file having an ID3v2 tag is selected, the lyrics editor is entered using
+<guibutton>Add</guibutton> and selecting <guilabel>SYLT - Synchronized
+lyric/text</guilabel>. For an existing SYLT frame, it is selected and
+<guibutton>Edit</guibutton> is clicked. The player is automatically opened
+with the current file so that the file can be played and paused to synchronize
+lyrics.
+</para>
+<para>
+The settings at the top of the SYLT editor normally do not have to be
+changed. If the lyrics contains characters which are not present in the Latin 1
+character set, changing the text encoding to UTF16 (or UTF8 for ID3v2.4.0) is
+advisable. For English lyrics and maximum compatibility, ISO-8859-1 should be
+used.
+</para>
+<para>
+The <guilabel>Lyrics</guilabel> section has five buttons at the
+top. <guibutton>Add</guibutton> will add a new time event in the table. The
+time is taken from the position of the player, thus adding an entry while
+playing the track will add a line for the currently played position. The
+events in the table have to be chronologically ordered, therefore the row will
+be inserted accordingly. Entries with an invalid time are treated specially:
+If the currently selected row has an invalid time, its time stamp will be
+replaced by the current time instead of adding a new row. If the current time
+is not invalid, the first row with an invalid time will be used if
+present. This behavior should facilitate adding time stamps if the lyrics text
+is already in the table but the time stamps are missing (which is the case
+when importing unsynchronized lyrics). Note that the invalid time is
+represented as 00:00.00, i.e. the same as the time at the absolute beginning
+of the track, which is not invalid. To make a time invalid, press the
+<keysym>Delete</keysym> key, or use <guimenu>Clear</guimenu> from the context
+menu. New rows inserted using <guimenu>Insert row</guimenu> from the context
+menu or created when importing unsynchronized lyrics with
+<guibutton>From Clipboard</guibutton> or <guibutton>Import</guibutton> also
+contain invalid time stamps. Rows in the table can be deleted by clicking the
+<guibutton>Delete</guibutton> button or using <guimenu>Delete rows</guimenu>
+from the context menu.
+</para>
+<para>
+Synchronized lyrics can be imported from a file using
+<guibutton>Import</guibutton>. The expected format is simple or enhanced
+LRC. If the selected file does not contain a square bracket in the first line,
+it is supposed to be a simple text file with unsynchronized lyrics. The lines
+from such a file are then imported having invalid time stamps. The time
+information can be added using the <guibutton>Add</guibutton> button or
+by manual entry. It is also possible to import lyrics via copy-paste using
+<guilabel>From Clipboard</guilabel>. Synchronized lyrics can be written to LRC
+files using <guibutton>Export</guibutton>. Note that only entries with valid
+time stamps will be exported and that the entries will be sorted by
+time. Entries with invalid time won't be stored in the SYLT frame either, so
+make sure to include all timing information before leaving the dialog.
+</para>
+<para>
+The <ulink url="http://id3.org/id3v2.4.0-frames">ID3 specification</ulink>
+suggests a time stamp for each syllable. However most players only support the
+granularity of a line or sentence. To support both use cases, &kid3; follows
+the same conventions as <ulink
+url="http://www.compuphase.com/software_sylteditor.htm">SYLT
+Editor</ulink>. Text which is entered into the table is assumed to start a new
+line unless it starts with a space or a hyphen. Exceptions to this rule are
+possible by starting a line with an underscore ('_') to force continuation or
+a hash mark ('#') to force a new line. These escape characters are not stored
+inside the SYLT frame. Inside the SYLT frame, new lines start with a line feed
+character (hex 0A) whereas continuations do not. When reading SYLT frames,
+&kid3; checks if the first entry starts with a line feed. If this is not the
+case, it is assumed that all entries are new lines and that no syllable
+continuations are used.
+</para>
+<para>
+While the track is played, the row associated with the current playing
+position is highlighted, so that the correctness of the synchronization
+information can be verified. If an offset has to be added to one or more time
+stamps, this can be accomplished with the <guimenu>Add offset</guimenu>
+context menu. Negative values can be used to reduce the time. Using
+<guimenu>Seek to position</guimenu> in the context menu, it is possible to set
+the playing position to the time of the selected row.
+</para>
+</sect2>
+
 </sect1>
 
 <sect1 id="file-menu">

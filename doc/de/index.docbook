@@ -729,6 +729,112 @@ gesetzt.
 </sect2>
 <!--end manpage ignore-->
 
+<sect2>
+<title>Synchronisierter Text und Ereignis-Zeitcodes</title>
+
+<para>
+Für zeitlich mit den Audio-Daten synchronisierte Informationen steht ein
+spezieller Editor zur Verfügung. Diese Frames sind für ID3v2.3.0 und ID3v2.4.0
+Tags unterstützt. Um ein solches Frame zu erstellen, muss in der Liste, welche
+nach Klick auf <guibutton>Hinzufügen</guibutton> erscheint, sein Name
+ausgewählt werden - <guilabel>SYLT - Synchronisierter Text</guilabel> oder
+<guilabel>ETCO - Ereignis-Zeitcodes</guilabel>. Beide Frame-Typen werden in
+einem gleichartigen Editor bearbeitet, bei den Ereignis-Zeitcodes kann aus
+einer Menge vordefinierter Codes ausgewählt werden, während beim
+synchronisierten Text der Liedtext eingegeben werden muss. Im folgenden wird
+die Eingabe von synchronisiertem Text erklärt.
+</para>
+<para>
+Eine Datei, welche ein ID3v2 Tag enthält, wird selektiert und der Editor wird
+mit <guibutton>Hinzufügen</guibutton> und Auswahl von <guilabel>SYLT -
+Synchronisierter Text</guilabel> geöffnet. Falls das SYLT Frame schon
+existiert, wird es selektiert und auf <guibutton>Bearbeiten</guibutton>
+geklickt. Die Werkzeugleiste zum Abspielen von Audio-Dateien wird automatisch
+geöffnet, so dass das aktuelle Stück abgespielt und angehalten werden kann, um
+die Texte zu synchronisieren.
+</para>
+<para>
+Die Einstellungen im oberen Teil des SYLT Editors müssen normalerweise nicht
+verändert werden. Wenn der Text Zeichen enthält, welche nicht im Latin 1
+Zeichensatz enthalten sind, so kann die Textkodierung auf UTF16 (oder UTF8 für
+ID3v2.4.0) umgestellt werden. Für englischsprachige Texte und maximale
+Kompatibilität sollte ISO-8859-1 verwendet werden.
+</para>
+<para>
+Der Abschnitt <guilabel>Text</guilabel> hat fünf Knöpfe oberhalb der Tabelle.
+<guibutton>Hinzufügen</guibutton> erstellt einen neuen Ereigniseintrag in der
+Tabelle. Die Zeit wird von der momentanen Position der Wiedergabe genommen, so
+dass ein Eintrag für die aktuelle Stelle des abgespielten Stücks erzeugt wird.
+Die Einträge in der Tabelle müssen zeitlich geordnet sein, die neue Zeile wird
+daher entsprechend eingeordnet. Einträge mit ungültiger Zeit werden speziell
+behandelt: Wenn die aktuelle Zeile eine ungültige Zeit hat, so wird ihre Zeit
+durch die Wiedergabezeit ersetzt, und es wird keine neue Zeile hinzugefügt.
+Wenn die Zeit nicht ungültig ist, so wird die erste Zeile mit einer ungültigen
+Zeit genommen, falls eine solche vorhanden ist. Dieses Verhalten sollte es
+erleichtern, die Zeit-Spalte auszufüllen, wenn der Text bereits in der Tabelle
+vorhanden ist, aber die Zeiten noch fehlen (was der Fall ist, wenn 
+unsynchronisierte Texte importiert werden). Man beachte, dass ungültige Zeiten
+mit 00:00.00 dargestellt werden, also gleich wie die Zeit ganz zu Beginn des
+Stücks, welche nicht ungültig ist. Um einen Zeiteintrag ungültig zu machen,
+kann die <keysym>Delete</keysym> Taste gedrückt werden oder
+<guimenu>Löschen</guimenu> aus dem Kontextmenü verwendet werden. Neue Zeilen,
+welche mit <guimenu>Zeile einfügen</guimenu> des Kontextmenüs oder durch
+<guibutton>Importieren</guibutton> bzw. <guibutton>Von
+Zwischenablage</guibutton> erstellt werden, enthalten ebenfalls ungültige
+Zeiten. Zeilen in der Tabelle können mit Klick auf
+<guibutton>Löschen</guibutton> oder dem <guimenu>Zeilen entfernen</guimenu>
+Kontextmenü gelöscht werden.
+</para>
+<para>
+Synchronisierter Liedtext kann aus einer Datei importiert werden mit
+<guibutton>Importieren</guibutton>. Als Dateiformat wird LRC (einfach oder
+erweitert) erwartet. Wenn die ausgewählte Datei keine eckige Klammer in der
+ersten Zeile enthält, so wird angenommen, dass es sich um eine einfache
+Textdatei mit unsynchronisiertem Liedtext handelt. Die Zeilen einer solchen
+Datei werden dann in die Text-Spalte importiert und die Zeit-Spalte enthält
+ungültige Zeiten. Die Zeitinformationen können mit Hilfe des
+<guibutton>Hinzufügen</guibutton>-Knopfs ergänzt oder manuell erfasst
+werden. Es ist auch möglich, Liedtexte mittels Kopieren und Einfügen zu
+importieren (<guilabel>Von
+Zwischenablage</guilabel>). <guibutton>Exportieren</guibutton> erlaubt es,
+synchronisierten Text in eine LRC-Datei zu schreiben. Man beachte, dass nur
+Einträge mit gültiger Zeit exportiert werden, und dass die Einträge zeitlich
+sortiert werden. Einträge mit ungültiger Zeit werden auch nicht in das
+SYLT-Frame geschrieben, man sollte daher alle Zeitinformationen eintragen,
+bevor man den Editor verlässt.
+</para>
+<para>
+Die <ulink url="http://id3.org/id3v2.4.0-frames">ID3 Spezifikation</ulink>
+legt es nahe, Zeitstempel für jede Silbe zu erfassen. Die meisten Player
+unterstützen jedoch bloß eine Granularität von einer Zeile bzw. einem
+Satz. Um beide Anwendungsfälle zu unterstützen, folgt &kid3; denselben
+Konventionen wie <ulink
+url="http://www.compuphase.com/software_sylteditor.htm">SYLT
+Editor</ulink>. Es wird angenommen, dass Text, welcher in der Tabelle
+eingetragen wird, eine neue Zeile startet, es sei denn, er beginnt mit einem
+Leerzeichen oder Bindestrich. Diese Regel kann außer Kraft gesetzt werden,
+indem man den Text mit einem Unterstrich ('_') beginnen lässt, um eine
+Fortsetzung der Zeile zu erzwingen, bzw. mit einem Doppelkreuz ('#') um eine
+neue Zeile auch dann zu erhalten, wenn diese mit einem Leerzeichen oder
+Bindestrich beginnt. Diese Umschaltzeichen werden nicht im SYLT-Frame
+gespeichert. Innerhalb des Frames beginnen neue Zeilen mit einem Zeilenumbruch
+(das Zeichen mit Hex-Code 0A), ansonsten handelt es sich um eine Fortsetzung
+der Zeile. Beim Lesen existierender SYLT-Frames prüft &kid3;, ob der erste Text
+mit einem Zeilenumbruch beginnt. Ist dies nicht der Fall, so wird angenommen,
+dass alle Texte separate Zeilen sind und keine Silbenfortsetzungen verwendet
+werden.
+</para>
+<para>
+Während dem Abspielen einer Datei wird die aktuelle Zeile hervorgehoben, so
+dass die Korrektheit der Synchronisationsinformation überprüft werden
+kann. Existiert ein Versatz, so kann er mit dem Kontextmenü
+<guimenu>Zeitabstand hinzufügen</guimenu> korrigiert werden, wobei negative
+Werte die Zeit reduzieren. Die Funktion <guimenu>Zur Position
+springen</guimenu> ermöglicht es, die Position der Wiedergabe an die Zeit
+der ausgewählten Zeile zu setzen.
+</para>
+</sect2>
+
 </sect1>
 
 <sect1 id="file-menu">
