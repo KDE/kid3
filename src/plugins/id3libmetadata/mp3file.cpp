@@ -1582,7 +1582,7 @@ static QVariantList etcoBytesToList(const QByteArray& bytes)
   QVariantList timeEvents;
   const int numBytes = bytes.size();
   // id3lib bug: There is only a single data field for ETCO frames,
-  // but it should be preceeded by an ID_TimestampFormat field.
+  // but it should be preceded by an ID_TimestampFormat field.
   // Start with the second byte.
   int pos = 1;
   while (pos < numBytes) {
@@ -1802,7 +1802,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         } else if (id3Id == ID3FID_EVENTTIMING) {
           QByteArray ba = etcoListToBytes(fld.m_value.toList());
           // id3lib bug: There is only a single data field for ETCO frames,
-          // but it should be preceeded by an ID_TimestampFormat field.
+          // but it should be preceded by an ID_TimestampFormat field.
           ba.prepend(2);
           id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
                         static_cast<size_t>(ba.size()));

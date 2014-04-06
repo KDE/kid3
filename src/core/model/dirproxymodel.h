@@ -53,7 +53,7 @@ protected:
   virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
 
   /**
-   * Sort comparision function.
+   * Sort comparison function.
    * @param left index of left item in source model
    * @param right index of right item in source model
    * @return true if left is less than right.
