@@ -47,6 +47,7 @@
 #include "modeliterator.h"
 #include "trackdatamodel.h"
 #include "frametablemodel.h"
+#include "timeeventmodel.h"
 #include "framelist.h"
 #include "pictureframe.h"
 #include "textimporter.h"
@@ -2618,7 +2619,28 @@ QString Kid3Application::getFrame(TrackData::TagVersion tagMask,
   FrameCollection::const_iterator it = ft->frames().findByName(frameName);
   if (it != ft->frames().end()) {
     if (!dataFileName.isEmpty()) {
-      PictureFrame::writeDataToFile(*it, dataFileName);
+      bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
+      if (isSylt ||
+          it->getInternalName().startsWith(QLatin1String("ETCO"))) {
+        QFile file(dataFileName);
+        if (file.open(QIODevice::WriteOnly)) {
+          TimeEventModel timeEventModel;
+          if (isSylt) {
+            timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
+            timeEventModel.fromSyltFrame(it->getFieldList());
+          } else {
+            timeEventModel.setType(TimeEventModel::EventTimingCodes);
+            timeEventModel.fromEtcoFrame(it->getFieldList());
+          }
+          QTextStream stream(&file);
+          const FrameCollection& frames = ft->frames();
+          timeEventModel.toLrcFile(stream, frames.getTitle(),
+                                   frames.getArtist(), frames.getAlbum());
+          file.close();
+        }
+      } else {
+        PictureFrame::writeDataToFile(*it, dataFileName);
+      }
     }
     return it->getValue();
   } else {
@@ -2652,14 +2674,39 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
   FrameCollection frames(ft->frames());
   FrameCollection::const_iterator it = frames.findByName(frameName);
   if (it != frames.end()) {
-    if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
-        (tagMask & 2) != 0) {
-      deleteFrame(it->getName());
-      PictureFrame frame;
-      PictureFrame::setDescription(frame, value);
-      PictureFrame::setDataFromFile(frame, dataFileName);
-      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-      addFrame(&frame);
+    bool isPicture, isSylt;
+    if (!dataFileName.isEmpty() && (tagMask & 2) != 0 &&
+        ((isPicture = (it->getType() == Frame::FT_Picture)) ||
+         (isSylt = it->getName().startsWith(QLatin1String("SYLT"))) ||
+         it->getName().startsWith(QLatin1String("ETCO")))) {
+      if (isPicture) {
+        deleteFrame(it->getName());
+        PictureFrame frame;
+        PictureFrame::setDescription(frame, value);
+        PictureFrame::setDataFromFile(frame, dataFileName);
+        PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+        addFrame(&frame);
+      } else {
+        QFile file(dataFileName);
+        if (file.open(QIODevice::ReadOnly)) {
+          QTextStream stream(&file);
+          Frame frame(*it);
+          Frame::setField(frame, Frame::Field::ID_Description, value);
+          deleteFrame(it->getName());
+          TimeEventModel timeEventModel;
+          if (isSylt) {
+            timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
+            timeEventModel.fromLrcFile(stream);
+            timeEventModel.toSyltFrame(frame.fieldList());
+          } else {
+            timeEventModel.setType(TimeEventModel::EventTimingCodes);
+            timeEventModel.fromLrcFile(stream);
+            timeEventModel.toEtcoFrame(frame.fieldList());
+          }
+          file.close();
+          addFrame(&frame);
+        }
+      }
     } else if (value.isEmpty() && (tagMask & 2) != 0) {
       deleteFrame(it->getName());
     } else {
@@ -2670,11 +2717,42 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
     return true;
   } else if (tagMask & 2) {
     Frame frame(Frame::ExtendedType(frameName), value, -1);
-    if (frame.getType() == Frame::FT_Picture && !dataFileName.isEmpty()) {
-      PictureFrame::setFields(frame);
-      PictureFrame::setDescription(frame, value);
-      PictureFrame::setDataFromFile(frame, dataFileName);
-      PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+    bool isPicture, isSylt;
+    if (!dataFileName.isEmpty() &&
+        ((isPicture = (frame.getType() == Frame::FT_Picture)) ||
+         (isSylt = frame.getInternalName().startsWith(QLatin1String("SYLT"))) ||
+         frame.getInternalName().startsWith(QLatin1String("ETCO")))) {
+      if (isPicture) {
+        PictureFrame::setFields(frame);
+        PictureFrame::setDescription(frame, value);
+        PictureFrame::setDataFromFile(frame, dataFileName);
+        PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+      } else {
+        QFile file(dataFileName);
+        if (file.open(QIODevice::ReadOnly)) {
+          Frame::Field field;
+          Frame::FieldList& fields = frame.fieldList();
+          fields.clear();
+          field.m_id = Frame::Field::ID_Description;
+          field.m_value = value;
+          fields.append(field);
+          field.m_id = Frame::Field::ID_Data;
+          field.m_value = QVariant(QVariant::List);
+          fields.append(field);
+          QTextStream stream(&file);
+          TimeEventModel timeEventModel;
+          if (isSylt) {
+            timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
+            timeEventModel.fromLrcFile(stream);
+            timeEventModel.toSyltFrame(frame.fieldList());
+          } else {
+            timeEventModel.setType(TimeEventModel::EventTimingCodes);
+            timeEventModel.fromLrcFile(stream);
+            timeEventModel.toEtcoFrame(frame.fieldList());
+          }
+          file.close();
+        }
+      }
     }
     addFrame(&frame);
     return true;

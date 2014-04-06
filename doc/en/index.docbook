@@ -2375,6 +2375,12 @@ Tag 1: ID3v1.1
   Genre         Pop</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
 Intro</computeroutput></screen>
+<para>To save the contents of a picture frame to a file, use
+<screen width="65"><userinput>get picture:"/path/to/folder.jpg"</userinput></screen>
+</para>
+<para>To save synchronized lyrics to an LRC file, use
+<screen width="65"><userinput>get SYLT:"/path/to/lyrics.lrc"</userinput></screen>
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2390,6 +2396,9 @@ Intro</computeroutput></screen>
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
 <para>To set the contents of a picture frame from a file, use
 <screen width="65"><userinput>set picture:"/path/to/folder.jpg" "Picture Description"</userinput></screen>
+</para>
+<para>To set synchronized lyrics from an LRC file, use
+<screen width="65"><userinput>set SYLT:"/path/to/lyrics.lrc" "Lyrics Description"</userinput></screen>
 </para>
 </sect2>
 
@@ -3393,7 +3402,9 @@ following methods:
   </varlistentry>
 </variablelist>
 <para>To get binary data like a picture, the name of a file to write can be
-      added after the <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
+added after the <parameter>name</parameter>, e.g. "Picture:/path/to/file".
+In the same way, synchronized lyrics can be exported, e.g. "SYLT:/path/to/file".
+</para>
 <para>Returns value of frame.</para>
 </sect2>
 
@@ -3422,9 +3433,10 @@ following methods:
   </varlistentry>
 </variablelist>
 <para>For tag 2 (<parameter>tagMask</parameter> 2), if no frame with <parameter>name</parameter> exists, a new frame
-      is added, if <parameter>value</parameter> is empty, the frame is deleted.
-      To add binary data like a picture, a file can be added after the
-      <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
+is added, if <parameter>value</parameter> is empty, the frame is deleted.
+To add binary data like a picture, a file can be added after the
+<parameter>name</parameter>, e.g. "Picture:/path/to/file".
+"SYLT:/path/to/file" can be used to import synchronized lyrics.</para>
 <para>Returns true if OK.</para>
 </sect2>
 

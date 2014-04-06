@@ -470,6 +470,27 @@ public:
    */
   static QChar differentRepresentation() { return QChar(0x2260); }
 
+  /**
+   * Set value of a field.
+   *
+   * @param frame frame to set
+   * @param id    field ID
+   * @param value field value
+   *
+   * @return true if field found and set.
+   */
+  static bool setField(Frame& frame, Field::Id id, const QVariant& value);
+
+  /**
+   * Get value of a field.
+   *
+   * @param frame frame to get
+   * @param id    field ID
+   *
+   * @return field value, invalid if not found.
+   */
+  static QVariant getField(const Frame& frame, Field::Id id);
+
 private:
   friend class TaggedFile;
 

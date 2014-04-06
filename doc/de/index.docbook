@@ -2522,6 +2522,12 @@ Tag 1: ID3v1.1
   Stil          Pop</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
 Intro</computeroutput></screen>
+<para>Ein Bild kann in einer Datei gespeichert werden.
+<screen width="65"><userinput>get picture:"/pfad/zu/folder.jpg"</userinput></screen>
+</para>
+<para>Synchronisierter Liedtext wird im LRC-Format exportiert.
+<screen width="65"><userinput>get SYLT:"/pfad/zu/lyrics.lrc"</userinput></screen>
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2538,6 +2544,9 @@ Intro</computeroutput></screen>
 <para>Um den Inhalt eines Bild-Elements aus einer Datei zu befüllen, kann
 <screen width="65"><userinput>set picture:"/pfad/zu/folder.jpg" "Bildbeschreibung"</userinput></screen>
 verwendet werden.
+</para>
+<para>Synchronisierter Liedtext kann aus einer LRC-Datei importiert werden.
+<screen width="65"><userinput>set SYLT:"/pfad/zu/lyrics.lrc" "Beschreibung"</userinput></screen>
 </para>
 </sect2>
 
@@ -3551,8 +3560,9 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
   </varlistentry>
 </variablelist>
 <para>Um binäre Daten wie ein Bild von einem Element in einer Datei zu
-      speichern, kann der Dateiname dem Elementnamen hinzugefügt werden,
-      z.B. "Picture:/Pfad/zu/Datei".</para>
+speichern, kann der Dateiname dem Elementnamen hinzugefügt werden,
+z.B. "Picture:/Pfad/zu/Datei". Auf dieselbe Weise kann synchronisierter
+Liedtext exportiert werden, z.B. "SYLT:/Pfad/zu/Datei".</para>
 <para>Gibt Wert des Elementes zurück.</para>
 </sect2>
 
@@ -3581,11 +3591,12 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
   </varlistentry>
 </variablelist>
 <para>Für Tag 2 (<parameter>tagMask</parameter> 2) gilt: Wenn kein Element
-      mit <parameter>name</parameter> existiert, so wird ein neues Element
-      hinzugefügt, wenn <parameter>value</parameter> leer ist, so wird das
-      Element gelöscht. Um binäre Daten wie ein Bild einem Element
-      hinzuzufügen, kann der Dateiname dem Elementnamen hinzugefügt werden,
-      z.B. "Picture:/Pfad/zu/Datei".</para>
+mit <parameter>name</parameter> existiert, so wird ein neues Element
+hinzugefügt, wenn <parameter>value</parameter> leer ist, so wird das
+Element gelöscht. Um binäre Daten wie ein Bild einem Element
+hinzuzufügen, kann der Dateiname dem Elementnamen hinzugefügt werden,
+z.B. "Picture:/Pfad/zu/Datei". "SYLT:/Pfad/zu/Datei" kann verwendet werden,
+um synchronisierten Liedtext im LRC-Format zu importieren.</para>
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 

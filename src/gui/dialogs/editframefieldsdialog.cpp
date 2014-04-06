@@ -946,7 +946,8 @@ TimeEventFieldControl::TimeEventFieldControl(
     Frame::FieldList& fields, const TaggedFile* taggedFile,
     TimeEventModel::Type type) :
   Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-  m_fields(fields), m_taggedFile(taggedFile), m_model(new TimeEventModel(this))
+  m_fields(fields), m_taggedFile(taggedFile), m_model(new TimeEventModel(this)),
+  m_editor(0)
 {
   m_model->setType(type);
   if (type == TimeEventModel::EventTimingCodes) {

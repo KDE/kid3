@@ -306,28 +306,6 @@ public:
    * @param base64Value base64 string to set
    */
   static void getFieldsToBase64(const Frame& frame, QString& base64Value);
-
-private:
-  /**
-   * Set value of a field.
-   *
-   * @param frame frame to set
-   * @param id    field ID
-   * @param value field value
-   *
-   * @return true if field found and set.
-   */
-  static bool setField(Frame& frame, Field::Id id, const QVariant& value);
-
-  /**
-   * Get value of a field.
-   *
-   * @param frame frame to get
-   * @param id    field ID
-   *
-   * @return field value, invalid if not found.
-   */
-  static QVariant getField(const Frame& frame, Field::Id id);
 };
 
 #endif // PICTUREFRAME_H

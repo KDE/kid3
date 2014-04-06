@@ -320,6 +320,53 @@ bool Frame::isEqual(const Frame& other) const
   return true;
 }
 
+/**
+ * Set value of a field.
+ *
+ * @param frame frame to set
+ * @param id    field ID
+ * @param value field value
+ *
+ * @return true if field found and set.
+ */
+bool Frame::setField(Frame& frame, Field::Id id, const QVariant& value)
+{
+  for (Frame::FieldList::iterator it = frame.fieldList().begin();
+       it != frame.fieldList().end();
+       ++it) {
+    if ((*it).m_id == id) {
+      (*it).m_value = value;
+      if (id == Field::ID_Description) frame.setValue(value.toString());
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Get value of a field.
+ *
+ * @param frame frame to get
+ * @param id    field ID
+ *
+ * @return field value, invalid if not found.
+ */
+QVariant Frame::getField(const Frame& frame, Field::Id id)
+{
+  QVariant result;
+  if (!frame.getFieldList().empty()) {
+    for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
+         it != frame.getFieldList().end();
+         ++it) {
+      if ((*it).m_id == id) {
+        result = (*it).m_value;
+        break;
+      }
+    }
+  }
+  return result;
+}
+
 #ifndef QT_NO_DEBUG
 /**
  * Convert frame type to string.
