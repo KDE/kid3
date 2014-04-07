@@ -1007,7 +1007,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
 #ifdef Q_OS_MAC
   // Make sure that window stays on top, is necessary to keep the dialog
   // visible on Mac OS X while operating with the player for SYLT/ETCO frames.
-  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+  setWindowFlags(windowFlags() | Qt::Tool);
 #endif
 
   m_vlayout = new QVBoxLayout(this);
