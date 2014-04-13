@@ -120,6 +120,18 @@ void UserActionsConfig::readFromConfig(ISettings* config)
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("SongLyrics"), QLatin1String("%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}")));
   }
+  if (ConfigStore::getConfigVersion() < 1) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("LyricsMode"), QLatin1String("%{browser} http://www.lyricsmode.com/search.php?search=%u{artist}+%u{title}")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Lyrster"), QLatin1String("%{browser} http://www.lyrster.com/songs-lyrics/%u{artist}+%u{title}")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("MP3 Lyrics"), QLatin1String("%{browser} http://www.mp3lyrics.org/Search/%u{artist}+%u{title}")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("LRC123"), QLatin1String("%{browser} http://www.lrc123.com/?keyword=%u{artist}+%u{title}&field=all")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("LyrDB LRC"), QLatin1String("%{browser} http://lyrdb.com/karaoke/index.htm?q=%u{artist}+%u{title}&action=search")));
+  }
 }
 
 
