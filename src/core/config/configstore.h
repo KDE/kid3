@@ -78,10 +78,17 @@ public:
    */
   static ConfigStore* instance() { return s_self; }
 
+  /**
+   * Get the version number of the configuration which was read.
+   * @return version number.
+   */
+  static int getConfigVersion() { return s_configVersion; }
+
 private:
   ISettings* m_config;
   QList<GeneralConfig*> m_configurations;
   static ConfigStore* s_self;
+  static int s_configVersion;
 };
 
 #endif // CONFIGSTORE_H

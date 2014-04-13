@@ -27,6 +27,17 @@
 #include "configstore.h"
 #include "generalconfig.h"
 
+/**
+ * Current configuration file version.
+ * 0: <= 3.0.2
+ * 1: 3.1
+ */
+static const int CONFIG_VERSION = 1;
+
+/** Version of configuration file read, -1 if not read yet. */
+int ConfigStore::s_configVersion = -1;
+
+
 ConfigStore* ConfigStore::s_self = 0;
 
 /**
@@ -55,6 +66,10 @@ void ConfigStore::writeToConfig()
   foreach (GeneralConfig* cfg, m_configurations) {
     cfg->writeToConfig(m_config);
   }
+  m_config->beginGroup(QLatin1String("ConfigStore"));
+  m_config->setValue(QLatin1String("ConfigVersion"), QVariant(
+      s_configVersion > CONFIG_VERSION ? s_configVersion : CONFIG_VERSION));
+  m_config->endGroup();
 }
 
 /**
@@ -70,6 +85,12 @@ int ConfigStore::addConfiguration(GeneralConfig* cfg)
   if (!cfg)
     return -1;
 
+  if (s_configVersion == -1) {
+    m_config->beginGroup(QLatin1String("ConfigStore"));
+    s_configVersion =
+        m_config->value(QLatin1String("ConfigVersion"), 0).toInt();
+    m_config->endGroup();
+  }
   int index = m_configurations.size();
   m_configurations.append(cfg);
   cfg->readFromConfig(m_config);
