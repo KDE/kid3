@@ -31,6 +31,7 @@
 #include <QUrl>
 #include <QMenu>
 #include <QHeaderView>
+#include <QDesktopServices>
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
@@ -146,6 +147,9 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
+    menu.addAction(tr("&Open"), this, SLOT(openFile()));
+    menu.addAction(tr("Open Containing &Folder"),
+                   this, SLOT(openContainingFolder()));
     int id = 0;
     for (QList<UserActionsConfig::MenuCommand>::const_iterator
            it = UserActionsConfig::instance().m_contextMenuCommands.begin();
@@ -375,5 +379,41 @@ void FileList::setDeleteAction(QAction* action)
   m_deleteAction = action;
   if (m_deleteAction) {
     addAction(m_deleteAction);
+  }
+}
+
+/**
+ * Open with standard application.
+ */
+void FileList::openFile()
+{
+  if (QItemSelectionModel* selModel = selectionModel()) {
+    if (const FileProxyModel* fsModel =
+        qobject_cast<const FileProxyModel*>(selModel->model())) {
+      foreach (const QModelIndex& index, selModel->selectedRows()) {
+        QDesktopServices::openUrl(
+              QUrl::fromLocalFile(fsModel->filePath(index)));
+      }
+    }
+  }
+}
+
+/**
+ * Open containing folder.
+ */
+void FileList::openContainingFolder()
+{
+  if (QItemSelectionModel* selModel = selectionModel()) {
+    QModelIndexList indexes = selModel->selectedRows();
+    if (!indexes.isEmpty()) {
+      const FileProxyModel* fsModel;
+      QModelIndex index = indexes.first().parent();
+      if (index.isValid() &&
+          (fsModel = qobject_cast<const FileProxyModel*>(index.model())) != 0 &&
+          fsModel->isDir(index)) {
+        QDesktopServices::openUrl(
+              QUrl::fromLocalFile(fsModel->filePath(index)));
+      }
+    }
   }
 }

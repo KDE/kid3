@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-04 12:09+0200\n"
+"POT-Creation-Date: 2014-04-13 13:01+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -1683,6 +1683,12 @@ msgstr "Alle &ausklappen"
 
 msgid "&Collapse all"
 msgstr "Alle &einklappen"
+
+msgid "&Open"
+msgstr "&Öffnen"
+
+msgid "Open Containing &Folder"
+msgstr "Enthaltenden &Ordner öffnen"
 
 msgid "Kid3"
 msgstr "Kid3"

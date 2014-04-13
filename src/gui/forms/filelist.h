@@ -150,6 +150,16 @@ private slots:
   void playIfTaggedFile(const QModelIndex& index);
 #endif
 
+  /**
+   * Open with standard application.
+   */
+  void openFile();
+
+  /**
+   * Open containing folder.
+   */
+  void openContainingFolder();
+
 private:
   Q_DISABLE_COPY(FileList)
 

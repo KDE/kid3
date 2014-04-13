@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-04 12:09+0200\n"
+"POT-Creation-Date: 2014-04-13 13:01+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1682,6 +1682,12 @@ msgstr "&Tümünü Aç"
 
 msgid "&Collapse all"
 msgstr "Tümünü &Kapat"
+
+msgid "&Open"
+msgstr "A&ç"
+
+msgid "Open Containing &Folder"
+msgstr "&İçeren Klasörü Aç"
 
 msgid "Kid3"
 msgstr "Kid3"

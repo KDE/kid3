@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-04 12:09+0200\n"
+"POT-Creation-Date: 2014-04-13 13:01+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1682,6 +1682,12 @@ msgstr "&Levitä kaikki"
 
 msgid "&Collapse all"
 msgstr "&Kokoa kaikki"
+
+msgid "&Open"
+msgstr "&Avaa"
+
+msgid "Open Containing &Folder"
+msgstr "A&vaa sisältävä kansio"
 
 msgid "Kid3"
 msgstr "Kid3"
