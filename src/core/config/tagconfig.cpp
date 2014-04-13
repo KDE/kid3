@@ -37,6 +37,7 @@ const char* const defaultCommentName = "COMMENT";
 const char* defaultPluginOrder[] = {
   "Id3libMetadata",
   "OggFlacMetadata",
+  "Mp4v2Metadata",
   "TaglibMetadata",
   0
 };

@@ -564,7 +564,11 @@ void M4aFile::readTags(bool force)
         }
       }
 #endif
-      MP4Close(handle);
+      MP4Close(handle
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0200
+               , MP4_CLOSE_DO_NOT_COMPUTE_BITRATE
+#endif
+               );
     }
   }
 
@@ -866,7 +870,11 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
       MP4TagsFree(tags);
 #endif
 
-      MP4Close(handle);
+      MP4Close(handle
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0200
+               , MP4_CLOSE_DO_NOT_COMPUTE_BITRATE
+#endif
+               );
       if (ok) {
         // without this, old tags stay in the file marked as free
         MP4Optimize(fn);

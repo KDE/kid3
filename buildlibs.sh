@@ -170,10 +170,10 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.
 test -f chromaprint_1.1-1.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_1.1-1.debian.tar.gz
 
-#test -f mp4v2_2.0.0~dfsg0.orig.tar.bz2 ||
-#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0.orig.tar.bz2
-#test -f mp4v2_2.0.0~dfsg0-2.debian.tar.gz ||
-#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
+test -f mp4v2_2.0.0~dfsg0.orig.tar.bz2 ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0.orig.tar.bz2
+test -f mp4v2_2.0.0~dfsg0-2.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
 
 # Create patch files
 
@@ -519,14 +519,14 @@ for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
-#echo "### Extracting mp4v2"
-#
-#if ! test -d mp4v2-2.0.0; then
-#tar xjf source/mp4v2_2.0.0~dfsg0.orig.tar.bz2
-#cd mp4v2-2.0.0/
-#tar xzf ../source/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
-#cd ..
-#fi
+echo "### Extracting mp4v2"
+
+if ! test -d mp4v2-2.0.0; then
+tar xjf source/mp4v2_2.0.0~dfsg0.orig.tar.bz2
+cd mp4v2-2.0.0/
+tar xzf ../source/mp4v2_2.0.0~dfsg0-2.debian.tar.gz
+cd ..
+fi
 
 
 # Build from sources
@@ -911,15 +911,15 @@ cd inst
 tar czf ../../bin/chromaprint-1.1.tgz usr
 cd ../..
 
-#echo "### Building mp4v2"
-#
-#cd mp4v2-2.0.0/
-#test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
-#mkdir -p inst
-#make install DESTDIR=`pwd`/inst
-#cd inst
-#tar czf ../../bin/mp4v2-2.0.0.tgz usr
-#cd ../..
+echo "### Building mp4v2"
+
+cd mp4v2-2.0.0/
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
+mkdir -p inst
+make install DESTDIR=`pwd`/inst
+cd inst
+tar czf ../../bin/mp4v2-2.0.0.tgz usr
+cd ../..
 
 
 echo "### Installing to root directory"

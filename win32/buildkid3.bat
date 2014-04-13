@@ -11,6 +11,6 @@ set DOCBOOKDIR=%HOME%\prg\docbook-xsl-1.72.0
 set PATH=%QTDIR%\bin;%MINGWDIR%\bin;C:\WINNT\System32;C:\Windows\System32;%PERLDIR%\bin;%DUMPBINDIR%;%CMAKEDIR%\bin
 set INCLUDE=%MSYSDIR%\local\include
 set LIB=%MSYSDIR%\local\lib
-cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON ..
+cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ..
 mingw32-make
 cpack
