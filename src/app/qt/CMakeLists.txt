@@ -71,6 +71,12 @@ if (UNIX AND NOT APPLE)
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
             RENAME kid3-qt.svgz)
   endif (GZIP_PROGRAM)
+  install(FILES ../hi128-app-kid3.png
+          DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/128x128/apps"
+          RENAME kid3-qt.png)
+  install(FILES ../hi64-app-kid3.png
+          DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/64x64/apps"
+          RENAME kid3-qt.png)
   install(FILES ../hi48-app-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
           RENAME kid3-qt.png)
