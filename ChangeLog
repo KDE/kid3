@@ -1,11 +1,13 @@
-Fri Apr  4 12:07:43 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Mon Apr 21 09:34:23 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.1
 
 	* New:
 	  + Support for synchronized lyrics and event timing codes.
+	  + Import and export of LRC (synchronized lyrics/Karaoke) files.
 	  + Find and replace strings in tags and file names.
 	  + Display details and sort columns in file list.
+	  + Open and Open Containing Folder file list actions.
 	  + Support Ogg and Opus cover art.
 	  + Export format CDRDAO TOC for CDs with CD-text from WAV tags.
 	  + D-Bus command expandFileList() to expand the whole file list.
