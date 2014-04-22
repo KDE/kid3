@@ -31,6 +31,7 @@
 #include <kaboutdata.h>
 #include <klocale.h>
 #include <kconfiggroup.h>
+#include <typeinfo>
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kdemainwindow.h"
@@ -39,6 +40,37 @@
 
 /** To use a constructor with arguments in RESTORE(). */
 #define KdeMainWindow_pt_app KdeMainWindow(platformTools, kid3App)
+
+/**
+ * KApplication subclass which catches exceptions.
+ */
+class Kid3KdeApplication : public KApplication {
+public:
+  /**
+   * Send event to receiver.
+   * @param receiver receiver
+   * @param event event
+   * @return return value from receiver's event handler.
+   */
+  virtual bool notify(QObject* receiver, QEvent* event);
+};
+
+/**
+ * Send event to receiver.
+ * @param receiver receiver
+ * @param event event
+ * @return return value from receiver's event handler.
+ */
+bool Kid3KdeApplication::notify(QObject* receiver, QEvent* event)
+{
+  try {
+    return KApplication::notify(receiver, event);
+  } catch (std::exception& ex) {
+    qWarning("Exception %s (%s) was caught", typeid(ex).name(), ex.what());
+  }
+  return false;
+}
+
 
 /**
  * Main program.
@@ -64,7 +96,7 @@ int main(int argc, char* argv[])
   options.add("+[Dir]", ki18n("%1").subs(QCoreApplication::translate("@default",
                           QT_TRANSLATE_NOOP("@default", "directory to open"))));
   KCmdLineArgs::addCmdLineOptions(options);
-  KApplication app;
+  Kid3KdeApplication app;
 
   QString configuredLanguage =
       KConfigGroup(KGlobal::config(), "Locale").readEntry("Language");

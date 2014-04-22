@@ -30,6 +30,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
+#include <typeinfo>
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kid3mainwindow.h"
@@ -64,6 +65,14 @@ public:
   virtual void commitData(QSessionManager& manager) {
     emit commitDataRequest(manager);
   }
+
+  /**
+   * Send event to receiver.
+   * @param receiver receiver
+   * @param event event
+   * @return return value from receiver's event handler.
+   */
+  virtual bool notify(QObject* receiver, QEvent* event);
 };
 
 /**
@@ -72,6 +81,23 @@ public:
 Kid3QtApplication::~Kid3QtApplication()
 {
 }
+
+/**
+ * Send event to receiver.
+ * @param receiver receiver
+ * @param event event
+ * @return return value from receiver's event handler.
+ */
+bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
+{
+  try {
+    return QApplication::notify(receiver, event);
+  } catch (std::exception& ex) {
+    qWarning("Exception %s (%s) was caught", typeid(ex).name(), ex.what());
+  }
+  return false;
+}
+
 
 /**
  * Main program.

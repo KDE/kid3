@@ -6,7 +6,7 @@ set(kde_SRCS
   kdesettings.cpp
 )
 
-add_definitions(${KDE4_DEFINITIONS} -DKDE_NO_COMPAT)
+add_definitions(${KDE4_DEFINITIONS} -DKDE_NO_COMPAT ${KDE4_ENABLE_EXCEPTIONS})
 include_directories(${KDE4_INCLUDES})
 
 kde4_add_executable(kid3 ${kde_SRCS})
