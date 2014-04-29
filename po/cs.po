@@ -3,13 +3,13 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013.
+# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2014-04-13 13:01+0200\n"
-"PO-Revision-Date: 2013-11-30 09:42+0100\n"
+"PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -698,130 +698,130 @@ msgid "Rename file"
 msgstr "Přejmenovat soubor"
 
 msgid "padding (has no meaning)"
-msgstr ""
+msgstr "Výplň (nemá žádný význam)"
 
 msgid "end of initial silence"
-msgstr ""
+msgstr "Konec počátečního ticha"
 
 msgid "intro start"
-msgstr ""
+msgstr "Začátek úvodu"
 
 msgid "main part start"
-msgstr ""
+msgstr "Začátek hlavní části"
 
 msgid "outro start"
-msgstr ""
+msgstr "Začátek závěru"
 
 msgid "outro end"
-msgstr ""
+msgstr "Konec závěru"
 
 msgid "verse start"
-msgstr ""
+msgstr "Začátek sloky"
 
 msgid "refrain start"
-msgstr ""
+msgstr "Začátek refrénu"
 
 msgid "interlude start"
-msgstr ""
+msgstr "Začátek mezihry"
 
 msgid "theme start"
-msgstr ""
+msgstr "Začátek motivu"
 
 msgid "variation start"
-msgstr ""
+msgstr "Začátek variace"
 
 msgid "key change"
-msgstr ""
+msgstr "Změna předznamenání"
 
 msgid "time change"
-msgstr ""
+msgstr "Změna taktového označení"
 
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "krátkodobý nechtěný šum (křupnutí, praskání, třísknutí)"
 
 msgid "sustained noise"
-msgstr ""
+msgstr "Nepřetržitý šum"
 
 msgid "sustained noise end"
-msgstr ""
+msgstr "Nepřetržitý konec šumu"
 
 msgid "intro end"
-msgstr ""
+msgstr "Konec úvodu"
 
 msgid "main part end"
-msgstr ""
+msgstr "Konec hlavní části"
 
 msgid "verse end"
-msgstr ""
+msgstr "Konec sloky"
 
 msgid "refrain end"
-msgstr ""
+msgstr "Konec refrénu"
 
 msgid "theme end"
-msgstr ""
+msgstr "Konec motivu"
 
 msgid "profanity"
-msgstr ""
+msgstr "Nadávky"
 
 msgid "profanity end"
-msgstr ""
+msgstr "Konec klení"
 
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "Souhra neurčená předem 0"
 
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "Souhra neurčená předem 1"
 
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "Souhra neurčená předem 2"
 
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "Souhra neurčená předem 3"
 
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "Souhra neurčená předem 4"
 
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "Souhra neurčená předem 5"
 
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "Souhra neurčená předem 6"
 
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "Souhra neurčená předem 7"
 
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "Souhra neurčená předem 8"
 
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "Souhra neurčená předem 9"
 
 msgid "not predefined synch A"
-msgstr ""
+msgstr "Souhra neurčená předem A"
 
 msgid "not predefined synch B"
-msgstr ""
+msgstr "Souhra neurčená předem B"
 
 msgid "not predefined synch C"
-msgstr ""
+msgstr "Souhra neurčená předem C"
 
 msgid "not predefined synch D"
-msgstr ""
+msgstr "Souhra neurčená předem D"
 
 msgid "not predefined synch E"
-msgstr ""
+msgstr "Souhra neurčená předem E"
 
 msgid "not predefined synch F"
-msgstr ""
+msgstr "Souhra neurčená předem F"
 
 msgid "audio end (start of silence)"
-msgstr ""
+msgstr "Konec zvuku (začátek ticha)"
 
 msgid "audio file ends"
-msgstr ""
+msgstr "Zvukový soubor končí"
 
 msgid "reserved for future use %1"
-msgstr ""
+msgstr "vyhrazeno pro budoucí užití %1"
 
 msgid "C&lear"
 msgstr "&Smazat"
