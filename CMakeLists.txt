@@ -308,9 +308,13 @@ if (BUILD_SHARED_LIBS)
 
   # the RPATH to be used when installing, but only if it's not a system directory
   # see http://www.cmake.org/Wiki/CMake_RPATH_handling
-  list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}" _isSystemDir)
+  set(_prefixLibdir "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}")
+  list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${_prefixLibdir}" _isSystemDir)
   if ("${_isSystemDir}" STREQUAL "-1")
-     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}")
+    list(FIND CMAKE_INSTALL_RPATH "${_prefixLibdir}" _rpathContainsLibdir)
+    if ("${_rpathContainsLibdir}" STREQUAL "-1")
+      list(APPEND CMAKE_INSTALL_RPATH "${_prefixLibdir}")
+    endif ("${_rpathContainsLibdir}" STREQUAL "-1")
   endif ("${_isSystemDir}" STREQUAL "-1")
 endif (BUILD_SHARED_LIBS)
 
