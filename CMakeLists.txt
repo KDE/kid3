@@ -37,6 +37,7 @@ set(WITH_GSTREAMER OFF CACHE BOOL "force use of GStreamer for Chromaprint decodi
 set(WITH_QAUDIODECODER OFF CACHE BOOL "force use of QAudioDecoder for Chromaprint decoding")
 set(WITH_PHONON ON CACHE BOOL "build with Phonon")
 set(WITH_GCC_PCH OFF CACHE BOOL "enable precompiled headers")
+set(WITH_NO_MANCOMPRESS OFF CACHE BOOL "disable compressed manpages")
 if (APPLE OR WIN32)
   set(WITH_DBUS OFF CACHE BOOL "build with QtDBus")
   set(WITH_APPS "Qt;CLI" CACHE STRING "build applications (Qt;CLI;Test)")

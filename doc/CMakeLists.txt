@@ -37,7 +37,9 @@ macro (kid3_create_handbook _docbook)
 endmacro (kid3_create_handbook)
 
 if (UNIX)
-  find_program(GZIP_EXECUTABLE gzip)
+  if (NOT WITH_NO_MANCOMPRESS)
+    find_program(GZIP_EXECUTABLE gzip)
+  endif (NOT WITH_NO_MANCOMPRESS)
 
   # Create man page from DocBook file in language directory
   macro (kid3_create_manpage _docbook)
@@ -52,25 +54,32 @@ if (UNIX)
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} -
       DEPENDS ${_input}
     )
-    add_custom_command(OUTPUT ${_output}.gz
-      COMMAND ${GZIP_EXECUTABLE} -c ${_output} >${_output}.gz
-      DEPENDS ${_output}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    add_custom_target("${_lang}-man-handbook" ALL DEPENDS ${_output}.gz)
+    if (WITH_NO_MANCOMPRESS)
+      set(_gzExt "")
+      set(_output_gz ${_output})
+    else (WITH_NO_MANCOMPRESS)
+      set(_gzExt ".gz")
+      set(_output_gz ${_output}${_gzExt})
+      add_custom_command(OUTPUT ${_output_gz}
+        COMMAND ${GZIP_EXECUTABLE} -c ${_output} >${_output_gz}
+        DEPENDS ${_output}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+      )
+    endif (WITH_NO_MANCOMPRESS)
+    add_custom_target("${_lang}-man-handbook" ALL DEPENDS ${_output_gz})
     if (_lang STREQUAL "en")
       set(_install_dir ${WITH_MANDIR}/man1)
     else (_lang STREQUAL "en")
       set(_install_dir ${WITH_MANDIR}/${_lang}/man1)
     endif (_lang STREQUAL "en")
-    install(FILES ${_output}.gz DESTINATION ${_install_dir})
+    install(FILES ${_output_gz} DESTINATION ${_install_dir})
     if (BUILD_QT_APP)
       install(CODE
-        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink kid3.1.gz \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_install_dir}/kid3-qt.1.gz\")")
+        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink kid3.1${_gzExt} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_install_dir}/kid3-qt.1${_gzExt}\")")
     endif (BUILD_QT_APP)
     if (BUILD_CLI_APP)
       install(CODE
-        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink kid3.1.gz \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_install_dir}/kid3-cli.1.gz\")")
+        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink kid3.1${_gzExt} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_install_dir}/kid3-cli.1${_gzExt}\")")
     endif (BUILD_CLI_APP)
   endmacro (kid3_create_manpage)
 endif (UNIX)
