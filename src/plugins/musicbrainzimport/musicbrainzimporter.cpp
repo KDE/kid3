@@ -428,11 +428,26 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
             }
           }
           if (additionalTags) {
-            QDomElement relationList =
-                recording.namedItem(QLatin1String("relation-list")).toElement();
-            if (!relationList.isNull() &&
-                relationList.attribute(QLatin1String("target-type")) == QLatin1String("artist")) {
-              parseCredits(relationList, frames);
+            QDomNode relationListNode(recording.firstChild());
+            while (!relationListNode.isNull()) {
+              if (relationListNode.nodeName() == QLatin1String("relation-list")) {
+                QDomElement relationList(relationListNode.toElement());
+                if (!relationList.isNull()) {
+                  QString targetType(relationList.attribute(QLatin1String("target-type")));
+                  if (targetType == QLatin1String("artist")) {
+                    parseCredits(relationList, frames);
+                  } else if (targetType == QLatin1String("work")) {
+                    QDomNode workRelationListNode(relationList.
+                          namedItem(QLatin1String("relation")).
+                          namedItem(QLatin1String("work")).
+                          namedItem(QLatin1String("relation-list")));
+                    if (!workRelationListNode.isNull()) {
+                      parseCredits(workRelationListNode.toElement(), frames);
+                    }
+                  }
+                }
+              }
+              relationListNode = relationListNode.nextSibling();
             }
           }
         }
@@ -535,13 +550,18 @@ void MusicBrainzImporter::sendTrackListQuery(
   path += cat;
   path += QLatin1Char('/');
   path += id;
-  path += QLatin1String("?inc=artists+recordings");
+  path += QLatin1String("?inc=");
   if (cfg->m_additionalTags) {
-    path += QLatin1String("+artist-rels+artist-credits+release-rels+recording-rels+"
-      "recording-level-rels+labels");
+    path += QLatin1String("artist-credits+labels+recordings+media+isrcs+"
+                "discids+artist-rels+label-rels+recording-rels+release-rels");
+  } else {
+    path += QLatin1String("artists+recordings");
   }
   if (cfg->m_coverArt) {
     path += QLatin1String("+url-rels");
+  }
+  if (cfg->m_additionalTags) {
+    path += QLatin1String("+work-rels+recording-level-rels+work-level-rels");
   }
   sendRequest(QLatin1String("musicbrainz.org:80"), path);
 }
