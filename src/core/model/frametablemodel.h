@@ -301,32 +301,9 @@ private:
 };
 
 
-/** Line edit with automatic tag formatting. */
-class FrameTableLineEdit : public QLineEdit {
-Q_OBJECT
-public:
-  /**
-   * Constructor.
-   * @param parent parent widget
-   */
-  explicit FrameTableLineEdit(QWidget* parent);
-
-  /**
-   * Destructor.
-   */
-  virtual ~FrameTableLineEdit();
-
-private slots:
-  /**
-   * Format text if enabled.
-   * @param txt text to format and set in line edit
-   */
-  void formatTextIfEnabled(const QString& txt);
-};
-
-
 /** Delegate for table widget items. */
 class KID3_CORE_EXPORT FrameItemDelegate : public QItemDelegate {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -367,6 +344,13 @@ public:
    */
   virtual void setModelData(
     QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+
+private slots:
+  /**
+   * Format text if enabled.
+   * @param txt text to format and set in line edit
+   */
+  void formatTextIfEnabled(const QString& txt);
 };
 
 #endif // FRAMETABLEMODEL_H

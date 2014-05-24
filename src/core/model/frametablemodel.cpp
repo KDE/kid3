@@ -539,39 +539,23 @@ void FrameTableModel::resizeFrameSelected()
 
 
 /**
- * Constructor.
- * @param parent parent widget
- */
-FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
-  QLineEdit(parent)
-{
-  setObjectName(QLatin1String("FrameTableLineEdit"));
-  connect(this, SIGNAL(textChanged(QString)),
-          this, SLOT(formatTextIfEnabled(QString)));
-}
-
-/**
- * Destructor.
- */
-FrameTableLineEdit::~FrameTableLineEdit() {}
-
-/**
  * Format text if enabled.
  * @param txt text to format and set in line edit
  */
-void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
+void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
 {
-  if (TagFormatConfig::instance().m_formatWhileEditing) {
+  QLineEdit* le;
+  if (TagFormatConfig::instance().m_formatWhileEditing &&
+      (le = qobject_cast<QLineEdit*>(sender())) != 0) {
     QString str(txt);
     TagFormatConfig::instance().formatString(str);
     if (str != txt) {
-      int curPos = cursorPosition();
-      setText(str);
-      setCursorPosition(curPos);
+      int curPos = le->cursorPosition();
+      le->setText(str);
+      le->setCursorPosition(curPos);
     }
   }
 }
-
 
 /**
  * Create an editor to edit the cells contents.
@@ -627,14 +611,28 @@ QWidget* FrameItemDelegate::createEditor(
         cb->addItems(customGenres);
       }
       return cb;
-    } else if (id3v1 &&
-               (type == Frame::FT_Comment || type == Frame::FT_Title ||
-                type == Frame::FT_Artist || type == Frame::FT_Album)) {
-      FrameTableLineEdit* e = new FrameTableLineEdit(parent);
-      e->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
-      e->setFrame(false);
-      return e;
     }
+    QWidget* editor = QItemDelegate::createEditor(parent, option, index);
+    QLineEdit* lineEdit = qobject_cast<QLineEdit*>(editor);
+    if (id3v1 &&
+        (type == Frame::FT_Comment || type == Frame::FT_Title ||
+         type == Frame::FT_Artist || type == Frame::FT_Album)) {
+      if (lineEdit) {
+        if (TagFormatConfig::instance().m_formatWhileEditing) {
+          connect(lineEdit, SIGNAL(textChanged(QString)),
+                  this, SLOT(formatTextIfEnabled(QString)));
+        }
+        lineEdit->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
+      }
+    } else {
+      if (lineEdit) {
+        if (TagFormatConfig::instance().m_formatWhileEditing) {
+          connect(lineEdit, SIGNAL(textChanged(QString)),
+                  this, SLOT(formatTextIfEnabled(QString)));
+        }
+      }
+    }
+    return editor;
   }
   return QItemDelegate::createEditor(parent, option, index);
 }
