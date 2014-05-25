@@ -351,6 +351,7 @@ private slots:
 
 private:
   QValidator* m_trackNumberValidator;
+  QValidator* m_dateTimeValidator;
 };
 
 #endif // FRAMETABLEMODEL_H
