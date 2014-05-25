@@ -30,6 +30,7 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QChildEvent>
+#include <QLineEdit>
 #include "frametablemodel.h"
 
 /**

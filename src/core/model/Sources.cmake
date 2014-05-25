@@ -25,6 +25,7 @@ set(model_SRCS
   model/tagsearcher.cpp
   model/timeeventmodel.cpp
   model/eventtimingcode.cpp
+  model/tracknumbervalidator.cpp
 )
 
 set(model_MOC_HDRS

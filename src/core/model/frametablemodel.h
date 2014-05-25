@@ -30,7 +30,6 @@
 #include <QAbstractTableModel>
 #include <QBitArray>
 #include <QItemDelegate>
-#include <QLineEdit>
 #include "frame.h"
 #include "kid3api.h"
 
@@ -309,14 +308,12 @@ public:
    * Constructor.
    * @param parent parent QTableView
    */
-  explicit FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {
-    setObjectName(QLatin1String("FrameItemDelegate"));
-  }
+  explicit FrameItemDelegate(QObject* parent = 0);
 
   /**
    * Destructor.
    */
-  virtual ~FrameItemDelegate() {}
+  virtual ~FrameItemDelegate();
 
   /**
    * Create an editor to edit the cells contents.
@@ -351,6 +348,9 @@ private slots:
    * @param txt text to format and set in line edit
    */
   void formatTextIfEnabled(const QString& txt);
+
+private:
+  QValidator* m_trackNumberValidator;
 };
 
 #endif // FRAMETABLEMODEL_H

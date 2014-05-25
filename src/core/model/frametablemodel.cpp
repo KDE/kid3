@@ -27,10 +27,12 @@
 #include "frametablemodel.h"
 #include <QApplication>
 #include <QComboBox>
+#include <QLineEdit>
 #include "fileconfig.h"
 #include "tagconfig.h"
 #include "formatconfig.h"
 #include "genres.h"
+#include "tracknumbervalidator.h"
 
 /**
  * Constructor.
@@ -539,6 +541,22 @@ void FrameTableModel::resizeFrameSelected()
 
 
 /**
+ * Constructor.
+ * @param parent parent QTableView
+ */
+FrameItemDelegate::FrameItemDelegate(QObject* parent) : QItemDelegate(parent),
+  m_trackNumberValidator(new TrackNumberValidator(this)) {
+  setObjectName(QLatin1String("FrameItemDelegate"));
+}
+
+/**
+ * Destructor.
+ */
+FrameItemDelegate::~FrameItemDelegate()
+{
+}
+
+/**
  * Format text if enabled.
  * @param txt text to format and set in line edit
  */
@@ -629,6 +647,9 @@ QWidget* FrameItemDelegate::createEditor(
         if (TagFormatConfig::instance().m_formatWhileEditing) {
           connect(lineEdit, SIGNAL(textChanged(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
+        }
+        if (type == Frame::FT_Track || type == Frame::FT_Disc) {
+          lineEdit->setValidator(m_trackNumberValidator);
         }
       }
     }
