@@ -144,6 +144,8 @@ public:
   bool m_formatWhileEditing;
   /** true if string replacement enabled */
   bool m_strRepEnabled;
+  /** true to enable data validation */
+  bool m_enableValidation;
 };
 
 

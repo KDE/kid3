@@ -333,6 +333,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   vlayout->addWidget(saveGroupBox);
   QString fnFormatTitle(tr("&Filename Format"));
   m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
+  m_fnFormatBox->hideValidationCheckBox();
   vlayout->addWidget(m_fnFormatBox);
   return filesPage;
 }

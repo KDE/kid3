@@ -46,6 +46,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 {
   m_formatEditingCheckBox = new QCheckBox(tr("Format while editing"),
                                           this);
+  m_validationCheckBox = new QCheckBox(tr("Validation"), this);
 
   QLabel* caseConvLabel = new QLabel(this);
   caseConvLabel->setText(tr("Case conversion:"));
@@ -84,6 +85,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
       m_strReplTableModel->getHorizontalResizeModes());
   QVBoxLayout* vbox = new QVBoxLayout;
   vbox->addWidget(m_formatEditingCheckBox);
+  vbox->addWidget(m_validationCheckBox);
   vbox->addWidget(caseConvLabel);
   vbox->addWidget(m_caseConvComboBox);
 #if QT_VERSION >= 0x040800
@@ -107,6 +109,7 @@ FormatBox::~FormatBox() {}
 void FormatBox::fromFormatConfig(const FormatConfig& cfg)
 {
   m_formatEditingCheckBox->setChecked(cfg.m_formatWhileEditing);
+  m_validationCheckBox->setChecked(cfg.m_enableValidation);
   m_caseConvComboBox->setCurrentIndex(cfg.m_caseConversion);
 #if QT_VERSION >= 0x040800
   int localeIndex = m_localeComboBox->findText(cfg.getLocaleName());
@@ -127,6 +130,7 @@ void FormatBox::fromFormatConfig(const FormatConfig& cfg)
 void FormatBox::toFormatConfig(FormatConfig& cfg) const
 {
   cfg.m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
+  cfg.m_enableValidation = m_validationCheckBox->isChecked();
   cfg.m_caseConversion =
     (FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex();
   if (cfg.m_caseConversion >= FormatConfig::NumCaseConversions) {
@@ -138,4 +142,12 @@ void FormatBox::toFormatConfig(FormatConfig& cfg) const
 #endif
   cfg.m_strRepEnabled = m_strRepCheckBox->isChecked();
   cfg.m_strRepMap = m_strReplTableModel->getMap();
+}
+
+/**
+ * Hide the validation check box.
+ */
+void FormatBox::hideValidationCheckBox()
+{
+  m_validationCheckBox->hide();
 }

@@ -57,6 +57,11 @@ public:
   ~FormatBox();
 
   /**
+   * Hide the validation check box.
+   */
+  void hideValidationCheckBox();
+
+  /**
    * Set the values from a format configuration.
    *
    * @param cfg format configuration
@@ -79,6 +84,7 @@ private:
   ConfigTable* m_strReplTable;
   ConfigTableModel* m_strReplTableModel;
   QCheckBox* m_formatEditingCheckBox;
+  QCheckBox* m_validationCheckBox;
 };
 
 #endif

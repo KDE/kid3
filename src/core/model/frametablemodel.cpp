@@ -657,10 +657,12 @@ QWidget* FrameItemDelegate::createEditor(
           connect(lineEdit, SIGNAL(textChanged(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
         }
-        if (type == Frame::FT_Track || type == Frame::FT_Disc) {
-          lineEdit->setValidator(m_trackNumberValidator);
-        } else if (type == Frame::FT_Date || type == Frame::FT_OriginalDate) {
-          lineEdit->setValidator(m_dateTimeValidator);
+        if (TagFormatConfig::instance().m_enableValidation) {
+          if (type == Frame::FT_Track || type == Frame::FT_Disc) {
+            lineEdit->setValidator(m_trackNumberValidator);
+          } else if (type == Frame::FT_Date || type == Frame::FT_OriginalDate) {
+            lineEdit->setValidator(m_dateTimeValidator);
+          }
         }
       }
     }

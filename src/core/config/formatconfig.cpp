@@ -41,7 +41,8 @@ FormatConfig::FormatConfig(const QString& grp) :
   m_locale(0),
   m_filenameFormatter(false),
   m_formatWhileEditing(false),
-  m_strRepEnabled(false)
+  m_strRepEnabled(false),
+  m_enableValidation(true)
 {
   m_strRepMap.clear();
 }
@@ -290,6 +291,7 @@ void FormatConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("CaseConversion"), QVariant(m_caseConversion));
   config->setValue(QLatin1String("LocaleName"), QVariant(m_localeName));
   config->setValue(QLatin1String("StrRepEnabled"), QVariant(m_strRepEnabled));
+  config->setValue(QLatin1String("EnableValidation"), QVariant(m_enableValidation));
   config->setValue(QLatin1String("StrRepMapKeys"), QVariant(m_strRepMap.keys()));
   config->setValue(QLatin1String("StrRepMapValues"), QVariant(m_strRepMap.values()));
   config->endGroup();
@@ -308,6 +310,7 @@ void FormatConfig::readFromConfig(ISettings* config)
                                                    (int)m_caseConversion).toInt();
   m_localeName = config->value(QLatin1String("LocaleName"), m_localeName).toString();
   m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"), m_strRepEnabled).toBool();
+  m_enableValidation = config->value(QLatin1String("EnableValidation"), m_enableValidation).toBool();
   QStringList keys = config->value(QLatin1String("StrRepMapKeys"),
                                    QStringList()).toStringList();
   QStringList values = config->value(QLatin1String("StrRepMapValues"),
