@@ -101,9 +101,6 @@ QString pluginFileName(const QString& pluginName)
 }
 
 
-/** Current directory */
-QString Kid3Application::s_dirName;
-
 /**
  * Constructor.
  * @param platformTools platform tools
@@ -480,7 +477,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   if (ok) {
     setModified(false);
     setFiltered(false);
-    setDirName(dir);
+    m_dirName = dir;
     QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
     m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
     m_fileProxyModelFileIndexes.clear();

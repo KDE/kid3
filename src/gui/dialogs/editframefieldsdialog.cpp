@@ -540,14 +540,16 @@ public:
   /**
    * Constructor.
    * @param platformTools platform tools
+   * @param app application context
    * @param field      field to edit
    * @param frame      frame with fields to edit
    * @param taggedFile file
    */
-  BinFieldControl(IPlatformTools* platformTools, Frame::Field& field,
+  BinFieldControl(IPlatformTools* platformTools, Kid3Application* app,
+                  Frame::Field& field,
                   const Frame& frame, const TaggedFile* taggedFile) :
-    Mp3FieldControl(field), m_platformTools(platformTools), m_bos(0),
-    m_frame(frame), m_taggedFile(taggedFile) {}
+    Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
+    m_bos(0), m_frame(frame), m_taggedFile(taggedFile) {}
 
   /**
    * Destructor.
@@ -571,6 +573,8 @@ public:
 protected:
   /** Platform dependent tools */
   IPlatformTools* m_platformTools;
+  /** Application context */
+  Kid3Application* m_app;
   /** Import, Export, View buttons */
   BinaryOpenSave* m_bos;
   /** frame with fields to edit */
@@ -638,14 +642,16 @@ protected:
  * Constructor.
  *
  * @param platformTools platform tools
+ * @param app application context
  * @param parent parent widget
  * @param field  field containing binary data
  */
 BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
+                               Kid3Application* app,
                                QWidget* parent, const Frame::Field& field) :
   QWidget(parent),
-  m_platformTools(platformTools), m_byteArray(field.m_value.toByteArray()),
-  m_isChanged(false)
+  m_platformTools(platformTools), m_app(app),
+  m_byteArray(field.m_value.toByteArray()), m_isChanged(false)
 {
   setObjectName(QLatin1String("BinaryOpenSave"));
   QHBoxLayout* layout = new QHBoxLayout(this);
@@ -705,7 +711,7 @@ void BinaryOpenSave::clipData()
 void BinaryOpenSave::loadData()
 {
   QString loadfilename = m_platformTools->getOpenFileName(this, QString(),
-        m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
+        m_defaultDir.isEmpty() ? m_app->getDirName() : m_defaultDir,
         m_filter, 0);
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
@@ -727,7 +733,7 @@ void BinaryOpenSave::loadData()
  */
 void BinaryOpenSave::saveData()
 {
-  QString dir = m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir;
+  QString dir = m_defaultDir.isEmpty() ? m_app->getDirName() : m_defaultDir;
 #if QT_VERSION >= 0x050000
   QString fileName(m_defaultFile);
   if (fileName.isEmpty()) {
@@ -939,7 +945,7 @@ void BinFieldControl::updateTag()
  */
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-  m_bos = new BinaryOpenSave(m_platformTools, parent, m_field);
+  m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
   m_bos->setLabel(QCoreApplication::translate("@default",
       getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   if (m_taggedFile) {
@@ -1022,6 +1028,7 @@ QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
  * Constructor.
  *
  * @param platformTools platform tools
+ * @param app application context
  * @param parent     parent widget
  */
 EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
@@ -1157,7 +1164,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::ByteArray:
       {
         BinFieldControl* binctl = new BinFieldControl(
-              m_platformTools, fld, frame, taggedFile);
+              m_platformTools, m_app, fld, frame, taggedFile);
         m_fieldcontrols.append(binctl);
         break;
       }

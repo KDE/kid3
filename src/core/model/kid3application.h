@@ -566,13 +566,7 @@ public:
    * Get directory name.
    * @return directory.
    */
-  static QString getDirName() { return s_dirName; }
-
-  /**
-   * Set directory name.
-   * @param dirName directory.
-   */
-  static void setDirName(const QString& dirName) { s_dirName = dirName; }
+  QString getDirName() const { return m_dirName; }
 
   /**
    * Notify the tagged file factories about the changed configuration.
@@ -1151,6 +1145,8 @@ private:
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */
   QList<ServerTrackImporter*> m_trackImporters;
+  /** Current directory */
+  QString m_dirName;
 
   /* Context for updateFrameModels() */
   /** If a single file is selected, this tagged file, else 0 */
@@ -1184,9 +1180,6 @@ private:
   bool m_selectionHasTagV1;
   /** true if any of the selected files has a tag 2 */
   bool m_selectionHasTagV2;
-
-  /** Current directory */
-  static QString s_dirName;
 };
 
 #endif // KID3APPLICATION_H

@@ -46,10 +46,11 @@ class BinaryOpenSave : public QWidget {
    * Constructor.
    *
    * @param platformTools platform tools
+   * @param app application context
    * @param parent parent widget
    * @param field  field containing binary data
    */
-  BinaryOpenSave(IPlatformTools* platformTools,
+  BinaryOpenSave(IPlatformTools* platformTools, Kid3Application* app,
                  QWidget* parent, const Frame::Field& field);
 
   /**
@@ -118,6 +119,7 @@ class BinaryOpenSave : public QWidget {
 
  private:
   IPlatformTools* m_platformTools;
+  Kid3Application* m_app;
   /** Array with binary data */
   QByteArray m_byteArray;
   /** Label left of buttons */
