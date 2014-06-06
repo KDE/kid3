@@ -85,17 +85,17 @@ ImportConfig::ImportConfig() :
    */
   m_importFormatNames.append(QLatin1String("CSV unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)"));
+  m_importFormatTracks.append(QLatin1String("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}([^\\r\\n\\t]*)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
   m_importFormatNames.append(QLatin1String("CSV quoted"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
+  m_importFormatTracks.append(QLatin1String("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
   m_importFormatNames.append(QLatin1String("CSV more unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
   m_importFormatTracks.append(QLatin1String(
     "%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t"
-    "%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\"
+    "%{album}([^\\r\\n\\t]*)\\t%{year}([^\\r\\n\\t]*)\\t%{genre}([^\\r\\n\\t]*)\\"
     "t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\\t"
     "%{album artist}([^\\r\\n\\t]*)\\t%{arranger}([^\\r\\n\\t]*)\\t"
     "%{author}([^\\r\\n\\t]*)\\t%{bpm}([^\\r\\n\\t]*)\\t"
@@ -114,7 +114,7 @@ ImportConfig::ImportConfig() :
   m_importFormatTracks.append(QLatin1String(
     "\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t"
-    "\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
+    "\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\"?\\t"
     "\"?%{album artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{arranger}([^\\r\\n\\t\"]*)\"?\\t"
@@ -130,11 +130,11 @@ ImportConfig::ImportConfig() :
     "\"?%{subtitle}([^\\r\\n\\t\"]*)\"?\\t\"?%{website}([^\\r\\n\\t\"]*)"));
 
   m_importFormatNames.append(QLatin1String("freedb HTML text"));
-  m_importFormatHeaders.append(QLatin1String("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]"));
+  m_importFormatHeaders.append(QLatin1String("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}([^\\r\\n\\t]*)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]"));
   m_importFormatTracks.append(QLatin1String("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)"));
 
   m_importFormatNames.append(QLatin1String("freedb HTML source"));
-  m_importFormatHeaders.append(QLatin1String("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]"));
+  m_importFormatHeaders.append(QLatin1String("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}([^\\r\\n\\t]*)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]"));
   m_importFormatTracks.append(QLatin1String("<td[^>]*>\\s*%{track}(\\d+).</td><td[^>]*>\\s*%{duration}(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\\r\\n]+)"));
 
   m_importFormatNames.append(QLatin1String("Title"));
