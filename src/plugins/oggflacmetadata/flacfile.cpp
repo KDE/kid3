@@ -143,7 +143,7 @@ void FlacFile::readTags(bool force)
     markTag2Unchanged();
     m_fileRead = true;
     QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
-    m_fileInfo.read(0); // just to start invalid
+    readFileInfo(m_fileInfo, 0); // just to start invalid
     if (!m_chain) {
       m_chain = new FLAC::Metadata::Chain;
     }
@@ -162,7 +162,7 @@ void FlacFile::readTags(bool force)
             if (proto) {
               FLAC::Metadata::StreamInfo* si =
                 dynamic_cast<FLAC::Metadata::StreamInfo*>(proto);
-              m_fileInfo.read(si);
+              readFileInfo(m_fileInfo, si);
               delete proto;
             }
           } else if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
@@ -567,19 +567,21 @@ QString FlacFile::getFileExtension() const
 
 /**
  * Read information about a FLAC file.
+ * @param info file info to fill
  * @param fn file name
  * @return true if ok.
  */
-bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
+bool FlacFile::readFileInfo(FileInfo& info,
+                            FLAC::Metadata::StreamInfo* si) const
 {
   if (si && si->is_valid()) {
-    valid = true;
-    channels = si->get_channels();
-    sampleRate = si->get_sample_rate();
-    duration = si->get_total_samples() / sampleRate;
-    bitrate = si->get_bits_per_sample() * sampleRate;
+    info.valid = true;
+    info.channels = si->get_channels();
+    info.sampleRate = si->get_sample_rate();
+    info.duration = si->get_total_samples() / info.sampleRate;
+    info.bitrate = si->get_bits_per_sample() * info.sampleRate;
   } else {
-    valid = false;
+    info.valid = false;
   }
-  return valid;
+  return info.valid;
 }

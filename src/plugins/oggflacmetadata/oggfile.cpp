@@ -194,7 +194,7 @@ void OggFile::readTags(bool force)
     m_fileRead = true;
     QString fnIn = getDirname() + QDir::separator() + currentFilename();
 
-    if (m_fileInfo.read(fnIn)) {
+    if (readFileInfo(m_fileInfo, fnIn)) {
       QFile fpIn(fnIn);
       if (fpIn.open(QIODevice::ReadOnly)) {
         vcedit_state* state = ::vcedit_new_state();
@@ -955,40 +955,41 @@ QStringList OggFile::getFrameIds() const
 #ifdef HAVE_VORBIS
 /**
  * Read information about an Ogg/Vorbis file.
+ * @param info file info to fill
  * @param fn file name
  * @return true if ok.
  */
-bool OggFile::FileInfo::read(const QString& fn)
+bool OggFile::readFileInfo(FileInfo& info, const QString& fn) const
 {
   static ::ov_callbacks ovcb = {
     oggread, oggseek, oggclose, oggtell
   };
-  valid = false;
+  info.valid = false;
   QFile fp(fn);
   if (fp.open(QIODevice::ReadOnly)) {
     OggVorbis_File vf;
     if (::ov_open_callbacks(&fp, &vf, 0, 0, ovcb) == 0) {
       vorbis_info* vi = ::ov_info(&vf, -1);
       if (vi) {
-        valid = true;
-        version = vi->version;
-        channels = vi->channels;
-        sampleRate = vi->rate;
-        bitrate = vi->bitrate_nominal;
-        if (bitrate <= 0) {
-          bitrate = vi->bitrate_upper;
+        info.valid = true;
+        info.version = vi->version;
+        info.channels = vi->channels;
+        info.sampleRate = vi->rate;
+        info.bitrate = vi->bitrate_nominal;
+        if (info.bitrate <= 0) {
+          info.bitrate = vi->bitrate_upper;
         }
-        if (bitrate <= 0) {
-          bitrate = vi->bitrate_lower;
+        if (info.bitrate <= 0) {
+          info.bitrate = vi->bitrate_lower;
         }
       }
-      duration = static_cast<long>(::ov_time_total(&vf, -1));
+      info.duration = static_cast<long>(::ov_time_total(&vf, -1));
       ::ov_clear(&vf); // closes file, do not use ::fclose()
     } else {
       fp.close();
     }
   }
-  return valid;
+  return info.valid;
 }
 #endif // HAVE_VORBIS
 

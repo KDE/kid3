@@ -160,24 +160,13 @@ private:
   FlacFile(const FlacFile&);
   FlacFile& operator=(const FlacFile&);
 
-  /** Information about a FLAC file. */
-  struct FileInfo {
-    FileInfo() : channels(0), sampleRate(0), bitrate(0),
-      duration(0), valid(false) {}
-
-    /**
-     * Read information about a FLAC file.
-     * @param si stream info
-     * @return true if ok.
-     */
-    bool read(FLAC::Metadata::StreamInfo* si);
-
-    unsigned channels;      /**< number of channels */
-    unsigned sampleRate;    /**< sample rate in Hz */
-    unsigned long bitrate;  /**< bitrate in bits/s */
-    unsigned long duration; /**< duration in seconds */
-    bool valid;             /**< true if read() was successful */
-  };
+  /**
+   * Read information about a FLAC file.
+   * @param info file info to fill
+   * @param si stream info
+   * @return true if ok.
+   */
+  bool readFileInfo(FileInfo& info, FLAC::Metadata::StreamInfo* si) const;
 
   /**
    * Set the vorbis comment block with the comments.
@@ -191,9 +180,6 @@ private:
   typedef QList<Frame> PictureList;
   PictureList m_pictures;
 #endif // HAVE_FLAC_PICTURE
-
-  /** Info about file. */
-  FileInfo m_fileInfo;
 
   /** FLAC metadata chain. */
   FLAC::Metadata::Chain* m_chain;

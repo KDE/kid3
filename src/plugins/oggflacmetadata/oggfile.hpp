@@ -368,23 +368,11 @@ protected:
   /** Comments of this file. */
   CommentList m_comments;
 
-private:
-  OggFile(const OggFile&);
-  OggFile& operator=(const OggFile&);
-
-#ifdef HAVE_VORBIS
   /** Information about Ogg/Vorbis file. */
   struct FileInfo {
     /** Constructor. */
     FileInfo() : version(0), channels(0),
       sampleRate(0), bitrate(0), duration(0), valid(false) {}
-
-    /**
-     * Read information about an Ogg/Vorbis file.
-     * @param fn file name
-     * @return true if ok.
-     */
-    bool read(const QString& fn);
 
     int version;     /**< vorbis encoder version */
     int channels;    /**< number of channels */
@@ -396,6 +384,19 @@ private:
 
   /** Info about file. */
   FileInfo m_fileInfo;
+
+private:
+  OggFile(const OggFile&);
+  OggFile& operator=(const OggFile&);
+
+#ifdef HAVE_VORBIS
+  /**
+   * Read information about an Ogg/Vorbis file.
+   * @param info file info to fill
+   * @param fn file name
+   * @return true if ok.
+   */
+  bool readFileInfo(FileInfo& info, const QString& fn) const;
 #endif // HAVE_VORBIS
 };
 
