@@ -362,6 +362,12 @@ protected:
   void setTextField(const QString& name, const QString& value,
                     Frame::Type type);
 
+protected:
+  /** true if file has been read. */
+  bool m_fileRead;
+  /** Comments of this file. */
+  CommentList m_comments;
+
 private:
   OggFile(const OggFile&);
   OggFile& operator=(const OggFile&);
@@ -391,12 +397,6 @@ private:
   /** Info about file. */
   FileInfo m_fileInfo;
 #endif // HAVE_VORBIS
-
-protected:
-  /** Comments of this file. */
-  CommentList m_comments;
-  /** true if file has been read. */
-  bool m_fileRead;
 };
 
 #endif // OGGFILE_H

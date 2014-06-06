@@ -570,15 +570,16 @@ QList<TagLibFile*> TagLibFile::s_openFiles;
  */
 TagLibFile::TagLibFile(const QString& dn, const QString& fn,
                        const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0),
+  TaggedFile(dn, fn, idx),
+  m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
+  m_isTagV1Supported(false), m_fileRead(false),
+  m_tagV1(0), m_tagV2(0),
 #if TAGLIB_VERSION >= 0x010800
   m_stream(0),
   m_id3v2Version(0),
 #endif
   m_activatedFeatures(0), m_duration(0),
-  m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown),
-  m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
-  m_isTagV1Supported(false), m_fileRead(false)
+  m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
 {
 }
 

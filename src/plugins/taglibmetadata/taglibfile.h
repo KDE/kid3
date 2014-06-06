@@ -645,6 +645,13 @@ private:
    */
   static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
+  bool m_tagInformationRead;
+  bool m_hasTagV1;
+  bool m_hasTagV2;
+  bool m_isTagV1Supported;
+
+  bool m_fileRead;           /**< true if file has been read */
+
   TagLib::FileRef m_fileRef; /**< file reference */
   TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
   TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
@@ -676,13 +683,6 @@ private:
 
   Pictures m_pictures;
 #endif
-
-  bool m_tagInformationRead;
-  bool m_hasTagV1;
-  bool m_hasTagV2;
-  bool m_isTagV1Supported;
-
-  bool m_fileRead;           /**< true if file has been read */
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
