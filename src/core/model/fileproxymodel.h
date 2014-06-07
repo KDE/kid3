@@ -48,7 +48,8 @@ class KID3_CORE_EXPORT FileProxyModel : public QSortFilterProxyModel {
 public:
   /** Custom role, extending QFileSystemModel::Roles. */
   enum Roles {
-    TaggedFileRole = Qt::UserRole + 4
+    TaggedFileRole = Qt::UserRole + 4,
+    IconIdRole = Qt::UserRole + 5
   };
 
   /**
@@ -105,6 +106,14 @@ public:
    * @param order ascending or descending order
    */
   virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
+
+#if QT_VERSION >= 0x050000
+  /**
+   * Map role identifiers to role property names in scripting languages.
+   * @return hash mapping role identifiers to names.
+   */
+  virtual QHash<int, QByteArray> roleNames() const;
+#endif
 
   /**
    * Check if the model is currently loading a directory.
@@ -205,6 +214,12 @@ public:
    * @return true if at least one of the files in the model has been modified.
    */
   bool isModified() const { return m_numModifiedFiles > 0; }
+
+  /**
+   * Get icon provider.
+   * @return icon provider.
+   */
+  TaggedFileIconProvider* getIconProvider() const { return m_iconProvider; }
 
   /**
    * Access to tagged file factories.

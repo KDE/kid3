@@ -45,6 +45,20 @@
 
 QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
 
+namespace {
+
+QHash<int,QByteArray> getRoleHash()
+{
+  QHash<int, QByteArray> roles;
+  roles[QFileSystemModel::FileNameRole] = "fileName";
+  roles[QFileSystemModel::FilePathRole] = "filePath";
+  roles[FileProxyModel::IconIdRole] = "iconId";
+  roles[Qt::BackgroundRole] = "background";
+  return roles;
+}
+
+}
+
 /**
  * Constructor.
  *
@@ -64,6 +78,9 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_sortTimer->setSingleShot(true);
   m_sortTimer->setInterval(100);
   connect(m_sortTimer, SIGNAL(timeout()), this, SLOT(emitSortingFinished()));
+#if QT_VERSION < 0x050000
+  setRoleNames(getRoleHash());
+#endif
 }
 
 /**
@@ -74,6 +91,18 @@ FileProxyModel::~FileProxyModel()
   clearTaggedFileStore();
   delete m_iconProvider;
 }
+
+#if QT_VERSION >= 0x050000
+/**
+ * Map role identifiers to role property names in scripting languages.
+ * @return hash mapping role identifiers to names.
+ */
+QHash<int,QByteArray> FileProxyModel::roleNames() const
+{
+  static QHash<int, QByteArray> roles = getRoleHash();
+  return roles;
+}
+#endif
 
 /**
  * Get file information of model index.
@@ -243,6 +272,11 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
         if (color.isValid())
           return color;
       }
+    } else if (role == IconIdRole && index.column() == 0) {
+      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      return taggedFile
+          ? m_iconProvider->iconIdForTaggedFile(taggedFile)
+          : QByteArray("");
     }
   }
   return QSortFilterProxyModel::data(index, role);

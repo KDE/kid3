@@ -35,6 +35,20 @@
 #include "tracknumbervalidator.h"
 #include "pictureframe.h"
 
+namespace {
+
+QHash<int,QByteArray> getRoleHash()
+{
+  QHash<int, QByteArray> roles;
+  roles[Qt::CheckStateRole] = "checkState";
+  roles[FrameTableModel::FrameTypeRole] = "frameType";
+  roles[FrameTableModel::NameRole] = "name";
+  roles[FrameTableModel::ValueRole] = "value";
+  return roles;
+}
+
+}
+
 /**
  * Constructor.
  * @param id3v1  true if model for ID3v1 frames
@@ -45,6 +59,9 @@ FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   m_id3v1(id3v1)
 {
   setObjectName(QLatin1String("FrameTableModel"));
+#if QT_VERSION < 0x050000
+  setRoleNames(getRoleHash());
+#endif
 }
 
 /**
@@ -149,6 +166,10 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     }
   } else if (role == FrameTypeRole) {
     return it->getType();
+  } else if (role == NameRole) {
+    return getDisplayName(it->getName());
+  } else if (role == ValueRole) {
+    return it->getValue();
   }
   return QVariant();
 }
@@ -167,7 +188,8 @@ bool FrameTableModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  if (role == Qt::EditRole && index.column() == CI_Value) {
+  if ((role == Qt::EditRole && index.column() == CI_Value) ||
+      role == ValueRole) {
     QString valueStr(value.toString());
     FrameCollection::iterator it = frameAt(index.row());
     if (valueStr != (*it).getValue()) {
@@ -283,6 +305,18 @@ bool FrameTableModel::removeRows(int row, int count,
   }
   return true;
 }
+
+#if QT_VERSION >= 0x050000
+/**
+ * Map role identifiers to role property names in scripting languages.
+ * @return hash mapping role identifiers to names.
+ */
+QHash<int,QByteArray> FrameTableModel::roleNames() const
+{
+  static QHash<int, QByteArray> roles = getRoleHash();
+  return roles;
+}
+#endif
 
 /**
  * Get the frame at a specific position in the collection.

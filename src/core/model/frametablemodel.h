@@ -41,7 +41,9 @@ class KID3_CORE_EXPORT FrameTableModel : public QAbstractTableModel {
 public:
   /** Custom role. */
   enum Roles {
-    FrameTypeRole = Qt::UserRole + 1
+    FrameTypeRole = Qt::UserRole + 1,
+    NameRole = Qt::UserRole + 2,
+    ValueRole =  Qt::UserRole + 3
   };
 
   /** Column indices. */
@@ -143,6 +145,14 @@ public:
    */
   virtual bool insertRows(int row, int count,
                           const QModelIndex& parent=QModelIndex());
+
+#if QT_VERSION >= 0x050000
+  /**
+   * Map role identifiers to role property names in scripting languages.
+   * @return hash mapping role identifiers to names.
+   */
+  virtual QHash<int,QByteArray> roleNames() const;
+#endif
 
   /**
    * Insert a frame.

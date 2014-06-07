@@ -205,12 +205,18 @@ static const char* const notag_xpm[] = {
  * Constructor.
  */
 TaggedFileIconProvider::TaggedFileIconProvider() :
-  m_nullIcon(QPixmap((const char **)null_xpm)),
-  m_modifiedIcon(QPixmap((const char **)modified_xpm)),
-  m_v1v2Icon(QPixmap((const char **)v1v2_xpm)),
-  m_v1Icon(QPixmap((const char **)v1_xpm)),
-  m_v2Icon(QPixmap((const char **)v2_xpm)),
-  m_notagIcon(QPixmap((const char **)notag_xpm))
+  m_nullPixmap((const char **)null_xpm),
+  m_nullIcon(m_nullPixmap),
+  m_modifiedPixmap((const char **)modified_xpm),
+  m_modifiedIcon(m_modifiedPixmap),
+  m_v1v2Pixmap((const char **)v1v2_xpm),
+  m_v1v2Icon(m_v1v2Pixmap),
+  m_v1Pixmap((const char **)v1_xpm),
+  m_v1Icon(m_v1Pixmap),
+  m_v2Pixmap((const char **)v2_xpm),
+  m_v2Icon(m_v2Pixmap),
+  m_notagPixmap((const char **)notag_xpm),
+  m_notagIcon(m_notagPixmap)
 {
 }
 
@@ -236,6 +242,55 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
     }
   }
   return QIcon();
+}
+
+/**
+ * Get an icon ID for a tagged file.
+ *
+ * @param taggedFile tagged file
+ *
+ * @return icon ID for tagged file
+ */
+QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
+    const TaggedFile* taggedFile) const
+{
+  if (taggedFile) {
+    if (taggedFile->isChanged()) {
+      return "modified";
+    } else {
+      if (!taggedFile->isTagInformationRead())
+        return "null";
+      if (taggedFile->hasTagV1())
+        return taggedFile->hasTagV2() ? "v1v2" : "v1";
+      else
+        return taggedFile->hasTagV2() ? "v2" : "notag";
+    }
+  }
+  return "";
+}
+
+/**
+ * Get pixmap for an icon ID.
+ * @param id icon ID as returned by iconIdForTaggedFile(), or data for image
+ * set with setImageData()
+ * @return pixmap for @a id.
+ */
+QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id) const
+{
+  if (id == "null") {
+    return m_nullPixmap;
+  } else if (id == "v1v2") {
+    return m_v1v2Pixmap;
+  } else if (id == "v1") {
+    return m_v1Pixmap;
+  } else if (id == "v2") {
+    return m_v2Pixmap;
+  } else if (id == "modified") {
+    return m_modifiedPixmap;
+  } else if (id == "notag") {
+    return m_notagPixmap;
+  }
+  return QPixmap();
 }
 
 /**

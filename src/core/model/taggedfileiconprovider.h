@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,14 +28,16 @@
 #define TAGGEDFILEICONPROVIDER_H
 
 #include <QIcon>
+#include <QPixmap>
 #include <QColor>
+#include "kid3api.h"
 
 class TaggedFile;
 
 /**
  * Provides icons for tagged files.
  */
-class TaggedFileIconProvider {
+class KID3_CORE_EXPORT TaggedFileIconProvider {
 public:
   /**
    * Constructor.
@@ -52,6 +54,23 @@ public:
   QIcon iconForTaggedFile(const TaggedFile* taggedFile);
 
   /**
+   * Get an icon ID for a tagged file.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return icon ID for tagged file
+   */
+  QByteArray iconIdForTaggedFile(const TaggedFile* taggedFile) const;
+
+  /**
+   * Get pixmap for an icon ID.
+   * @param id icon ID as returned by iconIdForTaggedFile(), or data for image
+   * set with setImageData()
+   * @return pixmap for @a id.
+   */
+  QPixmap pixmapForIconId(const QByteArray& id) const;
+
+  /**
    * Get background color for a tagged file.
    *
    * @param taggedFile tagged file
@@ -62,16 +81,22 @@ public:
 
 private:
   /** Empty icon */
+  QPixmap m_nullPixmap;
   QIcon m_nullIcon;
   /** Icon for modified file */
+  QPixmap m_modifiedPixmap;
   QIcon m_modifiedIcon;
   /** Icon for V1V2 */
+  QPixmap m_v1v2Pixmap;
   QIcon m_v1v2Icon;
   /** Icon for V1 */
+  QPixmap m_v1Pixmap;
   QIcon m_v1Icon;
   /** Icon for V2 */
+  QPixmap m_v2Pixmap;
   QIcon m_v2Icon;
   /** Icon for "no tag" */
+  QPixmap m_notagPixmap;
   QIcon m_notagIcon;
 };
 
