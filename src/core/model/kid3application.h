@@ -72,6 +72,32 @@ class AudioPlayer;
  */
 class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_OBJECT
+  /** File proxy model. */
+  Q_PROPERTY(FileProxyModel* fileProxyModel READ getFileProxyModel CONSTANT)
+  /** Directory proxy model. */
+  Q_PROPERTY(DirProxyModel* dirProxyModel READ getDirProxyModel CONSTANT)
+  /** Tag 1 genre model. */
+  Q_PROPERTY(GenreModel* genreModelV1 READ genreModelV1 CONSTANT)
+  /** Tag 2 genre model. */
+  Q_PROPERTY(GenreModel* genreModelV2 READ genreModelV2 CONSTANT)
+  /** Tag 1 frame table model. */
+  Q_PROPERTY(FrameTableModel* frameModelV1 READ frameModelV1 CONSTANT)
+  /** Tag 2 frame table model. */
+  Q_PROPERTY(FrameTableModel* frameModelV2 READ frameModelV2 CONSTANT)
+  /** Frame list. */
+  Q_PROPERTY(FrameList* frameList READ getFrameList CONSTANT)
+  /** Information about selected tagged files. */
+  Q_PROPERTY(TaggedFileSelection* selectionInfo READ selectionInfo CONSTANT)
+  /** Root index of opened directory in file proxy model. */
+  Q_PROPERTY(QModelIndex fileRootIndex READ getRootIndex NOTIFY fileRootIndexChanged)
+  /** Root index of opened directory in directory proxy model. */
+  Q_PROPERTY(QModelIndex dirRootIndex READ getDirRootIndex NOTIFY dirRootIndexChanged)
+  /** Directory name. */
+  Q_PROPERTY(QString dirName READ getDirName NOTIFY dirNameChanged)
+  /** Modification state. */
+  Q_PROPERTY(bool modified READ isModified NOTIFY modifiedChanged)
+  /** Filtered state. */
+  Q_PROPERTY(bool filtered READ isFiltered WRITE setFiltered NOTIFY filteredChanged)
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -279,7 +305,7 @@ public:
    *
    * @return true if ok.
    */
-  bool openDirectory(const QStringList& paths, bool fileCheck = false);
+  Q_INVOKABLE bool openDirectory(const QStringList& paths, bool fileCheck = false);
 
   /**
    * Get root index of opened directory in file proxy model.
@@ -307,18 +333,18 @@ public:
    *
    * @return list of files with error, empty if ok.
    */
-  QStringList saveDirectory();
+  Q_INVOKABLE QStringList saveDirectory();
 
   /**
    * Update tags of selected files to contain contents of frame models.
    */
-  void frameModelsToTags();
+  Q_INVOKABLE void frameModelsToTags();
 
   /**
    * Update frame models to contain contents of selected files.
    * The properties starting with "selection" will be set by this method.
    */
-  void tagsToFrameModels();
+  Q_INVOKABLE void tagsToFrameModels();
 
   /**
    * Access to information about selected tagged files.
@@ -357,7 +383,7 @@ public:
    *
    * @return true if ok.
    */
-  bool writePlaylist(const PlaylistConfig& cfg);
+  Q_INVOKABLE bool writePlaylist(const PlaylistConfig& cfg);
 
   /**
    * Write playlist using current playlist configuration.
@@ -502,7 +528,7 @@ public:
    *
    * @return filter string.
    */
-  QString createFilterString() const;
+  Q_INVOKABLE QString createFilterString() const;
 
   /**
    * Get image destination set by downloadImage().

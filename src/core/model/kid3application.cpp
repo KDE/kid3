@@ -258,7 +258,7 @@ QObjectList Kid3Application::loadPlugins()
 #endif
   bool pluginsDirFound = pluginsDir.cd(QLatin1String(
       (dirName == QLatin1String("qt") || dirName == QLatin1String("kde") ||
-       dirName == QLatin1String("cli"))
+       dirName == QLatin1String("cli") || dirName == QLatin1String("qml"))
       ? "../../plugins"
       : dirName == QLatin1String("test")
         ? "../plugins"

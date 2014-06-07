@@ -16,6 +16,10 @@ if (BUILD_QT_APP)
   add_subdirectory(qt)
 endif (BUILD_QT_APP)
 
+if (BUILD_QML_APP)
+  add_subdirectory(qml)
+endif (BUILD_QML_APP)
+
 if (BUILD_KDE_APP)
   set(_cmakeInstallRpath "${CMAKE_INSTALL_RPATH}")
   find_package(KDE4 REQUIRED)
