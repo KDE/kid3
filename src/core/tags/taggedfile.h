@@ -145,6 +145,7 @@ public:
 
   /**
    * Read tags from file.
+   * Implementations should call notifyModelDataChanged().
    *
    * @param force true to force reading even if tags were already read.
    */
@@ -824,6 +825,18 @@ protected:
    * @return file proxy model.
    */
   const FileProxyModel* getFileProxyModel() const;
+
+  /**
+   * Notify model about changes in extra model data, e.g. the information on
+   * which the TaggedFileIconProvider depends.
+   *
+   * This method shall be called when such data changes, e.g. at the end of
+   * readTags() implementations.
+   *
+   * @param priorIsTagInformationRead prior value returned by
+   * isTagInformationRead()
+   */
+  void notifyModelDataChanged(bool priorIsTagInformationRead) const;
 
 private:
   TaggedFile(const TaggedFile&);

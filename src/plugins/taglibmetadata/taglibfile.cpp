@@ -647,6 +647,7 @@ void TagLibFile::setActiveTaggedFileFeatures(int features)
  */
 void TagLibFile::readTags(bool force)
 {
+  bool priorIsTagInformationRead = isTagInformationRead();
   QString fileName = currentFilePath();
   QByteArray fn = QFile::encodeName(fileName);
 
@@ -852,6 +853,8 @@ void TagLibFile::readTags(bool force)
   if (force) {
     setFilename(currentFilename());
   }
+
+  notifyModelDataChanged(priorIsTagInformationRead);
 }
 
 /**

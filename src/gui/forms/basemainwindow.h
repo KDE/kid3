@@ -149,12 +149,6 @@ public:
   void openRecentDirectory(const QString& dir);
 
   /**
-   * Set window title with information from directory, filter and modification
-   * state.
-   */
-  void updateWindowCaption();
-
-  /**
    * Apply configuration changes.
    */
   void applyChangedConfiguration();
@@ -172,6 +166,12 @@ public:
   Kid3Form* form() { return m_form; }
 
 public slots:
+  /**
+   * Set window title with information from directory, filter and modification
+   * state.
+   */
+  void updateWindowCaption();
+
   /**
    * Open directory, user has to confirm if current directory modified.
    *
@@ -328,11 +328,6 @@ private slots:
    * @param taggedFile the selected file
    */
   void updateAfterFrameModification(TaggedFile* taggedFile);
-
-  /**
-   * Update modification state, caption and listbox entries.
-   */
-  void updateModificationState();
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**

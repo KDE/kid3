@@ -445,6 +445,7 @@ QString M4aFile::taggedFileKey() const
  */
 void M4aFile::readTags(bool force)
 {
+  bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_metadata.clear();
     markTag2Unchanged();
@@ -576,6 +577,8 @@ void M4aFile::readTags(bool force)
   if (force) {
     setFilename(currentFilename());
   }
+
+  notifyModelDataChanged(priorIsTagInformationRead);
 }
 
 /**

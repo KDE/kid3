@@ -414,6 +414,25 @@ void TaggedFile::updateModifiedState()
 }
 
 /**
+ * Notify model about changes in extra model data, e.g. the information on
+ * which the TaggedFileIconProvider depends.
+ *
+ * This method shall be called when such data changes, e.g. at the end of
+ * readTags() implementations.
+ *
+ * @param priorIsTagInformationRead prior value returned by
+ * isTagInformationRead()
+ */
+void TaggedFile::notifyModelDataChanged(bool priorIsTagInformationRead) const
+{
+  if (isTagInformationRead() != priorIsTagInformationRead) {
+    if (const FileProxyModel* model = getFileProxyModel()) {
+      const_cast<FileProxyModel*>(model)->notifyModelDataChanged(m_index);
+    }
+  }
+}
+
+/**
  * Remove artist part from album string.
  * This is used when only the album is needed, but the regexp in
  * getTagsFromFilename() matched a "artist - album" string.

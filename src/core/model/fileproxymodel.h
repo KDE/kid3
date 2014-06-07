@@ -141,15 +141,6 @@ public:
   void applyFilteringOutIndexes();
 
   /**
-   * Emit dataChanged() to the model to force an update of the connected views,
-   * e.g. when the modification state changes.
-   * @param topLeft top left item changed
-   * @param bottomRight bottom right item changed
-   */
-  void emitDataChanged(const QModelIndex& topLeft,
-                       const QModelIndex& bottomRight);
-
-  /**
    * Get file information of model index.
    * @return file information
    */
@@ -201,6 +192,13 @@ public:
    * @param modified true if file is modified
    */
   void notifyModificationChanged(const QModelIndex& index, bool modified);
+
+  /**
+   * Called from tagged file to notify changes in extra model data, e.g. the
+   * information on which the TaggedFileIconProvider depends.
+   * @param index model index
+   */
+  void notifyModelDataChanged(const QModelIndex& index);
 
   /**
    * Check if any file has been modified.

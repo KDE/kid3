@@ -243,7 +243,6 @@ QuitCommand::QuitCommand(Kid3Cli* processor) :
 
 void QuitCommand::startCommand()
 {
-  cli()->app()->updateModified();
   if (cli()->app()->isModified() && !cli()->app()->getDirName().isEmpty()) {
     if (!(args().size() > 1 && args().at(1) == QLatin1String("force"))) {
       cli()->writeLine(tr("The current directory has been modified."));

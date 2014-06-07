@@ -137,7 +137,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileFilter(0),
   m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
-  m_modified(false), m_filtered(false),
+  m_filtered(false),
   m_selectionHasTagV1(false), m_selectionHasTagV2(false)
 {
   setObjectName(QLatin1String("Kid3Application"));
@@ -147,6 +147,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
+  connect(m_fileProxyModel, SIGNAL(modifiedChanged(bool)),
+          this, SIGNAL(modifiedChanged(bool)));
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
@@ -475,7 +477,6 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
     ok = rootIndex.isValid();
   }
   if (ok) {
-    setModified(false);
     setFiltered(false);
     m_dirName = dir;
     QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
@@ -713,32 +714,10 @@ void Kid3Application::revertFileModifications()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(true);
-    // update icon
-    getFileProxyModel()->emitDataChanged(taggedFile->getIndex(),
-                                         taggedFile->getIndex());
   }
   if (!it.hasNoSelection()) {
     emit selectedFilesUpdated();
   }
-  else {
-    emit fileModified();
-  }
-}
-
-/**
- * Update modification state from files.
- */
-void Kid3Application::updateModified()
-{
-  TaggedFileIterator it(m_fileProxyModelRootIndex);
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    if (taggedFile->isChanged()) {
-      m_modified = true;
-      return;
-    }
-  }
-  m_modified = false;
 }
 
 /**
@@ -954,9 +933,6 @@ void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
 
   if (getFileSelectionModel()->hasSelection()) {
     emit selectedFilesUpdated();
-  }
-  else {
-    emit fileModified();
   }
 }
 
@@ -2237,7 +2213,6 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
     m_fileProxyModelIterator->abort();
     m_fileProxyModel->applyFilteringOutIndexes();
     setFiltered(!m_fileFilter->isEmptyFilterExpression());
-    emit fileModified();
 
     disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
                this, SLOT(filterNextFile(QPersistentModelIndex)));
@@ -2313,6 +2288,16 @@ bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
     return true;
   }
   return false;
+}
+
+/**
+ * Check modification state.
+ *
+ * @return true if a file is modified.
+ */
+bool Kid3Application::isModified() const
+{
+  return m_fileProxyModel->isModified();
 }
 
 /**

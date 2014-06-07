@@ -506,23 +506,11 @@ public:
   }
 
   /**
-   * Set modification state.
-   *
-   * @param val true if a file is modified
-   */
-  void setModified(bool val) { m_modified = val; }
-
-  /**
    * Check modification state.
    *
    * @return true if a file is modified.
    */
-  bool isModified() { return m_modified; }
-
-  /**
-   * Update modification state from files.
-   */
-  void updateModified();
+  bool isModified() const;
 
   /**
    * Set filter state.
@@ -536,7 +524,7 @@ public:
    *
    * @return true if list is filtered.
    */
-  bool isFiltered() { return m_filtered; }
+  bool isFiltered() const { return m_filtered; }
 
   /**
    * Get format used to generate filename from tags.
@@ -990,10 +978,11 @@ signals:
   void frameModified(TaggedFile* taggedFile);
 
   /**
-   * Emitted after a file has been modified.
-   * The GUI should update its modification state when receiving this signal.
+   * Emitted when modification state is changed.
+   * @param modified true if any file is modified
+   * @see isModified(), setModified()
    */
-  void fileModified();
+  void modifiedChanged(bool modified);
 
   /**
    * Emitted when setFilenameToTagsFormat() changed.
@@ -1172,8 +1161,6 @@ private:
   /* Context for addFrame() */
   TaggedFile* m_addFrameTaggedFile;
 
-  /** true if any file was modified */
-  bool m_modified;
   /** true if list is filtered */
   bool m_filtered;
   /** true if any of the selected files has a tag 1 */

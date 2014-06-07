@@ -127,6 +127,7 @@ int Mp3File::taggedFileFeatures() const
  */
 void Mp3File::readTags(bool force)
 {
+  bool priorIsTagInformationRead = isTagInformationRead();
   QByteArray fn = QFile::encodeName(currentFilePath());
 
   if (force && m_tagV1) {
@@ -154,6 +155,8 @@ void Mp3File::readTags(bool force)
   if (force) {
     setFilename(currentFilename());
   }
+
+  notifyModelDataChanged(priorIsTagInformationRead);
 }
 
 /**

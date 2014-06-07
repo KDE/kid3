@@ -185,6 +185,7 @@ int OggFile::taggedFileFeatures() const
  */
 void OggFile::readTags(bool force)
 {
+  bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_comments.clear();
     markTag2Unchanged();
@@ -226,6 +227,8 @@ void OggFile::readTags(bool force)
   if (force) {
     setFilename(currentFilename());
   }
+
+  notifyModelDataChanged(priorIsTagInformationRead);
 }
 
 /**

@@ -128,8 +128,6 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateGuiControls()));
   connect(m_app, SIGNAL(frameModified(TaggedFile*)),
           this, SLOT(updateAfterFrameModification(TaggedFile*)));
-  connect(m_app, SIGNAL(fileModified()),
-          this, SLOT(updateModificationState()));
   connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
           this, SLOT(confirmedOpenDirectory(QStringList)));
   connect(m_app, SIGNAL(toggleExpandedRequested(QModelIndex)),
@@ -139,6 +137,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   connect(m_app,
     SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
     this, SLOT(onDirectoryOpened()));
+  connect(m_app, SIGNAL(modifiedChanged(bool)),
+          this, SLOT(updateWindowCaption()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
@@ -253,7 +253,6 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
 
   m_w->statusBar()->removeWidget(progress);
   delete progress;
-  updateModificationState();
   if (!errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
     foreach (const QString& filePath, errorFiles) {
@@ -324,7 +323,6 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
         if (m_form->getFileList()->selectionModel())
           m_form->getFileList()->selectionModel()->clearSelection();
         m_app->revertFileModifications();
-        m_app->setModified(false);
       }
       completed=true;
       break;
@@ -848,25 +846,6 @@ void BaseMainWindowImpl::showPlayToolBar()
 #endif
 
 /**
- * Update modification state, caption and listbox entries.
- */
-void BaseMainWindowImpl::updateModificationState()
-{
-  bool modified = false;
-  TaggedFileIterator it(m_form->getFileList()->rootIndex());
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    if (taggedFile->isChanged()) {
-      modified = true;
-      m_form->getFileList()->dataChanged(taggedFile->getIndex(),
-                                         taggedFile->getIndex());
-    }
-  }
-  m_app->setModified(modified);
-  updateWindowCaption();
-}
-
-/**
  * Set window title with information from directory, filter and modification
  * state.
  */
@@ -900,7 +879,6 @@ void BaseMainWindowImpl::updateCurrentSelection()
       }
     }
   }
-  updateModificationState();
 }
 
 /**
@@ -954,7 +932,6 @@ void BaseMainWindowImpl::updateGuiControls()
       m_form->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
     }
   }
-  updateModificationState();
 
   m_form->enableControlsV1(m_app->selectionTagV1SupportedCount() > 0 ||
                            m_app->selectionFileCount() == 0);
@@ -976,7 +953,6 @@ void BaseMainWindowImpl::updateAfterFrameModification(TaggedFile* taggedFile)
     FrameCollection frames;
     taggedFile->getAllFramesV2(frames);
     m_app->frameModelV2()->transferFrames(frames);
-    updateModificationState();
   }
 }
 
