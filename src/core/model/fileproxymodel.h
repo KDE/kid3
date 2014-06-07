@@ -162,6 +162,12 @@ public:
   QString filePath(const QModelIndex& index) const;
 
   /**
+   * Get file name of model index.
+   * @return name of file or directory
+   */
+  QString fileName(const QModelIndex& index) const;
+
+  /**
    * Check if model index represents directory.
    * @return true if directory
    */
@@ -201,7 +207,6 @@ public:
    * Create a tagged file with a given feature.
    *
    * @param feature tagged file feature
-   * @param dirName directory name
    * @param fileName filename
    * @param idx model index
    *
@@ -209,20 +214,19 @@ public:
    */
   static TaggedFile* createTaggedFile(
       TaggedFile::Feature feature,
-      const QString& dirName, const QString& fileName,
+      const QString& fileName,
       const QPersistentModelIndex& idx);
 
   /**
    * Create a tagged file.
    *
-   * @param dirName directory name
    * @param fileName filename
    * @param idx model index
    *
    * @return tagged file, 0 if not found or type not supported.
    */
   static TaggedFile* createTaggedFile(
-      const QString& dirName, const QString& fileName,
+      const QString& fileName,
       const QPersistentModelIndex& idx);
 
   /**

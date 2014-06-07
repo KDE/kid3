@@ -36,12 +36,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  M4aFile(const QString& dn, const QString& fn,
-          const QPersistentModelIndex& idx);
+  explicit M4aFile(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.

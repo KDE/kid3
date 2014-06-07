@@ -70,13 +70,10 @@
 /**
  * Constructor.
  *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
+ * @param idx index in file proxy model
  */
-M4aFile::M4aFile(const QString& dn, const QString& fn,
-                 const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx), m_fileRead(false)
+M4aFile::M4aFile(const QPersistentModelIndex& idx) :
+  TaggedFile(idx), m_fileRead(false)
 {
 }
 
@@ -454,9 +451,9 @@ void M4aFile::readTags(bool force)
     m_fileRead = true;
     QByteArray fnIn =
 #ifdef Q_OS_WIN32
-        (getDirname() + QDir::separator() + currentFilename()).toUtf8();
+        currentFilePath().toUtf8();
 #else
-        QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
+        QFile::encodeName(currentFilePath());
 #endif
 
     MP4FileHandle handle = MP4Read(fnIn);
@@ -595,7 +592,7 @@ void M4aFile::readTags(bool force)
 bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 {
   bool ok = true;
-  QString fnStr(getDirname() + QDir::separator() + currentFilename());
+  QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
     return false;
   }
@@ -895,11 +892,11 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
     }
   }
 
-  if (getFilename() != currentFilename()) {
+  if (isFilenameChanged()) {
     if (!renameFile(currentFilename(), getFilename())) {
       return false;
     }
-    updateCurrentFilename();
+    markFilenameUnchanged();
     // link tags to new file name
     readTags(true);
     *renamed = true;

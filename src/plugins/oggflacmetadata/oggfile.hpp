@@ -38,12 +38,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  OggFile(const QString& dn, const QString& fn,
-          const QPersistentModelIndex& idx);
+  explicit OggFile(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.

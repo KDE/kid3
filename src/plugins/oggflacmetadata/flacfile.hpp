@@ -45,12 +45,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  FlacFile(const QString& dn, const QString& fn,
-           const QPersistentModelIndex& idx);
+  explicit FlacFile(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.

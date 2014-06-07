@@ -92,7 +92,6 @@ void Mp4v2MetadataPlugin::initialize(const QString& key)
  * Create a tagged file.
  *
  * @param key tagged file key
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  * @param features optional tagged file features (TaggedFile::Feature flags)
@@ -102,7 +101,7 @@ void Mp4v2MetadataPlugin::initialize(const QString& key)
  */
 TaggedFile* Mp4v2MetadataPlugin::createTaggedFile(
     const QString& key,
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx,
     int features)
 {
@@ -112,7 +111,7 @@ TaggedFile* Mp4v2MetadataPlugin::createTaggedFile(
     if (ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") ||
         ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4") ||
         ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v"))
-      return new M4aFile(dirName, fileName, idx);
+      return new M4aFile(idx);
   }
   return 0;
 }

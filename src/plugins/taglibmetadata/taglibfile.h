@@ -68,12 +68,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  TagLibFile(const QString& dn, const QString& fn,
-             const QPersistentModelIndex& idx);
+  explicit TagLibFile(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.

@@ -82,13 +82,10 @@ ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
 /**
  * Constructor.
  *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
+ * @param idx index in file proxy model
  */
-Mp3File::Mp3File(const QString& dn, const QString& fn,
-                 const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0)
+Mp3File::Mp3File(const QPersistentModelIndex& idx) :
+  TaggedFile(idx), m_tagV1(0), m_tagV2(0)
 {
 }
 
@@ -130,7 +127,7 @@ int Mp3File::taggedFileFeatures() const
  */
 void Mp3File::readTags(bool force)
 {
-  QByteArray fn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
+  QByteArray fn = QFile::encodeName(currentFilePath());
 
   if (force && m_tagV1) {
     m_tagV1->Clear();
@@ -172,7 +169,7 @@ void Mp3File::readTags(bool force)
  */
 bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 {
-  QString fnStr(getDirname() + QDir::separator() + currentFilename());
+  QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
     return false;
   }
@@ -221,11 +218,11 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
     ::utime(fn, &times);
   }
 
-  if (getFilename() != currentFilename()) {
+  if (isFilenameChanged()) {
     if (!renameFile(currentFilename(), getFilename())) {
       return false;
     }
-    updateCurrentFilename();
+    markFilenameUnchanged();
     // link tags to new file name
     readTags(true);
     *renamed = true;

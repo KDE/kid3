@@ -106,7 +106,6 @@ void TaglibMetadataPlugin::initialize(const QString& key)
  * Create a tagged file.
  *
  * @param key tagged file key
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  * @param features optional tagged file features (TaggedFile::Feature flags)
@@ -116,7 +115,7 @@ void TaglibMetadataPlugin::initialize(const QString& key)
  */
 TaggedFile* TaglibMetadataPlugin::createTaggedFile(
     const QString& key,
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx,
     int features)
 {
@@ -156,7 +155,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext == QLatin1String("opus")
 #endif
         || ext2 == QLatin1String(".wv"))
-      return new TagLibFile(dirName, fileName, idx);
+      return new TagLibFile(idx);
   }
   return 0;
 }

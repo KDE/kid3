@@ -33,6 +33,8 @@
 #include <QPersistentModelIndex>
 #include "frame.h"
 
+class FileProxyModel;
+
 /** Base class for tagged files. */
 class KID3_CORE_EXPORT TaggedFile {
 public:
@@ -80,12 +82,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  TaggedFile(const QString& dn, const QString& fn,
-             const QPersistentModelIndex& idx);
+  explicit TaggedFile(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.
@@ -97,7 +96,7 @@ public:
    *
    * @param fn file name
    */
-  void setFilename(const QString& fn) { m_newFilename = fn; }
+  void setFilename(const QString& fn);
 
   /**
    * Get file name.
@@ -111,7 +110,7 @@ public:
    *
    * @return directory name
    */
-  QString getDirname() const { return m_dirname; }
+  QString getDirname() const;
 
   /**
    * Get key of tagged file format.
@@ -604,15 +603,16 @@ public:
    *
    * @return true if file was changed.
    */
-  bool isChanged() const { return m_changedV1 || m_changedV2 ||
-      m_newFilename != m_filename; }
+  bool isChanged() const {
+    return m_changedV1 || m_changedV2 || m_changedFilename;
+  }
 
   /**
    * Check if filename is changed.
    *
    * @return true if filename was changed.
    */
-  bool isFilenameChanged() const { return m_newFilename != m_filename; }
+  bool isFilenameChanged() const { return m_changedFilename; }
 
   /**
    * Get absolute filename.
@@ -763,12 +763,18 @@ protected:
    * Get current filename.
    * @return existing name.
    */
-  const QString& currentFilename() const { return m_filename; }
+  QString currentFilename() const;
 
   /**
-   * Set current filename to new filename.
+   * Get current path to file.
+   * @return absolute path.
    */
-  void updateCurrentFilename() { m_filename = m_newFilename; }
+  QString currentFilePath() const;
+
+  /**
+   * Mark filename as unchanged.
+   */
+  void markFilenameUnchanged() { m_changedFilename = false; }
 
   /**
    * Check if tag 1 was changed.
@@ -821,18 +827,20 @@ protected:
    */
   void clearTrunctionFlags() { m_truncation = 0; }
 
+  /**
+   * Get file proxy model.
+   * @return file proxy model.
+   */
+  const FileProxyModel* getFileProxyModel() const;
+
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);
 
-  /** Directory name */
-  QString m_dirname;
-  /** File name */
-  QString m_filename;
-  /** New file name */
-  QString m_newFilename;
   /** Index of file in model */
   QPersistentModelIndex m_index;
+  /** New file name */
+  QString m_newFilename;
   /** changed tag 1 frame types */
   quint64 m_changedFramesV1;
   /** changed tag 2 frame types */
@@ -843,6 +851,8 @@ private:
   bool m_changedV1;
   /** true if ID3v2 tags were changed */
   bool m_changedV2;
+  /** true if filename was changed */
+  bool m_changedFilename;
 };
 
 #endif // TAGGEDFILE_H

@@ -41,12 +41,9 @@ public:
   /**
    * Constructor.
    *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
+   * @param idx index in file proxy model
    */
-  Mp3File(const QString& dn, const QString& fn,
-          const QPersistentModelIndex& idx);
+  explicit Mp3File(const QPersistentModelIndex& idx);
 
   /**
    * Destructor.

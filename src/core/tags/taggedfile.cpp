@@ -33,20 +33,21 @@
 #include "genres.h"
 #include "modeliterator.h"
 #include "saferename.h"
+#include "fileproxymodel.h"
 
 /**
  * Constructor.
  *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
+ * @param idx index in file proxy model
  */
-TaggedFile::TaggedFile(const QString& dn, const QString& fn,
-                       const QPersistentModelIndex& idx) :
-  m_dirname(dn), m_filename(fn), m_newFilename(fn), m_index(idx),
-  m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
-  m_changedV1(false), m_changedV2(false)
+TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
+  m_index(idx), m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
+  m_changedV1(false), m_changedV2(false), m_changedFilename(false)
 {
+  Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
+  if (const FileProxyModel* model = getFileProxyModel()) {
+    m_newFilename = model->fileName(m_index);
+  }
 }
 
 /**
@@ -54,6 +55,64 @@ TaggedFile::TaggedFile(const QString& dn, const QString& fn,
  */
 TaggedFile::~TaggedFile()
 {
+}
+
+/**
+ * Get file proxy model.
+ * @return file proxy model.
+ */
+const FileProxyModel* TaggedFile::getFileProxyModel() const
+{
+  // The validity of this cast is checked in the constructor.
+  return static_cast<const FileProxyModel*>(m_index.model());
+}
+
+/**
+ * Get directory name.
+ *
+ * @return directory name
+ */
+QString TaggedFile::getDirname() const
+{
+  if (const FileProxyModel* model = getFileProxyModel()) {
+    return model->filePath(m_index.parent());
+  }
+  return QString();
+}
+
+/**
+ * Set file name.
+ *
+ * @param fn file name
+ */
+void TaggedFile::setFilename(const QString& fn)
+{
+  m_newFilename = fn;
+  m_changedFilename = m_newFilename != currentFilename();
+}
+
+/**
+ * Get current filename.
+ * @return existing name.
+ */
+QString TaggedFile::currentFilename() const
+{
+  if (const FileProxyModel* model = getFileProxyModel()) {
+    return model->fileName(m_index);
+  }
+  return QString();
+}
+
+/**
+ * Get current path to file.
+ * @return absolute path.
+ */
+QString TaggedFile::currentFilePath() const
+{
+  if (const FileProxyModel* model = getFileProxyModel()) {
+    return model->filePath(m_index);
+  }
+  return QString();
 }
 
 /**
@@ -281,7 +340,7 @@ bool TaggedFile::isTagV1Supported() const
  */
 QString TaggedFile::getAbsFilename() const
 {
-  QDir dir(m_dirname);
+  QDir dir(getDirname());
   return QDir::cleanPath(dir.absoluteFilePath(m_newFilename));
 }
 
@@ -540,16 +599,17 @@ QString TaggedFile::formatTime(unsigned seconds)
  */
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
+  QString dirname = getDirname();
   if (fnNew.toLower() == fnOld.toLower()) {
     // If the filenames only differ in case, the new file is reported to
     // already exist on case insensitive filesystems (e.g. Windows),
     // so it is checked if the new file is really the old file by
     // comparing inodes and devices. If the files are not the same,
     // another file would be overwritten and an error is reported.
-    if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
+    if (QFile::exists(dirname + QDir::separator() + fnNew)) {
       struct stat statOld, statNew;
-      if (::stat((m_dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
-          ::stat((m_dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
+      if (::stat((dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
+          ::stat((dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
           !(statOld.st_ino == statNew.st_ino &&
             statOld.st_dev == statNew.st_dev)) {
         qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
@@ -563,21 +623,21 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     // insensitive filesystems (e.g. Windows).
     QString temp_filename(fnNew);
     temp_filename.append(QLatin1String("_CASE"));
-    if (!Utils::safeRename(m_dirname, fnOld, temp_filename)) {
+    if (!Utils::safeRename(dirname, fnOld, temp_filename)) {
       qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
              temp_filename.toLatin1().data());
       return false;
     }
-    if (!Utils::safeRename(m_dirname, temp_filename, fnNew)) {
+    if (!Utils::safeRename(dirname, temp_filename, fnNew)) {
       qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
              fnNew.toLatin1().data());
       return false;
     }
-  } else if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
+  } else if (QFile::exists(dirname + QDir::separator() + fnNew)) {
     qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
            fnNew.toLatin1().data(), fnNew.toLatin1().data());
     return false;
-  } else if (!Utils::safeRename(m_dirname, fnOld, fnNew)) {
+  } else if (!Utils::safeRename(dirname, fnOld, fnNew)) {
     qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
            fnNew.toLatin1().data());
     return false;

@@ -112,7 +112,6 @@ void OggFlacMetadataPlugin::initialize(const QString& key)
  * Create a tagged file.
  *
  * @param key tagged file key
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  * @param features optional tagged file features (TaggedFile::Feature flags)
@@ -122,7 +121,7 @@ void OggFlacMetadataPlugin::initialize(const QString& key)
  */
 TaggedFile* OggFlacMetadataPlugin::createTaggedFile(
     const QString& key,
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx,
     int features)
 {
@@ -131,13 +130,13 @@ TaggedFile* OggFlacMetadataPlugin::createTaggedFile(
   if (key == OGG_KEY) {
     QString ext = fileName.right(4).toLower();
     if (ext == QLatin1String(".oga") || ext == QLatin1String(".ogg"))
-      return new OggFile(dirName, fileName, idx);
+      return new OggFile(idx);
   }
 #endif
 #ifdef HAVE_FLAC
   if (key == FLAC_KEY) {
     if (fileName.right(5).toLower() == QLatin1String(".flac"))
-      return new FlacFile(dirName, fileName, idx);
+      return new FlacFile(idx);
   }
 #endif
   return 0;

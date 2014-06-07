@@ -93,6 +93,19 @@ QString FileProxyModel::filePath(const QModelIndex& index) const
 }
 
 /**
+ * Get file name of model index.
+ * @return name of file or directory
+ */
+QString FileProxyModel::fileName(const QModelIndex& index) const
+{
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->fileName(sourceIndex);
+  }
+  return QString();
+}
+
+/**
  * Check if model index represents directory.
  * @return true if directory
  */
@@ -474,8 +487,7 @@ void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
   if (dat.isValid() || isDir(index))
     return;
 
-  QFileInfo info = fileInfo(index);
-  dat.setValue(createTaggedFile(info.path(), info.fileName(), index));
+  dat.setValue(createTaggedFile(fileName(index), index));
   setData(index, dat, TaggedFileRole);
 }
 
@@ -543,7 +555,7 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
   if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_ID3v24,
-          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+          taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(tagLibFile);
@@ -564,7 +576,6 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
  * Create a tagged file with a given feature.
  *
  * @param feature tagged file feature
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  *
@@ -572,13 +583,13 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::createTaggedFile(
     TaggedFile::Feature feature,
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx) {
   TaggedFile* taggedFile = 0;
   foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
     foreach (const QString& key, factory->taggedFileKeys()) {
       if ((factory->taggedFileFeatures(key) & feature) != 0 &&
-          (taggedFile = factory->createTaggedFile(key, dirName, fileName, idx,
+          (taggedFile = factory->createTaggedFile(key, fileName, idx,
                                                   feature))
           != 0) {
         return taggedFile;
@@ -591,19 +602,18 @@ TaggedFile* FileProxyModel::createTaggedFile(
 /**
  * Create a tagged file.
  *
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  *
  * @return tagged file, 0 if not found or type not supported.
  */
 TaggedFile* FileProxyModel::createTaggedFile(
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx) {
   TaggedFile* taggedFile = 0;
   foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
     foreach (const QString& key, factory->taggedFileKeys()) {
-      taggedFile = factory->createTaggedFile(key, dirName, fileName, idx);
+      taggedFile = factory->createTaggedFile(key, fileName, idx);
       if (taggedFile) {
         return taggedFile;
       }
@@ -623,7 +633,7 @@ TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
   if (TaggedFile* id3libFile = createTaggedFile(TaggedFile::TF_ID3v23,
-          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+          taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(id3libFile);

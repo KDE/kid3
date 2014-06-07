@@ -94,7 +94,6 @@ void Id3libMetadataPlugin::initialize(const QString& key)
  * Create a tagged file.
  *
  * @param key tagged file key
- * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  * @param features optional tagged file features (TaggedFile::Feature flags)
@@ -104,7 +103,7 @@ void Id3libMetadataPlugin::initialize(const QString& key)
  */
 TaggedFile* Id3libMetadataPlugin::createTaggedFile(
     const QString& key,
-    const QString& dirName, const QString& fileName,
+    const QString& fileName,
     const QPersistentModelIndex& idx,
     int features)
 {
@@ -114,7 +113,7 @@ TaggedFile* Id3libMetadataPlugin::createTaggedFile(
          ext == QLatin1String(".aac")) &&
         (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0 ||
          (features & TaggedFile::TF_ID3v23) != 0)) {
-      return new Mp3File(dirName, fileName, idx);
+      return new Mp3File(idx);
     }
   }
   return 0;

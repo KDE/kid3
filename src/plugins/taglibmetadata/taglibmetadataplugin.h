@@ -81,7 +81,7 @@ public:
   /**
    * Create a tagged file.
    *
-   * @param dirName directory name
+   * @param key tagged file key
    * @param fileName filename
    * @param idx model index
    * @param features optional tagged file features (TaggedFile::Feature flags)
@@ -91,7 +91,7 @@ public:
    */
   virtual TaggedFile* createTaggedFile(
       const QString& key,
-      const QString& dirName, const QString& fileName,
+      const QString& fileName,
       const QPersistentModelIndex& idx,
       int features = 0);
 

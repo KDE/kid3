@@ -45,13 +45,10 @@
 /**
  * Constructor.
  *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
+ * @param idx index in file proxy model
  */
-FlacFile::FlacFile(const QString& dn, const QString& fn,
-                   const QPersistentModelIndex& idx) :
-  OggFile(dn, fn, idx), m_chain(0)
+FlacFile::FlacFile(const QPersistentModelIndex& idx) :
+  OggFile(idx), m_chain(0)
 {
 }
 
@@ -142,7 +139,7 @@ void FlacFile::readTags(bool force)
     m_comments.clear();
     markTag2Unchanged();
     m_fileRead = true;
-    QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
+    QByteArray fnIn = QFile::encodeName(currentFilePath());
     readFileInfo(m_fileInfo, 0); // just to start invalid
     if (!m_chain) {
       m_chain = new FLAC::Metadata::Chain;
@@ -236,7 +233,7 @@ void FlacFile::readTags(bool force)
 bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 {
   if (isChanged() &&
-    !QFileInfo(getDirname() + QDir::separator() + currentFilename()).isWritable()) {
+    !QFileInfo(currentFilePath()).isWritable()) {
     return false;
   }
 
@@ -354,11 +351,11 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
       return false;
     }
   }
-  if (getFilename() != currentFilename()) {
+  if (isFilenameChanged()) {
     if (!renameFile(currentFilename(), getFilename())) {
       return false;
     }
-    updateCurrentFilename();
+    markFilenameUnchanged();
     // link tags to new file name
     readTags(true);
     *renamed = true;

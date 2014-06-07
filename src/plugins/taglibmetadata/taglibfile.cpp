@@ -564,13 +564,10 @@ QList<TagLibFile*> TagLibFile::s_openFiles;
 /**
  * Constructor.
  *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
+ * @param idx index in file proxy model
  */
-TagLibFile::TagLibFile(const QString& dn, const QString& fn,
-                       const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx),
+TagLibFile::TagLibFile(const QPersistentModelIndex& idx) :
+  TaggedFile(idx),
   m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
   m_isTagV1Supported(false), m_fileRead(false),
   m_tagV1(0), m_tagV2(0),
@@ -650,7 +647,7 @@ void TagLibFile::setActiveTaggedFileFeatures(int features)
  */
 void TagLibFile::readTags(bool force)
 {
-  QString fileName = getDirname() + QDir::separator() + currentFilename();
+  QString fileName = currentFilePath();
   QByteArray fn = QFile::encodeName(fileName);
 
   if (force || m_fileRef.isNull()) {
@@ -945,7 +942,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
                            int id3v2Version)
 {
-  QString fnStr(getDirname() + QDir::separator() + currentFilename());
+  QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 #if TAGLIB_VERSION >= 0x010800
     closeFile(false);
@@ -1108,11 +1105,11 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
     ::utime(fn, &times);
   }
 
-  if (getFilename() != currentFilename()) {
+  if (isFilenameChanged()) {
     if (!renameFile(currentFilename(), getFilename())) {
       return false;
     }
-    updateCurrentFilename();
+    markFilenameUnchanged();
     *renamed = true;
   }
 
