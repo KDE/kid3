@@ -479,6 +479,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   if (ok) {
     setFiltered(false);
     m_dirName = dir;
+    emit dirNameChanged(m_dirName);
     QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
     m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
     m_fileProxyModelFileIndexes.clear();
@@ -505,6 +506,11 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 void Kid3Application::emitDirectoryOpened()
 {
   emit directoryOpened(m_fileProxyModelRootIndex, m_fileProxyModelFileIndexes);
+  emit fileRootIndexChanged(m_fileProxyModelRootIndex);
+
+  QModelIndex fsRoot = m_fileProxyModel->mapToSource(m_fileProxyModelRootIndex);
+  m_dirProxyModelRootIndex = m_dirProxyModel->mapFromSource(fsRoot);
+  emit dirRootIndexChanged(m_dirProxyModelRootIndex);
 }
 
 /**
@@ -717,6 +723,19 @@ void Kid3Application::revertFileModifications()
   }
   if (!it.hasNoSelection()) {
     emit selectedFilesUpdated();
+  }
+}
+
+/**
+ * Set filter state.
+ *
+ * @param val true if list is filtered
+ */
+void Kid3Application::setFiltered(bool val)
+{
+  if (m_filtered != val) {
+    m_filtered = val;
+    emit filteredChanged(m_filtered);
   }
 }
 

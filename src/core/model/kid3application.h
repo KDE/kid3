@@ -255,6 +255,12 @@ public:
   }
 
   /**
+   * Get root index of opened directory in directory proxy model.
+   * @return index of directory root.
+   */
+  QModelIndex getDirRootIndex() const { return m_dirProxyModelRootIndex; }
+
+  /**
    * Get directory path of opened directory.
    * @return directory path.
    */
@@ -517,7 +523,7 @@ public:
    *
    * @param val true if list is filtered
    */
-  void setFiltered(bool val) { m_filtered = val; }
+  void setFiltered(bool val);
 
   /**
    * Check filter state.
@@ -937,6 +943,18 @@ signals:
                        const QList<QPersistentModelIndex>& fileIndexes);
 
   /**
+   * Emitted when the file proxy model root index changes.
+   * @param index new root index
+   */
+  void fileRootIndexChanged(const QModelIndex& index);
+
+  /**
+   * Emitted when the directory proxy model root index changes.
+   * @param index new root index
+   */
+  void dirRootIndexChanged(const QModelIndex& index);
+
+  /**
    * Emitted when a confirmed opening of a directory or file is requested.
    * @param paths directory or file paths
    */
@@ -980,9 +998,22 @@ signals:
   /**
    * Emitted when modification state is changed.
    * @param modified true if any file is modified
-   * @see isModified(), setModified()
+   * @see isModified()
    */
   void modifiedChanged(bool modified);
+
+  /**
+   * Emitted when filtered state is changed.
+   * @param filtered true if file list is filtered
+   * @see isFiltered(), setFiltered()
+   */
+  void filteredChanged(bool filtered);
+
+  /**
+   * Emitted when the directory name is changed.
+   * @param name current directory name
+   */
+  void dirNameChanged(const QString& name);
 
   /**
    * Emitted when setFilenameToTagsFormat() changed.
@@ -1124,6 +1155,8 @@ private:
   FrameCollection m_copyTags;
   /** Root index in file proxy model */
   QPersistentModelIndex m_fileProxyModelRootIndex;
+  /** Root index in directory proxy model */
+  QModelIndex m_dirProxyModelRootIndex;
   /** Indexes of opened file in file proxy model */
   QList<QPersistentModelIndex> m_fileProxyModelFileIndexes;
   /** Format to generate tags from filename */

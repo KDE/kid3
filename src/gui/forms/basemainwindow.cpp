@@ -139,6 +139,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
     this, SLOT(onDirectoryOpened()));
   connect(m_app, SIGNAL(modifiedChanged(bool)),
           this, SLOT(updateWindowCaption()));
+  connect(m_app, SIGNAL(filteredChanged(bool)),
+          this, SLOT(updateWindowCaption()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
