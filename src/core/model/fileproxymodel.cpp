@@ -53,7 +53,7 @@ QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_iconProvider(new TaggedFileIconProvider), m_fsModel(0),
   m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
-  m_isLoading(false)
+  m_numModifiedFiles(0), m_isLoading(false)
 {
   setObjectName(QLatin1String("FileProxyModel"));
   connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)),
@@ -64,6 +64,15 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_sortTimer->setSingleShot(true);
   m_sortTimer->setInterval(100);
   connect(m_sortTimer, SIGNAL(timeout()), this, SLOT(emitSortingFinished()));
+}
+
+/**
+ * Destructor.
+ */
+FileProxyModel::~FileProxyModel()
+{
+  clearTaggedFileStore();
+  delete m_iconProvider;
 }
 
 /**
@@ -176,15 +185,6 @@ void FileProxyModel::updateInsertedRows(const QModelIndex& parent,
     QModelIndex index(model->index(row, 0, parent));
     initTaggedFileData(index);
   }
-}
-
-/**
- * Destructor.
- */
-FileProxyModel::~FileProxyModel()
-{
-  clearTaggedFileStore();
-  delete m_iconProvider;
 }
 
 /**
@@ -686,7 +686,7 @@ TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
   if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_OggFlac,
-          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+          taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(tagLibFile);
@@ -742,4 +742,25 @@ TaggedFile* FileProxyModel::readTagsFromTaggedFile(TaggedFile* taggedFile)
   taggedFile = readWithId3V24IfId3V24(taggedFile);
   taggedFile = readWithOggFlacIfInvalidOgg(taggedFile);
   return taggedFile;
+}
+
+/**
+ * Called from tagged file to notify modification state changes.
+ * @param index model index
+ * @param modified true if file is modified
+ */
+void FileProxyModel::notifyModificationChanged(const QModelIndex& index,
+                                               bool modified)
+{
+  emit fileModificationChanged(index, modified);
+  bool lastIsModified = isModified();
+  if (modified) {
+    ++m_numModifiedFiles;
+  } else if (m_numModifiedFiles > 0) {
+    --m_numModifiedFiles;
+  }
+  bool newIsModified = isModified();
+  if (newIsModified != lastIsModified) {
+    emit modifiedChanged(newIsModified);
+  }
 }

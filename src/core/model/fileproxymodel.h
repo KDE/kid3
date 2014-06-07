@@ -196,6 +196,19 @@ public:
   using QSortFilterProxyModel::index;
 
   /**
+   * Called from tagged file to notify modification state changes.
+   * @param index model index
+   * @param modified true if file is modified
+   */
+  void notifyModificationChanged(const QModelIndex& index, bool modified);
+
+  /**
+   * Check if any file has been modified.
+   * @return true if at least one of the files in the model has been modified.
+   */
+  bool isModified() const { return m_numModifiedFiles > 0; }
+
+  /**
    * Access to tagged file factories.
    * @return reference to tagged file factories.
    */
@@ -325,6 +338,20 @@ signals:
    */
   void sortingFinished();
 
+  /**
+   * Emitted when the modification state of a file changes.
+   * @param index model index
+   * @param modified true if file is modified
+   */
+  void fileModificationChanged(const QModelIndex& index, bool modified);
+
+  /**
+   * Emitted when modification state changes.
+   * @param modified true if any file has been modified
+   * @see isModified()
+   */
+  void modifiedChanged(bool modified);
+
 private slots:
   /**
    * Update the TaggedFile contents for rows inserted into the model.
@@ -395,6 +422,7 @@ private:
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;
   QStringList m_extensions;
+  unsigned int m_numModifiedFiles;
   bool m_isLoading;
 
   static QList<ITaggedFileFactory*> s_taggedFileFactories;

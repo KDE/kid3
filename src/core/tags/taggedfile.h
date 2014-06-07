@@ -603,9 +603,7 @@ public:
    *
    * @return true if file was changed.
    */
-  bool isChanged() const {
-    return m_changedV1 || m_changedV2 || m_changedFilename;
-  }
+  bool isChanged() const { return m_modified; }
 
   /**
    * Check if filename is changed.
@@ -637,7 +635,7 @@ public:
   /**
    * Mark tag 2 as unchanged.
    */
-  void markTag2Unchanged() { m_changedV2 = false; m_changedFramesV2 = 0; }
+  void markTag2Unchanged();
 
   /**
    * Get the mask of the frame types changed in tag 1.
@@ -655,9 +653,7 @@ public:
    * Set the mask of the frame types changed in tag 2.
    * @param mask mask of frame types
    */
-  void setChangedFramesV2(quint64 mask) {
-    m_changedFramesV2 = mask; m_changedV2 = mask != 0;
-  }
+  void setChangedFramesV2(quint64 mask);
 
   /**
    * Get the truncation flags.
@@ -774,7 +770,7 @@ protected:
   /**
    * Mark filename as unchanged.
    */
-  void markFilenameUnchanged() { m_changedFilename = false; }
+  void markFilenameUnchanged();
 
   /**
    * Check if tag 1 was changed.
@@ -792,11 +788,7 @@ protected:
   /**
    * Mark tag 1 as unchanged.
    */
-  void markTag1Unchanged() {
-    m_changedV1 = false;
-    m_changedFramesV1 = 0;
-    clearTrunctionFlags();
-  }
+  void markTag1Unchanged();
 
   /**
    * Check if a string has to be truncated.
@@ -837,6 +829,8 @@ private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);
 
+  void updateModifiedState();
+
   /** Index of file in model */
   QPersistentModelIndex m_index;
   /** New file name */
@@ -853,6 +847,8 @@ private:
   bool m_changedV2;
   /** true if filename was changed */
   bool m_changedFilename;
+  /** true if tagged file is modified */
+  bool m_modified;
 };
 
 #endif // TAGGEDFILE_H

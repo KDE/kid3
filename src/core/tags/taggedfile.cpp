@@ -42,7 +42,8 @@
  */
 TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
   m_index(idx), m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
-  m_changedV1(false), m_changedV2(false), m_changedFilename(false)
+  m_changedV1(false), m_changedV2(false), m_changedFilename(false),
+  m_modified(false)
 {
   Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
   if (const FileProxyModel* model = getFileProxyModel()) {
@@ -89,6 +90,7 @@ void TaggedFile::setFilename(const QString& fn)
 {
   m_newFilename = fn;
   m_changedFilename = m_newFilename != currentFilename();
+  updateModifiedState();
 }
 
 /**
@@ -345,6 +347,15 @@ QString TaggedFile::getAbsFilename() const
 }
 
 /**
+ * Mark filename as unchanged.
+ */
+void TaggedFile::markFilenameUnchanged()
+{
+  m_changedFilename = false;
+  updateModifiedState();
+}
+
+/**
  * Mark tag 1 as changed.
  *
  * @param type type of changed frame
@@ -355,6 +366,17 @@ void TaggedFile::markTag1Changed(Frame::Type type)
   if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
     m_changedFramesV1 |= (1ULL << type);
   }
+  updateModifiedState();
+}
+
+/**
+ * Mark tag 1 as unchanged.
+ */
+void TaggedFile::markTag1Unchanged() {
+  m_changedV1 = false;
+  m_changedFramesV1 = 0;
+  clearTrunctionFlags();
+  updateModifiedState();
 }
 
 /**
@@ -367,6 +389,39 @@ void TaggedFile::markTag2Changed(Frame::Type type)
   m_changedV2 = true;
   if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
     m_changedFramesV2 |= (1ULL << type);
+  }
+  updateModifiedState();
+}
+
+/**
+ * Mark tag 2 as unchanged.
+ */
+void TaggedFile::markTag2Unchanged()
+{
+  m_changedV2 = false;
+  m_changedFramesV2 = 0;
+  updateModifiedState();
+}
+
+/**
+ * Set the mask of the frame types changed in tag 2.
+ * @param mask mask of frame types
+ */
+void TaggedFile::setChangedFramesV2(quint64 mask) {
+  m_changedFramesV2 = mask;
+  m_changedV2 = mask != 0;
+  updateModifiedState();
+}
+
+void TaggedFile::updateModifiedState()
+{
+  bool modified = m_changedV1 || m_changedV2 || m_changedFilename;
+  if (m_modified != modified) {
+    m_modified = modified;
+    if (const FileProxyModel* model = getFileProxyModel()) {
+      const_cast<FileProxyModel*>(model)->notifyModificationChanged(
+            m_index, m_modified);
+    }
   }
 }
 
