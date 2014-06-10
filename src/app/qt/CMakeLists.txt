@@ -25,6 +25,7 @@ set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
 if (APPLE)
   # Icon and properties for .plist file
   set(MACOSX_BUNDLE_BUNDLE_NAME "Kid3")
+  set(MACOSX_BUNDLE_BUNDLE_EXECUTABLE "kid3")
   set(MACOSX_BUNDLE_ICON_FILE kid3.icns)
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CPACK_PACKAGE_VERSION})
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "net.sourceforge.kid3")
