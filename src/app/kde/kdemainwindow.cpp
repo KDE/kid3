@@ -222,7 +222,7 @@ void KdeMainWindow::initActions()
   connect(m_settingsAutoHideTags, SIGNAL(triggered()), impl(), SLOT(slotSettingsAutoHideTags()));
   KAction* editSelectAllInDir = new KAction(tr("Select All in &Directory"), this);
   actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
-  connect(editSelectAllInDir, SIGNAL(triggered()), form(), SLOT(selectAllInDirectory()));
+  connect(editSelectAllInDir, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
   KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
   editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
   actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);

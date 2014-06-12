@@ -74,32 +74,6 @@ public:
                  QList<QPersistentModelIndex>());
 
   /**
-   * Get the stored current selection.
-   * @return stored selection.
-   */
-  const QList<QPersistentModelIndex>& getCurrentSelection() const {
-    return m_currentSelection;
-  }
-
-  /**
-   * Clear the stored current selection.
-   */
-  void clearCurrentSelection() { m_currentSelection.clear(); }
-
-  /**
-   * Update the stored current selection with the list of all selected items.
-   */
-  void updateCurrentSelection();
-
-  /**
-   * Get current index or root index if current index is invalid.
-   * @return current index, root index if not valid.
-   */
-  QModelIndex currentOrRootIndex() const {
-    return currentIndex().isValid() ? currentIndex() : rootIndex();
-  }
-
-  /**
    * Set rename action.
    * @param action rename action
    */
@@ -188,7 +162,6 @@ private:
 
   /** Process for context menu commands */
   ExternalProcess* m_process;
-  QList<QPersistentModelIndex> m_currentSelection;
   BaseMainWindowImpl* m_mainWin;
   QAction* m_renameAction;
   QAction* m_deleteAction;

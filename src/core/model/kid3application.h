@@ -557,6 +557,19 @@ public:
   TaggedFile* getSelectedFile();
 
   /**
+   * Get the stored current selection.
+   * @return stored selection.
+   */
+  const QList<QPersistentModelIndex>& getCurrentSelection() const {
+    return m_currentSelection;
+  }
+
+  /**
+   * Update the stored current selection with the list of all selected items.
+   */
+  void updateCurrentSelection();
+
+  /**
    * Get directory name.
    * @return directory.
    */
@@ -835,6 +848,11 @@ public slots:
    * Deselect all files.
    */
   void deselectAllFiles();
+
+  /**
+   * Select all files in the current directory.
+   */
+  void selectAllInDirectory();
 
   /**
    * Fetch entries of directory if not already fetched.
@@ -1169,6 +1187,8 @@ private:
   QList<ServerTrackImporter*> m_trackImporters;
   /** Current directory */
   QString m_dirName;
+  /** Stored current selection with the list of all selected items */
+  QList<QPersistentModelIndex> m_currentSelection;
 
   /* Context for updateFrameModels() */
   /** If a single file is selected, this tagged file, else 0 */

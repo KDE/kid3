@@ -114,19 +114,6 @@ bool FileList::readDir(const QPersistentModelIndex& dirIndex,
 }
 
 /**
- * Update the stored current selection with the list of all selected items.
- */
-void FileList::updateCurrentSelection()
-{
-  if (!selectionModel())
-    return;
-  m_currentSelection.clear();
-  foreach (const QModelIndex& index, selectionModel()->selectedRows()) {
-    m_currentSelection.append(QPersistentModelIndex(index));
-  }
-}
-
-/**
  * Display a context menu with operations for selected files.
  *
  * @param index index of item

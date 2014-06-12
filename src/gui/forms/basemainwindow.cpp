@@ -322,8 +322,8 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 
     case QMessageBox::No:
       if (!doNotRevert) {
-        if (m_form->getFileList()->selectionModel())
-          m_form->getFileList()->selectionModel()->clearSelection();
+        if (m_app->getFileSelectionModel())
+          m_app->getFileSelectionModel()->clearSelection();
         m_app->revertFileModifications();
       }
       completed=true;
@@ -869,7 +869,7 @@ void BaseMainWindowImpl::updateWindowCaption()
 void BaseMainWindowImpl::updateCurrentSelection()
 {
   const QList<QPersistentModelIndex>& selItems =
-    m_form->getFileList()->getCurrentSelection();
+    m_app->getCurrentSelection();
   if (!selItems.isEmpty()) {
     m_form->frameTableV1()->acceptEdit();
     m_form->frameTableV2()->acceptEdit();
@@ -890,9 +890,9 @@ void BaseMainWindowImpl::updateCurrentSelection()
  */
 void BaseMainWindowImpl::updateGuiControls()
 {
-  m_form->getFileList()->updateCurrentSelection();
+  m_app->updateCurrentSelection();
   const QList<QPersistentModelIndex>& selItems =
-      m_form->getFileList()->getCurrentSelection();
+      m_app->getCurrentSelection();
 
   m_app->tagsToFrameModels(selItems);
 
@@ -1089,7 +1089,7 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
  */
 void BaseMainWindowImpl::renameFile()
 {
-  QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
+  QItemSelectionModel* selectModel = m_app->getFileSelectionModel();
   FileProxyModel* model =
       qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
   if (!selectModel || !model)
@@ -1152,7 +1152,7 @@ void BaseMainWindowImpl::renameFile()
  */
 void BaseMainWindowImpl::deleteFile()
 {
-  QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
+  QItemSelectionModel* selectModel = m_app->getFileSelectionModel();
   FileProxyModel* model =
       qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
   if (!selectModel || !model)

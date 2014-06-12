@@ -1550,6 +1550,16 @@ TaggedFile* Kid3Application::getSelectedFile()
   return FileProxyModel::getTaggedFileOfIndex(selItems.first());
 }
 
+/**
+ * Update the stored current selection with the list of all selected items.
+ */
+void Kid3Application::updateCurrentSelection()
+{
+  m_currentSelection.clear();
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+    m_currentSelection.append(QPersistentModelIndex(index));
+  }
+}
 
 /**
  * Edit selected frame.
@@ -2039,6 +2049,28 @@ void Kid3Application::selectAllFiles()
 void Kid3Application::deselectAllFiles()
 {
   m_fileSelectionModel->clearSelection();
+}
+
+/**
+ * Select all files in the current directory.
+ */
+void Kid3Application::selectAllInDirectory()
+{
+  QModelIndex parent = m_fileSelectionModel->currentIndex();
+  if (parent.isValid()) {
+    if (!m_fileProxyModel->hasChildren(parent)) {
+      parent = parent.parent();
+    }
+    QItemSelection selection;
+    for (int row = 0; row < m_fileProxyModel->rowCount(parent); ++row) {
+      QModelIndex index = m_fileProxyModel->index(row, 0, parent);
+      if (!m_fileProxyModel->hasChildren(index)) {
+        selection.append(QItemSelectionRange(index));
+      }
+    }
+    m_fileSelectionModel->select(selection,
+                     QItemSelectionModel::Select | QItemSelectionModel::Rows);
+  }
 }
 
 /**

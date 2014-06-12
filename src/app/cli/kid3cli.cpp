@@ -470,35 +470,22 @@ bool Kid3Cli::selectFile(const QStringList& paths)
 }
 
 /**
- * Get indexes of selected files.
- * @return selected indexes.
- */
-QList<QPersistentModelIndex> Kid3Cli::getSelection() const
-{
-  QList<QPersistentModelIndex> selection;
-  if (QItemSelectionModel* selModel = m_app->getFileSelectionModel()) {
-    foreach (const QModelIndex& index, selModel->selectedRows()) {
-      selection.append(QPersistentModelIndex(index));
-    }
-  }
-  return selection;
-}
-
-/**
  * Update the currently selected files from the frame tables.
  */
 void Kid3Cli::updateSelectedFiles()
 {
-  int selectionSize = m_selection.size();
+  const QList<QPersistentModelIndex>& selItems =
+      m_app->getCurrentSelection();
+  int selectionSize = selItems.size();
   if (selectionSize > 0) {
     if (selectionSize > 1) {
       m_app->frameModelV1()->selectChangedFrames();
       m_app->frameModelV2()->selectChangedFrames();
     }
-    m_app->frameModelsToTags(m_selection);
+    m_app->frameModelsToTags(selItems);
     if (m_app->selectionSingleFile() && !m_filename.isEmpty()) {
       if (TaggedFile* taggedFile =
-          FileProxyModel::getTaggedFileOfIndex(m_selection.first())) {
+          FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
         taggedFile->setFilename(m_filename);
       }
     }
@@ -511,8 +498,8 @@ void Kid3Cli::updateSelectedFiles()
  */
 void Kid3Cli::updateSelection()
 {
-  m_selection = getSelection();
-  m_app->tagsToFrameModels(m_selection);
+  m_app->updateCurrentSelection();
+  m_app->tagsToFrameModels(m_app->getCurrentSelection());
 
   if (m_app->selectionSingleFile()) {
     m_filename = m_app->selectionSingleFile()->getFilename();
@@ -651,7 +638,8 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
   if (!model->hasChildren(parent))
     return;
 
-  QSet<QPersistentModelIndex> selection = getSelection().toSet();
+  m_app->updateCurrentSelection();
+  QSet<QPersistentModelIndex> selection = m_app->getCurrentSelection().toSet();
   for (int row = 0; row < model->rowCount(parent); ++row) {
     QString indentStr(indent, QLatin1Char(' ')), nameStr;
     QModelIndexList indexesWithChildren;

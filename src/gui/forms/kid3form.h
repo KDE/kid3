@@ -282,11 +282,6 @@ public slots:
   void deselectAllFiles();
 
   /**
-   * Select all files in the current directory.
-   */
-  void selectAllInDirectory();
-
-  /**
    * Set the next file as the current file.
    *
    * @param select true to select the file

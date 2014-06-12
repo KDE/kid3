@@ -310,7 +310,7 @@ void Kid3MainWindow::initActions()
   editSelectAllInDir->setObjectName(QLatin1String("select_all_in_directory"));
   m_shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
   connect(editSelectAllInDir, SIGNAL(triggered()),
-    form(), SLOT(selectAllInDirectory()));
+    app(), SLOT(selectAllInDirectory()));
   editMenu->addAction(editSelectAllInDir);
 
   QAction* editPreviousFile = new QAction(this);

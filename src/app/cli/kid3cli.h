@@ -87,12 +87,6 @@ public:
   bool selectFile(const QStringList &paths);
 
   /**
-   * Get indexes of selected files.
-   * @return selected indexes.
-   */
-  QList<QPersistentModelIndex> getSelection() const;
-
-  /**
    * Display help about available commands.
    * @param cmdName command name, for all commands if empty
    */
@@ -209,7 +203,6 @@ private:
   QString m_tagFormatV1;
   QString m_tagFormatV2;
   TrackData::TagVersion m_tagMask;
-  QList<QPersistentModelIndex> m_selection;
   /** Overwrites command timeout, -1 to switch off, 0 for defaults, else ms. */
   int m_timeoutMs;
   bool m_fileNameChanged;
