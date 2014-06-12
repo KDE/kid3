@@ -276,18 +276,14 @@ public:
 
   /**
    * Update tags of selected files to contain contents of frame models.
-   *
-   * @param selItems list of selected file indexes
    */
-  void frameModelsToTags(const QList<QPersistentModelIndex>& selItems);
+  void frameModelsToTags();
 
   /**
    * Update frame models to contain contents of selected files.
    * The properties starting with "selection" will be set by this method.
-   *
-   * @param selItems list of selected file indexes
    */
-  void tagsToFrameModels(const QList<QPersistentModelIndex>& selItems);
+  void tagsToFrameModels();
 
   /**
    * Check if a single file is selected.

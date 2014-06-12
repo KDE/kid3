@@ -873,7 +873,7 @@ void BaseMainWindowImpl::updateCurrentSelection()
   if (!selItems.isEmpty()) {
     m_form->frameTableV1()->acceptEdit();
     m_form->frameTableV2()->acceptEdit();
-    m_app->frameModelsToTags(selItems);
+    m_app->frameModelsToTags();
     if (m_form->isFilenameEditEnabled()) {
       if (TaggedFile* taggedFile =
           FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
@@ -890,11 +890,7 @@ void BaseMainWindowImpl::updateCurrentSelection()
  */
 void BaseMainWindowImpl::updateGuiControls()
 {
-  m_app->updateCurrentSelection();
-  const QList<QPersistentModelIndex>& selItems =
-      m_app->getCurrentSelection();
-
-  m_app->tagsToFrameModels(selItems);
+  m_app->tagsToFrameModels();
 
   TaggedFile::DetailInfo info;
   if (const TaggedFile* selectedFile = m_app->selectionSingleFile()) {

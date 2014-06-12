@@ -482,7 +482,7 @@ void Kid3Cli::updateSelectedFiles()
       m_app->frameModelV1()->selectChangedFrames();
       m_app->frameModelV2()->selectChangedFrames();
     }
-    m_app->frameModelsToTags(selItems);
+    m_app->frameModelsToTags();
     if (m_app->selectionSingleFile() && !m_filename.isEmpty()) {
       if (TaggedFile* taggedFile =
           FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
@@ -498,8 +498,7 @@ void Kid3Cli::updateSelectedFiles()
  */
 void Kid3Cli::updateSelection()
 {
-  m_app->updateCurrentSelection();
-  m_app->tagsToFrameModels(m_app->getCurrentSelection());
+  m_app->tagsToFrameModels();
 
   if (m_app->selectionSingleFile()) {
     m_filename = m_app->selectionSingleFile()->getFilename();

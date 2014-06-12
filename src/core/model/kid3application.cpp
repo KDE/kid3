@@ -583,17 +583,15 @@ QStringList Kid3Application::saveDirectory()
 
 /**
  * Update tags of selected files to contain contents of frame models.
- *
- * @param selItems list of selected file indexes
  */
-void Kid3Application::frameModelsToTags(
-    const QList<QPersistentModelIndex>& selItems)
+void Kid3Application::frameModelsToTags()
 {
-  if (!selItems.isEmpty()) {
+  if (!m_currentSelection.isEmpty()) {
     FrameCollection framesV1(m_framesV1Model->getEnabledFrames());
     FrameCollection framesV2(m_framesV2Model->getEnabledFrames());
-    for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
-         it != selItems.end();
+    for (QList<QPersistentModelIndex>::const_iterator it =
+         m_currentSelection.begin();
+         it != m_currentSelection.end();
          ++it) {
       if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
         taggedFile->setFramesV1(framesV1);
@@ -606,20 +604,19 @@ void Kid3Application::frameModelsToTags(
 /**
  * Update frame models to contain contents of selected files.
  * The properties starting with "selection" will be set by this method.
- *
- * @param selItems list of selected file indexes
  */
-void Kid3Application::tagsToFrameModels(
-    const QList<QPersistentModelIndex>& selItems)
+void Kid3Application::tagsToFrameModels()
 {
+  updateCurrentSelection();
   m_selectionSingleFile = 0;
   m_selectionTagV1SupportedCount = 0;
   m_selectionFileCount = 0;
   m_selectionHasTagV1 = false;
   m_selectionHasTagV2 = false;
 
-  for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
-       it != selItems.end();
+  for (QList<QPersistentModelIndex>::const_iterator it =
+       m_currentSelection.begin();
+       it != m_currentSelection.end();
        ++it) {
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
     if (taggedFile) {
