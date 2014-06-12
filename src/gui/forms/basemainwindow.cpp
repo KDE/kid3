@@ -868,17 +868,12 @@ void BaseMainWindowImpl::updateWindowCaption()
  */
 void BaseMainWindowImpl::updateCurrentSelection()
 {
-  const QList<QPersistentModelIndex>& selItems =
-    m_app->getCurrentSelection();
-  if (!selItems.isEmpty()) {
+  if (m_app->selectionFileCount() > 0) {
     m_form->frameTableV1()->acceptEdit();
     m_form->frameTableV2()->acceptEdit();
     m_app->frameModelsToTags();
-    if (m_form->isFilenameEditEnabled()) {
-      if (TaggedFile* taggedFile =
-          FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
-        taggedFile->setFilename(m_form->getFilename());
-      }
+    if (TaggedFile* taggedFile = m_app->selectionSingleFile()) {
+      taggedFile->setFilename(m_form->getFilename());
     }
   }
 }
@@ -906,9 +901,9 @@ void BaseMainWindowImpl::updateGuiControls()
     }
   } else {
     if (m_app->selectionFileCount() > 1) {
-      m_form->setFilenameEditEnabled(false);
       m_form->setFilename(Frame::differentRepresentation());
     }
+    m_form->setFilenameEditEnabled(false);
     m_form->setDetailInfo(info);
     m_form->setTagFormatV1(QString());
     m_form->setTagFormatV2(QString());

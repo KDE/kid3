@@ -474,20 +474,16 @@ bool Kid3Cli::selectFile(const QStringList& paths)
  */
 void Kid3Cli::updateSelectedFiles()
 {
-  const QList<QPersistentModelIndex>& selItems =
-      m_app->getCurrentSelection();
-  int selectionSize = selItems.size();
+  int selectionSize = m_app->selectionFileCount();
   if (selectionSize > 0) {
     if (selectionSize > 1) {
       m_app->frameModelV1()->selectChangedFrames();
       m_app->frameModelV2()->selectChangedFrames();
     }
     m_app->frameModelsToTags();
-    if (m_app->selectionSingleFile() && !m_filename.isEmpty()) {
-      if (TaggedFile* taggedFile =
-          FileProxyModel::getTaggedFileOfIndex(selItems.first())) {
-        taggedFile->setFilename(m_filename);
-      }
+    TaggedFile* taggedFile = m_app->selectionSingleFile();
+    if (taggedFile && !m_filename.isEmpty()) {
+      taggedFile->setFilename(m_filename);
     }
   }
 }
@@ -500,16 +496,14 @@ void Kid3Cli::updateSelection()
 {
   m_app->tagsToFrameModels();
 
-  if (m_app->selectionSingleFile()) {
-    m_filename = m_app->selectionSingleFile()->getFilename();
-    m_app->selectionSingleFile()->getDetailInfo(m_detailInfo);
-    m_tagFormatV1 = m_app->selectionSingleFile()->getTagFormatV1();
-    m_tagFormatV2 = m_app->selectionSingleFile()->getTagFormatV2();
-    m_fileNameChanged = m_app->selectionSingleFile()->isFilenameChanged();
+  if (const TaggedFile* taggedFile = m_app->selectionSingleFile()) {
+    m_filename = taggedFile->getFilename();
+    taggedFile->getDetailInfo(m_detailInfo);
+    m_tagFormatV1 = taggedFile->getTagFormatV1();
+    m_tagFormatV2 = taggedFile->getTagFormatV2();
+    m_fileNameChanged = taggedFile->isFilenameChanged();
   } else {
-    if (m_app->selectionFileCount() > 1) {
-      m_filename.clear();
-    }
+    m_filename.clear();
     m_detailInfo = TaggedFile::DetailInfo();
     m_tagFormatV1.clear();
     m_tagFormatV2.clear();
@@ -520,7 +514,6 @@ void Kid3Cli::updateSelection()
   }
   if (m_app->selectionFileCount() == 0) {
     m_app->frameModelV2()->clearFrames();
-    m_filename.clear();
   }
 }
 

@@ -289,7 +289,7 @@ public:
    * Check if a single file is selected.
    * @return if a single file is selected, this tagged file, else 0.
    */
-  const TaggedFile* selectionSingleFile() const {
+  TaggedFile* selectionSingleFile() const {
     return m_selectionSingleFile;
   }
 
