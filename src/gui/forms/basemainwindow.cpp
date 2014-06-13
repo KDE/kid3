@@ -60,7 +60,6 @@
 #include "fileproxymodeliterator.h"
 #include "modeliterator.h"
 #include "filelist.h"
-#include "dirlist.h"
 #include "pictureframe.h"
 #include "fileconfig.h"
 #include "playlistconfig.h"
@@ -134,9 +133,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(toggleExpanded(QModelIndex)));
   connect(m_app, SIGNAL(expandFileListRequested()),
           this, SLOT(expandFileList()));
-  connect(m_app,
-    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
-    this, SLOT(onDirectoryOpened()));
+  connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
+          this, SLOT(onDirectoryOpened()));
   connect(m_app, SIGNAL(modifiedChanged(bool)),
           this, SLOT(updateWindowCaption()));
   connect(m_app, SIGNAL(filteredChanged(bool)),

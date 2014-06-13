@@ -114,6 +114,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
   m_dirProxyModel(new DirProxyModel(this)),
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
+  m_dirSelectionModel(new QItemSelectionModel(m_dirProxyModel, this)),
   m_trackDataModel(new TrackDataModel(this)),
   m_framesV1Model(new FrameTableModel(true, this)),
   m_framesV2Model(new FrameTableModel(false, this)),
@@ -408,7 +409,7 @@ void Kid3Application::readConfig()
 
 /**
  * Open directory.
- * When finished directoryOpened() is emitted, also if false is returned.
+ * When finished fileRootIndexChanged() is emitted, also if false is returned.
  *
  * @param paths file or directory paths, if multiple paths are given, the
  * common directory is opened and the files are selected
@@ -491,26 +492,48 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
       connect(m_fileProxyModel, SIGNAL(sortingFinished()),
               this, SLOT(onDirectoryLoaded()));
     } else {
-      QTimer::singleShot(0, this, SLOT(emitDirectoryOpened()));
+      QTimer::singleShot(0, this, SLOT(onDirectoryOpened()));
     }
   }
   if (!ok) {
-    QTimer::singleShot(0, this, SLOT(emitDirectoryOpened()));
+    QTimer::singleShot(0, this, SLOT(onDirectoryOpened()));
   }
   return ok;
 }
 
 /**
- * Emit directoryOpened().
+ * Update selection and emit signals when directory is opened.
  */
-void Kid3Application::emitDirectoryOpened()
+void Kid3Application::onDirectoryOpened()
 {
-  emit directoryOpened(m_fileProxyModelRootIndex, m_fileProxyModelFileIndexes);
-  emit fileRootIndexChanged(m_fileProxyModelRootIndex);
-
   QModelIndex fsRoot = m_fileProxyModel->mapToSource(m_fileProxyModelRootIndex);
   m_dirProxyModelRootIndex = m_dirProxyModel->mapFromSource(fsRoot);
+
+  if (m_fileProxyModelRootIndex.isValid()) {
+    m_fileSelectionModel->clearSelection();
+    if (!m_fileProxyModelFileIndexes.isEmpty()) {
+      foreach (const QPersistentModelIndex& fileIndex,
+               m_fileProxyModelFileIndexes) {
+        m_fileSelectionModel->select(fileIndex,
+            QItemSelectionModel::Select | QItemSelectionModel::Rows);
+      }
+      m_fileSelectionModel->setCurrentIndex(m_fileProxyModelFileIndexes.first(),
+                                            QItemSelectionModel::NoUpdate);
+    } else {
+      m_fileSelectionModel->setCurrentIndex(m_fileProxyModelRootIndex,
+          QItemSelectionModel::Clear | QItemSelectionModel::Current |
+          QItemSelectionModel::Rows);
+    }
+  }
+
+  emit fileRootIndexChanged(m_fileProxyModelRootIndex);
   emit dirRootIndexChanged(m_dirProxyModelRootIndex);
+
+  if (m_dirUpIndex.isValid()) {
+    m_dirSelectionModel->setCurrentIndex(m_dirUpIndex,
+        QItemSelectionModel::SelectCurrent | QItemSelectionModel::Rows);
+    m_dirUpIndex = QPersistentModelIndex();
+  }
 }
 
 /**
@@ -520,7 +543,7 @@ void Kid3Application::onDirectoryLoaded()
 {
   disconnect(m_fileProxyModel, SIGNAL(sortingFinished()),
              this, SLOT(onDirectoryLoaded()));
-  emitDirectoryOpened();
+  onDirectoryOpened();
 }
 
 /**

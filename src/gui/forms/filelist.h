@@ -61,19 +61,6 @@ public:
   virtual QSize sizeHint() const;
 
   /**
-   * Fill the filelist with the files found in a directory.
-   *
-   * @param dirIndex index of directory in file proxy model
-   * @param fileIndexes indexes of files to select in file proxy model
-   * (optional, else empty)
-   *
-   * @return false if name is not directory path, else true.
-   */
-  bool readDir(const QPersistentModelIndex& dirIndex,
-               const QList<QPersistentModelIndex>& fileIndexes =
-                 QList<QPersistentModelIndex>());
-
-  /**
    * Set rename action.
    * @param action rename action
    */

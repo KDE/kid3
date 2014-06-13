@@ -46,7 +46,7 @@ class FrameTable;
 class FrameTableModel;
 class Kid3Application;
 class FileList;
-class DirList;
+class ConfigurableTreeView;
 class PictureLabel;
 class BaseMainWindowImpl;
 
@@ -300,13 +300,18 @@ public slots:
   bool previousFile(bool select = true);
 
   /**
-   * Set the root index of the directory and file lists.
+   * Set the root index of the file list.
    *
-   * @param directoryIndex root index of directory in file system model
-   * @param fileIndexes indexes of files to select
+   * @param index root index of directory in file system model
    */
-  void setDirectoryIndex(const QPersistentModelIndex& directoryIndex,
-                         const QList<QPersistentModelIndex>& fileIndexes);
+  void setFileRootIndex(const QModelIndex& index);
+
+  /**
+   * Set the root index of the directory list.
+   *
+   * @param index root index of directory in directory model
+   */
+  void setDirRootIndex(const QModelIndex& index);
 
 private:
   /**
@@ -332,7 +337,7 @@ private:
   QComboBox* m_formatFromFilenameComboBox;
   QLabel* m_nameLabel;
   QLineEdit* m_nameLineEdit;
-  DirList* m_dirListBox;
+  ConfigurableTreeView* m_dirListBox;
   FrameTable* m_framesV1Table;
   FrameTable* m_framesV2Table;
   QSplitter* m_vSplitter;

@@ -265,10 +265,6 @@ protected:
   virtual void startCommand();
   virtual void connectResultSignal();
   virtual void disconnectResultSignal();
-
-private slots:
-  void onDirectoryOpened(const QPersistentModelIndex& dirIndex,
-                         const QList<QPersistentModelIndex>& fileIndexes);
 };
 
 

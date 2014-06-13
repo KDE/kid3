@@ -128,6 +128,21 @@ public:
   QItemSelectionModel* getFileSelectionModel() { return m_fileSelectionModel; }
 
   /**
+   * Get selection model of directories.
+   */
+  QItemSelectionModel* getDirSelectionModel() { return m_dirSelectionModel; }
+
+  /**
+   * Store index of directory from where "directory up" (..) is activated.
+   * This directory will then be selected in the new (parent) directory.
+   *
+   * @param index model index of target directory entered when going up
+   */
+  void setDirUpIndex(const QPersistentModelIndex& index) {
+    m_dirUpIndex = index;
+  }
+
+  /**
    * Get tag 1 frame table model.
    * @return frame table.
    */
@@ -236,7 +251,7 @@ public:
 
   /**
    * Open directory.
-   * When finished directoryOpened() is emitted, also if false is returned.
+   * When finished fileRootIndexChanged() is emitted, also if false is returned.
    *
    * @param paths file or directory paths, if multiple paths are given, the
    * common directory is opened and the files are selected
@@ -949,14 +964,6 @@ public slots:
 
 signals:
   /**
-   * Emitted when a new directory is opened.
-   * @param directoryIndex root path file proxy model index
-   * @param fileIndexes file path indexes in the file proxy model
-   */
-  void directoryOpened(const QPersistentModelIndex& directoryIndex,
-                       const QList<QPersistentModelIndex>& fileIndexes);
-
-  /**
    * Emitted when the file proxy model root index changes.
    * @param index new root index
    */
@@ -1096,9 +1103,9 @@ private slots:
   void scheduleNextRenameAction(const QPersistentModelIndex& index);
 
   /**
-   * Emit directoryOpened().
+   * Update selection and emit signals when directory is opened.
    */
-  void emitDirectoryOpened();
+  void onDirectoryOpened();
 
   /**
    * Called when the gatherer thread has finished to load the directory.
@@ -1136,6 +1143,7 @@ private:
   FileProxyModelIterator* m_fileProxyModelIterator;
   DirProxyModel* m_dirProxyModel;
   QItemSelectionModel* m_fileSelectionModel;
+  QItemSelectionModel* m_dirSelectionModel;
   /** Track data model */
   TrackDataModel* m_trackDataModel;
   FrameTableModel* m_framesV1Model;
@@ -1185,6 +1193,8 @@ private:
   QString m_dirName;
   /** Stored current selection with the list of all selected items */
   QList<QPersistentModelIndex> m_currentSelection;
+  /** directory from where "directory up" (..) was activated. */
+  QPersistentModelIndex m_dirUpIndex;
 
   /* Context for updateFrameModels() */
   /** If a single file is selected, this tagged file, else 0 */

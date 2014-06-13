@@ -1,6 +1,5 @@
 set(forms_SRCS
   forms/filelist.cpp
-  forms/dirlist.cpp
   forms/configurabletreeview.cpp
   forms/kid3form.cpp
   forms/basemainwindow.cpp

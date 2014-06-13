@@ -283,35 +283,14 @@ void CdCommand::startCommand()
 
 void CdCommand::connectResultSignal()
 {
-  connect(cli()->app(),
-    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
-    this,
-    SLOT(onDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
+  connect(cli()->app(), SIGNAL(fileRootIndexChanged(QModelIndex)),
+    this, SLOT(terminate()));
 }
 
 void CdCommand::disconnectResultSignal()
 {
-  disconnect(cli()->app(),
-    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
-    this,
-    SLOT(onDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
-}
-
-void CdCommand::onDirectoryOpened(
-    const QPersistentModelIndex& dirIndex,
-    const QList<QPersistentModelIndex>& fileIndexes)
-{
-  Q_UNUSED(dirIndex)
-  QItemSelectionModel* selModel = cli()->app()->getFileSelectionModel();
-  if (selModel && !fileIndexes.isEmpty()) {
-    foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
-      selModel->select(fileIndex,
-                       QItemSelectionModel::Select | QItemSelectionModel::Rows);
-    }
-    selModel->setCurrentIndex(fileIndexes.first(),
-                              QItemSelectionModel::NoUpdate);
-  }
-  terminate();
+  disconnect(cli()->app(), SIGNAL(fileRootIndexChanged(QModelIndex)),
+    this, SLOT(terminate()));
 }
 
 

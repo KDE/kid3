@@ -745,10 +745,8 @@ bool Kid3Cli::parseOptions()
   if (paths.isEmpty()) {
     paths.append(QDir::currentPath());
   }
-  connect(m_app,
-    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
-    this,
-    SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
+  connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
+    this, SLOT(onInitialDirectoryOpened(QModelIndex)));
   if (!openDirectory(expandWildcards(paths))) {
     writeErrorLine(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
   }
@@ -759,25 +757,11 @@ bool Kid3Cli::parseOptions()
  * Select files passed as command line arguments after the initial directory has
  * been opened. Start execution of commands if existing.
  * @param dirIndex file proxy model index of opened directory
- * @param fileIndexes file proxy model indexes of selected files
  */
-void Kid3Cli::onInitialDirectoryOpened(
-    const QPersistentModelIndex& dirIndex,
-    const QList<QPersistentModelIndex>& fileIndexes)
+void Kid3Cli::onInitialDirectoryOpened(const QModelIndex& dirIndex)
 {
-  disconnect(m_app,
-    SIGNAL(directoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)),
-    this,
-    SLOT(onInitialDirectoryOpened(QPersistentModelIndex,QList<QPersistentModelIndex>)));
-  QItemSelectionModel* selModel = m_app->getFileSelectionModel();
-  if (selModel && !fileIndexes.isEmpty()) {
-    foreach (const QPersistentModelIndex& fileIndex, fileIndexes) {
-      selModel->select(fileIndex,
-                       QItemSelectionModel::Select | QItemSelectionModel::Rows);
-    }
-    selModel->setCurrentIndex(fileIndexes.first(),
-                              QItemSelectionModel::NoUpdate);
-  }
+  disconnect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
+    this, SLOT(onInitialDirectoryOpened(QModelIndex)));
   if (!m_argCommands.isEmpty()) {
     if (!dirIndex.isValid()) {
       // Do not execute commands if directory could not be opened.
