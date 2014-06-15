@@ -538,9 +538,9 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
  */
 void FrameTableModel::setAllCheckStates(bool checked)
 {
-  for (int row = 0; row < rowCount(); ++row) {
-    m_frameSelected[row] = checked;
-  }
+  const int numRows = rowCount();
+  m_frameSelected.fill(checked, 0, numRows);
+  emit dataChanged(index(0, CI_Enable), index(numRows - 1, CI_Enable));
 }
 
 /**
@@ -571,6 +571,8 @@ void FrameTableModel::selectChangedFrames()
        ++row, ++it) {
     if (it->isValueChanged()) {
       m_frameSelected[row] = true;
+      QModelIndex idx = index(row, CI_Enable);
+      emit dataChanged(idx, idx);
     }
   }
 }
