@@ -968,10 +968,7 @@ void TagToFilenameCommand::startCommand()
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
-    cli()->app()->setTagsToFilenameFormat(format);
-  }
-  if (cli()->app()->getTagsToFilenameFormat().isEmpty()) {
-    cli()->app()->setTagsToFilenameFormat(FileConfig::instance().m_formatText);
+    FileConfig::instance().m_formatText = format;
   }
   cli()->app()->getFilenameFromTags(tagMask);
 }
@@ -1001,11 +998,7 @@ void FilenameToTagCommand::startCommand()
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
-    cli()->app()->setFilenameToTagsFormat(format);
-  }
-  if (cli()->app()->getFilenameToTagsFormat().isEmpty()) {
-    cli()->app()->setFilenameToTagsFormat(
-          FileConfig::instance().m_formatFromFilenameText);
+    FileConfig::instance().m_formatFromFilenameText = format;
   }
   cli()->app()->getTagsFromFilename(tagMask);
 }

@@ -544,22 +544,6 @@ public:
   bool isFiltered() const { return m_filtered; }
 
   /**
-   * Get format used to generate filename from tags.
-   * @return format
-   */
-  QString getFilenameToTagsFormat() const {
-    return m_filenameToTagsFormat;
-  }
-
-  /**
-   * Get format used to generate tags from filename.
-   * @return format
-   */
-  QString getTagsToFilenameFormat() const {
-    return m_tagsToFilenameFormat;
-  }
-
-  /**
    * Get the selected file.
    *
    * @return the selected file,
@@ -734,36 +718,6 @@ public slots:
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
   void getTagsFromFilename(TrackData::TagVersion tagMask);
-
-  /**
-   * Set format used to generate filename from tags.
-   * @param format format
-   */
-  void setFilenameToTagsFormat(const QString& format);
-
-  /**
-   * Set format used to generate filename from tags without emitting
-   * filenameToTagsFormatChanged() signal.
-   * This has to be used when connected from the GUI to avoid that the GUI
-   * is updated because of its own changes.
-   * @param format format
-   */
-  void setFilenameToTagsFormatWithoutSignaling(const QString& format);
-
-  /**
-   * Set format used to generate tags from filename.
-   * @param format format
-   */
-  void setTagsToFilenameFormat(const QString& format);
-
-  /**
-   * Set format used to generate tags from filename without emitting
-   * tagsToFilenameFormatChanged() signal.
-   * This has to be used when connected from the GUI to avoid that the GUI
-   * is updated because of its own changes.
-   * @param format format
-   */
-  void setTagsToFilenameFormatWithoutSignaling(const QString& format);
 
   /**
    * Set filename according to tags.
@@ -1037,18 +991,6 @@ signals:
   void dirNameChanged(const QString& name);
 
   /**
-   * Emitted when setFilenameToTagsFormat() changed.
-   * @param format new format
-   */
-  void filenameToTagsFormatChanged(const QString& format);
-
-  /**
-   * Emitted when setTagsToFilenameFormat() changed.
-   * @param format new format
-   */
-  void tagsToFilenameFormatChanged(const QString& format);
-
-  /**
    * Emitted when a file is filtered.
    * @param type filter event type
    * @param fileName name of filtered file
@@ -1181,10 +1123,6 @@ private:
   QModelIndex m_dirProxyModelRootIndex;
   /** Indexes of opened file in file proxy model */
   QList<QPersistentModelIndex> m_fileProxyModelFileIndexes;
-  /** Format to generate tags from filename */
-  QString m_filenameToTagsFormat;
-  /** Format to generate filename from tags */
-  QString m_tagsToFilenameFormat;
   /** Importers for different servers */
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */

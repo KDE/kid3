@@ -228,9 +228,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
   connect(m_formatComboBox, SIGNAL(editTextChanged(QString)),
-          m_app, SLOT(setTagsToFilenameFormatWithoutSignaling(QString)));
-  connect(m_app, SIGNAL(tagsToFilenameFormatChanged(QString)),
-          m_formatComboBox, SLOT(setEditText(QString)));
+          this, SLOT(onFormatEditTextChanged(QString)));
   fileLayout->addWidget(m_formatComboBox, 1, 1);
 
   QLabel* fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
@@ -252,9 +250,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
   connect(m_formatFromFilenameComboBox, SIGNAL(editTextChanged(QString)),
-          m_app, SLOT(setFilenameToTagsFormatWithoutSignaling(QString)));
-  connect(m_app, SIGNAL(filenameToTagsFormatChanged(QString)),
-          m_formatFromFilenameComboBox, SLOT(setEditText(QString)));
+          this, SLOT(onFormatFromFilenameEditTextChanged(QString)));
   fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
   QLabel* toTagLabel = new QLabel(tr("To:"), m_fileWidget);
@@ -714,6 +710,24 @@ void Kid3Form::showHideTag2()
 }
 
 /**
+ * Set format text configuration when format edit text is changed.
+ * @param text format text
+ */
+void Kid3Form::onFormatEditTextChanged(const QString& text)
+{
+  FileConfig::instance().m_formatText = text;
+}
+
+/**
+ * Set format from filename text configuration when edit text is changed.
+ * @param text format text
+ */
+void Kid3Form::onFormatFromFilenameEditTextChanged(const QString& text)
+{
+  FileConfig::instance().m_formatFromFilenameText = text;
+}
+
+/**
  * Hide or show picture.
  *
  * @param hide true to hide, false to show
@@ -828,6 +842,11 @@ void Kid3Form::readConfig()
   } else {
     m_vSplitter->setSizes(QList<int>() << 451 << 109);
   }
+
+  // Block signals on combo boxes while setting contents to avoid
+  // editTextChanged() signals causing configuration changes.
+  m_formatComboBox->blockSignals(true);
+  m_formatFromFilenameComboBox->blockSignals(true);
   if (!fileCfg.m_formatItems.isEmpty()) {
     m_formatComboBox->clear();
     m_formatComboBox->addItems(fileCfg.m_formatItems);
@@ -844,6 +863,9 @@ void Kid3Form::readConfig()
     fileCfg.m_formatFromFilenameText);
   m_formatFromFilenameComboBox->setCurrentIndex(
     fileCfg.m_formatFromFilenameItem);
+  m_formatComboBox->blockSignals(false);
+  m_formatFromFilenameComboBox->blockSignals(false);
+
   if (!guiCfg.m_autoHideTags) {
     hideFile(guiCfg.m_hideFile);
     hideV1(guiCfg.m_hideV1);

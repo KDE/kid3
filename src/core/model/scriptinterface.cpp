@@ -40,6 +40,7 @@
 #include "modeliterator.h"
 #include "batchimportconfig.h"
 #include "batchimportprofile.h"
+#include "fileconfig.h"
 
 /**
  * Constructor.
@@ -436,7 +437,7 @@ void ScriptInterface::setFileName(const QString& name)
  */
 void ScriptInterface::setFileNameFormat(const QString& format)
 {
-  m_app->setTagsToFilenameFormat(format);
+  FileConfig::instance().m_formatText = format;
 }
 
 /**

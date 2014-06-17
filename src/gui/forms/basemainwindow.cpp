@@ -809,7 +809,7 @@ void BaseMainWindowImpl::slotFilter()
               SLOT(showFilterEvent(FileFilter::FilterEventType,QString)));
     }
     FilterConfig::instance().setFilenameFormat(
-          m_app->getTagsToFilenameFormat());
+          FileConfig::instance().m_formatText);
     m_filterDialog->readConfig();
     m_filterDialog->show();
   }

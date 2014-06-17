@@ -392,6 +392,18 @@ private slots:
    * Toggle visibility of tag 2 controls.
    */
   void showHideTag2();
+
+  /**
+   * Set format text configuration when format edit text is changed.
+   * @param text format text
+   */
+  void onFormatEditTextChanged(const QString& text);
+
+  /**
+   * Set format from filename text configuration when edit text is changed.
+   * @param text format text
+   */
+  void onFormatFromFilenameEditTextChanged(const QString& text);
 };
 
 #endif // KID3FORM_H
