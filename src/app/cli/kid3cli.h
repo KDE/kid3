@@ -196,7 +196,7 @@ private:
 #endif
   QList<CliCommand*> m_cmds;
   QStringList m_argCommands;
-  TaggedFile::DetailInfo m_detailInfo;
+  QString m_detailInfo;
   QString m_filename;
   QString m_tagFormatV1;
   QString m_tagFormatV2;

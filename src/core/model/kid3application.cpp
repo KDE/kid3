@@ -47,6 +47,7 @@
 #include "modeliterator.h"
 #include "trackdatamodel.h"
 #include "frametablemodel.h"
+#include "taggedfileselection.h"
 #include "timeeventmodel.h"
 #include "framelist.h"
 #include "pictureframe.h"
@@ -132,14 +133,12 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_player(0),
 #endif
   m_expressionFileFilter(0),
+  m_selection(new TaggedFileSelection(m_framesV1Model, m_framesV2Model, this)),
   m_downloadImageDest(ImageForSelectedFiles),
-  m_selectionSingleFile(0),
-  m_selectionTagV1SupportedCount(0), m_selectionFileCount(0),
   m_fileFilter(0),
   m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
-  m_filtered(false),
-  m_selectionHasTagV1(false), m_selectionHasTagV2(false)
+  m_filtered(false)
 {
   setObjectName(QLatin1String("Kid3Application"));
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -631,100 +630,20 @@ void Kid3Application::frameModelsToTags()
 void Kid3Application::tagsToFrameModels()
 {
   updateCurrentSelection();
-  m_selectionSingleFile = 0;
-  m_selectionTagV1SupportedCount = 0;
-  m_selectionFileCount = 0;
-  m_selectionHasTagV1 = false;
-  m_selectionHasTagV2 = false;
 
+  m_selection->beginAddTaggedFiles();
   for (QList<QPersistentModelIndex>::const_iterator it =
        m_currentSelection.begin();
        it != m_currentSelection.end();
        ++it) {
-    TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
-    if (taggedFile) {
-      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
-
-      if (taggedFile->isTagV1Supported()) {
-        if (m_selectionTagV1SupportedCount == 0) {
-          FrameCollection frames;
-          taggedFile->getAllFramesV1(frames);
-          m_framesV1Model->transferFrames(frames);
-        } else {
-          FrameCollection fileFrames;
-          taggedFile->getAllFramesV1(fileFrames);
-          m_framesV1Model->filterDifferent(fileFrames);
-        }
-        ++m_selectionTagV1SupportedCount;
-      }
-      if (m_selectionFileCount == 0) {
-        FrameCollection frames;
-        taggedFile->getAllFramesV2(frames);
-        m_framesV2Model->transferFrames(frames);
-        m_selectionSingleFile = taggedFile;
-      } else {
-        FrameCollection fileFrames;
-        taggedFile->getAllFramesV2(fileFrames);
-        m_framesV2Model->filterDifferent(fileFrames);
-        m_selectionSingleFile = 0;
-      }
-      ++m_selectionFileCount;
-
-      m_selectionHasTagV1 = m_selectionHasTagV1 || taggedFile->hasTagV1();
-      m_selectionHasTagV2 = m_selectionHasTagV2 || taggedFile->hasTagV2();
+    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
+      m_selection->addTaggedFile(taggedFile);
     }
   }
+  m_selection->endAddTaggedFiles();
 
-  m_framesV1Model->setAllCheckStates(m_selectionTagV1SupportedCount == 1);
-  m_framesV2Model->setAllCheckStates(m_selectionFileCount == 1);
-  if (GuiConfig::instance().m_autoHideTags) {
-    // If a tag is supposed to be absent, make sure that there is really no
-    // unsaved data in the tag.
-    if (!m_selectionHasTagV1 &&
-        (m_selectionTagV1SupportedCount > 0 || m_selectionFileCount == 0)) {
-      const FrameCollection& frames = m_framesV1Model->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          m_selectionHasTagV1 = true;
-          break;
-        }
-      }
-    }
-    if (!m_selectionHasTagV2) {
-      const FrameCollection& frames = m_framesV2Model->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          m_selectionHasTagV2 = true;
-          break;
-        }
-      }
-    }
-  }
-
-  if (m_selectionSingleFile) {
-    m_framelist->setTaggedFile(m_selectionSingleFile);
-
-    if (TagConfig::instance().markTruncations()) {
-      m_framesV1Model->markRows(m_selectionSingleFile->getTruncationFlags());
-    }
-    if (FileConfig::instance().m_markChanges) {
-      m_framesV1Model->markChangedFrames(
-        m_selectionSingleFile->getChangedFramesV1());
-      m_framesV2Model->markChangedFrames(
-        m_selectionSingleFile->getChangedFramesV2());
-    }
-  } else {
-    if (TagConfig::instance().markTruncations()) {
-      m_framesV1Model->markRows(0);
-    }
-    if (FileConfig::instance().m_markChanges) {
-      m_framesV1Model->markChangedFrames(0);
-      m_framesV2Model->markChangedFrames(0);
-    }
+  if (TaggedFile* taggedFile = m_selection->singleFile()) {
+    m_framelist->setTaggedFile(taggedFile);
   }
 }
 

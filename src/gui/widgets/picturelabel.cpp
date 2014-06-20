@@ -71,18 +71,18 @@ void PictureLabel::clearPicture()
 /**
  * Set picture data.
  *
- * @param data picture data, 0 if no picture is available
+ * @param data picture data, empty if no picture is available
  */
-void PictureLabel::setData(const QByteArray* data)
+void PictureLabel::setData(const QByteArray& data)
 {
-  if (data && !data->isEmpty()) {
-    uint hash = qHash(*data);
+  if (!data.isEmpty()) {
+    uint hash = qHash(data);
     if (pixmap() && hash == m_pixmapHash)
       return; // keep existing pixmap
 
     // creating new pixmap
     QPixmap pm;
-    if (pm.loadFromData(*data)) {
+    if (pm.loadFromData(data)) {
       QPixmap scaledPm = pm.scaled(width(), height(), Qt::KeepAspectRatio);
       if (!scaledPm.isNull()) {
         m_pixmapHash = hash;

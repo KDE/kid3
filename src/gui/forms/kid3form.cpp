@@ -882,9 +882,9 @@ void Kid3Form::readConfig()
 
 /**
  * Set preview picture data.
- * @param data picture data, 0 if no picture is available
+ * @param data picture data, empty if no picture is available
  */
-void Kid3Form::setPictureData(const QByteArray* data)
+void Kid3Form::setPictureData(const QByteArray& data)
 {
   m_pictureLabel->setData(data);
 }
@@ -892,17 +892,13 @@ void Kid3Form::setPictureData(const QByteArray* data)
 /**
  * Set details info text.
  *
- * @param info detail information
+ * @param str detail information summary as string
  */
-void Kid3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
+void Kid3Form::setDetailInfo(const QString& str)
 {
-  QString str = info.toString();
-  if (!str.isEmpty()) {
-    str = tr("F&ile") + QLatin1String(": ") + str;
-  } else {
-    str = tr("F&ile");
-  }
-  m_fileLabel->setText(str);
+  m_fileLabel->setText(!str.isEmpty()
+                       ? tr("F&ile") + QLatin1String(": ") + str
+                       : tr("F&ile"));
 }
 
 /**

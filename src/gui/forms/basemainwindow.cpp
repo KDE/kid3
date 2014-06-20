@@ -59,6 +59,7 @@
 #include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
 #include "modeliterator.h"
+#include "taggedfileselection.h"
 #include "filelist.h"
 #include "pictureframe.h"
 #include "fileconfig.h"
@@ -866,13 +867,13 @@ void BaseMainWindowImpl::updateWindowCaption()
  */
 void BaseMainWindowImpl::updateCurrentSelection()
 {
-  if (m_app->selectionFileCount() > 0) {
+  TaggedFileSelection* selection = m_app->selectionInfo();
+  if (!selection->isEmpty()) {
     m_form->frameTableV1()->acceptEdit();
     m_form->frameTableV2()->acceptEdit();
     m_app->frameModelsToTags();
-    if (TaggedFile* taggedFile = m_app->selectionSingleFile()) {
-      taggedFile->setFilename(m_form->getFilename());
-    }
+
+    selection->setFilename(m_form->getFilename());
   }
 }
 
@@ -885,51 +886,25 @@ void BaseMainWindowImpl::updateGuiControls()
 {
   m_app->tagsToFrameModels();
 
-  TaggedFile::DetailInfo info;
-  if (const TaggedFile* selectedFile = m_app->selectionSingleFile()) {
-    m_form->setFilenameEditEnabled(true);
-    m_form->setFilename(selectedFile->getFilename());
-    selectedFile->getDetailInfo(info);
-    m_form->setDetailInfo(info);
-    m_form->setTagFormatV1(selectedFile->getTagFormatV1());
-    m_form->setTagFormatV2(selectedFile->getTagFormatV2());
-
-    if (FileConfig::instance().m_markChanges) {
-      m_form->markChangedFilename(selectedFile->isFilenameChanged());
-    }
-  } else {
-    if (m_app->selectionFileCount() > 1) {
-      m_form->setFilename(Frame::differentRepresentation());
-    }
-    m_form->setFilenameEditEnabled(false);
-    m_form->setDetailInfo(info);
-    m_form->setTagFormatV1(QString());
-    m_form->setTagFormatV2(QString());
-
-    if (FileConfig::instance().m_markChanges) {
-      m_form->markChangedFilename(false);
-    }
+  TaggedFileSelection* selection = m_app->selectionInfo();
+  m_form->setFilename(selection->getFilename());
+  m_form->setFilenameEditEnabled(selection->isSingleFileSelected());
+  m_form->setDetailInfo(selection->getDetailInfo());
+  m_form->setTagFormatV1(selection->getTagFormatV1());
+  m_form->setTagFormatV2(selection->getTagFormatV2());
+  if (FileConfig::instance().m_markChanges) {
+    m_form->markChangedFilename(selection->isFilenameChanged());
   }
 
   if (!GuiConfig::instance().m_hidePicture) {
-    FrameCollection::const_iterator it =
-      m_app->frameModelV2()->frames().find(
-          Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
-    if (it == m_app->frameModelV2()->frames().end() ||
-        it->isInactive()) {
-      m_form->setPictureData(0);
-    } else {
-      QByteArray data;
-      m_form->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
-    }
+    m_form->setPictureData(selection->getPicture());
   }
 
-  m_form->enableControlsV1(m_app->selectionTagV1SupportedCount() > 0 ||
-                           m_app->selectionFileCount() == 0);
+  m_form->enableControlsV1(selection->isTag1Used() || selection->isEmpty());
 
   if (GuiConfig::instance().m_autoHideTags) {
-    m_form->hideV1(!m_app->selectionHasTagV1());
-    m_form->hideV2(!m_app->selectionHasTagV2());
+    m_form->hideV1(!selection->hasTagV1());
+    m_form->hideV2(!selection->hasTagV2());
   }
 }
 

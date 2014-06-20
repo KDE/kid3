@@ -178,16 +178,16 @@ public:
 
   /**
    * Set preview picture data.
-   * @param data picture data, 0 if no picture is available
+   * @param data picture data, empty if no picture is available
    */
-  void setPictureData(const QByteArray* data);
+  void setPictureData(const QByteArray& data);
 
   /**
    * Set details info text.
    *
-   * @param info detail information
+   * @param str detail information summary as string
    */
-  void setDetailInfo(const TaggedFile::DetailInfo& info);
+  void setDetailInfo(const QString& str);
 
   /**
    * Get file list.

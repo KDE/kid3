@@ -45,6 +45,7 @@ class FileProxyModelIterator;
 class DirProxyModel;
 class TrackDataModel;
 class FrameTableModel;
+class TaggedFileSelection;
 class ConfigStore;
 class PlaylistConfig;
 class DownloadClient;
@@ -301,40 +302,10 @@ public:
   void tagsToFrameModels();
 
   /**
-   * Check if a single file is selected.
-   * @return if a single file is selected, this tagged file, else 0.
+   * Access to information about selected tagged files.
+   * @return selection information.
    */
-  TaggedFile* selectionSingleFile() const {
-    return m_selectionSingleFile;
-  }
-
-  /**
-   * Number of selected files which support tag 1.
-   * @return number of selected files which support tag 1.
-   */
-  int selectionTagV1SupportedCount() const {
-    return m_selectionTagV1SupportedCount;
-  }
-
-  /**
-   * Number of selected files.
-   * @return number of selected files which support tag 2.
-   */
-  int selectionFileCount() const {
-    return m_selectionFileCount;
-  }
-
-  /**
-   * Check if any of the selected files has a tag 1.
-   * @return true if any of the selected files has a tag 1.
-   */
-  bool selectionHasTagV1() const { return m_selectionHasTagV1; }
-
-  /**
-   * Check if any of the selected files has a tag 2.
-   * @return true if any of the selected files has a tag 2.
-   */
-  bool selectionHasTagV2() const { return m_selectionHasTagV2; }
+  TaggedFileSelection* selectionInfo() const { return m_selection; }
 
   /**
    * Import.
@@ -1113,6 +1084,8 @@ private:
   AudioPlayer* m_player;
 #endif
   FileFilter* m_expressionFileFilter;
+  /** Information about selected tagged files */
+  TaggedFileSelection* m_selection;
   /** Affected files to add frame when downloading image */
   DownloadImageDestination m_downloadImageDest;
   /** Copy buffer */
@@ -1134,14 +1107,6 @@ private:
   /** directory from where "directory up" (..) was activated. */
   QPersistentModelIndex m_dirUpIndex;
 
-  /* Context for updateFrameModels() */
-  /** If a single file is selected, this tagged file, else 0 */
-  TaggedFile* m_selectionSingleFile;
-  /** Number of selected files which support tag 1 */
-  int m_selectionTagV1SupportedCount;
-  /** Number of selected files */
-  int m_selectionFileCount;
-
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;
   QString m_lastProcessedDirName;
@@ -1160,10 +1125,6 @@ private:
 
   /** true if list is filtered */
   bool m_filtered;
-  /** true if any of the selected files has a tag 1 */
-  bool m_selectionHasTagV1;
-  /** true if any of the selected files has a tag 2 */
-  bool m_selectionHasTagV2;
 };
 
 #endif // KID3APPLICATION_H

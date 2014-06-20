@@ -57,9 +57,9 @@ public:
   /**
    * Set picture data.
    *
-   * @param data picture data, 0 if no picture is available
+   * @param data picture data, empty if no picture is available
    */
-  void setData(const QByteArray* data);
+  void setData(const QByteArray& data);
 
 private:
   /**

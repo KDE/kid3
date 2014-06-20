@@ -32,6 +32,7 @@
 #include "kid3application.h"
 #include "fileproxymodel.h"
 #include "frametablemodel.h"
+#include "taggedfileselection.h"
 #include "clicommand.h"
 #include "cliconfig.h"
 
@@ -474,18 +475,12 @@ bool Kid3Cli::selectFile(const QStringList& paths)
  */
 void Kid3Cli::updateSelectedFiles()
 {
-  int selectionSize = m_app->selectionFileCount();
-  if (selectionSize > 0) {
-    if (selectionSize > 1) {
-      m_app->frameModelV1()->selectChangedFrames();
-      m_app->frameModelV2()->selectChangedFrames();
-    }
+  TaggedFileSelection* selection = m_app->selectionInfo();
+  selection->selectChangedFrames();
+  if (!selection->isEmpty()) {
     m_app->frameModelsToTags();
-    TaggedFile* taggedFile = m_app->selectionSingleFile();
-    if (taggedFile && !m_filename.isEmpty()) {
-      taggedFile->setFilename(m_filename);
-    }
   }
+  selection->setFilename(m_filename);
 }
 
 /**
@@ -496,25 +491,13 @@ void Kid3Cli::updateSelection()
 {
   m_app->tagsToFrameModels();
 
-  if (const TaggedFile* taggedFile = m_app->selectionSingleFile()) {
-    m_filename = taggedFile->getFilename();
-    taggedFile->getDetailInfo(m_detailInfo);
-    m_tagFormatV1 = taggedFile->getTagFormatV1();
-    m_tagFormatV2 = taggedFile->getTagFormatV2();
-    m_fileNameChanged = taggedFile->isFilenameChanged();
-  } else {
-    m_filename.clear();
-    m_detailInfo = TaggedFile::DetailInfo();
-    m_tagFormatV1.clear();
-    m_tagFormatV2.clear();
-    m_fileNameChanged = false;
-  }
-  if (m_app->selectionTagV1SupportedCount() == 0) {
-    m_app->frameModelV1()->clearFrames();
-  }
-  if (m_app->selectionFileCount() == 0) {
-    m_app->frameModelV2()->clearFrames();
-  }
+  TaggedFileSelection* selection = m_app->selectionInfo();
+  m_filename = selection->getFilename();
+  m_tagFormatV1 = selection->getTagFormatV1();
+  m_tagFormatV2 = selection->getTagFormatV2();
+  m_fileNameChanged = selection->isFilenameChanged();
+  m_detailInfo = selection->getDetailInfo();
+  selection->clearUnusedFrames();
 }
 
 /**
@@ -523,8 +506,8 @@ void Kid3Cli::updateSelection()
  */
 void Kid3Cli::writeFileInformation(int tagMask)
 {
-  if (m_detailInfo.valid) {
-    writeLine(tr("File") + QLatin1String(": ") + m_detailInfo.toString());
+  if (!m_detailInfo.isEmpty()) {
+    writeLine(tr("File") + QLatin1String(": ") + m_detailInfo);
   }
   if (!m_filename.isEmpty()) {
     QString line = m_fileNameChanged ? QLatin1String("*") : QLatin1String(" ");
