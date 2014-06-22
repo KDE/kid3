@@ -83,6 +83,7 @@ QList<int> checkableFrameTypes() {
  * @param platformTools platform tools
  * @param parent        parent widget
  * @param caption       dialog title
+ * @param genreModel    genre model
  * @param trackDataModel track data to be filled with imported values,
  *                      is passed with durations of files set
  * @param importers     server importers
@@ -91,6 +92,7 @@ QList<int> checkableFrameTypes() {
 ImportDialog::ImportDialog(IPlatformTools* platformTools,
                            QWidget* parent, QString& caption,
                            TrackDataModel* trackDataModel,
+                           GenreModel* genreModel,
                            const QList<ServerImporter*>& importers,
                            const QList<ServerTrackImporter*>& trackImporters) :
   QDialog(parent), m_platformTools(platformTools),
@@ -115,7 +117,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_trackDataTable->resizeColumnsToContents();
   m_trackDataTable->setItemDelegateForColumn(
         m_trackDataModel->columnForFrameType(Frame::FT_Genre),
-        new FrameItemDelegate(this));
+        new FrameItemDelegate(genreModel, this));
 #if QT_VERSION >= 0x050000
   m_trackDataTable->verticalHeader()->setSectionsMovable(true);
   m_trackDataTable->horizontalHeader()->setSectionsMovable(true);

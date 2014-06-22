@@ -281,7 +281,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   rightHalfLayout->addWidget(m_tag1Widget, 100);
 
   QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
-  m_framesV1Table = new FrameTable(m_app->frameModelV1(), m_tag1Widget);
+  m_framesV1Table = new FrameTable(m_app->frameModelV1(), m_app->genreModelV1(),
+                                   m_tag1Widget);
   m_framesV1Table->setSelectionModel(m_app->getFramesV1SelectionModel());
   idV1HBoxLayout->addWidget(m_framesV1Table, 100);
   m_tag1Label->setBuddy(m_framesV1Table);
@@ -323,7 +324,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   rightHalfLayout->addWidget(m_tag2Widget, 100);
 
   QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
-  m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_tag2Widget);
+  m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_app->genreModelV2(),
+                                   m_tag2Widget);
   m_framesV2Table->setSelectionModel(m_app->getFramesV2SelectionModel());
   idV2HBoxLayout->addWidget(m_framesV2Table);
   m_tag2Label->setBuddy(m_framesV2Table);

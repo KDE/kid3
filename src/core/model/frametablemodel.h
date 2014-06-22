@@ -33,6 +33,8 @@
 #include "frame.h"
 #include "kid3api.h"
 
+class GenreModel;
+
 /**
  * Model for table with frames.
  */
@@ -316,9 +318,10 @@ class KID3_CORE_EXPORT FrameItemDelegate : public QItemDelegate {
 public:
   /**
    * Constructor.
+   * @param genreModel genre model
    * @param parent parent QTableView
    */
-  explicit FrameItemDelegate(QObject* parent = 0);
+  explicit FrameItemDelegate(GenreModel* genreModel, QObject* parent = 0);
 
   /**
    * Destructor.
@@ -360,6 +363,7 @@ private slots:
   void formatTextIfEnabled(const QString& txt);
 
 private:
+  GenreModel* m_genreModel;
   QValidator* m_trackNumberValidator;
   QValidator* m_dateTimeValidator;
 };

@@ -27,6 +27,7 @@ set(model_SRCS
   model/eventtimingcode.cpp
   model/tracknumbervalidator.cpp
   model/taggedfileselection.cpp
+  model/genremodel.cpp
 )
 
 set(model_MOC_HDRS
@@ -46,6 +47,7 @@ set(model_MOC_HDRS
   model/tagsearcher.h
   model/timeeventmodel.h
   model/taggedfileselection.h
+  model/genremodel.h
 )
 
 if (HAVE_QTDBUS)

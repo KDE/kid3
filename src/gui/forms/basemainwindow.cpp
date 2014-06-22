@@ -503,8 +503,9 @@ void BaseMainWindowImpl::setupImportDialog()
   if (!m_importDialog) {
     QString caption(tr("Import"));
     m_importDialog =
-      new ImportDialog(m_platformTools, m_w,
-                       caption, m_app->getTrackDataModel(),
+      new ImportDialog(m_platformTools, m_w, caption,
+                       m_app->getTrackDataModel(),
+                       m_app->genreModelV2(),
                        m_app->getServerImporters(),
                        m_app->getServerTrackImporters());
     connect(m_importDialog, SIGNAL(accepted()),
@@ -635,21 +636,9 @@ void BaseMainWindowImpl::slotSettingsShowHidePicture()
  */
 void BaseMainWindowImpl::applyChangedConfiguration()
 {
-  m_app->saveConfig();
-  if (!TagConfig::instance().markTruncations()) {
-    m_app->frameModelV1()->markRows(0);
-  }
+  m_app->applyChangedConfiguration();
   if (!FileConfig::instance().m_markChanges) {
-    m_app->frameModelV1()->markChangedFrames(0);
-    m_app->frameModelV2()->markChangedFrames(0);
     m_form->markChangedFilename(false);
-  }
-  m_app->notifyConfigurationChange();
-  quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
-  if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
-    FrameCollection::setQuickAccessFrames(
-          TagConfig::instance().quickAccessFrames());
-    updateGuiControls();
   }
 }
 

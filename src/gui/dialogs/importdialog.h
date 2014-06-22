@@ -41,6 +41,7 @@ class QSpinBox;
 class QTableView;
 class QLabel;
 class TrackDataModel;
+class GenreModel;
 class ServerTrackImportDialog;
 class ServerImporter;
 class ServerImportDialog;
@@ -64,6 +65,7 @@ public:
    * @param platformTools platform tools
    * @param parent        parent widget
    * @param caption       dialog title
+   * @param genreModel    genre model
    * @param trackDataModel track data to be filled with imported values,
    *                      is passed with durations of files set
    * @param importers     server importers
@@ -72,6 +74,7 @@ public:
   ImportDialog(IPlatformTools* platformTools,
                QWidget* parent, QString& caption,
                TrackDataModel* trackDataModel,
+               GenreModel* genreModel,
                const QList<ServerImporter*>& importers,
                const QList<ServerTrackImporter*>& trackImporters);
 

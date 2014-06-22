@@ -31,7 +31,7 @@
 #include "fileconfig.h"
 #include "tagconfig.h"
 #include "formatconfig.h"
-#include "genres.h"
+#include "genremodel.h"
 #include "tracknumbervalidator.h"
 #include "pictureframe.h"
 
@@ -600,9 +600,12 @@ void FrameTableModel::resizeFrameSelected()
 
 /**
  * Constructor.
+ * @param genreModel genre model
  * @param parent parent QTableView
  */
-FrameItemDelegate::FrameItemDelegate(QObject* parent) : QItemDelegate(parent),
+FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent) :
+  QItemDelegate(parent),
+  m_genreModel(genreModel),
   m_trackNumberValidator(new TrackNumberValidator(this)),
   m_dateTimeValidator(new QRegExpValidator(QRegExp(QLatin1String(
     // This is a simplified regular expression from
@@ -669,32 +672,7 @@ QWidget* FrameItemDelegate::createEditor(
         cb->setDuplicatesEnabled(false);
       }
 
-      QStringList strList;
-      for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
-        strList += QString::fromLatin1(*sl);
-      }
-      if (TagConfig::instance().onlyCustomGenres()) {
-        cb->addItem(QLatin1String(""));
-      } else {
-        cb->addItems(strList);
-      }
-      QStringList customGenres = TagConfig::instance().customGenres();
-      if (id3v1) {
-        for (QStringList::const_iterator it = customGenres.begin();
-             it != customGenres.end();
-             ++it) {
-          if (Genres::getNumber(*it) != 255) {
-            cb->addItem(*it);
-          }
-        }
-        if (cb->count() <= 1) {
-          // No custom genres for ID3v1 => Show standard genres
-          cb->clear();
-          cb->addItems(strList);
-        }
-      } else {
-        cb->addItems(customGenres);
-      }
+      cb->setModel(m_genreModel);
       return cb;
     }
     QWidget* editor = QItemDelegate::createEditor(parent, option, index);
@@ -740,17 +718,7 @@ void FrameItemDelegate::setEditorData(
   QComboBox* cb = qobject_cast<QComboBox*>(editor);
   if (cb) {
     QString genreStr(index.model()->data(index).toString());
-    int genreIndex = genreStr.isNull() ? 0 :
-      Genres::getIndex(Genres::getNumber(genreStr));
-    if (TagConfig::instance().onlyCustomGenres()) {
-      genreIndex = cb->findText(genreStr);
-      if (genreIndex < 0) genreIndex = 0;
-    } else if (genreIndex <= 0) {
-      genreIndex = cb->findText(genreStr);
-      if (genreIndex < 0) genreIndex = Genres::count + 1;
-    }
-    cb->setItemText(genreIndex, genreStr);
-    cb->setCurrentIndex(genreIndex);
+    cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
   } else {
     QItemDelegate::setEditorData(editor, index);
   }

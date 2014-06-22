@@ -37,9 +37,11 @@
  * Constructor.
  *
  * @param model frame table model
+ * @param genreModel genre model
  * @param parent parent widget
  */
-FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
+FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
+                       QWidget* parent) :
   QTableView(parent), m_currentEditor(0)
 {
   setObjectName(QLatin1String("FrameTable"));
@@ -76,7 +78,7 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
 #else
   horizontalHeader()->setResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
 #endif
-  setItemDelegate(new FrameItemDelegate(this));
+  setItemDelegate(new FrameItemDelegate(genreModel, this));
   setEditTriggers(AllEditTriggers);
   viewport()->installEventFilter(this); // keep track of editors
   setContextMenuPolicy(Qt::CustomContextMenu);

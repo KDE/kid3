@@ -44,6 +44,7 @@ class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
 class TrackDataModel;
+class GenreModel;
 class FrameTableModel;
 class TaggedFileSelection;
 class ConfigStore;
@@ -144,6 +145,18 @@ public:
   }
 
   /**
+   * Get tag 1 genre model.
+   * @return genre model.
+   */
+  GenreModel*  genreModelV1() const { return m_genreModelV1; }
+
+  /**
+   * Get tag 2 genre model.
+   * @return genre model.
+   */
+  GenreModel*  genreModelV2() const { return m_genreModelV2; }
+
+  /**
    * Get tag 1 frame table model.
    * @return frame table.
    */
@@ -239,6 +252,11 @@ public:
    * @return current index, root index if not valid.
    */
   QModelIndex currentOrRootIndex() const;
+
+  /**
+   * Apply configuration changes.
+   */
+  void applyChangedConfiguration();
 
   /**
    * Save settings to the configuration.
@@ -1050,6 +1068,8 @@ private:
   void checkPlugin(QObject* plugin);
 
   ICorePlatformTools* m_platformTools;
+  /** Configuration */
+  ConfigStore* m_configStore;
   /** model of filesystem */
   QFileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;
@@ -1059,14 +1079,14 @@ private:
   QItemSelectionModel* m_dirSelectionModel;
   /** Track data model */
   TrackDataModel* m_trackDataModel;
+  GenreModel* m_genreModelV1;
+  GenreModel* m_genreModelV2;
   FrameTableModel* m_framesV1Model;
   FrameTableModel* m_framesV2Model;
   QItemSelectionModel* m_framesV1SelectionModel;
   QItemSelectionModel* m_framesV2SelectionModel;
   /** Frame list */
   FrameList* m_framelist;
-  /** Configuration */
-  ConfigStore* m_configStore;
   /** Network access manager */
   QNetworkAccessManager* m_netMgr;
   /** Download client */

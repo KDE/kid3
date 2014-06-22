@@ -46,6 +46,7 @@
 #include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "trackdatamodel.h"
+#include "genremodel.h"
 #include "frametablemodel.h"
 #include "taggedfileselection.h"
 #include "timeeventmodel.h"
@@ -110,6 +111,7 @@ QString pluginFileName(const QString& pluginName)
 Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
+  m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
@@ -117,12 +119,13 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
   m_dirSelectionModel(new QItemSelectionModel(m_dirProxyModel, this)),
   m_trackDataModel(new TrackDataModel(this)),
+  m_genreModelV1(new GenreModel(true, this)),
+  m_genreModelV2(new GenreModel(false, this)),
   m_framesV1Model(new FrameTableModel(true, this)),
   m_framesV2Model(new FrameTableModel(false, this)),
   m_framesV1SelectionModel(new QItemSelectionModel(m_framesV1Model, this)),
   m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
   m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
-  m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
   m_netMgr(new QNetworkAccessManager(this)),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
@@ -378,6 +381,30 @@ AudioPlayer* Kid3Application::getAudioPlayer()
 ISettings* Kid3Application::getSettings() const
 {
   return m_platformTools->applicationSettings();
+}
+
+/**
+ * Apply configuration changes.
+ */
+void Kid3Application::applyChangedConfiguration()
+{
+  saveConfig();
+  if (!TagConfig::instance().markTruncations()) {
+    m_framesV1Model->markRows(0);
+  }
+  if (!FileConfig::instance().m_markChanges) {
+    m_framesV1Model->markChangedFrames(0);
+    m_framesV2Model->markChangedFrames(0);
+  }
+  m_genreModelV1->init();
+  m_genreModelV2->init();
+  notifyConfigurationChange();
+  quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
+  if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
+    FrameCollection::setQuickAccessFrames(
+          TagConfig::instance().quickAccessFrames());
+    emit selectedFilesUpdated();
+  }
 }
 
 /**

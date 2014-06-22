@@ -32,6 +32,7 @@
 class QAction;
 class QPoint;
 class FrameTableModel;
+class GenreModel;
 
 /**
  * Table to edit frames.
@@ -44,9 +45,11 @@ public:
    * Constructor.
    *
    * @param model frame table model
+   * @param genreModel genre model
    * @param parent parent widget
    */
-  explicit FrameTable(FrameTableModel* model, QWidget* parent = 0);
+  explicit FrameTable(FrameTableModel* model, GenreModel* genreModel,
+                      QWidget* parent = 0);
 
   /**
    * Destructor.
