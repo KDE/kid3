@@ -48,11 +48,13 @@
  * @param prompt command line prompt
  */
 StandardIOHandler::StandardIOHandler(const char* prompt) :
-  m_prompt(prompt), m_conInThread(0)
-#ifndef Q_OS_WIN32
-  , m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly)
-#endif
+  m_prompt(prompt), m_conInThread(0),
+  m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly)
 {
+#ifdef Q_OS_WIN32
+  DWORD mode;
+  m_consoleMode = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
+#endif
 }
 
 /**
@@ -155,14 +157,16 @@ void StandardIOHandler::blockingReadLine()
 void StandardIOHandler::writeLine(const QString& line)
 {
 #ifdef Q_OS_WIN32
-  QString str = line + QLatin1Char('\n');
-  WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE),
-      str.utf16(), str.size(), 0, 0);
-#else
+  if (m_consoleMode) {
+    QString str = line + QLatin1Char('\n');
+    WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE),
+        str.utf16(), str.size(), 0, 0);
+    return;
+  }
+#endif
   m_cout << line;
   m_cout << QLatin1Char('\n');
   m_cout.flush();
-#endif
 }
 
 /**
@@ -172,14 +176,16 @@ void StandardIOHandler::writeLine(const QString& line)
 void StandardIOHandler::writeErrorLine(const QString& line)
 {
 #ifdef Q_OS_WIN32
-  QString str = line + QLatin1Char('\n');
-  WriteConsoleW(GetStdHandle(STD_ERROR_HANDLE),
-      str.utf16(), str.size(), 0, 0);
-#else
+  if (m_consoleMode) {
+    QString str = line + QLatin1Char('\n');
+    WriteConsoleW(GetStdHandle(STD_ERROR_HANDLE),
+        str.utf16(), str.size(), 0, 0);
+    return;
+  }
+#endif
   m_cerr << line;
   m_cerr << QLatin1Char('\n');
   m_cerr.flush();
-#endif
 }
 
 /**
@@ -187,7 +193,10 @@ void StandardIOHandler::writeErrorLine(const QString& line)
  */
 void StandardIOHandler::flushStandardOutput()
 {
-#ifndef Q_OS_WIN32
-  m_cout.flush();
+#ifdef Q_OS_WIN32
+  if (m_consoleMode) {
+    return;
+  }
 #endif
+  m_cout.flush();
 }

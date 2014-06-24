@@ -28,9 +28,7 @@
 #define STANDARDIOHANDLER_H
 
 #include "abstractcli.h"
-#ifndef Q_OS_WIN32
 #include <QTextStream>
-#endif
 
 /**
  * CLI I/O Handler for standard I/O.
@@ -99,9 +97,10 @@ private slots:
 private:
   const char* m_prompt;
   QThread* m_conInThread;
-#ifndef Q_OS_WIN32
   QTextStream m_cout;
   QTextStream m_cerr;
+#ifdef Q_OS_WIN32
+  bool m_consoleMode;
 #endif
 };
 
