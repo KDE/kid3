@@ -92,7 +92,10 @@ void CliCommand::execute()
     killTimer(m_timerId);
     m_timerId = 0;
   }
-  int msec = getTimeout();
+  int msec = m_processor->getTimeout();
+  if (msec == 0) {
+    msec = getTimeout();
+  }
   if (msec > 0) {
     m_timerId = startTimer(msec);
   }
@@ -190,6 +193,45 @@ HelpCommand::HelpCommand(Kid3Cli* processor) :
 void HelpCommand::startCommand()
 {
   cli()->writeHelp(args().size() > 1 ? args().at(1) : QString());
+}
+
+
+TimeoutCommand::TimeoutCommand(Kid3Cli* processor) :
+  CliCommand(processor, QLatin1String("timeout"), tr("Overwrite timeout"),
+             QLatin1String("[S]\nS = \"default\" | \"off\" | ") + tr("Time") +
+             QLatin1String(" [ms]"))
+{
+}
+
+void TimeoutCommand::startCommand()
+{
+  int cliTimeout = cli()->getTimeout();
+  if (args().size() > 1) {
+    const QString& val = args().at(1);
+    if (val == QLatin1String("off")) {
+      cliTimeout = -1;
+    } else if (val == QLatin1String("default")) {
+      cliTimeout = 0;
+    } else {
+      bool ok;
+      int ms = val.toInt(&ok);
+      if (ok && ms > 0) {
+        cliTimeout = ms;
+      }
+    }
+    cli()->setTimeout(cliTimeout);
+  }
+  QString msg(tr("Timeout"));
+  msg += QLatin1String(": ");
+  if (cliTimeout < 0) {
+    msg += QLatin1String("off");
+  } else if (cliTimeout == 0) {
+    msg += QLatin1String("default");
+  } else {
+    msg += QString::number(cliTimeout);
+    msg += QLatin1String(" ms");
+  }
+  cli()->writeLine(msg);
 }
 
 
@@ -859,6 +901,7 @@ void FilterCommand::connectResultSignal()
 
 void FilterCommand::disconnectResultSignal()
 {
+  cli()->app()->abortFilter();
   disconnect(cli()->app(),
              SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
              this, SLOT(onFileFiltered(FileFilter::FilterEventType,QString)));

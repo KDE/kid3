@@ -915,6 +915,11 @@ public slots:
   void applyFilter(const QString& expression);
 
   /**
+   * Abort expression file filter.
+   */
+  void abortFilter();
+
+  /**
    * Perform a batch import for the selected directories.
    * @param profile batch import profile
    * @param tagVersion import destination tag versions

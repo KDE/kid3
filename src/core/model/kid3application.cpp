@@ -2271,6 +2271,16 @@ void Kid3Application::applyFilter(const QString& expression)
 }
 
 /**
+ * Abort expression file filter.
+ */
+void Kid3Application::abortFilter()
+{
+  if (m_expressionFileFilter) {
+    m_expressionFileFilter->abort();
+  }
+}
+
+/**
  * Perform rename actions and change application directory afterwards if it
  * was renamed.
  *

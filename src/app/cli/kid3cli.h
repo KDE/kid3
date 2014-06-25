@@ -128,6 +128,18 @@ public:
   void setTagMask(TrackData::TagVersion tagMask);
 
   /**
+   * Get timeout value.
+   * @return timeout in ms, 0 to use defaults, -1 to switch off.
+   */
+  int getTimeout() const { return m_timeoutMs; }
+
+  /**
+   * Set timeout value.
+   * @param timeout timeout in ms, 0 to use defaults, -1 to switch off
+   */
+  void setTimeout(int timeout) { m_timeoutMs = timeout; }
+
+  /**
    * Expand wildcards in path list.
    * @param paths paths to expand
    * @return expanded paths.
@@ -198,6 +210,8 @@ private:
   QString m_tagFormatV2;
   TrackData::TagVersion m_tagMask;
   QList<QPersistentModelIndex> m_selection;
+  /** Overwrites command timeout, -1 to switch off, 0 for defaults, else ms. */
+  int m_timeoutMs;
   bool m_fileNameChanged;
 };
 

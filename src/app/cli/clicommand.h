@@ -229,6 +229,18 @@ protected:
 };
 
 
+/** Overwrite timeout. */
+class TimeoutCommand : public CliCommand {
+  Q_OBJECT
+public:
+  /** Constructor. */
+  explicit TimeoutCommand(Kid3Cli* processor);
+
+protected:
+  virtual void startCommand();
+};
+
+
 /** Quit application. */
 class QuitCommand : public CliCommand {
   Q_OBJECT
