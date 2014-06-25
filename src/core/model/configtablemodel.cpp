@@ -153,10 +153,12 @@ int ConfigTableModel::columnCount(const QModelIndex& parent) const
 bool ConfigTableModel::insertRows(int row, int count,
                         const QModelIndex&)
 {
-  beginInsertRows(QModelIndex(), row, row + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_keyValues.insert(row, QPair<QString, QString>());
-  endInsertRows();
+  if (count > 0) {
+    beginInsertRows(QModelIndex(), row, row + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_keyValues.insert(row, QPair<QString, QString>());
+    endInsertRows();
+  }
   return true;
 }
 
@@ -170,10 +172,12 @@ bool ConfigTableModel::insertRows(int row, int count,
 bool ConfigTableModel::removeRows(int row, int count,
                         const QModelIndex&)
 {
-  beginRemoveRows(QModelIndex(), row, row + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_keyValues.removeAt(row);
-  endRemoveRows();
+  if (count > 0) {
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_keyValues.removeAt(row);
+    endRemoveRows();
+  }
   return true;
 }
 

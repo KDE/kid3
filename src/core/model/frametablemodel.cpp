@@ -258,10 +258,12 @@ void FrameTableModel::insertFrame(const Frame& frame)
 bool FrameTableModel::removeRows(int row, int count,
                         const QModelIndex&)
 {
-  beginRemoveRows(QModelIndex(), row, row + count - 1);
-  m_frames.erase(frameAt(row), frameAt(row + count));
-  resizeFrameSelected();
-  endRemoveRows();
+  if (count > 0) {
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    m_frames.erase(frameAt(row), frameAt(row + count));
+    resizeFrameSelected();
+    endRemoveRows();
+  }
   return true;
 }
 
@@ -422,10 +424,13 @@ FrameCollection FrameTableModel::getEnabledFrames() const
  */
 void FrameTableModel::clearFrames()
 {
-  beginRemoveRows(QModelIndex(), 0, m_frames.size() - 1);
-  m_frames.clear();
-  m_frameSelected.clear();
-  endRemoveRows();
+  const int numFrames = m_frames.size();
+  if (numFrames > 0) {
+    beginRemoveRows(QModelIndex(), 0, numFrames - 1);
+    m_frames.clear();
+    m_frameSelected.clear();
+    endRemoveRows();
+  }
 }
 
 /**

@@ -235,9 +235,11 @@ int TrackDataModel::columnCount(const QModelIndex& parent) const
  */
 bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
 {
-  beginInsertRows(QModelIndex(), row, row + count - 1);
-  m_trackDataVector.insert(row, count, ImportTrackData());
-  endInsertRows();
+  if (count > 0) {
+    beginInsertRows(QModelIndex(), row, row + count - 1);
+    m_trackDataVector.insert(row, count, ImportTrackData());
+    endInsertRows();
+  }
   return true;
 }
 
@@ -251,9 +253,11 @@ bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
 bool TrackDataModel::removeRows(int row, int count,
                         const QModelIndex&)
 {
-  beginRemoveRows(QModelIndex(), row, row + count - 1);
-  m_trackDataVector.remove(row, count);
-  endRemoveRows();
+  if (count > 0) {
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    m_trackDataVector.remove(row, count);
+    endRemoveRows();
+  }
   return true;
 }
 
@@ -268,10 +272,12 @@ bool TrackDataModel::removeRows(int row, int count,
 bool TrackDataModel::insertColumns(int column, int count,
                            const QModelIndex&)
 {
-  beginInsertColumns(QModelIndex(), column, column + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_frameTypes.insert(column, Frame::ExtendedType());
-  endInsertColumns();
+  if (count > 0) {
+    beginInsertColumns(QModelIndex(), column, column + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_frameTypes.insert(column, Frame::ExtendedType());
+    endInsertColumns();
+  }
   return true;
 }
 
@@ -285,10 +291,12 @@ bool TrackDataModel::insertColumns(int column, int count,
 bool TrackDataModel::removeColumns(int column, int count,
                            const QModelIndex&)
 {
-  beginRemoveColumns(QModelIndex(), column, column + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_frameTypes.removeAt(column);
-  endRemoveColumns();
+  if (count > 0) {
+    beginRemoveColumns(QModelIndex(), column, column + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_frameTypes.removeAt(column);
+    endRemoveColumns();
+  }
   return true;
 }
 

@@ -214,10 +214,12 @@ int CommandsTableModel::columnCount(const QModelIndex& parent) const
 bool CommandsTableModel::insertRows(int row, int count,
                         const QModelIndex&)
 {
-  beginInsertRows(QModelIndex(), row, row + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_cmdList.insert(row, UserActionsConfig::MenuCommand());
-  endInsertRows();
+  if (count > 0) {
+    beginInsertRows(QModelIndex(), row, row + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_cmdList.insert(row, UserActionsConfig::MenuCommand());
+    endInsertRows();
+  }
   return true;
 }
 
@@ -230,10 +232,12 @@ bool CommandsTableModel::insertRows(int row, int count,
 bool CommandsTableModel::removeRows(int row, int count,
                         const QModelIndex&)
 {
-  beginRemoveRows(QModelIndex(), row, row + count - 1);
-  for (int i = 0; i < count; ++i)
-    m_cmdList.removeAt(row);
-  endRemoveRows();
+  if (count > 0) {
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    for (int i = 0; i < count; ++i)
+      m_cmdList.removeAt(row);
+    endRemoveRows();
+  }
   return true;
 }
 
