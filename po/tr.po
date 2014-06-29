@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -31,6 +31,12 @@ msgstr "Yardım"
 
 msgid "Command name"
 msgstr "Komut Adı"
+
+msgid "Overwrite timeout"
+msgstr "Zaman aşımı"
+
+msgid "Time"
+msgstr "Zaman"
 
 msgid "Quit application"
 msgstr "Programdan çıkar"
@@ -873,9 +879,6 @@ msgstr "Tüm Dosyalar"
 
 msgid "Search finished"
 msgstr "Arama tamamlandı"
-
-msgid "Time"
-msgstr "Zaman"
 
 msgid "Event Code"
 msgstr "Kod"
@@ -1745,6 +1748,9 @@ msgstr "Satırı &Temizle"
 
 msgid "Format while editing"
 msgstr "Düzenleme şekli"
+
+msgid "Validation"
+msgstr "Doğrulama"
 
 msgid "Case conversion:"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,12 @@ msgid "Help"
 msgstr ""
 
 msgid "Command name"
+msgstr ""
+
+msgid "Overwrite timeout"
+msgstr ""
+
+msgid "Time"
 msgstr ""
 
 msgid "Quit application"
@@ -869,9 +875,6 @@ msgid "All Files"
 msgstr ""
 
 msgid "Search finished"
-msgstr ""
-
-msgid "Time"
 msgstr ""
 
 msgid "Event Code"
@@ -1738,6 +1741,9 @@ msgid "&Clear row"
 msgstr ""
 
 msgid "Format while editing"
+msgstr ""
+
+msgid "Validation"
 msgstr ""
 
 msgid "Case conversion:"

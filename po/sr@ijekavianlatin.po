@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -31,6 +31,12 @@ msgstr "Pomoć"
 
 msgid "Command name"
 msgstr "Naredba"
+
+msgid "Overwrite timeout"
+msgstr "Prekovrijeme"
+
+msgid "Time"
+msgstr "Vrijeme"
 
 msgid "Quit application"
 msgstr "Napušta aplikaciju"
@@ -873,9 +879,6 @@ msgstr "Svi fajlovi"
 
 msgid "Search finished"
 msgstr "Pretraga završena"
-
-msgid "Time"
-msgstr "Vrijeme"
 
 msgid "Event Code"
 msgstr "Kôd"
@@ -1744,6 +1747,9 @@ msgstr "O&čisti red"
 
 msgid "Format while editing"
 msgstr "Formatiraj pri uređivanju"
+
+msgid "Validation"
+msgstr "Ovjera"
 
 msgid "Case conversion:"
 msgstr "Veličina slova:"

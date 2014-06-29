@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -32,6 +32,12 @@ msgstr "Nápověda"
 
 msgid "Command name"
 msgstr "Název příkazu"
+
+msgid "Overwrite timeout"
+msgstr "Přepsat časový limit"
+
+msgid "Time"
+msgstr "Čas"
 
 msgid "Quit application"
 msgstr "Ukončí program"
@@ -876,9 +882,6 @@ msgstr "Všechny soubory"
 
 msgid "Search finished"
 msgstr "Hledání ukončeno"
-
-msgid "Time"
-msgstr "Čas"
 
 msgid "Event Code"
 msgstr "Časové kódy událostí"
@@ -1747,6 +1750,9 @@ msgstr "Vy&prázdnit řádek"
 
 msgid "Format while editing"
 msgstr "Formátovat během úprav"
+
+msgid "Validation"
+msgstr "Validace"
 
 msgid "Case conversion:"
 msgstr "Psaní velkých/malých písmen:"

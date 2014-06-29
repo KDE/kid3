@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -33,6 +33,12 @@ msgstr "Помощь"
 
 msgid "Command name"
 msgstr "Имя команды"
+
+msgid "Overwrite timeout"
+msgstr "Время ожидания"
+
+msgid "Time"
+msgstr "Время"
 
 msgid "Quit application"
 msgstr "Завершить приложение"
@@ -875,9 +881,6 @@ msgstr "Все файлы"
 
 msgid "Search finished"
 msgstr "Поиск завершён"
-
-msgid "Time"
-msgstr "Время"
 
 msgid "Event Code"
 msgstr "Код"
@@ -1747,6 +1750,9 @@ msgstr "&Очистить строку"
 
 msgid "Format while editing"
 msgstr "Форматировать при редактировании"
+
+msgid "Validation"
+msgstr "Проверка"
 
 msgid "Case conversion:"
 msgstr "Преобразование Регистра:"

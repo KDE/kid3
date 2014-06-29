@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -33,6 +33,12 @@ msgstr "Hilfe"
 
 msgid "Command name"
 msgstr "Befehlsbezeichnung"
+
+msgid "Overwrite timeout"
+msgstr "Zeitbegrenzung überschreiben"
+
+msgid "Time"
+msgstr "Zeit"
 
 msgid "Quit application"
 msgstr "Beendet die Anwendung"
@@ -875,9 +881,6 @@ msgstr "Alle Dateien"
 
 msgid "Search finished"
 msgstr "Suche abgeschlossen"
-
-msgid "Time"
-msgstr "Zeit"
 
 msgid "Event Code"
 msgstr "Ereigniscode"
@@ -1746,6 +1749,9 @@ msgstr "Zeile lös&chen"
 
 msgid "Format while editing"
 msgstr "Während des Editierens formatieren"
+
+msgid "Validation"
+msgstr "Überprüfung"
 
 msgid "Case conversion:"
 msgstr "Groß-/Kleinschreibung:"

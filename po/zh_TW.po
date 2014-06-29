@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-04-13 13:01+0200\n"
+"POT-Creation-Date: 2014-06-29 14:52+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -34,6 +34,12 @@ msgstr "求助"
 
 msgid "Command name"
 msgstr "指令"
+
+msgid "Overwrite timeout"
+msgstr "逾時"
+
+msgid "Time"
+msgstr "時間"
 
 msgid "Quit application"
 msgstr "離開應用程式"
@@ -876,9 +882,6 @@ msgstr "所有檔案"
 
 msgid "Search finished"
 msgstr "搜尋結束"
-
-msgid "Time"
-msgstr "時間"
 
 msgid "Event Code"
 msgstr "程式碼"
@@ -1748,6 +1751,9 @@ msgstr "清除列(&C)"
 
 msgid "Format while editing"
 msgstr "檔名格式的編輯"
+
+msgid "Validation"
+msgstr "驗證"
 
 msgid "Case conversion:"
 msgstr "大小寫的轉換:"
