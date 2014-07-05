@@ -2361,6 +2361,28 @@ Befehlsname angegeben wird.
 </para>
 </sect2>
 
+<sect2 id="cli-timeout">
+<title>Zeitüberschreitung</title>
+<cmdsynopsis>
+<command>timeout</command>
+<group>
+<arg choice="plain">default</arg>
+<arg choice="plain">off</arg>
+<arg choice="plain"><replaceable>ZEIT</replaceable></arg>
+</group>
+</cmdsynopsis>
+<para>Überschreibt den Wert für die maximal erlaubte Ausführungszeit der
+Befehle. Die Befehle werden nach einer spezifischen Zeit abgebrochen, nach 10
+Sekunden bei <command>ls</command> und <command>albumart</command>, 60
+Sekunden bei <command>autoimport</command> und <command>filter</command> und 3
+Sekunden für alle anderen Befehle. Wenn eine grosse Anzahl von Dateien
+bearbeitet wird, so können diese Maximalzeiten zu restriktiv sein. Daher kann
+mit diesem Befehl der Timeout für alle Befehle auf
+<replaceable>ZEIT</replaceable> ms gesetzt werden, gänzlich abgeschaltet
+werden oder auf den Voreinstellungen belassen werden.
+</para>
+</sect2>
+
 <sect2 id="cli-exit">
 <title>Anwendung beenden</title>
 <cmdsynopsis>
@@ -2870,6 +2892,39 @@ aus Tag 2 setzen und schließlich eine Stückliste erstellen:</para>
 konvertieren und das Arrangierung Element entfernen:</para>
 <screen width="65"><userinput>kid3-cli -c "filter 'ID3v2.4.0 Tag'" -c "select all" -c to23 \
   -c "set arranger ''" /pfad/zum/verzeichnis</userinput></screen>
+
+<para>Dieses Python-Skript erzeugt mit <command>kid3-cli</command> iTunes
+Sound Check iTunNORM Frames aus Replay Gain Information.</para>
+<programlisting>
+<![CDATA[
+#!/usr/bin/env python
+# Generate iTunes Sound Check from ReplayGain.
+from __future__ import print_function
+import os, sys, subprocess
+
+def rg2sc(dirpath):
+  for root, dirs, files in os.walk(dirpath):
+    for name in files:
+      if name.endswith(('.mp3', '.m4a', '.aiff', '.aif')):
+        fn = os.path.join(root, name)
+        rg = subprocess.check_output([
+          'kid3-cli', '-c', 'get "replaygain_track_gain"',
+           fn]).strip()
+        if rg.endswith(b' dB'):
+          rg = rg[:-3]
+        try:
+          rg = float(rg)
+        except ValueError:
+          print('Value %s of %s in not a float' % (rg, fn))
+          continue
+        sc = (' ' + ('%08X' % int((10 ** (-rg / 10)) * 1000) )) * 10
+        subprocess.call([
+          'kid3-cli', '-c', 'set iTunNORM "%s"' % sc, fn])
+
+if __name__ == '__main__':
+  rg2sc(sys.argv[1])
+]]>
+</programlisting>
 </sect1>
 </chapter>
 
