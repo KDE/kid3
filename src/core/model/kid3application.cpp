@@ -977,7 +977,7 @@ void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
  */
 void Kid3Application::downloadImage(const QString& url, DownloadImageDestination dest)
 {
-  QString imgurl(DownloadClient::getImageUrl(url));
+  QUrl imgurl(DownloadClient::getImageUrl(url));
   if (!imgurl.isEmpty()) {
     m_downloadImageDest = dest;
     m_downloadClient->startDownload(imgurl);
@@ -1902,7 +1902,9 @@ void Kid3Application::dropUrl(const QString& txt)
 void Kid3Application::imageDownloaded(const QByteArray& data,
                               const QString& mimeType, const QString& url)
 {
-  if (mimeType.startsWith(QLatin1String("image"))) {
+  // An empty mime type is accepted to allow downloads via FTP.
+  if (mimeType.startsWith(QLatin1String("image")) ||
+      mimeType.isEmpty()) {
     PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
     if (getDownloadImageDestination() == ImageForAllFilesInDirectory) {
       TaggedFileOfDirectoryIterator it(currentOrRootIndex());

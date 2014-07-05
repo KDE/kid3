@@ -136,20 +136,15 @@ void HttpClient::networkReplyError(QNetworkReply::NetworkError)
   }
 }
 
-
 /**
  * Send a HTTP GET request.
  *
- * @param server host name
- * @param path   path of the URL
+ * @param url URL
+ * @param headers optional raw headers to send
  */
-void HttpClient::sendRequest(const QString& server, const QString& path,
-                             const RawHeaderMap& headers)
+void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
 {
-  QString host(server);
-  if (host.endsWith(QLatin1String(":80"))) {
-    host.chop(3);
-  }
+  QString host = url.host();
   qint64 msSinceLastRequest;
   int minimumRequestInterval;
 #if QT_VERSION >= 0x040700
@@ -164,8 +159,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
       (msSinceLastRequest = lastRequestTime.msecsTo(now)) <
       minimumRequestInterval) {
     // Delay request to comply with minimum interval
-    m_delayedSendRequestContext.server = server;
-    m_delayedSendRequestContext.path = path;
+    m_delayedSendRequestContext.url = url;
     m_delayedSendRequestContext.headers = headers;
     m_requestTimer->start(minimumRequestInterval -
                           static_cast<int>(msSinceLastRequest));
@@ -189,12 +183,6 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
                                    static_cast<quint16>(proxyPort),
                                    username, password));
 
-  QUrl url;
-#if QT_VERSION >= 0x050000
-  url.setUrl(QLatin1String("http://") + host + path);
-#else
-  url.setEncodedUrl((QLatin1String("http://") + host + path).toAscii());
-#endif
   QNetworkRequest request(url);
   for (RawHeaderMap::const_iterator it =
          headers.constBegin();
@@ -215,12 +203,34 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
 }
 
 /**
+ * Send a HTTP GET request.
+ *
+ * @param server host name
+ * @param path   path of the URL
+ * @param headers optional raw headers to send
+ */
+void HttpClient::sendRequest(const QString& server, const QString& path,
+                             const RawHeaderMap& headers)
+{
+  QString host(server);
+  if (host.endsWith(QLatin1String(":80"))) {
+    host.chop(3);
+  }
+  QUrl url;
+#if QT_VERSION >= 0x050000
+  url.setUrl(QLatin1String("http://") + host + path);
+#else
+  url.setEncodedUrl((QLatin1String("http://") + host + path).toAscii());
+#endif
+  sendRequest(url, headers);
+}
+
+/**
  * Called to start delayed sendRequest().
  */
 void HttpClient::delayedSendRequest()
 {
-  sendRequest(m_delayedSendRequestContext.server,
-              m_delayedSendRequestContext.path,
+  sendRequest(m_delayedSendRequestContext.url,
               m_delayedSendRequestContext.headers);
 }
 

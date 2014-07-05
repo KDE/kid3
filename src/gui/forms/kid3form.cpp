@@ -466,9 +466,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
     m_app->openDrop(localFiles);
   } else {
     QString text = urls.first().toString();
-    if (text.startsWith(QLatin1String("http://"))) {
-      m_app->dropUrl(text);
-    }
+    m_app->dropUrl(text);
   }
 }
 

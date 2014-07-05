@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Jun 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,35 +49,15 @@ DownloadClient::~DownloadClient()
 /**
  * Send a download request.
  *
- * @param hostName server
- * @param path     path on server
- */
-void DownloadClient::startDownload(const QString& hostName, const QString& path)
-{
-  m_canceled = false;
-  m_url = QLatin1String("http://");
-  m_url += hostName;
-  m_url += path;
-  emit downloadStarted(m_url);
-  emit progress(tr("Ready."), 0, 0);
-  sendRequest(hostName, path);
-}
-
-/**
- * Send a download request.
- *
  * @param url URL of resource to download
  */
-void DownloadClient::startDownload(const QString& url)
+void DownloadClient::startDownload(const QUrl& url)
 {
-  int hostPos = url.indexOf(QLatin1String("://"));
-  if (hostPos > 0) {
-    int pathPos = url.indexOf(QLatin1Char('/'), hostPos + 3);
-    if (pathPos > hostPos) {
-      startDownload(url.mid(hostPos + 3, pathPos - hostPos - 3),
-                    url.mid(pathPos));
-    }
-  }
+  m_canceled = false;
+  m_url = url;
+  emit downloadStarted(m_url.toString());
+  emit progress(tr("Ready."), 0, 0);
+  sendRequest(m_url);
 }
 
 /**
@@ -99,7 +79,7 @@ void DownloadClient::cancelDownload()
 void DownloadClient::requestFinished(const QByteArray& data)
 {
   if (!m_canceled) {
-    emit downloadFinished(data, getContentType(), m_url);
+    emit downloadFinished(data, getContentType(), m_url.toString());
   }
 }
 
@@ -112,32 +92,31 @@ void DownloadClient::requestFinished(const QByteArray& data)
  *
  * @return URL of image file, empty if no image URL found.
  */
-QString DownloadClient::getImageUrl(const QString& url)
+QUrl DownloadClient::getImageUrl(const QString& url)
 {
-  QString imgurl;
-  if (url.startsWith(QLatin1String("http://"))) {
-    if (url.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
-        url.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
-        url.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
-      imgurl = url;
-    }
-    else {
+  QUrl imgurl(url);
+  if (imgurl.isValid()) {
+    if (!url.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) &&
+        !url.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) &&
+        !url.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+      imgurl.clear();
       for (QMap<QString, QString>::ConstIterator it =
              ImportConfig::instance().m_matchPictureUrlMap.begin();
            it != ImportConfig::instance().m_matchPictureUrlMap.end();
            ++it) {
         QRegExp re(it.key());
         if (re.exactMatch(url)) {
-          imgurl = url;
-          imgurl.replace(re, *it);
-          if (imgurl.indexOf(QLatin1String("%25")) != -1) {
+          QString newUrl = url;
+          newUrl.replace(re, *it);
+          if (newUrl.indexOf(QLatin1String("%25")) != -1) {
             // double URL encoded: first decode
-            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+            newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
           }
-          if (imgurl.indexOf(QLatin1String("%2F")) != -1) {
+          if (newUrl.indexOf(QLatin1String("%2F")) != -1) {
             // URL encoded: decode
-            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+            newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
           }
+          imgurl.setUrl(newUrl);
           break;
         }
       }

@@ -265,7 +265,7 @@ void BatchImporter::stateTransition()
     break;
   case GettingCover:
     if (m_trackDataModel) {
-      QString imgUrl;
+      QUrl imgUrl;
       if (m_tagVersion & TrackData::TagV2) {
         QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
         if (!coverArtUrl.isEmpty()) {

@@ -52,17 +52,9 @@ public:
   /**
    * Send a download request.
    *
-   * @param hostName server
-   * @param path     path on server
-   */
-  void startDownload(const QString& hostName, const QString& path);
-
-  /**
-   * Send a download request.
-   *
    * @param url URL of resource to download
    */
-  void startDownload(const QString& url);
+  void startDownload(const QUrl& url);
 
   /**
    * Get the URL of an image file.
@@ -73,7 +65,7 @@ public:
    *
    * @return URL of image file, empty if no image URL found.
    */
-  static QString getImageUrl(const QString& url);
+  static QUrl getImageUrl(const QString& url);
 
 public slots:
   /**
@@ -112,7 +104,7 @@ private slots:
   void requestFinished(const QByteArray& data);
 
 private:
-  QString m_url;
+  QUrl m_url;
   bool m_canceled;
 };
 

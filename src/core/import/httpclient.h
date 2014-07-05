@@ -64,6 +64,15 @@ public:
   /**
    * Send a HTTP GET request.
    *
+   * @param url URL
+   * @param headers optional raw headers to send
+   */
+  void sendRequest(const QUrl& url,
+                   const RawHeaderMap& headers = RawHeaderMap());
+
+  /**
+   * Send a HTTP GET request.
+   *
    * @param server host name
    * @param path   path of the URL
    * @param headers optional raw headers to send
@@ -181,8 +190,7 @@ private:
   QTimer* m_requestTimer;
   /** Context for delayedSendRequest() */
   struct {
-    QString server;
-    QString path;
+    QUrl url;
     RawHeaderMap headers;
   } m_delayedSendRequestContext;
 
