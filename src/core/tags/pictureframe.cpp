@@ -28,6 +28,39 @@
 #include <QFile>
 #include <QImage>
 #include <QBuffer>
+#include <QCoreApplication>
+
+namespace {
+
+/**
+ * List of picture type strings, NULL terminated.
+ */
+static const char* pictureTypeNames[] = {
+  QT_TRANSLATE_NOOP("@default", "Other"),
+  QT_TRANSLATE_NOOP("@default", "32x32 pixels PNG file icon"),
+  QT_TRANSLATE_NOOP("@default", "Other file icon"),
+  QT_TRANSLATE_NOOP("@default", "Cover (front)"),
+  QT_TRANSLATE_NOOP("@default", "Cover (back)"),
+  QT_TRANSLATE_NOOP("@default", "Leaflet page"),
+  QT_TRANSLATE_NOOP("@default", "Media"),
+  QT_TRANSLATE_NOOP("@default", "Lead artist/lead performer/soloist"),
+  QT_TRANSLATE_NOOP("@default", "Artist/performer"),
+  QT_TRANSLATE_NOOP("@default", "Conductor"),
+  QT_TRANSLATE_NOOP("@default", "Band/Orchestra"),
+  QT_TRANSLATE_NOOP("@default", "Composer"),
+  QT_TRANSLATE_NOOP("@default", "Lyricist/text writer"),
+  QT_TRANSLATE_NOOP("@default", "Recording Location"),
+  QT_TRANSLATE_NOOP("@default", "During recording"),
+  QT_TRANSLATE_NOOP("@default", "During performance"),
+  QT_TRANSLATE_NOOP("@default", "Movie/video screen capture"),
+  QT_TRANSLATE_NOOP("@default", "A bright coloured fish"),
+  QT_TRANSLATE_NOOP("@default", "Illustration"),
+  QT_TRANSLATE_NOOP("@default", "Band/artist logotype"),
+  QT_TRANSLATE_NOOP("@default", "Publisher/Studio logotype"),
+  NULL
+};
+
+}
 
 /**
  * Constructor.
@@ -616,4 +649,28 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
     pic = ba;
   }
   base64Value = QString::fromLatin1(pic.toBase64());
+}
+
+/**
+ * Get a translated string for a picture type.
+ *
+ * @param type picture type
+ *
+ * @return picture type, null string if unknown.
+ */
+QString PictureFrame::getPictureTypeName(PictureType type)
+{
+  if (type >= 0 &&
+      type < sizeof(pictureTypeNames) / sizeof(pictureTypeNames[0]) - 1) {
+    return QCoreApplication::translate("@default", pictureTypeNames[type]);
+  }
+  return QString();
+}
+
+/**
+ * List of picture type strings, NULL terminated.
+ */
+const char** PictureFrame::getPictureTypeNames()
+{
+  return pictureTypeNames;
 }

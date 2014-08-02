@@ -306,6 +306,21 @@ public:
    * @param base64Value base64 string to set
    */
   static void getFieldsToBase64(const Frame& frame, QString& base64Value);
+
+  /**
+   * Get a translated string for a picture type.
+   *
+   * @param type picture type
+   *
+   * @return picture type, null string if unknown.
+   */
+  static QString getPictureTypeName(PictureType type);
+
+  /**
+   * Get list of picture type strings.
+   * @return list of picture type names, NULL terminated.
+   */
+  static const char** getPictureTypeNames();
 };
 
 #endif // PICTUREFRAME_H

@@ -46,6 +46,7 @@
 #include "iplatformtools.h"
 #include "timeeventmodel.h"
 #include "timeeventeditor.h"
+#include "pictureframe.h"
 
 /** QTextEdit with label above */
 class LabeledTextEdit : public QWidget {
@@ -1082,31 +1083,8 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::Field::ID_PictureType) {
-          static const char* strlst[] = {
-            QT_TRANSLATE_NOOP("@default", "Other"),
-            QT_TRANSLATE_NOOP("@default", "32x32 pixels PNG file icon"),
-            QT_TRANSLATE_NOOP("@default", "Other file icon"),
-            QT_TRANSLATE_NOOP("@default", "Cover (front)"),
-            QT_TRANSLATE_NOOP("@default", "Cover (back)"),
-            QT_TRANSLATE_NOOP("@default", "Leaflet page"),
-            QT_TRANSLATE_NOOP("@default", "Media"),
-            QT_TRANSLATE_NOOP("@default", "Lead artist/lead performer/soloist"),
-            QT_TRANSLATE_NOOP("@default", "Artist/performer"),
-            QT_TRANSLATE_NOOP("@default", "Conductor"),
-            QT_TRANSLATE_NOOP("@default", "Band/Orchestra"),
-            QT_TRANSLATE_NOOP("@default", "Composer"),
-            QT_TRANSLATE_NOOP("@default", "Lyricist/text writer"),
-            QT_TRANSLATE_NOOP("@default", "Recording Location"),
-            QT_TRANSLATE_NOOP("@default", "During recording"),
-            QT_TRANSLATE_NOOP("@default", "During performance"),
-            QT_TRANSLATE_NOOP("@default", "Movie/video screen capture"),
-            QT_TRANSLATE_NOOP("@default", "A bright coloured fish"),
-            QT_TRANSLATE_NOOP("@default", "Illustration"),
-            QT_TRANSLATE_NOOP("@default", "Band/artist logotype"),
-            QT_TRANSLATE_NOOP("@default", "Publisher/Studio logotype"),
-            NULL
-          };
-          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          IntComboBoxControl* cbox = new IntComboBoxControl(
+                fld, PictureFrame::getPictureTypeNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::Field::ID_TimestampFormat) {

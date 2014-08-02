@@ -33,6 +33,7 @@
 #include "formatconfig.h"
 #include "genres.h"
 #include "tracknumbervalidator.h"
+#include "pictureframe.h"
 
 /**
  * Constructor.
@@ -112,9 +113,25 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return QVariant();
   FrameCollection::const_iterator it = frameAt(index.row());
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
-    if (index.column() == CI_Enable)
-      return getDisplayName(it->getName());
-    else if (index.column() == CI_Value)
+    if (index.column() == CI_Enable) {
+      QString displayName = getDisplayName(it->getName());
+      if (it->getType() == Frame::FT_Picture &&
+          it->getValue() != Frame::differentRepresentation()) {
+        QVariant fieldValue = it->getFieldValue(Frame::Field::ID_PictureType);
+        if (fieldValue.isValid()) {
+          PictureFrame::PictureType pictureType =
+              static_cast<PictureFrame::PictureType>(fieldValue.toInt());
+          if (pictureType != PictureFrame::PT_Other) {
+            QString typeName = PictureFrame::getPictureTypeName(pictureType);
+            if (!typeName.isEmpty()) {
+              displayName += QLatin1Char(' ');
+              displayName += typeName;
+            }
+          }
+        }
+      }
+      return displayName;
+    } else if (index.column() == CI_Value)
       return it->getValue();
   } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
