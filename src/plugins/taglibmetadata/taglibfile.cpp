@@ -4932,6 +4932,54 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 }
 
 /**
+ * Create a frame from a TagLib ID3 frame.
+ * @param id3Frame TagLib ID3 frame
+ * @param index, -1 if not used
+ * @return frame.
+ */
+static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index)
+{
+  Frame::Type type;
+  const char* name;
+  getTypeStringForFrameId(id3Frame->frameID(), type, name);
+  Frame frame(type, TStringToQString(id3Frame->toString()), QString::fromLatin1(name), index);
+  frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList(), type));
+  if (id3Frame->frameID().mid(1, 3) == "XXX" ||
+      type == Frame::FT_Comment) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
+    if (fieldValue.isValid()) {
+      QString description = fieldValue.toString();
+      if (!description.isEmpty()) {
+        if (description == QLatin1String("CATALOGNUMBER")) {
+          frame.setType(Frame::FT_CatalogNumber);
+        } else if (description == QLatin1String("RELEASECOUNTRY")) {
+          frame.setType(Frame::FT_ReleaseCountry);
+        } else {
+          if (description.startsWith(QLatin1String("QuodLibet::"))) {
+            // remove ExFalso/QuodLibet "namespace"
+            description = description.mid(11);
+          }
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+            frame.getInternalName() + QLatin1Char('\n') + description));
+        }
+      }
+    }
+#if TAGLIB_VERSION >= 0x010600
+  } else if (id3Frame->frameID().startsWith("PRIV")) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Owner);
+    if (fieldValue.isValid()) {
+      QString owner = fieldValue.toString();
+      if (!owner.isEmpty()) {
+        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                  frame.getInternalName() + QLatin1Char('\n') + owner));
+      }
+    }
+#endif
+  }
+  return frame;
+}
+
+/**
  * Remove ID3v2 frames.
  *
  * @param flt filter specifying which frames to remove
@@ -4997,12 +5045,10 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
     } else {
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-        Frame::Type type;
-        const char* name;
         for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
              it != frameList.end();) {
-          getTypeStringForFrameId((*it)->frameID(), type, name);
-          if (flt.isEnabled(type, QString::fromLatin1(name))) {
+          Frame frame(createFrameFromId3Frame(*it, -1));
+          if (flt.isEnabled(frame.getType(), frame.getName())) {
             id3v2Tag->removeFrame(*it++, true);
           } else {
             ++it;
@@ -5042,9 +5088,10 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
         Mp4ValueType valueType;
         for (TagLib::MP4::ItemListMap::Iterator it = itemListMap.begin();
              it != itemListMap.end();) {
-          getMp4TypeForName((*it).first, type, valueType);
-          QString name(TStringToQString((*it).first));
-          if (flt.isEnabled(type, name)) {
+          TagLib::String name = (*it).first;
+          stripMp4FreeFormName(name);
+          getMp4TypeForName(name, type, valueType);
+          if (flt.isEnabled(type, TStringToQString(name))) {
             itemListMap.erase(it++);
           } else {
             ++it;
@@ -5112,47 +5159,10 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
     if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
       const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
       int i = 0;
-      Frame::Type type;
-      const char* name;
       for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
            it != frameList.end();
            ++it) {
-        getTypeStringForFrameId((*it)->frameID(), type, name);
-        Frame frame(type, TStringToQString((*it)->toString()), QString::fromLatin1(name), i++);
-        frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList(), type));
-        if ((*it)->frameID().mid(1, 3) == "XXX" ||
-            type == Frame::FT_Comment) {
-          QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
-          if (fieldValue.isValid()) {
-            QString description = fieldValue.toString();
-            if (!description.isEmpty()) {
-              if (description == QLatin1String("CATALOGNUMBER")) {
-                frame.setType(Frame::FT_CatalogNumber);
-              } else if (description == QLatin1String("RELEASECOUNTRY")) {
-                frame.setType(Frame::FT_ReleaseCountry);
-              } else {
-                if (description.startsWith(QLatin1String("QuodLibet::"))) {
-                  // remove ExFalso/QuodLibet "namespace"
-                  description = description.mid(11);
-                }
-                frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                  QString::fromLatin1(name) + QLatin1Char('\n') + description));
-              }
-            }
-          }
-#if TAGLIB_VERSION >= 0x010600
-        } else if ((*it)->frameID().startsWith("PRIV")) {
-          QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Owner);
-          if (fieldValue.isValid()) {
-            QString owner = fieldValue.toString();
-            if (!owner.isEmpty()) {
-              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                        QString::fromLatin1(name) + QLatin1Char('\n') + owner));
-            }
-          }
-#endif
-        }
-        frames.insert(frame);
+        frames.insert(createFrameFromId3Frame(*it, i++));
       }
     } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
       const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();

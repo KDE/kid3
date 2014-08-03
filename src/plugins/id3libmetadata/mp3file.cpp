@@ -2117,6 +2117,90 @@ bool Mp3File::deleteFrameV2(const Frame& frame)
 }
 
 /**
+ * Create a frame from an id3lib frame.
+ * @param id3Frame id3lib frame
+ * @param index, -1 if not used
+ * @return frame.
+ */
+static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
+{
+  Frame::Type type;
+  const char* name;
+  getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
+  Frame frame(type, QLatin1String(""), QString::fromLatin1(name), index);
+  frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
+  if (id3Frame->GetID() == ID3FID_USERTEXT ||
+      id3Frame->GetID() == ID3FID_WWWUSER ||
+      id3Frame->GetID() == ID3FID_COMMENT) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
+    if (fieldValue.isValid()) {
+      QString description = fieldValue.toString();
+      if (!description.isEmpty()) {
+        if (description == QLatin1String("CATALOGNUMBER")) {
+          frame.setType(Frame::FT_CatalogNumber);
+        } else if (description == QLatin1String("RELEASECOUNTRY")) {
+          frame.setType(Frame::FT_ReleaseCountry);
+        } else {
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+              frame.getInternalName() + QLatin1Char('\n') + description));
+        }
+      }
+    }
+  } else if (id3Frame->GetID() == ID3FID_PRIVATE) {
+    const Frame::FieldList& fields = frame.getFieldList();
+    QString owner;
+    QByteArray data;
+    for (Frame::FieldList::const_iterator it = fields.begin();
+         it != fields.end();
+         ++it) {
+      if ((*it).m_id == Frame::Field::ID_Owner) {
+        owner = (*it).m_value.toString();
+        if (!owner.isEmpty()) {
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                    frame.getInternalName() + QLatin1Char('\n') + owner));
+        }
+      } else if ((*it).m_id == Frame::Field::ID_Data) {
+        data = (*it).m_value.toByteArray();
+      }
+    }
+    if (!owner.isEmpty() && !data.isEmpty()) {
+      QString str;
+      if (AttributeData(owner).toString(data, str)) {
+        frame.setValue(str);
+      }
+    }
+  } else if (id3Frame->GetID() == ID3FID_CDID) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+    if (fieldValue.isValid()) {
+      QString str;
+      if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
+          AttributeData::isHexString(str, 'F', QLatin1String("+"))) {
+        frame.setValue(str);
+      }
+    }
+  } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+    if (fieldValue.isValid()) {
+      QByteArray ba(fieldValue.toByteArray());
+      QString str(QString::fromLatin1(ba));
+      if (ba.size() - str.length() <= 1 &&
+          AttributeData::isHexString(str, 'Z')) {
+        frame.setValue(str);
+      }
+    }
+  } else if (id3Frame->GetID() == ID3FID_POPULARIMETER) {
+    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Rating);
+    if (fieldValue.isValid()) {
+      QString str(fieldValue.toString());
+      if (!str.isEmpty()) {
+        frame.setValue(str);
+      }
+    }
+  }
+  return frame;
+}
+
+/**
  * Remove ID3v2 frames.
  *
  * @param flt filter specifying which frames to remove
@@ -2147,13 +2231,11 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
       markTag2Changed(Frame::FT_UnknownFrame);
     } else {
       ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
-      ID3_Frame* frame;
-      while ((frame = iter->GetNext()) != NULL) {
-        Frame::Type type;
-        const char* name;
-        getTypeStringForId3libFrameId(frame->GetID(), type, name);
-        if (flt.isEnabled(type, QString::fromLatin1(name))) {
-          m_tagV2->RemoveFrame(frame);
+      ID3_Frame* id3Frame;
+      while ((id3Frame = iter->GetNext()) != NULL) {
+        Frame frame(createFrameFromId3libFrame(id3Frame, -1));
+        if (flt.isEnabled(frame.getType(), frame.getName())) {
+          m_tagV2->RemoveFrame(id3Frame);
         }
       }
 #ifdef Q_OS_WIN32
@@ -2187,81 +2269,8 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
     ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
     ID3_Frame* id3Frame;
     int i = 0;
-    Frame::Type type;
-    const char* name;
     while ((id3Frame = iter->GetNext()) != 0) {
-      getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
-      Frame frame(type, QLatin1String(""), QString::fromLatin1(name), i++);
-      frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
-      if (id3Frame->GetID() == ID3FID_USERTEXT ||
-          id3Frame->GetID() == ID3FID_WWWUSER ||
-          id3Frame->GetID() == ID3FID_COMMENT) {
-        QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
-        if (fieldValue.isValid()) {
-          QString description = fieldValue.toString();
-          if (!description.isEmpty()) {
-            if (description == QLatin1String("CATALOGNUMBER")) {
-              frame.setType(Frame::FT_CatalogNumber);
-            } else if (description == QLatin1String("RELEASECOUNTRY")) {
-              frame.setType(Frame::FT_ReleaseCountry);
-            } else {
-              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                  QString::fromLatin1(name) + QLatin1Char('\n') + description));
-            }
-          }
-        }
-      } else if (id3Frame->GetID() == ID3FID_PRIVATE) {
-        const Frame::FieldList& fields = frame.getFieldList();
-        QString owner;
-        QByteArray data;
-        for (Frame::FieldList::const_iterator it = fields.begin();
-             it != fields.end();
-             ++it) {
-          if ((*it).m_id == Frame::Field::ID_Owner) {
-            owner = (*it).m_value.toString();
-            if (!owner.isEmpty()) {
-              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                        QString::fromLatin1(name) + QLatin1Char('\n') + owner));
-            }
-          } else if ((*it).m_id == Frame::Field::ID_Data) {
-            data = (*it).m_value.toByteArray();
-          }
-        }
-        if (!owner.isEmpty() && !data.isEmpty()) {
-          QString str;
-          if (AttributeData(owner).toString(data, str)) {
-            frame.setValue(str);
-          }
-        }
-      } else if (id3Frame->GetID() == ID3FID_CDID) {
-        QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
-        if (fieldValue.isValid()) {
-          QString str;
-          if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
-              AttributeData::isHexString(str, 'F', QLatin1String("+"))) {
-            frame.setValue(str);
-          }
-        }
-      } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID) {
-        QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
-        if (fieldValue.isValid()) {
-          QByteArray ba(fieldValue.toByteArray());
-          QString str(QString::fromLatin1(ba));
-          if (ba.size() - str.length() <= 1 &&
-              AttributeData::isHexString(str, 'Z')) {
-            frame.setValue(str);
-          }
-        }
-      } else if (id3Frame->GetID() == ID3FID_POPULARIMETER) {
-        QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Rating);
-        if (fieldValue.isValid()) {
-          QString str(fieldValue.toString());
-          if (!str.isEmpty()) {
-            frame.setValue(str);
-          }
-        }
-      }
-      frames.insert(frame);
+      frames.insert(createFrameFromId3libFrame(id3Frame, i++));
     }
 #ifdef Q_OS_WIN32
     /* allocated in Windows DLL => must be freed in the same DLL */
