@@ -462,13 +462,6 @@ public:
   void formatFramesIfEnabled(FrameCollection& frames) const;
 
   /**
-   * Open directory or add pictures on drop.
-   *
-   * @param paths paths of directories or files in directory
-   */
-  void openDrop(const QStringList& paths);
-
-  /**
    * Add picture on drop.
    *
    * @param image dropped image.
@@ -593,6 +586,13 @@ public:
   static QObjectList loadPlugins();
 
 public slots:
+  /**
+   * Open directory or add pictures on drop.
+   *
+   * @param paths paths of directories or files in directory
+   */
+  void openDrop(const QStringList& paths);
+
   /**
    * Revert file modifications.
    * Acts on selected files or all files if no file is selected.

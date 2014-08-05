@@ -36,5 +36,50 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>jpg</string>
+				<string>jpeg</string>
+				<string>png</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>aac</string>
+				<string>aif</string>
+				<string>aiff</string>
+				<string>ape</string>
+				<string>asf</string>
+				<string>flac</string>
+				<string>it</string>
+				<string>m4a</string>
+				<string>m4b</string>
+				<string>m4p</string>
+				<string>mod</string>
+				<string>mp2</string>
+				<string>mp3</string>
+				<string>mp4</string>
+				<string>mpc</string>
+				<string>oga</string>
+				<string>ogg</string>
+				<string>opus</string>
+				<string>s3m</string>
+				<string>spx</string>
+				<string>tta</string>
+				<string>wav</string>
+				<string>wma</string>
+				<string>wv</string>
+				<string>xm</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
 </dict>
 </plist>

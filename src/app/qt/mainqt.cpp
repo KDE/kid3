@@ -36,68 +36,7 @@
 #include "kid3mainwindow.h"
 #include "platformtools.h"
 #include "kid3application.h"
-
-/**
- * QApplication subclass with adapted session management.
- */
-class Kid3QtApplication : public QApplication {
-public:
-  /**
-   * Constructor.
-   * @param argc number of arguments (including command)
-   * @param argv arguments
-   */
-  Kid3QtApplication(int& argc, char** argv) : QApplication(argc, argv) {}
-
-  /**
-   * Destructor.
-   */
-  virtual ~Kid3QtApplication();
-
-  /**
-   * Called when session manager wants application to commit all its data.
-   *
-   * This method is reimplemented to avoid closing all top level widgets and
-   * make restoring with the KDE window manager working.
-   *
-   * @param manager session manager
-   */
-  virtual void commitData(QSessionManager& manager) {
-    emit commitDataRequest(manager);
-  }
-
-  /**
-   * Send event to receiver.
-   * @param receiver receiver
-   * @param event event
-   * @return return value from receiver's event handler.
-   */
-  virtual bool notify(QObject* receiver, QEvent* event);
-};
-
-/**
- * Destructor.
- */
-Kid3QtApplication::~Kid3QtApplication()
-{
-}
-
-/**
- * Send event to receiver.
- * @param receiver receiver
- * @param event event
- * @return return value from receiver's event handler.
- */
-bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
-{
-  try {
-    return QApplication::notify(receiver, event);
-  } catch (std::exception& ex) {
-    qWarning("Exception %s (%s) was caught", typeid(ex).name(), ex.what());
-  }
-  return false;
-}
-
+#include "kid3qtapplication.h"
 
 /**
  * Main program.
@@ -128,6 +67,7 @@ int main(int argc, char* argv[])
   Kid3Application* kid3App = new Kid3Application(platformTools);
   Kid3MainWindow* kid3 = new Kid3MainWindow(platformTools, kid3App);
   kid3->setAttribute(Qt::WA_DeleteOnClose);
+  QObject::connect(&app, SIGNAL(openFileRequested(QStringList)), kid3App, SLOT(openDrop(QStringList)));
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QApplication::arguments().mid(1));

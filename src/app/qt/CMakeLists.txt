@@ -2,6 +2,7 @@ set(qt_SRCS
   mainqt.cpp
   platformtools.cpp
   kid3mainwindow.cpp
+  kid3qtapplication.cpp
   recentfilesmenu.cpp
   browserdialog.cpp
   messagedialog.cpp
@@ -12,6 +13,7 @@ set(qt_SRCS
 )
 set(qt_MOC_HDRS
   kid3mainwindow.h
+  kid3qtapplication.h
   recentfilesmenu.h
   browserdialog.h
   messagedialog.h
