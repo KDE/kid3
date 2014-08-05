@@ -25,6 +25,7 @@
  */
 
 #include "kid3qtapplication.h"
+#include <typeinfo>
 #include <QStringList>
 #ifdef Q_OS_MAC
 #include <QFileOpenEvent>

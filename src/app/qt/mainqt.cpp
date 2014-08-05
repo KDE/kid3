@@ -30,7 +30,6 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
-#include <typeinfo>
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kid3mainwindow.h"
