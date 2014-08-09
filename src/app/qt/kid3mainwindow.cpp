@@ -252,7 +252,13 @@ void Kid3MainWindow::initActions()
   QAction* fileCreatePlaylist = new QAction(this);
   fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
   fileCreatePlaylist->setText(tr("&Create Playlist..."));
+#if QT_VERSION >= 0x040600
+  fileCreatePlaylist->setIcon(
+        QIcon::fromTheme(QLatin1String("format-justify-fill"),
+            QIcon(QLatin1String(":/images/view-media-playlist.png"))));
+#else
   fileCreatePlaylist->setIcon(QIcon(QLatin1String(":/images/view-media-playlist.png")));
+#endif
   fileCreatePlaylist->setObjectName(QLatin1String("create_playlist"));
   m_shortcutsModel->registerAction(fileCreatePlaylist, menuTitle);
   connect(fileCreatePlaylist, SIGNAL(triggered()),
