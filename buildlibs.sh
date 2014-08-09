@@ -2182,7 +2182,7 @@ echo "### Ignore make error"
 
 cp -f po/*.qm doc/*/kid3*.html $INSTDIR
 
-for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll mingwm10.dll; do
+for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll; do
   cp $QT_BIN_DIR/$f $INSTDIR
 done
 
