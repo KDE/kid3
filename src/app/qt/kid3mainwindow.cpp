@@ -266,6 +266,9 @@ void Kid3MainWindow::initActions()
   fileQuit->setText(tr("&Quit"));
   fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
   fileQuit->setIcon(QCM_QIcon_fromTheme("application-exit"));
+#if QT_VERSION >= 0x040200
+  fileQuit->setMenuRole(QAction::QuitRole);
+#endif
   fileQuit->setObjectName(QLatin1String("file_quit"));
   m_shortcutsModel->registerAction(fileQuit, menuTitle);
   connect(fileQuit, SIGNAL(triggered()),
@@ -493,6 +496,9 @@ void Kid3MainWindow::initActions()
 #if QT_VERSION >= 0x040600
   settingsConfigure->setShortcut(QKeySequence::Preferences);
 #endif
+#if QT_VERSION >= 0x040200
+  settingsConfigure->setMenuRole(QAction::PreferencesRole);
+#endif
   settingsConfigure->setObjectName(QLatin1String("options_configure"));
   m_shortcutsModel->registerAction(settingsConfigure, menuTitle);
   connect(settingsConfigure, SIGNAL(triggered()),
@@ -517,6 +523,9 @@ void Kid3MainWindow::initActions()
   QAction* helpAbout = new QAction(this);
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
+#if QT_VERSION >= 0x040200
+  helpAbout->setMenuRole(QAction::AboutRole);
+#endif
   helpAbout->setObjectName(QLatin1String("help_about_app"));
   m_shortcutsModel->registerAction(helpAbout, menuTitle);
   connect(helpAbout, SIGNAL(triggered()),
@@ -526,6 +535,9 @@ void Kid3MainWindow::initActions()
   QAction* helpAboutQt = new QAction(this);
   helpAboutQt->setStatusTip(tr("About Qt"));
   helpAboutQt->setText(tr("About &Qt"));
+#if QT_VERSION >= 0x040200
+  helpAboutQt->setMenuRole(QAction::AboutQtRole);
+#endif
   helpAboutQt->setObjectName(QLatin1String("help_about_qt"));
   m_shortcutsModel->registerAction(helpAboutQt, menuTitle);
   connect(helpAboutQt, SIGNAL(triggered()),
