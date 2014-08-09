@@ -124,7 +124,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
           if (pictureType != PictureFrame::PT_Other) {
             QString typeName = PictureFrame::getPictureTypeName(pictureType);
             if (!typeName.isEmpty()) {
-              displayName += QLatin1Char(' ');
+              displayName += QLatin1String(": ");
               displayName += typeName;
             }
           }
