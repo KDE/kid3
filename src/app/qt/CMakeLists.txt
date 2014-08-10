@@ -7,7 +7,6 @@ set(qt_SRCS
   browserdialog.cpp
   messagedialog.cpp
   configdialog.cpp
-  mainwindowconfig.cpp
   shortcutsmodel.cpp
   shortcutsdelegate.cpp
 )

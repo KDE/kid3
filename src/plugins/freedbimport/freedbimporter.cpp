@@ -324,7 +324,7 @@ void FreedbImporter::sendFindQuery(
 void FreedbImporter::sendTrackListQuery(
   const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
-  sendRequest(cfg->m_server,
-              cfg->m_cgiPath + QLatin1String("?cmd=cddb+read+") + cat + QLatin1Char('+') + id +
+  sendRequest(cfg->server(),
+              cfg->cgiPath() + QLatin1String("?cmd=cddb+read+") + cat + QLatin1Char('+') + id +
               QLatin1String("&hello=noname+localhost+Kid3+" VERSION "&proto=6"));
 }

@@ -155,7 +155,7 @@ ExportDialog::~ExportDialog()
 void ExportDialog::slotToFile()
 {
   QString fileName = m_platformTools->getSaveFileName(this, QString(),
-      ImportConfig::instance().m_importDir, QString(), 0);
+      ImportConfig::instance().importDir(), QString(), 0);
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(
@@ -200,12 +200,13 @@ void ExportDialog::showPreview()
  */
 void ExportDialog::setFormatFromConfig()
 {
+  const ExportConfig& exportCfg = ExportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ExportConfig::instance().m_exportFormatNames
-                             << ExportConfig::instance().m_exportFormatHeaders
-                             << ExportConfig::instance().m_exportFormatTracks
-                             << ExportConfig::instance().m_exportFormatTrailers,
-        ExportConfig::instance().m_exportFormatIdx);
+        QList<QStringList>() << exportCfg.exportFormatNames()
+                             << exportCfg.exportFormatHeaders()
+                             << exportCfg.exportFormatTracks()
+                             << exportCfg.exportFormatTrailers(),
+        exportCfg.exportFormatIndex());
 }
 
 /**
@@ -214,12 +215,12 @@ void ExportDialog::setFormatFromConfig()
 void ExportDialog::readConfig()
 {
   m_srcComboBox->setCurrentIndex(
-      m_srcComboBox->findData(ExportConfig::instance().m_exportSrcV1));
+      m_srcComboBox->findData(ExportConfig::instance().exportSource()));
 
   setFormatFromConfig();
 
-  if (!ExportConfig::instance().m_exportWindowGeometry.isEmpty()) {
-    restoreGeometry(ExportConfig::instance().m_exportWindowGeometry);
+  if (!ExportConfig::instance().exportWindowGeometry().isEmpty()) {
+    restoreGeometry(ExportConfig::instance().exportWindowGeometry());
   }
 }
 
@@ -228,15 +229,17 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-  ExportConfig::instance().m_exportSrcV1 = TrackData::tagVersionCast(
-    m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt());
-  QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ExportConfig::instance().m_exportFormatIdx);
-  ExportConfig::instance().m_exportFormatNames = formats.at(0);
-  ExportConfig::instance().m_exportFormatHeaders = formats.at(1);
-  ExportConfig::instance().m_exportFormatTracks = formats.at(2);
-  ExportConfig::instance().m_exportFormatTrailers = formats.at(3);
-  ExportConfig::instance().m_exportWindowGeometry = saveGeometry();
+  ExportConfig& exportCfg = ExportConfig::instance();
+  exportCfg.setExportSource(TrackData::tagVersionCast(
+    m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt()));
+  int idx;
+  QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
+  exportCfg.setExportFormatIndex(idx);
+  exportCfg.setExportFormatNames(formats.at(0));
+  exportCfg.setExportFormatHeaders(formats.at(1));
+  exportCfg.setExportFormatTracks(formats.at(2));
+  exportCfg.setExportFormatTrailers(formats.at(3));
+  exportCfg.setExportWindowGeometry(saveGeometry());
 
   setFormatFromConfig();
 }

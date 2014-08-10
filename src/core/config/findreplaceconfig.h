@@ -39,6 +39,12 @@ class BatchImportProfile;
  * Filter configuration.
  */
 class KID3_CORE_EXPORT FindReplaceConfig : public StoredConfig<FindReplaceConfig> {
+  Q_OBJECT
+  /** search parameters */
+  Q_PROPERTY(QVariantList parameterList READ parameterList WRITE setParameterList NOTIFY parameterListChanged)
+  /** window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+
 public:
   /**
    * Constructor.
@@ -79,25 +85,46 @@ public:
   }
 
   /**
+   * Get search parameters as variant list.
+   * @return variant list containing search text, replace text, flags,
+   * frameMask.
+   */
+  QVariantList parameterList() const { return m_params.toVariantList(); }
+
+  /**
+   * Set search parameters from variant list.
+   * @param lst variant list containing search text, replace text, flags,
+   * frameMask.
+   */
+  void setParameterList(const QVariantList& lst);
+
+  /**
    * Get window geometry.
    * @return window geometry.
    */
-  QByteArray getWindowGeometry() const { return m_windowGeometry; }
+  QByteArray windowGeometry() const { return m_windowGeometry; }
 
   /**
    * Set window geometry.
    * @param windowGeometry geometry
    */
-  void setWindowGeometry(const QByteArray& windowGeometry) {
-    m_windowGeometry = windowGeometry;
-  }
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
+signals:
+  /** Emitted when the parameters are changed using setParameterList(). */
+  void parameterListChanged();
+
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
+private:
+  friend FindReplaceConfig& StoredConfig<FindReplaceConfig>::instance();
+
+  TagSearcher::Parameters m_params;
+  QByteArray m_windowGeometry;
 
   /** Index in configuration storage */
   static int s_index;
-
-private:
-  TagSearcher::Parameters m_params;
-  QByteArray m_windowGeometry;
 };
 
 #endif

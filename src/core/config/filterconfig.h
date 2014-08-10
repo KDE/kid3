@@ -36,6 +36,16 @@
  * Filter configuration.
  */
 class KID3_CORE_EXPORT FilterConfig : public StoredConfig<FilterConfig> {
+  Q_OBJECT
+  /** Names of filter expressions */
+  Q_PROPERTY(QStringList filterNames READ filterNames WRITE setFilterNames NOTIFY filterNamesChanged)
+  /** Filter expressions */
+  Q_PROPERTY(QStringList filterExpressions READ filterExpressions WRITE setFilterExpressions NOTIFY filterExpressionsChanged)
+  /** Selected filter */
+  Q_PROPERTY(int filterIndex READ filterIndex WRITE setFilterIndex NOTIFY filterIndexChanged)
+  /** Window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+
 public:
   /**
    * Constructor.
@@ -68,13 +78,49 @@ public:
    */
   void setFilenameFormat(const QString& format);
 
-  /** Names of filter expressions */
+  /** Get names of filter expressions. */
+  QStringList filterNames() const { return m_filterNames; }
+
+  /** Set names of filter expressions. */
+  void setFilterNames(const QStringList& filterNames);
+
+  /** Get filter expressions. */
+  QStringList filterExpressions() const { return m_filterExpressions; }
+
+  /** Set filter expressions. */
+  void setFilterExpressions(const QStringList& filterExpressions);
+
+  /** Get index of selected filter. */
+  int filterIndex() const { return m_filterIdx; }
+
+  /** Set index of selected filter. */
+  void setFilterIndex(int filterIndex);
+
+  /** Get window geometry. */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /** Set window geometry. */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
+signals:
+  /** Emitted when @a filterNames changed. */
+  void filterNamesChanged(const QStringList& filterNames);
+
+  /** Emitted when @a filterExpressions changed. */
+  void filterExpressionsChanged(const QStringList& filterExpressions);
+
+  /** Emitted when @a filterIdx changed. */
+  void filterIndexChanged(int filterIndex);
+
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
+private:
+  friend FilterConfig& StoredConfig<FilterConfig>::instance();
+
   QStringList m_filterNames;
-  /** Filter expressions */
   QStringList m_filterExpressions;
-  /** Selected filter */
   int m_filterIdx;
-  /** Window geometry */
   QByteArray m_windowGeometry;
 
   /** Index in configuration storage */

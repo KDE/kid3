@@ -44,6 +44,10 @@ public:
    */
   virtual ~AmazonConfig();
 
+private:
+  friend AmazonConfig&
+  StoredConfig<AmazonConfig, ServerImporterConfig>::instance();
+
   /** Index in configuration storage */
   static int s_index;
 };

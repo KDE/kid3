@@ -459,10 +459,10 @@ void Kid3MainWindow::initActions()
     m_viewToolBar->setText(tr("Show &Toolbar"));
     m_viewToolBar->setObjectName(QLatin1String("options_configure_toolbars"));
     m_shortcutsModel->registerAction(m_viewToolBar, menuTitle);
-    m_viewToolBar->setChecked(!MainWindowConfig::instance().m_hideToolBar);
+    m_viewToolBar->setChecked(!MainWindowConfig::instance().hideToolBar());
     settingsMenu->addAction(m_viewToolBar);
   }
-  if (MainWindowConfig::instance().m_hideToolBar)
+  if (MainWindowConfig::instance().hideToolBar())
     toolBar->hide();
 
   m_viewStatusBar = new QAction(this);
@@ -636,20 +636,20 @@ void Kid3MainWindow::addDirectoryToRecentFiles(const QString& dirName)
 void Kid3MainWindow::readConfig()
 {
   const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
-  if (mainWindowConfig.m_hideStatusBar)
+  if (mainWindowConfig.hideStatusBar())
     statusBar()->hide();
-  m_viewStatusBar->setChecked(!mainWindowConfig.m_hideStatusBar);
-  m_settingsShowHidePicture->setChecked(!GuiConfig::instance().m_hidePicture);
-  m_settingsAutoHideTags->setChecked(GuiConfig::instance().m_autoHideTags);
+  m_viewStatusBar->setChecked(!mainWindowConfig.hideStatusBar());
+  m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
+  m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
   m_fileOpenRecent->loadEntries(app()->getSettings());
   m_shortcutsModel->readFromConfig(app()->getSettings());
-  if (!mainWindowConfig.m_geometry.isEmpty()) {
-    restoreGeometry(mainWindowConfig.m_geometry);
+  if (!mainWindowConfig.geometry().isEmpty()) {
+    restoreGeometry(mainWindowConfig.geometry());
   } else {
     resize(1000, 900);
   }
-  if (!mainWindowConfig.m_windowState.isEmpty()) {
-    restoreState(mainWindowConfig.m_windowState);
+  if (!mainWindowConfig.windowState().isEmpty()) {
+    restoreState(mainWindowConfig.windowState());
   }
 }
 
@@ -661,9 +661,9 @@ void Kid3MainWindow::saveConfig()
   MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
   m_fileOpenRecent->saveEntries(app()->getSettings());
   m_shortcutsModel->writeToConfig(app()->getSettings());
-  mainWindowConfig.m_hideToolBar = !m_viewToolBar->isChecked();
-  mainWindowConfig.m_geometry = saveGeometry();
-  mainWindowConfig.m_windowState = saveState();
+  mainWindowConfig.setHideToolBar(!m_viewToolBar->isChecked());
+  mainWindowConfig.setGeometry(saveGeometry());
+  mainWindowConfig.setWindowState(saveState());
   mainWindowConfig.writeToConfig(app()->getSettings());
 }
 
@@ -725,14 +725,14 @@ void Kid3MainWindow::closeEvent(QCloseEvent* ce)
 void Kid3MainWindow::readFontAndStyleOptions()
 {
   const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
-  if (mainWindowConfig.m_useFont &&
-      !mainWindowConfig.m_fontFamily.isEmpty() &&
-      mainWindowConfig.m_fontSize > 0) {
-    QApplication::setFont(QFont(mainWindowConfig.m_fontFamily,
-                                mainWindowConfig.m_fontSize));
+  if (mainWindowConfig.useFont() &&
+      !mainWindowConfig.fontFamily().isEmpty() &&
+      mainWindowConfig.fontSize() > 0) {
+    QApplication::setFont(QFont(mainWindowConfig.fontFamily(),
+                                mainWindowConfig.fontSize()));
   }
-  if (!mainWindowConfig.m_style.isEmpty()) {
-    QApplication::setStyle(mainWindowConfig.m_style);
+  if (!mainWindowConfig.style().isEmpty()) {
+    QApplication::setStyle(mainWindowConfig.style());
   }
 }
 
@@ -751,9 +751,9 @@ void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
  */
 void Kid3MainWindow::slotViewStatusBar()
 {
-  MainWindowConfig::instance().m_hideStatusBar = !m_viewStatusBar->isChecked();
+  MainWindowConfig::instance().setHideStatusBar(!m_viewStatusBar->isChecked());
   slotStatusMsg(tr("Toggle the statusbar..."));
-  if (MainWindowConfig::instance().m_hideStatusBar) {
+  if (MainWindowConfig::instance().hideStatusBar()) {
     statusBar()->hide();
   }
   else {
@@ -820,9 +820,9 @@ void Kid3MainWindow::onCommitDataRequest(QSessionManager& manager)
   // Make sure that current file is saved even if "load last opened file"
   // is not enabled.
   FileConfig& fileCfg = FileConfig::instance();
-  if (!fileCfg.m_loadLastOpenedFile) {
-    fileCfg.m_lastOpenedFile =
-        app()->getFileProxyModel()->filePath(app()->currentOrRootIndex());
+  if (!fileCfg.loadLastOpenedFile()) {
+    fileCfg.setLastOpenedFile(
+        app()->getFileProxyModel()->filePath(app()->currentOrRootIndex()));
   }
 
   // Ask user if there are unsaved data.

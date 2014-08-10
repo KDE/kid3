@@ -561,7 +561,7 @@ void Kid3Form::markChangedFilename(bool en)
 void Kid3Form::formatLineEdit(QLineEdit* le, const QString& txt,
                const FormatConfig* fcfg)
 {
-  if (fcfg->m_formatWhileEditing) {
+  if (fcfg->formatWhileEditing()) {
     QString str(txt);
     fcfg->formatString(str);
     if (str != txt) {
@@ -717,7 +717,7 @@ void Kid3Form::showHideTag2()
  */
 void Kid3Form::onFormatEditTextChanged(const QString& text)
 {
-  FileConfig::instance().m_formatText = text;
+  FileConfig::instance().setToFilenameFormat(text);
 }
 
 /**
@@ -726,7 +726,7 @@ void Kid3Form::onFormatEditTextChanged(const QString& text)
  */
 void Kid3Form::onFormatFromFilenameEditTextChanged(const QString& text)
 {
-  FileConfig::instance().m_formatFromFilenameText = text;
+  FileConfig::instance().setFromFilenameFormat(text);
 }
 
 /**
@@ -806,25 +806,29 @@ void Kid3Form::saveConfig()
 {
   GuiConfig& guiCfg = GuiConfig::instance();
   FileConfig& fileCfg = FileConfig::instance();
-  guiCfg.m_splitterSizes = sizes();
-  guiCfg.m_vSplitterSizes = m_vSplitter->sizes();
-  fileCfg.m_formatItem = m_formatComboBox->currentIndex();
-  fileCfg.m_formatText = m_formatComboBox->currentText();
-  fileCfg.m_formatItems = getItemsFromComboBox(m_formatComboBox);
-  fileCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->currentIndex();
-  fileCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
-  fileCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
-  if (!guiCfg.m_autoHideTags) {
-    guiCfg.m_hideFile = m_fileWidget->isHidden();
-    guiCfg.m_hideV1 = m_tag1Widget->isHidden();
-    guiCfg.m_hideV2 = m_tag2Widget->isHidden();
+  guiCfg.setSplitterSizes(sizes());
+  guiCfg.setVSplitterSizes(m_vSplitter->sizes());
+  fileCfg.setToFilenameFormatIndex(m_formatComboBox->currentIndex());
+  fileCfg.setToFilenameFormat(m_formatComboBox->currentText());
+  fileCfg.setToFilenameFormats(getItemsFromComboBox(m_formatComboBox));
+  fileCfg.setFromFilenameFormatIndex(m_formatFromFilenameComboBox->currentIndex());
+  fileCfg.setFromFilenameFormat(m_formatFromFilenameComboBox->currentText());
+  fileCfg.setFromFilenameFormats(getItemsFromComboBox(m_formatFromFilenameComboBox));
+  if (!guiCfg.autoHideTags()) {
+    guiCfg.setHideFile(m_fileWidget->isHidden());
+    guiCfg.setHideV1(m_tag1Widget->isHidden());
+    guiCfg.setHideV2(m_tag2Widget->isHidden());
   }
-  m_fileListBox->getSortByColumn(guiCfg.m_fileListSortColumn,
-                                 guiCfg.m_fileListSortOrder);
-  guiCfg.m_fileListVisibleColumns = m_fileListBox->getVisibleColumns();
-  m_dirListBox->getSortByColumn(guiCfg.m_dirListSortColumn,
-                                guiCfg.m_dirListSortOrder);
-  guiCfg.m_dirListVisibleColumns = m_dirListBox->getVisibleColumns();
+  int column;
+  Qt::SortOrder order;
+  m_fileListBox->getSortByColumn(column, order);
+  guiCfg.setFileListSortColumn(column);
+  guiCfg.setFileListSortOrder(order);
+  guiCfg.setFileListVisibleColumns(m_fileListBox->getVisibleColumns());
+  m_dirListBox->getSortByColumn(column, order);
+  guiCfg.setDirListSortColumn(column);
+  guiCfg.setDirListSortOrder(order);
+  guiCfg.setDirListVisibleColumns(m_dirListBox->getVisibleColumns());
 }
 
 /**
@@ -834,13 +838,13 @@ void Kid3Form::readConfig()
 {
   const GuiConfig& guiCfg = GuiConfig::instance();
   const FileConfig& fileCfg = FileConfig::instance();
-  if (!guiCfg.m_splitterSizes.isEmpty()) {
-    setSizes(guiCfg.m_splitterSizes);
+  if (!guiCfg.splitterSizes().isEmpty()) {
+    setSizes(guiCfg.splitterSizes());
   } else {
     setSizes(QList<int>() << 307 << 601);
   }
-  if (!guiCfg.m_vSplitterSizes.isEmpty()) {
-    m_vSplitter->setSizes(guiCfg.m_vSplitterSizes);
+  if (!guiCfg.vSplitterSizes().isEmpty()) {
+    m_vSplitter->setSizes(guiCfg.vSplitterSizes());
   } else {
     m_vSplitter->setSizes(QList<int>() << 451 << 109);
   }
@@ -849,37 +853,37 @@ void Kid3Form::readConfig()
   // editTextChanged() signals causing configuration changes.
   m_formatComboBox->blockSignals(true);
   m_formatFromFilenameComboBox->blockSignals(true);
-  if (!fileCfg.m_formatItems.isEmpty()) {
+  if (!fileCfg.toFilenameFormats().isEmpty()) {
     m_formatComboBox->clear();
-    m_formatComboBox->addItems(fileCfg.m_formatItems);
+    m_formatComboBox->addItems(fileCfg.toFilenameFormats());
   }
-  if (!fileCfg.m_formatFromFilenameItems.isEmpty()) {
+  if (!fileCfg.fromFilenameFormats().isEmpty()) {
     m_formatFromFilenameComboBox->clear();
-    m_formatFromFilenameComboBox->addItems(fileCfg.m_formatFromFilenameItems);
+    m_formatFromFilenameComboBox->addItems(fileCfg.fromFilenameFormats());
   }
-  m_formatComboBox->setItemText(fileCfg.m_formatItem,
-                                fileCfg.m_formatText);
-  m_formatComboBox->setCurrentIndex(fileCfg.m_formatItem);
+  m_formatComboBox->setItemText(fileCfg.toFilenameFormatIndex(),
+                                fileCfg.toFilenameFormat());
+  m_formatComboBox->setCurrentIndex(fileCfg.toFilenameFormatIndex());
   m_formatFromFilenameComboBox->setItemText(
-    fileCfg.m_formatFromFilenameItem,
-    fileCfg.m_formatFromFilenameText);
+    fileCfg.fromFilenameFormatIndex(),
+    fileCfg.fromFilenameFormat());
   m_formatFromFilenameComboBox->setCurrentIndex(
-    fileCfg.m_formatFromFilenameItem);
+    fileCfg.fromFilenameFormatIndex());
   m_formatComboBox->blockSignals(false);
   m_formatFromFilenameComboBox->blockSignals(false);
 
-  if (!guiCfg.m_autoHideTags) {
-    hideFile(guiCfg.m_hideFile);
-    hideV1(guiCfg.m_hideV1);
-    hideV2(guiCfg.m_hideV2);
+  if (!guiCfg.autoHideTags()) {
+    hideFile(guiCfg.hideFile());
+    hideV1(guiCfg.hideV1());
+    hideV2(guiCfg.hideV2());
   }
-  hidePicture(guiCfg.m_hidePicture);
-  m_fileListBox->sortByColumn(guiCfg.m_fileListSortColumn,
-                              guiCfg.m_fileListSortOrder);
-  m_fileListBox->setVisibleColumns(guiCfg.m_fileListVisibleColumns);
-  m_dirListBox->sortByColumn(guiCfg.m_dirListSortColumn,
-                             guiCfg.m_dirListSortOrder);
-  m_dirListBox->setVisibleColumns(guiCfg.m_dirListVisibleColumns);
+  hidePicture(guiCfg.hidePicture());
+  m_fileListBox->sortByColumn(guiCfg.fileListSortColumn(),
+                              guiCfg.fileListSortOrder());
+  m_fileListBox->setVisibleColumns(guiCfg.fileListVisibleColumns());
+  m_dirListBox->sortByColumn(guiCfg.dirListSortColumn(),
+                             guiCfg.dirListSortOrder());
+  m_dirListBox->setVisibleColumns(guiCfg.dirListVisibleColumns());
 }
 
 /**

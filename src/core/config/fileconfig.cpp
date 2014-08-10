@@ -158,3 +158,99 @@ void FileConfig::readFromConfig(ISettings* config)
     }
   }
 }
+
+void FileConfig::setNameFilter(const QString& nameFilter)
+{
+  if (m_nameFilter != nameFilter) {
+    m_nameFilter = nameFilter;
+    emit nameFilterChanged(m_nameFilter);
+  }
+}
+
+void FileConfig::setToFilenameFormat(const QString& formatText)
+{
+  if (m_formatText != formatText) {
+    m_formatText = formatText;
+    emit toFilenameFormatChanged(m_formatText);
+  }
+}
+
+void FileConfig::setToFilenameFormatIndex(int formatItem)
+{
+  if (m_formatItem != formatItem) {
+    m_formatItem = formatItem;
+    emit toFilenameFormatIndexChanged(m_formatItem);
+  }
+}
+
+void FileConfig::setToFilenameFormats(const QStringList& formatItems)
+{
+  if (m_formatItems != formatItems) {
+    m_formatItems = formatItems;
+    emit toFilenameFormatsChanged(m_formatItems);
+  }
+}
+
+void FileConfig::setFromFilenameFormat(const QString& formatFromFilenameText)
+{
+  if (m_formatFromFilenameText != formatFromFilenameText) {
+    m_formatFromFilenameText = formatFromFilenameText;
+    emit fromFilenameFormatChanged(m_formatFromFilenameText);
+  }
+}
+
+void FileConfig::setFromFilenameFormatIndex(int formatFromFilenameItem)
+{
+  if (m_formatFromFilenameItem != formatFromFilenameItem) {
+    m_formatFromFilenameItem = formatFromFilenameItem;
+    emit fromFilenameFormatIndexChanged(m_formatFromFilenameItem);
+  }
+}
+
+void FileConfig::setFromFilenameFormats(const QStringList& formatFromFilenameItems)
+{
+  if (m_formatFromFilenameItems != formatFromFilenameItems) {
+    m_formatFromFilenameItems = formatFromFilenameItems;
+    emit fromFilenameFormatsChanged(m_formatFromFilenameItems);
+  }
+}
+
+void FileConfig::setDefaultCoverFileName(const QString& defaultCoverFileName)
+{
+  if (m_defaultCoverFileName != defaultCoverFileName) {
+    m_defaultCoverFileName = defaultCoverFileName;
+    emit defaultCoverFileNameChanged(m_defaultCoverFileName);
+  }
+}
+
+void FileConfig::setLastOpenedFile(const QString& lastOpenedFile)
+{
+  if (m_lastOpenedFile != lastOpenedFile) {
+    m_lastOpenedFile = lastOpenedFile;
+    emit lastOpenedFileChanged(m_lastOpenedFile);
+  }
+}
+
+void FileConfig::setPreserveTime(bool preserveTime)
+{
+  if (m_preserveTime != preserveTime) {
+    m_preserveTime = preserveTime;
+    emit preserveTimeChanged(m_preserveTime);
+  }
+}
+
+void FileConfig::setMarkChanges(bool markChanges)
+{
+  if (m_markChanges != markChanges) {
+    m_markChanges = markChanges;
+    emit markChangesChanged(m_markChanges);
+  }
+}
+
+void FileConfig::setLoadLastOpenedFile(bool loadLastOpenedFile)
+{
+  if (m_loadLastOpenedFile != loadLastOpenedFile) {
+    m_loadLastOpenedFile = loadLastOpenedFile;
+    emit loadLastOpenedFileChanged(m_loadLastOpenedFile);
+  }
+}

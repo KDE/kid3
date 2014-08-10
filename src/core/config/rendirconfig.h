@@ -34,8 +34,15 @@
 /**
  * Configuration for directory renaming.
  */
-class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig>
-{
+class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig> {
+  Q_OBJECT
+  /** directory name format */
+  Q_PROPERTY(QString dirFormat READ dirFormat WRITE setDirFormat NOTIFY dirFormatChanged)
+  /** index of directory name format selected */
+  Q_PROPERTY(int dirFormatIndex READ dirFormatIndex WRITE setDirFormatIndex NOTIFY dirFormatIndexChanged)
+  /** rename directory from tags 1, tags 2, or both */
+  Q_PROPERTY(int renDirSource READ renDirSource WRITE setRenDirSrcInt NOTIFY renDirSourceChanged)
+
 public:
   /**
    * Constructor.
@@ -61,14 +68,48 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** directory name format */
+  /** Get directory name format. */
+  QString dirFormat() const { return m_dirFormatText; }
+
+  /** Set directory name format. */
+  void setDirFormat(const QString& dirFormat);
+
+  /** Get index of directory name format selected. */
+  int dirFormatIndex() const { return m_dirFormatItem; }
+
+  /** Set index of directory name format selected. */
+  void setDirFormatIndex(int dirFormatIndex);
+
+  /** Get tag source when renaming directory. */
+  TrackData::TagVersion renDirSource() const { return m_renDirSrc; }
+
+  /** Set tag source when renaming directory. */
+  void setRenDirSource(TrackData::TagVersion renDirSource);
+
+  /** Get default directory format list. */
+  static QStringList getDefaultDirFormatList();
+
+signals:
+  /** Emitted when @a dirFormatText changed. */
+  void dirFormatChanged(const QString& dirFormat);
+
+  /** Emitted when @a dirFormatItem changed. */
+  void dirFormatIndexChanged(int dirFormatIndex);
+
+  /** Emitted when @a renDirSrc changed. */
+  void renDirSourceChanged(TrackData::TagVersion renDirSource);
+
+private:
+  friend RenDirConfig& StoredConfig<RenDirConfig>::instance();
+
+  void setRenDirSrcInt(int renDirSrc) {
+    setRenDirSource(TrackData::tagVersionCast(renDirSrc));
+  }
+
   QString m_dirFormatText;
-  /** index of directory name format selected */
   int m_dirFormatItem;
-  /** rename directory from tags 1, tags 2, or both */
   TrackData::TagVersion m_renDirSrc;
 
-  /** Default directory format list */
   static const char** s_defaultDirFmtList;
 
   /** Index in configuration storage */

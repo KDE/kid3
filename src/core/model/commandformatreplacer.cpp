@@ -107,7 +107,7 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
           }
         }
       } else if (name == QLatin1String("browser")) {
-        result = NetworkConfig::instance().m_browser;
+        result = NetworkConfig::instance().browser();
       } else if (name == QLatin1String("url")) {
         if (!m_files.empty()) {
           QUrl url;

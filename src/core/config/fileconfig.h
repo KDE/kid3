@@ -34,8 +34,33 @@
 /**
  * File related configuration.
  */
-class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig>
-{
+class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
+  Q_OBJECT
+  /** filter of file names to be opened */
+  Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter NOTIFY nameFilterChanged)
+  /** filename format */
+  Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
+  /** index of filename format selected */
+  Q_PROPERTY(int toFilenameFormatIndex READ toFilenameFormatIndex WRITE setToFilenameFormatIndex NOTIFY toFilenameFormatIndexChanged)
+  /** filename formats */
+  Q_PROPERTY(QStringList toFilenameFormats READ toFilenameFormats WRITE setToFilenameFormats NOTIFY toFilenameFormatsChanged)
+  /** from filename format */
+  Q_PROPERTY(QString fromFilenameFormat READ fromFilenameFormat WRITE setFromFilenameFormat NOTIFY fromFilenameFormatChanged)
+  /** index of from filename format selected */
+  Q_PROPERTY(int fromFilenameFormatIndex READ fromFilenameFormatIndex WRITE setFromFilenameFormatIndex NOTIFY fromFilenameFormatIndexChanged)
+  /** from filename formats */
+  Q_PROPERTY(QStringList fromFilenameFormats READ fromFilenameFormats WRITE setFromFilenameFormats NOTIFY fromFilenameFormatsChanged)
+  /** default file name to save cover art */
+  Q_PROPERTY(QString defaultCoverFileName READ defaultCoverFileName WRITE setDefaultCoverFileName NOTIFY defaultCoverFileNameChanged)
+  /** path to last opened file */
+  Q_PROPERTY(QString lastOpenedFile READ lastOpenedFile WRITE setLastOpenedFile NOTIFY lastOpenedFileChanged)
+  /** true to preserve file time stamps */
+  Q_PROPERTY(bool preserveTime READ preserveTime WRITE setPreserveTime NOTIFY preserveTimeChanged)
+  /** true to mark changed fields */
+  Q_PROPERTY(bool markChanges READ markChanges WRITE setMarkChanges NOTIFY markChangesChanged)
+  /** true to open last opened file on startup */
+  Q_PROPERTY(bool loadLastOpenedFile READ loadLastOpenedFile WRITE setLoadLastOpenedFile NOTIFY loadLastOpenedFileChanged)
+
 public:
   /**
    * Constructor.
@@ -61,29 +86,131 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** filter of file names to be opened */
+  /** Get filter of file names to be opened. */
+  QString nameFilter() const { return m_nameFilter; }
+
+  /** Set filter of file names to be opened. */
+  void setNameFilter(const QString& nameFilter);
+
+  /** Get filename format. */
+  QString toFilenameFormat() const { return m_formatText; }
+
+  /** Set filename format. */
+  void setToFilenameFormat(const QString& toFilenameFormat);
+
+  /** Get index of filename format selected. */
+  int toFilenameFormatIndex() const { return m_formatItem; }
+
+  /** Set index of filename format selected. */
+  void setToFilenameFormatIndex(int toFilenameFormatIndex);
+
+  /** Get filename formats. */
+  QStringList toFilenameFormats() const { return m_formatItems; }
+
+  /** Set filename formats. */
+  void setToFilenameFormats(const QStringList& toFilenameFormats);
+
+  /** Get from filename format. */
+  QString fromFilenameFormat() const { return m_formatFromFilenameText; }
+
+  /** Set from filename format. */
+  void setFromFilenameFormat(const QString& fromFilenameFormat);
+
+  /** Get index of from filename format selected. */
+  int fromFilenameFormatIndex() const { return m_formatFromFilenameItem; }
+
+  /** Set index of from filename format selected. */
+  void setFromFilenameFormatIndex(int fromFilenameFormatIndex);
+
+  /** Get from filename formats. */
+  QStringList fromFilenameFormats() const {
+    return m_formatFromFilenameItems;
+  }
+
+  /** Set from filename formats. */
+  void setFromFilenameFormats(const QStringList& fromFilenameFormats);
+
+  /** Get default file name to save cover art. */
+  QString defaultCoverFileName() const { return m_defaultCoverFileName; }
+
+  /** Set default file name to save cover art. */
+  void setDefaultCoverFileName(const QString& defaultCoverFileName);
+
+  /** Get path to last opened file. */
+  QString lastOpenedFile() const { return m_lastOpenedFile; }
+
+  /** Set path to last opened file. */
+  void setLastOpenedFile(const QString& lastOpenedFile);
+
+  /** Check if file time stamps are preserved. */
+  bool preserveTime() const { return m_preserveTime; }
+
+  /** Set if file time stamps are preserved. */
+  void setPreserveTime(bool preserveTime);
+
+  /** Check if changed fields are marked. */
+  bool markChanges() const { return m_markChanges; }
+
+  /** Set if changed fields are marked. */
+  void setMarkChanges(bool markChanges);
+
+  /** Check if the last opened file is loaded on startup. */
+  bool loadLastOpenedFile() const { return m_loadLastOpenedFile; }
+
+  /** Set if the last opened file is loaded on startup. */
+  void setLoadLastOpenedFile(bool loadLastOpenedFile);
+
+signals:
+  /** Emitted when @a nameFilter changed. */
+  void nameFilterChanged(const QString& nameFilter);
+
+  /** Emitted when @a formatText changed. */
+  void toFilenameFormatChanged(const QString& toFilenameFormat);
+
+  /** Emitted when @a formatItem changed. */
+  void toFilenameFormatIndexChanged(int toFilenameFormatIndex);
+
+  /** Emitted when @a formatItems changed. */
+  void toFilenameFormatsChanged(const QStringList& toFilenameFormats);
+
+  /** Emitted when @a formatFromFilenameText changed. */
+  void fromFilenameFormatChanged(const QString& fromFilenameFormat);
+
+  /** Emitted when @a formatFromFilenameItem changed. */
+  void fromFilenameFormatIndexChanged(int fromFilenameFormatIndex);
+
+  /** Emitted when @a formatFromFilenameItems changed. */
+  void fromFilenameFormatsChanged(const QStringList& fromFilenameFormats);
+
+  /** Emitted when @a defaultCoverFileName changed. */
+  void defaultCoverFileNameChanged(const QString& defaultCoverFileName);
+
+  /** Emitted when @a lastOpenedFile changed. */
+  void lastOpenedFileChanged(const QString& lastOpenedFile);
+
+  /** Emitted when @a preserveTime changed. */
+  void preserveTimeChanged(bool preserveTime);
+
+  /** Emitted when @a markChanges changed. */
+  void markChangesChanged(bool markChanges);
+
+  /** Emitted when @a loadLastOpenedFile changed. */
+  void loadLastOpenedFileChanged(bool loadLastOpenedFile);
+
+private:
+  friend FileConfig& StoredConfig<FileConfig>::instance();
+
   QString m_nameFilter;
-  /** filename format */
   QString m_formatText;
-  /** index of filename format selected */
   int m_formatItem;
-  /** filename formats */
   QStringList m_formatItems;
-  /** from filename format */
   QString m_formatFromFilenameText;
-  /** index of from filename format selected */
   int m_formatFromFilenameItem;
-  /** from filename formats */
   QStringList m_formatFromFilenameItems;
-  /** default file name to save cover art */
   QString m_defaultCoverFileName;
-  /** path to last opened file */
   QString m_lastOpenedFile;
-  /** true to preserve file time stamps */
   bool m_preserveTime;
-  /** true to mark changed fields */
   bool m_markChanges;
-  /** true to open last opened file on startup */
   bool m_loadLastOpenedFile;
 
   /** Index in configuration storage */

@@ -35,9 +35,9 @@ int AmazonConfig::s_index = -1;
 AmazonConfig::AmazonConfig() :
   StoredConfig<AmazonConfig, ServerImporterConfig>(QLatin1String("Amazon"))
 {
-  m_cgiPathUsed = false;
-  m_additionalTagsUsed = true;
-  m_server = QLatin1String("www.amazon.com:80");
+  setCgiPathUsed(false);
+  setAdditionalTagsUsed(true);
+  setServer(QLatin1String("www.amazon.com:80"));
 }
 
 /**

@@ -150,3 +150,153 @@ int TagConfig::id3v2Version() const
     return ID3v2_3_0;
   return m_id3v2Version;
 }
+
+/**
+ * Set features provided by metadata plugins.
+ * @param taggedFileFeatures bit mask with TaggedFile::Feature flags set
+ */
+void TagConfig::setTaggedFileFeatures(int taggedFileFeatures)
+{
+  if (m_taggedFileFeatures != taggedFileFeatures) {
+    m_taggedFileFeatures = taggedFileFeatures;
+    emit taggedFileFeaturesChanged(m_taggedFileFeatures);
+  }
+}
+
+/** Set true to mark truncated ID3v1.1 fields. */
+void TagConfig::setMarkTruncations(bool markTruncations)
+{
+  if (m_markTruncations != markTruncations) {
+    m_markTruncations = markTruncations;
+    emit markTruncationsChanged(m_markTruncations);
+  }
+}
+
+/** Set true to write total number of tracks into track fields. */
+void TagConfig::setEnableTotalNumberOfTracks(bool enableTotalNumberOfTracks)
+{
+  if (m_enableTotalNumberOfTracks != enableTotalNumberOfTracks) {
+    m_enableTotalNumberOfTracks = enableTotalNumberOfTracks;
+    emit enableTotalNumberOfTracksChanged(m_enableTotalNumberOfTracks);
+  }
+}
+
+/** Set true to write genres as text instead of numeric string. */
+void TagConfig::setGenreNotNumeric(bool genreNotNumeric)
+{
+  if (m_genreNotNumeric != genreNotNumeric) {
+    m_genreNotNumeric = genreNotNumeric;
+    emit genreNotNumericChanged(m_genreNotNumeric);
+  }
+}
+
+/** Set field name used for Vorbis comment entries. */
+void TagConfig::setCommentName(const QString& commentName)
+{
+  if (m_commentName != commentName) {
+    m_commentName = commentName;
+    emit commentNameChanged(m_commentName);
+  }
+}
+
+/** Set index of field name used for Vorbis picture entries. */
+void TagConfig::setPictureNameIndex(int pictureNameItem)
+{
+  if (m_pictureNameItem != pictureNameItem) {
+    m_pictureNameItem = pictureNameItem;
+    emit pictureNameIndexChanged(m_pictureNameItem);
+  }
+}
+
+/** Set custom genres for ID3v2.3. */
+void TagConfig::setCustomGenres(const QStringList& customGenres)
+{
+  if (m_customGenres != customGenres) {
+    m_customGenres = customGenres;
+    emit customGenresChanged(m_customGenres);
+  }
+}
+
+/** Set version used for new ID3v2 tags. */
+void TagConfig::setId3v2Version(int id3v2Version)
+{
+  if (m_id3v2Version != id3v2Version) {
+    m_id3v2Version = id3v2Version;
+    emit id3v2VersionChanged(m_id3v2Version);
+  }
+}
+
+/** Set text encoding used for new ID3v1 tags. */
+void TagConfig::setTextEncodingV1(const QString& textEncodingV1)
+{
+  if (m_textEncodingV1 != textEncodingV1) {
+    m_textEncodingV1 = textEncodingV1;
+    emit textEncodingV1Changed(m_textEncodingV1);
+  }
+}
+
+/** Set text encoding used for new ID3v2 tags. */
+void TagConfig::setTextEncoding(int textEncoding)
+{
+  if (m_textEncoding != textEncoding) {
+    m_textEncoding = textEncoding;
+    emit textEncodingChanged(m_textEncoding);
+  }
+}
+
+/** Set frames which are displayed for Tag 2 even if not present. */
+void TagConfig::setQuickAccessFrames(quint64 quickAccessFrames)
+{
+  if (m_quickAccessFrames != quickAccessFrames) {
+    m_quickAccessFrames = quickAccessFrames;
+    emit quickAccessFramesChanged(m_quickAccessFrames);
+  }
+}
+
+/** Set number of digits in track number. */
+void TagConfig::setTrackNumberDigits(int trackNumberDigits)
+{
+  if (m_trackNumberDigits != trackNumberDigits) {
+    m_trackNumberDigits = trackNumberDigits;
+    emit trackNumberDigitsChanged(m_trackNumberDigits);
+  }
+}
+
+/** Set true to show only custom genres in combo boxes. */
+void TagConfig::setOnlyCustomGenres(bool onlyCustomGenres)
+{
+  if (m_onlyCustomGenres != onlyCustomGenres) {
+    m_onlyCustomGenres = onlyCustomGenres;
+    emit onlyCustomGenresChanged(m_onlyCustomGenres);
+  }
+}
+
+/** Set the order in which meta data plugins are tried when opening a file. */
+void TagConfig::setPluginOrder(const QStringList& pluginOrder)
+{
+  if (m_pluginOrder != pluginOrder) {
+    m_pluginOrder = pluginOrder;
+    emit pluginOrderChanged(m_pluginOrder);
+  }
+}
+
+/** Set list of disabled plugins. */
+void TagConfig::setDisabledPlugins(const QStringList& disabledPlugins)
+{
+  if (m_disabledPlugins != disabledPlugins) {
+    m_disabledPlugins = disabledPlugins;
+    emit disabledPluginsChanged(m_disabledPlugins);
+  }
+}
+
+/**
+ * Set list of available plugins.
+ * @param availablePlugins available plugins
+ */
+void TagConfig::setAvailablePlugins(const QStringList& availablePlugins)
+{
+  if (m_availablePlugins != availablePlugins) {
+    m_availablePlugins = availablePlugins;
+    emit availablePluginsChanged(m_availablePlugins);
+  }
+}

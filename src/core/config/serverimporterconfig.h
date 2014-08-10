@@ -35,6 +35,24 @@
  * Freedb configuration.
  */
 class KID3_CORE_EXPORT ServerImporterConfig : public GeneralConfig {
+  Q_OBJECT
+  /** server */
+  Q_PROPERTY(QString server READ server WRITE setServer NOTIFY serverChanged)
+  /** CGI path used for access */
+  Q_PROPERTY(QString cgiPath READ cgiPath WRITE setCgiPath NOTIFY cgiPathChanged)
+  /** window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+  /** true if CgiPath configuration is used */
+  Q_PROPERTY(bool cgiPathUsed READ cgiPathUsed WRITE setCgiPathUsed NOTIFY cgiPathUsedChanged)
+  /** true if additional tags configuration is used */
+  Q_PROPERTY(bool additionalTagsUsed READ additionalTagsUsed WRITE setAdditionalTagsUsed NOTIFY additionalTagsUsedChanged)
+  /** standard tags imported */
+  Q_PROPERTY(bool standardTags READ standardTags WRITE setStandardTags NOTIFY standardTagsChanged)
+  /** additional tags imported */
+  Q_PROPERTY(bool additionalTags READ additionalTags WRITE setAdditionalTags NOTIFY additionalTagsChanged)
+  /** cover art imported */
+  Q_PROPERTY(bool coverArt READ coverArt WRITE setCoverArt NOTIFY coverArtChanged)
+
 public:
   /**
    * Constructor.
@@ -69,28 +87,87 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** server */
+  /** Get server. */
+  QString server() const { return m_server; }
+
+  /** Set server. */
+  void setServer(const QString& server);
+
+  /** Get CGI path used for access. */
+  QString cgiPath() const { return m_cgiPath; }
+
+  /** Set CGI path used for access. */
+  void setCgiPath(const QString& cgiPath);
+
+  /** Get window geometry. */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /** Set window geometry. */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
+  /** Check if CgiPath configuration is used. */
+  bool cgiPathUsed() const { return m_cgiPathUsed; }
+
+  /** Set if CgiPath configuration is used. */
+  void setCgiPathUsed(bool cgiPathUsed);
+
+  /** Check if additional tags configuration is used. */
+  bool additionalTagsUsed() const { return m_additionalTagsUsed; }
+
+  /** Set if additional tags configuration is used. */
+  void setAdditionalTagsUsed(bool additionalTagsUsed);
+
+  /** Check if standard tags are imported. */
+  bool standardTags() const { return m_standardTags; }
+
+  /** Set if standard tags are imported. */
+  void setStandardTags(bool standardTags);
+
+  /** Check if additional tags are imported. */
+  bool additionalTags() const { return m_additionalTags; }
+
+  /** Set if additional tags are imported. */
+  void setAdditionalTags(bool additionalTags);
+
+  /** Check if cover art is imported. */
+  bool coverArt() const { return m_coverArt; }
+
+  /** Set if cover art is imported. */
+  void setCoverArt(bool coverArt);
+
+signals:
+  /** Emitted when @a server changed. */
+  void serverChanged(const QString& server);
+
+  /** Emitted when @a cgiPath changed. */
+  void cgiPathChanged(const QString& cgiPath);
+
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
+  /** Emitted when @a cgiPathUsed changed. */
+  void cgiPathUsedChanged(bool cgiPathUsed);
+
+  /** Emitted when @a additionalTagsUsed changed. */
+  void additionalTagsUsedChanged(bool additionalTagsUsed);
+
+  /** Emitted when @a standardTags changed. */
+  void standardTagsChanged(bool standardTags);
+
+  /** Emitted when @a additionalTags changed. */
+  void additionalTagsChanged(bool additionalTags);
+
+  /** Emitted when @a coverArt changed. */
+  void coverArtChanged(bool coverArt);
+
+private:
   QString m_server;
-
-  /** CGI path used for access */
   QString m_cgiPath;
-
-  /** window geometry */
   QByteArray m_windowGeometry;
-
-  /** true if CgiPath configuration is used */
   bool m_cgiPathUsed;
-
-  /** true if additional tags configuration is used */
   bool m_additionalTagsUsed;
-
-  /** standard tags imported */
   bool m_standardTags;
-
-  /** additional tags imported */
   bool m_additionalTags;
-
-  /** cover art imported */
   bool m_coverArt;
 };
 

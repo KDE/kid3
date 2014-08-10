@@ -337,6 +337,69 @@ void FormatConfig::setLocaleName(const QString& localeName)
     m_localeName = localeName;
     delete m_locale;
     m_locale = new QLocale(m_localeName);
+    emit localeNameChanged(m_localeName);
+  }
+}
+
+void FormatConfig::setEnableValidation(bool enableValidation)
+{
+  if (m_enableValidation != enableValidation) {
+    m_enableValidation = enableValidation;
+    emit enableValidationChanged(m_enableValidation);
+  }
+}
+
+void FormatConfig::setStrRepMap(const QMap<QString, QString>& strRepMap)
+{
+  if (m_strRepMap != strRepMap) {
+    m_strRepMap = strRepMap;
+    emit strRepMapChanged(m_strRepMap);
+  }
+}
+
+QVariantMap FormatConfig::strRepVariantMap() const
+{
+  QVariantMap map;
+  for (QMap<QString, QString>::const_iterator it = m_strRepMap.constBegin();
+       it != m_strRepMap.constEnd();
+       ++it) {
+    map.insert(it.key(), it.value());
+  }
+  return map;
+}
+
+void FormatConfig::setStrRepVariantMap(const QVariantMap& map)
+{
+  QMap<QString, QString> strRepMap;
+  for (QVariantMap::const_iterator it = map.constBegin();
+       it != map.constEnd();
+       ++it) {
+    strRepMap.insert(it.key(), it.value().toString());
+  }
+  setStrRepMap(strRepMap);
+}
+
+void FormatConfig::setCaseConversion(CaseConversion caseConversion)
+{
+  if (m_caseConversion != caseConversion) {
+    m_caseConversion = caseConversion;
+    emit caseConversionChanged(m_caseConversion);
+  }
+}
+
+void FormatConfig::setStrRepEnabled(bool strRepEnabled)
+{
+  if (m_strRepEnabled != strRepEnabled) {
+    m_strRepEnabled = strRepEnabled;
+    emit strRepEnabledChanged(m_strRepEnabled);
+  }
+}
+
+void FormatConfig::setFormatWhileEditing(bool formatWhileEditing)
+{
+  if (m_formatWhileEditing != formatWhileEditing) {
+    m_formatWhileEditing = formatWhileEditing;
+    emit formatWhileEditingChanged(m_formatWhileEditing);
   }
 }
 

@@ -117,11 +117,12 @@ void TextImportDialog::clear()
  */
 void TextImportDialog::setFormatFromConfig()
 {
+  const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ImportConfig::instance().m_importFormatNames
-                             << ImportConfig::instance().m_importFormatHeaders
-                             << ImportConfig::instance().m_importFormatTracks,
-        ImportConfig::instance().m_importFormatIdx);
+        QList<QStringList>() << importCfg.importFormatNames()
+                             << importCfg.importFormatHeaders()
+                             << importCfg.importFormatTracks(),
+        importCfg.importFormatIndex());
 }
 
 /**
@@ -136,7 +137,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::ReadOnly)) {
-      ImportConfig::instance().m_importDir = QFileInfo(file).dir().path();
+      ImportConfig::instance().setImportDir(QFileInfo(file).dir().path());
       QTextStream stream(&file);
       QString text = stream.readAll();
       if (!text.isNull() &&
@@ -160,7 +161,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
 void TextImportDialog::fromFile()
 {
   importFromFile(m_platformTools->getOpenFileName(this, QString(),
-      ImportConfig::instance().m_importDir, QString(), 0)
+      ImportConfig::instance().importDir(), QString(), 0)
     );
 }
 
@@ -186,11 +187,13 @@ void TextImportDialog::fromClipboard()
  */
 void TextImportDialog::saveConfig()
 {
-  QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ImportConfig::instance().m_importFormatIdx);
-  ImportConfig::instance().m_importFormatNames = formats.at(0);
-  ImportConfig::instance().m_importFormatHeaders = formats.at(1);
-  ImportConfig::instance().m_importFormatTracks = formats.at(2);
+  ImportConfig& importCfg = ImportConfig::instance();
+  int idx;
+  QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
+  importCfg.setImportFormatIndex(idx);
+  importCfg.setImportFormatNames(formats.at(0));
+  importCfg.setImportFormatHeaders(formats.at(1));
+  importCfg.setImportFormatTracks(formats.at(2));
 
   setFormatFromConfig();
 }

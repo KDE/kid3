@@ -27,6 +27,7 @@
 #ifndef GENERALCONFIG_H
 #define GENERALCONFIG_H
 
+#include <QObject>
 #include <QString>
 #include "isettings.h"
 #include "configstore.h"
@@ -34,7 +35,8 @@
 /**
  * Abstract base class for configurations.
  */
-class KID3_CORE_EXPORT GeneralConfig {
+class KID3_CORE_EXPORT GeneralConfig : public QObject {
+  Q_OBJECT
 public:
   /**
    * Constructor.

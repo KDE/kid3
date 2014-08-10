@@ -464,14 +464,14 @@ void ConfigDialogPages::setConfig()
   m_id3FormatBox->fromFormatConfig(id3Cfg);
   m_markTruncationsCheckBox->setChecked(tagCfg.markTruncations());
   m_totalNumTracksCheckBox->setChecked(tagCfg.enableTotalNumberOfTracks());
-  m_loadLastOpenedFileCheckBox->setChecked(fileCfg.m_loadLastOpenedFile);
-  m_preserveTimeCheckBox->setChecked(fileCfg.m_preserveTime);
-  m_markChangesCheckBox->setChecked(fileCfg.m_markChanges);
-  m_coverFileNameLineEdit->setText(fileCfg.m_defaultCoverFileName);
+  m_loadLastOpenedFileCheckBox->setChecked(fileCfg.loadLastOpenedFile());
+  m_preserveTimeCheckBox->setChecked(fileCfg.preserveTime());
+  m_markChangesCheckBox->setChecked(fileCfg.markChanges());
+  m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
   m_quickAccessTagsModel->setBitMask(tagCfg.quickAccessFrames());
-  m_commandsTableModel->setCommandList(userActionsCfg.m_contextMenuCommands);
+  m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
   int idx = m_commentNameComboBox->findText(tagCfg.commentName());
   if (idx >= 0) {
     m_commentNameComboBox->setCurrentIndex(idx);
@@ -479,7 +479,7 @@ void ConfigDialogPages::setConfig()
     m_commentNameComboBox->addItem(tagCfg.commentName());
     m_commentNameComboBox->setCurrentIndex(m_commentNameComboBox->count() - 1);
   }
-  m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameItem());
+  m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameIndex());
   m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
   int textEncodingV1Index = TextEncodingV1Latin1Index;
   int index = 0;
@@ -497,13 +497,13 @@ void ConfigDialogPages::setConfig()
   m_id3v2VersionComboBox->setCurrentIndex(
         m_id3v2VersionComboBox->findData(tagCfg.id3v2Version()));
   m_trackNumberDigitsSpinBox->setValue(tagCfg.trackNumberDigits());
-  m_browserLineEdit->setText(networkCfg.m_browser);
-  m_playOnDoubleClickCheckBox->setChecked(guiCfg.m_playOnDoubleClick);
-  m_proxyCheckBox->setChecked(networkCfg.m_useProxy);
-  m_proxyLineEdit->setText(networkCfg.m_proxy);
-  m_proxyAuthenticationCheckBox->setChecked(networkCfg.m_useProxyAuthentication);
-  m_proxyUserNameLineEdit->setText(networkCfg.m_proxyUserName);
-  m_proxyPasswordLineEdit->setText(networkCfg.m_proxyPassword);
+  m_browserLineEdit->setText(networkCfg.browser());
+  m_playOnDoubleClickCheckBox->setChecked(guiCfg.playOnDoubleClick());
+  m_proxyCheckBox->setChecked(networkCfg.useProxy());
+  m_proxyLineEdit->setText(networkCfg.proxy());
+  m_proxyAuthenticationCheckBox->setChecked(networkCfg.useProxyAuthentication());
+  m_proxyUserNameLineEdit->setText(networkCfg.proxyUserName());
+  m_proxyPasswordLineEdit->setText(networkCfg.proxyPassword());
 
   QStringList metadataPlugins;
   QStringList pluginOrder = tagCfg.pluginOrder();
@@ -511,7 +511,7 @@ void ConfigDialogPages::setConfig()
     for (int i = 0; i < pluginOrder.size(); ++i) {
       metadataPlugins.append(QString());
     }
-    foreach (const QString& pluginName, tagCfg.getAvailablePlugins()) {
+    foreach (const QString& pluginName, tagCfg.availablePlugins()) {
       int pluginIdx = pluginOrder.indexOf(pluginName);
       if (pluginIdx >= 0) {
         metadataPlugins[pluginIdx] = pluginName;
@@ -521,7 +521,7 @@ void ConfigDialogPages::setConfig()
     }
     metadataPlugins.removeAll(QString());
   } else {
-    metadataPlugins = tagCfg.getAvailablePlugins();
+    metadataPlugins = tagCfg.availablePlugins();
   }
   quint64 metadataPluginsMask = 0;
   quint64 mask = 1;
@@ -534,11 +534,12 @@ void ConfigDialogPages::setConfig()
   m_enabledMetadataPluginsModel->setStringList(metadataPlugins);
   m_enabledMetadataPluginsModel->setBitMask(metadataPluginsMask);
 
-  QStringList importPlugins = importCfg.getAvailablePlugins();
+  QStringList importPlugins = importCfg.availablePlugins();
   quint64 importPluginsMask = 0;
   mask = 1;
+  QStringList disabledPlugins = importCfg.disabledPlugins();
   for (int i = 0; i < importPlugins.size(); ++i, mask <<= 1) {
-    if (!importCfg.m_disabledPlugins.contains(importPlugins.at(i))) {
+    if (!disabledPlugins.contains(importPlugins.at(i))) {
       importPluginsMask |= mask;
     }
   }
@@ -564,16 +565,16 @@ void ConfigDialogPages::getConfig() const
   m_id3FormatBox->toFormatConfig(id3Cfg);
   tagCfg.setMarkTruncations(m_markTruncationsCheckBox->isChecked());
   tagCfg.setEnableTotalNumberOfTracks(m_totalNumTracksCheckBox->isChecked());
-  fileCfg.m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
-  fileCfg.m_preserveTime = m_preserveTimeCheckBox->isChecked();
-  fileCfg.m_markChanges = m_markChangesCheckBox->isChecked();
-  fileCfg.m_defaultCoverFileName = m_coverFileNameLineEdit->text();
+  fileCfg.setLoadLastOpenedFile(m_loadLastOpenedFileCheckBox->isChecked());
+  fileCfg.setPreserveTime(m_preserveTimeCheckBox->isChecked());
+  fileCfg.setMarkChanges(m_markChangesCheckBox->isChecked());
+  fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
   tagCfg.setQuickAccessFrames(m_quickAccessTagsModel->getBitMask());
-  userActionsCfg.m_contextMenuCommands = m_commandsTableModel->getCommandList();
+  userActionsCfg.setContextMenuCommands(m_commandsTableModel->getCommandList());
   tagCfg.setCommentName(m_commentNameComboBox->currentText());
-  tagCfg.setPictureNameItem(m_pictureNameComboBox->currentIndex());
+  tagCfg.setPictureNameIndex(m_pictureNameComboBox->currentIndex());
   tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
   tagCfg.setTextEncodingV1(
     getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText()));
@@ -581,13 +582,13 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(
         m_id3v2VersionComboBox->currentIndex()).toInt());
   tagCfg.setTrackNumberDigits(m_trackNumberDigitsSpinBox->value());
-  networkCfg.m_browser = m_browserLineEdit->text();
-  guiCfg.m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();
-  networkCfg.m_useProxy = m_proxyCheckBox->isChecked();
-  networkCfg.m_proxy = m_proxyLineEdit->text();
-  networkCfg.m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();
-  networkCfg.m_proxyUserName = m_proxyUserNameLineEdit->text();
-  networkCfg.m_proxyPassword = m_proxyPasswordLineEdit->text();
+  networkCfg.setBrowser(m_browserLineEdit->text());
+  guiCfg.setPlayOnDoubleClick(m_playOnDoubleClickCheckBox->isChecked());
+  networkCfg.setUseProxy(m_proxyCheckBox->isChecked());
+  networkCfg.setProxy(m_proxyLineEdit->text());
+  networkCfg.setUseProxyAuthentication(m_proxyAuthenticationCheckBox->isChecked());
+  networkCfg.setProxyUserName(m_proxyUserNameLineEdit->text());
+  networkCfg.setProxyPassword(m_proxyPasswordLineEdit->text());
 
   QStringList pluginOrder, disabledPlugins;
   for (int row = 0; row < m_enabledMetadataPluginsModel->rowCount(); ++row) {
@@ -610,5 +611,5 @@ void ConfigDialogPages::getConfig() const
             m_enabledPluginsModel->index(row).data().toString());
     }
   }
-  importCfg.m_disabledPlugins = disabledPlugins;
+  importCfg.setDisabledPlugins(disabledPlugins);
 }

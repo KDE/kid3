@@ -116,3 +116,36 @@ void RenDirConfig::readFromConfig(ISettings* config)
       config->value(QLatin1String("DirFormatText"), QString::fromLatin1(s_defaultDirFmtList[0])).toString();
   config->endGroup();
 }
+
+void RenDirConfig::setDirFormat(const QString& dirFormatText)
+{
+  if (m_dirFormatText != dirFormatText) {
+    m_dirFormatText = dirFormatText;
+    emit dirFormatChanged(m_dirFormatText);
+  }
+}
+
+void RenDirConfig::setDirFormatIndex(int dirFormatItem)
+{
+  if (m_dirFormatItem != dirFormatItem) {
+    m_dirFormatItem = dirFormatItem;
+    emit dirFormatIndexChanged(m_dirFormatItem);
+  }
+}
+
+void RenDirConfig::setRenDirSource(TrackData::TagVersion renDirSrc)
+{
+  if (m_renDirSrc != renDirSrc) {
+    m_renDirSrc = renDirSrc;
+    emit renDirSourceChanged(m_renDirSrc);
+  }
+}
+
+QStringList RenDirConfig::getDefaultDirFormatList()
+{
+  QStringList strList;
+  for (const char** sl = s_defaultDirFmtList; *sl != 0; ++sl) {
+    strList += QString::fromLatin1(*sl);
+  }
+  return strList;
+}

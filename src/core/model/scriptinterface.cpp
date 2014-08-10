@@ -437,7 +437,7 @@ void ScriptInterface::setFileName(const QString& name)
  */
 void ScriptInterface::setFileNameFormat(const QString& format)
 {
-  FileConfig::instance().m_formatText = format;
+  FileConfig::instance().setToFilenameFormat(format);
 }
 
 /**

@@ -84,3 +84,19 @@ void FindReplaceConfig::readFromConfig(ISettings* config)
                                    m_windowGeometry).toByteArray();
   config->endGroup();
 }
+
+void FindReplaceConfig::setParameterList(const QVariantList& lst)
+{
+  if (parameterList() != lst) {
+    m_params.fromVariantList(lst);
+    emit parameterListChanged();
+  }
+}
+
+void FindReplaceConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
+  }
+}

@@ -39,6 +39,18 @@ class BatchImportProfile;
  * Filter configuration.
  */
 class KID3_CORE_EXPORT BatchImportConfig : public StoredConfig<BatchImportConfig> {
+  Q_OBJECT
+  /** tag version to import */
+  Q_PROPERTY(int importDest READ importDest WRITE setImportDestInt NOTIFY importDestChanged)
+  /** Names of profiles */
+  Q_PROPERTY(QStringList profileNames READ profileNames WRITE setProfileNames NOTIFY profileNamesChanged)
+  /** Profile import sources */
+  Q_PROPERTY(QStringList profileSources READ profileSources WRITE setProfileSources NOTIFY profileSourcesChanged)
+  /** Selected profile */
+  Q_PROPERTY(int profileIndex READ profileIndex WRITE setProfileIndex NOTIFY profileIndexChanged)
+  /** Window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+
 public:
   /**
    * Constructor.
@@ -73,15 +85,63 @@ public:
    */
   bool getProfileByName(const QString& name, BatchImportProfile& profile) const;
 
-  /** tag version to import */
+  /** Get tag version to import. */
+  TrackData::TagVersion importDest() const { return m_importDest; }
+
+  /** Set tag version to import. */
+  void setImportDest(TrackData::TagVersion importDest);
+
+  /** Get names of profiles. */
+  QStringList profileNames() const { return m_profileNames; }
+
+  /** Set names of profiles. */
+  void setProfileNames(const QStringList& profileNames);
+
+  /** Get profile import sources. */
+  QStringList profileSources() const { return m_profileSources; }
+
+  /** Set profile import sources. */
+  void setProfileSources(const QStringList& profileSources);
+
+  /** Get index of selected profile. */
+  int profileIndex() const { return m_profileIdx; }
+
+  /** Set index of selected profile. */
+  void setProfileIndex(int profileIdx);
+
+  /** Get window geometry. */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /** Set window geometry. */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
+signals:
+  /** Emitted when @a importDest changed. */
+  void importDestChanged(TrackData::TagVersion importDest);
+
+  /** Emitted when @a profileNames changed. */
+  void profileNamesChanged(const QStringList& profileNames);
+
+  /** Emitted when @a profileSources changed. */
+  void profileSourcesChanged(const QStringList& profileSources);
+
+  /** Emitted when @a profileIdx changed. */
+  void profileIndexChanged(int profileIdx);
+
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
+private:
+  friend BatchImportConfig& StoredConfig<BatchImportConfig>::instance();
+
+  void setImportDestInt(int importDest) {
+    setImportDest(TrackData::tagVersionCast(importDest));
+  }
+
   TrackData::TagVersion m_importDest;
-  /** Names of profiles */
   QStringList m_profileNames;
-  /** Profile import sources */
   QStringList m_profileSources;
-  /** Selected profile */
   int m_profileIdx;
-  /** Window geometry */
   QByteArray m_windowGeometry;
 
   /** Index in configuration storage */

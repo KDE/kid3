@@ -205,3 +205,59 @@ void ExportConfig::readFromConfig(ISettings* config)
     }
   }
 }
+
+void ExportConfig::setExportSource(TrackData::TagVersion exportSrcV1)
+{
+  if (m_exportSrcV1 != exportSrcV1) {
+    m_exportSrcV1 = exportSrcV1;
+    emit exportSourceChanged(m_exportSrcV1);
+  }
+}
+
+void ExportConfig::setExportFormatNames(const QStringList& exportFormatNames)
+{
+  if (m_exportFormatNames != exportFormatNames) {
+    m_exportFormatNames = exportFormatNames;
+    emit exportFormatNamesChanged(m_exportFormatNames);
+  }
+}
+
+void ExportConfig::setExportFormatHeaders(const QStringList& exportFormatHeaders)
+{
+  if (m_exportFormatHeaders != exportFormatHeaders) {
+    m_exportFormatHeaders = exportFormatHeaders;
+    emit exportFormatHeadersChanged(m_exportFormatHeaders);
+  }
+}
+
+void ExportConfig::setExportFormatTracks(const QStringList& exportFormatTracks)
+{
+  if (m_exportFormatTracks != exportFormatTracks) {
+    m_exportFormatTracks = exportFormatTracks;
+    emit exportFormatTracksChanged(m_exportFormatTracks);
+  }
+}
+
+void ExportConfig::setExportFormatTrailers(const QStringList& exportFormatTrailers)
+{
+  if (m_exportFormatTrailers != exportFormatTrailers) {
+    m_exportFormatTrailers = exportFormatTrailers;
+    emit exportFormatTrailersChanged(m_exportFormatTrailers);
+  }
+}
+
+void ExportConfig::setExportFormatIndex(int exportFormatIdx)
+{
+  if (m_exportFormatIdx != exportFormatIdx) {
+    m_exportFormatIdx = exportFormatIdx;
+    emit exportFormatIndexChanged(m_exportFormatIdx);
+  }
+}
+
+void ExportConfig::setExportWindowGeometry(const QByteArray& exportWindowGeometry)
+{
+  if (m_exportWindowGeometry != exportWindowGeometry) {
+    m_exportWindowGeometry = exportWindowGeometry;
+    emit exportWindowGeometryChanged(m_exportWindowGeometry);
+  }
+}

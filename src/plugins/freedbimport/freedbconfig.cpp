@@ -39,8 +39,8 @@ int FreedbConfig::s_index = -1;
 FreedbConfig::FreedbConfig(const QString& grp) :
   StoredConfig<FreedbConfig, ServerImporterConfig>(grp)
 {
-  m_server = QLatin1String("gnudb.gnudb.org:80");
-  m_cgiPath = QLatin1String("/~cddb/cddb.cgi");
+  setServer(QLatin1String("gnudb.gnudb.org:80"));
+  setCgiPath(QLatin1String("/~cddb/cddb.cgi"));
 }
 
 /**
@@ -56,8 +56,8 @@ FreedbConfig::~FreedbConfig() {}
 void FreedbConfig::readFromConfig(ISettings* config)
 {
   ServerImporterConfig::readFromConfig(config);
-  if (m_server == QLatin1String("freedb2.org:80")) {
-    m_server = QLatin1String("www.gnudb.org:80"); // replace old default
+  if (server() == QLatin1String("freedb2.org:80")) {
+    setServer(QLatin1String("www.gnudb.org:80")); // replace old default
   }
 }
 
@@ -87,7 +87,7 @@ TrackTypeConfig::~TrackTypeConfig()
 void TrackTypeConfig::readFromConfig(ISettings* config)
 {
   ServerImporterConfig::readFromConfig(config);
-  if (m_server == QLatin1String("gnudb.gnudb.org:80")) {
-    m_server = QLatin1String("tracktype.org:80"); // replace default
+  if (server() == QLatin1String("gnudb.gnudb.org:80")) {
+    setServer(QLatin1String("tracktype.org:80")); // replace default
   }
 }

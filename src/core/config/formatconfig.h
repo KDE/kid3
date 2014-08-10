@@ -41,6 +41,20 @@ class FrameCollection;
  */
 class KID3_CORE_EXPORT FormatConfig : public GeneralConfig
 {
+  Q_OBJECT
+  /** Mapping for string replacement */
+  Q_PROPERTY(QVariantMap strRepMap READ strRepVariantMap WRITE setStrRepVariantMap NOTIFY strRepMapChanged)
+  /** Case conversion option */
+  Q_PROPERTY(int caseConversion READ caseConversion WRITE setCaseConversionInt NOTIFY caseConversionChanged)
+  /** name of locale to use for string conversions */
+  Q_PROPERTY(QString localeName READ localeName WRITE setLocaleName NOTIFY localeNameChanged)
+  /** true to enable formating in line edits */
+  Q_PROPERTY(bool formatWhileEditing READ formatWhileEditing WRITE setFormatWhileEditing NOTIFY formatWhileEditingChanged)
+  /** true if string replacement enabled */
+  Q_PROPERTY(bool strRepEnabled READ strRepEnabled WRITE setStrRepEnabled NOTIFY strRepEnabledChanged)
+  /** true to enable data validation */
+  Q_PROPERTY(bool enableValidation READ enableValidation WRITE setEnableValidation NOTIFY enableValidationChanged)
+
 public:
   /** Case conversion options. */
   enum CaseConversion {
@@ -106,11 +120,29 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
+  /** Get mapping for string replacement. */
+  QMap<QString, QString> strRepMap() const { return m_strRepMap; }
+
+  /** Set mapping for string replacement. */
+  void setStrRepMap(const QMap<QString, QString>& strRepMap);
+
+  /** Get mapping for string replacement as a variant map. */
+  QVariantMap strRepVariantMap() const;
+
+  /** Set mapping for string replacement from a variant map. */
+  void setStrRepVariantMap(const QVariantMap& map);
+
+  /** Get case conversion option. */
+  CaseConversion caseConversion() const { return m_caseConversion; }
+
+  /** Set case conversion option. */
+  void setCaseConversion(CaseConversion caseConversion);
+
   /**
    * Get name of locale to use for string conversions.
    * @return locale name
    */
-  QString getLocaleName() const { return m_localeName; }
+  QString localeName() const { return m_localeName; }
 
   /**
    * Set name of locale to use for string conversions.
@@ -118,33 +150,63 @@ public:
    */
   void setLocaleName(const QString& localeName);
 
-  /** Mapping for string replacement */
-  QMap<QString, QString> m_strRepMap;
-  /** Case conversion option */
-  CaseConversion m_caseConversion;
+  /** Check if formatting in line edits is enabled. */
+  bool formatWhileEditing() const { return m_formatWhileEditing; }
+
+  /** Set if formatting in line edits is enabled. */
+  void setFormatWhileEditing(bool formatWhileEditing);
+
+  /** Check if string replacement is enabled. */
+  bool strRepEnabled() const { return m_strRepEnabled; }
+
+  /** Set if string replacement is enabled. */
+  void setStrRepEnabled(bool strRepEnabled);
+
+  /** Check if data validation is enabled. */
+  bool enableValidation() const { return m_enableValidation; }
+
+  /** Set if data validation is enabled. */
+  void setEnableValidation(bool enableValidation);
+
+signals:
+  /** Emitted when @a strRepMap changed. */
+  void strRepMapChanged(const QMap<QString, QString>& strRepMap);
+
+  /** Emitted when @a caseConversion changed. */
+  void caseConversionChanged(CaseConversion caseConversion);
+
+  /** Emitted when @a localeName changed. */
+  void localeNameChanged(const QString& localeName);
+
+  /** Emitted when @a formatWhileEditing changed. */
+  void formatWhileEditingChanged(bool formatWhileEditing);
+
+  /** Emitted when @a strRepEnabled changed. */
+  void strRepEnabledChanged(bool strRepEnabled);
+
+  /** Emitted when @a enableValidation changed. */
+  void enableValidationChanged(bool enableValidation);
 
 private:
-  /** Locale to use for case conversion */
-  QString m_localeName;
-
   /** Returns a lowercase copy of @a str. */
   QString toLower(const QString& str) const;
 
   /** Returns an uppercase copy of @a str. */
   QString toUpper(const QString& str) const;
 
+  void setCaseConversionInt(int caseConversion) {
+    setCaseConversion(static_cast<CaseConversion>(caseConversion));
+  }
+
+  QMap<QString, QString> m_strRepMap;
+  CaseConversion m_caseConversion;
+  QString m_localeName;
   /** Locale to use for string conversions */
   const QLocale* m_locale;
-
   /** true if it is a file formatter */
   bool m_filenameFormatter;
-
-public:
-  /** true to enable formating in line edits */
   bool m_formatWhileEditing;
-  /** true if string replacement enabled */
   bool m_strRepEnabled;
-  /** true to enable data validation */
   bool m_enableValidation;
 };
 
@@ -154,6 +216,7 @@ public:
  */
 class KID3_CORE_EXPORT FilenameFormatConfig :
     public StoredConfig<FilenameFormatConfig, FormatConfig> {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -165,6 +228,10 @@ public:
    */
   virtual ~FilenameFormatConfig();
 
+private:
+  friend FilenameFormatConfig&
+  StoredConfig<FilenameFormatConfig, FormatConfig>::instance();
+
   /** Index in configuration storage */
   static int s_index;
 };
@@ -175,6 +242,7 @@ public:
  */
 class KID3_CORE_EXPORT TagFormatConfig :
     public StoredConfig<TagFormatConfig, FormatConfig> {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -185,6 +253,10 @@ public:
    * Destructor.
    */
   virtual ~TagFormatConfig();
+
+private:
+  friend TagFormatConfig&
+  StoredConfig<TagFormatConfig, FormatConfig>::instance();
 
   /** Index in configuration storage */
   static int s_index;

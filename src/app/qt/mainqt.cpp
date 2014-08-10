@@ -70,11 +70,11 @@ int main(int argc, char* argv[])
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QApplication::arguments().mid(1));
-  } else if ((FileConfig::instance().m_loadLastOpenedFile ||
+  } else if ((FileConfig::instance().loadLastOpenedFile() ||
               app.isSessionRestored()) &&
-             !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
+             !FileConfig::instance().lastOpenedFile().isEmpty()) {
     kid3->confirmedOpenDirectory(QStringList()
-                                 << FileConfig::instance().m_lastOpenedFile);
+                                 << FileConfig::instance().lastOpenedFile());
   }
   int rc = app.exec();
   delete kid3App;

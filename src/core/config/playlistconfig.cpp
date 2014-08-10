@@ -94,3 +94,83 @@ void PlaylistConfig::readFromConfig(ISettings* config)
   m_infoFormat = config->value(QLatin1String("InfoFormat"), m_infoFormat).toString();
   config->endGroup();
 }
+
+void PlaylistConfig::setLocation(PlaylistLocation location)
+{
+  if (m_location != location) {
+    m_location = location;
+    emit locationChanged(m_location);
+  }
+}
+
+void PlaylistConfig::setFormat(PlaylistFormat format)
+{
+  if (m_format != format) {
+    m_format = format;
+    emit formatChanged(m_format);
+  }
+}
+
+void PlaylistConfig::setFileNameFormat(const QString& fileNameFormat)
+{
+  if (m_fileNameFormat != fileNameFormat) {
+    m_fileNameFormat = fileNameFormat;
+    emit fileNameFormatChanged(m_fileNameFormat);
+  }
+}
+
+void PlaylistConfig::setSortTagField(const QString& sortTagField)
+{
+  if (m_sortTagField != sortTagField) {
+    m_sortTagField = sortTagField;
+    emit sortTagFieldChanged(m_sortTagField);
+  }
+}
+
+void PlaylistConfig::setInfoFormat(const QString& infoFormat)
+{
+  if (m_infoFormat != infoFormat) {
+    m_infoFormat = infoFormat;
+    emit infoFormatChanged(m_infoFormat);
+  }
+}
+
+void PlaylistConfig::setUseFileNameFormat(bool useFileNameFormat)
+{
+  if (m_useFileNameFormat != useFileNameFormat) {
+    m_useFileNameFormat = useFileNameFormat;
+    emit useFileNameFormatChanged(m_useFileNameFormat);
+  }
+}
+
+void PlaylistConfig::setOnlySelectedFiles(bool onlySelectedFiles)
+{
+  if (m_onlySelectedFiles != onlySelectedFiles) {
+    m_onlySelectedFiles = onlySelectedFiles;
+    emit onlySelectedFilesChanged(m_onlySelectedFiles);
+  }
+}
+
+void PlaylistConfig::setUseSortTagField(bool useSortTagField)
+{
+  if (m_useSortTagField != useSortTagField) {
+    m_useSortTagField = useSortTagField;
+    emit useSortTagFieldChanged(m_useSortTagField);
+  }
+}
+
+void PlaylistConfig::setUseFullPath(bool useFullPath)
+{
+  if (m_useFullPath != useFullPath) {
+    m_useFullPath = useFullPath;
+    emit useFullPathChanged(m_useFullPath);
+  }
+}
+
+void PlaylistConfig::setWriteInfo(bool writeInfo)
+{
+  if (m_writeInfo != writeInfo) {
+    m_writeInfo = writeInfo;
+    emit writeInfoChanged(m_writeInfo);
+  }
+}

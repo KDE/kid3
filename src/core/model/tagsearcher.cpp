@@ -495,3 +495,31 @@ QString TagSearcher::getLocationString(TaggedFile* taggedFile) const
   }
   return location;
 }
+
+/**
+ * Get parameters as variant list.
+ * @return variant list containing search text, replace text, flags,
+ * frameMask.
+ */
+QVariantList TagSearcher::Parameters::toVariantList() const
+{
+  QVariantList lst;
+  lst << m_searchText << m_replaceText << static_cast<int>(m_flags)
+      << m_frameMask;
+  return lst;
+}
+
+/**
+ * Set parameters from variant list.
+ * @param lst variant list containing search text, replace text, flags,
+ * frameMask
+ */
+void TagSearcher::Parameters::fromVariantList(const QVariantList& lst)
+{
+  if (lst.size() >= 4) {
+    m_searchText = lst.at(0).toString();
+    m_replaceText = lst.at(1).toString();
+    m_flags = SearchFlags(lst.at(2).toInt());
+    m_frameMask = lst.at(3).toULongLong();
+  }
+}

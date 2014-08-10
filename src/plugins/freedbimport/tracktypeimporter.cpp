@@ -139,7 +139,7 @@ void TrackTypeImporter::sendFindQuery(
   // At the moment, only TrackType.org recognizes cddb album commands,
   // so we always use this server for find queries.
   sendRequest(QString::fromLatin1(trackTypeServer),
-              cfg->m_cgiPath + QLatin1String("?cmd=cddb+album+") +
+              cfg->cgiPath() + QLatin1String("?cmd=cddb+album+") +
               encodeUrlQuery(artist + QLatin1String(" / ") + album) +
               QLatin1String("&hello=noname+localhost+Kid3+" VERSION "&proto=6"));
 }

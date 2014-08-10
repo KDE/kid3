@@ -54,7 +54,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QLabel* trackLabel = new QLabel(tr("&Start number:"), this);
   m_trackSpinBox = new QSpinBox(this);
   m_trackSpinBox->setMaximum(9999);
-  m_trackSpinBox->setValue(NumberTracksConfig::instance().m_numberTracksStart);
+  m_trackSpinBox->setValue(NumberTracksConfig::instance().numberTracksStart());
   trackLayout->addWidget(trackLabel);
   trackLayout->addWidget(m_trackSpinBox);
   trackLabel->setBuddy(m_trackSpinBox);
@@ -70,7 +70,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
   m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
   m_destComboBox->setCurrentIndex(
-      m_destComboBox->findData(NumberTracksConfig::instance().m_numberTracksDst));
+      m_destComboBox->findData(NumberTracksConfig::instance().numberTracksDestination()));
   trackLayout->addWidget(destLabel);
   trackLayout->addWidget(m_destComboBox);
   destLabel->setBuddy(m_destComboBox);
@@ -150,8 +150,8 @@ TrackData::TagVersion NumberTracksDialog::getDestination() const
  */
 void NumberTracksDialog::saveConfig()
 {
-  NumberTracksConfig::instance().m_numberTracksDst = getDestination();
-  NumberTracksConfig::instance().m_numberTracksStart = m_trackSpinBox->value();
+  NumberTracksConfig::instance().setNumberTracksDestination(getDestination());
+  NumberTracksConfig::instance().setNumberTracksStart(m_trackSpinBox->value());
 }
 
 /**

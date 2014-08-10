@@ -44,6 +44,10 @@ public:
    */
   virtual ~DiscogsConfig();
 
+private:
+  friend DiscogsConfig&
+  StoredConfig<DiscogsConfig, ServerImporterConfig>::instance();
+
   /** Index in configuration storage */
   static int s_index;
 };

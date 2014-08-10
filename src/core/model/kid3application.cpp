@@ -202,8 +202,8 @@ void Kid3Application::initPlugins()
   // Load plugins, set information about plugins in configuration.
   ImportConfig& importCfg = ImportConfig::instance();
   TagConfig& tagCfg = TagConfig::instance();
-  importCfg.availablePlugins().clear();
-  tagCfg.availablePlugins().clear();
+  importCfg.clearAvailablePlugins();
+  tagCfg.clearAvailablePlugins();
   foreach (QObject* plugin, loadPlugins()) {
     checkPlugin(plugin);
   }
@@ -275,7 +275,8 @@ QObjectList Kid3Application::loadPlugins()
 
     // Construct a set of disabled plugin file names
     QMap<QString, QString> disabledImportPluginFileNames;
-    foreach (const QString& pluginName, importCfg.m_disabledPlugins) {
+    QStringList disabledPlugins = importCfg.disabledPlugins();
+    foreach (const QString& pluginName, disabledPlugins) {
       disabledImportPluginFileNames.insert(pluginFileName(pluginName),
                                            pluginName);
     }
@@ -286,14 +287,16 @@ QObjectList Kid3Application::loadPlugins()
                                         pluginName);
     }
 
+    QStringList availablePlugins = importCfg.availablePlugins();
+    QStringList availableTagPlugins = tagCfg.availablePlugins();
     foreach (const QString& fileName, pluginsDir.entryList(QDir::Files)) {
       if (disabledImportPluginFileNames.contains(fileName)) {
-        importCfg.availablePlugins().append(
+        availablePlugins.append(
               disabledImportPluginFileNames.value(fileName));
         continue;
       }
       if (disabledTagPluginFileNames.contains(fileName)) {
-        tagCfg.availablePlugins().append(
+        availableTagPlugins.append(
               disabledTagPluginFileNames.value(fileName));
         continue;
       }
@@ -301,17 +304,19 @@ QObjectList Kid3Application::loadPlugins()
       QObject* plugin = loader.instance();
       if (plugin) {
         QString name(plugin->objectName());
-        if (importCfg.m_disabledPlugins.contains(name)) {
-          importCfg.availablePlugins().append(name);
+        if (disabledPlugins.contains(name)) {
+          availablePlugins.append(name);
           loader.unload();
         } else if (disabledTagPlugins.contains(name)) {
-          tagCfg.availablePlugins().append(name);
+          availableTagPlugins.append(name);
           loader.unload();
         } else {
           plugins.append(plugin);
         }
       }
     }
+    importCfg.setAvailablePlugins(availablePlugins);
+    tagCfg.setAvailablePlugins(availableTagPlugins);
   }
   return plugins;
 }
@@ -325,8 +330,10 @@ void Kid3Application::checkPlugin(QObject* plugin)
   if (IServerImporterFactory* importerFactory =
       qobject_cast<IServerImporterFactory*>(plugin)) {
     ImportConfig& importCfg = ImportConfig::instance();
-    importCfg.availablePlugins().append(plugin->objectName());
-    if (!importCfg.m_disabledPlugins.contains(plugin->objectName())) {
+    QStringList availablePlugins = importCfg.availablePlugins();
+    availablePlugins.append(plugin->objectName());
+    importCfg.setAvailablePlugins(availablePlugins);
+    if (!importCfg.disabledPlugins().contains(plugin->objectName())) {
       foreach (const QString& key, importerFactory->serverImporterKeys()) {
         m_importers.append(importerFactory->createServerImporter(
                              key, m_netMgr, m_trackDataModel));
@@ -336,8 +343,10 @@ void Kid3Application::checkPlugin(QObject* plugin)
   if (IServerTrackImporterFactory* importerFactory =
       qobject_cast<IServerTrackImporterFactory*>(plugin)) {
     ImportConfig& importCfg = ImportConfig::instance();
-    importCfg.availablePlugins().append(plugin->objectName());
-    if (!importCfg.m_disabledPlugins.contains(plugin->objectName())) {
+    QStringList availablePlugins = importCfg.availablePlugins();
+    availablePlugins.append(plugin->objectName());
+    importCfg.setAvailablePlugins(availablePlugins);
+    if (!importCfg.disabledPlugins().contains(plugin->objectName())) {
       foreach (const QString& key, importerFactory->serverTrackImporterKeys()) {
         m_trackImporters.append(importerFactory->createServerTrackImporter(
                              key, m_netMgr, m_trackDataModel));
@@ -347,7 +356,9 @@ void Kid3Application::checkPlugin(QObject* plugin)
   if (ITaggedFileFactory* taggedFileFactory =
       qobject_cast<ITaggedFileFactory*>(plugin)) {
     TagConfig& tagCfg = TagConfig::instance();
-    tagCfg.availablePlugins().append(plugin->objectName());
+    QStringList availablePlugins = tagCfg.availablePlugins();
+    availablePlugins.append(plugin->objectName());
+    tagCfg.setAvailablePlugins(availablePlugins);
     if (!tagCfg.disabledPlugins().contains(plugin->objectName())) {
       int features = tagCfg.taggedFileFeatures();
       foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
@@ -392,7 +403,7 @@ void Kid3Application::applyChangedConfiguration()
   if (!TagConfig::instance().markTruncations()) {
     m_framesV1Model->markRows(0);
   }
-  if (!FileConfig::instance().m_markChanges) {
+  if (!FileConfig::instance().markChanges()) {
     m_framesV1Model->markChangedFrames(0);
     m_framesV2Model->markChangedFrames(0);
   }
@@ -412,9 +423,9 @@ void Kid3Application::applyChangedConfiguration()
  */
 void Kid3Application::saveConfig()
 {
-  if (FileConfig::instance().m_loadLastOpenedFile) {
-    FileConfig::instance().m_lastOpenedFile =
-        m_fileProxyModel->filePath(currentOrRootIndex());
+  if (FileConfig::instance().loadLastOpenedFile()) {
+    FileConfig::instance().setLastOpenedFile(
+        m_fileProxyModel->filePath(currentOrRootIndex()));
   }
   m_configStore->writeToConfig();
   getSettings()->sync();
@@ -425,8 +436,8 @@ void Kid3Application::saveConfig()
  */
 void Kid3Application::readConfig()
 {
-  if (FileConfig::instance().m_nameFilter.isEmpty()) {
-    FileConfig::instance().m_nameFilter = createFilterString();
+  if (FileConfig::instance().nameFilter().isEmpty()) {
+    FileConfig::instance().setNameFilter(createFilterString());
   }
   notifyConfigurationChange();
   FrameCollection::setQuickAccessFrames(
@@ -493,7 +504,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   QModelIndexList fileIndexes;
   if (ok) {
     QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                              FileConfig::instance().m_nameFilter).
+                              FileConfig::instance().nameFilter()).
                             split(QLatin1Char(' ')));
     m_fileProxyModel->setNameFilters(nameFilters);
     m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
@@ -619,7 +630,7 @@ QStringList Kid3Application::saveDirectory()
     TaggedFile* taggedFile = it.next();
     bool renamed = false;
     if (!taggedFile->writeTags(false, &renamed,
-                               FileConfig::instance().m_preserveTime)) {
+                               FileConfig::instance().preserveTime())) {
       QString errorMsg = taggedFile->getAbsFilename();
       errorFiles.push_back(errorMsg);
     }
@@ -717,7 +728,8 @@ void Kid3Application::setFiltered(bool val)
 bool Kid3Application::importTags(TrackData::TagVersion tagMask,
                                  const QString& path, int fmtIdx)
 {
-  filesToTrackDataModel(ImportConfig::instance().m_importDest);
+  const ImportConfig& importCfg = ImportConfig::instance();
+  filesToTrackDataModel(importCfg.importDest());
   QString text;
   if (path == QLatin1String("clipboard")) {
     QClipboard* cb = QApplication::clipboard();
@@ -732,11 +744,11 @@ bool Kid3Application::importTags(TrackData::TagVersion tagMask,
     }
   }
   if (!text.isNull() &&
-      fmtIdx < ImportConfig::instance().m_importFormatHeaders.size()) {
+      fmtIdx < importCfg.importFormatHeaders().size()) {
     TextImporter(getTrackDataModel()).updateTrackData(
       text,
-      ImportConfig::instance().m_importFormatHeaders.at(fmtIdx),
-      ImportConfig::instance().m_importFormatTracks.at(fmtIdx));
+      importCfg.importFormatHeaders().at(fmtIdx),
+      importCfg.importFormatTracks().at(fmtIdx));
     trackDataModelToFiles(tagMask);
     return true;
   }
@@ -778,12 +790,12 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 {
   PlaylistCreator plCtr(getDirPath(), cfg);
   QItemSelectionModel* selectModel = getFileSelectionModel();
-  bool noSelection = !cfg.m_onlySelectedFiles || !selectModel ||
+  bool noSelection = !cfg.onlySelectedFiles() || !selectModel ||
                      !selectModel->hasSelection();
   bool ok = true;
   QModelIndex rootIndex;
 
-  if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory) {
+  if (cfg.location() == PlaylistConfig::PL_CurrentDirectory) {
     // Get first child of parent of current index.
     rootIndex = currentOrRootIndex();
     if (rootIndex.model() && rootIndex.model()->rowCount(rootIndex) <= 0)
@@ -1019,7 +1031,7 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
  */
 void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
 {
-  if (FilenameFormatConfig::instance().m_formatWhileEditing) {
+  if (FilenameFormatConfig::instance().formatWhileEditing()) {
     QString fn(taggedFile->getFilename());
     FilenameFormatConfig::instance().formatString(fn);
     taggedFile->setFilename(fn);
@@ -1380,7 +1392,7 @@ void Kid3Application::getTagsFromFilenameV1()
     TaggedFile* taggedFile = it.next();
     taggedFile->getAllFramesV1(frames);
     taggedFile->getTagsFromFilename(
-          frames, FileConfig::instance().m_formatFromFilenameText);
+          frames, FileConfig::instance().fromFilenameFormat());
     frames.removeDisabledFrames(flt);
     formatFramesIfEnabled(frames);
     taggedFile->setFramesV1(frames);
@@ -1406,7 +1418,7 @@ void Kid3Application::getTagsFromFilenameV2()
     TaggedFile* taggedFile = it.next();
     taggedFile->getAllFramesV2(frames);
     taggedFile->getTagsFromFilename(
-          frames, FileConfig::instance().m_formatFromFilenameText);
+          frames, FileConfig::instance().fromFilenameFormat());
     frames.removeDisabledFrames(flt);
     formatFramesIfEnabled(frames);
     taggedFile->setFramesV2(frames);
@@ -1447,7 +1459,7 @@ void Kid3Application::getFilenameFromTags(TrackData::TagVersion tagVersion)
     TrackData trackData(*taggedFile, tagVersion);
     if (!trackData.isEmptyOrInactive()) {
       taggedFile->setFilename(
-        trackData.formatFilenameFromTags(FileConfig::instance().m_formatText));
+        trackData.formatFilenameFromTags(FileConfig::instance().toFilenameFormat()));
       formatFileNameIfEnabled(taggedFile);
     }
   }
@@ -1751,12 +1763,12 @@ void Kid3Application::openDrop(const QStringList& paths)
   if (!filePaths.isEmpty()) {
     // Check if the file filter has to be removed to open the dropped files.
     QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                FileConfig::instance().m_nameFilter).split(QLatin1Char(' ')));
+                FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
     if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
       foreach (const QString& filePath, filePaths) {
         if (!QDir::match(nameFilters, filePath) &&
             !QFileInfo(filePath).isDir()) {
-          FileConfig::instance().m_nameFilter = QLatin1String("");
+          FileConfig::instance().setNameFilter(QLatin1String(""));
           break;
         }
       }
@@ -2494,7 +2506,7 @@ void Kid3Application::convertToId3v24()
         int storedFeatures = taggedFile->activeTaggedFileFeatures();
         taggedFile->setActiveTaggedFileFeatures(TaggedFile::TF_ID3v24);
         taggedFile->writeTags(true, &renamed,
-                              FileConfig::instance().m_preserveTime);
+                              FileConfig::instance().preserveTime());
         taggedFile->setActiveTaggedFileFeatures(storedFeatures);
         taggedFile->readTags(true);
       }
@@ -2543,7 +2555,7 @@ void Kid3Application::convertToId3v23()
         int storedFeatures = taggedFile->activeTaggedFileFeatures();
         taggedFile->setActiveTaggedFileFeatures(TaggedFile::TF_ID3v23);
         taggedFile->writeTags(true, &renamed,
-                              FileConfig::instance().m_preserveTime);
+                              FileConfig::instance().preserveTime());
         taggedFile->setActiveTaggedFileFeatures(storedFeatures);
         taggedFile->readTags(true);
       }

@@ -20,8 +20,26 @@ set(config_SRCS
   config/isettings.cpp
   config/kid3settings.cpp
   config/findreplaceconfig.cpp
+  config/mainwindowconfig.cpp
 )
 
 set(config_MOC_HDRS
   config/batchimportsourcesmodel.h
+  config/batchimportconfig.h
+  config/filterconfig.h
+  config/formatconfig.h
+  config/generalconfig.h
+  config/importconfig.h
+  config/exportconfig.h
+  config/tagconfig.h
+  config/fileconfig.h
+  config/rendirconfig.h
+  config/numbertracksconfig.h
+  config/useractionsconfig.h
+  config/guiconfig.h
+  config/networkconfig.h
+  config/playlistconfig.h
+  config/serverimporterconfig.h
+  config/findreplaceconfig.h
+  config/mainwindowconfig.h
 )

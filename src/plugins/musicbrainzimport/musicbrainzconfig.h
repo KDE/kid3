@@ -44,6 +44,10 @@ public:
    */
   virtual ~MusicBrainzConfig();
 
+private:
+  friend MusicBrainzConfig&
+  StoredConfig<MusicBrainzConfig, ServerImporterConfig>::instance();
+
   /** Index in configuration storage */
   static int s_index;
 };

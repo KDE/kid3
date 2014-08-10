@@ -35,6 +35,13 @@
  */
 class KID3_CORE_EXPORT UserActionsConfig : public StoredConfig<UserActionsConfig>
 {
+  Q_OBJECT
+  /** list of context menu commands */
+  Q_PROPERTY(QVariantList contextMenuCommands
+             READ contextMenuCommandVariantList
+             WRITE setContextMenuCommandVariantList
+             NOTIFY contextMenuCommandsChanged)
+
 public:
   /**
    * External command in context menu.
@@ -115,6 +122,16 @@ public:
      */
     void setOutputShown(bool showOutput) { m_showOutput = showOutput; }
 
+    /**
+     * Test for equality.
+     * @param rhs right hand side
+     * @return true if equal.
+     */
+    bool operator==(const MenuCommand& rhs) const {
+      return m_name == rhs.m_name && m_cmd == rhs.m_cmd &&
+          m_confirm == rhs.m_confirm && m_showOutput == rhs.m_showOutput;
+    }
+
   private:
     QString m_name;
     QString m_cmd;
@@ -145,6 +162,27 @@ public:
    * @param config configuration
    */
   virtual void readFromConfig(ISettings* config);
+
+  /** Get list of context menu commands. */
+  QList<MenuCommand> contextMenuCommands() const {
+    return m_contextMenuCommands;
+  }
+
+  /** Set list of context menu commands. */
+  void setContextMenuCommands(const QList<MenuCommand>& contextMenuCommands);
+
+  /** Get list of context menu commands as variant list. */
+  QVariantList contextMenuCommandVariantList() const;
+
+  /** Set list of context menu commands from variant list. */
+  void setContextMenuCommandVariantList(const QVariantList& lst);
+
+signals:
+  /** Emitted when commands changed. */
+  void contextMenuCommandsChanged();
+
+private:
+  friend UserActionsConfig& StoredConfig<UserActionsConfig>::instance();
 
   /** commands available in context menu */
   QList<MenuCommand> m_contextMenuCommands;

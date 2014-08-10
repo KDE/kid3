@@ -134,7 +134,7 @@ public:
   /**
    * Search parameters.
    */
-  class Parameters {
+  class KID3_CORE_EXPORT Parameters {
   public:
     /**
      * Constructor.
@@ -195,6 +195,20 @@ public:
      * bits
      */
     void setFrameMask(quint64 frameMask) { m_frameMask = frameMask; }
+
+    /**
+     * Get parameters as variant list.
+     * @return variant list containing search text, replace text, flags,
+     * frameMask.
+     */
+    QVariantList toVariantList() const;
+
+    /**
+     * Set parameters from variant list.
+     * @param lst variant list containing search text, replace text, flags,
+     * frameMask
+     */
+    void fromVariantList(const QVariantList& lst);
 
   private:
     quint64 m_frameMask;

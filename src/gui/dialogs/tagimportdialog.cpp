@@ -114,11 +114,12 @@ void TagImportDialog::apply()
  */
 void TagImportDialog::setFormatFromConfig()
 {
+  const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ImportConfig::instance().m_importTagsNames
-                             << ImportConfig::instance().m_importTagsSources
-                             << ImportConfig::instance().m_importTagsExtractions,
-        ImportConfig::instance().m_importTagsIdx);
+        QList<QStringList>() << importCfg.importTagsNames()
+                             << importCfg.importTagsSources()
+                             << importCfg.importTagsExtractions(),
+        importCfg.importTagsIndex());
 }
 
 /**
@@ -126,11 +127,13 @@ void TagImportDialog::setFormatFromConfig()
  */
 void TagImportDialog::saveConfig()
 {
-  QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ImportConfig::instance().m_importTagsIdx);
-  ImportConfig::instance().m_importTagsNames = formats.at(0);
-  ImportConfig::instance().m_importTagsSources = formats.at(1);
-  ImportConfig::instance().m_importTagsExtractions = formats.at(2);
+  ImportConfig& importCfg = ImportConfig::instance();
+  int idx;
+  QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
+  importCfg.setImportTagsIndex(idx);
+  importCfg.setImportTagsNames(formats.at(0));
+  importCfg.setImportTagsSources(formats.at(1));
+  importCfg.setImportTagsExtractions(formats.at(2));
 
   setFormatFromConfig();
 }

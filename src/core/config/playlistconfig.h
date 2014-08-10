@@ -36,6 +36,28 @@
  * Playlist configuration.
  */
 class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
+  Q_OBJECT
+  /** Playlist location */
+  Q_PROPERTY(int location READ location WRITE setLocationInt NOTIFY locationChanged)
+  /** Playlist format */
+  Q_PROPERTY(int format READ format WRITE setFormatInt NOTIFY formatChanged)
+  /** Playlist file name format */
+  Q_PROPERTY(QString fileNameFormat READ fileNameFormat WRITE setFileNameFormat NOTIFY fileNameFormatChanged)
+  /** Tag field used for sorting */
+  Q_PROPERTY(QString sortTagField READ sortTagField WRITE setSortTagField NOTIFY sortTagFieldChanged)
+  /** Format for additional information */
+  Q_PROPERTY(QString infoFormat READ infoFormat WRITE setInfoFormat NOTIFY infoFormatChanged)
+  /** Use file name format if true, else directory name */
+  Q_PROPERTY(bool useFileNameFormat READ useFileNameFormat WRITE setUseFileNameFormat NOTIFY useFileNameFormatChanged)
+  /** Include only selected files if true, else all files */
+  Q_PROPERTY(bool onlySelectedFiles READ onlySelectedFiles WRITE setOnlySelectedFiles NOTIFY onlySelectedFilesChanged)
+  /** Sort by tag field if true, else file name */
+  Q_PROPERTY(bool useSortTagField READ useSortTagField WRITE setUseSortTagField NOTIFY useSortTagFieldChanged)
+  /** Use full path for files in playlist if true, else relative path */
+  Q_PROPERTY(bool useFullPath READ useFullPath WRITE setUseFullPath NOTIFY useFullPathChanged)
+  /** Write info format, else only list of files */
+  Q_PROPERTY(bool writeInfo READ writeInfo WRITE setWriteInfo NOTIFY writeInfoChanged)
+
 public:
   /**
    * Playlist format.
@@ -79,25 +101,117 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** Playlist location */
+  /** Get playlist location. */
+  PlaylistLocation location() const { return m_location; }
+
+  /** Set playlist location. */
+  void setLocation(PlaylistLocation location);
+
+  /** Get playlist format. */
+  PlaylistFormat format() const { return m_format;}
+
+  /** Set playlist format. */
+  void setFormat(PlaylistFormat format);
+
+  /** Get playlist file name format. */
+  QString fileNameFormat() const { return m_fileNameFormat; }
+
+  /** Set playlist file name format. */
+  void setFileNameFormat(const QString& fileNameFormat);
+
+  /** Get tag field used for sorting. */
+  QString sortTagField() const { return m_sortTagField; }
+
+  /** Set tag field used for sorting. */
+  void setSortTagField(const QString& sortTagField);
+
+  /** Get format for additional information. */
+  QString infoFormat() const { return m_infoFormat; }
+
+  /** Set format for additional information. */
+  void setInfoFormat(const QString& infoFormat);
+
+  /** Check if file name format is used. */
+  bool useFileNameFormat() const { return m_useFileNameFormat; }
+
+  /** Set if file name format is used. */
+  void setUseFileNameFormat(bool useFileNameFormat);
+
+  /** Check if only selected files are included. */
+  bool onlySelectedFiles() const { return m_onlySelectedFiles; }
+
+  /** Set if only selected files are included. */
+  void setOnlySelectedFiles(bool onlySelectedFiles);
+
+  /** Check if sorted by tag field. */
+  bool useSortTagField() const { return m_useSortTagField; }
+
+  /** Set if sorted by tag field. */
+  void setUseSortTagField(bool useSortTagField);
+
+  /** Check if full path for files is used in playlist. */
+  bool useFullPath() const { return m_useFullPath; }
+
+  /** Set if full path for files is used in playlist. */
+  void setUseFullPath(bool useFullPath);
+
+  /** Check if info format is written. */
+  bool writeInfo() const { return m_writeInfo; }
+
+  /** Set if info format is written. */
+  void setWriteInfo(bool writeInfo);
+
+signals:
+  /** Emitted when @a location changed. */
+  void locationChanged(PlaylistLocation location);
+
+  /** Emitted when @a format changed. */
+  void formatChanged(PlaylistFormat format);
+
+  /** Emitted when @a fileNameFormat changed. */
+  void fileNameFormatChanged(const QString& fileNameFormat);
+
+  /** Emitted when @a sortTagField changed. */
+  void sortTagFieldChanged(const QString& sortTagField);
+
+  /** Emitted when @a infoFormat changed. */
+  void infoFormatChanged(const QString& infoFormat);
+
+  /** Emitted when @a useFileNameFormat changed. */
+  void useFileNameFormatChanged(bool useFileNameFormat);
+
+  /** Emitted when @a onlySelectedFiles changed. */
+  void onlySelectedFilesChanged(bool onlySelectedFiles);
+
+  /** Emitted when @a useSortTagField changed. */
+  void useSortTagFieldChanged(bool useSortTagField);
+
+  /** Emitted when @a useFullPath changed. */
+  void useFullPathChanged(bool useFullPath);
+
+  /** Emitted when @a writeInfo changed. */
+  void writeInfoChanged(bool writeInfo);
+
+private:
+  friend PlaylistConfig& StoredConfig<PlaylistConfig>::instance();
+
+  void setLocationInt(int location) {
+    setLocation(static_cast<PlaylistLocation>(location));
+  }
+
+  void setFormatInt(int format) {
+    setFormat(static_cast<PlaylistFormat>(format));
+  }
+
   PlaylistLocation m_location;
-  /** Playlist format */
   PlaylistFormat m_format;
-  /** Playlist file name format */
   QString m_fileNameFormat;
-  /** Tag field used for sorting */
   QString m_sortTagField;
-  /** Format for additional information */
   QString m_infoFormat;
-  /** Use file name format if true, else directory name */
   bool m_useFileNameFormat;
-  /** Include only selected files if true, else all files */
   bool m_onlySelectedFiles;
-  /** Sort by tag field if true, else file name */
   bool m_useSortTagField;
-  /** Use full path for files in playlist if true, else relative path */
   bool m_useFullPath;
-  /** Write info format, else only list of files */
   bool m_writeInfo;
 
   /** Index in configuration storage */

@@ -471,13 +471,13 @@ void ImportCommand::startCommand()
     bool ok;
     int fmtIdx = fmtName.toInt(&ok);
     if (!ok) {
-      fmtIdx = ImportConfig::instance().m_importFormatNames.indexOf(fmtName);
+      fmtIdx = ImportConfig::instance().importFormatNames().indexOf(fmtName);
       if (fmtIdx == -1) {
         QString errMsg = tr("%1 not found.").arg(fmtName);
         errMsg += QLatin1Char('\n');
         errMsg += tr("Available");
         errMsg += QLatin1String(": ");
-        errMsg += ImportConfig::instance().m_importFormatNames.join(
+        errMsg += ImportConfig::instance().importFormatNames().join(
               QLatin1String(", "));
         errMsg += QLatin1Char('.');
         setError(errMsg);
@@ -515,7 +515,7 @@ void BatchImportCommand::startCommand()
     errMsg += QLatin1Char('\n');
     errMsg += tr("Available");
     errMsg += QLatin1String(": ");
-    errMsg += BatchImportConfig::instance().m_profileNames.join(
+    errMsg += BatchImportConfig::instance().profileNames().join(
           QLatin1String(", "));
     errMsg += QLatin1Char('.');
     setError(errMsg);
@@ -652,13 +652,13 @@ void ExportCommand::startCommand()
     bool ok;
     int fmtIdx = fmtName.toInt(&ok);
     if (!ok) {
-      fmtIdx = ExportConfig::instance().m_exportFormatNames.indexOf(fmtName);
+      fmtIdx = ExportConfig::instance().exportFormatNames().indexOf(fmtName);
       if (fmtIdx == -1) {
         QString errMsg = tr("%1 not found.").arg(fmtName);
         errMsg += QLatin1Char('\n');
         errMsg += tr("Available");
         errMsg += QLatin1String(": ");
-        errMsg += ExportConfig::instance().m_exportFormatNames.join(
+        errMsg += ExportConfig::instance().exportFormatNames().join(
               QLatin1String(", "));
         errMsg += QLatin1Char('.');
         setError(errMsg);
@@ -759,7 +759,7 @@ void RenameDirectoryCommand::startCommand()
     tagMask = cli()->tagMask();
   }
   if (format.isEmpty()) {
-    format = RenDirConfig::instance().m_dirFormatText;
+    format = RenDirConfig::instance().dirFormat();
   }
 
   if (!cli()->app()->renameDirectory(tagMask, format, create)) {
@@ -846,9 +846,9 @@ void FilterCommand::startCommand()
 {
   if (args().size() > 1) {
     QString expression = args().at(1);
-    int fltIdx = FilterConfig::instance().m_filterNames.indexOf(expression);
+    int fltIdx = FilterConfig::instance().filterNames().indexOf(expression);
     if (fltIdx != -1) {
-      expression = FilterConfig::instance().m_filterExpressions.at(fltIdx);
+      expression = FilterConfig::instance().filterExpressions().at(fltIdx);
     } else if (!expression.isEmpty() &&
                !expression.contains(QLatin1Char('%'))) {
       // Probably an invalid expression
@@ -856,7 +856,7 @@ void FilterCommand::startCommand()
       errMsg += QLatin1Char('\n');
       errMsg += tr("Available");
       errMsg += QLatin1String(": ");
-      errMsg += FilterConfig::instance().m_filterNames.join(
+      errMsg += FilterConfig::instance().filterNames().join(
             QLatin1String(", "));
       errMsg += QLatin1Char('.');
       setError(errMsg);
@@ -968,7 +968,7 @@ void TagToFilenameCommand::startCommand()
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
-    FileConfig::instance().m_formatText = format;
+    FileConfig::instance().setToFilenameFormat(format);
   }
   cli()->app()->getFilenameFromTags(tagMask);
 }
@@ -998,7 +998,7 @@ void FilenameToTagCommand::startCommand()
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
-    FileConfig::instance().m_formatFromFilenameText = format;
+    FileConfig::instance().setFromFilenameFormat(format);
   }
   cli()->app()->getTagsFromFilename(tagMask);
 }

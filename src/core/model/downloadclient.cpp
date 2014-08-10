@@ -100,9 +100,10 @@ QUrl DownloadClient::getImageUrl(const QString& url)
         !url.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) &&
         !url.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
       imgurl.clear();
-      for (QMap<QString, QString>::ConstIterator it =
-             ImportConfig::instance().m_matchPictureUrlMap.begin();
-           it != ImportConfig::instance().m_matchPictureUrlMap.end();
+      QMap<QString, QString> urlMap =
+          ImportConfig::instance().matchPictureUrlMap();
+      for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
+           it != urlMap.constEnd();
            ++it) {
         QRegExp re(it.key());
         if (re.exactMatch(url)) {

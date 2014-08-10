@@ -119,10 +119,11 @@ void FilterDialog::applyOrAbortFilter()
  */
 void FilterDialog::setFiltersFromConfig()
 {
+  const FilterConfig& filterCfg = FilterConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << FilterConfig::instance().m_filterNames
-                             << FilterConfig::instance().m_filterExpressions,
-        FilterConfig::instance().m_filterIdx);
+        QList<QStringList>() << filterCfg.filterNames()
+                             << filterCfg.filterExpressions(),
+        filterCfg.filterIndex());
 }
 
 /**
@@ -136,8 +137,8 @@ void FilterDialog::readConfig()
 
   setFiltersFromConfig();
 
-  if (!FilterConfig::instance().m_windowGeometry.isEmpty()) {
-    restoreGeometry(FilterConfig::instance().m_windowGeometry);
+  if (!FilterConfig::instance().windowGeometry().isEmpty()) {
+    restoreGeometry(FilterConfig::instance().windowGeometry());
   }
 }
 
@@ -146,11 +147,13 @@ void FilterDialog::readConfig()
  */
 void FilterDialog::saveConfig()
 {
-  QList<QStringList> formats = m_formatListEdit->getFormats(
-        &FilterConfig::instance().m_filterIdx);
-  FilterConfig::instance().m_filterNames = formats.at(0);
-  FilterConfig::instance().m_filterExpressions = formats.at(1);
-  FilterConfig::instance().m_windowGeometry = saveGeometry();
+  int idx;
+  FilterConfig& filterCfg = FilterConfig::instance();
+  QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
+  filterCfg.setFilterIndex(idx);
+  filterCfg.setFilterNames(formats.at(0));
+  filterCfg.setFilterExpressions(formats.at(1));
+  filterCfg.setWindowGeometry(saveGeometry());
 
   setFiltersFromConfig();
 }

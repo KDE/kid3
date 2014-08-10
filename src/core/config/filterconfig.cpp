@@ -143,3 +143,35 @@ void FilterConfig::setFilenameFormat(const QString& format)
       format + QLatin1String("\")");
   }
 }
+
+void FilterConfig::setFilterNames(const QStringList& filterNames)
+{
+  if (m_filterNames != filterNames) {
+    m_filterNames = filterNames;
+    emit filterNamesChanged(m_filterNames);
+  }
+}
+
+void FilterConfig::setFilterExpressions(const QStringList& filterExpressions)
+{
+  if (m_filterExpressions != filterExpressions) {
+    m_filterExpressions = filterExpressions;
+    emit filterExpressionsChanged(m_filterExpressions);
+  }
+}
+
+void FilterConfig::setFilterIndex(int filterIdx)
+{
+  if (m_filterIdx != filterIdx) {
+    m_filterIdx = filterIdx;
+    emit filterIndexChanged(m_filterIdx);
+  }
+}
+
+void FilterConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
+  }
+}

@@ -166,16 +166,16 @@ void ConfigDialog::setConfig()
   m_pages->setConfig();
 
   const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
-  m_useApplicationFontCheckBox->setChecked(mainWindowConfig.m_useFont);
-  m_applicationFontButton->setEnabled(mainWindowConfig.m_useFont);
-  if (mainWindowConfig.m_style.isEmpty()) {
+  m_useApplicationFontCheckBox->setChecked(mainWindowConfig.useFont());
+  m_applicationFontButton->setEnabled(mainWindowConfig.useFont());
+  if (mainWindowConfig.style().isEmpty()) {
     m_useApplicationStyleCheckBox->setChecked(false);
     m_applicationStyleComboBox->setEnabled(false);
     m_applicationStyleComboBox->setCurrentIndex(0);
   } else {
     m_useApplicationStyleCheckBox->setChecked(true);
     m_applicationStyleComboBox->setEnabled(true);
-    int idx = m_applicationStyleComboBox->findText(mainWindowConfig.m_style);
+    int idx = m_applicationStyleComboBox->findText(mainWindowConfig.style());
     if (idx >= 0) {
       m_applicationStyleComboBox->setCurrentIndex(idx);
     }
@@ -183,11 +183,11 @@ void ConfigDialog::setConfig()
 
   // store current font and style
   m_font = QApplication::font();
-  m_style = mainWindowConfig.m_style;
+  m_style = mainWindowConfig.style();
   m_fontChanged = false;
   m_styleChanged = false;
 
-  m_useNativeDialogsCheckBox->setChecked(!mainWindowConfig.m_dontUseNativeDialogs);
+  m_useNativeDialogsCheckBox->setChecked(!mainWindowConfig.dontUseNativeDialogs());
 }
 
 /**
@@ -201,20 +201,20 @@ void ConfigDialog::getConfig() const
   m_shortcutsModel->assignChangedShortcuts();
   if (m_useApplicationFontCheckBox->isChecked()) {
     QFont font = QApplication::font();
-    mainWindowConfig.m_fontFamily = font.family();
-    mainWindowConfig.m_fontSize = font.pointSize();
-    mainWindowConfig.m_useFont = true;
+    mainWindowConfig.setFontFamily(font.family());
+    mainWindowConfig.setFontSize(font.pointSize());
+    mainWindowConfig.setUseFont(true);
   } else {
-    mainWindowConfig.m_useFont = false;
+    mainWindowConfig.setUseFont(false);
   }
   if (!m_useApplicationStyleCheckBox->isChecked() ||
       m_applicationStyleComboBox->currentIndex() == 0) {
-    mainWindowConfig.m_style = QLatin1String("");
+    mainWindowConfig.setStyle(QLatin1String(""));
   } else {
-    mainWindowConfig.m_style = m_applicationStyleComboBox->currentText();
+    mainWindowConfig.setStyle(m_applicationStyleComboBox->currentText());
   }
-  mainWindowConfig.m_dontUseNativeDialogs =
-      !m_useNativeDialogsCheckBox->isChecked();
+  mainWindowConfig.setDontUseNativeDialogs(
+      !m_useNativeDialogsCheckBox->isChecked());
 }
 
 /**

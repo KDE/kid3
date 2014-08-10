@@ -134,6 +134,37 @@ void UserActionsConfig::readFromConfig(ISettings* config)
   }
 }
 
+void UserActionsConfig::setContextMenuCommands(const QList<MenuCommand>& contextMenuCommands)
+{
+  if (m_contextMenuCommands != contextMenuCommands) {
+    m_contextMenuCommands = contextMenuCommands;
+    emit contextMenuCommandsChanged();
+  }
+}
+
+QVariantList UserActionsConfig::contextMenuCommandVariantList() const
+{
+  QVariantList lst;
+  for (QList<MenuCommand>::const_iterator
+       it = m_contextMenuCommands.constBegin();
+       it != m_contextMenuCommands.constEnd();
+       ++it) {
+    lst.append(it->toStringList());
+  }
+  return lst;
+}
+
+void UserActionsConfig::setContextMenuCommandVariantList(const QVariantList& lst)
+{
+  QList<MenuCommand> commands;
+  for (QVariantList::const_iterator it = lst.constBegin();
+       it != lst.constEnd();
+       ++it) {
+    commands.append(MenuCommand(it->toStringList()));
+  }
+  setContextMenuCommands(commands);
+}
+
 
 /**
  * Constructor.

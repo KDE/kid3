@@ -393,8 +393,9 @@ void ImportDialog::showWithSubDialog(int importerIndex)
  */
 void ImportDialog::clear()
 {
-  m_serverComboBox->setCurrentIndex(ImportConfig::instance().m_importServer);
-  TrackData::TagVersion importDest = ImportConfig::instance().m_importDest;
+  const ImportConfig& importCfg = ImportConfig::instance();
+  m_serverComboBox->setCurrentIndex(importCfg.importServer());
+  TrackData::TagVersion importDest = importCfg.importDest();
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
   if (importDest == TrackData::TagV1 &&
@@ -404,9 +405,9 @@ void ImportDialog::clear()
     changeTagDestination();
   }
 
-  m_mismatchCheckBox->setChecked(ImportConfig::instance().m_enableTimeDifferenceCheck);
-  m_maxDiffSpinBox->setValue(ImportConfig::instance().m_maxTimeDifference);
-  m_columnVisibility = ImportConfig::instance().m_importVisibleColumns;
+  m_mismatchCheckBox->setChecked(importCfg.enableTimeDifferenceCheck());
+  m_maxDiffSpinBox->setValue(importCfg.maxTimeDifference());
+  m_columnVisibility = importCfg.importVisibleColumns();
 
   foreach (int frameType, checkableFrameTypes()) {
     if (frameType < 64) {
@@ -418,8 +419,8 @@ void ImportDialog::clear()
     }
   }
 
-  if (!ImportConfig::instance().m_importWindowGeometry.isEmpty()) {
-    restoreGeometry(ImportConfig::instance().m_importWindowGeometry);
+  if (!importCfg.importWindowGeometry().isEmpty()) {
+    restoreGeometry(importCfg.importWindowGeometry());
   }
 
   showPreview();
@@ -483,15 +484,19 @@ void ImportDialog::showHelp()
  */
 void ImportDialog::saveConfig()
 {
-  ImportConfig::instance().m_importDest = TrackData::tagVersionCast(
-    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
+  ImportConfig& importCfg = ImportConfig::instance();
+  importCfg.setImportDest(TrackData::tagVersionCast(
+    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
 
-  ImportConfig::instance().m_importServer = m_serverComboBox->currentIndex();
-  getTimeDifferenceCheck(ImportConfig::instance().m_enableTimeDifferenceCheck,
-                         ImportConfig::instance().m_maxTimeDifference);
-  ImportConfig::instance().m_importVisibleColumns = m_columnVisibility;
+  importCfg.setImportServer(m_serverComboBox->currentIndex());
+  bool enable;
+  int maxDiff;
+  getTimeDifferenceCheck(enable, maxDiff);
+  importCfg.setEnableTimeDifferenceCheck(enable);
+  importCfg.setMaxTimeDifference(maxDiff);
+  importCfg.setImportVisibleColumns(m_columnVisibility);
 
-  ImportConfig::instance().m_importWindowGeometry = saveGeometry();
+  importCfg.setImportWindowGeometry(saveGeometry());
 }
 
 /**

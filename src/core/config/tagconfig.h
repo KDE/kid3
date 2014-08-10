@@ -34,8 +34,41 @@
 /**
  * Tag related configuration.
  */
-class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig>
-{
+class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
+  Q_OBJECT
+  /** features provided by metadata plugins */
+  Q_PROPERTY(int taggedFileFeatures READ taggedFileFeatures WRITE setTaggedFileFeatures NOTIFY taggedFileFeaturesChanged)
+  /** true to mark truncated ID3v1.1 fields */
+  Q_PROPERTY(bool markTruncations READ markTruncations WRITE setMarkTruncations NOTIFY markTruncationsChanged)
+  /** true to write total number of tracks into track fields */
+  Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
+  /** true to write genres as text instead of numeric string */
+  Q_PROPERTY(bool genreNotNumeric READ genreNotNumeric WRITE setGenreNotNumeric NOTIFY genreNotNumericChanged)
+  /** field name used for Vorbis comment entries */
+  Q_PROPERTY(QString commentName READ commentName WRITE setCommentName NOTIFY commentNameChanged)
+  /** index of field name used for Vorbis picture entries */
+  Q_PROPERTY(int pictureNameIndex READ pictureNameIndex WRITE setPictureNameIndex NOTIFY pictureNameIndexChanged)
+  /** custom genres for ID3v2.3 */
+  Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres NOTIFY customGenresChanged)
+  /** version used for new ID3v2 tags */
+  Q_PROPERTY(int id3v2Version READ id3v2Version WRITE setId3v2Version NOTIFY id3v2VersionChanged)
+  /** text encoding used for new ID3v1 tags */
+  Q_PROPERTY(QString textEncodingV1 READ textEncodingV1 WRITE setTextEncodingV1 NOTIFY textEncodingV1Changed)
+  /** text encoding used for new ID3v2 tags */
+  Q_PROPERTY(int textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
+  /** frames which are displayed for Tag 2 even if not present */
+  Q_PROPERTY(quint64 quickAccessFrames READ quickAccessFrames WRITE setQuickAccessFrames NOTIFY quickAccessFramesChanged)
+  /** number of digits in track number */
+  Q_PROPERTY(int trackNumberDigits READ trackNumberDigits WRITE setTrackNumberDigits NOTIFY trackNumberDigitsChanged)
+  /** true to show only custom genres in combo boxes */
+  Q_PROPERTY(bool onlyCustomGenres READ onlyCustomGenres WRITE setOnlyCustomGenres NOTIFY onlyCustomGenresChanged)
+  /** the order in which meta data plugins are tried when opening a file */
+  Q_PROPERTY(QStringList pluginOrder READ pluginOrder WRITE setPluginOrder NOTIFY pluginOrderChanged)
+  /** disabled plugins */
+  Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
+  /** list of available plugins. */
+  Q_PROPERTY(QStringList availablePlugins READ availablePlugins WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
+
 public:
   /** The ID3v2 version used for new tags. */
   enum Id3v2Version {
@@ -102,81 +135,61 @@ public:
    * Set features provided by metadata plugins.
    * @param taggedFileFeatures bit mask with TaggedFile::Feature flags set
    */
-  void setTaggedFileFeatures(int taggedFileFeatures) {
-    m_taggedFileFeatures = taggedFileFeatures;
-  }
+  void setTaggedFileFeatures(int taggedFileFeatures);
 
   /** true to mark truncated ID3v1.1 fields */
   bool markTruncations() const { return m_markTruncations; }
 
   /** Set true to mark truncated ID3v1.1 fields. */
-  void setMarkTruncations(bool markTruncations) {
-    m_markTruncations = markTruncations;
-  }
+  void setMarkTruncations(bool markTruncations);
 
   /** true to write total number of tracks into track fields */
   bool enableTotalNumberOfTracks() const { return m_enableTotalNumberOfTracks; }
 
   /** Set true to write total number of tracks into track fields. */
-  void setEnableTotalNumberOfTracks(bool enableTotalNumberOfTracks) {
-    m_enableTotalNumberOfTracks = enableTotalNumberOfTracks;
-  }
+  void setEnableTotalNumberOfTracks(bool enableTotalNumberOfTracks);
 
   /** true to write genres as text instead of numeric string */
   bool genreNotNumeric() const { return m_genreNotNumeric; }
 
   /** Set true to write genres as text instead of numeric string. */
-  void setGenreNotNumeric(bool genreNotNumeric) {
-    m_genreNotNumeric = genreNotNumeric;
-  }
+  void setGenreNotNumeric(bool genreNotNumeric);
 
   /** field name used for Vorbis comment entries */
   QString commentName() const { return m_commentName; }
 
   /** Set field name used for Vorbis comment entries. */
-  void setCommentName(const QString& commentName) {
-    m_commentName = commentName;
-  }
+  void setCommentName(const QString& commentName);
 
   /** index of field name used for Vorbis picture entries */
-  int pictureNameItem() const { return m_pictureNameItem; }
+  int pictureNameIndex() const { return m_pictureNameItem; }
 
   /** Set index of field name used for Vorbis picture entries. */
-  void setPictureNameItem(int pictureNameItem) {
-    m_pictureNameItem = pictureNameItem;
-  }
+  void setPictureNameIndex(int pictureNameIndex);
 
   /** custom genres for ID3v2.3 */
   QStringList customGenres() const { return m_customGenres; }
 
   /** Set custom genres for ID3v2.3. */
-  void setCustomGenres(const QStringList& customGenres) {
-    m_customGenres = customGenres;
-  }
+  void setCustomGenres(const QStringList& customGenres);
 
   /** version used for new ID3v2 tags */
   int id3v2Version() const;
 
   /** Set version used for new ID3v2 tags. */
-  void setId3v2Version(int id3v2Version) {
-    m_id3v2Version = id3v2Version;
-  }
+  void setId3v2Version(int id3v2Version);
 
   /** text encoding used for new ID3v1 tags */
   QString textEncodingV1() const { return m_textEncodingV1; }
 
   /** Set text encoding used for new ID3v1 tags. */
-  void setTextEncodingV1(const QString& textEncodingV1) {
-    m_textEncodingV1 = textEncodingV1;
-  }
+  void setTextEncodingV1(const QString& textEncodingV1);
 
   /** text encoding used for new ID3v2 tags */
   int textEncoding() const { return m_textEncoding; }
 
   /** Set text encoding used for new ID3v2 tags. */
-  void setTextEncoding(int textEncoding) {
-    m_textEncoding = textEncoding;
-  }
+  void setTextEncoding(int textEncoding);
 
   /** frames which are displayed for Tag 2 even if not present */
   quint64 quickAccessFrames() const {
@@ -184,60 +197,101 @@ public:
   }
 
   /** Set frames which are displayed for Tag 2 even if not present. */
-  void setQuickAccessFrames(quint64 quickAccessFrames) {
-    m_quickAccessFrames = quickAccessFrames;
-  }
+  void setQuickAccessFrames(quint64 quickAccessFrames);
 
   /** number of digits in track number */
   int trackNumberDigits() const { return m_trackNumberDigits; }
 
   /** Set number of digits in track number. */
-  void setTrackNumberDigits(int trackNumberDigits) {
-    m_trackNumberDigits = trackNumberDigits;
-  }
+  void setTrackNumberDigits(int trackNumberDigits);
 
   /** true to show only custom genres in combo boxes */
   bool onlyCustomGenres() const { return m_onlyCustomGenres; }
 
   /** Set true to show only custom genres in combo boxes. */
-  void setOnlyCustomGenres(bool onlyCustomGenres) {
-    m_onlyCustomGenres = onlyCustomGenres;
-  }
+  void setOnlyCustomGenres(bool onlyCustomGenres);
 
   /** The order in which meta data plugins are tried when opening a file */
   QStringList pluginOrder() const { return m_pluginOrder; }
 
   /** Set the order in which meta data plugins are tried when opening a file. */
-  void setPluginOrder(const QStringList& pluginOrder) {
-    m_pluginOrder = pluginOrder;
-  }
+  void setPluginOrder(const QStringList& pluginOrder);
 
   /** Disabled plugins */
   QStringList disabledPlugins() const { return m_disabledPlugins; }
 
   /** Set list of disabled plugins. */
-  void setDisabledPlugins(const QStringList& disabledPlugins) {
-    m_disabledPlugins = disabledPlugins;
-  }
-
-  /**
-   * Access to list of available plugins.
-   * @return available plugins.
-   * @remark This information is not stored in the configuration, it is
-   * determined when the plugins are loaded.
-   */
-  QStringList& availablePlugins() { return m_availablePlugins; }
+  void setDisabledPlugins(const QStringList& disabledPlugins);
 
   /**
    * Get list of available plugins.
    * @return available plugins.
    */
-  QStringList getAvailablePlugins() const { return m_availablePlugins; }
+  QStringList availablePlugins() const { return m_availablePlugins; }
 
-  /** Index in configuration storage */
-  static int s_index;
+  /**
+   * Set list of available plugins.
+   * @param availablePlugins available plugins
+   */
+  void setAvailablePlugins(const QStringList& availablePlugins);
+
+  /**
+   * Clear list of available plugins.
+   */
+  void clearAvailablePlugins() { m_availablePlugins.clear(); }
+
+signals:
+  /** Emitted when @a taggedFileFeatures changed. */
+  void taggedFileFeaturesChanged(int taggedFileFeatures);
+
+  /** Emitted when @a markTruncations changed. */
+  void markTruncationsChanged(bool markTruncations);
+
+  /** Emitted when @a enableTotalNumberOfTracks changed. */
+  void enableTotalNumberOfTracksChanged(bool enableTotalNumberOfTracks);
+
+  /** Emitted when @a genreNotNumeric changed. */
+  void genreNotNumericChanged(bool genreNotNumeric);
+
+  /** Emitted when @a commentName changed. */
+  void commentNameChanged(const QString& commentName);
+
+  /** Emitted when @a pictureNameIndex changed. */
+  void pictureNameIndexChanged(int pictureNameIndex);
+
+  /** Emitted when @a customGenres changed. */
+  void customGenresChanged(const QStringList& customGenres);
+
+  /** Emitted when @a id3v2Version changed. */
+  void id3v2VersionChanged(int id3v2Version);
+
+  /** Emitted when @a textEncodingV1 changed. */
+  void textEncodingV1Changed(const QString& textEncodingV1);
+
+  /** Emitted when @a textEncoding changed. */
+  void textEncodingChanged(int textEncoding);
+
+  /** Emitted when @a quickAccessFrames changed. */
+  void quickAccessFramesChanged(quint64 quickAccessFrames);
+
+  /** Emitted when @a  changed. */
+  void trackNumberDigitsChanged(int trackNumberDigits);
+
+  /** Emitted when @a onlyCustomGenres changed. */
+  void onlyCustomGenresChanged(bool onlyCustomGenres);
+
+  /** Emitted when @a pluginOrder changed. */
+  void pluginOrderChanged(const QStringList& pluginOrder);
+
+  /** Emitted when @a disabledPlugins changed. */
+  void disabledPluginsChanged(const QStringList& disabledPlugins);
+
+  /** Emitted when @a availablePlugins changed. */
+  void availablePluginsChanged(const QStringList& availablePlugins);
 
 private:
+  friend TagConfig& StoredConfig<TagConfig>::instance();
+
   QString m_commentName;
   int m_pictureNameItem;
   QStringList m_customGenres;
@@ -254,6 +308,9 @@ private:
   bool m_markTruncations;
   bool m_enableTotalNumberOfTracks;
   bool m_genreNotNumeric;
+
+  /** Index in configuration storage */
+  static int s_index;
 };
 
 #endif

@@ -186,3 +186,115 @@ void GuiConfig::readFromConfig(ISettings* config)
   }
   config->endGroup();
 }
+
+void GuiConfig::setFileListSortColumn(int fileListSortColumn)
+{
+  if (m_fileListSortColumn != fileListSortColumn) {
+    m_fileListSortColumn = fileListSortColumn;
+    emit fileListSortColumnChanged(m_fileListSortColumn);
+  }
+}
+
+void GuiConfig::setFileListSortOrder(Qt::SortOrder fileListSortOrder)
+{
+  if (m_fileListSortOrder != fileListSortOrder) {
+    m_fileListSortOrder = fileListSortOrder;
+    emit fileListSortOrderChanged(m_fileListSortOrder);
+  }
+}
+
+void GuiConfig::setFileListVisibleColumns(const QList<int>& fileListVisibleColumns)
+{
+  if (m_fileListVisibleColumns != fileListVisibleColumns) {
+    m_fileListVisibleColumns = fileListVisibleColumns;
+    emit fileListVisibleColumnsChanged(m_fileListVisibleColumns);
+  }
+}
+
+void GuiConfig::setDirListSortColumn(int dirListSortColumn)
+{
+  if (m_dirListSortColumn != dirListSortColumn) {
+    m_dirListSortColumn = dirListSortColumn;
+    emit dirListSortColumnChanged(m_dirListSortColumn);
+  }
+}
+
+void GuiConfig::setDirListSortOrder(Qt::SortOrder dirListSortOrder)
+{
+  if (m_dirListSortOrder != dirListSortOrder) {
+    m_dirListSortOrder = dirListSortOrder;
+    emit dirListSortOrderChanged(m_dirListSortOrder);
+  }
+}
+
+void GuiConfig::setDirListVisibleColumns(const QList<int>& dirListVisibleColumns)
+{
+  if (m_dirListVisibleColumns != dirListVisibleColumns) {
+    m_dirListVisibleColumns = dirListVisibleColumns;
+    emit dirListVisibleColumnsChanged(m_dirListVisibleColumns);
+  }
+}
+
+void GuiConfig::setSplitterSizes(const QList<int>& splitterSizes)
+{
+  if (m_splitterSizes != splitterSizes) {
+    m_splitterSizes = splitterSizes;
+    emit splitterSizesChanged(m_splitterSizes);
+  }
+}
+
+void GuiConfig::setVSplitterSizes(const QList<int>& vSplitterSizes)
+{
+  if (m_vSplitterSizes != vSplitterSizes) {
+    m_vSplitterSizes = vSplitterSizes;
+    emit vSplitterSizesChanged(m_vSplitterSizes);
+  }
+}
+
+void GuiConfig::setAutoHideTags(bool autoHideTags)
+{
+  if (m_autoHideTags != autoHideTags) {
+    m_autoHideTags = autoHideTags;
+    emit autoHideTagsChanged(m_autoHideTags);
+  }
+}
+
+void GuiConfig::setHideFile(bool hideFile)
+{
+  if (m_hideFile != hideFile) {
+    m_hideFile = hideFile;
+    emit hideFileChanged(m_hideFile);
+  }
+}
+
+void GuiConfig::setHideV1(bool hideV1)
+{
+  if (m_hideV1 != hideV1) {
+    m_hideV1 = hideV1;
+    emit hideV1Changed(m_hideV1);
+  }
+}
+
+void GuiConfig::setHideV2(bool hideV2)
+{
+  if (m_hideV2 != hideV2) {
+    m_hideV2 = hideV2;
+    emit hideV2Changed(m_hideV2);
+  }
+}
+
+void GuiConfig::setHidePicture(bool hidePicture)
+{
+  if (m_hidePicture != hidePicture) {
+    m_hidePicture = hidePicture;
+    emit hidePictureChanged(m_hidePicture);
+  }
+}
+
+void GuiConfig::setPlayOnDoubleClick(bool playOnDoubleClick)
+{
+  if (m_playOnDoubleClick != playOnDoubleClick) {
+    m_playOnDoubleClick = playOnDoubleClick;
+    emit playOnDoubleClickChanged(m_playOnDoubleClick);
+  }
+}

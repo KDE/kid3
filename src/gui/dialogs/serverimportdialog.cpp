@@ -366,12 +366,12 @@ void ServerImportDialog::setCoverArt(bool enable)
  */
 void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
 {
-  cfg->m_server = getServer();
-  cfg->m_cgiPath = getCgiPath();
-  cfg->m_standardTags = getStandardTags();
-  cfg->m_additionalTags = getAdditionalTags();
-  cfg->m_coverArt = getCoverArt();
-  cfg->m_windowGeometry = saveGeometry();
+  cfg->setServer(getServer());
+  cfg->setCgiPath(getCgiPath());
+  cfg->setStandardTags(getStandardTags());
+  cfg->setAdditionalTags(getAdditionalTags());
+  cfg->setCoverArt(getCoverArt());
+  cfg->setWindowGeometry(saveGeometry());
 }
 
 /**
@@ -394,13 +394,13 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
 {
   if (m_source && m_source->config()) {
     ServerImporterConfig* cf = m_source->config();
-    setServer(cf->m_server);
-    setCgiPath(cf->m_cgiPath);
-    setStandardTags(cf->m_standardTags);
-    setAdditionalTags(cf->m_additionalTags);
-    setCoverArt(cf->m_coverArt);
-    if (!cf->m_windowGeometry.isEmpty()) {
-      restoreGeometry(cf->m_windowGeometry);
+    setServer(cf->server());
+    setCgiPath(cf->cgiPath());
+    setStandardTags(cf->standardTags());
+    setAdditionalTags(cf->additionalTags());
+    setCoverArt(cf->coverArt());
+    if (!cf->windowGeometry().isEmpty()) {
+      restoreGeometry(cf->windowGeometry());
     }
   }
 

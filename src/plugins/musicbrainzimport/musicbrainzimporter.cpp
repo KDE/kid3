@@ -551,16 +551,16 @@ void MusicBrainzImporter::sendTrackListQuery(
   path += QLatin1Char('/');
   path += id;
   path += QLatin1String("?inc=");
-  if (cfg->m_additionalTags) {
+  if (cfg->additionalTags()) {
     path += QLatin1String("artist-credits+labels+recordings+media+isrcs+"
                 "discids+artist-rels+label-rels+recording-rels+release-rels");
   } else {
     path += QLatin1String("artists+recordings");
   }
-  if (cfg->m_coverArt) {
+  if (cfg->coverArt()) {
     path += QLatin1String("+url-rels");
   }
-  if (cfg->m_additionalTags) {
+  if (cfg->additionalTags()) {
     path += QLatin1String("+work-rels+recording-level-rels+work-level-rels");
   }
   sendRequest(QLatin1String("musicbrainz.org:80"), path);

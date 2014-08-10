@@ -427,3 +427,203 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_matchPictureUrlMap.remove(QLatin1String(
       "http://www.jamendo.com/en/album/(\\d+)"));
 }
+
+void ImportConfig::setAvailablePlugins(const QStringList& availablePlugins)
+{
+  if (m_availablePlugins != availablePlugins) {
+    m_availablePlugins = availablePlugins;
+    emit availablePluginsChanged(m_availablePlugins);
+  }
+}
+
+void ImportConfig::setImportServer(int importServer)
+{
+  if (m_importServer != importServer) {
+    m_importServer = importServer;
+    emit importServerChanged(m_importServer);
+  }
+}
+
+void ImportConfig::setImportDest(TrackData::TagVersion importDest)
+{
+  if (m_importDest != importDest) {
+    m_importDest = importDest;
+    emit importDestChanged(m_importDest);
+  }
+}
+
+void ImportConfig::setImportFormatNames(const QStringList& importFormatNames)
+{
+  if (m_importFormatNames != importFormatNames) {
+    m_importFormatNames = importFormatNames;
+    emit importFormatNamesChanged(m_importFormatNames);
+  }
+}
+
+void ImportConfig::setImportFormatHeaders(const QStringList& importFormatHeaders)
+{
+  if (m_importFormatHeaders != importFormatHeaders) {
+    m_importFormatHeaders = importFormatHeaders;
+    emit importFormatHeadersChanged(m_importFormatHeaders);
+  }
+}
+
+void ImportConfig::setImportFormatTracks(const QStringList& importFormatTracks)
+{
+  if (m_importFormatTracks != importFormatTracks) {
+    m_importFormatTracks = importFormatTracks;
+    emit importFormatTracksChanged(m_importFormatTracks);
+  }
+}
+
+void ImportConfig::setImportFormatIndex(int importFormatIdx)
+{
+  if (m_importFormatIdx != importFormatIdx) {
+    m_importFormatIdx = importFormatIdx;
+    emit importFormatIndexChanged(m_importFormatIdx);
+  }
+}
+
+void ImportConfig::setMaxTimeDifference(int maxTimeDifference)
+{
+  if (m_maxTimeDifference != maxTimeDifference) {
+    m_maxTimeDifference = maxTimeDifference;
+    emit maxTimeDifferenceChanged(m_maxTimeDifference);
+  }
+}
+
+void ImportConfig::setImportVisibleColumns(quint64 importVisibleColumns)
+{
+  if (m_importVisibleColumns != importVisibleColumns) {
+    m_importVisibleColumns = importVisibleColumns;
+    emit importVisibleColumnsChanged(m_importVisibleColumns);
+  }
+}
+
+void ImportConfig::setImportWindowGeometry(const QByteArray& importWindowGeometry)
+{
+  if (m_importWindowGeometry != importWindowGeometry) {
+    m_importWindowGeometry = importWindowGeometry;
+    emit importWindowGeometryChanged(m_importWindowGeometry);
+  }
+}
+
+void ImportConfig::setImportTagsNames(const QStringList& importTagsNames)
+{
+  if (m_importTagsNames != importTagsNames) {
+    m_importTagsNames = importTagsNames;
+    emit importTagsNamesChanged(m_importTagsNames);
+  }
+}
+
+void ImportConfig::setImportTagsSources(const QStringList& importTagsSources)
+{
+  if (m_importTagsSources != importTagsSources) {
+    m_importTagsSources = importTagsSources;
+    emit importTagsSourcesChanged(m_importTagsSources);
+  }
+}
+
+void ImportConfig::setImportTagsExtractions(const QStringList& importTagsExtractions)
+{
+  if (m_importTagsExtractions != importTagsExtractions) {
+    m_importTagsExtractions = importTagsExtractions;
+    emit importTagsExtractionsChanged(m_importTagsExtractions);
+  }
+}
+
+void ImportConfig::setImportTagsIndex(int importTagsIdx)
+{
+  if (m_importTagsIdx != importTagsIdx) {
+    m_importTagsIdx = importTagsIdx;
+    emit importTagsIndexChanged(m_importTagsIdx);
+  }
+}
+
+void ImportConfig::setPictureSourceNames(const QStringList& pictureSourceNames)
+{
+  if (m_pictureSourceNames != pictureSourceNames) {
+    m_pictureSourceNames = pictureSourceNames;
+    emit pictureSourceNamesChanged(m_pictureSourceNames);
+  }
+}
+
+void ImportConfig::setPictureSourceUrls(const QStringList& pictureSourceUrls)
+{
+  if (m_pictureSourceUrls != pictureSourceUrls) {
+    m_pictureSourceUrls = pictureSourceUrls;
+    emit pictureSourceUrlsChanged(m_pictureSourceUrls);
+  }
+}
+
+
+void ImportConfig::setPictureSourceIndex(int pictureSourceIdx)
+{
+  if (m_pictureSourceIdx != pictureSourceIdx) {
+    m_pictureSourceIdx = pictureSourceIdx;
+    emit pictureSourceIndexChanged(m_pictureSourceIdx);
+  }
+}
+
+void ImportConfig::setBrowseCoverArtWindowGeometry(const QByteArray& browseCoverArtWindowGeometry)
+{
+  if (m_browseCoverArtWindowGeometry != browseCoverArtWindowGeometry) {
+    m_browseCoverArtWindowGeometry = browseCoverArtWindowGeometry;
+    emit browseCoverArtWindowGeometryChanged(m_browseCoverArtWindowGeometry);
+  }
+}
+
+void ImportConfig::setMatchPictureUrlMap(const QMap<QString, QString>& matchPictureUrlMap)
+{
+  if (m_matchPictureUrlMap != matchPictureUrlMap) {
+    m_matchPictureUrlMap = matchPictureUrlMap;
+    emit matchPictureUrlMapChanged(m_matchPictureUrlMap);
+  }
+}
+
+QVariantMap ImportConfig::matchPictureUrlVariantMap() const
+{
+  QVariantMap map;
+  QMap<QString, QString> urlMap = matchPictureUrlMap();
+  for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
+       it != urlMap.constEnd();
+       ++it) {
+    map.insert(it.key(), it.value());
+  }
+  return map;
+}
+
+void ImportConfig::setMatchPictureUrlVariantMap(const QVariantMap& map)
+{
+  QMap<QString, QString> urlMap;
+  for (QVariantMap::const_iterator it = map.constBegin();
+       it != map.constEnd();
+       ++it) {
+    urlMap.insert(it.key(), it.value().toString());
+  }
+  setMatchPictureUrlMap(urlMap);
+}
+
+void ImportConfig::setImportDir(const QString& importDir)
+{
+  if (m_importDir != importDir) {
+    m_importDir = importDir;
+    emit importDirChanged(m_importDir);
+  }
+}
+
+void ImportConfig::setDisabledPlugins(const QStringList& disabledPlugins)
+{
+  if (m_disabledPlugins != disabledPlugins) {
+    m_disabledPlugins = disabledPlugins;
+    emit disabledPluginsChanged(m_disabledPlugins);
+  }
+}
+
+void ImportConfig::setEnableTimeDifferenceCheck(bool enableTimeDifferenceCheck)
+{
+  if (m_enableTimeDifferenceCheck != enableTimeDifferenceCheck) {
+    m_enableTimeDifferenceCheck = enableTimeDifferenceCheck;
+    emit enableTimeDifferenceCheckChanged(m_enableTimeDifferenceCheck);
+  }
+}

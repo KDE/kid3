@@ -35,9 +35,9 @@ int DiscogsConfig::s_index = -1;
 DiscogsConfig::DiscogsConfig() :
   StoredConfig<DiscogsConfig, ServerImporterConfig>(QLatin1String("Discogs"))
 {
-  m_cgiPathUsed = false;
-  m_additionalTagsUsed = true;
-  m_server = QLatin1String("www.discogs.com:80");
+  setCgiPathUsed(false);
+  setAdditionalTagsUsed(true);
+  setServer(QLatin1String("www.discogs.com:80"));
 }
 
 /**

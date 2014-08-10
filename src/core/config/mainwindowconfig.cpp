@@ -94,3 +94,75 @@ void MainWindowConfig::readFromConfig(ISettings* config)
                                          m_dontUseNativeDialogs).toBool();
   config->endGroup();
 }
+
+void MainWindowConfig::setGeometry(const QByteArray& geometry)
+{
+  if (m_geometry != geometry) {
+    m_geometry = geometry;
+    emit geometryChanged(m_geometry);
+  }
+}
+
+void MainWindowConfig::setWindowState(const QByteArray& windowState)
+{
+  if (m_windowState != windowState) {
+    m_windowState = windowState;
+    emit windowStateChanged(m_windowState);
+  }
+}
+
+void MainWindowConfig::setFontFamily(const QString& fontFamily)
+{
+  if (m_fontFamily != fontFamily) {
+    m_fontFamily = fontFamily;
+    emit fontFamilyChanged(m_fontFamily);
+  }
+}
+
+void MainWindowConfig::setFontSize(int fontSize)
+{
+  if (m_fontSize != fontSize) {
+    m_fontSize = fontSize;
+    emit fontSizeChanged(m_fontSize);
+  }
+}
+
+void MainWindowConfig::setStyle(const QString& style)
+{
+  if (m_style != style) {
+    m_style = style;
+    emit styleChanged(m_style);
+  }
+}
+
+void MainWindowConfig::setUseFont(bool useFont)
+{
+  if (m_useFont != useFont) {
+    m_useFont = useFont;
+    emit useFontChanged(m_useFont);
+  }
+}
+
+void MainWindowConfig::setHideToolBar(bool hideToolBar)
+{
+  if (m_hideToolBar != hideToolBar) {
+    m_hideToolBar = hideToolBar;
+    emit hideToolBarChanged(m_hideToolBar);
+  }
+}
+
+void MainWindowConfig::setHideStatusBar(bool hideStatusBar)
+{
+  if (m_hideStatusBar != hideStatusBar) {
+    m_hideStatusBar = hideStatusBar;
+    emit hideStatusBarChanged(m_hideStatusBar);
+  }
+}
+
+void MainWindowConfig::setDontUseNativeDialogs(bool dontUseNativeDialogs)
+{
+  if (m_dontUseNativeDialogs != dontUseNativeDialogs) {
+    m_dontUseNativeDialogs = dontUseNativeDialogs;
+    emit dontUseNativeDialogsChanged(m_dontUseNativeDialogs);
+  }
+}

@@ -407,7 +407,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
   if (type == Frame::FT_Picture &&
-      TagConfig::instance().pictureNameItem() == TagConfig::VP_COVERART) {
+      TagConfig::instance().pictureNameIndex() == TagConfig::VP_COVERART) {
     return "COVERART";
   }
   return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";

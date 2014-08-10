@@ -221,24 +221,25 @@ PlaylistDialog::~PlaylistDialog()
  */
 void PlaylistDialog::readConfig()
 {
+  const PlaylistConfig& playlistCfg = PlaylistConfig::instance();
   m_fileNameFormatButton->setChecked(
-    PlaylistConfig::instance().m_useFileNameFormat);
+    playlistCfg.useFileNameFormat());
   m_sameAsDirNameButton->setChecked(
-    !PlaylistConfig::instance().m_useFileNameFormat);
+    !playlistCfg.useFileNameFormat());
   m_onlySelectedFilesCheckBox->setChecked(
-    PlaylistConfig::instance().m_onlySelectedFiles);
-  m_sortTagFieldButton->setChecked(PlaylistConfig::instance().m_useSortTagField);
-  m_sortFileNameButton->setChecked(!PlaylistConfig::instance().m_useSortTagField);
-  m_fullPathButton->setChecked(PlaylistConfig::instance().m_useFullPath);
-  m_relPathButton->setChecked(!PlaylistConfig::instance().m_useFullPath);
-  m_writeInfoButton->setChecked(PlaylistConfig::instance().m_writeInfo);
-  m_writeListButton->setChecked(!PlaylistConfig::instance().m_writeInfo);
-  m_locationComboBox->setCurrentIndex(PlaylistConfig::instance().m_location);
-  m_formatComboBox->setCurrentIndex(PlaylistConfig::instance().m_format);
+    playlistCfg.onlySelectedFiles());
+  m_sortTagFieldButton->setChecked(playlistCfg.useSortTagField());
+  m_sortFileNameButton->setChecked(!playlistCfg.useSortTagField());
+  m_fullPathButton->setChecked(playlistCfg.useFullPath());
+  m_relPathButton->setChecked(!playlistCfg.useFullPath());
+  m_writeInfoButton->setChecked(playlistCfg.writeInfo());
+  m_writeListButton->setChecked(!playlistCfg.writeInfo());
+  m_locationComboBox->setCurrentIndex(playlistCfg.location());
+  m_formatComboBox->setCurrentIndex(playlistCfg.format());
   m_fileNameFormatComboBox->setEditText(
-    PlaylistConfig::instance().m_fileNameFormat);
-  m_sortTagFieldComboBox->setEditText(PlaylistConfig::instance().m_sortTagField);
-  m_writeInfoComboBox->setEditText(PlaylistConfig::instance().m_infoFormat);
+    playlistCfg.fileNameFormat());
+  m_sortTagFieldComboBox->setEditText(playlistCfg.sortTagField());
+  m_writeInfoComboBox->setEditText(playlistCfg.infoFormat());
 }
 
 /**
@@ -248,18 +249,18 @@ void PlaylistDialog::readConfig()
  */
 void PlaylistDialog::getCurrentConfig(PlaylistConfig& cfg) const
 {
-  cfg.m_useFileNameFormat = m_fileNameFormatButton->isChecked();
-  cfg.m_onlySelectedFiles = m_onlySelectedFilesCheckBox->isChecked();
-  cfg.m_useSortTagField = m_sortTagFieldButton->isChecked();
-  cfg.m_useFullPath = m_fullPathButton->isChecked();
-  cfg.m_writeInfo = m_writeInfoButton->isChecked();
-  cfg.m_location = static_cast<PlaylistConfig::PlaylistLocation>(
-    m_locationComboBox->currentIndex());
-  cfg.m_format = static_cast<PlaylistConfig::PlaylistFormat>(
-    m_formatComboBox->currentIndex());
-  cfg.m_fileNameFormat = m_fileNameFormatComboBox->currentText();
-  cfg.m_sortTagField = m_sortTagFieldComboBox->currentText();
-  cfg.m_infoFormat = m_writeInfoComboBox->currentText();
+  cfg.setUseFileNameFormat(m_fileNameFormatButton->isChecked());
+  cfg.setOnlySelectedFiles(m_onlySelectedFilesCheckBox->isChecked());
+  cfg.setUseSortTagField(m_sortTagFieldButton->isChecked());
+  cfg.setUseFullPath(m_fullPathButton->isChecked());
+  cfg.setWriteInfo(m_writeInfoButton->isChecked());
+  cfg.setLocation(static_cast<PlaylistConfig::PlaylistLocation>(
+    m_locationComboBox->currentIndex()));
+  cfg.setFormat(static_cast<PlaylistConfig::PlaylistFormat>(
+    m_formatComboBox->currentIndex()));
+  cfg.setFileNameFormat(m_fileNameFormatComboBox->currentText());
+  cfg.setSortTagField(m_sortTagFieldComboBox->currentText());
+  cfg.setInfoFormat(m_writeInfoComboBox->currentText());
 }
 
 /**

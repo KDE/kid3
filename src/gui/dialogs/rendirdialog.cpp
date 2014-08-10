@@ -108,18 +108,15 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 
   m_formatComboBox = new QComboBox(page);
-  QStringList strList;
-  for (const char** sl = RenDirConfig::s_defaultDirFmtList; *sl != 0; ++sl) {
-    strList += QString::fromLatin1(*sl);
-  }
-  m_formatComboBox->addItems(strList);
+  m_formatComboBox->addItems(RenDirConfig::getDefaultDirFormatList());
   m_formatComboBox->setEditable(true);
-  m_formatComboBox->setItemText(RenDirConfig::instance().m_dirFormatItem,
-                                RenDirConfig::instance().m_dirFormatText);
-  m_formatComboBox->setCurrentIndex(RenDirConfig::instance().m_dirFormatItem);
+  const RenDirConfig& renDirCfg = RenDirConfig::instance();
+  m_formatComboBox->setItemText(renDirCfg.dirFormatIndex(),
+                                renDirCfg.dirFormat());
+  m_formatComboBox->setCurrentIndex(renDirCfg.dirFormatIndex());
   actionLayout->addRow(tr("&Format:"), m_formatComboBox);
   m_tagversionComboBox->setCurrentIndex(
-        m_tagversionComboBox->findData(RenDirConfig::instance().m_renDirSrc));
+        m_tagversionComboBox->findData(renDirCfg.renDirSource()));
   connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
   connect(m_formatComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(slotUpdateNewDirname()));
 
@@ -211,10 +208,11 @@ void RenDirDialog::slotUpdateNewDirname()
  */
 void RenDirDialog::saveConfig()
 {
-  RenDirConfig::instance().m_dirFormatItem = m_formatComboBox->currentIndex();
-  RenDirConfig::instance().m_dirFormatText = m_formatComboBox->currentText();
-  RenDirConfig::instance().m_renDirSrc = TrackData::tagVersionCast(
-    m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt());
+  RenDirConfig& renDirCfg = RenDirConfig::instance();
+  renDirCfg.setDirFormatIndex(m_formatComboBox->currentIndex());
+  renDirCfg.setDirFormat(m_formatComboBox->currentText());
+  renDirCfg.setRenDirSource(TrackData::tagVersionCast(
+    m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
 }
 
 /**

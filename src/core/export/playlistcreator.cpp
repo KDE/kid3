@@ -45,7 +45,7 @@ PlaylistCreator::PlaylistCreator(const QString& topLevelDir,
                                  const PlaylistConfig& cfg) :
   m_cfg(cfg)
 {
-  if (m_cfg.m_location == PlaylistConfig::PL_TopLevelDirectory) {
+  if (m_cfg.location() == PlaylistConfig::PL_TopLevelDirectory) {
     m_playlistDirName = topLevelDir;
     if (!m_playlistDirName.endsWith(QChar(QDir::separator()))) {
       m_playlistDirName += QDir::separator();
@@ -67,15 +67,15 @@ bool PlaylistCreator::write()
     if (ok) {
       QTextStream stream(&file);
 
-      switch (m_cfg.m_format) {
+      switch (m_cfg.format()) {
         case PlaylistConfig::PF_M3U:
-          if (m_cfg.m_writeInfo) {
+          if (m_cfg.writeInfo()) {
             stream << "#EXTM3U\n";
           }
           for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
                it != m_entries.end();
                ++it) {
-            if (m_cfg.m_writeInfo) {
+            if (m_cfg.writeInfo()) {
               stream << QString(QLatin1String("#EXTINF:%1,%2\n")).
                 arg((*it).duration).arg((*it).info);
             }
@@ -91,7 +91,7 @@ bool PlaylistCreator::write()
                it != m_entries.end();
                ++it) {
             stream << QString(QLatin1String("File%1=%2\n")).arg(nr).arg((*it).filePath);
-            if (m_cfg.m_writeInfo) {
+            if (m_cfg.writeInfo()) {
               stream << QString(QLatin1String("Title%1=%2\n")).arg(nr).arg((*it).info);
               stream << QString(QLatin1String("Length%1=%2\n")).arg(nr).arg((*it).duration);
             }
@@ -104,7 +104,7 @@ bool PlaylistCreator::write()
         {
           stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
           QString line = QLatin1String("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"");
-          if (!m_cfg.m_useFullPath) {
+          if (!m_cfg.useFullPath()) {
             QUrl url(m_playlistDirName);
             url.setScheme(QLatin1String("file"));
             line += QString(QLatin1String(" xml:base=\"%1\"")).arg(QString::fromLatin1(url.toEncoded().data()));
@@ -118,12 +118,12 @@ bool PlaylistCreator::write()
                ++it) {
             stream << "    <track>\n";
             QUrl url((*it).filePath);
-            if (m_cfg.m_useFullPath) {
+            if (m_cfg.useFullPath()) {
               url.setScheme(QLatin1String("file"));
             }
             stream << QString(QLatin1String("      <location>%1</location>\n")).arg(
               QString::fromLatin1(url.toEncoded().data()));
-            if (m_cfg.m_writeInfo) {
+            if (m_cfg.writeInfo()) {
               // the info is already formatted in the case of XSPF
               stream << (*it).info;
             }
@@ -203,19 +203,19 @@ QString PlaylistCreator::Item::formatString(const QString& format)
 bool PlaylistCreator::Item::add()
 {
   bool ok = true;
-  if (m_ctr.m_cfg.m_location != PlaylistConfig::PL_TopLevelDirectory) {
+  if (m_ctr.m_cfg.location() != PlaylistConfig::PL_TopLevelDirectory) {
     if (m_ctr.m_playlistDirName != m_dirName) {
       ok = m_ctr.write();
       m_ctr.m_playlistDirName = m_dirName;
     }
   }
   if (m_ctr.m_playlistFileName.isEmpty()) {
-    if (!m_ctr.m_cfg.m_useFileNameFormat) {
+    if (!m_ctr.m_cfg.useFileNameFormat()) {
       m_ctr.m_playlistFileName = QDir(m_ctr.m_playlistDirName).dirName();
     } else {
-      m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.m_fileNameFormat);
+      m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.fileNameFormat());
     }
-    switch (m_ctr.m_cfg.m_format) {
+    switch (m_ctr.m_cfg.format()) {
       case PlaylistConfig::PF_M3U:
         m_ctr.m_playlistFileName += QLatin1String(".m3u");
         break;
@@ -228,20 +228,20 @@ bool PlaylistCreator::Item::add()
     }
   }
   QString filePath = m_dirName + m_taggedFile->getFilename();
-  if (!m_ctr.m_cfg.m_useFullPath &&
+  if (!m_ctr.m_cfg.useFullPath() &&
       filePath.startsWith(m_ctr.m_playlistDirName)) {
     filePath = filePath.mid(m_ctr.m_playlistDirName.length());
   }
   QString sortKey;
-  if (m_ctr.m_cfg.m_useSortTagField) {
-    sortKey = formatString(m_ctr.m_cfg.m_sortTagField);
+  if (m_ctr.m_cfg.useSortTagField()) {
+    sortKey = formatString(m_ctr.m_cfg.sortTagField());
   }
   sortKey += filePath;
   PlaylistCreator::Entry entry;
   entry.filePath = filePath;
-  if (m_ctr.m_cfg.m_writeInfo) {
-    if (m_ctr.m_cfg.m_format != PlaylistConfig::PF_XSPF) {
-      entry.info = formatString(m_ctr.m_cfg.m_infoFormat);
+  if (m_ctr.m_cfg.writeInfo()) {
+    if (m_ctr.m_cfg.format() != PlaylistConfig::PF_XSPF) {
+      entry.info = formatString(m_ctr.m_cfg.infoFormat());
     } else {
       entry.info = formatString(QLatin1String(
         "      <title>%{title}</title>\n"

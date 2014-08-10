@@ -35,8 +35,13 @@
  * Configuration for track numbering.
  */
 class KID3_CORE_EXPORT NumberTracksConfig :
-  public StoredConfig<NumberTracksConfig>
-{
+  public StoredConfig<NumberTracksConfig> {
+  Q_OBJECT
+  /** number tracks in tags 1, tags 2, or both */
+  Q_PROPERTY(int numberTracksDestination READ numberTracksDestination WRITE setNumberTracksDstInt NOTIFY numberTracksDestinationChanged)
+  /** number tracks start number */
+  Q_PROPERTY(int numberTracksStart READ numberTracksStart WRITE setNumberTracksStart NOTIFY numberTracksStartChanged)
+
 public:
   /**
    * Constructor.
@@ -62,9 +67,33 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** number tracks in tags 1, tags 2, or both */
+  /** Get destination tag. */
+  TrackData::TagVersion numberTracksDestination() const { return m_numberTracksDst; }
+
+  /** Set destination tag. */
+  void setNumberTracksDestination(TrackData::TagVersion numberTracksDestination);
+
+  /** Get start number when numbering tracks. */
+  int numberTracksStart() const { return m_numberTracksStart; }
+
+  /** Set start number when numbering tracks. */
+  void setNumberTracksStart(int numberTracksStart);
+
+signals:
+  /** Emitted when @a numberTracksDst changed. */
+  void numberTracksDestinationChanged(TrackData::TagVersion numberTracksDestination);
+
+  /** Emitted when @a numberTracksStart changed. */
+  void numberTracksStartChanged(int numberTracksStart);
+
+private:
+  friend NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance();
+
+  void setNumberTracksDstInt(int numberTracksDst) {
+    setNumberTracksDestination(TrackData::tagVersionCast(numberTracksDst));
+  }
+
   TrackData::TagVersion m_numberTracksDst;
-  /** number tracks start number */
   int m_numberTracksStart;
 
   /** Index in configuration storage */

@@ -36,9 +36,9 @@ MusicBrainzConfig::MusicBrainzConfig() :
   StoredConfig<MusicBrainzConfig, ServerImporterConfig>(
     QLatin1String("MusicBrainz"))
 {
-  m_cgiPathUsed = false;
-  m_additionalTagsUsed = true;
-  m_server = QLatin1String("musicbrainz.org:80");
+  setCgiPathUsed(false);
+  setAdditionalTagsUsed(true);
+  setServer(QLatin1String("musicbrainz.org:80"));
 }
 
 /**

@@ -35,6 +35,22 @@
  * Export configuration.
  */
 class KID3_CORE_EXPORT ExportConfig : public StoredConfig<ExportConfig> {
+  Q_OBJECT
+  /** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
+  Q_PROPERTY(int exportSource READ exportSource WRITE setExportSourceInt NOTIFY exportSourceChanged)
+  /** Names of export formats */
+  Q_PROPERTY(QStringList exportFormatNames READ exportFormatNames WRITE setExportFormatNames NOTIFY exportFormatNamesChanged)
+  /** regexp describing header export format */
+  Q_PROPERTY(QStringList exportFormatHeaders READ exportFormatHeaders WRITE setExportFormatHeaders NOTIFY exportFormatHeadersChanged)
+  /** regexp describing track export format */
+  Q_PROPERTY(QStringList exportFormatTracks READ exportFormatTracks WRITE setExportFormatTracks NOTIFY exportFormatTracksChanged)
+  /** regexp describing trailer export format */
+  Q_PROPERTY(QStringList exportFormatTrailers READ exportFormatTrailers WRITE setExportFormatTrailers NOTIFY exportFormatTrailersChanged)
+  /** selected export format */
+  Q_PROPERTY(int exportFormatIndex READ exportFormatIndex WRITE setExportFormatIndex NOTIFY exportFormatIndexChanged)
+  /** export window geometry */
+  Q_PROPERTY(QByteArray exportWindowGeometry READ exportWindowGeometry WRITE setExportWindowGeometry NOTIFY exportWindowGeometryChanged)
+
 public:
   /**
    * Constructor.
@@ -60,19 +76,86 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
+  /**
+   * Get tag source to export.
+   * @return Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags.
+   */
+  TrackData::TagVersion exportSource() const { return m_exportSrcV1; }
+
+  /** Set tag source to export. */
+  void setExportSource(TrackData::TagVersion exportSource);
+
+  /** Get names of export formats */
+  QStringList exportFormatNames() const { return m_exportFormatNames; }
+
+  /** Set names of export formats */
+  void setExportFormatNames(const QStringList& exportFormatNames);
+
+  /** Get regexp describing header export format. */
+  QStringList exportFormatHeaders() const { return m_exportFormatHeaders; }
+
+  /** Set regexp describing header export format. */
+  void setExportFormatHeaders(const QStringList& exportFormatHeaders);
+
+  /** Get regexp describing track export format. */
+  QStringList exportFormatTracks() const { return m_exportFormatTracks; }
+
+  /** Set regexp describing track export format. */
+  void setExportFormatTracks(const QStringList& exportFormatTracks);
+
+  /** Get regexp describing trailer export format. */
+  QStringList exportFormatTrailers() const { return m_exportFormatTrailers; }
+
+  /** Set regexp describing trailer export format. */
+  void setExportFormatTrailers(const QStringList& exportFormatTrailers);
+
+  /** Get index of selected export format. */
+  int exportFormatIndex() const { return m_exportFormatIdx; }
+
+  /** Set index of selected export format. */
+  void setExportFormatIndex(int exportFormatIndex);
+
+  /** Get export window geometry. */
+  QByteArray exportWindowGeometry() const { return m_exportWindowGeometry; }
+
+  /** Set export window geometry. */
+  void setExportWindowGeometry(const QByteArray& exportWindowGeometry);
+
+signals:
+  /** Emitted when @a exportSrcV1 changed. */
+  void exportSourceChanged(TrackData::TagVersion exportSource);
+
+  /** Emitted when @a exportFormatNames changed. */
+  void exportFormatNamesChanged(const QStringList& exportFormatNames);
+
+  /** Emitted when @a exportFormatHeaders changed. */
+  void exportFormatHeadersChanged(const QStringList& exportFormatHeaders);
+
+  /** Emitted when @a exportFormatTracks changed. */
+  void exportFormatTracksChanged(const QStringList& exportFormatTracks);
+
+  /** Emitted when @a exportFormatTrailers changed. */
+  void exportFormatTrailersChanged(const QStringList& exportFormatTrailers);
+
+  /** Emitted when @a exportFormatIdx changed. */
+  void exportFormatIndexChanged(int exportFormatIndex);
+
+  /** Emitted when @a exportWindowGeometry changed. */
+  void exportWindowGeometryChanged(const QByteArray& exportWindowGeometry);
+
+private:
+  friend ExportConfig& StoredConfig<ExportConfig>::instance();
+
+  void setExportSourceInt(int exportSrc) {
+    setExportSource(TrackData::tagVersionCast(exportSrc));
+  }
+
   TrackData::TagVersion m_exportSrcV1;
-  /** Names of export formats */
   QStringList m_exportFormatNames;
-  /** regexp describing header export format */
   QStringList m_exportFormatHeaders;
-  /** regexp describing track export format */
   QStringList m_exportFormatTracks;
-  /** regexp describing trailer export format */
   QStringList m_exportFormatTrailers;
-  /** selected export format */
   int m_exportFormatIdx;
-  /** export window geometry */
   QByteArray m_exportWindowGeometry;
 
   /** Index in configuration storage */

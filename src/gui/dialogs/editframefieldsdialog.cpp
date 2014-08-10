@@ -952,7 +952,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
   if (m_frame.getType() == Frame::FT_Picture) {
-    m_bos->setDefaultFile(FileConfig::instance().m_defaultCoverFileName);
+    m_bos->setDefaultFile(FileConfig::instance().defaultCoverFileName());
     m_bos->setFilter(m_platformTools->fileDialogNameFilter(
                QList<QPair<QString, QString> >()
                << qMakePair(QCoreApplication::translate("@default",

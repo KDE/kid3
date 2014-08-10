@@ -195,7 +195,7 @@ void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
 void ServerTrackImportDialog::initTable()
 {
   if (m_client && m_client->config()) {
-    setServer(m_client->config()->m_server);
+    setServer(m_client->config()->server());
   }
 
   int numRows = 0;
@@ -245,7 +245,7 @@ void ServerTrackImportDialog::startClient()
   if (m_client) {
     clearResults();
     ServerImporterConfig cfg;
-    cfg.m_server = getServer();
+    cfg.setServer(getServer());
     m_client->setConfig(&cfg);
     m_client->start();
   }
@@ -424,7 +424,7 @@ void ServerTrackImportDialog::setServer(const QString& srv)
 void ServerTrackImportDialog::saveConfig()
 {
   if (m_client && m_client->config()) {
-    m_client->config()->m_server = getServer();
+    m_client->config()->setServer(getServer());
   }
 }
 

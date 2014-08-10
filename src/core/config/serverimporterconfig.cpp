@@ -97,3 +97,67 @@ void ServerImporterConfig::readFromConfig(ISettings* config)
                                    m_windowGeometry).toByteArray();
   config->endGroup();
 }
+
+void ServerImporterConfig::setServer(const QString& server)
+{
+  if (m_server != server) {
+    m_server = server;
+    emit serverChanged(m_server);
+  }
+}
+
+void ServerImporterConfig::setCgiPath(const QString& cgiPath)
+{
+  if (m_cgiPath != cgiPath) {
+    m_cgiPath = cgiPath;
+    emit cgiPathChanged(m_cgiPath);
+  }
+}
+
+void ServerImporterConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
+  }
+}
+
+void ServerImporterConfig::setCgiPathUsed(bool cgiPathUsed)
+{
+  if (m_cgiPathUsed != cgiPathUsed) {
+    m_cgiPathUsed = cgiPathUsed;
+    emit cgiPathUsedChanged(m_cgiPathUsed);
+  }
+}
+
+void ServerImporterConfig::setAdditionalTagsUsed(bool additionalTagsUsed)
+{
+  if (m_additionalTagsUsed != additionalTagsUsed) {
+    m_additionalTagsUsed = additionalTagsUsed;
+    emit additionalTagsUsedChanged(m_additionalTagsUsed);
+  }
+}
+
+void ServerImporterConfig::setStandardTags(bool standardTags)
+{
+  if (m_standardTags != standardTags) {
+    m_standardTags = standardTags;
+    emit standardTagsChanged(m_standardTags);
+  }
+}
+
+void ServerImporterConfig::setAdditionalTags(bool additionalTags)
+{
+  if (m_additionalTags != additionalTags) {
+    m_additionalTags = additionalTags;
+    emit additionalTagsChanged(m_additionalTags);
+  }
+}
+
+void ServerImporterConfig::setCoverArt(bool coverArt)
+{
+  if (m_coverArt != coverArt) {
+    m_coverArt = coverArt;
+    emit coverArtChanged(m_coverArt);
+  }
+}

@@ -441,7 +441,7 @@ void AmazonImporter::sendFindQuery(
    * Query looks like this:
    * http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&field-artist=amon+amarth&field-title=the+avenger
    */
-  sendRequest(cfg->m_server,
+  sendRequest(cfg->server(),
               QLatin1String("/gp/search/ref=sr_adv_m_pop/"
                       "?search-alias=popular&field-artist=") +
               encodeUrlQuery(artist) + QLatin1String("&field-title=") + encodeUrlQuery(album));
@@ -462,5 +462,5 @@ void AmazonImporter::sendTrackListQuery(
    * Query looks like this:
    * http://www.amazon.com/dp/B001VROVHO
    */
-  sendRequest(cfg->m_server, QLatin1Char('/') + cat + QLatin1Char('/') + id);
+  sendRequest(cfg->server(), QLatin1Char('/') + cat + QLatin1Char('/') + id);
 }

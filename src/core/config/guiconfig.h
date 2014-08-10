@@ -33,8 +33,37 @@
 /**
  * GUI related configuration.
  */
-class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig>
-{
+class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
+  Q_OBJECT
+  /** sorted column in file list */
+  Q_PROPERTY(int fileListSortColumn READ fileListSortColumn WRITE setFileListSortColumn NOTIFY fileListSortColumnChanged)
+  /** sort order in file list */
+  Q_PROPERTY(Qt::SortOrder fileListSortOrder READ fileListSortOrder WRITE setFileListSortOrder NOTIFY fileListSortOrderChanged)
+  /** visible columns in file list */
+  Q_PROPERTY(QList<int> fileListVisibleColumns READ fileListVisibleColumns WRITE setFileListVisibleColumns NOTIFY fileListVisibleColumnsChanged)
+  /** sorted column in directory list */
+  Q_PROPERTY(int dirListSortColumn READ dirListSortColumn WRITE setDirListSortColumn NOTIFY dirListSortColumnChanged)
+  /** sort order in directory list */
+  Q_PROPERTY(Qt::SortOrder dirListSortOrder READ dirListSortOrder WRITE setDirListSortOrder NOTIFY dirListSortOrderChanged)
+  /** visible columns in directory list */
+  Q_PROPERTY(QList<int> dirListVisibleColumns READ dirListVisibleColumns WRITE setDirListVisibleColumns NOTIFY dirListVisibleColumnsChanged)
+  /** size of splitter in main window */
+  Q_PROPERTY(QList<int> splitterSizes READ splitterSizes WRITE setSplitterSizes NOTIFY splitterSizesChanged)
+  /** size of file/dirlist splitter */
+  Q_PROPERTY(QList<int> vSplitterSizes READ vSplitterSizes WRITE setVSplitterSizes NOTIFY vSplitterSizesChanged)
+  /** true to automatically hide unused tags */
+  Q_PROPERTY(bool autoHideTags READ autoHideTags WRITE setAutoHideTags NOTIFY autoHideTagsChanged)
+  /** true to hide file controls */
+  Q_PROPERTY(bool hideFile READ hideFile WRITE setHideFile NOTIFY hideFileChanged)
+  /** true to hide ID3v1.1 controls */
+  Q_PROPERTY(bool hideV1 READ hideV1 WRITE setHideV1 NOTIFY hideV1Changed)
+  /** true to hide ID3v2.3 controls */
+  Q_PROPERTY(bool hideV2 READ hideV2 WRITE setHideV2 NOTIFY hideV2Changed)
+  /** true to hide picture preview */
+  Q_PROPERTY(bool hidePicture READ hidePicture WRITE setHidePicture NOTIFY hidePictureChanged)
+  /** true to play file on double click */
+  Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
+
 public:
   /**
    * Constructor.
@@ -60,33 +89,149 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
-  /** sorted column in file list */
+  /** Get sorted column in file list. */
+  int fileListSortColumn() const { return m_fileListSortColumn; }
+
+  /** Set sorted column in file list. */
+  void setFileListSortColumn(int fileListSortColumn);
+
+  /** Get sort order in file list. */
+  Qt::SortOrder fileListSortOrder() const { return m_fileListSortOrder; }
+
+  /** Set sort order in file list. */
+  void setFileListSortOrder(Qt::SortOrder fileListSortOrder);
+
+  /** Get visible columns in file list. */
+  QList<int> fileListVisibleColumns() const { return m_fileListVisibleColumns; }
+
+  /** Set visible columns in file list. */
+  void setFileListVisibleColumns(const QList<int>& fileListVisibleColumns);
+
+  /** Get sorted column in directory list. */
+  int dirListSortColumn() const { return m_dirListSortColumn; }
+
+  /** Set sorted column in directory list. */
+  void setDirListSortColumn(int dirListSortColumn);
+
+  /** Get sort order in directory list. */
+  Qt::SortOrder dirListSortOrder() const { return m_dirListSortOrder; }
+
+  /** Set sort order in directory list. */
+  void setDirListSortOrder(Qt::SortOrder dirListSortOrder);
+
+  /** Get visible columns in directory list. */
+  QList<int> dirListVisibleColumns() const { return m_dirListVisibleColumns; }
+
+  /** Set visible columns in directory list. */
+  void setDirListVisibleColumns(const QList<int>& dirListVisibleColumns);
+
+  /** Get size of splitter in main window. */
+  QList<int> splitterSizes() const { return m_splitterSizes; }
+
+  /** Set size of splitter in main window. */
+  void setSplitterSizes(const QList<int>& splitterSizes);
+
+  /** Get size of file/dirlist splitter. */
+  QList<int> vSplitterSizes() const { return m_vSplitterSizes; }
+
+  /** Set size of file/dirlist splitter. */
+  void setVSplitterSizes(const QList<int>& vSplitterSizes);
+
+  /** Check if unused tags are automatically hidden. */
+  bool autoHideTags() const { return m_autoHideTags; }
+
+  /** Set if unused tags are automatically hidden. */
+  void setAutoHideTags(bool autoHideTags);
+
+  /** Check if file controls are hidden. */
+  bool hideFile() const { return m_hideFile; }
+
+  /** Set if file controls are hidden. */
+  void setHideFile(bool hideFile);
+
+  /** Check if Tag 1 controls are hidden. */
+  bool hideV1() const { return m_hideV1; }
+
+  /** Set if Tag 1 controls are hidden. */
+  void setHideV1(bool hideV1);
+
+  /** Check if Tag 2 controls are hidden. */
+  bool hideV2() const { return m_hideV2; }
+
+  /** Set if Tag 2 controls are hidden. */
+  void setHideV2(bool hideV2);
+
+  /** Check if the picture preview is hidden. */
+  bool hidePicture() const { return m_hidePicture; }
+
+  /** Set if the picture preview is hidden. */
+  void setHidePicture(bool hidePicture);
+
+  /** Check if play file on double click is enabled. */
+  bool playOnDoubleClick() const { return m_playOnDoubleClick; }
+
+  /** Set if play file on double click is enabled. */
+  void setPlayOnDoubleClick(bool playOnDoubleClick);
+
+signals:
+  /** Emitted when @a fileListSortColumn changed. */
+  void fileListSortColumnChanged(int fileListSortColumn);
+
+  /** Emitted when @a fileListSortOrder changed. */
+  void fileListSortOrderChanged(Qt::SortOrder fileListSortOrder);
+
+  /** Emitted when @a fileListVisibleColumns changed. */
+  void fileListVisibleColumnsChanged(const QList<int>& fileListVisibleColumns);
+
+  /** Emitted when @a dirListSortColumn changed. */
+  void dirListSortColumnChanged(int dirListSortColumn);
+
+  /** Emitted when @a dirListSortOrder changed. */
+  void dirListSortOrderChanged(Qt::SortOrder dirListSortOrder);
+
+  /** Emitted when @a dirListVisibleColumns changed. */
+  void dirListVisibleColumnsChanged(const QList<int>& dirListVisibleColumns);
+
+  /** Emitted when @a splitterSizes changed. */
+  void splitterSizesChanged(const QList<int>& splitterSizes);
+
+  /** Emitted when @a vSplitterSizes changed. */
+  void vSplitterSizesChanged(const QList<int>& vSplitterSizes);
+
+  /** Emitted when @a autoHideTags changed. */
+  void autoHideTagsChanged(bool autoHideTags);
+
+  /** Emitted when @a hideFile changed. */
+  void hideFileChanged(bool hideFile);
+
+  /** Emitted when @a hideV1 changed. */
+  void hideV1Changed(bool hideV1);
+
+  /** Emitted when @a hideV2 changed. */
+  void hideV2Changed(bool hideV2);
+
+  /** Emitted when @a hidePicture changed. */
+  void hidePictureChanged(bool hidePicture);
+
+  /** Emitted when @a playOnDoubleClick changed. */
+  void playOnDoubleClickChanged(bool playOnDoubleClick);
+
+private:
+  friend GuiConfig& StoredConfig<GuiConfig>::instance();
+
   int m_fileListSortColumn;
-  /** sort order in file list */
   Qt::SortOrder m_fileListSortOrder;
-  /** visible columns in file list */
   QList<int> m_fileListVisibleColumns;
-  /** sorted column in directory list */
   int m_dirListSortColumn;
-  /** sort order in directory list */
   Qt::SortOrder m_dirListSortOrder;
-  /** visible columns in directory list */
   QList<int> m_dirListVisibleColumns;
-  /** size of splitter in main window */
   QList<int> m_splitterSizes;
-  /** size of file/dirlist splitter */
   QList<int> m_vSplitterSizes;
-  /** true to automatically hide unused tags */
   bool m_autoHideTags;
-  /** true to hide file controls */
   bool m_hideFile;
-  /** true to hide ID3v1.1 controls */
   bool m_hideV1;
-  /** true to hide ID3v2.3 controls */
   bool m_hideV2;
-  /** true to hide picture preview */
   bool m_hidePicture;
-  /** true to play file on double click */
   bool m_playOnDoubleClick;
 
   /** Index in configuration storage */

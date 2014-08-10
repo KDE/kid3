@@ -54,6 +54,10 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
+private:
+  friend FreedbConfig&
+  StoredConfig<FreedbConfig, ServerImporterConfig>::instance();
+
   /** Index in configuration storage */
   static int s_index;
 };
@@ -80,6 +84,10 @@ public:
    * @param config KDE configuration
    */
   virtual void readFromConfig(ISettings* config);
+
+private:
+  friend TrackTypeConfig&
+  StoredConfig<TrackTypeConfig, FreedbConfig>::instance();
 
   /** Index in configuration storage */
   static int s_index;

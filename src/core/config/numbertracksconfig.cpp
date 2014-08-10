@@ -93,3 +93,19 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   m_numberTracksStart = config->value(QLatin1String("NumberTracksStartNumber"), 1).toInt();
   config->endGroup();
 }
+
+void NumberTracksConfig::setNumberTracksDestination(TrackData::TagVersion numberTracksDst)
+{
+  if (m_numberTracksDst != numberTracksDst) {
+    m_numberTracksDst = numberTracksDst;
+    emit numberTracksDestinationChanged(m_numberTracksDst);
+  }
+}
+
+void NumberTracksConfig::setNumberTracksStart(int numberTracksStart)
+{
+  if (m_numberTracksStart != numberTracksStart) {
+    m_numberTracksStart = numberTracksStart;
+    emit numberTracksStartChanged(m_numberTracksStart);
+  }
+}

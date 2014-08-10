@@ -154,7 +154,7 @@ void BatchImporter::stateTransition()
             if (TaggedFile* taggedFile = trackList.first().getTaggedFile()) {
               FrameCollection frames;
               taggedFile->getTagsFromFilename(frames,
-                               FileConfig::instance().m_formatFromFilenameText);
+                               FileConfig::instance().fromFilenameFormat());
               m_currentArtist = frames.getArtist();
               m_currentAlbum = frames.getAlbum();
             }

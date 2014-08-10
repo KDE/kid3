@@ -267,7 +267,7 @@ void FindReplaceDialog::readConfig()
 {
   const FindReplaceConfig& findCfg = FindReplaceConfig::instance();
   setParameters(findCfg.getParameters());
-  QByteArray geometry = findCfg.getWindowGeometry();
+  QByteArray geometry = findCfg.windowGeometry();
   if (!geometry.isEmpty()) {
     restoreGeometry(geometry);
   }

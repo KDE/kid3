@@ -379,12 +379,12 @@ void BaseMainWindowImpl::slotFileOpen()
   updateCurrentSelection();
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
-    QString filter(FileConfig::instance().m_nameFilter);
+    QString filter(FileConfig::instance().nameFilter());
     QStringList dirs = m_platformTools->getOpenFileNames(
       m_w, QString(), m_app->getDirName(), flt, &filter);
     if (!dirs.isEmpty()) {
       if (!filter.isEmpty()) {
-        FileConfig::instance().m_nameFilter = filter;
+        FileConfig::instance().setNameFilter(filter);
       }
       m_app->openDirectory(dirs);
     }
@@ -499,7 +499,7 @@ bool BaseMainWindowImpl::slotCreatePlaylist()
  */
 void BaseMainWindowImpl::setupImportDialog()
 {
-  m_app->filesToTrackDataModel(ImportConfig::instance().m_importDest);
+  m_app->filesToTrackDataModel(ImportConfig::instance().importDest());
   if (!m_importDialog) {
     QString caption(tr("Import"));
     m_importDialog =
@@ -595,7 +595,7 @@ void BaseMainWindowImpl::slotExport()
         m_platformTools, m_w, m_app->getTextExporter());
   m_exportDialog->readConfig();
   ImportTrackDataVector trackDataVector;
-  m_app->filesToTrackData(ExportConfig::instance().m_exportSrcV1,
+  m_app->filesToTrackData(ExportConfig::instance().exportSource(),
                           trackDataVector);
   m_app->getTextExporter()->setTrackData(trackDataVector);
   m_exportDialog->showPreview();
@@ -609,7 +609,7 @@ void BaseMainWindowImpl::slotExport()
  */
 void BaseMainWindowImpl::slotSettingsAutoHideTags()
 {
-  GuiConfig::instance().m_autoHideTags = m_self->autoHideTagsAction()->isChecked();
+  GuiConfig::instance().setAutoHideTags(m_self->autoHideTagsAction()->isChecked());
   updateCurrentSelection();
   updateGuiControls();
 }
@@ -619,14 +619,14 @@ void BaseMainWindowImpl::slotSettingsAutoHideTags()
  */
 void BaseMainWindowImpl::slotSettingsShowHidePicture()
 {
-  GuiConfig::instance().m_hidePicture = !m_self->showHidePictureAction()->isChecked();
+  GuiConfig::instance().setHidePicture(!m_self->showHidePictureAction()->isChecked());
 
-  m_form->hidePicture(GuiConfig::instance().m_hidePicture);
+  m_form->hidePicture(GuiConfig::instance().hidePicture());
   // In Qt3 the picture is displayed too small if Kid3 is started with picture
   // hidden, and then "Show Picture" is triggered while a file with a picture
   // is selected. Thus updating the controls is only done for Qt4, in Qt3 the
   // file has to be selected again for the picture to be shown.
-  if (!GuiConfig::instance().m_hidePicture) {
+  if (!GuiConfig::instance().hidePicture()) {
     updateGuiControls();
   }
 }
@@ -637,7 +637,7 @@ void BaseMainWindowImpl::slotSettingsShowHidePicture()
 void BaseMainWindowImpl::applyChangedConfiguration()
 {
   m_app->applyChangedConfiguration();
-  if (!FileConfig::instance().m_markChanges) {
+  if (!FileConfig::instance().markChanges()) {
     m_form->markChangedFilename(false);
   }
 }
@@ -799,7 +799,7 @@ void BaseMainWindowImpl::slotFilter()
               SLOT(showFilterEvent(FileFilter::FilterEventType,QString)));
     }
     FilterConfig::instance().setFilenameFormat(
-          FileConfig::instance().m_formatText);
+          FileConfig::instance().toFilenameFormat());
     m_filterDialog->readConfig();
     m_filterDialog->show();
   }
@@ -881,17 +881,17 @@ void BaseMainWindowImpl::updateGuiControls()
   m_form->setDetailInfo(selection->getDetailInfo());
   m_form->setTagFormatV1(selection->getTagFormatV1());
   m_form->setTagFormatV2(selection->getTagFormatV2());
-  if (FileConfig::instance().m_markChanges) {
+  if (FileConfig::instance().markChanges()) {
     m_form->markChangedFilename(selection->isFilenameChanged());
   }
 
-  if (!GuiConfig::instance().m_hidePicture) {
+  if (!GuiConfig::instance().hidePicture()) {
     m_form->setPictureData(selection->getPicture());
   }
 
   m_form->enableControlsV1(selection->isTag1Used() || selection->isEmpty());
 
-  if (GuiConfig::instance().m_autoHideTags) {
+  if (GuiConfig::instance().autoHideTags()) {
     m_form->hideV1(!selection->hasTagV1());
     m_form->hideV2(!selection->hasTagV2());
   }

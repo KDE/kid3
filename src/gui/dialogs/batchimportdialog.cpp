@@ -393,8 +393,9 @@ void BatchImportDialog::setGuiControlsFromProfile()
  */
 void BatchImportDialog::setProfileFromConfig()
 {
-  const QStringList& names = BatchImportConfig::instance().m_profileNames;
-  const QStringList& sources = BatchImportConfig::instance().m_profileSources;
+  const BatchImportConfig& batchImportCfg = BatchImportConfig::instance();
+  const QStringList names = batchImportCfg.profileNames();
+  const QStringList sources = batchImportCfg.profileSources();
 
   m_profiles.clear();
   QStringList::const_iterator namesIt, sourcesIt;
@@ -406,7 +407,7 @@ void BatchImportDialog::setProfileFromConfig()
     profile.setSourcesFromString(*sourcesIt);
     m_profiles.append(profile);
   }
-  m_profileIdx = BatchImportConfig::instance().m_profileIdx;
+  m_profileIdx = batchImportCfg.profileIndex();
   setGuiControlsFromProfile();
 }
 
@@ -418,14 +419,15 @@ void BatchImportDialog::readConfig()
   m_edit->clear();
   setAbortButton(false);
 
-  TrackData::TagVersion importDest = BatchImportConfig::instance().m_importDest;
+  const BatchImportConfig& batchImportCfg = BatchImportConfig::instance();
+  TrackData::TagVersion importDest = batchImportCfg.importDest();
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
 
   setProfileFromConfig();
 
-  if (!BatchImportConfig::instance().m_windowGeometry.isEmpty()) {
-    restoreGeometry(BatchImportConfig::instance().m_windowGeometry);
+  if (!batchImportCfg.windowGeometry().isEmpty()) {
+    restoreGeometry(batchImportCfg.windowGeometry());
   }
 }
 
@@ -434,20 +436,20 @@ void BatchImportDialog::readConfig()
  */
 void BatchImportDialog::saveConfig()
 {
-  BatchImportConfig::instance().m_importDest = TrackData::tagVersionCast(
-    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
+  BatchImportConfig& batchImportCfg = BatchImportConfig::instance();
+  batchImportCfg.setImportDest(TrackData::tagVersionCast(
+    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
 
-  QStringList& names = BatchImportConfig::instance().m_profileNames;
-  QStringList& sources = BatchImportConfig::instance().m_profileSources;
-  names.clear();
-  sources.clear();
+  QStringList names, sources;
   setProfileFromGuiControls();
   foreach (const BatchImportProfile& profile, m_profiles) {
     names.append(profile.getName());
     sources.append(profile.getSourcesAsString());
   }
-  BatchImportConfig::instance().m_profileIdx = m_profileComboBox->currentIndex();
-  BatchImportConfig::instance().m_windowGeometry = saveGeometry();
+  batchImportCfg.setProfileNames(names);
+  batchImportCfg.setProfileSources(sources);
+  batchImportCfg.setProfileIndex(m_profileComboBox->currentIndex());
+  batchImportCfg.setWindowGeometry(saveGeometry());
 }
 
 /**

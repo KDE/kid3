@@ -90,9 +90,10 @@ void TextExporter::updateText(
  */
 void TextExporter::updateTextUsingConfig(int fmtIdx)
 {
-  const QStringList& headerFmts = ExportConfig::instance().m_exportFormatHeaders;
-  const QStringList& trackFmts = ExportConfig::instance().m_exportFormatTracks;
-  const QStringList& trailerFmts = ExportConfig::instance().m_exportFormatTrailers;
+  const ExportConfig& exportCfg = ExportConfig::instance();
+  const QStringList headerFmts = exportCfg.exportFormatHeaders();
+  const QStringList trackFmts = exportCfg.exportFormatTracks();
+  const QStringList trailerFmts = exportCfg.exportFormatTrailers();
   if (fmtIdx < headerFmts.size() && fmtIdx < trackFmts.size() &&
       fmtIdx < trailerFmts.size()) {
     updateText(headerFmts.at(fmtIdx), trackFmts.at(fmtIdx),
@@ -112,7 +113,7 @@ bool TextExporter::exportToFile(const QString& fn)
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
-      ImportConfig::instance().m_importDir = QFileInfo(file).dir().path();
+      ImportConfig::instance().setImportDir(QFileInfo(file).dir().path());
       QTextStream stream(&file);
       stream << m_text;
       file.close();

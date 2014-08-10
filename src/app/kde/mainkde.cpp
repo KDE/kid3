@@ -137,10 +137,10 @@ int main(int argc, char* argv[])
         args1.append(args->arg(i));
       kid3->confirmedOpenDirectory(args1);
 #endif
-    } else if (FileConfig::instance().m_loadLastOpenedFile &&
-               !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
+    } else if (FileConfig::instance().loadLastOpenedFile() &&
+               !FileConfig::instance().lastOpenedFile().isEmpty()) {
       kid3->confirmedOpenDirectory(QStringList()
-                                   << FileConfig::instance().m_lastOpenedFile);
+                                   << FileConfig::instance().lastOpenedFile());
     }
     args->clear();
   }

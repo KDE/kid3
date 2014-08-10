@@ -144,3 +144,43 @@ bool BatchImportConfig::getProfileByName(const QString& name,
   }
   return false;
 }
+
+void BatchImportConfig::setImportDest(TrackData::TagVersion importDest)
+{
+  if (m_importDest != importDest) {
+    m_importDest = importDest;
+    emit importDestChanged(m_importDest);
+  }
+}
+
+void BatchImportConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
+  }
+}
+
+void BatchImportConfig::setProfileIndex(int profileIdx)
+{
+  if (m_profileIdx != profileIdx) {
+    m_profileIdx = profileIdx;
+    emit profileIndexChanged(m_profileIdx);
+  }
+}
+
+void BatchImportConfig::setProfileSources(const QStringList& profileSources)
+{
+  if (m_profileSources != profileSources) {
+    m_profileSources = profileSources;
+    emit profileSourcesChanged(m_profileSources);
+  }
+}
+
+void BatchImportConfig::setProfileNames(const QStringList& profileNames)
+{
+  if (m_profileNames != profileNames) {
+    m_profileNames = profileNames;
+    emit profileNamesChanged(m_profileNames);
+  }
+}

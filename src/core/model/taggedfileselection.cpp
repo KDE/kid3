@@ -77,7 +77,7 @@ void TaggedFileSelection::endAddTaggedFiles()
 {
   m_framesV1Model->setAllCheckStates(m_state.m_tagV1SupportedCount == 1);
   m_framesV2Model->setAllCheckStates(m_state.m_fileCount == 1);
-  if (GuiConfig::instance().m_autoHideTags) {
+  if (GuiConfig::instance().autoHideTags()) {
     // If a tag is supposed to be absent, make sure that there is really no
     // unsaved data in the tag.
     if (!m_state.m_hasTagV1 &&
@@ -109,7 +109,7 @@ void TaggedFileSelection::endAddTaggedFiles()
     if (TagConfig::instance().markTruncations()) {
       m_framesV1Model->markRows(m_state.m_singleFile->getTruncationFlags());
     }
-    if (FileConfig::instance().m_markChanges) {
+    if (FileConfig::instance().markChanges()) {
       m_framesV1Model->markChangedFrames(
         m_state.m_singleFile->getChangedFramesV1());
       m_framesV2Model->markChangedFrames(
@@ -119,7 +119,7 @@ void TaggedFileSelection::endAddTaggedFiles()
     if (TagConfig::instance().markTruncations()) {
       m_framesV1Model->markRows(0);
     }
-    if (FileConfig::instance().m_markChanges) {
+    if (FileConfig::instance().markChanges()) {
       m_framesV1Model->markChangedFrames(0);
       m_framesV2Model->markChangedFrames(0);
     }

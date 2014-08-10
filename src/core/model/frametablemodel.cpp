@@ -154,7 +154,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == CI_Enable) {
-      return FileConfig::instance().m_markChanges &&
+      return FileConfig::instance().markChanges() &&
         (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
          (m_changedFrames & (1ULL << (*it).getType())) != 0))
@@ -633,7 +633,7 @@ FrameItemDelegate::~FrameItemDelegate()
 void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
 {
   QLineEdit* le;
-  if (TagFormatConfig::instance().m_formatWhileEditing &&
+  if (TagFormatConfig::instance().formatWhileEditing() &&
       (le = qobject_cast<QLineEdit*>(sender())) != 0) {
     QString str(txt);
     TagFormatConfig::instance().formatString(str);
@@ -681,7 +681,7 @@ QWidget* FrameItemDelegate::createEditor(
         (type == Frame::FT_Comment || type == Frame::FT_Title ||
          type == Frame::FT_Artist || type == Frame::FT_Album)) {
       if (lineEdit) {
-        if (TagFormatConfig::instance().m_formatWhileEditing) {
+        if (TagFormatConfig::instance().formatWhileEditing()) {
           connect(lineEdit, SIGNAL(textChanged(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
         }
@@ -689,11 +689,11 @@ QWidget* FrameItemDelegate::createEditor(
       }
     } else {
       if (lineEdit) {
-        if (TagFormatConfig::instance().m_formatWhileEditing) {
+        if (TagFormatConfig::instance().formatWhileEditing()) {
           connect(lineEdit, SIGNAL(textChanged(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
         }
-        if (TagFormatConfig::instance().m_enableValidation) {
+        if (TagFormatConfig::instance().enableValidation()) {
           if (type == Frame::FT_Track || type == Frame::FT_Disc) {
             lineEdit->setValidator(m_trackNumberValidator);
           } else if (type == Frame::FT_Date || type == Frame::FT_OriginalDate) {

@@ -172,7 +172,7 @@ void BrowseCoverArtDialog::showPreview()
   QString txt(QLatin1String("<p><b>"));
   txt += tr("Click Browse to start");
   txt += QLatin1String("</b></p><p><tt>");
-  txt += NetworkConfig::instance().m_browser;
+  txt += NetworkConfig::instance().browser();
   txt += QLatin1Char(' ');
   txt += m_url;
   txt += QLatin1String("</tt></p><p><b>");
@@ -202,10 +202,11 @@ void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
  */
 void BrowseCoverArtDialog::setSourceFromConfig()
 {
+  const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ImportConfig::instance().m_pictureSourceNames
-                             << ImportConfig::instance().m_pictureSourceUrls,
-        ImportConfig::instance().m_pictureSourceIdx);
+        QList<QStringList>() << importCfg.pictureSourceNames()
+                             << importCfg.pictureSourceUrls(),
+        importCfg.pictureSourceIndex());
 }
 
 /**
@@ -213,11 +214,12 @@ void BrowseCoverArtDialog::setSourceFromConfig()
  */
 void BrowseCoverArtDialog::readConfig()
 {
+  const ImportConfig& importCfg = ImportConfig::instance();
   setSourceFromConfig();
-  m_matchUrlTableModel->setMap(ImportConfig::instance().m_matchPictureUrlMap);
+  m_matchUrlTableModel->setMap(importCfg.matchPictureUrlMap());
 
-  if (!ImportConfig::instance().m_browseCoverArtWindowGeometry.isEmpty()) {
-    restoreGeometry(ImportConfig::instance().m_browseCoverArtWindowGeometry);
+  if (!importCfg.browseCoverArtWindowGeometry().isEmpty()) {
+    restoreGeometry(importCfg.browseCoverArtWindowGeometry());
   }
 }
 
@@ -226,12 +228,14 @@ void BrowseCoverArtDialog::readConfig()
  */
 void BrowseCoverArtDialog::saveConfig()
 {
-  QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ImportConfig::instance().m_pictureSourceIdx);
-  ImportConfig::instance().m_pictureSourceNames = formats.at(0);
-  ImportConfig::instance().m_pictureSourceUrls = formats.at(1);
-  ImportConfig::instance().m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
-  ImportConfig::instance().m_browseCoverArtWindowGeometry = saveGeometry();
+  ImportConfig& importCfg = ImportConfig::instance();
+  int idx;
+  QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
+  importCfg.setPictureSourceIndex(idx);
+  importCfg.setPictureSourceNames(formats.at(0));
+  importCfg.setPictureSourceUrls(formats.at(1));
+  importCfg.setMatchPictureUrlMap(m_matchUrlTableModel->getMap());
+  importCfg.setBrowseCoverArtWindowGeometry(saveGeometry());
 
   setSourceFromConfig();
 }
@@ -254,6 +258,6 @@ void BrowseCoverArtDialog::accept()
   }
   m_process->launchCommand(
     tr("Browse Cover Art"),
-    QStringList() << NetworkConfig::instance().m_browser << m_url);
+    QStringList() << NetworkConfig::instance().browser() << m_url);
   QDialog::accept();
 }

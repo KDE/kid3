@@ -96,3 +96,51 @@ void NetworkConfig::readFromConfig(ISettings* config)
 #endif
   config->endGroup();
 }
+
+void NetworkConfig::setProxy(const QString& proxy)
+{
+  if (m_proxy != proxy) {
+    m_proxy = proxy;
+    emit proxyChanged(m_proxy);
+  }
+}
+
+void NetworkConfig::setProxyUserName(const QString& proxyUserName)
+{
+  if (m_proxyUserName != proxyUserName) {
+    m_proxyUserName = proxyUserName;
+    emit proxyUserNameChanged(m_proxyUserName);
+  }
+}
+
+void NetworkConfig::setProxyPassword(const QString& proxyPassword)
+{
+  if (m_proxyPassword != proxyPassword) {
+    m_proxyPassword = proxyPassword;
+    emit proxyPasswordChanged(m_proxyPassword);
+  }
+}
+
+void NetworkConfig::setBrowser(const QString& browser)
+{
+  if (m_browser != browser) {
+    m_browser = browser;
+    emit browserChanged(m_browser);
+  }
+}
+
+void NetworkConfig::setUseProxy(bool useProxy)
+{
+  if (m_useProxy != useProxy) {
+    m_useProxy = useProxy;
+    emit useProxyChanged(m_useProxy);
+  }
+}
+
+void NetworkConfig::setUseProxyAuthentication(bool useProxyAuthentication)
+{
+  if (m_useProxyAuthentication != useProxyAuthentication) {
+    m_useProxyAuthentication = useProxyAuthentication;
+    emit useProxyAuthenticationChanged(m_useProxyAuthentication);
+  }
+}
