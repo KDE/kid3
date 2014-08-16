@@ -315,6 +315,13 @@ if (BUILD_SHARED_LIBS)
     list(FIND CMAKE_INSTALL_RPATH "${_prefixLibdir}" _rpathContainsLibdir)
     if ("${_rpathContainsLibdir}" STREQUAL "-1")
       list(APPEND CMAKE_INSTALL_RPATH "${_prefixLibdir}")
+      if (CMAKE_SKIP_RPATH)
+        message(WARNING
+          "RPATH needs to be set to \"${_prefixLibdir}\" but CMAKE_SKIP_RPATH "
+          "is set! Disable CMAKE_SKIP_RPATH or set WITH_LIBDIR (which is now "
+          "\"${WITH_LIBDIR}\") to a system directory, "
+          "e.g. \"-DWITH_LIBDIR=lib\".")
+      endif (CMAKE_SKIP_RPATH)
     endif ("${_rpathContainsLibdir}" STREQUAL "-1")
   endif ("${_isSystemDir}" STREQUAL "-1")
 endif (BUILD_SHARED_LIBS)
