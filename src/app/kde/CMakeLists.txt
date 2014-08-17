@@ -15,4 +15,5 @@ target_link_libraries(kid3 kid3-gui ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} -lstdc++
 
 install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
 install(FILES ../kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES ../kid3.appdata.xml DESTINATION "${WITH_DATAROOTDIR}/appdata")
 install(FILES kid3ui.rc DESTINATION ${DATA_INSTALL_DIR}/kid3)

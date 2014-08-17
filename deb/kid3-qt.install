@@ -1,4 +1,5 @@
 /usr/bin/kid3-qt
 /usr/share/applications/kid3-qt.desktop
+/usr/share/appdata/kid3-qt.appdata.xml
 /usr/share/doc/kid3-qt/*
 /usr/share/icons/hicolor/*/apps/kid3-qt.*

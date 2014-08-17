@@ -61,6 +61,14 @@ if (UNIX AND NOT APPLE)
   add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
     DESTINATION "${WITH_DATAROOTDIR}/applications")
+  add_custom_command(OUTPUT kid3-qt.appdata.xml
+    COMMAND ${PERL_EXECUTABLE} -pe "s/kid3\\.desktop/kid3-qt.desktop/"
+      ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml >kid3-qt.appdata.xml
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml
+  )
+  add_custom_target("appdata-file" ALL DEPENDS kid3-qt.appdata.xml)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
+    DESTINATION "${WITH_DATAROOTDIR}/appdata")
   if (GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cd ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-app-kid3.svgz >kid3-qt.svg
