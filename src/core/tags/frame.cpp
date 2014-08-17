@@ -233,6 +233,13 @@ void Frame::setFieldListFromValue()
           // highest priority, will not be overwritten
           break;
         }
+      } else if (id == Frame::Field::ID_Rating) {
+        bool ok;
+        int rating = m_value.toInt(&ok);
+        if (ok) {
+          (*fldIt).m_value = rating;
+          break;
+        }
       }
     }
     if (it != fieldList().end()) {
