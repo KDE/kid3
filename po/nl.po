@@ -6,9 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -1034,6 +1034,60 @@ msgstr "WWW van audio bestand"
 msgid "WWW Audio Source"
 msgstr "WWW van audio bron"
 
+msgid "Other"
+msgstr "Ander"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 pixels PNG bestandsicoon"
+
+msgid "Other file icon"
+msgstr "Ander bestandsicoon"
+
+msgid "Cover (front)"
+msgstr "Hoes voor"
+
+msgid "Cover (back)"
+msgstr "Hoes achter"
+
+msgid "Leaflet page"
+msgstr "Booklet pagina"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Hoofd artiest/hoofd uitvoerende"
+
+msgid "Artist/performer"
+msgstr "Artiest/uitvoerende"
+
+msgid "Band/Orchestra"
+msgstr "Band/Orchest"
+
+msgid "Lyricist/text writer"
+msgstr "Tekstschrijver"
+
+msgid "Recording Location"
+msgstr "Opnamelocatie"
+
+msgid "During recording"
+msgstr "Tijdens opname"
+
+msgid "During performance"
+msgstr "Tijdens uitvoering"
+
+msgid "Movie/video screen capture"
+msgstr "Film/schermafdruk"
+
+msgid "A bright coloured fish"
+msgstr "A bright coloured fish"
+
+msgid "Illustration"
+msgstr "Illustratie"
+
+msgid "Band/artist logotype"
+msgstr "Artiest logotype"
+
+msgid "Publisher/Studio logotype"
+msgstr "Uitgever logotype"
+
 msgid "Number of tracks"
 msgstr "Aantal tracks"
 
@@ -1330,60 +1384,6 @@ msgstr "Afbeeldingen"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Ander"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 pixels PNG bestandsicoon"
-
-msgid "Other file icon"
-msgstr "Ander bestandsicoon"
-
-msgid "Cover (front)"
-msgstr "Hoes voor"
-
-msgid "Cover (back)"
-msgstr "Hoes achter"
-
-msgid "Leaflet page"
-msgstr "Booklet pagina"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Hoofd artiest/hoofd uitvoerende"
-
-msgid "Artist/performer"
-msgstr "Artiest/uitvoerende"
-
-msgid "Band/Orchestra"
-msgstr "Band/Orchest"
-
-msgid "Lyricist/text writer"
-msgstr "Tekstschrijver"
-
-msgid "Recording Location"
-msgstr "Opnamelocatie"
-
-msgid "During recording"
-msgstr "Tijdens opname"
-
-msgid "During performance"
-msgstr "Tijdens uitvoering"
-
-msgid "Movie/video screen capture"
-msgstr "Film/schermafdruk"
-
-msgid "A bright coloured fish"
-msgstr "A bright coloured fish"
-
-msgid "Illustration"
-msgstr "Illustratie"
-
-msgid "Band/artist logotype"
-msgstr "Artiest logotype"
-
-msgid "Publisher/Studio logotype"
-msgstr "Uitgever logotype"
 
 msgid "MPEG frames as unit"
 msgstr "MPEG frame als eenheid"

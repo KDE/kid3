@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1034,6 +1034,60 @@ msgstr "WWW-audiofail"
 msgid "WWW Audio Source"
 msgstr "WWW-audioallikas"
 
+msgid "Other"
+msgstr "Muu"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 px PNG-vormingus faili ikoon"
+
+msgid "Other file icon"
+msgstr "Muus vormingus faili ikoon"
+
+msgid "Cover (front)"
+msgstr "Karbi esikülg"
+
+msgid "Cover (back)"
+msgstr "Karbi tagakülg"
+
+msgid "Leaflet page"
+msgstr "Voldiku lehekülg"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Juhtiv esitaja/ettekandja / solist"
+
+msgid "Artist/performer"
+msgstr "Esitaja"
+
+msgid "Band/Orchestra"
+msgstr "Bänd/orkester"
+
+msgid "Lyricist/text writer"
+msgstr "Sõnade autor"
+
+msgid "Recording Location"
+msgstr "Lindistuskoht"
+
+msgid "During recording"
+msgstr "Lindistamise ajal"
+
+msgid "During performance"
+msgstr "Esituse ajal"
+
+msgid "Movie/video screen capture"
+msgstr "Kaader filmist/videost"
+
+msgid "A bright coloured fish"
+msgstr "Värvikirev kala"
+
+msgid "Illustration"
+msgstr "Illustratsioon"
+
+msgid "Band/artist logotype"
+msgstr "Bändi/esitaja logo"
+
+msgid "Publisher/Studio logotype"
+msgstr "Väljaandja/stuudio logo"
+
 msgid "Number of tracks"
 msgstr "Lugude arv"
 
@@ -1330,60 +1384,6 @@ msgstr "Pildid"
 
 msgid "UTF16BE"
 msgstr "UTF-16-BE"
-
-msgid "Other"
-msgstr "Muu"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 px PNG-vormingus faili ikoon"
-
-msgid "Other file icon"
-msgstr "Muus vormingus faili ikoon"
-
-msgid "Cover (front)"
-msgstr "Karbi esikülg"
-
-msgid "Cover (back)"
-msgstr "Karbi tagakülg"
-
-msgid "Leaflet page"
-msgstr "Voldiku lehekülg"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Juhtiv esitaja/ettekandja / solist"
-
-msgid "Artist/performer"
-msgstr "Esitaja"
-
-msgid "Band/Orchestra"
-msgstr "Bänd/orkester"
-
-msgid "Lyricist/text writer"
-msgstr "Sõnade autor"
-
-msgid "Recording Location"
-msgstr "Lindistuskoht"
-
-msgid "During recording"
-msgstr "Lindistamise ajal"
-
-msgid "During performance"
-msgstr "Esituse ajal"
-
-msgid "Movie/video screen capture"
-msgstr "Kaader filmist/videost"
-
-msgid "A bright coloured fish"
-msgstr "Värvikirev kala"
-
-msgid "Illustration"
-msgstr "Illustratsioon"
-
-msgid "Band/artist logotype"
-msgstr "Bändi/esitaja logo"
-
-msgid "Publisher/Studio logotype"
-msgstr "Väljaandja/stuudio logo"
 
 msgid "MPEG frames as unit"
 msgstr "Ühikutena MPEG-kaadrid"

@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1033,6 +1033,60 @@ msgstr "Ses dosyası WWW"
 msgid "WWW Audio Source"
 msgstr "Ses dosyasının WWW"
 
+msgid "Other"
+msgstr "Diğer"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 piksel PNG dosya ikonu"
+
+msgid "Other file icon"
+msgstr "Diğer dosya ikonu"
+
+msgid "Cover (front)"
+msgstr "Ön Kapak"
+
+msgid "Cover (back)"
+msgstr "Arka Kapak"
+
+msgid "Leaflet page"
+msgstr "Broşür Sayfası"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ana Sanatçı/Söyleyen/Solist"
+
+msgid "Artist/performer"
+msgstr "Sanatçı/Söyleyen"
+
+msgid "Band/Orchestra"
+msgstr "Grup/Orkestra"
+
+msgid "Lyricist/text writer"
+msgstr "Söz yazarı"
+
+msgid "Recording Location"
+msgstr "Kayıt Yeri"
+
+msgid "During recording"
+msgstr "Kayıt sırasında"
+
+msgid "During performance"
+msgstr "Şarkı söylenirken"
+
+msgid "Movie/video screen capture"
+msgstr "Film / Video"
+
+msgid "A bright coloured fish"
+msgstr "Parlak bir renkli balık"
+
+msgid "Illustration"
+msgstr "İllüstrasyon"
+
+msgid "Band/artist logotype"
+msgstr "Grup/sanatçı Logosu"
+
+msgid "Publisher/Studio logotype"
+msgstr "Yapımcı/Stüdyo Logosu"
+
 msgid "Number of tracks"
 msgstr "Parça Sayısı"
 
@@ -1330,60 +1384,6 @@ msgstr "Resimler"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Diğer"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 piksel PNG dosya ikonu"
-
-msgid "Other file icon"
-msgstr "Diğer dosya ikonu"
-
-msgid "Cover (front)"
-msgstr "Ön Kapak"
-
-msgid "Cover (back)"
-msgstr "Arka Kapak"
-
-msgid "Leaflet page"
-msgstr "Broşür Sayfası"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Ana Sanatçı/Söyleyen/Solist"
-
-msgid "Artist/performer"
-msgstr "Sanatçı/Söyleyen"
-
-msgid "Band/Orchestra"
-msgstr "Grup/Orkestra"
-
-msgid "Lyricist/text writer"
-msgstr "Söz yazarı"
-
-msgid "Recording Location"
-msgstr "Kayıt Yeri"
-
-msgid "During recording"
-msgstr "Kayıt sırasında"
-
-msgid "During performance"
-msgstr "Şarkı söylenirken"
-
-msgid "Movie/video screen capture"
-msgstr "Film / Video"
-
-msgid "A bright coloured fish"
-msgstr "Parlak bir renkli balık"
-
-msgid "Illustration"
-msgstr "İllüstrasyon"
-
-msgid "Band/artist logotype"
-msgstr "Grup/sanatçı Logosu"
-
-msgid "Publisher/Studio logotype"
-msgstr "Yapımcı/Stüdyo Logosu"
 
 msgid "MPEG frames as unit"
 msgstr "Birim olarak MPEG çerçeveleri"

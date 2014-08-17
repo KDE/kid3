@@ -7,9 +7,9 @@
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -1035,6 +1035,60 @@ msgstr "WWW der Audio-Datei"
 msgid "WWW Audio Source"
 msgstr "WWW der Audio-Quelle"
 
+msgid "Other"
+msgstr "Anderes"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 Pixel PNG-Dateiicon"
+
+msgid "Other file icon"
+msgstr "Anderes Dateiicon"
+
+msgid "Cover (front)"
+msgstr "Cover (Vorderseite)"
+
+msgid "Cover (back)"
+msgstr "Cover (Rückseite)"
+
+msgid "Leaflet page"
+msgstr "Bookletseite"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Hauptkünstler/-interpret/-solist"
+
+msgid "Artist/performer"
+msgstr "Künster/Interpret"
+
+msgid "Band/Orchestra"
+msgstr "Band/Orchester"
+
+msgid "Lyricist/text writer"
+msgstr "Texter"
+
+msgid "Recording Location"
+msgstr "Aufnahmeort"
+
+msgid "During recording"
+msgstr "Während Aufnahme"
+
+msgid "During performance"
+msgstr "Während Aufführung"
+
+msgid "Movie/video screen capture"
+msgstr "Bild aus Video"
+
+msgid "A bright coloured fish"
+msgstr "Ein hell leuchtender Fisch"
+
+msgid "Illustration"
+msgstr "Illustration"
+
+msgid "Band/artist logotype"
+msgstr "Band-/Künstlerlogo"
+
+msgid "Publisher/Studio logotype"
+msgstr "Herausgeber-/Studiologo"
+
 msgid "Number of tracks"
 msgstr "Anzahl Tracks"
 
@@ -1331,60 +1385,6 @@ msgstr "Bilder"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Anderes"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 Pixel PNG-Dateiicon"
-
-msgid "Other file icon"
-msgstr "Anderes Dateiicon"
-
-msgid "Cover (front)"
-msgstr "Cover (Vorderseite)"
-
-msgid "Cover (back)"
-msgstr "Cover (Rückseite)"
-
-msgid "Leaflet page"
-msgstr "Bookletseite"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Hauptkünstler/-interpret/-solist"
-
-msgid "Artist/performer"
-msgstr "Künster/Interpret"
-
-msgid "Band/Orchestra"
-msgstr "Band/Orchester"
-
-msgid "Lyricist/text writer"
-msgstr "Texter"
-
-msgid "Recording Location"
-msgstr "Aufnahmeort"
-
-msgid "During recording"
-msgstr "Während Aufnahme"
-
-msgid "During performance"
-msgstr "Während Aufführung"
-
-msgid "Movie/video screen capture"
-msgstr "Bild aus Video"
-
-msgid "A bright coloured fish"
-msgstr "Ein hell leuchtender Fisch"
-
-msgid "Illustration"
-msgstr "Illustration"
-
-msgid "Band/artist logotype"
-msgstr "Band-/Künstlerlogo"
-
-msgid "Publisher/Studio logotype"
-msgstr "Herausgeber-/Studiologo"
 
 msgid "MPEG frames as unit"
 msgstr "MPEG-Frames als Einheit"

@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -1035,6 +1035,60 @@ msgstr "WWW del archivo de audio"
 msgid "WWW Audio Source"
 msgstr "WWW del fuente del audio"
 
+msgid "Other"
+msgstr "Otro"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "Archivo de icono PNG de 32x32 pixels"
+
+msgid "Other file icon"
+msgstr "Otro archivo de icono"
+
+msgid "Cover (front)"
+msgstr "Portada (frontal)"
+
+msgid "Cover (back)"
+msgstr "Portada (trasera)"
+
+msgid "Leaflet page"
+msgstr "Página de folleto"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Líder/solista"
+
+msgid "Artist/performer"
+msgstr "Artista/intérprete"
+
+msgid "Band/Orchestra"
+msgstr "Banda/Orquesta"
+
+msgid "Lyricist/text writer"
+msgstr "Autor"
+
+msgid "Recording Location"
+msgstr "Localización de grabación"
+
+msgid "During recording"
+msgstr "Duración de la grabación"
+
+msgid "During performance"
+msgstr "Duración de la interpretación"
+
+msgid "Movie/video screen capture"
+msgstr "Captura de video/película"
+
+msgid "A bright coloured fish"
+msgstr "Un pez de colores brillante"
+
+msgid "Illustration"
+msgstr "Ilustración"
+
+msgid "Band/artist logotype"
+msgstr "Logotipo del artista/banda"
+
+msgid "Publisher/Studio logotype"
+msgstr "Logotipo del estudio/editorial"
+
 msgid "Number of tracks"
 msgstr "Número de pistas"
 
@@ -1332,60 +1386,6 @@ msgstr "Imágenes"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Otro"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "Archivo de icono PNG de 32x32 pixels"
-
-msgid "Other file icon"
-msgstr "Otro archivo de icono"
-
-msgid "Cover (front)"
-msgstr "Portada (frontal)"
-
-msgid "Cover (back)"
-msgstr "Portada (trasera)"
-
-msgid "Leaflet page"
-msgstr "Página de folleto"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Líder/solista"
-
-msgid "Artist/performer"
-msgstr "Artista/intérprete"
-
-msgid "Band/Orchestra"
-msgstr "Banda/Orquesta"
-
-msgid "Lyricist/text writer"
-msgstr "Autor"
-
-msgid "Recording Location"
-msgstr "Localización de grabación"
-
-msgid "During recording"
-msgstr "Duración de la grabación"
-
-msgid "During performance"
-msgstr "Duración de la interpretación"
-
-msgid "Movie/video screen capture"
-msgstr "Captura de video/película"
-
-msgid "A bright coloured fish"
-msgstr "Un pez de colores brillante"
-
-msgid "Illustration"
-msgstr "Ilustración"
-
-msgid "Band/artist logotype"
-msgstr "Logotipo del artista/banda"
-
-msgid "Publisher/Studio logotype"
-msgstr "Logotipo del estudio/editorial"
 
 msgid "MPEG frames as unit"
 msgstr "Muestras MPEG como unidad"

@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.1\n"
 "X-Language: pl\n"
 "X-Source-Language: en\n"
@@ -1035,6 +1036,60 @@ msgstr "WWW pliku audio"
 msgid "WWW Audio Source"
 msgstr "WWW źródła audio"
 
+msgid "Other"
+msgstr "Inny"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "Ikona pliku PNG 32x32 pikseli"
+
+msgid "Other file icon"
+msgstr "Inna ikona pliku"
+
+msgid "Cover (front)"
+msgstr "Okładka (przód)"
+
+msgid "Cover (back)"
+msgstr "Okładka (tył)"
+
+msgid "Leaflet page"
+msgstr "Strona ulotki"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Główny artysta/wykonawca/solista"
+
+msgid "Artist/performer"
+msgstr "Artysta/wykonawca"
+
+msgid "Band/Orchestra"
+msgstr "Zespół/orkiestra"
+
+msgid "Lyricist/text writer"
+msgstr "Tekściarz/autor tekstu"
+
+msgid "Recording Location"
+msgstr "Miejsce nagrania"
+
+msgid "During recording"
+msgstr "Podczas nagrywania"
+
+msgid "During performance"
+msgstr "Podczas występu"
+
+msgid "Movie/video screen capture"
+msgstr "Zrzut ekranu z filmu/video"
+
+msgid "A bright coloured fish"
+msgstr "Jaskrawo pokolorowana ryba"
+
+msgid "Illustration"
+msgstr "Ilustracja"
+
+msgid "Band/artist logotype"
+msgstr "Logo zespołu/artysty"
+
+msgid "Publisher/Studio logotype"
+msgstr "Logo wydawcy/studia"
+
 msgid "Number of tracks"
 msgstr "Liczba utworów"
 
@@ -1332,60 +1387,6 @@ msgstr "Obrazy"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Inny"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "Ikona pliku PNG 32x32 pikseli"
-
-msgid "Other file icon"
-msgstr "Inna ikona pliku"
-
-msgid "Cover (front)"
-msgstr "Okładka (przód)"
-
-msgid "Cover (back)"
-msgstr "Okładka (tył)"
-
-msgid "Leaflet page"
-msgstr "Strona ulotki"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Główny artysta/wykonawca/solista"
-
-msgid "Artist/performer"
-msgstr "Artysta/wykonawca"
-
-msgid "Band/Orchestra"
-msgstr "Zespół/orkiestra"
-
-msgid "Lyricist/text writer"
-msgstr "Tekściarz/autor tekstu"
-
-msgid "Recording Location"
-msgstr "Miejsce nagrania"
-
-msgid "During recording"
-msgstr "Podczas nagrywania"
-
-msgid "During performance"
-msgstr "Podczas występu"
-
-msgid "Movie/video screen capture"
-msgstr "Zrzut ekranu z filmu/video"
-
-msgid "A bright coloured fish"
-msgstr "Jaskrawo pokolorowana ryba"
-
-msgid "Illustration"
-msgstr "Ilustracja"
-
-msgid "Band/artist logotype"
-msgstr "Logo zespołu/artysty"
-
-msgid "Publisher/Studio logotype"
-msgstr "Logo wydawcy/studia"
 
 msgid "MPEG frames as unit"
 msgstr "Ramki MPEG jako jednostka"

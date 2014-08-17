@@ -1,3 +1,31 @@
+Son Aug 17 17:10:44 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.1.1
+
+	* New:
+	  + Validation for date/time, track and disc number frames.
+	  + Mac OS X: Drop on dock icon.
+	  + Timeout command in kid3-cli to overwrite command timeout.
+	  + Build option WITH_NO_MANCOMPRESS to disable gzipped manpages.
+
+	* Improved:
+	  + Updated Czech translation.
+	  + Support drag'n'drop from https, ftp.
+	  + Show picture type in frame table.
+	  + Allow import from file/clipboard with empty date fields.
+	  + Mac OS X: Placement of Preferences, Quit, About in application menu.
+	  + Add AppData and comment in desktop file for GNOME Software.
+	  + Handling of RPATH to private libraries.
+
+	* Fixed:
+	  + Setting of POPM frames using kid3-cli.
+	  + Removing of COMM, PRIV, TXXX, free form frames.
+	  + Windows: kid3-cli output redirection.
+	  + Mac OS X: Support case-sensitive filesystems.
+	  + Format while editing for tag 2.
+	  + Support composer when importing from MusicBrainz.
+	  + Opening external links from handbook.
+
 Mon Apr 21 09:34:23 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.1

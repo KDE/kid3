@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1030,6 +1030,60 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Other"
+msgstr ""
+
+msgid "32x32 pixels PNG file icon"
+msgstr ""
+
+msgid "Other file icon"
+msgstr ""
+
+msgid "Cover (front)"
+msgstr ""
+
+msgid "Cover (back)"
+msgstr ""
+
+msgid "Leaflet page"
+msgstr ""
+
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+msgid "Artist/performer"
+msgstr ""
+
+msgid "Band/Orchestra"
+msgstr ""
+
+msgid "Lyricist/text writer"
+msgstr ""
+
+msgid "Recording Location"
+msgstr ""
+
+msgid "During recording"
+msgstr ""
+
+msgid "During performance"
+msgstr ""
+
+msgid "Movie/video screen capture"
+msgstr ""
+
+msgid "A bright coloured fish"
+msgstr ""
+
+msgid "Illustration"
+msgstr ""
+
+msgid "Band/artist logotype"
+msgstr ""
+
+msgid "Publisher/Studio logotype"
+msgstr ""
+
 msgid "Number of tracks"
 msgstr ""
 
@@ -1325,60 +1379,6 @@ msgid "Images"
 msgstr ""
 
 msgid "UTF16BE"
-msgstr ""
-
-msgid "Other"
-msgstr ""
-
-msgid "32x32 pixels PNG file icon"
-msgstr ""
-
-msgid "Other file icon"
-msgstr ""
-
-msgid "Cover (front)"
-msgstr ""
-
-msgid "Cover (back)"
-msgstr ""
-
-msgid "Leaflet page"
-msgstr ""
-
-msgid "Lead artist/lead performer/soloist"
-msgstr ""
-
-msgid "Artist/performer"
-msgstr ""
-
-msgid "Band/Orchestra"
-msgstr ""
-
-msgid "Lyricist/text writer"
-msgstr ""
-
-msgid "Recording Location"
-msgstr ""
-
-msgid "During recording"
-msgstr ""
-
-msgid "During performance"
-msgstr ""
-
-msgid "Movie/video screen capture"
-msgstr ""
-
-msgid "A bright coloured fish"
-msgstr ""
-
-msgid "Illustration"
-msgstr ""
-
-msgid "Band/artist logotype"
-msgstr ""
-
-msgid "Publisher/Studio logotype"
 msgstr ""
 
 msgid "MPEG frames as unit"

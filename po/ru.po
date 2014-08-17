@@ -7,9 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -1035,6 +1036,60 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Other"
+msgstr "Другое"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "Иконка PNG-файла 32x32 точки"
+
+msgid "Other file icon"
+msgstr "Другая Иконка файла"
+
+msgid "Cover (front)"
+msgstr "Оболочка (Спереди)"
+
+msgid "Cover (back)"
+msgstr "Оболочка (Сзади)"
+
+msgid "Leaflet page"
+msgstr "Лист Брошюры"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ведущий Исполнитель/Солист"
+
+msgid "Artist/performer"
+msgstr "Исполнитель"
+
+msgid "Band/Orchestra"
+msgstr "Группа/Оркестр"
+
+msgid "Lyricist/text writer"
+msgstr "Автор текста"
+
+msgid "Recording Location"
+msgstr "Место записи"
+
+msgid "During recording"
+msgstr "Длительность записи"
+
+msgid "During performance"
+msgstr "Длительность исполнения"
+
+msgid "Movie/video screen capture"
+msgstr "Movie/video screen capture"
+
+msgid "A bright coloured fish"
+msgstr "A bright coloured fish"
+
+msgid "Illustration"
+msgstr "Иллюстрация"
+
+msgid "Band/artist logotype"
+msgstr "Логотип группы/испольнителя"
+
+msgid "Publisher/Studio logotype"
+msgstr "Логотип студии записи"
+
 msgid "Number of tracks"
 msgstr "Количество дорожек"
 
@@ -1332,60 +1387,6 @@ msgstr "Изображения"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Другое"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "Иконка PNG-файла 32x32 точки"
-
-msgid "Other file icon"
-msgstr "Другая Иконка файла"
-
-msgid "Cover (front)"
-msgstr "Оболочка (Спереди)"
-
-msgid "Cover (back)"
-msgstr "Оболочка (Сзади)"
-
-msgid "Leaflet page"
-msgstr "Лист Брошюры"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Ведущий Исполнитель/Солист"
-
-msgid "Artist/performer"
-msgstr "Исполнитель"
-
-msgid "Band/Orchestra"
-msgstr "Группа/Оркестр"
-
-msgid "Lyricist/text writer"
-msgstr "Автор текста"
-
-msgid "Recording Location"
-msgstr "Место записи"
-
-msgid "During recording"
-msgstr "Длительность записи"
-
-msgid "During performance"
-msgstr "Длительность исполнения"
-
-msgid "Movie/video screen capture"
-msgstr "Movie/video screen capture"
-
-msgid "A bright coloured fish"
-msgstr "A bright coloured fish"
-
-msgid "Illustration"
-msgstr "Иллюстрация"
-
-msgid "Band/artist logotype"
-msgstr "Логотип группы/испольнителя"
-
-msgid "Publisher/Studio logotype"
-msgstr "Логотип студии записи"
 
 msgid "MPEG frames as unit"
 msgstr "Измерять в MPEG-кадрах"

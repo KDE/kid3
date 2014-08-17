@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
@@ -1033,6 +1034,60 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Other"
+msgstr "Ostalo"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "PNG ikona fajla 32x32 piksela"
+
+msgid "Other file icon"
+msgstr "Ostale ikone fajla"
+
+msgid "Cover (front)"
+msgstr "Omot (prednji)"
+
+msgid "Cover (back)"
+msgstr "Omot (zadnji)"
+
+msgid "Leaflet page"
+msgstr ""
+
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+msgid "Artist/performer"
+msgstr "Umetnik/izvođač"
+
+msgid "Band/Orchestra"
+msgstr "Bend/orkestar"
+
+msgid "Lyricist/text writer"
+msgstr "Pesnik/tekstopisac"
+
+msgid "Recording Location"
+msgstr "Mesto snimanja"
+
+msgid "During recording"
+msgstr "Tokom snimanja"
+
+msgid "During performance"
+msgstr "Tokom izvođenja"
+
+msgid "Movie/video screen capture"
+msgstr "Snimak ekrana filma/videa"
+
+msgid "A bright coloured fish"
+msgstr ""
+
+msgid "Illustration"
+msgstr "Ilustracija"
+
+msgid "Band/artist logotype"
+msgstr "Logotip benda/izvođača"
+
+msgid "Publisher/Studio logotype"
+msgstr "Logotip izdavača/studija"
+
 msgid "Number of tracks"
 msgstr "Broj numera"
 
@@ -1329,60 +1384,6 @@ msgstr "Slike"
 
 msgid "UTF16BE"
 msgstr "UTF-16BE"
-
-msgid "Other"
-msgstr "Ostalo"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "PNG ikona fajla 32x32 piksela"
-
-msgid "Other file icon"
-msgstr "Ostale ikone fajla"
-
-msgid "Cover (front)"
-msgstr "Omot (prednji)"
-
-msgid "Cover (back)"
-msgstr "Omot (zadnji)"
-
-msgid "Leaflet page"
-msgstr ""
-
-msgid "Lead artist/lead performer/soloist"
-msgstr ""
-
-msgid "Artist/performer"
-msgstr "Umetnik/izvođač"
-
-msgid "Band/Orchestra"
-msgstr "Bend/orkestar"
-
-msgid "Lyricist/text writer"
-msgstr "Pesnik/tekstopisac"
-
-msgid "Recording Location"
-msgstr "Mesto snimanja"
-
-msgid "During recording"
-msgstr "Tokom snimanja"
-
-msgid "During performance"
-msgstr "Tokom izvođenja"
-
-msgid "Movie/video screen capture"
-msgstr "Snimak ekrana filma/videa"
-
-msgid "A bright coloured fish"
-msgstr ""
-
-msgid "Illustration"
-msgstr "Ilustracija"
-
-msgid "Band/artist logotype"
-msgstr "Logotip benda/izvođača"
-
-msgid "Publisher/Studio logotype"
-msgstr "Logotip izdavača/studija"
 
 msgid "MPEG frames as unit"
 msgstr "Broj MPEG kadrova kao jedinica"

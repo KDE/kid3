@@ -6,9 +6,9 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1036,6 +1036,60 @@ msgstr "WWW zvukového souboru"
 msgid "WWW Audio Source"
 msgstr "WWW zvukového zdroje"
 
+msgid "Other"
+msgstr "Jiný"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
+
+msgid "Other file icon"
+msgstr "Ikona jiného souboru"
+
+msgid "Cover (front)"
+msgstr "Obal (přední strana)"
+
+msgid "Cover (back)"
+msgstr "Obal (zadní strana)"
+
+msgid "Leaflet page"
+msgstr "Strana letáku"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Hlavní umělec/Účinkující/Sólista"
+
+msgid "Artist/performer"
+msgstr "Umělec/Účinkující"
+
+msgid "Band/Orchestra"
+msgstr "Hudební skupina/Orchestr"
+
+msgid "Lyricist/text writer"
+msgstr "Textař/Skladatel textu"
+
+msgid "Recording Location"
+msgstr "Místo nahrávky"
+
+msgid "During recording"
+msgstr "Během nahrávání"
+
+msgid "During performance"
+msgstr "Během vystoupení"
+
+msgid "Movie/video screen capture"
+msgstr "Obrázek z filmu/videa"
+
+msgid "A bright coloured fish"
+msgstr "Jasně svítící ryba"
+
+msgid "Illustration"
+msgstr "Ukázka"
+
+msgid "Band/artist logotype"
+msgstr "Logotyp hudební skupiny/umělce"
+
+msgid "Publisher/Studio logotype"
+msgstr "Logotyp vydavatele/nahrávacího studia"
+
 msgid "Number of tracks"
 msgstr "Počet skladeb"
 
@@ -1332,60 +1386,6 @@ msgstr "Obrázky"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "Jiný"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
-
-msgid "Other file icon"
-msgstr "Ikona jiného souboru"
-
-msgid "Cover (front)"
-msgstr "Obal (přední strana)"
-
-msgid "Cover (back)"
-msgstr "Obal (zadní strana)"
-
-msgid "Leaflet page"
-msgstr "Strana letáku"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "Hlavní umělec/Účinkující/Sólista"
-
-msgid "Artist/performer"
-msgstr "Umělec/Účinkující"
-
-msgid "Band/Orchestra"
-msgstr "Hudební skupina/Orchestr"
-
-msgid "Lyricist/text writer"
-msgstr "Textař/Skladatel textu"
-
-msgid "Recording Location"
-msgstr "Místo nahrávky"
-
-msgid "During recording"
-msgstr "Během nahrávání"
-
-msgid "During performance"
-msgstr "Během vystoupení"
-
-msgid "Movie/video screen capture"
-msgstr "Obrázek z filmu/videa"
-
-msgid "A bright coloured fish"
-msgstr "Jasně svítící ryba"
-
-msgid "Illustration"
-msgstr "Ukázka"
-
-msgid "Band/artist logotype"
-msgstr "Logotyp hudební skupiny/umělce"
-
-msgid "Publisher/Studio logotype"
-msgstr "Logotyp vydavatele/nahrávacího studia"
 
 msgid "MPEG frames as unit"
 msgstr "Snímky MPEG jako jednotka"

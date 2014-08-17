@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-06-29 14:52+0200\n"
+"POT-Creation-Date: 2014-08-17 17:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1036,6 +1036,60 @@ msgstr "正式音效檔網頁"
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Other"
+msgstr "其他"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 像素 PNG 檔圖示"
+
+msgid "Other file icon"
+msgstr "其他檔案圖示"
+
+msgid "Cover (front)"
+msgstr "封面(前)"
+
+msgid "Cover (back)"
+msgstr "封面(後)"
+
+msgid "Leaflet page"
+msgstr "小冊子"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "首席演出者"
+
+msgid "Artist/performer"
+msgstr "演出者"
+
+msgid "Band/Orchestra"
+msgstr "樂團"
+
+msgid "Lyricist/text writer"
+msgstr "作詞者"
+
+msgid "Recording Location"
+msgstr "錄製地點"
+
+msgid "During recording"
+msgstr "錄音期間"
+
+msgid "During performance"
+msgstr "表演期間"
+
+msgid "Movie/video screen capture"
+msgstr "電影/影像螢幕擷取"
+
+msgid "A bright coloured fish"
+msgstr "明亮高彩魚"
+
+msgid "Illustration"
+msgstr "插圖"
+
+msgid "Band/artist logotype"
+msgstr "樂團╱演唱者標誌"
+
+msgid "Publisher/Studio logotype"
+msgstr "出版商╱錄音室標誌"
+
 msgid "Number of tracks"
 msgstr "音軌編號"
 
@@ -1333,60 +1387,6 @@ msgstr "圖片"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "Other"
-msgstr "其他"
-
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 像素 PNG 檔圖示"
-
-msgid "Other file icon"
-msgstr "其他檔案圖示"
-
-msgid "Cover (front)"
-msgstr "封面(前)"
-
-msgid "Cover (back)"
-msgstr "封面(後)"
-
-msgid "Leaflet page"
-msgstr "小冊子"
-
-msgid "Lead artist/lead performer/soloist"
-msgstr "首席演出者"
-
-msgid "Artist/performer"
-msgstr "演出者"
-
-msgid "Band/Orchestra"
-msgstr "樂團"
-
-msgid "Lyricist/text writer"
-msgstr "作詞者"
-
-msgid "Recording Location"
-msgstr "錄製地點"
-
-msgid "During recording"
-msgstr "錄音期間"
-
-msgid "During performance"
-msgstr "表演期間"
-
-msgid "Movie/video screen capture"
-msgstr "電影/影像螢幕擷取"
-
-msgid "A bright coloured fish"
-msgstr "明亮高彩魚"
-
-msgid "Illustration"
-msgstr "插圖"
-
-msgid "Band/artist logotype"
-msgstr "樂團╱演唱者標誌"
-
-msgid "Publisher/Studio logotype"
-msgstr "出版商╱錄音室標誌"
 
 msgid "MPEG frames as unit"
 msgstr "以 MPEG 訊框為單位"
