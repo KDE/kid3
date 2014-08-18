@@ -317,6 +317,9 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
       }
     }
     if (!writeOk) {
+      // restore old file
+      QDir(dirname).remove(getFilename());
+      renameFile(tempFilename, currentFilename());
       return false;
     }
     markTag2Unchanged();
