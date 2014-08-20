@@ -47,6 +47,7 @@ MACRO(FFMPEG_FIND varname shortname headername)
 		DOC "Location of FFMPEG Headers"
 	)
 
+  if(WIN32 OR APPLE)
     FIND_LIBRARY(FFMPEG_${varname}_LIBRARIES
         NAMES ${shortname}
         PATHS
@@ -70,6 +71,9 @@ MACRO(FFMPEG_FIND varname shortname headername)
         NAMES ${shortname}
         DOC "Location of FFMPEG Libraries"
     )
+  else(WIN32 OR APPLE)
+    pkg_check_modules(FFMPEG_${varname} lib${shortname})
+  endif(WIN32 OR APPLE)
 
     IF (FFMPEG_${varname}_LIBRARIES AND FFMPEG_${varname}_INCLUDE_DIRS)
         SET(FFMPEG_${varname}_FOUND 1)
