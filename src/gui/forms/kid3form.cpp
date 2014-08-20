@@ -60,6 +60,9 @@
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
 #include "kid3application.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+#include <CoreFoundation/CFURL.h>
+#endif
 
 /** Collapse pixmap, will be allocated in constructor */
 QPixmap* Kid3Form::s_collapsePixmap = 0;
@@ -450,6 +453,15 @@ void Kid3Form::dropEvent(QDropEvent* ev)
     return;
   }
   QList<QUrl> urls = ev->mimeData()->urls();
+#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+  // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
+  for (QList<QUrl>::iterator it = urls.begin(); it != urls.end(); ++it) {
+    if (it->host().isEmpty() &&
+        it->path().startsWith(QLatin1String("/.file/id="))) {
+      *it = QUrl::fromCFURL(CFURLCreateFilePathURL(NULL, it->toCFURL(), NULL));
+    }
+  }
+#endif
   if (urls.isEmpty())
     return;
   if (
