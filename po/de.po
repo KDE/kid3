@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-17 17:41+0200\n"
+"POT-Creation-Date: 2014-08-20 20:43+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -406,8 +406,8 @@ msgstr "Speichern unter"
 msgid "directory to open"
 msgstr "Zu öffnendes Verzeichnis"
 
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3-Tagger"
+msgid "Audio Tag Editor"
+msgstr "Ein Editor für Audio-Tags"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -605,6 +605,9 @@ msgstr "Schalte Statusleiste um..."
 
 msgid "Ready."
 msgstr "Bereit."
+
+msgid "License"
+msgstr "Lizenz"
 
 msgid "&Clear List"
 msgstr "Liste &leeren"

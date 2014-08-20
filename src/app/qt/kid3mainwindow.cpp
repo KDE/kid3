@@ -529,6 +529,7 @@ void Kid3MainWindow::initActions()
   QAction* helpAbout = new QAction(this);
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
+  helpAbout->setIcon(QCM_QIcon_fromTheme("help-about"));
 #if QT_VERSION >= 0x040200
   helpAbout->setMenuRole(QAction::AboutRole);
 #endif
@@ -774,10 +775,18 @@ void Kid3MainWindow::slotHelpHandbook()
  */
 void Kid3MainWindow::slotHelpAbout()
 {
-  QMessageBox::about(
+    QMessageBox::about(
     this, QLatin1String("Kid3"),
-    QLatin1String("Kid3 " VERSION
-    "\n(c) 2003-" RELEASE_YEAR " Urs Fleisch\nufleisch@users.sourceforge.net"));
+    QLatin1String("<big><b>Kid3 " VERSION
+    "</b></big><br/><br/>") +
+    tr("Audio Tag Editor") +
+    QLatin1String("<br/><br/>(c) 2003-" RELEASE_YEAR
+    " <a href=\"mailto:ufleisch@users.sourceforge.net\">Urs Fleisch</a>"
+    "<br/><br/>"
+    "<a href=\"http://kid3.sourceforge.net/\">http://kid3.sourceforge.net</a><br/>") +
+    tr("License") +
+    QLatin1String(": <a href=\"http://www.gnu.org/licenses/licenses.html#GPL\">"
+    "GNU General Public License Version 2</a><br/> "));
 }
 
 /**

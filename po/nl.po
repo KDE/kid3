@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-17 17:41+0200\n"
+"POT-Creation-Date: 2014-08-20 20:43+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -405,8 +405,8 @@ msgstr "Opslaan als"
 msgid "directory to open"
 msgstr "Map te openen"
 
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Tagger"
+msgid "Audio Tag Editor"
+msgstr "Audio tag editor"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -604,6 +604,9 @@ msgstr "De statusbalk omschakelen..."
 
 msgid "Ready."
 msgstr "Gereed."
+
+msgid "License"
+msgstr "Licentie"
 
 msgid "&Clear List"
 msgstr "&Lijst opschonen"

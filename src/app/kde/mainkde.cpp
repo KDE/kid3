@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 {
   KAboutData aboutData(
     "kid3", "kdelibs4", ki18n("Kid3"),
-    VERSION, ki18n("Kid3 ID3 Tagger"), KAboutData::License_GPL,
+    VERSION, ki18n("Audio Tag Editor"), KAboutData::License_GPL,
     ki18n("(c) 2003-" RELEASE_YEAR " Urs Fleisch"), KLocalizedString(),
     "http://kid3.sourceforge.net",
     "ufleisch@users.sourceforge.net");
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 
   aboutData.setShortDescription(
         ki18n("%1").subs(QCoreApplication::translate("@default",
-            QT_TRANSLATE_NOOP("@default", "Kid3 ID3 Tagger"))));
+            QT_TRANSLATE_NOOP("@default", "Audio Tag Editor"))));
   aboutData.setTranslator(
         ki18n("%1").subs(QCoreApplication::translate("@default",
             // i18n NAME OF TRANSLATORS
