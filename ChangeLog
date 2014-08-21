@@ -1,4 +1,4 @@
-Son Aug 17 17:10:44 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Don Aug 21 19:06:09 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.1.1
 
@@ -22,6 +22,8 @@ Son Aug 17 17:10:44 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Removing of COMM, PRIV, TXXX, free form frames.
 	  + Windows: kid3-cli output redirection.
 	  + Mac OS X: Support case-sensitive filesystems.
+	  + Mac OS X: Fix drag'n'drop on OS X 10.10 Yosemite Preview.
+	  + Restore Ogg files if writing fails.
 	  + Format while editing for tag 2.
 	  + Support composer when importing from MusicBrainz.
 	  + Opening external links from handbook.

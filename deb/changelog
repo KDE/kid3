@@ -1,14 +1,15 @@
-kid3 (3.1.1~git20140817) unstable; urgency=low
-
-  * Internal test release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 17 Aug 2014 17:10:44 +0200
-
-kid3 (3.1-0) unstable; urgency=low
+kid3 (3.1.1-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 21 Apr 2014 09:34:23 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 21 Aug 2014 19:06:09 +0200
+
+kid3 (3.1-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Drop merged patch 01-desktop-keywords.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 05 May 2014 10:39:24 +0200
 
 kid3 (3.0.2-4) unstable; urgency=low
 
