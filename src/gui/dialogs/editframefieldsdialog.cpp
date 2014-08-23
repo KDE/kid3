@@ -1014,11 +1014,9 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   m_vlayout = new QVBoxLayout(this);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-             QSizePolicy::Minimum);
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
-  hlayout->addItem(hspacer);
+  QPushButton* okButton = new QPushButton(tr("&OK"));
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"));
+  hlayout->addStretch();
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
   okButton->setAutoDefault(false);
@@ -1050,15 +1048,13 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   m_fields = frame.getFieldList();
 
   // Remove all items, keep the last item.
-  QLayoutItem* lastItem = 0;
-  while (QLayoutItem* item = m_vlayout->takeAt(0)) {
-    if (lastItem) {
-      if (QWidget* widget = lastItem->widget()) {
+  for (int i = m_vlayout->count() - 2; i >= 0; --i) {
+    if (QLayoutItem* item = m_vlayout->takeAt(i)) {
+      if (QWidget* widget = item->widget()) {
         delete widget;
       }
-      delete lastItem;
+      delete item;
     }
-    lastItem = item;
   }
 
   qDeleteAll(m_fieldcontrols);
@@ -1171,13 +1167,9 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   }
 
   QListIterator<FieldControl*> it(m_fieldcontrols);
-  while (it.hasNext()) {
-    m_vlayout->addWidget(it.next()->createWidget(this));
-  }
-
-  // Restore the last item.
-  if (lastItem) {
-    m_vlayout->addItem(lastItem);
+  it.toBack();
+  while (it.hasPrevious()) {
+    m_vlayout->insertWidget(0, it.previous()->createWidget(this));
   }
 }
 
