@@ -786,7 +786,7 @@ void Kid3MainWindow::slotHelpAbout()
     "<a href=\"http://kid3.sourceforge.net/\">http://kid3.sourceforge.net</a><br/>") +
     tr("License") +
     QLatin1String(": <a href=\"http://www.gnu.org/licenses/licenses.html#GPL\">"
-    "GNU General Public License Version 2</a><br/> "));
+    "GNU General Public License</a><br/> "));
 }
 
 /**
