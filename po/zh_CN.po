@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2014-08-17 17:41+0200\n"
-"PO-Revision-Date: 2014-08-23 03:22+0800\n"
+"PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
 "Language: zh_CN\n"
@@ -51,7 +51,7 @@ msgid "%1 does not exist"
 msgstr "%1 不存在"
 
 msgid "Print the filename of the current working directory"
-msgstr "打印当前工作目录的文件名称"
+msgstr "打印当前工作路径"
 
 msgid "Directory list"
 msgstr "目录列表"
@@ -153,7 +153,7 @@ msgid "Rename directory"
 msgstr "更改目录名称"
 
 msgid "Number tracks"
-msgstr "音轨编号"
+msgstr "给音轨编号"
 
 msgid "Track number"
 msgstr "音轨编号"
@@ -201,22 +201,22 @@ msgid "URL"
 msgstr "网址"
 
 msgid "Tag numbers"
-msgstr "标签编号"
+msgstr "标签号"
 
 msgid "Frame name"
-msgstr ""
+msgstr "帧名称"
 
 msgid "Frame value"
-msgstr ""
+msgstr "帧值"
 
 msgid "Format"
 msgstr "格式"
 
 msgid "Command specific"
-msgstr "指令"
+msgstr "具体命令"
 
 msgid "Available Commands"
-msgstr "可用的指令"
+msgstr "可用的命令"
 
 msgid "File"
 msgstr "文件"
@@ -234,10 +234,10 @@ msgid "Tags"
 msgstr "标签"
 
 msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "未知的指令 '%1'。输入 'help' 可以阅读帮助信息。"
+msgstr "未知命令 '%1'。输入 'help' 可以阅读帮助信息。"
 
 msgid "Unknown command '%1', -h for help."
-msgstr "未知的指令 '%1', 或用 -h 求助."
+msgstr "未知命令 '%1'，使用参数 -h 可以阅读帮助信息。"
 
 msgid "Files"
 msgstr "文件"
@@ -461,7 +461,7 @@ msgid "Unknown"
 msgstr "未知"
 
 msgid "Use native system file &dialogs"
-msgstr "使用原始系统文件对话框(&D)"
+msgstr "使用系统原生的文件对话框(&D)"
 
 msgid "&Appearance"
 msgstr "外观配置(&A)"
@@ -476,7 +476,7 @@ msgid "&Cancel"
 msgstr "取消(&C)"
 
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "快捷键 '%1' 已经指定为 '%2 '。"
+msgstr "快捷键 '%1' 已经指定到 '%2 '。"
 
 msgid "&File"
 msgstr "文件(&F)"
@@ -623,7 +623,7 @@ msgid "Server"
 msgstr "服务器"
 
 msgid "Accuracy"
-msgstr "精度"
+msgstr "准确度"
 
 msgid "Standard Tags"
 msgstr "标准标签"
@@ -638,7 +638,7 @@ msgid "Invalid File"
 msgstr "无效的文件"
 
 msgid "Data received: %1"
-msgstr "接收 %1 资料中"
+msgstr "已接收的数据：%1"
 
 msgid "Request sent..."
 msgstr "发出连接请求..."
@@ -698,130 +698,130 @@ msgid "Rename file"
 msgstr "更改文件名称"
 
 msgid "padding (has no meaning)"
-msgstr ""
+msgstr "填充（无意义）"
 
 msgid "end of initial silence"
-msgstr ""
+msgstr "开头的沉默结束"
 
 msgid "intro start"
-msgstr ""
+msgstr "简介开始"
 
 msgid "main part start"
-msgstr ""
+msgstr "主体开始"
 
 msgid "outro start"
-msgstr ""
+msgstr "结尾开始"
 
 msgid "outro end"
-msgstr ""
+msgstr "结尾结束"
 
 msgid "verse start"
-msgstr ""
+msgstr "主歌开始"
 
 msgid "refrain start"
-msgstr ""
+msgstr "副歌开始"
 
 msgid "interlude start"
-msgstr ""
+msgstr "间奏开始"
 
 msgid "theme start"
-msgstr ""
+msgstr "主题开始"
 
 msgid "variation start"
-msgstr ""
+msgstr "变奏开始"
 
 msgid "key change"
-msgstr ""
+msgstr "转调"
 
 msgid "time change"
-msgstr ""
+msgstr "变拍"
 
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "瞬间的不期望的噪音（爆裂声）"
 
 msgid "sustained noise"
-msgstr ""
+msgstr "持续的噪音"
 
 msgid "sustained noise end"
-msgstr ""
+msgstr "持续的噪音结束"
 
 msgid "intro end"
-msgstr ""
+msgstr "简介结束"
 
 msgid "main part end"
-msgstr ""
+msgstr "主体结束"
 
 msgid "verse end"
-msgstr ""
+msgstr "主歌结束"
 
 msgid "refrain end"
-msgstr ""
+msgstr "副歌结束"
 
 msgid "theme end"
-msgstr ""
+msgstr "主题结束"
 
 msgid "profanity"
-msgstr ""
+msgstr "咒骂"
 
 msgid "profanity end"
-msgstr ""
+msgstr "咒骂结束"
 
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "未预先定义的同步 0"
 
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "未预先定义的同步 1"
 
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "未预先定义的同步 2"
 
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "未预先定义的同步 3"
 
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "未预先定义的同步 4"
 
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "未预先定义的同步 5"
 
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "未预先定义的同步 6"
 
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "未预先定义的同步 7"
 
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "未预先定义的同步 8"
 
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "未预先定义的同步 9"
 
 msgid "not predefined synch A"
-msgstr ""
+msgstr "未预先定义的同步 A"
 
 msgid "not predefined synch B"
-msgstr ""
+msgstr "未预先定义的同步 B"
 
 msgid "not predefined synch C"
-msgstr ""
+msgstr "未预先定义的同步 C"
 
 msgid "not predefined synch D"
-msgstr ""
+msgstr "未预先定义的同步 D"
 
 msgid "not predefined synch E"
-msgstr ""
+msgstr "未预先定义的同步 E"
 
 msgid "not predefined synch F"
-msgstr ""
+msgstr "未预先定义的同步 F"
 
 msgid "audio end (start of silence)"
-msgstr ""
+msgstr "音频结束（沉默开始）"
 
 msgid "audio file ends"
-msgstr ""
+msgstr "音频文件结束"
 
 msgid "reserved for future use %1"
-msgstr ""
+msgstr "预留为将来使用 %1"
 
 msgid "C&lear"
 msgstr "清除(&l)"
@@ -914,16 +914,16 @@ msgid "Genre"
 msgstr "流派"
 
 msgid "Album Artist"
-msgstr "专辑演唱(奏)者"
+msgstr "专辑艺人"
 
 msgid "Arranger"
-msgstr "编曲者"
+msgstr "曲作者"
 
 msgid "Author"
 msgstr "作者"
 
 msgid "BPM"
-msgstr "BPM"
+msgstr "每分钟节拍数"
 
 msgid "Catalog Number"
 msgstr "分类号码"
@@ -932,7 +932,7 @@ msgid "Compilation"
 msgstr "曲集"
 
 msgid "Composer"
-msgstr "作曲者"
+msgstr "曲作者"
 
 msgid "Conductor"
 msgstr "指挥"
@@ -953,10 +953,10 @@ msgid "Encoding Time"
 msgstr "编码时间"
 
 msgid "Grouping"
-msgstr "群组中"
+msgstr "组群中"
 
 msgid "Initial Key"
-msgstr ""
+msgstr "初始调性"
 
 msgid "ISRC"
 msgstr "ISRC"
@@ -974,22 +974,22 @@ msgid "Media"
 msgstr "媒体"
 
 msgid "Mood"
-msgstr "心情"
+msgstr "氛围"
 
 msgid "Original Album"
 msgstr "原专辑名称"
 
 msgid "Original Artist"
-msgstr "原演唱(奏)者"
+msgstr "原艺人"
 
 msgid "Original Date"
 msgstr "原出版日期"
 
 msgid "Part"
-msgstr "退出"
+msgstr "声部"
 
 msgid "Performer"
-msgstr "表演者"
+msgstr "演出者"
 
 msgid "Picture"
 msgstr "图片"
@@ -998,25 +998,25 @@ msgid "Publisher"
 msgstr "出版商"
 
 msgid "Release Country"
-msgstr "版本地区"
+msgstr "发行地区"
 
 msgid "Remixer"
 msgstr "混音"
 
 msgid "Sort Album"
-msgstr "排序专辑标题"
+msgstr "排序专辑"
 
 msgid "Sort Album Artist"
-msgstr "艺术家专辑排序"
+msgstr "排序专辑艺人"
 
 msgid "Sort Artist"
-msgstr "排序曲目演出者"
+msgstr "排序艺人"
 
 msgid "Sort Composer"
-msgstr "作曲家筛选秩序"
+msgstr "排序曲作者"
 
 msgid "Sort Name"
-msgstr "标题排序顺序"
+msgstr "排序名称"
 
 msgid "Subtitle"
 msgstr "字幕"
@@ -1025,10 +1025,10 @@ msgid "Website"
 msgstr "网站"
 
 msgid "WWW Audio File"
-msgstr ""
+msgstr "WWW 音频文件"
 
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "WWW 音频来源"
 
 msgid "Other"
 msgstr "其他"
@@ -1058,19 +1058,19 @@ msgid "Band/Orchestra"
 msgstr "乐团"
 
 msgid "Lyricist/text writer"
-msgstr "作词者"
+msgstr "词作者"
 
 msgid "Recording Location"
-msgstr "录製地点"
+msgstr "录制地点"
 
 msgid "During recording"
 msgstr "录音期间"
 
 msgid "During performance"
-msgstr "表演期间"
+msgstr "演出期间"
 
 msgid "Movie/video screen capture"
-msgstr "电影/影像萤幕撷取"
+msgstr "电影/视频屏幕捕获"
 
 msgid "A bright coloured fish"
 msgstr "明亮高彩鱼"
@@ -1091,7 +1091,7 @@ msgid "Extension"
 msgstr "副文件名"
 
 msgid "Bitrate"
-msgstr "Bitrate"
+msgstr "比特率"
 
 msgid "VBR"
 msgstr "VBR"
@@ -1103,16 +1103,16 @@ msgid "Channels"
 msgstr "频道"
 
 msgid "Codec"
-msgstr "Codec"
+msgstr "编解码"
 
 msgid "Escape for HTML"
-msgstr ""
+msgstr "HTML 转义符"
 
 msgid "Automatic Import"
 msgstr "自动导入"
 
 msgid "D&estination:"
-msgstr "目的(&E)："
+msgstr "目标(&E)："
 
 msgid "Tag 1 and Tag 2"
 msgstr "标签 1 与 标签 2"
@@ -1139,7 +1139,7 @@ msgid "&Server:"
 msgstr "服务器(&S)："
 
 msgid "&Accuracy:"
-msgstr "精度(&A)："
+msgstr "准确度(&A)："
 
 msgid "&Standard Tags"
 msgstr "标准标签(&S)"
@@ -1154,7 +1154,7 @@ msgid "Browse Cover Art"
 msgstr "浏览专辑封面"
 
 msgid "&Artist/Album"
-msgstr "演唱(奏)者/专辑(&A)"
+msgstr "艺人/专辑(&A)"
 
 msgid "&Source"
 msgstr "来源(&S)"
@@ -1169,7 +1169,7 @@ msgid "&URL extraction"
 msgstr "网址扩展(&U)"
 
 msgid "Match"
-msgstr "比对"
+msgstr "匹配"
 
 msgid "Picture URL"
 msgstr "图片网址"
@@ -1181,16 +1181,16 @@ msgid "Click Browse to start"
 msgstr "点击浏览开始"
 
 msgid "Then drag the picture from the browser to Kid3."
-msgstr "然后从浏览器把图片拖拽到 Kid3。"
+msgstr "然后从浏览器把图片拖放到 Kid3。"
 
 msgid "ID3v1"
 msgstr "ID3v1"
 
 msgid "&Mark truncated fields"
-msgstr "标记被截断的栏位(&M)"
+msgstr "标记被截断的字段(&M)"
 
 msgid "Text &encoding:"
-msgstr "编码(&E)："
+msgstr "文本编码(&E)："
 
 msgid "ID3v2"
 msgstr "ID3v2"
@@ -1214,7 +1214,7 @@ msgid "UTF8"
 msgstr "UTF8"
 
 msgid "&Version used for new tags:"
-msgstr "使用新标签版本(&V):"
+msgstr "新标签使用的版本(&V)："
 
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
@@ -1307,7 +1307,7 @@ msgid "A&vailable Plugins"
 msgstr "可用的插件(&V)"
 
 msgid "Changes take only effect after a restart!"
-msgstr "某些修改在重新启动后才会生效！"
+msgstr "修改在重启后才会生效！"
 
 msgid "From Clip&board"
 msgstr "从剪贴板(&b)"
@@ -1316,7 +1316,7 @@ msgid "&View..."
 msgstr "视图(&V)..."
 
 msgid "Text Encoding"
-msgstr "字符编码"
+msgstr "文本编码"
 
 msgid "Description"
 msgstr "描述"
@@ -1349,19 +1349,19 @@ msgid "Volume Adjustment"
 msgstr "音量调节"
 
 msgid "Number of Bits"
-msgstr "位元数"
+msgstr "比特数"
 
 msgid "Volume Change Right"
-msgstr ""
+msgstr "右声道音量修改"
 
 msgid "Volume Change Left"
-msgstr ""
+msgstr "左声道音量修改"
 
 msgid "Peak Volume Right"
-msgstr ""
+msgstr "右声道音量峰值"
 
 msgid "Peak Volume Left"
-msgstr ""
+msgstr "左声道音量峰值"
 
 msgid "Timestamp Format"
 msgstr "时间戳格式"
@@ -1388,19 +1388,19 @@ msgid "Milliseconds as unit"
 msgstr "以毫秒为单位"
 
 msgid "Text transcription"
-msgstr ""
+msgstr "文本扒带"
 
 msgid "Movement/part name"
-msgstr ""
+msgstr "乐章/声部名称"
 
 msgid "Events"
 msgstr "事件"
 
 msgid "Chord"
-msgstr ""
+msgstr "和弦"
 
 msgid "Trivia/pop up"
-msgstr ""
+msgstr "花絮/流行"
 
 msgid "Export"
 msgstr "导出"
@@ -1415,7 +1415,7 @@ msgid "&Tracks:"
 msgstr "曲目(&T)："
 
 msgid "F&ooter:"
-msgstr "页尾(&O)："
+msgstr "注脚(&O)："
 
 msgid "To F&ile..."
 msgstr "到文件(&i)..."
@@ -1472,13 +1472,13 @@ msgid "Select a&ll"
 msgstr "全部选中(&L)"
 
 msgid "Accuracy:"
-msgstr "精度："
+msgstr "准确度："
 
 msgid "Cover Art:"
 msgstr "封面："
 
 msgid "From F&ile/Clipboard..."
-msgstr "从文件或剪贴板导入(&i)..."
+msgstr "从文件或剪贴板(&i)..."
 
 msgid "From T&ags..."
 msgstr "从标签(&a)..."
@@ -1487,13 +1487,13 @@ msgid "&From Server..."
 msgstr "从服务器(&F)..."
 
 msgid "Check maximum allowable time &difference (sec):"
-msgstr "请勾选最大可允许的时间差异（单位为秒）(&D)："
+msgstr "勾选以限制允许的最大时间差（单位为秒）(&D)："
 
 msgid "Match with:"
 msgstr "匹配："
 
 msgid "&Length"
-msgstr "长度(&L)"
+msgstr "时长(&L)"
 
 msgid "T&rack"
 msgstr "音轨(&R)"
@@ -1580,7 +1580,7 @@ msgid "C&GI Path:"
 msgstr "CGI路径(&G)："
 
 msgid "Track Title/Artist - Album"
-msgstr "音轨标题/演出者 - 专辑标题"
+msgstr "音轨标题/艺人- 专辑"
 
 msgid "State"
 msgstr "状态"
@@ -1746,7 +1746,7 @@ msgid "Format while editing"
 msgstr "编辑时格式化"
 
 msgid "Validation"
-msgstr ""
+msgstr "验证"
 
 msgid "Case conversion:"
 msgstr "大小写转换："
@@ -1795,9 +1795,9 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
-"拖拽专辑\n"
-"图片\n"
-"至此"
+"拖放\n"
+"专辑图片\n"
+"到此处"
 
 msgid "Play/Pause"
 msgstr "播放/暂停"
@@ -1845,7 +1845,7 @@ msgid "&Seek to position"
 msgstr "搜索定位(&S)"
 
 msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
+msgstr "MusicBrainz 指纹"
 
 msgid "Unrecognized"
 msgstr "未识别"
@@ -1854,13 +1854,13 @@ msgid "Recognized"
 msgstr "已识别"
 
 msgid "User Selection"
-msgstr "使用者选择"
+msgstr "用户选择"
 
 msgid "ID Lookup"
-msgstr ""
+msgstr "ID 查找"
 
 msgid "Fingerprint"
-msgstr "Fingerprint"
+msgstr "指纹"
 
 msgid "Metadata Lookup"
 msgstr "元数据查找"
@@ -1893,70 +1893,70 @@ msgid "ENCR - Encryption method registration"
 msgstr "ENCR - 加密方法注册"
 
 msgid "EQUA - Equalization"
-msgstr "EQUA - 等化"
+msgstr "EQUA - 均衡"
 
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO - 事件时间码"
 
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB - 通用封装对象"
 
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID - 组标识注册"
 
 msgid "IPLS - Involved people list"
-msgstr ""
+msgstr "IPLS - 涉及人员名单"
 
 msgid "LINK - Linked information"
-msgstr "LINK - 连结资讯"
+msgstr "LINK - 链接信息"
 
 msgid "MCDI - Music CD identifier"
-msgstr "MCDI - 音乐光碟识别"
+msgstr "MCDI - 音乐光碟标识符"
 
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG 位置查询表"
 
 msgid "OWNE - Ownership frame"
-msgstr ""
+msgstr "OWNE - 所有权帧"
 
 msgid "PRIV - Private frame"
-msgstr ""
+msgstr "PRIV - 私有帧"
 
 msgid "PCNT - Play counter"
 msgstr "PCNT - 播放计数器"
 
 msgid "POPM - Popularimeter"
-msgstr ""
+msgstr "POPM - 流行度"
 
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - 位置同步帧"
 
 msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - 建议缓衝器大小"
+msgstr "RBUF - 推荐缓冲区大小"
 
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD - 相对音量调节"
 
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB - 混响"
 
 msgid "SYLT - Synchronized lyric/text"
-msgstr ""
+msgstr "SYLT - 同步的歌词/文本"
 
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC - 同步的节拍码"
 
 msgid "TALB - Album/Movie/Show title"
-msgstr ""
+msgstr "TALB - 专辑/电影/节目秀标题"
 
 msgid "TBPM - BPM (beats per minute)"
-msgstr ""
+msgstr "TBPM - 每分钟节拍数"
 
 msgid "TCOM - Composer"
-msgstr ""
+msgstr "TCOM - 曲作者"
 
 msgid "TCON - Content type"
-msgstr ""
+msgstr "TCON - 内容类型"
 
 msgid "TCOP - Copyright message"
 msgstr "TCOP - 版权信息"
@@ -1986,76 +1986,76 @@ msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - 标题/歌名/内容描述"
 
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 - 字幕/描述细化"
 
 msgid "TKEY - Initial key"
-msgstr ""
+msgstr "TKEY - 初始调性"
 
 msgid "TLAN - Language(s)"
 msgstr "TLAN - 语言"
 
 msgid "TLEN - Length"
-msgstr "TLEN - 长度"
+msgstr "TLEN - 时长"
 
 msgid "TMED - Media type"
 msgstr "TMED - 媒体类型"
 
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL - 原专辑/电影/节目秀标题"
 
 msgid "TOFN - Original filename"
-msgstr "TOFN - 原始文件名"
+msgstr "TOFN - 原文件名"
 
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - 原始词作者"
+msgstr "TOLY - 原词作者"
 
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - 原始演出者"
+msgstr "TOPE - 原演出者"
 
 msgid "TORY - Original release year"
-msgstr "TORY - 原始发行年份"
+msgstr "TORY - 原发行年份"
 
 msgid "TOWN - File owner/licensee"
-msgstr "TOWN - 文件拥有者/授权者"
+msgstr "TOWN - 文件属主/许可"
 
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - 首席表演者/独唱者"
+msgstr "TPE1 - 首席演出者/独唱者"
 
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - 乐团"
 
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 - 指挥/演出者细化"
 
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
+msgstr "TPE4 - 创作、混音或其他修改于"
 
 msgid "TPOS - Part of a set"
-msgstr ""
+msgstr "TPOS - 组声部"
 
 msgid "TPUB - Publisher"
-msgstr "TPUB - 发行者"
+msgstr "TPUB - 出版商"
 
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - 音轨编号/位置"
 
 msgid "TRDA - Recording dates"
-msgstr "TRDA - 录製日期"
+msgstr "TRDA - 录制日期"
 
 msgid "TRSN - Internet radio station name"
-msgstr ""
+msgstr "TRSN - 网络电台名称"
 
 msgid "TRSO - Internet radio station owner"
-msgstr ""
+msgstr "TRSO - 网络电台属主"
 
 msgid "TSIZ - Size"
 msgstr "TSIZ - 大小"
 
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC - ISRC（国际标准音像制品编码）"
 
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - 用于编码的软硬体配置"
+msgstr "TSSE - 用于编码的软硬件配置"
 
 msgid "TXXX - User defined text information"
 msgstr "TXXX - 用户定义的文本信息"
@@ -2064,49 +2064,49 @@ msgid "TYER - Year"
 msgstr "TYER - 年份"
 
 msgid "UFID - Unique file identifier"
-msgstr ""
+msgstr "UFID - 唯一的文件标识"
 
 msgid "USER - Terms of use"
-msgstr ""
+msgstr "USER - 使用条款"
 
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT - 未同步的歌词/文本扒带"
 
 msgid "WCOM - Commercial information"
 msgstr "WCOM - 商业信息"
 
 msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - 版权信息"
+msgstr "WCOP - 版权/法律信息"
 
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - 正式音频文件网页"
+msgstr "WOAF - 官方音频文件网页"
 
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - 正式演出者网页"
+msgstr "WOAR - 官方艺人/演出者网页"
 
 msgid "WOAS - Official audio source webpage"
-msgstr ""
+msgstr "WOAS - 官方音频源网页"
 
 msgid "WORS - Official internet radio station homepage"
-msgstr ""
+msgstr "WORS - 官方网络电台主页"
 
 msgid "WPAY - Payment"
-msgstr ""
+msgstr "WPAY - 报酬"
 
 msgid "WPUB - Official publisher webpage"
-msgstr ""
+msgstr "WPUB - 出版商官方网页"
 
 msgid "WXXX - User defined URL link"
-msgstr ""
+msgstr "WXXX - 用户定义的URL链接"
 
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz Release"
 
 msgid "ASPI - Audio seek point index"
-msgstr "ASPI - 音频搜寻点索引"
+msgstr "ASPI - 音频搜索点索引"
 
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 - 均衡 (2)"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 相对音量调整 (2)"
@@ -2118,13 +2118,13 @@ msgid "SIGN - Signature frame"
 msgstr "SIGN - 签名帧"
 
 msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes的编译"
+msgstr "TCMP - iTunes 编译标识"
 
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 编码时间"
 
 msgid "TDOR - Original release time"
-msgstr "TDOR - 原始发行时间"
+msgstr "TDOR - 原发行时间"
 
 msgid "TDRC - Recording time"
 msgstr "TDRC - 录音时间"
@@ -2142,27 +2142,27 @@ msgid "TMCL - Musician credits list"
 msgstr "TMCL - 音乐志谢列表"
 
 msgid "TMOO - Mood"
-msgstr ""
+msgstr "TMOO - 氛围"
 
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - 生产注意"
 
 msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - 艺术家专辑排序"
+msgstr "TSO2 - 专辑艺人排序顺序"
 
 msgid "TSOA - Album sort order"
-msgstr ""
+msgstr "TSOA - 专辑排序顺序"
 
 msgid "TSOC - Composer sort order"
-msgstr "TSOC - 作曲家筛选秩序"
+msgstr "TSOC - 曲作者排序顺序"
 
 msgid "TSOP - Performer sort order"
-msgstr ""
+msgstr "TSOP - 演出者排序顺序"
 
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 标题排序顺序"
 
 msgid "TSST - Set subtitle"
-msgstr "TSST - 配置字幕"
+msgstr "TSST - 设置字幕"
 
 
