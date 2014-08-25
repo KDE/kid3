@@ -610,7 +610,7 @@ public:
    *
    * @return true if filename was changed.
    */
-  bool isFilenameChanged() const { return m_changedFilename; }
+  bool isFilenameChanged() const { return m_newFilename != m_filename; }
 
   /**
    * Get absolute filename.
@@ -759,7 +759,7 @@ protected:
    * Get current filename.
    * @return existing name.
    */
-  QString currentFilename() const;
+  QString currentFilename() const { return m_filename; }
 
   /**
    * Get current path to file.
@@ -833,6 +833,8 @@ private:
 
   /** Index of file in model */
   QPersistentModelIndex m_index;
+  /** File name */
+  QString m_filename;
   /** New file name */
   QString m_newFilename;
   /** changed tag 1 frame types */
@@ -845,8 +847,6 @@ private:
   bool m_changedV1;
   /** true if ID3v2 tags were changed */
   bool m_changedV2;
-  /** true if filename was changed */
-  bool m_changedFilename;
   /** true if tagged file is modified */
   bool m_modified;
 };

@@ -42,12 +42,13 @@
  */
 TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
   m_index(idx), m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
-  m_changedV1(false), m_changedV2(false), m_changedFilename(false),
+  m_changedV1(false), m_changedV2(false),
   m_modified(false)
 {
   Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
   if (const FileProxyModel* model = getFileProxyModel()) {
     m_newFilename = model->fileName(m_index);
+    m_filename = m_newFilename;
   }
 }
 
@@ -89,20 +90,7 @@ QString TaggedFile::getDirname() const
 void TaggedFile::setFilename(const QString& fn)
 {
   m_newFilename = fn;
-  m_changedFilename = m_newFilename != currentFilename();
   updateModifiedState();
-}
-
-/**
- * Get current filename.
- * @return existing name.
- */
-QString TaggedFile::currentFilename() const
-{
-  if (const FileProxyModel* model = getFileProxyModel()) {
-    return model->fileName(m_index);
-  }
-  return QString();
 }
 
 /**
@@ -351,7 +339,7 @@ QString TaggedFile::getAbsFilename() const
  */
 void TaggedFile::markFilenameUnchanged()
 {
-  m_changedFilename = false;
+  m_filename = m_newFilename;
   updateModifiedState();
 }
 
@@ -415,7 +403,7 @@ void TaggedFile::setChangedFramesV2(quint64 mask) {
 
 void TaggedFile::updateModifiedState()
 {
-  bool modified = m_changedV1 || m_changedV2 || m_changedFilename;
+  bool modified = m_changedV1 || m_changedV2 || m_newFilename != m_filename;
   if (m_modified != modified) {
     m_modified = modified;
     if (const FileProxyModel* model = getFileProxyModel()) {
