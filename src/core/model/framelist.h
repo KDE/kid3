@@ -38,7 +38,7 @@ class IFrameEditor;
 /**
  * List of frames.
  */
-class FrameList : public QObject {
+class KID3_CORE_EXPORT FrameList : public QObject {
   Q_OBJECT
 public:
   /**
@@ -53,6 +53,13 @@ public:
    * Destructor.
    */
   virtual ~FrameList();
+
+  /**
+   * Set editor for frames.
+   *
+   * @param frameEditor frame editor
+   */
+  void setFrameEditor(IFrameEditor* frameEditor);
 
   /**
    * Set tagged file.
@@ -78,18 +85,20 @@ public:
    * Let the user select and edit a frame type and then edit the frame.
    * Add the frame if the edits are accepted.
    * frameEdited() is emitted with the added frame.
-   *
-   * @param frameEditor frame editor
    */
-  void selectAddAndEditFrame(IFrameEditor* frameEditor);
+  void selectAddAndEditFrame();
 
   /**
    * Add and edit a new frame.
    * frameEdited() is emitted with the added frame.
-   *
-   * @param frameEditor editor for frame fields
    */
-  void addAndEditFrame(IFrameEditor* frameEditor);
+  void addAndEditFrame();
+
+  /**
+   * Edit the current frame.
+   * The frame and its file have to be set using setFrame() and setTaggedFile().
+   */
+  void editFrame();
 
   /**
    * Paste the selected frame from the copy buffer.
@@ -133,6 +142,15 @@ public:
   bool selectByName(const QString& name);
 
   /**
+   * Select a frame by row number in the frame table.
+   *
+   * @param row row of frame
+   *
+   * @return true if a frame could be selected.
+   */
+  Q_INVOKABLE bool selectByRow(int row);
+
+  /**
    * Get ID of selected frame list item.
    *
    * @return ID of selected item,
@@ -149,12 +167,21 @@ public:
 
 signals:
   /**
-   * Emitted when the dialog to add and edit a frame is closed.
+   * Emitted when the dialog to add and edit a frame is closed and an
+   * existing frame was edited.
    * @param frame edited frame if dialog was accepted, else 0
    */
   void frameEdited(const Frame* frame);
 
+  /**
+   * Emitted when the dialog to add and edit a frame is closed and a new
+   * frame was added.
+   * @param frame edited frame if dialog was accepted, else 0
+   */
+  void frameAdded(const Frame* frame);
+
 private slots:
+  void onFrameSelected(const Frame* frame);
   void onFrameEdited(const Frame* frame);
 
 private:
@@ -189,6 +216,8 @@ private:
   quint64 m_oldChangedFrames;
   /** File containing tags */
   TaggedFile* m_taggedFile;
+  /** Editor for frames */
+  IFrameEditor* m_frameEditor;
   /** Frame used to add, edit and paste */
   Frame m_frame;
 
@@ -197,6 +226,9 @@ private:
 
   int m_cursorRow;
   int m_cursorColumn;
+
+  /** true while a frame is added */
+  bool m_addingFrame;
 };
 
 #endif // FRAMELIST_H

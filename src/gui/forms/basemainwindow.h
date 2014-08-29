@@ -100,21 +100,20 @@ public:
 
   /**
    * Let user select a frame type.
+   * frameSelected() is emitted when the edit dialog is closed with the selected
+   * frame as a parameter if a frame is selected.
    *
-   * @param frame is filled with the selected frame if true is returned
+   * @param frame is filled with the selected frame
    * @param taggedFile tagged file for which frame has to be selected
-   *
-   * @return false if no frame selected.
    */
-  virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
+  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile);
 
   /**
-   * Return object which emits frameEdited() signal.
+   * Return object which emits frameSelected(), frameEdited() signals.
    *
-   * @return object which emits frameEdited() when dialog is closed, its
-   * parameter is true if the dialog is accepted.
+   * @return object which emits signals.
    */
-  virtual QObject* frameEditedEmitter();
+  virtual QObject* qobject();
 
   /**
    * Set back pointer for implementation class.
@@ -321,6 +320,12 @@ signals:
    */
   void frameEdited(const Frame* frame);
 
+  /**
+   * Emitted when the dialog to select a frame is closed.
+   * @param frame selected frame if dialog was accepted, else 0
+   */
+  void frameSelected(const Frame* frame);
+
 private slots:
   /**
    * Update ID3v2 tags in GUI controls from file displayed in frame list.
@@ -476,7 +481,7 @@ private:
  * already a QObject), most of its functionality is delegated to a QObject
  * implementation class.
  */
-class KID3_GUI_EXPORT BaseMainWindow : public IFrameEditor {
+class KID3_GUI_EXPORT BaseMainWindow {
 public:
   /**
    * Constructor.
@@ -534,36 +539,6 @@ public:
    * @param modified true if any file is modified
    */
   virtual void setWindowCaption(const QString& caption, bool modified) = 0;
-
-  /**
-   * Create dialog to edit a frame and update the fields
-   * if Ok is returned.
-   * frameEdited() is emitted when the edit dialog is closed with the edited
-   * frame as a parameter if it was accepted.
-   *
-   * @param frame frame to edit
-   * @param taggedFile tagged file where frame has to be set
-   */
-  virtual void editFrameOfTaggedFile(const Frame* frame,
-                                     TaggedFile* taggedFile);
-
-  /**
-   * Let user select a frame type.
-   *
-   * @param frame is filled with the selected frame if true is returned
-   * @param taggedFile tagged file for which frame has to be selected
-   *
-   * @return false if no frame selected.
-   */
-  virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
-
-  /**
-   * Return object which emits frameEdited() signal.
-   *
-   * @return object which emits frameEdited() when dialog is closed, its
-   * parameter is the edited frame the dialog is accepted.
-   */
-  virtual QObject* frameEditedEmitter();
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**

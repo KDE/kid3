@@ -57,21 +57,20 @@ public:
 
   /**
    * Let user select a frame type.
+   * frameSelected() is emitted when the edit dialog is closed with the selected
+   * frame as a parameter if a frame is selected.
    *
-   * @param frame is filled with the selected frame if true is returned
+   * @param frame is filled with the selected frame
    * @param taggedFile tagged file for which frame has to be selected
-   *
-   * @return false if no frame selected.
    */
-  virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile) = 0;
+  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile) = 0;
 
   /**
-   * Return object which emits frameEdited() signal.
+   * Return object which emits frameSelected(), frameEdited() signals.
    *
-   * @return object which emits frameEdited() when dialog is closed, its
-   * parameter is the edited frame if the dialog is accepted.
+   * @return object which emits signals.
    */
-  virtual QObject* frameEditedEmitter() = 0;
+  virtual QObject* qobject() = 0;
 };
 
 #endif // IFRAMEEDITOR_H

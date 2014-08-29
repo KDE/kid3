@@ -37,8 +37,9 @@
  * @param selModel item selection model
  */
 FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
-  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(0), m_frameTableModel(ftm),
-  m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
+  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(0), m_frameEditor(0),
+  m_frameTableModel(ftm), m_selectionModel(selModel),
+  m_cursorRow(-1), m_cursorColumn(-1), m_addingFrame(false)
 {
   setObjectName(QLatin1String("FrameList"));
 }
@@ -113,8 +114,19 @@ QString FrameList::getSelectedName() const
  */
 bool FrameList::selectByName(const QString& name)
 {
-  int row = m_frameTableModel->getRowWithFrameName(name);
-  if (row < 0)
+  return selectByRow(m_frameTableModel->getRowWithFrameName(name));
+}
+
+/**
+ * Select a frame by row number in the frame table.
+ *
+ * @param row row of frame
+ *
+ * @return true if a frame could be selected.
+ */
+bool FrameList::selectByRow(int row)
+{
+  if (row < 0 || row >= m_frameTableModel->rowCount())
     return false;
 
   m_selectionModel->setCurrentIndex(m_frameTableModel->index(row, 0),
@@ -153,47 +165,90 @@ bool FrameList::deleteFrame()
 }
 
 /**
- * Let the user select and edit a frame type and then edit the frame.
- * Add the frame if the edits are accepted.
- * frameEdited() is emitted with the added frame.
+ * Set editor for frames.
  *
  * @param frameEditor frame editor
  */
-void FrameList::selectAddAndEditFrame(IFrameEditor* frameEditor)
+void FrameList::setFrameEditor(IFrameEditor* frameEditor)
 {
-  if (m_taggedFile) {
-    Frame frame;
-    if (frameEditor->selectFrame(&frame, m_taggedFile)) {
-      m_frame = frame;
-      addAndEditFrame(frameEditor);
-      return;
+  if (m_frameEditor != frameEditor) {
+    if (m_frameEditor) {
+      QObject* obj = m_frameEditor->qobject();
+      disconnect(obj, SIGNAL(frameSelected(const Frame*)),
+                 this, SLOT(onFrameSelected(const Frame*)));
+      disconnect(obj, SIGNAL(frameEdited(const Frame*)),
+                 this, SLOT(onFrameEdited(const Frame*)));
+    }
+    m_frameEditor = frameEditor;
+    if (m_frameEditor) {
+      QObject* obj = m_frameEditor->qobject();
+      connect(obj, SIGNAL(frameSelected(const Frame*)),
+              this, SLOT(onFrameSelected(const Frame*)));
+      connect(obj, SIGNAL(frameEdited(const Frame*)),
+              this, SLOT(onFrameEdited(const Frame*)));
     }
   }
-  emit frameEdited(0);
+}
+
+/**
+ * Let the user select and edit a frame type and then edit the frame.
+ * Add the frame if the edits are accepted.
+ * frameEdited() is emitted with the added frame.
+ */
+void FrameList::selectAddAndEditFrame()
+{
+  if (m_taggedFile && m_frameEditor) {
+    m_addingFrame = true;
+    m_frameEditor->selectFrame(&m_frame, m_taggedFile);
+  } else {
+    emit frameAdded(0);
+  }
+}
+
+/**
+ * Called when the frame is selected.
+ * @param frame selected frame, 0 if none selected.
+ */
+void FrameList::onFrameSelected(const Frame* frame)
+{
+  if (frame) {
+    addAndEditFrame();
+  } else {
+    emit frameAdded(0);
+  }
 }
 
 /**
  * Add and edit a new frame.
  * frameEdited() is emitted with the added frame.
- *
- * @param frameEditor editor for frame fields
  */
-void FrameList::addAndEditFrame(IFrameEditor* frameEditor)
+void FrameList::addAndEditFrame()
 {
   if (m_taggedFile) {
     m_oldChangedFrames = m_taggedFile->getChangedFramesV2();
     if (!m_taggedFile->addFrameV2(m_frame)) {
-      emit frameEdited(0);
-    } else if (frameEditor) {
-      connect(frameEditor->frameEditedEmitter(),
-              SIGNAL(frameEdited(const Frame*)),
-              this, SLOT(onFrameEdited(const Frame*)), Qt::UniqueConnection);
-      frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
+      emit frameAdded(0);
+    } else if (m_frameEditor) {
+      m_addingFrame = true;
+      m_frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
     } else {
+      m_addingFrame = true;
       onFrameEdited(&m_frame);
     }
   } else {
-    emit frameEdited(0);
+    emit frameAdded(0);
+  }
+}
+
+/**
+ * Edit the current frame.
+ * The frame and its file have to be set using setFrame() and setTaggedFile().
+ */
+void FrameList::editFrame()
+{
+  if (m_frameEditor) {
+    m_addingFrame = false;
+    m_frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
   }
 }
 
@@ -203,13 +258,6 @@ void FrameList::addAndEditFrame(IFrameEditor* frameEditor)
  */
 void FrameList::onFrameEdited(const Frame* frame)
 {
-  if (QObject* emitter = sender()) {
-    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
-    {
-      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-                 this, SLOT(onFrameEdited(const Frame*)));
-    }
-  }
   if (frame) {
     int index = frame->getIndex();
     setModelFromTaggedFile();
@@ -217,10 +265,16 @@ void FrameList::onFrameEdited(const Frame* frame)
       setSelectedId(index);
     }
   } else {
-    m_taggedFile->deleteFrameV2(m_frame);
-    m_taggedFile->setChangedFramesV2(m_oldChangedFrames);
+    if (m_addingFrame) {
+      m_taggedFile->deleteFrameV2(m_frame);
+      m_taggedFile->setChangedFramesV2(m_oldChangedFrames);
+    }
   }
-  emit frameEdited(frame);
+  if (m_addingFrame) {
+    emit frameAdded(frame);
+  } else {
+    emit frameEdited(frame);
+  }
 }
 
 /**

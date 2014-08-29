@@ -939,13 +939,13 @@ static Frame::Type getTypeFromTranslatedName(QString name)
 
 /**
  * Let user select a frame type.
+ * frameSelected() is emitted when the edit dialog is closed with the selected
+ * frame as a parameter if a frame is selected.
  *
- * @param frame is filled with the selected frame if true is returned
+ * @param frame is filled with the selected frame
  * @param taggedFile tagged file for which frame has to be selected
- *
- * @return false if no frame selected.
  */
-bool BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
+void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   bool ok = false;
   if (taggedFile && frame) {
@@ -957,16 +957,15 @@ bool BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
       *frame = Frame(type, QLatin1String(""), name, -1);
     }
   }
-  return ok;
+  emit frameSelected(ok ? frame : 0);
 }
 
 /**
- * Return object which emits frameEdited() signal.
+ * Return object which emits frameSelected(), frameEdited() signals.
  *
- * @return object which emits frameEdited() when dialog is closed, its
- * parameter is the edited frame if the dialog is accepted.
+ * @return object which emits signals.
  */
-QObject* BaseMainWindowImpl::frameEditedEmitter()
+QObject* BaseMainWindowImpl::qobject()
 {
   return this;
 }
@@ -1256,45 +1255,6 @@ BaseMainWindow::~BaseMainWindow()
 void BaseMainWindow::init()
 {
   m_impl->init();
-}
-
-/**
- * Let user select a frame type.
- *
- * @param frame is filled with the selected frame if true is returned
- * @param taggedFile tagged file for which frame has to be selected
- *
- * @return false if no frame selected.
- */
-bool BaseMainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
-{
-  return m_impl->selectFrame(frame, taggedFile);
-}
-
-/**
- * Return object which emits frameEdited() signal.
- *
- * @return object which emits frameEdited() when dialog is closed, its
- * parameter is the edited frame if the dialog is accepted.
- */
-QObject* BaseMainWindow::frameEditedEmitter()
-{
-  return m_impl;
-}
-
-/**
- * Create dialog to edit a frame and update the fields
- * if Ok is returned.
- * frameEdited() is emitted when the edit dialog is closed with the edited
- * frame as a parameter if it was accepted.
- *
- * @param frame frame to edit
- * @param taggedFile tagged file where frame has to be set
- */
-void BaseMainWindow::editFrameOfTaggedFile(const Frame* frame,
-                                           TaggedFile* taggedFile)
-{
-  m_impl->editFrameOfTaggedFile(frame, taggedFile);
 }
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000

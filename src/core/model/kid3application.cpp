@@ -153,6 +153,11 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   connect(m_fileProxyModel, SIGNAL(modifiedChanged(bool)),
           this, SIGNAL(modifiedChanged(bool)));
 
+  connect(m_framelist, SIGNAL(frameEdited(const Frame*)),
+          this, SLOT(onFrameEdited(const Frame*)));
+  connect(m_framelist, SIGNAL(frameAdded(const Frame*)),
+          this, SLOT(onFrameAdded(const Frame*)));
+
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
 
@@ -1495,20 +1500,17 @@ void Kid3Application::updateCurrentSelection()
 
 /**
  * Edit selected frame.
- *
- * @param frameEditor editor for frame fields
  */
-void Kid3Application::editFrame(IFrameEditor* frameEditor)
+void Kid3Application::editFrame()
 {
   emit fileSelectionUpdateRequested();
   m_editFrameTaggedFile = getSelectedFile();
   if (const Frame* selectedFrame = frameModelV2()->getFrameOfIndex(
         getFramesV2SelectionModel()->currentIndex())) {
     if (m_editFrameTaggedFile) {
-      connect(frameEditor->frameEditedEmitter(),
-              SIGNAL(frameEdited(const Frame*)),
-              this, SLOT(onFrameEdited(const Frame*)), Qt::UniqueConnection);
-      frameEditor->editFrameOfTaggedFile(selectedFrame, m_editFrameTaggedFile);
+      m_framelist->setTaggedFile(m_editFrameTaggedFile);
+      m_framelist->setFrame(*selectedFrame);
+      m_framelist->editFrame();
     } else {
       // multiple files selected
       // Get the first selected file by using a temporary iterator.
@@ -1518,11 +1520,8 @@ void Kid3Application::editFrame(IFrameEditor* frameEditor)
         m_framelist->setTaggedFile(firstFile);
         m_editFrameName = m_framelist->getSelectedName();
         if (!m_editFrameName.isEmpty()) {
-          connect(frameEditor->frameEditedEmitter(),
-                  SIGNAL(frameEdited(const Frame*)),
-                  this, SLOT(onFrameEdited(const Frame*)),
-                  Qt::UniqueConnection);
-          frameEditor->editFrameOfTaggedFile(selectedFrame, firstFile);
+          m_framelist->setFrame(*selectedFrame);
+          m_framelist->editFrame();
         }
       }
     }
@@ -1535,13 +1534,6 @@ void Kid3Application::editFrame(IFrameEditor* frameEditor)
  */
 void Kid3Application::onFrameEdited(const Frame* frame)
 {
-  if (QObject* emitter = sender()) {
-    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
-    {
-      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-                 this, SLOT(onFrameEdited(const Frame*)));
-    }
-  }
   if (!frame)
     return;
 
@@ -1626,10 +1618,10 @@ void Kid3Application::deleteFrame(const QString& frameName)
  * Select a frame type and add such a frame to frame list.
  *
  * @param frame frame to add, if 0 the user has to select and edit the frame
- * @param frameEditor editor for frame fields, if not null and a frame
- * is set, the user can edit the frame before it is added
+ * @param edit if true and a frame is set, the user can edit the frame before
+ * it is added
  */
-void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
+void Kid3Application::addFrame(const Frame* frame, bool edit)
 {
   emit fileSelectionUpdateRequested();
   TaggedFile* currentFile = 0;
@@ -1648,14 +1640,12 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
   }
 
   if (currentFile) {
-    if (frameEditor) {
-      connect(m_framelist, SIGNAL(frameEdited(const Frame*)),
-              this, SLOT(onFrameAdded(const Frame*)), Qt::UniqueConnection);
+    if (edit) {
       if (frame) {
         m_framelist->setFrame(*frame);
-        m_framelist->addAndEditFrame(frameEditor);
+        m_framelist->addAndEditFrame();
       } else {
-        m_framelist->selectAddAndEditFrame(frameEditor);
+        m_framelist->selectAddAndEditFrame();
       }
     } else {
       m_framelist->setFrame(*frame);
@@ -1670,13 +1660,6 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
  */
 void Kid3Application::onFrameAdded(const Frame* frame)
 {
-  if (QObject* emitter = sender()) {
-    if (emitter->metaObject()->indexOfSignal("frameEdited(const Frame*)") != -1)
-    {
-      disconnect(emitter, SIGNAL(frameEdited(const Frame*)),
-                 this, SLOT(onFrameAdded(const Frame*)));
-    }
-  }
   if (!frame)
     return;
 
@@ -1716,17 +1699,23 @@ void Kid3Application::onFrameAdded(const Frame* frame)
 }
 
 /**
- * Edit a picture frame if one exists or add a new one.
- *
- * @param frameEditor editor for frame fields
+ * Select a frame type and add such a frame to the frame list.
  */
-void Kid3Application::editOrAddPicture(IFrameEditor* frameEditor)
+void Kid3Application::selectAndAddFrame()
+{
+  addFrame(0, true);
+}
+
+/**
+ * Edit a picture frame if one exists or add a new one.
+ */
+void Kid3Application::editOrAddPicture()
 {
   if (m_framelist->selectByName(QLatin1String("Picture"))) {
-    editFrame(frameEditor);
+    editFrame();
   } else {
     PictureFrame frame;
-    addFrame(&frame, frameEditor);
+    addFrame(&frame, true);
   }
 }
 

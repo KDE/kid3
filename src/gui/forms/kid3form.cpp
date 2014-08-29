@@ -52,6 +52,7 @@
 #include "genres.h"
 #include "basemainwindow.h"
 #include "filelist.h"
+#include "framelist.h"
 #include "configurabletreeview.h"
 #include "picturelabel.h"
 #include "fileconfig.h"
@@ -108,9 +109,10 @@ class PictureDblClickHandler : public QObject
 public:
   /**
    * Constructor.
+   * @param app application
    */
-  PictureDblClickHandler(Kid3Application* app, IFrameEditor* frameEditor) :
-    QObject(app), m_app(app), m_frameEditor(frameEditor) {}
+  explicit PictureDblClickHandler(Kid3Application* app) :
+    QObject(app), m_app(app) {}
   virtual ~PictureDblClickHandler() {}
 
 protected:
@@ -126,7 +128,6 @@ protected:
 
 private:
   Kid3Application* m_app;
-  IFrameEditor* m_frameEditor;
 };
 
 /**
@@ -140,7 +141,7 @@ private:
 bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 {
   if (event->type() == QEvent::MouseButtonDblClick) {
-    m_app->editOrAddPicture(m_frameEditor);
+    m_app->editOrAddPicture();
     return true;
   } else {
     // standard event processing
@@ -170,6 +171,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
   setAcceptDrops(true);
   setWindowTitle(tr("Kid3"));
+
+  m_app->getFrameList()->setFrameEditor(m_mainWin);
 
   m_vSplitter = new QSplitter(Qt::Vertical, this);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
@@ -364,7 +367,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
   m_pictureLabel = new PictureLabel(this);
-  m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, m_mainWin));
+  m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app));
   buttonsV2VBoxLayout->addWidget(m_pictureLabel);
 
   buttonsV2VBoxLayout->addItem(
@@ -489,7 +492,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
  */
 void Kid3Form::editFrame()
 {
-  m_app->editFrame(m_mainWin);
+  m_app->editFrame();
 }
 
 /**
@@ -497,7 +500,7 @@ void Kid3Form::editFrame()
  */
 void Kid3Form::addFrame()
 {
-  m_app->addFrame(0, m_mainWin);
+  m_app->selectAndAddFrame();
 }
 
 /**

@@ -719,10 +719,8 @@ public slots:
 
   /**
    * Edit selected frame.
-   *
-   * @param frameEditor editor for frame fields
    */
-  void editFrame(IFrameEditor* frameEditor);
+  void editFrame();
 
   /**
    * Delete selected frame.
@@ -732,20 +730,14 @@ public slots:
   void deleteFrame(const QString& frameName = QString());
 
   /**
-   * Select a frame type and add such a frame to frame list.
-   *
-   * @param frame frame to add, if 0 the user has to select and edit the frame
-   * @param frameEditor editor for frame fields, if not null and a frame
-   * is set, the user can edit the frame before it is added
+   * Select a frame type and add such a frame to the frame list.
    */
-  void addFrame(const Frame* frame, IFrameEditor* frameEditor = 0);
+  void selectAndAddFrame();
 
   /**
    * Edit a picture frame if one exists or add a new one.
-   *
-   * @param frameEditor editor for frame fields
    */
-  void editOrAddPicture(IFrameEditor* frameEditor);
+  void editOrAddPicture();
 
   /**
    * Add a downloaded image.
@@ -1066,6 +1058,15 @@ private:
    * @param plugin instance returned by plugin loader
    */
   void checkPlugin(QObject* plugin);
+
+  /**
+   * Select a frame type and add such a frame to frame list.
+   *
+   * @param frame frame to add, if 0 the user has to select and edit the frame
+   * @param edit if true and a frame is set, the user can edit the frame before
+   * it is added
+   */
+  void addFrame(const Frame* frame, bool edit = false);
 
   ICorePlatformTools* m_platformTools;
   /** Configuration */
