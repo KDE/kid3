@@ -1638,11 +1638,11 @@ void Kid3Application::onFrameEdited(const Frame* frame)
            ++it) {
         if (it->getName() == m_editFrameName) {
           currentFile->deleteFrameV2(*it);
-          m_framelist->setTaggedFile(currentFile);
-          m_framelist->pasteFrame();
           break;
         }
       }
+      m_framelist->setTaggedFile(currentFile);
+      m_framelist->pasteFrame();
     }
     emit selectedFilesUpdated();
   }

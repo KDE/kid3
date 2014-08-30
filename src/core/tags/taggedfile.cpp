@@ -1133,8 +1133,10 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
             setFrameV2(myFrame);
           } else {
             // Such a frame does not exist, add a new one.
+            Frame addedFrame(*it);
+            addFrameV2(addedFrame);
             Frame myFrame(*it);
-            addFrameV2(myFrame);
+            myFrame.setIndex(addedFrame.getIndex());
             setFrameV2(myFrame);
           }
         }
