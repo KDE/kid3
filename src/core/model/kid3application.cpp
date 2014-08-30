@@ -2725,6 +2725,9 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
       Frame& frame = const_cast<Frame&>(*it);
       frame.setValueIfChanged(value);
       ft->transferFrames(frames);
+      ft->selectChangedFrames();
+      emit fileSelectionUpdateRequested();
+      emit selectedFilesUpdated();
     }
     return true;
   } else if (tagMask & 2) {
