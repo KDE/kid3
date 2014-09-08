@@ -32,6 +32,65 @@
 
 namespace {
 
+static const char* const fieldIdNames[] = {
+  "Unknown",
+  QT_TRANSLATE_NOOP("@default", "Text Encoding"),
+  QT_TRANSLATE_NOOP("@default", "Text"),
+  QT_TRANSLATE_NOOP("@default", "URL"),
+  QT_TRANSLATE_NOOP("@default", "Data"),
+  QT_TRANSLATE_NOOP("@default", "Description"),
+  QT_TRANSLATE_NOOP("@default", "Owner"),
+  QT_TRANSLATE_NOOP("@default", "Email"),
+  QT_TRANSLATE_NOOP("@default", "Rating"),
+  QT_TRANSLATE_NOOP("@default", "Filename"),
+  QT_TRANSLATE_NOOP("@default", "Language"),
+  QT_TRANSLATE_NOOP("@default", "Picture Type"),
+  QT_TRANSLATE_NOOP("@default", "Image format"),
+  QT_TRANSLATE_NOOP("@default", "Mimetype"),
+  QT_TRANSLATE_NOOP("@default", "Counter"),
+  QT_TRANSLATE_NOOP("@default", "Identifier"),
+  QT_TRANSLATE_NOOP("@default", "Volume Adjustment"),
+  QT_TRANSLATE_NOOP("@default", "Number of Bits"),
+  QT_TRANSLATE_NOOP("@default", "Volume Change Right"),
+  QT_TRANSLATE_NOOP("@default", "Volume Change Left"),
+  QT_TRANSLATE_NOOP("@default", "Peak Volume Right"),
+  QT_TRANSLATE_NOOP("@default", "Peak Volume Left"),
+  QT_TRANSLATE_NOOP("@default", "Timestamp Format"),
+  QT_TRANSLATE_NOOP("@default", "Content Type"),
+
+  QT_TRANSLATE_NOOP("@default", "Price"),
+  QT_TRANSLATE_NOOP("@default", "Date"),
+  QT_TRANSLATE_NOOP("@default", "Seller"),
+  0
+};
+
+static const char* const textEncodingNames[] = {
+  QT_TRANSLATE_NOOP("@default", "ISO-8859-1"),
+  QT_TRANSLATE_NOOP("@default", "UTF16"),
+  QT_TRANSLATE_NOOP("@default", "UTF16BE"),
+  QT_TRANSLATE_NOOP("@default", "UTF8"),
+  0
+};
+
+static const char* const timestampFormatNames[] = {
+  QT_TRANSLATE_NOOP("@default", "Other"),
+  QT_TRANSLATE_NOOP("@default", "MPEG frames as unit"),
+  QT_TRANSLATE_NOOP("@default", "Milliseconds as unit"),
+  0
+};
+
+static const char* const contentTypeNames[] = {
+  QT_TRANSLATE_NOOP("@default", "Other"),
+  QT_TRANSLATE_NOOP("@default", "Lyrics"),
+  QT_TRANSLATE_NOOP("@default", "Text transcription"),
+  QT_TRANSLATE_NOOP("@default", "Movement/part name"),
+  QT_TRANSLATE_NOOP("@default", "Events"),
+  QT_TRANSLATE_NOOP("@default", "Chord"),
+  QT_TRANSLATE_NOOP("@default", "Trivia/pop up"),
+  0
+};
+
+
 /**
  * Get name of frame from type.
  *
@@ -374,105 +433,150 @@ QVariant Frame::getField(const Frame& frame, Field::Id id)
   return result;
 }
 
-#ifndef QT_NO_DEBUG
 /**
- * Convert frame type to string.
+ * Get type of frame from translated name.
+ *
+ * @param translatedName name, spaces and case are ignored
+ *
+ * @return type.
+ */
+Frame::Type Frame::getTypeFromTranslatedName(const QString& translatedName)
+{
+  static QMap<QString, int> strNumMap;
+  if (strNumMap.empty()) {
+    // first time initialization
+    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+      Frame::Type type = static_cast<Frame::Type>(i);
+      strNumMap.insert(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName().
+                       remove(QLatin1Char(' ')).toUpper(), type);
+    }
+  }
+  QString name(translatedName);
+  QMap<QString, int>::const_iterator it =
+    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
+  if (it != strNumMap.end()) {
+    return static_cast<Frame::Type>(*it);
+  }
+  return Frame::FT_Other;
+}
+
+/**
+ * Get a translated string for a frame type.
+ *
  * @param type frame type
- * @return string representation of type.
+ *
+ * @return frame type, null string if unknown.
  */
-static const char* frameTypeToString(Frame::Type type)
+QString Frame::getFrameTypeName(Type type)
 {
-  static const char* const typeStr[] = {
-    "FT_Title",
-    "FT_Artist",
-    "FT_Album",
-    "FT_Comment",
-    "FT_Date",
-    "FT_Track",
-    "FT_Genre",
-    "FT_AlbumArtist",
-    "FT_Arranger",
-    "FT_Author",
-    "FT_Bpm",
-    "FT_CatalogNumber",
-    "FT_Compilation",
-    "FT_Composer",
-    "FT_Conductor",
-    "FT_Copyright",
-    "FT_Disc",
-    "FT_EncodedBy",
-    "FT_EncoderSettings",
-    "FT_EncodingTime",
-    "FT_Grouping",
-    "FT_InitialKey",
-    "FT_Isrc",
-    "FT_Language",
-    "FT_Lyricist",
-    "FT_Lyrics",
-    "FT_Media",
-    "FT_Mood",
-    "FT_OriginalAlbum",
-    "FT_OriginalArtist",
-    "FT_OriginalDate",
-    "FT_Part",
-    "FT_Performer",
-    "FT_Picture",
-    "FT_Publisher",
-    "FT_ReleaseCountry",
-    "FT_Remixer",
-    "FT_SortAlbum",
-    "FT_SortAlbumArtist",
-    "FT_SortArtist",
-    "FT_SortComposer",
-    "FT_SortName",
-    "FT_Subtitle",
-    "FT_Website",
-    "FT_WWWAudioFile",
-    "FT_WWWAudioSource",
-    "FT_Other",
-    "FT_UnknownFrame"
-  };
-  return type >= 0 && (unsigned)type <= sizeof(typeStr) / sizeof(typeStr[0]) ?
-    typeStr[type] : "ILLEGAL";
+  return QCoreApplication::translate("@default", getNameFromType(type));
+}
+
+
+/**
+ * Get a translated string for a field ID.
+ *
+ * @param type field ID type
+ *
+ * @return field ID type, null string if unknown.
+ */
+QString Frame::Field::getFieldIdName(Id type)
+{
+  struct not_used { int array_size_check[
+      sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2
+      ? 1 : -1 ]; };
+  if (type >= 0 &&
+      type < static_cast<int>(
+        sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) - 1)) {
+    return QCoreApplication::translate("@default", fieldIdNames[type]);
+  }
+  return QString();
 }
 
 /**
- * Convert field id to string.
- * @param id field id
- * @return string representation of id.
+ * List of field ID strings, NULL terminated.
  */
-static const char* fieldIdToString(int id)
+const char* const* Frame::Field::getFieldIdNames()
 {
-  static const char* const idStr[] = {
-    "ID_NoField",
-    "ID_TextEnc",
-    "ID_Text",
-    "ID_Url",
-    "ID_Data",
-    "ID_Description",
-    "ID_Owner",
-    "ID_Email",
-    "ID_Rating",
-    "ID_Filename",
-    "ID_Language",
-    "ID_PictureType",
-    "ID_ImageFormat",
-    "ID_MimeType",
-    "ID_Counter",
-    "ID_Id",
-    "ID_VolumeAdj",
-    "ID_NumBits",
-    "ID_VolChgRight",
-    "ID_VolChgLeft",
-    "ID_PeakVolRight",
-    "ID_PeakVolLeft",
-    "ID_TimestampFormat",
-    "ID_ContentType"
-  };
-  return id >= 0 && (unsigned)id <= sizeof(idStr) / sizeof(idStr[0]) ?
-    idStr[id] : "ILLEGAL";
+  return fieldIdNames;
 }
 
+/**
+ * Get a translated string for a text encoding.
+ *
+ * @param type text encoding type
+ *
+ * @return text encoding type, null string if unknown.
+ */
+QString Frame::Field::getTextEncodingName(TextEncoding type)
+{
+  if (type >= 0 &&
+      type < static_cast<int>(
+        sizeof(textEncodingNames) / sizeof(textEncodingNames[0]) - 1)) {
+    return QCoreApplication::translate("@default", textEncodingNames[type]);
+  }
+  return QString();
+}
+
+/**
+ * List of text encoding strings, NULL terminated.
+ */
+const char* const* Frame::Field::getTextEncodingNames()
+{
+  return textEncodingNames;
+}
+
+/**
+ * Get a translated string for a timestamp format.
+ *
+ * @param type timestamp format type
+ *
+ * @return timestamp format type, null string if unknown.
+ */
+QString Frame::Field::getTimestampFormatName(int type)
+{
+  if (type >= 0 &&
+      static_cast<unsigned int>(type) <
+      sizeof(timestampFormatNames) / sizeof(timestampFormatNames[0]) - 1) {
+    return QCoreApplication::translate("@default", timestampFormatNames[type]);
+  }
+  return QString();
+}
+
+/**
+ * List of timestamp format strings, NULL terminated.
+ */
+const char* const* Frame::Field::getTimestampFormatNames()
+{
+  return timestampFormatNames;
+}
+
+/**
+ * Get a translated string for a content type.
+ *
+ * @param type content type
+ *
+ * @return content type, null string if unknown.
+ */
+QString Frame::Field::getContentTypeName(int type)
+{
+  if (type >= 0 &&
+      static_cast<unsigned int>(type) <
+      sizeof(contentTypeNames) / sizeof(contentTypeNames[0]) - 1) {
+    return QCoreApplication::translate("@default", contentTypeNames[type]);
+  }
+  return QString();
+}
+
+/**
+ * List of content type strings, NULL terminated.
+ */
+const char* const* Frame::Field::getContentTypeNames()
+{
+  return contentTypeNames;
+}
+
+#ifndef QT_NO_DEBUG
 /**
  * Get string representation of variant.
  * @param val variant value
@@ -494,13 +598,15 @@ void Frame::dump() const
 {
   qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
          getInternalName().toLatin1().data(), m_value.toLatin1().data(),
-         frameTypeToString(getType()), m_index,
+         getNameFromType(getType()), m_index,
          m_valueChanged);
   qDebug("  fields=");
   for (FieldList::const_iterator it = m_fieldList.begin();
        it != m_fieldList.end();
        ++it) {
-    qDebug("  Field: id=%s, value=%s", fieldIdToString((*it).m_id),
+    qDebug("  Field: id=%s, value=%s",
+           qPrintable(
+             Field::getFieldIdName(static_cast<Field::Id>((*it).m_id))),
            variantToString((*it).m_value).toLatin1().data());
   }
 }

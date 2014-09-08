@@ -912,32 +912,6 @@ void BaseMainWindowImpl::updateAfterFrameModification(TaggedFile* taggedFile)
 }
 
 /**
- * Get type of frame from translated name.
- *
- * @param name name, spaces and case are ignored
- *
- * @return type.
- */
-static Frame::Type getTypeFromTranslatedName(QString name)
-{
-  static QMap<QString, int> strNumMap;
-  if (strNumMap.empty()) {
-    // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
-      Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName().
-                       remove(QLatin1Char(' ')).toUpper(), type);
-    }
-  }
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
-  if (it != strNumMap.end()) {
-    return static_cast<Frame::Type>(*it);
-  }
-  return Frame::FT_Other;
-}
-
-/**
  * Let user select a frame type.
  * frameSelected() is emitted when the edit dialog is closed with the selected
  * frame as a parameter if a frame is selected.
@@ -953,7 +927,7 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
       m_w, tr("Add Frame"),
       tr("Select the frame ID"), taggedFile->getFrameIds(), 0, true, &ok);
     if (ok) {
-      Frame::Type type = getTypeFromTranslatedName(name);
+      Frame::Type type = Frame::getTypeFromTranslatedName(name);
       *frame = Frame(type, QLatin1String(""), name, -1);
     }
   }

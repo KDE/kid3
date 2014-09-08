@@ -160,7 +160,7 @@ public:
    * @param parent parent widget
    * @param strlst list with ComboBox items, terminated by NULL
    */
-  LabeledComboBox(QWidget* parent, const char** strlst);
+  LabeledComboBox(QWidget* parent, const char* const* strlst);
 
   /**
    * Destructor.
@@ -300,7 +300,7 @@ LabeledLineEdit::~LabeledLineEdit()
  * @param strlst list with ComboBox items, terminated by NULL
  */
 LabeledComboBox::LabeledComboBox(QWidget* parent,
-         const char **strlst) : QWidget(parent)
+         const char* const* strlst) : QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledComboBox"));
   QVBoxLayout* layout = new QVBoxLayout(this);
@@ -375,14 +375,6 @@ public:
   virtual ~Mp3FieldControl();
 
 protected:
-  /**
-   * Get description for ID3_Field.
-   *
-   * @param id ID of field
-   * @return description or NULL if id unknown.
-   */
-  const char* getFieldIDString(Frame::Field::Id id) const;
-
   /** field */
   Frame::Field& m_field;
 };
@@ -505,7 +497,7 @@ public:
    * @param lst list of strings with possible selections, NULL terminated
    */
   IntComboBoxControl(Frame::Field& field,
-                     const char **lst) :
+                     const char* const* lst) :
     Mp3FieldControl(field), m_ptInp(0), m_strLst(lst) {}
 
   /**
@@ -531,7 +523,7 @@ protected:
   /** Combo box widget */
   LabeledComboBox* m_ptInp;
   /** List of strings with possible selections */
-  const char** m_strLst;
+  const char* const* m_strLst;
 };
 
 /** Control to import, export and view data from binary fields */
@@ -788,50 +780,6 @@ void BinaryOpenSave::viewData()
 }
 
 /**
- * Get description for ID3_Field.
- *
- * @param id ID of field
- * @return description or NULL if id unknown.
- */
-const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
-{
-  static const char* const idStr[] = {
-    "Unknown",
-    QT_TRANSLATE_NOOP("@default", "Text Encoding"),
-    QT_TRANSLATE_NOOP("@default", "Text"),
-    QT_TRANSLATE_NOOP("@default", "URL"),
-    QT_TRANSLATE_NOOP("@default", "Data"),
-    QT_TRANSLATE_NOOP("@default", "Description"),
-    QT_TRANSLATE_NOOP("@default", "Owner"),
-    QT_TRANSLATE_NOOP("@default", "Email"),
-    QT_TRANSLATE_NOOP("@default", "Rating"),
-    QT_TRANSLATE_NOOP("@default", "Filename"),
-    QT_TRANSLATE_NOOP("@default", "Language"),
-    QT_TRANSLATE_NOOP("@default", "Picture Type"),
-    QT_TRANSLATE_NOOP("@default", "Image format"),
-    QT_TRANSLATE_NOOP("@default", "Mimetype"),
-    QT_TRANSLATE_NOOP("@default", "Counter"),
-    QT_TRANSLATE_NOOP("@default", "Identifier"),
-    QT_TRANSLATE_NOOP("@default", "Volume Adjustment"),
-    QT_TRANSLATE_NOOP("@default", "Number of Bits"),
-    QT_TRANSLATE_NOOP("@default", "Volume Change Right"),
-    QT_TRANSLATE_NOOP("@default", "Volume Change Left"),
-    QT_TRANSLATE_NOOP("@default", "Peak Volume Right"),
-    QT_TRANSLATE_NOOP("@default", "Peak Volume Left"),
-    QT_TRANSLATE_NOOP("@default", "Timestamp Format"),
-    QT_TRANSLATE_NOOP("@default", "Content Type"),
-
-    QT_TRANSLATE_NOOP("@default", "Price"),
-    QT_TRANSLATE_NOOP("@default", "Date"),
-    QT_TRANSLATE_NOOP("@default", "Seller")
-  };
-  struct not_used { int array_size_check[
-      sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_Seller + 1
-      ? 1 : -1 ]; };
-  return idStr[id <= Frame::Field::ID_Seller ? id : 0];
-}
-
-/**
  * Update field with data from dialog.
  */
 void TextFieldControl::updateTag()
@@ -851,8 +799,8 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
   if (m_edit == NULL)
     return NULL;
 
-  m_edit->setLabel(QCoreApplication::translate("@default",
-      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setLabel(Frame::Field::getFieldIdName(
+                     static_cast<Frame::Field::Id>(m_field.m_id)));
   m_edit->setText(m_field.m_value.toString());
   m_edit->setFocus();
   return m_edit;
@@ -875,8 +823,8 @@ void LineFieldControl::updateTag()
 QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
   m_edit = new LabeledLineEdit(parent);
-  m_edit->setLabel(QCoreApplication::translate("@default",
-      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setLabel(Frame::Field::getFieldIdName(
+                     static_cast<Frame::Field::Id>(m_field.m_id)));
   m_edit->setText(m_field.m_value.toString());
   return m_edit;
 }
@@ -898,8 +846,8 @@ void IntFieldControl::updateTag()
 QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
   m_numInp = new LabeledSpinBox(parent);
-  m_numInp->setLabel(QCoreApplication::translate("@default",
-      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_numInp->setLabel(Frame::Field::getFieldIdName(
+                       static_cast<Frame::Field::Id>(m_field.m_id)));
   m_numInp->setValue(m_field.m_value.toInt());
   return m_numInp;
 }
@@ -921,8 +869,8 @@ void IntComboBoxControl::updateTag()
 QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
   m_ptInp = new LabeledComboBox(parent, m_strLst);
-  m_ptInp->setLabel(QCoreApplication::translate("@default",
-      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_ptInp->setLabel(Frame::Field::getFieldIdName(
+                      static_cast<Frame::Field::Id>(m_field.m_id)));
   m_ptInp->setCurrentItem(m_field.m_value.toInt());
   return m_ptInp;
 }
@@ -946,8 +894,8 @@ void BinFieldControl::updateTag()
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
   m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
-  m_bos->setLabel(QCoreApplication::translate("@default",
-      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_bos->setLabel(Frame::Field::getFieldIdName(
+                    static_cast<Frame::Field::Id>(m_field.m_id)));
   if (m_taggedFile) {
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
@@ -1104,14 +1052,8 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::Int:
       case QVariant::UInt:
         if (fld.m_id == Frame::Field::ID_TextEnc) {
-          static const char* strlst[] = {
-            QT_TRANSLATE_NOOP("@default", "ISO-8859-1"),
-            QT_TRANSLATE_NOOP("@default", "UTF16"),
-            QT_TRANSLATE_NOOP("@default", "UTF16BE"),
-            QT_TRANSLATE_NOOP("@default", "UTF8"),
-            NULL
-          };
-          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          IntComboBoxControl* cbox = new IntComboBoxControl(
+                fld, Frame::Field::getTextEncodingNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::Field::ID_PictureType) {
@@ -1120,27 +1062,13 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
-          static const char* strlst[] = {
-            QT_TRANSLATE_NOOP("@default", "Other"),
-            QT_TRANSLATE_NOOP("@default", "MPEG frames as unit"),
-            QT_TRANSLATE_NOOP("@default", "Milliseconds as unit"),
-            NULL
-          };
-          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          IntComboBoxControl* cbox = new IntComboBoxControl(
+                fld, Frame::Field::getTimestampFormatNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::Field::ID_ContentType) {
-          static const char* strlst[] = {
-            QT_TRANSLATE_NOOP("@default", "Other"),
-            QT_TRANSLATE_NOOP("@default", "Lyrics"),
-            QT_TRANSLATE_NOOP("@default", "Text transcription"),
-            QT_TRANSLATE_NOOP("@default", "Movement/part name"),
-            QT_TRANSLATE_NOOP("@default", "Events"),
-            QT_TRANSLATE_NOOP("@default", "Chord"),
-            QT_TRANSLATE_NOOP("@default", "Trivia/pop up"),
-            NULL
-          };
-          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          IntComboBoxControl* cbox = new IntComboBoxControl(
+                fld, Frame::Field::getContentTypeNames());
           m_fieldcontrols.append(cbox);
         }
         else {

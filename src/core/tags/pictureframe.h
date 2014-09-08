@@ -396,7 +396,7 @@ public:
    * Get list of picture type strings.
    * @return list of picture type names, NULL terminated.
    */
-  static const char** getPictureTypeNames();
+  static const char* const* getPictureTypeNames();
 };
 
 Q_DECLARE_METATYPE(PictureFrame::ImageProperties)

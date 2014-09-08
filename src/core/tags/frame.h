@@ -93,7 +93,7 @@ public:
   };
 
   /** Field in frame. */
-  struct Field {
+  struct KID3_CORE_EXPORT Field {
     /**
      * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
      **/
@@ -154,6 +154,63 @@ public:
 
     int m_id;         /**< type of field. */
     QVariant m_value; /**< value of field. */
+
+    /**
+     * Get a translated string for a field ID.
+     *
+     * @param type field ID type
+     *
+     * @return field ID type, null string if unknown.
+     */
+    static QString getFieldIdName(Id type);
+
+    /**
+     * List of field ID strings, NULL terminated.
+     */
+    static const char* const* getFieldIdNames();
+
+    /**
+     * Get a translated string for a text encoding.
+     *
+     * @param type text encoding type
+     *
+     * @return text encoding type, null string if unknown.
+     */
+    static QString getTextEncodingName(TextEncoding type);
+
+    /**
+     * List of text encoding strings, NULL terminated.
+     */
+    static const char* const* getTextEncodingNames();
+
+    /**
+     * Get a translated string for a timestamp format.
+     *
+     * @param type timestamp format type
+     *
+     * @return timestamp format type, null string if unknown.
+     */
+    static QString getTimestampFormatName(int type);
+
+    /**
+     * List of timestamp format strings, NULL terminated.
+     */
+    static const char* const* getTimestampFormatNames();
+
+    /**
+     * Get a translated string for a content type.
+     *
+     * @param type content type
+     *
+     * @return content type, null string if unknown.
+     */
+    static QString getContentTypeName(int type);
+
+    /**
+     * List of content type strings, NULL terminated.
+     */
+    static const char* const* getContentTypeNames();
+
   };
 
   /** list of fields. */
@@ -493,6 +550,24 @@ public:
    * @return field value, invalid if not found.
    */
   static QVariant getField(const Frame& frame, Field::Id id);
+
+  /**
+   * Get type of frame from translated name.
+   *
+   * @param translatedName name, spaces and case are ignored
+   *
+   * @return type.
+   */
+  static Type getTypeFromTranslatedName(const QString& translatedName);
+
+  /**
+   * Get a translated string for a frame type.
+   *
+   * @param type frame type
+   *
+   * @return frame type, null string if unknown.
+   */
+  static QString getFrameTypeName(Type type);
 
 private:
   friend class TaggedFile;

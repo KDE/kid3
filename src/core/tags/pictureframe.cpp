@@ -35,7 +35,7 @@ namespace {
 /**
  * List of picture type strings, NULL terminated.
  */
-static const char* pictureTypeNames[] = {
+static const char* const pictureTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Other"),
   QT_TRANSLATE_NOOP("@default", "32x32 pixels PNG file icon"),
   QT_TRANSLATE_NOOP("@default", "Other file icon"),
@@ -707,7 +707,8 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
 QString PictureFrame::getPictureTypeName(PictureType type)
 {
   if (type >= 0 &&
-      type < sizeof(pictureTypeNames) / sizeof(pictureTypeNames[0]) - 1) {
+      type < static_cast<int>(
+        sizeof(pictureTypeNames) / sizeof(pictureTypeNames[0]) - 1)) {
     return QCoreApplication::translate("@default", pictureTypeNames[type]);
   }
   return QString();
@@ -716,7 +717,7 @@ QString PictureFrame::getPictureTypeName(PictureType type)
 /**
  * List of picture type strings, NULL terminated.
  */
-const char** PictureFrame::getPictureTypeNames()
+const char* const* PictureFrame::getPictureTypeNames()
 {
   return pictureTypeNames;
 }
