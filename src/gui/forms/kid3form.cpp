@@ -457,34 +457,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
     m_app->dropImage(image);
     return;
   }
-  QList<QUrl> urls = ev->mimeData()->urls();
-#if defined Q_OS_MAC && QT_VERSION >= 0x050200
-  // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
-  for (QList<QUrl>::iterator it = urls.begin(); it != urls.end(); ++it) {
-    if (it->host().isEmpty() &&
-        it->path().startsWith(QLatin1String("/.file/id="))) {
-      *it = QUrl::fromCFURL(CFURLCreateFilePathURL(NULL, it->toCFURL(), NULL));
-    }
-  }
-#endif
-  if (urls.isEmpty())
-    return;
-  if (
-#if QT_VERSION >= 0x040800
-    urls.first().isLocalFile()
-#else
-    !urls.first().toLocalFile().isEmpty()
-#endif
-    ) {
-    QStringList localFiles;
-    foreach (const QUrl& url, urls) {
-      localFiles.append(url.toLocalFile());
-    }
-    m_app->openDrop(localFiles);
-  } else {
-    QString text = urls.first().toString();
-    m_app->dropUrl(text);
-  }
+  m_app->openDropUrls(ev->mimeData()->urls());
 }
 
 /**

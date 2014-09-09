@@ -28,7 +28,6 @@
 #include <QFileSystemModel>
 #include <QItemSelectionModel>
 #include <QTextCodec>
-#include <QUrl>
 #include <QTextStream>
 #include <QNetworkAccessManager>
 #include <QTimer>
@@ -1779,6 +1778,43 @@ void Kid3Application::openDrop(const QStringList& paths)
         emit selectedFilesUpdated();
       }
     }
+  }
+}
+
+/**
+ * Handle drop of URLs.
+ *
+ * @param urlList picture, tagged file and folder URLs to handle (if local)
+ */
+void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
+{
+  QList<QUrl> urls(urlList);
+#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+  // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
+  for (QList<QUrl>::iterator it = urls.begin(); it != urls.end(); ++it) {
+    if (it->host().isEmpty() &&
+        it->path().startsWith(QLatin1String("/.file/id="))) {
+      *it = QUrl::fromCFURL(CFURLCreateFilePathURL(NULL, it->toCFURL(), NULL));
+    }
+  }
+#endif
+  if (urls.isEmpty())
+    return;
+  if (
+#if QT_VERSION >= 0x040800
+    urls.first().isLocalFile()
+#else
+    !urls.first().toLocalFile().isEmpty()
+#endif
+    ) {
+    QStringList localFiles;
+    foreach (const QUrl& url, urls) {
+      localFiles.append(url.toLocalFile());
+    }
+    openDrop(localFiles);
+  } else {
+    QString text = urls.first().toString();
+    dropUrl(text);
   }
 }
 

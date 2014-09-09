@@ -29,6 +29,7 @@
 
 #include <QObject>
 #include <QPersistentModelIndex>
+#include <QUrl>
 #include "frame.h"
 #include "trackdata.h"
 #include "filefilter.h"
@@ -577,6 +578,13 @@ public slots:
    * @param paths paths of directories or files in directory
    */
   void openDrop(const QStringList& paths);
+
+  /**
+   * Handle drop of URLs.
+   *
+   * @param urlList picture, tagged file and folder URLs to handle (if local)
+   */
+  void openDropUrls(const QList<QUrl>& urlList);
 
   /**
    * Revert file modifications.
