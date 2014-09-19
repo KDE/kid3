@@ -7,7 +7,7 @@ Loader {
   property QtObject genreModel: isV1 ? app.genreModelV1 : app.genreModelV2
 
   // see qtify TrackListView.qml
-  sourceComponent: app.getRoleData(model, styleData.row, "frameType") === 6
+  sourceComponent: app.getRoleData(frameModel, styleData.row, "frameType") === 6
                      ? genreDelegate : valueDelegate
 
   Component {
@@ -15,7 +15,7 @@ Loader {
     TextField {
       text: styleData.value
       onEditingFinished: {
-        app.setRoleData(model, styleData.row, styleData.role, text)
+        app.setRoleData(frameModel, styleData.row, styleData.role, text)
       }
     }
   }

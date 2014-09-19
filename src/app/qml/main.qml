@@ -359,7 +359,7 @@ ApplicationWindow {
             id: frameTableV1NameColumn
             role: "checkState"
             title: "Name"
-            delegate: FrameNameDelegate { }
+            delegate: FrameNameDelegate { isV1: true }
           }
           TableViewColumn {
             role: "value"
