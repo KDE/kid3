@@ -3,9 +3,6 @@
 # so that the editor support the QML types.
 # On Linux, this can be done in ~/.xsessionrc.
 set(qml_SRCS
-  kid3qmlapplication.cpp
-  frameobjectmodel.cpp
-  qmlimageprovider.cpp
   mainqml.cpp
 )
 set(qml_QML_SRCS
@@ -16,8 +13,6 @@ set(qml_QML_SRCS
   FrameEditDialog.qml
 )
 set(qml_MOC_HDRS
-  kid3qmlapplication.h
-  frameobjectmodel.h
 )
 qt4_wrap_cpp(qml_GEN_MOC_SRCS ${qml_MOC_HDRS})
 set(qml_SRCS ${qml_SRCS} ${qml_GEN_MOC_SRCS})

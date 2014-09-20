@@ -41,6 +41,7 @@ class QFileSystemModel;
 class QItemSelectionModel;
 class QModelIndex;
 class QNetworkAccessManager;
+class QDir;
 class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
@@ -590,6 +591,20 @@ public:
    * Notify the tagged file factories about the changed configuration.
    */
   static void notifyConfigurationChange();
+
+  /**
+   * Find directory containing plugins.
+   * @param pluginsDir the plugin directory is returned here
+   * @return true if found.
+   */
+  static bool findPluginsDirectory(QDir& pluginsDir);
+
+  /**
+   * Set fallback path for directory containing plugins.
+   * @param path path to be searched for plugins if they are not found at the
+   * standard location relative to the application directory
+   */
+  static void setPluginsPathFallback(const QString& path);
 
   /**
    * Load plugins.
@@ -1180,6 +1195,9 @@ private:
 
   /** true if list is filtered */
   bool m_filtered;
+
+  /** Fallback for path to search for plugins */
+  static QString s_pluginsPathFallback;
 };
 
 #endif // KID3APPLICATION_H

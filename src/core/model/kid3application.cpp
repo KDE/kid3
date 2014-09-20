@@ -102,6 +102,9 @@ QString pluginFileName(const QString& pluginName)
 }
 
 
+/** Fallback for path to search for plugins */
+QString Kid3Application::s_pluginsPathFallback;
+
 /**
  * Constructor.
  * @param platformTools platform tools
@@ -236,16 +239,14 @@ void Kid3Application::initPlugins()
 }
 
 /**
- * Load plugins.
- * @return list of plugin instances.
+ * Find directory containing plugins.
+ * @param pluginsDir the plugin directory is returned here
+ * @return true if found.
  */
-QObjectList Kid3Application::loadPlugins()
-{
-  QObjectList plugins = QPluginLoader::staticInstances();
-
+bool Kid3Application::findPluginsDirectory(QDir& pluginsDir) {
   // First check if we are running from the build directory to load the
   // plugins from there.
-  QDir pluginsDir(qApp->applicationDirPath());
+  pluginsDir = qApp->applicationDirPath();
   QString dirName = pluginsDir.dirName();
 #ifdef Q_OS_WIN
   QString buildType;
@@ -268,12 +269,39 @@ QObjectList Kid3Application::loadPlugins()
     pluginsDirFound = pluginsDir.cd(QLatin1String("../../../../../plugins"));
   }
 #endif
-  if (pluginsDirFound) {
 #ifdef Q_OS_WIN
-    if (!buildType.isEmpty()) {
-      pluginsDir.cd(buildType);
-    }
+  if (pluginsDirFound && !buildType.isEmpty()) {
+    pluginsDir.cd(buildType);
+  }
 #endif
+  return pluginsDirFound;
+}
+
+/**
+ * Set fallback path for directory containing plugins.
+ * @param path path to be searched for plugins if they are not found at the
+ * standard location relative to the application directory
+ */
+void Kid3Application::setPluginsPathFallback(const QString& path)
+{
+  s_pluginsPathFallback = path;
+}
+
+/**
+ * Load plugins.
+ * @return list of plugin instances.
+ */
+QObjectList Kid3Application::loadPlugins()
+{
+  QObjectList plugins = QPluginLoader::staticInstances();
+
+  QDir pluginsDir;
+  bool pluginsDirFound = findPluginsDirectory(pluginsDir);
+  if (!pluginsDirFound && !s_pluginsPathFallback.isEmpty()) {
+    pluginsDir.setPath(s_pluginsPathFallback);
+    pluginsDirFound = true;
+  }
+  if (pluginsDirFound) {
     ImportConfig& importCfg = ImportConfig::instance();
     TagConfig& tagCfg = TagConfig::instance();
 

@@ -1,12 +1,12 @@
 /**
- * \file mainqt.cpp
+ * \file mainqml.cpp
  * Main program.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 9 Jan 2003
+ * \date 7 Jun 2014
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2014  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,38 +25,15 @@
  */
 
 #define QT_QML_DEBUG
-#include <QtQuick>
 #include <QFile>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QQuickItem>
-#include <QLibraryInfo>
-#include <QLocale>
 #include <QTranslator>
 #include <QDir>
 #include <typeinfo>
-#include "fileconfig.h"
+#include "config.h"
 #include "loadtranslation.h"
-#include "kid3qmlapplication.h"
-#include "coreplatformtools.h"
-#include "qmlimageprovider.h"
-#include "fileproxymodel.h"
-#include "dirproxymodel.h"
-#include "genremodel.h"
-#include "frametablemodel.h"
-#include "framelist.h"
-#include "frameobjectmodel.h"
-#include "taggedfileselection.h"
-
-Q_DECLARE_METATYPE(QList<QPersistentModelIndex>)
-Q_DECLARE_METATYPE(FileProxyModel*)
-Q_DECLARE_METATYPE(DirProxyModel*)
-Q_DECLARE_METATYPE(GenreModel*)
-Q_DECLARE_METATYPE(FrameTableModel*)
-Q_DECLARE_METATYPE(FrameList*)
-Q_DECLARE_METATYPE(FrameObjectModel*)
-Q_DECLARE_METATYPE(TaggedFileSelection*)
-Q_DECLARE_METATYPE(TrackData::TagVersion)
+#include "kid3application.h"
 
 /**
  * QApplication subclass with adapted session management.
@@ -167,25 +144,12 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  qRegisterMetaType<Kid3QmlApplication*>();
-  qRegisterMetaType<QList<QPersistentModelIndex> >();
-  qRegisterMetaType<FileProxyModel*>();
-  qRegisterMetaType<DirProxyModel*>();
-  qRegisterMetaType<GenreModel*>();
-  qRegisterMetaType<FrameTableModel*>();
-  qRegisterMetaType<FrameList*>();
-  qRegisterMetaType<FrameObjectModel*>();
-  qRegisterMetaType<TaggedFileSelection*>();
-  qRegisterMetaType<TrackData::TagVersion>();
-  ICorePlatformTools* platformTools = new CorePlatformTools;
-  Kid3QmlApplication* kid3App = new Kid3QmlApplication(platformTools);
-  QmlImageProvider* imageProvider = new QmlImageProvider(
-        kid3App->getFileProxyModel()->getIconProvider());
-  kid3App->setImageProvider(imageProvider);
   QQmlApplicationEngine engine;
-  engine.rootContext()->setContextProperty(QLatin1String("app"), kid3App);
-  engine.addImageProvider(QLatin1String("kid3"), imageProvider);
+  QDir pluginsDir;
+  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+      pluginsDir.cd(QLatin1String("imports"))) {
+    engine.addImportPath(pluginsDir.absolutePath());
+  }
   engine.load(mainQmlPath);
   return app.exec();
-  // Deleting kid3App before exit would upset the QML engine.
 }
