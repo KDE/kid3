@@ -50,6 +50,9 @@
 #include "taggedfileselection.h"
 #include "timeeventmodel.h"
 #include "framelist.h"
+#include "frameeditorobject.h"
+#include "frameobjectmodel.h"
+#include "pixmapprovider.h"
 #include "pictureframe.h"
 #include "textimporter.h"
 #include "textexporter.h"
@@ -74,6 +77,10 @@
 #endif
 
 #include "importplugins.h"
+
+#if QT_VERSION < 0x050000
+Q_DECLARE_METATYPE(QModelIndex)
+#endif
 
 namespace {
 
@@ -143,6 +150,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileFilter(0),
   m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
+  m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
   m_filtered(false)
 {
   setObjectName(QLatin1String("Kid3Application"));
@@ -152,6 +160,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
+  connect(m_fileSelectionModel,
+          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+          this, SIGNAL(fileSelectionChanged()));
   connect(m_fileProxyModel, SIGNAL(modifiedChanged(bool)),
           this, SIGNAL(modifiedChanged(bool)));
 
@@ -159,6 +170,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
           this, SLOT(onFrameEdited(const Frame*)));
   connect(m_framelist, SIGNAL(frameAdded(const Frame*)),
           this, SLOT(onFrameAdded(const Frame*)));
+
+  connect(m_selection, SIGNAL(singleFileChanged()),
+          this, SLOT(updateCoverArtImageId()));
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
@@ -2796,4 +2810,109 @@ void Kid3Application::closeFileHandle(const QString& filePath)
      taggedFile->closeFileHandle();
    }
  }
+}
+
+/**
+ * Set a frame editor object to act as the frame editor.
+ * @param frameEditor frame editor object, null to disable
+ */
+void Kid3Application::setFrameEditor(FrameEditorObject* frameEditor)
+{
+  if (m_frameEditor != frameEditor) {
+    if (frameEditor) {
+      if (!m_frameEditor) {
+        m_storedFrameEditor = m_framelist->frameEditor();
+      }
+      m_framelist->setFrameEditor(frameEditor);
+    } else {
+      m_framelist->setFrameEditor(m_storedFrameEditor);
+    }
+    m_frameEditor = frameEditor;
+    emit frameEditorChanged();
+  }
+}
+
+/**
+ * Get the numbers of the selected rows in a list suitable for scripting.
+ * @return list with row numbers.
+ */
+QVariantList Kid3Application::getFileSelectionRows()
+{
+  QVariantList rows;
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+    rows.append(index.row());
+  }
+  return rows;
+}
+
+/**
+ * Set the file selection from a list of model indexes.
+ * @param indexes list of model indexes suitable for scripting
+ */
+void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
+{
+  QItemSelection selection;
+  QModelIndex firstIndex;
+  foreach (const QVariant& var, indexes) {
+#if QT_VERSION >= 0x050000
+    QModelIndex index = var.toModelIndex();
+#else
+    QModelIndex index = qvariant_cast<QModelIndex>(var);
+#endif
+    if (!firstIndex.isValid()) {
+      firstIndex = index;
+    }
+    selection.select(index, index);
+  }
+  disconnect(m_fileSelectionModel,
+             SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+             this, SIGNAL(fileSelectionChanged()));
+  m_fileSelectionModel->select(selection,
+                   QItemSelectionModel::Clear | QItemSelectionModel::Select |
+                   QItemSelectionModel::Rows);
+  if (firstIndex.isValid()) {
+    m_fileSelectionModel->setCurrentIndex(firstIndex,
+        QItemSelectionModel::Select | QItemSelectionModel::Rows);
+  }
+  connect(m_fileSelectionModel,
+          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+          this, SIGNAL(fileSelectionChanged()));
+}
+
+/**
+ * Set the image provider.
+ * @param imageProvider image provider
+ */
+void Kid3Application::setImageProvider(PixmapProvider* imageProvider) {
+  m_imageProvider = imageProvider;
+}
+
+/**
+ * If an image provider is used, update its picture and change the
+ * coverArtImageId property if the picture of the selection changed.
+ * This can be used to change a QML image.
+ */
+void Kid3Application::updateCoverArtImageId()
+{
+  // Only perform expensive picture operations if the signal is used
+  // (when using a QML image provider).
+  if (m_imageProvider &&
+      receivers(SIGNAL(coverArtImageIdChanged(QString))) > 0) {
+    QByteArray picture = m_selection->getPicture();
+    if (picture != m_imageProvider->getImageData()) {
+      m_imageProvider->setImageData(picture);
+      setNextCoverArtImageId();
+      emit coverArtImageIdChanged(m_coverArtImageId);
+    }
+  }
+}
+
+/**
+ * Set the coverArtImageId property to a new value.
+ * This can be used to trigger an update of QML images.
+ */
+void Kid3Application::setNextCoverArtImageId() {
+  static quint32 nr = 0;
+  m_coverArtImageId = QString(QLatin1String("image://kid3/data/%1")).
+      arg(nr++, 8, 16, QLatin1Char('0'));
 }

@@ -7,7 +7,7 @@ Loader {
   property QtObject genreModel: isV1 ? app.genreModelV1 : app.genreModelV2
 
   // see qtify TrackListView.qml
-  sourceComponent: app.getRoleData(frameModel, styleData.row, "frameType") === 6
+  sourceComponent: script.getRoleData(frameModel, styleData.row, "frameType") === 6
                      ? genreDelegate : valueDelegate
 
   Component {
@@ -15,7 +15,7 @@ Loader {
     TextField {
       text: styleData.value
       onEditingFinished: {
-        app.setRoleData(frameModel, styleData.row, styleData.role, text)
+        script.setRoleData(frameModel, styleData.row, styleData.role, text)
       }
     }
   }
@@ -29,7 +29,7 @@ Loader {
       editable: !isV1
       editText: styleData.value
       onCurrentTextChanged: {
-        app.setRoleData(frameModel, styleData.row, styleData.role, currentText)
+        script.setRoleData(frameModel, styleData.row, styleData.role, currentText)
       }
       // Probably a bug like QTBUG-31627, should work with
       // currentIndex: model.getRowForGenre(styleData.value)

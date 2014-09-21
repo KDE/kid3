@@ -55,6 +55,12 @@ public:
   virtual ~FrameList();
 
   /**
+   * Get editor for frames.
+   * @return frame editor.
+   */
+  IFrameEditor* frameEditor() const { return m_frameEditor; }
+
+  /**
    * Set editor for frames.
    *
    * @param frameEditor frame editor

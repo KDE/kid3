@@ -35,7 +35,7 @@ class FrameFieldObject;
 /**
  * Object model with frame information.
  */
-class FrameObjectModel : public QObject {
+class KID3_CORE_EXPORT FrameObjectModel : public QObject {
   Q_OBJECT
   Q_PROPERTY(QString name READ name CONSTANT)
   Q_PROPERTY(QString internalName READ internalName CONSTANT)

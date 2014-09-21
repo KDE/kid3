@@ -31,7 +31,7 @@
 #include "kid3api.h"
 
 class ICorePlatformTools;
-class Kid3QmlApplication;
+class Kid3Application;
 class QmlImageProvider;
 
 /**
@@ -67,7 +67,7 @@ public:
 
 private:
   ICorePlatformTools* m_platformTools;
-  Kid3QmlApplication* m_kid3App;
+  Kid3Application* m_kid3App;
   QmlImageProvider* m_imageProvider;
 };
 

@@ -28,6 +28,9 @@ set(model_SRCS
   model/tracknumbervalidator.cpp
   model/taggedfileselection.cpp
   model/genremodel.cpp
+  model/pixmapprovider.cpp
+  model/frameeditorobject.cpp
+  model/frameobjectmodel.cpp
 )
 
 set(model_MOC_HDRS
@@ -48,6 +51,8 @@ set(model_MOC_HDRS
   model/timeeventmodel.h
   model/taggedfileselection.h
   model/genremodel.h
+  model/frameeditorobject.h
+  model/frameobjectmodel.h
 )
 
 if (HAVE_QTDBUS)

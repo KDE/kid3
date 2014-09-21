@@ -67,6 +67,8 @@ class ICorePlatformTools;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class AudioPlayer;
 #endif
+class PixmapProvider;
+class FrameEditorObject;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -99,6 +101,12 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(bool modified READ isModified NOTIFY modifiedChanged)
   /** Filtered state. */
   Q_PROPERTY(bool filtered READ isFiltered WRITE setFiltered NOTIFY filteredChanged)
+  /** Frame editor. */
+  Q_PROPERTY(FrameEditorObject* frameEditor READ frameEditor WRITE setFrameEditor
+             NOTIFY frameEditorChanged)
+  /** ID to get cover art image. */
+  Q_PROPERTY(QString coverArtImageId READ coverArtImageId
+             NOTIFY coverArtImageIdChanged)
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -588,6 +596,42 @@ public:
   QString getDirName() const { return m_dirName; }
 
   /**
+   * Get frame editor set with setFrameEditor().
+   * @return frame editor, null if no frame editor is set
+   */
+  FrameEditorObject* frameEditor() const { return m_frameEditor; }
+
+  /**
+   * Set a frame editor object to act as the frame editor.
+   * @param frameEditor frame editor object, null to disable
+   */
+  void setFrameEditor(FrameEditorObject* frameEditor);
+
+  /**
+   * Get ID to get cover art image.
+   * @return ID for cover art image.
+   */
+  QString coverArtImageId() const { return m_coverArtImageId; }
+
+  /**
+   * Set the image provider.
+   * @param imageProvider image provider
+   */
+  void setImageProvider(PixmapProvider* imageProvider);
+
+  /**
+   * Get the numbers of the selected rows in a list suitable for scripting.
+   * @return list with row numbers.
+   */
+  Q_INVOKABLE QVariantList getFileSelectionRows();
+
+  /**
+   * Set the file selection from a list of model indexes.
+   * @param indexes list of model indexes suitable for scripting
+   */
+  Q_INVOKABLE void setFileSelectionIndexes(const QVariantList& indexes);
+
+  /**
    * Notify the tagged file factories about the changed configuration.
    */
   static void notifyConfigurationChange();
@@ -1052,6 +1096,23 @@ signals:
    */
   void expandFileListRequested();
 
+  /**
+   * Emitted when the file selection is changed.
+   * @see getFileSelectionRows()
+   */
+  void fileSelectionChanged();
+
+  /**
+   * Emitted when a new cover art image is available
+   * @param id ID of image.
+   */
+  void coverArtImageIdChanged(const QString& id);
+
+  /**
+   * Emitted when the frame editor is changed.
+   */
+  void frameEditorChanged();
+
 private slots:
   /**
    * Apply single file to file filter.
@@ -1096,6 +1157,13 @@ private slots:
    */
   void onFrameAdded(const Frame* frame);
 
+  /**
+   * If an image provider is used, update its picture and change the
+   * coverArtImageId property if the picture of the selection changed.
+   * This can be used to change a QML image.
+   */
+  void updateCoverArtImageId();
+
 private:
   /**
    * Load and initialize plugins depending on configuration.
@@ -1116,6 +1184,12 @@ private:
    * it is added
    */
   void addFrame(const Frame* frame, bool edit = false);
+
+  /**
+   * Set the coverArtImageId property to a new value.
+   * This can be used to trigger an update of QML images.
+   */
+  void setNextCoverArtImageId();
 
   ICorePlatformTools* m_platformTools;
   /** Configuration */
@@ -1192,6 +1266,13 @@ private:
 
   /* Context for addFrame() */
   TaggedFile* m_addFrameTaggedFile;
+
+  /* Support for frame editor object */
+  FrameEditorObject* m_frameEditor;
+  IFrameEditor* m_storedFrameEditor;
+  /* Support for image provider */
+  PixmapProvider* m_imageProvider;
+  QString m_coverArtImageId;
 
   /** true if list is filtered */
   bool m_filtered;

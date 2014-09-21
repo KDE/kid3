@@ -12,12 +12,20 @@ ApplicationWindow {
 
   title: app.dirName + (app.modified ? "[modified]" : "") + " - Kid3"
 
+  FrameEditorObject {
+    id: frameEditor
+  }
+
+  ScriptUtils {
+    id: script
+  }
+
   FileDialog {
     id: fileDialog
     selectFolder: true
     nameFilters: app.createFilterString()
     onAccepted: {
-      app.openDirectory(app.toStringList(fileUrls))
+      app.openDirectory(script.toStringList(fileUrls))
     }
   }
 
@@ -30,10 +38,10 @@ ApplicationWindow {
     id: frameSelectDialog
     onVisibleChanged: centerOnRoot(this)
 
-    onFrameSelected: app.onFrameSelectionFinished(name)
+    onFrameSelected: frameEditor.onFrameSelectionFinished(name)
 
     Connections {
-      target: app
+      target: frameEditor
       onFrameSelectionRequested: frameSelectDialog.open(frameNames)
     }
   }
@@ -41,10 +49,10 @@ ApplicationWindow {
   FrameEditDialog {
     id: frameEditDialog
     onVisibleChanged: centerOnRoot(this)
-    onFrameEdited: app.onFrameEditFinished(frame)
+    onFrameEdited: frameEditor.onFrameEditFinished(frame)
 
     Connections {
-      target: app
+      target: frameEditor
       onFrameEditRequested: frameEditDialog.open(frame)
     }
   }
@@ -255,7 +263,7 @@ ApplicationWindow {
             // "Unable to assign [undefined] to QString"
             source: "image://kid3/fileicon/" +
                     (styleData.value !== "" ? "" +
-                     app.getRoleData(app.fileProxyModel, styleData.row,
+                     script.getRoleData(app.fileProxyModel, styleData.row,
                                      "iconId", app.fileRootIndex) : "null")
           }
           Text {
@@ -300,7 +308,7 @@ ApplicationWindow {
           delegate: dirList.contentItem.delegate
         }
         onActivated: {
-          app.openDirectory(app.getRoleData(app.dirProxyModel, currentRow,
+          app.openDirectory(script.getRoleData(app.dirProxyModel, currentRow,
                                             "filePath", app.dirRootIndex))
         }
       }
@@ -378,12 +386,12 @@ ApplicationWindow {
           Button {
             width: parent.width
             text: "To Filename"
-            onClicked: app.getFilenameFromTags(app.toTagVersion(1))
+            onClicked: app.getFilenameFromTags(script.toTagVersion(1))
           }
           Button {
             width: parent.width
             text: "From Filename"
-            onClicked: app.getTagsFromFilename(app.toTagVersion(1))
+            onClicked: app.getTagsFromFilename(script.toTagVersion(1))
           }
           Button {
             width: parent.width
@@ -456,12 +464,12 @@ ApplicationWindow {
           Button {
             width: parent.width
             text: "To Filename"
-            onClicked: app.getFilenameFromTags(app.toTagVersion(2))
+            onClicked: app.getFilenameFromTags(script.toTagVersion(2))
           }
           Button {
             width: parent.width
             text: "From Filename"
-            onClicked: app.getTagsFromFilename(app.toTagVersion(2))
+            onClicked: app.getTagsFromFilename(script.toTagVersion(2))
           }
           Button {
             width: parent.width
@@ -529,6 +537,7 @@ ApplicationWindow {
   }
 
   Component.onCompleted: {
+    app.frameEditor = frameEditor
     app.openDirectory("/home/urs/projects/kid3/test/testtags")
   }
 

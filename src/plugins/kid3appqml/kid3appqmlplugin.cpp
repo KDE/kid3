@@ -28,7 +28,7 @@
 #include <QCoreApplication>
 #include <QQmlComponent>
 #include <QQmlContext>
-#include "kid3qmlapplication.h"
+#include "kid3application.h"
 #include "coreplatformtools.h"
 #include "qmlimageprovider.h"
 #include "fileproxymodel.h"
@@ -36,8 +36,11 @@
 #include "genremodel.h"
 #include "frametablemodel.h"
 #include "framelist.h"
+#include "frameeditorobject.h"
 #include "frameobjectmodel.h"
 #include "taggedfileselection.h"
+#include "scriptutils.h"
+#include "configobjects.h"
 #include "config.h"
 
 Q_DECLARE_METATYPE(FileProxyModel*)
@@ -45,10 +48,13 @@ Q_DECLARE_METATYPE(DirProxyModel*)
 Q_DECLARE_METATYPE(GenreModel*)
 Q_DECLARE_METATYPE(FrameTableModel*)
 Q_DECLARE_METATYPE(FrameList*)
+Q_DECLARE_METATYPE(FrameEditorObject*)
 Q_DECLARE_METATYPE(FrameObjectModel*)
 Q_DECLARE_METATYPE(TaggedFileSelection*)
 Q_DECLARE_METATYPE(QList<QPersistentModelIndex>)
 Q_DECLARE_METATYPE(TrackData::TagVersion)
+Q_DECLARE_METATYPE(ScriptUtils*)
+Q_DECLARE_METATYPE(ConfigObjects*)
 
 namespace {
 
@@ -111,7 +117,7 @@ Kid3AppQmlPlugin::~Kid3AppQmlPlugin()
 void Kid3AppQmlPlugin::registerTypes(const char *uri)
 {
   if (qstrcmp(uri, "Kid3App") == 0) {
-    qRegisterMetaType<Kid3QmlApplication*>();
+    qRegisterMetaType<Kid3Application*>();
     // @uri Kid3App
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
         QLatin1String("Retrieve it using app.fileProxyModel"));
@@ -123,12 +129,15 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
         QLatin1String("Retrieve it using app.frameModelV1 or app.frameModelV2"));
     qmlRegisterUncreatableType<FrameList>(uri, 1, 0, "FrameList",
         QLatin1String("Retrieve it using app.frameList"));
+    qmlRegisterType<FrameEditorObject>(uri, 1, 0, "FrameEditorObject");
     qmlRegisterUncreatableType<FrameObjectModel>(uri, 1, 0, "FrameObjectModel",
-        QLatin1String("Argument of app.frameEditFinished()"));
+        QLatin1String("Argument of FrameEditorObject.frameEditFinished()"));
     qmlRegisterUncreatableType<TaggedFileSelection>(uri, 1, 0, "TaggedFileSelection",
         QLatin1String("Retrieve it using app.selectionInfo"));
     qRegisterMetaType<QList<QPersistentModelIndex> >();
     qRegisterMetaType<TrackData::TagVersion>();
+    qmlRegisterType<ScriptUtils>(uri, 1, 0, "ScriptUtils");
+    qmlRegisterType<ConfigObjects>(uri, 1, 0, "ConfigObjects");
   }
 }
 
@@ -143,7 +152,7 @@ void Kid3AppQmlPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     Kid3Application::setPluginsPathFallback(
           getPluginsPathFromImportPathList(engine));
     m_platformTools = new CorePlatformTools;
-    m_kid3App = new Kid3QmlApplication(m_platformTools);
+    m_kid3App = new Kid3Application(m_platformTools);
     m_imageProvider = new QmlImageProvider(
           m_kid3App->getFileProxyModel()->getIconProvider());
     m_kid3App->setImageProvider(m_imageProvider);

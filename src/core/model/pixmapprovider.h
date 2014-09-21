@@ -1,6 +1,6 @@
 /**
- * \file qmlimageprovider.h
- * Image provider to get images from QML code.
+ * \file pixmapprovider.h
+ * Image provider to get pixmaps by ID.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,32 +24,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QMLIMAGEPROVIDER_H
-#define QMLIMAGEPROVIDER_H
+#ifndef PIXMAPPROVIDER_H
+#define PIXMAPPROVIDER_H
 
-#include <QQuickImageProvider>
-#include "pixmapprovider.h"
+#include <QByteArray>
+#include <QPixmap>
+#include "kid3api.h"
+
+class TaggedFileIconProvider;
 
 /**
- * Image provider to get images from QML code.
+ * Image provider to get pixmaps by ID.
  *
  * The following source IDs are supported (starting with "image://kid3/"):
  * - "fileicon/" followed by "null", "notag", "v1", "v2", "v1v2", or "modified",
  * - "data" followed by a changing string to force loading of the image set with
  *   TaggedFileIconProvider::setImageData().
  */
-class QmlImageProvider : public QQuickImageProvider, public PixmapProvider {
+class KID3_CORE_EXPORT PixmapProvider {
 public:
   /**
    * Constructor.
    * @param iconProvider icon provider to use
    */
-  explicit QmlImageProvider(TaggedFileIconProvider* iconProvider);
+  explicit PixmapProvider(TaggedFileIconProvider* iconProvider);
 
   /**
    * Destructor.
    */
-  virtual ~QmlImageProvider();
+  ~PixmapProvider();
 
   /**
    * Request a pixmap.
@@ -59,7 +62,27 @@ public:
    * @param requestedSize the size requested via the Image.sourceSize property
    * @return pixmap for ID.
    */
-  virtual QPixmap requestPixmap(const QString& id, QSize* size, const QSize& requestedSize);
+  QPixmap getPixmap(const QString& id, QSize* size, const QSize& requestedSize);
+
+  /**
+   * Get image data for the pixmap available via the "data" icon ID.
+   * @return image data.
+   */
+  QByteArray getImageData() const { return m_data; }
+
+  /**
+   * Set image data for the pixmap available via the "data" icon ID.
+   * @param data image data
+   */
+  void setImageData(const QByteArray& data) {
+    m_data = data;
+  }
+
+private:
+  TaggedFileIconProvider* m_fileIconProvider;
+  QByteArray m_data;
+  QPixmap m_dataPixmap;
+  uint m_pixmapHash;
 };
 
-#endif // QMLIMAGEPROVIDER_H
+#endif // PIXMAPPROVIDER_H

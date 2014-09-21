@@ -1,14 +1,14 @@
 set(plugin_SRCS
   kid3appqmlplugin.cpp
-  kid3qmlapplication.cpp
   qmlimageprovider.cpp
-  frameobjectmodel.cpp
+  scriptutils.cpp
+  configobjects.cpp
 )
 
 set(plugin_MOC_HDRS
   kid3appqmlplugin.h
-  kid3qmlapplication.h
-  frameobjectmodel.h
+  scriptutils.h
+  configobjects.h
 )
 
 set(plugin_NAME Kid3AppQml)

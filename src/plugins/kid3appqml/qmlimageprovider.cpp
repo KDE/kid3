@@ -25,7 +25,6 @@
  */
 
 #include "qmlimageprovider.h"
-#include "taggedfileiconprovider.h"
 
 /**
  * Constructor.
@@ -33,14 +32,14 @@
  */
 QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider) :
   QQuickImageProvider(QQuickImageProvider::Pixmap),
-  m_fileIconProvider(iconProvider)
+  PixmapProvider(iconProvider)
 {
 }
 
 /**
  * Destructor.
  */
-QmlImageProvider::~ QmlImageProvider()
+QmlImageProvider::~QmlImageProvider()
 {
 }
 
@@ -55,40 +54,5 @@ QmlImageProvider::~ QmlImageProvider()
 QPixmap QmlImageProvider::requestPixmap(const QString& id, QSize* size,
                                         const QSize& requestedSize)
 {
-  QByteArray imageId = id.toLatin1();
-  if (imageId.startsWith("fileicon/")) {
-    imageId = imageId.mid(9);
-    if (imageId.isEmpty() || imageId == "undefined") {
-      imageId = "null";
-    }
-    return m_fileIconProvider->pixmapForIconId(imageId);
-  } else if (imageId.startsWith("data")) {
-    if (!m_data.isEmpty()) {
-      uint hash = qHash(m_data);
-      if (m_dataPixmap.isNull() || hash != m_pixmapHash) {
-        if (m_dataPixmap.loadFromData(m_data)) {
-          if (size) {
-            *size = m_dataPixmap.size();
-          }
-          if (requestedSize.isValid()) {
-            m_dataPixmap = m_dataPixmap.scaled(requestedSize,
-                                               Qt::KeepAspectRatio);
-          }
-          if (!m_dataPixmap.isNull()) {
-            m_pixmapHash = hash;
-          }
-        }
-      }
-      if (!m_dataPixmap.isNull()) {
-        return m_dataPixmap;
-      }
-    }
-    static QPixmap emptyPixmap;
-    if (emptyPixmap.isNull()) {
-      emptyPixmap = QPixmap(1, 1);
-      emptyPixmap.fill(Qt::transparent);
-    }
-    return emptyPixmap;
-  }
-  return QPixmap();
+  return getPixmap(id, size, requestedSize);
 }

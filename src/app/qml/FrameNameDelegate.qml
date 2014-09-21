@@ -8,9 +8,9 @@ CheckBox {
   id: frameEnabledCheckBox
   // "" + is to avoid "Unable to assign [undefined] to QString"
   text: "" + (styleData.value >= 0
-              ? app.getRoleData(frameModel, styleData.row, "name") : "")
+              ? script.getRoleData(frameModel, styleData.row, "name") : "")
   onClicked: {
-    app.setRoleData(frameModel, styleData.row, "checkState", checkedState)
+    script.setRoleData(frameModel, styleData.row, "checkState", checkedState)
   }
   // workaround for QTBUG-31627
   // should work with "checked: styleData.value != 0" with Qt >= 5.3
