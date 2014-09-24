@@ -79,6 +79,10 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(FileProxyModel* fileProxyModel READ getFileProxyModel CONSTANT)
   /** Directory proxy model. */
   Q_PROPERTY(DirProxyModel* dirProxyModel READ getDirProxyModel CONSTANT)
+  /** File selection model. */
+  Q_PROPERTY(QItemSelectionModel* fileSelectionModel READ getFileSelectionModel CONSTANT)
+  /** Directory selection model. */
+  Q_PROPERTY(QItemSelectionModel* dirSelectionModel READ getDirSelectionModel CONSTANT)
   /** Tag 1 genre model. */
   Q_PROPERTY(GenreModel* genreModelV1 READ genreModelV1 CONSTANT)
   /** Tag 2 genre model. */
@@ -87,6 +91,10 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(FrameTableModel* frameModelV1 READ frameModelV1 CONSTANT)
   /** Tag 2 frame table model. */
   Q_PROPERTY(FrameTableModel* frameModelV2 READ frameModelV2 CONSTANT)
+  /** Tag 1 frame selection model. */
+  Q_PROPERTY(QItemSelectionModel* frameSelectionModelV1 READ getFramesV1SelectionModel CONSTANT)
+  /** Tag 1 frame selection model. */
+  Q_PROPERTY(QItemSelectionModel* frameSelectionModelV2 READ getFramesV2SelectionModel CONSTANT)
   /** Frame list. */
   Q_PROPERTY(FrameList* frameList READ getFrameList CONSTANT)
   /** Information about selected tagged files. */

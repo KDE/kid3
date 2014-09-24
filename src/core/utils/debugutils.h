@@ -30,6 +30,7 @@
 #define DEBUGUTILS_H
 
 #include <QModelIndex>
+#include "kid3api.h"
 
 class QAbstractItemModel;
 
@@ -41,7 +42,7 @@ namespace DebugUtils {
  * @param parent parent model index
  * @param indent number of spaces to indent
  */
-void dumpModel(const QAbstractItemModel& model,
+void KID3_CORE_EXPORT dumpModel(const QAbstractItemModel& model,
                const QModelIndex& parent = QModelIndex(), int indent = 0);
 
 

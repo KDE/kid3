@@ -27,6 +27,10 @@
 #include "scriptutils.h"
 #include <QMetaProperty>
 
+#if QT_VERSION < 0x050000
+Q_DECLARE_METATYPE(QModelIndex)
+#endif
+
 ScriptUtils::ScriptUtils(QObject *parent) : QObject(parent)
 {
 }
@@ -48,7 +52,11 @@ QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVari
 {
   QList<QPersistentModelIndex> indexes;
   foreach (const QVariant& var, lst) {
+#if QT_VERSION >= 0x050000
     indexes.append(var.toModelIndex());
+#else
+    indexes.append(qvariant_cast<QModelIndex>(var));
+#endif
   }
   return indexes;
 }
@@ -67,10 +75,10 @@ TrackData::TagVersion ScriptUtils::toTagVersion(int nr)
 }
 
 QVariant ScriptUtils::getRoleData(
-    QAbstractItemModel* model, int row, const QByteArray& roleName,
+    QObject* modelObj, int row, const QByteArray& roleName,
     QModelIndex parent)
 {
-  if (model) {
+  if (QAbstractItemModel* model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
     for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
          it != roleHash.constEnd();
@@ -84,10 +92,10 @@ QVariant ScriptUtils::getRoleData(
 }
 
 bool ScriptUtils::setRoleData(
-    QAbstractItemModel* model, int row, const QByteArray& roleName,
+    QObject* modelObj, int row, const QByteArray& roleName,
     const QVariant& value, QModelIndex parent)
 {
-  if (model) {
+  if (QAbstractItemModel* model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
     for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
          it != roleHash.constEnd();
@@ -98,6 +106,22 @@ bool ScriptUtils::setRoleData(
     }
   }
   return false;
+}
+
+QVariant ScriptUtils::getIndexRoleData(const QModelIndex& index,
+                                       const QByteArray& roleName)
+{
+  if (const QAbstractItemModel* model = index.model()) {
+    QHash<int,QByteArray> roleHash = model->roleNames();
+    for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
+         it != roleHash.constEnd();
+         ++it) {
+      if (it.value() == roleName) {
+        return index.data(it.key());
+      }
+    }
+  }
+  return QVariant();
 }
 
 QString ScriptUtils::properties(QObject* obj)

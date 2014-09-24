@@ -26,8 +26,14 @@
 
 #include "kid3appqmlplugin.h"
 #include <QCoreApplication>
+#if QT_VERSION >= 0x050000
 #include <QQmlComponent>
 #include <QQmlContext>
+#else
+#include <QDeclarativeComponent>
+#include <QDeclarativeEngine>
+#include <QDeclarativeContext>
+#endif
 #include "kid3application.h"
 #include "coreplatformtools.h"
 #include "qmlimageprovider.h"
@@ -41,8 +47,15 @@
 #include "taggedfileselection.h"
 #include "scriptutils.h"
 #include "configobjects.h"
+#include "checkablelistmodel.h"
 #include "config.h"
 
+#if QT_VERSION < 0x050000
+Q_EXPORT_PLUGIN2(Kid3AppQmlPlugin, Kid3AppQmlPlugin)
+Q_DECLARE_METATYPE(QModelIndex)
+#endif
+
+Q_DECLARE_METATYPE(Kid3Application*)
 Q_DECLARE_METATYPE(FileProxyModel*)
 Q_DECLARE_METATYPE(DirProxyModel*)
 Q_DECLARE_METATYPE(GenreModel*)
@@ -55,6 +68,8 @@ Q_DECLARE_METATYPE(QList<QPersistentModelIndex>)
 Q_DECLARE_METATYPE(TrackData::TagVersion)
 Q_DECLARE_METATYPE(ScriptUtils*)
 Q_DECLARE_METATYPE(ConfigObjects*)
+Q_DECLARE_METATYPE(CheckableListModel*)
+Q_DECLARE_METATYPE(QItemSelectionModel*)
 
 namespace {
 
@@ -70,7 +85,13 @@ namespace {
  * @param engine QML engine
  * @return plugins directory path, empty if not found.
  */
-QString getPluginsPathFromImportPathList(QQmlEngine* engine)
+QString getPluginsPathFromImportPathList(
+#if QT_VERSION >= 0x050000
+    QQmlEngine* engine
+#else
+    QDeclarativeEngine* engine
+#endif
+    )
 {
   QString cfgPluginsDir(QLatin1String(CFG_PLUGINSDIR));
   if (cfgPluginsDir.startsWith(QLatin1String("./"))) {
@@ -79,13 +100,20 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
     cfgPluginsDir.remove(0, 3);
   }
 
+  QString pluginsPath;
   foreach (const QString& path, engine->importPathList()) {
     int index = path.indexOf(cfgPluginsDir);
     if (index != -1) {
-      return path.left(index + cfgPluginsDir.length());
+      pluginsPath = path.left(index + cfgPluginsDir.length());
+      break;
+    } else if (pluginsPath.isEmpty() &&
+               (index = path.indexOf(QLatin1String("plugins"))) != -1) {
+      pluginsPath = path.left(index + 7);
+      // Probably a path in the build directory, use it if CFG_PLUGINSDIR is
+      // not found.
     }
   }
-  return QString();
+  return pluginsPath;
 }
 
 }
@@ -95,8 +123,12 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
  * @param parent parent object
  */
 Kid3AppQmlPlugin::Kid3AppQmlPlugin(QObject* parent) :
-  QQmlExtensionPlugin(parent),
-  m_platformTools(0), m_kid3App(0), m_imageProvider(0)
+#if QT_VERSION >= 0x050000
+  QQmlExtensionPlugin(parent)
+#else
+  QDeclarativeExtensionPlugin(parent)
+#endif
+  , m_platformTools(0), m_kid3App(0), m_imageProvider(0)
 {
 }
 
@@ -117,6 +149,8 @@ Kid3AppQmlPlugin::~Kid3AppQmlPlugin()
 void Kid3AppQmlPlugin::registerTypes(const char *uri)
 {
   if (qstrcmp(uri, "Kid3App") == 0) {
+    qRegisterMetaType<QList<QPersistentModelIndex> >();
+    qRegisterMetaType<TrackData::TagVersion>();
     qRegisterMetaType<Kid3Application*>();
     // @uri Kid3App
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
@@ -134,10 +168,14 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
         QLatin1String("Argument of FrameEditorObject.frameEditFinished()"));
     qmlRegisterUncreatableType<TaggedFileSelection>(uri, 1, 0, "TaggedFileSelection",
         QLatin1String("Retrieve it using app.selectionInfo"));
-    qRegisterMetaType<QList<QPersistentModelIndex> >();
-    qRegisterMetaType<TrackData::TagVersion>();
+    qmlRegisterUncreatableType<QItemSelectionModel>(uri, 1, 0, "QItemSelectionModel",
+        QLatin1String("Retrieve it using app.fileSelectionModel"));
     qmlRegisterType<ScriptUtils>(uri, 1, 0, "ScriptUtils");
     qmlRegisterType<ConfigObjects>(uri, 1, 0, "ConfigObjects");
+    qmlRegisterType<CheckableListModel>(uri, 1, 0, "CheckableListModel");
+#if QT_VERSION < 0x050000
+    qRegisterMetaType<QModelIndex>();
+#endif
   }
 }
 
@@ -146,7 +184,13 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
  * @param engine QML engine
  * @param uri URI of imported module, must be "Kid3App"
  */
-void Kid3AppQmlPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
+void Kid3AppQmlPlugin::initializeEngine(
+#if QT_VERSION >= 0x050000
+    QQmlEngine* engine
+#else
+    QDeclarativeEngine* engine
+#endif
+    , const char* uri)
 {
   if (qstrcmp(uri, "Kid3App") == 0) {
     Kid3Application::setPluginsPathFallback(

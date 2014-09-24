@@ -74,28 +74,36 @@ public:
 
   /**
    * Get data for @a roleName and @a row from @a model.
-   * @param model model
+   * @param modelObj model
    * @param row model row
    * @param roleName role name as used in scripting languages
    * @param parent optional parent model index
    * @return model data.
    */
-  Q_INVOKABLE static QVariant getRoleData(
-      QAbstractItemModel* model, int row, const QByteArray& roleName,
+  Q_INVOKABLE static QVariant getRoleData(QObject* modelObj, int row, const QByteArray& roleName,
       QModelIndex parent = QModelIndex());
 
   /**
    * Set data for @a roleName and @a row in @a model.
-   * @param model model
+   * @param modelObj model
    * @param row model row
    * @param roleName role name as used in scripting languages
    * @param value model data
    * @param parent optional parent model index
    * @return true if ok.
    */
-  Q_INVOKABLE static bool setRoleData(QAbstractItemModel* model, int row,
+  Q_INVOKABLE static bool setRoleData(QObject* modelObj, int row,
       const QByteArray& roleName, const QVariant& value,
       QModelIndex parent = QModelIndex());
+
+  /**
+   * Get data for @a roleName and model @a index.
+   * @param index model index
+   * @param roleName role name as used in scripting languages
+   * @return model data.
+   */
+  Q_INVOKABLE static QVariant getIndexRoleData(const QModelIndex& index,
+                                               const QByteArray& roleName);
 
   /**
    * Get property values as a string.

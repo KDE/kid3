@@ -24,12 +24,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define QT_QML_DEBUG
 #include <QFile>
 #include <QApplication>
-#include <QQmlApplicationEngine>
 #include <QTranslator>
 #include <QDir>
+#if QT_VERSION >= 0x050000
+#define QT_QML_DEBUG
+#include <QQuickView>
+#include <QQmlApplicationEngine>
+#else
+#define QT_DECLARATIVE_DEBUG
+#include <QDeclarativeView>
+#include <QDeclarativeEngine>
+#endif
 #include <typeinfo>
 #include "config.h"
 #include "loadtranslation.h"
@@ -140,10 +147,12 @@ int main(int argc, char* argv[])
   }
   if (mainQmlPath.isEmpty()) {
     qWarning("Could not find main.qml in the following paths:\n%s",
-             qPrintable(qmlDirs.join(QLatin1Char('\n'))));
+             qPrintable(qmlDirs.join(QLatin1String("\n"))));
     return 1;
   }
 
+#if QT_VERSION >= 0x050000
+  // To load a qml file containing an ApplicationWindow.
   QQmlApplicationEngine engine;
   QDir pluginsDir;
   if (Kid3Application::findPluginsDirectory(pluginsDir) &&
@@ -151,5 +160,33 @@ int main(int argc, char* argv[])
     engine.addImportPath(pluginsDir.absolutePath());
   }
   engine.load(mainQmlPath);
+
+//  // To load a qml file containing an Item for a QQuickView.
+//  QQuickView view;
+//  QDir pluginsDir;
+//  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+//      pluginsDir.cd(QLatin1String("imports"))) {
+//    view.engine()->addImportPath(pluginsDir.absolutePath());
+//  }
+//  mainQmlPath.replace(QLatin1String("main.qml"),
+//                      QLatin1String("qtquick1/MainComponent.qml"));
+//  view.setSource(QUrl::fromLocalFile(mainQmlPath));
+//  view.setResizeMode(QQuickView::SizeRootObjectToView);
+//  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+//  view.show();
+#else
+  QDeclarativeView view;
+  QDir pluginsDir;
+  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+      pluginsDir.cd(QLatin1String("imports"))) {
+    view.engine()->addImportPath(pluginsDir.absolutePath());
+  }
+  mainQmlPath.replace(QLatin1String("main.qml"),
+                      QLatin1String("qtquick1/MainComponent.qml"));
+  view.setSource(QUrl::fromLocalFile(mainQmlPath));
+  view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
+  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+  view.show();
+#endif
   return app.exec();
 }

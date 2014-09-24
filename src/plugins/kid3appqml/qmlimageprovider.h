@@ -27,8 +27,14 @@
 #ifndef QMLIMAGEPROVIDER_H
 #define QMLIMAGEPROVIDER_H
 
-#include <QQuickImageProvider>
+#include <QtGlobal>
 #include "pixmapprovider.h"
+
+#if QT_VERSION >= 0x050000
+#include <QQuickImageProvider>
+#else
+#include <QDeclarativeImageProvider>
+#endif
 
 /**
  * Image provider to get images from QML code.
@@ -38,7 +44,13 @@
  * - "data" followed by a changing string to force loading of the image set with
  *   TaggedFileIconProvider::setImageData().
  */
-class QmlImageProvider : public QQuickImageProvider, public PixmapProvider {
+class QmlImageProvider : public 
+#if QT_VERSION >= 0x050000
+QQuickImageProvider
+#else
+QDeclarativeImageProvider
+#endif
+, public PixmapProvider {
 public:
   /**
    * Constructor.
@@ -59,7 +71,8 @@ public:
    * @param requestedSize the size requested via the Image.sourceSize property
    * @return pixmap for ID.
    */
-  virtual QPixmap requestPixmap(const QString& id, QSize* size, const QSize& requestedSize);
+  virtual QPixmap requestPixmap(const QString& id, QSize* size,
+                                const QSize& requestedSize);
 };
 
 #endif // QMLIMAGEPROVIDER_H

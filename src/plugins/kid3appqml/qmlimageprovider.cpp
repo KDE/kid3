@@ -31,8 +31,12 @@
  * @param iconProvider icon provider to use
  */
 QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider) :
-  QQuickImageProvider(QQuickImageProvider::Pixmap),
-  PixmapProvider(iconProvider)
+#if QT_VERSION >= 0x050000
+  QQuickImageProvider(QQuickImageProvider::Pixmap)
+#else
+  QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap)
+#endif
+  , PixmapProvider(iconProvider)
 {
 }
 

@@ -3,12 +3,14 @@ set(plugin_SRCS
   qmlimageprovider.cpp
   scriptutils.cpp
   configobjects.cpp
+  checkablelistmodel.cpp
 )
 
 set(plugin_MOC_HDRS
   kid3appqmlplugin.h
   scriptutils.h
   configobjects.h
+  checkablelistmodel.h
 )
 
 set(plugin_NAME Kid3AppQml)

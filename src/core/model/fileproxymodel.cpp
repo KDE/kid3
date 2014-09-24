@@ -54,6 +54,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[QFileSystemModel::FilePathRole] = "filePath";
   roles[FileProxyModel::IconIdRole] = "iconId";
   roles[Qt::BackgroundRole] = "background";
+  roles[Qt::CheckStateRole] = "checkState";
   return roles;
 }
 
@@ -337,6 +338,9 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
     }
   }
   QSortFilterProxyModel::setSourceModel(sourceModel);
+#if QT_VERSION < 0x050000
+  setRoleNames(getRoleHash());
+#endif
 }
 
 /**
