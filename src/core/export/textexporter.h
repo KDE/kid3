@@ -60,7 +60,7 @@ public:
    * Reread the tags in the track data.
    * @param tagVersion tag version
    */
-  void readTagsInTrackData(TrackData::TagVersion tagVersion) {
+  void readTagsInTrackData(Frame::TagVersion tagVersion) {
     m_trackDataVector.readTags(tagVersion);
   }
 

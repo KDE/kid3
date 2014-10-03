@@ -1,5 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
+import Kid3App 1.0
 
 Loader {
   property bool isV1: false
@@ -7,8 +8,8 @@ Loader {
   property QtObject genreModel: isV1 ? app.genreModelV1 : app.genreModelV2
 
   // see qtify TrackListView.qml
-  sourceComponent: script.getRoleData(frameModel, styleData.row, "frameType") === 6
-                     ? genreDelegate : valueDelegate
+  sourceComponent: script.getRoleData(frameModel, styleData.row, "frameType")
+                   === Frame.FT_Genre ? genreDelegate : valueDelegate
 
   Component {
     id: valueDelegate

@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import Kid3App 1.0
 
 Rectangle {
   property string title
@@ -7,7 +8,7 @@ Rectangle {
 
   id: page
   width: 400
-  height: 200
+  height: 400
   border.width: 1
   border.color: "black"
   visible: false
@@ -25,6 +26,38 @@ Rectangle {
       text: page.title
     }
 
+    Component {
+      id: textLineEdit
+      TextInput {
+        text: _modelData.value
+        onAccepted: {
+          focus = false
+        }
+        onActiveFocusChanged: {
+          if (!activeFocus) {
+            _modelData.value = text
+          }
+        }
+      }
+    }
+
+    Component {
+      id: comboBoxEdit
+      ComboBox {
+        dropDownParent: fieldList
+        model: if (_modelData.id === Frame.ID_TextEnc)
+                 script.getTextEncodingNames()
+               else if (_modelData.id === Frame.ID_PictureType)
+                 script.getPictureTypeNames()
+               else if (_modelData.id === Frame.ID_TimestampFormat)
+                 script.getTimestampFormatNames()
+               else if (_modelData.id === Frame.ID_ContentType)
+                 script.getContentTypeNames()
+        currentIndex: _modelData.value
+        onCurrentIndexChanged: _modelData.value = currentIndex
+      }
+    }
+
     ListView {
       id: fieldList
       clip: true
@@ -33,15 +66,28 @@ Rectangle {
       anchors.top: titleText.bottom
       anchors.bottom: buttonRow.top
       anchors.margins: 6
-      delegate: Row {
+      delegate: Item {
+        width: parent.width
+        height: 30
         Text {
-          text: model.modelData.name + ":"
+          id: nameLabel
+          width: 150
+          anchors.left: parent.left
+          anchors.verticalCenter: parent.verticalCenter
+          text: modelData.name
         }
-        TextInput {
-          text: modelData.value
-          onAccepted: {
-            model.modelData.value = text
-          }
+        Loader {
+          property QtObject _modelData: modelData
+          sourceComponent: if (modelData.id === Frame.ID_TextEnc ||
+                               modelData.id === Frame.ID_PictureType ||
+                               modelData.id === Frame.ID_TimestampFormat ||
+                               modelData.id === Frame.ID_ContentType)
+                comboBoxEdit
+              else
+                textLineEdit
+          anchors.left: nameLabel.right
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
         }
       }
     }

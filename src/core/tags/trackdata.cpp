@@ -256,17 +256,17 @@ TrackData::TrackData()
  * @param taggedFile tagged file providing track data
  * @param tagVersion source of frames
  */
-TrackData::TrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+TrackData::TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
   m_taggedFileIndex(taggedFile.getIndex())
 {
   switch (tagVersion) {
-  case TagV1:
+  case Frame::TagV1:
     taggedFile.getAllFramesV1(*this);
     break;
-  case TagV2:
+  case Frame::TagV2:
     taggedFile.getAllFramesV2(*this);
     break;
-  case TagV2V1:
+  case Frame::TagV2V1:
   {
     FrameCollection framesV1;
     taggedFile.getAllFramesV1(framesV1);
@@ -274,7 +274,7 @@ TrackData::TrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
     merge(framesV1);
     break;
   }
-  case TagNone:
+  case Frame::TagNone:
     ;
   }
 }
@@ -585,18 +585,18 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
  *
  * @param tagVersion tag version to read
  */
-void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
+void ImportTrackDataVector::readTags(Frame::TagVersion tagVersion)
 {
   for (iterator it = begin(); it != end(); ++it) {
     if (TaggedFile* taggedFile = it->getTaggedFile()) {
       switch (tagVersion) {
-      case ImportTrackData::TagV1:
+      case Frame::TagV1:
         taggedFile->getAllFramesV1(*it);
         break;
-      case ImportTrackData::TagV2:
+      case Frame::TagV2:
         taggedFile->getAllFramesV2(*it);
         break;
-      case ImportTrackData::TagV2V1:
+      case Frame::TagV2V1:
       {
         FrameCollection framesV1;
         taggedFile->getAllFramesV1(framesV1);
@@ -604,7 +604,7 @@ void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
         it->merge(framesV1);
         break;
       }
-      case ImportTrackData::TagNone:
+      case Frame::TagNone:
         ;
       }
     }

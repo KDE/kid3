@@ -196,8 +196,8 @@ protected:
    * @param useDefault if true use cli()->tagMask() if no parameter found
    * @return tag versions.
    */
-  TrackData::TagVersion getTagMaskParameter(int nr,
-                                            bool useDefault = true) const;
+  Frame::TagVersion getTagMaskParameter(int nr,
+                                        bool useDefault = true) const;
 
   /**
    * Show usage of command.

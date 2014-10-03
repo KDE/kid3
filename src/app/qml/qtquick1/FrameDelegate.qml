@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import Kid3App 1.0
 
 Item {
   id: frameDelegate
@@ -27,6 +28,18 @@ Item {
           }
         }
       }
+    }
+  }
+
+  Component {
+    id: genreEdit
+    ComboBox {
+      dropDownParent: frameDelegate.parent.parent
+      model: genreModel
+      currentText: value
+      currentIndex: genreModel.getRowForGenre(value)
+      onCurrentIndexChanged: script.setRoleData(frameModel, index, "value",
+                                                currentText)
     }
   }
 
@@ -68,6 +81,8 @@ Item {
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     height: frameEnabledCheckBox.height
-    sourceComponent: frameDelegate.ListView.isCurrentItem ? textEdit : valueText
+    sourceComponent: !frameDelegate.ListView.isCurrentItem
+                     ? valueText : frameType === Frame.FT_Genre
+                       ? genreEdit : textEdit
   }
 }

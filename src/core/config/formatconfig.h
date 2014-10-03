@@ -54,7 +54,7 @@ class KID3_CORE_EXPORT FormatConfig : public GeneralConfig
   Q_PROPERTY(bool strRepEnabled READ strRepEnabled WRITE setStrRepEnabled NOTIFY strRepEnabledChanged)
   /** true to enable data validation */
   Q_PROPERTY(bool enableValidation READ enableValidation WRITE setEnableValidation NOTIFY enableValidationChanged)
-
+  Q_ENUMS(CaseConversion)
 public:
   /** Case conversion options. */
   enum CaseConversion {

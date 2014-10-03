@@ -86,10 +86,10 @@ public:
   bool getProfileByName(const QString& name, BatchImportProfile& profile) const;
 
   /** Get tag version to import. */
-  TrackData::TagVersion importDest() const { return m_importDest; }
+  Frame::TagVersion importDest() const { return m_importDest; }
 
   /** Set tag version to import. */
-  void setImportDest(TrackData::TagVersion importDest);
+  void setImportDest(Frame::TagVersion importDest);
 
   /** Get names of profiles. */
   QStringList profileNames() const { return m_profileNames; }
@@ -117,7 +117,7 @@ public:
 
 signals:
   /** Emitted when @a importDest changed. */
-  void importDestChanged(TrackData::TagVersion importDest);
+  void importDestChanged(Frame::TagVersion importDest);
 
   /** Emitted when @a profileNames changed. */
   void profileNamesChanged(const QStringList& profileNames);
@@ -138,7 +138,7 @@ private:
     setImportDest(TrackData::tagVersionCast(importDest));
   }
 
-  TrackData::TagVersion m_importDest;
+  Frame::TagVersion m_importDest;
   QStringList m_profileNames;
   QStringList m_profileSources;
   int m_profileIdx;

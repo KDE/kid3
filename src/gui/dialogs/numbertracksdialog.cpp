@@ -66,9 +66,9 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QLabel* destLabel = new QLabel(tr("&Destination:"), this);
   m_destComboBox = new QComboBox(this);
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), Frame::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
   m_destComboBox->setCurrentIndex(
       m_destComboBox->findData(NumberTracksConfig::instance().numberTracksDestination()));
   trackLayout->addWidget(destLabel);
@@ -139,7 +139,7 @@ int NumberTracksDialog::getStartNumber() const
  *
   * @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
   */
-TrackData::TagVersion NumberTracksDialog::getDestination() const
+Frame::TagVersion NumberTracksDialog::getDestination() const
 {
   return TrackData::tagVersionCast(
         m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());

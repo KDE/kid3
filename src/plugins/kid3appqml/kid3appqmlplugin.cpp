@@ -47,6 +47,9 @@
 #include "taggedfileselection.h"
 #include "scriptutils.h"
 #include "configobjects.h"
+#include "formatconfig.h"
+#include "playlistconfig.h"
+#include "tagconfig.h"
 #include "checkablelistmodel.h"
 #include "config.h"
 
@@ -65,7 +68,8 @@ Q_DECLARE_METATYPE(FrameEditorObject*)
 Q_DECLARE_METATYPE(FrameObjectModel*)
 Q_DECLARE_METATYPE(TaggedFileSelection*)
 Q_DECLARE_METATYPE(QList<QPersistentModelIndex>)
-Q_DECLARE_METATYPE(TrackData::TagVersion)
+Q_DECLARE_METATYPE(Frame::TagVersion)
+Q_DECLARE_METATYPE(Frame)
 Q_DECLARE_METATYPE(ScriptUtils*)
 Q_DECLARE_METATYPE(ConfigObjects*)
 Q_DECLARE_METATYPE(CheckableListModel*)
@@ -150,7 +154,7 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
 {
   if (qstrcmp(uri, "Kid3App") == 0) {
     qRegisterMetaType<QList<QPersistentModelIndex> >();
-    qRegisterMetaType<TrackData::TagVersion>();
+    qRegisterMetaType<Frame::TagVersion>();
     qRegisterMetaType<Kid3Application*>();
     // @uri Kid3App
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
@@ -166,13 +170,23 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
     qmlRegisterType<FrameEditorObject>(uri, 1, 0, "FrameEditorObject");
     qmlRegisterUncreatableType<FrameObjectModel>(uri, 1, 0, "FrameObjectModel",
         QLatin1String("Argument of FrameEditorObject.frameEditFinished()"));
-    qmlRegisterUncreatableType<TaggedFileSelection>(uri, 1, 0, "TaggedFileSelection",
+    qmlRegisterUncreatableType<TaggedFileSelection>(
+          uri, 1, 0, "TaggedFileSelection",
         QLatin1String("Retrieve it using app.selectionInfo"));
-    qmlRegisterUncreatableType<QItemSelectionModel>(uri, 1, 0, "QItemSelectionModel",
+    qmlRegisterUncreatableType<QItemSelectionModel>(
+          uri, 1, 0, "QItemSelectionModel",
         QLatin1String("Retrieve it using app.fileSelectionModel"));
     qmlRegisterType<ScriptUtils>(uri, 1, 0, "ScriptUtils");
     qmlRegisterType<ConfigObjects>(uri, 1, 0, "ConfigObjects");
     qmlRegisterType<CheckableListModel>(uri, 1, 0, "CheckableListModel");
+    qmlRegisterUncreatableType<Frame>(uri, 1, 0, "Frame",
+                                      QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<FormatConfig>(
+          uri, 1, 0, "FormatConfig", QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<PlaylistConfig>(
+          uri, 1, 0, "PlaylistConfig", QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<TagConfig>(
+          uri, 1, 0, "TagConfig", QLatin1String("Only enum container"));
 #if QT_VERSION < 0x050000
     qRegisterMetaType<QModelIndex>();
 #endif

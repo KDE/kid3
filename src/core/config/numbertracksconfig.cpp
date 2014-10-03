@@ -33,7 +33,7 @@ namespace {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToNumberTracksDestCfg(TrackData::TagVersion tagVersion) {
+inline int tagVersionToNumberTracksDestCfg(Frame::TagVersion tagVersion) {
   return static_cast<int>(tagVersion) - 1;
 }
 
@@ -43,7 +43,7 @@ inline int tagVersionToNumberTracksDestCfg(TrackData::TagVersion tagVersion) {
  *                   compatibility.
  * @return tag version.
  */
-inline TrackData::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
+inline Frame::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
   return TrackData::tagVersionCast(importDest + 1);
 }
 
@@ -56,7 +56,7 @@ int NumberTracksConfig::s_index = -1;
  */
 NumberTracksConfig::NumberTracksConfig() :
   StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
-  m_numberTracksDst(TrackData::TagV1),
+  m_numberTracksDst(Frame::TagV1),
   m_numberTracksStart(1)
 {
 }
@@ -94,7 +94,7 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   config->endGroup();
 }
 
-void NumberTracksConfig::setNumberTracksDestination(TrackData::TagVersion numberTracksDst)
+void NumberTracksConfig::setNumberTracksDestination(Frame::TagVersion numberTracksDst)
 {
   if (m_numberTracksDst != numberTracksDst) {
     m_numberTracksDst = numberTracksDst;

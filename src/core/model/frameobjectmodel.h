@@ -144,7 +144,7 @@ public:
 
   /**
    * Get field ID.
-   * @return id, type Frame::Field::Id.
+   * @return id, type Frame::FieldId.
    */
   int id() const;
 

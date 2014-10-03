@@ -151,8 +151,8 @@ void CliCommand::timerEvent(QTimerEvent*) {
  * @param useDefault if true use cli()->tagMask() if no parameter found
  * @return tag versions.
  */
-TrackData::TagVersion CliCommand::getTagMaskParameter(int nr,
-                                                      bool useDefault) const
+Frame::TagVersion CliCommand::getTagMaskParameter(int nr,
+                                                  bool useDefault) const
 {
   int tagMask = 0;
   if (m_args.size() > nr) {
@@ -381,8 +381,8 @@ TagCommand::TagCommand(Kid3Cli* processor) :
 
 void TagCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1, false);
-  if (tagMask != TrackData::TagNone) {
+  Frame::TagVersion tagMask = getTagMaskParameter(1, false);
+  if (tagMask != Frame::TagNone) {
     cli()->setTagMask(tagMask);
   } else {
     cli()->writeTagMask();
@@ -400,12 +400,12 @@ void GetCommand::startCommand()
 {
   int numArgs = args().size();
   QString name = numArgs > 1 ? args().at(1) : QLatin1String("all");
-  TrackData::TagVersion tagMask = getTagMaskParameter(2);
+  Frame::TagVersion tagMask = getTagMaskParameter(2);
   if (name == QLatin1String("all")) {
     cli()->writeFileInformation(tagMask);
   } else {
-    foreach (TrackData::TagVersion tagBit, QList<TrackData::TagVersion>()
-             << TrackData::TagV2 << TrackData::TagV1) {
+    foreach (Frame::TagVersion tagBit, QList<Frame::TagVersion>()
+             << Frame::TagV2 << Frame::TagV1) {
       if (tagMask & tagBit) {
         QString value = cli()->app()->getFrame(tagBit, name);
         if (!value.isEmpty()) {
@@ -430,7 +430,7 @@ void SetCommand::startCommand()
   if (numArgs > 2) {
     const QString& name = args().at(1);
     const QString& value = args().at(2);
-    TrackData::TagVersion tagMask = getTagMaskParameter(3);
+    Frame::TagVersion tagMask = getTagMaskParameter(3);
     if (cli()->app()->setFrame(tagMask, name, value)) {
       cli()->updateSelectedFiles();
       cli()->updateSelection();
@@ -484,7 +484,7 @@ void ImportCommand::startCommand()
         return;
       }
     }
-    TrackData::TagVersion tagMask = getTagMaskParameter(3);
+    Frame::TagVersion tagMask = getTagMaskParameter(3);
     if (!cli()->app()->importTags(tagMask, path, fmtIdx)) {
         setError(tr("Error"));
     }
@@ -507,7 +507,7 @@ void BatchImportCommand::startCommand()
   int numArgs = args().size();
   const QString& profileName = numArgs > 1
       ? args().at(1) : QLatin1String("All");
-  TrackData::TagVersion tagMask = getTagMaskParameter(2);
+  Frame::TagVersion tagMask = getTagMaskParameter(2);
   if (BatchImportConfig::instance().getProfileByName(profileName, m_profile)) {
     cli()->app()->batchImport(m_profile, tagMask);
   } else {
@@ -665,7 +665,7 @@ void ExportCommand::startCommand()
         return;
       }
     }
-    TrackData::TagVersion tagMask = getTagMaskParameter(3);
+    Frame::TagVersion tagMask = getTagMaskParameter(3);
     if (!cli()->app()->exportTags(tagMask, path, fmtIdx)) {
       setError(tr("Error"));
     }
@@ -732,15 +732,15 @@ RenameDirectoryCommand::RenameDirectoryCommand(Kid3Cli* processor) :
 
 void RenameDirectoryCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = TrackData::TagNone;
+  Frame::TagVersion tagMask = Frame::TagNone;
   QString format;
   bool create = false;
   m_dryRun = false;
   for (int i = 1; i < args().size(); ++i) {
     bool ok = false;
-    if (tagMask == TrackData::TagNone) {
+    if (tagMask == Frame::TagNone) {
       tagMask = getTagMaskParameter(i, false);
-      ok = tagMask != TrackData::TagNone;
+      ok = tagMask != Frame::TagNone;
     }
     if (!ok) {
       const QString& param = args().at(i);
@@ -755,7 +755,7 @@ void RenameDirectoryCommand::startCommand()
       }
     }
   }
-  if (tagMask == TrackData::TagNone) {
+  if (tagMask == Frame::TagNone) {
     tagMask = cli()->tagMask();
   }
   if (format.isEmpty()) {
@@ -830,7 +830,7 @@ void NumberTracksCommand::startCommand()
   if (!ok) {
     firstTrackNr = 1;
   }
-  TrackData::TagVersion tagMask = getTagMaskParameter(2);
+  Frame::TagVersion tagMask = getTagMaskParameter(2);
   cli()->app()->numberTracks(firstTrackNr, 0, tagMask);
 }
 
@@ -952,19 +952,19 @@ TagToFilenameCommand::TagToFilenameCommand(Kid3Cli* processor) :
 
 void TagToFilenameCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = TrackData::TagNone;
+  Frame::TagVersion tagMask = Frame::TagNone;
   QString format;
   for (int i = 1; i < qMin(args().size(), 3); ++i) {
     bool ok = false;
-    if (tagMask == TrackData::TagNone) {
+    if (tagMask == Frame::TagNone) {
       tagMask = getTagMaskParameter(i, false);
-      ok = tagMask != TrackData::TagNone;
+      ok = tagMask != Frame::TagNone;
     }
     if (!ok && format.isEmpty()) {
       format = args().at(i);
     }
   }
-  if (tagMask == TrackData::TagNone) {
+  if (tagMask == Frame::TagNone) {
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
@@ -982,19 +982,19 @@ FilenameToTagCommand::FilenameToTagCommand(Kid3Cli* processor) :
 
 void FilenameToTagCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = TrackData::TagNone;
+  Frame::TagVersion tagMask = Frame::TagNone;
   QString format;
   for (int i = 1; i < qMin(args().size(), 3); ++i) {
     bool ok = false;
-    if (tagMask == TrackData::TagNone) {
+    if (tagMask == Frame::TagNone) {
       tagMask = getTagMaskParameter(i, false);
-      ok = tagMask != TrackData::TagNone;
+      ok = tagMask != Frame::TagNone;
     }
     if (!ok && format.isEmpty()) {
       format = args().at(i);
     }
   }
-  if (tagMask == TrackData::TagNone) {
+  if (tagMask == Frame::TagNone) {
     tagMask = cli()->tagMask();
   }
   if (!format.isEmpty()) {
@@ -1012,8 +1012,8 @@ TagToOtherTagCommand::TagToOtherTagCommand(Kid3Cli* processor) :
 
 void TagToOtherTagCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1, false);
-  if (tagMask != TrackData::TagNone) {
+  Frame::TagVersion tagMask = getTagMaskParameter(1, false);
+  if (tagMask != Frame::TagNone) {
     cli()->app()->copyToOtherTag(tagMask);
   } else {
     showUsage();
@@ -1029,7 +1029,7 @@ CopyCommand::CopyCommand(Kid3Cli* processor) :
 
 void CopyCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1);
+  Frame::TagVersion tagMask = getTagMaskParameter(1);
   cli()->app()->copyTags(tagMask);
 }
 
@@ -1042,7 +1042,7 @@ PasteCommand::PasteCommand(Kid3Cli* processor) :
 
 void PasteCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1);
+  Frame::TagVersion tagMask = getTagMaskParameter(1);
   cli()->app()->pasteTags(tagMask);
 }
 
@@ -1055,7 +1055,7 @@ RemoveCommand::RemoveCommand(Kid3Cli* processor) :
 
 void RemoveCommand::startCommand()
 {
-  TrackData::TagVersion tagMask = getTagMaskParameter(1);
+  Frame::TagVersion tagMask = getTagMaskParameter(1);
   cli()->app()->removeTags(tagMask);
 }
 

@@ -171,7 +171,7 @@ QString FrameFieldObject::name() const
 {
   if (m_index >= 0) {
     return Frame::Field::getFieldIdName(
-          static_cast<Frame::Field::Id>(constField().m_id));
+          static_cast<Frame::FieldId>(constField().m_id));
   } else {
     return tr("Text");
   }
@@ -179,7 +179,7 @@ QString FrameFieldObject::name() const
 
 /**
  * Get field ID.
- * @return id, type Frame::Field::Id.
+ * @return id, type Frame::FieldId.
  */
 int FrameFieldObject::id() const {
   if (m_index >= 0) {

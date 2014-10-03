@@ -112,14 +112,14 @@ public:
    * Get currently active tag mask.
    * @return tag bits.
    */
-  TrackData::TagVersion tagMask() const { return m_tagMask; }
+  Frame::TagVersion tagMask() const { return m_tagMask; }
 
   /**
    * Set currently active tag mask.
    *
    * @param tagMask tag bits
    */
-  void setTagMask(TrackData::TagVersion tagMask);
+  void setTagMask(Frame::TagVersion tagMask);
 
   /**
    * Get timeout value.
@@ -200,7 +200,7 @@ private:
   QString m_filename;
   QString m_tagFormatV1;
   QString m_tagFormatV2;
-  TrackData::TagVersion m_tagMask;
+  Frame::TagVersion m_tagMask;
   /** Overwrites command timeout, -1 to switch off, 0 for defaults, else ms. */
   int m_timeoutMs;
   bool m_fileNameChanged;

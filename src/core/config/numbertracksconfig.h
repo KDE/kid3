@@ -68,10 +68,10 @@ public:
   virtual void readFromConfig(ISettings* config);
 
   /** Get destination tag. */
-  TrackData::TagVersion numberTracksDestination() const { return m_numberTracksDst; }
+  Frame::TagVersion numberTracksDestination() const { return m_numberTracksDst; }
 
   /** Set destination tag. */
-  void setNumberTracksDestination(TrackData::TagVersion numberTracksDestination);
+  void setNumberTracksDestination(Frame::TagVersion numberTracksDestination);
 
   /** Get start number when numbering tracks. */
   int numberTracksStart() const { return m_numberTracksStart; }
@@ -81,7 +81,7 @@ public:
 
 signals:
   /** Emitted when @a numberTracksDst changed. */
-  void numberTracksDestinationChanged(TrackData::TagVersion numberTracksDestination);
+  void numberTracksDestinationChanged(Frame::TagVersion numberTracksDestination);
 
   /** Emitted when @a numberTracksStart changed. */
   void numberTracksStartChanged(int numberTracksStart);
@@ -93,7 +93,7 @@ private:
     setNumberTracksDestination(TrackData::tagVersionCast(numberTracksDst));
   }
 
-  TrackData::TagVersion m_numberTracksDst;
+  Frame::TagVersion m_numberTracksDst;
   int m_numberTracksStart;
 
   /** Index in configuration storage */

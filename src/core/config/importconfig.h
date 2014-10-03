@@ -124,10 +124,10 @@ public:
   void setImportServer(int importServer);
 
   /** Get tag version to import. */
-  TrackData::TagVersion importDest() const { return m_importDest; }
+  Frame::TagVersion importDest() const { return m_importDest; }
 
   /** Set tag version to import. */
-  void setImportDest(TrackData::TagVersion importDest);
+  void setImportDest(Frame::TagVersion importDest);
 
   /** Get names of import formats. */
   QStringList importFormatNames() const { return m_importFormatNames; }
@@ -261,7 +261,7 @@ signals:
   void importServerChanged(int importServer);
 
   /** Emitted when @a importDest changed. */
-  void importDestChanged(TrackData::TagVersion importDest);
+  void importDestChanged(Frame::TagVersion importDest);
 
   /** Emitted when @a importFormatNames changed. */
   void importFormatNamesChanged(const QStringList& importFormatNames);
@@ -328,7 +328,7 @@ private:
   }
 
   int m_importServer;
-  TrackData::TagVersion m_importDest;
+  Frame::TagVersion m_importDest;
   QStringList m_importFormatNames;
   QStringList m_importFormatHeaders;
   QStringList m_importFormatTracks;

@@ -81,10 +81,10 @@ public:
   void setDirFormatIndex(int dirFormatIndex);
 
   /** Get tag source when renaming directory. */
-  TrackData::TagVersion renDirSource() const { return m_renDirSrc; }
+  Frame::TagVersion renDirSource() const { return m_renDirSrc; }
 
   /** Set tag source when renaming directory. */
-  void setRenDirSource(TrackData::TagVersion renDirSource);
+  void setRenDirSource(Frame::TagVersion renDirSource);
 
   /** Get default directory format list. */
   static QStringList getDefaultDirFormatList();
@@ -97,7 +97,7 @@ signals:
   void dirFormatIndexChanged(int dirFormatIndex);
 
   /** Emitted when @a renDirSrc changed. */
-  void renDirSourceChanged(TrackData::TagVersion renDirSource);
+  void renDirSourceChanged(Frame::TagVersion renDirSource);
 
 private:
   friend RenDirConfig& StoredConfig<RenDirConfig>::instance();
@@ -108,7 +108,7 @@ private:
 
   QString m_dirFormatText;
   int m_dirFormatItem;
-  TrackData::TagVersion m_renDirSrc;
+  Frame::TagVersion m_renDirSrc;
 
   static const char** s_defaultDirFmtList;
 

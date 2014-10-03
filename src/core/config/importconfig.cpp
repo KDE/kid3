@@ -35,7 +35,7 @@ namespace {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToImportDestCfg(TrackData::TagVersion tagVersion) {
+inline int tagVersionToImportDestCfg(Frame::TagVersion tagVersion) {
   return static_cast<int>(tagVersion) - 1;
 }
 
@@ -45,7 +45,7 @@ inline int tagVersionToImportDestCfg(TrackData::TagVersion tagVersion) {
  *                   compatibility.
  * @return tag version.
  */
-inline TrackData::TagVersion importDestCfgToTagVersion(int importDest) {
+inline Frame::TagVersion importDestCfgToTagVersion(int importDest) {
   return TrackData::tagVersionCast(importDest + 1);
 }
 
@@ -58,7 +58,7 @@ int ImportConfig::s_index = -1;
  */
 ImportConfig::ImportConfig() :
   StoredConfig<ImportConfig>(QLatin1String("Import")), m_importServer(0),
-  m_importDest(TrackData::TagV1), m_importFormatIdx(0),
+  m_importDest(Frame::TagV1), m_importFormatIdx(0),
   m_maxTimeDifference(3),
   m_importVisibleColumns(0x2000000000ULL),
   m_importTagsIdx(0),
@@ -444,7 +444,7 @@ void ImportConfig::setImportServer(int importServer)
   }
 }
 
-void ImportConfig::setImportDest(TrackData::TagVersion importDest)
+void ImportConfig::setImportDest(Frame::TagVersion importDest)
 {
   if (m_importDest != importDest) {
     m_importDest = importDest;

@@ -378,7 +378,7 @@ public:
    *
    * @return true if ok.
    */
-  bool importTags(TrackData::TagVersion tagMask, const QString& path,
+  bool importTags(Frame::TagVersion tagMask, const QString& path,
                   int fmtIdx);
 
   /**
@@ -390,7 +390,7 @@ public:
    *
    * @return true if ok.
    */
-  bool exportTags(TrackData::TagVersion tagVersion,
+  bool exportTags(Frame::TagVersion tagVersion,
                   const QString& path, int fmtIdx);
 
   /**
@@ -430,7 +430,7 @@ public:
    *
    * @return true if ok.
    */
-  bool renameDirectory(TrackData::TagVersion tagMask,
+  bool renameDirectory(Frame::TagVersion tagMask,
                        const QString& format, bool create);
 
   /**
@@ -440,7 +440,7 @@ public:
    * @param total total number of tracks, used if >0
    * @param tagVersion determines on which tags the numbers are set
    */
-  void numberTracks(int nr, int total, TrackData::TagVersion tagVersion);
+  void numberTracks(int nr, int total, Frame::TagVersion tagVersion);
 
   /**
    * Set track data with tagged files of directory.
@@ -448,7 +448,7 @@ public:
    * @param tagVersion tag version
    * @param trackDataList is filled with track data
    */
-  void filesToTrackData(TrackData::TagVersion tagVersion,
+  void filesToTrackData(Frame::TagVersion tagVersion,
                         ImportTrackDataVector& trackDataList);
 
   /**
@@ -456,14 +456,14 @@ public:
    *
    * @param tagVersion tag version
    */
-  void filesToTrackDataModel(TrackData::TagVersion tagVersion);
+  void filesToTrackDataModel(Frame::TagVersion tagVersion);
 
   /**
    * Set tagged files of directory from track data model.
    *
    * @param tagVersion tags to set
    */
-  void trackDataModelToFiles(TrackData::TagVersion tagVersion);
+  void trackDataModelToFiles(Frame::TagVersion tagVersion);
 
   /**
    * Download an image file.
@@ -481,7 +481,7 @@ public:
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    * @param name    name of frame (e.g. "artist")
    */
-  QString getFrame(TrackData::TagVersion tagMask, const QString& name);
+  QString getFrame(Frame::TagVersion tagMask, const QString& name);
 
   /**
    * Set value of frame.
@@ -494,7 +494,7 @@ public:
    * @param name    name of frame (e.g. "artist")
    * @param value   value of frame
    */
-  bool setFrame(TrackData::TagVersion tagMask, const QString& name,
+  bool setFrame(Frame::TagVersion tagMask, const QString& name,
                 const QString& value);
 
   /**
@@ -735,7 +735,7 @@ public slots:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
-  void copyTags(TrackData::TagVersion tagMask);
+  void copyTags(Frame::TagVersion tagMask);
 
   /**
    * Paste from copy buffer to ID3v1 tags.
@@ -752,7 +752,7 @@ public slots:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
-  void pasteTags(TrackData::TagVersion tagMask);
+  void pasteTags(Frame::TagVersion tagMask);
 
   /**
    * Copy ID3v1 tags to ID3v2 tags of selected files.
@@ -769,7 +769,7 @@ public slots:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
-  void copyToOtherTag(TrackData::TagVersion tagMask);
+  void copyToOtherTag(Frame::TagVersion tagMask);
 
   /**
    * Remove ID3v1 tags in selected files.
@@ -786,7 +786,7 @@ public slots:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
-  void removeTags(TrackData::TagVersion tagMask);
+  void removeTags(Frame::TagVersion tagMask);
 
   /**
    * Set ID3v1 tags according to filename.
@@ -807,7 +807,7 @@ public slots:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
-  void getTagsFromFilename(TrackData::TagVersion tagMask);
+  void getTagsFromFilename(Frame::TagVersion tagMask);
 
   /**
    * Set filename according to tags.
@@ -816,7 +816,7 @@ public slots:
    *
    * @param tagVersion tag version
    */
-  void getFilenameFromTags(TrackData::TagVersion tagVersion);
+  void getFilenameFromTags(Frame::TagVersion tagVersion);
 
   /**
    * Edit selected frame.
@@ -978,7 +978,7 @@ public slots:
    * @param tagVersion import destination tag versions
    */
   void batchImport(const BatchImportProfile& profile,
-                   TrackData::TagVersion tagVersion);
+                   Frame::TagVersion tagVersion);
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
@@ -1264,7 +1264,7 @@ private:
   QString m_lastProcessedDirName;
   /* Context for batchImportNextFile() */
   const BatchImportProfile* m_batchImportProfile;
-  TrackData::TagVersion m_batchImportTagVersion;
+  Frame::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;
   ImportTrackDataVector m_batchImportTrackDataList;
 

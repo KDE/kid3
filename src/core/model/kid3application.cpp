@@ -148,7 +148,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_selection(new TaggedFileSelection(m_framesV1Model, m_framesV2Model, this)),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(0),
-  m_batchImportProfile(0), m_batchImportTagVersion(TrackData::TagNone),
+  m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
   m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
   m_filtered(false)
@@ -771,7 +771,7 @@ void Kid3Application::setFiltered(bool val)
  *
  * @return true if ok.
  */
-bool Kid3Application::importTags(TrackData::TagVersion tagMask,
+bool Kid3Application::importTags(Frame::TagVersion tagMask,
                                  const QString& path, int fmtIdx)
 {
   const ImportConfig& importCfg = ImportConfig::instance();
@@ -810,7 +810,7 @@ bool Kid3Application::importTags(TrackData::TagVersion tagMask,
  *
  * @return true if ok.
  */
-bool Kid3Application::exportTags(TrackData::TagVersion tagVersion,
+bool Kid3Application::exportTags(Frame::TagVersion tagVersion,
                                  const QString& path, int fmtIdx)
 {
   ImportTrackDataVector trackDataVector;
@@ -914,7 +914,7 @@ bool Kid3Application::writePlaylist()
  * @param tagVersion tag version
  * @param trackDataList is filled with track data
  */
-void Kid3Application::filesToTrackData(TrackData::TagVersion tagVersion,
+void Kid3Application::filesToTrackData(Frame::TagVersion tagVersion,
                                        ImportTrackDataVector& trackDataList)
 {
   TaggedFileOfDirectoryIterator it(currentOrRootIndex());
@@ -930,7 +930,7 @@ void Kid3Application::filesToTrackData(TrackData::TagVersion tagVersion,
  *
  * @param tagVersion tag version
  */
-void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
+void Kid3Application::filesToTrackDataModel(Frame::TagVersion tagVersion)
 {
   ImportTrackDataVector trackDataList;
   filesToTrackData(tagVersion, trackDataList);
@@ -942,11 +942,11 @@ void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
  *
  * @param tagVersion tags to set
  */
-void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
+void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
 {
   ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
   ImportTrackDataVector::iterator it = trackDataList.begin();
-  FrameFilter flt((tagVersion & TrackData::TagV1) ?
+  FrameFilter flt((tagVersion & Frame::TagV1) ?
                   frameModelV1()->getEnabledFrameFilter(true) :
                   frameModelV2()->getEnabledFrameFilter(true));
   TaggedFileOfDirectoryIterator tfit(currentOrRootIndex());
@@ -956,8 +956,8 @@ void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
     if (it != trackDataList.end()) {
       it->removeDisabledFrames(flt);
       formatFramesIfEnabled(*it);
-      if (tagVersion & TrackData::TagV1) taggedFile->setFramesV1(*it, false);
-      if (tagVersion & TrackData::TagV2) {
+      if (tagVersion & Frame::TagV1) taggedFile->setFramesV1(*it, false);
+      if (tagVersion & Frame::TagV2) {
         FrameCollection oldFrames;
         taggedFile->getAllFramesV2(oldFrames);
         it->markChangedFrames(oldFrames);
@@ -969,7 +969,7 @@ void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
     }
   }
 
-  if ((tagVersion & TrackData::TagV2) && flt.isEnabled(Frame::FT_Picture) &&
+  if ((tagVersion & Frame::TagV2) && flt.isEnabled(Frame::FT_Picture) &&
       !trackDataList.getCoverArtUrl().isEmpty()) {
     downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
   }
@@ -1000,7 +1000,7 @@ void Kid3Application::downloadImage(const QString& url, DownloadImageDestination
  * @param tagVersion import destination tag versions
  */
 void Kid3Application::batchImport(const BatchImportProfile& profile,
-                                  TrackData::TagVersion tagVersion)
+                                  Frame::TagVersion tagVersion)
 {
   m_batchImportProfile = &profile;
   m_batchImportTagVersion = tagVersion;
@@ -1061,7 +1061,7 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
         m_batchImportAlbums.append(m_batchImportTrackDataList);
       }
       m_batchImporter->setFrameFilter(
-            (m_batchImportTagVersion & TrackData::TagV1) != 0
+            (m_batchImportTagVersion & Frame::TagV1) != 0
           ? frameModelV1()->getEnabledFrameFilter(true)
           : frameModelV2()->getEnabledFrameFilter(true));
       m_batchImporter->start(m_batchImportAlbums, *m_batchImportProfile,
@@ -1182,17 +1182,17 @@ void Kid3Application::applyId3Format()
 void Kid3Application::applyTextEncoding()
 {
   emit fileSelectionUpdateRequested();
-  Frame::Field::TextEncoding encoding;
+  Frame::TextEncoding encoding;
   switch (TagConfig::instance().textEncoding()) {
   case TagConfig::TE_UTF16:
-    encoding = Frame::Field::TE_UTF16;
+    encoding = Frame::TE_UTF16;
     break;
   case TagConfig::TE_UTF8:
-    encoding = Frame::Field::TE_UTF8;
+    encoding = Frame::TE_UTF8;
     break;
   case TagConfig::TE_ISO8859_1:
   default:
-    encoding = Frame::Field::TE_ISO8859_1;
+    encoding = Frame::TE_ISO8859_1;
   }
   FrameCollection frames;
   SelectedTaggedFileIterator it(getRootIndex(),
@@ -1206,23 +1206,23 @@ void Kid3Application::applyTextEncoding()
          frameIt != frames.end();
          ++frameIt) {
       Frame& frame = const_cast<Frame&>(*frameIt);
-      Frame::Field::TextEncoding enc = encoding;
+      Frame::TextEncoding enc = encoding;
       if (taggedFile->getTagFormatV2() == QLatin1String("ID3v2.3.0")) {
         // TagLib sets the ID3v2.3.0 frame containing the date internally with
         // ISO-8859-1, so the encoding cannot be set for such frames.
         if (taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata") &&
             frame.getType() == Frame::FT_Date &&
-            enc != Frame::Field::TE_ISO8859_1)
+            enc != Frame::TE_ISO8859_1)
           continue;
         // Only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0.
-        if (enc != Frame::Field::TE_ISO8859_1)
-          enc = Frame::Field::TE_UTF16;
+        if (enc != Frame::TE_ISO8859_1)
+          enc = Frame::TE_UTF16;
       }
       Frame::FieldList& fields = frame.fieldList();
       for (Frame::FieldList::iterator fieldIt = fields.begin();
            fieldIt != fields.end();
            ++fieldIt) {
-        if (fieldIt->m_id == Frame::Field::ID_TextEnc &&
+        if (fieldIt->m_id == Frame::ID_TextEnc &&
             fieldIt->m_value.toInt() != enc) {
           fieldIt->m_value = enc;
           frame.setValueChanged();
@@ -1259,11 +1259,11 @@ void Kid3Application::copyTagsV2()
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  */
-void Kid3Application::copyTags(TrackData::TagVersion tagMask)
+void Kid3Application::copyTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & TrackData::TagV1) {
+  if (tagMask & Frame::TagV1) {
     copyTagsV1();
-  } else if (tagMask & TrackData::TagV2) {
+  } else if (tagMask & Frame::TagV2) {
     copyTagsV2();
   }
 }
@@ -1309,11 +1309,11 @@ void Kid3Application::pasteTagsV2()
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  */
-void Kid3Application::pasteTags(TrackData::TagVersion tagMask)
+void Kid3Application::pasteTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & TrackData::TagV1) {
+  if (tagMask & Frame::TagV1) {
     pasteTagsV1();
-  } else if (tagMask & TrackData::TagV2) {
+  } else if (tagMask & Frame::TagV2) {
     pasteTagsV2();
   }
 }
@@ -1365,11 +1365,11 @@ void Kid3Application::copyV2ToV1()
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  */
-void Kid3Application::copyToOtherTag(TrackData::TagVersion tagMask)
+void Kid3Application::copyToOtherTag(Frame::TagVersion tagMask)
 {
-  if (tagMask & TrackData::TagV1) {
+  if (tagMask & Frame::TagV1) {
     copyV2ToV1();
-  } else if (tagMask & TrackData::TagV2) {
+  } else if (tagMask & Frame::TagV2) {
     copyV1ToV2();
   }
 }
@@ -1411,11 +1411,11 @@ void Kid3Application::removeTagsV2()
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  */
-void Kid3Application::removeTags(TrackData::TagVersion tagMask)
+void Kid3Application::removeTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & TrackData::TagV1) {
+  if (tagMask & Frame::TagV1) {
     removeTagsV1();
-  } else if (tagMask & TrackData::TagV2) {
+  } else if (tagMask & Frame::TagV2) {
     removeTagsV2();
   }
 }
@@ -1477,11 +1477,11 @@ void Kid3Application::getTagsFromFilenameV2()
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  */
-void Kid3Application::getTagsFromFilename(TrackData::TagVersion tagMask)
+void Kid3Application::getTagsFromFilename(Frame::TagVersion tagMask)
 {
-  if (tagMask & TrackData::TagV1) {
+  if (tagMask & Frame::TagV1) {
     getTagsFromFilenameV1();
-  } else if (tagMask & TrackData::TagV2) {
+  } else if (tagMask & Frame::TagV2) {
     getTagsFromFilenameV2();
   }
 }
@@ -1493,7 +1493,7 @@ void Kid3Application::getTagsFromFilename(TrackData::TagVersion tagMask)
  *
  * @param tagVersion tag version
  */
-void Kid3Application::getFilenameFromTags(TrackData::TagVersion tagVersion)
+void Kid3Application::getFilenameFromTags(Frame::TagVersion tagVersion)
 {
   emit fileSelectionUpdateRequested();
   QItemSelectionModel* selectModel = getFileSelectionModel();
@@ -2325,7 +2325,7 @@ QString Kid3Application::performRenameActions()
  *
  * @return true if ok.
  */
-bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
+bool Kid3Application::renameDirectory(Frame::TagVersion tagMask,
                                      const QString& format, bool create)
 {
   TaggedFile* taggedFile =
@@ -2358,7 +2358,7 @@ bool Kid3Application::isModified() const
  * @param tagVersion determines on which tags the numbers are set
  */
 void Kid3Application::numberTracks(int nr, int total,
-                                   TrackData::TagVersion tagVersion)
+                                   Frame::TagVersion tagVersion)
 {
   emit fileSelectionUpdateRequested();
   int numDigits = TagConfig::instance().trackNumberDigits();
@@ -2379,13 +2379,13 @@ void Kid3Application::numberTracks(int nr, int total,
   while (it->hasNext()) {
     TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
-    if (tagVersion & TrackData::TagV1) {
+    if (tagVersion & Frame::TagV1) {
       int oldnr = taggedFile->getTrackNumV1();
       if (nr != oldnr) {
         taggedFile->setTrackNumV1(nr);
       }
     }
-    if (tagVersion & TrackData::TagV2) {
+    if (tagVersion & Frame::TagV2) {
       // For tag 2 the frame is written, so that we have control over the
       // format and the total number of tracks, and it is possible to change
       // the format even if the numbers stay the same.
@@ -2639,7 +2639,7 @@ void Kid3Application::convertToId3v23()
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  * @param name    name of frame (e.g. "Artist")
  */
-QString Kid3Application::getFrame(TrackData::TagVersion tagMask,
+QString Kid3Application::getFrame(Frame::TagVersion tagMask,
                                   const QString& name)
 {
   QString frameName(name);
@@ -2649,7 +2649,7 @@ QString Kid3Application::getFrame(TrackData::TagVersion tagMask,
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  FrameTableModel* ft = (tagMask & TrackData::TagV2) ? m_framesV2Model :
+  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
     m_framesV1Model;
   FrameCollection::const_iterator it = ft->frames().findByName(frameName);
   if (it != ft->frames().end()) {
@@ -2694,7 +2694,7 @@ QString Kid3Application::getFrame(TrackData::TagVersion tagMask,
  * @param name    name of frame (e.g. "Artist")
  * @param value   value of frame
  */
-bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
+bool Kid3Application::setFrame(Frame::TagVersion tagMask,
                                const QString& name, const QString& value)
 {
   QString frameName(name);
@@ -2704,7 +2704,7 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  FrameTableModel* ft = (tagMask & TrackData::TagV2) ? m_framesV2Model :
+  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
     m_framesV1Model;
   FrameCollection frames(ft->frames());
   FrameCollection::const_iterator it = frames.findByName(frameName);
@@ -2726,7 +2726,7 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
         if (file.open(QIODevice::ReadOnly)) {
           QTextStream stream(&file);
           Frame frame(*it);
-          Frame::setField(frame, Frame::Field::ID_Description, value);
+          Frame::setField(frame, Frame::ID_Description, value);
           deleteFrame(it->getName());
           TimeEventModel timeEventModel;
           if (isSylt) {
@@ -2771,10 +2771,10 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
           Frame::Field field;
           Frame::FieldList& fields = frame.fieldList();
           fields.clear();
-          field.m_id = Frame::Field::ID_Description;
+          field.m_id = Frame::ID_Description;
           field.m_value = value;
           fields.append(field);
-          field.m_id = Frame::Field::ID_Data;
+          field.m_id = Frame::ID_Data;
           field.m_value = QVariant(QVariant::List);
           fields.append(field);
           QTextStream stream(&file);

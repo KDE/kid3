@@ -33,7 +33,7 @@ int ExportConfig::s_index = -1;
  */
 ExportConfig::ExportConfig() :
   StoredConfig<ExportConfig>(QLatin1String("Export")),
-  m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0)
+  m_exportSrcV1(Frame::TagV1), m_exportFormatIdx(0)
 {
   m_exportFormatNames.append(QLatin1String("CSV unquoted"));
   m_exportFormatHeaders.append(QLatin1String(""));
@@ -133,7 +133,7 @@ ExportConfig::~ExportConfig() {}
 void ExportConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
-  config->setValue(QLatin1String("ExportSourceV1"), QVariant(m_exportSrcV1 == TrackData::TagV1));
+  config->setValue(QLatin1String("ExportSourceV1"), QVariant(m_exportSrcV1 == Frame::TagV1));
   config->setValue(QLatin1String("ExportFormatNames"), QVariant(m_exportFormatNames));
   config->setValue(QLatin1String("ExportFormatHeaders"), QVariant(m_exportFormatHeaders));
   config->setValue(QLatin1String("ExportFormatTracks"), QVariant(m_exportFormatTracks));
@@ -154,8 +154,8 @@ void ExportConfig::readFromConfig(ISettings* config)
 
   config->beginGroup(m_group);
   m_exportSrcV1 = config->value(QLatin1String("ExportSourceV1"),
-      m_exportSrcV1 == TrackData::TagV1).toBool()
-      ? TrackData::TagV1 : TrackData::TagV2;
+      m_exportSrcV1 == Frame::TagV1).toBool()
+      ? Frame::TagV1 : Frame::TagV2;
   expNames = config->value(QLatin1String("ExportFormatNames"), m_exportFormatNames).toStringList();
   expHeaders = config->value(QLatin1String("ExportFormatHeaders"), m_exportFormatHeaders).toStringList();
   expTracks = config->value(QLatin1String("ExportFormatTracks"), m_exportFormatTracks).toStringList();
@@ -206,7 +206,7 @@ void ExportConfig::readFromConfig(ISettings* config)
   }
 }
 
-void ExportConfig::setExportSource(TrackData::TagVersion exportSrcV1)
+void ExportConfig::setExportSource(Frame::TagVersion exportSrcV1)
 {
   if (m_exportSrcV1 != exportSrcV1) {
     m_exportSrcV1 = exportSrcV1;

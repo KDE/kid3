@@ -135,7 +135,7 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
         pic->width(), pic->height(), pic->colorDepth(),
         pic->numColors(), ba);
   PictureFrame::setFields(
-    frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), TStringToQString(pic->mimeType()),
+    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), TStringToQString(pic->mimeType()),
     static_cast<PictureFrame::PictureType>(pic->type()),
     TStringToQString(pic->description()),
     ba, &imgProps);
@@ -149,7 +149,7 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
  */
 void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
 {
-  Frame::Field::TextEncoding enc;
+  Frame::TextEncoding enc;
   QString imgFormat;
   QString mimeType;
   PictureFrame::PictureType pictureType;
@@ -2458,7 +2458,7 @@ static QString getFieldsFromTextFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = tFrame->textEncoding();
   fields.push_back(field);
 
@@ -2466,7 +2466,7 @@ static QString getFieldsFromTextFrame(
   if ((txxxFrame =
        dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(tFrame))
       != 0) {
-    field.m_id = Frame::Field::ID_Description;
+    field.m_id = Frame::ID_Description;
     field.m_value = TStringToQString(txxxFrame->description());
     fields.push_back(field);
 
@@ -2477,7 +2477,7 @@ static QString getFieldsFromTextFrame(
     // separated by a special separator.
     text = TStringToQString(tFrame->fieldList().toString(Frame::stringListSeparator().toLatin1()));
   }
-  field.m_id = Frame::Field::ID_Text;
+  field.m_id = Frame::ID_Text;
   if (type == Frame::FT_Genre) {
     text = Genres::getNameString(text);
   }
@@ -2501,29 +2501,29 @@ static QString getFieldsFromApicFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = apicFrame->textEncoding();
   fields.push_back(field);
 
   // for compatibility with ID3v2.3 id3lib
-  field.m_id = Frame::Field::ID_ImageFormat;
+  field.m_id = Frame::ID_ImageFormat;
   field.m_value = QString(QLatin1String(""));
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_MimeType;
+  field.m_id = Frame::ID_MimeType;
   field.m_value = TStringToQString(apicFrame->mimeType());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_PictureType;
+  field.m_id = Frame::ID_PictureType;
   field.m_value = apicFrame->type();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   text = TStringToQString(apicFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   TagLib::ByteVector pic = apicFrame->picture();
   QByteArray ba;
   ba = QByteArray(pic.data(), pic.size());
@@ -2546,20 +2546,20 @@ static QString getFieldsFromCommFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = commFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Language;
+  field.m_id = Frame::ID_Language;
   TagLib::ByteVector bvLang = commFrame->language();
   field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   field.m_value = TStringToQString(commFrame->description());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Text;
+  field.m_id = Frame::ID_Text;
   text = TStringToQString(commFrame->toString());
   field.m_value = text;
   fields.push_back(field);
@@ -2580,11 +2580,11 @@ static QString getFieldsFromUfidFrame(
   Frame::FieldList& fields)
 {
   Frame::Field field;
-  field.m_id = Frame::Field::ID_Owner;
+  field.m_id = Frame::ID_Owner;
   field.m_value = TStringToQString(ufidFrame->owner());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Id;
+  field.m_id = Frame::ID_Id;
   TagLib::ByteVector id = ufidFrame->identifier();
   QByteArray ba;
   ba = QByteArray(id.data(), id.size());
@@ -2615,24 +2615,24 @@ static QString getFieldsFromGeobFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = geobFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_MimeType;
+  field.m_id = Frame::ID_MimeType;
   field.m_value = TStringToQString(geobFrame->mimeType());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Filename;
+  field.m_id = Frame::ID_Filename;
   field.m_value = TStringToQString(geobFrame->fileName());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   text = TStringToQString(geobFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   TagLib::ByteVector obj = geobFrame->object();
   QByteArray ba;
   ba = QByteArray(obj.data(), obj.size());
@@ -2655,7 +2655,7 @@ static QString getFieldsFromUrlFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_Url;
+  field.m_id = Frame::ID_Url;
   text = TStringToQString(wFrame->url());
   field.m_value = text;
   fields.push_back(field);
@@ -2676,15 +2676,15 @@ static QString getFieldsFromUserUrlFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = wxxxFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   field.m_value = TStringToQString(wxxxFrame->description());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Url;
+  field.m_id = Frame::ID_Url;
   text = TStringToQString(wxxxFrame->url());
   field.m_value = text;
   fields.push_back(field);
@@ -2707,20 +2707,20 @@ static QString getFieldsFromUsltFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = usltFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Language;
+  field.m_id = Frame::ID_Language;
   TagLib::ByteVector bvLang = usltFrame->language();
   field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   field.m_value = TStringToQString(usltFrame->description());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Text;
+  field.m_id = Frame::ID_Text;
   text = TStringToQString(usltFrame->toString());
   field.m_value = text;
   fields.push_back(field);
@@ -2742,29 +2742,29 @@ static QString getFieldsFromSyltFrame(
 {
   QString text;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = syltFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Language;
+  field.m_id = Frame::ID_Language;
   TagLib::ByteVector bvLang = syltFrame->language();
   field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_TimestampFormat;
+  field.m_id = Frame::ID_TimestampFormat;
   field.m_value = syltFrame->timestampFormat();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_ContentType;
+  field.m_id = Frame::ID_ContentType;
   field.m_value = syltFrame->type();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Description;
+  field.m_id = Frame::ID_Description;
   text = TStringToQString(syltFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   QVariantList synchedData;
   TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList stl =
       syltFrame->synchedText();
@@ -2794,11 +2794,11 @@ static QString getFieldsFromEtcoFrame(
   Frame::FieldList& fields)
 {
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TimestampFormat;
+  field.m_id = Frame::ID_TimestampFormat;
   field.m_value = etcoFrame->timestampFormat();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   QVariantList synchedData;
   TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList sel =
       etcoFrame->synchedEvents();
@@ -2830,12 +2830,12 @@ static QString getFieldsFromPrivFrame(
 {
   QString owner;
   Frame::Field field;
-  field.m_id = Frame::Field::ID_Owner;
+  field.m_id = Frame::ID_Owner;
   owner = TStringToQString(privFrame->owner());
   field.m_value = owner;
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   TagLib::ByteVector data = privFrame->data();
   QByteArray ba;
   ba = QByteArray(data.data(), data.size());
@@ -2864,16 +2864,16 @@ static QString getFieldsFromPopmFrame(
   Frame::FieldList& fields)
 {
   Frame::Field field;
-  field.m_id = Frame::Field::ID_Email;
+  field.m_id = Frame::ID_Email;
   field.m_value = TStringToQString(popmFrame->email());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Rating;
+  field.m_id = Frame::ID_Rating;
   field.m_value = popmFrame->rating();
   QString text(field.m_value.toString());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Counter;
+  field.m_id = Frame::ID_Counter;
   field.m_value = popmFrame->counter();
   fields.push_back(field);
 
@@ -2895,19 +2895,19 @@ static QString getFieldsFromOwneFrame(
   Frame::FieldList& fields)
 {
   Frame::Field field;
-  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_id = Frame::ID_TextEnc;
   field.m_value = owneFrame->textEncoding();
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Date;
+  field.m_id = Frame::ID_Date;
   field.m_value = TStringToQString(owneFrame->datePurchased());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Price;
+  field.m_id = Frame::ID_Price;
   field.m_value = TStringToQString(owneFrame->pricePaid());
   fields.push_back(field);
 
-  field.m_id = Frame::Field::ID_Seller;
+  field.m_id = Frame::ID_Seller;
   QString text(TStringToQString(owneFrame->seller()));
   field.m_value = text;
   fields.push_back(field);
@@ -2928,7 +2928,7 @@ static QString getFieldsFromUnknownFrame(
   const TagLib::ID3v2::Frame* unknownFrame, Frame::FieldList& fields)
 {
   Frame::Field field;
-  field.m_id = Frame::Field::ID_Data;
+  field.m_id = Frame::ID_Data;
   TagLib::ByteVector dat = unknownFrame->render();
   QByteArray ba;
   ba = QByteArray(dat.data(), dat.size());
@@ -3587,7 +3587,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
          ++fldIt) {
       const Frame::Field& fld = *fldIt;
       switch (fld.m_id) {
-        case Frame::Field::ID_Text:
+        case Frame::ID_Text:
         {
           QString value(fld.m_value.toString());
           if (frame.getType() == Frame::FT_Genre) {
@@ -3600,63 +3600,63 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
           setText(tFrame, QSTRING_TO_TSTRING(value));
           break;
         }
-        case Frame::Field::ID_TextEnc:
+        case Frame::ID_TextEnc:
           setTextEncoding(tFrame, static_cast<TagLib::String::Type>(
                             fld.m_value.toInt()));
           break;
-        case Frame::Field::ID_Description:
+        case Frame::ID_Description:
           setDescription(tFrame, fld);
           break;
-        case Frame::Field::ID_MimeType:
+        case Frame::ID_MimeType:
           setMimeType(tFrame, fld);
           break;
-        case Frame::Field::ID_PictureType:
+        case Frame::ID_PictureType:
           setPictureType(tFrame, fld);
           break;
-        case Frame::Field::ID_Data:
+        case Frame::ID_Data:
           setData(tFrame, fld);
           break;
-        case Frame::Field::ID_Language:
+        case Frame::ID_Language:
           setLanguage(tFrame, fld);
           break;
-        case Frame::Field::ID_Owner:
+        case Frame::ID_Owner:
           setOwner(tFrame, fld);
           break;
-        case Frame::Field::ID_Id:
+        case Frame::ID_Id:
           setIdentifier(tFrame, fld);
           break;
-        case Frame::Field::ID_Filename:
+        case Frame::ID_Filename:
           setFilename(tFrame, fld);
           break;
-        case Frame::Field::ID_Url:
+        case Frame::ID_Url:
           setUrl(tFrame, fld);
           break;
 #if TAGLIB_VERSION >= 0x010600
-        case Frame::Field::ID_Email:
+        case Frame::ID_Email:
           setEmail(tFrame, fld);
           break;
-        case Frame::Field::ID_Rating:
+        case Frame::ID_Rating:
           setRating(tFrame, fld);
           break;
-        case Frame::Field::ID_Counter:
+        case Frame::ID_Counter:
           setCounter(tFrame, fld);
           break;
 #endif
 #if TAGLIB_VERSION >= 0x010800
-        case Frame::Field::ID_Price:
+        case Frame::ID_Price:
           setPrice(tFrame, fld);
           break;
-        case Frame::Field::ID_Date:
+        case Frame::ID_Date:
           setDate(tFrame, fld);
           break;
-        case Frame::Field::ID_Seller:
+        case Frame::ID_Seller:
           setSeller(tFrame, fld);
           break;
 #endif
-        case Frame::Field::ID_TimestampFormat:
+        case Frame::ID_TimestampFormat:
           setTimestampFormat(tFrame, fld);
           break;
-        case Frame::Field::ID_ContentType:
+        case Frame::ID_ContentType:
           setContentType(tFrame, fld);
           break;
       }
@@ -4452,7 +4452,7 @@ static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
 
   TagLib::ByteVector data = picture.picture();
   QString description(TStringToQString(picture.description()));
-  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"),
+  PictureFrame::setFields(frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
                           TStringToQString(picture.mimeType()),
                           static_cast<PictureFrame::PictureType>(picture.type()),
                           description,
@@ -4469,7 +4469,7 @@ static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
  */
 static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
 {
-  Frame::Field::TextEncoding enc;
+  Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
   QByteArray data;
   QString imgFormat, mimeType, description;
@@ -4523,7 +4523,7 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
   if (offset > len)
     return false;
   TagLib::ByteVector picture = data.mid(offset, len - offset);
-  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"),
+  PictureFrame::setFields(frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
                           mimeType,
                           static_cast<PictureFrame::PictureType>(pictureType),
                           description,
@@ -4540,7 +4540,7 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
  */
 static void renderAsfPicture(const Frame& frame, TagLib::ByteVector& data)
 {
-  Frame::Field::TextEncoding enc;
+  Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
   QByteArray picture;
   QString imgFormat, mimeType, description;
@@ -4599,7 +4599,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
         if (AttributeData(frame.getInternalName()).toByteArray(frame.getValue(), ba)) {
           return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
         }
-        QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+        QVariant fieldValue = frame.getFieldValue(Frame::ID_Data);
         if (fieldValue.isValid()) {
           ba = fieldValue.toByteArray();
           return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
@@ -4991,7 +4991,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #if TAGLIB_VERSION >= 0x010700
         if (frame.getFieldList().empty()) {
           PictureFrame::setFields(
-            frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+            frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
             PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
         }
         if (m_pictures.isRead()) {
@@ -5115,7 +5115,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
       if (valueType == TagLib::ASF::Attribute::BytesType &&
           frame.getType() != Frame::FT_Picture) {
         Frame::Field field;
-        field.m_id = Frame::Field::ID_Data;
+        field.m_id = Frame::ID_Data;
         field.m_value = QByteArray();
         frame.fieldList().push_back(field);
       }
@@ -5295,7 +5295,7 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
   frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList(), type));
   if (id3Frame->frameID().mid(1, 3) == "XXX" ||
       type == Frame::FT_Comment) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Description);
     if (fieldValue.isValid()) {
       QString description = fieldValue.toString();
       if (!description.isEmpty()) {
@@ -5315,7 +5315,7 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
     }
 #if TAGLIB_VERSION >= 0x010600
   } else if (id3Frame->frameID().startsWith("PRIV")) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Owner);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Owner);
     if (fieldValue.isValid()) {
       QString owner = fieldValue.toString();
       if (!owner.isEmpty()) {
@@ -5611,7 +5611,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
               QByteArray ba;
               ba = QByteArray(bv.data(), bv.size());
               PictureFrame::setFields(
-                frame, Frame::Field::TE_ISO8859_1,
+                frame, Frame::TE_ISO8859_1,
                 coverArt.format() == TagLib::MP4::CoverArt::PNG ? QLatin1String("PNG") : QLatin1String("JPG"),
                 coverArt.format() == TagLib::MP4::CoverArt::PNG ?
                 QLatin1String("image/png") : QLatin1String("image/jpeg"),
@@ -5713,7 +5713,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           if ((*ait).type() == TagLib::ASF::Attribute::BytesType &&
               valueType == TagLib::ASF::Attribute::BytesType) {
             Frame::Field field;
-            field.m_id = Frame::Field::ID_Data;
+            field.m_id = Frame::ID_Data;
             field.m_value = ba;
             frame.fieldList().push_back(field);
           }

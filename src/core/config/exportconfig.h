@@ -80,10 +80,10 @@ public:
    * Get tag source to export.
    * @return Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags.
    */
-  TrackData::TagVersion exportSource() const { return m_exportSrcV1; }
+  Frame::TagVersion exportSource() const { return m_exportSrcV1; }
 
   /** Set tag source to export. */
-  void setExportSource(TrackData::TagVersion exportSource);
+  void setExportSource(Frame::TagVersion exportSource);
 
   /** Get names of export formats */
   QStringList exportFormatNames() const { return m_exportFormatNames; }
@@ -123,7 +123,7 @@ public:
 
 signals:
   /** Emitted when @a exportSrcV1 changed. */
-  void exportSourceChanged(TrackData::TagVersion exportSource);
+  void exportSourceChanged(Frame::TagVersion exportSource);
 
   /** Emitted when @a exportFormatNames changed. */
   void exportFormatNamesChanged(const QStringList& exportFormatNames);
@@ -150,7 +150,7 @@ private:
     setExportSource(TrackData::tagVersionCast(exportSrc));
   }
 
-  TrackData::TagVersion m_exportSrcV1;
+  Frame::TagVersion m_exportSrcV1;
   QStringList m_exportFormatNames;
   QStringList m_exportFormatHeaders;
   QStringList m_exportFormatTracks;

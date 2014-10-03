@@ -101,9 +101,9 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_actionComboBox->insertItem(ActionCreate, tr("Create Directory"));
   actionLayout->addRow(tr("&Action:"), m_actionComboBox);
   connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-  m_tagversionComboBox->addItem(tr("From Tag 2 and Tag 1"), TrackData::TagV2V1);
-  m_tagversionComboBox->addItem(tr("From Tag 1"), TrackData::TagV1);
-  m_tagversionComboBox->addItem(tr("From Tag 2"), TrackData::TagV2);
+  m_tagversionComboBox->addItem(tr("From Tag 2 and Tag 1"), Frame::TagV2V1);
+  m_tagversionComboBox->addItem(tr("From Tag 1"), Frame::TagV1);
+  m_tagversionComboBox->addItem(tr("From Tag 2"), Frame::TagV2);
   actionLayout->addRow(tr("&Source:"), m_tagversionComboBox);
   connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 

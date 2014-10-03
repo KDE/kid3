@@ -70,7 +70,7 @@ public:
    * Convert an integer to a tag version.
    * @param nr tag mask (0=none, 1, 2, 3=1 and 2)
    */
-  Q_INVOKABLE static TrackData::TagVersion toTagVersion(int nr);
+  Q_INVOKABLE static Frame::TagVersion toTagVersion(int nr);
 
   /**
    * Get data for @a roleName and @a row from @a model.
@@ -111,6 +111,31 @@ public:
    * @return string containing property values.
    */
   Q_INVOKABLE static QString properties(QObject* obj);
+
+  /**
+   * String list of frame field ID names.
+   */
+  Q_INVOKABLE static QStringList getFieldIdNames();
+
+  /**
+   * String list of text encoding names.
+   */
+  Q_INVOKABLE static QStringList getTextEncodingNames();
+
+  /**
+   * String list of timestamp format names.
+   */
+  Q_INVOKABLE static QStringList getTimestampFormatNames();
+
+  /**
+   * String list of picture type names.
+   */
+  Q_INVOKABLE static QStringList getPictureTypeNames();
+
+  /**
+   * String list of content type names.
+   */
+  Q_INVOKABLE static QStringList getContentTypeNames();
 };
 
 #endif // SCRIPTUTILS_H

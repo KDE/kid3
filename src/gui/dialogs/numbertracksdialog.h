@@ -62,7 +62,7 @@ public:
    *
    * @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
    */
-  TrackData::TagVersion getDestination() const;
+  Frame::TagVersion getDestination() const;
 
   /**
    * Set the total number of tracks.

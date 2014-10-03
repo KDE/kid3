@@ -84,7 +84,7 @@ public:
    */
   void start(const QList<ImportTrackDataVector>& trackLists,
              const BatchImportProfile& profile,
-             TrackData::TagVersion tagVersion);
+             Frame::TagVersion tagVersion);
 
   /**
    * Set frame filter to be used when importing.
@@ -154,7 +154,7 @@ private:
   AlbumListItem* m_albumListItem;
   QList<ImportTrackDataVector> m_trackLists;
   BatchImportProfile m_profile;
-  TrackData::TagVersion m_tagVersion;
+  Frame::TagVersion m_tagVersion;
   State m_state;
   int m_trackListNr;
   int m_sourceNr;

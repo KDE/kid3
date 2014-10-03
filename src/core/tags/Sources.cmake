@@ -9,4 +9,6 @@ set(tags_SRCS
   tags/trackdata.cpp
 )
 
-set(tags_MOC_HDRS)
+set(tags_MOC_HDRS
+  tags/frame.h
+)

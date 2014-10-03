@@ -231,7 +231,7 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
        it != fields.constEnd();
        ++it) {
     const Frame::Field& fld = *it;
-    if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+    if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
     } else if (fld.m_value.type() == QVariant::List) {
       synchedData = fld.m_value.toList();
@@ -296,7 +296,7 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
   for (Frame::FieldList::iterator it = fields.begin();
        it != fields.end();
        ++it) {
-    if (it->m_id == Frame::Field::ID_TimestampFormat) {
+    if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
     } else if (it->m_value.type() == QVariant::List) {
       dataIt = it;
@@ -350,7 +350,7 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
        it != fields.constEnd();
        ++it) {
     const Frame::Field& fld = *it;
-    if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+    if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
     } else if (fld.m_value.type() == QVariant::List) {
       synchedData = fld.m_value.toList();
@@ -384,7 +384,7 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
   for (Frame::FieldList::iterator it = fields.begin();
        it != fields.end();
        ++it) {
-    if (it->m_id == Frame::Field::ID_TimestampFormat) {
+    if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
     } else if (it->m_value.type() == QVariant::List) {
       dataIt = it;

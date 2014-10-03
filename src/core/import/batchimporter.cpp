@@ -48,7 +48,7 @@ enum DataFlags {
 BatchImporter::BatchImporter(QNetworkAccessManager* netMgr) : QObject(netMgr),
   m_downloadClient(new DownloadClient(netMgr)),
   m_currentImporter(0), m_trackDataModel(0), m_albumModel(0),
-  m_albumListItem(0), m_tagVersion(TrackData::TagNone), m_state(Idle),
+  m_albumListItem(0), m_tagVersion(Frame::TagNone), m_state(Idle),
   m_trackListNr(-1), m_sourceNr(-1), m_albumNr(-1),
   m_requestedData(0), m_importedData(0)
 {
@@ -84,7 +84,7 @@ void BatchImporter::setImporters(QList<ServerImporter*> importers,
  */
 void BatchImporter::start(const QList<ImportTrackDataVector>& trackLists,
                           const BatchImportProfile& profile,
-                          TrackData::TagVersion tagVersion)
+                          Frame::TagVersion tagVersion)
 {
   m_trackLists = trackLists;
   m_profile = profile;
@@ -266,7 +266,7 @@ void BatchImporter::stateTransition()
   case GettingCover:
     if (m_trackDataModel) {
       QUrl imgUrl;
-      if (m_tagVersion & TrackData::TagV2) {
+      if (m_tagVersion & Frame::TagV2) {
         QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
         if (!coverArtUrl.isEmpty()) {
           imgUrl = DownloadClient::getImageUrl(coverArtUrl);
@@ -356,10 +356,10 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
             taggedFile->readTags(false);
             it->removeDisabledFrames(m_frameFilter);
             TagFormatConfig::instance().formatFramesIfEnabled(*it);
-            if (m_tagVersion & TrackData::TagV1) {
+            if (m_tagVersion & Frame::TagV1) {
               taggedFile->setFramesV1(*it, false);
             }
-            if (m_tagVersion & TrackData::TagV2) {
+            if (m_tagVersion & Frame::TagV2) {
               taggedFile->setFramesV2(*it, false);
             }
           }

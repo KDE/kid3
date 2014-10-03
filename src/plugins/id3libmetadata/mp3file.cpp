@@ -1870,7 +1870,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
           bool hasEnc;
           const ID3_TextEnc enc = fld->GetEncoding();
           ID3_TextEnc newEnc = static_cast<ID3_TextEnc>(
-                frame.getFieldValue(Frame::Field::ID_TextEnc).toInt(&hasEnc));
+                frame.getFieldValue(Frame::ID_TextEnc).toInt(&hasEnc));
           if (!hasEnc) {
             newEnc = enc;
           }
@@ -2132,7 +2132,7 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
   if (id3Frame->GetID() == ID3FID_USERTEXT ||
       id3Frame->GetID() == ID3FID_WWWUSER ||
       id3Frame->GetID() == ID3FID_COMMENT) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Description);
     if (fieldValue.isValid()) {
       QString description = fieldValue.toString();
       if (!description.isEmpty()) {
@@ -2153,13 +2153,13 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
     for (Frame::FieldList::const_iterator it = fields.begin();
          it != fields.end();
          ++it) {
-      if ((*it).m_id == Frame::Field::ID_Owner) {
+      if ((*it).m_id == Frame::ID_Owner) {
         owner = (*it).m_value.toString();
         if (!owner.isEmpty()) {
           frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
                     frame.getInternalName() + QLatin1Char('\n') + owner));
         }
-      } else if ((*it).m_id == Frame::Field::ID_Data) {
+      } else if ((*it).m_id == Frame::ID_Data) {
         data = (*it).m_value.toByteArray();
       }
     }
@@ -2170,7 +2170,7 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
       }
     }
   } else if (id3Frame->GetID() == ID3FID_CDID) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Data);
     if (fieldValue.isValid()) {
       QString str;
       if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
@@ -2179,7 +2179,7 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
       }
     }
   } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Data);
     if (fieldValue.isValid()) {
       QByteArray ba(fieldValue.toByteArray());
       QString str(QString::fromLatin1(ba));
@@ -2189,7 +2189,7 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
       }
     }
   } else if (id3Frame->GetID() == ID3FID_POPULARIMETER) {
-    QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Rating);
+    QVariant fieldValue = frame.getFieldValue(Frame::ID_Rating);
     if (fieldValue.isValid()) {
       QString str(fieldValue.toString());
       if (!str.isEmpty()) {

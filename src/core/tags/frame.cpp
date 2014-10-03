@@ -260,11 +260,11 @@ void Frame::setValueFromFieldList()
          fldIt != getFieldList().end();
          ++fldIt) {
       int id = (*fldIt).m_id;
-      if (id == Frame::Field::ID_Text ||
-          id == Frame::Field::ID_Description ||
-          id == Frame::Field::ID_Url) {
+      if (id == ID_Text ||
+          id == ID_Description ||
+          id == ID_Url) {
         m_value = (*fldIt).m_value.toString();
-        if (id == Frame::Field::ID_Text) {
+        if (id == ID_Text) {
           // highest priority, will not be overwritten
           break;
         }
@@ -284,15 +284,15 @@ void Frame::setFieldListFromValue()
          fldIt != fieldList().end();
          ++fldIt) {
       int id = (*fldIt).m_id;
-      if (id == Frame::Field::ID_Text ||
-          id == Frame::Field::ID_Description ||
-          id == Frame::Field::ID_Url) {
+      if (id == ID_Text ||
+          id == ID_Description ||
+          id == ID_Url) {
         it = fldIt;
-        if (id == Frame::Field::ID_Text) {
+        if (id == ID_Text) {
           // highest priority, will not be overwritten
           break;
         }
-      } else if (id == Frame::Field::ID_Rating) {
+      } else if (id == ID_Rating) {
         bool ok;
         int rating = m_value.toInt(&ok);
         if (ok) {
@@ -330,7 +330,7 @@ int Frame::numberWithoutTotal(const QString& str, bool* ok)
  *
  * @return field value, invalid if field not found.
  */
-QVariant Frame::getFieldValue(Field::Id id) const
+QVariant Frame::getFieldValue(FieldId id) const
 {
   for (FieldList::const_iterator it = m_fieldList.begin();
        it != m_fieldList.end();
@@ -395,14 +395,14 @@ bool Frame::isEqual(const Frame& other) const
  *
  * @return true if field found and set.
  */
-bool Frame::setField(Frame& frame, Field::Id id, const QVariant& value)
+bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 {
   for (Frame::FieldList::iterator it = frame.fieldList().begin();
        it != frame.fieldList().end();
        ++it) {
     if ((*it).m_id == id) {
       (*it).m_value = value;
-      if (id == Field::ID_Description) frame.setValue(value.toString());
+      if (id == ID_Description) frame.setValue(value.toString());
       return true;
     }
   }
@@ -417,7 +417,7 @@ bool Frame::setField(Frame& frame, Field::Id id, const QVariant& value)
  *
  * @return field value, invalid if not found.
  */
-QVariant Frame::getField(const Frame& frame, Field::Id id)
+QVariant Frame::getField(const Frame& frame, FieldId id)
 {
   QVariant result;
   if (!frame.getFieldList().empty()) {
@@ -480,7 +480,7 @@ QString Frame::getFrameTypeName(Type type)
  *
  * @return field ID type, null string if unknown.
  */
-QString Frame::Field::getFieldIdName(Id type)
+QString Frame::Field::getFieldIdName(FieldId type)
 {
   struct not_used { int array_size_check[
       sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2
@@ -606,7 +606,7 @@ void Frame::dump() const
        ++it) {
     qDebug("  Field: id=%s, value=%s",
            qPrintable(
-             Field::getFieldIdName(static_cast<Field::Id>((*it).m_id))),
+             Field::getFieldIdName(static_cast<FieldId>((*it).m_id))),
            variantToString((*it).m_value).toLatin1().data());
   }
 }
@@ -1159,7 +1159,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
         result = QLatin1String("");
       }
       if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
-        QVariant fieldValue = it->getFieldValue(Frame::Field::ID_Data);
+        QVariant fieldValue = it->getFieldValue(Frame::ID_Data);
         if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
           // If there is a picture without description, return "1", so that
           // an empty value indicates "no picture"

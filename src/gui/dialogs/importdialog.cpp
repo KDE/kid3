@@ -179,9 +179,9 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), Frame::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
   QToolButton* revertButton = new QToolButton;
@@ -395,12 +395,12 @@ void ImportDialog::clear()
 {
   const ImportConfig& importCfg = ImportConfig::instance();
   m_serverComboBox->setCurrentIndex(importCfg.importServer());
-  TrackData::TagVersion importDest = importCfg.importDest();
+  Frame::TagVersion importDest = importCfg.importDest();
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
-  if (importDest == TrackData::TagV1 &&
+  if (importDest == Frame::TagV1 &&
       !m_trackDataModel->trackData().isTagV1Supported()) {
-    index = m_destComboBox->findData(TrackData::TagV2);
+    index = m_destComboBox->findData(Frame::TagV2);
     m_destComboBox->setCurrentIndex(index);
     changeTagDestination();
   }
@@ -465,7 +465,7 @@ void ImportDialog::onServerImportDialogClosed()
  *
  * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
  */
-TrackData::TagVersion ImportDialog::getDestination() const
+Frame::TagVersion ImportDialog::getDestination() const
 {
   return TrackData::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());

@@ -800,7 +800,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
     return NULL;
 
   m_edit->setLabel(Frame::Field::getFieldIdName(
-                     static_cast<Frame::Field::Id>(m_field.m_id)));
+                     static_cast<Frame::FieldId>(m_field.m_id)));
   m_edit->setText(m_field.m_value.toString());
   m_edit->setFocus();
   return m_edit;
@@ -824,7 +824,7 @@ QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
   m_edit = new LabeledLineEdit(parent);
   m_edit->setLabel(Frame::Field::getFieldIdName(
-                     static_cast<Frame::Field::Id>(m_field.m_id)));
+                     static_cast<Frame::FieldId>(m_field.m_id)));
   m_edit->setText(m_field.m_value.toString());
   return m_edit;
 }
@@ -847,7 +847,7 @@ QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
   m_numInp = new LabeledSpinBox(parent);
   m_numInp->setLabel(Frame::Field::getFieldIdName(
-                       static_cast<Frame::Field::Id>(m_field.m_id)));
+                       static_cast<Frame::FieldId>(m_field.m_id)));
   m_numInp->setValue(m_field.m_value.toInt());
   return m_numInp;
 }
@@ -870,7 +870,7 @@ QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
   m_ptInp = new LabeledComboBox(parent, m_strLst);
   m_ptInp->setLabel(Frame::Field::getFieldIdName(
-                      static_cast<Frame::Field::Id>(m_field.m_id)));
+                      static_cast<Frame::FieldId>(m_field.m_id)));
   m_ptInp->setCurrentItem(m_field.m_value.toInt());
   return m_ptInp;
 }
@@ -895,7 +895,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
   m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
   m_bos->setLabel(Frame::Field::getFieldIdName(
-                    static_cast<Frame::Field::Id>(m_field.m_id)));
+                    static_cast<Frame::FieldId>(m_field.m_id)));
   if (m_taggedFile) {
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
@@ -1045,28 +1045,28 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
        fldIt != m_fields.end();
        ++fldIt) {
     Frame::Field& fld = *fldIt;
-    if (fld.m_id == Frame::Field::ID_ImageProperties)
+    if (fld.m_id == Frame::ID_ImageProperties)
       continue;
 
     switch (fld.m_value.type()) {
       case QVariant::Int:
       case QVariant::UInt:
-        if (fld.m_id == Frame::Field::ID_TextEnc) {
+        if (fld.m_id == Frame::ID_TextEnc) {
           IntComboBoxControl* cbox = new IntComboBoxControl(
                 fld, Frame::Field::getTextEncodingNames());
           m_fieldcontrols.append(cbox);
         }
-        else if (fld.m_id == Frame::Field::ID_PictureType) {
+        else if (fld.m_id == Frame::ID_PictureType) {
           IntComboBoxControl* cbox = new IntComboBoxControl(
                 fld, PictureFrame::getPictureTypeNames());
           m_fieldcontrols.append(cbox);
         }
-        else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+        else if (fld.m_id == Frame::ID_TimestampFormat) {
           IntComboBoxControl* cbox = new IntComboBoxControl(
                 fld, Frame::Field::getTimestampFormatNames());
           m_fieldcontrols.append(cbox);
         }
-        else if (fld.m_id == Frame::Field::ID_ContentType) {
+        else if (fld.m_id == Frame::ID_ContentType) {
           IntComboBoxControl* cbox = new IntComboBoxControl(
                 fld, Frame::Field::getContentTypeNames());
           m_fieldcontrols.append(cbox);
@@ -1078,7 +1078,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
         break;
 
       case QVariant::String:
-        if (fld.m_id == Frame::Field::ID_Text) {
+        if (fld.m_id == Frame::ID_Text) {
           // Large textedit for text fields
           TextFieldControl* textctl = new TextFieldControl(fld);
           m_fieldcontrols.append(textctl);
@@ -1122,7 +1122,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   }
 
   // Handle case for frames without fields, just a value.
-  m_valueField.m_id = Frame::Field::ID_Text;
+  m_valueField.m_id = Frame::ID_Text;
   if (m_fields.isEmpty()) {
     m_valueField.m_value = frame.getValue();
     m_fieldcontrols.append(new TextFieldControl(m_valueField));

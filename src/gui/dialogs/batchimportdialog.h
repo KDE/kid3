@@ -69,7 +69,7 @@ signals:
    * @param tagVersion import destination tag versions
    */
   void start(const BatchImportProfile& profile,
-             TrackData::TagVersion tagVersion);
+             Frame::TagVersion tagVersion);
 
   /**
    * Abort batch import.

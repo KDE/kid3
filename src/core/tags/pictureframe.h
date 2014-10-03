@@ -34,32 +34,6 @@ class QImage;
 /** Frame containing picture. */
 class KID3_CORE_EXPORT PictureFrame : public Frame {
 public:
-  /** Picture type, compatible with ID3v2 and FLAC. */
-  enum PictureType {
-    PT_Other = 0,
-    PT_Png32Icon = 1,
-    PT_OtherIcon = 2,
-    PT_CoverFront = 3,
-    PT_CoverBack = 4,
-    PT_LeafletPage = 5,
-    PT_Media = 6,
-    PT_LeadArtist = 7,
-    PT_Artist = 8,
-    PT_Conductor = 9,
-    PT_Band = 10,
-    PT_Composer = 11,
-    PT_Lyricist = 12,
-    PT_RecordingLocation = 13,
-    PT_DuringRecording = 14,
-    PT_DuringPerformance = 15,
-    PT_Video = 16,
-    PT_Fish = 17,
-    PT_Illustration = 18,
-    PT_ArtistLogo = 19,
-    PT_PublisherLogo = 20
-  };
-
-
   /**
    * Additional properties for METADATA_BLOCK_PICTURE.
    */
@@ -146,7 +120,7 @@ public:
     const QString& description = QLatin1String(""),
     PictureType pictureType = PT_CoverFront,
     const QString& mimeType = QLatin1String("image/jpeg"),
-    Field::TextEncoding enc = Field::TE_ISO8859_1,
+    TextEncoding enc = TE_ISO8859_1,
     const QString& imgFormat = QLatin1String("JPG"));
 
   /**
@@ -175,7 +149,7 @@ public:
    */
   static void setFields(
     Frame& frame,
-    Field::TextEncoding enc = Field::TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
+    TextEncoding enc = TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
     const QString& mimeType = QLatin1String("image/jpeg"), PictureType pictureType = PT_CoverFront,
     const QString& description = QLatin1String(""), const QByteArray& data = QByteArray(),
     const ImageProperties* imgProps = 0);
@@ -194,7 +168,7 @@ public:
    * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
    */
   static void getFields(const Frame& frame,
-                        Field::TextEncoding& enc, QString& imgFormat,
+                        TextEncoding& enc, QString& imgFormat,
                         QString& mimeType, PictureType& pictureType,
                         QString& description, QByteArray& data,
                         ImageProperties* imgProps = 0);
@@ -215,7 +189,7 @@ public:
    *
    * @return true if field found and set.
    */
-  static bool setTextEncoding(Frame& frame, Field::TextEncoding enc);
+  static bool setTextEncoding(Frame& frame, TextEncoding enc);
 
   /**
    * Get text encoding.
@@ -225,7 +199,7 @@ public:
    *
    * @return true if field found.
    */
-  static bool getTextEncoding(const Frame& frame, Field::TextEncoding& enc);
+  static bool getTextEncoding(const Frame& frame, TextEncoding& enc);
 
   /**
    * Set image format.

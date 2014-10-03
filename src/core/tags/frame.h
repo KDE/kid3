@@ -36,6 +36,12 @@
 
 /** Generalized frame. */
 class KID3_CORE_EXPORT Frame {
+  Q_GADGET
+  Q_ENUMS(Type)
+  Q_ENUMS(FieldId)
+  Q_ENUMS(TextEncoding)
+  Q_ENUMS(PictureType)
+  Q_ENUMS(TagVersion)
 public:
   /** Generalized frame types. */
   enum Type {
@@ -92,53 +98,88 @@ public:
     FT_UnknownFrame
   };
 
+  /**
+   * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
+   **/
+  enum FieldId {
+    ID_NoField,
+    ID_TextEnc,
+    ID_Text,
+    ID_Url,
+    ID_Data,
+    ID_Description,
+    ID_Owner,
+    ID_Email,
+    ID_Rating,
+    ID_Filename,
+    ID_Language,
+    ID_PictureType,
+    ID_ImageFormat,
+    ID_MimeType,
+    ID_Counter,
+    ID_Id,
+    ID_VolumeAdj,
+    ID_NumBits,
+    ID_VolChgRight,
+    ID_VolChgLeft,
+    ID_PeakVolRight,
+    ID_PeakVolLeft,
+    ID_TimestampFormat,
+    ID_ContentType,
+
+    // These are additional fields used by TagLib
+    ID_Price,
+    ID_Date,
+    ID_Seller,
+
+    // Additional field for METADATA_BLOCK_PICTURE
+    ID_ImageProperties
+  };
+
+  /** Text encoding for fields of type ID_TextEnc. */
+  enum TextEncoding {
+    TE_ISO8859_1 = 0,
+    TE_UTF16 = 1,
+    TE_UTF16BE = 2,
+    TE_UTF8 = 3
+  };
+
+  /** Picture type, compatible with ID3v2 and FLAC. */
+  enum PictureType {
+    PT_Other = 0,
+    PT_Png32Icon = 1,
+    PT_OtherIcon = 2,
+    PT_CoverFront = 3,
+    PT_CoverBack = 4,
+    PT_LeafletPage = 5,
+    PT_Media = 6,
+    PT_LeadArtist = 7,
+    PT_Artist = 8,
+    PT_Conductor = 9,
+    PT_Band = 10,
+    PT_Composer = 11,
+    PT_Lyricist = 12,
+    PT_RecordingLocation = 13,
+    PT_DuringRecording = 14,
+    PT_DuringPerformance = 15,
+    PT_Video = 16,
+    PT_Fish = 17,
+    PT_Illustration = 18,
+    PT_ArtistLogo = 19,
+    PT_PublisherLogo = 20
+  };
+
+  /** Tag version contained in track data. */
+  enum TagVersion {
+    TagNone = 0, /**< Empty or imported and not from a tag */
+    TagV1 = 1,   /**< Tag 1 */
+    TagV2 = 2,   /**< Tag 2 */
+    /** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
+    TagV2V1 = TagV1 | TagV2
+  };
+
   /** Field in frame. */
   struct KID3_CORE_EXPORT Field {
-    /**
-     * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
-     **/
-    enum Id {
-      ID_NoField,
-      ID_TextEnc,
-      ID_Text,
-      ID_Url,
-      ID_Data,
-      ID_Description,
-      ID_Owner,
-      ID_Email,
-      ID_Rating,
-      ID_Filename,
-      ID_Language,
-      ID_PictureType,
-      ID_ImageFormat,
-      ID_MimeType,
-      ID_Counter,
-      ID_Id,
-      ID_VolumeAdj,
-      ID_NumBits,
-      ID_VolChgRight,
-      ID_VolChgLeft,
-      ID_PeakVolRight,
-      ID_PeakVolLeft,
-      ID_TimestampFormat,
-      ID_ContentType,
-
-      // These are additional fields used by TagLib
-      ID_Price,
-      ID_Date,
-      ID_Seller,
-
-      // Additional field for METADATA_BLOCK_PICTURE
-      ID_ImageProperties
-    };
-
-    /** Text encoding for fields of type ID_TextEnc. */
-    enum TextEncoding {
-      TE_ISO8859_1 = 0,
-      TE_UTF16 = 1,
-      TE_UTF16BE = 2,
-      TE_UTF8 = 3
-    };
 
 #ifdef Q_CC_MSVC
   /**
@@ -162,7 +203,7 @@ public:
      *
      * @return field ID type, null string if unknown.
      */
-    static QString getFieldIdName(Id type);
+    static QString getFieldIdName(FieldId type);
 
     /**
      * List of field ID strings, NULL terminated.
@@ -488,7 +529,7 @@ public:
    *
    * @return field value, invalid if field not found.
    */
-  QVariant getFieldValue(Field::Id id) const;
+  QVariant getFieldValue(FieldId id) const;
 
   /**
    * Check if the fields in another frame are equal.
@@ -539,7 +580,7 @@ public:
    *
    * @return true if field found and set.
    */
-  static bool setField(Frame& frame, Field::Id id, const QVariant& value);
+  static bool setField(Frame& frame, FieldId id, const QVariant& value);
 
   /**
    * Get value of a field.
@@ -549,7 +590,7 @@ public:
    *
    * @return field value, invalid if not found.
    */
-  static QVariant getField(const Frame& frame, Field::Id id);
+  static QVariant getField(const Frame& frame, FieldId id);
 
   /**
    * Get type of frame from translated name.

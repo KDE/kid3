@@ -183,9 +183,9 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), Frame::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
   destLabel->setBuddy(m_destComboBox);
   destLayout->addWidget(m_destComboBox);
   destLayout->addStretch();
@@ -420,7 +420,7 @@ void BatchImportDialog::readConfig()
   setAbortButton(false);
 
   const BatchImportConfig& batchImportCfg = BatchImportConfig::instance();
-  TrackData::TagVersion importDest = batchImportCfg.importDest();
+  Frame::TagVersion importDest = batchImportCfg.importDest();
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
 

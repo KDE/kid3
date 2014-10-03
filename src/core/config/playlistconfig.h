@@ -57,7 +57,8 @@ class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
   Q_PROPERTY(bool useFullPath READ useFullPath WRITE setUseFullPath NOTIFY useFullPathChanged)
   /** Write info format, else only list of files */
   Q_PROPERTY(bool writeInfo READ writeInfo WRITE setWriteInfo NOTIFY writeInfoChanged)
-
+  Q_ENUMS(PlaylistFormat)
+  Q_ENUMS(PlaylistLocation)
 public:
   /**
    * Playlist format.

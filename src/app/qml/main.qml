@@ -386,12 +386,12 @@ ApplicationWindow {
           Button {
             width: parent.width
             text: "To Filename"
-            onClicked: app.getFilenameFromTags(script.toTagVersion(1))
+            onClicked: app.getFilenameFromTags(Frame.TagV1)
           }
           Button {
             width: parent.width
             text: "From Filename"
-            onClicked: app.getTagsFromFilename(script.toTagVersion(1))
+            onClicked: app.getTagsFromFilename(Frame.TagV1)
           }
           Button {
             width: parent.width
@@ -464,12 +464,12 @@ ApplicationWindow {
           Button {
             width: parent.width
             text: "To Filename"
-            onClicked: app.getFilenameFromTags(script.toTagVersion(2))
+            onClicked: app.getFilenameFromTags(Frame.TagV2)
           }
           Button {
             width: parent.width
             text: "From Filename"
-            onClicked: app.getTagsFromFilename(script.toTagVersion(2))
+            onClicked: app.getTagsFromFilename(Frame.TagV2)
           }
           Button {
             width: parent.width

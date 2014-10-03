@@ -134,7 +134,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       QString displayName = getDisplayName(it->getName());
       if (it->getType() == Frame::FT_Picture &&
           it->getValue() != Frame::differentRepresentation()) {
-        QVariant fieldValue = it->getFieldValue(Frame::Field::ID_PictureType);
+        QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
         if (fieldValue.isValid()) {
           PictureFrame::PictureType pictureType =
               static_cast<PictureFrame::PictureType>(fieldValue.toInt());

@@ -544,9 +544,9 @@ void BaseMainWindowImpl::slotBatchImport()
     m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
                                                 m_w);
     connect(m_batchImportDialog,
-            SIGNAL(start(BatchImportProfile,TrackData::TagVersion)),
+            SIGNAL(start(BatchImportProfile,Frame::TagVersion)),
             m_app,
-            SLOT(batchImport(BatchImportProfile,TrackData::TagVersion)));
+            SLOT(batchImport(BatchImportProfile,Frame::TagVersion)));
     connect(m_app->getBatchImporter(),
             SIGNAL(reportImportEvent(BatchImportProfile::ImportEventType,
                                      QString)),

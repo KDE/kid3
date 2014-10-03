@@ -180,9 +180,9 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
     if (ok) *ok = true;
     return true;
   }
-  m_trackData1 = ImportTrackData(taggedFile, ImportTrackData::TagV1);
-  m_trackData2 = ImportTrackData(taggedFile, ImportTrackData::TagV2);
-  m_trackData12 = ImportTrackData(taggedFile, ImportTrackData::TagV2V1);
+  m_trackData1 = ImportTrackData(taggedFile, Frame::TagV1);
+  m_trackData2 = ImportTrackData(taggedFile, Frame::TagV2);
+  m_trackData12 = ImportTrackData(taggedFile, Frame::TagV2V1);
 
   bool result = parse();
   if (m_parser.hasError()) {

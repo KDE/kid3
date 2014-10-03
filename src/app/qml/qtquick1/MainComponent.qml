@@ -276,12 +276,12 @@ Rectangle {
         Button {
           width: parent.width
           text: "To Filename"
-          onClicked: app.getFilenameFromTags(script.toTagVersion(1))
+          onClicked: app.getFilenameFromTags(script.toTagVersion(Frame.TagV1))
         }
         Button {
           width: parent.width
           text: "From Filename"
-          onClicked: app.getTagsFromFilename(script.toTagVersion(1))
+          onClicked: app.getTagsFromFilename(script.toTagVersion(Frame.TagV1))
         }
         Button {
           width: parent.width
@@ -345,12 +345,12 @@ Rectangle {
         Button {
           width: parent.width
           text: "To Filename"
-          onClicked: app.getFilenameFromTags(script.toTagVersion(2))
+          onClicked: app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))
         }
         Button {
           width: parent.width
           text: "From Filename"
-          onClicked: app.getTagsFromFilename(script.toTagVersion(2))
+          onClicked: app.getTagsFromFilename(script.toTagVersion(Frame.TagV2))
         }
         Button {
           width: parent.width

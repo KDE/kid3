@@ -110,8 +110,8 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
   m_srcComboBox->setEditable(false);
-  m_srcComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
-  m_srcComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
+  m_srcComboBox->addItem(tr("Tag 1"), Frame::TagV1);
+  m_srcComboBox->addItem(tr("Tag 2"), Frame::TagV2);
   srcLabel->setBuddy(m_srcComboBox);
   butlayout->addWidget(m_srcComboBox);
   connect(m_srcComboBox, SIGNAL(activated(int)),

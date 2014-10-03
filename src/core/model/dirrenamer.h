@@ -73,7 +73,7 @@ public:
    * Set version of tags used to get rename information.
    * @param tagVersion tag version
    */
-  void setTagVersion(TrackData::TagVersion tagVersion) {
+  void setTagVersion(Frame::TagVersion tagVersion) {
     m_tagVersion = tagVersion;
   }
 
@@ -293,7 +293,7 @@ private:
   QStringList describeAction(const RenameAction& action) const;
 
   RenameActionList m_actions;
-  TrackData::TagVersion m_tagVersion;
+  Frame::TagVersion m_tagVersion;
   QString m_format;
   QString m_dirName;
   bool m_aborted;

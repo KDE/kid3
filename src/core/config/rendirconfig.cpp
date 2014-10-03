@@ -48,7 +48,7 @@ namespace {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToRenDirCfg(TrackData::TagVersion tagVersion) {
+inline int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
   int renDirSrc = static_cast<int>(tagVersion);
   if (renDirSrc == 3)
     renDirSrc = 0;
@@ -61,7 +61,7 @@ inline int tagVersionToRenDirCfg(TrackData::TagVersion tagVersion) {
  *                  compatibility.
  * @return tag version.
  */
-inline TrackData::TagVersion renDirCfgToTagVersion(int renDirSrc) {
+inline Frame::TagVersion renDirCfgToTagVersion(int renDirSrc) {
   if (renDirSrc == 0)
     renDirSrc = 3;
   return TrackData::tagVersionCast(renDirSrc);
@@ -78,7 +78,7 @@ RenDirConfig::RenDirConfig() :
   StoredConfig<RenDirConfig>(QLatin1String("RenameDirectory")),
   m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
   m_dirFormatItem(0),
-  m_renDirSrc(TrackData::TagV2V1)
+  m_renDirSrc(Frame::TagV2V1)
 {
 }
 
@@ -133,7 +133,7 @@ void RenDirConfig::setDirFormatIndex(int dirFormatItem)
   }
 }
 
-void RenDirConfig::setRenDirSource(TrackData::TagVersion renDirSrc)
+void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSrc)
 {
   if (m_renDirSrc != renDirSrc) {
     m_renDirSrc = renDirSrc;

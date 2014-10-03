@@ -100,7 +100,7 @@ public:
    *
    * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
    */
-  TrackData::TagVersion getDestination() const;
+  Frame::TagVersion getDestination() const;
 
 private slots:
   /**

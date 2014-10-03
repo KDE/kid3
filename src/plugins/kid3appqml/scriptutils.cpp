@@ -26,10 +26,29 @@
 
 #include "scriptutils.h"
 #include <QMetaProperty>
+#include <QCoreApplication>
+#include "pictureframe.h"
 
 #if QT_VERSION < 0x050000
 Q_DECLARE_METATYPE(QModelIndex)
 #endif
+
+namespace {
+
+/**
+ * Create a string list from a NULL terminated array of C strings.
+ */
+QStringList cstringArrayToStringList(const char* const* strs)
+{
+  QStringList result;
+  while (*strs) {
+    result.append(QCoreApplication::translate("@default", *strs++));
+  }
+  return result;
+}
+
+}
+
 
 ScriptUtils::ScriptUtils(QObject *parent) : QObject(parent)
 {
@@ -61,17 +80,17 @@ QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVari
   return indexes;
 }
 
-TrackData::TagVersion ScriptUtils::toTagVersion(int nr)
+Frame::TagVersion ScriptUtils::toTagVersion(int nr)
 {
-  TrackData::TagVersion tagVersion = static_cast<TrackData::TagVersion>(nr);
+  Frame::TagVersion tagVersion = static_cast<Frame::TagVersion>(nr);
   switch (tagVersion) {
-  case TrackData::TagNone:
-  case TrackData::TagV1:
-  case TrackData::TagV2:
-  case TrackData::TagV2V1:
+  case Frame::TagNone:
+  case Frame::TagV1:
+  case Frame::TagV2:
+  case Frame::TagV2V1:
     return tagVersion;
   }
-  return TrackData::TagNone;
+  return Frame::TagNone;
 }
 
 QVariant ScriptUtils::getRoleData(
@@ -142,4 +161,44 @@ QString ScriptUtils::properties(QObject* obj)
     }
   }
   return str;
+}
+
+/**
+ * String list of frame field ID names.
+ */
+QStringList ScriptUtils::getFieldIdNames()
+{
+  return cstringArrayToStringList(Frame::Field::getFieldIdNames());
+}
+
+/**
+ * String list of text encoding names.
+ */
+QStringList ScriptUtils::getTextEncodingNames()
+{
+  return cstringArrayToStringList(Frame::Field::getTextEncodingNames());
+}
+
+/**
+ * String list of timestamp format names.
+ */
+QStringList ScriptUtils::getTimestampFormatNames()
+{
+  return cstringArrayToStringList(Frame::Field::getTimestampFormatNames());
+}
+
+/**
+ * String list of picture type names.
+ */
+QStringList ScriptUtils::getPictureTypeNames()
+{
+  return cstringArrayToStringList(PictureFrame::getPictureTypeNames());
+}
+
+/**
+ * String list of content type names.
+ */
+QStringList ScriptUtils::getContentTypeNames()
+{
+  return cstringArrayToStringList(Frame::Field::getContentTypeNames());
 }

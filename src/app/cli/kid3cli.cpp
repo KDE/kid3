@@ -247,7 +247,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
                  AbstractCliIO* io, QObject* parent) :
   AbstractCli(io, parent),
   m_app(app),
-  m_tagMask(TrackData::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
+  m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
 {
   m_cmds << new HelpCommand(this)
          << new TimeoutCommand(this)
@@ -517,10 +517,10 @@ void Kid3Cli::writeFileInformation(int tagMask)
     line += m_filename;
     writeLine(line);
   }
-  foreach (TrackData::TagVersion tagBit, QList<TrackData::TagVersion>()
-           << TrackData::TagV1 << TrackData::TagV2) {
+  foreach (Frame::TagVersion tagBit, QList<Frame::TagVersion>()
+           << Frame::TagV1 << Frame::TagV2) {
     if (tagMask & tagBit) {
-      FrameTableModel* ft = (tagBit == TrackData::TagV2)
+      FrameTableModel* ft = (tagBit == Frame::TagV2)
           ? m_app->frameModelV2() : m_app->frameModelV1();
       int maxLength = 0;
       bool hasValue = false;
@@ -533,7 +533,7 @@ void Kid3Cli::writeFileInformation(int tagMask)
         hasValue = hasValue || !value.isEmpty();
       }
       if (hasValue) {
-        if (tagBit == TrackData::TagV2) {
+        if (tagBit == Frame::TagV2) {
           writeLine(tr("Tag 2") + QLatin1String(": ") + m_tagFormatV2);
         } else {
           writeLine(tr("Tag 1") + QLatin1String(": ") + m_tagFormatV1);
@@ -567,16 +567,16 @@ void Kid3Cli::writeTagMask()
 {
   QString tagStr;
   switch (m_tagMask) {
-  case TrackData::TagV1:
+  case Frame::TagV1:
     tagStr = QLatin1String("1");
     break;
-  case TrackData::TagV2:
+  case Frame::TagV2:
     tagStr = QLatin1String("2");
     break;
-  case TrackData::TagV2V1:
+  case Frame::TagV2V1:
     tagStr = QLatin1String("1 & 2");
     break;
-  case TrackData::TagNone:
+  case Frame::TagNone:
     tagStr = QLatin1String("-");
     break;
   }
@@ -588,7 +588,7 @@ void Kid3Cli::writeTagMask()
  *
  * @param tagMask tag bits
  */
-void Kid3Cli::setTagMask(TrackData::TagVersion tagMask)
+void Kid3Cli::setTagMask(Frame::TagVersion tagMask)
 {
   m_tagMask = tagMask;
 }

@@ -39,15 +39,6 @@
  */
 class KID3_CORE_EXPORT TrackData : public FrameCollection {
 public:
-  /** Tag version contained in track data. */
-  enum TagVersion {
-    TagNone = 0, /**< Empty or imported and not from a tag */
-    TagV1 = 1,   /**< Tag 1 */
-    TagV2 = 2,   /**< Tag 2 */
-    /** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
-    TagV2V1 = TagV1 | TagV2
-  };
-
   /**
    * Constructor.
    */
@@ -61,7 +52,7 @@ public:
    * @param taggedFile tagged file providing track data
    * @param tagVersion source of frames
    */
-  TrackData(TaggedFile& taggedFile, TagVersion tagVersion);
+  TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion);
 
   /**
    * Get duration of file.
@@ -180,8 +171,8 @@ public:
    * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
    * @return tag version enum value.
    */
-  static TagVersion tagVersionCast(int tagMask) {
-    return static_cast<TagVersion>(tagMask & 3);
+  static Frame::TagVersion tagVersionCast(int tagMask) {
+    return static_cast<Frame::TagVersion>(tagMask & 3);
   }
 
 private:
@@ -206,7 +197,7 @@ public:
    * @param taggedFile tagged file providing track data
    * @param tagVersion source of frames
    */
-  ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+  ImportTrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
     TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
 
   /**
@@ -302,7 +293,7 @@ public:
    *
    * @param tagVersion tag version to read
    */
-  void readTags(ImportTrackData::TagVersion tagVersion);
+  void readTags(Frame::TagVersion tagVersion);
 
 #ifndef QT_NO_DEBUG
   /**

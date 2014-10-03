@@ -36,7 +36,7 @@ int BatchImportConfig::s_index = -1;
  */
 BatchImportConfig::BatchImportConfig() :
   StoredConfig<BatchImportConfig>(QLatin1String("BatchImport")),
-  m_importDest(TrackData::TagV2), m_profileIdx(0)
+  m_importDest(Frame::TagV2), m_profileIdx(0)
 {
   /**
    * Preset profile expressions.
@@ -145,7 +145,7 @@ bool BatchImportConfig::getProfileByName(const QString& name,
   return false;
 }
 
-void BatchImportConfig::setImportDest(TrackData::TagVersion importDest)
+void BatchImportConfig::setImportDest(Frame::TagVersion importDest)
 {
   if (m_importDest != importDest) {
     m_importDest = importDest;

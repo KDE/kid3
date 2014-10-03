@@ -68,7 +68,9 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
   /** list of available plugins. */
   Q_PROPERTY(QStringList availablePlugins READ availablePlugins WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
-
+  Q_ENUMS(Id3v2Version)
+  Q_ENUMS(TextEncoding)
+  Q_ENUMS(VorbisPictureName)
 public:
   /** The ID3v2 version used for new tags. */
   enum Id3v2Version {
@@ -87,14 +89,6 @@ public:
   enum VorbisPictureName {
     VP_METADATA_BLOCK_PICTURE,
     VP_COVERART
-  };
-
-  /** Available tag formats which can be queried at run time. */
-  enum TagFormatFlag {
-    TF_ID3v2_3_0_ID3LIB = 1 << 0,
-    TF_ID3v2_3_0_TAGLIB = 1 << 1,
-    TF_ID3v2_4_0_TAGLIB = 1 << 2,
-    TF_VORBIS_LIBOGG    = 1 << 3
   };
 
   /**

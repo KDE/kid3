@@ -78,7 +78,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
         pic->get_colors(), ba);
   PictureFrame::setFields(
     frame,
-    Frame::Field::TE_ISO8859_1, QLatin1String(""),
+    Frame::TE_ISO8859_1, QLatin1String(""),
     QString::fromLatin1(pic->get_mime_type()),
     static_cast<PictureFrame::PictureType>(pic->get_type()),
     QString::fromUtf8(
@@ -95,7 +95,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
  */
 static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
 {
-  Frame::Field::TextEncoding enc;
+  Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString imgFormat, mimeType, description;
   QByteArray ba;
@@ -419,7 +419,7 @@ bool FlacFile::addFrameV2(Frame& frame)
   if (frame.getType() == Frame::FT_Picture) {
     if (frame.getFieldList().empty()) {
       PictureFrame::setFields(
-        frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+        frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
         PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
     }
     PictureFrame::setDescription(frame, frame.getValue());
