@@ -5,6 +5,16 @@ Rectangle {
   id: root
   visible: true
   width: 640; height: 800
+  color: constants.palette.window
+
+  QtObject {
+    id: constants
+    property int rowHeight: 20
+    property int margins: 6
+    property int spacing: 3
+    property color editColor: "#fff9a8"
+    property SystemPalette palette: SystemPalette {}
+  }
 
   FrameEditorObject {
     id: frameEditor
@@ -89,12 +99,14 @@ Rectangle {
     anchors.left: parent.left
     anchors.top: title.bottom
     anchors.bottom: statusLabel.top
+    anchors.margins: constants.margins
     width: fileButtonRow.width
 
     Row {
       id: fileButtonRow
       anchors.left: leftSide.left
       anchors.top: leftSide.top
+      spacing: constants.spacing
       Button {
         id: parentDirButton
         text: ".."
@@ -128,6 +140,7 @@ Rectangle {
       anchors.top: fileButtonRow.bottom
       anchors.bottom: leftSide.bottom
       anchors.right: leftSide.right
+      anchors.margins: constants.margins
       clip: true
 
       model: CheckableListModel {
@@ -143,7 +156,7 @@ Rectangle {
       delegate: Item {
         id: fileDelegate
         width: parent.width
-        height: fileText.height
+        height: constants.rowHeight
         CheckField {
           id: checkField
           anchors.left: parent.left
@@ -168,21 +181,30 @@ Rectangle {
           width: 16
           source: "image://kid3/fileicon/" + iconId
         }
-        Text {
-          id: fileText
+        Rectangle {
           anchors.left: fileImage.right
           anchors.right: parent.right
-          text: fileName
-          color: fileDelegate.ListView.isCurrentItem ? "red" : "black"
-          MouseArea {
-            anchors.fill: parent
-            onClicked: {
-              fileDelegate.ListView.view.currentIndex = index
-              fileModel.currentRow = index
-            }
-            onDoubleClicked: {
-              if (fileModel.hasModelChildren(index)) {
-                app.openDirectory(filePath)
+          height: parent.height
+          color: fileDelegate.ListView.isCurrentItem
+                 ? constants.palette.highlight : constants.palette.window
+          Text {
+            id: fileText
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            text: fileName
+            color: fileDelegate.ListView.isCurrentItem
+                   ? constants.palette.highlightedText : constants.palette.text
+            MouseArea {
+              anchors.fill: parent
+              onClicked: {
+                fileDelegate.ListView.view.currentIndex = index
+                fileModel.currentRow = index
+              }
+              onDoubleClicked: {
+                if (fileModel.hasModelChildren(index)) {
+                  app.openDirectory(filePath)
+                }
               }
             }
           }
@@ -211,18 +233,22 @@ Rectangle {
     anchors.right: parent.right
     anchors.top: title.bottom
     anchors.bottom: statusLabel.top
+    anchors.margins: constants.margins
 
     Text {
       id: fileDetailsLabel
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.right: parent.right
+      anchors.margins: constants.margins
       text: qsTr("File") + ": " + app.selectionInfo.detailInfo
     }
 
     Text {
       id: fileNameLabel
       anchors.top: fileDetailsLabel.bottom
+      anchors.left: parent.left
+      anchors.margins: constants.margins
       text: "Name:"
     }
     TextEdit {
@@ -230,6 +256,7 @@ Rectangle {
       anchors.top: fileDetailsLabel.bottom
       anchors.left: fileNameLabel.right
       anchors.right: parent.right
+      anchors.margins: constants.margins
       enabled: app.selectionInfo.singleFileSelected
       text: app.selectionInfo.fileName
       color: app.selectionInfo.fileNameChanged ? "red" : "black"
@@ -237,6 +264,8 @@ Rectangle {
     CheckBox {
       id: checkBoxV1
       anchors.top: fileNameEdit.bottom
+      anchors.left: parent.left
+      anchors.margins: constants.margins
       text: qsTr("Tag 1") + ": " + app.selectionInfo.tagFormatV1
       // workaround for QTBUG-31627
       // should work with "checked: app.selectionInfo.hasTagV1" with Qt >= 5.3
@@ -251,6 +280,7 @@ Rectangle {
       anchors.top: checkBoxV1.bottom
       anchors.left: parent.left
       anchors.right: parent.right
+      anchors.margins: constants.margins
       height: buttonsV1.height
       visible: checkBoxV1.checked
       enabled: app.selectionInfo.tag1Used
@@ -262,6 +292,7 @@ Rectangle {
         anchors.bottom: buttonsV1.bottom
         anchors.left: sectionV1.left
         anchors.right: buttonsV1.left
+        anchors.rightMargin: constants.margins
         model: app.frameModelV1
         delegate: FrameDelegate {
           width: frameTableV1.width
@@ -272,6 +303,8 @@ Rectangle {
         id: buttonsV1
         anchors.top: frameTableV1.top
         anchors.right: sectionV1.right
+        anchors.margins: constants.margins
+        spacing: constants.spacing
         width: buttonsV2.width
         Button {
           width: parent.width
@@ -308,6 +341,9 @@ Rectangle {
     CheckBox {
       id: checkBoxV2
       anchors.top: sectionV1.visible ? sectionV1.bottom : checkBoxV1.bottom
+      anchors.left: parent.left
+      anchors.margins: constants.margins
+      anchors.topMargin: 2 * constants.margins
       text: qsTr("Tag 2") + ": " + app.selectionInfo.tagFormatV2
       // workaround for QTBUG-31627
       // should work with "checked: app.selectionInfo.hasTagV2" with Qt >= 5.3
@@ -323,6 +359,7 @@ Rectangle {
       anchors.bottom: parent.bottom
       anchors.left: parent.left
       anchors.right: parent.right
+      anchors.margins: constants.margins
       visible: checkBoxV2.checked
 
       ListView {
@@ -332,15 +369,19 @@ Rectangle {
         anchors.bottom: sectionV2.bottom
         anchors.left: sectionV2.left
         anchors.right: buttonsV2.left
+        anchors.rightMargin: constants.margins
         model: app.frameModelV2
         delegate: FrameDelegate {
           width: frameTableV2.width
+          height: constants.rowHeight
         }
       }
       Column {
         id: buttonsV2
         anchors.top: frameTableV2.top
         anchors.right: sectionV2.right
+        anchors.margins: constants.margins
+        spacing: constants.spacing
         width: coverArtImage.width
         Button {
           width: parent.width
@@ -419,6 +460,7 @@ Rectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
+    spacing: constants.spacing
     Button {
       text: qsTr("Save")
       onClicked: {

@@ -7,10 +7,11 @@ Rectangle  {
 
   signal clicked
 
-  width: buttonLabel.width + 20; height: buttonLabel.height + 5
-  border  { width: 1; color: Qt.darker(activePalette.button) }
+  width: buttonLabel.width + 20
+  height: constants.rowHeight
+  border  { width: 1; color: Qt.darker(constants.palette.button) }
   smooth: true
-  radius: 8
+  radius: 4
 
   // color the button with a gradient
   gradient: Gradient  {
@@ -18,12 +19,12 @@ Rectangle  {
       position: 0.0
       color:  {
         if (mouseArea.pressed)
-          return activePalette.dark
+          return constants.palette.dark
         else
-          return activePalette.light
+          return constants.palette.light
       }
     }
-    GradientStop  { position: 1.0; color: activePalette.button }
+    GradientStop  { position: 1.0; color: constants.palette.button }
   }
 
   MouseArea  {
@@ -35,9 +36,7 @@ Rectangle  {
   Text  {
     id: buttonLabel
     anchors.centerIn: container
-    color: activePalette.buttonText
+    color: constants.palette.buttonText
     text: container.text
   }
-
-  SystemPalette { id: activePalette }
 }

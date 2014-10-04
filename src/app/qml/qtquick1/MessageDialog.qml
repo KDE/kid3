@@ -19,7 +19,7 @@ Rectangle {
 
   Item {
     anchors.fill: parent
-    anchors.margins: 6
+    anchors.margins: constants.margins
 
     Text {
       id: titleLabel
@@ -34,10 +34,10 @@ Rectangle {
     }
 
     Row {
-      spacing: 6
+      spacing: constants.spacing
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      anchors.margins: 6
+      anchors.margins: constants.margins
 
       Button {
         text: qsTr("Yes")

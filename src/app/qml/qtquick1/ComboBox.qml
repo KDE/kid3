@@ -8,12 +8,12 @@ Rectangle {
   property alias currentText: chosenItemText.text
   property alias currentIndex: listView.currentIndex
   width: 100
-  height: 30
+  height: constants.rowHeight
   smooth: true
 
   function calculateHeight() {
     var parentHeight = dropDownParent.height
-    var listViewHeight = listView.count * 30
+    var listViewHeight = listView.count * constants.rowHeight
     return listViewHeight <= parentHeight
         ? listViewHeight : parentHeight
   }
@@ -33,12 +33,12 @@ Rectangle {
     radius: 4
     width: parent.width
     height: comboBox.height
-    color: "lightsteelblue"
+    color: constants.palette.mid
     smooth: true
     Text {
-      anchors.top: parent.top
       anchors.left: parent.left
-      anchors.margins: 8
+      anchors.margins: constants.margins
+      anchors.verticalCenter: parent.verticalCenter
       id: chosenItemText
       // Check to avoid error if model is not an array
       text: !!comboBox.model && !!comboBox.model.length
@@ -71,13 +71,16 @@ Rectangle {
       delegate: Rectangle {
         width: comboBox.width
         height: comboBox.height
-        color: ListView.isCurrentItem ? "lightblue" : "lightgray"
+        color: ListView.isCurrentItem
+               ? constants.palette.highlight : constants.palette.mid
         Text {
           id: delegateText
+          color: parent.ListView.isCurrentItem
+                 ? constants.palette.highlightedText : constants.palette.text
           text: model.modelData || model.display
-          anchors.top: parent.top
           anchors.left: parent.left
-          anchors.margins: 5
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.margins: constants.margins
         }
         MouseArea {
           anchors.fill: parent

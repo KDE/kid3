@@ -6,6 +6,7 @@ Rectangle {
   id: page
   width: 300
   height: 300
+  color: constants.palette.window
   border.width: 1
   border.color: "black"
   visible: false
@@ -19,7 +20,7 @@ Rectangle {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.top: parent.top
-      anchors.margins: 6
+      anchors.margins: constants.margins
       text: qsTr("Add Frame")
     }
     Text {
@@ -27,7 +28,7 @@ Rectangle {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.top: titleText.bottom
-      anchors.margins: 6
+      anchors.margins: constants.margins
       text: qsTr("Select the frame ID")
     }
     ListView {
@@ -37,25 +38,36 @@ Rectangle {
       anchors.right: parent.right
       anchors.top: messageText.bottom
       anchors.bottom: buttonRow.top
-      anchors.margins: 6
-      delegate: Text {
-        text: modelData
-        color: ListView.isCurrentItem ? "red" : "black"
-        MouseArea {
-          anchors.fill: parent
-          onClicked: {
-            parent.ListView.view.currentIndex = index
+      anchors.margins: constants.margins
+      delegate: Rectangle {
+        id: frameSelectDelegate
+        color: ListView.isCurrentItem
+               ? constants.palette.highlight : constants.palette.window
+        width: parent.width
+        height: constants.rowHeight
+        Text {
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.margins: constants.margins
+          text: modelData
+          color: frameSelectDelegate.ListView.isCurrentItem
+                 ? constants.palette.highlightedText :constants.palette.text
+          MouseArea {
+            anchors.fill: parent
+            onClicked: {
+              frameSelectDelegate.ListView.view.currentIndex = index
+            }
           }
         }
-
       }
     }
     Row {
       id: buttonRow
-      spacing: 6
+      spacing: constants.spacing
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      anchors.margins: 6
+      anchors.margins: constants.margins
 
       Button {
         text: qsTr("Cancel")
@@ -70,7 +82,7 @@ Rectangle {
         onClicked: {
           page.visible = false
           page.z = 0
-          page.frameSelected(frameSelectList.currentItem.text)
+          page.frameSelected(frameSelectList.currentItem.data[0].text)
         }
       }
     }

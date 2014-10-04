@@ -14,9 +14,12 @@ Item {
   Component {
     id: textEdit
     Rectangle {
-      color: "lightblue"
+      color: constants.editColor
       TextInput {
-        anchors.fill: parent
+        width: parent.width
+        anchors.left: parent.left
+        anchors.margins: constants.margins
+        anchors.verticalCenter: parent.verticalCenter
         text: value
         focus: true
         onAccepted: {
@@ -47,7 +50,9 @@ Item {
     id: valueText
     Text {
       text: value
-      color: frameDelegate.ListView.isCurrentItem ? "red" : "black"
+      anchors.left: if (parent) parent.left
+      anchors.margins: constants.margins
+      verticalAlignment: Text.AlignVCenter
       MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -62,6 +67,7 @@ Item {
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
     width: 150
+    clip: true
     text: name
     onClicked: {
       // QTBUG-7932, assigning is not possible

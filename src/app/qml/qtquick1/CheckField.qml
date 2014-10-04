@@ -11,6 +11,7 @@ Rectangle {
   height: 12
   border.width: 1
   border.color: "black"
+  color: constants.palette.base
 
   Text {
     id: checkboxText

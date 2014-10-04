@@ -9,6 +9,7 @@ Rectangle {
   id: page
   width: 400
   height: 400
+  color: constants.palette.window
   border.width: 1
   border.color: "black"
   visible: false
@@ -22,20 +23,49 @@ Rectangle {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.top: parent.top
-      anchors.margins: 6
+      anchors.margins: constants.margins
       text: page.title
     }
 
     Component {
       id: textLineEdit
-      TextInput {
-        text: _modelData.value
-        onAccepted: {
-          focus = false
+      Rectangle {
+        width: parent.width
+        height: constants.rowHeight
+        color: constants.editColor
+        TextInput {
+          width: parent.width
+          anchors.left: parent.left
+          anchors.margins: constants.margins
+          anchors.verticalCenter: parent.verticalCenter
+          text: _modelData.value
+          onAccepted: {
+            focus = false
+          }
+          onActiveFocusChanged: {
+            if (!activeFocus) {
+              _modelData.value = text
+            }
+          }
         }
-        onActiveFocusChanged: {
-          if (!activeFocus) {
-            _modelData.value = text
+      }
+    }
+
+    Component {
+      id: textEdit
+      Rectangle {
+        width: parent.width
+        height: 3 * constants.rowHeight
+        color: constants.editColor
+        TextEdit {
+          anchors.fill: parent
+          anchors.margins: constants.margins
+          wrapMode: TextEdit.Wrap
+          text: _modelData.value
+          onActiveFocusChanged: {
+            if (!activeFocus) {
+              _modelData.value = text
+            }
           }
         }
       }
@@ -58,6 +88,20 @@ Rectangle {
       }
     }
 
+    Component {
+      id: imageView
+      Item {
+        width: 120
+        height: 120
+        Image {
+          sourceSize.width: 120
+          sourceSize.height: 120
+          source: app.coverArtImageId
+          cache: false
+        }
+      }
+    }
+
     ListView {
       id: fieldList
       clip: true
@@ -65,10 +109,10 @@ Rectangle {
       anchors.right: parent.right
       anchors.top: titleText.bottom
       anchors.bottom: buttonRow.top
-      anchors.margins: 6
+      anchors.margins: constants.margins
       delegate: Item {
         width: parent.width
-        height: 30
+        height: constants.rowHeight
         Text {
           id: nameLabel
           width: 150
@@ -78,26 +122,36 @@ Rectangle {
         }
         Loader {
           property QtObject _modelData: modelData
-          sourceComponent: if (modelData.id === Frame.ID_TextEnc ||
-                               modelData.id === Frame.ID_PictureType ||
-                               modelData.id === Frame.ID_TimestampFormat ||
-                               modelData.id === Frame.ID_ContentType)
-                comboBoxEdit
-              else
-                textLineEdit
+          sourceComponent:
+              if (typeof modelData.value === "number")
+                if (modelData.id === Frame.ID_TextEnc ||
+                    modelData.id === Frame.ID_PictureType ||
+                    modelData.id === Frame.ID_TimestampFormat ||
+                    modelData.id === Frame.ID_ContentType)
+                  comboBoxEdit
+                else
+                  textLineEdit
+              else if (typeof modelData.value === "string")
+                if (modelData.id === Frame.ID_Text)
+                  textEdit
+                else
+                  textLineEdit
+              else if (typeof modelData.value === "object")
+                if (modelData.id === Frame.ID_Data &&
+                    modelData.type === Frame.FT_Picture)
+                  imageView
           anchors.left: nameLabel.right
           anchors.right: parent.right
-          anchors.verticalCenter: parent.verticalCenter
         }
       }
     }
 
     Row {
       id: buttonRow
-      spacing: 6
+      spacing: constants.spacing
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      anchors.margins: 6
+      anchors.margins: constants.margins
 
       Button {
         text: qsTr("Cancel")

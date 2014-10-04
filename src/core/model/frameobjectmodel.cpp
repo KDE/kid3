@@ -217,3 +217,13 @@ void FrameFieldObject::setValue(const QVariant& value)
     frameObject()->setValue(value.toString());
   }
 }
+
+/**
+ * Get frame type.
+ * @return type, type Frame::Type.
+ */
+int FrameFieldObject::type() const
+{
+  return frameObject()->type();
+}
+
