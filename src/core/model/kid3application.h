@@ -640,6 +640,12 @@ public:
   Q_INVOKABLE void setFileSelectionIndexes(const QVariantList& indexes);
 
   /**
+   * Set picture data for image provider.
+   * @param picture picture data
+   */
+  Q_INVOKABLE void setCoverArtImageData(const QByteArray& picture);
+
+  /**
    * Notify the tagged file factories about the changed configuration.
    */
   static void notifyConfigurationChange();

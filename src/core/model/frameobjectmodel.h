@@ -102,6 +102,12 @@ public:
    */
   Frame getFrame() const;
 
+  /**
+   * Get binary data from data field.
+   * @return binary data, empty if not available.
+   */
+  Q_INVOKABLE QByteArray getBinaryData() const;
+
 signals:
   /** Emitted when value is changed. */
   void valueChanged(const QString& value);

@@ -2898,12 +2898,20 @@ void Kid3Application::updateCoverArtImageId()
   // (when using a QML image provider).
   if (m_imageProvider &&
       receivers(SIGNAL(coverArtImageIdChanged(QString))) > 0) {
-    QByteArray picture = m_selection->getPicture();
-    if (picture != m_imageProvider->getImageData()) {
-      m_imageProvider->setImageData(picture);
-      setNextCoverArtImageId();
-      emit coverArtImageIdChanged(m_coverArtImageId);
-    }
+    setCoverArtImageData(m_selection->getPicture());
+  }
+}
+
+/**
+ * Set picture data for image provider.
+ * @param picture picture data
+ */
+void Kid3Application::setCoverArtImageData(const QByteArray& picture)
+{
+  if (picture != m_imageProvider->getImageData()) {
+    m_imageProvider->setImageData(picture);
+    setNextCoverArtImageId();
+    emit coverArtImageIdChanged(m_coverArtImageId);
   }
 }
 

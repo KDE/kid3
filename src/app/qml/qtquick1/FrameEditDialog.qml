@@ -181,5 +181,8 @@ Rectangle {
     frameObject = frame
     visible = true
     page.z = 1
+    if (frame.type === Frame.FT_Picture) {
+      app.setCoverArtImageData(frame.getBinaryData())
+    }
   }
 }

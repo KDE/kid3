@@ -145,6 +145,19 @@ Frame FrameObjectModel::getFrame() const
   return m_frame;
 }
 
+/**
+ * Get binary data from data field.
+ * @return binary data, empty if not available.
+ */
+QByteArray FrameObjectModel::getBinaryData() const
+{
+  QVariant var(Frame::getField(m_frame, Frame::ID_Data));
+  if (var.isValid()) {
+    return var.toByteArray();
+  }
+  return QByteArray();
+}
+
 
 /**
  * Constructor.
@@ -226,4 +239,3 @@ int FrameFieldObject::type() const
 {
   return frameObject()->type();
 }
-
