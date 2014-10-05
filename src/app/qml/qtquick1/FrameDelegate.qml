@@ -37,7 +37,7 @@ Item {
   Component {
     id: genreEdit
     ComboBox {
-      dropDownParent: frameDelegate.parent.parent
+      dropDownParent: root
       model: genreModel
       currentText: value
       currentIndex: genreModel.getRowForGenre(value)

@@ -74,7 +74,7 @@ Rectangle {
     Component {
       id: comboBoxEdit
       ComboBox {
-        dropDownParent: fieldList
+        dropDownParent: root
         model: if (_modelData.id === Frame.ID_TextEnc)
                  script.getTextEncodingNames()
                else if (_modelData.id === Frame.ID_PictureType)
