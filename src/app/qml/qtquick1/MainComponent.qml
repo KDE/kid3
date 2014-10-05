@@ -86,18 +86,99 @@ Rectangle {
     }
   }
 
-  Text {
-    id: title
+  Item {
+    id: titleBar
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: parent.top
-    text: app.dirName + (app.modified ? "[modified]" : "") + " - Kid3"
+    anchors.margins: constants.margins
+    height: constants.rowHeight
+    Text {
+      anchors.left: parent.left
+      anchors.right: mainMenuButton.left
+      anchors.top: parent.top
+      text: app.dirName + (app.modified ? "[modified]" : "") + " - Kid3"
+    }
+    Button {
+      id: mainMenuButton
+      anchors.right: parent.right
+      anchors.top: parent.top
+      text: "="
+      onClicked: {
+        mainMenu.currentIndex = -1
+        mainMenu.toggleVisible()
+      }
+
+      DropDownList {
+        id: mainMenu
+        anchors.right: mainMenuButton.right
+        anchors.top: mainMenuButton.bottom
+        width: 200
+        dropDownRoot: root
+        model: [
+          qsTr("Apply Filename Format"),
+          qsTr("Apply Tag Format"),
+          qsTr("Apply Text Encoding"),
+          qsTr("Convert ID3v2.3 to ID3v2.4"),
+          qsTr("Convert ID3v2.4 to ID3v2.3"),
+          qsTr("Revert"),
+          qsTr("Save"),
+          qsTr("Quit")
+        ]
+        onClicked: {
+          switch (currentIndex) {
+          case 0:
+            app.applyFilenameFormat()
+            break
+          case 1:
+            app.applyId3Format()
+            break
+          case 2:
+            app.applyTextEncoding()
+            break
+          case 3:
+            app.convertToId3v24()
+            break
+          case 4:
+            app.convertToId3v23()
+            break
+          case 5:
+            app.revertFileModifications()
+            break
+          case 6:
+            var errorFiles = app.saveDirectory()
+            if (errorFiles.length > 0) {
+              console.debug("Save error:" + errorFiles)
+            }
+            break
+          case 7:
+            // Does not work if code is here.
+            tryQuit()
+            break
+          }
+        }
+
+        function tryQuit() {
+          saveModifiedDialog.doNotRevert = true
+          saveModifiedDialog.completed.connect(quitIfCompleted)
+          saveModifiedDialog.openIfModified()
+        }
+
+        function quitIfCompleted(ok) {
+          saveModifiedDialog.completed.disconnect(quitIfCompleted)
+          if (ok) {
+            Qt.quit()
+          }
+        }
+      }
+    }
   }
+
   Item {
     id: leftSide
 
     anchors.left: parent.left
-    anchors.top: title.bottom
+    anchors.top: titleBar.bottom
     anchors.bottom: statusLabel.top
     anchors.margins: constants.margins
     width: fileButtonRow.width
@@ -231,7 +312,7 @@ Rectangle {
     id: rightSide
     anchors.left: leftSide.right
     anchors.right: parent.right
-    anchors.top: title.bottom
+    anchors.top: titleBar.bottom
     anchors.bottom: statusLabel.top
     anchors.margins: constants.margins
 
@@ -261,27 +342,86 @@ Rectangle {
       text: app.selectionInfo.fileName
       color: app.selectionInfo.fileNameChanged ? "red" : "black"
     }
-    CheckBox {
-      id: checkBoxV1
+    Rectangle {
+      id: collapsibleV1
       anchors.top: fileNameEdit.bottom
       anchors.left: parent.left
-      anchors.margins: constants.margins
-      text: qsTr("Tag 1") + ": " + app.selectionInfo.tagFormatV1
-      // workaround for QTBUG-31627
-      // should work with "checked: app.selectionInfo.hasTagV1" with Qt >= 5.3
-      Binding {
-        target: checkBoxV1
-        property: "checked"
-        value: app.selectionInfo.hasTagV1
+      anchors.right: parent.right
+      height: constants.rowHeight
+      color: constants.palette.mid
+
+      CheckBox {
+        id: checkBoxV1
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.margins: constants.margins
+        text: qsTr("Tag 1") + ": " + app.selectionInfo.tagFormatV1
+        // workaround for QTBUG-31627
+        // should work with "checked: app.selectionInfo.hasTagV1" with Qt >= 5.3
+        Binding {
+          target: checkBoxV1
+          property: "checked"
+          value: app.selectionInfo.hasTagV1
+        }
+      }
+      Button {
+        id: v1MenuButton
+        anchors.right: parent.right
+        anchors.top: parent.top
+        text: "="
+        onClicked: {
+          v1Menu.currentIndex = -1
+          v1Menu.toggleVisible()
+        }
+
+        DropDownList {
+          id: v1Menu
+          anchors.right: v1MenuButton.right
+          anchors.top: v1MenuButton.bottom
+          width: 200
+          dropDownRoot: root
+          model: [
+            qsTr("To Filename"),
+            qsTr("From Filename"),
+            qsTr("From Tag 2"),
+            qsTr("Copy"),
+            qsTr("Paste"),
+            qsTr("Remove")
+          ]
+          onClicked: {
+            console.debug("v1 clicked", currentIndex)
+            switch (currentIndex) {
+            case 0:
+              app.getFilenameFromTags(script.toTagVersion(Frame.TagV1))
+              break
+            case 1:
+              app.getTagsFromFilename(script.toTagVersion(Frame.TagV1))
+              break
+            case 2:
+              app.copyV2ToV1()
+              break
+            case 3:
+              app.copyTagsV1()
+              break
+            case 4:
+              app.pasteTagsV1()
+              break
+            case 5:
+              app.removeTagsV1()
+              break
+            }
+          }
+        }
       }
     }
     Item {
       id: sectionV1
-      anchors.top: checkBoxV1.bottom
+      anchors.top: collapsibleV1.bottom
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.margins: constants.margins
-      height: buttonsV1.height
+      height: frameTableV1.height
       visible: checkBoxV1.checked
       enabled: app.selectionInfo.tag1Used
 
@@ -289,74 +429,119 @@ Rectangle {
         id: frameTableV1
         clip: true
         anchors.top: sectionV1.top
-        anchors.bottom: buttonsV1.bottom
         anchors.left: sectionV1.left
-        anchors.right: buttonsV1.left
+        anchors.right: sectionV1.right
         anchors.rightMargin: constants.margins
+        height: 7 * constants.rowHeight
         model: app.frameModelV1
         delegate: FrameDelegate {
           width: frameTableV1.width
           isV1: true
         }
       }
-      Column {
-        id: buttonsV1
-        anchors.top: frameTableV1.top
-        anchors.right: sectionV1.right
+    }
+    Rectangle {
+      id: collapsibleV2
+      anchors.top: sectionV1.visible ? sectionV1.bottom : collapsibleV1.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.topMargin: 2 * constants.margins
+      height: constants.rowHeight
+      color: constants.palette.mid
+
+      CheckBox {
+        id: checkBoxV2
+        anchors.top: parent.top
+        anchors.left: parent.left
         anchors.margins: constants.margins
-        spacing: constants.spacing
-        width: buttonsV2.width
-        Button {
-          width: parent.width
-          text: "To Filename"
-          onClicked: app.getFilenameFromTags(script.toTagVersion(Frame.TagV1))
-        }
-        Button {
-          width: parent.width
-          text: "From Filename"
-          onClicked: app.getTagsFromFilename(script.toTagVersion(Frame.TagV1))
-        }
-        Button {
-          width: parent.width
-          text: "From Tag 2"
-          onClicked: app.copyV2ToV1()
-        }
-        Button {
-          width: parent.width
-          text: "Copy"
-          onClicked: app.copyTagsV1()
-        }
-        Button {
-          width: parent.width
-          text: "Paste"
-          onClicked: app.pasteTagsV1()
-        }
-        Button {
-          width: parent.width
-          text: "Remove"
-          onClicked: app.removeTagsV1()
+        anchors.verticalCenter: parent.verticalCenter
+        text: qsTr("Tag 2") + ": " + app.selectionInfo.tagFormatV2
+        // workaround for QTBUG-31627
+        // should work with "checked: app.selectionInfo.hasTagV2" with Qt >= 5.3
+        Binding {
+          target: checkBoxV2
+          property: "checked"
+          value: app.selectionInfo.hasTagV2
         }
       }
-    }
-    CheckBox {
-      id: checkBoxV2
-      anchors.top: sectionV1.visible ? sectionV1.bottom : checkBoxV1.bottom
-      anchors.left: parent.left
-      anchors.margins: constants.margins
-      anchors.topMargin: 2 * constants.margins
-      text: qsTr("Tag 2") + ": " + app.selectionInfo.tagFormatV2
-      // workaround for QTBUG-31627
-      // should work with "checked: app.selectionInfo.hasTagV2" with Qt >= 5.3
-      Binding {
-        target: checkBoxV2
-        property: "checked"
-        value: app.selectionInfo.hasTagV2
+      Row {
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        Button {
+          id: v2EditButton
+          text: "/"
+          onClicked: {
+            app.frameList.selectByRow(frameTableV2.currentIndex)
+            app.editFrame()
+          }
+        }
+        Button {
+          text: "+"
+          onClicked: {
+            app.selectAndAddFrame()
+          }
+        }
+        Button {
+          text: "-"
+          onClicked: {
+            app.frameList.selectByRow(frameTableV2.currentIndex)
+            app.deleteFrame()
+          }
+        }
+        Button {
+          id: v2MenuButton
+          text: "="
+          onClicked: {
+            v2Menu.currentIndex = -1
+            v2Menu.toggleVisible()
+          }
+
+          DropDownList {
+            id: v2Menu
+            anchors.right: v2MenuButton.right
+            anchors.top: v2MenuButton.bottom
+            width: 200
+            dropDownRoot: root
+            model: [
+              qsTr("To Filename"),
+              qsTr("From Filename"),
+              qsTr("From Tag 2"),
+              qsTr("Copy"),
+              qsTr("Paste"),
+              qsTr("Remove")
+            ]
+            onClicked: {
+              console.debug("v1 clicked", currentIndex)
+              switch (currentIndex) {
+              case 0:
+                app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))
+                break
+              case 1:
+                app.getTagsFromFilename(script.toTagVersion(Frame.TagV2))
+                break
+              case 2:
+                app.copyV1ToV2()
+                break
+              case 3:
+                app.copyTagsV2()
+                break
+              case 4:
+                app.pasteTagsV2()
+                break
+              case 5:
+                app.removeTagsV2()
+                break
+              }
+            }
+          }
+        }
       }
     }
     Item {
       id: sectionV2
-      anchors.top: checkBoxV2.bottom
-      anchors.bottom: parent.bottom
+      anchors.top: collapsibleV2.bottom
+      anchors.bottom: collapsiblePicture.top
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.margins: constants.margins
@@ -368,7 +553,7 @@ Rectangle {
         anchors.top: sectionV2.top
         anchors.bottom: sectionV2.bottom
         anchors.left: sectionV2.left
-        anchors.right: buttonsV2.left
+        anchors.right: sectionV2.right
         anchors.rightMargin: constants.margins
         model: app.frameModelV2
         delegate: FrameDelegate {
@@ -376,74 +561,42 @@ Rectangle {
           height: constants.rowHeight
         }
       }
-      Column {
-        id: buttonsV2
-        anchors.top: frameTableV2.top
-        anchors.right: sectionV2.right
+    }
+    Rectangle {
+      id: collapsiblePicture
+      anchors.bottom: sectionPicture.visible ? sectionPicture.top : parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.topMargin: 2 * constants.margins
+      height: constants.rowHeight
+      color: constants.palette.mid
+
+      CheckBox {
+        id: checkBoxPicture
+        anchors.top: parent.top
+        anchors.left: parent.left
         anchors.margins: constants.margins
-        spacing: constants.spacing
-        width: coverArtImage.width
-        Button {
-          width: parent.width
-          text: "To Filename"
-          onClicked: app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))
-        }
-        Button {
-          width: parent.width
-          text: "From Filename"
-          onClicked: app.getTagsFromFilename(script.toTagVersion(Frame.TagV2))
-        }
-        Button {
-          width: parent.width
-          text: "From Tag 1"
-          onClicked: app.copyV1ToV2()
-        }
-        Button {
-          width: parent.width
-          text: "Copy"
-          onClicked: app.copyTagsV2()
-        }
-        Button {
-          width: parent.width
-          text: "Paste"
-          onClicked: app.pasteTagsV2()
-        }
-        Button {
-          width: parent.width
-          text: "Remove"
-          onClicked: app.removeTagsV2()
-        }
-        Button {
-          width: parent.width
-          text: "Edit"
-          onClicked: {
-            app.frameList.selectByRow(frameTableV2.currentIndex)
-            app.editFrame()
-          }
-        }
-        Button {
-          width: parent.width
-          text: "Add"
-          onClicked: {
-            app.selectAndAddFrame()
-          }
-        }
-        Button {
-          width: parent.width
-          text: "Delete"
-          onClicked: {
-            app.frameList.selectByRow(frameTableV2.currentIndex)
-            app.deleteFrame()
-          }
-        }
-        Image {
-          id: coverArtImage
-          width: 120
-          sourceSize.width: 120
-          sourceSize.height: 120
-          source: app.coverArtImageId
-          cache: false
-        }
+        anchors.verticalCenter: parent.verticalCenter
+        text: qsTr("Picture")
+      }
+    }
+    Item {
+      id: sectionPicture
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.margins: constants.margins
+      height: 120
+      visible: checkBoxPicture.checked
+
+      Image {
+        id: coverArtImage
+        anchors.top: parent.top
+        width: 120
+        sourceSize.width: 120
+        sourceSize.height: 120
+        source: app.coverArtImageId
+        cache: false
       }
     }
   }
@@ -452,63 +605,8 @@ Rectangle {
     id: statusLabel
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.bottom: controls.top
-    text: "Ready."
-  }
-  Flow {
-    id: controls
-    anchors.left: parent.left
-    anchors.right: parent.right
     anchors.bottom: parent.bottom
-    spacing: constants.spacing
-    Button {
-      text: qsTr("Save")
-      onClicked: {
-        var errorFiles = app.saveDirectory()
-        if (errorFiles.length > 0) {
-          console.debug("Save error:" + errorFiles)
-        }
-      }
-    }
-    Button {
-      text: qsTr("Revert")
-      onClicked: app.revertFileModifications()
-    }
-    Button {
-      text: qsTr("Quit")
-      onClicked: {
-        saveModifiedDialog.doNotRevert = true
-        saveModifiedDialog.completed.connect(quitIfCompleted)
-        saveModifiedDialog.openIfModified()
-      }
-
-      function quitIfCompleted(ok) {
-        saveModifiedDialog.completed.disconnect(quitIfCompleted)
-        if (ok) {
-          Qt.quit()
-        }
-      }
-    }
-    Button {
-      text: qsTr("Apply Filename Format")
-      onClicked: app.applyFilenameFormat()
-    }
-    Button {
-      text: qsTr("Apply Tag Format")
-      onClicked: app.applyId3Format()
-    }
-    Button {
-      text: qsTr("Apply Text Encoding")
-      onClicked: app.applyTextEncoding()
-    }
-    Button {
-      text: qsTr("Convert ID3v2.3 to ID3v2.4")
-      onClicked: app.convertToId3v24()
-    }
-    Button {
-      text: qsTr("Convert ID3v2.4 to ID3v2.3")
-      onClicked: app.convertToId3v23()
-    }
+    text: "Ready."
   }
 
   Component.onCompleted: {
