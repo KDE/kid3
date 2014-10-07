@@ -13,6 +13,7 @@ Rectangle {
     property int margins: 6
     property int spacing: 3
     property color editColor: "#fff9a8"
+    property color errorColor: "red"
     property SystemPalette palette: SystemPalette {}
   }
 
@@ -266,8 +267,10 @@ Rectangle {
           anchors.left: fileImage.right
           anchors.right: parent.right
           height: parent.height
-          color: fileDelegate.ListView.isCurrentItem
-                 ? constants.palette.highlight : constants.palette.window
+          color: truncated
+                 ? constants.errorColor
+                 : fileDelegate.ListView.isCurrentItem
+                   ? constants.palette.highlight : constants.palette.window
           Text {
             id: fileText
             anchors.left: parent.left
@@ -325,26 +328,40 @@ Rectangle {
       text: qsTr("File") + ": " + app.selectionInfo.detailInfo
     }
 
-    Text {
-      id: fileNameLabel
+    Rectangle {
+      id: fileNameLabelRect
       anchors.top: fileDetailsLabel.bottom
       anchors.left: parent.left
       anchors.margins: constants.margins
-      text: "Name:"
+      width: fileNameLabel.implicitWidth
+      height: constants.rowHeight
+      color: app.selectionInfo.fileNameChanged
+             ? constants.palette.mid : constants.palette.window
+      Text {
+        id: fileNameLabel
+        anchors.fill: parent
+        text: "Name:"
+      }
     }
-    TextEdit {
-      id: fileNameEdit
+    Rectangle {
+      id: fileNameEditRect
       anchors.top: fileDetailsLabel.bottom
-      anchors.left: fileNameLabel.right
+      anchors.left: fileNameLabelRect.right
       anchors.right: parent.right
       anchors.margins: constants.margins
-      enabled: app.selectionInfo.singleFileSelected
-      text: app.selectionInfo.fileName
-      color: app.selectionInfo.fileNameChanged ? "red" : "black"
+      height: constants.rowHeight
+      color: constants.editColor
+      TextEdit {
+        id: fileNameEdit
+        anchors.fill: parent
+        enabled: app.selectionInfo.singleFileSelected
+        text: app.selectionInfo.fileName
+      }
     }
     Rectangle {
       id: collapsibleV1
-      anchors.top: fileNameEdit.bottom
+      anchors.topMargin: constants.margins
+      anchors.top: fileNameEditRect.bottom
       anchors.left: parent.left
       anchors.right: parent.right
       height: constants.rowHeight
@@ -390,7 +407,6 @@ Rectangle {
             qsTr("Remove")
           ]
           onClicked: {
-            console.debug("v1 clicked", currentIndex)
             switch (currentIndex) {
             case 0:
               app.getFilenameFromTags(script.toTagVersion(Frame.TagV1))
@@ -512,7 +528,6 @@ Rectangle {
               qsTr("Remove")
             ]
             onClicked: {
-              console.debug("v1 clicked", currentIndex)
               switch (currentIndex) {
               case 0:
                 app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))

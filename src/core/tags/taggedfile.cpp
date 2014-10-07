@@ -433,6 +433,23 @@ void TaggedFile::notifyModelDataChanged(bool priorIsTagInformationRead) const
 }
 
 /**
+ * Notify model about changes in the truncation state.
+ *
+ * This method shall be called when truncation is checked.
+ *
+ * @param priorTruncation prior value of m_truncation != 0
+ */
+void TaggedFile::notifyTruncationChanged(bool priorTruncation) const
+{
+  bool currentTruncation = m_truncation != 0;
+  if (currentTruncation != priorTruncation) {
+    if (const FileProxyModel* model = getFileProxyModel()) {
+      const_cast<FileProxyModel*>(model)->notifyModelDataChanged(m_index);
+    }
+  }
+}
+
+/**
  * Remove artist part from album string.
  * This is used when only the album is needed, but the regexp in
  * getTagsFromFilename() matched a "artist - album" string.
@@ -895,15 +912,17 @@ QString TaggedFile::getTagFormatV2() const
 QString TaggedFile::checkTruncation(
   const QString& str, quint64 flag, int len)
 {
+  bool priorTruncation = m_truncation != 0;
+  QString result;
   if (static_cast<int>(str.length()) > len) {
-    QString s = str;
-    s.truncate(len);
+    result = str;
+    result.truncate(len);
     m_truncation |= flag;
-    return s;
   } else {
     m_truncation &= ~flag;
-    return QString();
   }
+  notifyTruncationChanged(priorTruncation);
+  return result;
 }
 
 /**
@@ -918,13 +937,17 @@ QString TaggedFile::checkTruncation(
 int TaggedFile::checkTruncation(int val, quint64 flag,
                                 int max)
 {
+  bool priorTruncation = m_truncation != 0;
+  int result;
   if (val > max) {
     m_truncation |= flag;
-    return max;
+    result = max;
   } else {
     m_truncation &= ~flag;
-    return -1;
+    result = -1;
   }
+  notifyTruncationChanged(priorTruncation);
+  return result;
 }
 
 /**

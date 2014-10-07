@@ -49,7 +49,8 @@ public:
   /** Custom role, extending QFileSystemModel::Roles. */
   enum Roles {
     TaggedFileRole = Qt::UserRole + 4,
-    IconIdRole = Qt::UserRole + 5
+    IconIdRole = Qt::UserRole + 5,
+    TruncatedRole =  Qt::UserRole + 6
   };
 
   /**

@@ -45,7 +45,9 @@ public:
   enum Roles {
     FrameTypeRole = Qt::UserRole + 1,
     NameRole = Qt::UserRole + 2,
-    ValueRole =  Qt::UserRole + 3
+    ValueRole =  Qt::UserRole + 3,
+    ModifiedRole =  Qt::UserRole + 4,
+    TruncatedRole =  Qt::UserRole + 5
   };
 
   /** Column indices. */
@@ -172,16 +174,14 @@ public:
    * Mark rows.
    * @param rowMask mask with bits of rows to mark
    */
-  void markRows(quint64 rowMask) { m_markedRows = rowMask; }
+  void markRows(quint64 rowMask);
 
 
   /**
    * Mark changed frames.
    * @param frameMask mask with bits of frame types to mark
    */
-  void markChangedFrames(quint64 frameMask) {
-    m_changedFrames = frameMask;
-  }
+  void markChangedFrames(quint64 frameMask);
 
   /**
    * Get frame for index.

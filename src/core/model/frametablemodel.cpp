@@ -44,6 +44,8 @@ QHash<int,QByteArray> getRoleHash()
   roles[FrameTableModel::FrameTypeRole] = "frameType";
   roles[FrameTableModel::NameRole] = "name";
   roles[FrameTableModel::ValueRole] = "value";
+  roles[FrameTableModel::ModifiedRole] = "modified";
+  roles[FrameTableModel::TruncatedRole] = "truncated";
   return roles;
 }
 
@@ -129,6 +131,19 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       index.column() < 0 || index.column() >= CI_NumColumns)
     return QVariant();
   FrameCollection::const_iterator it = frameAt(index.row());
+  bool isModified = false, isTruncated = false;
+  if ((role == Qt::BackgroundColorRole && index.column() == CI_Enable) ||
+      role == ModifiedRole) {
+    isModified = FileConfig::instance().markChanges() &&
+      (it->isValueChanged() ||
+      (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
+       (m_changedFrames & (1ULL << (*it).getType())) != 0));
+  }
+  if ((role == Qt::BackgroundColorRole && index.column() == CI_Value) ||
+      role == TruncatedRole) {
+    isTruncated = static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
+        (m_markedRows & (1ULL << index.row())) != 0;
+  }
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Enable) {
       QString displayName = getDisplayName(it->getName());
@@ -154,15 +169,9 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == CI_Enable) {
-      return FileConfig::instance().markChanges() &&
-        (it->isValueChanged() ||
-        (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
-         (m_changedFrames & (1ULL << (*it).getType())) != 0))
-          ? QApplication::palette().mid() : Qt::NoBrush;
-    } else if (index.column() == CI_Value &&
-               static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8) {
-      return (m_markedRows & (1ULL << index.row())) != 0
-             ? QBrush(Qt::red) : Qt::NoBrush;
+      return isModified ? QApplication::palette().mid() : Qt::NoBrush;
+    } else if (index.column() == CI_Value) {
+      return isTruncated ? QBrush(Qt::red) : Qt::NoBrush;
     }
   } else if (role == FrameTypeRole) {
     return it->getType();
@@ -170,6 +179,10 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return getDisplayName(it->getName());
   } else if (role == ValueRole) {
     return it->getValue();
+  } else if (role == ModifiedRole) {
+    return isModified;
+  } else if (role == TruncatedRole) {
+    return isTruncated;
   }
   return QVariant();
 }
@@ -363,6 +376,58 @@ int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
     ++row;
   }
   return row;
+}
+
+/**
+ * Mark rows.
+ * @param rowMask mask with bits of rows to mark
+ */
+void FrameTableModel::markRows(quint64 rowMask)
+{
+  quint64 changedBits = m_markedRows ^ rowMask;
+  m_markedRows = rowMask;
+
+  // Emit a change signal for all indexes affected by the change.
+  if (!changedBits)
+    return;
+
+  quint64 mask;
+  int row;
+  for (mask = 1ULL, row = 0;
+       static_cast<unsigned>(row) < sizeof(changedBits) * 8;
+       mask <<= 1, ++row) {
+    if ((changedBits & mask) != 0) {
+      // Include both the columns for Qt::BackgroundColorRole and TruncatedRole.
+      emit dataChanged(index(row, 0), index(row, 1));
+    }
+  }
+}
+
+/**
+ * Mark changed frames.
+ * @param frameMask mask with bits of frame types to mark
+ */
+void FrameTableModel::markChangedFrames(quint64 frameMask)
+{
+  quint64 changedBits = m_changedFrames ^ frameMask;
+  m_changedFrames = frameMask;
+
+  // Emit a change signal for all indexes affected by the change.
+  if (!FileConfig::instance().markChanges() || !changedBits)
+    return;
+
+  FrameCollection::const_iterator it;
+  int row;
+  for (it = m_frames.begin(), row = 0;
+       it != m_frames.end();
+       ++it, ++row) {
+    if (it->isValueChanged() ||
+        (static_cast<unsigned>((*it).getType()) < sizeof(changedBits) * 8 &&
+         (changedBits & (1ULL << (*it).getType())) != 0)) {
+      QModelIndex idx = index(row, CI_Enable);
+      emit dataChanged(idx, idx);
+    }
+  }
 }
 
 /**

@@ -838,6 +838,15 @@ protected:
    */
   void notifyModelDataChanged(bool priorIsTagInformationRead) const;
 
+  /**
+   * Notify model about changes in the truncation state.
+   *
+   * This method shall be called when truncation is checked.
+   *
+   * @param priorTruncation prior value of m_truncation != 0
+   */
+  void notifyTruncationChanged(bool priorTruncation) const;
+
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);

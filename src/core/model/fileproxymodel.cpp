@@ -29,6 +29,7 @@
 #include <QTimer>
 #include "taggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
+#include "tagconfig.h"
 #include "config.h"
 
 /** Only defined for generation of translation files */
@@ -53,7 +54,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[QFileSystemModel::FileNameRole] = "fileName";
   roles[QFileSystemModel::FilePathRole] = "filePath";
   roles[FileProxyModel::IconIdRole] = "iconId";
-  roles[Qt::BackgroundRole] = "background";
+  roles[FileProxyModel::TruncatedRole] = "truncated";
   roles[Qt::CheckStateRole] = "checkState";
   return roles;
 }
@@ -278,6 +279,10 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
       return taggedFile
           ? m_iconProvider->iconIdForTaggedFile(taggedFile)
           : QByteArray("");
+    } else if (role == TruncatedRole && index.column() == 0) {
+      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      return TagConfig::instance().markTruncations() &&
+          taggedFile && taggedFile->getTruncationFlags() != 0;
     }
   }
   return QSortFilterProxyModel::data(index, role);

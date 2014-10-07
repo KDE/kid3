@@ -9,7 +9,7 @@ Item {
   property QtObject genreModel: isV1 ? app.genreModelV1 : app.genreModelV2
 
   width: 300
-  height: frameEnabledCheckBox.height
+  height: constants.rowHeight
 
   Component {
     id: textEdit
@@ -48,45 +48,56 @@ Item {
 
   Component {
     id: valueText
-    Text {
-      text: value
-      anchors.left: if (parent) parent.left
-      anchors.margins: constants.margins
-      verticalAlignment: Text.AlignVCenter
-      MouseArea {
-        anchors.fill: parent
-        onClicked: {
-          frameDelegate.ListView.view.currentIndex = index
+    Rectangle {
+      color: truncated ? constants.errorColor : constants.palette.window
+      Text {
+        width: parent.width
+        anchors.left: parent.left
+        anchors.margins: constants.margins
+        anchors.verticalCenter: parent.verticalCenter
+        text: value
+        MouseArea {
+          anchors.fill: parent
+          onClicked: {
+            frameDelegate.ListView.view.currentIndex = index
+          }
         }
       }
     }
   }
 
-  CheckBox {
-    id: frameEnabledCheckBox
+  Rectangle {
+    id: frameEnabledCheckBoxRect
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
+    height: parent.height
     width: 150
-    clip: true
-    text: name
-    onClicked: {
-      // QTBUG-7932, assigning is not possible
-      script.setRoleData(frameModel, index, "checkState",
-                         checked ? Qt.Checked : Qt.Unchecked)
-    }
-    // workaround for QTBUG-31627
-    // should work with "checked: checkState === Qt.Checked" with Qt >= 5.3
-    Binding {
-      target: frameEnabledCheckBox
-      property: "checked"
-      value: checkState === Qt.Checked
+    color: modified ? constants.palette.mid : constants.palette.window
+    CheckBox {
+      id: frameEnabledCheckBox
+      anchors.fill: parent
+      clip: true
+      text: name
+      onClicked: {
+        // QTBUG-7932, assigning is not possible
+        script.setRoleData(frameModel, index, "checkState",
+                           checked ? Qt.Checked : Qt.Unchecked)
+      }
+      // workaround for QTBUG-31627
+      // should work with "checked: checkState === Qt.Checked" with Qt >= 5.3
+      Binding {
+        target: frameEnabledCheckBox
+        property: "checked"
+        value: checkState === Qt.Checked
+      }
     }
   }
+
   Loader {
-    anchors.left: frameEnabledCheckBox.right
+    anchors.left: frameEnabledCheckBoxRect.right
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
-    height: frameEnabledCheckBox.height
+    height: parent.height
     sourceComponent: !frameDelegate.ListView.isCurrentItem
                      ? valueText : frameType === Frame.FT_Genre
                        ? genreEdit : textEdit
