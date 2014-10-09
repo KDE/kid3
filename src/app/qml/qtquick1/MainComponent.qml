@@ -25,6 +25,10 @@ Rectangle {
     id: script
   }
 
+  ConfigObjects {
+    id: configs
+  }
+
   function centerOnRoot(item) {
     item.x = root.x + (root.width - item.width) / 2
     item.y = root.y + (root.height - item.height) / 2
@@ -168,6 +172,12 @@ Rectangle {
         function quitIfCompleted(ok) {
           saveModifiedDialog.completed.disconnect(quitIfCompleted)
           if (ok) {
+            var currentFile = fileModel.getDataValue(fileModel.currentRow,
+                                                     "filePath")
+            if (currentFile) {
+              configs.fileConfig().lastOpenedFile = currentFile
+            }
+            app.saveConfig()
             Qt.quit()
           }
         }
@@ -626,7 +636,8 @@ Rectangle {
 
   Component.onCompleted: {
     app.frameEditor = frameEditor
-    app.openDirectory("/home/urs/projects/kid3/test/testtags")
+    app.readConfig()
+    app.openDirectory(configs.fileConfig().lastOpenedFile)
   }
 
   Connections {

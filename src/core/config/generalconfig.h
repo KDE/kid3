@@ -117,6 +117,7 @@ Derived& StoredConfig<Derived, Base>::instance() {
     obj = static_cast<Derived*>(store->configuration(Derived::s_index));
   } else {
     obj = new Derived;
+    obj->setParent(store);
     Derived::s_index = store->addConfiguration(obj);
   }
   return *obj;

@@ -27,6 +27,7 @@
 #ifndef CONFIGSTORE_H
 #define CONFIGSTORE_H
 
+#include <QObject>
 #include <QList>
 #include "kid3api.h"
 
@@ -36,7 +37,7 @@ class GeneralConfig;
 /**
  * Configuration storage.
  */
-class KID3_CORE_EXPORT ConfigStore {
+class KID3_CORE_EXPORT ConfigStore : public QObject {
 public:
   /**
    * Constructor.

@@ -305,12 +305,12 @@ public:
   /**
    * Save settings to the configuration.
    */
-  void saveConfig();
+  Q_INVOKABLE void saveConfig();
 
   /**
    * Read settings from the configuration.
    */
-  void readConfig();
+  Q_INVOKABLE void readConfig();
 
   /**
    * Open directory.

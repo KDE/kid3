@@ -28,11 +28,12 @@
 #define CONFIGOBJECTS_H
 
 #include <QObject>
+#include "kid3api.h"
 
 /**
  * Access to configurations as QObjects.
  */
-class ConfigObjects : public QObject {
+class KID3_PLUGIN_EXPORT ConfigObjects : public QObject {
   Q_OBJECT
 public:
   /**
