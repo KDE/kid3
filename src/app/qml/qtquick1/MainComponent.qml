@@ -338,40 +338,51 @@ Rectangle {
       text: qsTr("File") + ": " + app.selectionInfo.detailInfo
     }
 
-    Rectangle {
-      id: fileNameLabelRect
+    Item {
+      id: fileNameItem
       anchors.top: fileDetailsLabel.bottom
       anchors.left: parent.left
-      anchors.margins: constants.margins
-      width: fileNameLabel.implicitWidth
-      height: constants.rowHeight
-      color: app.selectionInfo.fileNameChanged
-             ? constants.palette.mid : constants.palette.window
-      Text {
-        id: fileNameLabel
-        anchors.fill: parent
-        text: "Name:"
-      }
-    }
-    Rectangle {
-      id: fileNameEditRect
-      anchors.top: fileDetailsLabel.bottom
-      anchors.left: fileNameLabelRect.right
       anchors.right: parent.right
-      anchors.margins: constants.margins
       height: constants.rowHeight
-      color: constants.editColor
-      TextEdit {
-        id: fileNameEdit
-        anchors.fill: parent
-        enabled: app.selectionInfo.singleFileSelected
-        text: app.selectionInfo.fileName
+      Rectangle {
+        id: fileNameLabelRect
+        anchors.top: parent.top
+        anchors.left: parent.left
+        width: fileNameLabel.implicitWidth + 2 * constants.margins
+        height: parent.height
+        color: app.selectionInfo.fileNameChanged
+               ? constants.palette.mid : constants.palette.window
+        Text {
+          id: fileNameLabel
+          width: parent.width
+          anchors.left: parent.left
+          anchors.margins: constants.margins
+          anchors.verticalCenter: parent.verticalCenter
+          text: "Name:"
+        }
+      }
+      Rectangle {
+        id: fileNameEditRect
+        anchors.top: parent.top
+        anchors.left: fileNameLabelRect.right
+        anchors.right: parent.right
+        height: parent.height
+        color: constants.editColor
+        TextInput {
+          id: fileNameEdit
+          width: parent.width
+          anchors.left: parent.left
+          anchors.margins: constants.margins
+          anchors.verticalCenter: parent.verticalCenter
+          enabled: app.selectionInfo.singleFileSelected
+          text: app.selectionInfo.fileName
+        }
       }
     }
     Rectangle {
       id: collapsibleV1
       anchors.topMargin: constants.margins
-      anchors.top: fileNameEditRect.bottom
+      anchors.top: fileNameItem.bottom
       anchors.left: parent.left
       anchors.right: parent.right
       height: constants.rowHeight
@@ -532,7 +543,7 @@ Rectangle {
             model: [
               qsTr("To Filename"),
               qsTr("From Filename"),
-              qsTr("From Tag 2"),
+              qsTr("From Tag 1"),
               qsTr("Copy"),
               qsTr("Paste"),
               qsTr("Remove")

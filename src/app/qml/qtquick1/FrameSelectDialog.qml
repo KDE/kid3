@@ -37,7 +37,7 @@ Rectangle {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.top: messageText.bottom
-      anchors.bottom: buttonRow.top
+      anchors.bottom: cancelButton.top
       anchors.margins: constants.margins
       delegate: Rectangle {
         id: frameSelectDelegate
@@ -62,28 +62,29 @@ Rectangle {
         }
       }
     }
-    Row {
-      id: buttonRow
-      spacing: constants.spacing
+    Button {
+      id: cancelButton
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      anchors.margins: constants.margins
+      width: (parent.width - 2 * constants.margins - constants.spacing) / 2
+      text: qsTr("Cancel")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.frameSelected("")
+      }
+    }
+    Button {
       anchors.right: parent.right
       anchors.bottom: parent.bottom
       anchors.margins: constants.margins
-
-      Button {
-        text: qsTr("Cancel")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.frameSelected("")
-        }
-      }
-      Button {
-        text: qsTr("OK")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.frameSelected(frameSelectList.currentItem.data[0].text)
-        }
+      width: cancelButton.width
+      text: qsTr("OK")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.frameSelected(frameSelectList.currentItem.data[0].text)
       }
     }
   }

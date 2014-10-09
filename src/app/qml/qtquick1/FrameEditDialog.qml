@@ -108,7 +108,7 @@ Rectangle {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.top: titleText.bottom
-      anchors.bottom: buttonRow.top
+      anchors.bottom: cancelButton.top
       anchors.margins: constants.margins
       delegate: Item {
         width: parent.width
@@ -146,31 +146,32 @@ Rectangle {
       }
     }
 
-    Row {
-      id: buttonRow
-      spacing: constants.spacing
+    Button {
+      id: cancelButton
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      anchors.margins: constants.margins
+      width: (parent.width - 2 * constants.margins - constants.spacing) / 2
+      text: qsTr("Cancel")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.frameEdited(null)
+        frameObject = null
+      }
+    }
+    Button {
       anchors.right: parent.right
       anchors.bottom: parent.bottom
       anchors.margins: constants.margins
-
-      Button {
-        text: qsTr("Cancel")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.frameEdited(null)
-          frameObject = null
-        }
-      }
-      Button {
-        text: qsTr("OK")
-        onClicked: {
-          fieldList.focus = false // to force editingFinished on delegate
-          page.visible = false
-          page.z = 0
-          page.frameEdited(frameObject)
-          frameObject = null
-        }
+      width: cancelButton.width
+      text: qsTr("OK")
+      onClicked: {
+        fieldList.focus = false // to force editingFinished on delegate
+        page.visible = false
+        page.z = 0
+        page.frameEdited(frameObject)
+        frameObject = null
       }
     }
   }

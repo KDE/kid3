@@ -33,35 +33,41 @@ Rectangle {
       text: page.text
     }
 
-    Row {
-      spacing: constants.spacing
+    Button {
+      id: yesButton
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      anchors.margins: constants.margins
+      width: (parent.width - 3 * constants.margins - 2 * constants.spacing) / 3
+      text: qsTr("Yes")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.yes()
+      }
+    }
+    Button {
+      anchors.left: yesButton.right
+      anchors.bottom: parent.bottom
+      anchors.margins: constants.margins
+      width: yesButton.width
+      text: qsTr("No")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.no()
+      }
+    }
+    Button {
       anchors.right: parent.right
       anchors.bottom: parent.bottom
       anchors.margins: constants.margins
-
-      Button {
-        text: qsTr("Yes")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.yes()
-        }
-      }
-      Button {
-        text: qsTr("No")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.no()
-        }
-      }
-      Button {
-        text: qsTr("Cancel")
-        onClicked: {
-          page.visible = false
-          page.z = 0
-          page.rejected()
-        }
+      width: yesButton.width
+      text: qsTr("Cancel")
+      onClicked: {
+        page.visible = false
+        page.z = 0
+        page.rejected()
       }
     }
   }
