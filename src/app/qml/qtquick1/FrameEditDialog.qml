@@ -1,19 +1,38 @@
 import QtQuick 1.1
 import Kid3App 1.0
 
-Rectangle {
+Dialog {
   property string title
   property QtObject frameObject
   signal frameEdited(variant frame)
 
+  function open(frame) {
+    __FrameEditDialog_open(frame)
+  }
+
+  function reject() {
+    __FrameEditDialog_reject()
+  }
+
+  function __FrameEditDialog_open(frame) {
+    page.title = frame.internalName
+    fieldList.model = frame.fields
+    frameObject = frame
+    __Dialog_open()
+    if (frame.type === Frame.FT_Picture) {
+      app.setCoverArtImageData(frame.getBinaryData())
+    }
+  }
+
+  function __FrameEditDialog_reject() {
+    __Dialog_reject()
+    page.frameEdited(null)
+    frameObject = null
+  }
+
   id: page
   width: 400
   height: 400
-  color: constants.palette.window
-  border.width: 1
-  border.color: "black"
-  visible: false
-  z: 0
 
   Item {
     anchors.fill: parent
@@ -24,6 +43,7 @@ Rectangle {
       anchors.right: parent.right
       anchors.top: parent.top
       anchors.margins: constants.margins
+      height: constants.rowHeight
       text: page.title
     }
 
@@ -91,13 +111,41 @@ Rectangle {
     Component {
       id: imageView
       Item {
-        width: 120
-        height: 120
-        Image {
-          sourceSize.width: 120
-          sourceSize.height: 120
-          source: app.coverArtImageId
-          cache: false
+        width: parent.width
+        height: importButton.height + imageItem.height
+        anchors.left: parent.left
+
+        Button {
+          id: importButton
+          width: parent.width
+          height: constants.rowHeight
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.topMargin: constants.margins
+          text: qsTr("Import")
+        }
+        Button {
+          id: exportButton
+          width: parent.width
+          height: constants.rowHeight
+          anchors.top: importButton.bottom
+          anchors.left: parent.left
+          anchors.topMargin: constants.margins
+          text: qsTr("Export")
+        }
+
+        Item {
+          id: imageItem
+          anchors.top: exportButton.bottom
+          anchors.margins: constants.margins
+          width: 120
+          height: 120
+          Image {
+            sourceSize.width: 120
+            sourceSize.height: 120
+            source: app.coverArtImageId
+            cache: false
+          }
         }
       }
     }
@@ -153,12 +201,7 @@ Rectangle {
       anchors.margins: constants.margins
       width: (parent.width - 2 * constants.margins - constants.spacing) / 2
       text: qsTr("Cancel")
-      onClicked: {
-        page.visible = false
-        page.z = 0
-        page.frameEdited(null)
-        frameObject = null
-      }
+      onClicked: reject()
     }
     Button {
       anchors.right: parent.right
@@ -168,22 +211,10 @@ Rectangle {
       text: qsTr("OK")
       onClicked: {
         fieldList.focus = false // to force editingFinished on delegate
-        page.visible = false
-        page.z = 0
+        close()
         page.frameEdited(frameObject)
         frameObject = null
       }
-    }
-  }
-
-  function open(frame) {
-    page.title = frame.internalName
-    fieldList.model = frame.fields
-    frameObject = frame
-    visible = true
-    page.z = 1
-    if (frame.type === Frame.FT_Picture) {
-      app.setCoverArtImageData(frame.getBinaryData())
     }
   }
 }

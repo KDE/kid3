@@ -1,16 +1,30 @@
 import QtQuick 1.1
 
-Rectangle {
+Dialog {
+  id: page
+
   signal frameSelected(string name);
 
-  id: page
+  function open(frameNames) {
+    __FrameSelectDialog_open(frameNames)
+  }
+
+  function reject() {
+    __FrameSelectDialog_reject()
+  }
+
+  function __FrameSelectDialog_open(frameNames) {
+    frameSelectList.model = frameNames
+    __Dialog_open()
+  }
+
+  function __FrameSelectDialog_reject() {
+    __Dialog_reject()
+    page.frameSelected("")
+  }
+
   width: 300
   height: 300
-  color: constants.palette.window
-  border.width: 1
-  border.color: "black"
-  visible: false
-  z: 0
 
   Item {
     anchors.fill: parent
@@ -69,11 +83,7 @@ Rectangle {
       anchors.margins: constants.margins
       width: (parent.width - 2 * constants.margins - constants.spacing) / 2
       text: qsTr("Cancel")
-      onClicked: {
-        page.visible = false
-        page.z = 0
-        page.frameSelected("")
-      }
+      onClicked: reject()
     }
     Button {
       anchors.right: parent.right
@@ -82,16 +92,9 @@ Rectangle {
       width: cancelButton.width
       text: qsTr("OK")
       onClicked: {
-        page.visible = false
-        page.z = 0
+        close()
         page.frameSelected(frameSelectList.currentItem.data[0].text)
       }
     }
-  }
-
-  function open(frameNames) {
-    frameSelectList.model = frameNames
-    page.visible = true
-    page.z = 1
   }
 }

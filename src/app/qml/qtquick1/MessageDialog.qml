@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-Rectangle {
+Dialog {
   id: page
 
   property string title
@@ -10,12 +10,17 @@ Rectangle {
   signal no
   signal rejected
 
+  function reject() {
+    __MessageDialog_reject()
+  }
+
+  function __MessageDialog_reject() {
+    __Dialog_reject()
+    page.rejected()
+  }
+
   width: 400
   height: 200
-  border.width: 1
-  border.color: "black"
-  visible: false
-  z: 0
 
   Item {
     anchors.fill: parent
@@ -41,8 +46,7 @@ Rectangle {
       width: (parent.width - 3 * constants.margins - 2 * constants.spacing) / 3
       text: qsTr("Yes")
       onClicked: {
-        page.visible = false
-        page.z = 0
+        close()
         page.yes()
       }
     }
@@ -53,8 +57,7 @@ Rectangle {
       width: yesButton.width
       text: qsTr("No")
       onClicked: {
-        page.visible = false
-        page.z = 0
+        close()
         page.no()
       }
     }
@@ -65,15 +68,8 @@ Rectangle {
       width: yesButton.width
       text: qsTr("Cancel")
       onClicked: {
-        page.visible = false
-        page.z = 0
-        page.rejected()
+        reject()
       }
     }
-  }
-
-  function open() {
-    visible = true
-    page.z = 1
   }
 }
