@@ -59,6 +59,7 @@ Q_DECLARE_METATYPE(QModelIndex)
 #endif
 
 Q_DECLARE_METATYPE(Kid3Application*)
+Q_DECLARE_METATYPE(QAbstractItemModel*)
 Q_DECLARE_METATYPE(FileProxyModel*)
 Q_DECLARE_METATYPE(DirProxyModel*)
 Q_DECLARE_METATYPE(GenreModel*)
@@ -156,6 +157,7 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
     qRegisterMetaType<QList<QPersistentModelIndex> >();
     qRegisterMetaType<Frame::TagVersion>();
     qRegisterMetaType<Kid3Application*>();
+    qRegisterMetaType<QAbstractItemModel*>();
     // @uri Kid3App
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
         QLatin1String("Retrieve it using app.fileProxyModel"));

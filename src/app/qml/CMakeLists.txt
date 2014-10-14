@@ -6,11 +6,14 @@ set(qml_SRCS
   mainqml.cpp
 )
 set(qml_QML_SRCS
-  main.qml
-  FrameNameDelegate.qml
-  FrameValueDelegate.qml
-  FrameSelectDialog.qml
-  FrameEditDialog.qml
+  ubuntu/main.qml
+  ubuntu/Collapsible.qml
+  ubuntu/ComboBox.qml
+  ubuntu/DropDownList.qml
+  ubuntu/FrameDelegate.qml
+  ubuntu/FrameEditDialog.qml
+  ubuntu/FrameSelectDialog.qml
+  ubuntu/MessageDialog.qml
 )
 set(qml_MOC_HDRS
 )

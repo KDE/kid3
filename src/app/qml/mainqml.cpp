@@ -129,8 +129,16 @@ int main(int argc, char* argv[])
 
   QStringList qmlDirs;
 #ifdef CFG_QMLSRCDIR
-  qmlDirs.append(QLatin1String(CFG_QMLSRCDIR));
+  QString qmlSrcDir(QLatin1String(CFG_QMLSRCDIR));
+  qmlSrcDir += QDir::separator();
+#if QT_VERSION >= 0x050000
+//  qmlSrcDir += QLatin1String("qtquickcontrols");
+  qmlSrcDir += QLatin1String("ubuntu");
+#else
+  qmlSrcDir += QLatin1String("qtquick1");
 #endif
+#endif
+  qmlDirs.append(qmlSrcDir);
 #ifdef CFG_QMLDIR
   qmlDirs.append(QLatin1String(CFG_QMLDIR));
 #endif
@@ -152,28 +160,26 @@ int main(int argc, char* argv[])
   }
 
 #if QT_VERSION >= 0x050000
-  // To load a qml file containing an ApplicationWindow.
-  QQmlApplicationEngine engine;
-  QDir pluginsDir;
-  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
-      pluginsDir.cd(QLatin1String("imports"))) {
-    engine.addImportPath(pluginsDir.absolutePath());
-  }
-  engine.load(mainQmlPath);
-
-//  // To load a qml file containing an Item for a QQuickView.
-//  QQuickView view;
+//  // To load a qml file containing an ApplicationWindow.
+//  QQmlApplicationEngine engine;
 //  QDir pluginsDir;
 //  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
 //      pluginsDir.cd(QLatin1String("imports"))) {
-//    view.engine()->addImportPath(pluginsDir.absolutePath());
+//    engine.addImportPath(pluginsDir.absolutePath());
 //  }
-//  mainQmlPath.replace(QLatin1String("main.qml"),
-//                      QLatin1String("qtquick1/MainComponent.qml"));
-//  view.setSource(QUrl::fromLocalFile(mainQmlPath));
-//  view.setResizeMode(QQuickView::SizeRootObjectToView);
-//  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-//  view.show();
+//  engine.load(mainQmlPath);
+
+  // To load a qml file containing an Item for a QQuickView.
+  QQuickView view;
+  QDir pluginsDir;
+  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+      pluginsDir.cd(QLatin1String("imports"))) {
+    view.engine()->addImportPath(pluginsDir.absolutePath());
+  }
+  view.setSource(QUrl::fromLocalFile(mainQmlPath));
+  view.setResizeMode(QQuickView::SizeRootObjectToView);
+  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+  view.show();
 #else
   QDeclarativeView view;
   QDir pluginsDir;
@@ -181,8 +187,6 @@ int main(int argc, char* argv[])
       pluginsDir.cd(QLatin1String("imports"))) {
     view.engine()->addImportPath(pluginsDir.absolutePath());
   }
-  mainQmlPath.replace(QLatin1String("main.qml"),
-                      QLatin1String("qtquick1/MainComponent.qml"));
   view.setSource(QUrl::fromLocalFile(mainQmlPath));
   view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
   QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));

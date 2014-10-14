@@ -50,7 +50,8 @@ public:
   enum Roles {
     TaggedFileRole = Qt::UserRole + 4,
     IconIdRole = Qt::UserRole + 5,
-    TruncatedRole =  Qt::UserRole + 6
+    TruncatedRole =  Qt::UserRole + 6,
+    IsDirRole = Qt::UserRole + 7
   };
 
   /**

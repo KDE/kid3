@@ -55,6 +55,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[QFileSystemModel::FilePathRole] = "filePath";
   roles[FileProxyModel::IconIdRole] = "iconId";
   roles[FileProxyModel::TruncatedRole] = "truncated";
+  roles[FileProxyModel::IsDirRole] = "isDir";
   roles[Qt::CheckStateRole] = "checkState";
   return roles;
 }
@@ -283,6 +284,8 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
       TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
       return TagConfig::instance().markTruncations() &&
           taggedFile && taggedFile->getTruncationFlags() != 0;
+    } else if (role == IsDirRole && index.column() == 0) {
+      return isDir(index);
     }
   }
   return QSortFilterProxyModel::data(index, role);
