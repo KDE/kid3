@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-17 17:41+0200\n"
+"POT-Creation-Date: 2014-10-14 21:31+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -401,8 +401,8 @@ msgstr "另存为"
 msgid "directory to open"
 msgstr "要打开的目录"
 
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 音频标记器"
+msgid "Audio Tag Editor"
+msgstr "音频标记器"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -600,6 +600,9 @@ msgstr "切换状态栏..."
 
 msgid "Ready."
 msgstr "已就绪。"
+
+msgid "License"
+msgstr "许可证"
 
 msgid "&Clear List"
 msgstr "清除列表(&C)"
