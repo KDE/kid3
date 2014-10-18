@@ -6,14 +6,31 @@ set(qml_SRCS
   mainqml.cpp
 )
 set(qml_QML_SRCS
-  ubuntu/main.qml
-  ubuntu/Collapsible.qml
-  ubuntu/ComboBox.qml
-  ubuntu/DropDownList.qml
-  ubuntu/FrameDelegate.qml
-  ubuntu/FrameEditDialog.qml
-  ubuntu/FrameSelectDialog.qml
-  ubuntu/MessageDialog.qml
+  main.qml
+  Collapsible.qml
+  ComboBox.qml
+  DropDownList.qml
+  FrameDelegate.qml
+  FrameEditDialog.qml
+  FrameSelectDialog.qml
+  MessageDialog.qml
+  ActionSelectionDelegate.qml
+  UiConstants.qml
+  ComponentsQtQuick/ActionList.qml
+  ComponentsQtQuick/Action.qml
+  ComponentsQtQuick/ActionSelectionPopover.qml
+  ComponentsQtQuick/Button.qml
+  ComponentsQtQuick/CheckBox.qml
+  ComponentsQtQuick/Dialog.qml
+  ComponentsQtQuick/Empty.qml
+  ComponentsQtQuick/Label.qml
+  ComponentsQtQuick/MainView.qml
+  ComponentsQtQuick/Page.qml
+  ComponentsQtQuick/PopupBase.qml
+  ComponentsQtQuick/Standard.qml
+  ComponentsQtQuick/TextArea.qml
+  ComponentsQtQuick/TextField.qml
+  ComponentsQtQuick/ThinDivider.qml
 )
 set(qml_MOC_HDRS
 )

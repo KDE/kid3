@@ -1,7 +1,8 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItems
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.Popups 1.0 //@Ubuntu
+import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 
 Dialog {
   id: page
@@ -18,10 +19,11 @@ Dialog {
 
   ListView {
     id: frameSelectList
-    height: units.gu(35)
+    width: constants.gu(50)
+    height: constants.gu(35)
 
     clip: true
-    delegate: ListItems.Standard {
+    delegate: Standard {
       text: modelData
       selected: ListView.view.currentIndex === index
       onClicked: ListView.view.currentIndex = index
@@ -29,8 +31,8 @@ Dialog {
   }
 
   Row {
-    width: parent.width
     spacing: constants.spacing
+    width: parent.width - spacing
     Button {
       width: parent.width / 2
       text: qsTr("Cancel")

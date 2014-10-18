@@ -1,37 +1,18 @@
-import QtQuick 1.1
+import QtQuick 2.2
 
 Rectangle {
   id: page
 
-  function open() {
-    __Dialog_open()
-  }
-
-  function close() {
-    __Dialog_close()
-  }
-
-  function reject() {
-    __Dialog_reject()
-  }
-
-  function __Dialog_open() {
+  function show() {
     page.visible = true
     page.z = 1
   }
 
-  function __Dialog_close() {
+  function hide() {
     page.visible = false
     page.z = 0
   }
 
-  function __Dialog_reject() {
-    __Dialog_close()
-  }
-
-  color: constants.palette.window
-  border.width: 1
-  border.color: "black"
   visible: false
   z: 0
 
@@ -50,7 +31,6 @@ Rectangle {
     // Handle mouse clicks outside the dialog
     MouseArea {
       anchors.fill: parent
-      onClicked: reject()
     }
   }
 }

@@ -1,6 +1,7 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItems
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 
 Item {
   id: dropDown
@@ -9,6 +10,7 @@ Item {
   property variant model
   property string currentText
   property alias currentIndex: listView.currentIndex
+  property alias delegate: listView.delegate
 
   signal clicked
 
@@ -27,7 +29,7 @@ Item {
   function calculateHeight() {
     var parentHeight = dropDownRoot.height
     // @todo Find a reliable way to get the row height.
-    var listViewHeight = listView.count * units.gu(6)
+    var listViewHeight = listView.count * constants.gu(6)
     return listViewHeight <= parentHeight
         ? listViewHeight : parentHeight
   }
@@ -51,7 +53,7 @@ Item {
     delegate: Rectangle {
       width: parent.width
       height: delegateText.height
-      ListItems.Standard {
+      Standard {
         id: delegateText
         anchors.fill: parent
         text: model.modelData || model.display

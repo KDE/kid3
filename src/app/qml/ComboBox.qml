@@ -1,22 +1,22 @@
-import QtQuick 1.1
+import QtQuick 2.2
 
-Rectangle {
+Item {
   id: comboBox
   property alias model: dropDown.model
   // Can be set to make sure that the dropDown is on top
   property alias dropDownParent: dropDown.dropDownRoot
   property alias currentText: selectedItemText.text
   property alias currentIndex: dropDown.currentIndex
-  width: 100
-  height: constants.rowHeight
-  smooth: true
+
+  height: constants.gu(4)
 
   Rectangle {
     id: selectedItem
     radius: 4
     width: parent.width
-    height: comboBox.height
-    color: constants.palette.mid
+    height: parent.height
+    anchors.verticalCenter: parent.verticalCenter
+    color: constants.comboBoxColor
     smooth: true
     Text {
       id: selectedItemText

@@ -1,7 +1,8 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItems
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.Popups 1.0 //@Ubuntu
+import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 import Kid3App 1.0
 
 Dialog {
@@ -98,8 +99,8 @@ Dialog {
 
   ListView {
     id: fieldList
-    width: units.gu(50)
-    height: units.gu(30)
+    width: constants.gu(50)
+    height: constants.gu(30)
     clip: true
     delegate: Column {
       width: parent.width
@@ -131,15 +132,15 @@ Dialog {
                   modelData.type === Frame.FT_Picture)
                 imageView
       }
-      ListItems.ThinDivider {
+      ThinDivider {
         visible: index != fieldList.count - 1
       }
     }
   }
 
   Row {
-    width: parent.width
     spacing: constants.spacing
+    width: parent.width - spacing
     Button {
       width: parent.width / 2
       text: qsTr("Cancel")

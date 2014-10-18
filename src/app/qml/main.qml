@@ -1,7 +1,8 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItems
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.Popups 1.0 //@Ubuntu
+import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 import Kid3App 1.0
 
 MainView {
@@ -9,14 +10,11 @@ MainView {
   objectName: "mainView"
   applicationName: "Kid3"
   automaticOrientation: true
-  width: units.gu(100)
-  height: units.gu(100)
+  width: constants.gu(100)
+  height: constants.gu(100)
 
-  QtObject {
+  UiConstants {
     id: constants
-    property int margins: units.gu(1)
-    property int spacing: units.gu(1)
-    property color errorColor: "red"
   }
 
   FrameEditorObject {
@@ -110,7 +108,7 @@ MainView {
         anchors.top: parent.top
         anchors.bottom: statusLabel.top
         anchors.margins: constants.margins
-        width: units.gu(44)
+        width: constants.gu(44)
 
         Row {
           id: fileButtonRow
@@ -167,7 +165,7 @@ MainView {
             }
           }
 
-          delegate: ListItems.Standard {
+          delegate: Standard {
             id: fileDelegate
             progression: isDir
             onClicked: {
@@ -214,7 +212,7 @@ MainView {
                 anchors.verticalCenter: parent.verticalCenter
                 text: fileName
                 color: selected
-                       ? UbuntuColors.orange : Theme.palette.selected.backgroundText
+                  ? constants.selectedTextColor : constants.backgroundTextColor
               }
             }
           }
@@ -256,15 +254,14 @@ MainView {
               id: mainMenuButton
               iconName: "navigation-menu"
               width: height
-              onClicked: PopupUtils.open(mainMenuPopoverComponent, mainMenuButton)
+              onClicked: constants.openPopup(mainMenuPopoverComponent, mainMenuButton)
 
               Component {
                 id: mainMenuPopoverComponent
                 ActionSelectionPopover {
                   id: mainMenuPopover
-                  delegate: ListItems.Standard {
-                    text: action.text
-                    onClicked: PopupUtils.close(mainMenuPopover)
+                  delegate: ActionSelectionDelegate {
+                    popover: mainMenuPopover
                   }
                   actions: ActionList {
                     Action {
@@ -316,7 +313,7 @@ MainView {
 
           content: Item {
             width: parent.width
-            height: fileNameEdit.height + units.gu(2)
+            height: fileNameEdit.height + constants.gu(2)
             Image {
               id: fileNameModifiedImage
               anchors.left: parent.left
@@ -355,15 +352,14 @@ MainView {
               id: v1MenuButton
               iconName: "navigation-menu"
               width: height
-              onClicked: PopupUtils.open(v1MenuPopoverComponent, v1MenuButton)
+              onClicked: constants.openPopup(v1MenuPopoverComponent, v1MenuButton)
 
               Component {
                 id: v1MenuPopoverComponent
                 ActionSelectionPopover {
                   id: v1MenuPopover
-                  delegate: ListItems.Standard {
-                    text: action.text
-                    onClicked: PopupUtils.close(v1MenuPopover)
+                  delegate: ActionSelectionDelegate {
+                    popover: v1MenuPopover
                   }
                   actions: ActionList {
                     Action {
@@ -401,7 +397,7 @@ MainView {
             enabled: app.selectionInfo.tag1Used
             clip: true
             width: parent.width
-            height: units.gu(43)
+            height: 7 * constants.rowHeight
             model: app.frameModelV1
             delegate: FrameDelegate {
               width: frameTableV1.width
@@ -455,15 +451,14 @@ MainView {
               id: v2MenuButton
               iconName: "navigation-menu"
               width: height
-              onClicked: PopupUtils.open(v2MenuPopoverComponent, v2MenuButton)
+              onClicked: constants.openPopup(v2MenuPopoverComponent, v2MenuButton)
 
               Component {
                 id: v2MenuPopoverComponent
                 ActionSelectionPopover {
                   id: v2MenuPopover
-                  delegate: ListItems.Standard {
-                    text: action.text
-                    onClicked: PopupUtils.close(v2MenuPopover)
+                  delegate: ActionSelectionDelegate {
+                    popover: v2MenuPopover
                   }
                   actions: ActionList {
                     Action {
@@ -500,7 +495,7 @@ MainView {
             id: frameTableV2
             clip: true
             width: parent.width
-            height: collapsibleV2.height - units.gu(4)
+            height: collapsibleV2.height - constants.gu(4)
             model: app.frameModelV2
             delegate: FrameDelegate {
               width: frameTableV2.width
@@ -562,14 +557,14 @@ MainView {
     onConfirmedOpenDirectoryRequested: confirmedOpenDirectory(paths)
   }
 
-  DropArea {
-    anchors.fill: parent
-    onDropped: {
-      if (drop.hasUrls) {
-        app.openDropUrls(drop.urls)
-      }
-    }
-  }
+  DropArea {                        //@QtQuick2
+    anchors.fill: parent            //@QtQuick2
+    onDropped: {                    //@QtQuick2
+      if (drop.hasUrls) {           //@QtQuick2
+        app.openDropUrls(drop.urls) //@QtQuick2
+      }                             //@QtQuick2
+    }                               //@QtQuick2
+  }                                 //@QtQuick2
 
   function confirmedOpenDirectory(path) {
     function openIfCompleted(ok) {

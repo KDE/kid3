@@ -1,5 +1,6 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
 
 Column {
   property alias text: label.text
@@ -10,7 +11,7 @@ Column {
   Rectangle {
     id: collapsibleRect
 
-    height: units.gu(4)
+    height: constants.gu(4)
     width: parent.width
 
     CheckBox {

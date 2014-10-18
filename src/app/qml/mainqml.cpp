@@ -129,16 +129,8 @@ int main(int argc, char* argv[])
 
   QStringList qmlDirs;
 #ifdef CFG_QMLSRCDIR
-  QString qmlSrcDir(QLatin1String(CFG_QMLSRCDIR));
-  qmlSrcDir += QDir::separator();
-#if QT_VERSION >= 0x050000
-//  qmlSrcDir += QLatin1String("qtquickcontrols");
-  qmlSrcDir += QLatin1String("ubuntu");
-#else
-  qmlSrcDir += QLatin1String("qtquick1");
+  qmlDirs.append(QLatin1String(CFG_QMLSRCDIR));
 #endif
-#endif
-  qmlDirs.append(qmlSrcDir);
 #ifdef CFG_QMLDIR
   qmlDirs.append(QLatin1String(CFG_QMLDIR));
 #endif
@@ -160,15 +152,6 @@ int main(int argc, char* argv[])
   }
 
 #if QT_VERSION >= 0x050000
-//  // To load a qml file containing an ApplicationWindow.
-//  QQmlApplicationEngine engine;
-//  QDir pluginsDir;
-//  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
-//      pluginsDir.cd(QLatin1String("imports"))) {
-//    engine.addImportPath(pluginsDir.absolutePath());
-//  }
-//  engine.load(mainQmlPath);
-
   // To load a qml file containing an Item for a QQuickView.
   QQuickView view;
   QDir pluginsDir;

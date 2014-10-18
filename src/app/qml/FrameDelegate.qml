@@ -1,9 +1,10 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItems
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 import Kid3App 1.0
 
-ListItems.Empty {
+Empty {
   id: frameDelegate
 
   property bool isV1: false
@@ -108,7 +109,7 @@ ListItems.Empty {
       width: 150
       text: name
       color: selected
-             ? UbuntuColors.orange : Theme.palette.selected.backgroundText
+             ? constants.selectedTextColor : constants.backgroundTextColor
     }
 
     Loader {

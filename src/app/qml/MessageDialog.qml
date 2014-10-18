@@ -1,6 +1,7 @@
 import QtQuick 2.2
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+//import "ComponentsQtQuick" //@!Ubuntu
+import Ubuntu.Components 1.1 //@Ubuntu
+import Ubuntu.Components.Popups 1.0 //@Ubuntu
 
 Dialog {
   id: page
@@ -10,8 +11,8 @@ Dialog {
   signal rejected
 
   Row {
-    width: parent.width
     spacing: constants.spacing
+    width: parent.width - 2 * spacing
     Button {
       width: parent.width / 3
       id: yesButton
