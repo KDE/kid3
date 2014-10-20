@@ -452,8 +452,12 @@ void M4aFile::readTags(bool force)
     m_metadata.clear();
     markTag2Unchanged();
     m_fileRead = true;
-    QByteArray fnIn = QFile::encodeName(
-      getDirname() + QDir::separator() + currentFilename());
+    QByteArray fnIn =
+#ifdef Q_OS_WIN32
+        (getDirname() + QDir::separator() + currentFilename()).toUtf8();
+#else
+        QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
+#endif
 
     MP4FileHandle handle = MP4Read(fnIn);
     if (handle != MP4_INVALID_FILE_HANDLE) {
