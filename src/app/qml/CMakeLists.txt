@@ -16,6 +16,11 @@ set(qml_QML_SRCS
   MessageDialog.qml
   ActionSelectionDelegate.qml
   UiConstants.qml
+  FileList.qml
+  FileCollapsible.qml
+  Tag1Collapsible.qml
+  Tag2Collapsible.qml
+  PictureCollapsible.qml
   ComponentsQtQuick/ActionList.qml
   ComponentsQtQuick/Action.qml
   ComponentsQtQuick/ActionSelectionPopover.qml

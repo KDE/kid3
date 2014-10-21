@@ -100,448 +100,57 @@ MainView {
     Item {
       anchors.fill: parent
 
-
-      Item {
-        id: leftSide
-
+      FileList {
+        id: fileList
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.bottom: statusLabel.top
+        anchors.bottom: parent.bottom
         anchors.margins: constants.margins
         width: constants.gu(44)
-
-        Row {
-          id: fileButtonRow
-          anchors.left: leftSide.left
-          anchors.top: leftSide.top
-          spacing: constants.spacing
-          Button {
-            id: parentDirButton
-            iconName: "go-up"
-            width: height
-            onClicked: confirmedOpenDirectory(
-                         script.getIndexRoleData(fileModel.parentModelIndex(),
-                                                 "filePath"))
-          }
-          Button {
-            iconName: "select"
-            width: height
-            onClicked: app.selectAllFiles()
-          }
-          Button {
-            iconName: "clear"
-            width: height
-            onClicked: app.deselectAllFiles()
-          }
-          Button {
-            iconName: "go-previous"
-            width: height
-            onClicked: app.previousFile()
-          }
-          Button {
-            iconName: "go-next"
-            width: height
-            onClicked: app.nextFile()
-          }
-        }
-
-        ListView {
-          id: fileList
-
-          anchors.left: leftSide.left
-          anchors.top: fileButtonRow.bottom
-          anchors.bottom: leftSide.bottom
-          anchors.right: leftSide.right
-          anchors.margins: constants.margins
-          clip: true
-
-          model: CheckableListModel {
-            id: fileModel
-            sourceModel: app.fileProxyModel
-            selectionModel: app.fileSelectionModel
-            rootIndex: app.fileRootIndex
-            onCurrentRowChanged: {
-              fileList.currentIndex = row
-            }
-          }
-
-          delegate: Standard {
-            id: fileDelegate
-            progression: isDir
-            onClicked: {
-              if (!isDir) {
-                ListView.view.currentIndex = index
-                fileModel.currentRow = index
-              } else {
-                confirmedOpenDirectory(filePath)
-              }
-            }
-            selected: ListView.isCurrentItem
-            Row {
-              anchors.fill: parent
-
-              CheckBox {
-                id: checkField
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: {
-                  // QTBUG-7932, assigning is not possible
-                  fileModel.setDataValue(index, "checkState",
-                                         checked ? Qt.Checked : Qt.Unchecked)
-                }
-              }
-              Binding {
-                // workaround for QTBUG-31627
-                // should work with "checked: checkState === Qt.Checked"
-                target: checkField
-                property: "checked"
-                value: checkState === Qt.Checked
-              }
-              Rectangle {
-                id: fileImage
-                anchors.verticalCenter: parent.verticalCenter
-                color: truncated ? constants.errorColor : "transparent"
-                width: 16
-                height: 16
-                Image {
-                  anchors.fill: parent
-                  source: "image://kid3/fileicon/" + iconId
-                }
-              }
-              Label {
-                id: fileText
-                anchors.verticalCenter: parent.verticalCenter
-                text: fileName
-                color: selected
-                  ? constants.selectedTextColor : constants.backgroundTextColor
-              }
-            }
-          }
-
-          Connections {
-            target: app
-            onFileSelectionUpdateRequested: {
-              // Force focus lost to store changes.
-              frameTableV1.currentIndex = -1
-              frameTableV2.currentIndex = -1
-              app.frameModelsToTags()
-              if (app.selectionInfo.singleFileSelected) {
-                app.selectionInfo.fileName = fileNameEdit.text
-              }
-            }
-            onSelectedFilesUpdated: app.tagsToFrameModels()
-          }
-
-        }
       }
+
       Item {
         id: rightSide
-        anchors.left: leftSide.right
+        anchors.left: fileList.right
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottom: statusLabel.top
+        anchors.bottom: parent.bottom
         anchors.margins: constants.margins
 
-        Collapsible {
+        FileCollapsible {
           id: collapsibleFile
           anchors.topMargin: constants.margins
           anchors.top: parent.top
           anchors.left: parent.left
           anchors.right: parent.right
-          text: qsTr("File") + ": " + app.selectionInfo.detailInfo
-          checked: true
-          buttons: [
-            Button {
-              id: mainMenuButton
-              iconName: "navigation-menu"
-              width: height
-              onClicked: constants.openPopup(mainMenuPopoverComponent, mainMenuButton)
-
-              Component {
-                id: mainMenuPopoverComponent
-                ActionSelectionPopover {
-                  id: mainMenuPopover
-                  delegate: ActionSelectionDelegate {
-                    popover: mainMenuPopover
-                  }
-                  actions: ActionList {
-                    Action {
-                      text: qsTr("Apply Filename Format")
-                      onTriggered: app.applyFilenameFormat()
-                    }
-                    Action {
-                      text: qsTr("Apply Tag Format")
-                      onTriggered: app.applyId3Format()
-                    }
-                    Action {
-                      text: qsTr("Apply Text Encoding")
-                      onTriggered: app.applyTextEncoding()
-                    }
-                    Action {
-                      text: qsTr("Convert ID3v2.3 to ID3v2.4")
-                      onTriggered: app.convertToId3v24()
-                    }
-                    Action {
-                      text: qsTr("Convert ID3v2.4 to ID3v2.3")
-                      onTriggered: app.convertToId3v23()
-                    }
-                    Action {
-                      text: qsTr("Revert")
-                      onTriggered: app.revertFileModifications()
-                    }
-                    Action {
-                      text: qsTr("Save")
-                      onTriggered: {
-                        var errorFiles = app.saveDirectory()
-                        if (errorFiles.length > 0) {
-                          console.debug("Save error:" + errorFiles)
-                        }
-                      }
-                    }
-                    Action {
-                      text: qsTr("Quit")
-                      onTriggered: {
-                        saveModifiedDialog.doNotRevert = true
-                        saveModifiedDialog.completed.connect(quitIfCompleted)
-                        saveModifiedDialog.openIfModified()
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          ]
-
-          content: Item {
-            width: parent.width
-            height: fileNameEdit.height + constants.gu(2)
-            Image {
-              id: fileNameModifiedImage
-              anchors.left: parent.left
-              anchors.verticalCenter: parent.verticalCenter
-              width: 16
-              height: 16
-              source: "image://kid3/fileicon/" +
-                      ( app.selectionInfo.fileNameChanged ? "modified" : "null")
-            }
-            Label {
-              id: fileNameLabel
-              anchors.left: fileNameModifiedImage.right
-              anchors.verticalCenter: parent.verticalCenter
-              text: "Name:"
-            }
-            TextField {
-              id: fileNameEdit
-              anchors.left: fileNameLabel.right
-              anchors.right: parent.right
-              anchors.verticalCenter: parent.verticalCenter
-              anchors.margins: constants.margins
-              text: app.selectionInfo.fileName
-            }
-          }
+          onQuitRequested: confirmedQuit()
         }
 
-        Collapsible {
+        Tag1Collapsible {
           id: collapsibleV1
           anchors.topMargin: constants.margins
           anchors.top: collapsibleFile.bottom
           anchors.left: parent.left
           anchors.right: parent.right
-          text: qsTr("Tag 1") + ": " + app.selectionInfo.tagFormatV1
-          buttons: [
-            Button {
-              id: v1MenuButton
-              iconName: "navigation-menu"
-              width: height
-              onClicked: constants.openPopup(v1MenuPopoverComponent, v1MenuButton)
-
-              Component {
-                id: v1MenuPopoverComponent
-                ActionSelectionPopover {
-                  id: v1MenuPopover
-                  delegate: ActionSelectionDelegate {
-                    popover: v1MenuPopover
-                  }
-                  actions: ActionList {
-                    Action {
-                      text: qsTr("To Filename")
-                      onTriggered: app.getFilenameFromTags(script.toTagVersion(Frame.TagV1))
-                    }
-                    Action {
-                      text: qsTr("From Filename")
-                      onTriggered: app.getTagsFromFilename(script.toTagVersion(Frame.TagV1))
-                    }
-                    Action {
-                      text: qsTr("From Tag 2")
-                      onTriggered: app.copyV2ToV1()
-                    }
-                    Action {
-                      text: qsTr("Copy")
-                      onTriggered: app.copyTagsV1()
-                    }
-                    Action {
-                      text: qsTr("Paste")
-                      onTriggered: app.pasteTagsV1()
-                    }
-                    Action {
-                      text: qsTr("Remove")
-                      onTriggered: app.removeTagsV1()
-                    }
-                  }
-                }
-              }
-            }
-          ]
-
-          content: ListView {
-            id: frameTableV1
-            enabled: app.selectionInfo.tag1Used
-            clip: true
-            width: parent.width
-            height: 7 * constants.rowHeight
-            model: app.frameModelV1
-            delegate: FrameDelegate {
-              width: frameTableV1.width
-              isV1: true
-            }
-          }
-
-          // workaround for QTBUG-31627
-          // should work with "checked: app.selectionInfo.hasTagV1" with Qt >= 5.3
-          Binding {
-            target: collapsibleV1
-            property: "checked"
-            value: app.selectionInfo.hasTagV1
-          }
         }
 
-        Collapsible {
+        Tag2Collapsible {
           id: collapsibleV2
           anchors.topMargin: constants.margins
           anchors.top: collapsibleV1.bottom
           anchors.bottom: collapsiblePicture.top
           anchors.left: parent.left
           anchors.right: parent.right
-          text: qsTr("Tag 2") + ": " + app.selectionInfo.tagFormatV2
-          buttons: [
-            Button {
-              id: v2EditButton
-              iconName: "edit"
-              width: height
-              onClicked: {
-                app.frameList.selectByRow(frameTableV2.currentIndex)
-                app.editFrame()
-              }
-            },
-            Button {
-              iconName: "add"
-              width: height
-              onClicked: {
-                app.selectAndAddFrame()
-              }
-            },
-            Button {
-              iconName: "remove"
-              width: height
-              onClicked: {
-                app.frameList.selectByRow(frameTableV2.currentIndex)
-                app.deleteFrame()
-              }
-            },
-            Button {
-              id: v2MenuButton
-              iconName: "navigation-menu"
-              width: height
-              onClicked: constants.openPopup(v2MenuPopoverComponent, v2MenuButton)
-
-              Component {
-                id: v2MenuPopoverComponent
-                ActionSelectionPopover {
-                  id: v2MenuPopover
-                  delegate: ActionSelectionDelegate {
-                    popover: v2MenuPopover
-                  }
-                  actions: ActionList {
-                    Action {
-                      text: qsTr("To Filename")
-                      onTriggered: app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))
-                    }
-                    Action {
-                      text: qsTr("From Filename")
-                      onTriggered: app.getTagsFromFilename(script.toTagVersion(Frame.TagV2))
-                    }
-                    Action {
-                      text: qsTr("From Tag 1")
-                      onTriggered: app.copyV1ToV2()
-                    }
-                    Action {
-                      text: qsTr("Copy")
-                      onTriggered: app.copyTagsV2()
-                    }
-                    Action {
-                      text: qsTr("Paste")
-                      onTriggered: app.pasteTagsV2()
-                    }
-                    Action {
-                      text: qsTr("Remove")
-                      onTriggered: app.removeTagsV2()
-                    }
-                  }
-                }
-              }
-            }
-          ]
-
-          content: ListView {
-            id: frameTableV2
-            clip: true
-            width: parent.width
-            height: collapsibleV2.height - constants.gu(4)
-            model: app.frameModelV2
-            delegate: FrameDelegate {
-              width: frameTableV2.width
-            }
-          }
-
-          Binding {
-            target: collapsibleV2
-            property: "checked"
-            value: app.selectionInfo.hasTagV2
-          }
         }
 
-        Collapsible {
+        PictureCollapsible {
           id: collapsiblePicture
           anchors.topMargin: constants.margins
           anchors.bottom: parent.bottom
           anchors.left: parent.left
           anchors.right: parent.right
-          text: qsTr("Picture")
-          content: Item {
-            id: sectionPicture
-            width: parent.width
-            height: 120
-
-            Image {
-              id: coverArtImage
-              anchors.top: parent.top
-              width: 120
-              sourceSize.width: 120
-              sourceSize.height: 120
-              source: app.coverArtImageId
-              cache: false
-            }
-          }
         }
       }
-
-      Text {
-        id: statusLabel
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        text: "Ready."
-      }
-
     }
   }
 
@@ -555,6 +164,8 @@ MainView {
     target: app
 
     onConfirmedOpenDirectoryRequested: confirmedOpenDirectory(paths)
+    onFileSelectionUpdateRequested: updateCurrentSelection()
+    onSelectedFilesUpdated: app.tagsToFrameModels()
   }
 
   DropArea {                        //@QtQuick2
@@ -566,6 +177,15 @@ MainView {
     }                               //@QtQuick2
   }                                 //@QtQuick2
 
+  function updateCurrentSelection() {
+    collapsibleV1.acceptEdit()
+    collapsibleV2.acceptEdit()
+    app.frameModelsToTags()
+    if (app.selectionInfo.singleFileSelected) {
+      app.selectionInfo.fileName = collapsibleFile.fileName
+    }
+  }
+
   function confirmedOpenDirectory(path) {
     function openIfCompleted(ok) {
       saveModifiedDialog.completed.disconnect(openIfCompleted)
@@ -574,16 +194,23 @@ MainView {
       }
     }
 
+    updateCurrentSelection()
     saveModifiedDialog.doNotRevert = false
     saveModifiedDialog.completed.connect(openIfCompleted)
+    saveModifiedDialog.openIfModified()
+  }
+
+  function confirmedQuit() {
+    updateCurrentSelection()
+    saveModifiedDialog.doNotRevert = true
+    saveModifiedDialog.completed.connect(quitIfCompleted)
     saveModifiedDialog.openIfModified()
   }
 
   function quitIfCompleted(ok) {
     saveModifiedDialog.completed.disconnect(quitIfCompleted)
     if (ok) {
-      var currentFile = fileModel.getDataValue(fileModel.currentRow,
-                                               "filePath")
+      var currentFile = fileList.currentFilePath()
       if (currentFile) {
         configs.fileConfig().lastOpenedFile = currentFile
       }
