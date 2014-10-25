@@ -12,9 +12,8 @@ Dialog {
 
   Row {
     spacing: constants.spacing
-    width: parent.width - 2 * spacing
     Button {
-      width: parent.width / 3
+      width: (parent.width - 2 * parent.spacing) / 3
       id: yesButton
       text: qsTr("Yes")
       onClicked: {
@@ -23,7 +22,7 @@ Dialog {
       }
     }
     Button {
-      width: parent.width / 3
+      width: (parent.width - 2 * parent.spacing) / 3
       text: qsTr("No")
       onClicked: {
         page.hide()
@@ -31,7 +30,7 @@ Dialog {
       }
     }
     Button {
-      width: parent.width / 3
+      width: (parent.width - 2 * parent.spacing) / 3
       text: qsTr("Cancel")
       onClicked: {
         page.hide()

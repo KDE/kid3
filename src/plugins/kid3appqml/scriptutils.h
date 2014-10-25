@@ -136,6 +136,22 @@ public:
    * String list of content type names.
    */
   Q_INVOKABLE static QStringList getContentTypeNames();
+
+  /**
+   * Write data to a file.
+   * @param filePath path to file
+   * @param data data to write
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool writeFile(const QString& filePath,
+                                    const QByteArray& data);
+
+  /**
+   * Read data from file
+   * @param filePath path to file
+   * @return data read, empty if failed.
+   */
+  Q_INVOKABLE static QByteArray readFile(const QString& filePath);
 };
 
 #endif // SCRIPTUTILS_H

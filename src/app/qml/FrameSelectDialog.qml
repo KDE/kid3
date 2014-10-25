@@ -19,7 +19,6 @@ Dialog {
 
   ListView {
     id: frameSelectList
-    width: constants.gu(50)
     height: constants.gu(35)
 
     clip: true
@@ -32,9 +31,8 @@ Dialog {
 
   Row {
     spacing: constants.spacing
-    width: parent.width - spacing
     Button {
-      width: parent.width / 2
+      width: (parent.width - parent.spacing) / 2
       text: qsTr("Cancel")
       onClicked: {
         page.hide()
@@ -42,7 +40,7 @@ Dialog {
       }
     }
     Button {
-      width: parent.width / 2
+      width: (parent.width - parent.spacing) / 2
       text: qsTr("OK")
       onClicked: {
         page.hide()

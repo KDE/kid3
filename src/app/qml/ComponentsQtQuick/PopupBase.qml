@@ -5,12 +5,20 @@ Rectangle {
 
   function show() {
     page.visible = true
-    page.z = 1
+    constants.lastPopupZ += 2
+    page.z = constants.lastPopupZ
+    backgroundArea.z = constants.lastPopupZ - 1
+    backgroundArea.visible = true
   }
 
   function hide() {
     page.visible = false
-    page.z = 0
+    if (page.z === constants.lastPopupZ) {
+      constants.lastPopupZ -= 2
+    }
+    page.z -= 2
+    backgroundArea.z = -1
+    backgroundArea.visible = false
   }
 
   visible: false
@@ -23,9 +31,11 @@ Rectangle {
   }
 
   Rectangle {
+    id: backgroundArea
     parent: root
     anchors.fill: parent
-    z: page.z - 1
+    z: -1
+    visible: false
     color: "#80000000"
 
     // Handle mouse clicks outside the dialog

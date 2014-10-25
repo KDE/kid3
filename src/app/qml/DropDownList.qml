@@ -18,6 +18,14 @@ Item {
   z: 0
   clip: true
 
+  function show() {
+    state = "dropDown"
+  }
+
+  function hide() {
+    state = ""
+  }
+
   function setVisible(enable) {
     state = enable ? "dropDown" : ""
   }

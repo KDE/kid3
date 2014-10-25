@@ -7,8 +7,8 @@ QtObject {
     return units.gu(n)                                      //@Ubuntu
   }                                                         //@Ubuntu
 
-  function openPopup(component, parent) {                   //@Ubuntu
-    PopupUtils.open(component, parent)                      //@Ubuntu
+  function openPopup(component, parent, params) {           //@Ubuntu
+    PopupUtils.open(component, parent, params)              //@Ubuntu
   }                                                         //@Ubuntu
 
   function closePopup(popover) {                            //@Ubuntu
@@ -27,14 +27,18 @@ QtObject {
     //return n * 8                                            //@!Ubuntu
   //}                                                         //@!Ubuntu
 
-  //function openPopup(component, parent) {                   //@!Ubuntu
-    //var popover = component.createObject(parent)            //@!Ubuntu
-    //popover.setVisible(true)                                //@!Ubuntu
-    //popover.x = parent.mapToItem(root, 0, 0).x - popover.width //@!Ubuntu
+  //function openPopup(component, parent, params) {           //@!Ubuntu
+    //var popover                                             //@!Ubuntu
+    //if (params !== undefined) {                             //@!Ubuntu
+      //popover = component.createObject(parent, params)      //@!Ubuntu
+    //} else {                                                //@!Ubuntu
+      //popover = component.createObject(parent)              //@!Ubuntu
+    //}                                                       //@!Ubuntu
+    //popover.show()                                          //@!Ubuntu
   //}                                                         //@!Ubuntu
 
   //function closePopup(popover) {                            //@!Ubuntu
-    //popover.setVisible(false)                               //@!Ubuntu
+    //popover.hide()                                          //@!Ubuntu
   //}                                                         //@!Ubuntu
 
   //property int margins: gu(1)                               //@!Ubuntu
@@ -46,4 +50,5 @@ QtObject {
   //property color editColor: "#fff9a8"                       //@!Ubuntu
   //property int rowHeight: gu(4)                             //@!Ubuntu
   //property SystemPalette palette: SystemPalette {}          //@!Ubuntu
+  //property int lastPopupZ: 0                                //@!Ubuntu
 }

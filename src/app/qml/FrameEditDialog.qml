@@ -67,7 +67,36 @@ Dialog {
   }
 
   Component {
+    id: exportFileSelectDialog
+    FileSelectDialog {
+      property variant field
+      parent: root
+      title: qsTr("Export")
+      onFinished: {
+        if (path) {
+          script.writeFile(path, field.value)
+        }
+      }
+    }
+  }
+
+  Component {
+    id: importFileSelectDialog
+    FileSelectDialog {
+      property variant field
+      parent: root
+      title: qsTr("Import")
+      onFinished: {
+        if (path) {
+          field.value = script.readFile(path)
+        }
+      }
+    }
+  }
+
+  Component {
     id: imageView
+
     Column {
       width: parent.width
       spacing: constants.spacing
@@ -76,11 +105,25 @@ Dialog {
         id: importButton
         width: parent.width
         text: qsTr("Import")
+        onClicked: {
+          constants.openPopup(importFileSelectDialog, importButton,
+                        {"filePath": app.dirName + "/" +
+                                     configs.fileConfig().defaultCoverFileName,
+                          "field": _modelData})
+        }
       }
+
       Button {
         id: exportButton
         width: parent.width
         text: qsTr("Export")
+
+        onClicked: {
+          constants.openPopup(exportFileSelectDialog, exportButton,
+                        {"filePath": app.dirName + "/" +
+                                     configs.fileConfig().defaultCoverFileName,
+                          "field": _modelData})
+        }
       }
 
       Item {
@@ -99,7 +142,6 @@ Dialog {
 
   ListView {
     id: fieldList
-    width: constants.gu(50)
     height: constants.gu(30)
     clip: true
     delegate: Column {
@@ -140,9 +182,8 @@ Dialog {
 
   Row {
     spacing: constants.spacing
-    width: parent.width - spacing
     Button {
-      width: parent.width / 2
+      width: (parent.width - parent.spacing) / 2
       text: qsTr("Cancel")
       onClicked: {
         page.hide()
@@ -151,7 +192,7 @@ Dialog {
       }
     }
     Button {
-      width: parent.width / 2
+      width: (parent.width - parent.spacing) / 2
       text: qsTr("OK")
       onClicked: {
         fieldList.focus = false // to force editingFinished on delegate

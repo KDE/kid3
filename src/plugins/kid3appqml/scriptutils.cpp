@@ -27,6 +27,7 @@
 #include "scriptutils.h"
 #include <QMetaProperty>
 #include <QCoreApplication>
+#include <QFile>
 #include "pictureframe.h"
 
 #if QT_VERSION < 0x050000
@@ -201,4 +202,37 @@ QStringList ScriptUtils::getPictureTypeNames()
 QStringList ScriptUtils::getContentTypeNames()
 {
   return cstringArrayToStringList(Frame::Field::getContentTypeNames());
+}
+
+/**
+ * Write data to a file.
+ * @param filePath path to file
+ * @param data data to write
+ * @return true if ok.
+ */
+bool ScriptUtils::writeFile(const QString& filePath, const QByteArray& data)
+{
+  bool ok = false;
+  QFile file(filePath);
+  if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+    ok = file.write(data) > 0;
+    file.close();
+  }
+  return ok;
+}
+
+/**
+ * Read data from file
+ * @param filePath path to file
+ * @return data read, empty if failed.
+ */
+QByteArray ScriptUtils::readFile(const QString& filePath)
+{
+  QByteArray data;
+  QFile file(filePath);
+  if (file.open(QIODevice::ReadOnly)) {
+    data = file.readAll();
+    file.close();
+  }
+  return data;
 }

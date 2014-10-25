@@ -29,14 +29,8 @@ MainView {
     id: configs
   }
 
-  function centerOnRoot(item) {
-    item.x = root.x + (root.width - item.width) / 2
-    item.y = root.y + (root.height - item.height) / 2
-  }
-
   FrameSelectDialog {
     id: frameSelectDialog
-    onVisibleChanged: centerOnRoot(frameSelectDialog)
 
     onFrameSelected: frameEditor.onFrameSelectionFinished(name)
 
@@ -48,7 +42,6 @@ MainView {
 
   FrameEditDialog {
     id: frameEditDialog
-    onVisibleChanged: centerOnRoot(frameEditDialog)
     onFrameEdited: frameEditor.onFrameEditFinished(frame)
 
     Connections {
@@ -63,7 +56,6 @@ MainView {
     signal completed(bool ok)
 
     id: saveModifiedDialog
-    onVisibleChanged: centerOnRoot(saveModifiedDialog)
     title: qsTr("Warning")
     text: qsTr("The current directory has been modified.\n" +
                "Do you want to save it?")

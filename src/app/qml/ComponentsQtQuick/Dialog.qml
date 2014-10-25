@@ -17,6 +17,12 @@ PopupBase {
                    contentsColumn.childrenRect.height + 4 * constants.margins,
                    30)
 
+  onVisibleChanged: {
+    // Center dialog on root.
+    page.x = root.x + (root.width - page.width) / 2
+    page.y = root.y + (root.height - page.height) / 2
+  }
+
   Item {
     id: foreground
     width: parent.width
@@ -48,6 +54,13 @@ PopupBase {
         margins: constants.margins
       }
       spacing: constants.spacing
+      onWidthChanged: updateChildrenWidths();
+      onChildrenChanged: updateChildrenWidths()
+      function updateChildrenWidths() {
+        for (var i = 0; i < children.length; ++i) {
+          children[i].width = contentsColumn.width;
+        }
+      }
     }
   }
 }
