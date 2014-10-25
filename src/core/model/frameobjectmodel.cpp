@@ -182,12 +182,14 @@ FrameFieldObject::~FrameFieldObject()
  */
 QString FrameFieldObject::name() const
 {
-  if (m_index >= 0) {
-    return Frame::Field::getFieldIdName(
-          static_cast<Frame::FieldId>(constField().m_id));
-  } else {
-    return tr("Text");
+  if (FrameObjectModel* fom = frameObject()) {
+    const Frame::FieldList& fields = fom->m_frame.getFieldList();
+    if (m_index >= 0 && m_index < fields.size()) {
+      return Frame::Field::getFieldIdName(
+            static_cast<Frame::FieldId>(fields.at(m_index).m_id));
+    }
   }
+  return tr("Text");
 }
 
 /**
@@ -195,11 +197,13 @@ QString FrameFieldObject::name() const
  * @return id, type Frame::FieldId.
  */
 int FrameFieldObject::id() const {
-  if (m_index >= 0) {
-    return constField().m_id;
-  } else {
-    return 0;
+  if (FrameObjectModel* fom = frameObject()) {
+    const Frame::FieldList& fields = fom->m_frame.getFieldList();
+    if (m_index >= 0 && m_index < fields.size()) {
+      return fields.at(m_index).m_id;
+    }
   }
+  return 0;
 }
 
 /**
@@ -207,11 +211,15 @@ int FrameFieldObject::id() const {
  * @return field value.
  */
 QVariant FrameFieldObject::value() const {
-  if (m_index >= 0) {
-    return constField().m_value;
-  } else {
-    return frameObject()->value();
+  if (FrameObjectModel* fom = frameObject()) {
+    const Frame::FieldList& fields = fom->m_frame.getFieldList();
+    if (m_index >= 0 && m_index < fields.size()) {
+      return fields.at(m_index).m_value;
+    } else {
+      return fom->value();
+    }
   }
+  return QVariant();
 }
 
 /**
@@ -220,14 +228,17 @@ QVariant FrameFieldObject::value() const {
  */
 void FrameFieldObject::setValue(const QVariant& value)
 {
-  if (m_index >= 0) {
-    Frame::Field& fld = field();
-    if (fld.m_value != value) {
-      fld.m_value = value;
-      emit valueChanged(fld.m_value);
+  if (FrameObjectModel* fom = frameObject()) {
+    Frame::FieldList& fields = fom->m_frame.fieldList();
+    if (m_index >= 0 && m_index < fields.size()) {
+      Frame::Field& fld = fields[m_index];
+      if (fld.m_value != value) {
+        fld.m_value = value;
+        emit valueChanged(fld.m_value);
+      }
+    } else {
+      fom->setValue(value.toString());
     }
-  } else {
-    frameObject()->setValue(value.toString());
   }
 }
 
@@ -237,5 +248,8 @@ void FrameFieldObject::setValue(const QVariant& value)
  */
 int FrameFieldObject::type() const
 {
-  return frameObject()->type();
+  if (FrameObjectModel* fom = frameObject()) {
+    return fom->type();
+  }
+  return Frame::FT_UnknownFrame;
 }

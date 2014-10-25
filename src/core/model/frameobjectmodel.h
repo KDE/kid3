@@ -182,14 +182,6 @@ private:
     return static_cast<FrameObjectModel*>(parent());
   }
 
-  Frame::Field& field() {
-    return frameObject()->m_frame.fieldList()[m_index];
-  }
-
-  const Frame::Field& constField() const {
-    return frameObject()->m_frame.getFieldList().at(m_index);
-  }
-
   const int m_index;
 };
 
