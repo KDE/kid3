@@ -51,6 +51,7 @@
 #include "playlistconfig.h"
 #include "tagconfig.h"
 #include "checkablelistmodel.h"
+#include "dirrenamer.h"
 #include "config.h"
 
 #if QT_VERSION < 0x050000
@@ -75,6 +76,7 @@ Q_DECLARE_METATYPE(ScriptUtils*)
 Q_DECLARE_METATYPE(ConfigObjects*)
 Q_DECLARE_METATYPE(CheckableListModel*)
 Q_DECLARE_METATYPE(QItemSelectionModel*)
+Q_DECLARE_METATYPE(DirRenamer*)
 
 namespace {
 
@@ -189,6 +191,8 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
           uri, 1, 0, "PlaylistConfig", QLatin1String("Only enum container"));
     qmlRegisterUncreatableType<TagConfig>(
           uri, 1, 0, "TagConfig", QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<DirRenamer>(uri, 1, 0, "DirRenamer",
+        QLatin1String("Retrieve it using app.dirRenamer"));
 #if QT_VERSION < 0x050000
     qRegisterMetaType<QModelIndex>();
 #endif

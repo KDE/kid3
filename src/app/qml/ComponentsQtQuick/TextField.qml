@@ -18,6 +18,7 @@ FocusScope {
         verticalCenter: parent.verticalCenter
         leftMargin: constants.margins
       }
+      clip: true
       onAccepted: textField.accepted()
     }
   }

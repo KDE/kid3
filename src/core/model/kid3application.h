@@ -115,6 +115,9 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   /** ID to get cover art image. */
   Q_PROPERTY(QString coverArtImageId READ coverArtImageId
              NOTIFY coverArtImageIdChanged)
+  /** Directory renamer. */
+  Q_PROPERTY(DirRenamer* dirRenamer READ getDirRenamer CONSTANT)
+
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -415,7 +418,7 @@ public:
    *
    * @return error messages, null string if no error occurred.
    */
-  QString performRenameActions();
+  Q_INVOKABLE QString performRenameActions();
 
   /**
    * Set the directory name from the tags.
@@ -430,7 +433,7 @@ public:
    *
    * @return true if ok.
    */
-  bool renameDirectory(Frame::TagVersion tagMask,
+  Q_INVOKABLE bool renameDirectory(Frame::TagVersion tagMask,
                        const QString& format, bool create);
 
   /**

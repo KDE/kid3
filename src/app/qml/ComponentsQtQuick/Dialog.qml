@@ -7,6 +7,7 @@ PopupBase {
   property alias text: textLabel.text
   default property alias contents: contentsColumn.data
 
+  parent: root
   color: constants.palette.window
   border.width: 1
   border.color: "black"

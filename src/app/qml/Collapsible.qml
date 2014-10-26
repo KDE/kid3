@@ -22,8 +22,11 @@ Column {
     Label {
       id: label
       anchors.left: checkBox.right
+      anchors.right: buttonContainer.left
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
+      anchors.rightMargin: 0
+      clip: true
     }
     Row {
       id: buttonContainer

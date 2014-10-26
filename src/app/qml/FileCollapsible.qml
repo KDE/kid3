@@ -10,7 +10,7 @@ Collapsible {
 
   property alias fileName: fileNameEdit.text
 
-  signal quitRequested()
+  signal mainMenuRequested(variant caller)
 
   text: qsTr("File") + ": " + app.selectionInfo.detailInfo
   checked: true
@@ -19,56 +19,7 @@ Collapsible {
       id: mainMenuButton
       iconName: "navigation-menu"
       width: height
-      onClicked: constants.openPopup(mainMenuPopoverComponent, mainMenuButton)
-
-      Component {
-        id: mainMenuPopoverComponent
-        ActionSelectionPopover {
-          id: mainMenuPopover
-          delegate: ActionSelectionDelegate {
-            popover: mainMenuPopover
-          }
-          actions: ActionList {
-            Action {
-              text: qsTr("Apply Filename Format")
-              onTriggered: app.applyFilenameFormat()
-            }
-            Action {
-              text: qsTr("Apply Tag Format")
-              onTriggered: app.applyId3Format()
-            }
-            Action {
-              text: qsTr("Apply Text Encoding")
-              onTriggered: app.applyTextEncoding()
-            }
-            Action {
-              text: qsTr("Convert ID3v2.3 to ID3v2.4")
-              onTriggered: app.convertToId3v24()
-            }
-            Action {
-              text: qsTr("Convert ID3v2.4 to ID3v2.3")
-              onTriggered: app.convertToId3v23()
-            }
-            Action {
-              text: qsTr("Revert")
-              onTriggered: app.revertFileModifications()
-            }
-            Action {
-              text: qsTr("Save")
-              onTriggered: {
-                var errorFiles = app.saveDirectory()
-                if (errorFiles.length > 0) {
-                  console.debug("Save error:" + errorFiles)
-                }
-              }
-            }
-            Action {
-              text: qsTr("Quit")
-              onTriggered: fileCollapsible.quitRequested()
-            }
-          }
-        }
-      }
+      onClicked: fileCollapsible.mainMenuRequested(mainMenuButton)
     }
   ]
 
