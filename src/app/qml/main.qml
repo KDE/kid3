@@ -9,6 +9,7 @@ MainView {
   id: root
   objectName: "mainView"
   applicationName: "Kid3"
+  useDeprecatedToolbar: false
   automaticOrientation: true
   width: constants.gu(100)
   height: constants.gu(100)
@@ -84,13 +85,6 @@ MainView {
   }
 
   Component {
-    id: renameDirectoryDialog
-    RenameDirectoryDialog {
-      width: root.width - 2 * constants.margins
-    }
-  }
-
-  Component {
     id: mainMenuPopoverComponent
     ActionSelectionPopover {
       id: mainMenuPopover
@@ -124,7 +118,7 @@ MainView {
         }
         Action {
           text: qsTr("Rename Directory")
-          onTriggered: constants.openPopup(renameDirectoryDialog)
+          onTriggered: pageStack.push(renameDirPage)
         }
         Action {
           text: qsTr("Revert")
@@ -147,66 +141,16 @@ MainView {
     }
   }
 
-  Page {
-    id: page
-
-    title: app.dirName.split("/").pop() + (app.modified ? " [modified]" : "") + " - Kid3"
-
-    Item {
-      anchors.fill: parent
-
-      FileList {
-        id: fileList
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.margins: constants.margins
-        width: constants.gu(44)
-      }
-
-      Item {
-        id: rightSide
-        anchors.left: fileList.right
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.margins: constants.margins
-
-        FileCollapsible {
-          id: collapsibleFile
-          anchors.topMargin: constants.margins
-          anchors.top: parent.top
-          anchors.left: parent.left
-          anchors.right: parent.right
-          onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent,
-                                                    caller)
-        }
-
-        Tag1Collapsible {
-          id: collapsibleV1
-          anchors.topMargin: constants.margins
-          anchors.top: collapsibleFile.bottom
-          anchors.left: parent.left
-          anchors.right: parent.right
-        }
-
-        Tag2Collapsible {
-          id: collapsibleV2
-          anchors.topMargin: constants.margins
-          anchors.top: collapsibleV1.bottom
-          anchors.bottom: collapsiblePicture.top
-          anchors.left: parent.left
-          anchors.right: parent.right
-        }
-
-        PictureCollapsible {
-          id: collapsiblePicture
-          anchors.topMargin: constants.margins
-          anchors.bottom: parent.bottom
-          anchors.left: parent.left
-          anchors.right: parent.right
-        }
-      }
+  PageStack {
+    id: pageStack
+    Component.onCompleted: push(mainPage)
+    MainPage {
+      id: mainPage
+      visible: false
+    }
+    RenameDirectoryPage {
+      id: renameDirPage
+      visible: false
     }
   }
 
@@ -220,7 +164,7 @@ MainView {
     target: app
 
     onConfirmedOpenDirectoryRequested: confirmedOpenDirectory(paths)
-    onFileSelectionUpdateRequested: updateCurrentSelection()
+    onFileSelectionUpdateRequested: mainPage.updateCurrentSelection()
     onSelectedFilesUpdated: app.tagsToFrameModels()
   }
 
@@ -233,15 +177,6 @@ MainView {
     }                               //@QtQuick2
   }                                 //@QtQuick2
 
-  function updateCurrentSelection() {
-    collapsibleV1.acceptEdit()
-    collapsibleV2.acceptEdit()
-    app.frameModelsToTags()
-    if (app.selectionInfo.singleFileSelected) {
-      app.selectionInfo.fileName = collapsibleFile.fileName
-    }
-  }
-
   function confirmedOpenDirectory(path) {
     function openIfCompleted(ok) {
       saveModifiedDialog.completed.disconnect(openIfCompleted)
@@ -250,14 +185,14 @@ MainView {
       }
     }
 
-    updateCurrentSelection()
+    mainPage.updateCurrentSelection()
     saveModifiedDialog.doNotRevert = false
     saveModifiedDialog.completed.connect(openIfCompleted)
     saveModifiedDialog.openIfModified()
   }
 
   function confirmedQuit() {
-    updateCurrentSelection()
+    mainPage.updateCurrentSelection()
     saveModifiedDialog.doNotRevert = true
     saveModifiedDialog.completed.connect(quitIfCompleted)
     saveModifiedDialog.openIfModified()
@@ -266,7 +201,7 @@ MainView {
   function quitIfCompleted(ok) {
     saveModifiedDialog.completed.disconnect(quitIfCompleted)
     if (ok) {
-      var currentFile = fileList.currentFilePath()
+      var currentFile = mainPage.currentFilePath()
       if (currentFile) {
         configs.fileConfig().lastOpenedFile = currentFile
       }

@@ -4,10 +4,10 @@ import Ubuntu.Components 1.1 //@Ubuntu
 import Ubuntu.Components.Popups 1.0 //@Ubuntu
 import Kid3App 1.0
 
-Dialog {
+Page {
   id: page
+
   title: qsTr("Rename Directory")
-  text: qsTr("Preview")
 
   Connections {
     target: app.dirRenamer
@@ -23,19 +23,42 @@ Dialog {
     }
   }
 
+  Label {
+    id: previewLabel
+    anchors {
+      left: parent.left
+      right: parent.right
+      top: parent.top
+      margins: constants.margins
+    }
+    text: qsTr("Preview")
+  }
   TextArea {
     id: textArea
-    height: constants.gu(35)
+    anchors {
+      left: parent.left
+      right: parent.right
+      top: previewLabel.bottom
+      bottom: buttonRow.top
+      margins: constants.margins
+    }
     readOnly: true
     selectByMouse: false
   }
   Row {
+    id: buttonRow
+    anchors {
+      left: parent.left
+      right: parent.right
+      bottom: parent.bottom
+      margins: constants.margins
+    }
     spacing: constants.spacing
     Button {
       width: (parent.width - parent.spacing) / 2
       text: qsTr("Cancel")
       onClicked: {
-        page.hide()
+        pageStack.pop()
       }
     }
     Button {
@@ -46,14 +69,16 @@ Dialog {
         if (errorMsg) {
           console.debug("Rename error: " + errorMsg)
         }
-        page.hide()
+        pageStack.pop()
       }
     }
   }
 
-  Component.onCompleted: {
-    textArea.text = ""
-    app.renameDirectory(script.toTagVersion(Frame.TagV2V1),
-                        configs.renDirConfig().dirFormat, false)
+  onActiveChanged: {
+    if (active) {
+      textArea.text = ""
+      app.renameDirectory(script.toTagVersion(Frame.TagV2V1),
+                          configs.renDirConfig().dirFormat, false)
+    }
   }
 }
