@@ -112,6 +112,17 @@ public:
       const QString& caption);
 
   /**
+   * Display warning dialog with item list.
+   * @param parent parent widget
+   * @param text text
+   * @param strlist list of items
+   * @param caption caption
+   * @return QMessageBox::Yes or QMessageBox::No.
+   */
+  virtual int warningYesNoList(QWidget* parent, const QString& text,
+      const QStringList& strlist, const QString& caption);
+
+  /**
    * Display dialog to select an existing file.
    * @param parent parent widget
    * @param caption caption

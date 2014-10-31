@@ -255,10 +255,35 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   delete progress;
   updateModificationState();
   if (!errorFiles.empty()) {
-    m_platformTools->errorList(
-      m_w, tr("Error while writing file:\n"),
-      errorFiles,
-      tr("File Error"));
+    QStringList errorMsgs, notWritableFiles;
+    foreach (const QString& filePath, errorFiles) {
+      QFileInfo fileInfo(filePath);
+      if (!fileInfo.isWritable()) {
+        errorMsgs.append(tr("%1 is not writable").arg(fileInfo.fileName()));
+        notWritableFiles.append(filePath);
+      } else {
+        errorMsgs.append(fileInfo.fileName());
+      }
+    }
+    if (notWritableFiles.isEmpty()) {
+      m_platformTools->errorList(
+        m_w, tr("Error while writing file:\n"),
+        errorMsgs,
+        tr("File Error"));
+    } else {
+      int rc = m_platformTools->warningYesNoList(
+        m_w, tr("Error while writing file. "
+                "Do you want to change the permissions?"),
+        errorMsgs,
+        tr("File Error"));
+      if (rc == QMessageBox::Yes) {
+        foreach (const QString& filePath, notWritableFiles) {
+          QFile::setPermissions(filePath,
+              QFile::permissions(filePath) | QFile::WriteUser);
+        }
+        m_app->saveDirectory();
+      }
+    }
   }
 
   if (updateGui) {

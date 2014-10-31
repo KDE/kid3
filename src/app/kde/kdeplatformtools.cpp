@@ -184,6 +184,27 @@ int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
 }
 
 /**
+ * Display warning dialog with item list.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ * @return QMessageBox::Yes or QMessageBox::No.
+ */
+int KdePlatformTools::warningYesNoList(QWidget* parent, const QString& text,
+    const QStringList& strlist, const QString& caption)
+{
+  int rc = KMessageBox::warningYesNoList(parent, text, strlist, caption);
+  switch (rc) {
+  case KMessageBox::Yes:
+    return QMessageBox::Yes;
+  case KMessageBox::No:
+  default:
+    return QMessageBox::No;
+  }
+}
+
+/**
  * Display dialog to select an existing file.
  * @param parent parent widget
  * @param caption caption

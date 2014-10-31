@@ -164,6 +164,21 @@ int PlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
 }
 
 /**
+ * Display warning dialog with item list.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ * @return QMessageBox::Yes or QMessageBox::No.
+ */
+int PlatformTools::warningYesNoList(QWidget* parent, const QString& text,
+    const QStringList& strlist, const QString& caption)
+{
+  return MessageDialog::warningList(parent, caption, text, strlist,
+                                    QMessageBox::Yes | QMessageBox::No);
+}
+
+/**
  * Display dialog to select an existing file.
  * @param parent parent widget
  * @param caption caption
