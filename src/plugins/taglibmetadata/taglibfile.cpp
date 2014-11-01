@@ -99,6 +99,7 @@
 #include <modfile.h>
 #include <s3mfile.h>
 #include <itfile.h>
+#include <tfilestream.h>
 #ifdef HAVE_TAGLIB_XM_SUPPORT
 #include <xmfile.h>
 #endif
@@ -167,6 +168,308 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
 #endif
 
 }
+
+#if TAGLIB_VERSION >= 0x010800
+/**
+ * Wrapper around TagLib::FileStream which reduces the number of open file
+ * descriptors.
+ *
+ * Using streams, closing the file descriptor is also possible for modified
+ * files because the TagLib file does not have to be deleted just to close the
+ * file descriptor.
+ */
+class FileIOStream : public TagLib::IOStream {
+public:
+  /**
+   * Constructor.
+   * @param fileName path to file
+   */
+  explicit FileIOStream(const QString& fileName);
+
+  /**
+   * Destructor.
+   */
+  virtual ~FileIOStream();
+
+  /**
+   * Close the file handle.
+   * The file will automatically be opened again if needed.
+   */
+  void closeFileHandle();
+
+  // Reimplemented from TagLib::IOStream, delegate to TagLib::FileStream.
+  TagLib::FileName name() const;
+  TagLib::ByteVector readBlock(ulong length);
+  void writeBlock(const TagLib::ByteVector &data);
+  void insert(const TagLib::ByteVector &data,
+              ulong start = 0, ulong replace = 0);
+  void removeBlock(ulong start = 0, ulong length = 0);
+  bool readOnly() const;
+  bool isOpen() const;
+  void seek(long offset, Position p = Beginning);
+  void clear();
+  long tell() const;
+  long length();
+  void truncate(long length);
+
+  /**
+   * Create a TagLib file for a stream.
+   * TagLib::FileRef::create() adapted for IOStream.
+   * @param stream stream with name() of which the extension is used to decduce
+   * the file type
+   * @return file, 0 if not supported.
+   */
+  static TagLib::File* create(IOStream* stream);
+
+private:
+  /**
+   * Open file handle, is called by operations which need a file handle.
+   */
+  void openFileHandle() const;
+
+  /**
+   * Register open files, so that the number of open files can be limited.
+   * If the number of open files exceeds a limit, files are closed.
+   *
+   * @param stream new open file to be registered
+   */
+  static void registerOpenFile(FileIOStream* stream);
+
+  /**
+   * Deregister open file.
+   *
+   * @param stream file which is no longer open
+   */
+  static void deregisterOpenFile(FileIOStream* stream);
+
+#ifdef Q_OS_WIN32
+  wchar_t* m_fileName;
+#else
+  char* m_fileName;
+#endif
+  TagLib::FileStream* m_fileStream;
+  long m_offset;
+
+  /** list of file streams with open file descriptor */
+  static QList<FileIOStream*> s_openFiles;
+};
+
+QList<FileIOStream*> FileIOStream::s_openFiles;
+
+FileIOStream::FileIOStream(const QString& fileName) :
+  m_fileStream(0), m_offset(0)
+{
+#ifdef Q_OS_WIN32
+  int fnLen = fileName.length();
+  m_fileName = new wchar_t[fnLen + 1];
+  m_fileName[fnLen] = 0;
+  fileName.toWCharArray(m_fileName);
+#else
+  QByteArray fn = QFile::encodeName(fileName);
+  m_fileName = new char[fn.size() + 1];
+  qstrcpy(m_fileName, fn.data());
+#endif
+}
+
+FileIOStream::~FileIOStream()
+{
+  deregisterOpenFile(this);
+  delete m_fileStream;
+  delete [] m_fileName;
+}
+
+void FileIOStream::openFileHandle() const
+{
+  if (!m_fileStream) {
+    FileIOStream* self = const_cast<FileIOStream*>(this);
+    self->m_fileStream =
+        new TagLib::FileStream(TagLib::FileName(m_fileName));
+    if (m_offset > 0) {
+      m_fileStream->seek(m_offset);
+    }
+    registerOpenFile(self);
+  }
+}
+
+void FileIOStream::closeFileHandle()
+{
+  if (m_fileStream) {
+    m_offset = m_fileStream->tell();
+    delete m_fileStream;
+    m_fileStream = 0;
+    deregisterOpenFile(this);
+  }
+}
+
+TagLib::FileName FileIOStream::name() const
+{
+  if (m_fileStream) {
+    return m_fileStream->name();
+  }
+  return TagLib::FileName(m_fileName);
+}
+
+TagLib::ByteVector FileIOStream::readBlock(ulong length)
+{
+  openFileHandle();
+  return m_fileStream->readBlock(length);
+}
+
+void FileIOStream::writeBlock(const TagLib::ByteVector &data)
+{
+  openFileHandle();
+  m_fileStream->writeBlock(data);
+}
+
+void FileIOStream::insert(const TagLib::ByteVector &data,
+                          ulong start, ulong replace)
+{
+  openFileHandle();
+  m_fileStream->insert(data, start, replace);
+}
+
+void FileIOStream::removeBlock(ulong start, ulong length)
+{
+  openFileHandle();
+  m_fileStream->removeBlock(start, length);
+
+}
+
+bool FileIOStream::readOnly() const
+{
+  openFileHandle();
+  return m_fileStream->readOnly();
+}
+
+bool FileIOStream::isOpen() const
+{
+  if (m_fileStream) {
+    return m_fileStream->isOpen();
+  }
+  return true;
+}
+
+void FileIOStream::seek(long offset, Position p)
+{
+  openFileHandle();
+  m_fileStream->seek(offset, p);
+}
+
+void FileIOStream::clear()
+{
+  openFileHandle();
+  m_fileStream->clear();
+}
+
+long FileIOStream::tell() const
+{
+  openFileHandle();
+  return m_fileStream->tell();
+}
+
+long FileIOStream::length()
+{
+  openFileHandle();
+  return m_fileStream->length();
+}
+
+void FileIOStream::truncate(long length)
+{
+  openFileHandle();
+  m_fileStream->truncate(length);
+}
+
+TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
+{
+#ifdef Q_OS_WIN32
+  TagLib::String fn = stream->name().toString();
+#else
+  TagLib::String fn = stream->name();
+#endif
+  const int extPos = fn.rfind(".");
+  if (extPos != -1) {
+    TagLib::String ext = fn.substr(extPos + 1).upper();
+    if (ext == "MP3")
+      return new TagLib::MPEG::File(stream,
+                                    TagLib::ID3v2::FrameFactory::instance());
+    if (ext == "OGG")
+      return new TagLib::Vorbis::File(stream);
+    if (ext == "OGA") {
+      TagLib::File* file =
+        new TagLib::FLAC::File(stream, TagLib::ID3v2::FrameFactory::instance());
+      if (!file->isValid()) {
+        delete file;
+        file = new TagLib::Vorbis::File(stream);
+      }
+      return file;
+    }
+    if (ext == "FLAC")
+      return new TagLib::FLAC::File(stream,
+                                    TagLib::ID3v2::FrameFactory::instance());
+    if (ext == "MPC")
+      return new TagLib::MPC::File(stream);
+    if (ext == "WV")
+      return new TagLib::WavPack::File(stream);
+    if (ext == "SPX")
+      return new TagLib::Ogg::Speex::File(stream);
+    if (ext == "OPUS")
+      return new TagLib::Ogg::Opus::File(stream);
+    if (ext == "TTA")
+      return new TagLib::TrueAudio::File(stream);
+    if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
+        ext == "MP4" || ext == "3G2")
+      return new TagLib::MP4::File(stream);
+    if (ext == "WMA" || ext == "ASF")
+      return new TagLib::ASF::File(stream);
+    if (ext == "AIF" || ext == "AIFF")
+      return new TagLib::RIFF::AIFF::File(stream);
+    if (ext == "WAV")
+      return new TagLib::RIFF::WAV::File(stream);
+    if (ext == "APE")
+      return new TagLib::APE::File(stream);
+    if (ext == "MOD" || ext == "MODULE" || ext == "NST" || ext == "WOW")
+      return new TagLib::Mod::File(stream);
+    if (ext == "S3M")
+      return new TagLib::S3M::File(stream);
+    if (ext == "IT")
+      return new TagLib::IT::File(stream);
+#ifdef HAVE_TAGLIB_XM_SUPPORT
+    if (ext == "XM")
+      return new TagLib::XM::File(stream);
+#endif
+  }
+  return 0;
+}
+
+void FileIOStream::registerOpenFile(FileIOStream* stream)
+{
+  if (s_openFiles.contains(stream))
+    return;
+
+  int numberOfFilesToClose = s_openFiles.size() - 15;
+  if (numberOfFilesToClose > 5) {
+    for (QList<FileIOStream*>::iterator it = s_openFiles.begin();
+         it != s_openFiles.end();
+         ++it) {
+      (*it)->closeFileHandle();
+      if (--numberOfFilesToClose <= 0) {
+        break;
+      }
+    }
+  }
+  s_openFiles.append(stream);
+}
+
+/**
+ * Deregister open file.
+ *
+ * @param stream file which is no longer open
+ */
+void FileIOStream::deregisterOpenFile(FileIOStream* stream)
+{
+  s_openFiles.removeAll(stream);
+}
+#endif
 
 /**
  * Data encoding in ID3v1 tags.
@@ -240,8 +543,10 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 /** Default text encoding */
 TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
 
+#if TAGLIB_VERSION < 0x010800
 /** List of TagLib files with open file descriptor */
 QList<TagLibFile*> TagLibFile::s_openFiles;
+#endif
 
 
 /**
@@ -255,6 +560,7 @@ TagLibFile::TagLibFile(const QString& dn, const QString& fn,
                        const QPersistentModelIndex& idx) :
   TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0),
 #if TAGLIB_VERSION >= 0x010800
+  m_stream(0),
   m_id3v2Version(0),
 #endif
   m_activatedFeatures(0), m_duration(0),
@@ -329,6 +635,11 @@ void TagLibFile::readTags(bool force)
   QByteArray fn = QFile::encodeName(fileName);
 
   if (force || m_fileRef.isNull()) {
+#if TAGLIB_VERSION >= 0x010800
+    delete m_stream;
+    m_stream = new FileIOStream(fileName);
+    m_fileRef = TagLib::FileRef(FileIOStream::create(m_stream));
+#else
 #if TAGLIB_VERSION > 0x010400 && defined Q_OS_WIN32
     int fnLen = fileName.length();
     wchar_t* fnWs = new wchar_t[fnLen + 1];
@@ -339,12 +650,13 @@ void TagLibFile::readTags(bool force)
 #else
     m_fileRef = TagLib::FileRef(fn);
 #endif
+    registerOpenFile(this);
+#endif
     m_tagV1 = 0;
     m_tagV2 = 0;
     markTag1Unchanged();
     markTag2Unchanged();
     m_fileRead = true;
-    registerOpenFile(this);
 
 #if TAGLIB_VERSION >= 0x010700
     m_pictures.clear();
@@ -539,6 +851,18 @@ void TagLibFile::readTags(bool force)
  */
 void TagLibFile::closeFile(bool force)
 {
+#if TAGLIB_VERSION >= 0x010800
+  if (force) {
+    m_fileRef = TagLib::FileRef();
+    delete m_stream;
+    m_stream = 0;
+    m_tagV1 = 0;
+    m_tagV2 = 0;
+    m_fileRead = false;
+  } else if (m_stream) {
+    m_stream->closeFileHandle();
+  }
+#else
   if (force || (!isTag1Changed() && !isTag2Changed())) {
     m_fileRef = TagLib::FileRef();
     m_tagV1 = 0;
@@ -546,6 +870,7 @@ void TagLibFile::closeFile(bool force)
     m_fileRead = false;
     deregisterOpenFile(this);
   }
+#endif
 }
 
 /**
@@ -603,6 +928,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 {
   QString fnStr(getDirname() + QDir::separator() + currentFilename());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
+#if TAGLIB_VERSION >= 0x010800
+    closeFile(false);
+#endif
     return false;
   }
 
@@ -5566,6 +5894,7 @@ void TagLibFile::notifyConfigurationChange()
   setTextCodecV1(id3v1TextCodec);
 }
 
+#if TAGLIB_VERSION < 0x010800
 /**
  * Register open TagLib file, so that the number of open files can be limited.
  * If the number of open files exceeds a limit, files are closed.
@@ -5609,6 +5938,7 @@ void TagLibFile::deregisterOpenFile(TagLibFile* tagLibFile)
 {
   s_openFiles.removeAll(tagLibFile);
 }
+#endif
 
 
 /**

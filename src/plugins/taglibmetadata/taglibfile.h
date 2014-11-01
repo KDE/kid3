@@ -50,6 +50,9 @@
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
 
 class QTextCodec;
+#if TAGLIB_VERSION >= 0x010800
+class FileIOStream;
+#endif
 
 #if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
   namespace TagLib {
@@ -611,6 +614,7 @@ private:
    */
   static QString getTagFormat(const TagLib::Tag* tag, TagType& type);
 
+#if TAGLIB_VERSION < 0x010800
   /**
    * Register open TagLib file, so that the number of open files can be limited.
    * If the number of open files exceeds a limit, files are closed.
@@ -625,6 +629,7 @@ private:
    * @param tagLibFile file which is no longer open
    */
   static void deregisterOpenFile(TagLibFile* tagLibFile);
+#endif
 
   /**
    * Set the text codec to be used for tag 1.
@@ -644,6 +649,7 @@ private:
   TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
   TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
 #if TAGLIB_VERSION >= 0x010800
+  FileIOStream* m_stream;
   int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
 #endif
   int m_activatedFeatures;   /**< TF_ID3v23, TF_ID3v24, or 0 */
@@ -681,8 +687,10 @@ private:
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
 
+#if TAGLIB_VERSION < 0x010800
   /** list of TagLib files with open file descriptor */
   static QList<TagLibFile*> s_openFiles;
+#endif
 };
 
 #endif // TAGLIBFILE_H
