@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -871,9 +871,6 @@ msgstr "Datum izmene"
 msgid "Data"
 msgstr "Podaci"
 
-msgid "%1 is not writable"
-msgstr "%1 se ne može pisati"
-
 msgid "All Supported Files"
 msgstr "Svi podržani fajlovi"
 
@@ -1626,6 +1623,12 @@ msgstr "Otvaram direktorijum..."
 
 msgid "Saving directory..."
 msgstr "Upisujem direktorijum..."
+
+msgid "%1 is not writable"
+msgstr "%1 se ne može pisati"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Greška prilikom upisa fajla. Postavljam ovlašćenja?"
 
 msgid ""
 "The current directory has been modified.\n"

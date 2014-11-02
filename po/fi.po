@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -872,9 +872,6 @@ msgstr "Muokattu"
 msgid "Data"
 msgstr "Data"
 
-msgid "%1 is not writable"
-msgstr "%1 ei voi kirjoittaa"
-
 msgid "All Supported Files"
 msgstr "Kaikki tuetut tiedostot"
 
@@ -1627,6 +1624,14 @@ msgstr "Avaa kansio..."
 
 msgid "Saving directory..."
 msgstr "Tallennetaan kansio..."
+
+msgid "%1 is not writable"
+msgstr "%1 ei voi kirjoittaa"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr ""
+"Virhe kirjoitettaessa tiedostoa. Korjataanko kansion käyttöoikeudet "
+"automaattisesti?"
 
 msgid ""
 "The current directory has been modified.\n"

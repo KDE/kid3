@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -873,9 +873,6 @@ msgstr "Data modyfikacji"
 msgid "Data"
 msgstr "Dane"
 
-msgid "%1 is not writable"
-msgstr "%1 nie można zapisywać"
-
 msgid "All Supported Files"
 msgstr "Wszystkie obsługiwane pliki"
 
@@ -1629,6 +1626,12 @@ msgstr "Otwieranie katalogu..."
 
 msgid "Saving directory..."
 msgstr "Zapisywanie katalogu..."
+
+msgid "%1 is not writable"
+msgstr "%1 nie można zapisywać"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Błąd podczas zapisu pliku. Zmienić prawa?"
 
 msgid ""
 "The current directory has been modified.\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -874,9 +874,6 @@ msgstr "變更日期"
 msgid "Data"
 msgstr "資料"
 
-msgid "%1 is not writable"
-msgstr "%1 檔案無法寫入"
-
 msgid "All Supported Files"
 msgstr "所有支援檔案"
 
@@ -1630,6 +1627,12 @@ msgstr "開啟目錄..."
 
 msgid "Saving directory..."
 msgstr "儲存目錄..."
+
+msgid "%1 is not writable"
+msgstr "%1 檔案無法寫入"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "寫入檔案錯誤。要自動更正資料夾權限嗎？"
 
 msgid ""
 "The current directory has been modified.\n"

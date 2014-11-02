@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -871,9 +871,6 @@ msgstr "Değişim Tarihi"
 msgid "Data"
 msgstr "Veri"
 
-msgid "%1 is not writable"
-msgstr "%1 dosyası yazılabilir değil"
-
 msgid "All Supported Files"
 msgstr "Desteklenen Bütün Dosyalar"
 
@@ -1627,6 +1624,12 @@ msgstr "Dizin Açılıyor..."
 
 msgid "Saving directory..."
 msgstr "Dizin kaydediliyor..."
+
+msgid "%1 is not writable"
+msgstr "%1 dosyası yazılabilir değil"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Dosyaya yazılırken hata. Dizin izinlerini otomatik olarak düzelt?"
 
 msgid ""
 "The current directory has been modified.\n"

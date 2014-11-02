@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -872,9 +872,6 @@ msgstr "Laatst gewijzigd"
 msgid "Data"
 msgstr "Gegevens"
 
-msgid "%1 is not writable"
-msgstr "%1 is niet schrijfbaar"
-
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
 
@@ -1627,6 +1624,14 @@ msgstr "Map openen..."
 
 msgid "Saving directory..."
 msgstr "Map opslaan..."
+
+msgid "%1 is not writable"
+msgstr "%1 is niet schrijfbaar"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr ""
+"Er is een fout opgetreden tijdens het opslaan van het bestand. Rechten "
+"automatisch corrigeren?"
 
 msgid ""
 "The current directory has been modified.\n"

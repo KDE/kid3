@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-08-20 20:43+0200\n"
+"POT-Creation-Date: 2014-11-02 08:41+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -873,9 +873,6 @@ msgstr "Última modificación"
 msgid "Data"
 msgstr "Datos"
 
-msgid "%1 is not writable"
-msgstr "El archivo %1 no es escribible"
-
 msgid "All Supported Files"
 msgstr "Todos los archivos soportados"
 
@@ -1629,6 +1626,12 @@ msgstr "Abrir directorio..."
 
 msgid "Saving directory..."
 msgstr "Guardando directorio..."
+
+msgid "%1 is not writable"
+msgstr "El archivo %1 no es escribible"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Error al escribir en el archivo. Quieres cambiar los permisos?"
 
 msgid ""
 "The current directory has been modified.\n"
