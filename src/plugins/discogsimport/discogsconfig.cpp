@@ -37,7 +37,6 @@ DiscogsConfig::DiscogsConfig() :
 {
   m_cgiPathUsed = false;
   m_additionalTagsUsed = true;
-  m_coverArt = false;
   m_server = QLatin1String("www.discogs.com:80");
 }
 
