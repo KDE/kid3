@@ -14,7 +14,6 @@ testserverimporterbase.cpp
 testmusicbrainzreleaseimporter.cpp
 testmusicbrainzreleaseimportparser.cpp
 testdiscogsimporter.cpp
-testdiscogsimportparser.cpp
 maintest.cpp
 )
 
@@ -24,7 +23,6 @@ testserverimporterbase.h
 testmusicbrainzreleaseimporter.h
 testmusicbrainzreleaseimportparser.h
 testdiscogsimporter.h
-testdiscogsimportparser.h
 )
 
 qt4_wrap_cpp(test_GEN_MOC_SRCS ${test_MOC_HDRS})

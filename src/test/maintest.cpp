@@ -32,7 +32,6 @@
 #include "testjsonparser.h"
 #include "testmusicbrainzreleaseimportparser.h"
 #include "testmusicbrainzreleaseimporter.h"
-#include "testdiscogsimportparser.h"
 #include "testdiscogsimporter.h"
 
 /**
@@ -52,7 +51,6 @@ int main(int argc, char *argv[])
     new TestJsonParser,
     new TestMusicBrainzReleaseImportParser,
     new TestMusicBrainzReleaseImporter,
-    new TestDiscogsImportParser,
     new TestDiscogsImporter,
     0
   };

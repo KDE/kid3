@@ -44,13 +44,13 @@ void TestDiscogsImporter::testQueryAlbums()
   QVERIFY(item);
   QVERIFY(item->type() == AlbumListItem::Type);
   QCOMPARE(item->text(), QString(QLatin1String("Wizard - Odin")));
-  QCOMPARE(item->getCategory(), QString(QLatin1String("releases")));
+  QCOMPARE(item->getCategory(), QString(QLatin1String("Wizard-Odin/release")));
   QVERIFY(!item->getId().isEmpty());
 }
 
 void TestDiscogsImporter::testQueryTracks()
 {
-  queryTracks(QLatin1String("releases"), QLatin1String("2487778"));
+  queryTracks(QLatin1String("Wizard-Odin/release"), QLatin1String("2487778"));
 
   QStringList titles;
   titles << QLatin1String("The Prophecy") << QLatin1String("Betrayer") << QLatin1String("Dead Hope") << QLatin1String("Dark God")
@@ -71,7 +71,7 @@ void TestDiscogsImporter::testQueryTracks()
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
     QCOMPARE(m_trackDataModel->index(row, 8).data().toString(), QString(QLatin1String("Heavy Metal")));
     QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString(QLatin1String("LMP 0303-054 Ltd. CD")));
-    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString(QLatin1String("CD")));
+    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString(QLatin1String("CD, Album, Limited Edition, Enhanced, Digipak")));
     QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString(QLatin1String("LMP")));
     QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString(QLatin1String("Germany")));
   }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,7 +28,6 @@
 #define DISCOGSIMPORTER_H
 
 #include "serverimporter.h"
-#include "kid3api.h"
 
 /**
  * Discogs importer.

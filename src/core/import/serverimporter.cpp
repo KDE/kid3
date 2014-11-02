@@ -101,7 +101,7 @@ QString ServerImporter::replaceHtmlEntities(QString str)
   while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
     str.replace(pos, numEntityRe.matchedLength(),
                 QChar(numEntityRe.cap(1).toInt()));
-    pos += numEntityRe.matchedLength();
+    ++pos;
   }
   return str;
 }
