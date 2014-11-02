@@ -1,3 +1,22 @@
+Sun Nov  2 09:32:24 CET 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.1.2
+
+	* New:
+	  + Allow user to change the file permissions of read-only files.
+
+	* Improved:
+	  + Updated Simplified Chinese translation.
+	  + Reduce number of open file descriptors with TagLib >= 1.8.
+
+	* Fixed:
+	  + Adapted to Discogs server update.
+	  + Correctly add missing frames when editing multiple files.
+	  + The value of an existing frame on multiple files can be set
+	    via D-Bus.
+	  + File names with special characters in Mp4V2Metadata on Windows.
+	  + Appdata passes appdata-validate check.
+
 Thu Aug 21 19:06:09 CEST 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.1.1

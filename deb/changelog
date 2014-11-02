@@ -1,8 +1,16 @@
-kid3 (3.1.1-0) unstable; urgency=low
+kid3 (3.1.2-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 21 Aug 2014 19:06:09 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 02 Nov 2014 09:32:24 +0100
+
+kid3 (3.1.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Remove deprecated hardening-wrapper package.
+  * Remove versioned build dependency on libid3-3.8.3-dev and libflac++-dev.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 03 Sep 2014 10:41:21 +0200
 
 kid3 (3.1-1) unstable; urgency=medium
 
