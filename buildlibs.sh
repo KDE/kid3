@@ -51,22 +51,22 @@ compiler="gcc"
 
 qt_version=4.8.6
 zlib_version=1.2.8
-zlib_patchlevel=1
+zlib_patchlevel=2
 libogg_version=1.3.2
 libogg_patchlevel=1
-libvorbis_version=1.3.2
-libvorbis_patchlevel=1.4
-libav_version=10.2
+libvorbis_version=1.3.4
+libvorbis_patchlevel=1
+libav_version=11
 libav_patchlevel=2
 libflac_version=1.3.0
 libflac_patchlevel=2
 id3lib_version=3.8.3
-id3lib_patchlevel=15
+id3lib_patchlevel=16
 taglib_version=1.9.1
-chromaprint_version=1.1
+chromaprint_version=1.2
 chromaprint_patchlevel=1
 mp4v2_version=2.0.0
-mp4v2_patchlevel=2
+mp4v2_patchlevel=3
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
@@ -107,10 +107,17 @@ if test "$ARCH" = "i386"; then
 else
   ARCH_FLAG="-Xarch_x86_64"
 fi
-CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
-export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
-export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
-export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.5"
+if [[ $(sw_vers -productVersion) = 10.1* ]]; then
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
+  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
+  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+else
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
+  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.5"
+fi
 fi
 
 if which wget >/dev/null; then
@@ -148,8 +155,8 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_versio
 test -f flac_${libflac_version}.orig.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
 
-test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.gz
+test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
 test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
 
@@ -158,20 +165,20 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_
 test -f libogg_${libogg_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
 
-test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.diff.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.diff.gz
+test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
 test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
 
 test -f taglib-${taglib_version}.tar.gz ||
 $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
 
-test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.gz
+test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
 test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
 
-if test "$libav_version" = "0.8.10"; then
+if test "$libav_version" = "0.8.16"; then
 test -f libav_${libav_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
 test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.gz ||
@@ -185,13 +192,13 @@ fi
 
 test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
-test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.gz
+test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
 
 test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
-test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.gz
+test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
 
 # Create patch files
 
@@ -360,32 +367,6 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
 EOF
 
-test -f id3lib-fix-utf16-stringlists.patch ||
-cat >id3lib-fix-utf16-stringlists.patch <<EOF
-diff -ru id3lib-3.8.3.orig/src/io_helpers.cpp id3lib-3.8.3/src/io_helpers.cpp
---- id3lib-3.8.3.orig/src/io_helpers.cpp	2012-08-26 19:52:21.523825799 +0200
-+++ id3lib-3.8.3/src/io_helpers.cpp	2012-08-26 19:53:02.060028394 +0200
-@@ -373,10 +373,17 @@
-     //}
-     // Right code
-     unsigned char *pdata = (unsigned char *) data.c_str();
-+    unicode_t lastCh = BOM;
-     for (size_t i = 0; i < size; i += 2)
-     {
-       unicode_t ch = (pdata[i] << 8) | pdata[i+1];
-+      if (lastCh == 0 && ch != BOM)
-+      {
-+        // Last character was NULL, so start next string with BOM.
-+        writer.writeChars((const unsigned char*) &BOM, 2);
-+      }
-       writer.writeChars((const unsigned char*) &ch, 2);
-+      lastCh = ch;
-     }
-     // End patch
-   }
-
-EOF
-
 test -f taglib-msvc.patch ||
 cat >taglib-msvc.patch <<"EOF"
 diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
@@ -404,7 +385,7 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
-if test "$libav_version" = "0.8.10"; then
+if test "$libav_version" = "0.8.16"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -426,18 +407,6 @@ fi
 
 test -f mp4v2_win32.patch ||
 cat >mp4v2_win32.patch <<"EOF"
-diff -ruN mp4v2-2.0.0.orig/configure.ac mp4v2-2.0.0/configure.ac
---- mp4v2-2.0.0.orig/configure.ac	2012-05-21 00:11:55.000000000 +0200
-+++ mp4v2-2.0.0/configure.ac	2014-04-14 07:25:37.752968162 +0200
-@@ -20,7 +20,7 @@
- 
- m4_define([PRJ_version],ifelse(
-     PRJ_repo_type,[stable],m4_format([%s],PRJ_repo_branch),
--    m4_format([%s-r%d],PRJ_repo_branch,PRJ_repo_rev)))
-+    m4_format([%s-r%s],PRJ_repo_branch,PRJ_repo_rev)))
- 
- ###############################################################################
- # initialization
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
 --- mp4v2-2.0.0.orig/GNUmakefile.am	2012-05-21 00:11:55.000000000 +0200
 +++ mp4v2-2.0.0/GNUmakefile.am	2014-04-14 07:22:35.904963506 +0200
@@ -1641,7 +1610,8 @@ echo "### Extracting zlib"
 if ! test -d zlib-${zlib_version}; then
 tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
 cd zlib-${zlib_version}/
-tar xzf ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.gz || true
+
+unxz -c ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz | tar x || true
 echo Can be ignored: Cannot create symlink to debian.series
 for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
 cd ..
@@ -1661,7 +1631,8 @@ echo "### Extracting libvorbis"
 if ! test -d libvorbis-${libvorbis_version}; then
 tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
 cd libvorbis-${libvorbis_version}/
-gunzip -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.diff.gz | patch -p1
+unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
 sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
 cd ..
@@ -1687,10 +1658,9 @@ echo "### Extracting id3lib"
 if ! test -d id3lib-${id3lib_version}; then
 tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
 cd id3lib-${id3lib_version}/
-tar xzf ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.gz
+unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
-patch -p1 <../source/id3lib-fix-utf16-stringlists.patch
 test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
 sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
 cd ..
@@ -1707,7 +1677,7 @@ fi
 
 echo "### Extracting libav"
 
-if test "$libav_version" = "0.8.10"; then
+if test "$libav_version" = "0.8.16"; then
 if ! test -d libav-${libav_version}; then
 tar xzf source/libav_${libav_version}.orig.tar.gz
 cd libav-${libav_version}/
@@ -1726,10 +1696,19 @@ cd ..
 fi
 else
 if ! test -d libav-${libav_version}; then
-unxz -c source/libav_${libav_version}.orig.tar.xz | tar x
+unxz -c source/libav_${libav_version}.orig.tar.xz | tar x || true
+echo Can be ignored: Cannot create symlink to README.md
 cd libav-${libav_version}/
 unxz -c ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz | tar x
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+oldifs=$IFS
+IFS='
+'
+for f in $(cat debian/patches/series); do
+  if test "${f:0:1}" != "#"; then
+    patch -p1 <debian/patches/$f
+  fi
+done
+IFS=$oldifs
 cd ..
 fi
 fi
@@ -1739,7 +1718,7 @@ echo "### Extracting chromaprint"
 if ! test -d chromaprint-${chromaprint_version}; then
 tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
 cd chromaprint-${chromaprint_version}/
-tar xzf ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.gz
+unxz -c ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -1749,7 +1728,8 @@ echo "### Extracting mp4v2"
 if ! test -d mp4v2-${mp4v2_version}; then
 tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
 cd mp4v2-${mp4v2_version}/
-tar xzf ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.gz
+unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz | tar x
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
 patch -p1 <../source/mp4v2_win32.patch
 fi
@@ -1916,7 +1896,7 @@ cd ../..
 
 echo "### Building libav"
 
-if test "$libav_version" = "0.8.10"; then
+if test "$libav_version" = "0.8.16"; then
 cd libav-${libav_version}
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.

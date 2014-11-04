@@ -45,6 +45,10 @@ if(WITH_MP4V2)
 
   include_directories(${CMAKE_CURRENT_BINARY_DIR} ${MP4V2_INCLUDE_DIR} ../../core/tags)
 
+  if (WIN32)
+    add_definitions(-DMP4V2_USE_STATIC_LIB)
+  endif (WIN32)
+
   set(plugin_SRCS
     mp4v2metadataplugin.cpp
     m4afile.cpp

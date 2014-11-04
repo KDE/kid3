@@ -209,6 +209,7 @@ if (WIN32)
     # This workaround adds the missing files.
     install(FILES "${QT_BINARY_DIR}/QtNetwork4.dll"
                   "${QT_BINARY_DIR}/QtXml4.dll"
+                  "${QT_BINARY_DIR}/libwinpthread-1.dll"
             DESTINATION ${WITH_BINDIR})
   else (NOT HAVE_QT5)
     if (EXISTS "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll")
