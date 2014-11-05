@@ -89,7 +89,8 @@ CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake
 
 # Note that Ubuntu i686-w64-mingw32 is incompatible (sjlj) with the mingw (dw2)
 # used for the Qt mingw binaries >=4.8.6.
-cross_host="i586-mingw32msvc"
+# I am using a custom built cross mingw (--disable-sjlj-exceptions --enable-threads=posix)
+cross_host="i686-w64-mingw32"
 CONFIGURE_OPTIONS="--host=${cross_host}"
 fi
 
@@ -2153,7 +2154,6 @@ INSTDIR=kid3-$VERSION-win32
 QT_PREFIX=$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
 QT_BIN_DIR=${QT_PREFIX}/bin
 QT_TRANSLATIONS_DIR=${QT_PREFIX}/translations
-MINGW_DIR=/windows/msys/1.0/mingw/bin
 
 test -d $INSTDIR && rm -rf $INSTDIR
 mkdir -p $INSTDIR
@@ -2162,12 +2162,8 @@ echo "### Ignore make error"
 
 cp -f po/*.qm doc/*/kid3*.html $INSTDIR
 
-for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll; do
+for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll; do
   cp $QT_BIN_DIR/$f $INSTDIR
-done
-
-for f in libgcc_s_dw2-1.dll; do
-  cp $MINGW_DIR/$f $INSTDIR
 done
 
 for f in po/*.qm; do
