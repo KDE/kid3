@@ -78,6 +78,10 @@ if ! which cmake >/dev/null; then
   exit 1
 fi
 
+if test $kernel = "MSYS_NT-6.1"; then
+kernel="MINGW"
+CONFIGURE_OPTIONS="--build=x86_64-w64-mingw32 --target=i686-w64-mingw32"
+fi
 if test $kernel = "MINGW"; then
 CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
 elif test $kernel = "Darwin"; then
@@ -140,6 +144,14 @@ fixcmakeinst() {
       rmdir msys
     elif test -d MinGW; then
       mv MinGW usr
+    elif test -d msys64; then
+      rm -rf usr
+      mv msys64/usr .
+      rmdir msys64
+    elif test -d msys32; then
+      rm -rf usr
+      mv msys32/usr .
+      rmdir msys32
     fi
     cd ..
   fi
@@ -1660,7 +1672,7 @@ if ! test -d id3lib-${id3lib_version}; then
 tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
 cd id3lib-${id3lib_version}/
 unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
 sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
@@ -1864,6 +1876,9 @@ if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
 test -f Makefile || ./configure $configure_args
+# On msys32, an error "changed before entering" occurred, can be fixed by
+# modifying /usr/share/perl5/core_perl/File/Path.pm
+# my $Need_Stat_Check = !($^O eq 'MSWin32' || $^O eq 'msys');
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -2017,6 +2032,9 @@ sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
 AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include --extra-cflags=-march=i486"
 elif test $kernel = "MINGW"; then
 AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
+if test $(uname) = "MSYS_NT-6.1"; then
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
+fi
 fi
 if test -z "$ENABLE_DEBUG"; then
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
