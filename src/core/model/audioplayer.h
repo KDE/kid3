@@ -119,6 +119,12 @@ public:
 
 signals:
   /**
+   * Emitted before a file starts playing.
+   * @param filePath path to file
+   */
+  void aboutToPlay(const QString& filePath);
+
+  /**
    * Emitted when the current track is changed.
    * @param filePath path of currently played audio file
    * @param hasPrevious true if a previous track is available

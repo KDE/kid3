@@ -2771,3 +2771,17 @@ bool Kid3Application::setFrame(TrackData::TagVersion tagMask,
   }
   return false;
 }
+
+/**
+ * Close the file handle of a tagged file.
+ * @param filePath path to file
+ */
+void Kid3Application::closeFileHandle(const QString& filePath)
+{
+ QModelIndex index = m_fileProxyModel->index(filePath);
+ if (index.isValid()) {
+   if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+     taggedFile->closeFileHandle();
+   }
+ }
+}

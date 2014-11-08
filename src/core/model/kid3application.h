@@ -939,6 +939,12 @@ public slots:
   void showAudioPlayer();
 #endif
 
+  /**
+   * Close the file handle of a tagged file.
+   * @param filePath path to file
+   */
+  void closeFileHandle(const QString& filePath);
+
 signals:
   /**
    * Emitted when a new directory is opened.

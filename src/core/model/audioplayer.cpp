@@ -167,6 +167,7 @@ void AudioPlayer::selectTrack(int fileNr, bool play)
     const QString& fileName = m_files[m_fileNr];
     if (QFile::exists(fileName)) {
       m_mediaObject->clearQueue();
+      emit aboutToPlay(fileName);
       m_mediaObject->setCurrentSource(QUrl::fromLocalFile(fileName));
       if (play) {
         m_mediaObject->play();
@@ -230,6 +231,7 @@ void AudioPlayer::stop()
 #ifdef HAVE_PHONON
   m_mediaObject->stop();
   m_mediaObject->clearQueue();
+  m_mediaObject->setCurrentSource(QUrl());
 #else
   m_mediaPlayer->stop();
 #endif
@@ -257,6 +259,7 @@ void AudioPlayer::aboutToFinish()
     m_fileNr = nextFileNr;
     const QString& fileName = m_files[m_fileNr];
     if (QFile::exists(fileName)) {
+      emit aboutToPlay(fileName);
       Phonon::MediaSource source(QUrl::fromLocalFile(fileName));
       m_mediaObject->enqueue(source);
     }

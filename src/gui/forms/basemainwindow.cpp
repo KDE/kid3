@@ -837,6 +837,11 @@ void BaseMainWindowImpl::showPlayToolBar()
     m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
     connect(m_playToolBar, SIGNAL(errorMessage(QString)),
             this, SLOT(slotStatusMsg(QString)));
+#ifdef Q_OS_WIN32
+    // Phonon on Windows cannot play if the file is open.
+    connect(m_playToolBar, SIGNAL(aboutToPlay(QString)),
+            m_app, SLOT(closeFileHandle(QString)));
+#endif
   }
   m_playToolBar->show();
 }

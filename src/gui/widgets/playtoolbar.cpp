@@ -140,6 +140,8 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(tick(qint64)));
   connect(m_player, SIGNAL(trackChanged(QString,bool,bool)),
           this, SLOT(trackChanged(QString,bool,bool)));
+  connect(m_player, SIGNAL(aboutToPlay(QString)),
+          this, SIGNAL(aboutToPlay(QString)));
   connect(m_playOrPauseAction, SIGNAL(triggered()),
           m_player, SLOT(playOrPause()));
   connect(m_stopAction, SIGNAL(triggered()), m_player, SLOT(stop()));

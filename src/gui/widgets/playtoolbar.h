@@ -80,6 +80,12 @@ signals:
    */
   void errorMessage(const QString& msg);
 
+  /**
+   * Emitted before a file starts playing.
+   * @param filePath path to file
+   */
+  void aboutToPlay(const QString& filePath);
+
 private slots:
   /**
    * Update displayed time.
