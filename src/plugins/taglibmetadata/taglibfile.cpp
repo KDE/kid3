@@ -412,8 +412,10 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
       return new TagLib::WavPack::File(stream);
     if (ext == "SPX")
       return new TagLib::Ogg::Speex::File(stream);
+#if TAGLIB_VERSION >= 0x010900
     if (ext == "OPUS")
       return new TagLib::Ogg::Opus::File(stream);
+#endif
     if (ext == "TTA")
       return new TagLib::TrueAudio::File(stream);
     if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
