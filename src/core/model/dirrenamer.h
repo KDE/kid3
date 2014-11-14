@@ -65,11 +65,6 @@ public:
   virtual void clearAborted();
 
   /**
-   * Abort operation.
-   */
-  virtual void abort();
-
-  /**
    * Set version of tags used to get rename information.
    * @param tagVersion tag version
    */
@@ -141,6 +136,12 @@ public:
    * @return directory.
    */
   QString getDirName() const { return m_dirName; }
+
+public slots:
+  /**
+   * Abort operation.
+   */
+  virtual void abort();
 
 signals:
   /**

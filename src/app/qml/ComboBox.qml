@@ -25,7 +25,11 @@ Item {
       anchors.verticalCenter: parent.verticalCenter
       // Check to avoid error if model is not an array
       text: !!comboBox.model && !!comboBox.model.length
-            ? model[comboBox.currentIndex] : ""
+            ? model[comboBox.currentIndex] :
+              model.hasOwnProperty("get")
+              ? model.get(comboBox.currentIndex).display
+              : ""
+
       smooth: true
     }
 

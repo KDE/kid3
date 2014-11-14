@@ -7,6 +7,11 @@ import Kid3App 1.0
 Page {
   id: page
 
+  property int tagMask: Frame.TagV2V1
+  property string format
+  property bool create: false
+  property variant formats
+
   title: qsTr("Rename Directory")
 
   Connections {
@@ -23,12 +28,79 @@ Page {
     }
   }
 
+  Grid {
+    id: optionsGrid
+    property int labelWidth: Math.max(actionLabel.implicitWidth,
+                                      sourceLabel.implicitWidth,
+                                      formatLabel.implicitWidth)
+    property int valueWidth: width - labelWidth -spacing
+    anchors {
+      left: parent.left
+      right: parent.right
+      top: parent.top
+      margins: constants.margins
+    }
+    columns: 2
+    spacing: constants.spacing
+    Label {
+      id: actionLabel
+      width: parent.labelWidth
+      height: actionComboBox.height
+      verticalAlignment: Text.AlignVCenter
+      text: qsTr("Action:")
+    }
+    ComboBox {
+      id: actionComboBox
+      dropDownParent: page
+      width: parent.valueWidth
+      model: [ qsTr("Rename Directory"), qsTr("Create Directory") ]
+      onCurrentIndexChanged: {
+        page.create = currentIndex === 1
+        page.refreshPreview()
+      }
+    }
+    Label {
+      id: sourceLabel
+      width: parent.labelWidth
+      height: sourceComboBox.height
+      text: qsTr("Source:")
+    }
+    ComboBox {
+      id: sourceComboBox
+      dropDownParent: page
+      width: parent.valueWidth
+      model: [ qsTr("From Tag 2 and Tag 1"),
+               qsTr("From Tag 1"),
+               qsTr("From Tag 2") ]
+      onCurrentIndexChanged: {
+        page.tagMask = [ Frame.TagV2V1, Frame.TagV1, Frame.TagV2 ][currentIndex]
+        page.refreshPreview()
+      }
+    }
+    Label {
+      id: formatLabel
+      width: parent.labelWidth
+      height: formatComboBox.height
+      text: qsTr("Format:")
+    }
+    ComboBox {
+      id: formatComboBox
+      dropDownParent: page
+      width: parent.valueWidth
+      model: page.formats
+      onCurrentIndexChanged: {
+        page.format = model[currentIndex]
+        page.refreshPreview()
+      }
+    }
+  }
+
   Label {
     id: previewLabel
     anchors {
       left: parent.left
       right: parent.right
-      top: parent.top
+      top: optionsGrid.bottom
       margins: constants.margins
     }
     text: qsTr("Preview")
@@ -74,11 +146,26 @@ Page {
     }
   }
 
+  function refreshPreview() {
+    textArea.text = ""
+    app.renameDirectory(script.toTagVersion(page.tagMask),
+                        page.format, page.create)
+  }
+
   onActiveChanged: {
     if (active) {
-      textArea.text = ""
-      app.renameDirectory(script.toTagVersion(Frame.TagV2V1),
-                          configs.renDirConfig().dirFormat, false)
+      refreshPreview()
+    } else {
+      app.dirRenamer.abort()
     }
+  }
+
+  Component.onCompleted: {
+    var defaultFormats = configs.renDirConfig().getDefaultDirFormatList()
+    format = configs.renDirConfig().dirFormat
+    if (defaultFormats.indexOf(format) === -1) {
+      defaultFormats.push(format)
+    }
+    formats = defaultFormats
   }
 }

@@ -87,7 +87,7 @@ public:
   void setRenDirSource(Frame::TagVersion renDirSource);
 
   /** Get default directory format list. */
-  static QStringList getDefaultDirFormatList();
+  Q_INVOKABLE static QStringList getDefaultDirFormatList();
 
 signals:
   /** Emitted when @a dirFormatText changed. */
