@@ -7,6 +7,7 @@ set(qml_SRCS
 )
 set(qml_QML_SRCS
   main.qml
+  MainPage.qml
   Collapsible.qml
   ComboBox.qml
   DropDownList.qml
@@ -21,6 +22,10 @@ set(qml_QML_SRCS
   Tag1Collapsible.qml
   Tag2Collapsible.qml
   PictureCollapsible.qml
+  FileSelectDialog.qml
+  RenameDirectoryPage.qml
+  NumberTracksDialog.qml
+  FilterPage.qml
   ComponentsQtQuick/ActionList.qml
   ComponentsQtQuick/Action.qml
   ComponentsQtQuick/ActionSelectionPopover.qml
@@ -31,6 +36,7 @@ set(qml_QML_SRCS
   ComponentsQtQuick/Label.qml
   ComponentsQtQuick/MainView.qml
   ComponentsQtQuick/Page.qml
+  ComponentsQtQuick/PageStack.qml
   ComponentsQtQuick/PopupBase.qml
   ComponentsQtQuick/Standard.qml
   ComponentsQtQuick/TextArea.qml

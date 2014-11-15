@@ -75,11 +75,10 @@ public slots:
   /**
    * Show information about filter event.
    *
-   * @param type filter event type
+   * @param type filter event type, enum FileFilter::FilterEventType
    * @param fileName name of filtered file
    */
-  void showFilterEvent(FileFilter::FilterEventType type,
-                       const QString& fileName);
+  void showFilterEvent(int type, const QString& fileName);
 
 private slots:
   /**

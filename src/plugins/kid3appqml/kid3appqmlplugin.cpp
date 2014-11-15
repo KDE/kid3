@@ -52,6 +52,7 @@
 #include "tagconfig.h"
 #include "checkablelistmodel.h"
 #include "dirrenamer.h"
+#include "filefilter.h"
 #include "config.h"
 
 #if QT_VERSION < 0x050000
@@ -193,6 +194,8 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
           uri, 1, 0, "TagConfig", QLatin1String("Only enum container"));
     qmlRegisterUncreatableType<DirRenamer>(uri, 1, 0, "DirRenamer",
         QLatin1String("Retrieve it using app.dirRenamer"));
+    qmlRegisterUncreatableType<FileFilter>(
+          uri, 1, 0, "FileFilter", QLatin1String("Only enum container"));
 #if QT_VERSION < 0x050000
     qRegisterMetaType<QModelIndex>();
 #endif

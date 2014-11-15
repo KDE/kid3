@@ -39,7 +39,8 @@ class TaggedFile;
  * Filter for tagged files.
  */
 class KID3_CORE_EXPORT FileFilter : public QObject, public IAbortable {
-Q_OBJECT
+  Q_OBJECT
+  Q_ENUMS(FilterEventType)
 public:
   /** Type of filter event. */
   enum FilterEventType {

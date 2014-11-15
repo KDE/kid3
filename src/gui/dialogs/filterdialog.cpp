@@ -169,8 +169,7 @@ void FilterDialog::showHelp()
 /**
  * Show information about filter event.
  */
-void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
-                                   const QString& fileName) {
+void FilterDialog::showFilterEvent(int type, const QString& fileName) {
   switch (type) {
   case FileFilter::Started:
     m_edit->append(tr("Started"));

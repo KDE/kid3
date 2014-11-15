@@ -1083,11 +1083,10 @@ signals:
 
   /**
    * Emitted when a file is filtered.
-   * @param type filter event type
+   * @param type filter event type, enum FileFilter::FilterEventType
    * @param fileName name of filtered file
    */
-  void fileFiltered(FileFilter::FilterEventType type,
-                    const QString& fileName);
+  void fileFiltered(int type, const QString& fileName);
 
   /**
    * Emitted before an audio file is played.

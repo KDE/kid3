@@ -129,6 +129,10 @@ MainView {
           onTriggered: numberTracksDialog.show()
         }
         Action {
+          text: qsTr("Filter")
+          onTriggered: pageStack.push(filterPage)
+        }
+        Action {
           text: qsTr("Create Playlist")
           onTriggered: app.writePlaylist()
         }
@@ -162,6 +166,10 @@ MainView {
     }
     RenameDirectoryPage {
       id: renameDirPage
+      visible: false
+    }
+    FilterPage {
+      id: filterPage
       visible: false
     }
   }

@@ -511,8 +511,7 @@ protected:
   virtual void disconnectResultSignal();
 
 private slots:
-  void onFileFiltered(FileFilter::FilterEventType type,
-                      const QString& fileName);
+  void onFileFiltered(int type, const QString& fileName);
 };
 
 /** Convert ID3v2.3 to ID3v2.4. */

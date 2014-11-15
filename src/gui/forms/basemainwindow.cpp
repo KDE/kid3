@@ -794,9 +794,8 @@ void BaseMainWindowImpl::slotFilter()
       m_filterDialog = new FilterDialog(m_w);
       connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
               m_app, SLOT(applyFilter(FileFilter&)));
-      connect(m_app, SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
-              m_filterDialog,
-              SLOT(showFilterEvent(FileFilter::FilterEventType,QString)));
+      connect(m_app, SIGNAL(fileFiltered(int,QString)),
+              m_filterDialog, SLOT(showFilterEvent(int,QString)));
     }
     FilterConfig::instance().setFilenameFormat(
           FileConfig::instance().toFilenameFormat());

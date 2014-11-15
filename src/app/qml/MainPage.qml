@@ -19,7 +19,10 @@ Page {
     return fileList.currentFilePath()
   }
 
-  title: app.dirName.split("/").pop() + (app.modified ? " [modified]" : "") + " - Kid3"
+  title: app.dirName.split("/").pop() +
+         (app.modified ? qsTr(" [modified]") : "") +
+         (app.filtered ? qsTr(" [filtered]") : "") +
+         " - Kid3"
 
   Item {
     anchors.fill: parent

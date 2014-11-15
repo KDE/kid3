@@ -872,21 +872,18 @@ void FilterCommand::startCommand()
 
 void FilterCommand::connectResultSignal()
 {
-  connect(cli()->app(),
-          SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
-          this, SLOT(onFileFiltered(FileFilter::FilterEventType,QString)));
+  connect(cli()->app(), SIGNAL(fileFiltered(int,QString)),
+          this, SLOT(onFileFiltered(int,QString)));
 }
 
 void FilterCommand::disconnectResultSignal()
 {
   cli()->app()->abortFilter();
-  disconnect(cli()->app(),
-             SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
-             this, SLOT(onFileFiltered(FileFilter::FilterEventType,QString)));
+  disconnect(cli()->app(), SIGNAL(fileFiltered(int,QString)),
+             this, SLOT(onFileFiltered(int,QString)));
 }
 
-void FilterCommand::onFileFiltered(FileFilter::FilterEventType type,
-                                   const QString& fileName)
+void FilterCommand::onFileFiltered(int type, const QString& fileName)
 {
   QString eventText;
   bool finish = false;
