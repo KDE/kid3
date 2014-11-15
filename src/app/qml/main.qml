@@ -84,6 +84,10 @@ MainView {
     }
   }
 
+  NumberTracksDialog {
+    id: numberTracksDialog
+  }
+
   Component {
     id: mainMenuPopoverComponent
     ActionSelectionPopover {
@@ -119,6 +123,10 @@ MainView {
         Action {
           text: qsTr("Rename Directory")
           onTriggered: pageStack.push(renameDirPage)
+        }
+        Action {
+          text: qsTr("Number Tracks")
+          onTriggered: numberTracksDialog.show()
         }
         Action {
           text: qsTr("Revert")

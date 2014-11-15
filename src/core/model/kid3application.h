@@ -443,7 +443,7 @@ public:
    * @param total total number of tracks, used if >0
    * @param tagVersion determines on which tags the numbers are set
    */
-  void numberTracks(int nr, int total, Frame::TagVersion tagVersion);
+  Q_INVOKABLE void numberTracks(int nr, int total, Frame::TagVersion tagVersion);
 
   /**
    * Set track data with tagged files of directory.
@@ -533,7 +533,7 @@ public:
    *
    * @return number of tracks, 0 if not found.
    */
-  int getTotalNumberOfTracksInDir();
+  Q_INVOKABLE int getTotalNumberOfTracksInDir();
 
   /**
    * Get name of selected file.
