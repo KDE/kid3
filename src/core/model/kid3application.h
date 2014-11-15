@@ -403,14 +403,14 @@ public:
    *
    * @return true if ok.
    */
-  Q_INVOKABLE bool writePlaylist(const PlaylistConfig& cfg);
+  bool writePlaylist(const PlaylistConfig& cfg);
 
   /**
    * Write playlist using current playlist configuration.
    *
    * @return true if ok.
    */
-  bool writePlaylist();
+  Q_INVOKABLE bool writePlaylist();
 
   /**
    * Perform rename actions and change application directory afterwards if it

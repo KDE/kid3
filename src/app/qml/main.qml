@@ -129,6 +129,10 @@ MainView {
           onTriggered: numberTracksDialog.show()
         }
         Action {
+          text: qsTr("Create Playlist")
+          onTriggered: app.writePlaylist()
+        }
+        Action {
           text: qsTr("Revert")
           onTriggered: app.revertFileModifications()
         }
