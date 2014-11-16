@@ -36,21 +36,6 @@
  */
 class KID3_CORE_EXPORT BatchImportProfile {
 public:
-  /** Events occurring during batch import. */
-  enum ImportEventType {
-    ReadingDirectory,
-    Started,
-    SourceSelected,
-    QueryingAlbumList,
-    FetchingTrackList,
-    TrackListReceived,
-    FetchingCoverArt,
-    CoverArtReceived,
-    Finished,
-    Aborted,
-    Error
-  };
-
   /**
    * Properties of a source used during batch import.
    */

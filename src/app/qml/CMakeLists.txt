@@ -26,6 +26,7 @@ set(qml_QML_SRCS
   RenameDirectoryPage.qml
   NumberTracksDialog.qml
   FilterPage.qml
+  BatchImportPage.qml
   ComponentsQtQuick/ActionList.qml
   ComponentsQtQuick/Action.qml
   ComponentsQtQuick/ActionSelectionPopover.qml

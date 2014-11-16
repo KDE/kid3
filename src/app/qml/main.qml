@@ -133,6 +133,10 @@ MainView {
           onTriggered: pageStack.push(filterPage)
         }
         Action {
+          text: qsTr("Automatic Import")
+          onTriggered: pageStack.push(batchImportPage)
+        }
+        Action {
           text: qsTr("Create Playlist")
           onTriggered: app.writePlaylist()
         }
@@ -170,6 +174,10 @@ MainView {
     }
     FilterPage {
       id: filterPage
+      visible: false
+    }
+    BatchImportPage {
+      id: batchImportPage
       visible: false
     }
   }

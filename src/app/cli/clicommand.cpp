@@ -508,9 +508,7 @@ void BatchImportCommand::startCommand()
   const QString& profileName = numArgs > 1
       ? args().at(1) : QLatin1String("All");
   Frame::TagVersion tagMask = getTagMaskParameter(2);
-  if (BatchImportConfig::instance().getProfileByName(profileName, m_profile)) {
-    cli()->app()->batchImport(m_profile, tagMask);
-  } else {
+  if (!cli()->app()->batchImport(profileName, tagMask)) {
     QString errMsg = tr("%1 not found.").arg(profileName);
     errMsg += QLatin1Char('\n');
     errMsg += tr("Available");
@@ -526,10 +524,8 @@ void BatchImportCommand::startCommand()
 void BatchImportCommand::connectResultSignal()
 {
   BatchImporter* importer = cli()->app()->getBatchImporter();
-  connect(importer,
-      SIGNAL(reportImportEvent(BatchImportProfile::ImportEventType,QString)),
-      this,
-      SLOT(onReportImportEvent(BatchImportProfile::ImportEventType,QString)));
+  connect(importer, SIGNAL(reportImportEvent(int,QString)),
+          this, SLOT(onReportImportEvent(int,QString)));
   connect(importer, SIGNAL(finished()),
           this, SLOT(terminate()));
 }
@@ -537,48 +533,45 @@ void BatchImportCommand::connectResultSignal()
 void BatchImportCommand::disconnectResultSignal()
 {
   BatchImporter* importer = cli()->app()->getBatchImporter();
-  disconnect(importer,
-      SIGNAL(reportImportEvent(BatchImportProfile::ImportEventType,QString)),
-      this,
-      SLOT(onReportImportEvent(BatchImportProfile::ImportEventType,QString)));
+  disconnect(importer, SIGNAL(reportImportEvent(int,QString)),
+             this, SLOT(onReportImportEvent(int,QString)));
   disconnect(importer, SIGNAL(finished()),
              this, SLOT(terminate()));
 }
 
-void BatchImportCommand::onReportImportEvent(
-    BatchImportProfile::ImportEventType type, const QString& text)
+void BatchImportCommand::onReportImportEvent(int type, const QString& text)
 {
   QString eventText;
   switch (type) {
-  case BatchImportProfile::ReadingDirectory:
+  case BatchImporter::ReadingDirectory:
     eventText = tr("Reading Directory");
     break;
-  case BatchImportProfile::Started:
+  case BatchImporter::Started:
     eventText = tr("Started");
     break;
-  case BatchImportProfile::SourceSelected:
+  case BatchImporter::SourceSelected:
     eventText = tr("Source");
     break;
-  case BatchImportProfile::QueryingAlbumList:
+  case BatchImporter::QueryingAlbumList:
     eventText = tr("Querying");
     break;
-  case BatchImportProfile::FetchingTrackList:
-  case BatchImportProfile::FetchingCoverArt:
+  case BatchImporter::FetchingTrackList:
+  case BatchImporter::FetchingCoverArt:
     eventText = tr("Fetching");
     break;
-  case BatchImportProfile::TrackListReceived:
+  case BatchImporter::TrackListReceived:
     eventText = tr("Data received");
     break;
-  case BatchImportProfile::CoverArtReceived:
+  case BatchImporter::CoverArtReceived:
     eventText = tr("Cover");
     break;
-  case BatchImportProfile::Finished:
+  case BatchImporter::Finished:
     eventText = tr("Finished");
     break;
-  case BatchImportProfile::Aborted:
+  case BatchImporter::Aborted:
     eventText = tr("Aborted");
     break;
-  case BatchImportProfile::Error:
+  case BatchImporter::Error:
     eventText = tr("Error");
   }
   if (!text.isEmpty()) {

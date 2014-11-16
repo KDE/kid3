@@ -117,6 +117,8 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
              NOTIFY coverArtImageIdChanged)
   /** Directory renamer. */
   Q_PROPERTY(DirRenamer* dirRenamer READ getDirRenamer CONSTANT)
+  /** Batch importer. */
+  Q_PROPERTY(BatchImporter* batchImporter READ getBatchImporter CONSTANT)
 
 public:
   /** Destination for downloadImage(). */
@@ -989,6 +991,14 @@ public slots:
   void batchImport(const BatchImportProfile& profile,
                    Frame::TagVersion tagVersion);
 
+  /**
+   * Perform a batch import for the selected directories.
+   * @param profileName batch import profile name
+   * @param tagVersion import destination tag versions
+   * @return true if profile with @a profileName found.
+   */
+  bool batchImport(const QString& profileName, Frame::TagVersion tagVersion);
+
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
@@ -1271,6 +1281,7 @@ private:
   FileFilter* m_fileFilter;
   QString m_lastProcessedDirName;
   /* Context for batchImportNextFile() */
+  BatchImportProfile* m_namedBatchImportProfile;
   const BatchImportProfile* m_batchImportProfile;
   Frame::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;

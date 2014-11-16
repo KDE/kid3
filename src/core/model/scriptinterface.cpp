@@ -134,12 +134,7 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path,
  */
 bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
 {
-  BatchImportProfile profile;
-  if (BatchImportConfig::instance().getProfileByName(profileName, profile)) {
-    m_app->batchImport(profile, TrackData::tagVersionCast(tagMask));
-    return true;
-  }
-  return false;
+  return m_app->batchImport(profileName, TrackData::tagVersionCast(tagMask));
 }
 
 /**

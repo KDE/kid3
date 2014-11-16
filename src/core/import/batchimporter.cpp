@@ -89,7 +89,7 @@ void BatchImporter::start(const QList<ImportTrackDataVector>& trackLists,
   m_trackLists = trackLists;
   m_profile = profile;
   m_tagVersion = tagVersion;
-  emit reportImportEvent(BatchImportProfile::Started, profile.getName());
+  emit reportImportEvent(Started, profile.getName());
   m_trackListNr = -1;
   m_state = CheckNextTrackList;
   stateTransition();
@@ -102,7 +102,7 @@ void BatchImporter::start(const QList<ImportTrackDataVector>& trackLists,
  */
 bool BatchImporter::isAborted() const
 {
-  return m_state == Aborted;
+  return m_state == ImportAborted;
 }
 
 /**
@@ -110,7 +110,7 @@ bool BatchImporter::isAborted() const
  */
 void BatchImporter::clearAborted()
 {
-  if (m_state == Aborted) {
+  if (m_state == ImportAborted) {
     m_state = Idle;
     stateTransition();
   }
@@ -122,7 +122,7 @@ void BatchImporter::clearAborted()
 void BatchImporter::abort()
 {
   State oldState = m_state;
-  m_state = Aborted;
+  m_state = ImportAborted;
   if (oldState == Idle) {
     stateTransition();
   } else if (oldState == GettingCover) {
@@ -171,7 +171,7 @@ void BatchImporter::stateTransition()
         m_importedData = 0;
         m_state = CheckNextSource;
       } else {
-        emit reportImportEvent(BatchImportProfile::Finished, QString());
+        emit reportImportEvent(Finished, QString());
         emit finished();
         m_state = Idle;
       }
@@ -201,7 +201,7 @@ void BatchImporter::stateTransition()
       }
     }
     if (m_currentImporter) {
-      emit reportImportEvent(BatchImportProfile::SourceSelected,
+      emit reportImportEvent(SourceSelected,
                              QString::fromLatin1(m_currentImporter->name()));
       m_state = GettingAlbumList;
     } else {
@@ -211,7 +211,7 @@ void BatchImporter::stateTransition()
     break;
   case GettingAlbumList:
     if (m_currentImporter) {
-      emit reportImportEvent(BatchImportProfile::QueryingAlbumList,
+      emit reportImportEvent(QueryingAlbumList,
                              m_currentArtist + QLatin1String(" - ") + m_currentAlbum);
       m_albumNr = -1;
       m_albumModel = 0;
@@ -246,7 +246,7 @@ void BatchImporter::stateTransition()
     break;
   case GettingTracks:
     if (m_albumListItem && m_currentImporter) {
-      emit reportImportEvent(BatchImportProfile::FetchingTrackList,
+      emit reportImportEvent(FetchingTrackList,
                              m_albumListItem->text());
       int pendingData = m_requestedData & ~m_importedData;
       // Also fetch standard tags, so that accuracy can be measured
@@ -271,7 +271,7 @@ void BatchImporter::stateTransition()
         if (!coverArtUrl.isEmpty()) {
           imgUrl = DownloadClient::getImageUrl(coverArtUrl);
           if (!imgUrl.isEmpty()) {
-            emit reportImportEvent(BatchImportProfile::FetchingCoverArt,
+            emit reportImportEvent(FetchingCoverArt,
                                    coverArtUrl);
             m_downloadClient->startDownload(imgUrl);
           }
@@ -291,8 +291,8 @@ void BatchImporter::stateTransition()
     }
     stateTransition();
     break;
-  case Aborted:
-    emit reportImportEvent(BatchImportProfile::Aborted, QString());
+  case ImportAborted:
+    emit reportImportEvent(Aborted, QString());
     break;
   }
 }
@@ -303,7 +303,7 @@ void BatchImporter::onFindFinished(const QByteArray& searchStr)
              this, SLOT(onFindFinished(QByteArray)));
   disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
             this, SLOT(onFindProgress(QString,int,int)));
-  if (m_state == Aborted) {
+  if (m_state == ImportAborted) {
     stateTransition();
   } else if (m_currentImporter) {
     m_currentImporter->parseFindResults(searchStr);
@@ -320,7 +320,7 @@ void BatchImporter::onFindProgress(const QString& text, int step, int total)
                this, SLOT(onFindFinished(QByteArray)));
     disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
               this, SLOT(onFindProgress(QString,int,int)));
-    emit reportImportEvent(BatchImportProfile::Error, text);
+    emit reportImportEvent(Error, text);
     m_state = CheckNextAlbum;
     stateTransition();
   }
@@ -332,13 +332,13 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
              this, SLOT(onAlbumFinished(QByteArray)));
   disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
              this, SLOT(onAlbumProgress(QString,int,int)));
-  if (m_state == Aborted) {
+  if (m_state == ImportAborted) {
     stateTransition();
   } else if (m_trackDataModel && m_currentImporter) {
     m_currentImporter->parseAlbumResults(albumStr);
 
     int accuracy = m_trackDataModel->calculateAccuracy();
-    emit reportImportEvent(BatchImportProfile::TrackListReceived,
+    emit reportImportEvent(TrackListReceived,
                            tr("Accuracy") + QLatin1Char(' ') +
                            (accuracy >= 0
                             ? QString::number(accuracy) + QLatin1Char('%')
@@ -394,7 +394,7 @@ void BatchImporter::onAlbumProgress(const QString& text, int step, int total)
                this, SLOT(onAlbumFinished(QByteArray)));
     disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
                this, SLOT(onAlbumProgress(QString,int,int)));
-    emit reportImportEvent(BatchImportProfile::Error, text);
+    emit reportImportEvent(Error, text);
     m_state = GettingCover;
     stateTransition();
   }
@@ -403,12 +403,12 @@ void BatchImporter::onAlbumProgress(const QString& text, int step, int total)
 void BatchImporter::onImageDownloaded(const QByteArray& data,
                                     const QString& mimeType, const QString& url)
 {
-  if (m_state == Aborted) {
+  if (m_state == ImportAborted) {
     stateTransition();
   } else {
     if (data.size() >= 1024) {
       if (mimeType.startsWith(QLatin1String("image")) && m_trackDataModel) {
-        emit reportImportEvent(BatchImportProfile::CoverArtReceived, url);
+        emit reportImportEvent(CoverArtReceived, url);
         PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
         for (ImportTrackDataVector::iterator it = trackDataVector.begin();
@@ -423,7 +423,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
       }
     } else {
       // Probably an invalid 1x1 picture from Amazon
-      emit reportImportEvent(BatchImportProfile::CoverArtReceived,
+      emit reportImportEvent(CoverArtReceived,
                              tr("Invalid File"));
     }
     m_state = CheckIfDone;

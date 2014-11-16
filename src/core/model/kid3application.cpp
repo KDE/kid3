@@ -69,6 +69,7 @@
 #include "iframeeditor.h"
 #include "batchimportprofile.h"
 #include "batchimporter.h"
+#include "batchimportconfig.h"
 #include "iserverimporterfactory.h"
 #include "iservertrackimporterfactory.h"
 #include "itaggedfilefactory.h"
@@ -148,6 +149,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_selection(new TaggedFileSelection(m_framesV1Model, m_framesV2Model, this)),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(0),
+  m_namedBatchImportProfile(0),
   m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
   m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
@@ -202,6 +204,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
  */
 Kid3Application::~Kid3Application()
 {
+  delete m_namedBatchImportProfile;
   delete m_configStore;
 #if defined Q_OS_MAC && QT_VERSION >= 0x050000
   // If a song is played, then stopped and Kid3 is terminated, it will crash in
@@ -1008,7 +1011,7 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
   m_batchImportTrackDataList.clear();
   m_lastProcessedDirName.clear();
   m_batchImporter->clearAborted();
-  m_batchImporter->emitReportImportEvent(BatchImportProfile::ReadingDirectory,
+  m_batchImporter->emitReportImportEvent(BatchImporter::ReadingDirectory,
                                          QString());
   // If no directories are selected, process files of the current directory.
   QList<QPersistentModelIndex> indexes;
@@ -1024,6 +1027,26 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
   connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
           this, SLOT(batchImportNextFile(QPersistentModelIndex)));
   m_fileProxyModelIterator->start(indexes);
+}
+
+/**
+ * Perform a batch import for the selected directories.
+ * @param profileName batch import profile name
+ * @param tagVersion import destination tag versions
+ * @return true if profile with @a profileName found.
+ */
+bool Kid3Application::batchImport(const QString& profileName,
+                                  Frame::TagVersion tagVersion)
+{
+  if (!m_namedBatchImportProfile) {
+    m_namedBatchImportProfile = new BatchImportProfile;
+  }
+  if (BatchImportConfig::instance().getProfileByName(
+        profileName, *m_namedBatchImportProfile)) {
+    batchImport(*m_namedBatchImportProfile, tagVersion);
+    return true;
+  }
+  return false;
 }
 
 /**

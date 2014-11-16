@@ -34,6 +34,7 @@
 #include <QLabel>
 #include <QString>
 #include <QTableView>
+#include "batchimporter.h"
 #include "batchimportsourcedialog.h"
 #include "batchimportconfig.h"
 #include "batchimportsourcesmodel.h"
@@ -462,47 +463,46 @@ void BatchImportDialog::showHelp()
 
 /**
  * Show information about import event.
- * @param type import event type
+ * @param type import event type, enum BatchImporter::ImportEventType
  * @param text text to display
  */
-void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type,
-                                        const QString& text)
+void BatchImportDialog::showImportEvent(int type, const QString& text)
 {
   QString eventText;
   switch (type) {
-  case BatchImportProfile::ReadingDirectory:
+  case BatchImporter::ReadingDirectory:
     setAbortButton(true);
     eventText = tr("Reading Directory");
     break;
-  case BatchImportProfile::Started:
+  case BatchImporter::Started:
     setAbortButton(true);
     eventText = tr("Started");
     break;
-  case BatchImportProfile::SourceSelected:
+  case BatchImporter::SourceSelected:
     eventText = tr("Source");
     break;
-  case BatchImportProfile::QueryingAlbumList:
+  case BatchImporter::QueryingAlbumList:
     eventText = tr("Querying");
     break;
-  case BatchImportProfile::FetchingTrackList:
-  case BatchImportProfile::FetchingCoverArt:
+  case BatchImporter::FetchingTrackList:
+  case BatchImporter::FetchingCoverArt:
     eventText = tr("Fetching");
     break;
-  case BatchImportProfile::TrackListReceived:
+  case BatchImporter::TrackListReceived:
     eventText = tr("Data received");
     break;
-  case BatchImportProfile::CoverArtReceived:
+  case BatchImporter::CoverArtReceived:
     eventText = tr("Cover");
     break;
-  case BatchImportProfile::Finished:
+  case BatchImporter::Finished:
     setAbortButton(false);
     eventText = tr("Finished");
     break;
-  case BatchImportProfile::Aborted:
+  case BatchImporter::Aborted:
     setAbortButton(false);
     eventText = tr("Aborted");
     break;
-  case BatchImportProfile::Error:
+  case BatchImporter::Error:
     eventText = tr("Error");
   }
   if (!text.isEmpty()) {

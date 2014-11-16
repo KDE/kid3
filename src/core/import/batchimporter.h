@@ -42,9 +42,25 @@ class AlbumListItem;
 /**
  * Batch importer.
  */
-class BatchImporter : public QObject, public IAbortable {
+class KID3_CORE_EXPORT BatchImporter : public QObject, public IAbortable {
   Q_OBJECT
+  Q_ENUMS(ImportEventType)
 public:
+  /** Events occurring during batch import. */
+  enum ImportEventType {
+    ReadingDirectory,
+    Started,
+    SourceSelected,
+    QueryingAlbumList,
+    FetchingTrackList,
+    TrackListReceived,
+    FetchingCoverArt,
+    CoverArtReceived,
+    Finished,
+    Aborted,
+    Error
+  };
+
   /**
    * Constructor.
    * @param netMgr network access manager
@@ -97,7 +113,7 @@ public:
    * @param type type of event
    * @param text additional message
    */
-  void emitReportImportEvent(BatchImportProfile::ImportEventType type,
+  void emitReportImportEvent(ImportEventType type,
                              const QString& text) {
     emit reportImportEvent(type, text);
   }
@@ -105,11 +121,10 @@ public:
 signals:
   /**
    * Report event.
-   * @param type type of event
+   * @param type type of event, enum BatchImporter::ImportEventType
    * @param text additional message
    */
-  void reportImportEvent(BatchImportProfile::ImportEventType type,
-                         const QString& text);
+  void reportImportEvent(int type, const QString& text);
 
   /**
    * Emitted when the batch import is finished.
@@ -140,7 +155,7 @@ private:
     GettingTracks,
     GettingCover,
     CheckIfDone,
-    Aborted
+    ImportAborted
   };
 
   void stateTransition();

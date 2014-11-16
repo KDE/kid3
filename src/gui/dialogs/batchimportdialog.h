@@ -79,11 +79,10 @@ signals:
 public slots:
   /**
    * Show information about import event.
-   * @param type import event type
+   * @param type import event type, enum BatchImporter::ImportEventType
    * @param text text to display
    */
-  void showImportEvent(BatchImportProfile::ImportEventType type,
-                       const QString& text);
+  void showImportEvent(int type, const QString& text);
 
 private slots:
   /**

@@ -29,7 +29,6 @@
 
 #include <QObject>
 #include "trackdata.h"
-#include "batchimportprofile.h"
 #include "filefilter.h"
 #include "config.h"
 
@@ -388,11 +387,7 @@ protected:
   virtual void disconnectResultSignal();
 
 private slots:
-  void onReportImportEvent(BatchImportProfile::ImportEventType type,
-                           const QString& text);
-
-private:
-  BatchImportProfile m_profile;
+  void onReportImportEvent(int type, const QString& text);
 };
 
 /** Download album cover art. */

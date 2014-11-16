@@ -53,6 +53,7 @@
 #include "checkablelistmodel.h"
 #include "dirrenamer.h"
 #include "filefilter.h"
+#include "batchimporter.h"
 #include "config.h"
 
 #if QT_VERSION < 0x050000
@@ -78,6 +79,7 @@ Q_DECLARE_METATYPE(ConfigObjects*)
 Q_DECLARE_METATYPE(CheckableListModel*)
 Q_DECLARE_METATYPE(QItemSelectionModel*)
 Q_DECLARE_METATYPE(DirRenamer*)
+Q_DECLARE_METATYPE(BatchImporter*)
 
 namespace {
 
@@ -196,6 +198,8 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
         QLatin1String("Retrieve it using app.dirRenamer"));
     qmlRegisterUncreatableType<FileFilter>(
           uri, 1, 0, "FileFilter", QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<BatchImporter>(uri, 1, 0, "BatchImporter",
+        QLatin1String("Retrieve it using app.batchImporter"));
 #if QT_VERSION < 0x050000
     qRegisterMetaType<QModelIndex>();
 #endif
