@@ -392,11 +392,11 @@ click can also be activated there.
 <para>
 The directory list contains the names of the directories in the opened
 directory, as well as the current (<filename>.</filename>) and the parent
-(<filename>..</filename>) directory. It allows to quickly change the directory
+(<filename>..</filename>) directory. It allows one to quickly change the directory
 without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 </para>
 <para>
-Column visiblity, order and sorting can be configured as described in the
+Column visibility, order and sorting can be configured as described in the
 section about the <link linkend="file-list">file list</link>.
 </para>
 </sect2>
@@ -565,7 +565,7 @@ which are themselves composed of several fields. The tag 2 table shows
 all the frames which are available in the selected file.
 </para>
 <para>
-<guibutton>Edit</guibutton>: This will open a window which allows to edit all fields
+<guibutton>Edit</guibutton>: This will open a window which allows one to edit all fields
 of the selected frame.
 If multiple files are selected, the edited fields are applied to all selected files
 which contain such a frame.
@@ -1154,7 +1154,7 @@ dialog.</para></listitem>
 <guimenuitem>Automatic Import...</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-<action>Automatic Import</action> allows to import information for multiple
+<action>Automatic Import</action> allows one to import information for multiple
 albums from various web services. If directories are selected in the file
 list, track data for the selected directories will be imported. If no
 directory is selected, all directories in the file list will be imported.
