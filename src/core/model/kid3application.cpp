@@ -998,6 +998,18 @@ void Kid3Application::downloadImage(const QString& url, DownloadImageDestination
 }
 
 /**
+ * Download an image file.
+ *
+ * @param url URL of image
+ * @param allFilesInDir true to add the image to all files in the directory
+ */
+void Kid3Application::downloadImage(const QString& url, bool allFilesInDir)
+{
+  downloadImage(url, allFilesInDir
+                ? ImageForAllFilesInDirectory : ImageForSelectedFiles);
+}
+
+/**
  * Perform a batch import for the selected directories.
  * @param profile batch import profile
  * @param tagVersion import destination tag versions

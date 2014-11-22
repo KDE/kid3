@@ -195,6 +195,10 @@ MainView {
     onFileSelectionUpdateRequested: mainPage.updateCurrentSelection()
     onSelectedFilesUpdated: app.tagsToFrameModels()
   }
+  Connections {
+    target: app.downloadClient
+    onDownloadFinished: app.imageDownloaded(data, contentType, url)
+  }
 
   DropArea {                        //@QtQuick2
     anchors.fill: parent            //@QtQuick2

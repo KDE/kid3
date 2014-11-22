@@ -145,9 +145,7 @@ bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
  */
 void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
 {
-  m_app->downloadImage(url, allFilesInDir
-    ? Kid3Application::ImageForAllFilesInDirectory
-    : Kid3Application::ImageForSelectedFiles);
+  m_app->downloadImage(url, allFilesInDir);;
 }
 
 /**

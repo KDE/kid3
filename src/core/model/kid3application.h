@@ -119,7 +119,8 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(DirRenamer* dirRenamer READ getDirRenamer CONSTANT)
   /** Batch importer. */
   Q_PROPERTY(BatchImporter* batchImporter READ getBatchImporter CONSTANT)
-
+  /** Download client */
+  Q_PROPERTY(DownloadClient* downloadClient READ getDownloadClient CONSTANT)
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -292,7 +293,7 @@ public:
    * Get audio player.
    * @return audio player.
    */
-  AudioPlayer* getAudioPlayer();
+  Q_INVOKABLE AudioPlayer* getAudioPlayer();
 #endif
 
   /**
@@ -383,8 +384,8 @@ public:
    *
    * @return true if ok.
    */
-  bool importTags(Frame::TagVersion tagMask, const QString& path,
-                  int fmtIdx);
+  Q_INVOKABLE bool importTags(Frame::TagVersion tagMask, const QString& path,
+                              int fmtIdx);
 
   /**
    * Export.
@@ -395,8 +396,8 @@ public:
    *
    * @return true if ok.
    */
-  bool exportTags(Frame::TagVersion tagVersion,
-                  const QString& path, int fmtIdx);
+  Q_INVOKABLE bool exportTags(Frame::TagVersion tagVersion,
+                              const QString& path, int fmtIdx);
 
   /**
    * Write playlist according to playlist configuration.
@@ -477,6 +478,14 @@ public:
    * @param dest specifies affected files
    */
   void downloadImage(const QString& url, DownloadImageDestination dest);
+
+  /**
+   * Download an image file.
+   *
+   * @param url URL of image
+   * @param allFilesInDir true to add the image to all files in the directory
+   */
+  Q_INVOKABLE void downloadImage(const QString& url, bool allFilesInDir);
 
   /**
    * Get value of frame.

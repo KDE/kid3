@@ -34,7 +34,7 @@
  * Client to download via HTTP.
  * @see DownloadDialog
  */
-class DownloadClient : public HttpClient {
+class KID3_CORE_EXPORT DownloadClient : public HttpClient {
   Q_OBJECT
 public:
   /**

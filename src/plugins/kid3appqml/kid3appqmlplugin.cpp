@@ -54,7 +54,11 @@
 #include "dirrenamer.h"
 #include "filefilter.h"
 #include "batchimporter.h"
+#include "downloadclient.h"
 #include "config.h"
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+#include "audioplayer.h"
+#endif
 
 #if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Kid3AppQmlPlugin, Kid3AppQmlPlugin)
@@ -80,6 +84,10 @@ Q_DECLARE_METATYPE(CheckableListModel*)
 Q_DECLARE_METATYPE(QItemSelectionModel*)
 Q_DECLARE_METATYPE(DirRenamer*)
 Q_DECLARE_METATYPE(BatchImporter*)
+Q_DECLARE_METATYPE(DownloadClient*)
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+Q_DECLARE_METATYPE(AudioPlayer*)
+#endif
 
 namespace {
 
@@ -200,6 +208,12 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
           uri, 1, 0, "FileFilter", QLatin1String("Only enum container"));
     qmlRegisterUncreatableType<BatchImporter>(uri, 1, 0, "BatchImporter",
         QLatin1String("Retrieve it using app.batchImporter"));
+    qmlRegisterUncreatableType<DownloadClient>(uri, 1, 0, "DownloadClient",
+        QLatin1String("Retrieve it using app.downloadClient"));
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+    qmlRegisterUncreatableType<AudioPlayer>(uri, 1, 0, "AudioPlayer",
+        QLatin1String("Retrieve it using app.getAudioPlayer()"));
+#endif
 #if QT_VERSION < 0x050000
     qRegisterMetaType<QModelIndex>();
 #endif

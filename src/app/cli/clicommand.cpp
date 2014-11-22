@@ -595,11 +595,8 @@ void AlbumArtCommand::startCommand()
   int numArgs = args().size();
   if (numArgs > 1) {
     const QString& url = args().at(1);
-    Kid3Application::DownloadImageDestination dest =
-        numArgs > 2 && args().at(2) == QLatin1String("all")
-        ? Kid3Application::ImageForAllFilesInDirectory
-        : Kid3Application::ImageForSelectedFiles;
-    cli()->app()->downloadImage(url, dest);
+    cli()->app()->downloadImage(url,
+                  numArgs > 2 && args().at(2) == QLatin1String("all"));
   } else {
     showUsage();
     terminate();
