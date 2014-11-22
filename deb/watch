@@ -4,4 +4,5 @@
 version=3
 
 # Uncomment to find new files on sourceforge, for debscripts >= 2.9
+opts=pgpsigurlmangle=s/$/.asc/ \
 http://sf.net/kid3/kid3-(.*)\.tar\.gz debian svn-upgrade
