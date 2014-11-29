@@ -806,7 +806,9 @@ bool OggFile::setFrameV2(const Frame& frame)
   if (index != -1 && index < static_cast<int>(m_comments.size())) {
     QString value = frame.getValue();
     if (frame.getType() == Frame::FT_Picture) {
-      PictureFrame::getFieldsToBase64(frame, value);
+      Frame newFrame(frame);
+      PictureFrame::setDescription(newFrame, value);
+      PictureFrame::getFieldsToBase64(newFrame, value);
       if (!value.isEmpty() && frame.getInternalName() == QLatin1String("COVERART")) {
         QString mimeType;
         PictureFrame::getMimeType(frame, mimeType);

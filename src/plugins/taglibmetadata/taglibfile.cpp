@@ -4660,7 +4660,9 @@ bool TagLibFile::setFrameV2(const Frame& frame)
             return false;
           }
         } else {
-          PictureFrame::getFieldsToBase64(frame, frameValue);
+          Frame newFrame(frame);
+          PictureFrame::setDescription(newFrame, frameValue);
+          PictureFrame::getFieldsToBase64(newFrame, frameValue);
           if (!frameValue.isEmpty() &&
               frame.getInternalName() == QLatin1String("COVERART")) {
             QString mimeType;
