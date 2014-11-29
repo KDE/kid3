@@ -126,7 +126,10 @@ public:
       // These are additional fields used by TagLib
       ID_Price,
       ID_Date,
-      ID_Seller
+      ID_Seller,
+
+      // Additional field for METADATA_BLOCK_PICTURE
+      ID_ImageProperties
     };
 
     /** Text encoding for fields of type ID_TextEnc. */

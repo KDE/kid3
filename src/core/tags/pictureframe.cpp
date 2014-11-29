@@ -62,6 +62,34 @@ static const char* pictureTypeNames[] = {
 
 }
 
+
+/**
+ * Construct properties from a new image.
+ * @param data image data
+ */
+PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
+{
+  QImage image;
+  if (image.loadFromData(data)) {
+    m_width = image.width();
+    m_height = image.height();
+    m_depth = image.depth();
+#if QT_VERSION >= 0x040600
+    m_numColors = image.colorCount();
+#else
+    m_numColors = image.numColors();
+#endif
+    m_imageHash = qHash(data);
+  } else {
+    m_width = 0;
+    m_height = 0;
+    m_depth = 0;
+    m_numColors = 0;
+    m_imageHash = 0;
+  }
+}
+
+
 /**
  * Constructor.
  *
@@ -120,11 +148,13 @@ PictureFrame::~PictureFrame()
  * @param pictureType picture type
  * @param description description
  * @param data        binary picture data
+ * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
  */
 void PictureFrame::setFields(Frame& frame,
                              Field::TextEncoding enc, const QString& imgFormat,
                              const QString& mimeType, PictureType pictureType,
-                             const QString& description, const QByteArray& data)
+                             const QString& description, const QByteArray& data,
+                             const ImageProperties* imgProps)
 {
   Field field;
   FieldList& fields = frame.fieldList();
@@ -154,6 +184,12 @@ void PictureFrame::setFields(Frame& frame,
   field.m_value = data;
   fields.push_back(field);
 
+  if (imgProps && !imgProps->isNull()) {
+    field.m_id = Field::ID_ImageProperties;
+    field.m_value.setValue(*imgProps);
+    fields.push_back(field);
+  }
+
   frame.setValue(description);
 }
 
@@ -168,11 +204,13 @@ void PictureFrame::setFields(Frame& frame,
  * @param pictureType picture type
  * @param description description
  * @param data        binary picture data
+ * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
  */
 void PictureFrame::getFields(const Frame& frame,
                              Field::TextEncoding& enc, QString& imgFormat,
                              QString& mimeType, PictureType& pictureType,
-                             QString& description, QByteArray& data)
+                             QString& description, QByteArray& data,
+                             ImageProperties* imgProps)
 {
   for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
        it != frame.getFieldList().end();
@@ -195,6 +233,11 @@ void PictureFrame::getFields(const Frame& frame,
         break;
       case Field::ID_Data:
         data = (*it).m_value.toByteArray();
+        break;
+      case Field::ID_ImageProperties:
+        if (imgProps) {
+          *imgProps = (*it).m_value.value<ImageProperties>();
+        }
         break;
       default:
         qDebug("Unknown picture field ID");
@@ -561,6 +604,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString mimeType(QLatin1String("image/jpeg"));
   QString description(QLatin1String(""));
+  ImageProperties imgProps;
   if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
     unsigned long baSize = static_cast<unsigned long>(ba.size());
     if (baSize < 32) return;
@@ -578,15 +622,24 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
     if (baSize < index + descLen + 20) return;
     description = QString::fromUtf8(ba.data() + index, descLen);
     index += descLen;
-    index += 16; // width, height, depth, number of colors
+    uint width, height, depth, numColors;
+    width = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    height = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    depth = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    numColors = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
     unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
     index += 4;
     if (baSize < index + picLen) return;
     ba = ba.mid(index);
+    imgProps = ImageProperties(width, height, depth, numColors, ba);
   }
   PictureFrame::setFields(
     frame, Frame::Field::TE_UTF8, QLatin1String(""), mimeType,
-    pictureType, description, ba);
+    pictureType, description, ba, &imgProps);
 }
 
 /**
@@ -601,8 +654,9 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString imgFormat, mimeType, description;
   QByteArray pic;
+  ImageProperties imgProps;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType,
-                          pictureType, description, pic);
+                          pictureType, description, pic, &imgProps);
   if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
     QByteArray mimeStr = mimeType.toLatin1();
     QByteArray descStr = description.toUtf8();
@@ -622,25 +676,17 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
     renderCharsToByteArray(descStr, ba, index, descLen);
     index += descLen;
 
-    int width = 0, height = 0, depth = 0, numColors = 0;
-    QImage image;
-    if (image.loadFromData(pic)) {
-      width = image.width();
-      height = image.height();
-      depth = image.depth();
-#if QT_VERSION >= 0x040600
-      numColors = image.colorCount();
-#else
-      numColors = image.numColors();
-#endif
+    if (!imgProps.isValidForImage(pic)) {
+      imgProps = ImageProperties(pic);
     }
-    renderBigEndianULongToByteArray(width, ba, index);
+
+    renderBigEndianULongToByteArray(imgProps.width(), ba, index);
     index += 4;
-    renderBigEndianULongToByteArray(height, ba, index);
+    renderBigEndianULongToByteArray(imgProps.height(), ba, index);
     index += 4;
-    renderBigEndianULongToByteArray(depth, ba, index);
+    renderBigEndianULongToByteArray(imgProps.depth(), ba, index);
     index += 4;
-    renderBigEndianULongToByteArray(numColors, ba, index);
+    renderBigEndianULongToByteArray(imgProps.numColors(), ba, index);
     index += 4;
 
     renderBigEndianULongToByteArray(picLen, ba, index);

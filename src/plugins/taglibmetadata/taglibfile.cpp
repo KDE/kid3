@@ -126,11 +126,15 @@ namespace {
 void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
 {
   TagLib::ByteVector picData(pic->data());
+  QByteArray ba(picData.data(), picData.size());
+  PictureFrame::ImageProperties imgProps(
+        pic->width(), pic->height(), pic->colorDepth(),
+        pic->numColors(), ba);
   PictureFrame::setFields(
     frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), TStringToQString(pic->mimeType()),
     static_cast<PictureFrame::PictureType>(pic->type()),
     TStringToQString(pic->description()),
-    QByteArray(picData.data(), picData.size()));
+    ba, &imgProps);
 }
 
 /**
@@ -147,23 +151,20 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
   PictureFrame::PictureType pictureType;
   QString description;
   QByteArray data;
+  PictureFrame::ImageProperties imgProps;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
-                          description, data);
+                          description, data, &imgProps);
   pic->setType(static_cast<TagLib::FLAC::Picture::Type>(pictureType));
   pic->setMimeType(QSTRING_TO_TSTRING(mimeType));
   pic->setDescription(QSTRING_TO_TSTRING(description));
   pic->setData(TagLib::ByteVector(data.data(), data.size()));
-  QImage image;
-  if (image.loadFromData(data)) {
-    pic->setWidth(image.width());
-    pic->setHeight(image.height());
-    pic->setColorDepth(image.depth());
-#if QT_VERSION >= 0x040600
-    pic->setNumColors(image.colorCount());
-#else
-    pic->setNumColors(image.numColors());
-#endif
+  if (!imgProps.isValidForImage(data)) {
+    imgProps = PictureFrame::ImageProperties(data);
   }
+  pic->setWidth(imgProps.width());
+  pic->setHeight(imgProps.height());
+  pic->setColorDepth(imgProps.depth());
+  pic->setNumColors(imgProps.numColors());
 }
 #endif
 

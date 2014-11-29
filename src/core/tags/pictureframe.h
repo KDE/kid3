@@ -59,6 +59,78 @@ public:
     PT_PublisherLogo = 20
   };
 
+
+  /**
+   * Additional properties for METADATA_BLOCK_PICTURE.
+   */
+  class ImageProperties {
+  public:
+    /** Default constructor. */
+    ImageProperties() :
+      m_width(0), m_height(0), m_depth(0), m_numColors(0), m_imageHash(0) {}
+
+    /**
+     * Construct from properties in METADATA_BLOCK_PICTURE.
+     * @param width width of picture in pixels
+     * @param height height of picture in pixels
+     * @param depth color depth of picture in bits-per-pixel
+     * @param numColors number of colors used for indexed-color pictures
+     *                  (e.g. GIF), or 0 for non-indexed pictures
+     * @param data image data
+     */
+    ImageProperties(uint width, uint height, uint depth, uint numColors,
+                    const QByteArray& data) :
+      m_width(width), m_height(height), m_depth(depth), m_numColors(numColors),
+      m_imageHash(qHash(data)) {}
+
+    /**
+     * Construct properties from a new image.
+     * @param data image data
+     */
+    explicit ImageProperties(const QByteArray& data);
+
+    /**
+     * Check if the image properties are not set.
+     * @return true if not set.
+     */
+    bool isNull() const {
+      return m_width == 0 && m_height == 0 && m_depth == 0 &&
+          m_numColors == 0 && m_imageHash == 0;
+    }
+
+    /**
+     * Check if image properties are valid for an image.
+     * @param data image data
+     * @return true if valid.
+     */
+    bool isValidForImage(const QByteArray& data) const {
+      return !isNull() && qHash(data) == m_imageHash;
+    }
+
+    /** Width of picture in pixels. */
+    uint width() const { return m_width; }
+
+    /** Height of picture in pixels. */
+    uint height() const { return m_height; }
+
+    /** Color depth of picture in bits-per-pixel.*/
+    uint depth() const { return m_depth; }
+
+    /**
+     * Number of colors used for indexed-color pictures (e.g. GIF),
+     * or 0 for non-indexed pictures.
+     */
+    uint numColors() const { return m_numColors; }
+
+  private:
+    uint m_width;
+    uint m_height;
+    uint m_depth;
+    uint m_numColors;
+    uint m_imageHash;
+  };
+
+
   /**
    * Constructor.
    *
@@ -99,12 +171,14 @@ public:
    * @param pictureType picture type
    * @param description description
    * @param data        binary picture data
+   * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
    */
   static void setFields(
     Frame& frame,
     Field::TextEncoding enc = Field::TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
     const QString& mimeType = QLatin1String("image/jpeg"), PictureType pictureType = PT_CoverFront,
-    const QString& description = QLatin1String(""), const QByteArray& data = QByteArray());
+    const QString& description = QLatin1String(""), const QByteArray& data = QByteArray(),
+    const ImageProperties* imgProps = 0);
 
   /**
    * Get all properties.
@@ -117,11 +191,13 @@ public:
    * @param pictureType picture type
    * @param description description
    * @param data        binary picture data
+   * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
    */
   static void getFields(const Frame& frame,
                         Field::TextEncoding& enc, QString& imgFormat,
                         QString& mimeType, PictureType& pictureType,
-                        QString& description, QByteArray& data);
+                        QString& description, QByteArray& data,
+                        ImageProperties* imgProps = 0);
 
   /**
    * Check if all the fields of two picture frames are equal.
@@ -322,5 +398,7 @@ public:
    */
   static const char** getPictureTypeNames();
 };
+
+Q_DECLARE_METATYPE(PictureFrame::ImageProperties)
 
 #endif // PICTUREFRAME_H

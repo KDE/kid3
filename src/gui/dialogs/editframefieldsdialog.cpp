@@ -1090,6 +1090,9 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
        fldIt != m_fields.end();
        ++fldIt) {
     Frame::Field& fld = *fldIt;
+    if (fld.m_id == Frame::Field::ID_ImageProperties)
+      continue;
+
     switch (fld.m_value.type()) {
       case QVariant::Int:
       case QVariant::UInt:

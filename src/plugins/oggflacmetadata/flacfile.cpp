@@ -76,6 +76,9 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
 {
   QByteArray ba(reinterpret_cast<const char*>(pic->get_data()),
     pic->get_data_length());
+  PictureFrame::ImageProperties imgProps(
+        pic->get_width(), pic->get_height(), pic->get_depth(),
+        pic->get_colors(), ba);
   PictureFrame::setFields(
     frame,
     Frame::Field::TE_ISO8859_1, QLatin1String(""),
@@ -83,7 +86,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
     static_cast<PictureFrame::PictureType>(pic->get_type()),
     QString::fromUtf8(
       reinterpret_cast<const char*>(pic->get_description())),
-    ba);
+    ba, &imgProps);
   frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, QLatin1String("Picture")));
 }
 
@@ -99,19 +102,16 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString imgFormat, mimeType, description;
   QByteArray ba;
+  PictureFrame::ImageProperties imgProps;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType,
-                          pictureType, description, ba);
-  QImage image;
-  if (image.loadFromData(ba)) {
-    pic->set_width(image.width());
-    pic->set_height(image.height());
-    pic->set_depth(image.depth());
-#if QT_VERSION >= 0x040600
-    pic->set_colors(image.colorCount());
-#else
-    pic->set_colors(image.numColors());
-#endif
+                          pictureType, description, ba, &imgProps);
+  if (!imgProps.isValidForImage(ba)) {
+    imgProps = PictureFrame::ImageProperties(ba);
   }
+  pic->set_width(imgProps.width());
+  pic->set_height(imgProps.height());
+  pic->set_depth(imgProps.depth());
+  pic->set_colors(imgProps.numColors());
   pic->set_mime_type(mimeType.toLatin1());
   pic->set_type(
     static_cast<FLAC__StreamMetadata_Picture_Type>(pictureType));
