@@ -664,3 +664,72 @@ TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
   }
   return taggedFile;
 }
+
+/**
+ * Read tagged file with Ogg FLAC.
+ *
+ * @param taggedFile tagged file
+ *
+ * @return tagged file (can be newly created tagged file).
+ */
+TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
+{
+  const QPersistentModelIndex& index = taggedFile->getIndex();
+  if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_OggFlac,
+          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+    if (index.isValid()) {
+      QVariant data;
+      data.setValue(tagLibFile);
+      // setData() will not invalidate the model, so this should be safe.
+      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+          index.model());
+      if (setDataModel) {
+        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+      }
+    }
+    taggedFile = tagLibFile;
+    taggedFile->readTags(false);
+  }
+  return taggedFile;
+}
+
+/**
+ * Try to read Ogg file with invalid tag detail info as an Ogg FLAC file.
+ *
+ * @param taggedFile tagged file
+ *
+ * @return tagged file (can be new TagLibFile).
+ */
+TaggedFile* FileProxyModel::readWithOggFlacIfInvalidOgg(TaggedFile* taggedFile)
+{
+  if (taggedFile &&
+      (taggedFile->taggedFileFeatures() &
+       (TaggedFile::TF_OggPictures | TaggedFile::TF_OggFlac)) ==
+        TaggedFile::TF_OggPictures &&
+      !taggedFile->isChanged() &&
+      taggedFile->isTagInformationRead()) {
+    TaggedFile::DetailInfo info;
+    taggedFile->getDetailInfo(info);
+    if (!info.valid) {
+      taggedFile = readWithOggFlac(taggedFile);
+    }
+  }
+  return taggedFile;
+}
+
+/**
+ * Call readTags() on tagged file.
+ * Reread file with other metadata plugin if it is not supported by current
+ * plugin.
+ *
+ * @param taggedFile tagged file
+ *
+ * @return tagged file (can be new TaggedFile).
+ */
+TaggedFile* FileProxyModel::readTagsFromTaggedFile(TaggedFile* taggedFile)
+{
+  taggedFile->readTags(false);
+  taggedFile = readWithId3V24IfId3V24(taggedFile);
+  taggedFile = readWithOggFlacIfInvalidOgg(taggedFile);
+  return taggedFile;
+}

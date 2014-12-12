@@ -619,9 +619,7 @@ void Kid3Application::tagsToFrameModels(
        ++it) {
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
     if (taggedFile) {
-      taggedFile->readTags(false);
-
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
 
       if (taggedFile->isTagV1Supported()) {
         if (m_selectionTagV1SupportedCount == 0) {
@@ -903,8 +901,7 @@ void Kid3Application::filesToTrackData(TrackData::TagVersion tagVersion,
   TaggedFileOfDirectoryIterator it(currentOrRootIndex());
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
-    taggedFile->readTags(false);
-    taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+    taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
     trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
   }
 }
@@ -1023,8 +1020,7 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
   bool terminated = !index.isValid();
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
         if (!m_batchImportTrackDataList.isEmpty()) {
@@ -2165,8 +2161,7 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
   bool terminated = !index.isValid();
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       m_dirRenamer->scheduleAction(taggedFile);
       if (m_dirRenamer->isAborted()) {
         terminated = true;
@@ -2213,8 +2208,7 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
   bool terminated = !index.isValid();
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
         emit fileFiltered(FileFilter::Directory, m_lastProcessedDirName);

@@ -659,8 +659,7 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
     QString propsStr = selection.contains(idx)
         ? QLatin1String(">") : QLatin1String(" ");
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(idx)) {
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       propsStr +=
           (taggedFile->isChanged() ? QLatin1String("*") : QLatin1String(" ")) +
           (taggedFile->hasTagV1() ? QLatin1Char('1') : QLatin1Char('-')) +

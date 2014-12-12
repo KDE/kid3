@@ -186,8 +186,7 @@ void TagSearcher::searchNextFile(const QPersistentModelIndex& index)
   if (index.isValid()) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       emit progress(taggedFile->getFilename());
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
 
       Position pos;
       if (searchInFile(taggedFile, &pos, 1)) {

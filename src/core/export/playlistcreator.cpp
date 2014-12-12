@@ -187,8 +187,7 @@ PlaylistCreator::Item::~Item()
 QString PlaylistCreator::Item::formatString(const QString& format)
 {
   if (!m_trackData) {
-    m_taggedFile->readTags(false);
-    m_taggedFile = FileProxyModel::readWithId3V24IfId3V24(m_taggedFile);
+    m_taggedFile = FileProxyModel::readTagsFromTaggedFile(m_taggedFile);
     m_trackData = new ImportTrackData(*m_taggedFile, ImportTrackData::TagV2V1);
   }
   return m_trackData->formatString(format);

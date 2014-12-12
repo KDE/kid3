@@ -77,6 +77,10 @@
 #include <wavpackfile.h>
 #endif
 
+#if TAGLIB_VERSION >= 0x010500
+#include <oggflacfile.h>
+#endif
+
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
 #include <mp4file.h>
@@ -393,11 +397,16 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "MP3")
       return new TagLib::MPEG::File(stream,
                                     TagLib::ID3v2::FrameFactory::instance());
-    if (ext == "OGG")
-      return new TagLib::Vorbis::File(stream);
+    if (ext == "OGG") {
+      TagLib::File* file = new TagLib::Vorbis::File(stream);
+      if (!file->isValid()) {
+        delete file;
+        file = new TagLib::Ogg::FLAC::File(stream);
+      }
+      return file;
+    }
     if (ext == "OGA") {
-      TagLib::File* file =
-        new TagLib::FLAC::File(stream, TagLib::ID3v2::FrameFactory::instance());
+      TagLib::File* file = new TagLib::Ogg::FLAC::File(stream);
       if (!file->isValid()) {
         delete file;
         file = new TagLib::Vorbis::File(stream);
@@ -597,6 +606,12 @@ QString TagLibFile::taggedFileKey() const
 int TagLibFile::taggedFileFeatures() const
 {
   return TF_ID3v11 | TF_ID3v22 |
+#if TAGLIB_VERSION >= 0x010500
+      TF_OggFlac |
+#endif
+#if TAGLIB_VERSION >= 0x010700
+      TF_OggPictures |
+#endif
 #if TAGLIB_VERSION >= 0x010800
       TF_ID3v23 |
 #endif

@@ -284,6 +284,35 @@ public:
    */
   static TaggedFile* readWithId3V24IfId3V24(TaggedFile* taggedFile);
 
+  /**
+   * Read tagged file with Ogg FLAC.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return tagged file (can be newly created tagged file).
+   */
+  static TaggedFile* readWithOggFlac(TaggedFile* taggedFile);
+
+  /**
+   * Try to read Ogg file with invalid tag detail info as an Ogg FLAC file.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return tagged file (can be new TagLibFile).
+   */
+  static TaggedFile* readWithOggFlacIfInvalidOgg(TaggedFile* taggedFile);
+
+  /**
+   * Call readTags() on tagged file.
+   * Reread file with other metadata plugin if it is not supported by current
+   * plugin.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return tagged file (can be new TaggedFile).
+   */
+  static TaggedFile* readTagsFromTaggedFile(TaggedFile* taggedFile);
+
 signals:
   /**
    * Emitted after directory loading when sorting is probably finished.

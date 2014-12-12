@@ -46,7 +46,8 @@ public:
     TF_ID3v22      = 1 << 1, /**< Supports ID3v2.2 tags */
     TF_ID3v23      = 1 << 2, /**< Supports ID3v2.3 tags */
     TF_ID3v24      = 1 << 3, /**< Supports ID3v2.4 tags */
-    TF_OggPictures = 1 << 4  /**< Supports pictures in Ogg files */
+    TF_OggPictures = 1 << 4, /**< Supports pictures in Ogg files */
+    TF_OggFlac     = 1 << 5  /**< Supports Ogg FLAC files */
   };
 
   /** Information about file. */
