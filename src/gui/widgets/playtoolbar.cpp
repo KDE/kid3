@@ -89,7 +89,12 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   QMediaPlayer* mediaPlayer = m_player->mediaPlayer();
   m_seekSlider = new QSlider(Qt::Horizontal, splitter);
   m_seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_seekSlider->setRange(0, mediaPlayer->duration() / 1000);
+  m_seekSlider->setMinimum(0);
+  // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
+  int maximum = mediaPlayer->duration() / 1000;
+  if (maximum > 0) {
+    m_seekSlider->setMaximum(maximum);
+  }
   connect(m_seekSlider, SIGNAL(actionTriggered(int)),
           this, SLOT(seekAction(int)));
   m_muteAction = new QAction(
@@ -276,7 +281,11 @@ void PlayToolBar::error(QMediaPlayer::Error err)
  */
 void PlayToolBar::durationChanged(qint64 duration)
 {
-  m_seekSlider->setMaximum(duration / 1000);
+  int maximum = duration / 1000;
+  // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
+  if (maximum > 0) {
+    m_seekSlider->setMaximum(maximum);
+  }
 }
 
 /**
@@ -344,7 +353,11 @@ void  PlayToolBar::trackChanged(const QString& filePath,
   m_previousAction->setEnabled(hasPrevious);
   m_nextAction->setEnabled(hasNext);
 
-  m_seekSlider->setMaximum(m_player->mediaPlayer()->duration() / 1000);
+  int maximum = m_player->mediaPlayer()->duration() / 1000;
+  // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
+  if (maximum > 0) {
+    m_seekSlider->setMaximum(maximum);
+  }
 #endif
 }
 
