@@ -37,7 +37,7 @@ public:
   /**
    * Additional properties for METADATA_BLOCK_PICTURE.
    */
-  class ImageProperties {
+  class KID3_CORE_EXPORT ImageProperties {
   public:
     /** Default constructor. */
     ImageProperties() :
