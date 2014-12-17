@@ -273,8 +273,11 @@ void AudioPlayer::aboutToFinish()
 void AudioPlayer::currentIndexChanged(int position)
 {
   if (position >= 0 && position < m_mediaPlaylist->mediaCount()) {
+    QString filePath =
+        m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
+    emit aboutToPlay(filePath);
     emit trackChanged(
-          m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile(),
+          filePath,
           position > 0, position + 1 < m_mediaPlaylist->mediaCount());
   }
 }
