@@ -144,8 +144,8 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   QLabel* coverArtLabel = new QLabel(tr("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);
   m_coverArtUrlLabel = new QLabel(QLatin1String(" -"));
-  accuracyLayout->addWidget(m_coverArtUrlLabel);
-  accuracyLayout->addStretch();
+  m_coverArtUrlLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
+  accuracyLayout->addWidget(m_coverArtUrlLabel, 1);
   vlayout->addLayout(accuracyLayout);
 
   QHBoxLayout* butlayout = new QHBoxLayout;

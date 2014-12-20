@@ -676,12 +676,12 @@ void DiscogsImporter::sendFindQuery(
 {
   /*
    * Query looks like this:
-   * http://www.discogs.com/search/?q=amon+amarth+avenger&type=release
+   * http://www.discogs.com/search/?q=amon+amarth+avenger&type=release&layout=sm
    */
   sendRequest(QString::fromLatin1(discogsServer),
               QString(QLatin1String("/search/?q=")) +
               encodeUrlQuery(artist + QLatin1Char(' ') + album) +
-              QLatin1String("&type=release"),
+              QLatin1String("&type=release&layout=sm"),
               m_discogsHeaders);
 }
 
