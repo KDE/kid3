@@ -25,8 +25,14 @@
  */
 
 #include "kdesettings.h"
+#include <QtConfig>
+#if QT_VERSION >= 0x050000
+#include <KConfig>
+#include <KConfigGroup>
+#else
 #include <kconfig.h>
 #include <kconfiggroup.h>
+#endif
 
 /**
  * Constructor.

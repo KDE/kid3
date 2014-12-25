@@ -5,8 +5,10 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 9),
- libqt4-dev,
- kdelibs5-dev,
+# KDE 4
+ libqt4-dev, kdelibs5-dev,
+# KDE 5
+# extra-cmake-modules, kio-dev, kdoctools-dev,
  cmake,
  libid3-3.8.3-dev,
  libflac++-dev,

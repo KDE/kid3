@@ -36,6 +36,33 @@ macro (kid3_create_handbook _docbook)
   install(FILES ${_output} DESTINATION ${WITH_DOCDIR})
 endmacro (kid3_create_handbook)
 
+# Create handbook for KDE 5.
+# Replace meinproc5 with wrapper to change DTD version, then generate KDE help.
+macro (kf5_create_handbook _docbook)
+  cmake_minimum_required(VERSION 2.8.12)
+  find_package(ECM REQUIRED NO_MODULE)
+  set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+  include(KDEInstallDirs)
+  find_package(KF5 REQUIRED COMPONENTS DocTools)
+  file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.pl
+       CONTENT "#!/usr/bin/perl
+use File::Temp qw(tempfile);
+my $docbook = pop @ARGV;
+my $out_fh = new File::Temp(UNLINK => 1);
+if (open(my $in_fh, \"<\", $docbook)) {
+  while (<$in_fh>) {
+    s@\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"@\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"@;
+    print $out_fh $_;
+  }
+}
+push @ARGV, $out_fh;
+exec \"$<TARGET_FILE:KF5::meinproc5>\", @ARGV
+")
+  get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+  set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PERL_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.pl)
+  kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang} SUBDIR kid3)
+endmacro (kf5_create_handbook _docbook)
+
 if (UNIX)
   if (NOT WITH_NO_MANCOMPRESS)
     find_program(GZIP_EXECUTABLE gzip)

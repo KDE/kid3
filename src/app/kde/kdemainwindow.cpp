@@ -25,6 +25,26 @@
  */
 
 #include "kdemainwindow.h"
+#if QT_VERSION >= 0x050000
+#include <KConfig>
+#include <KToggleAction>
+#include <KStandardAction>
+#include <KShortcutsDialog>
+#include <KRecentFilesAction>
+#include <KActionCollection>
+#include <KEditToolBar>
+#include <KConfigSkeleton>
+#include <QApplication>
+#include <QUrl>
+#include <QAction>
+
+#define KUrl QUrl
+#define KAction QAction
+#define KShortcut QKeySequence
+#define KIcon QIcon::fromTheme
+#define KSharedConfig_openConfig KSharedConfig::openConfig
+
+#else
 #include <kapplication.h>
 #include <kurl.h>
 #include <kconfig.h>
@@ -36,6 +56,11 @@
 #include <kactioncollection.h>
 #include <kedittoolbar.h>
 #include <kconfigskeleton.h>
+
+/** Create object for configuration file. */
+#define KSharedConfig_openConfig KGlobal::config
+
+#endif
 #include <QAction>
 #include "config.h"
 #include "qtcompatmac.h"
@@ -84,7 +109,11 @@ void KdeMainWindow::initActions()
       impl(), SLOT(slotFileOpen()), actionCollection());
   m_fileOpenRecent = KStandardAction::openRecent(
       this,
-      SLOT(slotFileOpenRecentUrl(KUrl)),
+#if QT_VERSION >= 0x050000
+        SLOT(slotFileOpenRecentUrl(QUrl)),
+#else
+        SLOT(slotFileOpenRecentUrl(KUrl)),
+#endif
       actionCollection());
   KAction* fileRevert = KStandardAction::revert(
       app(), SLOT(revertFileModifications()), actionCollection());
@@ -113,7 +142,12 @@ void KdeMainWindow::initActions()
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   fileRevert->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
+#if QT_VERSION >= 0x050000
+  actionCollection()->setDefaultShortcuts(fileRevert,
+                          KStandardShortcut::shortcut(KStandardShortcut::Undo));
+#else
   fileRevert->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::Undo));
+#endif
   fileSave->setStatusTip(tr("Saves the changed files"));
   fileQuit->setStatusTip(tr("Quits the application"));
   editSelectAll->setStatusTip(tr("Select all files"));
@@ -224,11 +258,21 @@ void KdeMainWindow::initActions()
   actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
   connect(editSelectAllInDir, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
   KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
+#if QT_VERSION >= 0x050000
+  actionCollection()->setDefaultShortcuts(editPreviousFile,
+                         KStandardShortcut::shortcut(KStandardShortcut::Prior));
+#else
   editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
+#endif
   actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
   connect(editPreviousFile, SIGNAL(triggered()), app(), SLOT(previousFile()));
   KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
+#if QT_VERSION >= 0x050000
+  actionCollection()->setDefaultShortcuts(editNextFile,
+                         KStandardShortcut::shortcut(KStandardShortcut::Next));
+#else
   editNextFile->setShortcut(KShortcut(QLatin1String("Alt+Down")));
+#endif
   actionCollection()->addAction(QLatin1String("next_file"), editNextFile);
   connect(editNextFile, SIGNAL(triggered()), app(), SLOT(nextFile()));
   KAction* actionV1FromFilename = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Filename"), this);
@@ -326,7 +370,7 @@ void KdeMainWindow::readConfig()
   setAutoSaveSettings();
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
-  m_fileOpenRecent->loadEntries(KGlobal::config()->group("Recent Files"));
+  m_fileOpenRecent->loadEntries(KSharedConfig_openConfig()->group("Recent Files"));
 }
 
 /**
@@ -334,7 +378,7 @@ void KdeMainWindow::readConfig()
  */
 void KdeMainWindow::saveConfig()
 {
-  m_fileOpenRecent->saveEntries(KGlobal::config()->group("Recent Files"));
+  m_fileOpenRecent->saveEntries(KSharedConfig_openConfig()->group("Recent Files"));
 }
 
 /**

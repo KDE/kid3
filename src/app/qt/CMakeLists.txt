@@ -70,34 +70,34 @@ if (UNIX AND NOT APPLE)
     DESTINATION "${WITH_DATAROOTDIR}/appdata")
   if (GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
-      COMMAND ${GZIP_PROGRAM} -cd ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-app-kid3.svgz >kid3-qt.svg
-      DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-app-kid3.svgz
+      COMMAND ${GZIP_PROGRAM} -cd ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz >kid3-qt.svg
+      DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz
     )
     set(qt_SRCS ${qt_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps")
   else (GZIP_PROGRAM)
-    install(FILES ../hisc-app-kid3.svgz
+    install(FILES ../hisc-apps-kid3.svgz
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
             RENAME kid3-qt.svgz)
   endif (GZIP_PROGRAM)
-  install(FILES ../hi128-app-kid3.png
+  install(FILES ../hi128-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/128x128/apps"
           RENAME kid3-qt.png)
-  install(FILES ../hi64-app-kid3.png
+  install(FILES ../hi64-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/64x64/apps"
           RENAME kid3-qt.png)
-  install(FILES ../hi48-app-kid3.png
+  install(FILES ../hi48-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
           RENAME kid3-qt.png)
-  install(FILES ../hi32-app-kid3.png
+  install(FILES ../hi32-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/32x32/apps"
           RENAME kid3-qt.png)
-  install(FILES ../hi16-app-kid3.png
+  install(FILES ../hi16-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
           RENAME kid3-qt.png)
 elseif (APPLE)
-  install(FILES ../hi48-app-kid3.png
+  install(FILES ../hi48-apps-kid3.png
           DESTINATION ${WITH_DATAROOTDIR}
           RENAME kid3.png)
 endif (UNIX AND NOT APPLE)

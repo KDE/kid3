@@ -25,6 +25,20 @@
  */
 
 #include "kdeplatformtools.h"
+#include <QtConfig>
+#if QT_VERSION >= 0x050000
+#include <KIO/CopyJob>
+#include <KHelpClient>
+#include <KMessageBox>
+#include <KConfig>
+#include <QUrl>
+#include <QFileDialog>
+
+#define KUrl QUrl
+#define KIcon QIcon::fromTheme
+#define KHelpClient_invokeHelp KHelpClient::invokeHelp
+
+#else
 #include <kurl.h>
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>
@@ -32,6 +46,11 @@
 #include <kmessagebox.h>
 #include <kfiledialog.h>
 #include <kconfig.h>
+
+/** Invoke help viewer. */
+#define KHelpClient_invokeHelp KToolInvocation::invokeHelp
+
+#endif
 #include <QCoreApplication>
 #include "kdesettings.h"
 
@@ -77,7 +96,11 @@ bool KdePlatformTools::moveToTrash(const QString& path) const
   KUrl src;
   src.setPath(path);
   KIO::Job* job = KIO::trash(src);
+#if QT_VERSION >= 0x050000
+  return job->exec();
+#else
   return KIO::NetAccess::synchronousRun(job, 0);
+#endif
 }
 
 /**
@@ -87,7 +110,7 @@ bool KdePlatformTools::moveToTrash(const QString& path) const
  */
 void KdePlatformTools::displayHelp(const QString& anchor)
 {
-  KToolInvocation::invokeHelp(anchor);
+  KHelpClient_invokeHelp(anchor);
 }
 
 /**
@@ -217,6 +240,10 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
     const QString& caption, const QString& dir, const QString& filter,
     QString* selectedFilter)
 {
+#if QT_VERSION >= 0x050000
+  return QFileDialog::getOpenFileName(
+        parent, caption, dir, filter, selectedFilter);
+#else
   if (selectedFilter) {
     QString selectedFile;
     KFileDialog diag(dir, filter, parent);
@@ -232,6 +259,7 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
   } else {
     return KFileDialog::getOpenFileName(dir, filter, parent, caption);
   }
+#endif
 }
 
 /**
@@ -247,6 +275,10 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
     const QString& caption, const QString& dir,
     const QString& filter, QString* selectedFilter)
 {
+#if QT_VERSION >= 0x050000
+  return QFileDialog::getOpenFileNames(
+        parent, caption, dir, filter, selectedFilter);
+#else
   if (selectedFilter) {
     QStringList selectedFiles;
     KFileDialog diag(dir, filter, parent);
@@ -263,6 +295,7 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
   } else {
     return KFileDialog::getOpenFileNames(dir, filter, parent, caption);
   }
+#endif
 }
 
 /**
@@ -278,6 +311,10 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
     const QString& caption, const QString& dir, const QString& filter,
     QString* selectedFilter)
 {
+#if QT_VERSION >= 0x050000
+  return QFileDialog::getSaveFileName(
+        parent, caption, dir, filter, selectedFilter);
+#else
   if (selectedFilter) {
     QString selectedFile;
     KFileDialog diag(dir, filter, parent);
@@ -294,6 +331,7 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
   } else {
     return KFileDialog::getSaveFileName(dir, filter, parent, caption);
   }
+#endif
 }
 
 /**
@@ -306,7 +344,12 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
 QString KdePlatformTools::getExistingDirectory(QWidget* parent,
     const QString& caption, const QString& startDir)
 {
+#if QT_VERSION >= 0x050000
+  return QFileDialog::getExistingDirectory(parent, caption, startDir,
+                                           QFileDialog::ShowDirsOnly);
+#else
   return KFileDialog::getExistingDirectory(startDir, parent, caption);
+#endif
 }
 
 /**

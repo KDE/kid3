@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+# To build with KDE 5:
+# In dh_auto_configure, add -DWITH_QT5=ON and remove
+# CONFIG_INSTALL_DIR, DATA_INSTALL_DIR, HTML_INSTALL_DIR, KCFG_INSTALL_DIR.
+# To get rid of the warning, remove the rm command in dh_auto_install.
+# Adapt control and kid3.install according to the comments in the files.
 DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
@@ -28,7 +33,7 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	dh_auto_install
-	rm $(CURDIR)/debian/tmp/usr/share/doc/kde/HTML/*/kid3/common
+	-rm $(CURDIR)/debian/tmp/usr/share/doc/kde/HTML/*/kid3/common
 
 override_dh_makeshlibs:
 	dh_makeshlibs --noscripts

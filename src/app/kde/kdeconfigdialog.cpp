@@ -50,7 +50,12 @@ KdeConfigDialog::KdeConfigDialog(QWidget* parent, QString& caption,
   addPage(m_pages->createNetworkPage(), tr("Network"), QLatin1String("preferences-system-network"));
   addPage(m_pages->createPluginsPage(), tr("Plugins"), QLatin1String("preferences-plugin"));
 
+#if QT_VERSION >= 0x050000
+  setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
+                     QDialogButtonBox::Help);
+#else
   setButtons(Ok | Cancel | Help);
+#endif
   setHelp(QLatin1String("configure-kid3"));
 }
 
