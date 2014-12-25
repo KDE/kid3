@@ -229,8 +229,10 @@ public:
 private:
   /**
    * Open file handle, is called by operations which need a file handle.
+   *
+   * @return true if file is open.
    */
-  void openFileHandle() const;
+  bool openFileHandle() const;
 
   /**
    * Register open files, so that the number of open files can be limited.
@@ -283,17 +285,23 @@ FileIOStream::~FileIOStream()
   delete [] m_fileName;
 }
 
-void FileIOStream::openFileHandle() const
+bool FileIOStream::openFileHandle() const
 {
   if (!m_fileStream) {
     FileIOStream* self = const_cast<FileIOStream*>(this);
     self->m_fileStream =
         new TagLib::FileStream(TagLib::FileName(m_fileName));
+    if (!self->m_fileStream->isOpen()) {
+      delete self->m_fileStream;
+      self->m_fileStream = 0;
+      return false;
+    }
     if (m_offset > 0) {
       m_fileStream->seek(m_offset);
     }
     registerOpenFile(self);
   }
+  return true;
 }
 
 void FileIOStream::closeFileHandle()
@@ -316,34 +324,40 @@ TagLib::FileName FileIOStream::name() const
 
 TagLib::ByteVector FileIOStream::readBlock(ulong length)
 {
-  openFileHandle();
-  return m_fileStream->readBlock(length);
+  if (openFileHandle()) {
+    return m_fileStream->readBlock(length);
+  }
+  return TagLib::ByteVector();
 }
 
 void FileIOStream::writeBlock(const TagLib::ByteVector &data)
 {
-  openFileHandle();
-  m_fileStream->writeBlock(data);
+  if (openFileHandle()) {
+    m_fileStream->writeBlock(data);
+  }
 }
 
 void FileIOStream::insert(const TagLib::ByteVector &data,
                           ulong start, ulong replace)
 {
-  openFileHandle();
-  m_fileStream->insert(data, start, replace);
+  if (openFileHandle()) {
+    m_fileStream->insert(data, start, replace);
+  }
 }
 
 void FileIOStream::removeBlock(ulong start, ulong length)
 {
-  openFileHandle();
-  m_fileStream->removeBlock(start, length);
-
+  if (openFileHandle()) {
+    m_fileStream->removeBlock(start, length);
+  }
 }
 
 bool FileIOStream::readOnly() const
 {
-  openFileHandle();
-  return m_fileStream->readOnly();
+  if (openFileHandle()) {
+    return m_fileStream->readOnly();
+  }
+  return true;
 }
 
 bool FileIOStream::isOpen() const
@@ -356,32 +370,39 @@ bool FileIOStream::isOpen() const
 
 void FileIOStream::seek(long offset, Position p)
 {
-  openFileHandle();
-  m_fileStream->seek(offset, p);
+  if (openFileHandle()) {
+    m_fileStream->seek(offset, p);
+  }
 }
 
 void FileIOStream::clear()
 {
-  openFileHandle();
-  m_fileStream->clear();
+  if (openFileHandle()) {
+    m_fileStream->clear();
+  }
 }
 
 long FileIOStream::tell() const
 {
-  openFileHandle();
-  return m_fileStream->tell();
+  if (openFileHandle()) {
+    return m_fileStream->tell();
+  }
+  return 0;
 }
 
 long FileIOStream::length()
 {
-  openFileHandle();
-  return m_fileStream->length();
+  if (openFileHandle()) {
+    return m_fileStream->length();
+  }
+  return 0;
 }
 
 void FileIOStream::truncate(long length)
 {
-  openFileHandle();
-  m_fileStream->truncate(length);
+  if (openFileHandle()) {
+    m_fileStream->truncate(length);
+  }
 }
 
 TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
