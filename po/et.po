@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -416,6 +416,123 @@ msgstr "Mihkel Tõnnov"
 msgid "Your emails"
 msgstr "mihhkel@gmail.com"
 
+msgid "Automatic Import"
+msgstr "Automaatimport"
+
+msgid "Destination:"
+msgstr "Sihtkoht:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
+
+msgid "Profile:"
+msgstr "Profiil:"
+
+msgid "Close"
+msgstr "Sulge"
+
+msgid "Start"
+msgstr "Alusta"
+
+msgid "Cancel"
+msgstr "Loobu"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Expression:"
+msgstr "Avaldis:"
+
+msgid "Apply"
+msgstr "Rakenda"
+
+msgid "Export"
+msgstr "Eksport"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Add Frame"
+msgstr "Raami lisamine"
+
+msgid "Select the frame ID"
+msgstr "Raami ID"
+
+msgid " [modified]"
+msgstr " [muudetud]"
+
+msgid " [filtered]"
+msgstr " [filtreeritud]"
+
+msgid "Warning"
+msgstr "Hoiatus"
+
+msgid "The current directory has been modified.\n"
+msgstr "Kataloogi sisu on muudetud."
+
+msgid "Apply Filename Format"
+msgstr "Failinime vormingu rakendamine"
+
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
+msgid "Apply Text Encoding"
+msgstr "Teksti kodeeringu rakendamine"
+
+msgid "Rename Directory"
+msgstr "Kataloogi ümbernimetamine"
+
+msgid "Number Tracks"
+msgstr "Lugude nummerdamine"
+
+msgid "Create Playlist"
+msgstr "Esitusloendi loomine"
+
+msgid "Save"
+msgstr "Salvestamine"
+
+msgid "Quit"
+msgstr "Välju"
+
+msgid "Yes"
+msgstr "Jah"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Start number:"
+msgstr "Algusnumber:"
+
+msgid "Total number of tracks"
+msgstr "Lugude koguarv"
+
+msgid "Picture"
+msgstr "Pilt"
+
+msgid "Action:"
+msgstr "Toiming:"
+
+msgid "Create Directory"
+msgstr "Kataloogi loomine"
+
+msgid "Source:"
+msgstr "Allikas:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Siltide 1 ja 2 põhjal"
+
+msgid "Format:"
+msgstr "Vorming:"
+
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "To Filename"
+msgstr "Esitada failinime"
+
 msgid "&Back"
 msgstr "&Tagasi"
 
@@ -536,21 +653,6 @@ msgstr "Ase&nda..."
 msgid "&Tools"
 msgstr "&Tööriistad"
 
-msgid "Apply Filename Format"
-msgstr "Failinime vormingu rakendamine"
-
-msgid "Apply Tag Format"
-msgstr "Sildivormingu rakendamine"
-
-msgid "Apply Text Encoding"
-msgstr "Teksti kodeeringu rakendamine"
-
-msgid "Rename Directory"
-msgstr "Kataloogi ümbernimetamine"
-
-msgid "Number Tracks"
-msgstr "Lugude nummerdamine"
-
 msgid "&Settings"
 msgstr "&Seadistused"
 
@@ -595,9 +697,6 @@ msgstr "Qt info"
 
 msgid "About &Qt"
 msgstr "&Qt info"
-
-msgid " [modified]"
-msgstr " [muudetud]"
 
 msgid "Toggle the statusbar..."
 msgstr "Lülita olekuriba..."
@@ -869,6 +968,9 @@ msgstr "Liik"
 msgid "Date Modified"
 msgstr "Muutmise kuupäev"
 
+msgid "Text"
+msgstr "Tekst"
+
 msgid "Data"
 msgstr "Andmed"
 
@@ -884,9 +986,6 @@ msgstr "Otsimine lõpetatud"
 msgid "Event Code"
 msgstr "Sündmuse kood"
 
-msgid "Text"
-msgstr "Tekst"
-
 msgid "Track"
 msgstr "Loo nr"
 
@@ -895,6 +994,111 @@ msgstr "Täielik tee faili juurde"
 
 msgid "Duration"
 msgstr "Kestus"
+
+msgid "Text Encoding"
+msgstr "Teksti kodeering"
+
+msgid "Description"
+msgstr "Kirjeldus"
+
+msgid "Owner"
+msgstr "Omanik"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Rating"
+msgstr "Hinnang"
+
+msgid "Language"
+msgstr "Keel"
+
+msgid "Picture Type"
+msgstr "Pildi tüüp"
+
+msgid "Image format"
+msgstr "Pildivorming"
+
+msgid "Mimetype"
+msgstr "MIME-tüüp"
+
+msgid "Counter"
+msgstr "Loendur"
+
+msgid "Identifier"
+msgstr "Identifikaator"
+
+msgid "Volume Adjustment"
+msgstr "Helitugevuse korrigeerimine"
+
+msgid "Number of Bits"
+msgstr "Bittide arv"
+
+msgid "Volume Change Right"
+msgstr "Helitugevuse muutus paremal"
+
+msgid "Volume Change Left"
+msgstr "Helitugevuse muutus vasakul"
+
+msgid "Peak Volume Right"
+msgstr "Helitugevuse tipp paremal"
+
+msgid "Peak Volume Left"
+msgstr "Helitugevuse tipp vasakul"
+
+msgid "Timestamp Format"
+msgstr "Ajatempli vorming"
+
+msgid "Content Type"
+msgstr "Sisu tüüp"
+
+msgid "Price"
+msgstr "Hind"
+
+msgid "Date"
+msgstr "Aasta"
+
+msgid "Seller"
+msgstr "Müüja"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF16BE"
+msgstr "UTF-16-BE"
+
+msgid "UTF8"
+msgstr "UTF-8"
+
+msgid "Other"
+msgstr "Muu"
+
+msgid "MPEG frames as unit"
+msgstr "Ühikutena MPEG-kaadrid"
+
+msgid "Milliseconds as unit"
+msgstr "Ühikutena millisekundid"
+
+msgid "Lyrics"
+msgstr "Sõnad"
+
+msgid "Text transcription"
+msgstr "Teksti transkriptsioon"
+
+msgid "Movement/part name"
+msgstr "Liikumise/osa nimi"
+
+msgid "Events"
+msgstr "Sündmused"
+
+msgid "Chord"
+msgstr "Akord"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/hüpik"
 
 msgid "Title"
 msgstr "Pealkiri"
@@ -907,9 +1111,6 @@ msgstr "Album"
 
 msgid "Comment"
 msgstr "Kommentaar"
-
-msgid "Date"
-msgstr "Aasta"
 
 msgid "Track Number"
 msgstr "Loo number"
@@ -965,14 +1166,8 @@ msgstr "Esialgne võti"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Keel"
-
 msgid "Lyricist"
 msgstr "Sõnade autor"
-
-msgid "Lyrics"
-msgstr "Sõnad"
 
 msgid "Media"
 msgstr "Andmekandja"
@@ -994,9 +1189,6 @@ msgstr "Osa"
 
 msgid "Performer"
 msgstr "Ettekandja"
-
-msgid "Picture"
-msgstr "Pilt"
 
 msgid "Publisher"
 msgstr "Väljaandja"
@@ -1033,9 +1225,6 @@ msgstr "WWW-audiofail"
 
 msgid "WWW Audio Source"
 msgstr "WWW-audioallikas"
-
-msgid "Other"
-msgstr "Muu"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 px PNG-vormingus faili ikoon"
@@ -1112,14 +1301,8 @@ msgstr "Koodek"
 msgid "Escape for HTML"
 msgstr "HTML-i paojada"
 
-msgid "Automatic Import"
-msgstr "Automaatimport"
-
 msgid "D&estination:"
 msgstr "&Sihtkoht:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Silt 1 ja silt 2"
 
 msgid "&Profile:"
 msgstr "&Profiil:"
@@ -1163,9 +1346,6 @@ msgstr "&Esitaja / Album"
 msgid "&Source"
 msgstr "&Allikas"
 
-msgid "Source:"
-msgstr "Allikas:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1207,15 +1387,6 @@ msgstr "Num&brite vähim arv loo numbris:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "&Stiil salvestatakse numberkoodi asemel tekstina"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "&Version used for new tags:"
 msgstr "Uutes siltides kasutatav &versioon:"
@@ -1261,9 +1432,6 @@ msgstr "Käivitamine"
 
 msgid "&Load last-opened files"
 msgstr "&Laaditakse viimati avatud failid"
-
-msgid "Save"
-msgstr "Salvestamine"
 
 msgid "&Preserve file timestamp"
 msgstr "Failide aja&templid säilitatakse"
@@ -1319,95 +1487,8 @@ msgstr "&Lõikepuhvrist"
 msgid "&View..."
 msgstr "&Näita..."
 
-msgid "Text Encoding"
-msgstr "Teksti kodeering"
-
-msgid "Description"
-msgstr "Kirjeldus"
-
-msgid "Owner"
-msgstr "Omanik"
-
-msgid "Email"
-msgstr "E-post"
-
-msgid "Rating"
-msgstr "Hinnang"
-
-msgid "Picture Type"
-msgstr "Pildi tüüp"
-
-msgid "Image format"
-msgstr "Pildivorming"
-
-msgid "Mimetype"
-msgstr "MIME-tüüp"
-
-msgid "Counter"
-msgstr "Loendur"
-
-msgid "Identifier"
-msgstr "Identifikaator"
-
-msgid "Volume Adjustment"
-msgstr "Helitugevuse korrigeerimine"
-
-msgid "Number of Bits"
-msgstr "Bittide arv"
-
-msgid "Volume Change Right"
-msgstr "Helitugevuse muutus paremal"
-
-msgid "Volume Change Left"
-msgstr "Helitugevuse muutus vasakul"
-
-msgid "Peak Volume Right"
-msgstr "Helitugevuse tipp paremal"
-
-msgid "Peak Volume Left"
-msgstr "Helitugevuse tipp vasakul"
-
-msgid "Timestamp Format"
-msgstr "Ajatempli vorming"
-
-msgid "Content Type"
-msgstr "Sisu tüüp"
-
-msgid "Price"
-msgstr "Hind"
-
-msgid "Seller"
-msgstr "Müüja"
-
 msgid "Images"
 msgstr "Pildid"
-
-msgid "UTF16BE"
-msgstr "UTF-16-BE"
-
-msgid "MPEG frames as unit"
-msgstr "Ühikutena MPEG-kaadrid"
-
-msgid "Milliseconds as unit"
-msgstr "Ühikutena millisekundid"
-
-msgid "Text transcription"
-msgstr "Teksti transkriptsioon"
-
-msgid "Movement/part name"
-msgstr "Liikumise/osa nimi"
-
-msgid "Events"
-msgstr "Sündmused"
-
-msgid "Chord"
-msgstr "Akord"
-
-msgid "Trivia/pop up"
-msgstr "Trivia/hüpik"
-
-msgid "Export"
-msgstr "Eksport"
 
 msgid "&Format:"
 msgstr "&Vorming:"
@@ -1514,9 +1595,6 @@ msgstr "&Sihtkoht:"
 msgid "&Total number of tracks:"
 msgstr "L&ugude koguarv:"
 
-msgid "Create Playlist"
-msgstr "Esitusloendi loomine"
-
 msgid "Playlist File Name"
 msgstr "Esitusloendi failinimi"
 
@@ -1562,17 +1640,8 @@ msgstr "Kirjutatakse ainult failide &loend"
 msgid "Write &info using"
 msgstr "Kirjutatakse &info"
 
-msgid "Preview"
-msgstr "Eelvaade"
-
-msgid "Create Directory"
-msgstr "Kataloogi loomine"
-
 msgid "&Action:"
 msgstr "&Toiming:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Siltide 1 ja 2 põhjal"
 
 msgid "From:"
 msgstr "Faili nimeks:"
@@ -1597,9 +1666,6 @@ msgstr "Tulemust pole valitud"
 
 msgid "Import from Tags"
 msgstr "Import siltidest"
-
-msgid "Format:"
-msgstr "Vorming:"
 
 msgid "Extraction:"
 msgstr "Avaldis:"
@@ -1638,29 +1704,14 @@ msgstr ""
 "Kataloogi sisu on muudetud.\n"
 "Kas salvestada see?"
 
-msgid "Warning"
-msgstr "Hoiatus"
-
 msgid "Exiting..."
 msgstr "Väljumine..."
 
 msgid "Creating playlist..."
 msgstr "Esitusnimekirja loomine..."
 
-msgid "Import"
-msgstr "Import"
-
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
-
-msgid " [filtered]"
-msgstr " [filtreeritud]"
-
-msgid "Add Frame"
-msgstr "Raami lisamine"
-
-msgid "Select the frame ID"
-msgstr "Raami ID"
 
 msgid "Rename File"
 msgstr "Faili ümbernimetamine"
@@ -1820,9 +1871,6 @@ msgstr "Eelmine lugu"
 
 msgid "Next Track"
 msgstr "Järgmine lugu"
-
-msgid "Close"
-msgstr "Sulge"
 
 msgid "Mute"
 msgstr "Summuta"

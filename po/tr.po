@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -415,6 +415,123 @@ msgstr "Mehmet Yilmaz SÜSLÜ"
 msgid "Your emails"
 msgstr "yilmazsuslu@gmail.com"
 
+msgid "Automatic Import"
+msgstr "Otomatik al"
+
+msgid "Destination:"
+msgstr "Hedef:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 ve Tag 2"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Start"
+msgstr "Başlat"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "OK"
+msgstr "Tamam"
+
+msgid "Filter:"
+msgstr "Filtre:"
+
+msgid "Expression:"
+msgstr "İfade:"
+
+msgid "Apply"
+msgstr "Uygula"
+
+msgid "Export"
+msgstr "Dışa Aktar"
+
+msgid "Import"
+msgstr "Al"
+
+msgid "Add Frame"
+msgstr "Çerçeve Ekle"
+
+msgid "Select the frame ID"
+msgstr "Çerçeve numarasını seç"
+
+msgid " [modified]"
+msgstr " [değişti]"
+
+msgid " [filtered]"
+msgstr " [süzgeci]"
+
+msgid "Warning"
+msgstr "Uyarı"
+
+msgid "The current directory has been modified.\n"
+msgstr "İçinde bulunduğunuz dizin değiştirildi."
+
+msgid "Apply Filename Format"
+msgstr "Dosya Adı Yapısını Uygula"
+
+msgid "Apply Tag Format"
+msgstr "Tag Yapısını Uygula"
+
+msgid "Apply Text Encoding"
+msgstr "Karakter Kodlaması Uygula"
+
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
+msgid "Number Tracks"
+msgstr "Parça Numaraları"
+
+msgid "Create Playlist"
+msgstr "Playlist Yarat"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Quit"
+msgstr "Çık"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Start number:"
+msgstr "Başlangıç numarası:"
+
+msgid "Total number of tracks"
+msgstr "Toplam Parça Sayısı"
+
+msgid "Picture"
+msgstr "Resim"
+
+msgid "Action:"
+msgstr "Eylem:"
+
+msgid "Create Directory"
+msgstr "Dizin Yarat"
+
+msgid "Source:"
+msgstr "Kaynak:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Tag 2 ve Tag 1'den"
+
+msgid "Format:"
+msgstr "Biçim:"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "To Filename"
+msgstr "Dosya adı için"
+
 msgid "&Back"
 msgstr "&Geri"
 
@@ -535,21 +652,6 @@ msgstr "D&eğiştir..."
 msgid "&Tools"
 msgstr "&Araçlar"
 
-msgid "Apply Filename Format"
-msgstr "Dosya Adı Yapısını Uygula"
-
-msgid "Apply Tag Format"
-msgstr "Tag Yapısını Uygula"
-
-msgid "Apply Text Encoding"
-msgstr "Karakter Kodlaması Uygula"
-
-msgid "Rename Directory"
-msgstr "Dizini Yeniden Adlandır"
-
-msgid "Number Tracks"
-msgstr "Parça Numaraları"
-
 msgid "&Settings"
 msgstr "Ayarla&r"
 
@@ -594,9 +696,6 @@ msgstr "Qt Hakkında"
 
 msgid "About &Qt"
 msgstr "&Qt Hakkında"
-
-msgid " [modified]"
-msgstr " [değişti]"
 
 msgid "Toggle the statusbar..."
 msgstr "Durum çubuğu açılı/kapatılıyor..."
@@ -868,6 +967,9 @@ msgstr "Tür"
 msgid "Date Modified"
 msgstr "Değişim Tarihi"
 
+msgid "Text"
+msgstr "Metin"
+
 msgid "Data"
 msgstr "Veri"
 
@@ -883,9 +985,6 @@ msgstr "Arama tamamlandı"
 msgid "Event Code"
 msgstr "Kod"
 
-msgid "Text"
-msgstr "Metin"
-
 msgid "Track"
 msgstr "Parça No"
 
@@ -894,6 +993,111 @@ msgstr ""
 
 msgid "Duration"
 msgstr "Süre"
+
+msgid "Text Encoding"
+msgstr "Karakter Kodlaması"
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "Owner"
+msgstr "Sahibi"
+
+msgid "Email"
+msgstr "E-posta"
+
+msgid "Rating"
+msgstr "Puan"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "Picture Type"
+msgstr "Resim Tipi"
+
+msgid "Image format"
+msgstr "Görüntü Formatı"
+
+msgid "Mimetype"
+msgstr "Mime-türü"
+
+msgid "Counter"
+msgstr "Sayaç"
+
+msgid "Identifier"
+msgstr "Tanımlayıcı"
+
+msgid "Volume Adjustment"
+msgstr "Ses seviyesi ayarı"
+
+msgid "Number of Bits"
+msgstr "Bit sayısı"
+
+msgid "Volume Change Right"
+msgstr "Sağ Ses Seviyesi Değişimi"
+
+msgid "Volume Change Left"
+msgstr "Sol Ses Seviyesi Değişimi"
+
+msgid "Peak Volume Right"
+msgstr "Sağ Üst Ses Sınırı"
+
+msgid "Peak Volume Left"
+msgstr "Sol Üst Ses Sınırı"
+
+msgid "Timestamp Format"
+msgstr "Timestamp biçimi"
+
+msgid "Content Type"
+msgstr "İçerik Türü"
+
+msgid "Price"
+msgstr "Fiyat"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Seller"
+msgstr "Satıcı"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "Diğer"
+
+msgid "MPEG frames as unit"
+msgstr "Birim olarak MPEG çerçeveleri"
+
+msgid "Milliseconds as unit"
+msgstr "MBirim olarak milisaniye"
+
+msgid "Lyrics"
+msgstr "Şarkı Sözleri"
+
+msgid "Text transcription"
+msgstr "Yazı Çevrimi"
+
+msgid "Movement/part name"
+msgstr "Hareket/Bölüm adı"
+
+msgid "Events"
+msgstr "Olaylar"
+
+msgid "Chord"
+msgstr "Akor"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
 
 msgid "Title"
 msgstr "Şarkı Adı"
@@ -906,9 +1110,6 @@ msgstr "Albüm"
 
 msgid "Comment"
 msgstr "Yorum"
-
-msgid "Date"
-msgstr "Tarih"
 
 msgid "Track Number"
 msgstr "Parça Numarası"
@@ -964,14 +1165,8 @@ msgstr "İlk anahtar"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Dil"
-
 msgid "Lyricist"
 msgstr "Söz Yazar"
-
-msgid "Lyrics"
-msgstr "Şarkı Sözleri"
 
 msgid "Media"
 msgstr "Ortam"
@@ -993,9 +1188,6 @@ msgstr "Bölüm"
 
 msgid "Performer"
 msgstr "Sanatçı"
-
-msgid "Picture"
-msgstr "Resim"
 
 msgid "Publisher"
 msgstr "Yayıncı"
@@ -1032,9 +1224,6 @@ msgstr "Ses dosyası WWW"
 
 msgid "WWW Audio Source"
 msgstr "Ses dosyasının WWW"
-
-msgid "Other"
-msgstr "Diğer"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 piksel PNG dosya ikonu"
@@ -1111,14 +1300,8 @@ msgstr "Kodlayıcı"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Otomatik al"
-
 msgid "D&estination:"
 msgstr "H&edef:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 ve Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1162,9 +1345,6 @@ msgstr "Sanatçı/&Albüm"
 msgid "&Source"
 msgstr "&Kaynak"
 
-msgid "Source:"
-msgstr "Kaynak:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1206,15 +1386,6 @@ msgstr "&Hane sayısı:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr ""
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "&Yeni tag'lar için kullanılan sürüm:"
@@ -1260,9 +1431,6 @@ msgstr "Başlangıç"
 
 msgid "&Load last-opened files"
 msgstr ""
-
-msgid "Save"
-msgstr "Kaydet"
 
 msgid "&Preserve file timestamp"
 msgstr "&Dosya timestamp değerini sakla"
@@ -1319,95 +1487,8 @@ msgstr "&Panodan"
 msgid "&View..."
 msgstr "Görü&nüm..."
 
-msgid "Text Encoding"
-msgstr "Karakter Kodlaması"
-
-msgid "Description"
-msgstr "Açıklama"
-
-msgid "Owner"
-msgstr "Sahibi"
-
-msgid "Email"
-msgstr "E-posta"
-
-msgid "Rating"
-msgstr "Puan"
-
-msgid "Picture Type"
-msgstr "Resim Tipi"
-
-msgid "Image format"
-msgstr "Görüntü Formatı"
-
-msgid "Mimetype"
-msgstr "Mime-türü"
-
-msgid "Counter"
-msgstr "Sayaç"
-
-msgid "Identifier"
-msgstr "Tanımlayıcı"
-
-msgid "Volume Adjustment"
-msgstr "Ses seviyesi ayarı"
-
-msgid "Number of Bits"
-msgstr "Bit sayısı"
-
-msgid "Volume Change Right"
-msgstr "Sağ Ses Seviyesi Değişimi"
-
-msgid "Volume Change Left"
-msgstr "Sol Ses Seviyesi Değişimi"
-
-msgid "Peak Volume Right"
-msgstr "Sağ Üst Ses Sınırı"
-
-msgid "Peak Volume Left"
-msgstr "Sol Üst Ses Sınırı"
-
-msgid "Timestamp Format"
-msgstr "Timestamp biçimi"
-
-msgid "Content Type"
-msgstr "İçerik Türü"
-
-msgid "Price"
-msgstr "Fiyat"
-
-msgid "Seller"
-msgstr "Satıcı"
-
 msgid "Images"
 msgstr "Resimler"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Birim olarak MPEG çerçeveleri"
-
-msgid "Milliseconds as unit"
-msgstr "MBirim olarak milisaniye"
-
-msgid "Text transcription"
-msgstr "Yazı Çevrimi"
-
-msgid "Movement/part name"
-msgstr "Hareket/Bölüm adı"
-
-msgid "Events"
-msgstr "Olaylar"
-
-msgid "Chord"
-msgstr "Akor"
-
-msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
-
-msgid "Export"
-msgstr "Dışa Aktar"
 
 msgid "&Format:"
 msgstr "&Biçim:"
@@ -1514,9 +1595,6 @@ msgstr "He&def:"
 msgid "&Total number of tracks:"
 msgstr "&Toplam Parça Sayısı:"
 
-msgid "Create Playlist"
-msgstr "Playlist Yarat"
-
 msgid "Playlist File Name"
 msgstr ""
 
@@ -1562,17 +1640,8 @@ msgstr ""
 msgid "Write &info using"
 msgstr ""
 
-msgid "Preview"
-msgstr "Önizleme"
-
-msgid "Create Directory"
-msgstr "Dizin Yarat"
-
 msgid "&Action:"
 msgstr "&Eylem:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Tag 2 ve Tag 1'den"
 
 msgid "From:"
 msgstr "Şuradan:"
@@ -1597,9 +1666,6 @@ msgstr "Hiç sonuç seçilmedi"
 
 msgid "Import from Tags"
 msgstr "Tag'den Al"
-
-msgid "Format:"
-msgstr "Biçim:"
 
 msgid "Extraction:"
 msgstr "Çıkarma:"
@@ -1638,29 +1704,14 @@ msgstr ""
 "İçinde bulunduğunuz dizin değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
-msgid "Warning"
-msgstr "Uyarı"
-
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
 
 msgid "Creating playlist..."
 msgstr "Playlist Yaratılıyor..."
 
-msgid "Import"
-msgstr "Al"
-
 msgid "Error while renaming:\n"
 msgstr "İsim değiştirirken hata:\n"
-
-msgid " [filtered]"
-msgstr " [süzgeci]"
-
-msgid "Add Frame"
-msgstr "Çerçeve Ekle"
-
-msgid "Select the frame ID"
-msgstr "Çerçeve numarasını seç"
 
 msgid "Rename File"
 msgstr "Dosya Adını Değiştir"
@@ -1820,9 +1871,6 @@ msgstr "Önceki Parça"
 
 msgid "Next Track"
 msgstr "Sonraki Parça"
-
-msgid "Close"
-msgstr "Kapat"
 
 msgid "Mute"
 msgstr "Sessiz"

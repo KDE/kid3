@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -416,6 +416,123 @@ msgstr "Tommi Nieminen, Ville Skyttä"
 msgid "Your emails"
 msgstr "translator@legisign.org, ville.skytta@iki.fi"
 
+msgid "Automatic Import"
+msgstr "Tuo automaattisesti"
+
+msgid "Destination:"
+msgstr "Kohde:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "1- ja 2-tunnisteet"
+
+msgid "Profile:"
+msgstr "Profiili:"
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "Start"
+msgstr "Alku"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Suodin:"
+
+msgid "Expression:"
+msgstr "Lauseke:"
+
+msgid "Apply"
+msgstr "Käytä"
+
+msgid "Export"
+msgstr "Vie"
+
+msgid "Import"
+msgstr "Tuo"
+
+msgid "Add Frame"
+msgstr "Lisää kehys"
+
+msgid "Select the frame ID"
+msgstr "Valitse kehyksen tunniste"
+
+msgid " [modified]"
+msgstr " [muutettu]"
+
+msgid " [filtered]"
+msgstr " [suodatettu]"
+
+msgid "Warning"
+msgstr "Varoitus"
+
+msgid "The current directory has been modified.\n"
+msgstr "Nykyistä kansiota on muokattu."
+
+msgid "Apply Filename Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Tag Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Text Encoding"
+msgstr "Ota merkistökoodaus"
+
+msgid "Rename Directory"
+msgstr "Muuta kansion nimeä"
+
+msgid "Number Tracks"
+msgstr "Kappaleiden numerointi"
+
+msgid "Create Playlist"
+msgstr "Luo soittolista"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Quit"
+msgstr "Lopeta"
+
+msgid "Yes"
+msgstr "Kyllä"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Start number:"
+msgstr "Aloittava numero:"
+
+msgid "Total number of tracks"
+msgstr "Kappaleiden lukumäärä"
+
+msgid "Picture"
+msgstr "Kuva"
+
+msgid "Action:"
+msgstr "Toiminto:"
+
+msgid "Create Directory"
+msgstr "Luo kansio"
+
+msgid "Source:"
+msgstr "Lähde:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "2- ja 1-tunnisteista"
+
+msgid "Format:"
+msgstr "Muoto:"
+
+msgid "Preview"
+msgstr "Esikatselu"
+
+msgid "To Filename"
+msgstr "Määrittää tiedostonimi"
+
 msgid "&Back"
 msgstr "&Takaisin"
 
@@ -536,21 +653,6 @@ msgstr "K&orvaa..."
 msgid "&Tools"
 msgstr "T&yökalut"
 
-msgid "Apply Filename Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Tag Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Text Encoding"
-msgstr "Ota merkistökoodaus"
-
-msgid "Rename Directory"
-msgstr "Muuta kansion nimeä"
-
-msgid "Number Tracks"
-msgstr "Kappaleiden numerointi"
-
 msgid "&Settings"
 msgstr "&Asetukset"
 
@@ -595,9 +697,6 @@ msgstr "Tietoja Qt:stä"
 
 msgid "About &Qt"
 msgstr "Tietoja &Qt:stä"
-
-msgid " [modified]"
-msgstr " [muutettu]"
 
 msgid "Toggle the statusbar..."
 msgstr "Näytä/piilota tilarivi..."
@@ -869,6 +968,9 @@ msgstr "Tyyppi"
 msgid "Date Modified"
 msgstr "Muokattu"
 
+msgid "Text"
+msgstr "Teksti"
+
 msgid "Data"
 msgstr "Data"
 
@@ -884,9 +986,6 @@ msgstr "Haku valmis"
 msgid "Event Code"
 msgstr "Tapahtumien aikakoodit"
 
-msgid "Text"
-msgstr "Teksti"
-
 msgid "Track"
 msgstr "Raita"
 
@@ -895,6 +994,111 @@ msgstr "Tiedoston absoluuttinen polku"
 
 msgid "Duration"
 msgstr "Kesto"
+
+msgid "Text Encoding"
+msgstr "Merkistökoodaus"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Owner"
+msgstr "Omistaja"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Rating"
+msgstr "Arvostelu"
+
+msgid "Language"
+msgstr "Kieli"
+
+msgid "Picture Type"
+msgstr "Kuvan tyyppi"
+
+msgid "Image format"
+msgstr "Kuvatiedoston muoto"
+
+msgid "Mimetype"
+msgstr "MIME-tyyppi"
+
+msgid "Counter"
+msgstr "Laskuri"
+
+msgid "Identifier"
+msgstr "Tunniste"
+
+msgid "Volume Adjustment"
+msgstr "Äänenvoimakkuuden säätö"
+
+msgid "Number of Bits"
+msgstr "Bittien määrä"
+
+msgid "Volume Change Right"
+msgstr "Äänenvoimakkuuden säätö (oikea)"
+
+msgid "Volume Change Left"
+msgstr "Äänenvoimakkuuden säätö (vasen)"
+
+msgid "Peak Volume Right"
+msgstr "Enimmäisäänenvoimakkuus (oikea)"
+
+msgid "Peak Volume Left"
+msgstr "Enimmäisäänenvoimakkuus (vasen)"
+
+msgid "Timestamp Format"
+msgstr "Aikaleiman muoto"
+
+msgid "Content Type"
+msgstr "Sisällön tyyppi"
+
+msgid "Price"
+msgstr "Hinta"
+
+msgid "Date"
+msgstr "Päiväys"
+
+msgid "Seller"
+msgstr "Myyjä"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF16BE"
+msgstr "UTF-16BE"
+
+msgid "UTF8"
+msgstr "UTF-8"
+
+msgid "Other"
+msgstr "Muut"
+
+msgid "MPEG frames as unit"
+msgstr "Yksiköinä MPEG-kuvakehykset"
+
+msgid "Milliseconds as unit"
+msgstr "Yksiköinä millisekunnit"
+
+msgid "Lyrics"
+msgstr "Sanoitus"
+
+msgid "Text transcription"
+msgstr "Tekstin transkriptio"
+
+msgid "Movement/part name"
+msgstr "Osan nimi"
+
+msgid "Events"
+msgstr "Tapahtumat"
+
+msgid "Chord"
+msgstr "Sointu"
+
+msgid "Trivia/pop up"
+msgstr "Nippelitietoa"
 
 msgid "Title"
 msgstr "Nimi"
@@ -907,9 +1111,6 @@ msgstr "Levyn nimi"
 
 msgid "Comment"
 msgstr "Kommentti"
-
-msgid "Date"
-msgstr "Päiväys"
 
 msgid "Track Number"
 msgstr "Kappaleen raita"
@@ -965,14 +1166,8 @@ msgstr "Alkusävellaji"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Kieli"
-
 msgid "Lyricist"
 msgstr "Sanoittaja"
-
-msgid "Lyrics"
-msgstr "Sanoitus"
 
 msgid "Media"
 msgstr "Media"
@@ -994,9 +1189,6 @@ msgstr "Osa"
 
 msgid "Performer"
 msgstr "Esiintyjä"
-
-msgid "Picture"
-msgstr "Kuva"
 
 msgid "Publisher"
 msgstr "Julkaisija"
@@ -1033,9 +1225,6 @@ msgstr "Äänitiedoston WWW"
 
 msgid "WWW Audio Source"
 msgstr "Äänilähteen WWW"
-
-msgid "Other"
-msgstr "Muut"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32×32 pisteen PNG-kuvake"
@@ -1112,14 +1301,8 @@ msgstr "Koodekki"
 msgid "Escape for HTML"
 msgstr ""
 
-msgid "Automatic Import"
-msgstr "Tuo automaattisesti"
-
 msgid "D&estination:"
 msgstr "Koh&de:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "1- ja 2-tunnisteet"
 
 msgid "&Profile:"
 msgstr "&Profiili:"
@@ -1163,9 +1346,6 @@ msgstr "&Artisti/Levy"
 msgid "&Source"
 msgstr "&Lähde"
 
-msgid "Source:"
-msgstr "Lähde:"
-
 msgid "URL:"
 msgstr "Osoite:"
 
@@ -1207,15 +1387,6 @@ msgstr "Numeroiden &määrä:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "&Tyylilaji tekstinä numerojonon sijaan"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "&Version used for new tags:"
 msgstr "&Uusien tunnisteiden versio:"
@@ -1261,9 +1432,6 @@ msgstr "Käynnistys"
 
 msgid "&Load last-opened files"
 msgstr "&Lataa viimeksi avatut tiedostot"
-
-msgid "Save"
-msgstr "Tallenna"
 
 msgid "&Preserve file timestamp"
 msgstr "&Säilytä tiedoston päiväys"
@@ -1319,95 +1487,8 @@ msgstr "&Leikepöydältä"
 msgid "&View..."
 msgstr "&Näytä..."
 
-msgid "Text Encoding"
-msgstr "Merkistökoodaus"
-
-msgid "Description"
-msgstr "Kuvaus"
-
-msgid "Owner"
-msgstr "Omistaja"
-
-msgid "Email"
-msgstr "Sähköposti"
-
-msgid "Rating"
-msgstr "Arvostelu"
-
-msgid "Picture Type"
-msgstr "Kuvan tyyppi"
-
-msgid "Image format"
-msgstr "Kuvatiedoston muoto"
-
-msgid "Mimetype"
-msgstr "MIME-tyyppi"
-
-msgid "Counter"
-msgstr "Laskuri"
-
-msgid "Identifier"
-msgstr "Tunniste"
-
-msgid "Volume Adjustment"
-msgstr "Äänenvoimakkuuden säätö"
-
-msgid "Number of Bits"
-msgstr "Bittien määrä"
-
-msgid "Volume Change Right"
-msgstr "Äänenvoimakkuuden säätö (oikea)"
-
-msgid "Volume Change Left"
-msgstr "Äänenvoimakkuuden säätö (vasen)"
-
-msgid "Peak Volume Right"
-msgstr "Enimmäisäänenvoimakkuus (oikea)"
-
-msgid "Peak Volume Left"
-msgstr "Enimmäisäänenvoimakkuus (vasen)"
-
-msgid "Timestamp Format"
-msgstr "Aikaleiman muoto"
-
-msgid "Content Type"
-msgstr "Sisällön tyyppi"
-
-msgid "Price"
-msgstr "Hinta"
-
-msgid "Seller"
-msgstr "Myyjä"
-
 msgid "Images"
 msgstr "Kuvat"
-
-msgid "UTF16BE"
-msgstr "UTF-16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Yksiköinä MPEG-kuvakehykset"
-
-msgid "Milliseconds as unit"
-msgstr "Yksiköinä millisekunnit"
-
-msgid "Text transcription"
-msgstr "Tekstin transkriptio"
-
-msgid "Movement/part name"
-msgstr "Osan nimi"
-
-msgid "Events"
-msgstr "Tapahtumat"
-
-msgid "Chord"
-msgstr "Sointu"
-
-msgid "Trivia/pop up"
-msgstr "Nippelitietoa"
-
-msgid "Export"
-msgstr "Vie"
 
 msgid "&Format:"
 msgstr "&Muoto:"
@@ -1514,9 +1595,6 @@ msgstr "&Kohde:"
 msgid "&Total number of tracks:"
 msgstr "Kappaleiden &lukumäärä:"
 
-msgid "Create Playlist"
-msgstr "Luo soittolista"
-
 msgid "Playlist File Name"
 msgstr "Soittolistatiedoston nimi"
 
@@ -1562,17 +1640,8 @@ msgstr "Kirjoita &vain tiedostoluettelo"
 msgid "Write &info using"
 msgstr "Kirjoita tieto k&äyttäen"
 
-msgid "Preview"
-msgstr "Esikatselu"
-
-msgid "Create Directory"
-msgstr "Luo kansio"
-
 msgid "&Action:"
 msgstr "T&oiminto:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "2- ja 1-tunnisteista"
 
 msgid "From:"
 msgstr "Alkuperäinen:"
@@ -1597,9 +1666,6 @@ msgstr "Ei valittuja tuloksia"
 
 msgid "Import from Tags"
 msgstr "Tuo tunnisteesta"
-
-msgid "Format:"
-msgstr "Muoto:"
 
 msgid "Extraction:"
 msgstr "Purku:"
@@ -1640,29 +1706,14 @@ msgstr ""
 "Nykyistä kansiota on muokattu.\n"
 "Haluatko tallentaa sen?"
 
-msgid "Warning"
-msgstr "Varoitus"
-
 msgid "Exiting..."
 msgstr "Poistutaan..."
 
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
 
-msgid "Import"
-msgstr "Tuo"
-
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
-
-msgid " [filtered]"
-msgstr " [suodatettu]"
-
-msgid "Add Frame"
-msgstr "Lisää kehys"
-
-msgid "Select the frame ID"
-msgstr "Valitse kehyksen tunniste"
 
 msgid "Rename File"
 msgstr "Muuta tiedoston nimeä"
@@ -1822,9 +1873,6 @@ msgstr "Edellinen kappale"
 
 msgid "Next Track"
 msgstr "Seuraava kappale"
-
-msgid "Close"
-msgstr "Sulje"
 
 msgid "Mute"
 msgstr "Vaimenna"

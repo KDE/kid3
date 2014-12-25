@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -417,6 +417,123 @@ msgstr "Егор С. Орлов"
 msgid "Your emails"
 msgstr "Egor.Orlov@avalon.ru"
 
+msgid "Automatic Import"
+msgstr "Автоматически импортировать"
+
+msgid "Destination:"
+msgstr "Место назначения:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+msgid "Profile:"
+msgstr "Профиль:"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Start"
+msgstr "Начало"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Filter:"
+msgstr "Фильтр:"
+
+msgid "Expression:"
+msgstr "Выражение:"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "Add Frame"
+msgstr "Добавить Фрейм"
+
+msgid "Select the frame ID"
+msgstr "Выбрать ID фрейма"
+
+msgid " [modified]"
+msgstr " [изменено]"
+
+msgid " [filtered]"
+msgstr " [фильтровано]"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "The current directory has been modified.\n"
+msgstr "Текущий каталог был изменен."
+
+msgid "Apply Filename Format"
+msgstr "Применить Формат имени файла"
+
+msgid "Apply Tag Format"
+msgstr "Применить формат тэга"
+
+msgid "Apply Text Encoding"
+msgstr "Применить Кодировка Текста"
+
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
+
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки по порядку"
+
+msgid "Create Playlist"
+msgstr "Cоздать список песен"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Quit"
+msgstr "Выход"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Start number:"
+msgstr "Число начала:"
+
+msgid "Total number of tracks"
+msgstr "Общее Количество дорожек"
+
+msgid "Picture"
+msgstr "Картинка"
+
+msgid "Action:"
+msgstr "Действие:"
+
+msgid "Create Directory"
+msgstr "Создать Каталог"
+
+msgid "Source:"
+msgstr "Источник:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Из тег 2 и тег 1"
+
+msgid "Format:"
+msgstr "Формат:"
+
+msgid "Preview"
+msgstr "Просмотр"
+
+msgid "To Filename"
+msgstr "К имени файла"
+
 msgid "&Back"
 msgstr "&Дорожка"
 
@@ -537,21 +654,6 @@ msgstr "&Заменить..."
 msgid "&Tools"
 msgstr "&Сервис"
 
-msgid "Apply Filename Format"
-msgstr "Применить Формат имени файла"
-
-msgid "Apply Tag Format"
-msgstr "Применить формат тэга"
-
-msgid "Apply Text Encoding"
-msgstr "Применить Кодировка Текста"
-
-msgid "Rename Directory"
-msgstr "Переименовать Каталог"
-
-msgid "Number Tracks"
-msgstr "Пронумеровать дорожки по порядку"
-
 msgid "&Settings"
 msgstr "&Настройка"
 
@@ -596,9 +698,6 @@ msgstr "О Qt"
 
 msgid "About &Qt"
 msgstr "О &Qt"
-
-msgid " [modified]"
-msgstr " [изменено]"
 
 msgid "Toggle the statusbar..."
 msgstr "Переключение строки состояния..."
@@ -870,6 +969,9 @@ msgstr "Вид"
 msgid "Date Modified"
 msgstr "Дата изменения"
 
+msgid "Text"
+msgstr "Текст"
+
 msgid "Data"
 msgstr "Дата"
 
@@ -885,9 +987,6 @@ msgstr "Поиск завершён"
 msgid "Event Code"
 msgstr "Код"
 
-msgid "Text"
-msgstr "Текст"
-
 msgid "Track"
 msgstr "Дорожка"
 
@@ -896,6 +995,111 @@ msgstr "Абсолютный путь"
 
 msgid "Duration"
 msgstr "Длительность"
+
+msgid "Text Encoding"
+msgstr "Кодировка Текста"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Email"
+msgstr "Почта"
+
+msgid "Rating"
+msgstr "Рейтинг"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Picture Type"
+msgstr "Тип Картинки"
+
+msgid "Image format"
+msgstr "Формат Картинки"
+
+msgid "Mimetype"
+msgstr "Тип MIME"
+
+msgid "Counter"
+msgstr "Счетчик"
+
+msgid "Identifier"
+msgstr "Идентификатор"
+
+msgid "Volume Adjustment"
+msgstr "Корректировка Громкости"
+
+msgid "Number of Bits"
+msgstr "Количество Бит"
+
+msgid "Volume Change Right"
+msgstr "Изменить громкость Справа"
+
+msgid "Volume Change Left"
+msgstr "Изменить громкость Слева"
+
+msgid "Peak Volume Right"
+msgstr "Максимальная громкость Справа"
+
+msgid "Peak Volume Left"
+msgstr "Максимальная громкость Слева"
+
+msgid "Timestamp Format"
+msgstr "Формат отметки о времени"
+
+msgid "Content Type"
+msgstr "Тип Содержимого"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Seller"
+msgstr "Продавец"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "Другое"
+
+msgid "MPEG frames as unit"
+msgstr "Измерять в MPEG-кадрах"
+
+msgid "Milliseconds as unit"
+msgstr "Измерять в милисекундах"
+
+msgid "Lyrics"
+msgstr "Lyrics"
+
+msgid "Text transcription"
+msgstr "Запись текста"
+
+msgid "Movement/part name"
+msgstr "Movement/part name"
+
+msgid "Events"
+msgstr "События"
+
+msgid "Chord"
+msgstr "Аккорд"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
 
 msgid "Title"
 msgstr "Название"
@@ -908,9 +1112,6 @@ msgstr "Альбом"
 
 msgid "Comment"
 msgstr "Коментарий"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Track Number"
 msgstr "Номер дорожки"
@@ -966,14 +1167,8 @@ msgstr ""
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Язык"
-
 msgid "Lyricist"
 msgstr "Автор"
-
-msgid "Lyrics"
-msgstr "Lyrics"
 
 msgid "Media"
 msgstr "Медиа"
@@ -995,9 +1190,6 @@ msgstr "Часть"
 
 msgid "Performer"
 msgstr "Исполнитель"
-
-msgid "Picture"
-msgstr "Картинка"
 
 msgid "Publisher"
 msgstr "Издательство"
@@ -1034,9 +1226,6 @@ msgstr ""
 
 msgid "WWW Audio Source"
 msgstr ""
-
-msgid "Other"
-msgstr "Другое"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "Иконка PNG-файла 32x32 точки"
@@ -1113,14 +1302,8 @@ msgstr "Кодек"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Автоматически импортировать"
-
 msgid "D&estination:"
 msgstr "М&есто назначения:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Тег 1 и тег 2"
 
 msgid "&Profile:"
 msgstr "&Профиль:"
@@ -1164,9 +1347,6 @@ msgstr "Исполнитель/&Альбом"
 msgid "&Source"
 msgstr "&Источник"
 
-msgid "Source:"
-msgstr "Источник:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1208,15 +1388,6 @@ msgstr "Номер дорожки &количество цифр:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр как текст"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "&Версия, используемая для нового тегов:"
@@ -1262,9 +1433,6 @@ msgstr "Запуск"
 
 msgid "&Load last-opened files"
 msgstr "&Загружать при запуске файлы, открытые при последнем выходе"
-
-msgid "Save"
-msgstr "Сохранить"
 
 msgid "&Preserve file timestamp"
 msgstr "&Сохранять время изменения файлов"
@@ -1321,95 +1489,8 @@ msgstr "Из &Буфера Обмена"
 msgid "&View..."
 msgstr "&Вид..."
 
-msgid "Text Encoding"
-msgstr "Кодировка Текста"
-
-msgid "Description"
-msgstr "Описание"
-
-msgid "Owner"
-msgstr "Владелец"
-
-msgid "Email"
-msgstr "Почта"
-
-msgid "Rating"
-msgstr "Рейтинг"
-
-msgid "Picture Type"
-msgstr "Тип Картинки"
-
-msgid "Image format"
-msgstr "Формат Картинки"
-
-msgid "Mimetype"
-msgstr "Тип MIME"
-
-msgid "Counter"
-msgstr "Счетчик"
-
-msgid "Identifier"
-msgstr "Идентификатор"
-
-msgid "Volume Adjustment"
-msgstr "Корректировка Громкости"
-
-msgid "Number of Bits"
-msgstr "Количество Бит"
-
-msgid "Volume Change Right"
-msgstr "Изменить громкость Справа"
-
-msgid "Volume Change Left"
-msgstr "Изменить громкость Слева"
-
-msgid "Peak Volume Right"
-msgstr "Максимальная громкость Справа"
-
-msgid "Peak Volume Left"
-msgstr "Максимальная громкость Слева"
-
-msgid "Timestamp Format"
-msgstr "Формат отметки о времени"
-
-msgid "Content Type"
-msgstr "Тип Содержимого"
-
-msgid "Price"
-msgstr "Цена"
-
-msgid "Seller"
-msgstr "Продавец"
-
 msgid "Images"
 msgstr "Изображения"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Измерять в MPEG-кадрах"
-
-msgid "Milliseconds as unit"
-msgstr "Измерять в милисекундах"
-
-msgid "Text transcription"
-msgstr "Запись текста"
-
-msgid "Movement/part name"
-msgstr "Movement/part name"
-
-msgid "Events"
-msgstr "События"
-
-msgid "Chord"
-msgstr "Аккорд"
-
-msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
-
-msgid "Export"
-msgstr "Экспорт"
 
 msgid "&Format:"
 msgstr "&Формат:"
@@ -1516,9 +1597,6 @@ msgstr "М&есто назначения:"
 msgid "&Total number of tracks:"
 msgstr "&Общее Количество дорожек:"
 
-msgid "Create Playlist"
-msgstr "Cоздать список песен"
-
 msgid "Playlist File Name"
 msgstr "Имя файла со списком песен"
 
@@ -1564,17 +1642,8 @@ msgstr "Записать только &список файлов"
 msgid "Write &info using"
 msgstr "Записать &информацию используя"
 
-msgid "Preview"
-msgstr "Просмотр"
-
-msgid "Create Directory"
-msgstr "Создать Каталог"
-
 msgid "&Action:"
 msgstr "Д&ействие:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Из тег 2 и тег 1"
 
 msgid "From:"
 msgstr "От:"
@@ -1599,9 +1668,6 @@ msgstr "Никакой отобранный результат"
 
 msgid "Import from Tags"
 msgstr "Импорт из тег"
-
-msgid "Format:"
-msgstr "Формат:"
 
 msgid "Extraction:"
 msgstr "Добыча:"
@@ -1640,29 +1706,14 @@ msgstr ""
 "Текущий каталог был изменен.\n"
 "Хотите сохранить его?"
 
-msgid "Warning"
-msgstr "Предупреждение"
-
 msgid "Exiting..."
 msgstr "Выход..."
 
 msgid "Creating playlist..."
 msgstr "Создание списка песен..."
 
-msgid "Import"
-msgstr "Импорт"
-
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
-
-msgid " [filtered]"
-msgstr " [фильтровано]"
-
-msgid "Add Frame"
-msgstr "Добавить Фрейм"
-
-msgid "Select the frame ID"
-msgstr "Выбрать ID фрейма"
 
 msgid "Rename File"
 msgstr "Переименовать файл"
@@ -1822,9 +1873,6 @@ msgstr "Предыдущая дорожка"
 
 msgid "Next Track"
 msgstr "Следующая дорожка"
-
-msgid "Close"
-msgstr "Закрыть"
 
 msgid "Mute"
 msgstr "Отключить звук"

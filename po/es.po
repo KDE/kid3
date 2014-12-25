@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -417,6 +417,123 @@ msgstr "Sergio Cambra"
 msgid "Your emails"
 msgstr "runico@users.berlios.de"
 
+msgid "Automatic Import"
+msgstr "Importar automáticamente"
+
+msgid "Destination:"
+msgstr "Destino:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Etiqueta 1 y etiqueta 2"
+
+msgid "Profile:"
+msgstr "Perfil:"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Start"
+msgstr "Iniciar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "OK"
+msgstr "Aceptar"
+
+msgid "Filter:"
+msgstr "Filtro:"
+
+msgid "Expression:"
+msgstr "Expresión:"
+
+msgid "Apply"
+msgstr "Aplicar"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Import"
+msgstr "Importar"
+
+msgid "Add Frame"
+msgstr "Añadir campo"
+
+msgid "Select the frame ID"
+msgstr "Seleccionar el identificador de campo"
+
+msgid " [modified]"
+msgstr " [modificado]"
+
+msgid " [filtered]"
+msgstr " [filtrado]"
+
+msgid "Warning"
+msgstr "Advertencia"
+
+msgid "The current directory has been modified.\n"
+msgstr "El directorio actual ha sido modificado."
+
+msgid "Apply Filename Format"
+msgstr "Aplicar formato de nombre de archivo"
+
+msgid "Apply Tag Format"
+msgstr "Aplicar formato de etiqueta"
+
+msgid "Apply Text Encoding"
+msgstr "Aplicar codificación del texto"
+
+msgid "Rename Directory"
+msgstr "Renombrar directorio"
+
+msgid "Number Tracks"
+msgstr "Numerar pistas"
+
+msgid "Create Playlist"
+msgstr "Crear lista de reproducción"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Start number:"
+msgstr "Número primero:"
+
+msgid "Total number of tracks"
+msgstr "Número de pistas"
+
+msgid "Picture"
+msgstr "Imagen"
+
+msgid "Action:"
+msgstr "Acción:"
+
+msgid "Create Directory"
+msgstr "Crear directorio"
+
+msgid "Source:"
+msgstr "Origen:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "De etiqueta 2 y etiqueta 1"
+
+msgid "Format:"
+msgstr "Formato:"
+
+msgid "Preview"
+msgstr "Vista previa"
+
+msgid "To Filename"
+msgstr "A nombre de archivo"
+
 msgid "&Back"
 msgstr "&Atrás"
 
@@ -537,21 +654,6 @@ msgstr "&Reemplazar..."
 msgid "&Tools"
 msgstr "&Herramientas"
 
-msgid "Apply Filename Format"
-msgstr "Aplicar formato de nombre de archivo"
-
-msgid "Apply Tag Format"
-msgstr "Aplicar formato de etiqueta"
-
-msgid "Apply Text Encoding"
-msgstr "Aplicar codificación del texto"
-
-msgid "Rename Directory"
-msgstr "Renombrar directorio"
-
-msgid "Number Tracks"
-msgstr "Numerar pistas"
-
 msgid "&Settings"
 msgstr "&Preferencias"
 
@@ -596,9 +698,6 @@ msgstr "Acerca de Qt"
 
 msgid "About &Qt"
 msgstr "Acerca de &Qt"
-
-msgid " [modified]"
-msgstr " [modificado]"
 
 msgid "Toggle the statusbar..."
 msgstr "Conmutando la barra de estado..."
@@ -870,6 +969,9 @@ msgstr "Clase"
 msgid "Date Modified"
 msgstr "Última modificación"
 
+msgid "Text"
+msgstr "Texto"
+
 msgid "Data"
 msgstr "Datos"
 
@@ -885,9 +987,6 @@ msgstr "Búsqueda finalizada"
 msgid "Event Code"
 msgstr "Código de evento"
 
-msgid "Text"
-msgstr "Texto"
-
 msgid "Track"
 msgstr "Pista"
 
@@ -896,6 +995,111 @@ msgstr "Nombre de fichero absoluto"
 
 msgid "Duration"
 msgstr "Duración"
+
+msgid "Text Encoding"
+msgstr "Codificación del texto"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Owner"
+msgstr "Propietario"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Rating"
+msgstr "Puntuación"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Picture Type"
+msgstr "Tipo de dibujo"
+
+msgid "Image format"
+msgstr "Formato de imagen"
+
+msgid "Mimetype"
+msgstr "Tipo MIME"
+
+msgid "Counter"
+msgstr "Contador"
+
+msgid "Identifier"
+msgstr "Identificador"
+
+msgid "Volume Adjustment"
+msgstr "Ajuste de volumen"
+
+msgid "Number of Bits"
+msgstr "Número de bits"
+
+msgid "Volume Change Right"
+msgstr "Cambio de volumen del canal derecho"
+
+msgid "Volume Change Left"
+msgstr "Cambio de volumen del canal izquierdo"
+
+msgid "Peak Volume Right"
+msgstr "Pico de volumen del canal derecho"
+
+msgid "Peak Volume Left"
+msgstr "Pico de volumen del canal izquierdo"
+
+msgid "Timestamp Format"
+msgstr "Formato de fecha y hora"
+
+msgid "Content Type"
+msgstr "Tipo de contenido"
+
+msgid "Price"
+msgstr "Precio"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Seller"
+msgstr "Vendedor"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "MPEG frames as unit"
+msgstr "Muestras MPEG como unidad"
+
+msgid "Milliseconds as unit"
+msgstr "Milisegundos como unidad"
+
+msgid "Lyrics"
+msgstr "Letras"
+
+msgid "Text transcription"
+msgstr "Transcripción del texto"
+
+msgid "Movement/part name"
+msgstr "Nombre de parte/movimiento"
+
+msgid "Events"
+msgstr "Actos"
+
+msgid "Chord"
+msgstr "Acorde"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
 
 msgid "Title"
 msgstr "Título"
@@ -908,9 +1112,6 @@ msgstr "Álbum"
 
 msgid "Comment"
 msgstr "Comentario"
-
-msgid "Date"
-msgstr "Fecha"
 
 msgid "Track Number"
 msgstr "Número de pista"
@@ -966,14 +1167,8 @@ msgstr "Clave inicial"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Idioma"
-
 msgid "Lyricist"
 msgstr "Autor"
-
-msgid "Lyrics"
-msgstr "Letras"
 
 msgid "Media"
 msgstr "Medio"
@@ -995,9 +1190,6 @@ msgstr "Parte"
 
 msgid "Performer"
 msgstr "Intérprete"
-
-msgid "Picture"
-msgstr "Imagen"
 
 msgid "Publisher"
 msgstr "Editorial"
@@ -1034,9 +1226,6 @@ msgstr "WWW del archivo de audio"
 
 msgid "WWW Audio Source"
 msgstr "WWW del fuente del audio"
-
-msgid "Other"
-msgstr "Otro"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "Archivo de icono PNG de 32x32 pixels"
@@ -1113,14 +1302,8 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Importar automáticamente"
-
 msgid "D&estination:"
 msgstr "D&estino:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Etiqueta 1 y etiqueta 2"
 
 msgid "&Profile:"
 msgstr "&Perfil:"
@@ -1164,9 +1347,6 @@ msgstr "&Artista/Álbum"
 msgid "&Source"
 msgstr "&Origen"
 
-msgid "Source:"
-msgstr "Origen:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1209,15 +1389,6 @@ msgstr "Número de &dígitos en pista:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "&Género como texto en vez de número"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "&Versión utilizada para nuevas etiquetas:"
@@ -1263,9 +1434,6 @@ msgstr "Inicio"
 
 msgid "&Load last-opened files"
 msgstr "Cargar &los últimos archivos abiertos"
-
-msgid "Save"
-msgstr "Guardar"
 
 msgid "&Preserve file timestamp"
 msgstr "Co&piar las marcas de tiempo de modificación"
@@ -1321,95 +1489,8 @@ msgstr "Del &portapapeles"
 msgid "&View..."
 msgstr "&Ver..."
 
-msgid "Text Encoding"
-msgstr "Codificación del texto"
-
-msgid "Description"
-msgstr "Descripción"
-
-msgid "Owner"
-msgstr "Propietario"
-
-msgid "Email"
-msgstr "Correo electrónico"
-
-msgid "Rating"
-msgstr "Puntuación"
-
-msgid "Picture Type"
-msgstr "Tipo de dibujo"
-
-msgid "Image format"
-msgstr "Formato de imagen"
-
-msgid "Mimetype"
-msgstr "Tipo MIME"
-
-msgid "Counter"
-msgstr "Contador"
-
-msgid "Identifier"
-msgstr "Identificador"
-
-msgid "Volume Adjustment"
-msgstr "Ajuste de volumen"
-
-msgid "Number of Bits"
-msgstr "Número de bits"
-
-msgid "Volume Change Right"
-msgstr "Cambio de volumen del canal derecho"
-
-msgid "Volume Change Left"
-msgstr "Cambio de volumen del canal izquierdo"
-
-msgid "Peak Volume Right"
-msgstr "Pico de volumen del canal derecho"
-
-msgid "Peak Volume Left"
-msgstr "Pico de volumen del canal izquierdo"
-
-msgid "Timestamp Format"
-msgstr "Formato de fecha y hora"
-
-msgid "Content Type"
-msgstr "Tipo de contenido"
-
-msgid "Price"
-msgstr "Precio"
-
-msgid "Seller"
-msgstr "Vendedor"
-
 msgid "Images"
 msgstr "Imágenes"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Muestras MPEG como unidad"
-
-msgid "Milliseconds as unit"
-msgstr "Milisegundos como unidad"
-
-msgid "Text transcription"
-msgstr "Transcripción del texto"
-
-msgid "Movement/part name"
-msgstr "Nombre de parte/movimiento"
-
-msgid "Events"
-msgstr "Actos"
-
-msgid "Chord"
-msgstr "Acorde"
-
-msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
-
-msgid "Export"
-msgstr "Exportar"
 
 msgid "&Format:"
 msgstr "&Formato:"
@@ -1516,9 +1597,6 @@ msgstr "D&estino:"
 msgid "&Total number of tracks:"
 msgstr "Número de pis&tas:"
 
-msgid "Create Playlist"
-msgstr "Crear lista de reproducción"
-
 msgid "Playlist File Name"
 msgstr "Nombre de la lista de reproducción"
 
@@ -1564,17 +1642,8 @@ msgstr "Escribir sólo la &lista de archivos"
 msgid "Write &info using"
 msgstr "Escribir &información usando"
 
-msgid "Preview"
-msgstr "Vista previa"
-
-msgid "Create Directory"
-msgstr "Crear directorio"
-
 msgid "&Action:"
 msgstr "A&cción:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "De etiqueta 2 y etiqueta 1"
 
 msgid "From:"
 msgstr "De:"
@@ -1599,9 +1668,6 @@ msgstr "Ningún resultado seleccionado"
 
 msgid "Import from Tags"
 msgstr "Importar de etiquetas"
-
-msgid "Format:"
-msgstr "Formato:"
 
 msgid "Extraction:"
 msgstr "Extracción:"
@@ -1640,29 +1706,14 @@ msgstr ""
 "El directorio actual ha sido modificado.\n"
 "¿Desea guardarlo?"
 
-msgid "Warning"
-msgstr "Advertencia"
-
 msgid "Exiting..."
 msgstr "Saliendo..."
 
 msgid "Creating playlist..."
 msgstr "Creando lista de reproducción..."
 
-msgid "Import"
-msgstr "Importar"
-
 msgid "Error while renaming:\n"
 msgstr "Error mientras se renombra:\n"
-
-msgid " [filtered]"
-msgstr " [filtrado]"
-
-msgid "Add Frame"
-msgstr "Añadir campo"
-
-msgid "Select the frame ID"
-msgstr "Seleccionar el identificador de campo"
 
 msgid "Rename File"
 msgstr "Renombrar archivo"
@@ -1822,9 +1873,6 @@ msgstr "Pista anterior"
 
 msgid "Next Track"
 msgstr "Pista siguiente"
-
-msgid "Close"
-msgstr "Cerrar"
 
 msgid "Mute"
 msgstr "Silencio"

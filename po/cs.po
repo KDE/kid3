@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -416,6 +416,123 @@ msgstr "Pavel Fric"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
+msgid "Automatic Import"
+msgstr "Automaticky importovat"
+
+msgid "Destination:"
+msgstr "Cíl:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Značka 1 a značka 2"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Start"
+msgstr "Začátek"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filtr:"
+
+msgid "Expression:"
+msgstr "Výraz:"
+
+msgid "Apply"
+msgstr "Použít"
+
+msgid "Export"
+msgstr "Vyvést"
+
+msgid "Import"
+msgstr "Zavést"
+
+msgid "Add Frame"
+msgstr "Přidat prvek"
+
+msgid "Select the frame ID"
+msgstr "Vybrat ID prvku"
+
+msgid " [modified]"
+msgstr "[změněný]"
+
+msgid " [filtered]"
+msgstr " [filtrován]"
+
+msgid "Warning"
+msgstr "Varování"
+
+msgid "The current directory has been modified.\n"
+msgstr "Nynější adresář byl změněn."
+
+msgid "Apply Filename Format"
+msgstr "Použít formát pro název souboru"
+
+msgid "Apply Tag Format"
+msgstr "Použít formát pro značku"
+
+msgid "Apply Text Encoding"
+msgstr "Použít kódování textu"
+
+msgid "Rename Directory"
+msgstr "Přejmenovat adresář"
+
+msgid "Number Tracks"
+msgstr "Číslovat skladby"
+
+msgid "Create Playlist"
+msgstr "Vytvořit seznam skladeb"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Quit"
+msgstr "Ukončit"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Start number:"
+msgstr "Začáteční číslo:"
+
+msgid "Total number of tracks"
+msgstr "Celkový počet stop"
+
+msgid "Picture"
+msgstr "Obrázek"
+
+msgid "Action:"
+msgstr "Činnost:"
+
+msgid "Create Directory"
+msgstr "Vytvořit adresář"
+
+msgid "Source:"
+msgstr "Zdroj:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Ze značky 2 a značky 1"
+
+msgid "Format:"
+msgstr "Formát:"
+
+msgid "Preview"
+msgstr "Náhled"
+
+msgid "To Filename"
+msgstr "Do názvu souboru"
+
 msgid "&Back"
 msgstr "&Zpět"
 
@@ -536,21 +653,6 @@ msgstr "&Nahradit..."
 msgid "&Tools"
 msgstr "&Nástroje"
 
-msgid "Apply Filename Format"
-msgstr "Použít formát pro název souboru"
-
-msgid "Apply Tag Format"
-msgstr "Použít formát pro značku"
-
-msgid "Apply Text Encoding"
-msgstr "Použít kódování textu"
-
-msgid "Rename Directory"
-msgstr "Přejmenovat adresář"
-
-msgid "Number Tracks"
-msgstr "Číslovat skladby"
-
 msgid "&Settings"
 msgstr "Na&stavení"
 
@@ -595,9 +697,6 @@ msgstr "O Qt"
 
 msgid "About &Qt"
 msgstr "O &Qt"
-
-msgid " [modified]"
-msgstr "[změněný]"
 
 msgid "Toggle the statusbar..."
 msgstr "Přepíná se stavový řádek..."
@@ -871,6 +970,9 @@ msgstr "Druh"
 msgid "Date Modified"
 msgstr "Datum změny"
 
+msgid "Text"
+msgstr "Text"
+
 msgid "Data"
 msgstr "Data"
 
@@ -886,9 +988,6 @@ msgstr "Hledání ukončeno"
 msgid "Event Code"
 msgstr "Časové kódy událostí"
 
-msgid "Text"
-msgstr "Text"
-
 msgid "Track"
 msgstr "Stopa"
 
@@ -897,6 +996,111 @@ msgstr "Nepochybná cesta k souboru"
 
 msgid "Duration"
 msgstr "Délka"
+
+msgid "Text Encoding"
+msgstr "Kódování textu"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Owner"
+msgstr "Vlastník"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Rating"
+msgstr "Hodnocení"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Picture Type"
+msgstr "Druh obrázku"
+
+msgid "Image format"
+msgstr "Formát obrázku"
+
+msgid "Mimetype"
+msgstr "MIME typ"
+
+msgid "Counter"
+msgstr "Počítadlo"
+
+msgid "Identifier"
+msgstr "Určení"
+
+msgid "Volume Adjustment"
+msgstr "Úprava hlasitosti"
+
+msgid "Number of Bits"
+msgstr "Počet bitů"
+
+msgid "Volume Change Right"
+msgstr "Změna hlasitosti vpravo"
+
+msgid "Volume Change Left"
+msgstr "Změna hlasitosti vlevo"
+
+msgid "Peak Volume Right"
+msgstr "Nejvyšší stupeň hlasitosti vpravo"
+
+msgid "Peak Volume Left"
+msgstr "Nejvyšší stupeň hlasitosti vlevo"
+
+msgid "Timestamp Format"
+msgstr "Formát časového razítka"
+
+msgid "Content Type"
+msgstr "Druh obsahu"
+
+msgid "Price"
+msgstr "Cena"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Seller"
+msgstr "Prodavač"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "Jiný"
+
+msgid "MPEG frames as unit"
+msgstr "Snímky MPEG jako jednotka"
+
+msgid "Milliseconds as unit"
+msgstr "Milisekundy jako jednotka"
+
+msgid "Lyrics"
+msgstr "Text písně"
+
+msgid "Text transcription"
+msgstr "Přepis textu"
+
+msgid "Movement/part name"
+msgstr "Název věty/části"
+
+msgid "Events"
+msgstr "Událost"
+
+msgid "Chord"
+msgstr "Akord"
+
+msgid "Trivia/pop up"
+msgstr "Drobnosti/Vyskakovací"
 
 msgid "Title"
 msgstr "Název"
@@ -909,9 +1113,6 @@ msgstr "Album"
 
 msgid "Comment"
 msgstr "Poznámka"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Track Number"
 msgstr "Číslo skladby"
@@ -967,14 +1168,8 @@ msgstr "Tónina na začátku"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Jazyk"
-
 msgid "Lyricist"
 msgstr "Textař"
-
-msgid "Lyrics"
-msgstr "Text písně"
 
 msgid "Media"
 msgstr "Medium"
@@ -996,9 +1191,6 @@ msgstr "Část"
 
 msgid "Performer"
 msgstr "Účinkující"
-
-msgid "Picture"
-msgstr "Obrázek"
 
 msgid "Publisher"
 msgstr "Vydavatel"
@@ -1035,9 +1227,6 @@ msgstr "WWW zvukového souboru"
 
 msgid "WWW Audio Source"
 msgstr "WWW zvukového zdroje"
-
-msgid "Other"
-msgstr "Jiný"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
@@ -1114,14 +1303,8 @@ msgstr "Kodek"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Automaticky importovat"
-
 msgid "D&estination:"
 msgstr "Cí&l:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Značka 1 a značka 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1165,9 +1348,6 @@ msgstr "Umělec/&Album"
 msgid "&Source"
 msgstr "&Zdroj"
 
-msgid "Source:"
-msgstr "Zdroj:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1209,15 +1389,6 @@ msgstr "&Počet číslic v čísle skladby:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "Žá&nr jako text místo jako číslo"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "&Verze používaná pro nové značky:"
@@ -1263,9 +1434,6 @@ msgstr "Spuštění"
 
 msgid "&Load last-opened files"
 msgstr "&Nahrát naposledy otevřené soubory"
-
-msgid "Save"
-msgstr "Uložit"
 
 msgid "&Preserve file timestamp"
 msgstr "&Neměnit časové razítko"
@@ -1321,95 +1489,8 @@ msgstr "Ze s&chránky"
 msgid "&View..."
 msgstr "&Pohled..."
 
-msgid "Text Encoding"
-msgstr "Kódování textu"
-
-msgid "Description"
-msgstr "Popis"
-
-msgid "Owner"
-msgstr "Vlastník"
-
-msgid "Email"
-msgstr "E-mail"
-
-msgid "Rating"
-msgstr "Hodnocení"
-
-msgid "Picture Type"
-msgstr "Druh obrázku"
-
-msgid "Image format"
-msgstr "Formát obrázku"
-
-msgid "Mimetype"
-msgstr "MIME typ"
-
-msgid "Counter"
-msgstr "Počítadlo"
-
-msgid "Identifier"
-msgstr "Určení"
-
-msgid "Volume Adjustment"
-msgstr "Úprava hlasitosti"
-
-msgid "Number of Bits"
-msgstr "Počet bitů"
-
-msgid "Volume Change Right"
-msgstr "Změna hlasitosti vpravo"
-
-msgid "Volume Change Left"
-msgstr "Změna hlasitosti vlevo"
-
-msgid "Peak Volume Right"
-msgstr "Nejvyšší stupeň hlasitosti vpravo"
-
-msgid "Peak Volume Left"
-msgstr "Nejvyšší stupeň hlasitosti vlevo"
-
-msgid "Timestamp Format"
-msgstr "Formát časového razítka"
-
-msgid "Content Type"
-msgstr "Druh obsahu"
-
-msgid "Price"
-msgstr "Cena"
-
-msgid "Seller"
-msgstr "Prodavač"
-
 msgid "Images"
 msgstr "Obrázky"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Snímky MPEG jako jednotka"
-
-msgid "Milliseconds as unit"
-msgstr "Milisekundy jako jednotka"
-
-msgid "Text transcription"
-msgstr "Přepis textu"
-
-msgid "Movement/part name"
-msgstr "Název věty/části"
-
-msgid "Events"
-msgstr "Událost"
-
-msgid "Chord"
-msgstr "Akord"
-
-msgid "Trivia/pop up"
-msgstr "Drobnosti/Vyskakovací"
-
-msgid "Export"
-msgstr "Vyvést"
 
 msgid "&Format:"
 msgstr "&Formát:"
@@ -1516,9 +1597,6 @@ msgstr "&Cíl:"
 msgid "&Total number of tracks:"
 msgstr "Celkový počet s&top:"
 
-msgid "Create Playlist"
-msgstr "Vytvořit seznam skladeb"
-
 msgid "Playlist File Name"
 msgstr "Název souboru se seznamem skladeb"
 
@@ -1564,17 +1642,8 @@ msgstr "Zapsat pouze &seznamy souborů"
 msgid "Write &info using"
 msgstr "Zapsat ú&daje pomocí"
 
-msgid "Preview"
-msgstr "Náhled"
-
-msgid "Create Directory"
-msgstr "Vytvořit adresář"
-
 msgid "&Action:"
 msgstr "&Činnost:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Ze značky 2 a značky 1"
 
 msgid "From:"
 msgstr "Z:"
@@ -1599,9 +1668,6 @@ msgstr "Nevybrán žádný výsledek"
 
 msgid "Import from Tags"
 msgstr "Zavést ze značek"
-
-msgid "Format:"
-msgstr "Formát:"
 
 msgid "Extraction:"
 msgstr "Získání:"
@@ -1640,29 +1706,14 @@ msgstr ""
 "Nynější adresář byl změněn.\n"
 "Chcete jej uložit?"
 
-msgid "Warning"
-msgstr "Varování"
-
 msgid "Exiting..."
 msgstr "Ukončuje se..."
 
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
 
-msgid "Import"
-msgstr "Zavést"
-
 msgid "Error while renaming:\n"
 msgstr "Během přejmenovávání se vyskytla chyba:\n"
-
-msgid " [filtered]"
-msgstr " [filtrován]"
-
-msgid "Add Frame"
-msgstr "Přidat prvek"
-
-msgid "Select the frame ID"
-msgstr "Vybrat ID prvku"
 
 msgid "Rename File"
 msgstr "Přejmenovat soubor"
@@ -1822,9 +1873,6 @@ msgstr "Předchozí skladba"
 
 msgid "Next Track"
 msgstr "Další skladba"
-
-msgid "Close"
-msgstr "Zavřít"
 
 msgid "Mute"
 msgstr "Ztlumit"

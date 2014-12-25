@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -418,6 +418,123 @@ msgstr "Chung-Yu Hsu"
 msgid "Your emails"
 msgstr "yayow at mail dot shps dot kh dot edu dot tw"
 
+msgid "Automatic Import"
+msgstr "自動匯入"
+
+msgid "Destination:"
+msgstr "到:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "標籤 1 與 標籤 2"
+
+msgid "Profile:"
+msgstr "設定檔:"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "OK"
+msgstr "確定"
+
+msgid "Filter:"
+msgstr "篩選:"
+
+msgid "Expression:"
+msgstr "算式:"
+
+msgid "Apply"
+msgstr "套用"
+
+msgid "Export"
+msgstr "匯出"
+
+msgid "Import"
+msgstr "匯入"
+
+msgid "Add Frame"
+msgstr "新增訊框"
+
+msgid "Select the frame ID"
+msgstr "選擇訊框代碼"
+
+msgid " [modified]"
+msgstr "[已更改]"
+
+msgid " [filtered]"
+msgstr "[已篩選]"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "The current directory has been modified.\n"
+msgstr "目前目錄已更動."
+
+msgid "Apply Filename Format"
+msgstr "套用檔名格式"
+
+msgid "Apply Tag Format"
+msgstr "套用 Tag 格式"
+
+msgid "Apply Text Encoding"
+msgstr "将字符编码"
+
+msgid "Rename Directory"
+msgstr "更改目錄名稱"
+
+msgid "Number Tracks"
+msgstr "音軌編號"
+
+msgid "Create Playlist"
+msgstr "建立播放清單"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Quit"
+msgstr "離開"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Start number:"
+msgstr "起始編號:"
+
+msgid "Total number of tracks"
+msgstr "音軌編號"
+
+msgid "Picture"
+msgstr "圖片"
+
+msgid "Action:"
+msgstr "動作:"
+
+msgid "Create Directory"
+msgstr "建立目錄"
+
+msgid "Source:"
+msgstr "來源:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "從 標籤 2 與 標籤 1"
+
+msgid "Format:"
+msgstr "格式:"
+
+msgid "Preview"
+msgstr "預覽"
+
+msgid "To Filename"
+msgstr "到檔名"
+
 msgid "&Back"
 msgstr "返回(&B)"
 
@@ -538,21 +655,6 @@ msgstr "取代(&R)..."
 msgid "&Tools"
 msgstr "工具(&T)"
 
-msgid "Apply Filename Format"
-msgstr "套用檔名格式"
-
-msgid "Apply Tag Format"
-msgstr "套用 Tag 格式"
-
-msgid "Apply Text Encoding"
-msgstr "将字符编码"
-
-msgid "Rename Directory"
-msgstr "更改目錄名稱"
-
-msgid "Number Tracks"
-msgstr "音軌編號"
-
 msgid "&Settings"
 msgstr "設定(&S)"
 
@@ -597,9 +699,6 @@ msgstr "關於 Qt"
 
 msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
-
-msgid " [modified]"
-msgstr "[已更改]"
 
 msgid "Toggle the statusbar..."
 msgstr "切換狀態列..."
@@ -871,6 +970,9 @@ msgstr "種類"
 msgid "Date Modified"
 msgstr "變更日期"
 
+msgid "Text"
+msgstr "文字"
+
 msgid "Data"
 msgstr "資料"
 
@@ -886,9 +988,6 @@ msgstr "搜尋結束"
 msgid "Event Code"
 msgstr "程式碼"
 
-msgid "Text"
-msgstr "文字"
-
 msgid "Track"
 msgstr "音軌"
 
@@ -897,6 +996,111 @@ msgstr "檔案的絕對路徑"
 
 msgid "Duration"
 msgstr "持續時間"
+
+msgid "Text Encoding"
+msgstr "字元編碼"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Owner"
+msgstr "擁有者"
+
+msgid "Email"
+msgstr "電子信箱"
+
+msgid "Rating"
+msgstr "評比"
+
+msgid "Language"
+msgstr "語言"
+
+msgid "Picture Type"
+msgstr "圖片格式"
+
+msgid "Image format"
+msgstr "圖片格式"
+
+msgid "Mimetype"
+msgstr "Mimetype"
+
+msgid "Counter"
+msgstr "計數器"
+
+msgid "Identifier"
+msgstr "識別子"
+
+msgid "Volume Adjustment"
+msgstr "音量調整"
+
+msgid "Number of Bits"
+msgstr "位元數"
+
+msgid "Volume Change Right"
+msgstr ""
+
+msgid "Volume Change Left"
+msgstr ""
+
+msgid "Peak Volume Right"
+msgstr ""
+
+msgid "Peak Volume Left"
+msgstr ""
+
+msgid "Timestamp Format"
+msgstr "時間格式"
+
+msgid "Content Type"
+msgstr "內容類型"
+
+msgid "Price"
+msgstr "價格"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Seller"
+msgstr ""
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "MPEG frames as unit"
+msgstr "以 MPEG 訊框為單位"
+
+msgid "Milliseconds as unit"
+msgstr "以毫秒為單位"
+
+msgid "Lyrics"
+msgstr "Lyrics"
+
+msgid "Text transcription"
+msgstr ""
+
+msgid "Movement/part name"
+msgstr ""
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Chord"
+msgstr ""
+
+msgid "Trivia/pop up"
+msgstr ""
 
 msgid "Title"
 msgstr "歌(曲)名"
@@ -909,9 +1113,6 @@ msgstr "專輯名稱"
 
 msgid "Comment"
 msgstr "內容註釋"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Track Number"
 msgstr "音軌編號"
@@ -967,14 +1168,8 @@ msgstr ""
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "語言"
-
 msgid "Lyricist"
 msgstr "Lyricist"
-
-msgid "Lyrics"
-msgstr "Lyrics"
 
 msgid "Media"
 msgstr "媒體"
@@ -996,9 +1191,6 @@ msgstr "退出"
 
 msgid "Performer"
 msgstr "表演者"
-
-msgid "Picture"
-msgstr "圖片"
 
 msgid "Publisher"
 msgstr "出版商"
@@ -1035,9 +1227,6 @@ msgstr "正式音效檔網頁"
 
 msgid "WWW Audio Source"
 msgstr ""
-
-msgid "Other"
-msgstr "其他"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 檔圖示"
@@ -1114,14 +1303,8 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "脫逸 HTML"
 
-msgid "Automatic Import"
-msgstr "自動匯入"
-
 msgid "D&estination:"
 msgstr "目的(&E)："
-
-msgid "Tag 1 and Tag 2"
-msgstr "標籤 1 與 標籤 2"
 
 msgid "&Profile:"
 msgstr "設定檔(&P):"
@@ -1165,9 +1348,6 @@ msgstr "演唱(奏)者/專輯(&A)"
 msgid "&Source"
 msgstr "來源(&S)"
 
-msgid "Source:"
-msgstr "來源:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1209,15 +1389,6 @@ msgstr "音軌編號位數(&D)："
 
 msgid "&Genre as text instead of numeric string"
 msgstr "將曲風視做文字而不是數字字串(&G)"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "使用新標籤版本(&V):"
@@ -1263,9 +1434,6 @@ msgstr "啟動"
 
 msgid "&Load last-opened files"
 msgstr ""
-
-msgid "Save"
-msgstr "儲存"
 
 msgid "&Preserve file timestamp"
 msgstr "保留檔案的原來時間(&P)"
@@ -1322,95 +1490,8 @@ msgstr "從剪貼簿(&b)"
 msgid "&View..."
 msgstr "檢視(&V)..."
 
-msgid "Text Encoding"
-msgstr "字元編碼"
-
-msgid "Description"
-msgstr "描述"
-
-msgid "Owner"
-msgstr "擁有者"
-
-msgid "Email"
-msgstr "電子信箱"
-
-msgid "Rating"
-msgstr "評比"
-
-msgid "Picture Type"
-msgstr "圖片格式"
-
-msgid "Image format"
-msgstr "圖片格式"
-
-msgid "Mimetype"
-msgstr "Mimetype"
-
-msgid "Counter"
-msgstr "計數器"
-
-msgid "Identifier"
-msgstr "識別子"
-
-msgid "Volume Adjustment"
-msgstr "音量調整"
-
-msgid "Number of Bits"
-msgstr "位元數"
-
-msgid "Volume Change Right"
-msgstr ""
-
-msgid "Volume Change Left"
-msgstr ""
-
-msgid "Peak Volume Right"
-msgstr ""
-
-msgid "Peak Volume Left"
-msgstr ""
-
-msgid "Timestamp Format"
-msgstr "時間格式"
-
-msgid "Content Type"
-msgstr "內容類型"
-
-msgid "Price"
-msgstr "價格"
-
-msgid "Seller"
-msgstr ""
-
 msgid "Images"
 msgstr "圖片"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "以 MPEG 訊框為單位"
-
-msgid "Milliseconds as unit"
-msgstr "以毫秒為單位"
-
-msgid "Text transcription"
-msgstr ""
-
-msgid "Movement/part name"
-msgstr ""
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Chord"
-msgstr ""
-
-msgid "Trivia/pop up"
-msgstr ""
-
-msgid "Export"
-msgstr "匯出"
 
 msgid "&Format:"
 msgstr "格式(&F)："
@@ -1517,9 +1598,6 @@ msgstr "到(&D):"
 msgid "&Total number of tracks:"
 msgstr "音軌編號(&T):"
 
-msgid "Create Playlist"
-msgstr "建立播放清單"
-
 msgid "Playlist File Name"
 msgstr "播放清單檔案名稱"
 
@@ -1565,17 +1643,8 @@ msgstr "僅依據檔案清單來寫入(&L)"
 msgid "Write &info using"
 msgstr "寫入依據(&I)"
 
-msgid "Preview"
-msgstr "預覽"
-
-msgid "Create Directory"
-msgstr "建立目錄"
-
 msgid "&Action:"
 msgstr "動作(&A):"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "從 標籤 2 與 標籤 1"
 
 msgid "From:"
 msgstr "從："
@@ -1600,9 +1669,6 @@ msgstr "沒有選擇結果"
 
 msgid "Import from Tags"
 msgstr "從標籤"
-
-msgid "Format:"
-msgstr "格式:"
 
 msgid "Extraction:"
 msgstr "提取:"
@@ -1641,29 +1707,14 @@ msgstr ""
 "目前目錄已更動\n"
 "要儲存嗎？"
 
-msgid "Warning"
-msgstr "警告"
-
 msgid "Exiting..."
 msgstr "離開..."
 
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
-msgid "Import"
-msgstr "匯入"
-
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
-
-msgid " [filtered]"
-msgstr "[已篩選]"
-
-msgid "Add Frame"
-msgstr "新增訊框"
-
-msgid "Select the frame ID"
-msgstr "選擇訊框代碼"
 
 msgid "Rename File"
 msgstr "更改檔名"
@@ -1823,9 +1874,6 @@ msgstr "上一音軌"
 
 msgid "Next Track"
 msgstr "下一音軌"
-
-msgid "Close"
-msgstr "關閉"
 
 msgid "Mute"
 msgstr "靜音"

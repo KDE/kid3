@@ -18,11 +18,13 @@ echo "Done preparing rc files"
 echo "Extracting messages"
 cd ${BASEDIR}
 # see above on sorting
-find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.hpp' | sort > ${WDIR}/infiles.list
+find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.hpp' -o -name '*.qml' | sort > ${WDIR}/infiles.list
 echo "rc.cpp" >> ${WDIR}/infiles.list
 cd ${WDIR}
 xgettext --from-code=UTF-8 -C --qt --no-location -ci18n -ktr:1,1t -ktr:1,2c,2t -ktr:1,1,2c,3t \
   -kQT_TRANSLATE_NOOP:1,1t -kQT_TRANSLATE_NOOP:2,2t \
+  -kqsTr:1,1t -kqsTr:1,2c,2t -kqsTr:1,1,2c,3t \
+  -kqsTrNoOp:1,1t -kqsTrNoOp:2,2t \
   --msgid-bugs-address="${BUGADDR}" \
   --package-name="${PROJECT^}" \
   --package-version="${PROJECTVERSION}" \

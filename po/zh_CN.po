@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -414,6 +414,123 @@ msgstr "李少辉"
 msgid "Your emails"
 msgstr "lishaohui.qd@163.com"
 
+msgid "Automatic Import"
+msgstr "自动导入"
+
+msgid "Destination:"
+msgstr "目标："
+
+msgid "Tag 1 and Tag 2"
+msgstr "标签 1 与 标签 2"
+
+msgid "Profile:"
+msgstr "配置文件:"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Start"
+msgstr "开始"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "OK"
+msgstr "确定"
+
+msgid "Filter:"
+msgstr "过滤："
+
+msgid "Expression:"
+msgstr "表达式："
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Import"
+msgstr "导入"
+
+msgid "Add Frame"
+msgstr "添加帧"
+
+msgid "Select the frame ID"
+msgstr "选择帧号"
+
+msgid " [modified]"
+msgstr "[已修改]"
+
+msgid " [filtered]"
+msgstr "[已过滤]"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "The current directory has been modified.\n"
+msgstr "当前目录已被修改。"
+
+msgid "Apply Filename Format"
+msgstr "应用文件名格式"
+
+msgid "Apply Tag Format"
+msgstr "应用标签格式"
+
+msgid "Apply Text Encoding"
+msgstr "应用字符编码"
+
+msgid "Rename Directory"
+msgstr "更改目录名称"
+
+msgid "Number Tracks"
+msgstr "音轨编号"
+
+msgid "Create Playlist"
+msgstr "创建播放列表"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "不"
+
+msgid "Start number:"
+msgstr "起始编号："
+
+msgid "Total number of tracks"
+msgstr "音轨编号"
+
+msgid "Picture"
+msgstr "图片"
+
+msgid "Action:"
+msgstr "动作:"
+
+msgid "Create Directory"
+msgstr "创建目录"
+
+msgid "Source:"
+msgstr "来源："
+
+msgid "From Tag 2 and Tag 1"
+msgstr "从 标签 2 与 标签 1"
+
+msgid "Format:"
+msgstr "格式："
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "To Filename"
+msgstr "至文件名"
+
 msgid "&Back"
 msgstr "后退(&B)"
 
@@ -534,21 +651,6 @@ msgstr "替换(&R)..."
 msgid "&Tools"
 msgstr "工具(&T)"
 
-msgid "Apply Filename Format"
-msgstr "应用文件名格式"
-
-msgid "Apply Tag Format"
-msgstr "应用标签格式"
-
-msgid "Apply Text Encoding"
-msgstr "应用字符编码"
-
-msgid "Rename Directory"
-msgstr "更改目录名称"
-
-msgid "Number Tracks"
-msgstr "音轨编号"
-
 msgid "&Settings"
 msgstr "设置(&S)"
 
@@ -593,9 +695,6 @@ msgstr "关于 Qt"
 
 msgid "About &Qt"
 msgstr "关于 Qt(&Q)"
-
-msgid " [modified]"
-msgstr "[已修改]"
 
 msgid "Toggle the statusbar..."
 msgstr "切换状态栏..."
@@ -867,6 +966,9 @@ msgstr "种类"
 msgid "Date Modified"
 msgstr "修改日期"
 
+msgid "Text"
+msgstr "文本"
+
 msgid "Data"
 msgstr "数据"
 
@@ -882,9 +984,6 @@ msgstr "搜索结束"
 msgid "Event Code"
 msgstr "事件代码"
 
-msgid "Text"
-msgstr "文本"
-
 msgid "Track"
 msgstr "音轨"
 
@@ -893,6 +992,111 @@ msgstr "文件的绝对路径"
 
 msgid "Duration"
 msgstr "持续时间"
+
+msgid "Text Encoding"
+msgstr "文本编码"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Email"
+msgstr "电子邮箱"
+
+msgid "Rating"
+msgstr "评分"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Picture Type"
+msgstr "图片类型"
+
+msgid "Image format"
+msgstr "图像格式"
+
+msgid "Mimetype"
+msgstr "MIME 类型"
+
+msgid "Counter"
+msgstr "计数器"
+
+msgid "Identifier"
+msgstr "标识符"
+
+msgid "Volume Adjustment"
+msgstr "音量调节"
+
+msgid "Number of Bits"
+msgstr "比特数"
+
+msgid "Volume Change Right"
+msgstr "右声道音量修改"
+
+msgid "Volume Change Left"
+msgstr "左声道音量修改"
+
+msgid "Peak Volume Right"
+msgstr "右声道音量峰值"
+
+msgid "Peak Volume Left"
+msgstr "左声道音量峰值"
+
+msgid "Timestamp Format"
+msgstr "时间戳格式"
+
+msgid "Content Type"
+msgstr "内容类型"
+
+msgid "Price"
+msgstr "价格"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Seller"
+msgstr "发售方"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "MPEG frames as unit"
+msgstr "以 MPEG 帧为单位"
+
+msgid "Milliseconds as unit"
+msgstr "以毫秒为单位"
+
+msgid "Lyrics"
+msgstr "歌词"
+
+msgid "Text transcription"
+msgstr "文本扒带"
+
+msgid "Movement/part name"
+msgstr "乐章/声部名称"
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Chord"
+msgstr "和弦"
+
+msgid "Trivia/pop up"
+msgstr "花絮/流行"
 
 msgid "Title"
 msgstr "标题"
@@ -905,9 +1109,6 @@ msgstr "专辑"
 
 msgid "Comment"
 msgstr "注释"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Track Number"
 msgstr "音轨编号"
@@ -963,14 +1164,8 @@ msgstr "初始调性"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "语言"
-
 msgid "Lyricist"
 msgstr "词作者"
-
-msgid "Lyrics"
-msgstr "歌词"
 
 msgid "Media"
 msgstr "媒体"
@@ -992,9 +1187,6 @@ msgstr "声部"
 
 msgid "Performer"
 msgstr "演出者"
-
-msgid "Picture"
-msgstr "图片"
 
 msgid "Publisher"
 msgstr "出版商"
@@ -1031,9 +1223,6 @@ msgstr "WWW 音频文件"
 
 msgid "WWW Audio Source"
 msgstr "WWW 音频来源"
-
-msgid "Other"
-msgstr "其他"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 文件图标"
@@ -1110,14 +1299,8 @@ msgstr "编解码"
 msgid "Escape for HTML"
 msgstr "HTML 转义符"
 
-msgid "Automatic Import"
-msgstr "自动导入"
-
 msgid "D&estination:"
 msgstr "目标(&E)："
-
-msgid "Tag 1 and Tag 2"
-msgstr "标签 1 与 标签 2"
 
 msgid "&Profile:"
 msgstr "配置文件(&P):"
@@ -1161,9 +1344,6 @@ msgstr "艺人/专辑(&A)"
 msgid "&Source"
 msgstr "来源(&S)"
 
-msgid "Source:"
-msgstr "来源："
-
 msgid "URL:"
 msgstr "URL："
 
@@ -1205,15 +1385,6 @@ msgstr "音轨编号位数(&D)："
 
 msgid "&Genre as text instead of numeric string"
 msgstr "将流派视做文本而非数字字符串(&G)"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "新标签使用的版本(&V)："
@@ -1259,9 +1430,6 @@ msgstr "启动"
 
 msgid "&Load last-opened files"
 msgstr "载入上次打开的文件(&L)"
-
-msgid "Save"
-msgstr "保存"
 
 msgid "&Preserve file timestamp"
 msgstr "保存文件时间戳(&P)"
@@ -1317,95 +1485,8 @@ msgstr "从剪贴板(&b)"
 msgid "&View..."
 msgstr "视图(&V)..."
 
-msgid "Text Encoding"
-msgstr "文本编码"
-
-msgid "Description"
-msgstr "描述"
-
-msgid "Owner"
-msgstr "所有者"
-
-msgid "Email"
-msgstr "电子邮箱"
-
-msgid "Rating"
-msgstr "评分"
-
-msgid "Picture Type"
-msgstr "图片类型"
-
-msgid "Image format"
-msgstr "图像格式"
-
-msgid "Mimetype"
-msgstr "MIME 类型"
-
-msgid "Counter"
-msgstr "计数器"
-
-msgid "Identifier"
-msgstr "标识符"
-
-msgid "Volume Adjustment"
-msgstr "音量调节"
-
-msgid "Number of Bits"
-msgstr "比特数"
-
-msgid "Volume Change Right"
-msgstr "右声道音量修改"
-
-msgid "Volume Change Left"
-msgstr "左声道音量修改"
-
-msgid "Peak Volume Right"
-msgstr "右声道音量峰值"
-
-msgid "Peak Volume Left"
-msgstr "左声道音量峰值"
-
-msgid "Timestamp Format"
-msgstr "时间戳格式"
-
-msgid "Content Type"
-msgstr "内容类型"
-
-msgid "Price"
-msgstr "价格"
-
-msgid "Seller"
-msgstr "发售方"
-
 msgid "Images"
 msgstr "图片"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "以 MPEG 帧为单位"
-
-msgid "Milliseconds as unit"
-msgstr "以毫秒为单位"
-
-msgid "Text transcription"
-msgstr "文本扒带"
-
-msgid "Movement/part name"
-msgstr "乐章/声部名称"
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Chord"
-msgstr "和弦"
-
-msgid "Trivia/pop up"
-msgstr "花絮/流行"
-
-msgid "Export"
-msgstr "导出"
 
 msgid "&Format:"
 msgstr "格式(&F)："
@@ -1512,9 +1593,6 @@ msgstr "目标(&D)："
 msgid "&Total number of tracks:"
 msgstr "音轨编号(&T)："
 
-msgid "Create Playlist"
-msgstr "创建播放列表"
-
 msgid "Playlist File Name"
 msgstr "播放列表文件名"
 
@@ -1560,17 +1638,8 @@ msgstr "仅根据文件列表来写入(&L)"
 msgid "Write &info using"
 msgstr "写入依据(&I)"
 
-msgid "Preview"
-msgstr "预览"
-
-msgid "Create Directory"
-msgstr "创建目录"
-
 msgid "&Action:"
 msgstr "动作(&A):"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "从 标签 2 与 标签 1"
 
 msgid "From:"
 msgstr "从："
@@ -1595,9 +1664,6 @@ msgstr "没有选择结果"
 
 msgid "Import from Tags"
 msgstr "从标签"
-
-msgid "Format:"
-msgstr "格式："
 
 msgid "Extraction:"
 msgstr "提取："
@@ -1636,29 +1702,14 @@ msgstr ""
 "当前目录已修改\n"
 "要保存吗？"
 
-msgid "Warning"
-msgstr "警告"
-
 msgid "Exiting..."
 msgstr "退出..."
 
 msgid "Creating playlist..."
 msgstr "创建播放列表..."
 
-msgid "Import"
-msgstr "导入"
-
 msgid "Error while renaming:\n"
 msgstr "文件重命名发生错误：\n"
-
-msgid " [filtered]"
-msgstr "[已过滤]"
-
-msgid "Add Frame"
-msgstr "添加帧"
-
-msgid "Select the frame ID"
-msgstr "选择帧号"
 
 msgid "Rename File"
 msgstr "文件重命名"
@@ -1818,9 +1869,6 @@ msgstr "上一音轨"
 
 msgid "Next Track"
 msgstr "下一音轨"
-
-msgid "Close"
-msgstr "关闭"
 
 msgid "Mute"
 msgstr "静音"

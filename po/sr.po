@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -415,6 +415,123 @@ msgstr "Младен Пејаковић"
 msgid "Your emails"
 msgstr "pejakm@gmail.com"
 
+msgid "Automatic Import"
+msgstr "Аутоматски увози"
+
+msgid "Destination:"
+msgstr "Одредиште:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "ознака 1 и ознака 2"
+
+msgid "Profile:"
+msgstr "Профил:"
+
+msgid "Close"
+msgstr "Затвори"
+
+msgid "Start"
+msgstr "Почетак"
+
+msgid "Cancel"
+msgstr "Одустани"
+
+msgid "OK"
+msgstr "У реду"
+
+msgid "Filter:"
+msgstr "Филтер:"
+
+msgid "Expression:"
+msgstr "Израз:"
+
+msgid "Apply"
+msgstr "Примени"
+
+msgid "Export"
+msgstr "Извези"
+
+msgid "Import"
+msgstr "Увези"
+
+msgid "Add Frame"
+msgstr "Додај оквир"
+
+msgid "Select the frame ID"
+msgstr "Изаберите ИД оквира"
+
+msgid " [modified]"
+msgstr " [измењен]"
+
+msgid " [filtered]"
+msgstr " [филтриран]"
+
+msgid "Warning"
+msgstr "Упозорење"
+
+msgid "The current directory has been modified.\n"
+msgstr "Тренутни директоријум је измењен."
+
+msgid "Apply Filename Format"
+msgstr "Примени формат назива фајла"
+
+msgid "Apply Tag Format"
+msgstr "Примени формат ознаке"
+
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+msgid "Rename Directory"
+msgstr "Преименуј директоријум"
+
+msgid "Number Tracks"
+msgstr "Нумериши"
+
+msgid "Create Playlist"
+msgstr "Направи листу нумера"
+
+msgid "Save"
+msgstr "Сачувај"
+
+msgid "Quit"
+msgstr "Напусти"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Start number:"
+msgstr "Почетни број:"
+
+msgid "Total number of tracks"
+msgstr "Укупно нумера"
+
+msgid "Picture"
+msgstr "Слика"
+
+msgid "Action:"
+msgstr "Радња:"
+
+msgid "Create Directory"
+msgstr "Направи директоријум"
+
+msgid "Source:"
+msgstr "Извор:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Из ознаке 2 и ознаке 1"
+
+msgid "Format:"
+msgstr "Формат:"
+
+msgid "Preview"
+msgstr "Преглед"
+
+msgid "To Filename"
+msgstr "У имена фајла"
+
 msgid "&Back"
 msgstr "&Назад"
 
@@ -535,21 +652,6 @@ msgstr "&Замени..."
 msgid "&Tools"
 msgstr "&Алатке"
 
-msgid "Apply Filename Format"
-msgstr "Примени формат назива фајла"
-
-msgid "Apply Tag Format"
-msgstr "Примени формат ознаке"
-
-msgid "Apply Text Encoding"
-msgstr "Примени кодирање текста"
-
-msgid "Rename Directory"
-msgstr "Преименуј директоријум"
-
-msgid "Number Tracks"
-msgstr "Нумериши"
-
 msgid "&Settings"
 msgstr "&Подешавање"
 
@@ -594,9 +696,6 @@ msgstr "О КјуТ-у"
 
 msgid "About &Qt"
 msgstr "О &КјуТ-у"
-
-msgid " [modified]"
-msgstr " [измењен]"
 
 msgid "Toggle the statusbar..."
 msgstr "Прикажи/сакриј траку стања..."
@@ -868,6 +967,9 @@ msgstr "Врста"
 msgid "Date Modified"
 msgstr "Датум измене"
 
+msgid "Text"
+msgstr "Текст"
+
 msgid "Data"
 msgstr "Подаци"
 
@@ -883,9 +985,6 @@ msgstr "Претрага завршена"
 msgid "Event Code"
 msgstr "Кôд"
 
-msgid "Text"
-msgstr "Текст"
-
 msgid "Track"
 msgstr "Нумера"
 
@@ -894,6 +993,111 @@ msgstr "Апсолутна путања до фајла"
 
 msgid "Duration"
 msgstr "Трајање"
+
+msgid "Text Encoding"
+msgstr "Кодирање текста"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Owner"
+msgstr "Власник"
+
+msgid "Email"
+msgstr "Е-адреса"
+
+msgid "Rating"
+msgstr "Рејтинг"
+
+msgid "Language"
+msgstr "Језик"
+
+msgid "Picture Type"
+msgstr "Тип слике"
+
+msgid "Image format"
+msgstr "Формат слике"
+
+msgid "Mimetype"
+msgstr "Миме"
+
+msgid "Counter"
+msgstr "Бројач"
+
+msgid "Identifier"
+msgstr "Идентификатор"
+
+msgid "Volume Adjustment"
+msgstr "Подешавање јачине"
+
+msgid "Number of Bits"
+msgstr "Број бита"
+
+msgid "Volume Change Right"
+msgstr ""
+
+msgid "Volume Change Left"
+msgstr ""
+
+msgid "Peak Volume Right"
+msgstr ""
+
+msgid "Peak Volume Left"
+msgstr ""
+
+msgid "Timestamp Format"
+msgstr "Формат временске ознаке"
+
+msgid "Content Type"
+msgstr "Тип садржаја"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Date"
+msgstr "Година"
+
+msgid "Seller"
+msgstr ""
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF16BE"
+msgstr "UTF-16BE"
+
+msgid "UTF8"
+msgstr "UTF-8"
+
+msgid "Other"
+msgstr "Остало"
+
+msgid "MPEG frames as unit"
+msgstr "Број МПЕГ кадрова као јединица"
+
+msgid "Milliseconds as unit"
+msgstr "Милисекунде као јединица"
+
+msgid "Lyrics"
+msgstr "Текст"
+
+msgid "Text transcription"
+msgstr "Транскрипција текста"
+
+msgid "Movement/part name"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Chord"
+msgstr "Акорд"
+
+msgid "Trivia/pop up"
+msgstr ""
 
 msgid "Title"
 msgstr "Наслов"
@@ -906,9 +1110,6 @@ msgstr "Албум"
 
 msgid "Comment"
 msgstr "Коментар"
-
-msgid "Date"
-msgstr "Година"
 
 msgid "Track Number"
 msgstr "Број нумере"
@@ -964,14 +1165,8 @@ msgstr "Почетни кључ"
 msgid "ISRC"
 msgstr "ИСРЦ"
 
-msgid "Language"
-msgstr "Језик"
-
 msgid "Lyricist"
 msgstr "Текстописац"
-
-msgid "Lyrics"
-msgstr "Текст"
 
 msgid "Media"
 msgstr "Медија"
@@ -993,9 +1188,6 @@ msgstr "Дио"
 
 msgid "Performer"
 msgstr "Извођач"
-
-msgid "Picture"
-msgstr "Слика"
 
 msgid "Publisher"
 msgstr "Издавач"
@@ -1032,9 +1224,6 @@ msgstr ""
 
 msgid "WWW Audio Source"
 msgstr ""
-
-msgid "Other"
-msgstr "Остало"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "ПНГ икона фајла 32x32 пиксела"
@@ -1111,14 +1300,8 @@ msgstr "Кодек"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Аутоматски увози"
-
 msgid "D&estination:"
 msgstr "О&дредиште:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "ознака 1 и ознака 2"
 
 msgid "&Profile:"
 msgstr "&Профил:"
@@ -1162,9 +1345,6 @@ msgstr "И&звођач/албум"
 msgid "&Source"
 msgstr "&Извор"
 
-msgid "Source:"
-msgstr "Извор:"
-
 msgid "URL:"
 msgstr "УРЛ:"
 
@@ -1206,15 +1386,6 @@ msgstr "Број &цифара нумере:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр као текст уместо бројног низа"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "&Version used for new tags:"
 msgstr "И&здање за нове ознаке:"
@@ -1260,9 +1431,6 @@ msgstr "Покретање"
 
 msgid "&Load last-opened files"
 msgstr ""
-
-msgid "Save"
-msgstr "Сачувај"
 
 msgid "&Preserve file timestamp"
 msgstr "Очувај &временску ознаку фајла"
@@ -1318,95 +1486,8 @@ msgstr "Из клип&борда"
 msgid "&View..."
 msgstr "&Приказ..."
 
-msgid "Text Encoding"
-msgstr "Кодирање текста"
-
-msgid "Description"
-msgstr "Опис"
-
-msgid "Owner"
-msgstr "Власник"
-
-msgid "Email"
-msgstr "Е-адреса"
-
-msgid "Rating"
-msgstr "Рејтинг"
-
-msgid "Picture Type"
-msgstr "Тип слике"
-
-msgid "Image format"
-msgstr "Формат слике"
-
-msgid "Mimetype"
-msgstr "Миме"
-
-msgid "Counter"
-msgstr "Бројач"
-
-msgid "Identifier"
-msgstr "Идентификатор"
-
-msgid "Volume Adjustment"
-msgstr "Подешавање јачине"
-
-msgid "Number of Bits"
-msgstr "Број бита"
-
-msgid "Volume Change Right"
-msgstr ""
-
-msgid "Volume Change Left"
-msgstr ""
-
-msgid "Peak Volume Right"
-msgstr ""
-
-msgid "Peak Volume Left"
-msgstr ""
-
-msgid "Timestamp Format"
-msgstr "Формат временске ознаке"
-
-msgid "Content Type"
-msgstr "Тип садржаја"
-
-msgid "Price"
-msgstr "Цена"
-
-msgid "Seller"
-msgstr ""
-
 msgid "Images"
 msgstr "Слике"
-
-msgid "UTF16BE"
-msgstr "UTF-16BE"
-
-msgid "MPEG frames as unit"
-msgstr "Број МПЕГ кадрова као јединица"
-
-msgid "Milliseconds as unit"
-msgstr "Милисекунде као јединица"
-
-msgid "Text transcription"
-msgstr "Транскрипција текста"
-
-msgid "Movement/part name"
-msgstr ""
-
-msgid "Events"
-msgstr ""
-
-msgid "Chord"
-msgstr "Акорд"
-
-msgid "Trivia/pop up"
-msgstr ""
-
-msgid "Export"
-msgstr "Извези"
 
 msgid "&Format:"
 msgstr "&Формат:"
@@ -1513,9 +1594,6 @@ msgstr "&Одредиште:"
 msgid "&Total number of tracks:"
 msgstr "&Укупно нумера:"
 
-msgid "Create Playlist"
-msgstr "Направи листу нумера"
-
 msgid "Playlist File Name"
 msgstr "Име фајла листе нумера"
 
@@ -1561,17 +1639,8 @@ msgstr "Упиши само &списак фајлова"
 msgid "Write &info using"
 msgstr "Упиши &информације користећи"
 
-msgid "Preview"
-msgstr "Преглед"
-
-msgid "Create Directory"
-msgstr "Направи директоријум"
-
 msgid "&Action:"
 msgstr "&Радња:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Из ознаке 2 и ознаке 1"
 
 msgid "From:"
 msgstr "Из:"
@@ -1596,9 +1665,6 @@ msgstr "Ништа није изабрано"
 
 msgid "Import from Tags"
 msgstr "Увези из ознака"
-
-msgid "Format:"
-msgstr "Формат:"
 
 msgid "Extraction:"
 msgstr "Извлачење:"
@@ -1637,29 +1703,14 @@ msgstr ""
 "Тренутни директоријум је измењен.\n"
 "Желите ли да сачувате измене?"
 
-msgid "Warning"
-msgstr "Упозорење"
-
 msgid "Exiting..."
 msgstr "Излазим..."
 
 msgid "Creating playlist..."
 msgstr "Правим листу нумера..."
 
-msgid "Import"
-msgstr "Увези"
-
 msgid "Error while renaming:\n"
 msgstr "Грешка приликом преименовања:\n"
-
-msgid " [filtered]"
-msgstr " [филтриран]"
-
-msgid "Add Frame"
-msgstr "Додај оквир"
-
-msgid "Select the frame ID"
-msgstr "Изаберите ИД оквира"
 
 msgid "Rename File"
 msgstr "Преименуј фајл"
@@ -1819,9 +1870,6 @@ msgstr "Претходна нумера"
 
 msgid "Next Track"
 msgstr "Следећа нумера"
-
-msgid "Close"
-msgstr "Затвори"
 
 msgid "Mute"
 msgstr "Утишај"

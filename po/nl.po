@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-11-02 08:41+0100\n"
+"POT-Creation-Date: 2014-12-25 15:01+0100\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -416,6 +416,123 @@ msgstr "Kenny Verstraete, Toon van Gerwen"
 msgid "Your emails"
 msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
 
+msgid "Automatic Import"
+msgstr "Automatisch importeren"
+
+msgid "Destination:"
+msgstr "Bestemming:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 en Tag 2"
+
+msgid "Profile:"
+msgstr "Profiel:"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Start"
+msgstr "Starten"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Expression:"
+msgstr "Uitdrukking:"
+
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Add Frame"
+msgstr "Frame toevoegen"
+
+msgid "Select the frame ID"
+msgstr "Selecteer de frame identiteit"
+
+msgid " [modified]"
+msgstr " [gewijzigd]"
+
+msgid " [filtered]"
+msgstr " [gefiltert]"
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgid "The current directory has been modified.\n"
+msgstr "De huidige map is gewijzigd."
+
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamstructuur Toepassen"
+
+msgid "Apply Tag Format"
+msgstr "Tagstructuur toepassen"
+
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+msgid "Rename Directory"
+msgstr "Map hernoemen"
+
+msgid "Number Tracks"
+msgstr "Tracks nummeren"
+
+msgid "Create Playlist"
+msgstr "Multimedia afspeellijst maken"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Start number:"
+msgstr "Start nummer:"
+
+msgid "Total number of tracks"
+msgstr "Totaal aantal tracks"
+
+msgid "Picture"
+msgstr "Afbeelding"
+
+msgid "Action:"
+msgstr "Actie:"
+
+msgid "Create Directory"
+msgstr "Map aanmaken"
+
+msgid "Source:"
+msgstr "Bron:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Van Tag 2 en Tag 1"
+
+msgid "Format:"
+msgstr "Structuur:"
+
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "To Filename"
+msgstr "Do bestandsnaam"
+
 msgid "&Back"
 msgstr "&Vorige"
 
@@ -536,21 +653,6 @@ msgstr "Ve&rvangen..."
 msgid "&Tools"
 msgstr "H&ulpmiddelen"
 
-msgid "Apply Filename Format"
-msgstr "Bestandsnaamstructuur Toepassen"
-
-msgid "Apply Tag Format"
-msgstr "Tagstructuur toepassen"
-
-msgid "Apply Text Encoding"
-msgstr "Tekst-codering toepassen"
-
-msgid "Rename Directory"
-msgstr "Map hernoemen"
-
-msgid "Number Tracks"
-msgstr "Tracks nummeren"
-
 msgid "&Settings"
 msgstr "&Instellingen"
 
@@ -595,9 +697,6 @@ msgstr "Over Qt"
 
 msgid "About &Qt"
 msgstr "Over &Qt"
-
-msgid " [modified]"
-msgstr " [gewijzigd]"
 
 msgid "Toggle the statusbar..."
 msgstr "De statusbalk omschakelen..."
@@ -869,6 +968,9 @@ msgstr "Type"
 msgid "Date Modified"
 msgstr "Laatst gewijzigd"
 
+msgid "Text"
+msgstr "Tekst"
+
 msgid "Data"
 msgstr "Gegevens"
 
@@ -884,9 +986,6 @@ msgstr "Zoekopdracht voltooid"
 msgid "Event Code"
 msgstr "Gebeurtenis code"
 
-msgid "Text"
-msgstr "Tekst"
-
 msgid "Track"
 msgstr "Track"
 
@@ -895,6 +994,111 @@ msgstr "Absoluut pad naar bestand"
 
 msgid "Duration"
 msgstr "Duur"
+
+msgid "Text Encoding"
+msgstr "Tekst-Codering"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Owner"
+msgstr "Eigenaar"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Rating"
+msgstr "Waardering"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "Picture Type"
+msgstr "Afbeeldingstype"
+
+msgid "Image format"
+msgstr "Afbeeldingsformaat"
+
+msgid "Mimetype"
+msgstr "Mime bestandstype"
+
+msgid "Counter"
+msgstr "Teller"
+
+msgid "Identifier"
+msgstr "Identifier"
+
+msgid "Volume Adjustment"
+msgstr "Volume aanpassing"
+
+msgid "Number of Bits"
+msgstr "Aantal Bits"
+
+msgid "Volume Change Right"
+msgstr "Volume Wijzigen Rechts"
+
+msgid "Volume Change Left"
+msgstr "Volume Wijzigen Links"
+
+msgid "Peak Volume Right"
+msgstr "Piekvolume Rechts"
+
+msgid "Peak Volume Left"
+msgstr "Piekvolume Links"
+
+msgid "Timestamp Format"
+msgstr "Opmaak Tijdsaanduiding"
+
+msgid "Content Type"
+msgstr "Soort inhoud"
+
+msgid "Price"
+msgstr ""
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Seller"
+msgstr ""
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Other"
+msgstr "Ander"
+
+msgid "MPEG frames as unit"
+msgstr "MPEG frame als eenheid"
+
+msgid "Milliseconds as unit"
+msgstr "Milliseconden als eenheid"
+
+msgid "Lyrics"
+msgstr "Liedtekst"
+
+msgid "Text transcription"
+msgstr "Tekst"
+
+msgid "Movement/part name"
+msgstr "Deel"
+
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+msgid "Chord"
+msgstr "Koorde"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
 
 msgid "Title"
 msgstr "Titel"
@@ -907,9 +1111,6 @@ msgstr "Album"
 
 msgid "Comment"
 msgstr "Opmerkingen"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Track Number"
 msgstr "Tracknummer"
@@ -965,14 +1166,8 @@ msgstr "Initiële sleutel"
 msgid "ISRC"
 msgstr "ISRC"
 
-msgid "Language"
-msgstr "Taal"
-
 msgid "Lyricist"
 msgstr "Tekstschrijver"
-
-msgid "Lyrics"
-msgstr "Liedtekst"
 
 msgid "Media"
 msgstr "Medium"
@@ -994,9 +1189,6 @@ msgstr "Deel"
 
 msgid "Performer"
 msgstr "Artiest/uitvoerende"
-
-msgid "Picture"
-msgstr "Afbeelding"
 
 msgid "Publisher"
 msgstr "Uitgever"
@@ -1033,9 +1225,6 @@ msgstr "WWW van audio bestand"
 
 msgid "WWW Audio Source"
 msgstr "WWW van audio bron"
-
-msgid "Other"
-msgstr "Ander"
 
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 pixels PNG bestandsicoon"
@@ -1112,14 +1301,8 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
-msgid "Automatic Import"
-msgstr "Automatisch importeren"
-
 msgid "D&estination:"
 msgstr "&Bestemming:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 en Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profiel:"
@@ -1163,9 +1346,6 @@ msgstr "A&rtiest / Album"
 msgid "&Source"
 msgstr "&Bron"
 
-msgid "Source:"
-msgstr "Bron:"
-
 msgid "URL:"
 msgstr "URL:"
 
@@ -1207,15 +1387,6 @@ msgstr "T&racknummer aantal cijfers:"
 
 msgid "&Genre as text instead of numeric string"
 msgstr "Genre als te&kst in plaats van nummer"
-
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "&Version used for new tags:"
 msgstr "Gebruikte &versie voor nieuwe Tags:"
@@ -1261,9 +1432,6 @@ msgstr "Opstarten"
 
 msgid "&Load last-opened files"
 msgstr "&Laatstgeopende bestanden laden"
-
-msgid "Save"
-msgstr "Opslaan"
 
 msgid "&Preserve file timestamp"
 msgstr "Tij&dstempel van bestanden behouden"
@@ -1319,95 +1487,8 @@ msgstr "Van Klem&bord"
 msgid "&View..."
 msgstr "&Beeld..."
 
-msgid "Text Encoding"
-msgstr "Tekst-Codering"
-
-msgid "Description"
-msgstr "Beschrijving"
-
-msgid "Owner"
-msgstr "Eigenaar"
-
-msgid "Email"
-msgstr "E-mail"
-
-msgid "Rating"
-msgstr "Waardering"
-
-msgid "Picture Type"
-msgstr "Afbeeldingstype"
-
-msgid "Image format"
-msgstr "Afbeeldingsformaat"
-
-msgid "Mimetype"
-msgstr "Mime bestandstype"
-
-msgid "Counter"
-msgstr "Teller"
-
-msgid "Identifier"
-msgstr "Identifier"
-
-msgid "Volume Adjustment"
-msgstr "Volume aanpassing"
-
-msgid "Number of Bits"
-msgstr "Aantal Bits"
-
-msgid "Volume Change Right"
-msgstr "Volume Wijzigen Rechts"
-
-msgid "Volume Change Left"
-msgstr "Volume Wijzigen Links"
-
-msgid "Peak Volume Right"
-msgstr "Piekvolume Rechts"
-
-msgid "Peak Volume Left"
-msgstr "Piekvolume Links"
-
-msgid "Timestamp Format"
-msgstr "Opmaak Tijdsaanduiding"
-
-msgid "Content Type"
-msgstr "Soort inhoud"
-
-msgid "Price"
-msgstr ""
-
-msgid "Seller"
-msgstr ""
-
 msgid "Images"
 msgstr "Afbeeldingen"
-
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-msgid "MPEG frames as unit"
-msgstr "MPEG frame als eenheid"
-
-msgid "Milliseconds as unit"
-msgstr "Milliseconden als eenheid"
-
-msgid "Text transcription"
-msgstr "Tekst"
-
-msgid "Movement/part name"
-msgstr "Deel"
-
-msgid "Events"
-msgstr "Gebeurtenissen"
-
-msgid "Chord"
-msgstr "Koorde"
-
-msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
-
-msgid "Export"
-msgstr "Exporteren"
 
 msgid "&Format:"
 msgstr "Bestandsnaam volgens &tructuur:"
@@ -1514,9 +1595,6 @@ msgstr "&Bestemming:"
 msgid "&Total number of tracks:"
 msgstr "&Totaal aantal tracks:"
 
-msgid "Create Playlist"
-msgstr "Multimedia afspeellijst maken"
-
 msgid "Playlist File Name"
 msgstr "Bestandsnaam van  multimedia afspeellijst"
 
@@ -1562,17 +1640,8 @@ msgstr "Bewaar enkel &lijst met bestanden"
 msgid "Write &info using"
 msgstr "Bewaar &info gebruik makend van"
 
-msgid "Preview"
-msgstr "Voorbeeld"
-
-msgid "Create Directory"
-msgstr "Map aanmaken"
-
 msgid "&Action:"
 msgstr "A&ctie:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Van Tag 2 en Tag 1"
 
 msgid "From:"
 msgstr "Van:"
@@ -1597,9 +1666,6 @@ msgstr "Geen resultaat geselecteerd"
 
 msgid "Import from Tags"
 msgstr "Importeer van Tags"
-
-msgid "Format:"
-msgstr "Structuur:"
 
 msgid "Extraction:"
 msgstr "Extractie:"
@@ -1640,29 +1706,14 @@ msgstr ""
 "De huidige map is gewijzigd.\n"
 "Wenst u de wijzigingen op te slaan?"
 
-msgid "Warning"
-msgstr "Waarschuwing"
-
 msgid "Exiting..."
 msgstr "Bezig met afsluiten..."
 
 msgid "Creating playlist..."
 msgstr "Speellijst Aanmaken..."
 
-msgid "Import"
-msgstr "Importeren"
-
 msgid "Error while renaming:\n"
 msgstr "Fout tijdens hernoemen:\n"
-
-msgid " [filtered]"
-msgstr " [gefiltert]"
-
-msgid "Add Frame"
-msgstr "Frame toevoegen"
-
-msgid "Select the frame ID"
-msgstr "Selecteer de frame identiteit"
 
 msgid "Rename File"
 msgstr "Bestand hernoemen"
@@ -1824,9 +1875,6 @@ msgstr "Vorige track"
 
 msgid "Next Track"
 msgstr "Volgende track"
-
-msgid "Close"
-msgstr "Sluiten"
 
 msgid "Mute"
 msgstr "Dempen"
