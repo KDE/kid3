@@ -21,6 +21,12 @@
 project(kid3)
 
 cmake_minimum_required(VERSION 2.8)
+if (POLICY CMP0020)
+  cmake_policy(SET CMP0020 OLD)
+endif (POLICY CMP0020)
+if (POLICY CMP0045)
+  cmake_policy(SET CMP0045 OLD)
+endif (POLICY CMP0045)
 
 set(BUILD_SHARED_LIBS ON CACHE BOOL "build shared libraries")
 set(WITH_QT4 OFF CACHE BOOL "force use of Qt4")
