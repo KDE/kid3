@@ -1148,7 +1148,15 @@ void BaseMainWindowImpl::expandFileList()
   connect(m_app->getFileProxyModelIterator(),
           SIGNAL(nextReady(QPersistentModelIndex)),
           this, SLOT(expandNextDirectory(QPersistentModelIndex)));
-  m_app->getFileProxyModelIterator()->start(m_form->getFileList()->rootIndex());
+  // If this slot is invoked from the file list menu action and the
+  // shift key is pressed, only expand the current subtree.
+  QObject* emitter = sender();
+  bool sentFromAction =
+      emitter && emitter->metaObject() == &QAction::staticMetaObject;
+  m_app->getFileProxyModelIterator()->start(
+        sentFromAction && QApplication::keyboardModifiers() == Qt::ShiftModifier
+        ? m_form->getFileList()->currentIndex()
+        : m_form->getFileList()->rootIndex());
 }
 
 /**
