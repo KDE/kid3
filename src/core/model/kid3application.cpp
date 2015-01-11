@@ -2398,6 +2398,8 @@ void Kid3Application::numberTracks(int nr, int total,
                                    NumberTrackOptions options)
 {
   QString lastDirName;
+  bool totalEnabled = TagConfig::instance().enableTotalNumberOfTracks();
+  bool directoryMode = true;
   int startNr = nr;
   emit fileSelectionUpdateRequested();
   int numDigits = TagConfig::instance().trackNumberDigits();
@@ -2414,6 +2416,7 @@ void Kid3Application::numberTracks(int nr, int total,
                currentOrRootIndex(),
                getFileSelectionModel(),
                true);
+    directoryMode = false;
   }
   while (it->hasNext()) {
     TaggedFile* taggedFile = it->next();
@@ -2422,7 +2425,7 @@ void Kid3Application::numberTracks(int nr, int total,
       QString dirName = taggedFile->getDirname();
       if (lastDirName != dirName) {
         nr = startNr;
-        if (total > 0) {
+        if (totalEnabled && directoryMode) {
           total = taggedFile->getTotalNumberOfTracksInDir();
         }
         lastDirName = dirName;
@@ -2469,6 +2472,10 @@ void Kid3Application::numberTracks(int nr, int total,
           int currentTotal;
           int currentNr = TaggedFile::splitNumberAndTotal(frame.getValue(),
                                                           &currentTotal);
+          // Set the total if enabled.
+          if (totalEnabled && total > 0) {
+            currentTotal = total;
+          }
           if (currentTotal > 0) {
             value.sprintf("%0*d/%0*d", numDigits, currentNr, numDigits,
                           currentTotal);
