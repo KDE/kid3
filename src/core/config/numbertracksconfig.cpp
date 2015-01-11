@@ -57,7 +57,9 @@ int NumberTracksConfig::s_index = -1;
 NumberTracksConfig::NumberTracksConfig() :
   StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
   m_numberTracksDst(Frame::TagV1),
-  m_numberTracksStart(1)
+  m_numberTracksStart(1),
+  m_trackNumberingEnabled(true),
+  m_directoryCounterResetEnabled(false)
 {
 }
 
@@ -77,6 +79,8 @@ void NumberTracksConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("NumberTracksDestination"),
                    QVariant(tagVersionToNumberTracksDestCfg(m_numberTracksDst)));
   config->setValue(QLatin1String("NumberTracksStartNumber"), QVariant(m_numberTracksStart));
+  config->setValue(QLatin1String("EnableTrackNumbering"), QVariant(m_trackNumberingEnabled));
+  config->setValue(QLatin1String("ResetCounterForEachDirectory"), QVariant(m_directoryCounterResetEnabled));
   config->endGroup();
 }
 
@@ -91,6 +95,8 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   m_numberTracksDst = numberTracksDestCfgToTagVersion(
         config->value(QLatin1String("NumberTracksDestination"), 0).toInt());
   m_numberTracksStart = config->value(QLatin1String("NumberTracksStartNumber"), 1).toInt();
+  m_trackNumberingEnabled = config->value(QLatin1String("EnableTrackNumbering"), m_trackNumberingEnabled).toBool();
+  m_directoryCounterResetEnabled = config->value(QLatin1String("ResetCounterForEachDirectory"), m_directoryCounterResetEnabled).toBool();
   config->endGroup();
 }
 
@@ -107,5 +113,29 @@ void NumberTracksConfig::setNumberTracksStart(int numberTracksStart)
   if (m_numberTracksStart != numberTracksStart) {
     m_numberTracksStart = numberTracksStart;
     emit numberTracksStartChanged(m_numberTracksStart);
+  }
+}
+
+/**
+ * Enable or disable track numbering.
+ * @param enable true to enable
+ */
+void NumberTracksConfig::setTrackNumberingEnabled(bool enable)
+{
+  if (m_trackNumberingEnabled != enable) {
+    m_trackNumberingEnabled = enable;
+    emit trackNumberingEnabledChanged(m_trackNumberingEnabled);
+  }
+}
+
+/**
+ * Enable reset of counter for each directory.
+ * @param enable true to enable
+ */
+void NumberTracksConfig::setDirectoryCounterResetEnabled(bool enable)
+{
+  if (m_directoryCounterResetEnabled != enable) {
+    m_directoryCounterResetEnabled = enable;
+    emit directoryCounterResetEnabledChanged(m_directoryCounterResetEnabled);
   }
 }

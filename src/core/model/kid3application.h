@@ -121,6 +121,7 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(BatchImporter* batchImporter READ getBatchImporter CONSTANT)
   /** Download client */
   Q_PROPERTY(DownloadClient* downloadClient READ getDownloadClient CONSTANT)
+  Q_FLAGS(NumberTrackOption NumberTrackOptions)
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -128,6 +129,13 @@ public:
     ImageForAllFilesInDirectory, /**< for all files in directory */
     ImageForImportTrackData      /**< for enabled files in m_trackDataModel */
   };
+
+  /** Options for numberTracks(). */
+  enum NumberTrackOption {
+    NumberTracksEnabled = 1,                     /**< Enable track numbering */
+    NumberTracksResetCounterForEachDirectory = 2 /**< Reset counter */
+  };
+  Q_DECLARE_FLAGS(NumberTrackOptions, NumberTrackOption)
 
   /**
    * Constructor.
@@ -445,8 +453,10 @@ public:
    * @param nr start number
    * @param total total number of tracks, used if >0
    * @param tagVersion determines on which tags the numbers are set
+   * @param options options for numbering operation
    */
-  Q_INVOKABLE void numberTracks(int nr, int total, Frame::TagVersion tagVersion);
+  Q_INVOKABLE void numberTracks(int nr, int total, Frame::TagVersion tagVersion,
+                                NumberTrackOptions options = 0);
 
   /**
    * Set track data with tagged files of directory.

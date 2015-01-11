@@ -776,7 +776,13 @@ void BaseMainWindowImpl::slotNumberTracks()
     if (!totalEnabled)
       total = 0;
     TagConfig::instance().setEnableTotalNumberOfTracks(totalEnabled);
-    m_app->numberTracks(nr, total, m_numberTracksDialog->getDestination());
+    Kid3Application::NumberTrackOptions options;
+    if (m_numberTracksDialog->isTrackNumberingEnabled())
+      options |= Kid3Application::NumberTracksEnabled;
+    if (m_numberTracksDialog->isDirectoryCounterResetEnabled())
+      options |= Kid3Application::NumberTracksResetCounterForEachDirectory;
+    m_app->numberTracks(nr, total, m_numberTracksDialog->getDestination(),
+                        options);
   }
 }
 

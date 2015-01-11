@@ -2391,10 +2391,14 @@ bool Kid3Application::isModified() const
  * @param nr start number
  * @param total total number of tracks, used if >0
  * @param tagVersion determines on which tags the numbers are set
+ * @param options options for numbering operation
  */
 void Kid3Application::numberTracks(int nr, int total,
-                                   Frame::TagVersion tagVersion)
+                                   Frame::TagVersion tagVersion,
+                                   NumberTrackOptions options)
 {
+  QString lastDirName;
+  int startNr = nr;
   emit fileSelectionUpdateRequested();
   int numDigits = TagConfig::instance().trackNumberDigits();
   if (numDigits < 1 || numDigits > 5)
@@ -2414,36 +2418,68 @@ void Kid3Application::numberTracks(int nr, int total,
   while (it->hasNext()) {
     TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
+    if (options & NumberTracksResetCounterForEachDirectory) {
+      QString dirName = taggedFile->getDirname();
+      if (lastDirName != dirName) {
+        nr = startNr;
+        if (total > 0) {
+          total = taggedFile->getTotalNumberOfTracksInDir();
+        }
+        lastDirName = dirName;
+      }
+    }
     if (tagVersion & Frame::TagV1) {
-      int oldnr = taggedFile->getTrackNumV1();
-      if (nr != oldnr) {
-        taggedFile->setTrackNumV1(nr);
+      if (options & NumberTracksEnabled) {
+        int oldnr = taggedFile->getTrackNumV1();
+        if (nr != oldnr) {
+          taggedFile->setTrackNumV1(nr);
+        }
       }
     }
     if (tagVersion & Frame::TagV2) {
       // For tag 2 the frame is written, so that we have control over the
       // format and the total number of tracks, and it is possible to change
       // the format even if the numbers stay the same.
-      QString value;
-      if (total > 0) {
-        value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
-      } else {
-        value.sprintf("%0*d", numDigits, nr);
-      }
       FrameCollection frames;
       taggedFile->getAllFramesV2(frames);
       Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
       FrameCollection::const_iterator frameIt = frames.find(frame);
-      if (frameIt != frames.end()) {
-        frame = *frameIt;
-        frame.setValueIfChanged(value);
-        if (frame.isValueChanged()) {
+      QString value;
+      if (options & NumberTracksEnabled) {
+        if (total > 0) {
+          value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
+        } else {
+          value.sprintf("%0*d", numDigits, nr);
+        }
+        if (frameIt != frames.end()) {
+          frame = *frameIt;
+          frame.setValueIfChanged(value);
+          if (frame.isValueChanged()) {
+            taggedFile->setFrameV2(frame);
+          }
+        } else {
+          frame.setValue(value);
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
           taggedFile->setFrameV2(frame);
         }
       } else {
-        frame.setValue(value);
-        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
-        taggedFile->setFrameV2(frame);
+        // If track numbering is not enabled, just reformat the current value.
+        if (frameIt != frames.end()) {
+          frame = *frameIt;
+          int currentTotal;
+          int currentNr = TaggedFile::splitNumberAndTotal(frame.getValue(),
+                                                          &currentTotal);
+          if (currentTotal > 0) {
+            value.sprintf("%0*d/%0*d", numDigits, currentNr, numDigits,
+                          currentTotal);
+          } else {
+            value.sprintf("%0*d", numDigits, currentNr);
+          }
+          frame.setValueIfChanged(value);
+          if (frame.isValueChanged()) {
+            taggedFile->setFrameV2(frame);
+          }
+        }
       }
     }
     ++nr;

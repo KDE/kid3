@@ -41,7 +41,10 @@ class KID3_CORE_EXPORT NumberTracksConfig :
   Q_PROPERTY(int numberTracksDestination READ numberTracksDestination WRITE setNumberTracksDstInt NOTIFY numberTracksDestinationChanged)
   /** number tracks start number */
   Q_PROPERTY(int numberTracksStart READ numberTracksStart WRITE setNumberTracksStart NOTIFY numberTracksStartChanged)
-
+  /** enable track numbering */
+  Q_PROPERTY(bool trackNumberingEnabled READ isTrackNumberingEnabled WRITE setTrackNumberingEnabled NOTIFY trackNumberingEnabledChanged)
+  /** reset of counter for each directory */
+  Q_PROPERTY(bool directoryCounterResetEnabled READ isDirectoryCounterResetEnabled WRITE setDirectoryCounterResetEnabled NOTIFY directoryCounterResetEnabledChanged)
 public:
   /**
    * Constructor.
@@ -79,12 +82,44 @@ public:
   /** Set start number when numbering tracks. */
   void setNumberTracksStart(int numberTracksStart);
 
+  /**
+   * Check if track numbering is enabled.
+   * @return true if enabled.
+   */
+  bool isTrackNumberingEnabled() const { return m_trackNumberingEnabled; }
+
+  /**
+   * Enable or disable track numbering.
+   * @param enable true to enable
+   */
+  void setTrackNumberingEnabled(bool enable);
+
+  /**
+   * Check if counter has to be reset for each directory.
+   * @return true if enabled.
+   */
+  bool isDirectoryCounterResetEnabled() const {
+    return m_directoryCounterResetEnabled;
+  }
+
+  /**
+   * Enable reset of counter for each directory.
+   * @param enable true to enable
+   */
+  void setDirectoryCounterResetEnabled(bool enable);
+
 signals:
   /** Emitted when @a numberTracksDst changed. */
   void numberTracksDestinationChanged(Frame::TagVersion numberTracksDestination);
 
   /** Emitted when @a numberTracksStart changed. */
   void numberTracksStartChanged(int numberTracksStart);
+
+  /** Emitted when @a trackNumberingEnabled changed. */
+  void trackNumberingEnabledChanged(bool trackNumberingEnabled);
+
+  /** Emitted when @a directoryCounterResetEnabled changed. */
+  void directoryCounterResetEnabledChanged(bool directoryCounterResetEnabled);
 
 private:
   friend NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance();
@@ -95,6 +130,8 @@ private:
 
   Frame::TagVersion m_numberTracksDst;
   int m_numberTracksStart;
+  bool m_trackNumberingEnabled;
+  bool m_directoryCounterResetEnabled;
 
   /** Index in configuration storage */
   static int s_index;

@@ -49,15 +49,16 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   setModal(true);
   setWindowTitle(tr("Number Tracks"));
 
+  const NumberTracksConfig& cfg = NumberTracksConfig::instance();
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* trackLayout = new QHBoxLayout;
-  QLabel* trackLabel = new QLabel(tr("&Start number:"), this);
+  m_numberTracksCheckBox = new QCheckBox(tr("&Start number:"), this);
+  m_numberTracksCheckBox->setChecked(cfg.isTrackNumberingEnabled());
   m_trackSpinBox = new QSpinBox(this);
   m_trackSpinBox->setMaximum(9999);
-  m_trackSpinBox->setValue(NumberTracksConfig::instance().numberTracksStart());
-  trackLayout->addWidget(trackLabel);
+  m_trackSpinBox->setValue(cfg.numberTracksStart());
+  trackLayout->addWidget(m_numberTracksCheckBox);
   trackLayout->addWidget(m_trackSpinBox);
-  trackLabel->setBuddy(m_trackSpinBox);
 
   QSpacerItem* trackSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
@@ -70,12 +71,17 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
   m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
   m_destComboBox->setCurrentIndex(
-      m_destComboBox->findData(NumberTracksConfig::instance().numberTracksDestination()));
+      m_destComboBox->findData(cfg.numberTracksDestination()));
   trackLayout->addWidget(destLabel);
   trackLayout->addWidget(m_destComboBox);
   destLabel->setBuddy(m_destComboBox);
 
   vlayout->addLayout(trackLayout);
+
+  m_resetCounterCheckBox = new QCheckBox(tr("Reset counter for each directory"),
+                                         this);
+  m_resetCounterCheckBox->setChecked(cfg.isDirectoryCounterResetEnabled());
+  vlayout->addWidget(m_resetCounterCheckBox);
 
   QHBoxLayout* totalLayout = new QHBoxLayout;
   m_totalNumTracksCheckBox = new QCheckBox(tr("&Total number of tracks:"),
@@ -150,8 +156,11 @@ Frame::TagVersion NumberTracksDialog::getDestination() const
  */
 void NumberTracksDialog::saveConfig()
 {
-  NumberTracksConfig::instance().setNumberTracksDestination(getDestination());
-  NumberTracksConfig::instance().setNumberTracksStart(m_trackSpinBox->value());
+  NumberTracksConfig& cfg = NumberTracksConfig::instance();
+  cfg.setNumberTracksDestination(getDestination());
+  cfg.setNumberTracksStart(m_trackSpinBox->value());
+  cfg.setTrackNumberingEnabled(isTrackNumberingEnabled());
+  cfg.setDirectoryCounterResetEnabled(isDirectoryCounterResetEnabled());
 }
 
 /**
@@ -185,4 +194,22 @@ int NumberTracksDialog::getTotalNumberOfTracks(bool* enable) const
 {
   *enable = m_totalNumTracksCheckBox->isChecked();
   return m_totalNumTrackSpinBox->value();
+}
+
+/**
+ * Check if track numbering is enabled.
+ * @return true if enabled.
+ */
+bool NumberTracksDialog::isTrackNumberingEnabled() const
+{
+  return m_numberTracksCheckBox->isChecked();
+}
+
+/**
+ * Check if counter has to be reset for each directory.
+ * @return true if enabled.
+ */
+bool NumberTracksDialog::isDirectoryCounterResetEnabled() const
+{
+  return m_resetCounterCheckBox->isChecked();
 }

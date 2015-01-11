@@ -81,6 +81,18 @@ public:
    */
   int getTotalNumberOfTracks(bool* enable) const;
 
+  /**
+   * Check if track numbering is enabled.
+   * @return true if enabled.
+   */
+  bool isTrackNumberingEnabled() const;
+
+  /**
+   * Check if counter has to be reset for each directory.
+   * @return true if enabled.
+   */
+  bool isDirectoryCounterResetEnabled() const;
+
 private slots:
   /**
    * Save the local settings to the configuration.
@@ -93,10 +105,14 @@ private slots:
   void showHelp();
 
 private:
+  /** check box to enable track numbering */
+  QCheckBox* m_numberTracksCheckBox;
   /** spinbox with starting track number */
   QSpinBox* m_trackSpinBox;
   /** combobox with destination */
   QComboBox* m_destComboBox;
+  /** checkbox to reset counter for each directory*/
+  QCheckBox* m_resetCounterCheckBox;
   /** total number of tracks checkbox */
   QCheckBox* m_totalNumTracksCheckBox;
   /** spinbox with total number of tracks */

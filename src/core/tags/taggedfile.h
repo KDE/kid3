@@ -707,6 +707,16 @@ public:
   static QString formatTime(unsigned seconds);
 
   /**
+   * Split a track string into number and total.
+   *
+   * @param str track
+   * @param total the total is returned here if found, else 0
+   *
+   * @return number, 0 if parsing failed, -1 if str is null
+   */
+  static int splitNumberAndTotal(const QString& str, int* total=0);
+
+  /**
    * Free static resources.
    */
   static void staticCleanup();
@@ -729,16 +739,6 @@ protected:
    * @return field name.
    */
   QString getCommentFieldName() const;
-
-  /**
-   * Split a track string into number and total.
-   *
-   * @param str track
-   * @param total the total is returned here if found, else 0
-   *
-   * @return number, 0 if parsing failed, -1 if str is null
-   */
-  static int splitNumberAndTotal(const QString& str, int* total=0);
 
     /**
    * Get the total number of tracks if it is enabled.
