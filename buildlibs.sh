@@ -55,11 +55,11 @@ zlib_patchlevel=2
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.4
-libvorbis_patchlevel=1
-libav_version=11
-libav_patchlevel=2
-libflac_version=1.3.0
-libflac_patchlevel=2
+libvorbis_patchlevel=2
+libav_version=11.1
+libav_patchlevel=1
+libflac_version=1.3.1
+libflac_patchlevel=1
 id3lib_version=3.8.3
 id3lib_patchlevel=16
 taglib_version=1.9.1
@@ -163,8 +163,8 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.gz
+test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
 test -f flac_${libflac_version}.orig.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
 
@@ -1656,7 +1656,7 @@ echo "### Extracting libflac"
 if ! test -d flac-${libflac_version}; then
 unxz -c source/flac_${libflac_version}.orig.tar.xz | tar x
 cd flac-${libflac_version}/
-tar xzf ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.gz
+unxz -c ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
