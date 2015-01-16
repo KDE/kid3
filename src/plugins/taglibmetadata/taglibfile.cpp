@@ -415,7 +415,7 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
   const int extPos = fn.rfind(".");
   if (extPos != -1) {
     TagLib::String ext = fn.substr(extPos + 1).upper();
-    if (ext == "MP3")
+    if (ext == "MP3" || ext == "MP2" || ext == "AAC")
       return new TagLib::MPEG::File(stream,
                                     TagLib::ID3v2::FrameFactory::instance());
     if (ext == "OGG") {
