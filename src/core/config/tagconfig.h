@@ -40,6 +40,10 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(int taggedFileFeatures READ taggedFileFeatures WRITE setTaggedFileFeatures NOTIFY taggedFileFeaturesChanged)
   /** true to mark truncated ID3v1.1 fields */
   Q_PROPERTY(bool markTruncations READ markTruncations WRITE setMarkTruncations NOTIFY markTruncationsChanged)
+  /** true to mark oversized pictures */
+  Q_PROPERTY(bool markOversizedPictures READ markOversizedPictures WRITE setMarkOversizedPictures NOTIFY markOversizedPicturesChanged)
+  /** Maximum size of picture in bytes */
+  Q_PROPERTY(int maximumPictureSize READ maximumPictureSize WRITE setMaximumPictureSize NOTIFY maximumPictureSizeChanged)
   /** true to write total number of tracks into track fields */
   Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
   /** true to write genres as text instead of numeric string */
@@ -136,6 +140,18 @@ public:
 
   /** Set true to mark truncated ID3v1.1 fields. */
   void setMarkTruncations(bool markTruncations);
+
+  /** true to mark oversized pictures */
+  bool markOversizedPictures() const { return m_markOversizedPictures; }
+
+  /** Set true to mark oversized pictures. */
+  void setMarkOversizedPictures(bool markOversizedPictures);
+
+  /** Maximum size of picture in bytes */
+  int maximumPictureSize() const { return m_maximumPictureSize; }
+
+  /** Set maximum size of picture in bytes. */
+  void setMaximumPictureSize(int maximumPictureSize);
 
   /** true to write total number of tracks into track fields */
   bool enableTotalNumberOfTracks() const { return m_enableTotalNumberOfTracks; }
@@ -238,8 +254,14 @@ signals:
   /** Emitted when @a taggedFileFeatures changed. */
   void taggedFileFeaturesChanged(int taggedFileFeatures);
 
-  /** Emitted when @a markTruncations changed. */
+  /** Emitted when @a markOversizedPictures changed. */
   void markTruncationsChanged(bool markTruncations);
+
+  /** Emitted when @a maximumPictureSize changed. */
+  void maximumPictureSizeChanged(int maximumPictureSize);
+
+  /** Emitted when @a markTruncations changed. */
+  void markOversizedPicturesChanged(bool markOversizedPictures);
 
   /** Emitted when @a enableTotalNumberOfTracks changed. */
   void enableTotalNumberOfTracksChanged(bool enableTotalNumberOfTracks);
@@ -298,6 +320,8 @@ private:
   QStringList m_disabledPlugins;
   QStringList m_availablePlugins;
   int m_taggedFileFeatures;
+  int m_maximumPictureSize;
+  bool m_markOversizedPictures;
   bool m_onlyCustomGenres;
   bool m_markTruncations;
   bool m_enableTotalNumberOfTracks;

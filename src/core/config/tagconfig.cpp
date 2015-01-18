@@ -59,6 +59,8 @@ TagConfig::TagConfig() :
   m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
   m_taggedFileFeatures(0),
+  m_maximumPictureSize(131072),
+  m_markOversizedPictures(false),
   m_onlyCustomGenres(false),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
@@ -80,6 +82,8 @@ void TagConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
   config->setValue(QLatin1String("MarkTruncations"), QVariant(m_markTruncations));
+  config->setValue(QLatin1String("MarkOversizedPictures"), QVariant(m_markOversizedPictures));
+  config->setValue(QLatin1String("MaximumPictureSize"), QVariant(m_maximumPictureSize));
   config->setValue(QLatin1String("EnableTotalNumberOfTracks"), QVariant(m_enableTotalNumberOfTracks));
   config->setValue(QLatin1String("GenreNotNumeric"), QVariant(m_genreNotNumeric));
   config->setValue(QLatin1String("CommentName"), QVariant(m_commentName));
@@ -110,6 +114,8 @@ void TagConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
   m_markTruncations = config->value(QLatin1String("MarkTruncations"), m_markTruncations).toBool();
+  m_markOversizedPictures = config->value(QLatin1String("MarkOversizedPictures"), m_markOversizedPictures).toBool();
+  m_maximumPictureSize = config->value(QLatin1String("MaximumPictureSize"), m_maximumPictureSize).toInt();
   m_enableTotalNumberOfTracks = config->value(QLatin1String("EnableTotalNumberOfTracks"), m_enableTotalNumberOfTracks).toBool();
   m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"), m_genreNotNumeric).toBool();
   m_commentName = config->value(QLatin1String("CommentName"), QString::fromLatin1(defaultCommentName)).toString();
@@ -169,6 +175,24 @@ void TagConfig::setMarkTruncations(bool markTruncations)
   if (m_markTruncations != markTruncations) {
     m_markTruncations = markTruncations;
     emit markTruncationsChanged(m_markTruncations);
+  }
+}
+
+/** Set true to mark oversized pictures. */
+void TagConfig::setMarkOversizedPictures(bool markOversizedPictures)
+{
+  if (m_markOversizedPictures != markOversizedPictures) {
+    m_markOversizedPictures = markOversizedPictures;
+    emit markOversizedPicturesChanged(m_markOversizedPictures);
+  }
+}
+
+/** Set maximum size of picture in bytes. */
+void TagConfig::setMaximumPictureSize(int maximumPictureSize)
+{
+  if (m_maximumPictureSize != maximumPictureSize) {
+    m_maximumPictureSize = maximumPictureSize;
+    emit maximumPictureSizeChanged(m_maximumPictureSize);
   }
 }
 

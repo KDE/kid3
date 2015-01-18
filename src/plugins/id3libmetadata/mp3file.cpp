@@ -2265,12 +2265,15 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
 void Mp3File::getAllFramesV2(FrameCollection& frames)
 {
   frames.clear();
+  resetMarkedState();
   if (m_tagV2) {
     ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
     ID3_Frame* id3Frame;
     int i = 0;
     while ((id3Frame = iter->GetNext()) != 0) {
-      frames.insert(createFrameFromId3libFrame(id3Frame, i++));
+      Frame frame(createFrameFromId3libFrame(id3Frame, i++));
+      updateMarkedState(frame);
+      frames.insert(frame);
     }
 #ifdef Q_OS_WIN32
     /* allocated in Windows DLL => must be freed in the same DLL */

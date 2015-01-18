@@ -282,8 +282,10 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
           : QByteArray("");
     } else if (role == TruncatedRole && index.column() == 0) {
       TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
-      return TagConfig::instance().markTruncations() &&
-          taggedFile && taggedFile->getTruncationFlags() != 0;
+      return taggedFile &&
+          ((TagConfig::instance().markTruncations() &&
+            taggedFile->getTruncationFlags() != 0) ||
+           taggedFile->isMarked());
     } else if (role == IsDirRole && index.column() == 0) {
       return isDir(index);
     }

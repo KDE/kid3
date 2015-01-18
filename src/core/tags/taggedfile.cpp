@@ -43,7 +43,7 @@
 TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
   m_index(idx), m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
   m_changedV1(false), m_changedV2(false),
-  m_modified(false)
+  m_modified(false), m_marked(false)
 {
   Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
   if (const FileProxyModel* model = getFileProxyModel()) {
@@ -1228,6 +1228,33 @@ void TaggedFile::getAllFramesV2(FrameCollection& frames)
     if (getFrameV2(static_cast<Frame::Type>(i), frame)) {
       frames.insert(frame);
     }
+  }
+}
+
+/**
+ * Update marked property of frame.
+ * If the frame is a picture and its size exceeds the configured
+ * maximum size, the frame is marked. This method should be called in
+ * reimplementations of getAllFramesV2().
+ *
+ * @param frame frame to check
+ * @see resetMarkedState()
+ */
+void TaggedFile::updateMarkedState(Frame& frame)
+{
+  if (frame.getType() == Frame::FT_Picture) {
+    const TagConfig& tagCfg = TagConfig::instance();
+    if (tagCfg.markOversizedPictures()) {
+      QVariant data = frame.getField(frame, Frame::ID_Data);
+      if (!data.isNull()) {
+        if (data.toByteArray().size() > tagCfg.maximumPictureSize()) {
+          frame.setMarked(true);
+          m_marked = true;
+          return;
+        }
+      }
+    }
+    frame.setMarked(false);
   }
 }
 

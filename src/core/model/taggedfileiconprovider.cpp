@@ -304,8 +304,9 @@ QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id) const
 QColor TaggedFileIconProvider::backgroundForTaggedFile(
     const TaggedFile* taggedFile) {
   if (taggedFile &&
-      TagConfig::instance().markTruncations() &&
-      taggedFile->getTruncationFlags() != 0)
+      ((TagConfig::instance().markTruncations() &&
+        taggedFile->getTruncationFlags() != 0) ||
+       taggedFile->isMarked()))
     return Qt::red;
   return QColor();
 }

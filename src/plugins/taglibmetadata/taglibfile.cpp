@@ -5514,6 +5514,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 {
   makeFileOpen();
   frames.clear();
+  resetMarkedState();
   if (m_tagV2) {
     TagLib::ID3v2::Tag* id3v2Tag;
     TagLib::Ogg::XiphComment* oggTag;
@@ -5532,7 +5533,9 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
            it != frameList.end();
            ++it) {
-        frames.insert(createFrameFromId3Frame(*it, i++));
+        Frame frame(createFrameFromId3Frame(*it, i++));
+        updateMarkedState(frame);
+        frames.insert(frame);
       }
     } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
       const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -5556,6 +5559,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
                 PictureFrame::setMimeType(frame, TStringToQString(mt.front()));
               }
             }
+            updateMarkedState(frame);
             frames.insert(frame);
           } else {
             frames.insert(Frame(type, TStringToQString(TagLib::String(*slit)),
@@ -5565,8 +5569,11 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       }
 #if TAGLIB_VERSION >= 0x010700
       if (m_pictures.isRead()) {
-        foreach (const Frame& frame, m_pictures) {
-          frames.insert(frame);
+        for (Pictures::iterator it = m_pictures.begin();
+             it != m_pictures.end();
+             ++it) {
+          updateMarkedState(*it);
+          frames.insert(*it);
         }
       }
 #endif
@@ -5579,9 +5586,11 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
         QString name = TStringToQString((*it).first);
         TagLib::StringList values = (*it).second.toStringList();
         Frame::Type type = getTypeFromApeName(name);
-        frames.insert(
-          Frame(type, values.size() > 0 ? TStringToQString(values.front()) : QLatin1String(""),
-                name, i++));
+        Frame frame(type, values.size() > 0
+                    ? TStringToQString(values.front()) : QLatin1String(""),
+                    name, i++);
+        updateMarkedState(frame);
+        frames.insert(frame);
       }
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
@@ -5637,6 +5646,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
                 coverArt.format() == TagLib::MP4::CoverArt::PNG ?
                 QLatin1String("image/png") : QLatin1String("image/jpeg"),
                 PictureFrame::PT_CoverFront, QLatin1String(""), ba);
+              updateMarkedState(frame);
               frames.insert(frame);
               frameAlreadyInserted = true;
             }
@@ -5742,12 +5752,14 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           ++i;
           if (type == Frame::FT_Picture) {
             parseAsfPicture((*ait).toPicture(), frame);
+            updateMarkedState(frame);
           }
           frames.insert(frame);
 #elif TAGLIB_VERSION >= 0x010602
           ++i;
           if (type == Frame::FT_Picture) {
             parseAsfPicture((*ait).toByteVector(), frame);
+            updateMarkedState(frame);
           }
           frames.insert(frame);
 #else

@@ -476,6 +476,18 @@ public:
   void setDifferent() { m_value = differentRepresentation(); }
 
   /**
+   * Check if frame is marked.
+   * @return true if marked.
+   */
+  bool isMarked() const { return m_marked; }
+
+  /**
+   * Mark frame
+   * @param marked true to mark, false to clear mark
+   */
+  void setMarked(bool marked) { m_marked = marked; }
+
+  /**
    * Check if value is changed.
    * @return true if changed.
    */
@@ -618,6 +630,7 @@ private:
   QString m_value;
   FieldList m_fieldList;
   bool m_valueChanged;
+  bool m_marked;
 };
 
 /** Filter to enable a subset of frame types. */

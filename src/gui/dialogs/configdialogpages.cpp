@@ -78,7 +78,8 @@ ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent),
   m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
   m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
-  m_pictureNameComboBox(0), m_genreNotNumericCheckBox(0),
+  m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
+  m_maximumPictureSizeSpinBox(0), m_genreNotNumericCheckBox(0),
   m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
   m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_id3FormatBox(0),
   m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
@@ -188,7 +189,8 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag1Layout->addStretch();
 
   QWidget* tag2Page = new QWidget;
-  QVBoxLayout* tag2Layout = new QVBoxLayout(tag2Page);
+  QHBoxLayout* tag2Layout = new QHBoxLayout(tag2Page);
+  QVBoxLayout* tag2LeftLayout = new QVBoxLayout;
   QGroupBox* v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
   QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
   m_totalNumTracksCheckBox = new QCheckBox(tr("Use &track/total number of tracks format"), v2GroupBox);
@@ -231,7 +233,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
   v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 4, 0);
   v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 4, 1);
-  tag2Layout->addWidget(v2GroupBox);
+  tag2LeftLayout->addWidget(v2GroupBox);
   QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
   QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"), vorbisGroupBox);
   m_commentNameComboBox = new QComboBox(vorbisGroupBox);
@@ -253,11 +255,23 @@ QWidget* ConfigDialogPages::createTagsPage()
   vorbisGroupBoxLayout->addWidget(pictureNameLabel, 1, 0);
   vorbisGroupBoxLayout->addWidget(m_pictureNameComboBox, 1, 1);
   vorbisGroupBox->setLayout(vorbisGroupBoxLayout);
-  tag2Layout->addWidget(vorbisGroupBox);
+  tag2LeftLayout->addWidget(vorbisGroupBox);
   if (!(tagCfg.taggedFileFeatures() & TaggedFile::TF_OggPictures)) {
     vorbisGroupBox->hide();
   }
-  QHBoxLayout* genresQuickAccessLayout = new QHBoxLayout;
+  QGroupBox* pictureGroupBox = new QGroupBox(tr("Picture"), tag2Page);
+  QHBoxLayout* pictureGroupBoxLayout = new QHBoxLayout(pictureGroupBox);
+  m_markOversizedPicturesCheckBox =
+      new QCheckBox(tr("Mark if &larger than (bytes):"));
+  m_maximumPictureSizeSpinBox = new QSpinBox;
+  m_maximumPictureSizeSpinBox->setRange(0, INT_MAX);
+  pictureGroupBoxLayout->addWidget(m_markOversizedPicturesCheckBox);
+  pictureGroupBoxLayout->addWidget(m_maximumPictureSizeSpinBox);
+  tag2LeftLayout->addWidget(pictureGroupBox);
+  tag2LeftLayout->addStretch();
+  tag2Layout->addLayout(tag2LeftLayout);
+
+  QVBoxLayout* tag2RightLayout = new QVBoxLayout;
   QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
   m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"), genresGroupBox);
   m_genresEditModel = new QStringListModel(genresGroupBox);
@@ -266,7 +280,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   vbox->addWidget(m_onlyCustomGenresCheckBox);
   vbox->addWidget(genresEdit);
   genresGroupBox->setLayout(vbox);
-  genresQuickAccessLayout->addWidget(genresGroupBox);
+  tag2RightLayout->addWidget(genresGroupBox);
 
   QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Tags"));
   QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
@@ -280,8 +294,8 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_quickAccessTagsModel->setStringList(unifiedFrameNames);
   quickAccessTagsListView->setModel(m_quickAccessTagsModel);
   quickAccessTagsLayout->addWidget(quickAccessTagsListView);
-  genresQuickAccessLayout->addWidget(quickAccessTagsGroupBox);
-  tag2Layout->addLayout(genresQuickAccessLayout);
+  tag2RightLayout->addWidget(quickAccessTagsGroupBox);
+  tag2Layout->addLayout(tag2RightLayout);
 
   QWidget* tag1AndTag2Page = new QWidget;
   QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
@@ -497,6 +511,8 @@ void ConfigDialogPages::setConfig()
   m_id3v2VersionComboBox->setCurrentIndex(
         m_id3v2VersionComboBox->findData(tagCfg.id3v2Version()));
   m_trackNumberDigitsSpinBox->setValue(tagCfg.trackNumberDigits());
+  m_markOversizedPicturesCheckBox->setChecked(tagCfg.markOversizedPictures());
+  m_maximumPictureSizeSpinBox->setValue(tagCfg.maximumPictureSize());
   m_browserLineEdit->setText(networkCfg.browser());
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.playOnDoubleClick());
   m_proxyCheckBox->setChecked(networkCfg.useProxy());
@@ -582,6 +598,8 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(
         m_id3v2VersionComboBox->currentIndex()).toInt());
   tagCfg.setTrackNumberDigits(m_trackNumberDigitsSpinBox->value());
+  tagCfg.setMarkOversizedPictures(m_markOversizedPicturesCheckBox->isChecked());
+  tagCfg.setMaximumPictureSize(m_maximumPictureSizeSpinBox->value());
   networkCfg.setBrowser(m_browserLineEdit->text());
   guiCfg.setPlayOnDoubleClick(m_playOnDoubleClickCheckBox->isChecked());
   networkCfg.setUseProxy(m_proxyCheckBox->isChecked());

@@ -217,7 +217,7 @@ QString Frame::ExtendedType::getTranslatedName() const
  * Constructor.
  */
 Frame::Frame() :
-  m_index(-1), m_valueChanged(false)
+  m_index(-1), m_valueChanged(false), m_marked(false)
 {
 }
 
@@ -227,7 +227,7 @@ Frame::Frame() :
 Frame::Frame(Type type, const QString& value,
              const QString& name, int index) :
   m_extendedType(type, name), m_index(index), m_value(value),
-  m_valueChanged(false)
+  m_valueChanged(false), m_marked(false)
 {
 }
 
@@ -238,7 +238,8 @@ Frame::Frame(Type type, const QString& value,
  * @param index index inside tag, -1 if unknown
  */
 Frame::Frame(const ExtendedType& type, const QString& value, int index) :
-  m_extendedType(type), m_index(index), m_value(value), m_valueChanged(false)
+  m_extendedType(type), m_index(index), m_value(value), m_valueChanged(false),
+  m_marked(false)
 {
 }
 
@@ -596,10 +597,10 @@ static QString variantToString(const QVariant& val)
  */
 void Frame::dump() const
 {
-  qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
+  qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u, marked=%u",
          getInternalName().toLatin1().data(), m_value.toLatin1().data(),
          getNameFromType(getType()), m_index,
-         m_valueChanged);
+         m_valueChanged, m_marked);
   qDebug("  fields=");
   for (FieldList::const_iterator it = m_fieldList.begin();
        it != m_fieldList.end();

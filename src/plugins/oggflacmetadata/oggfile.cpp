@@ -886,6 +886,7 @@ bool OggFile::deleteFrameV2(const Frame& frame)
 void OggFile::getAllFramesV2(FrameCollection& frames)
 {
   frames.clear();
+  resetMarkedState();
   QString name;
   int i = 0;
   for (OggFile::CommentList::const_iterator it = m_comments.begin();
@@ -899,6 +900,7 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
       if (name == QLatin1String("COVERART")) {
         PictureFrame::setMimeType(frame, getTextField(QLatin1String("COVERARTMIME")));
       }
+      updateMarkedState(frame);
       frames.insert(frame);
     } else {
       frames.insert(Frame(type, (*it).getValue(), name, i++));

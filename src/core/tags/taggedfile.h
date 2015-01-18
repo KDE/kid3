@@ -696,6 +696,11 @@ public:
   const QPersistentModelIndex& getIndex() const { return m_index; }
 
   /**
+   * Check if the file is marked.
+   */
+  bool isMarked() const { return m_marked; }
+
+  /**
    * Format a time string "h:mm:ss".
    * If the time is less than an hour, the hour is not put into the
    * string and the minute is not padded with zeroes.
@@ -847,6 +852,26 @@ protected:
    */
   void notifyTruncationChanged(bool priorTruncation) const;
 
+  /**
+   * Reset the marked state of this file.
+   * This method should be called in reimplementations of getAllFramesV2()
+   * before calling updateMarkedState(), which will mark the file if any
+   * frame is marked.
+   * @see isMarked(), updateMarkedState()
+   */
+  void resetMarkedState() { m_marked = false; }
+
+  /**
+   * Update marked property of frame.
+   * If the frame is a picture and its size exceeds the configured
+   * maximum size, the frame is marked. This method should be called in
+   * reimplementations of getAllFramesV2().
+   *
+   * @param frame frame to check
+   * @see resetMarkedState()
+   */
+  void updateMarkedState(Frame& frame);
+
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);
@@ -871,6 +896,8 @@ private:
   bool m_changedV2;
   /** true if tagged file is modified */
   bool m_modified;
+  /** true if tagged file is marked */
+  bool m_marked;
 };
 
 #endif // TAGGEDFILE_H

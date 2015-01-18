@@ -141,8 +141,8 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   }
   if ((role == Qt::BackgroundColorRole && index.column() == CI_Value) ||
       role == TruncatedRole) {
-    isTruncated = static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
-        (m_markedRows & (1ULL << index.row())) != 0;
+    isTruncated = (static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
+        (m_markedRows & (1ULL << index.row())) != 0) || it->isMarked();
   }
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Enable) {

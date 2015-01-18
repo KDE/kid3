@@ -478,6 +478,7 @@ void FlacFile::getAllFramesV2(FrameCollection& frames)
        it != m_pictures.end();
        ++it) {
     (*it).setIndex(i++);
+    updateMarkedState(*it);
     frames.insert(*it);
   }
 }

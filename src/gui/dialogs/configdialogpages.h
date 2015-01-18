@@ -121,6 +121,10 @@ private:
   QComboBox* m_commentNameComboBox;
   /** Picture field name combo box */
   QComboBox* m_pictureNameComboBox;
+  /** Mark if larger check box */
+  QCheckBox* m_markOversizedPicturesCheckBox;
+  /** Maximum picture size spin box */
+  QSpinBox* m_maximumPictureSizeSpinBox;
   /** Genre as text instead of numeric string checkbox */
   QCheckBox* m_genreNotNumericCheckBox;
   /** ID3v2 text encoding combo box */
