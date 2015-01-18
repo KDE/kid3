@@ -25,21 +25,54 @@
  */
 
 #include "picturelabel.h"
+#include <QLabel>
+#include <QVBoxLayout>
 #include <QHash>
 #include <QByteArray>
 #include <QPixmap>
 #include <QCoreApplication>
+
+namespace {
+
+class PictureLabelIntern : public QLabel {
+public:
+  explicit PictureLabelIntern(QWidget* parent = 0);
+  virtual ~PictureLabelIntern();
+  virtual int heightForWidth(int w) const;
+};
+
+PictureLabelIntern::PictureLabelIntern(QWidget* parent) : QLabel(parent)
+{
+  setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  setWordWrap(true);
+}
+
+PictureLabelIntern::~PictureLabelIntern()
+{
+}
+
+int PictureLabelIntern::heightForWidth(int w) const
+{
+  return w;
+}
+
+}
 
 /**
  * Constructor.
  *
  * @param parent parent widget
  */
-PictureLabel::PictureLabel(QWidget* parent) : QLabel(parent), m_pixmapHash(0)
+PictureLabel::PictureLabel(QWidget* parent) : QWidget(parent), m_pixmapHash(0)
 {
   setObjectName(QLatin1String("PictureLabel"));
-  setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-  setWordWrap(true);
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+  m_pictureLabel = new PictureLabelIntern;
+  layout->addWidget(m_pictureLabel);
+  m_sizeLabel = new QLabel;
+  m_sizeLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  layout->addWidget(m_sizeLabel);
   clearPicture();
 }
 
@@ -51,21 +84,13 @@ PictureLabel::~PictureLabel()
 }
 
 /**
- * Get preferred height for a given width.
- * @return height.
- */
-int PictureLabel::heightForWidth(int w) const
-{
-  return w;
-}
-
-/**
  * Clear picture.
  */
 void PictureLabel::clearPicture()
 {
   const char* const msg = QT_TRANSLATE_NOOP("@default", "Drag album\nartwork\nhere");
-  setText(QCoreApplication::translate("@default", msg));
+  m_pictureLabel->setText(QCoreApplication::translate("@default", msg));
+  m_sizeLabel->clear();
 }
 
 /**
@@ -77,7 +102,7 @@ void PictureLabel::setData(const QByteArray& data)
 {
   if (!data.isEmpty()) {
     uint hash = qHash(data);
-    if (pixmap() && hash == m_pixmapHash)
+    if (m_pictureLabel->pixmap() && hash == m_pixmapHash)
       return; // keep existing pixmap
 
     // creating new pixmap
@@ -86,8 +111,10 @@ void PictureLabel::setData(const QByteArray& data)
       QPixmap scaledPm = pm.scaled(width(), height(), Qt::KeepAspectRatio);
       if (!scaledPm.isNull()) {
         m_pixmapHash = hash;
-        setContentsMargins(0, 0, 0, 0);
-        setPixmap(scaledPm);
+        m_pictureLabel->setContentsMargins(0, 0, 0, 0);
+        m_pictureLabel->setPixmap(scaledPm);
+        m_sizeLabel->setText(QString::number(pm.width()) + QLatin1Char('x') +
+                             QString::number(pm.height()));
         return;
       }
     }

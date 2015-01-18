@@ -27,14 +27,15 @@
 #ifndef PICTURELABEL_H
 #define PICTURELABEL_H
 
-#include <QLabel>
+#include <QWidget>
 
 class QByteArray;
+class QLabel;
 
 /**
  * Label for picture preview.
  */
-class PictureLabel : public QLabel {
+class PictureLabel : public QWidget {
 public:
   /**
    * Constructor.
@@ -49,12 +50,6 @@ public:
   virtual ~PictureLabel();
 
   /**
-   * Get preferred height for a given width.
-   * @return height.
-   */
-  virtual int heightForWidth(int w) const;
-
-  /**
    * Set picture data.
    *
    * @param data picture data, empty if no picture is available
@@ -67,6 +62,8 @@ private:
    */
   void clearPicture();
 
+  QLabel* m_pictureLabel;
+  QLabel* m_sizeLabel;
   uint m_pixmapHash;
 };
 
