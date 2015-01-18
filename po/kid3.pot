@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1402,6 +1402,9 @@ msgstr ""
 msgid "&Picture field name:"
 msgstr ""
 
+msgid "Mark if &larger than (bytes):"
+msgstr ""
+
 msgid "Custom &Genres"
 msgstr ""
 
@@ -1582,10 +1585,13 @@ msgstr ""
 msgid "&Title"
 msgstr ""
 
-msgid "&Start number:"
+msgid "Start &number:"
 msgstr ""
 
 msgid "&Destination:"
+msgstr ""
+
+msgid "&Reset counter for each directory"
 msgstr ""
 
 msgid "&Total number of tracks:"

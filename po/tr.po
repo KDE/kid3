@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1405,6 +1405,9 @@ msgstr "Lütfen yeni dosya is&mi yazın:"
 msgid "&Picture field name:"
 msgstr ""
 
+msgid "Mark if &larger than (bytes):"
+msgstr ""
+
 msgid "Custom &Genres"
 msgstr ""
 
@@ -1586,11 +1589,14 @@ msgstr "&Parça No"
 msgid "&Title"
 msgstr "Şar&kı adı"
 
-msgid "&Start number:"
-msgstr "Başlangıç numara&sı:"
+msgid "Start &number:"
+msgstr "Başlangıç &numarası:"
 
 msgid "&Destination:"
 msgstr "He&def:"
+
+msgid "&Reset counter for each directory"
+msgstr "&Her klasör için sayacı sıfırla"
 
 msgid "&Total number of tracks:"
 msgstr "&Toplam Parça Sayısı:"

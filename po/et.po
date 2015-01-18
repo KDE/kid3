@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1406,6 +1406,9 @@ msgstr "&Kommentaarivälja nimi:"
 msgid "&Picture field name:"
 msgstr "&Pildivälja nimi:"
 
+msgid "Mark if &larger than (bytes):"
+msgstr "Märkimine, k&ui suurus ületab (baiti):"
+
 msgid "Custom &Genres"
 msgstr "Ko&handatud stiilid"
 
@@ -1586,11 +1589,14 @@ msgstr "&Loo nr"
 msgid "&Title"
 msgstr "&Pealkiri"
 
-msgid "&Start number:"
+msgid "Start &number:"
 msgstr "&Algusnumber:"
 
 msgid "&Destination:"
 msgstr "&Sihtkoht:"
+
+msgid "&Reset counter for each directory"
+msgstr "&Nullimine iga kataloog"
 
 msgid "&Total number of tracks:"
 msgstr "L&ugude koguarv:"

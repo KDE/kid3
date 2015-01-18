@@ -52,7 +52,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   const NumberTracksConfig& cfg = NumberTracksConfig::instance();
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* trackLayout = new QHBoxLayout;
-  m_numberTracksCheckBox = new QCheckBox(tr("&Start number:"), this);
+  m_numberTracksCheckBox = new QCheckBox(tr("Start &number:"), this);
   m_numberTracksCheckBox->setChecked(cfg.isTrackNumberingEnabled());
   m_trackSpinBox = new QSpinBox(this);
   m_trackSpinBox->setMaximum(9999);
@@ -78,7 +78,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 
   vlayout->addLayout(trackLayout);
 
-  m_resetCounterCheckBox = new QCheckBox(tr("Reset counter for each directory"),
+  m_resetCounterCheckBox = new QCheckBox(tr("&Reset counter for each directory"),
                                          this);
   m_resetCounterCheckBox->setChecked(cfg.isDirectoryCounterResetEnabled());
   vlayout->addWidget(m_resetCounterCheckBox);

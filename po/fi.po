@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1406,6 +1406,9 @@ msgstr "K&ommenttikentän nimi:"
 msgid "&Picture field name:"
 msgstr "&Kuvakentän nimi:"
 
+msgid "Mark if &larger than (bytes):"
+msgstr "Merkitse, jos &suurempi kuin (tavuja):"
+
 msgid "Custom &Genres"
 msgstr "Omat t&yylilajit"
 
@@ -1586,11 +1589,14 @@ msgstr "Ka&ppaleeseen"
 msgid "&Title"
 msgstr "&Nimeen"
 
-msgid "&Start number:"
+msgid "Start &number:"
 msgstr "&Aloittava numero:"
 
 msgid "&Destination:"
 msgstr "&Kohde:"
+
+msgid "&Reset counter for each directory"
+msgstr "&Numeroi hakemistoittain"
 
 msgid "&Total number of tracks:"
 msgstr "Kappaleiden &lukumäärä:"

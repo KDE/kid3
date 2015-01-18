@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1408,6 +1408,9 @@ msgstr "內容註釋欄位名稱(&m):"
 msgid "&Picture field name:"
 msgstr "圖片欄位名稱(&P):"
 
+msgid "Mark if &larger than (bytes):"
+msgstr "大於這個尺寸就會標記(位元組)(&L)："
+
 msgid "Custom &Genres"
 msgstr "自訂曲風(&G)"
 
@@ -1589,11 +1592,14 @@ msgstr "音軌(&R)"
 msgid "&Title"
 msgstr "歌(曲)名(&T)"
 
-msgid "&Start number:"
-msgstr "起始編號(&S):"
+msgid "Start &number:"
+msgstr "起始編號(&N)："
 
 msgid "&Destination:"
 msgstr "到(&D):"
+
+msgid "&Reset counter for each directory"
+msgstr "重設每個目錄計數器(&R)"
 
 msgid "&Total number of tracks:"
 msgstr "音軌編號(&T):"

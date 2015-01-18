@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -1407,6 +1407,9 @@ msgstr "Имя структур ко&ментэри:"
 msgid "&Picture field name:"
 msgstr "Имя структур &картинки:"
 
+msgid "Mark if &larger than (bytes):"
+msgstr "Отметить, &если больше, чем (байт):"
+
 msgid "Custom &Genres"
 msgstr "Выборочная &жанры"
 
@@ -1588,11 +1591,14 @@ msgstr "&Дорожка"
 msgid "&Title"
 msgstr "&Название"
 
-msgid "&Start number:"
+msgid "Start &number:"
 msgstr "&Число начала:"
 
 msgid "&Destination:"
 msgstr "М&есто назначения:"
+
+msgid "&Reset counter for each directory"
+msgstr "&Начинать заново в каждой папке"
 
 msgid "&Total number of tracks:"
 msgstr "&Общее Количество дорожек:"

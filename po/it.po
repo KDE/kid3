@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2014-12-25 15:01+0100\n"
+"POT-Creation-Date: 2015-01-18 16:06+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -1405,6 +1405,9 @@ msgstr "Co&mmento nome campo:"
 msgid "&Picture field name:"
 msgstr "&Immagine nome campo:"
 
+msgid "Mark if &larger than (bytes):"
+msgstr "E&videnzia se più grande di (byte):"
+
 msgid "Custom &Genres"
 msgstr "&Generi personalizzati"
 
@@ -1585,11 +1588,14 @@ msgstr "T&raccia"
 msgid "&Title"
 msgstr "&Titolo"
 
-msgid "&Start number:"
-msgstr "Numero &inizio:"
+msgid "Start &number:"
+msgstr "&Numero inizio:"
 
 msgid "&Destination:"
 msgstr "&Destinazione:"
+
+msgid "&Reset counter for each directory"
+msgstr "&Resetta contatore all'inizio di una nuova cartella"
 
 msgid "&Total number of tracks:"
 msgstr "&Numero delle tracce:"
