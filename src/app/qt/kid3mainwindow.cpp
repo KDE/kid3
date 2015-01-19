@@ -288,6 +288,10 @@ void Kid3MainWindow::initActions()
   editSelectAll->setText(tr("Select &All"));
   editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
   editSelectAll->setIcon(QCM_QIcon_fromTheme("edit-select-all"));
+#if defined Q_OS_MAC && QT_VERSION == 0x050400
+  // Workaround for QTBUG-43471 from QTBUG-39934
+  editSelectAll->setMenuRole(QAction::NoRole);
+#endif
   editSelectAll->setObjectName(QLatin1String("edit_select_all"));
   m_shortcutsModel->registerAction(editSelectAll, menuTitle);
   connect(editSelectAll, SIGNAL(triggered()),
