@@ -34,6 +34,9 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QPluginLoader>
+#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+#include <CoreFoundation/CFUrl.h>
+#endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include <unistd.h>
