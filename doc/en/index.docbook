@@ -22,13 +22,13 @@
 </authorgroup>
 
 <copyright>
-<year>2014</year>
+<year>2015</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2014-11-09</date>
-<releaseinfo>3.1.2</releaseinfo>
+<date>2015-01-24</date>
+<releaseinfo>3.2.0</releaseinfo>
 
 <abstract>
 <para>
@@ -362,7 +362,8 @@ Clicking the right mouse button inside the file list opens a context menu with
 the following commands:
 <itemizedlist>
 <listitem><para>
-<guimenuitem>Expand all</guimenuitem>: Expands all folder trees
+<guimenuitem>Expand all</guimenuitem>: Expands all folder trees (only the
+current tree if the shift key is pressed)
 </para></listitem>
 <listitem><para>
 <guimenuitem>Collapse all</guimenuitem>: Collapses all folder trees
@@ -1599,6 +1600,17 @@ of tracks will also be set in the tags.
 </para><para>
 It is possible to number the tracks over multiple directories. The folders
 have to be expanded and selected.
+</para><para>
+If <guilabel>Reset counter for each directory</guilabel> is checked, track
+numbering is restarted with the given number for each directory when multiple
+folders are selected.
+</para><para>
+The number tracks dialog can also be used to format existing track numbers
+without changing the values when the check box left to <guilabel>Start
+number</guilabel> is deactivated. The total number of tracks will be added if
+the corresponding check box is active, which can be used to set the total for
+all selected tracks. If only formatting of the existing numbers is desired,
+this check box has to be deactivated too.
 </para></listitem>
 </varlistentry>
 
@@ -1942,6 +1954,13 @@ The format of pictures in Ogg/Vorbis files is determined by
 The first is the official standard and uses the same format as pictures in
 FLAC tags. COVERART is an earlier unofficial way to include pictures in
 Vorbis comments. It can be used for compatibility with legacy players.
+</para>
+<para>
+If the <guilabel>Mark if larger than</guilabel> check box is activated,
+files containing embedded album cover art exceeding the given size in bytes
+are marked red. This can be used to find files containing oversized pictures
+which are not accepted by some applications and players. The default value is
+131072 bytes (128 KB).
 </para>
 <para>
 <guilabel>Custom Genres</guilabel> can be used to define genres which are not
@@ -2837,7 +2856,7 @@ You can compile &kid3; with or without KDE. Without KDE, &kid3; is a
 simple Qt application and lacks some configuration and session features.
 </para>
 <para>
-For a KDE 4 version, go into the top directory and type
+For a KDE version, go into the top directory and type
 <screen width="40">
 <prompt>%</prompt> <userinput>cmake .</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -2871,6 +2890,8 @@ Qt 4 or Qt 5 can be used. To force the use of Qt 4, set
 Qt 4 is preferred if both versions are installed. To use a specific Qt
 installation, set
 <userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>. 
+If building the KDE application is enabled, setting Qt 4 will use KDE 4,
+whereas setting Qt 5 will use KDE 5.
 </para>
 <para>
 Generation of RPM-Packages is supported by the

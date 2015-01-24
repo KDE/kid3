@@ -22,13 +22,13 @@
 </authorgroup>
 
 <copyright>
-<year>2014</year>
+<year>2015</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2014-11-09</date>
-<releaseinfo>3.1.2</releaseinfo>
+<date>2015-01-24</date>
+<releaseinfo>3.2.0</releaseinfo>
 
 <abstract>
 <para>
@@ -379,7 +379,7 @@ folgenden Befehlen:
 <itemizedlist>
 <listitem><para>
 <guimenuitem>Alle ausklappen</guimenuitem>: Klappt alle Verzeichnisbäume
-auf
+auf (nur das aktuelle Verzeichnis, wenn die Umschalttaste gedrückt ist)
 </para></listitem>
 <listitem><para>
 <guimenuitem>Alle einklappen</guimenuitem>: Klappt alle Verzeichnisbäume
@@ -1703,6 +1703,19 @@ die Anzahl Tracks in den Tags gesetzt.
 </para><para>
 Es können auch die Tracks über mehrere Ordner hinweg nummeriert werden. Dazu
 müssen die Verzeichnisse aufgeklappt und selektiert werden.
+</para><para>
+Wenn <guilabel>Zähler für jedes Verzeichnis zurücksetzen</guilabel> aktiviert
+ist, wird die Nummerierung bei jedem Verzeichnis mit der
+<guilabel>Startnummer</guilabel> begonnen falls mehrere Verzeichnisse
+ausgewählt sind.
+</para><para>
+Der Dialog kann auch dazu benutzt werden, bestehende Track-Nummern neu zu
+formatieren, ohne ihren Wert zu verändern. Dazu muss das Häkchen bei der
+<guilabel>Startnummer</guilabel> entfernt werden. Wenn <guilabel>Anzahl
+Stücke</guilabel> markiert ist, so wird das Total hinzugefügt. Falls es nicht
+erwünscht ist, die Anzahl Stücke in allen ausgewählten Dateien zu setzen, muss
+auch diese Option deaktiviert werden.
+</para><para>
 </para></listitem>
 </varlistentry>
 
@@ -2065,6 +2078,13 @@ sein. Das erstere ist der offizielle Standard und benutzt dasselbe Format wie
 Bilder in FLAC-Dateien. Bei COVERART handelt es sich um eine frühere,
 inoffizielle Methode, um Bilder in Vorbis-Tags zu codieren. Manche Player
 benutzen dieses Feld.
+</para>
+<para>
+Wenn das Häkchen bei <guilabel>Markieren wenn größer als</guilabel> gesetzt
+ist, so werden Dateien mit Bildern, welche die angegebene Größe überschreiten,
+rot markiert. Damit können Dateien mit übergroßen Bildern, welche von
+gewissen Applikationen und Playern nicht akzeptiert werden, aufgespürt
+werden. Der vorgegebene Limit ist 131072 Bytes (128 KB).
 </para>
 <para>
 <guilabel>Eigene Stile</guilabel> kann zur Definition von Stilen benutzt werden,
@@ -2996,7 +3016,7 @@ Man kann &kid3; mit oder ohne KDE kompilieren. Ohne KDE ist &kid3; eine reine
 Qt Applikation und es fehlen einige Konfigurations- und Session-Funktionen.
 </para>
 <para>
-Für die KDE 4 Version wird im obersten Verzeichnis getippt:
+Für die KDE Version wird im obersten Verzeichnis getippt:
 <screen width="40">
 <prompt>%</prompt> <userinput>cmake .</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -3027,6 +3047,8 @@ Qt 4 oder Qt 5 können verwendet werden. Um Qt 4 zu erzwingen, kann
 ausgeschaltet sind (Standardeinstellung), so wird Qt 4 bevorzugt, wenn beide
 Versionen installiert sind. Um eine bestimmte Qt-Installation zu nutzen, kann
 <userinput>-DQT_QMAKE_EXECUTABLE=/Pfad/zu/qmake</userinput> gesetzt werden.
+Wenn die KDE Applikation eingeschaltet ist, so wird mit Qt 4 KDE 4 verwendet
+und mit Qt 5 KDE 5.
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>

@@ -1,3 +1,27 @@
+Sat Jan 24 08:54:20 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.2.0
+
+	* New:
+	  + Support build with KDE 5.
+	  + Option to mark pictures larger than a given size.
+	  + Number tracks can reset track number for each folder.
+	  + Number tracks can only format numbers or set total.
+	  + Only expand subtree if shift is pressed with "Expand all".
+	  + Support Ogg FLAC files.
+	  + QML plugin.
+
+	* Improved:
+	  + File suffix for export (e.g. picture) is determined by mime type.
+	  + Image dimensions are displayed below picture.
+
+	* Fixed:
+	  + Crash when TagLib file is saved with changes in tags and file name.
+	  + Deletion of picture frames from Ogg/Opus files.
+	  + Setting description of Ogg pictures in frame table.
+	  + Reactivate support for AAC and MP2 files with TagLib.
+	  + Adapted to Discogs server update.
+
 Sun Nov  9 13:30:51 CET 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.1.2
