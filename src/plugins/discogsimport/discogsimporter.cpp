@@ -316,7 +316,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
      * the year can be found in "Released:"
 <div class="head">Released:</div><div class="content">02 Nov 1999</div>
      */
-    start = str.indexOf(QLatin1String("Released:"));
+    start = str.indexOf(QLatin1String("Released:<"));
     if (start >= 0) {
       start += 9; // skip "Released:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
@@ -348,7 +348,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     QStringList genreList;
     static const char* const fields[] = { "Style:", "Genre:" };
     for (unsigned i = 0; i < sizeof(fields) / sizeof(fields[0]); ++i) {
-      start = str.indexOf(QString::fromLatin1(fields[i]));
+      start = str.indexOf(QString::fromLatin1(fields[i]) + QLatin1Char('<'));
       if (start >= 0) {
         start += qstrlen(fields[i]); // skip field
         end = str.indexOf(QLatin1String("</div>"), start + 1);
@@ -388,7 +388,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     /*
      * publisher can be found in "Label:"
      */
-    start = str.indexOf(QLatin1String("Label:"));
+    start = str.indexOf(QLatin1String("Label:<"));
     if (start >= 0) {
       start += 6; // skip "Label:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
@@ -415,7 +415,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     /*
      * media can be found in "Format:"
      */
-    start = str.indexOf(QLatin1String("Format:"));
+    start = str.indexOf(QLatin1String("Format:<"));
     if (start >= 0) {
       start += 7; // skip "Format:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
@@ -431,7 +431,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     /*
      * Release country can be found in "Country:"
      */
-    start = str.indexOf(QLatin1String("Country:"));
+    start = str.indexOf(QLatin1String("Country:<"));
     if (start >= 0) {
       start += 8; // skip "Country:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
