@@ -1,6 +1,6 @@
-kid3 (3.2.0-0) unstable; urgency=low
+kid3 (3.2.0~git20150124) unstable; urgency=low
 
-  * New upstream release.
+  * Internal test release.
 
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 24 Jan 2015 08:54:20 +0100
 
