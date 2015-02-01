@@ -8,7 +8,8 @@ Item {
   property alias currentText: selectedItemText.text
   property alias currentIndex: dropDown.currentIndex
 
-  height: constants.gu(4)
+  implicitWidth: constants.gu(25)
+  implicitHeight: constants.gu(4)
 
   Rectangle {
     id: selectedItem

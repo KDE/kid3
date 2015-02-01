@@ -4,18 +4,23 @@ Rectangle {
   id: emptyListItem
 
   property bool selected: false
+  property bool __acceptEvents: true
+  property alias __mouseArea: mouseArea
 
   signal clicked()
 
-  width: parent.width
+  width: parent ? parent.width : constants.gu(31)
   height: constants.rowHeight
   color: selected
          ? constants.palette.highlight : constants.palette.window
 
   MouseArea {
+    id: mouseArea
     anchors.fill: parent
     onClicked: {
-      emptyListItem.clicked()
+      if (emptyListItem.__acceptEvents) {
+        emptyListItem.clicked()
+      }
     }
   }
 }

@@ -58,6 +58,8 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(int id3v2Version READ id3v2Version WRITE setId3v2Version NOTIFY id3v2VersionChanged)
   /** text encoding used for new ID3v1 tags */
   Q_PROPERTY(QString textEncodingV1 READ textEncodingV1 WRITE setTextEncodingV1 NOTIFY textEncodingV1Changed)
+  /** text encoding used for new ID3v1 tags */
+  Q_PROPERTY(int textEncodingV1Index READ textEncodingV1Index WRITE setTextEncodingV1Index NOTIFY textEncodingV1Changed)
   /** text encoding used for new ID3v2 tags */
   Q_PROPERTY(int textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
   /** frames which are displayed for Tag 2 even if not present */
@@ -195,6 +197,12 @@ public:
   /** Set text encoding used for new ID3v1 tags. */
   void setTextEncodingV1(const QString& textEncodingV1);
 
+  /** index of ID3v1 text encoding in getTextEncodingV1Names() */
+  int textEncodingV1Index() const;
+
+  /** Set ID3v1 text encoding from index in getTextEncodingV1Names(). */
+  void setTextEncodingV1Index(int index);
+
   /** text encoding used for new ID3v2 tags */
   int textEncoding() const { return m_textEncoding; }
 
@@ -249,6 +257,31 @@ public:
    * Clear list of available plugins.
    */
   void clearAvailablePlugins() { m_availablePlugins.clear(); }
+
+  /**
+   * String list of encodings for ID3v1.
+   */
+  Q_INVOKABLE static QStringList getTextEncodingV1Names();
+
+  /**
+   * String list of encodings for ID3v2.
+   */
+  Q_INVOKABLE static QStringList getTextEncodingNames();
+
+  /**
+   * String list of possible versions used for new ID3v2 tags.
+   */
+  Q_INVOKABLE static QStringList getId3v2VersionNames();
+
+  /**
+   * String list with suggested field names used for Vorbis comment entries.
+   */
+  Q_INVOKABLE static QStringList getCommentNames();
+
+  /**
+   * String list with possible field names used for Vorbis picture entries.
+   */
+  Q_INVOKABLE static QStringList getPictureNames();
 
 signals:
   /** Emitted when @a taggedFileFeatures changed. */

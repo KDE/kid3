@@ -14,8 +14,15 @@ Item {
     if (currentPage) {
       currentPage.visible = false
     }
-    stack.push(page)
-    currentPage = page
+    if (page.createObject) {
+      currentPage = page.createObject(pageStack)
+    } else if (typeof page === "string") {
+      currentPage = Qt.createComponent(page).createObject(pageStack);
+    } else {
+      currentPage = page
+    }
+    var pageArray = [ page, currentPage ]
+    stack.push(pageArray)
     currentPage.visible = true
     elements = stack
   }
@@ -24,9 +31,18 @@ Item {
     if (currentPage) {
       var stack = elements
       currentPage.visible = false
+      var pageArray = stack[stack.length - 1]
+      if (pageArray[0].createObject || typeof pageArray[0] === "string") {
+        if (pageArray[1].destroy) {
+          // Strange, only possible with QtQuick 2.
+          pageArray[1].destroy()
+        } else if (currentPage.destroy) {
+          currentPage.destroy()
+        }
+      }
       stack.pop()
       if (stack.length > 0) {
-        currentPage = stack[stack.length - 1]
+        currentPage = stack[stack.length - 1][1]
         currentPage.visible = true
       } else {
         currentPage = null

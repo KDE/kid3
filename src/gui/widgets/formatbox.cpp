@@ -30,6 +30,7 @@
 #include <QCheckBox>
 #include <QString>
 #include <QVBoxLayout>
+#include <QFormLayout>
 #include <QLocale>
 #include "formatconfig.h"
 #include "configtable.h"
@@ -48,52 +49,30 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
                                           this);
   m_validationCheckBox = new QCheckBox(tr("Validation"), this);
 
-  QLabel* caseConvLabel = new QLabel(this);
-  caseConvLabel->setText(tr("Case conversion:"));
-
   m_caseConvComboBox = new QComboBox(this);
-  m_caseConvComboBox->setEditable(false);
-  m_caseConvComboBox->clear();
-  m_caseConvComboBox->insertItem(FormatConfig::NoChanges,
-                                     tr("No changes"));
-  m_caseConvComboBox->insertItem(FormatConfig::AllLowercase,
-                                     tr("All lowercase"));
-  m_caseConvComboBox->insertItem(FormatConfig::AllUppercase,
-                                     tr("All uppercase"));
-  m_caseConvComboBox->insertItem(FormatConfig::FirstLetterUppercase,
-                                     tr("First letter uppercase"));
-  m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
-                                     tr("All first letters uppercase"));
+  m_caseConvComboBox->addItems(FormatConfig::getCaseConversionNames());
 
 #if QT_VERSION >= 0x040800
-  QHBoxLayout* localeLayout = new QHBoxLayout;
-  QLabel* localeLabel = new QLabel(tr("Locale:"));
-  localeLayout->addWidget(localeLabel);
   m_localeComboBox = new QComboBox(this);
-  m_localeComboBox->addItem(tr("None"));
-  m_localeComboBox->addItems(QLocale().uiLanguages());
-  localeLabel->setBuddy(m_localeComboBox);
-  localeLayout->addWidget(m_localeComboBox);
+  m_localeComboBox->addItems(FormatConfig::getLocaleNames());
 #endif
-  m_strRepCheckBox = new QCheckBox(this);
-  m_strRepCheckBox->setText(tr("String replacement:"));
+  m_strRepCheckBox = new QCheckBox(tr("String replacement:"), this);
   m_strReplTableModel = new ConfigTableModel(this);
   m_strReplTableModel->setLabels(
     QStringList() << tr("From") << tr("To"));
   m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());
-  QVBoxLayout* vbox = new QVBoxLayout;
-  vbox->addWidget(m_formatEditingCheckBox);
-  vbox->addWidget(m_validationCheckBox);
-  vbox->addWidget(caseConvLabel);
-  vbox->addWidget(m_caseConvComboBox);
+  QFormLayout* formLayout = new QFormLayout(this);
+  formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+  formLayout->addRow(m_formatEditingCheckBox);
+  formLayout->addRow(m_validationCheckBox);
+  formLayout->addRow(tr("Case conversion:"), m_caseConvComboBox);
 #if QT_VERSION >= 0x040800
-  vbox->addLayout(localeLayout);
+  formLayout->addRow(tr("Locale:"), m_localeComboBox);
 #endif
-  vbox->addWidget(m_strRepCheckBox);
-  vbox->addWidget(m_strReplTable);
-  setLayout(vbox);
+  formLayout->addRow(m_strRepCheckBox);
+  formLayout->addRow(m_strReplTable);
 }
 
 /**

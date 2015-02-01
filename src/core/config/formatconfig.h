@@ -30,6 +30,7 @@
 #include "config.h"
 #include "generalconfig.h"
 #include <QMap>
+#include <QStringList>
 #include "kid3api.h"
 
 class QString;
@@ -167,6 +168,16 @@ public:
 
   /** Set if data validation is enabled. */
   void setEnableValidation(bool enableValidation);
+
+  /**
+   * String list of case conversion names.
+   */
+  Q_INVOKABLE static QStringList getCaseConversionNames();
+
+  /**
+   * String list of locale names.
+   */
+  Q_INVOKABLE static QStringList getLocaleNames();
 
 signals:
   /** Emitted when @a strRepMap changed. */

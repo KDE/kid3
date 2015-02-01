@@ -27,8 +27,8 @@
 #include "formatconfig.h"
 #include "config.h"
 #include <QString>
-#include <QStringList>
 #include <QLocale>
+#include <QCoreApplication>
 #include "generalconfig.h"
 #include "frame.h"
 
@@ -401,6 +401,40 @@ void FormatConfig::setFormatWhileEditing(bool formatWhileEditing)
     m_formatWhileEditing = formatWhileEditing;
     emit formatWhileEditingChanged(m_formatWhileEditing);
   }
+}
+
+/**
+ * String list of case conversion names.
+ */
+QStringList FormatConfig::getCaseConversionNames()
+{
+  static const char* const names[NumCaseConversions] = {
+    QT_TRANSLATE_NOOP("@default", "No changes"),
+    QT_TRANSLATE_NOOP("@default", "All lowercase"),
+    QT_TRANSLATE_NOOP("@default", "All uppercase"),
+    QT_TRANSLATE_NOOP("@default", "First letter uppercase"),
+    QT_TRANSLATE_NOOP("@default", "All first letters uppercase")
+  };
+  QStringList strs;
+#if QT_VERSION >= 0x040700
+  strs.reserve(NumCaseConversions);
+#endif
+  for (int i = 0; i < NumCaseConversions; ++i) {
+    strs.append(QCoreApplication::translate("@default", names[i]));
+  }
+  return strs;
+}
+
+/**
+ * String list of locale names.
+ */
+QStringList FormatConfig::getLocaleNames()
+{
+  return QStringList() << tr("None")
+#if QT_VERSION >= 0x040800
+                       << QLocale().uiLanguages()
+#endif
+                          ;
 }
 
 

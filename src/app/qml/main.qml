@@ -97,6 +97,10 @@ MainView {
       }
       actions: ActionList {
         Action {
+          text: qsTr("Settings")
+          onTriggered: pageStack.push(settingsPage)
+        }
+        Action {
           text: qsTr("Apply Filename Format")
           onTriggered: app.applyFilenameFormat()
         }
@@ -178,6 +182,10 @@ MainView {
     }
     BatchImportPage {
       id: batchImportPage
+      visible: false
+    }
+    SettingsPage {
+      id: settingsPage
       visible: false
     }
   }

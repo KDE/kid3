@@ -27,6 +27,9 @@ set(qml_QML_SRCS
   NumberTracksDialog.qml
   FilterPage.qml
   BatchImportPage.qml
+  AbstractSettingsPage.qml
+  SettingsElement.qml
+  SettingsPage.qml
   ComponentsQtQuick/ActionList.qml
   ComponentsQtQuick/Action.qml
   ComponentsQtQuick/ActionSelectionPopover.qml

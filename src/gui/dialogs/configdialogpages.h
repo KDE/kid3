@@ -111,8 +111,6 @@ private:
   QLineEdit* m_coverFileNameLineEdit;
   /** Mark truncated fields checkbox */
   QCheckBox* m_markTruncationsCheckBox;
-  /** ID3v1 text encodings */
-  QStringList m_textEncodingV1List;
   /** ID3v1 text encoding combo box */
   QComboBox* m_textEncodingV1ComboBox;
   /** Use track/total number of tracks format checkbox */

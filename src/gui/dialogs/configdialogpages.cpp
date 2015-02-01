@@ -25,7 +25,6 @@
  */
 
 #include "configdialogpages.h"
-#include <cstring>
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -54,21 +53,6 @@
 #include "checkablestringlistmodel.h"
 #include "contexthelp.h"
 #include "frame.h"
-
-enum { TextEncodingV1Latin1Index = 13 };
-
-/**
- * Remove aliases in braces from text encoding combo box entry.
- *
- * @param comboEntry text encoding combo box entry
- *
- * @return codec name.
- */
-static QString getTextEncodingV1CodecName(const QString& comboEntry)
-{
-  int braceIdx = comboEntry.indexOf(QLatin1String(" ("));
-  return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
-}
 
 /**
  * Constructor.
@@ -115,72 +99,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
   QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
-  static const char* const codecs[] = {
-    "Apple Roman (macintosh)",
-    "Big5",
-    "big5-0",
-    "Big5-HKSCS",
-    "big5hkscs-0",
-    "EUC-JP",
-    "EUC-KR",
-    "GB18030",
-    "GBK (windows-936)",
-    "hp-roman8",
-    "IBM850",
-    "IBM866",
-    "ISO-2022-JP (JIS7)",
-    "ISO-8859-1 (latin1)",
-    "ISO-8859-2 (latin2)",
-    "ISO-8859-3 (latin3)",
-    "ISO-8859-4 (latin4)",
-    "ISO-8859-5 (cyrillic)",
-    "ISO-8859-6 (arabic)",
-    "ISO-8859-7 (greek)",
-    "ISO-8859-8 (hebrew)",
-    "ISO-8859-9 (latin5)",
-    "ISO-8859-10 (latin6)",
-    "ISO-8859-13 (baltic)",
-    "ISO-8859-14 (latin8, iso-celtic)",
-    "ISO-8859-15 (latin9)",
-    "ISO-8859-16 (latin10)",
-    "ISO-10646-UCS-2 (UTF-16)",
-    "Iscii-Bng",
-    "Iscii-Dev",
-    "Iscii-Gjr",
-    "Iscii-Knd",
-    "Iscii-Mlm",
-    "Iscii-Ori",
-    "Iscii-Pnj",
-    "Iscii-Tlg",
-    "Iscii-Tml",
-    "jisx0201*-0",
-    "KOI8-R",
-    "KOI8-U",
-    "ksc5601.1987-0",
-    "mulelao-1",
-    "Shift_JIS (SJIS, MS_Kanji)",
-    "TIS-620 (ISO 8859-11)",
-    "TSCII",
-    "UTF-8",
-    "windows-1250",
-    "windows-1251",
-    "windows-1252",
-    "windows-1253",
-    "windows-1254",
-    "windows-1255",
-    "windows-1256",
-    "windows-1257",
-    "windows-1258",
-    "WINSAMI2 (WS2)",
-    0
-  };
-  Q_ASSERT(std::strcmp(codecs[TextEncodingV1Latin1Index], "ISO-8859-1 (latin1)") == 0);
-  const char* const* str = codecs;
-  m_textEncodingV1List.clear();
-  while (*str) {
-    m_textEncodingV1List += QString::fromLatin1(*str++);
-  }
-  m_textEncodingV1ComboBox->addItems(m_textEncodingV1List);
+  m_textEncodingV1ComboBox->addItems(TagConfig::getTextEncodingV1Names());
   m_textEncodingV1ComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
   v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
@@ -201,9 +120,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_genreNotNumericCheckBox = new QCheckBox(tr("&Genre as text instead of numeric string"), v2GroupBox);
   QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
-  m_textEncodingComboBox->insertItem(TagConfig::TE_ISO8859_1, tr("ISO-8859-1"));
-  m_textEncodingComboBox->insertItem(TagConfig::TE_UTF16, tr("UTF16"));
-  m_textEncodingComboBox->insertItem(TagConfig::TE_UTF8, tr("UTF8"));
+  m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
   m_textEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingLabel->setBuddy(m_textEncodingComboBox);
   v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
@@ -240,13 +157,10 @@ QWidget* ConfigDialogPages::createTagsPage()
   QLabel* pictureNameLabel = new QLabel(tr("&Picture field name:"), vorbisGroupBox);
   m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
   m_commentNameComboBox->setEditable(true);
-  QStringList items;
-  items += QLatin1String("COMMENT");
-  items += QLatin1String("DESCRIPTION");
-  m_commentNameComboBox->addItems(items);
+  m_commentNameComboBox->addItems(TagConfig::getCommentNames());
   m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   commentNameLabel->setBuddy(m_commentNameComboBox);
-  m_pictureNameComboBox->addItems(QStringList() << QLatin1String("METADATA_BLOCK_PICTURE") << QLatin1String("COVERART"));
+  m_pictureNameComboBox->addItems(TagConfig::getPictureNames());
   m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   pictureNameLabel->setBuddy(m_pictureNameComboBox);
   QGridLayout* vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
@@ -495,18 +409,7 @@ void ConfigDialogPages::setConfig()
   }
   m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameIndex());
   m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
-  int textEncodingV1Index = TextEncodingV1Latin1Index;
-  int index = 0;
-  for (QStringList::const_iterator it = m_textEncodingV1List.begin();
-       it != m_textEncodingV1List.end();
-       ++it) {
-    if (getTextEncodingV1CodecName(*it) == tagCfg.textEncodingV1()) {
-      textEncodingV1Index = index;
-      break;
-    }
-    ++index;
-  }
-  m_textEncodingV1ComboBox->setCurrentIndex(textEncodingV1Index);
+  m_textEncodingV1ComboBox->setCurrentIndex(tagCfg.textEncodingV1Index());
   m_textEncodingComboBox->setCurrentIndex(tagCfg.textEncoding());
   m_id3v2VersionComboBox->setCurrentIndex(
         m_id3v2VersionComboBox->findData(tagCfg.id3v2Version()));
@@ -592,8 +495,7 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setCommentName(m_commentNameComboBox->currentText());
   tagCfg.setPictureNameIndex(m_pictureNameComboBox->currentIndex());
   tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
-  tagCfg.setTextEncodingV1(
-    getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText()));
+  tagCfg.setTextEncodingV1Index(m_textEncodingV1ComboBox->currentIndex());
   tagCfg.setTextEncoding(m_textEncodingComboBox->currentIndex());
   tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(
         m_id3v2VersionComboBox->currentIndex()).toInt());

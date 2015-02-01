@@ -6,7 +6,8 @@ FocusScope {
   property alias text: textInput.text
   signal accepted()
 
-  height: constants.rowHeight
+  implicitWidth: constants.gu(25)
+  implicitHeight: constants.rowHeight
   Rectangle {
     anchors.fill: parent
     color: constants.editColor
