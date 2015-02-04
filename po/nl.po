@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -473,6 +473,9 @@ msgstr "Waarschuwing"
 msgid "The current directory has been modified.\n"
 msgstr "De huidige map is gewijzigd."
 
+msgid "Settings"
+msgstr "Instellingen"
+
 msgid "Apply Filename Format"
 msgstr "Bestandsnaamstructuur Toepassen"
 
@@ -529,6 +532,69 @@ msgstr "Structuur:"
 
 msgid "Preview"
 msgstr "Voorbeeld"
+
+msgid "Mark truncated fields"
+msgstr "Markeer afgebroken velden"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 tekst-Codering"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 tekst-Codering"
+
+msgid "Use track/total number of tracks format"
+msgstr "Track/totaal aantal tracks structuur gebruiken"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Genre als tekst in plaats van nummer"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Gebruikte versie voor nieuwe Tags"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis naam commentaarveld"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis naam afbeeldingsveld"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Markeer indien groter dan de maximale"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maximum grootte (bytes)"
+
+msgid "Show only custom genres"
+msgstr "Toon alleen aangepaste genres"
+
+msgid "Case conversion"
+msgstr "Hoofd-/kleine letter"
+
+msgid "Locale"
+msgstr "Taal"
+
+msgid "String replacement"
+msgstr "Tekenreeks vervangen"
+
+msgid "Load last-opened files"
+msgstr "Laatstgeopende bestanden laden"
+
+msgid "Preserve file timestamp"
+msgstr "Tijdstempel van bestanden behouden"
+
+msgid "Mark changes"
+msgstr "Markeer wijzigingen"
+
+msgid "Format while editing"
+msgstr "Opmaak gebruiken tijdens het opslaan van bestanden"
+
+msgid "Filename for cover"
+msgstr "Bestandsnaam voor de hoesafbeelding"
+
+msgid "To filename format"
+msgstr "Do bestandsnaamstructuur"
+
+msgid "From filename format"
+msgstr "Van bestandsnaamstructuur"
 
 msgid "To Filename"
 msgstr "Do bestandsnaam"
@@ -739,6 +805,33 @@ msgstr "Additionele tags"
 
 msgid "Cover Art"
 msgstr "Hoesafbeelding"
+
+msgid "No changes"
+msgstr "Geen wijzigingen"
+
+msgid "All lowercase"
+msgstr "Alles in kleine letters"
+
+msgid "All uppercase"
+msgstr "Alles in hoofdletters"
+
+msgid "First letter uppercase"
+msgstr "Eerste teken met hoofdletter"
+
+msgid "All first letters uppercase"
+msgstr "Alle eerste tekens met hoofdletter"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Ongeldig bestand"
@@ -1061,17 +1154,8 @@ msgstr "Datum"
 msgid "Seller"
 msgstr ""
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Ander"
@@ -1813,35 +1897,8 @@ msgstr "Rij &Verwijderen"
 msgid "&Clear row"
 msgstr "Rij &Wissen"
 
-msgid "Format while editing"
-msgstr "Opmaak gebruiken tijdens het opslaan van bestanden"
-
 msgid "Validation"
 msgstr "Validatie"
-
-msgid "Case conversion:"
-msgstr "Hoofd-/kleine letter:"
-
-msgid "No changes"
-msgstr "Geen wijzigingen"
-
-msgid "All lowercase"
-msgstr "Alles in kleine letters"
-
-msgid "All uppercase"
-msgstr "Alles in hoofdletters"
-
-msgid "First letter uppercase"
-msgstr "Eerste teken met hoofdletter"
-
-msgid "All first letters uppercase"
-msgstr "Alle eerste tekens met hoofdletter"
-
-msgid "Locale:"
-msgstr "Taal:"
-
-msgid "None"
-msgstr "Geen"
 
 msgid "String replacement:"
 msgstr "Tekenreeks vervangen:"
@@ -1851,6 +1908,12 @@ msgstr "Van"
 
 msgid "To"
 msgstr "Naar"
+
+msgid "Case conversion:"
+msgstr "Hoofd-/kleine letter:"
+
+msgid "Locale:"
+msgstr "Taal:"
 
 msgid "&Select all"
 msgstr "&Alles selecteren"

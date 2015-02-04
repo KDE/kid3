@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -473,6 +473,9 @@ msgstr "Varování"
 msgid "The current directory has been modified.\n"
 msgstr "Nynější adresář byl změněn."
 
+msgid "Settings"
+msgstr "Nastavení"
+
 msgid "Apply Filename Format"
 msgstr "Použít formát pro název souboru"
 
@@ -529,6 +532,69 @@ msgstr "Formát:"
 
 msgid "Preview"
 msgstr "Náhled"
+
+msgid "Mark truncated fields"
+msgstr "Označit zkrácená pole"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 kódování textu"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 kódování textu"
+
+msgid "Use track/total number of tracks format"
+msgstr "Použít formát číslo/celkový počet stop"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Žánr jako text místo jako číslo"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Verze používaná pro nové značky"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis název pole s poznámkou"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis název pole s obrázkem"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Označit, je-li větší než"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maximální velikost (bajty)"
+
+msgid "Show only custom genres"
+msgstr "Ukázat pouze vlastní žánry"
+
+msgid "Case conversion"
+msgstr "Psaní velkých/malých písmen"
+
+msgid "Locale"
+msgstr "Jazyk"
+
+msgid "String replacement"
+msgstr "Nahrazení řetězce"
+
+msgid "Load last-opened files"
+msgstr "Nahrát naposledy otevřené soubory"
+
+msgid "Preserve file timestamp"
+msgstr "Neměnit časové razítko"
+
+msgid "Mark changes"
+msgstr "Označit změny"
+
+msgid "Format while editing"
+msgstr "Formátovat během úprav"
+
+msgid "Filename for cover"
+msgstr "Jméno souboru s obalem"
+
+msgid "To filename format"
+msgstr "Formát do názvu souboru"
+
+msgid "From filename format"
+msgstr "Formát z názvu souboru"
 
 msgid "To Filename"
 msgstr "Do názvu souboru"
@@ -739,6 +805,33 @@ msgstr "Dodatečné značky"
 
 msgid "Cover Art"
 msgstr "Obrázky obalů"
+
+msgid "No changes"
+msgstr "Žádné změny"
+
+msgid "All lowercase"
+msgstr "Vše malými písmeny"
+
+msgid "All uppercase"
+msgstr "Vše velkými písmeny"
+
+msgid "First letter uppercase"
+msgstr "První písmeno velké"
+
+msgid "All first letters uppercase"
+msgstr "Všechna první písmena velká"
+
+msgid "None"
+msgstr "Žádný"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Neplatný soubor"
@@ -1063,17 +1156,8 @@ msgstr "Datum"
 msgid "Seller"
 msgstr "Prodavač"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Jiný"
@@ -1811,35 +1895,8 @@ msgstr "&Smazat řádek"
 msgid "&Clear row"
 msgstr "Vy&prázdnit řádek"
 
-msgid "Format while editing"
-msgstr "Formátovat během úprav"
-
 msgid "Validation"
 msgstr "Validace"
-
-msgid "Case conversion:"
-msgstr "Psaní velkých/malých písmen:"
-
-msgid "No changes"
-msgstr "Žádné změny"
-
-msgid "All lowercase"
-msgstr "Vše malými písmeny"
-
-msgid "All uppercase"
-msgstr "Vše velkými písmeny"
-
-msgid "First letter uppercase"
-msgstr "První písmeno velké"
-
-msgid "All first letters uppercase"
-msgstr "Všechna první písmena velká"
-
-msgid "Locale:"
-msgstr "Jazyk:"
-
-msgid "None"
-msgstr "Žádný"
 
 msgid "String replacement:"
 msgstr "Nahrazení řetězce:"
@@ -1849,6 +1906,12 @@ msgstr "Z"
 
 msgid "To"
 msgstr "Do"
+
+msgid "Case conversion:"
+msgstr "Psaní velkých/malých písmen:"
+
+msgid "Locale:"
+msgstr "Jazyk:"
 
 msgid "&Select all"
 msgstr "&Vybrat vše"

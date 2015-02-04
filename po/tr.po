@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -472,6 +472,9 @@ msgstr "Uyarı"
 msgid "The current directory has been modified.\n"
 msgstr "İçinde bulunduğunuz dizin değiştirildi."
 
+msgid "Settings"
+msgstr "Ayarlar"
+
 msgid "Apply Filename Format"
 msgstr "Dosya Adı Yapısını Uygula"
 
@@ -528,6 +531,69 @@ msgstr "Biçim:"
 
 msgid "Preview"
 msgstr "Önizleme"
+
+msgid "Mark truncated fields"
+msgstr ""
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 karakter Kodlaması"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 karakter Kodlaması"
+
+msgid "Use track/total number of tracks format"
+msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
+
+msgid "Genre as text instead of numeric string"
+msgstr ""
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Yeni tag'lar için kullanılan sürüm"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis lütfen yeni dosya ismi yazın"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr ""
+
+msgid "Mark if picture larger than maxium size"
+msgstr ""
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maksimum boyut (bayt)"
+
+msgid "Show only custom genres"
+msgstr ""
+
+msgid "Case conversion"
+msgstr ""
+
+msgid "Locale"
+msgstr "Dil"
+
+msgid "String replacement"
+msgstr ""
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr "Dosya timestamp değerini sakla"
+
+msgid "Mark changes"
+msgstr ""
+
+msgid "Format while editing"
+msgstr "Düzenleme şekli"
+
+msgid "Filename for cover"
+msgstr "Albüm kapağı için dosya adı"
+
+msgid "To filename format"
+msgstr "Dosya adı için biçimi"
+
+msgid "From filename format"
+msgstr "Dosya adı Biçimi"
 
 msgid "To Filename"
 msgstr "Dosya adı için"
@@ -738,6 +804,33 @@ msgstr "Ek Özellikler"
 
 msgid "Cover Art"
 msgstr "Albüm Kapağı"
+
+msgid "No changes"
+msgstr "Değişiklik Yok"
+
+msgid "All lowercase"
+msgstr "Tümü küçük harf"
+
+msgid "All uppercase"
+msgstr "Tümü BÜYÜK harf"
+
+msgid "First letter uppercase"
+msgstr "Cümlenin ilk harfi büyük"
+
+msgid "All first letters uppercase"
+msgstr "Kelimelerin ilk harfi büyük"
+
+msgid "None"
+msgstr "Hiçbiri"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Geçersiz Dosya"
@@ -1060,17 +1153,8 @@ msgstr "Tarih"
 msgid "Seller"
 msgstr "Satıcı"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Diğer"
@@ -1809,35 +1893,8 @@ msgstr "Satır &Sil"
 msgid "&Clear row"
 msgstr "Satırı &Temizle"
 
-msgid "Format while editing"
-msgstr "Düzenleme şekli"
-
 msgid "Validation"
 msgstr "Doğrulama"
-
-msgid "Case conversion:"
-msgstr ""
-
-msgid "No changes"
-msgstr "Değişiklik Yok"
-
-msgid "All lowercase"
-msgstr "Tümü küçük harf"
-
-msgid "All uppercase"
-msgstr "Tümü BÜYÜK harf"
-
-msgid "First letter uppercase"
-msgstr "Cümlenin ilk harfi büyük"
-
-msgid "All first letters uppercase"
-msgstr "Kelimelerin ilk harfi büyük"
-
-msgid "Locale:"
-msgstr "Dil:"
-
-msgid "None"
-msgstr "Hiçbiri"
 
 msgid "String replacement:"
 msgstr ""
@@ -1847,6 +1904,12 @@ msgstr "Şuradan"
 
 msgid "To"
 msgstr "Şuraya"
+
+msgid "Case conversion:"
+msgstr ""
+
+msgid "Locale:"
+msgstr "Dil:"
 
 msgid "&Select all"
 msgstr "&Tümünü Seç"

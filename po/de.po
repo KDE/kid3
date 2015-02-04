@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -474,6 +474,9 @@ msgstr "Warnung"
 msgid "The current directory has been modified.\n"
 msgstr "Das aktuelle Verzeichnis wurde verändert."
 
+msgid "Settings"
+msgstr "Einstellungen"
+
 msgid "Apply Filename Format"
 msgstr "Dateinamenformat anwenden"
 
@@ -530,6 +533,69 @@ msgstr "Format:"
 
 msgid "Preview"
 msgstr "Vorschau"
+
+msgid "Mark truncated fields"
+msgstr "Abgeschnittene Felder markieren"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 Textkodierung"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 Textkodierung"
+
+msgid "Use track/total number of tracks format"
+msgstr "Format „Nummer/Anzahl Stücke“ benutzen"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Stil als Text statt als Nummer"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Version für neue Tags"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis Name des Kommentar-Feldes"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis Name des Bild-Feldes"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Markieren wenn Bild größer als Maximum"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maximale Größe Bilder (Bytes)"
+
+msgid "Show only custom genres"
+msgstr "Nur eigene Stile anzeigen"
+
+msgid "Case conversion"
+msgstr "Groß-/Kleinschreibung"
+
+msgid "Locale"
+msgstr "Sprache"
+
+msgid "String replacement"
+msgstr "Zeichen ersetzen"
+
+msgid "Load last-opened files"
+msgstr "Zuletzt geöffnete Dateien laden"
+
+msgid "Preserve file timestamp"
+msgstr "Datei-Zeitstempel nicht verändern"
+
+msgid "Mark changes"
+msgstr "Änderungen markieren"
+
+msgid "Format while editing"
+msgstr "Während des Editierens formatieren"
+
+msgid "Filename for cover"
+msgstr "Dateiname für Cover"
+
+msgid "To filename format"
+msgstr "Nach Dateinamenformat"
+
+msgid "From filename format"
+msgstr "Von Dateinamenformat"
 
 msgid "To Filename"
 msgstr "Nach Dateiname"
@@ -740,6 +806,33 @@ msgstr "Zusätzliche Tags"
 
 msgid "Cover Art"
 msgstr "Cover-Bilder"
+
+msgid "No changes"
+msgstr "Keine Änderungen"
+
+msgid "All lowercase"
+msgstr "Alles Kleinbuchstaben"
+
+msgid "All uppercase"
+msgstr "Alles Großbuchstaben"
+
+msgid "First letter uppercase"
+msgstr "Den ersten Buchstaben groß"
+
+msgid "All first letters uppercase"
+msgstr "Alle ersten Buchstaben groß"
+
+msgid "None"
+msgstr "Keine"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Ungültige Datei"
@@ -1062,17 +1155,8 @@ msgstr "Datum"
 msgid "Seller"
 msgstr "Verkäufer"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Anderes"
@@ -1812,35 +1896,8 @@ msgstr "Zeile ent&fernen"
 msgid "&Clear row"
 msgstr "Zeile lös&chen"
 
-msgid "Format while editing"
-msgstr "Während des Editierens formatieren"
-
 msgid "Validation"
 msgstr "Überprüfung"
-
-msgid "Case conversion:"
-msgstr "Groß-/Kleinschreibung:"
-
-msgid "No changes"
-msgstr "Keine Änderungen"
-
-msgid "All lowercase"
-msgstr "Alles Kleinbuchstaben"
-
-msgid "All uppercase"
-msgstr "Alles Großbuchstaben"
-
-msgid "First letter uppercase"
-msgstr "Den ersten Buchstaben groß"
-
-msgid "All first letters uppercase"
-msgstr "Alle ersten Buchstaben groß"
-
-msgid "Locale:"
-msgstr "Sprache:"
-
-msgid "None"
-msgstr "Keine"
 
 msgid "String replacement:"
 msgstr "Zeichen ersetzen:"
@@ -1850,6 +1907,12 @@ msgstr "Von"
 
 msgid "To"
 msgstr "Nach"
+
+msgid "Case conversion:"
+msgstr "Groß-/Kleinschreibung:"
+
+msgid "Locale:"
+msgstr "Sprache:"
 
 msgid "&Select all"
 msgstr "Alles &auswählen"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -474,6 +474,9 @@ msgstr "Предупреждение"
 msgid "The current directory has been modified.\n"
 msgstr "Текущий каталог был изменен."
 
+msgid "Settings"
+msgstr "Настройка"
+
 msgid "Apply Filename Format"
 msgstr "Применить Формат имени файла"
 
@@ -530,6 +533,69 @@ msgstr "Формат:"
 
 msgid "Preview"
 msgstr "Просмотр"
+
+msgid "Mark truncated fields"
+msgstr "Отметить обрезанные структуры"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодировка Текста"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодировка Текста"
+
+msgid "Use track/total number of tracks format"
+msgstr "Формат использования число/количество дорожек"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр как текст"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Версия, используемая для нового тегов"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis имя структур коментэри"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis имя структур картинки"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Отметить, если больше, чем"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Максимальный размер (байт)"
+
+msgid "Show only custom genres"
+msgstr "Показывать только выборочная жанры"
+
+msgid "Case conversion"
+msgstr "Преобразование Регистра"
+
+msgid "Locale"
+msgstr "Локаль"
+
+msgid "String replacement"
+msgstr "Замена строк"
+
+msgid "Load last-opened files"
+msgstr "Загружать при запуске файлы, открытые при последнем выходе"
+
+msgid "Preserve file timestamp"
+msgstr "Сохранять время изменения файлов"
+
+msgid "Mark changes"
+msgstr "Отмечать изменения"
+
+msgid "Format while editing"
+msgstr "Форматировать при редактировании"
+
+msgid "Filename for cover"
+msgstr "Имя файла для изображения"
+
+msgid "To filename format"
+msgstr "Формат к имени файла"
+
+msgid "From filename format"
+msgstr "Формат из имени файла"
 
 msgid "To Filename"
 msgstr "К имени файла"
@@ -740,6 +806,33 @@ msgstr "Дополнительные теги"
 
 msgid "Cover Art"
 msgstr "Обложки"
+
+msgid "No changes"
+msgstr "Нет изменений"
+
+msgid "All lowercase"
+msgstr "Все в нижний регистр"
+
+msgid "All uppercase"
+msgstr "Все в верхний регистр"
+
+msgid "First letter uppercase"
+msgstr "Первая буква в верхний регистр"
+
+msgid "All first letters uppercase"
+msgstr "Все первые буквы в верхний регистр"
+
+msgid "None"
+msgstr "Нет"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Неверный файл"
@@ -1062,17 +1155,8 @@ msgstr "Дата"
 msgid "Seller"
 msgstr "Продавец"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Другое"
@@ -1811,35 +1895,8 @@ msgstr "&Удалить строку"
 msgid "&Clear row"
 msgstr "&Очистить строку"
 
-msgid "Format while editing"
-msgstr "Форматировать при редактировании"
-
 msgid "Validation"
 msgstr "Проверка"
-
-msgid "Case conversion:"
-msgstr "Преобразование Регистра:"
-
-msgid "No changes"
-msgstr "Нет изменений"
-
-msgid "All lowercase"
-msgstr "Все в нижний регистр"
-
-msgid "All uppercase"
-msgstr "Все в верхний регистр"
-
-msgid "First letter uppercase"
-msgstr "Первая буква в верхний регистр"
-
-msgid "All first letters uppercase"
-msgstr "Все первые буквы в верхний регистр"
-
-msgid "Locale:"
-msgstr "Локаль:"
-
-msgid "None"
-msgstr "Нет"
 
 msgid "String replacement:"
 msgstr "Замена строк:"
@@ -1849,6 +1906,12 @@ msgstr "От"
 
 msgid "To"
 msgstr "к"
+
+msgid "Case conversion:"
+msgstr "Преобразование Регистра:"
+
+msgid "Locale:"
+msgstr "Локаль:"
 
 msgid "&Select all"
 msgstr "Выбрать в&се"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -472,6 +472,9 @@ msgstr "Упозорење"
 msgid "The current directory has been modified.\n"
 msgstr "Тренутни директоријум је измењен."
 
+msgid "Settings"
+msgstr "Подешавање"
+
 msgid "Apply Filename Format"
 msgstr "Примени формат назива фајла"
 
@@ -528,6 +531,69 @@ msgstr "Формат:"
 
 msgid "Preview"
 msgstr "Преглед"
+
+msgid "Mark truncated fields"
+msgstr "Означи одсечена поља"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодирање текста"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодирање текста"
+
+msgid "Use track/total number of tracks format"
+msgstr "Користи формат нумера/укупно нумера"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр као текст уместо бројног низа"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Издање за нове ознаке"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Огг/Ворбис име поља коментара"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Огг/Ворбис име поља слике"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Означи ако је веће од"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Највећа величина (бајтова)"
+
+msgid "Show only custom genres"
+msgstr "Прикажи само посебне жанрове"
+
+msgid "Case conversion"
+msgstr "Величина слова"
+
+msgid "Locale"
+msgstr "Локалитет"
+
+msgid "String replacement"
+msgstr "Замена текста"
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr "Очувај временску ознаку фајла"
+
+msgid "Mark changes"
+msgstr "Означи измене"
+
+msgid "Format while editing"
+msgstr "Форматирај при уређивању"
+
+msgid "Filename for cover"
+msgstr "Име фајла за омот албума"
+
+msgid "To filename format"
+msgstr "Формат у имена фајла"
+
+msgid "From filename format"
+msgstr "Формат из имена фајла"
 
 msgid "To Filename"
 msgstr "У имена фајла"
@@ -738,6 +804,33 @@ msgstr "Додатне ознаке"
 
 msgid "Cover Art"
 msgstr "Омот албума"
+
+msgid "No changes"
+msgstr "без измена"
+
+msgid "All lowercase"
+msgstr "све малим"
+
+msgid "All uppercase"
+msgstr "све великим"
+
+msgid "First letter uppercase"
+msgstr "прво слово великим"
+
+msgid "All first letters uppercase"
+msgstr "сва прва слова великим"
+
+msgid "None"
+msgstr "Ништа"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF8"
+msgstr "UTF-8"
 
 msgid "Invalid File"
 msgstr "Неисправна датотека"
@@ -1060,17 +1153,8 @@ msgstr "Година"
 msgid "Seller"
 msgstr ""
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
 msgid "UTF16BE"
 msgstr "UTF-16BE"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "Other"
 msgstr "Остало"
@@ -1808,35 +1892,8 @@ msgstr "&Обриши ред"
 msgid "&Clear row"
 msgstr "О&чисти ред"
 
-msgid "Format while editing"
-msgstr "Форматирај при уређивању"
-
 msgid "Validation"
 msgstr "Овера"
-
-msgid "Case conversion:"
-msgstr "Величина слова:"
-
-msgid "No changes"
-msgstr "без измена"
-
-msgid "All lowercase"
-msgstr "све малим"
-
-msgid "All uppercase"
-msgstr "све великим"
-
-msgid "First letter uppercase"
-msgstr "прво слово великим"
-
-msgid "All first letters uppercase"
-msgstr "сва прва слова великим"
-
-msgid "Locale:"
-msgstr "Локалитет:"
-
-msgid "None"
-msgstr "Ништа"
 
 msgid "String replacement:"
 msgstr "Замена текста:"
@@ -1846,6 +1903,12 @@ msgstr "из"
 
 msgid "To"
 msgstr "у"
+
+msgid "Case conversion:"
+msgstr "Величина слова:"
+
+msgid "Locale:"
+msgstr "Локалитет:"
 
 msgid "&Select all"
 msgstr "И&забери све"

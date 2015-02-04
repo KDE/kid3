@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -473,6 +473,9 @@ msgstr "Hoiatus"
 msgid "The current directory has been modified.\n"
 msgstr "Kataloogi sisu on muudetud."
 
+msgid "Settings"
+msgstr "Seadistused"
+
 msgid "Apply Filename Format"
 msgstr "Failinime vormingu rakendamine"
 
@@ -529,6 +532,69 @@ msgstr "Vorming:"
 
 msgid "Preview"
 msgstr "Eelvaade"
+
+msgid "Mark truncated fields"
+msgstr "Lühikeseks jäävad väljad tõstetakse esile"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 teksti kodeering"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 teksti kodeering"
+
+msgid "Use track/total number of tracks format"
+msgstr "Kasutatakse vormingut \"loo nr/lugude koguarv\""
+
+msgid "Genre as text instead of numeric string"
+msgstr "Stiil salvestatakse numberkoodi asemel tekstina"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Uutes siltides kasutatav versioon"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis kommentaarivälja nimi"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis pildivälja nimi"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Märkimine, kui suurus ületab"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maksimumsuurus (baiti)"
+
+msgid "Show only custom genres"
+msgstr "Näidatakse ainult kohandatud stiile"
+
+msgid "Case conversion"
+msgstr "Tõstu muutmine"
+
+msgid "Locale"
+msgstr "Lokaat"
+
+msgid "String replacement"
+msgstr "Stringiasendus"
+
+msgid "Load last-opened files"
+msgstr "Laaditakse viimati avatud failid"
+
+msgid "Preserve file timestamp"
+msgstr "Failide ajatemplid säilitatakse"
+
+msgid "Mark changes"
+msgstr "Muudetud väljad tõstetakse esile"
+
+msgid "Format while editing"
+msgstr "Automaatasendus"
+
+msgid "Filename for cover"
+msgstr "Kaanepildi failinimi"
+
+msgid "To filename format"
+msgstr "Esitada failinime vorming"
+
+msgid "From filename format"
+msgstr "Failinime põhjal vorming"
 
 msgid "To Filename"
 msgstr "Esitada failinime"
@@ -739,6 +805,33 @@ msgstr "Lisasildid"
 
 msgid "Cover Art"
 msgstr "Kaanepilt"
+
+msgid "No changes"
+msgstr "Jäetakse samaks"
+
+msgid "All lowercase"
+msgstr "kõik tähed alatõstus"
+
+msgid "All uppercase"
+msgstr "KÕIK TÄHED ÜLATÕSTUS"
+
+msgid "First letter uppercase"
+msgstr "Esimene täht ülatõstus"
+
+msgid "All first letters uppercase"
+msgstr "Iga Sõna Esimene Täht Ülatõstus"
+
+msgid "None"
+msgstr "Puudub"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF8"
+msgstr "UTF-8"
 
 msgid "Invalid File"
 msgstr "Vigane fail"
@@ -1061,17 +1154,8 @@ msgstr "Aasta"
 msgid "Seller"
 msgstr "Müüja"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
 msgid "UTF16BE"
 msgstr "UTF-16-BE"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "Other"
 msgstr "Muu"
@@ -1809,35 +1893,8 @@ msgstr "&Kustuta rida"
 msgid "&Clear row"
 msgstr "&Puhasta rida"
 
-msgid "Format while editing"
-msgstr "Automaatasendus"
-
 msgid "Validation"
 msgstr "Kontrollimine"
-
-msgid "Case conversion:"
-msgstr "Tõstu muutmine:"
-
-msgid "No changes"
-msgstr "Jäetakse samaks"
-
-msgid "All lowercase"
-msgstr "kõik tähed alatõstus"
-
-msgid "All uppercase"
-msgstr "KÕIK TÄHED ÜLATÕSTUS"
-
-msgid "First letter uppercase"
-msgstr "Esimene täht ülatõstus"
-
-msgid "All first letters uppercase"
-msgstr "Iga Sõna Esimene Täht Ülatõstus"
-
-msgid "Locale:"
-msgstr "Lokaat:"
-
-msgid "None"
-msgstr "Puudub"
 
 msgid "String replacement:"
 msgstr "Stringiasendus:"
@@ -1847,6 +1904,12 @@ msgstr "Asendatav"
 
 msgid "To"
 msgstr "Asendaja"
+
+msgid "Case conversion:"
+msgstr "Tõstu muutmine:"
+
+msgid "Locale:"
+msgstr "Lokaat:"
 
 msgid "&Select all"
 msgstr "&Vali kõik"

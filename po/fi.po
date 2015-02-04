@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -473,6 +473,9 @@ msgstr "Varoitus"
 msgid "The current directory has been modified.\n"
 msgstr "Nykyistä kansiota on muokattu."
 
+msgid "Settings"
+msgstr "Asetukset"
+
 msgid "Apply Filename Format"
 msgstr "Ota muutokset käyttöön"
 
@@ -529,6 +532,69 @@ msgstr "Muoto:"
 
 msgid "Preview"
 msgstr "Esikatselu"
+
+msgid "Mark truncated fields"
+msgstr "Merkitse lyhennetyt kentät"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 merkistökoodaus"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 merkistökoodaus"
+
+msgid "Use track/total number of tracks format"
+msgstr "Numeroi raidat muodossa raita/kaikkiaan"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Tyylilaji tekstinä numerojonon sijaan"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Uusien tunnisteiden versio"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis kommenttikentän nimi"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis kuvakentän nimi"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Merkitse, jos suurempi kuin"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Enimmäiskoko (tavuja)"
+
+msgid "Show only custom genres"
+msgstr "Näytä vain omat tyylilajit"
+
+msgid "Case conversion"
+msgstr "Kirjaintason muunnos"
+
+msgid "Locale"
+msgstr "Maa-asetukset"
+
+msgid "String replacement"
+msgstr "Merkkijonojen korvaus"
+
+msgid "Load last-opened files"
+msgstr "Lataa viimeksi avatut tiedostot"
+
+msgid "Preserve file timestamp"
+msgstr "Säilytä tiedoston päiväys"
+
+msgid "Mark changes"
+msgstr "Merkitse muutokset"
+
+msgid "Format while editing"
+msgstr "Muotoile muokattaessa"
+
+msgid "Filename for cover"
+msgstr "Kansikuvan tiedostonimi"
+
+msgid "To filename format"
+msgstr "Määrittää tiedostonimi muoto"
+
+msgid "From filename format"
+msgstr "Tiedostonimi muoto"
 
 msgid "To Filename"
 msgstr "Määrittää tiedostonimi"
@@ -739,6 +805,33 @@ msgstr "Lisätunnisteet"
 
 msgid "Cover Art"
 msgstr "Kansikuvat"
+
+msgid "No changes"
+msgstr "Ei mitään"
+
+msgid "All lowercase"
+msgstr "Kokonaan pienaakkosiin"
+
+msgid "All uppercase"
+msgstr "Kokonaan suuraakkosiin"
+
+msgid "First letter uppercase"
+msgstr "Alkukirjain suuraakkosiin"
+
+msgid "All first letters uppercase"
+msgstr "Kaikki alkukirjaimet suuraakkosiin"
+
+msgid "None"
+msgstr "Ei mitään"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF-16"
+
+msgid "UTF8"
+msgstr "UTF-8"
 
 msgid "Invalid File"
 msgstr "Virheellinen tiedosto"
@@ -1061,17 +1154,8 @@ msgstr "Päiväys"
 msgid "Seller"
 msgstr "Myyjä"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF-16"
-
 msgid "UTF16BE"
 msgstr "UTF-16BE"
-
-msgid "UTF8"
-msgstr "UTF-8"
 
 msgid "Other"
 msgstr "Muut"
@@ -1811,35 +1895,8 @@ msgstr "&Poista rivi"
 msgid "&Clear row"
 msgstr "&Tyhjennä rivi"
 
-msgid "Format while editing"
-msgstr "Muotoile muokattaessa"
-
 msgid "Validation"
 msgstr "Tarkistus"
-
-msgid "Case conversion:"
-msgstr "Kirjaintason muunnos:"
-
-msgid "No changes"
-msgstr "Ei mitään"
-
-msgid "All lowercase"
-msgstr "Kokonaan pienaakkosiin"
-
-msgid "All uppercase"
-msgstr "Kokonaan suuraakkosiin"
-
-msgid "First letter uppercase"
-msgstr "Alkukirjain suuraakkosiin"
-
-msgid "All first letters uppercase"
-msgstr "Kaikki alkukirjaimet suuraakkosiin"
-
-msgid "Locale:"
-msgstr "Maa-asetukset:"
-
-msgid "None"
-msgstr "Ei mitään"
 
 msgid "String replacement:"
 msgstr "Merkkijonojen korvaus:"
@@ -1849,6 +1906,12 @@ msgstr "Korvattava"
 
 msgid "To"
 msgstr "Korvaava"
+
+msgid "Case conversion:"
+msgstr "Kirjaintason muunnos:"
+
+msgid "Locale:"
+msgstr "Maa-asetukset:"
 
 msgid "&Select all"
 msgstr "&Valitse kaikki"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -474,6 +474,9 @@ msgstr "Avertissement"
 msgid "The current directory has been modified.\n"
 msgstr "Le répertoire courant a été modifié."
 
+msgid "Settings"
+msgstr "Configuration"
+
 msgid "Apply Filename Format"
 msgstr "Appliquer le format du nom de fichier"
 
@@ -530,6 +533,69 @@ msgstr "Format:"
 
 msgid "Preview"
 msgstr "Aperçu"
+
+msgid "Mark truncated fields"
+msgstr "Marquer les champs tronqués"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 encodage du texte"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 encodage du texte"
+
+msgid "Use track/total number of tracks format"
+msgstr "Utiliser le format piste/nombre total de pistes"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Genre comme du texte au lieu du nombre"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Version utilisée pour balises novelles"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis nom du champ commentaire"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis nom du champ d'image"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Marquer si l'image est plus grande que le maximum"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Taille maximum des images (en octets)"
+
+msgid "Show only custom genres"
+msgstr "Montrer seulement les genres pernonnalisés"
+
+msgid "Case conversion"
+msgstr "Conversion de la casse"
+
+msgid "Locale"
+msgstr "Localisation"
+
+msgid "String replacement"
+msgstr "Remplacement de chaînes"
+
+msgid "Load last-opened files"
+msgstr "Ouvrir les derniers fichiers"
+
+msgid "Preserve file timestamp"
+msgstr "Préserver l'horodatage des fichiers"
+
+msgid "Mark changes"
+msgstr "Marquer les changements"
+
+msgid "Format while editing"
+msgstr "Formater pendant l'édition"
+
+msgid "Filename for cover"
+msgstr "Nom de fichier pour la jaquette"
+
+msgid "To filename format"
+msgstr "Format au nom de fichier"
+
+msgid "From filename format"
+msgstr "Format depuis le nom de fichier"
 
 msgid "To Filename"
 msgstr "Au nom de fichier"
@@ -740,6 +806,33 @@ msgstr "Balises supplémentaires"
 
 msgid "Cover Art"
 msgstr "Jaquettes"
+
+msgid "No changes"
+msgstr "Pas de changements"
+
+msgid "All lowercase"
+msgstr "Tout en minuscule"
+
+msgid "All uppercase"
+msgstr "Tout en majuscule"
+
+msgid "First letter uppercase"
+msgstr "Première lettre en majuscule"
+
+msgid "All first letters uppercase"
+msgstr "Toutes les premières lettres en majuscule"
+
+msgid "None"
+msgstr "Aucune"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Fichier invalide"
@@ -1062,17 +1155,8 @@ msgstr "Date"
 msgid "Seller"
 msgstr "Vendeur"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Autre"
@@ -1811,35 +1895,8 @@ msgstr "&Supprimer ligne"
 msgid "&Clear row"
 msgstr "&Effacer ligne"
 
-msgid "Format while editing"
-msgstr "Formater pendant l'édition"
-
 msgid "Validation"
 msgstr "Validation"
-
-msgid "Case conversion:"
-msgstr "Conversion de la casse:"
-
-msgid "No changes"
-msgstr "Pas de changements"
-
-msgid "All lowercase"
-msgstr "Tout en minuscule"
-
-msgid "All uppercase"
-msgstr "Tout en majuscule"
-
-msgid "First letter uppercase"
-msgstr "Première lettre en majuscule"
-
-msgid "All first letters uppercase"
-msgstr "Toutes les premières lettres en majuscule"
-
-msgid "Locale:"
-msgstr "Localisation:"
-
-msgid "None"
-msgstr "Aucune"
 
 msgid "String replacement:"
 msgstr "Remplacement de chaînes:"
@@ -1849,6 +1906,12 @@ msgstr "De"
 
 msgid "To"
 msgstr "À"
+
+msgid "Case conversion:"
+msgstr "Conversion de la casse:"
+
+msgid "Locale:"
+msgstr "Localisation:"
 
 msgid "&Select all"
 msgstr "Sé&lectionner tout"

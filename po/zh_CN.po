@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -471,6 +471,9 @@ msgstr "警告"
 msgid "The current directory has been modified.\n"
 msgstr "当前目录已被修改。"
 
+msgid "Settings"
+msgstr "设置"
+
 msgid "Apply Filename Format"
 msgstr "应用文件名格式"
 
@@ -527,6 +530,69 @@ msgstr "格式："
 
 msgid "Preview"
 msgstr "预览"
+
+msgid "Mark truncated fields"
+msgstr "标记被截断的字段"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 文本编码"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 文本编码"
+
+msgid "Use track/total number of tracks format"
+msgstr "使用「音轨/音轨总数」的格式"
+
+msgid "Genre as text instead of numeric string"
+msgstr "将流派视做文本而非数字字符串"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "新标签使用的版本"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis 注释栏名称"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis 图片栏位名称"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "标记，如果图像大于"
+
+msgid "Picture maximum size (bytes)"
+msgstr "最大尺寸(字节)"
+
+msgid "Show only custom genres"
+msgstr "仅显示自定义流派"
+
+msgid "Case conversion"
+msgstr "大小写转换"
+
+msgid "Locale"
+msgstr "地区"
+
+msgid "String replacement"
+msgstr "字词替换"
+
+msgid "Load last-opened files"
+msgstr "载入上次打开的文件"
+
+msgid "Preserve file timestamp"
+msgstr "保存文件时间戳"
+
+msgid "Mark changes"
+msgstr "标记变更"
+
+msgid "Format while editing"
+msgstr "编辑时格式化"
+
+msgid "Filename for cover"
+msgstr "专辑封面的文件名"
+
+msgid "To filename format"
+msgstr "至文件名称格式"
+
+msgid "From filename format"
+msgstr "文件名称格式"
 
 msgid "To Filename"
 msgstr "至文件名"
@@ -737,6 +803,33 @@ msgstr "附加标签"
 
 msgid "Cover Art"
 msgstr "封面"
+
+msgid "No changes"
+msgstr "不转换"
+
+msgid "All lowercase"
+msgstr "全部小写"
+
+msgid "All uppercase"
+msgstr "全部大写"
+
+msgid "First letter uppercase"
+msgstr "首字母大写"
+
+msgid "All first letters uppercase"
+msgstr "全部首字母大写"
+
+msgid "None"
+msgstr "无"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "无效的文件"
@@ -1059,17 +1152,8 @@ msgstr "日期"
 msgid "Seller"
 msgstr "发售方"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "其他"
@@ -1807,35 +1891,8 @@ msgstr "删除列(&D)"
 msgid "&Clear row"
 msgstr "清除列(&C)"
 
-msgid "Format while editing"
-msgstr "编辑时格式化"
-
 msgid "Validation"
 msgstr "验证"
-
-msgid "Case conversion:"
-msgstr "大小写转换："
-
-msgid "No changes"
-msgstr "不转换"
-
-msgid "All lowercase"
-msgstr "全部小写"
-
-msgid "All uppercase"
-msgstr "全部大写"
-
-msgid "First letter uppercase"
-msgstr "首字母大写"
-
-msgid "All first letters uppercase"
-msgstr "全部首字母大写"
-
-msgid "Locale:"
-msgstr "地区："
-
-msgid "None"
-msgstr "无"
 
 msgid "String replacement:"
 msgstr "字词替换："
@@ -1845,6 +1902,12 @@ msgstr "从"
 
 msgid "To"
 msgstr "到"
+
+msgid "Case conversion:"
+msgstr "大小写转换："
+
+msgid "Locale:"
+msgstr "地区："
 
 msgid "&Select all"
 msgstr "全部选中(&A)"

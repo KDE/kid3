@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,6 +469,9 @@ msgstr ""
 msgid "The current directory has been modified.\n"
 msgstr ""
 
+msgid "Settings"
+msgstr ""
+
 msgid "Apply Filename Format"
 msgstr ""
 
@@ -524,6 +527,69 @@ msgid "Format:"
 msgstr ""
 
 msgid "Preview"
+msgstr ""
+
+msgid "Mark truncated fields"
+msgstr ""
+
+msgid "ID3v1 text encoding"
+msgstr ""
+
+msgid "ID3v2 text encoding"
+msgstr ""
+
+msgid "Use track/total number of tracks format"
+msgstr ""
+
+msgid "Genre as text instead of numeric string"
+msgstr ""
+
+msgid "Version used for new ID3v2 tags"
+msgstr ""
+
+msgid "Ogg/Vorbis comment field name"
+msgstr ""
+
+msgid "Ogg/Vorbis picture field name"
+msgstr ""
+
+msgid "Mark if picture larger than maxium size"
+msgstr ""
+
+msgid "Picture maximum size (bytes)"
+msgstr ""
+
+msgid "Show only custom genres"
+msgstr ""
+
+msgid "Case conversion"
+msgstr ""
+
+msgid "Locale"
+msgstr ""
+
+msgid "String replacement"
+msgstr ""
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr ""
+
+msgid "Mark changes"
+msgstr ""
+
+msgid "Format while editing"
+msgstr ""
+
+msgid "Filename for cover"
+msgstr ""
+
+msgid "To filename format"
+msgstr ""
+
+msgid "From filename format"
 msgstr ""
 
 msgid "To Filename"
@@ -734,6 +800,33 @@ msgid "Additional Tags"
 msgstr ""
 
 msgid "Cover Art"
+msgstr ""
+
+msgid "No changes"
+msgstr ""
+
+msgid "All lowercase"
+msgstr ""
+
+msgid "All uppercase"
+msgstr ""
+
+msgid "First letter uppercase"
+msgstr ""
+
+msgid "All first letters uppercase"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "ISO-8859-1"
+msgstr ""
+
+msgid "UTF16"
+msgstr ""
+
+msgid "UTF8"
 msgstr ""
 
 msgid "Invalid File"
@@ -1057,16 +1150,7 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-msgid "ISO-8859-1"
-msgstr ""
-
-msgid "UTF16"
-msgstr ""
-
 msgid "UTF16BE"
-msgstr ""
-
-msgid "UTF8"
 msgstr ""
 
 msgid "Other"
@@ -1803,34 +1887,7 @@ msgstr ""
 msgid "&Clear row"
 msgstr ""
 
-msgid "Format while editing"
-msgstr ""
-
 msgid "Validation"
-msgstr ""
-
-msgid "Case conversion:"
-msgstr ""
-
-msgid "No changes"
-msgstr ""
-
-msgid "All lowercase"
-msgstr ""
-
-msgid "All uppercase"
-msgstr ""
-
-msgid "First letter uppercase"
-msgstr ""
-
-msgid "All first letters uppercase"
-msgstr ""
-
-msgid "Locale:"
-msgstr ""
-
-msgid "None"
 msgstr ""
 
 msgid "String replacement:"
@@ -1840,6 +1897,12 @@ msgid "From"
 msgstr ""
 
 msgid "To"
+msgstr ""
+
+msgid "Case conversion:"
+msgstr ""
+
+msgid "Locale:"
 msgstr ""
 
 msgid "&Select all"

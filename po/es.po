@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-01-18 16:06+0100\n"
+"POT-Creation-Date: 2015-02-04 21:00+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -474,6 +474,9 @@ msgstr "Advertencia"
 msgid "The current directory has been modified.\n"
 msgstr "El directorio actual ha sido modificado."
 
+msgid "Settings"
+msgstr "Preferencias"
+
 msgid "Apply Filename Format"
 msgstr "Aplicar formato de nombre de archivo"
 
@@ -530,6 +533,69 @@ msgstr "Formato:"
 
 msgid "Preview"
 msgstr "Vista previa"
+
+msgid "Mark truncated fields"
+msgstr "Marcar campos truncados"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 codificación del texto"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 codificación del texto"
+
+msgid "Use track/total number of tracks format"
+msgstr "Usar el formato pista/número de pistas"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Género como texto en vez de número"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Versión utilizada para nuevas etiquetas"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis nombre de campo comentario"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis nombre de campo imagen"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Marcar si imágenes  son más grandes que el maximo"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Tamaño máximo de imágenes (bytes)"
+
+msgid "Show only custom genres"
+msgstr "Mostrar sólo géneros personalizados"
+
+msgid "Case conversion"
+msgstr "Mayúsculas / minúsculas"
+
+msgid "Locale"
+msgstr "Locale"
+
+msgid "String replacement"
+msgstr "Reemplazar cadenas"
+
+msgid "Load last-opened files"
+msgstr "Cargar los últimos archivos abiertos"
+
+msgid "Preserve file timestamp"
+msgstr "Copiar las marcas de tiempo de modificación"
+
+msgid "Mark changes"
+msgstr "Marcar cambios"
+
+msgid "Format while editing"
+msgstr "Formatear mientras se edita"
+
+msgid "Filename for cover"
+msgstr "Nombre de archivo de la imagen"
+
+msgid "To filename format"
+msgstr "Formato a nombre de archivo"
+
+msgid "From filename format"
+msgstr "Formato desde de nombre de archivo"
 
 msgid "To Filename"
 msgstr "A nombre de archivo"
@@ -740,6 +806,33 @@ msgstr "Etiquetas adicionales"
 
 msgid "Cover Art"
 msgstr "Imágenes de las portadas"
+
+msgid "No changes"
+msgstr "Sin cambios"
+
+msgid "All lowercase"
+msgstr "Todas minúsculas"
+
+msgid "All uppercase"
+msgstr "Todas mayúsculas"
+
+msgid "First letter uppercase"
+msgstr "Primera letra mayúscula"
+
+msgid "All first letters uppercase"
+msgstr "Todas las primeras letras mayúsculas"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
 
 msgid "Invalid File"
 msgstr "Archivo no válido"
@@ -1062,17 +1155,8 @@ msgstr "Fecha"
 msgid "Seller"
 msgstr "Vendedor"
 
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-msgid "UTF16"
-msgstr "UTF16"
-
 msgid "UTF16BE"
 msgstr "UTF16BE"
-
-msgid "UTF8"
-msgstr "UTF8"
 
 msgid "Other"
 msgstr "Otro"
@@ -1811,35 +1895,8 @@ msgstr "&Eliminar fila"
 msgid "&Clear row"
 msgstr "&Limpiar fila"
 
-msgid "Format while editing"
-msgstr "Formatear mientras se edita"
-
 msgid "Validation"
 msgstr "Validación"
-
-msgid "Case conversion:"
-msgstr "Mayúsculas / minúsculas:"
-
-msgid "No changes"
-msgstr "Sin cambios"
-
-msgid "All lowercase"
-msgstr "Todas minúsculas"
-
-msgid "All uppercase"
-msgstr "Todas mayúsculas"
-
-msgid "First letter uppercase"
-msgstr "Primera letra mayúscula"
-
-msgid "All first letters uppercase"
-msgstr "Todas las primeras letras mayúsculas"
-
-msgid "Locale:"
-msgstr "Locale:"
-
-msgid "None"
-msgstr "Ninguno"
 
 msgid "String replacement:"
 msgstr "Reemplazar cadenas:"
@@ -1849,6 +1906,12 @@ msgstr "De"
 
 msgid "To"
 msgstr "A"
+
+msgid "Case conversion:"
+msgstr "Mayúsculas / minúsculas:"
+
+msgid "Locale:"
+msgstr "Locale:"
 
 msgid "&Select all"
 msgstr "&Seleccionar todo"
