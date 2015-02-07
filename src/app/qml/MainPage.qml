@@ -1,5 +1,4 @@
 import QtQuick 2.2
-import QtQuick 2.2
 //import "ComponentsQtQuick" //@!Ubuntu
 import Ubuntu.Components 1.1 //@Ubuntu
 
@@ -25,9 +24,22 @@ Page {
          " - Kid3"
 
   Item {
+    id: body
+
+    property int rightSideSpace: width - fileList.width - 3 * constants.margins
+
     anchors.fill: parent
     FileList {
       id: fileList
+
+      raised: true
+      onClicked: {
+        if (body.state == "narrow")
+          rightSide.raised = false
+        raised = true
+      }
+
+      color: constants.backgroundColor
       anchors.left: parent.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
@@ -35,13 +47,22 @@ Page {
       width: constants.gu(44)
     }
 
-    Item {
+    RaisableRectangle {
       id: rightSide
-      anchors.left: fileList.right
+
+      raised: true
+      onClicked: {
+        if (body.state == "narrow")
+          fileList.raised = false
+        raised = true
+      }
+
+      color: constants.backgroundColor
       anchors.right: parent.right
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.margins: constants.margins
+      width: parent.rightSideSpace
 
       FileCollapsible {
         id: collapsibleFile
@@ -78,5 +99,20 @@ Page {
         anchors.right: parent.right
       }
     }
+
+    states: [
+      State {
+        name: "narrow"
+        when: body.rightSideSpace < constants.gu(50)
+        PropertyChanges {
+          target: fileList
+          raised: !rightSide.raised
+        }
+        PropertyChanges {
+          target: rightSide
+          width: constants.gu(50)
+        }
+      }
+    ]
   }
 }

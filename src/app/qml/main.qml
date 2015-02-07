@@ -121,10 +121,6 @@ MainView {
           onTriggered: app.convertToId3v23()
         }
         Action {
-          text: qsTr("Convert ID3v2.4 to ID3v2.3")
-          onTriggered: app.convertToId3v23()
-        }
-        Action {
           text: qsTr("Rename Directory")
           onTriggered: pageStack.push(renameDirPage)
         }

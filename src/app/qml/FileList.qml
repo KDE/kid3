@@ -5,7 +5,7 @@ import Ubuntu.Components.Popups 1.0 //@Ubuntu
 import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 import Kid3App 1.0
 
-Item {
+RaisableRectangle {
   function currentFilePath() {
     return fileModel.getDataValue(fileModel.currentRow,
                                   "filePath")

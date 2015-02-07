@@ -21,6 +21,7 @@ QtObject {
   property color comboBoxColor: Theme.palette.normal.field  //@Ubuntu
   property color selectedTextColor: UbuntuColors.orange     //@Ubuntu
   property color backgroundTextColor: Theme.palette.selected.backgroundText //@Ubuntu
+  property color backgroundColor: Theme.palette.normal.background //@Ubuntu
   property int rowHeight: units.gu(6)                       //@Ubuntu
 
   //function gu(n) {                                          //@!Ubuntu
@@ -47,6 +48,7 @@ QtObject {
   //property color comboBoxColor: palette.mid                 //@!Ubuntu
   //property color selectedTextColor: palette.highlightedText //@!Ubuntu
   //property color backgroundTextColor: palette.text          //@!Ubuntu
+  //property color backgroundColor: palette.base              //@!Ubuntu
   //property color editColor: "#fff9a8"                       //@!Ubuntu
   //property int rowHeight: gu(4)                             //@!Ubuntu
   //property SystemPalette palette: SystemPalette {}          //@!Ubuntu

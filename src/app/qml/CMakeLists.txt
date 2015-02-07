@@ -30,6 +30,7 @@ set(qml_QML_SRCS
   AbstractSettingsPage.qml
   SettingsElement.qml
   SettingsPage.qml
+  RaisableRectangle.qml
   ComponentsQtQuick/ActionList.qml
   ComponentsQtQuick/Action.qml
   ComponentsQtQuick/ActionSelectionPopover.qml
