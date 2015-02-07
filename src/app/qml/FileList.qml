@@ -25,14 +25,17 @@ Item {
                                            "filePath"))
     }
     Button {
+      property bool selectAll: true
       iconName: "select"
       width: height
-      onClicked: app.selectAllFiles()
-    }
-    Button {
-      iconName: "clear"
-      width: height
-      onClicked: app.deselectAllFiles()
+      onClicked: {
+        if (selectAll) {
+          app.selectAllFiles()
+        } else {
+          app.deselectAllFiles()
+        }
+        selectAll = !selectAll
+      }
     }
     Button {
       iconName: "go-previous"
