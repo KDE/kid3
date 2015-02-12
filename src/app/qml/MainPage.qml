@@ -64,39 +64,45 @@ Page {
       anchors.margins: constants.margins
       width: parent.rightSideSpace
 
-      FileCollapsible {
-        id: collapsibleFile
-        anchors.topMargin: constants.margins
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent,
-                                                  caller)
-      }
+      Flickable {
+        anchors.fill: parent
+        contentWidth: width
+        contentHeight: collapsibleColumn.height
+        clip: true
+        Column {
+          id: collapsibleColumn
+          width: parent.width
 
-      Tag1Collapsible {
-        id: collapsibleV1
-        anchors.topMargin: constants.margins
-        anchors.top: collapsibleFile.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-      }
+          FileCollapsible {
+            id: collapsibleFile
+            anchors.topMargin: constants.margins
+            anchors.left: parent.left
+            anchors.right: parent.right
+            onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent,
+                                                      caller)
+          }
 
-      Tag2Collapsible {
-        id: collapsibleV2
-        anchors.topMargin: constants.margins
-        anchors.top: collapsibleV1.bottom
-        anchors.bottom: collapsiblePicture.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-      }
+          Tag1Collapsible {
+            id: collapsibleV1
+            anchors.topMargin: constants.margins
+            anchors.left: parent.left
+            anchors.right: parent.right
+          }
 
-      PictureCollapsible {
-        id: collapsiblePicture
-        anchors.topMargin: constants.margins
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+          Tag2Collapsible {
+            id: collapsibleV2
+            anchors.topMargin: constants.margins
+            anchors.left: parent.left
+            anchors.right: parent.right
+          }
+
+          PictureCollapsible {
+            id: collapsiblePicture
+            anchors.topMargin: constants.margins
+            anchors.left: parent.left
+            anchors.right: parent.right
+          }
+        }
       }
     }
 

@@ -87,7 +87,9 @@ Collapsible {
     id: frameTableV2
     clip: true
     width: parent.width
-    height: collapsibleV2.height - constants.gu(4)
+    //height: count * constants.rowHeight //@QtQuick1
+    height: count ? contentHeight : 0 //@QtQuick2
+    interactive: false
     model: app.frameModelV2
     delegate: FrameDelegate {
       width: frameTableV2.width

@@ -64,7 +64,9 @@ Collapsible {
     enabled: app.selectionInfo.tag1Used
     clip: true
     width: parent.width
-    height: 7 * constants.rowHeight
+    //height: count * constants.rowHeight //@QtQuick1
+    height: count ? contentHeight : 0 //@QtQuick2
+    interactive: false
     model: app.frameModelV1
     delegate: FrameDelegate {
       width: frameTableV1.width
