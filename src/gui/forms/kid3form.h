@@ -53,10 +53,8 @@ class BaseMainWindowImpl;
 /**
  * Main widget.
  */
-class Kid3Form : public QSplitter
-{
-Q_OBJECT
-
+class Kid3Form : public QSplitter {
+  Q_OBJECT
 public:
   /**
    * Constructs an Id3Form as a child of 'parent', with the
@@ -313,6 +311,63 @@ public slots:
    */
   void setDirRootIndex(const QModelIndex& index);
 
+protected:
+  /**
+   * Accept drag.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragEnterEvent(QDragEnterEvent* ev);
+
+  /**
+   * Handle event when mouse is moved while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragMoveEvent(QDragMoveEvent* ev);
+
+  /**
+   * Handle event when mouse leaves widget while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragLeaveEvent(QDragLeaveEvent* ev);
+
+  /**
+   * Handle drop event.
+   *
+   * @param ev drop event.
+   */
+  virtual void dropEvent(QDropEvent* ev);
+
+private slots:
+  /**
+   * Toggle visibility of file controls.
+   */
+  void showHideFile();
+
+  /**
+   * Toggle visibility of tag 1 controls.
+   */
+  void showHideTag1();
+
+  /**
+   * Toggle visibility of tag 2 controls.
+   */
+  void showHideTag2();
+
+  /**
+   * Set format text configuration when format edit text is changed.
+   * @param text format text
+   */
+  void onFormatEditTextChanged(const QString& text);
+
+  /**
+   * Set format from filename text configuration when edit text is changed.
+   * @param text format text
+   */
+  void onFormatFromFilenameEditTextChanged(const QString& text);
+
 private:
   /**
    * Format string within line edit.
@@ -362,48 +417,6 @@ private:
   static QPixmap* s_collapsePixmap;
   /** Expand pixmap, will be allocated in constructor */
   static QPixmap* s_expandPixmap;
-
-private slots:
-  /**
-   * Accept drag.
-   *
-   * @param ev drag event.
-   */
-  void dragEnterEvent(QDragEnterEvent* ev);
-
-  /**
-   * Handle drop event.
-   *
-   * @param ev drop event.
-   */
-  void dropEvent(QDropEvent* ev);
-
-  /**
-   * Toggle visibility of file controls.
-   */
-  void showHideFile();
-
-  /**
-   * Toggle visibility of tag 1 controls.
-   */
-  void showHideTag1();
-
-  /**
-   * Toggle visibility of tag 2 controls.
-   */
-  void showHideTag2();
-
-  /**
-   * Set format text configuration when format edit text is changed.
-   * @param text format text
-   */
-  void onFormatEditTextChanged(const QString& text);
-
-  /**
-   * Set format from filename text configuration when edit text is changed.
-   * @param text format text
-   */
-  void onFormatFromFilenameEditTextChanged(const QString& text);
 };
 
 #endif // KID3FORM_H

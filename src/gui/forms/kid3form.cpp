@@ -434,15 +434,38 @@ Kid3Form::~Kid3Form()
 }
 
 /**
+ * Handle event when mouse is moved while dragging.
+ *
+ * @param ev drag event.
+ */
+void Kid3Form::dragMoveEvent(QDragMoveEvent* ev)
+{
+  if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list")) ||
+      ev->mimeData()->hasImage()) {
+    ev->acceptProposedAction();
+  } else {
+    ev->ignore();
+  }
+}
+
+/**
  * Accept drag.
  *
  * @param ev drag event.
  */
 void Kid3Form::dragEnterEvent(QDragEnterEvent* ev)
 {
-  if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list")) ||
-      ev->mimeData()->hasImage())
-    ev->acceptProposedAction();
+  Kid3Form::dragMoveEvent(ev);
+}
+
+/**
+ * Handle event when mouse leaves widget while dragging.
+ *
+ * @param ev drag event.
+ */
+void Kid3Form::dragLeaveEvent(QDragLeaveEvent* ev)
+{
+  ev->accept();
 }
 
 /**
@@ -454,10 +477,16 @@ void Kid3Form::dropEvent(QDropEvent* ev)
 {
   if (ev->mimeData()->hasImage()) {
     QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
+    ev->acceptProposedAction();
     m_app->dropImage(image);
     return;
+  } else if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list"))) {
+    QList<QUrl> urls = ev->mimeData()->urls();
+    ev->acceptProposedAction();
+    m_app->openDropUrls(urls);
+  } else {
+    ev->ignore();
   }
-  m_app->openDropUrls(ev->mimeData()->urls());
 }
 
 /**
