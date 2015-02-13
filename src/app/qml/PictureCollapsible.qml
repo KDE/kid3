@@ -5,14 +5,14 @@ Collapsible {
   text: qsTr("Picture")
   content: Item {
     width: parent.width
-    height: 120
+    height: coverArtImage.height
 
     Image {
       id: coverArtImage
       anchors.top: parent.top
-      width: 120
-      sourceSize.width: 120
-      sourceSize.height: 120
+      width: parent.width > 0 && parent.width < sourceSize.width
+             ? parent.width : sourceSize.width
+      fillMode: Image.PreserveAspectFit
       source: app.coverArtImageId
       cache: false
     }

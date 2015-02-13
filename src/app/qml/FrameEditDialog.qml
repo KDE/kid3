@@ -128,11 +128,11 @@ Dialog {
 
       Item {
         id: imageItem
-        width: 120
+        width: parent.width
         height: 120
         Image {
-          sourceSize.width: 120
-          sourceSize.height: 120
+          anchors.fill: parent
+          fillMode: Image.PreserveAspectFit
           source: app.coverArtImageId
           cache: false
         }
