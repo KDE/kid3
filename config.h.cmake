@@ -14,6 +14,9 @@
 /* Define if mntent.h is available */
 #cmakedefine HAVE_MNTENT_H 1
 
+/* Define if build with QML support */
+#cmakedefine HAVE_QML 1
+
 #cmakedefine CFG_DATAROOTDIR "@CFG_DATAROOTDIR@"
 #cmakedefine CFG_DOCDIR "@CFG_DOCDIR@"
 #cmakedefine CFG_TRANSLATIONSDIR "@CFG_TRANSLATIONSDIR@"

@@ -431,6 +431,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
  */
 Kid3Form::~Kid3Form()
 {
+  m_app->removeFrameEditor(m_mainWin);
 }
 
 /**

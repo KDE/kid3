@@ -286,6 +286,10 @@ if (NOT Qt4_FOUND AND NOT QT4_FOUND AND NOT Qt5Core_FOUND)
   message(FATAL_ERROR "Neither Qt4 nor Qt5 found.")
 endif (NOT Qt4_FOUND AND NOT QT4_FOUND AND NOT Qt5Core_FOUND)
 
+if (BUILD_QML_APP AND (Qt5Qml_FOUND OR QT_QTDECLARATIVE_FOUND))
+  set(HAVE_QML 1)
+endif ()
+
 
 # Check that QT_NO_DEBUG is defined for release configurations
 foreach (_buildType RELWITHDEBINFO RELEASE MINSIZEREL)

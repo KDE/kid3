@@ -640,6 +640,14 @@ public:
   void setFrameEditor(FrameEditorObject* frameEditor);
 
   /**
+   * Remove frame editor.
+   * Has to be called in the destructor of the frame editor to avoid a dangling
+   * pointer to a deleted object.
+   * @param frameEditor frame editor
+   */
+  void removeFrameEditor(IFrameEditor* frameEditor);
+
+  /**
    * Get ID to get cover art image.
    * @return ID for cover art image.
    */

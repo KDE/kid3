@@ -36,20 +36,21 @@ class ExternalProcess;
 class ConfigTable;
 class ConfigTableModel;
 class FormatListEdit;
+class Kid3Application;
 
 /**
  * Browse cover art dialog.
  */
 class BrowseCoverArtDialog : public QDialog {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.
    *
+   * @param app application context
    * @param parent parent widget
    */
-  explicit BrowseCoverArtDialog(QWidget* parent);
+  explicit BrowseCoverArtDialog(Kid3Application* app, QWidget* parent);
 
   /**
    * Destructor.
@@ -113,6 +114,8 @@ private:
 
   /** Track data */
   FrameCollection m_frames;
+  /** Application context */
+  Kid3Application* m_app;
   /** Process for browser command */
   ExternalProcess* m_process;
 };

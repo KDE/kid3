@@ -66,10 +66,12 @@ static QString getToolTip()
 /**
  * Constructor.
  *
+ * @param app application context
  * @param parent parent widget
  */
-BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
-  QDialog(parent), m_process(0)
+BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
+                                           QWidget* parent) :
+  QDialog(parent), m_app(app), m_process(0)
 {
   setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);
@@ -254,7 +256,7 @@ void BrowseCoverArtDialog::showHelp()
 void BrowseCoverArtDialog::accept()
 {
   if (!m_process) {
-    m_process = new ExternalProcess(this);
+    m_process = new ExternalProcess(m_app, this);
   }
   m_process->launchCommand(
     tr("Browse Cover Art"),

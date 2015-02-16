@@ -34,14 +34,15 @@
 class QProcess;
 class QString;
 class QStringList;
+class Kid3Application;
 class TaggedFile;
+class QmlProcess;
 
 /**
  * Handler for external process.
  */
 class KID3_CORE_EXPORT ExternalProcess : public QObject {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Dialog to show output from external process.
@@ -78,9 +79,10 @@ public:
   /**
    * Constructor.
    *
+   * @param app application context
    * @param parent parent object
    */
-  explicit ExternalProcess(QWidget* parent = 0);
+  explicit ExternalProcess(Kid3Application* app, QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -104,10 +106,18 @@ private slots:
    */
   void readFromStdout();
 
+  /**
+   * Show a line in the output viewer.
+   * @param msg message to be displayed
+   */
+  void showOutputLine(const QString& msg);
+
 private:
+  Kid3Application* m_app;
   QWidget* m_parent;
   QProcess* m_process;
   OutputViewer* m_outputViewer;
+  QmlProcess* m_qmlProcess;
 };
 
 #endif // EXTERNALPROCESS_H

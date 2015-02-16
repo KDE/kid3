@@ -252,7 +252,7 @@ void FileList::executeContextCommand(int id)
     args = formatStringList(args);
 
     if (!m_process) {
-      m_process = new ExternalProcess(this);
+      m_process = new ExternalProcess(m_mainWin->app(), this);
     }
     m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(),
                              menuCmd.outputShown());

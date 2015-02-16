@@ -192,6 +192,10 @@ MainView {
     app.openDirectory(configs.fileConfig().lastOpenedFile)
   }
 
+  Component.onDestruction: {
+    app.frameEditor = null
+  }
+
   Connections {
     target: app
 

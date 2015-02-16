@@ -2914,6 +2914,22 @@ void Kid3Application::setFrameEditor(FrameEditorObject* frameEditor)
 }
 
 /**
+ * Remove frame editor.
+ * Has to be called in the destructor of the frame editor to avoid a dangling
+ * pointer to a deleted object.
+ * @param frameEditor frame editor
+ */
+void Kid3Application::removeFrameEditor(IFrameEditor* frameEditor)
+{
+  if (m_storedFrameEditor == frameEditor) {
+    m_storedFrameEditor = 0;
+  }
+  if (m_frameEditor == frameEditor) {
+    setFrameEditor(0);
+  }
+}
+
+/**
  * Get the numbers of the selected rows in a list suitable for scripting.
  * @return list with row numbers.
  */

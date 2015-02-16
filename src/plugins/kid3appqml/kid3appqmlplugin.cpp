@@ -146,7 +146,7 @@ Kid3AppQmlPlugin::Kid3AppQmlPlugin(QObject* parent) :
 #else
   QDeclarativeExtensionPlugin(parent)
 #endif
-  , m_platformTools(0), m_kid3App(0), m_imageProvider(0)
+  , m_platformTools(0), m_kid3App(0), m_imageProvider(0), m_ownsKid3App(false)
 {
 }
 
@@ -155,9 +155,11 @@ Kid3AppQmlPlugin::Kid3AppQmlPlugin(QObject* parent) :
  */
 Kid3AppQmlPlugin::~Kid3AppQmlPlugin()
 {
-  delete m_kid3App;
   delete m_imageProvider;
-  delete m_platformTools;
+  if (m_ownsKid3App) {
+    delete m_kid3App;
+    delete m_platformTools;
+  }
 }
 
 /**
@@ -236,12 +238,24 @@ void Kid3AppQmlPlugin::initializeEngine(
   if (qstrcmp(uri, "Kid3App") == 0) {
     Kid3Application::setPluginsPathFallback(
           getPluginsPathFromImportPathList(engine));
-    m_platformTools = new CorePlatformTools;
-    m_kid3App = new Kid3Application(m_platformTools);
+#if QT_VERSION >= 0x050000
+    QQmlContext* rootContext = engine->rootContext();
+    m_kid3App = qvariant_cast<Kid3Application*>(
+          rootContext->contextProperty(QLatin1String("app")));
+#else
+    QDeclarativeContext* rootContext = engine->rootContext();
+    m_kid3App = qobject_cast<Kid3Application*>(qvariant_cast<QObject*>(
+          rootContext->contextProperty(QLatin1String("app"))));
+#endif
+    if (!m_kid3App) {
+      m_platformTools = new CorePlatformTools;
+      m_kid3App = new Kid3Application(m_platformTools);
+      m_ownsKid3App = true;
+      rootContext->setContextProperty(QLatin1String("app"), m_kid3App);
+    }
     m_imageProvider = new QmlImageProvider(
           m_kid3App->getFileProxyModel()->getIconProvider());
     m_kid3App->setImageProvider(m_imageProvider);
-    engine->rootContext()->setContextProperty(QLatin1String("app"), m_kid3App);
     engine->addImageProvider(QLatin1String("kid3"), m_imageProvider);
   }
 }

@@ -33,6 +33,10 @@
 #include <QStringList>
 #include <QTextCursor>
 #include "taggedfile.h"
+#include "config.h"
+#ifdef HAVE_QML
+#include "qmlprocess.h"
+#endif
 
 /**
  * Constructor.
@@ -124,10 +128,12 @@ void ExternalProcess::OutputViewer::scrollToBottom()
 /**
  * Constructor.
  *
+ * @param app application context
  * @param parent parent object
  */
-ExternalProcess::ExternalProcess(QWidget* parent) :
-  QObject(parent), m_parent(parent), m_process(0), m_outputViewer(0)
+ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
+  QObject(parent), m_app(app), m_parent(parent), m_process(0),
+  m_outputViewer(0), m_qmlProcess(0)
 {
   setObjectName(QLatin1String("ExternalProcess"));
 }
@@ -185,6 +191,16 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   QStringList arguments = args;
   QString program = arguments.takeFirst();
+#ifdef HAVE_QML
+  if (!m_qmlProcess) {
+    m_qmlProcess = new QmlProcess(m_app, this);
+    connect(m_qmlProcess, SIGNAL(qmlOutput(QString)),
+            this, SLOT(showOutputLine(QString)));
+  }
+  if (m_qmlProcess->startQml(program, arguments, showOutput)) {
+    return;
+  }
+#endif
   m_process->start(program, arguments);
   if (!m_process->waitForStarted(10000)) {
     QMessageBox::warning(
@@ -200,4 +216,15 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 void ExternalProcess::readFromStdout()
 {
   m_outputViewer->append(QString::fromLocal8Bit(m_process->readAllStandardOutput()));
+}
+
+/**
+ * Show a line in the output viewer.
+ * @param msg message to be displayed
+ */
+void ExternalProcess::showOutputLine(const QString& msg)
+{
+  if (m_outputViewer) {
+    m_outputViewer->append(msg + QLatin1Char('\n'));
+  }
 }

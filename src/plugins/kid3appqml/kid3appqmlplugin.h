@@ -89,6 +89,7 @@ private:
   ICorePlatformTools* m_platformTools;
   Kid3Application* m_kid3App;
   QmlImageProvider* m_imageProvider;
+  bool m_ownsKid3App;
 };
 
 #endif // KID3APPQMLPLUGIN_H

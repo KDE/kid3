@@ -565,7 +565,7 @@ void BaseMainWindowImpl::slotBatchImport()
 void BaseMainWindowImpl::slotBrowseCoverArt()
 {
   if (!m_browseCoverArtDialog) {
-    m_browseCoverArtDialog = new BrowseCoverArtDialog(m_w);
+    m_browseCoverArtDialog = new BrowseCoverArtDialog(m_app, m_w);
   }
   FrameCollection frames2;
   QModelIndex index = m_form->getFileList()->currentIndex();
