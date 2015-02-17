@@ -39,5 +39,28 @@ add_custom_command(TARGET ${plugin_TARGET} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E echo "module Kid3App" > "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
   COMMAND ${CMAKE_COMMAND} -E echo "plugin kid3appqml" >> "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
 )
-install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
-        DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
+
+string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)" _crossMingwMatch "${CMAKE_CXX_COMPILER}")
+if (NOT _crossMingwMatch)
+  if (HAVE_QT5)
+    get_target_property(_qmakeLocation Qt5::qmake LOCATION)
+  else (HAVE_QT5)
+    set(_qmakeLocation "${QT_QMAKE_EXECUTABLE}")
+  endif (HAVE_QT5)
+  execute_process(COMMAND "${_qmakeLocation}" -query QT_INSTALL_BINS
+    OUTPUT_VARIABLE _qtInstallBins OUTPUT_STRIP_TRAILING_WHITESPACE)
+  add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3App/plugins.qmltypes"
+    COMMAND ${_qtInstallBins}/qmlplugindump -notrelocatable Kid3App 1.0
+      "${kid3_plugins_BINARY_DIR}/imports" > plugins.qmltypes
+    DEPENDS ${plugin_TARGET}
+    WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3App")
+  add_custom_target(plugins_qmltypes ALL
+    DEPENDS "${kid3_plugins_BINARY_DIR}/imports/Kid3App/plugins.qmltypes")
+
+  install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
+                "${kid3_plugins_BINARY_DIR}/imports/Kid3App/plugins.qmltypes"
+          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
+else (NOT _crossMingwMatch)
+  install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
+          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
+endif (NOT _crossMingwMatch)

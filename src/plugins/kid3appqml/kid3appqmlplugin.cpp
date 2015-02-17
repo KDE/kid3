@@ -171,9 +171,10 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
   if (qstrcmp(uri, "Kid3App") == 0) {
     qRegisterMetaType<QList<QPersistentModelIndex> >();
     qRegisterMetaType<Frame::TagVersion>();
-    qRegisterMetaType<Kid3Application*>();
     qRegisterMetaType<QAbstractItemModel*>();
     // @uri Kid3App
+    qmlRegisterUncreatableType<Kid3Application>(uri, 1, 0, "Kid3Application",
+        QLatin1String("Retrieve it using app"));
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
         QLatin1String("Retrieve it using app.fileProxyModel"));
     qmlRegisterUncreatableType<DirProxyModel>(uri, 1, 0, "DirProxyModel",

@@ -65,4 +65,21 @@ install(TARGETS kid3-qml
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${WITH_BINDIR})
 
-install(FILES ${qml_QML_SRCS} DESTINATION ${WITH_QMLDIR})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${WITH_QMLDIR}
+        FILES_MATCHING PATTERN "*.qml" PATTERN "*.js" PATTERN "*.png")
+
+# Preprocess installed QML files for Qt 4 or Ubuntu Components.
+if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
+  if (NOT HAVE_QT5)
+    set(_qmlpp_code 4)
+  else (NOT HAVE_QT5)
+    set(_qmlpp_code U)
+  endif (NOT HAVE_QT5)
+  install(CODE "
+    execute_process(
+      COMMAND ${PERL_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/qmlpp.pl ${_qmlpp_code}
+      WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}\"
+    )
+    ")
+endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)

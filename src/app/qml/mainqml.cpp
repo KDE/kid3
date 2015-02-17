@@ -29,11 +29,15 @@
 #include <QTranslator>
 #include <QDir>
 #if QT_VERSION >= 0x050000
+#ifndef NDEBUG
 #define QT_QML_DEBUG
+#endif
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #else
+#ifndef NDEBUG
 #define QT_DECLARATIVE_DEBUG
+#endif
 #include <QDeclarativeView>
 #include <QDeclarativeEngine>
 #endif
@@ -128,7 +132,7 @@ int main(int argc, char* argv[])
 #endif
 
   QStringList qmlDirs;
-#ifdef CFG_QMLSRCDIR
+#if !defined NDEBUG && defined CFG_QMLSRCDIR
   qmlDirs.append(QLatin1String(CFG_QMLSRCDIR));
 #endif
 #ifdef CFG_QMLDIR
