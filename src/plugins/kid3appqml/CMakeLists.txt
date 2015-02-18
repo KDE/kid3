@@ -23,7 +23,12 @@ string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
 qt4_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
 
-add_library(${plugin_TARGET} MODULE ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
+if (APPLE)
+  # The extension must be dylib, not so.
+  add_library(${plugin_TARGET} SHARED ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
+else (APPLE)
+  add_library(${plugin_TARGET} MODULE ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
+endif (APPLE)
 target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES})
 
 install(TARGETS ${plugin_TARGET}
@@ -35,13 +40,20 @@ set_target_properties(
   LIBRARY_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3App
 )
 
+if (WIN32)
+  set(_qmldirPluginName libkid3appqml)
+else (WIN32)
+  set(_qmldirPluginName kid3appqml)
+endif (WIN32)
 add_custom_command(TARGET ${plugin_TARGET} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E echo "module Kid3App" > "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
-  COMMAND ${CMAKE_COMMAND} -E echo "plugin kid3appqml" >> "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
+  COMMAND ${CMAKE_COMMAND} -E echo "plugin ${_qmldirPluginName}" >> "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
 )
 
-string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)" _crossMingwMatch "${CMAKE_CXX_COMPILER}")
-if (NOT _crossMingwMatch)
+if (WIN32)
+  install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
+          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
+else (WIN32)
   if (HAVE_QT5)
     get_target_property(_qmakeLocation Qt5::qmake LOCATION)
   else (HAVE_QT5)
@@ -60,7 +72,22 @@ if (NOT _crossMingwMatch)
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
                 "${kid3_plugins_BINARY_DIR}/imports/Kid3App/plugins.qmltypes"
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
-else (NOT _crossMingwMatch)
-  install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3App/qmldir"
-          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3App)
-endif (NOT _crossMingwMatch)
+endif (WIN32)
+
+if ((WIN32 OR APPLE) AND HAVE_QT5)
+  # Install essential QML modules.
+  get_target_property(QT_QML_DIR Qt5::qmake LOCATION)
+  get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
+  get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
+  set(QT_QML_DIR ${QT_QML_DIR}/qml)
+  install(DIRECTORY "${QT_QML_DIR}/QtQuick.2"
+    DESTINATION "${WITH_PLUGINSDIR}/imports"
+    FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                   PATTERN "qmldir")
+  install(DIRECTORY "${QT_QML_DIR}/QtQuick/Layouts"
+    DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick"
+    FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                   PATTERN "qmldir")
+endif ()
+
+

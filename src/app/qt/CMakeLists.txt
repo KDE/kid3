@@ -211,14 +211,5 @@ if (WIN32)
                   "${QT_BINARY_DIR}/libwinpthread-1.dll"
                   "${QT_BINARY_DIR}/libiconv-2.dll"
             DESTINATION ${WITH_BINDIR})
-  else (NOT HAVE_QT5)
-    if (EXISTS "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll")
-      install(FILES "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll"
-              DESTINATION ${WITH_BINDIR})
-    endif ()
-    string(TOUPPER ${CMAKE_BUILD_TYPE} _build_type_uc)
-    get_target_property(_qt5xml_location Qt5::Xml IMPORTED_LOCATION_${_build_type_uc})
-    install(FILES ${_qt5xml_location}
-            DESTINATION ${WITH_BINDIR})
   endif (NOT HAVE_QT5)
 endif (WIN32)

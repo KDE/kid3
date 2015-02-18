@@ -218,7 +218,7 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 if test "$compiler" = "cross-mingw"; then
 test -f mingw.cmake ||
 cat >mingw.cmake <<EOF
-set(QT_PREFIX /windows/Qt/$qt_version)
+set(QT_PREFIX /windows/Qt/Qt5.4.0/5.4/mingw491_32)
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
@@ -229,9 +229,9 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
-set(QT_BINARY_DIR /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt4/bin)
+set(QT_BINARY_DIR /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin)
 set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
-set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQtCore4.a)
+set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt5Core.a)
 set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
 set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
@@ -2180,7 +2180,7 @@ echo "### Ignore make error"
 
 cp -f po/*.qm doc/*/kid3*.html $INSTDIR
 
-for f in QtCore4.dll QtNetwork4.dll QtGui4.dll QtXml4.dll phonon4.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll; do
+for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll icuin53.dll icuuc53.dll icudt53.dll; do
   cp $QT_BIN_DIR/$f $INSTDIR
 done
 
