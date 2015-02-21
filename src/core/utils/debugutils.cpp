@@ -27,6 +27,69 @@
 #ifndef QT_NO_DEBUG
 
 #include "debugutils.h"
+#include <QMetaObject>
+#include <QMetaMethod>
+
+/**
+ * Constructor.
+ * @param parent parent object
+ */
+DebugUtils::SignalEmissionDumper::SignalEmissionDumper(QObject* parent) :
+  QObject(parent)
+{
+}
+
+/**
+ * Destructor.
+ */
+DebugUtils::SignalEmissionDumper::~SignalEmissionDumper()
+{
+}
+
+/**
+ * Monitor signal emissions of object
+ * @param obj object to monitor
+ */
+void DebugUtils::SignalEmissionDumper::connectObject(QObject* obj)
+{
+  const QMetaObject* metaObject = obj->metaObject();
+  for (int i = 0; i < metaObject->methodCount(); ++i) {
+#if QT_VERSION >= 0x050000
+    QByteArray sig = metaObject->method(i).methodSignature();
+#else
+    QByteArray sig = metaObject->method(i).signature();
+#endif
+    if (metaObject->indexOfSignal(sig) != -1) {
+      sig.prepend(QSIGNAL_CODE + '0');
+      connect(obj, sig, this, SLOT(printSignal()));
+    }
+  }
+}
+
+/**
+ * @brief Print emitted signal to debug output.
+ */
+void DebugUtils::SignalEmissionDumper::printSignal()
+{
+  if (QObject* obj = sender()) {
+    int idx = senderSignalIndex();
+    if (idx != -1) {
+#if QT_VERSION >= 0x050000
+      QByteArray sig = obj->metaObject()->method(idx).methodSignature();
+#else
+      QByteArray sig = obj->metaObject()->method(idx).signature();
+#endif
+      if (!sig.isEmpty()) {
+        qDebug("SIGNAL OUT %s::%s %s",
+               obj->metaObject()->className(),
+               qPrintable(obj->objectName().isEmpty()
+                          ? QLatin1String("unnamed") : obj->objectName()),
+               sig.constData());
+      }
+    }
+  }
+}
+
 
 /**
  * Dump an item model.

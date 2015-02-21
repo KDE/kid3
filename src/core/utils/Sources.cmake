@@ -6,4 +6,6 @@ set(utils_SRCS
   utils/coreplatformtools.cpp
 )
 
-set(utils_MOC_HDRS)
+set(utils_MOC_HDRS
+  utils/debugutils.h
+)

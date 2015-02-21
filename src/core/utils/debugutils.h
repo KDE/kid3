@@ -37,6 +37,33 @@ class QAbstractItemModel;
 namespace DebugUtils {
 
 /**
+ * Displays information about signals emitted by an object.
+ */
+class KID3_CORE_EXPORT SignalEmissionDumper : public QObject {
+  Q_OBJECT
+public:
+  /**
+   * Constructor.
+   * @param parent parent object
+   */
+  explicit SignalEmissionDumper(QObject* parent = 0);
+
+  /**
+   * Destructor.
+   */
+  virtual ~SignalEmissionDumper();
+
+  /**
+   * Monitor signal emissions of object
+   * @param obj object to monitor
+   */
+  void connectObject(QObject* obj);
+
+private slots:
+  void printSignal();
+};
+
+/**
  * Dump an item model.
  * @param model item model to dump
  * @param parent parent model index
