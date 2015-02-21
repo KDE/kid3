@@ -76,6 +76,7 @@
 #include "iserverimporterfactory.h"
 #include "iservertrackimporterfactory.h"
 #include "itaggedfilefactory.h"
+#include "iusercommandprocessor.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
 #endif
@@ -419,6 +420,16 @@ void Kid3Application::checkPlugin(QObject* plugin)
       }
       tagCfg.setTaggedFileFeatures(features);
       FileProxyModel::taggedFileFactories().append(taggedFileFactory);
+    }
+  }
+  if (IUserCommandProcessor* userCommandProcessor =
+      qobject_cast<IUserCommandProcessor*>(plugin)) {
+    ImportConfig& importCfg = ImportConfig::instance();
+    QStringList availablePlugins = importCfg.availablePlugins();
+    availablePlugins.append(plugin->objectName());
+    importCfg.setAvailablePlugins(availablePlugins);
+    if (!importCfg.disabledPlugins().contains(plugin->objectName())) {
+      m_userCommandProcessors.append(userCommandProcessor);
     }
   }
 }

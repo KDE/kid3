@@ -36,7 +36,6 @@ class QString;
 class QStringList;
 class Kid3Application;
 class TaggedFile;
-class QmlProcess;
 
 /**
  * Handler for external process.
@@ -117,7 +116,6 @@ private:
   QWidget* m_parent;
   QProcess* m_process;
   OutputViewer* m_outputViewer;
-  QmlProcess* m_qmlProcess;
 };
 
 #endif // EXTERNALPROCESS_H

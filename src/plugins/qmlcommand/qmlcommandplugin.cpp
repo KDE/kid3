@@ -1,5 +1,5 @@
 /**
- * \file qmlprocess.cpp
+ * \file qmlcommandplugin.cpp
  * Starter for QML scripts.
  *
  * \b Project: Kid3
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "qmlprocess.h"
+#include "qmlcommandplugin.h"
 #include <QDir>
 #if QT_VERSION >= 0x050000
 #include <QQuickView>
@@ -51,6 +51,10 @@
 //! @endcond
 #endif
 
+#if QT_VERSION < 0x050000
+Q_EXPORT_PLUGIN2(QmlCommandPlugin, QmlCommandPlugin)
+#endif
+
 namespace {
 
 /**
@@ -73,23 +77,54 @@ void setupQmlEngine(QQmlEngine* engine, Kid3Application* app)
 /**
  * Constructor.
  *
- * @param app application context
  * @param parent parent object
  */
-QmlProcess::QmlProcess(Kid3Application* app, QObject* parent) : QObject(parent),
-  m_app(app), m_qmlView(0), m_qmlEngine(0), m_showOutput(false)
+QmlCommandPlugin::QmlCommandPlugin(QObject* parent) : QObject(parent),
+  m_app(0), m_qmlView(0), m_qmlEngine(0), m_showOutput(false)
 {
+  setObjectName(QLatin1String("QmlCommand"));
 }
 
 /**
  * Destructor.
  */
-QmlProcess::~QmlProcess()
+QmlCommandPlugin::~QmlCommandPlugin()
+{
+}
+
+/**
+ * Get keys of available user commands.
+ * @return list of keys, ["qml", "qmlview"].
+ */
+QStringList QmlCommandPlugin::userCommandKeys() const
+{
+  return QStringList() << QLatin1String("qml") << QLatin1String("qmlview");
+}
+
+/**
+ * Initialize processor.
+ * This method must be invoked before the first call to startUserCommand()
+ * to set the application context.
+ * @param app application context
+ */
+void QmlCommandPlugin::initialize(Kid3Application* app)
+{
+  m_app = app;
+}
+
+/**
+ * Cleanup processor.
+ * This method must be invoked to close and delete the GUI resources.
+ */
+void QmlCommandPlugin::cleanup()
 {
   if (m_qmlView) {
     m_qmlView->close();
   }
   delete m_qmlView;
+  m_qmlView = 0;
+  delete m_qmlEngine;
+  m_qmlEngine = 0;
   if (s_messageHandlerInstance == this) {
     s_messageHandlerInstance = 0;
   }
@@ -97,17 +132,17 @@ QmlProcess::~QmlProcess()
 
 /**
  * Start a QML script.
- *
- * @param program virtual program, e.g. "qmlview"
+ * @param key user command name, "qml" or "qmlview"
  * @param arguments arguments to pass to script
- * @param showOutput true to enable output in output viewer
- * @return true if program and arguments are suitable for QML script.
+ * @param showOutput true to enable output in output viewer, using signal
+ *                   commandOutput().
+ * @return true if command is started.
  */
-bool QmlProcess::startQml(const QString& program,
-                          const QStringList& arguments, bool showOutput)
+bool QmlCommandPlugin::startUserCommand(
+    const QString& key, const QStringList& arguments, bool showOutput)
 {
   if (!arguments.isEmpty()) {
-    if (program == QLatin1String("qmlview")) {
+    if (key == QLatin1String("qmlview")) {
       m_showOutput = showOutput;
       if (!m_qmlView) {
         m_qmlView = new QQuickView;
@@ -128,17 +163,17 @@ bool QmlProcess::startQml(const QString& program,
         // Probably an error.
         if (m_showOutput && m_qmlView->status() == QQuickView::Error) {
           foreach (const QQmlError& err, m_qmlView->errors()) {
-            emit qmlOutput(err.toString());
+            emit commandOutput(err.toString());
           }
         }
         m_qmlView->engine()->clearComponentCache();
         onEngineFinished();
       }
       return true;
-    } else if (program == QLatin1String("qml")) {
+    } else if (key == QLatin1String("qml")) {
       m_showOutput = showOutput;
       if (!m_qmlEngine) {
-        m_qmlEngine = new QQmlEngine(this);
+        m_qmlEngine = new QQmlEngine;
         connect(m_qmlEngine, SIGNAL(quit()), this, SLOT(onQmlEngineQuit()));
         setupQmlEngine(m_qmlEngine, m_app);
       }
@@ -152,7 +187,7 @@ bool QmlProcess::startQml(const QString& program,
         // Probably an error.
         if (m_showOutput && component.isError()) {
           foreach (const QQmlError& err, component.errors()) {
-            emit qmlOutput(err.toString());
+            emit commandOutput(err.toString());
           }
         }
         m_qmlEngine->clearComponentCache();
@@ -164,9 +199,18 @@ bool QmlProcess::startQml(const QString& program,
 }
 
 /**
+ * Return object which emits commandOutput() signal.
+ * @return this.
+ */
+QObject* QmlCommandPlugin::qobject()
+{
+  return this;
+}
+
+/**
  * Called when the QML view is closing.
  */
-void QmlProcess::onQmlViewClosing()
+void QmlCommandPlugin::onQmlViewClosing()
 {
   if (QQuickView* view = qobject_cast<QQuickView*>(sender())) {
     // This will invoke destruction of the currently loaded QML code.
@@ -179,7 +223,7 @@ void QmlProcess::onQmlViewClosing()
 /**
  * Called when Qt.quit() is called from the QML code in the QQuickView.
  */
-void QmlProcess::onQmlViewFinished()
+void QmlCommandPlugin::onQmlViewFinished()
 {
   if (m_qmlView) {
 #if QT_VERSION >= 0x050000
@@ -198,7 +242,7 @@ void QmlProcess::onQmlViewFinished()
 /**
  * Called when Qt.quit() is called from the QML code in the core engine.
  */
-void QmlProcess::onQmlEngineQuit()
+void QmlCommandPlugin::onQmlEngineQuit()
 {
   if (m_qmlEngine) {
     m_qmlEngine->clearComponentCache();
@@ -209,7 +253,7 @@ void QmlProcess::onQmlEngineQuit()
 /**
  * Restore default message handler after QML code is terminated.
  */
-void QmlProcess::onEngineFinished()
+void QmlCommandPlugin::onEngineFinished()
 {
   if (m_showOutput) {
 #if QT_VERSION >= 0x050000
@@ -224,7 +268,7 @@ void QmlProcess::onEngineFinished()
 /**
  * Forward console output to output viewer while QML code is executed.
  */
-void QmlProcess::onEngineReady()
+void QmlCommandPlugin::onEngineReady()
 {
   if (m_showOutput) {
     s_messageHandlerInstance = this;
@@ -236,24 +280,24 @@ void QmlProcess::onEngineReady()
   }
 }
 
-/** Instance of QmlProcess running and generating messages. */
-QmlProcess* QmlProcess::s_messageHandlerInstance = 0;
+/** Instance of QmlCommandPlugin running and generating messages. */
+QmlCommandPlugin* QmlCommandPlugin::s_messageHandlerInstance = 0;
 
 /**
- * Message handler emitting qmlOutput().
+ * Message handler emitting commandOutput().
  */
 #if QT_VERSION >= 0x050000
-void QmlProcess::messageHandler(QtMsgType, const QMessageLogContext&, const QString& msg)
+void QmlCommandPlugin::messageHandler(QtMsgType, const QMessageLogContext&, const QString& msg)
 {
   if (s_messageHandlerInstance) {
-    emit s_messageHandlerInstance->qmlOutput(msg);
+    emit s_messageHandlerInstance->commandOutput(msg);
   }
 }
 #else
-void QmlProcess::messageHandler(QtMsgType, const char* msg)
+void QmlCommandPlugin::messageHandler(QtMsgType, const char* msg)
 {
   if (s_messageHandlerInstance) {
-    emit s_messageHandlerInstance->qmlOutput(QString::fromUtf8(msg));
+    emit s_messageHandlerInstance->commandOutput(QString::fromUtf8(msg));
   }
 }
 #endif

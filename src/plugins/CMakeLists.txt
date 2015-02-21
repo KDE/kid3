@@ -38,6 +38,7 @@ add_subdirectory(taglibmetadata)
 add_subdirectory(oggflacmetadata)
 add_subdirectory(mp4v2metadata)
 if (WITH_QML)
+  add_subdirectory(qmlcommand)
   add_subdirectory(kid3appqml)
 endif (WITH_QML)
 

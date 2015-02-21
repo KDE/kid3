@@ -1,5 +1,5 @@
 /**
- * \file qmlprocess.h
+ * \file qmlcommandplugin.h
  * Starter for QML scripts.
  *
  * \b Project: Kid3
@@ -24,14 +24,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QMLPROCESS_H
-#define QMLPROCESS_H
+#ifndef QMLCOMMANDPLUGIN_H
+#define QMLCOMMANDPLUGIN_H
 
 #include <QObject>
-#include "kid3api.h"
 #if QT_VERSION < 0x050000
 #include <QDeclarativeView>
 #endif
+#include "iusercommandprocessor.h"
 
 class Kid3Application;
 #if QT_VERSION >= 0x050000
@@ -45,39 +45,69 @@ class QQuickCloseEvent;
 /**
  * Starter for QML scripts.
  */
-class KID3_CORE_EXPORT QmlProcess : public QObject {
+class KID3_PLUGIN_EXPORT QmlCommandPlugin :
+    public QObject, public IUserCommandProcessor {
   Q_OBJECT
+#if QT_VERSION >= 0x050000
+  Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IUserCommandProcessor")
+#endif
+  Q_INTERFACES(IUserCommandProcessor)
 public:
   /**
    * Constructor.
    *
-   * @param app application context
    * @param parent parent object
    */
-  explicit QmlProcess(Kid3Application* app, QObject* parent = 0);
+  explicit QmlCommandPlugin(QObject* parent = 0);
 
   /**
    * Destructor.
    */
-  virtual ~QmlProcess();
+  virtual ~QmlCommandPlugin();
+
+  /**
+   * Get keys of available user commands.
+   * @return list of keys, ["qml", "qmlview"].
+   */
+  virtual QStringList userCommandKeys() const;
+
+  /**
+   * Initialize processor.
+   * This method must be invoked before the first call to startUserCommand()
+   * to set the application context.
+   * @param app application context
+   */
+  virtual void initialize(Kid3Application* app);
+
+  /**
+   * Cleanup processor.
+   * This method must be invoked to close and delete the QML resources.
+   */
+  virtual void cleanup();
 
   /**
    * Start a QML script.
-   *
-   * @param program virtual program, e.g. "qmlview"
+   * @param key user command name, "qml" or "qmlview"
    * @param arguments arguments to pass to script
-   * @param showOutput true to enable output in output viewer
-   * @return true if program and arguments are suitable for QML script.
+   * @param showOutput true to enable output in output viewer, using signal
+   *                   commandOutput().
+   * @return true if command is started.
    */
-  bool startQml(const QString& program, const QStringList& arguments,
-                bool showOutput);
+  virtual bool startUserCommand(
+      const QString& key, const QStringList& arguments, bool showOutput);
+
+  /**
+   * Return object which emits commandOutput() signal.
+   * @return this.
+   */
+  virtual QObject* qobject();
 
 signals:
   /**
    * Emitted when output is enabled and a QML message is generated.
    * @param msg message from QML, error or console output
    */
-  void qmlOutput(const QString& msg);
+  void commandOutput(const QString& msg);
 
 private slots:
   void onQmlViewClosing();
@@ -105,7 +135,7 @@ private:
 #endif
   bool m_showOutput;
 
-  static QmlProcess* s_messageHandlerInstance;
+  static QmlCommandPlugin* s_messageHandlerInstance;
 };
 
 #if QT_VERSION < 0x050000
@@ -142,4 +172,4 @@ protected:
 };
 #endif
 
-#endif // QMLPROCESS_H
+#endif // QMLCOMMANDPLUGIN_H

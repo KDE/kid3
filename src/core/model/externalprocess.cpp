@@ -33,10 +33,8 @@
 #include <QStringList>
 #include <QTextCursor>
 #include "taggedfile.h"
-#include "config.h"
-#ifdef HAVE_QML
-#include "qmlprocess.h"
-#endif
+#include "iusercommandprocessor.h"
+#include "kid3application.h"
 
 /**
  * Constructor.
@@ -132,10 +130,15 @@ void ExternalProcess::OutputViewer::scrollToBottom()
  * @param parent parent object
  */
 ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
-  QObject(parent), m_app(app), m_parent(parent), m_process(0),
-  m_outputViewer(0), m_qmlProcess(0)
+  QObject(parent), m_app(app), m_parent(parent), m_process(0), m_outputViewer(0)
 {
   setObjectName(QLatin1String("ExternalProcess"));
+  foreach (IUserCommandProcessor* userCommandProcessor,
+           m_app->getUserCommandProcessors()) {
+    userCommandProcessor->initialize(m_app);
+    connect(userCommandProcessor->qobject(), SIGNAL(commandOutput(QString)),
+            this, SLOT(showOutputLine(QString)));
+  }
 }
 
 /**
@@ -143,6 +146,13 @@ ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
  */
 ExternalProcess::~ExternalProcess()
 {
+  foreach (IUserCommandProcessor* userCommandProcessor,
+           m_app->getUserCommandProcessors()) {
+    userCommandProcessor->cleanup();
+  }
+  if (m_outputViewer) {
+    m_outputViewer->close();
+  }
   delete m_outputViewer;
 }
 
@@ -191,16 +201,12 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   QStringList arguments = args;
   QString program = arguments.takeFirst();
-#ifdef HAVE_QML
-  if (!m_qmlProcess) {
-    m_qmlProcess = new QmlProcess(m_app, this);
-    connect(m_qmlProcess, SIGNAL(qmlOutput(QString)),
-            this, SLOT(showOutputLine(QString)));
+  foreach (IUserCommandProcessor* userCommandProcessor,
+           m_app->getUserCommandProcessors()) {
+    if (userCommandProcessor->userCommandKeys().contains(program) &&
+        userCommandProcessor->startUserCommand(program, arguments, showOutput))
+      return;
   }
-  if (m_qmlProcess->startQml(program, arguments, showOutput)) {
-    return;
-  }
-#endif
   m_process->start(program, arguments);
   if (!m_process->waitForStarted(10000)) {
     QMessageBox::warning(

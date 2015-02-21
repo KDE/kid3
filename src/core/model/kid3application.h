@@ -64,6 +64,7 @@ class BatchImportProfile;
 class BatchImporter;
 class IAbortable;
 class ICorePlatformTools;
+class IUserCommandProcessor;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class AudioPlayer;
 #endif
@@ -276,6 +277,14 @@ public:
    */
   QList<ServerTrackImporter*> getServerTrackImporters() {
     return m_trackImporters;
+  }
+
+  /**
+   * Get available user command processors.
+   * @return list of user command processors.
+   */
+  QList<IUserCommandProcessor*> getUserCommandProcessors() {
+    return m_userCommandProcessors;
   }
 
   /**
@@ -1297,6 +1306,8 @@ private:
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */
   QList<ServerTrackImporter*> m_trackImporters;
+  /** Processors for user commands */
+  QList<IUserCommandProcessor*> m_userCommandProcessors;
   /** Current directory */
   QString m_dirName;
   /** Stored current selection with the list of all selected items */

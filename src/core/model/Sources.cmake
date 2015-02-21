@@ -31,6 +31,7 @@ set(model_SRCS
   model/pixmapprovider.cpp
   model/frameeditorobject.cpp
   model/frameobjectmodel.cpp
+  model/iusercommandprocessor.cpp
 )
 
 set(model_MOC_HDRS
@@ -59,8 +60,3 @@ if (HAVE_QTDBUS)
   set(model_SRCS ${model_SRCS} model/scriptinterface.cpp)
   set(model_MOC_HDRS ${model_MOC_HDRS} model/scriptinterface.h)
 endif (HAVE_QTDBUS)
-
-if (HAVE_QML)
-  set(model_SRCS ${model_SRCS} model/qmlprocess.cpp)
-  set(model_MOC_HDRS ${model_MOC_HDRS} model/qmlprocess.h)
-endif (HAVE_QML)
