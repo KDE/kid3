@@ -220,6 +220,11 @@ signals:
    */
   void singleFileChanged();
 
+  /**
+   * Emitted when the file name is modified.
+   */
+  void fileNameModified();
+
 private:
   struct State {
     State() : m_singleFile(0), m_tagV1SupportedCount(0), m_fileCount(0),

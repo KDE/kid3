@@ -198,8 +198,10 @@ QString TaggedFileSelection::getFilename() const
  */
 void TaggedFileSelection::setFilename(const QString& fn)
 {
-  if (m_state.m_singleFile && !fn.isEmpty()) {
+  if (m_state.m_singleFile && !fn.isEmpty() &&
+      m_state.m_singleFile->getFilename() != fn) {
     m_state.m_singleFile->setFilename(fn);
+    emit fileNameModified();
   }
 }
 

@@ -513,8 +513,20 @@ public:
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    * @param name    name of frame (e.g. "artist")
+   *
+   * @return value of frame.
    */
-  QString getFrame(Frame::TagVersion tagMask, const QString& name);
+  Q_INVOKABLE QString getFrame(Frame::TagVersion tagMask,
+                               const QString& name) const;
+
+  /**
+   * Get names and values of all frames.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   *
+   * @return map containing frame values.
+   */
+  Q_INVOKABLE QVariantMap getAllFrames(Frame::TagVersion tagMask) const;
 
   /**
    * Set value of frame.
@@ -527,8 +539,8 @@ public:
    * @param name    name of frame (e.g. "artist")
    * @param value   value of frame
    */
-  bool setFrame(Frame::TagVersion tagMask, const QString& name,
-                const QString& value);
+  Q_INVOKABLE bool setFrame(Frame::TagVersion tagMask, const QString& name,
+                            const QString& value);
 
   /**
    * Format a filename if format while editing is switched on.

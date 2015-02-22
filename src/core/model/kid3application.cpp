@@ -179,6 +179,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 
   connect(m_selection, SIGNAL(singleFileChanged()),
           this, SLOT(updateCoverArtImageId()));
+  connect(m_selection, SIGNAL(fileNameModified()),
+          this, SIGNAL(selectedFilesUpdated()));
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
@@ -2732,7 +2734,7 @@ void Kid3Application::convertToId3v23()
  * @param name    name of frame (e.g. "Artist")
  */
 QString Kid3Application::getFrame(Frame::TagVersion tagMask,
-                                  const QString& name)
+                                  const QString& name) const
 {
   QString frameName(name);
   QString dataFileName;
@@ -2773,6 +2775,26 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   } else {
     return QLatin1String("");
   }
+}
+
+/**
+ * Get names and values of all frames.
+ *
+ * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+ *
+ * @return map containing frame values.
+ */
+QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
+{
+  QVariantMap map;
+  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
+    m_framesV1Model;
+  for (FrameCollection::const_iterator it = ft->frames().begin();
+       it != ft->frames().end();
+       ++it) {
+    map.insert(it->getName(), it->getValue());
+  }
+  return map;
 }
 
 /**
