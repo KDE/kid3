@@ -55,25 +55,6 @@
 Q_EXPORT_PLUGIN2(QmlCommandPlugin, QmlCommandPlugin)
 #endif
 
-namespace {
-
-/**
- * Set import path and app property in QML engine.
- * @param engine QML engine
- * @param app application context
- */
-void setupQmlEngine(QQmlEngine* engine, Kid3Application* app)
-{
-  QDir pluginsDir;
-  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
-      pluginsDir.cd(QLatin1String("imports"))) {
-    engine->addImportPath(pluginsDir.absolutePath());
-  }
-  engine->rootContext()->setContextProperty(QLatin1String("app"), app);
-}
-
-}
-
 /**
  * Constructor.
  *
@@ -147,7 +128,7 @@ bool QmlCommandPlugin::startUserCommand(
       if (!m_qmlView) {
         m_qmlView = new QQuickView;
         m_qmlView->setResizeMode(QQuickView::SizeRootObjectToView);
-        setupQmlEngine(m_qmlView->engine(), m_app);
+        setupQmlEngine(m_qmlView->engine());
         connect(m_qmlView, SIGNAL(closing(QQuickCloseEvent*)),
                 this, SLOT(onQmlViewClosing()));
         connect(m_qmlView->engine(), SIGNAL(quit()),
@@ -175,7 +156,7 @@ bool QmlCommandPlugin::startUserCommand(
       if (!m_qmlEngine) {
         m_qmlEngine = new QQmlEngine;
         connect(m_qmlEngine, SIGNAL(quit()), this, SLOT(onQmlEngineQuit()));
-        setupQmlEngine(m_qmlEngine, m_app);
+        setupQmlEngine(m_qmlEngine);
       }
       m_qmlEngine->rootContext()->setContextProperty(QLatin1String("args"),
                                                      arguments);
@@ -199,12 +180,49 @@ bool QmlCommandPlugin::startUserCommand(
 }
 
 /**
+ * Set import path and app property in QML engine.
+ * @param engine QML engine
+ */
+void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
+{
+  QDir pluginsDir;
+  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+      pluginsDir.cd(QLatin1String("imports"))) {
+    engine->addImportPath(pluginsDir.absolutePath());
+  }
+  engine->rootContext()->setContextProperty(QLatin1String("app"), m_app);
+#if QT_VERSION >= 0x050000
+  connect(engine, SIGNAL(warnings(QList<QQmlError>)),
+          this, SLOT(onEngineError(QList<QQmlError>)),
+          Qt::UniqueConnection);
+#else
+  connect(engine, SIGNAL(warnings(QList<QDeclarativeError>)),
+          this, SLOT(onEngineError(QList<QDeclarativeError>)),
+          Qt::UniqueConnection);
+#endif
+}
+
+/**
  * Return object which emits commandOutput() signal.
  * @return this.
  */
 QObject* QmlCommandPlugin::qobject()
 {
   return this;
+}
+
+/**
+ * Called when an error is reported by the QML engine.
+ */
+void QmlCommandPlugin::onEngineError(const QList<QQmlError>& errors)
+{
+  if (QQmlEngine* engine = qobject_cast<QQmlEngine*>(sender())) {
+    foreach (const QQmlError& err, errors) {
+      emit commandOutput(err.toString());
+    }
+    engine->clearComponentCache();
+    onEngineFinished();
+  }
 }
 
 /**

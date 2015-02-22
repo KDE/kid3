@@ -37,6 +37,7 @@ class Kid3Application;
 #if QT_VERSION >= 0x050000
 class QQuickView;
 class QQmlEngine;
+class QQmlError;
 #else
 class QDeclarativeEngine;
 class QQuickCloseEvent;
@@ -110,12 +111,22 @@ signals:
   void commandOutput(const QString& msg);
 
 private slots:
+#if QT_VERSION >= 0x050000
+  void onEngineError(const QList<QQmlError>& errors);
+#else
+  void onEngineError(const QList<QDeclarativeError>& errors);
+#endif
   void onQmlViewClosing();
   void onQmlViewFinished();
   void onQmlEngineQuit();
   void onEngineFinished();
 
 private:
+#if QT_VERSION >= 0x050000
+  void setupQmlEngine(QQmlEngine* engine);
+#else
+  void setupQmlEngine(QDeclarativeEngine* engine);
+#endif
   void onEngineReady();
 
 #if QT_VERSION >= 0x050000
