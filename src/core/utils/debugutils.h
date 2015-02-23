@@ -24,11 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QT_NO_DEBUG
-
 #ifndef DEBUGUTILS_H
 #define DEBUGUTILS_H
 
+#include <QObject>
 #include <QModelIndex>
 #include "kid3api.h"
 
@@ -63,6 +62,8 @@ private slots:
   void printSignal();
 };
 
+#ifndef QT_NO_DEBUG
+
 /**
  * Dump an item model.
  * @param model item model to dump
@@ -72,9 +73,8 @@ private slots:
 void KID3_CORE_EXPORT dumpModel(const QAbstractItemModel& model,
                const QModelIndex& parent = QModelIndex(), int indent = 0);
 
+#endif
 
 }
 
 #endif // DEBUGUTILS_H
-
-#endif // QT_NO_DEBUG

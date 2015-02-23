@@ -24,8 +24,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QT_NO_DEBUG
-
 #include "debugutils.h"
 #include <QMetaObject>
 #include <QMetaMethod>
@@ -45,6 +43,8 @@ DebugUtils::SignalEmissionDumper::SignalEmissionDumper(QObject* parent) :
 DebugUtils::SignalEmissionDumper::~SignalEmissionDumper()
 {
 }
+
+#ifndef QT_NO_DEBUG
 
 /**
  * Monitor signal emissions of object
@@ -148,5 +148,10 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
     }
   }
 }
+
+#else
+
+void DebugUtils::SignalEmissionDumper::connectObject(QObject*) {}
+void DebugUtils::SignalEmissionDumper::printSignal() {}
 
 #endif

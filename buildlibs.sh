@@ -49,7 +49,7 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=4.8.6
+qt_version=5.4.0
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
@@ -2163,7 +2163,7 @@ if test $kernel = "Linux"; then
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
 EOF
       cat >kid3/make_package.sh <<"EOF"
 #!/bin/sh
@@ -2180,7 +2180,7 @@ echo "### Ignore make error"
 
 cp -f po/*.qm doc/*/kid3*.html $INSTDIR
 
-for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll icuin53.dll icuuc53.dll icudt53.dll; do
+for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll; do
   cp $QT_BIN_DIR/$f $INSTDIR
 done
 

@@ -211,5 +211,12 @@ if (WIN32)
                   "${QT_BINARY_DIR}/libwinpthread-1.dll"
                   "${QT_BINARY_DIR}/libiconv-2.dll"
             DESTINATION ${WITH_BINDIR})
+  else (NOT HAVE_QT5)
+    # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
+    # A folder with reduced ICU libraries can be copied to the Qt bin directory.
+    get_target_property(_qtBinDir Qt5::qmake LOCATION)
+    get_filename_component(_qtBinDir ${_qtBinDir} PATH)
+    install(DIRECTORY "${_qtBinDir}/icu_reduced/"
+            DESTINATION ${WITH_BINDIR} OPTIONAL)
   endif (NOT HAVE_QT5)
 endif (WIN32)

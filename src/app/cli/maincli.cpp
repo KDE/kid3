@@ -34,6 +34,12 @@
 #include "coreplatformtools.h"
 #include "kid3application.h"
 
+#if defined Q_OS_WIN32 && defined Q_CC_MINGW && QT_VERSION >= 0x050000 && QT_VERSION < 0x050500
+// Disable command line globbing to avoid crash in QCoreApplication::arguments()
+// QTBUG-30330
+int _CRT_glob = 0;
+#endif
+
 /**
  * Main program for command line interface.
  *
