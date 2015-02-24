@@ -152,6 +152,83 @@ public:
    * @return data read, empty if failed.
    */
   Q_INVOKABLE static QByteArray readFile(const QString& filePath);
+
+  /**
+   * Remove file.
+   * @param filePath path to file
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool removeFile(const QString& filePath);
+
+  /**
+   * Get path of temporary directory.
+   * @return temporary directory.
+   */
+  Q_INVOKABLE static QString tempPath();
+
+  /**
+   * Synchronously start a system command.
+   * @param program executable
+   * @param args arguments
+   * @param msecs timeout in milliseconds, -1 for no timeout
+   * @return [exit code, standard output, standard error], empty list on timeout.
+   */
+  Q_INVOKABLE static QVariantList system(
+      const QString& program, const QStringList& args = QStringList(),
+      int msecs = -1);
+
+
+  /**
+   * Get value of environment variable.
+   * @param varName variable name
+   * @return value.
+   */
+  Q_INVOKABLE static QByteArray getEnv(const QByteArray& varName);
+
+  /**
+   * Set value of environment variable.
+   * @param varName variable name
+   * @param value value to set
+   * @return true if value could be set.
+   */
+  Q_INVOKABLE static bool setEnv(const QByteArray& varName,
+                                 const QByteArray& value);
+
+  /**
+   * Load an image from a file.
+   * @param filePath path to file
+   * @return image variant.
+   */
+  Q_INVOKABLE static QVariant loadImage(const QString& filePath);
+
+  /**
+   * Save an image to a file.
+   * @param var image variant
+   * @param filePath path to file
+   * @param format image format, default is "JPG"
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool saveImage(const QVariant& var,
+                                    const QString& filePath,
+                                    const QByteArray& format = "JPG");
+
+  /**
+   * Get properties of an image.
+   * @param var image variant
+   * @return map containing "width", "height", "depth" and "colorCount",
+   * empty if invalid image.
+   */
+  Q_INVOKABLE static QVariantMap imageProperties(const QVariant& var);
+
+  /**
+   * Scale an image.
+   * @param var image variant
+   * @param width scaled width, -1 to keep aspect ratio
+   * @param height scaled height, -1 to keep aspect ratio
+   * @return scaled image variant.
+   */
+  Q_INVOKABLE static QVariant scaleImage(const QVariant& var,
+                                         int width, int height = -1);
 };
 
 #endif // SCRIPTUTILS_H

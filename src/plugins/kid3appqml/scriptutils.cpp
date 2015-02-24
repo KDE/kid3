@@ -28,6 +28,9 @@
 #include <QMetaProperty>
 #include <QCoreApplication>
 #include <QFile>
+#include <QDir>
+#include <QProcess>
+#include <QImage>
 #include "pictureframe.h"
 
 #if QT_VERSION < 0x050000
@@ -235,4 +238,141 @@ QByteArray ScriptUtils::readFile(const QString& filePath)
     file.close();
   }
   return data;
+}
+
+/**
+ * Remove file.
+ * @param filePath path to file
+ * @return true if ok.
+ */
+bool ScriptUtils::removeFile(const QString& filePath)
+{
+  return QFile::remove(filePath);
+}
+
+/**
+ * Get path of temporary directory.
+ * @return temporary directory.
+ */
+QString ScriptUtils::tempPath()
+{
+  return QDir::tempPath();
+}
+
+/**
+ * Synchronously start a system command.
+ * @param program executable
+ * @param args arguments
+ * @param msecs timeout in milliseconds, -1 for no timeout
+ * @return [exit code, standard output, standard error], empty list on timeout.
+ */
+QVariantList ScriptUtils::system(
+    const QString& program, const QStringList& args, int msecs)
+{
+  QProcess proc;
+  proc.start(program, args);
+  if (proc.waitForFinished(msecs)) {
+    return QVariantList()
+        << proc.exitCode()
+        << QString::fromLocal8Bit(proc.readAllStandardOutput())
+        << QString::fromLocal8Bit(proc.readAllStandardError());
+  }
+  return QVariantList();
+}
+
+/**
+ * Get value of environment variable.
+ * @param varName variable name
+ * @return value.
+ */
+QByteArray ScriptUtils::getEnv(const QByteArray& varName)
+{
+  return qgetenv(varName.constData());
+}
+
+/**
+ * Set value of environment variable.
+ * @param varName variable name
+ * @param value value to set
+ * @return true if value could be set.
+ */
+bool ScriptUtils::setEnv(const QByteArray& varName, const QByteArray& value)
+{
+  return qputenv(varName, value);
+}
+
+/**
+ * Load an image from a file.
+ * @param filePath path to file
+ * @return image variant.
+ */
+QVariant ScriptUtils::loadImage(const QString& filePath)
+{
+  QImage img(filePath);
+  return QVariant::fromValue(img);
+}
+
+/**
+ * Save an image to a file.
+ * @param var image variant
+ * @param filePath path to file
+ * @param format image format, default is "JPG"
+ * @return true if ok.
+ */
+bool ScriptUtils::saveImage(const QVariant& var, const QString& filePath,
+                            const QByteArray& format)
+{
+  QImage img(var.value<QImage>());
+  if (!img.isNull()) {
+    return img.save(filePath, format.constData());
+  }
+  return false;
+}
+
+/**
+ * Get properties of an image.
+ * @param var image variant
+ * @return map containing "width", "height", "depth" and "colorCount",
+ * empty if invalid image.
+ */
+QVariantMap ScriptUtils::imageProperties(const QVariant& var)
+{
+  QVariantMap map;
+  QImage img(var.value<QImage>());
+  if (!img.isNull()) {
+    map.insert(QLatin1String("width"), img.width());
+    map.insert(QLatin1String("height"), img.height());
+    map.insert(QLatin1String("depth"), img.depth());
+#if QT_VERSION >= 0x040600
+    map.insert(QLatin1String("colorCount"), img.colorCount());
+#else
+    map.insert(QLatin1String("colorCount"), img.numColors());
+#endif
+  }
+  return map;
+}
+
+/**
+ * Scale an image.
+ * @param var image variant
+ * @param width scaled width, -1 to keep aspect ratio
+ * @param height scaled height, -1 to keep aspect ratio
+ * @return scaled image variant.
+ */
+QVariant ScriptUtils::scaleImage(const QVariant& var, int width, int height)
+{
+  QImage img(var.value<QImage>());
+  if (!img.isNull()) {
+    if (width > 0 && height > 0) {
+      return QVariant::fromValue(img.scaled(width, height,
+                            Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    } else if (width > 0) {
+      return QVariant::fromValue(img.scaledToWidth(width,
+                                                   Qt::SmoothTransformation));
+    } else if (height > 0) {
+      return QVariant::fromValue(img.scaledToHeight(height,
+                                                    Qt::SmoothTransformation));
+    }
+  }
+  return QVariant();
 }
