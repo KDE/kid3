@@ -201,11 +201,14 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   QStringList arguments = args;
   QString program = arguments.takeFirst();
-  foreach (IUserCommandProcessor* userCommandProcessor,
-           m_app->getUserCommandProcessors()) {
-    if (userCommandProcessor->userCommandKeys().contains(program) &&
-        userCommandProcessor->startUserCommand(program, arguments, showOutput))
-      return;
+  if (program.startsWith(QLatin1Char('@'))) {
+    program = program.mid(1);
+    foreach (IUserCommandProcessor* userCommandProcessor,
+             m_app->getUserCommandProcessors()) {
+      if (userCommandProcessor->userCommandKeys().contains(program) &&
+          userCommandProcessor->startUserCommand(program, arguments, showOutput))
+        return;
+    }
   }
   m_process->start(program, arguments);
   if (!m_process->waitForStarted(10000)) {

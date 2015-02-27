@@ -133,6 +133,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
  * %uF list of URLs
  * %d directory name
  * %b the web browser set in the configuration
+ * %q the base directory for QML files
  *
  * @todo %f and %F are full paths, which is inconsistent with the
  * export format strings but compatible with .desktop files.

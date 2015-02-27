@@ -30,6 +30,8 @@
 #include <QDir>
 #include <QCoreApplication>
 #include "networkconfig.h"
+#include "config.h"
+#include "loadtranslation.h"
 
 /**
  * Constructor.
@@ -56,6 +58,7 @@ CommandFormatReplacer::~CommandFormatReplacer() {}
  * %f %{file} filename
  * %d %{directory} directory name
  * %b %{browser} the web browser set in the configuration
+ * %q %{qmlpath} base directory for QML files
  *
  * @param code format code
  *
@@ -75,7 +78,8 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
       } shortToLong[] = {
         { "file", 'f' },
         { "directory", 'd' },
-        { "browser", 'b' }
+        { "browser", 'b' },
+        { "qmlpath", 'q' }
       };
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
@@ -108,6 +112,11 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
         }
       } else if (name == QLatin1String("browser")) {
         result = NetworkConfig::instance().browser();
+#ifdef CFG_QMLDIR
+      } else if (name == QLatin1String("qmlpath")) {
+        result = QLatin1String(CFG_QMLDIR);
+        Utils::prependApplicationDirPathIfRelative(result);
+#endif
       } else if (name == QLatin1String("url")) {
         if (!m_files.empty()) {
           QUrl url;
@@ -159,6 +168,12 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("<tr><td>%b</td><td>%{browser}</td><td>");
   str += QCoreApplication::translate("@default", "Browser");
   str += QLatin1String("</td></tr>\n");
+
+#ifdef CFG_QMLDIR
+  str += QLatin1String("<tr><td>%q</td><td>%{qmlpath}</td><td>");
+  str += QCoreApplication::translate("@default", "QML base directory");
+  str += QLatin1String("</td></tr>\n");
+#endif
 
   str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
   str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));

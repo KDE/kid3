@@ -69,6 +69,7 @@ protected:
    * %f %{file} filename
    * %d %{directory} directory name
    * %b %{browser} the web browser set in the configuration
+   * %q %{qmlpath} base directory for QML files
    *
    * @param code format code
    *
