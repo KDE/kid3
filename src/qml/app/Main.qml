@@ -1,5 +1,5 @@
 /**
- * \file main.qml
+ * \file Main.qml
  * Main entry point for QML application.
  *
  * \b Project: Kid3
@@ -22,7 +22,7 @@
  */
 
 import QtQuick 2.2
-import "ComponentsQtQuick" //@!Ubuntu
+import "../componentsqtquick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 //import Ubuntu.Components.Popups 1.0 //@Ubuntu
 //import Ubuntu.Components.ListItems 1.0 //@Ubuntu

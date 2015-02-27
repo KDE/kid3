@@ -62,6 +62,10 @@ add_subdirectory(core)
 add_subdirectory(gui)
 add_subdirectory(app)
 
+if (WITH_QML)
+  add_subdirectory(qml)
+endif (WITH_QML)
+
 if (BUILD_TEST_APP)
   add_subdirectory(test)
 endif (BUILD_TEST_APP)

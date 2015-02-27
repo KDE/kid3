@@ -1,6 +1,6 @@
 /**
- * \file FileSelectDialog.qml
- * Dialog to select a frame.
+ * \file MessageDialog.qml
+ * Message dialog.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -22,52 +22,42 @@
  */
 
 import QtQuick 2.2
-import "ComponentsQtQuick" //@!Ubuntu
+import "../componentsqtquick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 //import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 
 Dialog {
   id: page
 
-  signal frameSelected(string name);
-
-  title: qsTr("Add Frame")
-  text: qsTr("Select the frame ID")
-
-  function open(frameNames) {
-    frameSelectList.model = frameNames
-    page.show()
-  }
-
-  ListView {
-    id: frameSelectList
-    height: constants.gu(35)
-
-    clip: true
-    delegate: Standard {
-      text: modelData
-      selected: ListView.view.currentIndex === index
-      onClicked: ListView.view.currentIndex = index
-    }
-  }
+  signal yes
+  signal no
+  signal rejected
 
   Row {
     spacing: constants.spacing
     Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
+      width: (parent.width - 2 * parent.spacing) / 3
+      id: yesButton
+      text: qsTr("Yes")
       onClicked: {
         page.hide()
-        page.frameSelected("")
+        page.yes()
       }
     }
     Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
+      width: (parent.width - 2 * parent.spacing) / 3
+      text: qsTr("No")
       onClicked: {
         page.hide()
-        page.frameSelected(frameSelectList.currentItem.text)
+        page.no()
+      }
+    }
+    Button {
+      width: (parent.width - 2 * parent.spacing) / 3
+      text: qsTr("Cancel")
+      onClicked: {
+        page.hide()
+        page.rejected()
       }
     }
   }

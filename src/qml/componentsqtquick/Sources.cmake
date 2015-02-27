@@ -1,0 +1,18 @@
+set(componentsqtquick_QML_SRCS
+  componentsqtquick/ActionList.qml
+  componentsqtquick/Action.qml
+  componentsqtquick/ActionSelectionPopover.qml
+  componentsqtquick/Button.qml
+  componentsqtquick/CheckBox.qml
+  componentsqtquick/Dialog.qml
+  componentsqtquick/Empty.qml
+  componentsqtquick/Label.qml
+  componentsqtquick/MainView.qml
+  componentsqtquick/Page.qml
+  componentsqtquick/PageStack.qml
+  componentsqtquick/PopupBase.qml
+  componentsqtquick/Standard.qml
+  componentsqtquick/TextArea.qml
+  componentsqtquick/TextField.qml
+  componentsqtquick/ThinDivider.qml
+)

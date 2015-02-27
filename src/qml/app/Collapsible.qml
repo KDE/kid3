@@ -22,7 +22,7 @@
  */
 
 import QtQuick 2.2
-import "ComponentsQtQuick" //@!Ubuntu
+import "../componentsqtquick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 
 Column {

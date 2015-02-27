@@ -22,7 +22,7 @@
  */
 
 import QtQuick 2.2
-import ".."
+import "../app"
 
 DropDownList {
   id: dropDownList

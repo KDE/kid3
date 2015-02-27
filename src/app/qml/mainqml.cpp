@@ -143,14 +143,16 @@ int main(int argc, char* argv[])
     QString qmlPath(qmlDir);
     Utils::prependApplicationDirPathIfRelative(qmlPath);
     qmlPath += QDir::separator();
-    qmlPath += QLatin1String("main.qml");
+    qmlPath += QLatin1String("app");
+    qmlPath += QDir::separator();
+    qmlPath += QLatin1String("Main.qml");
     if (QFile::exists(qmlPath)) {
       mainQmlPath = qmlPath;
       break;
     }
   }
   if (mainQmlPath.isEmpty()) {
-    qWarning("Could not find main.qml in the following paths:\n%s",
+    qWarning("Could not find app/Main.qml in the following paths:\n%s",
              qPrintable(qmlDirs.join(QLatin1String("\n"))));
     return 1;
   }
