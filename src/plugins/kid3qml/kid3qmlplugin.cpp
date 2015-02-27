@@ -1,5 +1,5 @@
 /**
- * \file kid3appqmlplugin.cpp
+ * \file kid3qmlplugin.cpp
  * QML plugin for Kid3 application.
  *
  * \b Project: Kid3
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kid3appqmlplugin.h"
+#include "kid3qmlplugin.h"
 #include <QCoreApplication>
 #if QT_VERSION >= 0x050000
 #include <QQmlComponent>
@@ -61,7 +61,7 @@
 #endif
 
 #if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Kid3AppQmlPlugin, Kid3AppQmlPlugin)
+Q_EXPORT_PLUGIN2(Kid3QmlPlugin, Kid3QmlPlugin)
 Q_DECLARE_METATYPE(QModelIndex)
 #endif
 
@@ -140,7 +140,7 @@ QString getPluginsPathFromImportPathList(
  * Constructor.
  * @param parent parent object
  */
-Kid3AppQmlPlugin::Kid3AppQmlPlugin(QObject* parent) :
+Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent) :
 #if QT_VERSION >= 0x050000
   QQmlExtensionPlugin(parent)
 #else
@@ -153,7 +153,7 @@ Kid3AppQmlPlugin::Kid3AppQmlPlugin(QObject* parent) :
 /**
  * Destructor.
  */
-Kid3AppQmlPlugin::~Kid3AppQmlPlugin()
+Kid3QmlPlugin::~Kid3QmlPlugin()
 {
   delete m_imageProvider;
   if (m_ownsKid3App) {
@@ -164,15 +164,15 @@ Kid3AppQmlPlugin::~Kid3AppQmlPlugin()
 
 /**
  * Register the types used by the QML plugin.
- * @param uri URI of imported module, must be "Kid3App"
+ * @param uri URI of imported module, must be "Kid3"
  */
-void Kid3AppQmlPlugin::registerTypes(const char *uri)
+void Kid3QmlPlugin::registerTypes(const char *uri)
 {
-  if (qstrcmp(uri, "Kid3App") == 0) {
+  if (qstrcmp(uri, "Kid3") == 0) {
     qRegisterMetaType<QList<QPersistentModelIndex> >();
     qRegisterMetaType<Frame::TagVersion>();
     qRegisterMetaType<QAbstractItemModel*>();
-    // @uri Kid3App
+    // @uri Kid3
     qmlRegisterUncreatableType<Kid3Application>(uri, 1, 0, "Kid3Application",
         QLatin1String("Retrieve it using app"));
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
@@ -226,9 +226,9 @@ void Kid3AppQmlPlugin::registerTypes(const char *uri)
 /**
  * Initialize the QML engine when the plugin is imported.
  * @param engine QML engine
- * @param uri URI of imported module, must be "Kid3App"
+ * @param uri URI of imported module, must be "Kid3"
  */
-void Kid3AppQmlPlugin::initializeEngine(
+void Kid3QmlPlugin::initializeEngine(
 #if QT_VERSION >= 0x050000
     QQmlEngine* engine
 #else
@@ -236,7 +236,7 @@ void Kid3AppQmlPlugin::initializeEngine(
 #endif
     , const char* uri)
 {
-  if (qstrcmp(uri, "Kid3App") == 0) {
+  if (qstrcmp(uri, "Kid3") == 0) {
     Kid3Application::setPluginsPathFallback(
           getPluginsPathFromImportPathList(engine));
 #if QT_VERSION >= 0x050000

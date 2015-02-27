@@ -167,6 +167,17 @@ public:
   Q_INVOKABLE static QString tempPath();
 
   /**
+   * List directory entries.
+   * @param path directory path
+   * @param nameFilters list of name filters, e.g. ["*.jpg", "*.png"]
+   * @param classify if true, add /, @, * for directories, symlinks, executables
+   * @return list of directory entries.
+   */
+  Q_INVOKABLE static QStringList listDir(
+      const QString& path, const QStringList& nameFilters = QStringList(),
+      bool classify = false);
+
+  /**
    * Synchronously start a system command.
    * @param program executable
    * @param args arguments
@@ -193,6 +204,12 @@ public:
    */
   Q_INVOKABLE static bool setEnv(const QByteArray& varName,
                                  const QByteArray& value);
+
+  /**
+   * Get version of Qt.
+   * @return Qt version string, e.g. "5.4.1".
+   */
+  Q_INVOKABLE static QString getQtVersion();
 
   /**
    * Load an image from a file.

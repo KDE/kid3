@@ -260,6 +260,30 @@ QString ScriptUtils::tempPath()
 }
 
 /**
+ * List directory entries.
+ * @param path directory path
+ * @param nameFilters list of name filters, e.g. ["*.jpg", "*.png"]
+ * @param classify if true, add /, @, * for directories, symlinks, executables
+ * @return list of directory entries.
+ */
+QStringList ScriptUtils::listDir(
+    const QString& path, const QStringList& nameFilters, bool classify)
+{
+  QStringList dirList;
+  QFileInfoList entries = QDir(path).entryInfoList(nameFilters);
+  foreach (const QFileInfo& fi, entries) {
+    QString fileName = fi.fileName();
+    if (classify) {
+      if (fi.isDir()) fileName += QLatin1Char('/');
+      else if (fi.isSymLink()) fileName += QLatin1Char('@');
+      else if (fi.isExecutable()) fileName += QLatin1Char('*');
+    }
+    dirList.append(fileName);
+  }
+  return dirList;
+}
+
+/**
  * Synchronously start a system command.
  * @param program executable
  * @param args arguments
@@ -299,6 +323,15 @@ QByteArray ScriptUtils::getEnv(const QByteArray& varName)
 bool ScriptUtils::setEnv(const QByteArray& varName, const QByteArray& value)
 {
   return qputenv(varName, value);
+}
+
+/**
+ * Get version of Qt.
+ * @return Qt version string, e.g. "5.4.1".
+ */
+QString ScriptUtils::getQtVersion()
+{
+  return QString::fromLatin1(qVersion());
 }
 
 /**

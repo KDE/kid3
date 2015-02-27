@@ -54,8 +54,6 @@ qt4_wrap_cpp(qml_GEN_MOC_SRCS ${qml_MOC_HDRS})
 set(qml_SRCS ${qml_SRCS} ${qml_GEN_MOC_SRCS})
 
 add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
-set(qml_RESOURCES )
-qt4_add_resources(qml_GEN_RCS ${qml_RESOURCES})
 add_executable(kid3-qml MACOSX_BUNDLE WIN32
   ${qml_SRCS} ${qml_GEN_RCS} ${qml_QML_SRCS})
 
@@ -78,7 +76,7 @@ if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
   install(CODE "
     execute_process(
       COMMAND ${PERL_EXECUTABLE}
-        ${CMAKE_CURRENT_SOURCE_DIR}/qmlpp.pl ${_qmlpp_code}
+        ${kid3_SOURCE_DIR}/src/plugins/kid3qml/qmlpp.pl ${_qmlpp_code}
       WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}\"
     )
     ")

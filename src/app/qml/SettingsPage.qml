@@ -26,7 +26,7 @@ import "ComponentsQtQuick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 //import Ubuntu.Components.Popups 1.0 //@Ubuntu
 //import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3App 1.0
+import Kid3 1.0
 
 AbstractSettingsPage {
   id: page

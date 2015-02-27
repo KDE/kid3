@@ -22,7 +22,7 @@
  */
 
 import QtQuick 2.2
-import Kid3App 1.0
+import Kid3 1.0
 
 Collapsible {
   text: qsTr("Picture")

@@ -25,7 +25,7 @@ import QtQuick 2.2
 import "ComponentsQtQuick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 //import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3App 1.0
+import Kid3 1.0
 
 Empty {
   id: frameDelegate

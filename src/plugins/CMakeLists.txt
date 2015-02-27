@@ -39,7 +39,7 @@ add_subdirectory(oggflacmetadata)
 add_subdirectory(mp4v2metadata)
 if (WITH_QML)
   add_subdirectory(qmlcommand)
-  add_subdirectory(kid3appqml)
+  add_subdirectory(kid3qml)
 endif (WITH_QML)
 
 set(PLUGIN_LIBRARIES ${PLUGIN_LIBRARIES} PARENT_SCOPE)

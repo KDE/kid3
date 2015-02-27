@@ -1,5 +1,5 @@
 /**
- * \file kid3appqmlplugin.h
+ * \file kid3qmlplugin.h
  * QML plugin for Kid3 application.
  *
  * \b Project: Kid3
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3APPQMLPLUGIN_H
-#define KID3APPQMLPLUGIN_H
+#ifndef KID3QMLPLUGIN_H
+#define KID3QMLPLUGIN_H
 
 #include <QtGlobal>
 #include "kid3api.h"
@@ -43,7 +43,7 @@ class QmlImageProvider;
 /**
  * QML plugin for Kid3 application.
  */
-class KID3_PLUGIN_EXPORT Kid3AppQmlPlugin : public
+class KID3_PLUGIN_EXPORT Kid3QmlPlugin : public
 #if QT_VERSION >= 0x050000
 QQmlExtensionPlugin
 #else
@@ -59,23 +59,23 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit Kid3AppQmlPlugin(QObject* parent = 0);
+  explicit Kid3QmlPlugin(QObject* parent = 0);
 
   /**
    * Destructor.
    */
-  virtual ~Kid3AppQmlPlugin();
+  virtual ~Kid3QmlPlugin();
 
   /**
    * Register the types used by the QML plugin.
-   * @param uri URI of imported module, must be "Kid3App"
+   * @param uri URI of imported module, must be "Kid3"
    */
   virtual void registerTypes(const char* uri);
 
   /**
    * Initialize the QML engine when the plugin is imported.
    * @param engine QML engine
-   * @param uri URI of imported module, must be "Kid3App"
+   * @param uri URI of imported module, must be "Kid3"
    */
   virtual void initializeEngine(
 #if QT_VERSION >= 0x050000
@@ -92,4 +92,4 @@ private:
   bool m_ownsKid3App;
 };
 
-#endif // KID3APPQMLPLUGIN_H
+#endif // KID3QMLPLUGIN_H
