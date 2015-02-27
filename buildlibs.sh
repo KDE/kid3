@@ -49,7 +49,7 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.4.0
+qt_version=5.4.1
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
@@ -218,7 +218,7 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 if test "$compiler" = "cross-mingw"; then
 test -f mingw.cmake ||
 cat >mingw.cmake <<EOF
-set(QT_PREFIX /windows/Qt/Qt5.4.0/5.4/mingw491_32)
+set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version%.?}/mingw491_32)
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
@@ -237,6 +237,15 @@ set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
 set(QT_QMAKE_EXECUTABLE  \${QT_BINARY_DIR}/qmake)
 set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
+
+foreach (_exe moc rcc lupdate lrelease uic)
+  if (NOT TARGET Qt5::\${_exe})
+    add_executable(Qt5::\${_exe} IMPORTED)
+    set_target_properties(Qt5::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
 EOF
 fi
 
