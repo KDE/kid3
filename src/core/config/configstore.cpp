@@ -31,8 +31,9 @@
  * Current configuration file version.
  * 0: <= 3.0.2
  * 1: 3.1
+ * 2: 3.2
  */
-static const int CONFIG_VERSION = 1;
+static const int CONFIG_VERSION = 2;
 
 /** Version of configuration file read, -1 if not read yet. */
 int ConfigStore::s_configVersion = -1;

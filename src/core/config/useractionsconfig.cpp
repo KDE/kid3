@@ -27,6 +27,7 @@
 #include "useractionsconfig.h"
 #include <QStringList>
 #include <stdlib.h>
+#include "config.h"
 
 int UserActionsConfig::s_index = -1;
 
@@ -132,6 +133,16 @@ void UserActionsConfig::readFromConfig(ISettings* config)
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("LyrDB LRC"), QLatin1String("%{browser} http://lyrdb.com/karaoke/index.htm?q=%u{artist}+%u{title}&action=search")));
   }
+#ifdef HAVE_QML
+  if (ConfigStore::getConfigVersion() < 2) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("QML Console"), QLatin1String("@qmlview %{qmlpath}/script/QmlConsole.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("ReplayGain to SoundCheck"), QLatin1String("@qml %{qmlpath}/script/ReplayGain2SoundCheck.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Resize Album Art"), QLatin1String("@qml %{qmlpath}/script/ResizeAlbumArt.qml"), false, true));
+  }
+#endif
 }
 
 void UserActionsConfig::setContextMenuCommands(const QList<MenuCommand>& contextMenuCommands)
