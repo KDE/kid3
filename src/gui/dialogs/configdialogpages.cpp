@@ -65,7 +65,7 @@ ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
   m_maximumPictureSizeSpinBox(0), m_genreNotNumericCheckBox(0),
   m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
-  m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_id3FormatBox(0),
+  m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_tagFormatBox(0),
   m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
   m_quickAccessTagsModel(0), m_playOnDoubleClickCheckBox(0),
   m_commandsTable(0), m_commandsTableModel(0), m_browserLineEdit(0),
@@ -213,9 +213,9 @@ QWidget* ConfigDialogPages::createTagsPage()
 
   QWidget* tag1AndTag2Page = new QWidget;
   QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
-  QString id3FormatTitle(tr("&Tag Format"));
-  m_id3FormatBox = new FormatBox(id3FormatTitle, tag1AndTag2Page);
-  tag1AndTag2Layout->addWidget(m_id3FormatBox);
+  QString tagFormatTitle(tr("&Tag Format"));
+  m_tagFormatBox = new FormatBox(tagFormatTitle, tag1AndTag2Page);
+  tag1AndTag2Layout->addWidget(m_tagFormatBox);
 
   QTabWidget* tagsTabWidget = new QTabWidget;
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v11) {
@@ -389,7 +389,7 @@ void ConfigDialogPages::setConfig()
   const ImportConfig& importCfg = ImportConfig::instance();
 
   m_fnFormatBox->fromFormatConfig(fnCfg);
-  m_id3FormatBox->fromFormatConfig(id3Cfg);
+  m_tagFormatBox->fromFormatConfig(id3Cfg);
   m_markTruncationsCheckBox->setChecked(tagCfg.markTruncations());
   m_totalNumTracksCheckBox->setChecked(tagCfg.enableTotalNumberOfTracks());
   m_loadLastOpenedFileCheckBox->setChecked(fileCfg.loadLastOpenedFile());
@@ -481,7 +481,7 @@ void ConfigDialogPages::getConfig() const
   ImportConfig& importCfg = ImportConfig::instance();
 
   m_fnFormatBox->toFormatConfig(fnCfg);
-  m_id3FormatBox->toFormatConfig(id3Cfg);
+  m_tagFormatBox->toFormatConfig(id3Cfg);
   tagCfg.setMarkTruncations(m_markTruncationsCheckBox->isChecked());
   tagCfg.setEnableTotalNumberOfTracks(m_totalNumTracksCheckBox->isChecked());
   fileCfg.setLoadLastOpenedFile(m_loadLastOpenedFileCheckBox->isChecked());

@@ -215,9 +215,9 @@ void KdeMainWindow::initActions()
   KAction* toolsApplyFilenameFormat = new KAction(tr("Apply &Filename Format"), this);
   actionCollection()->addAction(QLatin1String("apply_filename_format"), toolsApplyFilenameFormat);
   connect(toolsApplyFilenameFormat, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
-  KAction* toolsApplyId3Format = new KAction(tr("Apply &Tag Format"), this);
-  actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyId3Format);
-  connect(toolsApplyId3Format, SIGNAL(triggered()), app(), SLOT(applyId3Format()));
+  KAction* toolsApplyTagFormat = new KAction(tr("Apply &Tag Format"), this);
+  actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyTagFormat);
+  connect(toolsApplyTagFormat, SIGNAL(triggered()), app(), SLOT(applyTagFormat()));
   KAction* toolsApplyTextEncoding = new KAction(tr("Apply Text &Encoding"), this);
   actionCollection()->addAction(QLatin1String("apply_text_encoding"), toolsApplyTextEncoding);
   connect(toolsApplyTextEncoding, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));

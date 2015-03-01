@@ -308,7 +308,7 @@ void ScriptInterface::applyFilenameFormat()
  */
 void ScriptInterface::applyTagFormat()
 {
-  m_app->applyId3Format();
+  m_app->applyTagFormat();
 }
 
 /**

@@ -374,14 +374,14 @@ void Kid3MainWindow::initActions()
     app(), SLOT(applyFilenameFormat()));
   toolsMenu->addAction(toolsApplyFilenameFormat);
 
-  QAction* toolsApplyId3Format = new QAction(this);
-  toolsApplyId3Format->setStatusTip(tr("Apply Tag Format"));
-  toolsApplyId3Format->setText(tr("Apply &Tag Format"));
-  toolsApplyId3Format->setObjectName(QLatin1String("apply_id3_format"));
-  m_shortcutsModel->registerAction(toolsApplyId3Format, menuTitle);
-  connect(toolsApplyId3Format, SIGNAL(triggered()),
-    app(), SLOT(applyId3Format()));
-  toolsMenu->addAction(toolsApplyId3Format);
+  QAction* toolsApplyTagFormat = new QAction(this);
+  toolsApplyTagFormat->setStatusTip(tr("Apply Tag Format"));
+  toolsApplyTagFormat->setText(tr("Apply &Tag Format"));
+  toolsApplyTagFormat->setObjectName(QLatin1String("apply_id3_format"));
+  m_shortcutsModel->registerAction(toolsApplyTagFormat, menuTitle);
+  connect(toolsApplyTagFormat, SIGNAL(triggered()),
+    app(), SLOT(applyTagFormat()));
+  toolsMenu->addAction(toolsApplyTagFormat);
 
   QAction* toolsApplyTextEncoding = new QAction(this);
   toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));

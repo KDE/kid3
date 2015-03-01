@@ -134,7 +134,7 @@ private:
   /** Filename Format box */
   FormatBox* m_fnFormatBox;
   /** ID3 Format box */
-  FormatBox* m_id3FormatBox;
+  FormatBox* m_tagFormatBox;
   /** Only custom genres checkbox */
   QCheckBox* m_onlyCustomGenresCheckBox;
   /** Model with list of custom genres */

@@ -697,7 +697,7 @@ TagFormatCommand::TagFormatCommand(Kid3Cli* processor) :
 
 void TagFormatCommand::startCommand()
 {
-  cli()->app()->applyId3Format();
+  cli()->app()->applyTagFormat();
 }
 
 

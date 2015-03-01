@@ -758,9 +758,9 @@ public slots:
   void applyFilenameFormat();
 
   /**
-   * Apply ID3 format.
+   * Apply tag format.
    */
-  void applyId3Format();
+  void applyTagFormat();
 
   /**
    * Apply text encoding.

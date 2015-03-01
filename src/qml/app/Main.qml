@@ -129,7 +129,7 @@ MainView {
         }
         Action {
           text: qsTr("Apply Tag Format")
-          onTriggered: app.applyId3Format()
+          onTriggered: app.applyTagFormat()
         }
         Action {
           text: qsTr("Apply Text Encoding")

@@ -1199,9 +1199,9 @@ void Kid3Application::applyFilenameFormat()
 }
 
 /**
- * Apply ID3 format.
+ * Apply tag format.
  */
-void Kid3Application::applyId3Format()
+void Kid3Application::applyTagFormat()
 {
   emit fileSelectionUpdateRequested();
   FrameCollection frames;
