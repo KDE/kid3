@@ -244,15 +244,16 @@ void QmlCommandPlugin::onQmlViewClosing()
 void QmlCommandPlugin::onQmlViewFinished()
 {
   if (m_qmlView) {
+    m_qmlView->close();
 #if QT_VERSION >= 0x050000
     // Unfortunately, calling close() on the QQuickView will not give a
     // QEvent::Close in an installed event filter, there is no closeEvent(),
     // closing() is not signalled. What remains is the hard way.
-    m_qmlView->deleteLater();
+    // Calling m_qmlView->deleteLater() will cause a crash when the QML console
+    // is started, a command executed (e.g. app.nextFile()), then .quit and
+    // then a qml script is started.
     m_qmlView = 0;
     QTimer::singleShot(0, this, SLOT(onEngineFinished()));
-#else
-    m_qmlView->close();
 #endif
   }
 }
