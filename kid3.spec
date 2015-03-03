@@ -139,6 +139,7 @@ Authors: Urs Fleisch
 %{_libdir}/kid3/*
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/kid3/translations/
+%{_datadir}/kid3/qml/script/
 %{_mandir}/man1/kid3.1.gz
 %{_mandir}/de/man1/kid3.1.gz
 
