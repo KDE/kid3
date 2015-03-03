@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -416,189 +416,6 @@ msgstr "Kenny Verstraete, Toon van Gerwen"
 msgid "Your emails"
 msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
 
-msgid "Automatic Import"
-msgstr "Automatisch importeren"
-
-msgid "Destination:"
-msgstr "Bestemming:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 en Tag 2"
-
-msgid "Profile:"
-msgstr "Profiel:"
-
-msgid "Close"
-msgstr "Sluiten"
-
-msgid "Start"
-msgstr "Starten"
-
-msgid "Cancel"
-msgstr "Annuleren"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Filter:"
-msgstr "Filter:"
-
-msgid "Expression:"
-msgstr "Uitdrukking:"
-
-msgid "Apply"
-msgstr "Toepassen"
-
-msgid "Export"
-msgstr "Exporteren"
-
-msgid "Import"
-msgstr "Importeren"
-
-msgid "Add Frame"
-msgstr "Frame toevoegen"
-
-msgid "Select the frame ID"
-msgstr "Selecteer de frame identiteit"
-
-msgid " [modified]"
-msgstr " [gewijzigd]"
-
-msgid " [filtered]"
-msgstr " [gefiltert]"
-
-msgid "Warning"
-msgstr "Waarschuwing"
-
-msgid "The current directory has been modified.\n"
-msgstr "De huidige map is gewijzigd."
-
-msgid "Settings"
-msgstr "Instellingen"
-
-msgid "Apply Filename Format"
-msgstr "Bestandsnaamstructuur Toepassen"
-
-msgid "Apply Tag Format"
-msgstr "Tagstructuur toepassen"
-
-msgid "Apply Text Encoding"
-msgstr "Tekst-codering toepassen"
-
-msgid "Rename Directory"
-msgstr "Map hernoemen"
-
-msgid "Number Tracks"
-msgstr "Tracks nummeren"
-
-msgid "Create Playlist"
-msgstr "Multimedia afspeellijst maken"
-
-msgid "Save"
-msgstr "Opslaan"
-
-msgid "Quit"
-msgstr "Afsluiten"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "No"
-msgstr "Nee"
-
-msgid "Start number:"
-msgstr "Start nummer:"
-
-msgid "Total number of tracks"
-msgstr "Totaal aantal tracks"
-
-msgid "Picture"
-msgstr "Afbeelding"
-
-msgid "Action:"
-msgstr "Actie:"
-
-msgid "Create Directory"
-msgstr "Map aanmaken"
-
-msgid "Source:"
-msgstr "Bron:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Van Tag 2 en Tag 1"
-
-msgid "Format:"
-msgstr "Structuur:"
-
-msgid "Preview"
-msgstr "Voorbeeld"
-
-msgid "Mark truncated fields"
-msgstr "Markeer afgebroken velden"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 tekst-Codering"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 tekst-Codering"
-
-msgid "Use track/total number of tracks format"
-msgstr "Track/totaal aantal tracks structuur gebruiken"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Genre als tekst in plaats van nummer"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Gebruikte versie voor nieuwe Tags"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis naam commentaarveld"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis naam afbeeldingsveld"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Markeer indien groter dan de maximale"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Maximum grootte (bytes)"
-
-msgid "Show only custom genres"
-msgstr "Toon alleen aangepaste genres"
-
-msgid "Case conversion"
-msgstr "Hoofd-/kleine letter"
-
-msgid "Locale"
-msgstr "Taal"
-
-msgid "String replacement"
-msgstr "Tekenreeks vervangen"
-
-msgid "Load last-opened files"
-msgstr "Laatstgeopende bestanden laden"
-
-msgid "Preserve file timestamp"
-msgstr "Tijdstempel van bestanden behouden"
-
-msgid "Mark changes"
-msgstr "Markeer wijzigingen"
-
-msgid "Format while editing"
-msgstr "Opmaak gebruiken tijdens het opslaan van bestanden"
-
-msgid "Filename for cover"
-msgstr "Bestandsnaam voor de hoesafbeelding"
-
-msgid "To filename format"
-msgstr "Do bestandsnaamstructuur"
-
-msgid "From filename format"
-msgstr "Van bestandsnaamstructuur"
-
-msgid "To Filename"
-msgstr "Do bestandsnaam"
-
 msgid "&Back"
 msgstr "&Vorige"
 
@@ -719,6 +536,21 @@ msgstr "Ve&rvangen..."
 msgid "&Tools"
 msgstr "H&ulpmiddelen"
 
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamstructuur Toepassen"
+
+msgid "Apply Tag Format"
+msgstr "Tagstructuur toepassen"
+
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+msgid "Rename Directory"
+msgstr "Map hernoemen"
+
+msgid "Number Tracks"
+msgstr "Tracks nummeren"
+
 msgid "&Settings"
 msgstr "&Instellingen"
 
@@ -763,6 +595,9 @@ msgstr "Over Qt"
 
 msgid "About &Qt"
 msgstr "Over &Qt"
+
+msgid " [modified]"
+msgstr " [gewijzigd]"
 
 msgid "Toggle the statusbar..."
 msgstr "De statusbalk omschakelen..."
@@ -856,6 +691,9 @@ msgstr "URL-adressen"
 
 msgid "Directory name"
 msgstr "Mapnaam"
+
+msgid "QML base directory"
+msgstr "QML basismap"
 
 msgid "Encode as URL"
 msgstr "Coderen als URL-adres"
@@ -1274,6 +1112,9 @@ msgstr "Deel"
 msgid "Performer"
 msgstr "Artiest/uitvoerende"
 
+msgid "Picture"
+msgstr "Afbeelding"
+
 msgid "Publisher"
 msgstr "Uitgever"
 
@@ -1385,8 +1226,14 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Automatisch importeren"
+
 msgid "D&estination:"
 msgstr "&Bestemming:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 en Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profiel:"
@@ -1429,6 +1276,9 @@ msgstr "A&rtiest / Album"
 
 msgid "&Source"
 msgstr "&Bron"
+
+msgid "Source:"
+msgstr "Bron:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1520,6 +1370,9 @@ msgstr "Opstarten"
 msgid "&Load last-opened files"
 msgstr "&Laatstgeopende bestanden laden"
 
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "&Preserve file timestamp"
 msgstr "Tij&dstempel van bestanden behouden"
 
@@ -1576,6 +1429,9 @@ msgstr "&Beeld..."
 
 msgid "Images"
 msgstr "Afbeeldingen"
+
+msgid "Export"
+msgstr "Exporteren"
 
 msgid "&Format:"
 msgstr "Bestandsnaam volgens &tructuur:"
@@ -1685,6 +1541,9 @@ msgstr "Teller &resetten voor elke map"
 msgid "&Total number of tracks:"
 msgstr "&Totaal aantal tracks:"
 
+msgid "Create Playlist"
+msgstr "Multimedia afspeellijst maken"
+
 msgid "Playlist File Name"
 msgstr "Bestandsnaam van  multimedia afspeellijst"
 
@@ -1730,8 +1589,17 @@ msgstr "Bewaar enkel &lijst met bestanden"
 msgid "Write &info using"
 msgstr "Bewaar &info gebruik makend van"
 
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "Create Directory"
+msgstr "Map aanmaken"
+
 msgid "&Action:"
 msgstr "A&ctie:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Van Tag 2 en Tag 1"
 
 msgid "From:"
 msgstr "Van:"
@@ -1756,6 +1624,9 @@ msgstr "Geen resultaat geselecteerd"
 
 msgid "Import from Tags"
 msgstr "Importeer van Tags"
+
+msgid "Format:"
+msgstr "Structuur:"
 
 msgid "Extraction:"
 msgstr "Extractie:"
@@ -1796,14 +1667,29 @@ msgstr ""
 "De huidige map is gewijzigd.\n"
 "Wenst u de wijzigingen op te slaan?"
 
+msgid "Warning"
+msgstr "Waarschuwing"
+
 msgid "Exiting..."
 msgstr "Bezig met afsluiten..."
 
 msgid "Creating playlist..."
 msgstr "Speellijst Aanmaken..."
 
+msgid "Import"
+msgstr "Importeren"
+
 msgid "Error while renaming:\n"
 msgstr "Fout tijdens hernoemen:\n"
+
+msgid " [filtered]"
+msgstr " [gefiltert]"
+
+msgid "Add Frame"
+msgstr "Frame toevoegen"
+
+msgid "Select the frame ID"
+msgstr "Selecteer de frame identiteit"
 
 msgid "Rename File"
 msgstr "Bestand hernoemen"
@@ -1897,6 +1783,9 @@ msgstr "Rij &Verwijderen"
 msgid "&Clear row"
 msgstr "Rij &Wissen"
 
+msgid "Format while editing"
+msgstr "Opmaak gebruiken tijdens het opslaan van bestanden"
+
 msgid "Validation"
 msgstr "Validatie"
 
@@ -1944,6 +1833,9 @@ msgstr "Vorige track"
 
 msgid "Next Track"
 msgstr "Volgende track"
+
+msgid "Close"
+msgstr "Sluiten"
 
 msgid "Mute"
 msgstr "Dempen"
@@ -2295,3 +2187,114 @@ msgstr "TSOT - Sorteervolgorde titel"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - ingestelde ondertitel"
+
+msgid "Destination:"
+msgstr "Bestemming:"
+
+msgid "Profile:"
+msgstr "Profiel:"
+
+msgid "Start"
+msgstr "Starten"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Expression:"
+msgstr "Uitdrukking:"
+
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "The current directory has been modified.\n"
+msgstr "De huidige map is gewijzigd."
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Start number:"
+msgstr "Start nummer:"
+
+msgid "Total number of tracks"
+msgstr "Totaal aantal tracks"
+
+msgid "Action:"
+msgstr "Actie:"
+
+msgid "Mark truncated fields"
+msgstr "Markeer afgebroken velden"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 tekst-Codering"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 tekst-Codering"
+
+msgid "Use track/total number of tracks format"
+msgstr "Track/totaal aantal tracks structuur gebruiken"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Genre als tekst in plaats van nummer"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Gebruikte versie voor nieuwe Tags"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis naam commentaarveld"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis naam afbeeldingsveld"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Markeer indien groter dan de maximale"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maximum grootte (bytes)"
+
+msgid "Show only custom genres"
+msgstr "Toon alleen aangepaste genres"
+
+msgid "Case conversion"
+msgstr "Hoofd-/kleine letter"
+
+msgid "Locale"
+msgstr "Taal"
+
+msgid "String replacement"
+msgstr "Tekenreeks vervangen"
+
+msgid "Load last-opened files"
+msgstr "Laatstgeopende bestanden laden"
+
+msgid "Preserve file timestamp"
+msgstr "Tijdstempel van bestanden behouden"
+
+msgid "Mark changes"
+msgstr "Markeer wijzigingen"
+
+msgid "Filename for cover"
+msgstr "Bestandsnaam voor de hoesafbeelding"
+
+msgid "To filename format"
+msgstr "Do bestandsnaamstructuur"
+
+msgid "From filename format"
+msgstr "Van bestandsnaamstructuur"
+
+msgid "To Filename"
+msgstr "Do bestandsnaam"

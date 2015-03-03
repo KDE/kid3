@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -417,189 +417,6 @@ msgstr "Егор С. Орлов"
 msgid "Your emails"
 msgstr "Egor.Orlov@avalon.ru"
 
-msgid "Automatic Import"
-msgstr "Автоматически импортировать"
-
-msgid "Destination:"
-msgstr "Место назначения:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Тег 1 и тег 2"
-
-msgid "Profile:"
-msgstr "Профиль:"
-
-msgid "Close"
-msgstr "Закрыть"
-
-msgid "Start"
-msgstr "Начало"
-
-msgid "Cancel"
-msgstr "Отмена"
-
-msgid "OK"
-msgstr "ОК"
-
-msgid "Filter:"
-msgstr "Фильтр:"
-
-msgid "Expression:"
-msgstr "Выражение:"
-
-msgid "Apply"
-msgstr "Применить"
-
-msgid "Export"
-msgstr "Экспорт"
-
-msgid "Import"
-msgstr "Импорт"
-
-msgid "Add Frame"
-msgstr "Добавить Фрейм"
-
-msgid "Select the frame ID"
-msgstr "Выбрать ID фрейма"
-
-msgid " [modified]"
-msgstr " [изменено]"
-
-msgid " [filtered]"
-msgstr " [фильтровано]"
-
-msgid "Warning"
-msgstr "Предупреждение"
-
-msgid "The current directory has been modified.\n"
-msgstr "Текущий каталог был изменен."
-
-msgid "Settings"
-msgstr "Настройка"
-
-msgid "Apply Filename Format"
-msgstr "Применить Формат имени файла"
-
-msgid "Apply Tag Format"
-msgstr "Применить формат тэга"
-
-msgid "Apply Text Encoding"
-msgstr "Применить Кодировка Текста"
-
-msgid "Rename Directory"
-msgstr "Переименовать Каталог"
-
-msgid "Number Tracks"
-msgstr "Пронумеровать дорожки по порядку"
-
-msgid "Create Playlist"
-msgstr "Cоздать список песен"
-
-msgid "Save"
-msgstr "Сохранить"
-
-msgid "Quit"
-msgstr "Выход"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
-
-msgid "Start number:"
-msgstr "Число начала:"
-
-msgid "Total number of tracks"
-msgstr "Общее Количество дорожек"
-
-msgid "Picture"
-msgstr "Картинка"
-
-msgid "Action:"
-msgstr "Действие:"
-
-msgid "Create Directory"
-msgstr "Создать Каталог"
-
-msgid "Source:"
-msgstr "Источник:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Из тег 2 и тег 1"
-
-msgid "Format:"
-msgstr "Формат:"
-
-msgid "Preview"
-msgstr "Просмотр"
-
-msgid "Mark truncated fields"
-msgstr "Отметить обрезанные структуры"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 кодировка Текста"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 кодировка Текста"
-
-msgid "Use track/total number of tracks format"
-msgstr "Формат использования число/количество дорожек"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Жанр как текст"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Версия, используемая для нового тегов"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis имя структур коментэри"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis имя структур картинки"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Отметить, если больше, чем"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Максимальный размер (байт)"
-
-msgid "Show only custom genres"
-msgstr "Показывать только выборочная жанры"
-
-msgid "Case conversion"
-msgstr "Преобразование Регистра"
-
-msgid "Locale"
-msgstr "Локаль"
-
-msgid "String replacement"
-msgstr "Замена строк"
-
-msgid "Load last-opened files"
-msgstr "Загружать при запуске файлы, открытые при последнем выходе"
-
-msgid "Preserve file timestamp"
-msgstr "Сохранять время изменения файлов"
-
-msgid "Mark changes"
-msgstr "Отмечать изменения"
-
-msgid "Format while editing"
-msgstr "Форматировать при редактировании"
-
-msgid "Filename for cover"
-msgstr "Имя файла для изображения"
-
-msgid "To filename format"
-msgstr "Формат к имени файла"
-
-msgid "From filename format"
-msgstr "Формат из имени файла"
-
-msgid "To Filename"
-msgstr "К имени файла"
-
 msgid "&Back"
 msgstr "&Дорожка"
 
@@ -720,6 +537,21 @@ msgstr "&Заменить..."
 msgid "&Tools"
 msgstr "&Сервис"
 
+msgid "Apply Filename Format"
+msgstr "Применить Формат имени файла"
+
+msgid "Apply Tag Format"
+msgstr "Применить формат тэга"
+
+msgid "Apply Text Encoding"
+msgstr "Применить Кодировка Текста"
+
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
+
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки по порядку"
+
 msgid "&Settings"
 msgstr "&Настройка"
 
@@ -764,6 +596,9 @@ msgstr "О Qt"
 
 msgid "About &Qt"
 msgstr "О &Qt"
+
+msgid " [modified]"
+msgstr " [изменено]"
 
 msgid "Toggle the statusbar..."
 msgstr "Переключение строки состояния..."
@@ -857,6 +692,9 @@ msgstr "URL"
 
 msgid "Directory name"
 msgstr "Имя каталога"
+
+msgid "QML base directory"
+msgstr "Основной каталог QML"
 
 msgid "Encode as URL"
 msgstr "Кодировать URL"
@@ -1275,6 +1113,9 @@ msgstr "Часть"
 msgid "Performer"
 msgstr "Исполнитель"
 
+msgid "Picture"
+msgstr "Картинка"
+
 msgid "Publisher"
 msgstr "Издательство"
 
@@ -1386,8 +1227,14 @@ msgstr "Кодек"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Автоматически импортировать"
+
 msgid "D&estination:"
 msgstr "М&есто назначения:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
 
 msgid "&Profile:"
 msgstr "&Профиль:"
@@ -1430,6 +1277,9 @@ msgstr "Исполнитель/&Альбом"
 
 msgid "&Source"
 msgstr "&Источник"
+
+msgid "Source:"
+msgstr "Источник:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1521,6 +1371,9 @@ msgstr "Запуск"
 msgid "&Load last-opened files"
 msgstr "&Загружать при запуске файлы, открытые при последнем выходе"
 
+msgid "Save"
+msgstr "Сохранить"
+
 msgid "&Preserve file timestamp"
 msgstr "&Сохранять время изменения файлов"
 
@@ -1578,6 +1431,9 @@ msgstr "&Вид..."
 
 msgid "Images"
 msgstr "Изображения"
+
+msgid "Export"
+msgstr "Экспорт"
 
 msgid "&Format:"
 msgstr "&Формат:"
@@ -1687,6 +1543,9 @@ msgstr "&Начинать заново в каждой папке"
 msgid "&Total number of tracks:"
 msgstr "&Общее Количество дорожек:"
 
+msgid "Create Playlist"
+msgstr "Cоздать список песен"
+
 msgid "Playlist File Name"
 msgstr "Имя файла со списком песен"
 
@@ -1732,8 +1591,17 @@ msgstr "Записать только &список файлов"
 msgid "Write &info using"
 msgstr "Записать &информацию используя"
 
+msgid "Preview"
+msgstr "Просмотр"
+
+msgid "Create Directory"
+msgstr "Создать Каталог"
+
 msgid "&Action:"
 msgstr "Д&ействие:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Из тег 2 и тег 1"
 
 msgid "From:"
 msgstr "От:"
@@ -1758,6 +1626,9 @@ msgstr "Никакой отобранный результат"
 
 msgid "Import from Tags"
 msgstr "Импорт из тег"
+
+msgid "Format:"
+msgstr "Формат:"
 
 msgid "Extraction:"
 msgstr "Добыча:"
@@ -1796,14 +1667,29 @@ msgstr ""
 "Текущий каталог был изменен.\n"
 "Хотите сохранить его?"
 
+msgid "Warning"
+msgstr "Предупреждение"
+
 msgid "Exiting..."
 msgstr "Выход..."
 
 msgid "Creating playlist..."
 msgstr "Создание списка песен..."
 
+msgid "Import"
+msgstr "Импорт"
+
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
+
+msgid " [filtered]"
+msgstr " [фильтровано]"
+
+msgid "Add Frame"
+msgstr "Добавить Фрейм"
+
+msgid "Select the frame ID"
+msgstr "Выбрать ID фрейма"
 
 msgid "Rename File"
 msgstr "Переименовать файл"
@@ -1895,6 +1781,9 @@ msgstr "&Удалить строку"
 msgid "&Clear row"
 msgstr "&Очистить строку"
 
+msgid "Format while editing"
+msgstr "Форматировать при редактировании"
+
 msgid "Validation"
 msgstr "Проверка"
 
@@ -1942,6 +1831,9 @@ msgstr "Предыдущая дорожка"
 
 msgid "Next Track"
 msgstr "Следующая дорожка"
+
+msgid "Close"
+msgstr "Закрыть"
 
 msgid "Mute"
 msgstr "Отключить звук"
@@ -2293,3 +2185,114 @@ msgstr "TSOT - Title sort order"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Set subtitle"
+
+msgid "Destination:"
+msgstr "Место назначения:"
+
+msgid "Profile:"
+msgstr "Профиль:"
+
+msgid "Start"
+msgstr "Начало"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Filter:"
+msgstr "Фильтр:"
+
+msgid "Expression:"
+msgstr "Выражение:"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "The current directory has been modified.\n"
+msgstr "Текущий каталог был изменен."
+
+msgid "Settings"
+msgstr "Настройка"
+
+msgid "Quit"
+msgstr "Выход"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Start number:"
+msgstr "Число начала:"
+
+msgid "Total number of tracks"
+msgstr "Общее Количество дорожек"
+
+msgid "Action:"
+msgstr "Действие:"
+
+msgid "Mark truncated fields"
+msgstr "Отметить обрезанные структуры"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодировка Текста"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодировка Текста"
+
+msgid "Use track/total number of tracks format"
+msgstr "Формат использования число/количество дорожек"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр как текст"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Версия, используемая для нового тегов"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis имя структур коментэри"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis имя структур картинки"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Отметить, если больше, чем"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Максимальный размер (байт)"
+
+msgid "Show only custom genres"
+msgstr "Показывать только выборочная жанры"
+
+msgid "Case conversion"
+msgstr "Преобразование Регистра"
+
+msgid "Locale"
+msgstr "Локаль"
+
+msgid "String replacement"
+msgstr "Замена строк"
+
+msgid "Load last-opened files"
+msgstr "Загружать при запуске файлы, открытые при последнем выходе"
+
+msgid "Preserve file timestamp"
+msgstr "Сохранять время изменения файлов"
+
+msgid "Mark changes"
+msgstr "Отмечать изменения"
+
+msgid "Filename for cover"
+msgstr "Имя файла для изображения"
+
+msgid "To filename format"
+msgstr "Формат к имени файла"
+
+msgid "From filename format"
+msgstr "Формат из имени файла"
+
+msgid "To Filename"
+msgstr "К имени файла"

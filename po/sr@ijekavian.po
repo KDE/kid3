@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -415,189 +415,6 @@ msgstr "Младен Пејаковић"
 msgid "Your emails"
 msgstr "pejakm@gmail.com"
 
-msgid "Automatic Import"
-msgstr "Аутоматски увози"
-
-msgid "Destination:"
-msgstr "Одредиште:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "ознака 1 и ознака 2"
-
-msgid "Profile:"
-msgstr "Профил:"
-
-msgid "Close"
-msgstr "Затвори"
-
-msgid "Start"
-msgstr "Почетак"
-
-msgid "Cancel"
-msgstr "Одустани"
-
-msgid "OK"
-msgstr "У реду"
-
-msgid "Filter:"
-msgstr "Филтер:"
-
-msgid "Expression:"
-msgstr "Израз:"
-
-msgid "Apply"
-msgstr "Примијени"
-
-msgid "Export"
-msgstr "Извези"
-
-msgid "Import"
-msgstr "Увези"
-
-msgid "Add Frame"
-msgstr "Додај оквир"
-
-msgid "Select the frame ID"
-msgstr "Изаберите ИД оквира"
-
-msgid " [modified]"
-msgstr " [измијењен]"
-
-msgid " [filtered]"
-msgstr " [филтриран]"
-
-msgid "Warning"
-msgstr "Упозорење"
-
-msgid "The current directory has been modified.\n"
-msgstr "Тренутни директоријум је измијењен."
-
-msgid "Settings"
-msgstr "Подешавање"
-
-msgid "Apply Filename Format"
-msgstr "Примијени формат назива фајла"
-
-msgid "Apply Tag Format"
-msgstr "Примијени формат ознаке"
-
-msgid "Apply Text Encoding"
-msgstr "Примени кодирање текста"
-
-msgid "Rename Directory"
-msgstr "Преименуј директоријум"
-
-msgid "Number Tracks"
-msgstr "Нумериши"
-
-msgid "Create Playlist"
-msgstr "Направи листу нумера"
-
-msgid "Save"
-msgstr "Сачувај"
-
-msgid "Quit"
-msgstr "Напусти"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Не"
-
-msgid "Start number:"
-msgstr "Почетни број:"
-
-msgid "Total number of tracks"
-msgstr "Укупно нумера"
-
-msgid "Picture"
-msgstr "Слика"
-
-msgid "Action:"
-msgstr "Радња:"
-
-msgid "Create Directory"
-msgstr "Направи директоријум"
-
-msgid "Source:"
-msgstr "Извор:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Из ознаке 2 и ознаке 1"
-
-msgid "Format:"
-msgstr "Формат:"
-
-msgid "Preview"
-msgstr "Преглед"
-
-msgid "Mark truncated fields"
-msgstr "Означи одсјечена поља"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 кодирање текста"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 кодирање текста"
-
-msgid "Use track/total number of tracks format"
-msgstr "Користи формат нумера/укупно нумера"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Жанр као текст умјесто бројног низа"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Издање за нове ознаке"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Огг/Ворбис име поља коментара"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Огг/Ворбис име поља слике"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Означи ако је веће од"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Највећа величина (бајтова)"
-
-msgid "Show only custom genres"
-msgstr "Прикажи само посебне жанрове"
-
-msgid "Case conversion"
-msgstr "Величина слова"
-
-msgid "Locale"
-msgstr "Локалитет"
-
-msgid "String replacement"
-msgstr "Замјена текста:"
-
-msgid "Load last-opened files"
-msgstr ""
-
-msgid "Preserve file timestamp"
-msgstr "Очувај временску ознаку фајла"
-
-msgid "Mark changes"
-msgstr "Означи измјене"
-
-msgid "Format while editing"
-msgstr "Форматирај при уређивању"
-
-msgid "Filename for cover"
-msgstr "Име фајла за омот албума"
-
-msgid "To filename format"
-msgstr "Формат у имена фајла"
-
-msgid "From filename format"
-msgstr "Формат из имена фајла"
-
-msgid "To Filename"
-msgstr "У имена фајла"
-
 msgid "&Back"
 msgstr "&Назад"
 
@@ -718,6 +535,21 @@ msgstr "&Замијени..."
 msgid "&Tools"
 msgstr "&Алати"
 
+msgid "Apply Filename Format"
+msgstr "Примијени формат назива фајла"
+
+msgid "Apply Tag Format"
+msgstr "Примијени формат ознаке"
+
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+msgid "Rename Directory"
+msgstr "Преименуј директоријум"
+
+msgid "Number Tracks"
+msgstr "Нумериши"
+
 msgid "&Settings"
 msgstr "&Подешавање"
 
@@ -762,6 +594,9 @@ msgstr "О КјуТ-у"
 
 msgid "About &Qt"
 msgstr "О &КјуТ-у"
+
+msgid " [modified]"
+msgstr " [измијењен]"
 
 msgid "Toggle the statusbar..."
 msgstr "Прикажи/сакриј траку стања..."
@@ -855,6 +690,9 @@ msgstr "УРЛ-ови"
 
 msgid "Directory name"
 msgstr "Име директоријума"
+
+msgid "QML base directory"
+msgstr "Основна фасцикла QML"
 
 msgid "Encode as URL"
 msgstr "Кодирај као УРЛ"
@@ -1273,6 +1111,9 @@ msgstr "Дио"
 msgid "Performer"
 msgstr "Извођач"
 
+msgid "Picture"
+msgstr "Слика"
+
 msgid "Publisher"
 msgstr "Издавач"
 
@@ -1384,8 +1225,14 @@ msgstr "Кодек"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Аутоматски увози"
+
 msgid "D&estination:"
 msgstr "О&дредиште:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "ознака 1 и ознака 2"
 
 msgid "&Profile:"
 msgstr "&Профил:"
@@ -1428,6 +1275,9 @@ msgstr "И&звођач/албум"
 
 msgid "&Source"
 msgstr "&Извор"
+
+msgid "Source:"
+msgstr "Извор:"
 
 msgid "URL:"
 msgstr "УРЛ:"
@@ -1519,6 +1369,9 @@ msgstr "Покретање"
 msgid "&Load last-opened files"
 msgstr ""
 
+msgid "Save"
+msgstr "Сачувај"
+
 msgid "&Preserve file timestamp"
 msgstr "Очувај &временску ознаку фајла"
 
@@ -1575,6 +1428,9 @@ msgstr "&Приказ..."
 
 msgid "Images"
 msgstr "Слике"
+
+msgid "Export"
+msgstr "Извези"
 
 msgid "&Format:"
 msgstr "&Формат:"
@@ -1684,6 +1540,9 @@ msgstr "&Рисетовати бројач за сваку фасциклу"
 msgid "&Total number of tracks:"
 msgstr "&Укупно нумера:"
 
+msgid "Create Playlist"
+msgstr "Направи листу нумера"
+
 msgid "Playlist File Name"
 msgstr "Име фајла листе нумера"
 
@@ -1729,8 +1588,17 @@ msgstr "Упиши само &списак фајлова"
 msgid "Write &info using"
 msgstr "Упиши &информације користећи"
 
+msgid "Preview"
+msgstr "Преглед"
+
+msgid "Create Directory"
+msgstr "Направи директоријум"
+
 msgid "&Action:"
 msgstr "&Радња:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Из ознаке 2 и ознаке 1"
 
 msgid "From:"
 msgstr "Из:"
@@ -1755,6 +1623,9 @@ msgstr "Ништа није изабрано"
 
 msgid "Import from Tags"
 msgstr "Увези из ознака"
+
+msgid "Format:"
+msgstr "Формат:"
 
 msgid "Extraction:"
 msgstr "Извлачење:"
@@ -1793,14 +1664,29 @@ msgstr ""
 "Тренутни директоријум је измијењен.\n"
 "Желите ли да сачувате измјене?"
 
+msgid "Warning"
+msgstr "Упозорење"
+
 msgid "Exiting..."
 msgstr "Излазим..."
 
 msgid "Creating playlist..."
 msgstr "Правим листу нумера..."
 
+msgid "Import"
+msgstr "Увези"
+
 msgid "Error while renaming:\n"
 msgstr "Грешка приликом преименовања:\n"
+
+msgid " [filtered]"
+msgstr " [филтриран]"
+
+msgid "Add Frame"
+msgstr "Додај оквир"
+
+msgid "Select the frame ID"
+msgstr "Изаберите ИД оквира"
 
 msgid "Rename File"
 msgstr "Преименуј фајл"
@@ -1892,6 +1778,9 @@ msgstr "&Обриши ред"
 msgid "&Clear row"
 msgstr "О&чисти ред"
 
+msgid "Format while editing"
+msgstr "Форматирај при уређивању"
+
 msgid "Validation"
 msgstr "Овјера"
 
@@ -1939,6 +1828,9 @@ msgstr "Претходна нумера"
 
 msgid "Next Track"
 msgstr "Сљедећа нумера"
+
+msgid "Close"
+msgstr "Затвори"
 
 msgid "Mute"
 msgstr "Утишај"
@@ -2290,3 +2182,114 @@ msgstr "TSOT - редослијед сортирања наслова"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - постави поднаслов"
+
+msgid "Destination:"
+msgstr "Одредиште:"
+
+msgid "Profile:"
+msgstr "Профил:"
+
+msgid "Start"
+msgstr "Почетак"
+
+msgid "Cancel"
+msgstr "Одустани"
+
+msgid "OK"
+msgstr "У реду"
+
+msgid "Filter:"
+msgstr "Филтер:"
+
+msgid "Expression:"
+msgstr "Израз:"
+
+msgid "Apply"
+msgstr "Примијени"
+
+msgid "The current directory has been modified.\n"
+msgstr "Тренутни директоријум је измијењен."
+
+msgid "Settings"
+msgstr "Подешавање"
+
+msgid "Quit"
+msgstr "Напусти"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Не"
+
+msgid "Start number:"
+msgstr "Почетни број:"
+
+msgid "Total number of tracks"
+msgstr "Укупно нумера"
+
+msgid "Action:"
+msgstr "Радња:"
+
+msgid "Mark truncated fields"
+msgstr "Означи одсјечена поља"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодирање текста"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодирање текста"
+
+msgid "Use track/total number of tracks format"
+msgstr "Користи формат нумера/укупно нумера"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр као текст умјесто бројног низа"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Издање за нове ознаке"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Огг/Ворбис име поља коментара"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Огг/Ворбис име поља слике"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Означи ако је веће од"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Највећа величина (бајтова)"
+
+msgid "Show only custom genres"
+msgstr "Прикажи само посебне жанрове"
+
+msgid "Case conversion"
+msgstr "Величина слова"
+
+msgid "Locale"
+msgstr "Локалитет"
+
+msgid "String replacement"
+msgstr "Замјена текста:"
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr "Очувај временску ознаку фајла"
+
+msgid "Mark changes"
+msgstr "Означи измјене"
+
+msgid "Filename for cover"
+msgstr "Име фајла за омот албума"
+
+msgid "To filename format"
+msgstr "Формат у имена фајла"
+
+msgid "From filename format"
+msgstr "Формат из имена фајла"
+
+msgid "To Filename"
+msgstr "У имена фајла"

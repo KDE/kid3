@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -416,189 +416,6 @@ msgstr "Tommi Nieminen, Ville Skyttä"
 msgid "Your emails"
 msgstr "translator@legisign.org, ville.skytta@iki.fi"
 
-msgid "Automatic Import"
-msgstr "Tuo automaattisesti"
-
-msgid "Destination:"
-msgstr "Kohde:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "1- ja 2-tunnisteet"
-
-msgid "Profile:"
-msgstr "Profiili:"
-
-msgid "Close"
-msgstr "Sulje"
-
-msgid "Start"
-msgstr "Alku"
-
-msgid "Cancel"
-msgstr "Peruuta"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Filter:"
-msgstr "Suodin:"
-
-msgid "Expression:"
-msgstr "Lauseke:"
-
-msgid "Apply"
-msgstr "Käytä"
-
-msgid "Export"
-msgstr "Vie"
-
-msgid "Import"
-msgstr "Tuo"
-
-msgid "Add Frame"
-msgstr "Lisää kehys"
-
-msgid "Select the frame ID"
-msgstr "Valitse kehyksen tunniste"
-
-msgid " [modified]"
-msgstr " [muutettu]"
-
-msgid " [filtered]"
-msgstr " [suodatettu]"
-
-msgid "Warning"
-msgstr "Varoitus"
-
-msgid "The current directory has been modified.\n"
-msgstr "Nykyistä kansiota on muokattu."
-
-msgid "Settings"
-msgstr "Asetukset"
-
-msgid "Apply Filename Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Tag Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Text Encoding"
-msgstr "Ota merkistökoodaus"
-
-msgid "Rename Directory"
-msgstr "Muuta kansion nimeä"
-
-msgid "Number Tracks"
-msgstr "Kappaleiden numerointi"
-
-msgid "Create Playlist"
-msgstr "Luo soittolista"
-
-msgid "Save"
-msgstr "Tallenna"
-
-msgid "Quit"
-msgstr "Lopeta"
-
-msgid "Yes"
-msgstr "Kyllä"
-
-msgid "No"
-msgstr "Ei"
-
-msgid "Start number:"
-msgstr "Aloittava numero:"
-
-msgid "Total number of tracks"
-msgstr "Kappaleiden lukumäärä"
-
-msgid "Picture"
-msgstr "Kuva"
-
-msgid "Action:"
-msgstr "Toiminto:"
-
-msgid "Create Directory"
-msgstr "Luo kansio"
-
-msgid "Source:"
-msgstr "Lähde:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "2- ja 1-tunnisteista"
-
-msgid "Format:"
-msgstr "Muoto:"
-
-msgid "Preview"
-msgstr "Esikatselu"
-
-msgid "Mark truncated fields"
-msgstr "Merkitse lyhennetyt kentät"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 merkistökoodaus"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 merkistökoodaus"
-
-msgid "Use track/total number of tracks format"
-msgstr "Numeroi raidat muodossa raita/kaikkiaan"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Tyylilaji tekstinä numerojonon sijaan"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Uusien tunnisteiden versio"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis kommenttikentän nimi"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis kuvakentän nimi"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Merkitse, jos suurempi kuin"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Enimmäiskoko (tavuja)"
-
-msgid "Show only custom genres"
-msgstr "Näytä vain omat tyylilajit"
-
-msgid "Case conversion"
-msgstr "Kirjaintason muunnos"
-
-msgid "Locale"
-msgstr "Maa-asetukset"
-
-msgid "String replacement"
-msgstr "Merkkijonojen korvaus"
-
-msgid "Load last-opened files"
-msgstr "Lataa viimeksi avatut tiedostot"
-
-msgid "Preserve file timestamp"
-msgstr "Säilytä tiedoston päiväys"
-
-msgid "Mark changes"
-msgstr "Merkitse muutokset"
-
-msgid "Format while editing"
-msgstr "Muotoile muokattaessa"
-
-msgid "Filename for cover"
-msgstr "Kansikuvan tiedostonimi"
-
-msgid "To filename format"
-msgstr "Määrittää tiedostonimi muoto"
-
-msgid "From filename format"
-msgstr "Tiedostonimi muoto"
-
-msgid "To Filename"
-msgstr "Määrittää tiedostonimi"
-
 msgid "&Back"
 msgstr "&Takaisin"
 
@@ -719,6 +536,21 @@ msgstr "K&orvaa..."
 msgid "&Tools"
 msgstr "T&yökalut"
 
+msgid "Apply Filename Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Tag Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Text Encoding"
+msgstr "Ota merkistökoodaus"
+
+msgid "Rename Directory"
+msgstr "Muuta kansion nimeä"
+
+msgid "Number Tracks"
+msgstr "Kappaleiden numerointi"
+
 msgid "&Settings"
 msgstr "&Asetukset"
 
@@ -763,6 +595,9 @@ msgstr "Tietoja Qt:stä"
 
 msgid "About &Qt"
 msgstr "Tietoja &Qt:stä"
+
+msgid " [modified]"
+msgstr " [muutettu]"
 
 msgid "Toggle the statusbar..."
 msgstr "Näytä/piilota tilarivi..."
@@ -856,6 +691,9 @@ msgstr "Osoitteet"
 
 msgid "Directory name"
 msgstr "Kansion nimi"
+
+msgid "QML base directory"
+msgstr "QML juurikansio"
 
 msgid "Encode as URL"
 msgstr "Koodaa verkko-osoitteeksi"
@@ -1274,6 +1112,9 @@ msgstr "Osa"
 msgid "Performer"
 msgstr "Esiintyjä"
 
+msgid "Picture"
+msgstr "Kuva"
+
 msgid "Publisher"
 msgstr "Julkaisija"
 
@@ -1385,8 +1226,14 @@ msgstr "Koodekki"
 msgid "Escape for HTML"
 msgstr ""
 
+msgid "Automatic Import"
+msgstr "Tuo automaattisesti"
+
 msgid "D&estination:"
 msgstr "Koh&de:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "1- ja 2-tunnisteet"
 
 msgid "&Profile:"
 msgstr "&Profiili:"
@@ -1429,6 +1276,9 @@ msgstr "&Artisti/Levy"
 
 msgid "&Source"
 msgstr "&Lähde"
+
+msgid "Source:"
+msgstr "Lähde:"
 
 msgid "URL:"
 msgstr "Osoite:"
@@ -1520,6 +1370,9 @@ msgstr "Käynnistys"
 msgid "&Load last-opened files"
 msgstr "&Lataa viimeksi avatut tiedostot"
 
+msgid "Save"
+msgstr "Tallenna"
+
 msgid "&Preserve file timestamp"
 msgstr "&Säilytä tiedoston päiväys"
 
@@ -1576,6 +1429,9 @@ msgstr "&Näytä..."
 
 msgid "Images"
 msgstr "Kuvat"
+
+msgid "Export"
+msgstr "Vie"
 
 msgid "&Format:"
 msgstr "&Muoto:"
@@ -1685,6 +1541,9 @@ msgstr "&Numeroi hakemistoittain"
 msgid "&Total number of tracks:"
 msgstr "Kappaleiden &lukumäärä:"
 
+msgid "Create Playlist"
+msgstr "Luo soittolista"
+
 msgid "Playlist File Name"
 msgstr "Soittolistatiedoston nimi"
 
@@ -1730,8 +1589,17 @@ msgstr "Kirjoita &vain tiedostoluettelo"
 msgid "Write &info using"
 msgstr "Kirjoita tieto k&äyttäen"
 
+msgid "Preview"
+msgstr "Esikatselu"
+
+msgid "Create Directory"
+msgstr "Luo kansio"
+
 msgid "&Action:"
 msgstr "T&oiminto:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "2- ja 1-tunnisteista"
 
 msgid "From:"
 msgstr "Alkuperäinen:"
@@ -1756,6 +1624,9 @@ msgstr "Ei valittuja tuloksia"
 
 msgid "Import from Tags"
 msgstr "Tuo tunnisteesta"
+
+msgid "Format:"
+msgstr "Muoto:"
 
 msgid "Extraction:"
 msgstr "Purku:"
@@ -1796,14 +1667,29 @@ msgstr ""
 "Nykyistä kansiota on muokattu.\n"
 "Haluatko tallentaa sen?"
 
+msgid "Warning"
+msgstr "Varoitus"
+
 msgid "Exiting..."
 msgstr "Poistutaan..."
 
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
 
+msgid "Import"
+msgstr "Tuo"
+
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
+
+msgid " [filtered]"
+msgstr " [suodatettu]"
+
+msgid "Add Frame"
+msgstr "Lisää kehys"
+
+msgid "Select the frame ID"
+msgstr "Valitse kehyksen tunniste"
 
 msgid "Rename File"
 msgstr "Muuta tiedoston nimeä"
@@ -1895,6 +1781,9 @@ msgstr "&Poista rivi"
 msgid "&Clear row"
 msgstr "&Tyhjennä rivi"
 
+msgid "Format while editing"
+msgstr "Muotoile muokattaessa"
+
 msgid "Validation"
 msgstr "Tarkistus"
 
@@ -1942,6 +1831,9 @@ msgstr "Edellinen kappale"
 
 msgid "Next Track"
 msgstr "Seuraava kappale"
+
+msgid "Close"
+msgstr "Sulje"
 
 msgid "Mute"
 msgstr "Vaimenna"
@@ -2293,3 +2185,114 @@ msgstr "TSOT – Nimikkeiden lajittelujärjestys"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST – Aseta tekstitys"
+
+msgid "Destination:"
+msgstr "Kohde:"
+
+msgid "Profile:"
+msgstr "Profiili:"
+
+msgid "Start"
+msgstr "Alku"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Suodin:"
+
+msgid "Expression:"
+msgstr "Lauseke:"
+
+msgid "Apply"
+msgstr "Käytä"
+
+msgid "The current directory has been modified.\n"
+msgstr "Nykyistä kansiota on muokattu."
+
+msgid "Settings"
+msgstr "Asetukset"
+
+msgid "Quit"
+msgstr "Lopeta"
+
+msgid "Yes"
+msgstr "Kyllä"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Start number:"
+msgstr "Aloittava numero:"
+
+msgid "Total number of tracks"
+msgstr "Kappaleiden lukumäärä"
+
+msgid "Action:"
+msgstr "Toiminto:"
+
+msgid "Mark truncated fields"
+msgstr "Merkitse lyhennetyt kentät"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 merkistökoodaus"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 merkistökoodaus"
+
+msgid "Use track/total number of tracks format"
+msgstr "Numeroi raidat muodossa raita/kaikkiaan"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Tyylilaji tekstinä numerojonon sijaan"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Uusien tunnisteiden versio"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis kommenttikentän nimi"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis kuvakentän nimi"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Merkitse, jos suurempi kuin"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Enimmäiskoko (tavuja)"
+
+msgid "Show only custom genres"
+msgstr "Näytä vain omat tyylilajit"
+
+msgid "Case conversion"
+msgstr "Kirjaintason muunnos"
+
+msgid "Locale"
+msgstr "Maa-asetukset"
+
+msgid "String replacement"
+msgstr "Merkkijonojen korvaus"
+
+msgid "Load last-opened files"
+msgstr "Lataa viimeksi avatut tiedostot"
+
+msgid "Preserve file timestamp"
+msgstr "Säilytä tiedoston päiväys"
+
+msgid "Mark changes"
+msgstr "Merkitse muutokset"
+
+msgid "Filename for cover"
+msgstr "Kansikuvan tiedostonimi"
+
+msgid "To filename format"
+msgstr "Määrittää tiedostonimi muoto"
+
+msgid "From filename format"
+msgstr "Tiedostonimi muoto"
+
+msgid "To Filename"
+msgstr "Määrittää tiedostonimi"

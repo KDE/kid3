@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -415,189 +415,6 @@ msgstr "Valter Mura"
 msgid "Your emails"
 msgstr "valtermura@yahoo.it, giacomomargarito@gmail.com"
 
-msgid "Automatic Import"
-msgstr "Importa automaticamente"
-
-msgid "Destination:"
-msgstr "Destinazione:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 e Tag 2"
-
-msgid "Profile:"
-msgstr "Profilo:"
-
-msgid "Close"
-msgstr "Chiudi"
-
-msgid "Start"
-msgstr "Avvio"
-
-msgid "Cancel"
-msgstr "Annulla"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Filter:"
-msgstr "Filtro:"
-
-msgid "Expression:"
-msgstr "Espressione:"
-
-msgid "Apply"
-msgstr "Applica"
-
-msgid "Export"
-msgstr "Esporta"
-
-msgid "Import"
-msgstr "Importa"
-
-msgid "Add Frame"
-msgstr "Aggiungi frame"
-
-msgid "Select the frame ID"
-msgstr "Seleziona l'ID del frame"
-
-msgid " [modified]"
-msgstr " [modificato]"
-
-msgid " [filtered]"
-msgstr " [filtrato]"
-
-msgid "Warning"
-msgstr "Avvertimento"
-
-msgid "The current directory has been modified.\n"
-msgstr "La cartella in uso è stata modificata."
-
-msgid "Settings"
-msgstr "Impostazioni"
-
-msgid "Apply Filename Format"
-msgstr "Applica formato Nome file"
-
-msgid "Apply Tag Format"
-msgstr "Applica formato Tag"
-
-msgid "Apply Text Encoding"
-msgstr "Applica codifica del testo"
-
-msgid "Rename Directory"
-msgstr "Rinomina cartella"
-
-msgid "Number Tracks"
-msgstr "Numero tracce"
-
-msgid "Create Playlist"
-msgstr "Crea Playlist"
-
-msgid "Save"
-msgstr "Salva"
-
-msgid "Quit"
-msgstr "Esci"
-
-msgid "Yes"
-msgstr "Si"
-
-msgid "No"
-msgstr "No"
-
-msgid "Start number:"
-msgstr "Numero inizio:"
-
-msgid "Total number of tracks"
-msgstr "Numero delle tracce"
-
-msgid "Picture"
-msgstr "Immagine"
-
-msgid "Action:"
-msgstr "Azione:"
-
-msgid "Create Directory"
-msgstr "Crea cartella"
-
-msgid "Source:"
-msgstr "Origine:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Da Tag 2 e Tag 1"
-
-msgid "Format:"
-msgstr "Formato:"
-
-msgid "Preview"
-msgstr "Anteprima"
-
-msgid "Mark truncated fields"
-msgstr "Evidenzia i campi troncati"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 codifica del testo"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 codifica del testo"
-
-msgid "Use track/total number of tracks format"
-msgstr "Usa formato traccia/numero totale delle tracce"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Genere come testo invece dei numeri"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Versione usata per i nuovi tag"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis commento nome campo"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis immagine nome campo"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Evidenzia se l'immagine è più grande di quella massima"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Dimensione massima delle immagini (byte)"
-
-msgid "Show only custom genres"
-msgstr "Mostra solo generi personalizzati"
-
-msgid "Case conversion"
-msgstr "Maiuscole/minuscole"
-
-msgid "Locale"
-msgstr "Locale"
-
-msgid "String replacement"
-msgstr "Sostituzione stringa"
-
-msgid "Load last-opened files"
-msgstr "Carica gli ultimi file aperti"
-
-msgid "Preserve file timestamp"
-msgstr "Mantieni file data/ora"
-
-msgid "Mark changes"
-msgstr "Evidenzia le modifiche"
-
-msgid "Format while editing"
-msgstr "Formattazione durante la modifica"
-
-msgid "Filename for cover"
-msgstr "Nome file per copertina"
-
-msgid "To filename format"
-msgstr "Formato al nome file"
-
-msgid "From filename format"
-msgstr "Formato dal nome file"
-
-msgid "To Filename"
-msgstr "Al nome file"
-
 msgid "&Back"
 msgstr "&Indietro"
 
@@ -718,6 +535,21 @@ msgstr "S&ostituisci..."
 msgid "&Tools"
 msgstr "S&trumenti"
 
+msgid "Apply Filename Format"
+msgstr "Applica formato Nome file"
+
+msgid "Apply Tag Format"
+msgstr "Applica formato Tag"
+
+msgid "Apply Text Encoding"
+msgstr "Applica codifica del testo"
+
+msgid "Rename Directory"
+msgstr "Rinomina cartella"
+
+msgid "Number Tracks"
+msgstr "Numero tracce"
+
 msgid "&Settings"
 msgstr "Imp&ostazioni"
 
@@ -762,6 +594,9 @@ msgstr "Informazioni su Qt"
 
 msgid "About &Qt"
 msgstr "Informazioni su &Qt"
+
+msgid " [modified]"
+msgstr " [modificato]"
 
 msgid "Toggle the statusbar..."
 msgstr "Cambiamento barra di stato in corso..."
@@ -855,6 +690,9 @@ msgstr "URL"
 
 msgid "Directory name"
 msgstr "Nome cartella"
+
+msgid "QML base directory"
+msgstr "Cartella di base QML"
 
 msgid "Encode as URL"
 msgstr "Codifica come URL"
@@ -1273,6 +1111,9 @@ msgstr "Parte"
 msgid "Performer"
 msgstr "Interprete"
 
+msgid "Picture"
+msgstr "Immagine"
+
 msgid "Publisher"
 msgstr "Editore"
 
@@ -1384,8 +1225,14 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Importa automaticamente"
+
 msgid "D&estination:"
 msgstr "D&estinazione:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 e Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profilo:"
@@ -1428,6 +1275,9 @@ msgstr "&Artista/Album"
 
 msgid "&Source"
 msgstr "&Origine"
+
+msgid "Source:"
+msgstr "Origine:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1519,6 +1369,9 @@ msgstr "Avvio"
 msgid "&Load last-opened files"
 msgstr "Carica gli &ultimi file aperti"
 
+msgid "Save"
+msgstr "Salva"
+
 msgid "&Preserve file timestamp"
 msgstr "M&antieni file data/ora"
 
@@ -1575,6 +1428,9 @@ msgstr "Visuali&zza..."
 
 msgid "Images"
 msgstr "Immagini"
+
+msgid "Export"
+msgstr "Esporta"
 
 msgid "&Format:"
 msgstr "&Formato:"
@@ -1684,6 +1540,9 @@ msgstr "&Resetta contatore all'inizio di una nuova cartella"
 msgid "&Total number of tracks:"
 msgstr "&Numero delle tracce:"
 
+msgid "Create Playlist"
+msgstr "Crea Playlist"
+
 msgid "Playlist File Name"
 msgstr "Nome del file della Playlist"
 
@@ -1729,8 +1588,17 @@ msgstr "Scrivi solo la &lista dei file"
 msgid "Write &info using"
 msgstr "Scrivi le &informazioni usando"
 
+msgid "Preview"
+msgstr "Anteprima"
+
+msgid "Create Directory"
+msgstr "Crea cartella"
+
 msgid "&Action:"
 msgstr "&Azione:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Da Tag 2 e Tag 1"
 
 msgid "From:"
 msgstr "Da:"
@@ -1755,6 +1623,9 @@ msgstr "Nessun risultato selezionato"
 
 msgid "Import from Tags"
 msgstr "Importa da Tag"
+
+msgid "Format:"
+msgstr "Formato:"
 
 msgid "Extraction:"
 msgstr "Estrazione:"
@@ -1794,14 +1665,29 @@ msgstr ""
 "La cartella in uso è stata modificata.\n"
 "Volete salvarla?"
 
+msgid "Warning"
+msgstr "Avvertimento"
+
 msgid "Exiting..."
 msgstr "Uscita in corso..."
 
 msgid "Creating playlist..."
 msgstr "Creazione playlist in corso..."
 
+msgid "Import"
+msgstr "Importa"
+
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
+
+msgid " [filtered]"
+msgstr " [filtrato]"
+
+msgid "Add Frame"
+msgstr "Aggiungi frame"
+
+msgid "Select the frame ID"
+msgstr "Seleziona l'ID del frame"
 
 msgid "Rename File"
 msgstr "Rinomina file"
@@ -1893,6 +1779,9 @@ msgstr "&Elimina riga"
 msgid "&Clear row"
 msgstr "&Azzera riga"
 
+msgid "Format while editing"
+msgstr "Formattazione durante la modifica"
+
 msgid "Validation"
 msgstr "Convalida"
 
@@ -1940,6 +1829,9 @@ msgstr "Traccia precedente"
 
 msgid "Next Track"
 msgstr "Prossima traccia"
+
+msgid "Close"
+msgstr "Chiudi"
 
 msgid "Mute"
 msgstr "Muto"
@@ -2291,3 +2183,114 @@ msgstr "TSOT - Ordinamento per titolo"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Imposta sottotitolo"
+
+msgid "Destination:"
+msgstr "Destinazione:"
+
+msgid "Profile:"
+msgstr "Profilo:"
+
+msgid "Start"
+msgstr "Avvio"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filtro:"
+
+msgid "Expression:"
+msgstr "Espressione:"
+
+msgid "Apply"
+msgstr "Applica"
+
+msgid "The current directory has been modified.\n"
+msgstr "La cartella in uso è stata modificata."
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgid "Quit"
+msgstr "Esci"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Start number:"
+msgstr "Numero inizio:"
+
+msgid "Total number of tracks"
+msgstr "Numero delle tracce"
+
+msgid "Action:"
+msgstr "Azione:"
+
+msgid "Mark truncated fields"
+msgstr "Evidenzia i campi troncati"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 codifica del testo"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 codifica del testo"
+
+msgid "Use track/total number of tracks format"
+msgstr "Usa formato traccia/numero totale delle tracce"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Genere come testo invece dei numeri"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Versione usata per i nuovi tag"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis commento nome campo"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis immagine nome campo"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Evidenzia se l'immagine è più grande di quella massima"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Dimensione massima delle immagini (byte)"
+
+msgid "Show only custom genres"
+msgstr "Mostra solo generi personalizzati"
+
+msgid "Case conversion"
+msgstr "Maiuscole/minuscole"
+
+msgid "Locale"
+msgstr "Locale"
+
+msgid "String replacement"
+msgstr "Sostituzione stringa"
+
+msgid "Load last-opened files"
+msgstr "Carica gli ultimi file aperti"
+
+msgid "Preserve file timestamp"
+msgstr "Mantieni file data/ora"
+
+msgid "Mark changes"
+msgstr "Evidenzia le modifiche"
+
+msgid "Filename for cover"
+msgstr "Nome file per copertina"
+
+msgid "To filename format"
+msgstr "Formato al nome file"
+
+msgid "From filename format"
+msgstr "Formato dal nome file"
+
+msgid "To Filename"
+msgstr "Al nome file"

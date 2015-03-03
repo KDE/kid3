@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -416,189 +416,6 @@ msgstr "Mihkel Tõnnov"
 msgid "Your emails"
 msgstr "mihhkel@gmail.com"
 
-msgid "Automatic Import"
-msgstr "Automaatimport"
-
-msgid "Destination:"
-msgstr "Sihtkoht:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Silt 1 ja silt 2"
-
-msgid "Profile:"
-msgstr "Profiil:"
-
-msgid "Close"
-msgstr "Sulge"
-
-msgid "Start"
-msgstr "Alusta"
-
-msgid "Cancel"
-msgstr "Loobu"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Filter:"
-msgstr "Filter:"
-
-msgid "Expression:"
-msgstr "Avaldis:"
-
-msgid "Apply"
-msgstr "Rakenda"
-
-msgid "Export"
-msgstr "Eksport"
-
-msgid "Import"
-msgstr "Import"
-
-msgid "Add Frame"
-msgstr "Raami lisamine"
-
-msgid "Select the frame ID"
-msgstr "Raami ID"
-
-msgid " [modified]"
-msgstr " [muudetud]"
-
-msgid " [filtered]"
-msgstr " [filtreeritud]"
-
-msgid "Warning"
-msgstr "Hoiatus"
-
-msgid "The current directory has been modified.\n"
-msgstr "Kataloogi sisu on muudetud."
-
-msgid "Settings"
-msgstr "Seadistused"
-
-msgid "Apply Filename Format"
-msgstr "Failinime vormingu rakendamine"
-
-msgid "Apply Tag Format"
-msgstr "Sildivormingu rakendamine"
-
-msgid "Apply Text Encoding"
-msgstr "Teksti kodeeringu rakendamine"
-
-msgid "Rename Directory"
-msgstr "Kataloogi ümbernimetamine"
-
-msgid "Number Tracks"
-msgstr "Lugude nummerdamine"
-
-msgid "Create Playlist"
-msgstr "Esitusloendi loomine"
-
-msgid "Save"
-msgstr "Salvestamine"
-
-msgid "Quit"
-msgstr "Välju"
-
-msgid "Yes"
-msgstr "Jah"
-
-msgid "No"
-msgstr "Ei"
-
-msgid "Start number:"
-msgstr "Algusnumber:"
-
-msgid "Total number of tracks"
-msgstr "Lugude koguarv"
-
-msgid "Picture"
-msgstr "Pilt"
-
-msgid "Action:"
-msgstr "Toiming:"
-
-msgid "Create Directory"
-msgstr "Kataloogi loomine"
-
-msgid "Source:"
-msgstr "Allikas:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Siltide 1 ja 2 põhjal"
-
-msgid "Format:"
-msgstr "Vorming:"
-
-msgid "Preview"
-msgstr "Eelvaade"
-
-msgid "Mark truncated fields"
-msgstr "Lühikeseks jäävad väljad tõstetakse esile"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 teksti kodeering"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 teksti kodeering"
-
-msgid "Use track/total number of tracks format"
-msgstr "Kasutatakse vormingut \"loo nr/lugude koguarv\""
-
-msgid "Genre as text instead of numeric string"
-msgstr "Stiil salvestatakse numberkoodi asemel tekstina"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Uutes siltides kasutatav versioon"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis kommentaarivälja nimi"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis pildivälja nimi"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Märkimine, kui suurus ületab"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Maksimumsuurus (baiti)"
-
-msgid "Show only custom genres"
-msgstr "Näidatakse ainult kohandatud stiile"
-
-msgid "Case conversion"
-msgstr "Tõstu muutmine"
-
-msgid "Locale"
-msgstr "Lokaat"
-
-msgid "String replacement"
-msgstr "Stringiasendus"
-
-msgid "Load last-opened files"
-msgstr "Laaditakse viimati avatud failid"
-
-msgid "Preserve file timestamp"
-msgstr "Failide ajatemplid säilitatakse"
-
-msgid "Mark changes"
-msgstr "Muudetud väljad tõstetakse esile"
-
-msgid "Format while editing"
-msgstr "Automaatasendus"
-
-msgid "Filename for cover"
-msgstr "Kaanepildi failinimi"
-
-msgid "To filename format"
-msgstr "Esitada failinime vorming"
-
-msgid "From filename format"
-msgstr "Failinime põhjal vorming"
-
-msgid "To Filename"
-msgstr "Esitada failinime"
-
 msgid "&Back"
 msgstr "&Tagasi"
 
@@ -719,6 +536,21 @@ msgstr "Ase&nda..."
 msgid "&Tools"
 msgstr "&Tööriistad"
 
+msgid "Apply Filename Format"
+msgstr "Failinime vormingu rakendamine"
+
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
+msgid "Apply Text Encoding"
+msgstr "Teksti kodeeringu rakendamine"
+
+msgid "Rename Directory"
+msgstr "Kataloogi ümbernimetamine"
+
+msgid "Number Tracks"
+msgstr "Lugude nummerdamine"
+
 msgid "&Settings"
 msgstr "&Seadistused"
 
@@ -763,6 +595,9 @@ msgstr "Qt info"
 
 msgid "About &Qt"
 msgstr "&Qt info"
+
+msgid " [modified]"
+msgstr " [muudetud]"
 
 msgid "Toggle the statusbar..."
 msgstr "Lülita olekuriba..."
@@ -856,6 +691,9 @@ msgstr "URL-id"
 
 msgid "Directory name"
 msgstr "Kataloogi nimi"
+
+msgid "QML base directory"
+msgstr "QML baaskataloog"
 
 msgid "Encode as URL"
 msgstr "URL-i jaoks sobivas kodeeringus esitaja jm"
@@ -1274,6 +1112,9 @@ msgstr "Osa"
 msgid "Performer"
 msgstr "Ettekandja"
 
+msgid "Picture"
+msgstr "Pilt"
+
 msgid "Publisher"
 msgstr "Väljaandja"
 
@@ -1385,8 +1226,14 @@ msgstr "Koodek"
 msgid "Escape for HTML"
 msgstr "HTML-i paojada"
 
+msgid "Automatic Import"
+msgstr "Automaatimport"
+
 msgid "D&estination:"
 msgstr "&Sihtkoht:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
 
 msgid "&Profile:"
 msgstr "&Profiil:"
@@ -1429,6 +1276,9 @@ msgstr "&Esitaja / Album"
 
 msgid "&Source"
 msgstr "&Allikas"
+
+msgid "Source:"
+msgstr "Allikas:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1520,6 +1370,9 @@ msgstr "Käivitamine"
 msgid "&Load last-opened files"
 msgstr "&Laaditakse viimati avatud failid"
 
+msgid "Save"
+msgstr "Salvestamine"
+
 msgid "&Preserve file timestamp"
 msgstr "Failide aja&templid säilitatakse"
 
@@ -1576,6 +1429,9 @@ msgstr "&Näita..."
 
 msgid "Images"
 msgstr "Pildid"
+
+msgid "Export"
+msgstr "Eksport"
 
 msgid "&Format:"
 msgstr "&Vorming:"
@@ -1685,6 +1541,9 @@ msgstr "&Nullimine iga kataloog"
 msgid "&Total number of tracks:"
 msgstr "L&ugude koguarv:"
 
+msgid "Create Playlist"
+msgstr "Esitusloendi loomine"
+
 msgid "Playlist File Name"
 msgstr "Esitusloendi failinimi"
 
@@ -1730,8 +1589,17 @@ msgstr "Kirjutatakse ainult failide &loend"
 msgid "Write &info using"
 msgstr "Kirjutatakse &info"
 
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "Create Directory"
+msgstr "Kataloogi loomine"
+
 msgid "&Action:"
 msgstr "&Toiming:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Siltide 1 ja 2 põhjal"
 
 msgid "From:"
 msgstr "Faili nimeks:"
@@ -1756,6 +1624,9 @@ msgstr "Tulemust pole valitud"
 
 msgid "Import from Tags"
 msgstr "Import siltidest"
+
+msgid "Format:"
+msgstr "Vorming:"
 
 msgid "Extraction:"
 msgstr "Avaldis:"
@@ -1794,14 +1665,29 @@ msgstr ""
 "Kataloogi sisu on muudetud.\n"
 "Kas salvestada see?"
 
+msgid "Warning"
+msgstr "Hoiatus"
+
 msgid "Exiting..."
 msgstr "Väljumine..."
 
 msgid "Creating playlist..."
 msgstr "Esitusnimekirja loomine..."
 
+msgid "Import"
+msgstr "Import"
+
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
+
+msgid " [filtered]"
+msgstr " [filtreeritud]"
+
+msgid "Add Frame"
+msgstr "Raami lisamine"
+
+msgid "Select the frame ID"
+msgstr "Raami ID"
 
 msgid "Rename File"
 msgstr "Faili ümbernimetamine"
@@ -1893,6 +1779,9 @@ msgstr "&Kustuta rida"
 msgid "&Clear row"
 msgstr "&Puhasta rida"
 
+msgid "Format while editing"
+msgstr "Automaatasendus"
+
 msgid "Validation"
 msgstr "Kontrollimine"
 
@@ -1940,6 +1829,9 @@ msgstr "Eelmine lugu"
 
 msgid "Next Track"
 msgstr "Järgmine lugu"
+
+msgid "Close"
+msgstr "Sulge"
 
 msgid "Mute"
 msgstr "Summuta"
@@ -2291,3 +2183,114 @@ msgstr "TSOT - pealkirja sorteerimisjärjestus"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - komplekti alapealkiri"
+
+msgid "Destination:"
+msgstr "Sihtkoht:"
+
+msgid "Profile:"
+msgstr "Profiil:"
+
+msgid "Start"
+msgstr "Alusta"
+
+msgid "Cancel"
+msgstr "Loobu"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Expression:"
+msgstr "Avaldis:"
+
+msgid "Apply"
+msgstr "Rakenda"
+
+msgid "The current directory has been modified.\n"
+msgstr "Kataloogi sisu on muudetud."
+
+msgid "Settings"
+msgstr "Seadistused"
+
+msgid "Quit"
+msgstr "Välju"
+
+msgid "Yes"
+msgstr "Jah"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Start number:"
+msgstr "Algusnumber:"
+
+msgid "Total number of tracks"
+msgstr "Lugude koguarv"
+
+msgid "Action:"
+msgstr "Toiming:"
+
+msgid "Mark truncated fields"
+msgstr "Lühikeseks jäävad väljad tõstetakse esile"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 teksti kodeering"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 teksti kodeering"
+
+msgid "Use track/total number of tracks format"
+msgstr "Kasutatakse vormingut \"loo nr/lugude koguarv\""
+
+msgid "Genre as text instead of numeric string"
+msgstr "Stiil salvestatakse numberkoodi asemel tekstina"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Uutes siltides kasutatav versioon"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis kommentaarivälja nimi"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis pildivälja nimi"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Märkimine, kui suurus ületab"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maksimumsuurus (baiti)"
+
+msgid "Show only custom genres"
+msgstr "Näidatakse ainult kohandatud stiile"
+
+msgid "Case conversion"
+msgstr "Tõstu muutmine"
+
+msgid "Locale"
+msgstr "Lokaat"
+
+msgid "String replacement"
+msgstr "Stringiasendus"
+
+msgid "Load last-opened files"
+msgstr "Laaditakse viimati avatud failid"
+
+msgid "Preserve file timestamp"
+msgstr "Failide ajatemplid säilitatakse"
+
+msgid "Mark changes"
+msgstr "Muudetud väljad tõstetakse esile"
+
+msgid "Filename for cover"
+msgstr "Kaanepildi failinimi"
+
+msgid "To filename format"
+msgstr "Esitada failinime vorming"
+
+msgid "From filename format"
+msgstr "Failinime põhjal vorming"
+
+msgid "To Filename"
+msgstr "Esitada failinime"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -412,189 +412,6 @@ msgstr ""
 msgid "Your emails"
 msgstr ""
 
-msgid "Automatic Import"
-msgstr ""
-
-msgid "Destination:"
-msgstr ""
-
-msgid "Tag 1 and Tag 2"
-msgstr ""
-
-msgid "Profile:"
-msgstr ""
-
-msgid "Close"
-msgstr ""
-
-msgid "Start"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "OK"
-msgstr ""
-
-msgid "Filter:"
-msgstr ""
-
-msgid "Expression:"
-msgstr ""
-
-msgid "Apply"
-msgstr ""
-
-msgid "Export"
-msgstr ""
-
-msgid "Import"
-msgstr ""
-
-msgid "Add Frame"
-msgstr ""
-
-msgid "Select the frame ID"
-msgstr ""
-
-msgid " [modified]"
-msgstr ""
-
-msgid " [filtered]"
-msgstr ""
-
-msgid "Warning"
-msgstr ""
-
-msgid "The current directory has been modified.\n"
-msgstr ""
-
-msgid "Settings"
-msgstr ""
-
-msgid "Apply Filename Format"
-msgstr ""
-
-msgid "Apply Tag Format"
-msgstr ""
-
-msgid "Apply Text Encoding"
-msgstr ""
-
-msgid "Rename Directory"
-msgstr ""
-
-msgid "Number Tracks"
-msgstr ""
-
-msgid "Create Playlist"
-msgstr ""
-
-msgid "Save"
-msgstr ""
-
-msgid "Quit"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Start number:"
-msgstr ""
-
-msgid "Total number of tracks"
-msgstr ""
-
-msgid "Picture"
-msgstr ""
-
-msgid "Action:"
-msgstr ""
-
-msgid "Create Directory"
-msgstr ""
-
-msgid "Source:"
-msgstr ""
-
-msgid "From Tag 2 and Tag 1"
-msgstr ""
-
-msgid "Format:"
-msgstr ""
-
-msgid "Preview"
-msgstr ""
-
-msgid "Mark truncated fields"
-msgstr ""
-
-msgid "ID3v1 text encoding"
-msgstr ""
-
-msgid "ID3v2 text encoding"
-msgstr ""
-
-msgid "Use track/total number of tracks format"
-msgstr ""
-
-msgid "Genre as text instead of numeric string"
-msgstr ""
-
-msgid "Version used for new ID3v2 tags"
-msgstr ""
-
-msgid "Ogg/Vorbis comment field name"
-msgstr ""
-
-msgid "Ogg/Vorbis picture field name"
-msgstr ""
-
-msgid "Mark if picture larger than maxium size"
-msgstr ""
-
-msgid "Picture maximum size (bytes)"
-msgstr ""
-
-msgid "Show only custom genres"
-msgstr ""
-
-msgid "Case conversion"
-msgstr ""
-
-msgid "Locale"
-msgstr ""
-
-msgid "String replacement"
-msgstr ""
-
-msgid "Load last-opened files"
-msgstr ""
-
-msgid "Preserve file timestamp"
-msgstr ""
-
-msgid "Mark changes"
-msgstr ""
-
-msgid "Format while editing"
-msgstr ""
-
-msgid "Filename for cover"
-msgstr ""
-
-msgid "To filename format"
-msgstr ""
-
-msgid "From filename format"
-msgstr ""
-
-msgid "To Filename"
-msgstr ""
-
 msgid "&Back"
 msgstr ""
 
@@ -715,6 +532,21 @@ msgstr ""
 msgid "&Tools"
 msgstr ""
 
+msgid "Apply Filename Format"
+msgstr ""
+
+msgid "Apply Tag Format"
+msgstr ""
+
+msgid "Apply Text Encoding"
+msgstr ""
+
+msgid "Rename Directory"
+msgstr ""
+
+msgid "Number Tracks"
+msgstr ""
+
 msgid "&Settings"
 msgstr ""
 
@@ -758,6 +590,9 @@ msgid "About Qt"
 msgstr ""
 
 msgid "About &Qt"
+msgstr ""
+
+msgid " [modified]"
 msgstr ""
 
 msgid "Toggle the statusbar..."
@@ -851,6 +686,9 @@ msgid "URLs"
 msgstr ""
 
 msgid "Directory name"
+msgstr ""
+
+msgid "QML base directory"
 msgstr ""
 
 msgid "Encode as URL"
@@ -1270,6 +1108,9 @@ msgstr ""
 msgid "Performer"
 msgstr ""
 
+msgid "Picture"
+msgstr ""
+
 msgid "Publisher"
 msgstr ""
 
@@ -1381,7 +1222,13 @@ msgstr ""
 msgid "Escape for HTML"
 msgstr ""
 
+msgid "Automatic Import"
+msgstr ""
+
 msgid "D&estination:"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
 msgstr ""
 
 msgid "&Profile:"
@@ -1424,6 +1271,9 @@ msgid "&Artist/Album"
 msgstr ""
 
 msgid "&Source"
+msgstr ""
+
+msgid "Source:"
 msgstr ""
 
 msgid "URL:"
@@ -1516,6 +1366,9 @@ msgstr ""
 msgid "&Load last-opened files"
 msgstr ""
 
+msgid "Save"
+msgstr ""
+
 msgid "&Preserve file timestamp"
 msgstr ""
 
@@ -1571,6 +1424,9 @@ msgid "&View..."
 msgstr ""
 
 msgid "Images"
+msgstr ""
+
+msgid "Export"
 msgstr ""
 
 msgid "&Format:"
@@ -1681,6 +1537,9 @@ msgstr ""
 msgid "&Total number of tracks:"
 msgstr ""
 
+msgid "Create Playlist"
+msgstr ""
+
 msgid "Playlist File Name"
 msgstr ""
 
@@ -1726,7 +1585,16 @@ msgstr ""
 msgid "Write &info using"
 msgstr ""
 
+msgid "Preview"
+msgstr ""
+
+msgid "Create Directory"
+msgstr ""
+
 msgid "&Action:"
+msgstr ""
+
+msgid "From Tag 2 and Tag 1"
 msgstr ""
 
 msgid "From:"
@@ -1751,6 +1619,9 @@ msgid "No result selected"
 msgstr ""
 
 msgid "Import from Tags"
+msgstr ""
+
+msgid "Format:"
 msgstr ""
 
 msgid "Extraction:"
@@ -1788,13 +1659,28 @@ msgid ""
 "Do you want to save it?"
 msgstr ""
 
+msgid "Warning"
+msgstr ""
+
 msgid "Exiting..."
 msgstr ""
 
 msgid "Creating playlist..."
 msgstr ""
 
+msgid "Import"
+msgstr ""
+
 msgid "Error while renaming:\n"
+msgstr ""
+
+msgid " [filtered]"
+msgstr ""
+
+msgid "Add Frame"
+msgstr ""
+
+msgid "Select the frame ID"
 msgstr ""
 
 msgid "Rename File"
@@ -1887,6 +1773,9 @@ msgstr ""
 msgid "&Clear row"
 msgstr ""
 
+msgid "Format while editing"
+msgstr ""
+
 msgid "Validation"
 msgstr ""
 
@@ -1930,6 +1819,9 @@ msgid "Previous Track"
 msgstr ""
 
 msgid "Next Track"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Mute"
@@ -2281,4 +2173,115 @@ msgid "TSOT - Title sort order"
 msgstr ""
 
 msgid "TSST - Set subtitle"
+msgstr ""
+
+msgid "Destination:"
+msgstr ""
+
+msgid "Profile:"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Filter:"
+msgstr ""
+
+msgid "Expression:"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "The current directory has been modified.\n"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Start number:"
+msgstr ""
+
+msgid "Total number of tracks"
+msgstr ""
+
+msgid "Action:"
+msgstr ""
+
+msgid "Mark truncated fields"
+msgstr ""
+
+msgid "ID3v1 text encoding"
+msgstr ""
+
+msgid "ID3v2 text encoding"
+msgstr ""
+
+msgid "Use track/total number of tracks format"
+msgstr ""
+
+msgid "Genre as text instead of numeric string"
+msgstr ""
+
+msgid "Version used for new ID3v2 tags"
+msgstr ""
+
+msgid "Ogg/Vorbis comment field name"
+msgstr ""
+
+msgid "Ogg/Vorbis picture field name"
+msgstr ""
+
+msgid "Mark if picture larger than maxium size"
+msgstr ""
+
+msgid "Picture maximum size (bytes)"
+msgstr ""
+
+msgid "Show only custom genres"
+msgstr ""
+
+msgid "Case conversion"
+msgstr ""
+
+msgid "Locale"
+msgstr ""
+
+msgid "String replacement"
+msgstr ""
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr ""
+
+msgid "Mark changes"
+msgstr ""
+
+msgid "Filename for cover"
+msgstr ""
+
+msgid "To filename format"
+msgstr ""
+
+msgid "From filename format"
+msgstr ""
+
+msgid "To Filename"
 msgstr ""

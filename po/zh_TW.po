@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -418,189 +418,6 @@ msgstr "Chung-Yu Hsu"
 msgid "Your emails"
 msgstr "yayow at mail dot shps dot kh dot edu dot tw"
 
-msgid "Automatic Import"
-msgstr "自動匯入"
-
-msgid "Destination:"
-msgstr "到:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "標籤 1 與 標籤 2"
-
-msgid "Profile:"
-msgstr "設定檔:"
-
-msgid "Close"
-msgstr "關閉"
-
-msgid "Start"
-msgstr "開始"
-
-msgid "Cancel"
-msgstr "取消"
-
-msgid "OK"
-msgstr "確定"
-
-msgid "Filter:"
-msgstr "篩選:"
-
-msgid "Expression:"
-msgstr "算式:"
-
-msgid "Apply"
-msgstr "套用"
-
-msgid "Export"
-msgstr "匯出"
-
-msgid "Import"
-msgstr "匯入"
-
-msgid "Add Frame"
-msgstr "新增訊框"
-
-msgid "Select the frame ID"
-msgstr "選擇訊框代碼"
-
-msgid " [modified]"
-msgstr "[已更改]"
-
-msgid " [filtered]"
-msgstr "[已篩選]"
-
-msgid "Warning"
-msgstr "警告"
-
-msgid "The current directory has been modified.\n"
-msgstr "目前目錄已更動."
-
-msgid "Settings"
-msgstr "設定"
-
-msgid "Apply Filename Format"
-msgstr "套用檔名格式"
-
-msgid "Apply Tag Format"
-msgstr "套用 Tag 格式"
-
-msgid "Apply Text Encoding"
-msgstr "将字符编码"
-
-msgid "Rename Directory"
-msgstr "更改目錄名稱"
-
-msgid "Number Tracks"
-msgstr "音軌編號"
-
-msgid "Create Playlist"
-msgstr "建立播放清單"
-
-msgid "Save"
-msgstr "儲存"
-
-msgid "Quit"
-msgstr "離開"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "No"
-msgstr "否"
-
-msgid "Start number:"
-msgstr "起始編號:"
-
-msgid "Total number of tracks"
-msgstr "音軌編號"
-
-msgid "Picture"
-msgstr "圖片"
-
-msgid "Action:"
-msgstr "動作:"
-
-msgid "Create Directory"
-msgstr "建立目錄"
-
-msgid "Source:"
-msgstr "來源:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "從 標籤 2 與 標籤 1"
-
-msgid "Format:"
-msgstr "格式:"
-
-msgid "Preview"
-msgstr "預覽"
-
-msgid "Mark truncated fields"
-msgstr "標記被截斷的欄位"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 字元編碼"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 字元編碼"
-
-msgid "Use track/total number of tracks format"
-msgstr "使用「音軌/音軌總數」的格式"
-
-msgid "Genre as text instead of numeric string"
-msgstr "將曲風視做文字而不是數字字串"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "使用新標籤版本"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis 內容註釋欄位名稱"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis 圖片欄位名稱"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "大於這個尺寸就會標記"
-
-msgid "Picture maximum size (bytes)"
-msgstr "最大尺寸(位元組)"
-
-msgid "Show only custom genres"
-msgstr "僅顯示自訂曲風"
-
-msgid "Case conversion"
-msgstr "大小寫的轉換"
-
-msgid "Locale"
-msgstr "地區設定"
-
-msgid "String replacement"
-msgstr "字詞替換"
-
-msgid "Load last-opened files"
-msgstr ""
-
-msgid "Preserve file timestamp"
-msgstr "保留檔案的原來時間"
-
-msgid "Mark changes"
-msgstr "標記變更"
-
-msgid "Format while editing"
-msgstr "檔名格式的編輯"
-
-msgid "Filename for cover"
-msgstr "專輯封面的文件名"
-
-msgid "To filename format"
-msgstr "到檔案名稱格式"
-
-msgid "From filename format"
-msgstr "檔案名稱格式"
-
-msgid "To Filename"
-msgstr "到檔名"
-
 msgid "&Back"
 msgstr "返回(&B)"
 
@@ -721,6 +538,21 @@ msgstr "取代(&R)..."
 msgid "&Tools"
 msgstr "工具(&T)"
 
+msgid "Apply Filename Format"
+msgstr "套用檔名格式"
+
+msgid "Apply Tag Format"
+msgstr "套用 Tag 格式"
+
+msgid "Apply Text Encoding"
+msgstr "将字符编码"
+
+msgid "Rename Directory"
+msgstr "更改目錄名稱"
+
+msgid "Number Tracks"
+msgstr "音軌編號"
+
 msgid "&Settings"
 msgstr "設定(&S)"
 
@@ -765,6 +597,9 @@ msgstr "關於 Qt"
 
 msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
+
+msgid " [modified]"
+msgstr "[已更改]"
 
 msgid "Toggle the statusbar..."
 msgstr "切換狀態列..."
@@ -858,6 +693,9 @@ msgstr "網址"
 
 msgid "Directory name"
 msgstr "目錄名稱"
+
+msgid "QML base directory"
+msgstr "QML 底層目錄"
 
 msgid "Encode as URL"
 msgstr "編碼成網址"
@@ -1276,6 +1114,9 @@ msgstr "退出"
 msgid "Performer"
 msgstr "表演者"
 
+msgid "Picture"
+msgstr "圖片"
+
 msgid "Publisher"
 msgstr "出版商"
 
@@ -1387,8 +1228,14 @@ msgstr "Codec"
 msgid "Escape for HTML"
 msgstr "脫逸 HTML"
 
+msgid "Automatic Import"
+msgstr "自動匯入"
+
 msgid "D&estination:"
 msgstr "目的(&E)："
+
+msgid "Tag 1 and Tag 2"
+msgstr "標籤 1 與 標籤 2"
 
 msgid "&Profile:"
 msgstr "設定檔(&P):"
@@ -1431,6 +1278,9 @@ msgstr "演唱(奏)者/專輯(&A)"
 
 msgid "&Source"
 msgstr "來源(&S)"
+
+msgid "Source:"
+msgstr "來源:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1522,6 +1372,9 @@ msgstr "啟動"
 msgid "&Load last-opened files"
 msgstr ""
 
+msgid "Save"
+msgstr "儲存"
+
 msgid "&Preserve file timestamp"
 msgstr "保留檔案的原來時間(&P)"
 
@@ -1579,6 +1432,9 @@ msgstr "檢視(&V)..."
 
 msgid "Images"
 msgstr "圖片"
+
+msgid "Export"
+msgstr "匯出"
 
 msgid "&Format:"
 msgstr "格式(&F)："
@@ -1688,6 +1544,9 @@ msgstr "重設每個目錄計數器(&R)"
 msgid "&Total number of tracks:"
 msgstr "音軌編號(&T):"
 
+msgid "Create Playlist"
+msgstr "建立播放清單"
+
 msgid "Playlist File Name"
 msgstr "播放清單檔案名稱"
 
@@ -1733,8 +1592,17 @@ msgstr "僅依據檔案清單來寫入(&L)"
 msgid "Write &info using"
 msgstr "寫入依據(&I)"
 
+msgid "Preview"
+msgstr "預覽"
+
+msgid "Create Directory"
+msgstr "建立目錄"
+
 msgid "&Action:"
 msgstr "動作(&A):"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "從 標籤 2 與 標籤 1"
 
 msgid "From:"
 msgstr "從："
@@ -1759,6 +1627,9 @@ msgstr "沒有選擇結果"
 
 msgid "Import from Tags"
 msgstr "從標籤"
+
+msgid "Format:"
+msgstr "格式:"
 
 msgid "Extraction:"
 msgstr "提取:"
@@ -1797,14 +1668,29 @@ msgstr ""
 "目前目錄已更動\n"
 "要儲存嗎？"
 
+msgid "Warning"
+msgstr "警告"
+
 msgid "Exiting..."
 msgstr "離開..."
 
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
+msgid "Import"
+msgstr "匯入"
+
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
+
+msgid " [filtered]"
+msgstr "[已篩選]"
+
+msgid "Add Frame"
+msgstr "新增訊框"
+
+msgid "Select the frame ID"
+msgstr "選擇訊框代碼"
 
 msgid "Rename File"
 msgstr "更改檔名"
@@ -1896,6 +1782,9 @@ msgstr "刪除列(&D)"
 msgid "&Clear row"
 msgstr "清除列(&C)"
 
+msgid "Format while editing"
+msgstr "檔名格式的編輯"
+
 msgid "Validation"
 msgstr "驗證"
 
@@ -1943,6 +1832,9 @@ msgstr "上一音軌"
 
 msgid "Next Track"
 msgstr "下一音軌"
+
+msgid "Close"
+msgstr "關閉"
 
 msgid "Mute"
 msgstr "靜音"
@@ -2294,3 +2186,114 @@ msgstr "TSOT - 標題排序順序"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - 設定字幕"
+
+msgid "Destination:"
+msgstr "到:"
+
+msgid "Profile:"
+msgstr "設定檔:"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "OK"
+msgstr "確定"
+
+msgid "Filter:"
+msgstr "篩選:"
+
+msgid "Expression:"
+msgstr "算式:"
+
+msgid "Apply"
+msgstr "套用"
+
+msgid "The current directory has been modified.\n"
+msgstr "目前目錄已更動."
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Quit"
+msgstr "離開"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Start number:"
+msgstr "起始編號:"
+
+msgid "Total number of tracks"
+msgstr "音軌編號"
+
+msgid "Action:"
+msgstr "動作:"
+
+msgid "Mark truncated fields"
+msgstr "標記被截斷的欄位"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 字元編碼"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 字元編碼"
+
+msgid "Use track/total number of tracks format"
+msgstr "使用「音軌/音軌總數」的格式"
+
+msgid "Genre as text instead of numeric string"
+msgstr "將曲風視做文字而不是數字字串"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "使用新標籤版本"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis 內容註釋欄位名稱"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis 圖片欄位名稱"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "大於這個尺寸就會標記"
+
+msgid "Picture maximum size (bytes)"
+msgstr "最大尺寸(位元組)"
+
+msgid "Show only custom genres"
+msgstr "僅顯示自訂曲風"
+
+msgid "Case conversion"
+msgstr "大小寫的轉換"
+
+msgid "Locale"
+msgstr "地區設定"
+
+msgid "String replacement"
+msgstr "字詞替換"
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr "保留檔案的原來時間"
+
+msgid "Mark changes"
+msgstr "標記變更"
+
+msgid "Filename for cover"
+msgstr "專輯封面的文件名"
+
+msgid "To filename format"
+msgstr "到檔案名稱格式"
+
+msgid "From filename format"
+msgstr "檔案名稱格式"
+
+msgid "To Filename"
+msgstr "到檔名"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -416,189 +416,6 @@ msgstr "Pavel Fric"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-msgid "Automatic Import"
-msgstr "Automaticky importovat"
-
-msgid "Destination:"
-msgstr "Cíl:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Značka 1 a značka 2"
-
-msgid "Profile:"
-msgstr "Profil:"
-
-msgid "Close"
-msgstr "Zavřít"
-
-msgid "Start"
-msgstr "Začátek"
-
-msgid "Cancel"
-msgstr "Zrušit"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Filter:"
-msgstr "Filtr:"
-
-msgid "Expression:"
-msgstr "Výraz:"
-
-msgid "Apply"
-msgstr "Použít"
-
-msgid "Export"
-msgstr "Vyvést"
-
-msgid "Import"
-msgstr "Zavést"
-
-msgid "Add Frame"
-msgstr "Přidat prvek"
-
-msgid "Select the frame ID"
-msgstr "Vybrat ID prvku"
-
-msgid " [modified]"
-msgstr "[změněný]"
-
-msgid " [filtered]"
-msgstr " [filtrován]"
-
-msgid "Warning"
-msgstr "Varování"
-
-msgid "The current directory has been modified.\n"
-msgstr "Nynější adresář byl změněn."
-
-msgid "Settings"
-msgstr "Nastavení"
-
-msgid "Apply Filename Format"
-msgstr "Použít formát pro název souboru"
-
-msgid "Apply Tag Format"
-msgstr "Použít formát pro značku"
-
-msgid "Apply Text Encoding"
-msgstr "Použít kódování textu"
-
-msgid "Rename Directory"
-msgstr "Přejmenovat adresář"
-
-msgid "Number Tracks"
-msgstr "Číslovat skladby"
-
-msgid "Create Playlist"
-msgstr "Vytvořit seznam skladeb"
-
-msgid "Save"
-msgstr "Uložit"
-
-msgid "Quit"
-msgstr "Ukončit"
-
-msgid "Yes"
-msgstr "Ano"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Start number:"
-msgstr "Začáteční číslo:"
-
-msgid "Total number of tracks"
-msgstr "Celkový počet stop"
-
-msgid "Picture"
-msgstr "Obrázek"
-
-msgid "Action:"
-msgstr "Činnost:"
-
-msgid "Create Directory"
-msgstr "Vytvořit adresář"
-
-msgid "Source:"
-msgstr "Zdroj:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Ze značky 2 a značky 1"
-
-msgid "Format:"
-msgstr "Formát:"
-
-msgid "Preview"
-msgstr "Náhled"
-
-msgid "Mark truncated fields"
-msgstr "Označit zkrácená pole"
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 kódování textu"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 kódování textu"
-
-msgid "Use track/total number of tracks format"
-msgstr "Použít formát číslo/celkový počet stop"
-
-msgid "Genre as text instead of numeric string"
-msgstr "Žánr jako text místo jako číslo"
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Verze používaná pro nové značky"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis název pole s poznámkou"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis název pole s obrázkem"
-
-msgid "Mark if picture larger than maxium size"
-msgstr "Označit, je-li větší než"
-
-msgid "Picture maximum size (bytes)"
-msgstr "Maximální velikost (bajty)"
-
-msgid "Show only custom genres"
-msgstr "Ukázat pouze vlastní žánry"
-
-msgid "Case conversion"
-msgstr "Psaní velkých/malých písmen"
-
-msgid "Locale"
-msgstr "Jazyk"
-
-msgid "String replacement"
-msgstr "Nahrazení řetězce"
-
-msgid "Load last-opened files"
-msgstr "Nahrát naposledy otevřené soubory"
-
-msgid "Preserve file timestamp"
-msgstr "Neměnit časové razítko"
-
-msgid "Mark changes"
-msgstr "Označit změny"
-
-msgid "Format while editing"
-msgstr "Formátovat během úprav"
-
-msgid "Filename for cover"
-msgstr "Jméno souboru s obalem"
-
-msgid "To filename format"
-msgstr "Formát do názvu souboru"
-
-msgid "From filename format"
-msgstr "Formát z názvu souboru"
-
-msgid "To Filename"
-msgstr "Do názvu souboru"
-
 msgid "&Back"
 msgstr "&Zpět"
 
@@ -719,6 +536,21 @@ msgstr "&Nahradit..."
 msgid "&Tools"
 msgstr "&Nástroje"
 
+msgid "Apply Filename Format"
+msgstr "Použít formát pro název souboru"
+
+msgid "Apply Tag Format"
+msgstr "Použít formát pro značku"
+
+msgid "Apply Text Encoding"
+msgstr "Použít kódování textu"
+
+msgid "Rename Directory"
+msgstr "Přejmenovat adresář"
+
+msgid "Number Tracks"
+msgstr "Číslovat skladby"
+
 msgid "&Settings"
 msgstr "Na&stavení"
 
@@ -763,6 +595,9 @@ msgstr "O Qt"
 
 msgid "About &Qt"
 msgstr "O &Qt"
+
+msgid " [modified]"
+msgstr "[změněný]"
 
 msgid "Toggle the statusbar..."
 msgstr "Přepíná se stavový řádek..."
@@ -856,6 +691,9 @@ msgstr "URL"
 
 msgid "Directory name"
 msgstr "Název adresáře"
+
+msgid "QML base directory"
+msgstr "QML základní adresář"
 
 msgid "Encode as URL"
 msgstr "Zakódovat jako URL"
@@ -1276,6 +1114,9 @@ msgstr "Část"
 msgid "Performer"
 msgstr "Účinkující"
 
+msgid "Picture"
+msgstr "Obrázek"
+
 msgid "Publisher"
 msgstr "Vydavatel"
 
@@ -1387,8 +1228,14 @@ msgstr "Kodek"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Automaticky importovat"
+
 msgid "D&estination:"
 msgstr "Cí&l:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Značka 1 a značka 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1431,6 +1278,9 @@ msgstr "Umělec/&Album"
 
 msgid "&Source"
 msgstr "&Zdroj"
+
+msgid "Source:"
+msgstr "Zdroj:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1522,6 +1372,9 @@ msgstr "Spuštění"
 msgid "&Load last-opened files"
 msgstr "&Nahrát naposledy otevřené soubory"
 
+msgid "Save"
+msgstr "Uložit"
+
 msgid "&Preserve file timestamp"
 msgstr "&Neměnit časové razítko"
 
@@ -1578,6 +1431,9 @@ msgstr "&Pohled..."
 
 msgid "Images"
 msgstr "Obrázky"
+
+msgid "Export"
+msgstr "Vyvést"
 
 msgid "&Format:"
 msgstr "&Formát:"
@@ -1687,6 +1543,9 @@ msgstr "Vynulovat &počítadlo pro každou složku"
 msgid "&Total number of tracks:"
 msgstr "Celkový počet s&top:"
 
+msgid "Create Playlist"
+msgstr "Vytvořit seznam skladeb"
+
 msgid "Playlist File Name"
 msgstr "Název souboru se seznamem skladeb"
 
@@ -1732,8 +1591,17 @@ msgstr "Zapsat pouze &seznamy souborů"
 msgid "Write &info using"
 msgstr "Zapsat ú&daje pomocí"
 
+msgid "Preview"
+msgstr "Náhled"
+
+msgid "Create Directory"
+msgstr "Vytvořit adresář"
+
 msgid "&Action:"
 msgstr "&Činnost:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Ze značky 2 a značky 1"
 
 msgid "From:"
 msgstr "Z:"
@@ -1758,6 +1626,9 @@ msgstr "Nevybrán žádný výsledek"
 
 msgid "Import from Tags"
 msgstr "Zavést ze značek"
+
+msgid "Format:"
+msgstr "Formát:"
 
 msgid "Extraction:"
 msgstr "Získání:"
@@ -1796,14 +1667,29 @@ msgstr ""
 "Nynější adresář byl změněn.\n"
 "Chcete jej uložit?"
 
+msgid "Warning"
+msgstr "Varování"
+
 msgid "Exiting..."
 msgstr "Ukončuje se..."
 
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
 
+msgid "Import"
+msgstr "Zavést"
+
 msgid "Error while renaming:\n"
 msgstr "Během přejmenovávání se vyskytla chyba:\n"
+
+msgid " [filtered]"
+msgstr " [filtrován]"
+
+msgid "Add Frame"
+msgstr "Přidat prvek"
+
+msgid "Select the frame ID"
+msgstr "Vybrat ID prvku"
 
 msgid "Rename File"
 msgstr "Přejmenovat soubor"
@@ -1895,6 +1781,9 @@ msgstr "&Smazat řádek"
 msgid "&Clear row"
 msgstr "Vy&prázdnit řádek"
 
+msgid "Format while editing"
+msgstr "Formátovat během úprav"
+
 msgid "Validation"
 msgstr "Validace"
 
@@ -1942,6 +1831,9 @@ msgstr "Předchozí skladba"
 
 msgid "Next Track"
 msgstr "Další skladba"
+
+msgid "Close"
+msgstr "Zavřít"
 
 msgid "Mute"
 msgstr "Ztlumit"
@@ -2293,3 +2185,114 @@ msgstr "TSOT - Setřídění názvů"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Podnázev skladby"
+
+msgid "Destination:"
+msgstr "Cíl:"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Start"
+msgstr "Začátek"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Filter:"
+msgstr "Filtr:"
+
+msgid "Expression:"
+msgstr "Výraz:"
+
+msgid "Apply"
+msgstr "Použít"
+
+msgid "The current directory has been modified.\n"
+msgstr "Nynější adresář byl změněn."
+
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "Quit"
+msgstr "Ukončit"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Start number:"
+msgstr "Začáteční číslo:"
+
+msgid "Total number of tracks"
+msgstr "Celkový počet stop"
+
+msgid "Action:"
+msgstr "Činnost:"
+
+msgid "Mark truncated fields"
+msgstr "Označit zkrácená pole"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 kódování textu"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 kódování textu"
+
+msgid "Use track/total number of tracks format"
+msgstr "Použít formát číslo/celkový počet stop"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Žánr jako text místo jako číslo"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Verze používaná pro nové značky"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis název pole s poznámkou"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis název pole s obrázkem"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Označit, je-li větší než"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maximální velikost (bajty)"
+
+msgid "Show only custom genres"
+msgstr "Ukázat pouze vlastní žánry"
+
+msgid "Case conversion"
+msgstr "Psaní velkých/malých písmen"
+
+msgid "Locale"
+msgstr "Jazyk"
+
+msgid "String replacement"
+msgstr "Nahrazení řetězce"
+
+msgid "Load last-opened files"
+msgstr "Nahrát naposledy otevřené soubory"
+
+msgid "Preserve file timestamp"
+msgstr "Neměnit časové razítko"
+
+msgid "Mark changes"
+msgstr "Označit změny"
+
+msgid "Filename for cover"
+msgstr "Jméno souboru s obalem"
+
+msgid "To filename format"
+msgstr "Formát do názvu souboru"
+
+msgid "From filename format"
+msgstr "Formát z názvu souboru"
+
+msgid "To Filename"
+msgstr "Do názvu souboru"

@@ -171,7 +171,7 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 
 #ifdef CFG_QMLDIR
   str += QLatin1String("<tr><td>%q</td><td>%{qmlpath}</td><td>");
-  str += QCoreApplication::translate("@default", "QML base directory");
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "QML base directory"));
   str += QLatin1String("</td></tr>\n");
 #endif
 

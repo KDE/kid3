@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-02-04 21:00+0100\n"
+"POT-Creation-Date: 2015-03-03 18:08+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -415,189 +415,6 @@ msgstr "Mehmet Yilmaz SÜSLÜ"
 msgid "Your emails"
 msgstr "yilmazsuslu@gmail.com"
 
-msgid "Automatic Import"
-msgstr "Otomatik al"
-
-msgid "Destination:"
-msgstr "Hedef:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 ve Tag 2"
-
-msgid "Profile:"
-msgstr "Profil:"
-
-msgid "Close"
-msgstr "Kapat"
-
-msgid "Start"
-msgstr "Başlat"
-
-msgid "Cancel"
-msgstr "İptal"
-
-msgid "OK"
-msgstr "Tamam"
-
-msgid "Filter:"
-msgstr "Filtre:"
-
-msgid "Expression:"
-msgstr "İfade:"
-
-msgid "Apply"
-msgstr "Uygula"
-
-msgid "Export"
-msgstr "Dışa Aktar"
-
-msgid "Import"
-msgstr "Al"
-
-msgid "Add Frame"
-msgstr "Çerçeve Ekle"
-
-msgid "Select the frame ID"
-msgstr "Çerçeve numarasını seç"
-
-msgid " [modified]"
-msgstr " [değişti]"
-
-msgid " [filtered]"
-msgstr " [süzgeci]"
-
-msgid "Warning"
-msgstr "Uyarı"
-
-msgid "The current directory has been modified.\n"
-msgstr "İçinde bulunduğunuz dizin değiştirildi."
-
-msgid "Settings"
-msgstr "Ayarlar"
-
-msgid "Apply Filename Format"
-msgstr "Dosya Adı Yapısını Uygula"
-
-msgid "Apply Tag Format"
-msgstr "Tag Yapısını Uygula"
-
-msgid "Apply Text Encoding"
-msgstr "Karakter Kodlaması Uygula"
-
-msgid "Rename Directory"
-msgstr "Dizini Yeniden Adlandır"
-
-msgid "Number Tracks"
-msgstr "Parça Numaraları"
-
-msgid "Create Playlist"
-msgstr "Playlist Yarat"
-
-msgid "Save"
-msgstr "Kaydet"
-
-msgid "Quit"
-msgstr "Çık"
-
-msgid "Yes"
-msgstr "Evet"
-
-msgid "No"
-msgstr "Hayır"
-
-msgid "Start number:"
-msgstr "Başlangıç numarası:"
-
-msgid "Total number of tracks"
-msgstr "Toplam Parça Sayısı"
-
-msgid "Picture"
-msgstr "Resim"
-
-msgid "Action:"
-msgstr "Eylem:"
-
-msgid "Create Directory"
-msgstr "Dizin Yarat"
-
-msgid "Source:"
-msgstr "Kaynak:"
-
-msgid "From Tag 2 and Tag 1"
-msgstr "Tag 2 ve Tag 1'den"
-
-msgid "Format:"
-msgstr "Biçim:"
-
-msgid "Preview"
-msgstr "Önizleme"
-
-msgid "Mark truncated fields"
-msgstr ""
-
-msgid "ID3v1 text encoding"
-msgstr "ID3v1 karakter Kodlaması"
-
-msgid "ID3v2 text encoding"
-msgstr "ID3v2 karakter Kodlaması"
-
-msgid "Use track/total number of tracks format"
-msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
-
-msgid "Genre as text instead of numeric string"
-msgstr ""
-
-msgid "Version used for new ID3v2 tags"
-msgstr "Yeni tag'lar için kullanılan sürüm"
-
-msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis lütfen yeni dosya ismi yazın"
-
-msgid "Ogg/Vorbis picture field name"
-msgstr ""
-
-msgid "Mark if picture larger than maxium size"
-msgstr ""
-
-msgid "Picture maximum size (bytes)"
-msgstr "Maksimum boyut (bayt)"
-
-msgid "Show only custom genres"
-msgstr ""
-
-msgid "Case conversion"
-msgstr ""
-
-msgid "Locale"
-msgstr "Dil"
-
-msgid "String replacement"
-msgstr ""
-
-msgid "Load last-opened files"
-msgstr ""
-
-msgid "Preserve file timestamp"
-msgstr "Dosya timestamp değerini sakla"
-
-msgid "Mark changes"
-msgstr ""
-
-msgid "Format while editing"
-msgstr "Düzenleme şekli"
-
-msgid "Filename for cover"
-msgstr "Albüm kapağı için dosya adı"
-
-msgid "To filename format"
-msgstr "Dosya adı için biçimi"
-
-msgid "From filename format"
-msgstr "Dosya adı Biçimi"
-
-msgid "To Filename"
-msgstr "Dosya adı için"
-
 msgid "&Back"
 msgstr "&Geri"
 
@@ -718,6 +535,21 @@ msgstr "D&eğiştir..."
 msgid "&Tools"
 msgstr "&Araçlar"
 
+msgid "Apply Filename Format"
+msgstr "Dosya Adı Yapısını Uygula"
+
+msgid "Apply Tag Format"
+msgstr "Tag Yapısını Uygula"
+
+msgid "Apply Text Encoding"
+msgstr "Karakter Kodlaması Uygula"
+
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
+msgid "Number Tracks"
+msgstr "Parça Numaraları"
+
 msgid "&Settings"
 msgstr "Ayarla&r"
 
@@ -762,6 +594,9 @@ msgstr "Qt Hakkında"
 
 msgid "About &Qt"
 msgstr "&Qt Hakkında"
+
+msgid " [modified]"
+msgstr " [değişti]"
 
 msgid "Toggle the statusbar..."
 msgstr "Durum çubuğu açılı/kapatılıyor..."
@@ -855,6 +690,9 @@ msgstr "URL'ler"
 
 msgid "Directory name"
 msgstr "Dizin adı"
+
+msgid "QML base directory"
+msgstr "Temel Dizini QML"
 
 msgid "Encode as URL"
 msgstr ""
@@ -1273,6 +1111,9 @@ msgstr "Bölüm"
 msgid "Performer"
 msgstr "Sanatçı"
 
+msgid "Picture"
+msgstr "Resim"
+
 msgid "Publisher"
 msgstr "Yayıncı"
 
@@ -1384,8 +1225,14 @@ msgstr "Kodlayıcı"
 msgid "Escape for HTML"
 msgstr "Escape HTML"
 
+msgid "Automatic Import"
+msgstr "Otomatik al"
+
 msgid "D&estination:"
 msgstr "H&edef:"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 ve Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1428,6 +1275,9 @@ msgstr "Sanatçı/&Albüm"
 
 msgid "&Source"
 msgstr "&Kaynak"
+
+msgid "Source:"
+msgstr "Kaynak:"
 
 msgid "URL:"
 msgstr "URL:"
@@ -1519,6 +1369,9 @@ msgstr "Başlangıç"
 msgid "&Load last-opened files"
 msgstr ""
 
+msgid "Save"
+msgstr "Kaydet"
+
 msgid "&Preserve file timestamp"
 msgstr "&Dosya timestamp değerini sakla"
 
@@ -1576,6 +1429,9 @@ msgstr "Görü&nüm..."
 
 msgid "Images"
 msgstr "Resimler"
+
+msgid "Export"
+msgstr "Dışa Aktar"
 
 msgid "&Format:"
 msgstr "&Biçim:"
@@ -1685,6 +1541,9 @@ msgstr "&Her klasör için sayacı sıfırla"
 msgid "&Total number of tracks:"
 msgstr "&Toplam Parça Sayısı:"
 
+msgid "Create Playlist"
+msgstr "Playlist Yarat"
+
 msgid "Playlist File Name"
 msgstr ""
 
@@ -1730,8 +1589,17 @@ msgstr ""
 msgid "Write &info using"
 msgstr ""
 
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Create Directory"
+msgstr "Dizin Yarat"
+
 msgid "&Action:"
 msgstr "&Eylem:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Tag 2 ve Tag 1'den"
 
 msgid "From:"
 msgstr "Şuradan:"
@@ -1756,6 +1624,9 @@ msgstr "Hiç sonuç seçilmedi"
 
 msgid "Import from Tags"
 msgstr "Tag'den Al"
+
+msgid "Format:"
+msgstr "Biçim:"
 
 msgid "Extraction:"
 msgstr "Çıkarma:"
@@ -1794,14 +1665,29 @@ msgstr ""
 "İçinde bulunduğunuz dizin değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
+msgid "Warning"
+msgstr "Uyarı"
+
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
 
 msgid "Creating playlist..."
 msgstr "Playlist Yaratılıyor..."
 
+msgid "Import"
+msgstr "Al"
+
 msgid "Error while renaming:\n"
 msgstr "İsim değiştirirken hata:\n"
+
+msgid " [filtered]"
+msgstr " [süzgeci]"
+
+msgid "Add Frame"
+msgstr "Çerçeve Ekle"
+
+msgid "Select the frame ID"
+msgstr "Çerçeve numarasını seç"
 
 msgid "Rename File"
 msgstr "Dosya Adını Değiştir"
@@ -1893,6 +1779,9 @@ msgstr "Satır &Sil"
 msgid "&Clear row"
 msgstr "Satırı &Temizle"
 
+msgid "Format while editing"
+msgstr "Düzenleme şekli"
+
 msgid "Validation"
 msgstr "Doğrulama"
 
@@ -1940,6 +1829,9 @@ msgstr "Önceki Parça"
 
 msgid "Next Track"
 msgstr "Sonraki Parça"
+
+msgid "Close"
+msgstr "Kapat"
 
 msgid "Mute"
 msgstr "Sessiz"
@@ -2291,3 +2183,114 @@ msgstr "TSOT - Başlık sıralaması"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Alt yazı ayarla"
+
+msgid "Destination:"
+msgstr "Hedef:"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Start"
+msgstr "Başlat"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "OK"
+msgstr "Tamam"
+
+msgid "Filter:"
+msgstr "Filtre:"
+
+msgid "Expression:"
+msgstr "İfade:"
+
+msgid "Apply"
+msgstr "Uygula"
+
+msgid "The current directory has been modified.\n"
+msgstr "İçinde bulunduğunuz dizin değiştirildi."
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Quit"
+msgstr "Çık"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Start number:"
+msgstr "Başlangıç numarası:"
+
+msgid "Total number of tracks"
+msgstr "Toplam Parça Sayısı"
+
+msgid "Action:"
+msgstr "Eylem:"
+
+msgid "Mark truncated fields"
+msgstr ""
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 karakter Kodlaması"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 karakter Kodlaması"
+
+msgid "Use track/total number of tracks format"
+msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
+
+msgid "Genre as text instead of numeric string"
+msgstr ""
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Yeni tag'lar için kullanılan sürüm"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis lütfen yeni dosya ismi yazın"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr ""
+
+msgid "Mark if picture larger than maxium size"
+msgstr ""
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maksimum boyut (bayt)"
+
+msgid "Show only custom genres"
+msgstr ""
+
+msgid "Case conversion"
+msgstr ""
+
+msgid "Locale"
+msgstr "Dil"
+
+msgid "String replacement"
+msgstr ""
+
+msgid "Load last-opened files"
+msgstr ""
+
+msgid "Preserve file timestamp"
+msgstr "Dosya timestamp değerini sakla"
+
+msgid "Mark changes"
+msgstr ""
+
+msgid "Filename for cover"
+msgstr "Albüm kapağı için dosya adı"
+
+msgid "To filename format"
+msgstr "Dosya adı için biçimi"
+
+msgid "From filename format"
+msgstr "Dosya adı Biçimi"
+
+msgid "To Filename"
+msgstr "Dosya adı için"
