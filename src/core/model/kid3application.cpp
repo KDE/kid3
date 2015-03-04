@@ -37,6 +37,9 @@
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
 #include <CoreFoundation/CFUrl.h>
 #endif
+#ifdef Q_OS_MAC
+#include <QFileIconProvider>
+#endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include <unistd.h>
@@ -113,6 +116,31 @@ QString pluginFileName(const QString& pluginName)
 
 }
 
+#ifdef Q_OS_MAC
+/**
+ * Provides null icons for the file information.
+ * Set an instance with QFileSystemModel::setIconProvider() as a workaround
+ * for QTBUG-41796.
+ */
+class NullFileIconProvider : public QFileIconProvider {
+public:
+  /**
+   * Provide icons for file information.
+   * This will always return a null icon, forcing QFileSystemModel to use
+   * standard directory and file icons.
+   * @param info not used
+   * @return null icon.
+   */
+  virtual QIcon icon(const QFileInfo& info) const;
+};
+
+QIcon NullFileIconProvider::icon(const QFileInfo& info) const
+{
+  Q_UNUSED(info)
+  return QIcon();
+}
+#endif
+
 
 /** Fallback for path to search for plugins */
 QString Kid3Application::s_pluginsPathFallback;
@@ -126,6 +154,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
+#ifdef Q_OS_MAC
+  m_defaultFileIconProvider(0), m_fileIconProvider(0),
+#endif
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
@@ -160,6 +191,11 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_filtered(false)
 {
   setObjectName(QLatin1String("Kid3Application"));
+#ifdef Q_OS_MAC
+  m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
+  m_fileIconProvider = new NullFileIconProvider;
+  m_fileSystemModel->setIconProvider(m_fileIconProvider);
+#endif
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
 
@@ -221,6 +257,10 @@ Kid3Application::~Kid3Application()
   if (m_player) {
     m_player->setParent(0);
   }
+#endif
+#ifdef Q_OS_MAC
+  m_fileSystemModel->setIconProvider(m_defaultFileIconProvider);
+  delete m_fileIconProvider;
 #endif
 }
 
