@@ -136,7 +136,37 @@ Timer {
     }
   }
 
-  interval: 1
-  onTriggered: main()
-  Component.onCompleted: start()
+  /**
+   * Invoke a callback with delay in ms and optional arguments.
+   * This can be used to keep the GUI responsive by splitting the code
+   * into asynchronous functions and call them after a small delay.
+   */
+  function setTimeout(callback, delay) {
+    var argv = Array.prototype.slice.call(arguments, 2)
+
+    function timeoutHandler() {
+      triggered.disconnect(timeoutHandler)
+      callback.apply(null, argv)
+    }
+
+    triggered.connect(timeoutHandler)
+    interval = delay
+    if (!running) {
+      start()
+    } else {
+      // QtQuick 1 cannot restart a timer from a handler, see QTBUG-22004,
+      // http://permalink.gmane.org/gmane.comp.lib.qt.qml/3213
+      // This workaround starts it when it is possible again.
+      function restartHandler() {
+        runningChanged.disconnect(restartHandler)
+        if (!running) {
+          start()
+        }
+      }
+
+      runningChanged.connect(restartHandler)
+    }
+  }
+
+  Component.onCompleted: setTimeout(main, 1)
 }

@@ -29,8 +29,8 @@ Kid3Script {
     var tempPath = script.tempPath()
     var picPath = tempPath + "/kid3img"
     var maxPixels = 500
-    app.firstFile()
-    do {
+
+    function doWork() {
       if (app.selectionInfo.tagFormatV2) {
         var frames = app.getAllFrames(tagv2)
         if ("Picture" in frames) {
@@ -59,12 +59,19 @@ Kid3Script {
           }
         }
       }
-    } while (app.nextFile())
-    script.removeFile(picPath)
-    if (isStandalone()) {
-      // Save the changes if the script is started stand-alone, not from Kid3.
-      app.saveDirectory()
+      if (!app.nextFile()) {
+        script.removeFile(picPath)
+        if (isStandalone()) {
+          // Save the changes if the script is started stand-alone, not from Kid3.
+          app.saveDirectory()
+        }
+        Qt.quit()
+      } else {
+        setTimeout(doWork, 1)
+      }
     }
-    Qt.quit()
+
+    app.firstFile()
+    doWork()
   }
 }

@@ -26,33 +26,39 @@ import Kid3 1.0
 
 Kid3Script {
   onRun: {
-    app.firstFile()
-    do {
+    function doWork() {
       if (app.selectionInfo.tagFormatV2) {
         var rgStr = app.getFrame(tagv2, "replaygain_track_gain")
         if (rgStr) {
           var rg = parseFloat(rgStr)
-          if (isNaN(rg)) {
+          if (!isNaN(rg)) {
+            // Calculate SoundCheck value and insert a sequence of 10
+            // hex zero-padded to 8 digits values into the iTunNORM frame.
+            var scVal = parseInt(Math.pow(10, -rg / 10) * 1000).toString(16)
+            var pad = "00000000"
+            scVal = " " + (pad + scVal).slice(-pad.length)
+            var sc = new Array(11).join(scVal)
+            console.log("Set iTunNORM to %1 in %2".
+                        arg(sc).arg(app.selectionInfo.fileName))
+            app.setFrame(tagv2, "iTunNORM", sc)
+          } else {
             console.log("Value %1 is not a float in %2".
                         arg(rgStr).arg(app.selectionInfo.fileName))
-            continue
           }
-          // Calculate SoundCheck value and insert a sequence of 10
-          // hex zero-padded to 8 digits values into the iTunNORM frame.
-          var scVal = parseInt(Math.pow(10, -rg / 10) * 1000).toString(16)
-          var pad = "00000000"
-          scVal = " " + (pad + scVal).slice(-pad.length)
-          var sc = new Array(11).join(scVal)
-          console.log("Set iTunNORM to %1 in %2".
-                      arg(sc).arg(app.selectionInfo.fileName))
-          app.setFrame(tagv2, "iTunNORM", sc)
         }
       }
-    } while (app.nextFile())
-    if (isStandalone()) {
-      // Save the changes if the script is started stand-alone, not from Kid3.
-      app.saveDirectory()
+      if (!app.nextFile()) {
+        if (isStandalone()) {
+          // Save the changes if the script is started stand-alone, not from Kid3.
+          app.saveDirectory()
+        }
+        Qt.quit()
+      } else {
+        setTimeout(doWork, 1)
+      }
     }
-    Qt.quit()
+
+    app.firstFile()
+    doWork()
   }
 }
