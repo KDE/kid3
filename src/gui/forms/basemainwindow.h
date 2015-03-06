@@ -468,6 +468,7 @@ private:
   TaggedFile* m_editFrameTaggedFile;
   QDateTime m_expandFileListStartTime;
   bool m_findReplaceActive;
+  bool m_expandNotificationNeeded;
 };
 
 

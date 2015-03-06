@@ -104,7 +104,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
 #endif
-  m_editFrameTaggedFile(0), m_findReplaceActive(false)
+  m_editFrameTaggedFile(0), m_findReplaceActive(false),
+  m_expandNotificationNeeded(false)
 {
   ContextHelp::init(m_platformTools);
 
@@ -1150,6 +1151,7 @@ void BaseMainWindowImpl::toggleExpanded(const QModelIndex& index)
  */
 void BaseMainWindowImpl::expandFileList()
 {
+  m_expandNotificationNeeded = sender() == m_app;
   m_expandFileListStartTime = QDateTime::currentDateTime();
   connect(m_app->getFileProxyModelIterator(),
           SIGNAL(nextReady(QPersistentModelIndex)),
@@ -1203,6 +1205,10 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
                this, SLOT(expandNextDirectory(QPersistentModelIndex)));
     if (m_progressDialog) {
       m_progressDialog->reset();
+    }
+    if (m_expandNotificationNeeded) {
+      m_expandNotificationNeeded = false;
+      m_app->notifyExpandFileListFinished();
     }
   }
 }

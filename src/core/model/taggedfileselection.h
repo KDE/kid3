@@ -55,6 +55,8 @@ class KID3_CORE_EXPORT TaggedFileSelection : public QObject {
   /** File name if single file selected, else null string. */
   Q_PROPERTY(QString fileName READ getFilename WRITE setFilename
              NOTIFY singleFileChanged)
+  /** Absolute file path if single file selected, else null string. */
+  Q_PROPERTY(QString filePath READ getFilePath NOTIFY singleFileChanged)
   /** Detail information if single file selected, else null string. */
   Q_PROPERTY(QString detailInfo READ getDetailInfo NOTIFY singleFileChanged)
   /** Format of tag 1 if single file selected, else null string. */
@@ -143,6 +145,12 @@ public:
    * @param fn file name
    */
   void setFilename(const QString& fn);
+
+  /**
+   * Get file path.
+   * @return absolute file path if single file selected, else null string.
+   */
+  QString getFilePath() const;
 
   /**
    * Get string representation of detail information.

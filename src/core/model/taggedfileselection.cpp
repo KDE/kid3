@@ -206,6 +206,16 @@ void TaggedFileSelection::setFilename(const QString& fn)
 }
 
 /**
+ * Get file path.
+ * @return absolute file path if single file selected, else null string.
+ */
+QString TaggedFileSelection::getFilePath() const
+{
+  return m_state.m_singleFile
+      ? m_state.m_singleFile->getAbsFilename() : QString();
+}
+
+/**
  * Get string representation of detail information.
  * @return information summary as string if single file else null string.
  */

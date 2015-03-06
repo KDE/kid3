@@ -984,6 +984,11 @@ public slots:
   void requestExpandFileList();
 
   /**
+   * Called when operation for requestExpandFileList() is finished.
+   */
+  void notifyExpandFileListFinished();
+
+  /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
    */
@@ -1170,6 +1175,12 @@ signals:
    * Emitted to request expanding of all directories in the file list.
    */
   void expandFileListRequested();
+
+  /**
+   * Emitted when operation requested by requestExpandFileList()
+   * (signal expandFileListRequested()) is finished.
+   */
+  void expandFileListFinished();
 
   /**
    * Emitted when the file selection is changed.

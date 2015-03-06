@@ -3,4 +3,5 @@ set (script_QML_SRCS
   script/ResizeAlbumArt.qml
   script/QmlConsole.qml
   script/ShowTextEncodingV1.qml
+  script/ExportCsv.qml
 )

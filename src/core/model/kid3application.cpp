@@ -2191,10 +2191,19 @@ void Kid3Application::expandDirectory(const QModelIndex& index)
 
 /**
  * Expand the whole file list if GUI available.
+ * expandFileListFinished() is emitted when finished.
  */
 void Kid3Application::requestExpandFileList()
 {
   emit expandFileListRequested();
+}
+
+/**
+ * Called when operation for requestExpandFileList() is finished.
+ */
+void Kid3Application::notifyExpandFileListFinished()
+{
+  emit expandFileListFinished();
 }
 
 /**
@@ -2832,7 +2841,17 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
   for (FrameCollection::const_iterator it = ft->frames().begin();
        it != ft->frames().end();
        ++it) {
-    map.insert(it->getName(), it->getValue());
+    QString name(it->getName());
+    int nlPos = name.indexOf(QLatin1Char('\n'));
+    if (nlPos > 0) {
+      // probably "TXXX - User defined text information\nDescription" or
+      // "WXXX - User defined URL link\nDescription"
+      name = name.mid(nlPos + 1);
+    } else if (name.midRef(4, 3) == QLatin1String(" - ")) {
+      // probably "ID3-ID - Description"
+      name = name.left(4);
+    }
+    map.insert(name, it->getValue());
   }
   return map;
 }
