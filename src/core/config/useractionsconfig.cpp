@@ -141,6 +141,8 @@ void UserActionsConfig::readFromConfig(ISettings* config)
       UserActionsConfig::MenuCommand(QLatin1String("ReplayGain to SoundCheck"), QLatin1String("@qml %{qmlpath}/script/ReplayGain2SoundCheck.qml"), false, true));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Resize Album Art"), QLatin1String("@qml %{qmlpath}/script/ResizeAlbumArt.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Text Encoding ID3v1"), QLatin1String("@qml %{qmlpath}/script/ShowTextEncodingV1.qml"), false, true));
   }
 #endif
 }

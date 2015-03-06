@@ -324,7 +324,7 @@ public:
   /**
    * Apply configuration changes.
    */
-  void applyChangedConfiguration();
+  Q_INVOKABLE void applyChangedConfiguration();
 
   /**
    * Save settings to the configuration.
