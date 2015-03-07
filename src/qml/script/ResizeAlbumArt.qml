@@ -26,18 +26,20 @@ import Kid3 1.0
 
 Kid3Script {
   onRun: {
-    var tempPath = script.tempPath()
-    var picPath = tempPath + "/kid3img"
     var maxPixels = 500
 
     function doWork() {
       if (app.selectionInfo.tagFormatV2) {
-        var frames = app.getAllFrames(tagv2)
-        if ("Picture" in frames) {
-          script.removeFile(picPath)
-          var desc = app.getFrame(tagv2, "Picture:" + picPath)
-          var img = script.loadImage(picPath)
+        var data = app.getPictureData()
+        if (script.getDataSize(data) !== 0) {
+          var format = "JPG"
+          var img = script.dataToImage(data, format)
           var imgProps = script.imageProperties(img)
+          if (typeof imgProps.width === "undefined") {
+            format = "PNG"
+            img = script.dataToImage(data, format)
+            imgProps = script.imageProperties(img)
+          }
           var width = imgProps.width, height = imgProps.height
           if (width > maxPixels || height > maxPixels) {
             if (width >= height) {
@@ -47,20 +49,17 @@ Kid3Script {
             }
             img = script.scaleImage(img, width, height)
             imgProps = script.imageProperties(img)
-            if (script.saveImage(img, picPath)) {
-              app.setFrame(tagv2, "Picture:" + picPath, desc)
+            data = script.dataFromImage(img, format)
+            if (script.getDataSize(data) !== 0) {
+              app.setPictureData(data)
               console.log("Resized image to %1x%2 in %3".
                           arg(imgProps.width).arg(imgProps.height).
                           arg(app.selectionInfo.fileName))
-            } else {
-              console.log("Failed to save " + picPath + " for scaled image in "
-                          + app.selectionInfo.fileName)
             }
           }
         }
       }
       if (!app.nextFile()) {
-        script.removeFile(picPath)
         if (isStandalone()) {
           // Save the changes if the script is started stand-alone, not from Kid3.
           app.saveDirectory()

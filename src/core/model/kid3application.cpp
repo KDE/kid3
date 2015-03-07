@@ -2972,6 +2972,42 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
 }
 
 /**
+ * Get data from picture frame.
+ * @return picture data, empty if not found.
+ */
+QByteArray Kid3Application::getPictureData() const
+{
+  QByteArray data;
+  const FrameCollection& frames = m_framesV2Model->frames();
+  FrameCollection::const_iterator it = frames.findByExtendedType(
+        Frame::ExtendedType(Frame::FT_Picture));
+  if (it != frames.end()) {
+    PictureFrame::getData(*it, data);
+  }
+  return data;
+}
+
+/**
+ * Set data in picture frame.
+ * @param data picture data
+ */
+void Kid3Application::setPictureData(const QByteArray& data)
+{
+  const FrameCollection& frames = m_framesV2Model->frames();
+  FrameCollection::const_iterator it = frames.findByExtendedType(
+        Frame::ExtendedType(Frame::FT_Picture));
+  PictureFrame frame;
+  if (it != frames.end()) {
+    frame = PictureFrame(*it);
+    deleteFrame(QLatin1String("Picture"));
+  }
+  if (!data.isEmpty()) {
+    PictureFrame::setData(frame, data);
+    addFrame(&frame);
+  }
+}
+
+/**
  * Close the file handle of a tagged file.
  * @param filePath path to file
  */

@@ -39,6 +39,9 @@ Rectangle {
   readonly property int tagv2: Frame.TagV2 //@QtQuick2
   readonly property int tagv2v1: Frame.TagV2V1 //@QtQuick2
 
+  // An empty context object for interactive variable storage.
+  property var ctx: new Object() //@QtQuick2
+
   property SystemPalette palette: SystemPalette {}
   property string help:
       ".quit    - quit console\n" +
@@ -143,6 +146,7 @@ Rectangle {
       anchors.margins: 8
       focus: true
       selectByMouse: true
+      clip: true
       onAccepted: {
         if (!text)
           return

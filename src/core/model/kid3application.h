@@ -544,6 +544,18 @@ public:
                             const QString& value);
 
   /**
+   * Get data from picture frame.
+   * @return picture data, empty if not found.
+   */
+  Q_INVOKABLE QByteArray getPictureData() const;
+
+  /**
+   * Set data in picture frame.
+   * @param data picture data
+   */
+  Q_INVOKABLE void setPictureData(const QByteArray& data);
+
+  /**
    * Format a filename if format while editing is switched on.
    *
    * @param taggedFile file to modify

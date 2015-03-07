@@ -31,7 +31,10 @@
 #include <QDir>
 #include <QProcess>
 #include <QImage>
+#include <QBuffer>
+#include <QCryptographicHash>
 #include "pictureframe.h"
+#include "saferename.h"
 
 #if QT_VERSION < 0x050000
 Q_DECLARE_METATYPE(QModelIndex)
@@ -251,6 +254,27 @@ bool ScriptUtils::removeFile(const QString& filePath)
 }
 
 /**
+ * Check if file exists.
+ * @param filePath path to file
+ * @return true if file exists.
+ */
+bool ScriptUtils::fileExists(const QString& filePath)
+{
+  return QFile::exists(filePath);
+}
+
+/**
+ * Rename file.
+ * @param oldName old name
+ * @param newName new name
+ * @return true if ok.
+ */
+bool ScriptUtils::renameFile(const QString& oldName, const QString& newName)
+{
+  return Utils::safeRename(oldName, newName);
+}
+
+/**
  * Get path of temporary directory.
  * @return temporary directory.
  */
@@ -332,6 +356,60 @@ bool ScriptUtils::setEnv(const QByteArray& varName, const QByteArray& value)
 QString ScriptUtils::getQtVersion()
 {
   return QString::fromLatin1(qVersion());
+}
+
+/**
+ * Get hex string of the MD5 hash of data.
+ * This is a replacement for Qt::md5(), which does only work with strings.
+ * @param data data bytes
+ * @return MD5 sum.
+ */
+QString ScriptUtils::getDataMd5(const QByteArray& data)
+{
+  QByteArray result = QCryptographicHash::hash(data, QCryptographicHash::Md5);
+  return QLatin1String(result.toHex());
+}
+
+/**
+ * Get size of byte array.
+ * @param data data bytes
+ * @return number of bytes in @a data.
+ */
+int ScriptUtils::getDataSize(const QByteArray& data)
+{
+  return data.size();
+}
+
+/**
+ * Create an image from data bytes.
+ * @param data data bytes
+ * @param format image format, default is "JPG"
+ * @return image variant.
+ */
+QVariant ScriptUtils::dataToImage(const QByteArray& data,
+                                  const QByteArray& format)
+{
+  QImage img(QImage::fromData(data, format.constData()));
+  return QVariant::fromValue(img);
+}
+
+/**
+ * Get data bytes from image.
+ * @param var image variant
+ * @param format image format, default is "JPG"
+ * @return data bytes.
+ */
+QByteArray ScriptUtils::dataFromImage(const QVariant& var,
+                                      const QByteArray& format)
+{
+  QByteArray data;
+  QImage img(var.value<QImage>());
+  if (!img.isNull()) {
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::WriteOnly);
+    img.save(&buffer, format.constData());
+  }
+  return data;
 }
 
 /**

@@ -161,6 +161,22 @@ public:
   Q_INVOKABLE static bool removeFile(const QString& filePath);
 
   /**
+   * Check if file exists.
+   * @param filePath path to file
+   * @return true if file exists.
+   */
+  Q_INVOKABLE static bool fileExists(const QString& filePath);
+
+  /**
+   * Rename file.
+   * @param oldName old name
+   * @param newName new name
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool renameFile(const QString& oldName,
+                                     const QString& newName);
+
+  /**
    * Get path of temporary directory.
    * @return temporary directory.
    */
@@ -210,6 +226,39 @@ public:
    * @return Qt version string, e.g. "5.4.1".
    */
   Q_INVOKABLE static QString getQtVersion();
+
+  /**
+   * Get hex string of the MD5 hash of data.
+   * This is a replacement for Qt::md5(), which does only work with strings.
+   * @param data data bytes
+   * @return MD5 sum.
+   */
+  Q_INVOKABLE static QString getDataMd5(const QByteArray& data);
+
+  /**
+   * Get size of byte array.
+   * @param data data bytes
+   * @return number of bytes in @a data.
+   */
+  Q_INVOKABLE static int getDataSize(const QByteArray& data);
+
+  /**
+   * Create an image from data bytes.
+   * @param data data bytes
+   * @param format image format, default is "JPG"
+   * @return image variant.
+   */
+  Q_INVOKABLE static QVariant dataToImage(const QByteArray& data,
+                                          const QByteArray& format = "JPG");
+
+  /**
+   * Get data bytes from image.
+   * @param var image variant
+   * @param format image format, default is "JPG"
+   * @return data bytes.
+   */
+  Q_INVOKABLE static QByteArray dataFromImage(const QVariant& var,
+                                              const QByteArray& format = "JPG");
 
   /**
    * Load an image from a file.
