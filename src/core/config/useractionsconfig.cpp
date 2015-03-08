@@ -142,6 +142,10 @@ void UserActionsConfig::readFromConfig(ISettings* config)
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Resize Album Art"), QLatin1String("@qml %{qmlpath}/script/ResizeAlbumArt.qml"), false, true));
     m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Extract Album Art"), QLatin1String("@qml %{qmlpath}/script/ExtractAlbumArt.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Embed Album Art"), QLatin1String("@qml %{qmlpath}/script/EmbedAlbumArt.qml"), false, true));
+    m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Text Encoding ID3v1"), QLatin1String("@qml %{qmlpath}/script/ShowTextEncodingV1.qml"), false, true));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Export CSV"), QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml %{directory}/export.csv"), false, true));
