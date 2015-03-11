@@ -293,7 +293,6 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
      * artist and album can be found in the title:
 <title>Amon Amarth - The Avenger (CD, Album, Dig) at Discogs</title>
      */
-    end = 0;
     start = str.indexOf(QLatin1String("<title>"));
     if (start >= 0) {
       start += 7; // skip <title>

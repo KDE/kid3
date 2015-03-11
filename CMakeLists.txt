@@ -91,6 +91,13 @@ if (WITH_APPS)
   endforeach ()
 endif (WITH_APPS)
 
+if (NOT BUILD_SHARED_LIBS AND WITH_QML)
+  message(WARNING "Switching off WITH_QML because of static build")
+  set(WITH_QML OFF)
+  set(BUILD_QML_APP OFF)
+endif (NOT BUILD_SHARED_LIBS AND WITH_QML)
+
+
 # Version information
 set(CPACK_PACKAGE_VERSION_MAJOR 3)
 set(CPACK_PACKAGE_VERSION_MINOR 2)
