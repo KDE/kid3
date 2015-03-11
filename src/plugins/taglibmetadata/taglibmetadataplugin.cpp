@@ -154,6 +154,9 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
 #if TAGLIB_VERSION >= 0x010900
         || ext == QLatin1String("opus")
 #endif
+#if TAGLIB_VERSION >= 0x010901
+        || ext == QLatin1String(".dsf")
+#endif
         || ext2 == QLatin1String(".wv"))
       return new TagLibFile(idx);
   }
@@ -193,6 +196,9 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
 #endif
 #if TAGLIB_VERSION >= 0x010900
       QLatin1String(".opus") <<
+#endif
+#if TAGLIB_VERSION >= 0x010901
+      QLatin1String(".dsf") <<
 #endif
       QLatin1String(".wv");
   }

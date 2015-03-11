@@ -43,7 +43,7 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
   configure_file(taglibconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/taglibconfig.h)
 
   add_definitions(${TAGLIB_CFLAGS})
-  include_directories(${CMAKE_CURRENT_BINARY_DIR} ../../core/tags)
+  include_directories(${CMAKE_CURRENT_BINARY_DIR} ../../core/tags taglibext)
 
   set(plugin_SRCS
     taglibmetadataplugin.cpp
@@ -53,6 +53,15 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
     taglibext/synchronizedlyricsframe.cpp
     taglibext/eventtimingcodesframe.cpp
   )
+
+  if (NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
+    set(plugin_SRCS ${plugin_SRCS}
+      taglibext/dsf/dsffiletyperesolver.cpp
+      taglibext/dsf/dsffile.cpp
+      taglibext/dsf/dsfproperties.cpp
+      taglibext/dsf/dsfheader.cpp
+    )
+  endif (NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
 
   if (TAGLIB_VERSION STREQUAL "1.4")
     set(plugin_SRCS ${plugin_SRCS}

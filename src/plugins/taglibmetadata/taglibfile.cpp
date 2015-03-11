@@ -113,6 +113,11 @@
 #include <opusfile.h>
 #endif
 
+#if TAGLIB_VERSION >= 0x010901
+#include "taglibext/dsf/dsffiletyperesolver.h"
+#include "taglibext/dsf/dsffile.h"
+#endif
+
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 #include "taglibext/synchronizedlyricsframe.h"
@@ -469,6 +474,10 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     if (ext == "XM")
       return new TagLib::XM::File(stream);
+#endif
+#if TAGLIB_VERSION >= 0x010901
+    if (ext == "DSF")
+      return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
 #endif
   }
   return 0;
@@ -852,6 +861,10 @@ void TagLibFile::readTags(bool force)
 #if TAGLIB_VERSION >= 0x010900
       } else if (dynamic_cast<TagLib::Ogg::Opus::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".opus");
+#endif
+#if TAGLIB_VERSION >= 0x010901
+      } else if (dynamic_cast<DSFFile*>(file) != 0) {
+        m_fileExtension = QLatin1String(".dsf");
 #endif
       }
       m_tagV1 = 0;
@@ -2048,6 +2061,9 @@ void TagLibFile::readAudioProperties()
 #if TAGLIB_VERSION >= 0x010900
     TagLib::Ogg::Opus::Properties* opusProperties;
 #endif
+#if TAGLIB_VERSION >= 0x010901
+    DSFProperties* dsfProperties;
+#endif
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
@@ -2169,6 +2185,12 @@ void TagLibFile::readAudioProperties()
           dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != 0) {
       m_detailInfo.format = QString(QLatin1String("Opus %1")).
           arg(opusProperties->opusVersion());
+#endif
+#if TAGLIB_VERSION >= 0x010901
+    } else if ((dsfProperties =
+          dynamic_cast<DSFProperties*>(audioProperties)) != 0) {
+      m_detailInfo.format = QString(QLatin1String("DSF %1")).
+          arg(dsfProperties->version());
 #endif
     }
     m_detailInfo.bitrate = audioProperties->bitrate();
