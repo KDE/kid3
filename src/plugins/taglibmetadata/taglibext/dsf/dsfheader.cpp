@@ -23,9 +23,10 @@
 
 #include <bitset>
 
-#include <taglib/tbytevector.h>
-#include <taglib/tstring.h>
-#include <taglib/trefcounter.h>
+// Kid3: Remove taglib/ from includes
+#include <tbytevector.h>
+#include <tstring.h>
+#include <trefcounter.h>
 // Kid3: Use debug() instead of std::cerr
 #include <tdebug.h>
 

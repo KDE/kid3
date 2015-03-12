@@ -22,7 +22,8 @@
 #ifndef TAGLIB_DSFPROPERTIES_H
 #define TAGLIB_DSFPROPERTIES_H
 
-#include <taglib/audioproperties.h>
+// Kid3: Remove taglib/ from includes
+#include <audioproperties.h>
 
 #include "dsfheader.h"
 

@@ -21,7 +21,8 @@
 
 #include <stdint.h>
 
-#include <taglib/tstring.h>
+// Kid3: Remove taglib/ from includes
+#include <tstring.h>
 // Kid3: Use debug() instead of std::cerr
 #include <tdebug.h>
 

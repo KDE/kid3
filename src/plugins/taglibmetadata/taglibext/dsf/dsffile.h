@@ -22,8 +22,9 @@
 #ifndef TAGLIB_DSFFILE_H
 #define TAGLIB_DSFFILE_H
 
-#include <taglib/tfile.h>
-#include <taglib/tag.h>
+// Kid3: Remove taglib/ from includes
+#include <tfile.h>
+#include <tag.h>
 
 #include "dsfproperties.h"
 

@@ -35,7 +35,8 @@
 // Kid3: For uint64_t
 #include <stdint.h>
 
-#include <taglib/tbytevector.h>
+// Kid3: Remove taglib/ from includes
+#include <tbytevector.h>
 
 class DSFHeader
 {

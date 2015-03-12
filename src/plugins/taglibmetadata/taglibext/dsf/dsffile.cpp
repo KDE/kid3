@@ -21,9 +21,10 @@
 
 #include <stdint.h>
 
-#include <taglib/id3v2tag.h>
-#include <taglib/id3v2header.h>
-#include <taglib/tpropertymap.h>
+// Kid3: Remove taglib/ from includes
+#include <id3v2tag.h>
+#include <id3v2header.h>
+#include <tpropertymap.h>
 // Kid3: Use debug() instead of std::cerr
 #include <tdebug.h>
 
