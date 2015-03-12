@@ -25,6 +25,7 @@
  */
 
 #include "fileconfig.h"
+#include <QCoreApplication>
 
 int FileConfig::s_index = -1;
 
@@ -155,6 +156,15 @@ void FileConfig::readFromConfig(ISettings* config)
   if (m_formatFromFilenameItems.isEmpty()) {
     for (const char** sl = defaultFromFilenameFormats; *sl != 0; ++sl) {
       m_formatFromFilenameItems += QString::fromLatin1(*sl);
+    }
+  }
+  if (ConfigStore::getConfigVersion() < 2) {
+    // Reset file name filter if it is set to "All Supported Files" in order
+    // to introduce newly supported file formats (e.g. *.dsf) when the
+    // configuration version is increased.
+    if (m_nameFilter.startsWith(QCoreApplication::translate(
+                                  "Kid3Application", "All Supported Files"))) {
+      m_nameFilter.clear();
     }
   }
 }
