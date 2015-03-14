@@ -89,25 +89,36 @@ bool AmazonImporter::additionalTags() const { return true; }
 void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 {
   /* products have the following format:
-<a class="title" href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1?s=music&ie=UTF8&qid=1328870421&sr=1-1">The Avenger</a>
-    <span class="ptBrand">by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a> and <a href="/Amon-Amarth/e/B002E4DJ7Q/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a></span>
+<a class="a-link-normal s-access-detail-page  a-text-normal" title="The Avenger" href="http://www.amazon.com/Avenger-AMON-AMARTH/dp/B001VROVHO/ref=sr_1_1?s=music&amp;ie=UTF8&amp;qid=1426338609&amp;sr=1-1">
+(..)>by </span>(..)<a class="a-link-normal a-text-normal" href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1426338609&sr=1-1">Amon Amarth</a>
    */
-  QString str = QString::fromLatin1(searchStr);
-  QRegExp catIdTitleArtistRe(QLatin1String(
-    "<a class=\"title\" href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
-    "([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<"));
-  QStringList lines = str.remove(QLatin1Char('\r')).split(QRegExp(QLatin1String("\\n{2,}")));
+  QString str = QString::fromUtf8(searchStr);
+  QRegExp catIdTitleRe(QLatin1String(
+    "<a class=\"[^\"]*s-access-detail-page[^\"]*\"[^>]+title=\"([^\"]+)\"[^>]+"
+    "href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"));
+  QRegExp nextElementRe(QLatin1String(">([^<]+)<"));
+
+  str.remove(QLatin1Char('\r'));
   m_albumListModel->clear();
-  for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-    QString line(*it);
-    line.remove(QLatin1Char('\n'));
-    if (catIdTitleArtistRe.indexIn(line) != -1) {
-      m_albumListModel->appendRow(new AlbumListItem(
-        removeHtml(catIdTitleArtistRe.cap(4)) + QLatin1String(" - ") +
-        removeHtml(catIdTitleArtistRe.cap(3)),
-        catIdTitleArtistRe.cap(1),
-        catIdTitleArtistRe.cap(2)));
-    }
+  int end = 0;
+  for (;;) {
+    int start = catIdTitleRe.indexIn(str, end);
+    if (start == -1)
+      break;
+    end = start + catIdTitleRe.matchedLength();
+    start = str.indexOf(QLatin1String(">by <"), end);
+    if (start == -1)
+      break;
+    end = start + 5;
+    start = nextElementRe.indexIn(str, end);
+    if (start == -1)
+      break;
+    end = start + nextElementRe.matchedLength();
+    m_albumListModel->appendRow(new AlbumListItem(
+      nextElementRe.cap(1) + QLatin1String(" - ") +
+      catIdTitleRe.cap(1),
+      catIdTitleRe.cap(2),
+      catIdTitleRe.cap(3)));
   }
 }
 
@@ -120,11 +131,10 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 {
   /*
     title (empty lines removed):
-<div class="buying"><h1 class="parseasinTitle"><span id="btAsinTitle" style="">Avenger</span></h1>
-<span >
-<a href="/Amon-Amarth/e/B000APIBHO/ref=ntt_mus_dp_pel">Amon Amarth</a>
+<span id="productTitle" class="a-size-large">The Avenger</span>
+<span class="author notFaded" data-width="">
+<a class="a-link-normal" href="/Amon-Amarth/e/B000APIBHO/ref=dp_byline_cont_music_1">Amon Amarth</a>
 </span>
-</div>
 
     details (empty lines removed):
 <a name="productDetails" id="productDetails"></a>
@@ -149,12 +159,12 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 1. Before the Devil Knows You're Dead
 </td>
    */
-  QString str = QString::fromLatin1(albumStr);
+  QString str = QString::fromUtf8(albumStr);
   FrameCollection framesHdr;
   const bool standardTags = getStandardTags();
-  // search for 'id="btAsinTitle"', text after '>' until ' [' or '<' => album
+  // search for 'id="productTitle"', text after '>' until ' [' or '<' => album
   int end = 0;
-  int start = str.indexOf(QLatin1String("id=\"btAsinTitle\""));
+  int start = str.indexOf(QLatin1String("id=\"productTitle\""));
   if (start >= 0 && standardTags) {
     start = str.indexOf(QLatin1Char('>'), start);
     if (start >= 0) {
@@ -165,18 +175,26 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           end = bracketPos;
         }
         framesHdr.setAlbum(
-          replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
-
-        // next '<a href=', text after '>' until '<' => artist
-        start = str.indexOf(QLatin1String("<a href="), end);
+              replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
+        // next 'class="author'
+        start = str.indexOf(QLatin1String("class=\"author"), end);
         if (start >= 0) {
-          start = str.indexOf(QLatin1Char('>'), start);
-          if (start >= 0) {
-            end = str.indexOf(QLatin1Char('<'), start);
-            if (end > start) {
-              framesHdr.setArtist(
-                replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
+          end = str.indexOf(QLatin1Char('>'), start);
+          if (end > start) {
+
+            // next '<a', text after '>' until '<' => artist
+            start = str.indexOf(QLatin1String("<a"), end);
+            if (start >= 0) {
+              start = str.indexOf(QLatin1Char('>'), start);
+              if (start >= 0) {
+                end = str.indexOf(QLatin1Char('<'), start);
+                if (end > start) {
+                  framesHdr.setArtist(
+                      replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
+                }
+              }
             }
+
           }
         }
       }
@@ -270,7 +288,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
-  bool hasTitleCol = false;
+  bool hasTitleCol = false, hasListRow = false;
   bool hasArtist = str.indexOf(QLatin1String("<td>Song Title</td><td>Artist</td>")) != -1;
   // search 'class="titleCol"', next '<a href=', text after '>' until '<'
   // => title
@@ -278,8 +296,10 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   start = str.indexOf(QLatin1String("class=\"titleCol\""));
   if (start >= 0) {
     hasTitleCol = true;
+  } else if ((start = str.indexOf(QLatin1String("class=\"listRow"))) >= 0) {
+    hasListRow = true;
   } else {
-    start = str.indexOf(QLatin1String("class=\"listRow"));
+    start = str.indexOf(QLatin1String("id=\"a-popover-trackTitlePopover"));
   }
   if (start >= 0) {
     QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
@@ -350,7 +370,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
             }
           }
         }
-      } else {
+      } else if (hasListRow) {
         // 'class="listRow' found
         start = str.indexOf(QLatin1String("<td>"), start);
         if (start >= 0) {
@@ -361,6 +381,36 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
             start = str.indexOf(QLatin1String("class=\"listRow"), end);
           } else {
             start = -1;
+          }
+        }
+      } else {
+        // a-popover-trackTitlePopover id found
+        start = str.indexOf(QLatin1String("<a"), start);
+        if (start >= 0) {
+          start = str.indexOf(QLatin1Char('>'), start);
+          if (start >= 0) {
+            end = str.indexOf(QLatin1Char('<'), start);
+            if (end >= start) {
+              title = str.mid(start + 1, end - start - 1);
+              int runtimeStart = str.indexOf(
+                    QLatin1String("<td id=\"dmusic_tracklist_duration"), end);
+              if (runtimeStart >= 0) {
+                int runtimeEnd = str.indexOf(QLatin1String("</td>"),
+                                             runtimeStart);
+                if (runtimeEnd > runtimeStart &&
+                    durationRe.indexIn(
+                      str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1).
+                      remove(QLatin1Char('\n')).remove(QLatin1Char('\r')))
+                    >= 0) {
+                  duration = durationRe.cap(1).toInt() * 60 +
+                      durationRe.cap(2).toInt();
+                }
+              }
+              start = str.indexOf(
+                    QLatin1String("id=\"a-popover-trackTitlePopover"), end);
+            } else {
+              start = -1;
+            }
           }
         }
       }
