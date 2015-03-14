@@ -1044,7 +1044,7 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
  * @param url  URL of image
  * @param dest specifies affected files
  */
-void Kid3Application::downloadImage(const QString& url, DownloadImageDestination dest)
+void Kid3Application::downloadImage(const QUrl& url, DownloadImageDestination dest)
 {
   QUrl imgurl(DownloadClient::getImageUrl(url));
   if (!imgurl.isEmpty()) {
@@ -1061,7 +1061,13 @@ void Kid3Application::downloadImage(const QString& url, DownloadImageDestination
  */
 void Kid3Application::downloadImage(const QString& url, bool allFilesInDir)
 {
-  downloadImage(url, allFilesInDir
+#if QT_VERSION >= 0x050000
+  QUrl imgurl(url);
+#else
+  QUrl imgurl = url.contains(QLatin1Char('%'))
+      ? QUrl::fromEncoded(url.toAscii()) : QUrl(url);
+#endif
+  downloadImage(imgurl, allFilesInDir
                 ? ImageForAllFilesInDirectory : ImageForSelectedFiles);
 }
 
@@ -1865,7 +1871,7 @@ void Kid3Application::openDrop(const QStringList& paths)
     if (lfPos > 0 && lfPos < static_cast<int>(txt.length()) - 1) {
       txt.truncate(lfPos + 1);
     }
-    QUrl url(txt);
+    QUrl url = QUrl::fromLocalFile(txt);
     if (!url.path().isEmpty()) {
 #ifdef Q_OS_WIN32
       QString dir = url.toString();
@@ -1946,8 +1952,7 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
     }
     openDrop(localFiles);
   } else {
-    QString text = urls.first().toString();
-    dropUrl(text);
+    dropUrl(urls.first());
   }
 }
 
@@ -1970,11 +1975,11 @@ void Kid3Application::dropImage(const QImage& image)
 /**
  * Handle URL on drop.
  *
- * @param txt dropped URL.
+ * @param url dropped URL.
  */
-void Kid3Application::dropUrl(const QString& txt)
+void Kid3Application::dropUrl(const QUrl& url)
 {
-  downloadImage(txt, Kid3Application::ImageForSelectedFiles);
+  downloadImage(url, Kid3Application::ImageForSelectedFiles);
 }
 
 /**

@@ -443,8 +443,8 @@ void ImportDialog::showPreview()
   int accuracy = m_trackDataModel->calculateAccuracy();
   m_accuracyPercentLabel->setText(accuracy >= 0 && accuracy <= 100
                                   ? QString::number(accuracy) + QLatin1Char('%') : QLatin1String("-"));
-  QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
-  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-") : coverArtUrl);
+  QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
+  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-") : coverArtUrl.toString());
 }
 
 /**

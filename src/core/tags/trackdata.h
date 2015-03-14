@@ -30,6 +30,7 @@
 #include <QVector>
 #include <QString>
 #include <QSet>
+#include <QUrl>
 #include "frame.h"
 #include "taggedfile.h"
 #include "kid3api.h"
@@ -279,13 +280,13 @@ public:
    * Get cover art URL.
    * @return cover art URL.
    */
-  QString getCoverArtUrl() const { return m_coverArtUrl; }
+  QUrl getCoverArtUrl() const { return m_coverArtUrl; }
 
   /**
    * Set cover art URL.
    * @param coverArtUrl cover art URL
    */
-  void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
+  void setCoverArtUrl(const QUrl& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
 
   /**
    * Read the tags from the files.
@@ -310,7 +311,7 @@ private:
    */
   QString getFrame(Frame::Type type) const;
 
-  QString m_coverArtUrl;
+  QUrl m_coverArtUrl;
 };
 
 

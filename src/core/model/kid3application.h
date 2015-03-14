@@ -497,7 +497,7 @@ public:
    * @param url  URL of image
    * @param dest specifies affected files
    */
-  void downloadImage(const QString& url, DownloadImageDestination dest);
+  void downloadImage(const QUrl& url, DownloadImageDestination dest);
 
   /**
    * Download an image file.
@@ -579,9 +579,9 @@ public:
   /**
    * Handle URL on drop.
    *
-   * @param txt dropped URL.
+   * @param url dropped URL.
    */
-  void dropUrl(const QString& txt);
+  void dropUrl(const QUrl& url);
 
   /**
    * Get number of tracks in current directory.

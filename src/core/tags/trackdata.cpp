@@ -518,7 +518,7 @@ QSet<QString> ImportTrackData::getTitleWords() const
 void ImportTrackDataVector::clearData()
 {
   clear();
-  m_coverArtUrl = QString();
+  m_coverArtUrl.clear();
 }
 
 /**
@@ -611,7 +611,7 @@ void ImportTrackDataVector::readTags(Frame::TagVersion tagVersion)
     it->setImportDuration(0);
     it->setEnabled(true);
   }
-  setCoverArtUrl(QString());
+  setCoverArtUrl(QUrl());
 }
 
 #ifndef QT_NO_DEBUG
@@ -622,7 +622,7 @@ void ImportTrackDataVector::dump() const
 {
   qDebug("ImportTrackDataVector (%s - %s, %s):",
          qPrintable(getArtist()), qPrintable(getAlbum()),
-         qPrintable(getCoverArtUrl()));
+         qPrintable(getCoverArtUrl().toString()));
   for (const_iterator it = constBegin();
        it != constEnd();
        ++it) {

@@ -464,7 +464,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   }
 
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  trackDataVector.setCoverArtUrl(QString::null);
+  trackDataVector.setCoverArtUrl(QUrl());
   if (getCoverArt()) {
     /*
      * cover art can be found in image source
@@ -474,7 +474,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       start += 35;
       end = str.indexOf(QLatin1String("\""), start);
       if (end > start) {
-        trackDataVector.setCoverArtUrl(str.mid(start, end - start));
+        trackDataVector.setCoverArtUrl(QUrl(str.mid(start, end - start)));
       }
     }
   }

@@ -65,7 +65,7 @@ public:
    *
    * @return URL of image file, empty if no image URL found.
    */
-  static QUrl getImageUrl(const QString& url);
+  static QUrl getImageUrl(const QUrl& url);
 
 public slots:
   /**

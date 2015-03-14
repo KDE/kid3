@@ -267,12 +267,12 @@ void BatchImporter::stateTransition()
     if (m_trackDataModel) {
       QUrl imgUrl;
       if (m_tagVersion & Frame::TagV2) {
-        QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
+        QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
         if (!coverArtUrl.isEmpty()) {
           imgUrl = DownloadClient::getImageUrl(coverArtUrl);
           if (!imgUrl.isEmpty()) {
             emit reportImportEvent(FetchingCoverArt,
-                                   coverArtUrl);
+                                   coverArtUrl.toString());
             m_downloadClient->startDownload(imgUrl);
           }
         }
@@ -364,7 +364,7 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
             }
           }
         }
-        trackDataVector.setCoverArtUrl(QString());
+        trackDataVector.setCoverArtUrl(QUrl());
         m_trackLists[m_trackListNr] = trackDataVector;
       } else {
         // Revert imported data.

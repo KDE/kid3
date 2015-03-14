@@ -302,13 +302,13 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     }
 
     ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-    trackDataVector.setCoverArtUrl(QString());
+    trackDataVector.setCoverArtUrl(QUrl());
     const bool coverArt = getCoverArt();
     if (coverArt) {
       QString asin(release.namedItem(QLatin1String("asin")).toElement().text());
       if (!asin.isEmpty()) {
         trackDataVector.setCoverArtUrl(
-          QLatin1String("http://www.amazon.com/dp/") + asin);
+          QUrl(QLatin1String("http://www.amazon.com/dp/") + asin));
       }
     }
 
@@ -357,7 +357,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                       QString type(relation.attribute(QLatin1String("type")));
                       if (type == QLatin1String("cover art link") || type == QLatin1String("amazon asin")) {
                         trackDataVector.setCoverArtUrl(
-                          relation.namedItem(QLatin1String("target")).toElement().text());
+                          QUrl(relation.namedItem(QLatin1String("target")).toElement().text()));
                       }
                     }
                   }

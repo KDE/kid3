@@ -92,35 +92,42 @@ void DownloadClient::requestFinished(const QByteArray& data)
  *
  * @return URL of image file, empty if no image URL found.
  */
-QUrl DownloadClient::getImageUrl(const QString& url)
+QUrl DownloadClient::getImageUrl(const QUrl& url)
 {
-  QUrl imgurl(url);
-  if (imgurl.isValid()) {
-    if (!url.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) &&
-        !url.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) &&
-        !url.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
-      imgurl.clear();
-      QMap<QString, QString> urlMap =
-          ImportConfig::instance().matchPictureUrlMap();
-      for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
-           it != urlMap.constEnd();
-           ++it) {
-        QRegExp re(it.key());
-        if (re.exactMatch(url)) {
-          QString newUrl = url;
-          newUrl.replace(re, *it);
-          if (newUrl.indexOf(QLatin1String("%25")) != -1) {
-            // double URL encoded: first decode
-            newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
-          }
-          if (newUrl.indexOf(QLatin1String("%2F")) != -1) {
-            // URL encoded: decode
-            newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
-          }
-          imgurl.setUrl(newUrl);
-          break;
-        }
+  QString urlStr = url.toString();
+  if (urlStr.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
+      urlStr.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+      urlStr.endsWith(QLatin1String(".png"), Qt::CaseInsensitive))
+    return url;
+
+  QUrl imgurl;
+  QMap<QString, QString> urlMap =
+      ImportConfig::instance().matchPictureUrlMap();
+  for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
+       it != urlMap.constEnd();
+       ++it) {
+    QRegExp re(it.key());
+    if (re.exactMatch(urlStr)) {
+      QString newUrl = urlStr;
+      newUrl.replace(re, *it);
+      if (newUrl.indexOf(QLatin1String("%25")) != -1) {
+        // double URL encoded: first decode
+        newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
       }
+      if (newUrl.indexOf(QLatin1String("%2F")) != -1) {
+        // URL encoded: decode
+        newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());
+      }
+#if QT_VERSION >= 0x050000
+      imgurl.setUrl(newUrl);
+#else
+      if (!newUrl.contains(QLatin1Char('%'))) {
+        imgurl.setUrl(newUrl);
+      } else {
+        imgurl.setEncodedUrl(newUrl.toAscii());
+      }
+#endif
+      break;
     }
   }
   return imgurl;

@@ -253,7 +253,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   }
 
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  trackDataVector.setCoverArtUrl(QString());
+  trackDataVector.setCoverArtUrl(QUrl());
   if (getCoverArt()) {
     // <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
     start = str.indexOf(QLatin1String("id=\"ASIN\""));
@@ -263,8 +263,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
         end = str.indexOf(QLatin1Char('"'), start + 7);
         if (end > start) {
           trackDataVector.setCoverArtUrl(
-            QLatin1String("http://www.amazon.com/dp/") +
-            str.mid(start + 7, end - start - 7));
+            QUrl(QLatin1String("http://www.amazon.com/dp/") +
+            str.mid(start + 7, end - start - 7)));
         }
       }
     }

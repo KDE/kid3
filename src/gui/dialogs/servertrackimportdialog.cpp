@@ -286,7 +286,7 @@ void ServerTrackImportDialog::reject()
 void ServerTrackImportDialog::apply()
 {
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  trackDataVector.setCoverArtUrl(QString());
+  trackDataVector.setCoverArtUrl(QUrl());
   ImportTrackDataVector::iterator it = trackDataVector.begin();
   bool newTrackData = false;
   int numRows = m_albumTableModel->rowCount();

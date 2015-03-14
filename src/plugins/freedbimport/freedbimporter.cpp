@@ -233,7 +233,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   parseFreedbAlbumData(text, framesHdr);
 
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  trackDataVector.setCoverArtUrl(QString());
+  trackDataVector.setCoverArtUrl(QUrl());
   FrameCollection frames(framesHdr);
   ImportTrackDataVector::iterator it = trackDataVector.begin();
   QList<int>::const_iterator tdit = trackDuration.begin();
