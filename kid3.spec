@@ -31,9 +31,9 @@ With Kid3 you can:
 - Edit ID3v1.1 tags
 - Edit all ID3v2.3 and ID3v2.4 frames
 - Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
-  TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD,
-  S3M, IT, XM).
+- Edit tags in MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC,
+  MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker
+  modules (MOD, S3M, IT, XM).
 - Edit tags of multiple files, e.g. the artist, album, year and genre
   of all files of an album typically have the same values and can be
   set together.

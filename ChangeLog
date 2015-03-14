@@ -1,9 +1,14 @@
-Sat Jan 24 08:54:20 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Fri Mar 13 06:36:03 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.2.0
 
 	* New:
+	  + Support QML/JS scripts for user actions.
+	  + Batch embed, export, and resize album art.
+	  + Batch lyrics download.
+	  + Recursive tag export.
 	  + Support build with KDE 5.
+	  + Support DSF files with TagLib 1.9.1.
 	  + Option to mark pictures larger than a given size.
 	  + Number tracks can reset track number for each folder.
 	  + Number tracks can only format numbers or set total.
@@ -20,7 +25,9 @@ Sat Jan 24 08:54:20 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Deletion of picture frames from Ogg/Opus files.
 	  + Setting description of Ogg pictures in frame table.
 	  + Reactivate support for AAC and MP2 files with TagLib.
+	  + Mac OS X: Avoid excessive memory consumption.
 	  + Adapted to Discogs server update.
+	  + Adapted to Amazon server update.
 
 Sun Nov  9 13:30:51 CET 2014  Urs Fleisch  <ufleisch@users.sourceforge.net>
 

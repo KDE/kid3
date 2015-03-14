@@ -1,12 +1,12 @@
 Begin4
 Title:          Kid3 -- Efficient Audio Tagger
 Version:        3.2.0
-Entered-date:   2015-01-24
-Description:    Audio tagger to edit ID3v1.1, ID3v2.3, ID3v2.4, Ogg/Vorbis,
+Entered-date:   2015-03-13
+Description:    Audio tagger to edit ID3v1.1, ID3v2.3, ID3v2.4, Ogg/Vorbis, Opus, DSF
                 FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV
                 and AIFF tags, multiple files, generate tags from file names
                 and vice versa, import and export album data in various formats.
-Keywords:       KDE Qt kdemultimedia MP3 ID3 ID3v1 ID3v2 Ogg FLAC MPC APE MP4 M4A AAC MP2 Speex TrueAudio WavPack WMA WAV AIFF
+Keywords:       KDE Qt kdemultimedia MP3 ID3 ID3v1 ID3v2 Ogg FLAC MPC APE MP4 M4A AAC MP2 Speex TrueAudio WavPack WMA WAV AIFF Opus DSF
 Author:         Urs Fleisch <ufleisch@users.sourceforge.net>
 Maintained-by:  Urs Fleisch <ufleisch@users.sourceforge.net>
 Home-page:      http://kid3.sourceforge.net

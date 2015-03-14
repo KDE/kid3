@@ -27,13 +27,13 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2015-01-24</date>
+<date>2015-03-13</date>
 <releaseinfo>3.2.0</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
-in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
+in MP3 Dateien. Auch die Tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV, AIFF Dateien und Tracker Modulen (MOD, S3M, IT, XM) werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
@@ -67,6 +67,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <keyword>S3M</keyword>
 <keyword>IT</keyword>
 <keyword>XM</keyword>
+<keyword>Opus</keyword>
+<keyword>DSF</keyword>
 </keywordset>
 
 </bookinfo>
@@ -206,7 +208,7 @@ Beschreibung der verfügbaren Befehle.</para></listitem>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
 in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
-effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC,
+effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, Opus, DSF, FLAC,
 MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF Dateien
 und Tracker Modulen (MOD, S3M, IT, XM) unterstützt.
 </para>
@@ -256,7 +258,7 @@ werden.
 <listitem><para>Editieren von allen ID3v2.3 und ID3v2.4 Frames</para></listitem>
 <listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
 <listitem><para>Konvertieren zwischen ID3v1 und ID3v2 Tags</para></listitem>
-<listitem><para>Editieren von MP3, Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
+<listitem><para>Editieren von MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV und AIFF Tags</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren der Tags aus dem Inhalt der Tagfelder</para></listitem>
@@ -343,7 +345,7 @@ Sektionen.
 <para>
 Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
 welche den gewählten Dateinamenfilter (typischerweise <filename>*.mp3
-*.ogg *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
+*.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
 *.tta *.wv *.wma *.wav *.aiff *.ape</filename>)
 erfüllen. Eine einzelne oder mehrere Dateien können ausgewählt werden. Um
 keine Datei auszuwählen, kann in den leeren Bereich unterhalb der
@@ -426,7 +428,7 @@ beschrieben.
 
 <para>
 Zeigt Informationen über Codierung (MP3,
-Ogg, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
+Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
 Bit- und Samplerate, Kanäle und die Länge der Datei an.
 </para>
 <para>
@@ -2188,7 +2190,25 @@ folgenden Codes übergeben werden:
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 <listitem><para>%b %{browser} Kommando zum Starten des Web Browsers</para></listitem>
+<listitem><para>%q %{qmlpath} Basisverzeichnis der mitgelieferten QML-Dateien</para></listitem>
 </itemizedlist>
+
+<para id="configure-user-actions-qml">
+Zum Ausführen von QML Skripten wird als Befehl <command>@qml</command>
+verwendet. Danach wird der Pfad zum QML-Skript angegeben. Die mitgelieferten
+Skripte liegen im Verzeichnis <filename>%{qmlpath}/script/</filename> (unter
+Linux typischerweise <filename>/usr/share/kid3/qml/script/</filename>, bei
+Windows in <filename>qml/script/</filename> innerhalb des
+Installationsverzeichnisses, und bei OS X im App-Verzeichnis
+<filename>kid3.app/Contents/Resources/qml/script/</filename>). Eigene Skripte
+können aber auch in einem beliebigen anderen Verzeichnis gespeichert werden.
+Wenn der QML-Code grafische Elemente innerhalb eines Fensters öffnet, so muss
+<command>@qmlview</command> anstelle von <command>@qml</command> verwendet
+werden. Weitere Parameter werden dem QML-Skript übergeben und sind dort über
+die Funktion <function>getArguments()</function> verfügbar. Eine Übersicht
+einiger in QML verfügbarer Funktionen und Eigenschaften findet sich im Anhang
+<link linkend="qml-interface">QML Schnittstelle</link>.
+</para>
 
 <para>
 Das Kommando, welches mit %{browser} eingefügt werden kann, wird oberhalb der
@@ -2994,7 +3014,7 @@ wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
 verwendet.
 Für diese vier Formate kann auch
 die <ulink url="http://taglib.github.io/">TagLib</ulink>
-verwendet werden, welche zudem auch MPC, APE, MP2, Speex, TrueAudio, WavPack,
+verwendet werden, welche zudem auch Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack,
 WMA, WAV, AIFF Dateien und Tracker Module unterstützt.
 Für das Importieren über akustische Fingerabdrücke
 werden <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
@@ -3808,6 +3828,359 @@ um synchronisierten Liedtext im LRC-Format zu importieren.</para>
   <void/>
 </funcprototype>
 </funcsynopsis>
+</sect2>
+
+</sect1>
+
+</appendix>
+
+<appendix id="qml-interface">
+<title>QML Schnittstelle</title>
+
+<sect1 id="qml-examples">
+<title>QML Beispiele</title>
+
+<para>
+QML Skripte lassen sich über das Kontextmenü der Dateiliste aufrufen und
+in den Einstellungen auf der Seite <link
+linkend="configure-user-actions-qml">Benutzerbefehle</link> setzen. Die 
+dortigen Beispielskripte bieten eine Vorlage für die Programmierung eigener
+Skripte. Codiert wird in JavaScript, hier das obligate "Hello World":
+</para>
+
+<programlisting>
+import Kid3 1.0
+
+Kid3Script {
+  onRun: {
+    console.log("Hello world, directory is", app.dirName)
+    Qt.quit()
+  }
+}
+</programlisting>
+
+<para>
+Wird dieses Skript unter <filename>/path/to/Example.qml</filename>
+abgespeichert, so kann als Benutzerbefehl <command>@qml
+/path/to/Example.qml</command> definiert werden. Wenn als Name <userinput>QML
+Test</userinput> gesetzt und <guilabel>Ausgabe</guilabel> aktiviert wird,
+so lässt sich das Skript über den Kontextmenüpunkt <guilabel>QML
+Test</guilabel> der Dateiliste starten, und die Ausgabe ist im Fenster
+sichtbar.
+</para>
+
+<para>
+Alternativ lässt sich das Skript auch unabhängig von Kid3 mit den
+QML-Werkzeugen starten.
+
+<screen width="80">
+qmlviewer -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
+</screen>
+
+Bei Qt 5 wird stattdessen
+<screen width="80">
+qml -apptype widget -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
+</screen>
+oder
+<screen width="80">
+qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
+</screen>
+verwendet. Bei Windows und OS X muss der Importpfad angepasst werden, damit er
+auf <filename>imports</filename> bei den Plugins im
+Installationsverzeichnis verweist. Außerhalb von Kid3 gestartete Skripte
+verwenden das aktuelle Verzeichnis, es sollte also vorgängig in das gewünschte
+Verzeichnis gewechselt werden.
+</para>
+
+<para>
+Um die Titel im Tag 2 aller Dateien des aktuellen Verzeichnisses aufzulisten,
+könnte folgendes Skript verwendet werden:
+</para>
+
+<programlisting>
+import Kid3 1.0
+
+Kid3Script {
+  onRun: {
+    app.firstFile()
+    do {
+      if (app.selectionInfo.tagFormatV2)
+        console.log(app.getFrame(tagv2, "title"))
+    } while (app.nextFile())
+  }
+}
+</programlisting>
+
+<para>
+Wenn sich viele Dateien im Verzeichnis befinden, blockiert ein solches Skript
+die Benutzeroberfläche für einige Zeit. Für längere Aktionen sollte man daher
+kurze Pausen einlegen. Die unten stehende Alternative lagert die Arbeit an
+einer einzelnen Datei in eine Funktion aus. Diese ruft sich am Ende mit
+einem Timeout von 1 ms wieder selbst auf, sofern noch weitere Dateien zu
+bearbeiten sind. Dadurch bleibt das GUI auch während dem Ablauf des Skripts
+benutzbar.
+</para>
+
+<programlisting>
+import Kid3 1.0
+
+Kid3Script {
+  onRun: {
+    function doWork() {
+      if (app.selectionInfo.tagFormatV2) {
+        console.log(app.getFrame(tagv2, "title"))
+      }
+      if (!app.nextFile()) {
+        Qt.quit()
+      } else {
+        setTimeout(doWork, 1)
+      }
+    }
+
+    app.firstFile()
+    doWork()
+  }
+}
+</programlisting>
+
+<para>
+Weitere Beispiele sind bei &kid3; dabei und bereits bei den Benutzerbefehlen
+eingetragen.
+
+<itemizedlist>
+<listitem><para>
+<guilabel>ReplayGain to SoundCheck</guilabel>
+(<filename>ReplayGain2SoundCheck.qml</filename>):
+Erstellt iTunNORM SoundCheck Informationen aus Replay Gain Werten.
+</para></listitem>
+<listitem><para>
+<guilabel>Resize Album Art</guilabel>
+(<filename>ResizeAlbumArt.qml</filename>):
+Skaliert eingebettete Bilder runter auf 500x500 Pixel.
+</para></listitem>
+<listitem><para>
+<guilabel>Extract Album Art</guilabel>
+(<filename>ExtractAlbumArt.qml</filename>):
+Speichert alle eingebetteten Bilder als Dateien ab, ohne Duplikate zu
+erzeugen.
+</para></listitem>
+<listitem><para>
+<guilabel>Embed Album Art</guilabel>
+(<filename>EmbedAlbumArt.qml</filename>):
+Bettet Bilder aus Dateien in die Audio-Dateien ein, welche sich im selben
+Ordner befinden.
+</para></listitem>
+<listitem><para>
+<guilabel>Embed Lyrics</guilabel>
+(<filename>EmbedLyrics.qml</filename>):
+Holt unsynchronisierte Liedtexte von einem Webserver.
+</para></listitem>
+<listitem><para>
+<guilabel>Text Encoding ID3v1</guilabel>
+(<filename>ShowTextEncodingV1.qml</filename>):
+Hilft dabei, die Codierung zu finden, indem es die ID3v1 Tags in allen
+verfügbaren Zeichencodierungen anzeigt. 
+</para></listitem>
+<listitem><para>
+<guilabel>Export CSV</guilabel>
+(<filename>ExportCsv.qml</filename>):
+Exportiert rekursiv alle Tags aller Dateien in eine CSV-Datei.
+</para></listitem>
+<listitem><para>
+<guilabel>QML Console</guilabel>
+(<filename>QmlConsole.qml</filename>):
+Einfache Konsole, um die Funktionen von &kid3;'s QML API auszuprobieren.
+</para></listitem>
+</itemizedlist>
+</para>
+
+</sect1>
+
+<sect1 id="qml-api">
+<title>QML API</title>
+
+<para>
+Das API lässt sich leicht über die QML Console erkunden, welche als Beispiel
+für ein Skript mit Benutzeroberfläche verfügbar ist.
+</para>
+
+<sect2 id="qml-kid3script">
+<title>Kid3Script</title>
+
+<para>
+<classname>Kid3Script</classname> ist eine normale QML-Komponente im
+Plugin-Verzeichnis. Man kann ebenso gut andere QML-Komponenten als Basis
+brauchen. Die Verwendung von <classname>Kid3Script</classname> sorgt dafür,
+dass sich eine Skript-Funktion einfach im <function>onRun</function> Signal
+Handler aufrufen lässt. Falls das Skript keine weitere QML Komponenten
+verwendet, bleibt es auch unabhängig von der QtQuick-Version, kann also sowohl
+mit Qt 4 also auch mit Qt 5 verwendet werden. Darüber hinaus werden noch
+einige Funktionen geboten:
+
+<programlisting>
+onRun: Signal Handler, welcher beim Start des Skripts aufgerufen wird
+tagv1, tagv2, tagv2v1: Konstanten für tag Parameter
+script: Zugriff auf Skript-Funktionen
+configs: Zugriff auf Konfigurations-Objekte
+getArguments(): Liste mit Skript-Argumenten
+isStandalone(): true wenn Skript nicht aus Kid3 heraus gestartet wird
+setTimeout(callback, delay): Startet callback nach delay ms
+</programlisting>
+
+</para>
+</sect2>
+
+<sect2 id="qml-script">
+<title>Skript-Funktionen</title>
+
+<para>
+Da JavaScript und somit auch QML nur einen eingeschränkten Funktionsumfang für
+Skripte mitbringt, stellt das <function>script</function> Objekt einige
+Methoden zur Verfügung, welche den Funktionsumfang erweitern, unter anderem:
+</para>
+
+<programlisting>
+script.properties(obj): Qt Eigenschaften des Objekts
+script.writeFile(filePath, data): Schreibe in Datei, true wenn OK
+script.readFile(filePath): Lese Daten von Datei
+script.removeFile(filePath): Lösche Datei, true wenn OK
+script.fileExists(filePath): true wenn Datei existiert
+script.renameFile(oldName, newName): Datei umbenennen, true wenn OK
+script.tempPath(): Verzeichnis temporärer Dateien
+script.listDir(path, [nameFilters], [classify]): Liste der Verzeichniseinträge
+script.system(program, [args], [msecs]): Systemkommando synchron ausführen,
+  [exit code, standard output, standard error] wenn kein Timeout
+script.getEnv(varName): Wert einer Umgebungsvariablen
+script.setEnv(varName, value): Setze Wert einer Umgebungsvariablen
+script.getQtVersion(): Qt Version, z.B. "5.4.1"
+script.getDataMd5(data): MD5 Hash (hex) der Daten
+script.getDataSize(data): Anzahl Datenbytes
+script.dataToImage(data, [format]): Erzeuge Bild aus Daten
+script.dataFromImage(img, [format]): Daten aus einem Bild
+script.loadImage(filePath): Lade Bild aus einer Datei
+script.saveImage(img, filePath, [format]): Speichere Bild in Datei, true wenn OK
+script.imageProperties(img): Eigenschaften eines Bildes, enthält
+  "width", "height", "depth" und "colorCount", leer wenn Bild ungültig
+script.scaleImage(img, width, [height]): Liefert skaliertes Bild
+</programlisting>
+
+</sect2>
+
+<sect2 id="qml-app">
+<title>Applikations-Kontext</title>
+
+<para>
+Über QML ist ein großer Teil der &kid3; Funktionalität verfügbar. Das API ist
+ähnlich wie bei <link linkend="dbus-api">D-Bus</link>. Für Details wird auf
+die dortige Beschreibung verwiesen.
+</para>
+
+<programlisting>
+app.openDirectory(path): Verzeichnis öffnen
+app.saveDirectory(): Speichern
+app.revertFileModifications(): Zuletzt gespeicherte Fassung
+app.importTags(tag, path, fmtIdx): Datei importieren
+app.downloadImage(url, allFilesInDir): Bild herunterladen
+app.exportTags(tag, path, fmtIdx): Datei exportieren
+app.writePlaylist(): Stückliste erstellen
+app.selectAllFiles(): Alles auswählen
+app.deselectAllFiles(): Gesamte Auswahl aufheben
+app.firstFile([select]): Erste Datei
+app.nextFile([select]): Nächste Datei
+app.previousFile([select]): Vorangehende Datei
+app.selectCurrentFile([select]): Aktuelle Datei auswählen
+app.requestExpandFileList(): Alle ausklappen
+app.applyFilenameFormat(): Dateinamenformat anwenden
+app.applyTagFormat(): Tag-Format anwenden
+app.applyTextEncoding(): Textkodierung anwenden
+app.numberTracks(nr, total, tag, [options]): Tracks nummerieren
+app.applyFilter(expr): Filter
+app.convertToId3v23(): ID3v2.4 nach ID3v2.3 konvertieren
+app.convertToId3v24(): ID3v2.3 nach ID3v2.4 konvertieren
+app.getFilenameFromTags(tag): Dateiname von Tag
+app.getTagsFromFilename(tag): Tag von Dateiname
+app.getAllFrames(tag): Objekt mit allen Elementen
+app.getFrame(tag, name): Hole Element
+app.setFrame(tag, name, value): Setze Element
+app.getPictureData(): Daten aus Bild-Element
+app.setPictureData(data): Setze Daten in Bild-Element
+app.copyToOtherTag(tag): Tag zu anderem Tag
+app.copyTags(tag): Kopieren
+app.pasteTags(tag): Einfügen
+app.removeTags(tag): Entfernen
+app.playAudio(): Wiedergabe
+app.readConfig(): Konfiguration lesen
+app.applyChangedConfiguration(): Konfiguration anwenden
+app.dirName: Verzeichnisname
+app.selectionInfo.fileName: Dateiname
+app.selectionInfo.filePath: Absoluter Dateiname
+app.selectionInfo.detailInfo: Format Details
+app.selectionInfo.tagFormatV1: Tag 1 Format
+app.selectionInfo.tagFormatV2: Tag 2 Format
+</programlisting>
+
+<para>
+Für asynchrone Operationen können Callbacks mit Signalen verbunden werden.
+</para>
+
+<programlisting>
+function automaticImport(profile) {
+  function onAutomaticImportFinished() {
+    app.batchImporter.finished.disconnect(onAutomaticImportFinished)
+  }
+  app.batchImporter.finished.connect(onAutomaticImportFinished)
+  app.batchImport(profile, tagv2)
+}
+
+function renameDirectory(format) {
+  function onRenameActionsScheduled() {
+    app.renameActionsScheduled.disconnect(onRenameActionsScheduled)
+    app.performRenameActions()
+  }
+  app.renameActionsScheduled.connect(onRenameActionsScheduled)
+  app.renameDirectory(tagv2v1, format, false)
+}
+</programlisting>
+
+</sect2>
+
+<sect2 id="qml-configs">
+<title>Konfigurations-Objekte</title>
+
+<para>
+Die einzelnen Konfigurationen sind über Methoden von
+<function>configs</function> verfügbar. Ihre Eigenschafen können in der QML
+Console aufgelistet werden.
+
+<screen width="80">
+script.properties(configs.networkConfig())
+</screen>
+
+Eigenschaften können gesetzt werden:
+<screen width="80">
+configs.networkConfig().useProxy = false
+</screen>
+</para>
+
+<programlisting>
+configs.batchImportConfig()
+configs.exportConfig()
+configs.fileConfig()
+configs.filenameFormatConfig()
+configs.filterConfig()
+configs.findReplaceConfig()
+configs.guiConfig()
+configs.importConfig()
+configs.mainWindowConfig()
+configs.networkConfig()
+configs.numberTracksConfig()
+configs.playlistConfig()
+configs.renDirConfig()
+configs.tagConfig()
+configs.tagFormatConfig()
+configs.userActionsConfig()
+</programlisting>
+
 </sect2>
 
 </sect1>
