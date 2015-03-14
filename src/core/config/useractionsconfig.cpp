@@ -88,6 +88,10 @@ void UserActionsConfig::readFromConfig(ISettings* config)
     if (strList.empty()) {
       break;
     }
+    if (strList.size() > 1 &&
+        strList.at(1) == QLatin1String("%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}")) {
+      strList[1] = QLatin1String("%{browser} http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}");
+    }
     m_contextMenuCommands.push_back(UserActionsConfig::MenuCommand(strList));
     ++cmdNr;
   }
@@ -105,7 +109,7 @@ void UserActionsConfig::readFromConfig(ISettings* config)
       UserActionsConfig::MenuCommand(QLatin1String("Amarok"), QLatin1String("amarok %{files}")));
 #endif
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Google Images"), QLatin1String("%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}")));
+      UserActionsConfig::MenuCommand(QLatin1String("Google Images"), QLatin1String("%{browser} http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Amazon"), QLatin1String("%{browser} http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}")));
     m_contextMenuCommands.push_back(

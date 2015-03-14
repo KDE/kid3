@@ -190,7 +190,7 @@ ImportConfig::ImportConfig() :
   m_importTagsExtractions.append(QLatin1String(""));
 
   m_pictureSourceNames.append(QLatin1String("Google Images"));
-  m_pictureSourceUrls.append(QLatin1String("http://images.google.com/images?q=%u{artist}%20%u{album}"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Yahoo Images"));
   m_pictureSourceUrls.append(QLatin1String("http://images.search.yahoo.com/search/images?ei=UTF-8&p=%u{artist}%20%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Amazon"));
@@ -224,7 +224,7 @@ ImportConfig::ImportConfig() :
   m_pictureSourceNames.append(QLatin1String("Custom Source"));
   m_pictureSourceUrls.append(QLatin1String(""));
 
-  m_matchPictureUrlMap[QLatin1String("http://www.google.com/.*imgurl=([^&]+)&.*")] =
+  m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
     QLatin1String("\\1");
   m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
     QLatin1String("http%3A%2F%2F\\1");
@@ -410,9 +410,17 @@ void ImportConfig::readFromConfig(ISettings* config)
       "http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}"))) {
     m_pictureSourceNames.removeOne(QLatin1String("Jamendo"));
   }
+  m_pictureSourceUrls.replaceInStrings(
+        QLatin1String("http://images.google.com/images?q=%u{artist}%20%u{album}"),
+        QLatin1String("http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}"));
   if (m_matchPictureUrlMap.remove(QLatin1String(
       "http://images.google.com/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("http://www.google.com/.*imgurl=([^&]+)&.*")] =
+    m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
+      QLatin1String("\\1");
+  }
+  if (m_matchPictureUrlMap.remove(QLatin1String(
+      "http://www.google.com/.*imgurl=([^&]+)&.*")) != 0) {
+    m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
       QLatin1String("\\1");
   }
   if (m_matchPictureUrlMap.remove(QLatin1String(
