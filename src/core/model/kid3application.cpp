@@ -1871,13 +1871,8 @@ void Kid3Application::openDrop(const QStringList& paths)
     if (lfPos > 0 && lfPos < static_cast<int>(txt.length()) - 1) {
       txt.truncate(lfPos + 1);
     }
-    QUrl url = QUrl::fromLocalFile(txt);
-    if (!url.path().isEmpty()) {
-#ifdef Q_OS_WIN32
-      QString dir = url.toString();
-#else
-      QString dir = url.path().trimmed();
-#endif
+    QString dir = txt.trimmed();
+    if (!dir.isEmpty()) {
       if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
