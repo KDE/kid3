@@ -407,6 +407,110 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
+test -f taglib_bvreplace.patch ||
+cat >taglib_bvreplace.patch <<"EOF"
+--- taglib-1.9.1/taglib/toolkit/tbytevector.cpp.orig	2013-10-08 17:50:01.000000000 +0200
++++ taglib-1.9.1/taglib/toolkit/tbytevector.cpp	2015-03-17 13:03:45.267093248 +0100
+@@ -31,6 +31,7 @@
+ #include <iostream>
+ #include <cstdio>
+ #include <cstring>
++#include <cstddef>
+ 
+ #include <tstring.h>
+ #include <tdebug.h>
+@@ -508,62 +509,40 @@
+   if(pattern.size() == 0 || pattern.size() > size())
+     return *this;
+ 
+-  const uint withSize = with.size();
+-  const uint patternSize = pattern.size();
+-  int offset = 0;
++  const size_t withSize    = with.size();
++  const size_t patternSize = pattern.size();
++  const ptrdiff_t diff = withSize - patternSize;
++
++  size_t offset = 0;
++  while (true)
++  {
++    offset = find(pattern, offset);
++    if(offset == static_cast<size_t>(-1)) // Use npos in taglib2.
++      break;
+ 
+-  if(withSize == patternSize) {
+-    // I think this case might be common enough to optimize it
+     detach();
+-    offset = find(pattern);
+-    while(offset >= 0) {
+-      ::memcpy(data() + offset, with.data(), withSize);
+-      offset = find(pattern, offset + withSize);
+-    }
+-    return *this;
+-  }
+ 
+-  // calculate new size:
+-  uint newSize = 0;
+-  for(;;) {
+-    int next = find(pattern, offset);
+-    if(next < 0) {
+-      if(offset == 0)
+-        // pattern not found, do nothing:
+-        return *this;
+-      newSize += size() - offset;
+-      break;
++    if(diff < 0) {
++      ::memmove(
++        data() + offset + withSize,
++        data() + offset + patternSize,
++        size() - offset - patternSize);
++      resize(size() + diff);
+     }
+-    newSize += (next - offset) + withSize;
+-    offset = next + patternSize;
+-  }
+-
+-  // new private data of appropriate size:
+-  ByteVectorPrivate *newData = new ByteVectorPrivate(newSize, 0);
+-  char *target = DATA(newData);
+-  const char *source = data();
+-
+-  // copy modified data into new private data:
+-  offset = 0;
+-  for(;;) {
+-    int next = find(pattern, offset);
+-    if(next < 0) {
+-      ::memcpy(target, source + offset, size() - offset);
+-      break;
++    else if(diff > 0) {
++      resize(size() + diff);
++      ::memmove(
++        data() + offset + withSize,
++        data() + offset + patternSize,
++        size() - diff - offset - patternSize);
+     }
+-    int chunkSize = next - offset;
+-    ::memcpy(target, source + offset, chunkSize);
+-    target += chunkSize;
+-    ::memcpy(target, with.data(), withSize);
+-    target += withSize;
+-    offset += chunkSize + patternSize;
+-  }
+ 
+-  // replace private data:
+-  if(d->deref())
+-    delete d;
++    ::memcpy(data() + offset, with.data(), with.size());
+ 
+-  d = newData;
++    offset += withSize;
++    if(offset > size() - patternSize)
++      break;
++  }
+ 
+   return *this;
+ }
+EOF
+
 if test "$libav_version" = "0.8.16"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
@@ -1694,6 +1798,7 @@ if ! test -d taglib-${taglib_version}; then
 tar xzf source/taglib-${taglib_version}.tar.gz
 cd taglib-${taglib_version}/
 patch -p1 <../source/taglib-msvc.patch
+patch -p1 <../source/taglib_bvreplace.patch
 cd ..
 fi
 
