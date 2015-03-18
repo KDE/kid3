@@ -79,7 +79,7 @@ endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
 install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
               "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
         DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-if (NOT WIN32)
+if (NOT WIN32 AND HAVE_QT5)
   if (HAVE_QT5)
     get_target_property(_qmakeLocation Qt5::qmake LOCATION)
   else (HAVE_QT5)
@@ -97,7 +97,7 @@ if (NOT WIN32)
 
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-endif (NOT WIN32)
+endif (NOT WIN32 AND HAVE_QT5)
 
 if ((WIN32 OR APPLE) AND HAVE_QT5)
   # Install essential QML modules.
