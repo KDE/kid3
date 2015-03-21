@@ -94,6 +94,7 @@ if (NOT WIN32 AND HAVE_QT5)
     WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3")
   add_custom_target(plugins_qmltypes ALL
     DEPENDS "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes")
+  add_dependencies(plugins_qmltypes ${plugin_TARGET})
 
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
