@@ -9,6 +9,8 @@ Build-Depends: debhelper (>= 9),
  libqt4-dev, kdelibs5-dev,
 # KDE 5
 # extra-cmake-modules, kio-dev, kdoctools-dev,
+# qtmultimedia5-dev, qtdeclarative5-dev, qttools5-dev,
+# qttools5-dev-tools, qtdeclarative5-dev-tools, qml-module-qtquick2,
  cmake,
  libid3-3.8.3-dev,
  libflac++-dev,
