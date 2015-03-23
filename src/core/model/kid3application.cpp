@@ -651,6 +651,9 @@ void Kid3Application::onDirectoryOpened()
   QModelIndex fsRoot = m_fileProxyModel->mapToSource(m_fileProxyModelRootIndex);
   m_dirProxyModelRootIndex = m_dirProxyModel->mapFromSource(fsRoot);
 
+  emit fileRootIndexChanged(m_fileProxyModelRootIndex);
+  emit dirRootIndexChanged(m_dirProxyModelRootIndex);
+
   if (m_fileProxyModelRootIndex.isValid()) {
     m_fileSelectionModel->clearSelection();
     if (!m_fileProxyModelFileIndexes.isEmpty()) {
@@ -667,9 +670,6 @@ void Kid3Application::onDirectoryOpened()
           QItemSelectionModel::Rows);
     }
   }
-
-  emit fileRootIndexChanged(m_fileProxyModelRootIndex);
-  emit dirRootIndexChanged(m_dirProxyModelRootIndex);
 
   if (m_dirUpIndex.isValid()) {
     m_dirSelectionModel->setCurrentIndex(m_dirUpIndex,
