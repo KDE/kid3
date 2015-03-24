@@ -192,26 +192,19 @@ QStringList splitArgs(const QString& str)
       }
     }
     do {
-      if (c == QLatin1Char('\'')) {
-        int spos = pos;
-        do {
-          if (pos >= str.size())
-            return QStringList();
-          c = str.at(pos++);
-        } while (c != QLatin1Char('\''));
-        param += str.midRef(spos, pos - spos - 1);
-      } else if (c == QLatin1Char('"')) {
+      if (c == QLatin1Char('"') || c == QLatin1Char('\'')) {
+        const QChar quote = c;
         for (;;) {
           if (pos >= str.size())
             return QStringList();
           c = str.at(pos++);
-          if (c == QLatin1Char('"'))
+          if (c == quote)
             break;
           if (c == QLatin1Char('\\')) {
             if (pos >= str.size())
               return QStringList();
             c = str.at(pos++);
-            if (c != QLatin1Char('"') && c != QLatin1Char('\\'))
+            if (c != quote && c != QLatin1Char('\\'))
               param += QLatin1Char('\\');
           }
           param += c;
