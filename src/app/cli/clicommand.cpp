@@ -283,13 +283,13 @@ void CdCommand::startCommand()
 
 void CdCommand::connectResultSignal()
 {
-  connect(cli()->app(), SIGNAL(fileRootIndexChanged(QModelIndex)),
+  connect(cli()->app(), SIGNAL(directoryOpened()),
     this, SLOT(terminate()));
 }
 
 void CdCommand::disconnectResultSignal()
 {
-  disconnect(cli()->app(), SIGNAL(fileRootIndexChanged(QModelIndex)),
+  disconnect(cli()->app(), SIGNAL(directoryOpened()),
     this, SLOT(terminate()));
 }
 

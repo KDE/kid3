@@ -163,9 +163,8 @@ private slots:
   /**
    * Select files passed as command line arguments after the initial directory has
    * been opened. Start execution of commands if existing.
-   * @param dirIndex file proxy model index of opened directory
    */
-  void onInitialDirectoryOpened(const QModelIndex& dirIndex);
+  void onInitialDirectoryOpened();
 
   /**
    * Called when a command is finished.

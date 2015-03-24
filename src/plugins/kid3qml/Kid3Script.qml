@@ -99,15 +99,15 @@ Timer {
 
   /**
    * Signal run() after the directory @a paths has been opened.
-   * This function is used when the script is called stand-alone and the
+   * This function is used when the script is called stand-alone and
    * the directory is passed as a command line parameter.
    */
   function openDirectory(paths) {
     function onDirectoryOpened() {
-      app.fileRootIndexChanged.disconnect(onDirectoryOpened)
+      app.directoryOpened.disconnect(onDirectoryOpened)
       run()
     }
-    app.fileRootIndexChanged.connect(onDirectoryOpened)
+    app.directoryOpened.connect(onDirectoryOpened)
     app.openDirectory(paths)
   }
 

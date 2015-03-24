@@ -551,7 +551,7 @@ void Kid3Application::readConfig()
 
 /**
  * Open directory.
- * When finished fileRootIndexChanged() is emitted, also if false is returned.
+ * When finished directoryOpened() is emitted, also if false is returned.
  *
  * @param paths file or directory paths, if multiple paths are given, the
  * common directory is opened and the files are selected
@@ -670,6 +670,8 @@ void Kid3Application::onDirectoryOpened()
           QItemSelectionModel::Rows);
     }
   }
+
+  emit directoryOpened();
 
   if (m_dirUpIndex.isValid()) {
     m_dirSelectionModel->setCurrentIndex(m_dirUpIndex,

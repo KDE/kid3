@@ -728,8 +728,8 @@ bool Kid3Cli::parseOptions()
   if (paths.isEmpty()) {
     paths.append(QDir::currentPath());
   }
-  connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
-    this, SLOT(onInitialDirectoryOpened(QModelIndex)));
+  connect(m_app, SIGNAL(directoryOpened()),
+    this, SLOT(onInitialDirectoryOpened()));
   if (!openDirectory(expandWildcards(paths))) {
     writeErrorLine(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
   }
@@ -739,14 +739,13 @@ bool Kid3Cli::parseOptions()
 /**
  * Select files passed as command line arguments after the initial directory has
  * been opened. Start execution of commands if existing.
- * @param dirIndex file proxy model index of opened directory
  */
-void Kid3Cli::onInitialDirectoryOpened(const QModelIndex& dirIndex)
+void Kid3Cli::onInitialDirectoryOpened()
 {
-  disconnect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
-    this, SLOT(onInitialDirectoryOpened(QModelIndex)));
+  disconnect(m_app, SIGNAL(directoryOpened()),
+    this, SLOT(onInitialDirectoryOpened()));
   if (!m_argCommands.isEmpty()) {
-    if (!dirIndex.isValid()) {
+    if (!m_app->getRootIndex().isValid()) {
       // Do not execute commands if directory could not be opened.
       m_argCommands.clear();
     }

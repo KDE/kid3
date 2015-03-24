@@ -135,7 +135,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(toggleExpanded(QModelIndex)));
   connect(m_app, SIGNAL(expandFileListRequested()),
           this, SLOT(expandFileList()));
-  connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
+  connect(m_app, SIGNAL(directoryOpened()),
           this, SLOT(onDirectoryOpened()));
   connect(m_app, SIGNAL(modifiedChanged(bool)),
           this, SLOT(updateWindowCaption()));

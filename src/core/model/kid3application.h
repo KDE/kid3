@@ -338,7 +338,7 @@ public:
 
   /**
    * Open directory.
-   * When finished fileRootIndexChanged() is emitted, also if false is returned.
+   * When finished directoryOpened() is emitted, also if false is returned.
    *
    * @param paths file or directory paths, if multiple paths are given, the
    * common directory is opened and the files are selected
@@ -1095,6 +1095,12 @@ signals:
    * @param index new root index
    */
   void dirRootIndexChanged(const QModelIndex& index);
+
+  /**
+   * Emitted when the directory has been opened, the file and directory proxy
+   * model root indexes changed and the selection updated.
+   */
+  void directoryOpened();
 
   /**
    * Emitted when a confirmed opening of a directory or file is requested.
