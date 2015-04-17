@@ -345,7 +345,9 @@ void Kid3MainWindow::initActions()
   editFind->setStatusTip(tr("Find"));
   editFind->setText(tr("&Find..."));
   editFind->setShortcut(QKeySequence::Find);
+#ifndef Q_OS_MAC
   editFind->setIcon(QCM_QIcon_fromTheme("edit-find"));
+#endif
   editFind->setObjectName(QLatin1String("edit_find"));
   m_shortcutsModel->registerAction(editFind, menuTitle);
   connect(editFind, SIGNAL(triggered()),
@@ -356,7 +358,9 @@ void Kid3MainWindow::initActions()
   editReplace->setStatusTip(tr("Find and replace"));
   editReplace->setText(tr("&Replace..."));
   editReplace->setShortcut(QKeySequence::Replace);
+#ifndef Q_OS_MAC
   editReplace->setIcon(QCM_QIcon_fromTheme("edit-find-replace"));
+#endif
   editReplace->setObjectName(QLatin1String("edit_replace"));
   m_shortcutsModel->registerAction(editReplace, menuTitle);
   connect(editReplace, SIGNAL(triggered()),
@@ -533,7 +537,9 @@ void Kid3MainWindow::initActions()
   QAction* helpAbout = new QAction(this);
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
+#ifndef Q_OS_MAC
   helpAbout->setIcon(QCM_QIcon_fromTheme("help-about"));
+#endif
 #if QT_VERSION >= 0x040200
   helpAbout->setMenuRole(QAction::AboutRole);
 #endif
