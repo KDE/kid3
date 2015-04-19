@@ -56,7 +56,7 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.4
 libvorbis_patchlevel=2
-libav_version=11.2
+libav_version=11.3
 libav_patchlevel=1
 libflac_version=1.3.1
 libflac_patchlevel=1
@@ -191,7 +191,7 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.
 test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
 
-if test "$libav_version" = "0.8.16"; then
+if test "${libav_version%.*}" = "0.8"; then
 test -f libav_${libav_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
 test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.gz ||
@@ -511,7 +511,7 @@ cat >taglib_bvreplace.patch <<"EOF"
  }
 EOF
 
-if test "$libav_version" = "0.8.16"; then
+if test "${libav_version%.*}" = "0.8"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -1804,7 +1804,7 @@ fi
 
 echo "### Extracting libav"
 
-if test "$libav_version" = "0.8.16"; then
+if test "${libav_version%.*}" = "0.8"; then
 if ! test -d libav-${libav_version}; then
 tar xzf source/libav_${libav_version}.orig.tar.gz
 cd libav-${libav_version}/
@@ -1937,6 +1937,17 @@ done
 
 else
 
+if test "$1" = "clean"; then
+  for d in zlib-${zlib_version} libogg-${libogg_version} \
+           libvorbis-${libvorbis_version} flac-${libflac_version} \
+           id3lib-${id3lib_version} taglib-${taglib_version} \
+           libav-${libav_version} chromaprint-${chromaprint_version} \
+           mp4v2-${mp4v2_version}; do
+    rm -rf $d/inst
+  done
+fi
+  
+if test ! -d zlib-${zlib_version}/inst; then
 echo "### Building zlib"
 
 cd zlib-${zlib_version}/
@@ -1955,7 +1966,9 @@ fi
 cd inst
 tar czf ../../bin/zlib-${zlib_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d libogg-${libogg_version}/inst; then
 echo "### Building libogg"
 
 cd libogg-${libogg_version}/
@@ -1966,7 +1979,9 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libogg-${libogg_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d libvorbis-${libvorbis_version}/inst; then
 echo "### Building libvorbis"
 
 cd libvorbis-${libvorbis_version}/
@@ -1981,10 +1996,13 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libvorbis-${libvorbis_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d flac-${libflac_version}/inst; then
 echo "### Building libflac"
 
 cd flac-${libflac_version}/
+autoreconf -i
 configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
@@ -1999,7 +2017,9 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/flac-${libflac_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d id3lib-${id3lib_version}/inst; then
 echo "### Building id3lib"
 
 cd id3lib-${id3lib_version}/
@@ -2011,7 +2031,9 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/id3lib-${id3lib_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d taglib-${taglib_version}/inst; then
 echo "### Building taglib"
 
 cd taglib-${taglib_version}/
@@ -2023,10 +2045,12 @@ fixcmakeinst
 cd inst
 tar czf ../../bin/taglib-${taglib_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d libav-${libav_version}/inst; then
 echo "### Building libav"
 
-if test "$libav_version" = "0.8.16"; then
+if test "${libav_version%.*}" = "0.8"; then
 cd libav-${libav_version}
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
@@ -2239,7 +2263,9 @@ cd inst
 tar czf ../../bin/libav-${libav_version}.tgz usr
 cd ../..
 fi
+fi
 
+if test ! -d chromaprint-${chromaprint_version}/inst; then
 echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
@@ -2251,11 +2277,14 @@ fixcmakeinst
 cd inst
 tar czf ../../bin/chromaprint-${chromaprint_version}.tgz usr
 cd ../..
+fi
 
+if test ! -d mp4v2-${mp4v2_version}/inst; then
 echo "### Building mp4v2"
 
 cd mp4v2-${mp4v2_version}/
-if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+if test $kernel = "MINGW" || test "$compiler" = "cross-mingw" ||
+   test $kernel = "Darwin"; then
 autoreconf -i
 fi
 test -f Makefile || CXXFLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
@@ -2264,6 +2293,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/mp4v2-${mp4v2_version}.tgz usr
 cd ../..
+fi
 
 
 echo "### Installing to root directory"
