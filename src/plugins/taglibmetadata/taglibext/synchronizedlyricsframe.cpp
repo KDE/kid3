@@ -176,7 +176,11 @@ void SynchronizedLyricsFrame::parseFields(const ByteVector &data)
    */
   String::Type encWithEndianness = d->textEncoding;
   if(d->textEncoding == String::UTF16) {
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) >= 0x010700
     ushort bom = data.mid(6, 2).toUShort(true);
+#else
+    ushort bom = static_cast<ushort>(data.mid(6, 2).toShort(true));
+#endif
     if(bom == 0xfffe) {
       encWithEndianness = String::UTF16LE;
     } else if(bom == 0xfeff) {
@@ -189,7 +193,11 @@ void SynchronizedLyricsFrame::parseFields(const ByteVector &data)
     String::Type enc = d->textEncoding;
     // If a UTF16 string has no BOM, use the encoding found above.
     if(enc == String::UTF16 && pos + 1 < end) {
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) >= 0x010700
       ushort bom = data.mid(pos, 2).toUShort(true);
+#else
+      ushort bom = static_cast<ushort>(data.mid(pos, 2).toShort(true));
+#endif
       if(bom != 0xfffe && bom != 0xfeff) {
         enc = encWithEndianness;
       }
@@ -211,7 +219,7 @@ ByteVector SynchronizedLyricsFrame::renderFields() const
 
   String::Type encoding = d->textEncoding;
 
-#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010700
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) >= 0x010701
   encoding = checkTextEncoding(d->description, encoding);
   for(SynchedTextList::ConstIterator it = d->synchedText.begin();
       it != d->synchedText.end();

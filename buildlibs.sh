@@ -1797,8 +1797,17 @@ echo "### Extracting taglib"
 if ! test -d taglib-${taglib_version}; then
 tar xzf source/taglib-${taglib_version}.tar.gz
 cd taglib-${taglib_version}/
-patch -p1 <../source/taglib-msvc.patch
-patch -p1 <../source/taglib_bvreplace.patch
+taglib_nr=${taglib_version:0:3}
+taglib_nr=${taglib_nr/./}
+if test $taglib_nr -ge 18; then
+  patch -p1 <../source/taglib-msvc.patch
+else
+  sed -i 's/^ADD_SUBDIRECTORY(bindings)/#ADD_SUBDIRECTORY(bindings)/' ./CMakeLists.txt
+  sed -i 's/^ADD_LIBRARY(tag SHARED/ADD_LIBRARY(tag STATIC/' ./taglib/CMakeLists.txt
+fi
+if test "${taglib_version}" = "1.9.1"; then
+  patch -p1 <../source/taglib_bvreplace.patch
+fi
 cd ..
 fi
 
@@ -2339,10 +2348,10 @@ rm -f $INSTDIR.zip
 EOF
       chmod +x kid3/make_package.sh
     else
-      cat >kid3/build.sh <<"EOF"
-BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
-export PKG_CONFIG_PATH=$BUILDPREFIX/lib/pkgconfig
-cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -I$BUILDPREFIX/include -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=$BUILDPREFIX -DWITH_MP4V2=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
+      cat >kid3/build.sh <<EOF
+BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
+export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
     fi
     chmod +x kid3/build.sh
