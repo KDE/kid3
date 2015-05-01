@@ -371,6 +371,29 @@ public:
    * @return list of picture type names, NULL terminated.
    */
   static const char* const* getPictureTypeNames();
+
+  /**
+   * Get an untranslated string for a picture type.
+   *
+   * @param type picture type
+   *
+   * @return picture type, 0 if unknown.
+   */
+  static const char* getPictureTypeString(PictureType type);
+
+  /**
+   * List of untranslated picture type strings, NULL terminated.
+   */
+  static const char* const* getPictureTypeStrings();
+
+  /**
+   * Get picture type from an untranslated string.
+   *
+   * @param str untranslated picture type string
+   *
+   * @return picture type, PT_Other if unknown.
+   */
+  static PictureType getPictureTypeFromString(const char* str);
 };
 
 Q_DECLARE_METATYPE(PictureFrame::ImageProperties)

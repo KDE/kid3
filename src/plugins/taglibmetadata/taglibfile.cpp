@@ -3954,6 +3954,10 @@ static Frame::Type getTypeFromApeName(const QString& name)
       type = Frame::FT_Track;
     } else if (name == QLatin1String("ENCODED BY")) {
       type = Frame::FT_EncodedBy;
+#if TAGLIB_VERSION >= 0x010800
+    } else if (name.startsWith(QLatin1String("COVER ART"))) {
+      type = Frame::FT_Picture;
+#endif
     }
   }
   return type;
@@ -3978,6 +3982,24 @@ static QString getVorbisName(const Frame& frame)
   }
 }
 
+#if TAGLIB_VERSION >= 0x010800
+/**
+ * Get internal name of an APE picture frame.
+ *
+ * @param pictureType picture type
+ *
+ * @return APE key.
+ */
+static TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
+{
+  TagLib::String name("COVER ART (");
+  name += TagLib::String(PictureFrame::getPictureTypeString(pictureType)).
+      upper();
+  name += ')';
+  return name;
+}
+#endif
+
 /**
  * Get internal name of an APE frame.
  *
@@ -3992,6 +4014,14 @@ static QString getApeName(const Frame& frame)
     return QLatin1String("YEAR");
   } else if (type == Frame::FT_Track) {
     return QLatin1String("TRACK");
+#if TAGLIB_VERSION >= 0x010800
+  } else if (type == Frame::FT_Picture) {
+    PictureFrame::PictureType pictureType;
+    if (!PictureFrame::getPictureType(frame, pictureType)) {
+      pictureType = Frame::PT_CoverFront;
+    }
+    return TStringToQString(getApePictureName(pictureType));
+#endif
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
@@ -4666,6 +4696,67 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
 }
 #endif
 
+#if TAGLIB_VERSION >= 0x010800
+/**
+ * Get a picture frame from the bytes in an APE cover art frame.
+ * The cover art frame has the following data:
+ * zero terminated description string (UTF-8), picture data.
+ *
+ * @param name key of APE item
+ * @param data bytes in APE cover art frame
+ * @param frame the picture frame is returned here
+ */
+static void parseApePicture(const QString& name,
+                            const TagLib::ByteVector& data, Frame& frame)
+{
+  QByteArray picture;
+  TagLib::String description;
+  // Do not search for a description if the first byte could start JPG or PNG
+  // data.
+  int picPos = data.isEmpty() || data.at(0) == '\xff' || data.at(0) == '\x89'
+      ? -1 : data.find('\0');
+  if (picPos >= 0) {
+    description = TagLib::String(data.mid(0, picPos), TagLib::String::UTF8);
+    picture = QByteArray(data.data() + picPos + 1, data.size() - picPos - 1);
+  } else {
+    picture = QByteArray(data.data(), data.size());
+  }
+  Frame::PictureType pictureType = Frame::PT_CoverFront;
+  if (name.startsWith(QLatin1String("COVER ART (")) &&
+      name.endsWith(QLatin1Char(')'))) {
+    QString typeStr = name.mid(11);
+    typeStr.chop(1);
+    pictureType = PictureFrame::getPictureTypeFromString(typeStr.toLatin1());
+  }
+  PictureFrame::setFields(
+        frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+        QLatin1String("image/jpeg"), pictureType,
+        TStringToQString(description), picture);
+}
+
+/**
+ * Render the bytes of an APE cover art frame from a picture frame.
+ *
+ * @param frame picture frame
+ * @param data  the bytes for the APE cover art are returned here
+ */
+static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
+{
+  Frame::TextEncoding enc;
+  PictureFrame::PictureType pictureType;
+  QByteArray picture;
+  QString imgFormat, mimeType, description;
+  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+                          description, picture);
+  if (frame.isValueChanged()) {
+    description = frame.getValue();
+  }
+  data.append(QSTRING_TO_TSTRING(description).data(TagLib::String::UTF8));
+  data.append('\0');
+  data.append(TagLib::ByteVector(picture.constData(), picture.size()));
+}
+#endif
+
 /**
  * Set a frame in the tags 2.
  *
@@ -4773,11 +4864,29 @@ bool TagLibFile::setFrameV2(const Frame& frame)
       markTag2Changed(frame.getType());
       return true;
     } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+#if TAGLIB_VERSION >= 0x010800
+      if (frame.getType() == Frame::FT_Picture) {
+        TagLib::ByteVector data;
+        renderApePicture(frame, data);
+        QString oldName = frame.getInternalName();
+        QString newName = getApeName(frame);
+        if (newName != oldName) {
+          // If the picture type changes, the frame with the old name has to
+          // be replaced with a frame with the new name.
+          apeTag->removeItem(QSTRING_TO_TSTRING(oldName));
+        }
+        apeTag->setData(QSTRING_TO_TSTRING(newName), data);
+      } else {
+        apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
+                         QSTRING_TO_TSTRING(frame.getValue()));
+      }
+#else
       if (frame.getType() == Frame::FT_Picture) {
         return false;
       }
       apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
                        QSTRING_TO_TSTRING(frame.getValue()));
+#endif
       markTag2Changed(frame.getType());
       return true;
 #if TAGLIB_VERSION >= 0x010600
@@ -5079,6 +5188,37 @@ bool TagLibFile::addFrameV2(Frame& frame)
       markTag2Changed(frame.getType());
       return true;
     } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+#if TAGLIB_VERSION >= 0x010800
+      if (frame.getType() == Frame::FT_Picture &&
+          frame.getFieldList().isEmpty()) {
+        // Do not replace an already existing picture.
+        Frame::PictureType pictureType = Frame::PT_CoverFront;
+        const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+        for (int i = Frame::PT_CoverFront; i <= Frame::PT_PublisherLogo; ++i) {
+          Frame::PictureType pt = static_cast<Frame::PictureType>(i);
+          if (itemListMap.find(getApePictureName(pt)) == itemListMap.end()) {
+            pictureType = pt;
+            break;
+          }
+        }
+        PictureFrame::setFields(
+              frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+              QLatin1String("image/jpeg"), pictureType);
+      }
+      QString name(getApeName(frame));
+      TagLib::String tname = QSTRING_TO_TSTRING(name);
+      if (frame.getType() == Frame::FT_Picture) {
+        TagLib::ByteVector data;
+        renderApePicture(frame, data);
+        apeTag->setData(tname, data);
+      } else {
+        TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+        if (tvalue.isEmpty()) {
+          tvalue = " "; // empty values are not added by TagLib
+        }
+        apeTag->addValue(tname, tvalue, true);
+      }
+#else
       if (frame.getType() == Frame::FT_Picture) {
         return false;
       }
@@ -5089,6 +5229,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         tvalue = " "; // empty values are not added by TagLib
       }
       apeTag->addValue(tname, tvalue, true);
+#endif
       frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
 
       const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -5606,11 +5747,20 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
            it != itemListMap.end();
            ++it) {
         QString name = TStringToQString((*it).first);
-        TagLib::StringList values = (*it).second.toStringList();
         Frame::Type type = getTypeFromApeName(name);
+        TagLib::StringList values;
+        if (type != Frame::FT_Picture) {
+          values = (*it).second.toStringList();
+        }
         Frame frame(type, values.size() > 0
                     ? TStringToQString(values.front()) : QLatin1String(""),
                     name, i++);
+#if TAGLIB_VERSION >= 0x010800
+        if (type == Frame::FT_Picture) {
+          TagLib::ByteVector data = (*it).second.binaryData();
+          parseApePicture(name, data, frame);
+        }
+#endif
         updateMarkedState(frame);
         frames.insert(frame);
       }
@@ -5904,7 +6054,10 @@ QStringList TagLibFile::getFrameIds() const
       "VERSION",
       "VOLUME"
     };
-#if TAGLIB_VERSION >= 0x010700
+#if TAGLIB_VERSION >= 0x010800
+    const bool picturesSupported = m_pictures.isRead() ||
+        m_tagTypeV2 == TT_Vorbis || m_tagTypeV2 == TT_Ape;
+#elif TAGLIB_VERSION >= 0x010700
     const bool picturesSupported = m_pictures.isRead() ||
         m_tagTypeV2 == TT_Vorbis;
 #else

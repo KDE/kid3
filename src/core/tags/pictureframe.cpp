@@ -60,6 +60,34 @@ static const char* const pictureTypeNames[] = {
   NULL
 };
 
+/**
+ * List of untranslated picture type strings, NULL terminated.
+ */
+static const char* const pictureTypeStrings[] = {
+  "Other",
+  "Png Icon",
+  "Icon",
+  "Front",
+  "Back",
+  "Leaflet",
+  "Media",
+  "Lead Artist",
+  "Artist",
+  "Conductor",
+  "Band",
+  "Composer",
+  "Lyricist",
+  "Recording Location",
+  "During Recording",
+  "During Performance",
+  "Video Capture",
+  "Fish",
+  "Illustration",
+  "Band Logotype",
+  "Publisher Logotype",
+  NULL
+};
+
 }
 
 
@@ -720,4 +748,45 @@ QString PictureFrame::getPictureTypeName(PictureType type)
 const char* const* PictureFrame::getPictureTypeNames()
 {
   return pictureTypeNames;
+}
+
+/**
+ * Get an untranslated string for a picture type.
+ *
+ * @param type picture type
+ *
+ * @return picture type, 0 if unknown.
+ */
+const char* PictureFrame::getPictureTypeString(PictureType type)
+{
+  return type >= 0 && type < static_cast<int>(
+        sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1)
+      ? pictureTypeStrings[type] : 0;
+}
+
+/**
+ * List of untranslated picture type strings, NULL terminated.
+ */
+const char* const* PictureFrame::getPictureTypeStrings()
+{
+  return pictureTypeStrings;
+}
+
+/**
+ * Get picture type from an untranslated string.
+ *
+ * @param str untranslated picture type string
+ *
+ * @return picture type, PT_Other if unknown.
+ */
+PictureFrame::PictureType PictureFrame::getPictureTypeFromString(const char* str)
+{
+  for (unsigned int i = 0;
+       i < sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1;
+       ++i) {
+    if (qstricmp(str, pictureTypeStrings[i]) == 0) {
+      return static_cast<PictureType>(i);
+    }
+  }
+  return PT_Other;
 }
