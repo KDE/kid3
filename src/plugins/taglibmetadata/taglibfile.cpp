@@ -31,6 +31,7 @@
 #include <QByteArray>
 #include <QImage>
 #include <QCoreApplication>
+#include <QVarLengthArray>
 #include "genres.h"
 #include "attributedata.h"
 #include "pictureframe.h"
@@ -125,6 +126,27 @@
 
 namespace {
 
+/** Convert QString @a s to a TagLib::String. */
+TagLib::String toTString(const QString& s)
+{
+  int len = s.length();
+  QVarLengthArray<wchar_t> a(len + 1);
+  wchar_t* ws = a.data();
+  len = s.toWCharArray(ws);
+  ws[len] = 0;
+  return TagLib::String(ws);
+}
+
+/** Convert TagLib::String @a s to a QString. */
+inline QString toQString(const TagLib::String& s)
+{
+#if TAGLIB_VERSION >= 0x010900
+  return QString::fromWCharArray(s.toCWString(), s.size());
+#else
+  return TStringToQString(s);
+#endif
+}
+
 #if TAGLIB_VERSION >= 0x010700
 /**
  * Set a picture frame from a FLAC picture.
@@ -140,9 +162,9 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
         pic->width(), pic->height(), pic->colorDepth(),
         pic->numColors(), ba);
   PictureFrame::setFields(
-    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), TStringToQString(pic->mimeType()),
+    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), toQString(pic->mimeType()),
     static_cast<PictureFrame::PictureType>(pic->type()),
-    TStringToQString(pic->description()),
+    toQString(pic->description()),
     ba, &imgProps);
 }
 
@@ -164,8 +186,8 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
   PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
                           description, data, &imgProps);
   pic->setType(static_cast<TagLib::FLAC::Picture::Type>(pictureType));
-  pic->setMimeType(QSTRING_TO_TSTRING(mimeType));
-  pic->setDescription(QSTRING_TO_TSTRING(description));
+  pic->setMimeType(toTString(mimeType));
+  pic->setDescription(toTString(description));
   pic->setData(TagLib::ByteVector(data.data(), data.size()));
   if (!imgProps.isValidForImage(data)) {
     imgProps = PictureFrame::ImageProperties(data);
@@ -562,7 +584,7 @@ const QTextCodec* TextCodecStringHandler::s_codec = 0;
 TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) const
 {
   return s_codec ?
-    QSTRING_TO_TSTRING(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace() :
+    toTString(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace() :
     TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
 }
 
@@ -574,7 +596,7 @@ TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) con
 TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 {
   if (s_codec) {
-    QByteArray ba(s_codec->fromUnicode(TStringToQString(s)));
+    QByteArray ba(s_codec->fromUnicode(toQString(s)));
     return TagLib::ByteVector(ba.data(), ba.size());
   } else {
     return s.data(TagLib::String::Latin1);
@@ -1182,7 +1204,7 @@ QString TagLibFile::getTitleV1() const
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->title();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1200,7 +1222,7 @@ QString TagLibFile::getArtistV1() const
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->artist();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1218,7 +1240,7 @@ QString TagLibFile::getAlbumV1() const
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->album();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1239,7 +1261,7 @@ QString TagLibFile::getCommentV1() const
     if (str.isNull()) {
       return QLatin1String("");
     } else {
-      QString qstr(TStringToQString(str));
+      QString qstr(toQString(str));
       qstr.truncate(28);
       return qstr;
     }
@@ -1294,7 +1316,7 @@ QString TagLibFile::getGenreV1() const
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->genre();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1312,7 +1334,7 @@ QString TagLibFile::getTitleV2() const
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->title();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1330,7 +1352,7 @@ QString TagLibFile::getArtistV2() const
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->artist();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1348,7 +1370,7 @@ QString TagLibFile::getAlbumV2() const
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->album();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1366,7 +1388,7 @@ QString TagLibFile::getCommentV2() const
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->comment();
-    return str.isNull() ? QLatin1String("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : toQString(str);
   } else {
     return QString();
   }
@@ -1421,7 +1443,7 @@ QString TagLibFile::getTrackV2() const
 static QString getGenreString(const TagLib::String& str)
 {
   if (!str.isNull()) {
-    QString qs = TStringToQString(str);
+    QString qs = toQString(str);
     int cpPos = 0, n = 0xff;
     bool ok = false;
     if (qs[0] == QLatin1Char('(') && (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
@@ -1548,11 +1570,11 @@ void TagLibFile::setTitleV1(const QString& str)
 {
   if (makeTagV1Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV1->title())) {
       QString s = checkTruncation(str, 1ULL << Frame::FT_Title);
       if (!s.isNull())
-        m_tagV1->setTitle(QSTRING_TO_TSTRING(s));
+        m_tagV1->setTitle(toTString(s));
       else
         m_tagV1->setTitle(tstr);
       markTag1Changed(Frame::FT_Title);
@@ -1569,11 +1591,11 @@ void TagLibFile::setArtistV1(const QString& str)
 {
   if (makeTagV1Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV1->artist())) {
       QString s = checkTruncation(str, 1ULL << Frame::FT_Artist);
       if (!s.isNull())
-        m_tagV1->setArtist(QSTRING_TO_TSTRING(s));
+        m_tagV1->setArtist(toTString(s));
       else
         m_tagV1->setArtist(tstr);
       markTag1Changed(Frame::FT_Artist);
@@ -1590,11 +1612,11 @@ void TagLibFile::setAlbumV1(const QString& str)
 {
   if (makeTagV1Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV1->album())) {
       QString s = checkTruncation(str, 1ULL << Frame::FT_Album);
       if (!s.isNull())
-        m_tagV1->setAlbum(QSTRING_TO_TSTRING(s));
+        m_tagV1->setAlbum(toTString(s));
       else
         m_tagV1->setAlbum(tstr);
       markTag1Changed(Frame::FT_Album);
@@ -1611,11 +1633,11 @@ void TagLibFile::setCommentV1(const QString& str)
 {
   if (makeTagV1Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV1->comment())) {
       QString s = checkTruncation(str, 1ULL << Frame::FT_Comment, 28);
       if (!s.isNull())
-        m_tagV1->setComment(QSTRING_TO_TSTRING(s));
+        m_tagV1->setComment(toTString(s));
       else
         m_tagV1->setComment(tstr);
       markTag1Changed(Frame::FT_Comment);
@@ -1666,7 +1688,7 @@ void TagLibFile::setGenreV1(const QString& str)
 {
   if (makeTagV1Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV1->genre())) {
       m_tagV1->setGenre(tstr);
       markTag1Changed(Frame::FT_Genre);
@@ -1795,7 +1817,7 @@ void TagLibFile::setTitleV2(const QString& str)
 {
   if (makeTagV2Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV2->title())) {
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TIT2")) {
         m_tagV2->setTitle(tstr);
@@ -1814,7 +1836,7 @@ void TagLibFile::setArtistV2(const QString& str)
 {
   if (makeTagV2Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV2->artist())) {
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TPE1")) {
         m_tagV2->setArtist(tstr);
@@ -1833,7 +1855,7 @@ void TagLibFile::setAlbumV2(const QString& str)
 {
   if (makeTagV2Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV2->album())) {
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TALB")) {
         m_tagV2->setAlbum(tstr);
@@ -1852,7 +1874,7 @@ void TagLibFile::setCommentV2(const QString& str)
 {
   if (makeTagV2Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV2->comment())) {
       if (!setId3v2Unicode(m_tagV2, str, tstr, "COMM")) {
         m_tagV2->setComment(tstr);
@@ -1881,7 +1903,7 @@ void TagLibFile::setYearV2(int num)
           str = QLatin1String("");
         }
         TagLib::String tstr = str.isEmpty() ?
-          TagLib::String::null : QSTRING_TO_TSTRING(str);
+          TagLib::String::null : toTString(str);
         if (!setId3v2Unicode(m_tagV2, str, tstr, "TDRC")) {
           m_tagV2->setYear(num);
         }
@@ -1909,7 +1931,7 @@ void TagLibFile::setTrackV2(const QString& track)
 #endif
       if (id3v2Tag) {
         TagLib::String tstr = str.isEmpty() ?
-          TagLib::String::null : QSTRING_TO_TSTRING(str);
+          TagLib::String::null : toTString(str);
         if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {
           TagLib::ID3v2::TextIdentificationFrame* frame =
               new TagLib::ID3v2::TextIdentificationFrame(
@@ -1951,7 +1973,7 @@ void TagLibFile::setGenreV2(const QString& str)
 {
   if (makeTagV2Settable() && !str.isNull()) {
     TagLib::String tstr = str.isEmpty() ?
-      TagLib::String::null : QSTRING_TO_TSTRING(str);
+      TagLib::String::null : toTString(str);
     if (!(tstr == m_tagV2->genre())) {
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
         TagLib::ID3v2::TextIdentificationFrame* frame;
@@ -2214,7 +2236,7 @@ void TagLibFile::readAudioProperties()
   {
     QString trackerName;
     if (TagLib::Mod::Tag* modTag = dynamic_cast<TagLib::Mod::Tag*>(m_tagV2)) {
-      trackerName = TStringToQString(modTag->trackerName()).trimmed();
+      trackerName = toQString(modTag->trackerName()).trimmed();
     }
     return trackerName;
   }
@@ -2510,15 +2532,15 @@ static QString getFieldsFromTextFrame(
        dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(tFrame))
       != 0) {
     field.m_id = Frame::ID_Description;
-    field.m_value = TStringToQString(txxxFrame->description());
+    field.m_value = toQString(txxxFrame->description());
     fields.push_back(field);
 
     TagLib::StringList slText = tFrame->fieldList();
-    text = slText.size() > 1 ? TStringToQString(slText[1]) : QLatin1String("");
+    text = slText.size() > 1 ? toQString(slText[1]) : QLatin1String("");
   } else {
     // if there are multiple items, put them into one string
     // separated by a special separator.
-    text = TStringToQString(tFrame->fieldList().toString(Frame::stringListSeparator().toLatin1()));
+    text = toQString(tFrame->fieldList().toString(Frame::stringListSeparator().toLatin1()));
   }
   field.m_id = Frame::ID_Text;
   if (type == Frame::FT_Genre) {
@@ -2554,7 +2576,7 @@ static QString getFieldsFromApicFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_MimeType;
-  field.m_value = TStringToQString(apicFrame->mimeType());
+  field.m_value = toQString(apicFrame->mimeType());
   fields.push_back(field);
 
   field.m_id = Frame::ID_PictureType;
@@ -2562,7 +2584,7 @@ static QString getFieldsFromApicFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  text = TStringToQString(apicFrame->description());
+  text = toQString(apicFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2599,11 +2621,11 @@ static QString getFieldsFromCommFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  field.m_value = TStringToQString(commFrame->description());
+  field.m_value = toQString(commFrame->description());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Text;
-  text = TStringToQString(commFrame->toString());
+  text = toQString(commFrame->toString());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2624,7 +2646,7 @@ static QString getFieldsFromUfidFrame(
 {
   Frame::Field field;
   field.m_id = Frame::ID_Owner;
-  field.m_value = TStringToQString(ufidFrame->owner());
+  field.m_value = toQString(ufidFrame->owner());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Id;
@@ -2663,15 +2685,15 @@ static QString getFieldsFromGeobFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_MimeType;
-  field.m_value = TStringToQString(geobFrame->mimeType());
+  field.m_value = toQString(geobFrame->mimeType());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Filename;
-  field.m_value = TStringToQString(geobFrame->fileName());
+  field.m_value = toQString(geobFrame->fileName());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  text = TStringToQString(geobFrame->description());
+  text = toQString(geobFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2699,7 +2721,7 @@ static QString getFieldsFromUrlFrame(
   QString text;
   Frame::Field field;
   field.m_id = Frame::ID_Url;
-  text = TStringToQString(wFrame->url());
+  text = toQString(wFrame->url());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2724,11 +2746,11 @@ static QString getFieldsFromUserUrlFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  field.m_value = TStringToQString(wxxxFrame->description());
+  field.m_value = toQString(wxxxFrame->description());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Url;
-  text = TStringToQString(wxxxFrame->url());
+  text = toQString(wxxxFrame->url());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2760,11 +2782,11 @@ static QString getFieldsFromUsltFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  field.m_value = TStringToQString(usltFrame->description());
+  field.m_value = toQString(usltFrame->description());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Text;
-  text = TStringToQString(usltFrame->toString());
+  text = toQString(usltFrame->toString());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2803,7 +2825,7 @@ static QString getFieldsFromSyltFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Description;
-  text = TStringToQString(syltFrame->description());
+  text = toQString(syltFrame->description());
   field.m_value = text;
   fields.push_back(field);
 
@@ -2816,7 +2838,7 @@ static QString getFieldsFromSyltFrame(
        it != stl.end();
        ++it) {
     synchedData.append(static_cast<quint32>(it->time));
-    synchedData.append(TStringToQString(it->text));
+    synchedData.append(toQString(it->text));
   }
   field.m_value = synchedData;
   fields.push_back(field);
@@ -2874,7 +2896,7 @@ static QString getFieldsFromPrivFrame(
   QString owner;
   Frame::Field field;
   field.m_id = Frame::ID_Owner;
-  owner = TStringToQString(privFrame->owner());
+  owner = toQString(privFrame->owner());
   field.m_value = owner;
   fields.push_back(field);
 
@@ -2908,7 +2930,7 @@ static QString getFieldsFromPopmFrame(
 {
   Frame::Field field;
   field.m_id = Frame::ID_Email;
-  field.m_value = TStringToQString(popmFrame->email());
+  field.m_value = toQString(popmFrame->email());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Rating;
@@ -2943,15 +2965,15 @@ static QString getFieldsFromOwneFrame(
   fields.push_back(field);
 
   field.m_id = Frame::ID_Date;
-  field.m_value = TStringToQString(owneFrame->datePurchased());
+  field.m_value = toQString(owneFrame->datePurchased());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Price;
-  field.m_value = TStringToQString(owneFrame->pricePaid());
+  field.m_value = toQString(owneFrame->pricePaid());
   fields.push_back(field);
 
   field.m_id = Frame::ID_Seller;
-  QString text(TStringToQString(owneFrame->seller()));
+  QString text(toQString(owneFrame->seller()));
   field.m_value = text;
   fields.push_back(field);
 
@@ -3183,47 +3205,47 @@ template <>
 void setDescription(TagLib::ID3v2::UserTextIdentificationFrame* f,
                     const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::AttachedPictureFrame* f,
                     const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::CommentsFrame* f, const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
                     const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::UserUrlLinkFrame* f, const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
                     const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setDescription(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                     const Frame::Field& fld)
 {
-  f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setDescription(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3233,14 +3255,14 @@ template <>
 void setMimeType(TagLib::ID3v2::AttachedPictureFrame* f,
                  const Frame::Field& fld)
 {
-  f->setMimeType(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setMimeType(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setMimeType(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
                  const Frame::Field& fld)
 {
-  f->setMimeType(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setMimeType(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3300,7 +3322,7 @@ void setData(TagLib::ID3v2::SynchronizedLyricsFrame* f,
     if (!it.hasNext())
       break;
 
-    TagLib::String text = QSTRING_TO_TSTRING(it.next().toString());
+    TagLib::String text = toTString(it.next().toString());
     stl.append(TagLib::ID3v2::SynchronizedLyricsFrame::SynchedText(time, text));
   }
   f->setSynchedText(stl);
@@ -3356,7 +3378,7 @@ template <>
 void setOwner(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
               const Frame::Field& fld)
 {
-  f->setOwner(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setOwner(toTString(fld.m_value.toString()));
 }
 
 #if TAGLIB_VERSION >= 0x010600
@@ -3364,7 +3386,7 @@ template <>
 void setOwner(TagLib::ID3v2::PrivateFrame* f,
               const Frame::Field& fld)
 {
-  f->setOwner(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setOwner(toTString(fld.m_value.toString()));
 }
 
 template <>
@@ -3394,7 +3416,7 @@ template <>
 void setFilename(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
                  const Frame::Field& fld)
 {
-  f->setFileName(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setFileName(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3403,13 +3425,13 @@ void setUrl(T*, const Frame::Field&) {}
 template <>
 void setUrl(TagLib::ID3v2::UrlLinkFrame* f, const Frame::Field& fld)
 {
-  f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setUrl(toTString(fld.m_value.toString()));
 }
 
 template <>
 void setUrl(TagLib::ID3v2::UserUrlLinkFrame* f, const Frame::Field& fld)
 {
-  f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setUrl(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3449,7 +3471,7 @@ void setValue(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& t
 template <>
 void setValue(TagLib::ID3v2::UniqueFileIdentifierFrame* f, const TagLib::String& text)
 {
-  if (AttributeData::isHexString(TStringToQString(text), 'Z')) {
+  if (AttributeData::isHexString(toQString(text), 'Z')) {
     TagLib::ByteVector data(text.data(TagLib::String::Latin1));
     data.append('\0');
     f->setIdentifier(data);
@@ -3469,8 +3491,8 @@ void setValue(TagLib::ID3v2::PrivateFrame* f, const TagLib::String& text)
   QByteArray newData;
   TagLib::String owner = f->owner();
   if (!owner.isEmpty() &&
-      AttributeData(TStringToQString(owner)).
-      toByteArray(TStringToQString(text), newData)) {
+      AttributeData(toQString(owner)).
+      toByteArray(toQString(text), newData)) {
     f->setData(TagLib::ByteVector(newData.data(), newData.size()));
   }
 }
@@ -3501,7 +3523,7 @@ void setEmail(T*, const Frame::Field&) {}
 template <>
 void setEmail(TagLib::ID3v2::PopularimeterFrame* f, const Frame::Field& fld)
 {
-  f->setEmail(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setEmail(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3532,7 +3554,7 @@ void setDate(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
 {
   // The date string must have exactly 8 characters (should be YYYYMMDD)
   QString date(fld.m_value.toString().leftJustified(8, QLatin1Char(' '), true));
-  f->setDatePurchased(QSTRING_TO_TSTRING(date));
+  f->setDatePurchased(toTString(date));
 }
 
 template <class T>
@@ -3541,7 +3563,7 @@ void setPrice(T*, const Frame::Field&) {}
 template <>
 void setPrice(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
 {
-  f->setPricePaid(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setPricePaid(toTString(fld.m_value.toString()));
 }
 
 template <class T>
@@ -3550,7 +3572,7 @@ void setSeller(T*, const Frame::Field&) {}
 template <>
 void setSeller(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
 {
-  f->setSeller(QSTRING_TO_TSTRING(fld.m_value.toString()));
+  f->setSeller(toTString(fld.m_value.toString()));
 }
 
 template <>
@@ -3622,7 +3644,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
     } else if (frame.getType() == Frame::FT_Track) {
       self->formatTrackNumberIfEnabled(text, true);
     }
-    setValue(tFrame, QSTRING_TO_TSTRING(text));
+    setValue(tFrame, toTString(text));
     setTextEncoding(tFrame, getTextEncodingConfig(needsUnicode(text)));
   } else {
     for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
@@ -3640,7 +3662,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
           } else if (frame.getType() == Frame::FT_Track) {
             self->formatTrackNumberIfEnabled(value, true);
           }
-          setText(tFrame, QSTRING_TO_TSTRING(value));
+          setText(tFrame, toTString(value));
           break;
         }
         case Frame::ID_TextEnc:
@@ -4020,7 +4042,7 @@ static QString getApeName(const Frame& frame)
     if (!PictureFrame::getPictureType(frame, pictureType)) {
       pictureType = Frame::PT_CoverFront;
     }
-    return TStringToQString(getApePictureName(pictureType));
+    return toQString(getApePictureName(pictureType));
 #endif
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
@@ -4251,11 +4273,11 @@ static void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
   if (frame.getType() != Frame::FT_Other) {
     getMp4NameForType(frame.getType(), name, value);
     if (name.isEmpty()) {
-      name = QSTRING_TO_TSTRING(frame.getInternalName());
+      name = toTString(frame.getInternalName());
     }
   } else {
     Frame::Type type;
-    name = QSTRING_TO_TSTRING(frame.getInternalName());
+    name = toTString(frame.getInternalName());
     getMp4TypeForName(name, type, value);
   }
 }
@@ -4275,7 +4297,7 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
   prefixMp4FreeFormName(name);
   switch (valueType) {
     case MVT_String:
-      return TagLib::MP4::Item(QSTRING_TO_TSTRING(frame.getValue()));
+      return TagLib::MP4::Item(toTString(frame.getValue()));
     case MVT_Bool:
       return TagLib::MP4::Item(frame.getValue().toInt() != 0);
     case MVT_Int:
@@ -4500,11 +4522,11 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
   if (frame.getType() != Frame::FT_Other) {
     getAsfNameForType(frame.getType(), name, value);
     if (name.isEmpty()) {
-      name = QSTRING_TO_TSTRING(frame.getInternalName());
+      name = toTString(frame.getInternalName());
     }
   } else {
     Frame::Type type;
-    name = QSTRING_TO_TSTRING(frame.getInternalName());
+    name = toTString(frame.getInternalName());
     getAsfTypeForName(name, type, value);
   }
 }
@@ -4524,9 +4546,9 @@ static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
     return false;
 
   TagLib::ByteVector data = picture.picture();
-  QString description(TStringToQString(picture.description()));
+  QString description(toQString(picture.description()));
   PictureFrame::setFields(frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
-                          TStringToQString(picture.mimeType()),
+                          toQString(picture.mimeType()),
                           static_cast<PictureFrame::PictureType>(picture.type()),
                           description,
                           QByteArray(data.data(), data.size()));
@@ -4552,9 +4574,9 @@ static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
   if (frame.isValueChanged()) {
     description = frame.getValue();
   }
-  picture.setMimeType(QSTRING_TO_TSTRING(mimeType));
+  picture.setMimeType(toTString(mimeType));
   picture.setType(static_cast<TagLib::ASF::Picture::Type>(pictureType));
-  picture.setDescription(QSTRING_TO_TSTRING(description));
+  picture.setDescription(toTString(description));
   picture.setPicture(TagLib::ByteVector(data.data(), data.size()));
 }
 #elif TAGLIB_VERSION >= 0x010602
@@ -4633,9 +4655,9 @@ static void renderAsfPicture(const Frame& frame, TagLib::ByteVector& data)
   data[3] = size & 0xff;
   size >>= 8;
   data[4] = size & 0xff;
-  data.append(QSTRING_TO_TSTRING(mimeType).data(TagLib::String::UTF16LE));
+  data.append(toTString(mimeType).data(TagLib::String::UTF16LE));
   data.append(TagLib::ByteVector(2, 0));
-  data.append(QSTRING_TO_TSTRING(description).data(TagLib::String::UTF16LE));
+  data.append(toTString(description).data(TagLib::String::UTF16LE));
   data.append(TagLib::ByteVector(2, 0));
   data.append(TagLib::ByteVector(picture.data(), picture.size()));
 }
@@ -4655,7 +4677,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
 {
   switch (valueType) {
     case TagLib::ASF::Attribute::UnicodeType:
-      return TagLib::ASF::Attribute(QSTRING_TO_TSTRING(frame.getValue()));
+      return TagLib::ASF::Attribute(toTString(frame.getValue()));
     case TagLib::ASF::Attribute::BoolType:
       return TagLib::ASF::Attribute(frame.getValue() == QLatin1String("1"));
     case TagLib::ASF::Attribute::WordType:
@@ -4731,7 +4753,7 @@ static void parseApePicture(const QString& name,
   PictureFrame::setFields(
         frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
         QLatin1String("image/jpeg"), pictureType,
-        TStringToQString(description), picture);
+        toQString(description), picture);
 }
 
 /**
@@ -4751,7 +4773,7 @@ static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
   if (frame.isValueChanged()) {
     description = frame.getValue();
   }
-  data.append(QSTRING_TO_TSTRING(description).data(TagLib::String::UTF8));
+  data.append(toTString(description).data(TagLib::String::UTF8));
   data.append('\0');
   data.append(TagLib::ByteVector(picture.constData(), picture.size()));
 }
@@ -4818,15 +4840,15 @@ bool TagLibFile::setFrameV2(const Frame& frame)
               frame.getInternalName() == QLatin1String("COVERART")) {
             QString mimeType;
             PictureFrame::getMimeType(frame, mimeType);
-            oggTag->addField("COVERARTMIME", QSTRING_TO_TSTRING(mimeType), true);
+            oggTag->addField("COVERARTMIME", toTString(mimeType), true);
           }
         }
 #else
         return false;
 #endif
       }
-      TagLib::String key = QSTRING_TO_TSTRING(getVorbisName(frame));
-      TagLib::String value = QSTRING_TO_TSTRING(frameValue);
+      TagLib::String key = toTString(getVorbisName(frame));
+      TagLib::String value = toTString(frameValue);
 #if TAGLIB_VERSION <= 0x010400
       // Remove all fields with that key, because TagLib <= 1.4 crashes
       // using an invalidated iterator after calling erase().
@@ -4873,19 +4895,19 @@ bool TagLibFile::setFrameV2(const Frame& frame)
         if (newName != oldName) {
           // If the picture type changes, the frame with the old name has to
           // be replaced with a frame with the new name.
-          apeTag->removeItem(QSTRING_TO_TSTRING(oldName));
+          apeTag->removeItem(toTString(oldName));
         }
-        apeTag->setData(QSTRING_TO_TSTRING(newName), data);
+        apeTag->setData(toTString(newName), data);
       } else {
-        apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
-                         QSTRING_TO_TSTRING(frame.getValue()));
+        apeTag->addValue(toTString(getApeName(frame)),
+                         toTString(frame.getValue()));
       }
 #else
       if (frame.getType() == Frame::FT_Picture) {
         return false;
       }
-      apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
-                       QSTRING_TO_TSTRING(frame.getValue()));
+      apeTag->addValue(toTString(getApeName(frame)),
+                       toTString(frame.getValue()));
 #endif
       markTag2Changed(frame.getType());
       return true;
@@ -4904,19 +4926,19 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 #endif
       switch (index) {
         case AFI_Title:
-          asfTag->setTitle(QSTRING_TO_TSTRING(frame.getValue()));
+          asfTag->setTitle(toTString(frame.getValue()));
           break;
         case AFI_Artist:
-          asfTag->setArtist(QSTRING_TO_TSTRING(frame.getValue()));
+          asfTag->setArtist(toTString(frame.getValue()));
           break;
         case AFI_Comment:
-          asfTag->setComment(QSTRING_TO_TSTRING(frame.getValue()));
+          asfTag->setComment(toTString(frame.getValue()));
           break;
         case AFI_Copyright:
-          asfTag->setCopyright(QSTRING_TO_TSTRING(frame.getValue()));
+          asfTag->setCopyright(toTString(frame.getValue()));
           break;
         case AFI_Rating:
-          asfTag->setRating(QSTRING_TO_TSTRING(frame.getValue()));
+          asfTag->setRating(toTString(frame.getValue()));
           break;
         case AFI_Attributes:
         default:
@@ -5031,7 +5053,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         id3Frame = commFrame;
         commFrame->setLanguage("eng"); // for compatibility with iTunes
         if (frame.getType() == Frame::FT_Other) {
-          commFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
+          commFrame->setDescription(toTString(frame.getName()));
         }
       } else if (frameId == QLatin1String("APIC")) {
         id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
@@ -5079,7 +5101,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
             new TagLib::ID3v2::PrivateFrame;
         id3Frame = privFrame;
         if (!frame.getName().startsWith(QLatin1String("PRIV"))) {
-          privFrame->setOwner(QSTRING_TO_TSTRING(frame.getName()));
+          privFrame->setOwner(toTString(frame.getName()));
           QByteArray data;
           if (AttributeData(frame.getName()).toByteArray(frame.getValue(), data)) {
             privFrame->setData(TagLib::ByteVector(data.constData(), data.size()));
@@ -5100,7 +5122,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         } else if (frame.getType() == Frame::FT_ReleaseCountry) {
           description = "RELEASECOUNTRY";
         } else {
-          description = QSTRING_TO_TSTRING(frame.getName());
+          description = toTString(frame.getName());
           frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
                         QLatin1String("TXXX - User defined text information")));
         }
@@ -5159,8 +5181,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
         return false;
 #endif
       }
-      TagLib::String tname = QSTRING_TO_TSTRING(name);
-      TagLib::String tvalue = QSTRING_TO_TSTRING(value);
+      TagLib::String tname = toTString(name);
+      TagLib::String tvalue = toTString(value);
       if (tvalue.isEmpty()) {
         tvalue = " "; // empty values are not added by TagLib
       }
@@ -5206,13 +5228,13 @@ bool TagLibFile::addFrameV2(Frame& frame)
               QLatin1String("image/jpeg"), pictureType);
       }
       QString name(getApeName(frame));
-      TagLib::String tname = QSTRING_TO_TSTRING(name);
+      TagLib::String tname = toTString(name);
       if (frame.getType() == Frame::FT_Picture) {
         TagLib::ByteVector data;
         renderApePicture(frame, data);
         apeTag->setData(tname, data);
       } else {
-        TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+        TagLib::String tvalue = toTString(frame.getValue());
         if (tvalue.isEmpty()) {
           tvalue = " "; // empty values are not added by TagLib
         }
@@ -5223,8 +5245,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
         return false;
       }
       QString name(getApeName(frame));
-      TagLib::String tname = QSTRING_TO_TSTRING(name);
-      TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+      TagLib::String tname = toTString(name);
+      TagLib::String tvalue = toTString(frame.getValue());
       if (tvalue.isEmpty()) {
         tvalue = " "; // empty values are not added by TagLib
       }
@@ -5262,7 +5284,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         return false;
       }
       frame.setExtendedType(Frame::ExtendedType(frame.getType(),
-                                                TStringToQString(name)));
+                                                toQString(name)));
       prefixMp4FreeFormName(name);
       mp4Tag->itemListMap()[name] = item;
       const TagLib::MP4::ItemListMap& itemListMap = mp4Tag->itemListMap();
@@ -5306,7 +5328,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
       TagLib::ASF::Attribute attribute = getAsfAttributeForFrame(frame, valueType);
       asfTag->addAttribute(name, attribute);
       frame.setExtendedType(Frame::ExtendedType(frame.getType(),
-                                                TStringToQString(name)));
+                                                toQString(name)));
 
       const TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
       int index = AFI_Attributes;
@@ -5381,25 +5403,25 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
       }
 #endif
       TagLib::String key =
-        QSTRING_TO_TSTRING(frame.getInternalName());
+        toTString(frame.getInternalName());
 #if TAGLIB_VERSION <= 0x010400
       // Remove all fields with that key, because TagLib <= 1.4 crashes
       // using an invalidated iterator after calling erase().
       oggTag->removeField(key);
 #else
-      oggTag->removeField(key, QSTRING_TO_TSTRING(frameValue));
+      oggTag->removeField(key, toTString(frameValue));
 #endif
       markTag2Changed(frame.getType());
       return true;
     } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
-      TagLib::String key = QSTRING_TO_TSTRING(frame.getInternalName());
+      TagLib::String key = toTString(frame.getInternalName());
       apeTag->removeItem(key);
       markTag2Changed(frame.getType());
       return true;
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
-      TagLib::String name = QSTRING_TO_TSTRING(frame.getInternalName());
+      TagLib::String name = toTString(frame.getInternalName());
       prefixMp4FreeFormName(name);
       mp4Tag->itemListMap().erase(name);
       markTag2Changed(frame.getType());
@@ -5426,7 +5448,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
         case AFI_Attributes:
         default:
         {
-          TagLib::String name = QSTRING_TO_TSTRING(frame.getInternalName());
+          TagLib::String name = toTString(frame.getInternalName());
           TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
           if (attrListMap.contains(name) && attrListMap[name].size() > 1) {
             int i = AFI_Attributes;
@@ -5475,7 +5497,7 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
   Frame::Type type;
   const char* name;
   getTypeStringForFrameId(id3Frame->frameID(), type, name);
-  Frame frame(type, TStringToQString(id3Frame->toString()), QString::fromLatin1(name), index);
+  Frame frame(type, toQString(id3Frame->toString()), QString::fromLatin1(name), index);
   frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList(), type));
   if (id3Frame->frameID().mid(1, 3) == "XXX" ||
       type == Frame::FT_Comment) {
@@ -5593,7 +5615,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
         const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
         for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
              it != fieldListMap.end();) {
-          QString name(TStringToQString((*it).first));
+          QString name(toQString((*it).first));
           if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
             oggTag->removeField((*it++).first);
           } else {
@@ -5605,7 +5627,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
         const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
         for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
              it != itemListMap.end();) {
-          QString name(TStringToQString((*it).first));
+          QString name(toQString((*it).first));
           if (flt.isEnabled(getTypeFromApeName(name), name)) {
             apeTag->removeItem((*it++).first);
           } else {
@@ -5624,7 +5646,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
           TagLib::String name = (*it).first;
           stripMp4FreeFormName(name);
           getMp4TypeForName(name, type, valueType);
-          if (flt.isEnabled(type, TStringToQString(name))) {
+          if (flt.isEnabled(type, toQString(name))) {
             itemListMap.erase(it++);
           } else {
             ++it;
@@ -5651,7 +5673,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
         for (TagLib::ASF::AttributeListMap::Iterator it = attrListMap.begin();
              it != attrListMap.end();) {
           getAsfTypeForName((*it).first, type, valueType);
-          QString name(TStringToQString((*it).first));
+          QString name(toQString((*it).first));
           if (flt.isEnabled(type, name)) {
             attrListMap.erase(it++);
           } else {
@@ -5706,7 +5728,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
            it != fieldListMap.end();
            ++it) {
-        QString name = TStringToQString((*it).first);
+        QString name = toQString((*it).first);
         Frame::Type type = getTypeFromVorbisName(name);
         TagLib::StringList stringList = (*it).second;
         for (TagLib::StringList::ConstIterator slit = stringList.begin();
@@ -5715,17 +5737,17 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           if (type == Frame::FT_Picture) {
             Frame frame(type, QLatin1String(""), name, i++);
             PictureFrame::setFieldsFromBase64(
-                  frame, TStringToQString(TagLib::String(*slit)));
+                  frame, toQString(TagLib::String(*slit)));
             if (name == QLatin1String("COVERART")) {
               TagLib::StringList mt = oggTag->fieldListMap()["COVERARTMIME"];
               if (!mt.isEmpty()) {
-                PictureFrame::setMimeType(frame, TStringToQString(mt.front()));
+                PictureFrame::setMimeType(frame, toQString(mt.front()));
               }
             }
             updateMarkedState(frame);
             frames.insert(frame);
           } else {
-            frames.insert(Frame(type, TStringToQString(TagLib::String(*slit)),
+            frames.insert(Frame(type, toQString(TagLib::String(*slit)),
                                 name, i++));
           }
         }
@@ -5746,14 +5768,14 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
            it != itemListMap.end();
            ++it) {
-        QString name = TStringToQString((*it).first);
+        QString name = toQString((*it).first);
         Frame::Type type = getTypeFromApeName(name);
         TagLib::StringList values;
         if (type != Frame::FT_Picture) {
           values = (*it).second.toStringList();
         }
         Frame frame(type, values.size() > 0
-                    ? TStringToQString(values.front()) : QLatin1String(""),
+                    ? toQString(values.front()) : QLatin1String(""),
                     name, i++);
 #if TAGLIB_VERSION >= 0x010800
         if (type == Frame::FT_Picture) {
@@ -5783,7 +5805,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           case MVT_String:
           {
             TagLib::StringList strings = (*it).second.toStringList();
-            value = strings.size() > 0 ? TStringToQString(strings.front()) : QLatin1String("");
+            value = strings.size() > 0 ? toQString(strings.front()) : QLatin1String("");
             break;
           }
           case MVT_Bool:
@@ -5809,7 +5831,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             if (coverArtList.size() > 0) {
               const TagLib::MP4::CoverArt& coverArt = coverArtList.front();
               TagLib::ByteVector bv = coverArt.data();
-              Frame frame(type, QLatin1String(""), TStringToQString(name), i++);
+              Frame frame(type, QLatin1String(""), toQString(name), i++);
               QByteArray ba;
               ba = QByteArray(bv.data(), bv.size());
               PictureFrame::setFields(
@@ -5843,7 +5865,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
         }
         if (!frameAlreadyInserted)
           frames.insert(
-            Frame(type, value, TStringToQString(name), i++));
+            Frame(type, value, toQString(name), i++));
       }
 #endif
 #ifdef TAGLIB_WITH_ASF
@@ -5852,28 +5874,28 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
       TagLib::ASF::Attribute::AttributeTypes valueType;
       Frame::Type type = Frame::FT_Title;
       getAsfNameForType(type, name, valueType);
-      QString value = TStringToQString(asfTag->title());
-      frames.insert(Frame(type, value, TStringToQString(name), AFI_Title));
+      QString value = toQString(asfTag->title());
+      frames.insert(Frame(type, value, toQString(name), AFI_Title));
 
       type = Frame::FT_Artist;
       getAsfNameForType(type, name, valueType);
-      value = TStringToQString(asfTag->artist());
-      frames.insert(Frame(type, value, TStringToQString(name), AFI_Artist));
+      value = toQString(asfTag->artist());
+      frames.insert(Frame(type, value, toQString(name), AFI_Artist));
 
       type = Frame::FT_Comment;
       getAsfNameForType(type, name, valueType);
-      value = TStringToQString(asfTag->comment());
-      frames.insert(Frame(type, value, TStringToQString(name), AFI_Comment));
+      value = toQString(asfTag->comment());
+      frames.insert(Frame(type, value, toQString(name), AFI_Comment));
 
       type = Frame::FT_Copyright;
       getAsfNameForType(type, name, valueType);
-      value = TStringToQString(asfTag->copyright());
-      frames.insert(Frame(type, value, TStringToQString(name), AFI_Copyright));
+      value = toQString(asfTag->copyright());
+      frames.insert(Frame(type, value, toQString(name), AFI_Copyright));
 
       name = "Rating";
       getAsfTypeForName(name, type, valueType);
-      value = TStringToQString(asfTag->rating());
-      frames.insert(Frame(type, value, TStringToQString(name), AFI_Rating));
+      value = toQString(asfTag->rating());
+      frames.insert(Frame(type, value, toQString(name), AFI_Rating));
 
       int i = AFI_Attributes;
       QByteArray ba;
@@ -5888,7 +5910,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
              ++ait) {
           switch ((*ait).type()) {
             case TagLib::ASF::Attribute::UnicodeType:
-              value = TStringToQString((*ait).toString());
+              value = toQString((*ait).toString());
               break;
             case TagLib::ASF::Attribute::BoolType:
               value = (*ait).toBool() ? QLatin1String("1") : QLatin1String("0");
@@ -5909,10 +5931,10 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
               TagLib::ByteVector bv = (*ait).toByteVector();
               ba = QByteArray(bv.data(), bv.size());
               value = QLatin1String("");
-              AttributeData(TStringToQString(name)).toString(ba, value);
+              AttributeData(toQString(name)).toString(ba, value);
             }
           }
-          Frame frame(type, value, TStringToQString(name), i);
+          Frame frame(type, value, toQString(name), i);
           if ((*ait).type() == TagLib::ASF::Attribute::BytesType &&
               valueType == TagLib::ASF::Attribute::BytesType) {
             Frame::Field field;

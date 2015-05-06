@@ -46,9 +46,6 @@
 #define TAGLIB_VERSION 0x010800
 #endif
 
-/** Convert QString @a s to a TagLib::String. */
-#define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
-
 class QTextCodec;
 #if TAGLIB_VERSION >= 0x010800
 class FileIOStream;
