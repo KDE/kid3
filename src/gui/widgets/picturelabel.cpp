@@ -108,7 +108,8 @@ void PictureLabel::setData(const QByteArray& data)
     // creating new pixmap
     QPixmap pm;
     if (pm.loadFromData(data)) {
-      QPixmap scaledPm = pm.scaled(width(), height(), Qt::KeepAspectRatio);
+      int dimension = m_pictureLabel->width();
+      QPixmap scaledPm = pm.scaled(dimension, dimension, Qt::KeepAspectRatio);
       if (!scaledPm.isNull()) {
         m_pixmapHash = hash;
         m_pictureLabel->setContentsMargins(0, 0, 0, 0);
