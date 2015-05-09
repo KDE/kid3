@@ -1,3 +1,22 @@
+Sat May  9 11:18:57 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.2.1
+
+	* New:
+	  + Support APE cover art.
+
+	* Improved:
+	  + Mac: Do not show empty menu icons for About, Find, Replace.
+
+	* Fixed:
+	  + Wrong size of picture when switching from file with only IDv1
+	    tag to file with picture.
+	  + Mac: Empty root instead of file tree when opening file on
+	    network share.
+	  + Allow escaping of single quotes in kid3-cli.
+	  + Qt4: Do not run qmlplugindump when building, it needs an X11
+	    connection.
+
 Fri Mar 13 06:36:03 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.2.0
