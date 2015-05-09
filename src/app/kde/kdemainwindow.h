@@ -159,8 +159,6 @@ private slots:
 private:
   /** Actions */
   KRecentFilesAction* m_fileOpenRecent;
-  KToggleAction* m_viewToolBar;
-  KToggleAction* m_viewStatusBar;
   KToggleAction* m_settingsAutoHideTags;
   KToggleAction* m_settingsShowHidePicture;
 };

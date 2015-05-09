@@ -114,7 +114,7 @@ void Kid3MainWindow::initActions()
   QMenu* fileMenu = menubar->addMenu(menuTitle);
 
   QAction* fileOpen = new QAction(this);
-  fileOpen->setStatusTip(tr("Opens a directory"));
+  fileOpen->setStatusTip(tr("Open files"));
   fileOpen->setText(tr("&Open..."));
   fileOpen->setShortcut(QKeySequence::Open);
   fileOpen->setIcon(QCM_QIcon_fromTheme("document-open"));

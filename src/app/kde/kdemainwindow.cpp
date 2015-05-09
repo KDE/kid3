@@ -84,7 +84,7 @@ KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
                              Kid3Application* app, QWidget* parent) :
   KXmlGuiWindow(parent),
   BaseMainWindow(this, platformTools, app),
-  m_fileOpenRecent(0), m_viewToolBar(0), m_viewStatusBar(0),
+  m_fileOpenRecent(0),
   m_settingsAutoHideTags(0), m_settingsShowHidePicture(0)
 {
   init();
@@ -138,7 +138,7 @@ void KdeMainWindow::initActions()
   KAction* settingsConfigure = KStandardAction::preferences(
       this, SLOT(slotSettingsConfigure()), actionCollection());
 
-  fileOpen->setStatusTip(tr("Opens a directory"));
+  fileOpen->setStatusTip(tr("Open files"));
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   fileRevert->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
@@ -160,10 +160,12 @@ void KdeMainWindow::initActions()
   settingsConfigure->setStatusTip(tr("Preferences dialog"));
 
   KAction* fileOpenDirectory = new KAction(KIcon(QLatin1String("document-open")), tr("O&pen Directory..."), this);
+  fileOpenDirectory->setStatusTip(tr("Opens a directory"));
   fileOpenDirectory->setShortcut(KShortcut(QLatin1String("Ctrl+D")));
   actionCollection()->addAction(QLatin1String("open_directory"), fileOpenDirectory);
   connect(fileOpenDirectory, SIGNAL(triggered()), impl(), SLOT(slotFileOpenDirectory()));
   KAction* fileImport = new KAction(KIcon(QLatin1String("document-import")), tr("&Import..."), this);
+  fileImport->setStatusTip(tr("Import from file or clipboard"));
   fileImport->setData(-1);
   actionCollection()->addAction(QLatin1String("import"), fileImport);
   connect(fileImport, SIGNAL(triggered()), impl(), SLOT(slotImport()));
@@ -179,6 +181,7 @@ void KdeMainWindow::initActions()
     KAction* fileImportServer =
         new KAction(tr("Import from %1...").arg(serverName), this);
     fileImportServer->setData(importerIdx);
+    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
     actionCollection()->addAction(actionName, fileImportServer);
     connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
     ++importerIdx;
@@ -193,6 +196,7 @@ void KdeMainWindow::initActions()
     actionName = QLatin1String("import_") + actionName;
     KAction* fileImportServer =
         new KAction(tr("Import from %1...").arg(serverName), this);
+    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
     fileImportServer->setData(importerIdx);
     actionCollection()->addAction(actionName, fileImportServer);
     connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
@@ -200,64 +204,81 @@ void KdeMainWindow::initActions()
   }
 
   KAction* fileBatchImport = new KAction(tr("Automatic I&mport..."), this);
+  fileBatchImport->setStatusTip(tr("Automatic import"));
   actionCollection()->addAction(QLatin1String("batch_import"), fileBatchImport);
   connect(fileBatchImport, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));
 
   KAction* fileBrowseCoverArt = new KAction(tr("&Browse Cover Art..."), this);
+  fileBrowseCoverArt->setStatusTip(tr("Browse album cover artwork"));
   actionCollection()->addAction(QLatin1String("browse_cover_art"), fileBrowseCoverArt);
   connect(fileBrowseCoverArt, SIGNAL(triggered()), impl(), SLOT(slotBrowseCoverArt()));
   KAction* fileExport = new KAction(KIcon(QLatin1String("document-export")), tr("&Export..."), this);
+  fileExport->setStatusTip(tr("Export to file or clipboard"));
   actionCollection()->addAction(QLatin1String("export"), fileExport);
   connect(fileExport, SIGNAL(triggered()), impl(), SLOT(slotExport()));
   KAction* fileCreatePlaylist = new KAction(KIcon(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
+  fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
   actionCollection()->addAction(QLatin1String("create_playlist"), fileCreatePlaylist);
   connect(fileCreatePlaylist, SIGNAL(triggered()), impl(), SLOT(slotPlaylistDialog()));
   KAction* toolsApplyFilenameFormat = new KAction(tr("Apply &Filename Format"), this);
+  toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
   actionCollection()->addAction(QLatin1String("apply_filename_format"), toolsApplyFilenameFormat);
   connect(toolsApplyFilenameFormat, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
   KAction* toolsApplyTagFormat = new KAction(tr("Apply &Tag Format"), this);
+  toolsApplyTagFormat->setStatusTip(tr("Apply Tag Format"));
   actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyTagFormat);
   connect(toolsApplyTagFormat, SIGNAL(triggered()), app(), SLOT(applyTagFormat()));
   KAction* toolsApplyTextEncoding = new KAction(tr("Apply Text &Encoding"), this);
+  toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));
   actionCollection()->addAction(QLatin1String("apply_text_encoding"), toolsApplyTextEncoding);
   connect(toolsApplyTextEncoding, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));
   KAction* toolsRenameDirectory = new KAction(tr("&Rename Directory..."), this);
+  toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
   actionCollection()->addAction(QLatin1String("rename_directory"), toolsRenameDirectory);
   connect(toolsRenameDirectory, SIGNAL(triggered()), impl(), SLOT(slotRenameDirectory()));
   KAction* toolsNumberTracks = new KAction(tr("&Number Tracks..."), this);
+  toolsNumberTracks->setStatusTip(tr("Number Tracks"));
   actionCollection()->addAction(QLatin1String("number_tracks"), toolsNumberTracks);
   connect(toolsNumberTracks, SIGNAL(triggered()), impl(), SLOT(slotNumberTracks()));
   KAction* toolsFilter = new KAction(tr("F&ilter..."), this);
+  toolsFilter->setStatusTip(tr("Filter"));
   actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
   connect(toolsFilter, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
   const TagConfig& tagCfg = TagConfig::instance();
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
+    toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
     connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
     if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
       KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
+      toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
       actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
       connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
     }
   }
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   KAction* toolsPlay = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
+  toolsPlay->setStatusTip(tr("Play"));
   actionCollection()->addAction(QLatin1String("play"), toolsPlay);
   connect(toolsPlay, SIGNAL(triggered()), app(), SLOT(playAudio()));
 #endif
   m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
+  m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
   m_settingsShowHidePicture->setCheckable(true);
   actionCollection()->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
   connect(m_settingsShowHidePicture, SIGNAL(triggered()), impl(), SLOT(slotSettingsShowHidePicture()));
   m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
+  m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
   m_settingsAutoHideTags->setCheckable(true);
   actionCollection()->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
   connect(m_settingsAutoHideTags, SIGNAL(triggered()), impl(), SLOT(slotSettingsAutoHideTags()));
   KAction* editSelectAllInDir = new KAction(tr("Select All in &Directory"), this);
+  editSelectAllInDir->setStatusTip(tr("Select all files in the current directory"));
   actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
   connect(editSelectAllInDir, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
   KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
+  editPreviousFile->setStatusTip(tr("Select previous file"));
 #if QT_VERSION >= 0x050000
   actionCollection()->setDefaultShortcuts(editPreviousFile,
                          KStandardShortcut::shortcut(KStandardShortcut::Prior));
@@ -267,6 +288,7 @@ void KdeMainWindow::initActions()
   actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
   connect(editPreviousFile, SIGNAL(triggered()), app(), SLOT(previousFile()));
   KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
+  editNextFile->setStatusTip(tr("Select next file"));
 #if QT_VERSION >= 0x050000
   actionCollection()->setDefaultShortcuts(editNextFile,
                          KStandardShortcut::shortcut(KStandardShortcut::Next));
