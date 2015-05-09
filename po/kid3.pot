@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,7 +254,7 @@ msgstr ""
 msgid "Main Toolbar"
 msgstr ""
 
-msgid "Opens a directory"
+msgid "Open files"
 msgstr ""
 
 msgid "Opens a recently used directory"
@@ -290,10 +290,16 @@ msgstr ""
 msgid "O&pen Directory..."
 msgstr ""
 
+msgid "Opens a directory"
+msgstr ""
+
 msgid "&Import..."
 msgstr ""
 
 msgid "Import from %1..."
+msgstr ""
+
+msgid "Import from %1"
 msgstr ""
 
 msgid "Automatic I&mport..."
@@ -302,25 +308,46 @@ msgstr ""
 msgid "&Browse Cover Art..."
 msgstr ""
 
+msgid "Browse album cover artwork"
+msgstr ""
+
 msgid "&Export..."
 msgstr ""
 
 msgid "&Create Playlist..."
 msgstr ""
 
+msgid "Create M3U Playlist"
+msgstr ""
+
 msgid "Apply &Filename Format"
+msgstr ""
+
+msgid "Apply Filename Format"
 msgstr ""
 
 msgid "Apply &Tag Format"
 msgstr ""
 
+msgid "Apply Tag Format"
+msgstr ""
+
 msgid "Apply Text &Encoding"
+msgstr ""
+
+msgid "Apply Text Encoding"
 msgstr ""
 
 msgid "&Rename Directory..."
 msgstr ""
 
+msgid "Rename Directory"
+msgstr ""
+
 msgid "&Number Tracks..."
+msgstr ""
+
+msgid "Number Tracks"
 msgstr ""
 
 msgid "F&ilter..."
@@ -338,16 +365,31 @@ msgstr ""
 msgid "Show &Picture"
 msgstr ""
 
+msgid "Show Picture"
+msgstr ""
+
 msgid "Auto &Hide Tags"
+msgstr ""
+
+msgid "Auto Hide Tags"
 msgstr ""
 
 msgid "Select All in &Directory"
 msgstr ""
 
+msgid "Select all files in the current directory"
+msgstr ""
+
 msgid "&Previous File"
 msgstr ""
 
+msgid "Select previous file"
+msgstr ""
+
 msgid "&Next File"
+msgstr ""
+
+msgid "Select next file"
 msgstr ""
 
 msgid "From Filename"
@@ -493,15 +535,6 @@ msgstr ""
 msgid "Re&vert"
 msgstr ""
 
-msgid "Import from %1"
-msgstr ""
-
-msgid "Browse album cover artwork"
-msgstr ""
-
-msgid "Create M3U Playlist"
-msgstr ""
-
 msgid "&Quit"
 msgstr ""
 
@@ -514,15 +547,6 @@ msgstr ""
 msgid "Dese&lect"
 msgstr ""
 
-msgid "Select all files in the current directory"
-msgstr ""
-
-msgid "Select previous file"
-msgstr ""
-
-msgid "Select next file"
-msgstr ""
-
 msgid "&Find..."
 msgstr ""
 
@@ -530,21 +554,6 @@ msgid "&Replace..."
 msgstr ""
 
 msgid "&Tools"
-msgstr ""
-
-msgid "Apply Filename Format"
-msgstr ""
-
-msgid "Apply Tag Format"
-msgstr ""
-
-msgid "Apply Text Encoding"
-msgstr ""
-
-msgid "Rename Directory"
-msgstr ""
-
-msgid "Number Tracks"
 msgstr ""
 
 msgid "&Settings"
@@ -560,12 +569,6 @@ msgid "Enables/disables the statusbar"
 msgstr ""
 
 msgid "Show St&atusbar"
-msgstr ""
-
-msgid "Show Picture"
-msgstr ""
-
-msgid "Auto Hide Tags"
 msgstr ""
 
 msgid "Configure Kid3"

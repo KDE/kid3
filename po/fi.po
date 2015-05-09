@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -258,8 +258,8 @@ msgstr "Liitännäiset"
 msgid "Main Toolbar"
 msgstr "Päätyökalupalkki"
 
-msgid "Opens a directory"
-msgstr "Avaa kansion"
+msgid "Open files"
+msgstr "Avaa tiedostoja"
 
 msgid "Opens a recently used directory"
 msgstr "Avaa viimeaikaisen kansion"
@@ -294,11 +294,17 @@ msgstr "Asetusikkuna"
 msgid "O&pen Directory..."
 msgstr "Avaa &kansio..."
 
+msgid "Opens a directory"
+msgstr "Avaa kansion"
+
 msgid "&Import..."
 msgstr "T&uo..."
 
 msgid "Import from %1..."
 msgstr "Tuo %1ista..."
+
+msgid "Import from %1"
+msgstr "Tuo %1ista"
 
 msgid "Automatic I&mport..."
 msgstr "Tuo auto&maattisesti..."
@@ -306,26 +312,47 @@ msgstr "Tuo auto&maattisesti..."
 msgid "&Browse Cover Art..."
 msgstr "Selaa &kansikuvia..."
 
+msgid "Browse album cover artwork"
+msgstr "Selaa kansikuvia"
+
 msgid "&Export..."
 msgstr "&Vie..."
 
 msgid "&Create Playlist..."
 msgstr "&Luo soittolista..."
 
+msgid "Create M3U Playlist"
+msgstr "Luo soittolista"
+
 msgid "Apply &Filename Format"
 msgstr "Ota tiedosto&nimimuutokset käyttöön"
+
+msgid "Apply Filename Format"
+msgstr "Ota muutokset käyttöön"
 
 msgid "Apply &Tag Format"
 msgstr "Ota t&unnistemuutokset käyttöön"
 
+msgid "Apply Tag Format"
+msgstr "Ota muutokset käyttöön"
+
 msgid "Apply Text &Encoding"
 msgstr "Ota m&erkistökoodaus käyttöön"
+
+msgid "Apply Text Encoding"
+msgstr "Ota merkistökoodaus"
 
 msgid "&Rename Directory..."
 msgstr "Muuta &kansion nimeä..."
 
+msgid "Rename Directory"
+msgstr "Muuta kansion nimeä"
+
 msgid "&Number Tracks..."
 msgstr "&Numeroi kappaleet..."
+
+msgid "Number Tracks"
+msgstr "Kappaleiden numerointi"
 
 msgid "F&ilter..."
 msgstr "&Suodata..."
@@ -342,17 +369,32 @@ msgstr "&Soita"
 msgid "Show &Picture"
 msgstr "Näytä k&uva"
 
+msgid "Show Picture"
+msgstr "Näytä kuva"
+
 msgid "Auto &Hide Tags"
 msgstr "&Piilota automaattisesti"
+
+msgid "Auto Hide Tags"
+msgstr "Piilota automaattisesti"
 
 msgid "Select All in &Directory"
 msgstr "Valitse kaikki &hakemistossa"
 
+msgid "Select all files in the current directory"
+msgstr "Valitse kaikki tiedostot nykyisessä hakemistossa"
+
 msgid "&Previous File"
 msgstr "&Edellinen tiedosto"
 
+msgid "Select previous file"
+msgstr "Edellinen tiedosto"
+
 msgid "&Next File"
 msgstr "&Seuraava tiedosto"
+
+msgid "Select next file"
+msgstr "Seuraava tiedosto"
 
 msgid "From Filename"
 msgstr "Tiedostonimestä"
@@ -497,15 +539,6 @@ msgstr "&Tallenna"
 msgid "Re&vert"
 msgstr "K&umoa"
 
-msgid "Import from %1"
-msgstr "Tuo %1ista"
-
-msgid "Browse album cover artwork"
-msgstr "Selaa kansikuvia"
-
-msgid "Create M3U Playlist"
-msgstr "Luo soittolista"
-
 msgid "&Quit"
 msgstr "&Lopeta"
 
@@ -518,15 +551,6 @@ msgstr "Valitse &kaikki"
 msgid "Dese&lect"
 msgstr "&Poista valinta"
 
-msgid "Select all files in the current directory"
-msgstr "Valitse kaikki tiedostot nykyisessä hakemistossa"
-
-msgid "Select previous file"
-msgstr "Edellinen tiedosto"
-
-msgid "Select next file"
-msgstr "Seuraava tiedosto"
-
 msgid "&Find..."
 msgstr "E&tsi..."
 
@@ -535,21 +559,6 @@ msgstr "K&orvaa..."
 
 msgid "&Tools"
 msgstr "T&yökalut"
-
-msgid "Apply Filename Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Tag Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Text Encoding"
-msgstr "Ota merkistökoodaus"
-
-msgid "Rename Directory"
-msgstr "Muuta kansion nimeä"
-
-msgid "Number Tracks"
-msgstr "Kappaleiden numerointi"
 
 msgid "&Settings"
 msgstr "&Asetukset"
@@ -565,12 +574,6 @@ msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
 
 msgid "Show St&atusbar"
 msgstr "Näytä &tilarivi"
-
-msgid "Show Picture"
-msgstr "Näytä kuva"
-
-msgid "Auto Hide Tags"
-msgstr "Piilota automaattisesti"
 
 msgid "Configure Kid3"
 msgstr "Kid3:n asetukset"

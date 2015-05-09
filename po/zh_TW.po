@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -260,8 +260,8 @@ msgstr "外掛"
 msgid "Main Toolbar"
 msgstr "主工具列"
 
-msgid "Opens a directory"
-msgstr "開啟目錄"
+msgid "Open files"
+msgstr "開啟檔案"
 
 msgid "Opens a recently used directory"
 msgstr "開啟目前所在的目錄"
@@ -296,11 +296,17 @@ msgstr "喜好設定對話框"
 msgid "O&pen Directory..."
 msgstr "開啟目錄(&P)..."
 
+msgid "Opens a directory"
+msgstr "開啟目錄"
+
 msgid "&Import..."
 msgstr "匯入(&I)..."
 
 msgid "Import from %1..."
 msgstr "從 %1 匯入..."
+
+msgid "Import from %1"
+msgstr "自 %1 匯入"
 
 msgid "Automatic I&mport..."
 msgstr "自動匯入(&M)..."
@@ -308,26 +314,47 @@ msgstr "自動匯入(&M)..."
 msgid "&Browse Cover Art..."
 msgstr "瀏覽專輯封面(&B)..."
 
+msgid "Browse album cover artwork"
+msgstr "瀏覽專輯封面"
+
 msgid "&Export..."
 msgstr "匯出(&E)..."
 
 msgid "&Create Playlist..."
 msgstr "新增播放清單(&C)..."
 
+msgid "Create M3U Playlist"
+msgstr "建立 M3U 播放清單"
+
 msgid "Apply &Filename Format"
 msgstr "依據檔名格式(&F)"
+
+msgid "Apply Filename Format"
+msgstr "套用檔名格式"
 
 msgid "Apply &Tag Format"
 msgstr "套用標籤格式(&T)"
 
+msgid "Apply Tag Format"
+msgstr "套用 Tag 格式"
+
 msgid "Apply Text &Encoding"
 msgstr "将字符编码(&E)"
+
+msgid "Apply Text Encoding"
+msgstr "将字符编码"
 
 msgid "&Rename Directory..."
 msgstr "更改目錄名稱(&R)..."
 
+msgid "Rename Directory"
+msgstr "更改目錄名稱"
+
 msgid "&Number Tracks..."
 msgstr "音軌編號(&N)..."
+
+msgid "Number Tracks"
+msgstr "音軌編號"
 
 msgid "F&ilter..."
 msgstr "過濾(&I)..."
@@ -344,17 +371,32 @@ msgstr "播放(&P)"
 msgid "Show &Picture"
 msgstr "顯示圖片(&P)"
 
+msgid "Show Picture"
+msgstr "顯示圖片"
+
 msgid "Auto &Hide Tags"
 msgstr "自動隱藏標籤(&H)"
+
+msgid "Auto Hide Tags"
+msgstr "自動隱藏標籤"
 
 msgid "Select All in &Directory"
 msgstr "选中当前目录中所有的文件(&D)"
 
+msgid "Select all files in the current directory"
+msgstr "选中当前目录中所有的文件"
+
 msgid "&Previous File"
 msgstr "上一個檔案(&P)"
 
+msgid "Select previous file"
+msgstr "選擇上一個檔案"
+
 msgid "&Next File"
 msgstr "下一個檔案(&N)"
+
+msgid "Select next file"
+msgstr "選擇下一個檔案"
 
 msgid "From Filename"
 msgstr "從檔名"
@@ -499,15 +541,6 @@ msgstr "儲存(&S)"
 msgid "Re&vert"
 msgstr "還原(&V)"
 
-msgid "Import from %1"
-msgstr "自 %1 匯入"
-
-msgid "Browse album cover artwork"
-msgstr "瀏覽專輯封面"
-
-msgid "Create M3U Playlist"
-msgstr "建立 M3U 播放清單"
-
 msgid "&Quit"
 msgstr "離開(&Q)"
 
@@ -520,15 +553,6 @@ msgstr "全選(&A)"
 msgid "Dese&lect"
 msgstr "取消選擇(&l)"
 
-msgid "Select all files in the current directory"
-msgstr "选中当前目录中所有的文件"
-
-msgid "Select previous file"
-msgstr "選擇上一個檔案"
-
-msgid "Select next file"
-msgstr "選擇下一個檔案"
-
 msgid "&Find..."
 msgstr "尋找(&F)..."
 
@@ -537,21 +561,6 @@ msgstr "取代(&R)..."
 
 msgid "&Tools"
 msgstr "工具(&T)"
-
-msgid "Apply Filename Format"
-msgstr "套用檔名格式"
-
-msgid "Apply Tag Format"
-msgstr "套用 Tag 格式"
-
-msgid "Apply Text Encoding"
-msgstr "将字符编码"
-
-msgid "Rename Directory"
-msgstr "更改目錄名稱"
-
-msgid "Number Tracks"
-msgstr "音軌編號"
 
 msgid "&Settings"
 msgstr "設定(&S)"
@@ -567,12 +576,6 @@ msgstr "開啟/關閉 狀態列"
 
 msgid "Show St&atusbar"
 msgstr "顯示狀態列(&A)"
-
-msgid "Show Picture"
-msgstr "顯示圖片"
-
-msgid "Auto Hide Tags"
-msgstr "自動隱藏標籤"
 
 msgid "Configure Kid3"
 msgstr "設定 Kid3"

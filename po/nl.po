@@ -6,9 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -258,8 +258,8 @@ msgstr "Plugins"
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-msgid "Opens a directory"
-msgstr "Opent een map"
+msgid "Open files"
+msgstr "Bestanden openen"
 
 msgid "Opens a recently used directory"
 msgstr "Opent een recent geopende map"
@@ -294,11 +294,17 @@ msgstr "Voorkeuren"
 msgid "O&pen Directory..."
 msgstr "&Map openen..."
 
+msgid "Opens a directory"
+msgstr "Opent een map"
+
 msgid "&Import..."
 msgstr "&Importeren..."
 
 msgid "Import from %1..."
 msgstr "Importeren van %1..."
+
+msgid "Import from %1"
+msgstr "Importeer van %1"
 
 msgid "Automatic I&mport..."
 msgstr "Automatisch i&mporteren..."
@@ -306,26 +312,47 @@ msgstr "Automatisch i&mporteren..."
 msgid "&Browse Cover Art..."
 msgstr "&Hoes ophalen..."
 
+msgid "Browse album cover artwork"
+msgstr "Hoes ophalen"
+
 msgid "&Export..."
 msgstr "&Exporteren..."
 
 msgid "&Create Playlist..."
 msgstr "&Speellijst aanmaken..."
 
+msgid "Create M3U Playlist"
+msgstr "M3U speellijst aanmaken"
+
 msgid "Apply &Filename Format"
 msgstr "&Bestandsnaamstructuur toepassen"
+
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamstructuur Toepassen"
 
 msgid "Apply &Tag Format"
 msgstr "ID3 en &Letterstructuur toepassen"
 
+msgid "Apply Tag Format"
+msgstr "Tagstructuur toepassen"
+
 msgid "Apply Text &Encoding"
 msgstr "T&ekst-codering toepassen"
+
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
 
 msgid "&Rename Directory..."
 msgstr "&Map hernoemen..."
 
+msgid "Rename Directory"
+msgstr "Map hernoemen"
+
 msgid "&Number Tracks..."
 msgstr "Tracks &nummeren..."
+
+msgid "Number Tracks"
+msgstr "Tracks nummeren"
 
 msgid "F&ilter..."
 msgstr "&Filter..."
@@ -342,17 +369,32 @@ msgstr "&Afspelen"
 msgid "Show &Picture"
 msgstr "&Afbeelding tonen"
 
+msgid "Show Picture"
+msgstr "Afbeelding tonen"
+
 msgid "Auto &Hide Tags"
 msgstr "Automatisch &verbergen"
+
+msgid "Auto Hide Tags"
+msgstr "Automatisch verbergen"
 
 msgid "Select All in &Directory"
 msgstr "Selecteer alle bestanden in &de map"
 
+msgid "Select all files in the current directory"
+msgstr "Selecteer alle bestanden in de huidige map"
+
 msgid "&Previous File"
 msgstr "&Vorig bestand"
 
+msgid "Select previous file"
+msgstr "Vorig bestand selecteren"
+
 msgid "&Next File"
 msgstr "Volge&nd bestand"
+
+msgid "Select next file"
+msgstr "Volgend bestand selecteren"
 
 msgid "From Filename"
 msgstr "Van bestandsnaam"
@@ -497,15 +539,6 @@ msgstr "Op&slaan"
 msgid "Re&vert"
 msgstr "On&gedaan maken"
 
-msgid "Import from %1"
-msgstr "Importeer van %1"
-
-msgid "Browse album cover artwork"
-msgstr "Hoes ophalen"
-
-msgid "Create M3U Playlist"
-msgstr "M3U speellijst aanmaken"
-
 msgid "&Quit"
 msgstr "&Afsluiten"
 
@@ -518,15 +551,6 @@ msgstr "&Alles selecteren"
 msgid "Dese&lect"
 msgstr "&Deselecteren"
 
-msgid "Select all files in the current directory"
-msgstr "Selecteer alle bestanden in de huidige map"
-
-msgid "Select previous file"
-msgstr "Vorig bestand selecteren"
-
-msgid "Select next file"
-msgstr "Volgend bestand selecteren"
-
 msgid "&Find..."
 msgstr "&Zoeken..."
 
@@ -535,21 +559,6 @@ msgstr "Ve&rvangen..."
 
 msgid "&Tools"
 msgstr "H&ulpmiddelen"
-
-msgid "Apply Filename Format"
-msgstr "Bestandsnaamstructuur Toepassen"
-
-msgid "Apply Tag Format"
-msgstr "Tagstructuur toepassen"
-
-msgid "Apply Text Encoding"
-msgstr "Tekst-codering toepassen"
-
-msgid "Rename Directory"
-msgstr "Map hernoemen"
-
-msgid "Number Tracks"
-msgstr "Tracks nummeren"
 
 msgid "&Settings"
 msgstr "&Instellingen"
@@ -565,12 +574,6 @@ msgstr "Activeert/deactiveert de statusbalk"
 
 msgid "Show St&atusbar"
 msgstr "&Statusbalk tonen"
-
-msgid "Show Picture"
-msgstr "Afbeelding tonen"
-
-msgid "Auto Hide Tags"
-msgstr "Automatisch verbergen"
 
 msgid "Configure Kid3"
 msgstr "Kid3 instellen"

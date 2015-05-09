@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -258,8 +258,8 @@ msgstr "Pluginad"
 msgid "Main Toolbar"
 msgstr "Peamine tööriistariba"
 
-msgid "Opens a directory"
-msgstr "Avab kataloogi valimise dialoogi"
+msgid "Open files"
+msgstr "Failide avamine"
 
 msgid "Opens a recently used directory"
 msgstr "Avab hiljuti kasutatud kataloogi"
@@ -294,11 +294,17 @@ msgstr "Avab seadistusdialoogi"
 msgid "O&pen Directory..."
 msgstr "Ava &kataloog..."
 
+msgid "Opens a directory"
+msgstr "Avab kataloogi valimise dialoogi"
+
 msgid "&Import..."
 msgstr "&Impordi..."
 
 msgid "Import from %1..."
 msgstr "Impordi %1-ist..."
+
+msgid "Import from %1"
+msgstr "Impordib %1-ist"
 
 msgid "Automatic I&mport..."
 msgstr "Impordi au&tomaatselt..."
@@ -306,26 +312,47 @@ msgstr "Impordi au&tomaatselt..."
 msgid "&Browse Cover Art..."
 msgstr "Kaane&pildi otsimine..."
 
+msgid "Browse album cover artwork"
+msgstr "Avab albumi kaanepildi otsimise dialoogi"
+
 msgid "&Export..."
 msgstr "&Ekspordi..."
 
 msgid "&Create Playlist..."
 msgstr "&Loo esitusloend..."
 
+msgid "Create M3U Playlist"
+msgstr "Loob M3U-esitusnimekirja"
+
 msgid "Apply &Filename Format"
 msgstr "Rakenda &failinimevorming"
+
+msgid "Apply Filename Format"
+msgstr "Failinime vormingu rakendamine"
 
 msgid "Apply &Tag Format"
 msgstr "Rakenda &sildivorming"
 
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
 msgid "Apply Text &Encoding"
 msgstr "Rakenda &teksti kodeering"
+
+msgid "Apply Text Encoding"
+msgstr "Teksti kodeeringu rakendamine"
 
 msgid "&Rename Directory..."
 msgstr "&Kataloogi ümbernimetamine..."
 
+msgid "Rename Directory"
+msgstr "Kataloogi ümbernimetamine"
+
 msgid "&Number Tracks..."
 msgstr "&Lugude nummerdamine..."
+
+msgid "Number Tracks"
+msgstr "Lugude nummerdamine"
 
 msgid "F&ilter..."
 msgstr "F&iltreeri..."
@@ -342,17 +369,32 @@ msgstr "&Esita"
 msgid "Show &Picture"
 msgstr "&Kaanepildi näitamine"
 
+msgid "Show Picture"
+msgstr "Näita kaanepilti"
+
 msgid "Auto &Hide Tags"
 msgstr "Siltide &automaatpeitmine"
+
+msgid "Auto Hide Tags"
+msgstr "Siltide automaatpeitmine"
 
 msgid "Select All in &Directory"
 msgstr "V&ali kõik kataloogis"
 
+msgid "Select all files in the current directory"
+msgstr "Valib kõik failid praeguses kataloogis"
+
 msgid "&Previous File"
 msgstr "&Eelmine fail"
 
+msgid "Select previous file"
+msgstr "Valib eelmise faili"
+
 msgid "&Next File"
 msgstr "&Järgmine fail"
+
+msgid "Select next file"
+msgstr "Valib järgmise faili"
 
 msgid "From Filename"
 msgstr "Failinime põhjal"
@@ -497,15 +539,6 @@ msgstr "&Salvesta"
 msgid "Re&vert"
 msgstr "E&nnista"
 
-msgid "Import from %1"
-msgstr "Impordib %1-ist"
-
-msgid "Browse album cover artwork"
-msgstr "Avab albumi kaanepildi otsimise dialoogi"
-
-msgid "Create M3U Playlist"
-msgstr "Loob M3U-esitusnimekirja"
-
 msgid "&Quit"
 msgstr "&Välju"
 
@@ -518,15 +551,6 @@ msgstr "&Vali kõik"
 msgid "Dese&lect"
 msgstr "&Tühista valik"
 
-msgid "Select all files in the current directory"
-msgstr "Valib kõik failid praeguses kataloogis"
-
-msgid "Select previous file"
-msgstr "Valib eelmise faili"
-
-msgid "Select next file"
-msgstr "Valib järgmise faili"
-
 msgid "&Find..."
 msgstr "&Otsi..."
 
@@ -535,21 +559,6 @@ msgstr "Ase&nda..."
 
 msgid "&Tools"
 msgstr "&Tööriistad"
-
-msgid "Apply Filename Format"
-msgstr "Failinime vormingu rakendamine"
-
-msgid "Apply Tag Format"
-msgstr "Sildivormingu rakendamine"
-
-msgid "Apply Text Encoding"
-msgstr "Teksti kodeeringu rakendamine"
-
-msgid "Rename Directory"
-msgstr "Kataloogi ümbernimetamine"
-
-msgid "Number Tracks"
-msgstr "Lugude nummerdamine"
 
 msgid "&Settings"
 msgstr "&Seadistused"
@@ -565,12 +574,6 @@ msgstr "Lülitab olekuriba näitamist"
 
 msgid "Show St&atusbar"
 msgstr "&Olekuriba näitamine"
-
-msgid "Show Picture"
-msgstr "Näita kaanepilti"
-
-msgid "Auto Hide Tags"
-msgstr "Siltide automaatpeitmine"
 
 msgid "Configure Kid3"
 msgstr "Kid3 seadistamine"

@@ -7,9 +7,9 @@
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -259,8 +259,8 @@ msgstr "Erweiterungen"
 msgid "Main Toolbar"
 msgstr "Hauptwerkzeugleiste"
 
-msgid "Opens a directory"
-msgstr "Öffnet ein Verzeichnis"
+msgid "Open files"
+msgstr "Dateien öffnen"
 
 msgid "Opens a recently used directory"
 msgstr "Öffnet ein kürzlich benutztes Verzeichnis"
@@ -295,11 +295,17 @@ msgstr "Einstellungen"
 msgid "O&pen Directory..."
 msgstr "&Verzeichnis öffnen..."
 
+msgid "Opens a directory"
+msgstr "Öffnet ein Verzeichnis"
+
 msgid "&Import..."
 msgstr "&Importieren..."
 
 msgid "Import from %1..."
 msgstr "Importieren von %1..."
+
+msgid "Import from %1"
+msgstr "Import von %1"
 
 msgid "Automatic I&mport..."
 msgstr "Automatisch i&mportieren..."
@@ -307,26 +313,47 @@ msgstr "Automatisch i&mportieren..."
 msgid "&Browse Cover Art..."
 msgstr "Nach Cover-&Bildern suchen..."
 
+msgid "Browse album cover artwork"
+msgstr "Nach Cover-Bildern suchen"
+
 msgid "&Export..."
 msgstr "&Exportieren..."
 
 msgid "&Create Playlist..."
 msgstr "Stü&ckliste erstellen..."
 
+msgid "Create M3U Playlist"
+msgstr "M3U-Stückliste erstellen"
+
 msgid "Apply &Filename Format"
 msgstr "Dateinamen&format anwenden"
+
+msgid "Apply Filename Format"
+msgstr "Dateinamenformat anwenden"
 
 msgid "Apply &Tag Format"
 msgstr "&Tag-Format anwenden"
 
+msgid "Apply Tag Format"
+msgstr "Tag-Format anwenden"
+
 msgid "Apply Text &Encoding"
 msgstr "T&extkodierung anwenden"
+
+msgid "Apply Text Encoding"
+msgstr "Textkodierung anwenden"
 
 msgid "&Rename Directory..."
 msgstr "Verzeichnis &umbenennen..."
 
+msgid "Rename Directory"
+msgstr "Verzeichnis umbenennen"
+
 msgid "&Number Tracks..."
 msgstr "Tracks &nummerieren..."
+
+msgid "Number Tracks"
+msgstr "Tracks nummerieren"
 
 msgid "F&ilter..."
 msgstr "F&ilter..."
@@ -343,17 +370,32 @@ msgstr "&Wiedergabe"
 msgid "Show &Picture"
 msgstr "&Bild anzeigen"
 
+msgid "Show Picture"
+msgstr "Bild anzeigen"
+
 msgid "Auto &Hide Tags"
 msgstr "Tags &automatisch ausblenden"
+
+msgid "Auto Hide Tags"
+msgstr "Tags automatisch ausblenden"
 
 msgid "Select All in &Directory"
 msgstr "Alles im &Verzeichnis auswählen"
 
+msgid "Select all files in the current directory"
+msgstr "Alles im aktuellen Verzeichnis auswählen"
+
 msgid "&Previous File"
 msgstr "&Vorangehende Datei"
 
+msgid "Select previous file"
+msgstr "Vorangehende Datei"
+
 msgid "&Next File"
 msgstr "&Nächste Datei"
+
+msgid "Select next file"
+msgstr "Nächste Datei"
 
 msgid "From Filename"
 msgstr "Von Dateiname"
@@ -498,15 +540,6 @@ msgstr "S&peichern"
 msgid "Re&vert"
 msgstr "&Zuletzt gespeicherte Fassung"
 
-msgid "Import from %1"
-msgstr "Import von %1"
-
-msgid "Browse album cover artwork"
-msgstr "Nach Cover-Bildern suchen"
-
-msgid "Create M3U Playlist"
-msgstr "M3U-Stückliste erstellen"
-
 msgid "&Quit"
 msgstr "B&eenden"
 
@@ -519,15 +552,6 @@ msgstr "A&lles auswählen"
 msgid "Dese&lect"
 msgstr "Abwäh&len"
 
-msgid "Select all files in the current directory"
-msgstr "Alles im aktuellen Verzeichnis auswählen"
-
-msgid "Select previous file"
-msgstr "Vorangehende Datei"
-
-msgid "Select next file"
-msgstr "Nächste Datei"
-
 msgid "&Find..."
 msgstr "&Suchen..."
 
@@ -536,21 +560,6 @@ msgstr "&Ersetzen..."
 
 msgid "&Tools"
 msgstr "E&xtras"
-
-msgid "Apply Filename Format"
-msgstr "Dateinamenformat anwenden"
-
-msgid "Apply Tag Format"
-msgstr "Tag-Format anwenden"
-
-msgid "Apply Text Encoding"
-msgstr "Textkodierung anwenden"
-
-msgid "Rename Directory"
-msgstr "Verzeichnis umbenennen"
-
-msgid "Number Tracks"
-msgstr "Tracks nummerieren"
 
 msgid "&Settings"
 msgstr "&Einstellungen"
@@ -566,12 +575,6 @@ msgstr "Statusleiste anzeigen"
 
 msgid "Show St&atusbar"
 msgstr "&Statusleiste anzeigen"
-
-msgid "Show Picture"
-msgstr "Bild anzeigen"
-
-msgid "Auto Hide Tags"
-msgstr "Tags automatisch ausblenden"
 
 msgid "Configure Kid3"
 msgstr "Kid3 einrichten"

@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -257,8 +257,8 @@ msgstr "Priključci"
 msgid "Main Toolbar"
 msgstr "Glavna traka"
 
-msgid "Opens a directory"
-msgstr "Otvara direktorijum"
+msgid "Open files"
+msgstr "Otvori fajlove"
 
 msgid "Opens a recently used directory"
 msgstr "Otvara nedavno korišćen direktorijum"
@@ -293,11 +293,17 @@ msgstr "Dijalog podešavanja"
 msgid "O&pen Directory..."
 msgstr "O&tvori direktorijum..."
 
+msgid "Opens a directory"
+msgstr "Otvara direktorijum"
+
 msgid "&Import..."
 msgstr "&Uvezi..."
 
 msgid "Import from %1..."
 msgstr "Uvezi sa %1..."
+
+msgid "Import from %1"
+msgstr "Uvezi sa %1"
 
 msgid "Automatic I&mport..."
 msgstr "Auto&matski uvozi..."
@@ -305,26 +311,47 @@ msgstr "Auto&matski uvozi..."
 msgid "&Browse Cover Art..."
 msgstr "Potraži o&mot albuma..."
 
+msgid "Browse album cover artwork"
+msgstr "Potraži sliku omota albuma"
+
 msgid "&Export..."
 msgstr "Izv&ezi..."
 
 msgid "&Create Playlist..."
 msgstr "Napravi &listu numera..."
 
+msgid "Create M3U Playlist"
+msgstr "Napravi M3U listu numera"
+
 msgid "Apply &Filename Format"
 msgstr "Primeni format imena fa&jla"
+
+msgid "Apply Filename Format"
+msgstr "Primeni format naziva fajla"
 
 msgid "Apply &Tag Format"
 msgstr "Primeni format &oznake"
 
+msgid "Apply Tag Format"
+msgstr "Primeni format oznake"
+
 msgid "Apply Text &Encoding"
 msgstr "Primijeni kodiranje t&eksta"
+
+msgid "Apply Text Encoding"
+msgstr "Primijeni kodiranje teksta"
 
 msgid "&Rename Directory..."
 msgstr "Preimenuj &direktorijum..."
 
+msgid "Rename Directory"
+msgstr "Preimenuj direktorijum"
+
 msgid "&Number Tracks..."
 msgstr "Nu&meriši..."
+
+msgid "Number Tracks"
+msgstr "Numeriši"
 
 msgid "F&ilter..."
 msgstr "F&ilter..."
@@ -341,17 +368,32 @@ msgstr "Re&produkuj"
 msgid "Show &Picture"
 msgstr "Prikaži s&liku"
 
+msgid "Show Picture"
+msgstr "Prikaži sliku"
+
 msgid "Auto &Hide Tags"
 msgstr "Automatski &sakrij oznake"
 
+msgid "Auto Hide Tags"
+msgstr "Automatski sakrij oznake"
+
 msgid "Select All in &Directory"
+msgstr ""
+
+msgid "Select all files in the current directory"
 msgstr ""
 
 msgid "&Previous File"
 msgstr "&Prethodni fajl"
 
+msgid "Select previous file"
+msgstr "Izaberi prethodni fajl"
+
 msgid "&Next File"
 msgstr "&Sledeći fajl"
+
+msgid "Select next file"
+msgstr "Izaberi sledeći fajl"
 
 msgid "From Filename"
 msgstr "Iz imena fajla"
@@ -496,15 +538,6 @@ msgstr "&Sačuvaj"
 msgid "Re&vert"
 msgstr "&Vrati"
 
-msgid "Import from %1"
-msgstr "Uvezi sa %1"
-
-msgid "Browse album cover artwork"
-msgstr "Potraži sliku omota albuma"
-
-msgid "Create M3U Playlist"
-msgstr "Napravi M3U listu numera"
-
 msgid "&Quit"
 msgstr "&Napusti"
 
@@ -517,15 +550,6 @@ msgstr "Izaberi s&ve"
 msgid "Dese&lect"
 msgstr "Po&ništi izbor"
 
-msgid "Select all files in the current directory"
-msgstr ""
-
-msgid "Select previous file"
-msgstr "Izaberi prethodni fajl"
-
-msgid "Select next file"
-msgstr "Izaberi sledeći fajl"
-
 msgid "&Find..."
 msgstr "N&ađi..."
 
@@ -534,21 +558,6 @@ msgstr "&Zameni..."
 
 msgid "&Tools"
 msgstr "&Alatke"
-
-msgid "Apply Filename Format"
-msgstr "Primeni format naziva fajla"
-
-msgid "Apply Tag Format"
-msgstr "Primeni format oznake"
-
-msgid "Apply Text Encoding"
-msgstr "Primijeni kodiranje teksta"
-
-msgid "Rename Directory"
-msgstr "Preimenuj direktorijum"
-
-msgid "Number Tracks"
-msgstr "Numeriši"
 
 msgid "&Settings"
 msgstr "&Podešavanje"
@@ -564,12 +573,6 @@ msgstr "Prikazuje/sakriva traku stanja"
 
 msgid "Show St&atusbar"
 msgstr "Prikaži traku &stanja"
-
-msgid "Show Picture"
-msgstr "Prikaži sliku"
-
-msgid "Auto Hide Tags"
-msgstr "Automatski sakrij oznake"
 
 msgid "Configure Kid3"
 msgstr "Podesi Kid3"

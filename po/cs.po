@@ -6,9 +6,9 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2014-04-27 22:37+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -258,8 +258,8 @@ msgstr "Zásuvné moduly"
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový panel"
 
-msgid "Opens a directory"
-msgstr "Otevře adresář"
+msgid "Open files"
+msgstr "Otevřít soubory"
 
 msgid "Opens a recently used directory"
 msgstr "Otevře nedávno použitý adresář"
@@ -294,11 +294,17 @@ msgstr "Nastavení"
 msgid "O&pen Directory..."
 msgstr "Otevřít &adresář..."
 
+msgid "Opens a directory"
+msgstr "Otevře adresář"
+
 msgid "&Import..."
 msgstr "&Zavést..."
 
 msgid "Import from %1..."
 msgstr "Zavést z %1..."
+
+msgid "Import from %1"
+msgstr "Zavést z %1"
 
 msgid "Automatic I&mport..."
 msgstr "Automaticky &zavést..."
@@ -306,26 +312,47 @@ msgstr "Automaticky &zavést..."
 msgid "&Browse Cover Art..."
 msgstr "&Procházet kvůli obrázkům obalů..."
 
+msgid "Browse album cover artwork"
+msgstr "Procházet kvůli obrázkům obalů"
+
 msgid "&Export..."
 msgstr "&Vyvést..."
 
 msgid "&Create Playlist..."
 msgstr "Vytvořit &seznam skladeb..."
 
+msgid "Create M3U Playlist"
+msgstr "Vytvořit seznam skladeb M3U"
+
 msgid "Apply &Filename Format"
 msgstr "Použít formát pro &název souboru"
+
+msgid "Apply Filename Format"
+msgstr "Použít formát pro název souboru"
 
 msgid "Apply &Tag Format"
 msgstr "Použít formát pro &značku"
 
+msgid "Apply Tag Format"
+msgstr "Použít formát pro značku"
+
 msgid "Apply Text &Encoding"
 msgstr "Použít kódování t&extu"
+
+msgid "Apply Text Encoding"
+msgstr "Použít kódování textu"
 
 msgid "&Rename Directory..."
 msgstr "Pře&jmenovat adresář..."
 
+msgid "Rename Directory"
+msgstr "Přejmenovat adresář"
+
 msgid "&Number Tracks..."
 msgstr "Čís&lovat skladby..."
+
+msgid "Number Tracks"
+msgstr "Číslovat skladby"
 
 msgid "F&ilter..."
 msgstr "&Filtrovat..."
@@ -342,17 +369,32 @@ msgstr "&Přehrát"
 msgid "Show &Picture"
 msgstr "Ukázat &obrázek"
 
+msgid "Show Picture"
+msgstr "Ukázat obrázek"
+
 msgid "Auto &Hide Tags"
 msgstr "Automaticky skrýt &značky"
+
+msgid "Auto Hide Tags"
+msgstr "Automaticky skrýt"
 
 msgid "Select All in &Directory"
 msgstr "Vybrat všechny soubory v &adresáři"
 
+msgid "Select all files in the current directory"
+msgstr "Vybrat všechny soubory v aktuálním adresáři"
+
 msgid "&Previous File"
 msgstr "&Předchozí soubor"
 
+msgid "Select previous file"
+msgstr "Vybrat předchozí soubor"
+
 msgid "&Next File"
 msgstr "&Další soubor"
+
+msgid "Select next file"
+msgstr "Vybrat další soubor"
 
 msgid "From Filename"
 msgstr "Z názvu souboru"
@@ -497,15 +539,6 @@ msgstr "&Uložit"
 msgid "Re&vert"
 msgstr "V&rátit"
 
-msgid "Import from %1"
-msgstr "Zavést z %1"
-
-msgid "Browse album cover artwork"
-msgstr "Procházet kvůli obrázkům obalů"
-
-msgid "Create M3U Playlist"
-msgstr "Vytvořit seznam skladeb M3U"
-
 msgid "&Quit"
 msgstr "&Ukončit"
 
@@ -518,15 +551,6 @@ msgstr "Vybrat &vše"
 msgid "Dese&lect"
 msgstr "&Zrušit výběr"
 
-msgid "Select all files in the current directory"
-msgstr "Vybrat všechny soubory v aktuálním adresáři"
-
-msgid "Select previous file"
-msgstr "Vybrat předchozí soubor"
-
-msgid "Select next file"
-msgstr "Vybrat další soubor"
-
 msgid "&Find..."
 msgstr "&Hledat..."
 
@@ -535,21 +559,6 @@ msgstr "&Nahradit..."
 
 msgid "&Tools"
 msgstr "&Nástroje"
-
-msgid "Apply Filename Format"
-msgstr "Použít formát pro název souboru"
-
-msgid "Apply Tag Format"
-msgstr "Použít formát pro značku"
-
-msgid "Apply Text Encoding"
-msgstr "Použít kódování textu"
-
-msgid "Rename Directory"
-msgstr "Přejmenovat adresář"
-
-msgid "Number Tracks"
-msgstr "Číslovat skladby"
 
 msgid "&Settings"
 msgstr "Na&stavení"
@@ -565,12 +574,6 @@ msgstr "Povolí/Zakáže stavový řádek"
 
 msgid "Show St&atusbar"
 msgstr "Ukázat &stavový řádek"
-
-msgid "Show Picture"
-msgstr "Ukázat obrázek"
-
-msgid "Auto Hide Tags"
-msgstr "Automaticky skrýt"
 
 msgid "Configure Kid3"
 msgstr "Nastavit Kid3"

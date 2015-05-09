@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -259,8 +259,8 @@ msgstr "Wtyczki"
 msgid "Main Toolbar"
 msgstr "Główny pasek narzędzi"
 
-msgid "Opens a directory"
-msgstr "Otwiera katalog"
+msgid "Open files"
+msgstr "Wczytaj pliki"
 
 msgid "Opens a recently used directory"
 msgstr "Otwiera poprzednio używany katalog"
@@ -295,11 +295,17 @@ msgstr "Okno opcji"
 msgid "O&pen Directory..."
 msgstr "&Otwórz katalog..."
 
+msgid "Opens a directory"
+msgstr "Otwiera katalog"
+
 msgid "&Import..."
 msgstr "&Importuj..."
 
 msgid "Import from %1..."
 msgstr "Importuj z %1..."
+
+msgid "Import from %1"
+msgstr "Importuj z %1"
 
 msgid "Automatic I&mport..."
 msgstr "Automatycznie i&mportuj..."
@@ -307,26 +313,47 @@ msgstr "Automatycznie i&mportuj..."
 msgid "&Browse Cover Art..."
 msgstr "&Pobierz okładkę..."
 
+msgid "Browse album cover artwork"
+msgstr "Pobierz okładkę"
+
 msgid "&Export..."
 msgstr "&Eksportuj..."
 
 msgid "&Create Playlist..."
 msgstr "Stwórz &listę odtwarzania..."
 
+msgid "Create M3U Playlist"
+msgstr "Utwórz listę odtwarzania M3U"
+
 msgid "Apply &Filename Format"
 msgstr "Zastosuj formatowanie &nazwy pliku"
+
+msgid "Apply Filename Format"
+msgstr "Zastosuj formatowanie nazwy pliku"
 
 msgid "Apply &Tag Format"
 msgstr "Zastosuj formatowanie &znacznika"
 
+msgid "Apply Tag Format"
+msgstr "Zastosuj formatowanie znacznika"
+
 msgid "Apply Text &Encoding"
 msgstr "Zastosuj kodowanie t&ekstu"
+
+msgid "Apply Text Encoding"
+msgstr "Zastosuj kodowanie tekstu"
 
 msgid "&Rename Directory..."
 msgstr "Zmień &nazwę katalogu..."
 
+msgid "Rename Directory"
+msgstr "Zmień nazwę katalogu"
+
 msgid "&Number Tracks..."
 msgstr "&Numeruj ścieżki..."
+
+msgid "Number Tracks"
+msgstr "Numeruj ścieżki"
 
 msgid "F&ilter..."
 msgstr "F&iltr..."
@@ -343,17 +370,32 @@ msgstr "&Odtwarzaj"
 msgid "Show &Picture"
 msgstr "Pokaż &obrazek"
 
+msgid "Show Picture"
+msgstr "Pokaż obrazek"
+
 msgid "Auto &Hide Tags"
 msgstr "Automatyczne &ukrywanie"
+
+msgid "Auto Hide Tags"
+msgstr "Automatyczne ukrywanie"
 
 msgid "Select All in &Directory"
 msgstr "Zaznacz wszystkie pliki w &katalogu"
 
+msgid "Select all files in the current directory"
+msgstr "Zaznacz wszystkie pliki w bieżącym katalogu"
+
 msgid "&Previous File"
 msgstr "&Poprzedni plik"
 
+msgid "Select previous file"
+msgstr "Zaznacz poprzedni plik"
+
 msgid "&Next File"
 msgstr "&Następny plik"
+
+msgid "Select next file"
+msgstr "Zaznacz następny plik"
 
 msgid "From Filename"
 msgstr "Wczytaj z nazwy pliku"
@@ -498,15 +540,6 @@ msgstr "&Zapisz"
 msgid "Re&vert"
 msgstr "Od&wróć"
 
-msgid "Import from %1"
-msgstr "Importuj z %1"
-
-msgid "Browse album cover artwork"
-msgstr "Pobierz okładkę"
-
-msgid "Create M3U Playlist"
-msgstr "Utwórz listę odtwarzania M3U"
-
 msgid "&Quit"
 msgstr "Za&kończ"
 
@@ -519,15 +552,6 @@ msgstr "Zaznacz &wszystko"
 msgid "Dese&lect"
 msgstr "O&dznacz"
 
-msgid "Select all files in the current directory"
-msgstr "Zaznacz wszystkie pliki w bieżącym katalogu"
-
-msgid "Select previous file"
-msgstr "Zaznacz poprzedni plik"
-
-msgid "Select next file"
-msgstr "Zaznacz następny plik"
-
 msgid "&Find..."
 msgstr "&Znajdź..."
 
@@ -536,21 +560,6 @@ msgstr "Z&astąp..."
 
 msgid "&Tools"
 msgstr "&Narzędzia"
-
-msgid "Apply Filename Format"
-msgstr "Zastosuj formatowanie nazwy pliku"
-
-msgid "Apply Tag Format"
-msgstr "Zastosuj formatowanie znacznika"
-
-msgid "Apply Text Encoding"
-msgstr "Zastosuj kodowanie tekstu"
-
-msgid "Rename Directory"
-msgstr "Zmień nazwę katalogu"
-
-msgid "Number Tracks"
-msgstr "Numeruj ścieżki"
 
 msgid "&Settings"
 msgstr "&Ustawienia"
@@ -566,12 +575,6 @@ msgstr "Włącza/wyłącza pasek stanu"
 
 msgid "Show St&atusbar"
 msgstr "Wyświetlaj pasek s&tanu"
-
-msgid "Show Picture"
-msgstr "Pokaż obrazek"
-
-msgid "Auto Hide Tags"
-msgstr "Automatyczne ukrywanie"
 
 msgid "Configure Kid3"
 msgstr "Konfiguracja Kid3"

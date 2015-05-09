@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -259,8 +259,8 @@ msgstr "Extensiones"
 msgid "Main Toolbar"
 msgstr "Barra de herramientas Principal"
 
-msgid "Opens a directory"
-msgstr "Abre un directorio"
+msgid "Open files"
+msgstr "Abrir archivos"
 
 msgid "Opens a recently used directory"
 msgstr "Abre un directorio usado recientemente"
@@ -295,11 +295,17 @@ msgstr "Diálogo de preferencias"
 msgid "O&pen Directory..."
 msgstr "A&brir el directorio..."
 
+msgid "Opens a directory"
+msgstr "Abre un directorio"
+
 msgid "&Import..."
 msgstr "&Importar..."
 
 msgid "Import from %1..."
 msgstr "Importar de %1..."
+
+msgid "Import from %1"
+msgstr "Importar de %1"
 
 msgid "Automatic I&mport..."
 msgstr "I&mportar automáticamente..."
@@ -307,26 +313,47 @@ msgstr "I&mportar automáticamente..."
 msgid "&Browse Cover Art..."
 msgstr "&Descargar las imágenes de las portadas..."
 
+msgid "Browse album cover artwork"
+msgstr "Descargar las imágenes de las portadas"
+
 msgid "&Export..."
 msgstr "&Exportar..."
 
 msgid "&Create Playlist..."
 msgstr "&Crear lista de reproducción..."
 
+msgid "Create M3U Playlist"
+msgstr "Crear lista m3u"
+
 msgid "Apply &Filename Format"
 msgstr "Aplicar formato de &nombre de archivo"
+
+msgid "Apply Filename Format"
+msgstr "Aplicar formato de nombre de archivo"
 
 msgid "Apply &Tag Format"
 msgstr "Aplicar formato de &etiqueta"
 
+msgid "Apply Tag Format"
+msgstr "Aplicar formato de etiqueta"
+
 msgid "Apply Text &Encoding"
 msgstr "Aplicar codificación del t&exto"
+
+msgid "Apply Text Encoding"
+msgstr "Aplicar codificación del texto"
 
 msgid "&Rename Directory..."
 msgstr "&Renombrar un directorio..."
 
+msgid "Rename Directory"
+msgstr "Renombrar directorio"
+
 msgid "&Number Tracks..."
 msgstr "&Asignar números de pista por orden..."
+
+msgid "Number Tracks"
+msgstr "Numerar pistas"
 
 msgid "F&ilter..."
 msgstr "F&iltro..."
@@ -343,17 +370,32 @@ msgstr "&Reproducir"
 msgid "Show &Picture"
 msgstr "Mostrar &imagen"
 
+msgid "Show Picture"
+msgstr "Mostrar imagen"
+
 msgid "Auto &Hide Tags"
 msgstr "&Ocultar automáticamente"
+
+msgid "Auto Hide Tags"
+msgstr "Ocultar automáticamente"
 
 msgid "Select All in &Directory"
 msgstr "Seleccionar todos los archivos en el &directorio"
 
+msgid "Select all files in the current directory"
+msgstr "Seleccionar todos los archivos en el directorio actual"
+
 msgid "&Previous File"
 msgstr "&Anterior archivo"
 
+msgid "Select previous file"
+msgstr "Anterior archivo"
+
 msgid "&Next File"
 msgstr "&Siguiente archivo"
+
+msgid "Select next file"
+msgstr "Siguiente archivo"
 
 msgid "From Filename"
 msgstr "Desde nombre de archivo"
@@ -498,15 +540,6 @@ msgstr "&Guardar"
 msgid "Re&vert"
 msgstr "&Deshacer"
 
-msgid "Import from %1"
-msgstr "Importar de %1"
-
-msgid "Browse album cover artwork"
-msgstr "Descargar las imágenes de las portadas"
-
-msgid "Create M3U Playlist"
-msgstr "Crear lista m3u"
-
 msgid "&Quit"
 msgstr "&Salir"
 
@@ -519,15 +552,6 @@ msgstr "Seleccionar &todo"
 msgid "Dese&lect"
 msgstr "Dese&leccionar"
 
-msgid "Select all files in the current directory"
-msgstr "Seleccionar todos los archivos en el directorio actual"
-
-msgid "Select previous file"
-msgstr "Anterior archivo"
-
-msgid "Select next file"
-msgstr "Siguiente archivo"
-
 msgid "&Find..."
 msgstr "&Buscar..."
 
@@ -536,21 +560,6 @@ msgstr "&Reemplazar..."
 
 msgid "&Tools"
 msgstr "&Herramientas"
-
-msgid "Apply Filename Format"
-msgstr "Aplicar formato de nombre de archivo"
-
-msgid "Apply Tag Format"
-msgstr "Aplicar formato de etiqueta"
-
-msgid "Apply Text Encoding"
-msgstr "Aplicar codificación del texto"
-
-msgid "Rename Directory"
-msgstr "Renombrar directorio"
-
-msgid "Number Tracks"
-msgstr "Numerar pistas"
 
 msgid "&Settings"
 msgstr "&Preferencias"
@@ -566,12 +575,6 @@ msgstr "Activa/desactiva la barra de estado"
 
 msgid "Show St&atusbar"
 msgstr "Mostrar barra de &estado"
-
-msgid "Show Picture"
-msgstr "Mostrar imagen"
-
-msgid "Auto Hide Tags"
-msgstr "Ocultar automáticamente"
 
 msgid "Configure Kid3"
 msgstr "Configurar Kid3"

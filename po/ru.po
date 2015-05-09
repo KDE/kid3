@@ -7,9 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -259,8 +259,8 @@ msgstr "Модули"
 msgid "Main Toolbar"
 msgstr "Основная панель инструментов"
 
-msgid "Opens a directory"
-msgstr "Открыть каталог"
+msgid "Open files"
+msgstr "Открыть файлы"
 
 msgid "Opens a recently used directory"
 msgstr "Открыть недавний каталог"
@@ -295,11 +295,17 @@ msgstr "Настройка параметров"
 msgid "O&pen Directory..."
 msgstr "Открыть &каталог..."
 
+msgid "Opens a directory"
+msgstr "Открыть каталог"
+
 msgid "&Import..."
 msgstr "&Импорт..."
 
 msgid "Import from %1..."
 msgstr "Импорт из %1..."
+
+msgid "Import from %1"
+msgstr "Импорт из %1"
 
 msgid "Automatic I&mport..."
 msgstr "Автоматически и&мпортировать..."
@@ -307,26 +313,47 @@ msgstr "Автоматически и&мпортировать..."
 msgid "&Browse Cover Art..."
 msgstr "&Найти обложки..."
 
+msgid "Browse album cover artwork"
+msgstr "Найти обложки"
+
 msgid "&Export..."
 msgstr "&Экспорт..."
 
 msgid "&Create Playlist..."
 msgstr "&Cоздать список песен..."
 
+msgid "Create M3U Playlist"
+msgstr "Создать список M3U"
+
 msgid "Apply &Filename Format"
 msgstr "Применить Формат имени &файла"
+
+msgid "Apply Filename Format"
+msgstr "Применить Формат имени файла"
 
 msgid "Apply &Tag Format"
 msgstr "Применить Формат &тэга"
 
+msgid "Apply Tag Format"
+msgstr "Применить формат тэга"
+
 msgid "Apply Text &Encoding"
 msgstr "Применить Кодировка Т&екста"
+
+msgid "Apply Text Encoding"
+msgstr "Применить Кодировка Текста"
 
 msgid "&Rename Directory..."
 msgstr "&Переименовать Каталог..."
 
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
+
 msgid "&Number Tracks..."
 msgstr "&Пронумеровать дорожки по порядку..."
+
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки по порядку"
 
 msgid "F&ilter..."
 msgstr "Ф&ильтр..."
@@ -343,17 +370,32 @@ msgstr "&Играть"
 msgid "Show &Picture"
 msgstr "Показывать &картину"
 
+msgid "Show Picture"
+msgstr "Показывать картину"
+
 msgid "Auto &Hide Tags"
 msgstr "Теги автоматическое &скрытие"
+
+msgid "Auto Hide Tags"
+msgstr "Теги автоматическое скрытие"
 
 msgid "Select All in &Directory"
 msgstr "Выделить все файлы в текущем &каталоге"
 
+msgid "Select all files in the current directory"
+msgstr "Выделить все файлы в текущем каталоге"
+
 msgid "&Previous File"
 msgstr "&Предыдущий файл"
 
+msgid "Select previous file"
+msgstr "Предыдущий файл"
+
 msgid "&Next File"
 msgstr "&Следующий файл"
+
+msgid "Select next file"
+msgstr "Следующий файл"
 
 msgid "From Filename"
 msgstr "Из имени файла"
@@ -498,15 +540,6 @@ msgstr "&Сохранить"
 msgid "Re&vert"
 msgstr "&Отменить"
 
-msgid "Import from %1"
-msgstr "Импорт из %1"
-
-msgid "Browse album cover artwork"
-msgstr "Найти обложки"
-
-msgid "Create M3U Playlist"
-msgstr "Создать список M3U"
-
 msgid "&Quit"
 msgstr "В&ыход"
 
@@ -519,15 +552,6 @@ msgstr "Выделить &все"
 msgid "Dese&lect"
 msgstr "Отме&нить выбор"
 
-msgid "Select all files in the current directory"
-msgstr "Выделить все файлы в текущем каталоге"
-
-msgid "Select previous file"
-msgstr "Предыдущий файл"
-
-msgid "Select next file"
-msgstr "Следующий файл"
-
 msgid "&Find..."
 msgstr "&Найти..."
 
@@ -536,21 +560,6 @@ msgstr "&Заменить..."
 
 msgid "&Tools"
 msgstr "&Сервис"
-
-msgid "Apply Filename Format"
-msgstr "Применить Формат имени файла"
-
-msgid "Apply Tag Format"
-msgstr "Применить формат тэга"
-
-msgid "Apply Text Encoding"
-msgstr "Применить Кодировка Текста"
-
-msgid "Rename Directory"
-msgstr "Переименовать Каталог"
-
-msgid "Number Tracks"
-msgstr "Пронумеровать дорожки по порядку"
 
 msgid "&Settings"
 msgstr "&Настройка"
@@ -566,12 +575,6 @@ msgstr "Включить/выключить строку состояния"
 
 msgid "Show St&atusbar"
 msgstr "Показать строку &состояния"
-
-msgid "Show Picture"
-msgstr "Показывать картину"
-
-msgid "Auto Hide Tags"
-msgstr "Теги автоматическое скрытие"
 
 msgid "Configure Kid3"
 msgstr "Настроить Kid3"

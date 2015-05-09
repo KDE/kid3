@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -257,8 +257,8 @@ msgstr "Eklentiler"
 msgid "Main Toolbar"
 msgstr "Ana Araç Çubuğu"
 
-msgid "Opens a directory"
-msgstr "Bir dizin açar"
+msgid "Open files"
+msgstr "Dosyaları Aç"
 
 msgid "Opens a recently used directory"
 msgstr "Son kullanılan dizini açar"
@@ -293,11 +293,17 @@ msgstr "Özellikler Penceresi"
 msgid "O&pen Directory..."
 msgstr "&Klasör Aç..."
 
+msgid "Opens a directory"
+msgstr "Bir dizin açar"
+
 msgid "&Import..."
 msgstr "A&l..."
 
 msgid "Import from %1..."
 msgstr "%1'den Al..."
+
+msgid "Import from %1"
+msgstr "%1'den Al"
 
 msgid "Automatic I&mport..."
 msgstr "Oto&matik al..."
@@ -305,26 +311,47 @@ msgstr "Oto&matik al..."
 msgid "&Browse Cover Art..."
 msgstr "&Kapak Resimlerini Al..."
 
+msgid "Browse album cover artwork"
+msgstr "Kapak resimlerini al"
+
 msgid "&Export..."
 msgstr "&Dışa Aktar..."
 
 msgid "&Create Playlist..."
 msgstr "Playlist &Yarat..."
 
+msgid "Create M3U Playlist"
+msgstr "M3U Playlist Dosyası Yarat"
+
 msgid "Apply &Filename Format"
 msgstr "&Dosya Adı Biçimini Uygula"
+
+msgid "Apply Filename Format"
+msgstr "Dosya Adı Yapısını Uygula"
 
 msgid "Apply &Tag Format"
 msgstr "&Tag Biçimini Uygula"
 
+msgid "Apply Tag Format"
+msgstr "Tag Yapısını Uygula"
+
 msgid "Apply Text &Encoding"
 msgstr "Karakt&er Kodlaması Uygula"
+
+msgid "Apply Text Encoding"
+msgstr "Karakter Kodlaması Uygula"
 
 msgid "&Rename Directory..."
 msgstr "Dizini &Yeniden Adlandır..."
 
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
 msgid "&Number Tracks..."
 msgstr "&Parça Numarları..."
+
+msgid "Number Tracks"
+msgstr "Parça Numaraları"
 
 msgid "F&ilter..."
 msgstr "F&iltre..."
@@ -341,17 +368,32 @@ msgstr "Ç&al"
 msgid "Show &Picture"
 msgstr "Resim &Göster"
 
+msgid "Show Picture"
+msgstr "Resim Göster"
+
 msgid "Auto &Hide Tags"
 msgstr "&Otomatik gizle"
+
+msgid "Auto Hide Tags"
+msgstr "Otomatik gizle"
 
 msgid "Select All in &Directory"
 msgstr "Dizindeki tüm &dosyaları seç"
 
+msgid "Select all files in the current directory"
+msgstr "Dizindeki tüm dosyaları seç"
+
 msgid "&Previous File"
 msgstr "&Önceki Dosya"
 
+msgid "Select previous file"
+msgstr "Önceki dosya"
+
 msgid "&Next File"
 msgstr "S&onraki Dosya"
+
+msgid "Select next file"
+msgstr "Sonraki dosya"
 
 msgid "From Filename"
 msgstr "Dosya adından"
@@ -496,15 +538,6 @@ msgstr "&Kaydet"
 msgid "Re&vert"
 msgstr "&Geri Al"
 
-msgid "Import from %1"
-msgstr "%1'den Al"
-
-msgid "Browse album cover artwork"
-msgstr "Kapak resimlerini al"
-
-msgid "Create M3U Playlist"
-msgstr "M3U Playlist Dosyası Yarat"
-
 msgid "&Quit"
 msgstr "Çı&k"
 
@@ -517,15 +550,6 @@ msgstr "&Tümünü Seç"
 msgid "Dese&lect"
 msgstr "&Seçme"
 
-msgid "Select all files in the current directory"
-msgstr "Dizindeki tüm dosyaları seç"
-
-msgid "Select previous file"
-msgstr "Önceki dosya"
-
-msgid "Select next file"
-msgstr "Sonraki dosya"
-
 msgid "&Find..."
 msgstr "B&ul..."
 
@@ -534,21 +558,6 @@ msgstr "D&eğiştir..."
 
 msgid "&Tools"
 msgstr "&Araçlar"
-
-msgid "Apply Filename Format"
-msgstr "Dosya Adı Yapısını Uygula"
-
-msgid "Apply Tag Format"
-msgstr "Tag Yapısını Uygula"
-
-msgid "Apply Text Encoding"
-msgstr "Karakter Kodlaması Uygula"
-
-msgid "Rename Directory"
-msgstr "Dizini Yeniden Adlandır"
-
-msgid "Number Tracks"
-msgstr "Parça Numaraları"
 
 msgid "&Settings"
 msgstr "Ayarla&r"
@@ -564,12 +573,6 @@ msgstr "Durum çubuğunu açar/kapatır"
 
 msgid "Show St&atusbar"
 msgstr "&Durum Çubuğunu Göster"
-
-msgid "Show Picture"
-msgstr "Resim Göster"
-
-msgid "Auto Hide Tags"
-msgstr "Otomatik gizle"
 
 msgid "Configure Kid3"
 msgstr "Kid3'ü Yapılandır"

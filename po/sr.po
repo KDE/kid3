@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.0\n"
+"Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-03-03 18:08+0100\n"
+"POT-Creation-Date: 2015-05-09 10:51+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -257,8 +257,8 @@ msgstr "Прикључци"
 msgid "Main Toolbar"
 msgstr "Главна трака"
 
-msgid "Opens a directory"
-msgstr "Отвара директоријум"
+msgid "Open files"
+msgstr "Отвори фајлове"
 
 msgid "Opens a recently used directory"
 msgstr "Отвара недавно коришћен директоријум"
@@ -293,11 +293,17 @@ msgstr "Дијалог подешавања"
 msgid "O&pen Directory..."
 msgstr "О&твори директоријум..."
 
+msgid "Opens a directory"
+msgstr "Отвара директоријум"
+
 msgid "&Import..."
 msgstr "&Увези..."
 
 msgid "Import from %1..."
 msgstr "Увези са %1..."
+
+msgid "Import from %1"
+msgstr "Увези са %1"
 
 msgid "Automatic I&mport..."
 msgstr "Ауто&матски увози..."
@@ -305,26 +311,47 @@ msgstr "Ауто&матски увози..."
 msgid "&Browse Cover Art..."
 msgstr "Потражи о&мот албума..."
 
+msgid "Browse album cover artwork"
+msgstr "Потражи слику омота албума"
+
 msgid "&Export..."
 msgstr "Изв&ези..."
 
 msgid "&Create Playlist..."
 msgstr "Направи &листу нумера..."
 
+msgid "Create M3U Playlist"
+msgstr "Направи М3У листу нумера"
+
 msgid "Apply &Filename Format"
 msgstr "Примени формат имена фа&јла"
+
+msgid "Apply Filename Format"
+msgstr "Примени формат назива фајла"
 
 msgid "Apply &Tag Format"
 msgstr "Примени формат &ознаке"
 
+msgid "Apply Tag Format"
+msgstr "Примени формат ознаке"
+
 msgid "Apply Text &Encoding"
 msgstr "Примени кодирање т&екста"
+
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
 
 msgid "&Rename Directory..."
 msgstr "Преименуј &директоријум..."
 
+msgid "Rename Directory"
+msgstr "Преименуј директоријум"
+
 msgid "&Number Tracks..."
 msgstr "Ну&мериши..."
+
+msgid "Number Tracks"
+msgstr "Нумериши"
 
 msgid "F&ilter..."
 msgstr "Ф&илтер..."
@@ -341,17 +368,32 @@ msgstr "Ре&продукуј"
 msgid "Show &Picture"
 msgstr "Прикажи с&лику"
 
+msgid "Show Picture"
+msgstr "Прикажи слику"
+
 msgid "Auto &Hide Tags"
 msgstr "Аутоматски &сакриј ознаке"
+
+msgid "Auto Hide Tags"
+msgstr "Аутоматски сакриј ознаке"
 
 msgid "Select All in &Directory"
 msgstr "Изабери све фајлове у тренутном &директоријуму"
 
+msgid "Select all files in the current directory"
+msgstr "Изабери све фајлове у тренутном директоријуму"
+
 msgid "&Previous File"
 msgstr "&Претходни фајл"
 
+msgid "Select previous file"
+msgstr "Изабери претходни фајл"
+
 msgid "&Next File"
 msgstr "&Следећи фајл"
+
+msgid "Select next file"
+msgstr "Изабери следећи фајл"
 
 msgid "From Filename"
 msgstr "Из имена фајла"
@@ -496,15 +538,6 @@ msgstr "&Сачувај"
 msgid "Re&vert"
 msgstr "&Врати"
 
-msgid "Import from %1"
-msgstr "Увези са %1"
-
-msgid "Browse album cover artwork"
-msgstr "Потражи слику омота албума"
-
-msgid "Create M3U Playlist"
-msgstr "Направи М3У листу нумера"
-
 msgid "&Quit"
 msgstr "&Напусти"
 
@@ -517,15 +550,6 @@ msgstr "Изабери с&ве"
 msgid "Dese&lect"
 msgstr "По&ништи избор"
 
-msgid "Select all files in the current directory"
-msgstr "Изабери све фајлове у тренутном директоријуму"
-
-msgid "Select previous file"
-msgstr "Изабери претходни фајл"
-
-msgid "Select next file"
-msgstr "Изабери следећи фајл"
-
 msgid "&Find..."
 msgstr "&Нађи..."
 
@@ -534,21 +558,6 @@ msgstr "&Замени..."
 
 msgid "&Tools"
 msgstr "&Алатке"
-
-msgid "Apply Filename Format"
-msgstr "Примени формат назива фајла"
-
-msgid "Apply Tag Format"
-msgstr "Примени формат ознаке"
-
-msgid "Apply Text Encoding"
-msgstr "Примени кодирање текста"
-
-msgid "Rename Directory"
-msgstr "Преименуј директоријум"
-
-msgid "Number Tracks"
-msgstr "Нумериши"
 
 msgid "&Settings"
 msgstr "&Подешавање"
@@ -564,12 +573,6 @@ msgstr "Приказује/сакрива траку стања"
 
 msgid "Show St&atusbar"
 msgstr "Прикажи траку &стања"
-
-msgid "Show Picture"
-msgstr "Прикажи слику"
-
-msgid "Auto Hide Tags"
-msgstr "Аутоматски сакриј ознаке"
 
 msgid "Configure Kid3"
 msgstr "Подеси Кид3"
