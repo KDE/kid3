@@ -119,10 +119,16 @@
 #include "taglibext/dsf/dsffile.h"
 #endif
 
-#include "taglibext/aac/aacfiletyperesolver.h"
-#include "taglibext/mp2/mp2filetyperesolver.h"
+#if TAGLIB_VERSION >= 0x010902
+#include <synchronizedlyricsframe.h>
+#include <eventtimingcodesframe.h>
+#else
 #include "taglibext/synchronizedlyricsframe.h"
 #include "taglibext/eventtimingcodesframe.h"
+#endif
+
+#include "taglibext/aac/aacfiletyperesolver.h"
+#include "taglibext/mp2/mp2filetyperesolver.h"
 
 namespace {
 
