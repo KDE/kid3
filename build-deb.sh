@@ -11,6 +11,7 @@ if test -n "$ppaversion"; then
   if which ubuntu-distro-info >/dev/null; then
     if distrib_nr=$(ubuntu-distro-info --series=$distribution -r 2>/dev/null); then
       distrib_nr=${distrib_nr/./}
+      distrib_nr=${distrib_nr/ LTS/}
       distrib_id=Ubuntu
     elif distrib_nr=$(debian-distro-info --series=$distribution -r 2>/dev/null); then
       distrib_nr=${distrib_nr%.*}
@@ -28,8 +29,8 @@ else
   distrib_id=$(lsb_release -si)
 fi
 
-if test $distrib_id = "Ubuntu" -a $distrib_nr -ge 1504 ||
-   test $distrib_id = "Debian" -a $distrib_nr -ge 9; then
+if (test $distrib_id = "Ubuntu" && test $distrib_nr -ge 1504) ||
+   (test $distrib_id = "Debian" && test $distrib_nr -ge 9); then
   qtversion=5
 else
   qtversion=4
