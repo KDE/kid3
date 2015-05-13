@@ -59,7 +59,7 @@ libvorbis_patchlevel=2
 libav_version=11.3
 libav_patchlevel=1
 libflac_version=1.3.1
-libflac_patchlevel=1
+libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=16
 taglib_version=1.9.1
@@ -2033,7 +2033,11 @@ echo "### Building id3lib"
 
 cd id3lib-${id3lib_version}/
 autoconf
-test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS
+configure_args="--enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS"
+if test $kernel = "MINGW"; then
+  configure_args="$configure_args --build=mingw32"
+fi
+test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure $configure_args
 SED=sed make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst

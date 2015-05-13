@@ -13,6 +13,10 @@ if(WITH_ID3LIB)
       string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)" _crossMingwMatch "${CMAKE_CXX_COMPILER}")
       if (NOT _crossMingwMatch)
         set(ID3LIB_LIBRARIES ${ID3LIB_LIBRARIES} -liconv)
+        # libiconv-2.dll is at the same place where the compiler is, C:\msys64\mingw32\bin
+        get_filename_component(_mingw_bin_dir ${CMAKE_C_COMPILER} DIRECTORY)
+        install(FILES "${_mingw_bin_dir}/libiconv-2.dll"
+                DESTINATION ${WITH_BINDIR})
       endif (NOT _crossMingwMatch)
     elseif (APPLE)
       set(ID3LIB_LIBRARIES ${ID3LIB_LIBRARIES} -liconv)

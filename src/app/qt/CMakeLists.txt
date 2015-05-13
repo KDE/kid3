@@ -218,5 +218,8 @@ if (WIN32)
     get_filename_component(_qtBinDir ${_qtBinDir} PATH)
     install(DIRECTORY "${_qtBinDir}/icu_reduced/"
             DESTINATION ${WITH_BINDIR} OPTIONAL)
+    # Install missing Qt5Xml.dll file.
+    install(FILES "${_qtBinDir}/Qt5Xml.dll"
+            DESTINATION ${WITH_BINDIR})
   endif (NOT HAVE_QT5)
 endif (WIN32)

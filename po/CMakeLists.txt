@@ -8,6 +8,13 @@ foreach (_currentPoFile ${_poFiles})
 endforeach (_currentPoFile)
 
 if (APPLE OR WIN32)
+  if (NOT QT_TRANSLATIONS_DIR)
+    get_target_property(QT_TRANSLATIONS_DIR Qt5::qmake LOCATION)
+    get_filename_component(QT_TRANSLATIONS_DIR ${QT_TRANSLATIONS_DIR} PATH)
+    get_filename_component(QT_TRANSLATIONS_DIR ${QT_TRANSLATIONS_DIR} PATH)
+    set(QT_TRANSLATIONS_DIR "${QT_TRANSLATIONS_DIR}/translations")
+  endif (NOT QT_TRANSLATIONS_DIR)
+
   # Also copy or convert the Qt language files from the Qt installation.
   set(_qtQmFiles)
   set(_qtTsFiles)
