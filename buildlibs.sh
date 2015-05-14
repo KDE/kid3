@@ -511,26 +511,6 @@ cat >taglib_bvreplace.patch <<"EOF"
  }
 EOF
 
-if test "${libav_version%.*}" = "0.8"; then
-test -f libav_sws.patch ||
-cat >libav_sws.patch <<"EOF"
---- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
-+++ cmdutils.c  2011-09-17 15:54:37.453134577 -0700
-@@ -311,6 +311,11 @@
-     const AVOption *oc, *of, *os;
-     char opt_stripped[128];
-     const char *p;
-+// SPage: avoid sws_get_class failure
-+#if !CONFIG_SWSCALE
-+#   define sws_get_class(x)  0
-+#endif
-+
-     const AVClass *cc = avcodec_get_class(), *fc = avformat_get_class(), *sc = sws_get_class();
- 
-     if (!(p = strchr(opt, ':')))
-EOF
-fi
-
 test -f mp4v2_win32.patch ||
 cat >mp4v2_win32.patch <<"EOF"
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
@@ -1827,7 +1807,6 @@ for f in $(cat debian/patches/series); do
   fi
 done
 IFS=$oldifs
-patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
