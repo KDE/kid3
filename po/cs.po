@@ -3,13 +3,13 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014.
+# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2015-05-09 10:51+0200\n"
-"PO-Revision-Date: 2014-04-27 22:37+0200\n"
+"PO-Revision-Date: 2015-05-13 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Source-Language: en\n"
 
 msgid "Timeout"
-msgstr "Časový limit"
+msgstr "Časové omezení"
 
 msgid "Usage:"
 msgstr "Využití:"
@@ -34,7 +34,7 @@ msgid "Command name"
 msgstr "Název příkazu"
 
 msgid "Overwrite timeout"
-msgstr "Přepsat časový limit"
+msgstr "Přepsat časové omezení"
 
 msgid "Time"
 msgstr "Čas"
@@ -76,10 +76,10 @@ msgid "Select tag"
 msgstr "Vybrat štítek"
 
 msgid "Get tag frame"
-msgstr "Získat zbrusu prvek"
+msgstr "Získat prvek značky"
 
 msgid "Set tag frame"
-msgstr "Nastavit zbrusu prvek"
+msgstr "Nastavit prvek značky"
 
 msgid "Could not set \"%1\" for %2"
 msgstr "Souboru %2 nelze nastavit atribut \"%1\""
@@ -103,7 +103,7 @@ msgid "Error"
 msgstr "Chyba"
 
 msgid "Automatic import"
-msgstr "Automaticky importovat"
+msgstr "Zavést automaticky"
 
 msgid "Profile name"
 msgstr "Název profilu"
@@ -118,7 +118,7 @@ msgid "Source"
 msgstr "Zdroj"
 
 msgid "Querying"
-msgstr "Dotazování se"
+msgstr "Dotazuje se"
 
 msgid "Fetching"
 msgstr "Získává se"
@@ -253,7 +253,7 @@ msgid "Network"
 msgstr "Síť"
 
 msgid "Plugins"
-msgstr "Zásuvné moduly"
+msgstr "Přídavné moduly"
 
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový panel"
@@ -376,13 +376,13 @@ msgid "Auto &Hide Tags"
 msgstr "Automaticky skrýt &značky"
 
 msgid "Auto Hide Tags"
-msgstr "Automaticky skrýt"
+msgstr "Automaticky skrýt značky"
 
 msgid "Select All in &Directory"
 msgstr "Vybrat všechny soubory v &adresáři"
 
 msgid "Select all files in the current directory"
-msgstr "Vybrat všechny soubory v aktuálním adresáři"
+msgstr "Vybrat všechny soubory v nynějším adresáři"
 
 msgid "&Previous File"
 msgstr "&Předchozí soubor"
@@ -489,7 +489,7 @@ msgid "&Network"
 msgstr "&Síť"
 
 msgid "&Plugins"
-msgstr "&Zásuvné moduly"
+msgstr "&Přídavné moduly"
 
 msgid "&Keyboard Shortcuts"
 msgstr "&Klávesové zkratky"
@@ -609,19 +609,19 @@ msgid "Ready."
 msgstr "Připraven."
 
 msgid "License"
-msgstr "Licence"
+msgstr "Povolení"
 
 msgid "&Clear List"
-msgstr "&Smazat seznam"
+msgstr "&Vyprázdnit seznam"
 
 msgid "Clear"
-msgstr "Vyčistit"
+msgstr "Vyprázdnit"
 
 msgid "Reset"
-msgstr "Obnovit"
+msgstr "Nastavit znovu"
 
 msgid "Press F2 or double click to edit cell contents."
-msgstr "Obsah buňky editujte stisknutím F2 nebo dvojklikem."
+msgstr "Obsah buňky upravte stisknutím F2 nebo dvojitým klepnutím."
 
 msgid "Action"
 msgstr "Činnost"
@@ -660,7 +660,7 @@ msgid "All first letters uppercase"
 msgstr "Všechna první písmena velká"
 
 msgid "None"
-msgstr "Žádný"
+msgstr "Žádné"
 
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
@@ -690,13 +690,13 @@ msgid "Filenames"
 msgstr "Názvy souborů"
 
 msgid "URLs"
-msgstr "URL"
+msgstr "Adresa (URL)"
 
 msgid "Directory name"
 msgstr "Název adresáře"
 
 msgid "QML base directory"
-msgstr "QML základní adresář"
+msgstr "Základní adresář QML"
 
 msgid "Encode as URL"
 msgstr "Zakódovat jako URL"
@@ -782,10 +782,10 @@ msgid "momentary unwanted noise (Snap, Crackle & Pop)"
 msgstr "krátkodobý nechtěný šum (křupnutí, praskání, třísknutí)"
 
 msgid "sustained noise"
-msgstr "Nepřetržitý šum"
+msgstr "Neustálý šum"
 
 msgid "sustained noise end"
-msgstr "Nepřetržitý konec šumu"
+msgstr "Konec neustálého šumu"
 
 msgid "intro end"
 msgstr "Konec úvodu"
@@ -809,52 +809,52 @@ msgid "profanity end"
 msgstr "Konec klení"
 
 msgid "not predefined synch 0"
-msgstr "Souhra neurčená předem 0"
+msgstr "Seřízení neurčeno předem 0"
 
 msgid "not predefined synch 1"
-msgstr "Souhra neurčená předem 1"
+msgstr "Seřízení neurčeno předem 1"
 
 msgid "not predefined synch 2"
-msgstr "Souhra neurčená předem 2"
+msgstr "Seřízení neurčeno předem 2"
 
 msgid "not predefined synch 3"
-msgstr "Souhra neurčená předem 3"
+msgstr "Seřízení neurčeno předem 3"
 
 msgid "not predefined synch 4"
-msgstr "Souhra neurčená předem 4"
+msgstr "Seřízení neurčeno předem 4"
 
 msgid "not predefined synch 5"
-msgstr "Souhra neurčená předem 5"
+msgstr "Seřízení neurčeno předem 5"
 
 msgid "not predefined synch 6"
-msgstr "Souhra neurčená předem 6"
+msgstr "Seřízení neurčeno předem 6"
 
 msgid "not predefined synch 7"
-msgstr "Souhra neurčená předem 7"
+msgstr "Seřízení neurčeno předem 7"
 
 msgid "not predefined synch 8"
-msgstr "Souhra neurčená předem 8"
+msgstr "Seřízení neurčeno předem 8"
 
 msgid "not predefined synch 9"
-msgstr "Souhra neurčená předem 9"
+msgstr "Seřízení neurčeno předem 9"
 
 msgid "not predefined synch A"
-msgstr "Souhra neurčená předem A"
+msgstr "Seřízení neurčeno předem A"
 
 msgid "not predefined synch B"
-msgstr "Souhra neurčená předem B"
+msgstr "Seřízení neurčeno předem B"
 
 msgid "not predefined synch C"
-msgstr "Souhra neurčená předem C"
+msgstr "Seřízení neurčeno předem C"
 
 msgid "not predefined synch D"
-msgstr "Souhra neurčená předem D"
+msgstr "Seřízení neurčeno předem D"
 
 msgid "not predefined synch E"
-msgstr "Souhra neurčená předem E"
+msgstr "Seřízení neurčeno předem E"
 
 msgid "not predefined synch F"
-msgstr "Souhra neurčená předem F"
+msgstr "Seřízení neurčeno předem F"
 
 msgid "audio end (start of silence)"
 msgstr "Konec zvuku (začátek ticha)"
@@ -977,10 +977,10 @@ msgid "Volume Change Left"
 msgstr "Změna hlasitosti vlevo"
 
 msgid "Peak Volume Right"
-msgstr "Nejvyšší stupeň hlasitosti vpravo"
+msgstr "Největší hlasitost vpravo"
 
 msgid "Peak Volume Left"
-msgstr "Nejvyšší stupeň hlasitosti vlevo"
+msgstr "Největší hlasitost vlevo"
 
 msgid "Timestamp Format"
 msgstr "Formát časového razítka"
@@ -1001,7 +1001,7 @@ msgid "UTF16BE"
 msgstr "UTF16BE"
 
 msgid "Other"
-msgstr "Jiný"
+msgstr "Jiné"
 
 msgid "MPEG frames as unit"
 msgstr "Snímky MPEG jako jednotka"
@@ -1055,13 +1055,13 @@ msgid "Author"
 msgstr "Autor"
 
 msgid "BPM"
-msgstr "BPM"
+msgstr "ÚZM"
 
 msgid "Catalog Number"
 msgstr "Katalogové číslo"
 
 msgid "Compilation"
-msgstr "Kompilace"
+msgstr "Sbírka skladeb"
 
 msgid "Composer"
 msgstr "Skladatel"
@@ -1070,7 +1070,7 @@ msgid "Conductor"
 msgstr "Vedoucí"
 
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Autorské právo"
 
 msgid "Disc Number"
 msgstr "Číslo disku"
@@ -1133,31 +1133,31 @@ msgid "Sort Album"
 msgstr "Setřídění alb"
 
 msgid "Sort Album Artist"
-msgstr "Seřazování podle umělce alba"
+msgstr "Seřazení podle umělce alba"
 
 msgid "Sort Artist"
-msgstr "Setřídění účinkujících"
+msgstr "Seřazení podle umělce"
 
 msgid "Sort Composer"
-msgstr "Setřídění skladatel"
+msgstr "Seřazení podle skladatele"
 
 msgid "Sort Name"
-msgstr "Setřídění názvů"
+msgstr "Seřazení podle názvu"
 
 msgid "Subtitle"
 msgstr "Podnázev"
 
 msgid "Website"
-msgstr "Internetové stránky"
+msgstr "Internetová stránka"
 
 msgid "WWW Audio File"
-msgstr "WWW zvukového souboru"
+msgstr "Internetová adresa zvukového souboru"
 
 msgid "WWW Audio Source"
-msgstr "WWW zvukového zdroje"
+msgstr "Internetová adresa zvukového zdroje"
 
 msgid "32x32 pixels PNG file icon"
-msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
+msgstr "Ikona o velikosti 32 x 32 pixelů pro soubor PNG"
 
 msgid "Other file icon"
 msgstr "Ikona jiného souboru"
@@ -1193,13 +1193,13 @@ msgid "During performance"
 msgstr "Během vystoupení"
 
 msgid "Movie/video screen capture"
-msgstr "Obrázek z filmu/videa"
+msgstr "Obrázek z obrazového záznamu/filmu"
 
 msgid "A bright coloured fish"
 msgstr "Jasně svítící ryba"
 
 msgid "Illustration"
-msgstr "Ukázka"
+msgstr "Názorná ukázka"
 
 msgid "Band/artist logotype"
 msgstr "Logotyp hudební skupiny/umělce"
@@ -1229,10 +1229,10 @@ msgid "Codec"
 msgstr "Kodek"
 
 msgid "Escape for HTML"
-msgstr "Escape HTML"
+msgstr "Escape pro HTML"
 
 msgid "Automatic Import"
-msgstr "Automaticky importovat"
+msgstr "Zavést automaticky"
 
 msgid "D&estination:"
 msgstr "Cí&l:"
@@ -1274,7 +1274,7 @@ msgid "C&over Art"
 msgstr "&Obrázky obalů"
 
 msgid "Browse Cover Art"
-msgstr "Procházet kvůli obrázkům obalů"
+msgstr "Procházet obrázky obalů"
 
 msgid "&Artist/Album"
 msgstr "Umělec/&Album"
@@ -1346,7 +1346,7 @@ msgid "&Picture field name:"
 msgstr "Název pole s &obrázkem:"
 
 msgid "Mark if &larger than (bytes):"
-msgstr "Označit, &je-li větší než (bajty):"
+msgstr "Označit, &je-li větší než (byty):"
 
 msgid "Custom &Genres"
 msgstr "Vlas&tní žánry"
@@ -1379,13 +1379,13 @@ msgid "Save"
 msgstr "Uložit"
 
 msgid "&Preserve file timestamp"
-msgstr "&Neměnit časové razítko"
+msgstr "&Neměnit časové razítko souboru"
 
 msgid "&Mark changes"
 msgstr "&Označit změny"
 
 msgid "F&ilename for cover:"
-msgstr "&Jméno souboru s obalem:"
+msgstr "&Název souboru s obalem:"
 
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
@@ -1400,7 +1400,7 @@ msgid "Context &Menu Commands"
 msgstr "Příkazy souvisejících &nabídek"
 
 msgid "&Play on double click"
-msgstr "&Přehrát po dvojitém poklepání"
+msgstr "&Přehrát po dvojitém klepnutí"
 
 msgid "Proxy"
 msgstr "Proxy"
@@ -1409,22 +1409,22 @@ msgid "&Proxy:"
 msgstr "&Proxy:"
 
 msgid "&Use authentication with proxy"
-msgstr "Po&užít ověření pomocí Proxy"
+msgstr "Po&užít ověření pomocí proxy"
 
 msgid "Proxy user &name:"
-msgstr "Uživatelské &jméno uživatele Proxy:"
+msgstr "Uživatelské &jméno uživatele proxy:"
 
 msgid "Proxy pass&word:"
-msgstr "&Heslo pro Proxy:"
+msgstr "&Heslo pro proxy:"
 
 msgid "&Metadata Plugins && Priority"
-msgstr "&Metadata moduly && Priorita"
+msgstr "&Přídavné moduly popisných dat && přednost"
 
 msgid "A&vailable Plugins"
-msgstr "Dostupné zásu&vné moduly"
+msgstr "Dostupné &přídavné moduly"
 
 msgid "Changes take only effect after a restart!"
-msgstr "Změna se projeví až po restartu!"
+msgstr "Změna se projeví až po opětovném spuštění!"
 
 msgid "From Clip&board"
 msgstr "Ze s&chránky"
@@ -1445,7 +1445,7 @@ msgid "H&eader:"
 msgstr "Zá&hlaví:"
 
 msgid "&Tracks:"
-msgstr "S&topy:"
+msgstr "S&kladby:"
 
 msgid "F&ooter:"
 msgstr "Z&ápatí:"
@@ -1529,7 +1529,7 @@ msgid "&Length"
 msgstr "&Délka"
 
 msgid "T&rack"
-msgstr "&Stopa"
+msgstr "&Skladba"
 
 msgid "&Title"
 msgstr "&Název"
@@ -1788,7 +1788,7 @@ msgid "Format while editing"
 msgstr "Formátovat během úprav"
 
 msgid "Validation"
-msgstr "Validace"
+msgstr "Schválení"
 
 msgid "String replacement:"
 msgstr "Nahrazení řetězce:"
@@ -1866,10 +1866,10 @@ msgid "&Add offset..."
 msgstr "&Přidat posun..."
 
 msgid "&Seek to position"
-msgstr "P&řejít na pozici"
+msgstr "&Přejít na pozici"
 
 msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
+msgstr "Otisk MusicBrainz"
 
 msgid "Unrecognized"
 msgstr "Nerozpoznáno"
@@ -1887,7 +1887,7 @@ msgid "Fingerprint"
 msgstr "Otisk"
 
 msgid "Metadata Lookup"
-msgstr "Vyhledat Metadata"
+msgstr "Vyhledat popisná data"
 
 msgid "Amazon"
 msgstr "Amazon"
@@ -2121,13 +2121,13 @@ msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Veřejné internetové stránky vydavatele"
 
 msgid "WXXX - User defined URL link"
-msgstr "WXXX - Uživatelsky stanovený odkaz na URL"
+msgstr "WXXX - Uživatelsky stanovená adresa (URL)"
 
 msgid "MusicBrainz Release"
-msgstr "MusicBrainz Album"
+msgstr "MusicBrainz - Album"
 
 msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Rejstřík s body hledání zvuku"
+msgstr "ASPI - Rejstřík bodů hledání zvuku"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Vyrovnání (2)"
@@ -2142,7 +2142,7 @@ msgid "SIGN - Signature frame"
 msgstr "SIGN - Podpis"
 
 msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes kompilací"
+msgstr "TCMP - Sestavení iTunes"
 
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Čas zakódování"
@@ -2172,19 +2172,19 @@ msgid "TPRO - Produced notice"
 msgstr "TPRO - Autorské právo výroby"
 
 msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Seřazování podle umělce alba"
+msgstr "TSO2 - Seřazení podle umělce alba"
 
 msgid "TSOA - Album sort order"
-msgstr "TSOA - Setřídění alb"
+msgstr "TSOA - Seřazení podle alba"
 
 msgid "TSOC - Composer sort order"
-msgstr "TSOC - Setřídění skladatel"
+msgstr "TSOC - Seřazení podle skladatele"
 
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Setřídění účinkujících"
+msgstr "TSOP - Seřazení podle výkonného umělce (účinkujícího)"
 
 msgid "TSOT - Title sort order"
-msgstr "TSOT - Setřídění názvů"
+msgstr "TSOT - Seřazení podle názvu"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Podnázev skladby"
@@ -2241,10 +2241,10 @@ msgid "Mark truncated fields"
 msgstr "Označit zkrácená pole"
 
 msgid "ID3v1 text encoding"
-msgstr "ID3v1 kódování textu"
+msgstr "Kódování textu ID3v1"
 
 msgid "ID3v2 text encoding"
-msgstr "ID3v2 kódování textu"
+msgstr "Kódování textu ID3v2"
 
 msgid "Use track/total number of tracks format"
 msgstr "Použít formát číslo/celkový počet stop"
@@ -2253,19 +2253,19 @@ msgid "Genre as text instead of numeric string"
 msgstr "Žánr jako text místo jako číslo"
 
 msgid "Version used for new ID3v2 tags"
-msgstr "Verze používaná pro nové značky"
+msgstr "Verze používaná pro nové značky ID3v2"
 
 msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis název pole s poznámkou"
+msgstr "Název pole s poznámkou Ogg/Vorbis"
 
 msgid "Ogg/Vorbis picture field name"
-msgstr "Ogg/Vorbis název pole s obrázkem"
+msgstr "Název pole s obrázkem Ogg/Vorbis"
 
 msgid "Mark if picture larger than maxium size"
-msgstr "Označit, je-li větší než"
+msgstr "Označit, je-li obrázek větší než největší velikost"
 
 msgid "Picture maximum size (bytes)"
-msgstr "Maximální velikost (bajty)"
+msgstr "Největší velikost obrázků (byty)"
 
 msgid "Show only custom genres"
 msgstr "Ukázat pouze vlastní žánry"
@@ -2283,19 +2283,19 @@ msgid "Load last-opened files"
 msgstr "Nahrát naposledy otevřené soubory"
 
 msgid "Preserve file timestamp"
-msgstr "Neměnit časové razítko"
+msgstr "Neměnit časové razítko souboru"
 
 msgid "Mark changes"
 msgstr "Označit změny"
 
 msgid "Filename for cover"
-msgstr "Jméno souboru s obalem"
+msgstr "Název souboru pro obal"
 
 msgid "To filename format"
-msgstr "Formát do názvu souboru"
+msgstr "Do formátu názvu souboru"
 
 msgid "From filename format"
-msgstr "Formát z názvu souboru"
+msgstr "Z formátu názvu souboru"
 
 msgid "To Filename"
-msgstr "Do názvu souboru"
+msgstr "Podle názvu souboru"
