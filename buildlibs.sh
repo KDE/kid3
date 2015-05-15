@@ -2323,7 +2323,7 @@ done
 for f in po/*.qm; do
   l=${f#*_};
   l=${l%.qm};
-  test -f $QT_TRANSLATIONS_DIR/qt_$l.qm && cp $QT_TRANSLATIONS_DIR/qt_$l.qm $INSTDIR
+  test -f $QT_TRANSLATIONS_DIR/qtbase_$l.qm && cp $QT_TRANSLATIONS_DIR/qtbase_$l.qm $INSTDIR
 done
 
 rm -f $INSTDIR.zip

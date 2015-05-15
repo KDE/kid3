@@ -33,6 +33,16 @@
 #include <QFileInfo>
 #include "config.h"
 
+namespace {
+
+#if QT_VERSION >= 0x050000
+const char* const QT_TRANSLATION_PREFIX = "qtbase_";
+#else
+const char* const QT_TRANSLATION_PREFIX = "qt_";
+#endif
+
+}
+
 /**
  * @brief Load application translation.
  *
@@ -71,12 +81,12 @@ void Utils::loadTranslation(const QString& lang)
         localeName.startsWith(QLatin1String("en")) ||
 #if defined Q_OS_WIN32 || defined Q_OS_MAC
         (!translationsDir.isNull() &&
-         qtTr->load(QLatin1String("qt_") + localeName, translationsDir,
-                    searchDelimiters)) ||
-        qtTr->load(QLatin1String("qt_") + localeName, QLatin1String("."),
-                   searchDelimiters)
+         qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
+                    translationsDir, searchDelimiters)) ||
+        qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
+                   QLatin1String("."), searchDelimiters)
 #else
-        qtTr->load(QLatin1String("qt_") + localeName,
+        qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                    QLibraryInfo::location(QLibraryInfo::TranslationsPath),
                    searchDelimiters)
 #endif
