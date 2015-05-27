@@ -4,6 +4,8 @@
   <id type="desktop">kid3.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
+  <name>Kid3</name>
+  <summary>Edit audio file metadata</summary>
   <description>
     <p>
       With Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis,
