@@ -685,7 +685,7 @@ static bool setGenreNum(ID3_Tag* tag, int num)
     if (num != 0xff) {
       str = QString(QLatin1String("(%1)")).arg(num);
     } else {
-      str.clear();
+      str = QLatin1String("");
     }
     changed = getTextField(tag, ID3FID_CONTENTTYPE) != str &&
               setTextField(tag, ID3FID_CONTENTTYPE, str);
