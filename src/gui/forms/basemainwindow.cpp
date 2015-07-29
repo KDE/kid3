@@ -107,6 +107,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_editFrameTaggedFile(0), m_findReplaceActive(false),
   m_expandNotificationNeeded(false)
 {
+  m_downloadDialog->close();
   ContextHelp::init(m_platformTools);
 
   DownloadClient* downloadClient = m_app->getDownloadClient();
