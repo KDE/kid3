@@ -74,6 +74,27 @@ public:
    * @return file patterns, e.g. "*.mp3".
    */
   virtual QString getNameFilterPatterns(const QString& nameFilter) const = 0;
+
+protected:
+  /**
+   * Construct a name filter string suitable for file dialogs.
+   * This function can be used to implement fileDialogNameFilter()
+   * for QFileDialog.
+   * @param nameFilters list of description, filter pairs, e.g.
+   * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+   * @return name filter string.
+   */
+  static QString qtFileDialogNameFilter(
+      const QList<QPair<QString, QString> >& nameFilters);
+
+  /**
+   * Get file pattern part of m_nameFilter.
+   * This function can be used to implement getNameFilterPatterns()
+   * for QFileDialog.
+   * @param nameFilter name filter string
+   * @return file patterns, e.g. "*.mp3".
+   */
+  static QString qtNameFilterPatterns(const QString& nameFilter);
 };
 
 #endif // ICOREPLATFORMTOOLS_H

@@ -25,10 +25,54 @@
  */
 
 #include "icoreplatformtools.h"
+#include <QString>
 
 /**
  * Destructor.
  */
 ICorePlatformTools::~ICorePlatformTools()
 {
+}
+
+/**
+ * Construct a name filter string suitable for file dialogs.
+ * This function can be used to implement fileDialogNameFilter()
+ * for QFileDialog.
+ * @param nameFilters list of description, filter pairs, e.g.
+ * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+ * @return name filter string.
+ */
+QString ICorePlatformTools::qtFileDialogNameFilter(
+    const QList<QPair<QString, QString> >& nameFilters)
+{
+  QString filter;
+  for (QList<QPair<QString, QString> >::const_iterator it =
+       nameFilters.constBegin();
+       it != nameFilters.constEnd();
+       ++it) {
+    if (!filter.isEmpty()) {
+      filter += QLatin1String(";;");
+    }
+    filter += it->first;
+    filter += QLatin1String(" (");
+    filter += it->second;
+    filter += QLatin1Char(')');
+  }
+  return filter;
+}
+
+/**
+ * Get file pattern part of m_nameFilter.
+ * This function can be used to implement getNameFilterPatterns()
+ * for QFileDialog.
+ * @param nameFilter name filter string
+ * @return file patterns, e.g. "*.mp3".
+ */
+QString ICorePlatformTools::qtNameFilterPatterns(const QString& nameFilter)
+{
+  int start = nameFilter.indexOf(QLatin1Char('(')),
+      end = nameFilter.indexOf(QLatin1Char(')'));
+  return start != -1 && end != -1 && end > start
+      ? nameFilter.mid(start + 1, end - start - 1)
+      : QString();
 }

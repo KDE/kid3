@@ -132,6 +132,9 @@ QIcon KdePlatformTools::iconFromTheme(const QString& name) const
 QString KdePlatformTools::fileDialogNameFilter(
     const QList<QPair<QString, QString> >& nameFilters) const
 {
+#if QT_VERSION >= 0x050000
+  return ICorePlatformTools::qtFileDialogNameFilter(nameFilters);
+#else
   QString filter;
   for (QList<QPair<QString, QString> >::const_iterator it =
        nameFilters.constBegin();
@@ -150,6 +153,7 @@ QString KdePlatformTools::fileDialogNameFilter(
     }
   }
   return filter;
+#endif
 }
 
 /**
@@ -159,12 +163,16 @@ QString KdePlatformTools::fileDialogNameFilter(
  */
 QString KdePlatformTools::getNameFilterPatterns(const QString& nameFilter) const
 {
+#if QT_VERSION >= 0x050000
+  return ICorePlatformTools::qtNameFilterPatterns(nameFilter);
+#else
   if (nameFilter.startsWith(QLatin1Char('*'))) {
     int end = nameFilter.indexOf(QLatin1Char('|'));
     return end != -1 ? nameFilter.left(end) : nameFilter;
   } else {
     return QString();
   }
+#endif
 }
 
 /**

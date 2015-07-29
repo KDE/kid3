@@ -261,20 +261,7 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
 QString CorePlatformTools::fileDialogNameFilter(
     const QList<QPair<QString, QString> >& nameFilters) const
 {
-  QString filter;
-  for (QList<QPair<QString, QString> >::const_iterator it =
-       nameFilters.constBegin();
-       it != nameFilters.constEnd();
-       ++it) {
-    if (!filter.isEmpty()) {
-      filter += QLatin1String(";;");
-    }
-    filter += it->first;
-    filter += QLatin1String(" (");
-    filter += it->second;
-    filter += QLatin1Char(')');
-  }
-  return filter;
+  return ICorePlatformTools::qtFileDialogNameFilter(nameFilters);
 }
 
 /**
@@ -284,9 +271,5 @@ QString CorePlatformTools::fileDialogNameFilter(
  */
 QString CorePlatformTools::getNameFilterPatterns(const QString& nameFilter) const
 {
-  int start = nameFilter.indexOf(QLatin1Char('(')),
-      end = nameFilter.indexOf(QLatin1Char(')'));
-  return start != -1 && end != -1 && end > start
-      ? nameFilter.mid(start + 1, end - start - 1)
-      : QString();
+  return ICorePlatformTools::qtNameFilterPatterns(nameFilter);
 }
