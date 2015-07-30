@@ -33,6 +33,7 @@
 #include <KConfig>
 #include <QUrl>
 #include <QFileDialog>
+#include "mainwindowconfig.h"
 
 #define KUrl QUrl
 #define KIcon QIcon::fromTheme
@@ -250,7 +251,9 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
 {
 #if QT_VERSION >= 0x050000
   return QFileDialog::getOpenFileName(
-        parent, caption, dir, filter, selectedFilter);
+        parent, caption, dir, filter, selectedFilter,
+        MainWindowConfig::instance().dontUseNativeDialogs()
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #else
   if (selectedFilter) {
     QString selectedFile;
@@ -285,7 +288,9 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
 {
 #if QT_VERSION >= 0x050000
   return QFileDialog::getOpenFileNames(
-        parent, caption, dir, filter, selectedFilter);
+        parent, caption, dir, filter, selectedFilter,
+        MainWindowConfig::instance().dontUseNativeDialogs()
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #else
   if (selectedFilter) {
     QStringList selectedFiles;
@@ -321,7 +326,9 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
 {
 #if QT_VERSION >= 0x050000
   return QFileDialog::getSaveFileName(
-        parent, caption, dir, filter, selectedFilter);
+        parent, caption, dir, filter, selectedFilter,
+        MainWindowConfig::instance().dontUseNativeDialogs()
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #else
   if (selectedFilter) {
     QString selectedFile;
@@ -354,7 +361,9 @@ QString KdePlatformTools::getExistingDirectory(QWidget* parent,
 {
 #if QT_VERSION >= 0x050000
   return QFileDialog::getExistingDirectory(parent, caption, startDir,
-                                           QFileDialog::ShowDirsOnly);
+      MainWindowConfig::instance().dontUseNativeDialogs()
+      ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
+      : QFileDialog::ShowDirsOnly);
 #else
   return KFileDialog::getExistingDirectory(startDir, parent, caption);
 #endif
