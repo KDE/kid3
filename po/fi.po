@@ -1352,7 +1352,7 @@ msgstr "Omat t&yylilajit"
 msgid "&Show only custom genres"
 msgstr "Näytä &vain omat tyylilajit"
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr "Tunniste&oikopolut"
 
 msgid "&Tag Format"

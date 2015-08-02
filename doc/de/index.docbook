@@ -36,7 +36,7 @@
 in MP3 Dateien. Auch die Tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV, AIFF Dateien und Tracker Modulen (MOD, S3M, IT, XM) werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
-zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
+zu setzen (z.B. Album, Interpret, Jahr und Genre in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
 </para>
 </abstract>
@@ -221,7 +221,7 @@ ID3v2 Tags editieren können, hat &kid3; volle Kontrolle über die Tags
 beider Versionen, es kann zwischen den beiden Formaten konvertieren und hat
 Zugang zu allen ID3v2 Frames. Tags mehrerer Dateien können gleichzeitig
 auf dieselben Werte gesetzt werden, so beispielsweise Interpret, Album,
-Jahr und Stil aller Dateien eines Albums. Wenn die Information für die Tags
+Jahr und Genre aller Dateien eines Albums. Wenn die Information für die Tags
 schon im Dateinamen enthalten ist, können die Tags automatisch aus dem
 Dateinamen generiert werden. Es ist auch möglich, den Dateinamen in einem
 beliebigen Format aus den Werten in den Tags zu setzen.
@@ -307,10 +307,10 @@ Dateien werden im Dateilistenfeld angezeigt. Aus Bequemlichkeit wollen
 wir die Tags aus den Dateinamen erzeugen. Daher wählen wir alle Dateien im
 Listenfeld aus und klicken auf <guilabel>Nach:</guilabel> <guibutton>Tag 1</guibutton> in der
 <guilabel>Datei</guilabel> Sektion. Dadurch werden Titel, Interpret,
-Album und Nummer in allen Dateien gesetzt. Um die Werte für Jahr und Stil
+Album und Nummer in allen Dateien gesetzt. Um die Werte für Jahr und Genre
 in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
 "2002" in das Feld <guilabel>Jahr</guilabel> und wählen "Pop" im
-<guilabel>Stil</guilabel> Auswahlfeld. Um einzig diese zwei Werte zu
+<guilabel>Genre</guilabel> Auswahlfeld. Um einzig diese zwei Werte zu
 verändern, werden ihre Markierungsfelder automatisch aktiviert, und alle anderen Markierungsfelder
 bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
 verändert, so sieht man, dass die Tags für die erste Datei die korrekten
@@ -456,7 +456,7 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%t %{track} Nummer (Track, z.B. 01)</para></listitem>
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track, z.B. 1)</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>  %{ignore} Wird ignoriert wenn Tags aus dem Dateinamen erzeugt werden</para></listitem>
 </itemizedlist>
 
@@ -512,7 +512,7 @@ Die Eingabefelder für <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>,
 <guilabel>Album</guilabel>, <guilabel>Kommentar</guilabel>,
 <guilabel>Jahr</guilabel>, <guilabel>Nummer</guilabel> und
-<guilabel>Stil</guilabel> werden benutzt um die entsprechenden Werte im
+<guilabel>Genre</guilabel> werden benutzt um die entsprechenden Werte im
 ersten Tag der ausgewählten Dateien zu editieren. Die Werte werden
 verändert, wenn die Dateiauswahl geändert wird oder vor Operationen wie
 <guimenuitem>Speichern</guimenuitem> und
@@ -528,7 +528,7 @@ d.h. eine leere Zeichenkette für die Felder <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>, <guilabel>Album</guilabel> und
 <guilabel>Kommentar</guilabel>, 0 für <guilabel>Jahr</guilabel> und
 <guilabel>Nummer</guilabel> und ein leerer Auswahleintrag bei
-<guilabel>Stil</guilabel>. Die Werte können editiert werden und werden
+<guilabel>Genre</guilabel>. Die Werte können editiert werden und werden
 für die ausgewählte Datei beim Ändern der Auswahl gesetzt, sofern das
 entsprechende Markierungsfeld aktiviert ist. Die Datei wird dann durch
 ein Disketten-Symbol als modifiziert gekennzeichnet, doch die eigentliche Datei
@@ -583,7 +583,7 @@ Die Eingabefelder funktionieren gleich wie bei <guilabel>Tag 1</guilabel>
 beschrieben, die Länge der Zeichenketten ist jedoch nicht begrenzt.
 </para>
 <para>
-Beim <guilabel>Stil</guilabel> können nebst den vorgegebenen auch eigene Namen
+Beim <guilabel>Genre</guilabel> können nebst den vorgegebenen auch eigene Namen
 verwendet werden - eine Eingabe ins Editierfeld genügt.
 </para>
 <para>
@@ -645,7 +645,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Kommentar</entry>        <entry>COMM</entry>    <entry>COMM</entry>    <entry>©cmt</entry>           <entry>Description</entry>                <entry>COMMENT</entry></row>
        <row><entry>Datum</entry>            <entry>TYER</entry>    <entry>TDRC</entry>    <entry>©day</entry>           <entry>WM/Year</entry>                    <entry>DATE</entry></row>
        <row><entry>Tracknummer</entry>      <entry>TRCK</entry>    <entry>TRCK</entry>    <entry>trkn</entry>           <entry>WM/TrackNumber</entry>             <entry>TRACKNUMBER</entry></row>
-       <row><entry>Stil</entry>             <entry>TCON</entry>    <entry>TCON</entry>    <entry>©gen</entry>           <entry>WM/Genre</entry>                   <entry>GENRE</entry></row>
+       <row><entry>Genre</entry>             <entry>TCON</entry>    <entry>TCON</entry>    <entry>©gen</entry>           <entry>WM/Genre</entry>                   <entry>GENRE</entry></row>
        <row><entry>Albuminterpret</entry>   <entry>TPE2</entry>    <entry>TPE2</entry>    <entry>aART</entry>           <entry>WM/AlbumArtist</entry>             <entry>ALBUMARTIST</entry></row>
        <row><entry>Arrangierung</entry>     <entry>IPLS</entry>    <entry>TIPL</entry>    <entry>ARRANGER</entry>       <entry>WM/Producer</entry>                <entry>ARRANGER</entry></row>
        <row><entry>Autor</entry>            <entry>TOLY</entry>    <entry>TOLY</entry>    <entry>AUTHOR</entry>         <entry></entry>                           <entry>AUTHOR</entry></row>
@@ -659,7 +659,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Kodiert von</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©enc</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
        <row><entry>Kodierungseinstellungen</entry> <entry>TSSE</entry> <entry>TSSE</entry> <entry>©too</entry>          <entry>WM/EncodingSettings</entry>        <entry>ENCODERSETTINGS</entry></row>
        <row><entry>Aufnahmedatum</entry>    <entry></entry>        <entry>TDEN</entry>    <entry></entry>               <entry>WM/EncodingTime</entry>            <entry>ENCODINGTIME</entry></row>
-       <row><entry>Gruppierung</entry>      <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
+       <row><entry>Werk</entry>             <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
        <row><entry>Anfangstonart</entry>    <entry>TKEY</entry>    <entry>TKEY</entry>    <entry></entry>               <entry>WM/InitialKey</entry>              <entry>INITIALKEY</entry></row>
        <row><entry>ISRC</entry>             <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry></row>
        <row><entry>Sprache</entry>          <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry></row>
@@ -671,7 +671,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Originalkünstler</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
        <row><entry>Originaldatum</entry>    <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
        <row><entry>Teil</entry>             <entry></entry>        <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
-       <row><entry>Interpret</entry>        <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
+       <row><entry>Musiker</entry>          <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
        <row><entry>Bild</entry>             <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
        <row><entry>Herausgeber</entry>      <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
        <row><entry>Veröffentlichungsland</entry> <entry>TXXX:RELEASECOUNTRY</entry> <entry>TXXX:RELEASECOUNTRY</entry>  <entry></entry> <entry></entry>           <entry>RELEASECOUNTRY</entry></row>
@@ -699,7 +699,7 @@ soll. Die meisten Tags unterstützen Frames mit beliebigen Namen; diese werden
 dann verwendet, wenn kein spezifisches Frame zur Verfügung steht (z.B. die
 Namen in Großbuchstaben in der Spalte MP4). Falls keine solche Möglichkeit
 besteht, so kann es vorkommen, dass für ein Format bestimmte Frame-Typen nicht
-unterstützt werden können, so Autor und Interpret für ASF (WMA).
+unterstützt werden können, so Autor und Musiker für ASF (WMA).
 </para></listitem>
 <listitem><para>
 Die Zuordnungen sind nicht rein willkürlich, sondern orientieren sich daran,
@@ -712,11 +712,11 @@ obwohl dies für andere Tag-Formate etwas sonderbar erscheinen mag.
 </para></listitem>
 <listitem><para>
 Die Zuordnung ist nicht immer eindeutig. So wird bei ID3v2.3 sowohl für
-Arrangierung als auch für Interpret ein IPLS-Frame verwendet. Beim Zurücklesen
+Arrangierung als auch für Musiker ein IPLS-Frame verwendet. Beim Zurücklesen
 wird dann für beide Typen "Arrangierung" angezeigt.
 </para></listitem>
 <listitem><para>
-Die Frames Arrangierung und Interpret verwenden ein besonderes Format für
+Die Frames Arrangierung und Musiker verwenden ein besonderes Format für
 ihren Inhalt: "Mitwirkung 1|Mitwirkender 1|Mitwirkung 2|Mitwirkender 2|...",
 beispielsweise "Chorus Master|Ernst Dunshirn|Soprano Vocals|Anna
 Netrebko". Dadurch wird für die IPLS bzw. TIPL/TMCL Frames in MP3-Dateien eine
@@ -936,7 +936,7 @@ es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
 Wenn <guilabel>Standard Tags</guilabel> markiert ist, werden grundlegende
 Informationen importiert, so z.B. Interpret, Album und Titel.
 Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
-verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
+verfügbare Informationen importiert, z.B. Musiker, Arrangierer oder der
 Herausgeber.
 Wenn <guilabel>Cover-Bilder</guilabel> markiert ist, werden Cover-Bilder
 heruntergeladen, falls vorhanden.
@@ -947,7 +947,7 @@ gewählt. Wie bei <guibutton>Von
 gnudb.org</guibutton> können auch hier Artist und Album eingegeben werden und
 es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
 Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
-verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
+verfügbare Informationen importiert, z.B. Musiker, Arrangierer oder der
 Herausgeber.
 Wenn <guilabel>Cover-Bilder</guilabel> markiert ist, werden Cover-Bilder
 heruntergeladen, falls vorhanden.
@@ -1023,7 +1023,7 @@ Verfügung. Mit Klick auf <guibutton>Hinzufügen</guibutton> kann ein leeres
 benutzerdefiniertes Format erzeugt und vom Benutzer gesetzt
 werden. Die zwei Zeilen unterhalb des Formatnamens können hierzu mit regulären
 Ausdrücken gefüllt werden. Der erste Ausdruck wird einmal angewendet, um
-albumspezifische Daten wie Interpret, Album, Jahr und Stil zu extrahieren. Die
+albumspezifische Daten wie Interpret, Album, Jahr und Genre zu extrahieren. Die
 zweite Zeile wird vom Dokumentanfang bis zum Schluss für jeden Titel probiert,
 um Titeldaten zu kriegen, also Nummer und Titel. In den regulären Ausdrücken
 können alle von Qt unterstützten Funktionen eingesetzt werden; also das meiste
@@ -1041,7 +1041,7 @@ sind nebst den unten aufgelisteten Codes beliebige Framenamen möglich:
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track)</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%d %{duration} Länge (Dauer)</para></listitem>
 </itemizedlist>
 </para>
@@ -1358,7 +1358,7 @@ die Namen aller Tag Frames verwendet werden.
 <listitem><para>%t %{track} Nummer (Track)</para></listitem>
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
 <listitem><para>%p %{filepath} Pfadname</para></listitem>
 <listitem><para>%u %{url} URL</para></listitem>
@@ -1464,7 +1464,7 @@ für die Sortierung zu verwenden. "%{track.3}" kann beispielsweise benutzt
 werden, um nach der Tracknummer zu sortieren (".3" wird verwendet, um 3
 Stellen mit führenden Nullen zu kriegen, und somit korrekt nach der Nummer zu
 sortieren). Es ist auch möglich, mehrere Codes zu verwenden,
-z.B. "%{genre}%{year}", um nach einer Zeichenkette aus Stil und Jahr zu
+z.B. "%{genre}%{year}", um nach einer Zeichenkette aus Genre und Jahr zu
 sortieren.
 </para>
 <para>
@@ -1667,7 +1667,7 @@ Werte aus den Tags im Verzeichnisnamen einzusetzen:
 <listitem><para>%t %{track} Nummer (Track))</para></listitem>
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1746,7 +1746,7 @@ und Exportieren verwendet werden.
 <listitem><para>%t %{track} Nummer (Track))</para></listitem>
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
 <listitem><para>%p %{filepath} Absoluter Pfadname</para></listitem>
@@ -1864,7 +1864,7 @@ equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
 %{title} equals "" or %{artist} equals "" or %{album} equals "" or %{year} equals "" or %{tracknumber} equals "" or %{genre} equals ""
 </userinput></para>
 <para>Es werden nur Dateien angezeigt, welche leere Standard-Tag-Werte
-haben (Titel, Interpret, Album, Datum, Tracknummer, Stil).</para>
+haben (Titel, Interpret, Album, Datum, Tracknummer, Genre).</para>
 </listitem></varlistentry>
 
 <varlistentry><term>No Picture</term><listitem>
@@ -2009,7 +2009,7 @@ welche ihrerseits in drei Reiter unterteilt ist für
 <para>
 Wenn <guilabel>Markiere abgeschnittene Felder</guilabel> aktiv ist, werden
 abgeschnittene ID3v1.1 Felder rot markiert. Die Textfelder in ID3v1.1 Tags
-haben bloß 30 Zeichen, der Kommentar nur 28 Zeichen. Auch Stil und Nummer
+haben bloß 30 Zeichen, der Kommentar nur 28 Zeichen. Auch Genre und Nummer
 sind Beschränkungen unterworfen, so dass Felder gekürzt werden
 können, wenn sie importiert oder von ID3v2 konvertiert werden.
 Abgeschnittene Felder und ihre Datei werden rot markiert; die Markierung
@@ -2030,12 +2030,12 @@ Tracknummer-Feld bei den ID3v2 Tags nicht bloß die Tracknummer gespeichert
 wird, sondern auch die Gesamtzahl der Stücke im Verzeichnis.
 </para>
 <para>
-Wenn <guilabel>Stil als Text statt als Nummer</guilabel> aktiviert ist, werden
-alle Stile als Text gespeichert, auch wenn ein ID3v1-Code für den Stil
-existiert. Ohne diese Einstellungen werden solche Stile als die Nummer des
-entsprechenden ID3v1-Codes gespeichert (in Klammern für ID3v2.3). Der Stil
+Wenn <guilabel>Genre als Text statt als Nummer</guilabel> aktiviert ist, werden
+alle Genres als Text gespeichert, auch wenn ein ID3v1-Code für das Genre
+existiert. Ohne diese Einstellungen werden solche Genres als die Nummer des
+entsprechenden ID3v1-Codes gespeichert (in Klammern für ID3v2.3). Das Genre
 Metal wird also abhängig von dieser Option entweder als "Metal" oder als "(9)"
-gespeichert. Stile, für welche kein ID3v1-Code existiert, werden immer als
+gespeichert. Genres, für welche kein ID3v1-Code existiert, werden immer als
 Text gespeichert. Der Sinn dieser Option ist es, die Kompatibilität mit
 Geräten zu verbessern, welche die Codes nicht korrekt interpretieren.
 </para>
@@ -2089,30 +2089,30 @@ gewissen Applikationen und Playern nicht akzeptiert werden, aufgespürt
 werden. Der vorgegebene Limit ist 131072 Bytes (128 KB).
 </para>
 <para>
-<guilabel>Eigene Stile</guilabel> kann zur Definition von Stilen benutzt werden,
+<guilabel>Eigene Genres</guilabel> kann zur Definition von Genres benutzt werden,
 welche nicht in der Standard-Liste enthalten sind, so z.B. "Gothic Metal".
-Solche Stile sind dann im <guilabel>Stil</guilabel> Auswahlfeld von
+Solche Genres sind dann im <guilabel>Genre</guilabel> Auswahlfeld von
 <guilabel>Tag 2</guilabel> verfügbar. Für ID3v1.1 Tags können nur
-die vordefinierten Stile verwendet werden.
+die vordefinierten Genres verwendet werden.
 </para>
 <para>
-Die Liste mit den eigenen Stilen kann auch dazu verwendet werden, die Anzahl
-der im <guilabel>Stil</guilabel> Auswahlfeld angebotenen Einträge auf
+Die Liste mit den eigenen Genres kann auch dazu verwendet werden, die Anzahl
+der im <guilabel>Genre</guilabel> Auswahlfeld angebotenen Einträge auf
 diejenigen zu reduzieren, welche man braucht. Falls die Musiksammlung
 hauptsächlich aus Metal, Gothic Metal, Ancient und Hard Rock Nummern
-besteht, so kann man diese Stile eingeben und
-<guilabel>Nur eigene Stile anzeigen</guilabel> markieren. Das
-<guilabel>Tag 2</guilabel> <guilabel>Stil</guilabel> Auswahlfeld enthält
-dann nur noch diese vier Stile, und man braucht nicht mehr die ganze lange
+besteht, so kann man diese Genres eingeben und
+<guilabel>Nur eigene Genres anzeigen</guilabel> markieren. Das
+<guilabel>Tag 2</guilabel> <guilabel>Genre</guilabel> Auswahlfeld enthält
+dann nur noch diese vier Genres, und man braucht nicht mehr die ganze lange
 Liste nach ihnen zu durchsuchen. Bei dieser Beispielkonfiguration sind im
-<guilabel>Tag 1</guilabel> <guilabel>Stil</guilabel> Auswahlfeld nur noch
+<guilabel>Tag 1</guilabel> <guilabel>Genre</guilabel> Auswahlfeld nur noch
 Metal und Hard Rock verfügbar, denn diese zwei Einträge sind
-Standard Stile. Wenn <guilabel>Nur eigene Stile anzeigen</guilabel> nicht
-markiert ist, so werden die eigenen Stile am Ende der Auswahlliste
+Standard Genres. Wenn <guilabel>Nur eigene Genres anzeigen</guilabel> nicht
+markiert ist, so werden die eigenen Genres am Ende der Auswahlliste
 aufgeführt.
 </para>
 <para>
-<guilabel>Schnellzugriff-Tags</guilabel> bestimmt, welche Frametypen immer
+<guilabel>Schnellzugriff-Elemente</guilabel> bestimmt, welche Frametypen immer
 bei <link linkend="tag2">Tag 2</link> angezeigt werden. Solche Frames können
 dann hinzugefügt werden, ohne zuerst den <guibutton>Hinzufügen</guibutton>
 Knopf zu drücken.
@@ -2188,7 +2188,7 @@ folgenden Codes übergeben werden:
 <listitem><para>%t %{track} Nummer (Track)</para></listitem>
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
-<listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%b %{browser} Kommando zum Starten des Web Browsers</para></listitem>
 <listitem><para>%q %{qmlpath} Basisverzeichnis der mitgelieferten QML-Dateien</para></listitem>
 </itemizedlist>
@@ -2581,7 +2581,7 @@ Tag 1: ID3v1.1
   Album         Let's Tag
   Datum         2013
   Tracknummer   1
-  Stil          Pop</computeroutput>
+  Genre         Pop</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
 Intro</computeroutput></screen>
 <para>Ein Bild kann in einer Datei gespeichert werden.

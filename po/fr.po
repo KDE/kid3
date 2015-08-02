@@ -1353,8 +1353,8 @@ msgstr "&Genres personnalisés"
 msgid "&Show only custom genres"
 msgstr "&Montrer seulement les genres pernonnalisés"
 
-msgid "&Quick Access Tags"
-msgstr "Balises d'accès &rapide"
+msgid "&Quick Access Frames"
+msgstr "Cadres d'accès &rapide"
 
 msgid "&Tag Format"
 msgstr "Forma&t des balises"

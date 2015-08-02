@@ -1353,8 +1353,8 @@ msgstr "Własne &gatunki"
 msgid "&Show only custom genres"
 msgstr "&Pokazuj tylko własne gatunki"
 
-msgid "&Quick Access Tags"
-msgstr "Znaczni&ki szybkiego dostępu"
+msgid "&Quick Access Frames"
+msgstr "Ram&ki szybkiego dostępu"
 
 msgid "&Tag Format"
 msgstr "&Format znacznika"

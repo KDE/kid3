@@ -1353,8 +1353,8 @@ msgstr "Выборочная &жанры"
 msgid "&Show only custom genres"
 msgstr "&Показывать только выборочная жанры"
 
-msgid "&Quick Access Tags"
-msgstr "Теги быстро&го доступа"
+msgid "&Quick Access Frames"
+msgstr "Фреймы быстро&го доступа"
 
 msgid "&Tag Format"
 msgstr "&Формат тэга"

@@ -1354,8 +1354,8 @@ msgstr "Vlas&tní žánry"
 msgid "&Show only custom genres"
 msgstr "&Ukázat pouze vlastní žánry"
 
-msgid "&Quick Access Tags"
-msgstr "Značky s &rychlým přístupem"
+msgid "&Quick Access Frames"
+msgstr "Prvky s &rychlým přístupem"
 
 msgid "&Tag Format"
 msgstr "&Formát značky"

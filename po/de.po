@@ -1042,7 +1042,7 @@ msgid "Track Number"
 msgstr "Tracknummer"
 
 msgid "Genre"
-msgstr "Stil"
+msgstr "Genre"
 
 msgid "Album Artist"
 msgstr "Albuminterpret"
@@ -1084,7 +1084,7 @@ msgid "Encoding Time"
 msgstr "Aufnahmedatum"
 
 msgid "Grouping"
-msgstr "Gruppierung"
+msgstr "Werk"
 
 msgid "Initial Key"
 msgstr "Anfangstonart"
@@ -1114,7 +1114,7 @@ msgid "Part"
 msgstr "Teil"
 
 msgid "Performer"
-msgstr "Interpret"
+msgstr "Musiker"
 
 msgid "Picture"
 msgstr "Bild"
@@ -1324,7 +1324,7 @@ msgid "Track number &digits:"
 msgstr "&Anzahl der Stellen in Tracknummer:"
 
 msgid "&Genre as text instead of numeric string"
-msgstr "&Stil als Text statt als Nummer"
+msgstr "&Genre als Text statt als Nummer"
 
 msgid "&Version used for new tags:"
 msgstr "&Version für neue Tags:"
@@ -1348,13 +1348,13 @@ msgid "Mark if &larger than (bytes):"
 msgstr "Markieren &wenn größer als (Bytes):"
 
 msgid "Custom &Genres"
-msgstr "Ei&gene Stile"
+msgstr "Ei&gene Genres"
 
 msgid "&Show only custom genres"
-msgstr "Nur eigene &Stile anzeigen"
+msgstr "Nur eigene Genre&s anzeigen"
 
-msgid "&Quick Access Tags"
-msgstr "Schnellzug&riff-Tags"
+msgid "&Quick Access Frames"
+msgstr "Schnellzug&riff-Elemente"
 
 msgid "&Tag Format"
 msgstr "&Tag-Format"
@@ -2182,7 +2182,7 @@ msgid "TSOC - Composer sort order"
 msgstr "TSOC - Komponist für Sortierung"
 
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Interpret für Sortierung"
+msgstr "TSOP - Musiker für Sortierung"
 
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Titel für Sortierung"
@@ -2251,7 +2251,7 @@ msgid "Use track/total number of tracks format"
 msgstr "Format „Nummer/Anzahl Stücke“ benutzen"
 
 msgid "Genre as text instead of numeric string"
-msgstr "Stil als Text statt als Nummer"
+msgstr "Genre als Text statt als Nummer"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Version für neue Tags"
@@ -2269,7 +2269,7 @@ msgid "Picture maximum size (bytes)"
 msgstr "Maximale Größe Bilder (Bytes)"
 
 msgid "Show only custom genres"
-msgstr "Nur eigene Stile anzeigen"
+msgstr "Nur eigene Genres anzeigen"
 
 msgid "Case conversion"
 msgstr "Groß-/Kleinschreibung"

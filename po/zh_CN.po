@@ -1350,7 +1350,7 @@ msgstr "自定义流派(&G)"
 msgid "&Show only custom genres"
 msgstr "仅显示自定义流派(&S)"
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
 
 msgid "&Tag Format"

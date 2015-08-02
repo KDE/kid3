@@ -1351,7 +1351,7 @@ msgstr "Pose&bni žanrovi"
 msgid "&Show only custom genres"
 msgstr "Prik&aži samo posebne žanrove"
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr ""
 
 msgid "&Tag Format"

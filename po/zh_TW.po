@@ -1354,7 +1354,7 @@ msgstr "自訂曲風(&G)"
 msgid "&Show only custom genres"
 msgstr "僅顯示自訂曲風(&S)"
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
 
 msgid "&Tag Format"

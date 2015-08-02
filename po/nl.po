@@ -1352,8 +1352,8 @@ msgstr "&Aangepaste Genres"
 msgid "&Show only custom genres"
 msgstr "Toon a&lleen aangepaste genres"
 
-msgid "&Quick Access Tags"
-msgstr "S&nelle Toegang Tags"
+msgid "&Quick Access Frames"
+msgstr "S&nelle Toegang Frames"
 
 msgid "&Tag Format"
 msgstr "&Tagstructuur"

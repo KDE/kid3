@@ -196,7 +196,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   genresGroupBox->setLayout(vbox);
   tag2RightLayout->addWidget(genresGroupBox);
 
-  QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Tags"));
+  QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Frames"));
   QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
   QListView* quickAccessTagsListView = new QListView;
   m_quickAccessTagsModel = new CheckableStringListModel(quickAccessTagsGroupBox);

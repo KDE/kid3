@@ -1985,7 +1985,7 @@ If <guilabel>Show only custom genres</guilabel> is not active, the custom
 genres can be found at the end of the genres list.
 </para>
 <para>
-<guilabel>Quick Access Tags</guilabel> defines which frame types are always
+<guilabel>Quick Access Frames</guilabel> defines which frame types are always
 shown in the <link linkend="tag2">Tag 2</link> section. Such frames can
 then be added without first using the <guibutton>Add</guibutton> button.
 </para>

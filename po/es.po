@@ -1354,8 +1354,8 @@ msgstr "&Géneros personalizados"
 msgid "&Show only custom genres"
 msgstr "&Mostrar sólo géneros personalizados"
 
-msgid "&Quick Access Tags"
-msgstr "Etiquetas de acceso &rápido"
+msgid "&Quick Access Frames"
+msgstr "Campos de acceso &rápido"
 
 msgid "&Tag Format"
 msgstr "&Formato de etiqueta"

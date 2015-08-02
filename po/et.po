@@ -1352,7 +1352,7 @@ msgstr "Ko&handatud stiilid"
 msgid "&Show only custom genres"
 msgstr "Näidatakse ainult ko&handatud stiile"
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr "Raa&mide kiirloend"
 
 msgid "&Tag Format"

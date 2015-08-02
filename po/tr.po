@@ -1351,7 +1351,7 @@ msgstr ""
 msgid "&Show only custom genres"
 msgstr ""
 
-msgid "&Quick Access Tags"
+msgid "&Quick Access Frames"
 msgstr ""
 
 msgid "&Tag Format"
