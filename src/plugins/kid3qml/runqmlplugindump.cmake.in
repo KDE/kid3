@@ -1,0 +1,8 @@
+execute_process(COMMAND @_qtInstallBins@/qmlplugindump
+  -notrelocatable Kid3 1.0 "@kid3_plugins_BINARY_DIR@/imports"
+  RESULT_VARIABLE result
+  OUTPUT_FILE plugins.qmltypes)
+if (NOT "${result}" STREQUAL "0")
+  message(WARNING "qmlplugindump failed result='${result}'")
+  file(REMOVE plugins.qmltypes)
+endif ()

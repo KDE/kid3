@@ -79,7 +79,7 @@ endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
 install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
               "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
         DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-if (NOT WIN32 AND HAVE_QT5)
+if (NOT WIN32)
   if (HAVE_QT5)
     get_target_property(_qmakeLocation Qt5::qmake LOCATION)
   else (HAVE_QT5)
@@ -87,9 +87,11 @@ if (NOT WIN32 AND HAVE_QT5)
   endif (HAVE_QT5)
   execute_process(COMMAND "${_qmakeLocation}" -query QT_INSTALL_BINS
     OUTPUT_VARIABLE _qtInstallBins OUTPUT_STRIP_TRAILING_WHITESPACE)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runqmlplugindump.cmake.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/runqmlplugindump.cmake
+                 @ONLY)
   add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
-    COMMAND ${_qtInstallBins}/qmlplugindump -notrelocatable Kid3 1.0
-      "${kid3_plugins_BINARY_DIR}/imports" > plugins.qmltypes
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/runqmlplugindump.cmake
     DEPENDS ${plugin_TARGET}
     WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3")
   add_custom_target(plugins_qmltypes ALL
@@ -97,8 +99,8 @@ if (NOT WIN32 AND HAVE_QT5)
   add_dependencies(plugins_qmltypes ${plugin_TARGET})
 
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
-          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-endif (NOT WIN32 AND HAVE_QT5)
+          DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3 OPTIONAL)
+endif (NOT WIN32)
 
 if ((WIN32 OR APPLE) AND HAVE_QT5)
   # Install essential QML modules.
