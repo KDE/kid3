@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-05-09 10:51+0200\n"
+"POT-Creation-Date: 2015-08-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -1355,6 +1355,9 @@ msgstr "&Montrer seulement les genres pernonnalisés"
 
 msgid "&Quick Access Frames"
 msgstr "Cadres d'accès &rapide"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "Utiliser le glisser-déposer pour trier à nouveau les éléments"
 
 msgid "&Tag Format"
 msgstr "Forma&t des balises"

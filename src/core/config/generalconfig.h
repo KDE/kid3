@@ -66,6 +66,20 @@ public:
   virtual void readFromConfig(ISettings* config) = 0;
 
 protected:
+  /**
+   * Convert list of integers to list of strings.
+   * @param intList list of integers
+   * @return list of strings.
+   */
+  static QStringList intListToStringList(const QList<int>& intList);
+
+  /**
+   * Convert list of strings to list of integers.
+   * @param strList list of strings
+   * @return list of integers.
+   */
+  static QList<int> stringListToIntList(const QStringList& strList);
+
   /** Configuration group. */
   QString m_group;
 };

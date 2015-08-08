@@ -84,7 +84,7 @@ public:
   virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
   /**
-   * removeRows
+   * Remove rows.
    * @param row first row
    * @param count number of rows to remove
    * @param parent parent model index

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-05-09 10:51+0200\n"
+"POT-Creation-Date: 2015-08-11 21:22+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -1352,6 +1352,9 @@ msgstr "仅显示自定义流派(&S)"
 
 msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "拖动来安排他们的优先顺序"
 
 msgid "&Tag Format"
 msgstr "标签格式(&T)"

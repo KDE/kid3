@@ -51,7 +51,7 @@ Qt::ItemFlags CheckableStringListModel::flags(const QModelIndex& index) const
 {
   Qt::ItemFlags theFlags = QStringListModel::flags(index);
   if (index.isValid()) {
-    theFlags &= ~Qt::ItemIsEditable;
+    theFlags &= ~(Qt::ItemIsEditable | Qt::ItemIsDropEnabled);
     theFlags |= Qt::ItemIsUserCheckable;
   }
   return theFlags;

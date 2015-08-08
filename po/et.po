@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-05-09 10:51+0200\n"
+"POT-Creation-Date: 2015-08-11 21:22+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1354,6 +1354,9 @@ msgstr "Näidatakse ainult ko&handatud stiile"
 
 msgid "&Quick Access Frames"
 msgstr "Raa&mide kiirloend"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "Järjekorda saab nende lohistamise teel"
 
 msgid "&Tag Format"
 msgstr "&Sildivorming"

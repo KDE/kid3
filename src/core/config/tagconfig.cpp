@@ -115,6 +115,8 @@ void TagConfig::writeToConfig(ISettings* config) const
 #else
   config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames));
 #endif
+  config->setValue(QLatin1String("QuickAccessFrameOrder"),
+                   QVariant(intListToStringList(m_quickAccessFrameOrder)));
   config->setValue(QLatin1String("TrackNumberDigits"), QVariant(m_trackNumberDigits));
   config->setValue(QLatin1String("OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
   config->setValue(QLatin1String("PluginOrder"), QVariant(m_pluginOrder));
@@ -147,6 +149,9 @@ void TagConfig::readFromConfig(ISettings* config)
 #ifdef Q_OS_MAC
   m_quickAccessFrames &= ~(Q_UINT64_C(1) << 63);
 #endif
+  m_quickAccessFrameOrder = stringListToIntList(
+        config->value(QLatin1String("QuickAccessFrameOrder"), QStringList()).
+        toStringList());
   m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
   m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
   m_pluginOrder = config->value(QLatin1String("PluginOrder"),
@@ -316,6 +321,15 @@ void TagConfig::setQuickAccessFrames(quint64 quickAccessFrames)
   if (m_quickAccessFrames != quickAccessFrames) {
     m_quickAccessFrames = quickAccessFrames;
     emit quickAccessFramesChanged(m_quickAccessFrames);
+  }
+}
+
+/** Set order of frames which are displayed for Tag 2 even if not present. */
+void TagConfig::setQuickAccessFrameOrder(const QList<int>& frameTypes)
+{
+  if (m_quickAccessFrameOrder != frameTypes) {
+    m_quickAccessFrameOrder = frameTypes;
+    emit quickAccessFrameOrderChanged(m_quickAccessFrameOrder);
   }
 }
 

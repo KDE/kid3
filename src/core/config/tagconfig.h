@@ -64,6 +64,8 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(int textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
   /** frames which are displayed for Tag 2 even if not present */
   Q_PROPERTY(quint64 quickAccessFrames READ quickAccessFrames WRITE setQuickAccessFrames NOTIFY quickAccessFramesChanged)
+  /** order of frames which are displayed for Tag 2 even if not present */
+  Q_PROPERTY(QList<int> quickAccessFrameOrder READ quickAccessFrameOrder WRITE setQuickAccessFrameOrder NOTIFY quickAccessFrameOrderChanged)
   /** number of digits in track number */
   Q_PROPERTY(int trackNumberDigits READ trackNumberDigits WRITE setTrackNumberDigits NOTIFY trackNumberDigitsChanged)
   /** true to show only custom genres in combo boxes */
@@ -217,6 +219,14 @@ public:
   /** Set frames which are displayed for Tag 2 even if not present. */
   void setQuickAccessFrames(quint64 quickAccessFrames);
 
+  /** order of frames which are displayed for Tag 2 even if not present. */
+  QList<int> quickAccessFrameOrder() const {
+    return m_quickAccessFrameOrder;
+  }
+
+  /** Set order of frames which are displayed for Tag 2 even if not present. */
+  void setQuickAccessFrameOrder(const QList<int>& frameTypes);
+
   /** number of digits in track number */
   int trackNumberDigits() const { return m_trackNumberDigits; }
 
@@ -323,6 +333,9 @@ signals:
   /** Emitted when @a quickAccessFrames changed. */
   void quickAccessFramesChanged(quint64 quickAccessFrames);
 
+  /** Emitted when @a quickAccessFrameOrder changed. */
+  void quickAccessFrameOrderChanged(const QList<int>& frameTypes);
+
   /** Emitted when @a  changed. */
   void trackNumberDigitsChanged(int trackNumberDigits);
 
@@ -348,6 +361,7 @@ private:
   QString m_textEncodingV1;
   int m_textEncoding;
   quint64 m_quickAccessFrames;
+  QList<int> m_quickAccessFrameOrder;
   int m_trackNumberDigits;
   QStringList m_pluginOrder;
   QStringList m_disabledPlugins;

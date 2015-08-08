@@ -39,6 +39,7 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QStringListModel>
+#include <QStandardItemModel>
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "tagconfig.h"
@@ -199,15 +200,19 @@ QWidget* ConfigDialogPages::createTagsPage()
   QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Frames"));
   QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
   QListView* quickAccessTagsListView = new QListView;
-  m_quickAccessTagsModel = new CheckableStringListModel(quickAccessTagsGroupBox);
-  QStringList unifiedFrameNames;
-  for (int i = Frame::FT_FirstFrame; i< Frame::FT_LastFrame; ++i) {
-    unifiedFrameNames.append(
-        Frame::ExtendedType(static_cast<Frame::Type>(i)).getTranslatedName());
-  }
-  m_quickAccessTagsModel->setStringList(unifiedFrameNames);
+  m_quickAccessTagsModel = new QStandardItemModel(quickAccessTagsGroupBox);
   quickAccessTagsListView->setModel(m_quickAccessTagsModel);
+  quickAccessTagsListView->setAcceptDrops(true);
+  quickAccessTagsListView->setDragEnabled(true);
+  quickAccessTagsListView->setDragDropMode(QAbstractItemView::InternalMove);
+  quickAccessTagsListView->setDragDropOverwriteMode(false);
+  quickAccessTagsListView->setDefaultDropAction(Qt::MoveAction);
+  quickAccessTagsListView->setDropIndicatorShown(true);
   quickAccessTagsLayout->addWidget(quickAccessTagsListView);
+  QLabel* reorderLabel =
+      new QLabel(tr("Use drag and drop to reorder the items"));
+  reorderLabel->setWordWrap(true);
+  quickAccessTagsLayout->addWidget(reorderLabel);
   tag2RightLayout->addWidget(quickAccessTagsGroupBox);
   tag2Layout->addLayout(tag2RightLayout);
 
@@ -398,7 +403,25 @@ void ConfigDialogPages::setConfig()
   m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
-  m_quickAccessTagsModel->setBitMask(tagCfg.quickAccessFrames());
+  quint64 frameMask = tagCfg.quickAccessFrames();
+  QList<int> frameTypes = tagCfg.quickAccessFrameOrder();
+  if (frameTypes.size() != Frame::FT_LastFrame + 1) {
+    frameTypes.clear();
+    for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
+      frameTypes.append(i);
+    }
+  }
+  m_quickAccessTagsModel->clear();
+  foreach (int frameType, frameTypes) {
+    QStandardItem* item = new QStandardItem(
+          Frame::ExtendedType(static_cast<Frame::Type>(frameType)).getTranslatedName());
+    item->setData(frameType, Qt::UserRole);
+    item->setCheckable(true);
+    item->setCheckState((frameMask & (1ULL << frameType))
+                        ? Qt::Checked : Qt::Unchecked);
+    item->setDropEnabled(false);
+    m_quickAccessTagsModel->appendRow(item);
+  }
   m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
   int idx = m_commentNameComboBox->findText(tagCfg.commentName());
   if (idx >= 0) {
@@ -490,7 +513,26 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
-  tagCfg.setQuickAccessFrames(m_quickAccessTagsModel->getBitMask());
+  QList<int> frameTypes;
+  bool isStandardFrameOrder = true;
+  quint64 frameMask = 0;
+  for (int row = 0; row < m_quickAccessTagsModel->rowCount(); ++row) {
+    QModelIndex index = m_quickAccessTagsModel->index(row, 0);
+    int frameType = index.data(Qt::UserRole).toInt();
+    if (frameType != row) {
+      isStandardFrameOrder = false;
+    }
+    frameTypes.append(frameType);
+    if (m_quickAccessTagsModel->data(
+          index, Qt::CheckStateRole).toInt() == Qt::Checked) {
+      frameMask |= 1ULL << frameType;
+    }
+  }
+  if (isStandardFrameOrder) {
+    frameTypes.clear();
+  }
+  tagCfg.setQuickAccessFrames(frameMask);
+  tagCfg.setQuickAccessFrameOrder(frameTypes);
   userActionsCfg.setContextMenuCommands(m_commandsTableModel->getCommandList());
   tagCfg.setCommentName(m_commentNameComboBox->currentText());
   tagCfg.setPictureNameIndex(m_pictureNameComboBox->currentIndex());

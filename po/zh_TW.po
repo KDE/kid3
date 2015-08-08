@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-05-09 10:51+0200\n"
+"POT-Creation-Date: 2015-08-11 21:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1356,6 +1356,9 @@ msgstr "僅顯示自訂曲風(&S)"
 
 msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "使用拖放重新排序項目"
 
 msgid "&Tag Format"
 msgstr "標籤格式(&T)"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-05-09 10:51+0200\n"
+"POT-Creation-Date: 2015-08-11 21:22+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1354,6 +1354,9 @@ msgstr "Näytä &vain omat tyylilajit"
 
 msgid "&Quick Access Frames"
 msgstr "Tunniste&oikopolut"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "Järjestä uudestaan raahaamalla"
 
 msgid "&Tag Format"
 msgstr "T&unnisteen muoto"

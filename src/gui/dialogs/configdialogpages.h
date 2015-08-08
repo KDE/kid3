@@ -39,6 +39,7 @@ class QComboBox;
 class QLineEdit;
 class QSpinBox;
 class QStringListModel;
+class QStandardItemModel;
 class FormatBox;
 class ConfigTable;
 class CommandsTableModel;
@@ -140,7 +141,7 @@ private:
   /** Model with list of custom genres */
   QStringListModel* m_genresEditModel;
   /** Model with standard tags selection */
-  CheckableStringListModel* m_quickAccessTagsModel;
+  QStandardItemModel* m_quickAccessTagsModel;
   /** Play on double click checkbox */
   QCheckBox* m_playOnDoubleClickCheckBox;
   /** Commands table */

@@ -29,39 +29,6 @@
 
 int GuiConfig::s_index = -1;
 
-namespace {
-
-/**
- * Convert list of integers to list of strings.
- * @param intList list of integers
- * @return list of strings.
- */
-QStringList intListToStringList(const QList<int>& intList)
-{
-  QStringList result;
-  foreach (int value, intList) {
-    result.append(QString::number(value));
-  }
-  return result;
-}
-
-/**
- * Convert list of strings to list of integers.
- * @param strList list of strings
- * @return list of integers.
- */
-QList<int> stringListToIntList(const QStringList& strList)
-{
-  QList<int> result;
-  foreach (const QString& value, strList) {
-    result.append(value.toInt());
-  }
-  return result;
-}
-
-}
-
-
 /**
  * Constructor.
  */

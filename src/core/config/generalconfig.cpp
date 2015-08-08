@@ -25,6 +25,7 @@
  */
 
 #include "generalconfig.h"
+#include <QStringList>
 
 /**
  * Constructor.
@@ -38,3 +39,31 @@ GeneralConfig::GeneralConfig(const QString& grp) : m_group(grp) {}
  * Destructor.
  */
 GeneralConfig::~GeneralConfig() {}
+
+/**
+ * Convert list of integers to list of strings.
+ * @param intList list of integers
+ * @return list of strings.
+ */
+QStringList GeneralConfig::intListToStringList(const QList<int>& intList)
+{
+  QStringList result;
+  foreach (int value, intList) {
+    result.append(QString::number(value));
+  }
+  return result;
+}
+
+/**
+ * Convert list of strings to list of integers.
+ * @param strList list of strings
+ * @return list of integers.
+ */
+QList<int> GeneralConfig::stringListToIntList(const QStringList& strList)
+{
+  QList<int> result;
+  foreach (const QString& value, strList) {
+    result.append(value.toInt());
+  }
+  return result;
+}
