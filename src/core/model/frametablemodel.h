@@ -277,20 +277,20 @@ public slots:
    */
   void selectChangedFrames();
 
-private:
   /**
-   * Get the frame at a specific position in the collection.
-   * @param row position of frame
-   * @return const iterator to frame
+   * Set order of frames in frame table.
+   * @param frameTypes ordered sequence of frame types
+   * @see TagConfig::quickAccessFrameOrder().
    */
-  FrameCollection::const_iterator frameAt(int row) const;
+  void setFrameOrder(const QList<int>& frameTypes);
 
+private:
   /**
    * Get the frame at a specific position in the collection.
    * @param row position of frame
    * @return iterator to frame
    */
-  FrameCollection::iterator frameAt(int row);
+  FrameCollection::iterator frameAt(int row) const;
 
   /**
    * Get the row corresponding to a frame iterator.
@@ -304,10 +304,17 @@ private:
    */
   void resizeFrameSelected();
 
+  /**
+   * Update the frame to row mapping.
+   */
+  void updateFrameRowMapping();
+
   QBitArray m_frameSelected;
   quint64 m_markedRows;
   quint64 m_changedFrames;
   FrameCollection m_frames;
+  QVector<FrameCollection::iterator> m_frameOfRow;
+  QVector<int> m_frameTypeSeqNr;
   bool m_id3v1;
 };
 

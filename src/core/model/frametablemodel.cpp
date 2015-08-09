@@ -28,6 +28,7 @@
 #include <QApplication>
 #include <QComboBox>
 #include <QLineEdit>
+#include <algorithm>
 #include "fileconfig.h"
 #include "tagconfig.h"
 #include "formatconfig.h"
@@ -36,6 +37,41 @@
 #include "pictureframe.h"
 
 namespace {
+
+/**
+ * Sort comparator functor used for m_frameOfRow.
+ */
+class FrameLessThan {
+public:
+  /**
+   * Constructor.
+   * @param frameTypeSeqNr sequence numbers for frame types
+   */
+  explicit FrameLessThan(const QVector<int>& frameTypeSeqNr) :
+    m_frameTypeSeqNr(frameTypeSeqNr) {
+  }
+
+  /**
+   * Call operator.
+   * @param lhs left hand side
+   * @param rhs right hand side
+   * @return true if frame of @a lhs precedes frame of @a rhs.
+   */
+  bool operator()(FrameCollection::iterator lhs, FrameCollection::iterator rhs)
+  {
+    int lhsType = lhs->getType();
+    int rhsType = rhs->getType();
+    int lhsSeqNr = m_frameTypeSeqNr.at(lhsType);
+    int rhsSeqNr = m_frameTypeSeqNr.at(rhsType);
+    return lhsSeqNr < rhsSeqNr ||
+           (lhsType == Frame::FT_Other && lhsType == rhsType &&
+            lhs->getInternalName() < rhs->getInternalName());
+  }
+
+private:
+  const QVector<int>& m_frameTypeSeqNr;
+};
+
 
 QHash<int,QByteArray> getRoleHash()
 {
@@ -127,10 +163,10 @@ QString FrameTableModel::getDisplayName(const QString& str)
 QVariant FrameTableModel::data(const QModelIndex& index, int role) const
 {
   if (!index.isValid() ||
-      index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
+      index.row() < 0 || index.row() >= static_cast<int>(frames().size()) ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return QVariant();
-  FrameCollection::const_iterator it = frameAt(index.row());
+  FrameCollection::iterator it = frameAt(index.row());
   bool isModified = false, isTruncated = false;
   if ((role == Qt::BackgroundColorRole && index.column() == CI_Enable) ||
       role == ModifiedRole) {
@@ -198,7 +234,7 @@ bool FrameTableModel::setData(const QModelIndex& index,
                               const QVariant& value, int role)
 {
   if (!index.isValid() ||
-      index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
+      index.row() < 0 || index.row() >= static_cast<int>(frames().size()) ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
   if ((role == Qt::EditRole && index.column() == CI_Value) ||
@@ -256,7 +292,7 @@ QVariant FrameTableModel::headerData(
  */
 int FrameTableModel::rowCount(const QModelIndex& parent) const
 {
-  return parent.isValid() ? 0 : m_frames.size();
+  return parent.isValid() ? 0 : frames().size();
 }
 
 /**
@@ -296,6 +332,7 @@ void FrameTableModel::insertFrame(const Frame& frame)
   int row = rowOf(it);
   beginInsertRows(QModelIndex(), row, row);
   it = m_frames.insert(it, frame);
+  updateFrameRowMapping();
   resizeFrameSelected();
   endInsertRows();
 }
@@ -312,7 +349,10 @@ bool FrameTableModel::removeRows(int row, int count,
 {
   if (count > 0) {
     beginRemoveRows(QModelIndex(), row, row + count - 1);
-    m_frames.erase(frameAt(row), frameAt(row + count));
+    for (int i = row; i < row + count; ++i) {
+      m_frames.erase(frameAt(i));
+    }
+    updateFrameRowMapping();
     resizeFrameSelected();
     endRemoveRows();
   }
@@ -334,31 +374,11 @@ QHash<int,QByteArray> FrameTableModel::roleNames() const
 /**
  * Get the frame at a specific position in the collection.
  * @param row position of frame
- * @return const iterator to frame
- */
-FrameCollection::const_iterator FrameTableModel::frameAt(int row) const {
-  FrameCollection::const_iterator it = m_frames.begin();
-  for (int i = 0; i < row; ++i) {
-    if (++it == m_frames.end()) {
-      break;
-    }
-  }
-  return it;
-}
-
-/**
- * Get the frame at a specific position in the collection.
- * @param row position of frame
  * @return iterator to frame
  */
-FrameCollection::iterator FrameTableModel::frameAt(int row) {
-  FrameCollection::iterator it = m_frames.begin();
-  for (int i = 0; i < row; ++i) {
-    if (++it == m_frames.end()) {
-      break;
-    }
-  }
-  return it;
+FrameCollection::iterator FrameTableModel::frameAt(int row) const {
+  return row >= 0 && row < m_frameOfRow.size()
+      ? m_frameOfRow.at(row) : frames().end();
 }
 
 /**
@@ -368,10 +388,11 @@ FrameCollection::iterator FrameTableModel::frameAt(int row) {
  */
 int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
   int row = 0;
-  for (FrameCollection::const_iterator it = m_frames.begin();
-       it != m_frames.end();
+  for (QVector<FrameCollection::iterator>::const_iterator it =
+       m_frameOfRow.constBegin();
+       it != m_frameOfRow.constEnd();
        ++it) {
-    if (frameIt == it)
+    if (frameIt == *it)
       break;
     ++row;
   }
@@ -418,8 +439,9 @@ void FrameTableModel::markChangedFrames(quint64 frameMask)
 
   FrameCollection::const_iterator it;
   int row;
-  for (it = m_frames.begin(), row = 0;
-       it != m_frames.end();
+  const FrameCollection& frameCollection = frames();
+  for (it = frameCollection.begin(), row = 0;
+       it != frameCollection.end();
        ++it, ++row) {
     if (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(changedBits) * 8 &&
@@ -437,8 +459,8 @@ void FrameTableModel::markChangedFrames(quint64 frameMask)
  */
 const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 {
-  if (index.isValid() && index.row() < static_cast<int>(m_frames.size())) {
-    FrameCollection::const_iterator it = frameAt(index.row());
+  if (index.isValid() && index.row() < static_cast<int>(frames().size())) {
+    FrameCollection::iterator it = frameAt(index.row());
     return &(*it);
   }
   return 0;
@@ -452,10 +474,11 @@ const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 int FrameTableModel::getRowWithFrameIndex(int index) const
 {
   int row = 0;
-  for (FrameCollection::const_iterator it = m_frames.begin();
-       it != m_frames.end();
+  for (QVector<FrameCollection::iterator>::const_iterator it =
+       m_frameOfRow.constBegin();
+       it != m_frameOfRow.constEnd();
        ++it) {
-    if (it->getIndex() == index) {
+    if ((*it)->getIndex() == index) {
       return row;
     }
     ++row;
@@ -471,10 +494,11 @@ int FrameTableModel::getRowWithFrameIndex(int index) const
 int FrameTableModel::getRowWithFrameName(const QString& name) const
 {
   int row = 0;
-  for (FrameCollection::const_iterator it = m_frames.begin();
-       it != m_frames.end();
+  for (QVector<FrameCollection::iterator>::const_iterator it =
+       m_frameOfRow.constBegin();
+       it != m_frameOfRow.constEnd();
        ++it) {
-    if (it->getName() == name) {
+    if ((*it)->getName() == name) {
       return row;
     }
     ++row;
@@ -497,12 +521,13 @@ FrameFilter FrameTableModel::getEnabledFrameFilter(
   bool allDisabled = true;
   int numberRows = rowCount();
   int row = 0;
-  for (FrameCollection::const_iterator it = m_frames.begin();
-       it != m_frames.end();
+  for (QVector<FrameCollection::iterator>::const_iterator it =
+       m_frameOfRow.constBegin();
+       it != m_frameOfRow.constEnd();
        ++it) {
     if (row >= numberRows) break;
     if (!m_frameSelected.at(row)) {
-      filter.enable(it->getType(), it->getName(), false);
+      filter.enable((*it)->getType(), (*it)->getName(), false);
     } else {
       allDisabled = false;
     }
@@ -523,12 +548,13 @@ FrameCollection FrameTableModel::getEnabledFrames() const
   FrameCollection enabledFrames;
   const int numberRows = m_frameSelected.size();
   int row = 0;
-  for (FrameCollection::const_iterator it = m_frames.begin();
-       it != m_frames.end();
+  for (QVector<FrameCollection::iterator>::const_iterator it =
+       m_frameOfRow.constBegin();
+       it != m_frameOfRow.constEnd();
        ++it) {
     if (row >= numberRows) break;
     if (m_frameSelected.at(row)) {
-      enabledFrames.insert(*it);
+      enabledFrames.insert(**it);
     }
     ++row;
   }
@@ -544,6 +570,7 @@ void FrameTableModel::clearFrames()
   if (numFrames > 0) {
     beginRemoveRows(QModelIndex(), 0, numFrames - 1);
     m_frames.clear();
+    updateFrameRowMapping();
     m_frameSelected.clear();
     endRemoveRows();
   }
@@ -565,6 +592,7 @@ void FrameTableModel::transferFrames(FrameCollection& src)
 
   m_frames.clear();
   src.swap(m_frames);
+  updateFrameRowMapping();
   resizeFrameSelected();
 
   if (newNumFrames < oldNumFrames)
@@ -585,6 +613,7 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
   int oldNumFrames = m_frames.size();
 
   m_frames.filterDifferent(others);
+  updateFrameRowMapping();
   resizeFrameSelected();
 
   if (oldNumFrames > 0)
@@ -630,11 +659,11 @@ void FrameTableModel::deselectAllFrames()
 void FrameTableModel::selectChangedFrames()
 {
   int row;
-  FrameCollection::const_iterator it;
-  for (row = 0, it = m_frames.begin();
-       row < m_frameSelected.size() && it != m_frames.end();
+  QVector<FrameCollection::iterator>::const_iterator it;
+  for (row = 0, it = m_frameOfRow.constBegin();
+       row < m_frameSelected.size() && it != m_frameOfRow.constEnd();
        ++row, ++it) {
-    if (it->isValueChanged()) {
+    if ((*it)->isValueChanged()) {
       m_frameSelected[row] = true;
       QModelIndex idx = index(row, CI_Enable);
       emit dataChanged(idx, idx);
@@ -649,7 +678,7 @@ void FrameTableModel::resizeFrameSelected()
 {
   // If all bits are set, set also the new bits.
   int oldSize = m_frameSelected.size();
-  int newSize = m_frames.size();
+  int newSize = frames().size();
   bool setNewBits = newSize > oldSize && oldSize > 0 &&
       m_frameSelected.count(true) == oldSize;
 
@@ -662,6 +691,61 @@ void FrameTableModel::resizeFrameSelected()
   }
 }
 
+/**
+ * Update the frame to row mapping.
+ */
+void FrameTableModel::updateFrameRowMapping()
+{
+  const FrameCollection& frameCollection = frames();
+  m_frameOfRow.resize(frameCollection.size());
+  FrameCollection::iterator frameIt;
+  QVector<FrameCollection::iterator>::iterator rowIt;
+  for (frameIt = frameCollection.begin(), rowIt = m_frameOfRow.begin();
+       frameIt != frameCollection.end();
+       ++frameIt, ++rowIt) {
+    *rowIt = frameIt;
+  }
+  if (!m_frameTypeSeqNr.isEmpty()) {
+    std::stable_sort(m_frameOfRow.begin(), m_frameOfRow.end(),
+                     FrameLessThan(m_frameTypeSeqNr));
+  }
+}
+
+/**
+ * Set order of frames in frame table.
+ * @param frameTypes ordered sequence of frame types
+ * @remark This order is not used for ID3v1 frames.
+ * @see TagConfig::quickAccessFrameOrder().
+ */
+void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
+{
+  if (frameTypes.isEmpty()) {
+    m_frameTypeSeqNr.clear();
+    return;
+  } else if (frameTypes.size() != Frame::FT_LastFrame + 1) {
+    qWarning("FrameTableModel::setFrameOrder: Invalid parameter size");
+    m_frameTypeSeqNr.clear();
+    return;
+  }
+  m_frameTypeSeqNr.resize(Frame::FT_UnknownFrame + 1);
+  m_frameTypeSeqNr[Frame::FT_UnknownFrame] = Frame::FT_UnknownFrame;
+  m_frameTypeSeqNr[Frame::FT_Other] = Frame::FT_Other;
+
+  int seqNr;
+  QList<int>::const_iterator it;
+  for (it = frameTypes.constBegin(), seqNr = 0;
+       it != frameTypes.constEnd();
+       ++it, ++seqNr) {
+    int frameType = *it;
+    if (frameType < 0 || frameType > Frame::FT_LastFrame) {
+      qWarning("FrameTableModel::setFrameOrder: Invalid frame type %d",
+               frameType);
+      m_frameTypeSeqNr.clear();
+      return;
+    }
+    m_frameTypeSeqNr[frameType] = seqNr;
+  }
+}
 
 /**
  * Constructor.

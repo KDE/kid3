@@ -198,7 +198,10 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #endif
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
-
+  const TagConfig& tagCfg = TagConfig::instance();
+  m_framesV2Model->setFrameOrder(tagCfg.quickAccessFrameOrder());
+  connect(&tagCfg, SIGNAL(quickAccessFrameOrderChanged(QList<int>)),
+          m_framesV2Model, SLOT(setFrameOrder(QList<int>)));
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
