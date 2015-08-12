@@ -35,7 +35,7 @@
 # it should still work.
 #
 # buildlibs.sh will download, build and install zlib, libogg, libvorbis,
-# flac, id3lib, taglib, libav, chromaprint. You are then ready to build Kid3
+# flac, id3lib, taglib, ffmpeg, chromaprint. You are then ready to build Kid3
 # from the win32 or macosx directories by starting buildkid3.bat (Windows) or
 # buildkid3.sh (Mac).
 
@@ -56,10 +56,12 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.4
 libvorbis_patchlevel=2
-libav_version=11.3
-libav_patchlevel=1
+ffmpeg_version=2.7.2
+ffmpeg_patchlevel=1
+#libav_version=11.4
+#libav_patchlevel=2
 libflac_version=1.3.1
-libflac_patchlevel=2
+libflac_patchlevel=4
 id3lib_version=3.8.3
 id3lib_patchlevel=16
 taglib_version=1.9.1
@@ -191,6 +193,13 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.
 test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
 
+if test -n "${ffmpeg_version}"; then
+test -f ffmpeg_${ffmpeg_version}.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.gz
+test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
+ffmpeg_dir=ffmpeg-${ffmpeg_version}
+else
 if test "${libav_version%.*}" = "0.8"; then
 test -f libav_${libav_version}.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
@@ -201,6 +210,8 @@ test -f libav_${libav_version}.orig.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.xz
 test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
+ffmpeg_dir=libav-${libav_version}
+fi
 fi
 
 test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
@@ -224,7 +235,7 @@ set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
 set(CMAKE_CXX_COMPILER ${cross_host}-g++)
 set(CMAKE_RC_COMPILER ${cross_host}-windres)
-set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local $thisdir/zlib-$zlib_version/inst/usr/local $thisdir/libav-$libav_version/inst/usr/local)
+set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local $thisdir/zlib-$zlib_version/inst/usr/local $thisdir/$ffmpeg_dir/inst/usr/local)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -1791,8 +1802,15 @@ fi
 cd ..
 fi
 
-echo "### Extracting libav"
+echo "### Extracting ffmpeg"
 
+if test -n "${ffmpeg_version}"; then
+tar xzf source/ffmpeg_${ffmpeg_version}.orig.tar.gz 
+cd ffmpeg-${ffmpeg_version}/
+unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+cd ..
+else
 if test "${libav_version%.*}" = "0.8"; then
 if ! test -d libav-${libav_version}; then
 tar xzf source/libav_${libav_version}.orig.tar.gz
@@ -1825,6 +1843,7 @@ for f in $(cat debian/patches/series); do
 done
 IFS=$oldifs
 cd ..
+fi
 fi
 fi
 
@@ -1929,7 +1948,7 @@ if test "$1" = "clean"; then
   for d in zlib-${zlib_version} libogg-${libogg_version} \
            libvorbis-${libvorbis_version} flac-${libflac_version} \
            id3lib-${id3lib_version} taglib-${taglib_version} \
-           libav-${libav_version} chromaprint-${chromaprint_version} \
+           ${ffmpeg_dir} chromaprint-${chromaprint_version} \
            mp4v2-${mp4v2_version}; do
     rm -rf $d/inst
   done
@@ -2039,11 +2058,11 @@ tar czf ../../bin/taglib-${taglib_version}.tgz usr
 cd ../..
 fi
 
-if test ! -d libav-${libav_version}/inst; then
-echo "### Building libav"
+if test ! -d ${ffmpeg_dir}/inst; then
+echo "### Building ffmpeg"
 
 if test "${libav_version%.*}" = "0.8"; then
-cd libav-${libav_version}
+cd ${ffmpeg_dir}
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -2143,10 +2162,10 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-${libav_version}.tgz usr
+tar czf ../../bin/${ffmpeg_dir}.tgz usr
 cd ../..
 else
-cd libav-${libav_version}
+cd ${ffmpeg_dir}
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -2252,7 +2271,7 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-${libav_version}.tgz usr
+tar czf ../../bin/${ffmpeg_dir}.tgz usr
 cd ../..
 fi
 fi
@@ -2262,7 +2281,7 @@ echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-${chromaprint_version}/
-test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
@@ -2349,7 +2368,7 @@ tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
 tar xmzf bin/flac-${libflac_version}.tgz -C $BUILDROOT
 tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
 tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
-tar xmzf bin/libav-${libav_version}.tgz -C $BUILDROOT
+tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
 tar xmzf bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
 tar xmzf bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
 
