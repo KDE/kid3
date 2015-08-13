@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-11 21:22+0200\n"
+"POT-Creation-Date: 2015-08-13 18:29+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -699,6 +699,15 @@ msgstr "Основна фасцикла QML"
 
 msgid "Encode as URL"
 msgstr "Кодирај као УРЛ"
+
+msgid "--- separator ---"
+msgstr "--- раздвајач ---"
+
+msgid "Begin of submenu"
+msgstr "Почетак Подмени"
+
+msgid "End of submenu"
+msgstr "Крај подмени"
 
 msgid "Confirm"
 msgstr "Потврди"

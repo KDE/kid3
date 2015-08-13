@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-11 21:22+0200\n"
+"POT-Creation-Date: 2015-08-13 18:29+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -700,6 +700,15 @@ msgstr "QML basismap"
 
 msgid "Encode as URL"
 msgstr "Coderen als URL-adres"
+
+msgid "--- separator ---"
+msgstr "---scheiding---"
+
+msgid "Begin of submenu"
+msgstr "Begin van submenu"
+
+msgid "End of submenu"
+msgstr "Einde van submenu"
 
 msgid "Confirm"
 msgstr "Bevestigen"

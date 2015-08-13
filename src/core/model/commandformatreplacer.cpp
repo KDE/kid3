@@ -179,6 +179,18 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
   str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));
   str += QLatin1String("</td></tr>\n");
 
+  str += QLatin1String("<tr><td></td><td>@separator</td><td>");
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "--- separator ---"));
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td></td><td>@beginmenu</td><td>");
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Begin of submenu"));
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td></td><td>@endmenu</td><td>");
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "End of submenu"));
+  str += QLatin1String("</td></tr>\n");
+
   if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }

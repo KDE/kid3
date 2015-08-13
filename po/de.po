@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-11 21:22+0200\n"
+"POT-Creation-Date: 2015-08-13 18:29+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -701,6 +701,15 @@ msgstr "QML Basisordner"
 
 msgid "Encode as URL"
 msgstr "Als URL kodieren"
+
+msgid "--- separator ---"
+msgstr "--- Trenner ---"
+
+msgid "Begin of submenu"
+msgstr "Beginn eines Untermenüs"
+
+msgid "End of submenu"
+msgstr "Ende eines Untermenüs"
 
 msgid "Confirm"
 msgstr "Nachfragen"

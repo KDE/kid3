@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-11 21:22+0200\n"
+"POT-Creation-Date: 2015-08-13 18:29+0200\n"
 "PO-Revision-Date: 2015-05-13 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -700,6 +700,15 @@ msgstr "Základní adresář QML"
 
 msgid "Encode as URL"
 msgstr "Zakódovat jako URL"
+
+msgid "--- separator ---"
+msgstr "--- oddělovač ---"
+
+msgid "Begin of submenu"
+msgstr "Podřazená nabídka"
+
+msgid "End of submenu"
+msgstr "Začátek podřazená nabídka"
 
 msgid "Confirm"
 msgstr "Potvrzení"

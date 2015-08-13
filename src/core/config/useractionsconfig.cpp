@@ -98,24 +98,34 @@ void UserActionsConfig::readFromConfig(ISettings* config)
   config->endGroup();
 
   if (cmdNr == 1) {
-#ifdef Q_OS_WIN32
-    QString prgDir = QString::fromLocal8Bit(qgetenv("ProgramFiles"));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(
-        QLatin1String("Windows Media Player"),
-        QLatin1Char('"') + prgDir + QLatin1String("\\Windows Media Player\\wmplayer.exe\" %{files}")));
-#elif !defined Q_OS_MAC
+      UserActionsConfig::MenuCommand(QString(), QLatin1String("@separator")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Amarok"), QLatin1String("amarok %{files}")));
+      UserActionsConfig::MenuCommand(QLatin1String("Album Art"), QLatin1String("@beginmenu")));
+#ifdef HAVE_QML
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Resize Album Art"), QLatin1String("@qml %{qmlpath}/script/ResizeAlbumArt.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Extract Album Art"), QLatin1String("@qml %{qmlpath}/script/ExtractAlbumArt.qml"), false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Embed Album Art"), QLatin1String("@qml %{qmlpath}/script/EmbedAlbumArt.qml"), false, true));
 #endif
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Google Images"), QLatin1String("%{browser} http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Amazon"), QLatin1String("%{browser} http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("LyricWiki"), QLatin1String("%{browser} http://lyricwiki.org/%u{artist}:%u{title}")));
+      UserActionsConfig::MenuCommand(QString(), QLatin1String("@endmenu")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Lyrics.com"), QLatin1String("%{browser} http://www.lyrics.com/search.php?keyword=%u{artist}+%u{title}&what=all")));
+      UserActionsConfig::MenuCommand(QLatin1String("Lyrics"), QLatin1String("@beginmenu")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("LyricWiki"), QLatin1String("%{browser} http://lyricwiki.org/%u{artist}:%u{title}")));
+#ifdef HAVE_QML
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Embed Lyrics"), QLatin1String("@qml %{qmlpath}/script/EmbedLyrics.qml"), false, true));
+#endif
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Lyrics.com"), QLatin1String("%{browser} http://www.lyrics.com/search.php?what=all&keyword=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("AZLyrics"), QLatin1String("%{browser} http://search.azlyrics.com/search.php?q=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
@@ -124,39 +134,29 @@ void UserActionsConfig::readFromConfig(ISettings* config)
       UserActionsConfig::MenuCommand(QLatin1String("Metro Lyrics"), QLatin1String("%{browser} http://www.metrolyrics.com/search.php?category=artisttitle&search=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("SongLyrics"), QLatin1String("%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}")));
-  }
-  if (ConfigStore::getConfigVersion() < 1) {
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("LyricsMode"), QLatin1String("%{browser} http://www.lyricsmode.com/search.php?search=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Lyrster"), QLatin1String("%{browser} http://www.lyrster.com/songs-lyrics/%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("MP3 Lyrics"), QLatin1String("%{browser} http://www.mp3lyrics.org/Search/%u{artist}+%u{title}")));
+      UserActionsConfig::MenuCommand(QLatin1String("MP3 Lyrics"), QLatin1String("%{browser} http://mp3lyrics.com/Search/Advanced/?Track=%u{title}&Artist=%u{artist}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("LRC123"), QLatin1String("%{browser} http://www.lrc123.com/?keyword=%u{artist}+%u{title}&field=all")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("LyrDB LRC"), QLatin1String("%{browser} http://lyrdb.com/karaoke/index.htm?q=%u{artist}+%u{title}&action=search")));
-  }
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QString(), QLatin1String("@endmenu")));
 #ifdef HAVE_QML
-  if (ConfigStore::getConfigVersion() < 2) {
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("QML Console"), QLatin1String("@qmlview %{qmlpath}/script/QmlConsole.qml"), false, true));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("ReplayGain to SoundCheck"), QLatin1String("@qml %{qmlpath}/script/ReplayGain2SoundCheck.qml"), false, true));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Resize Album Art"), QLatin1String("@qml %{qmlpath}/script/ResizeAlbumArt.qml"), false, true));
-    m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Extract Album Art"), QLatin1String("@qml %{qmlpath}/script/ExtractAlbumArt.qml"), false, true));
-    m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Embed Album Art"), QLatin1String("@qml %{qmlpath}/script/EmbedAlbumArt.qml"), false, true));
-    m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Embed Lyrics"), QLatin1String("@qml %{qmlpath}/script/EmbedLyrics.qml"), false, true));
-    m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Text Encoding ID3v1"), QLatin1String("@qml %{qmlpath}/script/ShowTextEncodingV1.qml"), false, true));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Export CSV"), QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml %{directory}/export.csv"), false, true));
-  }
 #endif
+  }
 }
 
 void UserActionsConfig::setContextMenuCommands(const QList<MenuCommand>& contextMenuCommands)

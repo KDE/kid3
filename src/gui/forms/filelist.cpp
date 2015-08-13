@@ -104,6 +104,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     menu.addAction(tr("Open Containing &Folder"),
                    this, SLOT(openContainingFolder()));
     int id = 0;
+    QMenu* userMenu = &menu;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
     for (QList<UserActionsConfig::MenuCommand>::const_iterator
@@ -112,7 +113,17 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
          ++it) {
       QString name((*it).getName());
       if (!name.isEmpty()) {
-        menu.addAction(name);
+        if (it->getCommand() == QLatin1String("@beginmenu")) {
+          userMenu = userMenu->addMenu(name);
+        } else {
+          userMenu->addAction(name);
+        }
+      } else if (it->getCommand() == QLatin1String("@separator")) {
+        userMenu->addSeparator();
+      } else if (it->getCommand() == QLatin1String("@endmenu")) {
+        if (QMenu* parentMenu = qobject_cast<QMenu*>(userMenu->parent())) {
+          userMenu = parentMenu;
+        }
       }
       ++id;
     }
