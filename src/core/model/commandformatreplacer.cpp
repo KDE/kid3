@@ -150,7 +150,8 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%F</td><td>%{files}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Filenames"));
+  const char* const filenamesStr = QT_TRANSLATE_NOOP("@default", "Filenames");
+  str += QCoreApplication::translate("@default", filenamesStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%uf</td><td>%{url}</td><td>");
@@ -158,11 +159,14 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%uF</td><td>%{urls}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "URLs"));
+  const char* const urlsStr = QT_TRANSLATE_NOOP("@default", "URLs");
+  str += QCoreApplication::translate("@default", urlsStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{directory}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Directory name"));
+  const char* const directoryNameStr =
+      QT_TRANSLATE_NOOP("@default", "Directory name");
+  str += QCoreApplication::translate("@default", directoryNameStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%b</td><td>%{browser}</td><td>");
@@ -171,24 +175,34 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 
 #ifdef CFG_QMLDIR
   str += QLatin1String("<tr><td>%q</td><td>%{qmlpath}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "QML base directory"));
+  const char* const qmlBaseDirectoryStr =
+      QT_TRANSLATE_NOOP("@default", "QML base directory");
+  str += QCoreApplication::translate("@default", qmlBaseDirectoryStr);
   str += QLatin1String("</td></tr>\n");
 #endif
 
   str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));
+  const char* const encodeAsUrlStr =
+      QT_TRANSLATE_NOOP("@default", "Encode as URL");
+  str += QCoreApplication::translate("@default", encodeAsUrlStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>@separator</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "--- separator ---"));
+  const char* const separatorStr =
+      QT_TRANSLATE_NOOP("@default", "--- separator ---");
+  str += QCoreApplication::translate("@default", separatorStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>@beginmenu</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Begin of submenu"));
+  const char* const beginOfSubmenuStr =
+      QT_TRANSLATE_NOOP("@default", "Begin of submenu");
+  str += QCoreApplication::translate("@default", beginOfSubmenuStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>@endmenu</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "End of submenu"));
+  const char* const endOfSubmenuStr =
+      QT_TRANSLATE_NOOP("@default", "End of submenu");
+  str += QCoreApplication::translate("@default", endOfSubmenuStr);
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

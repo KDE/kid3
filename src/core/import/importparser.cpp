@@ -63,7 +63,8 @@ QString ImportParser::getFormatToolTip()
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Year"));
+  const char* const yearStr = QT_TRANSLATE_NOOP("@default", "Year");
+  str += QCoreApplication::translate("@default", yearStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
@@ -75,7 +76,8 @@ QString ImportParser::getFormatToolTip()
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
+  const char* const lengthStr = QT_TRANSLATE_NOOP("@default", "Length");
+  str += QCoreApplication::translate("@default", lengthStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("</table>\n");

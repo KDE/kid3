@@ -104,8 +104,9 @@ QString EventTimeCode::toTranslatedString() const
       return QCoreApplication::translate("@default", codes[i].text);
     }
   }
-  return QCoreApplication::translate("@default",
-      QT_TRANSLATE_NOOP("@default", "reserved for future use %1")).
+  const char* const reservedForFutureUseStr =
+      QT_TRANSLATE_NOOP("@default", "reserved for future use %1");
+  return QCoreApplication::translate("@default", reservedForFutureUseStr).
       arg(m_code, 2, 16, QLatin1Char('0'));
 }
 

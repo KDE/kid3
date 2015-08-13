@@ -86,8 +86,9 @@ bool PlatformTools::moveToTrash(const QString& path) const
 void PlatformTools::displayHelp(const QString& anchor)
 {
   if (!m_helpBrowser) {
-    QString caption(QCoreApplication::translate("@default",
-                    QT_TRANSLATE_NOOP("@default", "Kid3 Handbook")));
+    const char* const kid3HandbookStr =
+        QT_TRANSLATE_NOOP("@default", "Kid3 Handbook");
+    QString caption(QCoreApplication::translate("@default", kid3HandbookStr));
     m_helpBrowser = new BrowserDialog(0, caption);
   }
   m_helpBrowser->goToAnchor(anchor);

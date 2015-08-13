@@ -258,9 +258,9 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
   if (selectedFilter) {
     QString selectedFile;
     KFileDialog diag(dir, filter, parent);
+    const char* const openStr = QT_TRANSLATE_NOOP("@default", "Open");
     diag.setWindowTitle(caption.isEmpty()
-                        ? QCoreApplication::translate("@default",
-                              QT_TRANSLATE_NOOP("@default", "Open"))
+                        ? QCoreApplication::translate("@default", openStr)
                         : caption);
     if (diag.exec() == QDialog::Accepted) {
       selectedFile = diag.selectedFile();
@@ -295,9 +295,9 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
   if (selectedFilter) {
     QStringList selectedFiles;
     KFileDialog diag(dir, filter, parent);
+    const char* const openStr = QT_TRANSLATE_NOOP("@default", "Open");
     diag.setWindowTitle(caption.isEmpty()
-                        ? QCoreApplication::translate("@default",
-                              QT_TRANSLATE_NOOP("@default", "Open"))
+                        ? QCoreApplication::translate("@default", openStr)
                         : caption);
     diag.setMode(KFile::Files | KFile::LocalOnly);
     if (diag.exec() == QDialog::Accepted) {
@@ -334,9 +334,9 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
     QString selectedFile;
     KFileDialog diag(dir, filter, parent);
     diag.setOperationMode(KFileDialog::Saving);
+    const char* const saveAsStr = QT_TRANSLATE_NOOP("@default", "Save As");
     diag.setWindowTitle(caption.isEmpty()
-                        ? QCoreApplication::translate("@default",
-                              QT_TRANSLATE_NOOP("@default", "Save As"))
+                        ? QCoreApplication::translate("@default", saveAsStr)
                         : caption);
     if (diag.exec() == QDialog::Accepted) {
       selectedFile = diag.selectedFile();

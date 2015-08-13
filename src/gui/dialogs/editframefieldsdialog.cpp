@@ -901,13 +901,14 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
   }
   if (m_frame.getType() == Frame::FT_Picture) {
     m_bos->setDefaultFile(FileConfig::instance().defaultCoverFileName());
+    const char* const imagesStr = QT_TRANSLATE_NOOP("@default", "Images");
+    const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
     m_bos->setFilter(m_platformTools->fileDialogNameFilter(
                QList<QPair<QString, QString> >()
-               << qMakePair(QCoreApplication::translate("@default",
-                                QT_TRANSLATE_NOOP("@default", "Images")),
+               << qMakePair(QCoreApplication::translate("@default", imagesStr),
                             QString(QLatin1String("*.jpg *.jpeg *.png")))
                << qMakePair(QCoreApplication::translate("@default",
-                                QT_TRANSLATE_NOOP("@default", "All Files")),
+                                                        allFilesStr),
                             QString(QLatin1Char('*')))));
   }
   return m_bos;

@@ -315,13 +315,13 @@ void TimeEventEditor::exportData()
  */
 QString TimeEventEditor::getLrcNameFilter() const
 {
+  const char* const lyricsStr = QT_TRANSLATE_NOOP("@default", "Lyrics");
+  const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
   return m_platformTools->fileDialogNameFilter(
         QList<QPair<QString, QString> >()
-        << qMakePair(QCoreApplication::translate("@default",
-                         QT_TRANSLATE_NOOP("@default", "Lyrics")),
+        << qMakePair(QCoreApplication::translate("@default", lyricsStr),
                      QString(QLatin1String("*.lrc")))
-        << qMakePair(QCoreApplication::translate("@default",
-                         QT_TRANSLATE_NOOP("@default", "All Files")),
+        << qMakePair(QCoreApplication::translate("@default", allFilesStr),
                      QString(QLatin1Char('*'))));
 }
 

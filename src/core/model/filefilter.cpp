@@ -112,27 +112,39 @@ QString FileFilter::getFormatToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>equals</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if strings are equal"));
+  const char* const trueIfStringsAreEqualStr =
+      QT_TRANSLATE_NOOP("@default", "True if strings are equal");
+  str += QCoreApplication::translate("@default", trueIfStringsAreEqualStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>contains</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if string contains substring"));
+  const char* const trueIfStringContainsSubstringStr =
+      QT_TRANSLATE_NOOP("@default", "True if string contains substring");
+  str += QCoreApplication::translate("@default",
+                                     trueIfStringContainsSubstringStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>matches</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if string matches regexp"));
+  const char* const trueIfStringMatchesRegexpStr =
+      QT_TRANSLATE_NOOP("@default", "True if string matches regexp");
+  str += QCoreApplication::translate("@default", trueIfStringMatchesRegexpStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>and</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical AND"));
+  const char* const logicalAndStr =
+      QT_TRANSLATE_NOOP("@default", "Logical AND");
+  str += QCoreApplication::translate("@default", logicalAndStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>or</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical OR"));
+  const char* const logicalOrStr = QT_TRANSLATE_NOOP("@default", "Logical OR");
+  str += QCoreApplication::translate("@default", logicalOrStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>not</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical negation"));
+  const char* const logicalNegationStr =
+      QT_TRANSLATE_NOOP("@default", "Logical negation");
+  str += QCoreApplication::translate("@default", logicalNegationStr);
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

@@ -180,7 +180,9 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%p</td><td>%{filepath}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Absolute path to file"));
+  const char* const absolutePathToFileStr =
+      QT_TRANSLATE_NOOP("@default", "Absolute path to file");
+  str += QCoreApplication::translate("@default", absolutePathToFileStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%u</td><td>%{url}</td><td>");
@@ -188,19 +190,23 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
+  const char* const lengthStr = QT_TRANSLATE_NOOP("@default", "Length");
+  str += QCoreApplication::translate("@default", lengthStr);
   str += QLatin1String(" &quot;M:S&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%D</td><td>%{seconds}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
+  str += QCoreApplication::translate("@default", lengthStr);
   str += QLatin1String(" &quot;S&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%n</td><td>%{tracks}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Number of tracks"));
+  const char* const numberOfTracksStr =
+      QT_TRANSLATE_NOOP("@default", "Number of tracks");
+  str += QCoreApplication::translate("@default", numberOfTracksStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%e</td><td>%{extension}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Extension"));
+  const char* const extensionStr = QT_TRANSLATE_NOOP("@default", "Extension");
+  str += QCoreApplication::translate("@default", extensionStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%O</td><td>%{tag1}</td><td>");
@@ -212,29 +218,36 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%b</td><td>%{bitrate}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Bitrate"));
+  const char* const bitrateStr = QT_TRANSLATE_NOOP("@default", "Bitrate");
+  str += QCoreApplication::translate("@default", bitrateStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%v</td><td>%{vbr}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "VBR"));
+  const char* const vbrStr = QT_TRANSLATE_NOOP("@default", "VBR");
+  str += QCoreApplication::translate("@default", vbrStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%r</td><td>%{samplerate}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Samplerate"));
+  const char* const samplerateStr = QT_TRANSLATE_NOOP("@default", "Samplerate");
+  str += QCoreApplication::translate("@default", samplerateStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n");
 
   str += QLatin1String("<tr><td>%C</td><td>%{channels}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Channels"));
+  const char* const channelsStr = QT_TRANSLATE_NOOP("@default", "Channels");
+  str += QCoreApplication::translate("@default", channelsStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%k</td><td>%{codec}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Codec"));
+  const char* const codecStr = QT_TRANSLATE_NOOP("@default", "Codec");
+  str += QCoreApplication::translate("@default", codecStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%ha...</td><td>%h{artist}...</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Escape for HTML"));
+  const char* const escapeForHtmlStr =
+      QT_TRANSLATE_NOOP("@default", "Escape for HTML");
+  str += QCoreApplication::translate("@default", escapeForHtmlStr);
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

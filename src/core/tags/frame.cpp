@@ -1218,19 +1218,21 @@ QString FrameFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Year"));
+  const char* const yearStr = QT_TRANSLATE_NOOP("@default", "Year");
+  str += QCoreApplication::translate("@default", yearStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
+  const char* const trackStr = QT_TRANSLATE_NOOP("@default", "Track");
+  str += QCoreApplication::translate("@default", trackStr);
   str += QLatin1String(" &quot;01&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track.3}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
+  str += QCoreApplication::translate("@default", trackStr);
   str += QLatin1String(" &quot;001&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%T</td><td>%{tracknumber}</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
+  str += QCoreApplication::translate("@default", trackStr);
   str += QLatin1String(" &quot;1&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%g</td><td>%{genre}</td><td>");

@@ -56,7 +56,9 @@ static QString getToolTip()
   str += FrameFormatReplacer::getToolTip(true);
 
   str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
-  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));
+  const char* const encodeAsUrlStr =
+      QT_TRANSLATE_NOOP("@default", "Encode as URL");
+  str += QCoreApplication::translate("@default", encodeAsUrlStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("</table>\n");

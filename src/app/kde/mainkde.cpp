@@ -109,9 +109,11 @@ int main(int argc, char* argv[])
   parser.setApplicationDescription(aboutData.shortDescription());
   parser.addHelpOption();
   parser.addVersionOption();
+  const char* const directoryToOpenStr =
+      QT_TRANSLATE_NOOP("@default", "directory to open");
   parser.addPositionalArgument(
         QStringLiteral("dir"), QCoreApplication::translate("@default",
-        QT_TRANSLATE_NOOP("@default", "directory to open")),
+        directoryToOpenStr),
         QStringLiteral("[dir...]"));
   parser.process(app);
   aboutData.processCommandLine(&parser);
@@ -120,9 +122,10 @@ int main(int argc, char* argv[])
       KConfigGroup(KSharedConfig::openConfig(), "Locale").readEntry("Language");
   Utils::loadTranslation(configuredLanguage);
 
+  const char* const audioTagEditorStr =
+      QT_TRANSLATE_NOOP("@default", "Audio Tag Editor");
   aboutData.setShortDescription(
-        QCoreApplication::translate("@default",
-            QT_TRANSLATE_NOOP("@default", "Audio Tag Editor")));
+        QCoreApplication::translate("@default", audioTagEditorStr));
   aboutData.setTranslator(
         QCoreApplication::translate("@default",
             // i18n NAME OF TRANSLATORS
@@ -227,8 +230,10 @@ int main(int argc, char* argv[])
   KCmdLineArgs::init(argc, argv, &aboutData);
 
   KCmdLineOptions options;
+  const char* const directoryToOpenStr =
+      QT_TRANSLATE_NOOP("@default", "directory to open");
   options.add("+[Dir]", ki18n("%1").subs(QCoreApplication::translate("@default",
-                          QT_TRANSLATE_NOOP("@default", "directory to open"))));
+                          directoryToOpenStr)));
   KCmdLineArgs::addCmdLineOptions(options);
   Kid3KdeApplication app;
 
@@ -236,9 +241,11 @@ int main(int argc, char* argv[])
       KConfigGroup(KGlobal::config(), "Locale").readEntry("Language");
   Utils::loadTranslation(configuredLanguage);
 
+  const char* const audioTagEditorStr =
+      QT_TRANSLATE_NOOP("@default", "Audio Tag Editor");
   aboutData.setShortDescription(
         ki18n("%1").subs(QCoreApplication::translate("@default",
-            QT_TRANSLATE_NOOP("@default", "Audio Tag Editor"))));
+            audioTagEditorStr)));
   aboutData.setTranslator(
         ki18n("%1").subs(QCoreApplication::translate("@default",
             // i18n NAME OF TRANSLATORS
