@@ -380,6 +380,29 @@ QWidget* ConfigDialogPages::createPluginsPage()
 }
 
 /**
+ * Set values in pages from default configuration.
+ */
+void ConfigDialogPages::setDefaultConfig()
+{
+  FilenameFormatConfig fnCfg;
+  TagFormatConfig id3Cfg;
+  TagConfig tagCfg;
+  tagCfg.setAvailablePlugins(TagConfig::instance().availablePlugins());
+  tagCfg.setTaggedFileFeatures(TagConfig::instance().taggedFileFeatures());
+  tagCfg.setDefaultPluginOrder();
+  FileConfig fileCfg;
+  UserActionsConfig userActionsCfg;
+  userActionsCfg.setDefaultUserActions();
+  GuiConfig guiCfg;
+  NetworkConfig networkCfg;
+  networkCfg.setDefaultBrowser();
+  ImportConfig importCfg;
+  importCfg.setAvailablePlugins(ImportConfig::instance().availablePlugins());
+  setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
+            importCfg);
+}
+
+/**
  * Set values in dialog from current configuration.
  */
 void ConfigDialogPages::setConfig()
@@ -392,7 +415,19 @@ void ConfigDialogPages::setConfig()
   const GuiConfig& guiCfg = GuiConfig::instance();
   const NetworkConfig& networkCfg = NetworkConfig::instance();
   const ImportConfig& importCfg = ImportConfig::instance();
+  setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
+            importCfg);
+}
 
+/**
+ * Set values in dialog from given configurations.
+ */
+void ConfigDialogPages::setConfigs(
+    const FormatConfig& fnCfg, const FormatConfig& id3Cfg,
+    const TagConfig& tagCfg, const FileConfig& fileCfg,
+    const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
+    const NetworkConfig& networkCfg, const ImportConfig& importCfg)
+{
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_tagFormatBox->fromFormatConfig(id3Cfg);
   m_markTruncationsCheckBox->setChecked(tagCfg.markTruncations());

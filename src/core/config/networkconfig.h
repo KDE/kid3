@@ -109,6 +109,11 @@ public:
   /** Set if proxy authentication is used. */
   void setUseProxyAuthentication(bool useProxyAuthentication);
 
+  /**
+   * Set default web browser.
+   */
+  void setDefaultBrowser();
+
 signals:
   /** Emitted when @a proxy changed. */
   void proxyChanged(const QString& proxy);

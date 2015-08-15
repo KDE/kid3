@@ -77,6 +77,14 @@ protected slots:
    */
   void slotHelp();
 
+protected:
+  /**
+   * Returns whether the current state of the dialog is
+   * the same as the default configuration.
+   * @return false
+   */
+  virtual bool isDefault();
+
 private:
   ConfigDialogPages* m_pages;
 };

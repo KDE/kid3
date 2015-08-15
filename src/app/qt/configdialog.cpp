@@ -138,14 +138,18 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  QPushButton* defaultsButton = new QPushButton(tr("Restore Defaults"), this);
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(helpButton);
+  hlayout->addWidget(defaultsButton);
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
   okButton->setDefault(true);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
+  connect(defaultsButton, SIGNAL(clicked()),
+          m_pages, SLOT(setDefaultConfig()));
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotRevertFontAndStyle()));

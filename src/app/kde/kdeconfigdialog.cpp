@@ -54,15 +54,23 @@ KdeConfigDialog::KdeConfigDialog(QWidget* parent, QString& caption,
   addPage(m_pages->createPluginsPage(), tr("Plugins"), QLatin1String("preferences-plugin"));
 
 #if QT_VERSION >= 0x050000
-  setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
+  setStandardButtons(QDialogButtonBox::RestoreDefaults |
+                     QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
                      QDialogButtonBox::Help);
   if (const QDialogButtonBox* buttons = buttonBox()) {
     if (QPushButton* helpButton = buttons->button(QDialogButtonBox::Help)) {
       connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
     }
+    if (QPushButton* defaultsButton =
+        buttons->button(QDialogButtonBox::RestoreDefaults)) {
+      connect(defaultsButton, SIGNAL(clicked()),
+              m_pages, SLOT(setDefaultConfig()));
+    }
   }
 #else
-  setButtons(Ok | Cancel | Help);
+  setButtons(Default | Ok | Cancel | Help);
+  enableButton(Default, true);
+  connect(this, SIGNAL(defaultClicked()), m_pages, SLOT(setDefaultConfig()));
   setHelp(QLatin1String("configure-kid3"));
 #endif
 }
@@ -95,4 +103,15 @@ void KdeConfigDialog::getConfig() const
 void KdeConfigDialog::slotHelp()
 {
   ContextHelp::displayHelp(QLatin1String("configure-kid3"));
+}
+
+/**
+ * Returns whether the current state of the dialog is
+ * the same as the default configuration.
+ * @return false
+ */
+bool KdeConfigDialog::isDefault()
+{
+  // The "Defaults" button shall be always enabled.
+  return false;
 }

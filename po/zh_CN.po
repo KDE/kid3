@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-13 18:29+0200\n"
+"POT-Creation-Date: 2015-08-15 15:15+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -512,6 +512,9 @@ msgstr "外观配置(&A)"
 
 msgid "&Help"
 msgstr "帮助(&H)"
+
+msgid "Restore Defaults"
+msgstr "恢复默认值"
 
 msgid "&OK"
 msgstr "确定(&O)"

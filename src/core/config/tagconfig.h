@@ -293,6 +293,11 @@ public:
    */
   Q_INVOKABLE static QStringList getPictureNames();
 
+  /**
+   * Set default plugin order.
+   */
+  void setDefaultPluginOrder();
+
 signals:
   /** Emitted when @a taggedFileFeatures changed. */
   void taggedFileFeaturesChanged(int taggedFileFeatures);

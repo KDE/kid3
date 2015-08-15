@@ -177,6 +177,11 @@ public:
   /** Set list of context menu commands from variant list. */
   void setContextMenuCommandVariantList(const QVariantList& lst);
 
+  /**
+   * Set default user actions.
+   */
+  void setDefaultUserActions();
+
 signals:
   /** Emitted when commands changed. */
   void contextMenuCommandsChanged();

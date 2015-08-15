@@ -34,15 +34,6 @@ namespace {
 /** Default value for comment name */
 const char* const defaultCommentName = "COMMENT";
 
-/** Default to filename format list */
-const char* defaultPluginOrder[] = {
-  "Id3libMetadata",
-  "OggFlacMetadata",
-  "Mp4v2Metadata",
-  "TaglibMetadata",
-  0
-};
-
 /** Index of latin-1 entry in getTextEncodingV1Names(). */
 enum { TextEncodingV1Latin1Index = 13 };
 
@@ -161,9 +152,27 @@ void TagConfig::readFromConfig(ISettings* config)
   config->endGroup();
 
   if (m_pluginOrder.isEmpty()) {
-    for (const char** pn = defaultPluginOrder; *pn != 0; ++pn) {
-      m_pluginOrder += QString::fromLatin1(*pn);
-    }
+    setDefaultPluginOrder();
+  }
+}
+
+/**
+ * Set default plugin order.
+ */
+void TagConfig::setDefaultPluginOrder()
+{
+  /** Default to filename format list */
+  static const char* const defaultPluginOrder[] = {
+    "Id3libMetadata",
+    "OggFlacMetadata",
+    "Mp4v2Metadata",
+    "TaglibMetadata",
+    0
+  };
+
+  m_pluginOrder.clear();
+  for (const char* const* pn = defaultPluginOrder; *pn != 0; ++pn) {
+    m_pluginOrder += QString::fromLatin1(*pn);
   }
 }
 

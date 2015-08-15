@@ -85,16 +85,23 @@ void NetworkConfig::readFromConfig(ISettings* config)
   m_useProxyAuthentication = config->value(QLatin1String("UseProxyAuthentication"), m_useProxyAuthentication).toBool();
   m_proxyUserName = config->value(QLatin1String("ProxyUserName"), m_proxyUserName).toString();
   m_proxyPassword = config->value(QLatin1String("ProxyPassword"), m_proxyPassword).toString();
-#ifdef Q_OS_WIN32
   m_browser = config->value(QLatin1String("Browser"), QString()).toString();
+  if (m_browser.isEmpty()) {
+    setDefaultBrowser();
+  }
+  config->endGroup();
+}
+
+void NetworkConfig::setDefaultBrowser()
+{
+#ifdef Q_OS_WIN32
   if (m_browser.isEmpty()) {
     m_browser = QString::fromLocal8Bit(qgetenv("ProgramFiles"));
     m_browser += QLatin1String("\\Internet Explorer\\IEXPLORE.EXE");
   }
 #else
-  m_browser = config->value(QLatin1String("Browser"), QString::fromLatin1(defaultBrowser)).toString();
+  m_browser = QString::fromLatin1(defaultBrowser);
 #endif
-  config->endGroup();
 }
 
 void NetworkConfig::setProxy(const QString& proxy)

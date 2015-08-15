@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-13 18:29+0200\n"
+"POT-Creation-Date: 2015-08-15 15:15+0200\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -515,6 +515,9 @@ msgstr "&Aspecto"
 
 msgid "&Help"
 msgstr "A&yuda"
+
+msgid "Restore Defaults"
+msgstr "Restaurar Opciones Por Defecto"
 
 msgid "&OK"
 msgstr "Acep&tar"

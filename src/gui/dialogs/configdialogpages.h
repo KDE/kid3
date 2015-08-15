@@ -44,6 +44,13 @@ class FormatBox;
 class ConfigTable;
 class CommandsTableModel;
 class CheckableStringListModel;
+class FormatConfig;
+class TagConfig;
+class FileConfig;
+class UserActionsConfig;
+class GuiConfig;
+class NetworkConfig;
+class ImportConfig;
 
 /**
  * Pages for configuration dialog.
@@ -101,7 +108,22 @@ public:
    */
   void getConfig() const;
 
+public slots:
+  /**
+   * Set values in pages from default configuration.
+   */
+  void setDefaultConfig();
+
 private:
+  /**
+   * Set values in dialog from given configurations.
+   */
+  void setConfigs(
+      const FormatConfig& fnCfg, const FormatConfig& id3Cfg,
+      const TagConfig& tagCfg, const FileConfig& fileCfg,
+      const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
+      const NetworkConfig& networkCfg, const ImportConfig& importCfg);
+
   /** Load last-opened files checkbox */
   QCheckBox* m_loadLastOpenedFileCheckBox;
   /** Preserve timestamp checkbox */

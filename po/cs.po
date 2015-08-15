@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-13 18:29+0200\n"
+"POT-Creation-Date: 2015-08-15 15:15+0200\n"
 "PO-Revision-Date: 2015-05-13 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -514,6 +514,9 @@ msgstr "Vz&hled"
 
 msgid "&Help"
 msgstr "Nápo&věda"
+
+msgid "Restore Defaults"
+msgstr "Obnovit výchozí"
 
 msgid "&OK"
 msgstr "&OK"
