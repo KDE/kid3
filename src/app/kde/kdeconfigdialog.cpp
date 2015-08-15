@@ -27,6 +27,9 @@
 #include "kdeconfigdialog.h"
 #include "contexthelp.h"
 #include "configdialogpages.h"
+#if QT_VERSION >= 0x050000
+#include <QPushButton>
+#endif
 
 /**
  * Constructor.
@@ -53,10 +56,15 @@ KdeConfigDialog::KdeConfigDialog(QWidget* parent, QString& caption,
 #if QT_VERSION >= 0x050000
   setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
                      QDialogButtonBox::Help);
+  if (const QDialogButtonBox* buttons = buttonBox()) {
+    if (QPushButton* helpButton = buttons->button(QDialogButtonBox::Help)) {
+      connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
+    }
+  }
 #else
   setButtons(Ok | Cancel | Help);
-#endif
   setHelp(QLatin1String("configure-kid3"));
+#endif
 }
 
 /**
