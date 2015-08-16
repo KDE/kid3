@@ -1093,7 +1093,7 @@ msgid "Encoder Settings"
 msgstr "Encoder-Einstellungen"
 
 msgid "Encoding Time"
-msgstr "Aufnahmedatum"
+msgstr "Kodierdatum"
 
 msgid "Grouping"
 msgstr "Werk"
