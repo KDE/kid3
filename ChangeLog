@@ -1,3 +1,23 @@
+Sun Aug 16 16:51:50 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release git20150816
+
+	* New:
+	  + Make order of quick access frames configurable.
+	  + Support separators and submenus in user action context menu.
+	  + Restore defaults button in settings dialog.
+
+	* Improved:
+	  + Updated Czech translation.
+
+	* Fixed:
+	  + Wrong and missing translations.
+	  + Removing ID3v1 genre with id3lib.
+	  + KDE 5: Name filters used in file dialogs, blocking file dialogs.
+	  + KDE 5: Invoking help in settings dialog.
+	  + Qt 5.5: Spurious popping up of download dialog.
+	  + Do not abort build if qmlplugindump cannot be started.
+
 Sat May  9 11:18:57 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.2.1

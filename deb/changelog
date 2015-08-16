@@ -1,8 +1,17 @@
-kid3 (3.2.1-0) unstable; urgency=low
+kid3 (3.3.0~git20150816) unstable; urgency=low
+
+  * Internal test release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 16 Aug 2015 16:39:04 +0200
+
+kid3 (3.2.1-1) unstable; urgency=low
 
   * New upstream release.
+    - Add new build dependency qt4-dev-tools.
+  * Uploading to unstable.
+  * Switch to DEP5 debian/copyright format.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 09 May 2015 11:18:57 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 12 May 2015 18:56:41 +0200
 
 kid3 (3.2.0-0) unstable; urgency=low
 
