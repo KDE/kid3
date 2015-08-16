@@ -80,6 +80,7 @@
 
 #if TAGLIB_VERSION >= 0x010500
 #include <oggflacfile.h>
+#include <relativevolumeframe.h>
 #endif
 
 #if TAGLIB_VERSION >= 0x010600
@@ -2395,7 +2396,13 @@ static const struct TypeStrOfId {
   },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POSS - Position synchronisation frame"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RBUF - Recommended buffer size"), false },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVA2 - Relative volume adjustment (2)"), false },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVA2 - Relative volume adjustment (2)"),
+#if TAGLIB_VERSION >= 0x010500
+    true
+#else
+    false
+#endif
+  },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVRB - Reverb"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SEEK - Seek frame"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SIGN - Signature frame"), false },
@@ -2987,6 +2994,112 @@ static QString getFieldsFromOwneFrame(
 }
 #endif
 
+#if TAGLIB_VERSION >= 0x010500
+/**
+ * Get a string representation of the data in an RVA2 frame.
+ * @param rva2Frame RVA2 frame
+ * @return string containing lines with space separated values for
+ * type of channel, volume adjustment, bits representing peak,
+ * peak volume. The peak volume is a hex byte array, the other values
+ * are integers, the volume adjustment is signed. Bits representing peak
+ * and peak volume are omitted if they have zero bits.
+ */
+static QString rva2FrameToString(
+    const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame)
+{
+  QString text;
+  TagLib::List<TagLib::ID3v2::RelativeVolumeFrame::ChannelType> channels =
+      rva2Frame->channels();
+  for (TagLib::List<TagLib::ID3v2::RelativeVolumeFrame::ChannelType>::
+       ConstIterator it = channels.begin();
+       it != channels.end();
+       ++it) {
+    TagLib::ID3v2::RelativeVolumeFrame::ChannelType type = *it;
+    if (!text.isEmpty()) {
+      text += QLatin1Char('\n');
+    }
+    short adj = rva2Frame->volumeAdjustmentIndex(type);
+    TagLib::ID3v2::RelativeVolumeFrame::PeakVolume peak =
+        rva2Frame->peakVolume(type);
+    text += QString::number(type);
+    text += QLatin1Char(' ');
+    text += QString::number(adj);
+    if (peak.bitsRepresentingPeak > 0) {
+      text += QLatin1Char(' ');
+      text += QString::number(peak.bitsRepresentingPeak);
+      text += QLatin1Char(' ');
+      text += QString::fromLatin1(
+            QByteArray(peak.peakVolume.data(), peak.peakVolume.size()).toHex());
+    }
+  }
+  return text;
+}
+
+/**
+ * Set the data in an RVA2 frame from a string representation.
+ * @param rva2Frame RVA2 frame to set
+ * @param text string representation
+ * @see rva2FrameToString()
+ */
+static void rva2FrameFromString(TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
+                                const TagLib::String& text)
+{
+  // Unfortunately, it is not possible to remove data for a specific channel.
+  // Only the whole frame could be deleted and a new one created.
+  foreach (const QString& line, toQString(text).split(QLatin1Char('\n'))) {
+    QStringList strs = line.split(QLatin1Char(' '));
+    if (strs.size() > 1) {
+      bool ok;
+      int typeInt = strs.at(0).toInt(&ok);
+      if (ok && typeInt >= 0 && typeInt <= 8) {
+        short adj = strs.at(1).toShort(&ok);
+        if (ok) {
+          TagLib::ID3v2::RelativeVolumeFrame::ChannelType type =
+              static_cast<TagLib::ID3v2::RelativeVolumeFrame::ChannelType>(
+                typeInt);
+          rva2Frame->setVolumeAdjustmentIndex(adj, type);
+          TagLib::ID3v2::RelativeVolumeFrame::PeakVolume peak;
+          if (strs.size() > 3) {
+            int bitsInt = strs.at(2).toInt(&ok);
+            QByteArray ba = QByteArray::fromHex(strs.at(3).toLatin1());
+            if (ok && bitsInt > 0 && bitsInt <= 255 &&
+                bitsInt <= ba.size() * 8) {
+              peak.bitsRepresentingPeak = bitsInt;
+              peak.peakVolume.setData(ba.constData(), ba.size());
+              rva2Frame->setPeakVolume(peak, type);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Get the fields from a relative volume frame.
+ *
+ * @param rva2Frame relative volume frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromRva2Frame(
+  const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
+  Frame::FieldList& fields)
+{
+  Frame::Field field;
+  field.m_id = Frame::ID_Id;
+  field.m_value = toQString(rva2Frame->identification());
+  fields.push_back(field);
+
+  QString text = rva2FrameToString(rva2Frame);
+  field.m_id = Frame::ID_Text;
+  field.m_value = text;
+  fields.push_back(field);
+  return text;
+}
+#endif
+
 /**
  * Get the fields from an unknown frame.
  *
@@ -3038,6 +3151,9 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 #if TAGLIB_VERSION >= 0x010800
     const TagLib::ID3v2::OwnershipFrame* owneFrame;
 #endif
+#if TAGLIB_VERSION >= 0x010500
+    const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
+#endif
     if ((tFrame =
          dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
         0) {
@@ -3084,6 +3200,11 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     } else if ((owneFrame = dynamic_cast<const TagLib::ID3v2::OwnershipFrame*>(
                 frame)) != 0) {
       return getFieldsFromOwneFrame(owneFrame, fields);
+#endif
+#if TAGLIB_VERSION >= 0x010500
+    } else if ((rva2Frame = dynamic_cast<const TagLib::ID3v2::RelativeVolumeFrame*>(
+                frame)) != 0) {
+      return getFieldsFromRva2Frame(rva2Frame, fields);
 #endif
     } else {
       TagLib::ByteVector id = frame->frameID();
@@ -3627,6 +3748,27 @@ void setContentType(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                fld.m_value.toInt()));
 }
 
+#if TAGLIB_VERSION >= 0x010500
+template <>
+void setIdentifier(TagLib::ID3v2::RelativeVolumeFrame* f,
+                   const Frame::Field& fld)
+{
+  f->setIdentification(toTString(fld.m_value.toString()));
+}
+
+template <>
+void setText(TagLib::ID3v2::RelativeVolumeFrame* f, const TagLib::String& text)
+{
+  rva2FrameFromString(f, text);
+}
+
+template <>
+void setValue(TagLib::ID3v2::RelativeVolumeFrame* f, const TagLib::String& text)
+{
+  rva2FrameFromString(f, text);
+}
+#endif
+
 //! @endcond
 
 /**
@@ -3762,6 +3904,9 @@ void TagLibFile::setId3v2Frame(
 #if TAGLIB_VERSION >= 0x010800
     TagLib::ID3v2::OwnershipFrame* owneFrame;
 #endif
+#if TAGLIB_VERSION >= 0x010800
+    TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
+#endif
     if ((tFrame =
          dynamic_cast<TagLib::ID3v2::TextIdentificationFrame*>(id3Frame))
         != 0) {
@@ -3817,6 +3962,11 @@ void TagLibFile::setId3v2Frame(
     } else if ((owneFrame = dynamic_cast<TagLib::ID3v2::OwnershipFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(this, owneFrame, frame);
+#endif
+#if TAGLIB_VERSION >= 0x010500
+    } else if ((rva2Frame = dynamic_cast<TagLib::ID3v2::RelativeVolumeFrame*>(
+                  id3Frame)) != 0) {
+      setTagLibFrame(this, rva2Frame, frame);
 #endif
     } else {
       TagLib::ByteVector id(id3Frame->frameID());
@@ -5117,6 +5267,10 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #if TAGLIB_VERSION >= 0x010800
       } else if (frameId == QLatin1String("OWNE")) {
         id3Frame = new TagLib::ID3v2::OwnershipFrame(enc);
+#endif
+#if TAGLIB_VERSION >= 0x010500
+      } else if (frameId == QLatin1String("RVA2")) {
+        id3Frame = new TagLib::ID3v2::RelativeVolumeFrame;
 #endif
       }
       if (!id3Frame) {
