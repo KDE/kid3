@@ -43,7 +43,7 @@ elseif (WIN32)
     set(CMAKE_RC_COMPILER_INIT windres)
     enable_language(RC)
     set(CMAKE_RC_COMPILE_OBJECT
-      "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+      "<CMAKE_RC_COMPILER> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
   endif (MINGW)
   # add Windows resource file with icon
   set(qt_SRCS ${qt_SRCS} kid3win.rc)
