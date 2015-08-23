@@ -179,8 +179,9 @@ public:
 
   /**
    * Set default user actions.
+   * @param upgradeOnly if true only upgrade configuration with new actions
    */
-  void setDefaultUserActions();
+  void setDefaultUserActions(bool upgradeOnly = false);
 
 signals:
   /** Emitted when commands changed. */
