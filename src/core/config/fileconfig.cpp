@@ -84,7 +84,7 @@ FileConfig::FileConfig() :
   m_defaultCoverFileName(QLatin1String("folder.jpg")),
   m_preserveTime(false),
   m_markChanges(true),
-  m_loadLastOpenedFile(false)
+  m_loadLastOpenedFile(true)
 {
 }
 

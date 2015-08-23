@@ -72,8 +72,9 @@ TagConfig::TagConfig() :
   m_onlyCustomGenres(false),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
-  m_genreNotNumeric(false)
+  m_genreNotNumeric(true)
 {
+  m_disabledPlugins << QLatin1String("Id3libMetadata");
 }
 
 /**
