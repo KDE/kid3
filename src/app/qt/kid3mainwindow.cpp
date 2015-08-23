@@ -238,6 +238,7 @@ void Kid3MainWindow::initActions()
   connect(fileBrowseCoverArt, SIGNAL(triggered()),
     impl(), SLOT(slotBrowseCoverArt()));
   fileMenu->addAction(fileBrowseCoverArt);
+  fileMenu->addSeparator();
 
   QAction* fileExport = new QAction(this);
   fileExport->setStatusTip(tr("Export to file or clipboard"));
@@ -340,6 +341,7 @@ void Kid3MainWindow::initActions()
     form(), SLOT(nextFile()));
   editMenu->addAction(editNextFile);
   toolBar->addAction(editNextFile);
+  editMenu->addSeparator();
 
   QAction* editFind = new QAction(this);
   editFind->setStatusTip(tr("Find"));
@@ -395,6 +397,7 @@ void Kid3MainWindow::initActions()
   connect(toolsApplyTextEncoding, SIGNAL(triggered()),
     app(), SLOT(applyTextEncoding()));
   toolsMenu->addAction(toolsApplyTextEncoding);
+  toolsMenu->addSeparator();
 
   QAction* toolsRenameDirectory = new QAction(this);
   toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
@@ -422,6 +425,7 @@ void Kid3MainWindow::initActions()
   connect(toolsFilter, SIGNAL(triggered()),
     impl(), SLOT(slotFilter()));
   toolsMenu->addAction(toolsFilter);
+  toolsMenu->addSeparator();
 
   const TagConfig& tagCfg = TagConfig::instance();
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
@@ -447,6 +451,7 @@ void Kid3MainWindow::initActions()
   }
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
+  toolsMenu->addSeparator();
   QAction* toolsPlay = new QAction(this);
   toolsPlay->setStatusTip(tr("Play"));
   toolsPlay->setText(tr("&Play"));
