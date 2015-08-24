@@ -65,8 +65,6 @@ if (BUILD_KDE_APP)
     )
   else (HAVE_QT5)
     set(_cmakeInstallRpath "${CMAKE_INSTALL_RPATH}")
-    find_package(KDE4 REQUIRED)
-    include (KDE4Defaults)
 
     if (BUILD_SHARED_LIBS)
       # FindKDE4Internal.cmake will overwrite our RPATH if LIB_INSTALL_DIR (which

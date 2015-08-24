@@ -473,6 +473,13 @@ else (UNIX AND NOT APPLE)
   set(KID3_EXECUTABLE kid3)
 endif (UNIX AND NOT APPLE)
 
+if (BUILD_KDE_APP)
+  if (NOT HAVE_QT5)
+    find_package(KDE4 REQUIRED)
+    include (KDE4Defaults)
+    add_definitions(${KDE4_ENABLE_EXCEPTIONS})
+  endif (NOT HAVE_QT5)
+endif (BUILD_KDE_APP)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
