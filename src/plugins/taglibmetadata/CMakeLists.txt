@@ -50,9 +50,14 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
     taglibfile.cpp
     taglibext/aac/aacfiletyperesolver.cpp
     taglibext/mp2/mp2filetyperesolver.cpp
-    taglibext/synchronizedlyricsframe.cpp
-    taglibext/eventtimingcodesframe.cpp
   )
+
+  if (NOT ${TAGLIB_VERSION} VERSION_GREATER 1.9.1)
+    set(plugin_SRCS ${plugin_SRCS}
+      taglibext/synchronizedlyricsframe.cpp
+      taglibext/eventtimingcodesframe.cpp
+    )
+  endif (NOT ${TAGLIB_VERSION} VERSION_GREATER 1.9.1)
 
   if (NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
     set(plugin_SRCS ${plugin_SRCS}

@@ -120,7 +120,7 @@
 #include "taglibext/dsf/dsffile.h"
 #endif
 
-#if TAGLIB_VERSION >= 0x010902
+#if TAGLIB_VERSION >= 0x011000
 #include <synchronizedlyricsframe.h>
 #include <eventtimingcodesframe.h>
 #else
