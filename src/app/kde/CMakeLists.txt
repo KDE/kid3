@@ -7,6 +7,10 @@ set(kde_SRCS
 )
 
 if (HAVE_QT5)
+  if (POLICY CMP0063)
+    cmake_policy(SET CMP0063 NEW)
+  endif (POLICY CMP0063)
+
   add_executable(kid3 ${kde_SRCS})
 
   target_link_libraries(kid3 kid3-gui KF5::KIOFileWidgets -lstdc++)

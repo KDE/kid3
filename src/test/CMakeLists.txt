@@ -1,4 +1,5 @@
 include_directories(
+  ${QT_QTTEST_INCLUDE_DIR}
   ../core/utils
   ../core/model
   ../core/tags
