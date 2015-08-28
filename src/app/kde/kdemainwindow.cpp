@@ -286,7 +286,7 @@ void KdeMainWindow::initActions()
   editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
 #endif
   actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
-  connect(editPreviousFile, SIGNAL(triggered()), app(), SLOT(previousFile()));
+  connect(editPreviousFile, SIGNAL(triggered()), form(), SLOT(previousFile()));
   KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
   editNextFile->setStatusTip(tr("Select next file"));
 #if QT_VERSION >= 0x050000
@@ -296,7 +296,7 @@ void KdeMainWindow::initActions()
   editNextFile->setShortcut(KShortcut(QLatin1String("Alt+Down")));
 #endif
   actionCollection()->addAction(QLatin1String("next_file"), editNextFile);
-  connect(editNextFile, SIGNAL(triggered()), app(), SLOT(nextFile()));
+  connect(editNextFile, SIGNAL(triggered()), form(), SLOT(nextFile()));
   KAction* actionV1FromFilename = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Filename"), this);
   actionCollection()->addAction(QLatin1String("v1_from_filename"), actionV1FromFilename);
   connect(actionV1FromFilename, SIGNAL(triggered()), app(), SLOT(getTagsFromFilenameV1()));
