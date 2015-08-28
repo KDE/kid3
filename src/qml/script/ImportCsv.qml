@@ -28,13 +28,25 @@ Kid3Script {
     var rows, names, files = {}
     var numRowsImported = 0
 
+    function unquoteColumns(columns) {
+      for (var i = 0; i < columns.length; ++i) {
+        var val = columns[i]
+        if (val.length >= 2 &&
+            val[0] === "\"" && val[val.length - 1] === "\"") {
+          val = val.substr(1, val.length - 2)
+          columns[i] = val
+        }
+      }
+      return columns
+    }
+
     function readCsvFile(filePath) {
       var filePathCol = -1
       var lines = ("" + script.readFile(filePath)).split("\n")
       for (var i = 0; i < lines.length; ++i) {
         var line = lines[i]
         if (line.length > 0) {
-          var columns = line.split("\t")
+          var columns = unquoteColumns(line.split("\t"))
           if (i > 0) {
             if (filePathCol >= 0 && filePathCol < columns.length) {
               files[columns[filePathCol]] = i - 1
@@ -83,7 +95,7 @@ Kid3Script {
         console.log("Imported tags for %1 files".arg(numRowsImported))
         if (isStandalone()) {
           // Save the changes if the script is started stand-alone, not from Kid3.
-//          app.saveDirectory()
+          app.saveDirectory()
         }
         Qt.quit()
       } else {
