@@ -597,6 +597,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
   bool ok = true;
   QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
+    revertChangedFilename();
     return false;
   }
 

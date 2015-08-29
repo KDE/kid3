@@ -174,6 +174,7 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 {
   QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
+    revertChangedFilename();
     return false;
   }
 

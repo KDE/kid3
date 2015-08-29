@@ -1013,6 +1013,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 #if TAGLIB_VERSION >= 0x010800
     closeFile(false);
 #endif
+    revertChangedFilename();
     return false;
   }
 

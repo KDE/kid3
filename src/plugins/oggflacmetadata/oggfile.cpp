@@ -247,6 +247,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
   QString dirname = getDirname();
   if (isChanged() &&
     !QFileInfo(currentFilePath()).isWritable()) {
+    revertChangedFilename();
     return false;
   }
 

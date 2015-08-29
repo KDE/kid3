@@ -344,6 +344,15 @@ void TaggedFile::markFilenameUnchanged()
 }
 
 /**
+ * Revert modification of filename.
+ */
+void TaggedFile::revertChangedFilename()
+{
+  m_newFilename = m_filename;
+  updateModifiedState();
+}
+
+/**
  * Mark tag 1 as changed.
  *
  * @param type type of changed frame

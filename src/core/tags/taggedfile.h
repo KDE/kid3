@@ -779,6 +779,11 @@ protected:
   void markFilenameUnchanged();
 
   /**
+   * Revert modification of filename.
+   */
+  void revertChangedFilename();
+
+  /**
    * Check if tag 1 was changed.
    * @return true if tag 1 was changed.
    */

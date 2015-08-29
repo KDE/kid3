@@ -237,6 +237,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 {
   if (isChanged() &&
     !QFileInfo(currentFilePath()).isWritable()) {
+    revertChangedFilename();
     return false;
   }
 
