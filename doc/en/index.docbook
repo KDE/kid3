@@ -3946,6 +3946,7 @@ app.selectionInfo.filePath: Absolute file path
 app.selectionInfo.detailInfo: Format details
 app.selectionInfo.tagFormatV1: Tag 1 format
 app.selectionInfo.tagFormatV2: Tag 2 format
+app.selectionInfo.formatString(tag, format): Substitute codes in format string
 </programlisting>
 
 <para>

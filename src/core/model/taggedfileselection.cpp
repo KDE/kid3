@@ -26,7 +26,7 @@
 
 #include "taggedfileselection.h"
 #include "taggedfile.h"
-#include "frame.h"
+#include "trackdata.h"
 #include "frametablemodel.h"
 #include "fileproxymodel.h"
 #include "pictureframe.h"
@@ -273,6 +273,22 @@ QByteArray TaggedFileSelection::getPicture() const
     PictureFrame::getData(*it, data);
   }
   return data;
+}
+
+/**
+ * Replace codes in format string with information from the tags.
+ * @param tagVersion tag version
+ * @param fmt format string
+ * @return string with format codes replaced.
+ */
+QString TaggedFileSelection::formatString(Frame::TagVersion tagVersion,
+                                          const QString& fmt)
+{
+  if (!m_state.m_singleFile)
+    return fmt;
+
+  TrackData trackData(*m_state.m_singleFile, tagVersion);
+  return trackData.formatString(fmt);
 }
 
 /**

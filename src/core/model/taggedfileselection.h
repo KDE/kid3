@@ -28,6 +28,7 @@
 #define TAGGEDFILESELECTION_H
 
 #include <QObject>
+#include "frame.h"
 #include "kid3api.h"
 
 class FrameTableModel;
@@ -183,6 +184,15 @@ public:
    * @return picture data, empty if not available.
    */
   QByteArray getPicture() const;
+
+  /**
+   * Replace codes in format string with information from the tags.
+   * @param tagVersion tag version
+   * @param fmt format string
+   * @return string with format codes replaced.
+   */
+  Q_INVOKABLE QString formatString(Frame::TagVersion tagVersion,
+                                   const QString& fmt);
 
   /**
    * Select changed frames in the tables if multiple files are selected.
