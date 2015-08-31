@@ -31,6 +31,7 @@
 #include <QDir>
 #include <QProcess>
 #include <QImage>
+#include <QFileDialog>
 #include <QBuffer>
 #include <QCryptographicHash>
 #include "pictureframe.h"
@@ -486,4 +487,19 @@ QVariant ScriptUtils::scaleImage(const QVariant& var, int width, int height)
     }
   }
   return QVariant();
+}
+
+/**
+ * @brief Open a file select dialog to get a file name.
+ * @param caption dialog caption
+ * @param dir working directory
+ * @param filter file type filter
+ * @param saveFile true to open a save file dialog
+ * @return selected file, empty if canceled.
+ */
+QString ScriptUtils::selectFileName(const QString& caption, const QString& dir,
+                                    const QString& filter, bool saveFile)
+{
+  return saveFile ? QFileDialog::getSaveFileName(0, caption, dir, filter)
+                  : QFileDialog::getOpenFileName(0, caption, dir, filter);
 }

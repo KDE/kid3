@@ -4062,6 +4062,8 @@ script.saveImage(img, filePath, [format]): Speichere Bild in Datei, true wenn OK
 script.imageProperties(img): Eigenschaften eines Bildes, enthält
   "width", "height", "depth" und "colorCount", leer wenn Bild ungültig
 script.scaleImage(img, width, [height]): Liefert skaliertes Bild
+script.selectFileName(caption, dir, filter, saveFile): Öffnet Dateidialog, um
+eine Datei auszuwählen
 </programlisting>
 
 </sect2>
