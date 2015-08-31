@@ -89,7 +89,13 @@ Kid3Script {
         }
         var exportPath = getArguments()[0]
         if (!exportPath) {
-          exportPath = script.tempPath() + "/export.csv"
+          exportPath = script.selectFileName(
+            "Export", app.dirName + "/export.csv",
+            "CSV files (*.csv);;All files (*)", true)
+          if (!exportPath) {
+            Qt.quit()
+            return
+          }
         }
         if (script.writeFile(exportPath, txt)) {
           console.log("Exported tags of %1 files to %2".

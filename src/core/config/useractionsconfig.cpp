@@ -174,11 +174,18 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Text Encoding ID3v1"), QLatin1String("@qml %{qmlpath}/script/ShowTextEncodingV1.qml"), false, true));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Export CSV"), QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml %{directory}/export.csv"), false, true));
+      UserActionsConfig::MenuCommand(QLatin1String("Export CSV"), QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml"), false, true));
+  } else if (upgradeOnly && ConfigStore::getConfigVersion() == 2) {
+    // Remove default argument from "Export CSV", a file selector is now used.
+    int exportCsvIdx = m_contextMenuCommands.indexOf(
+          UserActionsConfig::MenuCommand(QLatin1String("Export CSV"), QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml %{directory}/export.csv"), false, true));
+    if (exportCsvIdx != -1) {
+      m_contextMenuCommands[exportCsvIdx].setCommand(QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml"));
+    }
   }
   if (!upgradeOnly || ConfigStore::getConfigVersion() < 3) {
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Import CSV"), QLatin1String("@qml %{qmlpath}/script/ImportCsv.qml %{directory}/export.csv"), false, true));
+      UserActionsConfig::MenuCommand(QLatin1String("Import CSV"), QLatin1String("@qml %{qmlpath}/script/ImportCsv.qml"), false, true));
   }
 #endif
 }
