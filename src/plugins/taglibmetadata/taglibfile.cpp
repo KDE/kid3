@@ -128,6 +128,9 @@
 #include "taglibext/eventtimingcodesframe.h"
 #endif
 
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#include <podcastframe.h>
+#endif
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
@@ -2388,6 +2391,9 @@ static const struct TypeStrOfId {
   #endif
   },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCNT - Play counter"), false },
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCST - Podcast"), true },
+#endif
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"),
 #if TAGLIB_VERSION >= 0x010600
     true
@@ -2416,6 +2422,9 @@ static const struct TypeStrOfId {
   { Frame::FT_Genre,          QT_TRANSLATE_NOOP("@default", "TCON - Content type"), true },
   { Frame::FT_Copyright,      QT_TRANSLATE_NOOP("@default", "TCOP - Copyright message"), true },
   { Frame::FT_EncodingTime,   QT_TRANSLATE_NOOP("@default", "TDEN - Encoding time"), true },
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDES - Podcast description"), true },
+#endif
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDLY - Playlist delay"), true },
   { Frame::FT_OriginalDate,   QT_TRANSLATE_NOOP("@default", "TDOR - Original release time"), true },
   { Frame::FT_Date,           QT_TRANSLATE_NOOP("@default", "TDRC - Recording time"), true },
@@ -2424,6 +2433,9 @@ static const struct TypeStrOfId {
   { Frame::FT_EncodedBy,      QT_TRANSLATE_NOOP("@default", "TENC - Encoded by"), true },
   { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TFLT - File type"), true },
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TGID - Podcast identifier"), true },
+#endif
   { Frame::FT_Arranger,       QT_TRANSLATE_NOOP("@default", "TIPL - Involved people list"), true },
   { Frame::FT_Grouping,       QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description"), true },
   { Frame::FT_Title,          QT_TRANSLATE_NOOP("@default", "TIT2 - Title/songname/content description"), true },
@@ -2463,6 +2475,9 @@ static const struct TypeStrOfId {
   { Frame::FT_Lyrics,         QT_TRANSLATE_NOOP("@default", "USLT - Unsynchronized lyric/text transcription"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOM - Commercial information"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOP - Copyright/Legal information"), true },
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WFED - Podcast feed"), true },
+#endif
   { Frame::FT_WWWAudioFile,   QT_TRANSLATE_NOOP("@default", "WOAF - Official audio file webpage"), true },
   { Frame::FT_Website,        QT_TRANSLATE_NOOP("@default", "WOAR - Official artist/performer webpage"), true },
   { Frame::FT_WWWAudioSource, QT_TRANSLATE_NOOP("@default", "WOAS - Official audio source webpage"), true },
@@ -5196,7 +5211,11 @@ bool TagLibFile::addFrameV2(Frame& frame)
         frameId = QLatin1String("COMM");
       }
 
-      if (frameId.startsWith(QLatin1String("T"))) {
+      if (frameId.startsWith(QLatin1String("T"))
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+          || frameId == QLatin1String("WFED")
+#endif
+        ) {
         if (frameId == QLatin1String("TXXX")) {
           id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
         } else if (isFrameIdValid(frameId)) {
@@ -5272,6 +5291,10 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #if TAGLIB_VERSION >= 0x010500
       } else if (frameId == QLatin1String("RVA2")) {
         id3Frame = new TagLib::ID3v2::RelativeVolumeFrame;
+#endif
+#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+      } else if (frameId == QLatin1String("PCST")) {
+        id3Frame = new TagLib::ID3v2::PodcastFrame;
 #endif
       }
       if (!id3Frame) {
