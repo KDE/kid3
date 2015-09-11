@@ -522,6 +522,287 @@ cat >taglib_bvreplace.patch <<"EOF"
  }
 EOF
 
+test -f taglib_podcast.patch ||
+cat >taglib_podcast.patch <<"EOF"
+diff --git a/taglib/CMakeLists.txt b/taglib/CMakeLists.txt
+index 73c1a2f..31e2c49 100644
+--- a/taglib/CMakeLists.txt
++++ b/taglib/CMakeLists.txt
+@@ -83,6 +83,7 @@ set(tag_HDRS
+   mpeg/id3v2/frames/urllinkframe.h
+   mpeg/id3v2/frames/chapterframe.h
+   mpeg/id3v2/frames/tableofcontentsframe.h
++  mpeg/id3v2/frames/podcastframe.h
+   ogg/oggfile.h
+   ogg/oggpage.h
+   ogg/oggpageheader.h
+@@ -177,6 +178,7 @@ set(frames_SRCS
+   mpeg/id3v2/frames/urllinkframe.cpp
+   mpeg/id3v2/frames/chapterframe.cpp
+   mpeg/id3v2/frames/tableofcontentsframe.cpp
++  mpeg/id3v2/frames/podcastframe.cpp
+ )
+ 
+ set(ogg_SRCS
+diff --git a/taglib/mpeg/id3v2/frames/podcastframe.cpp b/taglib/mpeg/id3v2/frames/podcastframe.cpp
+new file mode 100644
+index 0000000..5115a7d
+--- /dev/null
++++ b/taglib/mpeg/id3v2/frames/podcastframe.cpp
+@@ -0,0 +1,79 @@
++/***************************************************************************
++    copyright            : (C) 2015 by Urs Fleisch
++    email                : ufleisch@users.sourceforge.net
++ ***************************************************************************/
++
++/***************************************************************************
++ *   This library is free software; you can redistribute it and/or modify  *
++ *   it  under the terms of the GNU Lesser General Public License version  *
++ *   2.1 as published by the Free Software Foundation.                     *
++ *                                                                         *
++ *   This library is distributed in the hope that it will be useful, but   *
++ *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
++ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
++ *   Lesser General Public License for more details.                       *
++ *                                                                         *
++ *   You should have received a copy of the GNU Lesser General Public      *
++ *   License along with this library; if not, write to the Free Software   *
++ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA         *
++ *   02110-1301  USA                                                       *
++ *                                                                         *
++ *   Alternatively, this file is available under the Mozilla Public        *
++ *   License Version 1.1.  You may obtain a copy of the License at         *
++ *   http://www.mozilla.org/MPL/                                           *
++ ***************************************************************************/
++
++#include "podcastframe.h"
++
++using namespace TagLib;
++using namespace ID3v2;
++
++class PodcastFrame::PodcastFramePrivate
++{
++public:
++  ByteVector fieldData;
++};
++
++////////////////////////////////////////////////////////////////////////////////
++// public members
++////////////////////////////////////////////////////////////////////////////////
++
++PodcastFrame::PodcastFrame() : Frame("PCST")
++{
++  d = new PodcastFramePrivate;
++  d->fieldData = ByteVector(4, '\0');
++}
++
++PodcastFrame::~PodcastFrame()
++{
++  delete d;
++}
++
++String PodcastFrame::toString() const
++{
++  return String();
++}
++
++////////////////////////////////////////////////////////////////////////////////
++// protected members
++////////////////////////////////////////////////////////////////////////////////
++
++void PodcastFrame::parseFields(const ByteVector &data)
++{
++  d->fieldData = data;
++}
++
++ByteVector PodcastFrame::renderFields() const
++{
++  return d->fieldData;
++}
++
++////////////////////////////////////////////////////////////////////////////////
++// private members
++////////////////////////////////////////////////////////////////////////////////
++
++PodcastFrame::PodcastFrame(const ByteVector &data, Header *h) : Frame(h)
++{
++  d = new PodcastFramePrivate;
++  parseFields(fieldData(data));
++}
+diff --git a/taglib/mpeg/id3v2/frames/podcastframe.h b/taglib/mpeg/id3v2/frames/podcastframe.h
+new file mode 100644
+index 0000000..7bbc213
+--- /dev/null
++++ b/taglib/mpeg/id3v2/frames/podcastframe.h
+@@ -0,0 +1,80 @@
++/***************************************************************************
++    copyright            : (C) 2015 by Urs Fleisch
++    email                : ufleisch@users.sourceforge.net
++ ***************************************************************************/
++
++/***************************************************************************
++ *   This library is free software; you can redistribute it and/or modify  *
++ *   it  under the terms of the GNU Lesser General Public License version  *
++ *   2.1 as published by the Free Software Foundation.                     *
++ *                                                                         *
++ *   This library is distributed in the hope that it will be useful, but   *
++ *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
++ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
++ *   Lesser General Public License for more details.                       *
++ *                                                                         *
++ *   You should have received a copy of the GNU Lesser General Public      *
++ *   License along with this library; if not, write to the Free Software   *
++ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA         *
++ *   02110-1301  USA                                                       *
++ *                                                                         *
++ *   Alternatively, this file is available under the Mozilla Public        *
++ *   License Version 1.1.  You may obtain a copy of the License at         *
++ *   http://www.mozilla.org/MPL/                                           *
++ ***************************************************************************/
++
++#ifndef TAGLIB_PODCASTFRAME_H
++#define TAGLIB_PODCASTFRAME_H
++
++#include "id3v2frame.h"
++#include "taglib_export.h"
++
++namespace TagLib {
++
++  namespace ID3v2 {
++
++    //! ID3v2 podcast frame
++    /*!
++     * An implementation of ID3v2 podcast flag, a frame with four zero bytes.
++     */
++    class TAGLIB_EXPORT PodcastFrame : public Frame
++    {
++      friend class FrameFactory;
++
++    public:
++      /*!
++       * Construct a podcast frame.
++       */
++      PodcastFrame();
++
++      /*!
++       * Destroys this PodcastFrame instance.
++       */
++      virtual ~PodcastFrame();
++
++      /*!
++       * Returns a null string.
++       */
++      virtual String toString() const;
++
++    protected:
++      // Reimplementations.
++
++      virtual void parseFields(const ByteVector &data);
++      virtual ByteVector renderFields() const;
++
++    private:
++      /*!
++       * The constructor used by the FrameFactory.
++       */
++      PodcastFrame(const ByteVector &data, Header *h);
++      PodcastFrame(const PodcastFrame &);
++      PodcastFrame &operator=(const PodcastFrame &);
++
++      class PodcastFramePrivate;
++      PodcastFramePrivate *d;
++    };
++
++  }
++}
++#endif
+diff --git a/taglib/mpeg/id3v2/id3v2frame.cpp b/taglib/mpeg/id3v2/id3v2frame.cpp
+index bee5375..4313bcc 100644
+--- a/taglib/mpeg/id3v2/id3v2frame.cpp
++++ b/taglib/mpeg/id3v2/id3v2frame.cpp
+@@ -117,7 +117,8 @@ Frame *Frame::createTextualFrame(const String &key, const StringList &values) //
+   // check if the key is contained in the key<=>frameID mapping
+   ByteVector frameID = keyToFrameID(key);
+   if(!frameID.isNull()) {
+-    if(frameID[0] == 'T'){ // text frame
++    // Apple proprietary WFED (Podcast URL) is in fact a text frame.
++    if(frameID[0] == 'T' || frameID == "WFED"){ // text frame
+       TextIdentificationFrame *frame = new TextIdentificationFrame(frameID, String::UTF8);
+       frame->setText(values);
+       return frame;
+@@ -427,6 +428,12 @@ static const char *frameTranslation[][2] = {
+   // Other frames
+   { "COMM", "COMMENT" },
+   //{ "USLT", "LYRICS" }, handled specially
++  // Apple iTunes proprietary frames
++  { "PCST", "PODCAST" },
++  { "TCAT", "PODCASTCATEGORY" },
++  { "TDES", "PODCASTDESC" },
++  { "TGID", "PODCASTID" },
++  { "WFED", "PODCASTURL" },
+ };
+ 
+ static const TagLib::uint txxxFrameTranslationSize = 8;
+@@ -532,7 +539,8 @@ PropertyMap Frame::asProperties() const
+   // workaround until this function is virtual
+   if(id == "TXXX")
+     return dynamic_cast< const UserTextIdentificationFrame* >(this)->asProperties();
+-  else if(id[0] == 'T')
++  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
++  else if(id[0] == 'T' || id == "WFED")
+     return dynamic_cast< const TextIdentificationFrame* >(this)->asProperties();
+   else if(id == "WXXX")
+     return dynamic_cast< const UserUrlLinkFrame* >(this)->asProperties();
+diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+index f6a4aac..bf4b0ee 100644
+--- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
++++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+@@ -49,6 +49,7 @@
+ #include "frames/eventtimingcodesframe.h"
+ #include "frames/chapterframe.h"
+ #include "frames/tableofcontentsframe.h"
++#include "frames/podcastframe.h"
+ 
+ using namespace TagLib;
+ using namespace ID3v2;
+@@ -167,7 +168,8 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
+ 
+   // Text Identification (frames 4.2)
+ 
+-  if(frameID.startsWith("T")) {
++  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
++  if(frameID.startsWith("T") || frameID == "WFED") {
+ 
+     TextIdentificationFrame *f = frameID != "TXXX"
+       ? new TextIdentificationFrame(data, header)
+@@ -287,6 +289,11 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
+   if(frameID == "CTOC")
+     return new TableOfContentsFrame(tagHeader, data, header);
+ 
++  // Apple proprietary PCST (Podcast)
++
++  if(frameID == "PCST")
++    return new PodcastFrame(data, header);
++
+   return new UnknownFrame(data, header);
+ }
+ 
+@@ -423,6 +430,14 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
+     convertFrame("WPB", "WPUB", header);
+     convertFrame("WXX", "WXXX", header);
+ 
++    // Apple iTunes nonstandard frames
++    convertFrame("PCS", "PCST", header);
++    convertFrame("TCT", "TCAT", header);
++    convertFrame("TDR", "TDRL", header);
++    convertFrame("TDS", "TDES", header);
++    convertFrame("TID", "TGID", header);
++    convertFrame("WFD", "WFED", header);
++
+     break;
+   }
+ 
+EOF
+
 test -f mp4v2_win32.patch ||
 cat >mp4v2_win32.patch <<"EOF"
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
@@ -1798,6 +2079,8 @@ else
 fi
 if test "${taglib_version}" = "1.9.1"; then
   patch -p1 <../source/taglib_bvreplace.patch
+elif test "${taglib_version:0:4}" = "1.10"; then
+  patch -p1 <../source/taglib_podcast.patch
 fi
 cd ..
 fi

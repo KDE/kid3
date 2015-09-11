@@ -36,6 +36,7 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
   set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS} ${TAGLIB_CFLAGS})
   CHECK_CXX_SOURCE_COMPILES("#include <mpegfile.h>\nint main() {\n  TagLib::MPEG::File file(\"somefile.mp3\");\n  file.save(3, false, 3);\n  return 0;\n}\n" HAVE_TAGLIB_ID3V23_SUPPORT)
   CHECK_CXX_SOURCE_COMPILES("#include <mpegfile.h>\n#include <xmfile.h>\nint main() {\n  TagLib::MPEG::File file(\"somefile.mp3\");\n  return dynamic_cast<TagLib::XM::Properties*>(file.audioProperties()) != 0;\n}\n" HAVE_TAGLIB_XM_SUPPORT)
+  CHECK_CXX_SOURCE_COMPILES("#include <podcastframe.h>\nint main() {\n  TagLib::ID3v2::PodcastFrame f;;\n  return 0;\n}\n" HAVE_TAGLIB_PODCAST_SUPPORT)
   set(CMAKE_REQUIRED_LIBRARIES ${_CMAKE_REQUIRED_LIBRARIES_TMP})
   set(CMAKE_REQUIRED_DEFINITIONS ${_CMAKE_REQUIRED_DEFINITIONS_TMP})
 

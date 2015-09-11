@@ -5,5 +5,6 @@
 /* Define if you have TagLib installed */
 #cmakedefine HAVE_TAGLIB_ID3V23_SUPPORT 1
 #cmakedefine HAVE_TAGLIB_XM_SUPPORT 1
+#cmakedefine HAVE_TAGLIB_PODCAST_SUPPORT 1
 
 #endif
