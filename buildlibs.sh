@@ -2070,8 +2070,13 @@ if ! test -d taglib-${taglib_version}; then
 tar xzf source/taglib-${taglib_version}.tar.gz
 cd taglib-${taglib_version}/
 taglib_nr=${taglib_version:0:3}
-taglib_nr=${taglib_nr/./}
-if test $taglib_nr -ge 18; then
+if test $taglib_nr = "1.1"; then
+  taglib_nr=${taglib_version:0:4}
+  taglib_nr=${taglib_nr/./}
+else
+  taglib_nr=${taglib_nr/./0}
+fi
+if test $taglib_nr -ge 108; then
   patch -p1 <../source/taglib-msvc.patch
 else
   sed -i 's/^ADD_SUBDIRECTORY(bindings)/#ADD_SUBDIRECTORY(bindings)/' ./CMakeLists.txt
