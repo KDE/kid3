@@ -1,14 +1,18 @@
-Sun Aug 16 16:51:50 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Wed Sep 16 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
-	* Release git20150816
+	* Release git20150916
 
 	* New:
 	  + Make order of quick access frames configurable.
 	  + Support separators and submenus in user action context menu.
 	  + Restore defaults button in settings dialog.
+	  + CSV import from multiple directories.
+	  + Support for lyrics.wikia.com in embed lyrics script.
+	  + Mac, Windows: Support for podcast frames.
 
 	* Improved:
 	  + Updated Czech translation.
+	  + Change file permissions in the case of modified file names.
 
 	* Fixed:
 	  + Wrong and missing translations.
