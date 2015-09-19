@@ -497,6 +497,15 @@ public:
   virtual QStringList getFrameIds() const;
 
   /**
+   * Add a suitable field list for the frame if missing.
+   * If a frame is created, its field list is empty. This method will create
+   * a field list appropriate for the frame type and tagged file type if no
+   * field list exists.
+   * @param frame frame where field list is added
+   */
+  virtual void addFieldList(Frame& frame) const;
+
+  /**
    * Static initialization.
    * Registers file types.
    */
@@ -528,15 +537,6 @@ private:
 
   TagLibFile(const TagLibFile&);
   TagLibFile& operator=(const TagLibFile&);
-
-  /**
-   * Modify an ID3v2 frame.
-   *
-   * @param id3Frame original ID3v2 frame
-   * @param frame    frame with fields to set in new frame
-   */
-  void setId3v2Frame(
-    TagLib::ID3v2::Frame* id3Frame, const Frame& frame) const;
 
   /**
    * Close file handle.

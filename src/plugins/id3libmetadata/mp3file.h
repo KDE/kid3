@@ -432,6 +432,15 @@ public:
   virtual QStringList getFrameIds() const;
 
   /**
+   * Add a suitable field list for the frame if missing.
+   * If a frame is created, its field list is empty. This method will create
+   * a field list appropriate for the frame type and tagged file type if no
+   * field list exists.
+   * @param frame frame where field list is added
+   */
+  virtual void addFieldList(Frame& frame) const;
+
+  /**
    * Notify about configuration change.
    * This method shall be called when the configuration changes.
    */
@@ -456,6 +465,13 @@ private:
    * @param frame    frame with fields
    */
   void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const;
+
+  /**
+   * Create an id3lib frame from a frame.
+   * @param frame frame
+   * @return id3lib frame, 0 if invalid.
+   */
+  ID3_Frame* createId3FrameFromFrame(Frame& frame) const;
 
   /**
    * Set the text codec to be used for tag 1.

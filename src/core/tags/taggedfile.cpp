@@ -1279,6 +1279,17 @@ void TaggedFile::closeFileHandle()
 }
 
 /**
+ * Add a suitable field list for the frame if missing.
+ * If a frame is created, its field list is empty. This method will create
+ * a field list appropriate for the frame type and tagged file type if no
+ * field list exists. The default implementation does nothing.
+ * @param frame frame where field list is added
+ */
+void TaggedFile::addFieldList(Frame&) const
+{
+}
+
+/**
  * Set frames in tag 2.
  *
  * @param frames      frame collection

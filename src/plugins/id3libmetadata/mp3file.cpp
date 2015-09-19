@@ -1968,17 +1968,14 @@ bool Mp3File::setFrameV2(const Frame& frame)
   return TaggedFile::setFrameV2(frame);
 }
 
-
 /**
- * Add a frame in the tags 2.
- *
- * @param frame frame to add, a field list may be added by this method
- *
- * @return true if ok.
+ * Create an id3lib frame from a frame.
+ * @param frame frame
+ * @return id3lib frame, 0 if invalid.
  */
-bool Mp3File::addFrameV2(Frame& frame)
+ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
 {
-  // Add a new frame.
+  ID3_Frame* id3Frame = 0;
   ID3_FrameID id;
   if (frame.getType() != Frame::FT_Other) {
     id = getId3libFrameIdForType(frame.getType());
@@ -1996,8 +1993,8 @@ bool Mp3File::addFrameV2(Frame& frame)
       }
     }
   }
-  if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE && m_tagV2) {
-    ID3_Frame* id3Frame = new ID3_Frame(id);
+  if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE) {
+    id3Frame = new ID3_Frame(id);
     ID3_Field* fld = id3Frame->GetField(ID3FN_TEXT);
     if (fld) {
       ID3_TextEnc enc = getDefaultTextEncoding();
@@ -2077,8 +2074,24 @@ bool Mp3File::addFrameV2(Frame& frame)
     Frame::Type type;
     const char* name;
     getTypeStringForId3libFrameId(id, type, name);
-    m_tagV2->AttachFrame(id3Frame);
     frame.setExtendedType(Frame::ExtendedType(type, QString::fromLatin1(name)));
+  }
+  return id3Frame;
+}
+
+/**
+ * Add a frame in the tags 2.
+ *
+ * @param frame frame to add, a field list may be added by this method
+ *
+ * @return true if ok.
+ */
+bool Mp3File::addFrameV2(Frame& frame)
+{
+  // Add a new frame.
+  ID3_Frame* id3Frame;
+  if (m_tagV2 && (id3Frame = createId3FrameFromFrame(frame)) != 0) {
+    m_tagV2->AttachFrame(id3Frame);
     frame.setIndex(m_tagV2->NumFrames() - 1);
     if (frame.fieldList().empty()) {
       // add field list to frame
@@ -2292,6 +2305,23 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
 #endif
   }
   frames.addMissingStandardFrames();
+}
+
+/**
+ * Add a suitable field list for the frame if missing.
+ * If a frame is created, its field list is empty. This method will create
+ * a field list appropriate for the frame type and tagged file type if no
+ * field list exists.
+ * @param frame frame where field list is added
+ */
+void Mp3File::addFieldList(Frame& frame) const
+{
+  if (frame.fieldList().isEmpty()) {
+    ID3_Frame* id3Frame = createId3FrameFromFrame(frame);
+    getFieldsFromId3Frame(id3Frame, frame.fieldList());
+    frame.setFieldListFromValue();
+    delete id3Frame;
+  }
 }
 
 /**

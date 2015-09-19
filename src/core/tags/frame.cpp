@@ -994,6 +994,53 @@ void FrameCollection::dump() const
 }
 #endif
 
+/**
+ * Create a frame collection from a list of subframe fields.
+ *
+ * The given subframe fields must start with a Frame::ID_Subframe field with
+ * the frame name as its value, followed by the fields of the frame. More
+ * subframes may follow.
+ *
+ * @param begin iterator to begin of subframes
+ * @param end iterator after end of subframes
+ *
+ * @return frames constructed from subframe fields.
+ */
+FrameCollection FrameCollection::fromSubframes(
+    Frame::FieldList::const_iterator begin,
+    Frame::FieldList::const_iterator end)
+{
+  FrameCollection frames;
+  Frame frame;
+  int index = 0;
+  for (Frame::FieldList::const_iterator it = begin;
+       it != end;
+       ++it) {
+    const Frame::Field& fld = *it;
+    if (fld.m_id == Frame::ID_Subframe) {
+      if (frame.getType() != Frame::FT_UnknownFrame) {
+        frame.setValueFromFieldList();
+        frames.insert(frame);
+        frame = Frame();
+      }
+      QString name = fld.m_value.toString();
+      if (!name.isEmpty()) {
+        frame.setExtendedType(Frame::ExtendedType(name));
+        frame.setIndex(index++);
+      }
+    } else {
+      if (frame.getType() != Frame::FT_UnknownFrame) {
+        frame.fieldList().append(fld);
+      }
+    }
+  }
+  if (frame.getType() != Frame::FT_UnknownFrame) {
+    frame.setValueFromFieldList();
+    frames.insert(frame);
+  }
+  return frames;
+}
+
 
 /**
  * Constructor.

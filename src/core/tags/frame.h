@@ -133,7 +133,10 @@ public:
     ID_Seller,
 
     // Additional field for METADATA_BLOCK_PICTURE
-    ID_ImageProperties
+    ID_ImageProperties,
+
+    // Type of subframe in CTOC and CHAP frames
+    ID_Subframe
   };
 
   /** Text encoding for fields of type ID_TextEnc. */
@@ -969,6 +972,21 @@ public:
   static quint64 getQuickAccessFrames() {
     return s_quickAccessFrames;
   }
+
+  /**
+   * Create a frame collection from a list of subframe fields.
+   *
+   * The given subframe fields must start with a Frame::ID_Subframe field with
+   * the frame name as its value, followed by the fields of the frame. More
+   * subframes may follow.
+   *
+   * @param begin iterator to begin of subframes
+   * @param end iterator after end of subframes
+   *
+   * @return frames constructed from subframe fields.
+   */
+  static FrameCollection fromSubframes(Frame::FieldList::const_iterator begin,
+                                       Frame::FieldList::const_iterator end);
 
 private:
   /**

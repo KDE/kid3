@@ -50,6 +50,9 @@
 #include "iplatformtools.h"
 #include "timeeventmodel.h"
 #include "timeeventeditor.h"
+#include "chaptereditor.h"
+#include "tableofcontentseditor.h"
+#include "subframeseditor.h"
 #include "pictureframe.h"
 
 /** QTextEdit with label above */
@@ -629,6 +632,111 @@ protected:
   TimeEventEditor* m_editor;
 };
 
+/** Control to edit a subframe */
+class SubframeFieldControl : public Mp3FieldControl {
+public:
+  /**
+   * Constructor.
+   */
+  SubframeFieldControl(IPlatformTools* platformTools,
+                       Kid3Application* app, const TaggedFile* taggedFile,
+                       Frame::FieldList& fields,
+                       Frame::FieldList::iterator begin,
+                       Frame::FieldList::iterator end);
+
+  /**
+   * Destructor.
+   */
+  virtual ~SubframeFieldControl();
+
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
+
+private:
+  IPlatformTools* m_platformTools;
+  Kid3Application* m_app;
+  const TaggedFile* m_taggedFile;
+  Frame::FieldList& m_fields;
+  Frame::FieldList::iterator m_begin;
+  Frame::FieldList::iterator m_end;
+  SubframesEditor* m_editor;
+};
+
+/** Control to edit a chapter */
+class ChapterFieldControl : public Mp3FieldControl {
+public:
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  ChapterFieldControl(Frame::Field& field);
+
+  /**
+   * Destructor.
+   */
+  virtual ~ChapterFieldControl();
+
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
+
+private:
+  ChapterEditor* m_editor;
+};
+
+/** Control to edit table of contents. */
+class TableOfContentsFieldControl : public Mp3FieldControl {
+public:
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  TableOfContentsFieldControl(Frame::Field& field);
+
+  /**
+   * Destructor.
+   */
+  virtual ~TableOfContentsFieldControl();
+
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
+
+private:
+  TableOfContentsEditor* m_editor;
+};
+
 
 /**
  * Constructor.
@@ -972,6 +1080,155 @@ QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
   return m_editor;
 }
 
+/**
+ * Constructor.
+ */
+SubframeFieldControl::SubframeFieldControl(
+    IPlatformTools* platformTools, Kid3Application* app,
+    const TaggedFile* taggedFile, Frame::FieldList& fields,
+    Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
+  Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
+  m_taggedFile(taggedFile), m_fields(fields), m_begin(begin), m_end(end),
+  m_editor(0)
+{
+}
+
+/**
+ * Destructor.
+ */
+SubframeFieldControl::~SubframeFieldControl()
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void SubframeFieldControl::updateTag()
+{
+  if (m_editor) {
+    FrameCollection frames;
+    m_editor->getFrames(frames);
+    m_fields.erase(m_begin, m_end);
+    Frame::Field field;
+    field.m_id = Frame::ID_Subframe;
+    for (FrameCollection::iterator it = frames.begin();
+         it != frames.end();
+         ++it) {
+      field.m_value = it->getExtendedType().getName();
+      m_fields.append(field);
+      m_fields.append(it->getFieldList());
+    }
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
+  m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, parent);
+  FrameCollection frames = FrameCollection::fromSubframes(m_begin, m_end);
+  m_editor->setFrames(frames);
+  return m_editor;
+}
+
+/**
+ * Constructor.
+ * @param field field to edit
+ */
+ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
+  Mp3FieldControl(field), m_editor(0)
+{
+}
+
+/**
+ * Destructor.
+ */
+ChapterFieldControl::~ChapterFieldControl()
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void ChapterFieldControl::updateTag()
+{
+  if (m_editor) {
+    quint32 startTimeMs, endTimeMs, startOffset, endOffset;
+    m_editor->getValues(startTimeMs, endTimeMs, startOffset, endOffset);
+    QVariantList lst;
+    lst << startTimeMs << endTimeMs << startOffset << endOffset;
+    m_field.m_value = lst;
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
+  m_editor = new ChapterEditor(parent);
+  QVariantList lst = m_field.m_value.toList();
+  if (lst.size() >= 4) {
+    m_editor->setValues(lst.at(0).toUInt(), lst.at(1).toUInt(),
+                        lst.at(2).toUInt(), lst.at(3).toUInt());
+  }
+  return m_editor;
+}
+
+/**
+ * Constructor.
+ * @param field field to edit
+ */
+TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
+  Mp3FieldControl(field), m_editor(0)
+{
+}
+
+/**
+ * Destructor.
+ */
+TableOfContentsFieldControl::~TableOfContentsFieldControl()
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void TableOfContentsFieldControl::updateTag()
+{
+  if (m_editor) {
+    bool isTopLevel, isOrdered;
+    QStringList elements = m_editor->getValues(isTopLevel, isOrdered);
+    QVariantList lst;
+    lst << isTopLevel << isOrdered << elements;
+    m_field.m_value = lst;
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
+  m_editor = new TableOfContentsEditor(parent);
+  QVariantList lst = m_field.m_value.toList();
+  if (lst.size() >= 3) {
+    m_editor->setValues(lst.at(0).toBool(), lst.at(1).toBool(),
+                        lst.at(2).toStringList());
+  }
+  return m_editor;
+}
+
 
 /**
  * Constructor.
@@ -1041,6 +1298,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 
   qDeleteAll(m_fieldcontrols);
   m_fieldcontrols.clear();
+  bool subframeMissing = false;
 
   for (Frame::FieldList::iterator fldIt = m_fields.begin();
        fldIt != m_fields.end();
@@ -1048,6 +1306,15 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
     Frame::Field& fld = *fldIt;
     if (fld.m_id == Frame::ID_ImageProperties)
       continue;
+
+    if (fld.m_id == Frame::ID_Subframe) {
+      SubframeFieldControl* subframeCtl =
+          new SubframeFieldControl(m_platformTools, m_app, taggedFile,
+            m_fields, fldIt, m_fields.end());
+      m_fieldcontrols.append(subframeCtl);
+      subframeMissing = false;
+      break;
+    }
 
     switch (fld.m_value.type()) {
       case QVariant::Int:
@@ -1111,6 +1378,15 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
                 m_platformTools, m_app, fld, m_fields, taggedFile,
                 TimeEventModel::EventTimingCodes);
           m_fieldcontrols.append(timeEventCtl);
+        } else if (frameName.startsWith(QLatin1String("CHAP"))) {
+          ChapterFieldControl* chapCtl = new ChapterFieldControl(fld);
+          m_fieldcontrols.append(chapCtl);
+          subframeMissing = true;
+        } else if (frameName.startsWith(QLatin1String("CTOC"))) {
+          TableOfContentsFieldControl* tocCtl =
+              new TableOfContentsFieldControl(fld);
+          m_fieldcontrols.append(tocCtl);
+          subframeMissing = true;
         } else {
           qDebug("Unexpected QVariantList in field %d", fld.m_id);
         }
@@ -1120,6 +1396,14 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       default:
         qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
     }
+  }
+
+  if (subframeMissing) {
+    // Add an empty subframe so that subframes can be added
+    SubframeFieldControl* subframeCtl =
+        new SubframeFieldControl(m_platformTools, m_app, taggedFile,
+          m_fields, m_fields.end(), m_fields.end());
+    m_fieldcontrols.append(subframeCtl);
   }
 
   // Handle case for frames without fields, just a value.

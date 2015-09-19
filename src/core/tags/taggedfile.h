@@ -563,6 +563,15 @@ public:
   virtual void closeFileHandle();
 
   /**
+   * Add a suitable field list for the frame if missing.
+   * If a frame is created, its field list is empty. This method will create
+   * a field list appropriate for the frame type and tagged file type if no
+   * field list exists. The default implementation does nothing.
+   * @param frame frame where field list is added
+   */
+  virtual void addFieldList(Frame& frame) const;
+
+  /**
    * Set frames in tag 1.
    *
    * @param frames      frame collection

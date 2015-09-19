@@ -13,6 +13,9 @@ set(widgets_SRCS
   widgets/enumdelegate.cpp
   widgets/eventcodedelegate.cpp
   widgets/timestampdelegate.cpp
+  widgets/chaptereditor.cpp
+  widgets/tableofcontentseditor.cpp
+  widgets/subframeseditor.cpp
 )
 
 set(widgets_MOC_HDRS
@@ -26,4 +29,7 @@ set(widgets_MOC_HDRS
   widgets/stringlistedit.h
   widgets/timeeventeditor.h
   widgets/timestampdelegate.h
+  widgets/chaptereditor.h
+  widgets/tableofcontentseditor.h
+  widgets/subframeseditor.h
 )
