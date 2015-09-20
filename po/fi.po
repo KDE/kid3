@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1787,6 +1787,18 @@ msgstr "&Muokkaa..."
 msgid "&Remove"
 msgstr "&Poista"
 
+msgid "Start time"
+msgstr "Aloitusaika"
+
+msgid "End time"
+msgstr "Lopetusaika"
+
+msgid "Start offset"
+msgstr "Aloitussiirtymä"
+
+msgid "End offset"
+msgstr "Lopetuspoikkeuma"
+
 msgid "&Add"
 msgstr "L&isää"
 
@@ -1864,6 +1876,12 @@ msgstr "Lisää osa"
 
 msgid "Edit Item"
 msgstr "Muokkaa osaa"
+
+msgid "Top level"
+msgstr "Ylätaso"
+
+msgid "Ordered"
+msgstr "Pakota kirjoitus"
 
 msgid "&Delete"
 msgstr "&Poista"
@@ -2144,8 +2162,17 @@ msgstr "MusicBrainzin julkaisu"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI – Äänihaun sijainti-indeksi"
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Luku"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Sisällysluettelo"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 – Ekvalisaatio (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 – Suhteellinen äänenvoimakkuuden säätö (2)"
@@ -2162,6 +2189,9 @@ msgstr "TCMP - iTunes kokoelma"
 msgid "TDEN - Encoding time"
 msgstr "TDEN – Koodausajankohta"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Podcast kuvaus"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR – Alkuperäinen julkaisuajankohta"
 
@@ -2173,6 +2203,9 @@ msgstr "TRDL – Julkaisuajankohta"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG – Luokitusajankohta"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Podcast tunniste"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL – Mukana olleiden henkilöiden luettelo"
@@ -2203,6 +2236,9 @@ msgstr "TSOT – Nimikkeiden lajittelujärjestys"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST – Aseta tekstitys"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Podcast syöte"
 
 msgid "Destination:"
 msgstr "Kohde:"

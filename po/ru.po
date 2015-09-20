@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -1787,6 +1787,18 @@ msgstr "&Изменить..."
 msgid "&Remove"
 msgstr "&Удалить"
 
+msgid "Start time"
+msgstr "Время начала"
+
+msgid "End time"
+msgstr "Время завершения"
+
+msgid "Start offset"
+msgstr "Начальное смещение"
+
+msgid "End offset"
+msgstr "Конечное смещение"
+
 msgid "&Add"
 msgstr "&Добавить"
 
@@ -1864,6 +1876,12 @@ msgstr "Добавить элемент"
 
 msgid "Edit Item"
 msgstr "Изменить элемент"
+
+msgid "Top level"
+msgstr "Верхний уровень"
+
+msgid "Ordered"
+msgstr "Упорядоченные"
 
 msgid "&Delete"
 msgstr "&Удалить"
@@ -2144,8 +2162,17 @@ msgstr "MusicBrainz альбом"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Audio seek point index"
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Глава"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Содержание"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalisation (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Подкаст"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Relative volume adjustment (2)"
@@ -2162,6 +2189,9 @@ msgstr "TCMP - iTunes сборник"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Encoding time"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Описание Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - Original release time"
 
@@ -2173,6 +2203,9 @@ msgstr "TDRL - Release time"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Tagging time"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Идентификатор Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Involved people list"
@@ -2203,6 +2236,9 @@ msgstr "TSOT - Title sort order"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Set subtitle"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Поток Podcast"
 
 msgid "Destination:"
 msgstr "Место назначения:"

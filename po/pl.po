@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1788,6 +1788,18 @@ msgstr "&Edycja..."
 msgid "&Remove"
 msgstr "&Usuń"
 
+msgid "Start time"
+msgstr "Rozpoczynaj od"
+
+msgid "End time"
+msgstr "Czas zakończenia"
+
+msgid "Start offset"
+msgstr "Początek przesunięcia"
+
+msgid "End offset"
+msgstr "Przesunięcie końca"
+
 msgid "&Add"
 msgstr "&Dodaj"
 
@@ -1865,6 +1877,12 @@ msgstr "Dodaj element"
 
 msgid "Edit Item"
 msgstr "Edytuj element"
+
+msgid "Top level"
+msgstr "Najwyższy poziom"
+
+msgid "Ordered"
+msgstr "Uporządkowane"
 
 msgid "&Delete"
 msgstr "&Usuń"
@@ -2145,8 +2163,17 @@ msgstr "MusicBrainz Release"
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Rozdział"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Spis treści"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr ""
@@ -2163,6 +2190,9 @@ msgstr "TCMP - Składanka iTunes"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Czas zakodowania"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Opis Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - Oryginalny czas wypuszczenia"
 
@@ -2174,6 +2204,9 @@ msgstr "TDRL - Czas wypuszczenia"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Czas zapisania znaczników"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Identyfikator Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Lista ludzi zaangażowanych"
@@ -2204,6 +2237,9 @@ msgstr "TSOT - Porządek sortowania tytułów"
 
 msgid "TSST - Set subtitle"
 msgstr ""
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Źródło Podcast"
 
 msgid "Destination:"
 msgstr "Cel:"

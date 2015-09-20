@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1784,6 +1784,18 @@ msgstr "U&redi..."
 msgid "&Remove"
 msgstr "U&kloni"
 
+msgid "Start time"
+msgstr "Vrijeme početka"
+
+msgid "End time"
+msgstr "Vreme završetka"
+
+msgid "Start offset"
+msgstr "Početni pomjeraj"
+
+msgid "End offset"
+msgstr "Krajnji pomjeraj"
+
 msgid "&Add"
 msgstr "&Dodaj"
 
@@ -1861,6 +1873,12 @@ msgstr "Dodaj stavku"
 
 msgid "Edit Item"
 msgstr "Uredi stavku"
+
+msgid "Top level"
+msgstr "Najviši nivo"
+
+msgid "Ordered"
+msgstr "Uređen"
 
 msgid "&Delete"
 msgstr "&Obriši"
@@ -2141,8 +2159,17 @@ msgstr "MjuzikBrejnz izdanje"
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Poglavlje"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Sadržaj"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - jednačenje (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podemisija"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - podešavanje relativne jačine zvuka (2)"
@@ -2159,6 +2186,9 @@ msgstr ""
 msgid "TDEN - Encoding time"
 msgstr "TDEN - vrijeme kodiranja"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Opis Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - vrijeme izdavanja originala"
 
@@ -2170,6 +2200,9 @@ msgstr "TDRL - vrijeme izdavanja"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - vrijeme označavanja"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Identifikator Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - spisak uključenih ljudi"
@@ -2200,6 +2233,9 @@ msgstr "TSOT - redoslijed sortiranja naslova"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - postavi podnaslov"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Dovod Podcast"
 
 msgid "Destination:"
 msgstr "Odredište:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1784,6 +1784,18 @@ msgstr "У&реди..."
 msgid "&Remove"
 msgstr "У&клони"
 
+msgid "Start time"
+msgstr "Време почетка"
+
+msgid "End time"
+msgstr "Време завршетка"
+
+msgid "Start offset"
+msgstr "Почетни померај"
+
+msgid "End offset"
+msgstr "Крајњи померај"
+
 msgid "&Add"
 msgstr "&Додај"
 
@@ -1861,6 +1873,12 @@ msgstr "Додај ставку"
 
 msgid "Edit Item"
 msgstr "Уреди ставку"
+
+msgid "Top level"
+msgstr "Највиши ниво"
+
+msgid "Ordered"
+msgstr "Уређено"
 
 msgid "&Delete"
 msgstr "&Обриши"
@@ -2141,8 +2159,17 @@ msgstr "МјузикБрејнз издање"
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Поглавље"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Садржај"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - једначење (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Подемисија"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - подешавање релативне јачине звука (2)"
@@ -2159,6 +2186,9 @@ msgstr ""
 msgid "TDEN - Encoding time"
 msgstr "TDEN - време кодирања"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Опис Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - време издавања оригинала"
 
@@ -2170,6 +2200,9 @@ msgstr "TDRL - време издавања"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - време означавања"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Идентификатор Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - списак укључених људи"
@@ -2200,6 +2233,9 @@ msgstr "TSOT - редослед сортирања наслова"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - постави поднаслов"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Довод Podcast"
 
 msgid "Destination:"
 msgstr "Одредиште:"

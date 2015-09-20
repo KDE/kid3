@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2015-05-13 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1787,6 +1787,18 @@ msgstr "&Upravit..."
 msgid "&Remove"
 msgstr "&Odstranit"
 
+msgid "Start time"
+msgstr "Čas zahájení"
+
+msgid "End time"
+msgstr "Čas ukončení"
+
+msgid "Start offset"
+msgstr "Počáteční posuv"
+
+msgid "End offset"
+msgstr "Konec posunu"
+
 msgid "&Add"
 msgstr "&Přidat"
 
@@ -1864,6 +1876,12 @@ msgstr "Přidat položku"
 
 msgid "Edit Item"
 msgstr "Upravit položku"
+
+msgid "Top level"
+msgstr "Horní úroveň"
+
+msgid "Ordered"
+msgstr "Objednáno"
 
 msgid "&Delete"
 msgstr "&Smazat"
@@ -2144,8 +2162,17 @@ msgstr "MusicBrainz - Album"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Rejstřík bodů hledání zvuku"
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Kapitola"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Obsah"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Vyrovnání (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Poměrné přizpůsobení hlasitosti (2)"
@@ -2162,6 +2189,9 @@ msgstr "TCMP - Sestavení iTunes"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Čas zakódování"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Popis Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - Původní rok vydání"
 
@@ -2173,6 +2203,9 @@ msgstr "TDRL - Čas vydání"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Čas opatření značkami"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Identifikátor Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Seznam zúčastněných osob"
@@ -2203,6 +2236,9 @@ msgstr "TSOT - Seřazení podle názvu"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Podnázev skladby"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Kanál Podcast"
 
 msgid "Destination:"
 msgstr "Cíl:"

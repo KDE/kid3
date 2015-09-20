@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1779,6 +1779,18 @@ msgstr ""
 msgid "&Remove"
 msgstr ""
 
+msgid "Start time"
+msgstr ""
+
+msgid "End time"
+msgstr ""
+
+msgid "Start offset"
+msgstr ""
+
+msgid "End offset"
+msgstr ""
+
 msgid "&Add"
 msgstr ""
 
@@ -1852,6 +1864,12 @@ msgid "Add Item"
 msgstr ""
 
 msgid "Edit Item"
+msgstr ""
+
+msgid "Top level"
+msgstr ""
+
+msgid "Ordered"
 msgstr ""
 
 msgid "&Delete"
@@ -2133,7 +2151,16 @@ msgstr ""
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
+msgid "CHAP - Chapter"
+msgstr ""
+
+msgid "CTOC - Table of contents"
+msgstr ""
+
 msgid "EQU2 - Equalisation (2)"
+msgstr ""
+
+msgid "PCST - Podcast"
 msgstr ""
 
 msgid "RVA2 - Relative volume adjustment (2)"
@@ -2151,6 +2178,9 @@ msgstr ""
 msgid "TDEN - Encoding time"
 msgstr ""
 
+msgid "TDES - Podcast description"
+msgstr ""
+
 msgid "TDOR - Original release time"
 msgstr ""
 
@@ -2161,6 +2191,9 @@ msgid "TDRL - Release time"
 msgstr ""
 
 msgid "TDTG - Tagging time"
+msgstr ""
+
+msgid "TGID - Podcast identifier"
 msgstr ""
 
 msgid "TIPL - Involved people list"
@@ -2191,6 +2224,9 @@ msgid "TSOT - Title sort order"
 msgstr ""
 
 msgid "TSST - Set subtitle"
+msgstr ""
+
+msgid "WFED - Podcast feed"
 msgstr ""
 
 msgid "Destination:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1785,6 +1785,18 @@ msgstr "Dü&zen..."
 msgid "&Remove"
 msgstr "Ka&ldır"
 
+msgid "Start time"
+msgstr "Başlama zamanı"
+
+msgid "End time"
+msgstr "Bitiş zamanı"
+
+msgid "Start offset"
+msgstr "Ofseti başlat"
+
+msgid "End offset"
+msgstr "Bitiş Konumu"
+
 msgid "&Add"
 msgstr "&Ekle"
 
@@ -1862,6 +1874,12 @@ msgstr "Öğe Ekle"
 
 msgid "Edit Item"
 msgstr "Öğeyi Düzenle"
+
+msgid "Top level"
+msgstr "Üst Seviye"
+
+msgid "Ordered"
+msgstr "Sıralı"
 
 msgid "&Delete"
 msgstr "&Sil"
@@ -2142,8 +2160,17 @@ msgstr "MusicBrainz Sürümünden"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Ses tarama nokta indeksi"
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - Bölüm"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - İçindekiler"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Ekolayzır (2)"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Bağıl ses düzeyi ayarı (2)"
@@ -2160,6 +2187,9 @@ msgstr "TCMP - iTunes derleme"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Sıkıştırma süresi"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - Podcast açıklama"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - Orjinal piyasaya çıkış zamanı"
 
@@ -2171,6 +2201,9 @@ msgstr "TDRL - Piyasaya çıkış zamanı"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Etiketleme zamanı"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Podcast tanımlayıcı"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - İlgili kişi listesi"
@@ -2201,6 +2234,9 @@ msgstr "TSOT - Başlık sıralaması"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - Alt yazı ayarla"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Podcast besleme"
 
 msgid "Destination:"
 msgstr "Hedef:"

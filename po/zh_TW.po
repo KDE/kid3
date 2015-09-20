@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-08-15 15:15+0200\n"
+"POT-Creation-Date: 2015-09-20 11:11+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1788,6 +1788,18 @@ msgstr "編輯(&E)..."
 msgid "&Remove"
 msgstr "移除(&R)"
 
+msgid "Start time"
+msgstr "開始時間"
+
+msgid "End time"
+msgstr "结束时间"
+
+msgid "Start offset"
+msgstr "起始偏移量"
+
+msgid "End offset"
+msgstr "末尾偏移量"
+
 msgid "&Add"
 msgstr "新增(&A)"
 
@@ -1865,6 +1877,12 @@ msgstr "新增項目"
 
 msgid "Edit Item"
 msgstr "編輯項目"
+
+msgid "Top level"
+msgstr "顶级"
+
+msgid "Ordered"
+msgstr "顺序的"
 
 msgid "&Delete"
 msgstr "刪除(&D)"
@@ -2145,8 +2163,17 @@ msgstr "MusicBrainz Release"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - 音效搜尋點索引"
 
+msgid "CHAP - Chapter"
+msgstr "CHAP - 章节"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - 目录"
+
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
 
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 相對音量調整 (2)"
@@ -2163,6 +2190,9 @@ msgstr "TCMP - iTunes的編譯"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 編碼時間"
 
+msgid "TDES - Podcast description"
+msgstr "TDES - 描述 Podcast"
+
 msgid "TDOR - Original release time"
 msgstr "TDOR - 原始發行時間"
 
@@ -2174,6 +2204,9 @@ msgstr "TDRL - 發行時間"
 
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 標籤時間 "
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - 说明符 Podcast"
 
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 參與人員清單"
@@ -2204,6 +2237,9 @@ msgstr "TSOT - 標題排序順序"
 
 msgid "TSST - Set subtitle"
 msgstr "TSST - 設定字幕"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED -  种子 Podcast"
 
 msgid "Destination:"
 msgstr "到:"
