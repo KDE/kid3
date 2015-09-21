@@ -3338,37 +3338,28 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 #endif
     } else {
       TagLib::ByteVector id = frame->frameID();
-#ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
+#if TAGLIB_VERSION < 0x010500
       if (id.startsWith("WXXX")) {
         TagLib::ID3v2::UserUrlLinkFrame userUrlLinkFrame(frame->render());
         return getFieldsFromUserUrlFrame(&userUrlLinkFrame, fields);
       } else if (id.startsWith("W")) {
         TagLib::ID3v2::UrlLinkFrame urlLinkFrame(frame->render());
         return getFieldsFromUrlFrame(&urlLinkFrame, fields);
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_USLT_FRAMES
-      if (id.startsWith("USLT")) {
+      } else if (id.startsWith("USLT")) {
         TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(frame->render());
         return getFieldsFromUsltFrame(&usltFrm, fields);
+      } else if (id.startsWith("GEOB")) {
+        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(frame->render());
+        return getFieldsFromGeobFrame(&geobFrm, fields);
       } else
 #endif
-#ifndef TAGLIB_SUPPORTS_SYLT_FRAMES
+#if TAGLIB_VERSION < 0x010a00
       if (id.startsWith("SYLT")) {
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(frame->render());
         return getFieldsFromSyltFrame(&syltFrm, fields);
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_ETCO_FRAMES
-      if (id.startsWith("ETCO")) {
+      } else if (id.startsWith("ETCO")) {
         TagLib::ID3v2::EventTimingCodesFrame etcoFrm(frame->render());
         return getFieldsFromEtcoFrame(&etcoFrm, fields);
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
-      if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(frame->render());
-        return getFieldsFromGeobFrame(&geobFrm, fields);
       } else
 #endif
         return getFieldsFromUnknownFrame(frame, fields);
@@ -4221,7 +4212,7 @@ static void setId3v2Frame(const TagLibFile* self,
       TagLib::ByteVector id(id3Frame->frameID());
       // create temporary objects for frames not known by TagLib,
       // an UnknownFrame copy will be created by the edit method.
-#ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
+#if TAGLIB_VERSION < 0x010500
       if (id.startsWith("WXXX")) {
         TagLib::ID3v2::UserUrlLinkFrame userUrlLinkFrame(id3Frame->render());
         setTagLibFrame(self, &userUrlLinkFrame, frame);
@@ -4230,34 +4221,25 @@ static void setId3v2Frame(const TagLibFile* self,
         TagLib::ID3v2::UrlLinkFrame urlLinkFrame(id3Frame->render());
         setTagLibFrame(self, &urlLinkFrame, frame);
         id3Frame->setData(urlLinkFrame.render());
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_USLT_FRAMES
-      if (id.startsWith("USLT")) {
+      } else if (id.startsWith("USLT")) {
         TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(id3Frame->render());
         setTagLibFrame(self, &usltFrm, frame);
         id3Frame->setData(usltFrm.render());
+      } else if (id.startsWith("GEOB")) {
+        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(id3Frame->render());
+        setTagLibFrame(self, &geobFrm, frame);
+        id3Frame->setData(geobFrm.render());
       } else
 #endif
-#ifndef TAGLIB_SUPPORTS_SYLT_FRAMES
+#if TAGLIB_VERSION < 0x010a00
       if (id.startsWith("SYLT")) {
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(id3Frame->render());
         setTagLibFrame(self, &syltFrm, frame);
         id3Frame->setData(syltFrm.render());
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_ETCO_FRAMES
-      if (id.startsWith("ETCO")) {
+      } else if (id.startsWith("ETCO")) {
         TagLib::ID3v2::EventTimingCodesFrame etcoFrm(id3Frame->render());
         setTagLibFrame(self, &etcoFrm, frame);
         id3Frame->setData(etcoFrm.render());
-      } else
-#endif
-#ifndef TAGLIB_SUPPORTS_GEOB_FRAMES
-      if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(id3Frame->render());
-        setTagLibFrame(self, &geobFrm, frame);
-        id3Frame->setData(geobFrm.render());
       } else
 #endif
       {
