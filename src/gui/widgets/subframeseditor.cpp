@@ -128,11 +128,14 @@ void SubframesEditor::onEditClicked()
 void SubframesEditor::onAddClicked()
 {
   bool ok = false;
-  QString name = QInputDialog::getItem(
+  QStringList frameIds = m_taggedFile->getFrameIds();
+  QMap<QString, QString> nameMap = Frame::getDisplayNameMap(frameIds);
+  QString displayName = QInputDialog::getItem(
     this, tr("Add Frame"),
-    tr("Select the frame ID"), m_taggedFile->getFrameIds(), 0, true, &ok);
+    tr("Select the frame ID"), nameMap.keys(), 0, true, &ok);
   if (ok) {
-    Frame::Type type = Frame::getTypeFromTranslatedName(name);
+    QString name = nameMap.value(displayName, displayName);
+    Frame::Type type = Frame::getTypeFromName(name);
     Frame frame(type, QLatin1String(""), name, -1);
     m_taggedFile->addFieldList(frame);
     editFrame(frame, -1);

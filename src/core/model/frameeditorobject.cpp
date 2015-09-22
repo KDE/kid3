@@ -102,20 +102,23 @@ void FrameEditorObject::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   if (taggedFile && frame) {
     QStringList frameNames = taggedFile->getFrameIds();
+    m_displayNameMap = Frame::getDisplayNameMap(frameNames);
     m_selectFrame = frame;
-    emit frameSelectionRequested(frameNames);
+    emit frameSelectionRequested(m_displayNameMap.keys());
   }
 }
 
 /**
  * Called when the frame selection dialog is closed.
  *
- * @param name name of selected frame, empty if canceled
+ * @param displayName name of selected frame, empty if canceled
  */
-void FrameEditorObject::onFrameSelectionFinished(const QString& name)
+void FrameEditorObject::onFrameSelectionFinished(const QString& displayName)
 {
-  if (!name.isEmpty()) {
-    Frame::Type type = Frame::getTypeFromTranslatedName(name);
+  if (!displayName.isEmpty()) {
+    QString name = m_displayNameMap.value(displayName, displayName);
+    m_displayNameMap.clear();
+    Frame::Type type = Frame::getTypeFromName(name);
     *m_selectFrame = Frame(type, QLatin1String(""), name, -1);
     emit frameSelected(m_selectFrame);
   } else {

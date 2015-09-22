@@ -28,6 +28,7 @@
 #define FRAMEEDITOROBJECT_H
 
 #include <QObject>
+#include <QMap>
 #include "iframeeditor.h"
 #include "frame.h"
 
@@ -92,11 +93,11 @@ public slots:
   /**
    * Called when the frame selection dialog is closed.
    *
-   * @param name name of selected frame, empty if canceled
+   * @param displayName name of selected frame, empty if canceled
    *
    * @see frameSelectionRequested()
    */
-  void onFrameSelectionFinished(const QString& name);
+  void onFrameSelectionFinished(const QString& displayName);
 
   /**
    * Called when the frame edit dialog is closed.
@@ -146,6 +147,7 @@ private:
   TaggedFile* m_editFrameTaggedFile;
   FrameObjectModel* m_frameObjectModel;
   Frame m_editFrame;
+  QMap<QString, QString> m_displayNameMap;
 };
 
 #endif // FRAMEEDITOROBJECT_H

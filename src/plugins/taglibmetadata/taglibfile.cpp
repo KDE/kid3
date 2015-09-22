@@ -30,7 +30,6 @@
 #include <QTextCodec>
 #include <QByteArray>
 #include <QImage>
-#include <QCoreApplication>
 #include <QVarLengthArray>
 #include "genres.h"
 #include "attributedata.h"
@@ -6433,12 +6432,12 @@ QStringList TagLibFile::getFrameIds() const
   if (m_tagTypeV2 == TT_Id3v2) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
-                 getTranslatedName());
+                 getName());
     }
     for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
       const TypeStrOfId& ts = typeStrOfId[i];
       if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
-        lst.append(QCoreApplication::translate("@default", ts.str));
+        lst.append(QString::fromLatin1(ts.str));
       }
     }
 #if TAGLIB_VERSION >= 0x010600
@@ -6453,7 +6452,7 @@ QStringList TagLibFile::getFrameIds() const
       getMp4NameForType(type, name, valueType);
       if (!name.isEmpty() && valueType != MVT_ByteArray &&
           !(name[0] >= 'A' && name[0] <= 'Z')) {
-        lst.append(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
     for (unsigned i = 0; i < sizeof(mp4NameTypeValues) / sizeof(mp4NameTypeValues[0]); ++i) {
@@ -6479,7 +6478,7 @@ QStringList TagLibFile::getFrameIds() const
           && type != Frame::FT_Picture
 #endif
         ) {
-        lst.append(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
     for (unsigned i = 0; i < sizeof(asfNameTypeValues) / sizeof(asfNameTypeValues[0]); ++i) {
@@ -6509,10 +6508,6 @@ QStringList TagLibFile::getFrameIds() const
       "PRODUCTNUMBER",
       "RECORDINGDATE",
       "RELEASEDATE",
-      "SOURCEARTIST",
-      "SOURCEMEDIUM",
-      "SOURCEWORK",
-      "SPARS",
       "TRACKTOTAL",
       "VERSION",
       "VOLUME"
@@ -6529,7 +6524,7 @@ QStringList TagLibFile::getFrameIds() const
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
         lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
-                   getTranslatedName());
+                   getName());
       }
     }
     for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {

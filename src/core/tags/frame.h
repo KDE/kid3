@@ -608,13 +608,13 @@ public:
   static QVariant getField(const Frame& frame, FieldId id);
 
   /**
-   * Get type of frame from translated name.
+   * Get type of frame from English name.
    *
-   * @param translatedName name, spaces and case are ignored
+   * @param name name, spaces and case are ignored
    *
    * @return type.
    */
-  static Type getTypeFromTranslatedName(const QString& translatedName);
+  static Type getTypeFromName(const QString& name);
 
   /**
    * Get a translated string for a frame type.
@@ -624,6 +624,20 @@ public:
    * @return frame type, null string if unknown.
    */
   static QString getFrameTypeName(Type type);
+
+  /**
+   * Get a display name for a frame name.
+   * @param name frame name as returned by getName()
+   * @return display name, transformed if necessary and translated.
+   */
+  static QString getDisplayName(const QString& name);
+
+  /**
+   * Get a map with display names as keys and frame names as values.
+   * @param names frame names as returned by getName()
+   * @return mapping of display names to frame names.
+   */
+  static QMap<QString, QString> getDisplayNameMap(const QStringList& names);
 
 private:
   friend class TaggedFile;

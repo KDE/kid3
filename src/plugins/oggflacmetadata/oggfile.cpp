@@ -936,10 +936,6 @@ QStringList OggFile::getFrameIds() const
     "PRODUCTNUMBER",
     "RECORDINGDATE",
     "RELEASEDATE",
-    "SOURCEARTIST",
-    "SOURCEMEDIUM",
-    "SOURCEWORK",
-    "SPARS",
     "TRACKTOTAL",
     "VERSION",
     "VOLUME"
@@ -948,7 +944,7 @@ QStringList OggFile::getFrameIds() const
   QStringList lst;
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
     lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
-               getTranslatedName());
+               getName());
   }
   for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
     lst.append(QString::fromLatin1(fieldNames[i]));

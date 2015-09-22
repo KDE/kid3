@@ -30,7 +30,6 @@
 #include <QString>
 #include <QTextCodec>
 #include <QByteArray>
-#include <QCoreApplication>
 #include <QtEndian>
 
 #include <cstring>
@@ -2335,14 +2334,14 @@ QStringList Mp3File::getFrameIds() const
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     if (type != Frame::FT_Part) {
       lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).
-                 getTranslatedName());
+                 getName());
     }
   }
   for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
     if (typeStrOfId[i].type == Frame::FT_Other) {
       const char* s = typeStrOfId[i].str;
       if (s) {
-        lst.append(QCoreApplication::translate("@default", s));
+        lst.append(QString::fromLatin1(s));
       }
     }
   }

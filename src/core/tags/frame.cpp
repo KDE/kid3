@@ -26,6 +26,7 @@
 
 #include "frame.h"
 #include <QMap>
+#include <QStringList>
 #include <QRegExp>
 #include <QCoreApplication>
 #include "pictureframe.h"
@@ -154,32 +155,6 @@ const char* getNameFromType(Frame::Type type)
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
   return type <= Frame::FT_LastFrame ? names[type] : "Unknown";
-}
-
-/**
- * Get type of frame from English name.
- *
- * @param name name, spaces and case are ignored
- *
- * @return type.
- */
-Frame::Type getTypeFromName(QString name)
-{
-  static QMap<QString, int> strNumMap;
-  if (strNumMap.empty()) {
-    // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
-      Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(QString::fromLatin1(getNameFromType(type)).
-                       remove(QLatin1Char(' ')).toUpper(), type);
-    }
-  }
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
-  if (it != strNumMap.end()) {
-    return static_cast<Frame::Type>(*it);
-  }
-  return Frame::FT_Other;
 }
 
 }
@@ -435,26 +410,26 @@ QVariant Frame::getField(const Frame& frame, FieldId id)
 }
 
 /**
- * Get type of frame from translated name.
+ * Get type of frame from English name.
  *
- * @param translatedName name, spaces and case are ignored
+ * @param name name, spaces and case are ignored
  *
  * @return type.
  */
-Frame::Type Frame::getTypeFromTranslatedName(const QString& translatedName)
+Frame::Type Frame::getTypeFromName(const QString& name)
 {
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName().
+      strNumMap.insert(QString::fromLatin1(getNameFromType(type)).
                        remove(QLatin1Char(' ')).toUpper(), type);
     }
   }
-  QString name(translatedName);
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
+  QString ucName(name.toUpper());
+  ucName.remove(QLatin1Char(' '));
+  QMap<QString, int>::const_iterator it = strNumMap.find(ucName);
   if (it != strNumMap.end()) {
     return static_cast<Frame::Type>(*it);
   }
@@ -471,6 +446,196 @@ Frame::Type Frame::getTypeFromTranslatedName(const QString& translatedName)
 QString Frame::getFrameTypeName(Type type)
 {
   return QCoreApplication::translate("@default", getNameFromType(type));
+}
+
+/**
+ * Get a display name for a frame name.
+ * @param name frame name as returned by getName()
+ * @return display name, transformed if necessary and translated.
+ */
+QString Frame::getDisplayName(const QString& name)
+{
+  static const struct StrOfId {
+    const char* id;
+    const char* str;
+  } strOfId[] = {
+    { "AENC", QT_TRANSLATE_NOOP("@default", "Audio Encryption") },
+    { "ASPI", QT_TRANSLATE_NOOP("@default", "Audio Seek Point") },
+    { "CHAP", QT_TRANSLATE_NOOP("@default", "Chapter") },
+    { "COMR", QT_TRANSLATE_NOOP("@default", "Commercial") },
+    { "CTOC", QT_TRANSLATE_NOOP("@default", "Table of Contents") },
+    { "ENCR", QT_TRANSLATE_NOOP("@default", "Encryption Method") },
+    { "EQU2", QT_TRANSLATE_NOOP("@default", "Equalization") },
+    { "EQUA", QT_TRANSLATE_NOOP("@default", "Equalization") },
+    { "ETCO", QT_TRANSLATE_NOOP("@default", "Event Timing Codes") },
+    { "GEOB", QT_TRANSLATE_NOOP("@default", "General Object") },
+    { "GRID", QT_TRANSLATE_NOOP("@default", "Group Identification") },
+    { "LINK", QT_TRANSLATE_NOOP("@default", "Linked Information") },
+    { "MCDI", QT_TRANSLATE_NOOP("@default", "Music CD Identifier") },
+    { "MLLT", QT_TRANSLATE_NOOP("@default", "MPEG Lookup Table") },
+    { "OWNE", QT_TRANSLATE_NOOP("@default", "Ownership") },
+    { "PCNT", QT_TRANSLATE_NOOP("@default", "Play Counter") },
+    { "PCST", QT_TRANSLATE_NOOP("@default", "Podcast") },
+    { "POPM", QT_TRANSLATE_NOOP("@default", "Popularimeter") },
+    { "POSS", QT_TRANSLATE_NOOP("@default", "Position Synchronisation") },
+    { "PRIV", QT_TRANSLATE_NOOP("@default", "Private") },
+    { "RBUF", QT_TRANSLATE_NOOP("@default", "Recommended Buffer Size") },
+    { "RVA2", QT_TRANSLATE_NOOP("@default", "Volume Adjustment") },
+    { "RVAD", QT_TRANSLATE_NOOP("@default", "Volume Adjustment") },
+    { "RVRB", QT_TRANSLATE_NOOP("@default", "Reverb") },
+    { "SEEK", QT_TRANSLATE_NOOP("@default", "Seek") },
+    { "SIGN", QT_TRANSLATE_NOOP("@default", "Signature") },
+    { "SYLT", QT_TRANSLATE_NOOP("@default", "Synchronized Lyrics") },
+    { "SYTC", QT_TRANSLATE_NOOP("@default", "Synchronized Tempo Codes") },
+    { "TDAT", QT_TRANSLATE_NOOP("@default", "Date") },
+    { "TDEN", QT_TRANSLATE_NOOP("@default", "Encoding Time") },
+    { "TDES", QT_TRANSLATE_NOOP("@default", "Podcast Description") },
+    { "TDLY", QT_TRANSLATE_NOOP("@default", "Playlist Delay") },
+    { "TDOR", QT_TRANSLATE_NOOP("@default", "Original Release Time") },
+    { "TDRC", QT_TRANSLATE_NOOP("@default", "Recording Time") },
+    { "TDRL", QT_TRANSLATE_NOOP("@default", "Release Time") },
+    { "TDTG", QT_TRANSLATE_NOOP("@default", "Tagging Time") },
+    { "TFLT", QT_TRANSLATE_NOOP("@default", "File Type") },
+    { "TGID", QT_TRANSLATE_NOOP("@default", "Podcast Identifier") },
+    { "TIME", QT_TRANSLATE_NOOP("@default", "Time") },
+    { "TLEN", QT_TRANSLATE_NOOP("@default", "Length") },
+    { "TOFN", QT_TRANSLATE_NOOP("@default", "Original Filename") },
+    { "TOWN", QT_TRANSLATE_NOOP("@default", "File Owner") },
+    { "TPRO", QT_TRANSLATE_NOOP("@default", "Produced Notice") },
+    { "TRDA", QT_TRANSLATE_NOOP("@default", "Recording Date") },
+    { "TRSN", QT_TRANSLATE_NOOP("@default", "Radio Station Name") },
+    { "TRSO", QT_TRANSLATE_NOOP("@default", "Radio Station Owner") },
+    { "TSIZ", QT_TRANSLATE_NOOP("@default", "Size") },
+    { "TXXX", QT_TRANSLATE_NOOP("@default", "User-defined Text") },
+    { "UFID", QT_TRANSLATE_NOOP("@default", "Unique File Identifier") },
+    { "USER", QT_TRANSLATE_NOOP("@default", "Terms of Use") },
+    { "WCOM", QT_TRANSLATE_NOOP("@default", "Commercial URL") },
+    { "WCOP", QT_TRANSLATE_NOOP("@default", "Copyright URL") },
+    { "WFED", QT_TRANSLATE_NOOP("@default", "Podcast Feed") },
+    { "WORS", QT_TRANSLATE_NOOP("@default", "Official Radio Station") },
+    { "WPAY", QT_TRANSLATE_NOOP("@default", "Payment") },
+    { "WPUB", QT_TRANSLATE_NOOP("@default", "Official Publisher") },
+    { "WXXX", QT_TRANSLATE_NOOP("@default", "User-defined URL") },
+    { "BAND", QT_TRANSLATE_NOOP("@default", "Album Artist") },
+    { "CONTACT", QT_TRANSLATE_NOOP("@default", "Contact") },
+    { "CONTENTGROUP", QT_TRANSLATE_NOOP("@default", "Grouping") },
+    { "DESCRIPTION", QT_TRANSLATE_NOOP("@default", "Description") },
+    { "DISCTOTAL", QT_TRANSLATE_NOOP("@default", "Total Discs") },
+    { "ENCODER", QT_TRANSLATE_NOOP("@default", "Encoder") },
+    { "ENCODER_OPTIONS", QT_TRANSLATE_NOOP("@default", "Encoder Settings") },
+    { "ENCODEDBY", QT_TRANSLATE_NOOP("@default", "Encoded-by") },
+    { "ENCODING", QT_TRANSLATE_NOOP("@default", "Encoding") },
+    { "ENGINEER", QT_TRANSLATE_NOOP("@default", "Engineer") },
+    { "ENSEMBLE", QT_TRANSLATE_NOOP("@default", "Ensemble") },
+    { "GUESTARTIST", QT_TRANSLATE_NOOP("@default", "Guest Artist") },
+    { "IsVBR", QT_TRANSLATE_NOOP("@default", "VBR") },
+    { "iTunPGAP", QT_TRANSLATE_NOOP("@default", "Gapless Playback") },
+    { "LABEL", QT_TRANSLATE_NOOP("@default", "Label") },
+    { "LABELNO", QT_TRANSLATE_NOOP("@default", "Label Number") },
+    { "LICENSE", QT_TRANSLATE_NOOP("@default", "License") },
+    { "LOCATION", QT_TRANSLATE_NOOP("@default", "Location") },
+    { "OPUS", QT_TRANSLATE_NOOP("@default", "Opus") },
+    { "ORIGARTIST", QT_TRANSLATE_NOOP("@default", "Original Artist") },
+    { "ORGANIZATION", QT_TRANSLATE_NOOP("@default", "Organization") },
+    { "PARTNUMBER", QT_TRANSLATE_NOOP("@default", "Part Number") },
+    { "PRODUCER", QT_TRANSLATE_NOOP("@default", "Producer") },
+    { "PRODUCTNUMBER", QT_TRANSLATE_NOOP("@default", "Product Number") },
+    { "RECORDINGDATE", QT_TRANSLATE_NOOP("@default", "Recording Date") },
+    { "RELEASEDATE", QT_TRANSLATE_NOOP("@default", "Release Date") },
+    { "REMIXEDBY", QT_TRANSLATE_NOOP("@default", "Remixer") },
+    { "Rating", QT_TRANSLATE_NOOP("@default", "Rating") },
+    { "TOTALDISCS", QT_TRANSLATE_NOOP("@default", "Total Discs") },
+    { "TOTALTRACKS", QT_TRANSLATE_NOOP("@default", "Total Tracks") },
+    { "TRACKTOTAL", QT_TRANSLATE_NOOP("@default", "Total Tracks") },
+    { "UNKNOWN", QT_TRANSLATE_NOOP("@default", "Unknown") },
+    { "Unknown", QT_TRANSLATE_NOOP("@default", "Unknown") },
+    { "VERSION", QT_TRANSLATE_NOOP("@default", "Version") },
+    { "VOLUME", QT_TRANSLATE_NOOP("@default", "Volume") },
+    { "WWW", QT_TRANSLATE_NOOP("@default", "User-defined URL") },
+    { "WM/AlbumArtistSortOrder", QT_TRANSLATE_NOOP("@default", "Sort Album Artist") },
+    { "WM/Comments", QT_TRANSLATE_NOOP("@default", "Comment") },
+    { "WM/MCDI", QT_TRANSLATE_NOOP("@default", "MCDI") },
+    { "WM/Mood", QT_TRANSLATE_NOOP("@default", "Mood") },
+    { "WM/OriginalFilename", QT_TRANSLATE_NOOP("@default", "Original Filename") },
+    { "WM/OriginalLyricist", QT_TRANSLATE_NOOP("@default", "Original Lyricist") },
+    { "WM/PromotionURL", QT_TRANSLATE_NOOP("@default", "Commercial URL") },
+    { "WM/SharedUserRating", QT_TRANSLATE_NOOP("@default", "User Rating") },
+    { "WM/UserWebURL", QT_TRANSLATE_NOOP("@default", "User-defined URL") },
+    { "akID", QT_TRANSLATE_NOOP("@default", "Account Type") },
+    { "apID", QT_TRANSLATE_NOOP("@default", "Purchase Account") },
+    { "atID", QT_TRANSLATE_NOOP("@default", "Artist ID") },
+    { "catg", QT_TRANSLATE_NOOP("@default", "Category") },
+    { "cnID", QT_TRANSLATE_NOOP("@default", "Catalog ID") },
+    { "cond", QT_TRANSLATE_NOOP("@default", "Conductor") },
+    { "desc", QT_TRANSLATE_NOOP("@default", "Description") },
+    { "geID", QT_TRANSLATE_NOOP("@default", "Genre ID") },
+    { "hdvd", QT_TRANSLATE_NOOP("@default", "HD Video") },
+    { "keyw", QT_TRANSLATE_NOOP("@default", "Keyword") },
+    { "ldes", QT_TRANSLATE_NOOP("@default", "Long Description") },
+    { "pcst", QT_TRANSLATE_NOOP("@default", "Podcast") },
+    { "pgap", QT_TRANSLATE_NOOP("@default", "Gapless Playback") },
+    { "plID", QT_TRANSLATE_NOOP("@default", "Album ID") },
+    { "purd", QT_TRANSLATE_NOOP("@default", "Purchase Date") },
+    { "rtng", QT_TRANSLATE_NOOP("@default", "Rating") },
+    { "sfID", QT_TRANSLATE_NOOP("@default", "Country Code") },
+    { "sosn", QT_TRANSLATE_NOOP("@default", "Sort Show") },
+    { "stik", QT_TRANSLATE_NOOP("@default", "Media Type") },
+    { "tven", QT_TRANSLATE_NOOP("@default", "TV Episode") },
+    { "tves", QT_TRANSLATE_NOOP("@default", "TV Episode Number") },
+    { "tvnn", QT_TRANSLATE_NOOP("@default", "TV Network Name") },
+    { "tvsh", QT_TRANSLATE_NOOP("@default", "TV Show Name") },
+    { "tvsn", QT_TRANSLATE_NOOP("@default", "TV Season") },
+    { "year", QT_TRANSLATE_NOOP("@default", "Year") }
+  };
+  static QMap<QByteArray, QByteArray> idStrMap;
+  if (idStrMap.isEmpty()) {
+    // first time initialization
+    for (unsigned int i = 0; i < sizeof(strOfId) / sizeof(strOfId[0]); ++i) {
+      idStrMap.insert(strOfId[i].id, strOfId[i].str);
+    }
+  }
+
+  if (name.isEmpty())
+    return name;
+
+  Type type = getTypeFromName(name);
+  if (type != FT_Other)
+    return QCoreApplication::translate("@default",
+                                       name.toLatin1().constData());
+
+  QString nameStr(name);
+  int nlPos = nameStr.indexOf(QLatin1Char('\n'));
+  if (nlPos > 0)
+    // probably "TXXX - User defined text information\nDescription" or
+    // "WXXX - User defined URL link\nDescription"
+    nameStr = nameStr.mid(nlPos + 1);
+
+  QByteArray id;
+  if (nameStr.mid(4, 3) == QLatin1String(" - ")) {
+    id = nameStr.left(4).toLatin1();
+  } else {
+    id = nameStr.toLatin1();
+  }
+
+  QMap<QByteArray, QByteArray>::const_iterator it = idStrMap.constFind(id);
+  if (it != idStrMap.constEnd()) {
+    return QCoreApplication::translate("@default", it->constData());
+  }
+  return nameStr;
+}
+
+/**
+ * Get a map with display names as keys and frame names as values.
+ * @param names frame names as returned by getName()
+ * @return mapping of display names to frame names.
+ */
+QMap<QString, QString> Frame::getDisplayNameMap(const QStringList& names)
+{
+  QMap<QString, QString> map;
+  foreach (const QString& name, names) {
+    map.insert(getDisplayName(name), name);
+  }
+  return map;
 }
 
 

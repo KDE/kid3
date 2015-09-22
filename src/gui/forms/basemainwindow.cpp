@@ -926,11 +926,14 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   bool ok = false;
   if (taggedFile && frame) {
-    QString name = QInputDialog::getItem(
+    QStringList frameIds = taggedFile->getFrameIds();
+    QMap<QString, QString> nameMap = Frame::getDisplayNameMap(frameIds);
+    QString displayName = QInputDialog::getItem(
       m_w, tr("Add Frame"),
-      tr("Select the frame ID"), taggedFile->getFrameIds(), 0, true, &ok);
+      tr("Select the frame ID"), nameMap.keys(), 0, true, &ok);
     if (ok) {
-      Frame::Type type = Frame::getTypeFromTranslatedName(name);
+      QString name = nameMap.value(displayName, displayName);
+      Frame::Type type = Frame::getTypeFromName(name);
       *frame = Frame(type, QLatin1String(""), name, -1);
     }
   }

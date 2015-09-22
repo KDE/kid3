@@ -1395,7 +1395,7 @@ QStringList M4aFile::getFrameIds() const
   QStringList lst;
   for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
     lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), QLatin1String("")).
-               getTranslatedName());
+               getName());
   }
   lst << QLatin1String("cpil");
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106

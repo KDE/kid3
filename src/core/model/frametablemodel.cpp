@@ -128,33 +128,6 @@ Qt::ItemFlags FrameTableModel::flags(const QModelIndex& index) const
 }
 
 /**
- * Get a display representation of the a frame name.
- * For ID3v2-IDs with description, only the ID is returned.
- * Other non-empty strings are translated.
- *
- * @param str frame name
- *
- * @return display representation of name.
- */
-QString FrameTableModel::getDisplayName(const QString& str)
-{
-  if (!str.isEmpty()) {
-    int nlPos = str.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0) {
-      // probably "TXXX - User defined text information\nDescription" or
-      // "WXXX - User defined URL link\nDescription"
-      return str.mid(nlPos + 1);
-    } else if (str.midRef(4, 3) == QLatin1String(" - ")) {
-      // probably "ID3-ID - Description"
-      return str.left(4);
-    } else {
-      return QCoreApplication::translate("@default", str.toLatin1().data());
-    }
-  }
-  return str;
-}
-
-/**
  * Get data for a given role.
  * @param index model index
  * @param role item data role
@@ -182,7 +155,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   }
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Enable) {
-      QString displayName = getDisplayName(it->getName());
+      QString displayName = Frame::getDisplayName(it->getName());
       if (it->getType() == Frame::FT_Picture &&
           it->getValue() != Frame::differentRepresentation()) {
         QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
@@ -212,7 +185,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   } else if (role == FrameTypeRole) {
     return it->getType();
   } else if (role == NameRole) {
-    return getDisplayName(it->getName());
+    return Frame::getDisplayName(it->getName());
   } else if (role == ValueRole) {
     return it->getValue();
   } else if (role == ModifiedRole) {
