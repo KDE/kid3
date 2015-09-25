@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -1164,6 +1164,283 @@ msgstr "WWW 音频文件"
 msgid "WWW Audio Source"
 msgstr "WWW 音频来源"
 
+msgid "Audio Encryption"
+msgstr "音频加密"
+
+msgid "Audio Seek Point"
+msgstr "音频搜索点"
+
+msgid "Chapter"
+msgstr "章節"
+
+msgid "Commercial"
+msgstr "商业"
+
+msgid "Table of Contents"
+msgstr "主目錄"
+
+msgid "Encryption Method"
+msgstr "加密方法"
+
+msgid "Equalization"
+msgstr "均衡"
+
+msgid "Event Timing Codes"
+msgstr "事件时间码"
+
+msgid "General Object"
+msgstr "通用对象"
+
+msgid "Group Identification"
+msgstr "组标识"
+
+msgid "Linked Information"
+msgstr "链接信息"
+
+msgid "Music CD Identifier"
+msgstr "音乐光碟标识符"
+
+msgid "MPEG Lookup Table"
+msgstr "MPEG 位置查询表"
+
+msgid "Ownership"
+msgstr "所有权帧"
+
+msgid "Play Counter"
+msgstr "播放计数器"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "流行度"
+
+msgid "Position Synchronisation"
+msgstr "位置同步"
+
+msgid "Private"
+msgstr "私有"
+
+msgid "Recommended Buffer Size"
+msgstr "推荐缓冲区大小"
+
+msgid "Reverb"
+msgstr "混响"
+
+msgid "Seek"
+msgstr "查"
+
+msgid "Signature"
+msgstr "签名"
+
+msgid "Synchronized Lyrics"
+msgstr "同步的歌词/文本"
+
+msgid "Synchronized Tempo Codes"
+msgstr "同步的节拍码"
+
+msgid "Podcast Description"
+msgstr "描述 Podcast"
+
+msgid "Playlist Delay"
+msgstr "播放列表延迟"
+
+msgid "Original Release Time"
+msgstr "原发行时间"
+
+msgid "Recording Time"
+msgstr "录音时间"
+
+msgid "Release Time"
+msgstr "发行时间"
+
+msgid "Tagging Time"
+msgstr "标签时间 "
+
+msgid "File Type"
+msgstr "文件类型"
+
+msgid "Podcast Identifier"
+msgstr "識別碼 Podcast"
+
+msgid "Original Filename"
+msgstr "原文件名"
+
+msgid "File Owner"
+msgstr "文件属主"
+
+msgid "Produced Notice"
+msgstr " 生产注意"
+
+msgid "Recording Date"
+msgstr "录制日期"
+
+msgid "Radio Station Name"
+msgstr "网络电台名称"
+
+msgid "Radio Station Owner"
+msgstr "网络电台属主"
+
+msgid "User-defined Text"
+msgstr "用户定义的文本信息"
+
+msgid "Unique File Identifier"
+msgstr "唯一的文件标识"
+
+msgid "Terms of Use"
+msgstr "使用条款"
+
+msgid "Commercial URL"
+msgstr "商业信息"
+
+msgid "Copyright URL"
+msgstr "版权 URL"
+
+msgid "Podcast Feed"
+msgstr "饋流 Podcast"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "报酬"
+
+msgid "Official Publisher"
+msgstr "出版商官方网页"
+
+msgid "User-defined URL"
+msgstr "用户定义的URL链接"
+
+msgid "Contact"
+msgstr "联系人"
+
+msgid "Total Discs"
+msgstr "碟片总数"
+
+msgid "Encoder"
+msgstr "编码方式"
+
+msgid "Encoding"
+msgstr "编码"
+
+msgid "Engineer"
+msgstr ""
+
+msgid "Ensemble"
+msgstr ""
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Opus"
+msgstr "作品"
+
+msgid "Organization"
+msgstr "组织"
+
+msgid "Part Number"
+msgstr "生产​编号"
+
+msgid "Producer"
+msgstr "制作者"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "发布日期"
+
+msgid "Total Tracks"
+msgstr "音轨编号"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Volume"
+msgstr "音量"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "原词作者"
+
+msgid "User Rating"
+msgstr "评分"
+
+msgid "Account Type"
+msgstr "帐号类型"
+
+msgid "Purchase Account"
+msgstr "账户名"
+
+msgid "Artist ID"
+msgstr "艺人 ID"
+
+msgid "Category"
+msgstr "分类"
+
+msgid "Catalog ID"
+msgstr "分类 ID"
+
+msgid "Genre ID"
+msgstr "流派 ID"
+
+msgid "HD Video"
+msgstr "HD 视频"
+
+msgid "Keyword"
+msgstr "关键字"
+
+msgid "Long Description"
+msgstr "长描述"
+
+msgid "Album ID"
+msgstr "专辑 ID"
+
+msgid "Purchase Date"
+msgstr ""
+
+msgid "Country Code"
+msgstr "国家代码"
+
+msgid "Sort Show"
+msgstr ""
+
+msgid "Media Type"
+msgstr "媒体类型"
+
+msgid "TV Episode"
+msgstr ""
+
+msgid "TV Episode Number"
+msgstr ""
+
+msgid "TV Network Name"
+msgstr "网络"
+
+#, fuzzy
+msgid "TV Show Name"
+msgstr "排序名称"
+
+msgid "TV Season"
+msgstr "季"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 文件图标"
 
@@ -1223,9 +1500,6 @@ msgstr "副文件名"
 
 msgid "Bitrate"
 msgstr "比特率"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "采样率"

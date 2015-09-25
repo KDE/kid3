@@ -6,9 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -1166,6 +1166,282 @@ msgstr "WWW van audio bestand"
 msgid "WWW Audio Source"
 msgstr "WWW van audio bron"
 
+msgid "Audio Encryption"
+msgstr "Audio versleuteling"
+
+msgid "Audio Seek Point"
+msgstr "Audio zoeken punt"
+
+msgid "Chapter"
+msgstr "Hoofdstuk"
+
+msgid "Commercial"
+msgstr "Commercieel"
+
+msgid "Table of Contents"
+msgstr "Inhoudsopgave"
+
+msgid "Encryption Method"
+msgstr "Encryptie methode"
+
+msgid "Equalization"
+msgstr "Egalisatie"
+
+msgid "Event Timing Codes"
+msgstr "Gebeurtenis timing codes"
+
+msgid "General Object"
+msgstr "Algemeen object"
+
+msgid "Group Identification"
+msgstr "Groep identificatie"
+
+msgid "Linked Information"
+msgstr "Gelinkte informatie"
+
+msgid "Music CD Identifier"
+msgstr "Muziek CD identificatie"
+
+msgid "MPEG Lookup Table"
+msgstr "Opzoektabel van MPEG"
+
+msgid "Ownership"
+msgstr "Eigendom"
+
+msgid "Play Counter"
+msgstr "Afspeelteller"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Popularimeter"
+
+msgid "Position Synchronisation"
+msgstr "Positie synchronisatie"
+
+msgid "Private"
+msgstr "Privé"
+
+msgid "Recommended Buffer Size"
+msgstr "Aanbevolen buffer grootte"
+
+msgid "Reverb"
+msgstr "Galm"
+
+msgid "Seek"
+msgstr "Zoek"
+
+msgid "Signature"
+msgstr "Handtekening"
+
+msgid "Synchronized Lyrics"
+msgstr "Gesynchroniseerde liedtekst"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Gesynchroniseerde tempo codes"
+
+msgid "Podcast Description"
+msgstr "Beschrijving Podcast"
+
+msgid "Playlist Delay"
+msgstr "Speellijst vertraging"
+
+msgid "Original Release Time"
+msgstr "Originele vrijgavetijd"
+
+msgid "Recording Time"
+msgstr "Opnametijd"
+
+msgid "Release Time"
+msgstr "Vrijgavetijd"
+
+msgid "Tagging Time"
+msgstr "Tag tijd"
+
+msgid "File Type"
+msgstr "Bestandstype"
+
+msgid "Podcast Identifier"
+msgstr "Identifier Podcast"
+
+msgid "Original Filename"
+msgstr "Originele bestandsnaam"
+
+msgid "File Owner"
+msgstr "Eigenaar van bestand"
+
+msgid "Produced Notice"
+msgstr "Bericht producent"
+
+msgid "Recording Date"
+msgstr "Opnamedata"
+
+msgid "Radio Station Name"
+msgstr "Naam van radiostation"
+
+msgid "Radio Station Owner"
+msgstr "Eigenaar van radiostation"
+
+msgid "User-defined Text"
+msgstr "Gedefinieerde gebruikersinformatie"
+
+msgid "Unique File Identifier"
+msgstr "Unieke bestand herkenner"
+
+msgid "Terms of Use"
+msgstr "Voorwaarden voor het gebruik"
+
+msgid "Commercial URL"
+msgstr "Commerciële informatie"
+
+msgid "Copyright URL"
+msgstr "Auteursrecht URL"
+
+msgid "Podcast Feed"
+msgstr "Podcast feed"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Betaling"
+
+msgid "Official Publisher"
+msgstr "Website van uitgever"
+
+msgid "User-defined URL"
+msgstr "Gedefinieerde link van gebruiker"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Total Discs"
+msgstr "Totaal aantal schijven"
+
+msgid "Encoder"
+msgstr "Codering"
+
+msgid "Encoding"
+msgstr "Codering"
+
+msgid "Engineer"
+msgstr "Technicus"
+
+msgid "Ensemble"
+msgstr "Ensemble"
+
+msgid "Guest Artist"
+msgstr "Gastartiest"
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Zonder tussenpauze"
+
+msgid "Label"
+msgstr "Platenlabel"
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organisatie"
+
+msgid "Part Number"
+msgstr "Nummer van onderdeel"
+
+msgid "Producer"
+msgstr "Producer"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Uitgiftedatum"
+
+msgid "Total Tracks"
+msgstr "Totaal aantal tracks"
+
+msgid "Version"
+msgstr "Versie"
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Originele tekstschrijver"
+
+msgid "User Rating"
+msgstr "Gebruikerwaardering"
+
+msgid "Account Type"
+msgstr "Soort account"
+
+msgid "Purchase Account"
+msgstr "Accountnaam"
+
+msgid "Artist ID"
+msgstr "Artiest ID"
+
+msgid "Category"
+msgstr "Categorie"
+
+msgid "Catalog ID"
+msgstr "Catalogus ID"
+
+msgid "Genre ID"
+msgstr "Genre ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Trefwoord"
+
+msgid "Long Description"
+msgstr "Lange beschrijving"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr "Aankoopdatum"
+
+msgid "Country Code"
+msgstr "Landcode"
+
+msgid "Sort Show"
+msgstr "Sorteervolgorde programma"
+
+msgid "Media Type"
+msgstr "Soort media"
+
+msgid "TV Episode"
+msgstr "Episode"
+
+msgid "TV Episode Number"
+msgstr "Episodenummer"
+
+msgid "TV Network Name"
+msgstr "Netwerk"
+
+msgid "TV Show Name"
+msgstr "Programma"
+
+msgid "TV Season"
+msgstr "Seizoen"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 pixels PNG bestandsicoon"
 
@@ -1225,9 +1501,6 @@ msgstr "Extensie"
 
 msgid "Bitrate"
 msgstr "Bitrate"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Samplerate"

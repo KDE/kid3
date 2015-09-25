@@ -6,9 +6,9 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2015-05-13 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1168,6 +1168,282 @@ msgstr "Internetová adresa zvukového souboru"
 msgid "WWW Audio Source"
 msgstr "Internetová adresa zvukového zdroje"
 
+msgid "Audio Encryption"
+msgstr "Kódování zvuku"
+
+msgid "Audio Seek Point"
+msgstr "Bodů hledání zvuku"
+
+msgid "Chapter"
+msgstr "Kapitola"
+
+msgid "Commercial"
+msgstr "Obchodní"
+
+msgid "Table of Contents"
+msgstr "Obsah"
+
+msgid "Encryption Method"
+msgstr "Způsobu kódování"
+
+msgid "Equalization"
+msgstr "Vyrovnání"
+
+msgid "Event Timing Codes"
+msgstr "Časové kódy událostí"
+
+msgid "General Object"
+msgstr "Všeobecný předmět"
+
+msgid "Group Identification"
+msgstr "Seskupení určení"
+
+msgid "Linked Information"
+msgstr "Spojená informace"
+
+msgid "Music CD Identifier"
+msgstr "Určení hudebního CD"
+
+msgid "MPEG Lookup Table"
+msgstr "Vyhledávací tabulka MPEG"
+
+msgid "Ownership"
+msgstr "Vlastník"
+
+msgid "Play Counter"
+msgstr "Počítadlo přehrání"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Měřidlo oblíbenosti"
+
+msgid "Position Synchronisation"
+msgstr "Seřízení polohy"
+
+msgid "Private"
+msgstr "Soukromý"
+
+msgid "Recommended Buffer Size"
+msgstr "Doporučená velikost vyrovnávací paměti"
+
+msgid "Reverb"
+msgstr "Ozvěna"
+
+msgid "Seek"
+msgstr "Hledání"
+
+msgid "Signature"
+msgstr "Podpis"
+
+msgid "Synchronized Lyrics"
+msgstr "Souběžný text písně"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Souběžné časové kódy"
+
+msgid "Podcast Description"
+msgstr "Popis Podcast"
+
+msgid "Playlist Delay"
+msgstr "Zdržení seznamu skladeb"
+
+msgid "Original Release Time"
+msgstr "Původní rok vydání"
+
+msgid "Recording Time"
+msgstr "Čas nahrání"
+
+msgid "Release Time"
+msgstr "Čas vydání"
+
+msgid "Tagging Time"
+msgstr "Čas opatření značkami"
+
+msgid "File Type"
+msgstr "Typ souboru"
+
+msgid "Podcast Identifier"
+msgstr "Identifikátor Podcast"
+
+msgid "Original Filename"
+msgstr "Původní název souboru"
+
+msgid "File Owner"
+msgstr "Vlastník souboru"
+
+msgid "Produced Notice"
+msgstr "Autorské právo výroby"
+
+msgid "Recording Date"
+msgstr "Datum nahrávky"
+
+msgid "Radio Station Name"
+msgstr "Název rozhlasové stanice"
+
+msgid "Radio Station Owner"
+msgstr "Vlastník rozhlasové stanice"
+
+msgid "User-defined Text"
+msgstr "Uživatelsky stanovená textová"
+
+msgid "Unique File Identifier"
+msgstr "Jedinečné určení souboru"
+
+msgid "Terms of Use"
+msgstr "Podmínky užití"
+
+msgid "Commercial URL"
+msgstr "Obchodní sdělení"
+
+msgid "Copyright URL"
+msgstr "Autorské právo URL"
+
+msgid "Podcast Feed"
+msgstr "Kanál Podcast"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Platba"
+
+msgid "Official Publisher"
+msgstr "Internetové stránky vydavatele"
+
+msgid "User-defined URL"
+msgstr "Uživatelsky stanovená adresa"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Total Discs"
+msgstr "Počet disků"
+
+msgid "Encoder"
+msgstr "Enkodér"
+
+msgid "Encoding"
+msgstr "Kódování"
+
+msgid "Engineer"
+msgstr "Zvukový inženýr"
+
+msgid "Ensemble"
+msgstr "Soubor"
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Přehrávání bez mezer"
+
+msgid "Label"
+msgstr "Nahrávací společnost"
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Umístění"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organizace"
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr "Producent"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Datum vydání"
+
+msgid "Total Tracks"
+msgstr "Celkový počet stop"
+
+msgid "Version"
+msgstr "Verze"
+
+msgid "Volume"
+msgstr "Hlasitost"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Původní textař"
+
+msgid "User Rating"
+msgstr "Hodnocení"
+
+msgid "Account Type"
+msgstr "Typ účtu"
+
+msgid "Purchase Account"
+msgstr "Název účtu"
+
+msgid "Artist ID"
+msgstr "Umělec ID"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Catalog ID"
+msgstr "Katalogové ID"
+
+msgid "Genre ID"
+msgstr "Žánr ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Klíčové slovo"
+
+msgid "Long Description"
+msgstr "Dlouhý popis"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr "Data nákupu"
+
+msgid "Country Code"
+msgstr "Kód země"
+
+msgid "Sort Show"
+msgstr "Seřazení podle relace"
+
+msgid "Media Type"
+msgstr "Typ média"
+
+msgid "TV Episode"
+msgstr "Epizoda"
+
+msgid "TV Episode Number"
+msgstr "Číslo epizoda"
+
+msgid "TV Network Name"
+msgstr "Síť"
+
+msgid "TV Show Name"
+msgstr "Relace"
+
+msgid "TV Season"
+msgstr "Sezóna"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Ikona o velikosti 32 x 32 pixelů pro soubor PNG"
 
@@ -1227,9 +1503,6 @@ msgstr "Přípona"
 
 msgid "Bitrate"
 msgstr "Datový tok"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Vzorkovací kmitočet"

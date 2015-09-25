@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
@@ -1165,6 +1166,283 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Audio Encryption"
+msgstr "Audio šifrovanje"
+
+msgid "Audio Seek Point"
+msgstr ""
+
+msgid "Chapter"
+msgstr "Poglavlje"
+
+msgid "Commercial"
+msgstr "Komercijalno"
+
+msgid "Table of Contents"
+msgstr "Sadržaj"
+
+msgid "Encryption Method"
+msgstr "Metode šifrovanja"
+
+msgid "Equalization"
+msgstr "Jednačenje"
+
+msgid "Event Timing Codes"
+msgstr ""
+
+msgid "General Object"
+msgstr "Opšti objekat"
+
+msgid "Group Identification"
+msgstr "Identifikacije grupe"
+
+msgid "Linked Information"
+msgstr "Povezana informacija"
+
+msgid "Music CD Identifier"
+msgstr "Identifikator muzičkog CD-a"
+
+msgid "MPEG Lookup Table"
+msgstr ""
+
+msgid "Ownership"
+msgstr "Vlasnički"
+
+msgid "Play Counter"
+msgstr "Brojač reprodukcije"
+
+msgid "Podcast"
+msgstr "Podemisija"
+
+msgid "Popularimeter"
+msgstr "Merač popularnosti"
+
+msgid "Position Synchronisation"
+msgstr "Sinhronizacije pozicije"
+
+msgid "Private"
+msgstr "Privatno"
+
+msgid "Recommended Buffer Size"
+msgstr "Preporučena veličina bafera"
+
+msgid "Reverb"
+msgstr "Reverberacija"
+
+msgid "Seek"
+msgstr "Traženja"
+
+msgid "Signature"
+msgstr "Potpisa"
+
+msgid "Synchronized Lyrics"
+msgstr ""
+
+msgid "Synchronized Tempo Codes"
+msgstr ""
+
+msgid "Podcast Description"
+msgstr "Opis Podcast"
+
+msgid "Playlist Delay"
+msgstr "Kašnjenje liste numera"
+
+msgid "Original Release Time"
+msgstr "Vreme izdavanja originala"
+
+msgid "Recording Time"
+msgstr "Vreme snimanja"
+
+msgid "Release Time"
+msgstr "Vreme izdavanja"
+
+msgid "Tagging Time"
+msgstr "Vreme označavanja"
+
+msgid "File Type"
+msgstr "Tip fajla"
+
+msgid "Podcast Identifier"
+msgstr "Identifikator Podcast"
+
+msgid "Original Filename"
+msgstr "Izvorno ime"
+
+msgid "File Owner"
+msgstr ""
+
+msgid "Produced Notice"
+msgstr ""
+
+msgid "Recording Date"
+msgstr "Datumi snimanja"
+
+msgid "Radio Station Name"
+msgstr "Ime radio stanice"
+
+msgid "Radio Station Owner"
+msgstr "Vlasnik radio stanice"
+
+msgid "User-defined Text"
+msgstr "Korisnički definisana tekstualna informacija"
+
+msgid "Unique File Identifier"
+msgstr "Jedinstveni identifikator fajla"
+
+msgid "Terms of Use"
+msgstr "Uslovi korišćenja"
+
+msgid "Commercial URL"
+msgstr "Podaci o komercijalizovanju"
+
+msgid "Copyright URL"
+msgstr "Autorsko pravo URL"
+
+msgid "Podcast Feed"
+msgstr "Dovod Podcast"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Plaćanje"
+
+msgid "Official Publisher"
+msgstr ""
+
+msgid "User-defined URL"
+msgstr "Korisnički definisana URL veza"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Total Discs"
+msgstr "Broj diskova"
+
+msgid "Encoder"
+msgstr "Koder"
+
+msgid "Encoding"
+msgstr "Kodiranje"
+
+msgid "Engineer"
+msgstr ""
+
+msgid "Ensemble"
+msgstr ""
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Bez pauze između pesmama"
+
+msgid "Label"
+msgstr ""
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Lokacija"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organizacija"
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr "Proizvođač"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Datum izdanja"
+
+msgid "Total Tracks"
+msgstr "Ukupno numera"
+
+msgid "Version"
+msgstr "Verzija"
+
+msgid "Volume"
+msgstr "Jačina"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Izvorni pjesnik"
+
+msgid "User Rating"
+msgstr "Rejting"
+
+msgid "Account Type"
+msgstr "Vrsta naloga"
+
+msgid "Purchase Account"
+msgstr "Ime naloga"
+
+msgid "Artist ID"
+msgstr "Izvođač ID"
+
+msgid "Category"
+msgstr "Kategorija"
+
+msgid "Catalog ID"
+msgstr "Katalog ID"
+
+msgid "Genre ID"
+msgstr "Žanr ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Ključna reč"
+
+msgid "Long Description"
+msgstr "Opširan opis"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr ""
+
+msgid "Country Code"
+msgstr "Kôd države"
+
+msgid "Sort Show"
+msgstr ""
+
+msgid "Media Type"
+msgstr "Tip medija"
+
+msgid "TV Episode"
+msgstr "Epizoda"
+
+msgid "TV Episode Number"
+msgstr "Broj epizoda"
+
+msgid "TV Network Name"
+msgstr "Mreža"
+
+#, fuzzy
+msgid "TV Show Name"
+msgstr "Redosled sortiranja naslova"
+
+msgid "TV Season"
+msgstr "Doba"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "PNG ikona fajla 32x32 piksela"
 
@@ -1224,9 +1502,6 @@ msgstr "Ekstenzija"
 
 msgid "Bitrate"
 msgstr "Bitski protok"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Uzorkovanje"

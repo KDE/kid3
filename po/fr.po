@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -1167,6 +1167,282 @@ msgstr "URL du fichier audio"
 msgid "WWW Audio Source"
 msgstr "URL de la source audio"
 
+msgid "Audio Encryption"
+msgstr "Encodage audio"
+
+msgid "Audio Seek Point"
+msgstr "Index de recherche"
+
+msgid "Chapter"
+msgstr "Chapitre"
+
+msgid "Commercial"
+msgstr "Commercial"
+
+msgid "Table of Contents"
+msgstr "Table des matières"
+
+msgid "Encryption Method"
+msgstr "Méthode de chiffrement"
+
+msgid "Equalization"
+msgstr "Égalisation"
+
+msgid "Event Timing Codes"
+msgstr "Codes d'événement"
+
+msgid "General Object"
+msgstr "Objet géneral"
+
+msgid "Group Identification"
+msgstr "Groupe d'identification"
+
+msgid "Linked Information"
+msgstr "Information liée"
+
+msgid "Music CD Identifier"
+msgstr "Identifiant de disque"
+
+msgid "MPEG Lookup Table"
+msgstr "Table de recherche MPEG"
+
+msgid "Ownership"
+msgstr "Propriété"
+
+msgid "Play Counter"
+msgstr "Compteur d'écoutes"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Popularimètre"
+
+msgid "Position Synchronisation"
+msgstr "Synchronisation de position"
+
+msgid "Private"
+msgstr "Privé"
+
+msgid "Recommended Buffer Size"
+msgstr "Taille recommandée du tampon"
+
+msgid "Reverb"
+msgstr "Réverbération"
+
+msgid "Seek"
+msgstr "Recherche"
+
+msgid "Signature"
+msgstr "Signature"
+
+msgid "Synchronized Lyrics"
+msgstr "Paroles synchronisés"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Codes de vitesse synchronisés"
+
+msgid "Podcast Description"
+msgstr "Description du Podcast"
+
+msgid "Playlist Delay"
+msgstr "Delay de la liste de lecture"
+
+msgid "Original Release Time"
+msgstr "Date de sortie originale"
+
+msgid "Recording Time"
+msgstr "Date d'enregistrement"
+
+msgid "Release Time"
+msgstr "Date de sortie"
+
+msgid "Tagging Time"
+msgstr "Date de balisage"
+
+msgid "File Type"
+msgstr "Type du fichier"
+
+msgid "Podcast Identifier"
+msgstr "Identifiant du Podcast"
+
+msgid "Original Filename"
+msgstr "Nom de fichier original"
+
+msgid "File Owner"
+msgstr "Propriétaire du fichier"
+
+msgid "Produced Notice"
+msgstr "Préavis produit"
+
+msgid "Recording Date"
+msgstr "Date d'enregistrement"
+
+msgid "Radio Station Name"
+msgstr "Nom de station de radio"
+
+msgid "Radio Station Owner"
+msgstr "Propriétaire de la station de radio"
+
+msgid "User-defined Text"
+msgstr "Texte défini par l'utilisateur"
+
+msgid "Unique File Identifier"
+msgstr "Identificateur unique de fichier"
+
+msgid "Terms of Use"
+msgstr "Conditions d'utilisation"
+
+msgid "Commercial URL"
+msgstr "URL commercial"
+
+msgid "Copyright URL"
+msgstr "URL copyright"
+
+msgid "Podcast Feed"
+msgstr "Flux du Podcast"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Paiement"
+
+msgid "Official Publisher"
+msgstr "Page de l'éditeur"
+
+msgid "User-defined URL"
+msgstr "URL défini par l'utilisateur"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Total Discs"
+msgstr "Nombres de disques"
+
+msgid "Encoder"
+msgstr "Encodeur"
+
+msgid "Encoding"
+msgstr "Encodage"
+
+msgid "Engineer"
+msgstr "Ingénieur"
+
+msgid "Ensemble"
+msgstr "Ensemble"
+
+msgid "Guest Artist"
+msgstr "Artiste invité"
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Lecture sans silence"
+
+msgid "Label"
+msgstr "Label d'enregistrement"
+
+msgid "Label Number"
+msgstr "Numéro d'étiquette"
+
+msgid "Location"
+msgstr "Emplacement"
+
+msgid "Opus"
+msgstr "Opus"
+
+msgid "Organization"
+msgstr "Organisation"
+
+msgid "Part Number"
+msgstr "Numéro de pièce"
+
+msgid "Producer"
+msgstr "Producteur"
+
+msgid "Product Number"
+msgstr "Numéro du produit"
+
+msgid "Release Date"
+msgstr "Date de publication"
+
+msgid "Total Tracks"
+msgstr "Nombre de pistes"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Auteur original"
+
+msgid "User Rating"
+msgstr "Classement utilisateur"
+
+msgid "Account Type"
+msgstr "Type de compte"
+
+msgid "Purchase Account"
+msgstr "Nom du compte"
+
+msgid "Artist ID"
+msgstr "Artiste ID"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Catalog ID"
+msgstr "Catalogue ID"
+
+msgid "Genre ID"
+msgstr "Genre ID"
+
+msgid "HD Video"
+msgstr "HD Vidéo"
+
+msgid "Keyword"
+msgstr "Mot-clé"
+
+msgid "Long Description"
+msgstr "Description longue"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr "Date d'achat"
+
+msgid "Country Code"
+msgstr "Indicatif du pays"
+
+msgid "Sort Show"
+msgstr "Ordre de tri d'émission"
+
+msgid "Media Type"
+msgstr "Type de média"
+
+msgid "TV Episode"
+msgstr "Épisode"
+
+msgid "TV Episode Number"
+msgstr "Numéro d'épisode"
+
+msgid "TV Network Name"
+msgstr "Réseau"
+
+msgid "TV Show Name"
+msgstr "Émission"
+
+msgid "TV Season"
+msgstr "Saison"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Fichier icône de 32x32 pixels"
 
@@ -1226,9 +1502,6 @@ msgstr "Extension du fichier"
 
 msgid "Bitrate"
 msgstr "Débit"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Échantillonnage"

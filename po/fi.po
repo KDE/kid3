@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1166,6 +1166,282 @@ msgstr "Äänitiedoston WWW"
 msgid "WWW Audio Source"
 msgstr "Äänilähteen WWW"
 
+msgid "Audio Encryption"
+msgstr "Äänen koodaus"
+
+msgid "Audio Seek Point"
+msgstr "Äänihaun sijainti"
+
+msgid "Chapter"
+msgstr "Luku"
+
+msgid "Commercial"
+msgstr "Kaupallinen"
+
+msgid "Table of Contents"
+msgstr "Sisällysluettelo"
+
+msgid "Encryption Method"
+msgstr "Salausmenetelmän"
+
+msgid "Equalization"
+msgstr "Ekvalisointi"
+
+msgid "Event Timing Codes"
+msgstr "Tapahtumien aikakoodit"
+
+msgid "General Object"
+msgstr "Yleinen objekti"
+
+msgid "Group Identification"
+msgstr "Ryhmätunnisteen"
+
+msgid "Linked Information"
+msgstr "Linkattu tieto"
+
+msgid "Music CD Identifier"
+msgstr "Musiikki-CD:n tunniste"
+
+msgid "MPEG Lookup Table"
+msgstr "MPEGin sijainninhakutaulukko"
+
+msgid "Ownership"
+msgstr "Omistajakehys"
+
+msgid "Play Counter"
+msgstr "Soittokertalaskuri"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Suosiomittari"
+
+msgid "Position Synchronisation"
+msgstr "Sijainnin tahdistuskehys"
+
+msgid "Private"
+msgstr "Yksityinen"
+
+msgid "Recommended Buffer Size"
+msgstr "Suositeltu puskurikoko"
+
+msgid "Reverb"
+msgstr "Kaikuefekti"
+
+msgid "Seek"
+msgstr "Hakukehys"
+
+msgid "Signature"
+msgstr "Allekirjoituskehys"
+
+msgid "Synchronized Lyrics"
+msgstr "Tahdistettu sanoitus"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Tahdistetut tempokoodit"
+
+msgid "Podcast Description"
+msgstr "Podcast kuvaus"
+
+msgid "Playlist Delay"
+msgstr "Soittolistan viive"
+
+msgid "Original Release Time"
+msgstr "Alkuperäinen julkaisuajankohta"
+
+msgid "Recording Time"
+msgstr "Äänitysajankohta"
+
+msgid "Release Time"
+msgstr "Julkaisuajankohta"
+
+msgid "Tagging Time"
+msgstr "Luokitusajankohta"
+
+msgid "File Type"
+msgstr "Tiedoston tyyppi"
+
+msgid "Podcast Identifier"
+msgstr "Podcast tunniste"
+
+msgid "Original Filename"
+msgstr "Alkuperäinen tiedostonimi"
+
+msgid "File Owner"
+msgstr "Tiedoston omistaja"
+
+msgid "Produced Notice"
+msgstr "Tuotantoilmoitus"
+
+msgid "Recording Date"
+msgstr "Tallennuspäivät"
+
+msgid "Radio Station Name"
+msgstr "Internet-radioaseman nimi"
+
+msgid "Radio Station Owner"
+msgstr "Radioaseman omistaja"
+
+msgid "User-defined Text"
+msgstr "Käyttäjän määrittämä tekstitieto"
+
+msgid "Unique File Identifier"
+msgstr "Tiedoston ainutkertainen tunniste"
+
+msgid "Terms of Use"
+msgstr "Käyttöehdot"
+
+msgid "Commercial URL"
+msgstr "Kaupallinen tieto"
+
+msgid "Copyright URL"
+msgstr "Tekijänoikeudet URL"
+
+msgid "Podcast Feed"
+msgstr "Podcast syöte"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Maksaminen"
+
+msgid "Official Publisher"
+msgstr "Julkaisijan virallinen verkkosivu"
+
+msgid "User-defined URL"
+msgstr "Käyttäjän määrittämä verkko-osoite"
+
+msgid "Contact"
+msgstr "Yhteystiedot"
+
+msgid "Total Discs"
+msgstr "Levymäärä"
+
+msgid "Encoder"
+msgstr "Pakkaaja"
+
+msgid "Encoding"
+msgstr "Enkoodaus"
+
+msgid "Engineer"
+msgstr "Insinööri"
+
+msgid "Ensemble"
+msgstr "Yhtye"
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "Vaihteleva bittinopeus"
+
+msgid "Gapless Playback"
+msgstr "Katkoton soitto"
+
+msgid "Label"
+msgstr "Levymerkki"
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Sijainti"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organisaatio"
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr "Tuottaja"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Julkaisupäivämäärä"
+
+msgid "Total Tracks"
+msgstr "Kappaleiden lukumäärä"
+
+msgid "Version"
+msgstr "Versio"
+
+msgid "Volume"
+msgstr "Äänenvoimakkuus"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Alkuperäinen sanoittaja"
+
+msgid "User Rating"
+msgstr "Arvostelu"
+
+msgid "Account Type"
+msgstr "Tilin tyyppi"
+
+msgid "Purchase Account"
+msgstr "Tilin nimi"
+
+msgid "Artist ID"
+msgstr "Artisti ID"
+
+msgid "Category"
+msgstr "Luokka"
+
+msgid "Catalog ID"
+msgstr "Luettelo ID"
+
+msgid "Genre ID"
+msgstr "Tyylilaji ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Avainsana"
+
+msgid "Long Description"
+msgstr "Pitkä kuvaus"
+
+msgid "Album ID"
+msgstr "Levyn nimi ID"
+
+msgid "Purchase Date"
+msgstr "Ostoajankohta"
+
+msgid "Country Code"
+msgstr "Maakoodi"
+
+msgid "Sort Show"
+msgstr "Ohjelmat lajittelujärjestys"
+
+msgid "Media Type"
+msgstr "Mediatyyppi"
+
+msgid "TV Episode"
+msgstr "Jakso"
+
+msgid "TV Episode Number"
+msgstr "Jakso numerointi"
+
+msgid "TV Network Name"
+msgstr "Verkko"
+
+msgid "TV Show Name"
+msgstr "Ohjelmat"
+
+msgid "TV Season"
+msgstr "Vuodenaika"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32×32 pisteen PNG-kuvake"
 
@@ -1225,9 +1501,6 @@ msgstr "Tiedostopääte"
 
 msgid "Bitrate"
 msgstr "Bittinopeus"
-
-msgid "VBR"
-msgstr "Vaihteleva bittinopeus"
 
 msgid "Samplerate"
 msgstr "Näytteenottotaajuus"

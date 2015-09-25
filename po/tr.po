@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1165,6 +1165,283 @@ msgstr "Ses dosyası WWW"
 msgid "WWW Audio Source"
 msgstr "Ses dosyasının WWW"
 
+msgid "Audio Encryption"
+msgstr "Ses şifreleme"
+
+msgid "Audio Seek Point"
+msgstr "Ses tarama nokta"
+
+msgid "Chapter"
+msgstr "Bölüm"
+
+msgid "Commercial"
+msgstr "Ticari"
+
+msgid "Table of Contents"
+msgstr "İçindekiler"
+
+msgid "Encryption Method"
+msgstr "Şifreleme yöntemi"
+
+msgid "Equalization"
+msgstr "Ekolayzır"
+
+msgid "Event Timing Codes"
+msgstr "Olay zamanlama kodekleri"
+
+msgid "General Object"
+msgstr "Genel nesnesi"
+
+msgid "Group Identification"
+msgstr "Grup tanımlama"
+
+msgid "Linked Information"
+msgstr "Bağlanmış bilgi"
+
+msgid "Music CD Identifier"
+msgstr "Ses CD'si tanımlayıcı"
+
+msgid "MPEG Lookup Table"
+msgstr "MPEG şema tablosu"
+
+msgid "Ownership"
+msgstr "Sahip"
+
+msgid "Play Counter"
+msgstr "Çalma sayacı"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Popülerlik ölçümü"
+
+msgid "Position Synchronisation"
+msgstr "Pozisyon senkronizasyon"
+
+msgid "Private"
+msgstr "Özel"
+
+msgid "Recommended Buffer Size"
+msgstr "Önerilen tampon bellek boyutu"
+
+msgid "Reverb"
+msgstr "Yankı"
+
+msgid "Seek"
+msgstr "Çerçevesi"
+
+msgid "Signature"
+msgstr "İmza"
+
+msgid "Synchronized Lyrics"
+msgstr "Senkronize edilmiş şarkı sözü"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Senkronize edilmiş tempo açıcıları"
+
+msgid "Podcast Description"
+msgstr "Podcast açıklama"
+
+msgid "Playlist Delay"
+msgstr "Şarkı listesi gecikmesi"
+
+msgid "Original Release Time"
+msgstr "Orjinal piyasaya çıkış zamanı"
+
+msgid "Recording Time"
+msgstr "Kayıt süresi"
+
+msgid "Release Time"
+msgstr "Piyasaya çıkış zamanı"
+
+msgid "Tagging Time"
+msgstr "Etiketleme zamanı"
+
+msgid "File Type"
+msgstr "Dosya türü"
+
+msgid "Podcast Identifier"
+msgstr "Podcast tanımlayıcı"
+
+msgid "Original Filename"
+msgstr "Orjinal dosya adı"
+
+msgid "File Owner"
+msgstr "Dosyanın sahibi"
+
+msgid "Produced Notice"
+msgstr "Üretilmiş uyarı"
+
+msgid "Recording Date"
+msgstr "Kayıt tarihleri"
+
+msgid "Radio Station Name"
+msgstr "Radyo istasyonu adı"
+
+msgid "Radio Station Owner"
+msgstr "Radyo istasyonu sahibi"
+
+msgid "User-defined Text"
+msgstr "Kullanıcı tanımlı metin bilgisi"
+
+msgid "Unique File Identifier"
+msgstr "Benzersiz dosya tanımlayıcısı"
+
+msgid "Terms of Use"
+msgstr "Kullanım şartları"
+
+msgid "Commercial URL"
+msgstr "Ticari bilgi"
+
+msgid "Copyright URL"
+msgstr "Telif URL"
+
+msgid "Podcast Feed"
+msgstr "Podcast besleme"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Ödeme"
+
+msgid "Official Publisher"
+msgstr "Resmi yayımcı"
+
+msgid "User-defined URL"
+msgstr "Kullanıcı tanımlı URL bağlantısı"
+
+msgid "Contact"
+msgstr "Kişi"
+
+msgid "Total Discs"
+msgstr "Toplam Disk"
+
+msgid "Encoder"
+msgstr "Kodlayıcı"
+
+msgid "Encoding"
+msgstr "Kodlama"
+
+msgid "Engineer"
+msgstr "Mühendis"
+
+msgid "Ensemble"
+msgstr ""
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Aralıksız çalma"
+
+msgid "Label"
+msgstr "Etiket"
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Yer"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Kurum"
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr "Yapımcı"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Sürüm Tarihi"
+
+msgid "Total Tracks"
+msgstr "Toplam Parça Sayısı"
+
+msgid "Version"
+msgstr "Sürüm"
+
+msgid "Volume"
+msgstr "Ses"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Asıl söz yazarı"
+
+msgid "User Rating"
+msgstr "Puan"
+
+msgid "Account Type"
+msgstr "Hesap Türü"
+
+msgid "Purchase Account"
+msgstr "Hesap ismi"
+
+msgid "Artist ID"
+msgstr "Sanatçı Kimlik"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Catalog ID"
+msgstr "Katalog Kimlik"
+
+msgid "Genre ID"
+msgstr "Tarz Kimlik"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Anahtar sözcük"
+
+msgid "Long Description"
+msgstr "Uzun açıklama"
+
+msgid "Album ID"
+msgstr "Albüm Kimlik"
+
+msgid "Purchase Date"
+msgstr ""
+
+msgid "Country Code"
+msgstr "Ülke kodu"
+
+msgid "Sort Show"
+msgstr ""
+
+msgid "Media Type"
+msgstr "Ortam türü"
+
+msgid "TV Episode"
+msgstr "Bölüm"
+
+msgid "TV Episode Number"
+msgstr "Bölüm Numara"
+
+msgid "TV Network Name"
+msgstr "Ağ"
+
+#, fuzzy
+msgid "TV Show Name"
+msgstr "Başlık sıralaması"
+
+msgid "TV Season"
+msgstr "Sezon"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 piksel PNG dosya ikonu"
 
@@ -1224,9 +1501,6 @@ msgstr "Uzantı"
 
 msgid "Bitrate"
 msgstr "Örnekleme hızı"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Örnekleme oranı"

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1162,6 +1162,282 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Audio Encryption"
+msgstr ""
+
+msgid "Audio Seek Point"
+msgstr ""
+
+msgid "Chapter"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Table of Contents"
+msgstr ""
+
+msgid "Encryption Method"
+msgstr ""
+
+msgid "Equalization"
+msgstr ""
+
+msgid "Event Timing Codes"
+msgstr ""
+
+msgid "General Object"
+msgstr ""
+
+msgid "Group Identification"
+msgstr ""
+
+msgid "Linked Information"
+msgstr ""
+
+msgid "Music CD Identifier"
+msgstr ""
+
+msgid "MPEG Lookup Table"
+msgstr ""
+
+msgid "Ownership"
+msgstr ""
+
+msgid "Play Counter"
+msgstr ""
+
+msgid "Podcast"
+msgstr ""
+
+msgid "Popularimeter"
+msgstr ""
+
+msgid "Position Synchronisation"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+msgid "Recommended Buffer Size"
+msgstr ""
+
+msgid "Reverb"
+msgstr ""
+
+msgid "Seek"
+msgstr ""
+
+msgid "Signature"
+msgstr ""
+
+msgid "Synchronized Lyrics"
+msgstr ""
+
+msgid "Synchronized Tempo Codes"
+msgstr ""
+
+msgid "Podcast Description"
+msgstr ""
+
+msgid "Playlist Delay"
+msgstr ""
+
+msgid "Original Release Time"
+msgstr ""
+
+msgid "Recording Time"
+msgstr ""
+
+msgid "Release Time"
+msgstr ""
+
+msgid "Tagging Time"
+msgstr ""
+
+msgid "File Type"
+msgstr ""
+
+msgid "Podcast Identifier"
+msgstr ""
+
+msgid "Original Filename"
+msgstr ""
+
+msgid "File Owner"
+msgstr ""
+
+msgid "Produced Notice"
+msgstr ""
+
+msgid "Recording Date"
+msgstr ""
+
+msgid "Radio Station Name"
+msgstr ""
+
+msgid "Radio Station Owner"
+msgstr ""
+
+msgid "User-defined Text"
+msgstr ""
+
+msgid "Unique File Identifier"
+msgstr ""
+
+msgid "Terms of Use"
+msgstr ""
+
+msgid "Commercial URL"
+msgstr ""
+
+msgid "Copyright URL"
+msgstr ""
+
+msgid "Podcast Feed"
+msgstr ""
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr ""
+
+msgid "Official Publisher"
+msgstr ""
+
+msgid "User-defined URL"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Total Discs"
+msgstr ""
+
+msgid "Encoder"
+msgstr ""
+
+msgid "Encoding"
+msgstr ""
+
+msgid "Engineer"
+msgstr ""
+
+msgid "Ensemble"
+msgstr ""
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr ""
+
+msgid "Gapless Playback"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr ""
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr ""
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr ""
+
+msgid "Total Tracks"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Volume"
+msgstr ""
+
+msgid "MCDI"
+msgstr ""
+
+msgid "Original Lyricist"
+msgstr ""
+
+msgid "User Rating"
+msgstr ""
+
+msgid "Account Type"
+msgstr ""
+
+msgid "Purchase Account"
+msgstr ""
+
+msgid "Artist ID"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Catalog ID"
+msgstr ""
+
+msgid "Genre ID"
+msgstr ""
+
+msgid "HD Video"
+msgstr ""
+
+msgid "Keyword"
+msgstr ""
+
+msgid "Long Description"
+msgstr ""
+
+msgid "Album ID"
+msgstr ""
+
+msgid "Purchase Date"
+msgstr ""
+
+msgid "Country Code"
+msgstr ""
+
+msgid "Sort Show"
+msgstr ""
+
+msgid "Media Type"
+msgstr ""
+
+msgid "TV Episode"
+msgstr ""
+
+msgid "TV Episode Number"
+msgstr ""
+
+msgid "TV Network Name"
+msgstr ""
+
+msgid "TV Show Name"
+msgstr ""
+
+msgid "TV Season"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr ""
 
@@ -1220,9 +1496,6 @@ msgid "Extension"
 msgstr ""
 
 msgid "Bitrate"
-msgstr ""
-
-msgid "VBR"
 msgstr ""
 
 msgid "Samplerate"

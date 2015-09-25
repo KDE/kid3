@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.2.1\n"
+"Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-20 11:11+0200\n"
+"POT-Creation-Date: 2015-09-25 12:56+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1166,6 +1166,282 @@ msgstr "WWW-audiofail"
 msgid "WWW Audio Source"
 msgstr "WWW-audioallikas"
 
+msgid "Audio Encryption"
+msgstr "Audiokrüpteering"
+
+msgid "Audio Seek Point"
+msgstr "Audio otsingupunkti"
+
+msgid "Chapter"
+msgstr "Peatükk"
+
+msgid "Commercial"
+msgstr "Kommertsteave"
+
+msgid "Table of Contents"
+msgstr "Sisukord"
+
+msgid "Encryption Method"
+msgstr "Krüpteerimismeetodi"
+
+msgid "Equalization"
+msgstr "Ekvalaisimine"
+
+msgid "Event Timing Codes"
+msgstr "Sündmuse ajastamise koodid"
+
+msgid "General Object"
+msgstr "Üldine objekt"
+
+msgid "Group Identification"
+msgstr "Grupi identifitseerimise"
+
+msgid "Linked Information"
+msgstr "Lingitud teave"
+
+msgid "Music CD Identifier"
+msgstr "Muusika-CD identifikaator"
+
+msgid "MPEG Lookup Table"
+msgstr "MPEG asukohaotsingutabel"
+
+msgid "Ownership"
+msgstr "Omandus"
+
+msgid "Play Counter"
+msgstr "Esitusloendur"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Popularimeeter"
+
+msgid "Position Synchronisation"
+msgstr "Asukoha sünkroniseerimine"
+
+msgid "Private"
+msgstr "Privaat"
+
+msgid "Recommended Buffer Size"
+msgstr "Soovituslik puhvrisuurus"
+
+msgid "Reverb"
+msgstr "Reverb"
+
+msgid "Seek"
+msgstr "Otsimine"
+
+msgid "Signature"
+msgstr "Signatuur"
+
+msgid "Synchronized Lyrics"
+msgstr "sünkroniseeritud laulusõnad"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Sünkroniseeritud tempokoodid"
+
+msgid "Podcast Description"
+msgstr "Podcast kirjeldus"
+
+msgid "Playlist Delay"
+msgstr "Esitusnimekirja viivitus"
+
+msgid "Original Release Time"
+msgstr "Originaali väljalaske aeg"
+
+msgid "Recording Time"
+msgstr "Lindistamise aeg"
+
+msgid "Release Time"
+msgstr "Väljalaske aeg"
+
+msgid "Tagging Time"
+msgstr "Sildistamise aeg"
+
+msgid "File Type"
+msgstr "Faili tüüp"
+
+msgid "Podcast Identifier"
+msgstr "Podcast identifikaator"
+
+msgid "Original Filename"
+msgstr "Originaalfailinimi"
+
+msgid "File Owner"
+msgstr "Faili omanik"
+
+msgid "Produced Notice"
+msgstr "Tootmismärkus"
+
+msgid "Recording Date"
+msgstr "Lindistuskuupäevad"
+
+msgid "Radio Station Name"
+msgstr "Interneti-raadiojaama nimi"
+
+msgid "Radio Station Owner"
+msgstr "Raadiojaama omanik"
+
+msgid "User-defined Text"
+msgstr "Kasutaja määratud tekstiline info"
+
+msgid "Unique File Identifier"
+msgstr "Unikaalne faili-identifikaator"
+
+msgid "Terms of Use"
+msgstr "Kasutustingimused"
+
+msgid "Commercial URL"
+msgstr "Kommertsinfo URL"
+
+msgid "Copyright URL"
+msgstr "Autoriõigus URL"
+
+msgid "Podcast Feed"
+msgstr "Podcast uudistevoog"
+
+msgid "Official Radio Station"
+msgstr ""
+
+msgid "Payment"
+msgstr "Makse URL"
+
+msgid "Official Publisher"
+msgstr "Väljaandja ametlik veebileht"
+
+msgid "User-defined URL"
+msgstr "kasutaja määratud URL"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Total Discs"
+msgstr "Plaatide arv"
+
+msgid "Encoder"
+msgstr "Kodeerija"
+
+msgid "Encoding"
+msgstr "Kodeering"
+
+msgid "Engineer"
+msgstr "Insener"
+
+msgid "Ensemble"
+msgstr "Ansambel"
+
+msgid "Guest Artist"
+msgstr ""
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr ""
+
+msgid "Label"
+msgstr "Plaadifirma"
+
+msgid "Label Number"
+msgstr ""
+
+msgid "Location"
+msgstr "Asukoht"
+
+msgid "Opus"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organisatsioon"
+
+msgid "Part Number"
+msgstr ""
+
+msgid "Producer"
+msgstr "Produtsent"
+
+msgid "Product Number"
+msgstr ""
+
+msgid "Release Date"
+msgstr "Väljalaske kuupäev"
+
+msgid "Total Tracks"
+msgstr "Lugude koguarv"
+
+msgid "Version"
+msgstr "Versioon"
+
+msgid "Volume"
+msgstr "Helitugevus"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Originaalautor"
+
+msgid "User Rating"
+msgstr "Hinnang"
+
+msgid "Account Type"
+msgstr "Konto tüüp"
+
+msgid "Purchase Account"
+msgstr "Konto nimi"
+
+msgid "Artist ID"
+msgstr "Esitaja ID"
+
+msgid "Category"
+msgstr "Kategooria"
+
+msgid "Catalog ID"
+msgstr "Kataloog ID"
+
+msgid "Genre ID"
+msgstr "Stiil ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Võtmesõna"
+
+msgid "Long Description"
+msgstr "Pikk kirjeldus"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr "Ostukuupäev"
+
+msgid "Country Code"
+msgstr "Riigikood"
+
+msgid "Sort Show"
+msgstr "Telesaated sortimisnimi"
+
+msgid "Media Type"
+msgstr "Andmekandja tüüp"
+
+msgid "TV Episode"
+msgstr "Episood"
+
+msgid "TV Episode Number"
+msgstr "Episood arv"
+
+msgid "TV Network Name"
+msgstr "Võrk"
+
+msgid "TV Show Name"
+msgstr "Telesaated"
+
+msgid "TV Season"
+msgstr "Hooaeg"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 px PNG-vormingus faili ikoon"
 
@@ -1225,9 +1501,6 @@ msgstr "Laiend"
 
 msgid "Bitrate"
 msgstr "Bitikiirus"
-
-msgid "VBR"
-msgstr "VBR"
 
 msgid "Samplerate"
 msgstr "Diskreetimissagedus"
