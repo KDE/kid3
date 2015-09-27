@@ -1,6 +1,6 @@
-Wed Sep 16 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Thu Oct  1 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
-	* Release git20150916
+	* Release 3.3.0
 
 	* New:
 	  + Make order of quick access frames configurable.
@@ -8,9 +8,11 @@ Wed Sep 16 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Restore defaults button in settings dialog.
 	  + CSV import from multiple directories.
 	  + Support for lyrics.wikia.com in embed lyrics script.
+	  + Support for chapter and table of contents audiobook frames.
 	  + Mac, Windows: Support for podcast frames.
 
 	* Improved:
+	  + Display user friendly names for all supported frames.
 	  + Updated Czech translation.
 	  + Change file permissions in the case of modified file names.
 
@@ -19,6 +21,7 @@ Wed Sep 16 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Removing ID3v1 genre with id3lib.
 	  + KDE 5: Name filters used in file dialogs, blocking file dialogs.
 	  + KDE 5: Invoking help in settings dialog.
+	  + KDE 4: Build with kdelibs-4.14.11.
 	  + Qt 5.5: Spurious popping up of download dialog.
 	  + Do not abort build if qmlplugindump cannot be started.
 

@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2015-05-09</date>
-<releaseinfo>3.2.1</releaseinfo>
+<date>2015-10-01</date>
+<releaseinfo>3.3.0</releaseinfo>
 
 <abstract>
 <para>
@@ -739,8 +739,8 @@ Für zeitlich mit den Audio-Daten synchronisierte Informationen steht ein
 spezieller Editor zur Verfügung. Diese Frames sind für ID3v2.3.0 und ID3v2.4.0
 Tags unterstützt. Um ein solches Frame zu erstellen, muss in der Liste, welche
 nach Klick auf <guibutton>Hinzufügen</guibutton> erscheint, sein Name
-ausgewählt werden - <guilabel>SYLT - Synchronisierter Text</guilabel> oder
-<guilabel>ETCO - Ereignis-Zeitcodes</guilabel>. Beide Frame-Typen werden in
+ausgewählt werden - <guilabel>Synchronisierter Text</guilabel> oder
+<guilabel>Ereignis-Zeitcodes</guilabel>. Beide Frame-Typen werden in
 einem gleichartigen Editor bearbeitet, bei den Ereignis-Zeitcodes kann aus
 einer Menge vordefinierter Codes ausgewählt werden, während beim
 synchronisierten Text der Liedtext eingegeben werden muss. Im folgenden wird
@@ -748,8 +748,8 @@ die Eingabe von synchronisiertem Text erklärt.
 </para>
 <para>
 Eine Datei, welche ein ID3v2 Tag enthält, wird selektiert und der Editor wird
-mit <guibutton>Hinzufügen</guibutton> und Auswahl von <guilabel>SYLT -
-Synchronisierter Text</guilabel> geöffnet. Falls das SYLT Frame schon
+mit <guibutton>Hinzufügen</guibutton> und Auswahl von <guilabel>
+Synchronisierter Text</guilabel> geöffnet. Falls das Synchronisierter Text Frame schon
 existiert, wird es selektiert und auf <guibutton>Bearbeiten</guibutton>
 geklickt. Die Werkzeugleiste zum Abspielen von Audio-Dateien wird automatisch
 geöffnet, so dass das aktuelle Stück abgespielt und angehalten werden kann, um
@@ -989,7 +989,9 @@ Tabulator als Trennzeichen geschrieben werden und sollten sich über "CSV
 quoted" einlesen lassen. Dieses ist flexibler als "CSV unquoted", dafür dürfen
 die enthaltenen Felder keine Anführungszeichen enthalten. Falls nur von &kid3;
 exportiert und wieder importiert wird, so sollte dies problemlos mit "CSV
-unquoted" möglich sein.
+unquoted" möglich sein. Im Kontextmenü der Dateiliste hat es darüber hinaus
+die Funktionen "Export CSV" und "Import CSV", welche Skripts benutzen, um
+CSV-Daten vollständiger und flexibler auszutauschen.
 </para>
 
 <para>
@@ -2115,7 +2117,8 @@ aufgeführt.
 <guilabel>Schnellzugriff-Elemente</guilabel> bestimmt, welche Frametypen immer
 bei <link linkend="tag2">Tag 2</link> angezeigt werden. Solche Frames können
 dann hinzugefügt werden, ohne zuerst den <guibutton>Hinzufügen</guibutton>
-Knopf zu drücken.
+Knopf zu drücken. Die Reihenfolge dieser Schnellzugriff-Elemente kann durch
+Ziehen und Loslassen der Elemente verändert werden.
 </para>
 <para>
 <guilabel>Tag Format</guilabel> enthält Einstellungen für das Format
@@ -2192,6 +2195,15 @@ folgenden Codes übergeben werden:
 <listitem><para>%b %{browser} Kommando zum Starten des Web Browsers</para></listitem>
 <listitem><para>%q %{qmlpath} Basisverzeichnis der mitgelieferten QML-Dateien</para></listitem>
 </itemizedlist>
+
+<para>
+Der Code <command>@separator</command> kann verwendet werden, um eine
+Trennlinie in das Benutzerbefehle-Kontextmenü einzufügen. Menüpunkte können in
+Untermenüs gruppiert werden, indem man sie mit <command>@beginmenu</command>
+und <command>@endmenu</command> Befehlen umgibt. Der Name des Untermenüs wird
+durch die Spalte <guilabel>Name</guilabel> des <command>@beginmenu</command>
+Befehls definiert.
+</para>
 
 <para id="configure-user-actions-qml">
 Zum Ausführen von QML Skripten wird als Befehl <command>@qml</command>

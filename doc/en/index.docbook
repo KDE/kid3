@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2015-05-09</date>
-<releaseinfo>3.2.1</releaseinfo>
+<date>2015-10-01</date>
+<releaseinfo>3.3.0</releaseinfo>
 
 <abstract>
 <para>
@@ -704,17 +704,16 @@ offer this information.
 For information synchronized with the audio data, a specific editor is
 available. These frames are supported for ID3v2.3.0 and ID3v2.4.0 tags. To add
 such a frame, the specific frame name has to be selected in the list which
-appears when the <guibutton>Add</guibutton> button is clicked - <guilabel>SYLT
-- Synchronized lyric/text</guilabel> or <guilabel>ETCO - Event timing
-codes</guilabel>, respectively. The editor is the same for both types, for the
+appears when the <guibutton>Add</guibutton> button is clicked - <guilabel>Synchronized Lyrics</guilabel> or <guilabel>Event Timing
+Codes</guilabel>, respectively. The editor is the same for both types, for the
 event timing codes, only a predefined set of events is available whereas for
 the synchronized lyrics, text has to be entered. In the following, editing
 synchronized lyrics is explained.
 </para>
 <para>
 A file having an ID3v2 tag is selected, the lyrics editor is entered using
-<guibutton>Add</guibutton> and selecting <guilabel>SYLT - Synchronized
-lyric/text</guilabel>. For an existing SYLT frame, it is selected and
+<guibutton>Add</guibutton> and selecting <guilabel>Synchronized
+Lyrics</guilabel>. For an existing Synchronized Lyrics frame, it is selected and
 <guibutton>Edit</guibutton> is clicked. The player is automatically opened
 with the current file so that the file can be played and paused to synchronize
 lyrics.
@@ -932,7 +931,10 @@ edited with a spreadsheet, and shall be written using tabs as
 delimiters. Import should then be possible using "CSV quoted", which is more
 flexible than "CSV unquoted". However, its fields cannot contain any double
 quotes. If you only export from &kid3; and import later, "CSV unquoted" can be
-used as a simple format for this purpose.
+used as a simple format for this purpose. Note that there are also "Export
+CSV" and "Import CSV" commands in the context menu of the file list, which use
+scripts to export and import CSV data in a more complete, powerful and
+flexible way.
 </para>
 
 <para>
@@ -1988,6 +1990,8 @@ genres can be found at the end of the genres list.
 <guilabel>Quick Access Frames</guilabel> defines which frame types are always
 shown in the <link linkend="tag2">Tag 2</link> section. Such frames can
 then be added without first using the <guibutton>Add</guibutton> button.
+The order of these quick access frames can be changed by dragging and dropping
+items.
 </para>
 <para>
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
@@ -2055,6 +2059,15 @@ codes:
 <listitem><para>%b %{browser} Command to start the web browser</para></listitem>
 <listitem><para>%q %{qmlpath} Base directory of provided QML files</para></listitem>
 </itemizedlist>
+
+<para>
+The special code <command>@separator</command> can be set as a command to
+insert a separator into the user actions context menu. Menu items can be put
+into a submenu by enclosing them with <command>@beginmenu</command> and
+<command>@endmenu</command> commands. The name of the submenu is determined by
+the <guilabel>Name</guilabel> column of the <command>@beginmenu</command>
+command.
+</para>
 
 <para id="configure-user-actions-qml">
 To execute QML scripts, <command>@qml</command> is used as a command name. The
