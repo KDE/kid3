@@ -27,13 +27,13 @@
 #include "kdeplatformtools.h"
 #include <QtConfig>
 #if QT_VERSION >= 0x050000
-#include <KIO/CopyJob>
 #include <KHelpClient>
 #include <KMessageBox>
 #include <KConfig>
 #include <QUrl>
 #include <QFileDialog>
 #include "mainwindowconfig.h"
+#include "coreplatformtools.h"
 
 #define KUrl QUrl
 #define KIcon QIcon::fromTheme
@@ -94,12 +94,12 @@ ISettings* KdePlatformTools::applicationSettings()
  */
 bool KdePlatformTools::moveToTrash(const QString& path) const
 {
+#if QT_VERSION >= 0x050000
+  return CorePlatformTools::moveFileToTrash(path);
+#else
   KUrl src;
   src.setPath(path);
   KIO::Job* job = KIO::trash(src);
-#if QT_VERSION >= 0x050000
-  return job->exec();
-#else
   return KIO::NetAccess::synchronousRun(job, 0);
 #endif
 }

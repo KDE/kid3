@@ -77,6 +77,17 @@ public:
    */
   virtual QString getNameFilterPatterns(const QString& nameFilter) const;
 
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+  /**
+   * Move file or directory to trash.
+   *
+   * @param path path to file or directory
+   *
+   * @return true if ok.
+   */
+  static bool moveFileToTrash(const QString& path);
+#endif
+
 private:
   QSettings* m_settings;
   ISettings* m_config;

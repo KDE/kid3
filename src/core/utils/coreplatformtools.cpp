@@ -223,7 +223,14 @@ bool findExtVolumeTrash(const QString& volumeRoot, QString& trashDir)
 
 } // anonymous namespace
 
-bool CorePlatformTools::moveToTrash(const QString& path) const
+/**
+ * Move file or directory to trash.
+ *
+ * @param path path to file or directory
+ *
+ * @return true if ok.
+ */
+bool CorePlatformTools::moveFileToTrash(const QString& path)
 {
   QFileInfo fi(path);
   const QString absPath(fi.absoluteFilePath());
@@ -248,6 +255,11 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
     return false;
   }
   return moveToTrashDir(fi, trashDir);
+}
+
+bool CorePlatformTools::moveToTrash(const QString& path) const
+{
+  return moveFileToTrash(path);
 }
 
 #endif
