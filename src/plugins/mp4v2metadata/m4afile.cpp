@@ -218,8 +218,7 @@ static QString getNameForType(Frame::Type type)
  * @param onlyPredefined if true, FT_Unknown is returned for fields which
  *                       are not predefined, else FT_Other
  *
- * @return type, FT_Other for "cpil",
- *         FT_Unknown or FT_Other if not predefined field.
+ * @return type, FT_Unknown or FT_Other if not predefined field.
  */
 static Frame::Type getTypeForName(const QString& name,
                                   bool onlyPredefined = false)
@@ -1370,6 +1369,7 @@ QStringList M4aFile::getFrameIds() const
     Frame::FT_Artist,
     Frame::FT_Album,
     Frame::FT_Comment,
+    Frame::FT_Compilation,
     Frame::FT_Date,
     Frame::FT_Track,
     Frame::FT_Genre,
@@ -1383,6 +1383,9 @@ QStringList M4aFile::getFrameIds() const
 #endif
     Frame::FT_Disc,
     Frame::FT_EncodedBy,
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+    Frame::FT_EncoderSettings,
+#endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
     Frame::FT_Grouping,
 #endif
@@ -1390,6 +1393,13 @@ QStringList M4aFile::getFrameIds() const
     Frame::FT_Lyrics,
 #endif
     Frame::FT_Picture
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+    , Frame::FT_SortAlbum,
+    Frame::FT_SortAlbumArtist,
+    Frame::FT_SortArtist,
+    Frame::FT_SortComposer,
+    Frame::FT_SortName
+#endif
   };
 
   QStringList lst;
@@ -1397,15 +1407,14 @@ QStringList M4aFile::getFrameIds() const
     lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), QLatin1String("")).
                getName());
   }
-  lst << QLatin1String("cpil");
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
   lst << QLatin1String("pgap");
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
   lst << QLatin1String("akID") << QLatin1String("apID") << QLatin1String("atID") << QLatin1String("catg") << QLatin1String("cnID") << QLatin1String("desc") <<
-    QLatin1String("\251too") << QLatin1String("geID") << QLatin1String("hdvd") << QLatin1String("keyw") << QLatin1String("ldes") << QLatin1String("pcst") <<
-    QLatin1String("plID") << QLatin1String("purd") << QLatin1String("rtng") << QLatin1String("sfID") << QLatin1String("soaa") << QLatin1String("soal") <<
-    QLatin1String("soar") << QLatin1String("soco") << QLatin1String("sonm") << QLatin1String("sosn") << QLatin1String("stik") << QLatin1String("tven") <<
+    QLatin1String("geID") << QLatin1String("hdvd") << QLatin1String("keyw") << QLatin1String("ldes") << QLatin1String("pcst") <<
+    QLatin1String("plID") << QLatin1String("purd") << QLatin1String("rtng") << QLatin1String("sfID") <<
+    QLatin1String("sosn") << QLatin1String("stik") << QLatin1String("tven") <<
     QLatin1String("tves") << QLatin1String("tvnn") << QLatin1String("tvsh") << QLatin1String("tvsn");
 #endif
   return lst;
