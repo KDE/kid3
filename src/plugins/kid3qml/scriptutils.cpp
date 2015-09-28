@@ -36,6 +36,7 @@
 #include <QCryptographicHash>
 #include "pictureframe.h"
 #include "saferename.h"
+#include "mainwindowconfig.h"
 
 #if QT_VERSION < 0x050000
 Q_DECLARE_METATYPE(QModelIndex)
@@ -500,6 +501,11 @@ QVariant ScriptUtils::scaleImage(const QVariant& var, int width, int height)
 QString ScriptUtils::selectFileName(const QString& caption, const QString& dir,
                                     const QString& filter, bool saveFile)
 {
-  return saveFile ? QFileDialog::getSaveFileName(0, caption, dir, filter)
-                  : QFileDialog::getOpenFileName(0, caption, dir, filter);
+  QFileDialog::Options options =
+      MainWindowConfig::instance().dontUseNativeDialogs()
+      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0);
+  return saveFile ? QFileDialog::getSaveFileName(0, caption, dir, filter,
+                                                 0, options)
+                  : QFileDialog::getOpenFileName(0, caption, dir, filter,
+                                                 0, options);
 }
