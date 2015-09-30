@@ -4131,7 +4131,7 @@ static void setId3v2Frame(const TagLibFile* self,
 #if TAGLIB_VERSION >= 0x010800
     TagLib::ID3v2::OwnershipFrame* owneFrame;
 #endif
-#if TAGLIB_VERSION >= 0x010800
+#if TAGLIB_VERSION >= 0x010500
     TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
 #endif
 #if TAGLIB_VERSION >= 0x010a00
