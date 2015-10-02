@@ -30,5 +30,5 @@ endif (BUILD_SHARED_LIBS)
 
 if (BUILD_KDE_APP)
   install(FILES model/net.sourceforge.Kid3.xml
-          DESTINATION "share/dbus-1/interfaces")
+          DESTINATION ${WITH_DBUSDIR})
 endif (BUILD_KDE_APP)

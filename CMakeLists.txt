@@ -143,6 +143,10 @@ endif (APPLE)
 
 set(WITH_DATAROOTDIR ${WITH_DATAROOTDIR_DEFAULT} CACHE STRING
     "data root directory relative to CMAKE_INSTALL_PREFIX")
+if (BUILD_KDE_APP)
+  set(WITH_DBUSDIR "share/dbus-1/interfaces" CACHE STRING
+      "dbus directory relative to CMAKE_INSTALL_PREFIX")
+endif (BUILD_KDE_APP)
 set(WITH_DOCDIR ${WITH_DOCDIR_DEFAULT} CACHE STRING
     "documentation directory relative to CMAKE_INSTALL_PREFIX")
 set(WITH_TRANSLATIONSDIR ${WITH_TRANSLATIONSDIR_DEFAULT} CACHE STRING
