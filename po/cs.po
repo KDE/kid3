@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2015-09-25 12:56+0200\n"
-"PO-Revision-Date: 2015-05-13 21:43+0200\n"
+"PO-Revision-Date: 2015-10-02 21:58+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1304,7 +1304,7 @@ msgid "Podcast Feed"
 msgstr "Kanál Podcast"
 
 msgid "Official Radio Station"
-msgstr ""
+msgstr "Oficiální rozhlasová stanice"
 
 msgid "Payment"
 msgstr "Platba"
@@ -1334,7 +1334,7 @@ msgid "Ensemble"
 msgstr "Soubor"
 
 msgid "Guest Artist"
-msgstr ""
+msgstr "Hostující umělec"
 
 msgid "VBR"
 msgstr "VBR"
@@ -1346,25 +1346,25 @@ msgid "Label"
 msgstr "Nahrávací společnost"
 
 msgid "Label Number"
-msgstr ""
+msgstr "Číslo štítku"
 
 msgid "Location"
 msgstr "Umístění"
 
 msgid "Opus"
-msgstr ""
+msgstr "Dílo"
 
 msgid "Organization"
 msgstr "Organizace"
 
 msgid "Part Number"
-msgstr ""
+msgstr "Číslo části"
 
 msgid "Producer"
 msgstr "Producent"
 
 msgid "Product Number"
-msgstr ""
+msgstr "Číslo výrobku"
 
 msgid "Release Date"
 msgstr "Datum vydání"
@@ -2623,3 +2623,4 @@ msgstr "Z formátu názvu souboru"
 
 msgid "To Filename"
 msgstr "Podle názvu souboru"
+
