@@ -29,6 +29,10 @@
 #include <QImage>
 #include <QBuffer>
 #include <QCoreApplication>
+#if QT_VERSION >= 0x050000
+#include <QMimeDatabase>
+#include <QMimeType>
+#endif
 
 namespace {
 
@@ -217,6 +221,47 @@ void PictureFrame::setFields(Frame& frame,
     field.m_value.setValue(*imgProps);
     fields.push_back(field);
   }
+
+  frame.setValue(description);
+}
+
+/**
+ * Set all properties of a GEOB frame.
+ *
+ * @param frame       frame to set
+ * @param enc         text encoding
+ * @param mimeType    MIME type
+ * @param fileName    file name
+ * @param description description
+ * @param data        binary data
+ */
+void PictureFrame::setGeobFields(
+    Frame& frame, TextEncoding enc, const QString& mimeType,
+    const QString& fileName, const QString& description, const QByteArray& data)
+{
+  Field field;
+  FieldList& fields = frame.fieldList();
+  fields.clear();
+
+  field.m_id = ID_TextEnc;
+  field.m_value = enc;
+  fields.push_back(field);
+
+  field.m_id = ID_MimeType;
+  field.m_value = mimeType;
+  fields.push_back(field);
+
+  field.m_id = ID_Filename;
+  field.m_value = fileName;
+  fields.push_back(field);
+
+  field.m_id = ID_Description;
+  field.m_value = description;
+  fields.push_back(field);
+
+  field.m_id = ID_Data;
+  field.m_value = data;
+  fields.push_back(field);
 
   frame.setValue(description);
 }
@@ -549,7 +594,63 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
 }
 
 /**
- * Set the MIME type and image format from the file name extension.
+ * Get the MIME type and image format from a file.
+ *
+ * @param fileName name of data file
+ * @param imgFormat if not null, the ID3v2.2 PIC image format ("JGP" or "PNG")
+ * is set here
+ *
+ * @return mime type of file, null if not recognized.
+ */
+QString PictureFrame::getMimeTypeForFile(const QString& fileName,
+                                         QString* imgFormat)
+{
+#if QT_VERSION >= 0x050000
+  QMimeDatabase mimeDb;
+  QString mimeType = mimeDb.mimeTypeForFile(fileName).name();
+#else
+  static const struct {
+    const char* ext;
+    const char* type;
+  } extType[] = {
+  { ".jpg",  "image/jpeg" },
+  { ".jpeg", "image/jpeg" },
+  { ".png",  "image/png" },
+  { ".gif",  "image/gif" },
+  { ".ico",  "image/vnd.microsoft.icon" },
+  { ".svg",  "image/svg+xml" },
+  { ".txt",  "text/plain" },
+  { ".html", "text/html" },
+  { ".htm",  "text/html" },
+  { ".css",  "text/css" },
+  { ".pdf",  "application/pdf" },
+  { ".bin",  "application/octet-stream" },
+  { ".js",   "application/javascript" },
+  { ".json", "application/json" },
+  { ".woff", "application/font-woff" },
+  { ".ttf",  "application/font-sfnt" },
+  { ".eot",  "application/vnd.ms-fontobject" }
+  };
+  QString mimeType;
+  for (unsigned int i = 0; i < sizeof extType / sizeof extType[0]; ++i) {
+    if (fileName.endsWith(QLatin1String(extType[i].ext), Qt::CaseInsensitive)) {
+      mimeType = QString::fromLatin1(extType[i].type);
+      break;
+    }
+  }
+#endif
+  if (imgFormat) {
+    if (mimeType == QLatin1String("image/jpeg")) {
+      *imgFormat = QLatin1String("JPG");
+    } else if (mimeType == QLatin1String("image/png")) {
+      *imgFormat = QLatin1String("PNG");
+    }
+  }
+  return mimeType;
+}
+
+/**
+ * Set the MIME type and image format from a file.
  *
  * @param frame frame to set
  * @param fileName name of data file
@@ -558,11 +659,10 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-  if (fileName.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
-      fileName.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive)) {
-    return setMimeType(frame, QLatin1String("image/jpeg")) && setImageFormat(frame, QLatin1String("JPG"));
-  } else if (fileName.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
-    return setMimeType(frame, QLatin1String("image/png")) && setImageFormat(frame, QLatin1String("PNG"));
+  QString imgFormat;
+  QString mimeType = getMimeTypeForFile(fileName, &imgFormat);
+  if (!mimeType.isEmpty()) {
+    return setMimeType(frame, mimeType) && setImageFormat(frame, imgFormat);
   }
   return false;
 }

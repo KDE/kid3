@@ -2887,17 +2887,29 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
   FrameCollection frames(ft->frames());
   FrameCollection::const_iterator it = frames.findByName(frameName);
   if (it != frames.end()) {
-    bool isPicture, isSylt;
+    QString frmName(it->getName());
+    bool isPicture, isGeob, isSylt = false;
     if (!dataFileName.isEmpty() && (tagMask & 2) != 0 &&
         ((isPicture = (it->getType() == Frame::FT_Picture)) ||
-         (isSylt = it->getName().startsWith(QLatin1String("SYLT"))) ||
-         it->getName().startsWith(QLatin1String("ETCO")))) {
+         (isGeob = frmName.startsWith(QLatin1String("GEOB"))) ||
+         (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+         frmName.startsWith(QLatin1String("ETCO")))) {
       if (isPicture) {
-        deleteFrame(it->getName());
+        deleteFrame(frmName);
         PictureFrame frame;
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+        addFrame(&frame);
+      } else if (isGeob) {
+        Frame frame(*it);
+        deleteFrame(frmName);
+        Frame::setField(frame, Frame::ID_MimeType,
+                        PictureFrame::getMimeTypeForFile(dataFileName));
+        Frame::setField(frame, Frame::ID_Filename,
+                        QFileInfo(dataFileName).fileName());
+        Frame::setField(frame, Frame::ID_Description, value);
+        PictureFrame::setDataFromFile(frame, dataFileName);
         addFrame(&frame);
       } else {
         QFile file(dataFileName);
@@ -2905,7 +2917,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           QTextStream stream(&file);
           Frame frame(*it);
           Frame::setField(frame, Frame::ID_Description, value);
-          deleteFrame(it->getName());
+          deleteFrame(frmName);
           TimeEventModel timeEventModel;
           if (isSylt) {
             timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
@@ -2921,7 +2933,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         }
       }
     } else if (value.isEmpty() && (tagMask & 2) != 0) {
-      deleteFrame(it->getName());
+      deleteFrame(frmName);
     } else {
       Frame& frame = const_cast<Frame&>(*it);
       frame.setValueIfChanged(value);
@@ -2933,16 +2945,24 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     return true;
   } else if (tagMask & 2) {
     Frame frame(Frame::ExtendedType(frameName), value, -1);
-    bool isPicture, isSylt;
+    QString frmName(frame.getInternalName());
+    bool isPicture, isGeob, isSylt = false;
     if (!dataFileName.isEmpty() &&
         ((isPicture = (frame.getType() == Frame::FT_Picture)) ||
-         (isSylt = frame.getInternalName().startsWith(QLatin1String("SYLT"))) ||
-         frame.getInternalName().startsWith(QLatin1String("ETCO")))) {
+         (isGeob = frmName.startsWith(QLatin1String("GEOB"))) ||
+         (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+         frmName.startsWith(QLatin1String("ETCO")))) {
       if (isPicture) {
         PictureFrame::setFields(frame);
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+      } else if (isGeob) {
+        PictureFrame::setGeobFields(
+              frame, Frame::TE_ISO8859_1,
+              PictureFrame::getMimeTypeForFile(dataFileName),
+              QFileInfo(dataFileName).fileName(), value);
+        PictureFrame::setDataFromFile(frame, dataFileName);
       } else {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {

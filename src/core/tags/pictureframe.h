@@ -155,6 +155,23 @@ public:
     const ImageProperties* imgProps = 0);
 
   /**
+   * Set all fields of a GEOB frame.
+   *
+   * @param frame       frame to set
+   * @param enc         text encoding
+   * @param mimeType    MIME type
+   * @param fileName    file name
+   * @param description description
+   * @param data        binary data
+   */
+  static void setGeobFields(
+      Frame& frame, TextEncoding enc = TE_ISO8859_1,
+      const QString& mimeType = QLatin1String(""),
+      const QString& fileName = QLatin1String(""),
+      const QString& description = QLatin1String(""),
+      const QByteArray& data = QByteArray());
+
+  /**
    * Get all properties.
    * Unavailable fields are not set.
    *
@@ -332,7 +349,19 @@ public:
   static bool writeDataToFile(const Frame& frame, const QString& fileName);
 
   /**
-   * Set the MIME type and image format from the file name extension.
+   * Get the MIME type and image format from a file.
+   *
+   * @param fileName name of data file
+   * @param imgFormat if not null, the ID3v2.2 PIC image format ("JGP" or "PNG")
+   * is set here
+   *
+   * @return mime type of file, null if not recognized.
+   */
+  static QString getMimeTypeForFile(const QString& fileName,
+                                    QString* imgFormat = 0);
+
+  /**
+   * Set the MIME type and image format from a file.
    *
    * @param frame frame to set
    * @param fileName name of data file
