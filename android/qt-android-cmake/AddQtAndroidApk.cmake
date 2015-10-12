@@ -150,6 +150,9 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/${ANDROID_ABI})
 
     # create the configuration file that will feed androiddeployqt
+    if(NOT ANDROID_TOOLCHAIN_PREFIX)
+        set(ANDROID_TOOLCHAIN_PREFIX ${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    endif()
     configure_file(${QT_ANDROID_SOURCE_DIR}/qtdeploy.json.in ${CMAKE_CURRENT_BINARY_DIR}/qtdeploy.json @ONLY)
 
     # check if the apk must be signed
