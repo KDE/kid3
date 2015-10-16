@@ -119,6 +119,10 @@ bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
 
 int main(int argc, char* argv[])
 {
+#ifdef HAVE_QMLDIR_IN_QRC
+  Q_INIT_RESOURCE(qmlapp);
+#endif
+
   Kid3QtApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
 
@@ -160,12 +164,17 @@ int main(int argc, char* argv[])
 #if QT_VERSION >= 0x050000
   // To load a qml file containing an Item for a QQuickView.
   QQuickView view;
+#ifdef HAVE_QMLDIR_IN_QRC
+  view.engine()->addImportPath(QLatin1String(CFG_QMLDIR "/imports"));
+  view.setSource(QUrl(QLatin1String("qrc:///app/Main.qml")));
+#else
   QDir pluginsDir;
   if (Kid3Application::findPluginsDirectory(pluginsDir) &&
       pluginsDir.cd(QLatin1String("imports"))) {
     view.engine()->addImportPath(pluginsDir.absolutePath());
   }
   view.setSource(QUrl::fromLocalFile(mainQmlPath));
+#endif
   view.setResizeMode(QQuickView::SizeRootObjectToView);
   QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
   view.show();

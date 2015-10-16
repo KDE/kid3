@@ -37,14 +37,21 @@ else (APPLE)
 endif (APPLE)
 target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES})
 
-install(TARGETS ${plugin_TARGET}
-  LIBRARY DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3
-  RUNTIME DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-set_target_properties(
-  ${plugin_TARGET} PROPERTIES
-  RUNTIME_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
-  LIBRARY_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
-)
+if (NOT HAVE_QMLDIR_IN_QRC)
+  install(TARGETS ${plugin_TARGET}
+    LIBRARY DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3
+    RUNTIME DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
+  set_target_properties(
+    ${plugin_TARGET} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
+    LIBRARY_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
+  )
+else (NOT HAVE_QMLDIR_IN_QRC)
+  install(TARGETS ${plugin_TARGET}
+    LIBRARY DESTINATION ${WITH_BINDIR}
+    RUNTIME DESTINATION ${WITH_BINDIR})
+  file(MAKE_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3")
+endif (NOT HAVE_QMLDIR_IN_QRC)
 
 if (WIN32)
   set(_qmldirPluginName libkid3qml)
@@ -52,9 +59,7 @@ else (WIN32)
   set(_qmldirPluginName kid3qml)
 endif (WIN32)
 add_custom_command(TARGET ${plugin_TARGET} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E echo "module Kid3" > "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
-  COMMAND ${CMAKE_COMMAND} -E echo "plugin ${_qmldirPluginName}" >> "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
-  COMMAND ${CMAKE_COMMAND} -E echo "Kid3Script 1.0 Kid3Script.qml" >> "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir "${kid3_plugins_BINARY_DIR}/imports/Kid3/"
 )
 add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Script.qml "${kid3_plugins_BINARY_DIR}/imports/Kid3/"
@@ -79,7 +84,7 @@ endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
 install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
               "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
         DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-if (NOT WIN32)
+if (NOT WIN32 AND NOT ANDROID)
   if (HAVE_QT5)
     get_target_property(_qmakeLocation Qt5::qmake LOCATION)
   else (HAVE_QT5)
@@ -100,7 +105,7 @@ if (NOT WIN32)
 
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3 OPTIONAL)
-endif (NOT WIN32)
+endif (NOT WIN32 AND NOT ANDROID)
 
 if ((WIN32 OR APPLE) AND HAVE_QT5)
   # Install essential QML modules.

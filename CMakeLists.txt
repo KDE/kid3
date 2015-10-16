@@ -180,6 +180,12 @@ set(CFG_TRANSLATIONSDIR ${CMAKE_INSTALL_PREFIX_SLASH}${WITH_TRANSLATIONSDIR})
 set(CFG_QMLDIR ${CMAKE_INSTALL_PREFIX_SLASH}${WITH_QMLDIR})
 file(RELATIVE_PATH CFG_PLUGINSDIR /${WITH_BINDIR} /${WITH_PLUGINSDIR})
 endif (APPLE)
+if (CFG_PLUGINSDIR STREQUAL "")
+  set(CFG_PLUGINSDIR ".")
+endif (CFG_PLUGINSDIR STREQUAL "")
+if (WITH_QMLDIR MATCHES "^:/")
+  set(HAVE_QMLDIR_IN_QRC 1)
+endif (WITH_QMLDIR MATCHES "^:/")
 set(CFG_QMLSRCDIR "${kid3_SOURCE_DIR}/src/qml")
 
 find_package(Threads)
@@ -192,7 +198,7 @@ include (CheckLibraryExists)
 set(_qt5Dir)
 set(QT_EXECUTABLE_COMPILE_FLAGS)
 if (NOT WITH_QT4)
-  string(REGEX MATCH "^(.*[Qq]t5.*).bin.qmake.*" _qt5Dir "${QT_QMAKE_EXECUTABLE}")
+  string(REGEX MATCH "^(.*[Qq]t[/\\]?5.*).bin.qmake.*" _qt5Dir "${QT_QMAKE_EXECUTABLE}")
   if (_qt5Dir)
     set(_qt5Dir ${CMAKE_MATCH_1})
   endif (_qt5Dir)
@@ -370,13 +376,13 @@ if (BUILD_SHARED_LIBS)
     list(FIND CMAKE_INSTALL_RPATH "${_prefixLibdir}" _rpathContainsLibdir)
     if ("${_rpathContainsLibdir}" STREQUAL "-1")
       list(APPEND CMAKE_INSTALL_RPATH "${_prefixLibdir}")
-      if (CMAKE_SKIP_RPATH)
+      if (CMAKE_SKIP_RPATH AND NOT ANDROID)
         message(WARNING
           "RPATH needs to be set to \"${_prefixLibdir}\" but CMAKE_SKIP_RPATH "
           "is set! Disable CMAKE_SKIP_RPATH or set WITH_LIBDIR (which is now "
           "\"${WITH_LIBDIR}\") to a system directory, "
           "e.g. \"-DWITH_LIBDIR=lib\".")
-      endif (CMAKE_SKIP_RPATH)
+      endif (CMAKE_SKIP_RPATH AND NOT ANDROID)
     endif ("${_rpathContainsLibdir}" STREQUAL "-1")
   endif ("${_isSystemDir}" STREQUAL "-1")
 endif (BUILD_SHARED_LIBS)
@@ -490,6 +496,10 @@ configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(po)
+
+if (ANDROID)
+  add_subdirectory(android)
+endif (ANDROID)
 
 
 # To create a package, run cpack

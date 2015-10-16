@@ -1,3 +1,4 @@
+if (NOT HAVE_QMLDIR_IN_QRC)
 # Before starting Qt Creator, export the environment variable
 # QML_IMPORT_PATH=<qt5dir>/qml:<qt5dir>/imports
 # so that the editor supports the QML types.
@@ -34,3 +35,4 @@ if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
     )
     ")
 endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
+endif (NOT HAVE_QMLDIR_IN_QRC)

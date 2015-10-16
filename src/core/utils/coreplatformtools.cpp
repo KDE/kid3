@@ -181,7 +181,7 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
 
 bool findMountPoint(dev_t dev, QString& mountPoint)
 {
-#ifdef HAVE_MNTENT_H
+#if defined HAVE_MNTENT_H && !defined Q_OS_ANDROID
   if (FILE* fp = ::setmntent("/proc/mounts", "r")) {
     struct stat st;
     struct mntent* mnt;
@@ -198,6 +198,9 @@ bool findMountPoint(dev_t dev, QString& mountPoint)
     }
     ::endmntent(fp);
   }
+#else
+  Q_UNUSED(dev)
+  Q_UNUSED(mountPoint)
 #endif
   return false;
 }
