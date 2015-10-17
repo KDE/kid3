@@ -122,6 +122,9 @@ int main(int argc, char* argv[])
 #ifdef HAVE_QMLDIR_IN_QRC
   Q_INIT_RESOURCE(qmlapp);
 #endif
+#ifdef HAVE_TRANSLATIONSDIR_IN_QRC
+  Q_INIT_RESOURCE(translations);
+#endif
 
   Kid3QtApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
@@ -166,6 +169,11 @@ int main(int argc, char* argv[])
   QQuickView view;
 #ifdef HAVE_QMLDIR_IN_QRC
   view.engine()->addImportPath(QLatin1String(CFG_QMLDIR "/imports"));
+  QDir pluginsDir;
+  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+      pluginsDir.cd(QLatin1String("imports/Kid3"))) {
+    view.engine()->addPluginPath(pluginsDir.absolutePath());
+  }
   view.setSource(QUrl(QLatin1String("qrc:///app/Main.qml")));
 #else
   QDir pluginsDir;
