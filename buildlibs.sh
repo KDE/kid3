@@ -30,6 +30,8 @@
 # the default location, docbook.xsl in
 # $HOME/docbook-xsl-1.72.0/html/docbook.xsl.
 #
+# To build for Android, set compiler="cross-android".
+#
 # The source code for the libraries is downloaded from Debian and Ubuntu
 # repositories. If the files are no longer available, use a later version,
 # it should still work.
@@ -2163,7 +2165,42 @@ fi
 
 test -d bin || mkdir bin
 
-if test "$compiler" = "msvc"; then
+if test "$compiler" = "cross-android"; then
+
+echo "### Building taglib"
+
+_android_sdk_root=/opt/android/sdk
+_android_ndk_root=$_android_sdk_root/ndk-bundle
+_android_abi=armeabi-v7a
+_android_toolchain_prefix=
+_android_qt_root=/opt/Qt/5.5/android_armv7
+#_android_abi=x86
+#_android_toolchain_prefix=x86
+#_android_qt_root=/opt/Qt/5.5/android_x86
+test -d buildroot || mkdir buildroot
+_buildroot=$(pwd)/buildroot
+
+cd taglib-${taglib_version}/
+cmake -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$_buildroot/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake
+make install
+cd ..
+
+if ! test -d kid3; then
+  mkdir kid3
+  cat >kid3/build.sh <<EOF
+_java_root=/usr/lib/jvm/java-7-openjdk-amd64
+_android_sdk_root=$_android_sdk_root
+_android_ndk_root=$_android_ndk_root
+_android_abi=$_android_abi
+_android_toolchain_prefix=$_android_toolchain_prefix
+_android_qt_root=$_android_qt_root
+_buildprefix=\$(cd ..; pwd)/buildroot/usr/local
+cmake -GNinja -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh -DPERL_EXECUTABLE=/usr/bin/perl -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
+EOF
+  chmod +x kid3/build.sh
+fi
+
+elif test "$compiler" = "msvc"; then
 
 echo "### Building libogg"
 
@@ -2241,7 +2278,7 @@ if test "$1" = "clean"; then
     rm -rf $d/inst
   done
 fi
-  
+
 if test ! -d zlib-${zlib_version}/inst; then
 echo "### Building zlib"
 
