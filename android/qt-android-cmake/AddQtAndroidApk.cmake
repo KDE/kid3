@@ -62,6 +62,11 @@ if(NOT QT_ANDROID_ANT)
 endif()
 message(STATUS "Found ANT: ${QT_ANDROID_ANT}")
 
+option(APK_ALL_TARGET "generate apk package with target 'all'" ON)
+if(APK_ALL_TARGET)
+    SET(APK_ALL ALL)
+endif()
+
 include(CMakeParseArguments)
 
 # define a macro to create an Android APK target
@@ -185,7 +190,7 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
     # create the custom target that invokes ANT to create the apk
     add_custom_target(
         ${TARGET}
-        ALL
+        ${APK_ALL}
         COMMAND ${QT_ANDROID_ANT} ${ANT_CONFIG}
         DEPENDS run_android_deploy_qt
     )
