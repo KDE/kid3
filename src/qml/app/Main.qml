@@ -120,6 +120,17 @@ MainView {
       }
       actions: ActionList {
         Action {
+          text: qsTr("Open")
+          onTriggered: {
+            var path = script.selectFileName(
+                  qsTr("Open"), mainPage.currentFilePath(),
+                  app.createFilterString())
+            if (path) {
+              confirmedOpenDirectory(path)
+            }
+          }
+        }
+        Action {
           text: qsTr("Settings")
           onTriggered: pageStack.push(settingsPage)
         }
@@ -208,6 +219,15 @@ MainView {
       visible: false
     }
   }
+
+  Text {                                                        //@!Ubuntu
+    visible: false                                              //@!Ubuntu
+    Component.onCompleted: {                                    //@!Ubuntu
+      // Linux Desktop: pixelSize 12 => gu = 8
+      // Android Emulator Galaxy Nexus: 32 => gu = 21
+      constants.gridUnit = Math.max(8 * font.pixelSize / 12, 8) //@!Ubuntu
+    }                                                           //@!Ubuntu
+  }                                                             //@!Ubuntu
 
   Component.onCompleted: {
     app.frameEditor = frameEditor

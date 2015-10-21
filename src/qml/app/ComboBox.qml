@@ -36,6 +36,7 @@ Item {
 
   Rectangle {
     id: selectedItem
+    clip: true
     radius: 4
     width: parent.width
     height: parent.height

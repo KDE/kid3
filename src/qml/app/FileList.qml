@@ -38,14 +38,19 @@ RaisableRectangle {
     id: fileButtonRow
     anchors.left: parent.left
     anchors.top: parent.top
+    anchors.leftMargin: constants.margins
     spacing: constants.spacing
     Button {
       id: parentDirButton
       iconName: "go-up"
       width: height
-      onClicked: confirmedOpenDirectory(
-                   script.getIndexRoleData(fileModel.parentModelIndex(),
-                                           "filePath"))
+      onClicked: {
+        var parentDir = script.getIndexRoleData(fileModel.parentModelIndex(),
+                                                "filePath")
+        if (parentDir) {
+          confirmedOpenDirectory(parentDir)
+        }
+      }
     }
     Button {
       property bool selectAll: true
@@ -127,8 +132,8 @@ RaisableRectangle {
           id: fileImage
           anchors.verticalCenter: parent.verticalCenter
           color: truncated ? constants.errorColor : "transparent"
-          width: 16
-          height: 16
+          width: constants.gu(2)
+          height: constants.gu(2)
           Image {
             anchors.fill: parent
             source: "image://kid3/fileicon/" + iconId

@@ -48,7 +48,7 @@ QtObject {
   //property int rowHeight: units.gu(6)                       //@Ubuntu
 
   function gu(n) {                                          //@!Ubuntu
-    return n * 8                                            //@!Ubuntu
+    return n * gridUnit                                     //@!Ubuntu
   }                                                         //@!Ubuntu
 
   function openPopup(component, parent, params) {           //@!Ubuntu
@@ -65,6 +65,7 @@ QtObject {
     popover.hide()                                          //@!Ubuntu
   }                                                         //@!Ubuntu
 
+  property int gridUnit: 8                                  //@!Ubuntu
   property int margins: gu(1)                               //@!Ubuntu
   property int spacing: gu(1)                               //@!Ubuntu
   property color errorColor: "red"                          //@!Ubuntu

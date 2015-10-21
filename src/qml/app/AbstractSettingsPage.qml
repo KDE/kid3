@@ -39,7 +39,7 @@ Page {
 
     Component {
       id: booleanDelegate
-      Standard {
+      SettingsItem {
         text: _modelData.name
         control: CheckBox {
           id: checkField
@@ -50,10 +50,10 @@ Page {
     }
     Component {
       id: stringDelegate
-      Standard {
+      SettingsItem {
         text: _modelData.name
         control: TextField {
-          width: constants.gu(45)
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           text: _modelData.value
           onAccepted: {
             focus = false
@@ -68,10 +68,10 @@ Page {
     }
     Component {
       id: stringSelectionDelegate
-      Standard {
+      SettingsItem {
         text: _modelData.name
         control: ComboBox {
-          width: constants.gu(45)
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           dropDownParent: root
           currentText: _modelData.value
           model: _modelData.dropDownModel
@@ -81,10 +81,10 @@ Page {
     }
     Component {
       id: numberDelegate
-      Standard {
+      SettingsItem {
         text: _modelData.name
         control: TextField {
-          width: constants.gu(45)
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           text: _modelData.value
           onAccepted: {
             focus = false
@@ -102,10 +102,10 @@ Page {
     }
     Component {
       id: numberSelectionDelegate
-      Standard {
+      SettingsItem {
         text: _modelData.name
         control: ComboBox {
-          width: constants.gu(45)
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           dropDownParent: root
           currentIndex: _modelData.value
           model: _modelData.dropDownModel
@@ -125,11 +125,11 @@ Page {
     ListView {
       id: listView
 
+      clip: true
       anchors.fill: parent
       model: page.model
       delegate: Loader {
         width: ListView.view.width
-        height: constants.rowHeight
         property int _index: index
         property variant _modelData: modelData
         sourceComponent:

@@ -80,9 +80,10 @@ Empty {
     Item {
       Label {
         anchors.leftMargin: constants.margins
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.fill: parent
         text: value
+        verticalAlignment: Text.AlignVCenter
+        clip: true
       }
       MouseArea {
         anchors.fill: parent
@@ -118,8 +119,8 @@ Empty {
       anchors.left: frameEnabledCheckBox.right
       anchors.verticalCenter: parent.verticalCenter
       color: truncated ? constants.errorColor : "transparent"
-      width: 16
-      height: 16
+      width: constants.gu(2)
+      height: constants.gu(2)
       Image {
         anchors.fill: parent
         source: "image://kid3/fileicon/" + (modified ? "modified" : "null")
@@ -129,8 +130,9 @@ Empty {
       id: frameNameLabel
       anchors.left: frameModifiedImage.right
       anchors.verticalCenter: parent.verticalCenter
-      width: 150
+      width: Math.min(150, (parent.width - constants.gu(4)) / 2)
       text: name
+      clip: true
       color: selected
              ? constants.selectedTextColor : constants.backgroundTextColor
     }

@@ -27,4 +27,5 @@ QtObject {
   property string name
   property variant value
   property variant dropDownModel
+  property int width
 }

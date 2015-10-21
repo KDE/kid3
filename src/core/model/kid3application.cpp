@@ -40,6 +40,9 @@
 #ifdef Q_OS_MAC
 #include <QFileIconProvider>
 #endif
+#if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
+#include <QStandardPaths>
+#endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include <unistd.h>
@@ -564,10 +567,20 @@ void Kid3Application::readConfig()
  */
 bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
+  QStringList pathList(paths);
+#if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
+  if (pathList.isEmpty()) {
+    QStringList musicLocations =
+        QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+    if (!musicLocations.isEmpty()) {
+      pathList.append(musicLocations.first());
+    }
+  }
+#endif
   bool ok = true;
   QStringList filePaths;
   QStringList dirComponents;
-  foreach (const QString& path, paths) {
+  foreach (const QString& path, pathList) {
     if (!path.isEmpty()) {
       QFileInfo fileInfo(path);
       if (fileCheck && !fileInfo.exists()) {

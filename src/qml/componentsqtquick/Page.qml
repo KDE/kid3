@@ -39,6 +39,7 @@ Rectangle {
     Button {
       border.width: 0
       iconName: "go-previous"
+      width: height
       visible: pageStack.canPop
       onClicked: pageStack.pop()
     }
@@ -53,6 +54,5 @@ Rectangle {
     anchors.right: parent.right
     anchors.top: titleRow.bottom
     anchors.bottom: parent.bottom
-    anchors.margins: constants.margins
   }
 }

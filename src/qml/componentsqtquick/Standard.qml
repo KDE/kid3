@@ -45,7 +45,7 @@ Empty {
     property Item control
     width: control ? control.width : undefined
     height: control ? control.height : undefined
-    anchors.right: progressionLabel.left
+    anchors.right: progression ? progressionLabel.left : parent.right
     anchors.verticalCenter: parent.verticalCenter
     anchors.margins: constants.margins
     onControlChanged: {

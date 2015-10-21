@@ -30,11 +30,17 @@ Rectangle {
 
   signal clicked
 
-  width: 12
-  height: 12
-  border.width: 1
-  border.color: "black"
+  width: constants.rowHeight
+  height: constants.rowHeight
   color: constants.palette.base
+
+  Rectangle {
+    anchors.centerIn: parent
+    width: parent.width - 4
+    height: parent.height - 4
+    border.width: 1
+    border.color: "black"
+  }
 
   Text {
     id: checkboxText

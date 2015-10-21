@@ -35,16 +35,16 @@ PopupBase {
   border.width: 1
   border.color: "black"
 
-  width: Math.max(contentsColumn.childrenRect.width + 2 * constants.margins,
-                  400)
-  height: Math.max(titleLabel.height + textLabel.height +
-                   contentsColumn.childrenRect.height + 4 * constants.margins,
-                   30)
+  width: Math.min(root.width - 2 * constants.margins, 400)
+  height: Math.min(root.height - 2 * constants.margins,
+           Math.max(titleLabel.height + textLabel.height +
+                    contentsColumn.childrenRect.height + 4 * constants.margins,
+                    30))
 
   onVisibleChanged: {
     // Center dialog on root.
     page.x = root.x + (root.width - page.width) / 2
-    page.y = root.y + (root.height - page.height) / 2
+    page.y = root.y + constants.margins
   }
 
   Item {

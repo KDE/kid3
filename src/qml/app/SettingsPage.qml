@@ -171,10 +171,12 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
+          width: constants.gu(45)
         },
         SettingsElement {
           name: qsTr("From filename format")
           dropDownModel: configs.fileConfig().fromFilenameFormats
+          width: constants.gu(45)
         }
       ]
       onActiveChanged: {

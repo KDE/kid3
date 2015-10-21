@@ -23,5 +23,6 @@ set(app_QML_SRCS
   app/AbstractSettingsPage.qml
   app/SettingsElement.qml
   app/SettingsPage.qml
+  app/SettingsItem.qml
   app/RaisableRectangle.qml
 )

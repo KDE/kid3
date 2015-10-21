@@ -67,7 +67,8 @@ Page {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       anchors.margins: constants.margins
-      width: constants.gu(44)
+      anchors.leftMargin: 0
+      width: Math.min(constants.gu(44), body.width - constants.gu(4))
     }
 
     RaisableRectangle {
@@ -139,7 +140,7 @@ Page {
         }
         PropertyChanges {
           target: rightSide
-          width: constants.gu(50)
+          width: Math.min(constants.gu(50), body.width - constants.gu(4))
         }
       }
     ]
