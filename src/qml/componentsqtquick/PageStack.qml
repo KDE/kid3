@@ -23,14 +23,17 @@
 
 import QtQuick 2.2
 
-Item {
+FocusScope {
   id: pageStack
 
   property Item currentPage: null
   property variant elements: []
   property bool canPop: elements.length > 1
 
+  signal backOnLastPagePressed
+
   anchors.fill: parent
+  focus: true
 
   function push(page) {
     var stack = elements
@@ -71,6 +74,17 @@ Item {
         currentPage = null
       }
       elements = stack
+    }
+  }
+
+  Keys.onReleased: {
+    if (event.key === Qt.Key_Back) {
+      event.accepted = true
+      if (currentPage && elements.length > 1) {
+        pop()
+      } else {
+        backOnLastPagePressed()
+      }
     }
   }
 }

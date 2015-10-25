@@ -197,6 +197,7 @@ MainView {
 
   PageStack {
     id: pageStack
+    onBackOnLastPagePressed: confirmedQuit() //@!Ubuntu
     Component.onCompleted: push(mainPage)
     MainPage {
       id: mainPage
