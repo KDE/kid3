@@ -46,6 +46,9 @@ Page {
          (app.filtered ? qsTr(" [filtered]") : "") +
          " - Kid3"
 
+  menuVisible: true                                                      //@!Ubuntu
+  onMenuRequested: constants.openPopup(mainMenuPopoverComponent, caller) //@!Ubuntu
+
   Item {
     id: body
 
@@ -102,8 +105,7 @@ Page {
             anchors.topMargin: constants.margins
             anchors.left: parent.left
             anchors.right: parent.right
-            onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent,
-                                                      caller)
+            //onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent, caller) //@Ubuntu
           }
 
           Tag1Collapsible {

@@ -33,18 +33,18 @@ Collapsible {
 
   property alias fileName: fileNameEdit.text
 
-  signal mainMenuRequested(variant caller)
+  //signal mainMenuRequested(variant caller)                         //@Ubuntu
 
   text: qsTr("File") + ": " + app.selectionInfo.detailInfo
   checked: true
-  buttons: [
-    Button {
-      id: mainMenuButton
-      iconName: "navigation-menu"
-      width: height
-      onClicked: fileCollapsible.mainMenuRequested(mainMenuButton)
-    }
-  ]
+  //buttons: [                                                       //@Ubuntu
+    //Button {                                                       //@Ubuntu
+      //id: mainMenuButton                                           //@Ubuntu
+      //iconName: "navigation-menu"                                  //@Ubuntu
+      //width: height                                                //@Ubuntu
+      //onClicked: fileCollapsible.mainMenuRequested(mainMenuButton) //@Ubuntu
+    //}                                                              //@Ubuntu
+  //]                                                                //@Ubuntu
 
   content: Item {
     width: parent.width

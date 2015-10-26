@@ -63,7 +63,7 @@ Rectangle {
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.margins: constants.margins
-    anchors.topMargin: 2 * constants.margins //@Ubuntu
+    //anchors.topMargin: 2 * constants.margins //@Ubuntu
     color: selected
            ? constants.palette.highlightedText :constants.palette.text //@!Ubuntu
            //? Theme.palette.selected.fieldText : Theme.palette.normal.fieldText //@Ubuntu

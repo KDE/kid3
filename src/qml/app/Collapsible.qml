@@ -56,6 +56,7 @@ Column {
       anchors.right: parent.right
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
+      anchors.rightMargin: 0
       spacing: constants.spacing
     }
   }

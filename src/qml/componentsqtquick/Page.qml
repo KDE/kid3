@@ -25,11 +25,14 @@ import QtQuick 2.2
 
 Rectangle {
   property alias title: titleLabel.text
+  property alias menuVisible: menuButton.visible
   default property alias contents: contentsItem.data
   property bool active: visible
 
+  signal menuRequested(variant caller)
+
   anchors.fill: parent
-  Row {
+  Item {
     id: titleRow
     anchors.left: parent.left
     anchors.right: parent.right
@@ -37,15 +40,26 @@ Rectangle {
     anchors.margins: constants.margins
     height: constants.rowHeight
     Button {
+      id: prevButton
+      anchors.left: parent.left
       border.width: 0
       iconName: "go-previous"
-      width: height
+      width: visible ? height : 0
       visible: pageStack.canPop
       onClicked: pageStack.pop()
     }
     Text {
       id: titleLabel
+      anchors.left: prevButton.right
       anchors.verticalCenter: parent.verticalCenter
+    }
+    Button {
+      id: menuButton
+      visible: false
+      iconName: "navigation-menu"
+      width: height
+      onClicked: menuRequested(menuButton)
+      anchors.right: parent.right
     }
   }
   Item {
