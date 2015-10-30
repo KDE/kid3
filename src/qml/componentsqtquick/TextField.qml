@@ -30,7 +30,7 @@ FocusScope {
   signal accepted()
 
   implicitWidth: constants.gu(25)
-  implicitHeight: constants.rowHeight
+  implicitHeight: constants.controlHeight
   Rectangle {
     anchors.fill: parent
     color: constants.editColor

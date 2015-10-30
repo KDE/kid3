@@ -24,20 +24,26 @@
 import QtQuick 2.2
 
 Rectangle {
-  id: rect
-
   signal clicked
 
   property bool raised: true
 
   z: raised ? 1 : 0
 
+  Rectangle {
+    id: darkOverlay
+    anchors.fill: parent
+    color: "#80000000"
+    z: parent.raised ? 0 : 1
+    visible: !parent.raised
+  }
+
   MouseArea {
     z: parent.raised ? 0 : 1
 
     anchors.fill: parent
     onClicked: {
-      rect.clicked()
+      parent.clicked()
     }
   }
 }

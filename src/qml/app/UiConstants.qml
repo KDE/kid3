@@ -66,6 +66,7 @@ QtObject {
   }                                                         //@!Ubuntu
 
   property int gridUnit: 8                                  //@!Ubuntu
+  property int titlePixelSize: 14                           //@!Ubuntu
   property int margins: gu(1)                               //@!Ubuntu
   property int spacing: gu(1)                               //@!Ubuntu
   property color errorColor: "red"                          //@!Ubuntu
@@ -74,7 +75,8 @@ QtObject {
   property color backgroundTextColor: palette.text          //@!Ubuntu
   property color backgroundColor: palette.base              //@!Ubuntu
   property color editColor: "#fff9a8"                       //@!Ubuntu
-  property int rowHeight: gu(4)                             //@!Ubuntu
+  property int rowHeight: gu(6)                             //@!Ubuntu
+  property int controlHeight: gu(5)                         //@!Ubuntu
   property SystemPalette palette: SystemPalette {}          //@!Ubuntu
   property int lastPopupZ: 0                                //@!Ubuntu
 }

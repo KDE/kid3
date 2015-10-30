@@ -29,6 +29,7 @@ DropDownList {
 
   property ActionList actions
 
+  color: Qt.darker(constants.backgroundColor, 1.1)
   dropDownRoot: root
   width: constants.gu(25)
   model: actions.items

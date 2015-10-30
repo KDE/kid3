@@ -35,11 +35,11 @@ PopupBase {
   border.width: 1
   border.color: "black"
 
-  width: Math.min(root.width - 2 * constants.margins, 400)
+  width: Math.min(root.width - 2 * constants.margins, constants.gu(55))
   height: Math.min(root.height - 2 * constants.margins,
-           Math.max(titleLabel.height + textLabel.height +
-                    contentsColumn.childrenRect.height + 4 * constants.margins,
-                    30))
+           Math.max(titleLabel.height + divider.height + textLabel.height +
+                    contentsColumn.childrenRect.height + (text ? 4 : 3) * constants.margins,
+                    constants.gu(5)))
 
   onVisibleChanged: {
     // Center dialog on root.
@@ -58,15 +58,24 @@ PopupBase {
         right: parent.right
         margins: constants.margins
       }
+      font.pixelSize: constants.titlePixelSize
+      font.weight: Font.DemiBold
+      clip: true
+    }
+    ThinDivider {
+      id: divider
+      anchors.top: titleLabel.bottom
+      height: constants.gu(1)
     }
     Label {
       id: textLabel
       anchors {
-        top: titleLabel.bottom
+        top: divider.bottom
         left: parent.left
         right: parent.right
-        margins: constants.margins
+        margins: text ? constants.margins : 0
       }
+      height: text ? implicitHeight : 0
       wrapMode: Text.WordWrap
     }
     Column {

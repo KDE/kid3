@@ -66,6 +66,7 @@ Item {
 
   DropDownList {
     id: dropDown
+    color: Qt.darker(constants.backgroundColor, 1.1)
     width: comboBox.width
     anchors.top: selectedItem.bottom
     anchors.margins: 2

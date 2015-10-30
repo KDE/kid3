@@ -35,7 +35,7 @@ Rectangle {
   width: parent ? parent.width : constants.gu(31)
   height: constants.rowHeight
   color: selected
-         ? constants.palette.highlight : constants.palette.window
+         ? constants.palette.highlight : "transparent" //constants.palette.window
 
   MouseArea {
     id: mouseArea
@@ -45,5 +45,9 @@ Rectangle {
         emptyListItem.clicked()
       }
     }
+  }
+  ThinDivider {
+    id: divider
+    anchors.bottom: parent.bottom
   }
 }

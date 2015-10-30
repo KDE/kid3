@@ -26,7 +26,7 @@ import "../componentsqtquick" //@!Ubuntu
 //import Ubuntu.Components 1.1 //@Ubuntu
 //import Ubuntu.Components.ListItems 1.0 //@Ubuntu
 
-Item {
+Rectangle {
   id: dropDown
 
   property Item dropDownRoot
@@ -81,7 +81,7 @@ Item {
     model: dropDown.model
     Component.onCompleted: positionViewAtIndex(currentIndex, ListView.Beginning)
 
-    delegate: Rectangle {
+    delegate: Item {
       width: parent.width
       height: delegateText.height
       Standard {

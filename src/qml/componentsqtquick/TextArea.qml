@@ -28,7 +28,7 @@ FocusScope {
   property alias readOnly: textInput.readOnly
   property alias selectByMouse: textInput.selectByMouse
 
-  height: 3 * constants.rowHeight
+  height: 3 * constants.controlHeight
   Rectangle {
     anchors.fill: parent
     color: constants.editColor

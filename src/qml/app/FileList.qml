@@ -38,6 +38,7 @@ RaisableRectangle {
     id: fileButtonRow
     anchors.left: parent.left
     anchors.top: parent.top
+    anchors.topMargin: constants.margins
     anchors.leftMargin: constants.margins
     spacing: constants.spacing
     Button {

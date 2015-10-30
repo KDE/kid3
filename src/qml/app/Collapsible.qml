@@ -34,7 +34,7 @@ Column {
   Rectangle {
     id: collapsibleRect
 
-    height: constants.gu(4)
+    height: constants.rowHeight
     width: parent.width
 
     CheckBox {
@@ -56,7 +56,6 @@ Column {
       anchors.right: parent.right
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
-      anchors.rightMargin: 0
       spacing: constants.spacing
     }
   }

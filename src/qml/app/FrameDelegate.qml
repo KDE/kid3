@@ -130,7 +130,8 @@ Empty {
       id: frameNameLabel
       anchors.left: frameModifiedImage.right
       anchors.verticalCenter: parent.verticalCenter
-      width: Math.min(150, (parent.width - constants.gu(4)) / 2)
+      width: Math.min(constants.gu(11),
+                   (parent.width - constants.gu(4) - 2 * constants.margins) / 2)
       text: name
       clip: true
       color: selected
@@ -140,6 +141,7 @@ Empty {
     Loader {
       anchors.left: frameNameLabel.right
       anchors.right: parent.right
+      anchors.rightMargin: constants.margins
       height: parent.height
       sourceComponent: !frameDelegate.ListView.isCurrentItem
                        ? valueText : frameType === Frame.FT_Genre

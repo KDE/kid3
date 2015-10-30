@@ -41,7 +41,7 @@ Rectangle {
   width: parent ? parent.width : constants.gu(31)
   height: horizontal ? constants.rowHeight : 2 * constants.rowHeight
   color: selected
-         ? constants.palette.highlight : constants.palette.window //@!Ubuntu
+         ? constants.palette.highlight : "transparent" //@!Ubuntu
          //? Theme.palette.selected.background : Theme.palette.normal.background //@Ubuntu
 
   MouseArea {
@@ -63,7 +63,7 @@ Rectangle {
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.margins: constants.margins
-    //anchors.topMargin: 2 * constants.margins //@Ubuntu
+    anchors.topMargin: 2 * constants.margins
     color: selected
            ? constants.palette.highlightedText :constants.palette.text //@!Ubuntu
            //? Theme.palette.selected.fieldText : Theme.palette.normal.fieldText //@Ubuntu

@@ -30,8 +30,8 @@ Rectangle {
 
   signal clicked
 
-  width: constants.rowHeight
-  height: constants.rowHeight
+  width: constants.controlHeight
+  height: constants.controlHeight
   color: constants.palette.base
 
   Rectangle {

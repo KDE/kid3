@@ -42,7 +42,8 @@ Dialog {
 
   ListView {
     id: frameSelectList
-    height: constants.gu(35)
+    height: Math.min(constants.gu(35),
+                  root.height - 3 * constants.rowHeight - 4 * constants.margins)
 
     clip: true
     delegate: Standard {

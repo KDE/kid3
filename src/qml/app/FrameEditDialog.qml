@@ -165,7 +165,8 @@ Dialog {
 
   ListView {
     id: fieldList
-    height: constants.gu(30)
+    height: Math.min(constants.gu(30),
+                  root.height - 3 * constants.rowHeight - 3 * constants.margins)
     clip: true
     delegate: Column {
       width: parent.width

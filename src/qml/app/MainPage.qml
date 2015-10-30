@@ -52,7 +52,7 @@ Page {
   Item {
     id: body
 
-    property int rightSideSpace: width - fileList.width - 3 * constants.margins
+    property int rightSideSpace: width - fileList.width - constants.margins
 
     anchors.fill: parent
     FileList {
@@ -69,8 +69,6 @@ Page {
       anchors.left: parent.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.margins: constants.margins
-      anchors.leftMargin: 0
       width: Math.min(constants.gu(44), body.width - constants.gu(4))
     }
 
@@ -88,7 +86,6 @@ Page {
       anchors.right: parent.right
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      anchors.margins: constants.margins
       width: parent.rightSideSpace
 
       Flickable {

@@ -32,7 +32,7 @@ Rectangle  {
   signal clicked
 
   width: buttonLabel.width + 20
-  height: constants.rowHeight
+  height: constants.controlHeight
   border  { width: 1; color: Qt.darker(constants.palette.button) }
   smooth: true
   radius: 4

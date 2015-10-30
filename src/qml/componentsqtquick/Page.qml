@@ -31,6 +31,7 @@ Rectangle {
 
   signal menuRequested(variant caller)
 
+  color: constants.backgroundColor
   anchors.fill: parent
   Item {
     id: titleRow
@@ -50,6 +51,8 @@ Rectangle {
     }
     Text {
       id: titleLabel
+      font.pixelSize: constants.titlePixelSize
+      font.weight: Font.DemiBold
       anchors.left: prevButton.right
       anchors.verticalCenter: parent.verticalCenter
     }
@@ -62,11 +65,16 @@ Rectangle {
       anchors.right: parent.right
     }
   }
+  ThinDivider {
+    id: divider
+    anchors.top: titleRow.bottom
+    height: constants.gu(1)
+  }
   Item {
     id: contentsItem
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.top: titleRow.bottom
+    anchors.top: divider.bottom
     anchors.bottom: parent.bottom
   }
 }

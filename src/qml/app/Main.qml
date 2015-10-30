@@ -227,6 +227,7 @@ MainView {
       // Linux Desktop: pixelSize 12 => gu = 8
       // Android Emulator Galaxy Nexus: 32 => gu = 21
       constants.gridUnit = Math.max(8 * font.pixelSize / 12, 8) //@!Ubuntu
+      constants.titlePixelSize = 18 * font.pixelSize / 12       //@!Ubuntu
     }                                                           //@!Ubuntu
   }                                                             //@!Ubuntu
 
