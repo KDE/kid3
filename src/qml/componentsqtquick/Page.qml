@@ -43,7 +43,8 @@ Rectangle {
     Button {
       id: prevButton
       anchors.left: parent.left
-      border.width: 0
+      anchors.verticalCenter: parent.verticalCenter
+      transparent: true
       iconName: "go-previous"
       width: visible ? height : 0
       visible: pageStack.canPop

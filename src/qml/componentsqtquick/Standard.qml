@@ -45,7 +45,7 @@ Empty {
     property Item control
     width: control ? control.width : undefined
     height: control ? control.height : undefined
-    anchors.right: progression ? progressionLabel.left : parent.right
+    anchors.right: progression ? progressionImage.left : parent.right
     anchors.verticalCenter: parent.verticalCenter
     anchors.margins: constants.margins
     onControlChanged: {
@@ -55,7 +55,7 @@ Empty {
       target: listItem.__mouseArea
 
       onClicked: {
-        if (control && listItem.__mouseArea.mouseX < progressionLabel.x) {
+        if (control && listItem.__mouseArea.mouseX < progressionImage.x) {
           if (control.enabled && control.hasOwnProperty("clicked"))
             control.clicked();
         } else {
@@ -64,13 +64,12 @@ Empty {
       }
     }
   }
-
-  Text {
-    id: progressionLabel
+  ScaledImage {
+    id: progressionImage
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     anchors.margins: constants.margins
-    text : ">"
+    source: "../icons/chevron_right.svg"
     visible: progression
   }
 }

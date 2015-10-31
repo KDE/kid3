@@ -28,27 +28,29 @@ Rectangle  {
 
   property string text
   property string iconName
+  property bool transparent: false
 
   signal clicked
 
-  width: buttonLabel.width + 20
+  width: buttonContent.width + 20
   height: constants.controlHeight
-  border  { width: 1; color: Qt.darker(constants.palette.button) }
+  border  {
+    width: transparent ? 0 : 1
+    color: mouseArea.pressed ? constants.selectedBorderColor
+                             : constants.borderColor
+  }
   smooth: true
-  radius: 4
+  radius: 2
+  color: mouseArea.pressed ? constants.selectedButtonColor
+                           : transparent ? "transparent" : constants.buttonColor
 
-  // color the button with a gradient
-  gradient: Gradient  {
-    GradientStop  {
-      position: 0.0
-      color:  {
-        if (mouseArea.pressed)
-          return constants.palette.dark
-        else
-          return constants.palette.light
-      }
+  Rectangle {
+    visible: mouseArea.pressed
+    anchors.fill: parent
+    gradient: Gradient {
+      GradientStop { position: 0.0; color: "#26000000" }
+      GradientStop { position: 0.1; color: "transparent" }
     }
-    GradientStop  { position: 1.0; color: constants.palette.button }
   }
 
   MouseArea  {
@@ -57,31 +59,33 @@ Rectangle  {
     onClicked: container.clicked();
   }
 
-  Text  {
+  Component {
     id: buttonLabel
+    Text {
+      text: container.text
+    }
+  }
+
+  Component {
+    id: buttonImage
+    ScaledImage {
+      source: if (iconName) "../icons/" + {
+                "go-up": "expand_less.svg",
+                "select": "select_all.svg",
+                "clear": "clear.svg",
+                "go-previous": "chevron_left.svg",
+                "go-next": "chevron_right.svg",
+                "navigation-menu": "menu.svg",
+                "edit": "create.svg",
+                "add": "add.svg",
+                "remove": "remove.svg"
+              }[iconName]
+    }
+  }
+
+  Loader {
+    id: buttonContent
     anchors.centerIn: container
-    color: constants.palette.buttonText
-    text: if (container.text)
-            container.text
-          else if (iconName === "go-up")
-            "^"
-          else if (iconName === "select")
-            "*"
-          else if (iconName === "clear")
-            "x"
-          else if (iconName === "go-previous")
-            "<"
-          else if (iconName === "go-next")
-            ">"
-          else if (iconName === "navigation-menu")
-            "="
-          else if (iconName === "edit")
-            "/"
-          else if (iconName === "add")
-            "+"
-          else if (iconName === "remove")
-            "-"
-          else
-            ""
+    sourceComponent: iconName ? buttonImage : buttonLabel
   }
 }

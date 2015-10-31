@@ -1,10 +1,10 @@
 /**
- * \file CheckBox.qml
- * Check box.
+ * \file ScaledImage.qml
+ * Image with scaled source size for smoothly scaled SVG icons.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 16 Feb 2015
+ * \date 31 Oct 2015
  *
  * Copyright (C) 2015  Urs Fleisch
  *
@@ -23,27 +23,15 @@
 
 import QtQuick 2.2
 
-Item {
-  id: checkfield
-
-  property bool checked
-
-  signal clicked
-
-  width: constants.controlHeight
-  height: constants.controlHeight
-
-  ScaledImage {
-    anchors.centerIn: parent
-    source: "../icons/" +
-            (checked ? "check_box.svg" : "check_box_outline_blank.svg")
-  }
-
-  MouseArea {
-    anchors.fill: parent
-    onClicked: {
-      checkfield.checked = !checkfield.checked
-      checkfield.clicked()
-    }
+Image {
+  property int originalWidth: 0
+  property int originalHeight: 0
+  sourceSize.width: if (originalWidth > 0)
+                      originalWidth * constants.imageScaleFactor
+  sourceSize.height: if (originalHeight > 0)
+                       originalHeight * constants.imageScaleFactor
+  Component.onCompleted: {
+    originalWidth = sourceSize.width
+    originalHeight = sourceSize.height
   }
 }

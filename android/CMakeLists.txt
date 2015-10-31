@@ -17,7 +17,7 @@ add_qt_android_apk(apk kid3-qml
   PACKAGE_NAME "net.sourceforge.kid3"
   DEPENDS kid3-core kid3-gui
           musicbrainzimport discogsimport freedbimport amazonimport
-          taglibmetadata kid3qml
+          taglibmetadata kid3qml Qt5::Svg
   PACKAGE_SOURCES ${_androidPackageDir}
 )
 add_dependencies(apk android-package musicbrainzimport discogsimport

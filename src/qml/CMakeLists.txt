@@ -14,8 +14,13 @@ foreach (_subdir ${qml_SUBDIRS})
   set(qml_QML_SRCS ${qml_QML_SRCS} ${${_subdir}_QML_SRCS})
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_subdir}
           DESTINATION ${WITH_QMLDIR}
-          FILES_MATCHING PATTERN "*.qml" PATTERN "*.js" PATTERN "*.png")
+          FILES_MATCHING PATTERN "*.qml" PATTERN "*.js")
 endforeach (_subdir)
+if (BUILD_QML_APP)
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons
+          DESTINATION ${WITH_QMLDIR}
+          FILES_MATCHING PATTERN "*.png" PATTERN "*.svg")
+endif (BUILD_QML_APP)
 
 # Only used to add the QML sources to the project.
 add_custom_target(qml-sources SOURCES ${qml_QML_SRCS})

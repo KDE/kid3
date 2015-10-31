@@ -38,10 +38,22 @@
     <file alias="componentsqtquick/Page.qml">../../qml/componentsqtquick/Page.qml</file>
     <file alias="componentsqtquick/PageStack.qml">../../qml/componentsqtquick/PageStack.qml</file>
     <file alias="componentsqtquick/PopupBase.qml">../../qml/componentsqtquick/PopupBase.qml</file>
+    <file alias="componentsqtquick/ScaledImage.qml">../../qml/componentsqtquick/ScaledImage.qml</file>
     <file alias="componentsqtquick/Standard.qml">../../qml/componentsqtquick/Standard.qml</file>
     <file alias="componentsqtquick/TextArea.qml">../../qml/componentsqtquick/TextArea.qml</file>
     <file alias="componentsqtquick/TextField.qml">../../qml/componentsqtquick/TextField.qml</file>
     <file alias="componentsqtquick/ThinDivider.qml">../../qml/componentsqtquick/ThinDivider.qml</file>
+    <file alias="icons/add.svg">../../qml/icons/add.svg</file>
+    <file alias="icons/check_box_outline_blank.svg">../../qml/icons/check_box_outline_blank.svg</file>
+    <file alias="icons/check_box.svg">../../qml/icons/check_box.svg</file>
+    <file alias="icons/chevron_left.svg">../../qml/icons/chevron_left.svg</file>
+    <file alias="icons/chevron_right.svg">../../qml/icons/chevron_right.svg</file>
+    <file alias="icons/clear.svg">../../qml/icons/clear.svg</file>
+    <file alias="icons/create.svg">../../qml/icons/create.svg</file>
+    <file alias="icons/expand_less.svg">../../qml/icons/expand_less.svg</file>
+    <file alias="icons/menu.svg">../../qml/icons/menu.svg</file>
+    <file alias="icons/remove.svg">../../qml/icons/remove.svg</file>
+    <file alias="icons/select_all.svg">../../qml/icons/select_all.svg</file>
     <file alias="imports/Kid3/Kid3Script.qml">../../plugins/kid3qml/Kid3Script.qml</file>
     <file alias="imports/Kid3/qmldir">../../plugins/kid3qml/qmldir</file>
   </qresource>

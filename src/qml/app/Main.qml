@@ -228,6 +228,7 @@ MainView {
       // Android Emulator Galaxy Nexus: 32 => gu = 21
       constants.gridUnit = Math.max(8 * font.pixelSize / 12, 8) //@!Ubuntu
       constants.titlePixelSize = 18 * font.pixelSize / 12       //@!Ubuntu
+      constants.imageScaleFactor = Math.max(font.pixelSize / 12.0, 1.0) //@!Ubuntu
     }                                                           //@!Ubuntu
   }                                                             //@!Ubuntu
 
