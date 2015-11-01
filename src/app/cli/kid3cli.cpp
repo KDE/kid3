@@ -536,7 +536,10 @@ void Kid3Cli::writeFileInformation(int tagMask)
               ft->index(row, FrameTableModel::CI_Enable).data().toString();
           QString value =
               ft->index(row, FrameTableModel::CI_Value).data().toString();
-          if (!value.isEmpty()) {
+          if (!value.isEmpty() ||
+              ft->index(row, FrameTableModel::CI_Enable).
+              data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Picture)
+          {
             bool changed = ft->index(row, FrameTableModel::CI_Enable).
                 data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
             QString line = changed ? QLatin1String("*") : QLatin1String(" ");
