@@ -45,7 +45,7 @@ Page {
          (app.modified ? qsTr(" [modified]") : "") +
          (app.filtered ? qsTr(" [filtered]") : "") +
          " - Kid3"
-
+  flickable: rightSideFlickable //@!Ubuntu
   menuVisible: true                                                      //@!Ubuntu
   onMenuRequested: constants.openPopup(mainMenuPopoverComponent, caller) //@!Ubuntu
 
@@ -89,6 +89,7 @@ Page {
       width: parent.rightSideSpace
 
       Flickable {
+        id: rightSideFlickable
         anchors.fill: parent
         contentWidth: width
         contentHeight: collapsibleColumn.height
