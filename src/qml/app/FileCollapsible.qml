@@ -53,10 +53,15 @@ Collapsible {
       id: fileNameModifiedImage
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
-      width: 16
-      height: 16
-      source: "image://kid3/fileicon/" +
-              ( app.selectionInfo.fileNameChanged ? "modified" : "null")
+      //width: constants.gu(2)                                       //@Ubuntu
+      //height: constants.gu(2)                                      //@Ubuntu
+      //source: "image://kid3/fileicon/" +                           //@Ubuntu
+         //(app.selectionInfo.fileNameChanged ? "modified" : "null") //@Ubuntu
+      source: app.selectionInfo.fileNameChanged                    //@!Ubuntu
+              ? "../icons/modified.svg"                            //@!Ubuntu
+              : "image://kid3/fileicon/null"                       //@!Ubuntu
+      sourceSize.width: constants.gu(2)                            //@!Ubuntu
+      sourceSize.height: constants.gu(2)                           //@!Ubuntu
     }
     Label {
       id: fileNameLabel

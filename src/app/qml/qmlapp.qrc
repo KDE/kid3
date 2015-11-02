@@ -52,6 +52,11 @@
     <file alias="icons/create.svg">../../qml/icons/create.svg</file>
     <file alias="icons/expand_less.svg">../../qml/icons/expand_less.svg</file>
     <file alias="icons/menu.svg">../../qml/icons/menu.svg</file>
+    <file alias="icons/modified.svg">../../qml/icons/modified.svg</file>
+    <file alias="icons/notag.svg">../../qml/icons/notag.svg</file>
+    <file alias="icons/v1.svg">../../qml/icons/v1.svg</file>
+    <file alias="icons/v1v2.svg">../../qml/icons/v1v2.svg</file>
+    <file alias="icons/v2.svg">../../qml/icons/v2.svg</file>
     <file alias="icons/remove.svg">../../qml/icons/remove.svg</file>
     <file alias="icons/select_all.svg">../../qml/icons/select_all.svg</file>
     <file alias="imports/Kid3/Kid3Script.qml">../../plugins/kid3qml/Kid3Script.qml</file>
