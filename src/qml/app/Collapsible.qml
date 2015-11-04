@@ -37,10 +37,35 @@ Column {
     height: constants.rowHeight
     width: parent.width
 
-    CheckBox {
+    gradient: Gradient {
+      GradientStop { position: 0.0; color: "#666" }
+      GradientStop { position: 1.0; color: "#333" }
+    }
+
+    Item {
       id: checkBox
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
+
+      property bool checked
+
+      width: constants.controlHeight
+      height: constants.controlHeight
+
+      //Image       //@Ubuntu
+      ScaledImage //@!Ubuntu
+      {
+        anchors.centerIn: parent
+        source: "../icons/" +
+                (checked ? "triangle_down.svg" : "triangle_right.svg")
+      }
+
+      MouseArea {
+        anchors.fill: parent
+        onClicked: {
+          checkBox.checked = !checkBox.checked
+        }
+      }
     }
     Label {
       id: label
@@ -49,6 +74,7 @@ Column {
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
       anchors.rightMargin: 0
+      color: "#e6e6e6"
       clip: true
     }
     Row {

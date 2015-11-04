@@ -128,6 +128,7 @@ Rectangle {
         width: height
         onClicked: menuRequested(menuButton)
         anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
       }
     }
     ThinDivider {

@@ -59,6 +59,8 @@
     <file alias="icons/v2.svg">../../qml/icons/v2.svg</file>
     <file alias="icons/remove.svg">../../qml/icons/remove.svg</file>
     <file alias="icons/select_all.svg">../../qml/icons/select_all.svg</file>
+    <file alias="icons/triangle_down.svg">../../qml/icons/triangle_down.svg</file>
+    <file alias="icons/triangle_right.svg">../../qml/icons/triangle_right.svg</file>
     <file alias="imports/Kid3/Kid3Script.qml">../../plugins/kid3qml/Kid3Script.qml</file>
     <file alias="imports/Kid3/qmldir">../../plugins/kid3qml/qmldir</file>
   </qresource>

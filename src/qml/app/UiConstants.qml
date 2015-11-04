@@ -46,6 +46,7 @@ QtObject {
   //property color backgroundTextColor: Theme.palette.selected.backgroundText //@Ubuntu
   //property color backgroundColor: Theme.palette.normal.background //@Ubuntu
   //property int rowHeight: units.gu(6)                       //@Ubuntu
+  //property int controlHeight: units.gu(5)                   //@Ubuntu
 
   function gu(n) {                                          //@!Ubuntu
     return n * gridUnit                                     //@!Ubuntu
