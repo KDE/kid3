@@ -28,6 +28,49 @@ import "../componentsqtquick" //@!Ubuntu
 Page {
   id: page
 
+  property Item _buttons: Row {
+    spacing: constants.spacing
+    Button {
+      iconName: "go-up"
+      width: height
+      onClicked: {
+        var parentDir = fileList.parentFilePath()
+        if (parentDir) {
+          confirmedOpenDirectory(parentDir)
+        }
+      }
+    }
+    Button {
+      property bool selectAll: true
+      iconName: "select"
+      width: height
+      onClicked: {
+        if (selectAll) {
+          app.selectAllFiles()
+        } else {
+          app.deselectAllFiles()
+        }
+        selectAll = !selectAll
+      }
+    }
+    Button {
+      iconName: "go-previous"
+      width: height
+      onClicked: app.previousFile()
+    }
+    Button {
+      iconName: "go-next"
+      width: height
+      onClicked: app.nextFile()
+    }
+    Button {                                                         //@!Ubuntu
+      id: menuButton                                                 //@!Ubuntu
+      iconName: "navigation-menu"                                    //@!Ubuntu
+      width: height                                                  //@!Ubuntu
+      onClicked: constants.openPopup(mainMenuPopoverComponent, menuButton) //@!Ubuntu
+    }                                                                //@!Ubuntu
+  }
+
   function updateCurrentSelection() {
     collapsibleV1.acceptEdit()
     collapsibleV2.acceptEdit()
@@ -46,9 +89,7 @@ Page {
          (app.filtered ? qsTr(" [filtered]") : "") +
          " - Kid3"
   flickable: rightSideFlickable //@!Ubuntu
-  menuVisible: true                                                      //@!Ubuntu
-  onMenuRequested: constants.openPopup(mainMenuPopoverComponent, caller) //@!Ubuntu
-
+  actionButtons: _buttons //@!Ubuntu
   Item {
     id: body
 
@@ -70,6 +111,7 @@ Page {
       anchors.top: parent.top
       anchors.bottom: parent.bottom
       width: Math.min(constants.gu(44), body.width - constants.gu(4))
+      //actionButtons: _buttons  //@Ubuntu
     }
 
     RaisableRectangle {

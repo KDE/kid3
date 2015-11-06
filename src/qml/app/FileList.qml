@@ -29,52 +29,29 @@ import "../componentsqtquick" //@!Ubuntu
 import Kid3 1.0
 
 RaisableRectangle {
+  property alias actionButtons: fileButtonRow.control
+
   function currentFilePath() {
     return fileModel.getDataValue(fileModel.currentRow,
                                   "filePath")
   }
 
-  Row {
+  function parentFilePath() {
+    return script.getIndexRoleData(fileModel.parentModelIndex(),
+                                   "filePath")
+  }
+
+  Item {
     id: fileButtonRow
+    property Item control
+    width: control ? control.width : undefined
+    height: control ? control.height : undefined
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.topMargin: constants.margins
     anchors.leftMargin: constants.margins
-    spacing: constants.spacing
-    Button {
-      id: parentDirButton
-      iconName: "go-up"
-      width: height
-      onClicked: {
-        var parentDir = script.getIndexRoleData(fileModel.parentModelIndex(),
-                                                "filePath")
-        if (parentDir) {
-          confirmedOpenDirectory(parentDir)
-        }
-      }
-    }
-    Button {
-      property bool selectAll: true
-      iconName: "select"
-      width: height
-      onClicked: {
-        if (selectAll) {
-          app.selectAllFiles()
-        } else {
-          app.deselectAllFiles()
-        }
-        selectAll = !selectAll
-      }
-    }
-    Button {
-      iconName: "go-previous"
-      width: height
-      onClicked: app.previousFile()
-    }
-    Button {
-      iconName: "go-next"
-      width: height
-      onClicked: app.nextFile()
+    onControlChanged: {
+      if (control) control.parent = fileButtonRow
     }
   }
 
@@ -82,7 +59,7 @@ RaisableRectangle {
     id: fileList
 
     anchors.left: parent.left
-    anchors.top: fileButtonRow.bottom
+    anchors.top: fileButtonRow.control ? fileButtonRow.bottom : parent.top
     anchors.bottom: parent.bottom
     anchors.right: parent.right
     anchors.margins: constants.margins

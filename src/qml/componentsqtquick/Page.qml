@@ -25,7 +25,7 @@ import QtQuick 2.2
 
 Rectangle {
   property alias title: titleLabel.text
-  property alias menuVisible: menuButton.visible
+  property alias actionButtons: buttonRow.control
   default property alias contents: contentsItem.data
   property bool active: visible
 
@@ -78,8 +78,6 @@ Rectangle {
     header.show();
   }
 
-  signal menuRequested(variant caller)
-
   color: constants.backgroundColor
   anchors.fill: parent
   Item {
@@ -119,16 +117,20 @@ Rectangle {
         font.pixelSize: constants.titlePixelSize
         font.weight: Font.DemiBold
         anchors.left: prevButton.right
+        anchors.right: buttonRow.left
         anchors.verticalCenter: parent.verticalCenter
+        clip: true
       }
-      Button {
-        id: menuButton
-        visible: false
-        iconName: "navigation-menu"
-        width: height
-        onClicked: menuRequested(menuButton)
+      Item {
+        id: buttonRow
+        property Item control
+        width: control ? control.width : undefined
+        height: control ? control.height : undefined
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
+        onControlChanged: {
+          if (control) control.parent = buttonRow;
+        }
       }
     }
     ThinDivider {
