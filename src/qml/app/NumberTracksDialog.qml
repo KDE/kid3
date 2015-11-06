@@ -32,9 +32,17 @@ Dialog {
 
   title: qsTr("Number Tracks")
 
-  Label {
-    text: qsTr("Start number:")
-    width: parent.labelWidth
+  Row {
+    spacing: constants.spacing
+    CheckBox {
+      id: numberCheckBox
+      checked: true
+    }
+    Label {
+      height: totalRow.height
+      verticalAlignment: Text.AlignVCenter
+      text: qsTr("Start number:")
+    }
   }
   TextField {
     id: startNumberEdit
@@ -53,6 +61,18 @@ Dialog {
              qsTr("Tag 1 and Tag 2") ]
     function getTagVersion() {
       return [ Frame.TagV1, Frame.TagV2, Frame.TagV2V1 ][currentIndex]
+    }
+  }
+  Row {
+    spacing: constants.spacing
+    CheckBox {
+      id: resetCounterCheckBox
+      checked: true
+    }
+    Label {
+      height: totalRow.height
+      verticalAlignment: Text.AlignVCenter
+      text: qsTr("Reset counter for each directory")
     }
   }
   Row {
@@ -91,8 +111,14 @@ Dialog {
           if (isNaN(total)) {
             total = -1
           }
+          var options = 0
+          if (numberCheckBox.checked)
+            options |= Kid3Application.NumberTracksEnabled
+          if (resetCounterCheckBox.checked)
+            options |= Kid3Application.NumberTracksResetCounterForEachDirectory
           app.numberTracks(startNr, total,
-                       script.toTagVersion(destinationComboBox.getTagVersion()))
+                       script.toTagVersion(destinationComboBox.getTagVersion()),
+                       options)
         }
         page.hide()
       }

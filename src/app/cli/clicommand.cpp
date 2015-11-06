@@ -821,7 +821,10 @@ void NumberTracksCommand::startCommand()
     firstTrackNr = 1;
   }
   Frame::TagVersion tagMask = getTagMaskParameter(2);
-  cli()->app()->numberTracks(firstTrackNr, 0, tagMask);
+  Kid3Application::NumberTrackOptions options;
+  options |= Kid3Application::NumberTracksEnabled;
+  options |= Kid3Application::NumberTracksResetCounterForEachDirectory;
+  cli()->app()->numberTracks(firstTrackNr, 0, tagMask, options);
 }
 
 
