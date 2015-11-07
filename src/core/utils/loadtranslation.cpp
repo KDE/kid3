@@ -79,7 +79,7 @@ void Utils::loadTranslation(const QString& lang)
   foreach (const QString& localeName, languages) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
-#if defined Q_OS_WIN32 || defined Q_OS_MAC
+#if defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID
         (!translationsDir.isNull() &&
          qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                     translationsDir, searchDelimiters)) ||
