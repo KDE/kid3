@@ -165,9 +165,19 @@ Dialog {
 
   ListView {
     id: fieldList
-    height: Math.min(constants.gu(30),
-                  root.height - 3 * constants.rowHeight - 3 * constants.margins)
     clip: true
+
+    // height: someFunction(contentHeight) will report a binding loop,
+    // therefore the height is updated manually.
+    function updateHeight() {
+      height = Math.min(contentHeight, root.height -
+                        //3 * constants.rowHeight - //@Ubuntu
+                        2 * constants.rowHeight - //@!Ubuntu
+                        3 * constants.margins)
+    }
+    onVisibleChanged: if (visible) updateHeight()
+    onContentHeightChanged: updateHeight()
+
     delegate: Column {
       width: parent.width
       spacing: constants.spacing

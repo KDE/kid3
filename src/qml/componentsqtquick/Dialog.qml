@@ -35,7 +35,7 @@ PopupBase {
   border.width: 1
   border.color: "black"
 
-  width: Math.min(root.width - 2 * constants.margins, constants.gu(55))
+  width: Math.min(root.width - 2 * constants.margins, constants.gu(61))
   height: Math.min(root.height - 2 * constants.margins,
            Math.max(titleLabel.height + divider.height + textLabel.height +
                     contentsColumn.childrenRect.height + (text ? 4 : 3) * constants.margins,
