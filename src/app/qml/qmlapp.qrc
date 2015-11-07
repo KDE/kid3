@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
+    <file alias="app/AboutDialog.qml">../../qml/app/AboutDialog.qml</file>
     <file alias="app/AbstractSettingsPage.qml">../../qml/app/AbstractSettingsPage.qml</file>
     <file alias="app/ActionSelectionDelegate.qml">../../qml/app/ActionSelectionDelegate.qml</file>
     <file alias="app/BatchImportPage.qml">../../qml/app/BatchImportPage.qml</file>

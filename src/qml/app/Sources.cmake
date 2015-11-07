@@ -25,4 +25,5 @@ set(app_QML_SRCS
   app/SettingsPage.qml
   app/SettingsItem.qml
   app/RaisableRectangle.qml
+  app/AboutDialog.qml
 )

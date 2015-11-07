@@ -37,6 +37,7 @@
 #include "pictureframe.h"
 #include "saferename.h"
 #include "mainwindowconfig.h"
+#include "config.h"
 
 #if QT_VERSION < 0x050000
 Q_DECLARE_METATYPE(QModelIndex)
@@ -349,6 +350,24 @@ QByteArray ScriptUtils::getEnv(const QByteArray& varName)
 bool ScriptUtils::setEnv(const QByteArray& varName, const QByteArray& value)
 {
   return qputenv(varName, value);
+}
+
+/**
+ * Get version of Kid3.
+ * @return Kid3 version string, e.g. "3.3.0".
+ */
+QString ScriptUtils::getKid3Version()
+{
+  return QLatin1String(VERSION);
+}
+
+/**
+ * Get release year of Kid3.
+ * @return Kid3 year string, e.g. "2015".
+ */
+QString ScriptUtils::getKid3ReleaseYear()
+{
+  return QLatin1String(RELEASE_YEAR);
 }
 
 /**

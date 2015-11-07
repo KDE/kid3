@@ -84,7 +84,7 @@ Page {
     return fileList.currentFilePath()
   }
 
-  title: app.dirName.split("/").pop() +
+  title: (app.dirName.split("/").pop() || "/") +
          (app.modified ? qsTr(" [modified]") : "") +
          (app.filtered ? qsTr(" [filtered]") : "") +
          " - Kid3"

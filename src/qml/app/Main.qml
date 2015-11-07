@@ -111,6 +111,10 @@ MainView {
     id: numberTracksDialog
   }
 
+  AboutDialog {
+    id: aboutDialog
+  }
+
   Component {
     id: mainMenuPopoverComponent
     ActionSelectionPopover {
@@ -120,19 +124,41 @@ MainView {
       }
       actions: ActionList {
         Action {
-          text: qsTr("Open")
+          text: qsTr("About")
+          onTriggered: aboutDialog.show()
+        }
+        Action {
+          text: qsTr("Save")
           onTriggered: {
-            var path = script.selectFileName(
-                  qsTr("Open"), mainPage.currentFilePath(),
-                  app.createFilterString())
-            if (path) {
-              confirmedOpenDirectory(path)
+            var errorFiles = app.saveDirectory()
+            if (errorFiles.length > 0) {
+              console.debug("Save error:" + errorFiles)
             }
           }
         }
         Action {
           text: qsTr("Settings")
           onTriggered: pageStack.push(settingsPage)
+        }
+        Action {
+          text: qsTr("Automatic Import")
+          onTriggered: pageStack.push(batchImportPage)
+        }
+        Action {
+          text: qsTr("Create Playlist")
+          onTriggered: app.writePlaylist()
+        }
+        Action {
+          text: qsTr("Rename Directory")
+          onTriggered: pageStack.push(renameDirPage)
+        }
+        Action {
+          text: qsTr("Number Tracks")
+          onTriggered: numberTracksDialog.show()
+        }
+        Action {
+          text: qsTr("Filter")
+          onTriggered: pageStack.push(filterPage)
         }
         Action {
           text: qsTr("Apply Filename Format")
@@ -155,37 +181,8 @@ MainView {
           onTriggered: app.convertToId3v23()
         }
         Action {
-          text: qsTr("Rename Directory")
-          onTriggered: pageStack.push(renameDirPage)
-        }
-        Action {
-          text: qsTr("Number Tracks")
-          onTriggered: numberTracksDialog.show()
-        }
-        Action {
-          text: qsTr("Filter")
-          onTriggered: pageStack.push(filterPage)
-        }
-        Action {
-          text: qsTr("Automatic Import")
-          onTriggered: pageStack.push(batchImportPage)
-        }
-        Action {
-          text: qsTr("Create Playlist")
-          onTriggered: app.writePlaylist()
-        }
-        Action {
           text: qsTr("Revert")
           onTriggered: app.revertFileModifications()
-        }
-        Action {
-          text: qsTr("Save")
-          onTriggered: {
-            var errorFiles = app.saveDirectory()
-            if (errorFiles.length > 0) {
-              console.debug("Save error:" + errorFiles)
-            }
-          }
         }
         Action {
           text: qsTr("Quit")
@@ -201,7 +198,20 @@ MainView {
     Component.onCompleted: push(mainPage)
     MainPage {
       id: mainPage
+
+      Component {
+        id: openDialog
+        FileSelectDialog {
+          property variant field
+          parent: root
+          title: qsTr("Open")
+          onFinished: if (path) confirmedOpenDirectory(path)
+        }
+      }
+
       visible: false
+      onTitlePressed: constants.openPopup(openDialog, root,          //@!Ubuntu
+                                          {"filePath": app.dirName}) //@!Ubuntu
     }
     RenameDirectoryPage {
       id: renameDirPage

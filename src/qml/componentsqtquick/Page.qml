@@ -24,6 +24,8 @@
 import QtQuick 2.2
 
 Rectangle {
+  id: page
+
   property alias title: titleLabel.text
   property alias actionButtons: buttonRow.control
   default property alias contents: contentsItem.data
@@ -78,6 +80,8 @@ Rectangle {
     header.show();
   }
 
+  signal titlePressed
+
   color: constants.backgroundColor
   anchors.fill: parent
   Item {
@@ -120,6 +124,10 @@ Rectangle {
         anchors.right: buttonRow.left
         anchors.verticalCenter: parent.verticalCenter
         clip: true
+        MouseArea {
+          anchors.fill: parent
+          onPressAndHold: page.titlePressed()
+        }
       }
       Item {
         id: buttonRow

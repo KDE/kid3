@@ -222,6 +222,18 @@ public:
                                  const QByteArray& value);
 
   /**
+   * Get version of Kid3.
+   * @return Kid3 version string, e.g. "3.3.0".
+   */
+  Q_INVOKABLE static QString getKid3Version();
+
+  /**
+   * Get release year of Kid3.
+   * @return Kid3 year string, e.g. "2015".
+   */
+  Q_INVOKABLE static QString getKid3ReleaseYear();
+
+  /**
    * Get version of Qt.
    * @return Qt version string, e.g. "5.4.1".
    */
