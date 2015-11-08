@@ -85,7 +85,7 @@ include(CMakeParseArguments)
 macro(add_qt_android_apk TARGET SOURCE_TARGET)
 
     # parse the macro arguments
-    cmake_parse_arguments(ARG "INSTALL" "NAME;PACKAGE_NAME;PACKAGE_SOURCES;KEYSTORE_PASSWORD" "DEPENDS;KEYSTORE" ${ARGN})
+    cmake_parse_arguments(ARG "INSTALL" "NAME;PACKAGE_NAME;PACKAGE_SOURCES;KEYSTORE_PASSWORD" "DEPENDS;KEYSTORE;DEPLOYMENT_DEPENDS" ${ARGN})
 
     # check the configuration
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -153,6 +153,22 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
         endif()
         endforeach()
         set(QT_ANDROID_APP_EXTRA_LIBS "\"android-extra-libs\": \"${EXTRA_LIBS}\",")
+    endif()
+
+    # set the list of deployment-dependencies
+    if(ARG_DEPLOYMENT_DEPENDS)
+        set(DEPLOYMENT_DEPENDENCIES)
+        foreach(DEP ${ARG_DEPLOYMENT_DEPENDS})
+            if(DEPLOYMENT_DEPENDENCIES)
+                set(DEPLOYMENT_DEPENDENCIES "${DEPLOYMENT_DEPENDENCIES},${DEP}")
+            else()
+                set(DEPLOYMENT_DEPENDENCIES "${DEP}")
+            endif()
+        endforeach()
+        if(QT_ANDROID_APP_EXTRA_LIBS)
+            set(QT_ANDROID_APP_EXTRA_LIBS "${QT_ANDROID_APP_EXTRA_LIBS}\n ")
+        endif()
+        set(QT_ANDROID_APP_EXTRA_LIBS "${QT_ANDROID_APP_EXTRA_LIBS}\"deployment-dependencies\": \"${DEPLOYMENT_DEPENDENCIES}\",")
     endif()
 
     # make sure that the output directory for the Android package exists
