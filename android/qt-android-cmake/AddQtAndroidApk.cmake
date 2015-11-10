@@ -178,6 +178,10 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
     if(NOT ANDROID_TOOLCHAIN_PREFIX)
         set(ANDROID_TOOLCHAIN_PREFIX ${ANDROID_TOOLCHAIN_MACHINE_NAME})
     endif()
+    # set sdkBuildToolsRevision in qtdeploy.json
+    if(QT_ANDROID_BUILD_TOOLS_REVISION)
+        set(QT_ANDROID_SDK_BUILD_TOOLS_REVISION "\n \"sdkBuildToolsRevision\": \"${QT_ANDROID_BUILD_TOOLS_REVISION}\",")
+    endif()
     configure_file(${QT_ANDROID_SOURCE_DIR}/qtdeploy.json.in ${CMAKE_CURRENT_BINARY_DIR}/qtdeploy.json @ONLY)
 
     # check if the apk must be signed
