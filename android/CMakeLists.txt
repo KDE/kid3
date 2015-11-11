@@ -1,6 +1,7 @@
 include(qt-android-cmake/AddQtAndroidApk.cmake)
 set(QT_ANDROID_APP_PACKAGE_NAME "net.sourceforge.kid3")
 set(QT_ANDROID_APP_NAME "Kid3")
+set(QT_ANDROID_BUILD_TOOLS_REVISION "23.0.1")
 set(_androidPackageDir ${CMAKE_CURRENT_BINARY_DIR}/package)
 configure_file(AndroidManifest.xml.in
                ${_androidPackageDir}/AndroidManifest.xml @ONLY)
@@ -12,6 +13,11 @@ add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
 )
 add_custom_target(android-package
   DEPENDS ${_androidPackageDir}/res/drawable/icon.png)
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+  set(_keystorePathAlias ${CMAKE_BINARY_DIR}/ufleisch-release-key.keystore ufleisch_android)
+else ()
+  set(_keystorePathAlias)
+endif ()
 add_qt_android_apk(apk kid3-qml
   NAME Kid3
   PACKAGE_NAME "net.sourceforge.kid3"
@@ -59,6 +65,7 @@ add_qt_android_apk(apk kid3-qml
 #    qml/QtWebSockets/libdeclarative_qmlwebsockets.so qml/QtWebSockets/plugins.qmltypes qml/QtWebSockets/qmldir
 #    lib/libQt5QuickParticles.so
   PACKAGE_SOURCES ${_androidPackageDir}
+  KEYSTORE ${_keystorePathAlias}
 )
 
 # Unfortunately, androiddeployqt performs the library stripping before copying
