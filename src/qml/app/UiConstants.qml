@@ -60,6 +60,7 @@ QtObject {
       popover = component.createObject(parent)              //@!Ubuntu
     }                                                       //@!Ubuntu
     popover.show()                                          //@!Ubuntu
+    return popover                                          //@!Ubuntu
   }                                                         //@!Ubuntu
 
   function closePopup(popover) {                            //@!Ubuntu

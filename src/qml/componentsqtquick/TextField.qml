@@ -43,6 +43,8 @@ FocusScope {
         leftMargin: constants.margins
       }
       clip: true
+      selectByMouse: true
+      inputMethodHints: Qt.ImhNoPredictiveText
       onAccepted: textField.accepted()
     }
   }
