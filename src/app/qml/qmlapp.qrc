@@ -43,6 +43,7 @@
     <file alias="componentsqtquick/Standard.qml">../../qml/componentsqtquick/Standard.qml</file>
     <file alias="componentsqtquick/TextArea.qml">../../qml/componentsqtquick/TextArea.qml</file>
     <file alias="componentsqtquick/TextField.qml">../../qml/componentsqtquick/TextField.qml</file>
+    <file alias="componentsqtquick/TextSelectionHandler.qml">../../qml/componentsqtquick/TextSelectionHandler.qml</file>
     <file alias="componentsqtquick/ThinDivider.qml">../../qml/componentsqtquick/ThinDivider.qml</file>
     <file alias="icons/add.svg">../../qml/icons/add.svg</file>
     <file alias="icons/check_box_outline_blank.svg">../../qml/icons/check_box_outline_blank.svg</file>

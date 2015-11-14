@@ -32,6 +32,7 @@ FocusScope {
   implicitWidth: constants.gu(25)
   implicitHeight: constants.controlHeight
   Rectangle {
+    id: rect
     anchors.fill: parent
     color: constants.editColor
     TextInput {
@@ -43,9 +44,12 @@ FocusScope {
         leftMargin: constants.margins
       }
       clip: true
-      selectByMouse: true
       inputMethodHints: Qt.ImhNoPredictiveText
       onAccepted: textField.accepted()
+    }
+    TextSelectionHandler {
+      editor: textInput
+      anchors.fill: parent
     }
   }
 }

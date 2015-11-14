@@ -30,6 +30,7 @@ FocusScope {
 
   height: 3 * constants.controlHeight
   Rectangle {
+    id: rect
     anchors.fill: parent
     color: constants.editColor
 
@@ -63,21 +64,10 @@ FocusScope {
         inputMethodHints: Qt.ImhNoPredictiveText
         onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
       }
-      MouseArea {
-        anchors.fill: parent;
-        function translateY(y) { return y - textInput.y }
-        function translateX(x) { return x - textInput.x }
-        onPressed: {
-          textInput.forceActiveFocus()
-          textInput.cursorPosition =
-              textInput.positionAt(translateX(mouse.x), translateY(mouse.y));
-        }
-        onPositionChanged: {
-          textInput.moveCursorSelection(
-                textInput.positionAt(translateX(mouse.x), translateY(mouse.y)));
-        }
-        z: textInput.z + 1
-      }
+    }
+    TextSelectionHandler {
+      editor: textInput
+      anchors.fill: parent
     }
   }
 }

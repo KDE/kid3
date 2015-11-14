@@ -14,5 +14,6 @@ set(componentsqtquick_QML_SRCS
   componentsqtquick/Standard.qml
   componentsqtquick/TextArea.qml
   componentsqtquick/TextField.qml
+  componentsqtquick/TextSelectionHandler.qml
   componentsqtquick/ThinDivider.qml
 )
