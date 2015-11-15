@@ -32,9 +32,20 @@ MouseArea {
   property bool __movingCursor
   property bool __openingMenu
 
+  function showMenu() {
+    if (!__movingCursor) {
+      __openingMenu = true
+      editMenu.y = editor.cursorRectangle.y - editMenu.height
+      editMenu.state = "dropDown"
+    }
+  }
+
+  acceptedButtons: Qt.LeftButton | Qt.RightButton
+
   Row {
     id: editMenu
     visible: false
+    x: 0
     z: 0
 
     Button {
@@ -75,7 +86,6 @@ MouseArea {
       ParentChange {
         target: editMenu
         parent: root
-        y: editMenu.mapToItem(root, 0, -height).y
       }
       PropertyChanges {
         target: editMenu
@@ -114,21 +124,19 @@ MouseArea {
     editor.moveCursorSelection(
           editor.positionAt(pos.x, pos.y))
   }
-  onPressAndHold: {
-    if (!__movingCursor) {
-      __openingMenu = true
-      editMenu.state = "dropDown"
-    }
-  }
+  onPressAndHold: showMenu()
   onReleased: {
-    if (!__movingCursor && !__openingMenu) {
-      editor.cursorPosition =
-          editor.positionAt(__xWhenPressed, __yWhenPressed)
+    if (mouse.button === Qt.RightButton) {
+      showMenu()
+    } else {
+      if (!__movingCursor && !__openingMenu) {
+        editor.cursorPosition =
+            editor.positionAt(__xWhenPressed, __yWhenPressed)
+      }
     }
   }
   onDoubleClicked: {
     __movingCursor = true
     editor.selectWord()
   }
-  z: editor.z + 1
 }

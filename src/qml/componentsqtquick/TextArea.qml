@@ -64,10 +64,10 @@ FocusScope {
         inputMethodHints: Qt.ImhNoPredictiveText
         onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
       }
-    }
-    TextSelectionHandler {
-      editor: textInput
-      anchors.fill: parent
+      TextSelectionHandler {
+        editor: textInput
+        anchors.fill: parent
+      }
     }
   }
 }
