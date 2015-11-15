@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -2513,6 +2513,12 @@ msgstr "TSST - Subtítulo de movimiento"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Canal de Podcast"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "Este programa usa <a href=\"http://www.qt.io/\">Qt</a> versión %1."
+
+msgid "OK"
+msgstr "Aceptar"
+
 msgid "Destination:"
 msgstr "Destino:"
 
@@ -2525,9 +2531,6 @@ msgstr "Iniciar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgid "OK"
-msgstr "Aceptar"
-
 msgid "Filter:"
 msgstr "Filtro:"
 
@@ -2539,6 +2542,9 @@ msgstr "Aplicar"
 
 msgid "The current directory has been modified.\n"
 msgstr "El directorio actual ha sido modificado."
+
+msgid "About"
+msgstr "Acerca de"
 
 msgid "Settings"
 msgstr "Preferencias"
@@ -2554,6 +2560,9 @@ msgstr "No"
 
 msgid "Start number:"
 msgstr "Número primero:"
+
+msgid "Reset counter for each directory"
+msgstr "Reajustar contador para cada carpeta"
 
 msgid "Total number of tracks"
 msgstr "Número de pistas"
@@ -2623,3 +2632,9 @@ msgstr "Formato desde de nombre de archivo"
 
 msgid "To Filename"
 msgstr "A nombre de archivo"
+
+msgid "Select All"
+msgstr "Seleccionar todo"
+
+msgid "Cut"
+msgstr "Cortar"

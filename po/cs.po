@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2015-10-02 21:58+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2513,6 +2513,13 @@ msgstr "TSST - Podnázev skladby"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Kanál Podcast"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"Tento program používá knihovnu <a href=\"http://www.qt.io/\">Qt</a> verze %1."
+
+msgid "OK"
+msgstr "OK"
+
 msgid "Destination:"
 msgstr "Cíl:"
 
@@ -2525,9 +2532,6 @@ msgstr "Začátek"
 msgid "Cancel"
 msgstr "Zrušit"
 
-msgid "OK"
-msgstr "OK"
-
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -2539,6 +2543,9 @@ msgstr "Použít"
 
 msgid "The current directory has been modified.\n"
 msgstr "Nynější adresář byl změněn."
+
+msgid "About"
+msgstr "O aplikaci"
 
 msgid "Settings"
 msgstr "Nastavení"
@@ -2554,6 +2561,9 @@ msgstr "Ne"
 
 msgid "Start number:"
 msgstr "Začáteční číslo:"
+
+msgid "Reset counter for each directory"
+msgstr "Vynulovat počítadlo pro každou složku"
 
 msgid "Total number of tracks"
 msgstr "Celkový počet stop"
@@ -2624,3 +2634,8 @@ msgstr "Z formátu názvu souboru"
 msgid "To Filename"
 msgstr "Podle názvu souboru"
 
+msgid "Select All"
+msgstr "Vybrat vše"
+
+msgid "Cut"
+msgstr "Vyjmout"

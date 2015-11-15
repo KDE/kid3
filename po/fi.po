@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -2513,6 +2513,13 @@ msgstr "TSST – Aseta tekstitys"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast syöte"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"Tämä ohjelma käyttää <a href=\"http://www.qt.io/\">Qt</a>:n versiota %1."
+
+msgid "OK"
+msgstr "OK"
+
 msgid "Destination:"
 msgstr "Kohde:"
 
@@ -2525,9 +2532,6 @@ msgstr "Alku"
 msgid "Cancel"
 msgstr "Peruuta"
 
-msgid "OK"
-msgstr "OK"
-
 msgid "Filter:"
 msgstr "Suodin:"
 
@@ -2539,6 +2543,9 @@ msgstr "Käytä"
 
 msgid "The current directory has been modified.\n"
 msgstr "Nykyistä kansiota on muokattu."
+
+msgid "About"
+msgstr "Tietoja"
 
 msgid "Settings"
 msgstr "Asetukset"
@@ -2554,6 +2561,9 @@ msgstr "Ei"
 
 msgid "Start number:"
 msgstr "Aloittava numero:"
+
+msgid "Reset counter for each directory"
+msgstr "Numeroi hakemistoittain"
 
 msgid "Total number of tracks"
 msgstr "Kappaleiden lukumäärä"
@@ -2623,3 +2633,9 @@ msgstr "Tiedostonimi muoto"
 
 msgid "To Filename"
 msgstr "Määrittää tiedostonimi"
+
+msgid "Select All"
+msgstr "Valitse kaikki"
+
+msgid "Cut"
+msgstr "Leikkaa"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -2515,6 +2515,12 @@ msgstr "TSST - 設定字幕"
 msgid "WFED - Podcast feed"
 msgstr "WFED -  种子 Podcast"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "這個程式使用 <a href=\"http://www.qt.io/\">Qt</a> 版本 %1。"
+
+msgid "OK"
+msgstr "確定"
+
 msgid "Destination:"
 msgstr "到:"
 
@@ -2527,9 +2533,6 @@ msgstr "開始"
 msgid "Cancel"
 msgstr "取消"
 
-msgid "OK"
-msgstr "確定"
-
 msgid "Filter:"
 msgstr "篩選:"
 
@@ -2541,6 +2544,9 @@ msgstr "套用"
 
 msgid "The current directory has been modified.\n"
 msgstr "目前目錄已更動."
+
+msgid "About"
+msgstr "關於"
 
 msgid "Settings"
 msgstr "設定"
@@ -2556,6 +2562,9 @@ msgstr "否"
 
 msgid "Start number:"
 msgstr "起始編號:"
+
+msgid "Reset counter for each directory"
+msgstr "重設每個目錄計數器"
 
 msgid "Total number of tracks"
 msgstr "音軌編號"
@@ -2625,3 +2634,9 @@ msgstr "檔案名稱格式"
 
 msgid "To Filename"
 msgstr "到檔名"
+
+msgid "Select All"
+msgstr "全選"
+
+msgid "Cut"
+msgstr "剪下"

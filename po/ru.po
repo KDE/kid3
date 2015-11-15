@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -2515,6 +2514,12 @@ msgstr "TSST - Set subtitle"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Поток Podcast"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "Эта программа использует <a href=\"http://www.qt.io/\">Qt</a> %1."
+
+msgid "OK"
+msgstr "ОК"
+
 msgid "Destination:"
 msgstr "Место назначения:"
 
@@ -2527,9 +2532,6 @@ msgstr "Начало"
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "OK"
-msgstr "ОК"
-
 msgid "Filter:"
 msgstr "Фильтр:"
 
@@ -2541,6 +2543,9 @@ msgstr "Применить"
 
 msgid "The current directory has been modified.\n"
 msgstr "Текущий каталог был изменен."
+
+msgid "About"
+msgstr "О программе"
 
 msgid "Settings"
 msgstr "Настройка"
@@ -2556,6 +2561,9 @@ msgstr "Нет"
 
 msgid "Start number:"
 msgstr "Число начала:"
+
+msgid "Reset counter for each directory"
+msgstr "Начинать заново в каждой папке"
 
 msgid "Total number of tracks"
 msgstr "Общее Количество дорожек"
@@ -2625,3 +2633,9 @@ msgstr "Формат из имени файла"
 
 msgid "To Filename"
 msgstr "К имени файла"
+
+msgid "Select All"
+msgstr "Выделить все"
+
+msgid "Cut"
+msgstr "Вырезать"

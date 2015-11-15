@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-09-25 12:56+0200\n"
+"POT-Creation-Date: 2015-11-15 15:10+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -2512,6 +2512,13 @@ msgstr "TSST - Alt yazı ayarla"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast besleme"
 
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"Bu program <a href=\"http://www.qt.io/\">Qt</a> sürüm %1 kullanmaktadır."
+
+msgid "OK"
+msgstr "Tamam"
+
 msgid "Destination:"
 msgstr "Hedef:"
 
@@ -2524,9 +2531,6 @@ msgstr "Başlat"
 msgid "Cancel"
 msgstr "İptal"
 
-msgid "OK"
-msgstr "Tamam"
-
 msgid "Filter:"
 msgstr "Filtre:"
 
@@ -2538,6 +2542,9 @@ msgstr "Uygula"
 
 msgid "The current directory has been modified.\n"
 msgstr "İçinde bulunduğunuz dizin değiştirildi."
+
+msgid "About"
+msgstr "Hakkında"
 
 msgid "Settings"
 msgstr "Ayarlar"
@@ -2553,6 +2560,9 @@ msgstr "Hayır"
 
 msgid "Start number:"
 msgstr "Başlangıç numarası:"
+
+msgid "Reset counter for each directory"
+msgstr "Her klasör için sayacı sıfırla"
 
 msgid "Total number of tracks"
 msgstr "Toplam Parça Sayısı"
@@ -2622,3 +2632,9 @@ msgstr "Dosya adı Biçimi"
 
 msgid "To Filename"
 msgstr "Dosya adı için"
+
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+msgid "Cut"
+msgstr "Kes"
