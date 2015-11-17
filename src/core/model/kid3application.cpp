@@ -117,6 +117,27 @@ QString pluginFileName(const QString& pluginName)
   return fileName;
 }
 
+/**
+ * Get text encoding from tag config as frame text encoding.
+ * @return frame text encoding.
+ */
+Frame::TextEncoding frameTextEncodingFromConfig()
+{
+  Frame::TextEncoding encoding;
+  switch (TagConfig::instance().textEncoding()) {
+  case TagConfig::TE_UTF16:
+    encoding = Frame::TE_UTF16;
+    break;
+  case TagConfig::TE_UTF8:
+    encoding = Frame::TE_UTF8;
+    break;
+  case TagConfig::TE_ISO8859_1:
+  default:
+    encoding = Frame::TE_ISO8859_1;
+  }
+  return encoding;
+}
+
 }
 
 #ifdef Q_OS_MAC
@@ -1297,18 +1318,7 @@ void Kid3Application::applyTagFormat()
 void Kid3Application::applyTextEncoding()
 {
   emit fileSelectionUpdateRequested();
-  Frame::TextEncoding encoding;
-  switch (TagConfig::instance().textEncoding()) {
-  case TagConfig::TE_UTF16:
-    encoding = Frame::TE_UTF16;
-    break;
-  case TagConfig::TE_UTF8:
-    encoding = Frame::TE_UTF8;
-    break;
-  case TagConfig::TE_ISO8859_1:
-  default:
-    encoding = Frame::TE_ISO8859_1;
-  }
+  Frame::TextEncoding encoding = frameTextEncodingFromConfig();
   FrameCollection frames;
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
@@ -1871,6 +1881,7 @@ void Kid3Application::editOrAddPicture()
     editFrame();
   } else {
     PictureFrame frame;
+    PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
     addFrame(&frame, true);
   }
 }
@@ -1926,6 +1937,7 @@ void Kid3Application::openDrop(const QStringList& paths)
         }
         PictureFrame::setMimeTypeFromFileName(frame, fileName);
         PictureFrame::setDescription(frame, fileName);
+        PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
         addFrame(&frame);
         emit selectedFilesUpdated();
       }
@@ -1979,6 +1991,7 @@ void Kid3Application::dropImage(const QImage& image)
   if (!image.isNull()) {
     PictureFrame frame;
     if (PictureFrame::setDataFromImage(frame, image)) {
+      PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
       addFrame(&frame);
       emit selectedFilesUpdated();
     }
@@ -2008,7 +2021,8 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
   // An empty mime type is accepted to allow downloads via FTP.
   if (mimeType.startsWith(QLatin1String("image")) ||
       mimeType.isEmpty()) {
-    PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
+    PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType,
+                       frameTextEncodingFromConfig());
     if (getDownloadImageDestination() == ImageForAllFilesInDirectory) {
       TaggedFileOfDirectoryIterator it(currentOrRootIndex());
       while (it.hasNext()) {
@@ -2913,6 +2927,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+        PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
         addFrame(&frame);
       } else if (isGeob) {
         Frame frame(*it);
@@ -2970,6 +2985,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+        PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
       } else if (isGeob) {
         PictureFrame::setGeobFields(
               frame, Frame::TE_ISO8859_1,
@@ -3041,6 +3057,7 @@ void Kid3Application::setPictureData(const QByteArray& data)
   }
   if (!data.isEmpty()) {
     PictureFrame::setData(frame, data);
+    PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
     addFrame(&frame);
   }
 }
