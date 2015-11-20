@@ -6,17 +6,47 @@ libFLAC, Chromaprint, mp4v2.
 
 ** Linux
 
-*** Compile for KDE 4
+*** Build KDE, Qt and CLI applications
 
-cmake . -DWITH_APPS=KDE
+cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make
 make install
 
-*** Compile for Qt 4 (no KDE)
+*** Customize build options
 
-cmake . -DCMAKE_BUILD_TYPE=Release -DWITH_APPS=Qt
-make
-make install
+For a customized build, several build options are available. They can be set
+with CMake variable definitions (-D OPTION=VAL, in the same way as
+CMAKE_BUILD_TYPE in the example above).
+
+CMAKE_BUILD_TYPE: Debug, Release, RelWithDebInfo or MinSizeRel
+CMAKE_INSTALL_PREFIX: Installation directory, default is /usr/local
+WITH_APPS: Which applications to build, possible values are Qt, CLI, KDE, Qml,
+multiple values can be separated by semicolons, default is "Qt;CLI;KDE".
+For example, to build only the Qt and CLI applications, set it to "Qt;CLI".
+
+The following options are ON by default and can be set to OFF to disable a
+feature:
+
+BUILD_SHARED_LIBS: build with shared libraries
+WITH_TAGLIB: build with TagLib
+WITH_ID3LIB: build with id3lib
+WITH_VORBIS: build with Ogg/Vorbis
+WITH_FLAC: build with FLAC
+WITH_CHROMAPRINT: build with Chromaprint
+WITH_PHONON: build with Phonon
+WITH_DBUS: build with D-Bus
+WITH_READLINE: build with readline
+
+The following options are OFF by default and can be set to ON to enable:
+
+WITH_QT4: force use of Qt4
+WITH_QT5: force use of Qt5
+WITH_MP4V2: build with mp4v2
+WITH_FFMPEG: force use of FFmpeg for Chromaprint decoding
+WITH_CHROMAPRINT_FFMPEG: link FFmpeg only for Chromaprint FFT
+WITH_GSTREAMER: force use of GStreamer for Chromaprint decoding
+WITH_QAUDIODECODER: force use of QAudioDecoder for Chromaprint decoding
+WITH_NO_MANCOMPRESS: disable compressed manpages
 
 The install directory can be assigned to DESTDIR
 
