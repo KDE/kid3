@@ -234,6 +234,8 @@ ImportConfig::ImportConfig() :
     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
   m_matchPictureUrlMap[QLatin1String("http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*")] =
     QLatin1String("http://www.freecovers.net/preview/\\1/\\2/big.jpg");
+  m_matchPictureUrlMap[QLatin1String("(http://.*4shared.com/img/.*)")] =
+    QLatin1String("\\1.jpg");
 }
 
 /**
