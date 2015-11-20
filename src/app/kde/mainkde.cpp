@@ -103,6 +103,7 @@ int main(int argc, char* argv[])
   app.setApplicationDisplayName(aboutData.displayName());
   app.setOrganizationDomain(aboutData.organizationDomain());
   app.setApplicationVersion(aboutData.version());
+  QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kid3")));
 
   QCommandLineParser parser;
   aboutData.setupCommandLine(&parser);

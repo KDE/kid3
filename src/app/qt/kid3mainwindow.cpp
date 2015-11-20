@@ -74,7 +74,7 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
   QPixmap icon;
   if (icon.load(dataRootDir +
 #ifndef Q_OS_MAC
-                QLatin1String("/icons/hicolor/48x48/apps/kid3-qt.png")
+                QLatin1String("/icons/hicolor/128x128/apps/kid3-qt.png")
 #else
                 QLatin1String("/kid3.png")
 #endif
