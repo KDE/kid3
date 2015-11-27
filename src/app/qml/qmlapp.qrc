@@ -43,6 +43,7 @@
     <file alias="componentsqtquick/Standard.qml">../../qml/componentsqtquick/Standard.qml</file>
     <file alias="componentsqtquick/TextArea.qml">../../qml/componentsqtquick/TextArea.qml</file>
     <file alias="componentsqtquick/TextField.qml">../../qml/componentsqtquick/TextField.qml</file>
+    <file alias="componentsqtquick/TextHandle.qml">../../qml/componentsqtquick/TextHandle.qml</file>
     <file alias="componentsqtquick/TextSelectionHandler.qml">../../qml/componentsqtquick/TextSelectionHandler.qml</file>
     <file alias="componentsqtquick/ThinDivider.qml">../../qml/componentsqtquick/ThinDivider.qml</file>
     <file alias="icons/add.svg">../../qml/icons/add.svg</file>
@@ -61,6 +62,7 @@
     <file alias="icons/v2.svg">../../qml/icons/v2.svg</file>
     <file alias="icons/remove.svg">../../qml/icons/remove.svg</file>
     <file alias="icons/select_all.svg">../../qml/icons/select_all.svg</file>
+    <file alias="icons/selection_handle.svg">../../qml/icons/selection_handle.svg</file>
     <file alias="icons/triangle_down.svg">../../qml/icons/triangle_down.svg</file>
     <file alias="icons/triangle_right.svg">../../qml/icons/triangle_right.svg</file>
     <file alias="imports/Kid3/Kid3Script.qml">../../plugins/kid3qml/Kid3Script.qml</file>

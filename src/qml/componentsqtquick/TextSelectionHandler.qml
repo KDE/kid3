@@ -107,36 +107,68 @@ MouseArea {
   preventStealing: true
   onPressed: {
     editor.forceActiveFocus()
-    editMenu.state = ""
     __movingCursor = false
     __openingMenu = false
-    var pos = mapToItem(editor, mouse.x, mouse.y)
-    __xWhenPressed = pos.x
-    __yWhenPressed = pos.y
+    if (!cursorHandle.handlePressed(mouse.x, mouse.y) &&
+        !selectionHandle.handlePressed(mouse.x, mouse.y)) {
+      editMenu.state = ""
+      var pos = mapToItem(editor, mouse.x, mouse.y)
+      __xWhenPressed = pos.x
+      __yWhenPressed = pos.y
+    }
   }
   onPositionChanged: {
-    if (!__movingCursor) {
-      __movingCursor = true
-      editor.cursorPosition =
-          editor.positionAt(__xWhenPressed, __yWhenPressed)
-    }
-    var pos = mapToItem(editor, mouse.x, mouse.y)
-    editor.moveCursorSelection(
-          editor.positionAt(pos.x, pos.y))
-  }
-  onPressAndHold: showMenu()
-  onReleased: {
-    if (mouse.button === Qt.RightButton) {
-      showMenu()
-    } else {
-      if (!__movingCursor && !__openingMenu) {
+    if (!cursorHandle.handlePositionChanged(mouse.x, mouse.y) &&
+        !selectionHandle.handlePositionChanged(mouse.x, mouse.y)) {
+      if (!__movingCursor) {
+        __movingCursor = true
         editor.cursorPosition =
             editor.positionAt(__xWhenPressed, __yWhenPressed)
+      }
+      var pos = mapToItem(editor, mouse.x, mouse.y)
+      editor.moveCursorSelection(
+            editor.positionAt(pos.x, pos.y))
+    }
+  }
+  onPressAndHold: {
+    if (!cursorHandle.handlePressAndHold() &&
+        !selectionHandle.handlePressAndHold()) {
+      showMenu()
+    }
+  }
+  onReleased: {
+    if (!cursorHandle.handleReleased() &&
+        !selectionHandle.handleReleased()) {
+      if (mouse.button === Qt.RightButton) {
+        showMenu()
+      } else {
+        if (!__movingCursor && !__openingMenu) {
+          editor.cursorPosition =
+              editor.positionAt(__xWhenPressed, __yWhenPressed)
+        }
       }
     }
   }
   onDoubleClicked: {
     __movingCursor = true
     editor.selectWord()
+  }
+
+  TextHandle {
+    id: selectionHandle
+    edit: editor
+    area: mouseArea
+    leftSide: true
+    targetPosition: editor.selectionStart
+    onPositionChanged: editor.select(position, editor.selectionEnd)
+  }
+
+  TextHandle {
+    id: cursorHandle
+    edit: editor
+    area: mouseArea
+    leftSide: false
+    targetPosition: editor.selectionEnd
+    onPositionChanged: editor.select(editor.selectionStart, position)
   }
 }

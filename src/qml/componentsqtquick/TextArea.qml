@@ -39,8 +39,14 @@ FocusScope {
 
       anchors.fill: parent
       anchors.leftMargin: constants.margins
-      contentWidth: textInput.paintedWidth
-      contentHeight: textInput.paintedHeight
+      // The content width is kept smaller than the textInput width in order
+      // to have the right margin not covered by the TextSelectionHandler
+      // so that the text can be flicked at the right margin. It must,
+      // however, be large enough to grab the selection handles.
+      contentWidth: Math.min(textInput.paintedWidth + constants.gu(5),
+                             textInput.width)
+      contentHeight: Math.max(textInput.paintedHeight + constants.gu(2),
+                              textInput.height)
       flickableDirection: Flickable.VerticalFlick
       clip: true
 
@@ -59,6 +65,7 @@ FocusScope {
         id: textInput
         width: flick.width
         height: flick.height
+        textMargin: constants.spacing
         focus: true
         wrapMode: TextEdit.Wrap
         inputMethodHints: Qt.ImhNoPredictiveText
