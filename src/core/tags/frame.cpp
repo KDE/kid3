@@ -1366,7 +1366,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
     FrameCollection::const_iterator it = m_frames.findByName(name);
     if (it != m_frames.end()) {
-      result = it->getValue();
+      result = it->getValue().trimmed();
       if (result.isNull()) {
         // code was found, but value is empty
         result = QLatin1String("");
