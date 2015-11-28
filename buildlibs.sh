@@ -51,14 +51,14 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.5.0
+qt_version=5.5.1
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.4
 libvorbis_patchlevel=3
-ffmpeg_version=2.8
+ffmpeg_version=2.8.2
 ffmpeg_patchlevel=1
 #libav_version=11.4
 #libav_patchlevel=2
@@ -66,11 +66,11 @@ libflac_version=1.3.1
 libflac_patchlevel=4
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
-taglib_version=1.10beta
+taglib_version=1.10
 chromaprint_version=1.2
 chromaprint_patchlevel=1
 mp4v2_version=2.0.0
-mp4v2_patchlevel=3
+mp4v2_patchlevel=4
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
