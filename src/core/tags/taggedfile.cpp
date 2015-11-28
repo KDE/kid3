@@ -90,6 +90,7 @@ QString TaggedFile::getDirname() const
 void TaggedFile::setFilename(const QString& fn)
 {
   m_newFilename = fn;
+  m_revertedFilename.clear();
   updateModifiedState();
 }
 
@@ -340,6 +341,7 @@ QString TaggedFile::getAbsFilename() const
 void TaggedFile::markFilenameUnchanged()
 {
   m_filename = m_newFilename;
+  m_revertedFilename.clear();
   updateModifiedState();
 }
 
@@ -348,8 +350,25 @@ void TaggedFile::markFilenameUnchanged()
  */
 void TaggedFile::revertChangedFilename()
 {
+  m_revertedFilename = m_newFilename;
   m_newFilename = m_filename;
   updateModifiedState();
+}
+
+/**
+ * Undo reverted modification of filename.
+ * When writeTags() fails because the file is not writable, the filename is
+ * reverted using revertChangedFilename() so that the file permissions can be
+ * changed using the real filename. After changing the permissions, this
+ * function can be used to change the filename back before saving the file.
+ */
+void TaggedFile::undoRevertChangedFilename()
+{
+  if (!m_revertedFilename.isEmpty()) {
+    m_newFilename = m_revertedFilename;
+    m_revertedFilename.clear();
+    updateModifiedState();
+  }
 }
 
 /**

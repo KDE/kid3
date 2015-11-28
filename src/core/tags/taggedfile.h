@@ -630,6 +630,15 @@ public:
   QString getAbsFilename() const;
 
   /**
+   * Undo reverted modification of filename.
+   * When writeTags() fails because the file is not writable, the filename is
+   * reverted using revertChangedFilename() so that the file permissions can be
+   * changed using the real filename. After changing the permissions, this
+   * function can be used to change the filename back before saving the file.
+   */
+  void undoRevertChangedFilename();
+
+  /**
    * Check if tag 2 was changed.
    * @return true if tag 2 was changed.
    */
@@ -898,6 +907,8 @@ private:
   QString m_filename;
   /** New file name */
   QString m_newFilename;
+  /** File name reverted because file was not writable */
+  QString m_revertedFilename;
   /** changed tag 1 frame types */
   quint64 m_changedFramesV1;
   /** changed tag 2 frame types */

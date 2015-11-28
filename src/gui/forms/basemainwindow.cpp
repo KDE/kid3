@@ -279,9 +279,17 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         errorMsgs,
         tr("File Error"));
       if (rc == QMessageBox::Yes) {
+        FileProxyModel* model =
+            qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
+        TaggedFile* taggedFile;
         foreach (const QString& filePath, notWritableFiles) {
           QFile::setPermissions(filePath,
               QFile::permissions(filePath) | QFile::WriteUser);
+          if (model &&
+              (taggedFile = FileProxyModel::getTaggedFileOfIndex(
+                 model->index(filePath))) != 0) {
+            taggedFile->undoRevertChangedFilename();
+          }
         }
         m_app->saveDirectory();
       }
