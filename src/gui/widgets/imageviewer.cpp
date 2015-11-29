@@ -53,13 +53,18 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   m_image->setScaledContents(true);
   QSize imageSize(img.size());
   QSize desktopSize(QApplication::desktop()->availableGeometry().size());
-  desktopSize -= QSize(12, 12);
-  if (imageSize.width() > desktopSize.width() ||
-      imageSize.height() > desktopSize.height()) {
-    m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
-  } else {
-    m_image->setPixmap(QPixmap::fromImage(img));
-  }
+  desktopSize -= QSize(12, 12 + vlayout->spacing() + closeButton->height() +
+                       vlayout->margin());
+  QPixmap pm = imageSize.width() > desktopSize.width() ||
+               imageSize.height() > desktopSize.height()
+      ? QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio))
+      : QPixmap::fromImage(img);
+#if QT_VERSION >= 0x050500
+  // Try workaround for QTBUG-46846,
+  // images are cropped on high pixel density displays.
+  pm.setDevicePixelRatio(m_image->devicePixelRatio());
+#endif
+  m_image->setPixmap(pm);
   vlayout->addWidget(m_image);
   hlayout->addItem(hspacer);
   hlayout->addWidget(closeButton);
