@@ -2688,23 +2688,22 @@ EOF
     fi
     chmod +x kid3/build.sh
   fi
-elif test $kernel = "Darwin"; then
-  sudo chmod go+w ${BUILDROOT}usr/local
 fi
-
-tar xmzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
-tar xmzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
-tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
-tar xmzf bin/flac-${libflac_version}.tgz -C $BUILDROOT
-tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
-tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
-tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
-tar xmzf bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
-tar xmzf bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
-
 if test $kernel = "Darwin"; then
-  sudo chmod go-w ${BUILDROOT}usr/local
+  tar_cmd="sudo tar xmozf"
+else
+  tar_cmd="tar xmzf"
 fi
+
+${tar_cmd} bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/libogg-${libogg_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/flac-${libflac_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/taglib-${taglib_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/${ffmpeg_dir}.tgz -C $BUILDROOT
+${tar_cmd} bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
+${tar_cmd} bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
 
 fi
 
