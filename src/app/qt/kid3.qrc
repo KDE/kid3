@@ -1,17 +1,30 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
     <file>images/application-exit.png</file>
+    <file>images/application-exit@2x.png</file>
     <file>images/preferences-system.png</file>
+    <file>images/preferences-system@2x.png</file>
     <file>images/document-export.png</file>
+    <file>images/document-export@2x.png</file>
     <file>images/document-import.png</file>
+    <file>images/document-import@2x.png</file>
     <file>images/document-open.png</file>
+    <file>images/document-open@2x.png</file>
     <file>images/document-open-recent.png</file>
+    <file>images/document-open-recent@2x.png</file>
     <file>images/document-revert.png</file>
+    <file>images/document-revert@2x.png</file>
     <file>images/document-save.png</file>
+    <file>images/document-save@2x.png</file>
     <file>images/edit-select-all.png</file>
+    <file>images/edit-select-all@2x.png</file>
     <file>images/go-next.png</file>
+    <file>images/go-next@2x.png</file>
     <file>images/go-previous.png</file>
+    <file>images/go-previous@2x.png</file>
     <file>images/help-contents.png</file>
+    <file>images/help-contents@2x.png</file>
     <file>images/view-media-playlist.png</file>
+    <file>images/view-media-playlist@2x.png</file>
   </qresource>
 </RCC>
