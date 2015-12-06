@@ -1,8 +1,15 @@
-kid3 (3.3.0-0) unstable; urgency=low
+kid3 (3.3.1-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 01 Oct 2015 17:09:46 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 17 Dec 2015 14:53:06 +0100
+
+kid3 (3.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Fix spelling-error-in-copyright.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 06 Oct 2015 10:54:07 +0200
 
 kid3 (3.2.1-1) unstable; urgency=low
 

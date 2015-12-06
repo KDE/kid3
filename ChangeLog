@@ -1,3 +1,26 @@
+Thu Dec 17 14:53:06 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.3.1
+
+	* New:
+	  + Package for Android.
+	  + Support setting of data in GEOB frames from CLI and scripts.
+	  + Icons for high pixel density displays.
+
+	* Improved:
+	  + Trim values from tags in format strings to avoid whitespace when
+	    setting file names from tags.
+	  + Updated Czech translation.
+
+	* Fixed:
+	  + List picture in get command of kid3-cli also if its description
+	    is empty.
+	  + Set configured text encoding in picture frames.
+	  + Make file renaming work when saving non writable files.
+	  + Use high resolution icon in task switcher.
+	  + Avoid cropping in picture preview window on high pixel density
+	    displays.
+
 Thu Oct  1 17:09:46 CEST 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.3.0
