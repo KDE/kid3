@@ -25,8 +25,12 @@ if test -n "$ppaversion"; then
 else
   distribution=$(lsb_release -sc)
   distrib_nr=$(lsb_release -sr)
-  distrib_nr=${distrib_nr/./}
   distrib_id=$(lsb_release -si)
+  if test $distrib_id = "Ubuntu"; then
+    distrib_nr=${distrib_nr/./}
+  else
+    distrib_nr=${distrib_nr%%.*}
+  fi
 fi
 
 if (test $distrib_id = "Ubuntu" && test $distrib_nr -ge 1504) ||
