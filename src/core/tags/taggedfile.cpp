@@ -577,7 +577,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
         pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("(\\d{1,4})"));
         percentIdx += 9;
       } else {
-        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("([^-_\\./ ][^/]*[^-_/ ])"));
+        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
         percentIdx += 23;
       }
     } else {
