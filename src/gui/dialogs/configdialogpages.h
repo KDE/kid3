@@ -132,6 +132,8 @@ private:
   QCheckBox* m_markChangesCheckBox;
   /** Filename for cover lineedit */
   QLineEdit* m_coverFileNameLineEdit;
+  /** File text encoding combo box */
+  QComboBox* m_fileTextEncodingComboBox;
   /** Mark truncated fields checkbox */
   QCheckBox* m_markTruncationsCheckBox;
   /** ID3v1 text encoding combo box */

@@ -37,6 +37,7 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QFormLayout>
 #include <QGroupBox>
 #include <QStringListModel>
 #include <QStandardItemModel>
@@ -61,6 +62,7 @@
 ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent),
   m_loadLastOpenedFileCheckBox(0), m_preserveTimeCheckBox(0),
   m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
+  m_fileTextEncodingComboBox(0),
   m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
@@ -100,7 +102,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
   QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
-  m_textEncodingV1ComboBox->addItems(TagConfig::getTextEncodingV1Names());
+  m_textEncodingV1ComboBox->addItems(TagConfig::getTextCodecNames());
   m_textEncodingV1ComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
   v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
@@ -251,18 +253,19 @@ QWidget* ConfigDialogPages::createFilesPage()
   QGroupBox* saveGroupBox = new QGroupBox(tr("Save"), filesPage);
   m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"), saveGroupBox);
   m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
-  QLabel* coverFileNameLabel = new QLabel(tr("F&ilename for cover:"), saveGroupBox);
   m_coverFileNameLineEdit = new QLineEdit(saveGroupBox);
-  coverFileNameLabel->setBuddy(m_coverFileNameLineEdit);
-  QHBoxLayout* hbox = new QHBoxLayout;
-  hbox->setContentsMargins(2, 0, 2, 0);
-  hbox->addWidget(coverFileNameLabel);
-  hbox->addWidget(m_coverFileNameLineEdit);
-  QVBoxLayout* vbox = new QVBoxLayout;
-  vbox->addWidget(m_preserveTimeCheckBox);
-  vbox->addWidget(m_markChangesCheckBox);
-  vbox->addLayout(hbox);
-  saveGroupBox->setLayout(vbox);
+  m_fileTextEncodingComboBox = new QComboBox(saveGroupBox);
+  m_fileTextEncodingComboBox->addItems(FileConfig::getTextCodecNames());
+  m_fileTextEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
+                                                        QSizePolicy::Minimum));
+  QFormLayout* formLayout = new QFormLayout;
+  formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+  formLayout->addRow(m_preserveTimeCheckBox);
+  formLayout->addRow(m_markChangesCheckBox);
+  formLayout->addRow(tr("F&ilename for cover:"), m_coverFileNameLineEdit);
+  formLayout->addRow(tr("Text &encoding (Export, Playlist):"),
+                     m_fileTextEncodingComboBox);
+  saveGroupBox->setLayout(formLayout);
   vlayout->addWidget(saveGroupBox);
   QString fnFormatTitle(tr("&Filename Format"));
   m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
@@ -436,6 +439,7 @@ void ConfigDialogPages::setConfigs(
   m_preserveTimeCheckBox->setChecked(fileCfg.preserveTime());
   m_markChangesCheckBox->setChecked(fileCfg.markChanges());
   m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
+  m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
   quint64 frameMask = tagCfg.quickAccessFrames();
@@ -546,6 +550,7 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setPreserveTime(m_preserveTimeCheckBox->isChecked());
   fileCfg.setMarkChanges(m_markChangesCheckBox->isChecked());
   fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
+  fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
   QList<int> frameTypes;

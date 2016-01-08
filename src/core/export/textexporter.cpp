@@ -33,6 +33,7 @@
 #include <QClipboard>
 #include "exportconfig.h"
 #include "importconfig.h"
+#include "fileconfig.h"
 
 /**
  * Constructor.
@@ -115,6 +116,10 @@ bool TextExporter::exportToFile(const QString& fn)
     if (file.open(QIODevice::WriteOnly)) {
       ImportConfig::instance().setImportDir(QFileInfo(file).dir().path());
       QTextStream stream(&file);
+      QString codecName = FileConfig::instance().textEncoding();
+      if (codecName != QLatin1String("System")) {
+        stream.setCodec(codecName.toLatin1());
+      }
       stream << m_text;
       file.close();
       return true;

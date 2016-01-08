@@ -82,6 +82,7 @@ FileConfig::FileConfig() :
   m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
   m_formatFromFilenameItem(0),
   m_defaultCoverFileName(QLatin1String("folder.jpg")),
+  m_textEncoding(QLatin1String("System")),
   m_preserveTime(false),
   m_markChanges(true),
   m_loadLastOpenedFile(true)
@@ -111,6 +112,7 @@ void FileConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("PreserveTime"), QVariant(m_preserveTime));
   config->setValue(QLatin1String("MarkChanges"), QVariant(m_markChanges));
   config->setValue(QLatin1String("LoadLastOpenedFile"), QVariant(m_loadLastOpenedFile));
+  config->setValue(QLatin1String("TextEncoding"), QVariant(m_textEncoding));
   config->setValue(QLatin1String("LastOpenedFile"), QVariant(m_lastOpenedFile));
   config->setValue(QLatin1String("DefaultCoverFileName"), QVariant(m_defaultCoverFileName));
   config->endGroup();
@@ -144,6 +146,7 @@ void FileConfig::readFromConfig(ISettings* config)
   m_formatFromFilenameText =
       config->value(QLatin1String("FormatFromFilenameText"), QString::fromLatin1(defaultFromFilenameFormats[0])).toString();
   m_loadLastOpenedFile = config->value(QLatin1String("LoadLastOpenedFile"), m_loadLastOpenedFile).toBool();
+  m_textEncoding = config->value(QLatin1String("TextEncoding"), QLatin1String("System")).toString();
   m_lastOpenedFile = config->value(QLatin1String("LastOpenedFile"), m_lastOpenedFile).toString();
   m_defaultCoverFileName = config->value(QLatin1String("DefaultCoverFileName"), m_defaultCoverFileName).toString();
   config->endGroup();
@@ -238,6 +241,27 @@ void FileConfig::setLastOpenedFile(const QString& lastOpenedFile)
   if (m_lastOpenedFile != lastOpenedFile) {
     m_lastOpenedFile = lastOpenedFile;
     emit lastOpenedFileChanged(m_lastOpenedFile);
+  }
+}
+
+void FileConfig::setTextEncoding(const QString& textEncoding)
+{
+  if (m_textEncoding != textEncoding) {
+    m_textEncoding = textEncoding;
+    emit textEncodingChanged(m_textEncoding);
+  }
+}
+
+int FileConfig::textEncodingIndex() const
+{
+  return indexFromTextCodecName(m_textEncoding);
+}
+
+void FileConfig::setTextEncodingIndex(int index)
+{
+  QString encoding = indexToTextCodecName(index);
+  if (!encoding.isNull()) {
+    setTextEncoding(encoding);
   }
 }
 

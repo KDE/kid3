@@ -50,7 +50,7 @@ AbstractSettingsPage {
         },
         SettingsElement {
           name: qsTr("ID3v1 text encoding")
-          dropDownModel: configs.tagConfig().getTextEncodingV1Names()
+          dropDownModel: configs.tagConfig().getTextCodecNames()
         },
         SettingsElement {
           name: qsTr("ID3v2 text encoding")
@@ -169,6 +169,10 @@ AbstractSettingsPage {
           name: qsTr("Filename for cover")
         },
         SettingsElement {
+          name: qsTr("Playlist text encoding")
+          dropDownModel: configs.fileConfig().getTextCodecNames()
+        },
+        SettingsElement {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
           width: constants.gu(45)
@@ -193,8 +197,9 @@ AbstractSettingsPage {
               ? model[5].dropDownModel[0] : fmtCfg.localeName
           model[6].value = fmtCfg.strRepEnabled
           model[7].value = fileCfg.defaultCoverFileName
-          model[8].value = fileCfg.toFilenameFormat
-          model[9].value = fileCfg.fromFilenameFormat
+          model[8].value = fileCfg.textEncodingIndex
+          model[9].value = fileCfg.toFilenameFormat
+          model[10].value = fileCfg.fromFilenameFormat
         } else {
           fileCfg.loadLastOpenedFile = model[0].value
           fileCfg.preserveTime = model[1].value
@@ -206,8 +211,9 @@ AbstractSettingsPage {
               ? model[5].value : ""
           fmtCfg.strRepEnabled = model[6].value
           fileCfg.defaultCoverFileName = model[7].value
-          fileCfg.toFilenameFormat = model[8].value
-          fileCfg.fromFilenameFormat = model[9].value
+          fileCfg.textEncodingIndex = model[8].value
+          fileCfg.toFilenameFormat = model[9].value
+          fileCfg.fromFilenameFormat = model[10].value
         }
       }
     }

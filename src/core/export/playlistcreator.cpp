@@ -30,6 +30,7 @@
 #include <QFile>
 #include <QTextStream>
 #include "playlistconfig.h"
+#include "fileconfig.h"
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "fileproxymodel.h"
@@ -66,6 +67,10 @@ bool PlaylistCreator::write()
     ok = file.open(QIODevice::WriteOnly);
     if (ok) {
       QTextStream stream(&file);
+      QString codecName = FileConfig::instance().textEncoding();
+      if (codecName != QLatin1String("System")) {
+        stream.setCodec(codecName.toLatin1());
+      }
 
       switch (m_cfg.format()) {
         case PlaylistConfig::PF_M3U:

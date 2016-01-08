@@ -42,6 +42,7 @@
 #include <QClipboard>
 #include <QMimeData>
 #include "config.h"
+#include "fileconfig.h"
 #include "timeeventmodel.h"
 #include "timestampdelegate.h"
 #include "eventcodedelegate.h"
@@ -301,6 +302,10 @@ void TimeEventEditor::exportData()
     QFile file(saveFileName);
     if (file.open(QIODevice::WriteOnly)) {
       QTextStream stream(&file);
+      QString codecName = FileConfig::instance().textEncoding();
+      if (codecName != QLatin1String("System")) {
+        stream.setCodec(codecName.toLatin1());
+      }
       m_model->toLrcFile(stream, m_taggedFile->getTitleV2(),
                                  m_taggedFile->getArtistV2(),
                                  m_taggedFile->getAlbumV2());

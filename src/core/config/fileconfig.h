@@ -54,6 +54,10 @@ class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   Q_PROPERTY(QString defaultCoverFileName READ defaultCoverFileName WRITE setDefaultCoverFileName NOTIFY defaultCoverFileNameChanged)
   /** path to last opened file */
   Q_PROPERTY(QString lastOpenedFile READ lastOpenedFile WRITE setLastOpenedFile NOTIFY lastOpenedFileChanged)
+  /** text encoding used for exports and playlists */
+  Q_PROPERTY(QString textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
+  /** text encoding used for exports and playlists */
+  Q_PROPERTY(int textEncodingIndex READ textEncodingIndex WRITE setTextEncodingIndex NOTIFY textEncodingChanged)
   /** true to preserve file time stamps */
   Q_PROPERTY(bool preserveTime READ preserveTime WRITE setPreserveTime NOTIFY preserveTimeChanged)
   /** true to mark changed fields */
@@ -142,6 +146,18 @@ public:
   /** Set path to last opened file. */
   void setLastOpenedFile(const QString& lastOpenedFile);
 
+  /** Get text encoding used for exports and playlists. */
+  QString textEncoding() const { return m_textEncoding; }
+
+  /** Set text encoding used for exports and playlists. */
+  void setTextEncoding(const QString& textEncoding);
+
+  /** Get index of text encoding in getTextCodecNames() */
+  int textEncodingIndex() const;
+
+  /** Set text encoding from index in getTextCodecNames(). */
+  void setTextEncodingIndex(int index);
+
   /** Check if file time stamps are preserved. */
   bool preserveTime() const { return m_preserveTime; }
 
@@ -188,6 +204,9 @@ signals:
   /** Emitted when @a lastOpenedFile changed. */
   void lastOpenedFileChanged(const QString& lastOpenedFile);
 
+  /** Emitted when @a textEncoding changed. */
+  void textEncodingChanged(const QString& textEncoding);
+
   /** Emitted when @a preserveTime changed. */
   void preserveTimeChanged(bool preserveTime);
 
@@ -209,6 +228,7 @@ private:
   QStringList m_formatFromFilenameItems;
   QString m_defaultCoverFileName;
   QString m_lastOpenedFile;
+  QString m_textEncoding;
   bool m_preserveTime;
   bool m_markChanges;
   bool m_loadLastOpenedFile;

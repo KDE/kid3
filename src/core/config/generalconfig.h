@@ -29,6 +29,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include "isettings.h"
 #include "configstore.h"
 
@@ -65,6 +66,13 @@ public:
    */
   virtual void readFromConfig(ISettings* config) = 0;
 
+  /**
+   * String list of available text codecs.
+   *
+   * @return list of codec names.
+   */
+  Q_INVOKABLE static QStringList getTextCodecNames();
+
 protected:
   /**
    * Convert list of integers to list of strings.
@@ -79,6 +87,29 @@ protected:
    * @return list of integers.
    */
   static QList<int> stringListToIntList(const QStringList& strList);
+
+  /**
+   * Remove aliases in braces from text encoding name.
+   *
+   * @param comboEntry text encoding name
+   *
+   * @return codec name.
+   */
+  static QString getTextCodecName(const QString& comboEntry);
+
+  /**
+   * Get index of text encoding in getTextCodecNames().
+   * @param textEncoding text encoding name
+   * @return index of encoding.
+   */
+  static int indexFromTextCodecName(const QString& textEncoding);
+
+  /**
+   * Get text encoding name from index in getTextCodecNames().
+   * @param index index of encoding
+   * @return text encoding name, null if index invalid.
+   */
+  static QString indexToTextCodecName(int index);
 
   /** Configuration group. */
   QString m_group;

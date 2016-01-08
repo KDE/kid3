@@ -34,22 +34,6 @@ namespace {
 /** Default value for comment name */
 const char* const defaultCommentName = "COMMENT";
 
-/** Index of latin-1 entry in getTextEncodingV1Names(). */
-enum { TextEncodingV1Latin1Index = 13 };
-
-/**
- * Remove aliases in braces from text encoding name.
- *
- * @param comboEntry text encoding name
- *
- * @return codec name.
- */
-QString getTextEncodingV1CodecName(const QString& comboEntry)
-{
-  int braceIdx = comboEntry.indexOf(QLatin1String(" ("));
-  return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
-}
-
 }
 
 int TagConfig::s_index = -1;
@@ -291,28 +275,18 @@ void TagConfig::setTextEncodingV1(const QString& textEncodingV1)
   }
 }
 
-/** index of ID3v1 text encoding in getTextEncodingV1Names() */
+/** index of ID3v1 text encoding in getTextCodecNames() */
 int TagConfig::textEncodingV1Index() const
 {
-  int index = 0;
-  QStringList textEncodingV1List = getTextEncodingV1Names();
-  for (QStringList::const_iterator it = textEncodingV1List.constBegin();
-       it != textEncodingV1List.constEnd();
-       ++it) {
-    if (getTextEncodingV1CodecName(*it) == m_textEncodingV1) {
-      return index;
-    }
-    ++index;
-  }
-  return TextEncodingV1Latin1Index;
+  return indexFromTextCodecName(m_textEncodingV1);
 }
 
-/** Set ID3v1 text encoding from index in getTextEncodingV1Names(). */
+/** Set ID3v1 text encoding from index in getTextCodecNames(). */
 void TagConfig::setTextEncodingV1Index(int index)
 {
-  QStringList textEncodingV1List = getTextEncodingV1Names();
-  if (index >= 0 && index < textEncodingV1List.size()) {
-    setTextEncodingV1(getTextEncodingV1CodecName(textEncodingV1List.at(index)));
+  QString encoding = indexToTextCodecName(index);
+  if (!encoding.isNull()) {
+    setTextEncodingV1(encoding);
   }
 }
 
@@ -389,81 +363,6 @@ void TagConfig::setAvailablePlugins(const QStringList& availablePlugins)
     m_availablePlugins = availablePlugins;
     emit availablePluginsChanged(m_availablePlugins);
   }
-}
-
-/**
- * String list of encodings for ID3v1.
- */
-QStringList TagConfig::getTextEncodingV1Names()
-{
-  static QStringList textEncodingV1List;
-  if (textEncodingV1List.isEmpty()) {
-    static const char* const codecs[] = {
-      "Apple Roman (macintosh)",
-      "Big5",
-      "big5-0",
-      "Big5-HKSCS",
-      "big5hkscs-0",
-      "EUC-JP",
-      "EUC-KR",
-      "GB18030",
-      "GBK (windows-936)",
-      "hp-roman8",
-      "IBM850",
-      "IBM866",
-      "ISO-2022-JP (JIS7)",
-      "ISO-8859-1 (latin1)",
-      "ISO-8859-2 (latin2)",
-      "ISO-8859-3 (latin3)",
-      "ISO-8859-4 (latin4)",
-      "ISO-8859-5 (cyrillic)",
-      "ISO-8859-6 (arabic)",
-      "ISO-8859-7 (greek)",
-      "ISO-8859-8 (hebrew)",
-      "ISO-8859-9 (latin5)",
-      "ISO-8859-10 (latin6)",
-      "ISO-8859-13 (baltic)",
-      "ISO-8859-14 (latin8, iso-celtic)",
-      "ISO-8859-15 (latin9)",
-      "ISO-8859-16 (latin10)",
-      "ISO-10646-UCS-2 (UTF-16)",
-      "Iscii-Bng",
-      "Iscii-Dev",
-      "Iscii-Gjr",
-      "Iscii-Knd",
-      "Iscii-Mlm",
-      "Iscii-Ori",
-      "Iscii-Pnj",
-      "Iscii-Tlg",
-      "Iscii-Tml",
-      "jisx0201*-0",
-      "KOI8-R",
-      "KOI8-U",
-      "ksc5601.1987-0",
-      "mulelao-1",
-      "Shift_JIS (SJIS, MS_Kanji)",
-      "TIS-620 (ISO 8859-11)",
-      "TSCII",
-      "UTF-8",
-      "windows-1250",
-      "windows-1251",
-      "windows-1252",
-      "windows-1253",
-      "windows-1254",
-      "windows-1255",
-      "windows-1256",
-      "windows-1257",
-      "windows-1258",
-      "WINSAMI2 (WS2)",
-      0
-    };
-    Q_ASSERT(qstrcmp(codecs[TextEncodingV1Latin1Index], "ISO-8859-1 (latin1)") == 0);
-    const char* const* str = codecs;
-    while (*str) {
-      textEncodingV1List += QString::fromLatin1(*str++);
-    }
-  }
-  return textEncodingV1List;
 }
 
 /**

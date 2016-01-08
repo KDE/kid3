@@ -2843,6 +2843,10 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
             timeEventModel.fromEtcoFrame(it->getFieldList());
           }
           QTextStream stream(&file);
+          QString codecName = FileConfig::instance().textEncoding();
+          if (codecName != QLatin1String("System")) {
+            stream.setCodec(codecName.toLatin1());
+          }
           const FrameCollection& frames = ft->frames();
           timeEventModel.toLrcFile(stream, frames.getTitle(),
                                    frames.getArtist(), frames.getAlbum());

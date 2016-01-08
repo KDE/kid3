@@ -39,7 +39,7 @@ Kid3Script {
     if (app.selectionInfo.tagFormatV1) {
       var frameNames = ["title", "artist", "album", "comment"]
       var tagCfg = configs.tagConfig()
-      var textEncodings = tagCfg.getTextEncodingV1Names()
+      var textEncodings = tagCfg.getTextCodecNames()
       var textEncodingV1Index = tagCfg.textEncodingV1Index
       var maxEncLen = Math.max.apply(null, textEncodings.map(
                                        function(s) { return s.length; }))

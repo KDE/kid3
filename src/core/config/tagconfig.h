@@ -199,10 +199,10 @@ public:
   /** Set text encoding used for new ID3v1 tags. */
   void setTextEncodingV1(const QString& textEncodingV1);
 
-  /** index of ID3v1 text encoding in getTextEncodingV1Names() */
+  /** index of ID3v1 text encoding in getTextCodecNames() */
   int textEncodingV1Index() const;
 
-  /** Set ID3v1 text encoding from index in getTextEncodingV1Names(). */
+  /** Set ID3v1 text encoding from index in getTextCodecNames(). */
   void setTextEncodingV1Index(int index);
 
   /** text encoding used for new ID3v2 tags */
@@ -267,11 +267,6 @@ public:
    * Clear list of available plugins.
    */
   void clearAvailablePlugins() { m_availablePlugins.clear(); }
-
-  /**
-   * String list of encodings for ID3v1.
-   */
-  Q_INVOKABLE static QStringList getTextEncodingV1Names();
 
   /**
    * String list of encodings for ID3v2.
