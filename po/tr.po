@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1673,6 +1673,9 @@ msgstr ""
 msgid "F&ilename for cover:"
 msgstr "Albüm kapağı &için dosya adı:"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "M&etin kodlama (Dışa aktar, playlist):"
+
 msgid "&Filename Format"
 msgstr "&Dosya adı Biçimi"
 
@@ -2623,6 +2626,9 @@ msgstr ""
 
 msgid "Filename for cover"
 msgstr "Albüm kapağı için dosya adı"
+
+msgid "Playlist text encoding"
+msgstr "Playlist karakter kodlaması"
 
 msgid "To filename format"
 msgstr "Dosya adı için biçimi"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1676,6 +1676,9 @@ msgstr "&Oznacz zmiany"
 msgid "F&ilename for cover:"
 msgstr "Nazwa pl&iku obrazu:"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Kodowanie t&ekstu (Eksportuj, lista odtwarzania):"
+
 msgid "&Filename Format"
 msgstr "&Format nazwy pliku"
 
@@ -2628,6 +2631,9 @@ msgstr "Oznacz zmiany"
 
 msgid "Filename for cover"
 msgstr "Nazwa pliku obrazu"
+
+msgid "Playlist text encoding"
+msgstr "Kodowanie tekstu listy odtwarzania"
 
 msgid "To filename format"
 msgstr "Format do nazwy pliku"

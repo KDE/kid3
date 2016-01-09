@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2015-10-02 21:58+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1675,6 +1675,9 @@ msgstr "&Označit změny"
 msgid "F&ilename for cover:"
 msgstr "&Název souboru s obalem:"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Kódování t&extu (Vyvést, seznam skladeb):"
+
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 
@@ -2624,6 +2627,9 @@ msgstr "Označit změny"
 
 msgid "Filename for cover"
 msgstr "Název souboru pro obal"
+
+msgid "Playlist text encoding"
+msgstr "Kódování textu seznamu skladeb"
 
 msgid "To filename format"
 msgstr "Do formátu názvu souboru"

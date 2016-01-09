@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1673,6 +1673,9 @@ msgstr "&Merkitse muutokset"
 msgid "F&ilename for cover:"
 msgstr "Kans&ikuvan tiedostonimi:"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Merkist&ökoodaus (Vie, soittolista):"
+
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 
@@ -2624,6 +2627,9 @@ msgstr "Merkitse muutokset"
 
 msgid "Filename for cover"
 msgstr "Kansikuvan tiedostonimi"
+
+msgid "Playlist text encoding"
+msgstr "Soittolistan merkistökoodaus"
 
 msgid "To filename format"
 msgstr "Määrittää tiedostonimi muoto"

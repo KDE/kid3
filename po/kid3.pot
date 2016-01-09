@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1669,6 +1669,9 @@ msgstr ""
 msgid "F&ilename for cover:"
 msgstr ""
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr ""
+
 msgid "&Filename Format"
 msgstr ""
 
@@ -2611,6 +2614,9 @@ msgid "Mark changes"
 msgstr ""
 
 msgid "Filename for cover"
+msgstr ""
+
+msgid "Playlist text encoding"
 msgstr ""
 
 msgid "To filename format"

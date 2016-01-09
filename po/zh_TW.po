@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1676,6 +1676,9 @@ msgstr "標記變更(&M)"
 msgid "F&ilename for cover:"
 msgstr "專輯封面的文件名(&I):"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "編碼 (匯出, 播放清單)(&E):"
+
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
@@ -2625,6 +2628,9 @@ msgstr "標記變更"
 
 msgid "Filename for cover"
 msgstr "專輯封面的文件名"
+
+msgid "Playlist text encoding"
+msgstr "播放清單字元編碼"
 
 msgid "To filename format"
 msgstr "到檔案名稱格式"

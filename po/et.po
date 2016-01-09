@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2015-12-06 15:34+0100\n"
+"POT-Creation-Date: 2016-01-09 10:45+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1673,6 +1673,9 @@ msgstr "&Muudetud väljad tõstetakse esile"
 msgid "F&ilename for cover:"
 msgstr "Kaanepildi &failinimi:"
 
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Teksti ko&deering (Eksport, esitusloendi):"
+
 msgid "&Filename Format"
 msgstr "&Failinime vorming"
 
@@ -2622,6 +2625,9 @@ msgstr "Muudetud väljad tõstetakse esile"
 
 msgid "Filename for cover"
 msgstr "Kaanepildi failinimi"
+
+msgid "Playlist text encoding"
+msgstr "Esitusloendi teksti kodeering"
 
 msgid "To filename format"
 msgstr "Esitada failinime vorming"
