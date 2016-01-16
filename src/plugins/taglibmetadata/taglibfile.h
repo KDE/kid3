@@ -155,6 +155,166 @@ public:
   virtual void deleteFramesV2(const FrameFilter& flt);
 
   /**
+   * Check if tag information has already been read.
+   *
+   * @return true if information is available,
+   *         false if the tags have not been read yet, in which case
+   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   */
+  virtual bool isTagInformationRead() const;
+
+  /**
+   * Check if file has an ID3v1 tag.
+   *
+   * @return true if a V1 tag is available.
+   * @see isTagInformationRead()
+   */
+  virtual bool hasTagV1() const;
+
+  /**
+   * Check if file has an ID3v2 tag.
+   *
+   * @return true if a V2 tag is available.
+   * @see isTagInformationRead()
+   */
+  virtual bool hasTagV2() const;
+
+  /**
+   * Check if ID3v1 tags are supported by the format of this file.
+   *
+   * @return true.
+   */
+  virtual bool isTagV1Supported() const;
+
+  /**
+   * Get technical detail information.
+   *
+   * @param info the detail information is returned here
+   */
+  virtual void getDetailInfo(DetailInfo& info) const;
+
+  /**
+   * Get duration of file.
+   *
+   * @return duration in seconds,
+   *         0 if unknown.
+   */
+  virtual unsigned getDuration() const;
+
+  /**
+   * Get file extension including the dot.
+   *
+   * @return file extension ".mp3".
+   */
+  virtual QString getFileExtension() const;
+
+  /**
+   * Get the format of tag 1.
+   *
+   * @return string describing format of tag 1,
+   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+   *         QString::null if unknown.
+   */
+  virtual QString getTagFormatV1() const;
+
+  /**
+   * Get the format of tag 2.
+   *
+   * @return string describing format of tag 2,
+   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+   *         QString::null if unknown.
+   */
+  virtual QString getTagFormatV2() const;
+
+  /**
+   * Set a frame in the tags 2.
+   *
+   * @param frame frame to set
+   *
+   * @return true if ok.
+   */
+  virtual bool setFrameV2(const Frame& frame);
+
+  /**
+   * Add a frame in the tags 2.
+   *
+   * @param frame frame to add, a field list may be added by this method
+   *
+   * @return true if ok.
+   */
+  virtual bool addFrameV2(Frame& frame);
+
+  /**
+   * Delete a frame in the tags 2.
+   *
+   * @param frame frame to delete.
+   *
+   * @return true if ok.
+   */
+  virtual bool deleteFrameV2(const Frame& frame);
+
+  /**
+   * Get all frames in tag 2.
+   *
+   * @param frames frame collection to set.
+   */
+  virtual void getAllFramesV2(FrameCollection& frames);
+
+  /**
+   * Close file handle which is held open by the TagLib object.
+   */
+  virtual void closeFileHandle();
+
+  /**
+   * Get a list of frame IDs which can be added.
+   *
+   * @return list with frame IDs.
+   */
+  virtual QStringList getFrameIds() const;
+
+  /**
+   * Add a suitable field list for the frame if missing.
+   * If a frame is created, its field list is empty. This method will create
+   * a field list appropriate for the frame type and tagged file type if no
+   * field list exists.
+   * @param frame frame where field list is added
+   */
+  virtual void addFieldList(Frame& frame) const;
+
+  /**
+   * Static initialization.
+   * Registers file types.
+   */
+  static void staticInit();
+
+  /**
+   * Get the default text encoding.
+   * @return default text encoding.
+   */
+  static TagLib::String::Type getDefaultTextEncoding() { return s_defaultTextEncoding; }
+
+  /**
+   * Notify about configuration change.
+   * This method shall be called when the configuration changes.
+   */
+  static void notifyConfigurationChange();
+
+private:
+  /** Tag type for cached information. */
+  enum TagType {
+    TT_Unknown,
+    TT_Id3v1,
+    TT_Id3v2,
+    TT_Vorbis,
+    TT_Ape,
+    TT_Mp4,
+    TT_Asf
+  };
+
+  TagLibFile(const TagLibFile&);
+  TagLibFile& operator=(const TagLibFile&);
+
+  /**
    * Get ID3v1 title.
    *
    * @return string,
@@ -377,166 +537,6 @@ public:
    * @param str string to set, "" to remove field, QString::null to ignore.
    */
   virtual void setGenreV2(const QString& str);
-
-  /**
-   * Check if tag information has already been read.
-   *
-   * @return true if information is available,
-   *         false if the tags have not been read yet, in which case
-   *         hasTagV1() and hasTagV2() do not return meaningful information.
-   */
-  virtual bool isTagInformationRead() const;
-
-  /**
-   * Check if file has an ID3v1 tag.
-   *
-   * @return true if a V1 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV1() const;
-
-  /**
-   * Check if file has an ID3v2 tag.
-   *
-   * @return true if a V2 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV2() const;
-
-  /**
-   * Check if ID3v1 tags are supported by the format of this file.
-   *
-   * @return true.
-   */
-  virtual bool isTagV1Supported() const;
-
-  /**
-   * Get technical detail information.
-   *
-   * @param info the detail information is returned here
-   */
-  virtual void getDetailInfo(DetailInfo& info) const;
-
-  /**
-   * Get duration of file.
-   *
-   * @return duration in seconds,
-   *         0 if unknown.
-   */
-  virtual unsigned getDuration() const;
-
-  /**
-   * Get file extension including the dot.
-   *
-   * @return file extension ".mp3".
-   */
-  virtual QString getFileExtension() const;
-
-  /**
-   * Get the format of tag 1.
-   *
-   * @return string describing format of tag 1,
-   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
-   *         QString::null if unknown.
-   */
-  virtual QString getTagFormatV1() const;
-
-  /**
-   * Get the format of tag 2.
-   *
-   * @return string describing format of tag 2,
-   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
-   *         QString::null if unknown.
-   */
-  virtual QString getTagFormatV2() const;
-
-  /**
-   * Set a frame in the tags 2.
-   *
-   * @param frame frame to set
-   *
-   * @return true if ok.
-   */
-  virtual bool setFrameV2(const Frame& frame);
-
-  /**
-   * Add a frame in the tags 2.
-   *
-   * @param frame frame to add, a field list may be added by this method
-   *
-   * @return true if ok.
-   */
-  virtual bool addFrameV2(Frame& frame);
-
-  /**
-   * Delete a frame in the tags 2.
-   *
-   * @param frame frame to delete.
-   *
-   * @return true if ok.
-   */
-  virtual bool deleteFrameV2(const Frame& frame);
-
-  /**
-   * Get all frames in tag 2.
-   *
-   * @param frames frame collection to set.
-   */
-  virtual void getAllFramesV2(FrameCollection& frames);
-
-  /**
-   * Close file handle which is held open by the TagLib object.
-   */
-  virtual void closeFileHandle();
-
-  /**
-   * Get a list of frame IDs which can be added.
-   *
-   * @return list with frame IDs.
-   */
-  virtual QStringList getFrameIds() const;
-
-  /**
-   * Add a suitable field list for the frame if missing.
-   * If a frame is created, its field list is empty. This method will create
-   * a field list appropriate for the frame type and tagged file type if no
-   * field list exists.
-   * @param frame frame where field list is added
-   */
-  virtual void addFieldList(Frame& frame) const;
-
-  /**
-   * Static initialization.
-   * Registers file types.
-   */
-  static void staticInit();
-
-  /**
-   * Get the default text encoding.
-   * @return default text encoding.
-   */
-  static TagLib::String::Type getDefaultTextEncoding() { return s_defaultTextEncoding; }
-
-  /**
-   * Notify about configuration change.
-   * This method shall be called when the configuration changes.
-   */
-  static void notifyConfigurationChange();
-
-private:
-  /** Tag type for cached information. */
-  enum TagType {
-    TT_Unknown,
-    TT_Id3v1,
-    TT_Id3v2,
-    TT_Vorbis,
-    TT_Ape,
-    TT_Mp4,
-    TT_Asf
-  };
-
-  TagLibFile(const TagLibFile&);
-  TagLibFile& operator=(const TagLibFile&);
 
   /**
    * Close file handle.

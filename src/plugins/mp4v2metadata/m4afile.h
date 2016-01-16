@@ -79,6 +79,97 @@ public:
   virtual void deleteFramesV2(const FrameFilter& flt);
 
   /**
+   * Check if tag information has already been read.
+   *
+   * @return true if information is available,
+   *         false if the tags have not been read yet, in which case
+   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   */
+  virtual bool isTagInformationRead() const;
+
+  /**
+   * Check if file has an ID3v2 tag.
+   *
+   * @return true if a V2 tag is available.
+   * @see isTagInformationRead()
+   */
+  virtual bool hasTagV2() const;
+
+  /**
+   * Get technical detail information.
+   *
+   * @param info the detail information is returned here
+   */
+  virtual void getDetailInfo(DetailInfo& info) const;
+
+  /**
+   * Get duration of file.
+   *
+   * @return duration in seconds,
+   *         0 if unknown.
+   */
+  virtual unsigned getDuration() const;
+
+  /**
+   * Get file extension including the dot.
+   *
+   * @return file extension ".m4a".
+   */
+  virtual QString getFileExtension() const;
+
+  /**
+   * Get the format of tag 2.
+   *
+   * @return "Vorbis".
+   */
+  virtual QString getTagFormatV2() const;
+
+  /**
+   * Set a frame in the tags 2.
+   *
+   * @param frame frame to set
+   *
+   * @return true if ok.
+   */
+  virtual bool setFrameV2(const Frame& frame);
+
+  /**
+   * Add a frame in the tags 2.
+   *
+   * @param frame frame to add
+   *
+   * @return true if ok.
+   */
+  virtual bool addFrameV2(Frame& frame);
+
+  /**
+   * Delete a frame in the tags 2.
+   *
+   * @param frame frame to delete.
+   *
+   * @return true if ok.
+   */
+  virtual bool deleteFrameV2(const Frame& frame);
+
+  /**
+   * Get all frames in tag 2.
+   *
+   * @param frames frame collection to set.
+   */
+  virtual void getAllFramesV2(FrameCollection& frames);
+
+  /**
+   * Get a list of frame IDs which can be added.
+   *
+   * @return list with frame IDs.
+   */
+  virtual QStringList getFrameIds() const;
+
+private:
+  M4aFile(const M4aFile&);
+  M4aFile& operator=(const M4aFile&);
+
+  /**
    * Get ID3v2 title.
    *
    * @return string,
@@ -189,97 +280,6 @@ public:
    * @param str string to set, "" to remove field, QString::null to ignore.
    */
   virtual void setGenreV2(const QString& str);
-
-  /**
-   * Check if tag information has already been read.
-   *
-   * @return true if information is available,
-   *         false if the tags have not been read yet, in which case
-   *         hasTagV1() and hasTagV2() do not return meaningful information.
-   */
-  virtual bool isTagInformationRead() const;
-
-  /**
-   * Check if file has an ID3v2 tag.
-   *
-   * @return true if a V2 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV2() const;
-
-  /**
-   * Get technical detail information.
-   *
-   * @param info the detail information is returned here
-   */
-  virtual void getDetailInfo(DetailInfo& info) const;
-
-  /**
-   * Get duration of file.
-   *
-   * @return duration in seconds,
-   *         0 if unknown.
-   */
-  virtual unsigned getDuration() const;
-
-  /**
-   * Get file extension including the dot.
-   *
-   * @return file extension ".m4a".
-   */
-  virtual QString getFileExtension() const;
-
-  /**
-   * Get the format of tag 2.
-   *
-   * @return "Vorbis".
-   */
-  virtual QString getTagFormatV2() const;
-
-  /**
-   * Set a frame in the tags 2.
-   *
-   * @param frame frame to set
-   *
-   * @return true if ok.
-   */
-  virtual bool setFrameV2(const Frame& frame);
-
-  /**
-   * Add a frame in the tags 2.
-   *
-   * @param frame frame to add
-   *
-   * @return true if ok.
-   */
-  virtual bool addFrameV2(Frame& frame);
-
-  /**
-   * Delete a frame in the tags 2.
-   *
-   * @param frame frame to delete.
-   *
-   * @return true if ok.
-   */
-  virtual bool deleteFrameV2(const Frame& frame);
-
-  /**
-   * Get all frames in tag 2.
-   *
-   * @param frames frame collection to set.
-   */
-  virtual void getAllFramesV2(FrameCollection& frames);
-
-  /**
-   * Get a list of frame IDs which can be added.
-   *
-   * @return list with frame IDs.
-   */
-  virtual QStringList getFrameIds() const;
-
-private:
-  M4aFile(const M4aFile&);
-  M4aFile& operator=(const M4aFile&);
 
   /**
    * Get metadata field as string.

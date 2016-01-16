@@ -986,7 +986,7 @@ int TaggedFile::checkTruncation(int val, quint64 flag,
  *
  * @return true if ok.
  */
-bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
+bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame) const
 {
   int n = -1;
   bool number = false;
@@ -1089,7 +1089,7 @@ bool TaggedFile::setFrameV1(const Frame& frame)
  *
  * @return true if ok.
  */
-bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
+bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame) const
 {
   int n = -1;
   bool number = false;

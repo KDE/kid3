@@ -306,9 +306,18 @@ void TimeEventEditor::exportData()
       if (codecName != QLatin1String("System")) {
         stream.setCodec(codecName.toLatin1());
       }
-      m_model->toLrcFile(stream, m_taggedFile->getTitleV2(),
-                                 m_taggedFile->getArtistV2(),
-                                 m_taggedFile->getAlbumV2());
+      QString title, artist, album;
+      Frame frame;
+      if (m_taggedFile->getFrameV2(Frame::FT_Title, frame)) {
+        title = frame.getValue();
+      }
+      if (m_taggedFile->getFrameV2(Frame::FT_Artist, frame)) {
+        artist = frame.getValue();
+      }
+      if (m_taggedFile->getFrameV2(Frame::FT_Album, frame)) {
+        album = frame.getValue();
+      }
+      m_model->toLrcFile(stream, title, artist, album);
       file.close();
     }
   }

@@ -165,69 +165,6 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve) = 0;
 
   /**
-   * Get ID3v1 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV1() const;
-
-  /**
-   * Get ID3v1 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV1() const;
-
-  /**
-   * Get ID3v1 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV1() const;
-
-  /**
-   * Get ID3v1 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV1() const;
-
-  /**
-   * Get ID3v1 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV1() const;
-
-  /**
-   * Get ID3v1 track.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getTrackNumV1() const;
-
-  /**
-   * Get ID3v1 genre.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV1() const;
-
-  /**
    * Remove ID3v1 frames.
    *
    * @param flt filter specifying which frames to remove
@@ -235,53 +172,11 @@ public:
   virtual void deleteFramesV1(const FrameFilter& flt);
 
   /**
-   * Set ID3v1 title.
+   * Remove ID3v2 frames.
    *
-   * @param str string to set, "" to remove field.
+   * @param flt filter specifying which frames to remove
    */
-  virtual void setTitleV1(const QString& str);
-
-  /**
-   * Set ID3v1 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV1(const QString& str);
-
-  /**
-   * Set ID3v1 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV1(const QString& str);
-
-  /**
-   * Set ID3v1 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV1(const QString& str);
-
-  /**
-   * Set ID3v1 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV1(int num);
-
-  /**
-   * Set ID3v1 track.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setTrackNumV1(int num);
-
-  /**
-   * Set ID3v1 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV1(const QString& str);
+  virtual void deleteFramesV2(const FrameFilter& flt);
 
   /**
    * Check if file has an ID3v1 tag.
@@ -297,125 +192,6 @@ public:
    * @return true if V1 tags are supported.
    */
   virtual bool isTagV1Supported() const;
-
-  /**
-   * Get ID3v2 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV2() const = 0;
-
-  /**
-   * Get ID3v2 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV2() const = 0;
-
-  /**
-   * Get ID3v2 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV2() const = 0;
-
-  /**
-   * Get ID3v2 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV2() const = 0;
-
-  /**
-   * Get ID3v2 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV2() const = 0;
-
-  /**
-   * Get ID3v2 track.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTrackV2() const = 0;
-
-  /**
-   * Remove ID3v2 frames.
-   *
-   * @param flt filter specifying which frames to remove
-   */
-  virtual void deleteFramesV2(const FrameFilter& flt);
-
-  /**
-   * Get ID3v2 genre as text.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV2() const = 0;
-
-  /**
-   * Set ID3v2 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV2(int num) = 0;
-
-  /**
-   * Set ID3v2 track.
-   *
-   * @param track string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setTrackV2(const QString& track) = 0;
-
-  /**
-   * Set ID3v2 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV2(const QString& str) = 0;
 
   /**
    * Check if file has an ID3v2 tag.
@@ -482,7 +258,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool getFrameV1(Frame::Type type, Frame& frame);
+  virtual bool getFrameV1(Frame::Type type, Frame& frame) const;
 
   /**
    * Set a frame in the tags 1.
@@ -501,7 +277,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool getFrameV2(Frame::Type type, Frame& frame);
+  virtual bool getFrameV2(Frame::Type type, Frame& frame) const;
 
   /**
    * Set a frame in the tags 2.
@@ -898,6 +674,230 @@ protected:
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);
+
+  /**
+   * Get ID3v1 title.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getTitleV1() const;
+
+  /**
+   * Get ID3v1 artist.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getArtistV1() const;
+
+  /**
+   * Get ID3v1 album.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getAlbumV1() const;
+
+  /**
+   * Get ID3v1 comment.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getCommentV1() const;
+
+  /**
+   * Get ID3v1 year.
+   *
+   * @return number,
+   *         0 if the field does not exist,
+   *         -1 if the tags do not exist.
+   */
+  virtual int getYearV1() const;
+
+  /**
+   * Get ID3v1 track.
+   *
+   * @return number,
+   *         0 if the field does not exist,
+   *         -1 if the tags do not exist.
+   */
+  virtual int getTrackNumV1() const;
+
+  /**
+   * Get ID3v1 genre.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getGenreV1() const;
+
+  /**
+   * Set ID3v1 title.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setTitleV1(const QString& str);
+
+  /**
+   * Set ID3v1 artist.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setArtistV1(const QString& str);
+
+  /**
+   * Set ID3v1 album.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setAlbumV1(const QString& str);
+
+  /**
+   * Set ID3v1 comment.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setCommentV1(const QString& str);
+
+  /**
+   * Set ID3v1 year.
+   *
+   * @param num number to set, 0 to remove field.
+   */
+  virtual void setYearV1(int num);
+
+  /**
+   * Set ID3v1 track.
+   *
+   * @param num number to set, 0 to remove field.
+   */
+  virtual void setTrackNumV1(int num);
+
+  /**
+   * Set ID3v1 genre as text.
+   *
+   * @param str string to set, "" to remove field, QString::null to ignore.
+   */
+  virtual void setGenreV1(const QString& str);
+
+  /**
+   * Get ID3v2 title.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getTitleV2() const = 0;
+
+  /**
+   * Get ID3v2 artist.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getArtistV2() const = 0;
+
+  /**
+   * Get ID3v2 album.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getAlbumV2() const = 0;
+
+  /**
+   * Get ID3v2 comment.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getCommentV2() const = 0;
+
+  /**
+   * Get ID3v2 year.
+   *
+   * @return number,
+   *         0 if the field does not exist,
+   *         -1 if the tags do not exist.
+   */
+  virtual int getYearV2() const = 0;
+
+  /**
+   * Get ID3v2 track.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getTrackV2() const = 0;
+
+  /**
+   * Get ID3v2 genre as text.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getGenreV2() const = 0;
+
+  /**
+   * Set ID3v2 title.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setTitleV2(const QString& str) = 0;
+
+  /**
+   * Set ID3v2 artist.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setArtistV2(const QString& str) = 0;
+
+  /**
+   * Set ID3v2 album.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setAlbumV2(const QString& str) = 0;
+
+  /**
+   * Set ID3v2 comment.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setCommentV2(const QString& str) = 0;
+
+  /**
+   * Set ID3v2 year.
+   *
+   * @param num number to set, 0 to remove field.
+   */
+  virtual void setYearV2(int num) = 0;
+
+  /**
+   * Set ID3v2 track.
+   *
+   * @param track string to set, "" to remove field, QString::null to ignore.
+   */
+  virtual void setTrackV2(const QString& track) = 0;
+
+  /**
+   * Set ID3v2 genre as text.
+   *
+   * @param str string to set, "" to remove field, QString::null to ignore.
+   */
+  virtual void setGenreV2(const QString& str) = 0;
 
   void updateModifiedState();
 

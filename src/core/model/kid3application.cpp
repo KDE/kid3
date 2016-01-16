@@ -2541,9 +2541,18 @@ void Kid3Application::numberTracks(int nr, int total,
     }
     if (tagVersion & Frame::TagV1) {
       if (options & NumberTracksEnabled) {
-        int oldnr = taggedFile->getTrackNumV1();
-        if (nr != oldnr) {
-          taggedFile->setTrackNumV1(nr);
+        QString value;
+        value.setNum(nr);
+        Frame frame;
+        if (taggedFile->getFrameV1(Frame::FT_Track, frame)) {
+          frame.setValueIfChanged(value);
+          if (frame.isValueChanged()) {
+            taggedFile->setFrameV1(frame);
+          }
+        } else {
+          frame.setValue(value);
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
+          taggedFile->setFrameV1(frame);
         }
       }
     }
