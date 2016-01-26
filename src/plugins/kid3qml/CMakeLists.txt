@@ -58,9 +58,9 @@ if (WIN32)
 else (WIN32)
   set(_qmldirPluginName kid3qml)
 endif (WIN32)
-add_custom_command(TARGET ${plugin_TARGET} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir "${kid3_plugins_BINARY_DIR}/imports/Kid3/"
-)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/qmldir.in
+               "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
+               @ONLY)
 add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Script.qml "${kid3_plugins_BINARY_DIR}/imports/Kid3/"
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Script.qml

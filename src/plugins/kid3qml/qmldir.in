@@ -1,0 +1,3 @@
+module Kid3
+plugin @_qmldirPluginName@
+Kid3Script 1.0 Kid3Script.qml
