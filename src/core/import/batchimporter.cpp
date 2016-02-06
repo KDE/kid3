@@ -266,7 +266,7 @@ void BatchImporter::stateTransition()
   case GettingCover:
     if (m_trackDataModel) {
       QUrl imgUrl;
-      if (m_tagVersion & Frame::TagV2) {
+      if (m_tagVersion & Frame::tagVersionFromNumber(Frame::Tag_Picture)) {
         QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
         if (!coverArtUrl.isEmpty()) {
           imgUrl = DownloadClient::getImageUrl(coverArtUrl);
@@ -356,11 +356,8 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
             taggedFile->readTags(false);
             it->removeDisabledFrames(m_frameFilter);
             TagFormatConfig::instance().formatFramesIfEnabled(*it);
-            if (m_tagVersion & Frame::TagV1) {
-              taggedFile->setFramesV1(*it, false);
-            }
-            if (m_tagVersion & Frame::TagV2) {
-              taggedFile->setFramesV2(*it, false);
+            FOR_TAGS_IN_MASK(tagNr, m_tagVersion) {
+              taggedFile->setFrames(tagNr, *it, false);
             }
           }
         }
@@ -416,7 +413,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
              ++it) {
           if (TaggedFile* taggedFile = it->getTaggedFile()) {
             taggedFile->readTags(false);
-            taggedFile->addFrameV2(frame);
+            taggedFile->addFrame(Frame::Tag_Picture, frame);
           }
         }
         m_importedData |= CoverArt;

@@ -188,7 +188,7 @@ void OggFile::readTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_comments.clear();
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
     QString fnIn = currentFilePath();
 
@@ -251,7 +251,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
     return false;
   }
 
-  if (m_fileRead && (force || isTag2Changed())) {
+  if (m_fileRead && (force || isTagChanged(Frame::Tag_2))) {
     bool writeOk = false;
     // we have to rename the original file and delete it afterwards
     QString filename = currentFilename();
@@ -324,7 +324,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
       renameFile(tempFilename, currentFilename());
       return false;
     }
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
     QDir(dirname).remove(tempFilename);
     if (isFilenameChanged()) {
       markFilenameUnchanged();
@@ -460,15 +460,19 @@ static QString getVorbisName(const Frame& frame)
 }
 
 /**
- * Remove ID3v2 frames.
+ * Remove frames.
  *
+ * @param tagNr tag number
  * @param flt filter specifying which frames to remove
  */
-void OggFile::deleteFramesV2(const FrameFilter& flt)
+void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 {
+  if (tagNr != Frame::Tag_2)
+    return;
+
   if (flt.areAllEnabled()) {
     m_comments.clear();
-    markTag2Changed(Frame::FT_UnknownFrame);
+    markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
     for (OggFile::CommentList::iterator it = m_comments.begin();
@@ -482,96 +486,9 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
       }
     }
     if (changed) {
-      markTag2Changed(Frame::FT_UnknownFrame);
+      markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
     }
   }
-}
-
-/**
- * Get ID3v2 title.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getTitleV2() const
-{
-  return getTextField(QLatin1String("TITLE"));
-}
-
-/**
- * Get ID3v2 artist.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getArtistV2() const
-{
-  return getTextField(QLatin1String("ARTIST"));
-}
-
-/**
- * Get ID3v2 album.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getAlbumV2() const
-{
-  return getTextField(QLatin1String("ALBUM"));
-}
-
-/**
- * Get ID3v2 comment.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getCommentV2() const
-{
-  return getTextField(getCommentFieldName());
-}
-
-/**
- * Get ID3v2 year.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int OggFile::getYearV2() const
-{
-  QString str = getTextField(QLatin1String("DATE"));
-  if (str.isNull()) return -1;
-  if (str.isEmpty()) return 0;
-  return str.toInt();
-}
-
-/**
- * Get ID3v2 track.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getTrackV2() const
-{
-  return getTextField(QLatin1String("TRACKNUMBER"));
-}
-
-/**
- * Get ID3v2 genre as text.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString OggFile::getGenreV2() const
-{
-  return getTextField(QLatin1String("GENRE"));
 }
 
 /**
@@ -603,102 +520,8 @@ void OggFile::setTextField(const QString& name, const QString& value,
 {
   if (m_fileRead && !value.isNull() &&
       m_comments.setValue(name, value)) {
-    markTag2Changed(type);
+    markTagChanged(Frame::Tag_2, type);
   }
-}
-
-/**
- * Set ID3v2 title.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setTitleV2(const QString& str)
-{
-  setTextField(QLatin1String("TITLE"), str, Frame::FT_Title);
-}
-
-/**
- * Set ID3v2 artist.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setArtistV2(const QString& str)
-{
-  setTextField(QLatin1String("ARTIST"), str, Frame::FT_Artist);
-}
-
-/**
- * Set ID3v2 album.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setAlbumV2(const QString& str)
-{
-  setTextField(QLatin1String("ALBUM"), str, Frame::FT_Album);
-}
-
-/**
- * Set ID3v2 comment.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setCommentV2(const QString& str)
-{
-  setTextField(getCommentFieldName(), str, Frame::FT_Comment);
-}
-
-/**
- * Set ID3v2 year.
- *
- * @param num number to set, 0 to remove field, < 0 to ignore.
- */
-void OggFile::setYearV2(int num)
-{
-  if (num >= 0) {
-    QString str;
-    if (num != 0) {
-      str.setNum(num);
-    } else {
-      str = QLatin1String("");
-    }
-    setTextField(QLatin1String("DATE"), str, Frame::FT_Date);
-  }
-}
-
-/**
- * Set ID3v2 track.
- *
- * @param track string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setTrackV2(const QString& track)
-{
-  int numTracks;
-  int num = splitNumberAndTotal(track, &numTracks);
-  if (num >= 0) {
-    QString str;
-    if (num != 0) {
-      str.setNum(num);
-      formatTrackNumberIfEnabled(str, false);
-    } else {
-      str = QLatin1String("");
-    }
-    setTextField(QLatin1String("TRACKNUMBER"), str, Frame::FT_Track);
-    if (numTracks > 0) {
-      str.setNum(numTracks);
-      formatTrackNumberIfEnabled(str, false);
-      setTextField(QLatin1String("TRACKTOTAL"), str, Frame::FT_Other);
-    }
-  }
-}
-
-/**
- * Set ID3v2 genre as text.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void OggFile::setGenreV2(const QString& str)
-{
-  setTextField(QLatin1String("GENRE"), str, Frame::FT_Genre);
 }
 
 /**
@@ -706,7 +529,7 @@ void OggFile::setGenreV2(const QString& str)
  *
  * @return true if information is available,
  *         false if the tags have not been read yet, in which case
- *         hasTagV1() and hasTagV2() do not return meaningful information.
+ *         hasTag() does not return meaningful information.
  */
 bool OggFile::isTagInformationRead() const
 {
@@ -714,14 +537,15 @@ bool OggFile::isTagInformationRead() const
 }
 
 /**
- * Check if file has an ID3v2 tag.
+ * Check if file has a tag.
  *
- * @return true if a V2 tag is available.
+ * @param tagNr tag number
+ * @return true if a tag is available.
  * @see isTagInformationRead()
  */
-bool OggFile::hasTagV2() const
+bool OggFile::hasTag(Frame::TagNumber tagNr) const
 {
-  return !m_comments.empty();
+  return tagNr == Frame::Tag_2 && !m_comments.empty();
 }
 
 /**
@@ -773,150 +597,226 @@ unsigned OggFile::getDuration() const { return 0; }
 #endif // HAVE_VORBIS
 
 /**
- * Get the format of tag 2.
+ * Get the format of tag.
  *
+ * @param tagNr tag number
  * @return "Vorbis".
  */
-QString OggFile::getTagFormatV2() const
+QString OggFile::getTagFormat(Frame::TagNumber tagNr) const
 {
-  return hasTagV2() ? QLatin1String("Vorbis") : QString();
+  return hasTag(tagNr) ? QLatin1String("Vorbis") : QString();
 }
 
 /**
- * Set a frame in the tags 2.
+ * Get a specific frame from the tags.
  *
- * @param frame frame to set
- *
- * @return true if ok.
- */
-bool OggFile::setFrameV2(const Frame& frame)
-{
-  if (frame.getType() == Frame::FT_Track) {
-    int numTracks = getTotalNumberOfTracksIfEnabled();
-    if (numTracks > 0) {
-      QString numTracksStr = QString::number(numTracks);
-      formatTrackNumberIfEnabled(numTracksStr, false);
-      if (getTextField(QLatin1String("TRACKTOTAL")) != numTracksStr) {
-        setTextField(QLatin1String("TRACKTOTAL"), numTracksStr, Frame::FT_Other);
-        markTag2Changed(Frame::FT_Other);
-      }
-    }
-  }
-
-  // If the frame has an index, change that specific frame
-  int index = frame.getIndex();
-  if (index != -1 && index < static_cast<int>(m_comments.size())) {
-    QString value = frame.getValue();
-    if (frame.getType() == Frame::FT_Picture) {
-      Frame newFrame(frame);
-      PictureFrame::setDescription(newFrame, value);
-      PictureFrame::getFieldsToBase64(newFrame, value);
-      if (!value.isEmpty() && frame.getInternalName() == QLatin1String("COVERART")) {
-        QString mimeType;
-        PictureFrame::getMimeType(frame, mimeType);
-        setTextField(QLatin1String("COVERARTMIME"), mimeType, Frame::FT_Other);
-      }
-    } else if (frame.getType() == Frame::FT_Track) {
-      formatTrackNumberIfEnabled(value, false);
-    }
-    if (m_comments[index].getValue() != value) {
-      m_comments[index].setValue(value);
-      markTag2Changed(frame.getType());
-    }
-    return true;
-  }
-
-  // Try the superclass method
-  return TaggedFile::setFrameV2(frame);
-}
-
-/**
- * Add a frame in the tags 2.
- *
- * @param frame frame to add
+ * @param tagNr tag number
+ * @param type  frame type
+ * @param frame the frame is returned here
  *
  * @return true if ok.
  */
-bool OggFile::addFrameV2(Frame& frame)
+bool OggFile::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const
 {
-  // Add a new frame.
-  QString name(getVorbisName(frame));
-  QString value(frame.getValue());
-  if (frame.getType() == Frame::FT_Picture) {
-    if (frame.getFieldList().empty()) {
-      PictureFrame::setFields(
-        frame, Frame::TE_ISO8859_1, QLatin1String(""), QLatin1String("image/jpeg"),
-        PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
-    }
-    frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
-    PictureFrame::getFieldsToBase64(frame, value);
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
+      tagNr > 1)
+    return false;
+
+  if (tagNr == Frame::Tag_1) {
+    frame.setValue(QString());
+  } else {
+    frame.setValue(getTextField(
+                     QString::fromLatin1(getVorbisNameFromType(type))));
   }
-  m_comments.push_back(OggFile::CommentField(name, value));
-  frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
-  frame.setIndex(m_comments.size() - 1);
-  markTag2Changed(frame.getType());
+  frame.setType(type);
   return true;
 }
 
 /**
- * Delete a frame in the tags 2.
+ * Set a frame in the tags.
  *
+ * @param tagNr tag number
+ * @param frame frame to set
+ *
+ * @return true if ok.
+ */
+bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
+{
+  if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Track) {
+      int numTracks = getTotalNumberOfTracksIfEnabled();
+      if (numTracks > 0) {
+        QString numTracksStr = QString::number(numTracks);
+        formatTrackNumberIfEnabled(numTracksStr, false);
+        if (getTextField(QLatin1String("TRACKTOTAL")) != numTracksStr) {
+          setTextField(QLatin1String("TRACKTOTAL"), numTracksStr, Frame::FT_Other);
+          markTagChanged(Frame::Tag_2, Frame::FT_Other);
+        }
+      }
+    }
+
+    // If the frame has an index, change that specific frame
+    int index = frame.getIndex();
+    if (index != -1 && index < static_cast<int>(m_comments.size())) {
+      QString value = frame.getValue();
+      if (frame.getType() == Frame::FT_Picture) {
+        Frame newFrame(frame);
+        PictureFrame::setDescription(newFrame, value);
+        PictureFrame::getFieldsToBase64(newFrame, value);
+        if (!value.isEmpty() && frame.getInternalName() == QLatin1String("COVERART")) {
+          QString mimeType;
+          PictureFrame::getMimeType(frame, mimeType);
+          setTextField(QLatin1String("COVERARTMIME"), mimeType, Frame::FT_Other);
+        }
+      } else if (frame.getType() == Frame::FT_Track) {
+        formatTrackNumberIfEnabled(value, false);
+      }
+      if (m_comments[index].getValue() != value) {
+        m_comments[index].setValue(value);
+        markTagChanged(Frame::Tag_2, frame.getType());
+      }
+      return true;
+    }
+  }
+
+  // Try the basic method
+  Frame::Type type = frame.getType();
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
+      tagNr > 1)
+    return false;
+
+  if (tagNr == Frame::Tag_2) {
+    if (type == Frame::FT_Track) {
+      int numTracks;
+      int num = splitNumberAndTotal(frame.getValue(), &numTracks);
+      if (num >= 0) {
+        QString str;
+        if (num != 0) {
+          str.setNum(num);
+          formatTrackNumberIfEnabled(str, false);
+        } else {
+          str = QLatin1String("");
+        }
+        setTextField(QLatin1String("TRACKNUMBER"), str, Frame::FT_Track);
+        if (numTracks > 0) {
+          str.setNum(numTracks);
+          formatTrackNumberIfEnabled(str, false);
+          setTextField(QLatin1String("TRACKTOTAL"), str, Frame::FT_Other);
+        }
+      }
+    } else {
+      setTextField(type == Frame::FT_Comment
+                   ? getCommentFieldName()
+                   : QString::fromLatin1(getVorbisNameFromType(type)),
+                   frame.getValue(), type);
+    }
+  }
+  return true;
+}
+
+/**
+ * Add a frame in the tags.
+ *
+ * @param tagNr tag number
+ * @param frame frame to add
+ *
+ * @return true if ok.
+ */
+bool OggFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
+{
+  if (tagNr == Frame::Tag_2) {
+    // Add a new frame.
+    QString name(getVorbisName(frame));
+    QString value(frame.getValue());
+    if (frame.getType() == Frame::FT_Picture) {
+      if (frame.getFieldList().empty()) {
+        PictureFrame::setFields(
+          frame, Frame::TE_ISO8859_1, QLatin1String(""), QLatin1String("image/jpeg"),
+          PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
+      }
+      frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
+      PictureFrame::getFieldsToBase64(frame, value);
+    }
+    m_comments.push_back(OggFile::CommentField(name, value));
+    frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
+    frame.setIndex(m_comments.size() - 1);
+    markTagChanged(Frame::Tag_2, frame.getType());
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Delete a frame in the tags.
+ *
+ * @param tagNr tag number
  * @param frame frame to delete.
  *
  * @return true if ok.
  */
-bool OggFile::deleteFrameV2(const Frame& frame)
+bool OggFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
-  // If the frame has an index, delete that specific frame
-  int index = frame.getIndex();
-  if (index != -1 && index < static_cast<int>(m_comments.size())) {
-    m_comments.removeAt(index);
-    markTag2Changed(frame.getType());
-    return true;
+  if (tagNr == Frame::Tag_2) {
+    // If the frame has an index, delete that specific frame
+    int index = frame.getIndex();
+    if (index != -1 && index < static_cast<int>(m_comments.size())) {
+      m_comments.removeAt(index);
+      markTagChanged(Frame::Tag_2, frame.getType());
+      return true;
+    }
   }
 
   // Try the superclass method
-  return TaggedFile::deleteFrameV2(frame);
+  return TaggedFile::deleteFrame(tagNr, frame);
 }
 
 /**
- * Get all frames in tag 2.
+ * Get all frames in tag.
  *
+ * @param tagNr tag number
  * @param frames frame collection to set.
  */
-void OggFile::getAllFramesV2(FrameCollection& frames)
+void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
-  frames.clear();
-  resetMarkedState();
-  QString name;
-  int i = 0;
-  for (OggFile::CommentList::const_iterator it = m_comments.begin();
-       it != m_comments.end();
-       ++it) {
-    name = (*it).getName();
-    Frame::Type type = getTypeFromVorbisName(name);
-    if (type == Frame::FT_Picture) {
-      Frame frame(type, QLatin1String(""), name, i++);
-      PictureFrame::setFieldsFromBase64(frame, (*it).getValue());
-      if (name == QLatin1String("COVERART")) {
-        PictureFrame::setMimeType(frame, getTextField(QLatin1String("COVERARTMIME")));
+  if (tagNr == Frame::Tag_2) {
+    frames.clear();
+    resetMarkedState();
+    QString name;
+    int i = 0;
+    for (OggFile::CommentList::const_iterator it = m_comments.begin();
+         it != m_comments.end();
+         ++it) {
+      name = (*it).getName();
+      Frame::Type type = getTypeFromVorbisName(name);
+      if (type == Frame::FT_Picture) {
+        Frame frame(type, QLatin1String(""), name, i++);
+        PictureFrame::setFieldsFromBase64(frame, (*it).getValue());
+        if (name == QLatin1String("COVERART")) {
+          PictureFrame::setMimeType(frame, getTextField(QLatin1String("COVERARTMIME")));
+        }
+        updateMarkedState(frame);
+        frames.insert(frame);
+      } else {
+        frames.insert(Frame(type, (*it).getValue(), name, i++));
       }
-      updateMarkedState(frame);
-      frames.insert(frame);
-    } else {
-      frames.insert(Frame(type, (*it).getValue(), name, i++));
     }
+    frames.addMissingStandardFrames();
+    return;
   }
-  frames.addMissingStandardFrames();
+
+  TaggedFile::getAllFrames(tagNr, frames);
 }
 
 /**
  * Get a list of frame IDs which can be added.
- *
+ * @param tagNr tag number
  * @return list with frame IDs.
  */
-QStringList OggFile::getFrameIds() const
+QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
 {
+  if (tagNr != Frame::Tag_2)
+    return QStringList();
+
   static const char* const fieldNames[] = {
     "CONTACT",
     "DESCRIPTION",

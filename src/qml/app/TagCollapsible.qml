@@ -1,6 +1,6 @@
 /**
- * \file Tag2Collapsible.qml
- * Collapsible with tag 2 information.
+ * \file TagCollapsible.qml
+ * Collapsible with tag information.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -29,76 +29,89 @@ import "../componentsqtquick" //@!Ubuntu
 import Kid3 1.0
 
 Collapsible {
-  id: collapsibleV2
+  id: collapsible
+  property int tagNr
+  property QtObject appTag: app.tag(tagNr)
+  property QtObject selTag: app.selectionInfo.tag(tagNr)
+  property bool hasFrameList: tagNr !== Frame.Tag_Id3v1
 
   function acceptEdit() {
     // Force focus lost to store changes.
-    frameTableV2.currentIndex = -1
+    frameTable.currentIndex = -1
   }
 
-  text: qsTr("Tag 2") + ": " + app.selectionInfo.tagFormatV2
+  text: qsTr("Tag %1").arg(tagNr + 1) + ": " + collapsible.selTag.tagFormat
+  visible: tagNr <= Frame.Tag_2 || selTag.tagUsed
   buttons: [
     Button {
-      id: v2EditButton
       iconName: "edit"
       width: height
       onClicked: {
-        app.frameList.selectByRow(frameTableV2.currentIndex)
-        app.editFrame()
+        appTag.frameList.selectByRow(frameTable.currentIndex)
+        appTag.editFrame()
       }
+      visible: hasFrameList
     },
     Button {
       iconName: "add"
       width: height
       onClicked: {
-        app.selectAndAddFrame()
+        appTag.addFrame()
       }
+      visible: hasFrameList
     },
     Button {
       iconName: "remove"
       width: height
       onClicked: {
-        app.frameList.selectByRow(frameTableV2.currentIndex)
-        app.deleteFrame()
+        appTag.frameList.selectByRow(frameTable.currentIndex)
+        appTag.deleteFrame()
       }
+      visible: hasFrameList
     },
     Button {
-      id: v2MenuButton
+      id: menuButton
       iconName: "navigation-menu"
       width: height
-      onClicked: constants.openPopup(v2MenuPopoverComponent, v2MenuButton)
+      onClicked: constants.openPopup(menuPopoverComponent, menuButton)
 
       Component {
-        id: v2MenuPopoverComponent
+        id: menuPopoverComponent
         ActionSelectionPopover {
-          id: v2MenuPopover
+          id: menuPopover
           delegate: ActionSelectionDelegate {
-            popover: v2MenuPopover
+            popover: menuPopover
           }
           actions: ActionList {
             Action {
               text: qsTr("To Filename")
-              onTriggered: app.getFilenameFromTags(script.toTagVersion(Frame.TagV2))
+              onTriggered: collapsible.appTag.getFilenameFromTags()
             }
             Action {
               text: qsTr("From Filename")
-              onTriggered: app.getTagsFromFilename(script.toTagVersion(Frame.TagV2))
+              onTriggered: collapsible.appTag.getTagsFromFilename()
             }
             Action {
-              text: qsTr("From Tag 1")
-              onTriggered: app.copyV1ToV2()
+              text: qsTr("To Tag %1").arg(2)
+              onTriggered: app.copyTag(script.toTagNumber(tagNr),
+                                       script.toTagNumber(Frame.Tag_2))
+              visible: tagNr > Frame.Tag_2
+            }
+            Action {
+              text: qsTr("From Tag %1").arg(tagNr == Frame.Tag_2 ? "1" : "2")
+              onTriggered: collapsible.appTag.copyToOtherTag()
             }
             Action {
               text: qsTr("Copy")
-              onTriggered: app.copyTagsV2()
+              onTriggered: collapsible.appTag.copyTags()
             }
             Action {
               text: qsTr("Paste")
-              onTriggered: app.pasteTagsV2()
+              onTriggered: collapsible.appTag.pasteTags()
             }
             Action {
               text: qsTr("Remove")
-              onTriggered: app.removeTagsV2()
+              onTriggered: collapsible.appTag.removeTags()
             }
           }
         }
@@ -107,21 +120,25 @@ Collapsible {
   ]
 
   content: ListView {
-    id: frameTableV2
+    id: frameTable
+    enabled: collapsible.selTag.tagUsed
     clip: true
     width: parent.width
     //height: count * constants.rowHeight //@QtQuick1
     height: count ? contentHeight : 0 //@QtQuick2
     interactive: false
-    model: app.frameModelV2
+    model: collapsible.appTag.frameModel
     delegate: FrameDelegate {
-      width: frameTableV2.width
+      width: frameTable.width
+      tagNr: collapsible.tagNr
     }
   }
 
+  // workaround for QTBUG-31627
+  // should work with "checked: collapsible.selTag.hasTag" with Qt >= 5.3
   Binding {
-    target: collapsibleV2
+    target: collapsible
     property: "checked"
-    value: app.selectionInfo.hasTagV2
+    value: collapsible.selTag.hasTag
   }
 }

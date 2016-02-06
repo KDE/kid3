@@ -34,6 +34,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QPluginLoader>
+#include <QAction>
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
 #include <CoreFoundation/CFUrl.h>
 #endif
@@ -188,13 +189,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
   m_dirSelectionModel(new QItemSelectionModel(m_dirProxyModel, this)),
   m_trackDataModel(new TrackDataModel(this)),
-  m_genreModelV1(new GenreModel(true, this)),
-  m_genreModelV2(new GenreModel(false, this)),
-  m_framesV1Model(new FrameTableModel(true, this)),
-  m_framesV2Model(new FrameTableModel(false, this)),
-  m_framesV1SelectionModel(new QItemSelectionModel(m_framesV1Model, this)),
-  m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
-  m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
   m_netMgr(new QNetworkAccessManager(this)),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
@@ -205,7 +199,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_player(0),
 #endif
   m_expressionFileFilter(0),
-  m_selection(new TaggedFileSelection(m_framesV1Model, m_framesV2Model, this)),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(0),
   m_namedBatchImportProfile(0),
@@ -214,6 +207,26 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
   m_filtered(false)
 {
+  const TagConfig& tagCfg = TagConfig::instance();
+  FOR_ALL_TAGS(tagNr) {
+    bool id3v1 = tagNr == Frame::Tag_Id3v1;
+    m_genreModel[tagNr] = new GenreModel(id3v1, this),
+    m_framesModel[tagNr] = new FrameTableModel(id3v1, this);
+    if (!id3v1) {
+      m_framesModel[tagNr]->setFrameOrder(tagCfg.quickAccessFrameOrder());
+      connect(&tagCfg, SIGNAL(quickAccessFrameOrderChanged(QList<int>)),
+              m_framesModel[tagNr], SLOT(setFrameOrder(QList<int>)));
+    }
+    m_framesSelectionModel[tagNr] = new QItemSelectionModel(m_framesModel[tagNr], this);
+    m_framelist[tagNr] = new FrameList(tagNr, m_framesModel[tagNr],
+        m_framesSelectionModel[tagNr]);
+    connect(m_framelist[tagNr], SIGNAL(frameEdited(const Frame*)),
+            this, SLOT(onFrameEdited(const Frame*)));
+    connect(m_framelist[tagNr], SIGNAL(frameAdded(const Frame*)),
+            this, SLOT(onFrameAdded(const Frame*)));
+    m_tagContext[tagNr] = new Kid3ApplicationTagContext(this, tagNr);
+  }
+  m_selection = new TaggedFileSelection(m_framesModel, this);
   setObjectName(QLatin1String("Kid3Application"));
 #ifdef Q_OS_MAC
   m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
@@ -222,10 +235,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #endif
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
-  const TagConfig& tagCfg = TagConfig::instance();
-  m_framesV2Model->setFrameOrder(tagCfg.quickAccessFrameOrder());
-  connect(&tagCfg, SIGNAL(quickAccessFrameOrderChanged(QList<int>)),
-          m_framesV2Model, SLOT(setFrameOrder(QList<int>)));
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
@@ -234,11 +243,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
           this, SIGNAL(fileSelectionChanged()));
   connect(m_fileProxyModel, SIGNAL(modifiedChanged(bool)),
           this, SIGNAL(modifiedChanged(bool)));
-
-  connect(m_framelist, SIGNAL(frameEdited(const Frame*)),
-          this, SLOT(onFrameEdited(const Frame*)));
-  connect(m_framelist, SIGNAL(frameAdded(const Frame*)),
-          this, SLOT(onFrameAdded(const Frame*)));
 
   connect(m_selection, SIGNAL(singleFileChanged()),
           this, SLOT(updateCoverArtImageId()));
@@ -543,15 +547,15 @@ ISettings* Kid3Application::getSettings() const
 void Kid3Application::applyChangedConfiguration()
 {
   saveConfig();
-  if (!TagConfig::instance().markTruncations()) {
-    m_framesV1Model->markRows(0);
+  FOR_ALL_TAGS(tagNr) {
+    if (!TagConfig::instance().markTruncations()) {
+      m_framesModel[tagNr]->markRows(0);
+    }
+    if (!FileConfig::instance().markChanges()) {
+      m_framesModel[tagNr]->markChangedFrames(0);
+    }
+    m_genreModel[tagNr]->init();
   }
-  if (!FileConfig::instance().markChanges()) {
-    m_framesV1Model->markChangedFrames(0);
-    m_framesV2Model->markChangedFrames(0);
-  }
-  m_genreModelV1->init();
-  m_genreModelV2->init();
   notifyConfigurationChange();
   quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
   if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
@@ -802,15 +806,15 @@ QStringList Kid3Application::saveDirectory()
 void Kid3Application::frameModelsToTags()
 {
   if (!m_currentSelection.isEmpty()) {
-    FrameCollection framesV1(m_framesV1Model->getEnabledFrames());
-    FrameCollection framesV2(m_framesV2Model->getEnabledFrames());
-    for (QList<QPersistentModelIndex>::const_iterator it =
-         m_currentSelection.begin();
-         it != m_currentSelection.end();
-         ++it) {
-      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
-        taggedFile->setFramesV1(framesV1);
-        taggedFile->setFramesV2(framesV2);
+    FOR_ALL_TAGS(tagNr) {
+      FrameCollection frames(m_framesModel[tagNr]->getEnabledFrames());
+      for (QList<QPersistentModelIndex>::const_iterator it =
+           m_currentSelection.begin();
+           it != m_currentSelection.end();
+           ++it) {
+        if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
+          taggedFile->setFrames(tagNr, frames);
+        }
       }
     }
   }
@@ -836,7 +840,9 @@ void Kid3Application::tagsToFrameModels()
   m_selection->endAddTaggedFiles();
 
   if (TaggedFile* taggedFile = m_selection->singleFile()) {
-    m_framelist->setTaggedFile(taggedFile);
+    FOR_ALL_TAGS(tagNr) {
+      m_framelist[tagNr]->setTaggedFile(taggedFile);
+    }
   }
 }
 
@@ -1055,9 +1061,11 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
 {
   ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
   ImportTrackDataVector::iterator it = trackDataList.begin();
-  FrameFilter flt((tagVersion & Frame::TagV1) ?
-                  frameModelV1()->getEnabledFrameFilter(true) :
-                  frameModelV2()->getEnabledFrameFilter(true));
+  FrameFilter flt;
+  Frame::TagNumber fltTagNr = Frame::tagNumberFromMask(tagVersion);
+  if (fltTagNr < Frame::Tag_NumValues) {
+    flt = frameModel(fltTagNr)->getEnabledFrameFilter(true);
+  }
   TaggedFileOfDirectoryIterator tfit(currentOrRootIndex());
   while (tfit.hasNext()) {
     TaggedFile* taggedFile = tfit.next();
@@ -1065,12 +1073,15 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
     if (it != trackDataList.end()) {
       it->removeDisabledFrames(flt);
       formatFramesIfEnabled(*it);
-      if (tagVersion & Frame::TagV1) taggedFile->setFramesV1(*it, false);
-      if (tagVersion & Frame::TagV2) {
-        FrameCollection oldFrames;
-        taggedFile->getAllFramesV2(oldFrames);
-        it->markChangedFrames(oldFrames);
-        taggedFile->setFramesV2(*it, true);
+      FOR_TAGS_IN_MASK(tagNr, tagVersion) {
+        if (tagNr == Frame::Tag_Id3v1) {
+          taggedFile->setFrames(tagNr, *it, false);
+        } else {
+          FrameCollection oldFrames;
+          taggedFile->getAllFrames(tagNr, oldFrames);
+          it->markChangedFrames(oldFrames);
+          taggedFile->setFrames(tagNr, *it, true);
+        }
       }
       ++it;
     } else {
@@ -1078,7 +1089,8 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
     }
   }
 
-  if ((tagVersion & Frame::TagV2) && flt.isEnabled(Frame::FT_Picture) &&
+  if ((tagVersion & (1 << Frame::Tag_Picture)) &&
+      flt.isEnabled(Frame::FT_Picture) &&
       !trackDataList.getCoverArtUrl().isEmpty()) {
     downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
   }
@@ -1207,10 +1219,12 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
       if (!m_batchImportTrackDataList.isEmpty()) {
         m_batchImportAlbums.append(m_batchImportTrackDataList);
       }
-      m_batchImporter->setFrameFilter(
-            (m_batchImportTagVersion & Frame::TagV1) != 0
-          ? frameModelV1()->getEnabledFrameFilter(true)
-          : frameModelV2()->getEnabledFrameFilter(true));
+      Frame::TagNumber fltTagNr =
+          Frame::tagNumberFromMask(m_batchImportTagVersion);
+      if (fltTagNr < Frame::Tag_NumValues) {
+        m_batchImporter->setFrameFilter(
+              frameModel(fltTagNr)->getEnabledFrameFilter(true));
+      }
       m_batchImporter->start(m_batchImportAlbums, *m_batchImportProfile,
                              m_batchImportTagVersion);
     }
@@ -1301,22 +1315,22 @@ void Kid3Application::applyTagFormat()
 {
   emit fileSelectionUpdateRequested();
   FrameCollection frames;
-  FrameFilter fltV1(frameModelV1()->getEnabledFrameFilter(true));
-  FrameFilter fltV2(frameModelV2()->getEnabledFrameFilter(true));
+  FrameFilter flt[Frame::Tag_NumValues];
+  FOR_ALL_TAGS(tagNr) {
+    flt[tagNr] = frameModel(tagNr)->getEnabledFrameFilter(true);
+  }
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
                                 true);
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
-    taggedFile->getAllFramesV1(frames);
-    frames.removeDisabledFrames(fltV1);
-    TagFormatConfig::instance().formatFrames(frames);
-    taggedFile->setFramesV1(frames);
-    taggedFile->getAllFramesV2(frames);
-    frames.removeDisabledFrames(fltV2);
-    TagFormatConfig::instance().formatFrames(frames);
-    taggedFile->setFramesV2(frames);
+    FOR_ALL_TAGS(tagNr) {
+      taggedFile->getAllFrames(tagNr, frames);
+      frames.removeDisabledFrames(flt[tagNr]);
+      TagFormatConfig::instance().formatFrames(frames);
+      taggedFile->setFrames(tagNr, frames);
+    }
   }
   emit selectedFilesUpdated();
 }
@@ -1337,13 +1351,13 @@ void Kid3Application::applyTextEncoding()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
-    taggedFile->getAllFramesV2(frames);
+    taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
     for (FrameCollection::iterator frameIt = frames.begin();
          frameIt != frames.end();
          ++frameIt) {
       Frame& frame = const_cast<Frame&>(*frameIt);
       Frame::TextEncoding enc = encoding;
-      if (taggedFile->getTagFormatV2() == QLatin1String("ID3v2.3.0")) {
+      if (taggedFile->getTagFormat(Frame::Tag_Id3v2) == QLatin1String("ID3v2.3.0")) {
         // TagLib sets the ID3v2.3.0 frame containing the date internally with
         // ISO-8859-1, so the encoding cannot be set for such frames.
         if (taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata") &&
@@ -1365,29 +1379,9 @@ void Kid3Application::applyTextEncoding()
         }
       }
     }
-    taggedFile->setFramesV2(frames);
+    taggedFile->setFrames(Frame::Tag_Id3v2, frames);
   }
   emit selectedFilesUpdated();
-}
-
-/**
- * Copy tags 1 into copy buffer.
- */
-void Kid3Application::copyTagsV1()
-{
-  emit fileSelectionUpdateRequested();
-  m_copyTags = frameModelV1()->frames().copyEnabledFrames(
-    frameModelV1()->getEnabledFrameFilter(true));
-}
-
-/**
- * Copy tags 2 into copy buffer.
- */
-void Kid3Application::copyTagsV2()
-{
-  emit fileSelectionUpdateRequested();
-  m_copyTags = frameModelV2()->frames().copyEnabledFrames(
-    frameModelV2()->getEnabledFrameFilter(true));
 }
 
 /**
@@ -1397,47 +1391,13 @@ void Kid3Application::copyTagsV2()
  */
 void Kid3Application::copyTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & Frame::TagV1) {
-    copyTagsV1();
-  } else if (tagMask & Frame::TagV2) {
-    copyTagsV2();
-  }
-}
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return;
 
-/**
- * Paste from copy buffer to ID3v1 tags.
- */
-void Kid3Application::pasteTagsV1()
-{
   emit fileSelectionUpdateRequested();
-  FrameCollection frames(m_copyTags.copyEnabledFrames(
-                         frameModelV1()->getEnabledFrameFilter(true)));
-  formatFramesIfEnabled(frames);
-  SelectedTaggedFileIterator it(getRootIndex(),
-                                getFileSelectionModel(),
-                                false);
-  while (it.hasNext()) {
-    it.next()->setFramesV1(frames, false);
-  }
-  emit selectedFilesUpdated();
-}
-
-/**
- * Paste from copy buffer to ID3v2 tags.
- */
-void Kid3Application::pasteTagsV2()
-{
-  emit fileSelectionUpdateRequested();
-  FrameCollection frames(m_copyTags.copyEnabledFrames(
-                         frameModelV2()->getEnabledFrameFilter(true)));
-  formatFramesIfEnabled(frames);
-  SelectedTaggedFileIterator it(getRootIndex(),
-                                getFileSelectionModel(),
-                                false);
-  while (it.hasNext()) {
-    it.next()->setFramesV2(frames, false);
-  }
-  emit selectedFilesUpdated();
+  m_copyTags = frameModel(tagNr)->frames().copyEnabledFrames(
+    frameModel(tagNr)->getEnabledFrameFilter(true));
 }
 
 /**
@@ -1447,51 +1407,19 @@ void Kid3Application::pasteTagsV2()
  */
 void Kid3Application::pasteTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & Frame::TagV1) {
-    pasteTagsV1();
-  } else if (tagMask & Frame::TagV2) {
-    pasteTagsV2();
-  }
-}
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return;
 
-/**
- * Copy ID3v1 tags to ID3v2 tags of selected files.
- */
-void Kid3Application::copyV1ToV2()
-{
   emit fileSelectionUpdateRequested();
-  FrameCollection frames;
-  FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
+  FrameCollection frames(m_copyTags.copyEnabledFrames(
+                         frameModel(tagNr)->getEnabledFrameFilter(true)));
+  formatFramesIfEnabled(frames);
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
                                 false);
   while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    taggedFile->getAllFramesV1(frames);
-    frames.removeDisabledFrames(flt);
-    formatFramesIfEnabled(frames);
-    taggedFile->setFramesV2(frames, false);
-  }
-  emit selectedFilesUpdated();
-}
-
-/**
- * Copy ID3v2 tags to ID3v1 tags of selected files.
- */
-void Kid3Application::copyV2ToV1()
-{
-  emit fileSelectionUpdateRequested();
-  FrameCollection frames;
-  FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
-  SelectedTaggedFileIterator it(getRootIndex(),
-                                getFileSelectionModel(),
-                                false);
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    taggedFile->getAllFramesV2(frames);
-    frames.removeDisabledFrames(flt);
-    formatFramesIfEnabled(frames);
-    taggedFile->setFramesV1(frames, false);
+    it.next()->setFrames(tagNr, frames, false);
   }
   emit selectedFilesUpdated();
 }
@@ -1503,41 +1431,52 @@ void Kid3Application::copyV2ToV1()
  */
 void Kid3Application::copyToOtherTag(Frame::TagVersion tagMask)
 {
-  if (tagMask & Frame::TagV1) {
-    copyV2ToV1();
-  } else if (tagMask & Frame::TagV2) {
-    copyV1ToV2();
+  Frame::TagNumber dstTagNr = Frame::tagNumberFromMask(tagMask);
+  Frame::TagNumber srcTagNr = dstTagNr == Frame::Tag_2
+      ? Frame::Tag_1 : Frame::Tag_2;
+  copyTag(srcTagNr, dstTagNr);
+}
+
+/**
+ * Copy tags using QAction::data().
+ * The source and destination tag numbers are taken from the first two bytes
+ * in QAction::data().toByteArray() if the sender() is a QAction.
+ */
+void Kid3Application::copyTagsActionData()
+{
+  if (QAction* action = qobject_cast<QAction*>(sender())) {
+    QByteArray ba = action->data().toByteArray();
+    if (ba.size() == 2) {
+      Frame::TagNumber srcTagNr = Frame::tagNumberCast(ba.at(0));
+      Frame::TagNumber dstTagNr = Frame::tagNumberCast(ba.at(1));
+      if (srcTagNr != Frame::Tag_NumValues &&
+          dstTagNr != Frame::Tag_NumValues) {
+        copyTag(srcTagNr, dstTagNr);
+      }
+    }
   }
 }
 
 /**
- * Remove ID3v1 tags in selected files.
+ * Copy from a tag to another tag.
+ * @param srcTagNr source tag number
+ * @param dstTagNr destination tag number
  */
-void Kid3Application::removeTagsV1()
+void Kid3Application::copyTag(Frame::TagNumber srcTagNr, Frame::TagNumber dstTagNr)
 {
   emit fileSelectionUpdateRequested();
-  FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
+  FrameCollection frames;
+  FrameFilter flt(frameModel(dstTagNr)->getEnabledFrameFilter(true));
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
                                 false);
   while (it.hasNext()) {
-    it.next()->deleteFramesV1(flt);
-  }
-  emit selectedFilesUpdated();
-}
-
-/**
- * Remove ID3v2 tags in selected files.
- */
-void Kid3Application::removeTagsV2()
-{
-  emit fileSelectionUpdateRequested();
-  FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
-  SelectedTaggedFileIterator it(getRootIndex(),
-                                getFileSelectionModel(),
-                                false);
-  while (it.hasNext()) {
-    it.next()->deleteFramesV2(flt);
+    TaggedFile* taggedFile = it.next();
+    taggedFile->getAllFrames(srcTagNr, frames);
+    frames.removeDisabledFrames(flt);
+    frames.setIndexesInvalid();
+    formatFramesIfEnabled(frames);
+    taggedFile->setFrames(dstTagNr, frames, false);
   }
   emit selectedFilesUpdated();
 }
@@ -1549,61 +1488,17 @@ void Kid3Application::removeTagsV2()
  */
 void Kid3Application::removeTags(Frame::TagVersion tagMask)
 {
-  if (tagMask & Frame::TagV1) {
-    removeTagsV1();
-  } else if (tagMask & Frame::TagV2) {
-    removeTagsV2();
-  }
-}
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return;
 
-/**
- * Set ID3v1 tags according to filename.
- * If a single file is selected the tags in the GUI controls
- * are set, else the tags in the multiple selected files.
- */
-void Kid3Application::getTagsFromFilenameV1()
-{
   emit fileSelectionUpdateRequested();
-  FrameCollection frames;
-  QItemSelectionModel* selectModel = getFileSelectionModel();
+  FrameFilter flt(frameModel(tagNr)->getEnabledFrameFilter(true));
   SelectedTaggedFileIterator it(getRootIndex(),
-                                selectModel,
+                                getFileSelectionModel(),
                                 false);
-  FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
   while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    taggedFile->getAllFramesV1(frames);
-    taggedFile->getTagsFromFilename(
-          frames, FileConfig::instance().fromFilenameFormat());
-    frames.removeDisabledFrames(flt);
-    formatFramesIfEnabled(frames);
-    taggedFile->setFramesV1(frames);
-  }
-  emit selectedFilesUpdated();
-}
-
-/**
- * Set ID3v2 tags according to filename.
- * If a single file is selected the tags in the GUI controls
- * are set, else the tags in the multiple selected files.
- */
-void Kid3Application::getTagsFromFilenameV2()
-{
-  emit fileSelectionUpdateRequested();
-  FrameCollection frames;
-  QItemSelectionModel* selectModel = getFileSelectionModel();
-  SelectedTaggedFileIterator it(getRootIndex(),
-                                selectModel,
-                                false);
-  FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    taggedFile->getAllFramesV2(frames);
-    taggedFile->getTagsFromFilename(
-          frames, FileConfig::instance().fromFilenameFormat());
-    frames.removeDisabledFrames(flt);
-    formatFramesIfEnabled(frames);
-    taggedFile->setFramesV2(frames);
+    it.next()->deleteFrames(tagNr, flt);
   }
   emit selectedFilesUpdated();
 }
@@ -1615,11 +1510,27 @@ void Kid3Application::getTagsFromFilenameV2()
  */
 void Kid3Application::getTagsFromFilename(Frame::TagVersion tagMask)
 {
-  if (tagMask & Frame::TagV1) {
-    getTagsFromFilenameV1();
-  } else if (tagMask & Frame::TagV2) {
-    getTagsFromFilenameV2();
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return;
+
+  emit fileSelectionUpdateRequested();
+  FrameCollection frames;
+  QItemSelectionModel* selectModel = getFileSelectionModel();
+  SelectedTaggedFileIterator it(getRootIndex(),
+                                selectModel,
+                                false);
+  FrameFilter flt(frameModel(tagNr)->getEnabledFrameFilter(true));
+  while (it.hasNext()) {
+    TaggedFile* taggedFile = it.next();
+    taggedFile->getAllFrames(tagNr, frames);
+    taggedFile->getTagsFromFilename(
+          frames, FileConfig::instance().fromFilenameFormat());
+    frames.removeDisabledFrames(flt);
+    formatFramesIfEnabled(frames);
+    taggedFile->setFrames(tagNr, frames);
   }
+  emit selectedFilesUpdated();
 }
 
 /**
@@ -1677,28 +1588,30 @@ void Kid3Application::updateCurrentSelection()
 
 /**
  * Edit selected frame.
+ * @param tagNr tag number
  */
-void Kid3Application::editFrame()
+void Kid3Application::editFrame(Frame::TagNumber tagNr)
 {
+  FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
   m_editFrameTaggedFile = getSelectedFile();
-  if (const Frame* selectedFrame = frameModelV2()->getFrameOfIndex(
-        getFramesV2SelectionModel()->currentIndex())) {
+  if (const Frame* selectedFrame = frameModel(tagNr)->getFrameOfIndex(
+        getFramesSelectionModel(tagNr)->currentIndex())) {
     if (m_editFrameTaggedFile) {
-      m_framelist->setTaggedFile(m_editFrameTaggedFile);
-      m_framelist->setFrame(*selectedFrame);
-      m_framelist->editFrame();
+      framelist->setTaggedFile(m_editFrameTaggedFile);
+      framelist->setFrame(*selectedFrame);
+      framelist->editFrame();
     } else {
       // multiple files selected
       // Get the first selected file by using a temporary iterator.
       TaggedFile* firstFile = SelectedTaggedFileIterator(
             getRootIndex(), getFileSelectionModel(), false).peekNext();
       if (firstFile) {
-        m_framelist->setTaggedFile(firstFile);
-        m_editFrameName = m_framelist->getSelectedName();
+        framelist->setTaggedFile(firstFile);
+        m_editFrameName = framelist->getSelectedName();
         if (!m_editFrameName.isEmpty()) {
-          m_framelist->setFrame(*selectedFrame);
-          m_framelist->editFrame();
+          framelist->setFrame(*selectedFrame);
+          framelist->editFrame();
         }
       }
     }
@@ -1711,13 +1624,15 @@ void Kid3Application::editFrame()
  */
 void Kid3Application::onFrameEdited(const Frame* frame)
 {
-  if (!frame)
+  FrameList* framelist = qobject_cast<FrameList*>(sender());
+  if (!framelist || !frame)
     return;
 
+  Frame::TagNumber tagNr = framelist->tagNumber();
   if (m_editFrameTaggedFile) {
-    emit frameModified(m_editFrameTaggedFile);
+    emit frameModified(m_editFrameTaggedFile, tagNr);
   } else {
-    m_framelist->setFrame(*frame);
+    framelist->setFrame(*frame);
 
     // Start a new iteration because the file selection model can be
     // changed by editFrameOfTaggedFile(), e.g. when a file is exported
@@ -1728,17 +1643,17 @@ void Kid3Application::onFrameEdited(const Frame* frame)
     while (tfit.hasNext()) {
       TaggedFile* currentFile = tfit.next();
       FrameCollection frames;
-      currentFile->getAllFramesV2(frames);
+      currentFile->getAllFrames(tagNr, frames);
       for (FrameCollection::const_iterator it = frames.begin();
            it != frames.end();
            ++it) {
         if (it->getName() == m_editFrameName) {
-          currentFile->deleteFrameV2(*it);
+          currentFile->deleteFrame(tagNr, *it);
           break;
         }
       }
-      m_framelist->setTaggedFile(currentFile);
-      m_framelist->pasteFrame();
+      framelist->setTaggedFile(currentFile);
+      framelist->pasteFrame();
     }
     emit selectedFilesUpdated();
   }
@@ -1746,20 +1661,22 @@ void Kid3Application::onFrameEdited(const Frame* frame)
 
 /**
  * Delete selected frame.
- *
+ * @param tagNr tag number
  * @param frameName name of frame to delete, empty to delete selected frame
  */
-void Kid3Application::deleteFrame(const QString& frameName)
+void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
+                                  const QString& frameName)
 {
+  FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
   TaggedFile* taggedFile = getSelectedFile();
   if (taggedFile && frameName.isEmpty()) {
     // delete selected frame from single file
-    if (!m_framelist->deleteFrame()) {
+    if (!framelist->deleteFrame()) {
       // frame not found
       return;
     }
-    emit frameModified(taggedFile);
+    emit frameModified(taggedFile, tagNr);
   } else {
     // multiple files selected or frame name specified
     bool firstFile = true;
@@ -1772,17 +1689,17 @@ void Kid3Application::deleteFrame(const QString& frameName)
       if (firstFile) {
         firstFile = false;
         taggedFile = currentFile;
-        m_framelist->setTaggedFile(taggedFile);
-        name = frameName.isEmpty() ? m_framelist->getSelectedName() :
+        framelist->setTaggedFile(taggedFile);
+        name = frameName.isEmpty() ? framelist->getSelectedName() :
           frameName;
       }
       FrameCollection frames;
-      currentFile->getAllFramesV2(frames);
+      currentFile->getAllFrames(tagNr, frames);
       for (FrameCollection::const_iterator it = frames.begin();
            it != frames.end();
            ++it) {
         if (it->getName() == name) {
-          currentFile->deleteFrameV2(*it);
+          currentFile->deleteFrame(tagNr, *it);
           break;
         }
       }
@@ -1793,13 +1710,18 @@ void Kid3Application::deleteFrame(const QString& frameName)
 
 /**
  * Select a frame type and add such a frame to frame list.
- *
+ * @param tagNr tag number
  * @param frame frame to add, if 0 the user has to select and edit the frame
  * @param edit if true and a frame is set, the user can edit the frame before
  * it is added
  */
-void Kid3Application::addFrame(const Frame* frame, bool edit)
+void Kid3Application::addFrame(Frame::TagNumber tagNr,
+                               const Frame* frame, bool edit)
 {
+  if (tagNr >= Frame::Tag_NumValues)
+    return;
+
+  FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
   TaggedFile* currentFile = 0;
   m_addFrameTaggedFile = getSelectedFile();
@@ -1812,21 +1734,21 @@ void Kid3Application::addFrame(const Frame* frame, bool edit)
                                     false);
     if (tfit.hasNext()) {
       currentFile = tfit.next();
-      m_framelist->setTaggedFile(currentFile);
+      framelist->setTaggedFile(currentFile);
     }
   }
 
   if (currentFile) {
     if (edit) {
       if (frame) {
-        m_framelist->setFrame(*frame);
-        m_framelist->addAndEditFrame();
+        framelist->setFrame(*frame);
+        framelist->addAndEditFrame();
       } else {
-        m_framelist->selectAddAndEditFrame();
+        framelist->selectAddAndEditFrame();
       }
     } else {
-      m_framelist->setFrame(*frame);
-      onFrameAdded(m_framelist->pasteFrame() ? &m_framelist->getFrame() : 0);
+      framelist->setFrame(*frame);
+      onFrameAdded(framelist->pasteFrame() ? &framelist->getFrame() : 0, tagNr);
     }
   }
 }
@@ -1834,15 +1756,20 @@ void Kid3Application::addFrame(const Frame* frame, bool edit)
 /**
  * Called when a frame is added.
  * @param frame edited frame, 0 if canceled
+ * @param tagNr tag number used if slot is not invoked by framelist signal
  */
-void Kid3Application::onFrameAdded(const Frame* frame)
+void Kid3Application::onFrameAdded(const Frame* frame, Frame::TagNumber tagNr)
 {
   if (!frame)
     return;
 
+  FrameList* framelist = qobject_cast<FrameList*>(sender());
+  if (!framelist) {
+    framelist = m_framelist[tagNr];
+  }
   if (m_addFrameTaggedFile) {
-    emit frameModified(m_addFrameTaggedFile);
-    if (m_framelist->isPictureFrame()) {
+    emit frameModified(m_addFrameTaggedFile, tagNr);
+    if (framelist->isPictureFrame()) {
       // update preview picture
       emit selectedFilesUpdated();
     }
@@ -1850,7 +1777,7 @@ void Kid3Application::onFrameAdded(const Frame* frame)
     // multiple files selected
     bool firstFile = true;
     int frameId = -1;
-    m_framelist->setFrame(*frame);
+    framelist->setFrame(*frame);
 
     SelectedTaggedFileIterator tfit(getRootIndex(),
                                     getFileSelectionModel(),
@@ -1860,16 +1787,16 @@ void Kid3Application::onFrameAdded(const Frame* frame)
       if (firstFile) {
         firstFile = false;
         m_addFrameTaggedFile = currentFile;
-        m_framelist->setTaggedFile(currentFile);
-        frameId = m_framelist->getSelectedId();
+        framelist->setTaggedFile(currentFile);
+        frameId = framelist->getSelectedId();
       } else {
-        m_framelist->setTaggedFile(currentFile);
-        m_framelist->pasteFrame();
+        framelist->setTaggedFile(currentFile);
+        framelist->pasteFrame();
       }
     }
-    m_framelist->setTaggedFile(m_addFrameTaggedFile);
+    framelist->setTaggedFile(m_addFrameTaggedFile);
     if (frameId != -1) {
-      m_framelist->setSelectedId(frameId);
+      framelist->setSelectedId(frameId);
     }
     emit selectedFilesUpdated();
   }
@@ -1877,10 +1804,11 @@ void Kid3Application::onFrameAdded(const Frame* frame)
 
 /**
  * Select a frame type and add such a frame to the frame list.
+ * @param tagNr tag number
  */
-void Kid3Application::selectAndAddFrame()
+void Kid3Application::selectAndAddFrame(Frame::TagNumber tagNr)
 {
-  addFrame(0, true);
+  addFrame(tagNr, 0, true);
 }
 
 /**
@@ -1888,12 +1816,12 @@ void Kid3Application::selectAndAddFrame()
  */
 void Kid3Application::editOrAddPicture()
 {
-  if (m_framelist->selectByName(QLatin1String("Picture"))) {
-    editFrame();
+  if (m_framelist[Frame::Tag_Picture]->selectByName(QLatin1String("Picture"))) {
+    editFrame(Frame::Tag_Picture);
   } else {
     PictureFrame frame;
     PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-    addFrame(&frame, true);
+    addFrame(Frame::Tag_Picture, &frame, true);
   }
 }
 
@@ -1949,7 +1877,7 @@ void Kid3Application::openDrop(const QStringList& paths)
         PictureFrame::setMimeTypeFromFileName(frame, fileName);
         PictureFrame::setDescription(frame, fileName);
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-        addFrame(&frame);
+        addFrame(Frame::Tag_Picture, &frame);
         emit selectedFilesUpdated();
       }
     }
@@ -2003,7 +1931,7 @@ void Kid3Application::dropImage(const QImage& image)
     PictureFrame frame;
     if (PictureFrame::setDataFromImage(frame, image)) {
       PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-      addFrame(&frame);
+      addFrame(Frame::Tag_Picture, &frame);
       emit selectedFilesUpdated();
     }
   }
@@ -2039,7 +1967,7 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
       while (it.hasNext()) {
         TaggedFile* taggedFile = it.next();
         taggedFile->readTags(false);
-        taggedFile->addFrameV2(frame);
+        taggedFile->addFrame(Frame::Tag_Picture, frame);
       }
     } else if (getDownloadImageDestination() == ImageForImportTrackData) {
       const ImportTrackDataVector& trackDataVector(
@@ -2051,11 +1979,11 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
         TaggedFile* taggedFile;
         if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != 0) {
           taggedFile->readTags(false);
-          taggedFile->addFrameV2(frame);
+          taggedFile->addFrame(Frame::Tag_Picture, frame);
         }
       }
     } else {
-      addFrame(&frame);
+      addFrame(Frame::Tag_Picture, &frame);
     }
     emit selectedFilesUpdated();
   }
@@ -2539,69 +2467,70 @@ void Kid3Application::numberTracks(int nr, int total,
         lastDirName = dirName;
       }
     }
-    if (tagVersion & Frame::TagV1) {
-      if (options & NumberTracksEnabled) {
-        QString value;
-        value.setNum(nr);
-        Frame frame;
-        if (taggedFile->getFrameV1(Frame::FT_Track, frame)) {
-          frame.setValueIfChanged(value);
-          if (frame.isValueChanged()) {
-            taggedFile->setFrameV1(frame);
+    FOR_TAGS_IN_MASK(tagNr, tagVersion) {
+      if (tagNr == Frame::Tag_Id3v1) {
+        if (options & NumberTracksEnabled) {
+          QString value;
+          value.setNum(nr);
+          Frame frame;
+          if (taggedFile->getFrame(tagNr, Frame::FT_Track, frame)) {
+            frame.setValueIfChanged(value);
+            if (frame.isValueChanged()) {
+              taggedFile->setFrame(tagNr, frame);
+            }
+          } else {
+            frame.setValue(value);
+            frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
+            taggedFile->setFrame(tagNr, frame);
           }
-        } else {
-          frame.setValue(value);
-          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
-          taggedFile->setFrameV1(frame);
-        }
-      }
-    }
-    if (tagVersion & Frame::TagV2) {
-      // For tag 2 the frame is written, so that we have control over the
-      // format and the total number of tracks, and it is possible to change
-      // the format even if the numbers stay the same.
-      FrameCollection frames;
-      taggedFile->getAllFramesV2(frames);
-      Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
-      FrameCollection::const_iterator frameIt = frames.find(frame);
-      QString value;
-      if (options & NumberTracksEnabled) {
-        if (total > 0) {
-          value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
-        } else {
-          value.sprintf("%0*d", numDigits, nr);
-        }
-        if (frameIt != frames.end()) {
-          frame = *frameIt;
-          frame.setValueIfChanged(value);
-          if (frame.isValueChanged()) {
-            taggedFile->setFrameV2(frame);
-          }
-        } else {
-          frame.setValue(value);
-          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
-          taggedFile->setFrameV2(frame);
         }
       } else {
-        // If track numbering is not enabled, just reformat the current value.
-        if (frameIt != frames.end()) {
-          frame = *frameIt;
-          int currentTotal;
-          int currentNr = TaggedFile::splitNumberAndTotal(frame.getValue(),
-                                                          &currentTotal);
-          // Set the total if enabled.
-          if (totalEnabled && total > 0) {
-            currentTotal = total;
-          }
-          if (currentTotal > 0) {
-            value.sprintf("%0*d/%0*d", numDigits, currentNr, numDigits,
-                          currentTotal);
+        // For tag 2 the frame is written, so that we have control over the
+        // format and the total number of tracks, and it is possible to change
+        // the format even if the numbers stay the same.
+        FrameCollection frames;
+        taggedFile->getAllFrames(tagNr, frames);
+        Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
+        FrameCollection::const_iterator frameIt = frames.find(frame);
+        QString value;
+        if (options & NumberTracksEnabled) {
+          if (total > 0) {
+            value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
           } else {
-            value.sprintf("%0*d", numDigits, currentNr);
+            value.sprintf("%0*d", numDigits, nr);
           }
-          frame.setValueIfChanged(value);
-          if (frame.isValueChanged()) {
-            taggedFile->setFrameV2(frame);
+          if (frameIt != frames.end()) {
+            frame = *frameIt;
+            frame.setValueIfChanged(value);
+            if (frame.isValueChanged()) {
+              taggedFile->setFrame(tagNr, frame);
+            }
+          } else {
+            frame.setValue(value);
+            frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
+            taggedFile->setFrame(tagNr, frame);
+          }
+        } else {
+          // If track numbering is not enabled, just reformat the current value.
+          if (frameIt != frames.end()) {
+            frame = *frameIt;
+            int currentTotal;
+            int currentNr = TaggedFile::splitNumberAndTotal(frame.getValue(),
+                                                            &currentTotal);
+            // Set the total if enabled.
+            if (totalEnabled && total > 0) {
+              currentTotal = total;
+            }
+            if (currentTotal > 0) {
+              value.sprintf("%0*d/%0*d", numDigits, currentNr, numDigits,
+                            currentTotal);
+            } else {
+              value.sprintf("%0*d", numDigits, currentNr);
+            }
+            frame.setValueIfChanged(value);
+            if (frame.isValueChanged()) {
+              taggedFile->setFrame(tagNr, frame);
+            }
           }
         }
       }
@@ -2741,18 +2670,18 @@ void Kid3Application::convertToId3v24()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
-    if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
-      QString tagFmt = taggedFile->getTagFormatV2();
+    if (taggedFile->hasTag(Frame::Tag_Id3v2) && !taggedFile->isChanged()) {
+      QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
       if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] < QLatin1Char('4')) {
         if ((taggedFile->taggedFileFeatures() &
              (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
               TaggedFile::TF_ID3v23) {
           FrameCollection frames;
-          taggedFile->getAllFramesV2(frames);
+          taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
           FrameFilter flt;
           flt.enableAll();
-          taggedFile->deleteFramesV2(flt);
+          taggedFile->deleteFrames(Frame::Tag_Id3v2, flt);
 
           // The file has to be reread to write ID3v2.4 tags
           taggedFile = FileProxyModel::readWithId3V24(taggedFile);
@@ -2760,7 +2689,7 @@ void Kid3Application::convertToId3v24()
           // Restore the frames
           FrameFilter frameFlt;
           frameFlt.enableAll();
-          taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+          taggedFile->setFrames(Frame::Tag_Id3v2, frames.copyEnabledFrames(frameFlt), false);
         }
 
         // Write the file with ID3v2.4 tags
@@ -2789,8 +2718,8 @@ void Kid3Application::convertToId3v23()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
-    if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
-      QString tagFmt = taggedFile->getTagFormatV2();
+    if (taggedFile->hasTag(Frame::Tag_Id3v2) && !taggedFile->isChanged()) {
+      QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
       QString ext = taggedFile->getFileExtension();
       if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] > QLatin1Char('3') &&
@@ -2798,10 +2727,10 @@ void Kid3Application::convertToId3v23()
            ext == QLatin1String(".aac"))) {
         if (!(taggedFile->taggedFileFeatures() & TaggedFile::TF_ID3v23)) {
           FrameCollection frames;
-          taggedFile->getAllFramesV2(frames);
+          taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
           FrameFilter flt;
           flt.enableAll();
-          taggedFile->deleteFramesV2(flt);
+          taggedFile->deleteFrames(Frame::Tag_Id3v2, flt);
 
           // The file has to be reread to write ID3v2.3 tags
           taggedFile = FileProxyModel::readWithId3V23(taggedFile);
@@ -2809,7 +2738,7 @@ void Kid3Application::convertToId3v23()
           // Restore the frames
           FrameFilter frameFlt;
           frameFlt.enableAll();
-          taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+          taggedFile->setFrames(Frame::Tag_Id3v2, frames.copyEnabledFrames(frameFlt), false);
         }
 
         // Write the file with ID3v2.3 tags
@@ -2844,8 +2773,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
-    m_framesV1Model;
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  FrameTableModel* ft = m_framesModel[tagNr];
   FrameCollection::const_iterator it = ft->frames().findByName(frameName);
   if (it != ft->frames().end()) {
     if (!dataFileName.isEmpty()) {
@@ -2892,8 +2821,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
 QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
 {
   QVariantMap map;
-  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
-    m_framesV1Model;
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  FrameTableModel* ft = m_framesModel[tagNr];
   for (FrameCollection::const_iterator it = ft->frames().begin();
        it != ft->frames().end();
        ++it) {
@@ -2933,8 +2862,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  FrameTableModel* ft = (tagMask & Frame::TagV2) ? m_framesV2Model :
-    m_framesV1Model;
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  FrameTableModel* ft = m_framesModel[tagNr];
   FrameCollection frames(ft->frames());
   FrameCollection::const_iterator it = frames.findByName(frameName);
   if (it != frames.end()) {
@@ -2946,30 +2875,30 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
          (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
          frmName.startsWith(QLatin1String("ETCO")))) {
       if (isPicture) {
-        deleteFrame(frmName);
+        deleteFrame(tagNr, frmName);
         PictureFrame frame;
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-        addFrame(&frame);
+        addFrame(tagNr, &frame);
       } else if (isGeob) {
         Frame frame(*it);
-        deleteFrame(frmName);
+        deleteFrame(tagNr, frmName);
         Frame::setField(frame, Frame::ID_MimeType,
                         PictureFrame::getMimeTypeForFile(dataFileName));
         Frame::setField(frame, Frame::ID_Filename,
                         QFileInfo(dataFileName).fileName());
         Frame::setField(frame, Frame::ID_Description, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
-        addFrame(&frame);
+        addFrame(tagNr, &frame);
       } else {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {
           QTextStream stream(&file);
           Frame frame(*it);
           Frame::setField(frame, Frame::ID_Description, value);
-          deleteFrame(frmName);
+          deleteFrame(tagNr, frmName);
           TimeEventModel timeEventModel;
           if (isSylt) {
             timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
@@ -2981,11 +2910,11 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
             timeEventModel.toEtcoFrame(frame.fieldList());
           }
           file.close();
-          addFrame(&frame);
+          addFrame(tagNr, &frame);
         }
       }
     } else if (value.isEmpty() && (tagMask & 2) != 0) {
-      deleteFrame(frmName);
+      deleteFrame(tagNr, frmName);
     } else {
       Frame& frame = const_cast<Frame&>(*it);
       frame.setValueIfChanged(value);
@@ -3043,7 +2972,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         }
       }
     }
-    addFrame(&frame);
+    addFrame(tagNr, &frame);
     return true;
   }
   return false;
@@ -3056,7 +2985,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
 QByteArray Kid3Application::getPictureData() const
 {
   QByteArray data;
-  const FrameCollection& frames = m_framesV2Model->frames();
+  const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
   FrameCollection::const_iterator it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
   if (it != frames.end()) {
@@ -3071,18 +3000,18 @@ QByteArray Kid3Application::getPictureData() const
  */
 void Kid3Application::setPictureData(const QByteArray& data)
 {
-  const FrameCollection& frames = m_framesV2Model->frames();
+  const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
   FrameCollection::const_iterator it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
   PictureFrame frame;
   if (it != frames.end()) {
     frame = PictureFrame(*it);
-    deleteFrame(QLatin1String("Picture"));
+    deleteFrame(Frame::Tag_Picture, QLatin1String("Picture"));
   }
   if (!data.isEmpty()) {
     PictureFrame::setData(frame, data);
     PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-    addFrame(&frame);
+    addFrame(Frame::Tag_Picture, &frame);
   }
 }
 
@@ -3107,13 +3036,25 @@ void Kid3Application::closeFileHandle(const QString& filePath)
 void Kid3Application::setFrameEditor(FrameEditorObject* frameEditor)
 {
   if (m_frameEditor != frameEditor) {
+    IFrameEditor* editor;
+    bool storeCurrentEditor = false;
     if (frameEditor) {
       if (!m_frameEditor) {
-        m_storedFrameEditor = m_framelist->frameEditor();
+        storeCurrentEditor = true;
       }
-      m_framelist->setFrameEditor(frameEditor);
+      editor = frameEditor;
     } else {
-      m_framelist->setFrameEditor(m_storedFrameEditor);
+      editor = m_storedFrameEditor;
+    }
+    FOR_ALL_TAGS(tagNr) {
+      if (tagNr != Frame::Tag_Id3v1) {
+        FrameList* framelist = m_framelist[tagNr];
+        if (storeCurrentEditor) {
+          m_storedFrameEditor = framelist->frameEditor();
+          storeCurrentEditor = false;
+        }
+        framelist->setFrameEditor(editor);
+      }
     }
     m_frameEditor = frameEditor;
     emit frameEditorChanged();

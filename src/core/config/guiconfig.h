@@ -28,6 +28,7 @@
 #define GUICONFIG_H
 
 #include "generalconfig.h"
+#include "frame.h"
 #include "kid3api.h"
 
 /**
@@ -55,10 +56,6 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   Q_PROPERTY(bool autoHideTags READ autoHideTags WRITE setAutoHideTags NOTIFY autoHideTagsChanged)
   /** true to hide file controls */
   Q_PROPERTY(bool hideFile READ hideFile WRITE setHideFile NOTIFY hideFileChanged)
-  /** true to hide ID3v1.1 controls */
-  Q_PROPERTY(bool hideV1 READ hideV1 WRITE setHideV1 NOTIFY hideV1Changed)
-  /** true to hide ID3v2.3 controls */
-  Q_PROPERTY(bool hideV2 READ hideV2 WRITE setHideV2 NOTIFY hideV2Changed)
   /** true to hide picture preview */
   Q_PROPERTY(bool hidePicture READ hidePicture WRITE setHidePicture NOTIFY hidePictureChanged)
   /** true to play file on double click */
@@ -149,17 +146,11 @@ public:
   /** Set if file controls are hidden. */
   void setHideFile(bool hideFile);
 
-  /** Check if Tag 1 controls are hidden. */
-  bool hideV1() const { return m_hideV1; }
+  /** Check if tag controls are hidden. */
+  bool hideTag(Frame::TagNumber tagNr) const { return m_hideTag[tagNr]; }
 
-  /** Set if Tag 1 controls are hidden. */
-  void setHideV1(bool hideV1);
-
-  /** Check if Tag 2 controls are hidden. */
-  bool hideV2() const { return m_hideV2; }
-
-  /** Set if Tag 2 controls are hidden. */
-  void setHideV2(bool hideV2);
+  /** Set if tag controls are hidden. */
+  void setHideTag(Frame::TagNumber tagNr, bool hide);
 
   /** Check if the picture preview is hidden. */
   bool hidePicture() const { return m_hidePicture; }
@@ -204,11 +195,8 @@ signals:
   /** Emitted when @a hideFile changed. */
   void hideFileChanged(bool hideFile);
 
-  /** Emitted when @a hideV1 changed. */
-  void hideV1Changed(bool hideV1);
-
-  /** Emitted when @a hideV2 changed. */
-  void hideV2Changed(bool hideV2);
+  /** Emitted when @a hideTag changed. */
+  void hideTagChanged();
 
   /** Emitted when @a hidePicture changed. */
   void hidePictureChanged(bool hidePicture);
@@ -229,8 +217,7 @@ private:
   QList<int> m_vSplitterSizes;
   bool m_autoHideTags;
   bool m_hideFile;
-  bool m_hideV1;
-  bool m_hideV2;
+  bool m_hideTag[Frame::Tag_NumValues];
   bool m_hidePicture;
   bool m_playOnDoubleClick;
 

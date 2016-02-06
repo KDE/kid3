@@ -116,6 +116,18 @@ public:
   virtual QObject* qobject();
 
   /**
+   * Get the tag number of the edited frame.
+   * @return tag number.
+   */
+  virtual Frame::TagNumber tagNumber() const;
+
+  /**
+   * Set the tag number of the edited frame.
+   * @param tagNr tag number
+   */
+  virtual void setTagNumber(Frame::TagNumber tagNr);
+
+  /**
    * Set back pointer for implementation class.
    *
    * @param self back pointer
@@ -316,23 +328,27 @@ public slots:
 signals:
   /**
    * Emitted when the dialog to add and edit a frame is closed.
+   * @param tagNr tag number
    * @param frame edited frame if dialog was accepted, else 0
    */
-  void frameEdited(const Frame* frame);
+  void frameEdited(Frame::TagNumber tagNr, const Frame* frame);
 
   /**
    * Emitted when the dialog to select a frame is closed.
+   * @param tagNr tag number
    * @param frame selected frame if dialog was accepted, else 0
    */
-  void frameSelected(const Frame* frame);
+  void frameSelected(Frame::TagNumber tagNr, const Frame* frame);
 
 private slots:
   /**
    * Update ID3v2 tags in GUI controls from file displayed in frame list.
    *
    * @param taggedFile the selected file
+   * @param tagNr tag number
    */
-  void updateAfterFrameModification(TaggedFile* taggedFile);
+  void updateAfterFrameModification(TaggedFile* taggedFile,
+                                    Frame::TagNumber tagNr);
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
@@ -466,6 +482,7 @@ private:
 #endif
   Frame m_editFrame;
   TaggedFile* m_editFrameTaggedFile;
+  Frame::TagNumber m_editFrameTagNr;
   QDateTime m_expandFileListStartTime;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;

@@ -135,7 +135,7 @@ private:
   friend BatchImportConfig& StoredConfig<BatchImportConfig>::instance();
 
   void setImportDestInt(int importDest) {
-    setImportDest(TrackData::tagVersionCast(importDest));
+    setImportDest(Frame::tagVersionCast(importDest));
   }
 
   Frame::TagVersion m_importDest;

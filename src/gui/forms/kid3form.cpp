@@ -46,6 +46,7 @@
 #include <QApplication>
 #include <QFileSystemModel>
 #include <QMimeData>
+#include <QMenu>
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
@@ -158,9 +159,16 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
  */
 Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
                    QWidget* parent)
-  : QSplitter(parent), m_app(app), m_mainWin(mainWin)
+  : QSplitter(parent), m_pictureLabel(0), m_app(app), m_mainWin(mainWin)
 {
   setObjectName(QLatin1String("Kid3Form"));
+
+  FOR_ALL_TAGS(tagNr) {
+    m_tagContext[tagNr] = new Kid3FormTagContext(this, tagNr);
+    if (tagNr != Frame::Tag_Id3v1) {
+      m_app->getFrameList(tagNr)->setFrameEditor(m_mainWin);
+    }
+  }
 
   if (!s_collapsePixmap) {
     s_collapsePixmap = new QPixmap((const char**)collapse_xpm);
@@ -172,8 +180,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   setAcceptDrops(true);
   setWindowTitle(tr("Kid3"));
 
-  m_app->getFrameList()->setFrameEditor(m_mainWin);
-
   m_vSplitter = new QSplitter(Qt::Vertical, this);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   m_fileListBox->setModel(m_app->getFileProxyModel());
@@ -184,6 +190,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setRootIsDecorated(false);
   m_dirListBox->setModel(m_app->getDirProxyModel());
   m_dirListBox->setSelectionModel(m_app->getDirSelectionModel());
+  connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
+      SLOT(dirSelected(QModelIndex)));
 
   connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
           this, SLOT(setFileRootIndex(QModelIndex)));
@@ -203,6 +211,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #ifdef Q_OS_MAC
   m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
 #endif
+  connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
   m_fileLabel = new QLabel(tr("F&ile"), m_rightHalfVBox);
   QHBoxLayout* fileButtonLayout = new QHBoxLayout;
   fileButtonLayout->addWidget(m_fileButton);
@@ -218,6 +227,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(m_nameLabel, 0, 0);
 
   m_nameLineEdit = new QLineEdit(m_fileWidget);
+  connect(m_nameLineEdit, SIGNAL(textChanged(QString)), this,
+      SLOT(nameLineEditChanged(QString)));
   fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
   m_fileLabel->setBuddy(m_nameLineEdit);
 
@@ -232,21 +243,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
   connect(m_formatComboBox, SIGNAL(editTextChanged(QString)),
           this, SLOT(onFormatEditTextChanged(QString)));
-  fileLayout->addWidget(m_formatComboBox, 1, 1);
-
-  QLabel* fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
-  fileLayout->addWidget(fromTagLabel, 1, 2);
-  m_fnV1Button = new QPushButton(tr("Tag 1"), m_fileWidget);
-  m_fnV1Button->setToolTip(tr("Filename from Tag 1"));
-  fileLayout->addWidget(m_fnV1Button, 1, 3);
-  QPushButton* fnV2Button = new QPushButton(tr("Tag 2"), m_fileWidget);
-  fnV2Button->setToolTip(tr("Filename from Tag 2"));
-  fileLayout->addWidget(fnV2Button, 1, 4);
-
-  QLabel* formatFromFilenameLabel = new QLabel(tr("Format:") + QChar(0x2193),
-                                               m_fileWidget);
-  fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
-
   m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
   m_formatFromFilenameComboBox->setEditable(true);
   m_formatFromFilenameComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
@@ -254,176 +250,213 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
   connect(m_formatFromFilenameComboBox, SIGNAL(editTextChanged(QString)),
           this, SLOT(onFormatFromFilenameEditTextChanged(QString)));
-  fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
-  QLabel* toTagLabel = new QLabel(tr("To:"), m_fileWidget);
-  fileLayout->addWidget(toTagLabel, 2, 2);
-  m_toTagV1Button =
-    new QPushButton(tr("Tag 1"), m_fileWidget);
-  m_toTagV1Button->setToolTip(tr("Tag 1 from Filename"));
-  fileLayout->addWidget(m_toTagV1Button, 2, 3);
-  QPushButton* toTagV2Button =
-    new QPushButton(tr("Tag 2"), m_fileWidget);
-  toTagV2Button->setToolTip(tr("Tag 2 from Filename"));
-  fileLayout->addWidget(toTagV2Button, 2, 4);
+  fileLayout->addWidget(m_formatComboBox, 1, 1);
 
-  m_tag1Button = new QToolButton(m_rightHalfVBox);
-  m_tag1Button->setIcon(*s_collapsePixmap);
-  m_tag1Button->setAutoRaise(true);
-#ifdef Q_OS_MAC
-  m_tag1Button->setStyleSheet(QLatin1String("border: 0;"));
-#endif
-  m_tag1Label = new QLabel(tr("Tag &1"), m_rightHalfVBox);
-  QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
-  tag1ButtonLayout->addWidget(m_tag1Button);
-  tag1ButtonLayout->addWidget(m_tag1Label);
-  rightHalfLayout->addLayout(tag1ButtonLayout);
-
-  m_tag1Widget = new QWidget(m_rightHalfVBox);
-  m_tag1Widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-  rightHalfLayout->addWidget(m_tag1Widget, 100);
-
-  QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
-  m_framesV1Table = new FrameTable(m_app->frameModelV1(), m_app->genreModelV1(),
-                                   m_tag1Widget);
-  m_framesV1Table->setSelectionModel(m_app->getFramesV1SelectionModel());
-  idV1HBoxLayout->addWidget(m_framesV1Table, 100);
-  m_tag1Label->setBuddy(m_framesV1Table);
-
-  QVBoxLayout* buttonsV1VBoxLayout = new QVBoxLayout;
-  idV1HBoxLayout->addLayout(buttonsV1VBoxLayout);
-
-  QPushButton* id3V1PushButton =
-    new QPushButton(tr("From Tag 2"), m_tag1Widget);
-  buttonsV1VBoxLayout->addWidget(id3V1PushButton);
-
-  QPushButton* copyV1PushButton = new QPushButton(tr("Copy"), m_tag1Widget);
-  buttonsV1VBoxLayout->addWidget(copyV1PushButton);
-
-  QPushButton* pasteV1PushButton =
-    new QPushButton(tr("Paste"), m_tag1Widget);
-  buttonsV1VBoxLayout->addWidget(pasteV1PushButton);
-
-  QPushButton* removeV1PushButton =
-    new QPushButton(tr("Remove"), m_tag1Widget);
-  buttonsV1VBoxLayout->addWidget(removeV1PushButton);
-
-  buttonsV1VBoxLayout->addItem(
-    new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
-
-  m_tag2Button = new QToolButton(m_rightHalfVBox);
-  m_tag2Button->setIcon(*s_collapsePixmap);
-  m_tag2Button->setAutoRaise(true);
-#ifdef Q_OS_MAC
-  m_tag2Button->setStyleSheet(QLatin1String("border: 0;"));
-#endif
-  m_tag2Label = new QLabel(tr("Tag &2"), m_rightHalfVBox);
-  QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
-  tag2ButtonLayout->addWidget(m_tag2Button);
-  tag2ButtonLayout->addWidget(m_tag2Label);
-  rightHalfLayout->addLayout(tag2ButtonLayout);
-
-  m_tag2Widget = new QWidget(m_rightHalfVBox);
-  rightHalfLayout->addWidget(m_tag2Widget, 100);
-
-  QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
-  m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_app->genreModelV2(),
-                                   m_tag2Widget);
-  m_framesV2Table->setSelectionModel(m_app->getFramesV2SelectionModel());
-  idV2HBoxLayout->addWidget(m_framesV2Table);
-  m_tag2Label->setBuddy(m_framesV2Table);
-
-  QVBoxLayout* buttonsV2VBoxLayout = new QVBoxLayout;
-  idV2HBoxLayout->addLayout(buttonsV2VBoxLayout);
-
-  m_id3V2PushButton = new QPushButton(tr("From Tag 1"), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(m_id3V2PushButton);
-
-  QPushButton* copyV2PushButton =
-    new QPushButton(tr("Copy"), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(copyV2PushButton);
-
-  QPushButton* pasteV2PushButton =
-    new QPushButton(tr("Paste"), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(pasteV2PushButton);
-
-  QPushButton* removeV2PushButton =
-    new QPushButton(tr("Remove"), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(removeV2PushButton);
-
-  QFrame* frameLine = new QFrame;
-  frameLine->setFrameShape(QFrame::HLine);
-  frameLine->setFrameShadow(QFrame::Sunken);
-  buttonsV2VBoxLayout->addWidget(frameLine);
-
-  QPushButton* editFramesPushButton =
-    new QPushButton(tr("Edit..."), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(editFramesPushButton);
-  QPushButton* framesAddPushButton =
-    new QPushButton(tr("Add..."), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(framesAddPushButton);
-  QPushButton* deleteFramesPushButton =
-    new QPushButton(tr("Delete"), m_tag2Widget);
-  buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
-
-  m_pictureLabel = new PictureLabel(this);
-  m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app));
-  buttonsV2VBoxLayout->addWidget(m_pictureLabel);
-
-  buttonsV2VBoxLayout->addItem(
-    new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
-
-  rightHalfLayout->insertStretch(-1);
-
-  // signals and slots connections
-  connect(id3V1PushButton, SIGNAL(clicked()), m_app, SLOT(copyV2ToV1()));
-  connect(copyV1PushButton, SIGNAL(clicked()), m_app, SLOT(copyTagsV1()));
-  connect(pasteV1PushButton, SIGNAL(clicked()), m_app, SLOT(pasteTagsV1()));
-  connect(removeV1PushButton, SIGNAL(clicked()), m_app, SLOT(removeTagsV1()));
-  connect(m_id3V2PushButton, SIGNAL(clicked()), m_app, SLOT(copyV1ToV2()));
-  connect(copyV2PushButton, SIGNAL(clicked()), m_app, SLOT(copyTagsV2()));
-  connect(pasteV2PushButton, SIGNAL(clicked()), m_app, SLOT(pasteTagsV2()));
-  connect(removeV2PushButton, SIGNAL(clicked()), m_app, SLOT(removeTagsV2()));
-  connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
-  connect(deleteFramesPushButton, SIGNAL(clicked()), this,
-      SLOT(deleteFrame()));
-  connect(editFramesPushButton, SIGNAL(clicked()), this, SLOT(editFrame()));
-  connect(m_fnV1Button, SIGNAL(clicked()), this, SLOT(fnFromID3V1()));
-  connect(fnV2Button, SIGNAL(clicked()), this, SLOT(fnFromID3V2()));
-  connect(m_toTagV1Button, SIGNAL(clicked()),
-          m_app, SLOT(getTagsFromFilenameV1()));
-  connect(toTagV2Button, SIGNAL(clicked()),
-          m_app, SLOT(getTagsFromFilenameV2()));
-  connect(m_nameLineEdit, SIGNAL(textChanged(QString)), this,
-      SLOT(nameLineEditChanged(QString)));
-  connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
-      SLOT(dirSelected(QModelIndex)));
-  connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
-  connect(m_tag1Button, SIGNAL(clicked()), this, SLOT(showHideTag1()));
-  connect(m_tag2Button, SIGNAL(clicked()), this, SLOT(showHideTag2()));
-
-  // tab order
   setTabOrder(m_fileListBox, m_dirListBox);
   setTabOrder(m_dirListBox, m_nameLineEdit);
   setTabOrder(m_nameLineEdit, m_formatComboBox);
   setTabOrder(m_formatComboBox, m_formatFromFilenameComboBox);
-  setTabOrder(m_formatFromFilenameComboBox, m_fnV1Button);
-  setTabOrder(m_fnV1Button, fnV2Button);
-  setTabOrder(fnV2Button, m_toTagV1Button);
-  setTabOrder(m_toTagV1Button, toTagV2Button);
-  setTabOrder(toTagV2Button, id3V1PushButton);
-  setTabOrder(id3V1PushButton, copyV1PushButton);
-  setTabOrder(copyV1PushButton, pasteV1PushButton);
-  setTabOrder(pasteV1PushButton, removeV1PushButton);
-  setTabOrder(removeV1PushButton, m_id3V2PushButton);
-  setTabOrder(m_id3V2PushButton, copyV2PushButton);
-  setTabOrder(copyV2PushButton, pasteV2PushButton);
-  setTabOrder(pasteV2PushButton, removeV2PushButton);
-  setTabOrder(removeV2PushButton, editFramesPushButton);
-  setTabOrder(editFramesPushButton, framesAddPushButton);
-  setTabOrder(framesAddPushButton, deleteFramesPushButton);
-  setTabOrder(deleteFramesPushButton, m_framesV1Table);
-  setTabOrder(m_framesV1Table, m_framesV2Table);
+
+  QWidget* tabWidget = m_formatFromFilenameComboBox;
+
+  QLabel* fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
+  fileLayout->addWidget(fromTagLabel, 1, 2);
+  int column = 3;
+  FOR_ALL_TAGS(tagNr) {
+    if (tagNr <= Frame::Tag_2) {
+      QString tagStr = Frame::tagNumberToString(tagNr);
+      m_fnButton[tagNr] = new QPushButton(tr("Tag %1").arg(tagStr),
+                                          m_fileWidget);
+      m_fnButton[tagNr]->setToolTip(tr("Filename from Tag %1").arg(tagStr));
+      connect(m_fnButton[tagNr], SIGNAL(clicked()),
+              m_app->tag(tagNr), SLOT(getFilenameFromTags()));
+      fileLayout->addWidget(m_fnButton[tagNr], 1, column++);
+      setTabOrder(tabWidget, m_fnButton[tagNr]);
+      tabWidget = m_fnButton[tagNr];
+    } else {
+      m_fnButton[tagNr] = 0;
+    }
+  }
+
+  QLabel* formatFromFilenameLabel = new QLabel(tr("Format:") + QChar(0x2193),
+                                               m_fileWidget);
+  fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
+
+  fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
+
+  QLabel* toTagLabel = new QLabel(tr("To:"), m_fileWidget);
+  fileLayout->addWidget(toTagLabel, 2, 2);
+  column = 3;
+  FOR_ALL_TAGS(tagNr) {
+    if (tagNr <= Frame::Tag_2) {
+      QString tagStr = Frame::tagNumberToString(tagNr);
+      m_toTagButton[tagNr] =
+        new QPushButton(tr("Tag %1").arg(tagStr), m_fileWidget);
+      m_toTagButton[tagNr]->setToolTip(tr("Tag %1 from Filename").arg(tagStr));
+      connect(m_toTagButton[tagNr], SIGNAL(clicked()),
+              m_app->tag(tagNr), SLOT(getTagsFromFilename()));
+      fileLayout->addWidget(m_toTagButton[tagNr], 2, column++);
+      setTabOrder(tabWidget, m_toTagButton[tagNr]);
+      tabWidget = m_toTagButton[tagNr];
+    } else {
+      m_toTagButton[tagNr] = 0;
+    }
+  }
+
+  FOR_ALL_TAGS(tagNr) {
+    m_tagButton[tagNr] = new QToolButton(m_rightHalfVBox);
+    m_tagButton[tagNr]->setIcon(*s_collapsePixmap);
+    m_tagButton[tagNr]->setAutoRaise(true);
+#ifdef Q_OS_MAC
+    m_tagButton[tagNr]->setStyleSheet(QLatin1String("border: 0;"));
+#endif
+    connect(m_tagButton[tagNr], SIGNAL(clicked()), tag(tagNr), SLOT(showHideTag()));
+    m_tagLabel[tagNr] = new QLabel(tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
+    QHBoxLayout* tagButtonLayout = new QHBoxLayout;
+    tagButtonLayout->addWidget(m_tagButton[tagNr]);
+    tagButtonLayout->addWidget(m_tagLabel[tagNr]);
+    rightHalfLayout->addLayout(tagButtonLayout);
+
+    m_tagWidget[tagNr] = new QWidget(m_rightHalfVBox);
+    if (tagNr == Frame::Tag_Id3v1) {
+      m_tagWidget[tagNr]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    }
+    rightHalfLayout->addWidget(m_tagWidget[tagNr], 100);
+
+    QHBoxLayout* idHBoxLayout = new QHBoxLayout(m_tagWidget[tagNr]);
+    m_frameTable[tagNr] = new FrameTable(m_app->frameModel(tagNr), m_app->genreModel(tagNr),
+                                     m_tagWidget[tagNr]);
+    m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
+    idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
+    m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
+
+    QVBoxLayout* buttonsVBoxLayout = new QVBoxLayout;
+    idHBoxLayout->addLayout(buttonsVBoxLayout);
+
+    if (tagNr <= Frame::Tag_2) {
+      Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
+            tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+      m_id3PushButton[tagNr] =
+        new QPushButton(tr("From Tag %1")
+                        .arg(Frame::tagNumberToString(otherTagNr)),
+                        m_tagWidget[tagNr]);
+      connect(m_id3PushButton[tagNr], SIGNAL(clicked()),
+              m_app->tag(tagNr), SLOT(copyToOtherTag()));
+      buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
+      setTabOrder(tabWidget, m_id3PushButton[tagNr]);
+
+      QPushButton* copyPushButton = new QPushButton(tr("Copy"),
+                                                    m_tagWidget[tagNr]);
+      connect(copyPushButton, SIGNAL(clicked()),
+              m_app->tag(tagNr), SLOT(copyTags()));
+      buttonsVBoxLayout->addWidget(copyPushButton);
+      setTabOrder(m_id3PushButton[tagNr], copyPushButton);
+
+      QPushButton* pastePushButton =
+        new QPushButton(tr("Paste"), m_tagWidget[tagNr]);
+      connect(pastePushButton, SIGNAL(clicked()),
+              m_app->tag(tagNr), SLOT(pasteTags()));
+      buttonsVBoxLayout->addWidget(pastePushButton);
+      setTabOrder(copyPushButton, pastePushButton);
+      tabWidget = pastePushButton;
+    } else {
+      m_id3PushButton[tagNr] = new QPushButton(tr("From"));
+      QMenu* menu = new QMenu(this);
+      QAction* action = menu->addAction(tr("Filename"));
+      connect(action, SIGNAL(triggered()),
+              m_app->tag(tagNr), SLOT(getTagsFromFilename()));
+      FOR_ALL_TAGS(fromTagNr) {
+        if (fromTagNr != tagNr) {
+          action = menu->addAction(
+            tr("Tag %1").arg(Frame::tagNumberToString(fromTagNr)));
+          QByteArray ba;
+          ba.append(static_cast<char>(fromTagNr));
+          ba.append(static_cast<char>(tagNr));
+          action->setData(ba);
+          connect(action, SIGNAL(triggered()),
+                  m_app, SLOT(copyTagsActionData()));
+        }
+      }
+      action = menu->addAction(tr("Paste"));
+      connect(action, SIGNAL(triggered()),
+              m_app->tag(tagNr), SLOT(pasteTags()));
+      m_id3PushButton[tagNr]->setMenu(menu);
+      buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
+      setTabOrder(tabWidget, m_id3PushButton[tagNr]);
+
+      QPushButton* toButton = new QPushButton(tr("To"));
+      menu = new QMenu(this);
+      action = menu->addAction(tr("Filename"));
+      connect(action, SIGNAL(triggered()),
+              m_app->tag(tagNr), SLOT(getFilenameFromTags()));
+      FOR_ALL_TAGS(fromTagNr) {
+        if (fromTagNr != tagNr) {
+          action = menu->addAction(
+            tr("Tag %1").arg(Frame::tagNumberToString(fromTagNr)));
+          QByteArray ba;
+          ba.append(static_cast<char>(tagNr));
+          ba.append(static_cast<char>(fromTagNr));
+          action->setData(ba);
+          connect(action, SIGNAL(triggered()),
+                  m_app, SLOT(copyTagsActionData()));
+        }
+      }
+      action = menu->addAction(tr("Copy"));
+      connect(action, SIGNAL(triggered()),
+              m_app->tag(tagNr), SLOT(copyTags()));
+      toButton->setMenu(menu);
+      buttonsVBoxLayout->addWidget(toButton);
+      setTabOrder(m_id3PushButton[tagNr], toButton);
+      tabWidget = toButton;
+    }
+
+    QPushButton* removePushButton =
+      new QPushButton(tr("Remove"), m_tagWidget[tagNr]);
+    connect(removePushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(removeTags()));
+    buttonsVBoxLayout->addWidget(removePushButton);
+    setTabOrder(tabWidget, removePushButton);
+    tabWidget = removePushButton;
+
+    if (tagNr != Frame::Tag_Id3v1) {
+      QFrame* frameLine = new QFrame;
+      frameLine->setFrameShape(QFrame::HLine);
+      frameLine->setFrameShadow(QFrame::Sunken);
+      buttonsVBoxLayout->addWidget(frameLine);
+
+      QPushButton* editFramesPushButton =
+        new QPushButton(tr("Edit..."), m_tagWidget[tagNr]);
+      connect(editFramesPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(editFrame()));
+      buttonsVBoxLayout->addWidget(editFramesPushButton);
+      setTabOrder(tabWidget, editFramesPushButton);
+      QPushButton* framesAddPushButton =
+        new QPushButton(tr("Add..."), m_tagWidget[tagNr]);
+      connect(framesAddPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(addFrame()));
+      buttonsVBoxLayout->addWidget(framesAddPushButton);
+      setTabOrder(editFramesPushButton, framesAddPushButton);
+      QPushButton* deleteFramesPushButton =
+        new QPushButton(tr("Delete"), m_tagWidget[tagNr]);
+      connect(deleteFramesPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(deleteFrame()));
+      buttonsVBoxLayout->addWidget(deleteFramesPushButton);
+      setTabOrder(framesAddPushButton, deleteFramesPushButton);
+      tabWidget = deleteFramesPushButton;
+    }
+    if (tagNr == Frame::Tag_Picture) {
+      m_pictureLabel = new PictureLabel(this);
+      m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app));
+      buttonsVBoxLayout->addWidget(m_pictureLabel);
+    }
+
+    buttonsVBoxLayout->addItem(
+      new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+  }
+
+  rightHalfLayout->insertStretch(-1);
+
+  FOR_ALL_TAGS(tagNr) {
+    setTabOrder(tabWidget, m_frameTable[tagNr]);
+    tabWidget = m_frameTable[tagNr];
+  }
 }
 
 /**
@@ -491,48 +524,6 @@ void Kid3Form::dropEvent(QDropEvent* ev)
 }
 
 /**
- * Frame list button Edit.
- */
-void Kid3Form::editFrame()
-{
-  m_app->editFrame();
-}
-
-/**
- * Frame list button Add.
- */
-void Kid3Form::addFrame()
-{
-  m_app->selectAndAddFrame();
-}
-
-/**
- * Frame list button Delete.
- */
-void Kid3Form::deleteFrame()
-{
-  m_app->deleteFrame();
-}
-
-/**
- * Set filename according to ID3v1 tags.
- */
-
-void Kid3Form::fnFromID3V1()
-{
-  m_app->getFilenameFromTags(Frame::TagV1);
-}
-
-/**
- * Set filename according to ID3v1 tags.
- */
-
-void Kid3Form::fnFromID3V2()
-{
-  m_app->getFilenameFromTags(Frame::TagV2);
-}
-
-/**
  * Filename line edit is changed.
  * @param txt contents of line edit
  */
@@ -595,46 +586,43 @@ void Kid3Form::dirSelected(const QModelIndex& index)
 }
 
 /**
- * Enable or disable controls requiring ID3v1 tags.
- *
+ * Enable or disable controls requiring tags.
+ * @param tagNr tag number
  * @param enable true to enable
  */
-void Kid3Form::enableControlsV1(bool enable)
+void Kid3Form::enableControls(Frame::TagNumber tagNr, bool enable)
 {
-  m_fnV1Button->setEnabled(enable);
-  m_toTagV1Button->setEnabled(enable);
-  m_id3V2PushButton->setEnabled(enable);
-  m_tag1Widget->setEnabled(enable);
+  if (m_fnButton[tagNr]) {
+    m_fnButton[tagNr]->setEnabled(enable);
+  }
+  if (m_toTagButton[tagNr]) {
+    m_toTagButton[tagNr]->setEnabled(enable);
+  }
+  Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
+        tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+  if (otherTagNr < Frame::Tag_NumValues) {
+    m_id3PushButton[otherTagNr]->setEnabled(enable);
+  }
+  m_tagWidget[tagNr]->setEnabled(enable);
+  if (tagNr > Frame::Tag_2) {
+    m_tagButton[tagNr]->setVisible(enable);
+    m_tagLabel[tagNr]->setVisible(enable);
+  }
 }
 
 /**
- * Display the format of tag 1.
- *
+ * Display the tag format.
+ * @param tagNr tag number
  * @param str string describing format, e.g. "ID3v1.1"
  */
-void Kid3Form::setTagFormatV1(const QString& str)
+void Kid3Form::setTagFormat(Frame::TagNumber tagNr, const QString& str)
 {
-  QString txt = tr("Tag &1");
+  QString txt = tr("Tag &%1").arg(Frame::tagNumberToString(tagNr));
   if (!str.isEmpty()) {
     txt += QLatin1String(": ");
     txt += str;
   }
-  m_tag1Label->setText(txt);
-}
-
-/**
- * Display the format of tag 2.
- *
- * @param str string describing format, e.g. "ID3v2.4"
- */
-void Kid3Form::setTagFormatV2(const QString& str)
-{
-  QString txt = tr("Tag &2");
-  if (!str.isEmpty()) {
-    txt += QLatin1String(": ");
-    txt += str;
-  }
-  m_tag2Label->setText(txt);
+  m_tagLabel[tagNr]->setText(txt);
 }
 
 /**
@@ -662,34 +650,18 @@ void Kid3Form::hideFile(bool hide)
 }
 
 /**
- * Hide or show tag 1 controls.
- *
+ * Hide or show tag controls.
+ * @param tagNr tag number
  * @param hide true to hide, false to show
  */
-void Kid3Form::hideV1(bool hide)
+void Kid3Form::hideTag(Frame::TagNumber tagNr, bool hide)
 {
   if (hide) {
-    m_tag1Widget->hide();
-    m_tag1Button->setIcon(*s_expandPixmap);
+    m_tagWidget[tagNr]->hide();
+    m_tagButton[tagNr]->setIcon(*s_expandPixmap);
   } else {
-    m_tag1Widget->show();
-    m_tag1Button->setIcon(*s_collapsePixmap);
-  }
-}
-
-/**
- * Hide or show tag 2 controls.
- *
- * @param hide true to hide, false to show
- */
-void Kid3Form::hideV2(bool hide)
-{
-  if (hide) {
-    m_tag2Widget->hide();
-    m_tag2Button->setIcon(*s_expandPixmap);
-  } else {
-    m_tag2Widget->show();
-    m_tag2Button->setIcon(*s_collapsePixmap);
+    m_tagWidget[tagNr]->show();
+    m_tagButton[tagNr]->setIcon(*s_collapsePixmap);
   }
 }
 
@@ -702,19 +674,12 @@ void Kid3Form::showHideFile()
 }
 
 /**
- * Toggle visibility of tag 1 controls.
+ * Toggle visibility of tag controls.
+ * @param tagNr tag number
  */
-void Kid3Form::showHideTag1()
+void Kid3Form::showHideTag(Frame::TagNumber tagNr)
 {
-  hideV1(!m_tag1Widget->isHidden());
-}
-
-/**
- * Toggle visibility of tag 2 controls.
- */
-void Kid3Form::showHideTag2()
-{
-  hideV2(!m_tag2Widget->isHidden());
+  hideTag(tagNr, !m_tagWidget[tagNr]->isHidden());
 }
 
 /**
@@ -742,6 +707,9 @@ void Kid3Form::onFormatFromFilenameEditTextChanged(const QString& text)
  */
 void Kid3Form::hidePicture(bool hide)
 {
+  if (!m_pictureLabel)
+    return;
+
   if (hide) {
     m_pictureLabel->hide();
   } else {
@@ -758,19 +726,12 @@ void Kid3Form::setFocusFilename()
 }
 
 /**
- * Set focus on tag 1 controls.
+ * Set focus on tag controls.
+ * @param tagNr tag number
  */
-void Kid3Form::setFocusV1()
+void Kid3Form::setFocusTag(Frame::TagNumber tagNr)
 {
-  m_framesV1Table->setFocus();
-}
-
-/**
- * Set focus on tag 2 controls.
- */
-void Kid3Form::setFocusV2()
-{
-  m_framesV2Table->setFocus();
+  m_frameTable[tagNr]->setFocus();
 }
 
 /**
@@ -822,8 +783,9 @@ void Kid3Form::saveConfig()
   fileCfg.setFromFilenameFormats(getItemsFromComboBox(m_formatFromFilenameComboBox));
   if (!guiCfg.autoHideTags()) {
     guiCfg.setHideFile(m_fileWidget->isHidden());
-    guiCfg.setHideV1(m_tag1Widget->isHidden());
-    guiCfg.setHideV2(m_tag2Widget->isHidden());
+    FOR_ALL_TAGS(tagNr) {
+      guiCfg.setHideTag(tagNr, m_tagWidget[tagNr]->isHidden());
+    }
   }
   int column;
   Qt::SortOrder order;
@@ -880,8 +842,9 @@ void Kid3Form::readConfig()
 
   if (!guiCfg.autoHideTags()) {
     hideFile(guiCfg.hideFile());
-    hideV1(guiCfg.hideV1());
-    hideV2(guiCfg.hideV2());
+    FOR_ALL_TAGS(tagNr) {
+      hideTag(tagNr, guiCfg.hideTag(tagNr));
+    }
   }
   hidePicture(guiCfg.hidePicture());
   m_fileListBox->sortByColumn(guiCfg.fileListSortColumn(),
@@ -898,7 +861,9 @@ void Kid3Form::readConfig()
  */
 void Kid3Form::setPictureData(const QByteArray& data)
 {
-  m_pictureLabel->setData(data);
+  if (m_pictureLabel) {
+    m_pictureLabel->setData(data);
+  }
 }
 
 /**
@@ -972,10 +937,10 @@ bool Kid3Form::previousFile(bool select)
 FrameTable* Kid3Form::getEditingFrameTable() const
 {
   if (QWidget* focusWidget = QApplication::focusWidget()) {
-    if (m_framesV1Table->getCurrentEditor() == focusWidget) {
-      return m_framesV1Table;
-    } else if (m_framesV2Table->getCurrentEditor() == focusWidget) {
-      return m_framesV2Table;
+    FOR_ALL_TAGS(tagNr) {
+      if (m_frameTable[tagNr]->getCurrentEditor() == focusWidget) {
+        return m_frameTable[tagNr];
+      }
     }
   }
   return 0;

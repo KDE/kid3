@@ -104,8 +104,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
 #endif
-  m_editFrameTaggedFile(0), m_findReplaceActive(false),
-  m_expandNotificationNeeded(false)
+  m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
+  m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
   m_downloadDialog->close();
   ContextHelp::init(m_platformTools);
@@ -128,8 +128,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateCurrentSelection()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),
           this, SLOT(updateGuiControls()));
-  connect(m_app, SIGNAL(frameModified(TaggedFile*)),
-          this, SLOT(updateAfterFrameModification(TaggedFile*)));
+  connect(m_app, SIGNAL(frameModified(TaggedFile*,Frame::TagNumber)),
+          this, SLOT(updateAfterFrameModification(TaggedFile*,Frame::TagNumber)));
   connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
           this, SLOT(confirmedOpenDirectory(QStringList)));
   connect(m_app, SIGNAL(toggleExpandedRequested(QModelIndex)),
@@ -526,7 +526,7 @@ void BaseMainWindowImpl::setupImportDialog()
     m_importDialog =
       new ImportDialog(m_platformTools, m_w, caption,
                        m_app->getTrackDataModel(),
-                       m_app->genreModelV2(),
+                       m_app->genreModel(Frame::Tag_2),
                        m_app->getServerImporters(),
                        m_app->getServerTrackImporters());
     connect(m_importDialog, SIGNAL(accepted()),
@@ -592,10 +592,16 @@ void BaseMainWindowImpl::slotBrowseCoverArt()
   QModelIndex index = m_form->getFileList()->currentIndex();
   if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
     taggedFile->readTags(false);
-    FrameCollection frames1;
-    taggedFile->getAllFramesV1(frames1);
-    taggedFile->getAllFramesV2(frames2);
-    frames2.merge(frames1);
+    frames2.clear();
+    foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+      if (frames2.empty()) {
+        taggedFile->getAllFrames(tagNr, frames2);
+      } else {
+        FrameCollection frames1;
+        taggedFile->getAllFrames(tagNr, frames1);
+        frames2.merge(frames1);
+      }
+    }
   }
 
   m_browseCoverArtDialog->readConfig();
@@ -721,18 +727,12 @@ void BaseMainWindowImpl::showFoundText()
   if (pos.isValid()) {
     m_app->getFileSelectionModel()->setCurrentIndex(pos.getFileIndex(),
         QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
-    switch (pos.getPart()) {
-    case TagSearcher::Position::FileName:
+    if (pos.getPart() == TagSearcher::Position::FileName) {
       m_form->setFilenameSelection(pos.getMatchedPos(), pos.getMatchedLength());
-      break;
-    case TagSearcher::Position::Tag1:
-      m_form->frameTableV1()->setValueSelection(
-            pos.getFrameIndex(), pos.getMatchedPos(), pos.getMatchedLength());
-      break;
-    case TagSearcher::Position::Tag2:
-      m_form->frameTableV2()->setValueSelection(
-            pos.getFrameIndex(), pos.getMatchedPos(), pos.getMatchedLength());
-      break;
+    } else {
+      m_form->frameTable(TagSearcher::Position::partToTagNumber(pos.getPart()))
+          ->setValueSelection(pos.getFrameIndex(), pos.getMatchedPos(),
+                              pos.getMatchedLength());
     }
   }
 }
@@ -880,8 +880,9 @@ void BaseMainWindowImpl::updateCurrentSelection()
 {
   TaggedFileSelection* selection = m_app->selectionInfo();
   if (!selection->isEmpty()) {
-    m_form->frameTableV1()->acceptEdit();
-    m_form->frameTableV2()->acceptEdit();
+    FOR_ALL_TAGS(tagNr) {
+      m_form->frameTable(tagNr)->acceptEdit();
+    }
     m_app->frameModelsToTags();
 
     selection->setFilename(m_form->getFilename());
@@ -901,8 +902,9 @@ void BaseMainWindowImpl::updateGuiControls()
   m_form->setFilename(selection->getFilename());
   m_form->setFilenameEditEnabled(selection->isSingleFileSelected());
   m_form->setDetailInfo(selection->getDetailInfo());
-  m_form->setTagFormatV1(selection->getTagFormatV1());
-  m_form->setTagFormatV2(selection->getTagFormatV2());
+  FOR_ALL_TAGS(tagNr) {
+    m_form->setTagFormat(tagNr, selection->getTagFormat(tagNr));
+  }
   if (FileConfig::instance().markChanges()) {
     m_form->markChangedFilename(selection->isFilenameChanged());
   }
@@ -911,11 +913,15 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setPictureData(selection->getPicture());
   }
 
-  m_form->enableControlsV1(selection->isTag1Used() || selection->isEmpty());
+  bool selectionEmpty = selection->isEmpty();
+  bool autoHideTags = GuiConfig::instance().autoHideTags();
+  FOR_ALL_TAGS(tagNr) {
+    m_form->enableControls(tagNr,
+        selection->isTagUsed(tagNr) || selectionEmpty);
 
-  if (GuiConfig::instance().autoHideTags()) {
-    m_form->hideV1(!selection->hasTagV1());
-    m_form->hideV2(!selection->hasTagV2());
+    if (autoHideTags) {
+      m_form->hideTag(tagNr, !selection->hasTag(tagNr));
+    }
   }
 }
 
@@ -923,13 +929,15 @@ void BaseMainWindowImpl::updateGuiControls()
  * Update ID3v2 tags in GUI controls from file displayed in frame list.
  *
  * @param taggedFile the selected file
+ * @param tagNr tag number
  */
-void BaseMainWindowImpl::updateAfterFrameModification(TaggedFile* taggedFile)
+void BaseMainWindowImpl::updateAfterFrameModification(TaggedFile* taggedFile,
+                                                      Frame::TagNumber tagNr)
 {
   if (taggedFile) {
     FrameCollection frames;
-    taggedFile->getAllFramesV2(frames);
-    m_app->frameModelV2()->transferFrames(frames);
+    taggedFile->getAllFrames(tagNr, frames);
+    m_app->frameModel(tagNr)->transferFrames(frames);
   }
 }
 
@@ -945,7 +953,7 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   bool ok = false;
   if (taggedFile && frame) {
-    QStringList frameIds = taggedFile->getFrameIds();
+    QStringList frameIds = taggedFile->getFrameIds(m_editFrameTagNr);
     QMap<QString, QString> nameMap = Frame::getDisplayNameMap(frameIds);
     QString displayName = QInputDialog::getItem(
       m_w, tr("Add Frame"),
@@ -956,7 +964,7 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
       *frame = Frame(type, QLatin1String(""), name, -1);
     }
   }
-  emit frameSelected(ok ? frame : 0);
+  emit frameSelected(m_editFrameTagNr, ok ? frame : 0);
 }
 
 /**
@@ -967,6 +975,24 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 QObject* BaseMainWindowImpl::qobject()
 {
   return this;
+}
+
+/**
+ * Get the tag number of the edited frame.
+ * @return tag number.
+ */
+Frame::TagNumber BaseMainWindowImpl::tagNumber() const
+{
+  return m_editFrameTagNr;
+}
+
+/**
+ * Set the tag number of the edited frame.
+ * @param tagNr tag number
+ */
+void BaseMainWindowImpl::setTagNumber(Frame::TagNumber tagNr)
+{
+  m_editFrameTagNr = tagNr;
 }
 
 /**
@@ -982,7 +1008,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
                                                TaggedFile* taggedFile)
 {
   if (!frame || !taggedFile) {
-    emit frameEdited(0);
+    emit frameEdited(m_editFrameTagNr, 0);
     return;
   }
 
@@ -1007,7 +1033,8 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
             this, SLOT(onEditFrameDialogFinished(int)));
   }
   m_editFrameDialog->setWindowTitle(name);
-  m_editFrameDialog->setFrame(m_editFrame, m_editFrameTaggedFile);
+  m_editFrameDialog->setFrame(m_editFrame, m_editFrameTaggedFile,
+                              m_editFrameTagNr);
   m_editFrameDialog->show();
 }
 
@@ -1027,12 +1054,13 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
         m_editFrame.setFieldList(fields);
         m_editFrame.setValueFromFieldList();
       }
-      if (m_editFrameTaggedFile->setFrameV2(m_editFrame)) {
-        m_editFrameTaggedFile->markTag2Changed(m_editFrame.getType());
+      if (m_editFrameTaggedFile->setFrame(m_editFrameTagNr, m_editFrame)) {
+        m_editFrameTaggedFile->markTagChanged(m_editFrameTagNr, m_editFrame.getType());
       }
     }
   }
-  emit frameEdited(result == QDialog::Accepted ? &m_editFrame : 0);
+  emit frameEdited(m_editFrameTagNr,
+                   result == QDialog::Accepted ? &m_editFrame : 0);
 }
 
 /**

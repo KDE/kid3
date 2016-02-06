@@ -128,10 +128,11 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         result = QString::number(m_trackData.getTotalNumberOfTracksInDir());
       } else if (name == QLatin1String("extension")) {
         result = m_trackData.getFileExtension();
-      } else if (name == QLatin1String("tag1")) {
-        result = m_trackData.getTagFormatV1();
-      } else if (name == QLatin1String("tag2")) {
-        result = m_trackData.getTagFormatV2();
+      } else if (name.startsWith(QLatin1String("tag")) && name.length() == 4) {
+        Frame::TagNumber tagNr = Frame::tagNumberFromString(name.mid(3));
+        if (tagNr < Frame::Tag_NumValues) {
+          result = m_trackData.getTagFormat(tagNr);
+        }
       } else if (name == QLatin1String("bitrate")) {
         result.setNum(info.bitrate);
       } else if (name == QLatin1String("vbr")) {
@@ -272,23 +273,14 @@ TrackData::TrackData()
 TrackData::TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
   m_taggedFileIndex(taggedFile.getIndex())
 {
-  switch (tagVersion) {
-  case Frame::TagV1:
-    taggedFile.getAllFramesV1(*this);
-    break;
-  case Frame::TagV2:
-    taggedFile.getAllFramesV2(*this);
-    break;
-  case Frame::TagV2V1:
-  {
-    FrameCollection framesV1;
-    taggedFile.getAllFramesV1(framesV1);
-    taggedFile.getAllFramesV2(*this);
-    merge(framesV1);
-    break;
-  }
-  case Frame::TagNone:
-    ;
+  foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagVersion)) {
+    if (empty()) {
+      taggedFile.getAllFrames(tagNr, *this);
+    } else {
+      FrameCollection frames;
+      taggedFile.getAllFrames(tagNr, frames);
+      merge(frames);
+    }
   }
 }
 
@@ -333,29 +325,17 @@ QString TrackData::getFilename() const
 }
 
 /**
- * Get the format of tag 1.
+ * Get the format of tag.
  *
+ * @param tagNr tag number
  * @return string describing format of tag 1,
  *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
  *         QString::null if unknown.
  */
-QString TrackData::getTagFormatV1() const
+QString TrackData::getTagFormat(Frame::TagNumber tagNr) const
 {
   TaggedFile* taggedFile = getTaggedFile();
-  return taggedFile ? taggedFile->getTagFormatV1() : QString();
-}
-
-/**
- * Get the format of tag 2.
- *
- * @return string describing format of tag 2,
- *         e.g. "ID3v2.3", "Vorbis", "APE",
- *         QString::null if unknown.
- */
-QString TrackData::getTagFormatV2() const
-{
-  TaggedFile* taggedFile = getTaggedFile();
-  return taggedFile ? taggedFile->getTagFormatV2() : QString();
+  return taggedFile ? taggedFile->getTagFormat(tagNr) : QString();
 }
 
 /**
@@ -553,15 +533,16 @@ QString ImportTrackDataVector::getAlbum() const
 }
 
 /**
- * Check if tag 1 is supported in the first track.
- * @return true if tag 1 is supported.
+ * Check if tag is supported in the first track.
+ * @param tagNr tag number
+ * @return true if tag is supported.
  */
-bool ImportTrackDataVector::isTagV1Supported() const
+bool ImportTrackDataVector::isTagSupported(Frame::TagNumber tagNr) const
 {
   if (!isEmpty()) {
     TaggedFile* taggedFile = at(0).getTaggedFile();
     if (taggedFile) {
-      return taggedFile->isTagV1Supported();
+      return taggedFile->isTagSupported(tagNr);
     }
   }
   return true;
@@ -582,12 +563,12 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
       return result;
     TaggedFile* taggedFile = trackData.getTaggedFile();
     FrameCollection frames;
-    taggedFile->getAllFramesV2(frames);
-    result = frames.getValue(type);
-    if (!result.isEmpty())
-      return result;
-    taggedFile->getAllFramesV1(frames);
-    result = frames.getValue(type);
+    foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+      taggedFile->getAllFrames(tagNr, frames);
+      result = frames.getValue(type);
+      if (!result.isEmpty())
+        return result;
+    }
   }
   return result;
 }
@@ -602,23 +583,15 @@ void ImportTrackDataVector::readTags(Frame::TagVersion tagVersion)
 {
   for (iterator it = begin(); it != end(); ++it) {
     if (TaggedFile* taggedFile = it->getTaggedFile()) {
-      switch (tagVersion) {
-      case Frame::TagV1:
-        taggedFile->getAllFramesV1(*it);
-        break;
-      case Frame::TagV2:
-        taggedFile->getAllFramesV2(*it);
-        break;
-      case Frame::TagV2V1:
-      {
-        FrameCollection framesV1;
-        taggedFile->getAllFramesV1(framesV1);
-        taggedFile->getAllFramesV2(*it);
-        it->merge(framesV1);
-        break;
-      }
-      case Frame::TagNone:
-        ;
+      it->clear();
+      foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagVersion)) {
+        if (it->empty()) {
+          taggedFile->getAllFrames(tagNr, *it);
+        } else {
+          FrameCollection frames;
+          taggedFile->getAllFrames(tagNr, frames);
+          it->merge(frames);
+        }
       }
     }
     it->setImportDuration(0);

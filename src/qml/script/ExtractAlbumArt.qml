@@ -34,7 +34,7 @@ Kid3Script {
     }
 
     function doWork() {
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         var data = app.getPictureData()
         if (script.getDataSize(data) !== 0) {
           var fileName = app.selectionInfo.fileName

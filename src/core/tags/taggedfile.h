@@ -78,7 +78,6 @@ public:
     QString toString() const;
   };
 
-
   /**
    * Constructor.
    *
@@ -165,48 +164,35 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve) = 0;
 
   /**
-   * Remove ID3v1 frames.
+   * Remove frames.
    *
+   * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFramesV1(const FrameFilter& flt);
+  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt);
 
   /**
-   * Remove ID3v2 frames.
+   * Check if file has a tag.
    *
-   * @param flt filter specifying which frames to remove
-   */
-  virtual void deleteFramesV2(const FrameFilter& flt);
-
-  /**
-   * Check if file has an ID3v1 tag.
-   *
-   * @return true if a V1 tag is available.
+   * @return true if a tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTagV1() const;
+  virtual bool hasTag(Frame::TagNumber tagNr) const;
 
   /**
-   * Check if ID3v1 tags are supported by the format of this file.
+   * Check if tags are supported by the format of this file.
    *
-   * @return true if V1 tags are supported.
+   * @param tagNr tag number
+   * @return true if tags are supported.
    */
-  virtual bool isTagV1Supported() const;
-
-  /**
-   * Check if file has an ID3v2 tag.
-   *
-   * @return true if a V2 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV2() const = 0;
+  virtual bool isTagSupported(Frame::TagNumber tagNr) const;
 
   /**
    * Check if tag information has already been read.
    *
    * @return true if information is available,
    *         false if the tags have not been read yet, in which case
-   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   *         hasTag() does not return meaningful information.
    */
   virtual bool isTagInformationRead() const = 0;
 
@@ -233,101 +219,70 @@ public:
   virtual QString getFileExtension() const = 0;
 
   /**
-   * Get the format of tag 1.
+   * Get the format of tag.
    *
-   * @return string describing format of tag 1,
+   * @param tagNr tag number
+   * @return string describing format of tag,
    *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
    *         QString::null if unknown.
    */
-  virtual QString getTagFormatV1() const;
+  virtual QString getTagFormat(Frame::TagNumber tagNr) const;
 
   /**
-   * Get the format of tag 2.
+   * Get a specific frame from the tags.
    *
-   * @return string describing format of tag 2,
-   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
-   *         QString::null if unknown.
-   */
-  virtual QString getTagFormatV2() const;
-
-  /**
-   * Get a specific frame from the tags 1.
-   *
+   * @param tagNr tag number
    * @param type  frame type
    * @param frame the frame is returned here
    *
    * @return true if ok.
    */
-  virtual bool getFrameV1(Frame::Type type, Frame& frame) const;
+  virtual bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const = 0;
 
   /**
-   * Set a frame in the tags 1.
+   * Set a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to set.
    *
    * @return true if ok.
    */
-  virtual bool setFrameV1(const Frame& frame);
+  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame) = 0;
 
   /**
-   * Get a specific frame from the tags 2.
+   * Add a frame in the tags.
    *
-   * @param type  frame type
-   * @param frame the frame is returned here
-   *
-   * @return true if ok.
-   */
-  virtual bool getFrameV2(Frame::Type type, Frame& frame) const;
-
-  /**
-   * Set a frame in the tags 2.
-   *
-   * @param frame frame to set
-   *
-   * @return true if ok.
-   */
-  virtual bool setFrameV2(const Frame& frame);
-
-  /**
-   * Add a frame in the tags 2.
-   *
+   * @param tagNr tag number
    * @param frame frame to add, a field list may be added by this method
    *
    * @return true if ok.
    */
-  virtual bool addFrameV2(Frame& frame);
+  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame);
 
   /**
-   * Delete a frame in the tags 2.
+   * Delete a frame from the tags.
    *
-   * @param frame frame to delete.
+   * @param tagNr tag number
+   * @param frame frame to delete
    *
    * @return true if ok.
    */
-  virtual bool deleteFrameV2(const Frame& frame);
+  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
    * Get a list of frame IDs which can be added.
-   *
+   * @param tagNr tag number
    * @return list with frame IDs.
    */
-  virtual QStringList getFrameIds() const = 0;
+  virtual QStringList getFrameIds(Frame::TagNumber tagNr) const = 0;
 
   /**
-   * Get all frames in tag 1.
+   * Get all frames in tag.
    *
+   * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFramesV1(FrameCollection& frames);
-
-  /**
-   * Get all frames in tag 2.
-   * This generic implementation only supports the standard tags and should
-   * be reimplemented in derived classes.
-   *
-   * @param frames frame collection to set.
-   */
-  virtual void getAllFramesV2(FrameCollection& frames);
+  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames);
 
   /**
    * Close any file handles which are held open by the tagged file object.
@@ -343,25 +298,19 @@ public:
    * If a frame is created, its field list is empty. This method will create
    * a field list appropriate for the frame type and tagged file type if no
    * field list exists. The default implementation does nothing.
+   * @param tagNr tag number
    * @param frame frame where field list is added
    */
-  virtual void addFieldList(Frame& frame) const;
+  virtual void addFieldList(Frame::TagNumber tagNr, Frame& frame) const;
 
   /**
-   * Set frames in tag 1.
+   * Set frames in tag.
    *
+   * @param tagNr tag number
    * @param frames      frame collection
    * @param onlyChanged only frames with value marked as changed are set
    */
-  void setFramesV1(const FrameCollection& frames, bool onlyChanged = true);
-
-  /**
-   * Set frames in tag 2.
-   *
-   * @param frames      frame collection
-   * @param onlyChanged only frames with value marked as changed are set
-   */
-  void setFramesV2(const FrameCollection& frames, bool onlyChanged = true);
+  void setFrames(Frame::TagNumber tagNr, const FrameCollection& frames, bool onlyChanged = true);
 
   /**
    * Get tags from filename.
@@ -415,46 +364,52 @@ public:
   void undoRevertChangedFilename();
 
   /**
-   * Check if tag 2 was changed.
-   * @return true if tag 2 was changed.
+   * Check if tag was changed.
+   * @param tagNr tag number
+   * @return true if tag 1 was changed.
    */
-  bool isTag2Changed() const { return m_changedV2; }
+  bool isTagChanged(Frame::TagNumber tagNr) const {
+    return tagNr < Frame::Tag_NumValues ? m_changed[tagNr] : false;
+  }
 
   /**
-   * Mark tag 2 as changed.
+   * Mark tag as changed.
    *
+   * @param tagNr tag number
    * @param type type of changed frame
    */
-  void markTag2Changed(Frame::Type type);
+  void markTagChanged(Frame::TagNumber tagNr, Frame::Type type);
 
   /**
-   * Mark tag 2 as unchanged.
+   * Mark tag as unchanged.
+   * @param tagNr tag number
    */
-  void markTag2Unchanged();
+  void markTagUnchanged(Frame::TagNumber tagNr);
 
   /**
-   * Get the mask of the frame types changed in tag 1.
+   * Get the mask of the frame types changed in tag.
+   * @param tagNr tag number
    * @return mask of frame types.
    */
-  quint64 getChangedFramesV1() const { return m_changedFramesV1; }
+  quint64 getChangedFrames(Frame::TagNumber tagNr) const {
+    return tagNr < Frame::Tag_NumValues ? m_changedFrames[tagNr] : 0;
+  }
 
   /**
-   * Get the mask of the frame types changed in tag 2.
-   * @return mask of frame types.
-   */
-  quint64 getChangedFramesV2() const { return m_changedFramesV2; }
-
-  /**
-   * Set the mask of the frame types changed in tag 2.
+   * Set the mask of the frame types changed in tag.
+   * @param tagNr tag number
    * @param mask mask of frame types
    */
-  void setChangedFramesV2(quint64 mask);
+  void setChangedFrames(Frame::TagNumber tagNr, quint64 mask);
 
   /**
    * Get the truncation flags.
+   * @param tagNr tag number
    * @return truncation flags.
    */
-  quint64 getTruncationFlags() const { return m_truncation; }
+  quint64 getTruncationFlags(Frame::TagNumber tagNr) const {
+    return tagNr == Frame::Tag_Id3v1 ? m_truncation : 0;
+  }
 
   /**
    * Format track number/total number of tracks with configured digits.
@@ -578,51 +533,38 @@ protected:
   void revertChangedFilename();
 
   /**
-   * Check if tag 1 was changed.
-   * @return true if tag 1 was changed.
-   */
-  bool isTag1Changed() const { return m_changedV1; }
-
-  /**
-   * Mark tag 1 as changed.
-   *
-   * @param type type of changed frame
-   */
-  void markTag1Changed(Frame::Type type);
-
-  /**
-   * Mark tag 1 as unchanged.
-   */
-  void markTag1Unchanged();
-
-  /**
    * Check if a string has to be truncated.
    *
+   * @param tagNr tag number
    * @param str  string to be checked
    * @param flag flag to be set if string has to be truncated
    * @param len  maximum length of string
    *
    * @return str truncated to len characters if necessary, else QString::null.
    */
-  QString checkTruncation(const QString& str,
+  QString checkTruncation(Frame::TagNumber tagNr, const QString& str,
                           quint64 flag, int len = 30);
 
   /**
    * Check if a number has to be truncated.
    *
+   * @param tagNr tag number
    * @param val  value to be checked
    * @param flag flag to be set if number has to be truncated
    * @param max  maximum value
    *
    * @return val truncated to max if necessary, else -1.
    */
-  int checkTruncation(int val, quint64 flag,
+  int checkTruncation(Frame::TagNumber tagNr, int val, quint64 flag,
                       int max = 255);
 
   /**
    * Clear all truncation flags.
+   * @param tagNr tag number
    */
-  void clearTrunctionFlags() { m_truncation = 0; }
+  void clearTrunctionFlags(Frame::TagNumber tagNr) {
+    if (tagNr == Frame::Tag_Id3v1) m_truncation = 0;
+  }
 
   /**
    * Get file proxy model.
@@ -653,7 +595,7 @@ protected:
 
   /**
    * Reset the marked state of this file.
-   * This method should be called in reimplementations of getAllFramesV2()
+   * This method should be called in reimplementations of getAllFrames()
    * before calling updateMarkedState(), which will mark the file if any
    * frame is marked.
    * @see isMarked(), updateMarkedState()
@@ -664,7 +606,7 @@ protected:
    * Update marked property of frame.
    * If the frame is a picture and its size exceeds the configured
    * maximum size, the frame is marked. This method should be called in
-   * reimplementations of getAllFramesV2().
+   * reimplementations of getAllFrames().
    *
    * @param frame frame to check
    * @see resetMarkedState()
@@ -674,230 +616,6 @@ protected:
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);
-
-  /**
-   * Get ID3v1 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV1() const;
-
-  /**
-   * Get ID3v1 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV1() const;
-
-  /**
-   * Get ID3v1 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV1() const;
-
-  /**
-   * Get ID3v1 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV1() const;
-
-  /**
-   * Get ID3v1 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV1() const;
-
-  /**
-   * Get ID3v1 track.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getTrackNumV1() const;
-
-  /**
-   * Get ID3v1 genre.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV1() const;
-
-  /**
-   * Set ID3v1 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV1(const QString& str);
-
-  /**
-   * Set ID3v1 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV1(const QString& str);
-
-  /**
-   * Set ID3v1 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV1(const QString& str);
-
-  /**
-   * Set ID3v1 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV1(const QString& str);
-
-  /**
-   * Set ID3v1 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV1(int num);
-
-  /**
-   * Set ID3v1 track.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setTrackNumV1(int num);
-
-  /**
-   * Set ID3v1 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV1(const QString& str);
-
-  /**
-   * Get ID3v2 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV2() const = 0;
-
-  /**
-   * Get ID3v2 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV2() const = 0;
-
-  /**
-   * Get ID3v2 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV2() const = 0;
-
-  /**
-   * Get ID3v2 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV2() const = 0;
-
-  /**
-   * Get ID3v2 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV2() const = 0;
-
-  /**
-   * Get ID3v2 track.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTrackV2() const = 0;
-
-  /**
-   * Get ID3v2 genre as text.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV2() const = 0;
-
-  /**
-   * Set ID3v2 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV2(const QString& str) = 0;
-
-  /**
-   * Set ID3v2 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV2(int num) = 0;
-
-  /**
-   * Set ID3v2 track.
-   *
-   * @param track string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setTrackV2(const QString& track) = 0;
-
-  /**
-   * Set ID3v2 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV2(const QString& str) = 0;
 
   void updateModifiedState();
 
@@ -909,16 +627,12 @@ private:
   QString m_newFilename;
   /** File name reverted because file was not writable */
   QString m_revertedFilename;
-  /** changed tag 1 frame types */
-  quint64 m_changedFramesV1;
-  /** changed tag 2 frame types */
-  quint64 m_changedFramesV2;
+  /** changed tag frame types */
+  quint64 m_changedFrames[Frame::Tag_NumValues];
   /** Truncation flags. */
   quint64 m_truncation;
-  /** true if ID3v1 tags were changed */
-  bool m_changedV1;
-  /** true if ID3v2 tags were changed */
-  bool m_changedV2;
+  /** true if tags were changed */
+  bool m_changed[Frame::Tag_NumValues];
   /** true if tagged file is modified */
   bool m_modified;
   /** true if tagged file is marked */

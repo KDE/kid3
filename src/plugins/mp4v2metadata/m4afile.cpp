@@ -447,7 +447,7 @@ void M4aFile::readTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_metadata.clear();
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
     QByteArray fnIn =
 #ifdef Q_OS_WIN32
@@ -600,7 +600,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
     return false;
   }
 
-  if (m_fileRead && (force || isTag2Changed())) {
+  if (m_fileRead && (force || isTagChanged(Frame::Tag_2))) {
     QByteArray fn = QFile::encodeName(fnStr);
 
     // store time stamp if it has to be preserved
@@ -800,7 +800,13 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
               if (year < 1000) year += 2000;
               else if (year > 9999) year = 9999;
               setOk = MP4SetMetadataYear(handle, QByteArray().setNum(year));
-              if (setOk) setYearV2(year);
+              if (setOk) {
+                if (year >= 0) {
+                  setTextField(QLatin1String("\251day"),
+                               year != 0 ? QString::number(year)
+                                         : QLatin1String(""), Frame::FT_Date);
+                }
+              }
             } else {
               setOk = true;
             }
@@ -882,7 +888,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
       if (ok) {
         // without this, old tags stay in the file marked as free
         MP4Optimize(fn);
-        markTag2Unchanged();
+        markTagUnchanged(Frame::Tag_2);
       }
 
       // restore time stamp
@@ -908,15 +914,19 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 }
 
 /**
- * Remove ID3v2 frames.
+ * Remove frames.
  *
+ * @param tagNr tag number
  * @param flt filter specifying which frames to remove
  */
-void M4aFile::deleteFramesV2(const FrameFilter& flt)
+void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 {
+  if (tagNr != Frame::Tag_2)
+    return;
+
   if (flt.areAllEnabled()) {
     m_metadata.clear();
-    markTag2Changed(Frame::FT_UnknownFrame);
+    markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
     for (MetadataMap::iterator it = m_metadata.begin();
@@ -931,7 +941,7 @@ void M4aFile::deleteFramesV2(const FrameFilter& flt)
       }
     }
     if (changed) {
-      markTag2Changed(Frame::FT_UnknownFrame);
+      markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
     }
   }
 }
@@ -974,201 +984,11 @@ void M4aFile::setTextField(const QString& name, const QString& value,
     if (it != m_metadata.end()) {
       if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
         *it = str;
-        markTag2Changed(type);
+        markTagChanged(Frame::Tag_2, type);
       }
     } else {
       m_metadata.insert(name, str);
-      markTag2Changed(type);
-    }
-  }
-}
-
-/**
- * Get ID3v2 title.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getTitleV2() const
-{
-  return getTextField(QLatin1String("\251nam"));
-}
-
-/**
- * Get ID3v2 artist.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getArtistV2() const
-{
-  return getTextField(QLatin1String("\251ART"));
-}
-
-/**
- * Get ID3v2 album.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getAlbumV2() const
-{
-  return getTextField(QLatin1String("\251alb"));
-}
-
-/**
- * Get ID3v2 comment.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getCommentV2() const
-{
-  return getTextField(QLatin1String("\251cmt"));
-}
-
-/**
- * Get ID3v2 year.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int M4aFile::getYearV2() const
-{
-  QString str(getTextField(QLatin1String("\251day")));
-  if (!str.isNull()) {
-    return str.toInt();
-  }
-  return -1;
-}
-
-/**
- * Get ID3v2 track.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getTrackV2() const
-{
-  return getTextField(QLatin1String("trkn"));
-}
-
-/**
- * Get ID3v2 genre as text.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString M4aFile::getGenreV2() const
-{
-  QString str(getTextField(QLatin1String("\251gen")));
-  if (str.isEmpty()) {
-    str = getTextField(QLatin1String("gnre"));
-  }
-  return str;
-}
-
-/**
- * Set ID3v2 title.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setTitleV2(const QString& str)
-{
-  setTextField(QLatin1String("\251nam"), str, Frame::FT_Title);
-}
-
-/**
- * Set ID3v2 artist.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setArtistV2(const QString& str)
-{
-  setTextField(QLatin1String("\251ART"), str, Frame::FT_Artist);
-}
-
-/**
- * Set ID3v2 album.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setAlbumV2(const QString& str)
-{
-  setTextField(QLatin1String("\251alb"), str, Frame::FT_Album);
-}
-
-/**
- * Set ID3v2 comment.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setCommentV2(const QString& str)
-{
-  setTextField(QLatin1String("\251cmt"), str, Frame::FT_Comment);
-}
-
-/**
- * Set ID3v2 year.
- *
- * @param num number to set, 0 to remove field, < 0 to ignore.
- */
-void M4aFile::setYearV2(int num)
-{
-  if (num >= 0) {
-    setTextField(QLatin1String("\251day"), num != 0 ? QString::number(num) : QLatin1String(""),
-                 Frame::FT_Date);
-  }
-}
-
-/**
- * Set ID3v2 track.
- *
- * @param track string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setTrackV2(const QString& track)
-{
-  int numTracks;
-  int num = splitNumberAndTotal(track, &numTracks);
-  if (num >= 0) {
-    QString str;
-    if (num != 0) {
-      str.setNum(num);
-      if (numTracks == 0)
-        numTracks = getTotalNumberOfTracksIfEnabled();
-      if (numTracks > 0) {
-        str += QLatin1Char('/');
-        str += QString::number(numTracks);
-      }
-    } else {
-      str = QLatin1String("");
-    }
-    setTextField(QLatin1String("trkn"), str, Frame::FT_Track);
-  }
-}
-
-/**
- * Set ID3v2 genre as text.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void M4aFile::setGenreV2(const QString& str)
-{
-  if (str != getGenreV2()) {
-    int genreNum = Genres::getNumber(str);
-    if (genreNum != 255) {
-      setTextField(QLatin1String("gnre"), str, Frame::FT_Genre);
-      m_metadata.remove(QLatin1String("\251gen"));
-    } else {
-      setTextField(QLatin1String("\251gen"), str, Frame::FT_Genre);
-      m_metadata.remove(QLatin1String("gnre"));
+      markTagChanged(Frame::Tag_2, type);
     }
   }
 }
@@ -1178,7 +998,7 @@ void M4aFile::setGenreV2(const QString& str)
  *
  * @return true if information is available,
  *         false if the tags have not been read yet, in which case
- *         hasTagV1() and hasTagV2() do not return meaningful information.
+ *         hasTag() does not return meaningful information.
  */
 bool M4aFile::isTagInformationRead() const
 {
@@ -1186,14 +1006,15 @@ bool M4aFile::isTagInformationRead() const
 }
 
 /**
- * Check if file has an ID3v2 tag.
+ * Check if file has a tag.
  *
+ * @param tagNr tag number
  * @return true if a V2 tag is available.
  * @see isTagInformationRead()
  */
-bool M4aFile::hasTagV2() const
+bool M4aFile::hasTag(Frame::TagNumber tagNr) const
 {
-  return !m_metadata.empty();
+  return tagNr == Frame::Tag_2 && !m_metadata.empty();
 }
 
 /**
@@ -1240,130 +1061,224 @@ unsigned M4aFile::getDuration() const
 }
 
 /**
- * Get the format of tag 2.
+ * Get the format of tag.
  *
+ * @param tagNr tag number
  * @return "Vorbis".
  */
-QString M4aFile::getTagFormatV2() const
+QString M4aFile::getTagFormat(Frame::TagNumber tagNr) const
 {
-  return hasTagV2() ? QLatin1String("MP4") : QString();
+  return hasTag(tagNr) ? QLatin1String("MP4") : QString();
 }
 
 /**
- * Set a frame in the tags 2.
+ * Get a specific frame from the tags.
  *
- * @param frame frame to set
- *
- * @return true if ok.
- */
-bool M4aFile::setFrameV2(const Frame& frame)
-{
-  QString name(frame.getInternalName());
-  MetadataMap::iterator it = m_metadata.find(name);
-  if (it != m_metadata.end()) {
-    if (frame.getType() != Frame::FT_Picture) {
-      QByteArray str = frame.getValue().toUtf8();
-      if (*it != str) {
-        *it = str;
-        markTag2Changed(frame.getType());
-      }
-    } else {
-      if (PictureFrame::getData(frame, *it)) {
-        markTag2Changed(Frame::FT_Picture);
-      }
-    }
-    return true;
-  }
-
-  // Try the superclass method
-  return TaggedFile::setFrameV2(frame);
-}
-
-/**
- * Add a frame in the tags 2.
- *
- * @param frame frame to add
+ * @param tagNr tag number
+ * @param type  frame type
+ * @param frame the frame is returned here
  *
  * @return true if ok.
  */
-bool M4aFile::addFrameV2(Frame& frame)
+bool M4aFile::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const
 {
-  Frame::Type type = frame.getType();
-  QString name;
-  if (type != Frame::FT_Other) {
-    name = getNameForType(type);
-    if (!name.isEmpty()) {
-      frame.setExtendedType(Frame::ExtendedType(type, name));
-    }
-  }
-  name = frame.getInternalName();
-  if (type == Frame::FT_Picture) {
-    if (!PictureFrame::getData(frame, m_metadata[name])) {
-      PictureFrame::setFields(frame);
-      m_metadata[name] = QByteArray();
-    }
+  QString name = getNameForType(type);
+ if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
+      tagNr > 1)
+    return false;
+
+  if (tagNr == Frame::Tag_1) {
+    frame.setValue(QString());
   } else {
-    m_metadata[name] = frame.getValue().toUtf8();
+    if (type == Frame::FT_Genre) {
+      QString str(getTextField(QLatin1String("\251gen")));
+      frame.setValue(str.isEmpty() ? getTextField(QLatin1String("gnre")) : str);
+    } else {
+      frame.setValue(getTextField(getNameForType(type)));
+    }
   }
-  markTag2Changed(type);
+  frame.setType(type);
   return true;
 }
 
 /**
- * Delete a frame in the tags 2.
+ * Set a frame in the tags.
  *
+ * @param tagNr tag number
+ * @param frame frame to set
+ *
+ * @return true if ok.
+ */
+bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
+{
+  if (tagNr == Frame::Tag_2) {
+    QString name(frame.getInternalName());
+    MetadataMap::iterator it = m_metadata.find(name);
+    if (it != m_metadata.end()) {
+      if (frame.getType() != Frame::FT_Picture) {
+        QByteArray str = frame.getValue().toUtf8();
+        if (*it != str) {
+          *it = str;
+          markTagChanged(Frame::Tag_2, frame.getType());
+        }
+      } else {
+        if (PictureFrame::getData(frame, *it)) {
+          markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+        }
+      }
+      return true;
+    }
+  }
+
+  // Try the basic method
+  Frame::Type type = frame.getType();
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
+      tagNr > 1)
+    return false;
+
+  if (tagNr == Frame::Tag_2) {
+    if (type == Frame::FT_Genre) {
+      QString str = frame.getValue();
+      QString oldStr(getTextField(QLatin1String("\251gen")));
+      if (oldStr.isEmpty()) {
+        oldStr = getTextField(QLatin1String("gnre"));
+      }
+      if (str != oldStr) {
+        int genreNum = Genres::getNumber(str);
+        if (genreNum != 255) {
+          setTextField(QLatin1String("gnre"), str, Frame::FT_Genre);
+          m_metadata.remove(QLatin1String("\251gen"));
+        } else {
+          setTextField(QLatin1String("\251gen"), str, Frame::FT_Genre);
+          m_metadata.remove(QLatin1String("gnre"));
+        }
+      }
+    } else if (type == Frame::FT_Track) {
+      int numTracks;
+      int num = splitNumberAndTotal(frame.getValue(), &numTracks);
+      if (num >= 0) {
+        QString str;
+        if (num != 0) {
+          str.setNum(num);
+          if (numTracks == 0)
+            numTracks = getTotalNumberOfTracksIfEnabled();
+          if (numTracks > 0) {
+            str += QLatin1Char('/');
+            str += QString::number(numTracks);
+          }
+        } else {
+          str = QLatin1String("");
+        }
+        setTextField(QLatin1String("trkn"), str, Frame::FT_Track);
+      }
+    } else {
+      setTextField(getNameForType(type), frame.getValue(), type);
+    }
+  }
+  return true;
+}
+
+/**
+ * Add a frame in the tags.
+ *
+ * @param tagNr tag number
+ * @param frame frame to add
+ *
+ * @return true if ok.
+ */
+bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
+{
+  if (tagNr == Frame::Tag_2) {
+    Frame::Type type = frame.getType();
+    QString name;
+    if (type != Frame::FT_Other) {
+      name = getNameForType(type);
+      if (!name.isEmpty()) {
+        frame.setExtendedType(Frame::ExtendedType(type, name));
+      }
+    }
+    name = frame.getInternalName();
+    if (type == Frame::FT_Picture) {
+      if (!PictureFrame::getData(frame, m_metadata[name])) {
+        PictureFrame::setFields(frame);
+        m_metadata[name] = QByteArray();
+      }
+    } else {
+      m_metadata[name] = frame.getValue().toUtf8();
+    }
+    markTagChanged(Frame::Tag_2, type);
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Delete a frame in the tags.
+ *
+ * @param tagNr tag number
  * @param frame frame to delete.
  *
  * @return true if ok.
  */
-bool M4aFile::deleteFrameV2(const Frame& frame)
+bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
-  QString name(frame.getInternalName());
-  MetadataMap::iterator it = m_metadata.find(name);
-  if (it != m_metadata.end()) {
-    m_metadata.erase(it);
-    markTag2Changed(frame.getType());
-    return true;
+  if (tagNr == Frame::Tag_2) {
+    QString name(frame.getInternalName());
+    MetadataMap::iterator it = m_metadata.find(name);
+    if (it != m_metadata.end()) {
+      m_metadata.erase(it);
+      markTagChanged(Frame::Tag_2, frame.getType());
+      return true;
+    }
   }
 
   // Try the superclass method
-  return TaggedFile::deleteFrameV2(frame);
+  return TaggedFile::deleteFrame(tagNr, frame);
 }
 
 /**
- * Get all frames in tag 2.
+ * Get all frames in tag.
  *
+ * @param tagNr tag number
  * @param frames frame collection to set.
  */
-void M4aFile::getAllFramesV2(FrameCollection& frames)
+void M4aFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
-  frames.clear();
-  QString name;
-  QString value;
-  for (MetadataMap::const_iterator it = m_metadata.begin();
-       it != m_metadata.end();
-       ++it) {
-    name = it.key();
-    Frame::Type type = getTypeForName(name);
-    if (type != Frame::FT_Picture) {
-      value = QString::fromUtf8((*it).data(), (*it).size());
-      frames.insert(Frame(type, value, name, -1));
-    } else {
-      PictureFrame frame(*it);
-      frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
-      frames.insert(frame);
+  if (tagNr == Frame::Tag_2) {
+    frames.clear();
+    QString name;
+    QString value;
+    for (MetadataMap::const_iterator it = m_metadata.begin();
+         it != m_metadata.end();
+         ++it) {
+      name = it.key();
+      Frame::Type type = getTypeForName(name);
+      if (type != Frame::FT_Picture) {
+        value = QString::fromUtf8((*it).data(), (*it).size());
+        frames.insert(Frame(type, value, name, -1));
+      } else {
+        PictureFrame frame(*it);
+        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
+        frames.insert(frame);
+      }
     }
+    frames.addMissingStandardFrames();
+    return;
   }
-  frames.addMissingStandardFrames();
+
+  TaggedFile::getAllFrames(tagNr, frames);
 }
 
 /**
  * Get a list of frame IDs which can be added.
- *
+ * @param tagNr tag number
  * @return list with frame IDs.
  */
-QStringList M4aFile::getFrameIds() const
+QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
 {
+  if (tagNr != Frame::Tag_2)
+    return QStringList();
+
   static const Frame::Type types[] = {
     Frame::FT_Title,
     Frame::FT_Artist,

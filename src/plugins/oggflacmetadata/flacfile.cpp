@@ -138,7 +138,7 @@ void FlacFile::readTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_comments.clear();
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
     QByteArray fnIn = QFile::encodeName(currentFilePath());
     readFileInfo(m_fileInfo, 0); // just to start invalid
@@ -241,7 +241,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
     return false;
   }
 
-  if (m_fileRead && (force || isTag2Changed()) && m_chain && m_chain->is_valid()) {
+  if (m_fileRead && (force || isTagChanged(Frame::Tag_2)) && m_chain && m_chain->is_valid()) {
     bool commentsSet = false;
 #ifdef HAVE_FLAC_PICTURE
     bool pictureSet = false;
@@ -343,12 +343,12 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
     if ((commentsSet || pictureSet) &&
         m_chain->write(!pictureRemoved, preserve)) {
-      markTag2Unchanged();
+      markTagUnchanged(Frame::Tag_2);
     }
 #else
     if (commentsSet &&
         m_chain->write(true, preserve)) {
-      markTag2Unchanged();
+      markTagUnchanged(Frame::Tag_2);
     }
 #endif
     else {
@@ -369,118 +369,135 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 
 #ifdef HAVE_FLAC_PICTURE
 /**
- * Check if file has an ID3v2 tag.
+ * Check if file has a tag.
  *
- * @return true if a V2 tag is available.
+ * @param tagNr tag number
+ * @return true if a tag is available.
  * @see isTagInformationRead()
  */
-bool FlacFile::hasTagV2() const
+bool FlacFile::hasTag(Frame::TagNumber tagNr) const
 {
-  return OggFile::hasTagV2() || !m_pictures.empty();
+  return tagNr == Frame::Tag_2 && (OggFile::hasTag(Frame::Tag_2) || !m_pictures.empty());
 }
 
 /**
- * Set a frame in the tags 2.
+ * Set a frame in the tags.
  *
+ * @param tagNr tag number
  * @param frame frame to set
  *
  * @return true if ok.
  */
-bool FlacFile::setFrameV2(const Frame& frame)
+bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
-  if (frame.getType() == Frame::FT_Picture) {
-    int index = frame.getIndex();
-    if (index != -1 && index < static_cast<int>(m_pictures.size())) {
-      PictureList::iterator it = m_pictures.begin() + index;
-      if (it != m_pictures.end()) {
-        Frame newFrame(frame);
-        PictureFrame::setDescription(newFrame, frame.getValue());
-        if (PictureFrame::areFieldsEqual(*it, newFrame)) {
-          it->setValueChanged(false);
-        } else {
-          *it = newFrame;
-          markTag2Changed(Frame::FT_Picture);
+  if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Picture) {
+      int index = frame.getIndex();
+      if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+        PictureList::iterator it = m_pictures.begin() + index;
+        if (it != m_pictures.end()) {
+          Frame newFrame(frame);
+          PictureFrame::setDescription(newFrame, frame.getValue());
+          if (PictureFrame::areFieldsEqual(*it, newFrame)) {
+            it->setValueChanged(false);
+          } else {
+            *it = newFrame;
+            markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+          }
+          return true;
         }
-        return true;
       }
     }
   }
-  return OggFile::setFrameV2(frame);
+  return OggFile::setFrame(tagNr, frame);
 }
 
 /**
- * Add a frame in the tags 2.
+ * Add a frame in the tags.
  *
+ * @param tagNr tag number
  * @param frame frame to add
  *
  * @return true if ok.
  */
-bool FlacFile::addFrameV2(Frame& frame)
+bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
-  if (frame.getType() == Frame::FT_Picture) {
-    if (frame.getFieldList().empty()) {
-      PictureFrame::setFields(
-        frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
-        PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
+  if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Picture) {
+      if (frame.getFieldList().empty()) {
+        PictureFrame::setFields(
+          frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+          PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
+      }
+      PictureFrame::setDescription(frame, frame.getValue());
+      frame.setIndex(m_pictures.size());
+      m_pictures.push_back(frame);
+      markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+      return true;
     }
-    PictureFrame::setDescription(frame, frame.getValue());
-    frame.setIndex(m_pictures.size());
-    m_pictures.push_back(frame);
-    markTag2Changed(Frame::FT_Picture);
-    return true;
   }
-  return OggFile::addFrameV2(frame);
+  return OggFile::addFrame(tagNr, frame);
 }
 
 /**
- * Delete a frame in the tags 2.
+ * Delete a frame from the tags.
  *
+ * @param tagNr tag number
  * @param frame frame to delete.
  *
  * @return true if ok.
  */
-bool FlacFile::deleteFrameV2(const Frame& frame)
+bool FlacFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
-  if (frame.getType() == Frame::FT_Picture) {
-    int index = frame.getIndex();
-    if (index != -1 && index < static_cast<int>(m_pictures.size())) {
-      m_pictures.removeAt(index);
-      markTag2Changed(Frame::FT_Picture);
-      return true;
+  if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Picture) {
+      int index = frame.getIndex();
+      if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+        m_pictures.removeAt(index);
+        markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+        return true;
+      }
     }
   }
-  return OggFile::deleteFrameV2(frame);
+  return OggFile::deleteFrame(tagNr, frame);
 }
 
 /**
- * Remove ID3v2 frames.
+ * Remove frames.
  *
+ * @param tagNr tag number
  * @param flt filter specifying which frames to remove
  */
-void FlacFile::deleteFramesV2(const FrameFilter& flt)
+void FlacFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 {
+  if (tagNr != Frame::Tag_2)
+    return;
+
   if (flt.areAllEnabled() || flt.isEnabled(Frame::FT_Picture)) {
     m_pictures.clear();
-    markTag2Changed(Frame::FT_Picture);
+    markTagChanged(Frame::Tag_2, Frame::FT_Picture);
   }
-  OggFile::deleteFramesV2(flt);
+  OggFile::deleteFrames(tagNr, flt);
 }
 
 /**
- * Get all frames in tag 2.
+ * Get all frames in tag.
  *
+ * @param tagNr tag number
  * @param frames frame collection to set.
  */
-void FlacFile::getAllFramesV2(FrameCollection& frames)
+void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
-  OggFile::getAllFramesV2(frames);
-  int i = 0;
-  for (PictureList::iterator it = m_pictures.begin();
-       it != m_pictures.end();
-       ++it) {
-    (*it).setIndex(i++);
-    updateMarkedState(*it);
-    frames.insert(*it);
+  OggFile::getAllFrames(tagNr, frames);
+  if (tagNr == Frame::Tag_2) {
+    int i = 0;
+    for (PictureList::iterator it = m_pictures.begin();
+         it != m_pictures.end();
+         ++it) {
+      (*it).setIndex(i++);
+      updateMarkedState(*it);
+      frames.insert(*it);
+    }
   }
 }
 #endif // HAVE_FLAC_PICTURE

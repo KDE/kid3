@@ -103,7 +103,7 @@ private:
   friend RenDirConfig& StoredConfig<RenDirConfig>::instance();
 
   void setRenDirSrcInt(int renDirSrc) {
-    setRenDirSource(TrackData::tagVersionCast(renDirSrc));
+    setRenDirSource(Frame::tagVersionCast(renDirSrc));
   }
 
   QString m_dirFormatText;

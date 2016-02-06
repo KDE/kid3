@@ -70,7 +70,17 @@ public:
    * Convert an integer to a tag version.
    * @param nr tag mask (0=none, 1, 2, 3=1 and 2)
    */
-  Q_INVOKABLE static Frame::TagVersion toTagVersion(int nr);
+  Q_INVOKABLE static Frame::TagVersion toTagVersion(int nr) {
+    return Frame::tagVersionCast(nr);
+  }
+
+  /**
+   * Convert an integer to a tag number.
+   * @param nr tag number
+   */
+  Q_INVOKABLE static Frame::TagNumber toTagNumber(int nr) {
+    return Frame::tagNumberCast(nr);
+  }
 
   /**
    * Get data for @a roleName and @a row from @a model.

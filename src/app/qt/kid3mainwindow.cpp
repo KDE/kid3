@@ -579,28 +579,50 @@ void Kid3MainWindow::initActions()
 void Kid3MainWindow::initFormActions()
 {
   QString ctx(tr("Filename"));
-  initAction(tr("From Tag 1"), QLatin1String("filename_from_v1"), form(), SLOT(fnFromID3V1()), ctx);
-  initAction(tr("From Tag 2"), QLatin1String("filename_from_v2"), form(), SLOT(fnFromID3V2()), ctx);
-  initAction(tr("Focus"), QLatin1String("filename_focus"), form(), SLOT(setFocusFilename()), ctx);
-  ctx = tr("Tag 1");
-  initAction(tr("From Filename"), QLatin1String("v1_from_filename"), app(), SLOT(getTagsFromFilenameV1()), ctx);
-  initAction(tr("From Tag 2"), QLatin1String("v1_from_v2"), app(), SLOT(copyV2ToV1()), ctx);
-  initAction(tr("Copy"), QLatin1String("v1_copy"), app(), SLOT(copyTagsV1()), ctx);
-  initAction(tr("Paste"), QLatin1String("v1_paste"), app(), SLOT(pasteTagsV1()), ctx);
-  initAction(tr("Remove"), QLatin1String("v1_remove"), app(), SLOT(removeTagsV1()), ctx);
-  initAction(tr("Focus"), QLatin1String("v1_focus"), form(), SLOT(setFocusV1()), ctx);
-  ctx = tr("Tag 2");
-  initAction(tr("From Filename"), QLatin1String("v2_from_filename"), app(), SLOT(getTagsFromFilenameV2()), ctx);
-  initAction(tr("From Tag 1"), QLatin1String("v2_from_v1"), app(), SLOT(copyV1ToV2()), ctx);
-  initAction(tr("Copy"), QLatin1String("v2_copy"), app(), SLOT(copyTagsV2()), ctx);
-  initAction(tr("Paste"), QLatin1String("v2_paste"), app(), SLOT(pasteTagsV2()), ctx);
-  initAction(tr("Remove"), QLatin1String("v2_remove"), app(), SLOT(removeTagsV2()), ctx);
-  initAction(tr("Edit"), QLatin1String("frames_edit"), form(), SLOT(editFrame()), ctx);
-  initAction(tr("Add"), QLatin1String("frames_add"), form(), SLOT(addFrame()), ctx);
-  initAction(tr("Delete"), QLatin1String("frames_delete"), form(), SLOT(deleteFrame()), ctx);
-  initAction(tr("Focus"), QLatin1String("v2_focus"), form(), SLOT(setFocusV2()), ctx);
+  FOR_ALL_TAGS(tagNr) {
+    QString tagStr = Frame::tagNumberToString(tagNr);
+    initAction(tr("From Tag %1").arg(tagStr),
+               QLatin1String("filename_from_v") + tagStr,
+               app()->tag(tagNr), SLOT(getFilenameFromTags()), ctx);
+  }
+  initAction(tr("Focus"), QLatin1String("filename_focus"),
+             form(), SLOT(setFocusFilename()), ctx);
+  FOR_ALL_TAGS(tagNr) {
+    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
+          tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+    QString tagStr = Frame::tagNumberToString(tagNr);
+    Kid3ApplicationTagContext* appTag = app()->tag(tagNr);
+    Kid3FormTagContext* formTag = form()->tag(tagNr);
+    ctx = tr("Tag %1").arg(tagStr);
+    tagStr = QLatin1Char('v') + tagStr + QLatin1Char('_');
+    initAction(tr("From Filename"), tagStr + QLatin1String("from_filename"),
+               appTag, SLOT(getTagsFromFilename()), ctx);
+    if (otherTagNr < Frame::Tag_NumValues) {
+      QString otherTagStr = Frame::tagNumberToString(otherTagNr);
+      initAction(tr("From Tag %1").arg(otherTagStr),
+                 tagStr + QLatin1String("from_v") + otherTagStr,
+                 appTag, SLOT(copyToOtherTag()), ctx);
+    }
+    initAction(tr("Copy"), tagStr + QLatin1String("copy"),
+               appTag, SLOT(copyTags()), ctx);
+    initAction(tr("Paste"), tagStr + QLatin1String("paste"),
+               appTag, SLOT(pasteTags()), ctx);
+    initAction(tr("Remove"), tagStr + QLatin1String("remove"),
+               appTag, SLOT(removeTags()), ctx);
+    if (tagNr != Frame::Tag_Id3v1) {
+      initAction(tr("Edit"), tagStr + QLatin1String("frames_edit"),
+                 appTag, SLOT(editFrame()), ctx);
+      initAction(tr("Add"), tagStr + QLatin1String("frames_add"),
+                 appTag, SLOT(addFrame()), ctx);
+      initAction(tr("Delete"), tagStr + QLatin1String("frames_delete"),
+                 appTag, SLOT(deleteFrame()), ctx);
+    }
+    initAction(tr("Focus"), tagStr + QLatin1String("focus"),
+               formTag, SLOT(setFocusTag()), ctx);
+  }
   ctx = tr("File List");
-  initAction(tr("Focus"), QLatin1String("filelist_focus"), form(), SLOT(setFocusFileList()), ctx);
+  initAction(tr("Focus"), QLatin1String("filelist_focus"),
+             form(), SLOT(setFocusFileList()), ctx);
   QAction* renameAction = new QAction(tr("&Rename"), this);
   renameAction->setObjectName(QLatin1String("filelist_rename"));
   renameAction->setShortcut(QKeySequence(Qt::Key_F2));
@@ -616,7 +638,8 @@ void Kid3MainWindow::initFormActions()
   form()->getFileList()->setDeleteAction(deleteAction);
   m_shortcutsModel->registerAction(deleteAction, ctx);
   ctx = tr("Directory List");
-  initAction(tr("Focus"), QLatin1String("dirlist_focus"), form(), SLOT(setFocusDirList()), ctx);
+  initAction(tr("Focus"), QLatin1String("dirlist_focus"),
+             form(), SLOT(setFocusDirList()), ctx);
 }
 
 /**

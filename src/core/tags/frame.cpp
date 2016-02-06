@@ -300,6 +300,36 @@ int Frame::numberWithoutTotal(const QString& str, bool* ok)
 }
 
 /**
+ * Get value as integer.
+ * @return value.
+ */
+int Frame::getValueAsNumber() const
+{
+  if (isInactive()) {
+    return -1;
+  } else if (isEmpty()) {
+    return 0;
+  } else {
+    return numberWithoutTotal(m_value);
+  }
+}
+
+/**
+ * Set value as integer.
+ * @param n value as number
+ */
+void Frame::setValueAsNumber(int n)
+{
+  if (n == -1) {
+    m_value = QString();
+  } else if (n == 0) {
+    m_value = QLatin1String("");
+  } else {
+    m_value.setNum(n);
+  }
+}
+
+/**
  * Get the value of a field.
  *
  * @param id field ID
@@ -742,6 +772,53 @@ const char* const* Frame::Field::getContentTypeNames()
   return contentTypeNames;
 }
 
+/**
+ * Get list of available tag versions with translated description.
+ * @return tag version/description pairs.
+ */
+QList<QPair<Frame::TagVersion, QString> > Frame::availableTagVersions()
+{
+  QList<QPair<TagVersion, QString> > result;
+  FOR_ALL_TAGS(tagNr) {
+    const char* const tagStr = QT_TRANSLATE_NOOP("@default", "Tag %1");
+    result << qMakePair(Frame::tagVersionCast(1 << tagNr),
+                        QCoreApplication::translate("@default", tagStr)
+                        .arg(Frame::tagNumberToString(tagNr)));
+  }
+  const char* const tag12Str = QT_TRANSLATE_NOOP("@default", "Tag 1 and Tag 2");
+  result << qMakePair(TagV2V1, QCoreApplication::translate("@default",
+                                                           tag12Str));
+  if (TagVAll != TagV2V1) {
+    const char* const allTagsStr = QT_TRANSLATE_NOOP("@default", "All Tags");
+    result << qMakePair(TagVAll, QCoreApplication::translate("@default",
+                                                             allTagsStr));
+  }
+  return result;
+}
+
+/**
+ * Get string representation for tag number.
+ * @param tagNr tag number
+ * @return "1" for Tag_1, "2" for Tag_2, ..., null if invalid.
+ */
+QString Frame::tagNumberToString(TagNumber tagNr)
+{
+  return tagNr < Tag_NumValues ? QString::number(tagNr + 1) : QString();
+}
+
+/**
+ * Get tag number from string representation.
+ * @param str string representation
+ * @return Tag_1 for "1", Tag_2 for "2", ..., Tag_NumValues if invalid.
+ */
+Frame::TagNumber Frame::tagNumberFromString(const QString& str)
+{
+  bool ok;
+  int nr = str.toInt(&ok);
+  return ok && --nr >= Frame::Tag_1 && nr < Frame::Tag_NumValues
+      ? static_cast<Frame::TagNumber>(nr) : Tag_NumValues;
+}
+
 #ifndef QT_NO_DEBUG
 /**
  * Get string representation of variant.
@@ -888,6 +965,17 @@ void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
     } else {
       ++it;
     }
+  }
+}
+
+/**
+ * Set the index of all frames to -1.
+ */
+void FrameCollection::setIndexesInvalid()
+{
+  for (iterator it = begin(); it != end(); ++it) {
+    Frame& frame = const_cast<Frame&>(*it);
+    frame.setIndex(-1);
   }
 }
 

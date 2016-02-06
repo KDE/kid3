@@ -24,8 +24,7 @@
     <file alias="app/SettingsElement.qml">../../qml/app/SettingsElement.qml</file>
     <file alias="app/SettingsPage.qml">../../qml/app/SettingsPage.qml</file>
     <file alias="app/SettingsItem.qml">../../qml/app/SettingsItem.qml</file>
-    <file alias="app/Tag1Collapsible.qml">../../qml/app/Tag1Collapsible.qml</file>
-    <file alias="app/Tag2Collapsible.qml">../../qml/app/Tag2Collapsible.qml</file>
+    <file alias="app/TagCollapsible.qml">../../qml/app/TagCollapsible.qml</file>
     <file alias="app/UiConstants.qml">../../qml/app/UiConstants.qml</file>
     <file alias="componentsqtquick/ActionList.qml">../../qml/componentsqtquick/ActionList.qml</file>
     <file alias="componentsqtquick/Action.qml">../../qml/componentsqtquick/Action.qml</file>

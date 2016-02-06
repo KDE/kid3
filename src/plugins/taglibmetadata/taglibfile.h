@@ -141,50 +141,38 @@ public:
   bool writeTags(bool force, bool* renamed, bool preserve, int id3v2Version);
 
   /**
-   * Remove ID3v1 frames.
+   * Remove frames.
    *
+   * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFramesV1(const FrameFilter& flt);
-
-  /**
-   * Remove ID3v2 frames.
-   *
-   * @param flt filter specifying which frames to remove
-   */
-  virtual void deleteFramesV2(const FrameFilter& flt);
+  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt);
 
   /**
    * Check if tag information has already been read.
    *
    * @return true if information is available,
    *         false if the tags have not been read yet, in which case
-   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   *         hasTag() does not return meaningful information.
    */
   virtual bool isTagInformationRead() const;
 
   /**
-   * Check if file has an ID3v1 tag.
+   * Check if file has a tag.
    *
+   * @param tagNr tag number
    * @return true if a V1 tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTagV1() const;
+  virtual bool hasTag(Frame::TagNumber tagNr) const;
 
   /**
-   * Check if file has an ID3v2 tag.
+   * Check if tags are supported by the format of this file.
    *
-   * @return true if a V2 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV2() const;
-
-  /**
-   * Check if ID3v1 tags are supported by the format of this file.
-   *
+   * @param tagNr tag number
    * @return true.
    */
-  virtual bool isTagV1Supported() const;
+  virtual bool isTagSupported(Frame::TagNumber tagNr) const;
 
   /**
    * Get technical detail information.
@@ -209,56 +197,63 @@ public:
   virtual QString getFileExtension() const;
 
   /**
-   * Get the format of tag 1.
+   * Get the format of tag.
    *
+   * @param tagNr tag number
    * @return string describing format of tag 1,
    *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
    *         QString::null if unknown.
    */
-  virtual QString getTagFormatV1() const;
+  virtual QString getTagFormat(Frame::TagNumber tagNr) const;
 
   /**
-   * Get the format of tag 2.
+   * Get a specific frame from the tags.
    *
-   * @return string describing format of tag 2,
-   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
-   *         QString::null if unknown.
+   * @param tagNr tag number
+   * @param type  frame type
+   * @param frame the frame is returned here
+   *
+   * @return true if ok.
    */
-  virtual QString getTagFormatV2() const;
+  virtual bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const;
 
   /**
-   * Set a frame in the tags 2.
+   * Set a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to set
    *
    * @return true if ok.
    */
-  virtual bool setFrameV2(const Frame& frame);
+  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Add a frame in the tags 2.
+   * Add a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to add, a field list may be added by this method
    *
    * @return true if ok.
    */
-  virtual bool addFrameV2(Frame& frame);
+  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame);
 
   /**
-   * Delete a frame in the tags 2.
+   * Delete a frame from the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to delete.
    *
    * @return true if ok.
    */
-  virtual bool deleteFrameV2(const Frame& frame);
+  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Get all frames in tag 2.
+   * Get all frames in tag.
    *
+   * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFramesV2(FrameCollection& frames);
+  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames);
 
   /**
    * Close file handle which is held open by the TagLib object.
@@ -267,19 +262,20 @@ public:
 
   /**
    * Get a list of frame IDs which can be added.
-   *
+   * @param tagNr tag number
    * @return list with frame IDs.
    */
-  virtual QStringList getFrameIds() const;
+  virtual QStringList getFrameIds(Frame::TagNumber tagNr) const;
 
   /**
    * Add a suitable field list for the frame if missing.
    * If a frame is created, its field list is empty. This method will create
    * a field list appropriate for the frame type and tagged file type if no
    * field list exists.
+   * @param tagNr tag number
    * @param frame frame where field list is added
    */
-  virtual void addFieldList(Frame& frame) const;
+  virtual void addFieldList(Frame::TagNumber tagNr, Frame& frame) const;
 
   /**
    * Static initialization.
@@ -315,230 +311,6 @@ private:
   TagLibFile& operator=(const TagLibFile&);
 
   /**
-   * Get ID3v1 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV1() const;
-
-  /**
-   * Get ID3v1 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV1() const;
-
-  /**
-   * Get ID3v1 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV1() const;
-
-  /**
-   * Get ID3v1 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV1() const;
-
-  /**
-   * Get ID3v1 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV1() const;
-
-  /**
-   * Get ID3v1 track.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getTrackNumV1() const;
-
-  /**
-   * Get ID3v1 genre.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV1() const;
-
-  /**
-   * Get ID3v2 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV2() const;
-
-  /**
-   * Get ID3v2 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV2() const;
-
-  /**
-   * Get ID3v2 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV2() const;
-
-  /**
-   * Get ID3v2 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV2() const;
-
-  /**
-   * Get ID3v2 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV2() const;
-
-  /**
-   * Get ID3v2 track.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTrackV2() const;
-
-  /**
-   * Get ID3v2 genre as text.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV2() const;
-
-  /**
-   * Set ID3v1 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV1(const QString& str);
-
-  /**
-   * Set ID3v1 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV1(const QString& str);
-
-  /**
-   * Set ID3v1 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV1(const QString& str);
-
-  /**
-   * Set ID3v1 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV1(const QString& str);
-
-  /**
-   * Set ID3v1 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV1(int num);
-
-  /**
-   * Set ID3v1 track.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setTrackNumV1(int num);
-
-  /**
-   * Set ID3v1 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV1(const QString& str);
-
-  /**
-   * Set ID3v2 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV2(const QString& str);
-
-  /**
-   * Set ID3v2 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV2(const QString& str);
-
-  /**
-   * Set ID3v2 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV2(const QString& str);
-
-  /**
-   * Set ID3v2 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV2(const QString& str);
-
-  /**
-   * Set ID3v2 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV2(int num);
-
-  /**
-   * Set ID3v2 track.
-   *
-   * @param track string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setTrackV2(const QString& track);
-
-  /**
-   * Set ID3v2 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV2(const QString& str);
-
-  /**
    * Close file handle.
    * TagLib keeps the file handle open until the FileRef is destroyed.
    * This causes problems when the operating system has a limited number of
@@ -553,25 +325,19 @@ private:
 
   /**
    * Make sure that file is open.
-   * This method should be called before accessing m_fileRef, m_tagV1, m_tagV2.
+   * This method should be called before accessing m_fileRef, m_tag.
    *
    * @param force true to force reopening of file even if it is already open
    */
   void makeFileOpen(bool force = false) const;
 
   /**
-   * Create m_tagV1 if it does not already exist so that it can be set.
+   * Create tag if it does not already exist so that it can be set.
    *
-   * @return true if m_tagV1 can be set.
+   * @param tagNr tag number
+   * @return true if tag can be set.
    */
-  bool makeTagV1Settable();
-
-  /**
-   * Create m_tagV2 if it does not already exist so that it can be set.
-   *
-   * @return true if m_tagV2 can be set.
-   */
-  bool makeTagV2Settable();
+  bool makeTagSettable(Frame::TagNumber tagNr);
 
   /**
    * Cache technical detail information.
@@ -639,16 +405,16 @@ private:
    */
   static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
+  static const int NUM_TAGS = 2;
+
   bool m_tagInformationRead;
-  bool m_hasTagV1;
-  bool m_hasTagV2;
-  bool m_isTagV1Supported;
+  bool m_hasTag[NUM_TAGS];
+  bool m_isTagSupported[NUM_TAGS];
 
   bool m_fileRead;           /**< true if file has been read */
 
   TagLib::FileRef m_fileRef; /**< file reference */
-  TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
-  TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
+  TagLib::Tag* m_tag[NUM_TAGS];
 #if TAGLIB_VERSION >= 0x010800
   FileIOStream* m_stream;
   int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
@@ -657,10 +423,8 @@ private:
 
   /* Cached information updated in readTags() */
   unsigned m_duration;
-  TagType m_tagTypeV1;
-  TagType m_tagTypeV2;
-  QString m_tagFormatV1;
-  QString m_tagFormatV2;
+  TagType m_tagType[NUM_TAGS];
+  QString m_tagFormat[NUM_TAGS];
   QString m_fileExtension;
   DetailInfo m_detailInfo;
 

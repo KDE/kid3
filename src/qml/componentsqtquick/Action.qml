@@ -25,6 +25,7 @@ import QtQuick 2.2
 
 QtObject {
   property string text
+  property bool visible: true
 
   signal triggered()
 }

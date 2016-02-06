@@ -110,8 +110,10 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
   m_srcComboBox->setEditable(false);
-  m_srcComboBox->addItem(tr("Tag 1"), Frame::TagV1);
-  m_srcComboBox->addItem(tr("Tag 2"), Frame::TagV2);
+  FOR_ALL_TAGS(tagNr) {
+    m_srcComboBox->addItem(tr("Tag %1").arg(Frame::tagNumberToString(tagNr)),
+                           Frame::tagVersionFromNumber(tagNr));
+  }
   srcLabel->setBuddy(m_srcComboBox);
   butlayout->addWidget(m_srcComboBox);
   connect(m_srcComboBox, SIGNAL(activated(int)),
@@ -230,7 +232,7 @@ void ExportDialog::readConfig()
 void ExportDialog::saveConfig()
 {
   ExportConfig& exportCfg = ExportConfig::instance();
-  exportCfg.setExportSource(TrackData::tagVersionCast(
+  exportCfg.setExportSource(Frame::tagVersionCast(
     m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt()));
   int idx;
   QList<QStringList> formats = m_formatListEdit->getFormats(&idx);
@@ -259,6 +261,6 @@ void ExportDialog::showHelp()
 void ExportDialog::onSrcComboBoxActivated(int index)
 {
   m_textExporter->readTagsInTrackData(
-        TrackData::tagVersionCast(m_srcComboBox->itemData(index).toInt()));
+        Frame::tagVersionCast(m_srcComboBox->itemData(index).toInt()));
   showPreview();
 }

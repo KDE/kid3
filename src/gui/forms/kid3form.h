@@ -49,6 +49,7 @@ class FileList;
 class ConfigurableTreeView;
 class PictureLabel;
 class BaseMainWindowImpl;
+class Kid3FormTagContext;
 
 /**
  * Main widget.
@@ -72,25 +73,27 @@ public:
   virtual ~Kid3Form();
 
   /**
-   * Enable or disable controls requiring ID3v1 tags.
-   *
+   * Get context for tag.
+   * @param tagNr tag number
+   * @return tag context.
+   */
+  Kid3FormTagContext* tag(Frame::TagNumber tagNr) const {
+    return m_tagContext[tagNr];
+  }
+
+  /**
+   * Enable or disable controls requiring tags.
+   * @param tagNr tag number
    * @param enable true to enable
    */
-  void enableControlsV1(bool enable);
+  void enableControls(Frame::TagNumber tagNr, bool enable);
 
   /**
-   * Display the format of tag 1.
-   *
+   * Display the tag format.
+   * @param tagNr tag number
    * @param str string describing format, e.g. "ID3v1.1"
    */
-  void setTagFormatV1(const QString& str);
-
-  /**
-   * Display the format of tag 2.
-   *
-   * @param str string describing format, e.g. "ID3v2.4"
-   */
-  void setTagFormatV2(const QString& str);
+  void setTagFormat(Frame::TagNumber tagNr, const QString& str);
 
   /**
    * Adjust the size of the right half box.
@@ -105,18 +108,17 @@ public:
   void hideFile(bool hide);
 
   /**
-   * Hide or show tag 1 controls.
-   *
+   * Hide or show tag controls.
+   * @param tagNr tag number
    * @param hide true to hide, false to show
    */
-  void hideV1(bool hide);
+  void hideTag(Frame::TagNumber tagNr, bool hide);
 
   /**
-   * Hide or show tag 2 controls.
-   *
-   * @param hide true to hide, false to show
+   * Toggle visibility of tag controls.
+   * @param tagNr tag number
    */
-  void hideV2(bool hide);
+  void showHideTag(Frame::TagNumber tagNr);
 
   /**
    * Hide or show picture.
@@ -194,43 +196,13 @@ public:
   FileList* getFileList() { return m_fileListBox; }
 
   /**
-   * Get tag 1 frame table.
+   * Get frame table.
+   * @param tagNr tag number
    * @return frame table.
    */
-  FrameTable* frameTableV1() { return m_framesV1Table; }
-
-  /**
-   * Get tag 2 frame table.
-   * @return frame table.
-   */
-  FrameTable* frameTableV2() { return m_framesV2Table; }
+  FrameTable* frameTable(Frame::TagNumber tagNr) { return m_frameTable[tagNr]; }
 
 public slots:
-  /**
-   * Frame list button Edit.
-   */
-  void editFrame();
-
-  /**
-   * Frame list button Add.
-   */
-  void addFrame();
-
-  /**
-   * Frame list button Delete.
-   */
-  void deleteFrame();
-
-  /**
-   * Set filename according to ID3v1 tags.
-   */
-  void fnFromID3V1();
-
-  /**
-   * Set filename according to ID3v1 tags.
-   */
-  void fnFromID3V2();
-
   /**
    * Filename line edit is changed.
    * @param txt contents of line edit
@@ -250,14 +222,10 @@ public slots:
   void setFocusFilename();
 
   /**
-   * Set focus on tag 1 controls.
+   * Set focus on tag controls.
+   * @param tagNr tag number
    */
-  void setFocusV1();
-
-  /**
-   * Set focus on tag 2 controls.
-   */
-  void setFocusV2();
+  void setFocusTag(Frame::TagNumber tagNr);
 
   /**
    * Set focus on file list.
@@ -347,16 +315,6 @@ private slots:
   void showHideFile();
 
   /**
-   * Toggle visibility of tag 1 controls.
-   */
-  void showHideTag1();
-
-  /**
-   * Toggle visibility of tag 2 controls.
-   */
-  void showHideTag2();
-
-  /**
    * Set format text configuration when format edit text is changed.
    * @param text format text
    */
@@ -393,21 +351,18 @@ private:
   QLabel* m_nameLabel;
   QLineEdit* m_nameLineEdit;
   ConfigurableTreeView* m_dirListBox;
-  FrameTable* m_framesV1Table;
-  FrameTable* m_framesV2Table;
+  Kid3FormTagContext* m_tagContext[Frame::Tag_NumValues];
+  FrameTable* m_frameTable[Frame::Tag_NumValues];
   QSplitter* m_vSplitter;
   QWidget* m_fileWidget;
-  QWidget* m_tag1Widget;
-  QWidget* m_tag2Widget;
+  QWidget* m_tagWidget[Frame::Tag_NumValues];
   QToolButton* m_fileButton;
-  QToolButton* m_tag1Button;
-  QToolButton* m_tag2Button;
+  QToolButton* m_tagButton[Frame::Tag_NumValues];
   QLabel* m_fileLabel;
-  QLabel* m_tag1Label;
-  QLabel* m_tag2Label;
-  QPushButton* m_fnV1Button;
-  QPushButton* m_toTagV1Button;
-  QPushButton* m_id3V2PushButton;
+  QLabel* m_tagLabel[Frame::Tag_NumValues];
+  QPushButton* m_fnButton[Frame::Tag_NumValues];
+  QPushButton* m_toTagButton[Frame::Tag_NumValues];
+  QPushButton* m_id3PushButton[Frame::Tag_NumValues];
   QWidget* m_rightHalfVBox;
   PictureLabel* m_pictureLabel;
   Kid3Application* m_app;
@@ -417,6 +372,37 @@ private:
   static QPixmap* s_collapsePixmap;
   /** Expand pixmap, will be allocated in constructor */
   static QPixmap* s_expandPixmap;
+};
+
+/**
+ * Facade to have a uniform interface for different tags.
+ */
+class Kid3FormTagContext : public QObject {
+  Q_OBJECT
+public:
+  /**
+   * Constructor.
+   * @param form GUI form
+   * @param tagNr tag number
+   */
+  Kid3FormTagContext(Kid3Form* form, Frame::TagNumber tagNr) : QObject(form),
+    m_form(form), m_tagNr(tagNr) {
+  }
+
+public slots:
+  /**
+   * Set focus on tag controls.
+   */
+  void setFocusTag() { m_form->setFocusTag(m_tagNr); }
+
+  /**
+   * Toggle visibility of tag controls.
+   */
+  void showHideTag() { m_form->showHideTag(m_tagNr); }
+
+private:
+  Kid3Form* const m_form;
+  const Frame::TagNumber m_tagNr;
 };
 
 #endif // KID3FORM_H

@@ -48,9 +48,11 @@
 SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
                                  Kid3Application* app,
                                  const TaggedFile* taggedFile,
+                                 Frame::TagNumber tagNr,
                                  QWidget* parent) :
   QWidget(parent), m_platformTools(platformTools), m_app(app),
-  m_taggedFile(taggedFile), m_editFrameDialog(0), m_editFrameRow(-1)
+  m_taggedFile(taggedFile), m_tagNr(tagNr),
+  m_editFrameDialog(0), m_editFrameRow(-1)
 {
   setObjectName(QLatin1String("SubframesEditor"));
   QHBoxLayout* layout = new QHBoxLayout(this);
@@ -128,7 +130,7 @@ void SubframesEditor::onEditClicked()
 void SubframesEditor::onAddClicked()
 {
   bool ok = false;
-  QStringList frameIds = m_taggedFile->getFrameIds();
+  QStringList frameIds = m_taggedFile->getFrameIds(m_tagNr);
   QMap<QString, QString> nameMap = Frame::getDisplayNameMap(frameIds);
   QString displayName = QInputDialog::getItem(
     this, tr("Add Frame"),
@@ -137,7 +139,7 @@ void SubframesEditor::onAddClicked()
     QString name = nameMap.value(displayName, displayName);
     Frame::Type type = Frame::getTypeFromName(name);
     Frame frame(type, QLatin1String(""), name, -1);
-    m_taggedFile->addFieldList(frame);
+    m_taggedFile->addFieldList(m_tagNr, frame);
     editFrame(frame, -1);
   }
 }
@@ -186,7 +188,7 @@ void SubframesEditor::editFrame(const Frame& frame, int row)
             this, SLOT(onEditFrameDialogFinished(int)));
   }
   m_editFrameDialog->setWindowTitle(name);
-  m_editFrameDialog->setFrame(m_editFrame, m_taggedFile);
+  m_editFrameDialog->setFrame(m_editFrame, m_taggedFile, m_tagNr);
   m_editFrameDialog->show();
 }
 

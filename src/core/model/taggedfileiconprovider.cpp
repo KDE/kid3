@@ -235,10 +235,10 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
     } else {
       if (!taggedFile->isTagInformationRead())
         return m_nullIcon;
-      if (taggedFile->hasTagV1())
-        return taggedFile->hasTagV2() ? m_v1v2Icon : m_v1Icon;
+      if (taggedFile->hasTag(Frame::Tag_1))
+        return taggedFile->hasTag(Frame::Tag_2) ? m_v1v2Icon : m_v1Icon;
       else
-        return taggedFile->hasTagV2() ? m_v2Icon : m_notagIcon;
+        return taggedFile->hasTag(Frame::Tag_2) ? m_v2Icon : m_notagIcon;
     }
   }
   return QIcon();
@@ -260,10 +260,10 @@ QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
     } else {
       if (!taggedFile->isTagInformationRead())
         return "null";
-      if (taggedFile->hasTagV1())
-        return taggedFile->hasTagV2() ? "v1v2" : "v1";
+      if (taggedFile->hasTag(Frame::Tag_1))
+        return taggedFile->hasTag(Frame::Tag_2) ? "v1v2" : "v1";
       else
-        return taggedFile->hasTagV2() ? "v2" : "notag";
+        return taggedFile->hasTag(Frame::Tag_2) ? "v2" : "notag";
     }
   }
   return "";
@@ -305,7 +305,7 @@ QColor TaggedFileIconProvider::backgroundForTaggedFile(
     const TaggedFile* taggedFile) {
   if (taggedFile &&
       ((TagConfig::instance().markTruncations() &&
-        taggedFile->getTruncationFlags() != 0) ||
+        taggedFile->getTruncationFlags(Frame::Tag_Id3v1) != 0) ||
        taggedFile->isMarked()))
     return Qt::red;
   return QColor();

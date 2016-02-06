@@ -104,53 +104,59 @@ public:
 
 #ifdef HAVE_FLAC_PICTURE
   /**
-   * Check if file has an ID3v2 tag.
+   * Check if file has a tag.
    *
-   * @return true if a V2 tag is available.
+   * @param tagNr tag number
+   * @return true if a tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTagV2() const;
+  virtual bool hasTag(Frame::TagNumber tagNr) const;
 
   /**
-   * Set a frame in the tags 2.
+   * Set a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to set
    *
    * @return true if ok.
    */
-  virtual bool setFrameV2(const Frame& frame);
+  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Add a frame in the tags 2.
+   * Add a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to add
    *
    * @return true if ok.
    */
-  virtual bool addFrameV2(Frame& frame);
+  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame);
 
   /**
-   * Delete a frame in the tags 2.
+   * Delete a frame from the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to delete.
    *
    * @return true if ok.
    */
-  virtual bool deleteFrameV2(const Frame& frame);
+  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Remove ID3v2 frames.
+   * Remove frames.
    *
+   * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFramesV2(const FrameFilter& flt);
+  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt);
 
   /**
-   * Get all frames in tag 2.
+   * Get all frames in tag.
    *
+   * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFramesV2(FrameCollection& frames);
+  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames);
 #endif // HAVE_FLAC_PICTURE
 
 private:

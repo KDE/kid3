@@ -147,7 +147,7 @@ private:
   friend ExportConfig& StoredConfig<ExportConfig>::instance();
 
   void setExportSourceInt(int exportSrc) {
-    setExportSource(TrackData::tagVersionCast(exportSrc));
+    setExportSource(Frame::tagVersionCast(exportSrc));
   }
 
   Frame::TagVersion m_exportSrcV1;

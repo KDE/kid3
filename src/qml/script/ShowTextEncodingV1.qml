@@ -36,7 +36,7 @@ Kid3Script {
       app.selectCurrentFile(true)
     }
 
-    if (app.selectionInfo.tagFormatV1) {
+    if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
       var frameNames = ["title", "artist", "album", "comment"]
       var tagCfg = configs.tagConfig()
       var textEncodings = tagCfg.getTextCodecNames()

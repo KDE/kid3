@@ -148,15 +148,17 @@ Page {
             //onMainMenuRequested:  constants.openPopup(mainMenuPopoverComponent, caller) //@Ubuntu
           }
 
-          Tag1Collapsible {
+          TagCollapsible {
             id: collapsibleV1
+            tagNr: 0
             anchors.topMargin: constants.margins
             anchors.left: parent.left
             anchors.right: parent.right
           }
 
-          Tag2Collapsible {
+          TagCollapsible {
             id: collapsibleV2
+            tagNr: 1
             anchors.topMargin: constants.margins
             anchors.left: parent.left
             anchors.right: parent.right

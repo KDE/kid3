@@ -240,7 +240,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
                  AbstractCliIO* io, QObject* parent) :
   AbstractCli(io, parent),
   m_app(app),
-  m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
+  m_tagMask(Frame::TagVAll), m_timeoutMs(0), m_fileNameChanged(false)
 {
   m_cmds << new HelpCommand(this)
          << new TimeoutCommand(this)
@@ -486,8 +486,9 @@ void Kid3Cli::updateSelection()
 
   TaggedFileSelection* selection = m_app->selectionInfo();
   m_filename = selection->getFilename();
-  m_tagFormatV1 = selection->getTagFormatV1();
-  m_tagFormatV2 = selection->getTagFormatV2();
+  FOR_ALL_TAGS(tagNr) {
+    m_tagFormat[tagNr] = selection->getTagFormat(tagNr);
+  }
   m_fileNameChanged = selection->isFilenameChanged();
   m_detailInfo = selection->getDetailInfo();
   selection->clearUnusedFrames();
@@ -510,46 +511,39 @@ void Kid3Cli::writeFileInformation(int tagMask)
     line += m_filename;
     writeLine(line);
   }
-  foreach (Frame::TagVersion tagBit, QList<Frame::TagVersion>()
-           << Frame::TagV1 << Frame::TagV2) {
-    if (tagMask & tagBit) {
-      FrameTableModel* ft = (tagBit == Frame::TagV2)
-          ? m_app->frameModelV2() : m_app->frameModelV1();
-      int maxLength = 0;
-      bool hasValue = false;
+  FOR_TAGS_IN_MASK(tagNr, tagMask) {
+    FrameTableModel* ft = m_app->frameModel(tagNr);
+    int maxLength = 0;
+    bool hasValue = false;
+    for (int row = 0; row < ft->rowCount(); ++row) {
+      QString name =
+          ft->index(row, FrameTableModel::CI_Enable).data().toString();
+      QString value =
+          ft->index(row, FrameTableModel::CI_Value).data().toString();
+      maxLength = qMax(name.size(), maxLength);
+      hasValue = hasValue || !value.isEmpty();
+    }
+    if (hasValue) {
+      writeLine(tr("Tag %1").arg(Frame::tagNumberToString(tagNr)) +
+                QLatin1String(": ") + m_tagFormat[tagNr]);
       for (int row = 0; row < ft->rowCount(); ++row) {
         QString name =
             ft->index(row, FrameTableModel::CI_Enable).data().toString();
         QString value =
             ft->index(row, FrameTableModel::CI_Value).data().toString();
-        maxLength = qMax(name.size(), maxLength);
-        hasValue = hasValue || !value.isEmpty();
-      }
-      if (hasValue) {
-        if (tagBit == Frame::TagV2) {
-          writeLine(tr("Tag 2") + QLatin1String(": ") + m_tagFormatV2);
-        } else {
-          writeLine(tr("Tag 1") + QLatin1String(": ") + m_tagFormatV1);
-        }
-        for (int row = 0; row < ft->rowCount(); ++row) {
-          QString name =
-              ft->index(row, FrameTableModel::CI_Enable).data().toString();
-          QString value =
-              ft->index(row, FrameTableModel::CI_Value).data().toString();
-          if (!value.isEmpty() ||
-              ft->index(row, FrameTableModel::CI_Enable).
-              data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Picture)
-          {
-            bool changed = ft->index(row, FrameTableModel::CI_Enable).
-                data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
-            QString line = changed ? QLatin1String("*") : QLatin1String(" ");
-            line += QLatin1Char(' ');
-            line += name;
-            line += QString(maxLength - name.size() + 2,
-                            QLatin1Char(' '));
-            line += value;
-            writeLine(line);
-          }
+        if (!value.isEmpty() ||
+            ft->index(row, FrameTableModel::CI_Enable).
+            data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Picture)
+        {
+          bool changed = ft->index(row, FrameTableModel::CI_Enable).
+              data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
+          QString line = changed ? QLatin1String("*") : QLatin1String(" ");
+          line += QLatin1Char(' ');
+          line += name;
+          line += QString(maxLength - name.size() + 2,
+                          QLatin1Char(' '));
+          line += value;
+          writeLine(line);
         }
       }
     }
@@ -562,19 +556,14 @@ void Kid3Cli::writeFileInformation(int tagMask)
 void Kid3Cli::writeTagMask()
 {
   QString tagStr;
-  switch (m_tagMask) {
-  case Frame::TagV1:
-    tagStr = QLatin1String("1");
-    break;
-  case Frame::TagV2:
-    tagStr = QLatin1String("2");
-    break;
-  case Frame::TagV2V1:
-    tagStr = QLatin1String("1 & 2");
-    break;
-  case Frame::TagNone:
+  FOR_TAGS_IN_MASK(tagNr, m_tagMask) {
+    if (!tagStr.isEmpty()) {
+      tagStr += QLatin1String(", ");
+    }
+    tagStr += Frame::tagNumberToString(tagNr);
+  }
+  if (tagStr.isEmpty()) {
     tagStr = QLatin1String("-");
-    break;
   }
   writeLine(tr("Tags") + QLatin1String(": ") + tagStr);
 }
@@ -620,9 +609,11 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(idx)) {
       taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       propsStr +=
-          (taggedFile->isChanged() ? QLatin1String("*") : QLatin1String(" ")) +
-          (taggedFile->hasTagV1() ? QLatin1Char('1') : QLatin1Char('-')) +
-          (taggedFile->hasTagV2() ? QLatin1Char('2') : QLatin1Char('-'));
+          (taggedFile->isChanged() ? QLatin1String("*") : QLatin1String(" "));
+      FOR_ALL_TAGS(tagNr) {
+        propsStr += taggedFile->hasTag(tagNr)
+            ? QLatin1Char('1' + tagNr) : QLatin1Char('-');
+      }
       nameStr = taggedFile->getFilename();
     } else {
       propsStr += QString(3, QLatin1Char(' '));

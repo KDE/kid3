@@ -90,19 +90,6 @@ QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVari
   return indexes;
 }
 
-Frame::TagVersion ScriptUtils::toTagVersion(int nr)
-{
-  Frame::TagVersion tagVersion = static_cast<Frame::TagVersion>(nr);
-  switch (tagVersion) {
-  case Frame::TagNone:
-  case Frame::TagV1:
-  case Frame::TagV2:
-  case Frame::TagV2V1:
-    return tagVersion;
-  }
-  return Frame::TagNone;
-}
-
 QVariant ScriptUtils::getRoleData(
     QObject* modelObj, int row, const QByteArray& roleName,
     QModelIndex parent)

@@ -255,18 +255,14 @@ bool TagSearcher::searchInFile(TaggedFile* taggedFile, Position* pos,
       return true;
     }
   }
-  if (pos->getPart() <= Position::Tag1) {
-    FrameCollection frames;
-    taggedFile->getAllFramesV1(frames);
-    if (searchInFrames(frames, Position::Tag1, pos, advanceChars)) {
-      return true;
-    }
-  }
-  if (pos->getPart() <= Position::Tag2) {
-    FrameCollection frames;
-    taggedFile->getAllFramesV2(frames);
-    if (searchInFrames(frames, Position::Tag2, pos, advanceChars)) {
-      return true;
+  FOR_ALL_TAGS(tagNr) {
+    Position::Part part = Position::tagNumberToPart(tagNr);
+    if (pos->getPart() <= part) {
+      FrameCollection frames;
+      taggedFile->getAllFrames(tagNr, frames);
+      if (searchInFrames(frames, part, pos, advanceChars)) {
+        return true;
+      }
     }
   }
   return false;
@@ -338,9 +334,7 @@ void TagSearcher::replaceNext()
   if (m_currentPosition.isValid()) {
     if (TaggedFile* taggedFile =
         FileProxyModel::getTaggedFileOfIndex(m_currentPosition.getFileIndex())) {
-      switch (m_currentPosition.getPart()) {
-      case Position::FileName:
-      {
+      if (m_currentPosition.getPart() == Position::FileName) {
         QString str = taggedFile->getFilename();
         replaced = str.mid(m_currentPosition.getMatchedPos(),
                            m_currentPosition.getMatchedLength());
@@ -348,17 +342,10 @@ void TagSearcher::replaceNext()
         str.replace(m_currentPosition.getMatchedPos(),
                     m_currentPosition.getMatchedLength(), replaced);
         taggedFile->setFilename(str);
-        break;
-      }
-      case Position::Tag1:
-      case Position::Tag2:
-      {
+      } else {
         FrameCollection frames;
-        if (m_currentPosition.getPart() == Position::Tag1) {
-          taggedFile->getAllFramesV1(frames);
-        } else {
-          taggedFile->getAllFramesV2(frames);
-        }
+        taggedFile->getAllFrames(
+              Position::partToTagNumber(m_currentPosition.getPart()), frames);
         FrameCollection::iterator it = frames.begin();
         FrameCollection::iterator end = frames.end();
         for (int frameNr = 0;
@@ -375,14 +362,9 @@ void TagSearcher::replaceNext()
           str.replace(m_currentPosition.getMatchedPos(),
                       m_currentPosition.getMatchedLength(), replaced);
           frame.setValueIfChanged(str);
-          if (m_currentPosition.getPart() == Position::Tag1) {
-            taggedFile->setFramesV1(frames);
-          } else {
-            taggedFile->setFramesV2(frames);
-          }
+          taggedFile->setFrames(
+                Position::partToTagNumber(m_currentPosition.getPart()), frames);
         }
-        break;
-      }
       }
     }
   }
@@ -481,17 +463,13 @@ QString TagSearcher::getLocationString(TaggedFile* taggedFile) const
 {
   QString location = taggedFile->getFilename();
   location += QLatin1String(": ");
-  switch (m_currentPosition.getPart()) {
-  case Position::FileName:
+  if (m_currentPosition.getPart() == Position::FileName) {
     location += tr("Filename");
-    break;
-  case Position::Tag1:
-  case Position::Tag2:
-    location += m_currentPosition.getPart() == Position::Tag1
-        ? tr("Tag 1") : tr("Tag 2");
+  } else {
+    location += tr("Tag %1").arg(Frame::tagNumberToString(
+          Position::partToTagNumber(m_currentPosition.getPart())));
     location += QLatin1String(": ");
     location += m_currentPosition.getFrameName();
-    break;
   }
   return location;
 }

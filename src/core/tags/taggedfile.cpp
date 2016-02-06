@@ -41,10 +41,12 @@
  * @param idx index in file proxy model
  */
 TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
-  m_index(idx), m_changedFramesV1(0), m_changedFramesV2(0), m_truncation(0),
-  m_changedV1(false), m_changedV2(false),
-  m_modified(false), m_marked(false)
+  m_index(idx), m_truncation(0), m_modified(false), m_marked(false)
 {
+  FOR_ALL_TAGS(tagNr) {
+    m_changedFrames[tagNr] = 0;
+    m_changed[tagNr] = false;
+  }
   Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
   if (const FileProxyModel* model = getFileProxyModel()) {
     m_newFilename = model->fileName(m_index);
@@ -141,166 +143,22 @@ void TaggedFile::setActiveTaggedFileFeatures(int features)
 }
 
 /**
- * Get ID3v1 title.
+ * Remove frames.
  *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString TaggedFile::getTitleV1() const
-{
-  return QString();
-}
-
-/**
- * Get ID3v1 artist.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString TaggedFile::getArtistV1() const
-{
-  return QString();
-}
-
-/**
- * Get ID3v1 album.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString TaggedFile::getAlbumV1() const
-{
-  return QString();
-}
-
-/**
- * Get ID3v1 comment.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString TaggedFile::getCommentV1() const
-{
-  return QString();
-}
-
-/**
- * Get ID3v1 year.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int TaggedFile::getYearV1() const
-{
-  return -1;
-}
-
-/**
- * Get ID3v1 track.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int TaggedFile::getTrackNumV1() const
-{
-  return -1;
-}
-
-/**
- * Get ID3v1 genre.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString TaggedFile::getGenreV1() const
-{
-  return QString();
-}
-
-/**
- * Remove ID3v1 frames.
- *
+ * @param tagNr tag number
  * @param flt filter specifying which frames to remove
  */
-void TaggedFile::deleteFramesV1(const FrameFilter& flt)
+void TaggedFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 {
-  if (flt.isEnabled(Frame::FT_Title))   setTitleV1(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Artist))  setArtistV1(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Album))   setAlbumV1(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Comment)) setCommentV1(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Date))    setYearV1(0);
-  if (flt.isEnabled(Frame::FT_Track))   setTrackNumV1(0);
-  if (flt.isEnabled(Frame::FT_Genre))   setGenreV1(QLatin1String(""));
-}
-
-/**
- * Set ID3v1 title.
- *
- * @param str string to set, "" to remove field.
- */
-void TaggedFile::setTitleV1(const QString&)
-{
-}
-
-/**
- * Set ID3v1 artist.
- *
- * @param str string to set, "" to remove field.
- */
-void TaggedFile::setArtistV1(const QString&)
-{
-}
-
-/**
- * Set ID3v1 album.
- *
- * @param str string to set, "" to remove field.
- */
-void TaggedFile::setAlbumV1(const QString&)
-{
-}
-
-/**
- * Set ID3v1 comment.
- *
- * @param str string to set, "" to remove field.
- */
-void TaggedFile::setCommentV1(const QString&)
-{
-}
-
-/**
- * Set ID3v1 year.
- *
- * @param num number to set, 0 to remove field.
- */
-void TaggedFile::setYearV1(int)
-{
-}
-
-/**
- * Set ID3v1 track.
- *
- * @param num number to set, 0 to remove field.
- */
-void TaggedFile::setTrackNumV1(int)
-{
-}
-
-/**
- * Set ID3v1 genre as text.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void TaggedFile::setGenreV1(const QString&)
-{
+  Frame frame;
+  frame.setValue(QLatin1String(""));
+  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+    Frame::Type type = static_cast<Frame::Type>(i);
+    if (flt.isEnabled(type)) {
+      frame.setExtendedType(Frame::ExtendedType(type));
+      setFrame(tagNr, frame);
+    }
+  }
 }
 
 /**
@@ -309,19 +167,20 @@ void TaggedFile::setGenreV1(const QString&)
  * @return true if a V1 tag is available.
  * @see isTagInformationRead()
  */
-bool TaggedFile::hasTagV1() const
+bool TaggedFile::hasTag(Frame::TagNumber) const
 {
   return false;
 }
 
 /**
- * Check if ID3v1 tags are supported by the format of this file.
+ * Check if tags are supported by the format of this file.
  *
+ * @param tagNr tag number
  * @return true if V1 tags are supported.
  */
-bool TaggedFile::isTagV1Supported() const
+bool TaggedFile::isTagSupported(Frame::TagNumber tagNr) const
 {
-  return false;
+  return tagNr == Frame::Tag_2;
 }
 
 /**
@@ -372,66 +231,52 @@ void TaggedFile::undoRevertChangedFilename()
 }
 
 /**
- * Mark tag 1 as changed.
+ * Mark tag as changed.
  *
+ * @param tagNr tag number
  * @param type type of changed frame
  */
-void TaggedFile::markTag1Changed(Frame::Type type)
+void TaggedFile::markTagChanged(Frame::TagNumber tagNr, Frame::Type type)
 {
-  m_changedV1 = true;
-  if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
-    m_changedFramesV1 |= (1ULL << type);
+  m_changed[tagNr] = true;
+  if (static_cast<unsigned>(type) < sizeof(m_changedFrames[tagNr]) * 8) {
+    m_changedFrames[tagNr] |= (1ULL << type);
   }
   updateModifiedState();
 }
 
 /**
- * Mark tag 1 as unchanged.
+ * Mark tag as unchanged.
+ * @param tagNr tag number
  */
-void TaggedFile::markTag1Unchanged() {
-  m_changedV1 = false;
-  m_changedFramesV1 = 0;
-  clearTrunctionFlags();
+void TaggedFile::markTagUnchanged(Frame::TagNumber tagNr) {
+  m_changed[tagNr] = false;
+  m_changedFrames[tagNr] = 0;
+  clearTrunctionFlags(tagNr);
   updateModifiedState();
 }
 
 /**
- * Mark tag 2 as changed.
- *
- * @param type type of changed frame
- */
-void TaggedFile::markTag2Changed(Frame::Type type)
-{
-  m_changedV2 = true;
-  if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
-    m_changedFramesV2 |= (1ULL << type);
-  }
-  updateModifiedState();
-}
-
-/**
- * Mark tag 2 as unchanged.
- */
-void TaggedFile::markTag2Unchanged()
-{
-  m_changedV2 = false;
-  m_changedFramesV2 = 0;
-  updateModifiedState();
-}
-
-/**
- * Set the mask of the frame types changed in tag 2.
+ * Set the mask of the frame types changed in tag.
+ * @param tagNr tag number
  * @param mask mask of frame types
  */
-void TaggedFile::setChangedFramesV2(quint64 mask) {
-  m_changedFramesV2 = mask;
-  m_changedV2 = mask != 0;
+void TaggedFile::setChangedFrames(Frame::TagNumber tagNr, quint64 mask) {
+  m_changedFrames[tagNr] = mask;
+  m_changed[tagNr] = mask != 0;
   updateModifiedState();
 }
 
 void TaggedFile::updateModifiedState()
 {
-  bool modified = m_changedV1 || m_changedV2 || m_newFilename != m_filename;
+  bool modified = false;
+  FOR_ALL_TAGS(tagNr) {
+    if (m_changed[tagNr]) {
+      modified = true;
+      break;
+    }
+  }
+  modified = modified || m_newFilename != m_filename;
   if (m_modified != modified) {
     m_modified = modified;
     if (const FileProxyModel* model = getFileProxyModel()) {
@@ -889,41 +734,13 @@ int TaggedFile::getTrackNumberDigits() const
 }
 
 /**
- * Remove ID3v2 frames.
- *
- * @param flt filter specifying which frames to remove
- */
-void TaggedFile::deleteFramesV2(const FrameFilter& flt)
-{
-  if (flt.isEnabled(Frame::FT_Title))   setTitleV2(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Artist))  setArtistV2(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Album))   setAlbumV2(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Comment)) setCommentV2(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
-  if (flt.isEnabled(Frame::FT_Track))   setTrackV2(QLatin1String(""));
-  if (flt.isEnabled(Frame::FT_Genre))   setGenreV2(QLatin1String(""));
-}
-
-/**
  * Get the format of tag 1.
  *
  * @return string describing format of tag 1,
  *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
  *         QString::null if unknown.
  */
-QString TaggedFile::getTagFormatV1() const
-{
-  return QString();
-}
-
-/**
- * Get the format of tag 2.
- *
- * @return string describing format of tag 2,
- *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
- *         QString::null if unknown.
- */
-QString TaggedFile::getTagFormatV2() const
+QString TaggedFile::getTagFormat(Frame::TagNumber) const
 {
   return QString();
 }
@@ -931,6 +748,7 @@ QString TaggedFile::getTagFormatV2() const
 /**
  * Check if a string has to be truncated.
  *
+ * @param tagNr tag number
  * @param str  string to be checked
  * @param flag flag to be set if string has to be truncated
  * @param len  maximum length of string
@@ -938,8 +756,11 @@ QString TaggedFile::getTagFormatV2() const
  * @return str truncated to len characters if necessary, else QString::null.
  */
 QString TaggedFile::checkTruncation(
-  const QString& str, quint64 flag, int len)
+  Frame::TagNumber tagNr, const QString& str, quint64 flag, int len)
 {
+  if (tagNr != Frame::Tag_Id3v1)
+    return QString();
+
   bool priorTruncation = m_truncation != 0;
   QString result;
   if (static_cast<int>(str.length()) > len) {
@@ -956,15 +777,19 @@ QString TaggedFile::checkTruncation(
 /**
  * Check if a number has to be truncated.
  *
+ * @param tagNr tag number
  * @param val  value to be checked
  * @param flag flag to be set if number has to be truncated
  * @param max  maximum value
  *
  * @return val truncated to max if necessary, else -1.
  */
-int TaggedFile::checkTruncation(int val, quint64 flag,
+int TaggedFile::checkTruncation(Frame::TagNumber tagNr, int val, quint64 flag,
                                 int max)
 {
+  if (tagNr != Frame::Tag_Id3v1)
+    return -1;
+
   bool priorTruncation = m_truncation != 0;
   int result;
   if (val > max) {
@@ -979,281 +804,51 @@ int TaggedFile::checkTruncation(int val, quint64 flag,
 }
 
 /**
- * Get a specific frame from the tags 1.
+ * Add a frame in the tags.
  *
- * @param type  frame type
- * @param frame the frame is returned here
- *
- * @return true if ok.
- */
-bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame) const
-{
-  int n = -1;
-  bool number = false;
-
-  switch (type) {
-    case Frame::FT_Album:
-      frame.m_value = getAlbumV1();
-      break;
-    case Frame::FT_Artist:
-      frame.m_value = getArtistV1();
-      break;
-    case Frame::FT_Comment:
-      frame.m_value = getCommentV1();
-      break;
-    case Frame::FT_Date:
-      n = getYearV1();
-      number = true;
-      break;
-    case Frame::FT_Genre:
-      frame.m_value = getGenreV1();
-      break;
-    case Frame::FT_Title:
-      frame.m_value = getTitleV1();
-      break;
-    case Frame::FT_Track:
-      n = getTrackNumV1();
-      number = true;
-      break;
-    default:
-      // maybe handled in a subclass
-      return false;
-  }
-  if (number) {
-    if (n == -1) {
-      frame.m_value = QString();
-    } else if (n == 0) {
-      frame.m_value = QLatin1String("");
-    } else {
-      frame.m_value.setNum(n);
-    }
-  }
-  frame.setType(type);
-  return true;
-}
-
-/**
- * Set a frame in the tags 1.
- *
- * @param frame frame to set.
- *
- * @return true if ok.
- */
-bool TaggedFile::setFrameV1(const Frame& frame)
-{
-  int n = -1;
-  if (frame.getType() == Frame::FT_Date ||
-      frame.getType() == Frame::FT_Track) {
-    if (frame.isInactive()) {
-      n = -1;
-    } else if (frame.isEmpty()) {
-      n = 0;
-    } else {
-      n = Frame::numberWithoutTotal(frame.m_value);
-    }
-  }
-  switch (frame.getType()) {
-    case Frame::FT_Album:
-      setAlbumV1(frame.m_value);
-      break;
-    case Frame::FT_Artist:
-      setArtistV1(frame.m_value);
-      break;
-    case Frame::FT_Comment:
-      setCommentV1(frame.m_value);
-      break;
-    case Frame::FT_Date:
-      setYearV1(n);
-      break;
-    case Frame::FT_Genre:
-      setGenreV1(frame.m_value);
-      break;
-    case Frame::FT_Title:
-      setTitleV1(frame.m_value);
-      break;
-    case Frame::FT_Track:
-      setTrackNumV1(n);
-      break;
-    default:
-      // maybe handled in a subclass
-      return false;
-  }
-  return true;
-}
-
-/**
- * Get a specific frame from the tags 2.
- *
- * @param type  frame type
- * @param frame the frame is returned here
- *
- * @return true if ok.
- */
-bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame) const
-{
-  int n = -1;
-  bool number = false;
-
-  switch (type) {
-    case Frame::FT_Album:
-      frame.m_value = getAlbumV2();
-      break;
-    case Frame::FT_Artist:
-      frame.m_value = getArtistV2();
-      break;
-    case Frame::FT_Comment:
-      frame.m_value = getCommentV2();
-      break;
-    case Frame::FT_Date:
-      n = getYearV2();
-      number = true;
-      break;
-    case Frame::FT_Genre:
-      frame.m_value = getGenreV2();
-      break;
-    case Frame::FT_Title:
-      frame.m_value = getTitleV2();
-      break;
-    case Frame::FT_Track:
-      frame.m_value = getTrackV2();
-      break;
-    default:
-      // maybe handled in a subclass
-      return false;
-  }
-  if (number) {
-    if (n == -1) {
-      frame.m_value = QString();
-    } else if (n == 0) {
-      frame.m_value = QLatin1String("");
-    } else {
-      frame.m_value.setNum(n);
-    }
-  }
-  frame.setType(type);
-  return true;
-}
-
-/**
- * Set a frame in the tags 2.
- *
- * @param frame frame to set
- *
- * @return true if ok.
- */
-bool TaggedFile::setFrameV2(const Frame& frame)
-{
-  int n = -1;
-  if (frame.getType() == Frame::FT_Date) {
-    if (frame.isInactive()) {
-      n = -1;
-    } else if (frame.isEmpty()) {
-      n = 0;
-    } else {
-      n = Frame::numberWithoutTotal(frame.m_value);
-    }
-  }
-  switch (frame.getType()) {
-    case Frame::FT_Album:
-      setAlbumV2(frame.m_value);
-      break;
-    case Frame::FT_Artist:
-      setArtistV2(frame.m_value);
-      break;
-    case Frame::FT_Comment:
-      setCommentV2(frame.m_value);
-      break;
-    case Frame::FT_Date:
-      setYearV2(n);
-      break;
-    case Frame::FT_Genre:
-      setGenreV2(frame.m_value);
-      break;
-    case Frame::FT_Title:
-      setTitleV2(frame.m_value);
-      break;
-    case Frame::FT_Track:
-      setTrackV2(frame.m_value);
-      break;
-    default:
-      // maybe handled in a subclass
-      return false;
-  }
-  return true;
-}
-
-/**
- * Add a frame in the tags 2.
- *
+ * @param tagNr tag number
  * @param frame frame to add, a field list may be added by this method
  *
  * @return true if ok.
  */
-bool TaggedFile::addFrameV2(Frame& frame)
+bool TaggedFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
-  return TaggedFile::setFrameV2(frame);
+  if (tagNr == Frame::Tag_Id3v1)
+    return false;
+
+  return setFrame(tagNr, frame);
 }
 
 /**
- * Delete a frame in the tags 2.
+ * Delete a frame from the tags.
  *
- * @param frame frame to delete.
+ * @param tagNr tag number
+ * @param frame frame to delete
  *
  * @return true if ok.
  */
-bool TaggedFile::deleteFrameV2(const Frame& frame)
+bool TaggedFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
+  if (tagNr == Frame::Tag_Id3v1)
+    return false;
+
   Frame emptyFrame(frame);
   emptyFrame.setValue(QLatin1String(""));
-  return setFrameV2(emptyFrame);
+  return setFrame(tagNr, emptyFrame);
 }
 
 /**
- * Get all frames in tag 1.
+ * Get all frames in tag.
  *
+ * @param tagNr tag number
  * @param frames frame collection to set.
  */
-void TaggedFile::getAllFramesV1(FrameCollection& frames)
+void TaggedFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
   frames.clear();
   Frame frame;
   for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-    if (getFrameV1(static_cast<Frame::Type>(i), frame)) {
-      frames.insert(frame);
-    }
-  }
-}
-
-/**
- * Set frames in tag 1.
- *
- * @param frames      frame collection
- * @param onlyChanged only frames with value marked as changed are set
- */
-void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
-{
-  for (FrameCollection::const_iterator it = frames.begin();
-       it != frames.end();
-       ++it) {
-    if (!onlyChanged || it->isValueChanged()) {
-        setFrameV1(*it);
-    }
-  }
-}
-
-/**
- * Get all frames in tag 2.
- * This generic implementation only supports the standard tags and should
- * be reimplemented in derived classes.
- *
- * @param frames frame collection to set.
- */
-void TaggedFile::getAllFramesV2(FrameCollection& frames)
-{
-  frames.clear();
-  Frame frame;
-  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-    if (getFrameV2(static_cast<Frame::Type>(i), frame)) {
+    if (getFrame(tagNr, static_cast<Frame::Type>(i), frame)) {
       frames.insert(frame);
     }
   }
@@ -1302,53 +897,66 @@ void TaggedFile::closeFileHandle()
  * If a frame is created, its field list is empty. This method will create
  * a field list appropriate for the frame type and tagged file type if no
  * field list exists. The default implementation does nothing.
+ * @param tagNr tag number
  * @param frame frame where field list is added
  */
-void TaggedFile::addFieldList(Frame&) const
+void TaggedFile::addFieldList(Frame::TagNumber, Frame&) const
 {
 }
 
 /**
- * Set frames in tag 2.
+ * Set frames in tag.
  *
+ * @param tagNr tag number
  * @param frames      frame collection
  * @param onlyChanged only frames with value marked as changed are set
  */
-void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
+void TaggedFile::setFrames(Frame::TagNumber tagNr,
+                           const FrameCollection& frames, bool onlyChanged)
 {
-  bool myFramesValid = false;
-  FrameCollection myFrames;
+  if (tagNr == Frame::Tag_Id3v1) {
+    for (FrameCollection::const_iterator it = frames.begin();
+         it != frames.end();
+         ++it) {
+      if (!onlyChanged || it->isValueChanged()) {
+        setFrame(tagNr, *it);
+      }
+    }
+  } else {
+    bool myFramesValid = false;
+    FrameCollection myFrames;
 
-  for (FrameCollection::const_iterator it = frames.begin();
-       it != frames.end();
-       ++it) {
-    if (!onlyChanged || it->isValueChanged()) {
-      if (it->getIndex() != -1) {
-        // The frame has an index, so the original tag can be modified
-        setFrameV2(*it);
-      } else {
-        // The frame does not have an index
-        if (it->getType() <= Frame::FT_LastV1Frame) {
-          // Standard tags can be handled with the basic method
-          TaggedFile::setFrameV2(*it);
+    for (FrameCollection::const_iterator it = frames.begin();
+         it != frames.end();
+         ++it) {
+      if (!onlyChanged || it->isValueChanged()) {
+        if (it->getIndex() != -1) {
+          // The frame has an index, so the original tag can be modified
+          setFrame(tagNr, *it);
         } else {
-          // The frame has to be looked up and modified
-          if (!myFramesValid) {
-            getAllFramesV2(myFrames);
-            myFramesValid = true;
-          }
-          FrameCollection::iterator myIt = myFrames.find(*it);
-          if (myIt != myFrames.end() && myIt->getIndex() != -1) {
-            Frame myFrame(*it);
-            myFrame.setIndex(myIt->getIndex());
-            setFrameV2(myFrame);
+          // The frame does not have an index
+          if (it->getType() <= Frame::FT_LastV1Frame) {
+            // Standard tags can be handled with the basic method
+            setFrame(tagNr, *it);
           } else {
-            // Such a frame does not exist, add a new one.
-            Frame addedFrame(*it);
-            addFrameV2(addedFrame);
-            Frame myFrame(*it);
-            myFrame.setIndex(addedFrame.getIndex());
-            setFrameV2(myFrame);
+            // The frame has to be looked up and modified
+            if (!myFramesValid) {
+              getAllFrames(tagNr, myFrames);
+              myFramesValid = true;
+            }
+            FrameCollection::iterator myIt = myFrames.find(*it);
+            if (myIt != myFrames.end() && myIt->getIndex() != -1) {
+              Frame myFrame(*it);
+              myFrame.setIndex(myIt->getIndex());
+              setFrame(tagNr, myFrame);
+            } else {
+              // Such a frame does not exist, add a new one.
+              Frame addedFrame(*it);
+              addFrame(tagNr, addedFrame);
+              Frame myFrame(*it);
+              myFrame.setIndex(addedFrame.getIndex());
+              setFrame(tagNr, myFrame);
+            }
           }
         }
       }

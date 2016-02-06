@@ -33,7 +33,8 @@
  * @param parent parent object
  */
 FrameEditorObject::FrameEditorObject(QObject* parent) : QObject(parent),
-  m_selectFrame(0), m_editFrameTaggedFile(0), m_frameObjectModel(0)
+  m_selectFrame(0), m_editFrameTaggedFile(0), m_frameObjectModel(0),
+  m_tagNr(Frame::Tag_2)
 {
 }
 
@@ -57,7 +58,7 @@ void FrameEditorObject::editFrameOfTaggedFile(const Frame* frame,
                                                TaggedFile* taggedFile)
 {
   if (!frame || !taggedFile) {
-    emit frameEdited(0);
+    emit frameEdited(m_tagNr, 0);
     return;
   }
 
@@ -81,12 +82,12 @@ void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
 {
   if (frame) {
     m_editFrame = frame->getFrame();
-    if (m_editFrameTaggedFile->setFrameV2(m_editFrame)) {
-      m_editFrameTaggedFile->markTag2Changed(m_editFrame.getType());
+    if (m_editFrameTaggedFile->setFrame(m_tagNr, m_editFrame)) {
+      m_editFrameTaggedFile->markTagChanged(m_tagNr, m_editFrame.getType());
     }
-    emit frameEdited(&m_editFrame);
+    emit frameEdited(m_tagNr, &m_editFrame);
   } else {
-    emit frameEdited(0);
+    emit frameEdited(m_tagNr, 0);
   }
 }
 
@@ -101,7 +102,7 @@ void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
 void FrameEditorObject::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   if (taggedFile && frame) {
-    QStringList frameNames = taggedFile->getFrameIds();
+    QStringList frameNames = taggedFile->getFrameIds(m_tagNr);
     m_displayNameMap = Frame::getDisplayNameMap(frameNames);
     m_selectFrame = frame;
     emit frameSelectionRequested(m_displayNameMap.keys());
@@ -120,9 +121,9 @@ void FrameEditorObject::onFrameSelectionFinished(const QString& displayName)
     m_displayNameMap.clear();
     Frame::Type type = Frame::getTypeFromName(name);
     *m_selectFrame = Frame(type, QLatin1String(""), name, -1);
-    emit frameSelected(m_selectFrame);
+    emit frameSelected(m_tagNr, m_selectFrame);
   } else {
-    emit frameSelected(0);
+    emit frameSelected(m_tagNr, 0);
   }
 }
 

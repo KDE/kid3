@@ -29,7 +29,7 @@ Kid3Script {
     var maxPixels = 500
 
     function doWork() {
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         var data = app.getPictureData()
         if (script.getDataSize(data) !== 0) {
           var format = "JPG"

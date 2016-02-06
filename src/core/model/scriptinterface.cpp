@@ -121,7 +121,7 @@ void ScriptInterface::revert()
 bool ScriptInterface::importFromFile(int tagMask, const QString& path,
                                      int fmtIdx)
 {
-  return m_app->importTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
+  return m_app->importTags(Frame::tagVersionCast(tagMask), path, fmtIdx);
 }
 
 /**
@@ -134,7 +134,7 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path,
  */
 bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
 {
-  return m_app->batchImport(profileName, TrackData::tagVersionCast(tagMask));
+  return m_app->batchImport(profileName, Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -159,7 +159,7 @@ void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
  */
 bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
 {
-  return m_app->exportTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
+  return m_app->exportTags(Frame::tagVersionCast(tagMask), path, fmtIdx);
 }
 
 /**
@@ -334,7 +334,7 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
 {
   connect(m_app, SIGNAL(renameActionsScheduled()),
           this, SLOT(onRenameActionsScheduled()));
-  if (m_app->renameDirectory(TrackData::tagVersionCast(tagMask), format,
+  if (m_app->renameDirectory(Frame::tagVersionCast(tagMask), format,
                              create)) {
     return true;
   } else {
@@ -362,7 +362,7 @@ void ScriptInterface::onRenameActionsScheduled()
  */
 void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
 {
-  m_app->numberTracks(firstTrackNr, 0, TrackData::tagVersionCast(tagMask));
+  m_app->numberTracks(firstTrackNr, 0, Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -441,7 +441,7 @@ void ScriptInterface::setFileNameFormat(const QString& format)
  */
 void ScriptInterface::setFileNameFromTag(int tagMask)
 {
-  m_app->getFilenameFromTags(TrackData::tagVersionCast(tagMask));
+  m_app->getFilenameFromTags(Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -454,7 +454,7 @@ void ScriptInterface::setFileNameFromTag(int tagMask)
  */
 QString ScriptInterface::getFrame(int tagMask, const QString& name)
 {
-  return m_app->getFrame(TrackData::tagVersionCast(tagMask), name);
+  return m_app->getFrame(Frame::tagVersionCast(tagMask), name);
 }
 
 /**
@@ -471,7 +471,7 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 bool ScriptInterface::setFrame(int tagMask, const QString& name,
                            const QString& value)
 {
-  return m_app->setFrame(TrackData::tagVersionCast(tagMask), name, value);
+  return m_app->setFrame(Frame::tagVersionCast(tagMask), name, value);
 }
 
 /**
@@ -483,9 +483,13 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
  */
 QStringList ScriptInterface::getTag(int tagMask)
 {
+  Frame::TagNumber tagNr =
+      Frame::tagNumberFromMask(Frame::tagVersionCast(tagMask));
+  if (tagNr >= Frame::Tag_NumValues)
+    return QStringList();
+
   QStringList lst;
-  FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
-    m_app->frameModelV1();
+  FrameTableModel* ft = m_app->frameModel(tagNr);
   for (FrameCollection::const_iterator it = ft->frames().begin();
        it != ft->frames().end();
        ++it) {
@@ -534,13 +538,11 @@ QStringList ScriptInterface::getInformation()
         lst << QLatin1String("VBR") << QLatin1String("1");
       }
     }
-    QString tag1 = taggedFile->getTagFormatV1();
-    if (!tag1.isEmpty()) {
-      lst << QLatin1String("Tag 1") << tag1;
-    }
-    QString tag2 = taggedFile->getTagFormatV2();
-    if (!tag2.isEmpty()) {
-      lst << QLatin1String("Tag 2") << tag2;
+    FOR_ALL_TAGS(tagNr) {
+      QString tag = taggedFile->getTagFormat(tagNr);
+      if (!tag.isEmpty()) {
+        lst << QLatin1String("Tag ") + Frame::tagNumberToString(tagNr) << tag;
+      }
     }
   }
   return lst;
@@ -553,7 +555,7 @@ QStringList ScriptInterface::getInformation()
  */
 void ScriptInterface::setTagFromFileName(int tagMask)
 {
-  m_app->getTagsFromFilename(TrackData::tagVersionCast(tagMask));
+  m_app->getTagsFromFilename(Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -563,7 +565,7 @@ void ScriptInterface::setTagFromFileName(int tagMask)
  */
 void ScriptInterface::setTagFromOtherTag(int tagMask)
 {
-  m_app->copyToOtherTag(TrackData::tagVersionCast(tagMask));
+  m_app->copyToOtherTag(Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -573,7 +575,7 @@ void ScriptInterface::setTagFromOtherTag(int tagMask)
  */
 void ScriptInterface::copyTag(int tagMask)
 {
-  m_app->copyTags(TrackData::tagVersionCast(tagMask));
+  m_app->copyTags(Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -583,7 +585,7 @@ void ScriptInterface::copyTag(int tagMask)
  */
 void ScriptInterface::pasteTag(int tagMask)
 {
-  m_app->pasteTags(TrackData::tagVersionCast(tagMask));
+  m_app->pasteTags(Frame::tagVersionCast(tagMask));
 }
 
 /**
@@ -593,7 +595,7 @@ void ScriptInterface::pasteTag(int tagMask)
  */
 void ScriptInterface::removeTag(int tagMask)
 {
-  m_app->removeTags(TrackData::tagVersionCast(tagMask));
+  m_app->removeTags(Frame::tagVersionCast(tagMask));
 }
 
 /**

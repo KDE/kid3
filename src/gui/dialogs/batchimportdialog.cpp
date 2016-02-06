@@ -184,9 +184,12 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(tr("Tag 1"), Frame::TagV1);
-  m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
-  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
+  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+      Frame::availableTagVersions();
+  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
+       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+    m_destComboBox->addItem(it->second, it->first);
+  }
   destLabel->setBuddy(m_destComboBox);
   destLayout->addWidget(m_destComboBox);
   destLayout->addStretch();
@@ -272,7 +275,7 @@ void BatchImportDialog::startOrAbortImport()
       m_currentProfile = m_profiles.at(m_profileIdx);
       emit start(
             m_currentProfile,
-            TrackData::tagVersionCast(
+            Frame::tagVersionCast(
               m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
     }
   }
@@ -438,7 +441,7 @@ void BatchImportDialog::readConfig()
 void BatchImportDialog::saveConfig()
 {
   BatchImportConfig& batchImportCfg = BatchImportConfig::instance();
-  batchImportCfg.setImportDest(TrackData::tagVersionCast(
+  batchImportCfg.setImportDest(Frame::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
 
   QStringList names, sources;

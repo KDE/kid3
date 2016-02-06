@@ -197,8 +197,7 @@ private:
   QStringList m_argCommands;
   QString m_detailInfo;
   QString m_filename;
-  QString m_tagFormatV1;
-  QString m_tagFormatV2;
+  QString m_tagFormat[Frame::Tag_NumValues];
   Frame::TagVersion m_tagMask;
   /** Overwrites command timeout, -1 to switch off, 0 for defaults, else ms. */
   int m_timeoutMs;

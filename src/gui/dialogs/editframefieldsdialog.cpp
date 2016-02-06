@@ -591,12 +591,13 @@ public:
    * @param field field to edit
    * @param fields fields of frame to edit
    * @param taggedFile file
+   * @param tagNr tag number
    * @param type SynchronizedLyrics or EventTimingCodes
    */
   TimeEventFieldControl(IPlatformTools* platformTools,
                         Kid3Application* app, Frame::Field& field,
                         Frame::FieldList& fields, const TaggedFile* taggedFile,
-                        TimeEventModel::Type type);
+                        Frame::TagNumber tagNr, TimeEventModel::Type type);
 
   /**
    * Destructor.
@@ -626,6 +627,8 @@ protected:
   Frame::FieldList& m_fields;
   /** tagged file */
   const TaggedFile* m_taggedFile;
+  /** number of edited tag */
+  Frame::TagNumber m_tagNr;
   /** item model */
   TimeEventModel* m_model;
   /** editor widget */
@@ -640,6 +643,7 @@ public:
    */
   SubframeFieldControl(IPlatformTools* platformTools,
                        Kid3Application* app, const TaggedFile* taggedFile,
+                       Frame::TagNumber tagNr,
                        Frame::FieldList& fields,
                        Frame::FieldList::iterator begin,
                        Frame::FieldList::iterator end);
@@ -667,6 +671,7 @@ private:
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   const TaggedFile* m_taggedFile;
+  Frame::TagNumber m_tagNr;
   Frame::FieldList& m_fields;
   Frame::FieldList::iterator m_begin;
   Frame::FieldList::iterator m_end;
@@ -1029,15 +1034,16 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
  * @param field field to edit
  * @param fields fields of frame to edit
  * @param taggedFile file
+ * @param tagNr tag number
  * @param type SynchronizedLyrics or EventTimingCodes
  */
 TimeEventFieldControl::TimeEventFieldControl(
     IPlatformTools* platformTools, Kid3Application* app, Frame::Field& field,
     Frame::FieldList& fields, const TaggedFile* taggedFile,
-    TimeEventModel::Type type) :
+    Frame::TagNumber tagNr, TimeEventModel::Type type) :
   Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-  m_fields(fields), m_taggedFile(taggedFile), m_model(new TimeEventModel(this)),
-  m_editor(0)
+  m_fields(fields), m_taggedFile(taggedFile), m_tagNr(tagNr),
+  m_model(new TimeEventModel(this)), m_editor(0)
 {
   m_model->setType(type);
   if (type == TimeEventModel::EventTimingCodes) {
@@ -1075,7 +1081,7 @@ void TimeEventFieldControl::updateTag()
 QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
 {
   m_editor = new TimeEventEditor(m_platformTools, m_app, parent,
-                                 m_field, m_taggedFile);
+                                 m_field, m_taggedFile, m_tagNr);
   m_editor->setModel(m_model);
   return m_editor;
 }
@@ -1085,11 +1091,11 @@ QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
  */
 SubframeFieldControl::SubframeFieldControl(
     IPlatformTools* platformTools, Kid3Application* app,
-    const TaggedFile* taggedFile, Frame::FieldList& fields,
+    const TaggedFile* taggedFile, Frame::TagNumber tagNr, Frame::FieldList& fields,
     Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
   Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
-  m_taggedFile(taggedFile), m_fields(fields), m_begin(begin), m_end(end),
-  m_editor(0)
+  m_taggedFile(taggedFile), m_tagNr(tagNr), m_fields(fields),
+  m_begin(begin), m_end(end), m_editor(0)
 {
 }
 
@@ -1129,7 +1135,8 @@ void SubframeFieldControl::updateTag()
  * @return widget to edit field data.
  */
 QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
-  m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, parent);
+  m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, m_tagNr,
+                                 parent);
   FrameCollection frames = FrameCollection::fromSubframes(m_begin, m_end);
   m_editor->setFrames(frames);
   return m_editor;
@@ -1280,9 +1287,11 @@ EditFrameFieldsDialog::~EditFrameFieldsDialog()
  *
  * @param frame      frame with fields to edit
  * @param taggedFile file
+ * @param tagNr      tag number
  */
 void EditFrameFieldsDialog::setFrame(const Frame& frame,
-                                     const TaggedFile* taggedFile)
+                                     const TaggedFile* taggedFile,
+                                     Frame::TagNumber tagNr)
 {
   m_fields = frame.getFieldList();
 
@@ -1309,7 +1318,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 
     if (fld.m_id == Frame::ID_Subframe) {
       SubframeFieldControl* subframeCtl =
-          new SubframeFieldControl(m_platformTools, m_app, taggedFile,
+          new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
             m_fields, fldIt, m_fields.end());
       m_fieldcontrols.append(subframeCtl);
       subframeMissing = false;
@@ -1370,12 +1379,12 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
         QString frameName = frame.getName();
         if (frameName.startsWith(QLatin1String("SYLT"))) {
           TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
-                m_platformTools, m_app, fld, m_fields, taggedFile,
+                m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
                 TimeEventModel::SynchronizedLyrics);
           m_fieldcontrols.append(timeEventCtl);
         } else if (frameName.startsWith(QLatin1String("ETCO"))) {
           TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
-                m_platformTools, m_app, fld, m_fields, taggedFile,
+                m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
                 TimeEventModel::EventTimingCodes);
           m_fieldcontrols.append(timeEventCtl);
         } else if (frameName.startsWith(QLatin1String("CHAP"))) {
@@ -1401,7 +1410,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   if (subframeMissing) {
     // Add an empty subframe so that subframes can be added
     SubframeFieldControl* subframeCtl =
-        new SubframeFieldControl(m_platformTools, m_app, taggedFile,
+        new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
           m_fields, m_fields.end(), m_fields.end());
     m_fieldcontrols.append(subframeCtl);
   }

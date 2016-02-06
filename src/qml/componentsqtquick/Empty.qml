@@ -33,7 +33,7 @@ Rectangle {
   signal clicked()
 
   width: parent ? parent.width : constants.gu(31)
-  height: constants.rowHeight
+  height: visible ? constants.rowHeight : 0
   color: selected
          ? constants.palette.highlight : "transparent" //constants.palette.window
 

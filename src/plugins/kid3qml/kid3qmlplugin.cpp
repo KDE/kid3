@@ -74,9 +74,11 @@ Q_DECLARE_METATYPE(FrameTableModel*)
 Q_DECLARE_METATYPE(FrameList*)
 Q_DECLARE_METATYPE(FrameEditorObject*)
 Q_DECLARE_METATYPE(FrameObjectModel*)
+Q_DECLARE_METATYPE(TaggedFileSelectionTagContext*)
 Q_DECLARE_METATYPE(TaggedFileSelection*)
 Q_DECLARE_METATYPE(QList<QPersistentModelIndex>)
 Q_DECLARE_METATYPE(Frame::TagVersion)
+Q_DECLARE_METATYPE(Frame::TagNumber)
 Q_DECLARE_METATYPE(Frame)
 Q_DECLARE_METATYPE(ScriptUtils*)
 Q_DECLARE_METATYPE(ConfigObjects*)
@@ -85,6 +87,7 @@ Q_DECLARE_METATYPE(QItemSelectionModel*)
 Q_DECLARE_METATYPE(DirRenamer*)
 Q_DECLARE_METATYPE(BatchImporter*)
 Q_DECLARE_METATYPE(DownloadClient*)
+Q_DECLARE_METATYPE(Kid3ApplicationTagContext*)
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 Q_DECLARE_METATYPE(AudioPlayer*)
 #endif
@@ -171,6 +174,7 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
   if (qstrcmp(uri, "Kid3") == 0) {
     qRegisterMetaType<QList<QPersistentModelIndex> >();
     qRegisterMetaType<Frame::TagVersion>();
+    qRegisterMetaType<Frame::TagNumber>();
     qRegisterMetaType<QAbstractItemModel*>();
     // @uri Kid3
     qmlRegisterUncreatableType<Kid3Application>(uri, 1, 0, "Kid3Application",
@@ -180,17 +184,20 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<DirProxyModel>(uri, 1, 0, "DirProxyModel",
         QLatin1String("Retrieve it using app.dirProxyModel"));
     qmlRegisterUncreatableType<GenreModel>(uri, 1, 0, "GenreModel",
-        QLatin1String("Retrieve it using app.genreModelV1 or app.genreModelV2"));
+        QLatin1String("Retrieve it using app.tag().genreModel"));
     qmlRegisterUncreatableType<FrameTableModel>(uri, 1, 0, "FrameTableModel",
-        QLatin1String("Retrieve it using app.frameModelV1 or app.frameModelV2"));
+        QLatin1String("Retrieve it using app.tag().frameModel"));
     qmlRegisterUncreatableType<FrameList>(uri, 1, 0, "FrameList",
-        QLatin1String("Retrieve it using app.frameList"));
+        QLatin1String("Retrieve it using app.tag().frameList"));
     qmlRegisterType<FrameEditorObject>(uri, 1, 0, "FrameEditorObject");
     qmlRegisterUncreatableType<FrameObjectModel>(uri, 1, 0, "FrameObjectModel",
         QLatin1String("Argument of FrameEditorObject.frameEditFinished()"));
     qmlRegisterUncreatableType<TaggedFileSelection>(
           uri, 1, 0, "TaggedFileSelection",
         QLatin1String("Retrieve it using app.selectionInfo"));
+    qmlRegisterUncreatableType<TaggedFileSelectionTagContext>(uri, 1, 0,
+        "TaggedFileSelectionTagContext",
+        QLatin1String("Retrieve it using app.selectionInfo.tag()"));
     qmlRegisterUncreatableType<QItemSelectionModel>(
           uri, 1, 0, "QItemSelectionModel",
         QLatin1String("Retrieve it using app.fileSelectionModel"));
@@ -213,6 +220,9 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
         QLatin1String("Retrieve it using app.batchImporter"));
     qmlRegisterUncreatableType<DownloadClient>(uri, 1, 0, "DownloadClient",
         QLatin1String("Retrieve it using app.downloadClient"));
+    qmlRegisterUncreatableType<Kid3ApplicationTagContext>(uri, 1, 0,
+        "Kid3ApplicationTagContext",
+        QLatin1String("Retrieve it using app.tag()"));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
     qmlRegisterUncreatableType<AudioPlayer>(uri, 1, 0, "AudioPlayer",
         QLatin1String("Retrieve it using app.getAudioPlayer()"));

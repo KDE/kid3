@@ -88,7 +88,20 @@ public:
    */
   virtual QObject* qobject();
 
+  /**
+   * Get the tag number of the edited frame.
+   * @return tag number, default is Frame::Tag_2.
+   */
+  virtual Frame::TagNumber tagNumber() const { return m_tagNr; }
+
+  /**
+   * Set the tag number of the edited frame.
+   * @param tagNr tag number
+   */
+  virtual void setTagNumber(Frame::TagNumber tagNr) { m_tagNr = tagNr; }
+
   // End of IFrameEditor implementation
+
 public slots:
   /**
    * Called when the frame selection dialog is closed.
@@ -113,15 +126,17 @@ signals:
 
   /**
    * Emitted when the dialog to add and edit a frame is closed.
+   * @param tagNr tag number
    * @param frame edited frame if dialog was accepted, else 0
    */
-  void frameEdited(const Frame* frame);
+  void frameEdited(Frame::TagNumber tagNr, const Frame* frame);
 
   /**
    * Emitted when the dialog to select a frame is closed.
+   * @param tagNr tag number
    * @param frame selected frame if dialog was accepted, else 0
    */
-  void frameSelected(const Frame* frame);
+  void frameSelected(Frame::TagNumber tagNr, const Frame* frame);
 
   // End of IFrameEditor implementation
 
@@ -148,6 +163,7 @@ private:
   FrameObjectModel* m_frameObjectModel;
   Frame m_editFrame;
   QMap<QString, QString> m_displayNameMap;
+  Frame::TagNumber m_tagNr;
 };
 
 #endif // FRAMEEDITOROBJECT_H

@@ -153,10 +153,10 @@ Kid3Script {
       }
 
       var tags = {}
-      if (app.selectionInfo.tagFormatV1) {
+      if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
         storeTags(app.getAllFrames(tagv1), tags)
       }
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         storeTags(app.getAllFrames(tagv2), tags)
       }
       var hasTags = Object.keys(tags).length > 0

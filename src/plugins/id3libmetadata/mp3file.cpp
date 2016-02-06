@@ -132,23 +132,23 @@ void Mp3File::readTags(bool force)
   if (force && m_tagV1) {
     m_tagV1->Clear();
     m_tagV1->Link(fn, ID3TT_ID3V1);
-    markTag1Unchanged();
+    markTagUnchanged(Frame::Tag_1);
   }
   if (!m_tagV1) {
     m_tagV1 = new ID3_Tag;
     m_tagV1->Link(fn, ID3TT_ID3V1);
-    markTag1Unchanged();
+    markTagUnchanged(Frame::Tag_1);
   }
 
   if (force && m_tagV2) {
     m_tagV2->Clear();
     m_tagV2->Link(fn, ID3TT_ID3V2);
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
   }
   if (!m_tagV2) {
     m_tagV2 = new ID3_Tag;
     m_tagV2->Link(fn, ID3TT_ID3V2);
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
   }
 
   if (force) {
@@ -194,26 +194,26 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
   // There seems to be a bug in id3lib: The V1 genre is not
   // removed. So we check here and strip the whole header
   // if there are no frames.
-  if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() == 0)) {
+  if (m_tagV1 && (force || isTagChanged(Frame::Tag_1)) && (m_tagV1->NumFrames() == 0)) {
     m_tagV1->Strip(ID3TT_ID3V1);
-    markTag1Unchanged();
+    markTagUnchanged(Frame::Tag_1);
   }
   // Even after removing all frames, HasV2Tag() still returns true,
   // so we strip the whole header.
-  if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() == 0)) {
+  if (m_tagV2 && (force || isTagChanged(Frame::Tag_2)) && (m_tagV2->NumFrames() == 0)) {
     m_tagV2->Strip(ID3TT_ID3V2);
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
   }
   // There seems to be a bug in id3lib: If I update an ID3v1 and then
   // strip the ID3v2 the ID3v1 is removed too and vice versa, so I
   // first make any stripping and then the updating.
-  if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() > 0)) {
+  if (m_tagV1 && (force || isTagChanged(Frame::Tag_1)) && (m_tagV1->NumFrames() > 0)) {
     m_tagV1->Update(ID3TT_ID3V1);
-    markTag1Unchanged();
+    markTagUnchanged(Frame::Tag_1);
   }
-  if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() > 0)) {
+  if (m_tagV2 && (force || isTagChanged(Frame::Tag_2)) && (m_tagV2->NumFrames() > 0)) {
     m_tagV2->Update(ID3TT_ID3V2);
-    markTag2Unchanged();
+    markTagUnchanged(Frame::Tag_2);
   }
 
   // restore time stamp
@@ -231,42 +231,6 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
     *renamed = true;
   }
   return true;
-}
-
-/**
- * Remove ID3v1 frames.
- *
- * @param flt filter specifying which frames to remove
- */
-void Mp3File::deleteFramesV1(const FrameFilter& flt)
-{
-  if (m_tagV1) {
-    if (flt.areAllEnabled()) {
-      ID3_Tag::Iterator* iter = m_tagV1->CreateIterator();
-      ID3_Frame* frame;
-      while ((frame = iter->GetNext()) != NULL) {
-        m_tagV1->RemoveFrame(frame);
-      }
-#ifdef Q_OS_WIN32
-      /* allocated in Windows DLL => must be freed in the same DLL */
-      ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
-#else
-#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
-/* Is safe because iterator implementation has default destructor */
-#endif
-      delete iter;
-#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
-#pragma GCC diagnostic pop
-#endif
-#endif
-      markTag1Changed(Frame::FT_UnknownFrame);
-      clearTrunctionFlags();
-    } else {
-      TaggedFile::deleteFramesV1(flt);
-    }
-  }
 }
 
 /**
@@ -694,399 +658,11 @@ static bool setGenreNum(ID3_Tag* tag, int num)
 }
 
 /**
- * Get ID3v1 title.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getTitleV1() const
-{
-  return getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1);
-}
-
-/**
- * Get ID3v1 artist.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getArtistV1() const
-{
-  return getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1);
-}
-
-/**
- * Get ID3v1 album.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getAlbumV1() const
-{
-  return getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1);
-}
-
-/**
- * Get ID3v1 comment.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getCommentV1() const
-{
-  return getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1);
-}
-
-/**
- * Get ID3v1 year.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int Mp3File::getYearV1() const
-{
-  return getYear(m_tagV1);
-}
-
-/**
- * Get ID3v1 track.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int Mp3File::getTrackNumV1() const
-{
-  return getTrackNum(m_tagV1);
-}
-
-/**
- * Get ID3v1 genre.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getGenreV1() const
-{
-  int num = getGenreNum(m_tagV1);
-  if (num == -1) {
-    return QString();
-  } else if (num == 0xff) {
-    return QLatin1String("");
-  } else {
-    return QString::fromLatin1(Genres::getName(num));
-  }
-}
-
-/**
- * Get ID3v2 title.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getTitleV2() const
-{
-  return getTextField(m_tagV2, ID3FID_TITLE);
-}
-
-/**
- * Get ID3v2 artist.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getArtistV2() const
-{
-  return getTextField(m_tagV2, ID3FID_LEADARTIST);
-}
-
-/**
- * Get ID3v2 album.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getAlbumV2() const
-{
-  return getTextField(m_tagV2, ID3FID_ALBUM);
-}
-
-/**
- * Get ID3v2 comment.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getCommentV2() const
-{
-  return getTextField(m_tagV2, ID3FID_COMMENT);
-}
-
-/**
- * Get ID3v2 year.
- *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int Mp3File::getYearV2() const
-{
-  return getYear(m_tagV2);
-}
-
-/**
- * Get ID3v2 track.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getTrackV2() const
-{
-  return getTextField(m_tagV2, ID3FID_TRACKNUM);
-}
-
-/**
- * Get ID3v2 genre as text.
- *
- * @return string,
- *         "" if the field does not exist,
- *         QString::null if the tags do not exist.
- */
-QString Mp3File::getGenreV2() const
-{
-  int num = getGenreNum(m_tagV2);
-  if (num != 0xff && num != -1) {
-    return QString::fromLatin1(Genres::getName(num));
-  } else {
-    return getTextField(m_tagV2, ID3FID_CONTENTTYPE);
-  }
-}
-
-/**
- * Set ID3v1 title.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setTitleV1(const QString& str)
-{
-  if (getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1) != str &&
-      setTextField(m_tagV1, ID3FID_TITLE, str, false, true, true, s_textCodecV1)) {
-    markTag1Changed(Frame::FT_Title);
-    QString s = checkTruncation(str, 1ULL << Frame::FT_Title);
-    if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s, false, true, true, s_textCodecV1);
-  }
-}
-
-/**
- * Set ID3v1 artist.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setArtistV1(const QString& str)
-{
-  if (getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1) != str &&
-      setTextField(m_tagV1, ID3FID_LEADARTIST, str, false, true, true, s_textCodecV1)) {
-    markTag1Changed(Frame::FT_Artist);
-    QString s = checkTruncation(str, 1ULL << Frame::FT_Artist);
-    if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s, false, true, true, s_textCodecV1);
-  }
-}
-
-/**
- * Set ID3v1 album.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setAlbumV1(const QString& str)
-{
-  if (getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1) != str &&
-      setTextField(m_tagV1, ID3FID_ALBUM, str, false, true, true, s_textCodecV1)) {
-    markTag1Changed(Frame::FT_Album);
-    QString s = checkTruncation(str, 1ULL << Frame::FT_Album);
-    if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s, false, true, true, s_textCodecV1);
-  }
-}
-
-/**
- * Set ID3v1 comment.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setCommentV1(const QString& str)
-{
-  if (getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1) != str &&
-      setTextField(m_tagV1, ID3FID_COMMENT, str, false, true, true, s_textCodecV1)) {
-    markTag1Changed(Frame::FT_Comment);
-    QString s = checkTruncation(str, 1ULL << Frame::FT_Comment, 28);
-    if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s, false, true, true, s_textCodecV1);
-  }
-}
-
-/**
- * Set ID3v1 year.
- *
- * @param num number to set, 0 to remove field.
- */
-void Mp3File::setYearV1(int num)
-{
-  if (setYear(m_tagV1, num)) {
-    markTag1Changed(Frame::FT_Date);
-  }
-}
-
-/**
- * Set ID3v1 track.
- *
- * @param num number to set, 0 to remove field.
- */
-void Mp3File::setTrackNumV1(int num)
-{
-  if (setTrackNum(m_tagV1, num)) {
-    markTag1Changed(Frame::FT_Track);
-    int n = checkTruncation(num, 1ULL << Frame::FT_Track);
-    if (n != -1) setTrackNum(m_tagV1, n);
-  }
-}
-
-/**
- * Set ID3v1 genre as text.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void Mp3File::setGenreV1(const QString& str)
-{
-  if (!str.isNull()) {
-    int num = Genres::getNumber(str);
-    if (setGenreNum(m_tagV1, num)) {
-      markTag1Changed(Frame::FT_Genre);
-    }
-    // if the string cannot be converted to a number, set the truncation flag
-    checkTruncation(num == 0xff && !str.isEmpty() ? 1 : 0,
-                    1ULL << Frame::FT_Genre, 0);
-  }
-}
-
-/**
- * Set ID3v2 title.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setTitleV2(const QString& str)
-{
-  if (getTextField(m_tagV2, ID3FID_TITLE) != str &&
-      setTextField(m_tagV2, ID3FID_TITLE, str, true)) {
-    markTag2Changed(Frame::FT_Title);
-  }
-}
-
-/**
- * Set ID3v2 artist.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setArtistV2(const QString& str)
-{
-  if (getTextField(m_tagV2, ID3FID_LEADARTIST) != str &&
-      setTextField(m_tagV2, ID3FID_LEADARTIST, str, true)) {
-    markTag2Changed(Frame::FT_Artist);
-  }
-}
-
-/**
- * Set ID3v2 album.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setAlbumV2(const QString& str)
-{
-  if (getTextField(m_tagV2, ID3FID_ALBUM) != str &&
-      setTextField(m_tagV2, ID3FID_ALBUM, str, true)) {
-    markTag2Changed(Frame::FT_Album);
-  }
-}
-
-/**
- * Set ID3v2 comment.
- *
- * @param str string to set, "" to remove field.
- */
-void Mp3File::setCommentV2(const QString& str)
-{
-  if (getTextField(m_tagV2, ID3FID_COMMENT) != str &&
-      setTextField(m_tagV2, ID3FID_COMMENT, str, true)) {
-    markTag2Changed(Frame::FT_Comment);
-  }
-}
-
-/**
- * Set ID3v2 year.
- *
- * @param num number to set, 0 to remove field.
- */
-void Mp3File::setYearV2(int num)
-{
-  if (setYear(m_tagV2, num)) {
-    markTag2Changed(Frame::FT_Date);
-  }
-}
-
-/**
- * Set ID3v2 track.
- *
- * @param track string to set, "" to remove field, QString::null to ignore.
- */
-void Mp3File::setTrackV2(const QString& track)
-{
-  int numTracks;
-  int num = splitNumberAndTotal(track, &numTracks);
-  if (setTrackNum(m_tagV2, num, numTracks)) {
-    markTag2Changed(Frame::FT_Track);
-  }
-}
-
-/**
- * Set ID3v2 genre as text.
- *
- * @param str string to set, "" to remove field, QString::null to ignore.
- */
-void Mp3File::setGenreV2(const QString& str)
-{
-  if (!str.isNull()) {
-    int num = 0xff;
-    if (!TagConfig::instance().genreNotNumeric()) {
-      num = Genres::getNumber(str);
-    }
-    if (num >= 0 && num != 0xff) {
-      if (getGenreNum(m_tagV2) != num &&
-          setGenreNum(m_tagV2, num)) {
-        markTag2Changed(Frame::FT_Genre);
-      }
-    } else {
-      if (getTextField(m_tagV2, ID3FID_CONTENTTYPE) != str &&
-          setTextField(m_tagV2, ID3FID_CONTENTTYPE, str, true)) {
-        markTag2Changed(Frame::FT_Genre);
-      }
-    }
-  }
-}
-
-/**
  * Check if tag information has already been read.
  *
  * @return true if information is available,
  *         false if the tags have not been read yet, in which case
- *         hasTagV1() and hasTagV2() do not return meaningful information.
+ *         hasTag() does not return meaningful information.
  */
 bool Mp3File::isTagInformationRead() const
 {
@@ -1094,35 +670,27 @@ bool Mp3File::isTagInformationRead() const
 }
 
 /**
- * Check if file has an ID3v1 tag.
+ * Check if tags are supported by the format of this file.
  *
- * @return true if a V1 tag is available.
- * @see isTagInformationRead()
- */
-bool Mp3File::hasTagV1() const
-{
-  return m_tagV1 && m_tagV1->HasV1Tag();
-}
-
-/**
- * Check if ID3v1 tags are supported by the format of this file.
- *
+ * @param tagNr tag number
  * @return true.
  */
-bool Mp3File::isTagV1Supported() const
+bool Mp3File::isTagSupported(Frame::TagNumber tagNr) const
 {
-  return true;
+  return tagNr == Frame::Tag_1 || tagNr == Frame::Tag_2;
 }
 
 /**
- * Check if file has an ID3v2 tag.
+ * Check if file has a tag.
  *
- * @return true if a V2 tag is available.
+ * @param tagNr tag number
+ * @return true if a tag is available.
  * @see isTagInformationRead()
  */
-bool Mp3File::hasTagV2() const
+bool Mp3File::hasTag(Frame::TagNumber tagNr) const
 {
-  return m_tagV2 && m_tagV2->HasV2Tag();
+  return (tagNr == Frame::Tag_1 && m_tagV1 && m_tagV1->HasV1Tag()) ||
+         (tagNr == Frame::Tag_2 && m_tagV2 && m_tagV2->HasV2Tag());
 }
 
 /**
@@ -1242,25 +810,17 @@ QString Mp3File::getFileExtension() const
 }
 
 /**
- * Get the format of tag 1.
+ * Get the format of a tag.
  *
- * @return string describing format of tag 1,
+ * @param tagNr tag number
+ * @return string describing format of tag,
  *         e.g. "ID3v1.1".
  */
-QString Mp3File::getTagFormatV1() const
+QString Mp3File::getTagFormat(Frame::TagNumber tagNr) const
 {
-  return hasTagV1() ? QString(QLatin1String("ID3v1.1")) : QString();
-}
-
-/**
- * Get the format of tag 2.
- *
- * @return string describing format of tag 2,
- *         e.g. "ID3v2.3", "ID3v2.4".
- */
-QString Mp3File::getTagFormatV2() const
-{
-  if (m_tagV2 && m_tagV2->HasV2Tag()) {
+  if (tagNr == Frame::Tag_1 && m_tagV1 && m_tagV1->HasV1Tag()) {
+    return QLatin1String("ID3v1.1");
+  } else if (tagNr == Frame::Tag_2 && m_tagV2 && m_tagV2->HasV2Tag()) {
     switch (m_tagV2->GetSpec()) {
       case ID3V2_3_0:
         return QLatin1String("ID3v2.3.0");
@@ -1833,138 +1393,313 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 }
 
 /**
- * Set a frame in the tags 2.
+ * Get a specific frame from the tags.
  *
+ * @param tagNr tag number
+ * @param type  frame type
+ * @param frame the frame is returned here
+ *
+ * @return true if ok.
+ */
+bool Mp3File::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const
+{
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame)
+    return false;
+
+  ID3_FrameID frameId = getId3libFrameIdForType(type);
+  if (frameId == ID3FID_NOFRAME)
+    return false;
+
+  const ID3_Tag* tag;
+  const QTextCodec* codec;
+  if (tagNr == Frame::Tag_1) {
+    tag = m_tagV1;
+    codec = s_textCodecV1;
+  } else if (tagNr == Frame::Tag_2) {
+    tag = m_tagV2;
+    codec = 0;
+  } else {
+    return false;
+  }
+
+  switch (type) {
+  case Frame::FT_Album:
+  case Frame::FT_Artist:
+  case Frame::FT_Comment:
+  case Frame::FT_Title:
+    frame.setValue(getTextField(tag, frameId, codec));
+    break;
+  case Frame::FT_Track:
+    if (tagNr == Frame::Tag_1) {
+      frame.setValueAsNumber(getTrackNum(tag));
+    } else {
+      frame.setValue(getTextField(tag, frameId));
+    }
+    break;
+  case Frame::FT_Date:
+    frame.setValueAsNumber(getYear(tag));
+    break;
+  case Frame::FT_Genre:
+  {
+    int num = getGenreNum(tag);
+    if (tagNr == Frame::Tag_1) {
+      frame.setValue(num == -1
+                     ? QString()
+                     : num == 0xff
+                       ? QLatin1String("")
+                       : QString::fromLatin1(Genres::getName(num)));
+    } else {
+      frame.setValue(num != 0xff && num != -1
+          ? QString::fromLatin1(Genres::getName(num))
+          : getTextField(tag, frameId));
+    }
+    break;
+  }
+  default:
+    return false;
+  }
+  frame.setType(type);
+  return true;
+}
+
+/**
+ * Set a frame in the tags.
+ *
+ * @param tagNr tag number
  * @param frame frame to set
  *
  * @return true if ok.
  */
-bool Mp3File::setFrameV2(const Frame& frame)
+bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
-  // If the frame has an index, change that specific frame
-  int index = frame.getIndex();
-  if (index != -1 && m_tagV2) {
-    ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
-    if (id3Frame) {
-      // If value is changed or field list is empty,
-      // set from value, else from FieldList.
-      if (frame.isValueChanged() || frame.getFieldList().empty()) {
-        QString value(frame.getValue());
-        ID3_Field* fld;
-        if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
-          if (getString(fld) != value) {
-            fld->Set(value.toLatin1().data());
-            markTag2Changed(frame.getType());
-          }
-          return true;
-        } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
-            (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
-          ID3_FrameID id = id3Frame->GetID();
-          if (id == ID3FID_CONTENTTYPE) {
-            if (!TagConfig::instance().genreNotNumeric()) {
-              value = Genres::getNumberString(value, true);
+  if (tagNr == Frame::Tag_2) {
+    // If the frame has an index, change that specific frame
+    int index = frame.getIndex();
+    if (index != -1 && m_tagV2) {
+      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+      if (id3Frame) {
+        // If value is changed or field list is empty,
+        // set from value, else from FieldList.
+        if (frame.isValueChanged() || frame.getFieldList().empty()) {
+          QString value(frame.getValue());
+          ID3_Field* fld;
+          if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
+            if (getString(fld) != value) {
+              fld->Set(value.toLatin1().data());
+              markTagChanged(Frame::Tag_2, frame.getType());
             }
-          } else if (id == ID3FID_TRACKNUM) {
-            formatTrackNumberIfEnabled(value, true);
-          }
-          bool hasEnc;
-          const ID3_TextEnc enc = fld->GetEncoding();
-          ID3_TextEnc newEnc = static_cast<ID3_TextEnc>(
-                frame.getFieldValue(Frame::ID_TextEnc).toInt(&hasEnc));
-          if (!hasEnc) {
-            newEnc = enc;
-          }
-          if (newEnc != ID3TE_ISO8859_1 && newEnc != ID3TE_UTF16) {
-            // only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0
-            newEnc = ID3TE_UTF16;
-          }
-          if (newEnc == ID3TE_ISO8859_1) {
-            // check if information is lost if the string is not unicode
-            int i, unicode_size = value.length();
-            const QChar* qcarray = value.unicode();
-            for (i = 0; i < unicode_size; i++) {
-              char ch = qcarray[i].toLatin1();
-              if (ch == 0 || (ch & 0x80) != 0) {
-                newEnc = ID3TE_UTF16;
-                break;
+            return true;
+          } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
+              (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
+            ID3_FrameID id = id3Frame->GetID();
+            if (id == ID3FID_CONTENTTYPE) {
+              if (!TagConfig::instance().genreNotNumeric()) {
+                value = Genres::getNumberString(value, true);
+              }
+            } else if (id == ID3FID_TRACKNUM) {
+              formatTrackNumberIfEnabled(value, true);
+            }
+            bool hasEnc;
+            const ID3_TextEnc enc = fld->GetEncoding();
+            ID3_TextEnc newEnc = static_cast<ID3_TextEnc>(
+                  frame.getFieldValue(Frame::ID_TextEnc).toInt(&hasEnc));
+            if (!hasEnc) {
+              newEnc = enc;
+            }
+            if (newEnc != ID3TE_ISO8859_1 && newEnc != ID3TE_UTF16) {
+              // only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0
+              newEnc = ID3TE_UTF16;
+            }
+            if (newEnc == ID3TE_ISO8859_1) {
+              // check if information is lost if the string is not unicode
+              int i, unicode_size = value.length();
+              const QChar* qcarray = value.unicode();
+              for (i = 0; i < unicode_size; i++) {
+                char ch = qcarray[i].toLatin1();
+                if (ch == 0 || (ch & 0x80) != 0) {
+                  newEnc = ID3TE_UTF16;
+                  break;
+                }
               }
             }
-          }
-          if (enc != newEnc && id != ID3FID_SYNCEDLYRICS) {
-            ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
-            if (encfld) {
-              encfld->Set(newEnc);
+            if (enc != newEnc && id != ID3FID_SYNCEDLYRICS) {
+              ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+              if (encfld) {
+                encfld->Set(newEnc);
+              }
+              fld->SetEncoding(newEnc);
+              markTagChanged(Frame::Tag_2, frame.getType());
             }
-            fld->SetEncoding(newEnc);
-            markTag2Changed(frame.getType());
-          }
-          if (getString(fld) != value) {
-            setString(fld, value);
-            markTag2Changed(frame.getType());
-          }
-          return true;
-        } else if (id3Frame->GetID() == ID3FID_PRIVATE &&
-                   (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
-          ID3_Field* ownerFld = id3Frame->GetField(ID3FN_OWNER);
-          QString owner;
-          QByteArray newData, oldData;
-          if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
-              AttributeData(owner).toByteArray(value, newData)) {
-            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
-                                 static_cast<int>(fld->Size()));
-            if (newData != oldData) {
-              fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
-                       newData.size());
-              markTag2Changed(frame.getType());
+            if (getString(fld) != value) {
+              setString(fld, value);
+              markTagChanged(Frame::Tag_2, frame.getType());
+            }
+            return true;
+          } else if (id3Frame->GetID() == ID3FID_PRIVATE &&
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+            ID3_Field* ownerFld = id3Frame->GetField(ID3FN_OWNER);
+            QString owner;
+            QByteArray newData, oldData;
+            if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
+                AttributeData(owner).toByteArray(value, newData)) {
+              oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                   static_cast<int>(fld->Size()));
+              if (newData != oldData) {
+                fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+                         newData.size());
+                markTagChanged(Frame::Tag_2, frame.getType());
+              }
+              return true;
+            }
+          } else if (id3Frame->GetID() == ID3FID_CDID &&
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+            QByteArray newData, oldData;
+            if (AttributeData::isHexString(value, 'F', QLatin1String("+")) &&
+                AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
+              oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                   static_cast<int>(fld->Size()));
+              if (newData != oldData) {
+                fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+                         static_cast<size_t>(newData.size()));
+                markTagChanged(Frame::Tag_2, frame.getType());
+              }
+              return true;
+            }
+          } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID &&
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+            QByteArray newData, oldData;
+            if (AttributeData::isHexString(value, 'Z')) {
+              newData = (value + QLatin1Char('\0')).toLatin1();
+              oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                                   static_cast<int>(fld->Size()));
+              if (newData != oldData) {
+                fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+                         static_cast<size_t>(newData.size()));
+                markTagChanged(Frame::Tag_2, frame.getType());
+              }
+              return true;
+            }
+          } else if (id3Frame->GetID() == ID3FID_POPULARIMETER &&
+                     (fld = id3Frame->GetField(ID3FN_RATING)) != 0) {
+            if (getString(fld) != value) {
+              fld->Set(value.toInt());
+              markTagChanged(Frame::Tag_2, frame.getType());
             }
             return true;
           }
-        } else if (id3Frame->GetID() == ID3FID_CDID &&
-                   (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
-          QByteArray newData, oldData;
-          if (AttributeData::isHexString(value, 'F', QLatin1String("+")) &&
-              AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
-            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
-                                 static_cast<int>(fld->Size()));
-            if (newData != oldData) {
-              fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
-                       static_cast<size_t>(newData.size()));
-              markTag2Changed(frame.getType());
-            }
-            return true;
-          }
-        } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID &&
-                   (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
-          QByteArray newData, oldData;
-          if (AttributeData::isHexString(value, 'Z')) {
-            newData = (value + QLatin1Char('\0')).toLatin1();
-            oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
-                                 static_cast<int>(fld->Size()));
-            if (newData != oldData) {
-              fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
-                       static_cast<size_t>(newData.size()));
-              markTag2Changed(frame.getType());
-            }
-            return true;
-          }
-        } else if (id3Frame->GetID() == ID3FID_POPULARIMETER &&
-                   (fld = id3Frame->GetField(ID3FN_RATING)) != 0) {
-          if (getString(fld) != value) {
-            fld->Set(value.toInt());
-            markTag2Changed(frame.getType());
-          }
+        } else {
+          setId3v2Frame(id3Frame, frame);
+          markTagChanged(Frame::Tag_2, frame.getType());
           return true;
         }
-      } else {
-        setId3v2Frame(id3Frame, frame);
-        markTag2Changed(frame.getType());
-        return true;
       }
     }
   }
 
-  // Try the superclass method
-  return TaggedFile::setFrameV2(frame);
+  // Try the basic method
+  Frame::Type type = frame.getType();
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame)
+    return false;
+
+  ID3_FrameID frameId = getId3libFrameIdForType(type);
+  if (frameId == ID3FID_NOFRAME)
+    return false;
+
+  ID3_Tag* tag;
+  const QTextCodec* codec;
+  bool allowUnicode;
+  if (tagNr == Frame::Tag_1) {
+    tag = m_tagV1;
+    codec = s_textCodecV1;
+    allowUnicode = false;
+  } else if (tagNr == Frame::Tag_2) {
+    tag = m_tagV2;
+    codec = 0;
+    allowUnicode = true;
+  } else {
+    return false;
+  }
+
+  switch (type) {
+  case Frame::FT_Album:
+  case Frame::FT_Artist:
+  case Frame::FT_Comment:
+  case Frame::FT_Title:
+  {
+    QString str = frame.getValue();
+    if (getTextField(tag, frameId, codec) != str &&
+        setTextField(tag, frameId, str, allowUnicode, true, true, codec)) {
+      markTagChanged(tagNr, type);
+      QString s = checkTruncation(tagNr, str, 1ULL << type, type == Frame::FT_Comment ? 28 : 30);
+      if (!s.isNull()) setTextField(tag, frameId, s, allowUnicode, true, true, codec);
+    }
+    break;
+  }
+  case Frame::FT_Date:
+  {
+    int num = frame.getValueAsNumber();
+    if (setYear(tag, num)) {
+      markTagChanged(tagNr, type);
+    }
+    break;
+  }
+  case Frame::FT_Genre:
+  {
+    QString str = frame.getValue();
+    if (tagNr == Frame::Tag_1) {
+      if (!str.isNull()) {
+        int num = Genres::getNumber(str);
+        if (setGenreNum(tag, num)) {
+          markTagChanged(tagNr, type);
+        }
+        // if the string cannot be converted to a number, set the truncation flag
+        checkTruncation(tagNr, num == 0xff && !str.isEmpty() ? 1 : 0,
+                        1ULL << type, 0);
+      }
+    } else {
+      if (!str.isNull()) {
+        int num = 0xff;
+        if (!TagConfig::instance().genreNotNumeric()) {
+          num = Genres::getNumber(str);
+        }
+        if (num >= 0 && num != 0xff) {
+          if (getGenreNum(tag) != num &&
+              setGenreNum(tag, num)) {
+            markTagChanged(tagNr, type);
+          }
+        } else {
+          if (getTextField(tag, frameId, codec) != str &&
+              setTextField(tag, frameId, str, allowUnicode, true, true, codec)) {
+            markTagChanged(tagNr, type);
+          }
+        }
+      }
+    }
+    break;
+  }
+  case Frame::FT_Track:
+  {
+    if (tagNr == Frame::Tag_1) {
+      int num = frame.getValueAsNumber();
+      if (setTrackNum(tag, num)) {
+        markTagChanged(tagNr, type);
+        int n = checkTruncation(tagNr, num, 1ULL << type);
+        if (n != -1) setTrackNum(tag, n);
+      }
+    } else {
+      QString str = frame.getValue();
+      int numTracks;
+      int num = splitNumberAndTotal(str, &numTracks);
+      if (setTrackNum(tag, num, numTracks)) {
+        markTagChanged(tagNr, type);
+      }
+    }
+    break;
+  }
+  default:
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -2079,54 +1814,60 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
 }
 
 /**
- * Add a frame in the tags 2.
+ * Add a frame in the tags.
  *
+ * @param tagNr tag number
  * @param frame frame to add, a field list may be added by this method
  *
  * @return true if ok.
  */
-bool Mp3File::addFrameV2(Frame& frame)
+bool Mp3File::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
-  // Add a new frame.
-  ID3_Frame* id3Frame;
-  if (m_tagV2 && (id3Frame = createId3FrameFromFrame(frame)) != 0) {
-    m_tagV2->AttachFrame(id3Frame);
-    frame.setIndex(m_tagV2->NumFrames() - 1);
-    if (frame.fieldList().empty()) {
-      // add field list to frame
-      getFieldsFromId3Frame(id3Frame, frame.fieldList());
-      frame.setFieldListFromValue();
-    }
-    markTag2Changed(frame.getType());
-    return true;
-  }
-
-  // Try the superclass method
-  return TaggedFile::addFrameV2(frame);
-}
-
-/**
- * Delete a frame in the tags 2.
- *
- * @param frame frame to delete.
- *
- * @return true if ok.
- */
-bool Mp3File::deleteFrameV2(const Frame& frame)
-{
-  // If the frame has an index, delete that specific frame
-  int index = frame.getIndex();
-  if (index != -1 && m_tagV2) {
-    ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
-    if (id3Frame) {
-      m_tagV2->RemoveFrame(id3Frame);
-      markTag2Changed(frame.getType());
+  if (tagNr == Frame::Tag_2) {
+    // Add a new frame.
+    ID3_Frame* id3Frame;
+    if (m_tagV2 && (id3Frame = createId3FrameFromFrame(frame)) != 0) {
+      m_tagV2->AttachFrame(id3Frame);
+      frame.setIndex(m_tagV2->NumFrames() - 1);
+      if (frame.fieldList().empty()) {
+        // add field list to frame
+        getFieldsFromId3Frame(id3Frame, frame.fieldList());
+        frame.setFieldListFromValue();
+      }
+      markTagChanged(Frame::Tag_2, frame.getType());
       return true;
     }
   }
 
   // Try the superclass method
-  return TaggedFile::deleteFrameV2(frame);
+  return TaggedFile::addFrame(tagNr, frame);
+}
+
+/**
+ * Delete a frame from the tags.
+ *
+ * @param tagNr tag number
+ * @param frame frame to delete.
+ *
+ * @return true if ok.
+ */
+bool Mp3File::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
+{
+  if (tagNr == Frame::Tag_2) {
+    // If the frame has an index, delete that specific frame
+    int index = frame.getIndex();
+    if (index != -1 && m_tagV2) {
+      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+      if (id3Frame) {
+        m_tagV2->RemoveFrame(id3Frame);
+        markTagChanged(Frame::Tag_2, frame.getType());
+        return true;
+      }
+    }
+  }
+
+  // Try the superclass method
+  return TaggedFile::deleteFrame(tagNr, frame);
 }
 
 /**
@@ -2214,96 +1955,133 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
 }
 
 /**
- * Remove ID3v2 frames.
+ * Remove frames.
  *
+ * @param tagNr tag number
  * @param flt filter specifying which frames to remove
  */
-void Mp3File::deleteFramesV2(const FrameFilter& flt)
+void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 {
-  if (m_tagV2) {
-    if (flt.areAllEnabled()) {
-      ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
-      ID3_Frame* frame;
-      while ((frame = iter->GetNext()) != NULL) {
-        m_tagV2->RemoveFrame(frame);
-      }
-#ifdef Q_OS_WIN32
-      /* allocated in Windows DLL => must be freed in the same DLL */
-      ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
-#else
-#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
-/* Is safe because iterator implementation has default destructor */
-#endif
-      delete iter;
-#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
-#pragma GCC diagnostic pop
-#endif
-#endif
-      markTag2Changed(Frame::FT_UnknownFrame);
-    } else {
-      ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
-      ID3_Frame* id3Frame;
-      while ((id3Frame = iter->GetNext()) != NULL) {
-        Frame frame(createFrameFromId3libFrame(id3Frame, -1));
-        if (flt.isEnabled(frame.getType(), frame.getName())) {
-          m_tagV2->RemoveFrame(id3Frame);
+  if (tagNr == Frame::Tag_1) {
+    if (m_tagV1) {
+      if (flt.areAllEnabled()) {
+        ID3_Tag::Iterator* iter = m_tagV1->CreateIterator();
+        ID3_Frame* frame;
+        while ((frame = iter->GetNext()) != NULL) {
+          m_tagV1->RemoveFrame(frame);
         }
-      }
 #ifdef Q_OS_WIN32
-      /* allocated in Windows DLL => must be freed in the same DLL */
-      ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+        /* allocated in Windows DLL => must be freed in the same DLL */
+        ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
 #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
 /* Is safe because iterator implementation has default destructor */
 #endif
-      delete iter;
+        delete iter;
 #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
 #pragma GCC diagnostic pop
 #endif
 #endif
-      markTag2Changed(Frame::FT_UnknownFrame);
+        markTagChanged(Frame::Tag_1, Frame::FT_UnknownFrame);
+        clearTrunctionFlags(Frame::Tag_1);
+      } else {
+        TaggedFile::deleteFrames(Frame::Tag_1, flt);
+      }
+    }
+  } else if (tagNr == Frame::Tag_2) {
+    if (m_tagV2) {
+      if (flt.areAllEnabled()) {
+        ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+        ID3_Frame* frame;
+        while ((frame = iter->GetNext()) != NULL) {
+          m_tagV2->RemoveFrame(frame);
+        }
+#ifdef Q_OS_WIN32
+        /* allocated in Windows DLL => must be freed in the same DLL */
+        ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
+        delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
+#endif
+        markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+      } else {
+        ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+        ID3_Frame* id3Frame;
+        while ((id3Frame = iter->GetNext()) != NULL) {
+          Frame frame(createFrameFromId3libFrame(id3Frame, -1));
+          if (flt.isEnabled(frame.getType(), frame.getName())) {
+            m_tagV2->RemoveFrame(id3Frame);
+          }
+        }
+  #ifdef Q_OS_WIN32
+        /* allocated in Windows DLL => must be freed in the same DLL */
+        ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+  #else
+  #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+  /* Is safe because iterator implementation has default destructor */
+  #endif
+        delete iter;
+  #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+  #pragma GCC diagnostic pop
+  #endif
+  #endif
+        markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+      }
     }
   }
 }
 
 /**
- * Get all frames in tag 2.
+ * Get all frames in tag.
  *
+ * @param tagNr tag number
  * @param frames frame collection to set.
  */
-void Mp3File::getAllFramesV2(FrameCollection& frames)
+void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
-  frames.clear();
-  resetMarkedState();
-  if (m_tagV2) {
-    ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
-    ID3_Frame* id3Frame;
-    int i = 0;
-    while ((id3Frame = iter->GetNext()) != 0) {
-      Frame frame(createFrameFromId3libFrame(id3Frame, i++));
-      updateMarkedState(frame);
-      frames.insert(frame);
-    }
+  if (tagNr == Frame::Tag_2) {
+    frames.clear();
+    resetMarkedState();
+    if (m_tagV2) {
+      ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+      ID3_Frame* id3Frame;
+      int i = 0;
+      while ((id3Frame = iter->GetNext()) != 0) {
+        Frame frame(createFrameFromId3libFrame(id3Frame, i++));
+        updateMarkedState(frame);
+        frames.insert(frame);
+      }
 #ifdef Q_OS_WIN32
-    /* allocated in Windows DLL => must be freed in the same DLL */
-    ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+      /* allocated in Windows DLL => must be freed in the same DLL */
+      ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
 #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
 /* Is safe because iterator implementation has default destructor */
 #endif
-    delete iter;
+      delete iter;
 #ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
 #pragma GCC diagnostic pop
 #endif
 #endif
+    }
+    frames.addMissingStandardFrames();
+    return;
   }
-  frames.addMissingStandardFrames();
+
+  TaggedFile::getAllFrames(tagNr, frames);
 }
 
 /**
@@ -2311,11 +2089,12 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
  * If a frame is created, its field list is empty. This method will create
  * a field list appropriate for the frame type and tagged file type if no
  * field list exists.
+ * @param tagNr tag number
  * @param frame frame where field list is added
  */
-void Mp3File::addFieldList(Frame& frame) const
+void Mp3File::addFieldList(Frame::TagNumber tagNr, Frame& frame) const
 {
-  if (frame.fieldList().isEmpty()) {
+  if (tagNr == Frame::Tag_2 && frame.fieldList().isEmpty()) {
     ID3_Frame* id3Frame = createId3FrameFromFrame(frame);
     getFieldsFromId3Frame(id3Frame, frame.fieldList());
     frame.setFieldListFromValue();
@@ -2325,11 +2104,14 @@ void Mp3File::addFieldList(Frame& frame) const
 
 /**
  * Get a list of frame IDs which can be added.
- *
+ * @param tagNr tag number
  * @return list with frame IDs.
  */
-QStringList Mp3File::getFrameIds() const
+QStringList Mp3File::getFrameIds(Frame::TagNumber tagNr) const
 {
+  if (tagNr != Frame::Tag_2)
+    return QStringList();
+
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     if (type != Frame::FT_Part) {

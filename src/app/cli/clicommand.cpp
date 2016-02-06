@@ -162,14 +162,14 @@ Frame::TagVersion CliCommand::getTagMaskParameter(int nr,
         tagMask |= 1;
       if (tagStr.contains(QLatin1Char('2')))
         tagMask |= 2;
-      if (tagStr == QLatin1String("3"))
-        tagMask = 3;
+      if (tagMask == 0)
+        tagMask = tagStr.toInt();
     }
   }
   if (tagMask == 0 && useDefault) {
     tagMask = m_processor->tagMask();
   }
-  return TrackData::tagVersionCast(tagMask);
+  return Frame::tagVersionCast(tagMask);
 }
 
 /**
@@ -404,14 +404,12 @@ void GetCommand::startCommand()
   if (name == QLatin1String("all")) {
     cli()->writeFileInformation(tagMask);
   } else {
-    foreach (Frame::TagVersion tagBit, QList<Frame::TagVersion>()
-             << Frame::TagV2 << Frame::TagV1) {
-      if (tagMask & tagBit) {
-        QString value = cli()->app()->getFrame(tagBit, name);
-        if (!value.isEmpty()) {
-          cli()->writeLine(value);
-          break;
-        }
+    foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagMask)) {
+      QString value = cli()->app()->getFrame(Frame::tagVersionFromNumber(tagNr),
+                                             name);
+      if (!value.isEmpty()) {
+        cli()->writeLine(value);
+        break;
       }
     }
   }

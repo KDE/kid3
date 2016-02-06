@@ -44,7 +44,7 @@ inline int tagVersionToNumberTracksDestCfg(Frame::TagVersion tagVersion) {
  * @return tag version.
  */
 inline Frame::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
-  return TrackData::tagVersionCast(importDest + 1);
+  return Frame::tagVersionCast(importDest + 1);
 }
 
 }

@@ -31,10 +31,10 @@ Kid3Script {
     function doWork() {
       var tags
       var prop
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         tags = app.getAllFrames(tagv2)
       }
-      if (app.selectionInfo.tagFormatV1) {
+      if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
         var tagsV1 = app.getAllFrames(tagv1)
         if (typeof tags === "undefined") {
           tags = {}

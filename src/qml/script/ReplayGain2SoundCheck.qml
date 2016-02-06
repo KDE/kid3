@@ -27,7 +27,7 @@ import Kid3 1.0
 Kid3Script {
   onRun: {
     function doWork() {
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         var rgStr = app.getFrame(tagv2, "replaygain_track_gain")
         if (rgStr) {
           var rg = parseFloat(rgStr)

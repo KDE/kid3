@@ -90,22 +90,14 @@ public:
   int getTotalNumberOfTracksInDir() const;
 
   /**
-   * Get the format of tag 1.
+   * Get the tag format.
    *
-   * @return string describing format of tag 1,
+   * @param tagNr tag number
+   * @return string describing format of tag,
    *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
    *         QString::null if unknown.
    */
-  QString getTagFormatV1() const;
-
-  /**
-   * Get the format of tag 2.
-   *
-   * @return string describing format of tag 2,
-   *         e.g. "ID3v2.3", "Vorbis", "APE",
-   *         QString::null if unknown.
-   */
-  QString getTagFormatV2() const;
+  QString getTagFormat(Frame::TagNumber tagNr) const;
 
   /**
    * Get detail info.
@@ -166,15 +158,6 @@ public:
    * @return help text.
    */
   static QString getFormatToolTip(bool onlyRows = false);
-
-  /**
-   * Cast a mask of tag version bits to a TagVersion enum.
-   * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
-   * @return tag version enum value.
-   */
-  static Frame::TagVersion tagVersionCast(int tagMask) {
-    return static_cast<Frame::TagVersion>(tagMask & 3);
-  }
 
 private:
   QPersistentModelIndex m_taggedFileIndex;
@@ -271,10 +254,11 @@ public:
   QString getAlbum() const;
 
   /**
-   * Check if tag 1 is supported in the first track.
-   * @return true if tag 1 is supported.
+   * Check if tag is supported in the first track.
+   * @param tagNr tag number
+   * @return true if tag is supported.
    */
-  bool isTagV1Supported() const;
+  bool isTagSupported(Frame::TagNumber tagNr) const;
 
   /**
    * Get cover art URL.

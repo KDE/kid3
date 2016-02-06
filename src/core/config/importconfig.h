@@ -324,7 +324,7 @@ private:
   friend ImportConfig& StoredConfig<ImportConfig>::instance();
 
   void setImportDestInt(int importDest) {
-    setImportDest(TrackData::tagVersionCast(importDest));
+    setImportDest(Frame::tagVersionCast(importDest));
   }
 
   int m_importServer;

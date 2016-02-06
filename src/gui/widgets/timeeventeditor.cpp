@@ -88,15 +88,17 @@ void TimeEventTableView::keyPressEvent(QKeyEvent* event)
  * @param parent parent widget
  * @param field  field containing binary data
  * @param taggedFile tagged file
+ * @param tagNr tag number
  */
 TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
                                  Kid3Application* app,
                                  QWidget* parent, const Frame::Field& field,
-                                 const TaggedFile* taggedFile) :
+                                 const TaggedFile* taggedFile,
+                                 Frame::TagNumber tagNr) :
   QWidget(parent),
   m_platformTools(platformTools), m_app(app), m_eventCodeDelegate(0),
-  m_model(0), m_taggedFile(taggedFile), m_byteArray(field.m_value.toByteArray()),
-  m_fileIsPlayed(false)
+  m_model(0), m_taggedFile(taggedFile), m_tagNr(tagNr),
+  m_byteArray(field.m_value.toByteArray()), m_fileIsPlayed(false)
 {
   setObjectName(QLatin1String("TimeEventEditor"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -308,13 +310,13 @@ void TimeEventEditor::exportData()
       }
       QString title, artist, album;
       Frame frame;
-      if (m_taggedFile->getFrameV2(Frame::FT_Title, frame)) {
+      if (m_taggedFile->getFrame(m_tagNr, Frame::FT_Title, frame)) {
         title = frame.getValue();
       }
-      if (m_taggedFile->getFrameV2(Frame::FT_Artist, frame)) {
+      if (m_taggedFile->getFrame(m_tagNr, Frame::FT_Artist, frame)) {
         artist = frame.getValue();
       }
-      if (m_taggedFile->getFrameV2(Frame::FT_Album, frame)) {
+      if (m_taggedFile->getFrame(m_tagNr, Frame::FT_Album, frame)) {
         album = frame.getValue();
       }
       m_model->toLrcFile(stream, title, artist, album);

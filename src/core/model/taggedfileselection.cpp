@@ -36,15 +36,17 @@
 
 /**
  * Constructor.
- * @param framesV1Model frame table model for tag 1
- * @param framesV2Model frame table model for tag 1
+ * @param framesModel frame table models for all tags, Frame::Tag_NumValues
+ * elements
  * @param parent parent object
  */
 TaggedFileSelection::TaggedFileSelection(
-    FrameTableModel* framesV1Model, FrameTableModel* framesV2Model,
-    QObject* parent) : QObject(parent),
-  m_framesV1Model(framesV1Model), m_framesV2Model(framesV2Model)
+    FrameTableModel* framesModel[], QObject* parent) : QObject(parent)
 {
+  FOR_ALL_TAGS(tagNr) {
+    m_framesModel[tagNr] = framesModel[tagNr];
+    m_tagContext[tagNr] = new TaggedFileSelectionTagContext(this, tagNr);
+  }
   setObjectName(QLatin1String("TaggedFileSelection"));
 }
 
@@ -63,10 +65,11 @@ void TaggedFileSelection::beginAddTaggedFiles()
 {
   m_lastState = m_state;
   m_state.m_singleFile = 0;
-  m_state.m_tagV1SupportedCount = 0;
   m_state.m_fileCount = 0;
-  m_state.m_hasTagV1 = false;
-  m_state.m_hasTagV2 = false;
+  FOR_ALL_TAGS(tagNr) {
+    m_state.m_tagSupportedCount[tagNr] = 0;
+    m_state.m_hasTag[tagNr] = false;
+  }
 }
 
 /**
@@ -75,74 +78,60 @@ void TaggedFileSelection::beginAddTaggedFiles()
  */
 void TaggedFileSelection::endAddTaggedFiles()
 {
-  m_framesV1Model->setAllCheckStates(m_state.m_tagV1SupportedCount == 1);
-  m_framesV2Model->setAllCheckStates(m_state.m_fileCount == 1);
+  FOR_ALL_TAGS(tagNr) {
+    m_framesModel[tagNr]->setAllCheckStates(
+          m_state.m_tagSupportedCount[tagNr] == 1);
+  }
   if (GuiConfig::instance().autoHideTags()) {
     // If a tag is supposed to be absent, make sure that there is really no
     // unsaved data in the tag.
-    if (!m_state.m_hasTagV1 &&
-        (m_state.m_tagV1SupportedCount > 0 || m_state.m_fileCount == 0)) {
-      const FrameCollection& frames = m_framesV1Model->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          m_state.m_hasTagV1 = true;
-          break;
-        }
-      }
-    }
-    if (!m_state.m_hasTagV2) {
-      const FrameCollection& frames = m_framesV2Model->frames();
-      for (FrameCollection::const_iterator it = frames.begin();
-           it != frames.end();
-           ++it) {
-        if (!(*it).getValue().isEmpty()) {
-          m_state.m_hasTagV2 = true;
-          break;
+    FOR_ALL_TAGS(tagNr) {
+      if (!m_state.m_hasTag[tagNr] &&
+          (m_state.m_tagSupportedCount[tagNr] > 0 ||
+           m_state.m_fileCount == 0)) {
+        const FrameCollection& frames = m_framesModel[tagNr]->frames();
+        for (FrameCollection::const_iterator it = frames.begin();
+             it != frames.end();
+             ++it) {
+          if (!(*it).getValue().isEmpty()) {
+            m_state.m_hasTag[tagNr] = true;
+            break;
+          }
         }
       }
     }
   }
-
-  if (m_state.m_singleFile) {
+  FOR_ALL_TAGS(tagNr) {
     if (TagConfig::instance().markTruncations()) {
-      m_framesV1Model->markRows(m_state.m_singleFile->getTruncationFlags());
+      m_framesModel[tagNr]->markRows(m_state.m_singleFile
+                               ? m_state.m_singleFile->getTruncationFlags(tagNr)
+                               : 0);
     }
     if (FileConfig::instance().markChanges()) {
-      m_framesV1Model->markChangedFrames(
-        m_state.m_singleFile->getChangedFramesV1());
-      m_framesV2Model->markChangedFrames(
-        m_state.m_singleFile->getChangedFramesV2());
+      m_framesModel[tagNr]->markChangedFrames(m_state.m_singleFile
+                               ? m_state.m_singleFile->getChangedFrames(tagNr)
+                               : 0);
     }
-  } else {
-    if (TagConfig::instance().markTruncations()) {
-      m_framesV1Model->markRows(0);
+    if (m_state.hasTag(tagNr) != m_lastState.hasTag(tagNr)) {
+      emit m_tagContext[tagNr]->hasTagChanged(m_state.hasTag(tagNr));
     }
-    if (FileConfig::instance().markChanges()) {
-      m_framesV1Model->markChangedFrames(0);
-      m_framesV2Model->markChangedFrames(0);
+    if (m_state.isTagUsed(tagNr) != m_lastState.isTagUsed(tagNr)) {
+      emit m_tagContext[tagNr]->tagUsedChanged(m_state.isTagUsed(tagNr));
     }
   }
 
   if (m_state.isEmpty() != m_lastState.isEmpty()) {
     emit emptyChanged(m_state.isEmpty());
   }
-  if (m_state.hasTagV1() != m_lastState.hasTagV1()) {
-    emit hasTagV1Changed(m_state.hasTagV1());
-  }
-  if (m_state.hasTagV2() != m_lastState.hasTagV2()) {
-    emit hasTagV2Changed(m_state.hasTagV2());
-  }
   if (m_state.isSingleFileSelected() != m_lastState.isSingleFileSelected()) {
     emit singleFileSelectedChanged(m_state.isSingleFileSelected());
-  }
-  if (m_state.isTag1Used() != m_lastState.isTag1Used()) {
-    emit tag1UsedChanged(m_state.isTag1Used());
   }
   if (m_state.isSingleFileSelected() || m_lastState.isSingleFileSelected()) {
     // The properties depending on the single file may have changed.
     emit singleFileChanged();
+    FOR_ALL_TAGS(tagNr) {
+      emit m_tagContext[tagNr]->tagFormatChanged();
+    }
   }
 }
 
@@ -154,33 +143,27 @@ void TaggedFileSelection::addTaggedFile(TaggedFile* taggedFile)
 {
   taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
 
-  if (taggedFile->isTagV1Supported()) {
-    if (m_state.m_tagV1SupportedCount == 0) {
-      FrameCollection frames;
-      taggedFile->getAllFramesV1(frames);
-      m_framesV1Model->transferFrames(frames);
-    } else {
-      FrameCollection fileFrames;
-      taggedFile->getAllFramesV1(fileFrames);
-      m_framesV1Model->filterDifferent(fileFrames);
+  FOR_ALL_TAGS(tagNr) {
+    if (taggedFile->isTagSupported(tagNr)) {
+      if (m_state.m_tagSupportedCount[tagNr] == 0) {
+        FrameCollection frames;
+        taggedFile->getAllFrames(tagNr, frames);
+        m_framesModel[tagNr]->transferFrames(frames);
+      } else {
+        FrameCollection fileFrames;
+        taggedFile->getAllFrames(tagNr, fileFrames);
+        m_framesModel[tagNr]->filterDifferent(fileFrames);
+      }
+      ++m_state.m_tagSupportedCount[tagNr];
     }
-    ++m_state.m_tagV1SupportedCount;
   }
-  if (m_state.m_fileCount == 0) {
-    FrameCollection frames;
-    taggedFile->getAllFramesV2(frames);
-    m_framesV2Model->transferFrames(frames);
-    m_state.m_singleFile = taggedFile;
-  } else {
-    FrameCollection fileFrames;
-    taggedFile->getAllFramesV2(fileFrames);
-    m_framesV2Model->filterDifferent(fileFrames);
-    m_state.m_singleFile = 0;
-  }
+  m_state.m_singleFile = m_state.m_fileCount == 0 ? taggedFile : 0;
   ++m_state.m_fileCount;
 
-  m_state.m_hasTagV1 = m_state.m_hasTagV1 || taggedFile->hasTagV1();
-  m_state.m_hasTagV2 = m_state.m_hasTagV2 || taggedFile->hasTagV2();
+  FOR_ALL_TAGS(tagNr) {
+    m_state.m_hasTag[tagNr] =
+        m_state.m_hasTag[tagNr] || taggedFile->hasTag(tagNr);
+  }
 }
 
 /**
@@ -229,24 +212,14 @@ QString TaggedFileSelection::getDetailInfo() const
 }
 
 /**
- * Get the format of tag 1.
- * @return string describing format of tag 1 if single file selected,
+ * Get the format of tag.
+ * @param tagNr tag number
+ * @return string describing format of tag 2 if single file selected,
  * else null string.
  */
-QString TaggedFileSelection::getTagFormatV1() const
+QString TaggedFileSelection::getTagFormat(Frame::TagNumber tagNr) const
 {
-  return m_state.m_singleFile ? m_state.m_singleFile->getTagFormatV1()
-                              : QString();
-}
-
-/**
- * Get the format of tag 1.
- * @return string describing format of tag 1 if single file selected,
- * else null string.
- */
-QString TaggedFileSelection::getTagFormatV2() const
-{
-  return m_state.m_singleFile ? m_state.m_singleFile->getTagFormatV2()
+  return m_state.m_singleFile ? m_state.m_singleFile->getTagFormat(tagNr)
                               : QString();
 }
 
@@ -266,7 +239,7 @@ bool TaggedFileSelection::isFilenameChanged() const
 QByteArray TaggedFileSelection::getPicture() const
 {
   QByteArray data;
-  const FrameCollection& frames = m_framesV2Model->frames();
+  const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
   FrameCollection::const_iterator it = frames.find(
         Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
   if (it != frames.end() && !it->isInactive()) {
@@ -297,8 +270,9 @@ QString TaggedFileSelection::formatString(Frame::TagVersion tagVersion,
 void TaggedFileSelection::selectChangedFrames()
 {
   if (m_state.m_fileCount > 1) {
-    m_framesV1Model->selectChangedFrames();
-    m_framesV2Model->selectChangedFrames();
+    FOR_ALL_TAGS(tagNr) {
+      m_framesModel[tagNr]->selectChangedFrames();
+    }
   }
 }
 
@@ -307,10 +281,9 @@ void TaggedFileSelection::selectChangedFrames()
  */
 void TaggedFileSelection::clearUnusedFrames()
 {
-  if (m_state.m_tagV1SupportedCount == 0) {
-    m_framesV1Model->clearFrames();
-  }
-  if (m_state.m_fileCount == 0) {
-    m_framesV2Model->clearFrames();
+  FOR_ALL_TAGS(tagNr) {
+    if (m_state.m_tagSupportedCount[tagNr] == 0) {
+      m_framesModel[tagNr]->clearFrames();
+    }
   }
 }

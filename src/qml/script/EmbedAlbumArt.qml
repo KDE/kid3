@@ -29,7 +29,8 @@ Kid3Script {
     var baseName = configs.fileConfig().defaultCoverFileName
 
     function doWork() {
-      if (app.selectionInfo.tagFormatV2 || app.selectionInfo.tagFormatV1) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat ||
+          app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
         var fileName = app.selectionInfo.fileName
         var dirName = app.selectionInfo.filePath
         dirName = dirName.substring(0, dirName.length - fileName.length)

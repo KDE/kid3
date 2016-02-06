@@ -44,10 +44,12 @@ public:
   /**
    * Constructor.
    *
+   * @param tagNr tag number
    * @param ftm frame table model
    * @param selModel item selection model
    */
-  FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel);
+  FrameList(Frame::TagNumber tagNr,
+            FrameTableModel* ftm, QItemSelectionModel* selModel);
 
   /**
    * Destructor.
@@ -171,6 +173,12 @@ public:
    */
   void setSelectedId(int id);
 
+  /**
+   * Get number of tag containing the frames of this frame list.
+   * @return tag number.
+   */
+  Frame::TagNumber tagNumber() const { return m_tagNr; }
+
 signals:
   /**
    * Emitted when the dialog to add and edit a frame is closed and an
@@ -187,8 +195,8 @@ signals:
   void frameAdded(const Frame* frame);
 
 private slots:
-  void onFrameSelected(const Frame* frame);
-  void onFrameEdited(const Frame* frame);
+  void onFrameSelected(Frame::TagNumber tagNr, const Frame* frame);
+  void onFrameEdited(Frame::TagNumber tagNr, const Frame* frame);
 
 private:
   FrameList(const FrameList&);
@@ -232,6 +240,7 @@ private:
 
   int m_cursorRow;
   int m_cursorColumn;
+  const Frame::TagNumber m_tagNr;
 
   /** true while a frame is added */
   bool m_addingFrame;

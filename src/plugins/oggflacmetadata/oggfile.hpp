@@ -80,11 +80,12 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
   /**
-   * Remove ID3v2 frames.
+   * Remove frames.
    *
+   * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFramesV2(const FrameFilter& flt);
+  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt);
 
 
   /**
@@ -92,17 +93,18 @@ public:
    *
    * @return true if information is available,
    *         false if the tags have not been read yet, in which case
-   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   *         hasTag() does not return meaningful information.
    */
   virtual bool isTagInformationRead() const;
 
   /**
-   * Check if file has an ID3v2 tag.
+   * Check if file has a tag.
    *
-   * @return true if a V2 tag is available.
+   * @param tagNr tag number
+   * @return true if a tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTagV2() const;
+  virtual bool hasTag(Frame::TagNumber tagNr) const;
 
   /**
    * Get technical detail information.
@@ -127,52 +129,68 @@ public:
   virtual QString getFileExtension() const;
 
   /**
-   * Get the format of tag 2.
+   * Get the format of tag.
    *
+   * @param tagNr tag number
    * @return "Vorbis".
    */
-  virtual QString getTagFormatV2() const;
+  virtual QString getTagFormat(Frame::TagNumber tagNr) const;
 
   /**
-   * Set a frame in the tags 2.
+   * Get a specific frame from the tags.
    *
+   * @param tagNr tag number
+   * @param type  frame type
+   * @param frame the frame is returned here
+   *
+   * @return true if ok.
+   */
+  virtual bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const;
+
+  /**
+   * Set a frame in the tags.
+   *
+   * @param tagNr tag number
    * @param frame frame to set
    *
    * @return true if ok.
    */
-  virtual bool setFrameV2(const Frame& frame);
+  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Add a frame in the tags 2.
+   * Add a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to add
    *
    * @return true if ok.
    */
-  virtual bool addFrameV2(Frame& frame);
+  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame);
 
   /**
-   * Delete a frame in the tags 2.
+   * Delete a frame in the tags.
    *
+   * @param tagNr tag number
    * @param frame frame to delete.
    *
    * @return true if ok.
    */
-  virtual bool deleteFrameV2(const Frame& frame);
+  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame);
 
   /**
-   * Get all frames in tag 2.
+   * Get all frames in tag.
    *
+   * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFramesV2(FrameCollection& frames);
+  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames);
 
   /**
    * Get a list of frame IDs which can be added.
-   *
+   * @param tagNr tag number
    * @return list with frame IDs.
    */
-  virtual QStringList getFrameIds() const;
+  virtual QStringList getFrameIds(Frame::TagNumber tagNr) const;
 
 protected:
   /** Vorbis comment field. */
@@ -239,7 +257,7 @@ protected:
   /**
    * Set text field.
    * If value is null or the tags have not been read yet, nothing is changed.
-   * If value is different from the current value, changedV2 is set.
+   * If value is different from the current value, changed is set.
    *
    * @param name name
    * @param value value, "" to remove, QString::null to do nothing
@@ -274,118 +292,6 @@ protected:
 private:
   OggFile(const OggFile&);
   OggFile& operator=(const OggFile&);
-
-  /**
-   * Get ID3v2 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV2() const;
-
-  /**
-   * Get ID3v2 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV2() const;
-
-  /**
-   * Get ID3v2 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV2() const;
-
-  /**
-   * Get ID3v2 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV2() const;
-
-  /**
-   * Get ID3v2 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV2() const;
-
-  /**
-   * Get ID3v2 track.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTrackV2() const;
-
-  /**
-   * Get ID3v2 genre as text.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV2() const;
-
-  /**
-   * Set ID3v2 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV2(const QString& str);
-
-  /**
-   * Set ID3v2 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV2(const QString& str);
-
-  /**
-   * Set ID3v2 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV2(const QString& str);
-
-  /**
-   * Set ID3v2 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV2(const QString& str);
-
-  /**
-   * Set ID3v2 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV2(int num);
-
-  /**
-   * Set ID3v2 track.
-   *
-   * @param track string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setTrackV2(const QString& track);
-
-  /**
-   * Set ID3v2 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV2(const QString& str);
 
 #ifdef HAVE_VORBIS
   /**

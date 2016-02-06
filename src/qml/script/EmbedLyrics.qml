@@ -93,7 +93,8 @@ Kid3Script {
     }
 
     function doWork() {
-      if (app.selectionInfo.tagFormatV2 || app.selectionInfo.tagFormatV1) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat ||
+          app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
         var artist = app.getFrame(tagv2, "artist") || app.getFrame(tagv1, "artist")
         var title = app.getFrame(tagv2, "title") || app.getFrame(tagv1, "title")
         var doc = new XMLHttpRequest();

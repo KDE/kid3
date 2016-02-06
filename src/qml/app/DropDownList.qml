@@ -60,7 +60,17 @@ Rectangle {
   function calculateHeight() {
     var parentHeight = dropDownRoot.height
     // @todo Find a reliable way to get the row height.
-    var listViewHeight = listView.count * constants.gu(6)
+    var listViewHeight = 0
+    if (listView.count > 0 && listView.model[0] &&
+        listView.model[0].hasOwnProperty("visible")) {
+      for (var i = 0; i < listView.count; ++i) {
+        if (listView.model[i].visible) {
+          listViewHeight += constants.gu(6)
+        }
+      }
+    } else {
+      listViewHeight = listView.count * constants.gu(6)
+    }
     return listViewHeight <= parentHeight
         ? listViewHeight : parentHeight
   }

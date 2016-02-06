@@ -64,7 +64,7 @@ inline int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
 inline Frame::TagVersion renDirCfgToTagVersion(int renDirSrc) {
   if (renDirSrc == 0)
     renDirSrc = 3;
-  return TrackData::tagVersionCast(renDirSrc);
+  return Frame::tagVersionCast(renDirSrc);
 }
 
 }
@@ -78,7 +78,7 @@ RenDirConfig::RenDirConfig() :
   StoredConfig<RenDirConfig>(QLatin1String("RenameDirectory")),
   m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
   m_dirFormatItem(0),
-  m_renDirSrc(Frame::TagV2V1)
+  m_renDirSrc(Frame::TagVAll)
 {
 }
 

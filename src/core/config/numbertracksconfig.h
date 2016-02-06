@@ -125,7 +125,7 @@ private:
   friend NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance();
 
   void setNumberTracksDstInt(int numberTracksDst) {
-    setNumberTracksDestination(TrackData::tagVersionCast(numberTracksDst));
+    setNumberTracksDestination(Frame::tagVersionCast(numberTracksDst));
   }
 
   Frame::TagVersion m_numberTracksDst;

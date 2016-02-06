@@ -101,9 +101,12 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_actionComboBox->insertItem(ActionCreate, tr("Create Directory"));
   actionLayout->addRow(tr("&Action:"), m_actionComboBox);
   connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-  m_tagversionComboBox->addItem(tr("From Tag 2 and Tag 1"), Frame::TagV2V1);
-  m_tagversionComboBox->addItem(tr("From Tag 1"), Frame::TagV1);
-  m_tagversionComboBox->addItem(tr("From Tag 2"), Frame::TagV2);
+  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+      Frame::availableTagVersions();
+  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
+       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+    m_tagversionComboBox->addItem(it->second, it->first);
+  }
   actionLayout->addRow(tr("&Source:"), m_tagversionComboBox);
   connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 
@@ -184,7 +187,7 @@ QString RenDirDialog::getNewDirname() const
  * Set configuration from dialog in directory renamer.
  */
 void RenDirDialog::setDirRenamerConfiguration() {
-  m_dirRenamer->setTagVersion(TrackData::tagVersionCast(m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
+  m_dirRenamer->setTagVersion(Frame::tagVersionCast(m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
   m_dirRenamer->setAction(m_actionComboBox->currentIndex() == ActionCreate);
   m_dirRenamer->setFormat(m_formatComboBox->currentText());
 }
@@ -211,7 +214,7 @@ void RenDirDialog::saveConfig()
   RenDirConfig& renDirCfg = RenDirConfig::instance();
   renDirCfg.setDirFormatIndex(m_formatComboBox->currentIndex());
   renDirCfg.setDirFormat(m_formatComboBox->currentText());
-  renDirCfg.setRenDirSource(TrackData::tagVersionCast(
+  renDirCfg.setRenDirSource(Frame::tagVersionCast(
     m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
 }
 

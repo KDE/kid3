@@ -32,12 +32,12 @@
 #include <QRegExp>
 #include <QPersistentModelIndex>
 #include "iabortable.h"
+#include "frame.h"
 #include "kid3api.h"
 
 class FileProxyModel;
 class BiDirFileProxyModelIterator;
 class TaggedFile;
-class FrameCollection;
 
 /**
  * Searcher for strings in tags.
@@ -110,6 +110,24 @@ public:
      * @return number of matched characters, -1 if not found.
      */
     int getMatchedLength() const { return m_matchedLength; }
+
+    /**
+     * Convert part in file where string was found to tag number.
+     * @return tag number, Frame::Tag_NumValues if FileName.
+     */
+    static Frame::TagNumber partToTagNumber(Part part) {
+      return part == FileName
+          ? Frame::Tag_NumValues : static_cast<Frame::TagNumber>(part - 1);
+    }
+
+    /**
+     * Convert tag number to part in file where string was found.
+     * @return part, FileName if Frame::Tag_NumValues.
+     */
+    static Part tagNumberToPart(Frame::TagNumber tagNr) {
+      return tagNr < Frame::Tag_NumValues
+          ? static_cast<Part>(tagNr + 1) : FileName;
+    }
 
   private:
     friend class TagSearcher;

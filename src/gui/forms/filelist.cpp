@@ -202,11 +202,17 @@ QStringList FileList::formatStringList(const QStringList& format)
         }
       } else {
         if (firstSelectedFile) {
-          // use merged tags 1 and 2 to format string
-          FrameCollection frames1;
-          firstSelectedFile->getAllFramesV1(frames1);
-          firstSelectedFile->getAllFramesV2(frames);
-          frames.merge(frames1);
+          // use merged tags to format string
+          frames.clear();
+          foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+            if (frames.empty()) {
+              firstSelectedFile->getAllFrames(tagNr, frames);
+            } else {
+              FrameCollection frames1;
+              firstSelectedFile->getAllFrames(tagNr, frames1);
+              frames.merge(frames1);
+            }
+          }
         }
         QString str(*it);
         str.replace(QLatin1String("%uf"), QLatin1String("%{url}"));

@@ -3920,7 +3920,7 @@ Kid3Script {
   onRun: {
     app.firstFile()
     do {
-      if (app.selectionInfo.tagFormatV2)
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat)
         console.log(app.getFrame(tagv2, "title"))
     } while (app.nextFile())
   }
@@ -3943,7 +3943,7 @@ import Kid3 1.0
 Kid3Script {
   onRun: {
     function doWork() {
-      if (app.selectionInfo.tagFormatV2) {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         console.log(app.getFrame(tagv2, "title"))
       }
       if (!app.nextFile()) {
@@ -4133,8 +4133,8 @@ app.dirName: Verzeichnisname
 app.selectionInfo.fileName: Dateiname
 app.selectionInfo.filePath: Absoluter Dateiname
 app.selectionInfo.detailInfo: Format Details
-app.selectionInfo.tagFormatV1: Tag 1 Format
-app.selectionInfo.tagFormatV2: Tag 2 Format
+app.selectionInfo.tag(Frame.Tag_1).tagFormat: Tag 1 Format
+app.selectionInfo.tag(Frame.Tag_2).tagFormat: Tag 2 Format
 app.selectionInfo.formatString(tag, format): Ersetze Format-Codes
 </programlisting>
 

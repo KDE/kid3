@@ -284,7 +284,7 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
       TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
       return taggedFile &&
           ((TagConfig::instance().markTruncations() &&
-            taggedFile->getTruncationFlags() != 0) ||
+            taggedFile->getTruncationFlags(Frame::Tag_Id3v1) != 0) ||
            taggedFile->isMarked());
     } else if (role == IsDirRole && index.column() == 0) {
       return isDir(index);
@@ -702,8 +702,8 @@ TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
        (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
         TaggedFile::TF_ID3v23 &&
       !taggedFile->isChanged() &&
-      taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
-    QString id3v2Version = taggedFile->getTagFormatV2();
+      taggedFile->isTagInformationRead() && taggedFile->hasTag(Frame::Tag_Id3v2)) {
+    QString id3v2Version = taggedFile->getTagFormat(Frame::Tag_Id3v2);
     if (id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
       taggedFile = readWithId3V24(taggedFile);
     }

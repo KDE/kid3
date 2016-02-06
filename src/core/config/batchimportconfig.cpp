@@ -87,7 +87,7 @@ void BatchImportConfig::readFromConfig(ISettings* config)
 {
   QStringList names, sources;
   config->beginGroup(m_group);
-  m_importDest = TrackData::tagVersionCast(
+  m_importDest = Frame::tagVersionCast(
         config->value(QLatin1String("ImportDestination"), m_importDest).toInt());
   names = config->value(QLatin1String("ProfileNames"),
                         m_profileNames).toStringList();

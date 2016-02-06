@@ -30,9 +30,9 @@ import Kid3 1.0
 Empty {
   id: frameDelegate
 
-  property bool isV1: false
-  property QtObject frameModel: isV1 ? app.frameModelV1 : app.frameModelV2
-  property QtObject genreModel: isV1 ? app.genreModelV1 : app.genreModelV2
+  property int tagNr
+  property QtObject frameModel: app.tag(tagNr).frameModel
+  property QtObject genreModel: app.tag(tagNr).genreModel
 
   selected: ListView.view.currentIndex === index
   onClicked: ListView.view.currentIndex = index

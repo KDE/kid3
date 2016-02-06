@@ -30,6 +30,7 @@ import "../componentsqtquick" //@!Ubuntu
 Standard {
   property Item popover
   text: modelData.text                 //@!Ubuntu
+  visible: modelData.visible           //@!Ubuntu
   //text: action.text                    //@Ubuntu
   onClicked: {                         //@!Ubuntu
     modelData.triggered()              //@!Ubuntu

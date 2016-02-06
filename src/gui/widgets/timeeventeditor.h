@@ -53,10 +53,11 @@ public:
    * @param parent parent widget
    * @param field  field containing binary data
    * @param taggedFile tagged file
+   * @param tagNr tag number
    */
   TimeEventEditor(IPlatformTools* platformTools, Kid3Application* app,
                   QWidget* parent, const Frame::Field& field,
-                  const TaggedFile* taggedFile);
+                  const TaggedFile* taggedFile, Frame::TagNumber tagNr);
 
   /**
    * Destructor.
@@ -162,6 +163,7 @@ private:
   EventCodeDelegate* m_eventCodeDelegate;
   TimeEventModel* m_model;
   const TaggedFile* m_taggedFile;
+  Frame::TagNumber m_tagNr;
   QByteArray m_byteArray;
   bool m_fileIsPlayed;
 };

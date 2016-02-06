@@ -105,8 +105,10 @@ KdeMainWindow::~KdeMainWindow()
  */
 void KdeMainWindow::initActions()
 {
-  KAction* fileOpen = KStandardAction::open(
-      impl(), SLOT(slotFileOpen()), actionCollection());
+  KActionCollection* collection = actionCollection();
+  KAction* action = KStandardAction::open(
+      impl(), SLOT(slotFileOpen()), collection);
+  action->setStatusTip(tr("Open files"));
   m_fileOpenRecent = KStandardAction::openRecent(
       this,
 #if QT_VERSION >= 0x050000
@@ -114,261 +116,264 @@ void KdeMainWindow::initActions()
 #else
         SLOT(slotFileOpenRecentUrl(KUrl)),
 #endif
-      actionCollection());
-  KAction* fileRevert = KStandardAction::revert(
-      app(), SLOT(revertFileModifications()), actionCollection());
-  KAction* fileSave = KStandardAction::save(
-      impl(), SLOT(slotFileSave()), actionCollection());
-  KAction* fileQuit = KStandardAction::quit(
-      impl(), SLOT(slotFileQuit()), actionCollection());
-  KAction* editSelectAll = KStandardAction::selectAll(
-      form(), SLOT(selectAllFiles()), actionCollection());
-  KAction* editDeselect = KStandardAction::deselect(
-      form(), SLOT(deselectAllFiles()), actionCollection());
-  KAction* editFind = KStandardAction::find(
-      impl(), SLOT(find()), actionCollection());
-  KAction* editReplace = KStandardAction::replace(
-      impl(), SLOT(findReplace()), actionCollection());
-  setStandardToolBarMenuEnabled(true);
-  createStandardStatusBarAction();
-  KAction* settingsShortcuts = KStandardAction::keyBindings(
-    this, SLOT(slotSettingsShortcuts()), actionCollection());
-  KAction* settingsToolbars = KStandardAction::configureToolbars(
-    this, SLOT(slotSettingsToolbars()), actionCollection());
-  KAction* settingsConfigure = KStandardAction::preferences(
-      this, SLOT(slotSettingsConfigure()), actionCollection());
-
-  fileOpen->setStatusTip(tr("Open files"));
+      collection);
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
-  fileRevert->setStatusTip(
+  action = KStandardAction::revert(
+      app(), SLOT(revertFileModifications()), collection);
+  action->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
 #if QT_VERSION >= 0x050000
-  actionCollection()->setDefaultShortcuts(fileRevert,
+  collection->setDefaultShortcuts(action,
                           KStandardShortcut::shortcut(KStandardShortcut::Undo));
 #else
-  fileRevert->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::Undo));
+  action->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::Undo));
 #endif
-  fileSave->setStatusTip(tr("Saves the changed files"));
-  fileQuit->setStatusTip(tr("Quits the application"));
-  editSelectAll->setStatusTip(tr("Select all files"));
-  editSelectAll->setShortcut(KShortcut(QLatin1String("Alt+Shift+A")));
-  editDeselect->setStatusTip(tr("Deselect all files"));
-  editFind->setStatusTip(tr("Find"));
-  editReplace->setStatusTip(tr("Find and replace"));
-  settingsShortcuts->setStatusTip(tr("Configure Shortcuts"));
-  settingsToolbars->setStatusTip(tr("Configure Toolbars"));
-  settingsConfigure->setStatusTip(tr("Preferences dialog"));
+  action = KStandardAction::save(
+      impl(), SLOT(slotFileSave()), collection);
+  action->setStatusTip(tr("Saves the changed files"));
+  action = KStandardAction::quit(
+      impl(), SLOT(slotFileQuit()), collection);
+  action->setStatusTip(tr("Quits the application"));
+  action = KStandardAction::selectAll(
+      form(), SLOT(selectAllFiles()), collection);
+  action->setStatusTip(tr("Select all files"));
+  action->setShortcut(KShortcut(QLatin1String("Alt+Shift+A")));
+  action = KStandardAction::deselect(
+      form(), SLOT(deselectAllFiles()), collection);
+  action->setStatusTip(tr("Deselect all files"));
+  action = KStandardAction::find(
+      impl(), SLOT(find()), collection);
+  action->setStatusTip(tr("Find"));
+  action = KStandardAction::replace(
+      impl(), SLOT(findReplace()), collection);
+  action->setStatusTip(tr("Find and replace"));
+  setStandardToolBarMenuEnabled(true);
+  createStandardStatusBarAction();
+  action = KStandardAction::keyBindings(
+    this, SLOT(slotSettingsShortcuts()), collection);
+  action->setStatusTip(tr("Configure Shortcuts"));
+  action = KStandardAction::configureToolbars(
+    this, SLOT(slotSettingsToolbars()), collection);
+  action->setStatusTip(tr("Configure Toolbars"));
+  action = KStandardAction::preferences(
+      this, SLOT(slotSettingsConfigure()), collection);
+  action->setStatusTip(tr("Preferences dialog"));
 
-  KAction* fileOpenDirectory = new KAction(KIcon(QLatin1String("document-open")), tr("O&pen Directory..."), this);
-  fileOpenDirectory->setStatusTip(tr("Opens a directory"));
-  fileOpenDirectory->setShortcut(KShortcut(QLatin1String("Ctrl+D")));
-  actionCollection()->addAction(QLatin1String("open_directory"), fileOpenDirectory);
-  connect(fileOpenDirectory, SIGNAL(triggered()), impl(), SLOT(slotFileOpenDirectory()));
-  KAction* fileImport = new KAction(KIcon(QLatin1String("document-import")), tr("&Import..."), this);
-  fileImport->setStatusTip(tr("Import from file or clipboard"));
-  fileImport->setData(-1);
-  actionCollection()->addAction(QLatin1String("import"), fileImport);
-  connect(fileImport, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+  action = new KAction(KIcon(QLatin1String("document-open")),
+                       tr("O&pen Directory..."), this);
+  action->setStatusTip(tr("Opens a directory"));
+  action->setShortcut(KShortcut(QLatin1String("Ctrl+D")));
+  collection->addAction(QLatin1String("open_directory"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotFileOpenDirectory()));
+  action = new KAction(KIcon(QLatin1String("document-import")),
+                       tr("&Import..."), this);
+  action->setStatusTip(tr("Import from file or clipboard"));
+  action->setData(-1);
+  collection->addAction(QLatin1String("import"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
 
   int importerIdx = 0;
   foreach (const ServerImporter* si, app()->getServerImporters()) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(si->name()).toLower().
+        remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
-    KAction* fileImportServer =
-        new KAction(tr("Import from %1...").arg(serverName), this);
-    fileImportServer->setData(importerIdx);
-    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
-    actionCollection()->addAction(actionName, fileImportServer);
-    connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    action = new KAction(tr("Import from %1...").arg(serverName), this);
+    action->setData(importerIdx);
+    action->setStatusTip(tr("Import from %1").arg(serverName));
+    collection->addAction(actionName, action);
+    connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
     ++importerIdx;
   }
 
   foreach (const ServerTrackImporter* si, app()->getServerTrackImporters()) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(si->name()).toLower().
+        remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
-    KAction* fileImportServer =
-        new KAction(tr("Import from %1...").arg(serverName), this);
-    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
-    fileImportServer->setData(importerIdx);
-    actionCollection()->addAction(actionName, fileImportServer);
-    connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    action = new KAction(tr("Import from %1...").arg(serverName), this);
+    action->setStatusTip(tr("Import from %1").arg(serverName));
+    action->setData(importerIdx);
+    collection->addAction(actionName, action);
+    connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
     ++importerIdx;
   }
 
-  KAction* fileBatchImport = new KAction(tr("Automatic I&mport..."), this);
-  fileBatchImport->setStatusTip(tr("Automatic import"));
-  actionCollection()->addAction(QLatin1String("batch_import"), fileBatchImport);
-  connect(fileBatchImport, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));
+  action = new KAction(tr("Automatic I&mport..."), this);
+  action->setStatusTip(tr("Automatic import"));
+  collection->addAction(QLatin1String("batch_import"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));
 
-  KAction* fileBrowseCoverArt = new KAction(tr("&Browse Cover Art..."), this);
-  fileBrowseCoverArt->setStatusTip(tr("Browse album cover artwork"));
-  actionCollection()->addAction(QLatin1String("browse_cover_art"), fileBrowseCoverArt);
-  connect(fileBrowseCoverArt, SIGNAL(triggered()), impl(), SLOT(slotBrowseCoverArt()));
-  KAction* fileExport = new KAction(KIcon(QLatin1String("document-export")), tr("&Export..."), this);
-  fileExport->setStatusTip(tr("Export to file or clipboard"));
-  actionCollection()->addAction(QLatin1String("export"), fileExport);
-  connect(fileExport, SIGNAL(triggered()), impl(), SLOT(slotExport()));
-  KAction* fileCreatePlaylist = new KAction(KIcon(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
-  fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
-  actionCollection()->addAction(QLatin1String("create_playlist"), fileCreatePlaylist);
-  connect(fileCreatePlaylist, SIGNAL(triggered()), impl(), SLOT(slotPlaylistDialog()));
-  KAction* toolsApplyFilenameFormat = new KAction(tr("Apply &Filename Format"), this);
-  toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
-  actionCollection()->addAction(QLatin1String("apply_filename_format"), toolsApplyFilenameFormat);
-  connect(toolsApplyFilenameFormat, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
-  KAction* toolsApplyTagFormat = new KAction(tr("Apply &Tag Format"), this);
-  toolsApplyTagFormat->setStatusTip(tr("Apply Tag Format"));
-  actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyTagFormat);
-  connect(toolsApplyTagFormat, SIGNAL(triggered()), app(), SLOT(applyTagFormat()));
-  KAction* toolsApplyTextEncoding = new KAction(tr("Apply Text &Encoding"), this);
-  toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));
-  actionCollection()->addAction(QLatin1String("apply_text_encoding"), toolsApplyTextEncoding);
-  connect(toolsApplyTextEncoding, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));
-  KAction* toolsRenameDirectory = new KAction(tr("&Rename Directory..."), this);
-  toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
-  actionCollection()->addAction(QLatin1String("rename_directory"), toolsRenameDirectory);
-  connect(toolsRenameDirectory, SIGNAL(triggered()), impl(), SLOT(slotRenameDirectory()));
-  KAction* toolsNumberTracks = new KAction(tr("&Number Tracks..."), this);
-  toolsNumberTracks->setStatusTip(tr("Number Tracks"));
-  actionCollection()->addAction(QLatin1String("number_tracks"), toolsNumberTracks);
-  connect(toolsNumberTracks, SIGNAL(triggered()), impl(), SLOT(slotNumberTracks()));
-  KAction* toolsFilter = new KAction(tr("F&ilter..."), this);
-  toolsFilter->setStatusTip(tr("Filter"));
-  actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
-  connect(toolsFilter, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
+  action = new KAction(tr("&Browse Cover Art..."), this);
+  action->setStatusTip(tr("Browse album cover artwork"));
+  collection->addAction(QLatin1String("browse_cover_art"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotBrowseCoverArt()));
+  action = new KAction(KIcon(QLatin1String("document-export")), tr("&Export..."), this);
+  action->setStatusTip(tr("Export to file or clipboard"));
+  collection->addAction(QLatin1String("export"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotExport()));
+  action = new KAction(KIcon(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
+  action->setStatusTip(tr("Create M3U Playlist"));
+  collection->addAction(QLatin1String("create_playlist"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotPlaylistDialog()));
+  action = new KAction(tr("Apply &Filename Format"), this);
+  action->setStatusTip(tr("Apply Filename Format"));
+  collection->addAction(QLatin1String("apply_filename_format"), action);
+  connect(action, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
+  action = new KAction(tr("Apply &Tag Format"), this);
+  action->setStatusTip(tr("Apply Tag Format"));
+  collection->addAction(QLatin1String("apply_id3_format"), action);
+  connect(action, SIGNAL(triggered()), app(), SLOT(applyTagFormat()));
+  action = new KAction(tr("Apply Text &Encoding"), this);
+  action->setStatusTip(tr("Apply Text Encoding"));
+  collection->addAction(QLatin1String("apply_text_encoding"), action);
+  connect(action, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));
+  action = new KAction(tr("&Rename Directory..."), this);
+  action->setStatusTip(tr("Rename Directory"));
+  collection->addAction(QLatin1String("rename_directory"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotRenameDirectory()));
+  action = new KAction(tr("&Number Tracks..."), this);
+  action->setStatusTip(tr("Number Tracks"));
+  collection->addAction(QLatin1String("number_tracks"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotNumberTracks()));
+  action = new KAction(tr("F&ilter..."), this);
+  action->setStatusTip(tr("Filter"));
+  collection->addAction(QLatin1String("filter"), action);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
   const TagConfig& tagCfg = TagConfig::instance();
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
-    KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
-    toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
-    actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
-    connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
+    action = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
+    action->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
+    collection->addAction(QLatin1String("convert_to_id3v24"), action);
+    connect(action, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
     if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
-      KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
-      toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
-      actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
-      connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
+      action = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
+      action->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
+      collection->addAction(QLatin1String("convert_to_id3v23"), action);
+      connect(action, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
     }
   }
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
-  KAction* toolsPlay = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
-  toolsPlay->setStatusTip(tr("Play"));
-  actionCollection()->addAction(QLatin1String("play"), toolsPlay);
-  connect(toolsPlay, SIGNAL(triggered()), app(), SLOT(playAudio()));
+  action = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
+  action->setStatusTip(tr("Play"));
+  collection->addAction(QLatin1String("play"), action);
+  connect(action, SIGNAL(triggered()), app(), SLOT(playAudio()));
 #endif
   m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
   m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
   m_settingsShowHidePicture->setCheckable(true);
-  actionCollection()->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
+  collection->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
   connect(m_settingsShowHidePicture, SIGNAL(triggered()), impl(), SLOT(slotSettingsShowHidePicture()));
   m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
   m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
   m_settingsAutoHideTags->setCheckable(true);
-  actionCollection()->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
+  collection->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
   connect(m_settingsAutoHideTags, SIGNAL(triggered()), impl(), SLOT(slotSettingsAutoHideTags()));
-  KAction* editSelectAllInDir = new KAction(tr("Select All in &Directory"), this);
-  editSelectAllInDir->setStatusTip(tr("Select all files in the current directory"));
-  actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
-  connect(editSelectAllInDir, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
-  KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
-  editPreviousFile->setStatusTip(tr("Select previous file"));
+  action = new KAction(tr("Select All in &Directory"), this);
+  action->setStatusTip(tr("Select all files in the current directory"));
+  collection->addAction(QLatin1String("select_all_in_directory"), action);
+  connect(action, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
+  action = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
+  action->setStatusTip(tr("Select previous file"));
 #if QT_VERSION >= 0x050000
-  actionCollection()->setDefaultShortcuts(editPreviousFile,
+  collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Prior));
 #else
-  editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
+  action->setShortcut(KShortcut(QLatin1String("Alt+Up")));
 #endif
-  actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
-  connect(editPreviousFile, SIGNAL(triggered()), form(), SLOT(previousFile()));
-  KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
-  editNextFile->setStatusTip(tr("Select next file"));
+  collection->addAction(QLatin1String("previous_file"), action);
+  connect(action, SIGNAL(triggered()), form(), SLOT(previousFile()));
+  action = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
+  action->setStatusTip(tr("Select next file"));
 #if QT_VERSION >= 0x050000
-  actionCollection()->setDefaultShortcuts(editNextFile,
+  collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Next));
 #else
-  editNextFile->setShortcut(KShortcut(QLatin1String("Alt+Down")));
+  action->setShortcut(KShortcut(QLatin1String("Alt+Down")));
 #endif
-  actionCollection()->addAction(QLatin1String("next_file"), editNextFile);
-  connect(editNextFile, SIGNAL(triggered()), form(), SLOT(nextFile()));
-  KAction* actionV1FromFilename = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Filename"), this);
-  actionCollection()->addAction(QLatin1String("v1_from_filename"), actionV1FromFilename);
-  connect(actionV1FromFilename, SIGNAL(triggered()), app(), SLOT(getTagsFromFilenameV1()));
-  KAction* actionV1FromV2 = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Tag 2"), this);
-  actionCollection()->addAction(QLatin1String("v1_from_v2"), actionV1FromV2);
-  connect(actionV1FromV2, SIGNAL(triggered()), app(), SLOT(copyV2ToV1()));
-  KAction* actionV1Copy = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Copy"), this);
-  actionCollection()->addAction(QLatin1String("v1_copy"), actionV1Copy);
-  connect(actionV1Copy, SIGNAL(triggered()), app(), SLOT(copyTagsV1()));
-  KAction* actionV1Paste = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Paste"), this);
-  actionCollection()->addAction(QLatin1String("v1_paste"), actionV1Paste);
-  connect(actionV1Paste, SIGNAL(triggered()), app(), SLOT(pasteTagsV1()));
-  KAction* actionV1Remove = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Remove"), this);
-  actionCollection()->addAction(QLatin1String("v1_remove"), actionV1Remove);
-  connect(actionV1Remove, SIGNAL(triggered()), app(), SLOT(removeTagsV1()));
-  KAction* actionV2FromFilename = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Filename"), this);
-  actionCollection()->addAction(QLatin1String("v2_from_filename"), actionV2FromFilename);
-  connect(actionV2FromFilename, SIGNAL(triggered()), app(), SLOT(getTagsFromFilenameV2()));
-  KAction* actionV2FromV1 = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Tag 1"), this);
-  actionCollection()->addAction(QLatin1String("v2_from_v1"), actionV2FromV1);
-  connect(actionV2FromV1, SIGNAL(triggered()), app(), SLOT(copyV1ToV2()));
-  KAction* actionV2Copy = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Copy"), this);
-  actionCollection()->addAction(QLatin1String("v2_copy"), actionV2Copy);
-  connect(actionV2Copy, SIGNAL(triggered()), app(), SLOT(copyTagsV2()));
-  KAction* actionV2Paste = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Paste"), this);
-  actionCollection()->addAction(QLatin1String("v2_paste"), actionV2Paste);
-  connect(actionV2Paste, SIGNAL(triggered()), app(), SLOT(pasteTagsV2()));
-  KAction* actionV2Remove = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Remove"), this);
-  actionCollection()->addAction(QLatin1String("v2_remove"), actionV2Remove);
-  connect(actionV2Remove, SIGNAL(triggered()), app(), SLOT(removeTagsV2()));
-  KAction* actionFramesEdit = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Edit"), this);
-  actionCollection()->addAction(QLatin1String("frames_edit"), actionFramesEdit);
-  connect(actionFramesEdit, SIGNAL(triggered()), form(), SLOT(editFrame()));
-  KAction* actionFramesAdd = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Add"), this);
-  actionCollection()->addAction(QLatin1String("frames_add"), actionFramesAdd);
-  connect(actionFramesAdd, SIGNAL(triggered()), form(), SLOT(addFrame()));
-  KAction* actionFramesDelete = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Delete"), this);
-  actionCollection()->addAction(QLatin1String("frames_delete"), actionFramesDelete);
-  connect(actionFramesDelete, SIGNAL(triggered()), form(), SLOT(deleteFrame()));
-  KAction* actionFilenameFromV1 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 1"), this);
-  actionCollection()->addAction(QLatin1String("filename_from_v1"), actionFilenameFromV1);
-  connect(actionFilenameFromV1, SIGNAL(triggered()), form(), SLOT(fnFromID3V1()));
-  KAction* actionFilenameFromV2 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 2"), this);
-  actionCollection()->addAction(QLatin1String("filename_from_v2"), actionFilenameFromV2);
-  connect(actionFilenameFromV2, SIGNAL(triggered()), form(), SLOT(fnFromID3V2()));
-  KAction* actionFilenameFocus = new KAction(tr("Filename") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("filename_focus"), actionFilenameFocus);
-  connect(actionFilenameFocus, SIGNAL(triggered()), form(), SLOT(setFocusFilename()));
-  KAction* actionV1Focus = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("v1_focus"), actionV1Focus);
-  connect(actionV1Focus, SIGNAL(triggered()), form(), SLOT(setFocusV1()));
-  KAction* actionV2Focus = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("v2_focus"), actionV2Focus);
-  connect(actionV2Focus, SIGNAL(triggered()), form(), SLOT(setFocusV2()));
-  KAction* actionFileListFocus = new KAction(tr("File List") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("filelist_focus"), actionFileListFocus);
-  connect(actionFileListFocus, SIGNAL(triggered()), form(), SLOT(setFocusFileList()));
-  KAction* actionFileListRename = new KAction(tr("&Rename"), this);
-  actionFileListRename->setShortcut(QKeySequence(Qt::Key_F2));
-  actionFileListRename->setShortcutContext(Qt::WidgetShortcut);
-  connect(actionFileListRename, SIGNAL(triggered()), impl(), SLOT(renameFile()));
-  actionCollection()->addAction(QLatin1String("filelist_rename"), actionFileListRename);
-  form()->getFileList()->setRenameAction(actionFileListRename);
-  KAction* actionFileListDelete = new KAction(tr("&Move to Trash"), this);
-  actionFileListDelete->setShortcut(QKeySequence::Delete);
-  actionFileListDelete->setShortcutContext(Qt::WidgetShortcut);
-  connect(actionFileListDelete, SIGNAL(triggered()), impl(), SLOT(deleteFile()));
-  actionCollection()->addAction(QLatin1String("filelist_delete"), actionFileListDelete);
-  form()->getFileList()->setDeleteAction(actionFileListDelete);
-  KAction* actionDirListFocus = new KAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("dirlist_focus"), actionDirListFocus);
-  connect(actionDirListFocus, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));
+  collection->addAction(QLatin1String("next_file"), action);
+  connect(action, SIGNAL(triggered()), form(), SLOT(nextFile()));
+  FOR_ALL_TAGS(tagNr) {
+    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
+          tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+    QString tagStr = Frame::tagNumberToString(tagNr);
+    Kid3ApplicationTagContext* appTag = app()->tag(tagNr);
+    Kid3FormTagContext* formTag = form()->tag(tagNr);
+    QString actionPrefix = tr("Tag %1").arg(tagStr) +
+        QLatin1String(": ");
+    action = new KAction(tr("Filename") + QLatin1String(": ") +
+                         tr("From Tag %1").arg(tagStr), this);
+    collection->addAction(QLatin1String("filename_from_v") + tagStr, action);
+    connect(action, SIGNAL(triggered()), appTag, SLOT(getFilenameFromTags()));
+    tagStr = QLatin1Char('v') + tagStr + QLatin1Char('_');
+    action = new KAction(actionPrefix + tr("From Filename"), this);
+    collection->addAction(tagStr + QLatin1String("from_filename"), action);
+    connect(action, SIGNAL(triggered()), appTag, SLOT(getTagsFromFilename()));
+    if (otherTagNr < Frame::Tag_NumValues) {
+      QString otherTagStr = Frame::tagNumberToString(otherTagNr);
+      action = new KAction(actionPrefix + tr("From Tag %1").arg(otherTagStr),
+                           this);
+      collection->addAction(tagStr + QLatin1String("from_v") + otherTagStr,
+                            action);
+      connect(action, SIGNAL(triggered()), appTag, SLOT(copyToOtherTag()));
+    }
+    action = new KAction(actionPrefix + tr("Copy"), this);
+    collection->addAction(tagStr + QLatin1String("copy"), action);
+    connect(action, SIGNAL(triggered()), appTag, SLOT(copyTags()));
+    action = new KAction(actionPrefix + tr("Paste"), this);
+    collection->addAction(tagStr + QLatin1String("paste"), action);
+    connect(action, SIGNAL(triggered()), appTag, SLOT(pasteTags()));
+    action = new KAction(actionPrefix + tr("Remove"), this);
+    collection->addAction(tagStr + QLatin1String("remove"), action);
+    connect(action, SIGNAL(triggered()), appTag, SLOT(removeTags()));
+    action = new KAction(actionPrefix + tr("Focus"), this);
+    collection->addAction(tagStr + QLatin1String("focus"), action);
+    connect(action, SIGNAL(triggered()), formTag, SLOT(setFocusTag()));
+    if (tagNr != Frame::Tag_Id3v1) {
+      actionPrefix += tr("Frames:") + QLatin1Char(' ');
+      action = new KAction(actionPrefix + tr("Edit"), this);
+      collection->addAction(tagStr + QLatin1String("frames_edit"), action);
+      connect(action, SIGNAL(triggered()), appTag, SLOT(editFrame()));
+      action = new KAction(actionPrefix + tr("Add"), this);
+      collection->addAction(tagStr + QLatin1String("frames_add"), action);
+      connect(action, SIGNAL(triggered()), appTag, SLOT(addFrame()));
+      action = new KAction(actionPrefix + tr("Delete"), this);
+      collection->addAction(tagStr + QLatin1String("frames_delete"), action);
+      connect(action, SIGNAL(triggered()), appTag, SLOT(deleteFrame()));
+    }
+  }
+
+  action = new KAction(tr("Filename") + QLatin1String(": ") + tr("Focus"),
+                       this);
+  collection->addAction(QLatin1String("filename_focus"), action);
+  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusFilename()));
+
+  action = new KAction(tr("File List") + QLatin1String(": ") + tr("Focus"),
+                       this);
+  collection->addAction(QLatin1String("filelist_focus"), action);
+  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusFileList()));
+  action = new KAction(tr("&Rename"), this);
+  action->setShortcut(QKeySequence(Qt::Key_F2));
+  action->setShortcutContext(Qt::WidgetShortcut);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(renameFile()));
+  collection->addAction(QLatin1String("filelist_rename"), action);
+  form()->getFileList()->setRenameAction(action);
+  action = new KAction(tr("&Move to Trash"), this);
+  action->setShortcut(QKeySequence::Delete);
+  action->setShortcutContext(Qt::WidgetShortcut);
+  connect(action, SIGNAL(triggered()), impl(), SLOT(deleteFile()));
+  collection->addAction(QLatin1String("filelist_delete"), action);
+  form()->getFileList()->setDeleteAction(action);
+  action = new KAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"),
+                       this);
+  collection->addAction(QLatin1String("dirlist_focus"), action);
+  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));
   createGUI();
 }
 

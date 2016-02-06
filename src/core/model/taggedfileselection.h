@@ -33,6 +33,7 @@
 
 class FrameTableModel;
 class TaggedFile;
+class TaggedFileSelectionTagContext;
 
 /**
  * Information about selected tagged files.
@@ -41,15 +42,9 @@ class KID3_CORE_EXPORT TaggedFileSelection : public QObject {
   Q_OBJECT
   /** true if no tagged file is selected. */
   Q_PROPERTY(bool empty READ isEmpty NOTIFY emptyChanged)
-  /** true if any of the selected files has a tag 1. */
-  Q_PROPERTY(bool hasTagV1 READ hasTagV1 NOTIFY hasTagV1Changed)
-  /** true if any of the selected files has a tag 2. */
-  Q_PROPERTY(bool hasTagV2 READ hasTagV2 NOTIFY hasTagV2Changed)
   /** true if exactly one file is selected. */
   Q_PROPERTY(bool singleFileSelected READ isSingleFileSelected
              NOTIFY singleFileSelectedChanged)
-  /** true if any selected file supports tag 1. */
-  Q_PROPERTY(bool tag1Used READ isTag1Used NOTIFY tag1UsedChanged)
   /** true if single file selected and filename was changed. */
   Q_PROPERTY(bool fileNameChanged READ isFilenameChanged
              NOTIFY singleFileChanged)
@@ -60,21 +55,16 @@ class KID3_CORE_EXPORT TaggedFileSelection : public QObject {
   Q_PROPERTY(QString filePath READ getFilePath NOTIFY singleFileChanged)
   /** Detail information if single file selected, else null string. */
   Q_PROPERTY(QString detailInfo READ getDetailInfo NOTIFY singleFileChanged)
-  /** Format of tag 1 if single file selected, else null string. */
-  Q_PROPERTY(QString tagFormatV1 READ getTagFormatV1 NOTIFY singleFileChanged)
-  /** Format of tag 2 if single file selected, else null string. */
-  Q_PROPERTY(QString tagFormatV2 READ getTagFormatV2 NOTIFY singleFileChanged)
   /** Picture data, empty if not available.*/
   Q_PROPERTY(QByteArray picture READ getPicture NOTIFY singleFileChanged)
 public:
   /**
    * Constructor.
-   * @param framesV1Model frame table model for tag 1
-   * @param framesV2Model frame table model for tag 1
+   * @param framesModel frame table models for all tags, Frame::Tag_NumValues
+   * elements
    * @param parent parent object
    */
-  TaggedFileSelection(FrameTableModel* framesV1Model, FrameTableModel* framesV2Model,
-                      QObject* parent = 0);
+  TaggedFileSelection(FrameTableModel* framesModel[], QObject* parent = 0);
 
   /**
    * Destructor.
@@ -112,16 +102,11 @@ public:
   bool isEmpty() const { return m_state.isEmpty(); }
 
   /**
-   * Check if any of the selected files has a tag 1.
-   * @return true if any of the selected files has a tag 1.
+   * Check if any of the selected files has a tag.
+   * @param tagNr tag number
+   * @return true if any of the selected files has a tag.
    */
-  bool hasTagV1() const { return m_state.hasTagV1(); }
-
-  /**
-   * Check if any of the selected files has a tag 2.
-   * @return true if any of the selected files has a tag 2.
-   */
-  bool hasTagV2() const { return m_state.hasTagV2(); }
+  bool hasTag(Frame::TagNumber tagNr) const { return m_state.hasTag(tagNr); }
 
   /**
    * Check if a single file is selected.
@@ -130,10 +115,11 @@ public:
   bool isSingleFileSelected() const { return m_state.isSingleFileSelected(); }
 
   /**
-   * Check if tag 1 is used.
-   * @return true if any selected file supports tag 1.
+   * Check if tag is used.
+   * @param tagNr tag number
+   * @return true if any selected file supports tag.
    */
-  bool isTag1Used() const { return m_state.isTag1Used(); }
+  bool isTagUsed(Frame::TagNumber tagNr) const { return m_state.isTagUsed(tagNr); }
 
   /**
    * Get file name.
@@ -160,18 +146,32 @@ public:
   QString getDetailInfo() const;
 
   /**
-   * Get the format of tag 1.
-   * @return string describing format of tag 1 if single file selected,
-   * else null string.
-   */
-  QString getTagFormatV1() const;
-
-  /**
-   * Get the format of tag 2.
+   * Get the format of tag.
+   * @param tagNr tag number
    * @return string describing format of tag 2 if single file selected,
    * else null string.
    */
-  QString getTagFormatV2() const;
+  QString getTagFormat(Frame::TagNumber tagNr) const;
+
+#if QT_VERSION >= 0x050000
+  /**
+   * Get context for tag.
+   * @param tagNr tag number
+   * @return tag context.
+   */
+  Q_INVOKABLE TaggedFileSelectionTagContext* tag(Frame::TagNumber tagNr) const {
+    return m_tagContext[tagNr];
+  }
+#else
+  /**
+   * Get context for tag.
+   * @param tagNr tag number, for Qt 4 an int to be usable in QML
+   * @return tag context.
+   */
+  Q_INVOKABLE TaggedFileSelectionTagContext* tag(int tagNr) const {
+    return m_tagContext[tagNr];
+  }
+#endif
 
   /**
    * Check if filename is changed.
@@ -211,24 +211,9 @@ signals:
   void emptyChanged(bool empty);
 
   /**
-   * Emitted when hasTagV1 changed.
-   */
-  void hasTagV1Changed(bool hasTag);
-
-  /**
-   * Emitted when hasTagV2 changed.
-   */
-  void hasTagV2Changed(bool hasTag);
-
-  /**
    * Emitted when singleFileSelected changed.
    */
   void singleFileSelectedChanged(bool single);
-
-  /**
-   * Emitted when tag1Used changed.
-   */
-  void tag1UsedChanged(bool used);
 
   /**
    * Emitted when the single file may have changed.
@@ -245,32 +230,87 @@ signals:
 
 private:
   struct State {
-    State() : m_singleFile(0), m_tagV1SupportedCount(0), m_fileCount(0),
-      m_hasTagV1(false), m_hasTagV2(false) {}
+    State() : m_singleFile(0), m_fileCount(0) {
+      FOR_ALL_TAGS(tagNr) {
+        m_tagSupportedCount[tagNr] = 0;
+        m_hasTag[tagNr] = false;
+      }
+    }
 
     TaggedFile* singleFile() const { return m_singleFile; }
     bool isEmpty() const { return m_fileCount == 0; }
-    bool hasTagV1() const { return m_hasTagV1; }
-    bool hasTagV2() const { return m_hasTagV2; }
+    bool hasTag(Frame::TagNumber tagNr) const { return m_hasTag[tagNr]; }
     bool isSingleFileSelected() const { return m_singleFile != 0; }
-    bool isTag1Used() const { return m_tagV1SupportedCount > 0; }
+    bool isTagUsed(Frame::TagNumber tagNr) const { return m_tagSupportedCount[tagNr] > 0; }
 
     /** If a single file is selected, this tagged file, else 0 */
     TaggedFile* m_singleFile;
-    /** Number of selected files which support tag 1 */
-    int m_tagV1SupportedCount;
     /** Number of selected files */
     int m_fileCount;
-    /** true if any of the selected files has a tag 1 */
-    bool m_hasTagV1;
-    /** true if any of the selected files has a tag 2 */
-    bool m_hasTagV2;
+    /** Number of selected files which support tag 1 */
+    int m_tagSupportedCount[Frame::Tag_NumValues];
+    /** true if any of the selected files has a tag */
+    bool m_hasTag[Frame::Tag_NumValues];
   };
 
-  FrameTableModel* const m_framesV1Model;
-  FrameTableModel* const m_framesV2Model;
+  FrameTableModel* m_framesModel[Frame::Tag_NumValues];
+  TaggedFileSelectionTagContext* m_tagContext[Frame::Tag_NumValues];
   State m_state;
   State m_lastState;
+};
+
+/**
+ * Facade to have a uniform interface for different tags.
+ */
+class KID3_CORE_EXPORT TaggedFileSelectionTagContext : public QObject {
+  Q_OBJECT
+  /** true if any of the selected files has a tag. */
+  Q_PROPERTY(bool hasTag READ hasTag NOTIFY hasTagChanged)
+  /** true if any selected file supports the tag. */
+  Q_PROPERTY(bool tagUsed READ isTagUsed NOTIFY tagUsedChanged)
+  /** Format of tag if single file selected, else null string. */
+  Q_PROPERTY(QString tagFormat READ tagFormat NOTIFY tagFormatChanged)
+public:
+  /**
+   * Constructor.
+   * @param selection tagged file selection
+   * @param tagNr tag number
+   */
+  TaggedFileSelectionTagContext(TaggedFileSelection* selection,
+                                Frame::TagNumber tagNr) :
+    QObject(selection), m_selection(selection), m_tagNr(tagNr),
+    m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
+  }
+
+signals:
+#if QT_VERSION < 0x050000
+  // Allow TaggedFileSelection to emit signals.
+  friend class TaggedFileSelection;
+#endif
+
+  /**
+   * Emitted when hasTag changed.
+   */
+  void hasTagChanged(bool hasTag);
+
+  /**
+   * Emitted when tagUsed changed.
+   */
+  void tagUsedChanged(bool used);
+
+  /**
+   * Emitted when tagFormat may have changed.
+   */
+  void tagFormatChanged();
+
+private:
+  bool hasTag() const { return m_selection->hasTag(m_tagNr); }
+  bool isTagUsed() const { return m_selection->isTagUsed(m_tagNr); }
+  QString tagFormat() const { return m_selection->getTagFormat(m_tagNr); }
+
+  TaggedFileSelection* m_selection;
+  const Frame::TagNumber m_tagNr;
+  const Frame::TagVersion m_tagVersion;
 };
 
 #endif // TAGGEDFILESELECTION_H

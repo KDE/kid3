@@ -12,8 +12,7 @@ set(app_QML_SRCS
   app/UiConstants.qml
   app/FileList.qml
   app/FileCollapsible.qml
-  app/Tag1Collapsible.qml
-  app/Tag2Collapsible.qml
+  app/TagCollapsible.qml
   app/PictureCollapsible.qml
   app/FileSelectDialog.qml
   app/RenameDirectoryPage.qml

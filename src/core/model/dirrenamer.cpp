@@ -37,7 +37,7 @@
  * @param parent parent object
  */
 DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
-  m_tagVersion(Frame::TagV2V1), m_aborted(false), m_actionCreate(false)
+  m_tagVersion(Frame::TagVAll), m_aborted(false), m_actionCreate(false)
 {
   setObjectName(QLatin1String("DirRenamer"));
 }

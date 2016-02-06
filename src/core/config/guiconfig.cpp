@@ -40,11 +40,12 @@ GuiConfig::GuiConfig() :
   m_dirListSortOrder(Qt::AscendingOrder),
   m_autoHideTags(true),
   m_hideFile(false),
-  m_hideV1(false),
-  m_hideV2(false),
   m_hidePicture(false),
   m_playOnDoubleClick(false)
 {
+  FOR_ALL_TAGS(tagNr) {
+    m_hideTag[tagNr] = false;
+  }
 }
 
 /**
@@ -62,8 +63,10 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->beginGroup(m_group);
   config->setValue(QLatin1String("AutoHideTags"), QVariant(m_autoHideTags));
   config->setValue(QLatin1String("HideFile"), QVariant(m_hideFile));
-  config->setValue(QLatin1String("HideV1"), QVariant(m_hideV1));
-  config->setValue(QLatin1String("HideV2"), QVariant(m_hideV2));
+  FOR_ALL_TAGS(tagNr) {
+    config->setValue(QLatin1String("HideV") + Frame::tagNumberToString(tagNr),
+                     QVariant(m_hideTag[tagNr]));
+  }
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
   config->setValue(QLatin1String("PlayOnDoubleClick"), QVariant(m_playOnDoubleClick));
   config->setValue(QLatin1String("FileListSortColumn"),
@@ -104,8 +107,11 @@ void GuiConfig::readFromConfig(ISettings* config)
   config->beginGroup(m_group);
   m_autoHideTags = config->value(QLatin1String("AutoHideTags"), m_autoHideTags).toBool();
   m_hideFile = config->value(QLatin1String("HideFile"), m_hideFile).toBool();
-  m_hideV1 = config->value(QLatin1String("HideV1"), m_hideV1).toBool();
-  m_hideV2 = config->value(QLatin1String("HideV2"), m_hideV2).toBool();
+  FOR_ALL_TAGS(tagNr) {
+    m_hideTag[tagNr] = config->value(
+          QLatin1String("HideV") + Frame::tagNumberToString(tagNr),
+          m_hideTag[tagNr]).toBool();
+  }
   m_hidePicture = config->value(QLatin1String("HidePicture"), m_hidePicture).toBool();
   m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"), m_playOnDoubleClick).toBool();
   m_fileListSortColumn = config->value(QLatin1String("FileListSortColumn"),
@@ -234,19 +240,11 @@ void GuiConfig::setHideFile(bool hideFile)
   }
 }
 
-void GuiConfig::setHideV1(bool hideV1)
+void GuiConfig::setHideTag(Frame::TagNumber tagNr, bool hide)
 {
-  if (m_hideV1 != hideV1) {
-    m_hideV1 = hideV1;
-    emit hideV1Changed(m_hideV1);
-  }
-}
-
-void GuiConfig::setHideV2(bool hideV2)
-{
-  if (m_hideV2 != hideV2) {
-    m_hideV2 = hideV2;
-    emit hideV2Changed(m_hideV2);
+  if (m_hideTag[tagNr] != hide) {
+    m_hideTag[tagNr] = hide;
+    emit hideTagChanged();
   }
 }
 

@@ -50,10 +50,12 @@ public:
    * @param platformTools platform tools
    * @param app application context
    * @param taggedFile tagged file
+   * @param tagNr tag number
    * @param parent parent widget
    */
   explicit SubframesEditor(IPlatformTools* platformTools, Kid3Application* app,
-                           const TaggedFile* taggedFile, QWidget* parent = 0);
+                           const TaggedFile* taggedFile, Frame::TagNumber tagNr,
+                           QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -84,6 +86,7 @@ private:
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   const TaggedFile* m_taggedFile;
+  Frame::TagNumber m_tagNr;
   FrameTableModel* m_frameTableModel;
   FrameTable* m_frameTable;
   QPushButton* m_editButton;

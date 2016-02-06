@@ -63,6 +63,7 @@ class TextExporter;
 class DirRenamer;
 class BatchImportProfile;
 class BatchImporter;
+class Kid3ApplicationTagContext;
 class IAbortable;
 class ICorePlatformTools;
 class IUserCommandProcessor;
@@ -85,20 +86,6 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(QItemSelectionModel* fileSelectionModel READ getFileSelectionModel CONSTANT)
   /** Directory selection model. */
   Q_PROPERTY(QItemSelectionModel* dirSelectionModel READ getDirSelectionModel CONSTANT)
-  /** Tag 1 genre model. */
-  Q_PROPERTY(GenreModel* genreModelV1 READ genreModelV1 CONSTANT)
-  /** Tag 2 genre model. */
-  Q_PROPERTY(GenreModel* genreModelV2 READ genreModelV2 CONSTANT)
-  /** Tag 1 frame table model. */
-  Q_PROPERTY(FrameTableModel* frameModelV1 READ frameModelV1 CONSTANT)
-  /** Tag 2 frame table model. */
-  Q_PROPERTY(FrameTableModel* frameModelV2 READ frameModelV2 CONSTANT)
-  /** Tag 1 frame selection model. */
-  Q_PROPERTY(QItemSelectionModel* frameSelectionModelV1 READ getFramesV1SelectionModel CONSTANT)
-  /** Tag 1 frame selection model. */
-  Q_PROPERTY(QItemSelectionModel* frameSelectionModelV2 READ getFramesV2SelectionModel CONSTANT)
-  /** Frame list. */
-  Q_PROPERTY(FrameList* frameList READ getFrameList CONSTANT)
   /** Information about selected tagged files. */
   Q_PROPERTY(TaggedFileSelection* selectionInfo READ selectionInfo CONSTANT)
   /** Root index of opened directory in file proxy model. */
@@ -205,48 +192,34 @@ public:
   }
 
   /**
-   * Get tag 1 genre model.
+   * Get genre model.
+   * @param tagNr tag number
    * @return genre model.
    */
-  GenreModel*  genreModelV1() const { return m_genreModelV1; }
+  GenreModel*  genreModel(Frame::TagNumber tagNr) const { return m_genreModel[tagNr]; }
 
   /**
-   * Get tag 2 genre model.
-   * @return genre model.
-   */
-  GenreModel*  genreModelV2() const { return m_genreModelV2; }
-
-  /**
-   * Get tag 1 frame table model.
+   * Get frame table model.
+   * @param tagNr tag number
    * @return frame table.
    */
-  FrameTableModel* frameModelV1() { return m_framesV1Model; }
+  FrameTableModel* frameModel(Frame::TagNumber tagNr) { return m_framesModel[tagNr]; }
 
   /**
-   * Get tag 2 frame table model.
-   * @return frame table.
+   * Get selection model of frame table model.
+   * @param tagNr tag number
+   * @return selection model.
    */
-  FrameTableModel* frameModelV2() { return m_framesV2Model; }
-
-  /**
-   * Get selection model of tag 1 frame table model.
-   */
-  QItemSelectionModel* getFramesV1SelectionModel() {
-    return m_framesV1SelectionModel;
-  }
-
-  /**
-   * Get selection model of tag 2 frame table model.
-   */
-  QItemSelectionModel* getFramesV2SelectionModel() {
-    return m_framesV2SelectionModel;
+  QItemSelectionModel* getFramesSelectionModel(Frame::TagNumber tagNr) {
+    return m_framesSelectionModel[tagNr];
   }
 
   /**
    * Get frame list.
+   * @param tagNr tag number
    * @return frame list.
    */
-  FrameList* getFrameList() { return m_framelist; }
+  FrameList* getFrameList(Frame::TagNumber tagNr) { return m_framelist[tagNr]; }
 
   /**
    * Get settings.
@@ -320,6 +293,26 @@ public:
    * Delete audio player.
    */
   void deleteAudioPlayer();
+#endif
+
+#if QT_VERSION >= 0x050000
+  /**
+   * Get context for tag.
+   * @param tagNr tag number
+   * @return tag context.
+   */
+  Q_INVOKABLE Kid3ApplicationTagContext* tag(Frame::TagNumber tagNr) const {
+    return m_tagContext[tagNr];
+  }
+#else
+  /**
+   * Get context for tag.
+   * @param tagNr tag number, for Qt 4 an int to be usable in QML
+   * @return tag context.
+   */
+  Q_INVOKABLE Kid3ApplicationTagContext* tag(int tagNr) const {
+    return m_tagContext[tagNr];
+  }
 #endif
 
   /**
@@ -801,31 +794,11 @@ public slots:
   void convertToId3v23();
 
   /**
-   * Copy tags 1 into copy buffer.
-   */
-  void copyTagsV1();
-
-  /**
-   * Copy tags 2 into copy buffer.
-   */
-  void copyTagsV2();
-
-  /**
    * Copy tags into copy buffer.
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
   void copyTags(Frame::TagVersion tagMask);
-
-  /**
-   * Paste from copy buffer to ID3v1 tags.
-   */
-  void pasteTagsV1();
-
-  /**
-   * Paste from copy buffer to ID3v2 tags.
-   */
-  void pasteTagsV2();
 
   /**
    * Paste from copy buffer to tags.
@@ -835,16 +808,6 @@ public slots:
   void pasteTags(Frame::TagVersion tagMask);
 
   /**
-   * Copy ID3v1 tags to ID3v2 tags of selected files.
-   */
-  void copyV1ToV2();
-
-  /**
-   * Copy ID3v2 tags to ID3v1 tags of selected files.
-   */
-  void copyV2ToV1();
-
-  /**
    * Set tag from other tag.
    *
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
@@ -852,14 +815,18 @@ public slots:
   void copyToOtherTag(Frame::TagVersion tagMask);
 
   /**
-   * Remove ID3v1 tags in selected files.
+   * Copy tags using QAction::data().
+   * The source and destination tag numbers are taken from the first two bytes
+   * in QAction::data().toByteArray() if the sender() is a QAction.
    */
-  void removeTagsV1();
+  void copyTagsActionData();
 
   /**
-   * Remove ID3v2 tags in selected files.
+   * Copy from a tag to another tag.
+   * @param srcTagNr source tag number
+   * @param dstTagNr destination tag number
    */
-  void removeTagsV2();
+  void copyTag(Frame::TagNumber srcTagNr, Frame::TagNumber dstTagNr);
 
   /**
    * Remove tags in selected files.
@@ -867,20 +834,6 @@ public slots:
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    */
   void removeTags(Frame::TagVersion tagMask);
-
-  /**
-   * Set ID3v1 tags according to filename.
-   * If a single file is selected the tags in the GUI controls
-   * are set, else the tags in the multiple selected files.
-   */
-  void getTagsFromFilenameV1();
-
-  /**
-   * Set ID3v2 tags according to filename.
-   * If a single file is selected the tags in the GUI controls
-   * are set, else the tags in the multiple selected files.
-   */
-  void getTagsFromFilenameV2();
 
   /**
    * Set tags according to filename.
@@ -900,20 +853,23 @@ public slots:
 
   /**
    * Edit selected frame.
+   * @param tagNr tag number
    */
-  void editFrame();
+  void editFrame(Frame::TagNumber tagNr);
 
   /**
    * Delete selected frame.
-   *
+   * @param tagNr tag number
    * @param frameName name of frame to delete, empty to delete selected frame
    */
-  void deleteFrame(const QString& frameName = QString());
+  void deleteFrame(Frame::TagNumber tagNr,
+                   const QString& frameName = QString());
 
   /**
    * Select a frame type and add such a frame to the frame list.
+   * @param tagNr tag number
    */
-  void selectAndAddFrame();
+  void selectAndAddFrame(Frame::TagNumber tagNr);
 
   /**
    * Edit a picture frame if one exists or add a new one.
@@ -1148,8 +1104,9 @@ signals:
    * signal.
    *
    * @param taggedFile tagged file with modified frame
+   * @param tagNr tag number
    */
-  void frameModified(TaggedFile* taggedFile);
+  void frameModified(TaggedFile* taggedFile, Frame::TagNumber tagNr);
 
   /**
    * Emitted when modification state is changed.
@@ -1266,8 +1223,9 @@ private slots:
   /**
    * Called when a frame is added.
    * @param frame added frame, 0 if canceled
+   * @param tagNr tag number used if slot is not invoked by framelist signal
    */
-  void onFrameAdded(const Frame* frame);
+  void onFrameAdded(const Frame* frame, Frame::TagNumber tagNr = Frame::Tag_2);
 
   /**
    * If an image provider is used, update its picture and change the
@@ -1290,12 +1248,12 @@ private:
 
   /**
    * Select a frame type and add such a frame to frame list.
-   *
+   * @param tagNr tag number
    * @param frame frame to add, if 0 the user has to select and edit the frame
    * @param edit if true and a frame is set, the user can edit the frame before
    * it is added
    */
-  void addFrame(const Frame* frame, bool edit = false);
+  void addFrame(Frame::TagNumber tagNr, const Frame* frame, bool edit = false);
 
   /**
    * Set the coverArtImageId property to a new value.
@@ -1319,14 +1277,13 @@ private:
   QItemSelectionModel* m_dirSelectionModel;
   /** Track data model */
   TrackDataModel* m_trackDataModel;
-  GenreModel* m_genreModelV1;
-  GenreModel* m_genreModelV2;
-  FrameTableModel* m_framesV1Model;
-  FrameTableModel* m_framesV2Model;
-  QItemSelectionModel* m_framesV1SelectionModel;
-  QItemSelectionModel* m_framesV2SelectionModel;
+  GenreModel* m_genreModel[Frame::Tag_NumValues];
+  FrameTableModel* m_framesModel[Frame::Tag_NumValues];
+  QItemSelectionModel* m_framesSelectionModel[Frame::Tag_NumValues];
   /** Frame list */
-  FrameList* m_framelist;
+  FrameList* m_framelist[Frame::Tag_NumValues];
+  /** Tag context */
+  Kid3ApplicationTagContext* m_tagContext[Frame::Tag_NumValues];
   /** Network access manager */
   QNetworkAccessManager* m_netMgr;
   /** Download client */
@@ -1398,6 +1355,106 @@ private:
 
   /** Fallback for path to search for plugins */
   static QString s_pluginsPathFallback;
+};
+
+/**
+ * Facade to have a uniform interface for different tags.
+ */
+class KID3_CORE_EXPORT Kid3ApplicationTagContext : public QObject {
+  Q_OBJECT
+  /** Genre model. */
+  Q_PROPERTY(GenreModel* genreModel READ genreModel CONSTANT)
+  /** Frame table model. */
+  Q_PROPERTY(FrameTableModel* frameModel READ frameModel CONSTANT)
+  /** Frame selection model. */
+  Q_PROPERTY(QItemSelectionModel* frameSelectionModel READ frameSelectionModel CONSTANT)
+  /** Frame list. */
+  Q_PROPERTY(FrameList* frameList READ frameList CONSTANT)
+public:
+  /**
+   * Constructor.
+   * @param app application
+   * @param tagNr tag number
+   */
+  Kid3ApplicationTagContext(Kid3Application* app, Frame::TagNumber tagNr) :
+    QObject(app), m_app(app), m_tagNr(tagNr),
+    m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
+  }
+
+public slots:
+  /**
+   * Copy tags into copy buffer.
+   */
+  void copyTags() { m_app->copyTags(m_tagVersion); }
+
+  /**
+   * Paste from copy buffer to tags.
+   */
+  void pasteTags() { m_app->pasteTags(m_tagVersion); }
+
+  /**
+   * Copy tags to other tags of selected files.
+   */
+  void copyToOtherTag() { m_app->copyToOtherTag(m_tagVersion); }
+
+  /**
+   * Remove tags in selected files.
+   */
+  void removeTags() { m_app->removeTags(m_tagVersion); }
+
+  /**
+   * Set tags from filename.
+   */
+  void getTagsFromFilename() { m_app->getTagsFromFilename(m_tagVersion); }
+
+  /**
+   * Set filename from tags.
+   */
+  void getFilenameFromTags() { m_app->getFilenameFromTags(m_tagVersion); }
+
+  /**
+   * Edit selected frame of tag.
+   */
+  void editFrame() { m_app->editFrame(m_tagNr); }
+
+  /**
+   * Delete selected frame from tag.
+   */
+  void deleteFrame() { m_app->deleteFrame(m_tagNr); }
+
+  /**
+   * Select a frame type and add such a frame to the frame list.
+   */
+  void addFrame() { m_app->selectAndAddFrame(m_tagNr); }
+
+private:
+  /**
+   * Get genre model.
+   * @return genre model.
+   */
+  GenreModel* genreModel() const { return m_app->genreModel(m_tagNr); }
+
+  /**
+   * Get frame table model.
+   * @return frame table.
+   */
+  FrameTableModel* frameModel() { return m_app->frameModel(m_tagNr); }
+
+  /**
+   * Get selection model of frame table model.
+   */
+  QItemSelectionModel* frameSelectionModel() {
+    return m_app->getFramesSelectionModel(m_tagNr);
+  }
+
+  /**
+   * Get frame list.
+   */
+  FrameList* frameList() { return m_app->getFrameList(m_tagNr); }
+
+  Kid3Application* const m_app;
+  const Frame::TagNumber m_tagNr;
+  const Frame::TagVersion m_tagVersion;
 };
 
 #endif // KID3APPLICATION_H

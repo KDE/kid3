@@ -33,13 +33,15 @@
 /**
  * Constructor.
  *
+ * @param tagNr tag number
  * @param ftm frame table model
  * @param selModel item selection model
  */
-FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
+FrameList::FrameList(Frame::TagNumber tagNr,
+                     FrameTableModel* ftm, QItemSelectionModel* selModel) :
   QObject(ftm), m_oldChangedFrames(0), m_taggedFile(0), m_frameEditor(0),
   m_frameTableModel(ftm), m_selectionModel(selModel),
-  m_cursorRow(-1), m_cursorColumn(-1), m_addingFrame(false)
+  m_cursorRow(-1), m_cursorColumn(-1), m_tagNr(tagNr), m_addingFrame(false)
 {
   setObjectName(QLatin1String("FrameList"));
 }
@@ -141,7 +143,7 @@ void FrameList::setModelFromTaggedFile()
 {
   if (m_taggedFile) {
     FrameCollection frames;
-    m_taggedFile->getAllFramesV2(frames);
+    m_taggedFile->getAllFrames(m_tagNr, frames);
     m_frameTableModel->transferFrames(frames);
   }
 }
@@ -156,7 +158,7 @@ bool FrameList::deleteFrame()
   saveCursor();
   Frame frame;
   if (getSelectedFrame(frame) && m_taggedFile) {
-    m_taggedFile->deleteFrameV2(frame);
+    m_taggedFile->deleteFrame(m_tagNr, frame);
     setModelFromTaggedFile();
     restoreCursor();
     return true;
@@ -174,18 +176,18 @@ void FrameList::setFrameEditor(IFrameEditor* frameEditor)
   if (m_frameEditor != frameEditor) {
     if (m_frameEditor) {
       QObject* obj = m_frameEditor->qobject();
-      disconnect(obj, SIGNAL(frameSelected(const Frame*)),
-                 this, SLOT(onFrameSelected(const Frame*)));
-      disconnect(obj, SIGNAL(frameEdited(const Frame*)),
-                 this, SLOT(onFrameEdited(const Frame*)));
+      disconnect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)),
+                 this, SLOT(onFrameSelected(Frame::TagNumber,const Frame*)));
+      disconnect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)),
+                 this, SLOT(onFrameEdited(Frame::TagNumber,const Frame*)));
     }
     m_frameEditor = frameEditor;
     if (m_frameEditor) {
       QObject* obj = m_frameEditor->qobject();
-      connect(obj, SIGNAL(frameSelected(const Frame*)),
-              this, SLOT(onFrameSelected(const Frame*)));
-      connect(obj, SIGNAL(frameEdited(const Frame*)),
-              this, SLOT(onFrameEdited(const Frame*)));
+      connect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)),
+              this, SLOT(onFrameSelected(Frame::TagNumber,const Frame*)));
+      connect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)),
+              this, SLOT(onFrameEdited(Frame::TagNumber,const Frame*)));
     }
   }
 }
@@ -199,6 +201,7 @@ void FrameList::selectAddAndEditFrame()
 {
   if (m_taggedFile && m_frameEditor) {
     m_addingFrame = true;
+    m_frameEditor->setTagNumber(m_tagNr);
     m_frameEditor->selectFrame(&m_frame, m_taggedFile);
   } else {
     emit frameAdded(0);
@@ -207,10 +210,14 @@ void FrameList::selectAddAndEditFrame()
 
 /**
  * Called when the frame is selected.
+ * @param tagNr tag number
  * @param frame selected frame, 0 if none selected.
  */
-void FrameList::onFrameSelected(const Frame* frame)
+void FrameList::onFrameSelected(Frame::TagNumber tagNr, const Frame* frame)
 {
+  if (tagNr != m_tagNr)
+    return;
+
   if (frame) {
     addAndEditFrame();
   } else {
@@ -225,15 +232,16 @@ void FrameList::onFrameSelected(const Frame* frame)
 void FrameList::addAndEditFrame()
 {
   if (m_taggedFile) {
-    m_oldChangedFrames = m_taggedFile->getChangedFramesV2();
-    if (!m_taggedFile->addFrameV2(m_frame)) {
+    m_oldChangedFrames = m_taggedFile->getChangedFrames(m_tagNr);
+    if (!m_taggedFile->addFrame(m_tagNr, m_frame)) {
       emit frameAdded(0);
     } else if (m_frameEditor) {
       m_addingFrame = true;
+      m_frameEditor->setTagNumber(m_tagNr);
       m_frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
     } else {
       m_addingFrame = true;
-      onFrameEdited(&m_frame);
+      onFrameEdited(m_tagNr, &m_frame);
     }
   } else {
     emit frameAdded(0);
@@ -248,16 +256,21 @@ void FrameList::editFrame()
 {
   if (m_frameEditor) {
     m_addingFrame = false;
+    m_frameEditor->setTagNumber(m_tagNr);
     m_frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile);
   }
 }
 
 /**
  * Called when the frame is edited.
+ * @param tagNr tag number
  * @param frame edited frame, 0 if canceled
  */
-void FrameList::onFrameEdited(const Frame* frame)
+void FrameList::onFrameEdited(Frame::TagNumber tagNr, const Frame* frame)
 {
+  if (tagNr != m_tagNr)
+    return;
+
   if (frame) {
     int index = frame->getIndex();
     setModelFromTaggedFile();
@@ -266,8 +279,8 @@ void FrameList::onFrameEdited(const Frame* frame)
     }
   } else {
     if (m_addingFrame) {
-      m_taggedFile->deleteFrameV2(m_frame);
-      m_taggedFile->setChangedFramesV2(m_oldChangedFrames);
+      m_taggedFile->deleteFrame(m_tagNr, m_frame);
+      m_taggedFile->setChangedFrames(m_tagNr, m_oldChangedFrames);
     }
   }
   if (m_addingFrame) {
@@ -284,8 +297,8 @@ void FrameList::onFrameEdited(const Frame* frame)
  */
 bool FrameList::pasteFrame() {
   if (m_taggedFile && m_frame.getType() != Frame::FT_UnknownFrame) {
-    m_taggedFile->addFrameV2(m_frame);
-    m_taggedFile->setFrameV2(m_frame);
+    m_taggedFile->addFrame(m_tagNr, m_frame);
+    m_taggedFile->setFrame(m_tagNr, m_frame);
     return true;
   }
   return false;

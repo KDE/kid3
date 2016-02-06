@@ -179,9 +179,12 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(tr("Tag 1"), Frame::TagV1);
-  m_destComboBox->addItem(tr("Tag 2"), Frame::TagV2);
-  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), Frame::TagV2V1);
+  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+      Frame::availableTagVersions();
+  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
+       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+    m_destComboBox->addItem(it->second, it->first);
+  }
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
   QToolButton* revertButton = new QToolButton;
@@ -398,8 +401,9 @@ void ImportDialog::clear()
   Frame::TagVersion importDest = importCfg.importDest();
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
-  if (importDest == Frame::TagV1 &&
-      !m_trackDataModel->trackData().isTagV1Supported()) {
+
+  if (!m_trackDataModel->trackData().isTagSupported(
+        Frame::tagNumberFromMask(importDest))) {
     index = m_destComboBox->findData(Frame::TagV2);
     m_destComboBox->setCurrentIndex(index);
     changeTagDestination();
@@ -467,7 +471,7 @@ void ImportDialog::onServerImportDialogClosed()
  */
 Frame::TagVersion ImportDialog::getDestination() const
 {
-  return TrackData::tagVersionCast(
+  return Frame::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 }
 
@@ -485,7 +489,7 @@ void ImportDialog::showHelp()
 void ImportDialog::saveConfig()
 {
   ImportConfig& importCfg = ImportConfig::instance();
-  importCfg.setImportDest(TrackData::tagVersionCast(
+  importCfg.setImportDest(Frame::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
 
   importCfg.setImportServer(m_serverComboBox->currentIndex());

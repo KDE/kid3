@@ -42,6 +42,7 @@ class KID3_CORE_EXPORT Frame {
   Q_ENUMS(TextEncoding)
   Q_ENUMS(PictureType)
   Q_ENUMS(TagVersion)
+  Q_ENUMS(TagNumber)
 public:
   /** Generalized frame types. */
   enum Type {
@@ -172,14 +173,117 @@ public:
     PT_PublisherLogo = 20
   };
 
+  /** Supported tags. */
+  enum TagNumber {
+    Tag_1,              /**< First tag */
+    Tag_2,              /**< Second tag */
+    Tag_NumValues,      /**< Total number of tags */
+
+    // Special uses of tags
+    Tag_Id3v1 = Tag_1,  /**< Tag which can be ID3v1 tag */
+    Tag_Id3v2 = Tag_2,  /**< Tag which can be ID3v2 tag */
+    Tag_Picture = Tag_2 /**< Tag used for pictures */
+  };
+
   /** Tag version contained in track data. */
   enum TagVersion {
     TagNone = 0, /**< Empty or imported and not from a tag */
-    TagV1 = 1,   /**< Tag 1 */
-    TagV2 = 2,   /**< Tag 2 */
+    TagV1 = 1 << Tag_1,   /**< Tag 1 */
+    TagV2 = 1 << Tag_2,   /**< Tag 2 */
     /** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
-    TagV2V1 = TagV1 | TagV2
+    TagV2V1 = TagV1 | TagV2,
+    TagVAll = TagV2V1     /**< All tags */
   };
+
+  /**
+   * Cast a mask of tag version bits to a TagVersion enum.
+   * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+   * @return tag version mask.
+   */
+  static TagVersion tagVersionCast(int tagMask) {
+    return static_cast<TagVersion>(tagMask & TagVAll);
+  }
+
+  /**
+   * @brief Cast an integer to a tag number.
+   * @param nr number
+   * @return tag number, Tag_NumValues if invalid.
+   */
+  static TagNumber tagNumberCast(int nr) {
+    return nr >= Tag_1 && nr < Tag_NumValues
+        ? static_cast<TagNumber>(nr) : Tag_NumValues;
+  }
+
+  /**
+   * Get a tag mask from a tag number.
+   * @param tagNr tag number
+   * @return tag version mask.
+   */
+  static TagVersion tagVersionFromNumber(TagNumber tagNr) {
+    return tagNr < Tag_NumValues
+        ? static_cast<TagVersion>(1 << tagNr) : TagNone;
+  }
+
+  /**
+   * Get list of available tag versions with translated description.
+   * @return tag version/description pairs.
+   */
+  static QList<QPair<TagVersion, QString> > availableTagVersions();
+
+  /**
+   * Get highest priority tag number which is set in a tag mask.
+   * @param tagMask tag mask with bits set for tags
+   * @return tag number, Tag_NumValues if no tag is set.
+   */
+  static TagNumber tagNumberFromMask(TagVersion tagMask) {
+    return (tagMask & TagV2) ? Tag_2 : (tagMask & TagV1) ? Tag_1 : Tag_NumValues;
+  }
+
+  /**
+   * Get tag numbers which is are set in a tag mask, ordered from highest
+   * to lowest priority.
+   * @param tagMask tag mask with bits set for tags
+   * @return list of tag numbers.
+   */
+  static QList<TagNumber> tagNumbersFromMask(TagVersion tagMask) {
+    QList<TagNumber> result;
+    if (tagMask & TagV2) result << Tag_2;
+    if (tagMask & TagV1) result << Tag_1;
+    return result;
+  }
+
+  /**
+   * Get all tag numbers, ordered from highest to lowest priority.
+   * @return list of tag numbers.
+   */
+  static QList<TagNumber> allTagNumbers() {
+    return tagNumbersFromMask(TagVAll);
+  }
+
+  /**
+   * Get string representation for tag number.
+   * @param tagNr tag number
+   * @return "1" for Tag_1, "2" for Tag_2, ..., null if invalid.
+   */
+  static QString tagNumberToString(TagNumber tagNr);
+
+  /**
+   * Get tag number from string representation.
+   * @param str string representation
+   * @return Tag_1 for "1", Tag_2 for "2", ..., Tag_NumValues if invalid.
+   */
+  static TagNumber tagNumberFromString(const QString& str);
+
+/** for loop through all TagNumber values. */
+#define FOR_ALL_TAGS(variable) \
+  for (Frame::TagNumber variable = Frame::Tag_1; \
+       variable < Frame::Tag_NumValues; \
+       variable = static_cast<Frame::TagNumber>(variable + 1))
+
+/** for loop through TagNumber values set in mask. */
+#define FOR_TAGS_IN_MASK(variable, mask) \
+  FOR_ALL_TAGS(variable) \
+    if ((mask) & (1 << variable))
 
   /** Field in frame. */
   struct KID3_CORE_EXPORT Field {
@@ -449,6 +553,18 @@ public:
    * @param value value as string
    */
   void setValue(const QString& value) { m_value = value; }
+
+  /**
+   * Get value as integer.
+   * @return value.
+   */
+  int getValueAsNumber() const;
+
+  /**
+   * Set value as integer.
+   * @param n value as number
+   */
+  void setValueAsNumber(int n);
 
   /**
    * Check if value is empty.
@@ -753,6 +869,11 @@ public:
    * @param flt filter with enabled frames
    */
   void removeDisabledFrames(const FrameFilter& flt);
+
+  /**
+   * Set the index of all frames to -1.
+   */
+  void setIndexesInvalid();
 
   /**
    * Copy frames which are empty or inactive from other frames.

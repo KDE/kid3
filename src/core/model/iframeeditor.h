@@ -28,9 +28,9 @@
 #define IFRAMEEDITOR_H
 
 #include "kid3api.h"
+#include "frame.h"
 
 class QObject;
-class Frame;
 class TaggedFile;
 
 /**
@@ -71,6 +71,18 @@ public:
    * @return object which emits signals.
    */
   virtual QObject* qobject() = 0;
+
+  /**
+   * Get the tag number of the edited frame.
+   * @return tag number.
+   */
+  virtual Frame::TagNumber tagNumber() const = 0;
+
+  /**
+   * Set the tag number of the edited frame.
+   * @param tagNr tag number
+   */
+  virtual void setTagNumber(Frame::TagNumber tagNr) = 0;
 };
 
 #endif // IFRAMEEDITOR_H

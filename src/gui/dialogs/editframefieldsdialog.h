@@ -190,8 +190,10 @@ public:
    *
    * @param frame      frame with fields to edit
    * @param taggedFile file
+   * @param tagNr      tag number
    */
-  void setFrame(const Frame& frame, const TaggedFile* taggedFile);
+  void setFrame(const Frame& frame, const TaggedFile* taggedFile,
+                Frame::TagNumber tagNr);
 
   /**
    * Update fields and get edited fields.
