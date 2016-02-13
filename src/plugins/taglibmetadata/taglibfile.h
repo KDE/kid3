@@ -405,7 +405,7 @@ private:
    */
   static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
-  static const int NUM_TAGS = 2;
+  static const int NUM_TAGS = 3;
 
   bool m_tagInformationRead;
   bool m_hasTag[NUM_TAGS];

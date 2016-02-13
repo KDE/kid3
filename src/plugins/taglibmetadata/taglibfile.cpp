@@ -770,6 +770,7 @@ void TagLibFile::readTags(bool force)
     if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".mp3");
       m_isTagSupported[Frame::Tag_1] = true;
+      m_isTagSupported[Frame::Tag_3] = true;
       if (!m_tag[Frame::Tag_1]) {
         m_tag[Frame::Tag_1] = mpegFile->ID3v1Tag();
         markTagUnchanged(Frame::Tag_1);
@@ -789,6 +790,10 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = mpegFile->ID3v2Tag();
 #endif
         markTagUnchanged(Frame::Tag_2);
+      }
+      if (!m_tag[Frame::Tag_3]) {
+        m_tag[Frame::Tag_3] = mpegFile->APETag();
+        markTagUnchanged(Frame::Tag_3);
       }
     } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".flac");
@@ -1076,7 +1081,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
     TagLib::MPEG::File* mpegFile = dynamic_cast<TagLib::MPEG::File*>(file);
     if (mpegFile) {
       static const int tagTypes[NUM_TAGS] = {
-        TagLib::MPEG::File::ID3v1, TagLib::MPEG::File::ID3v2
+        TagLib::MPEG::File::ID3v1, TagLib::MPEG::File::ID3v2,
+        TagLib::MPEG::File::APE
       };
       int saveMask = 0;
       FOR_TAGLIB_TAGS(tagNr) {
@@ -1131,7 +1137,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         if (TagLib::TrueAudio::File* ttaFile =
             dynamic_cast<TagLib::TrueAudio::File*>(file)) {
           static const int tagTypes[NUM_TAGS] = {
-            TagLib::MPEG::File::ID3v1, TagLib::MPEG::File::ID3v2
+            TagLib::MPEG::File::ID3v1, TagLib::MPEG::File::ID3v2,
+            TagLib::MPEG::File::NoTags
           };
           FOR_TAGLIB_TAGS(tagNr) {
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
@@ -1146,7 +1153,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 #if TAGLIB_VERSION >= 0x010b00
           static const int tagTypes[NUM_TAGS] = {
             TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2,
-            TagLib::MPC::File::APE
+            TagLib::MPC::File::APE, TagLib::MPC::File::NoTags
           };
           FOR_TAGLIB_TAGS(tagNr) {
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) &&
@@ -1166,7 +1173,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
                    dynamic_cast<TagLib::WavPack::File*>(file)) {
 #if TAGLIB_VERSION >= 0x010b00
           static const int tagTypes[NUM_TAGS] = {
-            TagLib::WavPack::File::ID3v1, TagLib::WavPack::File::APE
+            TagLib::WavPack::File::ID3v1, TagLib::WavPack::File::APE,
+            TagLib::WavPack::File::NoTags
           };
           FOR_TAGLIB_TAGS(tagNr) {
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) &&
@@ -1187,7 +1195,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         else if (TagLib::APE::File* apeFile =
                  dynamic_cast<TagLib::APE::File*>(file)) {
           static const int tagTypes[NUM_TAGS] = {
-            TagLib::MPEG::File::ID3v1, TagLib::APE::File::APE
+            TagLib::MPEG::File::ID3v1, TagLib::APE::File::APE,
+            TagLib::APE::File::NoTags
           };
           FOR_TAGLIB_TAGS(tagNr) {
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
@@ -1388,6 +1397,10 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
         } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
           m_tag[tagNr] = apeFile->APETag(true);
 #endif
+        }
+      } else if (tagNr == Frame::Tag_3) {
+        if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
+          m_tag[tagNr] = mpegFile->APETag(true);
         }
       }
     }
