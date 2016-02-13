@@ -129,7 +129,7 @@
 #include "taglibext/eventtimingcodesframe.h"
 #endif
 
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
 #include <podcastframe.h>
 #endif
 #include "taglibext/aac/aacfiletyperesolver.h"
@@ -748,7 +748,7 @@ void TagLibFile::readTags(bool force)
   if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
     TagLib::MPEG::File* mpegFile;
     TagLib::FLAC::File* flacFile;
-#ifdef MPC_ID3V1
+#if TAGLIB_VERSION >= 0x010b00
     TagLib::MPC::File* mpcFile;
     TagLib::WavPack::File* wvFile;
 #endif
@@ -806,7 +806,7 @@ void TagLibFile::readTags(bool force)
         m_pictures.setRead(true);
       }
 #endif
-#ifdef MPC_ID3V1
+#if TAGLIB_VERSION >= 0x010b00
     } else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".mpc");
       m_isTagV1Supported = true;
@@ -859,7 +859,7 @@ void TagLibFile::readTags(bool force)
         m_fileExtension = QLatin1String(".ogg");
       } else if (dynamic_cast<TagLib::Ogg::Speex::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".spx");
-#ifndef MPC_ID3V1
+#if TAGLIB_VERSION < 0x010b00
       } else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".mpc");
       } else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
@@ -1095,7 +1095,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 #if TAGLIB_VERSION >= 0x010700
         TagLib::APE::File* apeFile = dynamic_cast<TagLib::APE::File*>(file);
 #endif
-#ifndef MPC_ID3V1
+#if TAGLIB_VERSION < 0x010b00
         // it does not work if there is also an ID3 tag (bug in TagLib?)
         TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
         TagLib::WavPack::File* wvFile = dynamic_cast<TagLib::WavPack::File*>(file);
@@ -1504,7 +1504,7 @@ bool TagLibFile::makeTagV1Settable()
     if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
       TagLib::MPEG::File* mpegFile;
       TagLib::FLAC::File* flacFile;
-#ifdef MPC_ID3V1
+#if TAGLIB_VERSION >= 0x010b00
       TagLib::MPC::File* mpcFile;
       TagLib::WavPack::File* wvFile;
 #endif
@@ -1516,7 +1516,7 @@ bool TagLibFile::makeTagV1Settable()
         m_tagV1 = mpegFile->ID3v1Tag(true);
       } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
         m_tagV1 = flacFile->ID3v1Tag(true);
-#ifdef MPC_ID3V1
+#if TAGLIB_VERSION >= 0x010b00
       } else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
         m_tagV1 = mpcFile->ID3v1Tag(true);
       } else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
@@ -2398,7 +2398,7 @@ static const struct TypeStrOfId {
   #endif
   },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCNT - Play counter"), false },
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCST - Podcast"), true },
 #endif
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"),
@@ -2429,7 +2429,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Genre,          QT_TRANSLATE_NOOP("@default", "TCON - Content type"), true },
   { Frame::FT_Copyright,      QT_TRANSLATE_NOOP("@default", "TCOP - Copyright message"), true },
   { Frame::FT_EncodingTime,   QT_TRANSLATE_NOOP("@default", "TDEN - Encoding time"), true },
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDES - Podcast description"), true },
 #endif
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDLY - Playlist delay"), true },
@@ -2440,7 +2440,7 @@ static const struct TypeStrOfId {
   { Frame::FT_EncodedBy,      QT_TRANSLATE_NOOP("@default", "TENC - Encoded by"), true },
   { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TFLT - File type"), true },
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TGID - Podcast identifier"), true },
 #endif
   { Frame::FT_Arranger,       QT_TRANSLATE_NOOP("@default", "TIPL - Involved people list"), true },
@@ -2482,7 +2482,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Lyrics,         QT_TRANSLATE_NOOP("@default", "USLT - Unsynchronized lyric/text transcription"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOM - Commercial information"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOP - Copyright/Legal information"), true },
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WFED - Podcast feed"), true },
 #endif
   { Frame::FT_WWWAudioFile,   QT_TRANSLATE_NOOP("@default", "WOAF - Official audio file webpage"), true },
@@ -5412,7 +5412,7 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
   }
 
   if (frameId.startsWith(QLatin1String("T"))
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
       || frameId == QLatin1String("WFED")
 #endif
     ) {
@@ -5492,7 +5492,7 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
   } else if (frameId == QLatin1String("RVA2")) {
     id3Frame = new TagLib::ID3v2::RelativeVolumeFrame;
 #endif
-#ifdef HAVE_TAGLIB_PODCAST_SUPPORT
+#if TAGLIB_VERSION >= 0x010b00
   } else if (frameId == QLatin1String("PCST")) {
     id3Frame = new TagLib::ID3v2::PodcastFrame;
 #endif
