@@ -74,6 +74,7 @@ Page {
   function updateCurrentSelection() {
     collapsibleV1.acceptEdit()
     collapsibleV2.acceptEdit()
+    collapsibleV3.acceptEdit()
     app.frameModelsToTags()
     if (app.selectionInfo.singleFileSelected) {
       app.selectionInfo.fileName = collapsibleFile.fileName
@@ -159,6 +160,14 @@ Page {
           TagCollapsible {
             id: collapsibleV2
             tagNr: 1
+            anchors.topMargin: constants.margins
+            anchors.left: parent.left
+            anchors.right: parent.right
+          }
+
+          TagCollapsible {
+            id: collapsibleV3
+            tagNr: 2
             anchors.topMargin: constants.margins
             anchors.left: parent.left
             anchors.right: parent.right

@@ -177,6 +177,7 @@ public:
   enum TagNumber {
     Tag_1,              /**< First tag */
     Tag_2,              /**< Second tag */
+    Tag_3,              /**< Third tag */
     Tag_NumValues,      /**< Total number of tags */
 
     // Special uses of tags
@@ -190,9 +191,10 @@ public:
     TagNone = 0, /**< Empty or imported and not from a tag */
     TagV1 = 1 << Tag_1,   /**< Tag 1 */
     TagV2 = 1 << Tag_2,   /**< Tag 2 */
+    TagV3 = 1 << Tag_3,   /**< Tag 3 */
     /** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
     TagV2V1 = TagV1 | TagV2,
-    TagVAll = TagV2V1     /**< All tags */
+    TagVAll = TagV1 | TagV2 | TagV3 /**< All tags */
   };
 
   /**
@@ -236,11 +238,14 @@ public:
    * @return tag number, Tag_NumValues if no tag is set.
    */
   static TagNumber tagNumberFromMask(TagVersion tagMask) {
-    return (tagMask & TagV2) ? Tag_2 : (tagMask & TagV1) ? Tag_1 : Tag_NumValues;
+    return (tagMask & TagV2)
+        ? Tag_2 : (tagMask & TagV1)
+          ? Tag_1 : (tagMask & TagV3)
+            ? Tag_3 : Tag_NumValues;
   }
 
   /**
-   * Get tag numbers which is are set in a tag mask, ordered from highest
+   * Get tag numbers which are set in a tag mask, ordered from highest
    * to lowest priority.
    * @param tagMask tag mask with bits set for tags
    * @return list of tag numbers.
@@ -249,6 +254,7 @@ public:
     QList<TagNumber> result;
     if (tagMask & TagV2) result << Tag_2;
     if (tagMask & TagV1) result << Tag_1;
+    if (tagMask & TagV3) result << Tag_3;
     return result;
   }
 

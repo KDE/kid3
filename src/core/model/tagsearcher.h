@@ -54,7 +54,8 @@ public:
     enum Part {
       FileName, /**< Found in file name */
       Tag1,     /**< Found in tag 1 */
-      Tag2      /**< Found in tag 2 */
+      Tag2,     /**< Found in tag 2 */
+      Tag3      /**< Found in tag 3 */
     };
 
     /**
