@@ -669,7 +669,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Stimmung</entry>         <entry></entry>        <entry>TMOO</entry>    <entry></entry>               <entry>WM/Mood</entry>                    <entry>MOOD</entry></row>
        <row><entry>Originalalbum</entry>    <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
        <row><entry>Originalkünstler</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
-       <row><entry>Originaldatum</entry>    <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
+       <row><entry>Original Erscheinungsdatum</entry>    <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
        <row><entry>Teil</entry>             <entry></entry>        <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
        <row><entry>Musiker</entry>          <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
        <row><entry>Bild</entry>             <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>

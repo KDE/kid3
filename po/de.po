@@ -1120,7 +1120,7 @@ msgid "Original Artist"
 msgstr "Originalkünstler"
 
 msgid "Original Date"
-msgstr "Originaldatum"
+msgstr "Original Erscheinungsdatum"
 
 msgid "Part"
 msgstr "Teil"
