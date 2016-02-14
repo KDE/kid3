@@ -680,7 +680,7 @@ void DiscogsImporter::sendFindQuery(
   sendRequest(QString::fromLatin1(discogsServer),
               QString(QLatin1String("/search/?q=")) +
               encodeUrlQuery(artist + QLatin1Char(' ') + album) +
-              QLatin1String("&type=release&layout=sm"),
+              QLatin1String("&type=release&layout=sm"), QLatin1String("https"),
               m_discogsHeaders);
 }
 
@@ -701,5 +701,5 @@ void DiscogsImporter::sendTrackListQuery(
    */
   sendRequest(QString::fromLatin1(discogsServer), QLatin1Char('/') +
               QString::fromLatin1(QUrl::toPercentEncoding(cat)) +
-              QLatin1Char('/') + id, m_discogsHeaders);
+              QLatin1Char('/') + id, QLatin1String("https"), m_discogsHeaders);
 }

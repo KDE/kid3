@@ -75,9 +75,11 @@ public:
    *
    * @param server host name
    * @param path   path of the URL
+   * @param scheme scheme, default is "http"
    * @param headers optional raw headers to send
    */
   void sendRequest(const QString& server, const QString& path,
+                   const QString& scheme = QLatin1String("http"),
                    const RawHeaderMap& headers = RawHeaderMap());
 
   /**

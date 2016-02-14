@@ -208,10 +208,11 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
  *
  * @param server host name
  * @param path   path of the URL
+ * @param scheme scheme, default is "http"
  * @param headers optional raw headers to send
  */
 void HttpClient::sendRequest(const QString& server, const QString& path,
-                             const RawHeaderMap& headers)
+                             const QString& scheme, const RawHeaderMap& headers)
 {
   QString host(server);
   if (host.endsWith(QLatin1String(":80"))) {
@@ -219,9 +220,9 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   }
   QUrl url;
 #if QT_VERSION >= 0x050000
-  url.setUrl(QLatin1String("http://") + host + path);
+  url.setUrl(scheme + QLatin1String("://") + host + path);
 #else
-  url.setEncodedUrl((QLatin1String("http://") + host + path).toAscii());
+  url.setEncodedUrl((scheme + QLatin1String("://") + host + path).toAscii());
 #endif
   sendRequest(url, headers);
 }
