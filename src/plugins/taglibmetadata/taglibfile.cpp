@@ -798,6 +798,7 @@ void TagLibFile::readTags(bool force)
     } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".flac");
       m_isTagSupported[Frame::Tag_1] = true;
+      m_isTagSupported[Frame::Tag_3] = true;
       if (!m_tag[Frame::Tag_1]) {
         m_tag[Frame::Tag_1] = flacFile->ID3v1Tag();
         markTagUnchanged(Frame::Tag_1);
@@ -805,6 +806,10 @@ void TagLibFile::readTags(bool force)
       if (!m_tag[Frame::Tag_2]) {
         m_tag[Frame::Tag_2] = flacFile->xiphComment();
         markTagUnchanged(Frame::Tag_2);
+      }
+      if (!m_tag[Frame::Tag_3]) {
+        m_tag[Frame::Tag_3] = flacFile->ID3v2Tag();
+        markTagUnchanged(Frame::Tag_3);
       }
 #if TAGLIB_VERSION >= 0x010700
       if (!m_pictures.isRead()) {
@@ -1213,7 +1218,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             dynamic_cast<TagLib::FLAC::File*>(file)) {
 #if TAGLIB_VERSION >= 0x010b00
           static const int tagTypes[NUM_TAGS] = {
-            TagLib::FLAC::File::ID3v1, TagLib::FLAC::File::XiphComment
+            TagLib::FLAC::File::ID3v1, TagLib::FLAC::File::XiphComment,
+            TagLib::FLAC::File::ID3v2
           };
           FOR_TAGLIB_TAGS(tagNr) {
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
@@ -1401,6 +1407,8 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
       } else if (tagNr == Frame::Tag_3) {
         if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
           m_tag[tagNr] = mpegFile->APETag(true);
+        } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
+          m_tag[tagNr] = flacFile->ID3v2Tag(true);
         }
       }
     }
