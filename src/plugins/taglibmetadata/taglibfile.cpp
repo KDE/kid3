@@ -1091,24 +1091,11 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
     } else {
       bool needsSave = (m_tagV2 && (force || isTag2Changed())) ||
                        (m_tagV1 && (force || isTag1Changed()));
+
+
       if (needsSave) {
-        TagLib::TrueAudio::File* ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file);
-#if TAGLIB_VERSION >= 0x010700
-        TagLib::APE::File* apeFile = dynamic_cast<TagLib::APE::File*>(file);
-#endif
-#if TAGLIB_VERSION < 0x010b00
-        // it does not work if there is also an ID3 tag (bug in TagLib?)
-        TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
-        TagLib::WavPack::File* wvFile = dynamic_cast<TagLib::WavPack::File*>(file);
-        if (mpcFile) {
-          mpcFile->remove(TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2);
-          fileChanged = true;
-        } else if (wvFile) {
-          wvFile->strip(TagLib::WavPack::File::ID3v1);
-          fileChanged = true;
-        } else
-#endif
-        if (ttaFile) {
+        if (TagLib::TrueAudio::File* ttaFile =
+            dynamic_cast<TagLib::TrueAudio::File*>(file)) {
           if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
             ttaFile->strip(TagLib::TrueAudio::File::ID3v1);
             fileChanged = true;
@@ -1121,9 +1108,50 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             markTag2Unchanged();
             m_tagV2 = 0;
           }
+        } else if (TagLib::MPC::File* mpcFile =
+                   dynamic_cast<TagLib::MPC::File*>(file)) {
+#if TAGLIB_VERSION >= 0x010b00
+          if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
+            mpcFile->strip(TagLib::MPC::File::ID3v1);
+            fileChanged = true;
+            markTag1Unchanged();
+            m_tagV1 = 0;
+          }
+          if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
+            mpcFile->strip(TagLib::MPC::File::ID3v2);
+            fileChanged = true;
+            markTag2Unchanged();
+            m_tagV2 = 0;
+          }
+#else
+          // it does not work if there is also an ID3 tag (bug in TagLib)
+          mpcFile->remove(TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2);
+          fileChanged = true;
+#endif
+        } else if (TagLib::WavPack::File* wvFile =
+                   dynamic_cast<TagLib::WavPack::File*>(file)) {
+#if TAGLIB_VERSION >= 0x010b00
+          if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
+            wvFile->strip(TagLib::WavPack::File::ID3v1);
+            fileChanged = true;
+            markTag1Unchanged();
+            m_tagV1 = 0;
+          }
+          if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
+            wvFile->strip(TagLib::WavPack::File::APE);
+            fileChanged = true;
+            markTag2Unchanged();
+            m_tagV2 = 0;
+          }
+#else
+          // it does not work if there is also an ID3 tag (bug in TagLib)
+          wvFile->strip(TagLib::WavPack::File::ID3v1);
+          fileChanged = true;
+#endif
         }
 #if TAGLIB_VERSION >= 0x010700
-        if (apeFile) {
+        else if (TagLib::APE::File* apeFile =
+                 dynamic_cast<TagLib::APE::File*>(file)) {
           if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
             apeFile->strip(TagLib::APE::File::ID3v1);
             fileChanged = true;
