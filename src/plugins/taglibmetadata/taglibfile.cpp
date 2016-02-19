@@ -1089,8 +1089,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         }
       }
     } else {
-      if ((m_tagV2 && (force || isTag2Changed())) ||
-          (m_tagV1 && (force || isTag1Changed()))) {
+      bool needsSave = (m_tagV2 && (force || isTag2Changed())) ||
+                       (m_tagV1 && (force || isTag1Changed()));
+      if (needsSave) {
         TagLib::TrueAudio::File* ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file);
 #if TAGLIB_VERSION >= 0x010700
         TagLib::APE::File* apeFile = dynamic_cast<TagLib::APE::File*>(file);
@@ -1148,7 +1149,25 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           }
         }
 #endif
-        if (m_fileRef.save()) {
+#if TAGLIB_VERSION >= 0x010900
+        else if (TagLib::RIFF::WAV::File* wavFile =
+            dynamic_cast<TagLib::RIFF::WAV::File*>(file)) {
+          TagLib::RIFF::WAV::File::TagTypes saveTags;
+          if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
+            m_tagV2 = 0;
+            saveTags = TagLib::RIFF::WAV::File::NoTags;
+          } else {
+            saveTags = TagLib::RIFF::WAV::File::ID3v2;
+          }
+          if (wavFile->save(saveTags, true)) {
+            fileChanged = true;
+            markTag1Unchanged();
+            markTag2Unchanged();
+            needsSave = false;
+          }
+        }
+#endif
+        if (needsSave && m_fileRef.save()) {
           fileChanged = true;
           markTag1Unchanged();
           markTag2Unchanged();
