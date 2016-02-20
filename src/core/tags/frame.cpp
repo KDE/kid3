@@ -615,7 +615,18 @@ QString Frame::getDisplayName(const QString& name)
     { "tvnn", QT_TRANSLATE_NOOP("@default", "TV Network Name") },
     { "tvsh", QT_TRANSLATE_NOOP("@default", "TV Show Name") },
     { "tvsn", QT_TRANSLATE_NOOP("@default", "TV Season") },
-    { "year", QT_TRANSLATE_NOOP("@default", "Year") }
+    { "year", QT_TRANSLATE_NOOP("@default", "Year") },
+    { "IARL", QT_TRANSLATE_NOOP("@default", "Archival Location") },
+    { "ICMS", QT_TRANSLATE_NOOP("@default", "Commissioned") },
+    { "ICRP", QT_TRANSLATE_NOOP("@default", "Cropped") },
+    { "IDIM", QT_TRANSLATE_NOOP("@default", "Dimensions") },
+    { "IDPI", QT_TRANSLATE_NOOP("@default", "Dots Per Inch") },
+    { "IKEY", QT_TRANSLATE_NOOP("@default", "Keywords") },
+    { "ILGT", QT_TRANSLATE_NOOP("@default", "Lightness") },
+    { "IPLT", QT_TRANSLATE_NOOP("@default", "Number of Colors") },
+    { "ISBJ", QT_TRANSLATE_NOOP("@default", "Subject") },
+    { "ISHP", QT_TRANSLATE_NOOP("@default", "Sharpness") },
+    { "ISRF", QT_TRANSLATE_NOOP("@default", "Source Form") }
   };
   static QMap<QByteArray, QByteArray> idStrMap;
   if (idStrMap.isEmpty()) {

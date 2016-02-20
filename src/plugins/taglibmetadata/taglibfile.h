@@ -304,7 +304,8 @@ private:
     TT_Vorbis,
     TT_Ape,
     TT_Mp4,
-    TT_Asf
+    TT_Asf,
+    TT_Info
   };
 
   TagLibFile(const TagLibFile&);
