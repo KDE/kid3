@@ -61,6 +61,14 @@ QPixmap PixmapProvider::getPixmap(const QString& id, QSize* size,
     if (imageId.isEmpty() || imageId == "undefined") {
       imageId = "null";
     }
+    // Avoid creation of images with default size just because the
+    // first request has an invalid size.
+    if (!requestedSize.isValid() && imageId == "null") {
+      QPixmap pixmap(1, 1);
+      pixmap.fill(Qt::transparent);
+      return pixmap;
+    }
+    m_fileIconProvider->setRequestedSize(requestedSize);
     return m_fileIconProvider->pixmapForIconId(imageId);
   } else if (imageId.startsWith("data")) {
     if (!m_data.isEmpty()) {

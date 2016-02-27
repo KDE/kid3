@@ -61,6 +61,7 @@
 #include "formatconfig.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
+#include "taggedfileiconprovider.h"
 #include "kid3application.h"
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
 #include <CoreFoundation/CFURL.h>
@@ -182,7 +183,11 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
   m_vSplitter = new QSplitter(Qt::Vertical, this);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
-  m_fileListBox->setModel(m_app->getFileProxyModel());
+  FileProxyModel* fileProxyModel = m_app->getFileProxyModel();
+  int iconHeight = (((fontMetrics().height() - 1) / 16) + 1) * 16;
+  fileProxyModel->getIconProvider()->setRequestedSize(
+        QSize(iconHeight, iconHeight));
+  m_fileListBox->setModel(fileProxyModel);
   m_fileListBox->setSelectionModel(m_app->getFileSelectionModel());
   m_dirListBox = new ConfigurableTreeView(m_vSplitter);
   m_dirListBox->setObjectName(QLatin1String("DirList"));

@@ -30,6 +30,7 @@
 #include <QIcon>
 #include <QPixmap>
 #include <QColor>
+#include <QMap>
 #include "kid3api.h"
 
 class TaggedFile;
@@ -43,6 +44,15 @@ public:
    * Constructor.
    */
   TaggedFileIconProvider();
+
+  /**
+   * Set the requested size for icons.
+   *
+   * The size set with this method will be used to create icons.
+   *
+   * @param size icon size, the default is 16x16.
+   */
+  void setRequestedSize(const QSize& size);
 
   /**
    * Get an icon for a tagged file.
@@ -68,7 +78,7 @@ public:
    * set with setImageData()
    * @return pixmap for @a id.
    */
-  QPixmap pixmapForIconId(const QByteArray& id) const;
+  QPixmap pixmapForIconId(const QByteArray& id);
 
   /**
    * Get background color for a tagged file.
@@ -80,24 +90,11 @@ public:
   QColor backgroundForTaggedFile(const TaggedFile* taggedFile);
 
 private:
-  /** Empty icon */
-  QPixmap m_nullPixmap;
-  QIcon m_nullIcon;
-  /** Icon for modified file */
-  QPixmap m_modifiedPixmap;
-  QIcon m_modifiedIcon;
-  /** Icon for V1V2 */
-  QPixmap m_v1v2Pixmap;
-  QIcon m_v1v2Icon;
-  /** Icon for V1 */
-  QPixmap m_v1Pixmap;
-  QIcon m_v1Icon;
-  /** Icon for V2 */
-  QPixmap m_v2Pixmap;
-  QIcon m_v2Icon;
-  /** Icon for "no tag" */
-  QPixmap m_notagPixmap;
-  QIcon m_notagIcon;
+  void createIcons();
+
+  QMap<QByteArray, QIcon> m_iconMap;
+  QMap<QByteArray, QPixmap> m_pixmapMap;
+  QSize m_requestedSize;
 };
 
 #endif // TAGGEDFILEICONPROVIDER_H

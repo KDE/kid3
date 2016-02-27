@@ -26,198 +26,101 @@
 
 #include "taggedfileiconprovider.h"
 #include <QPixmap>
+#include <QPainter>
+#include <QApplication>
+#include <QStyle>
 #include "taggedfile.h"
 #include "tagconfig.h"
-
-/* The bitmaps are stored here instead of using KDE bitmaps to make
-   it work for the Qt only versions. */
-/** picture for modified pixmap */
-static const char* const modified_xpm[] = {
-  "16 16 33 1",
-  ". c None",
-  "B c None",
-  "A c None",
-  "C c None",
-  "D c None",
-  "E c None",
-  "# c #000000",
-  "b c #006562",
-  "j c #414041",
-  "x c #525552",
-  "f c #529594",
-  "e c #52959c",
-  "w c #5a555a",
-  "v c #626162",
-  "u c #626562",
-  "r c #737173",
-  "p c #737573",
-  "q c #7b757b",
-  "o c #838183",
-  "m c #838583",
-  "z c #8b8d8b",
-  "l c #949194",
-  "k c #9c959c",
-  "i c #a4a1a4",
-  "h c #a4a5a4",
-  "y c #b4b6b4",
-  "g c #bdb6bd",
-  "a c #c5c2c5",
-  "s c #c5c6c5",
-  "c c #cdc6cd",
-  "t c #dedade",
-  "n c #eeeaee",
-  "d c #ffffff",
-  ".......##.......",
-  "......#ab#......",
-  ".....#cbde#.....",
-  "....#abdddf#....",
-  "...#gbddddde#...",
-  "..#hijddddddf#..",
-  ".#kjkljdddddd##.",
-  "#mjnjmojddddjma#",
-  "#jnpnjqrjddjqs#.",
-  "#drtttjuvjjua#..",
-  ".#dasajjwxws#...",
-  "..#dyjzljxa#...A",
-  "...#jrrjws#...AB",
-  "....#cjxa#...ACB",
-  ".....#cs#...ADE.",
-  "......##...ABB.."
-};
-
-/** picture for empty pixmap */
-static const char* const null_xpm[] = {
-  "16 16 2 1",
-  "# c None",
-  ". c None",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#.",
-  ".#.#.#.#.#.#.#.#",
-  "#.#.#.#.#.#.#.#."
-};
-
-/** picture with V1 and V2 */
-static const char* const v1v2_xpm[] = {
-  "16 16 3 1",
-  "  c None",
-  ". c #FFFFFF",
-  "+ c #000000",
-  "                ",
-  "  ..  ..   .    ",
-  "  .+  .+  .+    ",
-  "  .+  .+ .++    ",
-  "   .+.+ .+.+    ",
-  "   .+.+   .+    ",
-  "    .+    .+    ",
-  "                ",
-  "  ..  ..  ..    ",
-  "  .+  .+ .++.   ",
-  "  .+  .+.+ .+   ",
-  "   .+.+   .+    ",
-  "   .+.+  .+..   ",
-  "    .+  .++++   ",
-  "                ",
-  "                "};
-
-/** picture with V1 */
-static const char* const v1_xpm[] = {
-  "16 16 3 1",
-  "  c None",
-  ". c #FFFFFF",
-  "+ c #000000",
-  "                ",
-  "  ..  ..   .    ",
-  "  .+  .+  .+    ",
-  "  .+  .+ .++    ",
-  "   .+.+ .+.+    ",
-  "   .+.+   .+    ",
-  "    .+    .+    ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                "};
-
-/** picture with V2 */
-static const char* const v2_xpm[] = {
-  "16 16 3 1",
-  "  c None",
-  ". c #FFFFFF",
-  "+ c #000000",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "                ",
-  "  ..  ..  ..    ",
-  "  .+  .+ .++.   ",
-  "  .+  .+.+ .+   ",
-  "   .+.+   .+    ",
-  "   .+.+  .+..   ",
-  "    .+  .++++   ",
-  "                ",
-  "                "};
-
-/** picture with NO TAG */
-static const char* const notag_xpm[] = {
-  "16 16 3 1",
-  "  c None",
-  ". c #FFFFFF",
-  "+ c #000000",
-  "                ",
-  "  ..  ..  ..    ",
-  "  .+. .+ .++.   ",
-  "  .++..+.+ .+   ",
-  "  .+.+.+.+ .+   ",
-  "  .+ .++.+..+   ",
-  "  .+  .+ .++    ",
-  "                ",
-  " ....  .   ..   ",
-  " .+++ .+. .++   ",
-  "  .+ .+.+.+ ..  ",
-  "  .+ .+++.+.++  ",
-  "  .+ .+.+.+..+  ",
-  "  .+ .+.+ .++   ",
-  "                ",
-  "                "};
-
 
 /**
  * Constructor.
  */
 TaggedFileIconProvider::TaggedFileIconProvider() :
-  m_nullPixmap((const char **)null_xpm),
-  m_nullIcon(m_nullPixmap),
-  m_modifiedPixmap((const char **)modified_xpm),
-  m_modifiedIcon(m_modifiedPixmap),
-  m_v1v2Pixmap((const char **)v1v2_xpm),
-  m_v1v2Icon(m_v1v2Pixmap),
-  m_v1Pixmap((const char **)v1_xpm),
-  m_v1Icon(m_v1Pixmap),
-  m_v2Pixmap((const char **)v2_xpm),
-  m_v2Icon(m_v2Pixmap),
-  m_notagPixmap((const char **)notag_xpm),
-  m_notagIcon(m_notagPixmap)
+  m_requestedSize(16, 16)
 {
+}
+
+/**
+ * Set the requested size for icons.
+ *
+ * The size set with this method will be used to create icons.
+ *
+ * @param size icon size, the default is 16x16.
+ */
+void TaggedFileIconProvider::setRequestedSize(const QSize& size)
+{
+  if (size.isValid() && size.height() > m_requestedSize.height()) {
+    m_requestedSize = size;
+    m_iconMap.clear();
+    m_pixmapMap.clear();
+  }
+}
+
+/**
+ * Create icons using requested size.
+ */
+void TaggedFileIconProvider::createIcons()
+{
+  static const struct {
+    const char* id;
+    const char* text1;
+    const char* text2;
+  } idTexts[] = {
+    {"null", 0, 0},
+    {"v1v2", "V1", "V2"},
+    {"v1", "V1", 0},
+    {"v2", 0, "V2"},
+    {"notag", "NO", "TAG" }
+  };
+
+  const int height = m_requestedSize.height();
+  const int halfHeight = height / 2;
+  QFont font(QLatin1String("helvetica"));
+  font.setPixelSize(halfHeight);
+  QFont smallFont(font);
+  smallFont.setStretch(
+#if QT_VERSION >= 0x050000
+        QFont::Condensed
+#else
+        QFont::SemiCondensed
+#endif
+        );
+  for (unsigned i = 0; i < sizeof(idTexts) / sizeof(idTexts[0]); ++i) {
+    const char* text1 = idTexts[i].text1;
+    const char* text2 = idTexts[i].text2;
+
+    QPixmap pixmap(m_requestedSize);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setFont(font);
+    if (text1) {
+      painter.setPen(Qt::white);
+      painter.drawText(QPoint(2, halfHeight - 1), QLatin1String(text1));
+      painter.setPen(Qt::black);
+      painter.drawText(QPoint(3, halfHeight), QLatin1String(text1));
+    }
+    if (text2) {
+      if (qstrlen(text2) > 2) {
+        painter.setFont(smallFont);
+      }
+      painter.setPen(Qt::white);
+      painter.drawText(QPoint(2, height - 2), QLatin1String(text2));
+      painter.setPen(Qt::black);
+      painter.drawText(QPoint(3, height - 1), QLatin1String(text2));
+    }
+
+    m_pixmapMap.insert(idTexts[i].id, pixmap);
+  }
+
+  for (QMap<QByteArray, QPixmap>::const_iterator it = m_pixmapMap.constBegin();
+       it != m_pixmapMap.constEnd();
+       ++it) {
+    m_iconMap.insert(it.key(), QIcon(it.value()));
+  }
+
+  QIcon modifiedIcon = qApp->style()->standardIcon(QStyle::SP_DriveFDIcon);
+  m_iconMap.insert("modified", modifiedIcon);
+  m_pixmapMap.insert("modified", modifiedIcon.pixmap(m_requestedSize));
 }
 
 /**
@@ -230,16 +133,10 @@ TaggedFileIconProvider::TaggedFileIconProvider() :
 QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
 {
   if (taggedFile) {
-    if (taggedFile->isChanged()) {
-      return m_modifiedIcon;
-    } else {
-      if (!taggedFile->isTagInformationRead())
-        return m_nullIcon;
-      if (taggedFile->hasTag(Frame::Tag_1))
-        return taggedFile->hasTag(Frame::Tag_2) ? m_v1v2Icon : m_v1Icon;
-      else
-        return taggedFile->hasTag(Frame::Tag_2) ? m_v2Icon : m_notagIcon;
+    if (m_iconMap.isEmpty()) {
+      createIcons();
     }
+    return m_iconMap.value(iconIdForTaggedFile(taggedFile));
   }
   return QIcon();
 }
@@ -275,22 +172,12 @@ QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
  * set with setImageData()
  * @return pixmap for @a id.
  */
-QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id) const
+QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id)
 {
-  if (id == "null") {
-    return m_nullPixmap;
-  } else if (id == "v1v2") {
-    return m_v1v2Pixmap;
-  } else if (id == "v1") {
-    return m_v1Pixmap;
-  } else if (id == "v2") {
-    return m_v2Pixmap;
-  } else if (id == "modified") {
-    return m_modifiedPixmap;
-  } else if (id == "notag") {
-    return m_notagPixmap;
+  if (m_pixmapMap.isEmpty()) {
+    createIcons();
   }
-  return QPixmap();
+  return m_pixmapMap.value(id);
 }
 
 /**
