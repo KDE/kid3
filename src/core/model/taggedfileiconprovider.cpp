@@ -67,11 +67,15 @@ void TaggedFileIconProvider::createIcons()
     const char* text2;
   } idTexts[] = {
     {"null", 0, 0},
+    {"notag", "NO", "TAG" },
     {"v1v2", "V1", "V2"},
     {"v1", "V1", 0},
     {"v2", 0, "V2"},
-    {"notag", "NO", "TAG" }
-  };
+    {"v3", 0, "V3"},
+    {"v1v3", "V1", "V3"},
+    {"v2v3", "V2", "V3"},
+    {"v1v2v3", "V1", "23"}
+};
 
   const int height = m_requestedSize.height();
   const int halfHeight = height / 2;
@@ -157,10 +161,17 @@ QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
     } else {
       if (!taggedFile->isTagInformationRead())
         return "null";
+
+      QByteArray id;
       if (taggedFile->hasTag(Frame::Tag_1))
-        return taggedFile->hasTag(Frame::Tag_2) ? "v1v2" : "v1";
-      else
-        return taggedFile->hasTag(Frame::Tag_2) ? "v2" : "notag";
+        id += "v1";
+      if (taggedFile->hasTag(Frame::Tag_2))
+        id += "v2";
+      if (taggedFile->hasTag(Frame::Tag_3))
+        id += "v3";
+      if (id.isEmpty())
+        id = "notag";
+      return id;
     }
   }
   return "";

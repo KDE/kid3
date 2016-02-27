@@ -122,13 +122,10 @@ Empty {
       width: constants.gu(2)
       height: constants.gu(2)
       Image {
-        //anchors.fill: parent                            //@Ubuntu
-        //source: "image://kid3/fileicon/" +              //@Ubuntu
-                //(modified ? "modified" : "null")        //@Ubuntu
-        source: modified ? "../icons/modified.svg"      //@!Ubuntu
-                         : "image://kid3/fileicon/null" //@!Ubuntu
-        sourceSize.width: parent.width                  //@!Ubuntu
-        sourceSize.height: parent.height                //@!Ubuntu
+        source: "image://kid3/fileicon/" +
+                (modified ? "modified" : "null")
+        sourceSize.width: parent.width
+        sourceSize.height: parent.height
       }
     }
     Label {
