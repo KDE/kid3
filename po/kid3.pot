@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,10 +224,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-msgid "Tag 2"
-msgstr ""
-
-msgid "Tag 1"
+msgid "Tag %1"
 msgstr ""
 
 msgid "Tags"
@@ -392,13 +389,16 @@ msgstr ""
 msgid "Select next file"
 msgstr ""
 
+msgid "Filename"
+msgstr ""
+
+msgid "From Tag %1"
+msgstr ""
+
 msgid "From Filename"
 msgstr ""
 
-msgid "From Tag 2"
-msgstr ""
-
-msgid "From Tag 1"
+msgid "Focus"
 msgstr ""
 
 msgid "Frames:"
@@ -411,12 +411,6 @@ msgid "Add"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
-
-msgid "Filename"
-msgstr ""
-
-msgid "Focus"
 msgstr ""
 
 msgid "File List"
@@ -1438,6 +1432,45 @@ msgstr ""
 msgid "TV Season"
 msgstr ""
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr ""
+
+msgid "Dots Per Inch"
+msgstr ""
+
+msgid "Keywords"
+msgstr ""
+
+msgid "Lightness"
+msgstr ""
+
+msgid "Number of Colors"
+msgstr ""
+
+msgid "Subject"
+msgstr ""
+
+msgid "Sharpness"
+msgstr ""
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr ""
+
+msgid "All Tags"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr ""
 
@@ -1514,9 +1547,6 @@ msgid "Automatic Import"
 msgstr ""
 
 msgid "D&estination:"
-msgstr ""
-
-msgid "Tag 1 and Tag 2"
 msgstr ""
 
 msgid "&Profile:"
@@ -1888,9 +1918,6 @@ msgstr ""
 msgid "&Action:"
 msgstr ""
 
-msgid "From Tag 2 and Tag 1"
-msgstr ""
-
 msgid "From:"
 msgstr ""
 
@@ -2022,16 +2049,19 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-msgid "Filename from Tag 1"
+msgid "Filename from Tag %1"
 msgstr ""
 
-msgid "Filename from Tag 2"
+msgid "Tag %1 from Filename"
 msgstr ""
 
-msgid "Tag 1 from Filename"
+msgid "Tag &%1"
 msgstr ""
 
-msgid "Tag 2 from Filename"
+msgid "From"
+msgstr ""
+
+msgid "To"
 msgstr ""
 
 msgid "Edit..."
@@ -2086,12 +2116,6 @@ msgid "Validation"
 msgstr ""
 
 msgid "String replacement:"
-msgstr ""
-
-msgid "From"
-msgstr ""
-
-msgid "To"
 msgstr ""
 
 msgid "Case conversion:"
@@ -2514,6 +2538,12 @@ msgstr ""
 msgid "Destination:"
 msgstr ""
 
+msgid "Tag 1"
+msgstr ""
+
+msgid "Tag 2"
+msgstr ""
+
 msgid "Profile:"
 msgstr ""
 
@@ -2560,6 +2590,15 @@ msgid "Total number of tracks"
 msgstr ""
 
 msgid "Action:"
+msgstr ""
+
+msgid "From Tag 2 and Tag 1"
+msgstr ""
+
+msgid "From Tag 1"
+msgstr ""
+
+msgid "From Tag 2"
 msgstr ""
 
 msgid "Mark truncated fields"
@@ -2626,6 +2665,9 @@ msgid "From filename format"
 msgstr ""
 
 msgid "To Filename"
+msgstr ""
+
+msgid "To Tag %1"
 msgstr ""
 
 msgid "Select All"

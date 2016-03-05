@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -230,11 +229,8 @@ msgstr "Файл"
 msgid "Name"
 msgstr "Имя"
 
-msgid "Tag 2"
-msgstr "Тег 2"
-
-msgid "Tag 1"
-msgstr "Тег 1"
+msgid "Tag %1"
+msgstr "Тег %1"
 
 msgid "Tags"
 msgstr "Теги"
@@ -398,14 +394,17 @@ msgstr "&Следующий файл"
 msgid "Select next file"
 msgstr "Следующий файл"
 
+msgid "Filename"
+msgstr "Имя файла"
+
+msgid "From Tag %1"
+msgstr "Из тег %1"
+
 msgid "From Filename"
 msgstr "Из имени файла"
 
-msgid "From Tag 2"
-msgstr "Из тег 2"
-
-msgid "From Tag 1"
-msgstr "Из тег 1"
+msgid "Focus"
+msgstr "Фокус"
 
 msgid "Frames:"
 msgstr "Фреймы:"
@@ -418,12 +417,6 @@ msgstr "Добавить"
 
 msgid "Delete"
 msgstr "Удалить"
-
-msgid "Filename"
-msgstr "Имя файла"
-
-msgid "Focus"
-msgstr "Фокус"
 
 msgid "File List"
 msgstr "Список файлов"
@@ -1445,6 +1438,45 @@ msgstr "Название дорожки при упорядочивании"
 msgid "TV Season"
 msgstr "Сезон"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Размер"
+
+msgid "Dots Per Inch"
+msgstr "Точек на дюйм"
+
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+msgid "Lightness"
+msgstr "Осветление"
+
+msgid "Number of Colors"
+msgstr "Число цветов"
+
+msgid "Subject"
+msgstr "Тема"
+
+msgid "Sharpness"
+msgstr "Резкость"
+
+msgid "Source Form"
+msgstr "Форма произведения"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+msgid "All Tags"
+msgstr "Все теги"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Иконка PNG-файла 32x32 точки"
 
@@ -1522,9 +1554,6 @@ msgstr "Автоматически импортировать"
 
 msgid "D&estination:"
 msgstr "М&есто назначения:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Тег 1 и тег 2"
 
 msgid "&Profile:"
 msgstr "&Профиль:"
@@ -1896,9 +1925,6 @@ msgstr "Создать Каталог"
 msgid "&Action:"
 msgstr "Д&ействие:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Из тег 2 и тег 1"
-
 msgid "From:"
 msgstr "От:"
 
@@ -2032,17 +2058,20 @@ msgstr "Ф&айлы"
 msgid "Name:"
 msgstr "Имя:"
 
-msgid "Filename from Tag 1"
-msgstr "Имя файла из тег 1"
+msgid "Filename from Tag %1"
+msgstr "Имя файла из тег %1"
 
-msgid "Filename from Tag 2"
-msgstr "Имя файла из тег 2"
+msgid "Tag %1 from Filename"
+msgstr "Тег %1 из имени файла"
 
-msgid "Tag 1 from Filename"
-msgstr "Тег 1 из имени файла"
+msgid "Tag &%1"
+msgstr "Тег &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Тег 1 из имени файла"
+msgid "From"
+msgstr "От"
+
+msgid "To"
+msgstr "к"
 
 msgid "Edit..."
 msgstr "Изменить..."
@@ -2097,12 +2126,6 @@ msgstr "Проверка"
 
 msgid "String replacement:"
 msgstr "Замена строк:"
-
-msgid "From"
-msgstr "От"
-
-msgid "To"
-msgstr "к"
 
 msgid "Case conversion:"
 msgstr "Преобразование Регистра:"
@@ -2527,6 +2550,12 @@ msgstr "ОК"
 msgid "Destination:"
 msgstr "Место назначения:"
 
+msgid "Tag 1"
+msgstr "Тег 1"
+
+msgid "Tag 2"
+msgstr "Тег 2"
+
 msgid "Profile:"
 msgstr "Профиль:"
 
@@ -2574,6 +2603,15 @@ msgstr "Общее Количество дорожек"
 
 msgid "Action:"
 msgstr "Действие:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Из тег 2 и тег 1"
+
+msgid "From Tag 1"
+msgstr "Из тег 1"
+
+msgid "From Tag 2"
+msgstr "Из тег 2"
 
 msgid "Mark truncated fields"
 msgstr "Отметить обрезанные структуры"
@@ -2640,6 +2678,9 @@ msgstr "Формат из имени файла"
 
 msgid "To Filename"
 msgstr "К имени файла"
+
+msgid "To Tag %1"
+msgstr "К тег %1"
 
 msgid "Select All"
 msgstr "Выделить все"

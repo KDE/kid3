@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.1\n"
 "X-Language: pl\n"
 "X-Source-Language: en\n"
@@ -230,11 +229,8 @@ msgstr "Plik"
 msgid "Name"
 msgstr "Nazwa"
 
-msgid "Tag 2"
-msgstr "Znacznik 2"
-
-msgid "Tag 1"
-msgstr "Znacznik 1"
+msgid "Tag %1"
+msgstr "Znacznik %1"
 
 msgid "Tags"
 msgstr "Znaczniki"
@@ -398,14 +394,17 @@ msgstr "&Następny plik"
 msgid "Select next file"
 msgstr "Zaznacz następny plik"
 
+msgid "Filename"
+msgstr "Nazwa pliku"
+
+msgid "From Tag %1"
+msgstr "Ze znacznika %1"
+
 msgid "From Filename"
 msgstr "Wczytaj z nazwy pliku"
 
-msgid "From Tag 2"
-msgstr "Ze znacznika 2"
-
-msgid "From Tag 1"
-msgstr "Ze znacznika 1"
+msgid "Focus"
+msgstr "Ognisko"
 
 msgid "Frames:"
 msgstr "Ramki:"
@@ -418,12 +417,6 @@ msgstr "Dodaj"
 
 msgid "Delete"
 msgstr "Usuń"
-
-msgid "Filename"
-msgstr "Nazwa pliku"
-
-msgid "Focus"
-msgstr "Ognisko"
 
 msgid "File List"
 msgstr "Lista plików"
@@ -1445,6 +1438,45 @@ msgstr "Porządek sortowania tytułów"
 msgid "TV Season"
 msgstr "Sezon"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Wymiary"
+
+msgid "Dots Per Inch"
+msgstr "Punkty na cal"
+
+msgid "Keywords"
+msgstr "Słowa kluczowe"
+
+msgid "Lightness"
+msgstr "Jasność"
+
+msgid "Number of Colors"
+msgstr "Liczba kolorów"
+
+msgid "Subject"
+msgstr "Temat"
+
+msgid "Sharpness"
+msgstr "Ostrość"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "Znacznik 1 i znacznik 2"
+
+msgid "All Tags"
+msgstr "Wszystkie znaczniki"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Ikona pliku PNG 32x32 pikseli"
 
@@ -1522,9 +1554,6 @@ msgstr "Automatycznie importuj"
 
 msgid "D&estination:"
 msgstr "C&el:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Znacznik 1 i znacznik 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1896,9 +1925,6 @@ msgstr "Utwórz katalog"
 msgid "&Action:"
 msgstr "Zd&arzenie:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Ze znacznika 1 i znacznika 2"
-
 msgid "From:"
 msgstr "Z:"
 
@@ -2033,17 +2059,20 @@ msgstr "Pl&ik"
 msgid "Name:"
 msgstr "Nazwa:"
 
-msgid "Filename from Tag 1"
-msgstr "Nazwa pliku ze znacznika 1"
+msgid "Filename from Tag %1"
+msgstr "Nazwa pliku ze znacznika %1"
 
-msgid "Filename from Tag 2"
-msgstr "Nazwa pliku ze znacznika 2"
+msgid "Tag %1 from Filename"
+msgstr "Znacznik %1 wczytaj z nazwy pliku"
 
-msgid "Tag 1 from Filename"
-msgstr "Znacznik 1 wczytaj z nazwy pliku"
+msgid "Tag &%1"
+msgstr "Znacznik &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Znacznik 2 wczytaj z nazwy pliku"
+msgid "From"
+msgstr "Z"
+
+msgid "To"
+msgstr "Do"
 
 msgid "Edit..."
 msgstr "Edycja..."
@@ -2098,12 +2127,6 @@ msgstr "Sprawdzanie"
 
 msgid "String replacement:"
 msgstr "Zastępczy ciąg znaków:"
-
-msgid "From"
-msgstr "Z"
-
-msgid "To"
-msgstr "Do"
 
 msgid "Case conversion:"
 msgstr "Konwersja przypadków:"
@@ -2530,6 +2553,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Cel:"
 
+msgid "Tag 1"
+msgstr "Znacznik 1"
+
+msgid "Tag 2"
+msgstr "Znacznik 2"
+
 msgid "Profile:"
 msgstr "Profil:"
 
@@ -2577,6 +2606,15 @@ msgstr "Liczba utworów"
 
 msgid "Action:"
 msgstr "Zdarzenie:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Ze znacznika 1 i znacznika 2"
+
+msgid "From Tag 1"
+msgstr "Ze znacznika 1"
+
+msgid "From Tag 2"
+msgstr "Ze znacznika 2"
 
 msgid "Mark truncated fields"
 msgstr "Oznacz obcięte pola"
@@ -2643,6 +2681,9 @@ msgstr "Format od nazwy pliku"
 
 msgid "To Filename"
 msgstr "Do nazwy pliku"
+
+msgid "To Tag %1"
+msgstr "Do znacznika %1"
 
 msgid "Select All"
 msgstr "Zaznacz wszystko"

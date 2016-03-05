@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -16,8 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
@@ -228,11 +227,8 @@ msgstr "Fajl"
 msgid "Name"
 msgstr "Ime"
 
-msgid "Tag 2"
-msgstr "oznaka 2"
-
-msgid "Tag 1"
-msgstr "oznaka 1"
+msgid "Tag %1"
+msgstr "oznaka %1"
 
 msgid "Tags"
 msgstr "Oznake"
@@ -396,14 +392,17 @@ msgstr "&Sledeći fajl"
 msgid "Select next file"
 msgstr "Izaberi sledeći fajl"
 
+msgid "Filename"
+msgstr "Ime fajla"
+
+msgid "From Tag %1"
+msgstr "Iz oznake %1"
+
 msgid "From Filename"
 msgstr "Iz imena fajla"
 
-msgid "From Tag 2"
-msgstr "Iz oznake 2"
-
-msgid "From Tag 1"
-msgstr "Iz oznake 1"
+msgid "Focus"
+msgstr "Fokus"
 
 msgid "Frames:"
 msgstr "Kadrovi:"
@@ -416,12 +415,6 @@ msgstr "Dodaj"
 
 msgid "Delete"
 msgstr "Obriši"
-
-msgid "Filename"
-msgstr "Ime fajla"
-
-msgid "Focus"
-msgstr "Fokus"
 
 msgid "File List"
 msgstr "Spisak fajlova"
@@ -1443,6 +1436,45 @@ msgstr "Redosled sortiranja naslova"
 msgid "TV Season"
 msgstr "Doba"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Dimenzije"
+
+msgid "Dots Per Inch"
+msgstr ""
+
+msgid "Keywords"
+msgstr "Ključne reči"
+
+msgid "Lightness"
+msgstr "Svetlina"
+
+msgid "Number of Colors"
+msgstr "Broj boja"
+
+msgid "Subject"
+msgstr "Tema"
+
+msgid "Sharpness"
+msgstr "Oštrina"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "oznaka 1 i oznaka 2"
+
+msgid "All Tags"
+msgstr "Svi oznake"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "PNG ikona fajla 32x32 piksela"
 
@@ -1520,9 +1552,6 @@ msgstr "Automatski uvozi"
 
 msgid "D&estination:"
 msgstr "O&dredište:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "oznaka 1 i oznaka 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1893,9 +1922,6 @@ msgstr "Napravi direktorijum"
 msgid "&Action:"
 msgstr "&Radnja:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Iz oznake 2 i oznake 1"
-
 msgid "From:"
 msgstr "Iz:"
 
@@ -2029,17 +2055,20 @@ msgstr "F&ajl"
 msgid "Name:"
 msgstr "Ime:"
 
-msgid "Filename from Tag 1"
-msgstr "oznake 1 u ime fajla"
+msgid "Filename from Tag %1"
+msgstr "oznake %1 u ime fajla"
 
-msgid "Filename from Tag 2"
-msgstr "oznake 2 u ime fajla"
+msgid "Tag %1 from Filename"
+msgstr "oznaku %1 iz imena fajla"
 
-msgid "Tag 1 from Filename"
-msgstr "oznaku 1 iz imena fajla"
+msgid "Tag &%1"
+msgstr "Oznaka &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "oznaku 2 iz imena fajla"
+msgid "From"
+msgstr "iz"
+
+msgid "To"
+msgstr "u"
 
 msgid "Edit..."
 msgstr "Uredi..."
@@ -2094,12 +2123,6 @@ msgstr "Overa"
 
 msgid "String replacement:"
 msgstr "Zamena teksta:"
-
-msgid "From"
-msgstr "iz"
-
-msgid "To"
-msgstr "u"
 
 msgid "Case conversion:"
 msgstr "Veličina slova:"
@@ -2525,6 +2548,12 @@ msgstr "U redu"
 msgid "Destination:"
 msgstr "Odredište:"
 
+msgid "Tag 1"
+msgstr "oznaka 1"
+
+msgid "Tag 2"
+msgstr "oznaka 2"
+
 msgid "Profile:"
 msgstr "Profil:"
 
@@ -2572,6 +2601,15 @@ msgstr "Ukupno numera"
 
 msgid "Action:"
 msgstr "Radnja:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Iz oznake 2 i oznake 1"
+
+msgid "From Tag 1"
+msgstr "Iz oznake 1"
+
+msgid "From Tag 2"
+msgstr "Iz oznake 2"
 
 msgid "Mark truncated fields"
 msgstr "Označi odsečena polja"
@@ -2638,6 +2676,9 @@ msgstr "Format iz imena fajla"
 
 msgid "To Filename"
 msgstr "U imena fajla"
+
+msgid "To Tag %1"
+msgstr "U oznake %1"
 
 msgid "Select All"
 msgstr "Izaberi sve"

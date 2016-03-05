@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -228,11 +228,8 @@ msgstr "Fail"
 msgid "Name"
 msgstr "Nimi"
 
-msgid "Tag 2"
-msgstr "Silt 2"
-
-msgid "Tag 1"
-msgstr "Silt 1"
+msgid "Tag %1"
+msgstr "Silt %1"
 
 msgid "Tags"
 msgstr "Sildid"
@@ -396,14 +393,17 @@ msgstr "&Järgmine fail"
 msgid "Select next file"
 msgstr "Valib järgmise faili"
 
+msgid "Filename"
+msgstr "Failinimi"
+
+msgid "From Tag %1"
+msgstr "Silt %1 põhjal"
+
 msgid "From Filename"
 msgstr "Failinime põhjal"
 
-msgid "From Tag 2"
-msgstr "Silt 2 põhjal"
-
-msgid "From Tag 1"
-msgstr "Silt 1 põhjal"
+msgid "Focus"
+msgstr "Fookusesse"
 
 msgid "Frames:"
 msgstr "Raamid:"
@@ -416,12 +416,6 @@ msgstr "Lisa"
 
 msgid "Delete"
 msgstr "Kustuta"
-
-msgid "Filename"
-msgstr "Failinimi"
-
-msgid "Focus"
-msgstr "Fookusesse"
 
 msgid "File List"
 msgstr "Faililoend"
@@ -1442,6 +1436,45 @@ msgstr "Telesaated"
 msgid "TV Season"
 msgstr "Hooaeg"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Mõõtmed"
+
+msgid "Dots Per Inch"
+msgstr "Punkti tollile"
+
+msgid "Keywords"
+msgstr "Võtmesõnad"
+
+msgid "Lightness"
+msgstr "Heledus"
+
+msgid "Number of Colors"
+msgstr "Värvide arv"
+
+msgid "Subject"
+msgstr "Teema"
+
+msgid "Sharpness"
+msgstr "Teravus"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
+
+msgid "All Tags"
+msgstr "Kõik sildid"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 px PNG-vormingus faili ikoon"
 
@@ -1519,9 +1552,6 @@ msgstr "Automaatimport"
 
 msgid "D&estination:"
 msgstr "&Sihtkoht:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Silt 1 ja silt 2"
 
 msgid "&Profile:"
 msgstr "&Profiil:"
@@ -1892,9 +1922,6 @@ msgstr "Kataloogi loomine"
 msgid "&Action:"
 msgstr "&Toiming:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Siltide 1 ja 2 põhjal"
-
 msgid "From:"
 msgstr "Faili nimeks:"
 
@@ -2028,17 +2055,20 @@ msgstr "Fa&il"
 msgid "Name:"
 msgstr "Nimi:"
 
-msgid "Filename from Tag 1"
-msgstr "Failinimi silt 1 põhjal"
+msgid "Filename from Tag %1"
+msgstr "Failinimi silt %1 põhjal"
 
-msgid "Filename from Tag 2"
-msgstr "Failinimi silt 2 põhjal"
+msgid "Tag %1 from Filename"
+msgstr "Silt %1 failinime põhjal"
 
-msgid "Tag 1 from Filename"
-msgstr "Silt 1 failinime põhjal"
+msgid "Tag &%1"
+msgstr "Silt &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Silt 2 failinime põhjal"
+msgid "From"
+msgstr "Asendatav"
+
+msgid "To"
+msgstr "Asendaja"
 
 msgid "Edit..."
 msgstr "Muuda..."
@@ -2093,12 +2123,6 @@ msgstr "Kontrollimine"
 
 msgid "String replacement:"
 msgstr "Stringiasendus:"
-
-msgid "From"
-msgstr "Asendatav"
-
-msgid "To"
-msgstr "Asendaja"
 
 msgid "Case conversion:"
 msgstr "Tõstu muutmine:"
@@ -2524,6 +2548,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Sihtkoht:"
 
+msgid "Tag 1"
+msgstr "Silt 1"
+
+msgid "Tag 2"
+msgstr "Silt 2"
+
 msgid "Profile:"
 msgstr "Profiil:"
 
@@ -2571,6 +2601,15 @@ msgstr "Lugude koguarv"
 
 msgid "Action:"
 msgstr "Toiming:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Siltide 1 ja 2 põhjal"
+
+msgid "From Tag 1"
+msgstr "Silt 1 põhjal"
+
+msgid "From Tag 2"
+msgstr "Silt 2 põhjal"
 
 msgid "Mark truncated fields"
 msgstr "Lühikeseks jäävad väljad tõstetakse esile"
@@ -2637,6 +2676,9 @@ msgstr "Failinime põhjal vorming"
 
 msgid "To Filename"
 msgstr "Esitada failinime"
+
+msgid "To Tag %1"
+msgstr "Esitada silt %1"
 
 msgid "Select All"
 msgstr "Vali kõik"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -229,11 +229,8 @@ msgstr "Datei"
 msgid "Name"
 msgstr "Name"
 
-msgid "Tag 2"
-msgstr "Tag 2"
-
-msgid "Tag 1"
-msgstr "Tag 1"
+msgid "Tag %1"
+msgstr "Tag %1"
 
 msgid "Tags"
 msgstr "Tags"
@@ -397,14 +394,17 @@ msgstr "&Nächste Datei"
 msgid "Select next file"
 msgstr "Nächste Datei"
 
+msgid "Filename"
+msgstr "Dateiname"
+
+msgid "From Tag %1"
+msgstr "Von Tag %1"
+
 msgid "From Filename"
 msgstr "Von Dateiname"
 
-msgid "From Tag 2"
-msgstr "Von Tag 2"
-
-msgid "From Tag 1"
-msgstr "Von Tag 1"
+msgid "Focus"
+msgstr "Fokus"
 
 msgid "Frames:"
 msgstr "Elemente:"
@@ -417,12 +417,6 @@ msgstr "Hinzufügen"
 
 msgid "Delete"
 msgstr "Löschen"
-
-msgid "Filename"
-msgstr "Dateiname"
-
-msgid "Focus"
-msgstr "Fokus"
 
 msgid "File List"
 msgstr "Dateiliste"
@@ -1443,6 +1437,45 @@ msgstr "TV Show"
 msgid "TV Season"
 msgstr "TV Staffel"
 
+msgid "Archival Location"
+msgstr "Ort im Archiv"
+
+msgid "Commissioned"
+msgstr "Beauftragt"
+
+msgid "Cropped"
+msgstr "Zugeschnitten"
+
+msgid "Dimensions"
+msgstr "Abmessungen"
+
+msgid "Dots Per Inch"
+msgstr "Punkte pro Zoll"
+
+msgid "Keywords"
+msgstr "Schlüsselworte"
+
+msgid "Lightness"
+msgstr "Helligkeit"
+
+msgid "Number of Colors"
+msgstr "Anzahl Farben"
+
+msgid "Subject"
+msgstr "Betreff"
+
+msgid "Sharpness"
+msgstr "Schärfe"
+
+msgid "Source Form"
+msgstr "Form des Originals"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 und Tag 2"
+
+msgid "All Tags"
+msgstr "Alle Tags"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 Pixel PNG-Dateiicon"
 
@@ -1520,9 +1553,6 @@ msgstr "Automatisch importieren"
 
 msgid "D&estination:"
 msgstr "Zi&el:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 und Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1893,9 +1923,6 @@ msgstr "Verzeichnis erstellen"
 msgid "&Action:"
 msgstr "&Aktion:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Von Tag 2 und Tag 1"
-
 msgid "From:"
 msgstr "Von:"
 
@@ -2031,17 +2058,20 @@ msgstr "Date&i"
 msgid "Name:"
 msgstr "Name:"
 
-msgid "Filename from Tag 1"
-msgstr "Dateiname von Tag 1"
+msgid "Filename from Tag %1"
+msgstr "Dateiname von Tag %1"
 
-msgid "Filename from Tag 2"
-msgstr "Dateiname von Tag 2"
+msgid "Tag %1 from Filename"
+msgstr "Tag %1 von Dateiname"
 
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 von Dateiname"
+msgid "Tag &%1"
+msgstr "Tag &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 von Dateiname"
+msgid "From"
+msgstr "Von"
+
+msgid "To"
+msgstr "Nach"
 
 msgid "Edit..."
 msgstr "Bearbeiten..."
@@ -2096,12 +2126,6 @@ msgstr "Überprüfung"
 
 msgid "String replacement:"
 msgstr "Zeichen ersetzen:"
-
-msgid "From"
-msgstr "Von"
-
-msgid "To"
-msgstr "Nach"
 
 msgid "Case conversion:"
 msgstr "Groß-/Kleinschreibung:"
@@ -2527,6 +2551,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Ziel:"
 
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
 msgid "Profile:"
 msgstr "Profil:"
 
@@ -2574,6 +2604,15 @@ msgstr "Anzahl Stücke"
 
 msgid "Action:"
 msgstr "Aktion:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Von Tag 2 und Tag 1"
+
+msgid "From Tag 1"
+msgstr "Von Tag 1"
+
+msgid "From Tag 2"
+msgstr "Von Tag 2"
 
 msgid "Mark truncated fields"
 msgstr "Abgeschnittene Felder markieren"
@@ -2640,6 +2679,9 @@ msgstr "Von Dateinamenformat"
 
 msgid "To Filename"
 msgstr "Nach Dateiname"
+
+msgid "To Tag %1"
+msgstr "Nach Tag %1"
 
 msgid "Select All"
 msgstr "Alles auswählen"

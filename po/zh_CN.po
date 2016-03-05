@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -226,11 +226,8 @@ msgstr "文件"
 msgid "Name"
 msgstr "名称"
 
-msgid "Tag 2"
-msgstr "标签 2"
-
-msgid "Tag 1"
-msgstr "标签 1"
+msgid "Tag %1"
+msgstr "标签 %1"
 
 msgid "Tags"
 msgstr "标签"
@@ -394,14 +391,17 @@ msgstr "下一个文件(&N)"
 msgid "Select next file"
 msgstr "选择下一个文件"
 
+msgid "Filename"
+msgstr "文件名"
+
+msgid "From Tag %1"
+msgstr "从标签 %1"
+
 msgid "From Filename"
 msgstr "从文件名"
 
-msgid "From Tag 2"
-msgstr "从标签 2"
-
-msgid "From Tag 1"
-msgstr "从标签 1"
+msgid "Focus"
+msgstr "焦点"
 
 msgid "Frames:"
 msgstr "帧："
@@ -414,12 +414,6 @@ msgstr "添加"
 
 msgid "Delete"
 msgstr "删除"
-
-msgid "Filename"
-msgstr "文件名"
-
-msgid "Focus"
-msgstr "焦点"
 
 msgid "File List"
 msgstr "文件列表"
@@ -1441,6 +1435,45 @@ msgstr "排序名称"
 msgid "TV Season"
 msgstr "季"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "尺寸"
+
+msgid "Dots Per Inch"
+msgstr ""
+
+msgid "Keywords"
+msgstr "关键字"
+
+msgid "Lightness"
+msgstr "亮度"
+
+msgid "Number of Colors"
+msgstr "颜色数"
+
+msgid "Subject"
+msgstr "主题"
+
+msgid "Sharpness"
+msgstr "锐度"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "标签 1 与 标签 2"
+
+msgid "All Tags"
+msgstr "所有标签"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 文件图标"
 
@@ -1518,9 +1551,6 @@ msgstr "自动导入"
 
 msgid "D&estination:"
 msgstr "目标(&E)："
-
-msgid "Tag 1 and Tag 2"
-msgstr "标签 1 与 标签 2"
 
 msgid "&Profile:"
 msgstr "配置文件(&P):"
@@ -1891,9 +1921,6 @@ msgstr "创建目录"
 msgid "&Action:"
 msgstr "动作(&A):"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "从 标签 2 与 标签 1"
-
 msgid "From:"
 msgstr "从："
 
@@ -2027,17 +2054,20 @@ msgstr "文件(&I)"
 msgid "Name:"
 msgstr "名称："
 
-msgid "Filename from Tag 1"
-msgstr "由标签1生成文件名"
+msgid "Filename from Tag %1"
+msgstr "由标签%1生成文件名"
 
-msgid "Filename from Tag 2"
-msgstr "由标签2生成文件名"
+msgid "Tag %1 from Filename"
+msgstr "由文件名生成标签%1"
 
-msgid "Tag 1 from Filename"
-msgstr "由文件名生成标签1"
+msgid "Tag &%1"
+msgstr "标签 &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "由文件名生成标签2"
+msgid "From"
+msgstr "从"
+
+msgid "To"
+msgstr "到"
 
 msgid "Edit..."
 msgstr "编辑..."
@@ -2092,12 +2122,6 @@ msgstr "验证"
 
 msgid "String replacement:"
 msgstr "字词替换："
-
-msgid "From"
-msgstr "从"
-
-msgid "To"
-msgstr "到"
 
 msgid "Case conversion:"
 msgstr "大小写转换："
@@ -2522,6 +2546,12 @@ msgstr "确定"
 msgid "Destination:"
 msgstr "目标："
 
+msgid "Tag 1"
+msgstr "标签 1"
+
+msgid "Tag 2"
+msgstr "标签 2"
+
 msgid "Profile:"
 msgstr "配置文件:"
 
@@ -2569,6 +2599,15 @@ msgstr "音轨编号"
 
 msgid "Action:"
 msgstr "动作:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "从 标签 2 与 标签 1"
+
+msgid "From Tag 1"
+msgstr "从标签 1"
+
+msgid "From Tag 2"
+msgstr "从标签 2"
 
 msgid "Mark truncated fields"
 msgstr "标记被截断的字段"
@@ -2635,6 +2674,9 @@ msgstr "文件名称格式"
 
 msgid "To Filename"
 msgstr "至文件名"
+
+msgid "To Tag %1"
+msgstr "到标签 %1"
 
 msgid "Select All"
 msgstr "全部选中"

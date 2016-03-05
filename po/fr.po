@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -229,11 +229,8 @@ msgstr "Fichier"
 msgid "Name"
 msgstr "Nom"
 
-msgid "Tag 2"
-msgstr "Balise 2"
-
-msgid "Tag 1"
-msgstr "Balise 1"
+msgid "Tag %1"
+msgstr "Balise %1"
 
 msgid "Tags"
 msgstr "Balises"
@@ -397,14 +394,17 @@ msgstr "&Fichier suivant"
 msgid "Select next file"
 msgstr "Fichier suivant"
 
+msgid "Filename"
+msgstr "Nom de fichier"
+
+msgid "From Tag %1"
+msgstr "Depuis balise %1"
+
 msgid "From Filename"
 msgstr "Depuis le nom de fichier"
 
-msgid "From Tag 2"
-msgstr "Depuis balise 2"
-
-msgid "From Tag 1"
-msgstr "Depuis balise 1"
+msgid "Focus"
+msgstr "Focus"
 
 msgid "Frames:"
 msgstr "Encadrement:"
@@ -417,12 +417,6 @@ msgstr "Ajouter"
 
 msgid "Delete"
 msgstr "Supprimer"
-
-msgid "Filename"
-msgstr "Nom de fichier"
-
-msgid "Focus"
-msgstr "Focus"
 
 msgid "File List"
 msgstr "Liste des fichiers"
@@ -1443,6 +1437,45 @@ msgstr "Émission"
 msgid "TV Season"
 msgstr "Saison"
 
+msgid "Archival Location"
+msgstr "Lieu d'archivage"
+
+msgid "Commissioned"
+msgstr "Commandée"
+
+msgid "Cropped"
+msgstr "Coupé"
+
+msgid "Dimensions"
+msgstr "Dimensions"
+
+msgid "Dots Per Inch"
+msgstr "Points par pouce"
+
+msgid "Keywords"
+msgstr "Mots-clés"
+
+msgid "Lightness"
+msgstr "Luminosité"
+
+msgid "Number of Colors"
+msgstr "Nombres de couleurs"
+
+msgid "Subject"
+msgstr "Sujet"
+
+msgid "Sharpness"
+msgstr "Netteté"
+
+msgid "Source Form"
+msgstr "Forme d'œuvre originale"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Balise 1 et balise 2"
+
+msgid "All Tags"
+msgstr "Toutes les balises"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Fichier icône de 32x32 pixels"
 
@@ -1520,9 +1553,6 @@ msgstr "Importer automatiquement"
 
 msgid "D&estination:"
 msgstr "D&estination:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Balise 1 et balise 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1893,9 +1923,6 @@ msgstr "Créer répertoire"
 msgid "&Action:"
 msgstr "A&ction:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Depuis balise 2 et balise 1"
-
 msgid "From:"
 msgstr "De:"
 
@@ -2030,17 +2057,20 @@ msgstr "F&ichier"
 msgid "Name:"
 msgstr "Nom:"
 
-msgid "Filename from Tag 1"
-msgstr "Nom de fichier depuis balise 1"
+msgid "Filename from Tag %1"
+msgstr "Nom de fichier depuis balise %1"
 
-msgid "Filename from Tag 2"
-msgstr "Nom de fichier depuis balise 2"
+msgid "Tag %1 from Filename"
+msgstr "Balise %1 depuis le nom de fichier"
 
-msgid "Tag 1 from Filename"
-msgstr "Balise 1 depuis le nom de fichier"
+msgid "Tag &%1"
+msgstr "Balise &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Balise 2 depuis le nom de fichier"
+msgid "From"
+msgstr "De"
+
+msgid "To"
+msgstr "À"
 
 msgid "Edit..."
 msgstr "Modifier..."
@@ -2095,12 +2125,6 @@ msgstr "Validation"
 
 msgid "String replacement:"
 msgstr "Remplacement de chaînes:"
-
-msgid "From"
-msgstr "De"
-
-msgid "To"
-msgstr "À"
 
 msgid "Case conversion:"
 msgstr "Conversion de la casse:"
@@ -2526,6 +2550,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Destination:"
 
+msgid "Tag 1"
+msgstr "Balise 1"
+
+msgid "Tag 2"
+msgstr "Balise 2"
+
 msgid "Profile:"
 msgstr "Profil:"
 
@@ -2573,6 +2603,15 @@ msgstr "Nombre de pistes"
 
 msgid "Action:"
 msgstr "Action:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Depuis balise 2 et balise 1"
+
+msgid "From Tag 1"
+msgstr "Depuis balise 1"
+
+msgid "From Tag 2"
+msgstr "Depuis balise 2"
 
 msgid "Mark truncated fields"
 msgstr "Marquer les champs tronqués"
@@ -2639,6 +2678,9 @@ msgstr "Format depuis le nom de fichier"
 
 msgid "To Filename"
 msgstr "Au nom de fichier"
+
+msgid "To Tag %1"
+msgstr "À balise %1"
 
 msgid "Select All"
 msgstr "Sélectionner tout"

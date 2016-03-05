@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -227,11 +227,8 @@ msgstr "Dosya"
 msgid "Name"
 msgstr "İsim"
 
-msgid "Tag 2"
-msgstr "Tag 2"
-
-msgid "Tag 1"
-msgstr "Tag 1"
+msgid "Tag %1"
+msgstr "Tag %1"
 
 msgid "Tags"
 msgstr "Etiketler"
@@ -395,14 +392,17 @@ msgstr "S&onraki Dosya"
 msgid "Select next file"
 msgstr "Sonraki dosya"
 
+msgid "Filename"
+msgstr "Dosya Adı"
+
+msgid "From Tag %1"
+msgstr "Tag %1'den"
+
 msgid "From Filename"
 msgstr "Dosya adından"
 
-msgid "From Tag 2"
-msgstr "Tag 2'den"
-
-msgid "From Tag 1"
-msgstr "Tag 1'den"
+msgid "Focus"
+msgstr "Odaklama"
 
 msgid "Frames:"
 msgstr "Çerçeve:"
@@ -415,12 +415,6 @@ msgstr "Ekle"
 
 msgid "Delete"
 msgstr "Sil"
-
-msgid "Filename"
-msgstr "Dosya Adı"
-
-msgid "Focus"
-msgstr "Odaklama"
 
 msgid "File List"
 msgstr "Dosya Listesi"
@@ -1442,6 +1436,45 @@ msgstr "Başlık sıralaması"
 msgid "TV Season"
 msgstr "Sezon"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Boyutlar"
+
+msgid "Dots Per Inch"
+msgstr "Inç başına nokta"
+
+msgid "Keywords"
+msgstr "Anahtar sözcükler"
+
+msgid "Lightness"
+msgstr "Işık etkisi"
+
+msgid "Number of Colors"
+msgstr "Renk sayısı"
+
+msgid "Subject"
+msgstr "Konu"
+
+msgid "Sharpness"
+msgstr "Keskinlik"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 ve Tag 2"
+
+msgid "All Tags"
+msgstr "Tüm etiketler"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 piksel PNG dosya ikonu"
 
@@ -1519,9 +1552,6 @@ msgstr "Otomatik al"
 
 msgid "D&estination:"
 msgstr "H&edef:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 ve Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
@@ -1893,9 +1923,6 @@ msgstr "Dizin Yarat"
 msgid "&Action:"
 msgstr "&Eylem:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Tag 2 ve Tag 1'den"
-
 msgid "From:"
 msgstr "Şuradan:"
 
@@ -2029,17 +2056,20 @@ msgstr "D&osya"
 msgid "Name:"
 msgstr "İsim:"
 
-msgid "Filename from Tag 1"
-msgstr "Dosya adı tag 1'den"
+msgid "Filename from Tag %1"
+msgstr "Dosya adı tag %1'den"
 
-msgid "Filename from Tag 2"
-msgstr "Dosya adı tag 2'den"
+msgid "Tag %1 from Filename"
+msgstr "Tag %1 dosya adından"
 
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 dosya adından"
+msgid "Tag &%1"
+msgstr "Tag &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 dosya adından"
+msgid "From"
+msgstr "Şuradan"
+
+msgid "To"
+msgstr "Şuraya"
 
 msgid "Edit..."
 msgstr "Düzen..."
@@ -2094,12 +2124,6 @@ msgstr "Doğrulama"
 
 msgid "String replacement:"
 msgstr ""
-
-msgid "From"
-msgstr "Şuradan"
-
-msgid "To"
-msgstr "Şuraya"
 
 msgid "Case conversion:"
 msgstr ""
@@ -2525,6 +2549,12 @@ msgstr "Tamam"
 msgid "Destination:"
 msgstr "Hedef:"
 
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
 msgid "Profile:"
 msgstr "Profil:"
 
@@ -2572,6 +2602,15 @@ msgstr "Toplam Parça Sayısı"
 
 msgid "Action:"
 msgstr "Eylem:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Tag 2 ve Tag 1'den"
+
+msgid "From Tag 1"
+msgstr "Tag 1'den"
+
+msgid "From Tag 2"
+msgstr "Tag 2'den"
 
 msgid "Mark truncated fields"
 msgstr ""
@@ -2638,6 +2677,9 @@ msgstr "Dosya adı Biçimi"
 
 msgid "To Filename"
 msgstr "Dosya adı için"
+
+msgid "To Tag %1"
+msgstr "Tag %1'için"
 
 msgid "Select All"
 msgstr "Tümünü Seç"

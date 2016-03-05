@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -230,11 +230,8 @@ msgstr "檔案"
 msgid "Name"
 msgstr "名稱"
 
-msgid "Tag 2"
-msgstr "標籤 2"
-
-msgid "Tag 1"
-msgstr "標籤 1"
+msgid "Tag %1"
+msgstr "標籤 %1"
 
 msgid "Tags"
 msgstr "標籤"
@@ -398,14 +395,17 @@ msgstr "下一個檔案(&N)"
 msgid "Select next file"
 msgstr "選擇下一個檔案"
 
+msgid "Filename"
+msgstr "檔名"
+
+msgid "From Tag %1"
+msgstr "從標籤 %1"
+
 msgid "From Filename"
 msgstr "從檔名"
 
-msgid "From Tag 2"
-msgstr "從標籤 2"
-
-msgid "From Tag 1"
-msgstr "從標籤 1"
+msgid "Focus"
+msgstr "焦點"
 
 msgid "Frames:"
 msgstr "訊框："
@@ -418,12 +418,6 @@ msgstr "新增"
 
 msgid "Delete"
 msgstr "刪除"
-
-msgid "Filename"
-msgstr "檔名"
-
-msgid "Focus"
-msgstr "焦點"
 
 msgid "File List"
 msgstr "檔案清單"
@@ -1445,6 +1439,45 @@ msgstr "標題排序順序"
 msgid "TV Season"
 msgstr "花牌"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "尺寸"
+
+msgid "Dots Per Inch"
+msgstr "解析度"
+
+msgid "Keywords"
+msgstr "關鍵字"
+
+msgid "Lightness"
+msgstr "亮度"
+
+msgid "Number of Colors"
+msgstr "顏色數目"
+
+msgid "Subject"
+msgstr "主題"
+
+msgid "Sharpness"
+msgstr "銳利度"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "標籤 1 與 標籤 2"
+
+msgid "All Tags"
+msgstr "所有標籤"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 檔圖示"
 
@@ -1522,9 +1555,6 @@ msgstr "自動匯入"
 
 msgid "D&estination:"
 msgstr "目的(&E)："
-
-msgid "Tag 1 and Tag 2"
-msgstr "標籤 1 與 標籤 2"
 
 msgid "&Profile:"
 msgstr "設定檔(&P):"
@@ -1896,9 +1926,6 @@ msgstr "建立目錄"
 msgid "&Action:"
 msgstr "動作(&A):"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "從 標籤 2 與 標籤 1"
-
 msgid "From:"
 msgstr "從："
 
@@ -2032,17 +2059,20 @@ msgstr "檔案(&I)"
 msgid "Name:"
 msgstr "檔案名稱:"
 
-msgid "Filename from Tag 1"
-msgstr "檔名從標籤 1"
+msgid "Filename from Tag %1"
+msgstr "檔名從標籤 %1"
 
-msgid "Filename from Tag 2"
-msgstr "檔名從標籤 2"
+msgid "Tag %1 from Filename"
+msgstr "標籤 %1從檔名"
 
-msgid "Tag 1 from Filename"
-msgstr "標籤 1從檔名"
+msgid "Tag &%1"
+msgstr "標籤 &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "標籤 2從檔名"
+msgid "From"
+msgstr "從"
+
+msgid "To"
+msgstr "至"
 
 msgid "Edit..."
 msgstr "編輯..."
@@ -2097,12 +2127,6 @@ msgstr "驗證"
 
 msgid "String replacement:"
 msgstr "字詞替換:"
-
-msgid "From"
-msgstr "從"
-
-msgid "To"
-msgstr "至"
 
 msgid "Case conversion:"
 msgstr "大小寫的轉換:"
@@ -2527,6 +2551,12 @@ msgstr "確定"
 msgid "Destination:"
 msgstr "到:"
 
+msgid "Tag 1"
+msgstr "標籤 1"
+
+msgid "Tag 2"
+msgstr "標籤 2"
+
 msgid "Profile:"
 msgstr "設定檔:"
 
@@ -2574,6 +2604,15 @@ msgstr "音軌編號"
 
 msgid "Action:"
 msgstr "動作:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "從 標籤 2 與 標籤 1"
+
+msgid "From Tag 1"
+msgstr "從標籤 1"
+
+msgid "From Tag 2"
+msgstr "從標籤 2"
 
 msgid "Mark truncated fields"
 msgstr "標記被截斷的欄位"
@@ -2640,6 +2679,9 @@ msgstr "檔案名稱格式"
 
 msgid "To Filename"
 msgstr "到檔名"
+
+msgid "To Tag %1"
+msgstr "到標籤 %1"
 
 msgid "Select All"
 msgstr "全選"

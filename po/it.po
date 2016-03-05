@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -227,11 +227,8 @@ msgstr "File"
 msgid "Name"
 msgstr "Nome"
 
-msgid "Tag 2"
-msgstr "Tag 2"
-
-msgid "Tag 1"
-msgstr "Tag 1"
+msgid "Tag %1"
+msgstr "Tag %1"
 
 msgid "Tags"
 msgstr "Tag"
@@ -395,14 +392,17 @@ msgstr "File &successivo"
 msgid "Select next file"
 msgstr "Seleziona file successivo"
 
+msgid "Filename"
+msgstr "Nome file"
+
+msgid "From Tag %1"
+msgstr "Da Tag %1"
+
 msgid "From Filename"
 msgstr "Dal Nome file"
 
-msgid "From Tag 2"
-msgstr "Da Tag 2"
-
-msgid "From Tag 1"
-msgstr "Da Tag 1"
+msgid "Focus"
+msgstr "Punto focale"
 
 msgid "Frames:"
 msgstr "Frame:"
@@ -415,12 +415,6 @@ msgstr "Aggiungi"
 
 msgid "Delete"
 msgstr "Elimina"
-
-msgid "Filename"
-msgstr "Nome file"
-
-msgid "Focus"
-msgstr "Punto focale"
 
 msgid "File List"
 msgstr "Lista File"
@@ -1441,6 +1435,46 @@ msgstr "TV Show"
 msgid "TV Season"
 msgstr "Stagione"
 
+msgid "Archival Location"
+msgstr ""
+
+#, fuzzy
+msgid "Commissioned"
+msgstr "Comando"
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Dimensioni"
+
+msgid "Dots Per Inch"
+msgstr ""
+
+msgid "Keywords"
+msgstr "Parole chiave"
+
+msgid "Lightness"
+msgstr "Luminosità"
+
+msgid "Number of Colors"
+msgstr "Numero di colori"
+
+msgid "Subject"
+msgstr "Oggetto"
+
+msgid "Sharpness"
+msgstr "Nitidezza"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 e Tag 2"
+
+msgid "All Tags"
+msgstr "Tutti i Tag"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Icona file PNG da 32x32 pixel"
 
@@ -1518,9 +1552,6 @@ msgstr "Importa automaticamente"
 
 msgid "D&estination:"
 msgstr "D&estinazione:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 e Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profilo:"
@@ -1891,9 +1922,6 @@ msgstr "Crea cartella"
 msgid "&Action:"
 msgstr "&Azione:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "Da Tag 2 e Tag 1"
-
 msgid "From:"
 msgstr "Da:"
 
@@ -2028,17 +2056,20 @@ msgstr "F&ile"
 msgid "Name:"
 msgstr "Nome:"
 
-msgid "Filename from Tag 1"
-msgstr "Nome file da Tag 1"
+msgid "Filename from Tag %1"
+msgstr "Nome file da Tag %1"
 
-msgid "Filename from Tag 2"
-msgstr "Nome file da Tag 2"
+msgid "Tag %1 from Filename"
+msgstr "Tag %1 dal Nome file"
 
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 dal Nome file"
+msgid "Tag &%1"
+msgstr "Tag &%1"
 
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 dal Nome file"
+msgid "From"
+msgstr "Da"
+
+msgid "To"
+msgstr "A"
 
 msgid "Edit..."
 msgstr "Modifica..."
@@ -2093,12 +2124,6 @@ msgstr "Convalida"
 
 msgid "String replacement:"
 msgstr "Sostituzione stringa:"
-
-msgid "From"
-msgstr "Da"
-
-msgid "To"
-msgstr "A"
 
 msgid "Case conversion:"
 msgstr "Maiuscole/minuscole:"
@@ -2523,6 +2548,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Destinazione:"
 
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
 msgid "Profile:"
 msgstr "Profilo:"
 
@@ -2570,6 +2601,15 @@ msgstr "Numero delle tracce"
 
 msgid "Action:"
 msgstr "Azione:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Da Tag 2 e Tag 1"
+
+msgid "From Tag 1"
+msgstr "Da Tag 1"
+
+msgid "From Tag 2"
+msgstr "Da Tag 2"
 
 msgid "Mark truncated fields"
 msgstr "Evidenzia i campi troncati"
@@ -2636,6 +2676,9 @@ msgstr "Formato dal nome file"
 
 msgid "To Filename"
 msgstr "Al nome file"
+
+msgid "To Tag %1"
+msgstr "Al Tag %1"
 
 msgid "Select All"
 msgstr "Seleziona tutto"

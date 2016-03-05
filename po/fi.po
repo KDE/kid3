@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-01-09 10:45+0100\n"
+"POT-Creation-Date: 2016-03-05 14:25+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -228,11 +228,8 @@ msgstr "Tiedosto"
 msgid "Name"
 msgstr "Nimi"
 
-msgid "Tag 2"
-msgstr "2-tunniste"
-
-msgid "Tag 1"
-msgstr "1-tunniste"
+msgid "Tag %1"
+msgstr "%1-tunniste"
 
 msgid "Tags"
 msgstr "Tunnisteet"
@@ -396,14 +393,17 @@ msgstr "&Seuraava tiedosto"
 msgid "Select next file"
 msgstr "Seuraava tiedosto"
 
+msgid "Filename"
+msgstr "Tiedostonimi"
+
+msgid "From Tag %1"
+msgstr "%1-tunnisteesta"
+
 msgid "From Filename"
 msgstr "Tiedostonimestä"
 
-msgid "From Tag 2"
-msgstr "2-tunnisteesta"
-
-msgid "From Tag 1"
-msgstr "1-tunnisteesta"
+msgid "Focus"
+msgstr "Kohdistus"
 
 msgid "Frames:"
 msgstr "Kehykset:"
@@ -416,12 +416,6 @@ msgstr "Lisää"
 
 msgid "Delete"
 msgstr "Poista"
-
-msgid "Filename"
-msgstr "Tiedostonimi"
-
-msgid "Focus"
-msgstr "Kohdistus"
 
 msgid "File List"
 msgstr "Tiedostoluettelo"
@@ -1442,6 +1436,45 @@ msgstr "Ohjelmat"
 msgid "TV Season"
 msgstr "Vuodenaika"
 
+msgid "Archival Location"
+msgstr ""
+
+msgid "Commissioned"
+msgstr ""
+
+msgid "Cropped"
+msgstr ""
+
+msgid "Dimensions"
+msgstr "Mitat"
+
+msgid "Dots Per Inch"
+msgstr "Pisteitä tuumaa kohden"
+
+msgid "Keywords"
+msgstr "Avainsanat"
+
+msgid "Lightness"
+msgstr "Valoisuus"
+
+msgid "Number of Colors"
+msgstr "Värien määrä"
+
+msgid "Subject"
+msgstr "Aihe"
+
+msgid "Sharpness"
+msgstr "Terävyys"
+
+msgid "Source Form"
+msgstr ""
+
+msgid "Tag 1 and Tag 2"
+msgstr "1- ja 2-tunnisteet"
+
+msgid "All Tags"
+msgstr "Kaikki tunnisteet"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32×32 pisteen PNG-kuvake"
 
@@ -1519,9 +1552,6 @@ msgstr "Tuo automaattisesti"
 
 msgid "D&estination:"
 msgstr "Koh&de:"
-
-msgid "Tag 1 and Tag 2"
-msgstr "1- ja 2-tunnisteet"
 
 msgid "&Profile:"
 msgstr "&Profiili:"
@@ -1892,9 +1922,6 @@ msgstr "Luo kansio"
 msgid "&Action:"
 msgstr "T&oiminto:"
 
-msgid "From Tag 2 and Tag 1"
-msgstr "2- ja 1-tunnisteista"
-
 msgid "From:"
 msgstr "Alkuperäinen:"
 
@@ -2030,17 +2057,20 @@ msgstr "T&iedosto"
 msgid "Name:"
 msgstr "Nimi:"
 
-msgid "Filename from Tag 1"
-msgstr "Tiedostonimi 1-tunnisteesta"
+msgid "Filename from Tag %1"
+msgstr "Tiedostonimi %1-tunnisteesta"
 
-msgid "Filename from Tag 2"
-msgstr "Tiedostonimi 2-tunnisteesta"
+msgid "Tag %1 from Filename"
+msgstr "%1-tunniste tiedostonimestä"
 
-msgid "Tag 1 from Filename"
-msgstr "1-tunniste tiedostonimestä"
+msgid "Tag &%1"
+msgstr "&%1-tunniste"
 
-msgid "Tag 2 from Filename"
-msgstr "2-tunniste tiedostonimestä"
+msgid "From"
+msgstr "Korvattava"
+
+msgid "To"
+msgstr "Korvaava"
 
 msgid "Edit..."
 msgstr "Muokkaa..."
@@ -2095,12 +2125,6 @@ msgstr "Tarkistus"
 
 msgid "String replacement:"
 msgstr "Merkkijonojen korvaus:"
-
-msgid "From"
-msgstr "Korvattava"
-
-msgid "To"
-msgstr "Korvaava"
 
 msgid "Case conversion:"
 msgstr "Kirjaintason muunnos:"
@@ -2526,6 +2550,12 @@ msgstr "OK"
 msgid "Destination:"
 msgstr "Kohde:"
 
+msgid "Tag 1"
+msgstr "1-tunniste"
+
+msgid "Tag 2"
+msgstr "2-tunniste"
+
 msgid "Profile:"
 msgstr "Profiili:"
 
@@ -2573,6 +2603,15 @@ msgstr "Kappaleiden lukumäärä"
 
 msgid "Action:"
 msgstr "Toiminto:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "2- ja 1-tunnisteista"
+
+msgid "From Tag 1"
+msgstr "1-tunnisteesta"
+
+msgid "From Tag 2"
+msgstr "2-tunnisteesta"
 
 msgid "Mark truncated fields"
 msgstr "Merkitse lyhennetyt kentät"
@@ -2639,6 +2678,9 @@ msgstr "Tiedostonimi muoto"
 
 msgid "To Filename"
 msgstr "Määrittää tiedostonimi"
+
+msgid "To Tag %1"
+msgstr "%1-tunnisteella"
 
 msgid "Select All"
 msgstr "Valitse kaikki"
