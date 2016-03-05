@@ -66,7 +66,7 @@ libflac_version=1.3.1
 libflac_patchlevel=4
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
-taglib_version=1.11beta
+taglib_version=1.11beta2
 chromaprint_version=1.3
 chromaprint_patchlevel=1
 mp4v2_version=2.0.0
@@ -2401,7 +2401,7 @@ EOF
       chmod +x kid3/make_package.sh
     else
       taglib_config_version=$taglib_version
-      taglib_config_version=${taglib_config_version%beta}
+      taglib_config_version=${taglib_config_version%beta*}
       cat >kid3/build.sh <<EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
