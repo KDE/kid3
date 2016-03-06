@@ -1719,6 +1719,87 @@ diff -ruN mp4v2-2.0.0.orig/libplatform/platform_win32_impl.h mp4v2-2.0.0/libplat
 +
 +}}} // namespace mp4v2::platform::win32
 EOF
+
+test -f vorbis_alloc_on_heap.patch ||
+cat >vorbis_alloc_on_heap.patch <<"EOF"
+From: Ralph Giles <giles@thaumas.net>
+Date: Tue, 13 Oct 2015 22:32:59 +0000 (-0700)
+Subject: Allocate comment temporaries on the heap.
+X-Git-Url: https://git.xiph.org/?p=vorbis.git;a=commitdiff_plain;h=c75b3b1282de1010883aa1391bc8ea31dc8ac98e
+
+Allocate comment temporaries on the heap.
+
+Use malloc/free instead of the more convenient alloca for
+comment data. Album art can easily be larger than the local
+stack limit and crash the process.
+
+Thanks to Robert Kausch for the suggestion.
+---
+
+diff --git a/lib/info.c b/lib/info.c
+index e447a0c..b8f25ee 100644
+--- a/lib/info.c
++++ b/lib/info.c
+@@ -65,11 +65,13 @@ void vorbis_comment_add(vorbis_comment *vc,const char *comment){
+ }
+ 
+ void vorbis_comment_add_tag(vorbis_comment *vc, const char *tag, const char *contents){
+-  char *comment=alloca(strlen(tag)+strlen(contents)+2); /* +2 for = and \0 */
++  /* Length for key and value +2 for = and \0 */
++  char *comment=_ogg_malloc(strlen(tag)+strlen(contents)+2);
+   strcpy(comment, tag);
+   strcat(comment, "=");
+   strcat(comment, contents);
+   vorbis_comment_add(vc, comment);
++  _ogg_free(comment);
+ }
+ 
+ /* This is more or less the same as strncasecmp - but that doesn't exist
+@@ -88,27 +90,30 @@ char *vorbis_comment_query(vorbis_comment *vc, const char *tag, int count){
+   long i;
+   int found = 0;
+   int taglen = strlen(tag)+1; /* +1 for the = we append */
+-  char *fulltag = alloca(taglen+ 1);
++  char *fulltag = _ogg_malloc(taglen+1);
+ 
+   strcpy(fulltag, tag);
+   strcat(fulltag, "=");
+ 
+   for(i=0;i<vc->comments;i++){
+     if(!tagcompare(vc->user_comments[i], fulltag, taglen)){
+-      if(count == found)
++      if(count == found) {
+         /* We return a pointer to the data, not a copy */
+-              return vc->user_comments[i] + taglen;
+-      else
++        _ogg_free(fulltag);
++        return vc->user_comments[i] + taglen;
++      } else {
+         found++;
++      }
+     }
+   }
++  _ogg_free(fulltag);
+   return NULL; /* didn't find anything */
+ }
+ 
+ int vorbis_comment_query_count(vorbis_comment *vc, const char *tag){
+   int i,count=0;
+   int taglen = strlen(tag)+1; /* +1 for the = we append */
+-  char *fulltag = alloca(taglen+1);
++  char *fulltag = _ogg_malloc(taglen+1);
+   strcpy(fulltag,tag);
+   strcat(fulltag, "=");
+ 
+@@ -117,6 +122,7 @@ int vorbis_comment_query_count(vorbis_comment *vc, const char *tag){
+       count++;
+   }
+ 
++  _ogg_free(fulltag);
+   return count;
+ }
+ 
+EOF
 cd ..
 
 
@@ -1752,6 +1833,9 @@ tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
 cd libvorbis-${libvorbis_version}/
 unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+if test $libvorbis_version = "1.3.5"; then
+  patch -p1 <../source/vorbis_alloc_on_heap.patch
+fi
 test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
 sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
 cd ..
