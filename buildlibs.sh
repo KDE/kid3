@@ -72,9 +72,15 @@ chromaprint_patchlevel=1
 mp4v2_version=2.0.0
 mp4v2_patchlevel=4
 
+FLAC_BUILD_OPTION="--enable-debug"
+ID3LIB_BUILD_OPTION="--enable-debug=minimum"
+AV_BUILD_OPTION="--enable-debug=1"
+CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 # Uncomment for debug build
-#ENABLE_DEBUG=--enable-debug
-#CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
+#FLAC_BUILD_OPTION="--enable-debug"
+#ID3LIB_BUILD_OPTION="--enable-debug=yes"
+#AV_BUILD_OPTION="--enable-debug=3"
+#CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
 
 if ! which cmake >/dev/null; then
   echo cmake not found.
@@ -1901,7 +1907,7 @@ fi
 echo "### Extracting ffmpeg"
 
 if test -n "${ffmpeg_version}"; then
-unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x
+unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
 cd ffmpeg-${ffmpeg_version}/
 unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
@@ -2093,10 +2099,10 @@ if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 elif test "$compiler" = "cross-mingw"; then
-make -f win32/Makefile.gcc PREFIX=${cross_host}-
+make -f win32/Makefile.gcc LOC=-g PREFIX=${cross_host}-
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
-CFLAGS="$CFLAGS -O3 -Wall -DNO_FSEEKO" ./configure --static
+CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
 mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
@@ -2110,7 +2116,7 @@ if test ! -d libogg-${libogg_version}/inst; then
 echo "### Building libogg"
 
 cd libogg-${libogg_version}/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes $CONFIGURE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -2124,9 +2130,9 @@ echo "### Building libvorbis"
 
 cd libvorbis-${libvorbis_version}/
 if test "$compiler" = "cross-mingw"; then
-test -f Makefile || PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS
+test -f Makefile || CFLAGS=-g PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
 else
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS
+test -f Makefile || CFLAGS=-g ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
 fi
 make
 mkdir -p inst
@@ -2141,7 +2147,7 @@ echo "### Building libflac"
 
 cd flac-${libflac_version}/
 autoreconf -i
-configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS"
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local --disable-thorough-tests --disable-doxygen-docs --disable-xmms-plugin $FLAC_BUILD_OPTION $CONFIGURE_OPTIONS"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
@@ -2149,7 +2155,7 @@ test -f Makefile || ./configure $configure_args
 # On msys32, an error "changed before entering" occurred, can be fixed by
 # modifying /usr/share/perl5/core_perl/File/Path.pm
 # my $Need_Stat_Check = !($^O eq 'MSWin32' || $^O eq 'msys');
-make
+make V=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
@@ -2161,8 +2167,11 @@ if test ! -d id3lib-${id3lib_version}/inst; then
 echo "### Building id3lib"
 
 cd id3lib-${id3lib_version}/
+if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+  sed -i 's/^@ID3_NEEDDEBUG_TRUE@ID3_DEBUG_LIBS = -lcwd -lbfd -liberty$/@ID3_NEEDDEBUG_TRUE@ID3_DEBUG_LIBS =/' examples/Makefile.in
+fi
 autoconf
-configure_args="--enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS"
+configure_args="--enable-shared=no --enable-static=yes $ID3LIB_BUILD_OPTION $CONFIGURE_OPTIONS"
 if test $kernel = "MINGW"; then
   configure_args="$configure_args --build=mingw32"
 fi
@@ -2179,8 +2188,8 @@ if test ! -d taglib-${taglib_version}/inst; then
 echo "### Building taglib"
 
 cd taglib-${taglib_version}/
-test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib $taglib_static_option -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
-make
+test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib $taglib_static_option -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+make VERBOSE=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
@@ -2206,11 +2215,7 @@ if test "$compiler" = "cross-mingw"; then
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
 AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
 fi
-if test -z "$ENABLE_DEBUG"; then
-AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
-else
-AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --enable-debug=3"
-fi
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -2319,11 +2324,7 @@ fi
 if ( test $kernel = "Darwin" || test $kernel = "MINGW" ) && test -n "${ffmpeg_version}"; then
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
 fi
-if test -z "$ENABLE_DEBUG"; then
-AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-debug"
-else
-AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --enable-debug=3"
-fi
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -2401,7 +2402,7 @@ fi
 	--enable-decoder=rawvideo \
 	--disable-hwaccel=h264_dxva2 \
 	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
-make
+make V=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
@@ -2415,7 +2416,8 @@ echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-${chromaprint_version}/
-test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+make VERBOSE=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
@@ -2452,7 +2454,7 @@ if test $kernel = "Linux"; then
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
+cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
 EOF
       cat >kid3/make_package.sh <<"EOF"
 #!/bin/sh
@@ -2489,7 +2491,7 @@ EOF
       cat >kid3/build.sh <<EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DBUILD_SHARED_LIBS=OFF -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
     fi
     chmod +x kid3/build.sh
