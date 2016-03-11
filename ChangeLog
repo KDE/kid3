@@ -1,3 +1,20 @@
+Thu Mar 10 17:55:29 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.3.2
+
+	* New:
+	  + Setting for text encoding used in playlists and exports.
+
+	* Improved:
+	  + Support removing tags in MPC, WavPack with TagLib 1.11.
+
+	* Fixed:
+	  + Windows: Fix plugin name in qmldir.
+	  + Windows: Crash when adding large pictures to Ogg files.
+	  + Windows: Go back to older Qt 5.4.2 to avoid random crashes.
+	  + Stripping of ID3v2 tags from WAV files with TagLib 1.11.
+	  + Adapted to Discogs server update.
+
 Thu Dec 17 14:53:06 CET 2015  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.3.1

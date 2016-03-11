@@ -5,14 +5,20 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 9),
-# KDE 4 BEGIN
- libqt4-dev, kdelibs5-dev,
-# KDE 4 END
 # KDE 5 BEGIN
-# extra-cmake-modules, kio-dev, kdoctools-dev,
-# qtmultimedia5-dev, qtdeclarative5-dev, qttools5-dev,
-# qttools5-dev-tools, qtdeclarative5-dev-tools, qml-module-qtquick2,
+ extra-cmake-modules,
+ kio-dev,
+ kdoctools-dev,
+ qtmultimedia5-dev,
+ qtdeclarative5-dev,
+ qttools5-dev,
+ qttools5-dev-tools,
+ qtdeclarative5-dev-tools,
+ qml-module-qtquick2,
 # KDE 5 END
+# KDE 4 BEGIN
+# libqt4-dev, kdelibs5-dev,
+# KDE 4 END
  cmake,
  libid3-3.8.3-dev,
  libflac++-dev,
@@ -96,7 +102,7 @@ Depends: ${shlibs:Depends},
  kid3-core (= ${binary:Version})
 Breaks: kid3 (<< 3.0.2-2)
 Replaces: kid3 (<< 3.0.2-2)
-Description: Audio tag editor
+Description: Command line audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files

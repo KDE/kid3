@@ -40,8 +40,8 @@ else
   qtversion=4
 fi
 
-if test "$qtversion" = "5"; then
-  sed -i -e '/# KDE 4 BEGIN/,/# KDE 4 END/{/# KDE/b;s/^/#/};/# KDE 5 BEGIN/,/# KDE 5 END/{/# KDE/b;s/^#//}' \
+if test "$qtversion" = "4"; then
+  sed -i -e '/# KDE 5 BEGIN/,/# KDE 5 END/{/# KDE/b;s/^/#/};/# KDE 4 BEGIN/,/# KDE 4 END/{/# KDE/b;s/^#//}' \
       debian/control debian/rules debian/kid3.install
 fi
 if test "$distribution" = "squeeze"; then

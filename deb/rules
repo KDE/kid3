@@ -9,16 +9,15 @@ DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
 
-# KDE 4 BEGIN
-BASE_CMAKE_DEFS = -DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
-  -DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
-  -DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
-  -DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg
-# KDE 4 END
 # KDE 5 BEGIN
-#BASE_CMAKE_DEFS = -DWITH_QT5=ON \
-#  -DKDE_INSTALL_BINDIR=$(DEB_CMAKE_PREFIX)/bin -Wno-dev
+BASE_CMAKE_DEFS = -DWITH_QT5=ON -DKDE_INSTALL_BINDIR=$(DEB_CMAKE_PREFIX)/bin -Wno-dev
 # KDE 5 END
+# KDE 4 BEGIN
+#BASE_CMAKE_DEFS = -DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
+#  -DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
+#  -DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
+#  -DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg
+# KDE 4 END
 
 %:
 	dh $@ --parallel --builddirectory=kid3-build
@@ -42,7 +41,7 @@ override_dh_auto_build:
 override_dh_auto_install:
 	dh_auto_install
 # KDE 4 BEGIN
-	-rm $(CURDIR)/debian/tmp/usr/share/doc/kde/HTML/*/kid3/common
+#	-rm $(CURDIR)/debian/tmp/usr/share/doc/kde/HTML/*/kid3/common
 # KDE 4 END
 
 override_dh_makeshlibs:

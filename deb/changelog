@@ -1,8 +1,23 @@
-kid3 (3.3.1-0) unstable; urgency=low
+kid3 (3.3.2-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 17 Dec 2015 14:53:06 +0100
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 10 Mar 2016 17:55:29 +0100
+
+kid3 (3.3.1-2) unstable; urgency=medium
+
+  * Port package to KDE5 and Qt5.
+  * Sync long descriptions with upstream.
+  * Sync doc-base description with upstream.
+  * Add PGP signature.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 22 Dec 2015 10:32:42 +0100
+
+kid3 (3.3.1-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 21 Dec 2015 13:47:27 +0100
 
 kid3 (3.3.0-1) unstable; urgency=medium
 

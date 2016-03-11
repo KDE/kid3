@@ -22,13 +22,13 @@
 </authorgroup>
 
 <copyright>
-<year>2015</year>
+<year>2016</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2015-12-17</date>
-<releaseinfo>3.3.1</releaseinfo>
+<date>2016-03-10</date>
+<releaseinfo>3.3.2</releaseinfo>
 
 <abstract>
 <para>
@@ -2020,6 +2020,9 @@ select the last selected file when it is started the next time.
 the file modification time stamp.
 <guilabel>Filename for cover</guilabel> sets the name which is suggested
 when an embedded image is exported to a file.
+With <guilabel>Text encoding (Export, Playlist)</guilabel> the encoding used
+when writing files can be set. The default <guilabel>System</guilabel> can be
+changed for example if playlists have to be used on a different device.
 </para>
 <para>
 If <guilabel>Mark changes</guilabel> is active, changed fields are marked with

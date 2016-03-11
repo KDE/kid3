@@ -1,13 +1,13 @@
 /usr/bin/kid3
 /usr/share/appdata/kid3.appdata.xml
 /usr/share/icons/hicolor/*/apps/kid3.*
-# KDE 4 BEGIN
-/usr/share/applications/kde4/kid3.desktop
-/usr/share/doc/kde/HTML/*/kid3/*
-/usr/share/kde4/apps/kid3/kid3ui.rc
-# KDE 4 END
 # KDE 5 BEGIN
-#/usr/share/applications/kid3.desktop
-#/usr/share/doc/HTML/*/kid3/*
-#/usr/share/kxmlgui5/kid3/kid3ui.rc
+/usr/share/applications/kid3.desktop
+/usr/share/doc/HTML/*/kid3/*
+/usr/share/kxmlgui5/kid3/kid3ui.rc
 # KDE 5 END
+# KDE 4 BEGIN
+#/usr/share/applications/kde4/kid3.desktop
+#/usr/share/doc/kde/HTML/*/kid3/*
+#/usr/share/kde4/apps/kid3/kid3ui.rc
+# KDE 4 END
