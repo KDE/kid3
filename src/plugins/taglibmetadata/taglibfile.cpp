@@ -854,32 +854,6 @@ void TagLibFile::readTags(bool force)
         markTag2Unchanged();
       }
 #endif
-#if TAGLIB_VERSION >= 0x010b00
-    } else if (TagLib::Vorbis::File* vorbisFile =
-               dynamic_cast<TagLib::Vorbis::File*>(file)) {
-      m_fileExtension = QLatin1String(".ogg");
-      m_tagV1 = 0;
-      markTag1Unchanged();
-      if (!m_tagV2) {
-        m_tagV2 = vorbisFile->tag();
-        markTag2Unchanged();
-      }
-      if (!m_pictures.isRead()) {
-        if (TagLib::Ogg::XiphComment* xiphComment =
-            dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) {
-          TagLib::List<TagLib::FLAC::Picture*> pics(xiphComment->pictureList());
-          int i = 0;
-          for (TagLib::List<TagLib::FLAC::Picture*>::ConstIterator it =
-               pics.begin(); it != pics.end(); ++it) {
-            PictureFrame frame;
-            flacPictureToFrame(*it, frame);
-            frame.setIndex(i++);
-            m_pictures.append(frame);
-          }
-          m_pictures.setRead(true);
-        }
-      }
-#endif
     } else {
       if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".ogg");
@@ -932,6 +906,23 @@ void TagLibFile::readTags(bool force)
         m_tagV2 = m_fileRef.tag();
         markTag2Unchanged();
       }
+#if TAGLIB_VERSION >= 0x010b00
+      if (!m_pictures.isRead()) {
+        if (TagLib::Ogg::XiphComment* xiphComment =
+            dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) {
+          TagLib::List<TagLib::FLAC::Picture*> pics(xiphComment->pictureList());
+          int i = 0;
+          for (TagLib::List<TagLib::FLAC::Picture*>::ConstIterator it =
+               pics.begin(); it != pics.end(); ++it) {
+            PictureFrame frame;
+            flacPictureToFrame(*it, frame);
+            frame.setIndex(i++);
+            m_pictures.append(frame);
+          }
+          m_pictures.setRead(true);
+        }
+      }
+#endif
     }
   }
 
@@ -1203,19 +1194,6 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           }
         }
 #endif
-#if TAGLIB_VERSION >= 0x010b00
-        else if (dynamic_cast<TagLib::Vorbis::File*>(file)) {
-          if (TagLib::Ogg::XiphComment* xiphComment =
-              dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) {
-            xiphComment->removeAllPictures();
-            foreach (const Frame& frame, m_pictures) {
-              TagLib::FLAC::Picture* pic = new TagLib::FLAC::Picture;
-              frameToFlacPicture(frame, pic);
-              xiphComment->addPicture(pic);
-            }
-          }
-        }
-#endif
 #if TAGLIB_VERSION >= 0x010900
         else if (TagLib::RIFF::WAV::File* wavFile =
             dynamic_cast<TagLib::RIFF::WAV::File*>(file)) {
@@ -1231,6 +1209,17 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             markTag1Unchanged();
             markTag2Unchanged();
             needsSave = false;
+          }
+        }
+#endif
+#if TAGLIB_VERSION >= 0x010b00
+        else if (TagLib::Ogg::XiphComment* xiphComment =
+                 dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) {
+          xiphComment->removeAllPictures();
+          foreach (const Frame& frame, m_pictures) {
+            TagLib::FLAC::Picture* pic = new TagLib::FLAC::Picture;
+            frameToFlacPicture(frame, pic);
+            xiphComment->addPicture(pic);
           }
         }
 #endif
@@ -6077,6 +6066,9 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
              it != fieldListMap.end();) {
           oggTag->removeField((*it++).first);
         }
+#if TAGLIB_VERSION >= 0x010700
+        m_pictures.clear();
+#endif
         markTag2Changed(Frame::FT_UnknownFrame);
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
         const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -6130,6 +6122,11 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
             ++it;
           }
         }
+#if TAGLIB_VERSION >= 0x010700
+        if (flt.isEnabled(Frame::FT_Picture)) {
+          m_pictures.clear();
+        }
+#endif
         markTag2Changed(Frame::FT_UnknownFrame);
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
         const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
