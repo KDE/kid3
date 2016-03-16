@@ -2130,9 +2130,9 @@ echo "### Building libvorbis"
 
 cd libvorbis-${libvorbis_version}/
 if test "$compiler" = "cross-mingw"; then
-test -f Makefile || CFLAGS=-g PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
+test -f Makefile || CFLAGS="$CFLAGS -g" PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
 else
-test -f Makefile || CFLAGS=-g ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
+test -f Makefile || CFLAGS="$CFLAGS -g" ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
 fi
 make
 mkdir -p inst
@@ -2175,7 +2175,7 @@ configure_args="--enable-shared=no --enable-static=yes $ID3LIB_BUILD_OPTION $CON
 if test $kernel = "MINGW"; then
   configure_args="$configure_args --build=mingw32"
 fi
-test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure $configure_args
+test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS="$LDFLAGS -L/usr/local/lib" ./configure $configure_args
 SED=sed make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -2434,7 +2434,7 @@ if test $kernel = "MINGW" || test "$compiler" = "cross-mingw" ||
    test $kernel = "Darwin"; then
 autoreconf -i
 fi
-test -f Makefile || CXXFLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
+test -f Makefile || CXXFLAGS="$CXXFLAGS -g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
