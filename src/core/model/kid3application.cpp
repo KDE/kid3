@@ -515,6 +515,17 @@ AudioPlayer* Kid3Application::getAudioPlayer()
   }
   return m_player;
 }
+
+/**
+ * Delete audio player.
+ */
+void Kid3Application::deleteAudioPlayer() {
+  if (m_player) {
+    m_player->stop();
+    delete m_player;
+    m_player = 0;
+  }
+}
 #endif
 
 /**

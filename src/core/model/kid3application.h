@@ -309,9 +309,17 @@ public:
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Get audio player.
+   * This method will create an audio player if it does not already exist.
+   * The returned audio player can be deleted after this call, so objects which
+   * hold a pointer must be deleted before deleteAudioPlayer() is called!
    * @return audio player.
    */
   Q_INVOKABLE AudioPlayer* getAudioPlayer();
+
+  /**
+   * Delete audio player.
+   */
+  void deleteAudioPlayer();
 #endif
 
   /**

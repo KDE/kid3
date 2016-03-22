@@ -252,6 +252,17 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
           progress, SLOT(setValue(int)));
   qApp->processEvents();
 
+#ifdef Q_OS_WIN32
+  // Close player on Windows because it holds file handles which prevent
+  // files from being saved.
+  if (m_playToolBar) {
+    m_playToolBar->close();
+    delete m_playToolBar;
+    m_playToolBar = 0;
+  }
+  m_app->deleteAudioPlayer();
+#endif
+
   QStringList errorFiles = m_app->saveDirectory();
 
   m_w->statusBar()->removeWidget(progress);
