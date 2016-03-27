@@ -1528,7 +1528,7 @@ static bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib:
     // first check if this string needs to be stored as unicode
     TagLib::String::Type enc = getTextEncodingConfig(needsUnicode(qstr));
     TagLib::ByteVector id(frameId);
-    if (enc != TagLib::String::Latin1 || id == "COMM") {
+    if (enc != TagLib::String::Latin1 || id == "COMM" || id == "TDRC") {
       if (id == "COMM") {
         removeCommentFrame(id3v2Tag);
       } else {
@@ -5140,78 +5140,82 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     default:
       return false;
     }
-    if (type == Frame::FT_Date || type == Frame::FT_Track) {
+    if (type == Frame::FT_Date) {
+      int num = frame.getValueAsNumber();
+      if (tagNr == Frame::Tag_Id3v1) {
+        if (num >= 0 && num != static_cast<int>(oldNum)) {
+          tag->setYear(num);
+          markTagChanged(tagNr, type);
+        }
+      } else {
+        if (num >= 0 && num != static_cast<int>(oldNum) &&
+            getDefaultTextEncoding() == TagLib::String::Latin1) {
+          tag->setYear(num);
+          markTagChanged(tagNr, type);
+        } else {
+          QString yearStr;
+          if (num != 0) {
+            yearStr.setNum(num);
+          } else {
+            yearStr = frame.getValue();
+          }
+          TagLib::String tstr = yearStr.isEmpty() ?
+            TagLib::String::null : toTString(yearStr);
+          if (!setId3v2Unicode(tag, yearStr, tstr, frameId)) {
+            tag->setYear(num);
+          }
+          markTagChanged(tagNr, type);
+        }
+      }
+    } else if (type == Frame::FT_Track) {
       int num = frame.getValueAsNumber();
       if (num >= 0 && num != static_cast<int>(oldNum)) {
-        switch (type) {
-        case Frame::FT_Date:
-          if (tagNr == Frame::Tag_Id3v1 || getDefaultTextEncoding() == TagLib::String::Latin1) {
-            tag->setYear(num);
-          } else {
-            QString yearStr;
-            if (num != 0) {
-              yearStr.setNum(num);
-            } else {
-              yearStr = QLatin1String("");
-            }
-            TagLib::String tstr = yearStr.isEmpty() ?
-              TagLib::String::null : toTString(yearStr);
-            if (!setId3v2Unicode(tag, yearStr, tstr, frameId)) {
-              tag->setYear(num);
-            }
+        if (tagNr == Frame::Tag_Id3v1) {
+          int n = checkTruncation(tagNr, num, 1ULL << type);
+          if (n != -1) {
+            num = n;
           }
-          break;
-        case Frame::FT_Track:
-          if (tagNr == Frame::Tag_Id3v1) {
-            int n = checkTruncation(tagNr, num, 1ULL << type);
-            if (n != -1) {
-              num = n;
-            }
-            tag->setTrack(num);
-          } else {
-            int numTracks;
-            num = splitNumberAndTotal(str, &numTracks);
-            QString trackStr = trackNumberString(num, numTracks);
-            if (num != static_cast<int>(oldNum)) {
-              TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag);
+          tag->setTrack(num);
+        } else {
+          int numTracks;
+          num = splitNumberAndTotal(str, &numTracks);
+          QString trackStr = trackNumberString(num, numTracks);
+          if (num != static_cast<int>(oldNum)) {
+            TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag);
 #if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
-              TagLib::MP4::Tag* mp4Tag;
+            TagLib::MP4::Tag* mp4Tag;
 #endif
-              if (id3v2Tag) {
-                TagLib::String tstr = trackStr.isEmpty() ?
-                  TagLib::String::null : toTString(trackStr);
-                if (!setId3v2Unicode(tag, trackStr, tstr, frameId)) {
-                  TagLib::ID3v2::TextIdentificationFrame* frame =
-                      new TagLib::ID3v2::TextIdentificationFrame(
-                        frameId, getDefaultTextEncoding());
-                  frame->setText(tstr);
-                  id3v2Tag->removeFrames(frameId);
+            if (id3v2Tag) {
+              TagLib::String tstr = trackStr.isEmpty() ?
+                TagLib::String::null : toTString(trackStr);
+              if (!setId3v2Unicode(tag, trackStr, tstr, frameId)) {
+                TagLib::ID3v2::TextIdentificationFrame* frame =
+                    new TagLib::ID3v2::TextIdentificationFrame(
+                      frameId, getDefaultTextEncoding());
+                frame->setText(tstr);
+                id3v2Tag->removeFrames(frameId);
 #ifdef Q_OS_WIN32
-                  // freed in Windows DLL => must be allocated in the same DLL
-                  TagLib::ID3v2::Frame* dllAllocatedFrame =
-                    TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-                  if (dllAllocatedFrame) {
-                    id3v2Tag->addFrame(dllAllocatedFrame);
-                  }
-                  delete frame;
-#else
-                  id3v2Tag->addFrame(frame);
-#endif
+                // freed in Windows DLL => must be allocated in the same DLL
+                TagLib::ID3v2::Frame* dllAllocatedFrame =
+                  TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+                if (dllAllocatedFrame) {
+                  id3v2Tag->addFrame(dllAllocatedFrame);
                 }
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
-              } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(tag)) != 0) {
-                // Set a frame in order to store the total number too.
-                Frame frame(Frame::FT_Track, str, QLatin1String(""), -1);
-                setMp4Frame(frame, mp4Tag);
+                delete frame;
+#else
+                id3v2Tag->addFrame(frame);
 #endif
-              } else {
-                tag->setTrack(num);
               }
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+            } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(tag)) != 0) {
+              // Set a frame in order to store the total number too.
+              Frame frame(Frame::FT_Track, str, QLatin1String(""), -1);
+              setMp4Frame(frame, mp4Tag);
+#endif
+            } else {
+              tag->setTrack(num);
             }
           }
-          break;
-        default:
-          return false;
         }
         markTagChanged(tagNr, type);
       }
