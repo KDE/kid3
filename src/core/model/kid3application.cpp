@@ -917,6 +917,25 @@ bool Kid3Application::importTags(Frame::TagVersion tagMask,
 }
 
 /**
+ * Import from tags.
+ *
+ * @param tagMask tag mask
+ * @param source format to get source text from tags
+ * @param extraction regular expression with frame names and captures to
+ * extract from source text
+ */
+void Kid3Application::importFromTags(Frame::TagVersion tagMask,
+                                     const QString& source,
+                                     const QString& extraction)
+{
+  ImportTrackDataVector trackDataVector;
+  filesToTrackData(tagMask, trackDataVector);
+  TextImporter::importFromTags(source, extraction, trackDataVector);
+  getTrackDataModel()->setTrackData(trackDataVector);
+  trackDataModelToFiles(tagMask);
+}
+
+/**
  * Export.
  *
  * @param tagVersion tag version

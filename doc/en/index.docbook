@@ -2501,6 +2501,12 @@ the clipboard if <userinput>clipboard</userinput> is used for
 <replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
 unquoted"</userinput>, see <link linkend="import-text">Import</link>).
 </para>
+<para>If <userinput>tags</userinput> is given for
+<replaceable>FILE</replaceable>, tags are imported from other tags. Instead of
+<replaceable>FORMAT-NAME</replaceable> parameters
+<replaceable>SOURCE</replaceable> and <replaceable>EXTRACTION</replaceable>
+are required, see <link linkend="import-tags">Import from Tags</link>.
+</para>
 </sect2>
 
 <sect2 id="cli-autoimport">
@@ -3927,6 +3933,7 @@ app.openDirectory(path): Open directory
 app.saveDirectory(): Save directory
 app.revertFileModifications(): Revert
 app.importTags(tag, path, fmtIdx): Import file
+app.importFromTags(tag, source, extraction): Import from tags
 app.downloadImage(url, allFilesInDir): Download image
 app.exportTags(tag, path, fmtIdx): Export file
 app.writePlaylist(): Write playlist

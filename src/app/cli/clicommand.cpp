@@ -456,14 +456,24 @@ void RevertCommand::startCommand()
 ImportCommand::ImportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("import"),
              tr("Import from file or clipboard"),
-             QLatin1String("P S [T]\nS = ") + tr("Format name"))
+             QLatin1String("P S [T]\nP S = ") +
+             tr("File path") + QLatin1Char(' ') + tr("Format name") +
+             QLatin1String(" | ") +
+             QLatin1String("clipboard ") + tr("Format name") +
+             QLatin1String("\n    | tags ") + tr("Source") + QLatin1Char(' ') +
+             tr("Extraction"))
 {
 }
 
 void ImportCommand::startCommand()
 {
   int numArgs = args().size();
-  if (numArgs > 2) {
+  if (numArgs > 3 && args().at(1) == QLatin1String("tags")) {
+    const QString& source = args().at(2);
+    const QString& extraction = args().at(3);
+    Frame::TagVersion tagMask = getTagMaskParameter(4);
+    cli()->app()->importFromTags(tagMask, source, extraction);
+  } else if (numArgs > 2) {
     const QString& path = args().at(1);
     const QString& fmtName = args().at(2);
     bool ok;

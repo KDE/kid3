@@ -1136,7 +1136,7 @@ Beispieles erklärt. Die Information im Untertitel soll auch im Kommentar
 gesetzt werden. Dazu wird ein neues Format mit <guibutton>Hinzufügen</guibutton>
 erstellt und ein neuer Name gesetzt, in diesem Beispiel also "Subtitle to
 Comment". Nun gibt man unter <guilabel>Quelle</guilabel> "%{subtitle}" und
-unter <guilabel>Ermittlung</guilabel> "%{comment}(.*)" ein und
+unter <guilabel>Extraktion</guilabel> "%{comment}(.*)" ein und
 klickt <guibutton>Einstellungen speichern</guibutton>.
 </para>
 <para>
@@ -2652,6 +2652,13 @@ von der Zwischenablage falls <userinput>clipboard</userinput> für
 <replaceable>FORMATNAME</replaceable> (z.B. <userinput>"CSV
 unquoted"</userinput>, siehe <link linkend="import-text">Importieren</link>).
 </para>
+<para>Falls für <replaceable>DATEI</replaceable> <userinput>tags</userinput>
+angegeben wird, so wird aus anderen Tags importiert. Anstelle von
+<replaceable>FORMATNAME</replaceable> werden dann
+<replaceable>QUELLE</replaceable> und <replaceable>EXTRAKTION</replaceable>
+als Parameter verlangt, siehe <link linkend="import-tags">Importieren von
+Tags</link>.
+</para>
 </sect2>
 
 <sect2 id="cli-autoimport">
@@ -4098,6 +4105,7 @@ app.openDirectory(path): Verzeichnis öffnen
 app.saveDirectory(): Speichern
 app.revertFileModifications(): Zuletzt gespeicherte Fassung
 app.importTags(tag, path, fmtIdx): Datei importieren
+app.importFromTags(tag, source, extraction): Aus Tags importieren
 app.downloadImage(url, allFilesInDir): Bild herunterladen
 app.exportTags(tag, path, fmtIdx): Datei exportieren
 app.writePlaylist(): Stückliste erstellen

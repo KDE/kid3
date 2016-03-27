@@ -240,7 +240,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
                  AbstractCliIO* io, QObject* parent) :
   AbstractCli(io, parent),
   m_app(app),
-  m_tagMask(Frame::TagVAll), m_timeoutMs(0), m_fileNameChanged(false)
+  m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
 {
   m_cmds << new HelpCommand(this)
          << new TimeoutCommand(this)
