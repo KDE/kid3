@@ -401,8 +401,9 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "SUBTITLE",        // FT_Subtitle,
     "WEBSITE",         // FT_Website,
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
-    "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
-                       // FT_LastFrame = FT_WWWAudioSource
+    "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
+    "RELEASEDATE"      // FT_ReleaseDate,
+                       // FT_LastFrame = FT_ReleaseDate
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -835,7 +836,6 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
     "PRODUCER",
     "PRODUCTNUMBER",
     "RECORDINGDATE",
-    "RELEASEDATE",
     "TRACKTOTAL",
     "VERSION",
     "VOLUME"

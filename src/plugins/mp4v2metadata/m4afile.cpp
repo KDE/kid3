@@ -178,7 +178,8 @@ freeFormNameTypes[] = {
   { "SUBTITLE", Frame::FT_Subtitle },
   { "WEBSITE", Frame::FT_Website },
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile },
-  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource }
+  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource },
+  { "RELEASEDATE", Frame::FT_ReleaseDate }
 };
 
 /**

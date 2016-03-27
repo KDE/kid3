@@ -1968,7 +1968,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDLY - Playlist delay"), true },
   { Frame::FT_OriginalDate,   QT_TRANSLATE_NOOP("@default", "TDOR - Original release time"), true },
   { Frame::FT_Date,           QT_TRANSLATE_NOOP("@default", "TDRC - Recording time"), true },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDRL - Release time"), true },
+  { Frame::FT_ReleaseDate,    QT_TRANSLATE_NOOP("@default", "TDRL - Release time"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDTG - Tagging time"), true },
   { Frame::FT_EncodedBy,      QT_TRANSLATE_NOOP("@default", "TENC - Encoded by"), true },
   { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer"), true },
@@ -3837,8 +3837,9 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "SUBTITLE",        // FT_Subtitle,
     "WEBSITE",         // FT_Website,
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
-    "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
-                       // FT_LastFrame = FT_WWWAudioSource
+    "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
+    "RELEASEDATE"      // FT_ReleaseDate,
+                       // FT_LastFrame = FT_ReleaseDate
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -4069,7 +4070,8 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "SUBTITLE", Frame::FT_Subtitle, MVT_String },
   { "WEBSITE", Frame::FT_Website, MVT_String },
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile, MVT_String },
-  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource, MVT_String }
+  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource, MVT_String },
+  { "RELEASEDATE", Frame::FT_ReleaseDate, MVT_String }
 };
 
 /**
@@ -4755,8 +4757,9 @@ static const char* getInfoNameFromType(Frame::Type type)
     0,      // FT_Subtitle,
     "IBSU", // FT_Website,
     0,      // FT_WWWAudioFile,
-    "ISRC"  // FT_WWWAudioSource,
-            // FT_LastFrame = FT_WWWAudioSource
+    "ISRC", // FT_WWWAudioSource,
+    0       // FT_ReleaseDate,
+            // FT_LastFrame = FT_ReleaseDate
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -6557,7 +6560,6 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       "PRODUCER",
       "PRODUCTNUMBER",
       "RECORDINGDATE",
-      "RELEASEDATE",
       "TRACKTOTAL",
       "VERSION",
       "VOLUME"

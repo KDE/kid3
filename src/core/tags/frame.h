@@ -94,7 +94,8 @@ public:
     FT_Website,
     FT_WWWAudioFile,
     FT_WWWAudioSource,
-    FT_LastFrame = FT_WWWAudioSource,
+    FT_ReleaseDate,
+    FT_LastFrame = FT_ReleaseDate,
     FT_Other,
     FT_UnknownFrame
   };

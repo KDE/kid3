@@ -148,8 +148,9 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Subtitle"),        // FT_Subtitle,
     QT_TRANSLATE_NOOP("@default", "Website"),         // FT_Website,
     QT_TRANSLATE_NOOP("@default", "WWW Audio File"),  // FT_WWWAudioFile,
-    QT_TRANSLATE_NOOP("@default", "WWW Audio Source") // FT_WWWAudioSource,
-                                  // FT_LastFrame = FT_WWWAudioSource
+    QT_TRANSLATE_NOOP("@default", "WWW Audio Source"), // FT_WWWAudioSource,
+    QT_TRANSLATE_NOOP("@default", "Release Date")     // FT_ReleaseDate,
+                                  // FT_LastFrame = FT_ReleaseDate
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -571,7 +572,6 @@ QString Frame::getDisplayName(const QString& name)
     { "PRODUCER", QT_TRANSLATE_NOOP("@default", "Producer") },
     { "PRODUCTNUMBER", QT_TRANSLATE_NOOP("@default", "Product Number") },
     { "RECORDINGDATE", QT_TRANSLATE_NOOP("@default", "Recording Date") },
-    { "RELEASEDATE", QT_TRANSLATE_NOOP("@default", "Release Date") },
     { "REMIXEDBY", QT_TRANSLATE_NOOP("@default", "Remixer") },
     { "Rating", QT_TRANSLATE_NOOP("@default", "Rating") },
     { "TOTALDISCS", QT_TRANSLATE_NOOP("@default", "Total Discs") },
