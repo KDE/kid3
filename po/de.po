@@ -1360,7 +1360,7 @@ msgid "Product Number"
 msgstr "Produktnummer"
 
 msgid "Release Date"
-msgstr "Datum der Veröffentlichung"
+msgstr "Erscheinungsdatum"
 
 msgid "Total Tracks"
 msgstr "Anzahl Stücke"

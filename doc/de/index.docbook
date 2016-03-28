@@ -675,6 +675,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Bild</entry>             <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
        <row><entry>Herausgeber</entry>      <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
        <row><entry>Veröffentlichungsland</entry> <entry>TXXX:RELEASECOUNTRY</entry> <entry>TXXX:RELEASECOUNTRY</entry>  <entry></entry> <entry></entry>           <entry>RELEASECOUNTRY</entry></row>
+       <row><entry>Erscheinungsdatum</entry> <entry></entry>       <entry>TDRL</entry>    <entry>RELEASEDATE</entry>    <entry></entry>                           <entry>RELEASEDATE</entry></row>
        <row><entry>Remixer</entry>          <entry>TPE4</entry>    <entry>TPE4</entry>    <entry>REMIXER</entry>        <entry>WM/ModifiedBy</entry>              <entry>REMIXER</entry></row>
        <row><entry>Sortiername des Albums</entry> <entry>TSOA</entry> <entry>TSOA</entry> <entry>soal</entry>           <entry>WM/AlbumSortOrder</entry>          <entry>ALBUMSORT</entry></row>
        <row><entry>Sortiername des Albuminterpreten</entry> <entry>TSO2</entry>  <entry>TSO2</entry> <entry>soaa</entry> <entry></entry>                          <entry>ALBUMARTISTSORT</entry></row>
