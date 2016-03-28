@@ -480,6 +480,15 @@ Einige häufig verwendete Dateinamen-Formate sind bereits vordefiniert und
 in das Eingabefeld einzutragen.
 </para>
 <para>
+Intern wird ein regulärer Ausdruck aus den Formatcodes gebildet. Wenn
+die volle Ausdruckskraft regulärer Ausdrücke gebraucht wird, ist es auch
+möglich, einen kompletten regulären Ausdruck mit Klammerkonstrukten, welche
+durch die Formatcodes eingeleitet werden, als Format für die Extraktion der
+Tags aus den Dateinamen anzugeben. Um beispielsweise die Tracknummern ohne das
+automatische Entfernen führender Nullen in die Tags zu kriegen, könnte ein
+Ausdruck wie "/%{track}(\d+) %{title}(.*)" verwendet werden.
+</para>
+<para>
 <guilabel>Von:</guilabel> <guibutton>Tag 1</guibutton>,
 <guibutton>Tag 2</guibutton>: Setzt den Dateinamen gemäß dem
 ausgewählten Format und dem ersten Tag bzw. zweiten Tag.

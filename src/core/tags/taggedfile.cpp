@@ -374,61 +374,82 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     fileName.replace(QLatin1Char('_'), QLatin1Char(' '));
   }
 
-  // escape regexp characters
   QString pattern;
-  const int fmtLen = fmt.length();
-  static const QString escChars(QLatin1String("+?.*^$()[]{}|\\"));
-  for (int i = 0; i < fmtLen; ++i) {
-    const QChar ch = fmt.at(i);
-    if (escChars.contains(ch)) {
-      pattern += QLatin1Char('\\');
+  QMap<QString, int> codePos;
+  bool useCustomCaptures = fmt.contains(QLatin1String("}("));
+  if (!useCustomCaptures) {
+    // escape regexp characters
+    const int fmtLen = fmt.length();
+    static const QString escChars(QLatin1String("+?.*^$()[]{}|\\"));
+    for (int i = 0; i < fmtLen; ++i) {
+      const QChar ch = fmt.at(i);
+      if (escChars.contains(ch)) {
+        pattern += QLatin1Char('\\');
+      }
+      pattern += ch;
     }
-    pattern += ch;
+  } else {
+    pattern = fmt;
   }
-  // and finally a dot followed by 2 to 4 characters for the extension
-  pattern += QLatin1String("\\..{2,4}$");
 
   static const struct {
     const char* from;
     const char* to;
   } codeToName[] = {
-    { "%s", "%\\{title\\}" },
-    { "%l", "%\\{album\\}" },
-    { "%a", "%\\{artist\\}" },
-    { "%c", "%\\{comment\\}" },
-    { "%y", "%\\{date\\}" },
-    { "%t", "%\\{track number\\}" },
-    { "%g", "%\\{genre\\}" },
-    { "%\\{year\\}", "%\\{date\\}" },
-    { "%\\{track\\}", "%\\{track number\\}" },
-    { "%\\{tracknumber\\}", "%\\{track number\\}" },
-    { "%\\{discnumber\\}", "%\\{disc number\\}" }
+    { "s", "title" },
+    { "l", "album" },
+    { "a", "artist" },
+    { "c", "comment" },
+    { "y", "date" },
+    { "t", "track number" },
+    { "g", "genre" },
+    { "year", "date" },
+    { "track", "track number" },
+    { "tracknumber", "track number" },
+    { "discnumber", "disc number" }
   };
   int percentIdx = 0, nr = 1;
+  const QString prefix(QLatin1String(useCustomCaptures ? "%{" : "%\\{"));
+  const QString suffix(QLatin1String(useCustomCaptures ? "}"  : "\\}"));
+  const int prefixLen = prefix.length();
   for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-    pattern.replace(QString::fromLatin1(codeToName[i].from), QString::fromLatin1(codeToName[i].to));
+    QString from = QString::fromLatin1(codeToName[i].from);
+    QString to = QString::fromLatin1(codeToName[i].to);
+    from = from.size() == 1 ? QLatin1Char('%') + from : prefix + from + suffix;
+    to = prefix + to + suffix;
+    pattern.replace(from, to);
   }
 
-  QMap<QString, int> codePos;
-  while (((percentIdx = pattern.indexOf(QLatin1String("%\\{"), percentIdx)) >= 0) &&
-         (percentIdx < static_cast<int>(pattern.length()) - 1)) {
-    int closingBracePos = pattern.indexOf(QLatin1String("\\}"), percentIdx + 3);
-    if (closingBracePos > percentIdx + 3) {
-      QString code =
-        pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3);
+  // remove %{} expressions and insert captures if without custom captures
+  while (((percentIdx = pattern.indexOf(prefix, percentIdx)) >= 0) &&
+         (percentIdx < pattern.length() - 1)) {
+    int closingBracePos = pattern.indexOf(suffix, percentIdx + prefixLen);
+    if (closingBracePos > percentIdx + prefixLen) {
+      QString code = pattern.mid(percentIdx + prefixLen,
+                                 closingBracePos - percentIdx - prefixLen);
       codePos[code] = nr++;
-      if (code == QLatin1String("track number") || code == QLatin1String("date") || code == QLatin1String("disc number") ||
-          code == QLatin1String("bpm")) {
-        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("(\\d{1,4})"));
-        percentIdx += 9;
+      const int braceExprLen = closingBracePos - percentIdx + prefixLen - 1;
+      if (!useCustomCaptures) {
+        QString capture(QLatin1String(
+                          (code == QLatin1String("track number") ||
+                           code == QLatin1String("date") ||
+                           code == QLatin1String("disc number") ||
+                           code == QLatin1String("bpm"))
+                          ? "(\\d{1,4})"
+                          : "([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
+        pattern.replace(percentIdx, braceExprLen, capture);
+        percentIdx += capture.length();
       } else {
-        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
-        percentIdx += 23;
+        pattern.remove(percentIdx, braceExprLen);
+        percentIdx += 2;
       }
     } else {
-      percentIdx += 3;
+      percentIdx += prefixLen;
     }
   }
+
+  // and finally a dot followed by 2 to 4 characters for the extension
+  pattern += QLatin1String("\\..{2,4}$");
 
   re.setPattern(pattern);
   if (re.indexIn(fileName) != -1) {
@@ -438,7 +459,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
       QString name = it.key();
       QString str = re.cap(*it);
       if (!str.isEmpty()) {
-        if (name == QLatin1String("track number") && str.length() == 2 && str[0] == QLatin1Char('0')) {
+        if (!useCustomCaptures && name == QLatin1String("track number") &&
+            str.length() == 2 && str[0] == QLatin1Char('0')) {
           // remove leading zero
           str = str.mid(1);
         }
