@@ -125,6 +125,21 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path,
 }
 
 /**
+ * Import from tags.
+ *
+ * @param tagMask tag mask
+ * @param source format to get source text from tags
+ * @param extraction regular expression with frame names and captures to
+ * extract from source text
+ */
+void ScriptInterface::importFromTags(int tagMask,
+                                     const QString& source,
+                                     const QString& extraction)
+{
+  m_app->importFromTags(Frame::tagVersionCast(tagMask), source, extraction);
+}
+
+/**
  * Start an automatic batch import.
  *
  * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
