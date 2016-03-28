@@ -153,6 +153,11 @@ private slots:
    */
   void onPositionChanged(qint64 position);
 
+  /**
+   * Show help.
+   */
+  void showHelp();
+
 private:
   QString getLrcNameFilter() const;
 

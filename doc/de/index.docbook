@@ -732,7 +732,7 @@ gesetzt.
 </sect2>
 <!--end manpage ignore-->
 
-<sect2>
+<sect2 id="synchronized-lyrics">
 <title>Synchronisierter Text und Ereignis-Zeitcodes</title>
 
 <para>
@@ -836,6 +836,42 @@ Werte die Zeit reduzieren. Die Funktion <guimenu>Zur Position
 springen</guimenu> ermöglicht es, die Position der Wiedergabe an die Zeit
 der ausgewählten Zeile zu setzen.
 </para>
+<para>
+<emphasis>Empfohlenes Vorgehen zum Erstellen eines neuen synchronisierten
+Liedtextes</emphasis>
+<itemizedlist>
+<listitem><para>Unsynchronisierten Liedtext besorgen, z.B. mit
+<menuchoice><guimenu>Lyrics</guimenu><guimenuitem>Embed
+Lyrics</guimenuitem></menuchoice> aus dem Kontextmenü der
+Dateiliste.</para></listitem>
+<listitem><para>Den unsynchronisierten Liedtext in die Zwischenablage
+kopieren, dazu einfach in der <guilabel>Text</guilabel>-Zeile der
+<guilabel>Tag 2</guilabel> Tabelle
+<keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>
+drücken.</para></listitem>
+<listitem><para>Element mit synchronisiertem Liedtext hinzufügen
+(<guibutton>Hinzufügen...</guibutton>, <guilabel>Synchronisierter
+Text</guilabel>, <guibutton>OK</guibutton>), dann <guibutton>Von
+Zwischenablage</guibutton> klicken.</para></listitem>
+<listitem><para>Nun sind alle Zeilen des Liedtextes in der Tabelle, die
+Zeitstempel sind alle ungültig (0:0:0.00). Leere Zeilen können vorgängig
+gelöscht werden.</para></listitem>
+<listitem><para>Die Wiedergabe kann mit dem Abspiel-Knopf
+<guibutton>&#9658;</guibutton> der Wiedergabe-Werkzeugliste, welche sich unten
+am Hauptfenster befindet, gestartet werden.</para></listitem>
+<listitem><para>Wenn die nächste Zeile mit ungültigem Zeitstempel
+wiedergegeben wird, kann <guibutton>Hinzufügen</guibutton> geklickt oder
+<keycombo><keycap>Alt</keycap><keycap>H</keycap></keycombo> gedrückt werden,
+der Zeitstempel wird gesetzt.</para></listitem>
+<listitem><para>Auf diese Weise fortfahren, bis alle Zeitstempel gesetzt sind.
+Falls man eine Zeile verpasst, so kann die Wiedergabe gestoppt und falsche
+Zeitstempel gelöscht werden (<keycap>Delete</keycap> Taste oder mit
+<guimenuitem>Löschen</guimenuitem> aus dem Kontextmenü). Um die Wiedergabe ab
+einem gewissen Zeitstempel zu starten, kann <guimenuitem>Zur Position
+springen</guimenuitem> aus dem Kontextmenü verwendet werden.
+</para></listitem>
+</itemizedlist>
+</para> 
 </sect2>
 
 </sect1>

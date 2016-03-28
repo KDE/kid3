@@ -658,12 +658,20 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
  */
 QString TimeEventModel::timeStampToString(const QTime& time)
 {
+  int hour = time.hour();
+  int min = time.minute();
+  int sec = time.second();
+  int msec = time.msec();
+  if (hour < 0) hour = 0;
+  if (min < 0)  min = 0;
+  if (sec < 0)  sec = 0;
+  if (msec < 0) msec = 0;
   QString text = QString(QLatin1String("%1:%2.%3")).
-      arg(time.minute(), 2, 10, QLatin1Char('0')).
-      arg(time.second(), 2, 10, QLatin1Char('0')).
-      arg(time.msec() / 10, 2, 10, QLatin1Char('0'));
-  if (time.hour() != 0) {
-    text.prepend(QString::number(time.hour()) + QLatin1Char(':'));
+      arg(min, 2, 10, QLatin1Char('0')).
+      arg(sec, 2, 10, QLatin1Char('0')).
+      arg(msec / 10, 2, 10, QLatin1Char('0'));
+  if (hour != 0) {
+    text.prepend(QString::number(hour) + QLatin1Char(':'));
   }
   return text;
 }

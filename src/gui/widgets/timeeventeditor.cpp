@@ -48,6 +48,7 @@
 #include "eventcodedelegate.h"
 #include "kid3application.h"
 #include "audioplayer.h"
+#include "contexthelp.h"
 #include "iplatformtools.h"
 
 /** Table to edit time events. */
@@ -116,18 +117,22 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   importButton->setAutoDefault(false);
   QPushButton* exportButton = new QPushButton(tr("&Export..."), this);
   exportButton->setAutoDefault(false);
+  QPushButton* helpButton = new QPushButton(tr("Help"), this);
+  helpButton->setAutoDefault(false);
   buttonLayout->setContentsMargins(0, 0, 0, 0);
   buttonLayout->addWidget(addButton);
   buttonLayout->addWidget(deleteButton);
   buttonLayout->addWidget(clipButton);
   buttonLayout->addWidget(importButton);
   buttonLayout->addWidget(exportButton);
+  buttonLayout->addWidget(helpButton);
   buttonLayout->addStretch();
   connect(addButton, SIGNAL(clicked()), this, SLOT(addItem()));
   connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteRows()));
   connect(clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
   connect(importButton, SIGNAL(clicked()), this, SLOT(importData()));
   connect(exportButton, SIGNAL(clicked()), this, SLOT(exportData()));
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
   vlayout->addLayout(buttonLayout);
   m_tableView = new TimeEventTableView;
   m_tableView->verticalHeader()->hide();
@@ -484,4 +489,12 @@ void TimeEventEditor::onPositionChanged(qint64 position)
     m_tableView->scrollTo(m_model->index(row, TimeEventModel::CI_Time),
                           QAbstractItemView::PositionAtCenter);
   }
+}
+
+/**
+ * Show help.
+ */
+void TimeEventEditor::showHelp()
+{
+  ContextHelp::displayHelp(QLatin1String("synchronized-lyrics"));
 }

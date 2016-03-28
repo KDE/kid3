@@ -698,7 +698,7 @@ offer this information.
 </sect2>
 <!--end manpage ignore-->
 
-<sect2>
+<sect2 id="synchronized-lyrics">
 <title>Synchronized Lyrics and Event Timing Codes</title>
 
 <para>
@@ -788,6 +788,39 @@ context menu. Negative values can be used to reduce the time. Using
 <guimenu>Seek to position</guimenu> in the context menu, it is possible to set
 the playing position to the time of the selected row.
 </para>
+<para>
+<emphasis>Recommended procedure to add new synchronized lyrics</emphasis>
+<itemizedlist>
+<listitem><para>Get the unsynchronized lyrics, e.g. using
+<menuchoice><guimenu>Lyrics</guimenu><guimenuitem>Embed
+Lyrics</guimenuitem></menuchoice> from the file list context
+menu.</para></listitem>
+<listitem><para>Copy the unsynchronized lyrics to the clipboard, just go to
+the <guilabel>Lyrics</guilabel> row in the frame table and press
+<keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>.</para></listitem>
+<listitem><para>Add a synchronized lyrics frame
+(<guibutton>Add...</guibutton>, <guilabel>Synchronized
+Lyrics</guilabel>, <guibutton>OK</guibutton>), click
+<guibutton>From Clipboard</guibutton>.</para></listitem>
+<listitem><para>Now all lines from the unsynchronized lyrics are in the table,
+all time stamps are invalid (0:0:0.00). You can delete empty entries
+beforehand.</para></listitem>
+<listitem><para>Start playing the song by clicking the play button
+<guibutton>&#9658;</guibutton> in the play toolbar at the bottom of the main
+window.</para></listitem>
+<listitem><para>When the next lyrics line with invalid timestamp comes, click
+<guibutton>Add</guibutton> or press
+<keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>, the timestamp
+will be updated.</para></listitem>
+<listitem><para>Continue like this until all timestamps are set. If you missed
+something, stop playback and clear the timestamps using the
+<keycap>Delete</keycap> key or by selecting them and using
+<guimenuitem>Clear</guimenuitem> from the context menu. To restart playback
+from a given timestamp, use <guimenuitem>Seek to position</guimenuitem> from
+the context menu.
+</para></listitem>
+</itemizedlist>
+</para> 
 </sect2>
 
 </sect1>
