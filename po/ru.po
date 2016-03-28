@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -91,8 +91,17 @@ msgstr "Отменить"
 msgid "Import from file or clipboard"
 msgstr "Импортировать файл или буфер обмена"
 
+msgid "File path"
+msgstr "Путь к файлу"
+
 msgid "Format name"
 msgstr "Название формата"
+
+msgid "Source"
+msgstr "Источник"
+
+msgid "Extraction"
+msgstr "Добыча"
 
 msgid "%1 not found."
 msgstr "%1 не найден."
@@ -114,9 +123,6 @@ msgstr "Чтение каталога"
 
 msgid "Started"
 msgstr "Запущено"
-
-msgid "Source"
-msgstr "Источник"
 
 msgid "Querying"
 msgstr "Запрос"
@@ -198,9 +204,6 @@ msgstr "Играть"
 
 msgid "Parameter"
 msgstr "Параметр"
-
-msgid "File path"
-msgstr "Путь к файлу"
 
 msgid "URL"
 msgstr "URL"
@@ -1161,6 +1164,9 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Release Date"
+msgstr "Дата выпуска"
+
 msgid "Audio Encryption"
 msgstr "Аудио-кодирование"
 
@@ -1358,9 +1364,6 @@ msgstr "Продюсер"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "Дата выпуска"
 
 msgid "Total Tracks"
 msgstr "Общее Количество дорожек"

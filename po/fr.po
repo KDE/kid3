@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -91,8 +91,17 @@ msgstr "Revenir"
 msgid "Import from file or clipboard"
 msgstr "Importer depuis un fichier ou le presse-papier"
 
+msgid "File path"
+msgstr "Chemin du fichier"
+
 msgid "Format name"
 msgstr "Nom du format"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Extraction"
+msgstr "Extraction"
 
 msgid "%1 not found."
 msgstr "%1 introuvable."
@@ -114,9 +123,6 @@ msgstr "Lecture du répertoire"
 
 msgid "Started"
 msgstr "Démarré"
-
-msgid "Source"
-msgstr "Source"
 
 msgid "Querying"
 msgstr "Interrogation"
@@ -198,9 +204,6 @@ msgstr "Lecture"
 
 msgid "Parameter"
 msgstr "Paramètre"
-
-msgid "File path"
-msgstr "Chemin du fichier"
 
 msgid "URL"
 msgstr "URL"
@@ -1161,6 +1164,9 @@ msgstr "URL du fichier audio"
 msgid "WWW Audio Source"
 msgstr "URL de la source audio"
 
+msgid "Release Date"
+msgstr "Date de publication"
+
 msgid "Audio Encryption"
 msgstr "Encodage audio"
 
@@ -1297,7 +1303,7 @@ msgid "Podcast Feed"
 msgstr "Flux du Podcast"
 
 msgid "Official Radio Station"
-msgstr ""
+msgstr "Station de radio officielle"
 
 msgid "Payment"
 msgstr "Paiement"
@@ -1358,9 +1364,6 @@ msgstr "Producteur"
 
 msgid "Product Number"
 msgstr "Numéro du produit"
-
-msgid "Release Date"
-msgstr "Date de publication"
 
 msgid "Total Tracks"
 msgstr "Nombre de pistes"
@@ -2537,7 +2540,6 @@ msgstr "TSOT - Ordre de tri du titre"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Sous-titre"
 
-#, fuzzy
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast"
 

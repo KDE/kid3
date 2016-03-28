@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -92,8 +92,17 @@ msgstr "還原"
 msgid "Import from file or clipboard"
 msgstr "自剪貼簿匯入"
 
+msgid "File path"
+msgstr "檔案路徑"
+
 msgid "Format name"
 msgstr "格式"
+
+msgid "Source"
+msgstr "來源"
+
+msgid "Extraction"
+msgstr "提取"
 
 msgid "%1 not found."
 msgstr "未找到 %1."
@@ -115,9 +124,6 @@ msgstr "正在讀取目錄"
 
 msgid "Started"
 msgstr "已開始"
-
-msgid "Source"
-msgstr "來源"
 
 msgid "Querying"
 msgstr "正查詢"
@@ -199,9 +205,6 @@ msgstr "播放"
 
 msgid "Parameter"
 msgstr "參數"
-
-msgid "File path"
-msgstr "檔案路徑"
 
 msgid "URL"
 msgstr "網址"
@@ -1162,6 +1165,9 @@ msgstr "正式音效檔網頁"
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Release Date"
+msgstr "發佈日期"
+
 msgid "Audio Encryption"
 msgstr "音效加密"
 
@@ -1359,9 +1365,6 @@ msgstr "制作人"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "發佈日期"
 
 msgid "Total Tracks"
 msgstr "音軌編號"

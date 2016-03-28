@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -89,8 +89,17 @@ msgstr "Врати"
 msgid "Import from file or clipboard"
 msgstr "Увези из фајла или клипборда"
 
+msgid "File path"
+msgstr "Путања фајла"
+
 msgid "Format name"
 msgstr "Формат имена"
+
+msgid "Source"
+msgstr "Извор"
+
+msgid "Extraction"
+msgstr "Извлачење"
 
 msgid "%1 not found."
 msgstr "%1 није нађен."
@@ -112,9 +121,6 @@ msgstr "Приликом читања директоријума"
 
 msgid "Started"
 msgstr "Започет"
-
-msgid "Source"
-msgstr "Извор"
 
 msgid "Querying"
 msgstr "Затражујем"
@@ -196,9 +202,6 @@ msgstr "Репродукција"
 
 msgid "Parameter"
 msgstr "Параметар"
-
-msgid "File path"
-msgstr "Путања фајла"
 
 msgid "URL"
 msgstr "УРЛ"
@@ -1159,6 +1162,9 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Release Date"
+msgstr "Датум издања"
+
 msgid "Audio Encryption"
 msgstr "Аудио шифровање"
 
@@ -1356,9 +1362,6 @@ msgstr "Произвођач"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "Датум издања"
 
 msgid "Total Tracks"
 msgstr "Укупно нумера"

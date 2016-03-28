@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -91,8 +91,17 @@ msgstr "Odwróć"
 msgid "Import from file or clipboard"
 msgstr "Importuj plik ze schowka"
 
+msgid "File path"
+msgstr "Ścieżka pliku"
+
 msgid "Format name"
 msgstr "Nazwa formatu"
+
+msgid "Source"
+msgstr "Źródło"
+
+msgid "Extraction"
+msgstr "Ekstrakcja"
 
 msgid "%1 not found."
 msgstr "Nie znaleziono %1."
@@ -114,9 +123,6 @@ msgstr "Czytanie katalogu"
 
 msgid "Started"
 msgstr "Uruchomiono"
-
-msgid "Source"
-msgstr "Źródło"
 
 msgid "Querying"
 msgstr "Odpytywanie"
@@ -198,9 +204,6 @@ msgstr "Odtwarzaj"
 
 msgid "Parameter"
 msgstr "Parametr"
-
-msgid "File path"
-msgstr "Ścieżka pliku"
 
 msgid "URL"
 msgstr "URL"
@@ -1161,6 +1164,9 @@ msgstr "WWW pliku audio"
 msgid "WWW Audio Source"
 msgstr "WWW źródła audio"
 
+msgid "Release Date"
+msgstr "Data wydania"
+
 msgid "Audio Encryption"
 msgstr "Szyfrowanie audio"
 
@@ -1358,9 +1364,6 @@ msgstr "Producent"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "Data wydania"
 
 msgid "Total Tracks"
 msgstr "Liczba utworów"

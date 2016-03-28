@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,16 @@ msgstr ""
 msgid "Import from file or clipboard"
 msgstr ""
 
+msgid "File path"
+msgstr ""
+
 msgid "Format name"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Extraction"
 msgstr ""
 
 msgid "%1 not found."
@@ -108,9 +117,6 @@ msgid "Reading Directory"
 msgstr ""
 
 msgid "Started"
-msgstr ""
-
-msgid "Source"
 msgstr ""
 
 msgid "Querying"
@@ -192,9 +198,6 @@ msgid "Play"
 msgstr ""
 
 msgid "Parameter"
-msgstr ""
-
-msgid "File path"
 msgstr ""
 
 msgid "URL"
@@ -1156,6 +1159,9 @@ msgstr ""
 msgid "WWW Audio Source"
 msgstr ""
 
+msgid "Release Date"
+msgstr ""
+
 msgid "Audio Encryption"
 msgstr ""
 
@@ -1352,9 +1358,6 @@ msgid "Producer"
 msgstr ""
 
 msgid "Product Number"
-msgstr ""
-
-msgid "Release Date"
 msgstr ""
 
 msgid "Total Tracks"

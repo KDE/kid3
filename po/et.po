@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -90,8 +90,17 @@ msgstr "Ennistab muudatused"
 msgid "Import from file or clipboard"
 msgstr "Impordib failist või lõikepuhvrist"
 
+msgid "File path"
+msgstr "faili tee"
+
 msgid "Format name"
 msgstr "Vormingu nimi"
+
+msgid "Source"
+msgstr "Allikas"
+
+msgid "Extraction"
+msgstr "Avaldis"
 
 msgid "%1 not found."
 msgstr "%1 ei leitud."
@@ -113,9 +122,6 @@ msgstr "Kataloogi lugemine"
 
 msgid "Started"
 msgstr "Käivitatud"
-
-msgid "Source"
-msgstr "Allikas"
 
 msgid "Querying"
 msgstr "Päring"
@@ -197,9 +203,6 @@ msgstr "Esita"
 
 msgid "Parameter"
 msgstr "Parameeter"
-
-msgid "File path"
-msgstr "faili tee"
 
 msgid "URL"
 msgstr "URL"
@@ -1160,6 +1163,9 @@ msgstr "WWW-audiofail"
 msgid "WWW Audio Source"
 msgstr "WWW-audioallikas"
 
+msgid "Release Date"
+msgstr "Väljalaske kuupäev"
+
 msgid "Audio Encryption"
 msgstr "Audiokrüpteering"
 
@@ -1357,9 +1363,6 @@ msgstr "Produtsent"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "Väljalaske kuupäev"
 
 msgid "Total Tracks"
 msgstr "Lugude koguarv"

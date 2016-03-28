@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2015-10-02 21:58+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -90,8 +90,17 @@ msgstr "Naposledy uložené znění"
 msgid "Import from file or clipboard"
 msgstr "Zavést ze souboru nebo ze schránky"
 
+msgid "File path"
+msgstr "Cesta k souboru"
+
 msgid "Format name"
 msgstr "Formát"
+
+msgid "Source"
+msgstr "Zdroj"
+
+msgid "Extraction"
+msgstr "Získání"
 
 msgid "%1 not found."
 msgstr "%1 nenalezena."
@@ -113,9 +122,6 @@ msgstr "Čte se adresář"
 
 msgid "Started"
 msgstr "Spuštěn"
-
-msgid "Source"
-msgstr "Zdroj"
 
 msgid "Querying"
 msgstr "Dotazuje se"
@@ -197,9 +203,6 @@ msgstr "Přehrát"
 
 msgid "Parameter"
 msgstr "Parametr"
-
-msgid "File path"
-msgstr "Cesta k souboru"
 
 msgid "URL"
 msgstr "Adresa (URL)"
@@ -1162,6 +1165,9 @@ msgstr "Internetová adresa zvukového souboru"
 msgid "WWW Audio Source"
 msgstr "Internetová adresa zvukového zdroje"
 
+msgid "Release Date"
+msgstr "Datum vydání"
+
 msgid "Audio Encryption"
 msgstr "Kódování zvuku"
 
@@ -1359,9 +1365,6 @@ msgstr "Producent"
 
 msgid "Product Number"
 msgstr "Číslo výrobku"
-
-msgid "Release Date"
-msgstr "Datum vydání"
 
 msgid "Total Tracks"
 msgstr "Celkový počet stop"

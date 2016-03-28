@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.3.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-05 14:25+0100\n"
+"POT-Creation-Date: 2016-03-28 08:29+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -90,8 +90,17 @@ msgstr "Ongedaan maken"
 msgid "Import from file or clipboard"
 msgstr "Importeer van bestand of klembord"
 
+msgid "File path"
+msgstr "Bestandspad"
+
 msgid "Format name"
 msgstr "Naam van format"
+
+msgid "Source"
+msgstr "Bron"
+
+msgid "Extraction"
+msgstr "Extractie"
 
 msgid "%1 not found."
 msgstr "%1 niet gevonden."
@@ -113,9 +122,6 @@ msgstr "Directory lezen"
 
 msgid "Started"
 msgstr "Begonnen"
-
-msgid "Source"
-msgstr "Bron"
 
 msgid "Querying"
 msgstr "Aanvraag loopt"
@@ -197,9 +203,6 @@ msgstr "Afspelen"
 
 msgid "Parameter"
 msgstr "Parameter"
-
-msgid "File path"
-msgstr "Bestandspad"
 
 msgid "URL"
 msgstr "URL-adres"
@@ -1160,6 +1163,9 @@ msgstr "WWW van audio bestand"
 msgid "WWW Audio Source"
 msgstr "WWW van audio bron"
 
+msgid "Release Date"
+msgstr "Uitgiftedatum"
+
 msgid "Audio Encryption"
 msgstr "Audio versleuteling"
 
@@ -1357,9 +1363,6 @@ msgstr "Producer"
 
 msgid "Product Number"
 msgstr ""
-
-msgid "Release Date"
-msgstr "Uitgiftedatum"
 
 msgid "Total Tracks"
 msgstr "Totaal aantal tracks"
@@ -2539,7 +2542,6 @@ msgstr "TSOT - Sorteervolgorde titel"
 msgid "TSST - Set subtitle"
 msgstr "TSST - ingestelde ondertitel"
 
-#, fuzzy
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast"
 
