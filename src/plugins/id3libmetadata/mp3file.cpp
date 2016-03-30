@@ -33,13 +33,9 @@
 #include <QtEndian>
 
 #include <cstring>
-#include <sys/stat.h>
 #include <id3/tag.h>
 #ifdef Q_OS_WIN32
 #include <id3.h>
-#include <sys/utime.h>
-#else
-#include <utime.h>
 #endif
 
 #include "id3libconfig.h"
@@ -178,17 +174,9 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
   }
 
   // store time stamp if it has to be preserved
-  QByteArray fn;
-  bool setUtime = false;
-  struct utimbuf times;
+  quint64 actime = 0, modtime = 0;
   if (preserve) {
-    fn = QFile::encodeName(fnStr);
-    struct stat fileStat;
-    if (::stat(fn, &fileStat) == 0) {
-      times.actime  = fileStat.st_atime;
-      times.modtime = fileStat.st_mtime;
-      setUtime = true;
-    }
+    getFileTimeStamps(fnStr, actime, modtime);
   }
 
   // There seems to be a bug in id3lib: The V1 genre is not
@@ -217,8 +205,8 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
   }
 
   // restore time stamp
-  if (setUtime) {
-    ::utime(fn, &times);
+  if (actime || modtime) {
+    setFileTimeStamps(fnStr, actime, modtime);
   }
 
   if (isFilenameChanged()) {

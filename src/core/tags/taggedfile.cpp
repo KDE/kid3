@@ -28,6 +28,12 @@
 #include <QDir>
 #include <QString>
 #include <QRegExp>
+#ifdef Q_OS_WIN32
+#include <sys/types.h>
+#include <sys/utime.h>
+#else
+#include <utime.h>
+#endif
 #include <sys/stat.h>
 #include "tagconfig.h"
 #include "genres.h"
@@ -984,6 +990,67 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
       }
     }
   }
+}
+
+/**
+ * Get access and modification time of file.
+ * @param path file path
+ * @param actime the last access time is returned here
+ * @param modtime the last modification time is returned here
+ * @return true if ok.
+ */
+bool TaggedFile::getFileTimeStamps(const QString& path,
+                                   quint64& actime, quint64& modtime)
+{
+#ifdef Q_OS_WIN32
+  int len = path.length();
+  QVarLengthArray<wchar_t> a(len + 1);
+  wchar_t* ws = a.data();
+  len = path.toWCharArray(ws);
+  ws[len] = 0;
+  struct _stat fileStat;
+  if (::_wstat(ws, &fileStat) == 0) {
+    actime  = fileStat.st_atime;
+    modtime = fileStat.st_mtime;
+    return true;
+  }
+#else
+  struct stat fileStat;
+  if (::stat(QFile::encodeName(path), &fileStat) == 0) {
+    actime  = fileStat.st_atime;
+    modtime = fileStat.st_mtime;
+    return true;
+  }
+#endif
+  return false;
+}
+
+/**
+ * Set access and modification time of file.
+ * @param path file path
+ * @param actime last access time
+ * @param modtime last modification time
+ * @return true if ok.
+ */
+bool TaggedFile::setFileTimeStamps(const QString& path,
+                                   quint64 actime, quint64 modtime)
+{
+#ifdef Q_OS_WIN32
+  int len = path.length();
+  QVarLengthArray<wchar_t> a(len + 1);
+  wchar_t* ws = a.data();
+  len = path.toWCharArray(ws);
+  ws[len] = 0;
+  struct _utimbuf times;
+  times.actime = actime;
+  times.modtime = modtime;
+  return ::_wutime(ws, &times) == 0;
+#else
+  struct utimbuf times;
+  times.actime = actime;
+  times.modtime = modtime;
+  return ::utime(QFile::encodeName(path), &times) == 0;
+#endif
 }
 
 

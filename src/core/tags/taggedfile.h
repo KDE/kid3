@@ -471,6 +471,26 @@ public:
   static int splitNumberAndTotal(const QString& str, int* total=0);
 
   /**
+   * Get access and modification time of file.
+   * @param path file path
+   * @param actime the last access time is returned here
+   * @param modtime the last modification time is returned here
+   * @return true if ok.
+   */
+  static bool getFileTimeStamps(const QString& path,
+                                quint64& actime, quint64& modtime);
+
+  /**
+   * Set access and modification time of file.
+   * @param path file path
+   * @param actime last access time
+   * @param modtime last modification time
+   * @return true if ok.
+   */
+  static bool setFileTimeStamps(const QString& path,
+                                quint64 actime, quint64 modtime);
+
+  /**
    * Free static resources.
    */
   static void staticCleanup();

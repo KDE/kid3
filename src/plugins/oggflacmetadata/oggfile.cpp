@@ -29,12 +29,6 @@
 #include <QFile>
 #include <QDir>
 #include <QByteArray>
-#include <sys/stat.h>
-#ifdef Q_OS_WIN32
-#include <sys/utime.h>
-#else
-#include <utime.h>
-#endif
 #include <stdio.h>
 #include <math.h>
 #ifdef HAVE_VORBIS
@@ -265,18 +259,9 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
     if (fpIn.open(QIODevice::ReadOnly)) {
 
       // store time stamp if it has to be preserved
-      bool setUtime = false;
-      struct utimbuf times;
+      quint64 actime = 0, modtime = 0;
       if (preserve) {
-        int fd = fpIn.handle();
-        if (fd >= 0) {
-          struct stat fileStat;
-          if (::fstat(fd, &fileStat) == 0) {
-            times.actime  = fileStat.st_atime;
-            times.modtime = fileStat.st_mtime;
-            setUtime = true;
-          }
-        }
+        getFileTimeStamps(fnIn, actime, modtime);
       }
 
       QFile fpOut(fnOut);
@@ -314,8 +299,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
       fpIn.close();
 
       // restore time stamp
-      if (setUtime) {
-        ::utime(QFile::encodeName(fnOut), &times);
+      if (actime || modtime) {
+        setFileTimeStamps(fnOut, actime, modtime);
       }
     }
     if (!writeOk) {

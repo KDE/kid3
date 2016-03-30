@@ -30,12 +30,6 @@
 #include <QFile>
 #include <QDir>
 #include <QByteArray>
-#include <sys/stat.h>
-#ifdef Q_OS_WIN32
-#include <sys/utime.h>
-#else
-#include <utime.h>
-#endif
 #include <stdio.h>
 #ifdef HAVE_MP4V2_MP4V2_H
 #include <mp4v2/mp4v2.h>
@@ -605,15 +599,9 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
     QByteArray fn = QFile::encodeName(fnStr);
 
     // store time stamp if it has to be preserved
-    bool setUtime = false;
-    struct utimbuf times;
+    quint64 actime = 0, modtime = 0;
     if (preserve) {
-      struct stat fileStat;
-      if (::stat(fn, &fileStat) == 0) {
-        times.actime  = fileStat.st_atime;
-        times.modtime = fileStat.st_mtime;
-        setUtime = true;
-      }
+      getFileTimeStamps(fnStr, actime, modtime);
     }
 
     MP4FileHandle handle = MP4Modify(fn);
@@ -893,8 +881,8 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
       }
 
       // restore time stamp
-      if (setUtime) {
-        ::utime(fn, &times);
+      if (actime || modtime) {
+        setFileTimeStamps(fnStr, actime, modtime);
       }
     } else {
       qDebug("MP4Modify failed");
