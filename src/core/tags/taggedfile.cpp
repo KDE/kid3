@@ -27,7 +27,11 @@
 #include "taggedfile.h"
 #include <QDir>
 #include <QString>
+#if QT_VERSION >= 0x050100
+#include <QRegularExpression>
+#else
 #include <QRegExp>
+#endif
 #ifdef Q_OS_WIN32
 #include <sys/types.h>
 #include <sys/utime.h>
@@ -368,7 +372,16 @@ static QString removeArtist(const QString& album)
  */
 void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt)
 {
+#if QT_VERSION >= 0x050100
+  QRegularExpression re;
+  QRegularExpressionMatch match;
+#define re_hasMatch(s) (match = re.match(s)).hasMatch()
+#define re_cap(i) match.captured(i)
+#else
   QRegExp re;
+#define re_hasMatch(s) re.indexIn(s) != -1
+#define re_cap(i) re.cap(i)
+#endif
   QString fn(getAbsFilename());
 
   // construct regular expression from format string
@@ -458,12 +471,12 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   pattern += QLatin1String("\\..{2,4}$");
 
   re.setPattern(pattern);
-  if (re.indexIn(fileName) != -1) {
+  if (re_hasMatch(fileName)) {
     for (QMap<QString, int>::iterator it = codePos.begin();
          it != codePos.end();
          ++it) {
       QString name = it.key();
-      QString str = re.cap(*it);
+      QString str = re_cap(*it);
       if (!str.isEmpty()) {
         if (!useCustomCaptures && name == QLatin1String("track number") &&
             str.length() == 2 && str[0] == QLatin1Char('0')) {
@@ -479,67 +492,67 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 
   // album/track - artist - song
   re.setPattern(QLatin1String("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setAlbum(removeArtist(re.cap(1)));
-    frames.setTrack(re.cap(2).toInt());
-    frames.setArtist(re.cap(3));
-    frames.setTitle(re.cap(4));
+  if (re_hasMatch(fn)) {
+    frames.setAlbum(removeArtist(re_cap(1)));
+    frames.setTrack(re_cap(2).toInt());
+    frames.setArtist(re_cap(3));
+    frames.setTitle(re_cap(4));
     return;
   }
 
   // artist - album (year)/track song
   re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)[_ ]\\((\\d{4})\\)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setArtist(re.cap(1));
-    frames.setAlbum(re.cap(2));
-    frames.setYear(re.cap(3).toInt());
-    frames.setTrack(re.cap(4).toInt());
-    frames.setTitle(re.cap(5));
+  if (re_hasMatch(fn)) {
+    frames.setArtist(re_cap(1));
+    frames.setAlbum(re_cap(2));
+    frames.setYear(re_cap(3).toInt());
+    frames.setTrack(re_cap(4).toInt());
+    frames.setTitle(re_cap(5));
     return;
   }
 
   // artist - album/track song
   re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setArtist(re.cap(1));
-    frames.setAlbum(re.cap(2));
-    frames.setTrack(re.cap(3).toInt());
-    frames.setTitle(re.cap(4));
+  if (re_hasMatch(fn)) {
+    frames.setArtist(re_cap(1));
+    frames.setAlbum(re_cap(2));
+    frames.setTrack(re_cap(3).toInt());
+    frames.setTitle(re_cap(4));
     return;
   }
   // /artist - album - track - song
   re.setPattern(QLatin1String("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setArtist(re.cap(1));
-    frames.setAlbum(re.cap(2));
-    frames.setTrack(re.cap(3).toInt());
-    frames.setTitle(re.cap(4));
+  if (re_hasMatch(fn)) {
+    frames.setArtist(re_cap(1));
+    frames.setAlbum(re_cap(2));
+    frames.setTrack(re_cap(3).toInt());
+    frames.setTitle(re_cap(4));
     return;
   }
   // album/artist - track - song
   re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setAlbum(removeArtist(re.cap(1)));
-    frames.setArtist(re.cap(2));
-    frames.setTrack(re.cap(3).toInt());
-    frames.setTitle(re.cap(4));
+  if (re_hasMatch(fn)) {
+    frames.setAlbum(removeArtist(re_cap(1)));
+    frames.setArtist(re_cap(2));
+    frames.setTrack(re_cap(3).toInt());
+    frames.setTitle(re_cap(4));
     return;
   }
   // artist/album/track song
   re.setPattern(QLatin1String("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setArtist(re.cap(1));
-    frames.setAlbum(re.cap(2));
-    frames.setTrack(re.cap(3).toInt());
-    frames.setTitle(re.cap(4));
+  if (re_hasMatch(fn)) {
+    frames.setArtist(re_cap(1));
+    frames.setAlbum(re_cap(2));
+    frames.setTrack(re_cap(3).toInt());
+    frames.setTitle(re_cap(4));
     return;
   }
   // album/artist - song
   re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{2,4}$"));
-  if (re.indexIn(fn) != -1) {
-    frames.setAlbum(removeArtist(re.cap(1)));
-    frames.setArtist(re.cap(2));
-    frames.setTitle(re.cap(3));
+  if (re_hasMatch(fn)) {
+    frames.setAlbum(removeArtist(re_cap(1)));
+    frames.setArtist(re_cap(2));
+    frames.setTitle(re_cap(3));
     return;
   }
 }

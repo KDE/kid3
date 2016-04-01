@@ -25,6 +25,11 @@
  */
 
 #include "downloadclient.h"
+#if QT_VERSION >= 0x050100
+#include <QRegularExpression>
+#else
+#include <QRegExp>
+#endif
 #include "importconfig.h"
 
 /**
@@ -106,8 +111,17 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
   for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
        it != urlMap.constEnd();
        ++it) {
+#if QT_VERSION >= 0x050100
+    QRegularExpression re(it.key());
+    QRegularExpressionMatch match = re.match(
+          urlStr, 0, QRegularExpression::NormalMatch,
+          QRegularExpression::AnchoredMatchOption);
+    if (match.hasMatch())
+#else
     QRegExp re(it.key());
-    if (re.exactMatch(urlStr)) {
+    if (re.exactMatch(urlStr))
+#endif
+    {
       QString newUrl = urlStr;
       newUrl.replace(re, *it);
       if (newUrl.indexOf(QLatin1String("%25")) != -1) {

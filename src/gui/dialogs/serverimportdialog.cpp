@@ -32,7 +32,6 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QStatusBar>
-#include <QRegExp>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>

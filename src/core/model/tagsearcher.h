@@ -29,7 +29,11 @@
 
 #include <QObject>
 #include <QString>
+#if QT_VERSION >= 0x050100
+#include <QRegularExpression>
+#else
 #include <QRegExp>
+#endif
 #include <QPersistentModelIndex>
 #include "iabortable.h"
 #include "frame.h"
@@ -352,7 +356,11 @@ private:
   QPersistentModelIndex m_startIndex;
   Position m_currentPosition;
   Parameters m_params;
+#if QT_VERSION >= 0x050100
+  QRegularExpression m_regExp;
+#else
   QRegExp m_regExp;
+#endif
   bool m_aborted;
   bool m_started;
 };

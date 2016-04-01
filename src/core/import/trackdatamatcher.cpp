@@ -25,7 +25,6 @@
  */
 
 #include "trackdatamatcher.h"
-#include <QRegExp>
 #include <QDir>
 #include <limits.h>
 #include "trackdatamodel.h"

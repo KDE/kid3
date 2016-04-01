@@ -31,7 +31,6 @@
 #include <QString>
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QRegExp>
 #include <QUrl>
 #include <QGroupBox>
 #include <QHBoxLayout>
