@@ -224,7 +224,7 @@ ImportConfig::ImportConfig() :
   m_pictureSourceNames.append(QLatin1String("Custom Source"));
   m_pictureSourceUrls.append(QLatin1String(""));
 
-  m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
+  m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
     QLatin1String("\\1");
   m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
     QLatin1String("http%3A%2F%2F\\1");
@@ -417,12 +417,17 @@ void ImportConfig::readFromConfig(ISettings* config)
         QLatin1String("http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}"));
   if (m_matchPictureUrlMap.remove(QLatin1String(
       "http://images.google.com/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
+    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
       QLatin1String("\\1");
   }
   if (m_matchPictureUrlMap.remove(QLatin1String(
       "http://www.google.com/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
+    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
+      QLatin1String("\\1");
+  }
+  if (m_matchPictureUrlMap.remove(QLatin1String(
+      "http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")) != 0) {
+    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
       QLatin1String("\\1");
   }
   if (m_matchPictureUrlMap.remove(QLatin1String(
