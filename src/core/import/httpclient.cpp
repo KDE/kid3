@@ -101,13 +101,36 @@ void HttpClient::networkReplyFinished()
     QByteArray data(reply->readAll());
     m_rcvBodyType = reply->header(QNetworkRequest::ContentTypeHeader).toString();
     m_rcvBodyLen = reply->header(QNetworkRequest::ContentLengthHeader).toUInt();
-    emit bytesReceived(data);
     QString msg(tr("Ready."));
     if (reply->error() != QNetworkReply::NoError) {
       msg = tr("Error");
       msg += QLatin1String(": ");
       msg += reply->errorString();
+    } else {
+      QVariant redirect =
+          reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+      if (!redirect.isNull()) {
+        QUrl redirectUrl = redirect.toUrl();
+        if (redirectUrl.isRelative()) {
+          redirectUrl = reply->url().resolved(redirectUrl);
+        }
+        if (redirectUrl.isValid()) {
+          reply->deleteLater();
+
+          QNetworkRequest request(redirectUrl);
+          reply = m_netMgr->get(request);
+          m_reply = reply;
+          connect(reply, SIGNAL(finished()),
+                  this, SLOT(networkReplyFinished()));
+          connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
+                  this, SLOT(networkReplyProgress(qint64,qint64)));
+          connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+                  this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
+          return;
+        }
+      }
     }
+    emit bytesReceived(data);
     emitProgress(msg, data.size(), data.size());
     reply->deleteLater();
   }
