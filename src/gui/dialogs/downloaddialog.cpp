@@ -53,6 +53,9 @@ DownloadDialog::~DownloadDialog()
  */
 void DownloadDialog::showStartOfDownload(const QString& url)
 {
+  if (isHidden()) {
+    show();
+  }
   m_url = url;
   setLabelText(url);
 }
