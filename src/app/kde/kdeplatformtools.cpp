@@ -27,18 +27,13 @@
 #include "kdeplatformtools.h"
 #include <QtConfig>
 #if QT_VERSION >= 0x050000
-#include <KHelpClient>
 #include <KMessageBox>
 #include <KConfig>
 #include <QUrl>
 #include <QFileDialog>
+#include <QDesktopServices>
 #include "mainwindowconfig.h"
 #include "coreplatformtools.h"
-
-#define KUrl QUrl
-#define KIcon QIcon::fromTheme
-#define KHelpClient_invokeHelp KHelpClient::invokeHelp
-
 #else
 #include <kurl.h>
 #include <kio/copyjob.h>
@@ -47,10 +42,6 @@
 #include <kmessagebox.h>
 #include <kfiledialog.h>
 #include <kconfig.h>
-
-/** Invoke help viewer. */
-#define KHelpClient_invokeHelp KToolInvocation::invokeHelp
-
 #endif
 #include <QCoreApplication>
 #include "kdesettings.h"
@@ -111,7 +102,15 @@ bool KdePlatformTools::moveToTrash(const QString& path) const
  */
 void KdePlatformTools::displayHelp(const QString& anchor)
 {
-  KHelpClient_invokeHelp(anchor);
+#if QT_VERSION >= 0x050000
+  QUrl url(QLatin1String("help:/kid3/index.html"));
+  if (!anchor.isEmpty()) {
+    url.setFragment(anchor);
+  }
+  QDesktopServices::openUrl(url);
+#else
+  KToolInvocation::invokeHelp(anchor);
+#endif
 }
 
 /**
@@ -121,7 +120,11 @@ void KdePlatformTools::displayHelp(const QString& anchor)
  */
 QIcon KdePlatformTools::iconFromTheme(const QString& name) const
 {
+#if QT_VERSION >= 0x050000
+  return QIcon::fromTheme(name);
+#else
   return KIcon(name);
+#endif
 }
 
 /**
