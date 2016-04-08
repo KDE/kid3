@@ -55,6 +55,18 @@ class KID3_CORE_EXPORT TaggedFileSelection : public QObject {
   Q_PROPERTY(QString filePath READ getFilePath NOTIFY singleFileChanged)
   /** Detail information if single file selected, else null string. */
   Q_PROPERTY(QString detailInfo READ getDetailInfo NOTIFY singleFileChanged)
+  /**
+   * Format of tag 1 if single file selected, else null string.
+   * @deprecated For compatibility with old scripts,
+   * use tag(Frame.Tag_1).tagFormat instead.
+   */
+  Q_PROPERTY(QString tagFormatV1 READ getTagFormatV1 NOTIFY singleFileChanged)
+  /**
+   * Format of tag 2 if single file selected, else null string.
+   * @deprecated For compatibility with old scripts,
+   * use tag(Frame.Tag_2).tagFormat instead.
+   */
+  Q_PROPERTY(QString tagFormatV2 READ getTagFormatV2 NOTIFY singleFileChanged)
   /** Picture data, empty if not available.*/
   Q_PROPERTY(QByteArray picture READ getPicture NOTIFY singleFileChanged)
 public:
@@ -253,6 +265,9 @@ private:
     bool m_hasTag[Frame::Tag_NumValues];
   };
 
+  QString getTagFormatV1() const;
+  QString getTagFormatV2() const;
+
   FrameTableModel* m_framesModel[Frame::Tag_NumValues];
   TaggedFileSelectionTagContext* m_tagContext[Frame::Tag_NumValues];
   State m_state;
@@ -283,11 +298,6 @@ public:
   }
 
 signals:
-#if QT_VERSION < 0x050000
-  // Allow TaggedFileSelection to emit signals.
-  friend class TaggedFileSelection;
-#endif
-
   /**
    * Emitted when hasTag changed.
    */
@@ -304,6 +314,8 @@ signals:
   void tagFormatChanged();
 
 private:
+  friend class TaggedFileSelection;
+
   bool hasTag() const { return m_selection->hasTag(m_tagNr); }
   bool isTagUsed() const { return m_selection->isTagUsed(m_tagNr); }
   QString tagFormat() const { return m_selection->getTagFormat(m_tagNr); }

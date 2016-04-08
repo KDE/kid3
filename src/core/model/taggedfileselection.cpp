@@ -224,6 +224,28 @@ QString TaggedFileSelection::getTagFormat(Frame::TagNumber tagNr) const
 }
 
 /**
+ * Get the format of tag 1.
+ * @return string describing format of tag 1 if single file selected,
+ * else null string.
+ * @deprecated Use tag(Frame::Tag_1)->tagFormat() instead.
+ */
+QString TaggedFileSelection::getTagFormatV1() const
+{
+  return m_tagContext[Frame::Tag_1]->tagFormat();
+}
+
+/**
+ * Get the format of tag 2.
+ * @return string describing format of tag 2 if single file selected,
+ * else null string.
+ * @deprecated Use tag(Frame::Tag_2)->tagFormat() instead.
+ */
+QString TaggedFileSelection::getTagFormatV2() const
+{
+  return m_tagContext[Frame::Tag_2]->tagFormat();
+}
+
+/**
  * Check if filename is changed.
  * @return true if single file selected and filename was changed.
  */
