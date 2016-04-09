@@ -73,7 +73,7 @@ rpmbuild -ba kid3.spec
  - Install xsltproc and an XSL stylesheet to transform Docbook to HTML
    (http://sourceforge.net/projects/docbook)
  - Point environment variables to the installed programs:
-   * %PERLDIR%\bin\perl
+   * %PYTHONDIR%\python
    * %XSLTPROCDIR%\xsltproc
    * %DOCBOOKDIR%\html\docbook.xsl
    * %DUMPBINDIR%\dumpbin

@@ -37,7 +37,7 @@ endif (APPLE OR WIN32 OR ANDROID)
 if (_tsFiles)
   add_custom_command(
      OUTPUT ${_tsFiles}
-     COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl
+     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.py
        ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
        ${CMAKE_CURRENT_SOURCE_DIR}/../src
      DEPENDS ${_poFiles}

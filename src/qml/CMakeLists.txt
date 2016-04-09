@@ -34,8 +34,8 @@ if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
   endif (NOT HAVE_QT5)
   install(CODE "
     execute_process(
-      COMMAND ${PERL_EXECUTABLE}
-        ${kid3_SOURCE_DIR}/src/plugins/kid3qml/qmlpp.pl ${_qmlpp_code}
+      COMMAND ${PYTHON_EXECUTABLE}
+        ${kid3_SOURCE_DIR}/src/plugins/kid3qml/qmlpp.py ${_qmlpp_code}
       WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}\"
     )
     ")

@@ -9,7 +9,7 @@ Copyright: 2008-2013, Urs Fleisch
   2004, the VideoLAN team, under the same license
 License: GPL-2+
 
-Files: src/plugins/kid3qml/qmlpp.pl
+Files: src/plugins/kid3qml/qmlpp.py
 Copyright: no-info-found
 License: LGPL-2.1
 

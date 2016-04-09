@@ -3,8 +3,8 @@ macro (kid3_create_handbook _docbook)
   get_filename_component(_input ${_docbook} ABSOLUTE)
   get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
   set(_output ${CMAKE_CURRENT_BINARY_DIR}/kid3_${_lang}.html)
-  set(_fixdocbook_pl ${CMAKE_CURRENT_SOURCE_DIR}/../fixdocbook.pl)
-  set(_fixhtml_pl ${CMAKE_CURRENT_SOURCE_DIR}/../fixhtml.pl)
+  set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixdocbook.py)
+  set(_fixhtml_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixhtml.py)
   set(_docbook_xsl ${DOCBOOK_XSL_DIR}/html/docbook.xsl)
   if (WIN32)
     # The expressions in pipes do not work for Windows,
@@ -12,7 +12,7 @@ macro (kid3_create_handbook _docbook)
     set(_tmp_xml ${CMAKE_CURRENT_BINARY_DIR}/tmp.xml)
     set(_tmp_html ${CMAKE_CURRENT_BINARY_DIR}/tmp.html)
     add_custom_command(OUTPUT ${_tmp_xml}
-      COMMAND ${PERL_EXECUTABLE} ${_fixdocbook_pl} <${_input} >${_tmp_xml}
+      COMMAND ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} >${_tmp_xml}
       DEPENDS ${_input}
     )
     add_custom_command(OUTPUT ${_tmp_html}
@@ -20,15 +20,15 @@ macro (kid3_create_handbook _docbook)
       DEPENDS ${_tmp_xml}
     )
     add_custom_command(OUTPUT ${_output}
-      COMMAND ${PERL_EXECUTABLE} -n ${_fixhtml_pl} <${_tmp_html} >${_output}
+      COMMAND ${PYTHON_EXECUTABLE} ${_fixhtml_py} <${_tmp_html} >${_output}
       DEPENDS ${_tmp_html}
     )
   else (WIN32)
     add_custom_command(OUTPUT ${_output}
       COMMAND
-        ${PERL_EXECUTABLE} ${_fixdocbook_pl} <${_input} |
+        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} |
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} - |
-        ${PERL_EXECUTABLE} -n ${_fixhtml_pl} >${_output}
+        ${PYTHON_EXECUTABLE} ${_fixhtml_py} >${_output}
       DEPENDS ${_input}
     )
   endif (WIN32)
@@ -44,22 +44,24 @@ macro (kf5_create_handbook _docbook)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
   include(KDEInstallDirs)
   find_package(KF5 REQUIRED COMPONENTS DocTools)
-  file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.pl
-       CONTENT "#!/usr/bin/perl
-use File::Temp qw(tempfile);
-my $docbook = pop @ARGV;
-my $out_fh = new File::Temp(UNLINK => 1);
-if (open(my $in_fh, \"<\", $docbook)) {
-  while (<$in_fh>) {
-    s@\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"@\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"@;
-    print $out_fh $_;
-  }
-}
-push @ARGV, $out_fh;
-exec \"$<TARGET_FILE:KF5::meinproc5>\", @ARGV
+  file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
+       CONTENT "#!/usr/bin/env python
+import sys, os, tempfile
+args = sys.argv[1:]
+docbook = args.pop()
+out_fh = tempfile.NamedTemporaryFile(mode='w')
+with open(docbook) as in_fh:
+    for line in open(docbook):
+        line = line.replace(
+            '\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
+            '\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
+        out_fh.write(line)
+out_fh.flush()
+args.append(out_fh.name)
+os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
 ")
   get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-  set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PERL_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.pl)
+  set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py)
   kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang} SUBDIR kid3)
 endmacro (kf5_create_handbook _docbook)
 
@@ -73,11 +75,11 @@ if (UNIX)
     get_filename_component(_input ${_docbook} ABSOLUTE)
     get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
     set(_output ${CMAKE_CURRENT_BINARY_DIR}/kid3.1)
-    set(_fixdocbook_pl ${CMAKE_CURRENT_SOURCE_DIR}/../fixmandocbook.pl)
+    set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixmandocbook.py)
     set(_docbook_xsl ${DOCBOOK_XSL_DIR}/manpages/docbook.xsl)
     add_custom_command(OUTPUT ${_output}
       COMMAND
-        ${PERL_EXECUTABLE} ${_fixdocbook_pl} <${_input} |
+        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} |
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} -
       DEPENDS ${_input}
     )

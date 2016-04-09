@@ -53,7 +53,7 @@ if (UNIX AND NOT APPLE)
   find_program(GZIP_PROGRAM gzip)
   # install desktop file and icons for Linux
   add_custom_command(OUTPUT kid3-qt.desktop
-    COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.pl
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.py
       <${CMAKE_CURRENT_SOURCE_DIR}/../kid3.desktop >kid3-qt.desktop
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.desktop
   )
@@ -61,7 +61,7 @@ if (UNIX AND NOT APPLE)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
     DESTINATION "${WITH_DATAROOTDIR}/applications")
   add_custom_command(OUTPUT kid3-qt.appdata.xml
-    COMMAND ${PERL_EXECUTABLE} -pe "s/kid3\\.desktop/kid3-qt.desktop/"
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixappdata.py
       ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml >kid3-qt.appdata.xml
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml
   )

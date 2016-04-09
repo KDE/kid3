@@ -75,7 +75,7 @@ if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
     set(_qmlpp_code U)
   endif (NOT HAVE_QT5)
   add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
-    COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qmlpp.pl ${_qmlpp_code}
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qmlpp.py ${_qmlpp_code}
     WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3"
     APPEND
   )

@@ -214,7 +214,7 @@ endif (WITH_TRANSLATIONSDIR MATCHES "^:/")
 set(CFG_QMLSRCDIR "${kid3_SOURCE_DIR}/src/qml")
 
 find_package(Threads)
-find_package(Perl REQUIRED)
+find_package(PythonInterp REQUIRED)
 include (CheckCXXSourceCompiles)
 include (CheckCXXCompilerFlag)
 include (CheckLibraryExists)
