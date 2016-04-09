@@ -5,7 +5,7 @@
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % German "INCLUDE"><!-- change language only here -->
 ]>
-<book lang="&language;">
+<book lang="&language;" id="kid3-handbook">
 
 <bookinfo>
 <title>Das Kid3 Handbuch</title>

@@ -70,7 +70,7 @@ if (UNIX AND NOT APPLE)
     DESTINATION "${WITH_DATAROOTDIR}/appdata")
   if (GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
-      COMMAND ${GZIP_PROGRAM} -cd ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz >kid3-qt.svg
+      COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz >kid3-qt.svg
       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz
     )
     set(qt_SRCS ${qt_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg)

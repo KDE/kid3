@@ -88,7 +88,7 @@ if (UNIX)
       set(_gzExt ".gz")
       set(_output_gz ${_output}${_gzExt})
       add_custom_command(OUTPUT ${_output_gz}
-        COMMAND ${GZIP_EXECUTABLE} -c ${_output} >${_output_gz}
+        COMMAND ${GZIP_EXECUTABLE} -cn ${_output} >${_output_gz}
         DEPENDS ${_output}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       )
