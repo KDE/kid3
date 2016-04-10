@@ -56,50 +56,51 @@ def set_ts_translations(infn, outfn, trans):
     sourcere = re.compile(r'<source>(.*)</source>')
     sourcebeginre = re.compile(r'<source>(.*)$')
     sourceendre = re.compile(r'^(.*)</source>')
-    with open(infn) as infh, open(outfn, 'w') as outfh:
-        for line in infh:
-            line = line.replace('\r\n', '\n')
-            m = sourcere.search(line)
-            if m:
-                source = m.group(1)
-                in_source = False
-            else:
-                m = sourcebeginre.search(line)
+    with open(infn) as infh:
+        with open(outfn, 'w') as outfh:
+            for line in infh:
+                line = line.replace('\r\n', '\n')
+                m = sourcere.search(line)
                 if m:
                     source = m.group(1)
-                    in_source = True
-                elif in_source:
-                    source += '\n'
-                    m = sourceendre.match(line)
+                    in_source = False
+                else:
+                    m = sourcebeginre.search(line)
                     if m:
-                        source += m.group(1)
-                        in_source = False
-                    else:
-                        source += line.strip()
-                elif '<translation' in line:
-                    source = source \
-                        .replace('&amp;', '&') \
-                        .replace('&lt;', '<') \
-                        .replace('&gt;', '>') \
-                        .replace('&apos;', "'") \
-                        .replace('&quot;', r'\"') \
-                        .replace('\n', r'\n')
-                    if source in trans:
-                        translation = trans[source] \
-                            .replace('&', '&amp;') \
-                            .replace('<', '&lt;') \
-                            .replace('>', '&gt;') \
-                            .replace("'", '&apos;') \
-                            .replace(r'\"', '&quot;') \
-                            .replace(r'\n', '\n')
-                        line = line \
-                            .replace(' type="unfinished"', '') \
-                            .replace('</translation>',
-                                     translation + '</translation>')
-                    else:
-                        print('Could not find translation for "%s"' %
-                              source)
-            outfh.write(line)
+                        source = m.group(1)
+                        in_source = True
+                    elif in_source:
+                        source += '\n'
+                        m = sourceendre.match(line)
+                        if m:
+                            source += m.group(1)
+                            in_source = False
+                        else:
+                            source += line.strip()
+                    elif '<translation' in line:
+                        source = source \
+                            .replace('&amp;', '&') \
+                            .replace('&lt;', '<') \
+                            .replace('&gt;', '>') \
+                            .replace('&apos;', "'") \
+                            .replace('&quot;', r'\"') \
+                            .replace('\n', r'\n')
+                        if source in trans:
+                            translation = trans[source] \
+                                .replace('&', '&amp;') \
+                                .replace('<', '&lt;') \
+                                .replace('>', '&gt;') \
+                                .replace("'", '&apos;') \
+                                .replace(r'\"', '&quot;') \
+                                .replace(r'\n', '\n')
+                            line = line \
+                                .replace(' type="unfinished"', '') \
+                                .replace('</translation>',
+                                         translation + '</translation>')
+                        else:
+                            print('Could not find translation for "%s"' %
+                                  source)
+                outfh.write(line)
 
 
 def generate_ts(lupdate_cmd, podir, srcdir):
