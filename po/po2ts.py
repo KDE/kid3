@@ -11,23 +11,23 @@ def get_po_translations(fn):
     Read all translations from a .po file, fill them into an associative
     array.
     """
-    msgid = ''
-    msgstr = ''
+    msgid = b''
+    msgstr = b''
     in_msgid = False
     in_msgstr = False
     trans = {}
-    msgidre = re.compile(r'^msgid "(.*)"$')
-    msgstrre = re.compile(r'^msgstr "(.*)"$')
-    strcontre = re.compile(r'^"(.+)"$')
-    with open(fn) as fh:
+    msgidre = re.compile(br'^msgid "(.*)"$')
+    msgstrre = re.compile(br'^msgstr "(.*)"$')
+    strcontre = re.compile(br'^"(.+)"$')
+    with open(fn, 'rb') as fh:
         for line in fh:
-            line = line.replace('\r\n', '\n')
+            line = line.replace(b'\r\n', b'\n')
             m = msgidre.match(line)
             if m:
                 if msgid:
                     trans[msgid] = msgstr
                 msgid = m.group(1)
-                msgstr = ''
+                msgstr = b''
                 in_msgid = True
                 in_msgstr = False
             m = msgstrre.match(line)
@@ -51,15 +51,15 @@ def set_ts_translations(infn, outfn, trans):
     Set the translations in a .ts file replacing & by &amp;, < by &lt;,
     > by &gt; and ' by &apos;.
     """
-    source = ''
+    source = b''
     in_source = False
-    sourcere = re.compile(r'<source>(.*)</source>')
-    sourcebeginre = re.compile(r'<source>(.*)$')
-    sourceendre = re.compile(r'^(.*)</source>')
-    with open(infn) as infh:
-        with open(outfn, 'w') as outfh:
+    sourcere = re.compile(br'<source>(.*)</source>')
+    sourcebeginre = re.compile(br'<source>(.*)$')
+    sourceendre = re.compile(br'^(.*)</source>')
+    with open(infn, 'rb') as infh:
+        with open(outfn, 'wb') as outfh:
             for line in infh:
-                line = line.replace('\r\n', '\n')
+                line = line.replace(b'\r\n', b'\n')
                 m = sourcere.search(line)
                 if m:
                     source = m.group(1)
@@ -70,33 +70,33 @@ def set_ts_translations(infn, outfn, trans):
                         source = m.group(1)
                         in_source = True
                     elif in_source:
-                        source += '\n'
+                        source += b'\n'
                         m = sourceendre.match(line)
                         if m:
                             source += m.group(1)
                             in_source = False
                         else:
                             source += line.strip()
-                    elif '<translation' in line:
+                    elif b'<translation' in line:
                         source = source \
-                            .replace('&amp;', '&') \
-                            .replace('&lt;', '<') \
-                            .replace('&gt;', '>') \
-                            .replace('&apos;', "'") \
-                            .replace('&quot;', r'\"') \
-                            .replace('\n', r'\n')
+                            .replace(b'&amp;', b'&') \
+                            .replace(b'&lt;', b'<') \
+                            .replace(b'&gt;', b'>') \
+                            .replace(b'&apos;', b"'") \
+                            .replace(b'&quot;', br'\"') \
+                            .replace(b'\n', br'\n')
                         if source in trans:
                             translation = trans[source] \
-                                .replace('&', '&amp;') \
-                                .replace('<', '&lt;') \
-                                .replace('>', '&gt;') \
-                                .replace("'", '&apos;') \
-                                .replace(r'\"', '&quot;') \
-                                .replace(r'\n', '\n')
+                                .replace(b'&', b'&amp;') \
+                                .replace(b'<', b'&lt;') \
+                                .replace(b'>', b'&gt;') \
+                                .replace(b"'", b'&apos;') \
+                                .replace(br'\"', b'&quot;') \
+                                .replace(br'\n', b'\n')
                             line = line \
-                                .replace(' type="unfinished"', '') \
-                                .replace('</translation>',
-                                         translation + '</translation>')
+                                .replace(b' type="unfinished"', b'') \
+                                .replace(b'</translation>',
+                                         translation + b'</translation>')
                         else:
                             print('Could not find translation for "%s"' %
                                   source)
