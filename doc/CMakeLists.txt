@@ -49,12 +49,12 @@ macro (kf5_create_handbook _docbook)
 import sys, os, tempfile
 args = sys.argv[1:]
 docbook = args.pop()
-out_fh = tempfile.NamedTemporaryFile(mode='w')
-with open(docbook) as in_fh:
-    for line in open(docbook):
+out_fh = tempfile.NamedTemporaryFile(mode='wb')
+with open(docbook, 'rb') as in_fh:
+    for line in in_fh:
         line = line.replace(
-            '\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
-            '\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
+            b'\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
+            b'\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
         out_fh.write(line)
 out_fh.flush()
 args.append(out_fh.name)
