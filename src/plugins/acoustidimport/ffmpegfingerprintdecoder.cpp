@@ -95,7 +95,11 @@ public:
 
   ~Packet() {
     if (m_ptr && m_ptr->data) {
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(57, 8, 0)
       ::av_free_packet(m_ptr);
+#else
+      ::av_packet_unref(m_ptr);
+#endif
     }
   }
 
