@@ -54,9 +54,15 @@ CorePlatformTools::~CorePlatformTools()
 ISettings* CorePlatformTools::applicationSettings()
 {
   if (!m_config) {
-    m_settings = new QSettings(
-          QSettings::UserScope, QLatin1String("Kid3"),
-          QLatin1String("Kid3"), qApp);
+    QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
+    if (configPath.isNull()) {
+      m_settings = new QSettings(
+            QSettings::UserScope, QLatin1String("Kid3"),
+            QLatin1String("Kid3"), qApp);
+    } else {
+      m_settings = new QSettings(
+            QFile::decodeName(configPath), QSettings::IniFormat, qApp);
+    }
     m_config = new Kid3Settings(m_settings);
   }
   return m_config;
