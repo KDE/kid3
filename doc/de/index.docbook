@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2016-03-10</date>
-<releaseinfo>3.3.2</releaseinfo>
+<date>2016-04-23</date>
+<releaseinfo>3.4.0</releaseinfo>
 
 <abstract>
 <para>
@@ -335,8 +335,8 @@ im Verzeichnis.
 Die &kid3; Benutzeroberfläche ist in fünf Sektionen aufgeteilt: Links finden sich das
 Dateilistenfeld und das Verzeichnislistenfeld, die rechte Seite enthält
 die <guilabel>Datei</guilabel>,
-<guilabel>Tag 1</guilabel> und <guilabel>Tag 2</guilabel>
-Sektionen.
+<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> und <guilabel>Tag 3
+</guilabel> Sektionen.
 </para>
 
 <sect2 id="file-list">
@@ -625,6 +625,44 @@ kein Album Cover Bild enthält. Bilder kann man mittels "Drag and Drop" vom
 Browser oder Dateimanager hinzufügen; sie werden dann hier angezeigt. Das
 Editieren oder Hinzufügen eines Bild-Elements kann mit einem Doppelklick
 ausgelöst werden.
+</para>
+
+</sect2>
+
+<sect2 id="tag3">
+<title>Tag 3</title>
+
+<para>
+Einige Dateien haben mehr als zwei Tags, bei diesen ist eine dritte
+Tag-Sektion sichtbar. Die folgenden Dateitypen haben solch eine <guilabel>Tag
+3</guilabel> Sektion:
+<itemizedlist>
+<listitem><para>
+MP3-Dateien können ein ID3v1.1 Tag, ein ID3v2 (2.3.0 oder 2.4.0) Tag und in
+der dritten Sektion ein APE-Tag haben. APE-Tags werden v.a. für
+Replay-Gain-Informationen verwendet. In der <guilabel>Tag 3</guilabel> Sektion
+ist diese Information sichtbar, und das APE-Tag kann mit dem
+<guibutton>Entfernen</guibutton>-Knopf gelöscht werden.
+</para></listitem>
+<listitem><para>
+Der RIFF-INFO-Chunk in WAV-Dateien ist in der <guilabel>Tag 3</guilabel>
+Sektion zugänglich, weil die <guilabel>Tag 1</guilabel> Sektion für ID3v1.1
+Tags reserviert ist und die Einschränkungen dieser Tags umfasst. Die
+<guilabel>Tag 2</guilabel> Sektion wird wie bisher für ID3v2.4.0 Tags
+verwendet. RIFF-INFO-Chunks scheinen jedoch weiter verbreitet zu sein.
+</para></listitem>
+<listitem><para>
+FLAC-Dateien speichern ihre Meta-Daten normalerweise in einem Vorbis-Tag. Man
+trifft jedoch auch auf FLAC-Dateien mit IDv1 und ID3v2 Tags, welche in den
+Sektionen <guilabel>Tag 1</guilabel> und <guilabel>Tag 3</guilabel> sichtbar
+sind. ID3 Tags in FLAC-Dateien werden nur von TagLib unterstützt, daher muss
+das OggFlacMetadata-Plugin im <guilabel>Plugins</guilabel>-Reiter der <link
+linkend="configure-kid3">Einstellungen</link> abgeschaltet werden.
+</para></listitem>
+</itemizedlist>
+
+Die Eingabefelder funktionieren wie bei der <guilabel>Tag 2</guilabel>
+Sektion.
 </para>
 
 </sect2>
@@ -3165,6 +3203,8 @@ Als Qt-Anwendung liegt diese Datei
 in <filename>.config/Kid3/Kid3.conf</filename>. Unter
 Windows wird die Konfiguration in der Registry gespeichert.
 </para>
+<para>Die Umgebungsvariable <varname>KID3_CONFIG_FILE</varname> kann gesetzt
+werden, um den Pfad der Konfigurationsdatei zu bestimmen.</para>
 
 </sect1>
 

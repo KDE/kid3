@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2016-03-10</date>
-<releaseinfo>3.3.2</releaseinfo>
+<date>2016-04-23</date>
+<releaseinfo>3.4.0</releaseinfo>
 
 <abstract>
 <para>
@@ -324,7 +324,8 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <para>
 The &kid3; GUI is separated in five sections: At the left are the file
 and directory listboxes, the right side contains the <guilabel>File</guilabel>,
-<guilabel>Tag 1</guilabel> and <guilabel>Tag 2</guilabel> sections.
+<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> and <guilabel>Tag 3
+</guilabel> sections.
 </para>
 
 <sect2 id="file-list">
@@ -594,6 +595,43 @@ works also to add a frame to multiple selected files.
 contain embedded cover art. A picture can be added using drag and drop from a
 browser or file manager and will be displayed here. Picture frames can be
 edited or added by double clicking on this control.
+</para>
+
+</sect2>
+
+<sect2 id="tag3">
+<title>Tag 3</title>
+
+<para>
+Some files can have more than two tags, and a third tag section is visible.
+The following file types can have such a <guilabel>Tag 3</guilabel> section:
+<itemizedlist>
+<listitem><para>
+MP3 files can have an ID3v1.1 tag, an ID3v2 (2.3.0 or 2.4.0) tag and in the
+third section an APE tag. Such APE tags are used for replay gain
+information. In the <guilabel>Tag 3</guilabel> section, this information is
+visible, and the APE tag can be removed with the <guibutton>Remove</guibutton>
+button.
+</para></listitem>
+<listitem><para>
+The RIFF INFO chunk of WAV files is available in the <guilabel>Tag 3
+</guilabel> section because the <guilabel>Tag 1</guilabel> section is
+dedicated to ID3v1.1 tags and handles their restrictions. The
+<guilabel>Tag 2</guilabel> is still used for ID3v2.4.0 tags, which are also
+supported for WAV files, but RIFF INFO chunks seem to be supported better.
+</para></listitem>
+<listitem><para>
+FLAC files normally use a Vorbis comment for their meta data. However, there
+are FLAC files which have IDv1 and ID3v2 tags, which can be found in the
+<guilabel>Tag 1</guilabel> and <guilabel>Tag 3</guilabel> sections.
+ID3 tags in FLAC files are only supported by TagLib, therefore the
+OggFlacMetadata plugin has to be disabled in the <guilabel>Plugins</guilabel>
+tab of the <link linkend="configure-kid3">settings</link>.
+</para></listitem>
+</itemizedlist>
+
+The GUI controls work in the same way as in the <guilabel>Tag 2</guilabel>
+section.
 </para>
 
 </sect2>
@@ -3002,6 +3040,8 @@ As a Qt application, this file is
 in <filename>.config/Kid3/Kid3.conf</filename>. On Windows,
 the configuration is stored in the registry.
 </para>
+<para>The environment variable <varname>KID3_CONFIG_FILE</varname> can be used
+to set the path of the configuration file.</para>
 
 </sect1>
 

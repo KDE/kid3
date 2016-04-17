@@ -20,6 +20,7 @@ Build-Depends: debhelper (>= 9),
 # libqt4-dev, kdelibs5-dev,
 # KDE 4 END
  cmake,
+ python,
  libid3-3.8.3-dev,
  libflac++-dev,
  libvorbis-dev,

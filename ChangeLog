@@ -1,3 +1,29 @@
+Sat Apr 23 16:30:36 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.0
+
+	* New:
+	  + Support more than two tags for MP3 files with ID3v1, ID3v2 and APE
+	    tags, FLAC files with ID3v1, ID3v2 and Vorbis tags.
+	  + Support RIFF INFO tags in WAV files.
+	  + Filename to tag format can be defined as a regular expression with
+	    captures.
+	  + Perl regular expressions with Qt 5.
+
+	* Improved:
+	  + Import from tags is also available from CLI, QML and D-Bus.
+	  + Help for editing synchronized lyrics.
+	  + Handle redirects when downloading.
+
+	* Fixed:
+	  + Windows: Saving files which are open in player, e.g. when editing
+	    synchronized lyrics.
+	  + Windows: Timestamp preservation with non-ASCII file names.
+	  + KDE 5: Jumping to a specific help topic.
+	  + Enable setting ID3v2.4 date with ISO date/time also when no tag
+	    exists.
+	  + Crash when writing to a FLAC file which cannot be opened.
+
 Thu Mar 10 17:55:29 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.3.2
