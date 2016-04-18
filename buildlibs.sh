@@ -51,15 +51,15 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.5.1
+qt_version=5.6.0
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=3
-ffmpeg_version=2.8.6
-ffmpeg_patchlevel=1
+ffmpeg_version=3.0.1
+ffmpeg_patchlevel=3
 #libav_version=11.4
 #libav_patchlevel=2
 libflac_version=1.3.1
@@ -2007,7 +2007,7 @@ _android_abi=$_android_abi
 _android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
-cmake -GNinja -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
 EOF
   chmod +x kid3/build.sh
 fi
