@@ -31,6 +31,7 @@ Standard {
   property Item popover
   text: modelData.text                 //@!Ubuntu
   visible: modelData.visible           //@!Ubuntu
+  height: modelData.visible ? constants.rowHeight : 0 //@!Ubuntu
   //text: action.text                    //@Ubuntu
   onClicked: {                         //@!Ubuntu
     modelData.triggered()              //@!Ubuntu
