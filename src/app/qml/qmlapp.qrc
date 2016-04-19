@@ -54,6 +54,7 @@
     <file alias="icons/create.svg">../../qml/icons/create.svg</file>
     <file alias="icons/expand_less.svg">../../qml/icons/expand_less.svg</file>
     <file alias="icons/menu.svg">../../qml/icons/menu.svg</file>
+    <file alias="icons/modified.svg">../../qml/icons/modified.svg</file>
     <file alias="icons/remove.svg">../../qml/icons/remove.svg</file>
     <file alias="icons/select_all.svg">../../qml/icons/select_all.svg</file>
     <file alias="icons/selection_handle.svg">../../qml/icons/selection_handle.svg</file>

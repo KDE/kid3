@@ -113,9 +113,13 @@ RaisableRectangle {
           width: constants.gu(2)
           height: constants.gu(2)
           Image {
-            source: "image://kid3/fileicon/" + iconId
-            sourceSize.width: parent.width
-            sourceSize.height: parent.height
+            //anchors.fill: parent                       //@Ubuntu
+            //source: "image://kid3/fileicon/" + iconId  //@Ubuntu
+            source: iconId == "modified"               //@!Ubuntu
+                    ? "../icons/modified.svg"          //@!Ubuntu
+                    : "image://kid3/fileicon/" + (iconId || "null") //@!Ubuntu
+            sourceSize.width: parent.width             //@!Ubuntu
+            sourceSize.height: parent.height           //@!Ubuntu
           }
         }
         Label {
