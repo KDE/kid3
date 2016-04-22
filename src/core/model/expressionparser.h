@@ -42,7 +42,7 @@ public:
    * @param operators additional operators (besides not, and, or),
    *                  highest priority first
    */
-  ExpressionParser(QStringList operators);
+  explicit ExpressionParser(QStringList operators);
 
   /**
    * Destructor.

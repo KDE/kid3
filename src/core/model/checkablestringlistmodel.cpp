@@ -68,7 +68,7 @@ QVariant CheckableStringListModel::data(const QModelIndex& index, int role) cons
   if (role == Qt::CheckStateRole &&
       index.isValid() && index.column() == 0 &&
       index.row() >= 0 && index.row() < 64) {
-    return m_bitMask & (1ULL << index.row()) ? Qt::Checked : Qt::Unchecked;
+    return (m_bitMask & (1ULL << index.row())) ? Qt::Checked : Qt::Unchecked;
   }
   return QStringListModel::data(index, role);
 }

@@ -33,7 +33,7 @@
  * @param iconProvider icon provider to use
  */
 PixmapProvider::PixmapProvider(TaggedFileIconProvider* iconProvider) :
-  m_fileIconProvider(iconProvider)
+  m_fileIconProvider(iconProvider), m_pixmapHash(0)
 {
 }
 

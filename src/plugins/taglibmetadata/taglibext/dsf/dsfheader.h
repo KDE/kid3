@@ -49,7 +49,7 @@ class DSFHeader
   /*!
    * Parses an DSF header based on \a data.
    */
-  DSFHeader(const TagLib::ByteVector &data);
+  explicit DSFHeader(const TagLib::ByteVector &data);
 
   /*!
    * Does a shallow copy of \a h.
