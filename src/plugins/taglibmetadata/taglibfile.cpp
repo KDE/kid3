@@ -5134,11 +5134,11 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           markTagChanged(tagNr, type);
         }
       } else {
-        if (num >= 0 && num != static_cast<int>(oldNum) &&
+        if (num > 0 && num != static_cast<int>(oldNum) &&
             getDefaultTextEncoding() == TagLib::String::Latin1) {
           tag->setYear(num);
           markTagChanged(tagNr, type);
-        } else {
+        } else if (num == 0 || num != static_cast<int>(oldNum)){
           QString yearStr;
           if (num != 0) {
             yearStr.setNum(num);
