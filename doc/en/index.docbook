@@ -462,7 +462,7 @@ but it is also possible to type in some special format into the line edit.
 Internally, a regular expression is built from the format codes. If advanced
 regular expressions are required, the format to generate the tags from the
 filenames can be given as a complete regular expression with captures which
-are preceeded by the format codes, e.g. to extract the track numbers without
+are preceded by the format codes, e.g. to extract the track numbers without
 removal of leading zeros, a format like "/%{track}(\d+) %{title}(.*)" could be
 used.
 </para>
