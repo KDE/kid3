@@ -170,6 +170,18 @@ if (APPLE OR WIN32)
         PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
   endif (HAVE_PHONON)
 
+  if (WIN32)
+    string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)"
+           _crossMingwMatch "${CMAKE_CXX_COMPILER}")
+    if (_crossMingwMatch)
+      # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
+      # when building a Windows package from Linux with CMake 3.5.
+      install(CODE "
+      set(gp_tool DO_NOT_USE)
+      ")
+    endif (_crossMingwMatch)
+  endif (WIN32)
+
   # Install and fix up all dependencies of the executable and the plugins.
   # On Mac OS X only keep the i386 code in the Qt libraries and plugins.
   install(CODE "
