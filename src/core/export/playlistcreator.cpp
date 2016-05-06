@@ -48,8 +48,8 @@ PlaylistCreator::PlaylistCreator(const QString& topLevelDir,
 {
   if (m_cfg.location() == PlaylistConfig::PL_TopLevelDirectory) {
     m_playlistDirName = topLevelDir;
-    if (!m_playlistDirName.endsWith(QChar(QDir::separator()))) {
-      m_playlistDirName += QDir::separator();
+    if (!m_playlistDirName.endsWith(QLatin1Char('/'))) {
+      m_playlistDirName += QLatin1Char('/');
     }
   }
 }
@@ -166,12 +166,11 @@ PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
     m_dirName = FileProxyModel::getPathIfIndexOfDir(index);
     m_isDir = !m_dirName.isNull();
   }
-  QChar separator = QDir::separator();
-  if (!m_dirName.endsWith(separator)) {
-    m_dirName += separator;
+  if (!m_dirName.endsWith(QLatin1Char('/'))) {
+    m_dirName += QLatin1Char('/');
   }
   // fix double separators
-  m_dirName.replace(QString(separator) + separator, separator);
+  m_dirName.replace(QLatin1String("//"), QLatin1String("/"));
 }
 
 /**

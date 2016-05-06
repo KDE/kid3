@@ -1429,7 +1429,9 @@ the <guilabel>Create in</guilabel> combo box.
 <variablelist>
 <varlistentry><term>Current directory</term>
 <listitem><para>The playlist is created in the current directory and contains
-only files of the current directory.</para></listitem></varlistentry>
+only files of the current directory. The current directory is the directory
+where the current file is located. If multiple files are selected, the current
+file is probably the last selected file.</para></listitem></varlistentry>
 <varlistentry><term>Every directory</term>
 <listitem><para>A playlist is created in every directory which contains
 listed files, and each playlist contains the files of that directory.

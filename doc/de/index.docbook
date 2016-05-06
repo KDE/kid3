@@ -1517,7 +1517,10 @@ Auswahlliste <guilabel>Erstelle in</guilabel>
 <variablelist>
 <varlistentry><term>Aktuellem Verzeichnis</term>
 <listitem><para>Die Stückliste wird im aktuellen Verzeichnis erstellt und
-enthält nur Dateien aus diesem Verzeichnis.</para></listitem></varlistentry>
+enthält nur Dateien aus diesem Verzeichnis. Das aktuelle Verzeichnis ist das
+Verzeichnis, in welchem sich die aktuelle Datei befindet. Wenn mehrere Dateien
+ausgewählt sind, ist wahrscheinlich die zuletzt ausgewählte Datei die aktuelle
+Datei.</para></listitem></varlistentry>
 <varlistentry><term>Jedem Ordner</term>
 <listitem><para>In jedem Verzeichnis, welches gelistete Dateien enthält, wird
 eine eigene Stückliste erstellt, welche die Dateien aus dem jeweiligen
