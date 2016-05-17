@@ -224,9 +224,8 @@ if (WIN32)
     install(DIRECTORY "${_qtBinDir}/icu_reduced/"
             DESTINATION ${WITH_BINDIR} OPTIONAL)
     # Install missing DLLs.
-    install(FILES "${_qtBinDir}/Qt5Xml.dll"
-                  "${_qtBinDir}/../../../Tools/mingw492_32/opt/bin/libeay32.dll"
-                  "${_qtBinDir}/../../../Tools/mingw492_32/opt/bin/ssleay32.dll"
+    file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
+    install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
             DESTINATION ${WITH_BINDIR})
   endif (NOT HAVE_QT5)
 endif (WIN32)
