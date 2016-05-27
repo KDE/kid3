@@ -5147,7 +5147,25 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           }
           TagLib::String tstr = yearStr.isEmpty() ?
             TagLib::String::null : toTString(yearStr);
-          if (!setId3v2Unicode(tag, yearStr, tstr, frameId)) {
+          bool ok = false;
+          if (dynamic_cast<TagLib::ID3v2::Tag*>(tag) != 0) {
+            ok = setId3v2Unicode(tag, yearStr, tstr, frameId);
+          } else if (TagLib::MP4::Tag* mp4Tag =
+                     dynamic_cast<TagLib::MP4::Tag*>(tag)) {
+            TagLib::String name;
+            Mp4ValueType valueType;
+            getMp4NameForType(type, name, valueType);
+            TagLib::MP4::Item item = TagLib::MP4::Item(tstr);
+            ok = valueType == MVT_String && item.isValid();
+            if (ok) {
+              mp4Tag->itemListMap()[name] = item;
+            }
+          } else if (TagLib::Ogg::XiphComment* oggTag =
+                     dynamic_cast<TagLib::Ogg::XiphComment*>(tag)) {
+            oggTag->addField(getVorbisNameFromType(type), tstr, true);
+            ok = true;
+          }
+          if (!ok) {
             tag->setYear(num);
           }
           markTagChanged(tagNr, type);
