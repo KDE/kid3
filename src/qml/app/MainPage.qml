@@ -54,12 +54,15 @@ Page {
       }
     }
     Button {
+      id: previousButton
       iconName: "go-previous"
+      visible: body.state != "narrow" || rightSide.raised
       width: height
       onClicked: app.previousFile()
     }
     Button {
       iconName: "go-next"
+      visible: previousButton.visible
       width: height
       onClicked: app.nextFile()
     }
@@ -189,10 +192,10 @@ Page {
         when: body.rightSideSpace < constants.gu(50)
         PropertyChanges {
           target: fileList
-          raised: !rightSide.raised
         }
         PropertyChanges {
           target: rightSide
+          raised: !fileList.raised
           width: Math.min(constants.gu(50), body.width - constants.gu(4))
         }
       }
