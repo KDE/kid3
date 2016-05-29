@@ -1,3 +1,15 @@
+Fri Jun 24 20:20:20 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.1
+
+	* Fixed:
+	  + Avoid wrong marking of ID3v2 Date frames as modified.
+	  + Enable setting M4A, Vorbis date with ISO date/time also when no
+	    tag exists.
+	  + Windows: Fix separators and relative file names in playlists.
+	  + Windows: Install missing SSL DLLs, needed for Discogs import.
+	  + Windows: Fix temporary file creation in id3lib.
+
 Sat Apr 23 16:30:36 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.0
