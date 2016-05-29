@@ -52,6 +52,12 @@ else (NOT HAVE_QMLDIR_IN_QRC)
     RUNTIME DESTINATION ${WITH_BINDIR})
   file(MAKE_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3")
 endif (NOT HAVE_QMLDIR_IN_QRC)
+if (ANDROID)
+  # Fix "-soname: must take a non-empty argument" error with CMake >= 3.2.
+  # http://stackoverflow.com/questions/26841603/arm-linux-androideabi-bin-ld-fatal-error-soname-must-take-a-non-empty-argume
+  string(REPLACE "<CMAKE_SHARED_LIBRARY_SONAME_CXX_FLAG><TARGET_SONAME>" ""
+         CMAKE_CXX_CREATE_SHARED_MODULE "${CMAKE_CXX_CREATE_SHARED_MODULE}")
+endif (ANDROID)
 
 if (WIN32)
   set(_qmldirPluginName libkid3qml)
