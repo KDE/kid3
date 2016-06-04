@@ -41,6 +41,9 @@ Package: kid3-core
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends}
+# KDE 5 BEGIN
+Recommends: libqt5multimedia5-plugins
+# KDE 5 END
 Breaks: kid3 (<< 3.0.2-2)
 Replaces: kid3 (<< 3.0.2-2)
 Description: Audio tag editor core libraries and data
