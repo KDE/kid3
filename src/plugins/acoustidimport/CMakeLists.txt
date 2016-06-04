@@ -7,9 +7,7 @@ if(WITH_CHROMAPRINT)
     if (WITH_GSTREAMER_VERSION)
       set(_checkedGstVersions ${WITH_GSTREAMER_VERSION})
     else (WITH_GSTREAMER_VERSION)
-      # Prefer version 0.10 as long as Phonon and QtMultimedia
-      # are using it.
-      set(_checkedGstVersions "0.10;1.0")
+      set(_checkedGstVersions "1.0;0.10")
     endif (WITH_GSTREAMER_VERSION)
     foreach (_gstVersion ${_checkedGstVersions})
       pkg_check_modules(GSTREAMER gstreamer-${_gstVersion})
@@ -18,7 +16,7 @@ if(WITH_CHROMAPRINT)
           message(STATUS "GStreamer ${_gstVersion} selected, "
             "use WITH_GSTREAMER_VERSION for another version.")
         endif (NOT WITH_GSTREAMER_VERSION)
-        if (_gstVersion STREQUAL "1.0" AND WITH_PHONON)
+        if (_gstVersion STREQUAL "0.10" AND WITH_PHONON)
           message(WARNING "If Phonon uses a different GStreamer version "
             "it will probably hang when playing.")
         endif ()
