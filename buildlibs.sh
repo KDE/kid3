@@ -51,7 +51,7 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.6.0
+qt_version=5.6.1
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
@@ -237,7 +237,7 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 if test "$compiler" = "cross-mingw"; then
 test -f mingw.cmake ||
 cat >mingw.cmake <<EOF
-set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version%.?}/mingw492_32)
+set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version%.?}/mingw49_32)
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
@@ -406,6 +406,22 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_STATIC         1 //both for use and creation of static lib
  #  define LINKOPTION_CREATE_DYNAMIC 2 //should only be used by prj/id3lib.dsp
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
+EOF
+
+test -f id3lib-3.8.3_wintempfile.patch ||
+cat >id3lib-3.8.3_wintempfile.patch <<"EOF"
+diff -ru id3lib-3.8.3.orig/src/tag_file.cpp id3lib-3.8.3/src/tag_file.cpp
+--- id3lib-3.8.3.orig/src/tag_file.cpp	2016-06-09 20:54:44.395068889 +0200
++++ id3lib-3.8.3/src/tag_file.cpp	2016-06-09 21:39:35.044411098 +0200
+@@ -242,7 +242,7 @@
+     strcpy(sTempFile, filename.c_str());
+     strcat(sTempFile, sTmpSuffix.c_str());
+ 
+-#if !defined(HAVE_MKSTEMP)
++#if !defined(HAVE_MKSTEMP) || defined WIN32
+     // This section is for Windows folk
+     fstream tmpOut;
+     createFile(sTempFile, tmpOut);
 EOF
 
 test -f taglib-msvc.patch ||
@@ -1870,6 +1886,7 @@ cd id3lib-${id3lib_version}/
 unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
+patch -p1 <../source/id3lib-3.8.3_wintempfile.patch
 test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
 sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
 cd ..
