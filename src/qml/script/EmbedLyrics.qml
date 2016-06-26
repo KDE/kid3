@@ -28,7 +28,7 @@ Kid3Script {
     var lyricFetchers = {
       "makeitpersonal": {
         getUrl: function(artist, title) {
-          return "http://makeitpersonal.co/lyrics?artist=%1&title=%2".
+          return "https://makeitpersonal.co/lyrics?artist=%1&title=%2".
                    arg(artist).arg(title)
         },
         parseResponse: function(resp) {
@@ -37,7 +37,7 @@ Kid3Script {
       },
       "lyrics.wikia.com": {
         getUrl: function(artist, title) {
-          return "http://lyricwiki.org/" + encodeURIComponent(artist) +
+          return "http://lyrics.wikia.com/wiki/" + encodeURIComponent(artist) +
                    ":" + encodeURIComponent(title)
         },
         parseResponse: function(resp) {
@@ -53,15 +53,12 @@ Kid3Script {
 
           var begin = resp.indexOf("<div class='lyricbox'>")
           if (begin !== -1) {
-            begin = resp.indexOf("</script>", begin)
-            if (begin !== -1) {
-              begin += 9
-              var end = resp.indexOf("<!--", begin)
-              var txt = resp.substring(begin, end)
-              if (txt.substring(0, 2) === "&#") {
-                txt = replaceHtmlEntities(txt)
-                return txt
-              }
+            begin += 22
+            var end = resp.indexOf("<!--", begin)
+            var txt = resp.substring(begin, end)
+            if (txt.substring(0, 2) === "&#") {
+              txt = replaceHtmlEntities(txt)
+              return txt
             }
           }
           return ""
