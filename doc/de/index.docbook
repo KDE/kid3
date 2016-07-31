@@ -2703,7 +2703,8 @@ Intro</computeroutput></screen>
 <arg choice="req"><replaceable>ELEMENTWERT</replaceable></arg>
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
-<para>Dieser Befehl setzt den Wert eines bestimmten Tag-Elements.
+<para>Dieser Befehl setzt den Wert eines bestimmten Tag-Elements. Wenn
+<replaceable>ELEMENTWERT</replaceable> leer ist, so wird das Element gelöscht.
 </para>
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
 <para>Um den Inhalt eines Bild-Elements aus einer Datei zu befüllen, kann

@@ -2549,6 +2549,7 @@ Intro</computeroutput></screen>
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
 <para>This command sets the value of a specific tag frame.
+If <replaceable>FRAME-VALUE</replaceable> is empty, the frame is deleted.
 </para>
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
 <para>To set the contents of a picture frame from a file, use
