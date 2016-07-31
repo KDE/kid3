@@ -2990,6 +2990,9 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           file.close();
         }
       }
+    } else if (value.isEmpty()) {
+      // Do not add an empty frame
+      return false;
     }
     addFrame(tagNr, &frame);
     return true;
