@@ -966,6 +966,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
   } else {
     bool myFramesValid = false;
     FrameCollection myFrames;
+    QSet<int> replacedIndexes;
 
     for (FrameCollection::const_iterator it = frames.begin();
          it != frames.end();
@@ -976,8 +977,8 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
           setFrame(tagNr, *it);
         } else {
           // The frame does not have an index
-          if (it->getType() <= Frame::FT_LastV1Frame) {
-            // Standard tags can be handled with the basic method
+          if (it->getType() == Frame::FT_Track) {
+            // Handle track with the basic method
             setFrame(tagNr, *it);
           } else {
             // The frame has to be looked up and modified
@@ -986,9 +987,19 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
               myFramesValid = true;
             }
             FrameCollection::iterator myIt = myFrames.find(*it);
-            if (myIt != myFrames.end() && myIt->getIndex() != -1) {
+            int myIndex = -1;
+            while (myIt != myFrames.end() && !(*it < *myIt) &&
+                   (myIndex = myIt->getIndex()) != -1) {
+              if (!replacedIndexes.contains(myIndex)) {
+                break;
+              }
+              myIndex = -1;
+              ++myIt;
+            }
+            if (myIndex != -1) {
               Frame myFrame(*it);
-              myFrame.setIndex(myIt->getIndex());
+              myFrame.setIndex(myIndex);
+              replacedIndexes.insert(myIndex);
               setFrame(tagNr, myFrame);
             } else {
               // Such a frame does not exist, add a new one.
