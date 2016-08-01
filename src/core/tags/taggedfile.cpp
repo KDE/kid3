@@ -997,17 +997,24 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
               ++myIt;
             }
             if (myIndex != -1) {
-              Frame myFrame(*it);
-              myFrame.setIndex(myIndex);
               replacedIndexes.insert(myIndex);
-              setFrame(tagNr, myFrame);
+              if (myIt->getValue() != it->getValue() ||
+                  (!myIt->getFieldList().isEmpty() &&
+                   !it->getFieldList().isEmpty() &&
+                   myIt->getFieldList() != it->getFieldList())) {
+                Frame myFrame(*it);
+                myFrame.setIndex(myIndex);
+                setFrame(tagNr, myFrame);
+              }
             } else {
               // Such a frame does not exist, add a new one.
-              Frame addedFrame(*it);
-              addFrame(tagNr, addedFrame);
-              Frame myFrame(*it);
-              myFrame.setIndex(addedFrame.getIndex());
-              setFrame(tagNr, myFrame);
+              if (!it->getValue().isEmpty() || !it->getFieldList().isEmpty()) {
+                Frame addedFrame(*it);
+                addFrame(tagNr, addedFrame);
+                Frame myFrame(*it);
+                myFrame.setIndex(addedFrame.getIndex());
+                setFrame(tagNr, myFrame);
+              }
             }
           }
         }

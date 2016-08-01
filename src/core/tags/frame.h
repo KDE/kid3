@@ -294,18 +294,14 @@ public:
 
   /** Field in frame. */
   struct KID3_CORE_EXPORT Field {
-
-#ifdef Q_CC_MSVC
-  /**
-   * Equality operator.
-   * Needed when building with MSVC and BUILD_SHARED_LIBS.
-   * @param rhs right hand side to compare
-   * @return true if this == rhs.
-   */
-  bool operator==(const Field& rhs) const {
-    return m_id == rhs.m_id && m_value == rhs.m_value;
-  }
-#endif
+    /**
+     * Equality operator.
+     * @param rhs right hand side to compare
+     * @return true if this == rhs.
+     */
+    bool operator==(const Field& rhs) const {
+      return m_id == rhs.m_id && m_value == rhs.m_value;
+    }
 
     int m_id;         /**< type of field. */
     QVariant m_value; /**< value of field. */
