@@ -1619,7 +1619,11 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
     if (m_editFrameTaggedFile) {
       framelist->setTaggedFile(m_editFrameTaggedFile);
       framelist->setFrame(*selectedFrame);
-      framelist->editFrame();
+      if (selectedFrame->getIndex() != -1) {
+        framelist->editFrame();
+      } else {
+        framelist->addAndEditFrame();
+      }
     } else {
       // multiple files selected
       // Get the first selected file by using a temporary iterator.
@@ -1630,6 +1634,7 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
         m_editFrameName = framelist->getSelectedName();
         if (!m_editFrameName.isEmpty()) {
           framelist->setFrame(*selectedFrame);
+          framelist->addFrameFieldList();
           framelist->editFrame();
         }
       }

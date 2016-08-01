@@ -29,6 +29,7 @@
 #include "taggedfile.h"
 #include "frametablemodel.h"
 #include "iframeeditor.h"
+#include "pictureframe.h"
 
 /**
  * Constructor.
@@ -302,6 +303,20 @@ bool FrameList::pasteFrame() {
     return true;
   }
   return false;
+}
+
+/**
+ * Add a suitable field list for the frame in the copy buffer if missing.
+ */
+void FrameList::addFrameFieldList()
+{
+  if (m_taggedFile) {
+    m_taggedFile->addFieldList(m_tagNr, m_frame);
+    if (m_frame.getFieldList().isEmpty() &&
+        m_frame.getType() == Frame::FT_Picture) {
+      PictureFrame::setFields(m_frame);
+    }
+  }
 }
 
 /**

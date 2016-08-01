@@ -128,6 +128,11 @@ public:
   void setFrame(const Frame& frame) { m_frame = frame; }
 
   /**
+   * Add a suitable field list for the frame in the copy buffer if missing.
+   */
+  void addFrameFieldList();
+
+  /**
    * Check if the frame in the copy buffer is a picture frame.
    * @return true if picture frame.
    */
