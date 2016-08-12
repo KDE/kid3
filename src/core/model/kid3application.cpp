@@ -844,6 +844,7 @@ void Kid3Application::tagsToFrameModels()
       m_framelist[tagNr]->setTaggedFile(taggedFile);
     }
   }
+  m_selection->clearUnusedFrames();
 }
 
 /**

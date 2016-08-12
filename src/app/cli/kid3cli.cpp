@@ -491,7 +491,6 @@ void Kid3Cli::updateSelection()
   }
   m_fileNameChanged = selection->isFilenameChanged();
   m_detailInfo = selection->getDetailInfo();
-  selection->clearUnusedFrames();
 }
 
 /**
