@@ -150,6 +150,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
   connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
   connect(defaultsButton, SIGNAL(clicked()),
           m_pages, SLOT(setDefaultConfig()));
+  connect(defaultsButton, SIGNAL(clicked()),
+          this, SLOT(setDefaultConfig()));
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotRevertFontAndStyle()));
@@ -170,6 +172,14 @@ void ConfigDialog::setConfig()
   m_pages->setConfig();
 
   const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
+  setConfigs(mainWindowConfig);
+}
+
+/**
+ * Set values in dialog from given configuration.
+ */
+void ConfigDialog::setConfigs(const MainWindowConfig& mainWindowConfig)
+{
   m_useApplicationFontCheckBox->setChecked(mainWindowConfig.useFont());
   m_applicationFontButton->setEnabled(mainWindowConfig.useFont());
   if (mainWindowConfig.style().isEmpty()) {
@@ -251,6 +261,18 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
 void ConfigDialog::clearAlreadyUsedShortcutWarning()
 {
   m_shortcutAlreadyUsedLabel->clear();
+}
+
+/**
+ * Set additional configurations to their defaults.
+ */
+void ConfigDialog::setDefaultConfig()
+{
+  m_shortcutsModel->clearShortcuts();
+  m_shortcutsTreeView->expandAll();
+
+  MainWindowConfig mainWindowConfig;
+  setConfigs(mainWindowConfig);
 }
 
 /**

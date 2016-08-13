@@ -324,6 +324,30 @@ void ShortcutsModel::discardChangedShortcuts()
 }
 
 /**
+ * Clear all shortcuts to their default values.
+ */
+void ShortcutsModel::clearShortcuts()
+{
+#if QT_VERSION >= 0x040600
+  beginResetModel();
+#endif
+  for (QList<ShortcutGroup>::iterator git = m_shortcutGroups.begin();
+       git != m_shortcutGroups.end();
+       ++git) {
+    for (ShortcutGroup::iterator iit = git->begin();
+         iit != git->end();
+         ++iit) {
+      iit->clearCustomShortcut();
+    }
+  }
+#if QT_VERSION >= 0x040600
+  endResetModel();
+#else
+  reset();
+#endif
+}
+
+/**
  * Save the shortcuts to a given configuration.
  *
  * @param config configuration settings
@@ -391,6 +415,11 @@ void ShortcutsModel::ShortcutItem::setCustomShortcut(const QString& shortcut)
 void ShortcutsModel::ShortcutItem::revertCustomShortcut()
 {
   m_customShortcut = m_oldCustomShortcut;
+}
+
+void ShortcutsModel::ShortcutItem::clearCustomShortcut()
+{
+  m_customShortcut.clear();
 }
 
 void ShortcutsModel::ShortcutItem::assignCustomShortcut()

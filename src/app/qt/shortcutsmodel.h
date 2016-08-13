@@ -161,6 +161,11 @@ public:
    */
   void readFromConfig(ISettings* config);
 
+  /**
+   * Clear all shortcuts to their default values.
+   */
+  void clearShortcuts();
+
 public slots:
   /**
    * Forget about all changed shortcuts.
@@ -199,6 +204,8 @@ private:
     void setCustomShortcut(const QString& shortcut);
 
     void revertCustomShortcut();
+
+    void clearCustomShortcut();
 
     void assignCustomShortcut();
 

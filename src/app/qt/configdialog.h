@@ -36,6 +36,7 @@ class QString;
 class QWidget;
 class QComboBox;
 class ShortcutsModel;
+class MainWindowConfig;
 class ConfigDialogPages;
 
 /**
@@ -91,6 +92,11 @@ protected slots:
   void clearAlreadyUsedShortcutWarning();
 
   /**
+   * Set additional configurations to their defaults.
+   */
+  void setDefaultConfig();
+
+  /**
    * Select custom application font.
    */
   void slotSelectFont();
@@ -108,6 +114,8 @@ protected slots:
   void slotRevertFontAndStyle();
 
 private:
+  void setConfigs(const MainWindowConfig& mainWindowConfig);
+
   ConfigDialogPages* m_pages;
   ShortcutsModel* m_shortcutsModel;
   QTreeView* m_shortcutsTreeView;
