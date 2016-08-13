@@ -2832,7 +2832,7 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
     }
     return it->getValue();
   } else {
-    return QLatin1String("");
+    return QString();
   }
 }
 

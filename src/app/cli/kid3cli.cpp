@@ -520,7 +520,8 @@ void Kid3Cli::writeFileInformation(int tagMask)
       QString value =
           ft->index(row, FrameTableModel::CI_Value).data().toString();
       maxLength = qMax(name.size(), maxLength);
-      hasValue = hasValue || !value.isEmpty();
+      hasValue = hasValue ||
+          !(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull());
     }
     if (hasValue) {
       writeLine(tr("Tag %1").arg(Frame::tagNumberToString(tagNr)) +
@@ -530,10 +531,7 @@ void Kid3Cli::writeFileInformation(int tagMask)
             ft->index(row, FrameTableModel::CI_Enable).data().toString();
         QString value =
             ft->index(row, FrameTableModel::CI_Value).data().toString();
-        if (!value.isEmpty() ||
-            ft->index(row, FrameTableModel::CI_Enable).
-            data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Picture)
-        {
+        if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
           bool changed = ft->index(row, FrameTableModel::CI_Enable).
               data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
           QString line = changed ? QLatin1String("*") : QLatin1String(" ");

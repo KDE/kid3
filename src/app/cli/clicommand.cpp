@@ -407,7 +407,7 @@ void GetCommand::startCommand()
     foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagMask)) {
       QString value = cli()->app()->getFrame(Frame::tagVersionFromNumber(tagNr),
                                              name);
-      if (!value.isEmpty()) {
+      if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
         cli()->writeLine(value);
         break;
       }
