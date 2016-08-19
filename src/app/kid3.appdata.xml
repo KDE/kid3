@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net> -->
-<application>
-  <id type="desktop">kid3.desktop</id>
+<component type="desktop">
+  <id>kid3.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kid3</name>
@@ -30,8 +30,14 @@
     </p>
   </description>
   <screenshots>
-    <screenshot type="default" width="1200" height="675">http://kid3.sourceforge.net/screen169.png</screenshot>
+    <screenshot type="default" width="1200" height="675">
+      <image>http://kid3.sourceforge.net/screen169.png</image>
+      <caption>Kid3 main window</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">http://kid3.sourceforge.net/</url>
-  <updatecontact>ufleisch_at_users.sourceforge.net</updatecontact>
-</application>
+  <url type="bugtracker">http://sourceforge.net/p/kid3/bugs/</url>
+  <url type="help">http://sourceforge.net/p/kid3/discussion/</url>
+  <developer_name>Urs Fleisch</developer_name>
+  <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
+</component>
