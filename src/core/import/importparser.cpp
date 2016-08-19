@@ -157,6 +157,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
  */
 bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int& pos)
 {
+/** @cond */
 #if QT_VERSION >= 0x050100
   QRegularExpressionMatch match;
 #define m_re_indexIn(s, i) (match = m_re.match(s, i)).capturedStart()
@@ -167,6 +168,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
 #define m_re_cap(i) m_re.cap(i)
 #define m_re_matchedLength() m_re.matchedLength()
 #endif
+/** @endcond */
   int idx, oldpos = pos;
   if (m_pattern.isEmpty()) {
     m_trackDuration.clear();

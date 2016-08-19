@@ -372,6 +372,7 @@ static QString removeArtist(const QString& album)
  */
 void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt)
 {
+/** @cond */
 #if QT_VERSION >= 0x050100
   QRegularExpression re;
   QRegularExpressionMatch match;
@@ -382,6 +383,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 #define re_hasMatch(s) re.indexIn(s) != -1
 #define re_cap(i) re.cap(i)
 #endif
+/** @endcond */
   QString fn(getAbsFilename());
 
   // construct regular expression from format string
