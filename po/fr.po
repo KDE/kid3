@@ -1710,6 +1710,9 @@ msgstr "Nom de f&ichier pour la jaquette:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "&Encodage du texte (Exporter, liste de lecture):"
 
+msgid "Filte&r:"
+msgstr "Fil&tre:"
+
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 

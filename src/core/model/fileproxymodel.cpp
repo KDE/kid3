@@ -811,3 +811,51 @@ void FileProxyModel::notifyModelDataChanged(const QModelIndex& index)
 {
   emit dataChanged(index, index);
 }
+
+/**
+ * Create name-file pattern pairs for all supported types.
+ * The order is the same as in createFilterString().
+ *
+ * @return pairs containing name, pattern, e.g. ("MP3", "*.mp3"), ...,
+ * ("All Files", "*").
+ */
+QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
+{
+  QStringList extensions;
+  foreach (ITaggedFileFactory* factory, taggedFileFactories()) {
+    foreach (const QString& key, factory->taggedFileKeys()) {
+      extensions.append(factory->supportedFileExtensions(key));
+    }
+  }
+  // remove duplicates
+  extensions.sort();
+  QString lastExt(QLatin1String(""));
+  for (QStringList::iterator it = extensions.begin();
+       it != extensions.end();) {
+    if (*it == lastExt) {
+      it = extensions.erase(it);
+    } else {
+      lastExt = *it;
+      ++it;
+    }
+  }
+
+  QString allPatterns;
+  QList<QPair<QString, QString> > nameFilters;
+  for (QStringList::const_iterator it = extensions.begin();
+       it != extensions.end();
+       ++it) {
+    QString text = (*it).mid(1).toUpper();
+    QString pattern = QLatin1Char('*') + *it;
+    if (!allPatterns.isEmpty()) {
+      allPatterns += QLatin1Char(' ');
+    }
+    allPatterns += pattern;
+    nameFilters.append(qMakePair(text, pattern));
+  }
+  if (!allPatterns.isEmpty()) {
+    nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
+  }
+  nameFilters.append(qMakePair(tr("All Files"), QString(QLatin1Char('*'))));
+  return nameFilters;
+}

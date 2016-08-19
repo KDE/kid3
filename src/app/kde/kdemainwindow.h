@@ -157,6 +157,7 @@ private slots:
   void slotSettingsConfigure();
 
 private:
+  IPlatformTools* m_platformTools;
   /** Actions */
   KRecentFilesAction* m_fileOpenRecent;
   KToggleAction* m_settingsAutoHideTags;

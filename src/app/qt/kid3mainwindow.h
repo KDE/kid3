@@ -163,6 +163,7 @@ private:
                   const QObject* receiver, const char* slot,
                   const QString& context);
 
+  IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;
   ShortcutsModel* m_shortcutsModel;
   QAction* m_viewToolBar;

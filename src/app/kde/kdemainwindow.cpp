@@ -84,7 +84,7 @@ KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
                              Kid3Application* app, QWidget* parent) :
   KXmlGuiWindow(parent),
   BaseMainWindow(this, platformTools, app),
-  m_fileOpenRecent(0),
+  m_platformTools(platformTools), m_fileOpenRecent(0),
   m_settingsAutoHideTags(0), m_settingsShowHidePicture(0)
 {
   init();
@@ -511,7 +511,8 @@ void KdeMainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
   KConfigSkeleton* configSkeleton = new KConfigSkeleton;
-  KdeConfigDialog* dialog = new KdeConfigDialog(this, caption, configSkeleton);
+  KdeConfigDialog* dialog = new KdeConfigDialog(m_platformTools, this, caption,
+                                                configSkeleton);
   dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {
     dialog->getConfig();

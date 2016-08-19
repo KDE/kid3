@@ -53,16 +53,20 @@
 #include "configtable.h"
 #include "commandstablemodel.h"
 #include "checkablestringlistmodel.h"
+#include "fileproxymodel.h"
 #include "contexthelp.h"
 #include "frame.h"
+#include "iplatformtools.h"
 
 /**
  * Constructor.
  */
-ConfigDialogPages::ConfigDialogPages(QObject* parent) : QObject(parent),
+ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
+                                     QObject* parent) : QObject(parent),
+  m_platformTools(platformTools),
   m_loadLastOpenedFileCheckBox(0), m_preserveTimeCheckBox(0),
   m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
-  m_fileTextEncodingComboBox(0),
+  m_nameFilterComboBox(0), m_fileTextEncodingComboBox(0),
   m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
@@ -243,13 +247,17 @@ QWidget* ConfigDialogPages::createFilesPage()
 {
   QWidget* filesPage = new QWidget;
   QVBoxLayout* vlayout = new QVBoxLayout(filesPage);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QVBoxLayout* leftLayout = new QVBoxLayout;
+  QVBoxLayout* rightLayout = new QVBoxLayout;
+
   QGroupBox* startupGroupBox = new QGroupBox(tr("Startup"), filesPage);
   m_loadLastOpenedFileCheckBox = new QCheckBox(tr("&Load last-opened files"),
                                                startupGroupBox);
   QVBoxLayout* startupLayout = new QVBoxLayout;
   startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
   startupGroupBox->setLayout(startupLayout);
-  vlayout->addWidget(startupGroupBox);
+  leftLayout->addWidget(startupGroupBox);
   QGroupBox* saveGroupBox = new QGroupBox(tr("Save"), filesPage);
   m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"), saveGroupBox);
   m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
@@ -266,7 +274,41 @@ QWidget* ConfigDialogPages::createFilesPage()
   formLayout->addRow(tr("Text &encoding (Export, Playlist):"),
                      m_fileTextEncodingComboBox);
   saveGroupBox->setLayout(formLayout);
-  vlayout->addWidget(saveGroupBox);
+  leftLayout->addWidget(saveGroupBox);
+
+  QGroupBox* fileListGroupBox = new QGroupBox(tr("File List"), filesPage);
+  QLabel* nameFilterLabel = new QLabel(tr("Filte&r:"), fileListGroupBox);
+  m_nameFilterComboBox = new QComboBox(fileListGroupBox);
+  m_nameFilterComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
+                                                  QSizePolicy::Minimum));
+  QList<QPair<QString, QString> > filters = FileProxyModel::createNameFilters();
+  for (QList<QPair<QString, QString> >::const_iterator it = filters.constBegin();
+       it != filters.constEnd();
+       ++it) {
+    QString nameFilter = m_platformTools->fileDialogNameFilter(
+          QList<QPair<QString, QString> >() << *it);
+#if QT_VERSION < 0x050000
+    // Filters from the KDE 4 file dialog are not consistent, filter uses
+    // something like "*.mp3|MP3 (*.mp3)", but the current filter returns only
+    // something like "*.mp3".
+    int pipeIndex = nameFilter.indexOf(QLatin1Char('|'));
+    if (pipeIndex != -1) {
+      nameFilter = nameFilter.left(pipeIndex);
+    }
+#endif
+    m_nameFilterComboBox->addItem(it->first, nameFilter);
+  }
+  nameFilterLabel->setBuddy(m_nameFilterComboBox);
+  QGridLayout* fileListGroupBoxLayout = new QGridLayout(fileListGroupBox);
+  fileListGroupBoxLayout->addWidget(nameFilterLabel, 0, 0);
+  fileListGroupBoxLayout->addWidget(m_nameFilterComboBox, 0, 1);
+  rightLayout->addWidget(fileListGroupBox);
+  rightLayout->addStretch();
+
+  hlayout->addLayout(leftLayout);
+  hlayout->addLayout(rightLayout);
+  vlayout->addLayout(hlayout);
+
   QString fnFormatTitle(tr("&Filename Format"));
   m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
   m_fnFormatBox->hideValidationCheckBox();
@@ -439,6 +481,8 @@ void ConfigDialogPages::setConfigs(
   m_preserveTimeCheckBox->setChecked(fileCfg.preserveTime());
   m_markChangesCheckBox->setChecked(fileCfg.markChanges());
   m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
+  m_nameFilterComboBox->setCurrentIndex(
+        m_nameFilterComboBox->findData(fileCfg.nameFilter()));
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
@@ -550,6 +594,12 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setPreserveTime(m_preserveTimeCheckBox->isChecked());
   fileCfg.setMarkChanges(m_markChangesCheckBox->isChecked());
   fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
+#if QT_VERSION >= 0x050200
+  fileCfg.setNameFilter(m_nameFilterComboBox->currentData().toString());
+#else
+  fileCfg.setNameFilter(m_nameFilterComboBox->itemData(
+                          m_nameFilterComboBox->currentIndex()).toString());
+#endif
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());

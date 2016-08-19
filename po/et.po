@@ -1709,6 +1709,9 @@ msgstr "Kaanepildi &failinimi:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Teksti ko&deering (Eksport, esitusloendi):"
 
+msgid "Filte&r:"
+msgstr "F&ilter:"
+
 msgid "&Filename Format"
 msgstr "&Failinime vorming"
 

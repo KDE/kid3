@@ -51,6 +51,7 @@ class UserActionsConfig;
 class GuiConfig;
 class NetworkConfig;
 class ImportConfig;
+class IPlatformTools;
 
 /**
  * Pages for configuration dialog.
@@ -61,7 +62,7 @@ public:
   /**
    * Constructor.
    */
-  explicit ConfigDialogPages(QObject* parent = 0);
+  explicit ConfigDialogPages(IPlatformTools* platformTools, QObject* parent = 0);
 
   /**
    * Destructor.
@@ -124,6 +125,7 @@ private:
       const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
       const NetworkConfig& networkCfg, const ImportConfig& importCfg);
 
+  IPlatformTools* m_platformTools;
   /** Load last-opened files checkbox */
   QCheckBox* m_loadLastOpenedFileCheckBox;
   /** Preserve timestamp checkbox */
@@ -132,6 +134,8 @@ private:
   QCheckBox* m_markChangesCheckBox;
   /** Filename for cover lineedit */
   QLineEdit* m_coverFileNameLineEdit;
+  /** File list name filter combo box */
+  QComboBox* m_nameFilterComboBox;
   /** File text encoding combo box */
   QComboBox* m_fileTextEncodingComboBox;
   /** Mark truncated fields checkbox */

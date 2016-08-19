@@ -65,6 +65,7 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
                                Kid3Application* app, QWidget* parent) :
   QMainWindow(parent),
   BaseMainWindow(this, platformTools, app),
+  m_platformTools(platformTools),
   m_shortcutsModel(new ShortcutsModel(this))
 {
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
@@ -841,7 +842,8 @@ void Kid3MainWindow::slotHelpAboutQt()
 void Kid3MainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
-  ConfigDialog* dialog = new ConfigDialog(this, caption, m_shortcutsModel);
+  ConfigDialog* dialog = new ConfigDialog(m_platformTools, this, caption,
+                                          m_shortcutsModel);
   dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {
     dialog->getConfig();

@@ -1710,6 +1710,9 @@ msgstr "Date&iname für Cover:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "T&extkodierung (Export, Stückliste):"
 
+msgid "Filte&r:"
+msgstr "&Filter:"
+
 msgid "&Filename Format"
 msgstr "&Dateinamenformat"
 

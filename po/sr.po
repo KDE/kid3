@@ -1712,6 +1712,9 @@ msgstr "&Име фајла за омот албума:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Кодирање &текста (Извези, листа пуштања):"
 
+msgid "Filte&r:"
+msgstr "&Филтер:"
+
 msgid "&Filename Format"
 msgstr "Формат имена &фајла"
 

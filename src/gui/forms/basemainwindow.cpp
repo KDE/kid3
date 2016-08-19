@@ -404,9 +404,7 @@ void BaseMainWindowImpl::slotFileOpen()
     QStringList dirs = m_platformTools->getOpenFileNames(
       m_w, QString(), m_app->getDirName(), flt, &filter);
     if (!dirs.isEmpty()) {
-      if (!filter.isEmpty()) {
-        FileConfig::instance().setNameFilter(filter);
-      }
+      m_app->resetFileFilterIfNotMatching(dirs);
       m_app->openDirectory(dirs);
     }
   }

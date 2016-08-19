@@ -34,14 +34,16 @@
 /**
  * Constructor.
  *
+ * @param platformTools platform specific tools
  * @param parent  parent widget
  * @param caption dialog title
  * @param configSkeleton configuration skeleton
  */
-KdeConfigDialog::KdeConfigDialog(QWidget* parent, QString& caption,
+KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
+                                 QWidget* parent, QString& caption,
                                  KConfigSkeleton* configSkeleton) :
   KConfigDialog(parent, QLatin1String("configure"), configSkeleton),
-  m_pages(new ConfigDialogPages(this))
+  m_pages(new ConfigDialogPages(platformTools, this))
 {
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);

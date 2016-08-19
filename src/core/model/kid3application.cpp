@@ -563,6 +563,11 @@ void Kid3Application::applyChangedConfiguration()
           TagConfig::instance().quickAccessFrames());
     emit selectedFilesUpdated();
   }
+
+  QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+                            FileConfig::instance().nameFilter()).
+                          split(QLatin1Char(' ')));
+  m_fileProxyModel->setNameFilters(nameFilters);
 }
 
 /**
@@ -584,7 +589,7 @@ void Kid3Application::saveConfig()
 void Kid3Application::readConfig()
 {
   if (FileConfig::instance().nameFilter().isEmpty()) {
-    FileConfig::instance().setNameFilter(createFilterString());
+    setAllFilesFileFilter();
   }
   notifyConfigurationChange();
   FrameCollection::setQuickAccessFrames(
@@ -1876,18 +1881,7 @@ void Kid3Application::openDrop(const QStringList& paths)
     }
   }
   if (!filePaths.isEmpty()) {
-    // Check if the file filter has to be removed to open the dropped files.
-    QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
-    if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
-      foreach (const QString& filePath, filePaths) {
-        if (!QDir::match(nameFilters, filePath) &&
-            !QFileInfo(filePath).isDir()) {
-          FileConfig::instance().setNameFilter(QLatin1String(""));
-          break;
-        }
-      }
-    }
+    resetFileFilterIfNotMatching(filePaths);
     emit fileSelectionUpdateRequested();
     emit confirmedOpenDirectoryRequested(filePaths);
   } else if (!picturePaths.isEmpty()) {
@@ -2632,43 +2626,37 @@ int Kid3Application::getTotalNumberOfTracksInDir()
  */
 QString Kid3Application::createFilterString() const
 {
-  QStringList extensions;
-  foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
-    foreach (const QString& key, factory->taggedFileKeys()) {
-      extensions.append(factory->supportedFileExtensions(key));
-    }
-  }
-  // remove duplicates
-  extensions.sort();
-  QString lastExt(QLatin1String(""));
-  for (QStringList::iterator it = extensions.begin();
-       it != extensions.end();) {
-    if (*it == lastExt) {
-      it = extensions.erase(it);
-    } else {
-      lastExt = *it;
-      ++it;
-    }
-  }
+  return m_platformTools->fileDialogNameFilter(
+        FileProxyModel::createNameFilters());
+}
 
-  QString allPatterns;
-  QList<QPair<QString, QString> > nameFilters;
-  for (QStringList::const_iterator it = extensions.begin();
-       it != extensions.end();
-       ++it) {
-    QString text = (*it).mid(1).toUpper();
-    QString pattern = QLatin1Char('*') + *it;
-    if (!allPatterns.isEmpty()) {
-      allPatterns += QLatin1Char(' ');
+/**
+ * Remove the file filter if necessary to open the files.
+ * @param filePaths paths to files or directories
+ */
+void Kid3Application::resetFileFilterIfNotMatching(const QStringList& filePaths)
+{
+  QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+              FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
+  if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
+    foreach (const QString& filePath, filePaths) {
+      if (!QDir::match(nameFilters, filePath) &&
+          !QFileInfo(filePath).isDir()) {
+        setAllFilesFileFilter();
+        break;
+      }
     }
-    allPatterns += pattern;
-    nameFilters.append(qMakePair(text, pattern));
   }
-  if (!allPatterns.isEmpty()) {
-    nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
-  }
-  nameFilters.append(qMakePair(tr("All Files"), QString(QLatin1Char('*'))));
-  return m_platformTools->fileDialogNameFilter(nameFilters);
+}
+
+/**
+ * Set file name filter for "All Files (*)".
+ */
+void Kid3Application::setAllFilesFileFilter() {
+  FileConfig::instance().setNameFilter(
+        m_platformTools->fileDialogNameFilter(
+          QList<QPair<QString, QString> >()
+          << qMakePair(tr("All Files"), QString(QLatin1Char('*')))));
 }
 
 /**

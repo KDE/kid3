@@ -1708,6 +1708,9 @@ msgstr "专辑封面的文件名(&I)："
 msgid "Text &encoding (Export, Playlist):"
 msgstr "文本编码 (导出, 播放列表)(&E)："
 
+msgid "Filte&r:"
+msgstr "过滤(&R)："
+
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 

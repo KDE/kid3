@@ -1711,6 +1711,9 @@ msgstr "&Název souboru s obalem:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Kódování t&extu (Vyvést, seznam skladeb):"
 
+msgid "Filte&r:"
+msgstr "&Filtr:"
+
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 

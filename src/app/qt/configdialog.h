@@ -38,6 +38,7 @@ class QComboBox;
 class ShortcutsModel;
 class MainWindowConfig;
 class ConfigDialogPages;
+class IPlatformTools;
 
 /**
  * Configuration dialog.
@@ -48,12 +49,13 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform specific tools
    * @param parent  parent widget
    * @param caption dialog title
    * @param shortcutsModel shortcuts model
    */
-  ConfigDialog(QWidget* parent, QString& caption,
-               ShortcutsModel* shortcutsModel);
+  ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
+               QString& caption, ShortcutsModel* shortcutsModel);
 
   /**
    * Destructor.

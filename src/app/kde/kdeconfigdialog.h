@@ -39,6 +39,7 @@ class QString;
 class QWidget;
 class QComboBox;
 class ConfigDialogPages;
+class IPlatformTools;
 
 /**
  * KDE configuration dialog.
@@ -49,11 +50,12 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform specific tools
    * @param parent  parent widget
    * @param caption dialog title
    * @param configSkeleton configuration skeleton
    */
-  KdeConfigDialog(QWidget* parent, QString& caption,
+  KdeConfigDialog(IPlatformTools* platformTools, QWidget* parent, QString& caption,
                   KConfigSkeleton* configSkeleton);
 
   /**

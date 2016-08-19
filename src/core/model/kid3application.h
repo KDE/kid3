@@ -620,6 +620,13 @@ public:
    */
   Q_INVOKABLE QString createFilterString() const;
 
+
+  /**
+   * Remove the file filter if necessary to open the files.
+   * @param filePaths paths to files or directories
+   */
+  void resetFileFilterIfNotMatching(const QStringList& filePaths);
+
   /**
    * Get image destination set by downloadImage().
    * @return image destination.
@@ -1274,6 +1281,8 @@ private:
    * This can be used to trigger an update of QML images.
    */
   void setNextCoverArtImageId();
+
+  void setAllFilesFileFilter();
 
   ICorePlatformTools* m_platformTools;
   /** Configuration */

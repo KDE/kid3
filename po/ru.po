@@ -1711,6 +1711,9 @@ msgstr "Имя фа&йла для изображения:"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Кодировка т&екста (Экспорт, список):"
 
+msgid "Filte&r:"
+msgstr "&Фильтр:"
+
 msgid "&Filename Format"
 msgstr "&Формат имени файла"
 

@@ -345,6 +345,15 @@ public:
    */
   static TaggedFile* readTagsFromTaggedFile(TaggedFile* taggedFile);
 
+  /**
+   * Create name-file pattern pairs for all supported types.
+   * The order is the same as in createFilterString().
+   *
+   * @return pairs containing name, pattern, e.g. ("MP3", "*.mp3"), ...,
+   * ("All Files", "*").
+   */
+  static QList<QPair<QString, QString> > createNameFilters();
+
 signals:
   /**
    * Emitted after directory loading when sorting is probably finished.

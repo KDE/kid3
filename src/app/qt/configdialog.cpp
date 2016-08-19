@@ -49,14 +49,15 @@
 /**
  * Constructor.
  *
+ * @param platformTools platform specific tools
  * @param parent  parent widget
  * @param caption dialog title
  * @param shortcutsModel shortcuts model
  */
-ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
-                           ShortcutsModel* shortcutsModel) :
+ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
+                           QString& caption, ShortcutsModel* shortcutsModel) :
   QDialog(parent),
-  m_pages(new ConfigDialogPages(this)),
+  m_pages(new ConfigDialogPages(platformTools, this)),
   m_shortcutsModel(shortcutsModel)
 {
   setObjectName(QLatin1String("ConfigDialog"));
