@@ -1,3 +1,26 @@
+Wed Aug 24 14:44:04 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.2
+
+	* Fixed:
+	  + Embed Lyrics works again with makepersonal.co and
+	    lyrics.wikia.com.
+	  + Do not add an empty frame when deleting a non existant frame
+	    in kid3-cli.
+	  + Support setting multiple frames of the same type with
+	    copy/paste.
+	  + Allow editing of quick access frames which are not yet present
+	    in the file.
+	  + Reset shortcuts and appearance configuration when the defaults
+	    are restored in the settings.
+
+	* Improved:
+	  + Do not show any disabled tag values in the Tag 1 section
+	    for files which do not support an ID3v1 tag.
+	  + Set the file filter for the file list in the file settings,
+	    not with the filter used in the open dialog.
+	  + Disable the global app menu on Ubuntu's Unity desktop.
+
 Fri Jun 24 20:20:20 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.1
