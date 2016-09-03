@@ -44,6 +44,13 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
 
   add_definitions(${TAGLIB_CFLAGS})
   include_directories(${CMAKE_CURRENT_BINARY_DIR} ../../core/tags taglibext)
+  # The include from TAGLIB_CFLAGS is explicitly added as an include directory
+  # so that Qt Creator knows about it.
+  string(REGEX MATCH "-I *([^ ]+)" _taglibIncludeMatch ${TAGLIB_CFLAGS})
+  if (_taglibIncludeMatch)
+    include_directories(${CMAKE_MATCH_1})
+  endif (_taglibIncludeMatch)
+
 
   set(plugin_SRCS
     taglibmetadataplugin.cpp
