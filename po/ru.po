@@ -1678,6 +1678,12 @@ msgstr "Фреймы быстро&го доступа"
 msgid "Use drag and drop to reorder the items"
 msgstr "Используйте перетаскивание и отпускание для переупорядочивания пунктов"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Имя структур но&мер дорожки:"
+
 msgid "&Tag Format"
 msgstr "&Формат тэга"
 
@@ -1687,8 +1693,11 @@ msgstr "Тег &1"
 msgid "Tag &2"
 msgstr "Тег &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Тег 1 &и тег 2"
+msgid "Tag &3"
+msgstr "Тег &3"
+
+msgid "All Ta&gs"
+msgstr "&Все теги"
 
 msgid "Startup"
 msgstr "Запуск"
@@ -2642,6 +2651,9 @@ msgstr "Ogg/Vorbis имя структур коментэри"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis имя структур картинки"
+
+msgid "RIFF track number field name"
+msgstr "RIFF имя структур номер дорожки"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Отметить, если больше, чем"

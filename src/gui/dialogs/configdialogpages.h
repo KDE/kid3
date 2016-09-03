@@ -170,6 +170,8 @@ private:
   QStringListModel* m_genresEditModel;
   /** Model with standard tags selection */
   QStandardItemModel* m_quickAccessTagsModel;
+  /** Track field name combo box */
+  QComboBox* m_trackNameComboBox;
   /** Play on double click checkbox */
   QCheckBox* m_playOnDoubleClickCheckBox;
   /** Commands table */

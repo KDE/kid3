@@ -1969,9 +1969,9 @@ consists of pages for tags, files, user actions, and network settings.
 </para>
 <para>
 Tag specific options can be found on the <guilabel>Tags</guilabel> page,
-which is itself separated into three tabs
-for <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel>, and
-<guilabel>Tag 1 and Tag 2</guilabel>.
+which is itself separated into four tabs
+for <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel>, <guilabel>Tag
+3</guilabel>, and <guilabel>All Tags</guilabel>.
 </para>
 <para>
 If <guilabel>Mark truncated fields</guilabel> is checked, truncated ID3v1.1
@@ -2074,6 +2074,12 @@ shown in the <link linkend="tag2">Tag 2</link> section. Such frames can
 then be added without first using the <guibutton>Add</guibutton> button.
 The order of these quick access frames can be changed by dragging and dropping
 items.
+</para>
+<para>
+The combo box <guilabel>Track number field name</guilabel> is only
+relevant for RIFF INFO and sets the name of the field used for
+track numbers. Track numbers are not specified in the original RIFF standard,
+there are applictions which use "ITRK", others use "IPRT".
 </para>
 <para>
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.

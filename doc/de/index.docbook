@@ -2091,9 +2091,9 @@ der aus verschiedenen Seiten besteht, mit Optionen für Tags, Dateien, Benutzerb
 </para>
 <para>
 Optionen für Tags sind auf der Seite <guilabel>Tags</guilabel> zu finden,
-welche ihrerseits in drei Reiter unterteilt ist für
-<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> und
-<guilabel>Tag 1 und Tag 2</guilabel>.
+welche ihrerseits in vier Reiter unterteilt ist für
+<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel>, <guilabel>Tag
+3</guilabel> und <guilabel>Alle Tags</guilabel>.
 </para>
 <para>
 Wenn <guilabel>Markiere abgeschnittene Felder</guilabel> aktiv ist, werden
@@ -2206,6 +2206,12 @@ bei <link linkend="tag2">Tag 2</link> angezeigt werden. Solche Frames können
 dann hinzugefügt werden, ohne zuerst den <guibutton>Hinzufügen</guibutton>
 Knopf zu drücken. Die Reihenfolge dieser Schnellzugriff-Elemente kann durch
 Ziehen und Loslassen der Elemente verändert werden.
+</para>
+<para>
+Das Auswahlfeld <guilabel>Name des Tracknummer-Feldes</guilabel> ist für RIFF
+INFO relevant und bestimmt den Namen des Feldes, welches für Tracknummern
+verwendet wird. Tracknummern sind im RIFF Standard nicht spezifiziert, einige
+Anwendungen verwenden "ITRK", andere "IPRT".
 </para>
 <para>
 <guilabel>Tag Format</guilabel> enthält Einstellungen für das Format

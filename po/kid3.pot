@@ -1672,6 +1672,12 @@ msgstr ""
 msgid "Use drag and drop to reorder the items"
 msgstr ""
 
+msgid "RIFF INFO"
+msgstr ""
+
+msgid "Track nu&mber field name:"
+msgstr ""
+
 msgid "&Tag Format"
 msgstr ""
 
@@ -1681,7 +1687,10 @@ msgstr ""
 msgid "Tag &2"
 msgstr ""
 
-msgid "Tag 1 a&nd Tag 2"
+msgid "Tag &3"
+msgstr ""
+
+msgid "All Ta&gs"
 msgstr ""
 
 msgid "Startup"
@@ -2629,6 +2638,9 @@ msgid "Ogg/Vorbis comment field name"
 msgstr ""
 
 msgid "Ogg/Vorbis picture field name"
+msgstr ""
+
+msgid "RIFF track number field name"
 msgstr ""
 
 msgid "Mark if picture larger than maxium size"

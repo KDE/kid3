@@ -74,7 +74,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
   m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_tagFormatBox(0),
   m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
-  m_quickAccessTagsModel(0), m_playOnDoubleClickCheckBox(0),
+  m_quickAccessTagsModel(0), m_trackNameComboBox(0),
+  m_playOnDoubleClickCheckBox(0),
   m_commandsTable(0), m_commandsTableModel(0), m_browserLineEdit(0),
   m_proxyCheckBox(0), m_proxyLineEdit(0), m_proxyAuthenticationCheckBox(0),
   m_proxyUserNameLineEdit(0), m_proxyPasswordLineEdit(0),
@@ -222,6 +223,22 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2RightLayout->addWidget(quickAccessTagsGroupBox);
   tag2Layout->addLayout(tag2RightLayout);
 
+  QWidget* tag3Page = new QWidget;
+  QVBoxLayout* tag3Layout = new QVBoxLayout(tag3Page);
+  QGroupBox* riffGroupBox = new QGroupBox(tr("RIFF INFO"), tag3Page);
+  QLabel* trackNameLabel = new QLabel(tr("Track nu&mber field name:"), riffGroupBox);
+  m_trackNameComboBox = new QComboBox(riffGroupBox);
+  m_trackNameComboBox->setEditable(true);
+  m_trackNameComboBox->addItems(TagConfig::getRiffTrackNames());
+  m_trackNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  trackNameLabel->setBuddy(m_trackNameComboBox);
+  QGridLayout* riffGroupBoxLayout = new QGridLayout(riffGroupBox);
+  riffGroupBoxLayout->addWidget(trackNameLabel, 0, 0);
+  riffGroupBoxLayout->addWidget(m_trackNameComboBox, 0, 1);
+  riffGroupBox->setLayout(riffGroupBoxLayout);
+  tag3Layout->addWidget(riffGroupBox);
+  tag3Layout->addStretch();
+
   QWidget* tag1AndTag2Page = new QWidget;
   QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
   QString tagFormatTitle(tr("&Tag Format"));
@@ -233,7 +250,8 @@ QWidget* ConfigDialogPages::createTagsPage()
     tagsTabWidget->addTab(tag1Page, tr("Tag &1"));
   }
   tagsTabWidget->addTab(tag2Page, tr("Tag &2"));
-  tagsTabWidget->addTab(tag1AndTag2Page, tr("Tag 1 a&nd Tag 2"));
+  tagsTabWidget->addTab(tag3Page, tr("Tag &3"));
+  tagsTabWidget->addTab(tag1AndTag2Page, tr("All Ta&gs"));
   tagsTabWidget->setCurrentIndex(1);
   vlayout->addWidget(tagsTabWidget);
   return tagsPage;
@@ -522,6 +540,13 @@ void ConfigDialogPages::setConfigs(
   m_trackNumberDigitsSpinBox->setValue(tagCfg.trackNumberDigits());
   m_markOversizedPicturesCheckBox->setChecked(tagCfg.markOversizedPictures());
   m_maximumPictureSizeSpinBox->setValue(tagCfg.maximumPictureSize());
+  idx = m_trackNameComboBox->findText(tagCfg.riffTrackName());
+  if (idx >= 0) {
+    m_trackNameComboBox->setCurrentIndex(idx);
+  } else {
+    m_trackNameComboBox->addItem(tagCfg.riffTrackName());
+    m_trackNameComboBox->setCurrentIndex(m_trackNameComboBox->count() - 1);
+  }
   m_browserLineEdit->setText(networkCfg.browser());
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.playOnDoubleClick());
   m_proxyCheckBox->setChecked(networkCfg.useProxy());
@@ -634,6 +659,7 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setTrackNumberDigits(m_trackNumberDigitsSpinBox->value());
   tagCfg.setMarkOversizedPictures(m_markOversizedPicturesCheckBox->isChecked());
   tagCfg.setMaximumPictureSize(m_maximumPictureSizeSpinBox->value());
+  tagCfg.setRiffTrackName(m_trackNameComboBox->currentText());
   networkCfg.setBrowser(m_browserLineEdit->text());
   guiCfg.setPlayOnDoubleClick(m_playOnDoubleClickCheckBox->isChecked());
   networkCfg.setUseProxy(m_proxyCheckBox->isChecked());

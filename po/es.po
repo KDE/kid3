@@ -1678,6 +1678,12 @@ msgstr "Campos de acceso &rápido"
 msgid "Use drag and drop to reorder the items"
 msgstr "Arrastre y suelte para reordenar los elementos"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "No&mbre de campo de número de pista:"
+
 msgid "&Tag Format"
 msgstr "&Formato de etiqueta"
 
@@ -1687,8 +1693,11 @@ msgstr "Etiqueta &1"
 msgid "Tag &2"
 msgstr "Etiqueta &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Etiqueta 1 &y etiqueta 2"
+msgid "Tag &3"
+msgstr "Etiqueta &3"
+
+msgid "All Ta&gs"
+msgstr "Todas &las etiquetas"
 
 msgid "Startup"
 msgstr "Inicio"
@@ -2641,6 +2650,9 @@ msgstr "Ogg/Vorbis nombre de campo comentario"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis nombre de campo imagen"
+
+msgid "RIFF track number field name"
+msgstr "RIFF nombre de campo de número de pista"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Marcar si imágenes  son más grandes que el maximo"

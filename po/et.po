@@ -1676,6 +1676,12 @@ msgstr "Raa&mide kiirloend"
 msgid "Use drag and drop to reorder the items"
 msgstr "Järjekorda saab nende lohistamise teel"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Loo nu&mber välja nimi:"
+
 msgid "&Tag Format"
 msgstr "&Sildivorming"
 
@@ -1685,8 +1691,11 @@ msgstr "Silt &1"
 msgid "Tag &2"
 msgstr "Silt &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Sildid 1 &ja 2"
+msgid "Tag &3"
+msgstr "Silt &3"
+
+msgid "All Ta&gs"
+msgstr "K&õik sildid"
 
 msgid "Startup"
 msgstr "Käivitamine"
@@ -2640,6 +2649,9 @@ msgstr "Ogg/Vorbis kommentaarivälja nimi"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis pildivälja nimi"
+
+msgid "RIFF track number field name"
+msgstr "RIFF loo number välja nimi"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Märkimine, kui suurus ületab"

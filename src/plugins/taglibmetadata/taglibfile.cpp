@@ -4694,7 +4694,7 @@ static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
  *
  * @return name, NULL if not supported.
  */
-static const char* getInfoNameFromType(Frame::Type type)
+static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
     "INAM", // FT_Title,
@@ -4750,7 +4750,12 @@ static const char* getInfoNameFromType(Frame::Type type)
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
-  return type <= Frame::FT_LastFrame ? names[type] : 0;
+  if (type == Frame::FT_Track) {
+    QByteArray ba = TagConfig::instance().riffTrackName().toLatin1();
+    return TagLib::ByteVector(ba.constData(), ba.size());
+  }
+  const char* name = type <= Frame::FT_LastFrame ? names[type] : 0;
+  return name ? TagLib::ByteVector(name, 4) : TagLib::ByteVector();
 }
 
 /**
@@ -4767,9 +4772,17 @@ static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       Frame::Type type = static_cast<Frame::Type>(i);
-      if (const char* str = getInfoNameFromType(type)) {
-        strNumMap.insert(TagLib::ByteVector(str, 4), type);
+      TagLib::ByteVector str = getInfoNameFromType(type);
+      if (!str.isEmpty()) {
+        strNumMap.insert(str, type);
       }
+    }
+    QStringList riffTrackNames = TagConfig::getRiffTrackNames();
+    riffTrackNames.append(TagConfig::instance().riffTrackName());
+    foreach (const QString& str, riffTrackNames) {
+      QByteArray ba = str.toLatin1();
+      strNumMap.insert(TagLib::ByteVector(ba.constData(), ba.size()),
+                       Frame::FT_Track);
     }
   }
   QMap<TagLib::ByteVector, int>::const_iterator it = strNumMap.constFind(id);
@@ -4788,8 +4801,9 @@ static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
  */
 static TagLib::ByteVector getInfoName(const Frame& frame)
 {
-  if (const char* str = getInfoNameFromType(frame.getType())) {
-    return TagLib::ByteVector(str, 4);
+  TagLib::ByteVector str = getInfoNameFromType(frame.getType());
+  if (!str.isEmpty()) {
+    return str;
   }
 
   QString name = frame.getInternalName();
@@ -5215,6 +5229,12 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               // Set a frame in order to store the total number too.
               Frame frame(Frame::FT_Track, str, QLatin1String(""), -1);
               setMp4Frame(frame, mp4Tag);
+#endif
+#if TAGLIB_VERSION >= 0x010a00
+            } else if (TagLib::RIFF::Info::Tag* infoTag =
+                       dynamic_cast<TagLib::RIFF::Info::Tag*>(tag)) {
+              infoTag->setFieldText(getInfoNameFromType(Frame::FT_Track),
+                                    toTString(trackStr));
 #endif
             } else {
               tag->setTrack(num);
@@ -6541,7 +6561,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
     };
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       Frame::Type type = static_cast<Frame::Type>(k);
-      if (getInfoNameFromType(type)) {
+      if (!getInfoNameFromType(type).isEmpty()) {
         lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }

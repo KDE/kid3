@@ -1677,6 +1677,12 @@ msgstr "Cadres d'accès &rapide"
 msgid "Use drag and drop to reorder the items"
 msgstr "Utiliser le glisser-déposer pour trier à nouveau les éléments"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "No&m du champ numéro de piste:"
+
 msgid "&Tag Format"
 msgstr "Forma&t des balises"
 
@@ -1686,8 +1692,11 @@ msgstr "Balise &1"
 msgid "Tag &2"
 msgstr "Balise &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Bali&se 1 et balise 2"
+msgid "Tag &3"
+msgstr "Balise &3"
+
+msgid "All Ta&gs"
+msgstr "&Toutes les balises"
 
 msgid "Startup"
 msgstr "Démarrage"
@@ -2641,6 +2650,9 @@ msgstr "Ogg/Vorbis nom du champ commentaire"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis nom du champ d'image"
+
+msgid "RIFF track number field name"
+msgstr "RIFF nom du champ numéro de piste"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Marquer si l'image est plus grande que le maximum"

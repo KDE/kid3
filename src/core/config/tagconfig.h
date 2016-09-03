@@ -52,6 +52,8 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(QString commentName READ commentName WRITE setCommentName NOTIFY commentNameChanged)
   /** index of field name used for Vorbis picture entries */
   Q_PROPERTY(int pictureNameIndex READ pictureNameIndex WRITE setPictureNameIndex NOTIFY pictureNameIndexChanged)
+  /** field name used for RIFF track entries */
+  Q_PROPERTY(QString riffTrackName READ riffTrackName WRITE setRiffTrackName NOTIFY riffTrackNameChanged)
   /** custom genres for ID3v2.3 */
   Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres NOTIFY customGenresChanged)
   /** version used for new ID3v2 tags */
@@ -181,6 +183,12 @@ public:
   /** Set index of field name used for Vorbis picture entries. */
   void setPictureNameIndex(int pictureNameIndex);
 
+  /** field name used for RIFF track entries */
+  QString riffTrackName() const { return m_riffTrackName; }
+
+  /** Set field name used for RIFF track entries. */
+  void setRiffTrackName(const QString& riffTrackName);
+
   /** custom genres for ID3v2.3 */
   QStringList customGenres() const { return m_customGenres; }
 
@@ -289,6 +297,11 @@ public:
   Q_INVOKABLE static QStringList getPictureNames();
 
   /**
+   * String list with suggested field names used for RIFF track entries.
+   */
+  Q_INVOKABLE static QStringList getRiffTrackNames();
+
+  /**
    * Set default plugin order.
    */
   void setDefaultPluginOrder();
@@ -317,6 +330,9 @@ signals:
 
   /** Emitted when @a pictureNameIndex changed. */
   void pictureNameIndexChanged(int pictureNameIndex);
+
+  /** Emitted when @a riffTrackName changed. */
+  void riffTrackNameChanged(const QString& riffTrackName);
 
   /** Emitted when @a customGenres changed. */
   void customGenresChanged(const QStringList& customGenres);
@@ -355,6 +371,7 @@ private:
   friend TagConfig& StoredConfig<TagConfig>::instance();
 
   QString m_commentName;
+  QString m_riffTrackName;
   int m_pictureNameItem;
   QStringList m_customGenres;
   int m_id3v2Version;

@@ -1676,6 +1676,12 @@ msgstr ""
 msgid "Use drag and drop to reorder the items"
 msgstr "Prevucite za preraspodeđivanje čvorova"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Ime polja broj nu&mere:"
+
 msgid "&Tag Format"
 msgstr "&Format oznake"
 
@@ -1685,8 +1691,11 @@ msgstr "Oznaka &1"
 msgid "Tag &2"
 msgstr "Oznaka &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "oznaka 1 &i oznaka 2"
+msgid "Tag &3"
+msgstr "Oznaka &3"
+
+msgid "All Ta&gs"
+msgstr "S&vi oznake"
 
 msgid "Startup"
 msgstr "Pokretanje"
@@ -2640,6 +2649,9 @@ msgstr "Ogg/Vorbis ime polja komentara"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis ime polja slike"
+
+msgid "RIFF track number field name"
+msgstr "RIFF ime polja broj numere"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Označi ako je veće od"

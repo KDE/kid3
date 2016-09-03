@@ -1677,6 +1677,12 @@ msgstr "Schnellzug&riff-Elemente"
 msgid "Use drag and drop to reorder the items"
 msgstr "Klicken und ziehen Sie, um Elemente zu sortieren"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Na&me des Tracknummer-Feldes:"
+
 msgid "&Tag Format"
 msgstr "&Tag-Format"
 
@@ -1686,8 +1692,11 @@ msgstr "Tag &1"
 msgid "Tag &2"
 msgstr "Tag &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Tag 1 u&nd Tag 2"
+msgid "Tag &3"
+msgstr "Tag &3"
+
+msgid "All Ta&gs"
+msgstr "A&lle Tags"
 
 msgid "Startup"
 msgstr "Programmstart"
@@ -2643,6 +2652,9 @@ msgstr "Ogg/Vorbis Name des Kommentar-Feldes"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis Name des Bild-Feldes"
+
+msgid "RIFF track number field name"
+msgstr "RIFF Name des Tracknummer-Feldes"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Markieren wenn Bild größer als Maximum"

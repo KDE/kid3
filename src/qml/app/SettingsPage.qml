@@ -75,6 +75,10 @@ AbstractSettingsPage {
           dropDownModel: configs.tagConfig().getPictureNames()
         },
         SettingsElement {
+          name: qsTr("RIFF track number field name")
+          dropDownModel: configs.tagConfig().getRiffTrackNames()
+        },
+        SettingsElement {
           name: qsTr("Mark if picture larger than maxium size")
         },
         SettingsElement {
@@ -107,14 +111,15 @@ AbstractSettingsPage {
           model[5].value = tagCfg.id3v2Version
           model[6].value = tagCfg.commentName
           model[7].value = tagCfg.pictureNameIndex
-          model[8].value = tagCfg.markOversizedPictures
-          model[9].value = tagCfg.maximumPictureSize
-          model[10].value = tagCfg.onlyCustomGenres
-          model[11].value = fmtCfg.caseConversion
-          model[12].value =
-              model[12].dropDownModel.indexOf(fmtCfg.localeName) === -1
-              ? model[12].dropDownModel[0] : fmtCfg.localeName
-          model[13].value = fmtCfg.strRepEnabled
+          model[8].value = tagCfg.riffTrackName
+          model[9].value = tagCfg.markOversizedPictures
+          model[10].value = tagCfg.maximumPictureSize
+          model[11].value = tagCfg.onlyCustomGenres
+          model[12].value = fmtCfg.caseConversion
+          model[13].value =
+              model[13].dropDownModel.indexOf(fmtCfg.localeName) === -1
+              ? model[13].dropDownModel[0] : fmtCfg.localeName
+          model[14].value = fmtCfg.strRepEnabled
         } else {
           tagCfg.markTruncations = model[0].value
           tagCfg.textEncodingV1Index = model[1].value
@@ -124,14 +129,15 @@ AbstractSettingsPage {
           tagCfg.id3v2Version = model[5].value
           tagCfg.commentName = model[6].value
           tagCfg.pictureNameIndex = model[7].value
-          tagCfg.markOversizedPictures = model[8].value
-          tagCfg.maximumPictureSize = model[9].value
-          tagCfg.onlyCustomGenres = model[10].value
-          fmtCfg.caseConversion = model[11].value
+          tagCfg.riffTrackName = model[8].value
+          tagCfg.markOversizedPictures = model[9].value
+          tagCfg.maximumPictureSize = model[10].value
+          tagCfg.onlyCustomGenres = model[11].value
+          fmtCfg.caseConversion = model[12].value
           fmtCfg.localeName =
-              model[12].dropDownModel.indexOf(model[12].value) > 0
-              ? model[12].value : ""
-          fmtCfg.strRepEnabled = model[13].value
+              model[13].dropDownModel.indexOf(model[13].value) > 0
+              ? model[13].value : ""
+          fmtCfg.strRepEnabled = model[14].value
         }
       }
     }

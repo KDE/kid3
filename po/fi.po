@@ -1676,6 +1676,12 @@ msgstr "Tunniste&oikopolut"
 msgid "Use drag and drop to reorder the items"
 msgstr "Järjestä uudestaan raahaamalla"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Raitakentän ni&mi:"
+
 msgid "&Tag Format"
 msgstr "T&unnisteen muoto"
 
@@ -1685,8 +1691,11 @@ msgstr "&1-tunniste"
 msgid "Tag &2"
 msgstr "&2-tunniste"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "1- &ja 2-tunnisteet"
+msgid "Tag &3"
+msgstr "&3-tunniste"
+
+msgid "All Ta&gs"
+msgstr "K&aikki tunnisteet"
 
 msgid "Startup"
 msgstr "Käynnistys"
@@ -2642,6 +2651,9 @@ msgstr "Ogg/Vorbis kommenttikentän nimi"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis kuvakentän nimi"
+
+msgid "RIFF track number field name"
+msgstr "RIFF raitakentän nimi"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Merkitse, jos suurempi kuin"

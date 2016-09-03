@@ -1679,6 +1679,12 @@ msgstr "快速访问标签(&Q)"
 msgid "Use drag and drop to reorder the items"
 msgstr "使用拖放重新排序項目"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "音軌編號欄位名稱(&M):"
+
 msgid "&Tag Format"
 msgstr "標籤格式(&T)"
 
@@ -1688,8 +1694,11 @@ msgstr "標籤 &1"
 msgid "Tag &2"
 msgstr "標籤 &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "標籤 1 與 標籤 2(&N)"
+msgid "Tag &3"
+msgstr "標籤 &3"
+
+msgid "All Ta&gs"
+msgstr "所有標籤(&G)"
 
 msgid "Startup"
 msgstr "啟動"
@@ -2643,6 +2652,9 @@ msgstr "Ogg/Vorbis 內容註釋欄位名稱"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis 圖片欄位名稱"
+
+msgid "RIFF track number field name"
+msgstr "RIFF 音軌編號欄位名稱"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "大於這個尺寸就會標記"

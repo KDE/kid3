@@ -34,6 +34,9 @@ namespace {
 /** Default value for comment name */
 const char* const defaultCommentName = "COMMENT";
 
+/** Default value for RIFF track name */
+const char* const defaultRiffTrackName = "IPRT";
+
 }
 
 int TagConfig::s_index = -1;
@@ -44,6 +47,7 @@ int TagConfig::s_index = -1;
 TagConfig::TagConfig() :
   StoredConfig<TagConfig>(QLatin1String("Tags")),
   m_commentName(QString::fromLatin1(defaultCommentName)),
+  m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
   m_id3v2Version(ID3v2_3_0),
   m_textEncodingV1(QLatin1String("ISO-8859-1")),
@@ -81,6 +85,7 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("GenreNotNumeric"), QVariant(m_genreNotNumeric));
   config->setValue(QLatin1String("CommentName"), QVariant(m_commentName));
   config->setValue(QLatin1String("PictureNameItem"), QVariant(m_pictureNameItem));
+  config->setValue(QLatin1String("RiffTrackName"), QVariant(m_riffTrackName));
   config->setValue(QLatin1String("CustomGenres"), QVariant(m_customGenres));
   config->setValue(QLatin1String("ID3v2Version"), QVariant(m_id3v2Version));
   config->setValue(QLatin1String("TextEncodingV1"), QVariant(m_textEncodingV1));
@@ -115,6 +120,7 @@ void TagConfig::readFromConfig(ISettings* config)
   m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"), m_genreNotNumeric).toBool();
   m_commentName = config->value(QLatin1String("CommentName"), QString::fromLatin1(defaultCommentName)).toString();
   m_pictureNameItem = config->value(QLatin1String("PictureNameItem"), VP_METADATA_BLOCK_PICTURE).toInt();
+  m_riffTrackName = config->value(QLatin1String("RiffTrackName"), QString::fromLatin1(defaultRiffTrackName)).toString();
   m_customGenres = config->value(QLatin1String("CustomGenres"),
                                  m_customGenres).toStringList();
   m_id3v2Version = config->value(QLatin1String("ID3v2Version"), ID3v2_3_0).toInt();
@@ -245,6 +251,15 @@ void TagConfig::setPictureNameIndex(int pictureNameItem)
   if (m_pictureNameItem != pictureNameItem) {
     m_pictureNameItem = pictureNameItem;
     emit pictureNameIndexChanged(m_pictureNameItem);
+  }
+}
+
+/** Set field name used for RIFF track entries. */
+void TagConfig::setRiffTrackName(const QString& riffTrackName)
+{
+  if (m_riffTrackName != riffTrackName) {
+    m_riffTrackName = riffTrackName;
+    emit riffTrackNameChanged(m_riffTrackName);
   }
 }
 
@@ -411,4 +426,14 @@ QStringList TagConfig::getPictureNames()
 {
   return QStringList() << QLatin1String("METADATA_BLOCK_PICTURE")
                        << QLatin1String("COVERART");
+}
+
+/**
+ * String list with suggested field names used for RIFF track entries.
+ */
+QStringList TagConfig::getRiffTrackNames()
+{
+  return QStringList() << QLatin1String("IPRT")
+                       << QLatin1String("ITRK")
+                       << QLatin1String("TRCK");
 }

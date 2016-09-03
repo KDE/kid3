@@ -1678,6 +1678,12 @@ msgstr "Ram&ki szybkiego dostępu"
 msgid "Use drag and drop to reorder the items"
 msgstr "Przeciągnij i upuść aby zmienić kolejność"
 
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Nazwa pola nu&mer ścieżki:"
+
 msgid "&Tag Format"
 msgstr "&Format znacznika"
 
@@ -1687,8 +1693,11 @@ msgstr "Znacznik &1"
 msgid "Tag &2"
 msgstr "Znacznik &2"
 
-msgid "Tag 1 a&nd Tag 2"
-msgstr "Znacznik 1 &i znacznik 2"
+msgid "Tag &3"
+msgstr "Znacznik &3"
+
+msgid "All Ta&gs"
+msgstr "Wszys&tkie znaczniki"
 
 msgid "Startup"
 msgstr "Uruchamianie"
@@ -2645,6 +2654,9 @@ msgstr "Ogg/Vorbis nazwa pola komentarza"
 
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis nazwa pola obrazu"
+
+msgid "RIFF track number field name"
+msgstr "RIFF nazwa pola numer ścieżki"
 
 msgid "Mark if picture larger than maxium size"
 msgstr "Oznacz, jeśli większe od"
