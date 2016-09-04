@@ -86,8 +86,10 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
  *
  * @param frame frame to get
  * @param pic picture block to set
+ *
+ * @return true if ok.
  */
-static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
+static bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
 {
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
@@ -109,7 +111,20 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
   pic->set_description(
     reinterpret_cast<const FLAC__byte*>(
       static_cast<const char*>(description.toUtf8())));
-  pic->set_data(reinterpret_cast<const FLAC__byte*>(ba.data()), ba.size());
+  const FLAC__byte* data = reinterpret_cast<const FLAC__byte*>(ba.data());
+  int dataLength = ba.size();
+  if (!data || dataLength <= 0) {
+    // Avoid assertion crash in FLAC__metadata_object_picture_set_data().
+    qWarning("FLAC picture data empty");
+    return false;
+  }
+  pic->set_data(data, dataLength);
+  if (pic->get_length() >= (1u << FLAC__STREAM_METADATA_LENGTH_LEN)) {
+    // Avoid assertion crash in FLAC write_metadata_block_header_cb_().
+    qWarning("FLAC picture is too large");
+    return false;
+  }
+  return true;
 }
 #endif // HAVE_FLAC_PICTURE
 
@@ -284,8 +299,12 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
             FLAC::Metadata::Picture* pic =
               dynamic_cast<FLAC::Metadata::Picture*>(proto);
             if (pic) {
-              setPicture(*pictureIt++, pic);
-              pictureSet = true;
+              if (setPicture(*pictureIt++, pic)) {
+                pictureSet = true;
+              } else {
+                mdit.delete_block(false);
+                pictureRemoved = true;
+              }
             }
             delete proto;
           }
@@ -296,8 +315,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
       } else if (mdt == FLAC__METADATA_TYPE_PADDING) {
         if (pictureIt != m_pictures.end()) {
           FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
-          setPicture(*pictureIt, pic);
-          if (mdit.set_block(pic)) {
+          if (setPicture(*pictureIt, pic) && mdit.set_block(pic)) {
             ++pictureIt;
             pictureSet = true;
           } else {
@@ -324,8 +342,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
         while (pictureIt != m_pictures.end()) {
           FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
-          setPicture(*pictureIt, pic);
-          if (mdit.insert_block_after(pic)) {
+          if (setPicture(*pictureIt, pic) && mdit.insert_block_after(pic)) {
             pictureSet = true;
           } else {
             delete pic;
