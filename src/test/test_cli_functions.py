@@ -384,7 +384,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Genre         Metal\n'
                 'File: WAV 44100 Hz 2 Channels \n'
                 '  Name: track05.wav\n'
-                'Tag 2: ID3v2.4.0\n'
+                'Tag 2: ID3v2.3.0\n'
                 '  Title         Hail And Kill\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
@@ -486,7 +486,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 lines[2:],
                 ['- 01 Wheels Of Fire.m4a', '- 02 Kings Of Metal.flac',
                  '- 03 Heart Of Steel.spx', '+ 05 The Crown And The Ring (Lament Of The Kings).mp3',
-                 '- 06 Kingdom Come.ape', '- 08 Hail And Kill.wav', '- 09 The Warriors Prayer.opus',
+                 '- 06 Kingdom Come.ape', '+ 08 Hail And Kill.wav', '- 09 The Warriors Prayer.opus',
                  '- 10 Blood Of The Kings.aiff', 'Finished'])
             call_kid3_cli(['-c', 'renamedir "%{artist} - [%{year}] %{album}" "create"', tmpdir])
             new_dirname = 'Manowar - [1988] Kings Of Metal'

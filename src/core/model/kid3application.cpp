@@ -2737,7 +2737,7 @@ void Kid3Application::convertToId3v23()
       if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] > QLatin1Char('3') &&
           (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
-           ext == QLatin1String(".aac"))) {
+           ext == QLatin1String(".aac") || ext == QLatin1String(".wav"))) {
         if (!(taggedFile->taggedFileFeatures() & TaggedFile::TF_ID3v23)) {
           FrameCollection frames;
           taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);

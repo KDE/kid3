@@ -773,19 +773,11 @@ void TagLibFile::readTags(bool force)
         markTagUnchanged(Frame::Tag_1);
       }
       if (!m_tag[Frame::Tag_2]) {
-#if TAGLIB_VERSION >= 0x010800
-        m_id3v2Version = 0;
         TagLib::ID3v2::Tag* id3v2Tag = mpegFile->ID3v2Tag();
-        if (id3v2Tag && !id3v2Tag->isEmpty()) {
-          TagLib::ID3v2::Header* header = id3v2Tag->header();
-          if (header) {
-            m_id3v2Version = header->majorVersion();
-          }
-        }
-        m_tag[Frame::Tag_2] = id3v2Tag;
-#else
-        m_tag[Frame::Tag_2] = mpegFile->ID3v2Tag();
+#if TAGLIB_VERSION >= 0x010800
+        setId3v2VersionFromTag(id3v2Tag);
 #endif
+        m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
       }
       if (!m_tag[Frame::Tag_3]) {
@@ -878,7 +870,11 @@ void TagLibFile::readTags(bool force)
 #if TAGLIB_VERSION >= 0x010a00
       m_isTagSupported[Frame::Tag_3] = true;
       if (!m_tag[Frame::Tag_2]) {
-        m_tag[Frame::Tag_2] = wavFile->ID3v2Tag();
+        TagLib::ID3v2::Tag* id3v2Tag = wavFile->ID3v2Tag();
+#if TAGLIB_VERSION >= 0x010900
+        setId3v2VersionFromTag(id3v2Tag);
+#endif
+        m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
       }
       if (!m_tag[Frame::Tag_3]) {
@@ -1113,13 +1109,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
       }
       if (saveMask != 0) {
 #if TAGLIB_VERSION >= 0x010800
-        if (id3v2Version == 3 || id3v2Version == 4) {
-          m_id3v2Version = id3v2Version;
-        }
-        if (m_id3v2Version != 3 && m_id3v2Version != 4) {
-          m_id3v2Version = TagConfig::instance().id3v2Version() ==
-              TagConfig::ID3v2_3_0 ? 3 : 4;
-        }
+        setId3v2VersionOrDefault(id3v2Version);
 #else
         Q_UNUSED(id3v2Version);
 #endif
@@ -1267,8 +1257,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
               saveTags |= tagTypes[tagNr];
             }
           }
+          setId3v2VersionOrDefault(id3v2Version);
           if (wavFile->save(static_cast<TagLib::RIFF::WAV::File::TagTypes>(
-                              saveTags), true)) {
+                              saveTags), true, m_id3v2Version)) {
             fileChanged = true;
             FOR_TAGLIB_TAGS(tagNr) {
               markTagUnchanged(tagNr);
@@ -1764,19 +1755,51 @@ void TagLibFile::readAudioProperties()
 }
 
 #if TAGLIB_VERSION >= 0x010800
-  /**
-   * Get tracker name of a module file.
-   *
-   * @return tracker name, null if not found.
-   */
-  QString TagLibFile::getTrackerName() const
-  {
-    QString trackerName;
-    if (TagLib::Mod::Tag* modTag = dynamic_cast<TagLib::Mod::Tag*>(m_tag[Frame::Tag_2])) {
-      trackerName = toQString(modTag->trackerName()).trimmed();
-    }
-    return trackerName;
+/**
+ * Get tracker name of a module file.
+ *
+ * @return tracker name, null if not found.
+ */
+QString TagLibFile::getTrackerName() const
+{
+  QString trackerName;
+  if (TagLib::Mod::Tag* modTag = dynamic_cast<TagLib::Mod::Tag*>(m_tag[Frame::Tag_2])) {
+    trackerName = toQString(modTag->trackerName()).trimmed();
   }
+  return trackerName;
+}
+
+
+/**
+ * Set m_id3v2Version to 3 or 4 from tag if it exists, else to 0.
+ * @param id3v2Tag ID3v2 tag
+ */
+void TagLibFile::setId3v2VersionFromTag(TagLib::ID3v2::Tag* id3v2Tag)
+{
+  m_id3v2Version = 0;
+  if (id3v2Tag && !id3v2Tag->isEmpty()) {
+    if (TagLib::ID3v2::Header* header = id3v2Tag->header()) {
+      m_id3v2Version = header->majorVersion();
+    }
+  }
+}
+
+/**
+ * Set m_id3v2Version from given value (3 or 4) or use default from
+ * configuration if not already set to 3 or 4.
+ * @param id3v2Version 3 or 4 to force version, 0 to use existing version
+ * or default
+ */
+void TagLibFile::setId3v2VersionOrDefault(int id3v2Version)
+{
+  if (id3v2Version == 3 || id3v2Version == 4) {
+    m_id3v2Version = id3v2Version;
+  }
+  if (m_id3v2Version != 3 && m_id3v2Version != 4) {
+    m_id3v2Version = TagConfig::instance().id3v2Version() ==
+        TagConfig::ID3v2_3_0 ? 3 : 4;
+  }
+}
 #endif
 
 /**

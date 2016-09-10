@@ -352,6 +352,20 @@ private:
    * @return tracker name, null if not found.
    */
   QString getTrackerName() const;
+
+  /**
+   * Set m_id3v2Version to 3 or 4 from tag if it exists, else to 0.
+   * @param id3v2Tag ID3v2 tag
+   */
+  void setId3v2VersionFromTag(TagLib::ID3v2::Tag* id3v2Tag);
+
+  /**
+   * Set m_id3v2Version from given value (3 or 4) or use default from
+   * configuration if not already set to 3 or 4.
+   * @param id3v2Version 3 or 4 to force version, 0 to use existing version
+   * or default
+   */
+  void setId3v2VersionOrDefault(int id3v2Version);
 #endif
 
 #if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
