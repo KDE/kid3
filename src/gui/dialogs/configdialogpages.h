@@ -154,6 +154,8 @@ private:
   QSpinBox* m_maximumPictureSizeSpinBox;
   /** Genre as text instead of numeric string checkbox */
   QCheckBox* m_genreNotNumericCheckBox;
+  /** WAV files with lowercase id3 chunk checkbox */
+  QCheckBox* m_lowercaseId3ChunkCheckBox;
   /** ID3v2 text encoding combo box */
   QComboBox* m_textEncodingComboBox;
   /** ID3v2 version combo box */

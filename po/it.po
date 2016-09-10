@@ -1643,6 +1643,9 @@ msgstr "&Numero di cifre in campo della traccia:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genere come testo invece dei numeri"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "File &WAV con parte id3 minuscolo"
+
 msgid "&Version used for new tags:"
 msgstr "&Versione usata per i nuovi tag:"
 
@@ -2640,6 +2643,9 @@ msgstr "Usa formato traccia/numero totale delle tracce"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Genere come testo invece dei numeri"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "File WAV con parte id3 minuscolo"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Versione usata per i nuovi tag"

@@ -1643,6 +1643,9 @@ msgstr "&Hane sayısı:"
 msgid "&Genre as text instead of numeric string"
 msgstr ""
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "Küçük id3 parça ile &WAV dosyalarını"
+
 msgid "&Version used for new tags:"
 msgstr "&Yeni tag'lar için kullanılan sürüm:"
 
@@ -2641,6 +2644,9 @@ msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
 
 msgid "Genre as text instead of numeric string"
 msgstr ""
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "Küçük id3 parça ile WAV dosyalarını"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Yeni tag'lar için kullanılan sürüm"

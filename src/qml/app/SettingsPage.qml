@@ -63,6 +63,9 @@ AbstractSettingsPage {
           name: qsTr("Genre as text instead of numeric string")
         },
         SettingsElement {
+          name: qsTr("WAV files with lowercase id3 chunk")
+        },
+        SettingsElement {
           name: qsTr("Version used for new ID3v2 tags")
           dropDownModel: configs.tagConfig().getId3v2VersionNames()
         },
@@ -108,36 +111,38 @@ AbstractSettingsPage {
           model[2].value = tagCfg.textEncoding
           model[3].value = tagCfg.enableTotalNumberOfTracks
           model[4].value = tagCfg.genreNotNumeric
-          model[5].value = tagCfg.id3v2Version
-          model[6].value = tagCfg.commentName
-          model[7].value = tagCfg.pictureNameIndex
-          model[8].value = tagCfg.riffTrackName
-          model[9].value = tagCfg.markOversizedPictures
-          model[10].value = tagCfg.maximumPictureSize
-          model[11].value = tagCfg.onlyCustomGenres
-          model[12].value = fmtCfg.caseConversion
-          model[13].value =
-              model[13].dropDownModel.indexOf(fmtCfg.localeName) === -1
-              ? model[13].dropDownModel[0] : fmtCfg.localeName
-          model[14].value = fmtCfg.strRepEnabled
+          model[5].value = tagCfg.lowercaseId3RiffChunk
+          model[6].value = tagCfg.id3v2Version
+          model[7].value = tagCfg.commentName
+          model[8].value = tagCfg.pictureNameIndex
+          model[9].value = tagCfg.riffTrackName
+          model[10].value = tagCfg.markOversizedPictures
+          model[11].value = tagCfg.maximumPictureSize
+          model[12].value = tagCfg.onlyCustomGenres
+          model[13].value = fmtCfg.caseConversion
+          model[14].value =
+              model[14].dropDownModel.indexOf(fmtCfg.localeName) === -1
+              ? model[14].dropDownModel[0] : fmtCfg.localeName
+          model[15].value = fmtCfg.strRepEnabled
         } else {
           tagCfg.markTruncations = model[0].value
           tagCfg.textEncodingV1Index = model[1].value
           tagCfg.textEncoding = model[2].value
           tagCfg.enableTotalNumberOfTracks = model[3].value
           tagCfg.genreNotNumeric = model[4].value
-          tagCfg.id3v2Version = model[5].value
-          tagCfg.commentName = model[6].value
-          tagCfg.pictureNameIndex = model[7].value
-          tagCfg.riffTrackName = model[8].value
-          tagCfg.markOversizedPictures = model[9].value
-          tagCfg.maximumPictureSize = model[10].value
-          tagCfg.onlyCustomGenres = model[11].value
-          fmtCfg.caseConversion = model[12].value
+          tagCfg.lowercaseId3RiffChunk = model[5].value
+          tagCfg.id3v2Version = model[6].value
+          tagCfg.commentName = model[7].value
+          tagCfg.pictureNameIndex = model[8].value
+          tagCfg.riffTrackName = model[9].value
+          tagCfg.markOversizedPictures = model[10].value
+          tagCfg.maximumPictureSize = model[11].value
+          tagCfg.onlyCustomGenres = model[12].value
+          fmtCfg.caseConversion = model[13].value
           fmtCfg.localeName =
-              model[13].dropDownModel.indexOf(model[13].value) > 0
-              ? model[13].value : ""
-          fmtCfg.strRepEnabled = model[14].value
+              model[14].dropDownModel.indexOf(model[14].value) > 0
+              ? model[14].value : ""
+          fmtCfg.strRepEnabled = model[15].value
         }
       }
     }

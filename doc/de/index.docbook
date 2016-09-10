@@ -2129,6 +2129,17 @@ Text gespeichert. Der Sinn dieser Option ist es, die Kompatibilität mit
 Geräten zu verbessern, welche die Codes nicht korrekt interpretieren.
 </para>
 <para>
+Wenn <guilabel>WAV-Dateien mit id3 Block in Kleinbuchstaben</guilabel>
+aktiviert ist, wird "id3 " statt "ID3 " als Name für die RIFF Chunks
+verwendet, in welchen ID3v2 Tags für WAV-Dateien gespeichert
+werden. Normalerweise akzeptieren &kid3; und andere Programme, welche TagLib
+verwenden, beim Lesen von WAV-Dateien sowohl die Variante mit Kleinbuchstaben
+als auch die Variante mit Großbuchstaben, geschrieben wird aber immer "ID3 ".
+Weil Applikationen existieren, welche nur "id3 " akzeptieren (z.B. JRiver Media
+Center und foobar2000), können mit dieser Einstellung Tags geschrieben werden,
+welche auch von solchen Applikationen gelesen werden können.
+</para>
+<para>
 <guilabel>Text Codierung</guilabel> bestimmt die Codierung von ID3v2
 Elementen und kann
 auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder

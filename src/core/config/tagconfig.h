@@ -48,6 +48,8 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
   /** true to write genres as text instead of numeric string */
   Q_PROPERTY(bool genreNotNumeric READ genreNotNumeric WRITE setGenreNotNumeric NOTIFY genreNotNumericChanged)
+  /** true to use "id3 " instead of "ID3 " chunk names in WAV files */
+  Q_PROPERTY(bool lowercaseId3RiffChunk READ lowercaseId3RiffChunk WRITE setLowercaseId3RiffChunk NOTIFY lowercaseId3RiffChunkChanged)
   /** field name used for Vorbis comment entries */
   Q_PROPERTY(QString commentName READ commentName WRITE setCommentName NOTIFY commentNameChanged)
   /** index of field name used for Vorbis picture entries */
@@ -170,6 +172,12 @@ public:
 
   /** Set true to write genres as text instead of numeric string. */
   void setGenreNotNumeric(bool genreNotNumeric);
+
+  /** true to use "id3 " instead of "ID3 " chunk names in WAV files */
+  bool lowercaseId3RiffChunk() const { return m_lowercaseId3RiffChunk; }
+
+  /** Set true to use "id3 " instead of "ID3 " chunk names in WAV files */
+  void setLowercaseId3RiffChunk(bool lowercaseId3RiffChunk);
 
   /** field name used for Vorbis comment entries */
   QString commentName() const { return m_commentName; }
@@ -325,6 +333,9 @@ signals:
   /** Emitted when @a genreNotNumeric changed. */
   void genreNotNumericChanged(bool genreNotNumeric);
 
+  /** Emitted when @a lowercaseId3RiffChunk changed. */
+  void lowercaseId3RiffChunkChanged(bool lowercaseId3RiffChunk);
+
   /** Emitted when @a commentName changed. */
   void commentNameChanged(const QString& commentName);
 
@@ -390,6 +401,7 @@ private:
   bool m_markTruncations;
   bool m_enableTotalNumberOfTracks;
   bool m_genreNotNumeric;
+  bool m_lowercaseId3RiffChunk;
 
   /** Index in configuration storage */
   static int s_index;

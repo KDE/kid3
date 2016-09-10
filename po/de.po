@@ -1644,6 +1644,9 @@ msgstr "&Anzahl der Stellen in Tracknummer:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genre als Text statt als Nummer"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV-Dateien mit id3 Block in Kleinbuchstaben"
+
 msgid "&Version used for new tags:"
 msgstr "&Version für neue Tags:"
 
@@ -2643,6 +2646,9 @@ msgstr "Format „Nummer/Anzahl Stücke“ benutzen"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Genre als Text statt als Nummer"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV-Dateien mit id3 Block in Kleinbuchstaben"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Version für neue Tags"

@@ -1645,6 +1645,9 @@ msgstr "Номер дорожки &количество цифр:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр как текст"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV файлы с нижнего регистра id3 кусок"
+
 msgid "&Version used for new tags:"
 msgstr "&Версия, используемая для нового тегов:"
 
@@ -2642,6 +2645,9 @@ msgstr "Формат использования число/количество 
 
 msgid "Genre as text instead of numeric string"
 msgstr "Жанр как текст"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV файлы с нижнего регистра id3 кусок"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Версия, используемая для нового тегов"

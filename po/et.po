@@ -1643,6 +1643,9 @@ msgstr "Num&brite vähim arv loo numbris:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Stiil salvestatakse numberkoodi asemel tekstina"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV faile väiketähed id3 tüki"
+
 msgid "&Version used for new tags:"
 msgstr "Uutes siltides kasutatav &versioon:"
 
@@ -2640,6 +2643,9 @@ msgstr "Kasutatakse vormingut \"loo nr/lugude koguarv\""
 
 msgid "Genre as text instead of numeric string"
 msgstr "Stiil salvestatakse numberkoodi asemel tekstina"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV faile väiketähed id3 tüki"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Uutes siltides kasutatav versioon"

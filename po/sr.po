@@ -1646,6 +1646,9 @@ msgstr "Број &цифара нумере:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр као текст уместо бројног низа"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV датотеке са малих слова id3 парче"
+
 msgid "&Version used for new tags:"
 msgstr "И&здање за нове ознаке:"
 
@@ -2643,6 +2646,9 @@ msgstr "Користи формат нумера/укупно нумера"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Жанр као текст уместо бројног низа"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV датотеке са малих слова id3 парче"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Издање за нове ознаке"

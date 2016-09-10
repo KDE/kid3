@@ -1639,6 +1639,9 @@ msgstr ""
 msgid "&Genre as text instead of numeric string"
 msgstr ""
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr ""
+
 msgid "&Version used for new tags:"
 msgstr ""
 
@@ -2629,6 +2632,9 @@ msgid "Use track/total number of tracks format"
 msgstr ""
 
 msgid "Genre as text instead of numeric string"
+msgstr ""
+
+msgid "WAV files with lowercase id3 chunk"
 msgstr ""
 
 msgid "Version used for new ID3v2 tags"

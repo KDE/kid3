@@ -1644,6 +1644,9 @@ msgstr "Nombre de &chiffres dans le numéro de piste:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genre comme du texte au lieu du nombre"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "Fichiers &WAV avec nom du morceau id3 en minuscules"
+
 msgid "&Version used for new tags:"
 msgstr "&Version utilisée pour balises novelles:"
 
@@ -2641,6 +2644,9 @@ msgstr "Utiliser le format piste/nombre total de pistes"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Genre comme du texte au lieu du nombre"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "Fichiers &WAV avec nom du morceau id3 en minuscules"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Version utilisée pour balises novelles"

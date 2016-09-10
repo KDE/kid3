@@ -1643,6 +1643,9 @@ msgstr "Broj &cifara numere:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Žanr kao tekst umesto brojnog niza"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV datoteka s malih slova id3 komad"
+
 msgid "&Version used for new tags:"
 msgstr "I&zdanje za nove oznake:"
 
@@ -2640,6 +2643,9 @@ msgstr "Koristi format numera/ukupno numera"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Žanr kao tekst umesto brojnog niza"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV datoteka s malih slova id3 komad"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Izdanje za nove oznake"

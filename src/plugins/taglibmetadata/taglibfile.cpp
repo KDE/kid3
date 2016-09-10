@@ -212,6 +212,60 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
 
 }
 
+
+#if TAGLIB_VERSION >= 0x010900
+/**
+ * TagLib::RIFF::WAV::File subclass with additional method for id3 chunk name.
+ */
+class WavFile : public TagLib::RIFF::WAV::File {
+public:
+  /**
+   * Constructor.
+   * @param stream stream to open
+   */
+  explicit WavFile(TagLib::IOStream *stream);
+
+  /**
+   * Destructor.
+   */
+  virtual ~WavFile();
+
+  /**
+   * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
+   * This method has to be called after successully calling save() to use
+   * lowercase "id3 " chunk names.
+   */
+  void changeToLowercaseId3Chunk();
+};
+
+WavFile::WavFile(TagLib::IOStream *stream) : TagLib::RIFF::WAV::File(stream)
+{
+}
+
+WavFile::~WavFile()
+{
+}
+
+void WavFile::changeToLowercaseId3Chunk()
+{
+  if (readOnly() || !isValid())
+    return;
+
+  int i;
+  for (i = chunkCount() - 1; i >= 0; --i) {
+    if (chunkName(i) == "ID3 ") {
+      break;
+    }
+  }
+  if (i >= 0) {
+    TagLib::ByteVector data = chunkData(i);
+    removeChunk(i);
+    setChunkData("id3 ", data);
+  }
+}
+#endif
+
+
 #if TAGLIB_VERSION >= 0x010800
 /**
  * Wrapper around TagLib::FileStream which reduces the number of open file
@@ -495,7 +549,11 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "AIF" || ext == "AIFF")
       return new TagLib::RIFF::AIFF::File(stream);
     if (ext == "WAV")
+#if TAGLIB_VERSION >= 0x010900
+      return new WavFile(stream);
+#else
       return new TagLib::RIFF::WAV::File(stream);
+#endif
     if (ext == "APE")
       return new TagLib::APE::File(stream);
     if (ext == "MOD" || ext == "MODULE" || ext == "NST" || ext == "WOW")
@@ -1238,8 +1296,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         }
 #endif
 #if TAGLIB_VERSION >= 0x010900
-        else if (TagLib::RIFF::WAV::File* wavFile =
-            dynamic_cast<TagLib::RIFF::WAV::File*>(file)) {
+        else if (WavFile* wavFile = dynamic_cast<WavFile*>(file)) {
           static const TagLib::RIFF::WAV::File::TagTypes tagTypes[NUM_TAGS] = {
             TagLib::RIFF::WAV::File::NoTags, TagLib::RIFF::WAV::File::ID3v2,
 #if TAGLIB_VERSION >= 0x010a00
@@ -1260,6 +1317,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           setId3v2VersionOrDefault(id3v2Version);
           if (wavFile->save(static_cast<TagLib::RIFF::WAV::File::TagTypes>(
                               saveTags), true, m_id3v2Version)) {
+            if (TagConfig::instance().lowercaseId3RiffChunk()) {
+              wavFile->changeToLowercaseId3Chunk();
+            }
             fileChanged = true;
             FOR_TAGLIB_TAGS(tagNr) {
               markTagUnchanged(tagNr);
@@ -5187,6 +5247,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           bool ok = false;
           if (dynamic_cast<TagLib::ID3v2::Tag*>(tag) != 0) {
             ok = setId3v2Unicode(tag, yearStr, tstr, frameId);
+#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
           } else if (TagLib::MP4::Tag* mp4Tag =
                      dynamic_cast<TagLib::MP4::Tag*>(tag)) {
             TagLib::String name;
@@ -5197,6 +5258,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             if (ok) {
               mp4Tag->itemListMap()[name] = item;
             }
+#endif
           } else if (TagLib::Ogg::XiphComment* oggTag =
                      dynamic_cast<TagLib::Ogg::XiphComment*>(tag)) {
             oggTag->addField(getVorbisNameFromType(type), tstr, true);

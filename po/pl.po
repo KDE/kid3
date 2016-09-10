@@ -1645,6 +1645,9 @@ msgstr "Numer ścieżki &liczba cyfr:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Gatunek jako tekst"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV z małymi części id3"
+
 msgid "&Version used for new tags:"
 msgstr "Wersja używana dla &nowych znaczników:"
 
@@ -2645,6 +2648,9 @@ msgstr "Używaj formatu ścieżka/całkowita liczba ścieżek"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Gatunek jako tekst"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV z małymi części id3"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Wersja używana dla nowych znaczników"

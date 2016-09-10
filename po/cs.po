@@ -1645,6 +1645,9 @@ msgstr "&Počet číslic v čísle skladby:"
 msgid "&Genre as text instead of numeric string"
 msgstr "Žá&nr jako text místo jako číslo"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV soubory s malá písmena id3 bloku"
+
 msgid "&Version used for new tags:"
 msgstr "&Verze používaná pro nové značky:"
 
@@ -2642,6 +2645,9 @@ msgstr "Použít formát číslo/celkový počet stop"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Žánr jako text místo jako číslo"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV soubory s malá písmena id3 bloku"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Verze používaná pro nové značky ID3v2"

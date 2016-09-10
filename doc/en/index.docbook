@@ -2005,6 +2005,15 @@ always stored as a text string. The purpose of this option is improved
 compatibility with devices which do not correctly interpret genre codes.
 </para>
 <para>
+When <guilabel>WAV files with lowercase id3 chunk</guilabel> is checked, the
+RIFF chunk used to store ID3v2 tags in WAV files will be named "id3 " instead
+of "ID3 ". By default, &kid3; and other applications using TagLib accept both
+the lowercase and the uppercase variant when reading WAV files, but they use
+"ID3 " when writing ID3v2 tags to WAV files. As there exist other applications
+which only accept "id3 " (e.g. JRiver Media Center and foobar2000), this
+option can be used to create tags which can be read by such applications.
+</para>
+<para>
 <guilabel>Text encoding</guilabel> defines the default encoding used for ID3v2
 frames and can be set
 to <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel>,

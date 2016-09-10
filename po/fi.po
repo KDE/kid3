@@ -1643,6 +1643,9 @@ msgstr "Numeroiden &määrä:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Tyylilaji tekstinä numerojonon sijaan"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV-tiedostoja pieniä id3 osa"
+
 msgid "&Version used for new tags:"
 msgstr "&Uusien tunnisteiden versio:"
 
@@ -2642,6 +2645,9 @@ msgstr "Numeroi raidat muodossa raita/kaikkiaan"
 
 msgid "Genre as text instead of numeric string"
 msgstr "Tyylilaji tekstinä numerojonon sijaan"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV-tiedostoja pieniä id3 osa"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Uusien tunnisteiden versio"

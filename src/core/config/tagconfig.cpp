@@ -60,7 +60,8 @@ TagConfig::TagConfig() :
   m_onlyCustomGenres(false),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
-  m_genreNotNumeric(true)
+  m_genreNotNumeric(true),
+  m_lowercaseId3RiffChunk(false)
 {
   m_disabledPlugins << QLatin1String("Id3libMetadata");
 }
@@ -83,6 +84,7 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("MaximumPictureSize"), QVariant(m_maximumPictureSize));
   config->setValue(QLatin1String("EnableTotalNumberOfTracks"), QVariant(m_enableTotalNumberOfTracks));
   config->setValue(QLatin1String("GenreNotNumeric"), QVariant(m_genreNotNumeric));
+  config->setValue(QLatin1String("LowercaseId3RiffChunk"), QVariant(m_lowercaseId3RiffChunk));
   config->setValue(QLatin1String("CommentName"), QVariant(m_commentName));
   config->setValue(QLatin1String("PictureNameItem"), QVariant(m_pictureNameItem));
   config->setValue(QLatin1String("RiffTrackName"), QVariant(m_riffTrackName));
@@ -118,6 +120,7 @@ void TagConfig::readFromConfig(ISettings* config)
   m_maximumPictureSize = config->value(QLatin1String("MaximumPictureSize"), m_maximumPictureSize).toInt();
   m_enableTotalNumberOfTracks = config->value(QLatin1String("EnableTotalNumberOfTracks"), m_enableTotalNumberOfTracks).toBool();
   m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"), m_genreNotNumeric).toBool();
+  m_lowercaseId3RiffChunk = config->value(QLatin1String("LowercaseId3RiffChunk"), m_lowercaseId3RiffChunk).toBool();
   m_commentName = config->value(QLatin1String("CommentName"), QString::fromLatin1(defaultCommentName)).toString();
   m_pictureNameItem = config->value(QLatin1String("PictureNameItem"), VP_METADATA_BLOCK_PICTURE).toInt();
   m_riffTrackName = config->value(QLatin1String("RiffTrackName"), QString::fromLatin1(defaultRiffTrackName)).toString();
@@ -233,6 +236,15 @@ void TagConfig::setGenreNotNumeric(bool genreNotNumeric)
   if (m_genreNotNumeric != genreNotNumeric) {
     m_genreNotNumeric = genreNotNumeric;
     emit genreNotNumericChanged(m_genreNotNumeric);
+  }
+}
+
+/** Set true to use "id3 " instead of "ID3 " chunk names in WAV files */
+void TagConfig::setLowercaseId3RiffChunk(bool lowercaseId3RiffChunk)
+{
+  if (m_lowercaseId3RiffChunk != lowercaseId3RiffChunk) {
+    m_lowercaseId3RiffChunk = lowercaseId3RiffChunk;
+    emit lowercaseId3RiffChunkChanged(m_lowercaseId3RiffChunk);
   }
 }
 

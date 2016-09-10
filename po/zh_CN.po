@@ -1642,6 +1642,9 @@ msgstr "音轨编号位数(&D)："
 msgid "&Genre as text instead of numeric string"
 msgstr "将流派视做文本而非数字字符串(&G)"
 
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "小写id3块&WAV文件"
+
 msgid "&Version used for new tags:"
 msgstr "新标签使用的版本(&V)："
 
@@ -2638,6 +2641,9 @@ msgstr "使用「音轨/音轨总数」的格式"
 
 msgid "Genre as text instead of numeric string"
 msgstr "将流派视做文本而非数字字符串"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "小写id3块WAV文件"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "新标签使用的版本"
