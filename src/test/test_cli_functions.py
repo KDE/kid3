@@ -193,7 +193,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get all 2', mp3path]),
                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
                 '  Name: test.mp3\n'
-                'Tag 2: ID3v2.4.0\n'
+                'Tag 2: ID3v2.3.0\n'
                 '* Artist                  An Artist\n'
                 '* Album                   An Album\n'
                 '* Comment                 A Comment\n'

@@ -1836,10 +1836,14 @@ QString TagLibFile::getTrackerName() const
  */
 void TagLibFile::setId3v2VersionFromTag(TagLib::ID3v2::Tag* id3v2Tag)
 {
+  TagLib::ID3v2::Header* header;
   m_id3v2Version = 0;
-  if (id3v2Tag && !id3v2Tag->isEmpty()) {
-    if (TagLib::ID3v2::Header* header = id3v2Tag->header()) {
+  if (id3v2Tag && (header = id3v2Tag->header()) != 0) {
+    if (!id3v2Tag->isEmpty()) {
       m_id3v2Version = header->majorVersion();
+    } else {
+      header->setMajorVersion(TagConfig::instance().id3v2Version() ==
+                              TagConfig::ID3v2_3_0 ? 3 : 4);
     }
   }
 }
