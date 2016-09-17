@@ -111,8 +111,7 @@ private:
 
 class Codec {
 public:
-  explicit Codec(AVCodecContext* ptr = 0) : m_ptr(ptr), m_impl(0), m_frame(0),
-    m_opened(false) {
+  Codec() : m_ptr(0), m_impl(0), m_frame(0), m_opened(false) {
   }
 
   ~Codec() {
@@ -126,6 +125,10 @@ public:
 #endif
     if (m_opened)
       ::avcodec_close(m_ptr);
+#if LIBAVFORMAT_VERSION_INT >= AV_VERSION_INT(57, 33, 100)
+    if (m_ptr)
+      ::avcodec_free_context(&m_ptr);
+#endif
   }
 
   bool open() {
@@ -169,6 +172,7 @@ public:
       m_frame = ::av_frame_alloc();
     ::av_frame_unref(m_frame);
 #endif
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(57, 37, 100)
     int decoded = 0;
     int len = ::avcodec_decode_audio4(m_ptr, m_frame, &decoded, pkt);
     if (len >= 0 && decoded) {
@@ -191,6 +195,30 @@ public:
       *frameSize = 0;
     }
     return len;
+#else
+    if (::avcodec_send_packet(m_ptr, pkt) == 0 &&
+        ::avcodec_receive_frame(m_ptr, m_frame) == 0) {
+      int planar = ::av_sample_fmt_is_planar(m_ptr->sample_fmt);
+      int planeSize;
+      int dataSize = ::av_samples_get_buffer_size(&planeSize, m_ptr->channels,
+                         m_frame->nb_samples, m_ptr->sample_fmt, 1);
+      if (*frameSize < dataSize)
+        return -1;
+      ::memcpy(samples, m_frame->extended_data[0], planeSize);
+      if (planar && m_ptr->channels > 1) {
+        uint8_t* out = reinterpret_cast<uint8_t*>(samples) + planeSize;
+        for (int ch = 1; ch < m_ptr->channels; ++ch) {
+          ::memcpy(out, m_frame->extended_data[ch], planeSize);
+          out += planeSize;
+        }
+      }
+      *frameSize = dataSize;
+      return pkt->size;
+    } else {
+      *frameSize = 0;
+      return -1;
+    }
+#endif
 #endif
   }
 
@@ -252,7 +280,15 @@ public:
       stream = m_ptr->streams[m_streamIndex];
     }
     if (stream) {
+#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(57, 33, 100)
       codec->m_ptr = stream->codec;
+#else
+      codec->m_ptr = ::avcodec_alloc_context3(codec->m_impl);
+      if (codec->m_ptr) {
+        if (::avcodec_parameters_to_context(codec->m_ptr, stream->codecpar) < 0)
+          ::avcodec_free_context(&codec->m_ptr);
+      }
+#endif
     }
 #endif
     if (codec->m_ptr) {
