@@ -158,10 +158,11 @@ Frame::TagVersion CliCommand::getTagMaskParameter(int nr,
   if (m_args.size() > nr) {
     const QString& tagStr = m_args.at(nr);
     if (!tagStr.isEmpty() && tagStr.at(0).isDigit()) {
-      if (tagStr.contains(QLatin1Char('1')))
-        tagMask |= 1;
-      if (tagStr.contains(QLatin1Char('2')))
-        tagMask |= 2;
+      FOR_ALL_TAGS(tagNr) {
+        if (tagStr.contains(Frame::tagNumberToString(tagNr))) {
+          tagMask |= Frame::tagVersionFromNumber(tagNr);
+        }
+      }
       if (tagMask == 0)
         tagMask = tagStr.toInt();
     }

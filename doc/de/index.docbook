@@ -2662,14 +2662,15 @@ werden. Wildcards sind möglich, so werden mit <userinput>select
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
 <para>Viele Befehle haben einen optionalen <replaceable>TAGNUMMERN</replaceable>
-Parameter, welcher festlegt, ob der Befehl auf Tag 1 oder 2 wirkt. Wenn dieser
+Parameter, welcher festlegt, ob der Befehl auf Tag 1, 2 oder 3 wirkt. Wenn dieser
 Parameter weggelassen wird, so werden die standardmäßigen Tagnummern
 verwendet, welche mit dem Befehl <command>tag</command> festgelegt werden
 können. Voreingestellt ist ein Wert von <literal>12</literal>, was bedeutet,
 dass Informationen vom Tag 2 geholt werden, falls es vorhanden ist, sonst vom
 Tag 1. Änderungen werden am Tag 2 durchgeführt. Die
 <option><replaceable>TAGNUMMERN</replaceable></option> können auf
-<userinput>1</userinput> oder <userinput>2</userinput> gesetzt werden, damit
+<userinput>1</userinput>, <userinput>2</userinput> oder
+<userinput>3</userinput> gesetzt werden, damit
 nur das entsprechende Tag verwendet wird. Wird kein Parameter angegeben, so
 wird die momentane Einstellung angezeigt.
 </para>

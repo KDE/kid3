@@ -2507,13 +2507,14 @@ directory.
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
 <para>Many commands have an optional <replaceable>TAG-NUMBERS</replaceable>
-parameter, which specifies whether the command operates on tag 1 or tag 2. If
+parameter, which specifies whether the command operates on tag 1, 2, or 3. If
 this parameter is omitted, the default tag numbers are used, which can be set
 by this command. At startup, is is set to <literal>12</literal> which means
 that information is read from tag 2 if available, else from tag 1;
 modifications are done on tag 2. The
 <option><replaceable>TAG-NUMBERS</replaceable></option> can be set to
-<userinput>1</userinput> or <userinput>2</userinput> to operate only on the
+<userinput>1</userinput>, <userinput>2</userinput>, or
+<userinput>3</userinput> to operate only on the
 corresponding tag. If the parameter is omitted, the current setting is
 displayed.
 </para>

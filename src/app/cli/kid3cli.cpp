@@ -333,8 +333,17 @@ void Kid3Cli::writeHelp(const QString& cmdName)
     writeLine(tr("Parameter"));
     writeLine(QLatin1String("  P = ") + tr("File path"));
     writeLine(QLatin1String("  U = ") + tr("URL"));
+    QString tagNumbersStr;
+    FOR_ALL_TAGS(tagNr) {
+      if (!tagNumbersStr.isEmpty()) {
+        tagNumbersStr += QLatin1Char('|');
+      }
+      tagNumbersStr += QLatin1String(" \"");
+      tagNumbersStr += Frame::tagNumberToString(tagNr);
+      tagNumbersStr += QLatin1String("\" ");
+    }
     writeLine(QLatin1String("  T = ") + tr("Tag numbers") +
-              QLatin1String(" \"1\" | \"2\" | \"12\""));
+              tagNumbersStr + QLatin1String("| \"12\" | ..."));
     writeLine(QLatin1String("  N = ") + tr("Frame name") +
               QLatin1String(" \"album\" | \"album artist\" | \"arranger\" | "
                             "\"artist\" | ..."));
