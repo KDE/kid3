@@ -58,8 +58,8 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=3
-ffmpeg_version=3.0.1
-ffmpeg_patchlevel=3
+ffmpeg_version=3.1.3
+ffmpeg_patchlevel=1
 #libav_version=11.4
 #libav_patchlevel=2
 libflac_version=1.3.1
@@ -67,10 +67,10 @@ libflac_patchlevel=4
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
 taglib_version=1.11
-chromaprint_version=1.3
-chromaprint_patchlevel=1
+chromaprint_version=1.3.2
+chromaprint_patchlevel=2
 mp4v2_version=2.0.0
-mp4v2_patchlevel=4
+mp4v2_patchlevel=5
 
 FLAC_BUILD_OPTION="--enable-debug"
 ID3LIB_BUILD_OPTION="--enable-debug=minimum"
@@ -1822,6 +1822,32 @@ index e447a0c..b8f25ee 100644
  }
  
 EOF
+
+test -f ffmpeg_mingw.patch ||
+cat >ffmpeg_mingw.patch <<"EOF"
+From a64839189622f2a4cc3c62168ae5037b6aab6992 Mon Sep 17 00:00:00 2001
+From: Tobias Rapp <t.rapp@noa-archive.com>
+Date: Mon, 29 Aug 2016 15:25:58 +0200
+Subject: cmdutils: fix implicit declaration of SetDllDirectory function
+
+Signed-off-by: Tobias Rapp <t.rapp@noa-archive.com>
+Signed-off-by: James Almer <jamrial@gmail.com>
+
+diff --git a/cmdutils.c b/cmdutils.c
+index 6960f8c..44f44cd 100644
+--- a/cmdutils.c
++++ b/cmdutils.c
+@@ -61,6 +61,9 @@
+ #include <sys/time.h>
+ #include <sys/resource.h>
+ #endif
++#ifdef _WIN32
++#include <windows.h>
++#endif
+ 
+ static int init_report(const char *env);
+EOF
+
 cd ..
 
 
@@ -1928,6 +1954,9 @@ unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
 cd ffmpeg-${ffmpeg_version}/
 unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+if test $ffmpeg_version = "3.1.3"; then
+  patch -p1 <../source/ffmpeg_mingw.patch
+fi
 cd ..
 else
 if test "${libav_version%.*}" = "0.8"; then
