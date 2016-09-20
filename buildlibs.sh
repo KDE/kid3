@@ -2446,6 +2446,7 @@ AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 	--enable-decoder=pcm_u24be \
 	--enable-decoder=pcm_u24le \
 	--enable-decoder=rawvideo \
+	--disable-videotoolbox \
 	--disable-hwaccel=h264_dxva2 \
 	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
 make V=1
