@@ -326,6 +326,13 @@ private slots:
    */
   void onFormatFromFilenameEditTextChanged(const QString& text);
 
+  /**
+   * Update sorting after directory is opened for the first time.
+   * The sort order of the file list is not correct if it is not explicitly
+   * sorted the first time.
+   */
+  void onFirstDirectoryOpened();
+
 private:
   /**
    * Format string within line edit.

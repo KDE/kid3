@@ -202,6 +202,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           this, SLOT(setFileRootIndex(QModelIndex)));
   connect(m_app, SIGNAL(dirRootIndexChanged(QModelIndex)),
           this, SLOT(setDirRootIndex(QModelIndex)));
+  connect(m_app, SIGNAL(directoryOpened()),
+          this, SLOT(onFirstDirectoryOpened()));
 
   m_rightHalfVBox = new QWidget;
   QScrollArea* scrollView = new QScrollArea(this);
@@ -703,6 +705,21 @@ void Kid3Form::onFormatEditTextChanged(const QString& text)
 void Kid3Form::onFormatFromFilenameEditTextChanged(const QString& text)
 {
   FileConfig::instance().setFromFilenameFormat(text);
+}
+
+/**
+ * Update sorting after directory is opened for the first time.
+ * The sort order of the file list is not correct if it is not explicitly
+ * sorted the first time.
+ */
+void Kid3Form::onFirstDirectoryOpened()
+{
+  // Only call this once.
+  disconnect(m_app, SIGNAL(directoryOpened()),
+             this, SLOT(onFirstDirectoryOpened()));
+  const GuiConfig& guiCfg = GuiConfig::instance();
+  m_app->getFileProxyModel()->sort(guiCfg.fileListSortColumn(),
+                                   guiCfg.fileListSortOrder());
 }
 
 /**
