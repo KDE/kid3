@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2015-10-02 21:58+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -913,17 +913,17 @@ msgstr "Druh"
 msgid "Date Modified"
 msgstr "Datum změny"
 
-msgid "Text"
-msgstr "Text"
-
-msgid "Data"
-msgstr "Data"
-
 msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
 msgid "All Files"
 msgstr "Všechny soubory"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Data"
+msgstr "Data"
 
 msgid "Search finished"
 msgstr "Hledání ukončeno"
@@ -1207,6 +1207,12 @@ msgstr "Určení hudebního CD"
 msgid "MPEG Lookup Table"
 msgstr "Vyhledávací tabulka MPEG"
 
+msgid "Movement Number"
+msgstr "Číslo věta"
+
+msgid "Movement Name"
+msgstr "Název věty"
+
 msgid "Ownership"
 msgstr "Vlastník"
 
@@ -1440,6 +1446,15 @@ msgstr "Relace"
 
 msgid "TV Season"
 msgstr "Sezóna"
+
+msgid "Work"
+msgstr "Nátev díla"
+
+msgid "Movement Count"
+msgstr "Počítat věta"
+
+msgid "Show Work & Movement"
+msgstr "Używaj dzieła oraz jego części"
 
 msgid "Archival Location"
 msgstr ""
@@ -2488,6 +2503,12 @@ msgstr "CTOC - Obsah"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Vyrovnání (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Číslo věta"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Název věty"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

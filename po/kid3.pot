@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -907,16 +907,16 @@ msgstr ""
 msgid "Date Modified"
 msgstr ""
 
-msgid "Text"
-msgstr ""
-
-msgid "Data"
-msgstr ""
-
 msgid "All Supported Files"
 msgstr ""
 
 msgid "All Files"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Data"
 msgstr ""
 
 msgid "Search finished"
@@ -1201,6 +1201,12 @@ msgstr ""
 msgid "MPEG Lookup Table"
 msgstr ""
 
+msgid "Movement Number"
+msgstr ""
+
+msgid "Movement Name"
+msgstr ""
+
 msgid "Ownership"
 msgstr ""
 
@@ -1433,6 +1439,15 @@ msgid "TV Show Name"
 msgstr ""
 
 msgid "TV Season"
+msgstr ""
+
+msgid "Work"
+msgstr ""
+
+msgid "Movement Count"
+msgstr ""
+
+msgid "Show Work & Movement"
 msgstr ""
 
 msgid "Archival Location"
@@ -2476,6 +2491,12 @@ msgid "CTOC - Table of contents"
 msgstr ""
 
 msgid "EQU2 - Equalisation (2)"
+msgstr ""
+
+msgid "MVIN - Movement Number"
+msgstr ""
+
+msgid "MVNM - Movement Name"
 msgstr ""
 
 msgid "PCST - Podcast"

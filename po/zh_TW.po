@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -913,17 +913,17 @@ msgstr "種類"
 msgid "Date Modified"
 msgstr "變更日期"
 
-msgid "Text"
-msgstr "文字"
-
-msgid "Data"
-msgstr "資料"
-
 msgid "All Supported Files"
 msgstr "所有支援檔案"
 
 msgid "All Files"
 msgstr "所有檔案"
+
+msgid "Text"
+msgstr "文字"
+
+msgid "Data"
+msgstr "資料"
 
 msgid "Search finished"
 msgstr "搜尋結束"
@@ -1207,6 +1207,12 @@ msgstr "音樂光碟識別"
 msgid "MPEG Lookup Table"
 msgstr "MPEG 位置查詢表"
 
+msgid "Movement Number"
+msgstr "樂章數"
+
+msgid "Movement Name"
+msgstr "樂章名稱"
+
 msgid "Ownership"
 msgstr "擁有者"
 
@@ -1441,6 +1447,15 @@ msgstr "標題排序順序"
 
 msgid "TV Season"
 msgstr "花牌"
+
+msgid "Work"
+msgstr "作品名稱"
+
+msgid "Movement Count"
+msgstr "总章數"
+
+msgid "Show Work & Movement"
+msgstr "使用工作和運動"
 
 msgid "Archival Location"
 msgstr ""
@@ -2490,6 +2505,12 @@ msgstr "CTOC - 目录"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - 樂章數"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - 使用工作和運動"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

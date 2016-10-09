@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -910,17 +910,17 @@ msgstr "Tipo"
 msgid "Date Modified"
 msgstr "Data di modifica"
 
-msgid "Text"
-msgstr "Testo"
-
-msgid "Data"
-msgstr "Dati"
-
 msgid "All Supported Files"
 msgstr "Tutti i file supportati"
 
 msgid "All Files"
 msgstr "Tutti i file"
+
+msgid "Text"
+msgstr "Testo"
+
+msgid "Data"
+msgstr "Dati"
 
 msgid "Search finished"
 msgstr "Ricerca terminata"
@@ -1204,6 +1204,12 @@ msgstr "Identificatore CD musicale"
 msgid "MPEG Lookup Table"
 msgstr "Tabella ricerca MPEG"
 
+msgid "Movement Number"
+msgstr "Numero movimento"
+
+msgid "Movement Name"
+msgstr "Nome movimento"
+
 msgid "Ownership"
 msgstr "Proprietario"
 
@@ -1437,6 +1443,15 @@ msgstr "TV Show"
 
 msgid "TV Season"
 msgstr "Stagione"
+
+msgid "Work"
+msgstr "Nome opera"
+
+msgid "Movement Count"
+msgstr "Numero di movimenti"
+
+msgid "Show Work & Movement"
+msgstr "Usa opera e movimento"
 
 msgid "Archival Location"
 msgstr ""
@@ -2487,6 +2502,12 @@ msgstr "CTOC - Indice"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalizzazione (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Numero movimento"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Nome movimento"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

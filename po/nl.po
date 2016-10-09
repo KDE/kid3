@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -911,17 +911,17 @@ msgstr "Type"
 msgid "Date Modified"
 msgstr "Laatst gewijzigd"
 
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Data"
-msgstr "Gegevens"
-
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
 
 msgid "All Files"
 msgstr "Alle bestanden"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Data"
+msgstr "Gegevens"
 
 msgid "Search finished"
 msgstr "Zoekopdracht voltooid"
@@ -1205,6 +1205,12 @@ msgstr "Muziek CD identificatie"
 msgid "MPEG Lookup Table"
 msgstr "Opzoektabel van MPEG"
 
+msgid "Movement Number"
+msgstr "Nummer van deel"
+
+msgid "Movement Name"
+msgstr "Naam van deel"
+
 msgid "Ownership"
 msgstr "Eigendom"
 
@@ -1438,6 +1444,15 @@ msgstr "Programma"
 
 msgid "TV Season"
 msgstr "Seizoen"
+
+msgid "Work"
+msgstr "Naam van werk"
+
+msgid "Movement Count"
+msgstr "Aantal deel"
+
+msgid "Show Work & Movement"
+msgstr "Gebruik werk en deel"
 
 msgid "Archival Location"
 msgstr ""
@@ -2490,6 +2505,12 @@ msgstr "CTOC - Inhoudsopgave"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Egalisatie (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Nummer van deel"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Naam van deel"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

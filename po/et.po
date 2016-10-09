@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -911,17 +911,17 @@ msgstr "Liik"
 msgid "Date Modified"
 msgstr "Muutmise kuupäev"
 
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Data"
-msgstr "Andmed"
-
 msgid "All Supported Files"
 msgstr "Kõik toetatud failid"
 
 msgid "All Files"
 msgstr "Kõik failid"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Data"
+msgstr "Andmed"
 
 msgid "Search finished"
 msgstr "Otsimine lõpetatud"
@@ -1205,6 +1205,12 @@ msgstr "Muusika-CD identifikaator"
 msgid "MPEG Lookup Table"
 msgstr "MPEG asukohaotsingutabel"
 
+msgid "Movement Number"
+msgstr "Liikumise number"
+
+msgid "Movement Name"
+msgstr "Liikumise nimi"
+
 msgid "Ownership"
 msgstr "Omandus"
 
@@ -1438,6 +1444,15 @@ msgstr "Telesaated"
 
 msgid "TV Season"
 msgstr "Hooaeg"
+
+msgid "Work"
+msgstr "Teose pealkiri"
+
+msgid "Movement Count"
+msgstr "Liikumise loendama"
+
+msgid "Show Work & Movement"
+msgstr ""
 
 msgid "Archival Location"
 msgstr ""
@@ -2486,6 +2501,12 @@ msgstr "CTOC - Sisukord"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - ekvalaisimine (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Liikumise number"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Liikumise nimi"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

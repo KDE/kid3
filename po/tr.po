@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-03-28 08:29+0200\n"
+"POT-Creation-Date: 2016-10-18 06:25+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -910,17 +910,17 @@ msgstr "Tür"
 msgid "Date Modified"
 msgstr "Değişim Tarihi"
 
-msgid "Text"
-msgstr "Metin"
-
-msgid "Data"
-msgstr "Veri"
-
 msgid "All Supported Files"
 msgstr "Desteklenen Bütün Dosyalar"
 
 msgid "All Files"
 msgstr "Tüm Dosyalar"
+
+msgid "Text"
+msgstr "Metin"
+
+msgid "Data"
+msgstr "Veri"
 
 msgid "Search finished"
 msgstr "Arama tamamlandı"
@@ -1204,6 +1204,12 @@ msgstr "Ses CD'si tanımlayıcı"
 msgid "MPEG Lookup Table"
 msgstr "MPEG şema tablosu"
 
+msgid "Movement Number"
+msgstr "Bölüm numarası"
+
+msgid "Movement Name"
+msgstr "Bölüm adı"
+
 msgid "Ownership"
 msgstr "Sahip"
 
@@ -1438,6 +1444,15 @@ msgstr "Başlık sıralaması"
 
 msgid "TV Season"
 msgstr "Sezon"
+
+msgid "Work"
+msgstr "Eser adı"
+
+msgid "Movement Count"
+msgstr "Bölüm sayısı"
+
+msgid "Show Work & Movement"
+msgstr "Eser ve bölüm bilgisini kullan"
 
 msgid "Archival Location"
 msgstr ""
@@ -2487,6 +2502,12 @@ msgstr "CTOC - İçindekiler"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Ekolayzır (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Bölüm numarası"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Bölüm adı"
 
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"

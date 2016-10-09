@@ -1989,6 +1989,10 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "LINK - Linked information"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MCDI - Music CD identifier"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MLLT - MPEG location lookup table"), false },
+#ifdef TAGLIB_WITH_MP4_SHWM
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MVIN - Movement Number"), true },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MVNM - Movement Name"), true },
+#endif
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "OWNE - Ownership frame"),
 #if TAGLIB_VERSION >= 0x010800
     true
@@ -4121,6 +4125,13 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 #else
   { "covr", Frame::FT_Picture, MVT_ByteArray },
 #endif
+#ifdef TAGLIB_WITH_MP4_SHWM
+  { "\251wrk", Frame::FT_Other, MVT_String },
+  { "\251mvn", Frame::FT_Other, MVT_String },
+  { "\251mvi", Frame::FT_Other, MVT_Int },
+  { "\251mvc", Frame::FT_Other, MVT_Int },
+  { "shwm", Frame::FT_Other, MVT_Bool },
+#endif
   { "ARRANGER", Frame::FT_Arranger, MVT_String },
   { "AUTHOR", Frame::FT_Author, MVT_String },
   { "CATALOGNUMBER", Frame::FT_CatalogNumber, MVT_String },
@@ -5437,6 +5448,9 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
   if (frameId.startsWith(QLatin1String("T"))
 #if TAGLIB_VERSION >= 0x010b00
       || frameId == QLatin1String("WFED")
+#endif
+#ifdef TAGLIB_WITH_MP4_SHWM
+      || frameId == QLatin1String("MVIN") || frameId == QLatin1String("MVNM")
 #endif
     ) {
     if (frameId == QLatin1String("TXXX")) {
