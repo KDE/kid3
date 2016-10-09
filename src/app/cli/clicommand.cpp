@@ -433,7 +433,7 @@ void SetCommand::startCommand()
     if (cli()->app()->setFrame(tagMask, name, value)) {
       cli()->updateSelectedFiles();
       cli()->updateSelection();
-    } else {
+    } else if (!value.isEmpty()) {
       setError(tr("Could not set \"%1\" for %2").arg(value).arg(name));
     }
   } else {
