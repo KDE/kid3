@@ -4807,7 +4807,7 @@ static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     "IDIT", // FT_EncodingTime,
     0,      // FT_Grouping,
     0,      // FT_InitialKey,
-    0,      // FT_Isrc,
+    "ISRC", // FT_Isrc,
     "ILNG", // FT_Language,
     "IWRI", // FT_Lyricist,
     0,      // FT_Lyrics,
@@ -4830,7 +4830,7 @@ static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     0,      // FT_Subtitle,
     "IBSU", // FT_Website,
     0,      // FT_WWWAudioFile,
-    "ISRC", // FT_WWWAudioSource,
+    0,      // FT_WWWAudioSource,
     0       // FT_ReleaseDate,
             // FT_LastFrame = FT_ReleaseDate
   };

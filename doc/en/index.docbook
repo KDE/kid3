@@ -676,7 +676,7 @@ format specific frames.
        <row><entry>Encoding Time</entry>     <entry></entry>        <entry>TDEN</entry>    <entry></entry>               <entry>WM/EncodingTime</entry>            <entry>ENCODINGTIME</entry>           <entry>IDIT</entry></row>
        <row><entry>Grouping</entry>          <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry>               <entry></entry></row>
        <row><entry>Initial Key</entry>       <entry>TKEY</entry>    <entry>TKEY</entry>    <entry></entry>               <entry>WM/InitialKey</entry>              <entry>INITIALKEY</entry>             <entry></entry></row>
-       <row><entry>ISRC</entry>              <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry>                   <entry></entry></row>
+       <row><entry>ISRC</entry>              <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry>                   <entry>ISRC</entry></row>
        <row><entry>Language</entry>          <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry>               <entry>ILNG</entry></row>
        <row><entry>Lyricist</entry>          <entry>TEXT</entry>    <entry>TEXT</entry>    <entry>LYRICIST</entry>       <entry>WM/Writer</entry>                  <entry>LYRICIST</entry>               <entry>IWRI</entry></row>
        <row><entry>Lyrics</entry>            <entry>USLT</entry>    <entry>USLT</entry>    <entry>©lyr</entry>           <entry>WM/Lyrics</entry>                  <entry>LYRICS</entry>                 <entry></entry></row>
@@ -700,7 +700,7 @@ format specific frames.
        <row><entry>Subtitle</entry>          <entry>TIT3</entry>    <entry>TIT3</entry>    <entry>SUBTITLE</entry>       <entry>WM/SubTitle</entry>                <entry>SUBTITLE</entry>               <entry></entry></row>
        <row><entry>Website</entry>           <entry>WOAR</entry>    <entry>WOAR</entry>    <entry>WEBSITE</entry>        <entry>WM/AuthorURL</entry>               <entry>WEBSITE</entry>                <entry>IBSU</entry></row>
        <row><entry>WWW Audio File</entry>    <entry>WOAF</entry>    <entry>WOAF</entry>    <entry></entry>               <entry>WM/AudioFileURL</entry>            <entry>WWWAUDIOFILE</entry>           <entry></entry></row>
-       <row><entry>WWW Audio Source</entry>  <entry>WOAS</entry>    <entry>WOAS</entry>    <entry></entry>               <entry>WM/AudioSourceURL</entry>          <entry>WWWAUDIOSOURCE</entry>         <entry>ISRC</entry></row>
+       <row><entry>WWW Audio Source</entry>  <entry>WOAS</entry>    <entry>WOAS</entry>    <entry></entry>               <entry>WM/AudioSourceURL</entry>          <entry>WWWAUDIOSOURCE</entry>         <entry></entry></row>
      </tbody>
    </tgroup>
  </table>
