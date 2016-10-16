@@ -51,14 +51,14 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.6.1
+qt_version=5.6.2
 zlib_version=1.2.8
 zlib_patchlevel=2
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=3
-ffmpeg_version=3.1.3
+ffmpeg_version=3.1.4
 ffmpeg_patchlevel=1
 #libav_version=11.4
 #libav_patchlevel=2
@@ -2447,6 +2447,7 @@ AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 	--enable-decoder=pcm_u24le \
 	--enable-decoder=rawvideo \
 	--disable-videotoolbox \
+	--disable-vaapi \
 	--disable-hwaccel=h264_dxva2 \
 	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
 make V=1
