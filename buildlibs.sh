@@ -234,9 +234,14 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 
 # Create patch files
 
-if test "$compiler" = "cross-mingw"; then
-test -f mingw.cmake ||
-cat >mingw.cmake <<EOF
+if test "$compiler" = "cross-mingw" && ! test -f mingw.cmake; then
+  for d in $thisdir/qtbase5-dev-tools* /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin /usr/bin; do
+    if test -x $d/moc; then
+      _qt_bin_dir=$d
+      break
+    fi
+  done
+  cat >mingw.cmake <<EOF
 set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version%.?}/mingw49_32)
 
 set(CMAKE_SYSTEM_NAME Windows)
@@ -248,13 +253,12 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
-set(QT_BINARY_DIR /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin)
+set(QT_BINARY_DIR ${_qt_bin_dir})
 set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
 set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt5Core.a)
 set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
 set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
-set(QT_QMAKE_EXECUTABLE  \${QT_BINARY_DIR}/qmake)
 set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
 
 foreach (_exe moc rcc lupdate lrelease uic)
@@ -2023,6 +2027,13 @@ fi
 
 test -d bin || mkdir bin
 
+for d in /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-*; do
+  if test -e $d/html/docbook.xsl; then
+    _docbook_xsl_dir=$d
+    break
+  fi
+done
+
 if test "$compiler" = "cross-android"; then
 
 echo "### Building taglib"
@@ -2053,7 +2064,7 @@ _android_abi=$_android_abi
 _android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
 EOF
   chmod +x kid3/build.sh
 fi
@@ -2502,35 +2513,45 @@ if test $kernel = "Linux"; then
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
-cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
+cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
-      cat >kid3/make_package.sh <<"EOF"
+      cat >kid3/make_package.sh <<EOF
 #!/bin/sh
-VERSION=$(grep VERSION config.h | cut -d'"' -f2)
-INSTDIR=kid3-$VERSION-win32
-QT_PREFIX=$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
-QT_BIN_DIR=${QT_PREFIX}/bin
-QT_TRANSLATIONS_DIR=${QT_PREFIX}/translations
+VERSION=\$(grep VERSION config.h | cut -d'"' -f2)
+INSTDIR=kid3-\$VERSION-win32
+QT_PREFIX=\$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
+QT_BIN_DIR=\${QT_PREFIX}/bin
+QT_TRANSLATIONS_DIR=\${QT_PREFIX}/translations
 
-test -d $INSTDIR && rm -rf $INSTDIR
-mkdir -p $INSTDIR
-make install/strip DESTDIR=$(pwd)/$INSTDIR
+test -d \$INSTDIR && rm -rf \$INSTDIR
+mkdir -p \$INSTDIR
+make install/strip DESTDIR=\$(pwd)/\$INSTDIR
 echo "### Ignore make error"
 
-cp -f po/*.qm doc/*/kid3*.html $INSTDIR
+_plugin_qt_version=\$(grep "Created by.*Qt" src/plugins/musicbrainzimport/moc_musicbrainzimportplugin.cpp)
+_plugin_qt_version=\${_plugin_qt_version##* \(Qt }
+_plugin_qt_version=\${_plugin_qt_version%%\)*}
+_plugin_qt_version_nr=\${_plugin_qt_version//./}
+if test \$_plugin_qt_version_nr -gt ${qt_version//./}; then
+  echo "Plugin Qt version \$_plugin_qt_version is larger than Qt version $qt_version."
+  echo "Loading plugins will fail!"
+  exit 1
+fi
+
+cp -f po/*.qm doc/*/kid3*.html \$INSTDIR
 
 for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll; do
-  cp $QT_BIN_DIR/$f $INSTDIR
+  cp \$QT_BIN_DIR/\$f \$INSTDIR
 done
 
 for f in po/*.qm; do
-  l=${f#*_};
-  l=${l%.qm};
-  test -f $QT_TRANSLATIONS_DIR/qtbase_$l.qm && cp $QT_TRANSLATIONS_DIR/qtbase_$l.qm $INSTDIR
+  l=\${f#*_};
+  l=\${l%.qm};
+  test -f \$QT_TRANSLATIONS_DIR/qtbase_\$l.qm && cp \$QT_TRANSLATIONS_DIR/qtbase_\$l.qm \$INSTDIR
 done
 
-rm -f $INSTDIR.zip
-7z a $INSTDIR.zip $INSTDIR
+rm -f \$INSTDIR.zip
+7z a \$INSTDIR.zip \$INSTDIR
 EOF
       chmod +x kid3/make_package.sh
     else
