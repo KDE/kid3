@@ -2665,7 +2665,7 @@ if test $kernel = "Linux"; then
 cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       cat >kid3/make_package.sh <<EOF
-#!/bin/sh
+#!/bin/bash
 VERSION=\$(grep VERSION config.h | cut -d'"' -f2)
 INSTDIR=kid3-\$VERSION-win32
 QT_PREFIX=\$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
