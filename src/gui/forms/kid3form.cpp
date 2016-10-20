@@ -720,6 +720,9 @@ void Kid3Form::onFirstDirectoryOpened()
   const GuiConfig& guiCfg = GuiConfig::instance();
   m_app->getFileProxyModel()->sort(guiCfg.fileListSortColumn(),
                                    guiCfg.fileListSortOrder());
+  foreach (int column, guiCfg.fileListVisibleColumns()) {
+    m_fileListBox->resizeColumnToContents(column);
+  }
 }
 
 /**
