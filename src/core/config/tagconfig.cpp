@@ -63,7 +63,8 @@ TagConfig::TagConfig() :
   m_genreNotNumeric(true),
   m_lowercaseId3RiffChunk(false)
 {
-  m_disabledPlugins << QLatin1String("Id3libMetadata");
+  m_disabledPlugins << QLatin1String("Id3libMetadata")
+                    << QLatin1String("Mp4v2Metadata");
 }
 
 /**
