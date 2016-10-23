@@ -121,7 +121,18 @@ install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${WITH_BINDIR})
 
-if (APPLE OR WIN32)
+if (LINUX_SELF_CONTAINED)
+  # Change RPATH/RUNPATH of executable/library.
+  macro(CHANGE_RPATH _rpath _file)
+    install(CODE "
+      execute_process(COMMAND chrpath -r ${_rpath} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_file}\")
+      ")
+  endmacro()
+
+  set_target_properties(${KID3_EXECUTABLE} PROPERTIES INSTALL_RPATH "\$ORIGIN")
+endif (LINUX_SELF_CONTAINED)
+
+if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
   # Put Qt libraries and plugins into installation package to create a
   # standalone bundle on Mac OS X and Windows
@@ -144,6 +155,9 @@ if (APPLE OR WIN32)
     FILES_MATCHING PATTERN "*jpeg${CMAKE_SHARED_LIBRARY_SUFFIX}"
                    PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
+  if (LINUX_SELF_CONTAINED)
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}")
+  endif ()
   if (HAVE_QT5)
     if (APPLE)
       install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
@@ -159,6 +173,15 @@ if (APPLE OR WIN32)
       install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
         DESTINATION ${plugin_dest_dir}
         FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    elseif (LINUX_SELF_CONTAINED)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
     endif (APPLE)
   endif (HAVE_QT5)
 
@@ -202,7 +225,7 @@ if (APPLE OR WIN32)
     fixup_bundle(\"${bundle_app}\" \"\${bundle_libs}\" \"${QT_LIBRARY_DIR}\")
     ")
 
-endif (APPLE OR WIN32)
+endif (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
 if (WIN32)
   if (NOT HAVE_QT5)
@@ -229,3 +252,13 @@ if (WIN32)
             DESTINATION ${WITH_BINDIR})
   endif (NOT HAVE_QT5)
 endif (WIN32)
+
+if (LINUX_SELF_CONTAINED)
+  # Use reduced size ICU libraries.
+  # A folder with reduced ICU libraries can be copied to the Qt bin directory.
+  get_target_property(_qtBinDir Qt5::qmake LOCATION)
+  get_filename_component(_qtBinDir ${_qtBinDir} PATH)
+  string(REPLACE "/bin" "/lib" _qtLibDir "${_qtBinDir}")
+  install(DIRECTORY "${_qtLibDir}/icu_reduced/"
+          DESTINATION ${WITH_BINDIR} OPTIONAL)
+endif (LINUX_SELF_CONTAINED)

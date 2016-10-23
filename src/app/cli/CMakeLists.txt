@@ -71,3 +71,7 @@ endif (APPLE)
 install(TARGETS kid3-cli
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${cli_BINDIR})
+
+if (LINUX_SELF_CONTAINED)
+  set_target_properties(kid3-cli PROPERTIES INSTALL_RPATH "\$ORIGIN")
+endif (LINUX_SELF_CONTAINED)
