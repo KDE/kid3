@@ -115,6 +115,13 @@ cross_host="i686-w64-mingw32"
 CONFIGURE_OPTIONS="--host=${cross_host}"
 fi
 
+if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+  # Build zlib only for Windows.
+  ZLIB_ROOT_PATH="$thisdir/zlib-$zlib_version/inst/usr/local"
+  TAGLIB_ZLIB_ROOT_OPTION="-DZLIB_ROOT=${ZLIB_ROOT_PATH}"
+  CHROMAPRINT_ZLIB_OPTION="-DEXTRA_LIBS=\"-L${ZLIB_ROOT_PATH}/lib -lz\""
+fi
+
 if test $kernel = "Darwin"; then
 ARCH=$(uname -m)
 #ARCH=i386
@@ -203,10 +210,12 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${l
 test -f taglib-${taglib_version}.tar.gz ||
 $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
 
+if test -n "$ZLIB_ROOT_PATH"; then
 test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
 test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
+fi
 
 if test -n "${ffmpeg_version}"; then
 test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
@@ -255,7 +264,7 @@ set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
 set(CMAKE_CXX_COMPILER ${cross_host}-g++)
 set(CMAKE_RC_COMPILER ${cross_host}-windres)
-set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local $thisdir/zlib-$zlib_version/inst/usr/local $thisdir/$ffmpeg_dir/inst/usr/local)
+set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/$ffmpeg_dir/inst/usr/local)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -2010,6 +2019,7 @@ cd ..
 
 # Extract and patch sources
 
+if test -n "$ZLIB_ROOT_PATH"; then
 echo "### Extracting zlib"
 
 if ! test -d zlib-${zlib_version}; then
@@ -2020,6 +2030,7 @@ unxz -c ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz | t
 echo Can be ignored: Cannot create symlink to debian.series
 for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
 cd ..
+fi
 fi
 
 echo "### Extracting libogg"
@@ -2300,11 +2311,11 @@ if test "$1" = "clean"; then
            id3lib-${id3lib_version} taglib-${taglib_version} \
            ${ffmpeg_dir} chromaprint-${chromaprint_version} \
            mp4v2-${mp4v2_version}; do
-    rm -rf $d/inst
+    test -d $d/inst && rm -rf $d/inst
   done
 fi
 
-if test ! -d zlib-${zlib_version}/inst; then
+if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}/inst; then
 echo "### Building zlib"
 
 cd zlib-${zlib_version}/
@@ -2401,7 +2412,7 @@ if test ! -d taglib-${taglib_version}/inst; then
 echo "### Building taglib"
 
 cd taglib-${taglib_version}/
-test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib $taglib_static_option -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib $taglib_static_option $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
 make VERBOSE=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -2631,7 +2642,7 @@ echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-${chromaprint_version}/
-test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
 make VERBOSE=1
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -2730,7 +2741,9 @@ else
   tar_cmd="tar xmzf"
 fi
 
-${tar_cmd} bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+if test -n "$ZLIB_ROOT_PATH"; then
+  ${tar_cmd} bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+fi
 ${tar_cmd} bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 ${tar_cmd} bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
 ${tar_cmd} bin/flac-${libflac_version}.tgz -C $BUILDROOT
