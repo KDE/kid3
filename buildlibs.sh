@@ -66,7 +66,7 @@ libflac_version=1.3.1
 libflac_patchlevel=4
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
-taglib_version=1.11
+taglib_version=1.11.1
 chromaprint_version=1.3.2
 chromaprint_patchlevel=2
 mp4v2_version=2.0.0
@@ -2112,7 +2112,7 @@ fi
 if test "${taglib_version}" = "1.9.1"; then
   patch -p1 <../source/taglib_bvreplace.patch
 fi
-if test "${taglib_version}" = "1.11"; then
+if test "${taglib_version}" = "1.11.1"; then
   patch -p1 <../source/taglib_mp4shwm.patch
 fi
 cd ..

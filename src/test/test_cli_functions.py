@@ -22,7 +22,7 @@ class CliFunctionsTestCase(unittest.TestCase):
         full_help = call_kid3_cli('-h')
         self.assertIn('Available Commands', full_help)
         self.assertRegex(full_help, r'help \[S\]\s+Help')
-        self.assertRegex(full_help, r'^kid3-cli \d\.\d\.\d \(c\) \d{4} Urs Fleisch')
+        self.assertRegex(full_help, r'^kid3-cli (\d\.\d\.\d|git\d{8}) \(c\) \d{4} Urs Fleisch')
         full_help = call_kid3_cli(['-c', 'help'])
         self.assertIn('Available Commands', full_help)
         self.assertRegex(full_help, r'help \[S\]\s+Help')

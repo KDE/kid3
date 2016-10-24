@@ -1,3 +1,24 @@
+Tue Nov  1 20:16:59 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.3
+
+	* New:
+	  + The RIFF track field name is configurable (IPRT, ITRK, TRCK)
+	    for better interoperability.
+	  + The RIFF chunk name for ID3v2 tags in WAV files is configurable
+	    (ID3, id3) for better interoperability.
+	  + ID3v2 tags in WAV files can have version 2.3.0 or 2.4.0.
+
+	* Improved:
+	  + Support new classical music frames introduced with iTunes 12.5.
+
+	* Fixed:
+	  + Use the last sort order and column for the file list on startup.
+	  + Display expected ID3v2 version if no ID3v2 tag exists yet.
+	  + Tag 3 can be addressed in kid3-cli by number "3".
+	  + Support translated display frame names in kid3-cli.
+	  + Avoid crash when pictures in FLAC files are empty or too large.
+
 Wed Aug 24 14:44:04 CEST 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.2
