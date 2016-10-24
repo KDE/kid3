@@ -400,7 +400,9 @@ GetCommand::GetCommand(Kid3Cli* processor) :
 void GetCommand::startCommand()
 {
   int numArgs = args().size();
-  QString name = numArgs > 1 ? args().at(1) : QLatin1String("all");
+  QString name = numArgs > 1
+      ? Frame::getNameForTranslatedFrameName(args().at(1))
+      : QLatin1String("all");
   Frame::TagVersion tagMask = getTagMaskParameter(2);
   if (name == QLatin1String("all")) {
     cli()->writeFileInformation(tagMask);
@@ -427,7 +429,7 @@ void SetCommand::startCommand()
 {
   int numArgs = args().size();
   if (numArgs > 2) {
-    const QString& name = args().at(1);
+    QString name = Frame::getNameForTranslatedFrameName(args().at(1));
     const QString& value = args().at(2);
     Frame::TagVersion tagMask = getTagMaskParameter(3);
     if (cli()->app()->setFrame(tagMask, name, value)) {

@@ -758,6 +758,13 @@ public:
    */
   static QMap<QString, QString> getDisplayNameMap(const QStringList& names);
 
+  /**
+   * Get the frame name for a translated display name.
+   * @param name translated display name
+   * @return English frame name for @a name if found, else @a name.
+   */
+  static QString getNameForTranslatedFrameName(const QString& name);
+
 private:
   friend class TaggedFile;
 
