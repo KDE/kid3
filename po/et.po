@@ -1781,6 +1781,9 @@ msgstr "Muudatused jõustuvad pärast taaskäivitamist!"
 msgid "From Clip&board"
 msgstr "&Lõikepuhvrist"
 
+msgid "&To Clipboard"
+msgstr "Lõi&kepuhvrisse"
+
 msgid "&View..."
 msgstr "&Näita..."
 

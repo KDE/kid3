@@ -1782,6 +1782,9 @@ msgstr "Änderungen werden erst nach einem Neustart der Anwendung wirksam!"
 msgid "From Clip&board"
 msgstr "Von Zwischena&blage"
 
+msgid "&To Clipboard"
+msgstr "In &Zwischenablage"
+
 msgid "&View..."
 msgstr "&Ansicht..."
 

@@ -762,16 +762,19 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   QHBoxLayout* layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(tr("From Clip&board"), this);
+  QPushButton* toClipboardButton = new QPushButton(tr("&To Clipboard"), this);
   QPushButton* openButton = new QPushButton(tr("&Import..."), this);
   QPushButton* saveButton = new QPushButton(tr("&Export..."), this);
   QPushButton* viewButton = new QPushButton(tr("&View..."), this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_clipButton);
+  layout->addWidget(toClipboardButton);
   layout->addWidget(openButton);
   layout->addWidget(saveButton);
   layout->addWidget(viewButton);
   connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
+  connect(toClipboardButton, SIGNAL(clicked()), this, SLOT(copyData()));
   connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
   connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
@@ -877,6 +880,31 @@ void BinaryOpenSave::saveData()
       stream.writeRawData(m_byteArray.data(), m_byteArray.size());
       file.close();
     }
+  }
+}
+
+/**
+ * Create image from binary data and copy it to clipboard.
+ */
+void BinaryOpenSave::copyData()
+{
+  QClipboard* cb = QApplication::clipboard();
+  if (cb) {
+    QImage image;
+    if (image.loadFromData(m_byteArray)) {
+      cb->setImage(image, QClipboard::Clipboard);
+    }
+#if QT_VERSION >= 0x050000
+    else {
+      QMimeDatabase mimeDb;
+      QString mimeType = mimeDb.mimeTypeForData(m_byteArray).name();
+      if (!mimeType.isEmpty()) {
+        QMimeData* mimeData = new QMimeData;
+        mimeData->setData(mimeType, m_byteArray);
+        cb->setMimeData(mimeData);
+      }
+    }
+#endif
   }
 }
 

@@ -1782,6 +1782,9 @@ msgstr "Yeniden başlattıktan sonra etkinleştirilir!"
 msgid "From Clip&board"
 msgstr "&Panodan"
 
+msgid "&To Clipboard"
+msgstr "Pan&oya"
+
 msgid "&View..."
 msgstr "Görü&nüm..."
 

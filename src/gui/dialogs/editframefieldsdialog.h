@@ -113,6 +113,11 @@ class BinaryOpenSave : public QWidget {
   void saveData();
 
   /**
+   * Create image from binary data and copy it to clipboard.
+   */
+  void copyData();
+
+  /**
    * Create image from binary data and display it in window.
    */
   void viewData();

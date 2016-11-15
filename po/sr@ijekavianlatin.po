@@ -1781,6 +1781,9 @@ msgstr "Neke izmene neće biti uključene pre ponovnog pokretanja!"
 msgid "From Clip&board"
 msgstr "Iz klip&borda"
 
+msgid "&To Clipboard"
+msgstr "&U klipbord"
+
 msgid "&View..."
 msgstr "&Prikaz..."
 

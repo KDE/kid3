@@ -1781,6 +1781,9 @@ msgstr "Muutokset tulevat voimaan uudelleenkäynnistyksen jälkeen!"
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
 
+msgid "&To Clipboard"
+msgstr "L&eikepöydälle"
+
 msgid "&View..."
 msgstr "&Näytä..."
 

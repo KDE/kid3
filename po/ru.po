@@ -1784,6 +1784,9 @@ msgstr "Изменения вступят в силу только после с
 msgid "From Clip&board"
 msgstr "Из &Буфера Обмена"
 
+msgid "&To Clipboard"
+msgstr "&В Буфера Обмена"
+
 msgid "&View..."
 msgstr "&Вид..."
 

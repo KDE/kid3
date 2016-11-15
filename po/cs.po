@@ -1783,6 +1783,9 @@ msgstr "Změna se projeví až po opětovném spuštění!"
 msgid "From Clip&board"
 msgstr "Ze s&chránky"
 
+msgid "&To Clipboard"
+msgstr "&Do schránky"
+
 msgid "&View..."
 msgstr "&Pohled..."
 

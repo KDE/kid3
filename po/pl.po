@@ -1784,6 +1784,9 @@ msgstr "Zmiany będą widoczne dopiero po ponownym uruchomieniu!"
 msgid "From Clip&board"
 msgstr "Ze &schowka"
 
+msgid "&To Clipboard"
+msgstr "&Do schowka"
+
 msgid "&View..."
 msgstr "&Widok..."
 

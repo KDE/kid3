@@ -1777,6 +1777,9 @@ msgstr ""
 msgid "From Clip&board"
 msgstr ""
 
+msgid "&To Clipboard"
+msgstr ""
+
 msgid "&View..."
 msgstr ""
 

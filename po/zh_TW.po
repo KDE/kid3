@@ -1785,6 +1785,9 @@ msgstr "某些變更在重新啟動後才會生效!"
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
 
+msgid "&To Clipboard"
+msgstr "至剪貼簿(&T)"
+
 msgid "&View..."
 msgstr "檢視(&V)..."
 

@@ -1781,6 +1781,9 @@ msgstr "Wijzigingen worden pas doorgevoerd na een herstart!"
 msgid "From Clip&board"
 msgstr "Van Klem&bord"
 
+msgid "&To Clipboard"
+msgstr "&Naar Klembord"
+
 msgid "&View..."
 msgstr "&Beeld..."
 

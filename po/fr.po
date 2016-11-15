@@ -1782,6 +1782,9 @@ msgstr "Les modifications ne prendront effet qu'après un redémarrage!"
 msgid "From Clip&board"
 msgstr "Depuis &presse-papier"
 
+msgid "&To Clipboard"
+msgstr "&Dans le presse-papiers"
+
 msgid "&View..."
 msgstr "&Affichage..."
 
@@ -2667,7 +2670,7 @@ msgid "Genre as text instead of numeric string"
 msgstr "Genre comme du texte au lieu du nombre"
 
 msgid "WAV files with lowercase id3 chunk"
-msgstr "Fichiers &WAV avec nom du morceau id3 en minuscules"
+msgstr "Fichiers WAV avec nom du morceau id3 en minuscules"
 
 msgid "Version used for new ID3v2 tags"
 msgstr "Version utilisée pour balises novelles"

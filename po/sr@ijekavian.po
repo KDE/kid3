@@ -1781,6 +1781,9 @@ msgstr "Неке измене неће бити укључене пре поно
 msgid "From Clip&board"
 msgstr "Из клип&борда"
 
+msgid "&To Clipboard"
+msgstr "&У клипборд"
+
 msgid "&View..."
 msgstr "&Приказ..."
 

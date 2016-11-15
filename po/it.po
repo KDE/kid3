@@ -1781,6 +1781,9 @@ msgstr "I cambiamenti avranno luogo dopo il riavvio!"
 msgid "From Clip&board"
 msgstr "Dagli a&ppunti"
 
+msgid "&To Clipboard"
+msgstr "&Negli Appunti"
+
 msgid "&View..."
 msgstr "Visuali&zza..."
 

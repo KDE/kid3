@@ -1783,6 +1783,9 @@ msgstr "¡Los cambios tendrán efecto en la siguiente ejecución!"
 msgid "From Clip&board"
 msgstr "Del &portapapeles"
 
+msgid "&To Clipboard"
+msgstr "&Al portapapeles"
+
 msgid "&View..."
 msgstr "&Ver..."
 
