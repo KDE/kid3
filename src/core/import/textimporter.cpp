@@ -179,7 +179,8 @@ QList<int> TextImporter::getTrackDurations()
   QList<int> lst;
   if (m_headerParser) {
     lst = m_headerParser->getTrackDurations();
-  } else if (m_trackParser) {
+  }
+  if (lst.isEmpty() && m_trackParser) {
     lst = m_trackParser->getTrackDurations();
   }
   return lst;
