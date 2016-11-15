@@ -27,6 +27,7 @@ Kid3Script {
   onRun: {
     var rows, names, files = {}
     var numRowsImported = 0
+    var round = 0
 
     function unquoteColumns(columns) {
       for (var i = 0; i < columns.length; ++i) {
@@ -96,6 +97,12 @@ Kid3Script {
         if (isStandalone()) {
           // Save the changes if the script is started stand-alone, not from Kid3.
           app.saveDirectory()
+        } else if (numRowsImported === 0 && round === 0) {
+          console.log("No files found, importing unconditionally.")
+          files = undefined
+          ++round;
+          app.firstFile()
+          doWork()
         }
         Qt.quit()
       } else {
