@@ -56,18 +56,25 @@ int main(int argc, char* argv[])
   Utils::loadTranslation();
 
 #ifdef Q_OS_MAC
- QDir dir(QApplication::applicationDirPath());
- dir.cdUp();
- dir.cd(QLatin1String("PlugIns"));
- QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+  QDir dir(QApplication::applicationDirPath());
+  dir.cdUp();
+  dir.cd(QLatin1String("PlugIns"));
+  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
- ICorePlatformTools* platformTools = new CorePlatformTools;
- Kid3Application* kid3App = new Kid3Application(platformTools);
- Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "));
- QTimer::singleShot(0, &kid3cli, SLOT(execute()));
- int rc = app.exec();
- delete kid3App;
- delete platformTools;
- return rc;
+  QStringList args = QApplication::arguments();
+  if (args.size() > 1 && args.at(1) == QLatin1String("--portable")) {
+    args.removeAt(1);
+    qputenv("KID3_CONFIG_FILE",
+            QCoreApplication::applicationDirPath().toLatin1() + "/kid3.ini");
+  }
+
+  ICorePlatformTools* platformTools = new CorePlatformTools;
+  Kid3Application* kid3App = new Kid3Application(platformTools);
+  Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "), args);
+  QTimer::singleShot(0, &kid3cli, SLOT(execute()));
+  int rc = app.exec();
+  delete kid3App;
+  delete platformTools;
+  return rc;
 }

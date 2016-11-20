@@ -56,11 +56,18 @@ int main(int argc, char* argv[])
   Utils::loadTranslation();
 
 #ifdef Q_OS_MAC
- QDir dir(QApplication::applicationDirPath());
- dir.cdUp();
- dir.cd(QLatin1String("PlugIns"));
- QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+  QDir dir(QApplication::applicationDirPath());
+  dir.cdUp();
+  dir.cd(QLatin1String("PlugIns"));
+  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
+
+  QStringList args = QApplication::arguments();
+  if (args.size() > 1 && args.at(1) == QLatin1String("--portable")) {
+    args.removeAt(1);
+    qputenv("KID3_CONFIG_FILE",
+            QCoreApplication::applicationDirPath().toLatin1() + "/kid3.ini");
+  }
 
   IPlatformTools* platformTools = new PlatformTools;
   Kid3Application* kid3App = new Kid3Application(platformTools);
@@ -68,8 +75,8 @@ int main(int argc, char* argv[])
   kid3->setAttribute(Qt::WA_DeleteOnClose);
   QObject::connect(&app, SIGNAL(openFileRequested(QStringList)), kid3App, SLOT(openDrop(QStringList)));
   kid3->show();
-  if (argc > 1) {
-    kid3->confirmedOpenDirectory(QApplication::arguments().mid(1));
+  if (args.size() > 1) {
+    kid3->confirmedOpenDirectory(args.mid(1));
   } else if ((FileConfig::instance().loadLastOpenedFile() ||
               app.isSessionRestored()) &&
              !FileConfig::instance().lastOpenedFile().isEmpty()) {

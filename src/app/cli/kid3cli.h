@@ -51,10 +51,12 @@ public:
    * Constructor.
    * @param app application context
    * @param io I/O handler
+   * @param args command line arguments
    * @param parent parent object
    */
   explicit Kid3Cli(Kid3Application* app,
-                   AbstractCliIO* io, QObject* parent = 0);
+                   AbstractCliIO* io, const QStringList& args,
+                   QObject* parent = 0);
 
   /**
    * Destructor.
@@ -190,6 +192,7 @@ private:
   void executeNextArgCommand();
 
   Kid3Application* m_app;
+  QStringList m_args;
 #ifdef HAVE_READLINE
   Kid3CliCompleter* m_completer;
 #endif

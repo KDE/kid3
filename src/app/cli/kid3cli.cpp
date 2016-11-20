@@ -234,12 +234,13 @@ QStringList splitArgs(const QString& str)
  * Constructor.
  * @param app application context
  * @param io I/O handler
+ * @param args command line arguments
  * @param parent parent object
  */
 Kid3Cli::Kid3Cli(Kid3Application* app,
-                 AbstractCliIO* io, QObject* parent) :
+                 AbstractCliIO* io, const QStringList& args, QObject* parent) :
   AbstractCli(io, parent),
-  m_app(app),
+  m_app(app), m_args(args),
   m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
 {
   m_cmds << new HelpCommand(this)
@@ -695,7 +696,7 @@ void Kid3Cli::onArgCommandFinished() {
 
 bool Kid3Cli::parseOptions()
 {
-  QStringList args = QCoreApplication::arguments().mid(1);
+  QStringList args = m_args.mid(1);
   QStringList paths;
   bool isCommand = false;
   foreach (const QString& arg, args) {
