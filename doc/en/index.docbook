@@ -2088,7 +2088,7 @@ items.
 The combo box <guilabel>Track number field name</guilabel> is only
 relevant for RIFF INFO and sets the name of the field used for
 track numbers. Track numbers are not specified in the original RIFF standard,
-there are applictions which use "ITRK", others use "IPRT".
+there are applications which use "ITRK", others use "IPRT".
 </para>
 <para>
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
