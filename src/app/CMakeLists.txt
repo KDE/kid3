@@ -33,7 +33,7 @@ if (BUILD_KDE_APP)
     include(KDECMakeSettings)
     include(FeatureSummary)
 
-    find_package(KF5 REQUIRED COMPONENTS KIO)
+    find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets CoreAddons WidgetsAddons XmlGui)
 
     if (BUILD_SHARED_LIBS)
       # KDECMakeSettings.cmake will overwrite our RPATH if LIB_INSTALL_DIR is
