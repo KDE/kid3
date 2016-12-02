@@ -92,23 +92,23 @@ end manpage include-->
 <command>kid3</command>
 <group>
 <arg choice="plain"><option>&doublehyphen;help</option></arg>
-<arg choice="plain"><option>&doublehyphen;help-qt</option></arg>
-<arg choice="plain"><option>&doublehyphen;help-kde</option></arg>
-<arg choice="plain"><option>&doublehyphen;help-all</option></arg>
-<sbr/>
 <arg choice="plain"><option>&doublehyphen;author</option></arg>
 <arg choice="plain"><option>&doublehyphen;version</option></arg>
 <arg choice="plain"><option>&doublehyphen;license</option></arg>
+<arg choice="plain"><option>&doublehyphen;desktopfile
+<filename>FILE</filename></option></arg>
 </group>
 <arg rep="repeat"><replaceable>FILE</replaceable></arg>
 </cmdsynopsis>
 <cmdsynopsis>
 <command>kid3-qt</command>
+<arg><option>&doublehyphen;portable</option></arg>
 <arg><option>Qt-options</option></arg>
 <arg rep="repeat"><replaceable>FILE</replaceable></arg>
 </cmdsynopsis>
 <cmdsynopsis>
 <command>kid3-cli</command>
+<arg><option>&doublehyphen;portable</option></arg>
 <group>
 <arg choice="plain"><option>-h</option></arg>
 <arg choice="plain"><option>&doublehyphen;help</option></arg>
@@ -122,6 +122,11 @@ end manpage include-->
 <preface id="options"><title>Options</title>
 
 <variablelist>
+<varlistentry>
+<term><option>&doublehyphen;portable</option></term>
+<listitem><para>Store configuration in file <filename>kid3.ini</filename>
+inside application directory.</para></listitem>
+</varlistentry>
 <varlistentry>
 <term><replaceable>FILE</replaceable></term>
 <listitem><para>If <filename><replaceable>FILE</replaceable></filename> is the
@@ -138,22 +143,6 @@ their common directory is opened and the files are selected.
 <listitem><para>Show help about options.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><option>&doublehyphen;help-qt</option></term>
-<listitem><para>Show Qt specific options, see
-<citerefentry><refentrytitle>qtoptions</refentrytitle><manvolnum>7</manvolnum>
-</citerefentry>.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>&doublehyphen;help-kde</option></term>
-<listitem><para>Show KDE specific options, see
-<citerefentry><refentrytitle>kdeoptions</refentrytitle><manvolnum>7</manvolnum>
-</citerefentry>.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>&doublehyphen;help-all</option></term>
-<listitem><para>Show all options.</para></listitem>
-</varlistentry>
-<varlistentry>
 <term><option>&doublehyphen;author</option></term>
 <listitem><para>Show author information.</para></listitem>
 </varlistentry>
@@ -165,6 +154,12 @@ their common directory is opened and the files are selected.
 <term><option>&doublehyphen;license</option></term>
 <listitem><para>Show license information.</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;desktopfile
+<filename>FILE</filename></option></term>
+<listitem><para>The base file name of the desktop entry for this
+application.</para></listitem>
+</varlistentry>
 </variablelist>
 </sect1>
 
@@ -172,9 +167,8 @@ their common directory is opened and the files are selected.
 <variablelist>
 <varlistentry>
 <term><option>Qt-options</option></term>
-<listitem><para>See <citerefentry><refentrytitle>qtoptions</refentrytitle>
-<manvolnum>7</manvolnum></citerefentry>, however, the options have "-" as a
-prefix, not "&doublehyphen;".</para></listitem>
+<listitem><para>See <citerefentry><refentrytitle>qt5options</refentrytitle>
+<manvolnum>7</manvolnum></citerefentry>.</para></listitem>
 </varlistentry>
 </variablelist>
 </sect1>
@@ -866,7 +860,7 @@ from a given timestamp, use <guimenuitem>Seek to position</guimenuitem> from
 the context menu.
 </para></listitem>
 </itemizedlist>
-</para> 
+</para>
 </sect2>
 
 </sect1>
@@ -3029,7 +3023,7 @@ Qt 4 or Qt 5 can be used. To force the use of Qt 4, set
 <userinput>-DWITH_QT5=ON</userinput>, if both these options are OFF (default),
 Qt 4 is preferred if both versions are installed. To use a specific Qt
 installation, set
-<userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>. 
+<userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>.
 If building the KDE application is enabled, setting Qt 4 will use KDE 4,
 whereas setting Qt 5 will use KDE 5.
 </para>
