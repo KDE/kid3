@@ -26,7 +26,6 @@
 
 #define __STDC_CONSTANT_MACROS
 #include "fingerprintcalculator.h"
-#include <chromaprint.h>
 #include "config.h"
 #include "abstractfingerprintdecoder.h"
 
@@ -94,7 +93,9 @@ void FingerprintCalculator::startChromaprint(int sampleRate, int channelCount)
  */
 void FingerprintCalculator::feedChromaprint(QByteArray data)
 {
-  if (!::chromaprint_feed(m_chromaprintCtx, data.data(), data.size() / 2)) {
+  if (!::chromaprint_feed(m_chromaprintCtx,
+                          reinterpret_cast<int16_t*>(data.data()),
+                          data.size() / 2)) {
     m_decoder->stop();
     emit finished(QString(), 0, FingerprintCalculationFailed);
   }

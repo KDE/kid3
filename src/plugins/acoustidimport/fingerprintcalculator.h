@@ -29,6 +29,7 @@
 
 #include <QObject>
 #include <QString>
+#include <chromaprint.h>
 
 class AbstractFingerprintDecoder;
 
@@ -110,7 +111,7 @@ private slots:
   void finishChromaprint(int duration);
 
 private:
-  void** m_chromaprintCtx;
+  ChromaprintContext* m_chromaprintCtx;
   AbstractFingerprintDecoder* m_decoder;
 };
 
