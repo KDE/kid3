@@ -86,6 +86,11 @@ signals:
    */
   void aboutToPlay(const QString& filePath);
 
+  /**
+   * Emitted when the window is closed or destroyed.
+   */
+  void closed();
+
 private slots:
   /**
    * Update displayed time.

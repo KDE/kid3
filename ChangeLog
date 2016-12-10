@@ -6,6 +6,7 @@ Fri Dec 23 08:33:40 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + If the first command line argument is "--portable", the
 	    configuration is stored in a file kid3.ini in the program folder.
 	  + Image data can be copied to clipboard.
+	  + MPRIS2 D-Bus interface for the audio player.
 
 	* Improved:
 	  + "Import CSV" can import to different files if no matching

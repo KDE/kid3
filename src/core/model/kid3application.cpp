@@ -86,6 +86,9 @@
 #include "iusercommandprocessor.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
+#ifdef HAVE_QTDBUS
+#include "mprisinterface.h"
+#endif
 #endif
 
 #include "importplugins.h"
@@ -516,7 +519,14 @@ AudioPlayer* Kid3Application::getAudioPlayer()
 {
   if (!m_player) {
     m_player = new AudioPlayer(this);
+#ifdef HAVE_QTDBUS
+    new MprisInterface(m_player);
+    new MprisPlayerInterface(m_player);
+#endif
   }
+#ifdef HAVE_QTDBUS
+  activateMprisInterface();
+#endif
   return m_player;
 }
 
@@ -526,10 +536,69 @@ AudioPlayer* Kid3Application::getAudioPlayer()
 void Kid3Application::deleteAudioPlayer() {
   if (m_player) {
     m_player->stop();
+#ifdef HAVE_QTDBUS
+    deactivateMprisInterface();
+#endif
     delete m_player;
     m_player = 0;
   }
 }
+
+#ifdef HAVE_QTDBUS
+/**
+ * Activate the MPRIS D-Bus Interface if not already active.
+ */
+void Kid3Application::activateMprisInterface()
+{
+  if (!m_mprisServiceName.isEmpty() || !m_player)
+    return;
+
+  if (QDBusConnection::sessionBus().isConnected()) {
+    m_mprisServiceName = QLatin1String("org.mpris.MediaPlayer2.kid3");
+    bool ok = QDBusConnection::sessionBus().registerService(m_mprisServiceName);
+    if (!ok) {
+      // If another instance of Kid3 is already running register a service
+      // with ".instancePID" appended, see
+      // https://specifications.freedesktop.org/mpris-spec/latest/
+      m_mprisServiceName += QLatin1String(".instance");
+      m_mprisServiceName += QString::number(::getpid());
+      ok = QDBusConnection::sessionBus().registerService(m_mprisServiceName);
+    }
+    if (ok) {
+      if (!QDBusConnection::sessionBus().registerObject(
+            QLatin1String("/org/mpris/MediaPlayer2"), m_player)) {
+        qWarning("Registering D-Bus MPRIS object failed");
+      }
+    } else {
+      m_mprisServiceName.clear();
+      qWarning("Registering D-Bus MPRIS service failed");
+    }
+  } else {
+    qWarning("Cannot connect to the D-BUS session bus.");
+  }
+}
+
+/**
+ * Deactivate the MPRIS D-Bus Interface if it is active.
+ */
+void Kid3Application::deactivateMprisInterface()
+{
+  if (m_mprisServiceName.isEmpty())
+    return;
+
+  if (QDBusConnection::sessionBus().isConnected()) {
+    QDBusConnection::sessionBus().unregisterObject(
+          QLatin1String("/org/mpris/MediaPlayer2"));
+    if (QDBusConnection::sessionBus().unregisterService(m_mprisServiceName)) {
+      m_mprisServiceName.clear();
+    } else {
+      qWarning("Unregistering D-Bus MPRIS service failed");
+    }
+  } else {
+    qWarning("Cannot connect to the D-BUS session bus.");
+  }
+}
+#endif
 #endif
 
 /**

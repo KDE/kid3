@@ -1060,6 +1060,18 @@ public slots:
    * Show play tool bar.
    */
   void showAudioPlayer();
+
+#ifdef HAVE_QTDBUS
+  /**
+   * Activate the MPRIS D-Bus Interface if not already active.
+   */
+  void activateMprisInterface();
+
+  /**
+   * Deactivate the MPRIS D-Bus Interface if it is active.
+   */
+  void deactivateMprisInterface();
+#endif
 #endif
 
   /**
@@ -1322,6 +1334,9 @@ private:
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Audio player */
   AudioPlayer* m_player;
+#ifdef HAVE_QTDBUS
+  QString m_mprisServiceName;
+#endif
 #endif
   FileFilter* m_expressionFileFilter;
   /** Information about selected tagged files */

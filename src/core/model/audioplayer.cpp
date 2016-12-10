@@ -38,13 +38,17 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #endif
+#include "kid3application.h"
+#include "taggedfile.h"
+#include "fileproxymodel.h"
 
 /**
  * Constructor.
  *
- * @param parent parent object
+ * @param app parent application
  */
-AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
+AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
+  m_app(app)
 #ifdef HAVE_PHONON
 , m_fileNr(-1)
 #endif
@@ -63,6 +67,10 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
           this, SLOT(currentSourceChanged()));
   connect(m_mediaObject, SIGNAL(tick(qint64)),
           this, SIGNAL(positionChanged(qint64)));
+  connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State, Phonon::State)),
+          this, SLOT(onStateChanged()));
+  connect(m_audioOutput, SIGNAL(volumeChanged(qreal)),
+          this, SLOT(onVolumeChanged(qreal)));
 #else
   m_mediaPlayer = new QMediaPlayer(this);
   m_mediaPlaylist = new QMediaPlaylist(m_mediaPlayer);
@@ -71,6 +79,10 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
           this, SLOT(currentIndexChanged(int)));
   connect(m_mediaPlayer, SIGNAL(positionChanged(qint64)),
           this, SIGNAL(positionChanged(qint64)));
+  connect(m_mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
+          this, SLOT(onStateChanged()));
+  connect(m_mediaPlayer, SIGNAL(volumeChanged(int)),
+          this, SIGNAL(volumeChanged(int)));
 #endif
 }
 
@@ -109,10 +121,24 @@ void AudioPlayer::setFiles(const QStringList& files, int fileNr)
     m_mediaPlaylist->setCurrentIndex(0);
   }
 #endif
+  emit fileCountChanged(getFileCount());
 }
 
 /**
- * Get name of current file.
+ * Get number of files in play list.
+ * @return number of files.
+ */
+int AudioPlayer::getFileCount() const
+{
+#ifdef HAVE_PHONON
+  return m_files.size();
+#else
+  return m_mediaPlaylist->mediaCount();
+#endif
+}
+
+/**
+ * Get path of current file.
  * @return file name.
  */
 QString AudioPlayer::getFileName() const
@@ -124,6 +150,33 @@ QString AudioPlayer::getFileName() const
   return QString();
 #else
   return m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
+#endif
+}
+
+/**
+ * Get tagged file for current file.
+ * @return tagged file, 0 if not available.
+ */
+TaggedFile* AudioPlayer::getTaggedFile() const
+{
+  FileProxyModel* model = m_app->getFileProxyModel();
+  QModelIndex index = model->index(getFileName());
+  if (index.isValid()) {
+    return FileProxyModel::getTaggedFileOfIndex(index);
+  }
+  return 0;
+}
+
+/**
+ * Get index of current file in playlist.
+ * @return index of current file.
+ */
+int AudioPlayer::getCurrentIndex() const
+{
+#ifdef HAVE_PHONON
+  return m_fileNr;
+#else
+  return m_mediaPlaylist->currentIndex();
 #endif
 }
 
@@ -147,9 +200,85 @@ quint64 AudioPlayer::getCurrentPosition() const
 void AudioPlayer::setCurrentPosition(quint64 position)
 {
 #ifdef HAVE_PHONON
-  return m_mediaObject->seek(position);
+  m_mediaObject->seek(position);
 #else
-  return m_mediaPlayer->setPosition(position);
+  m_mediaPlayer->setPosition(position);
+#endif
+  emit currentPositionChanged(position);
+}
+
+/**
+ * Get playing state.
+ * @return state.
+ */
+AudioPlayer::State AudioPlayer::getState() const
+{
+#ifdef HAVE_PHONON
+  switch (m_mediaObject->state()) {
+  case Phonon::PlayingState:
+    return PlayingState;
+  case Phonon::PausedState:
+    return PausedState;
+  default:
+    return StoppedState;
+  }
+#else
+  switch (m_mediaPlayer->state()) {
+  case QMediaPlayer::StoppedState:
+    return StoppedState;
+  case QMediaPlayer::PlayingState:
+    return PlayingState;
+  case QMediaPlayer::PausedState:
+    return PausedState;
+  }
+#endif
+  return StoppedState;
+}
+
+/**
+ * Signal stateChanged() when the playing state is changed.
+ */
+void AudioPlayer::onStateChanged()
+{
+  emit stateChanged(getState());
+}
+
+/**
+ * Get duration of current track in milliseconds.
+ * @return duration.
+ */
+qint64 AudioPlayer::getDuration() const
+{
+#ifdef HAVE_PHONON
+  return m_mediaObject->totalTime();
+#else
+  return m_mediaPlayer->duration();
+#endif
+}
+
+/**
+ * Get volume.
+ * @return volume level between 0 and 100.
+ */
+int AudioPlayer::getVolume() const
+{
+#ifdef HAVE_PHONON
+  return m_audioOutput->volume() * 100;
+#else
+  return m_mediaPlayer->volume();
+#endif
+}
+
+/**
+ * Set volume.
+ * @param volume level between 0 and 100
+ */
+void AudioPlayer::setVolume(int volume)
+{
+#ifdef HAVE_PHONON
+  m_audioOutput->setVolume(static_cast<qreal>(volume) / 100);
+#else
+  m_mediaPlayer->setVolume(volume);
 #endif
 }
 
@@ -224,6 +353,30 @@ void AudioPlayer::playOrPause()
 }
 
 /**
+ * Resume playback.
+ */
+void AudioPlayer::play()
+{
+#ifdef HAVE_PHONON
+  m_mediaObject->play();
+#else
+  m_mediaPlayer->play();
+#endif
+}
+
+/**
+ * Pause playback.
+ */
+void AudioPlayer::pause()
+{
+#ifdef HAVE_PHONON
+  m_mediaObject->pause();
+#else
+  m_mediaPlayer->pause();
+#endif
+}
+
+/**
  * Stop playback.
  */
 void AudioPlayer::stop()
@@ -264,6 +417,15 @@ void AudioPlayer::aboutToFinish()
       m_mediaObject->enqueue(source);
     }
   }
+}
+
+/**
+ * Signal volumeChanged() when the volume is changed.
+ * @param volume volume
+ */
+void AudioPlayer::onVolumeChanged(qreal volume)
+{
+  emit volumeChanged(volume * 100);
 }
 #else
 /**

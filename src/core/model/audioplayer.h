@@ -45,6 +45,9 @@ class QMediaPlayer;
 class QMediaPlaylist;
 #endif
 
+class Kid3Application;
+class TaggedFile;
+
 /**
  * Audio player toolbar.
  */
@@ -52,12 +55,19 @@ class KID3_CORE_EXPORT AudioPlayer : public QObject {
   Q_OBJECT
 
 public:
+  /** Playing state. */
+  enum State {
+    StoppedState, /**< Stopped */
+    PlayingState, /**< Playing */
+    PausedState   /**< Paused */
+  };
+
   /**
    * Constructor.
    *
-   * @param parent parent object
+   * @param app parent application
    */
-  explicit AudioPlayer(QObject* parent);
+  explicit AudioPlayer(Kid3Application* app);
 
   /**
    * Destructor.
@@ -73,10 +83,28 @@ public:
   void setFiles(const QStringList& files, int fileNr = 0);
 
   /**
-   * Get name of current file.
+   * Get number of files in play list.
+   * @return number of files.
+   */
+  int getFileCount() const;
+
+  /**
+   * Get path of current file.
    * @return file name.
    */
   QString getFileName() const;
+
+  /**
+   * Get tagged file for current file.
+   * @return tagged file, 0 if not available.
+   */
+  TaggedFile* getTaggedFile() const;
+
+  /**
+   * Get index of current file in playlist.
+   * @return index of current file.
+   */
+  int getCurrentIndex() const;
 
   /**
    * Get the current playback position in milliseconds.
@@ -89,6 +117,30 @@ public:
    * @param position time in milliseconds
    */
   void setCurrentPosition(quint64 position);
+
+  /**
+   * Get playing state.
+   * @return state.
+   */
+  State getState() const;
+
+  /**
+   * Get duration of current track in milliseconds.
+   * @return duration.
+   */
+  qint64 getDuration() const;
+
+  /**
+   * Get volume.
+   * @return volume level between 0 and 100.
+   */
+  int getVolume() const;
+
+  /**
+   * Set volume.
+   * @param volume level between 0 and 100
+   */
+  void setVolume(int volume);
 
 #ifdef HAVE_PHONON
   /**
@@ -136,13 +188,47 @@ signals:
    * Emitted when the current track position changed.
    * @param position time in milliseconds
    */
-  void 	positionChanged(qint64 position);
+  void positionChanged(qint64 position);
+
+  /**
+   * Emitted when the current position is changed using setCurrentPosition().
+   * @param position time in milliseconds
+   */
+  void currentPositionChanged(qint64 position);
+
+  /**
+   * Emitted when the playing state is changed.
+   * @param state playing state
+   */
+  void stateChanged(AudioPlayer::State state);
+
+  /**
+   * Emitted when the volume is changed.
+   * @param volume level between 0 and 100
+   */
+  void volumeChanged(int volume);
+
+  /**
+   * Emitted when the file count changed.
+   * @param count number of files in play list
+   */
+  void fileCountChanged(int count);
 
 public slots:
   /**
    * Toggle between play and pause.
    */
   void playOrPause();
+
+  /**
+   * Resume playback.
+   */
+  void play();
+
+  /**
+   * Pause playback.
+   */
+  void pause();
 
   /**
    * Stop playback.
@@ -170,6 +256,12 @@ private slots:
    * Queue next track when the current track is about to finish.
    */
   void aboutToFinish();
+
+  /**
+   * Signal volumeChanged() when the volume is changed.
+   * @param volume volume
+   */
+  void onVolumeChanged(qreal volume);
 #else
   /**
    * Update display and button state when the current source is changed.
@@ -177,8 +269,13 @@ private slots:
    */
   void currentIndexChanged(int position);
 #endif
+  /**
+   * Signal stateChanged() when the playing state is changed.
+   */
+  void onStateChanged();
 
 private:
+  Kid3Application* m_app;
 #ifdef HAVE_PHONON
   /**
    * Select a track from the files and optionally start playing it.

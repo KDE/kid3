@@ -165,6 +165,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
 PlayToolBar::~PlayToolBar()
 {
   m_player->stop();
+  emit closed();
 }
 
 /**
@@ -173,6 +174,7 @@ PlayToolBar::~PlayToolBar()
 void PlayToolBar::closeEvent(QCloseEvent*)
 {
   m_player->stop();
+  emit closed();
 }
 
 /**
@@ -304,7 +306,7 @@ void PlayToolBar::setVolumeToolTip(int volume)
 void PlayToolBar::seekAction(int action)
 {
   Q_UNUSED(action);
-  m_player->mediaPlayer()->setPosition(m_seekSlider->sliderPosition() * 1000);
+  m_player->setCurrentPosition(m_seekSlider->sliderPosition() * 1000);
 }
 
 /**
