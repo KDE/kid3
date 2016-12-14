@@ -94,7 +94,7 @@ void FingerprintCalculator::startChromaprint(int sampleRate, int channelCount)
 void FingerprintCalculator::feedChromaprint(QByteArray data)
 {
   if (!::chromaprint_feed(m_chromaprintCtx,
-                          reinterpret_cast<int16_t*>(data.data()),
+                          reinterpret_cast<qint16*>(data.data()),
                           data.size() / 2)) {
     m_decoder->stop();
     emit finished(QString(), 0, FingerprintCalculationFailed);
