@@ -58,7 +58,7 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=3
-ffmpeg_version=3.1.4
+ffmpeg_version=3.2.2
 ffmpeg_patchlevel=1
 #libav_version=11.4
 #libav_patchlevel=2
@@ -2626,6 +2626,7 @@ AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 	--enable-decoder=rawvideo \
 	--disable-videotoolbox \
 	--disable-vaapi \
+	--disable-vdpau \
 	--disable-hwaccel=h264_dxva2 \
 	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
 make V=1
