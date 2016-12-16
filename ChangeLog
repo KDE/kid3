@@ -1,3 +1,20 @@
+Fri Dec 23 08:33:40 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.4
+
+	* New:
+	  + If the first command line argument is "--portable", the
+	    configuration is stored in a file kid3.ini in the program folder.
+	  + Image data can be copied to clipboard.
+
+	* Improved:
+	  + "Import CSV" can import to different files if no matching
+	    file paths found.
+
+	* Fixed:
+	  + Importing of durations from text formats (file/clipboard).
+	  + Building with Chromaprint 1.4.
+
 Tue Nov  1 20:16:59 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.3
