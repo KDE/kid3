@@ -237,11 +237,12 @@ AbstractSettingsPage {
       onActiveChanged: {
         var tagCfg = configs.tagConfig()
         var importCfg = configs.importConfig()
+        var disabledTagPlugins, disabledImportPlugins, i, name
         if (active) {
-          var disabledTagPlugins = tagCfg.disabledPlugins
-          var disabledImportPlugins = importCfg.disabledPlugins
-          for (var i = 0; i < model.length; ++i) {
-            var name = model[i].name
+          disabledTagPlugins = tagCfg.disabledPlugins
+          disabledImportPlugins = importCfg.disabledPlugins
+          for (i = 0; i < model.length; ++i) {
+            name = model[i].name
             model[i].value =
                 disabledTagPlugins.indexOf(name) === -1 &&
                 disabledImportPlugins.indexOf(name) === -1
@@ -249,11 +250,11 @@ AbstractSettingsPage {
         } else {
           var availableTagPlugins = tagCfg.availablePlugins
           var availableImportPlugins = importCfg.availablePlugins
-          var disabledTagPlugins = []
-          var disabledImportPlugins = []
-          for (var i = 0; i < model.length; ++i) {
+          disabledTagPlugins = []
+          disabledImportPlugins = []
+          for (i = 0; i < model.length; ++i) {
             if (model[i].value === false) {
-              var name = model[i].name
+              name = model[i].name
               if (availableTagPlugins.indexOf(name) !== -1) {
                 disabledTagPlugins.push(name)
               } else if (availableImportPlugins.indexOf(name) !== -1) {
