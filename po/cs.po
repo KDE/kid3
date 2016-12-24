@@ -3,13 +3,13 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015.
+# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2016-10-18 06:25+0200\n"
-"PO-Revision-Date: 2015-10-02 21:58+0200\n"
+"PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -40,7 +40,7 @@ msgid "Time"
 msgstr "Čas"
 
 msgid "Quit application"
-msgstr "Ukončí program"
+msgstr "Ukončit program"
 
 msgid "The current directory has been modified."
 msgstr "Nynější adresář byl změněn."
@@ -67,7 +67,7 @@ msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
 msgid "Select file"
-msgstr "Vyberte soubor"
+msgstr "Vybrat soubor"
 
 msgid "%1 not found"
 msgstr "%1 nenalezen"
@@ -82,7 +82,7 @@ msgid "Set tag frame"
 msgstr "Nastavit prvek značky"
 
 msgid "Could not set \"%1\" for %2"
-msgstr "Souboru %2 nelze nastavit atribut \"%1\""
+msgstr "Souboru %2 nelze nastavit vlastnost \"%1\""
 
 msgid "Revert"
 msgstr "Naposledy uložené znění"
@@ -100,7 +100,7 @@ msgid "Source"
 msgstr "Zdroj"
 
 msgid "Extraction"
-msgstr "Získání"
+msgstr "Vytažení"
 
 msgid "%1 not found."
 msgstr "%1 nenalezena."
@@ -127,7 +127,7 @@ msgid "Querying"
 msgstr "Dotazuje se"
 
 msgid "Fetching"
-msgstr "Získává se"
+msgstr "Natahuje se"
 
 msgid "Data received"
 msgstr "Přijatá data"
@@ -286,7 +286,7 @@ msgid "Configure Shortcuts"
 msgstr "Nastavit zkratky"
 
 msgid "Configure Toolbars"
-msgstr "Nastavit nástrojové panely"
+msgstr "Nastavit nástrojové pruhy"
 
 msgid "Preferences dialog"
 msgstr "Nastavení"
@@ -445,7 +445,7 @@ msgid "directory to open"
 msgstr "Adresář k otevření"
 
 msgid "Audio Tag Editor"
-msgstr "Editor značek"
+msgstr "Editor značek zvukových záznamů"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -540,7 +540,7 @@ msgid "Re&vert"
 msgstr "V&rátit"
 
 msgid "&Quit"
-msgstr "&Ukončit"
+msgstr "U&končit"
 
 msgid "&Edit"
 msgstr "Úp&ravy"
@@ -564,10 +564,10 @@ msgid "&Settings"
 msgstr "Na&stavení"
 
 msgid "Enables/disables the toolbar"
-msgstr "Povolí/Zakáže nástrojový panel"
+msgstr "Povolí/Zakáže nástrojový pruh"
 
 msgid "Show &Toolbar"
-msgstr "Ukázat nástrojový &panel"
+msgstr "Ukázat nástrojový &pruh"
 
 msgid "Enables/disables the statusbar"
 msgstr "Povolí/Zakáže stavový řádek"
@@ -600,7 +600,7 @@ msgid "About &Qt"
 msgstr "O &Qt"
 
 msgid " [modified]"
-msgstr "[změněný]"
+msgstr "[změněno]"
 
 msgid "Toggle the statusbar..."
 msgstr "Přepíná se stavový řádek..."
@@ -636,7 +636,7 @@ msgid "Accuracy"
 msgstr "Přesnost"
 
 msgid "Standard Tags"
-msgstr "Standardní značky"
+msgstr "Běžné značky"
 
 msgid "Additional Tags"
 msgstr "Dodatečné značky"
@@ -678,7 +678,7 @@ msgid "Data received: %1"
 msgstr "Přijatá data: %1"
 
 msgid "Request sent..."
-msgstr "Požadavek poslán..."
+msgstr "Požadavek odeslán..."
 
 msgid "Year"
 msgstr "Rok"
@@ -705,10 +705,10 @@ msgid "--- separator ---"
 msgstr "--- oddělovač ---"
 
 msgid "Begin of submenu"
-msgstr "Podřazená nabídka"
+msgstr "Začátek podnabídky"
 
 msgid "End of submenu"
-msgstr "Začátek podřazená nabídka"
+msgstr "Konec podnabídky"
 
 msgid "Confirm"
 msgstr "Potvrzení"
@@ -720,7 +720,7 @@ msgid "Command"
 msgstr "Příkaz"
 
 msgid "Create directory %1 failed\n"
-msgstr "Vytvoření adresáře %1 se nepodařilo\n"
+msgstr "Nepodařilo se vytvořit adresář %1.\n"
 
 msgid "File %1 already exists\n"
 msgstr "Soubor %1 již existuje\n"
@@ -729,7 +729,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 není adresářem\n"
 
 msgid "Rename %1 to %2 failed\n"
-msgstr "Přejmenování %1 na %2 se nepodařilo\n"
+msgstr "Nepodařilo se přejmenovat %1 na %2.\n"
 
 msgid "%1 already exists\n"
 msgstr ""
@@ -776,7 +776,7 @@ msgid "interlude start"
 msgstr "Začátek mezihry"
 
 msgid "theme start"
-msgstr "Začátek motivu"
+msgstr "Začátek hlavní myšlenky"
 
 msgid "variation start"
 msgstr "Začátek variace"
@@ -788,13 +788,13 @@ msgid "time change"
 msgstr "Změna taktového označení"
 
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr "krátkodobý nechtěný šum (křupnutí, praskání, třísknutí)"
+msgstr "Krátkodobý nechtěný šum (křupnutí, praskání, třísknutí)"
 
 msgid "sustained noise"
 msgstr "Neustálý šum"
 
 msgid "sustained noise end"
-msgstr "Konec neustálého šumu"
+msgstr "Konec nepřetržitého šumu"
 
 msgid "intro end"
 msgstr "Konec úvodu"
@@ -809,61 +809,61 @@ msgid "refrain end"
 msgstr "Konec refrénu"
 
 msgid "theme end"
-msgstr "Konec motivu"
+msgstr "Konec hlavní myšlenky"
 
 msgid "profanity"
 msgstr "Nadávky"
 
 msgid "profanity end"
-msgstr "Konec klení"
+msgstr "Konec sprostých výrazů"
 
 msgid "not predefined synch 0"
-msgstr "Seřízení neurčeno předem 0"
+msgstr "Předem nestanovené seřízení 0"
 
 msgid "not predefined synch 1"
-msgstr "Seřízení neurčeno předem 1"
+msgstr "Předem nestanovené seřízení 1"
 
 msgid "not predefined synch 2"
-msgstr "Seřízení neurčeno předem 2"
+msgstr "Předem nestanovené seřízení 2"
 
 msgid "not predefined synch 3"
-msgstr "Seřízení neurčeno předem 3"
+msgstr "Předem nestanovené seřízení 3"
 
 msgid "not predefined synch 4"
-msgstr "Seřízení neurčeno předem 4"
+msgstr "Předem nestanovené seřízení 4"
 
 msgid "not predefined synch 5"
-msgstr "Seřízení neurčeno předem 5"
+msgstr "Předem nestanovené seřízení 5"
 
 msgid "not predefined synch 6"
-msgstr "Seřízení neurčeno předem 6"
+msgstr "Předem nestanovené seřízení 6"
 
 msgid "not predefined synch 7"
-msgstr "Seřízení neurčeno předem 7"
+msgstr "Předem nestanovené seřízení 7"
 
 msgid "not predefined synch 8"
-msgstr "Seřízení neurčeno předem 8"
+msgstr "Předem nestanovené seřízení 8"
 
 msgid "not predefined synch 9"
-msgstr "Seřízení neurčeno předem 9"
+msgstr "Předem nestanovené seřízení 9"
 
 msgid "not predefined synch A"
-msgstr "Seřízení neurčeno předem A"
+msgstr "Předem nestanovené seřízení A"
 
 msgid "not predefined synch B"
-msgstr "Seřízení neurčeno předem B"
+msgstr "Předem nestanovené seřízení B"
 
 msgid "not predefined synch C"
-msgstr "Seřízení neurčeno předem C"
+msgstr "Předem nestanovené seřízení C"
 
 msgid "not predefined synch D"
-msgstr "Seřízení neurčeno předem D"
+msgstr "Předem nestanovené seřízení D"
 
 msgid "not predefined synch E"
-msgstr "Seřízení neurčeno předem E"
+msgstr "Předem nestanovené seřízení E"
 
 msgid "not predefined synch F"
-msgstr "Seřízení neurčeno předem F"
+msgstr "Předem nestanovené seřízení F"
 
 msgid "audio end (start of silence)"
 msgstr "Konec zvuku (začátek ticha)"
@@ -872,7 +872,7 @@ msgid "audio file ends"
 msgstr "Zvukový soubor končí"
 
 msgid "reserved for future use %1"
-msgstr "vyhrazeno pro budoucí užití %1"
+msgstr "Vyhrazeno pro budoucí užití %1"
 
 msgid "C&lear"
 msgstr "&Smazat"
@@ -929,16 +929,16 @@ msgid "Search finished"
 msgstr "Hledání ukončeno"
 
 msgid "Event Code"
-msgstr "Časové kódy událostí"
+msgstr "Časový kód události"
 
 msgid "Track"
-msgstr "Stopa"
+msgstr "Skladba"
 
 msgid "Absolute path to file"
-msgstr "Nepochybná cesta k souboru"
+msgstr "Úplná cesta k souboru"
 
 msgid "Duration"
-msgstr "Délka"
+msgstr "Doba trvání"
 
 msgid "Text Encoding"
 msgstr "Kódování textu"
@@ -971,7 +971,7 @@ msgid "Counter"
 msgstr "Počítadlo"
 
 msgid "Identifier"
-msgstr "Určení"
+msgstr "Označení dat"
 
 msgid "Volume Adjustment"
 msgstr "Úprava hlasitosti"
@@ -1034,7 +1034,7 @@ msgid "Chord"
 msgstr "Akord"
 
 msgid "Trivia/pop up"
-msgstr "Drobnosti/Vyskakovací"
+msgstr "Drobnosti/Maličkosti"
 
 msgid "Title"
 msgstr "Název"
@@ -1094,10 +1094,10 @@ msgid "Encoding Time"
 msgstr "Čas zakódování"
 
 msgid "Grouping"
-msgstr "Zařazení do skupin"
+msgstr "Třídění do skupin"
 
 msgid "Initial Key"
-msgstr "Tónina na začátku"
+msgstr "Počáteční tónina"
 
 msgid "ISRC"
 msgstr "ISRC"
@@ -1106,7 +1106,7 @@ msgid "Lyricist"
 msgstr "Textař"
 
 msgid "Media"
-msgstr "Medium"
+msgstr "Sdělovací prostředky"
 
 msgid "Mood"
 msgstr "Nálada"
@@ -1124,7 +1124,7 @@ msgid "Part"
 msgstr "Část"
 
 msgid "Performer"
-msgstr "Účinkující"
+msgstr "Účinkující hudebník"
 
 msgid "Picture"
 msgstr "Obrázek"
@@ -1136,10 +1136,10 @@ msgid "Release Country"
 msgstr "Země vydání"
 
 msgid "Remixer"
-msgstr "Autor remixů"
+msgstr "Autor smíchání hudebních skladeb"
 
 msgid "Sort Album"
-msgstr "Setřídění alb"
+msgstr "Seřazení podle alba"
 
 msgid "Sort Album Artist"
 msgstr "Seřazení podle umělce alba"
@@ -1172,7 +1172,7 @@ msgid "Audio Encryption"
 msgstr "Kódování zvuku"
 
 msgid "Audio Seek Point"
-msgstr "Bodů hledání zvuku"
+msgstr "Bod hledání zvuku"
 
 msgid "Chapter"
 msgstr "Kapitola"
@@ -1184,10 +1184,10 @@ msgid "Table of Contents"
 msgstr "Obsah"
 
 msgid "Encryption Method"
-msgstr "Způsobu kódování"
+msgstr "Způsob kódování"
 
 msgid "Equalization"
-msgstr "Vyrovnání"
+msgstr "Vyrovnání zvukových hladin"
 
 msgid "Event Timing Codes"
 msgstr "Časové kódy událostí"
@@ -1196,19 +1196,19 @@ msgid "General Object"
 msgstr "Všeobecný předmět"
 
 msgid "Group Identification"
-msgstr "Seskupení určení"
+msgstr "Označení dat seskupení"
 
 msgid "Linked Information"
-msgstr "Spojená informace"
+msgstr "Odkazovaná informace"
 
 msgid "Music CD Identifier"
-msgstr "Určení hudebního CD"
+msgstr "Označení hudebního CD"
 
 msgid "MPEG Lookup Table"
 msgstr "Vyhledávací tabulka MPEG"
 
 msgid "Movement Number"
-msgstr "Číslo věta"
+msgstr "Číslo věty"
 
 msgid "Movement Name"
 msgstr "Název věty"
@@ -1220,7 +1220,7 @@ msgid "Play Counter"
 msgstr "Počítadlo přehrání"
 
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Zvukový záznam"
 
 msgid "Popularimeter"
 msgstr "Měřidlo oblíbenosti"
@@ -1235,7 +1235,7 @@ msgid "Recommended Buffer Size"
 msgstr "Doporučená velikost vyrovnávací paměti"
 
 msgid "Reverb"
-msgstr "Ozvěna"
+msgstr "Dozvuk"
 
 msgid "Seek"
 msgstr "Hledání"
@@ -1244,16 +1244,16 @@ msgid "Signature"
 msgstr "Podpis"
 
 msgid "Synchronized Lyrics"
-msgstr "Souběžný text písně"
+msgstr "Seřízený text"
 
 msgid "Synchronized Tempo Codes"
-msgstr "Souběžné časové kódy"
+msgstr "Kódy pro seřízenou rychlost"
 
 msgid "Podcast Description"
-msgstr "Popis Podcast"
+msgstr "Popis  zvukového záznamu"
 
 msgid "Playlist Delay"
-msgstr "Zdržení seznamu skladeb"
+msgstr "Opoždění seznamu skladeb"
 
 msgid "Original Release Time"
 msgstr "Původní rok vydání"
@@ -1271,7 +1271,7 @@ msgid "File Type"
 msgstr "Typ souboru"
 
 msgid "Podcast Identifier"
-msgstr "Identifikátor Podcast"
+msgstr "Označení dat zvukového záznamu"
 
 msgid "Original Filename"
 msgstr "Původní název souboru"
@@ -1280,7 +1280,7 @@ msgid "File Owner"
 msgstr "Vlastník souboru"
 
 msgid "Produced Notice"
-msgstr "Autorské právo výroby"
+msgstr "Autorské právo k výrobě"
 
 msgid "Recording Date"
 msgstr "Datum nahrávky"
@@ -1292,25 +1292,25 @@ msgid "Radio Station Owner"
 msgstr "Vlastník rozhlasové stanice"
 
 msgid "User-defined Text"
-msgstr "Uživatelsky stanovená textová"
+msgstr "Uživatelsky stanovený text"
 
 msgid "Unique File Identifier"
-msgstr "Jedinečné určení souboru"
+msgstr "Jednoznačné označení dat souboru"
 
 msgid "Terms of Use"
 msgstr "Podmínky užití"
 
 msgid "Commercial URL"
-msgstr "Obchodní sdělení"
+msgstr "Obchodní adresa (URL)"
 
 msgid "Copyright URL"
-msgstr "Autorské právo URL"
+msgstr "Adresa (URL) pro autorské právo"
 
 msgid "Podcast Feed"
-msgstr "Kanál Podcast"
+msgstr "Kanál zvukového záznamu"
 
 msgid "Official Radio Station"
-msgstr "Oficiální rozhlasová stanice"
+msgstr "Rozhlasová stanice"
 
 msgid "Payment"
 msgstr "Platba"
@@ -1322,13 +1322,13 @@ msgid "User-defined URL"
 msgstr "Uživatelsky stanovená adresa"
 
 msgid "Contact"
-msgstr "Kontakt"
+msgstr "Spojení"
 
 msgid "Total Discs"
-msgstr "Počet disků"
+msgstr "Počet zvukových nosičů"
 
 msgid "Encoder"
-msgstr "Enkodér"
+msgstr "Kódovač"
 
 msgid "Encoding"
 msgstr "Kódování"
@@ -1337,7 +1337,7 @@ msgid "Engineer"
 msgstr "Zvukový inženýr"
 
 msgid "Ensemble"
-msgstr "Soubor"
+msgstr "Umělecký soubor"
 
 msgid "Guest Artist"
 msgstr "Hostující umělec"
@@ -1349,7 +1349,7 @@ msgid "Gapless Playback"
 msgstr "Přehrávání bez mezer"
 
 msgid "Label"
-msgstr "Nahrávací společnost"
+msgstr "Štítek na gramofonové desce"
 
 msgid "Label Number"
 msgstr "Číslo štítku"
@@ -1373,7 +1373,7 @@ msgid "Product Number"
 msgstr "Číslo výrobku"
 
 msgid "Total Tracks"
-msgstr "Celkový počet stop"
+msgstr "Počet skladeb"
 
 msgid "Version"
 msgstr "Verze"
@@ -1388,25 +1388,25 @@ msgid "Original Lyricist"
 msgstr "Původní textař"
 
 msgid "User Rating"
-msgstr "Hodnocení"
+msgstr "Uživatelské hodnocení"
 
 msgid "Account Type"
 msgstr "Typ účtu"
 
 msgid "Purchase Account"
-msgstr "Název účtu"
+msgstr "Přístupové jméno"
 
 msgid "Artist ID"
-msgstr "Umělec ID"
+msgstr "Identifikátor umělce"
 
 msgid "Category"
-msgstr "Kategorie"
+msgstr "Skupina"
 
 msgid "Catalog ID"
-msgstr "Katalogové ID"
+msgstr "Katalogový identifikátor "
 
 msgid "Genre ID"
-msgstr "Žánr ID"
+msgstr "Identifikátor žánru"
 
 msgid "HD Video"
 msgstr "HD Video"
@@ -1418,52 +1418,52 @@ msgid "Long Description"
 msgstr "Dlouhý popis"
 
 msgid "Album ID"
-msgstr "Album ID"
+msgstr "Identifikátor alba"
 
 msgid "Purchase Date"
-msgstr "Data nákupu"
+msgstr "Datum nákupu"
 
 msgid "Country Code"
 msgstr "Kód země"
 
 msgid "Sort Show"
-msgstr "Seřazení podle relace"
+msgstr "Pořad pro třídění"
 
 msgid "Media Type"
-msgstr "Typ média"
+msgstr "Typ nosiče"
 
 msgid "TV Episode"
-msgstr "Epizoda"
+msgstr "Televizní díl"
 
 msgid "TV Episode Number"
-msgstr "Číslo epizoda"
+msgstr "Číslo televizního dílu"
 
 msgid "TV Network Name"
-msgstr "Síť"
+msgstr "Název televizní sítě"
 
 msgid "TV Show Name"
-msgstr "Relace"
+msgstr "Název televizního pořadu"
 
 msgid "TV Season"
-msgstr "Sezóna"
+msgstr "Televizní ada"
 
 msgid "Work"
-msgstr "Nátev díla"
+msgstr "Název díla"
 
 msgid "Movement Count"
-msgstr "Počítat věta"
+msgstr "Počet vět"
 
 msgid "Show Work & Movement"
-msgstr "Używaj dzieła oraz jego części"
+msgstr "Ukázat dílo a větu"
 
 msgid "Archival Location"
-msgstr ""
+msgstr "Místo v archivu"
 
 msgid "Commissioned"
-msgstr ""
+msgstr "Oprávněný"
 
 msgid "Cropped"
-msgstr ""
+msgstr "Ořezaný"
 
 msgid "Dimensions"
 msgstr "Rozměry"
@@ -1487,7 +1487,7 @@ msgid "Sharpness"
 msgstr "Ostrost"
 
 msgid "Source Form"
-msgstr ""
+msgstr "Podoba zdroje"
 
 msgid "Tag 1 and Tag 2"
 msgstr "Značka 1 a značka 2"
@@ -1496,7 +1496,7 @@ msgid "All Tags"
 msgstr "Všechny značky"
 
 msgid "32x32 pixels PNG file icon"
-msgstr "Ikona o velikosti 32 x 32 pixelů pro soubor PNG"
+msgstr "Ikona o velikosti 32 x 32 obrazových bodů pro soubor PNG"
 
 msgid "Other file icon"
 msgstr "Ikona jiného souboru"
@@ -1511,7 +1511,7 @@ msgid "Leaflet page"
 msgstr "Strana letáku"
 
 msgid "Lead artist/lead performer/soloist"
-msgstr "Hlavní umělec/Účinkující/Sólista"
+msgstr "Hlavní umělec/Účinkující hudebník/Sólista"
 
 msgid "Artist/performer"
 msgstr "Umělec/Účinkující"
@@ -1619,10 +1619,10 @@ msgid "Source:"
 msgstr "Zdroj:"
 
 msgid "URL:"
-msgstr "URL:"
+msgstr "Adresa (URL):"
 
 msgid "&URL extraction"
-msgstr "Získání &URL"
+msgstr "Zjištění &adresy (URL)"
 
 msgid "Match"
 msgstr "Porovnání"
@@ -1661,7 +1661,7 @@ msgid "&Genre as text instead of numeric string"
 msgstr "Žá&nr jako text místo jako číslo"
 
 msgid "&WAV files with lowercase id3 chunk"
-msgstr "&WAV soubory s malá písmena id3 bloku"
+msgstr "Soubory &WAV s blokem id3 s malými písmeny"
 
 msgid "&Version used for new tags:"
 msgstr "&Verze používaná pro nové značky:"
@@ -1772,7 +1772,7 @@ msgid "Proxy pass&word:"
 msgstr "&Heslo pro proxy:"
 
 msgid "&Metadata Plugins && Priority"
-msgstr "&Přídavné moduly popisných dat && přednost"
+msgstr "&Přídavné moduly popisných dat a přednost"
 
 msgid "A&vailable Plugins"
 msgstr "Dostupné &přídavné moduly"
@@ -2130,16 +2130,16 @@ msgid "&Remove"
 msgstr "&Odstranit"
 
 msgid "Start time"
-msgstr "Čas zahájení"
+msgstr "Čas začátku"
 
 msgid "End time"
-msgstr "Čas ukončení"
+msgstr "Čas konce"
 
 msgid "Start offset"
-msgstr "Počáteční posuv"
+msgstr "Posun začátku"
 
 msgid "End offset"
-msgstr "Konec posunu"
+msgstr "Posun konce"
 
 msgid "&Add"
 msgstr "&Přidat"
@@ -2620,7 +2620,7 @@ msgid "The current directory has been modified.\n"
 msgstr "Nynější adresář byl změněn."
 
 msgid "About"
-msgstr "O aplikaci"
+msgstr "O programu"
 
 msgid "Settings"
 msgstr "Nastavení"
@@ -2735,3 +2735,4 @@ msgstr "Vybrat vše"
 
 msgid "Cut"
 msgstr "Vyjmout"
+
