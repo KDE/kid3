@@ -3037,18 +3037,31 @@ kontrolliert werden.
 
 <sect1 id="kid3-cli-examples">
 <title>Beispiele</title>
+<para>Setze Titel mit Apostroph. Befehle, welche <command>kid3-cli</command>
+mit <parameter>-c</parameter> übergeben werden, müssen in Anführungszeichen
+stehen, falls sie nicht bloß aus einem einzelnen Wort bestehen. Wenn solch
+ein Befehl selbst ein Argument mit Leerzeichen hat, muss dieses Argument
+ebenfalls in Anführungszeichen gesetzt werden. In UNIX Shells können einfache
+oder doppelte Anführungszeichen verwendet werden, aber in der Windows
+Eingabeaufforderung ist es wichtig, dass außen doppelte und innen einfache
+Anführungszeichen verwendet werden. Wenn im Text innerhalb der einfachen
+Anführungszeichen ein einfaches Anführungszeichen verwendet wird, so muss
+diesem ein umgekehrter Schrägstrich vorangestellt werden, wie im folgenden
+Beispiel gezeigt wird:</para> 
+<screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/dir</userinput></screen>
+
 <para>Setze das Albumcover in allen Dateien eines Verzeichnisses unter
 Verwendung der automatischen Import-Funktion:</para>
-<screen width="65"><userinput>kid3-cli -c 'autoimport "Cover Art"' /pfad/zum/verzeichnis</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "autoimport 'Cover Art'" /pfad/zum/verzeichnis</userinput></screen>
 
 <para>Entferne Kommentar und wende Tag-Format an für beide Tags in allen
 MP3-Dateien eines Verzeichnisses:</para>
-<screen width="65"><userinput>kid3-cli -c 'set comment "" 1' -c 'set comment "" 2' \
--c 'tagformat 1' -c 'tagformat 2' /pfad/zum/verzeichnis/*.mp3</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "set comment '' 1" -c "set comment '' 2" \
+-c "tagformat 1" -c "tagformat 2" /pfad/zum/verzeichnis/*.mp3</userinput></screen>
 
 <para>Automatischer Import in Tag 2, auch ins Tag 1 kopieren, die Dateinamen
 aus Tag 2 setzen und schließlich eine Stückliste erstellen:</para>
-<screen width="65"><userinput>kid3-cli -c autoimport -c 'syncto 1' -c fromtag -c playlist \
+<screen width="65"><userinput>kid3-cli -c autoimport -c "syncto 1" -c fromtag -c playlist \
   /pfad/zum/verzeichnis/*.mp3</userinput></screen>
 
 <para>Für alle Dateien mit einem ID3v2.4.0 Tag, dieses nach ID3v2.3.0

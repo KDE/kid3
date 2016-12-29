@@ -2866,18 +2866,29 @@ with the <option>pause</option> (to pause and resume), <option>stop</option>,
 
 <sect1 id="kid3-cli-examples">
 <title>Examples</title>
+<para>Set title containing an apostrophe. Commands passed to
+<command>kid3-cli</command> with <parameter>-c</parameter>
+have to be in quotes if they do not only consist of a single word. If such a
+command itself has an argument containing spaces, that argument has to be
+quoted too. In UNIX shells single or double quotes can be used, but on the
+Windows Command Prompt, it is important that the outer quoting is done using
+double quotes and inside these quotes, single quotes are used. If the text
+inside the single quotes contains a single quote, it has to be escaped using a
+backslash character, as shown in the following example:</para> 
+<screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/dir</userinput></screen>
+
 <para>Set album cover in all files of a directory using the batch import
 function:</para>
-<screen width="65"><userinput>kid3-cli -c 'autoimport "Cover Art"' /path/to/dir</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "autoimport 'Cover Art'" /path/to/dir</userinput></screen>
 
 <para>Remove comment frames and apply the tag format in both tags of all MP3
 files of a directory:</para>
-<screen width="65"><userinput>kid3-cli -c 'set comment "" 1' -c 'set comment "" 2' \
--c 'tagformat 1' -c 'tagformat 2' /path/to/dir/*.mp3</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "set comment '' 1" -c "set comment '' 2" \
+-c "tagformat 1" -c "tagformat 2" /path/to/dir/*.mp3</userinput></screen>
 
 <para>Automatically import tag 2, synchronize to tag 1, set file names from
 tag 2 and finally create a playlist:</para>
-<screen width="65"><userinput>kid3-cli -c autoimport -c 'syncto 1' -c fromtag -c playlist \
+<screen width="65"><userinput>kid3-cli -c autoimport -c "syncto 1" -c fromtag -c playlist \
   /path/to/dir/*.mp3</userinput></screen>
 
 <para>For all files with an ID3v2.4.0 tag, convert to ID3v2.3.0 and remove
