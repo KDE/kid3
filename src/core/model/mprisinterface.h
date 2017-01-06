@@ -262,6 +262,13 @@ private:
   mutable QString m_coverArtFileName;
 };
 
+#else
+
+// Just to suppress moc "No relevant classes found" warning.
+class MprisInterface : public QObject {
+  Q_OBJECT
+};
+
 #endif
 
 #endif // MPRISINTERFACE_H
