@@ -455,11 +455,18 @@ private:
   void initTaggedFileData(const QModelIndex& index);
 
   /**
-   * Check if a directory path passes the folder filters.
+   * Check if a directory path passes the include folder filters.
    * @param dirPath absolute path to directory
    * @return true if path passes filters.
    */
-  bool passesFolderFilters(const QString& dirPath) const;
+  bool passesIncludeFolderFilters(const QString& dirPath) const;
+
+  /**
+   * Check if a directory path passes the exclude folder filters.
+   * @param dirPath absolute path to directory
+   * @return true if path passes filters.
+   */
+  bool passesExcludeFolderFilters(const QString& dirPath) const;
 
   QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;

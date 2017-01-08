@@ -240,7 +240,11 @@ bool FileProxyModel::filterAcceptsRow(
     QString item(srcIndex.data().toString());
     if (item == QLatin1String(".") || item == QLatin1String(".."))
       return false;
-    if (m_extensions.isEmpty() || !m_fsModel || m_fsModel->isDir(srcIndex))
+    if (!m_fsModel)
+      return true;
+    if (m_fsModel->isDir(srcIndex))
+      return passesExcludeFolderFilters(m_fsModel->filePath(srcIndex));
+    if (m_extensions.isEmpty())
       return true;
     for (QStringList::const_iterator it = m_extensions.begin();
          it != m_extensions.end();
@@ -389,7 +393,8 @@ void FileProxyModel::onStartLoading()
  */
 bool FileProxyModel::canFetchMore(const QModelIndex& parent) const
 {
-  if (!passesFolderFilters(filePath(parent)))
+  QString path = filePath(parent);
+  if (!passesIncludeFolderFilters(path) || !passesExcludeFolderFilters(path))
     return false;
 
   return QSortFilterProxyModel::canFetchMore(parent);
@@ -518,11 +523,11 @@ void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
 }
 
 /**
- * Check if a directory path passes the folder filters.
+ * Check if a directory path passes the include folder filters.
  * @param dirPath absolute path to directory
  * @return true if path passes filters.
  */
-bool FileProxyModel::passesFolderFilters(const QString& dirPath) const
+bool FileProxyModel::passesIncludeFolderFilters(const QString& dirPath) const
 {
   if (!m_includeFolderFilters.isEmpty()) {
     bool included = false;
@@ -539,6 +544,16 @@ bool FileProxyModel::passesFolderFilters(const QString& dirPath) const
     }
   }
 
+  return true;
+}
+
+/**
+ * Check if a directory path passes the include folder filters.
+ * @param dirPath absolute path to directory
+ * @return true if path passes filters.
+ */
+bool FileProxyModel::passesExcludeFolderFilters(const QString& dirPath) const
+{
   if (!m_excludeFolderFilters.isEmpty()) {
     for (QList<QRegExp>::const_iterator it = m_excludeFolderFilters.constBegin();
          it != m_excludeFolderFilters.constEnd();
