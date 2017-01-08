@@ -645,6 +645,11 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
  */
 void Kid3Cli::readLine(const QString& line)
 {
+  if (line.isNull()) {
+    // Terminate if EOF is received.
+    terminate();
+    return;
+  }
   flushStandardOutput();
   CliCommand* cmd = commandForArgs(line);
   if (cmd) {

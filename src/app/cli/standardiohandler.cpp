@@ -114,7 +114,12 @@ void StandardIOHandler::blockingReadLine()
 {
 #ifdef HAVE_READLINE
   char* lineRead = ::readline(m_prompt);
-  if (lineRead && *lineRead) {
+  if (!lineRead) {
+    // EOF
+    emit lineReady(QString());
+    return;
+  }
+  if (*lineRead) {
     ::add_history(lineRead);
   }
   QString line = QString::fromLocal8Bit(lineRead);
