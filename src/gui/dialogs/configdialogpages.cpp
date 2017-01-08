@@ -58,6 +58,66 @@
 #include "frame.h"
 #include "iplatformtools.h"
 
+namespace {
+
+/**
+ * @brief Get string representation of folder patterns.
+ * @param folders folder patterns
+ * @param asteriskIfEmpty if true "*" is returned if @a folders is empty
+ * @return string representation of folder patterns.
+ */
+QString folderPatternListToString(const QStringList& folders,
+                                  bool asteriskIfEmpty = false)
+{
+  QStringList patterns;
+  QChar sep = QLatin1Char(' ');
+  foreach (const QString& folder, folders) {
+    QString pattern = folder.trimmed();
+    if (!pattern.isEmpty()) {
+      if (pattern.contains(QLatin1Char(' '))) {
+        sep = QLatin1Char(';');
+      }
+      patterns.append(pattern);
+    }
+  }
+  patterns.removeDuplicates();
+  if (patterns.isEmpty())
+    return QLatin1String(asteriskIfEmpty ? "*" : "");
+
+  // Keep semicolon to mark that space is not a separator.
+  if (patterns.size() == 1 && sep == QLatin1Char(';'))
+    return patterns.first() + sep;
+
+  return patterns.join(sep);
+}
+
+/**
+ * @brief Get folder patterns from string representation.
+ * @param patterns string representation of folder patterns
+ * @param asteriskIfEmpty if true an empty list is returned for "*"
+ * @return folder pattern list.
+ */
+QStringList folderPatternListFromString(const QString& patterns,
+                                        bool asteriskIfEmpty = false)
+{
+  if (asteriskIfEmpty && patterns == QLatin1String("*"))
+    return QStringList();
+
+  QStringList folders;
+  const QChar sep = patterns.contains(QLatin1Char(';'))
+      ? QLatin1Char(';') : QLatin1Char(' ');
+  foreach (const QString& pattern, patterns.split(sep)) {
+    QString folder = pattern.trimmed();
+    if (!folder.isEmpty()) {
+      folders.append(folder);
+    }
+  }
+
+  return folders;
+}
+
+}
+
 /**
  * Constructor.
  */
@@ -66,7 +126,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_platformTools(platformTools),
   m_loadLastOpenedFileCheckBox(0), m_preserveTimeCheckBox(0),
   m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
-  m_nameFilterComboBox(0), m_fileTextEncodingComboBox(0),
+  m_nameFilterComboBox(0), m_includeFoldersLineEdit(0),
+  m_excludeFoldersLineEdit(0), m_fileTextEncodingComboBox(0),
   m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
@@ -320,9 +381,21 @@ QWidget* ConfigDialogPages::createFilesPage()
     m_nameFilterComboBox->addItem(it->first, nameFilter);
   }
   nameFilterLabel->setBuddy(m_nameFilterComboBox);
+  QLabel* includeFoldersLabel = new QLabel(tr("Inclu&de folders:"),
+                                           fileListGroupBox);
+  m_includeFoldersLineEdit = new QLineEdit(fileListGroupBox);
+  includeFoldersLabel->setBuddy(m_includeFoldersLineEdit);
+  QLabel* excludeFoldersLabel = new QLabel(tr("E&xclude folders:"),
+                                           fileListGroupBox);
+  m_excludeFoldersLineEdit = new QLineEdit(fileListGroupBox);
+  excludeFoldersLabel->setBuddy(m_excludeFoldersLineEdit);
   QGridLayout* fileListGroupBoxLayout = new QGridLayout(fileListGroupBox);
   fileListGroupBoxLayout->addWidget(nameFilterLabel, 0, 0);
   fileListGroupBoxLayout->addWidget(m_nameFilterComboBox, 0, 1);
+  fileListGroupBoxLayout->addWidget(includeFoldersLabel, 1, 0);
+  fileListGroupBoxLayout->addWidget(m_includeFoldersLineEdit, 1, 1);
+  fileListGroupBoxLayout->addWidget(excludeFoldersLabel, 2, 0);
+  fileListGroupBoxLayout->addWidget(m_excludeFoldersLineEdit, 2, 1);
   rightLayout->addWidget(fileListGroupBox);
   rightLayout->addStretch();
 
@@ -504,6 +577,10 @@ void ConfigDialogPages::setConfigs(
   m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
   m_nameFilterComboBox->setCurrentIndex(
         m_nameFilterComboBox->findData(fileCfg.nameFilter()));
+  m_includeFoldersLineEdit->setText(
+        folderPatternListToString(fileCfg.includeFolders(), true));
+  m_excludeFoldersLineEdit->setText(
+        folderPatternListToString(fileCfg.excludeFolders(), false));
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
@@ -629,6 +706,10 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setNameFilter(m_nameFilterComboBox->itemData(
                           m_nameFilterComboBox->currentIndex()).toString());
 #endif
+  fileCfg.setIncludeFolders(
+        folderPatternListFromString(m_includeFoldersLineEdit->text(), true));
+  fileCfg.setExcludeFolders(
+        folderPatternListFromString(m_excludeFoldersLineEdit->text(), false));
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());

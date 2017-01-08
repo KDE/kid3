@@ -38,6 +38,10 @@ class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   Q_OBJECT
   /** filter of file names to be opened */
   Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter NOTIFY nameFilterChanged)
+  /** patterns for folders to include in file list */
+  Q_PROPERTY(QStringList includeFolders READ includeFolders WRITE setIncludeFolders NOTIFY includeFoldersChanged)
+  /** patterns for folders to exclude in file list */
+  Q_PROPERTY(QStringList excludeFolders READ excludeFolders WRITE setExcludeFolders NOTIFY excludeFoldersChanged)
   /** filename format */
   Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
   /** index of filename format selected */
@@ -95,6 +99,18 @@ public:
 
   /** Set filter of file names to be opened. */
   void setNameFilter(const QString& nameFilter);
+
+  /** Get patterns for folders to include in file list. */
+  QStringList includeFolders() const { return m_includeFolders; }
+
+  /** Set patterns for folders to include in file list. */
+  void setIncludeFolders(const QStringList& includeFolders);
+
+  /** Get patterns for folders to exclude in file list. */
+  QStringList excludeFolders() const { return m_excludeFolders; }
+
+  /** Set patterns for folders to exclude in file list. */
+  void setExcludeFolders(const QStringList& excludeFolders);
 
   /** Get filename format. */
   QString toFilenameFormat() const { return m_formatText; }
@@ -180,6 +196,12 @@ signals:
   /** Emitted when @a nameFilter changed. */
   void nameFilterChanged(const QString& nameFilter);
 
+  /** Emitted when @a includeFolders changed. */
+  void includeFoldersChanged(const QStringList& includeFolders);
+
+  /** Emitted when @a excludeFolders changed. */
+  void excludeFoldersChanged(const QStringList& excludeFolders);
+
   /** Emitted when @a formatText changed. */
   void toFilenameFormatChanged(const QString& toFilenameFormat);
 
@@ -220,6 +242,8 @@ private:
   friend FileConfig& StoredConfig<FileConfig>::instance();
 
   QString m_nameFilter;
+  QStringList m_includeFolders;
+  QStringList m_excludeFolders;
   QString m_formatText;
   int m_formatItem;
   QStringList m_formatItems;

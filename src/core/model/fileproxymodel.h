@@ -92,6 +92,13 @@ public:
   virtual void setSourceModel(QAbstractItemModel* sourceModel);
 
   /**
+   * Check if more data is available.
+   * @param parent parent index of items to fetch
+   * @return true if more data available.
+   */
+  virtual bool canFetchMore(const QModelIndex& parent) const;
+
+  /**
    * Fetches any available data.
    * @param parent parent index of items to fetch
    */
@@ -150,6 +157,14 @@ public:
    * Make filter changes active after adding indexes to be filtered out.
    */
   void applyFilteringOutIndexes();
+
+  /**
+   * Set filters for included and excluded folders.
+   * @param includeFolders wildcard expressions for folders to be included
+   * @param excludeFolders wildcard expressions for folders to be excluded
+   */
+  void setFolderFilters(const QStringList& includeFolders,
+                        const QStringList& excludeFolders);
 
   /**
    * Get file information of model index.
@@ -439,8 +454,17 @@ private:
    */
   void initTaggedFileData(const QModelIndex& index);
 
+  /**
+   * Check if a directory path passes the folder filters.
+   * @param dirPath absolute path to directory
+   * @return true if path passes filters.
+   */
+  bool passesFolderFilters(const QString& dirPath) const;
+
   QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;
+  QList<QRegExp> m_includeFolderFilters;
+  QList<QRegExp> m_excludeFolderFilters;
   TaggedFileIconProvider* m_iconProvider;
   QFileSystemModel* m_fsModel;
   QTimer* m_loadTimer;

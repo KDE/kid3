@@ -103,6 +103,8 @@ void FileConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
   config->setValue(QLatin1String("NameFilter"), QVariant(m_nameFilter));
+  config->setValue(QLatin1String("IncludeFolders"), QVariant(m_includeFolders));
+  config->setValue(QLatin1String("ExcludeFolders"), QVariant(m_excludeFolders));
   config->setValue(QLatin1String("FormatItem"), QVariant(m_formatItem));
   config->setValue(QLatin1String("FormatItems"), QVariant(m_formatItems));
   config->setValue(QLatin1String("FormatText"), QVariant(m_formatText));
@@ -128,6 +130,10 @@ void FileConfig::readFromConfig(ISettings* config)
   config->beginGroup(m_group);
   m_nameFilter =
       config->value(QLatin1String("NameFilter"), QLatin1String("")).toString();
+  m_includeFolders =
+      config->value(QLatin1String("IncludeFolders"), m_includeFolders).toStringList();
+  m_excludeFolders =
+      config->value(QLatin1String("ExcludeFolders"), m_excludeFolders).toStringList();
   m_formatItem =
       config->value(QLatin1String("FormatItem"), 0).toInt();
   m_formatItems =
@@ -177,6 +183,22 @@ void FileConfig::setNameFilter(const QString& nameFilter)
   if (m_nameFilter != nameFilter) {
     m_nameFilter = nameFilter;
     emit nameFilterChanged(m_nameFilter);
+  }
+}
+
+void FileConfig::setIncludeFolders(const QStringList& includeFolders)
+{
+  if (m_includeFolders != includeFolders) {
+    m_includeFolders = includeFolders;
+    emit includeFoldersChanged(m_includeFolders);
+  }
+}
+
+void FileConfig::setExcludeFolders(const QStringList& excludeFolders)
+{
+  if (m_excludeFolders != excludeFolders) {
+    m_excludeFolders = excludeFolders;
+    emit excludeFoldersChanged(m_excludeFolders);
   }
 }
 

@@ -383,6 +383,19 @@ void FileProxyModel::onStartLoading()
 }
 
 /**
+ * Check if more data is available.
+ * @param parent parent index of items to fetch
+ * @return true if more data available.
+ */
+bool FileProxyModel::canFetchMore(const QModelIndex& parent) const
+{
+  if (!passesFolderFilters(filePath(parent)))
+    return false;
+
+  return QSortFilterProxyModel::canFetchMore(parent);
+}
+
+/**
  * Fetches any available data.
  * @param parent parent index of items to fetch
  */
@@ -466,6 +479,77 @@ bool FileProxyModel::isFilteringOutIndexes() const
 void FileProxyModel::applyFilteringOutIndexes()
 {
   invalidateFilter();
+}
+
+/**
+ * Set filters for included and excluded folders.
+ * @param includeFolders wildcard expressions for folders to be included
+ * @param excludeFolders wildcard expressions for folders to be excluded
+ */
+void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
+                                      const QStringList& excludeFolders)
+{
+  QList<QRegExp> oldIncludeFolderFilters, oldExcludeFolderFilters;
+#if QT_VERSION >= 0x040800
+  m_includeFolderFilters.swap(oldIncludeFolderFilters);
+  m_excludeFolderFilters.swap(oldExcludeFolderFilters);
+#else
+  oldIncludeFolderFilters = m_includeFolderFilters;
+  m_includeFolderFilters.clear();
+  oldExcludeFolderFilters = m_excludeFolderFilters;
+  m_excludeFolderFilters.clear();
+#endif
+  foreach (QString filter, includeFolders) {
+    filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+    m_includeFolderFilters.append(
+          QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
+  }
+
+  foreach (QString filter, excludeFolders) {
+    filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+    m_excludeFolderFilters.append(
+          QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
+  }
+
+  if (m_includeFolderFilters != oldIncludeFolderFilters ||
+      m_excludeFolderFilters != oldExcludeFolderFilters) {
+    invalidateFilter();
+  }
+}
+
+/**
+ * Check if a directory path passes the folder filters.
+ * @param dirPath absolute path to directory
+ * @return true if path passes filters.
+ */
+bool FileProxyModel::passesFolderFilters(const QString& dirPath) const
+{
+  if (!m_includeFolderFilters.isEmpty()) {
+    bool included = false;
+    for (QList<QRegExp>::const_iterator it = m_includeFolderFilters.constBegin();
+         it != m_includeFolderFilters.constEnd();
+         ++it) {
+      if (it->exactMatch(dirPath)) {
+        included = true;
+        break;
+      }
+    }
+    if (!included) {
+      return false;
+    }
+  }
+
+  if (!m_excludeFolderFilters.isEmpty()) {
+    for (QList<QRegExp>::const_iterator it = m_excludeFolderFilters.constBegin();
+         it != m_excludeFolderFilters.constEnd();
+         ++it) {
+      if (it->exactMatch(dirPath)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 /**

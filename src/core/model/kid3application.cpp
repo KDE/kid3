@@ -616,11 +616,12 @@ ISettings* Kid3Application::getSettings() const
 void Kid3Application::applyChangedConfiguration()
 {
   saveConfig();
+  const FileConfig& fileCfg = FileConfig::instance();
   FOR_ALL_TAGS(tagNr) {
     if (!TagConfig::instance().markTruncations()) {
       m_framesModel[tagNr]->markRows(0);
     }
-    if (!FileConfig::instance().markChanges()) {
+    if (!fileCfg.markChanges()) {
       m_framesModel[tagNr]->markChangedFrames(0);
     }
     m_genreModel[tagNr]->init();
@@ -634,9 +635,11 @@ void Kid3Application::applyChangedConfiguration()
   }
 
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                            FileConfig::instance().nameFilter()).
+                            fileCfg.nameFilter()).
                           split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
+  m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
+                                     fileCfg.excludeFolders());
 }
 
 /**
@@ -734,10 +737,13 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   QModelIndex rootIndex;
   QModelIndexList fileIndexes;
   if (ok) {
+    const FileConfig& fileCfg = FileConfig::instance();
     QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                              FileConfig::instance().nameFilter()).
+                              fileCfg.nameFilter()).
                             split(QLatin1Char(' ')));
     m_fileProxyModel->setNameFilters(nameFilters);
+    m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
+                                       fileCfg.excludeFolders());
     m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
     rootIndex = m_fileSystemModel->setRootPath(dir);
     foreach (const QString& filePath, filePaths) {

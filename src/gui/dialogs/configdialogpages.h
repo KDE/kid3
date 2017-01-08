@@ -136,6 +136,10 @@ private:
   QLineEdit* m_coverFileNameLineEdit;
   /** File list name filter combo box */
   QComboBox* m_nameFilterComboBox;
+  /** Include folders lineedit */
+  QLineEdit* m_includeFoldersLineEdit;
+  /** Exclude folders lineedit */
+  QLineEdit* m_excludeFoldersLineEdit;
   /** File text encoding combo box */
   QComboBox* m_fileTextEncodingComboBox;
   /** Mark truncated fields checkbox */
