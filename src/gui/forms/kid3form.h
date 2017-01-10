@@ -196,6 +196,12 @@ public:
   FileList* getFileList() { return m_fileListBox; }
 
   /**
+   * Get directory list.
+   * @return directory list.
+   */
+  ConfigurableTreeView* getDirList() { return m_dirListBox; }
+
+  /**
    * Get frame table.
    * @param tagNr tag number
    * @return frame table.

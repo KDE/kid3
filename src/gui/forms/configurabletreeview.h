@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -67,6 +67,18 @@ public:
    */
   void getSortByColumn(int& column, Qt::SortOrder& order) const;
 
+  /**
+   * Temporarily disconnect the model to improve performance.
+   * The old model state is preserved and will be restored by reconnectModel().
+   */
+  void disconnectModel();
+
+  /**
+   * Reconnect to the model.
+   * The state before the call to disconnectModel() is restored.
+   */
+  void reconnectModel();
+
 private slots:
   /**
    * Show context menu for header.
@@ -82,6 +94,11 @@ private slots:
 
 private:
   quint32 m_columnVisibility;
+
+  /** State stored by disconnectModel() and restored by reconnectModel() */
+  QAbstractItemModel* m_oldModel;
+  QItemSelectionModel* m_oldSelectionModel;
+  QPersistentModelIndex m_oldRootIndex;
 };
 
 #endif // CONFIGURABLETREEVIEW_H

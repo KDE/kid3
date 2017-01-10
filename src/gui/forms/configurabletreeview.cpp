@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@
  * @param parent parent widget
  */
 ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
-  m_columnVisibility(0xffffffff)
+  m_columnVisibility(0xffffffff), m_oldModel(0), m_oldSelectionModel(0)
 {
   QHeaderView* headerView = header();
   setSortingEnabled(true);
@@ -152,4 +152,36 @@ void ConfigurableTreeView::getSortByColumn(int& column,
   const QHeaderView* headerView = header();
   column = headerView->sortIndicatorSection();
   order = headerView->sortIndicatorOrder();
+}
+
+/**
+ * Temporarily disconnect the model to improve performance.
+ * The old model state is preserved and will be restored by reconnectModel().
+ */
+void ConfigurableTreeView::disconnectModel()
+{
+  if (!m_oldModel) {
+    m_oldRootIndex = rootIndex();
+    m_oldSelectionModel = selectionModel();
+    m_oldModel = model();
+    setModel(0);
+  }
+}
+
+
+/**
+ * Reconnect to the model.
+ * The state before the call to disconnectModel() is restored.
+ */
+void ConfigurableTreeView::reconnectModel()
+{
+  if (m_oldModel) {
+    setModel(m_oldModel);
+    setSelectionModel(m_oldSelectionModel);
+    setRootIndex(QModelIndex());
+    setRootIndex(m_oldRootIndex);
+    m_oldRootIndex = QPersistentModelIndex();
+    m_oldSelectionModel = 0;
+    m_oldModel = 0;
+  }
 }

@@ -1246,6 +1246,8 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
       m_progressDialog->setMaximum(0);
       m_progressDialog->setAutoClose(true);
       m_progressDialog->show();
+      m_form->getFileList()->disconnectModel();
+      m_form->getDirList()->disconnectModel();
     }
     if (m_progressDialog && m_progressDialog->wasCanceled()) {
       terminated = true;
@@ -1258,6 +1260,9 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
                this, SLOT(expandNextDirectory(QPersistentModelIndex)));
     if (m_progressDialog) {
       m_progressDialog->reset();
+      m_form->getDirList()->reconnectModel();
+      m_form->getFileList()->reconnectModel();
+      m_form->getFileList()->expandAll();
     }
     if (m_expandNotificationNeeded) {
       m_expandNotificationNeeded = false;
