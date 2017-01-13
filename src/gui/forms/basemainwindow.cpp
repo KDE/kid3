@@ -1253,8 +1253,13 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
         m_form->getDirList()->disconnectModel();
       }
     }
-    if (m_progressDialog && m_progressDialog->wasCanceled()) {
-      terminated = true;
+    if (m_progressDialog) {
+      int done = m_app->getFileProxyModelIterator()->getWorkDone();
+      int total = m_app->getFileProxyModelIterator()->getWorkToDo() + done;
+      m_progressDialog->setValueAndMaximum(done, total);
+      if (m_progressDialog->wasCanceled()) {
+        terminated = true;
+      }
     }
   }
   if (terminated) {
@@ -1263,8 +1268,8 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
                SIGNAL(nextReady(QPersistentModelIndex)),
                this, SLOT(expandNextDirectory(QPersistentModelIndex)));
     if (m_progressDialog) {
-      m_progressDialog->reset();
       m_form->removeLeftSideWidget(m_progressDialog);
+      m_progressDialog->reset();
       if (!m_expandOnlySubtree) {
         m_form->getDirList()->reconnectModel();
         m_form->getFileList()->reconnectModel();

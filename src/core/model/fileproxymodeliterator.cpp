@@ -52,7 +52,7 @@ public:
  * @param model file proxy model
  */
 FileProxyModelIterator::FileProxyModelIterator(FileProxyModel* model) :
-  QObject(model), m_model(model), m_aborted(false)
+  QObject(model), m_model(model), m_numDone(0), m_aborted(false)
 {
 }
 
@@ -99,6 +99,7 @@ void FileProxyModelIterator::start(const QPersistentModelIndex& rootIdx)
   m_nodes.clear();
   m_rootIndexes.clear();
   m_rootIndexes.append(rootIdx);
+  m_numDone = 0;
   m_aborted = false;
   fetchNext();
 }
@@ -112,6 +113,7 @@ void FileProxyModelIterator::start(const QList<QPersistentModelIndex>& indexes)
 {
   m_nodes.clear();
   m_rootIndexes = indexes;
+  m_numDone = 0;
   m_aborted = false;
   fetchNext();
 }
@@ -144,6 +146,7 @@ void FileProxyModelIterator::fetchNext()
         return;
       }
       m_nodes.pop();
+      ++m_numDone;
       QStack<QPersistentModelIndex> childNodes;
       for (int row = m_model->rowCount(m_nextIdx) - 1; row >= 0; --row) {
         childNodes.push(m_model->index(row, 0, m_nextIdx));

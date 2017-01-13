@@ -93,6 +93,18 @@ public:
    */
   void start(const QList<QPersistentModelIndex>& indexes);
 
+  /**
+   * Get amount of work to do.
+   * @return number of nodes which have to be processed.
+   */
+  int getWorkToDo() const { return m_nodes.size() + m_rootIndexes.size(); }
+
+  /**
+   * Get amount of work done.
+   * @return number of nodes which have been processed.
+   */
+  int getWorkDone() const { return m_numDone; }
+
 signals:
   /**
    * Signaled when the next file node is ready to be processed.
@@ -117,6 +129,7 @@ private:
   QStack<QPersistentModelIndex> m_nodes;
   FileProxyModel* m_model;
   QPersistentModelIndex m_nextIdx;
+  int m_numDone;
   bool m_aborted;
 };
 
