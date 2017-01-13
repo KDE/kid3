@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2014  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,6 +31,7 @@
 #include <QSpinBox>
 #include <QLayout>
 #include <QToolTip>
+#include <QStackedWidget>
 #include <QSplitter>
 #include <QDir>
 #include <QFrame>
@@ -181,7 +182,9 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   setAcceptDrops(true);
   setWindowTitle(tr("Kid3"));
 
-  m_vSplitter = new QSplitter(Qt::Vertical, this);
+  m_leftSideWidget = new QStackedWidget(this);
+  m_vSplitter = new QSplitter(Qt::Vertical);
+  m_leftSideWidget->addWidget(m_vSplitter);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   FileProxyModel* fileProxyModel = m_app->getFileProxyModel();
   int iconHeight = (((fontMetrics().height() - 1) / 16) + 1) * 16;
@@ -994,4 +997,26 @@ void Kid3Form::setDirRootIndex(const QModelIndex& index)
   if (index.isValid()) {
     m_dirListBox->setRootIndex(index);
   }
+}
+
+/**
+ * Set a widget to be displayed at the left side instead of the file lists.
+ * @param widget widget to be shown at the left side
+ */
+void Kid3Form::setLeftSideWidget(QWidget* widget)
+{
+  int idx = m_leftSideWidget->addWidget(widget);
+  m_leftSideWidget->setCurrentIndex(idx);
+}
+
+/**
+ * Remove widget set with setLeftSideWidget().
+ *
+ * The widget will not be deleted.
+ *
+ * @param widget widget to be removed
+ */
+void Kid3Form::removeLeftSideWidget(QWidget* widget)
+{
+  m_leftSideWidget->removeWidget(widget);
 }

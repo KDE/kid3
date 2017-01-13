@@ -16,6 +16,7 @@ set(widgets_SRCS
   widgets/chaptereditor.cpp
   widgets/tableofcontentseditor.cpp
   widgets/subframeseditor.cpp
+  widgets/progresswidget.cpp
 )
 
 set(widgets_MOC_HDRS
@@ -32,4 +33,5 @@ set(widgets_MOC_HDRS
   widgets/chaptereditor.h
   widgets/tableofcontentseditor.h
   widgets/subframeseditor.h
+  widgets/progresswidget.h
 )

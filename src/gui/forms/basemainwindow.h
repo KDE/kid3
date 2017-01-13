@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@
 #include "trackdata.h"
 #include "kid3api.h"
 
-class QProgressDialog;
+class ProgressWidget;
 class Kid3Form;
 class Kid3Application;
 class TaggedFile;
@@ -473,7 +473,7 @@ private:
   /** Playlist dialog */
   PlaylistDialog* m_playlistDialog;
   /** Progress dialog */
-  QProgressDialog* m_progressDialog;
+  ProgressWidget* m_progressDialog;
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -484,6 +484,7 @@ private:
   TaggedFile* m_editFrameTaggedFile;
   Frame::TagNumber m_editFrameTagNr;
   QDateTime m_expandFileListStartTime;
+  bool m_expandOnlySubtree;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;
 };

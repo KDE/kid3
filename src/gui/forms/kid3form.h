@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,6 +41,7 @@ class QGridLayout;
 class QGroupBox;
 class QPixmap;
 class QComboBox;
+class QStackedWidget;
 class FormatConfig;
 class FrameTable;
 class FrameTableModel;
@@ -208,6 +209,21 @@ public:
    */
   FrameTable* frameTable(Frame::TagNumber tagNr) { return m_frameTable[tagNr]; }
 
+  /**
+   * Set a widget to be displayed at the left side instead of the file lists.
+   * @param widget widget to be shown at the left side
+   */
+  void setLeftSideWidget(QWidget* widget);
+
+  /**
+   * Remove widget set with setLeftSideWidget().
+   *
+   * The widget will not be deleted.
+   *
+   * @param widget widget to be removed
+   */
+  void removeLeftSideWidget(QWidget* widget);
+
 public slots:
   /**
    * Filename line edit is changed.
@@ -366,6 +382,7 @@ private:
   ConfigurableTreeView* m_dirListBox;
   Kid3FormTagContext* m_tagContext[Frame::Tag_NumValues];
   FrameTable* m_frameTable[Frame::Tag_NumValues];
+  QStackedWidget* m_leftSideWidget;
   QSplitter* m_vSplitter;
   QWidget* m_fileWidget;
   QWidget* m_tagWidget[Frame::Tag_NumValues];
