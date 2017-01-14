@@ -365,6 +365,13 @@ private slots:
   void expandNextDirectory(const QPersistentModelIndex& index);
 
   /**
+   * Show filter operation progress.
+   * @param type filter event type
+   * @param fileName name of file processed
+   */
+  void filterProgress(int type, const QString& fileName);
+
+  /**
    * Set tagged files of directory from imported track data model.
    */
   void applyImportedTrackData();
@@ -450,6 +457,11 @@ private:
   void terminateExpandFileList();
 
   /**
+   * Terminate filtering the file list.
+   */
+  void terminateFilter();
+
+  /**
    * Start monitoring the progress of a possibly long operation.
    *
    * If the operation takes longer than 3 seconds, a progress widget is shown.
@@ -476,8 +488,9 @@ private:
    *
    * @param done amount of work done
    * @param total total amount of work
+   * @param text text for progress label
    */
-  void checkProgressMonitoring(int done, int total);
+  void checkProgressMonitoring(int done, int total, const QString& text);
 
   IPlatformTools* m_platformTools;
   QMainWindow* m_w;
@@ -521,6 +534,8 @@ private:
   QDateTime m_progressStartTime;
   QString m_progressTitle;
   void (BaseMainWindowImpl::*m_progressTerminationHandler)();
+  int m_filterPassed;
+  int m_filterTotal;
   bool m_progressDisconnected;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;

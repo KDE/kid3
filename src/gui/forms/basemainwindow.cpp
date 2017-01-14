@@ -106,7 +106,9 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_playToolBar(0),
 #endif
   m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
-  m_progressTerminationHandler(0), m_progressDisconnected(false),
+  m_progressTerminationHandler(0),
+  m_filterPassed(0), m_filterTotal(0),
+  m_progressDisconnected(false),
   m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
   m_downloadDialog->close();
@@ -819,11 +821,54 @@ void BaseMainWindowImpl::slotFilter()
               m_app, SLOT(applyFilter(FileFilter&)));
       connect(m_app, SIGNAL(fileFiltered(int,QString)),
               m_filterDialog, SLOT(showFilterEvent(int,QString)));
+      connect(m_app, SIGNAL(fileFiltered(int,QString)),
+              this, SLOT(filterProgress(int,QString)));
     }
     FilterConfig::instance().setFilenameFormat(
           FileConfig::instance().toFilenameFormat());
     m_filterDialog->readConfig();
     m_filterDialog->show();
+  }
+}
+
+/**
+ * Show filter operation progress.
+ * @param type filter event type
+ * @param fileName name of file processed
+ */
+void BaseMainWindowImpl::filterProgress(int type, const QString& fileName)
+{
+  Q_UNUSED(fileName)
+  switch (type) {
+  case FileFilter::Started:
+    m_filterPassed = 0;
+    m_filterTotal = 0;
+    startProgressMonitoring(tr("Filter"), &BaseMainWindowImpl::terminateFilter,
+                            true);
+    break;
+  case FileFilter::Finished:
+  case FileFilter::Aborted:
+    stopProgressMonitoring();
+    break;
+  case FileFilter::FilePassed:
+    ++m_filterPassed;
+    // fallthrough
+  case FileFilter::FileFilteredOut:
+    ++m_filterTotal;
+    // fallthrough
+  default:
+    checkProgressMonitoring(0, 0, QString::number(m_filterPassed) +
+                            QLatin1Char('/') + QString::number(m_filterTotal));
+  }
+}
+
+/**
+ * Terminate filtering the file list.
+ */
+void BaseMainWindowImpl::terminateFilter()
+{
+  if (m_filterDialog) {
+    m_filterDialog->abort();
   }
 }
 
@@ -1238,7 +1283,7 @@ void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
     }
     int done = m_app->getFileProxyModelIterator()->getWorkDone();
     int total = m_app->getFileProxyModelIterator()->getWorkToDo() + done;
-    checkProgressMonitoring(done, total);
+    checkProgressMonitoring(done, total, QString());
   } else {
     stopProgressMonitoring();
   }
@@ -1313,8 +1358,10 @@ void BaseMainWindowImpl::stopProgressMonitoring()
  *
  * @param done amount of work done
  * @param total total amount of work
+ * @param text text for progress label
  */
-void BaseMainWindowImpl::checkProgressMonitoring(int done, int total)
+void BaseMainWindowImpl::checkProgressMonitoring(int done, int total,
+                                                 const QString& text)
 {
   if (m_progressStartTime.isValid() &&
       m_progressStartTime.secsTo(QDateTime::currentDateTime()) >= 3) {
@@ -1336,6 +1383,7 @@ void BaseMainWindowImpl::checkProgressMonitoring(int done, int total)
   }
   if (m_progressWidget) {
     m_progressWidget->setValueAndMaximum(done, total);
+    m_progressWidget->setLabelText(text);
     if (m_progressWidget->wasCanceled()) {
       stopProgressMonitoring();
     }

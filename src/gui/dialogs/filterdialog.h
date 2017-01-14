@@ -66,6 +66,11 @@ public:
    */
   void showInformation(const QString& text) { m_edit->append(text); }
 
+  /**
+   * Abort filter operation.
+   */
+  void abort() { m_fileFilter.abort(); }
+
 signals:
   /**
    * Is triggered when the selected @a filter has to be applied.
