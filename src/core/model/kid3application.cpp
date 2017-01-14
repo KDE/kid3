@@ -2372,15 +2372,21 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
 void Kid3Application::applyFilter(FileFilter& fileFilter)
 {
   m_fileProxyModel->disableFilteringOutIndexes();
+  const bool justClearingFilter =
+      fileFilter.isEmptyFilterExpression() && isFiltered();
   setFiltered(false);
   fileFilter.clearAborted();
   emit fileFiltered(FileFilter::Started, QString());
 
   m_fileFilter = &fileFilter;
   m_lastProcessedDirName.clear();
-  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-          this, SLOT(filterNextFile(QPersistentModelIndex)));
-  m_fileProxyModelIterator->start(m_fileProxyModelRootIndex);
+  if (!justClearingFilter) {
+    connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+            this, SLOT(filterNextFile(QPersistentModelIndex)));
+    m_fileProxyModelIterator->start(m_fileProxyModelRootIndex);
+  } else {
+    emit fileFiltered(FileFilter::Finished, QString());
+  }
 }
 
 /**
