@@ -26,6 +26,7 @@
 
 #include "filterdialog.h"
 #include <QLayout>
+#include <QGroupBox>
 #include <QPushButton>
 #include <QLabel>
 #include <QSpinBox>
@@ -49,11 +50,16 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  m_edit = new QTextEdit(this);
+  m_previewBox = new QGroupBox(tr("&Preview"));
+  m_previewBox->setCheckable(true);
+  m_previewBox->setChecked(false);
+  QVBoxLayout* previewLayout = new QVBoxLayout(m_previewBox);
+  m_edit = new QTextEdit;
   m_edit->setReadOnly(true);
   m_edit->setTabStopWidth(20);
   m_edit->setAcceptRichText(false);
-  vlayout->addWidget(m_edit);
+  previewLayout->addWidget(m_edit);
+  vlayout->addWidget(m_previewBox);
 
   m_formatListEdit = new FormatListEdit(
         QStringList() << tr("&Filter:")
@@ -111,6 +117,9 @@ void FilterDialog::applyOrAbortFilter()
     m_fileFilter.setFilterExpression(m_formatListEdit->getCurrentFormat(1));
     m_fileFilter.initParser();
     emit apply(m_fileFilter);
+    if (!m_previewBox->isChecked()) {
+      accept();
+    }
   }
 }
 
@@ -170,6 +179,9 @@ void FilterDialog::showHelp()
  * Show information about filter event.
  */
 void FilterDialog::showFilterEvent(int type, const QString& fileName) {
+  if (!m_previewBox->isChecked())
+    return;
+
   switch (type) {
   case FileFilter::Started:
     m_edit->append(tr("Started"));

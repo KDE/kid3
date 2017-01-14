@@ -31,6 +31,7 @@
 #include <QTextEdit>
 #include "filefilter.h"
 
+class QGroupBox;
 class QPushButton;
 class FormatListEdit;
 
@@ -108,6 +109,8 @@ private:
    */
   void setAbortButton(bool enableAbort);
 
+  /** Preview group box */
+  QGroupBox* m_previewBox;
   /** Text editor */
   QTextEdit* m_edit;
   /** format editor */
