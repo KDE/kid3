@@ -444,6 +444,41 @@ private:
    */
   bool writePlaylist(const PlaylistConfig& cfg);
 
+  /**
+   * Terminate expanding the file list.
+   */
+  void terminateExpandFileList();
+
+  /**
+   * Start monitoring the progress of a possibly long operation.
+   *
+   * If the operation takes longer than 3 seconds, a progress widget is shown.
+   *
+   * @param title title to be displayed in progress widget
+   * @param terminationHandler method to be called to terminate operation
+   * @param disconnectModel true to disconnect the file list models while the
+   * progress widget is shown
+   */
+  void startProgressMonitoring(const QString& title, void (BaseMainWindowImpl::*terminationHandler)(), bool disconnectModel);
+
+  /**
+   * Stop monitoring the progress started with startProgressMonitoring().
+   */
+  void stopProgressMonitoring();
+
+  /**
+   * Check progress of a possibly long operation.
+   *
+   * Progress monitoring is started with startProgressMonitoring(). This method
+   * will check if the opeation is running long enough to show a progress widget
+   * and update the progress information. It will call stopProgressMonitoring()
+   * when the operation is aborted.
+   *
+   * @param done amount of work done
+   * @param total total amount of work
+   */
+  void checkProgressMonitoring(int done, int total);
+
   IPlatformTools* m_platformTools;
   QMainWindow* m_w;
   BaseMainWindow* m_self;
@@ -473,7 +508,7 @@ private:
   /** Playlist dialog */
   PlaylistDialog* m_playlistDialog;
   /** Progress dialog */
-  ProgressWidget* m_progressDialog;
+  ProgressWidget* m_progressWidget;
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -483,8 +518,10 @@ private:
   Frame m_editFrame;
   TaggedFile* m_editFrameTaggedFile;
   Frame::TagNumber m_editFrameTagNr;
-  QDateTime m_expandFileListStartTime;
-  bool m_expandOnlySubtree;
+  QDateTime m_progressStartTime;
+  QString m_progressTitle;
+  void (BaseMainWindowImpl::*m_progressTerminationHandler)();
+  bool m_progressDisconnected;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;
 };

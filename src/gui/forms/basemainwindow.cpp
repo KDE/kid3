@@ -101,12 +101,12 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(0), m_progressDialog(0), m_editFrameDialog(0),
+  m_playlistDialog(0), m_progressWidget(0), m_editFrameDialog(0),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
 #endif
   m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
-  m_expandOnlySubtree(false),
+  m_progressTerminationHandler(0), m_progressDisconnected(false),
   m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
   m_downloadDialog->close();
@@ -1207,7 +1207,6 @@ void BaseMainWindowImpl::toggleExpanded(const QModelIndex& index)
 void BaseMainWindowImpl::expandFileList()
 {
   m_expandNotificationNeeded = sender() == m_app;
-  m_expandFileListStartTime = QDateTime::currentDateTime();
   connect(m_app->getFileProxyModelIterator(),
           SIGNAL(nextReady(QPersistentModelIndex)),
           this, SLOT(expandNextDirectory(QPersistentModelIndex)));
@@ -1216,9 +1215,12 @@ void BaseMainWindowImpl::expandFileList()
   QObject* emitter = sender();
   bool sentFromAction =
       emitter && emitter->metaObject() == &QAction::staticMetaObject;
-  m_expandOnlySubtree =
+  bool expandOnlySubtree =
       sentFromAction && QApplication::keyboardModifiers() == Qt::ShiftModifier;
-  m_app->getFileProxyModelIterator()->start(m_expandOnlySubtree
+  startProgressMonitoring(tr("Expand All"),
+                          &BaseMainWindowImpl::terminateExpandFileList,
+                          !expandOnlySubtree);
+  m_app->getFileProxyModelIterator()->start(expandOnlySubtree
         ? m_form->getFileList()->currentIndex()
         : m_form->getFileList()->rootIndex());
 }
@@ -1230,55 +1232,112 @@ void BaseMainWindowImpl::expandFileList()
  */
 void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
 {
-  bool terminated = !index.isValid();
-  if (!terminated) {
+  if (index.isValid()) {
     if (m_app->getFileProxyModel()->isDir(index)) {
       m_form->getFileList()->expand(index);
     }
-    if (m_expandFileListStartTime.isValid() &&
-        m_expandFileListStartTime.secsTo(QDateTime::currentDateTime()) >= 3) {
-      // Operation is taking some time, show dialog to abort it.
-      m_expandFileListStartTime = QDateTime();
-      if (!m_progressDialog) {
-        m_progressDialog = new ProgressWidget(m_w);
-      }
-      m_progressDialog->setWindowTitle(tr("Expand All"));
-      m_progressDialog->setLabelText(QString());
-      m_progressDialog->setCancelButtonText(tr("A&bort"));
-      m_progressDialog->setMinimum(0);
-      m_progressDialog->setMaximum(0);
-      m_form->setLeftSideWidget(m_progressDialog);
-      if (!m_expandOnlySubtree) {
-        m_form->getFileList()->disconnectModel();
-        m_form->getDirList()->disconnectModel();
-      }
-    }
-    if (m_progressDialog) {
-      int done = m_app->getFileProxyModelIterator()->getWorkDone();
-      int total = m_app->getFileProxyModelIterator()->getWorkToDo() + done;
-      m_progressDialog->setValueAndMaximum(done, total);
-      if (m_progressDialog->wasCanceled()) {
-        terminated = true;
-      }
+    int done = m_app->getFileProxyModelIterator()->getWorkDone();
+    int total = m_app->getFileProxyModelIterator()->getWorkToDo() + done;
+    checkProgressMonitoring(done, total);
+  } else {
+    stopProgressMonitoring();
+  }
+}
+
+/**
+ * Terminate expanding the file list.
+ */
+void BaseMainWindowImpl::terminateExpandFileList()
+{
+  m_app->getFileProxyModelIterator()->abort();
+  disconnect(m_app->getFileProxyModelIterator(),
+             SIGNAL(nextReady(QPersistentModelIndex)),
+             this, SLOT(expandNextDirectory(QPersistentModelIndex)));
+  if (m_expandNotificationNeeded) {
+    m_expandNotificationNeeded = false;
+    m_app->notifyExpandFileListFinished();
+  }
+}
+
+/**
+ * Start monitoring the progress of a possibly long operation.
+ *
+ * If the operation takes longer than 3 seconds, a progress widget is shown.
+ *
+ * @param title title to be displayed in progress widget
+ * @param terminationHandler method to be called to terminate operation
+ * @param disconnectModel true to disconnect the file list models while the
+ * progress widget is shown
+ */
+void BaseMainWindowImpl::startProgressMonitoring(const QString& title,
+                                                 void (BaseMainWindowImpl::*terminationHandler)(),
+                                                 bool disconnectModel)
+{
+  if (!m_progressTitle.isEmpty() && m_progressTitle != title) {
+    stopProgressMonitoring();
+  }
+  m_progressTitle = title;
+  m_progressTerminationHandler = terminationHandler;
+  m_progressDisconnected = disconnectModel;
+  m_progressStartTime = QDateTime::currentDateTime();
+}
+
+/**
+ * Start monitoring the progress started with startProgressMonitoring().
+ */
+void BaseMainWindowImpl::stopProgressMonitoring()
+{
+  if (m_progressWidget) {
+    m_form->removeLeftSideWidget(m_progressWidget);
+    m_progressWidget->reset();
+    if (m_progressDisconnected) {
+      m_form->getDirList()->reconnectModel();
+      m_form->getFileList()->reconnectModel();
+      m_form->getFileList()->expandAll();
     }
   }
-  if (terminated) {
-    m_app->getFileProxyModelIterator()->abort();
-    disconnect(m_app->getFileProxyModelIterator(),
-               SIGNAL(nextReady(QPersistentModelIndex)),
-               this, SLOT(expandNextDirectory(QPersistentModelIndex)));
-    if (m_progressDialog) {
-      m_form->removeLeftSideWidget(m_progressDialog);
-      m_progressDialog->reset();
-      if (!m_expandOnlySubtree) {
-        m_form->getDirList()->reconnectModel();
-        m_form->getFileList()->reconnectModel();
-        m_form->getFileList()->expandAll();
-      }
+  if (m_progressTerminationHandler) {
+    (this->*m_progressTerminationHandler)();
+  }
+  m_progressTitle.clear();
+  m_progressTerminationHandler = 0;
+}
+
+/**
+ * Check progress of a possibly long operation.
+ *
+ * Progress monitoring is started with startProgressMonitoring(). This method
+ * will check if the opeation is running long enough to show a progress widget
+ * and update the progress information. It will call stopProgressMonitoring()
+ * when the operation is aborted.
+ *
+ * @param done amount of work done
+ * @param total total amount of work
+ */
+void BaseMainWindowImpl::checkProgressMonitoring(int done, int total)
+{
+  if (m_progressStartTime.isValid() &&
+      m_progressStartTime.secsTo(QDateTime::currentDateTime()) >= 3) {
+    // Operation is taking some time, show dialog to abort it.
+    m_progressStartTime = QDateTime();
+    if (!m_progressWidget) {
+      m_progressWidget = new ProgressWidget(m_w);
     }
-    if (m_expandNotificationNeeded) {
-      m_expandNotificationNeeded = false;
-      m_app->notifyExpandFileListFinished();
+    m_progressWidget->setWindowTitle(m_progressTitle);
+    m_progressWidget->setLabelText(QString());
+    m_progressWidget->setCancelButtonText(tr("A&bort"));
+    m_progressWidget->setMinimum(0);
+    m_progressWidget->setMaximum(0);
+    m_form->setLeftSideWidget(m_progressWidget);
+    if (m_progressDisconnected) {
+      m_form->getFileList()->disconnectModel();
+      m_form->getDirList()->disconnectModel();
+    }
+  }
+  if (m_progressWidget) {
+    m_progressWidget->setValueAndMaximum(done, total);
+    if (m_progressWidget->wasCanceled()) {
+      stopProgressMonitoring();
     }
   }
 }
