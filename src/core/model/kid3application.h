@@ -1396,6 +1396,8 @@ private:
 
   /** true if list is filtered */
   bool m_filtered;
+  /** true if a selection operation is running */
+  bool m_selectionOperationRunning;
 
   /** Fallback for path to search for plugins */
   static QString s_pluginsPathFallback;

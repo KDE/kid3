@@ -35,6 +35,7 @@
 #include <QClipboard>
 #include <QPluginLoader>
 #include <QAction>
+#include <QElapsedTimer>
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
 #include <CoreFoundation/CFUrl.h>
 #endif
@@ -208,7 +209,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
   m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
-  m_filtered(false)
+  m_filtered(false), m_selectionOperationRunning(false)
 {
   const TagConfig& tagCfg = TagConfig::instance();
   FOR_ALL_TAGS(tagNr) {
@@ -918,16 +919,45 @@ void Kid3Application::frameModelsToTags()
  */
 void Kid3Application::tagsToFrameModels()
 {
+  // It would crash if this is called while a long running selection operation
+  // is in progress.
+  if (m_selectionOperationRunning)
+    return;
+
+  m_selectionOperationRunning = true;
   updateCurrentSelection();
 
   m_selection->beginAddTaggedFiles();
+  QElapsedTimer timer;
+  timer.start();
+  QString operationName = tr("Selection");
+  int longRunningTotal = 0;
+  int done = 0;
+  bool aborted = false;
   for (QList<QPersistentModelIndex>::const_iterator it =
        m_currentSelection.begin();
        it != m_currentSelection.end();
-       ++it) {
+       ++it, ++done) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
       m_selection->addTaggedFile(taggedFile);
+      if (!longRunningTotal) {
+        if (timer.elapsed() >= 3000) {
+          longRunningTotal = m_currentSelection.size();
+          emit longRunningOperationProgress(operationName, -1, longRunningTotal,
+                                            &aborted);
+        }
+      } else {
+        emit longRunningOperationProgress(operationName, done, longRunningTotal,
+                                          &aborted);
+        if (aborted) {
+          break;
+        }
+      }
     }
+  }
+  if (longRunningTotal) {
+    emit longRunningOperationProgress(operationName, longRunningTotal,
+                                      longRunningTotal, &aborted);
   }
   m_selection->endAddTaggedFiles();
 
@@ -937,6 +967,7 @@ void Kid3Application::tagsToFrameModels()
     }
   }
   m_selection->clearUnusedFrames();
+  m_selectionOperationRunning = false;
 }
 
 /**
