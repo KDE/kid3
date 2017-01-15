@@ -34,6 +34,8 @@
 #include "trackdata.h"
 #include "kid3api.h"
 
+class QProgressBar;
+class QToolButton;
 class ProgressWidget;
 class Kid3Form;
 class Kid3Application;
@@ -403,6 +405,16 @@ private slots:
    */
   void updateReplacedText();
 
+  /**
+   * Show progress of long running operation in status bar.
+   * @param name name of operation
+   * @param done amount of work done
+   * @param total total amount of work
+   * @param abort if not 0, can be set to true to abort operation
+   */
+  void showOperationProgress(const QString& name, int done, int total,
+                             bool* abort);
+
 private:
   /**
    * Free allocated resources.
@@ -522,6 +534,8 @@ private:
   PlaylistDialog* m_playlistDialog;
   /** Progress dialog */
   ProgressWidget* m_progressWidget;
+  QProgressBar* m_progressBar;
+  QToolButton* m_progressAbortButton;
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000

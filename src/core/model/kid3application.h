@@ -373,7 +373,7 @@ public:
 
   /**
    * Save all changed files.
-   * saveStarted() and saveProgress() are emitted while saving files.
+   * longRunningOperationProgress() is emitted while saving files.
    *
    * @return list of files with error, empty if ok.
    */
@@ -1108,18 +1108,6 @@ signals:
   void confirmedOpenDirectoryRequested(const QStringList& paths);
 
   /**
-   * Emitted when saving files is started.
-   * @param totalFiles total number of files to be saved
-   */
-  void saveStarted(int totalFiles);
-
-  /**
-   * Emitted when a file has bee saved.
-   * @param numFiles number of files saved
-   */
-  void saveProgress(int numFiles);
-
-  /**
    * Emitted before an operation on the selected files is performed.
    * The GUI should update the files of the current selection when
    * receiving this signal.
@@ -1216,6 +1204,22 @@ signals:
    * Emitted when the frame editor is changed.
    */
   void frameEditorChanged();
+
+  /**
+   * Emitted to report progress about a long running operation.
+   *
+   * This signal is used to report different states of a long running operation.
+   * - Operation is started: done is -1,
+   * - Operation is finished: done == total and total is not 0,
+   * - Operation in progress: done < total or both done and total are 0
+   *
+   * @param name name of operation
+   * @param done amount of work done
+   * @param total total amount of work
+   * @param abort if not 0, can be set to true to abort the operation
+   */
+  void longRunningOperationProgress(const QString& name, int done, int total,
+                                    bool* abort);
 
 private slots:
   /**

@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QProgressBar>
+#include <QToolButton>
 #include <QCloseEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -100,7 +101,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(0), m_progressWidget(0), m_editFrameDialog(0),
+  m_playlistDialog(0), m_progressWidget(0),
+  m_progressBar(0), m_progressAbortButton(0), m_editFrameDialog(0),
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
 #endif
@@ -145,6 +147,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateWindowCaption()));
   connect(m_app, SIGNAL(filteredChanged(bool)),
           this, SLOT(updateWindowCaption()));
+  connect(m_app, SIGNAL(longRunningOperationProgress(QString,int,int,bool*)),
+          this, SLOT(showOperationProgress(QString,int,int,bool*)));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
@@ -234,6 +238,62 @@ void BaseMainWindowImpl::readOptions()
 }
 
 /**
+ * Show progress of long running operation in status bar.
+ * @param name name of operation
+ * @param done amount of work done
+ * @param total total amount of work
+ * @param abort if not 0, can be set to true to abort operation
+ */
+void BaseMainWindowImpl::showOperationProgress(const QString& name,
+                                               int done, int total, bool* abort)
+{
+  if (done == -1) {
+    // Operation started.
+    if (!m_progressBar) {
+      m_progressBar = new QProgressBar;
+    }
+    if (!m_progressAbortButton) {
+      m_progressAbortButton = new QToolButton;
+      m_progressAbortButton->setIcon(
+            QIcon(m_w->style()->standardIcon(QStyle::SP_BrowserStop)));
+      m_progressAbortButton->setToolTip(tr("Abort"));
+      m_progressAbortButton->setCheckable(true);
+    }
+    m_w->statusBar()->addPermanentWidget(m_progressBar);
+    m_w->statusBar()->addPermanentWidget(m_progressAbortButton);
+    m_progressBar->setMinimum(0);
+    m_progressBar->setMaximum(total);
+    m_progressBar->setValue(0);
+    m_progressAbortButton->setChecked(false);
+    slotStatusMsg(name);
+  } else if (done == total && total != 0) {
+    // Operation finished.
+    if (m_progressBar) {
+      m_w->statusBar()->removeWidget(m_progressBar);
+      delete m_progressBar;
+      m_progressBar = 0;
+    }
+    if (m_progressAbortButton) {
+      m_w->statusBar()->removeWidget(m_progressAbortButton);
+      delete m_progressAbortButton;
+      m_progressAbortButton = 0;
+    }
+    slotStatusMsg(tr("Ready."));
+  } else if (done < total || (done == 0 && total == 0)) {
+    // Operation progress.
+    if (m_progressBar) {
+      m_progressBar->setMaximum(total);
+      m_progressBar->setValue(done);
+      // Is needed to get abort button events.
+      qApp->processEvents();
+    }
+    if (m_progressAbortButton && m_progressAbortButton->isChecked() && abort) {
+      *abort = true;
+    }
+  }
+}
+
+/**
  * Save all changed files.
  *
  * @param updateGui true to update GUI (controls, status, cursor)
@@ -243,17 +303,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   if (updateGui) {
     updateCurrentSelection();
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-    slotStatusMsg(tr("Saving directory..."));
   }
-
-  QProgressBar* progress = new QProgressBar;
-  m_w->statusBar()->addPermanentWidget(progress);
-  progress->setMinimum(0);
-  connect(m_app, SIGNAL(saveStarted(int)),
-          progress, SLOT(setMaximum(int)));
-  connect(m_app, SIGNAL(saveProgress(int)),
-          progress, SLOT(setValue(int)));
-  qApp->processEvents();
 
 #ifdef Q_OS_WIN32
   // Close player on Windows because it holds file handles which prevent
@@ -268,8 +318,6 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
 
   QStringList errorFiles = m_app->saveDirectory();
 
-  m_w->statusBar()->removeWidget(progress);
-  delete progress;
   if (!errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
     foreach (const QString& filePath, errorFiles) {
@@ -311,7 +359,6 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   }
 
   if (updateGui) {
-    slotStatusMsg(tr("Ready."));
     QApplication::restoreOverrideCursor();
     updateGuiControls();
   }

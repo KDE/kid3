@@ -847,7 +847,7 @@ QModelIndex Kid3Application::currentOrRootIndex() const
 
 /**
  * Save all changed files.
- * saveStarted() and saveProgress() are emitted while saving files.
+ * longRunningOperationProgress() is emitted while saving files.
  *
  * @return list of files with error, empty if ok.
  */
@@ -862,7 +862,9 @@ QStringList Kid3Application::saveDirectory()
       ++totalFiles;
     }
   }
-  emit saveStarted(totalFiles);
+  QString operationName = tr("Saving directory...");
+  bool aborted = false;
+  emit longRunningOperationProgress(operationName, -1, totalFiles, &aborted);
 
   TaggedFileIterator it(m_fileProxyModelRootIndex);
   while (it.hasNext()) {
@@ -874,8 +876,18 @@ QStringList Kid3Application::saveDirectory()
       errorFiles.push_back(errorMsg);
     }
     ++numFiles;
-    emit saveProgress(numFiles);
+    emit longRunningOperationProgress(operationName, numFiles, totalFiles,
+                                      &aborted);
+    if (aborted) {
+      break;
+    }
   }
+  if (totalFiles == 0) {
+    // To signal that operation is finished.
+    ++totalFiles;
+  }
+  emit longRunningOperationProgress(operationName, totalFiles, totalFiles,
+                                    &aborted);
 
   return errorFiles;
 }
