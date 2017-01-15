@@ -361,7 +361,9 @@ public:
    * Get root index of opened directory in directory proxy model.
    * @return index of directory root.
    */
-  QModelIndex getDirRootIndex() const { return m_dirProxyModelRootIndex; }
+  QPersistentModelIndex getDirRootIndex() const {
+    return m_dirProxyModelRootIndex;
+  }
 
   /**
    * Get directory path of opened directory.
@@ -1348,7 +1350,7 @@ private:
   /** Root index in file proxy model */
   QPersistentModelIndex m_fileProxyModelRootIndex;
   /** Root index in directory proxy model */
-  QModelIndex m_dirProxyModelRootIndex;
+  QPersistentModelIndex m_dirProxyModelRootIndex;
   /** Indexes of opened file in file proxy model */
   QList<QPersistentModelIndex> m_fileProxyModelFileIndexes;
   /** Importers for different servers */
