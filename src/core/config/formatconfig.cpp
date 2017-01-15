@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -416,9 +416,7 @@ QStringList FormatConfig::getCaseConversionNames()
     QT_TRANSLATE_NOOP("@default", "All first letters uppercase")
   };
   QStringList strs;
-#if QT_VERSION >= 0x040700
   strs.reserve(NumCaseConversions);
-#endif
   for (int i = 0; i < NumCaseConversions; ++i) {
     strs.append(QCoreApplication::translate("@default", names[i]));
   }

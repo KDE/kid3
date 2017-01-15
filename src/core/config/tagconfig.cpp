@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -405,9 +405,7 @@ QStringList TagConfig::getTextEncodingNames()
     QT_TRANSLATE_NOOP("@default", "UTF8")
   };
   QStringList strs;
-#if QT_VERSION >= 0x040700
   strs.reserve(NUM_NAMES);
-#endif
   for (int i = 0; i < NUM_NAMES; ++i) {
     strs.append(QCoreApplication::translate("@default", names[i]));
   }

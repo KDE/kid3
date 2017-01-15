@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -328,9 +328,7 @@ void ShortcutsModel::discardChangedShortcuts()
  */
 void ShortcutsModel::clearShortcuts()
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
-#endif
   for (QList<ShortcutGroup>::iterator git = m_shortcutGroups.begin();
        git != m_shortcutGroups.end();
        ++git) {
@@ -340,11 +338,7 @@ void ShortcutsModel::clearShortcuts()
       iit->clearCustomShortcut();
     }
   }
-#if QT_VERSION >= 0x040600
   endResetModel();
-#else
-  reset();
-#endif
 }
 
 /**

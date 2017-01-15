@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Aug 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -130,18 +130,12 @@ int TextTableModel::columnCount(const QModelIndex& parent) const
  */
 bool TextTableModel::setText(const QString& text, bool hasHeaderLine)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
-#endif
   m_hasHeaderLine = hasHeaderLine;
   m_cells.clear();
   QStringList lines = text.split(QRegExp(QLatin1String("[\\r\\n]+")));
   if (lines.isEmpty() || lines.first().indexOf(QLatin1Char('\t')) == -1) {
-#if QT_VERSION >= 0x040600
     endResetModel();
-#else
-    reset();
-#endif
     return false;
   }
 
@@ -151,10 +145,6 @@ bool TextTableModel::setText(const QString& text, bool hasHeaderLine)
       break;
     m_cells.append(line.split(QLatin1Char('\t')));
   }
-#if QT_VERSION >= 0x040600
   endResetModel();
-#else
-  reset();
-#endif
   return true;
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2014  Urs Fleisch
+ * Copyright (C) 2011-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -327,28 +327,15 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
       m_isLoading = false;
       disconnect(m_fsModel, SIGNAL(rootPathChanged(QString)),
                  this, SLOT(onStartLoading()));
-#if QT_VERSION >= 0x040700
       disconnect(m_fsModel, SIGNAL(directoryLoaded(QString)),
                  this, SLOT(onDirectoryLoaded()));
-#else
-      disconnect(m_fsModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-                 this, SLOT(onDirectoryLoaded()));
-#endif
     }
     m_fsModel = fsModel;
     if (m_fsModel) {
       connect(m_fsModel, SIGNAL(rootPathChanged(QString)),
               this, SLOT(onStartLoading()));
-#if QT_VERSION >= 0x040700
       connect(m_fsModel, SIGNAL(directoryLoaded(QString)),
               this, SLOT(onDirectoryLoaded()));
-#else
-      // Qt < 4.7 does not have a directoryLoaded() signal, so
-      // rowsInserted() and a slow timeout for empty directories
-      // are used.
-      connect(m_fsModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-              this, SLOT(onDirectoryLoaded()));
-#endif
     }
   }
   QSortFilterProxyModel::setSourceModel(sourceModel);

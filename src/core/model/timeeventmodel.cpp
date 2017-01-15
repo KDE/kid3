@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -199,15 +199,9 @@ bool TimeEventModel::removeRows(int row, int count,
  */
 void TimeEventModel::setTimeEvents(const QList<TimeEvent>& events)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
-#endif
   m_timeEvents = events;
-#if QT_VERSION >= 0x040600
   endResetModel();
-#else
-  reset();
-#endif
 }
 
 /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2014  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -63,7 +63,6 @@
 #endif
 #include <QAction>
 #include "config.h"
-#include "qtcompatmac.h"
 #include "kid3form.h"
 #include "filelist.h"
 #include "kid3application.h"

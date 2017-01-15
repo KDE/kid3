@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -106,11 +106,7 @@ PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
     m_width = image.width();
     m_height = image.height();
     m_depth = image.depth();
-#if QT_VERSION >= 0x040600
     m_numColors = image.colorCount();
-#else
-    m_numColors = image.numColors();
-#endif
     m_imageHash = qHash(data);
   } else {
     m_width = 0;

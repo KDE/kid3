@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -198,14 +198,9 @@ QList<QHeaderView::ResizeMode>
  */
 void ConfigTableModel::setLabels(const QStringList& labels)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
   m_labels = labels;
   endResetModel();
-#else
-  m_labels = labels;
-  reset();
-#endif
 }
 
 /**
@@ -215,9 +210,7 @@ void ConfigTableModel::setLabels(const QStringList& labels)
  */
 void ConfigTableModel::setMap(const QMap<QString, QString>& map)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
-#endif
   m_keyValues.clear();
   for (QMap<QString, QString>::const_iterator it = map.constBegin();
       it != map.constEnd();
@@ -227,11 +220,7 @@ void ConfigTableModel::setMap(const QMap<QString, QString>& map)
   // make sure that at least one line is in the table
   if (m_keyValues.isEmpty())
     m_keyValues.append(qMakePair(QString(), QString()));
-#if QT_VERSION >= 0x040600
   endResetModel();
-#else
-  reset();
-#endif
 }
 
 /**

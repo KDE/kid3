@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,11 +33,7 @@
 
 
 /** Time when last request was sent to server */
-#if QT_VERSION >= 0x040700
 QMap<QString, QDateTime> HttpClient::s_lastRequestTime;
-#else
-QMap<QString, QTime> HttpClient::s_lastRequestTime;
-#endif
 /** Minimum interval between two requests to server in ms */
 QMap<QString, int> HttpClient::s_minimumRequestInterval;
 
@@ -170,13 +166,8 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
   QString host = url.host();
   qint64 msSinceLastRequest;
   int minimumRequestInterval;
-#if QT_VERSION >= 0x040700
   QDateTime now = QDateTime::currentDateTime();
   QDateTime lastRequestTime = s_lastRequestTime.value(host);
-#else
-  QTime now = QTime::currentTime();
-  QTime lastRequestTime = s_lastRequestTime.value(host);
-#endif
   if (lastRequestTime.isValid() &&
       (minimumRequestInterval = s_minimumRequestInterval.value(host)) > 0 &&
       (msSinceLastRequest = lastRequestTime.msecsTo(now)) <

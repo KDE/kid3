@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -462,11 +462,7 @@ QVariantMap ScriptUtils::imageProperties(const QVariant& var)
     map.insert(QLatin1String("width"), img.width());
     map.insert(QLatin1String("height"), img.height());
     map.insert(QLatin1String("depth"), img.depth());
-#if QT_VERSION >= 0x040600
     map.insert(QLatin1String("colorCount"), img.colorCount());
-#else
-    map.insert(QLatin1String("colorCount"), img.numColors());
-#endif
   }
   return map;
 }

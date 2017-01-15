@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Mar 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -105,12 +105,8 @@ void PlatformTools::displayHelp(const QString& anchor)
  */
 QIcon PlatformTools::iconFromTheme(const QString& name) const
 {
-#if QT_VERSION >= 0x040600
   return QIcon::fromTheme(name,
       QIcon(QLatin1String(":/images/") + name + QLatin1String(".png")));
-#else
-  return QIcon(QLatin1String(":/images/") + name + QLatin1String(".png"));
-#endif
 }
 
 /**

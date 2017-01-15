@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Sep 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -74,14 +74,9 @@ QModelIndex CheckableListModel::rootIndex() const
 void CheckableListModel::setRootIndex(const QModelIndex& rootIndex)
 {
   if (m_rootIndex != rootIndex) {
-#if QT_VERSION >= 0x040600
     beginResetModel();
     m_rootIndex = rootIndex;
     endResetModel();
-#else
-    m_rootIndex = rootIndex;
-    reset();
-#endif
     emit rootIndexChanged();
   }
 }

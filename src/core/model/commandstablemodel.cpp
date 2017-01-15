@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -267,14 +267,9 @@ QList<QHeaderView::ResizeMode>
 void CommandsTableModel::setCommandList(
   const QList<UserActionsConfig::MenuCommand>& cmdList)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
   m_cmdList = cmdList;
   endResetModel();
-#else
-  m_cmdList = cmdList;
-  reset();
-#endif
 }
 
 /**

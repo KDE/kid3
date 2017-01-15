@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -279,14 +279,9 @@ void BatchImportSourcesModel::getBatchImportSource(
 void BatchImportSourcesModel::setBatchImportSources(
     const QList<BatchImportProfile::Source>& sources)
 {
-#if QT_VERSION >= 0x040600
   beginResetModel();
   m_sources = sources;
   endResetModel();
-#else
-  m_sources = sources;
-  reset();
-#endif
 }
 
 /**

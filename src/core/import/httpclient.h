@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2012  Urs Fleisch
+ * Copyright (C) 2008-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -199,11 +199,7 @@ private:
   friend struct MinimumRequestIntervalInitializer;
 
   /** Time when last request was sent to server */
-#if QT_VERSION >= 0x040700
   static QMap<QString, QDateTime> s_lastRequestTime;
-#else
-  static QMap<QString, QTime> s_lastRequestTime;
-#endif
   /** Minimum interval between two requests to server in ms */
   static QMap<QString, int> s_minimumRequestInterval;
 };

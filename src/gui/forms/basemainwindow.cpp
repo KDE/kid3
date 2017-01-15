@@ -76,7 +76,6 @@
 #include "batchimporter.h"
 #include "dirrenamer.h"
 #include "iplatformtools.h"
-#include "qtcompatmac.h"
 #include "saferename.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"

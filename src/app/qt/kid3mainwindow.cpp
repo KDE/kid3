@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2014  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,6 @@
 #include <QStatusBar>
 #include <QSessionManager>
 #include "config.h"
-#include "qtcompatmac.h"
 #include "recentfilesmenu.h"
 #include "shortcutsmodel.h"
 #include "mainwindowconfig.h"
@@ -118,7 +117,8 @@ void Kid3MainWindow::initActions()
   fileOpen->setStatusTip(tr("Open files"));
   fileOpen->setText(tr("&Open..."));
   fileOpen->setShortcut(QKeySequence::Open);
-  fileOpen->setIcon(QCM_QIcon_fromTheme("document-open"));
+  fileOpen->setIcon(QIcon::fromTheme(QLatin1String("document-open"),
+      QIcon(QLatin1String(":/images/document-open.png"))));
   fileOpen->setObjectName(QLatin1String("file_open"));
   m_shortcutsModel->registerAction(fileOpen, menuTitle);
   connect(fileOpen, SIGNAL(triggered()),
@@ -131,14 +131,17 @@ void Kid3MainWindow::initActions()
           this, SLOT(slotFileOpenRecentDirectory(QString)));
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   m_fileOpenRecent->setTitle(tr("Open &Recent"));
-  m_fileOpenRecent->setIcon(QCM_QIcon_fromTheme("document-open-recent"));
+  m_fileOpenRecent->setIcon(QIcon::fromTheme(
+      QLatin1String("document-open-recent"),
+      QIcon(QLatin1String(":/images/document-open-recent.png"))));
   fileMenu->addMenu(m_fileOpenRecent);
 
   QAction* fileOpenDirectory = new QAction(this);
   fileOpenDirectory->setStatusTip(tr("Opens a directory"));
   fileOpenDirectory->setText(tr("O&pen Directory..."));
   fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
-  fileOpenDirectory->setIcon(QCM_QIcon_fromTheme("document-open"));
+  fileOpenDirectory->setIcon(QIcon::fromTheme(QLatin1String("document-open"),
+      QIcon(QLatin1String(":/images/document-open.png"))));
   fileOpenDirectory->setObjectName(QLatin1String("open_directory"));
   m_shortcutsModel->registerAction(fileOpenDirectory, menuTitle);
   connect(fileOpenDirectory, SIGNAL(triggered()),
@@ -150,7 +153,8 @@ void Kid3MainWindow::initActions()
   fileSave->setStatusTip(tr("Saves the changed files"));
   fileSave->setText(tr("&Save"));
   fileSave->setShortcut(QKeySequence::Save);
-  fileSave->setIcon(QCM_QIcon_fromTheme("document-save"));
+  fileSave->setIcon(QIcon::fromTheme(QLatin1String("document-save"),
+      QIcon(QLatin1String(":/images/document-save.png"))));
   fileSave->setObjectName(QLatin1String("file_save"));
   m_shortcutsModel->registerAction(fileSave, menuTitle);
   connect(fileSave, SIGNAL(triggered()),
@@ -163,7 +167,8 @@ void Kid3MainWindow::initActions()
       tr("Reverts the changes of all or the selected files"));
   fileRevert->setText(tr("Re&vert"));
   fileRevert->setShortcut(QKeySequence::Undo);
-  fileRevert->setIcon(QCM_QIcon_fromTheme("document-revert"));
+  fileRevert->setIcon(QIcon::fromTheme(QLatin1String("document-revert"),
+      QIcon(QLatin1String(":/images/document-revert.png"))));
   fileRevert->setObjectName(QLatin1String("file_revert"));
   m_shortcutsModel->registerAction(fileRevert, menuTitle);
   connect(fileRevert, SIGNAL(triggered()),
@@ -176,7 +181,8 @@ void Kid3MainWindow::initActions()
   fileImport->setData(-1);
   fileImport->setStatusTip(tr("Import from file or clipboard"));
   fileImport->setText(tr("&Import..."));
-  fileImport->setIcon(QCM_QIcon_fromTheme("document-import"));
+  fileImport->setIcon(QIcon::fromTheme(QLatin1String("document-import"),
+      QIcon(QLatin1String(":/images/document-import.png"))));
   fileImport->setObjectName(QLatin1String("import"));
   m_shortcutsModel->registerAction(fileImport, menuTitle);
   connect(fileImport, SIGNAL(triggered()),
@@ -186,7 +192,8 @@ void Kid3MainWindow::initActions()
   int importerIdx = 0;
   foreach (const ServerImporter* si, app()->getServerImporters()) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(
+          si->name()).toLower().remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
@@ -205,7 +212,8 @@ void Kid3MainWindow::initActions()
 
   foreach (const ServerTrackImporter* si, app()->getServerTrackImporters()) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(
+          si->name()).toLower().remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
@@ -244,7 +252,8 @@ void Kid3MainWindow::initActions()
   QAction* fileExport = new QAction(this);
   fileExport->setStatusTip(tr("Export to file or clipboard"));
   fileExport->setText(tr("&Export..."));
-  fileExport->setIcon(QCM_QIcon_fromTheme("document-export"));
+  fileExport->setIcon(QIcon::fromTheme(QLatin1String("document-export"),
+      QIcon(QLatin1String(":/images/document-export.png"))));
   fileExport->setObjectName(QLatin1String("export"));
   m_shortcutsModel->registerAction(fileExport, menuTitle);
   connect(fileExport, SIGNAL(triggered()),
@@ -254,13 +263,9 @@ void Kid3MainWindow::initActions()
   QAction* fileCreatePlaylist = new QAction(this);
   fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
   fileCreatePlaylist->setText(tr("&Create Playlist..."));
-#if QT_VERSION >= 0x040600
   fileCreatePlaylist->setIcon(
         QIcon::fromTheme(QLatin1String("format-justify-fill"),
             QIcon(QLatin1String(":/images/view-media-playlist.png"))));
-#else
-  fileCreatePlaylist->setIcon(QIcon(QLatin1String(":/images/view-media-playlist.png")));
-#endif
   fileCreatePlaylist->setObjectName(QLatin1String("create_playlist"));
   m_shortcutsModel->registerAction(fileCreatePlaylist, menuTitle);
   connect(fileCreatePlaylist, SIGNAL(triggered()),
@@ -273,10 +278,9 @@ void Kid3MainWindow::initActions()
   fileQuit->setStatusTip(tr("Quits the application"));
   fileQuit->setText(tr("&Quit"));
   fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
-  fileQuit->setIcon(QCM_QIcon_fromTheme("application-exit"));
-#if QT_VERSION >= 0x040200
+  fileQuit->setIcon(QIcon::fromTheme(QLatin1String("application-exit"),
+      QIcon(QLatin1String(":/images/application-exit.png"))));
   fileQuit->setMenuRole(QAction::QuitRole);
-#endif
   fileQuit->setObjectName(QLatin1String("file_quit"));
   m_shortcutsModel->registerAction(fileQuit, menuTitle);
   connect(fileQuit, SIGNAL(triggered()),
@@ -289,7 +293,8 @@ void Kid3MainWindow::initActions()
   editSelectAll->setStatusTip(tr("Select all files"));
   editSelectAll->setText(tr("Select &All"));
   editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
-  editSelectAll->setIcon(QCM_QIcon_fromTheme("edit-select-all"));
+  editSelectAll->setIcon(QIcon::fromTheme(QLatin1String("edit-select-all"),
+      QIcon(QLatin1String(":/images/edit-select-all.png"))));
 #if defined Q_OS_MAC && QT_VERSION == 0x050400
   // Workaround for QTBUG-43471 from QTBUG-39934
   editSelectAll->setMenuRole(QAction::NoRole);
@@ -311,7 +316,8 @@ void Kid3MainWindow::initActions()
   editMenu->addAction(editDeselect);
 
   QAction* editSelectAllInDir = new QAction(this);
-  editSelectAllInDir->setStatusTip(tr("Select all files in the current directory"));
+  editSelectAllInDir->setStatusTip(
+        tr("Select all files in the current directory"));
   editSelectAllInDir->setText(tr("Select All in &Directory"));
   editSelectAllInDir->setObjectName(QLatin1String("select_all_in_directory"));
   m_shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
@@ -323,7 +329,8 @@ void Kid3MainWindow::initActions()
   editPreviousFile->setStatusTip(tr("Select previous file"));
   editPreviousFile->setText(tr("&Previous File"));
   editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
-  editPreviousFile->setIcon(QCM_QIcon_fromTheme("go-previous"));
+  editPreviousFile->setIcon(QIcon::fromTheme(QLatin1String("go-previous"),
+      QIcon(QLatin1String(":/images/go-previous.png"))));
   editPreviousFile->setObjectName(QLatin1String("previous_file"));
   m_shortcutsModel->registerAction(editPreviousFile, menuTitle);
   connect(editPreviousFile, SIGNAL(triggered()),
@@ -335,7 +342,8 @@ void Kid3MainWindow::initActions()
   editNextFile->setStatusTip(tr("Select next file"));
   editNextFile->setText(tr("&Next File"));
   editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
-  editNextFile->setIcon(QCM_QIcon_fromTheme("go-next"));
+  editNextFile->setIcon(QIcon::fromTheme(QLatin1String("go-next"),
+      QIcon(QLatin1String(":/images/go-next.png"))));
   editNextFile->setObjectName(QLatin1String("next_file"));
   m_shortcutsModel->registerAction(editNextFile, menuTitle);
   connect(editNextFile, SIGNAL(triggered()),
@@ -349,7 +357,8 @@ void Kid3MainWindow::initActions()
   editFind->setText(tr("&Find..."));
   editFind->setShortcut(QKeySequence::Find);
 #ifndef Q_OS_MAC
-  editFind->setIcon(QCM_QIcon_fromTheme("edit-find"));
+  editFind->setIcon(QIcon::fromTheme(QLatin1String("edit-find"),
+      QIcon(QLatin1String(":/images/edit-find.png"))));
 #endif
   editFind->setObjectName(QLatin1String("edit_find"));
   m_shortcutsModel->registerAction(editFind, menuTitle);
@@ -362,7 +371,8 @@ void Kid3MainWindow::initActions()
   editReplace->setText(tr("&Replace..."));
   editReplace->setShortcut(QKeySequence::Replace);
 #ifndef Q_OS_MAC
-  editReplace->setIcon(QCM_QIcon_fromTheme("edit-find-replace"));
+  editReplace->setIcon(QIcon::fromTheme(QLatin1String("edit-find-replace"),
+      QIcon(QLatin1String(":/images/edit-find-replace.png"))));
 #endif
   editReplace->setObjectName(QLatin1String("edit_replace"));
   m_shortcutsModel->registerAction(editReplace, menuTitle);
@@ -375,7 +385,8 @@ void Kid3MainWindow::initActions()
   QAction* toolsApplyFilenameFormat = new QAction(this);
   toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
   toolsApplyFilenameFormat->setText(tr("Apply &Filename Format"));
-  toolsApplyFilenameFormat->setObjectName(QLatin1String("apply_filename_format"));
+  toolsApplyFilenameFormat->setObjectName(
+        QLatin1String("apply_filename_format"));
   m_shortcutsModel->registerAction(toolsApplyFilenameFormat, menuTitle);
   connect(toolsApplyFilenameFormat, SIGNAL(triggered()),
     app(), SLOT(applyFilenameFormat()));
@@ -512,13 +523,11 @@ void Kid3MainWindow::initActions()
   QAction* settingsConfigure = new QAction(this);
   settingsConfigure->setStatusTip(tr("Configure Kid3"));
   settingsConfigure->setText(tr("&Configure Kid3..."));
-  settingsConfigure->setIcon(QCM_QIcon_fromTheme("preferences-system"));
-#if QT_VERSION >= 0x040600
+  settingsConfigure->setIcon(QIcon::fromTheme(
+      QLatin1String("preferences-system"),
+      QIcon(QLatin1String(":/images/preferences-system.png"))));
   settingsConfigure->setShortcut(QKeySequence::Preferences);
-#endif
-#if QT_VERSION >= 0x040200
   settingsConfigure->setMenuRole(QAction::PreferencesRole);
-#endif
   settingsConfigure->setObjectName(QLatin1String("options_configure"));
   m_shortcutsModel->registerAction(settingsConfigure, menuTitle);
   connect(settingsConfigure, SIGNAL(triggered()),
@@ -532,7 +541,8 @@ void Kid3MainWindow::initActions()
   QAction* helpHandbook = new QAction(this);
   helpHandbook->setStatusTip(tr("Kid3 Handbook"));
   helpHandbook->setText(tr("Kid3 &Handbook"));
-  helpHandbook->setIcon(QCM_QIcon_fromTheme("help-contents"));
+  helpHandbook->setIcon(QIcon::fromTheme(QLatin1String("help-contents"),
+      QIcon(QLatin1String(":/images/help-contents.png"))));
   helpHandbook->setShortcut(QKeySequence::HelpContents);
   helpHandbook->setObjectName(QLatin1String("help_contents"));
   m_shortcutsModel->registerAction(helpHandbook, menuTitle);
@@ -544,11 +554,10 @@ void Kid3MainWindow::initActions()
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
 #ifndef Q_OS_MAC
-  helpAbout->setIcon(QCM_QIcon_fromTheme("help-about"));
+  helpAbout->setIcon(QIcon::fromTheme(QLatin1String("help-about"),
+      QIcon(QLatin1String(":/images/help-about.png"))));
 #endif
-#if QT_VERSION >= 0x040200
   helpAbout->setMenuRole(QAction::AboutRole);
-#endif
   helpAbout->setObjectName(QLatin1String("help_about_app"));
   m_shortcutsModel->registerAction(helpAbout, menuTitle);
   connect(helpAbout, SIGNAL(triggered()),
@@ -558,9 +567,7 @@ void Kid3MainWindow::initActions()
   QAction* helpAboutQt = new QAction(this);
   helpAboutQt->setStatusTip(tr("About Qt"));
   helpAboutQt->setText(tr("About &Qt"));
-#if QT_VERSION >= 0x040200
   helpAboutQt->setMenuRole(QAction::AboutQtRole);
-#endif
   helpAboutQt->setObjectName(QLatin1String("help_about_qt"));
   m_shortcutsModel->registerAction(helpAboutQt, menuTitle);
   connect(helpAboutQt, SIGNAL(triggered()),
@@ -822,8 +829,8 @@ void Kid3MainWindow::slotHelpAbout()
     QLatin1String("<br/><br/>(c) 2003-" RELEASE_YEAR
     " <a href=\"mailto:ufleisch@users.sourceforge.net\">Urs Fleisch</a>"
     "<br/><br/>"
-    "<a href=\"http://kid3.sourceforge.net/\">http://kid3.sourceforge.net</a><br/>") +
-    tr("License") +
+    "<a href=\"http://kid3.sourceforge.net/\">http://kid3.sourceforge.net</a>"
+    "<br/>") + tr("License") +
     QLatin1String(": <a href=\"http://www.gnu.org/licenses/licenses.html#GPL\">"
     "GNU General Public License</a><br/> "));
 }
