@@ -765,6 +765,32 @@ void TagLibFile::setActiveTaggedFileFeatures(int features)
 }
 
 /**
+ * Free resources allocated when calling readTags().
+ *
+ * @param force true to force clearing even if the tags are modified
+ */
+void TagLibFile::clearTags(bool force)
+{
+  if (isChanged() && !force)
+    return;
+
+  bool priorIsTagInformationRead = isTagInformationRead();
+  closeFile(true);
+#if TAGLIB_VERSION >= 0x010700
+  m_pictures.clear();
+  m_pictures.setRead(false);
+#endif
+  m_tagInformationRead = false;
+  FOR_TAGLIB_TAGS(tagNr) {
+    m_hasTag[tagNr] = false;
+    m_tagFormat[tagNr].clear();
+    m_tagType[tagNr] = TT_Unknown;
+    markTagUnchanged(tagNr);
+  }
+  notifyModelDataChanged(priorIsTagInformationRead);
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.

@@ -325,9 +325,27 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
   }
   return true;
 }
+
+/**
+ * Free resources allocated when calling readTags().
+ *
+ * @param force true to force clearing even if the tags are modified
+ */
+void OggFile::clearTags(bool force)
+{
+  if (!m_fileRead || (isChanged() && !force))
+    return;
+
+  bool priorIsTagInformationRead = isTagInformationRead();
+  m_comments.clear();
+  markTagUnchanged(Frame::Tag_2);
+  m_fileRead = false;
+  notifyModelDataChanged(priorIsTagInformationRead);
+}
 #else // HAVE_VORBIS
 void OggFile::readTags(bool) {}
 bool OggFile::writeTags(bool, bool*, bool) { return false; }
+void OggFile::clearTags(bool) {}
 #endif // HAVE_VORBIS
 
 /**

@@ -380,6 +380,30 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
   return true;
 }
 
+/**
+ * Free resources allocated when calling readTags().
+ *
+ * @param force true to force clearing even if the tags are modified
+ */
+void FlacFile::clearTags(bool force)
+{
+  if (!m_fileRead || (isChanged() && !force))
+    return;
+
+  bool priorIsTagInformationRead = isTagInformationRead();
+  if (m_chain) {
+    delete m_chain;
+    m_chain = 0;
+  }
+#ifdef HAVE_FLAC_PICTURE
+  m_pictures.clear();
+#endif
+  m_comments.clear();
+  markTagUnchanged(Frame::Tag_2);
+  m_fileRead = false;
+  notifyModelDataChanged(priorIsTagInformationRead);
+}
+
 #ifdef HAVE_FLAC_PICTURE
 /**
  * Check if file has a tag.

@@ -903,6 +903,23 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 }
 
 /**
+ * Free resources allocated when calling readTags().
+ *
+ * @param force true to force clearing even if the tags are modified
+ */
+void M4aFile::clearTags(bool force)
+{
+  if (!m_fileRead || (isChanged() && !force))
+    return;
+
+  bool priorIsTagInformationRead = isTagInformationRead();
+  m_metadata.clear();
+  markTagUnchanged(Frame::Tag_2);
+  m_fileRead = false;
+  notifyModelDataChanged(priorIsTagInformationRead);
+}
+
+/**
  * Remove frames.
  *
  * @param tagNr tag number

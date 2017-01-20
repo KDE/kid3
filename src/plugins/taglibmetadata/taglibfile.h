@@ -125,6 +125,13 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
   /**
+   * Free resources allocated when calling readTags().
+   *
+   * @param force true to force clearing even if the tags are modified
+   */
+  virtual void clearTags(bool force);
+
+  /**
    * Write tags to file and rename it if necessary.
    *
    * @param force    true to force writing even if file was not changed.

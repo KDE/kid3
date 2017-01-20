@@ -222,6 +222,30 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 }
 
 /**
+ * Free resources allocated when calling readTags().
+ *
+ * @param force true to force clearing even if the tags are modified
+ */
+void Mp3File::clearTags(bool force)
+{
+  if (isChanged() && !force)
+    return;
+
+  bool priorIsTagInformationRead = isTagInformationRead();
+  if (m_tagV1) {
+    delete m_tagV1;
+    m_tagV1 = 0;
+    markTagUnchanged(Frame::Tag_1);
+  }
+  if (m_tagV2) {
+    delete m_tagV2;
+    m_tagV2 = 0;
+    markTagUnchanged(Frame::Tag_2);
+  }
+  notifyModelDataChanged(priorIsTagInformationRead);
+}
+
+/**
  * Fix up a unicode string from id3lib.
  *
  * @param str      unicode string

@@ -72,6 +72,13 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
   /**
+   * Free resources allocated when calling readTags().
+   *
+   * @param force true to force clearing even if the tags are modified
+   */
+  virtual void clearTags(bool force);
+
+  /**
    * Remove frames.
    *
    * @param tagNr tag number

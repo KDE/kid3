@@ -2445,6 +2445,7 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
   bool terminated = !index.isValid();
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+      bool tagInfoRead = taggedFile->isTagInformationRead();
       taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
@@ -2461,6 +2462,11 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
       } else {
         emit fileFiltered(FileFilter::ParseError, QString());
         terminated = true;
+      }
+
+      // Free resources if tag was not read before filtering
+      if (!pass && !tagInfoRead) {
+        taggedFile->clearTags(false);
       }
 
       if (m_fileFilter->isAborted()) {

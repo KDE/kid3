@@ -164,6 +164,14 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve) = 0;
 
   /**
+   * Free resources allocated when calling readTags().
+   * Implementations should call notifyModelDataChanged().
+   *
+   * @param force true to force clearing even if the tags are modified
+   */
+  virtual void clearTags(bool force) = 0;
+
+  /**
    * Remove frames.
    *
    * @param tagNr tag number
