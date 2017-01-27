@@ -101,3 +101,12 @@ bool DirProxyModel::lessThan(const QModelIndex& left,
            sortColumn());
   return QSortFilterProxyModel::lessThan(left, right);
 }
+
+/**
+ * Reset the model.
+ */
+void DirProxyModel::resetModel()
+{
+  beginResetModel();
+  endResetModel();
+}

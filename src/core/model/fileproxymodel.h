@@ -125,6 +125,11 @@ public:
 #endif
 
   /**
+   * Reset the model.
+   */
+  void resetModel();
+
+  /**
    * Check if the model is currently loading a directory.
    * @return true if loading is in progress.
    */
@@ -390,6 +395,13 @@ signals:
    * @see isModified()
    */
   void modifiedChanged(bool modified);
+
+protected slots:
+  /**
+   * Reset internal data of the model.
+   * Is called from endResetModel().
+   */
+  void resetInternalData();
 
 private slots:
   /**

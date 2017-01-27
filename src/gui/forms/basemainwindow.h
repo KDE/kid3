@@ -370,8 +370,10 @@ private slots:
    * Show filter operation progress.
    * @param type filter event type
    * @param fileName name of file processed
+   * @param passed number of files which passed the filter
+   * @param total total number of files checked
    */
-  void filterProgress(int type, const QString& fileName);
+  void filterProgress(int type, const QString& fileName, int passed, int total);
 
   /**
    * Set tagged files of directory from imported track data model.
@@ -548,8 +550,6 @@ private:
   QDateTime m_progressStartTime;
   QString m_progressTitle;
   void (BaseMainWindowImpl::*m_progressTerminationHandler)();
-  int m_filterPassed;
-  int m_filterTotal;
   bool m_progressDisconnected;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;

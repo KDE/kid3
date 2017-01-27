@@ -1155,8 +1155,10 @@ signals:
    * Emitted when a file is filtered.
    * @param type filter event type, enum FileFilter::FilterEventType
    * @param fileName name of filtered file
+   * @param passed number of files which passed the filter
+   * @param total total number of files checked
    */
-  void fileFiltered(int type, const QString& fileName);
+  void fileFiltered(int type, const QString& fileName, int passed, int total);
 
   /**
    * Emitted before an audio file is played.
@@ -1222,6 +1224,11 @@ signals:
                                     bool* abort);
 
 private slots:
+  /**
+   * Apply file filter after the file system model has been reset.
+   */
+  void applyFilterAfterReset();
+
   /**
    * Apply single file to file filter.
    *
@@ -1293,6 +1300,25 @@ private:
    * it is added
    */
   void addFrame(Frame::TagNumber tagNr, const Frame* frame, bool edit = false);
+
+  /**
+   * Open directory after resetting the file system model.
+   * This will create a new file system model and reset the file and directory
+   * proxy models.
+   * When finished directoryOpened() is emitted, also if false is returned.
+   *
+   * @param paths file or directory paths, if multiple paths are given, the
+   * common directory is opened and the files are selected, if empty, the
+   * currently open directory is reopened
+   *
+   * @return true if ok.
+   */
+  bool openDirectoryAfterReset(const QStringList& paths = QStringList());
+
+  /**
+   * Second stage for applyFilter().
+   */
+  void proceedApplyingFilter();
 
   /**
    * Set the coverArtImageId property to a new value.
@@ -1373,6 +1399,8 @@ private:
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;
   QString m_lastProcessedDirName;
+  int m_filterPassed;
+  int m_filterTotal;
   /* Context for batchImportNextFile() */
   BatchImportProfile* m_namedBatchImportProfile;
   const BatchImportProfile* m_batchImportProfile;

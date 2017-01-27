@@ -204,7 +204,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #endif
   m_expressionFileFilter(0),
   m_downloadImageDest(ImageForSelectedFiles),
-  m_fileFilter(0),
+  m_fileFilter(0), m_filterPassed(0), m_filterTotal(0),
   m_namedBatchImportProfile(0),
   m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
@@ -2408,27 +2408,95 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
 }
 
 /**
+ * Open directory after resetting the file system model.
+ * This will create a new file system model and reset the file and directory
+ * proxy models.
+ * When finished directoryOpened() is emitted, also if false is returned.
+ *
+ * @param paths file or directory paths, if multiple paths are given, the
+ * common directory is opened and the files are selected, if empty, the
+ * currently open directory is reopened
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
+{
+  qDebug("Reset file system model");
+  // Clear the selection.
+  m_selection->beginAddTaggedFiles();
+  m_selection->endAddTaggedFiles();
+  QStringList dirs(paths);
+  if (dirs.isEmpty()) {
+    dirs.append(m_fileSystemModel->rootPath());
+  }
+  m_fileSystemModel->setRootPath(QString());
+  m_fileProxyModel->resetModel();
+  m_dirProxyModel->resetModel();
+  m_fileSystemModel->deleteLater();
+  m_fileSystemModel = new QFileSystemModel(this);
+  m_fileProxyModel->setSourceModel(m_fileSystemModel);
+  m_dirProxyModel->setSourceModel(m_fileSystemModel);
+  return openDirectory(dirs);
+}
+
+/**
+ * Apply file filter after the file system model has been reset.
+ */
+void Kid3Application::applyFilterAfterReset()
+{
+  disconnect(this, SIGNAL(directoryOpened()),
+             this, SLOT(applyFilterAfterReset()));
+  proceedApplyingFilter();
+}
+
+/**
  * Apply a file filter.
  *
  * @param fileFilter filter to apply.
  */
 void Kid3Application::applyFilter(FileFilter& fileFilter)
 {
-  m_fileProxyModel->disableFilteringOutIndexes();
-  const bool justClearingFilter =
-      fileFilter.isEmptyFilterExpression() && isFiltered();
-  setFiltered(false);
-  fileFilter.clearAborted();
-  emit fileFiltered(FileFilter::Started, QString());
-
   m_fileFilter = &fileFilter;
+  /*
+   * When a lot of files are filtered out,
+   * QSortFilterProxyModel::invalidateFilter() is extremely slow (probably
+   * depending on the source model). In this case, I measured
+   * 3s for 3000 files, 8s for 5000 files, 54s for 10000 files, and too long
+   * to wait for more files. If such a case is detected, the file system model
+   * is recreated in order to avoid calling invalidateFilter().
+   */
+  if (m_filterTotal - m_filterPassed > 4000) {
+    connect(this, SIGNAL(directoryOpened()),
+            this, SLOT(applyFilterAfterReset()));
+    openDirectoryAfterReset();
+  } else {
+    m_fileProxyModel->disableFilteringOutIndexes();
+    proceedApplyingFilter();
+  }
+}
+
+/**
+ * Second stage for applyFilter().
+ */
+void Kid3Application::proceedApplyingFilter()
+{
+  const bool justClearingFilter =
+      m_fileFilter->isEmptyFilterExpression() && isFiltered();
+  setFiltered(false);
+  m_fileFilter->clearAborted();
+  m_filterPassed = 0;
+  m_filterTotal = 0;
+  emit fileFiltered(FileFilter::Started, QString(),
+                    m_filterPassed, m_filterTotal);
+
   m_lastProcessedDirName.clear();
   if (!justClearingFilter) {
     connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
             this, SLOT(filterNextFile(QPersistentModelIndex)));
     m_fileProxyModelIterator->start(m_fileProxyModelRootIndex);
   } else {
-    emit fileFiltered(FileFilter::Finished, QString());
+    emit fileFiltered(FileFilter::Finished, QString(),
+                      m_filterPassed, m_filterTotal);
   }
 }
 
@@ -2449,18 +2517,24 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
       taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
-        emit fileFiltered(FileFilter::Directory, m_lastProcessedDirName);
+        emit fileFiltered(FileFilter::Directory, m_lastProcessedDirName,
+                          m_filterPassed, m_filterTotal);
       }
       bool ok;
       bool pass = m_fileFilter->filter(*taggedFile, &ok);
       if (ok) {
+        ++m_filterTotal;
+        if (pass) {
+          ++m_filterPassed;
+        }
         emit fileFiltered(
               pass ? FileFilter::FilePassed : FileFilter::FileFilteredOut,
-              taggedFile->getFilename());
+              taggedFile->getFilename(), m_filterPassed, m_filterTotal);
         if (!pass)
           m_fileProxyModel->filterOutIndex(taggedFile->getIndex());
       } else {
-        emit fileFiltered(FileFilter::ParseError, QString());
+        emit fileFiltered(FileFilter::ParseError, QString(),
+                          m_filterPassed, m_filterTotal);
         terminated = true;
       }
 
@@ -2471,13 +2545,15 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
 
       if (m_fileFilter->isAborted()) {
         terminated = true;
-        emit fileFiltered(FileFilter::Aborted, QString());
+        emit fileFiltered(FileFilter::Aborted, QString(),
+                          m_filterPassed, m_filterTotal);
       }
     }
   }
   if (terminated) {
     if (!m_fileFilter->isAborted()) {
-      emit fileFiltered(FileFilter::Finished, QString());
+      emit fileFiltered(FileFilter::Finished, QString(),
+                        m_filterPassed, m_filterTotal);
     }
 
     m_fileProxyModelIterator->abort();

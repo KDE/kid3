@@ -876,14 +876,14 @@ void FilterCommand::startCommand()
 
 void FilterCommand::connectResultSignal()
 {
-  connect(cli()->app(), SIGNAL(fileFiltered(int,QString)),
+  connect(cli()->app(), SIGNAL(fileFiltered(int,QString,int,int)),
           this, SLOT(onFileFiltered(int,QString)));
 }
 
 void FilterCommand::disconnectResultSignal()
 {
   cli()->app()->abortFilter();
-  disconnect(cli()->app(), SIGNAL(fileFiltered(int,QString)),
+  disconnect(cli()->app(), SIGNAL(fileFiltered(int,QString,int,int)),
              this, SLOT(onFileFiltered(int,QString)));
 }
 

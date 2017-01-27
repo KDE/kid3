@@ -448,6 +448,35 @@ void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
 }
 
 /**
+ * Reset internal data of the model.
+ * Is called from endResetModel().
+ */
+void FileProxyModel::resetInternalData()
+{
+#if QT_VERSION >= 0x040800 && QT_VERSION != 0x050000
+  QSortFilterProxyModel::resetInternalData();
+#endif
+  clearTaggedFileStore();
+  m_filteredOut.clear();
+  m_loadTimer->stop();
+  m_sortTimer->stop();
+  m_numModifiedFiles = 0;
+  m_isLoading = false;
+}
+
+/**
+ * Reset the model.
+ */
+void FileProxyModel::resetModel()
+{
+  beginResetModel();
+#if QT_VERSION < 0x040800 || QT_VERSION == 0x050000
+  resetInternalData();
+#endif
+  endResetModel();
+}
+
+/**
  * Stop filtering out indexes.
  */
 void FileProxyModel::disableFilteringOutIndexes()

@@ -108,7 +108,6 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
 #endif
   m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
   m_progressTerminationHandler(0),
-  m_filterPassed(0), m_filterTotal(0),
   m_progressDisconnected(false),
   m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
@@ -865,10 +864,10 @@ void BaseMainWindowImpl::slotFilter()
       m_filterDialog = new FilterDialog(m_w);
       connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
               m_app, SLOT(applyFilter(FileFilter&)));
-      connect(m_app, SIGNAL(fileFiltered(int,QString)),
+      connect(m_app, SIGNAL(fileFiltered(int,QString,int,int)),
               m_filterDialog, SLOT(showFilterEvent(int,QString)));
-      connect(m_app, SIGNAL(fileFiltered(int,QString)),
-              this, SLOT(filterProgress(int,QString)));
+      connect(m_app, SIGNAL(fileFiltered(int,QString,int,int)),
+              this, SLOT(filterProgress(int,QString,int,int)));
     }
     FilterConfig::instance().setFilenameFormat(
           FileConfig::instance().toFilenameFormat());
@@ -881,14 +880,15 @@ void BaseMainWindowImpl::slotFilter()
  * Show filter operation progress.
  * @param type filter event type
  * @param fileName name of file processed
+ * @param passed number of files which passed the filter
+ * @param total total number of files checked
  */
-void BaseMainWindowImpl::filterProgress(int type, const QString& fileName)
+void BaseMainWindowImpl::filterProgress(int type, const QString& fileName,
+                                        int passed, int total)
 {
   Q_UNUSED(fileName)
   switch (type) {
   case FileFilter::Started:
-    m_filterPassed = 0;
-    m_filterTotal = 0;
     startProgressMonitoring(tr("Filter"), &BaseMainWindowImpl::terminateFilter,
                             true);
     break;
@@ -896,15 +896,9 @@ void BaseMainWindowImpl::filterProgress(int type, const QString& fileName)
   case FileFilter::Aborted:
     stopProgressMonitoring();
     break;
-  case FileFilter::FilePassed:
-    ++m_filterPassed;
-    // fallthrough
-  case FileFilter::FileFilteredOut:
-    ++m_filterTotal;
-    // fallthrough
   default:
-    checkProgressMonitoring(0, 0, QString::number(m_filterPassed) +
-                            QLatin1Char('/') + QString::number(m_filterTotal));
+    checkProgressMonitoring(0, 0, QString::number(passed) +
+                            QLatin1Char('/') + QString::number(total));
   }
 }
 

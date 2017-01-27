@@ -41,6 +41,11 @@ public:
    */
   explicit DirProxyModel(QObject* parent = 0);
 
+  /**
+   * Reset the model.
+   */
+  void resetModel();
+
 protected:
   /**
    * Check if row should be included in model.
