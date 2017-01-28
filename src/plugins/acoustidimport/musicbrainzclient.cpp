@@ -182,6 +182,7 @@ MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
   m_fingerprintCalculator(new FingerprintCalculator(this)),
   m_state(Idle), m_currentIndex(-1)
 {
+  m_headers["User-Agent"] = "curl/7.52.1";
   connect(httpClient(), SIGNAL(bytesReceived(QByteArray)),
           this, SLOT(receiveBytes(QByteArray)));
   connect(m_fingerprintCalculator, SIGNAL(finished(QString,int,int)),
@@ -347,7 +348,8 @@ void MusicBrainzClient::processNextStep()
       emit statusChanged(m_currentIndex, tr("Metadata Lookup"));
       QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +
                    QLatin1String("?inc=artists+releases+media"));
-      httpClient()->sendRequest(QLatin1String("musicbrainz.org:80"), path);
+      httpClient()->sendRequest(QLatin1String("musicbrainz.org"), path,
+                                QLatin1String("https"), m_headers);
     } else {
       processNextTrack();
     }

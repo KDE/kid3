@@ -105,6 +105,9 @@ public:
    */
   virtual void sendTrackListQuery(
     const ServerImporterConfig* cfg, const QString& cat, const QString& id);
+
+private:
+  QMap<QByteArray, QByteArray> m_headers;
 };
 
 #endif

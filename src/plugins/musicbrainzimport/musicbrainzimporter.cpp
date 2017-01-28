@@ -42,6 +42,7 @@ MusicBrainzImporter::MusicBrainzImporter(
   ServerImporter(netMgr, trackDataModel)
 {
   setObjectName(QLatin1String("MusicBrainzImporter"));
+  m_headers["User-Agent"] = "curl/7.52.1";
 }
 
 /**
@@ -356,8 +357,18 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                     if (!relation.isNull()) {
                       QString type(relation.attribute(QLatin1String("type")));
                       if (type == QLatin1String("cover art link") || type == QLatin1String("amazon asin")) {
+                        QString coverArtUrl =
+                            relation.namedItem(QLatin1String("target")).toElement().text();
+                        // https://www.amazon.de/gp/product/ does not work,
+                        // fix such links.
+                        coverArtUrl.replace(
+                            QRegExp(QLatin1String("https://www\\.amazon\\.[^/]+/gp/product/")),
+                            QLatin1String("http://images.amazon.com/images/P/"));
+                        if (!coverArtUrl.endsWith(QLatin1String(".jpg"))) {
+                          coverArtUrl += QLatin1String(".jpg");
+                        }
                         trackDataVector.setCoverArtUrl(
-                          QUrl(relation.namedItem(QLatin1String("target")).toElement().text()));
+                          QUrl(coverArtUrl));
                       }
                     }
                   }
@@ -528,7 +539,8 @@ void MusicBrainzImporter::sendFindQuery(
     path += QLatin1String("release:");
     path += QString::fromLatin1(QUrl::toPercentEncoding(albumQuery));
   }
-  sendRequest(QLatin1String("musicbrainz.org:80"), path);
+  sendRequest(QLatin1String("musicbrainz.org"), path, QLatin1String("https"),
+              m_headers);
 }
 
 /**
@@ -563,5 +575,6 @@ void MusicBrainzImporter::sendTrackListQuery(
   if (cfg->additionalTags()) {
     path += QLatin1String("+work-rels+recording-level-rels+work-level-rels");
   }
-  sendRequest(QLatin1String("musicbrainz.org:80"), path);
+  sendRequest(QLatin1String("musicbrainz.org"), path, QLatin1String("https"),
+              m_headers);
 }

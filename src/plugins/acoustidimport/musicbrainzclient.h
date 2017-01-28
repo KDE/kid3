@@ -128,6 +128,7 @@ private:
   QVector<QStringList> m_idsOfTrack;
   int m_currentIndex;
   ImportTrackDataVector m_currentTrackData;
+  QMap<QByteArray, QByteArray> m_headers;
 };
 
 #endif // MUSICBRAINZCLIENT_H
