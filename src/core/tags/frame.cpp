@@ -924,26 +924,32 @@ quint64 FrameCollection::s_quickAccessFrames =
 void FrameCollection::filterDifferent(FrameCollection& others)
 {
   QByteArray frameData, othersData;
-  for (iterator it = begin(); it != end(); ++it) {
+  iterator it = begin();
+  while (it != end()) {
     Frame& frame = const_cast<Frame&>(*it);
     // This frame list is not tied to a specific file, so the
     // index is not valid.
     frame.setIndex(-1);
     iterator othersIt = others.find(frame);
-    if (othersIt == others.end() ||
-        (frame.getType() != Frame::FT_Picture &&
-         frame.getValue() != othersIt->getValue()) ||
-        (frame.getType() == Frame::FT_Picture &&
-         !(PictureFrame::getData(frame, frameData) &&
-           PictureFrame::getData(*othersIt, othersData) &&
-           frameData == othersData))) {
+    if (othersIt == others.end()) {
       frame.setDifferent();
-    }
-    while (othersIt != others.end() && !(frame < *othersIt)) {
-      // Mark equal frames as already handled using index -2, used below.
-      // This is probably faster than removing the frames.
-      const_cast<Frame&>(*othersIt).setIndex(-2);
-      ++othersIt;
+      ++it;
+    } else {
+      while (it != end() && othersIt != others.end() &&
+             !(frame < *it) && !(frame < *othersIt)) {
+        if ((it->getType() != Frame::FT_Picture &&
+             it->getValue() != othersIt->getValue()) ||
+            (it->getType() == Frame::FT_Picture &&
+             !(PictureFrame::getData(*it, frameData) &&
+               PictureFrame::getData(*othersIt, othersData) &&
+               frameData == othersData))) {
+          const_cast<Frame&>(*it).setDifferent();
+        }
+        // Mark as already handled.
+        const_cast<Frame&>(*othersIt).setIndex(-2);
+        ++it;
+        ++othersIt;
+      }
     }
   }
 
