@@ -37,7 +37,7 @@ DiscogsConfig::DiscogsConfig() :
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);
-  setServer(QLatin1String("www.discogs.com:80"));
+  setServer(QLatin1String("www.discogs.com"));
 }
 
 /**

@@ -37,7 +37,7 @@ AmazonConfig::AmazonConfig() :
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);
-  setServer(QLatin1String("www.amazon.com:80"));
+  setServer(QLatin1String("www.amazon.com"));
 }
 
 /**

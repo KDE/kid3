@@ -314,7 +314,8 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
     QString path(QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
                  QString::number(duration) +
                  QLatin1String("&fingerprint=") + fingerprint);
-    httpClient()->sendRequest(QLatin1String("api.acoustid.org"), path);
+    httpClient()->sendRequest(QLatin1String("api.acoustid.org"), path,
+                              QLatin1String("https"));
   } else {
     emit statusChanged(m_currentIndex, tr("Error"));
     if (m_state != Idle) {

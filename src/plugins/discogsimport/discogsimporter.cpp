@@ -34,7 +34,7 @@
 
 namespace {
 
-const char discogsServer[] = "www.discogs.com:80";
+const char discogsServer[] = "www.discogs.com";
 
 /**
  * Remove trailing stars and numbers like (2) from a string.

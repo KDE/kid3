@@ -38,7 +38,7 @@ MusicBrainzConfig::MusicBrainzConfig() :
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);
-  setServer(QLatin1String("musicbrainz.org:80"));
+  setServer(QLatin1String("musicbrainz.org"));
 }
 
 /**

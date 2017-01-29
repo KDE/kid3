@@ -61,15 +61,15 @@ const char** AmazonImporter::serverList() const
 {
   static const char* servers[] = {
     // Parsing only works with English text
-    "www.amazon.com:80",
-    "www.amazon.co.uk:80",
+    "www.amazon.com",
+    "www.amazon.co.uk",
     0                  // end of StrList
   };
   return servers;
 }
 
 /** default server, 0 to disable */
-const char* AmazonImporter::defaultServer() const { return "www.amazon.com:80"; }
+const char* AmazonImporter::defaultServer() const { return "www.amazon.com"; }
 
 /** anchor to online help, 0 to disable */
 const char* AmazonImporter::helpAnchor() const { return "import-amazon"; }
@@ -493,7 +493,8 @@ void AmazonImporter::sendFindQuery(
   sendRequest(cfg->server(),
               QLatin1String("/gp/search/ref=sr_adv_m_pop/"
                       "?search-alias=popular&field-artist=") +
-              encodeUrlQuery(artist) + QLatin1String("&field-title=") + encodeUrlQuery(album));
+              encodeUrlQuery(artist) + QLatin1String("&field-title=") +
+              encodeUrlQuery(album), QLatin1String("https"));
 }
 
 /**
@@ -511,5 +512,6 @@ void AmazonImporter::sendTrackListQuery(
    * Query looks like this:
    * http://www.amazon.com/dp/B001VROVHO
    */
-  sendRequest(cfg->server(), QLatin1Char('/') + cat + QLatin1Char('/') + id);
+  sendRequest(cfg->server(), QLatin1Char('/') + cat + QLatin1Char('/') + id,
+              QLatin1String("https"));
 }
