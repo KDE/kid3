@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.4.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2016-10-18 06:25+0200\n"
-"PO-Revision-Date: 2012-12-07 15:47+0100\n"
+"PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: nl\n"
 "X-Source-Language: en\n"
@@ -747,130 +747,130 @@ msgid "Rename file"
 msgstr "Bestand hernoemen"
 
 msgid "padding (has no meaning)"
-msgstr ""
+msgstr "vulling (heeft geen betekenis)"
 
 msgid "end of initial silence"
-msgstr ""
+msgstr "einde van initiele stilte"
 
 msgid "intro start"
-msgstr ""
+msgstr "intro start"
 
 msgid "main part start"
-msgstr ""
+msgstr "hoofd deel start"
 
 msgid "outro start"
-msgstr ""
+msgstr "outro start"
 
 msgid "outro end"
-msgstr ""
+msgstr "outro eind"
 
 msgid "verse start"
-msgstr ""
+msgstr "couplet start"
 
 msgid "refrain start"
-msgstr ""
+msgstr "refrein start"
 
 msgid "interlude start"
-msgstr ""
+msgstr "intermezzo start"
 
 msgid "theme start"
-msgstr ""
+msgstr "onderwerp start"
 
 msgid "variation start"
-msgstr ""
+msgstr "variatie start"
 
 msgid "key change"
-msgstr ""
+msgstr "sleutel verandering"
 
 msgid "time change"
-msgstr ""
+msgstr "tijd verandering"
 
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "kortstondige ongewenste ruis (Snap, Crackle & Pop)"
 
 msgid "sustained noise"
-msgstr ""
+msgstr "aanhoudende ruis"
 
 msgid "sustained noise end"
-msgstr ""
+msgstr "eind aanhoudende ruis"
 
 msgid "intro end"
-msgstr ""
+msgstr "intro eind"
 
 msgid "main part end"
-msgstr ""
+msgstr "hoofd deel eind"
 
 msgid "verse end"
-msgstr ""
+msgstr "couplet eind"
 
 msgid "refrain end"
-msgstr ""
+msgstr "refrein eind"
 
 msgid "theme end"
-msgstr ""
+msgstr "onderwerp eind"
 
 msgid "profanity"
-msgstr ""
+msgstr "heiligschennis"
 
 msgid "profanity end"
-msgstr ""
+msgstr "heiligschennis eind"
 
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "niet vooraf sync 0"
 
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "niet vooraf sync 1"
 
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "niet vooraf sync 2"
 
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "niet vooraf sync 3"
 
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "niet vooraf sync 4"
 
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "niet vooraf sync 5"
 
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "niet vooraf sync 6"
 
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "niet vooraf sync 7"
 
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "niet vooraf sync 8"
 
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "niet vooraf sync 9"
 
 msgid "not predefined synch A"
-msgstr ""
+msgstr "niet vooraf sync A"
 
 msgid "not predefined synch B"
-msgstr ""
+msgstr "niet vooraf sync B"
 
 msgid "not predefined synch C"
-msgstr ""
+msgstr "niet vooraf sync C"
 
 msgid "not predefined synch D"
-msgstr ""
+msgstr "niet vooraf sync D"
 
 msgid "not predefined synch E"
-msgstr ""
+msgstr "niet vooraf sync E"
 
 msgid "not predefined synch F"
-msgstr ""
+msgstr "niet vooraf sync F"
 
 msgid "audio end (start of silence)"
-msgstr ""
+msgstr "audio eind (start bij stilte)"
 
 msgid "audio file ends"
-msgstr ""
+msgstr "audio bestand eindigd"
 
 msgid "reserved for future use %1"
-msgstr ""
+msgstr "omgekeerd voor verder gebruik %1"
 
 msgid "C&lear"
 msgstr "&Wissen"
@@ -996,13 +996,13 @@ msgid "Content Type"
 msgstr "Soort inhoud"
 
 msgid "Price"
-msgstr ""
+msgstr "prijs"
 
 msgid "Date"
 msgstr "Datum"
 
 msgid "Seller"
-msgstr ""
+msgstr "verkoper"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1308,7 +1308,7 @@ msgid "Podcast Feed"
 msgstr "Podcast feed"
 
 msgid "Official Radio Station"
-msgstr ""
+msgstr "Officieel Radio Station"
 
 msgid "Payment"
 msgstr "Betaling"
@@ -1350,13 +1350,13 @@ msgid "Label"
 msgstr "Platenlabel"
 
 msgid "Label Number"
-msgstr ""
+msgstr "Label nummer"
 
 msgid "Location"
 msgstr "Locatie"
 
 msgid "Opus"
-msgstr ""
+msgstr "Opus"
 
 msgid "Organization"
 msgstr "Organisatie"
@@ -1368,7 +1368,7 @@ msgid "Producer"
 msgstr "Producer"
 
 msgid "Product Number"
-msgstr ""
+msgstr "Product Nummer"
 
 msgid "Total Tracks"
 msgstr "Totaal aantal tracks"
@@ -1455,19 +1455,19 @@ msgid "Show Work & Movement"
 msgstr "Gebruik werk en deel"
 
 msgid "Archival Location"
-msgstr ""
+msgstr "Archivaal Locatie"
 
 msgid "Commissioned"
-msgstr ""
+msgstr "Gevolmachtigd"
 
 msgid "Cropped"
-msgstr ""
+msgstr "Bijgesneden"
 
 msgid "Dimensions"
 msgstr "Afmetingen"
 
 msgid "Dots Per Inch"
-msgstr ""
+msgstr "Punten Per Inch"
 
 msgid "Keywords"
 msgstr "Trefwoorden"
@@ -1485,7 +1485,7 @@ msgid "Sharpness"
 msgstr "Scherpte"
 
 msgid "Source Form"
-msgstr ""
+msgstr "Bron vorm"
 
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 en Tag 2"
@@ -2618,7 +2618,7 @@ msgid "Apply"
 msgstr "Toepassen"
 
 msgid "The current directory has been modified.\n"
-msgstr "De huidige map is gewijzigd."
+msgstr "De huidige map is gewijzigd.\n"
 
 msgid "About"
 msgstr "Over"
