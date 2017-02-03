@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -921,6 +921,12 @@ msgstr "文本"
 msgid "Data"
 msgstr "数据"
 
+msgid "Saving directory..."
+msgstr "保存目录..."
+
+msgid "Selection"
+msgstr "选择"
+
 msgid "Search finished"
 msgstr "搜索结束"
 
@@ -1738,6 +1744,12 @@ msgstr "文本编码 (导出, 播放列表)(&E)："
 msgid "Filte&r:"
 msgstr "过滤(&R)："
 
+msgid "Inclu&de folders:"
+msgstr ""
+
+msgid "E&xclude folders:"
+msgstr ""
+
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 
@@ -1815,6 +1827,9 @@ msgstr "来源(&S)："
 
 msgid "File Error"
 msgstr "文件错误"
+
+msgid "&Preview"
+msgstr "预览"
 
 msgid "&Filter:"
 msgstr "过滤(&F)："
@@ -2005,8 +2020,8 @@ msgstr "下载"
 msgid "Opening directory..."
 msgstr "打开目录..."
 
-msgid "Saving directory..."
-msgstr "保存目录..."
+msgid "Abort"
+msgstr "中止"
 
 msgid "%1 is not writable"
 msgstr "%1 无法写入"

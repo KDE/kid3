@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -923,6 +923,12 @@ msgstr "Teksti"
 msgid "Data"
 msgstr "Data"
 
+msgid "Saving directory..."
+msgstr "Tallennetaan kansio..."
+
+msgid "Selection"
+msgstr "Valinta"
+
 msgid "Search finished"
 msgstr "Haku valmis"
 
@@ -1739,6 +1745,12 @@ msgstr "Merkist&ökoodaus (Vie, soittolista):"
 msgid "Filte&r:"
 msgstr "Suo&din:"
 
+msgid "Inclu&de folders:"
+msgstr "Sis&ällytä kansiot:"
+
+msgid "E&xclude folders:"
+msgstr "&Jätä pois kansiot:"
+
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 
@@ -1816,6 +1828,9 @@ msgstr "&Lähde:"
 
 msgid "File Error"
 msgstr "Tiedostovirhe"
+
+msgid "&Preview"
+msgstr "Esikatselu"
 
 msgid "&Filter:"
 msgstr "&Suodin:"
@@ -2006,8 +2021,8 @@ msgstr "Lataa"
 msgid "Opening directory..."
 msgstr "Avaa kansio..."
 
-msgid "Saving directory..."
-msgstr "Tallennetaan kansio..."
+msgid "Abort"
+msgstr "Keskeytä"
 
 msgid "%1 is not writable"
 msgstr "%1 ei voi kirjoittaa"

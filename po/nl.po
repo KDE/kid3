@@ -6,9 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -923,6 +923,12 @@ msgstr "Tekst"
 msgid "Data"
 msgstr "Gegevens"
 
+msgid "Saving directory..."
+msgstr "Map opslaan..."
+
+msgid "Selection"
+msgstr "Selectie"
+
 msgid "Search finished"
 msgstr "Zoekopdracht voltooid"
 
@@ -1739,6 +1745,12 @@ msgstr "Tekstco&dering (Exporteren, afspeellijst):"
 msgid "Filte&r:"
 msgstr "&Filter:"
 
+msgid "Inclu&de folders:"
+msgstr "Onde&r andere mappen:"
+
+msgid "E&xclude folders:"
+msgstr "&Uitsluiten mappen:"
+
 msgid "&Filename Format"
 msgstr "B&estandsnaamstructuur"
 
@@ -1816,6 +1828,9 @@ msgstr "T&agbron:"
 
 msgid "File Error"
 msgstr "Bestandsfout"
+
+msgid "&Preview"
+msgstr "Voorbeeld"
 
 msgid "&Filter:"
 msgstr "&Filter:"
@@ -2006,8 +2021,8 @@ msgstr "Download"
 msgid "Opening directory..."
 msgstr "Map openen..."
 
-msgid "Saving directory..."
-msgstr "Map opslaan..."
+msgid "Abort"
+msgstr "Afbreken"
 
 msgid "%1 is not writable"
 msgstr "%1 is niet schrijfbaar"

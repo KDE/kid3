@@ -7,9 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -924,6 +924,12 @@ msgstr "Текст"
 msgid "Data"
 msgstr "Дата"
 
+msgid "Saving directory..."
+msgstr "Сохранение каталога..."
+
+msgid "Selection"
+msgstr "Выделение"
+
 msgid "Search finished"
 msgstr "Поиск завершён"
 
@@ -1741,6 +1747,12 @@ msgstr "Кодировка т&екста (Экспорт, список):"
 msgid "Filte&r:"
 msgstr "&Фильтр:"
 
+msgid "Inclu&de folders:"
+msgstr "Включить каталоги:"
+
+msgid "E&xclude folders:"
+msgstr "Исключать на каталоги:"
+
 msgid "&Filename Format"
 msgstr "&Формат имени файла"
 
@@ -1819,6 +1831,9 @@ msgstr "&Источник:"
 
 msgid "File Error"
 msgstr "Ошибка файла"
+
+msgid "&Preview"
+msgstr "Просмотр"
 
 msgid "&Filter:"
 msgstr "&Фильтр:"
@@ -2009,8 +2024,8 @@ msgstr "Закачка"
 msgid "Opening directory..."
 msgstr "Открытие каталога..."
 
-msgid "Saving directory..."
-msgstr "Сохранение каталога..."
+msgid "Abort"
+msgstr "Прервать"
 
 msgid "%1 is not writable"
 msgstr "Файл %1 только для чтения"

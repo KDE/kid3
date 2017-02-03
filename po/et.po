@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -923,6 +923,12 @@ msgstr "Tekst"
 msgid "Data"
 msgstr "Andmed"
 
+msgid "Saving directory..."
+msgstr "Kataloogi salvestamine..."
+
+msgid "Selection"
+msgstr "Valik"
+
 msgid "Search finished"
 msgstr "Otsimine lõpetatud"
 
@@ -1739,6 +1745,12 @@ msgstr "Teksti ko&deering (Eksport, esitusloendi):"
 msgid "Filte&r:"
 msgstr "F&ilter:"
 
+msgid "Inclu&de folders:"
+msgstr "Kaa&sa failid:"
+
+msgid "E&xclude folders:"
+msgstr "Väljajäetavad &failid:"
+
 msgid "&Filename Format"
 msgstr "&Failinime vorming"
 
@@ -1816,6 +1828,9 @@ msgstr "&Allikas:"
 
 msgid "File Error"
 msgstr "Failiviga"
+
+msgid "&Preview"
+msgstr "Eelvaade"
 
 msgid "&Filter:"
 msgstr "&Filter:"
@@ -2006,8 +2021,8 @@ msgstr "Allalaadimine"
 msgid "Opening directory..."
 msgstr "Kataloogi avamine..."
 
-msgid "Saving directory..."
-msgstr "Kataloogi salvestamine..."
+msgid "Abort"
+msgstr "Katkesta"
 
 msgid "%1 is not writable"
 msgstr "\"%1\" ei ole kirjutatav"

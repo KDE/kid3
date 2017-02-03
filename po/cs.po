@@ -6,9 +6,9 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -925,6 +925,12 @@ msgstr "Text"
 msgid "Data"
 msgstr "Data"
 
+msgid "Saving directory..."
+msgstr "Ukládá se adresář..."
+
+msgid "Selection"
+msgstr "Výběr"
+
 msgid "Search finished"
 msgstr "Hledání ukončeno"
 
@@ -1741,6 +1747,12 @@ msgstr "Kódování t&extu (Vyvést, seznam skladeb):"
 msgid "Filte&r:"
 msgstr "&Filtr:"
 
+msgid "Inclu&de folders:"
+msgstr "Z&ahrnují složky:"
+
+msgid "E&xclude folders:"
+msgstr "Přeskočit složk&y:"
+
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 
@@ -1818,6 +1830,9 @@ msgstr "&Zdroj:"
 
 msgid "File Error"
 msgstr "Chyba v souboru"
+
+msgid "&Preview"
+msgstr "Náhled"
 
 msgid "&Filter:"
 msgstr "&Filtr:"
@@ -2008,8 +2023,8 @@ msgstr "Stáhnout"
 msgid "Opening directory..."
 msgstr "Otevírá se adresář..."
 
-msgid "Saving directory..."
-msgstr "Ukládá se adresář..."
+msgid "Abort"
+msgstr "Přerušit"
 
 msgid "%1 is not writable"
 msgstr "%1 není zapisovatelný"
@@ -2735,4 +2750,3 @@ msgstr "Vybrat vše"
 
 msgid "Cut"
 msgstr "Vyjmout"
-

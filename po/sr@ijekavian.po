@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -922,6 +922,12 @@ msgstr "Текст"
 msgid "Data"
 msgstr "Подаци"
 
+msgid "Saving directory..."
+msgstr "Уписујем директоријум..."
+
+msgid "Selection"
+msgstr "Избор"
+
 msgid "Search finished"
 msgstr "Претрага завршена"
 
@@ -1739,6 +1745,12 @@ msgstr "Кодирање &текста (Извези, листа пуштања)
 msgid "Filte&r:"
 msgstr "&Филтер:"
 
+msgid "Inclu&de folders:"
+msgstr "Укључују фасцикли:"
+
+msgid "E&xclude folders:"
+msgstr "Изузми фасцикле:"
+
 msgid "&Filename Format"
 msgstr "Формат имена &фајла"
 
@@ -1816,6 +1828,9 @@ msgstr "&Извор:"
 
 msgid "File Error"
 msgstr "Грешка фајла"
+
+msgid "&Preview"
+msgstr "Преглед"
 
 msgid "&Filter:"
 msgstr "&Филтер:"
@@ -2006,8 +2021,8 @@ msgstr "Преузми"
 msgid "Opening directory..."
 msgstr "Отварам директоријум..."
 
-msgid "Saving directory..."
-msgstr "Уписујем директоријум..."
+msgid "Abort"
+msgstr "Обустави"
 
 msgid "%1 is not writable"
 msgstr "%1 се не може писати"

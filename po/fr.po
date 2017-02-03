@@ -7,9 +7,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -924,6 +924,12 @@ msgstr "Texte"
 msgid "Data"
 msgstr "Donnée"
 
+msgid "Saving directory..."
+msgstr "Sauvegarder dans le répertoire..."
+
+msgid "Selection"
+msgstr "Sélection"
+
 msgid "Search finished"
 msgstr "Recherche terminée"
 
@@ -1740,6 +1746,12 @@ msgstr "&Encodage du texte (Exporter, liste de lecture):"
 msgid "Filte&r:"
 msgstr "Fil&tre:"
 
+msgid "Inclu&de folders:"
+msgstr "I&nclure les dossiers:"
+
+msgid "E&xclude folders:"
+msgstr "E&xclure les dossiers:"
+
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 
@@ -1817,6 +1829,9 @@ msgstr "&Source:"
 
 msgid "File Error"
 msgstr "Erreur de fichier"
+
+msgid "&Preview"
+msgstr "Aperçu"
 
 msgid "&Filter:"
 msgstr "&Filtre:"
@@ -2007,8 +2022,8 @@ msgstr "Télécharger"
 msgid "Opening directory..."
 msgstr "Ouvrir répertoire..."
 
-msgid "Saving directory..."
-msgstr "Sauvegarder dans le répertoire..."
+msgid "Abort"
+msgstr "Abandonner"
 
 msgid "%1 is not writable"
 msgstr "%1 n'est pas accessible en écriture"

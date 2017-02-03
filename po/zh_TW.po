@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -925,6 +925,12 @@ msgstr "文字"
 msgid "Data"
 msgstr "資料"
 
+msgid "Saving directory..."
+msgstr "儲存目錄..."
+
+msgid "Selection"
+msgstr "選擇區"
+
 msgid "Search finished"
 msgstr "搜尋結束"
 
@@ -1742,6 +1748,12 @@ msgstr "編碼 (匯出, 播放清單)(&E):"
 msgid "Filte&r:"
 msgstr "篩選(&R):"
 
+msgid "Inclu&de folders:"
+msgstr "包含的文件夹(&D):"
+
+msgid "E&xclude folders:"
+msgstr "排除的資料夾(&X):"
+
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
@@ -1820,6 +1832,9 @@ msgstr "來源(&S):"
 
 msgid "File Error"
 msgstr "檔案錯誤"
+
+msgid "&Preview"
+msgstr "預覽"
 
 msgid "&Filter:"
 msgstr "篩選(&F):"
@@ -2010,8 +2025,8 @@ msgstr "下載"
 msgid "Opening directory..."
 msgstr "開啟目錄..."
 
-msgid "Saving directory..."
-msgstr "儲存目錄..."
+msgid "Abort"
+msgstr "中斷"
 
 msgid "%1 is not writable"
 msgstr "%1 檔案無法寫入"

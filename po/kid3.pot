@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Kid3 package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -919,6 +919,12 @@ msgstr ""
 msgid "Data"
 msgstr ""
 
+msgid "Saving directory..."
+msgstr ""
+
+msgid "Selection"
+msgstr ""
+
 msgid "Search finished"
 msgstr ""
 
@@ -1735,6 +1741,12 @@ msgstr ""
 msgid "Filte&r:"
 msgstr ""
 
+msgid "Inclu&de folders:"
+msgstr ""
+
+msgid "E&xclude folders:"
+msgstr ""
+
 msgid "&Filename Format"
 msgstr ""
 
@@ -1811,6 +1823,9 @@ msgid "&Source:"
 msgstr ""
 
 msgid "File Error"
+msgstr ""
+
+msgid "&Preview"
 msgstr ""
 
 msgid "&Filter:"
@@ -2002,7 +2017,7 @@ msgstr ""
 msgid "Opening directory..."
 msgstr ""
 
-msgid "Saving directory..."
+msgid "Abort"
 msgstr ""
 
 msgid "%1 is not writable"

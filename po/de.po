@@ -7,9 +7,9 @@
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -924,6 +924,12 @@ msgstr "Text"
 msgid "Data"
 msgstr "Daten"
 
+msgid "Saving directory..."
+msgstr "Speichere Verzeichnis..."
+
+msgid "Selection"
+msgstr "Auswahl"
+
 msgid "Search finished"
 msgstr "Suche abgeschlossen"
 
@@ -1740,6 +1746,12 @@ msgstr "T&extkodierung (Export, Stückliste):"
 msgid "Filte&r:"
 msgstr "&Filter:"
 
+msgid "Inclu&de folders:"
+msgstr "O&rdner einschließen:"
+
+msgid "E&xclude folders:"
+msgstr "Ord&ner ausschließen:"
+
 msgid "&Filename Format"
 msgstr "&Dateinamenformat"
 
@@ -1817,6 +1829,9 @@ msgstr "&Quelle:"
 
 msgid "File Error"
 msgstr "Dateifehler"
+
+msgid "&Preview"
+msgstr "Vorschau"
 
 msgid "&Filter:"
 msgstr "&Filter:"
@@ -2007,8 +2022,8 @@ msgstr "Download"
 msgid "Opening directory..."
 msgstr "Öffne Verzeichnis..."
 
-msgid "Saving directory..."
-msgstr "Speichere Verzeichnis..."
+msgid "Abort"
+msgstr "Abbrechen"
 
 msgid "%1 is not writable"
 msgstr "%1 ist nicht schreibbar"

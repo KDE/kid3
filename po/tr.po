@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.4\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2016-10-18 06:25+0200\n"
+"POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -922,6 +922,12 @@ msgstr "Metin"
 msgid "Data"
 msgstr "Veri"
 
+msgid "Saving directory..."
+msgstr "Dizin kaydediliyor..."
+
+msgid "Selection"
+msgstr "Seçim"
+
 msgid "Search finished"
 msgstr "Arama tamamlandı"
 
@@ -1739,6 +1745,12 @@ msgstr "M&etin kodlama (Dışa aktar, playlist):"
 msgid "Filte&r:"
 msgstr "&Filtre:"
 
+msgid "Inclu&de folders:"
+msgstr "Dah&il edilen klasörler:"
+
+msgid "E&xclude folders:"
+msgstr "&Hariç klasörler:"
+
 msgid "&Filename Format"
 msgstr "&Dosya adı Biçimi"
 
@@ -1817,6 +1829,9 @@ msgstr "&Kaynak:"
 
 msgid "File Error"
 msgstr "Dosya Hatası"
+
+msgid "&Preview"
+msgstr "Önizleme"
 
 msgid "&Filter:"
 msgstr "&Filtre:"
@@ -2007,8 +2022,8 @@ msgstr "İndir"
 msgid "Opening directory..."
 msgstr "Dizin Açılıyor..."
 
-msgid "Saving directory..."
-msgstr "Dizin kaydediliyor..."
+msgid "Abort"
+msgstr "İptal"
 
 msgid "%1 is not writable"
 msgstr "%1 dosyası yazılabilir değil"
