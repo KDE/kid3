@@ -1,3 +1,29 @@
+Sat Feb 18 19:21:55 CET 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.4.5
+
+	* New:
+	  + Settings to include and exclude folders in the file list.
+
+	* Improved:
+	  + Use HTTPS for imports where possible.
+	  + Much faster expanding of the file list by avoiding GUI
+	    updates during the operation.
+	  + Faster filtering by avoiding GUI updates during the
+	    operation.
+	  + Reduced memory usage when filtering.
+	  + Updated Czech and Dutch translations.
+
+	* Fixed:
+	  + Import from MusicBrainz.
+	  + Rate limit for import from Discogs.
+	  + Do not display multiple frames of same type as different.
+	  + Application not responsive when using a new filter after
+	    filtering a huge number of files.
+	  + Application not responsive when loading the tags after
+	    selecting a lot of files, is now abortable.
+	  + Terminate kid3-cli if EOF is received.
+
 Fri Dec 23 08:33:40 CET 2016  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.4

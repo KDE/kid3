@@ -22,13 +22,13 @@
 </authorgroup>
 
 <copyright>
-<year>2016</year>
+<year>2017</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2016-12-23</date>
-<releaseinfo>3.4.4</releaseinfo>
+<date>2017-02-18</date>
+<releaseinfo>3.4.5</releaseinfo>
 
 <abstract>
 <para>
@@ -2258,6 +2258,21 @@ Mit <guilabel>Textkodierung (Export, Stückliste)</guilabel> lässt sich die
 Codierung einstellen, welche beim Schreiben von Dateien verwendet wird. Die
 Voreinstellung <guilabel>System</guilabel> kann verändert werden wenn
 beispielsweise Stücklisten auf einem anderen Gerät verwendet werden sollen.
+</para>
+<para>
+Der Abschnitt <guilabel>Dateiliste</guilabel> bestimmt, welche Dateien in der
+Dateiliste angezeigt werden. Mit einem <guilabel>Filter</guilabel> können die
+in dieser Liste angezeigten Elemente auf Dateien mit unterstützter Dateiendung
+eingeschränkt werden. Um explizit anzugeben, welche Verzeichnisse in der
+Dateiliste erscheinen sollen oder bestimmte Verzeichnisse zu unterdrücken,
+können die Felder <guilabel>Ordner einschließen</guilabel> und
+<guilabel>Ordner ausschließen</guilabel> verwendet werden. Sie können
+Dateinamen-Platzhalter enthalten, beispielsweise
+<filename>*/Musik/*</filename> um nur das
+<filename>Musik</filename>-Verzeichnis anzuzeigen, oder
+<filename>*/iTunes/*</filename> um das iTunes-Verzeichnis auszublenden. Wenn
+mehrere solche Ausdrücke verwendet werden, so können sie durch Leerzeichen
+oder Strichpunkte getrennt werden.
 </para>
 <para>
 <guilabel>Dateinamen Format</guilabel> enthält Einstellungen für das

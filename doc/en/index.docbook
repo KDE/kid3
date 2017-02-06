@@ -22,13 +22,13 @@
 </authorgroup>
 
 <copyright>
-<year>2016</year>
+<year>2017</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2016-12-23</date>
-<releaseinfo>3.4.4</releaseinfo>
+<date>2017-02-18</date>
+<releaseinfo>3.4.5</releaseinfo>
 
 <abstract>
 <para>
@@ -2118,6 +2118,18 @@ changed for example if playlists have to be used on a different device.
 <para>
 If <guilabel>Mark changes</guilabel> is active, changed fields are marked with
 a light gray label background.
+</para>
+<para>
+The section <guilabel>File List</guilabel> determines which files are
+displayed in the file list. A <guilabel>Filter</guilabel> can be used to
+restrict the items in this list to files with supported extensions. To
+explicitly specify which directories to display in the file list or exclude
+certain directories, the options <guilabel>Include folders</guilabel> and
+<guilabel>Exclude folders</guilabel> can be used. They can contain wildcard
+expressions, for instance <filename>*/Music/*</filename> to include only the
+<filename>Music</filename> folder, or <filename>*/iTunes/*</filename> to
+exclude the iTunes folder from the file list. If multiple such expressions
+have to be used, they can be separated by spaces or semicolons.
 </para>
 <para>
 <guilabel>Filename Format</guilabel> contains options for the format of the

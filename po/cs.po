@@ -6,7 +6,7 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.5.0\n"
+"Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"

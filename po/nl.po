@@ -6,7 +6,7 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.5.0\n"
+"Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2017-02-03 15:27+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
