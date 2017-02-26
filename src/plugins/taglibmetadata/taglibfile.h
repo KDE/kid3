@@ -375,6 +375,15 @@ private:
   void setId3v2VersionOrDefault(int id3v2Version);
 #endif
 
+  /**
+   * Get internal name of a Vorbis frame.
+   *
+   * @param frame frame
+   *
+   * @return Vorbis key.
+   */
+  QString getVorbisName(const Frame& frame) const;
+
 #if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
   /**
    * Set a frame in an MP4 tag.

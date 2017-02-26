@@ -4015,11 +4015,11 @@ static Frame::Type getTypeFromApeName(const QString& name)
  *
  * @return Vorbis key.
  */
-static QString getVorbisName(const Frame& frame)
+QString TagLibFile::getVorbisName(const Frame& frame) const
 {
   Frame::Type type = frame.getType();
   if (type == Frame::FT_Comment) {
-    return QLatin1String("DESCRIPTION");
+    return getCommentFieldName();
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
