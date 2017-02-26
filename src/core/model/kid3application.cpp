@@ -3088,7 +3088,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
   if (it != frames.end()) {
     QString frmName(it->getName());
     bool isPicture, isGeob, isSylt = false;
-    if (!dataFileName.isEmpty() && (tagMask & 2) != 0 &&
+    if (!dataFileName.isEmpty() &&
+        (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0 &&
         ((isPicture = (it->getType() == Frame::FT_Picture)) ||
          (isGeob = frmName.startsWith(QLatin1String("GEOB"))) ||
          (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
@@ -3132,7 +3133,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           addFrame(tagNr, &frame);
         }
       }
-    } else if (value.isEmpty() && (tagMask & 2) != 0) {
+    } else if (value.isEmpty() &&
+               (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
       deleteFrame(tagNr, frmName);
     } else {
       Frame& frame = const_cast<Frame&>(*it);
@@ -3143,7 +3145,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       emit selectedFilesUpdated();
     }
     return true;
-  } else if (tagMask & 2) {
+  } else if (tagMask & (Frame::TagV2 | Frame::TagV3)) {
     Frame frame(Frame::ExtendedType(frameName), value, -1);
     QString frmName(frame.getInternalName());
     bool isPicture, isGeob, isSylt = false;
