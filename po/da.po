@@ -1,0 +1,2740 @@
+# Kid3 Danish Translation.
+#
+# Martin Eilsøe <martin.eilsoe@gmail.com>, 2017.
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2017-03-18 08:52+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: da_DK\n"
+"X-Source-Language: en_GB\n"
+"X-Qt-Contexts: \n"
+
+msgid "Timeout"
+msgstr "Timeout"
+
+msgid "Usage:"
+msgstr "Anvendelse:"
+
+msgid "Help"
+msgstr "Hjælp"
+
+msgid "Command name"
+msgstr "Kommandonavn"
+
+msgid "Overwrite timeout"
+msgstr "Overskriv timeout"
+
+msgid "Time"
+msgstr "Tidspunkt"
+
+msgid "Quit application"
+msgstr "Afslut programmet"
+
+msgid "The current directory has been modified."
+msgstr "Det aktuelle bibliotek er blevet ændret."
+
+msgid "Type 'exit force' to quit."
+msgstr "Skriv 'exit force' for at afslutte."
+
+msgid "Change directory"
+msgstr "Skift bibliotek"
+
+msgid "%1 does not exist"
+msgstr "%1 eksisterer ikke"
+
+msgid "Print the filename of the current working directory"
+msgstr "Udskriv filnavnet på det nuværende arbejdsbibliotek"
+
+msgid "Directory list"
+msgstr "Biblioteksliste"
+
+msgid "Saves the changed files"
+msgstr "Gem ændrede filer"
+
+msgid "Error while writing file:\n"
+msgstr "Fejl ved skrivning af fil:\n"
+
+msgid "Select file"
+msgstr "Vælg fil"
+
+msgid "%1 not found"
+msgstr "%1 ikke fundet"
+
+msgid "Select tag"
+msgstr "Vælg tag"
+
+msgid "Get tag frame"
+msgstr "Tag Tag felt"
+
+msgid "Set tag frame"
+msgstr "Sæt tag-felt"
+
+msgid "Could not set \"%1\" for %2"
+msgstr "Kunne ikke sætte \"%1\" for %2"
+
+msgid "Revert"
+msgstr "Vend tilbage"
+
+msgid "Import from file or clipboard"
+msgstr "Importér fra fil eller klippebord"
+
+msgid "File path"
+msgstr "fil placering"
+
+msgid "Format name"
+msgstr "Formatnavn"
+
+msgid "Source"
+msgstr "Kilde"
+
+msgid "Extraction"
+msgstr "Udtræk"
+
+msgid "%1 not found."
+msgstr "%1 blev ikke fundet."
+
+msgid "Available"
+msgstr "Tilrådighed"
+
+msgid "Error"
+msgstr "Fejl"
+
+msgid "Automatic import"
+msgstr "Automatisk import"
+
+msgid "Profile name"
+msgstr "Profilnavn"
+
+msgid "Reading Directory"
+msgstr "Læser bibliotek"
+
+msgid "Started"
+msgstr "Begyndt"
+
+msgid "Querying"
+msgstr "Forespørger"
+
+msgid "Fetching"
+msgstr "Henter"
+
+msgid "Data received"
+msgstr "Data modtaget"
+
+msgid "Cover"
+msgstr "Omslag"
+
+msgid "Finished"
+msgstr "færdig"
+
+msgid "Aborted"
+msgstr "Afbrudt"
+
+msgid "Download album cover artwork"
+msgstr "Download album omslag"
+
+msgid "Export to file or clipboard"
+msgstr "Importér til fil eller klippebord"
+
+msgid "Create playlist"
+msgstr "Opret spilleliste"
+
+msgid "Apply filename format"
+msgstr "Anvend filnavn formatet"
+
+msgid "Apply tag format"
+msgstr "Anvend tag format"
+
+msgid "Apply text encoding"
+msgstr "Anvend Tegnsæt"
+
+msgid "Rename directory"
+msgstr "Omdøb bibliotek"
+
+msgid "Number tracks"
+msgstr "Antal spor"
+
+msgid "Track number"
+msgstr "Spornummer"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Filter name"
+msgstr "Filternavn"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Konvertér ID3v2.3 til ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Konvertér ID3v2.4 til ID3v2.3"
+
+msgid "Filename from tag"
+msgstr "Filnavn fra tag"
+
+msgid "Tag from filename"
+msgstr "Tag fra filnavn"
+
+msgid "Tag to other tag"
+msgstr "Tag til anden tag"
+
+msgid "Copy"
+msgstr "Kopi"
+
+msgid "Paste"
+msgstr "Indsæt"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Play"
+msgstr "Afspil"
+
+msgid "Parameter"
+msgstr "Parameter"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Tag numbers"
+msgstr "Tag numre"
+
+msgid "Frame name"
+msgstr "Feltnavn"
+
+msgid "Frame value"
+msgstr "Feltværdi"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Command specific"
+msgstr "Kommandospecifikt"
+
+msgid "Available Commands"
+msgstr "Mulige kommandoer"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Tag %1"
+msgstr "Tag %1"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Ukendt kommando '%1'. Skriv 'help' for hjælp."
+
+msgid "Unknown command '%1', -h for help."
+msgstr "Ukendt kommando '%1', -h for Hjælp."
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "User Actions"
+msgstr "Anvendelse"
+
+msgid "Network"
+msgstr "Netværk"
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Main Toolbar"
+msgstr "Hovedværktøjslinie"
+
+msgid "Open files"
+msgstr "Åbn filer"
+
+msgid "Opens a recently used directory"
+msgstr "Åbner et nyligt anvendt bibliotek"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Fortryd ændringer af alle eller de valgte filer"
+
+msgid "Quits the application"
+msgstr "Afslutter programmet"
+
+msgid "Select all files"
+msgstr "Vælg alle filer"
+
+msgid "Deselect all files"
+msgstr "Fravælg alle filer"
+
+msgid "Find"
+msgstr "Søg"
+
+msgid "Find and replace"
+msgstr "Søg og erstat"
+
+msgid "Configure Shortcuts"
+msgstr "Konfigurér genveje"
+
+msgid "Configure Toolbars"
+msgstr "Konfigurér værktøjslinie"
+
+msgid "Preferences dialog"
+msgstr "Indstillinger dialog"
+
+msgid "O&pen Directory..."
+msgstr "&Åbn bibliotek..."
+
+msgid "Opens a directory"
+msgstr "Åbner et bibliotek"
+
+msgid "&Import..."
+msgstr "&Importér..."
+
+msgid "Import from %1..."
+msgstr "Importér fra %1..."
+
+msgid "Import from %1"
+msgstr "Importér fra %1"
+
+msgid "Automatic I&mport..."
+msgstr "Automatisk i&mport..."
+
+msgid "&Browse Cover Art..."
+msgstr "Søg efter omslag-&billeder..."
+
+msgid "Browse album cover artwork"
+msgstr "Gennemse omslag billeder"
+
+msgid "&Export..."
+msgstr "&Eksportér..."
+
+msgid "&Create Playlist..."
+msgstr "&Opret afspilningsliste..."
+
+msgid "Create M3U Playlist"
+msgstr "Opret M3U-afspilningsliste"
+
+msgid "Apply &Filename Format"
+msgstr "Anvend &filformat"
+
+msgid "Apply Filename Format"
+msgstr "Anvend filnavn format"
+
+msgid "Apply &Tag Format"
+msgstr "&Anvend Tag format"
+
+msgid "Apply Tag Format"
+msgstr "Anvend Tag format"
+
+msgid "Apply Text &Encoding"
+msgstr "Anv&end tegnsæt"
+
+msgid "Apply Text Encoding"
+msgstr "Anvend tegnsæt"
+
+msgid "&Rename Directory..."
+msgstr "Omdø&b biobliotek..."
+
+msgid "Rename Directory"
+msgstr "Omdøb bibliotek"
+
+msgid "&Number Tracks..."
+msgstr "A&ntal Spor..."
+
+msgid "Number Tracks"
+msgstr "Antal Spor"
+
+msgid "F&ilter..."
+msgstr "F&ilter..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Konvertér ID3v2.3 til ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Konvertér ID3v2.4 til ID3v2.&3"
+
+msgid "&Play"
+msgstr "Afs&pil"
+
+msgid "Show &Picture"
+msgstr "Vis &billede"
+
+msgid "Show Picture"
+msgstr "Vil billede"
+
+msgid "Auto &Hide Tags"
+msgstr "&Skjul Tags automatisk"
+
+msgid "Auto Hide Tags"
+msgstr "Skjul Tags automatisk"
+
+msgid "Select All in &Directory"
+msgstr "V&ælg alle i biblioteket"
+
+msgid "Select all files in the current directory"
+msgstr "Vælg alle filer i nuværende bibliotek"
+
+msgid "&Previous File"
+msgstr "&Forrige fil"
+
+msgid "Select previous file"
+msgstr "Vælg forrige fil"
+
+msgid "&Next File"
+msgstr "&Næste fil"
+
+msgid "Select next file"
+msgstr "Vælg næste fil"
+
+msgid "Filename"
+msgstr "Filnavn"
+
+msgid "From Tag %1"
+msgstr "Fra Tag %1"
+
+msgid "From Filename"
+msgstr "Fra filnavn"
+
+msgid "Focus"
+msgstr "Fokus"
+
+msgid "Frames:"
+msgstr "Felter:"
+
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "File List"
+msgstr "Filliste"
+
+msgid "&Rename"
+msgstr "&Omdøb"
+
+msgid "&Move to Trash"
+msgstr "Fl&yt til skraldespand"
+
+msgid "Directory List"
+msgstr "Biblioteksliste"
+
+msgid "Configure - Kid3"
+msgstr "Konfigurér Kid3"
+
+msgid "Open"
+msgstr "Åbn"
+
+msgid "Save As"
+msgstr "Gem som"
+
+msgid "directory to open"
+msgstr "Bibliotek der skal åbnes"
+
+msgid "Audio Tag Editor"
+msgstr "Audio-Tag Editor"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Formatnavn"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "martin.eilsoe@gmail.com"
+
+msgid "&Back"
+msgstr "&Tilbage"
+
+msgid "&Forward"
+msgstr "&Fremad"
+
+msgid "&Find:"
+msgstr "&Søg:"
+
+msgid "Find Previous"
+msgstr "Søg forrige"
+
+msgid "Find Next"
+msgstr "Søg næste"
+
+msgid "&Close"
+msgstr "&Luk"
+
+msgid "&Tags"
+msgstr "&Tags"
+
+msgid "&Files"
+msgstr "&Filer"
+
+msgid "&User Actions"
+msgstr "&Bruger handlinger"
+
+msgid "&Network"
+msgstr "&Netværk"
+
+msgid "&Plugins"
+msgstr "&Plugins"
+
+msgid "&Keyboard Shortcuts"
+msgstr "Tastatur&genvej"
+
+msgid "Use custom app&lication font"
+msgstr "Brug bruger program &skrifttype"
+
+msgid "A&pplication Font..."
+msgstr "&Program skrifttype..."
+
+msgid "Use custom application &style"
+msgstr "Brug bruger program &stil"
+
+msgid "Unknown"
+msgstr "Ukendt"
+
+msgid "Use native system file &dialogs"
+msgstr "Brug me&dfølgende system fildialogbokse"
+
+msgid "&Appearance"
+msgstr "&Udseende"
+
+msgid "&Help"
+msgstr "&Hjælp"
+
+msgid "Restore Defaults"
+msgstr "Genskab standarder"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Annullér"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Tastatur genvej '%1' er allerede tildelt '%2'."
+
+msgid "&File"
+msgstr "&Fil"
+
+msgid "&Open..."
+msgstr "&Åbn..."
+
+msgid "Open &Recent"
+msgstr "Åbn fo&rrige"
+
+msgid "&Save"
+msgstr "&Gem"
+
+msgid "Re&vert"
+msgstr "&Vend tilbage"
+
+msgid "&Quit"
+msgstr "A&fslut"
+
+msgid "&Edit"
+msgstr "&Redigér"
+
+msgid "Select &All"
+msgstr "Vælg a&lle"
+
+msgid "Dese&lect"
+msgstr "Frav&ælg"
+
+msgid "&Find..."
+msgstr "&Søg..."
+
+msgid "&Replace..."
+msgstr "&Erstat..."
+
+msgid "&Tools"
+msgstr "&Værktøjer"
+
+msgid "&Settings"
+msgstr "&Indstillinger"
+
+msgid "Enables/disables the toolbar"
+msgstr "Aktiver/deaktiver værktøjslinie"
+
+msgid "Show &Toolbar"
+msgstr "Vis &værktøjslinie"
+
+msgid "Enables/disables the statusbar"
+msgstr "Aktivér/deaktivér statusbar"
+
+msgid "Show St&atusbar"
+msgstr "Vis &statusbar"
+
+msgid "Configure Kid3"
+msgstr "Konfigurér Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "&Konfigurér Kid3..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 Håndbog"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 &håndbog"
+
+msgid "About Kid3"
+msgstr "Om Kid3"
+
+msgid "&About Kid3"
+msgstr "&Om Kid3"
+
+msgid "About Qt"
+msgstr "Om Qt"
+
+msgid "About &Qt"
+msgstr "Om &Qt"
+
+msgid " [modified]"
+msgstr " [redigeret]"
+
+msgid "Toggle the statusbar..."
+msgstr "Slå statusbar til/fra..."
+
+msgid "Ready."
+msgstr "Klar."
+
+msgid "License"
+msgstr "Licens"
+
+msgid "&Clear List"
+msgstr "&Ryd liste"
+
+msgid "Clear"
+msgstr "Ryd"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Tryk F2 eller dobbeltklik for at redigere celle indholdet."
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "Shortcut"
+msgstr "Genvej"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Accuracy"
+msgstr "Nøjagtighed"
+
+msgid "Standard Tags"
+msgstr "Standard Tags"
+
+msgid "Additional Tags"
+msgstr "Supplerende Tags"
+
+msgid "Cover Art"
+msgstr "Omslag billeder"
+
+msgid "No changes"
+msgstr "Ingen ændringer"
+
+msgid "All lowercase"
+msgstr "Alle ord med småt"
+
+msgid "All uppercase"
+msgstr "Alle ord med stort"
+
+msgid "First letter uppercase"
+msgstr "Første bogstav med stort"
+
+msgid "All first letters uppercase"
+msgstr "Alle første bogstaver med stort"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+msgid "UTF16"
+msgstr "UTF16"
+
+msgid "UTF8"
+msgstr "UTF8"
+
+msgid "Invalid File"
+msgstr "Ugyldig fil"
+
+msgid "Data received: %1"
+msgstr "Data modtaget: %1"
+
+msgid "Request sent..."
+msgstr "Forespørgsel sendt..."
+
+msgid "Year"
+msgstr "År"
+
+msgid "Length"
+msgstr "Længde"
+
+msgid "Filenames"
+msgstr "Filnavne"
+
+msgid "URLs"
+msgstr "URLs"
+
+msgid "Directory name"
+msgstr "Biblioteksnavn"
+
+msgid "QML base directory"
+msgstr "QML Base bibliotek"
+
+msgid "Encode as URL"
+msgstr "Indkod som URL"
+
+msgid "--- separator ---"
+msgstr "--- adskiller ---"
+
+msgid "Begin of submenu"
+msgstr "Begyndelse af undermenu"
+
+msgid "End of submenu"
+msgstr "Slut på undermenu"
+
+msgid "Confirm"
+msgstr "Bekræft"
+
+msgid "Output"
+msgstr "Output"
+
+msgid "Command"
+msgstr "Kommando"
+
+msgid "Create directory %1 failed\n"
+msgstr "Oprettelse af biblioteket %1 fejlede\n"
+
+msgid "File %1 already exists\n"
+msgstr "Filen %1 eksisterer allerede\n"
+
+msgid "%1 is not a directory\n"
+msgstr "%1 er ikke et bibliotek\n"
+
+msgid "Rename %1 to %2 failed\n"
+msgstr "Omdøbning af %1 til %2 fejlede\n"
+
+msgid "%1 already exists\n"
+msgstr "%1 eksisterer allerede\n"
+
+msgid "%1 is not a file\n"
+msgstr "%1 er ikke en fil"
+
+msgid "New directory name is too different\n"
+msgstr "Nyt biblioteksnavn er for forskelligt\n"
+
+msgid "Create directory"
+msgstr "Opret bibliotek"
+
+msgid "Rename file"
+msgstr "Omdøb fil"
+
+msgid "padding (has no meaning)"
+msgstr "Fyld (har ingen betydning)"
+
+msgid "end of initial silence"
+msgstr "Slut på indledende stilhed"
+
+msgid "intro start"
+msgstr "intro start"
+
+msgid "main part start"
+msgstr "Hovedpart start"
+
+msgid "outro start"
+msgstr "outro start"
+
+msgid "outro end"
+msgstr "Outro slut"
+
+msgid "verse start"
+msgstr "Anfang des Verses"
+
+msgid "refrain start"
+msgstr "Start af omkvæd"
+
+msgid "interlude start"
+msgstr "Start på mellemspil"
+
+msgid "theme start"
+msgstr "Tema start"
+
+msgid "variation start"
+msgstr "Start på variation"
+
+msgid "key change"
+msgstr "Skift af toneart"
+
+msgid "time change"
+msgstr "Takt ændring"
+
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "Kortvarig uønsket støj (Klikken, Knistern & Knagen)"
+
+msgid "sustained noise"
+msgstr "Vedvarende støj"
+
+msgid "sustained noise end"
+msgstr "Slut på vedvarende støj"
+
+msgid "intro end"
+msgstr "Intro slut"
+
+msgid "main part end"
+msgstr "Hovedpart slut"
+
+msgid "verse end"
+msgstr "Slut på vers"
+
+msgid "refrain end"
+msgstr "Slut på omkvæd"
+
+msgid "theme end"
+msgstr "Tema slut"
+
+msgid "profanity"
+msgstr "Bandeord"
+
+msgid "profanity end"
+msgstr "Slut på bandeord"
+
+msgid "not predefined synch 0"
+msgstr "Synkronisering 0 ikke predefineret"
+
+msgid "not predefined synch 1"
+msgstr "Synkronisering 1 ikke predefineret"
+
+msgid "not predefined synch 2"
+msgstr "Synkronisering 2 ikke predefineret"
+
+msgid "not predefined synch 3"
+msgstr "Synkronisering 3 ikke predefineret"
+
+msgid "not predefined synch 4"
+msgstr "Synkronisering 4 ikke predefineret"
+
+msgid "not predefined synch 5"
+msgstr "Synkronisering 5 ikke predefineret"
+
+msgid "not predefined synch 6"
+msgstr "Synkronisering 6 ikke predefineret"
+
+msgid "not predefined synch 7"
+msgstr "Synkronisering 7 ikke predefineret"
+
+msgid "not predefined synch 8"
+msgstr "Synkronisering 8 ikke predefineret"
+
+msgid "not predefined synch 9"
+msgstr "Synkronisering 9 ikke predefineret"
+
+msgid "not predefined synch A"
+msgstr "Synkronisering A ikke predefineret"
+
+msgid "not predefined synch B"
+msgstr "Synkronisering B ikke predefineret"
+
+msgid "not predefined synch C"
+msgstr "Synkronisering C ikke predefineret"
+
+msgid "not predefined synch D"
+msgstr "Synkronisering D ikke predefineret"
+
+msgid "not predefined synch E"
+msgstr "Synkronisering E ikke predefineret"
+
+msgid "not predefined synch F"
+msgstr "Synkronisering F ikke predefineret"
+
+msgid "audio end (start of silence)"
+msgstr "Audio slut (start af stilhed)"
+
+msgid "audio file ends"
+msgstr "Slut på audio fil"
+
+msgid "reserved for future use %1"
+msgstr "Reserveret til fremtidig brug %1"
+
+msgid "C&lear"
+msgstr "&Rens"
+
+msgid "Execute "
+msgstr "Iværksæt "
+
+msgid "Could not execute "
+msgstr "Kunne ikke iværksætte "
+
+msgid "True if strings are equal"
+msgstr "Sand hvis strenge er ens"
+
+msgid "True if string contains substring"
+msgstr "Sand hvis streng indeholder substreng"
+
+msgid "True if string matches regexp"
+msgstr "Sandt hvis strengen matcher regexp"
+
+msgid "Logical AND"
+msgstr "Logiske OG"
+
+msgid "Logical OR"
+msgstr "Logiske ELLER"
+
+msgid "Logical negation"
+msgstr "Logiske NEGATION"
+
+msgid "Size"
+msgstr "Størrelse"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Kind"
+msgstr "Art"
+
+msgid "Date Modified"
+msgstr "Redigeringsdato"
+
+msgid "All Supported Files"
+msgstr "Alle supporterede filer"
+
+msgid "All Files"
+msgstr "Alle filer"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Saving directory..."
+msgstr "Gem bibliotek..."
+
+msgid "Selection"
+msgstr "Valg"
+
+msgid "Search finished"
+msgstr "Søgning afsluttet"
+
+msgid "Event Code"
+msgstr "Hændelseskode"
+
+msgid "Track"
+msgstr "Spor"
+
+msgid "Absolute path to file"
+msgstr "Absolut sti til fil"
+
+msgid "Duration"
+msgstr "Varighed"
+
+msgid "Text Encoding"
+msgstr "Tegnsæt"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Owner"
+msgstr "Ejer"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Rating"
+msgstr "Bedømmelse"
+
+msgid "Language"
+msgstr "Sprog"
+
+msgid "Picture Type"
+msgstr "Billedetype"
+
+msgid "Image format"
+msgstr "Billede format"
+
+msgid "Mimetype"
+msgstr "MIME-Type"
+
+msgid "Counter"
+msgstr "Tæller"
+
+msgid "Identifier"
+msgstr "Identifikation"
+
+msgid "Volume Adjustment"
+msgstr "Tilpasning af lydstyrke"
+
+msgid "Number of Bits"
+msgstr "Antal Bits"
+
+msgid "Volume Change Right"
+msgstr "Lydstyrkeændring højre"
+
+msgid "Volume Change Left"
+msgstr "Lydstyrkeændring venstre"
+
+msgid "Peak Volume Right"
+msgstr "Maks lydstyrke højre"
+
+msgid "Peak Volume Left"
+msgstr "Maks lydstyrke venstre"
+
+msgid "Timestamp Format"
+msgstr "Format til tidsstempling"
+
+msgid "Content Type"
+msgstr "Stil"
+
+msgid "Price"
+msgstr "Pris"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Seller"
+msgstr "Sælger"
+
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+msgid "Other"
+msgstr "Andet"
+
+msgid "MPEG frames as unit"
+msgstr "MPEG-billedstrømme som enhed"
+
+msgid "Milliseconds as unit"
+msgstr "Millisekunder som enhed"
+
+msgid "Lyrics"
+msgstr "Sangtekster"
+
+msgid "Text transcription"
+msgstr "Tekst transskription"
+
+msgid "Movement/part name"
+msgstr "Sats/part navn"
+
+msgid "Events"
+msgstr "Hændelser"
+
+msgid "Chord"
+msgstr "Akkord"
+
+msgid "Trivia/pop up"
+msgstr "Trivia/Popup"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Artist"
+msgstr "Kunstner"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Track Number"
+msgstr "Spornummer"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Album Artist"
+msgstr "Album kunstner"
+
+msgid "Arranger"
+msgstr "Arrangør"
+
+msgid "Author"
+msgstr "Forfatter"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Catalog Number"
+msgstr "Katalognummer"
+
+msgid "Compilation"
+msgstr "Kompilation"
+
+msgid "Composer"
+msgstr "Komponist"
+
+msgid "Conductor"
+msgstr "Dirigent"
+
+msgid "Copyright"
+msgstr "Ophavsret"
+
+msgid "Disc Number"
+msgstr "CD-Nummer"
+
+msgid "Encoded-by"
+msgstr "Indkodet af"
+
+msgid "Encoder Settings"
+msgstr "Indkodning-Indstillinger"
+
+msgid "Encoding Time"
+msgstr "Encoding tidspunkt"
+
+msgid "Grouping"
+msgstr "Gruppering"
+
+msgid "Initial Key"
+msgstr "Indledende toneart"
+
+msgid "ISRC"
+msgstr "ISRC"
+
+msgid "Lyricist"
+msgstr "Tekstforfatter"
+
+msgid "Media"
+msgstr "Medie"
+
+msgid "Mood"
+msgstr "Stemning"
+
+msgid "Original Album"
+msgstr "Originalalbum"
+
+msgid "Original Artist"
+msgstr "Original kunstner"
+
+msgid "Original Date"
+msgstr "Original dato"
+
+msgid "Part"
+msgstr "Part"
+
+msgid "Performer"
+msgstr "Performer"
+
+msgid "Picture"
+msgstr "Billede"
+
+msgid "Publisher"
+msgstr "Udgiver"
+
+msgid "Release Country"
+msgstr "Udgiverland"
+
+msgid "Remixer"
+msgstr "Remixer"
+
+msgid "Sort Album"
+msgstr "Sortér Album"
+
+msgid "Sort Album Artist"
+msgstr "Sortér Album Kunstner"
+
+msgid "Sort Artist"
+msgstr "Sortér Kunstner"
+
+msgid "Sort Composer"
+msgstr "Sortér Komponist"
+
+msgid "Sort Name"
+msgstr "Sortér Navn"
+
+msgid "Subtitle"
+msgstr "Undertitel"
+
+msgid "Website"
+msgstr "Websted"
+
+msgid "WWW Audio File"
+msgstr "WWW Audio fil"
+
+msgid "WWW Audio Source"
+msgstr "WWW Audio-Kilde"
+
+msgid "Release Date"
+msgstr "Udgivelsesdato"
+
+msgid "Audio Encryption"
+msgstr "Audio kryptering"
+
+msgid "Audio Seek Point"
+msgstr "Audio-søgepunkt"
+
+msgid "Chapter"
+msgstr "Kapitel"
+
+msgid "Commercial"
+msgstr "Kommercielt"
+
+msgid "Table of Contents"
+msgstr "Indholdfortegnelse"
+
+msgid "Encryption Method"
+msgstr "Krypteringsmetode"
+
+msgid "Equalization"
+msgstr "Udligning"
+
+msgid "Event Timing Codes"
+msgstr "Tidskoder for hændelser"
+
+msgid "General Object"
+msgstr "Generelt objekt"
+
+msgid "Group Identification"
+msgstr "Gruppeidentifikaton"
+
+msgid "Linked Information"
+msgstr "Linket information"
+
+msgid "Music CD Identifier"
+msgstr "Musik-CD-Identifikation"
+
+msgid "MPEG Lookup Table"
+msgstr "MPEG-Opslagstabel"
+
+msgid "Movement Number"
+msgstr "Satsnummer"
+
+msgid "Movement Name"
+msgstr "Sats navn"
+
+msgid "Ownership"
+msgstr "Ejerskab"
+
+msgid "Play Counter"
+msgstr "Afspilningstæller"
+
+msgid "Podcast"
+msgstr "Podcast"
+
+msgid "Popularimeter"
+msgstr "Popularitetsmåling"
+
+msgid "Position Synchronisation"
+msgstr "Positionssynkronisering"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid "Recommended Buffer Size"
+msgstr "Anbefalet buffer størrelse"
+
+msgid "Reverb"
+msgstr "Rumklang"
+
+msgid "Seek"
+msgstr "Søge"
+
+msgid "Signature"
+msgstr "Signatur"
+
+msgid "Synchronized Lyrics"
+msgstr "Synkroniseret tekster"
+
+msgid "Synchronized Tempo Codes"
+msgstr "Synkroniserede tempo koder"
+
+msgid "Podcast Description"
+msgstr "Podcast beskrivelse"
+
+msgid "Playlist Delay"
+msgstr "Afspilningsliste forsinkelse"
+
+msgid "Original Release Time"
+msgstr "Original udgivelsestidspunkt"
+
+msgid "Recording Time"
+msgstr "Indspilningstidspunkt"
+
+msgid "Release Time"
+msgstr "Udgivelsestidspunkt"
+
+msgid "Tagging Time"
+msgstr "Tagging tidspunkt"
+
+msgid "File Type"
+msgstr "Filtype"
+
+msgid "Podcast Identifier"
+msgstr "Podcast Identifikation"
+
+msgid "Original Filename"
+msgstr "Originalt filnavn"
+
+msgid "File Owner"
+msgstr "Ejer af fil"
+
+msgid "Produced Notice"
+msgstr "Produktions bekendtgørelse"
+
+msgid "Recording Date"
+msgstr "Optagelsesdato"
+
+msgid "Radio Station Name"
+msgstr "Navn på radiostation"
+
+msgid "Radio Station Owner"
+msgstr "Ejer af radiostation"
+
+msgid "User-defined Text"
+msgstr "Brugerdefineret tekst"
+
+msgid "Unique File Identifier"
+msgstr "Unik fil identifikation"
+
+msgid "Terms of Use"
+msgstr "Betingelser for brug"
+
+msgid "Commercial URL"
+msgstr "Kommerciel URL"
+
+msgid "Copyright URL"
+msgstr "Ophavsret URL"
+
+msgid "Podcast Feed"
+msgstr "Podcast Feed"
+
+msgid "Official Radio Station"
+msgstr "Officiel radiostation"
+
+msgid "Payment"
+msgstr "Betaling"
+
+msgid "Official Publisher"
+msgstr "Officielle udgiver"
+
+msgid "User-defined URL"
+msgstr "Brugerdefineret URL"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Total Discs"
+msgstr "CD ialt"
+
+msgid "Encoder"
+msgstr "Indkoder"
+
+msgid "Encoding"
+msgstr "Tegnsæt"
+
+msgid "Engineer"
+msgstr "Tekniker"
+
+msgid "Ensemble"
+msgstr "Ensemble"
+
+msgid "Guest Artist"
+msgstr "Gæste kunstner"
+
+msgid "VBR"
+msgstr "VBR"
+
+msgid "Gapless Playback"
+msgstr "Afspilning uden pauser"
+
+msgid "Label"
+msgstr "Etiket"
+
+msgid "Label Number"
+msgstr "Label nummer"
+
+msgid "Location"
+msgstr "Beliggenhed"
+
+msgid "Opus"
+msgstr "Opus"
+
+msgid "Organization"
+msgstr "Organisation"
+
+msgid "Part Number"
+msgstr "Part nummer"
+
+msgid "Producer"
+msgstr "Producent"
+
+msgid "Product Number"
+msgstr "Produktnummer"
+
+msgid "Total Tracks"
+msgstr "Spor ialt"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Volume"
+msgstr "Lydstyrke"
+
+msgid "MCDI"
+msgstr "MCDI"
+
+msgid "Original Lyricist"
+msgstr "Original tekstforfatter"
+
+msgid "User Rating"
+msgstr "Bruger bedømmelse"
+
+msgid "Account Type"
+msgstr "Kontotype"
+
+msgid "Purchase Account"
+msgstr "Købskonto"
+
+msgid "Artist ID"
+msgstr "Kunstner ID"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Catalog ID"
+msgstr "Katalog ID"
+
+msgid "Genre ID"
+msgstr "Genre ID"
+
+msgid "HD Video"
+msgstr "HD Video"
+
+msgid "Keyword"
+msgstr "Nøgleord"
+
+msgid "Long Description"
+msgstr "Lang beskrivelse"
+
+msgid "Album ID"
+msgstr "Album ID"
+
+msgid "Purchase Date"
+msgstr "Købsdato"
+
+msgid "Country Code"
+msgstr "Landekode"
+
+msgid "Sort Show"
+msgstr "Sortér Show"
+
+msgid "Media Type"
+msgstr "Medietype"
+
+msgid "TV Episode"
+msgstr "TV Episode"
+
+msgid "TV Episode Number"
+msgstr "TV Episode nummer"
+
+msgid "TV Network Name"
+msgstr "TV Netværk"
+
+msgid "TV Show Name"
+msgstr "TV Show"
+
+msgid "TV Season"
+msgstr "TV Sæson"
+
+msgid "Work"
+msgstr "Forløb"
+
+msgid "Movement Count"
+msgstr "Sats antal"
+
+msgid "Show Work & Movement"
+msgstr "Vis Forløb & Sats"
+
+msgid "Archival Location"
+msgstr "Arkiv placering"
+
+msgid "Commissioned"
+msgstr "Frigivet"
+
+msgid "Cropped"
+msgstr "Tilpasset"
+
+msgid "Dimensions"
+msgstr "Dimensioner"
+
+msgid "Dots Per Inch"
+msgstr "Punkter pr. tomme"
+
+msgid "Keywords"
+msgstr "Nøgleord"
+
+msgid "Lightness"
+msgstr "Lethed"
+
+msgid "Number of Colors"
+msgstr "Antal farver"
+
+msgid "Subject"
+msgstr "Emne"
+
+msgid "Sharpness"
+msgstr "Skarphed"
+
+msgid "Source Form"
+msgstr "Kilde form"
+
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 og Tag 2"
+
+msgid "All Tags"
+msgstr "Alle Tags"
+
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 Pixel PNG-fil ikon"
+
+msgid "Other file icon"
+msgstr "Anden fil ikon"
+
+msgid "Cover (front)"
+msgstr "Omslag (Forside)"
+
+msgid "Cover (back)"
+msgstr "Omslag (Bagside)"
+
+msgid "Leaflet page"
+msgstr "Indlægsside"
+
+msgid "Lead artist/lead performer/soloist"
+msgstr "Lead kunstner / lead performer / solist"
+
+msgid "Artist/performer"
+msgstr "Kunstner/performer"
+
+msgid "Band/Orchestra"
+msgstr "Band/Orkester"
+
+msgid "Lyricist/text writer"
+msgstr "Sangskriver"
+
+msgid "Recording Location"
+msgstr "Indspilningssted"
+
+msgid "During recording"
+msgstr "Under optagelse"
+
+msgid "During performance"
+msgstr "Under performance"
+
+msgid "Movie/video screen capture"
+msgstr "Film/Video skærmklip"
+
+msgid "A bright coloured fish"
+msgstr "En lysfarvet fisk"
+
+msgid "Illustration"
+msgstr "Illustration"
+
+msgid "Band/artist logotype"
+msgstr "Band-/Kunstnerlogo"
+
+msgid "Publisher/Studio logotype"
+msgstr "Udgiver-/Studielogo"
+
+msgid "Number of tracks"
+msgstr "Antal spor"
+
+msgid "Extension"
+msgstr "Udvidelse"
+
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgid "Samplerate"
+msgstr "Samplerate"
+
+msgid "Channels"
+msgstr "Kanaler"
+
+msgid "Codec"
+msgstr "Codec"
+
+msgid "Escape for HTML"
+msgstr "Escape til HTML"
+
+msgid "Automatic Import"
+msgstr "Automatisk import"
+
+msgid "D&estination:"
+msgstr "D&estination:"
+
+msgid "&Profile:"
+msgstr "&Profil:"
+
+msgid "&Save Settings"
+msgstr "Ge&m indstillinger"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "A&bort"
+msgstr "Af&bryd"
+
+msgid "S&tart"
+msgstr "St&art"
+
+msgid "Import Source"
+msgstr "Import kilde"
+
+msgid "&Server:"
+msgstr "&Server:"
+
+msgid "&Accuracy:"
+msgstr "Nøja&gtighed:"
+
+msgid "&Standard Tags"
+msgstr "&Standard Tags"
+
+msgid "&Additional Tags"
+msgstr "Supplerende T&ags"
+
+msgid "C&over Art"
+msgstr "&Omslag billeder"
+
+msgid "Browse Cover Art"
+msgstr "Gennemse omslag billeder"
+
+msgid "&Artist/Album"
+msgstr "&Kunstner/&Album"
+
+msgid "&Source"
+msgstr "&Kilde"
+
+msgid "Source:"
+msgstr "Kilde:"
+
+msgid "URL:"
+msgstr "URL:"
+
+msgid "&URL extraction"
+msgstr "&URL-udtræk"
+
+msgid "Match"
+msgstr "Match"
+
+msgid "Picture URL"
+msgstr "Billede URL"
+
+msgid "&Browse"
+msgstr "&Gennemse"
+
+msgid "Click Browse to start"
+msgstr "Klik gennemse for at starte"
+
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "Så træk billedet fra browseren til Kid3."
+
+msgid "ID3v1"
+msgstr "ID3v1"
+
+msgid "&Mark truncated fields"
+msgstr "&Markér afkortede områder"
+
+msgid "Text &encoding:"
+msgstr "T&egnsæt:"
+
+msgid "ID3v2"
+msgstr "ID3v2"
+
+msgid "Use &track/total number of tracks format"
+msgstr "Brug \"spornummer./spornummer. ial&t\" som format"
+
+msgid "Track number &digits:"
+msgstr "Sp&ornummer:"
+
+msgid "&Genre as text instead of numeric string"
+msgstr "&Genre som tekst istedet for numerisk streng"
+
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV-filer med id3 stumper med må bogstaver"
+
+msgid "&Version used for new tags:"
+msgstr "&Version til nye tags:"
+
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
+
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
+
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+msgid "Co&mment field name:"
+msgstr "Feltnavn for ko&mmentar:"
+
+msgid "&Picture field name:"
+msgstr "Feltnavn &for billede:"
+
+msgid "Mark if &larger than (bytes):"
+msgstr "Marker hvis st&ørre end (bytes):"
+
+msgid "Custom &Genres"
+msgstr "Brugerdefineret &genre"
+
+msgid "&Show only custom genres"
+msgstr "Vi&s kun brugerdefinerede genrer"
+
+msgid "&Quick Access Frames"
+msgstr "S&tandard felter"
+
+msgid "Use drag and drop to reorder the items"
+msgstr "Anvend træk og slip til at omarrangere felterne"
+
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+msgid "Track nu&mber field name:"
+msgstr "Felt for spornu&mmer:"
+
+msgid "&Tag Format"
+msgstr "&Tag-format"
+
+msgid "Tag &1"
+msgstr "Tag &1"
+
+msgid "Tag &2"
+msgstr "Tag &2"
+
+msgid "Tag &3"
+msgstr "Tag &3"
+
+msgid "All Ta&gs"
+msgstr "Alle ta&gs"
+
+msgid "Startup"
+msgstr "Programstart"
+
+msgid "&Load last-opened files"
+msgstr "Ind&læs sidst åbnede filer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "&Preserve file timestamp"
+msgstr "Bibehold tidsstem&pling af filer"
+
+msgid "&Mark changes"
+msgstr "&Markér ændringer"
+
+msgid "F&ilename for cover:"
+msgstr "Omslag f&ilnavn:"
+
+msgid "Text &encoding (Export, Playlist):"
+msgstr "T&egnsæt (Eksportér, Afspilningsliste):"
+
+msgid "Filte&r:"
+msgstr "&Filter:"
+
+msgid "Inclu&de folders:"
+msgstr "Inklu&dér biblioteker:"
+
+msgid "E&xclude folders:"
+msgstr "Udelad bibliot&eker:"
+
+msgid "&Filename Format"
+msgstr "&Format på filnavn"
+
+msgid "Browser"
+msgstr "Browser"
+
+msgid "Web &browser:"
+msgstr "Web&browser:"
+
+msgid "Context &Menu Commands"
+msgstr "Kontekst&menu kommandoer"
+
+msgid "&Play on double click"
+msgstr "Afs&pil ved dobbeltklik"
+
+msgid "Proxy"
+msgstr "Proxy"
+
+msgid "&Proxy:"
+msgstr "&Proxy:"
+
+msgid "&Use authentication with proxy"
+msgstr "Br&ug godkendelse (login) med proxy"
+
+msgid "Proxy user &name:"
+msgstr "Proxy bruger&navn:"
+
+msgid "Proxy pass&word:"
+msgstr "Pro&xy kodeord:"
+
+msgid "&Metadata Plugins && Priority"
+msgstr "&Metadata Plugins && Prioritet"
+
+msgid "A&vailable Plugins"
+msgstr "Plugins til r&ådighed"
+
+msgid "Changes take only effect after a restart!"
+msgstr "Ændringerne får først effekt efter genstart af programmet!"
+
+msgid "From Clip&board"
+msgstr "Fra klippe&bord"
+
+msgid "&To Clipboard"
+msgstr "Til &Klippebord"
+
+msgid "&View..."
+msgstr "&Vis..."
+
+msgid "Images"
+msgstr "Billeder"
+
+msgid "Export"
+msgstr "Eksportér"
+
+msgid "&Format:"
+msgstr "&Format:"
+
+msgid "H&eader:"
+msgstr "&Header:"
+
+msgid "&Tracks:"
+msgstr "&Spor:"
+
+msgid "F&ooter:"
+msgstr "F&odnote:"
+
+msgid "To F&ile..."
+msgstr "Til f&il..."
+
+msgid "To Clip&board"
+msgstr "Til klippe&bord"
+
+msgid "&Source:"
+msgstr "&Kilde:"
+
+msgid "File Error"
+msgstr "Filfejl"
+
+msgid "&Preview"
+msgstr "Forhån&dsvisning"
+
+msgid "&Filter:"
+msgstr "&Filter:"
+
+msgid "&Expression:"
+msgstr "&Udtryk:"
+
+msgid "&Apply"
+msgstr "&Anvend"
+
+msgid "Find and Replace"
+msgstr "Søg og Erstat"
+
+msgid "F&ind:"
+msgstr "Sø&g:"
+
+msgid "&Find"
+msgstr "S&øg"
+
+msgid "Re&place:"
+msgstr "E&rstat:"
+
+msgid "&Replace"
+msgstr "&Erstat"
+
+msgid "Replace &all"
+msgstr "E&rstat alle"
+
+msgid "Options"
+msgstr "Muligheder"
+
+msgid "&Match case"
+msgstr "&Match case"
+
+msgid "&Backwards"
+msgstr "&Baglængs"
+
+msgid "Regular &expression"
+msgstr "Re&gular expression"
+
+msgid "Select a&ll"
+msgstr "&Vælg alle"
+
+msgid "Accuracy:"
+msgstr "Nøjagtighed:"
+
+msgid "Cover Art:"
+msgstr "Omslag billede:"
+
+msgid "From F&ile/Clipboard..."
+msgstr "Fra f&il/klippebord..."
+
+msgid "From T&ags..."
+msgstr "Fra T&ags..."
+
+msgid "&From Server..."
+msgstr "&Fra server..."
+
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Check maksimum tilla&dte tids differnce (sec):"
+
+msgid "Match with:"
+msgstr "Match med:"
+
+msgid "&Length"
+msgstr "&Længde"
+
+msgid "T&rack"
+msgstr "&Spor"
+
+msgid "&Title"
+msgstr "&Titel"
+
+msgid "Start &number:"
+msgstr "Start&nummer:"
+
+msgid "&Destination:"
+msgstr "&Destination:"
+
+msgid "&Reset counter for each directory"
+msgstr "Nulstil &tæller for hvert bibliotek"
+
+msgid "&Total number of tracks:"
+msgstr "An&tal spor ialt:"
+
+msgid "Create Playlist"
+msgstr "Opret spilleliste"
+
+msgid "Playlist File Name"
+msgstr "Filnavn på afspilningsliste"
+
+msgid "Same as &directory name"
+msgstr "Samme som biblio&teksnavnet"
+
+msgid "Cr&eate in:"
+msgstr "&Opret i:"
+
+msgid "Current directory"
+msgstr "Nuværende bibliotek"
+
+msgid "Every directory"
+msgstr "Alle biblioteker"
+
+msgid "Top-level directory"
+msgstr "Top niveau bibliotek"
+
+msgid "Playlist Content"
+msgstr "Indhold af afspilningslisten"
+
+msgid "For&mat:"
+msgstr "For&mat:"
+
+msgid "Incl&ude only the selected files"
+msgstr "Inkludér k&un de valgte filer"
+
+msgid "Sort by file &name"
+msgstr "Sortér efter fil&navn"
+
+msgid "Sort by &tag field"
+msgstr "Sortér efter &tag felt"
+
+msgid "Use &relative path for files in playlist"
+msgstr "Brug den &relative sti på filer i afspilningslisten"
+
+msgid "Use full p&ath for files in playlist"
+msgstr "Brug den absolutte sti på filer i &afspilningslisten"
+
+msgid "Write only &list of files"
+msgstr "Skriv kun &liste over filer"
+
+msgid "Write &info using"
+msgstr "Skriv &info med"
+
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+msgid "Create Directory"
+msgstr "Opret bibliotek"
+
+msgid "&Action:"
+msgstr "H&andling:"
+
+msgid "From:"
+msgstr "Fra:"
+
+msgid "To:"
+msgstr "Til:"
+
+msgid "C&GI Path:"
+msgstr "C&GI-sti:"
+
+msgid "Track Title/Artist - Album"
+msgstr "Spor Titel/kunstner - Album"
+
+msgid "State"
+msgstr "Status"
+
+msgid "No result"
+msgstr "Intet resultat"
+
+msgid "No result selected"
+msgstr "Resultat er ikke valgt"
+
+msgid "Import from Tags"
+msgstr "Importér fra Tags"
+
+msgid "Format:"
+msgstr "Format:"
+
+msgid "Extraction:"
+msgstr "Udtræk:"
+
+msgid "Import from File/Clipboard"
+msgstr "Importér fra fil/klippebord"
+
+msgid "Header:"
+msgstr "Header:"
+
+msgid "Tracks:"
+msgstr "Spor:"
+
+msgid "From F&ile..."
+msgstr "Fra f&il..."
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Opening directory..."
+msgstr "Åbner bibliotek..."
+
+msgid "Abort"
+msgstr "Afbryd"
+
+msgid "%1 is not writable"
+msgstr "%1 er ikke skrivebar"
+
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Fejl ved skrivning af fil. Ønsker du at ændre rettighederne?"
+
+msgid ""
+"The current directory has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Det nuværende bibliotek er blevet modificeret.\n"
+"Ønsker du at gemme det?"
+
+msgid "Warning"
+msgstr "Advarsel"
+
+msgid "Exiting..."
+msgstr "Afslutter..."
+
+msgid "Creating playlist..."
+msgstr "Opretter afspilningsliste..."
+
+msgid "Import"
+msgstr "Importér"
+
+msgid "Error while renaming:\n"
+msgstr "Fejl ved omdøbning:\n"
+
+msgid " [filtered]"
+msgstr " [filtreret]"
+
+msgid "Add Frame"
+msgstr "Tilføj felt"
+
+msgid "Select the frame ID"
+msgstr "Vælg felt-ID"
+
+msgid "Rename File"
+msgstr "Omdøb fil"
+
+msgid "Enter new file name:"
+msgstr "Angiv nyt filnavn:"
+
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Ønsker du at flytte disse %1 emner til skraldespanden?"
+
+msgid "Do you really want to move this item to the trash?"
+msgstr "Ønsker du at flytte dette emne til skraldespanden?"
+
+msgid "Move to Trash"
+msgstr "Flyt til skraldespand"
+
+msgid "Directory must be empty.\n"
+msgstr "Biblioteket skal være tomt.\n"
+
+msgid "Could not move these files to the Trash"
+msgstr "Kunne ikke flytte disse filer til skraldespanden"
+
+msgid "Expand All"
+msgstr "Udvid alle"
+
+msgid "&Expand all"
+msgstr "Udvid all&e"
+
+msgid "&Collapse all"
+msgstr "&Kollaps alle"
+
+msgid "&Open"
+msgstr "&Åbn"
+
+msgid "Open Containing &Folder"
+msgstr "Å&bn sammenfoldet bibliotek"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "F&il"
+
+msgid "Name:"
+msgstr "Navn:"
+
+msgid "Filename from Tag %1"
+msgstr "Filnavn fra Tag %1"
+
+msgid "Tag %1 from Filename"
+msgstr "Tag %1 fra filnavn"
+
+msgid "Tag &%1"
+msgstr "Tag &%1"
+
+msgid "From"
+msgstr "Fra"
+
+msgid "To"
+msgstr "Til"
+
+msgid "Edit..."
+msgstr "Rediger..."
+
+msgid "Add..."
+msgstr "Tilføj..."
+
+msgid "&Add..."
+msgstr "&Tilføj..."
+
+msgid "Move &Up"
+msgstr "Flyt &op"
+
+msgid "Move &Down"
+msgstr "Flyt &ned"
+
+msgid "&Edit..."
+msgstr "&Redigér..."
+
+msgid "&Remove"
+msgstr "&Fjern"
+
+msgid "Start time"
+msgstr "Starttidspunkt"
+
+msgid "End time"
+msgstr "Sluttidspunkt"
+
+msgid "Start offset"
+msgstr "Start-offset"
+
+msgid "End offset"
+msgstr "Slut-offset"
+
+msgid "&Add"
+msgstr "&Tilføj"
+
+msgid "&Insert row"
+msgstr "&Indsæt række"
+
+msgid "&Delete row"
+msgstr "&Slet række"
+
+msgid "&Clear row"
+msgstr "R&ens række"
+
+msgid "Format while editing"
+msgstr "Formatér imens der redigeres"
+
+msgid "Validation"
+msgstr "Validering"
+
+msgid "String replacement:"
+msgstr "Streng erstatning:"
+
+msgid "Case conversion:"
+msgstr "Case konvertering:"
+
+msgid "Locale:"
+msgstr "Sprog:"
+
+msgid "&Select all"
+msgstr "V&ælg alle"
+
+msgid "&Deselect all"
+msgstr "Fra&vælg alle"
+
+msgid "View Picture"
+msgstr "Vis billede"
+
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Træk billede til\n"
+"album herind"
+
+msgid "Play/Pause"
+msgstr "Afspil/Pause"
+
+msgid "Stop playback"
+msgstr "Stop afspilning"
+
+msgid "Previous Track"
+msgstr "Forrige Spor"
+
+msgid "Next Track"
+msgstr "Næste Spor"
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "Mute"
+msgstr "Mute"
+
+msgid "Volume: %1%"
+msgstr "Lydstyrke: %1%"
+
+msgid "Add Item"
+msgstr "Tilføj emne"
+
+msgid "Edit Item"
+msgstr "Rediger emne"
+
+msgid "Top level"
+msgstr "Højeste niveau"
+
+msgid "Ordered"
+msgstr "Ordnet"
+
+msgid "&Delete"
+msgstr "S&let"
+
+msgid "Offset"
+msgstr "Offset"
+
+msgid "Milliseconds"
+msgstr "Millisekunder"
+
+msgid "&Delete rows"
+msgstr "Slet r&ækker"
+
+msgid "&Add offset..."
+msgstr "Tilf&øj offset..."
+
+msgid "&Seek to position"
+msgstr "&Spring til position"
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz-Fingeraftryk"
+
+msgid "Unrecognized"
+msgstr "Ukendt"
+
+msgid "Recognized"
+msgstr "Genkendt"
+
+msgid "User Selection"
+msgstr "Brugervalg"
+
+msgid "ID Lookup"
+msgstr "ID-opslag"
+
+msgid "Fingerprint"
+msgstr "Fingeraftryk"
+
+msgid "Metadata Lookup"
+msgstr "Metadata opslag"
+
+msgid "Amazon"
+msgstr "Amazon"
+
+msgid "Discogs"
+msgstr "Discogs"
+
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+msgid "AENC - Audio encryption"
+msgstr "AENC - Audio kryptering"
+
+msgid "APIC - Attached picture"
+msgstr "APIC - Vedhæftet billede"
+
+msgid "COMM - Comments"
+msgstr "COMM - Kommentarer"
+
+msgid "COMR - Commercial"
+msgstr "COMR - Commercial"
+
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Krypteringsmetode"
+
+msgid "EQUA - Equalization"
+msgstr "EQUA - Udligning"
+
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Tidskoder for hændelser"
+
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Generelt indkapslet objekt"
+
+msgid "GRID - Group identification registration"
+msgstr "GRID - Gruppe identifikation registrering"
+
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Involved people list"
+
+msgid "LINK - Linked information"
+msgstr "LINK - Linket information"
+
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Musik-CD-Identifikation"
+
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG-position - Opslagstabel"
+
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Ejerskab"
+
+msgid "PRIV - Private frame"
+msgstr "PRIV - Privat"
+
+msgid "PCNT - Play counter"
+msgstr "PCNT - Afspilningstæller"
+
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popularitetsmåling"
+
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Positionssynkronisering"
+
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Anbefalet buffer størrelse"
+
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relativ lydstyrketilpasning"
+
+msgid "RVRB - Reverb"
+msgstr "RVRB - Efterklang"
+
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Synchronized lyric/text"
+
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Synchronized tempo codes"
+
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album-/Film-/Showtitel"
+
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (beats pr. minut)"
+
+msgid "TCOM - Composer"
+msgstr "TCOM - Komponist"
+
+msgid "TCON - Content type"
+msgstr "TCON - Indholdstype"
+
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Ophavsret-Information"
+
+msgid "TDAT - Date"
+msgstr "TDAT - Dato"
+
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Afspilningsliste forsinkelse"
+
+msgid "TENC - Encoded by"
+msgstr "TENC - Indkodet af"
+
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Lyriker/sangskriver"
+
+msgid "TFLT - File type"
+msgstr "TFLT - Filtype"
+
+msgid "TIME - Time"
+msgstr "TIME - Tidspunkt"
+
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Indholds gruppebeskrivelse"
+
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Titel/Navn/Indholds beskrivelse"
+
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Undertitel / Præciseret beskrivelse"
+
+msgid "TKEY - Initial key"
+msgstr "TKEY - Anfangstoneart"
+
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Sprog"
+
+msgid "TLEN - Length"
+msgstr "TLEN - Længde"
+
+msgid "TMED - Media type"
+msgstr "TMED - Medie type"
+
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Original album/film/show titel"
+
+msgid "TOFN - Original filename"
+msgstr "TOFN - Originalt filnavn"
+
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Original lyriker/sangskriver"
+
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Originalr kunstner/performer"
+
+msgid "TORY - Original release year"
+msgstr "TORY - Originalt udgivelsesår"
+
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Fil-ejer/licens"
+
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Lead performer /-solist"
+
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Gruppe/Orkester/Akkompagnement"
+
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Dirigent/performer forfining"
+
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Fortolket, remixet eller på anden måde modificeret af"
+
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Del af et sæt"
+
+msgid "TPUB - Publisher"
+msgstr "TPUB - Udgiver"
+
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Spornummer/Positionen i sæt"
+
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Recording dates"
+
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Transmission radio station name"
+
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Ejer af internet radio station"
+
+msgid "TSIZ - Size"
+msgstr "TSIZ - Størrelse"
+
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (International standard recording code)"
+
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware og indstillinger anvendt til encoding"
+
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Brugerdefineret tekstinformation"
+
+msgid "TYER - Year"
+msgstr "TYER - År"
+
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unik fil identifikation"
+
+msgid "USER - Terms of use"
+msgstr "USER - Betingelser for brug"
+
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Usynkroniseret tekst / tekst afskrift"
+
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Kommerciel information"
+
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Ophavsret / Juridisk information"
+
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Officiel audio fil websted"
+
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Officiel kunstner / performer webside"
+
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Officielt websted for audio kilde"
+
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Officiel internet radiostation hjemmeside"
+
+msgid "WPAY - Payment"
+msgstr "WPAY - Betaling"
+
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Udgivers officielle webside"
+
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Brugerdefineret URL"
+
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz-udgivelse"
+
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Audio-søgepunkt-indeks"
+
+msgid "CHAP - Chapter"
+msgstr "CHAP - Kapitel"
+
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Indholdsfortegnelse"
+
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Udligning (2)"
+
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Sats antal"
+
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Sats navn"
+
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
+
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Relativ lydstyrketilpasning (2)"
+
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Søgefelt"
+
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Signatur"
+
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes kompilering"
+
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Encoding tidspunkt"
+
+msgid "TDES - Podcast description"
+msgstr "TDES - Podcast beskrivelse"
+
+msgid "TDOR - Original release time"
+msgstr "TDOR - Original udgivelsestidspunkt"
+
+msgid "TDRC - Recording time"
+msgstr "TDRC - Indspilningstidspunkt"
+
+msgid "TDRL - Release time"
+msgstr "TDRL - Udgivelsestidspunkt"
+
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Tagging tidspunkt"
+
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Podcast identifier"
+
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Liste over involverede personer"
+
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Musiker kreditliste"
+
+msgid "TMOO - Mood"
+msgstr "TMOO - Stemning"
+
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Produktions-bekendtgørelse"
+
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - Album kunstner sorteringsrækkefølge"
+
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Album sorteringsrækkefølge"
+
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - Komponist sorteringsrækkefølge"
+
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Musiker sorteringsrækkefølge"
+
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Titel sorteringsrækkefølge"
+
+msgid "TSST - Set subtitle"
+msgstr "TSST - Sæt undertitel"
+
+msgid "WFED - Podcast feed"
+msgstr "WFED - Podcast Feed"
+
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "Dette program bruger <a href=\"http://www.qt.io/\">Qt</a> version %1."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Destination:"
+msgstr "Destination:"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Cancel"
+msgstr "Annullér"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Expression:"
+msgstr "Udtryk:"
+
+msgid "Apply"
+msgstr "Anvend"
+
+msgid "The current directory has been modified.\n"
+msgstr "Det aktuelle bibliotek er blevet ændret."
+
+msgid "About"
+msgstr "Om"
+
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "Quit"
+msgstr "Afslut"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Start number:"
+msgstr "Startnummer:"
+
+msgid "Reset counter for each directory"
+msgstr "Nulstil tæller for hvert bibliotek"
+
+msgid "Total number of tracks"
+msgstr "Antal spor ialt"
+
+msgid "Action:"
+msgstr "Handling:"
+
+msgid "From Tag 2 and Tag 1"
+msgstr "Fra Tag 2 og Tag 1"
+
+msgid "From Tag 1"
+msgstr "Fra Tag 1"
+
+msgid "From Tag 2"
+msgstr "Fra Tag 2"
+
+msgid "Mark truncated fields"
+msgstr "Markér afbrudte områder"
+
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 Tegnsæt"
+
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 Tegnsæt"
+
+msgid "Use track/total number of tracks format"
+msgstr "Anvend spor/spornumre ialt format"
+
+msgid "Genre as text instead of numeric string"
+msgstr "Genre som tekst istedet for numerisk streng"
+
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV-filer med små bogstavs id3 stumper"
+
+msgid "Version used for new ID3v2 tags"
+msgstr "Version anvendt til nye ID3v2 tags"
+
+msgid "Ogg/Vorbis comment field name"
+msgstr "Navn på Ogg/Vorbis kommentar felt"
+
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis navn på billedefelt"
+
+msgid "RIFF track number field name"
+msgstr "RIFF spornummer feltnavn"
+
+msgid "Mark if picture larger than maxium size"
+msgstr "Markér hvis billede overskrider maksimal størrelse"
+
+msgid "Picture maximum size (bytes)"
+msgstr "Maksimum størrelse på billeder (Bytes)"
+
+msgid "Show only custom genres"
+msgstr "Vis kun brugerdefineret genrer"
+
+msgid "Case conversion"
+msgstr "Store/små bogstavskonvertering"
+
+msgid "Locale"
+msgstr "Sprog"
+
+msgid "String replacement"
+msgstr "Streng erstatning"
+
+msgid "Load last-opened files"
+msgstr "Indlæs sidst åbnede filer"
+
+msgid "Preserve file timestamp"
+msgstr "Behold fil tidsstempling"
+
+msgid "Mark changes"
+msgstr "Markér ændringer"
+
+msgid "Filename for cover"
+msgstr "Omslag filnavn"
+
+msgid "Playlist text encoding"
+msgstr "Afspilningsliste Tegnsæt"
+
+msgid "To filename format"
+msgstr "Til filnavn format"
+
+msgid "From filename format"
+msgstr "Fra filnavn format"
+
+msgid "To Filename"
+msgstr "Til filnavn"
+
+msgid "To Tag %1"
+msgstr "Til Tag %1"
+
+msgid "Select All"
+msgstr "Vælgt alt"
+
+msgid "Cut"
+msgstr "Klip"
