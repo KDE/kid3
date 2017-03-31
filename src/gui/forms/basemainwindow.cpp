@@ -957,7 +957,8 @@ void BaseMainWindowImpl::updateWindowCaption()
     cap += QDir(m_app->getDirName()).dirName();
   }
   if (m_app->isFiltered()) {
-    cap += tr(" [filtered]");
+    cap += tr(" [filtered %1/%2]")
+        .arg(m_app->filterPassedCount()).arg(m_app->filterTotalCount());
   }
   m_self->setWindowCaption(cap, m_app->isModified());
 }

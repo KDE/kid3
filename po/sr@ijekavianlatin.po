@@ -2052,8 +2052,8 @@ msgstr "Uvezi"
 msgid "Error while renaming:\n"
 msgstr "Greška prilikom preimenovanja:\n"
 
-msgid " [filtered]"
-msgstr " [filtriran]"
+msgid " [filtered %1/%2]"
+msgstr " [filtriran %1/%2]"
 
 msgid "Add Frame"
 msgstr "Dodaj okvir"

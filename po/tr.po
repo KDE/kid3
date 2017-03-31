@@ -2053,8 +2053,8 @@ msgstr "Al"
 msgid "Error while renaming:\n"
 msgstr "İsim değiştirirken hata:\n"
 
-msgid " [filtered]"
-msgstr " [süzgeci]"
+msgid " [filtered %1/%2]"
+msgstr " [süzgeci %1/%2]"
 
 msgid "Add Frame"
 msgstr "Çerçeve Ekle"

@@ -98,6 +98,10 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(bool modified READ isModified NOTIFY modifiedChanged)
   /** Filtered state. */
   Q_PROPERTY(bool filtered READ isFiltered WRITE setFiltered NOTIFY filteredChanged)
+  /** Number of files which have passed the filter. */
+  Q_PROPERTY(int filterPassedCount READ filterPassedCount NOTIFY fileFiltered)
+  /** Total number of files checked by filter. */
+  Q_PROPERTY(int filterTotalCount READ filterTotalCount NOTIFY fileFiltered)
   /** Frame editor. */
   Q_PROPERTY(FrameEditorObject* frameEditor READ frameEditor WRITE setFrameEditor
              NOTIFY frameEditorChanged)
@@ -657,6 +661,24 @@ public:
    * @return true if list is filtered.
    */
   bool isFiltered() const { return m_filtered; }
+
+  /**
+   * Get number of files which have passed the filter.
+   *
+   * This number is only valid if isFiltered() is true.
+   *
+   * @return number of files which have passed the filter.
+   */
+  int filterPassedCount() const { return m_filterPassed; }
+
+  /**
+   * Get total number of files which have been checked by the filter.
+   *
+   * This number is only valid if isFiltered() is true.
+   *
+   * @return total number of files checked by filter.
+   */
+  int filterTotalCount() const { return m_filterTotal; }
 
   /**
    * Get the selected file.

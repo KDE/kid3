@@ -2056,8 +2056,8 @@ msgstr "匯入"
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
 
-msgid " [filtered]"
-msgstr "[已篩選]"
+msgid " [filtered %1/%2]"
+msgstr "[已篩選 %1/%2]"
 
 msgid "Add Frame"
 msgstr "新增訊框"

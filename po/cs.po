@@ -2054,8 +2054,8 @@ msgstr "Zavést"
 msgid "Error while renaming:\n"
 msgstr "Během přejmenovávání se vyskytla chyba:\n"
 
-msgid " [filtered]"
-msgstr " [filtrován]"
+msgid " [filtered %1/%2]"
+msgstr " [filtrován %1/%2]"
 
 msgid "Add Frame"
 msgstr "Přidat prvek"

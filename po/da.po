@@ -2044,8 +2044,8 @@ msgstr "Importér"
 msgid "Error while renaming:\n"
 msgstr "Fejl ved omdøbning:\n"
 
-msgid " [filtered]"
-msgstr " [filtreret]"
+msgid " [filtered %1/%2]"
+msgstr " [filtreret %1/%2]"
 
 msgid "Add Frame"
 msgstr "Tilføj felt"

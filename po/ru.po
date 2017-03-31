@@ -2055,8 +2055,8 @@ msgstr "Импорт"
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
 
-msgid " [filtered]"
-msgstr " [фильтровано]"
+msgid " [filtered %1/%2]"
+msgstr " [фильтровано %1/%2]"
 
 msgid "Add Frame"
 msgstr "Добавить Фрейм"

@@ -2046,7 +2046,7 @@ msgstr ""
 msgid "Error while renaming:\n"
 msgstr ""
 
-msgid " [filtered]"
+msgid " [filtered %1/%2]"
 msgstr ""
 
 msgid "Add Frame"

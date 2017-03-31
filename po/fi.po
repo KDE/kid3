@@ -2054,8 +2054,8 @@ msgstr "Tuo"
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
 
-msgid " [filtered]"
-msgstr " [suodatettu]"
+msgid " [filtered %1/%2]"
+msgstr " [suodatettu %1/%2]"
 
 msgid "Add Frame"
 msgstr "Lisää kehys"

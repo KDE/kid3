@@ -90,7 +90,8 @@ Page {
 
   title: (app.dirName.split("/").pop() || "/") +
          (app.modified ? qsTr(" [modified]") : "") +
-         (app.filtered ? qsTr(" [filtered]") : "") +
+         (app.filtered ? qsTr(" [filtered %1/%2]")
+             .arg(app.filterPassedCount).arg(app.filterTotalCount) : "") +
          " - Kid3"
   flickable: rightSideFlickable //@!Ubuntu
   actionButtons: _buttons //@!Ubuntu

@@ -2051,8 +2051,8 @@ msgstr "导入"
 msgid "Error while renaming:\n"
 msgstr "文件重命名发生错误：\n"
 
-msgid " [filtered]"
-msgstr "[已过滤]"
+msgid " [filtered %1/%2]"
+msgstr "[已过滤 %1/%2]"
 
 msgid "Add Frame"
 msgstr "添加帧"

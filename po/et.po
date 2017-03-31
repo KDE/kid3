@@ -2052,8 +2052,8 @@ msgstr "Import"
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
 
-msgid " [filtered]"
-msgstr " [filtreeritud]"
+msgid " [filtered %1/%2]"
+msgstr " [filtreeritud %1/%2]"
 
 msgid "Add Frame"
 msgstr "Raami lisamine"

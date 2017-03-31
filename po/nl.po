@@ -2054,8 +2054,8 @@ msgstr "Importeren"
 msgid "Error while renaming:\n"
 msgstr "Fout tijdens hernoemen:\n"
 
-msgid " [filtered]"
-msgstr " [gefiltert]"
+msgid " [filtered %1/%2]"
+msgstr " [gefiltert %1/%2]"
 
 msgid "Add Frame"
 msgstr "Frame toevoegen"

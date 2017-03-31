@@ -2055,8 +2055,8 @@ msgstr "Importuj"
 msgid "Error while renaming:\n"
 msgstr "Błąd podczas zmieniania nazwy:\n"
 
-msgid " [filtered]"
-msgstr " [filtrowane]"
+msgid " [filtered %1/%2]"
+msgstr " [filtrowane %1/%2]"
 
 msgid "Add Frame"
 msgstr "Dodaj ramkę"

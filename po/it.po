@@ -2053,8 +2053,8 @@ msgstr "Importa"
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
 
-msgid " [filtered]"
-msgstr " [filtrato]"
+msgid " [filtered %1/%2]"
+msgstr " [filtrato %1/%2]"
 
 msgid "Add Frame"
 msgstr "Aggiungi frame"
