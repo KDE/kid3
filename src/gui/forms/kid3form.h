@@ -273,19 +273,21 @@ public slots:
    * Set the next file as the current file.
    *
    * @param select true to select the file
+   * @param onlyTaggedFiles only consider tagged files
    *
    * @return true if a next file exists.
    */
-  bool nextFile(bool select = true);
+  bool nextFile(bool select = true, bool onlyTaggedFiles = true);
 
   /**
    * Set the previous file as the current file.
    *
    * @param select true to select the file
+   * @param onlyTaggedFiles only consider tagged files
    *
    * @return true if a previous file exists.
    */
-  bool previousFile(bool select = true);
+  bool previousFile(bool select = true, bool onlyTaggedFiles = true);
 
   /**
    * Set the root index of the file list.

@@ -935,28 +935,31 @@ public slots:
    * Set the first file as the current file.
    *
    * @param select true to select the file
+   * @param onlyTaggedFiles only consider tagged files
    *
    * @return true if a file exists.
    */
-  bool firstFile(bool select = true);
+  bool firstFile(bool select = true, bool onlyTaggedFiles = false);
 
   /**
    * Set the next file as the current file.
    *
    * @param select true to select the file
+   * @param onlyTaggedFiles only consider tagged files
    *
    * @return true if a next file exists.
    */
-  bool nextFile(bool select = true);
+  bool nextFile(bool select = true, bool onlyTaggedFiles = false);
 
   /**
    * Set the previous file as the current file.
    *
    * @param select true to select the file
+   * @param onlyTaggedFiles only consider tagged files
    *
    * @return true if a previous file exists.
    */
-  bool previousFile(bool select = true);
+  bool previousFile(bool select = true, bool onlyTaggedFiles = false);
 
   /**
    * Select or deselect the current file.

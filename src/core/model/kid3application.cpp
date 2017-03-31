@@ -2130,45 +2130,51 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
  * Set the first file as the current file.
  *
  * @param select true to select the file
+ * @param onlyTaggedFiles only consider tagged files
  *
  * @return true if a file exists.
  */
-bool Kid3Application::firstFile(bool select)
+bool Kid3Application::firstFile(bool select, bool onlyTaggedFiles)
 {
   m_fileSelectionModel->setCurrentIndex(getRootIndex(),
                                         QItemSelectionModel::NoUpdate);
-  return nextFile(select);
+  return nextFile(select, onlyTaggedFiles);
 }
 
 /**
  * Set the next file as the current file.
  *
  * @param select true to select the file
+ * @param onlyTaggedFiles only consider tagged files
  *
  * @return true if a next file exists.
  */
-bool Kid3Application::nextFile(bool select)
+bool Kid3Application::nextFile(bool select, bool onlyTaggedFiles)
 {
-  QModelIndex current(m_fileSelectionModel->currentIndex()), next;
-  if (m_fileProxyModel->rowCount(current) > 0) {
-    // to first child
-    next = m_fileProxyModel->index(0, 0, current);
-  } else {
-    QModelIndex parent = current;
-    while (!next.isValid() && parent.isValid()) {
-      // to next sibling or next sibling of parent
-      int row = parent.row();
-      if (parent == getRootIndex()) {
-        // do not move beyond root index
-        return false;
-      }
-      parent = parent.parent();
-      if (row + 1 < m_fileProxyModel->rowCount(parent)) {
-        // to next sibling
-        next = m_fileProxyModel->index(row + 1, 0, parent);
+  QModelIndex next(m_fileSelectionModel->currentIndex()), current;
+  do {
+    current = next;
+    next = QModelIndex();
+    if (m_fileProxyModel->rowCount(current) > 0) {
+      // to first child
+      next = m_fileProxyModel->index(0, 0, current);
+    } else {
+      QModelIndex parent = current;
+      while (!next.isValid() && parent.isValid()) {
+        // to next sibling or next sibling of parent
+        int row = parent.row();
+        if (parent == getRootIndex()) {
+          // do not move beyond root index
+          return false;
+        }
+        parent = parent.parent();
+        if (row + 1 < m_fileProxyModel->rowCount(parent)) {
+          // to next sibling
+          next = m_fileProxyModel->index(row + 1, 0, parent);
+        }
       }
     }
-  }
+  } while (onlyTaggedFiles && !FileProxyModel::getTaggedFileOfIndex(next));
   if (!next.isValid())
     return false;
   m_fileSelectionModel->setCurrentIndex(next,
@@ -2181,26 +2187,34 @@ bool Kid3Application::nextFile(bool select)
  * Set the previous file as the current file.
  *
  * @param select true to select the file
+ * @param onlyTaggedFiles only consider tagged files
  *
  * @return true if a previous file exists.
  */
-bool Kid3Application::previousFile(bool select)
+bool Kid3Application::previousFile(bool select, bool onlyTaggedFiles)
 {
-  QModelIndex current(m_fileSelectionModel->currentIndex()), previous;
-  int row = current.row() - 1;
-  if (row >= 0) {
-    // to last leafnode of previous sibling
-    previous = current.sibling(row, 0);
-    row = m_fileProxyModel->rowCount(previous) - 1;
-    while (row >= 0) {
-      previous = m_fileProxyModel->index(row, 0, previous);
+  QModelIndex previous(m_fileSelectionModel->currentIndex()), current;
+  do {
+    current = previous;
+    previous = QModelIndex();
+    int row = current.row() - 1;
+    if (row >= 0) {
+      // to last leafnode of previous sibling
+      previous = current.sibling(row, 0);
       row = m_fileProxyModel->rowCount(previous) - 1;
+      while (row >= 0) {
+        previous = m_fileProxyModel->index(row, 0, previous);
+        row = m_fileProxyModel->rowCount(previous) - 1;
+      }
+    } else {
+      // to parent
+      previous = current.parent();
     }
-  } else {
-    // to parent
-    previous = current.parent();
-  }
-  if (!previous.isValid() || previous == getRootIndex())
+    if (previous == getRootIndex()) {
+      return false;
+    }
+  } while (onlyTaggedFiles && !FileProxyModel::getTaggedFileOfIndex(previous));
+  if (!previous.isValid())
     return false;
   m_fileSelectionModel->setCurrentIndex(previous,
     select ? QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows
