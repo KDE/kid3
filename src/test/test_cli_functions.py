@@ -295,6 +295,35 @@ class CliFunctionsTestCase(unittest.TestCase):
             with open(picpath, 'rb') as jpgfh:
                 ba = jpgfh.read()
                 self.assertEqual(ba, jpg_bytes)
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'set POPM 5',
+                 '-c', 'get all 2',
+                 '-c', 'get POPM.Email',
+                 '-c', 'get POPM.Rating',
+                 '-c', 'get POPM.Counter',
+                 '-c', 'set POPM.Email ufleisch@users.sourceforge.net',
+                 '-c', 'set POPM.Rating 4',
+                 '-c', 'set POPM.Counter 3',
+                 '-c', 'get all 2',
+                 '-c', 'get POPM.Email',
+                 '-c', 'get POPM.Rating',
+                 '-c', 'get POPM.Counter',
+                 '-c', 'get POPM', mp3path]),
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                '  Name: test.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '* Popularimeter  5\n'
+                '\n'
+                '5\n'
+                '0\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                '  Name: test.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '* Popularimeter  4\n'
+                'ufleisch@users.sourceforge.net\n'
+                '4\n'
+                '3\n'
+                '4\n')
 
     def test_riff_info(self):
         with tempfile.TemporaryDirectory() as tmpdir:

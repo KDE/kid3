@@ -321,6 +321,13 @@ public:
     static const char* const* getFieldIdNames();
 
     /**
+     * Get field ID from field name.
+     * @param fieldName name of field, can be English or translated
+     * @return field ID, ID_NoField if not found.
+     */
+    static FieldId getFieldId(const QString& fieldName);
+
+    /**
      * Get a translated string for a text encoding.
      *
      * @param type text encoding type
@@ -717,6 +724,18 @@ public:
   static bool setField(Frame& frame, FieldId id, const QVariant& value);
 
   /**
+   * Set value of a field.
+   *
+   * @param frame frame to set
+   * @param fieldName name of field, can be English or translated
+   * @param value field value
+   *
+   * @return true if field found and set.
+   */
+  static bool setField(Frame& frame, const QString& fieldName,
+                       const QVariant& value);
+
+  /**
    * Get value of a field.
    *
    * @param frame frame to get
@@ -725,6 +744,16 @@ public:
    * @return field value, invalid if not found.
    */
   static QVariant getField(const Frame& frame, FieldId id);
+
+  /**
+   * Get value of a field.
+   *
+   * @param frame frame to get
+   * @param fieldName name of field, can be English or translated
+   *
+   * @return field value, invalid if not found.
+   */
+  static QVariant getField(const Frame& frame, const QString& fieldName);
 
   /**
    * Get type of frame from English name.

@@ -582,6 +582,22 @@ bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 }
 
 /**
+ * Set value of a field.
+ *
+ * @param frame frame to set
+ * @param fieldName name of field, can be English or translated
+ * @param value field value
+ *
+ * @return true if field found and set.
+ */
+bool Frame::setField(Frame& frame, const QString& fieldName,
+                     const QVariant& value)
+{
+  const FieldId id = Field::getFieldId(fieldName);
+  return id != ID_NoField && setField(frame, id, value);
+}
+
+/**
  * Get value of a field.
  *
  * @param frame frame to get
@@ -603,6 +619,20 @@ QVariant Frame::getField(const Frame& frame, FieldId id)
     }
   }
   return result;
+}
+
+/**
+ * Get value of a field.
+ *
+ * @param frame frame to get
+ * @param fieldName name of field, can be English or translated
+ *
+ * @return field value, invalid if not found.
+ */
+QVariant Frame::getField(const Frame& frame, const QString& fieldName)
+{
+  const FieldId id = Field::getFieldId(fieldName);
+  return id != ID_NoField ? getField(frame, id) : QVariant();
 }
 
 /**
@@ -747,6 +777,37 @@ QString Frame::Field::getFieldIdName(FieldId type)
 const char* const* Frame::Field::getFieldIdNames()
 {
   return fieldIdNames;
+}
+
+/**
+ * Get field ID from field name.
+ * @param fieldName name of field, can be English or translated
+ * @return field ID, ID_NoField if not found.
+ */
+Frame::FieldId Frame::Field::getFieldId(const QString& fieldName)
+{
+  const char* const* fn;
+  int id;
+  // First try to find an exact English match.
+  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+    if (fieldName == QLatin1String(*fn)) {
+      return static_cast<FieldId>(id);
+    }
+  }
+  // Then try to find a lowercase match ignoring spaces.
+  QString lcName = fieldName.toLower().remove(QLatin1Char(' '));
+  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+    if (lcName ==  QString::fromLatin1(*fn).toLower().remove(QLatin1Char(' '))) {
+      return static_cast<FieldId>(id);
+    }
+  }
+  // Finally try to find a translated name.
+  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+    if (fieldName == QCoreApplication::translate("@default", *fn)) {
+      return static_cast<FieldId>(id);
+    }
+  }
+  return ID_NoField;
 }
 
 /**

@@ -3000,11 +3000,16 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
                                   const QString& name) const
 {
   QString frameName(name);
-  QString dataFileName;
+  QString dataFileName, fieldName;
   int colonIndex = frameName.indexOf(QLatin1Char(':'));
   if (colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
+  }
+  int dotIndex = frameName.indexOf(QLatin1Char('.'));
+  if (dotIndex != -1) {
+    fieldName = frameName.mid(dotIndex + 1);
+    frameName.truncate(dotIndex);
   }
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
@@ -3037,6 +3042,9 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
       } else {
         PictureFrame::writeDataToFile(*it, dataFileName);
       }
+    }
+    if (!fieldName.isEmpty()) {
+      return Frame::getField(*it, fieldName).toString();
     }
     return it->getValue();
   } else {
@@ -3089,11 +3097,16 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
                                const QString& name, const QString& value)
 {
   QString frameName(name);
-  QString dataFileName;
+  QString dataFileName, fieldName;
   int colonIndex = frameName.indexOf(QLatin1Char(':'));
   if (colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
+  }
+  int dotIndex = frameName.indexOf(QLatin1Char('.'));
+  if (dotIndex != -1) {
+    fieldName = frameName.mid(dotIndex + 1);
+    frameName.truncate(dotIndex);
   }
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
@@ -3147,12 +3160,19 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           addFrame(tagNr, &frame);
         }
       }
-    } else if (value.isEmpty() &&
+    } else if (value.isEmpty() && fieldName.isEmpty() &&
                (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
       deleteFrame(tagNr, frmName);
     } else {
       Frame& frame = const_cast<Frame&>(*it);
-      frame.setValueIfChanged(value);
+      if (fieldName.isEmpty()) {
+        frame.setValueIfChanged(value);
+      } else {
+        TaggedFile* taggedFile = getSelectedFile();
+        if (taggedFile && Frame::setField(frame, fieldName, value)) {
+          taggedFile->setFrame(tagNr, frame);
+        }
+      }
       ft->transferFrames(frames);
       ft->selectChangedFrames();
       emit fileSelectionUpdateRequested();
@@ -3209,6 +3229,15 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     } else if (value.isEmpty()) {
       // Do not add an empty frame
       return false;
+    }
+    if (!fieldName.isEmpty()) {
+      if (TaggedFile* taggedFile = getSelectedFile()) {
+        frame.setValue(QString());
+        taggedFile->addFieldList(tagNr, frame);
+        if (!Frame::setField(frame, fieldName, value)) {
+          return false;
+        }
+      }
     }
     addFrame(tagNr, &frame);
     return true;
