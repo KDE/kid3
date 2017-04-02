@@ -1569,6 +1569,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
   if (!name.isNull()) {
     QString lcName(name.toLower());
+    QString fieldName;
     int fieldWidth = lcName == QLatin1String("track") ? 2 : -1;
     if (lcName == QLatin1String("year")) {
       name = QLatin1String("date");
@@ -1582,10 +1583,19 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       lcName.truncate(len - 2);
       name.truncate(len - 2);
     }
+    const int dotIndex = name.indexOf(QLatin1Char('.'));
+    if (dotIndex != -1) {
+      fieldName = name.mid(dotIndex + 1);
+      name.truncate(dotIndex);
+    }
 
     FrameCollection::const_iterator it = m_frames.findByName(name);
     if (it != m_frames.end()) {
-      result = it->getValue().trimmed();
+      if (fieldName.isEmpty()) {
+        result = it->getValue().trimmed();
+      } else {
+        result = Frame::getField(*it, fieldName).toString().trimmed();
+      }
       if (result.isNull()) {
         // code was found, but value is empty
         result = QLatin1String("");
