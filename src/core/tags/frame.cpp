@@ -301,6 +301,8 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "\251mvi", QT_TRANSLATE_NOOP("@default", "Movement Number") },
     { "\251mvc", QT_TRANSLATE_NOOP("@default", "Movement Count") },
     { "shwm", QT_TRANSLATE_NOOP("@default", "Show Work & Movement") },
+    { "ownr", QT_TRANSLATE_NOOP("@default", "Owner") },
+    { "xid ", QT_TRANSLATE_NOOP("@default", "XID") },
     { "IARL", QT_TRANSLATE_NOOP("@default", "Archival Location") },
     { "ICMS", QT_TRANSLATE_NOOP("@default", "Commissioned") },
     { "ICRP", QT_TRANSLATE_NOOP("@default", "Cropped") },

@@ -4146,6 +4146,8 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "atID", Frame::FT_Other, MVT_UInt },
   { "plID", Frame::FT_Other, MVT_LongLong },
   { "geID", Frame::FT_Other, MVT_UInt },
+  { "ownr", Frame::FT_Other, MVT_String },
+  { "xid ", Frame::FT_Other, MVT_String },
 #if TAGLIB_VERSION >= 0x010602
   { "covr", Frame::FT_Picture, MVT_CoverArt },
 #else
