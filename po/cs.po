@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -720,7 +720,7 @@ msgid "Command"
 msgstr "Příkaz"
 
 msgid "Create directory %1 failed\n"
-msgstr "Nepodařilo se vytvořit adresář %1.\n"
+msgstr "Nepodařilo se vytvořit adresář %1\n"
 
 msgid "File %1 already exists\n"
 msgstr "Soubor %1 již existuje\n"
@@ -729,7 +729,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 není adresářem\n"
 
 msgid "Rename %1 to %2 failed\n"
-msgstr "Nepodařilo se přejmenovat %1 na %2.\n"
+msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
 msgid "%1 already exists\n"
 msgstr ""
@@ -1462,6 +1462,9 @@ msgstr "Počet vět"
 msgid "Show Work & Movement"
 msgstr "Ukázat dílo a větu"
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr "Místo v archivu"
 
@@ -1832,7 +1835,7 @@ msgid "File Error"
 msgstr "Chyba v souboru"
 
 msgid "&Preview"
-msgstr "Náhled"
+msgstr "&Náhled"
 
 msgid "&Filter:"
 msgstr "&Filtr:"

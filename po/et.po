@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1460,6 +1460,9 @@ msgstr "Liikumise loendama"
 msgid "Show Work & Movement"
 msgstr ""
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr ""
 
@@ -1830,7 +1833,7 @@ msgid "File Error"
 msgstr "Failiviga"
 
 msgid "&Preview"
-msgstr "Eelvaade"
+msgstr "&Eelvaade"
 
 msgid "&Filter:"
 msgstr "&Filter:"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -1460,6 +1460,9 @@ msgstr "Aantal deel"
 msgid "Show Work & Movement"
 msgstr "Gebruik werk en deel"
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr "Archivaal Locatie"
 
@@ -1830,7 +1833,7 @@ msgid "File Error"
 msgstr "Bestandsfout"
 
 msgid "&Preview"
-msgstr "Voorbeeld"
+msgstr "&Voorbeeld"
 
 msgid "&Filter:"
 msgstr "&Filter:"

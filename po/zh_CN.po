@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -1459,6 +1459,9 @@ msgstr "总章数"
 msgid "Show Work & Movement"
 msgstr "使用工作和运动"
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr ""
 
@@ -1829,7 +1832,7 @@ msgid "File Error"
 msgstr "文件错误"
 
 msgid "&Preview"
-msgstr "预览"
+msgstr "预览(&P)"
 
 msgid "&Filter:"
 msgstr "过滤(&F)："

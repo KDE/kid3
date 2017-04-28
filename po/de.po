@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -1461,6 +1461,9 @@ msgstr "Anzahl Sätze"
 msgid "Show Work & Movement"
 msgstr "Werk und Satz verwenden"
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr "Ort im Archiv"
 
@@ -1831,7 +1834,7 @@ msgid "File Error"
 msgstr "Dateifehler"
 
 msgid "&Preview"
-msgstr "Vorschau"
+msgstr "&Vorschau"
 
 msgid "&Filter:"
 msgstr "&Filter:"

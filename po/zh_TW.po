@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.4.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-02-03 15:27+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1463,6 +1463,9 @@ msgstr "总章數"
 msgid "Show Work & Movement"
 msgstr "使用工作和運動"
 
+msgid "XID"
+msgstr "XID"
+
 msgid "Archival Location"
 msgstr ""
 
@@ -1834,7 +1837,7 @@ msgid "File Error"
 msgstr "檔案錯誤"
 
 msgid "&Preview"
-msgstr "預覽"
+msgstr "預覽(&P)"
 
 msgid "&Filter:"
 msgstr "篩選(&F):"

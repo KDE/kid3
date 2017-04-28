@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-03-18 08:52+0100\n"
+"POT-Creation-Date: 2017-04-28 12:41+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1451,6 +1451,9 @@ msgstr "Sats antal"
 
 msgid "Show Work & Movement"
 msgstr "Vis Forløb & Sats"
+
+msgid "XID"
+msgstr "XID"
 
 msgid "Archival Location"
 msgstr "Arkiv placering"
