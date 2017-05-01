@@ -2720,6 +2720,14 @@ Intro</computeroutput></screen>
 <para>Synchronisierter Liedtext wird im LRC-Format exportiert.
 <screen width="65"><userinput>get SYLT:"/pfad/zu/lyrics.lrc"</userinput></screen>
 </para>
+<para>Es können auch nur bestimmte Felder abgefragt werden, beispielsweise
+kann das Email-Feld eines Popularimeter-Frames mit
+<userinput>get POPM.Email</userinput> ausgegeben werden. Wenn eine Datei
+mehrere Frames des gleichen Typs enthält, so kann der Index in eckigen
+Klammern angegeben werden. So kriegt man beispielsweise den ersten Musiker aus
+einem Vorbis-Tag mit <userinput>get performer[0]</userinput>, den zweiten mit
+<userinput>get performer[1]</userinput>.
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2740,6 +2748,19 @@ verwendet werden.
 </para>
 <para>Synchronisierter Liedtext kann aus einer LRC-Datei importiert werden.
 <screen width="65"><userinput>set SYLT:"/pfad/zu/lyrics.lrc" "Beschreibung"</userinput></screen>
+</para>
+<para>
+Um ein bestimmtes Feld eines Frames zu setzen, kann der Feldname nach einem
+Punkt angegeben werden, z.B. für das Zähler-Feld des Popularimeter-Frames.
+<screen width="65"><userinput>set POPM.Counter 5</userinput></screen>
+</para>
+<para>
+Um mehrere Frames desselben Typs zu setzen, kann der Index in eckigen Klammern
+angegeben werden, z.B. mehrere Musiker in einem Vorbis-Tag.
+<screen width="65">
+<prompt>kid3-cli&gt; </prompt><userinput>set performer[0] 'Liza don Getti (soprano)'</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set performer[1] 'Joe Barr (piano)'</userinput>
+</screen>
 </para>
 </sect2>
 

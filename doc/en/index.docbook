@@ -2560,6 +2560,13 @@ Intro</computeroutput></screen>
 <para>To save synchronized lyrics to an LRC file, use
 <screen width="65"><userinput>get SYLT:"/path/to/lyrics.lrc"</userinput></screen>
 </para>
+<para>It is possible to get only a specific field from a frame, for example
+<userinput>get POPM.Email</userinput> for the Email field of a Popularimeter
+frame. If a file has multiple frames of the same kind, the different frames
+can be indexed with brackets, for example the first performer from a Vorbis
+comment can be retrieved using <userinput>get performer[0]</userinput>,
+the second using <userinput>get performer[1]</userinput>.
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2579,6 +2586,19 @@ If <replaceable>FRAME-VALUE</replaceable> is empty, the frame is deleted.
 </para>
 <para>To set synchronized lyrics from an LRC file, use
 <screen width="65"><userinput>set SYLT:"/path/to/lyrics.lrc" "Lyrics Description"</userinput></screen>
+</para>
+<para>
+To set a specific field of a frame, the field name can be given after a dot,
+e.g. to set the Counter field of a Popularimeter frame, use
+<screen width="65"><userinput>set POPM.Counter 5</userinput></screen>
+</para>
+<para>
+To set multiple frames of the same kind, an index can be given in brackets,
+e.g. to set multiple performers in a Vorbis comment, use
+<screen width="65">
+<prompt>kid3-cli&gt; </prompt><userinput>set performer[0] 'Liza don Getti (soprano)'</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set performer[1] 'Joe Barr (piano)'</userinput>
+</screen>
 </para>
 </sect2>
 
