@@ -906,9 +906,10 @@ public slots:
    * Delete selected frame.
    * @param tagNr tag number
    * @param frameName name of frame to delete, empty to delete selected frame
+   * @param index 0 for first frame with @a frameName, 1 for second, etc.
    */
   void deleteFrame(Frame::TagNumber tagNr,
-                   const QString& frameName = QString());
+                   const QString& frameName = QString(), int index = 0);
 
   /**
    * Select a frame type and add such a frame to the frame list.

@@ -325,6 +325,93 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '3\n'
                 '4\n')
 
+    def test_flac(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            flacpath = os.path.join(tmpdir, 'test.flac')
+            jpgpath = os.path.join(tmpdir, 'test.jpg')
+            picpath = os.path.join(tmpdir, 'folder.jpg')
+            create_test_file(flacpath)
+            create_test_file(jpgpath)
+            with open(jpgpath, 'rb') as jpgfh:
+                jpg_bytes = jpgfh.read()
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'get title 2',
+                 '-c', 'get all 2', flacpath]),
+                'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                '  Name: test.flac\n')
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'set artist "A first artist"',
+                 '-c', 'set artist[1] "A second artist"',
+                 '-c', 'set album "Album Name"',
+                 '-c', 'set track 4',
+                 '-c', 'set genre "Heavy Metal"',
+                 '-c', 'set date 2017',
+                 '-c', 'set comment[0] "Comment 1"',
+                 '-c', 'set comment[1] "Comment 2"',
+                 '-c', 'set comment[2] "Comment 3"',
+                 '-c', 'set Lyricist "A Lyricist" 2',
+                 '-c', 'set tracktotal 12',
+                 '-c', 'set "disc number" 1',
+                 '-c', 'set DISCTOTAL 2',
+                 '-c', 'set picture:"%s" "Picture Description"' % jpgpath,
+                 '-c', 'get comment[1]',
+                 '-c', 'get comment',
+                 '-c', 'get', flacpath]),
+                 'Comment 2\n'
+                 'Comment 1\n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test.flac\n'
+                 'Tag 2: Vorbis\n'
+                 '* Artist                  A first artist\n'
+                 '* Artist                  A second artist\n'
+                 '* Album                   Album Name\n'
+                 '* Comment                 Comment 1\n'
+                 '* Comment                 Comment 2\n'
+                 '* Comment                 Comment 3\n'
+                 '* Date                    2017\n'
+                 '* Track Number            4\n'
+                 '* Genre                   Heavy Metal\n'
+                 '* Disc Number             1\n'
+                 '* Lyricist                A Lyricist\n'
+                 '* Picture: Cover (front)  Picture Description\n'
+                 '* Total Discs             2\n'
+                 '* Total Tracks            12\n')
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'set artist[1] ""',
+                 '-c', 'set comment[1] "Comment B"',
+                 '-c', 'set comment[0] "Comment A"',
+                 '-c', 'set comment[2] "Comment C"',
+                 '-c', 'set lyricist ""',
+                 '-c', 'set picture[1]:"%s" "Back Cover"' % jpgpath,
+                 '-c', 'set picture[1].picturetype 4',
+                 '-c', 'set picture[0].description "Front Cover"',
+                 '-c', 'get picture[1]:"%s"' % picpath,
+                 '-c', 'get',
+                 '-c', 'remove',
+                 '-c', 'get', flacpath]),
+                 'Back Cover\n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test.flac\n'
+                 'Tag 2: Vorbis\n'
+                 '* Artist                  A first artist\n'
+                 '  Album                   Album Name\n'
+                 '* Comment                 Comment A\n'
+                 '* Comment                 Comment B\n'
+                 '* Comment                 Comment C\n'
+                 '  Date                    2017\n'
+                 '  Track Number            4\n'
+                 '  Genre                   Heavy Metal\n'
+                 '  Disc Number             1\n'
+                 '* Picture: Cover (front)  Front Cover\n'
+                 '* Picture: Cover (back)   Back Cover\n'
+                 '  Total Discs             2\n'
+                 '  Total Tracks            12\n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test.flac\n')
+            with open(picpath, 'rb') as jpgfh:
+                ba = jpgfh.read()
+                self.assertEqual(ba, jpg_bytes)
+
     def test_riff_info(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             wavpath = os.path.join(tmpdir, 'test.wav')

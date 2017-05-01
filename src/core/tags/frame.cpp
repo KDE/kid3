@@ -1181,26 +1181,34 @@ FrameCollection::const_iterator FrameCollection::searchByName(
  * @param name  the name of the frame to find, if the exact name is not
  *              found, a case-insensitive search for the first name
  *              starting with this string is performed
+ * @param index 0 for first frame with @a name, 1 for second, etc.
  *
  * @return iterator or end() if not found.
  */
-FrameCollection::const_iterator FrameCollection::findByName(const QString& name) const
+FrameCollection::const_iterator FrameCollection::findByName(
+    const QString& name, int index) const
 {
   Frame frame(Frame::ExtendedType(name), QLatin1String(""), -1);
   const_iterator it = find(frame);
-  if (it != end()) {
-    return it;
-  }
-  it = searchByName(name);
-  if (it != end()) {
-    return it;
-  }
-  foreach (const QByteArray& id, getDisplayNamesOfIds().keys(name.toLatin1())) {
-    if (!id.isEmpty()) {
-      it = searchByName(QString::fromLatin1(id));
-      if (it != end()) {
-        break;
+  if (it == end()) {
+    it = searchByName(name);
+    if (it == end()) {
+      foreach (const QByteArray& id,
+               getDisplayNamesOfIds().keys(name.toLatin1())) {
+        if (!id.isEmpty()) {
+          it = searchByName(QString::fromLatin1(id));
+          if (it != end()) {
+            break;
+          }
+        }
       }
+    }
+  }
+  if (index > 0 && it != end()) {
+    const Frame::ExtendedType extendedType = it->getExtendedType();
+    for (int i = 0; i < index && it != end(); ++i, ++it) {}
+    if (it != end() && !(it->getExtendedType() == extendedType)) {
+      it = end();
     }
   }
   return it;

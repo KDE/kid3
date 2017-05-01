@@ -935,10 +935,11 @@ public:
    * @param name  the name of the frame to find, if the exact name is not
    *              found, a case-insensitive search for the first name
    *              starting with this string is performed
+   * @param index 0 for first frame with @a name, 1 for second, etc.
    *
    * @return iterator or end() if not found.
    */
-  const_iterator findByName(const QString& name) const;
+  const_iterator findByName(const QString& name, int index = 0) const;
 
   /**
    * Find a frame by type or name.

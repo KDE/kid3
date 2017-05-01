@@ -143,6 +143,43 @@ Frame::TextEncoding frameTextEncodingFromConfig()
   return encoding;
 }
 
+/**
+ * Extract file path, field name and index from frame name.
+ *
+ * @param frameName frame name with additional information for file, field and
+ * index
+ * @param dataFileName the path to a data file is returned here if available,
+ * else null
+ * @param fieldName the field name is returned here if available, else null
+ * @param index the index is returned here if available, else 0
+ */
+void extractFileFieldIndex(
+    QString& frameName, QString& dataFileName, QString& fieldName, int& index)
+{
+  dataFileName.clear();
+  fieldName.clear();
+  index = 0;
+  int colonIndex = frameName.indexOf(QLatin1Char(':'));
+  if (colonIndex != -1) {
+    dataFileName = frameName.mid(colonIndex + 1);
+    frameName.truncate(colonIndex);
+  }
+  int dotIndex = frameName.indexOf(QLatin1Char('.'));
+  if (dotIndex != -1) {
+    fieldName = frameName.mid(dotIndex + 1);
+    frameName.truncate(dotIndex);
+  }
+  int bracketIndex = frameName.indexOf(QLatin1Char('['));
+  if (bracketIndex != -1 && bracketIndex + 2 < frameName.length() &&
+      frameName.at(bracketIndex + 2) == QLatin1Char(']')) {
+    const char indexChar = frameName.at(bracketIndex + 1).toLatin1();
+    if (indexChar >= '0' && indexChar <= '9') {
+      index = indexChar - '0';
+      frameName.remove(bracketIndex, 3);
+    }
+  }
+}
+
 }
 
 #ifdef Q_OS_MAC
@@ -1811,9 +1848,10 @@ void Kid3Application::onFrameEdited(const Frame* frame)
  * Delete selected frame.
  * @param tagNr tag number
  * @param frameName name of frame to delete, empty to delete selected frame
+ * @param index 0 for first frame with @a frameName, 1 for second, etc.
  */
 void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
-                                  const QString& frameName)
+                                  const QString& frameName, int index)
 {
   FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
@@ -1843,12 +1881,17 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
       }
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
+      int currentIndex = 0;
       for (FrameCollection::const_iterator it = frames.begin();
            it != frames.end();
            ++it) {
         if (it->getName() == name) {
-          currentFile->deleteFrame(tagNr, *it);
-          break;
+          if (currentIndex == index) {
+            currentFile->deleteFrame(tagNr, *it);
+            break;
+          } else {
+            ++currentIndex;
+          }
         }
       }
     }
@@ -3001,19 +3044,12 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
 {
   QString frameName(name);
   QString dataFileName, fieldName;
-  int colonIndex = frameName.indexOf(QLatin1Char(':'));
-  if (colonIndex != -1) {
-    dataFileName = frameName.mid(colonIndex + 1);
-    frameName.truncate(colonIndex);
-  }
-  int dotIndex = frameName.indexOf(QLatin1Char('.'));
-  if (dotIndex != -1) {
-    fieldName = frameName.mid(dotIndex + 1);
-    frameName.truncate(dotIndex);
-  }
+  int index = 0;
+  extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  FrameCollection::const_iterator it = ft->frames().findByName(frameName);
+  FrameCollection::const_iterator it =
+      ft->frames().findByName(frameName, index);
   if (it != ft->frames().end()) {
     if (!dataFileName.isEmpty()) {
       bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
@@ -3098,20 +3134,12 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
 {
   QString frameName(name);
   QString dataFileName, fieldName;
-  int colonIndex = frameName.indexOf(QLatin1Char(':'));
-  if (colonIndex != -1) {
-    dataFileName = frameName.mid(colonIndex + 1);
-    frameName.truncate(colonIndex);
-  }
-  int dotIndex = frameName.indexOf(QLatin1Char('.'));
-  if (dotIndex != -1) {
-    fieldName = frameName.mid(dotIndex + 1);
-    frameName.truncate(dotIndex);
-  }
+  int index = 0;
+  extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
   FrameCollection frames(ft->frames());
-  FrameCollection::const_iterator it = frames.findByName(frameName);
+  FrameCollection::const_iterator it = frames.findByName(frameName, index);
   if (it != frames.end()) {
     QString frmName(it->getName());
     bool isPicture, isGeob, isSylt = false;
@@ -3122,7 +3150,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
          (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
          frmName.startsWith(QLatin1String("ETCO")))) {
       if (isPicture) {
-        deleteFrame(tagNr, frmName);
+        deleteFrame(tagNr, frmName, index);
         PictureFrame frame;
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
@@ -3131,7 +3159,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         addFrame(tagNr, &frame);
       } else if (isGeob) {
         Frame frame(*it);
-        deleteFrame(tagNr, frmName);
+        deleteFrame(tagNr, frmName, index);
         Frame::setField(frame, Frame::ID_MimeType,
                         PictureFrame::getMimeTypeForFile(dataFileName));
         Frame::setField(frame, Frame::ID_Filename,
@@ -3145,7 +3173,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           QTextStream stream(&file);
           Frame frame(*it);
           Frame::setField(frame, Frame::ID_Description, value);
-          deleteFrame(tagNr, frmName);
+          deleteFrame(tagNr, frmName, index);
           TimeEventModel timeEventModel;
           if (isSylt) {
             timeEventModel.setType(TimeEventModel::SynchronizedLyrics);
@@ -3162,7 +3190,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       }
     } else if (value.isEmpty() && fieldName.isEmpty() &&
                (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
-      deleteFrame(tagNr, frmName);
+      deleteFrame(tagNr, frmName, index);
     } else {
       Frame& frame = const_cast<Frame&>(*it);
       if (fieldName.isEmpty()) {
