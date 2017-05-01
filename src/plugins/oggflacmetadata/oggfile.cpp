@@ -824,6 +824,7 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
   static const char* const fieldNames[] = {
     "CONTACT",
     "DESCRIPTION",
+    "DISCTOTAL",
     "EAN/UPN",
     "ENCODING",
     "ENGINEER",
