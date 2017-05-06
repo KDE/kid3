@@ -5919,6 +5919,10 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
             int idx = frame.getIndex();
             if (idx >= 0 && idx < m_pictures.size()) {
               m_pictures.removeAt(idx);
+              while (idx < m_pictures.size()) {
+                m_pictures[idx].setIndex(idx);
+                ++idx;
+              }
               markTagChanged(tagNr, Frame::FT_Picture);
               return true;
             }
