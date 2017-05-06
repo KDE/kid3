@@ -105,7 +105,7 @@ PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
   if (image.loadFromData(data)) {
     m_width = image.width();
     m_height = image.height();
-    m_depth = image.depth();
+    m_depth = image.bitPlaneCount();
     m_numColors = image.colorCount();
     m_imageHash = qHash(data);
   } else {
