@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 27 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2017  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -74,6 +74,63 @@ Timer {
   property alias script: _script
   /** Access to ConfigObjects instance. */
   property alias configs: _configs
+
+  /** List of files to process with firstFile(), nextFile(). */
+  property variant _paths: []
+  /** Index of current file, -1 if _paths is not initialized yet. */
+  property int _pathIndex: -1
+
+  /**
+   * Set list of files to process.
+   * This function will be called by firstFile() if it has not been called
+   * before. Calling it explicitly is only needed if the default file list
+   * (from arguments if standalone, else from selected tagged files in file
+   * list) is not appropriate.
+   */
+  function initFiles(paths) {
+    _pathIndex = 0
+    if (paths && paths.length > 0) {
+      _paths = paths;
+    } else if (isStandalone()) {
+      _paths = getArguments();
+    } else {
+      _paths = app.getSelectedFilePaths();
+    }
+  }
+
+  /**
+   * To first file.
+   * Will use the _paths list if available, else delegate to app.firstFile()
+   * which will start iterating through all files.
+   */
+  function firstFile() {
+    if (_pathIndex === -1) {
+      initFiles()
+    }
+    if (_paths.length > 0) {
+      _pathIndex = 0
+      return nextFile()
+    } else {
+      return app.firstFile();
+    }
+  }
+
+  /**
+   * To next file.
+   * firstFile() has to be called before. Returns false if at end of files.
+   */
+  function nextFile() {
+    if (_paths.length > 0) {
+      if (_pathIndex < _paths.length) {
+        var path = _paths[_pathIndex++]
+        return app.selectFile(path)
+      } else {
+        return false
+      }
+    } else  {
+      return app.nextFile();
+    }
+  }
 
   /**
    * Get arguments after .qml script.

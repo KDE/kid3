@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -2326,6 +2326,50 @@ void Kid3Application::selectAllInDirectory()
     m_fileSelectionModel->select(selection,
                      QItemSelectionModel::Select | QItemSelectionModel::Rows);
   }
+}
+
+/**
+ * Set a specific file as the current file.
+ *
+ * @param filePath path to file
+ * @param select true to select the file
+ *
+ * @return true if file exists.
+ */
+bool Kid3Application::selectFile(const QString& filePath, bool select)
+{
+  QModelIndex index = m_fileProxyModel->index(filePath);
+  if (!index.isValid())
+    return false;
+
+  m_fileSelectionModel->setCurrentIndex(index,
+    select ? QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows
+           : QItemSelectionModel::Current);
+  return true;
+}
+
+/**
+ * Get paths to all selected files.
+ * @param onlyTaggedFiles only consider tagged files
+ * @return list of absolute file paths.
+ */
+QStringList Kid3Application::getSelectedFilePaths(bool onlyTaggedFiles) const
+{
+  QStringList files;
+  QModelIndexList selItems = m_fileSelectionModel->selectedRows();
+  if (onlyTaggedFiles) {
+    foreach (const QModelIndex& index, selItems) {
+      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index))
+      {
+        files.append(taggedFile->getAbsFilename());
+      }
+    }
+  } else {
+    foreach (const QModelIndex& index, selItems) {
+      files.append(m_fileProxyModel->filePath(index));
+    }
+  }
+  return files;
 }
 
 /**

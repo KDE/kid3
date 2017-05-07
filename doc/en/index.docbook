@@ -4104,10 +4104,12 @@ app.exportTags(tag, path, fmtIdx): Export file
 app.writePlaylist(): Write playlist
 app.selectAllFiles(): Select all
 app.deselectAllFiles(): Deselect
-app.firstFile([select]): To first file
-app.nextFile([select]): To next file
-app.previousFile([select]): To previous file
+app.firstFile([select], [onlyTaggedFiles]): To first file
+app.nextFile([select], [onlyTaggedFiles]): To next file
+app.previousFile([select], [onlyTaggedFiles]): To previous file
 app.selectCurrentFile([select]): Select current file
+app.selectFile(path, [select]): Select a specific file
+app.getSelectedFilePaths([onlyTaggedFiles]): Get paths of selected files
 app.requestExpandFileList(): Expand all
 app.applyFilenameFormat(): Apply filename format
 app.applyTagFormat(): Apply tag format

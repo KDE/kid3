@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -752,6 +752,14 @@ public:
   Q_INVOKABLE void setFileSelectionIndexes(const QVariantList& indexes);
 
   /**
+   * Get paths to all selected files.
+   * @param onlyTaggedFiles only consider tagged files
+   * @return list of absolute file paths.
+   */
+  Q_INVOKABLE QStringList getSelectedFilePaths(bool onlyTaggedFiles = true)
+  const;
+
+  /**
    * Set picture data for image provider.
    * @param picture picture data
    */
@@ -985,6 +993,16 @@ public slots:
    * Select all files in the current directory.
    */
   void selectAllInDirectory();
+
+  /**
+   * Set a specific file as the current file.
+   *
+   * @param filePath path to file
+   * @param select true to select the file
+   *
+   * @return true if file exists.
+   */
+  bool selectFile(const QString& filePath, bool select = true);
 
   /**
    * Fetch entries of directory if not already fetched.

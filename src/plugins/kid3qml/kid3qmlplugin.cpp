@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Sep 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -177,7 +177,7 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
     qRegisterMetaType<Frame::TagNumber>();
     qRegisterMetaType<QAbstractItemModel*>();
     // @uri Kid3
-    qmlRegisterUncreatableType<Kid3Application>(uri, 1, 0, "Kid3Application",
+    qmlRegisterUncreatableType<Kid3Application>(uri, 1, 1, "Kid3Application",
         QLatin1String("Retrieve it using app"));
     qmlRegisterUncreatableType<FileProxyModel>(uri, 1, 0, "FileProxyModel",
         QLatin1String("Retrieve it using app.fileProxyModel"));

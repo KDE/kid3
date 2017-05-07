@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Mar 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2017  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Kid3 1.0
+import Kid3 1.1
 
 Kid3Script {
   onRun: {
@@ -82,14 +82,14 @@ Kid3Script {
           }
         }
       }
-      if (!app.nextFile()) {
+      if (!nextFile()) {
         Qt.quit()
       } else {
         setTimeout(doWork, 1)
       }
     }
 
-    app.firstFile()
+    firstFile()
     doWork()
   }
 }

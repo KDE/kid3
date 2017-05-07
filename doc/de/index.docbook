@@ -4290,10 +4290,12 @@ app.exportTags(tag, path, fmtIdx): Datei exportieren
 app.writePlaylist(): Stückliste erstellen
 app.selectAllFiles(): Alles auswählen
 app.deselectAllFiles(): Gesamte Auswahl aufheben
-app.firstFile([select]): Erste Datei
-app.nextFile([select]): Nächste Datei
-app.previousFile([select]): Vorangehende Datei
+app.firstFile([select], [onlyTaggedFiles]): Erste Datei
+app.nextFile([select], [onlyTaggedFiles]): Nächste Datei
+app.previousFile([select], [onlyTaggedFiles]): Vorangehende Datei
 app.selectCurrentFile([select]): Aktuelle Datei auswählen
+app.selectFile(path, [select]): Spezifische Datei auswählen
+app.getSelectedFilePaths([onlyTaggedFiles]): Alle ausgewählten Dateien
 app.requestExpandFileList(): Alle ausklappen
 app.applyFilenameFormat(): Dateinamenformat anwenden
 app.applyTagFormat(): Tag-Format anwenden
