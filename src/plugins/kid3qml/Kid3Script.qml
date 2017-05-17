@@ -188,6 +188,7 @@ Timer {
     } else {
       // Started as a QML script outside of Kid3, start in current directory.
       app.selectedFilesUpdated.connect(app.tagsToFrameModels)
+      app.selectedFilesChanged.connect(app.tagsToFrameModels)
       app.readConfig()
       openDirectory(".")
     }

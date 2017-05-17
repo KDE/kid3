@@ -132,6 +132,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateCurrentSelection()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),
           this, SLOT(updateGuiControls()));
+  connect(m_app, SIGNAL(selectedFilesChanged(QItemSelection,QItemSelection)),
+          this, SLOT(applySelectionChange(QItemSelection,QItemSelection)));
   connect(m_app, SIGNAL(frameModified(TaggedFile*,Frame::TagNumber)),
           this, SLOT(updateAfterFrameModification(TaggedFile*,Frame::TagNumber)));
   connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
@@ -980,6 +982,24 @@ void BaseMainWindowImpl::updateCurrentSelection()
 }
 
 /**
+ * Apply selection change and update GUI controls.
+ * The new selection is stored and the GUI controls and frame list
+ * updated accordingly (filtered for multiple selection).
+ * @param selected selected items
+ * @param deselected deselected items
+ */
+void BaseMainWindowImpl::applySelectionChange(const QItemSelection& selected,
+                                              const QItemSelection& deselected)
+{
+  if (!deselected.isEmpty()) {
+    m_app->tagsToFrameModels();
+  } else {
+    m_app->selectedTagsToFrameModels(selected);
+  }
+  updateGuiControlsFromSelection();
+}
+
+/**
  * Update GUI controls from the tags in the files.
  * The new selection is stored and the GUI controls and frame list
  * updated accordingly (filtered for multiple selection).
@@ -987,7 +1007,14 @@ void BaseMainWindowImpl::updateCurrentSelection()
 void BaseMainWindowImpl::updateGuiControls()
 {
   m_app->tagsToFrameModels();
+  updateGuiControlsFromSelection();
+}
 
+/**
+ * Update GUI controls from the current selection.
+ */
+void BaseMainWindowImpl::updateGuiControlsFromSelection()
+{
   TaggedFileSelection* selection = m_app->selectionInfo();
   m_form->setFilename(selection->getFilename());
   m_form->setFilenameEditEnabled(selection->isSingleFileSelected());

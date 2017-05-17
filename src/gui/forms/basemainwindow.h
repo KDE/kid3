@@ -36,6 +36,7 @@
 
 class QProgressBar;
 class QToolButton;
+class QItemSelection;
 class ProgressWidget;
 class Kid3Form;
 class Kid3Application;
@@ -306,6 +307,16 @@ public slots:
   void updateCurrentSelection();
 
   /**
+   * Apply selection change and update GUI controls.
+   * The new selection is stored and the GUI controls and frame list
+   * updated accordingly (filtered for multiple selection).
+   * @param selected selected items
+   * @param deselected deselected items
+   */
+  void applySelectionChange(const QItemSelection& selected,
+                            const QItemSelection& deselected);
+
+  /**
    * Update GUI controls from the tags in the files.
    * The new selection is stored and the GUI controls and frame list
    * updated accordingly (filtered for multiple selection).
@@ -474,6 +485,11 @@ private:
    * Terminate filtering the file list.
    */
   void terminateFilter();
+
+  /**
+   * Update GUI controls from the current selection.
+   */
+  void updateGuiControlsFromSelection();
 
   /**
    * Start monitoring the progress of a possibly long operation.

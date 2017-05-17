@@ -40,6 +40,7 @@
 class QFileIconProvider;
 class QFileSystemModel;
 class QItemSelectionModel;
+class QItemSelection;
 class QModelIndex;
 class QNetworkAccessManager;
 class QDir;
@@ -393,6 +394,13 @@ public:
    * The properties starting with "selection" will be set by this method.
    */
   Q_INVOKABLE void tagsToFrameModels();
+
+  /**
+   * Update frame models to contain contents of item selection.
+   * The properties starting with "selection" will be set by this method.
+   * @param selected item selection
+   */
+  void selectedTagsToFrameModels(const QItemSelection& selected);
 
   /**
    * Access to information about selected tagged files.
@@ -1034,8 +1042,11 @@ public slots:
   /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
+   * @param selected selected items
+   * @param deselected deselected items
    */
-  void fileSelected();
+  void fileSelected(const QItemSelection& selected,
+                    const QItemSelection& deselected);
 
   /**
    * Search in tags for a given text.
@@ -1164,6 +1175,16 @@ signals:
    * receiving this signal.
    */
   void selectedFilesUpdated();
+
+  /**
+   * Emitted after the file selection is changed.
+   * The GUI should update its controls from the tags of the new file selection
+   * when receiving this signal.
+   * @param selected selected items
+   * @param deselected deselected items
+   */
+  void selectedFilesChanged(const QItemSelection& selected,
+                            const QItemSelection& deselected);
 
   /**
    * Emitted after a frame of a tagged file has been modified.
@@ -1335,6 +1356,16 @@ private:
    * @param plugin instance returned by plugin loader
    */
   void checkPlugin(QObject* plugin);
+
+  /**
+   * Update frame models to contain contents of selected files.
+   * @param indexes tagged file indexes
+   * @param startSelection true if a new selection is started, false to add to
+   * the existing selection
+   * @return true if ok, false if selection operation is already running.
+   */
+  bool addTaggedFilesToSelection(
+      const QList<QPersistentModelIndex>& indexes, bool startSelection);
 
   /**
    * Select a frame type and add such a frame to frame list.

@@ -278,7 +278,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SLOT(fileSelected()));
+          this, SLOT(fileSelected(QItemSelection,QItemSelection)));
   connect(m_fileSelectionModel,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SIGNAL(fileSelectionChanged()));
@@ -956,30 +956,70 @@ void Kid3Application::frameModelsToTags()
  */
 void Kid3Application::tagsToFrameModels()
 {
+  QList<QPersistentModelIndex> indexes;
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+    indexes.append(QPersistentModelIndex(index));
+  }
+
+  if (addTaggedFilesToSelection(indexes, true)) {
+    m_currentSelection.swap(indexes);
+  }
+}
+
+/**
+ * Update frame models to contain contents of item selection.
+ * The properties starting with "selection" will be set by this method.
+ * @param selected item selection
+ */
+void Kid3Application::selectedTagsToFrameModels(const QItemSelection& selected)
+{
+  QList<QPersistentModelIndex> indexes;
+  foreach (const QModelIndex& index, selected.indexes()) {
+    if (index.column() == 0) {
+      indexes.append(QPersistentModelIndex(index));
+    }
+  }
+
+  if (addTaggedFilesToSelection(indexes, m_currentSelection.isEmpty())) {
+    m_currentSelection.append(indexes);
+  }
+}
+
+/**
+ * Update frame models to contain contents of selected files.
+ * @param indexes tagged file indexes
+ * @param startSelection true if a new selection is started, false to add to
+ * the existing selection
+ * @return true if ok, false if selection operation is already running.
+ */
+bool Kid3Application::addTaggedFilesToSelection(
+    const QList<QPersistentModelIndex>& indexes, bool startSelection)
+{
   // It would crash if this is called while a long running selection operation
   // is in progress.
   if (m_selectionOperationRunning)
-    return;
+    return false;
 
   m_selectionOperationRunning = true;
-  updateCurrentSelection();
 
-  m_selection->beginAddTaggedFiles();
+  if (startSelection) {
+    m_selection->beginAddTaggedFiles();
+  }
+
   QElapsedTimer timer;
   timer.start();
   QString operationName = tr("Selection");
   int longRunningTotal = 0;
   int done = 0;
   bool aborted = false;
-  for (QList<QPersistentModelIndex>::const_iterator it =
-       m_currentSelection.begin();
-       it != m_currentSelection.end();
+  for (QList<QPersistentModelIndex>::const_iterator it = indexes.constBegin();
+       it != indexes.constEnd();
        ++it, ++done) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
       m_selection->addTaggedFile(taggedFile);
       if (!longRunningTotal) {
         if (timer.elapsed() >= 3000) {
-          longRunningTotal = m_currentSelection.size();
+          longRunningTotal = indexes.size();
           emit longRunningOperationProgress(operationName, -1, longRunningTotal,
                                             &aborted);
         }
@@ -996,6 +1036,7 @@ void Kid3Application::tagsToFrameModels()
     emit longRunningOperationProgress(operationName, longRunningTotal,
                                       longRunningTotal, &aborted);
   }
+
   m_selection->endAddTaggedFiles();
 
   if (TaggedFile* taggedFile = m_selection->singleFile()) {
@@ -1005,6 +1046,7 @@ void Kid3Application::tagsToFrameModels()
   }
   m_selection->clearUnusedFrames();
   m_selectionOperationRunning = false;
+  return true;
 }
 
 /**
@@ -2418,11 +2460,14 @@ void Kid3Application::notifyExpandFileListFinished()
 /**
  * Process change of selection.
  * The GUI is signaled to update the current selection and the controls.
+ * @param selected selected items
+ * @param deselected deselected items
  */
-void Kid3Application::fileSelected()
+void Kid3Application::fileSelected(const QItemSelection& selected,
+                                   const QItemSelection& deselected)
 {
   emit fileSelectionUpdateRequested();
-  emit selectedFilesUpdated();
+  emit selectedFilesChanged(selected, deselected);
 }
 
 /**

@@ -282,6 +282,8 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
           this, SLOT(updateSelectedFiles()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),
           this, SLOT(updateSelection()));
+  connect(m_app, SIGNAL(selectedFilesChanged(QItemSelection,QItemSelection)),
+          this, SLOT(updateSelection()));
 #ifdef HAVE_READLINE
   m_completer = new Kid3CliCompleter(m_cmds);
   m_completer->install();

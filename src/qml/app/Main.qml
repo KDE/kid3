@@ -258,6 +258,7 @@ MainView {
     onConfirmedOpenDirectoryRequested: confirmedOpenDirectory(paths)
     onFileSelectionUpdateRequested: mainPage.updateCurrentSelection()
     onSelectedFilesUpdated: app.tagsToFrameModels()
+    onSelectedFilesChanged: app.tagsToFrameModels()
   }
   Connections {
     target: app.downloadClient

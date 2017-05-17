@@ -208,6 +208,7 @@ Rectangle {
     if (typeof args === "undefined") {
       // Started as a QML script outside of Kid3.
       app.selectedFilesUpdated.connect(app.tagsToFrameModels)
+      app.selectedFilesChanged.connect(app.tagsToFrameModels)
       app.readConfig()
     }
   }
