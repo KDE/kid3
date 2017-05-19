@@ -898,29 +898,30 @@ void TaggedFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 }
 
 /**
- * Update marked property of frame.
- * If the frame is a picture and its size exceeds the configured
- * maximum size, the frame is marked. This method should be called in
- * reimplementations of getAllFramesV2().
+ * Update marked property of frames.
+ * Mark frames which violate configured rules. This method should be called
+ * in reimplementations of getAllFrames().
  *
- * @param frame frame to check
- * @see resetMarkedState()
+ * @param frames frames to check
  */
-void TaggedFile::updateMarkedState(Frame& frame)
+void TaggedFile::updateMarkedState(FrameCollection& frames)
 {
-  if (frame.getType() == Frame::FT_Picture) {
-    const TagConfig& tagCfg = TagConfig::instance();
-    if (tagCfg.markOversizedPictures()) {
+  m_marked = false;
+  const TagConfig& tagCfg = TagConfig::instance();
+  if (tagCfg.markOversizedPictures()) {
+    FrameCollection::const_iterator it =
+        frames.findByExtendedType(Frame::ExtendedType(Frame::FT_Picture));
+    while (it != frames.end() && it->getType() == Frame::FT_Picture) {
+      Frame& frame = const_cast<Frame&>(*it);
       QVariant data = frame.getField(frame, Frame::ID_Data);
       if (!data.isNull()) {
         if (data.toByteArray().size() > tagCfg.maximumPictureSize()) {
-          frame.setMarked(true);
+          frame.setMarked(FrameNotice::TooLarge);
           m_marked = true;
-          return;
         }
       }
+      ++it;
     }
-    frame.setMarked(false);
   }
 }
 

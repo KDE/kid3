@@ -3,6 +3,7 @@ set(tags_SRCS
   tags/genres.cpp
   tags/formatreplacer.cpp
   tags/frame.cpp
+  tags/framenotice.cpp
   tags/pictureframe.cpp
   tags/taggedfile.cpp
   tags/itaggedfilefactory.cpp
@@ -11,4 +12,5 @@ set(tags_SRCS
 
 set(tags_MOC_HDRS
   tags/frame.h
+  tags/framenotice.h
 )

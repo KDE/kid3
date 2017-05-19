@@ -148,7 +148,8 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
        (m_changedFrames & (1ULL << (*it).getType())) != 0));
   }
-  if ((role == Qt::BackgroundColorRole && index.column() == CI_Value) ||
+  if (((role == Qt::BackgroundColorRole || role == Qt::ToolTipRole) &&
+       index.column() == CI_Value) ||
       role == TruncatedRole) {
     isTruncated = (static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
         (m_markedRows & (1ULL << index.row())) != 0) || it->isMarked();
@@ -182,6 +183,14 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     } else if (index.column() == CI_Value) {
       return isTruncated ? QBrush(Qt::red) : Qt::NoBrush;
     }
+  } else if (role == Qt::ToolTipRole) {
+    QString toolTip;
+    if (isTruncated && index.column() == CI_Value) {
+      FrameNotice notice = it->isMarked() ? it->getNotice()
+                                          : FrameNotice::Truncated;
+      toolTip = notice.getDescription();
+    }
+    return toolTip;
   } else if (role == FrameTypeRole) {
     return it->getType();
   } else if (role == NameRole) {

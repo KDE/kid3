@@ -784,7 +784,6 @@ void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
   if (tagNr == Frame::Tag_2) {
     frames.clear();
-    resetMarkedState();
     QString name;
     int i = 0;
     for (OggFile::CommentList::const_iterator it = m_comments.begin();
@@ -798,12 +797,12 @@ void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
         if (name == QLatin1String("COVERART")) {
           PictureFrame::setMimeType(frame, getTextField(QLatin1String("COVERARTMIME")));
         }
-        updateMarkedState(frame);
         frames.insert(frame);
       } else {
         frames.insert(Frame(type, (*it).getValue(), name, i++));
       }
     }
+    updateMarkedState(frames);
     frames.addMissingStandardFrames();
     return;
   }

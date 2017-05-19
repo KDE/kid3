@@ -2064,14 +2064,12 @@ void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
   if (tagNr == Frame::Tag_2) {
     frames.clear();
-    resetMarkedState();
     if (m_tagV2) {
       ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
       ID3_Frame* id3Frame;
       int i = 0;
       while ((id3Frame = iter->GetNext()) != 0) {
         Frame frame(createFrameFromId3libFrame(id3Frame, i++));
-        updateMarkedState(frame);
         frames.insert(frame);
       }
 #ifdef Q_OS_WIN32
@@ -2089,6 +2087,7 @@ void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 #endif
 #endif
     }
+    updateMarkedState(frames);
     frames.addMissingStandardFrames();
     return;
   }

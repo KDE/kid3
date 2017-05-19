@@ -32,6 +32,7 @@
 #include <QVariant>
 #include <QList>
 #include <set>
+#include "framenotice.h"
 #include "kid3api.h"
 
 /** Generalized frame. */
@@ -605,16 +606,22 @@ public:
   void setDifferent() { m_value = differentRepresentation(); }
 
   /**
+   * Get warning notice if frame is marked.
+   * @return notice.
+   */
+  FrameNotice getNotice() const { return m_marked; }
+
+  /**
    * Check if frame is marked.
    * @return true if marked.
    */
   bool isMarked() const { return m_marked; }
 
   /**
-   * Mark frame
-   * @param marked true to mark, false to clear mark
+   * Mark frame.
+   * @param notice warning notice
    */
-  void setMarked(bool marked) { m_marked = marked; }
+  void setMarked(FrameNotice notice) { m_marked = notice; }
 
   /**
    * Check if value is changed.
@@ -801,8 +808,8 @@ private:
   int m_index;
   QString m_value;
   FieldList m_fieldList;
+  FrameNotice m_marked;
   bool m_valueChanged;
-  bool m_marked;
 };
 
 /** Filter to enable a subset of frame types. */

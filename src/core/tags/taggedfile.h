@@ -622,24 +622,13 @@ protected:
   void notifyTruncationChanged(bool priorTruncation) const;
 
   /**
-   * Reset the marked state of this file.
-   * This method should be called in reimplementations of getAllFrames()
-   * before calling updateMarkedState(), which will mark the file if any
-   * frame is marked.
-   * @see isMarked(), updateMarkedState()
-   */
-  void resetMarkedState() { m_marked = false; }
-
-  /**
-   * Update marked property of frame.
-   * If the frame is a picture and its size exceeds the configured
-   * maximum size, the frame is marked. This method should be called in
-   * reimplementations of getAllFrames().
+   * Update marked property of frames.
+   * Mark frames which violate configured rules. This method should be called
+   * in reimplementations of getAllFrames().
    *
-   * @param frame frame to check
-   * @see resetMarkedState()
+   * @param frames frames to check
    */
-  void updateMarkedState(Frame& frame);
+  void updateMarkedState(FrameCollection& frames);
 
 private:
   TaggedFile(const TaggedFile&);
