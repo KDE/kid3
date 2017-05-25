@@ -132,7 +132,7 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
   m_maximumPictureSizeSpinBox(0), m_genreNotNumericCheckBox(0),
-  m_lowercaseId3ChunkCheckBox(0),
+  m_lowercaseId3ChunkCheckBox(0), m_markStandardViolationsCheckBox(0),
   m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
   m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_tagFormatBox(0),
   m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
@@ -189,6 +189,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_trackNumberDigitsSpinBox->setMaximum(5);
   m_genreNotNumericCheckBox = new QCheckBox(tr("&Genre as text instead of numeric string"), v2GroupBox);
   m_lowercaseId3ChunkCheckBox = new QCheckBox(tr("&WAV files with lowercase id3 chunk"), v2GroupBox);
+  m_markStandardViolationsCheckBox = new QCheckBox(tr("Mar&k standard violations"));
   QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
   m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
@@ -196,8 +197,9 @@ QWidget* ConfigDialogPages::createTagsPage()
   textEncodingLabel->setBuddy(m_textEncodingComboBox);
   v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
   v2GroupBoxLayout->addWidget(m_lowercaseId3ChunkCheckBox, 2, 0, 1, 2);
-  v2GroupBoxLayout->addWidget(textEncodingLabel, 3, 0);
-  v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 3, 1);
+  v2GroupBoxLayout->addWidget(m_markStandardViolationsCheckBox, 3, 0, 1, 2);
+  v2GroupBoxLayout->addWidget(textEncodingLabel, 4, 0);
+  v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 4, 1);
   const TagConfig& tagCfg = TagConfig::instance();
   if (!(tagCfg.taggedFileFeatures() &
         (TaggedFile::TF_ID3v22 | TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24))) {
@@ -213,15 +215,15 @@ QWidget* ConfigDialogPages::createTagsPage()
     m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0"), TagConfig::ID3v2_4_0);
   m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
-  v2GroupBoxLayout->addWidget(id3v2VersionLabel, 4, 0);
-  v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 4, 1);
+  v2GroupBoxLayout->addWidget(id3v2VersionLabel, 5, 0);
+  v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 5, 1);
   if (m_id3v2VersionComboBox->count() < 2) {
     id3v2VersionLabel->hide();
     m_id3v2VersionComboBox->hide();
   }
   trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
-  v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 5, 0);
-  v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 5, 1);
+  v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 6, 0);
+  v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 6, 1);
   tag2LeftLayout->addWidget(v2GroupBox);
   QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
   QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"), vorbisGroupBox);
@@ -614,6 +616,7 @@ void ConfigDialogPages::setConfigs(
   m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameIndex());
   m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
   m_lowercaseId3ChunkCheckBox->setChecked(tagCfg.lowercaseId3RiffChunk());
+  m_markStandardViolationsCheckBox->setChecked(tagCfg.markStandardViolations());
   m_textEncodingV1ComboBox->setCurrentIndex(tagCfg.textEncodingV1Index());
   m_textEncodingComboBox->setCurrentIndex(tagCfg.textEncoding());
   m_id3v2VersionComboBox->setCurrentIndex(
@@ -738,6 +741,7 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setPictureNameIndex(m_pictureNameComboBox->currentIndex());
   tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
   tagCfg.setLowercaseId3RiffChunk(m_lowercaseId3ChunkCheckBox->isChecked());
+  tagCfg.setMarkStandardViolations(m_markStandardViolationsCheckBox->isChecked());
   tagCfg.setTextEncodingV1Index(m_textEncodingV1ComboBox->currentIndex());
   tagCfg.setTextEncoding(m_textEncodingComboBox->currentIndex());
   tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(

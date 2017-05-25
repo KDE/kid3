@@ -2087,7 +2087,7 @@ void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 #endif
 #endif
     }
-    updateMarkedState(frames);
+    updateMarkedState(tagNr, frames);
     frames.addMissingStandardFrames();
     return;
   }

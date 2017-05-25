@@ -802,7 +802,7 @@ void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
         frames.insert(Frame(type, (*it).getValue(), name, i++));
       }
     }
-    updateMarkedState(frames);
+    updateMarkedState(tagNr, frames);
     frames.addMissingStandardFrames();
     return;
   }

@@ -626,9 +626,10 @@ protected:
    * Mark frames which violate configured rules. This method should be called
    * in reimplementations of getAllFrames().
    *
+   * @param tagNr tag number
    * @param frames frames to check
    */
-  void updateMarkedState(FrameCollection& frames);
+  void updateMarkedState(Frame::TagNumber tagNr, FrameCollection& frames);
 
 private:
   TaggedFile(const TaggedFile&);

@@ -30,6 +30,9 @@
 #include <QObject>
 #include "kid3api.h"
 
+class Frame;
+class FrameCollection;
+
 /**
  * Notice about a frame in a tag.
  */
@@ -42,19 +45,21 @@ public:
     None,         /**< No warning */
     Truncated,    /**< Truncated */
     TooLarge,     /**< Size is too large */
-    TooLong,      /**< Value is too long */
     Unique,       /**< Must be unique */
     NlForbidden,  /**< New line is forbidden */
     CrForbidden,  /**< Carriage return is forbidden */
-    FieldEmpty,   /**< Field must be non-empty */
+    OwnerEmpty,   /**< Owner must be non-empty */
     Numeric,      /**< Must be numeric */
     NrTotal,      /**< Must be numeric or number/total */
     DayMonth,     /**< Format is DDMM */
     HourMinute,   /**< Format is HHMM */
     Year,         /**< Format is YYYY */
+    YearSpace,    /**< Must begin with a year and a space character */
     IsoDate,      /**< Must be ISO 8601 date/time */
     MusicalKey,   /**< Must be musical key, 3 characters, A-G, b, #, m, o */
     LanguageCode, /**< Must be ISO 639-2 language code, 3 lowercase characters */
+    IsrcCode,     /**< Must be ISRC code, 12 characters */
+    StringList,   /**< Must be list of strings */
     NumWarnings
   };
 
@@ -83,6 +88,29 @@ public:
    * @return description, empty if none.
    */
   QString getDescription() const;
+
+  /**
+   * Get regular expression to validate an ISO 8601 date/time.
+   * @return regular expression matching ISO date/time and periods.
+   */
+  static const QRegExp& isoDateTimeRexExp();
+
+  /**
+   * Check if a picture frame exceeds a given size.
+   * TooLarge notice is set in @a frame, if its size is larger than @a maxSize.
+   * @param frame picture frame to check
+   * @param maxSize maximum size of picture data in bytes
+   * @return true if size too large.
+   */
+  static bool addPictureTooLargeNotice(Frame& frame, int maxSize);
+
+  /**
+   * Check if frames violate the ID3v2 standard.
+   * Violating frames are marked with the corresponding notice.
+   * @param frames frames to check
+   * @return true if a violation is detected.
+   */
+  static bool addId3StandardViolationNotice(FrameCollection& frames);
 
 private:
   Warning m_warning;

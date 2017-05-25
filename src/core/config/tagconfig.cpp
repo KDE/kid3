@@ -57,6 +57,7 @@ TagConfig::TagConfig() :
   m_taggedFileFeatures(0),
   m_maximumPictureSize(131072),
   m_markOversizedPictures(false),
+  m_markStandardViolations(true),
   m_onlyCustomGenres(false),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
@@ -83,6 +84,7 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("MarkTruncations"), QVariant(m_markTruncations));
   config->setValue(QLatin1String("MarkOversizedPictures"), QVariant(m_markOversizedPictures));
   config->setValue(QLatin1String("MaximumPictureSize"), QVariant(m_maximumPictureSize));
+  config->setValue(QLatin1String("MarkStandardViolations"), QVariant(m_markStandardViolations));
   config->setValue(QLatin1String("EnableTotalNumberOfTracks"), QVariant(m_enableTotalNumberOfTracks));
   config->setValue(QLatin1String("GenreNotNumeric"), QVariant(m_genreNotNumeric));
   config->setValue(QLatin1String("LowercaseId3RiffChunk"), QVariant(m_lowercaseId3RiffChunk));
@@ -119,6 +121,7 @@ void TagConfig::readFromConfig(ISettings* config)
   m_markTruncations = config->value(QLatin1String("MarkTruncations"), m_markTruncations).toBool();
   m_markOversizedPictures = config->value(QLatin1String("MarkOversizedPictures"), m_markOversizedPictures).toBool();
   m_maximumPictureSize = config->value(QLatin1String("MaximumPictureSize"), m_maximumPictureSize).toInt();
+  m_markStandardViolations = config->value(QLatin1String("MarkStandardViolations"), m_markStandardViolations).toBool();
   m_enableTotalNumberOfTracks = config->value(QLatin1String("EnableTotalNumberOfTracks"), m_enableTotalNumberOfTracks).toBool();
   m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"), m_genreNotNumeric).toBool();
   m_lowercaseId3RiffChunk = config->value(QLatin1String("LowercaseId3RiffChunk"), m_lowercaseId3RiffChunk).toBool();
@@ -219,6 +222,15 @@ void TagConfig::setMaximumPictureSize(int maximumPictureSize)
   if (m_maximumPictureSize != maximumPictureSize) {
     m_maximumPictureSize = maximumPictureSize;
     emit maximumPictureSizeChanged(m_maximumPictureSize);
+  }
+}
+
+/** Set true to mark standard violations. */
+void TagConfig::setMarkStandardViolations(bool markStandardViolations)
+{
+  if (m_markStandardViolations != markStandardViolations) {
+    m_markStandardViolations = markStandardViolations;
+    emit markStandardViolationsChanged(m_markStandardViolations);
   }
 }
 

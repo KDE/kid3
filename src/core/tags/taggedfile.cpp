@@ -902,23 +902,33 @@ void TaggedFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
  * Mark frames which violate configured rules. This method should be called
  * in reimplementations of getAllFrames().
  *
+ * @param tagNr tag number
  * @param frames frames to check
  */
-void TaggedFile::updateMarkedState(FrameCollection& frames)
+void TaggedFile::updateMarkedState(Frame::TagNumber tagNr,
+                                   FrameCollection& frames)
 {
+  // As long as there is only a single m_marked flag, only support tag 2.
+  if (tagNr != Frame::Tag_2)
+    return;
+
   m_marked = false;
   const TagConfig& tagCfg = TagConfig::instance();
+
+  if (tagCfg.markStandardViolations() &&
+      getTagFormat(tagNr).startsWith(QLatin1String("ID3v2")) &&
+      FrameNotice::addId3StandardViolationNotice(frames)) {
+    m_marked = true;
+  }
+
   if (tagCfg.markOversizedPictures()) {
     FrameCollection::const_iterator it =
         frames.findByExtendedType(Frame::ExtendedType(Frame::FT_Picture));
     while (it != frames.end() && it->getType() == Frame::FT_Picture) {
       Frame& frame = const_cast<Frame&>(*it);
-      QVariant data = frame.getField(frame, Frame::ID_Data);
-      if (!data.isNull()) {
-        if (data.toByteArray().size() > tagCfg.maximumPictureSize()) {
-          frame.setMarked(FrameNotice::TooLarge);
-          m_marked = true;
-        }
+      if (FrameNotice::addPictureTooLargeNotice(
+            frame, tagCfg.maximumPictureSize())) {
+        m_marked = true;
       }
       ++it;
     }

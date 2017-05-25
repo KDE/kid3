@@ -160,6 +160,8 @@ private:
   QCheckBox* m_genreNotNumericCheckBox;
   /** WAV files with lowercase id3 chunk checkbox */
   QCheckBox* m_lowercaseId3ChunkCheckBox;
+  /** Mark standard violations check box */
+  QCheckBox* m_markStandardViolationsCheckBox;
   /** ID3v2 text encoding combo box */
   QComboBox* m_textEncodingComboBox;
   /** ID3v2 version combo box */

@@ -44,6 +44,8 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(bool markOversizedPictures READ markOversizedPictures WRITE setMarkOversizedPictures NOTIFY markOversizedPicturesChanged)
   /** Maximum size of picture in bytes */
   Q_PROPERTY(int maximumPictureSize READ maximumPictureSize WRITE setMaximumPictureSize NOTIFY maximumPictureSizeChanged)
+  /** true to mark standard violations */
+  Q_PROPERTY(bool markStandardViolations READ markStandardViolations WRITE setMarkStandardViolations NOTIFY markStandardViolationsChanged)
   /** true to write total number of tracks into track fields */
   Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
   /** true to write genres as text instead of numeric string */
@@ -160,6 +162,12 @@ public:
 
   /** Set maximum size of picture in bytes. */
   void setMaximumPictureSize(int maximumPictureSize);
+
+  /** true to mark standard violations */
+  bool markStandardViolations() const { return m_markStandardViolations; }
+
+  /** Set true to mark standard violations. */
+  void setMarkStandardViolations(bool markStandardViolations);
 
   /** true to write total number of tracks into track fields */
   bool enableTotalNumberOfTracks() const { return m_enableTotalNumberOfTracks; }
@@ -327,6 +335,9 @@ signals:
   /** Emitted when @a markTruncations changed. */
   void markOversizedPicturesChanged(bool markOversizedPictures);
 
+  /** Emitted when @a markStandardViolations changed. */
+  void markStandardViolationsChanged(bool markStandardViolations);
+
   /** Emitted when @a enableTotalNumberOfTracks changed. */
   void enableTotalNumberOfTracksChanged(bool enableTotalNumberOfTracks);
 
@@ -397,6 +408,7 @@ private:
   int m_taggedFileFeatures;
   int m_maximumPictureSize;
   bool m_markOversizedPictures;
+  bool m_markStandardViolations;
   bool m_onlyCustomGenres;
   bool m_markTruncations;
   bool m_enableTotalNumberOfTracks;

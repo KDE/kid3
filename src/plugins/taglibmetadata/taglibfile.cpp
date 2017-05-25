@@ -6567,9 +6567,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
         TaggedFile::getAllFrames(tagNr, frames);
       }
     }
-    if (tagNr == Frame::Tag_2) {
-      updateMarkedState(frames);
-    }
+    updateMarkedState(tagNr, frames);
     if (tagNr <= Frame::Tag_2) {
       frames.addMissingStandardFrames();
     }

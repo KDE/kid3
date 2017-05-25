@@ -534,7 +534,7 @@ void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
       (*it).setIndex(i++);
       frames.insert(*it);
     }
-    updateMarkedState(frames);
+    updateMarkedState(tagNr, frames);
   }
 }
 #endif // HAVE_FLAC_PICTURE
