@@ -182,6 +182,7 @@ QString FrameNotice::getDescription() const
     QT_TRANSLATE_NOOP("@default", "Must have ISO 639-2 language code, 3 lowercase characters"),
     QT_TRANSLATE_NOOP("@default", "Must be ISRC code, 12 characters"),
     QT_TRANSLATE_NOOP("@default", "Must be list of strings separated by '|'"),
+    QT_TRANSLATE_NOOP("@default", "Has excess white space"),
   };
   struct not_used { int array_size_check[
       sizeof(descriptions) / sizeof(descriptions[0]) == NumWarnings
@@ -394,6 +395,12 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
         marked = true;
         continue;
       }
+    }
+    if (value.startsWith(QLatin1Char(' ')) ||
+        value.endsWith(QLatin1Char(' '))) {
+      frame.setMarked(ExcessSpace);
+      marked = true;
+      continue;
     }
     // 'Owner identifier' must be non-empty.
     if (id == QLatin1String("UFID") &&

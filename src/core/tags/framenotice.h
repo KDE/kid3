@@ -60,6 +60,7 @@ public:
     LanguageCode, /**< Must be ISO 639-2 language code, 3 lowercase characters */
     IsrcCode,     /**< Must be ISRC code, 12 characters */
     StringList,   /**< Must be list of strings */
+    ExcessSpace,  /**< Has excess white space */
     NumWarnings
   };
 
