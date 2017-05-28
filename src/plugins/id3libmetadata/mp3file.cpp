@@ -1788,6 +1788,10 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
         }
       }
     } else if (id == ID3FID_UNIQUEFILEID) {
+      fld = id3Frame->GetField(ID3FN_OWNER);
+      if (fld) {
+        setString(fld, QLatin1String("http://www.id3.org/dummy/ufid.html"));
+      }
       QByteArray data;
       if (AttributeData::isHexString(frame.getValue(), 'Z')) {
         data = (frame.getValue() + QLatin1Char('\0')).toLatin1();

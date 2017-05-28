@@ -5507,7 +5507,8 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     // the bytevector must not be empty
     TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame =
         new TagLib::ID3v2::UniqueFileIdentifierFrame(
-                  TagLib::String(), TagLib::ByteVector(" "));
+                  TagLib::String("http://www.id3.org/dummy/ufid.html"),
+                  TagLib::ByteVector(" "));
     id3Frame = ufidFrame;
     QByteArray data;
     if (AttributeData::isHexString(frame.getValue(), 'Z')) {
