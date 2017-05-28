@@ -1763,10 +1763,16 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
         }
         setString(fld, description);
       }
-    } else if (id == ID3FID_COMMENT && frame.getType() == Frame::FT_Other) {
-      fld = id3Frame->GetField(ID3FN_DESCRIPTION);
+    } else if (id == ID3FID_COMMENT) {
+      fld = id3Frame->GetField(ID3FN_LANGUAGE);
       if (fld) {
-        setString(fld, frame.getName());
+        setString(fld, QLatin1String("eng"));
+      }
+      if (frame.getType() == Frame::FT_Other) {
+        fld = id3Frame->GetField(ID3FN_DESCRIPTION);
+        if (fld) {
+          setString(fld, frame.getName());
+        }
       }
     } else if (id == ID3FID_PRIVATE && !frame.getName().startsWith(QLatin1String("PRIV"))) {
       fld = id3Frame->GetField(ID3FN_OWNER);
@@ -1812,6 +1818,11 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
       fld = id3Frame->GetField(ID3FN_CONTENTTYPE);
       if (fld) {
         fld->Set(ID3CT_LYRICS);
+      }
+    } else if (id == ID3FID_UNSYNCEDLYRICS || id == ID3FID_TERMSOFUSE) {
+      fld = id3Frame->GetField(ID3FN_LANGUAGE);
+      if (fld) {
+        setString(fld, QLatin1String("eng"));
       }
     }
     if (!frame.fieldList().empty()) {
