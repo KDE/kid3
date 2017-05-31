@@ -1060,7 +1060,8 @@ static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
     case ID3TE_UTF16BE:
       text.prepend(0xff);
       text.prepend(0xfe);
-      // fallthrough starting with FEFF BOM
+      // starting with FEFF BOM
+      // fallthrough
     case ID3TE_UTF16:
       str = QString::fromUtf16(reinterpret_cast<const ushort*>(text.constData()));
       break;
@@ -1104,7 +1105,8 @@ static QByteArray syltListToBytes(const QVariantList& synchedData,
     case ID3TE_UTF16:
       bytes.append(0xff);
       bytes.append(0xfe);
-      // fallthrough starting with FFFE BOM
+      // starting with FFFE BOM
+      // fallthrough
     case ID3TE_UTF16BE:
     {
       const ushort* unicode = str.utf16();
