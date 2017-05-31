@@ -51,6 +51,7 @@ FilterConfig::FilterConfig() :
     QLatin1String("Tag 1 == Tag 2") <<
     QLatin1String("Incomplete") <<
     QLatin1String("No Picture") <<
+    QLatin1String("Marked") <<
     QLatin1String("Custom Filter");
   m_filterExpressions <<
     QLatin1String("") <<
@@ -64,6 +65,7 @@ FilterConfig::FilterConfig() :
     QLatin1String("%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}") <<
     QLatin1String("%{title} equals \"\" or %{artist} equals \"\" or %{album} equals \"\" or %{year} equals \"\" or %{tracknumber} equals \"\" or %{genre} equals \"\"") <<
     QLatin1String("%{picture} equals \"\"") <<
+    QLatin1String("not (%{marked} equals \"\")") <<
     QLatin1String("");
 }
 

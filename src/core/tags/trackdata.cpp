@@ -87,7 +87,8 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         { "samplerate", 'r' },
         { "mode", 'm' },
         { "channels", 'C' },
-        { "codec", 'k' }
+        { "codec", 'k' },
+        { "marked", 'w' }
       };
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
@@ -155,6 +156,10 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         result.setNum(info.channels);
       } else if (name == QLatin1String("codec")) {
         result = info.format;
+      } else if (name == QLatin1String("marked")) {
+        TaggedFile* taggedFile = m_trackData.getTaggedFile();
+        result = taggedFile && taggedFile->isMarked()
+            ? QLatin1String("1") : QLatin1String("");
       }
     }
   }
@@ -243,6 +248,11 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   str += QLatin1String("<tr><td>%k</td><td>%{codec}</td><td>");
   const char* const codecStr = QT_TRANSLATE_NOOP("@default", "Codec");
   str += QCoreApplication::translate("@default", codecStr);
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td>%w</td><td>%{marked}</td><td>");
+  const char* const markedStr = QT_TRANSLATE_NOOP("@default", "Marked");
+  str += QCoreApplication::translate("@default", markedStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%ha...</td><td>%h{artist}...</td><td>");
