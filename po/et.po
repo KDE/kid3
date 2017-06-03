@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1502,6 +1502,60 @@ msgstr "Silt 1 ja silt 2"
 msgid "All Tags"
 msgstr "Kõik sildid"
 
+msgid "Truncated"
+msgstr "Lühikeseks"
+
+msgid "Size is too large"
+msgstr "Baitide arv on liiga suur"
+
+msgid "Must be unique"
+msgstr "Peab olema unikaalne"
+
+msgid "New line is forbidden"
+msgstr "Reavahetus on keelatud"
+
+msgid "Carriage return is forbidden"
+msgstr "Reavahetuse on keelatud"
+
+msgid "Owner must be non-empty"
+msgstr "Omanik peab olema mittetühi"
+
+msgid "Must be numeric"
+msgstr ""
+
+msgid "Must be numeric or number/total"
+msgstr ""
+
+msgid "Format is DDMM"
+msgstr "Formaat on DDMM"
+
+msgid "Format is HHMM"
+msgstr "Formaat on HHMM"
+
+msgid "Format is YYYY"
+msgstr "Formaat on YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr ""
+
+msgid "Must be ISO 8601 date/time"
+msgstr "Peab olema ISO-8601 ajatempel"
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr ""
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Peab olema ISO 639-2 keelekood, 3 väiketähed"
+
+msgid "Must be ISRC code, 12 characters"
+msgstr "Peab olema ISRC koodi, 12 tähemärki"
+
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+msgid "Has excess white space"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 px PNG-vormingus faili ikoon"
 
@@ -1570,6 +1624,9 @@ msgstr "Kanaleid"
 
 msgid "Codec"
 msgstr "Koodek"
+
+msgid "Marked"
+msgstr "Märgitud"
 
 msgid "Escape for HTML"
 msgstr "HTML-i paojada"
@@ -1669,6 +1726,9 @@ msgstr "&Stiil salvestatakse numberkoodi asemel tekstina"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV faile väiketähed id3 tüki"
+
+msgid "Mar&k standard violations"
+msgstr "Mar&k rikkumise standard"
 
 msgid "&Version used for new tags:"
 msgstr "Uutes siltides kasutatav &versioon:"

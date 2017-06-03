@@ -6,9 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -1502,6 +1502,60 @@ msgstr "Tag 1 en Tag 2"
 msgid "All Tags"
 msgstr "Alle tags"
 
+msgid "Truncated"
+msgstr "Afgebroken"
+
+msgid "Size is too large"
+msgstr "Aantal bytes is te groot"
+
+msgid "Must be unique"
+msgstr "Moet uniek zijn"
+
+msgid "New line is forbidden"
+msgstr "Nieuwe regel is verboden"
+
+msgid "Carriage return is forbidden"
+msgstr "Regeleinde is verboden"
+
+msgid "Owner must be non-empty"
+msgstr "Eigenaar mag niet leeg zijn"
+
+msgid "Must be numeric"
+msgstr "Moet numeriek zijn"
+
+msgid "Must be numeric or number/total"
+msgstr "Moet numeriek of nummer/totaal zijn"
+
+msgid "Format is DDMM"
+msgstr "Formaat is DDMM"
+
+msgid "Format is HHMM"
+msgstr "Formaat is HHMM"
+
+msgid "Format is YYYY"
+msgstr "Formaat is YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr "Moet beginnen met een jaar en een ruimtegevoel"
+
+msgid "Must be ISO 8601 date/time"
+msgstr "Moet ISO 8601 tijdsaanduiding zijn"
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr "Moet sleutel zijn, 3 karakters, A-G, B, #, m, o"
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Moet ISO 639-2 taalcode hebben, 3 kleine letters"
+
+msgid "Must be ISRC code, 12 characters"
+msgstr "Moet ISRC-code zijn, 12 karakters"
+
+msgid "Must be list of strings separated by '|'"
+msgstr "Moet en lijst zijn met tekenreeksen gescheiden door '|'"
+
+msgid "Has excess white space"
+msgstr "Leidende of volgende spaties"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 pixels PNG bestandsicoon"
 
@@ -1570,6 +1624,9 @@ msgstr "Kanalen"
 
 msgid "Codec"
 msgstr "Codec"
+
+msgid "Marked"
+msgstr "Gemarkeerd"
 
 msgid "Escape for HTML"
 msgstr "Escape HTML"
@@ -1669,6 +1726,9 @@ msgstr "Genre als te&kst in plaats van nummer"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV-bestanden met kleine letters id3 chunk"
+
+msgid "Mar&k standard violations"
+msgstr "Mar&keer schendingen van de standaard"
 
 msgid "&Version used for new tags:"
 msgstr "Gebruikte &versie voor nieuwe Tags:"

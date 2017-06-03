@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -1502,6 +1502,60 @@ msgstr "Tag 1 e Tag 2"
 msgid "All Tags"
 msgstr "Tutti i Tag"
 
+msgid "Truncated"
+msgstr "Troncato"
+
+msgid "Size is too large"
+msgstr "La dimensione è troppo grande"
+
+msgid "Must be unique"
+msgstr "Deve essere univoco"
+
+msgid "New line is forbidden"
+msgstr "Riga nuova è vietato"
+
+msgid "Carriage return is forbidden"
+msgstr "Ritorno carrello è vietato"
+
+msgid "Owner must be non-empty"
+msgstr "Proprietario non deve essere vuota"
+
+msgid "Must be numeric"
+msgstr "Deve essere numerico"
+
+msgid "Must be numeric or number/total"
+msgstr "Deve essere numerico o numero/totale"
+
+msgid "Format is DDMM"
+msgstr "Il formato è DDMM"
+
+msgid "Format is HHMM"
+msgstr "Il formato è HHMM"
+
+msgid "Format is YYYY"
+msgstr "Il formato è YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr "Deve iniziare con un anno e un carattere spaziale"
+
+msgid "Must be ISO 8601 date/time"
+msgstr "Deve essere ora/data in formato ISO 8601"
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr "Deve essere chiave, 3 caratteri, A-G, b, #, m, o"
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Deve avere codice lingua ISO 639-2, 3 caratteri minuscoli"
+
+msgid "Must be ISRC code, 12 characters"
+msgstr "Deve essere codice ISRC, 12 caratteri"
+
+msgid "Must be list of strings separated by '|'"
+msgstr "Deve essere elenco di stringhe separate da '|'"
+
+msgid "Has excess white space"
+msgstr "Spazi vuoti superflui"
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Icona file PNG da 32x32 pixel"
 
@@ -1570,6 +1624,9 @@ msgstr "Canali"
 
 msgid "Codec"
 msgstr "Codec"
+
+msgid "Marked"
+msgstr "Marcato"
 
 msgid "Escape for HTML"
 msgstr "Escape HTML"
@@ -1669,6 +1726,9 @@ msgstr "&Genere come testo invece dei numeri"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "File &WAV con parte id3 minuscolo"
+
+msgid "Mar&k standard violations"
+msgstr "E&videnzia violazioni dello standard"
 
 msgid "&Version used for new tags:"
 msgstr "&Versione usata per i nuovi tag:"

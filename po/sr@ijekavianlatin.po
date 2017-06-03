@@ -5,9 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1502,6 +1502,60 @@ msgstr "oznaka 1 i oznaka 2"
 msgid "All Tags"
 msgstr "Svi oznake"
 
+msgid "Truncated"
+msgstr "Odsječena"
+
+msgid "Size is too large"
+msgstr "Podešavanje je preveliko"
+
+msgid "Must be unique"
+msgstr "Moraju biti jedinstveni"
+
+msgid "New line is forbidden"
+msgstr "Novi red je zabranjen"
+
+msgid "Carriage return is forbidden"
+msgstr "Povratak reda je zabranjen"
+
+msgid "Owner must be non-empty"
+msgstr "Vlasnik ne sme biti prazno"
+
+msgid "Must be numeric"
+msgstr "Mora biti numerički"
+
+msgid "Must be numeric or number/total"
+msgstr "Mora biti numerički ili broj/ukupno"
+
+msgid "Format is DDMM"
+msgstr "Format je DDMM"
+
+msgid "Format is HHMM"
+msgstr "Format je HHMM"
+
+msgid "Format is YYYY"
+msgstr "Format je YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr ""
+
+msgid "Must be ISO 8601 date/time"
+msgstr ""
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr ""
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr ""
+
+msgid "Must be ISRC code, 12 characters"
+msgstr ""
+
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+msgid "Has excess white space"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr "PNG ikona fajla 32x32 piksela"
 
@@ -1570,6 +1624,9 @@ msgstr "Kanala"
 
 msgid "Codec"
 msgstr "Kodek"
+
+msgid "Marked"
+msgstr "Obilježeno"
 
 msgid "Escape for HTML"
 msgstr "Escape HTML"
@@ -1669,6 +1726,9 @@ msgstr "&Žanr kao tekst umjesto brojnog niza"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV datoteka s malih slova id3 komad"
+
+msgid "Mar&k standard violations"
+msgstr "&Označite kršenja standarda"
 
 msgid "&Version used for new tags:"
 msgstr "I&zdanje za nove oznake:"

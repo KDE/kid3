@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1505,6 +1505,60 @@ msgstr "標籤 1 與 標籤 2"
 msgid "All Tags"
 msgstr "所有標籤"
 
+msgid "Truncated"
+msgstr "截斷"
+
+msgid "Size is too large"
+msgstr "位元組數目過大"
+
+msgid "Must be unique"
+msgstr "必須唯一"
+
+msgid "New line is forbidden"
+msgstr "換行不能"
+
+msgid "Carriage return is forbidden"
+msgstr "回车不能"
+
+msgid "Owner must be non-empty"
+msgstr "擁有者不能是空的"
+
+msgid "Must be numeric"
+msgstr "必須為數字"
+
+msgid "Must be numeric or number/total"
+msgstr "必須為數字或数量/总数"
+
+msgid "Format is DDMM"
+msgstr "格式為 DDMM"
+
+msgid "Format is HHMM"
+msgstr "格式為 HHMM"
+
+msgid "Format is YYYY"
+msgstr "格式為 YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr ""
+
+msgid "Must be ISO 8601 date/time"
+msgstr ""
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr ""
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "不是一個合法的 ISO 639-2 語言碼"
+
+msgid "Must be ISRC code, 12 characters"
+msgstr ""
+
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+msgid "Has excess white space"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 檔圖示"
 
@@ -1573,6 +1627,9 @@ msgstr "頻道"
 
 msgid "Codec"
 msgstr "Codec"
+
+msgid "Marked"
+msgstr "標記"
 
 msgid "Escape for HTML"
 msgstr "脫逸 HTML"
@@ -1672,6 +1729,9 @@ msgstr "將曲風視做文字而不是數字字串(&G)"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "小寫id3區塊&WAV文件"
+
+msgid "Mar&k standard violations"
+msgstr "违反标准的标准(&K)"
 
 msgid "&Version used for new tags:"
 msgstr "使用新標籤版本(&V):"

@@ -7,9 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.4.5\n"
+"Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -1504,6 +1504,60 @@ msgstr "Тег 1 и тег 2"
 msgid "All Tags"
 msgstr "Все теги"
 
+msgid "Truncated"
+msgstr "Обрезанные"
+
+msgid "Size is too large"
+msgstr "Размер слишком велик"
+
+msgid "Must be unique"
+msgstr "Должны быть однозначными"
+
+msgid "New line is forbidden"
+msgstr "Перевод строки запрещено"
+
+msgid "Carriage return is forbidden"
+msgstr "Возврат каретки запрещено"
+
+msgid "Owner must be non-empty"
+msgstr "Владелец должна быть непустой"
+
+msgid "Must be numeric"
+msgstr "Должен быть числовым"
+
+msgid "Must be numeric or number/total"
+msgstr "Должно быть числовое или число/общее число"
+
+msgid "Format is DDMM"
+msgstr "Формат задан DDMM"
+
+msgid "Format is HHMM"
+msgstr "Формат задан HHMM"
+
+msgid "Format is YYYY"
+msgstr "Формат задан YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr "Должен начинаться с года и пробела"
+
+msgid "Must be ISO 8601 date/time"
+msgstr "Дату/время в виде, соответствующем стандарту ISO-8601"
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr ""
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Не является верным кодом языка из ISO 639-2"
+
+msgid "Must be ISRC code, 12 characters"
+msgstr "Должен быть номер ISRC, 12 символов"
+
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+msgid "Has excess white space"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr "Иконка PNG-файла 32x32 точки"
 
@@ -1572,6 +1626,9 @@ msgstr "Каналы"
 
 msgid "Codec"
 msgstr "Кодек"
+
+msgid "Marked"
+msgstr "Помечен"
 
 msgid "Escape for HTML"
 msgstr "Escape HTML"
@@ -1671,6 +1728,9 @@ msgstr "&Жанр как текст"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV файлы с нижнего регистра id3 кусок"
+
+msgid "Mar&k standard violations"
+msgstr "&Отметить нарушения стандарта"
 
 msgid "&Version used for new tags:"
 msgstr "&Версия, используемая для нового тегов:"

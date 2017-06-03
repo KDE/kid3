@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-04-28 12:41+0200\n"
+"POT-Creation-Date: 2017-06-02 21:39+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -1501,6 +1501,60 @@ msgstr "标签 1 与 标签 2"
 msgid "All Tags"
 msgstr "所有标签"
 
+msgid "Truncated"
+msgstr "截断"
+
+msgid "Size is too large"
+msgstr "字节数过大"
+
+msgid "Must be unique"
+msgstr "须是唯一"
+
+msgid "New line is forbidden"
+msgstr "换行不能"
+
+msgid "Carriage return is forbidden"
+msgstr "回车不能"
+
+msgid "Owner must be non-empty"
+msgstr "所有者不能为空"
+
+msgid "Must be numeric"
+msgstr "必须为数字"
+
+msgid "Must be numeric or number/total"
+msgstr "必须为数字或數量/總數"
+
+msgid "Format is DDMM"
+msgstr "格式为 DDMM"
+
+msgid "Format is HHMM"
+msgstr "格式为 HHMM"
+
+msgid "Format is YYYY"
+msgstr "格式为 YYYY"
+
+msgid "Must begin with a year and a space character"
+msgstr ""
+
+msgid "Must be ISO 8601 date/time"
+msgstr ""
+
+msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgstr ""
+
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr ""
+
+msgid "Must be ISRC code, 12 characters"
+msgstr ""
+
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+msgid "Has excess white space"
+msgstr ""
+
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 文件图标"
 
@@ -1569,6 +1623,9 @@ msgstr "频道"
 
 msgid "Codec"
 msgstr "编解码"
+
+msgid "Marked"
+msgstr "已标记"
 
 msgid "Escape for HTML"
 msgstr "HTML 转义符"
@@ -1668,6 +1725,9 @@ msgstr "将流派视做文本而非数字字符串(&G)"
 
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "小写id3块&WAV文件"
+
+msgid "Mar&k standard violations"
+msgstr "违反标准的标准(&K)"
 
 msgid "&Version used for new tags:"
 msgstr "新标签使用的版本(&V)："
