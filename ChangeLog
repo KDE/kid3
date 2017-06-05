@@ -1,3 +1,29 @@
+Fri Jun 16 15:41:09 CEST 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.5.0
+
+	* New:
+	  + Tags which violate the ID3v2 standard are marked.
+	  + Filter for marked files.
+	  + Set and get frame fields from scripts and CLI.
+	  + Set and get multiple frames of the same kind from scripts and CLI.
+	  + Support field names in export and filter expressions.
+	  + Support xid and ownr atoms in M4A files.
+	  + Danish translation.
+
+	* Improved:
+	  + Better performance when files are added to selection.
+	  + The script actions in the file list context menu only operate on
+	    selected files.
+	  + Only jump to tagged files with previous/next in GUI.
+	  + Show passed/total after "filtered" in title bar.
+
+	* Fixed:
+	  + Adding and deleting tag 3 frames from CLI.
+	  + Deletion of multiple METADATA_BLOCK_PICTURE picture frames.
+	  + Wrong depth 32 instead of 24 stored in METADATA_BLOCK_PICTURE.
+	  + Use Ogg/Vorbis Comment field name setting also for Opus files.
+
 Sat Feb 18 19:21:55 CET 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.4.5

@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2017-02-18</date>
-<releaseinfo>3.4.5</releaseinfo>
+<date>2017-06-16</date>
+<releaseinfo>3.5.0</releaseinfo>
 
 <abstract>
 <para>
@@ -457,8 +457,9 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <para>
 Die Formatcodes sind nicht auf die oben gegebenen Beispiele beschränkt. Alle
 Framenamen können benutzt werden, sowohl vereinheitlichte
-wie <userinput>%{bpm}</userinput> als auch formatspezifische
-wie <userinput>%{popm}</userinput>.
+wie <userinput>%{albumartist}</userinput>,
+<userinput>%{discnumber.1}</userinput>, <userinput>%{bpm}</userinput> als
+auch formatspezifische wie <userinput>%{popm}</userinput>.
 </para>
 
 <para>
@@ -1459,6 +1460,9 @@ id3lib)</para></listitem>
 <listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
 MPC, APE, ASF, AIFF, WAV)</para></listitem>
+<listitem><para>%w %{marked} Markiert, ist 1 wenn die Datei markiert ist
+(z.B. weil Felder abgeschnitten wurden oder wegen einer Verletzung des ID3v2
+Standards), ansonsten leer</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1957,6 +1961,15 @@ haben (Titel, Interpret, Album, Datum, Tracknummer, Genre).</para>
 <para>Es werden nur Dateien ohne Bild angezeigt.</para>
 </listitem></varlistentry>
 
+<varlistentry><term>Marked</term><listitem>
+<para><userinput>
+not (%{marked} equals "")
+</userinput></para>
+<para>Es werden nur Dateien angezeigt, die markiert sind weil sie den ID3v2
+Standard verletzen, weil Felder abgeschnitten wurden oder ein Bild zu groß
+ist.</para>
+</listitem></varlistentry>
+
 <varlistentry><term>Custom Filter</term><listitem>
 <para>
 Dieser Eintrag kann verwendet werden, um einen eigenen Filter hinzuzufügen. Um
@@ -2133,6 +2146,37 @@ Weil Applikationen existieren, welche nur "id3 " akzeptieren (z.B. JRiver Media
 Center und foobar2000), können mit dieser Einstellung Tags geschrieben werden,
 welche auch von solchen Applikationen gelesen werden können.
 </para>
+<para>
+Wenn <guilabel>Standardverletzungen markieren</guilabel> aktiviert ist, werden
+ID3v2 Felder, welche den Standard verletzen, rot markiert. Details über die
+Verletzung werden in Tooltips angezeigt:
+</para>
+<itemizedlist>
+<listitem><para>Darf nur einmal vorkommen</para></listitem>
+<listitem><para>Neue Zeile ist verboten</para></listitem>
+<listitem><para>Wagenrücklauf ist verboten</para></listitem>
+<listitem><para>Besitzer darf nicht leer sein</para></listitem>
+<listitem><para>Muss numerisch sein</para></listitem>
+<listitem><para>Muss numerisch sein oder Nummer/Anzahl</para></listitem>
+<listitem><para>Format ist DDMM</para></listitem>
+<listitem><para>Format ist HHMM</para></listitem>
+<listitem><para>Format ist YYYY</para></listitem>
+<listitem><para>Muss mit einem Jahr und einem Leerzeichen beginnen</para></listitem>
+<listitem><para>Muss ISO-8601 Zeitstempel sein</para></listitem>
+<listitem><para>Muss eine Tonart sein, 3 Zeichen, A-G, b, #, m, o</para></listitem>
+<listitem><para>Muss ein ISO 639-2 Sprachcode sein, 3 Kleinbuchstaben</para></listitem>
+<listitem><para>Muss eine ISRC Kennung sein, 12 Zeichen</para></listitem>
+<listitem><para>Muss eine Liste von Zeichenketten sein, getrennt durch '|'</para></listitem>
+<listitem><para>Hat überschüssige Leerzeichen</para></listitem>
+</itemizedlist>
+<para>
+Die ID3-Standard-Dokumente sind online verfügbar:
+</para>
+<itemizedlist>
+<listitem><para><ulink url="http://id3.org/id3v2.3.0">ID3 tag version 2.3.0</ulink></para></listitem>
+<listitem><para><ulink url="http://id3.org/id3v2.4.0-structure">ID3 tag version 2.4.0 - Main Structure</ulink></para></listitem>
+<listitem><para><ulink url="http://id3.org/id3v2.4.0-frames">ID3 tag version 2.4.0 - Native Frames</ulink></para></listitem>
+</itemizedlist>
 <para>
 <guilabel>Text Codierung</guilabel> bestimmt die Codierung von ID3v2
 Elementen und kann

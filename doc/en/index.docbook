@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2017-02-18</date>
-<releaseinfo>3.4.5</releaseinfo>
+<date>2017-06-16</date>
+<releaseinfo>3.5.0</releaseinfo>
 
 <abstract>
 <para>
@@ -437,8 +437,9 @@ into the filename:
 <para>
 The format codes are not restricted to the examples given above. Any frame
 name can be used, for instance unified frame names
-like <userinput>%{bpm}</userinput> or format specific names
-like <userinput>%{popm}</userinput>.
+like <userinput>%{albumartist}</userinput>,
+<userinput>%{discnumber.1}</userinput>, <userinput>%{bpm}</userinput> or
+format specific names like <userinput>%{popm}</userinput>.
 </para>
 
 <para>
@@ -1733,6 +1734,8 @@ id3lib)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
 MPC, APE, ASF, AIFF, WAV)</para></listitem>
+<listitem><para>%w %{marked} Marked, is 1 if the file is marked (e.g. because
+of truncation or standard violation), empty otherwise</para></listitem>
 <listitem><para>%1a %1{artist}, ... Use the prefix 1 to get values of tag 1</para></listitem>
 <listitem><para>%2a %2{artist}, ... Use the prefix 2 to get values of tag 2</para></listitem>
 </itemizedlist>
@@ -1837,6 +1840,14 @@ equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
 %{picture} equals ""
 </userinput></para>
 <para>Displays only files which do not have a picture.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Marked</term><listitem>
+<para><userinput>
+not (%{marked} equals "")
+</userinput></para>
+<para>Displays only files which are marked because they violate the ID3
+standard, are truncated or the picture is too large.</para>
 </listitem></varlistentry>
 
 <varlistentry><term>Custom Filter</term><listitem>
@@ -2007,6 +2018,37 @@ the lowercase and the uppercase variant when reading WAV files, but they use
 which only accept "id3 " (e.g. JRiver Media Center and foobar2000), this
 option can be used to create tags which can be read by such applications.
 </para>
+<para>
+When <guilabel>Mark standard violations</guilabel> is checked, ID3v2 fields
+which violate the standard will be marked red. Details about the violation are
+shown in a tooltip:
+</para>
+<itemizedlist>
+<listitem><para>Must be unique</para></listitem>
+<listitem><para>New line is forbidden</para></listitem>
+<listitem><para>Carriage return is forbidden</para></listitem>
+<listitem><para>Owner must be non-empty</para></listitem>
+<listitem><para>Must be numeric</para></listitem>
+<listitem><para>Must be numeric or number/total</para></listitem>
+<listitem><para>Format is DDMM</para></listitem>
+<listitem><para>Format is HHMM</para></listitem>
+<listitem><para>Format is YYYY</para></listitem>
+<listitem><para>Must begin with a year and a space character</para></listitem>
+<listitem><para>Must be ISO 8601 date/time</para></listitem>
+<listitem><para>Must be musical key, 3 characters, A-G, b, #, m, o</para></listitem>
+<listitem><para>Must have ISO 639-2 language code, 3 lowercase characters</para></listitem>
+<listitem><para>Must be ISRC code, 12 characters</para></listitem>
+<listitem><para>Must be list of strings separated by '|'</para></listitem>
+<listitem><para>Has excess white space</para></listitem>
+</itemizedlist>
+<para>
+The ID3 standard documents are available online:
+</para>
+<itemizedlist>
+<listitem><para><ulink url="http://id3.org/id3v2.3.0">ID3 tag version 2.3.0</ulink></para></listitem>
+<listitem><para><ulink url="http://id3.org/id3v2.4.0-structure">ID3 tag version 2.4.0 - Main Structure</ulink></para></listitem>
+<listitem><para><ulink url="http://id3.org/id3v2.4.0-frames">ID3 tag version 2.4.0 - Native Frames</ulink></para></listitem>
+</itemizedlist>
 <para>
 <guilabel>Text encoding</guilabel> defines the default encoding used for ID3v2
 frames and can be set
