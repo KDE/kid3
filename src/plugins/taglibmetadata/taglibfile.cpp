@@ -849,7 +849,10 @@ void TagLibFile::readTags(bool force)
     m_fileExtension = QLatin1String(".mp3");
     m_isTagSupported[Frame::Tag_1] = false;
     if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
-      m_fileExtension = QLatin1String(".mp3");
+      QString ext(fileName.right(4).toLower());
+      m_fileExtension =
+          (ext == QLatin1String(".aac") || ext == QLatin1String(".mp2"))
+          ? ext : QLatin1String(".mp3");
       m_isTagSupported[Frame::Tag_1] = true;
       m_isTagSupported[Frame::Tag_3] = true;
       if (!m_tag[Frame::Tag_1]) {
