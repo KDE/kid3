@@ -263,6 +263,7 @@ private:
   Type m_type;
   int m_markedRow;
   QList<TimeEvent> m_timeEvents;
+  bool m_guiApp;
 };
 
 #endif // TIMEEVENTMODEL_H

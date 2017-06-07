@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -87,8 +87,8 @@ msgstr "Kon \"%1\" niet instellen voor %2"
 msgid "Revert"
 msgstr "Ongedaan maken"
 
-msgid "Import from file or clipboard"
-msgstr "Importeer van bestand of klembord"
+msgid "Import from file"
+msgstr "Importeer van bestand"
 
 msgid "File path"
 msgstr "Bestandspad"
@@ -144,8 +144,8 @@ msgstr "Afgebroken"
 msgid "Download album cover artwork"
 msgstr "Hoes ophalen"
 
-msgid "Export to file or clipboard"
-msgstr "Exporteer naar bestand of klembord"
+msgid "Export to file"
+msgstr "Exporteer naar bestand"
 
 msgid "Create playlist"
 msgstr "Multimedia afspeellijst maken"
@@ -300,6 +300,9 @@ msgstr "Opent een map"
 msgid "&Import..."
 msgstr "&Importeren..."
 
+msgid "Import from file or clipboard"
+msgstr "Importeer van bestand of klembord"
+
 msgid "Import from %1..."
 msgstr "Importeren van %1..."
 
@@ -317,6 +320,9 @@ msgstr "Hoes ophalen"
 
 msgid "&Export..."
 msgstr "&Exporteren..."
+
+msgid "Export to file or clipboard"
+msgstr "Exporteer naar bestand of klembord"
 
 msgid "&Create Playlist..."
 msgstr "&Speellijst aanmaken..."

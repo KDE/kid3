@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -86,8 +86,8 @@ msgstr ""
 msgid "Revert"
 msgstr "Vrati"
 
-msgid "Import from file or clipboard"
-msgstr "Uvezi iz fajla ili klipborda"
+msgid "Import from file"
+msgstr "Uvezi iz fajla"
 
 msgid "File path"
 msgstr "Putanja fajla"
@@ -143,8 +143,8 @@ msgstr "Obustavljen"
 msgid "Download album cover artwork"
 msgstr "Potraži sliku omota albuma"
 
-msgid "Export to file or clipboard"
-msgstr "Izvezi u fajl ili klipbord"
+msgid "Export to file"
+msgstr "Izvezi u fajl"
 
 msgid "Create playlist"
 msgstr "Napravi listu numera"
@@ -299,6 +299,9 @@ msgstr "Otvara direktorijum"
 msgid "&Import..."
 msgstr "&Uvezi..."
 
+msgid "Import from file or clipboard"
+msgstr "Uvezi iz fajla ili klipborda"
+
 msgid "Import from %1..."
 msgstr "Uvezi sa %1..."
 
@@ -316,6 +319,9 @@ msgstr "Potraži sliku omota albuma"
 
 msgid "&Export..."
 msgstr "Izv&ezi..."
+
+msgid "Export to file or clipboard"
+msgstr "Izvezi u fajl ili klipbord"
 
 msgid "&Create Playlist..."
 msgstr "Napravi &listu numera..."

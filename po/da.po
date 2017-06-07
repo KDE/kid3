@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,8 +79,8 @@ msgstr "Kunne ikke sætte \"%1\" for %2"
 msgid "Revert"
 msgstr "Vend tilbage"
 
-msgid "Import from file or clipboard"
-msgstr "Importér fra fil eller klippebord"
+msgid "Import from file"
+msgstr "Importér fra fil"
 
 msgid "File path"
 msgstr "fil placering"
@@ -136,8 +136,8 @@ msgstr "Afbrudt"
 msgid "Download album cover artwork"
 msgstr "Download album omslag"
 
-msgid "Export to file or clipboard"
-msgstr "Importér til fil eller klippebord"
+msgid "Export to file"
+msgstr "Eksporter til fil"
 
 msgid "Create playlist"
 msgstr "Opret spilleliste"
@@ -292,6 +292,9 @@ msgstr "Åbner et bibliotek"
 msgid "&Import..."
 msgstr "&Importér..."
 
+msgid "Import from file or clipboard"
+msgstr "Importér fra fil eller klippebord"
+
 msgid "Import from %1..."
 msgstr "Importér fra %1..."
 
@@ -309,6 +312,9 @@ msgstr "Gennemse omslag billeder"
 
 msgid "&Export..."
 msgstr "&Eksportér..."
+
+msgid "Export to file or clipboard"
+msgstr "Importér til fil eller klippebord"
 
 msgid "&Create Playlist..."
 msgstr "&Opret afspilningsliste..."

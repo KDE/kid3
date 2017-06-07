@@ -122,7 +122,8 @@ void TaggedFileIconProvider::createIcons()
     m_iconMap.insert(it.key(), QIcon(it.value()));
   }
 
-  QIcon modifiedIcon = qApp->style()->standardIcon(QStyle::SP_DriveFDIcon);
+  QIcon modifiedIcon =
+      QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon);
   m_iconMap.insert("modified", modifiedIcon);
   m_pixmapMap.insert("modified", modifiedIcon.pixmap(m_requestedSize));
 }

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -88,8 +88,8 @@ msgstr ""
 msgid "Revert"
 msgstr "Отменить"
 
-msgid "Import from file or clipboard"
-msgstr "Импортировать файл или буфер обмена"
+msgid "Import from file"
+msgstr "Импорт из файла"
 
 msgid "File path"
 msgstr "Путь к файлу"
@@ -145,8 +145,8 @@ msgstr "Прервано"
 msgid "Download album cover artwork"
 msgstr "Найти обложки"
 
-msgid "Export to file or clipboard"
-msgstr "Экспорт в файл или Буфера Обмена"
+msgid "Export to file"
+msgstr "Экспорт в файл"
 
 msgid "Create playlist"
 msgstr "Cоздать список песен"
@@ -301,6 +301,9 @@ msgstr "Открыть каталог"
 msgid "&Import..."
 msgstr "&Импорт..."
 
+msgid "Import from file or clipboard"
+msgstr "Импортировать файл или буфер обмена"
+
 msgid "Import from %1..."
 msgstr "Импорт из %1..."
 
@@ -318,6 +321,9 @@ msgstr "Найти обложки"
 
 msgid "&Export..."
 msgstr "&Экспорт..."
+
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или Буфера Обмена"
 
 msgid "&Create Playlist..."
 msgstr "&Cоздать список песен..."

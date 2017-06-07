@@ -1407,10 +1407,8 @@ private:
   /** Configuration */
   ConfigStore* m_configStore;
   /** model of filesystem */
-#ifdef Q_OS_MAC
   QFileIconProvider* m_defaultFileIconProvider;
   QFileIconProvider* m_fileIconProvider;
-#endif
   QFileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;
   FileProxyModelIterator* m_fileProxyModelIterator;

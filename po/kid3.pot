@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Revert"
 msgstr ""
 
-msgid "Import from file or clipboard"
+msgid "Import from file"
 msgstr ""
 
 msgid "File path"
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Download album cover artwork"
 msgstr ""
 
-msgid "Export to file or clipboard"
+msgid "Export to file"
 msgstr ""
 
 msgid "Create playlist"
@@ -296,6 +296,9 @@ msgstr ""
 msgid "&Import..."
 msgstr ""
 
+msgid "Import from file or clipboard"
+msgstr ""
+
 msgid "Import from %1..."
 msgstr ""
 
@@ -312,6 +315,9 @@ msgid "Browse album cover artwork"
 msgstr ""
 
 msgid "&Export..."
+msgstr ""
+
+msgid "Export to file or clipboard"
 msgstr ""
 
 msgid "&Create Playlist..."

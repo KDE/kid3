@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -87,8 +87,8 @@ msgstr "Ei voitu asettaa ”%1” kohteelle %2"
 msgid "Revert"
 msgstr "Kumoa"
 
-msgid "Import from file or clipboard"
-msgstr "Tuo tiedostosta tai leikepöydältä"
+msgid "Import from file"
+msgstr "Tuo tiedostosta"
 
 msgid "File path"
 msgstr "Tiedostopolku"
@@ -144,8 +144,8 @@ msgstr "Keskeytetty"
 msgid "Download album cover artwork"
 msgstr "Selaa kansikuvia"
 
-msgid "Export to file or clipboard"
-msgstr "Vie tiedostoon tai leikepöydälle"
+msgid "Export to file"
+msgstr "Vie tiedostoon"
 
 msgid "Create playlist"
 msgstr "Luo soittolista"
@@ -300,6 +300,9 @@ msgstr "Avaa kansion"
 msgid "&Import..."
 msgstr "T&uo..."
 
+msgid "Import from file or clipboard"
+msgstr "Tuo tiedostosta tai leikepöydältä"
+
 msgid "Import from %1..."
 msgstr "Tuo %1ista..."
 
@@ -317,6 +320,9 @@ msgstr "Selaa kansikuvia"
 
 msgid "&Export..."
 msgstr "&Vie..."
+
+msgid "Export to file or clipboard"
+msgstr "Vie tiedostoon tai leikepöydälle"
 
 msgid "&Create Playlist..."
 msgstr "&Luo soittolista..."

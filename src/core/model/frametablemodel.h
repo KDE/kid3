@@ -305,6 +305,7 @@ private:
   QVector<FrameCollection::iterator> m_frameOfRow;
   QVector<int> m_frameTypeSeqNr;
   bool m_id3v1;
+  bool m_guiApp;
 };
 
 

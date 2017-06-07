@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -87,8 +87,8 @@ msgstr "Souboru %2 nelze nastavit vlastnost \"%1\""
 msgid "Revert"
 msgstr "Naposledy uložené znění"
 
-msgid "Import from file or clipboard"
-msgstr "Zavést ze souboru nebo ze schránky"
+msgid "Import from file"
+msgstr "Zavést ze souboru"
 
 msgid "File path"
 msgstr "Cesta k souboru"
@@ -144,8 +144,8 @@ msgstr "Přerušeno"
 msgid "Download album cover artwork"
 msgstr "Procházet kvůli obrázkům obalů"
 
-msgid "Export to file or clipboard"
-msgstr "Vyvést do souboru nebo do schránky"
+msgid "Export to file"
+msgstr "Vyvést do souboru"
 
 msgid "Create playlist"
 msgstr "Vytvořit seznam skladeb"
@@ -300,6 +300,9 @@ msgstr "Otevře adresář"
 msgid "&Import..."
 msgstr "&Zavést..."
 
+msgid "Import from file or clipboard"
+msgstr "Zavést ze souboru nebo ze schránky"
+
 msgid "Import from %1..."
 msgstr "Zavést z %1..."
 
@@ -317,6 +320,9 @@ msgstr "Procházet kvůli obrázkům obalů"
 
 msgid "&Export..."
 msgstr "&Vyvést..."
+
+msgid "Export to file or clipboard"
+msgstr "Vyvést do souboru nebo do schránky"
 
 msgid "&Create Playlist..."
 msgstr "Vytvořit &seznam skladeb..."

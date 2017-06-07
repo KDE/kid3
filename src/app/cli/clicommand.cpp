@@ -458,12 +458,10 @@ void RevertCommand::startCommand()
 
 ImportCommand::ImportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("import"),
-             tr("Import from file or clipboard"),
+             tr("Import from file"),
              QLatin1String("P S [T]\nP S = ") +
              tr("File path") + QLatin1Char(' ') + tr("Format name") +
-             QLatin1String(" | ") +
-             QLatin1String("clipboard ") + tr("Format name") +
-             QLatin1String("\n    | tags ") + tr("Source") + QLatin1Char(' ') +
+             QLatin1String(" | tags ") + tr("Source") + QLatin1Char(' ') +
              tr("Extraction"))
 {
 }
@@ -639,7 +637,7 @@ void AlbumArtCommand::onDownloadFinished(
 
 ExportCommand::ExportCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("export"),
-             tr("Export to file or clipboard"),
+             tr("Export to file"),
              QLatin1String("P S [T]\nS = ") + tr("Format name"))
 {
 }

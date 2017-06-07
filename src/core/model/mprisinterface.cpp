@@ -34,7 +34,7 @@
 #include <QUrl>
 #include <QDir>
 #include <QTemporaryFile>
-#include <QApplication>
+#include <QCoreApplication>
 #include "audioplayer.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -57,7 +57,7 @@ QString MprisInterface::identity() const
 QString MprisInterface::desktopEntry() const
 {
   // Organization domain is only set in the KDE application.
-  return QApplication::organizationDomain().isEmpty()
+  return QCoreApplication::organizationDomain().isEmpty()
       ? QLatin1String("kid3-qt") : QLatin1String("kid3");
 }
 

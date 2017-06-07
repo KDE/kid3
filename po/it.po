@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -86,8 +86,8 @@ msgstr "Impossibile impostare %2 a \"%1\""
 msgid "Revert"
 msgstr "Ripristina"
 
-msgid "Import from file or clipboard"
-msgstr "Importa da file o dagli appunti"
+msgid "Import from file"
+msgstr "Importa da file"
 
 msgid "File path"
 msgstr "Percorso file"
@@ -143,8 +143,8 @@ msgstr "Interrotto"
 msgid "Download album cover artwork"
 msgstr "Preleva copertina"
 
-msgid "Export to file or clipboard"
-msgstr "Esporta in un file o negli appunti"
+msgid "Export to file"
+msgstr "Esporta in un file"
 
 msgid "Create playlist"
 msgstr "Crea Playlist"
@@ -299,6 +299,9 @@ msgstr "Apre una cartella"
 msgid "&Import..."
 msgstr "&Importa..."
 
+msgid "Import from file or clipboard"
+msgstr "Importa da file o dagli appunti"
+
 msgid "Import from %1..."
 msgstr "Importa da %1..."
 
@@ -316,6 +319,9 @@ msgstr "Preleva copertina"
 
 msgid "&Export..."
 msgstr "&Esporta..."
+
+msgid "Export to file or clipboard"
+msgstr "Esporta in un file o negli appunti"
 
 msgid "&Create Playlist..."
 msgstr "&Crea Playlist..."

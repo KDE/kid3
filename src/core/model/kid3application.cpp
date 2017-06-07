@@ -39,9 +39,7 @@
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
 #include <CoreFoundation/CFUrl.h>
 #endif
-#ifdef Q_OS_MAC
 #include <QFileIconProvider>
-#endif
 #if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
 #include <QStandardPaths>
 #endif
@@ -182,11 +180,11 @@ void extractFileFieldIndex(
 
 }
 
-#ifdef Q_OS_MAC
 /**
  * Provides null icons for the file information.
  * Set an instance with QFileSystemModel::setIconProvider() as a workaround
- * for QTBUG-41796.
+ * for QTBUG-41796. It is also used to have a QFileSystemModel in a
+ * QCoreApplication.
  */
 class NullFileIconProvider : public QFileIconProvider {
 public:
@@ -198,6 +196,7 @@ public:
    * @return null icon.
    */
   virtual QIcon icon(const QFileInfo& info) const;
+  virtual QIcon icon(IconType type) const;
 };
 
 QIcon NullFileIconProvider::icon(const QFileInfo& info) const
@@ -205,7 +204,12 @@ QIcon NullFileIconProvider::icon(const QFileInfo& info) const
   Q_UNUSED(info)
   return QIcon();
 }
-#endif
+
+QIcon NullFileIconProvider::icon(IconType type) const
+{
+  Q_UNUSED(type)
+  return QIcon();
+}
 
 
 /** Fallback for path to search for plugins */
@@ -220,9 +224,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
-#ifdef Q_OS_MAC
   m_defaultFileIconProvider(0), m_fileIconProvider(0),
-#endif
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
@@ -269,11 +271,15 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   }
   m_selection = new TaggedFileSelection(m_framesModel, this);
   setObjectName(QLatin1String("Kid3Application"));
-#ifdef Q_OS_MAC
-  m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
-  m_fileIconProvider = new NullFileIconProvider;
-  m_fileSystemModel->setIconProvider(m_fileIconProvider);
+#ifndef Q_OS_MAC
+  // Do not use the file icon provider on the Mac and with a QCoreApplication.
+  if (!qobject_cast<QApplication*>(QCoreApplication::instance()))
 #endif
+  {
+    m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
+    m_fileIconProvider = new NullFileIconProvider;
+    m_fileSystemModel->setIconProvider(m_fileIconProvider);
+  }
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,
@@ -330,10 +336,13 @@ Kid3Application::~Kid3Application()
     m_player->setParent(0);
   }
 #endif
-#ifdef Q_OS_MAC
-  m_fileSystemModel->setIconProvider(m_defaultFileIconProvider);
-  delete m_fileIconProvider;
-#endif
+  // Do not restore the file icon provider with QCoreApplication, it would raise
+  // a "No style available without QApplication!" assertion.
+  if (m_fileIconProvider &&
+      qobject_cast<QApplication*>(QCoreApplication::instance())) {
+    m_fileSystemModel->setIconProvider(m_defaultFileIconProvider);
+    delete m_fileIconProvider;
+  }
 }
 
 /**
@@ -1096,10 +1105,13 @@ bool Kid3Application::importTags(Frame::TagVersion tagMask,
   filesToTrackDataModel(importCfg.importDest());
   QString text;
   if (path == QLatin1String("clipboard")) {
-    QClipboard* cb = QApplication::clipboard();
-    text = cb->text(QClipboard::Clipboard);
-    if (text.isNull())
-      text = cb->text(QClipboard::Selection);
+    // Avoid crash when called from QCoreApplication.
+    if (qobject_cast<QApplication*>(QCoreApplication::instance())) {
+      QClipboard* cb = QApplication::clipboard();
+      text = cb->text(QClipboard::Clipboard);
+      if (text.isNull())
+        text = cb->text(QClipboard::Selection);
+    }
   } else {
     QFile file(path);
     if (file.open(QIODevice::ReadOnly)) {

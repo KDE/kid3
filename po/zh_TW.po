@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Revert"
 msgstr "還原"
 
-msgid "Import from file or clipboard"
+msgid "Import from file"
 msgstr "自剪貼簿匯入"
 
 msgid "File path"
@@ -146,8 +146,8 @@ msgstr "已中止"
 msgid "Download album cover artwork"
 msgstr "瀏覽專輯封面"
 
-msgid "Export to file or clipboard"
-msgstr "匯出至檔案或剪貼簿"
+msgid "Export to file"
+msgstr "匯出至檔案"
 
 msgid "Create playlist"
 msgstr "建立播放清單"
@@ -302,6 +302,9 @@ msgstr "開啟目錄"
 msgid "&Import..."
 msgstr "匯入(&I)..."
 
+msgid "Import from file or clipboard"
+msgstr "自剪貼簿匯入"
+
 msgid "Import from %1..."
 msgstr "從 %1 匯入..."
 
@@ -319,6 +322,9 @@ msgstr "瀏覽專輯封面"
 
 msgid "&Export..."
 msgstr "匯出(&E)..."
+
+msgid "Export to file or clipboard"
+msgstr "匯出至檔案或剪貼簿"
 
 msgid "&Create Playlist..."
 msgstr "新增播放清單(&C)..."

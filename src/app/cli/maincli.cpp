@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QLibraryInfo>
 #include <QDir>
 #include <QTimer>
@@ -50,19 +50,19 @@ int _CRT_glob = 0;
  */
 int main(int argc, char* argv[])
 {
-  QApplication app(argc, argv);
+  QCoreApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
 
   Utils::loadTranslation();
 
 #ifdef Q_OS_MAC
-  QDir dir(QApplication::applicationDirPath());
+  QDir dir(QCoreApplication::applicationDirPath());
   dir.cdUp();
   dir.cd(QLatin1String("PlugIns"));
-  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+  QCoreApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
-  QStringList args = QApplication::arguments();
+  QStringList args = QCoreApplication::arguments();
   if (args.size() > 1 && args.at(1) == QLatin1String("--portable")) {
     args.removeAt(1);
     qputenv("KID3_CONFIG_FILE",

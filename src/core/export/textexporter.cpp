@@ -133,5 +133,8 @@ bool TextExporter::exportToFile(const QString& fn)
  */
 void TextExporter::exportToClipboard()
 {
-  QApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
+  // Avoid crash when called from QCoreApplication.
+  if (qobject_cast<QApplication*>(QCoreApplication::instance())) {
+    QApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
+  }
 }

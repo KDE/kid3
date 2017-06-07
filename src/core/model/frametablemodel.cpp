@@ -95,7 +95,8 @@ QHash<int,QByteArray> getRoleHash()
  */
 FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-  m_id3v1(id3v1)
+  m_id3v1(id3v1),
+  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != 0)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 #if QT_VERSION < 0x050000
@@ -180,7 +181,9 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == CI_Enable) {
-      return isModified ? QApplication::palette().mid() : Qt::NoBrush;
+      return !isModified ? Qt::NoBrush
+                         : m_guiApp ? QApplication::palette().mid()
+                                    : QBrush(Qt::gray);
     } else if (index.column() == CI_Value) {
       return isTruncated ? QBrush(Qt::red) : Qt::NoBrush;
     }

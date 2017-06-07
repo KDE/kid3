@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -88,8 +88,8 @@ msgstr "Impossible d'affecter \"%1\" à %2"
 msgid "Revert"
 msgstr "Revenir"
 
-msgid "Import from file or clipboard"
-msgstr "Importer depuis un fichier ou le presse-papier"
+msgid "Import from file"
+msgstr "Importer depuis un fichier"
 
 msgid "File path"
 msgstr "Chemin du fichier"
@@ -145,8 +145,8 @@ msgstr "Abandonné"
 msgid "Download album cover artwork"
 msgstr "Télécharger la jaquette"
 
-msgid "Export to file or clipboard"
-msgstr "Exporter dans un fichier ou le presse-papier"
+msgid "Export to file"
+msgstr "Exporter dans un fichier"
 
 msgid "Create playlist"
 msgstr "Créer liste de lecture"
@@ -301,6 +301,9 @@ msgstr "Ouvrir un répertoire"
 msgid "&Import..."
 msgstr "&Importer..."
 
+msgid "Import from file or clipboard"
+msgstr "Importer depuis un fichier ou le presse-papier"
+
 msgid "Import from %1..."
 msgstr "Importer depuis %1..."
 
@@ -318,6 +321,9 @@ msgstr "Télécharger la jaquette"
 
 msgid "&Export..."
 msgstr "&Exporter..."
+
+msgid "Export to file or clipboard"
+msgstr "Exporter dans un fichier ou le presse-papier"
 
 msgid "&Create Playlist..."
 msgstr "&Créer liste de lecture..."

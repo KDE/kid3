@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -88,8 +88,8 @@ msgstr "Konnte nicht \"%1\" setzen für %2"
 msgid "Revert"
 msgstr "Zuletzt gespeicherte Fassung"
 
-msgid "Import from file or clipboard"
-msgstr "Von Datei oder Zwischenablage importieren"
+msgid "Import from file"
+msgstr "Von Datei importieren"
 
 msgid "File path"
 msgstr "Dateipfad"
@@ -145,8 +145,8 @@ msgstr "Abgebrochen"
 msgid "Download album cover artwork"
 msgstr "Cover-Bilder herunterladen"
 
-msgid "Export to file or clipboard"
-msgstr "In Datei oder Zwischenablage exportieren"
+msgid "Export to file"
+msgstr "In Datei exportieren"
 
 msgid "Create playlist"
 msgstr "Stückliste erstellen"
@@ -301,6 +301,9 @@ msgstr "Öffnet ein Verzeichnis"
 msgid "&Import..."
 msgstr "&Importieren..."
 
+msgid "Import from file or clipboard"
+msgstr "Von Datei oder Zwischenablage importieren"
+
 msgid "Import from %1..."
 msgstr "Importieren von %1..."
 
@@ -318,6 +321,9 @@ msgstr "Nach Cover-Bildern suchen"
 
 msgid "&Export..."
 msgstr "&Exportieren..."
+
+msgid "Export to file or clipboard"
+msgstr "In Datei oder Zwischenablage exportieren"
 
 msgid "&Create Playlist..."
 msgstr "Stü&ckliste erstellen..."

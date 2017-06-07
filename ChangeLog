@@ -17,6 +17,7 @@ Fri Jun 16 15:41:09 CEST 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	    selected files.
 	  + Only jump to tagged files with previous/next in GUI.
 	  + Show passed/total after "filtered" in title bar.
+	  + kid3-cli can run from a console without GUI/X11.
 
 	* Fixed:
 	  + Adding and deleting tag 3 frames from CLI.

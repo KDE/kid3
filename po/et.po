@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -87,8 +87,8 @@ msgstr "\"%1\" määramine raami \"%2\" väärtuseks polnud võimalik"
 msgid "Revert"
 msgstr "Ennistab muudatused"
 
-msgid "Import from file or clipboard"
-msgstr "Impordib failist või lõikepuhvrist"
+msgid "Import from file"
+msgstr "Impordib failist"
 
 msgid "File path"
 msgstr "faili tee"
@@ -144,8 +144,8 @@ msgstr "Katkestatud"
 msgid "Download album cover artwork"
 msgstr "Laadib alla albumi kaanepildi"
 
-msgid "Export to file or clipboard"
-msgstr "Ekspordib failiks või lõikepuhvrisse"
+msgid "Export to file"
+msgstr "Ekspordib failiks"
 
 msgid "Create playlist"
 msgstr "Loob esitusloendi"
@@ -300,6 +300,9 @@ msgstr "Avab kataloogi valimise dialoogi"
 msgid "&Import..."
 msgstr "&Impordi..."
 
+msgid "Import from file or clipboard"
+msgstr "Impordib failist või lõikepuhvrist"
+
 msgid "Import from %1..."
 msgstr "Impordi %1-ist..."
 
@@ -317,6 +320,9 @@ msgstr "Avab albumi kaanepildi otsimise dialoogi"
 
 msgid "&Export..."
 msgstr "&Ekspordi..."
+
+msgid "Export to file or clipboard"
+msgstr "Ekspordib failiks või lõikepuhvrisse"
 
 msgid "&Create Playlist..."
 msgstr "&Loo esitusloend..."

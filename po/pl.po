@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -88,8 +88,8 @@ msgstr "Nie można ustawić \"%1\" dla %2"
 msgid "Revert"
 msgstr "Odwróć"
 
-msgid "Import from file or clipboard"
-msgstr "Importuj plik ze schowka"
+msgid "Import from file"
+msgstr "Importuj z pliku"
 
 msgid "File path"
 msgstr "Ścieżka pliku"
@@ -145,8 +145,8 @@ msgstr "Przerwane"
 msgid "Download album cover artwork"
 msgstr "Pobierz okładkę"
 
-msgid "Export to file or clipboard"
-msgstr "Eksportuj do pliku lub schowka"
+msgid "Export to file"
+msgstr "Eksportuj do pliku"
 
 msgid "Create playlist"
 msgstr "Stwórz listę odtwarzania"
@@ -301,6 +301,9 @@ msgstr "Otwiera katalog"
 msgid "&Import..."
 msgstr "&Importuj..."
 
+msgid "Import from file or clipboard"
+msgstr "Importuj plik ze schowka"
+
 msgid "Import from %1..."
 msgstr "Importuj z %1..."
 
@@ -318,6 +321,9 @@ msgstr "Pobierz okładkę"
 
 msgid "&Export..."
 msgstr "&Eksportuj..."
+
+msgid "Export to file or clipboard"
+msgstr "Eksportuj do pliku lub schowka"
 
 msgid "&Create Playlist..."
 msgstr "Stwórz &listę odtwarzania..."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -85,8 +85,8 @@ msgstr "无法为 %2 设置“%1”"
 msgid "Revert"
 msgstr "还原"
 
-msgid "Import from file or clipboard"
-msgstr "从文件或剪贴板导入"
+msgid "Import from file"
+msgstr "从文件导入"
 
 msgid "File path"
 msgstr "文件路径"
@@ -142,8 +142,8 @@ msgstr "已中止"
 msgid "Download album cover artwork"
 msgstr "下载专辑封面"
 
-msgid "Export to file or clipboard"
-msgstr "导出到文件或剪贴板"
+msgid "Export to file"
+msgstr "导出到文件"
 
 msgid "Create playlist"
 msgstr "创建播放列表"
@@ -298,6 +298,9 @@ msgstr "打开目录"
 msgid "&Import..."
 msgstr "导入(&I)..."
 
+msgid "Import from file or clipboard"
+msgstr "从文件或剪贴板导入"
+
 msgid "Import from %1..."
 msgstr "从 %1 导入..."
 
@@ -315,6 +318,9 @@ msgstr "浏览专辑封面"
 
 msgid "&Export..."
 msgstr "导出(&E)..."
+
+msgid "Export to file or clipboard"
+msgstr "导出到文件或剪贴板"
 
 msgid "&Create Playlist..."
 msgstr "创建播放列表(&C)..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-02 21:39+0200\n"
+"POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -86,8 +86,8 @@ msgstr "Не могу да поставим \"%1\" за %2"
 msgid "Revert"
 msgstr "Врати"
 
-msgid "Import from file or clipboard"
-msgstr "Увези из фајла или клипборда"
+msgid "Import from file"
+msgstr "Увези из фајла"
 
 msgid "File path"
 msgstr "Путања фајла"
@@ -143,8 +143,8 @@ msgstr "Обустављено"
 msgid "Download album cover artwork"
 msgstr "Потражи слику омота албума"
 
-msgid "Export to file or clipboard"
-msgstr "Извези у фајл или клипборд"
+msgid "Export to file"
+msgstr "Извези у фајл"
 
 msgid "Create playlist"
 msgstr "Направи листу нумера"
@@ -299,6 +299,9 @@ msgstr "Отвара директоријум"
 msgid "&Import..."
 msgstr "&Увези..."
 
+msgid "Import from file or clipboard"
+msgstr "Увези из фајла или клипборда"
+
 msgid "Import from %1..."
 msgstr "Увези са %1..."
 
@@ -316,6 +319,9 @@ msgstr "Потражи слику омота албума"
 
 msgid "&Export..."
 msgstr "Изв&ези..."
+
+msgid "Export to file or clipboard"
+msgstr "Извези у фајл или клипборд"
 
 msgid "&Create Playlist..."
 msgstr "Направи &листу нумера..."
