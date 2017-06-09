@@ -248,6 +248,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
   m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
+#ifdef HAVE_QTDBUS
+  m_dbusEnabled(false),
+#endif
   m_filtered(false), m_selectionOperationRunning(false)
 {
   const TagConfig& tagCfg = TagConfig::instance();
@@ -298,25 +301,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
-
-#ifdef HAVE_QTDBUS
-  if (QDBusConnection::sessionBus().isConnected()) {
-    QString serviceName(QLatin1String("net.sourceforge.kid3"));
-    QDBusConnection::sessionBus().registerService(serviceName);
-    // For the case of multiple Kid3 instances running, register also a service
-    // with the PID appended. On KDE such a service is already registered but
-    // the call to registerService() seems to succeed nevertheless.
-    serviceName += QLatin1Char('-');
-    serviceName += QString::number(::getpid());
-    QDBusConnection::sessionBus().registerService(serviceName);
-    new ScriptInterface(this);
-    if (!QDBusConnection::sessionBus().registerObject(QLatin1String("/Kid3"), this)) {
-      qWarning("Registering D-Bus object failed");
-    }
-  } else {
-    qWarning("Cannot connect to the D-BUS session bus.");
-  }
-#endif
 }
 
 /**
@@ -344,6 +328,34 @@ Kid3Application::~Kid3Application()
     delete m_fileIconProvider;
   }
 }
+
+#ifdef HAVE_QTDBUS
+/**
+ * Activate the D-Bus interface.
+ * This method shall be called only once at initialization.
+ */
+void Kid3Application::activateDbusInterface()
+{
+  if (QDBusConnection::sessionBus().isConnected()) {
+    QString serviceName(QLatin1String("net.sourceforge.kid3"));
+    QDBusConnection::sessionBus().registerService(serviceName);
+    // For the case of multiple Kid3 instances running, register also a service
+    // with the PID appended. On KDE such a service is already registered but
+    // the call to registerService() seems to succeed nevertheless.
+    serviceName += QLatin1Char('-');
+    serviceName += QString::number(::getpid());
+    QDBusConnection::sessionBus().registerService(serviceName);
+    new ScriptInterface(this);
+    if (QDBusConnection::sessionBus().registerObject(QLatin1String("/Kid3"), this)) {
+      m_dbusEnabled = true;
+    } else {
+      qWarning("Registering D-Bus object failed");
+    }
+  } else {
+    qWarning("Cannot connect to the D-BUS session bus.");
+  }
+}
+#endif
 
 /**
  * Load and initialize plugins depending on configuration.
@@ -567,12 +579,16 @@ AudioPlayer* Kid3Application::getAudioPlayer()
   if (!m_player) {
     m_player = new AudioPlayer(this);
 #ifdef HAVE_QTDBUS
-    new MprisInterface(m_player);
-    new MprisPlayerInterface(m_player);
+    if (m_dbusEnabled) {
+      new MprisInterface(m_player);
+      new MprisPlayerInterface(m_player);
+    }
 #endif
   }
 #ifdef HAVE_QTDBUS
-  activateMprisInterface();
+  if (m_dbusEnabled) {
+    activateMprisInterface();
+  }
 #endif
   return m_player;
 }
@@ -584,7 +600,9 @@ void Kid3Application::deleteAudioPlayer() {
   if (m_player) {
     m_player->stop();
 #ifdef HAVE_QTDBUS
-    deactivateMprisInterface();
+    if (m_dbusEnabled) {
+      deactivateMprisInterface();
+    }
 #endif
     delete m_player;
     m_player = 0;

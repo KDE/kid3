@@ -137,6 +137,9 @@ int main(int argc, char* argv[])
 
   IPlatformTools* platformTools = new KdePlatformTools;
   Kid3Application* kid3App = new Kid3Application(platformTools);
+#ifdef HAVE_QTDBUS
+  kid3App->activateDbusInterface();
+#endif
   if (app.isSessionRestored()) {
     int n = 1;
     while (KMainWindow::canBeRestored(n)) {

@@ -144,6 +144,14 @@ public:
    */
   virtual ~Kid3Application();
 
+#ifdef HAVE_QTDBUS
+  /**
+   * Activate the D-Bus interface.
+   * This method shall be called only once at initialization.
+   */
+  void activateDbusInterface();
+#endif
+
  /**
   * Get file system model.
   * @return file system model.
@@ -1495,6 +1503,10 @@ private:
   PixmapProvider* m_imageProvider;
   QString m_coverArtImageId;
 
+#ifdef HAVE_QTDBUS
+  /** true if D-Bus is enabled */
+  bool m_dbusEnabled;
+#endif
   /** true if list is filtered */
   bool m_filtered;
   /** true if a selection operation is running */
