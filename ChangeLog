@@ -6,6 +6,8 @@ Fri Jun 16 15:41:09 CEST 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Tags which violate the ID3v2 standard are marked.
 	  + Filter for marked files.
 	  + Set and get frame fields from scripts and CLI.
+	  + Select a subset of frames for copy, paste, remove from scripts
+	    and CLI.
 	  + Set and get multiple frames of the same kind from scripts and CLI.
 	  + Support field names in export and filter expressions.
 	  + Support xid and ownr atoms in M4A files.

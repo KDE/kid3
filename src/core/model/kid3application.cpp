@@ -3199,7 +3199,20 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
       }
     }
     if (!fieldName.isEmpty()) {
-      return Frame::getField(*it, fieldName).toString();
+      if (fieldName == QLatin1String("selected")) {
+        const int frameIndex = it->getIndex();
+        const int row = frameIndex >= 0
+            ? ft->getRowWithFrameIndex(frameIndex)
+            : std::distance(ft->frames().begin(), it);
+        if (row != -1) {
+          return QLatin1String(ft->index(row, FrameTableModel::CI_Enable)
+                               .data(Qt::CheckStateRole).toInt() == Qt::Checked
+                               ? "1" : "0");
+        }
+        return QString();
+      } else {
+        return Frame::getField(*it, fieldName).toString();
+      }
     }
     return it->getValue();
   } else {
@@ -3251,12 +3264,18 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
 bool Kid3Application::setFrame(Frame::TagVersion tagMask,
                                const QString& name, const QString& value)
 {
+  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  FrameTableModel* ft = m_framesModel[tagNr];
+  if (name == QLatin1String("*.selected")) {
+    ft->setAllCheckStates(!value.isEmpty() && value != QLatin1String("0")
+                                           && value != QLatin1String("false"));
+    return true;
+  }
+
   QString frameName(name);
   QString dataFileName, fieldName;
   int index = 0;
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
-  Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
-  FrameTableModel* ft = m_framesModel[tagNr];
   FrameCollection frames(ft->frames());
   FrameCollection::const_iterator it = frames.findByName(frameName, index);
   if (it != frames.end()) {
@@ -3315,9 +3334,23 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       if (fieldName.isEmpty()) {
         frame.setValueIfChanged(value);
       } else {
-        TaggedFile* taggedFile = getSelectedFile();
-        if (taggedFile && Frame::setField(frame, fieldName, value)) {
-          taggedFile->setFrame(tagNr, frame);
+        if (fieldName == QLatin1String("selected")) {
+          const int frameIndex = frame.getIndex();
+          const int row = frameIndex >= 0
+              ? ft->getRowWithFrameIndex(frameIndex)
+              : std::distance(frames.begin(), it);
+          if (row != -1) {
+            ft->setData(ft->index(row, FrameTableModel::CI_Enable),
+                        !value.isEmpty() && value != QLatin1String("0")
+                                         && value != QLatin1String("false")
+                        ? Qt::Checked : Qt::Unchecked, Qt::CheckStateRole);
+            return true;
+          }
+        } else {
+          TaggedFile* taggedFile = getSelectedFile();
+          if (taggedFile && Frame::setField(frame, fieldName, value)) {
+            taggedFile->setFrame(tagNr, frame);
+          }
         }
       }
       ft->transferFrames(frames);

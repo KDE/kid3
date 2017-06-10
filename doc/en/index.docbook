@@ -2609,6 +2609,12 @@ can be indexed with brackets, for example the first performer from a Vorbis
 comment can be retrieved using <userinput>get performer[0]</userinput>,
 the second using <userinput>get performer[1]</userinput>.
 </para>
+<para>
+The pseudo field name "selected" can be used to check if a frame is selected,
+for example <userinput>get artist.selected</userinput> will return
+<computeroutput>1</computeroutput> if the artist frame is selected, else
+<computeroutput>0</computeroutput>.
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2641,6 +2647,12 @@ e.g. to set multiple performers in a Vorbis comment, use
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[0] 'Liza don Getti (soprano)'</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[1] 'Joe Barr (piano)'</userinput>
 </screen>
+</para>
+<para>
+To select certain frames before a copy, paste or remove action, the pseudo
+field name "selected" can be used. Normally, all frames are selected, to
+deselect all, use <userinput>set '*.selected' 0</userinput>, then for example
+<userinput>set artist.selected 1</userinput> to select the artist frame.
 </para>
 </sect2>
 
@@ -2896,6 +2908,17 @@ tag from the ID3v1 tag, use <userinput>syncto 2</userinput>.
 buffer. They can then be set on another file using the
 <command>paste</command> command.
 </para>
+<para>
+To copy only a subset of the frames, use the "selected" pseudo field with the
+<command>set</command> command. For example, to copy only the disc number and
+copyright frames, use
+<screen width="65">
+<userinput>set '*.selected' 0</userinput>
+<userinput>set discnumber.selected 1</userinput>
+<userinput>set copyright.selected 1</userinput>
+<userinput>copy</userinput>
+</screen>
+</para>
 </sect2>
 
 <sect2 id="cli-paste">
@@ -2916,6 +2939,10 @@ in the selected files.
 <arg><replaceable>TAG-NUMBER</replaceable></arg>
 </cmdsynopsis>
 <para>Remove a tag.
+</para>
+<para>It is possible to remove only a subset of the frames by selecting them
+as described in the <link linkend="cli-copy"><command>copy</command>
+command</link>.
 </para>
 </sect2>
 
@@ -2948,7 +2975,7 @@ quoted too. In UNIX shells single or double quotes can be used, but on the
 Windows Command Prompt, it is important that the outer quoting is done using
 double quotes and inside these quotes, single quotes are used. If the text
 inside the single quotes contains a single quote, it has to be escaped using a
-backslash character, as shown in the following example:</para> 
+backslash character, as shown in the following example:</para>
 <screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/dir</userinput></screen>
 
 <para>Set album cover in all files of a directory using the batch import
@@ -4001,6 +4028,41 @@ Kid3Script {
     }
 
     app.firstFile()
+    doWork()
+  }
+}
+</programlisting>
+
+<para>
+When using <command>app.firstFile()</command> with
+<command>app.nextFile()</command>, all files of the current directory will be
+processed. If only the selected files shall be affected, use
+<command>firstFile()</command> and <command>nextFile()</command> instead,
+these are convenience functions of the <classname>Kid3Script</classname>
+component. The following example is a script which copies only the disc number
+and copyright frames of the selected file.
+</para>
+
+<programlisting>
+import Kid3 1.1
+
+Kid3Script {
+  onRun: {
+    function doWork() {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
+        app.setFrame(tagv2, "*.selected", false)
+        app.setFrame(tagv2, "discnumber.selected", true)
+        app.setFrame(tagv2, "copyright.selected", true)
+        app.copyTags(tagv2)
+      }
+      if (!nextFile()) {
+        Qt.quit()
+      } else {
+        setTimeout(doWork, 1)
+      }
+    }
+
+    firstFile()
     doWork()
   }
 }

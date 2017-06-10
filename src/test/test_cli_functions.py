@@ -412,6 +412,107 @@ class CliFunctionsTestCase(unittest.TestCase):
                 ba = jpgfh.read()
                 self.assertEqual(ba, jpg_bytes)
 
+    def test_frame_selection(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            test1path = os.path.join(tmpdir, 'test1.mp3')
+            test2path = os.path.join(tmpdir, 'test2.mp3')
+            create_test_file(test1path)
+            create_test_file(test2path)
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'get all 2', test1path]),
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                '  Name: test1.mp3\n')
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'get all 2', test2path]),
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                '  Name: test2.mp3\n')
+            expected = (
+                'Tag 2: \n'
+                '  Title         ≠\n'
+                '  Artist        An Artist\n'
+                '  Album         An Album\n'
+                '  Copyright     ≠\n'
+                '  Disc Number   ≠\n')
+            if sys.platform == 'win32':
+                expected = expected.replace('≠', '?')
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'select all',
+                 '-c', 'set artist "An Artist"',
+                 '-c', 'set album "An Album"',
+                 '-c', 'select none',
+                 '-c', 'select first',
+                 '-c', 'set title "Title 1"',
+                 '-c', 'set discnumber "1/2"',
+                 '-c', 'set copyright "2017 Kid3"',
+                 '-c', 'select next',
+                 '-c', 'set title "Title 2"',
+                 '-c', 'save',
+                 '-c', 'select all',
+                 '-c', 'get', tmpdir]),
+                 expected)
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'select first',
+                 '-c', 'get',
+                 '-c', 'set "*.selected" 0',
+                 '-c', 'set "album.selected" 1',
+                 '-c', 'remove',
+                 '-c', 'get',
+                 '-c', 'revert',
+                 '-c', 'set "*.selected" 0',
+                 '-c', 'set "discnumber.selected" 1',
+                 '-c', 'set "copyright.selected" 1',
+                 '-c', 'copy',
+                 '-c', 'select next',
+                 '-c', 'paste',
+                 '-c', 'get',
+                 '-c', 'revert',
+                 '-c', 'select all',
+                 '-c', 'set "*.selected" 0',
+                 '-c', 'set "discnumber.selected" 1',
+                 '-c', 'paste',
+                 '-c', 'select first',
+                 '-c', 'get',
+                 '-c', 'select next',
+                 '-c', 'get', tmpdir]),
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test1.mp3\n'
+                 'Tag 2: ID3v2.3.0\n'
+                 '  Title         Title 1\n'
+                 '  Artist        An Artist\n'
+                 '  Album         An Album\n'
+                 '  Copyright     2017 Kid3\n'
+                 '  Disc Number   1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test1.mp3\n'
+                 'Tag 2: ID3v2.3.0\n'
+                 '  Title         Title 1\n'
+                 '  Artist        An Artist\n'
+                 '  Copyright     2017 Kid3\n'
+                 '  Disc Number   1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test2.mp3\n'
+                 'Tag 2: ID3v2.3.0\n'
+                 '  Title         Title 2\n'
+                 '  Artist        An Artist\n'
+                 '  Album         An Album\n'
+                 '* Copyright     2017 Kid3\n'
+                 '* Disc Number   1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test1.mp3\n'
+                 'Tag 2: ID3v2.3.0\n'
+                 '  Title         Title 1\n'
+                 '  Artist        An Artist\n'
+                 '  Album         An Album\n'
+                 '  Copyright     2017 Kid3\n'
+                 '  Disc Number   1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Name: test2.mp3\n'
+                 'Tag 2: ID3v2.3.0\n'
+                 '  Title         Title 2\n'
+                 '  Artist        An Artist\n'
+                 '  Album         An Album\n'
+                 '* Disc Number   1/2\n')
+
     def test_riff_info(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             wavpath = os.path.join(tmpdir, 'test.wav')

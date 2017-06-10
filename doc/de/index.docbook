@@ -2772,6 +2772,12 @@ Klammern angegeben werden. So kriegt man beispielsweise den ersten Musiker aus
 einem Vorbis-Tag mit <userinput>get performer[0]</userinput>, den zweiten mit
 <userinput>get performer[1]</userinput>.
 </para>
+<para>
+Der Pseudo-Feldname "selected" kann verwendet werden um zu prüfen, ob ein
+Frame selektiert ist, z.B. liefert <userinput>get artist.selected</userinput>
+dann <computeroutput>1</computeroutput> zurück, wenn der Interpret ausgewählt
+ist, sonst <computeroutput>0</computeroutput>.
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2805,6 +2811,14 @@ angegeben werden, z.B. mehrere Musiker in einem Vorbis-Tag.
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[0] 'Liza don Getti (soprano)'</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[1] 'Joe Barr (piano)'</userinput>
 </screen>
+</para>
+<para>
+Um nur bestimmte Frames vor dem Kopieren, Einfügen oder Entfernen auszuwählen,
+kann der Pseudo-Feldname "selected" verwendet werden. Normalerweise sind alle
+Frames ausgewählt, um alle zu deselektieren, kann
+<userinput>set '*.selected' 0</userinput> verwendet werden, danach kann
+beispielsweise das Interpreten-Frame mit
+<userinput>set artist.selected 1</userinput> ausgewählt werden.
 </para>
 </sect2>
 
@@ -3072,6 +3086,18 @@ beispielsweise das ID3v2 Tag anhand der Werte im ID3v1 Tag zu setzen, wird
 Ablage. Sie können dann in einer anderen Datei mit dem
 <command>paste</command> Befehl gesetzt werden.
 </para>
+<para>
+Um nur ein paar ausgewählte Frames zu kopieren, kann der
+<command>set</command> Befehl mit dem Pseudo-Feldnamen "selected" verwendet
+werden. Um beispielsweise nur die CD-Nummer- und Copyright-Frames zu kopieren,
+verwende man
+<screen width="65">
+<userinput>set '*.selected' 0</userinput>
+<userinput>set discnumber.selected 1</userinput>
+<userinput>set copyright.selected 1</userinput>
+<userinput>copy</userinput>
+</screen>
+</para>
 </sect2>
 
 <sect2 id="cli-paste">
@@ -3092,6 +3118,10 @@ Ablage in den ausgewählten Dateien.
 <arg><replaceable>TAGNUMMER</replaceable></arg>
 </cmdsynopsis>
 <para>Entfernt ein Tag.
+</para>
+<para>Es ist möglich, nur bestimmte Frames zu entfernen, indem man sie
+auswählt wie beim <link linkend="cli-copy"><command>copy</command>
+Befehl</link> beschrieben.
 </para>
 </sect2>
 
@@ -3127,7 +3157,7 @@ Eingabeaufforderung ist es wichtig, dass außen doppelte und innen einfache
 Anführungszeichen verwendet werden. Wenn im Text innerhalb der einfachen
 Anführungszeichen ein einfaches Anführungszeichen verwendet wird, so muss
 diesem ein umgekehrter Schrägstrich vorangestellt werden, wie im folgenden
-Beispiel gezeigt wird:</para> 
+Beispiel gezeigt wird:</para>
 <screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/dir</userinput></screen>
 
 <para>Setze das Albumcover in allen Dateien eines Verzeichnisses unter
@@ -4184,6 +4214,41 @@ Kid3Script {
     }
 
     app.firstFile()
+    doWork()
+  }
+}
+</programlisting>
+
+<para>
+Mit <command>app.firstFile()</command> und <command>app.nextFile()</command>
+werden alle Dateien des aktuellen Verzeichnisses bearbeitet. Falls es nur die
+ausgewählten Dateien sein sollen, so sollten stattdessen
+<command>firstFile()</command> und <command>nextFile()</command> verwendet
+werden, diese Funktionen sind in der Komponente
+<classname>Kid3Script</classname> enthalten. Das folgende Beispiel kopiert
+bloss die CD-Nummer- und Copyright-Frames der ausgewählten Datei.
+</para>
+
+<programlisting>
+import Kid3 1.1
+
+Kid3Script {
+  onRun: {
+    function doWork() {
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
+        app.setFrame(tagv2, "*.selected", false)
+        app.setFrame(tagv2, "discnumber.selected", true)
+        app.setFrame(tagv2, "copyright.selected", true)
+        app.copyTags(tagv2)
+      }
+      if (!nextFile()) {
+        Qt.quit()
+      } else {
+        setTimeout(doWork, 1)
+      }
+    }
+
+    firstFile()
     doWork()
   }
 }

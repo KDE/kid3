@@ -433,8 +433,10 @@ void SetCommand::startCommand()
     const QString& value = args().at(2);
     Frame::TagVersion tagMask = getTagMaskParameter(3);
     if (cli()->app()->setFrame(tagMask, name, value)) {
-      cli()->updateSelectedFiles();
-      cli()->updateSelection();
+      if (!name.endsWith(QLatin1String(".selected"))) {
+        cli()->updateSelectedFiles();
+        cli()->updateSelection();
+      }
     } else if (!value.isEmpty()) {
       setError(tr("Could not set \"%1\" for %2").arg(value).arg(name));
     }
