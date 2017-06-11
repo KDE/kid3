@@ -69,6 +69,7 @@
 #include "kdeconfigdialog.h"
 #include "guiconfig.h"
 #include "tagconfig.h"
+#include "useractionsconfig.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
 
@@ -373,6 +374,21 @@ void KdeMainWindow::initActions()
                        this);
   collection->addAction(QLatin1String("dirlist_focus"), action);
   connect(action, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));
+
+  FileList* fileList = form()->getFileList();
+#if QT_VERSION >= 0x050000
+  // Do not support user action keyboard shortcuts with KDE 4, it would only
+  // print "Attempt to use QAction (..) with KXMLGUIFactory!" warnings.
+  connect(fileList, SIGNAL(userActionAdded(QString,QAction*)),
+          this, SLOT(onUserActionAdded(QString,QAction*)));
+  connect(fileList, SIGNAL(userActionRemoved(QString,QAction*)),
+          this, SLOT(onUserActionRemoved(QString,QAction*)));
+#endif
+  fileList->initUserActions();
+  const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
+  connect(&userActionsCfg, SIGNAL(contextMenuCommandsChanged()),
+          fileList, SLOT(initUserActions()));
+
   createGUI();
 }
 
@@ -518,4 +534,27 @@ void KdeMainWindow::slotSettingsConfigure()
     impl()->applyChangedConfiguration();
   }
   delete configSkeleton;
+}
+
+/**
+ * Add user action to collection.
+ * @param name name of action
+ * @param action action to add
+ */
+void KdeMainWindow::onUserActionAdded(const QString& name, QAction* action)
+{
+  KActionCollection* collection = actionCollection();
+  collection->addAction(name, action);
+}
+
+/**
+ * Remove user action from collection.
+ * @param name name of action
+ * @param action action to remove
+ */
+void KdeMainWindow::onUserActionRemoved(const QString& name, QAction* action)
+{
+  Q_UNUSED(name)
+  KActionCollection* collection = actionCollection();
+  collection->takeAction(action);
 }

@@ -196,6 +196,12 @@ public:
    * @return null icon.
    */
   virtual QIcon icon(const QFileInfo& info) const;
+
+  /**
+   * Provide icons for file information.
+   * @param type not used
+   * @return null icon.
+   */
   virtual QIcon icon(IconType type) const;
 };
 

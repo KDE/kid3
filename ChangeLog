@@ -5,6 +5,7 @@ Fri Jun 16 15:41:09 CEST 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	* New:
 	  + Tags which violate the ID3v2 standard are marked.
 	  + Filter for marked files.
+	  + Configurable keyboard shortcuts for user actions.
 	  + Set and get frame fields from scripts and CLI.
 	  + Select a subset of frames for copy, paste, remove from scripts
 	    and CLI.

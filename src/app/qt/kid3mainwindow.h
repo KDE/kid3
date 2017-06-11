@@ -145,6 +145,20 @@ private slots:
    */
   void onCommitDataRequest(QSessionManager& manager);
 
+  /**
+   * Add user action to shortcuts.
+   * @param name name of action
+   * @param action action to add
+   */
+  void onUserActionAdded(const QString& name, QAction* action);
+
+  /**
+   * Remove user action from shortcuts.
+   * @param name name of action
+   * @param action action to remove
+   */
+  void onUserActionRemoved(const QString& name, QAction* action);
+
 private:
   /**
    * Read font and style options.

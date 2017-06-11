@@ -41,6 +41,37 @@
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
 
+namespace {
+
+/**
+ * Create a name for an action.
+ * @param text user action text
+ * @return name for user action.
+ */
+QString nameForAction(const QString& text)
+{
+  QString name;
+  for (QString::const_iterator cit = text.constBegin();
+       cit != text.constEnd();
+       ++cit) {
+    if (cit->toLatin1() == '\0') {
+      continue;
+    }
+    if (cit->isLetterOrNumber()) {
+      name.append(cit->toLower());
+    } else if (cit->isSpace()) {
+      name.append(QLatin1Char('_'));
+    }
+  }
+  if (!name.isEmpty()) {
+    name.prepend(QLatin1String("user_"));
+  }
+  return name;
+}
+
+}
+
+
 /**
  * Constructor.
  * @param parent parent widget
@@ -80,6 +111,41 @@ QSize FileList::sizeHint() const
 }
 
 /**
+ * Init the user actions for the context menu.
+ */
+void FileList::initUserActions()
+{
+  QMap<QString, QAction*> oldUserActions;
+  oldUserActions.swap(m_userActions);
+  int id = 0;
+  const QList<UserActionsConfig::MenuCommand> commands =
+      UserActionsConfig::instance().contextMenuCommands();
+  for (QList<UserActionsConfig::MenuCommand>::const_iterator
+         it = commands.constBegin();
+       it != commands.constEnd();
+       ++it) {
+    const QString text((*it).getName());
+    const QString name = nameForAction(text);
+    if (!name.isEmpty() && it->getCommand() != QLatin1String("@beginmenu")) {
+      QAction* action = oldUserActions.take(name);
+      if (!action) {
+        action = new QAction(text, this);
+        connect(action, SIGNAL(triggered()), this, SLOT(executeAction()));
+        emit userActionAdded(name, action);
+      }
+      action->setData(id);
+      m_userActions.insert(name, action);
+    }
+    ++id;
+  }
+  for (QMap<QString, QAction*>::const_iterator it = oldUserActions.constBegin();
+       it != oldUserActions.constEnd();
+       ++it) {
+    emit userActionRemoved(it.key(), it.value());
+  }
+}
+
+/**
  * Display a context menu with operations for selected files.
  *
  * @param index index of item
@@ -103,7 +169,6 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     menu.addAction(tr("&Open"), this, SLOT(openFile()));
     menu.addAction(tr("Open Containing &Folder"),
                    this, SLOT(openContainingFolder()));
-    int id = 0;
     QMenu* userMenu = &menu;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
@@ -111,12 +176,13 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
            it = commands.constBegin();
          it != commands.constEnd();
          ++it) {
-      QString name((*it).getName());
-      if (!name.isEmpty()) {
+      const QString text((*it).getName());
+      const QString name = nameForAction(text);
+      if (!text.isEmpty()) {
         if (it->getCommand() == QLatin1String("@beginmenu")) {
-          userMenu = userMenu->addMenu(name);
-        } else {
-          userMenu->addAction(name);
+          userMenu = userMenu->addMenu(text);
+        } else if (QAction* action = m_userActions.value(name)) {
+          userMenu->addAction(action);
         }
       } else if (it->getCommand() == QLatin1String("@separator")) {
         userMenu->addSeparator();
@@ -125,9 +191,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
           userMenu = parentMenu;
         }
       }
-      ++id;
     }
-    connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
     menu.setMouseTracking(true);
     menu.exec(pos);
   }
@@ -280,13 +344,23 @@ void FileList::executeContextCommand(int id)
 /**
  * Execute a context menu action.
  *
- * @param action action of selected menu
+ * @param action action of selected menu, 0 to use sender() action
  */
 void FileList::executeAction(QAction* action)
 {
+  if (!action) {
+    action = qobject_cast<QAction*>(sender());
+  }
   if (action) {
+    bool ok;
+    int id = action->data().toInt(&ok);
+    if (ok) {
+      executeContextCommand(id);
+      return;
+    }
+
     QString name = action->text().remove(QLatin1Char('&'));
-    int id = 0;
+    id = 0;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
     for (QList<UserActionsConfig::MenuCommand>::const_iterator

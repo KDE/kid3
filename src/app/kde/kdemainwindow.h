@@ -156,6 +156,20 @@ private slots:
    */
   void slotSettingsConfigure();
 
+  /**
+   * Add user action to collection.
+   * @param name name of action
+   * @param action action to add
+   */
+  void onUserActionAdded(const QString& name, QAction* action);
+
+  /**
+   * Remove user action from collection.
+   * @param name name of action
+   * @param action action to remove
+   */
+  void onUserActionRemoved(const QString& name, QAction* action);
+
 private:
   IPlatformTools* m_platformTools;
   /** Actions */

@@ -285,6 +285,34 @@ void ShortcutsModel::registerAction(QAction* action, const QString& context)
 }
 
 /**
+ * Unregister an action.
+ *
+ * @param action action to be removed from model
+ * @param context context of action
+ */
+void ShortcutsModel::unregisterAction(QAction* action, const QString& context)
+{
+  for (QList<ShortcutGroup>::iterator git = m_shortcutGroups.begin();
+       git != m_shortcutGroups.end();
+       ++git) {
+    if (git->context() == context) {
+      for (ShortcutGroup::iterator iit = git->begin();
+           iit != git->end();
+           ++iit) {
+        if (iit->action() == action) {
+          git->erase(iit);
+          break;
+        }
+      }
+      if (git->isEmpty()) {
+        m_shortcutGroups.erase(git);
+      }
+      break;
+    }
+  }
+}
+
+/**
  * Assign the shortcuts which have been changed to their actions.
  *
  * @return true if there was at least one shortcut changed

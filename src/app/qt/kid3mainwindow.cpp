@@ -47,6 +47,7 @@
 #include "guiconfig.h"
 #include "tagconfig.h"
 #include "fileconfig.h"
+#include "useractionsconfig.h"
 #include "contexthelp.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
@@ -579,6 +580,16 @@ void Kid3MainWindow::initActions()
   updateWindowCaption();
 
   initFormActions();
+
+  FileList* fileList = form()->getFileList();
+  connect(fileList, SIGNAL(userActionAdded(QString,QAction*)),
+          this, SLOT(onUserActionAdded(QString,QAction*)));
+  connect(fileList, SIGNAL(userActionRemoved(QString,QAction*)),
+          this, SLOT(onUserActionRemoved(QString,QAction*)));
+  fileList->initUserActions();
+  const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
+  connect(&userActionsCfg, SIGNAL(contextMenuCommandsChanged()),
+          fileList, SLOT(initUserActions()));
 }
 
 /**
@@ -880,4 +891,29 @@ void Kid3MainWindow::onCommitDataRequest(QSessionManager& manager)
       manager.cancel();
     }
   }
+}
+
+/**
+ * Add user action to shortcuts.
+ * @param name name of action
+ * @param action action to add
+ */
+void Kid3MainWindow::onUserActionAdded(const QString& name, QAction* action)
+{
+  action->setObjectName(name);
+  action->setShortcutContext(Qt::ApplicationShortcut);
+  m_shortcutsModel->registerAction(action, tr("User Actions"));
+  addAction(action);
+}
+
+/**
+ * Remove user action from shortcuts.
+ * @param name name of action
+ * @param action action to remove
+ */
+void Kid3MainWindow::onUserActionRemoved(const QString& name, QAction* action)
+{
+  Q_UNUSED(name)
+  m_shortcutsModel->unregisterAction(action, tr("User Actions"));
+  removeAction(action);
 }

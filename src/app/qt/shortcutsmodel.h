@@ -141,6 +141,14 @@ public:
   void registerAction(QAction* action, const QString& context);
 
   /**
+   * Unregister an action.
+   *
+   * @param action action to be removed from model
+   * @param context context of action
+   */
+  void unregisterAction(QAction* action, const QString& context);
+
+  /**
    * Assign the shortcuts which have been changed to their actions.
    *
    * @return true if there was at least one shortcut changed

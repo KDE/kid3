@@ -28,6 +28,7 @@
 #define FILELIST_H
 
 #include <QList>
+#include <QMap>
 #include "configurabletreeview.h"
 #include "config.h"
 #include "kid3api.h"
@@ -72,6 +73,27 @@ public:
    */
   void setDeleteAction(QAction* action);
 
+public slots:
+  /**
+   * Init the user actions for the context menu.
+   */
+  void initUserActions();
+
+signals:
+  /**
+   * Emitted when a user action is added.
+   * @param name name of action
+   * @param action action added
+   */
+  void userActionAdded(const QString& name, QAction* action);
+
+  /**
+   * Emitted when a user action is removed.
+   * @param name name of action
+   * @param action action removed
+   */
+  void userActionRemoved(const QString& name, QAction* action);
+
 private slots:
   /**
    * Display a context menu with operations for selected files.
@@ -91,9 +113,9 @@ private slots:
   /**
    * Execute a context menu action.
    *
-   * @param action action of selected menu
+   * @param action action of selected menu, 0 to use sender() action
    */
-  void executeAction(QAction* action);
+  void executeAction(QAction* action = 0);
 
   /**
    * Display a custom context menu with operations for selected files.
@@ -152,6 +174,7 @@ private:
   BaseMainWindowImpl* m_mainWin;
   QAction* m_renameAction;
   QAction* m_deleteAction;
+  QMap<QString, QAction*> m_userActions;
 };
 
 #endif // FILELIST_H
