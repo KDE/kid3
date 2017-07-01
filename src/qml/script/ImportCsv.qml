@@ -33,8 +33,8 @@ Kid3Script {
       for (var i = 0; i < columns.length; ++i) {
         var val = columns[i]
         if (val.length >= 2 &&
-            val[0] === "\"" && val[val.length - 1] === "\"") {
-          val = val.substr(1, val.length - 2)
+            val[0] === '"' && val[val.length - 1] === '"') {
+          val = val.substr(1, val.length - 2).replace(/""/g, '"')
           columns[i] = val
         }
       }
@@ -49,6 +49,28 @@ Kid3Script {
         if (line.length > 0) {
           var columns = unquoteColumns(line.split("\t"))
           if (i > 0) {
+            if (columns.length < names.length && i + 1 < lines.length) {
+              // The line does not contain all columns, check for continuation.
+              var lastColumn = columns[columns.length - 1]
+              if (lastColumn.length > 1 && lastColumn[0] === '"' &&
+                  lastColumn[lastColumn.length - 1] !== '"') {
+                for (var consumed = 0, extendedLine = line;
+                     i + 1 + consumed < lines.length &&
+                     columns.length < names.length;
+                     ++consumed) {
+                  extendedLine += "\n"
+                  extendedLine += lines[i + 1 + consumed]
+                  columns = unquoteColumns(extendedLine.split("\t"))
+                }
+                if (columns.length === names.length) {
+                  // Continuation OK, apply changes.
+                  lines[i] = extendedLine
+                  lines.splice(i + 1, consumed)
+                } else {
+                  columns = unquoteColumns(line.split("\t"))
+                }
+              }
+            }
             if (filePathCol >= 0 && filePathCol < columns.length) {
               files[columns[filePathCol]] = i - 1
             }

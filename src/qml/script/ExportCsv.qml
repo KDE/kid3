@@ -77,8 +77,11 @@ Kid3Script {
             if (typeof value === "undefined") {
               value = ""
             } else {
-              value = value.replace(/\n/g, "\\n").replace(/\r/g, "\\r").
-                            replace(/\t/g, "\\t")
+              if (value.indexOf("\n") !== -1) {
+                value = '"' + value.replace(/"/g, '""').replace(/\r\n/g, "\n") +
+                        '"'
+              }
+              value = value.replace(/\t/g, " ")
             }
             if (columnNr > 0) {
               txt += "\t"
