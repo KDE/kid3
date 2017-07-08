@@ -6310,6 +6310,14 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
              it != frameList.end();
              ++it) {
           Frame frame(createFrameFromId3Frame(*it, i++));
+          if (frame.getType() == Frame::FT_UnknownFrame) {
+            TagLib::ByteVector frameID = (*it)->frameID().mid(0, 4);
+            if (frameID == "TDAT" || frameID == "TIME" || frameID == "TRDA" ||
+                frameID == "TYER") {
+              // These frames are converted to a TDRC frame by TagLib.
+              continue;
+            }
+          }
           frames.insert(frame);
         }
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != 0) {
