@@ -40,4 +40,5 @@
   <url type="help">http://sourceforge.net/p/kid3/discussion/</url>
   <developer_name>Urs Fleisch</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
+  <translation type="gettext">kid3</translation>
 </component>

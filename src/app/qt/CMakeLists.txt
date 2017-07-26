@@ -67,7 +67,7 @@ if (UNIX AND NOT APPLE)
   )
   add_custom_target("appdata-file" ALL DEPENDS kid3-qt.appdata.xml)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
-    DESTINATION "${WITH_DATAROOTDIR}/appdata")
+    DESTINATION "${WITH_DATAROOTDIR}/metainfo")
   if (GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../hisc-apps-kid3.svgz >kid3-qt.svg
