@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
 # To build with KDE 5:
 # In dh_auto_configure, add -DWITH_QT5=ON and remove
 # CONFIG_INSTALL_DIR, DATA_INSTALL_DIR, HTML_INSTALL_DIR, KCFG_INSTALL_DIR.

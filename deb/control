@@ -32,9 +32,9 @@ Build-Depends: debhelper (>= 9),
  pkg-config,
  libreadline-dev,
  xsltproc
-Standards-Version: 3.9.6
+Standards-Version: 4.0.0
 Homepage: http://kid3.sourceforge.net/
-Vcs-Svn: svn://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
+Vcs-Svn: https://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/
 
 Package: kid3-core

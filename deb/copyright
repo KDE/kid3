@@ -9,14 +9,6 @@ Copyright: 2008-2013, Urs Fleisch
   2004, the VideoLAN team, under the same license
 License: GPL-2+
 
-Files: src/plugins/kid3qml/qmlpp.py
-Copyright: no-info-found
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/*
-Copyright: : 2014,Urs Fleisch
-License: MPL-1.1 or LGPL or (v2.1)
-
 Files: src/plugins/taglibmetadata/taglibext/aac/*
 Copyright: : 2006,Martin Aumueller
 License: LGPL-2.1
@@ -33,10 +25,6 @@ License: LGPL-2.1
 Files: src/plugins/taglibmetadata/taglibext/generalencapsulatedobjectframe.cpp
 Copyright: : 2004,Scott Wheeler / : 2006,Aaron VonderHaar
 License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/generalencapsulatedobjectframe.h
-Copyright: : 2004,Scott Wheeler / : 2006,Aaron VonderHaar
-License: MPL-1.1 or LGPL or (v2.1)
 
 Files: src/plugins/taglibmetadata/taglibext/mp2/*
 Copyright: no-info-found
@@ -108,21 +96,6 @@ Files: src/plugins/taglibmetadata/taglibfile.h
 Copyright: 2006-2012, Urs Fleisch
 License: GPL-2+
 
-License: (v2.1)
- This library is free software; you can redistribute it and/or modify
- it  under the terms of the GNU Lesser General Public License version
- 2.1 as published by the Free Software Foundation.
- .
- This library is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
- .
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301,
- USA
-
 License: GPL-2+
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -132,21 +105,6 @@ License: GPL-2+
  On Debian systems, the complete text of version 2 of the GNU General
  Public License can be found in '/usr/share/common-licenses/GPL-2'.
 
-License: LGPL
- This library is free software; you can redistribute it and/or modify
- it  under the terms of the GNU Lesser General Public License version
- 2.1 as published by the Free Software Foundation.
- .
- This library is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
- .
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301,
- USA
-
 License: LGPL-2.1
  This program is free software; you can redistribute it and/or modify it
  under the terms of the GNU Lesser General Public License as published by the
@@ -154,22 +112,3 @@ License: LGPL-2.1
  .
  On Debian systems, the complete text of version 2.1 of the GNU Lesser
  General Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.
-
-License: MPL-1.1
- This library is free software; you can redistribute it and/or modify
- it  under the terms of the GNU Lesser General Public License version
- 2.1 as published by the Free Software Foundation.
- .
- This library is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
- .
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- 02110-1301  USA
- .
- Alternatively, this file is available under the Mozilla Public
- License Version 1.1.  You may obtain a copy of the License at
- http://www.mozilla.org/MPL/

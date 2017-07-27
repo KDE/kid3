@@ -1,50 +1,63 @@
-kid3 (3.5.0-0) unstable; urgency=low
+kid3 (3.5.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Uploading to unstable.
+  * Bump Standards-Version to 4.0.0 (no changes required).
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 30 Jun 2017 10:55:36 +0200
+
+kid3 (3.4.5-1) experimental; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 16 Jun 2017 15:41:09 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 31 Mar 2017 10:13:38 +0200
 
-kid3 (3.4.5-0) unstable; urgency=low
+kid3 (3.4.4-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Drop merged patch 01-spelling-error.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 23 Dec 2016 09:00:02 +0100
+
+kid3 (3.4.3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Fix debian/watch.
+  * Add patch 01-spelling-error to fix a spelling error.
+  * Some fixes in debian/copyright.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 09 Nov 2016 10:31:58 +0100
+
+kid3 (3.4.2-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 18 Feb 2017 19:21:55 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 31 Aug 2016 10:40:42 +0200
 
-kid3 (3.4.4-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 23 Dec 2016 08:33:40 +0100
-
-kid3 (3.4.3-0) unstable; urgency=low
+kid3 (3.4.1-1) unstable; urgency=medium
 
   * New upstream release.
+    - Remove merged patch 01-spelling-error.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue,  1 Nov 2016 20:16:59 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 07 Jul 2016 10:05:39 +0200
 
-kid3 (3.4.2-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Wed, 24 Aug 2016 14:44:04 +0200
-
-kid3 (3.4.1-0) unstable; urgency=low
+kid3 (3.4.0-1) unstable; urgency=medium
 
   * New upstream release.
+  * Use secure Vcs-Browser URL.
+  * Bump Standards-Version to 3.9.8 (no changes required).
+  * Add patch 01-spelling-error to fix a spelling error.
+  * Remove unused file paragraph from debian/copyright.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 24 Jun 2016 20:20:20 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 03 May 2016 12:43:58 +0200
 
-kid3 (3.4.0-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 23 Apr 2016 16:30:36 +0200
-
-kid3 (3.3.2-0) unstable; urgency=low
+kid3 (3.3.2-1) unstable; urgency=medium
 
   * New upstream release.
+  * Enable full hardening.
+  * Bump Standards-Version to 3.9.7 (no changes required).
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 10 Mar 2016 17:55:29 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 17 Mar 2016 19:37:13 +0100
 
 kid3 (3.3.1-2) unstable; urgency=medium
 
@@ -76,12 +89,6 @@ kid3 (3.2.1-1) unstable; urgency=low
   * Switch to DEP5 debian/copyright format.
 
  -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 12 May 2015 18:56:41 +0200
-
-kid3 (3.2.0-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 13 Mar 2015 06:36:03 +0100
 
 kid3 (3.1.2-2) experimental; urgency=low
 
