@@ -22,7 +22,7 @@ project(kid3)
 
 cmake_minimum_required(VERSION 2.8)
 if (POLICY CMP0020)
-  cmake_policy(SET CMP0020 OLD)
+  cmake_policy(SET CMP0020 NEW)
 endif (POLICY CMP0020)
 if (POLICY CMP0045)
   cmake_policy(SET CMP0045 OLD)
