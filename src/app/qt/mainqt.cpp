@@ -50,6 +50,13 @@ int main(int argc, char* argv[])
 {
   Q_INIT_RESOURCE(kid3);
 
+#if QT_VERSION >= 0x050100
+  // Enable support for high resolution "@2x" images
+  QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+#if QT_VERSION >= 0x050600
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
   Kid3QtApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
 

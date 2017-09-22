@@ -38,10 +38,6 @@
  */
 Kid3QtApplication::Kid3QtApplication(int& argc, char** argv) : QApplication(argc, argv)
 {
-#if QT_VERSION >= 0x050100
-  // Enable support for high resolution "@2x" images
-  setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 }
 
 /**
