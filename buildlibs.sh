@@ -58,8 +58,8 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=4
-ffmpeg_version=3.2.5
-ffmpeg_patchlevel=1
+ffmpeg_version=3.3.4
+ffmpeg_patchlevel=2
 #libav_version=11.4
 #libav_patchlevel=2
 libflac_version=1.3.2
@@ -70,7 +70,7 @@ taglib_version=1.11.1
 chromaprint_version=1.4.2
 chromaprint_patchlevel=1
 mp4v2_version=2.0.0
-mp4v2_patchlevel=5
+mp4v2_patchlevel=6
 
 FLAC_BUILD_OPTION="--enable-debug"
 ID3LIB_BUILD_OPTION="--enable-debug=minimum"
@@ -2550,7 +2550,6 @@ AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
 fi
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
 ./configure \
-	--enable-memalign-hack \
 	--disable-shared \
 	--enable-static \
 	--disable-avdevice \
