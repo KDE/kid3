@@ -51,7 +51,7 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
-qt_version=5.6.2
+qt_version=5.6.3
 zlib_version=1.2.8
 zlib_patchlevel=5
 libogg_version=1.3.2
@@ -258,7 +258,7 @@ if test "$compiler" = "cross-mingw" && ! test -f mingw.cmake; then
     fi
   done
   cat >mingw.cmake <<EOF
-set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version%.?}/mingw49_32)
+set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version}/mingw49_32)
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
@@ -2729,7 +2729,7 @@ EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 # For a LINUX_SELF_CONTAINED build, change BUILD_SHARED_LIBS, WITH_QML to ON and add
-# -G Ninja -DCMAKE_CXX_COMPILER=g++-4.7 -DCMAKE_C_COMPILER=gcc-4.7 -DQT_QMAKE_EXECUTABLE=/opt/Qt5.6.2/5.6/gcc_64/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF
+# -G Ninja -DCMAKE_CXX_COMPILER=g++-4.7 -DCMAKE_C_COMPILER=gcc-4.7 -DQT_QMAKE_EXECUTABLE=/opt/Qt5.6.3/5.6.3/gcc_64/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF
 cmake -DBUILD_SHARED_LIBS=OFF -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
     fi
