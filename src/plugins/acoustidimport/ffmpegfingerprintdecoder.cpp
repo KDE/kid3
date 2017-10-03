@@ -401,10 +401,12 @@ public:
         result = reinterpret_cast<int16_t*>(m_dstData[0]);
       } else {
         int bytesPerSample = ::av_get_bytes_per_sample(codecCtx.sampleFormat());
-        int numSamplesIn = bufferSize / bytesPerSample;
+        int numSamplesIn = bytesPerSample != 0 ? bufferSize / bytesPerSample : 0;
         int linesizeIn;
-        ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
-            numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+        int numChannels = codecCtx.channels();
+        ::av_samples_get_buffer_size(&linesizeIn, numChannels,
+            numChannels != 0 ? numSamplesIn / numChannels : 0,
+            codecCtx.sampleFormat(), 0);
 #ifdef HAVE_AVRESAMPLE
 #if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
         numSamplesOut = ::avresample_convert(
@@ -472,7 +474,7 @@ public:
       int istride[6] = { ::av_get_bytes_per_sample(codecCtx.sampleFormat()) };
 #endif
       int ostride[6] = { 2 };
-      int len = bufferSize / istride[0];
+      int len = istride[0] != 0 ? bufferSize / istride[0] : 0;
       if (::av_audio_convert(m_ptr, obuf, ostride, ibuf, istride, len) < 0) {
         return 0;
       }
@@ -555,7 +557,9 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
   }
 
   if (stream->duration != static_cast<int64_t>(AV_NOPTS_VALUE)) {
-    duration = stream->time_base.num * stream->duration / stream->time_base.den;
+    duration = stream->time_base.den != 0
+        ? stream->time_base.num * stream->duration / stream->time_base.den
+        : 0;
   } else if (format.duration() != static_cast<int64_t>(AV_NOPTS_VALUE)) {
     duration = format.duration() / AV_TIME_BASE;
   } else {

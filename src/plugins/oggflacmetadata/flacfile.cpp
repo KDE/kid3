@@ -634,7 +634,8 @@ bool FlacFile::readFileInfo(FileInfo& info,
     info.valid = true;
     info.channels = si->get_channels();
     info.sampleRate = si->get_sample_rate();
-    info.duration = si->get_total_samples() / info.sampleRate;
+    info.duration = info.sampleRate != 0
+        ? si->get_total_samples() / info.sampleRate : 0;
     info.bitrate = si->get_bits_per_sample() * info.sampleRate;
   } else {
     info.valid = false;
