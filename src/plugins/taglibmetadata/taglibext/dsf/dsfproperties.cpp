@@ -82,7 +82,7 @@ DSFProperties::~DSFProperties()
 
 int DSFProperties::length() const
 {
-  return d->sampleCount / d->sampleRate;
+  return d->sampleRate != 0 ? d->sampleCount / d->sampleRate : 0;
 }
 
 int DSFProperties::bitrate() const
