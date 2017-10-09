@@ -239,7 +239,6 @@ void DSFHeader::parse(const TagLib::ByteVector &data)
   d->sampleRate = data.toUInt(offset, false);
   if (d->sampleRate != 2822400 && d->sampleRate != 5644800) {
     debug("DSD::Header::parse(): invalid sampling frequency");
-    return;
   }
   offset += INT_SIZE;
 
