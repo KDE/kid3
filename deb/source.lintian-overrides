@@ -1,1 +1,1 @@
-kid3 source: debian-watch-may-check-gpg-signature
+kid3 source: vcs-field-uses-insecure-uri vcs-svn svn://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/

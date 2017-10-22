@@ -1,3 +1,12 @@
+kid3 (3.5.0-2) unstable; urgency=medium
+
+  * Correct URL in Vcs-Svn control field.
+  * Bump debian/compat to level 10.
+  * Install appstream metadata to /usr/share/metainfo/.
+  * Overwrite lintian information vcs-field-uses-insecure-uri.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 02 Aug 2017 10:01:05 +0200
+
 kid3 (3.5.0-1) unstable; urgency=medium
 
   * New upstream release.

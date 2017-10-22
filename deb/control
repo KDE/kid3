@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 9),
+Build-Depends: debhelper (>= 10),
 # KDE 5 BEGIN
  extra-cmake-modules,
  kio-dev,
@@ -34,8 +34,8 @@ Build-Depends: debhelper (>= 9),
  xsltproc
 Standards-Version: 4.0.0
 Homepage: http://kid3.sourceforge.net/
-Vcs-Svn: https://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
-Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/
+Vcs-Svn: svn://anonscm.debian.org/pkg-kde/kde-extras/kid3/trunk/
+Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-kde/kde-extras/kid3/
 
 Package: kid3-core
 Architecture: any
