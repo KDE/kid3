@@ -209,18 +209,10 @@ ImportConfig::ImportConfig() :
   m_pictureSourceUrls.append(QLatin1String("http://www.cduniverse.com/sresult.asp?HT_Search_Info=%u{artist}+%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Coveralia"));
   m_pictureSourceUrls.append(QLatin1String("http://www.coveralia.com/mostrar.php?bus=%u{artist}%20%u{album}&bust=2"));
-  m_pictureSourceNames.append(QLatin1String("FreeCovers"));
-  m_pictureSourceUrls.append(QLatin1String("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4"));
-  m_pictureSourceNames.append(QLatin1String("CoverHunt"));
-  m_pictureSourceUrls.append(QLatin1String("http://www.coverhunt.com/search/%u{artist}+%u{album}"));
   m_pictureSourceNames.append(QLatin1String("SlothRadio"));
   m_pictureSourceUrls.append(QLatin1String("http://www.slothradio.com/covers/?artist=%u{artist}&album=%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Albumart"));
   m_pictureSourceUrls.append(QLatin1String("http://www.albumart.org/index.php?srchkey=%u{artist}+%u{album}&searchindex=Music"));
-  m_pictureSourceNames.append(QLatin1String("Yalp!"));
-  m_pictureSourceUrls.append(QLatin1String("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}"));
-  m_pictureSourceNames.append(QLatin1String("HMV"));
-  m_pictureSourceUrls.append(QLatin1String("http://hmv.com/hmvweb/advancedSearch.do?searchType=2&artist=%u{artist}&title=%u{album}"));
   m_pictureSourceNames.append(QLatin1String("Custom Source"));
   m_pictureSourceUrls.append(QLatin1String(""));
 
@@ -232,8 +224,6 @@ ImportConfig::ImportConfig() :
     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
   m_matchPictureUrlMap[QLatin1String("http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*")] =
     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
-  m_matchPictureUrlMap[QLatin1String("http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*")] =
-    QLatin1String("http://www.freecovers.net/preview/\\1/\\2/big.jpg");
   m_matchPictureUrlMap[QLatin1String("(http://.*4shared.com/img/.*)")] =
     QLatin1String("\\1.jpg");
 }

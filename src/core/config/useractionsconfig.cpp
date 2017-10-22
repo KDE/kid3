@@ -143,25 +143,17 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
 #endif
   if (!upgradeOnly) {
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Lyrics.com"), QLatin1String("%{browser} http://www.lyrics.com/search.php?what=all&keyword=%u{artist}+%u{title}")));
+      UserActionsConfig::MenuCommand(QLatin1String("Lyrics.com"), QLatin1String("%{browser} http://www.lyrics.com/lyrics/%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("AZLyrics"), QLatin1String("%{browser} http://search.azlyrics.com/search.php?q=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Dark Lyrics"), QLatin1String("%{browser} http://www.darklyrics.com/search?q=%u{album}")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Metro Lyrics"), QLatin1String("%{browser} http://www.metrolyrics.com/search.php?category=artisttitle&search=%u{artist}+%u{title}")));
-    m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("SongLyrics"), QLatin1String("%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("LyricsMode"), QLatin1String("%{browser} http://www.lyricsmode.com/search.php?search=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("Lyrster"), QLatin1String("%{browser} http://www.lyrster.com/songs-lyrics/%u{artist}+%u{title}")));
-    m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("MP3 Lyrics"), QLatin1String("%{browser} http://mp3lyrics.com/Search/Advanced/?Track=%u{title}&Artist=%u{artist}")));
-    m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("LRC123"), QLatin1String("%{browser} http://www.lrc123.com/?keyword=%u{artist}+%u{title}&field=all")));
-    m_contextMenuCommands.push_back(
-      UserActionsConfig::MenuCommand(QLatin1String("LyrDB LRC"), QLatin1String("%{browser} http://lyrdb.com/karaoke/index.htm?q=%u{artist}+%u{title}&action=search")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QString(), QLatin1String("@endmenu")));
   }
