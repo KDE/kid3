@@ -58,8 +58,8 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=4
-ffmpeg_version=3.3.4
-ffmpeg_patchlevel=2
+ffmpeg_version=3.4
+ffmpeg_patchlevel=1
 #libav_version=11.4
 #libav_patchlevel=2
 libflac_version=1.3.2
@@ -710,6 +710,28 @@ index 0fbb87d..759a9b7 100644
    };
    const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);
  
+EOF
+
+test -f taglib_CVE-2017-12678.patch ||
+cat >taglib_CVE-2017-12678.patch <<"EOF"
+Index: b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+===================================================================
+--- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
++++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+@@ -334,10 +334,11 @@ void FrameFactory::rebuildAggregateFrame
+      tag->frameList("TDAT").size() == 1)
+   {
+     TextIdentificationFrame *tdrc =
+-      static_cast<TextIdentificationFrame *>(tag->frameList("TDRC").front());
++      dynamic_cast<TextIdentificationFrame *>(tag->frameList("TDRC").front());
+     UnknownFrame *tdat = static_cast<UnknownFrame *>(tag->frameList("TDAT").front());
+ 
+-    if(tdrc->fieldList().size() == 1 &&
++    if(tdrc &&
++       tdrc->fieldList().size() == 1 &&
+        tdrc->fieldList().front().size() == 4 &&
+        tdat->data().size() >= 5)
+     {
 EOF
 
 test -f mp4v2_win32.patch ||
@@ -2114,6 +2136,7 @@ if test "${taglib_version}" = "1.9.1"; then
 fi
 if test "${taglib_version}" = "1.11.1"; then
   patch -p1 <../source/taglib_mp4shwm.patch
+  patch -p1 <../source/taglib_CVE-2017-12678.patch
 fi
 cd ..
 fi
