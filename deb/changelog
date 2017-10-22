@@ -1,3 +1,9 @@
+kid3 (3.5.1-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Wed, 01 Nov 2017 12:36:45 +0100
+
 kid3 (3.5.0-2) unstable; urgency=medium
 
   * Correct URL in Vcs-Svn control field.

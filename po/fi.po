@@ -6,7 +6,7 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.5.0\n"
+"Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2017-06-07 21:41+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"

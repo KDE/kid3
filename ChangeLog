@@ -1,3 +1,19 @@
+Wed Nov  1 12:36:45 CET 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.5.1
+
+	* Improved:
+	  + Compatibility of imported and exported CSV files with cells
+	    containing new line characters.
+	  + Do not show unknown frames for ID3v2.3 TDAT, TIME, TYER, TRDA
+	    frames.
+	  + Enable high-DPI scaling for Qt >= 5.6.
+	  + Change AppStream directory from appdata to metainfo.
+
+	* Fixed:
+	  + Crash with DSF files having sample rates other than 2822400 or
+	    5644800.
+
 Fri Jun 16 15:41:09 CEST 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.5.0
