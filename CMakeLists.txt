@@ -358,6 +358,10 @@ if (LINUX_SELF_CONTAINED)
   # http://stackoverflow.com/questions/8823267/linking-against-older-symbol-version-in-a-so-file
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${CMAKE_CURRENT_SOURCE_DIR}/linux/glibc_version_nightmare.h")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include ${CMAKE_CURRENT_SOURCE_DIR}/linux/glibc_version_nightmare.h")
+  # Use RPATH instead of RUNPATH, the RPATH of the loading executable has to be used, see
+  # http://blog.qt.io/blog/2011/10/28/rpath-and-runpath/
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--disable-new-dtags")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
 endif ()
 
 # Check that QT_NO_DEBUG is defined for release configurations
