@@ -45,7 +45,7 @@
 FormatBox::FormatBox(const QString& title, QWidget* parent) :
   QGroupBox(title, parent)
 {
-  m_formatEditingCheckBox = new QCheckBox(tr("Format while editing"),
+  m_formatEditingCheckBox = new QCheckBox(tr("Automatically apply format"),
                                           this);
   m_validationCheckBox = new QCheckBox(tr("Validation"), this);
 

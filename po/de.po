@@ -2238,8 +2238,8 @@ msgstr "Zeile ent&fernen"
 msgid "&Clear row"
 msgstr "Zeile lös&chen"
 
-msgid "Format while editing"
-msgstr "Während des Editierens formatieren"
+msgid "Automatically apply format"
+msgstr "Format automatisch anwenden"
 
 msgid "Validation"
 msgstr "Überprüfung"

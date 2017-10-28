@@ -2237,8 +2237,8 @@ msgstr "&Poista rivi"
 msgid "&Clear row"
 msgstr "&Tyhjennä rivi"
 
-msgid "Format while editing"
-msgstr "Muotoile muokattaessa"
+msgid "Automatically apply format"
+msgstr "Ota muutokset käyttöön automaattisesti"
 
 msgid "Validation"
 msgstr "Tarkistus"

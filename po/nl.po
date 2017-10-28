@@ -2239,8 +2239,8 @@ msgstr "Rij &Verwijderen"
 msgid "&Clear row"
 msgstr "Rij &Wissen"
 
-msgid "Format while editing"
-msgstr "Opmaak gebruiken tijdens het opslaan van bestanden"
+msgid "Automatically apply format"
+msgstr "Structuur automatisch toepassen"
 
 msgid "Validation"
 msgstr "Validatie"

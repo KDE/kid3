@@ -2229,7 +2229,7 @@ msgstr ""
 msgid "&Clear row"
 msgstr ""
 
-msgid "Format while editing"
+msgid "Automatically apply format"
 msgstr ""
 
 msgid "Validation"

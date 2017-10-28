@@ -1591,7 +1591,7 @@ time, therefore it can be aborted by closing the dialog.</para></listitem>
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Filename Format</guimenuitem>
 </menuchoice></term>
-<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+<listitem><para>When <guilabel>Automatically apply format</guilabel> is switched off
 for the filename format in the configuration dialog, this menu item can be used to <action>apply
 the configured format to the names of the selected files</action>. This can also be used
 to check whether the file names conform with the configured format
@@ -1605,7 +1605,7 @@ changed (and therefore marked with a disk symbol in the file listbox).
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Tag Format</guimenuitem>
 </menuchoice></term>
-<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+<listitem><para>When <guilabel>Automatically apply format</guilabel> is switched off
 for the tag format in the configuration dialog, this menu item can be used to <action>apply
 the configured format to the tags of the selected files</action>. This can also be used
 to check whether the tags conform with the configured format
@@ -2128,7 +2128,7 @@ there are applications which use "ITRK", others use "IPRT".
 </para>
 <para>
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
-When <guilabel>Format while editing</guilabel> is checked, the format
+When <guilabel>Automatically apply format</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits.
 The <guilabel>Case conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All

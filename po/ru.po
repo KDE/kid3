@@ -2238,8 +2238,8 @@ msgstr "&Удалить строку"
 msgid "&Clear row"
 msgstr "&Очистить строку"
 
-msgid "Format while editing"
-msgstr "Форматировать при редактировании"
+msgid "Automatically apply format"
+msgstr "Автоматически применить Формат"
 
 msgid "Validation"
 msgstr "Проверка"

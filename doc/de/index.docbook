@@ -1689,7 +1689,7 @@ sie durch Schließen des Dialogs abgebrochen werden.</para></listitem>
 <guimenu>Extras</guimenu>
 <guimenuitem>Dateinamenformat anwenden</guimenuitem>
 </menuchoice></term>
-<listitem><para>Wenn <guilabel>Während des Editierens formatieren</guilabel>
+<listitem><para>Wenn <guilabel>Format automatisch anwenden</guilabel>
 im Konfigurationsdialog beim Dateinamenformat deaktiviert ist, kann man mit diesem Menüpunkt
 <action>die Formatierung auf die Namen der ausgewählten Dateien anwenden</action>.
 Diese Funktion kann auch angewendet werden, um zu testen, ob die Dateinamen
@@ -1707,7 +1707,7 @@ rückgängig gemacht werden.
 <guimenu>Extras</guimenu>
 <guimenuitem>Tag-Format anwenden</guimenuitem>
 </menuchoice></term>
-<listitem><para>Wenn <guilabel>Während des Editierens formatieren</guilabel>
+<listitem><para>Wenn <guilabel>Format automatisch anwenden</guilabel>
 im Konfigurationsdialog beim Tag Format deaktiviert ist, kann man mit diesem Menüpunkt
 <action>die Formatierung auf die Tags der ausgewählten Dateien anwenden</action>.
 Diese Funktion kann auch angewendet werden, um zu testen, ob die Tags dem
@@ -2265,7 +2265,7 @@ Anwendungen verwenden "ITRK", andere "IPRT".
 <para>
 <guilabel>Tag Format</guilabel> enthält Einstellungen für das Format
 der Tags.
-Wenn <guilabel>Während dem Editieren formatieren</guilabel> aktiviert ist,
+Wenn <guilabel>Format automatisch anwenden</guilabel> aktiviert ist,
 wird die Eingabe während dem Editieren automatisch formatiert.
 <guilabel>Groß/Kleinschreibung</guilabel> kann auf <guilabel>Keine
 Änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,

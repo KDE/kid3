@@ -2237,8 +2237,8 @@ msgstr "&Eliminar fila"
 msgid "&Clear row"
 msgstr "&Limpiar fila"
 
-msgid "Format while editing"
-msgstr "Formatear mientras se edita"
+msgid "Automatically apply format"
+msgstr "Aplicar formato automáticamente"
 
 msgid "Validation"
 msgstr "Validación"

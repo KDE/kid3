@@ -2227,8 +2227,8 @@ msgstr "&Slet række"
 msgid "&Clear row"
 msgstr "R&ens række"
 
-msgid "Format while editing"
-msgstr "Formatér imens der redigeres"
+msgid "Automatically apply format"
+msgstr "Anvend format automatisk"
 
 msgid "Validation"
 msgstr "Validering"

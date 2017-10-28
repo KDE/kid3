@@ -2238,8 +2238,8 @@ msgstr "&Обриши ред"
 msgid "&Clear row"
 msgstr "О&чисти ред"
 
-msgid "Format while editing"
-msgstr "Форматирај при уређивању"
+msgid "Automatically apply format"
+msgstr "Примени формат аутоматски"
 
 msgid "Validation"
 msgstr "Овера"

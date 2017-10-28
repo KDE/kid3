@@ -2235,8 +2235,8 @@ msgstr "&Kustuta rida"
 msgid "&Clear row"
 msgstr "&Puhasta rida"
 
-msgid "Format while editing"
-msgstr "Automaatasendus"
+msgid "Automatically apply format"
+msgstr "Rakenda vorming automaatselt"
 
 msgid "Validation"
 msgstr "Kontrollimine"

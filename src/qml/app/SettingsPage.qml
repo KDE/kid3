@@ -163,7 +163,7 @@ AbstractSettingsPage {
           name: qsTr("Mark changes")
         },
         SettingsElement {
-          name: qsTr("Format while editing")
+          name: qsTr("Automatically apply format")
         },
         SettingsElement {
           name: qsTr("Case conversion")

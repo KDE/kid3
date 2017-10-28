@@ -2237,8 +2237,8 @@ msgstr "&Smazat řádek"
 msgid "&Clear row"
 msgstr "Vy&prázdnit řádek"
 
-msgid "Format while editing"
-msgstr "Formátovat během úprav"
+msgid "Automatically apply format"
+msgstr "Použít formát automaticky"
 
 msgid "Validation"
 msgstr "Schválení"

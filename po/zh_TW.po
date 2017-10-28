@@ -2239,8 +2239,8 @@ msgstr "刪除列(&D)"
 msgid "&Clear row"
 msgstr "清除列(&C)"
 
-msgid "Format while editing"
-msgstr "檔名格式的編輯"
+msgid "Automatically apply format"
+msgstr "自动格式化"
 
 msgid "Validation"
 msgstr "驗證"

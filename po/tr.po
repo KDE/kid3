@@ -2236,8 +2236,8 @@ msgstr "Satır &Sil"
 msgid "&Clear row"
 msgstr "Satırı &Temizle"
 
-msgid "Format while editing"
-msgstr "Düzenleme şekli"
+msgid "Automatically apply format"
+msgstr "Otomatik biçimini uygula"
 
 msgid "Validation"
 msgstr "Doğrulama"

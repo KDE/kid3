@@ -2235,8 +2235,8 @@ msgstr "&Obriši red"
 msgid "&Clear row"
 msgstr "O&čisti red"
 
-msgid "Format while editing"
-msgstr "Formatiraj pri uređivanju"
+msgid "Automatically apply format"
+msgstr "Primijeni format automatski"
 
 msgid "Validation"
 msgstr "Ovjera"

@@ -2239,8 +2239,8 @@ msgstr "&Usuń wiersz"
 msgid "&Clear row"
 msgstr "W&yczyść wiersz"
 
-msgid "Format while editing"
-msgstr "Formatuj podczas edycji"
+msgid "Automatically apply format"
+msgstr "Automatyczna zastosuj formatowanie"
 
 msgid "Validation"
 msgstr "Sprawdzanie"
