@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 10),
+Build-Depends: debhelper (>= 9),
 # KDE 5 BEGIN
  extra-cmake-modules,
  kio-dev,
