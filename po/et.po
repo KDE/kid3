@@ -1130,8 +1130,8 @@ msgstr "Originaalesitaja"
 msgid "Original Date"
 msgstr "Originaali aasta"
 
-msgid "Part"
-msgstr "Osa"
+msgid "Disc Subtitle"
+msgstr "Plaadi alapealkiri"
 
 msgid "Performer"
 msgstr "Ettekandja"

@@ -1128,8 +1128,8 @@ msgstr "原艺人"
 msgid "Original Date"
 msgstr "原出版日期"
 
-msgid "Part"
-msgstr "声部"
+msgid "Disc Subtitle"
+msgstr "碟片副标题"
 
 msgid "Performer"
 msgstr "演出者"

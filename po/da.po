@@ -1122,8 +1122,8 @@ msgstr "Original kunstner"
 msgid "Original Date"
 msgstr "Original dato"
 
-msgid "Part"
-msgstr "Part"
+msgid "Disc Subtitle"
+msgstr "Disk-undertitel"
 
 msgid "Performer"
 msgstr "Performer"

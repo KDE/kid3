@@ -1030,7 +1030,7 @@ msgid "Milliseconds as unit"
 msgstr "Millisekunden als Einheit"
 
 msgid "Lyrics"
-msgstr "Text"
+msgstr "Liedtext"
 
 msgid "Text transcription"
 msgstr "Textabschrift"
@@ -1087,7 +1087,7 @@ msgid "Composer"
 msgstr "Komponist"
 
 msgid "Conductor"
-msgstr "Leiter/Dirigent"
+msgstr "Dirigent"
 
 msgid "Copyright"
 msgstr "Copyright"
@@ -1131,8 +1131,8 @@ msgstr "Originalkünstler"
 msgid "Original Date"
 msgstr "Original Erscheinungsdatum"
 
-msgid "Part"
-msgstr "Teil"
+msgid "Disc Subtitle"
+msgstr "CD-Untertitel"
 
 msgid "Performer"
 msgstr "Musiker"
@@ -1168,7 +1168,7 @@ msgid "Subtitle"
 msgstr "Untertitel"
 
 msgid "Website"
-msgstr "Webseite"
+msgstr "Website"
 
 msgid "WWW Audio File"
 msgstr "WWW der Audio-Datei"
@@ -1321,13 +1321,13 @@ msgid "Podcast Feed"
 msgstr "Podcast Feed"
 
 msgid "Official Radio Station"
-msgstr "Offizielle Radio-Webseite"
+msgstr "Offizielle Radio-Website"
 
 msgid "Payment"
 msgstr "Bezahlung"
 
 msgid "Official Publisher"
-msgstr "Webseite des Herausgebers"
+msgstr "Website des Herausgebers"
 
 msgid "User-defined URL"
 msgstr "Benutzerdefinierte URL"
@@ -2419,7 +2419,7 @@ msgid "RVRB - Reverb"
 msgstr "RVRB - Echo"
 
 msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Synchronisierter Text"
+msgstr "SYLT - Synchronisierter Liedtext"
 
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Codes für synchronisiertes Tempo"
@@ -2458,7 +2458,7 @@ msgid "TIME - Time"
 msgstr "TIME - Zeit"
 
 msgid "TIT1 - Content group description"
-msgstr "TIT1 - Beschreibung der Stilkategorie"
+msgstr "TIT1 - Beschreibung des Werks"
 
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Titel/Name/Inhaltsbeschreibung"
@@ -2503,7 +2503,7 @@ msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Band/Orchester/Begleitung"
 
 msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Leiter/Interpret (genauere Angaben)"
+msgstr "TPE3 - Dirigent/Interpret (genauere Angaben)"
 
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Interpretiert, remixed oder auf andere Weise modifiziert durch"
@@ -2557,22 +2557,22 @@ msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Copyright/Gesetzliche Information"
 
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Offizielle Webseite der Audio-Datei"
+msgstr "WOAF - Offizielle Website der Audio-Datei"
 
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Offizielle Webseite des Künstlers/Interpreten"
+msgstr "WOAR - Offizielle Website des Künstlers/Interpreten"
 
 msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Offizielle Webseite der Audio-Quelle"
+msgstr "WOAS - Offizielle Website der Audio-Quelle"
 
 msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Offizielle Webseite der Internetradiostation"
+msgstr "WORS - Offizielle Website der Internetradiostation"
 
 msgid "WPAY - Payment"
 msgstr "WPAY - Bezahlung"
 
 msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Offizielle Webseite des Herausgebers"
+msgstr "WPUB - Offizielle Website des Herausgebers"
 
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Benutzerdefinierte URL"

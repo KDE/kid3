@@ -1132,8 +1132,8 @@ msgstr "原演唱(奏)者"
 msgid "Original Date"
 msgstr "原出版日期"
 
-msgid "Part"
-msgstr "退出"
+msgid "Disc Subtitle"
+msgstr "碟片副标题"
 
 msgid "Performer"
 msgstr "表演者"

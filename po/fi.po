@@ -1130,8 +1130,8 @@ msgstr "Alkuperäinen artisti"
 msgid "Original Date"
 msgstr "Alkuperäinen päiväys"
 
-msgid "Part"
-msgstr "Osa"
+msgid "Disc Subtitle"
+msgstr "Levyn alaotsikko"
 
 msgid "Performer"
 msgstr "Esiintyjä"

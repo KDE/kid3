@@ -134,7 +134,7 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Original Album"),  // FT_OriginalAlbum,
     QT_TRANSLATE_NOOP("@default", "Original Artist"), // FT_OriginalArtist,
     QT_TRANSLATE_NOOP("@default", "Original Date"),   // FT_OriginalDate,
-    QT_TRANSLATE_NOOP("@default", "Part"),            // FT_Part,
+    QT_TRANSLATE_NOOP("@default", "Disc Subtitle"),   // FT_Part,
     QT_TRANSLATE_NOOP("@default", "Performer"),       // FT_Performer,
     QT_TRANSLATE_NOOP("@default", "Picture"),         // FT_Picture,
     QT_TRANSLATE_NOOP("@default", "Publisher"),       // FT_Publisher,

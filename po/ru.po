@@ -1131,8 +1131,8 @@ msgstr "Первый исполнитель"
 msgid "Original Date"
 msgstr "Первый дата"
 
-msgid "Part"
-msgstr "Часть"
+msgid "Disc Subtitle"
+msgstr "Подзаголовок диска"
 
 msgid "Performer"
 msgstr "Исполнитель"

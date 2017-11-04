@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Original Date"
 msgstr ""
 
-msgid "Part"
+msgid "Disc Subtitle"
 msgstr ""
 
 msgid "Performer"

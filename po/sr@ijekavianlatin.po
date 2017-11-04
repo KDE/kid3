@@ -1129,7 +1129,7 @@ msgstr "Izvorni izvođač"
 msgid "Original Date"
 msgstr "Izvorni datum"
 
-msgid "Part"
+msgid "Disc Subtitle"
 msgstr "Dio"
 
 msgid "Performer"

@@ -1130,8 +1130,8 @@ msgstr "Originele Artiest"
 msgid "Original Date"
 msgstr "Originele Datum"
 
-msgid "Part"
-msgstr "Deel"
+msgid "Disc Subtitle"
+msgstr "Schijf bij-titel"
 
 msgid "Performer"
 msgstr "Artiest/uitvoerende"

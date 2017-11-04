@@ -1129,8 +1129,8 @@ msgstr "Asıl Sanatçı"
 msgid "Original Date"
 msgstr "Asıl Tarih"
 
-msgid "Part"
-msgstr "Bölüm"
+msgid "Disc Subtitle"
+msgstr "Disk Altbaşlığı"
 
 msgid "Performer"
 msgstr "Sanatçı"

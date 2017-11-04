@@ -1131,8 +1131,8 @@ msgstr "Artista original"
 msgid "Original Date"
 msgstr "Fecha original"
 
-msgid "Part"
-msgstr "Parte"
+msgid "Disc Subtitle"
+msgstr "Subtítulo de disco"
 
 msgid "Performer"
 msgstr "Intérprete"
