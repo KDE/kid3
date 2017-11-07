@@ -2791,6 +2791,29 @@ QString Kid3Application::performRenameActions()
 }
 
 /**
+ * Reset the file system model and then try to perform the rename actions.
+ * On Windows, renaming directories fails when they have a subdirectory which
+ * is open in the file system model. This method can be used to retry in such
+ * a situation.
+ */
+void Kid3Application::tryRenameActionsAfterReset()
+{
+  connect(this, SIGNAL(directoryOpened()),
+          this, SLOT(performRenameActionsAfterReset()));
+  openDirectoryAfterReset();
+}
+
+/**
+ * Perform rename actions after the file system model has been reset.
+ */
+void Kid3Application::performRenameActionsAfterReset()
+{
+  disconnect(this, SIGNAL(directoryOpened()),
+             this, SLOT(performRenameActionsAfterReset()));
+  performRenameActions();
+}
+
+/**
  * Set the directory name from the tags.
  * The directory must not have modified files.
  * renameActionsScheduled() is emitted when the rename actions have been

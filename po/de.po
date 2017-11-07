@@ -2124,6 +2124,9 @@ msgstr "Importieren"
 msgid "Error while renaming:\n"
 msgstr "Fehler beim Umbenennen:\n"
 
+msgid "Retry after closing directories?"
+msgstr "Erneut versuchen nach Schließen der Verzeichnisse?"
+
 msgid " [filtered %1/%2]"
 msgstr " [Gefiltert %1/%2]"
 

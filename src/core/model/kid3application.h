@@ -479,6 +479,14 @@ public:
   Q_INVOKABLE QString performRenameActions();
 
   /**
+   * Reset the file system model and then try to perform the rename actions.
+   * On Windows, renaming directories fails when they have a subdirectory which
+   * is open in the file system model. This method can be used to retry in such
+   * a situation.
+   */
+  void tryRenameActionsAfterReset();
+
+  /**
    * Set the directory name from the tags.
    * The directory must not have modified files.
    * renameActionsScheduled() is emitted when the rename actions have been
@@ -1322,6 +1330,11 @@ private slots:
    * @param index index of file in file proxy model
    */
   void scheduleNextRenameAction(const QPersistentModelIndex& index);
+
+  /**
+   * Perform rename actions after the file system model has been reset.
+   */
+  void performRenameActionsAfterReset();
 
   /**
    * Update selection and emit signals when directory is opened.

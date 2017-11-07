@@ -821,8 +821,17 @@ void BaseMainWindowImpl::slotRenameDirectory()
     if (m_renDirDialog->exec() == QDialog::Accepted) {
       QString errorMsg(m_app->performRenameActions());
       if (!errorMsg.isEmpty()) {
+#ifdef Q_OS_WIN32
+        if (m_platformTools->warningContinueCancelList(
+              m_w, tr("Error while renaming:\n") +
+              tr("Retry after closing directories?"), QStringList(errorMsg),
+              tr("File Error"))) {
+          m_app->tryRenameActionsAfterReset();
+        }
+#else
         m_platformTools->warningDialog(m_w, tr("Error while renaming:\n"),
                                        errorMsg, tr("File Error"));
+#endif
       }
     }
   }
