@@ -66,6 +66,7 @@
 #include "textimporter.h"
 #include "textexporter.h"
 #include "dirrenamer.h"
+#include "saferename.h"
 #include "configstore.h"
 #include "formatconfig.h"
 #include "tagconfig.h"
@@ -2811,6 +2812,38 @@ void Kid3Application::performRenameActionsAfterReset()
   disconnect(this, SIGNAL(directoryOpened()),
              this, SLOT(performRenameActionsAfterReset()));
   performRenameActions();
+}
+
+/**
+ * Reset the file system model and then try to rename a file.
+ * On Windows, renaming directories fails when they have a subdirectory which
+ * is open in the file system model. This method can be used to retry in such
+ * a situation.
+ *
+ * @param oldName old file name
+ * @param newName new file name
+ */
+void Kid3Application::tryRenameAfterReset(const QString& oldName,
+                                          const QString& newName)
+{
+  m_renameAfterResetOldName = oldName;
+  m_renameAfterResetNewName = newName;
+  connect(this, SIGNAL(directoryOpened()), this, SLOT(renameAfterReset()));
+  openDirectoryAfterReset();
+}
+
+/**
+ * Rename after the file system model has been reset.
+ */
+void Kid3Application::renameAfterReset()
+{
+  disconnect(this, SIGNAL(directoryOpened()), this, SLOT(renameAfterReset()));
+  if (!m_renameAfterResetOldName.isEmpty() &&
+      !m_renameAfterResetNewName.isEmpty()) {
+    Utils::safeRename(m_renameAfterResetOldName, m_renameAfterResetNewName);
+    m_renameAfterResetOldName.clear();
+    m_renameAfterResetNewName.clear();
+  }
 }
 
 /**

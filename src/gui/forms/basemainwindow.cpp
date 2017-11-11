@@ -1239,11 +1239,22 @@ void BaseMainWindowImpl::renameFile()
       }
       QString newPath = dirName + QLatin1Char('/') + newFileName;
       if (!Utils::safeRename(absFilename, newPath)) {
+#ifdef Q_OS_WIN32
+        if (QMessageBox::warning(
+              0, tr("File Error"),
+              tr("Error while renaming:\n") +
+              tr("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName) +
+              tr("Retry after closing directories?"),
+              QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok) {
+          m_app->tryRenameAfterReset(absFilename, newPath);
+        }
+#else
         QMessageBox::warning(
           0, tr("File Error"),
           tr("Error while renaming:\n") +
           tr("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
           QMessageBox::Ok, Qt::NoButton);
+#endif
       }
     }
   }

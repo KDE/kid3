@@ -487,6 +487,17 @@ public:
   void tryRenameActionsAfterReset();
 
   /**
+   * Reset the file system model and then try to rename a file.
+   * On Windows, renaming directories fails when they have a subdirectory which
+   * is open in the file system model. This method can be used to retry in such
+   * a situation.
+   *
+   * @param oldName old file name
+   * @param newName new file name
+   */
+  void tryRenameAfterReset(const QString& oldName, const QString& newName);
+
+  /**
    * Set the directory name from the tags.
    * The directory must not have modified files.
    * renameActionsScheduled() is emitted when the rename actions have been
@@ -1337,6 +1348,11 @@ private slots:
   void performRenameActionsAfterReset();
 
   /**
+   * Rename after the file system model has been reset.
+   */
+  void renameAfterReset();
+
+  /**
    * Update selection and emit signals when directory is opened.
    */
   void onDirectoryOpened();
@@ -1501,6 +1517,10 @@ private:
   Frame::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;
   ImportTrackDataVector m_batchImportTrackDataList;
+
+  /* Context for renameAfterReset() */
+  QString m_renameAfterResetOldName;
+  QString m_renameAfterResetNewName;
 
   /* Context for editFrame() */
   TaggedFile* m_editFrameTaggedFile;
