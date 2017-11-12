@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -2121,6 +2121,9 @@ msgstr "Import"
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [filtreeritud %1/%2]"
 
@@ -2235,11 +2238,11 @@ msgstr "&Kustuta rida"
 msgid "&Clear row"
 msgstr "&Puhasta rida"
 
+msgid "Maximum length:"
+msgstr "Suurim pikkus:"
+
 msgid "Automatically apply format"
 msgstr "Rakenda vorming automaatselt"
-
-msgid "Validation"
-msgstr "Kontrollimine"
 
 msgid "String replacement:"
 msgstr "Stringiasendus:"
@@ -2300,6 +2303,9 @@ msgstr "Tipptase"
 
 msgid "Ordered"
 msgstr "Järjekorras"
+
+msgid "Validation"
+msgstr "Kontrollimine"
 
 msgid "&Delete"
 msgstr "&Kustuta"
@@ -2698,9 +2704,6 @@ msgstr "Avaldis:"
 msgid "Apply"
 msgstr "Rakenda"
 
-msgid "The current directory has been modified.\n"
-msgstr "Kataloogi sisu on muudetud."
-
 msgid "About"
 msgstr "Teave"
 
@@ -2794,6 +2797,12 @@ msgstr "Failide ajatemplid säilitatakse"
 msgid "Mark changes"
 msgstr "Muudetud väljad tõstetakse esile"
 
+msgid "Use maximum length"
+msgstr "Kasutage suurimat pikkust"
+
+msgid "Maximum length"
+msgstr "Suurim pikkus"
+
 msgid "Filename for cover"
 msgstr "Kaanepildi failinimi"
 
@@ -2817,3 +2826,4 @@ msgstr "Vali kõik"
 
 msgid "Cut"
 msgstr "Lõika"
+

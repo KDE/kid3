@@ -42,7 +42,8 @@
 #include <QStringListModel>
 #include <QStandardItemModel>
 #include "formatconfig.h"
-#include "formatbox.h"
+#include "filenameformatbox.h"
+#include "tagformatbox.h"
 #include "tagconfig.h"
 #include "fileconfig.h"
 #include "useractionsconfig.h"
@@ -308,7 +309,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   QWidget* tag1AndTag2Page = new QWidget;
   QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
   QString tagFormatTitle(tr("&Tag Format"));
-  m_tagFormatBox = new FormatBox(tagFormatTitle, tag1AndTag2Page);
+  m_tagFormatBox = new TagFormatBox(tagFormatTitle, tag1AndTag2Page);
   tag1AndTag2Layout->addWidget(m_tagFormatBox);
 
   QTabWidget* tagsTabWidget = new QTabWidget;
@@ -406,8 +407,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   vlayout->addLayout(hlayout);
 
   QString fnFormatTitle(tr("&Filename Format"));
-  m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
-  m_fnFormatBox->hideValidationCheckBox();
+  m_fnFormatBox = new FilenameFormatBox(fnFormatTitle, filesPage);
   vlayout->addWidget(m_fnFormatBox);
   return filesPage;
 }

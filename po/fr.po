@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -2240,11 +2240,11 @@ msgstr "&Supprimer ligne"
 msgid "&Clear row"
 msgstr "&Effacer ligne"
 
+msgid "Maximum length:"
+msgstr "Longueur maximale:"
+
 msgid "Automatically apply format"
 msgstr "Appliquer le format automatiquement"
-
-msgid "Validation"
-msgstr "Validation"
 
 msgid "String replacement:"
 msgstr "Remplacement de chaînes:"
@@ -2305,6 +2305,9 @@ msgstr "Racine"
 
 msgid "Ordered"
 msgstr "Ordonné"
+
+msgid "Validation"
+msgstr "Validation"
 
 msgid "&Delete"
 msgstr "&Supprimer"
@@ -2702,9 +2705,6 @@ msgstr "Expression:"
 msgid "Apply"
 msgstr "Appliquer"
 
-msgid "The current directory has been modified.\n"
-msgstr "Le répertoire courant a été modifié."
-
 msgid "About"
 msgstr "À propos"
 
@@ -2798,6 +2798,12 @@ msgstr "Préserver l'horodatage des fichiers"
 msgid "Mark changes"
 msgstr "Marquer les changements"
 
+msgid "Use maximum length"
+msgstr "Utiliser longueur maximale"
+
+msgid "Maximum length"
+msgstr "Longueur maximale"
+
 msgid "Filename for cover"
 msgstr "Nom de fichier pour la jaquette"
 
@@ -2821,3 +2827,4 @@ msgstr "Sélectionner tout"
 
 msgid "Cut"
 msgstr "Couper"
+

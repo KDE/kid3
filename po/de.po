@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -2241,11 +2241,11 @@ msgstr "Zeile ent&fernen"
 msgid "&Clear row"
 msgstr "Zeile lös&chen"
 
+msgid "Maximum length:"
+msgstr "Maximale Länge:"
+
 msgid "Automatically apply format"
 msgstr "Format automatisch anwenden"
-
-msgid "Validation"
-msgstr "Überprüfung"
 
 msgid "String replacement:"
 msgstr "Zeichen ersetzen:"
@@ -2306,6 +2306,9 @@ msgstr "Oberste Ebene"
 
 msgid "Ordered"
 msgstr "Geordnet"
+
+msgid "Validation"
+msgstr "Überprüfung"
 
 msgid "&Delete"
 msgstr "&Löschen"
@@ -2704,9 +2707,6 @@ msgstr "Ausdruck:"
 msgid "Apply"
 msgstr "Anwenden"
 
-msgid "The current directory has been modified.\n"
-msgstr "Das aktuelle Verzeichnis wurde verändert."
-
 msgid "About"
 msgstr "Über"
 
@@ -2800,6 +2800,12 @@ msgstr "Datei-Zeitstempel nicht verändern"
 msgid "Mark changes"
 msgstr "Änderungen markieren"
 
+msgid "Use maximum length"
+msgstr "Benutze maximale Länge"
+
+msgid "Maximum length"
+msgstr "Maximale Länge"
+
 msgid "Filename for cover"
 msgstr "Dateiname für Cover"
 
@@ -2823,3 +2829,4 @@ msgstr "Alles auswählen"
 
 msgid "Cut"
 msgstr "Ausschneiden"
+

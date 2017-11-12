@@ -1,12 +1,12 @@
 /**
- * \file formatbox.h
- * Group box containing format options.
+ * \file filenameformatbox.h
+ * Group box containing filename format options.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 17 Sep 2003
+ * \date 12 Nov 2017
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,22 +24,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATBOX_H
-#define FORMATBOX_H
+#ifndef FILENAMEFORMATBOX_H
+#define FILENAMEFORMATBOX_H
 
-#include <QGroupBox>
+#include "formatbox.h"
 
-class QComboBox;
-class QCheckBox;
-class QString;
-class FormatConfig;
-class ConfigTable;
-class ConfigTableModel;
+class QSpinBox;
 
 /**
- * Group box containing format options.
+ * Group box containing filename format options.
  */
-class FormatBox : public QGroupBox {
+class FilenameFormatBox : public FormatBox {
   Q_OBJECT
 public:
   /**
@@ -48,12 +43,12 @@ public:
    * @param title  title
    * @param parent parent widget
    */
-  explicit FormatBox(const QString& title, QWidget* parent = 0);
+  explicit FilenameFormatBox(const QString& title, QWidget* parent = 0);
 
   /**
    * Destructor.
    */
-  virtual ~FormatBox();
+  virtual ~FilenameFormatBox();
 
   /**
    * Set the values from a format configuration.
@@ -70,14 +65,8 @@ public:
   virtual void toFormatConfig(FormatConfig& cfg) const;
 
 private:
-  QComboBox* m_caseConvComboBox;
-#if QT_VERSION >= 0x040800
-  QComboBox* m_localeComboBox;
-#endif
-  QCheckBox* m_strRepCheckBox;
-  ConfigTable* m_strReplTable;
-  ConfigTableModel* m_strReplTableModel;
-  QCheckBox* m_formatEditingCheckBox;
+  QCheckBox* m_maximumLengthCheckBox;
+  QSpinBox* m_maximumLengthSpinBox;
 };
 
-#endif
+#endif // FILENAMEFORMATBOX_H

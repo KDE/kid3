@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -2239,11 +2239,11 @@ msgstr "&Elimina riga"
 msgid "&Clear row"
 msgstr "&Azzera riga"
 
+msgid "Maximum length:"
+msgstr "Lunghezza massima:"
+
 msgid "Automatically apply format"
 msgstr "Applica formato automaticamente"
-
-msgid "Validation"
-msgstr "Convalida"
 
 msgid "String replacement:"
 msgstr "Sostituzione stringa:"
@@ -2304,6 +2304,9 @@ msgstr "Alto livello"
 
 msgid "Ordered"
 msgstr "Ordinato"
+
+msgid "Validation"
+msgstr "Convalida"
 
 msgid "&Delete"
 msgstr "&Elimina"
@@ -2701,9 +2704,6 @@ msgstr "Espressione:"
 msgid "Apply"
 msgstr "Applica"
 
-msgid "The current directory has been modified.\n"
-msgstr "La cartella in uso è stata modificata."
-
 msgid "About"
 msgstr "Informazioni su"
 
@@ -2797,6 +2797,12 @@ msgstr "Mantieni file data/ora"
 msgid "Mark changes"
 msgstr "Evidenzia le modifiche"
 
+msgid "Use maximum length"
+msgstr "Utilizza lunghezza massima"
+
+msgid "Maximum length"
+msgstr "Lunghezza massima"
+
 msgid "Filename for cover"
 msgstr "Nome file per copertina"
 
@@ -2820,3 +2826,4 @@ msgstr "Seleziona tutto"
 
 msgid "Cut"
 msgstr "Taglia"
+

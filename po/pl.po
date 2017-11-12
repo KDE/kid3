@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.1\n"
 "X-Language: pl\n"
 "X-Source-Language: en\n"
@@ -2124,6 +2125,9 @@ msgstr "Importuj"
 msgid "Error while renaming:\n"
 msgstr "Błąd podczas zmieniania nazwy:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [filtrowane %1/%2]"
 
@@ -2239,11 +2243,11 @@ msgstr "&Usuń wiersz"
 msgid "&Clear row"
 msgstr "W&yczyść wiersz"
 
+msgid "Maximum length:"
+msgstr "Maksymalna długość:"
+
 msgid "Automatically apply format"
 msgstr "Automatyczna zastosuj formatowanie"
-
-msgid "Validation"
-msgstr "Sprawdzanie"
 
 msgid "String replacement:"
 msgstr "Zastępczy ciąg znaków:"
@@ -2304,6 +2308,9 @@ msgstr "Najwyższy poziom"
 
 msgid "Ordered"
 msgstr "Uporządkowane"
+
+msgid "Validation"
+msgstr "Sprawdzanie"
 
 msgid "&Delete"
 msgstr "&Usuń"
@@ -2703,9 +2710,6 @@ msgstr "Wyrażenie:"
 msgid "Apply"
 msgstr "Zastosuj"
 
-msgid "The current directory has been modified.\n"
-msgstr "Bieżący katalog został zmodyfikowany."
-
 msgid "About"
 msgstr "O programie"
 
@@ -2799,6 +2803,12 @@ msgstr "Zachowaj znacznik czasu pliku"
 msgid "Mark changes"
 msgstr "Oznacz zmiany"
 
+msgid "Use maximum length"
+msgstr "Użyj maksymalnej długości"
+
+msgid "Maximum length"
+msgstr "Maksymalna długość"
+
 msgid "Filename for cover"
 msgstr "Nazwa pliku obrazu"
 
@@ -2822,3 +2832,4 @@ msgstr "Zaznacz wszystko"
 
 msgid "Cut"
 msgstr "Wytnij"
+

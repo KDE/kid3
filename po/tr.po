@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -2122,6 +2122,9 @@ msgstr "Al"
 msgid "Error while renaming:\n"
 msgstr "İsim değiştirirken hata:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [süzgeci %1/%2]"
 
@@ -2236,11 +2239,11 @@ msgstr "Satır &Sil"
 msgid "&Clear row"
 msgstr "Satırı &Temizle"
 
+msgid "Maximum length:"
+msgstr "En büyük uzunluk:"
+
 msgid "Automatically apply format"
 msgstr "Otomatik biçimini uygula"
-
-msgid "Validation"
-msgstr "Doğrulama"
 
 msgid "String replacement:"
 msgstr ""
@@ -2301,6 +2304,9 @@ msgstr "Üst Seviye"
 
 msgid "Ordered"
 msgstr "Sıralı"
+
+msgid "Validation"
+msgstr "Doğrulama"
 
 msgid "&Delete"
 msgstr "&Sil"
@@ -2699,9 +2705,6 @@ msgstr "İfade:"
 msgid "Apply"
 msgstr "Uygula"
 
-msgid "The current directory has been modified.\n"
-msgstr "İçinde bulunduğunuz dizin değiştirildi."
-
 msgid "About"
 msgstr "Hakkında"
 
@@ -2795,6 +2798,12 @@ msgstr "Dosya timestamp değerini sakla"
 msgid "Mark changes"
 msgstr ""
 
+msgid "Use maximum length"
+msgstr "En büyük uzunluk kullanın"
+
+msgid "Maximum length"
+msgstr "En büyük uzunluk"
+
 msgid "Filename for cover"
 msgstr "Albüm kapağı için dosya adı"
 
@@ -2818,3 +2827,4 @@ msgstr "Tümünü Seç"
 
 msgid "Cut"
 msgstr "Kes"
+

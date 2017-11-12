@@ -166,6 +166,12 @@ AbstractSettingsPage {
           name: qsTr("Automatically apply format")
         },
         SettingsElement {
+          name: qsTr("Use maximum length")
+        },
+        SettingsElement {
+          name: qsTr("Maximum length")
+        },
+        SettingsElement {
           name: qsTr("Case conversion")
           dropDownModel: configs.filenameFormatConfig().getCaseConversionNames()
         },
@@ -202,29 +208,33 @@ AbstractSettingsPage {
           model[1].value = fileCfg.preserveTime
           model[2].value = fileCfg.markChanges
           model[3].value = fmtCfg.formatWhileEditing
-          model[4].value = fmtCfg.caseConversion
-          model[5].value =
-              model[5].dropDownModel.indexOf(fmtCfg.localeName) === -1
-              ? model[5].dropDownModel[0] : fmtCfg.localeName
-          model[6].value = fmtCfg.strRepEnabled
-          model[7].value = fileCfg.defaultCoverFileName
-          model[8].value = fileCfg.textEncodingIndex
-          model[9].value = fileCfg.toFilenameFormat
-          model[10].value = fileCfg.fromFilenameFormat
+          model[4].value = fmtCfg.enableMaximumLength
+          model[5].value = fmtCfg.maximumLength
+          model[6].value = fmtCfg.caseConversion
+          model[7].value =
+              model[7].dropDownModel.indexOf(fmtCfg.localeName) === -1
+              ? model[7].dropDownModel[0] : fmtCfg.localeName
+          model[8].value = fmtCfg.strRepEnabled
+          model[9].value = fileCfg.defaultCoverFileName
+          model[10].value = fileCfg.textEncodingIndex
+          model[11].value = fileCfg.toFilenameFormat
+          model[12].value = fileCfg.fromFilenameFormat
         } else {
           fileCfg.loadLastOpenedFile = model[0].value
           fileCfg.preserveTime = model[1].value
           fileCfg.markChanges = model[2].value
           fmtCfg.formatWhileEditing = model[3].value
-          fmtCfg.caseConversion = model[4].value
+          fmtCfg.enableMaximumLength = model[4].value
+          fmtCfg.maximumLength = model[5].value
+          fmtCfg.caseConversion = model[6].value
           fmtCfg.localeName =
-              model[5].dropDownModel.indexOf(model[5].value) > 0
-              ? model[5].value : ""
-          fmtCfg.strRepEnabled = model[6].value
-          fileCfg.defaultCoverFileName = model[7].value
-          fileCfg.textEncodingIndex = model[8].value
-          fileCfg.toFilenameFormat = model[9].value
-          fileCfg.fromFilenameFormat = model[10].value
+              model[7].dropDownModel.indexOf(model[7].value) > 0
+              ? model[7].value : ""
+          fmtCfg.strRepEnabled = model[8].value
+          fileCfg.defaultCoverFileName = model[9].value
+          fileCfg.textEncodingIndex = model[10].value
+          fileCfg.toFilenameFormat = model[11].value
+          fileCfg.fromFilenameFormat = model[12].value
         }
       }
     }

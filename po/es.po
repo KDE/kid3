@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -2240,11 +2240,11 @@ msgstr "&Eliminar fila"
 msgid "&Clear row"
 msgstr "&Limpiar fila"
 
+msgid "Maximum length:"
+msgstr "Largo máximo:"
+
 msgid "Automatically apply format"
 msgstr "Aplicar formato automáticamente"
-
-msgid "Validation"
-msgstr "Validación"
 
 msgid "String replacement:"
 msgstr "Reemplazar cadenas:"
@@ -2305,6 +2305,9 @@ msgstr "Nivel superior"
 
 msgid "Ordered"
 msgstr "Ordenado"
+
+msgid "Validation"
+msgstr "Validación"
 
 msgid "&Delete"
 msgstr "&Eliminar"
@@ -2702,9 +2705,6 @@ msgstr "Expresión:"
 msgid "Apply"
 msgstr "Aplicar"
 
-msgid "The current directory has been modified.\n"
-msgstr "El directorio actual ha sido modificado."
-
 msgid "About"
 msgstr "Acerca de"
 
@@ -2798,6 +2798,12 @@ msgstr "Copiar las marcas de tiempo de modificación"
 msgid "Mark changes"
 msgstr "Marcar cambios"
 
+msgid "Use maximum length"
+msgstr "Usar largo máximo"
+
+msgid "Maximum length"
+msgstr "Largo máximo"
+
 msgid "Filename for cover"
 msgstr "Nombre de archivo de la imagen"
 
@@ -2821,3 +2827,4 @@ msgstr "Seleccionar todo"
 
 msgid "Cut"
 msgstr "Cortar"
+

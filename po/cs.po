@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2123,6 +2123,9 @@ msgstr "Zavést"
 msgid "Error while renaming:\n"
 msgstr "Během přejmenovávání se vyskytla chyba:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [filtrován %1/%2]"
 
@@ -2237,11 +2240,11 @@ msgstr "&Smazat řádek"
 msgid "&Clear row"
 msgstr "Vy&prázdnit řádek"
 
+msgid "Maximum length:"
+msgstr "Maximální délka:"
+
 msgid "Automatically apply format"
 msgstr "Použít formát automaticky"
-
-msgid "Validation"
-msgstr "Schválení"
 
 msgid "String replacement:"
 msgstr "Nahrazení řetězce:"
@@ -2302,6 +2305,9 @@ msgstr "Horní úroveň"
 
 msgid "Ordered"
 msgstr "Objednáno"
+
+msgid "Validation"
+msgstr "Schválení"
 
 msgid "&Delete"
 msgstr "&Smazat"
@@ -2700,9 +2706,6 @@ msgstr "Výraz:"
 msgid "Apply"
 msgstr "Použít"
 
-msgid "The current directory has been modified.\n"
-msgstr "Nynější adresář byl změněn."
-
 msgid "About"
 msgstr "O programu"
 
@@ -2796,6 +2799,12 @@ msgstr "Neměnit časové razítko souboru"
 msgid "Mark changes"
 msgstr "Označit změny"
 
+msgid "Use maximum length"
+msgstr "Použijte maximální délku"
+
+msgid "Maximum length"
+msgstr "Maximální délka"
+
 msgid "Filename for cover"
 msgstr "Název souboru pro obal"
 
@@ -2819,3 +2828,4 @@ msgstr "Vybrat vše"
 
 msgid "Cut"
 msgstr "Vyjmout"
+

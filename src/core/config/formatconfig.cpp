@@ -39,6 +39,8 @@ FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
   m_caseConversion(AllFirstLettersUppercase),
   m_locale(0),
+  m_maximumLength(255),
+  m_enableMaximumLength(false),
   m_filenameFormatter(false),
   m_formatWhileEditing(false),
   m_strRepEnabled(false),
@@ -292,6 +294,8 @@ void FormatConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("LocaleName"), QVariant(m_localeName));
   config->setValue(QLatin1String("StrRepEnabled"), QVariant(m_strRepEnabled));
   config->setValue(QLatin1String("EnableValidation"), QVariant(m_enableValidation));
+  config->setValue(QLatin1String("EnableMaximumLength"), QVariant(m_enableMaximumLength));
+  config->setValue(QLatin1String("MaximumLength"), QVariant(m_maximumLength));
   config->setValue(QLatin1String("StrRepMapKeys"), QVariant(m_strRepMap.keys()));
   config->setValue(QLatin1String("StrRepMapValues"), QVariant(m_strRepMap.values()));
   config->endGroup();
@@ -311,6 +315,8 @@ void FormatConfig::readFromConfig(ISettings* config)
   m_localeName = config->value(QLatin1String("LocaleName"), m_localeName).toString();
   m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"), m_strRepEnabled).toBool();
   m_enableValidation = config->value(QLatin1String("EnableValidation"), m_enableValidation).toBool();
+  m_enableMaximumLength = config->value(QLatin1String("EnableMaximumLength"), m_enableMaximumLength).toBool();
+  m_maximumLength = config->value(QLatin1String("MaximumLength"), m_maximumLength).toInt();
   QStringList keys = config->value(QLatin1String("StrRepMapKeys"),
                                    QStringList()).toStringList();
   QStringList values = config->value(QLatin1String("StrRepMapValues"),
@@ -346,6 +352,22 @@ void FormatConfig::setEnableValidation(bool enableValidation)
   if (m_enableValidation != enableValidation) {
     m_enableValidation = enableValidation;
     emit enableValidationChanged(m_enableValidation);
+  }
+}
+
+void FormatConfig::setEnableMaximumLength(bool enableMaximumLength)
+{
+  if (m_enableMaximumLength != enableMaximumLength) {
+    m_enableMaximumLength = enableMaximumLength;
+    emit enableMaximumLengthChanged(m_enableMaximumLength);
+  }
+}
+
+void FormatConfig::setMaximumLength(int maximumLength)
+{
+  if (m_maximumLength != maximumLength) {
+    m_maximumLength = maximumLength;
+    emit maximumLengthChanged(m_maximumLength);
   }
 }
 

@@ -1,12 +1,12 @@
 /**
- * \file formatbox.h
- * Group box containing format options.
+ * \file tagformatbox.h
+ * Group box containing tag format options.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 17 Sep 2003
+ * \date 12 Nov 2017
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,22 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATBOX_H
-#define FORMATBOX_H
+#ifndef TAGFORMATBOX_H
+#define TAGFORMATBOX_H
 
-#include <QGroupBox>
-
-class QComboBox;
-class QCheckBox;
-class QString;
-class FormatConfig;
-class ConfigTable;
-class ConfigTableModel;
+#include "formatbox.h"
 
 /**
- * Group box containing format options.
+ * Group box containing tag format options.
  */
-class FormatBox : public QGroupBox {
+class TagFormatBox : public FormatBox {
   Q_OBJECT
 public:
   /**
@@ -48,12 +41,12 @@ public:
    * @param title  title
    * @param parent parent widget
    */
-  explicit FormatBox(const QString& title, QWidget* parent = 0);
+  explicit TagFormatBox(const QString& title, QWidget* parent = 0);
 
   /**
    * Destructor.
    */
-  virtual ~FormatBox();
+  virtual ~TagFormatBox();
 
   /**
    * Set the values from a format configuration.
@@ -70,14 +63,7 @@ public:
   virtual void toFormatConfig(FormatConfig& cfg) const;
 
 private:
-  QComboBox* m_caseConvComboBox;
-#if QT_VERSION >= 0x040800
-  QComboBox* m_localeComboBox;
-#endif
-  QCheckBox* m_strRepCheckBox;
-  ConfigTable* m_strReplTable;
-  ConfigTableModel* m_strReplTableModel;
-  QCheckBox* m_formatEditingCheckBox;
+  QCheckBox* m_validationCheckBox;
 };
 
-#endif
+#endif // TAGFORMATBOX_H

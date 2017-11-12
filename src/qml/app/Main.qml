@@ -81,8 +81,7 @@ MainView {
 
     id: saveModifiedDialog
     title: qsTr("Warning")
-    text: qsTr("The current directory has been modified.\n" +
-               "Do you want to save it?")
+    text: qsTr("The current directory has been modified.\nDo you want to save it?")
     onYes: {
       app.saveDirectory()
       completed(true)

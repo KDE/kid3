@@ -49,6 +49,10 @@ class KID3_CORE_EXPORT FormatConfig : public GeneralConfig
   Q_PROPERTY(int caseConversion READ caseConversion WRITE setCaseConversionInt NOTIFY caseConversionChanged)
   /** name of locale to use for string conversions */
   Q_PROPERTY(QString localeName READ localeName WRITE setLocaleName NOTIFY localeNameChanged)
+  /** maximum length */
+  Q_PROPERTY(int maximumLength READ maximumLength WRITE setMaximumLength NOTIFY maximumLengthChanged)
+  /** true to enable length restriction */
+  Q_PROPERTY(bool enableMaximumLength READ enableMaximumLength WRITE setEnableMaximumLength NOTIFY enableMaximumLengthChanged)
   /** true to enable formating in line edits */
   Q_PROPERTY(bool formatWhileEditing READ formatWhileEditing WRITE setFormatWhileEditing NOTIFY formatWhileEditingChanged)
   /** true if string replacement enabled */
@@ -169,6 +173,18 @@ public:
   /** Set if data validation is enabled. */
   void setEnableValidation(bool enableValidation);
 
+  /** Check if length restriction is enabled. */
+  bool enableMaximumLength() const { return m_enableMaximumLength; }
+
+  /** Set if length restriction is enabled. */
+  void setEnableMaximumLength(bool enableMaximumLength);
+
+  /** Get maximum length. */
+  int maximumLength() const { return m_maximumLength; }
+
+  /** Set maximum length. */
+  void setMaximumLength(int maximumLength);
+
   /**
    * String list of case conversion names.
    */
@@ -198,6 +214,12 @@ signals:
   /** Emitted when @a enableValidation changed. */
   void enableValidationChanged(bool enableValidation);
 
+  /** Emitted when @a enableMaximumLength changed. */
+  void enableMaximumLengthChanged(bool enableMaximumLength);
+
+  /** Emitted when @a maximumLength changed. */
+  void maximumLengthChanged(int maximumLength);
+
 private:
   /** Returns a lowercase copy of @a str. */
   QString toLower(const QString& str) const;
@@ -214,6 +236,8 @@ private:
   QString m_localeName;
   /** Locale to use for string conversions */
   const QLocale* m_locale;
+  int m_maximumLength;
+  bool m_enableMaximumLength;
   /** true if it is a file formatter */
   bool m_filenameFormatter;
   bool m_formatWhileEditing;

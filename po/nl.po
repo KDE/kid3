@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -2123,6 +2123,9 @@ msgstr "Importeren"
 msgid "Error while renaming:\n"
 msgstr "Fout tijdens hernoemen:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [gefiltert %1/%2]"
 
@@ -2239,11 +2242,11 @@ msgstr "Rij &Verwijderen"
 msgid "&Clear row"
 msgstr "Rij &Wissen"
 
+msgid "Maximum length:"
+msgstr "Maximale lengte:"
+
 msgid "Automatically apply format"
 msgstr "Structuur automatisch toepassen"
-
-msgid "Validation"
-msgstr "Validatie"
 
 msgid "String replacement:"
 msgstr "Tekenreeks vervangen:"
@@ -2304,6 +2307,9 @@ msgstr "Bovenste niveau"
 
 msgid "Ordered"
 msgstr "Geordend"
+
+msgid "Validation"
+msgstr "Validatie"
 
 msgid "&Delete"
 msgstr "&Frame verwijderen"
@@ -2701,9 +2707,6 @@ msgstr "Uitdrukking:"
 msgid "Apply"
 msgstr "Toepassen"
 
-msgid "The current directory has been modified.\n"
-msgstr "De huidige map is gewijzigd.\n"
-
 msgid "About"
 msgstr "Over"
 
@@ -2797,6 +2800,12 @@ msgstr "Tijdstempel van bestanden behouden"
 msgid "Mark changes"
 msgstr "Markeer wijzigingen"
 
+msgid "Use maximum length"
+msgstr "Gebruik maximale lengte"
+
+msgid "Maximum length"
+msgstr "Maximale lengte"
+
 msgid "Filename for cover"
 msgstr "Bestandsnaam voor de hoesafbeelding"
 
@@ -2820,3 +2829,4 @@ msgstr "Alles selecteren"
 
 msgid "Cut"
 msgstr "Knippen"
+

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -2124,6 +2125,9 @@ msgstr "Импорт"
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [фильтровано %1/%2]"
 
@@ -2238,11 +2242,11 @@ msgstr "&Удалить строку"
 msgid "&Clear row"
 msgstr "&Очистить строку"
 
+msgid "Maximum length:"
+msgstr "Максимальная длина:"
+
 msgid "Automatically apply format"
 msgstr "Автоматически применить Формат"
-
-msgid "Validation"
-msgstr "Проверка"
 
 msgid "String replacement:"
 msgstr "Замена строк:"
@@ -2303,6 +2307,9 @@ msgstr "Верхний уровень"
 
 msgid "Ordered"
 msgstr "Упорядоченные"
+
+msgid "Validation"
+msgstr "Проверка"
 
 msgid "&Delete"
 msgstr "&Удалить"
@@ -2700,9 +2707,6 @@ msgstr "Выражение:"
 msgid "Apply"
 msgstr "Применить"
 
-msgid "The current directory has been modified.\n"
-msgstr "Текущий каталог был изменен."
-
 msgid "About"
 msgstr "О программе"
 
@@ -2796,6 +2800,12 @@ msgstr "Сохранять время изменения файлов"
 msgid "Mark changes"
 msgstr "Отмечать изменения"
 
+msgid "Use maximum length"
+msgstr "Используйте максимальную длину"
+
+msgid "Maximum length"
+msgstr "Максимальная длина"
+
 msgid "Filename for cover"
 msgstr "Имя файла для изображения"
 
@@ -2819,3 +2829,4 @@ msgstr "Выделить все"
 
 msgid "Cut"
 msgstr "Вырезать"
+

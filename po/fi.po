@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -2123,6 +2123,9 @@ msgstr "Tuo"
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr " [suodatettu %1/%2]"
 
@@ -2237,11 +2240,11 @@ msgstr "&Poista rivi"
 msgid "&Clear row"
 msgstr "&Tyhjennä rivi"
 
+msgid "Maximum length:"
+msgstr "Suurin pituus:"
+
 msgid "Automatically apply format"
 msgstr "Ota muutokset käyttöön automaattisesti"
-
-msgid "Validation"
-msgstr "Tarkistus"
 
 msgid "String replacement:"
 msgstr "Merkkijonojen korvaus:"
@@ -2302,6 +2305,9 @@ msgstr "Ylätaso"
 
 msgid "Ordered"
 msgstr "Pakota kirjoitus"
+
+msgid "Validation"
+msgstr "Tarkistus"
 
 msgid "&Delete"
 msgstr "&Poista"
@@ -2700,9 +2706,6 @@ msgstr "Lauseke:"
 msgid "Apply"
 msgstr "Käytä"
 
-msgid "The current directory has been modified.\n"
-msgstr "Nykyistä kansiota on muokattu."
-
 msgid "About"
 msgstr "Tietoja"
 
@@ -2796,6 +2799,12 @@ msgstr "Säilytä tiedoston päiväys"
 msgid "Mark changes"
 msgstr "Merkitse muutokset"
 
+msgid "Use maximum length"
+msgstr "Käytä suurinta pituutta"
+
+msgid "Maximum length"
+msgstr "Suurin pituus"
+
 msgid "Filename for cover"
 msgstr "Kansikuvan tiedostonimi"
 
@@ -2819,3 +2828,4 @@ msgstr "Valitse kaikki"
 
 msgid "Cut"
 msgstr "Leikkaa"
+

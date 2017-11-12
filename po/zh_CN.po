@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-06-07 21:41+0200\n"
+"POT-Creation-Date: 2017-11-12 11:15+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -2120,6 +2120,9 @@ msgstr "导入"
 msgid "Error while renaming:\n"
 msgstr "文件重命名发生错误：\n"
 
+msgid "Retry after closing directories?"
+msgstr ""
+
 msgid " [filtered %1/%2]"
 msgstr "[已过滤 %1/%2]"
 
@@ -2234,11 +2237,11 @@ msgstr "删除列(&D)"
 msgid "&Clear row"
 msgstr "清除列(&C)"
 
+msgid "Maximum length:"
+msgstr "最大长度:"
+
 msgid "Automatically apply format"
 msgstr "应用格式自动"
-
-msgid "Validation"
-msgstr "验证"
 
 msgid "String replacement:"
 msgstr "字词替换："
@@ -2299,6 +2302,9 @@ msgstr "頂層"
 
 msgid "Ordered"
 msgstr "有序"
+
+msgid "Validation"
+msgstr "验证"
 
 msgid "&Delete"
 msgstr "删除(&D)"
@@ -2696,9 +2702,6 @@ msgstr "表达式："
 msgid "Apply"
 msgstr "应用"
 
-msgid "The current directory has been modified.\n"
-msgstr "当前目录已被修改。"
-
 msgid "About"
 msgstr "关于"
 
@@ -2792,6 +2795,12 @@ msgstr "保存文件时间戳"
 msgid "Mark changes"
 msgstr "标记变更"
 
+msgid "Use maximum length"
+msgstr "使用最大长度"
+
+msgid "Maximum length"
+msgstr "最大长度"
+
 msgid "Filename for cover"
 msgstr "专辑封面的文件名"
 
@@ -2815,3 +2824,4 @@ msgstr "全部选中"
 
 msgid "Cut"
 msgstr "剪切"
+
