@@ -222,6 +222,15 @@ void FormatConfig::formatString(QString& str) const
       str.replace(it.key(), *it);
     }
   }
+  if (m_filenameFormatter && m_enableMaximumLength) {
+    if (m_maximumLength > 0 && ext.length() > m_maximumLength) {
+      ext.truncate(m_maximumLength);
+    }
+    int maxLength = m_maximumLength - ext.length();
+    if (maxLength > 0 && str.length() > maxLength) {
+      str.truncate(maxLength);
+    }
+  }
   /* append extension if it was removed */
   if (dotPos != -1) {
     str.append(ext);
