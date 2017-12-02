@@ -222,6 +222,24 @@ void FormatConfig::formatString(QString& str) const
       str.replace(it.key(), *it);
     }
   }
+  str = joinFileName(str, ext);
+}
+
+/**
+ * Join base name and extension respecting maximum length.
+ *
+ * Truncation to maximumLength() is only done if enableMaximumLength() and
+ * setAsFilenameFormatter() are set.
+ *
+ * @param baseName file name without extension
+ * @param extension file name extension starting with dot
+ * @return file name with extension, eventually truncated to maximum length.
+ */
+QString FormatConfig::joinFileName(const QString& baseName,
+                                   const QString& extension) const
+{
+  QString str(baseName);
+  QString ext(extension);
   if (m_filenameFormatter && m_enableMaximumLength) {
     if (m_maximumLength > 0 && ext.length() > m_maximumLength) {
       ext.truncate(m_maximumLength);
@@ -229,12 +247,13 @@ void FormatConfig::formatString(QString& str) const
     int maxLength = m_maximumLength - ext.length();
     if (maxLength > 0 && str.length() > maxLength) {
       str.truncate(maxLength);
+      str = str.trimmed();
     }
   }
-  /* append extension if it was removed */
-  if (dotPos != -1) {
+  if (!ext.isEmpty()) {
     str.append(ext);
   }
+  return str;
 }
 
 /** Returns a lowercase copy of @a str. */

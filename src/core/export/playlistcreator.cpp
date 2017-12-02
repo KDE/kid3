@@ -31,6 +31,7 @@
 #include <QTextStream>
 #include "playlistconfig.h"
 #include "fileconfig.h"
+#include "formatconfig.h"
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "fileproxymodel.h"
@@ -219,17 +220,20 @@ bool PlaylistCreator::Item::add()
     } else {
       m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.fileNameFormat());
     }
+    QString ext;
     switch (m_ctr.m_cfg.format()) {
       case PlaylistConfig::PF_M3U:
-        m_ctr.m_playlistFileName += QLatin1String(".m3u");
+        ext = QLatin1String(".m3u");
         break;
       case PlaylistConfig::PF_PLS:
-        m_ctr.m_playlistFileName += QLatin1String(".pls");
+        ext = QLatin1String(".pls");
         break;
       case PlaylistConfig::PF_XSPF:
-        m_ctr.m_playlistFileName += QLatin1String(".xspf");
+        ext = QLatin1String(".xspf");
         break;
     }
+    m_ctr.m_playlistFileName = FilenameFormatConfig::instance().joinFileName(
+          m_ctr.m_playlistFileName, ext);
   }
   QString filePath = m_dirName + m_taggedFile->getFilename();
   if (!m_ctr.m_cfg.useFullPath() &&

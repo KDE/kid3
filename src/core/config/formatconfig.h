@@ -98,6 +98,18 @@ public:
   void formatString(QString& str) const;
 
   /**
+   * Join base name and extension respecting maximum length.
+   *
+   * Truncation to maximumLength() is only done if enableMaximumLength() and
+   * setAsFilenameFormatter() are set.
+   *
+   * @param baseName file name without extension
+   * @param extension file name extension starting with dot
+   * @return file name with extension, eventually truncated to maximum length.
+   */
+  QString joinFileName(const QString& baseName, const QString& extension) const;
+
+  /**
    * Format frames using this configuration.
    *
    * @param frames frames

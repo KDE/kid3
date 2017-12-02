@@ -31,6 +31,7 @@
 #include "saferename.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
+#include "formatconfig.h"
 
 /**
  * Constructor.
@@ -221,7 +222,9 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     } else if (!newdir.isEmpty()) {
       newdir.append(QLatin1Char('/'));
     }
-    newdir.append(trackData.formatFilenameFromTags(m_format, true));
+    QString baseName = trackData.formatFilenameFromTags(m_format, true);
+    newdir.append(
+          FilenameFormatConfig::instance().joinFileName(baseName, QString()));
   }
   return newdir;
 }
