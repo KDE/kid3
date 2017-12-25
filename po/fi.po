@@ -1820,6 +1820,9 @@ msgstr "Sis&ällytä kansiot:"
 msgid "E&xclude folders:"
 msgstr "&Jätä pois kansiot:"
 
+msgid "&Show hidden files"
+msgstr "&Näytä piilotiedostot"
+
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 

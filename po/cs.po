@@ -1822,6 +1822,9 @@ msgstr "Z&ahrnují složky:"
 msgid "E&xclude folders:"
 msgstr "Přeskočit složk&y:"
 
+msgid "&Show hidden files"
+msgstr "Zo&brazovat skryté soubory"
+
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 

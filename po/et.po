@@ -1820,6 +1820,9 @@ msgstr "Kaa&sa failid:"
 msgid "E&xclude folders:"
 msgstr "Väljajäetavad &failid:"
 
+msgid "&Show hidden files"
+msgstr "P&eidetud failide näitamine"
+
 msgid "&Filename Format"
 msgstr "&Failinime vorming"
 

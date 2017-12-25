@@ -1821,6 +1821,9 @@ msgstr "O&rdner einschließen:"
 msgid "E&xclude folders:"
 msgstr "Ord&ner ausschließen:"
 
+msgid "&Show hidden files"
+msgstr "Ver&steckte Dateien anzeigen"
+
 msgid "&Filename Format"
 msgstr "&Dateinamenformat"
 

@@ -1820,6 +1820,9 @@ msgstr "Укључују фасцикли:"
 msgid "E&xclude folders:"
 msgstr "Изузми фасцикле:"
 
+msgid "&Show hidden files"
+msgstr "&Скривени фајлови"
+
 msgid "&Filename Format"
 msgstr "Формат имена &фајла"
 

@@ -1823,6 +1823,9 @@ msgstr "包含的文件夹(&D):"
 msgid "E&xclude folders:"
 msgstr "排除的資料夾(&X):"
 
+msgid "&Show hidden files"
+msgstr "顯示隱藏檔(&S)"
+
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 

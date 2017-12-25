@@ -1820,6 +1820,9 @@ msgstr "I&ncludi cartelle:"
 msgid "E&xclude folders:"
 msgstr "&Escludi cartelle:"
 
+msgid "&Show hidden files"
+msgstr "&Mostra i file nascosti"
+
 msgid "&Filename Format"
 msgstr "Formato nome&file"
 

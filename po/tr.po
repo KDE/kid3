@@ -1820,6 +1820,9 @@ msgstr "Dah&il edilen klasörler:"
 msgid "E&xclude folders:"
 msgstr "&Hariç klasörler:"
 
+msgid "&Show hidden files"
+msgstr "Gizli do&syaları göster"
+
 msgid "&Filename Format"
 msgstr "&Dosya adı Biçimi"
 

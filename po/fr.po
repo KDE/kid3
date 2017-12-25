@@ -1821,6 +1821,9 @@ msgstr "I&nclure les dossiers:"
 msgid "E&xclude folders:"
 msgstr "E&xclure les dossiers:"
 
+msgid "&Show hidden files"
+msgstr "Afficher le&s fichiers cachés"
+
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 

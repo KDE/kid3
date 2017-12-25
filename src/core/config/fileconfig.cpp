@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -85,7 +85,8 @@ FileConfig::FileConfig() :
   m_textEncoding(QLatin1String("System")),
   m_preserveTime(false),
   m_markChanges(true),
-  m_loadLastOpenedFile(true)
+  m_loadLastOpenedFile(true),
+  m_showHiddenFiles(false)
 {
 }
 
@@ -105,6 +106,7 @@ void FileConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("NameFilter"), QVariant(m_nameFilter));
   config->setValue(QLatin1String("IncludeFolders"), QVariant(m_includeFolders));
   config->setValue(QLatin1String("ExcludeFolders"), QVariant(m_excludeFolders));
+  config->setValue(QLatin1String("ShowHiddenFiles"), QVariant(m_showHiddenFiles));
   config->setValue(QLatin1String("FormatItem"), QVariant(m_formatItem));
   config->setValue(QLatin1String("FormatItems"), QVariant(m_formatItems));
   config->setValue(QLatin1String("FormatText"), QVariant(m_formatText));
@@ -134,6 +136,7 @@ void FileConfig::readFromConfig(ISettings* config)
       config->value(QLatin1String("IncludeFolders"), m_includeFolders).toStringList();
   m_excludeFolders =
       config->value(QLatin1String("ExcludeFolders"), m_excludeFolders).toStringList();
+  m_showHiddenFiles = config->value(QLatin1String("ShowHiddenFiles"), m_showHiddenFiles).toBool();
   m_formatItem =
       config->value(QLatin1String("FormatItem"), 0).toInt();
   m_formatItems =
@@ -199,6 +202,14 @@ void FileConfig::setExcludeFolders(const QStringList& excludeFolders)
   if (m_excludeFolders != excludeFolders) {
     m_excludeFolders = excludeFolders;
     emit excludeFoldersChanged(m_excludeFolders);
+  }
+}
+
+void FileConfig::setShowHiddenFiles(bool showHiddenFiles)
+{
+  if (m_showHiddenFiles != showHiddenFiles) {
+    m_showHiddenFiles = showHiddenFiles;
+    emit showHiddenFilesChanged(m_showHiddenFiles);
   }
 }
 

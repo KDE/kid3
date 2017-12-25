@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -128,7 +128,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_loadLastOpenedFileCheckBox(0), m_preserveTimeCheckBox(0),
   m_markChangesCheckBox(0), m_coverFileNameLineEdit(0),
   m_nameFilterComboBox(0), m_includeFoldersLineEdit(0),
-  m_excludeFoldersLineEdit(0), m_fileTextEncodingComboBox(0),
+  m_excludeFoldersLineEdit(0), m_showHiddenFilesCheckBox(0),
+  m_fileTextEncodingComboBox(0),
   m_markTruncationsCheckBox(0), m_textEncodingV1ComboBox(0),
   m_totalNumTracksCheckBox(0), m_commentNameComboBox(0),
   m_pictureNameComboBox(0), m_markOversizedPicturesCheckBox(0),
@@ -392,6 +393,8 @@ QWidget* ConfigDialogPages::createFilesPage()
                                            fileListGroupBox);
   m_excludeFoldersLineEdit = new QLineEdit(fileListGroupBox);
   excludeFoldersLabel->setBuddy(m_excludeFoldersLineEdit);
+  m_showHiddenFilesCheckBox = new QCheckBox(tr("&Show hidden files"),
+                                            fileListGroupBox);
   QGridLayout* fileListGroupBoxLayout = new QGridLayout(fileListGroupBox);
   fileListGroupBoxLayout->addWidget(nameFilterLabel, 0, 0);
   fileListGroupBoxLayout->addWidget(m_nameFilterComboBox, 0, 1);
@@ -399,6 +402,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   fileListGroupBoxLayout->addWidget(m_includeFoldersLineEdit, 1, 1);
   fileListGroupBoxLayout->addWidget(excludeFoldersLabel, 2, 0);
   fileListGroupBoxLayout->addWidget(m_excludeFoldersLineEdit, 2, 1);
+  fileListGroupBoxLayout->addWidget(m_showHiddenFilesCheckBox, 3, 0, 1, 2);
   rightLayout->addWidget(fileListGroupBox);
   rightLayout->addStretch();
 
@@ -583,6 +587,7 @@ void ConfigDialogPages::setConfigs(
         folderPatternListToString(fileCfg.includeFolders(), true));
   m_excludeFoldersLineEdit->setText(
         folderPatternListToString(fileCfg.excludeFolders(), false));
+  m_showHiddenFilesCheckBox->setChecked(fileCfg.showHiddenFiles());
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
@@ -713,6 +718,7 @@ void ConfigDialogPages::getConfig() const
         folderPatternListFromString(m_includeFoldersLineEdit->text(), true));
   fileCfg.setExcludeFolders(
         folderPatternListFromString(m_excludeFoldersLineEdit->text(), false));
+  fileCfg.setShowHiddenFiles(m_showHiddenFilesCheckBox->isChecked());
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());

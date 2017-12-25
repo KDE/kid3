@@ -1812,6 +1812,9 @@ msgstr "Inklu&dér biblioteker:"
 msgid "E&xclude folders:"
 msgstr "Udelad bibliot&eker:"
 
+msgid "&Show hidden files"
+msgstr "Vis &skjulte filer"
+
 msgid "&Filename Format"
 msgstr "&Format på filnavn"
 

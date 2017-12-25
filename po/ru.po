@@ -1823,6 +1823,9 @@ msgstr "Включить каталоги:"
 msgid "E&xclude folders:"
 msgstr "Исключать на каталоги:"
 
+msgid "&Show hidden files"
+msgstr "Показывать &скрытые файлы"
+
 msgid "&Filename Format"
 msgstr "&Формат имени файла"
 

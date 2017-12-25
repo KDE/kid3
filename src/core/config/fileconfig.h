@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2017  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,6 +42,8 @@ class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   Q_PROPERTY(QStringList includeFolders READ includeFolders WRITE setIncludeFolders NOTIFY includeFoldersChanged)
   /** patterns for folders to exclude in file list */
   Q_PROPERTY(QStringList excludeFolders READ excludeFolders WRITE setExcludeFolders NOTIFY excludeFoldersChanged)
+  /** true to show hidden files */
+  Q_PROPERTY(bool showHiddenFiles READ showHiddenFiles WRITE setShowHiddenFiles NOTIFY showHiddenFilesChanged)
   /** filename format */
   Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
   /** index of filename format selected */
@@ -111,6 +113,12 @@ public:
 
   /** Set patterns for folders to exclude in file list. */
   void setExcludeFolders(const QStringList& excludeFolders);
+
+  /** Check if hidden files are shown. */
+  bool showHiddenFiles() const { return m_showHiddenFiles; }
+
+  /** Set if hidden files are shown. */
+  void setShowHiddenFiles(bool showHiddenFiles);
 
   /** Get filename format. */
   QString toFilenameFormat() const { return m_formatText; }
@@ -202,6 +210,9 @@ signals:
   /** Emitted when @a excludeFolders changed. */
   void excludeFoldersChanged(const QStringList& excludeFolders);
 
+  /** Emitted when @a showHiddenFiles changed. */
+  void showHiddenFilesChanged(bool showHiddenFiles);
+
   /** Emitted when @a formatText changed. */
   void toFilenameFormatChanged(const QString& toFilenameFormat);
 
@@ -256,6 +267,7 @@ private:
   bool m_preserveTime;
   bool m_markChanges;
   bool m_loadLastOpenedFile;
+  bool m_showHiddenFiles;
 
   /** Index in configuration storage */
   static int s_index;

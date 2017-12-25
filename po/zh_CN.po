@@ -1819,6 +1819,9 @@ msgstr ""
 msgid "E&xclude folders:"
 msgstr ""
 
+msgid "&Show hidden files"
+msgstr "显示隐藏文件(&S)"
+
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 

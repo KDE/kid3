@@ -1823,6 +1823,9 @@ msgstr "Z włączeniem folderac&h:"
 msgid "E&xclude folders:"
 msgstr "Z pominięciem do folderó&w:"
 
+msgid "&Show hidden files"
+msgstr "Wyświetlaj &ukryte pliki"
+
 msgid "&Filename Format"
 msgstr "&Format nazwy pliku"
 

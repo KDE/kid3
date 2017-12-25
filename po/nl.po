@@ -1820,6 +1820,9 @@ msgstr "Onde&r andere mappen:"
 msgid "E&xclude folders:"
 msgstr "&Uitsluiten mappen:"
 
+msgid "&Show hidden files"
+msgstr "&Verborgen bestanden tonen"
+
 msgid "&Filename Format"
 msgstr "B&estandsnaamstructuur"
 

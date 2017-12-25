@@ -1820,6 +1820,9 @@ msgstr "Isključiti fascikle:"
 msgid "E&xclude folders:"
 msgstr "Izuzmi fascikle:"
 
+msgid "&Show hidden files"
+msgstr "&Skriveni fajlovi"
+
 msgid "&Filename Format"
 msgstr "Format imena &fajla"
 

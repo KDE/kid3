@@ -712,6 +712,17 @@ void Kid3Application::applyChangedConfiguration()
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
                                      fileCfg.excludeFolders());
+
+  QDir::Filters oldFilter = m_fileSystemModel->filter();
+  QDir::Filters filter = oldFilter;
+  if (fileCfg.showHiddenFiles()) {
+    filter |= QDir::Hidden;
+  } else {
+    filter &= ~QDir::Hidden;
+  }
+  if (filter != oldFilter) {
+    m_fileSystemModel->setFilter(filter);
+  }
 }
 
 /**
@@ -816,7 +827,11 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
     m_fileProxyModel->setNameFilters(nameFilters);
     m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
                                        fileCfg.excludeFolders());
-    m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
+    QDir::Filters filter = QDir::AllEntries | QDir::AllDirs;
+    if (fileCfg.showHiddenFiles()) {
+      filter |= QDir::Hidden;
+    }
+    m_fileSystemModel->setFilter(filter);
     rootIndex = m_fileSystemModel->setRootPath(dir);
     foreach (const QString& filePath, filePaths) {
       fileIndexes.append(m_fileSystemModel->index(filePath));
