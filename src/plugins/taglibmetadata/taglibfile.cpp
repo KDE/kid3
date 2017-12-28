@@ -2040,7 +2040,7 @@ static const struct TypeStrOfId {
 #if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCST - Podcast"), true },
 #endif
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"),
+  { Frame::FT_Rating,         QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"),
 #if TAGLIB_VERSION >= 0x010600
     true
 #else
@@ -3944,8 +3944,9 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "WEBSITE",         // FT_Website,
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
     "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
-    "RELEASEDATE"      // FT_ReleaseDate,
-                       // FT_LastFrame = FT_ReleaseDate
+    "RELEASEDATE",     // FT_ReleaseDate,
+    "RATING"           // FT_Rating,
+                       // FT_LastFrame = FT_Rating
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -4186,7 +4187,8 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "WEBSITE", Frame::FT_Website, MVT_String },
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile, MVT_String },
   { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource, MVT_String },
-  { "RELEASEDATE", Frame::FT_ReleaseDate, MVT_String }
+  { "RELEASEDATE", Frame::FT_ReleaseDate, MVT_String },
+  { "RATING", Frame::FT_Rating, MVT_String }
 };
 
 /**
@@ -4434,7 +4436,7 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
   { "Description", Frame::FT_Comment, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Year", Frame::FT_Date, TagLib::ASF::Attribute::UnicodeType },
   { "Copyright", Frame::FT_Copyright, TagLib::ASF::Attribute::UnicodeType },
-  { "Rating", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
+  { "Rating Information", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
   { "WM/TrackNumber", Frame::FT_Track, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Track", Frame::FT_Track, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Genre", Frame::FT_Genre, TagLib::ASF::Attribute::UnicodeType },
@@ -4479,7 +4481,7 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/OriginalFilename", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalLyricist", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
   { "WM/PromotionURL", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/SharedUserRating", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/SharedUserRating", Frame::FT_Rating, TagLib::ASF::Attribute::UnicodeType },
   { "WM/WMCollectionGroupID", Frame::FT_Other, TagLib::ASF::Attribute::GuidType },
   { "WM/WMCollectionID", Frame::FT_Other, TagLib::ASF::Attribute::GuidType },
   { "WM/WMContentID", Frame::FT_Other, TagLib::ASF::Attribute::GuidType }
@@ -4873,8 +4875,9 @@ static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     "IBSU", // FT_Website,
     0,      // FT_WWWAudioFile,
     0,      // FT_WWWAudioSource,
-    0       // FT_ReleaseDate,
-            // FT_LastFrame = FT_ReleaseDate
+    0,      // FT_ReleaseDate,
+    "IRTD"  // FT_Rating,
+            // FT_LastFrame = FT_Rating
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -6245,7 +6248,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             asfTag->setComment("");
           if (flt.isEnabled(Frame::FT_Copyright))
             asfTag->setCopyright("");
-          if (flt.isEnabled(Frame::FT_Other, QLatin1String("Rating")))
+          if (flt.isEnabled(Frame::FT_Other, QLatin1String("Rating Information")))
             asfTag->setRating("");
 
           TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
@@ -6496,7 +6499,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
         value = toQString(asfTag->copyright());
         frames.insert(Frame(type, value, toQString(name), AFI_Copyright));
 
-        name = "Rating";
+        name = QT_TRANSLATE_NOOP("@default", "Rating Information");
         getAsfTypeForName(name, type, valueType);
         value = toQString(asfTag->rating());
         frames.insert(Frame(type, value, toQString(name), AFI_Rating));

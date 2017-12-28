@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -873,7 +873,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "OWNE - Ownership frame") },                                 /* OWNE */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PRIV - Private frame") },                                   /* PRIV */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCNT - Play counter") },                                    /* PCNT */
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter") },                                   /* POPM */
+  { Frame::FT_Rating,         QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter") },                                   /* POPM */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POSS - Position synchronisation frame") },                  /* POSS */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RBUF - Recommended buffer size") },                         /* RBUF */
   { Frame::FT_Other,          0 },                                                                                       /* RVA2 */

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -405,8 +405,9 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "WEBSITE",         // FT_Website,
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
     "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
-    "RELEASEDATE"      // FT_ReleaseDate,
-                       // FT_LastFrame = FT_ReleaseDate
+    "RELEASEDATE",     // FT_ReleaseDate,
+    "RATING"           // FT_Rating,
+                       // FT_LastFrame = FT_Rating
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1

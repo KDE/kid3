@@ -149,8 +149,9 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Website"),         // FT_Website,
     QT_TRANSLATE_NOOP("@default", "WWW Audio File"),  // FT_WWWAudioFile,
     QT_TRANSLATE_NOOP("@default", "WWW Audio Source"), // FT_WWWAudioSource,
-    QT_TRANSLATE_NOOP("@default", "Release Date")     // FT_ReleaseDate,
-                                  // FT_LastFrame = FT_ReleaseDate
+    QT_TRANSLATE_NOOP("@default", "Release Date"),    // FT_ReleaseDate,
+    QT_TRANSLATE_NOOP("@default", "Rating")           // FT_Rating,
+                                  // FT_LastFrame = FT_Rating
   };
   struct not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -253,7 +254,6 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "PRODUCTNUMBER", QT_TRANSLATE_NOOP("@default", "Product Number") },
     { "RECORDINGDATE", QT_TRANSLATE_NOOP("@default", "Recording Date") },
     { "REMIXEDBY", QT_TRANSLATE_NOOP("@default", "Remixer") },
-    { "Rating", QT_TRANSLATE_NOOP("@default", "Rating") },
     { "TOTALDISCS", QT_TRANSLATE_NOOP("@default", "Total Discs") },
     { "TOTALTRACKS", QT_TRANSLATE_NOOP("@default", "Total Tracks") },
     { "TRACKTOTAL", QT_TRANSLATE_NOOP("@default", "Total Tracks") },
@@ -286,7 +286,7 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "pgap", QT_TRANSLATE_NOOP("@default", "Gapless Playback") },
     { "plID", QT_TRANSLATE_NOOP("@default", "Album ID") },
     { "purd", QT_TRANSLATE_NOOP("@default", "Purchase Date") },
-    { "rtng", QT_TRANSLATE_NOOP("@default", "Rating") },
+    { "rtng", QT_TRANSLATE_NOOP("@default", "Rating/Advisory") },
     { "sfID", QT_TRANSLATE_NOOP("@default", "Country Code") },
     { "sosn", QT_TRANSLATE_NOOP("@default", "Sort Show") },
     { "stik", QT_TRANSLATE_NOOP("@default", "Media Type") },

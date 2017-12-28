@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -96,7 +96,8 @@ public:
     FT_WWWAudioFile,
     FT_WWWAudioSource,
     FT_ReleaseDate,
-    FT_LastFrame = FT_ReleaseDate,
+    FT_Rating,
+    FT_LastFrame = FT_Rating,
     FT_Other,
     FT_UnknownFrame
   };

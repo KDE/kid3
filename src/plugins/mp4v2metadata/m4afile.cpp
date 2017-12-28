@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -173,7 +173,8 @@ freeFormNameTypes[] = {
   { "WEBSITE", Frame::FT_Website },
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile },
   { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource },
-  { "RELEASEDATE", Frame::FT_ReleaseDate }
+  { "RELEASEDATE", Frame::FT_ReleaseDate },
+  { "RATING", Frame::FT_Rating }
 };
 
 /**
