@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,7 +58,7 @@
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "trackdatamodel.h"
-#include "frametablemodel.h"
+#include "frameitemdelegate.h"
 #include "trackdatamatcher.h"
 #include "iplatformtools.h"
 

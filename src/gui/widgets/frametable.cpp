@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,6 +32,7 @@
 #include <QChildEvent>
 #include <QLineEdit>
 #include "frametablemodel.h"
+#include "frameitemdelegate.h"
 
 /**
  * Constructor.

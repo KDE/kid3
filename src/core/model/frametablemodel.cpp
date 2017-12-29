@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,14 +26,10 @@
 
 #include "frametablemodel.h"
 #include <QApplication>
-#include <QComboBox>
-#include <QLineEdit>
+#include <QBrush>
+#include <QPalette>
 #include <algorithm>
 #include "fileconfig.h"
-#include "tagconfig.h"
-#include "formatconfig.h"
-#include "genremodel.h"
-#include "tracknumbervalidator.h"
 #include "pictureframe.h"
 #include "framenotice.h"
 
@@ -730,140 +726,5 @@ void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
       return;
     }
     m_frameTypeSeqNr[frameType] = seqNr;
-  }
-}
-
-/**
- * Constructor.
- * @param genreModel genre model
- * @param parent parent QTableView
- */
-FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent) :
-  QItemDelegate(parent),
-  m_genreModel(genreModel),
-  m_trackNumberValidator(new TrackNumberValidator(this)),
-  m_dateTimeValidator(new QRegExpValidator(FrameNotice::isoDateTimeRexExp(),
-                                           this)) {
-  setObjectName(QLatin1String("FrameItemDelegate"));
-}
-
-/**
- * Destructor.
- */
-FrameItemDelegate::~FrameItemDelegate()
-{
-}
-
-/**
- * Format text if enabled.
- * @param txt text to format and set in line edit
- */
-void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
-{
-  QLineEdit* le;
-  if (TagFormatConfig::instance().formatWhileEditing() &&
-      (le = qobject_cast<QLineEdit*>(sender())) != 0) {
-    QString str(txt);
-    TagFormatConfig::instance().formatString(str);
-    if (str != txt) {
-      int curPos = le->cursorPosition();
-      le->setText(str);
-      le->setCursorPosition(curPos);
-    }
-  }
-}
-
-/**
- * Create an editor to edit the cells contents.
- * @param parent parent widget
- * @param option style
- * @param index  index of item
- * @return combo box editor widget.
- */
-QWidget* FrameItemDelegate::createEditor(
-  QWidget* parent, const QStyleOptionViewItem& option,
-  const QModelIndex& index) const
-{
-  int row = index.row();
-  int col = index.column();
-  const FrameTableModel* ftModel =
-    qobject_cast<const FrameTableModel*>(index.model());
-  if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
-    Frame::Type type = static_cast<Frame::Type>(
-      index.data(FrameTableModel::FrameTypeRole).toInt());
-    bool id3v1 = ftModel && ftModel->isId3v1();
-    if (type == Frame::FT_Genre) {
-      QComboBox* cb = new QComboBox(parent);
-      if (!id3v1) {
-        cb->setEditable(true);
-        cb->setAutoCompletion(true);
-        cb->setDuplicatesEnabled(false);
-      }
-
-      cb->setModel(m_genreModel);
-      return cb;
-    }
-    QWidget* editor = QItemDelegate::createEditor(parent, option, index);
-    QLineEdit* lineEdit = qobject_cast<QLineEdit*>(editor);
-    if (id3v1 &&
-        (type == Frame::FT_Comment || type == Frame::FT_Title ||
-         type == Frame::FT_Artist || type == Frame::FT_Album)) {
-      if (lineEdit) {
-        if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textChanged(QString)),
-                  this, SLOT(formatTextIfEnabled(QString)));
-        }
-        lineEdit->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
-      }
-    } else {
-      if (lineEdit) {
-        if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textChanged(QString)),
-                  this, SLOT(formatTextIfEnabled(QString)));
-        }
-        if (TagFormatConfig::instance().enableValidation()) {
-          if (type == Frame::FT_Track || type == Frame::FT_Disc) {
-            lineEdit->setValidator(m_trackNumberValidator);
-          } else if (type == Frame::FT_Date || type == Frame::FT_OriginalDate) {
-            lineEdit->setValidator(m_dateTimeValidator);
-          }
-        }
-      }
-    }
-    return editor;
-  }
-  return QItemDelegate::createEditor(parent, option, index);
-}
-
-/**
- * Set data to be edited by the editor.
- * @param editor editor widget
- * @param index  index of item
- */
-void FrameItemDelegate::setEditorData(
-  QWidget* editor, const QModelIndex& index) const
-{
-  QComboBox* cb = qobject_cast<QComboBox*>(editor);
-  if (cb) {
-    QString genreStr(index.model()->data(index).toString());
-    cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
-  } else {
-    QItemDelegate::setEditorData(editor, index);
-  }
-}
-
-/**
- * Set model data supplied by editor.
- * @param editor editor widget
- * @param model  model
- * @param index  index of item
- */
-void FrameItemDelegate::setModelData(
-  QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
-  QComboBox* cb = qobject_cast<QComboBox *>(editor);
-  if (cb) {
-    model->setData(index, cb->currentText());
-  } else {
-    QItemDelegate::setModelData(editor, model, index);
   }
 }

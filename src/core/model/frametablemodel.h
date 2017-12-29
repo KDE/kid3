@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,12 +28,10 @@
 #define FRAMETABLEMODEL_H
 
 #include <QAbstractTableModel>
+#include <QVector>
 #include <QBitArray>
-#include <QItemDelegate>
 #include "frame.h"
 #include "kid3api.h"
-
-class GenreModel;
 
 /**
  * Model for table with frames.
@@ -306,63 +304,6 @@ private:
   QVector<int> m_frameTypeSeqNr;
   bool m_id3v1;
   bool m_guiApp;
-};
-
-
-/** Delegate for table widget items. */
-class KID3_CORE_EXPORT FrameItemDelegate : public QItemDelegate {
-  Q_OBJECT
-public:
-  /**
-   * Constructor.
-   * @param genreModel genre model
-   * @param parent parent QTableView
-   */
-  explicit FrameItemDelegate(GenreModel* genreModel, QObject* parent = 0);
-
-  /**
-   * Destructor.
-   */
-  virtual ~FrameItemDelegate();
-
-  /**
-   * Create an editor to edit the cells contents.
-   * @param parent parent widget
-   * @param option style
-   * @param index  index of item
-   * @return combo box editor widget.
-   */
-  virtual QWidget* createEditor(
-    QWidget* parent, const QStyleOptionViewItem& option,
-    const QModelIndex& index) const;
-
-  /**
-   * Set data to be edited by the editor.
-   * @param editor editor widget
-   * @param index  index of item
-   */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
-
-  /**
-   * Set model data supplied by editor.
-   * @param editor editor widget
-   * @param model  model
-   * @param index  index of item
-   */
-  virtual void setModelData(
-    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
-
-private slots:
-  /**
-   * Format text if enabled.
-   * @param txt text to format and set in line edit
-   */
-  void formatTextIfEnabled(const QString& txt);
-
-private:
-  GenreModel* m_genreModel;
-  QValidator* m_trackNumberValidator;
-  QValidator* m_dateTimeValidator;
 };
 
 #endif // FRAMETABLEMODEL_H

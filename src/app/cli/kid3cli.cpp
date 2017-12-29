@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -29,6 +29,7 @@
 #include <QCoreApplication>
 #include <QItemSelectionModel>
 #include <QTimer>
+#include <QBrush>
 #include "kid3application.h"
 #include "fileproxymodel.h"
 #include "frametablemodel.h"
