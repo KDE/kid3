@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1162,14 +1162,17 @@ FrameCollection::const_iterator FrameCollection::searchByName(
   QString ucName = name.toUpper().remove(QLatin1Char('/'));
   int len = ucName.length();
   for (it = begin(); it != end(); ++it) {
-    QString ucFrameName(it->getName().toUpper().remove(QLatin1Char('/')));
-    if (ucName == ucFrameName.leftRef(len)) {
-      break;
-    }
-    int nlPos = ucFrameName.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0 && ucName == ucFrameName.midRef(nlPos + 1, len)) {
-      // Description in TXXX, WXXX, COMM, PRIV matches
-      break;
+    foreach (const QString& frameName,
+             QStringList() << it->getName() << it->getInternalName()) {
+      QString ucFrameName(frameName.toUpper().remove(QLatin1Char('/')));
+      if (ucName == ucFrameName.leftRef(len)) {
+        return it;
+      }
+      int nlPos = ucFrameName.indexOf(QLatin1Char('\n'));
+      if (nlPos > 0 && ucName == ucFrameName.midRef(nlPos + 1, len)) {
+        // Description in TXXX, WXXX, COMM, PRIV matches
+        return it;
+      }
     }
   }
   return it;

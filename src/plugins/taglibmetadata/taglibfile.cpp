@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -5647,6 +5647,16 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
             // add field list to frame
             getFieldsFromId3Frame(id3Frame, frame.fieldList(), frame.getType());
             frame.setFieldListFromValue();
+          }
+          if (frame.getType() == Frame::FT_Other) {
+            // Set the correct frame type if the frame was added using the ID.
+            Frame::Type type;
+            const char* str;
+            getTypeStringForFrameId(id3Frame->frameID(), type, str);
+            if (type != Frame::FT_UnknownFrame) {
+              frame.setExtendedType(
+                    Frame::ExtendedType(type, QString::fromLatin1(str)));
+            }
           }
 #ifdef Q_OS_WIN32
           delete id3Frame;
