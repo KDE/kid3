@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2017  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,6 +26,7 @@
 
 #include "tagconfig.h"
 #include <QCoreApplication>
+#include <QVector>
 #include "taggedfile.h"
 #include "frame.h"
 
@@ -39,6 +40,178 @@ const char* const defaultRiffTrackName = "IPRT";
 
 }
 
+
+/**
+ * Mapping between star count and rating values.
+ */
+class StarRatingMapping {
+public:
+  /** Maximum number of stars. */
+  static const int MAX_STAR_COUNT = 5;
+
+  /** Constructor. */
+  StarRatingMapping();
+
+  /**
+   * Get star count from rating value.
+   * @param rating rating value stored in tag frame
+   * @param type rating type containing frame name and optionally field value,
+   * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+   * @return number of stars (1..5).
+   */
+  int starCountFromRating(int rating, const QString& type) const;
+
+  /**
+   * Get rating value from star count.
+   * @param starCount number of stars (1..5)
+   * @param type rating type containing frame name and optionally field value,
+   * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+   * @return rating value stored in tag frame, usually a value between 1 and 255
+   * or 1 and 100.
+   */
+  int starCountToRating(int starCount, const QString& type) const;
+
+  /** Serialize to string list. */
+  QStringList toStringList() const;
+
+  /** Set from string list. */
+  void fromStringList(const QStringList& strs);
+
+  /** Get default value for Email field in POPM frame. */
+  QString defaultPopmEmail() const;
+
+  /** Get mappings. */
+  const QList<QPair<QString, QVector<int> > >& getMappings() const {
+    return m_maps;
+  }
+
+  /** Set mappings. */
+  void setMappings(const QList<QPair<QString, QVector<int> > >& maps) {
+    m_maps = maps;
+  }
+
+private:
+  QVector<int> m_wmpValues;
+  QList<QPair<QString, QVector<int> > > m_maps;
+};
+
+StarRatingMapping::StarRatingMapping()
+{
+  m_wmpValues << 1 << 64 << 128 << 196 << 255;
+  QVector<int> traktorValues, wmaValues, percentValues;
+  traktorValues << 51 << 102 << 153 << 204 << 255;
+  wmaValues << 1<< 25<< 50 << 75 << 99;
+  percentValues << 20 << 40 << 60 << 80 << 100;
+  m_maps << qMakePair(QString(QLatin1String("POPM")), m_wmpValues);
+  m_maps << qMakePair(QString(QLatin1String("POPM.Windows Media Player 9 Series")),
+                      m_wmpValues);
+  m_maps << qMakePair(QString(QLatin1String("POPM.traktor@native-instruments.de")),
+                      traktorValues);
+  m_maps << qMakePair(QString(QLatin1String("WM/SharedUserRating")), wmaValues);
+  m_maps << qMakePair(QString(QLatin1String("IRTD")), percentValues);
+  m_maps << qMakePair(QString(QLatin1String("RATING")), percentValues);
+}
+
+int StarRatingMapping::starCountFromRating(int rating, const QString& type) const
+{
+  if (rating < 1) {
+    return 0;
+  } else {
+    for (int i = 1; i <= MAX_STAR_COUNT; ++i) {
+      if (rating < starCountToRating(i, type)) {
+        return i - 1;
+      }
+    }
+    return MAX_STAR_COUNT;
+  }
+}
+
+int StarRatingMapping::starCountToRating(int starCount, const QString& type) const
+{
+  if (starCount < 1) {
+    return 0;
+  } else if (starCount > MAX_STAR_COUNT) {
+    starCount = MAX_STAR_COUNT;
+  }
+  // First search in the maps for the given type.
+  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
+       it != m_maps.constEnd();
+       ++it) {
+    if (type == it->first) {
+      return it->second.at(starCount - 1);
+    }
+  }
+  // If not found, use the first map or the WMP map if no maps are available.
+  return (m_maps.isEmpty() ? m_wmpValues : m_maps.first().second).at(starCount - 1);
+}
+
+QStringList StarRatingMapping::toStringList() const
+{
+  QStringList strs;
+  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
+       it != m_maps.constEnd();
+       ++it) {
+    QString str = it->first;
+    for (QVector<int>::const_iterator sit = it->second.constBegin();
+         sit != it->second.constEnd();
+         ++sit) {
+      str += QLatin1Char(',');
+      str += QString::number(*sit);
+    }
+    strs.append(str);
+  }
+  return strs;
+}
+
+void StarRatingMapping::fromStringList(const QStringList& strs)
+{
+  QList<QPair<QString, QVector<int> > > maps;
+  for (QStringList::const_iterator it = strs.constBegin();
+       it != strs.constEnd();
+       ++it) {
+    QStringList parts = it->split(QLatin1Char(','));
+    const int numParts = parts.size();
+    if (numParts >= MAX_STAR_COUNT + 1) {
+      bool ok = false;
+      QVector<int> values;
+      int lastValue = -1;
+      for (int i = numParts - MAX_STAR_COUNT; i < numParts; ++i) {
+        int value = parts.at(i).toInt(&ok);
+        if (value <= lastValue) {
+          ok = false;
+        }
+        if (!ok) {
+          break;
+        }
+        values.append(value);
+      }
+      if (ok) {
+        const QStringList typeParts = parts.mid(0, numParts - MAX_STAR_COUNT);
+        const QString type = typeParts.join(QLatin1String(","));
+        maps.append(qMakePair(type, values));
+      }
+    }
+  }
+  if (!maps.isEmpty()) {
+    m_maps.swap(maps);
+  }
+}
+
+QString StarRatingMapping::defaultPopmEmail() const
+{
+  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
+       it != m_maps.constEnd();
+       ++it) {
+    QString type = it->first;
+    if (type.startsWith(QLatin1String("POPM"))) {
+      return type.length() > 4 && type.at(4) == QLatin1Char('.')
+          ? type.mid(5) : QLatin1String("");
+    }
+  }
+  return QString();
+}
+
+
 int TagConfig::s_index = -1;
 
 /**
@@ -46,6 +219,7 @@ int TagConfig::s_index = -1;
  */
 TagConfig::TagConfig() :
   StoredConfig<TagConfig>(QLatin1String("Tags")),
+  m_starRatingMapping(new StarRatingMapping),
   m_commentName(QString::fromLatin1(defaultCommentName)),
   m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
@@ -71,7 +245,10 @@ TagConfig::TagConfig() :
 /**
  * Destructor.
  */
-TagConfig::~TagConfig() {}
+TagConfig::~TagConfig()
+{
+  delete m_starRatingMapping;
+}
 
 /**
  * Persist configuration.
@@ -107,6 +284,7 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
   config->setValue(QLatin1String("PluginOrder"), QVariant(m_pluginOrder));
   config->setValue(QLatin1String("DisabledPlugins"), QVariant(m_disabledPlugins));
+  config->setValue(QLatin1String("StarRatingMapping"), QVariant(m_starRatingMapping->toStringList()));
   config->endGroup();
 }
 
@@ -147,6 +325,7 @@ void TagConfig::readFromConfig(ISettings* config)
                                  m_pluginOrder).toStringList();
   m_disabledPlugins = config->value(QLatin1String("DisabledPlugins"),
                                  m_disabledPlugins).toStringList();
+  m_starRatingMapping->fromStringList(config->value(QLatin1String("StarRatingMapping"), QStringList()).toStringList());
   config->endGroup();
 
   if (m_pluginOrder.isEmpty()) {
@@ -403,6 +582,83 @@ void TagConfig::setAvailablePlugins(const QStringList& availablePlugins)
     m_availablePlugins = availablePlugins;
     emit availablePluginsChanged(m_availablePlugins);
   }
+}
+
+/**
+ * Get list of star count rating mappings.
+ * @return star count rating mappings as a list of strings.
+ */
+QStringList TagConfig::starRatingMappingStrings() const
+{
+  return m_starRatingMapping->toStringList();
+}
+
+/**
+ * Set list of star count rating mappings.
+ * @param mappings star count rating mappings
+ */
+void TagConfig::setStarRatingMappingStrings(const QStringList& mappings)
+{
+  if (m_starRatingMapping->toStringList() != mappings) {
+    m_starRatingMapping->fromStringList(mappings);
+    emit starRatingMappingsChanged();
+  }
+}
+
+/**
+ * Get list of star count rating mappings.
+ * @return star count rating mappings.
+ */
+const QList<QPair<QString, QVector<int> > >& TagConfig::starRatingMappings() const
+{
+  return m_starRatingMapping->getMappings();
+}
+
+/**
+ * Set list of star count rating mappings.
+ * @param maps star count rating mappings
+ */
+void TagConfig::setStarRatingMappings(
+    const QList<QPair<QString, QVector<int> > >& maps)
+{
+  if (m_starRatingMapping->getMappings() != maps) {
+    m_starRatingMapping->setMappings(maps);
+    emit starRatingMappingsChanged();
+  }
+}
+
+/**
+ * Get star count from rating value.
+ * @param rating rating value stored in tag frame
+ * @param type rating type containing frame name and optionally field value,
+ * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+ * @return number of stars (1..5).
+ */
+int TagConfig::starCountFromRating(int rating, const QString& type) const
+{
+  return m_starRatingMapping->starCountFromRating(rating, type);
+}
+
+/**
+ * Get rating value from star count.
+ * @param starCount number of stars (1..5)
+ * @param type rating type containing frame name and optionally field value,
+ * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+ * @return rating value stored in tag frame, usually a value between 1 and 255
+ * or 1 and 100.
+ */
+int TagConfig::starCountToRating(int starCount, const QString& type) const
+{
+  return m_starRatingMapping->starCountToRating(starCount, type);
+}
+
+/**
+ * Get default value for Email field in POPM frame.
+ * @return value for Email field in first POPM entry of star rating mappings.
+ */
+QString TagConfig::defaultPopmEmail() const
+{
+  return m_starRatingMapping->defaultPopmEmail();
 }
 
 /**

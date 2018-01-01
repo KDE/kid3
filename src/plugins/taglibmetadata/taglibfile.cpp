@@ -5543,7 +5543,10 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     id3Frame = new TagLib::ID3v2::EventTimingCodesFrame;
 #if TAGLIB_VERSION >= 0x010600
   } else if (frameId == QLatin1String("POPM")) {
-    id3Frame = new TagLib::ID3v2::PopularimeterFrame;
+    TagLib::ID3v2::PopularimeterFrame* popmFrame =
+        new TagLib::ID3v2::PopularimeterFrame;
+    id3Frame = popmFrame;
+    popmFrame->setEmail(toTString(TagConfig::instance().defaultPopmEmail()));
   } else if (frameId == QLatin1String("PRIV")) {
     TagLib::ID3v2::PrivateFrame* privFrame =
         new TagLib::ID3v2::PrivateFrame;

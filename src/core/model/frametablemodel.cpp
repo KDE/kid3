@@ -79,6 +79,9 @@ QHash<int,QByteArray> getRoleHash()
   roles[FrameTableModel::ValueRole] = "value";
   roles[FrameTableModel::ModifiedRole] = "modified";
   roles[FrameTableModel::TruncatedRole] = "truncated";
+  roles[FrameTableModel::InternalNameRole] = "internalName";
+  roles[FrameTableModel::FieldIdsRole] = "fieldIds";
+  roles[FrameTableModel::FieldValuesRole] = "fieldValues";
   return roles;
 }
 
@@ -201,6 +204,26 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return isModified;
   } else if (role == TruncatedRole) {
     return isTruncated;
+  } else if (role == InternalNameRole) {
+    return it->getInternalName();
+  } else if (role == FieldIdsRole) {
+    QVariantList result;
+    const Frame::FieldList& fields = it->getFieldList();
+    for (Frame::FieldList::const_iterator fit = fields.constBegin();
+         fit != fields.constEnd();
+         ++fit) {
+      result.append(fit->m_id);
+    }
+    return result;
+  } else if (role == FieldValuesRole) {
+    QVariantList result;
+    const Frame::FieldList& fields = it->getFieldList();
+    for (Frame::FieldList::const_iterator fit = fields.constBegin();
+         fit != fields.constEnd();
+         ++fit) {
+      result.append(fit->m_value);
+    }
+    return result;
   }
   return QVariant();
 }

@@ -1830,6 +1830,11 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
       if (fld) {
         setString(fld, QLatin1String("eng"));
       }
+    } else if (id == ID3FID_POPULARIMETER) {
+      fld = id3Frame->GetField(ID3FN_EMAIL);
+      if (fld) {
+        setString(fld, TagConfig::instance().defaultPopmEmail());
+      }
     }
     if (!frame.fieldList().empty()) {
       setId3v2Frame(id3Frame, frame);

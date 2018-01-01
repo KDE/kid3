@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,6 +30,8 @@
 #include <QStringList>
 #include "generalconfig.h"
 #include "kid3api.h"
+
+class StarRatingMapping;
 
 /**
  * Tag related configuration.
@@ -82,6 +84,10 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
   /** list of available plugins. */
   Q_PROPERTY(QStringList availablePlugins READ availablePlugins WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
+  /** mapping between star count and rating values. */
+  Q_PROPERTY(QStringList starRatingMappingStrings READ starRatingMappingStrings WRITE setStarRatingMappingStrings NOTIFY starRatingMappingsChanged)
+  /** default value for Email field in POPM frame. */
+  Q_PROPERTY(QString defaultPopmEmail READ defaultPopmEmail NOTIFY starRatingMappingsChanged)
   Q_ENUMS(Id3v2Version)
   Q_ENUMS(TextEncoding)
   Q_ENUMS(VorbisPictureName)
@@ -293,6 +299,55 @@ public:
   void clearAvailablePlugins() { m_availablePlugins.clear(); }
 
   /**
+   * Get list of star count rating mappings.
+   * @return star count rating mappings as a list of strings.
+   */
+  QStringList starRatingMappingStrings() const;
+
+  /**
+   * Set list of star count rating mappings.
+   * @param mappings star count rating mappings
+   */
+  void setStarRatingMappingStrings(const QStringList& mappings);
+
+  /**
+   * Get list of star count rating mappings.
+   * @return star count rating mappings.
+   */
+  const QList<QPair<QString, QVector<int> > >& starRatingMappings() const;
+
+  /**
+   * Set list of star count rating mappings.
+   * @param maps star count rating mappings
+   */
+  void setStarRatingMappings(const QList<QPair<QString, QVector<int> > >& maps);
+
+  /**
+   * Get star count from rating value.
+   * @param rating rating value stored in tag frame
+   * @param type rating type containing frame name and optionally field value,
+   * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+   * @return number of stars (1..5).
+   */
+  Q_INVOKABLE int starCountFromRating(int rating, const QString& type) const;
+
+  /**
+   * Get rating value from star count.
+   * @param starCount number of stars (1..5)
+   * @param type rating type containing frame name and optionally field value,
+   * e.g. "POPM.Windows Media Player 9 Series" or "RATING"
+   * @return rating value stored in tag frame, usually a value between 1 and 255
+   * or 1 and 100.
+   */
+  Q_INVOKABLE int starCountToRating(int starCount, const QString& type) const;
+
+  /**
+   * Get default value for Email field in POPM frame.
+   * @return value for Email field in first POPM entry of star rating mappings.
+   */
+  QString defaultPopmEmail() const;
+
+  /**
    * String list of encodings for ID3v2.
    */
   Q_INVOKABLE static QStringList getTextEncodingNames();
@@ -389,8 +444,13 @@ signals:
   /** Emitted when @a availablePlugins changed. */
   void availablePluginsChanged(const QStringList& availablePlugins);
 
+  /** Emitted when star count rating mappings changed. */
+  void starRatingMappingsChanged();
+
 private:
   friend TagConfig& StoredConfig<TagConfig>::instance();
+
+  StarRatingMapping* m_starRatingMapping;
 
   QString m_commentName;
   QString m_riffTrackName;

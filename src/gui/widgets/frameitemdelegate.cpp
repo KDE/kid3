@@ -33,6 +33,7 @@
 #include "frametablemodel.h"
 #include "genremodel.h"
 #include "formatconfig.h"
+#include "tagconfig.h"
 #include "tracknumbervalidator.h"
 #include "framenotice.h"
 
@@ -41,30 +42,39 @@ namespace {
 static const int MAX_STAR_COUNT = 5;
 static const int STAR_SCALE_FACTOR = 20;
 
-static const int ratingForStarCount[MAX_STAR_COUNT] = {
-  1, 64, 128, 196, 255
-};
-
-int starCountFromRating(int rating)
-{
-  for (int i = 0; i < MAX_STAR_COUNT; ++i) {
-    if (rating < ratingForStarCount[i]) {
-      return i;
+QString ratingTypeName(const QModelIndex& index) {
+  QString name = index.data(FrameTableModel::InternalNameRole).toString();
+  if (name.startsWith(QLatin1String("POPM"))) {
+    name.truncate(4);
+    QVariantList fieldIds = index.data(FrameTableModel::FieldIdsRole).toList();
+    int emailIdx = fieldIds.indexOf(Frame::ID_Email);
+    if (emailIdx != -1) {
+      QVariantList fieldValues =
+          index.data(FrameTableModel::FieldValuesRole).toList();
+      if (emailIdx < fieldValues.size()) {
+        name += QLatin1Char('.');
+        name += fieldValues.at(emailIdx).toString();
+      }
     }
   }
-  return MAX_STAR_COUNT;
+  return name;
 }
 
-int starCountToRating(int starCount) {
-  if (starCount < 1) {
-    return 0;
-  } else if (starCount > MAX_STAR_COUNT) {
-    starCount = MAX_STAR_COUNT;
-  }
-  return ratingForStarCount[starCount - 1];
+int starCountFromRating(int rating, const QModelIndex& index)
+{
+  return rating < 1
+      ? 0
+      : TagConfig::instance().starCountFromRating(rating, ratingTypeName(index));
+}
+
+int starCountToRating(int starCount, const QModelIndex& index) {
+  return starCount < 1
+      ? 0
+      : TagConfig::instance().starCountToRating(starCount, ratingTypeName(index));
 }
 
 }
+
 
 /**
  * Helper class providing methods to paint stars for a rating.
@@ -273,11 +283,12 @@ void FrameItemDelegate::paint(
 {
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
-    int starCount = starCountFromRating(index.data().toInt());
+    int starCount = starCountFromRating(index.data().toInt(), index);
     if (option.state & QStyle::State_Selected) {
       painter->fillRect(option.rect, option.palette.highlight());
     }
-    StarPainter(starCount, MAX_STAR_COUNT).paint(*painter, option.rect, option.palette, false);
+    StarPainter(starCount, MAX_STAR_COUNT).paint(*painter, option.rect,
+                                                 option.palette, false);
     return;
   }
   QItemDelegate::paint(painter, option, index);
@@ -294,7 +305,7 @@ QSize FrameItemDelegate::sizeHint(const QStyleOptionViewItem& option,
 {
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
-    int starCount = starCountFromRating(index.data().toInt());
+    int starCount = starCountFromRating(index.data().toInt(), index);
     return StarPainter(starCount, MAX_STAR_COUNT).sizeHint();
   }
   return QItemDelegate::sizeHint(option, index);
@@ -397,7 +408,7 @@ void FrameItemDelegate::setEditorData(
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
     if (StarEditor* starEditor = qobject_cast<StarEditor*>(editor)) {
-      int starCount = starCountFromRating(index.data().toInt());
+      int starCount = starCountFromRating(index.data().toInt(), index);
       starEditor->setStarCount(starCount);
       return;
     }
@@ -423,7 +434,7 @@ void FrameItemDelegate::setModelData(
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
     if (StarEditor* starEditor = qobject_cast<StarEditor*>(editor)) {
       if (starEditor->isStarCountEdited()) {
-        model->setData(index, starCountToRating(starEditor->starCount()));
+        model->setData(index, starCountToRating(starEditor->starCount(), index));
       }
       return;
     }
