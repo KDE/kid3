@@ -28,14 +28,13 @@
 #define FRAMEITEMDELEGATE_H
 
 #include <QItemDelegate>
-#include "kid3api.h"
 
 class GenreModel;
 
 /**
  * Delegate for table widget items.
  */
-class KID3_CORE_EXPORT FrameItemDelegate : public QItemDelegate {
+class FrameItemDelegate : public QItemDelegate {
   Q_OBJECT
 public:
   /**
