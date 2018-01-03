@@ -676,7 +676,7 @@ formatspezifische Bezeichnung erreicht werden.
 
 <table id="table-frame-list">
   <title>Zuordnung der vereinheitlichten Frame-Namen in den unterschiedlichen Formaten</title>
-   <tgroup cols="6">
+   <tgroup cols="7">
      <thead>
        <row><entry>Vereinheitlicht</entry>                  <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry>                 <entry>RIFF</entry></row>
      </thead>
@@ -2287,6 +2287,53 @@ Kontext-Menü möglich, welches erscheint, wenn man die rechte
 Maustaste drückt. Ersetzungen werden nur durchgeführt, wenn das
 <guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
 </para>
+
+<para>
+Die Tabelle in <guilabel>Bewertung</guilabel> enthält die Zuordnungen zwischen
+der Anzahl Sterne und den effektiv in den Tags gespeicherten Werten. Die
+Frames mit Bewertungsinformationen sind in der Zeile Bewertung der <link
+linkend="table-frame-list">Frame-Liste</link> aufgeführt. In diesen Frames
+kann eine Bewertung mit 1 bis 5 Sternen gesetzt werden. Verschiedene
+Tag-Formate und unterschiedliche Applikationen benutzen unterschiedliche Werte
+um die Anzahl Sterne im Tag zu speichern. Um die korrekte Anzahl Sterne
+darzustellen schaut &kid3; in dieser Tabelle nach, und zwar nach einem
+Schlüssel aus dem Frame-Namen, z.B. "RATING" für Vorbis-Tags oder "IRTD" für
+RIFF INFO. Für ID3v2-Tags wird als Schlüssel zur Frame-ID "POPM" noch der Wert
+des "Email"-Feldes hinzugefügt, getrennt durch einen Punkt. Folglich können
+für ID3v2 unterschiedliche Zuordnungen verwendet werden, z.B. "POPM.Windows
+Media Player 9 Series" für die Werte, welche beim Windows Media Player und
+Explorer verwendet werden, oder bloß "POPM" für POPM-Frames mit leerem
+"Email"-Feld. Da mehrere Einträge für "POPM" existieren können, ist deren
+Reihenfolge wichtig. Wenn &kid3; ein neues POPM-Frame hinzufügt, wird der
+erste "POPM"-Eintrag benutzt, um den Wert des "Email"-Feldes zu
+bestimmen. Dieser Wert entscheidet dann über die Zuordnung der Werte zur
+Anzahl Sterne. Der erste Eintrag wird auch benutzt, wenn kein passender
+Schlüssel gefunden wurde, stellt also den Standardwert dar.
+</para>
+<para>
+Nebst der Spalte <guilabel>Name</guilabel> für die Schlüssel gibt es noch die
+Spalten <guilabel>1</guilabel> bis <guilabel>5</guilabel> für die Werte,
+welche gespeichert werden, wenn die entsprechende Anzahl Sterne gesetzt
+wird. Andersherum werden diese Werte dazu benutzt um zu bestimmen, wie viele
+Sterne für einen im Tag gespeicherten Wert dargestellt werden sollen. Der
+Eintrag in der Tabelle unten enthält beispielsweise die Werte 1, 64, 128, 196
+und 255. Die Schwellwerte für die anzuzeigende Anzahl Sterne liegen dazwischen
+und sind so gewählt, dass sie kompatibel mit dem Windows Explorer sind.
+</para>
+
+<table>
+  <title>Eintrag in Bewertungs-Tabelle</title>
+  <tgroup cols="6">
+    <thead>
+      <row><entry>Name</entry><entry>1</entry> <entry>2</entry>  <entry>3</entry>  <entry>4</entry>  <entry>5</entry></row>
+    </thead>
+    <tbody>
+      <row><entry>POPM</entry><entry>1</entry><entry>64</entry><entry>128</entry><entry>196</entry><entry>255</entry></row>
+      <row><entry>Bereich</entry><entry>1-31</entry><entry>32-95</entry><entry>96-159</entry><entry>160-223</entry><entry>224-255</entry></row>
+    </tbody>
+  </tgroup>
+</table>
+
 <para>
 Auf der Seite <guilabel>Dateien</guilabel> bestimmt das Markierungsfeld
 <guilabel>Zuletzt geöffnete Dateien laden</guilabel>, ob &kid3; beim nächsten
@@ -4227,7 +4274,7 @@ ausgewählten Dateien sein sollen, so sollten stattdessen
 <command>firstFile()</command> und <command>nextFile()</command> verwendet
 werden, diese Funktionen sind in der Komponente
 <classname>Kid3Script</classname> enthalten. Das folgende Beispiel kopiert
-bloss die CD-Nummer- und Copyright-Frames der ausgewählten Datei.
+bloß die CD-Nummer- und Copyright-Frames der ausgewählten Datei.
 </para>
 
 <programlisting>

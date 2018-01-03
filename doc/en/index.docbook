@@ -644,7 +644,7 @@ format specific frames.
 
 <table id="table-frame-list">
   <title>Mapping of Unified Frame Types to Various Formats</title>
-   <tgroup cols="6">
+   <tgroup cols="7">
      <thead>
        <row><entry>Unified</entry>           <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry>                 <entry>RIFF</entry></row>
      </thead>
@@ -2146,6 +2146,51 @@ and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String replacement</guilabel> checkbox is checked.
 </para>
+
+<para>
+The table in <guilabel>Rating</guilabel> contains the mapping of star ratings
+to the effective values stored in the tag. The frames with rating information
+are listed in the Rating row of the <link linkend="table-frame-list">frame
+list</link>. For these frames, the rating can be set by giving a number of
+stars out of five stars. Different tag formats and different applications use
+different values to map the star rating to the value stored in the tag. In
+order to display the correct number of stars, &kid3; will look up a map in
+this table. The key to look up the mapping is the frame name, for example
+"RATING" as used for Vorbis comments or "IRTD" for RIFF INFO. For ID3v2 tags,
+a combined key is used consisting of the frame ID "POPM" of the Popularimeter
+frame and its "Email" field, separated by a dot. Therefore, different keys for
+ID3v2 exist, e.g. "POPM.Windows Media Player 9 Series" for the mapping used by
+Windows Media Player and Explorer, and simply "POPM" for POPM frames with an
+empty "Email" field. As multiple entries for "POPM" can exist, their order is
+important. When &kid3; adds a new Popularimeter frame, it will use the first
+"POPM" entry to determine the value to be written into the "Email" field. This
+value will then specify the mapping to be used for star ratings. The first
+entry is also used if no key was found, it is therefore the default entry.
+</para>
+<para>
+Besides the <guilabel>Name</guilabel> column containing the keys, the table
+has columns <guilabel>1</guilabel> to <guilabel>5</guilabel> for the values to
+be stored when the corresponding number of stars is given. The other way
+round, the values determine the number of stars which are displayed for the
+value stored in the frame. For instance, the row in the table below contains
+the values 1, 64, 128, 196, 255. The thresholds for the number of stars to be
+displayed lay between these values and are compatible with what the Windows
+Explorer uses.
+</para>
+
+<table>
+  <title>Entry in Rating table</title>
+  <tgroup cols="6">
+    <thead>
+      <row><entry>Name</entry><entry>1</entry> <entry>2</entry>  <entry>3</entry>  <entry>4</entry>  <entry>5</entry></row>
+    </thead>
+    <tbody>
+      <row><entry>POPM</entry><entry>1</entry><entry>64</entry><entry>128</entry><entry>196</entry><entry>255</entry></row>
+      <row><entry>Range</entry><entry>1-31</entry><entry>32-95</entry><entry>96-159</entry><entry>160-223</entry><entry>224-255</entry></row>
+    </tbody>
+  </tgroup>
+</table>
+
 <para>
 On the page <guilabel>Files</guilabel> the check box <guilabel>Load
 last-opened files</guilabel> can be marked so that &kid3; will open and

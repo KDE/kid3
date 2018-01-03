@@ -1433,6 +1433,9 @@ msgstr "Levyn nimi ID"
 msgid "Purchase Date"
 msgstr "Ostoajankohta"
 
+msgid "Rating/Advisory"
+msgstr "Arvostelu/neuvonta"
+
 msgid "Country Code"
 msgstr "Maakoodi"
 
@@ -2675,6 +2678,9 @@ msgstr "TSST – Aseta tekstitys"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast syöte"
 
+msgid "Rating Information"
+msgstr "Arvostelu tieto"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Tämä ohjelma käyttää <a href=\"http://www.qt.io/\">Qt</a>:n versiota %1."
@@ -2831,4 +2837,3 @@ msgstr "Valitse kaikki"
 
 msgid "Cut"
 msgstr "Leikkaa"
-

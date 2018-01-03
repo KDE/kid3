@@ -1433,6 +1433,9 @@ msgstr "Album ID"
 msgid "Purchase Date"
 msgstr "Ostukuupäev"
 
+msgid "Rating/Advisory"
+msgstr "Hinnang/Ametlik teade"
+
 msgid "Country Code"
 msgstr "Riigikood"
 
@@ -2673,6 +2676,9 @@ msgstr "TSST - komplekti alapealkiri"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast uudistevoog"
 
+msgid "Rating Information"
+msgstr "Hinnang teave"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "See programm kasutab <a href=\"http://www.qt.io/\">Qt</a> versiooni %1."
@@ -2829,4 +2835,3 @@ msgstr "Vali kõik"
 
 msgid "Cut"
 msgstr "Lõika"
-

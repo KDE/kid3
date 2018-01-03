@@ -1433,6 +1433,9 @@ msgstr "Album ID"
 msgid "Purchase Date"
 msgstr "Aankoopdatum"
 
+msgid "Rating/Advisory"
+msgstr "Waardering/advies"
+
 msgid "Country Code"
 msgstr "Landcode"
 
@@ -2677,6 +2680,9 @@ msgstr "TSST - ingestelde ondertitel"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast"
 
+msgid "Rating Information"
+msgstr "Waardering informatie"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "Dit programma gebruikt <a href=\"http://www.qt.io/\">Qt</a>-versie %1."
 
@@ -2832,4 +2838,3 @@ msgstr "Alles selecteren"
 
 msgid "Cut"
 msgstr "Knippen"
-

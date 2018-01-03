@@ -1435,6 +1435,9 @@ msgstr "Identifikátor alba"
 msgid "Purchase Date"
 msgstr "Datum nákupu"
 
+msgid "Rating/Advisory"
+msgstr "Hodnocení/informace"
+
 msgid "Country Code"
 msgstr "Kód země"
 
@@ -2675,6 +2678,9 @@ msgstr "TSST - Podnázev skladby"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Kanál Podcast"
 
+msgid "Rating Information"
+msgstr "Hodnocení informace"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Tento program používá knihovnu <a href=\"http://www.qt.io/\">Qt</a> verze %1."
@@ -2831,4 +2837,3 @@ msgstr "Vybrat vše"
 
 msgid "Cut"
 msgstr "Vyjmout"
-

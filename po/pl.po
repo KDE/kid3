@@ -1435,6 +1435,9 @@ msgstr "Album ID"
 msgid "Purchase Date"
 msgstr "Data zakupu"
 
+msgid "Rating/Advisory"
+msgstr "Ocena/pomocniczy"
+
 msgid "Country Code"
 msgstr "Kod kraju"
 
@@ -2678,6 +2681,9 @@ msgstr ""
 msgid "WFED - Podcast feed"
 msgstr "WFED - Źródło Podcast"
 
+msgid "Rating Information"
+msgstr "Ocena informacja"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Ten program korzysta z biblioteki <a href=\"http://www.qt.io/\">Qt</a> w "
@@ -2835,4 +2841,3 @@ msgstr "Zaznacz wszystko"
 
 msgid "Cut"
 msgstr "Wytnij"
-

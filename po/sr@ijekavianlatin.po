@@ -1432,6 +1432,9 @@ msgstr "Album ID"
 msgid "Purchase Date"
 msgstr ""
 
+msgid "Rating/Advisory"
+msgstr "Rejting/savjetovanje"
+
 msgid "Country Code"
 msgstr "Kôd države"
 
@@ -2673,6 +2676,9 @@ msgstr "TSST - postavi podnaslov"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Dovod Podcast"
 
+msgid "Rating Information"
+msgstr "Rejting informacija"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Ovaj program koristi izdanje <a href=\"http://www.qt.io/\">Qt</a>‑a %1."
@@ -2829,4 +2835,3 @@ msgstr "Izaberi sve"
 
 msgid "Cut"
 msgstr "Isijeci"
-

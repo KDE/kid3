@@ -1429,6 +1429,9 @@ msgstr ""
 msgid "Purchase Date"
 msgstr ""
 
+msgid "Rating/Advisory"
+msgstr ""
+
 msgid "Country Code"
 msgstr ""
 
@@ -2662,6 +2665,9 @@ msgid "TSST - Set subtitle"
 msgstr ""
 
 msgid "WFED - Podcast feed"
+msgstr ""
+
+msgid "Rating Information"
 msgstr ""
 
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."

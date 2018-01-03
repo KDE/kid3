@@ -1435,6 +1435,9 @@ msgstr "Альбом ID"
 msgid "Purchase Date"
 msgstr "Дата приобретение"
 
+msgid "Rating/Advisory"
+msgstr "Рейтинг/контроль"
+
 msgid "Country Code"
 msgstr "Код страны"
 
@@ -2677,6 +2680,9 @@ msgstr "TSST - Set subtitle"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Поток Podcast"
 
+msgid "Rating Information"
+msgstr "Информация о рейтинге"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "Эта программа использует <a href=\"http://www.qt.io/\">Qt</a> %1."
 
@@ -2832,4 +2838,3 @@ msgstr "Выделить все"
 
 msgid "Cut"
 msgstr "Вырезать"
-

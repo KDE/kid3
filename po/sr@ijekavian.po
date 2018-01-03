@@ -1432,6 +1432,9 @@ msgstr "Албум ИД"
 msgid "Purchase Date"
 msgstr ""
 
+msgid "Rating/Advisory"
+msgstr "Рејтинг/саветовање"
+
 msgid "Country Code"
 msgstr "Кôд државе"
 
@@ -2673,6 +2676,9 @@ msgstr "TSST - постави поднаслов"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Довод Podcast"
 
+msgid "Rating Information"
+msgstr "Оцене информација"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Овај програм користи издање <a href=\"http://www.qt.io/\">КуТ</a>‑а %1."
@@ -2829,4 +2835,3 @@ msgstr "Изабери све"
 
 msgid "Cut"
 msgstr "Исијеци"
-

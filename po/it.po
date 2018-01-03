@@ -1432,6 +1432,9 @@ msgstr "Album ID"
 msgid "Purchase Date"
 msgstr "Data di acquisto"
 
+msgid "Rating/Advisory"
+msgstr "Giudizio/avvertimenti"
+
 msgid "Country Code"
 msgstr "Paese"
 
@@ -2674,6 +2677,9 @@ msgstr "TSST - Imposta sottotitolo"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Fonte Podcast"
 
+msgid "Rating Information"
+msgstr "Informazione giudizio"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "Questo programma usa <a href=\"http://www.qt.io/\">Qt</a> versione %1."
 
@@ -2829,4 +2835,3 @@ msgstr "Seleziona tutto"
 
 msgid "Cut"
 msgstr "Taglia"
-

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-01-03 13:32+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1432,6 +1432,9 @@ msgstr "Albüm Kimlik"
 msgid "Purchase Date"
 msgstr ""
 
+msgid "Rating/Advisory"
+msgstr "Beğeni/Öneri"
+
 msgid "Country Code"
 msgstr "Ülke kodu"
 
@@ -2674,6 +2677,9 @@ msgstr "TSST - Alt yazı ayarla"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast besleme"
 
+msgid "Rating Information"
+msgstr "Beğeni bilgi"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Bu program <a href=\"http://www.qt.io/\">Qt</a> sürüm %1 kullanmaktadır."
@@ -2830,4 +2836,3 @@ msgstr "Tümünü Seç"
 
 msgid "Cut"
 msgstr "Kes"
-

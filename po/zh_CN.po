@@ -1431,6 +1431,9 @@ msgstr "专辑 ID"
 msgid "Purchase Date"
 msgstr ""
 
+msgid "Rating/Advisory"
+msgstr "评分/諮詢"
+
 msgid "Country Code"
 msgstr "国家代码"
 
@@ -2672,6 +2675,9 @@ msgstr "TSST - 设置字幕"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 饋流 Podcast"
 
+msgid "Rating Information"
+msgstr "评分信息"
+
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "这个程序使用的是 <a href=\"http://www.qt.io/\">Qt</a> %1 版本。"
 
@@ -2827,4 +2833,3 @@ msgstr "全部选中"
 
 msgid "Cut"
 msgstr "剪切"
-
