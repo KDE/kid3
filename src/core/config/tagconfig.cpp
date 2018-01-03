@@ -91,6 +91,8 @@ public:
   }
 
 private:
+  const QVector<int>& valuesForType(const QString& type) const;
+
   QVector<int> m_wmpValues;
   QList<QPair<QString, QVector<int> > > m_maps;
 };
@@ -117,9 +119,14 @@ int StarRatingMapping::starCountFromRating(int rating, const QString& type) cons
   if (rating < 1) {
     return 0;
   } else {
-    for (int i = 1; i <= MAX_STAR_COUNT; ++i) {
-      if (rating < starCountToRating(i, type)) {
-        return i - 1;
+    const QVector<int>& vals = valuesForType(type);
+    for (int i = 1; i < MAX_STAR_COUNT; ++i) {
+      // This is done the weird way in order to get the same thresholds as
+      // apparently used in Windows Explorer:
+      // 1:  1-31, 2: 32-95, 3: 96-159, 4:160-223, 5:224-255
+      int threshold = (((vals[i - 1] + 1) & ~7) + ((vals[i] + 1) & ~7)) / 2;
+      if (rating < threshold) {
+        return i;
       }
     }
     return MAX_STAR_COUNT;
@@ -133,16 +140,21 @@ int StarRatingMapping::starCountToRating(int starCount, const QString& type) con
   } else if (starCount > MAX_STAR_COUNT) {
     starCount = MAX_STAR_COUNT;
   }
+  return valuesForType(type).at(starCount - 1);
+}
+
+const QVector<int>& StarRatingMapping::valuesForType(const QString& type) const
+{
   // First search in the maps for the given type.
   for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
        it != m_maps.constEnd();
        ++it) {
     if (type == it->first) {
-      return it->second.at(starCount - 1);
+      return it->second;
     }
   }
   // If not found, use the first map or the WMP map if no maps are available.
-  return (m_maps.isEmpty() ? m_wmpValues : m_maps.first().second).at(starCount - 1);
+  return m_maps.isEmpty() ? m_wmpValues : m_maps.first().second;
 }
 
 QStringList StarRatingMapping::toStringList() const
