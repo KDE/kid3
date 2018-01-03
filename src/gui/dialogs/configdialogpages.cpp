@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,6 +44,7 @@
 #include "formatconfig.h"
 #include "filenameformatbox.h"
 #include "tagformatbox.h"
+#include "tablemodeledit.h"
 #include "tagconfig.h"
 #include "fileconfig.h"
 #include "useractionsconfig.h"
@@ -54,6 +55,7 @@
 #include "configtable.h"
 #include "commandstablemodel.h"
 #include "checkablestringlistmodel.h"
+#include "starratingmappingsmodel.h"
 #include "fileproxymodel.h"
 #include "contexthelp.h"
 #include "frame.h"
@@ -138,8 +140,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_textEncodingComboBox(0), m_id3v2VersionComboBox(0),
   m_trackNumberDigitsSpinBox(0), m_fnFormatBox(0), m_tagFormatBox(0),
   m_onlyCustomGenresCheckBox(0), m_genresEditModel(0),
-  m_quickAccessTagsModel(0), m_trackNameComboBox(0),
-  m_playOnDoubleClickCheckBox(0),
+  m_quickAccessTagsModel(0), m_starRatingMappingsModel(0),
+  m_trackNameComboBox(0), m_playOnDoubleClickCheckBox(0),
   m_commandsTable(0), m_commandsTableModel(0), m_browserLineEdit(0),
   m_proxyCheckBox(0), m_proxyLineEdit(0), m_proxyAuthenticationCheckBox(0),
   m_proxyUserNameLineEdit(0), m_proxyPasswordLineEdit(0),
@@ -311,7 +313,13 @@ QWidget* ConfigDialogPages::createTagsPage()
   QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
   QString tagFormatTitle(tr("&Tag Format"));
   m_tagFormatBox = new TagFormatBox(tagFormatTitle, tag1AndTag2Page);
+  QGroupBox* ratingGroupBox = new QGroupBox(tr("Rating"), tag1AndTag2Page);
+  QVBoxLayout* ratingLayout = new QVBoxLayout(ratingGroupBox);
+  m_starRatingMappingsModel = new StarRatingMappingsModel(ratingGroupBox);
+  TableModelEdit* ratingEdit = new TableModelEdit(m_starRatingMappingsModel);
+  ratingLayout->addWidget(ratingEdit);
   tag1AndTag2Layout->addWidget(m_tagFormatBox);
+  tag1AndTag2Layout->addWidget(ratingGroupBox);
 
   QTabWidget* tagsTabWidget = new QTabWidget;
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v11) {
@@ -591,6 +599,7 @@ void ConfigDialogPages::setConfigs(
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
+  m_starRatingMappingsModel->setMappings(tagCfg.starRatingMappings());
   quint64 frameMask = tagCfg.quickAccessFrames();
   QList<int> frameTypes = tagCfg.quickAccessFrameOrder();
   if (frameTypes.size() != Frame::FT_LastFrame + 1) {
@@ -722,6 +731,7 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
+  tagCfg.setStarRatingMappings(m_starRatingMappingsModel->getMappings());
   QList<int> frameTypes;
   bool isStandardFrameOrder = true;
   quint64 frameMask = 0;

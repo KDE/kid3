@@ -20,6 +20,7 @@ set(widgets_SRCS
   widgets/subframeseditor.cpp
   widgets/progresswidget.cpp
   widgets/frameitemdelegate.cpp
+  widgets/tablemodeledit.cpp
 )
 
 set(widgets_MOC_HDRS
@@ -40,4 +41,5 @@ set(widgets_MOC_HDRS
   widgets/subframeseditor.h
   widgets/progresswidget.h
   widgets/frameitemdelegate.h
+  widgets/tablemodeledit.h
 )

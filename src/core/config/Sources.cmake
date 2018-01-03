@@ -21,6 +21,7 @@ set(config_SRCS
   config/kid3settings.cpp
   config/findreplaceconfig.cpp
   config/mainwindowconfig.cpp
+  config/starratingmappingsmodel.cpp
 )
 
 set(config_MOC_HDRS
@@ -42,4 +43,5 @@ set(config_MOC_HDRS
   config/serverimporterconfig.h
   config/findreplaceconfig.h
   config/mainwindowconfig.h
+  config/starratingmappingsmodel.h
 )

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,6 +44,7 @@ class FormatBox;
 class ConfigTable;
 class CommandsTableModel;
 class CheckableStringListModel;
+class StarRatingMappingsModel;
 class FormatConfig;
 class TagConfig;
 class FileConfig;
@@ -180,6 +181,8 @@ private:
   QStringListModel* m_genresEditModel;
   /** Model with standard tags selection */
   QStandardItemModel* m_quickAccessTagsModel;
+  /** Model with star rating mappings */
+  StarRatingMappingsModel* m_starRatingMappingsModel;
   /** Track field name combo box */
   QComboBox* m_trackNameComboBox;
   /** Play on double click checkbox */
