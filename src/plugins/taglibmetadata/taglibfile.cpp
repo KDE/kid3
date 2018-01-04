@@ -4283,11 +4283,13 @@ static void stripMp4FreeFormName(TagLib::String& name)
  * Prepend free form prefix to MP4 frame name.
  * Only names starting with a capital letter or ':' are prefixed.
  *
- * @param name MP4 frame name to be prefixed.
+ * @param name MP4 frame name to be prefixed
+ * @param mp4Tag tag to check for existing item
  */
-static void prefixMp4FreeFormName(TagLib::String& name)
+static void prefixMp4FreeFormName(TagLib::String& name,
+                                  const TagLib::MP4::Tag* mp4Tag)
 {
-  if (!name.startsWith("----")) {
+  if (!mp4Tag->contains(name) && !name.startsWith("----")) {
     Frame::Type type;
     Mp4ValueType valueType;
     if (getMp4TypeForName(name, type, valueType)) {
@@ -4332,7 +4334,6 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 {
   Mp4ValueType valueType;
   getMp4TypeForFrame(frame, name, valueType);
-  prefixMp4FreeFormName(name);
   switch (valueType) {
     case MVT_String:
       return TagLib::MP4::Item(toTString(frame.getValue()));
@@ -4403,6 +4404,7 @@ void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
         item = TagLib::MP4::Item(pair.first, numTracks);
       }
     }
+    prefixMp4FreeFormName(name, mp4Tag);
     mp4Tag->itemListMap()[name] = item;
     markTagChanged(Frame::Tag_2, frame.getType());
   }
@@ -5797,7 +5799,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         }
         frame.setExtendedType(Frame::ExtendedType(frame.getType(),
                                                   toQString(name)));
-        prefixMp4FreeFormName(name);
+        prefixMp4FreeFormName(name, mp4Tag);
         mp4Tag->itemListMap()[name] = item;
         const TagLib::MP4::ItemListMap& itemListMap = mp4Tag->itemListMap();
         int index = 0;
@@ -5971,7 +5973,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
         TagLib::String name = toTString(frame.getInternalName());
-        prefixMp4FreeFormName(name);
+        prefixMp4FreeFormName(name, mp4Tag);
         mp4Tag->itemListMap().erase(name);
         markTagChanged(tagNr, frame.getType());
         return true;
