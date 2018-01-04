@@ -120,11 +120,14 @@ int StarRatingMapping::starCountFromRating(int rating, const QString& type) cons
     return 0;
   } else {
     const QVector<int>& vals = valuesForType(type);
+    const bool useWmpHack = vals.at(3) == 196;
     for (int i = 1; i < MAX_STAR_COUNT; ++i) {
       // This is done the weird way in order to get the same thresholds as
       // apparently used in Windows Explorer:
       // 1:  1-31, 2: 32-95, 3: 96-159, 4:160-223, 5:224-255
-      int threshold = (((vals[i - 1] + 1) & ~7) + ((vals[i] + 1) & ~7)) / 2;
+      int threshold = useWmpHack
+          ? (((vals[i - 1] + 1) & ~7) + ((vals[i] + 1) & ~7)) / 2
+          : (vals[i - 1] + vals[i] + 1) / 2;
       if (rating < threshold) {
         return i;
       }

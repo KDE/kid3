@@ -101,17 +101,21 @@ bool StarRatingMappingsModel::setData(const QModelIndex& index,
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
   QPair<QString, QVector<int> >& item = m_maps[index.row()];
+  bool changed = false;
   if (role == Qt::EditRole) {
     if (index.column() == CI_Name) {
       item.first = value.toString();
+      changed = true;
     } else if (item.second.size() >= index.column()) {
       item.second[index.column() - 1] = value.toInt();
-      makeRowValid(index.row());
+      changed = true;
     }
-    emit dataChanged(index, index);
-    return true;
+    if (changed) {
+      makeRowValid(index.row());
+      emit dataChanged(index, index);
+    }
   }
-  return false;
+  return changed;
 }
 
 /**
@@ -223,6 +227,11 @@ QList<QPair<QString, QVector<int> > > StarRatingMappingsModel::getMappings() con
  */
 void StarRatingMappingsModel::makeRowValid(int row)
 {
+  QString& type = m_maps[row].first;
+  type = type.trimmed();
+  if (type == QLatin1String("POPM.")) {
+    type.truncate(4);
+  }
   QVector<int>& values = m_maps[row].second;
   int previousValue = 0;
   for (QVector<int>::iterator it = values.begin(); it != values.end(); ++it) {

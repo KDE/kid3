@@ -51,9 +51,11 @@ QString ratingTypeName(const QModelIndex& index) {
     if (emailIdx != -1) {
       QVariantList fieldValues =
           index.data(FrameTableModel::FieldValuesRole).toList();
-      if (emailIdx < fieldValues.size()) {
+      QString emailValue;
+      if (emailIdx < fieldValues.size() &&
+          !(emailValue = fieldValues.at(emailIdx).toString()).isEmpty()) {
         name += QLatin1Char('.');
-        name += fieldValues.at(emailIdx).toString();
+        name += emailValue;
       }
     }
   }
