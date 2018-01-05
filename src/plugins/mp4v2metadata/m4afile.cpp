@@ -174,7 +174,7 @@ freeFormNameTypes[] = {
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile },
   { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource },
   { "RELEASEDATE", Frame::FT_ReleaseDate },
-  { "RATING", Frame::FT_Rating }
+  { "rate", Frame::FT_Rating }
 };
 
 /**
@@ -1322,7 +1322,8 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
     Frame::FT_Lyrics,
 #endif
-    Frame::FT_Picture
+    Frame::FT_Picture,
+    Frame::FT_Rating
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
     , Frame::FT_SortAlbum,
     Frame::FT_SortAlbumArtist,
@@ -1334,7 +1335,7 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
 
   QStringList lst;
   for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
-    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), QLatin1String("")).
+    lst.append(Frame::ExtendedType(types[i], QLatin1String("")).
                getName());
   }
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106

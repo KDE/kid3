@@ -4188,7 +4188,7 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "WWWAUDIOFILE", Frame::FT_WWWAudioFile, MVT_String },
   { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource, MVT_String },
   { "RELEASEDATE", Frame::FT_ReleaseDate, MVT_String },
-  { "RATING", Frame::FT_Rating, MVT_String }
+  { "rate", Frame::FT_Rating, MVT_String }
 };
 
 /**

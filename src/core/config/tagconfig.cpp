@@ -111,6 +111,7 @@ StarRatingMapping::StarRatingMapping()
                       traktorValues);
   m_maps << qMakePair(QString(QLatin1String("WM/SharedUserRating")), wmaValues);
   m_maps << qMakePair(QString(QLatin1String("IRTD")), percentValues);
+  m_maps << qMakePair(QString(QLatin1String("rate")), percentValues);
   m_maps << qMakePair(QString(QLatin1String("RATING")), percentValues);
 }
 
