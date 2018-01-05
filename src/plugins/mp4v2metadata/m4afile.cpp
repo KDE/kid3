@@ -759,9 +759,17 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             uint32_t val = str.toULong();
             MP4TagsSetGenreID(tags, &val);
           } else {
-            MP4ItmfItem* item = MP4ItmfItemAlloc("----", 1);
-            item->mean = strdup("com.apple.iTunes");
-            item->name = strdup(name.toUtf8().data());
+            MP4ItmfItem* item;
+            if (name.length() == 4 &&
+                (name.at(0).toLatin1() == '\251' ||
+                 (name.at(0) >= QLatin1Char('a') &&
+                  name.at(0) <= QLatin1Char('z')))) {
+              item = MP4ItmfItemAlloc(name.toLatin1().constData(), 1);
+            } else {
+              item = MP4ItmfItemAlloc("----", 1);
+              item->mean = strdup("com.apple.iTunes");
+              item->name = strdup(name.toUtf8().data());
+            }
 
             MP4ItmfData& data = item->dataList.elements[0];
             data.typeCode = MP4_ITMF_BT_UTF8;

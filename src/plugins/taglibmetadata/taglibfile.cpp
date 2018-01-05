@@ -4289,7 +4289,9 @@ static void stripMp4FreeFormName(TagLib::String& name)
 static void prefixMp4FreeFormName(TagLib::String& name,
                                   const TagLib::MP4::Tag* mp4Tag)
 {
-  if (!mp4Tag->contains(name) && !name.startsWith("----")) {
+  if (!mp4Tag->contains(name) && !name.startsWith("----") &&
+      !(name.length() == 4 &&
+        (name[0] == '\251' || (name[0] >= 'a' && name[0] <= 'z')))) {
     Frame::Type type;
     Mp4ValueType valueType;
     if (getMp4TypeForName(name, type, valueType)) {
