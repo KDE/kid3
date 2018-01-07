@@ -106,7 +106,7 @@ CMAKE_OPTIONS="-G \"Unix Makefiles\""
 fi
 
 if test "$compiler" = "cross-mingw"; then
-CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake"
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake"
 
 # Note that Ubuntu i686-w64-mingw32 is incompatible (sjlj) with the mingw (dw2)
 # used for the Qt mingw binaries >=4.8.6.
@@ -154,6 +154,9 @@ DOWNLOAD=wget
 else
 DOWNLOAD="curl -skfLO"
 fi
+
+test -d buildroot || mkdir buildroot
+BUILDROOT=`pwd`/buildroot/
 
 fixcmakeinst() {
   if test -d inst && test $kernel = "MINGW"; then
@@ -250,15 +253,21 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 
 # Create patch files
 
-if test "$compiler" = "cross-mingw" && ! test -f mingw.cmake; then
+if test "$compiler" = "cross-mingw"; then
   for d in $thisdir/qtbase5-dev-tools* /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin /usr/bin; do
     if test -x $d/moc; then
       _qt_bin_dir=$d
       break
     fi
   done
-  cat >mingw.cmake <<EOF
-set(QT_PREFIX /windows/Qt/Qt${qt_version}/${qt_version}/mingw49_32)
+  for d in /windows/Qt/${qt_version}/mingw* /windows/Qt/Qt${qt_version}/${qt_version}/mingw* $thisdir/Qt*-mingw/${qt_version}/mingw*; do
+    if test -d $d; then
+      _qt_prefix=$d
+      break
+    fi
+  done
+  cat >$thisdir/mingw.cmake <<EOF
+set(QT_PREFIX ${_qt_prefix})
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc)
@@ -2236,11 +2245,9 @@ _android_qt_root=/opt/Qt/5.5/android_armv7
 #_android_abi=x86
 #_android_toolchain_prefix=x86
 #_android_qt_root=/opt/Qt/5.5/android_x86
-test -d buildroot || mkdir buildroot
-_buildroot=$(pwd)/buildroot
 
 cd taglib-${taglib_version}/
-cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$_buildroot/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake
+cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake
 make install
 cd ..
 
@@ -2273,6 +2280,7 @@ cp include/ogg/*.h inst/include/ogg/
 cd inst
 tar czf ../../bin/libogg-${libogg_version}.tgz include lib
 cd ../..
+tar xmzf bin/libogg-${libogg_version}.tgz $BUILDROOT
 
 echo "### Building libvorbis"
 
@@ -2286,6 +2294,7 @@ cp include/vorbis/*.h inst/include/vorbis/
 cd inst
 tar czf ../../bin/libvorbis-${libvorbis_version}.tgz include lib
 cd ../..
+tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
 
 echo "### Building id3lib"
 
@@ -2300,6 +2309,7 @@ cp id3lib.lib inst/lib/Release/
 cd inst
 tar czf ../../bin/id3lib-${id3lib_version}.tgz include lib
 cd ../..
+tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
 
 echo "### Building taglib"
 
@@ -2317,14 +2327,7 @@ rm -rf instd
 cd inst
 tar czf ../../bin/taglib-${taglib_version}.tgz include lib
 cd ../..
-
-echo "### Installing to root directory"
-
-BUILDROOT=../libs-msvc
-test -d $BUILDROOT || mkdir $BUILDROOT
-for f in bin/*.tgz; do
-  tar xzf $f -C $BUILDROOT
-done
+tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
 
 else
 
@@ -2357,6 +2360,7 @@ fi
 cd inst
 tar czf ../../bin/zlib-${zlib_version}.tgz usr
 cd ../..
+tar xmzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d libogg-${libogg_version}/inst; then
@@ -2370,6 +2374,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libogg-${libogg_version}.tgz usr
 cd ../..
+tar xmzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d libvorbis-${libvorbis_version}/inst; then
@@ -2387,6 +2392,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libvorbis-${libvorbis_version}.tgz usr
 cd ../..
+tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d flac-${libflac_version}/inst; then
@@ -2408,6 +2414,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/flac-${libflac_version}.tgz usr
 cd ../..
+tar xmzf bin/flac-${libflac_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d id3lib-${id3lib_version}/inst; then
@@ -2429,6 +2436,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/id3lib-${id3lib_version}.tgz usr
 cd ../..
+tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d taglib-${taglib_version}/inst; then
@@ -2443,6 +2451,7 @@ fixcmakeinst
 cd inst
 tar czf ../../bin/taglib-${taglib_version}.tgz usr
 cd ../..
+tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d ${ffmpeg_dir}/inst; then
@@ -2547,6 +2556,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/${ffmpeg_dir}.tgz usr
 cd ../..
+tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
 else
 cd ${ffmpeg_dir}
 # configure needs yasm and pr
@@ -2657,6 +2667,7 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/${ffmpeg_dir}.tgz usr
 cd ../..
+tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
 fi
 fi
 
@@ -2673,6 +2684,7 @@ fixcmakeinst
 cd inst
 tar czf ../../bin/chromaprint-${chromaprint_version}.tgz usr
 cd ../..
+tar xmzf bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
 fi
 
 if test ! -d mp4v2-${mp4v2_version}/inst; then
@@ -2689,27 +2701,25 @@ make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/mp4v2-${mp4v2_version}.tgz usr
 cd ../..
+tar xmzf bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
 fi
 
 
 echo "### Installing to root directory"
 
-BUILDROOT=/
 if test $kernel = "Linux"; then
-  test -d buildroot || mkdir buildroot
-  BUILDROOT=`pwd`/buildroot/
   # Static build can be tested from Linux in kid3 directory
   if ! test -d kid3; then
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
-cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       cat >kid3/make_package.sh <<EOF
 #!/bin/bash
 VERSION=\$(grep VERSION config.h | cut -d'"' -f2)
 INSTDIR=kid3-\$VERSION-win32
-QT_PREFIX=\$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../source/mingw.cmake)
+QT_PREFIX=\$(sed "s/set(QT_PREFIX \(.*\))/\1/;q" ../mingw.cmake)
 QT_BIN_DIR=\${QT_PREFIX}/bin
 QT_TRANSLATIONS_DIR=\${QT_PREFIX}/translations
 
@@ -2758,23 +2768,25 @@ EOF
     chmod +x kid3/build.sh
   fi
 fi
-if test $kernel = "Darwin"; then
-  tar_cmd="sudo tar xmozf"
-else
-  tar_cmd="tar xmzf"
-fi
 
-if test -n "$ZLIB_ROOT_PATH"; then
-  ${tar_cmd} bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+if test "$compiler" != "msvc" && test $kernel != "Linux"; then
+  if test $kernel = "Darwin"; then
+    tar_cmd="sudo tar xmozf"
+  else
+    tar_cmd="tar xmzf"
+  fi
+  if test -n "$ZLIB_ROOT_PATH"; then
+    ${tar_cmd} bin/zlib-${zlib_version}.tgz -C /
+  fi
+  ${tar_cmd} bin/libogg-${libogg_version}.tgz -C /
+  ${tar_cmd} bin/libvorbis-${libvorbis_version}.tgz -C /
+  ${tar_cmd} bin/flac-${libflac_version}.tgz -C /
+  ${tar_cmd} bin/id3lib-${id3lib_version}.tgz -C /
+  ${tar_cmd} bin/taglib-${taglib_version}.tgz -C /
+  ${tar_cmd} bin/${ffmpeg_dir}.tgz -C /
+  ${tar_cmd} bin/chromaprint-${chromaprint_version}.tgz -C /
+  ${tar_cmd} bin/mp4v2-${mp4v2_version}.tgz -C /
 fi
-${tar_cmd} bin/libogg-${libogg_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/flac-${libflac_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/taglib-${taglib_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/${ffmpeg_dir}.tgz -C $BUILDROOT
-${tar_cmd} bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
-${tar_cmd} bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
 
 fi
 
