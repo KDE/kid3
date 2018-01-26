@@ -2570,6 +2570,8 @@ cd ${ffmpeg_dir}
 # The --extra-cflags=-march=i486 is to avoid error "Threading is enabled, but
 # there is no implementation of atomic operations available", libav bug 471.
 if test "$compiler" = "cross-mingw"; then
+# mkstemp is not available when building on Windows
+sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
 AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include --extra-cflags=-march=i486"
 elif test $kernel = "MINGW"; then
