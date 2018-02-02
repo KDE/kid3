@@ -2241,10 +2241,10 @@ _android_sdk_root=/opt/android/sdk
 _android_ndk_root=$_android_sdk_root/ndk-bundle
 _android_abi=armeabi-v7a
 _android_toolchain_prefix=
-_android_qt_root=/opt/Qt/5.5/android_armv7
+_android_qt_root=/opt/qt5/5.9.4/android_armv7
 #_android_abi=x86
 #_android_toolchain_prefix=x86
-#_android_qt_root=/opt/Qt/5.5/android_x86
+#_android_qt_root=/opt/qt5/5.9.4/android_x86
 
 cd taglib-${taglib_version}/
 cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake
@@ -2763,7 +2763,7 @@ EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 # For a LINUX_SELF_CONTAINED build, change BUILD_SHARED_LIBS, WITH_QML to ON and add
-# -G Ninja -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_C_COMPILER=gcc-4.8 -DQT_QMAKE_EXECUTABLE=/opt/Qt5.6.3/5.6.3/gcc_64/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF
+# -G Ninja -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_C_COMPILER=gcc-4.8 -DQT_QMAKE_EXECUTABLE=/opt/qt5/5.6.3/gcc_64/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF
 cmake -DBUILD_SHARED_LIBS=OFF -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
     fi

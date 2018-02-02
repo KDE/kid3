@@ -24,9 +24,9 @@ add_qt_android_apk(apk kid3-qml
   DEPENDS kid3-core kid3-gui
           musicbrainzimport discogsimport freedbimport amazonimport
           taglibmetadata kid3qml Qt5::Svg
-  DEPLOYMENT_DEPENDS jar/QtAndroid-bundled.jar jar/QtAndroidAccessibility-bundled.jar jar/QtAndroidBearer-bundled.jar jar/QtMultimedia-bundled.jar
+  DEPLOYMENT_DEPENDS jar/QtAndroid-bundled.jar jar/QtAndroidBearer-bundled.jar jar/QtMultimedia-bundled.jar
     lib/libQt5Core.so lib/libQt5Xml.so lib/libQt5Network.so lib/libQt5Gui.so
-    plugins/bearer/libqandroidbearer.so plugins/platforms/android/libqtforandroid.so plugins/platforms/libqeglfs.so plugins/platforms/libqminimal.so plugins/platforms/libqminimalegl.so plugins/platforms/libqoffscreen.so plugins/generic/libqevdevkeyboardplugin.so plugins/generic/libqevdevmouseplugin.so plugins/generic/libqevdevtabletplugin.so plugins/generic/libqevdevtouchplugin.so plugins/generic/libqtuiotouchplugin.so plugins/iconengines/libqsvgicon.so
+    plugins/bearer/libqandroidbearer.so plugins/platforms/android/libqtforandroid.so plugins/iconengines/libqsvgicon.so
 #    plugins/imageformats/libqdds.so plugins/imageformats/libqgif.so plugins/imageformats/libqicns.so plugins/imageformats/libqico.so plugins/imageformats/libqjp2.so
     plugins/imageformats/libqjpeg.so
 #    plugins/imageformats/libqmng.so
