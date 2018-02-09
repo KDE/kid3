@@ -1,12 +1,12 @@
 /**
- * \file TextField.qml
- * Single line text input field.
+ * \file Empty.qml
+ * Empty list view base component.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,35 +21,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.9
 
-FocusScope {
-  id: textField
+Rectangle {
+  id: emptyListItem
 
-  property alias text: textInput.text
-  signal accepted()
+  property bool selected: false
+  property bool __acceptEvents: true
+  property alias __mouseArea: mouseArea
 
-  implicitWidth: constants.gu(25)
-  implicitHeight: constants.controlHeight
-  Rectangle {
-    id: rect
+  signal clicked()
+
+  width: parent ? parent.width : constants.gu(31)
+  height: constants.rowHeight
+  color: selected
+         ? constants.palette.highlight : "transparent"
+
+  MouseArea {
+    id: mouseArea
     anchors.fill: parent
-    color: constants.editColor
-    TextInput {
-      id: textInput
-      anchors {
-        left: parent.left
-        right: parent.right
-        verticalCenter: parent.verticalCenter
-        leftMargin: constants.margins
+    onClicked: {
+      if (emptyListItem.__acceptEvents) {
+        emptyListItem.clicked()
       }
-      clip: true
-      inputMethodHints: Qt.ImhNoPredictiveText
-      onAccepted: textField.accepted()
     }
-    TextSelectionHandler {
-      editor: textInput
-      anchors.fill: parent
-    }
+  }
+  ThinDivider {
+    id: divider
+    anchors.bottom: parent.bottom
   }
 }

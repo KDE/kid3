@@ -2,13 +2,10 @@ set(app_QML_SRCS
   app/Main.qml
   app/MainPage.qml
   app/Collapsible.qml
-  app/ComboBox.qml
-  app/DropDownList.qml
   app/FrameDelegate.qml
   app/FrameEditDialog.qml
   app/FrameSelectDialog.qml
   app/MessageDialog.qml
-  app/ActionSelectionDelegate.qml
   app/UiConstants.qml
   app/FileList.qml
   app/FileCollapsible.qml
@@ -23,6 +20,10 @@ set(app_QML_SRCS
   app/SettingsElement.qml
   app/SettingsPage.qml
   app/SettingsItem.qml
-  app/RaisableRectangle.qml
   app/AboutDialog.qml
+  app/Empty.qml
+  app/Standard.qml
+  app/ThinDivider.qml
+  app/IconButton.qml
+  app/ThinDivider.qml
 )

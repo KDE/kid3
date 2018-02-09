@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,20 +21,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
-Empty {
+ItemDelegate {
   id: frameDelegate
 
   property int tagNr
   property QtObject frameModel: app.tag(tagNr).frameModel
   property QtObject genreModel: app.tag(tagNr).genreModel
 
-  selected: ListView.view.currentIndex === index
+  highlighted: ListView.view.currentIndex === index
   onClicked: ListView.view.currentIndex = index
 
   Component {
@@ -45,6 +43,7 @@ Empty {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         text: value
+        selectByMouse: true
         focus: true
         onAccepted: {
           focus = false
@@ -65,12 +64,17 @@ Empty {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        dropDownParent: root
+        editable: tagNr !== Kid3.Frame.Tag_1
+        textRole: "display"
         model: genreModel
-        currentText: value
-        currentIndex: genreModel.getRowForGenre(value)
-        onCurrentIndexChanged: script.setRoleData(frameModel, index, "value",
-                                                  currentText)
+        onCurrentTextChanged: script.setRoleData(frameModel, index, "value",
+                     editable && currentIndex === -1 && editText || currentText)
+        Component.onCompleted: {
+          currentIndex = genreModel.getRowForGenre(value)
+          if (currentIndex === -1 && editable) {
+            editText = value;
+          }
+        }
       }
     }
   }
@@ -94,8 +98,9 @@ Empty {
     }
   }
 
-  Item {
+  Rectangle {
     anchors.fill: parent
+    color: highlighted ? constants.palette.highlight : "transparent"
 
     CheckBox {
       id: frameEnabledCheckBox
@@ -122,13 +127,10 @@ Empty {
       width: constants.gu(2)
       height: constants.gu(2)
       Image {
-        //anchors.fill: parent                            //@Ubuntu
-        //source: "image://kid3/fileicon/" +              //@Ubuntu
-                //(modified ? "modified" : "null")        //@Ubuntu
-        source: modified ? "../icons/modified.svg"      //@!Ubuntu
-                         : "image://kid3/fileicon/null" //@!Ubuntu
-        sourceSize.width: parent.width                  //@!Ubuntu
-        sourceSize.height: parent.height                //@!Ubuntu
+        source: modified ? "../icons/modified.svg"
+                         : "image://kid3/fileicon/null"
+        sourceSize.width: parent.width
+        sourceSize.height: parent.height
       }
     }
     Label {
@@ -139,8 +141,8 @@ Empty {
                    (parent.width - constants.gu(4) - 2 * constants.margins) / 2)
       text: name
       clip: true
-      color: selected
-             ? constants.selectedTextColor : constants.backgroundTextColor
+      color: highlighted
+             ? constants.palette.highlightedText : constants.palette.text
     }
 
     Loader {
@@ -149,7 +151,7 @@ Empty {
       anchors.rightMargin: constants.margins
       height: parent.height
       sourceComponent: !frameDelegate.ListView.isCurrentItem
-                       ? valueText : frameType === Frame.FT_Genre
+                       ? valueText : frameType === Kid3.Frame.FT_Genre
                          ? genreEdit : textEdit
     }
 

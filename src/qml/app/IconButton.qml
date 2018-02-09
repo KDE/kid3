@@ -1,12 +1,12 @@
 /**
- * \file MessageDialog.qml
- * Message dialog.
+ * \file IconButton.qml
+ * Tool button with an icon.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 16 Feb 2015
+ * \date 9 Feb 2018
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,37 +24,23 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 
-Dialog {
-  id: page
+ToolButton {
+  property string iconName
 
-  property alias text: msg.text
-  signal yes
-  signal no
-  signal cancel
-
-  width: 400
-  height: 300
-  modal: true
-  standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
-
-  Connections {
-    target: footer
-    onClicked: {
-      switch (button.DialogButtonBox.buttonRole) {
-      case DialogButtonBox.YesRole:
-        yes()
-        break;
-      case DialogButtonBox.NoRole:
-        no()
-        break;
-      case DialogButtonBox.RejectRole:
-        cancel()
-        break;
-      }
-    }
-  }
-
-  contentItem: Label {
-    id: msg
+  ScaledImage {
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
+    source: if (iconName) "../icons/" + {
+              "go-up": "expand_less.svg",
+              "select": "select_all.svg",
+              "clear": "clear.svg",
+              "go-previous": "chevron_left.svg",
+              "go-next": "chevron_right.svg",
+              "drawer": "menu.svg",
+              "navigation-menu": "more_vert.svg",
+              "edit": "create.svg",
+              "add": "add.svg",
+              "remove": "remove.svg"
+            }[iconName]
   }
 }

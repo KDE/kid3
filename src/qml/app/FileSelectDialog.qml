@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,11 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
+import QtQuick 2.9
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.2
 
 Dialog {
   id: page
@@ -34,28 +32,22 @@ Dialog {
   signal finished(string path)
 
   title: qsTr("Open")
-  text: qsTr("File path")
-  TextField {
-    id: textField
-  }
+  modal: true
+  x: (root.width - width) / 2
+  y: root.height / 6
+  width: Math.min(root.width, constants.gu(65))
+  standardButtons: Dialog.Ok | Dialog.Cancel
+  onAccepted: page.finished(page.filePath)
 
-  Row {
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
-      onClicked: {
-        page.hide()
-        page.finished("")
-      }
+  ColumnLayout {
+    width: parent.width
+    Label {
+      text: qsTr("File path")
     }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
-      onClicked: {
-        page.hide()
-        page.finished(page.filePath)
-      }
+    TextField {
+      id: textField
+      implicitWidth: parent.width
+      selectByMouse: true
     }
   }
 }

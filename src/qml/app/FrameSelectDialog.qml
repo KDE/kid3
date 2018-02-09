@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,55 +21,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
+import QtQuick 2.9
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.2
 
 Dialog {
   id: page
 
   signal frameSelected(string name);
 
+  modal: true
+  x: (root.width - width) / 2
+  y: root.height / 6
+  standardButtons: Dialog.Ok | Dialog.Cancel
+
   title: qsTr("Add Frame")
-  text: qsTr("Select the frame ID")
 
-  function open(frameNames) {
+  function openFrameNames(frameNames) {
     frameSelectList.model = frameNames
-    page.show()
+    page.open()
   }
 
-  ListView {
-    id: frameSelectList
-    height: Math.min(constants.gu(35),
-                  root.height - 3 * constants.rowHeight - 4 * constants.margins)
+  ColumnLayout {
+    Label {
+      text: qsTr("Select the frame ID")
+    }
 
-    clip: true
-    delegate: Standard {
-      text: modelData
-      selected: ListView.view.currentIndex === index
-      onClicked: ListView.view.currentIndex = index
+    ListView {
+      id: frameSelectList
+      width: constants.gu(30)
+      height: Math.min(constants.gu(35),
+                    root.height - 3 * constants.rowHeight - 4 * constants.margins)
+
+      clip: true
+      delegate: Standard {
+        text: modelData
+        highlighted: ListView.view.currentIndex === index
+        onClicked: ListView.view.currentIndex = index
+        background: Rectangle {
+          color: highlighted ? constants.palette.highlight : "transparent"
+        }
+      }
     }
   }
 
-  Row {
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
-      onClicked: {
-        page.hide()
-        page.frameSelected("")
-      }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
-      onClicked: {
-        page.hide()
-        page.frameSelected(frameSelectList.currentItem.text)
-      }
-    }
+  onRejected: {
+    page.close()
+    page.frameSelected("")
+  }
+  onAccepted: {
+    page.close()
+    page.frameSelected(frameSelectList.currentItem.text)
   }
 }

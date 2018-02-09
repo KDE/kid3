@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,30 +21,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Collapsible {
   id: fileCollapsible
 
   property alias fileName: fileNameEdit.text
 
-  //signal mainMenuRequested(variant caller)                         //@Ubuntu
-
   text: qsTr("File") + ": " + app.selectionInfo.detailInfo
   checked: true
-  //buttons: [                                                       //@Ubuntu
-    //Button {                                                       //@Ubuntu
-      //id: mainMenuButton                                           //@Ubuntu
-      //iconName: "navigation-menu"                                  //@Ubuntu
-      //width: height                                                //@Ubuntu
-      //onClicked: fileCollapsible.mainMenuRequested(mainMenuButton) //@Ubuntu
-    //}                                                              //@Ubuntu
-  //]                                                                //@Ubuntu
 
   content: Item {
     width: parent.width
@@ -53,15 +39,11 @@ Collapsible {
       id: fileNameModifiedImage
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
-      //width: constants.gu(2)                                       //@Ubuntu
-      //height: constants.gu(2)                                      //@Ubuntu
-      //source: "image://kid3/fileicon/" +                           //@Ubuntu
-         //(app.selectionInfo.fileNameChanged ? "modified" : "null") //@Ubuntu
-      source: app.selectionInfo.fileNameChanged                    //@!Ubuntu
-              ? "../icons/modified.svg"                            //@!Ubuntu
-              : "image://kid3/fileicon/null"                       //@!Ubuntu
-      sourceSize.width: constants.gu(2)                            //@!Ubuntu
-      sourceSize.height: constants.gu(2)                           //@!Ubuntu
+      source: app.selectionInfo.fileNameChanged
+              ? "../icons/modified.svg"
+              : "image://kid3/fileicon/null"
+      sourceSize.width: constants.gu(2)
+      sourceSize.height: constants.gu(2)
     }
     Label {
       id: fileNameLabel
@@ -76,6 +58,7 @@ Collapsible {
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
       text: app.selectionInfo.fileName
+      selectByMouse: true
     }
   }
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,19 +21,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQml 2.2
+import Kid3 1.1 as Kid3
 
-MainView {
+ApplicationWindow {
   id: root
+  visible: true
+  visibility: Qt.platform.os === "android" ? "FullScreen" : "Windowed"
   objectName: "mainView"
-  applicationName: "Kid3"
-  useDeprecatedToolbar: false
-  automaticOrientation: true
+  title: "Kid3"
   width: constants.gu(100)
   height: constants.gu(100)
 
@@ -41,15 +39,15 @@ MainView {
     id: constants
   }
 
-  FrameEditorObject {
+  Kid3.FrameEditorObject {
     id: frameEditor
   }
 
-  ScriptUtils {
+  Kid3.ScriptUtils {
     id: script
   }
 
-  ConfigObjects {
+  Kid3.ConfigObjects {
     id: configs
   }
 
@@ -60,17 +58,18 @@ MainView {
 
     Connections {
       target: frameEditor
-      onFrameSelectionRequested: frameSelectDialog.open(frameNames)
+      onFrameSelectionRequested: frameSelectDialog.openFrameNames(frameNames)
     }
   }
 
   FrameEditDialog {
     id: frameEditDialog
+    parent: ApplicationWindow.overlay
     onFrameEdited: frameEditor.onFrameEditFinished(frame)
 
     Connections {
       target: frameEditor
-      onFrameEditRequested: frameEditDialog.open(frame)
+      onFrameEditRequested: frameEditDialog.openFrame(frame)
     }
   }
 
@@ -80,6 +79,9 @@ MainView {
     signal completed(bool ok)
 
     id: saveModifiedDialog
+    x: (root.width - width) / 2
+    y: root.height / 6
+    parent: ApplicationWindow.overlay
     title: qsTr("Warning")
     text: qsTr("The current directory has been modified.\nDo you want to save it?")
     onYes: {
@@ -93,153 +95,48 @@ MainView {
       }
       completed(true)
     }
-    onRejected: completed(false)
+    onCancel: completed(false)
 
     // Open dialog if any file modified.
     // completed(ok) is signalled with false if canceled.
     function openIfModified() {
       if (app.modified && app.dirName) {
-        show()
+        open()
       } else {
         completed(true)
       }
     }
   }
 
-  NumberTracksDialog {
-    id: numberTracksDialog
-  }
-
-  AboutDialog {
-    id: aboutDialog
-  }
-
-  Component {
-    id: mainMenuPopoverComponent
-    ActionSelectionPopover {
-      id: mainMenuPopover
-      delegate: ActionSelectionDelegate {
-        popover: mainMenuPopover
-      }
-      actions: ActionList {
-        Action {
-          text: qsTr("About")
-          onTriggered: aboutDialog.show()
-        }
-        Action {
-          text: qsTr("Save")
-          onTriggered: {
-            var errorFiles = app.saveDirectory()
-            if (errorFiles.length > 0) {
-              console.debug("Save error:" + errorFiles)
-            }
-          }
-        }
-        Action {
-          text: qsTr("Settings")
-          onTriggered: pageStack.push(settingsPage)
-        }
-        Action {
-          text: qsTr("Automatic Import")
-          onTriggered: pageStack.push(batchImportPage)
-        }
-        Action {
-          text: qsTr("Create Playlist")
-          onTriggered: app.writePlaylist()
-        }
-        Action {
-          text: qsTr("Rename Directory")
-          onTriggered: pageStack.push(renameDirPage)
-        }
-        Action {
-          text: qsTr("Number Tracks")
-          onTriggered: numberTracksDialog.show()
-        }
-        Action {
-          text: qsTr("Filter")
-          onTriggered: pageStack.push(filterPage)
-        }
-        Action {
-          text: qsTr("Apply Filename Format")
-          onTriggered: app.applyFilenameFormat()
-        }
-        Action {
-          text: qsTr("Apply Tag Format")
-          onTriggered: app.applyTagFormat()
-        }
-        Action {
-          text: qsTr("Apply Text Encoding")
-          onTriggered: app.applyTextEncoding()
-        }
-        Action {
-          text: qsTr("Convert ID3v2.3 to ID3v2.4")
-          onTriggered: app.convertToId3v24()
-        }
-        Action {
-          text: qsTr("Convert ID3v2.4 to ID3v2.3")
-          onTriggered: app.convertToId3v23()
-        }
-        Action {
-          text: qsTr("Revert")
-          onTriggered: app.revertFileModifications()
-        }
-        Action {
-          text: qsTr("Quit")
-          onTriggered: confirmedQuit()
-        }
-      }
+  Shortcut {
+    sequences: ["Esc", "Back"]
+    enabled: pageStack.depth > 1
+    onActivated: {
+      pageStack.pop()
     }
   }
 
-  PageStack {
+  StackView {
     id: pageStack
-    onBackOnLastPagePressed: confirmedQuit() //@!Ubuntu
-    Component.onCompleted: push(mainPage)
+    initialItem: mainPage
+    anchors.fill: parent
+
     MainPage {
       id: mainPage
-
-      Component {
-        id: openDialog
-        FileSelectDialog {
-          property variant field
-          parent: root
-          title: qsTr("Open")
-          onFinished: if (path) confirmedOpenDirectory(path)
-        }
-      }
-
-      visible: false
-      onTitlePressed: constants.openPopup(openDialog, root,          //@!Ubuntu
-                                          {"filePath": app.dirName}) //@!Ubuntu
-    }
-    RenameDirectoryPage {
-      id: renameDirPage
-      visible: false
-    }
-    FilterPage {
-      id: filterPage
-      visible: false
-    }
-    BatchImportPage {
-      id: batchImportPage
-      visible: false
-    }
-    SettingsPage {
-      id: settingsPage
       visible: false
     }
   }
 
-  Text {                                                        //@!Ubuntu
-    visible: false                                              //@!Ubuntu
-    Component.onCompleted: {                                    //@!Ubuntu
+  Text {
+    visible: false
+    Component.onCompleted: {
       // Linux Desktop: pixelSize 12 => gu = 8
       // Android Emulator Galaxy Nexus: 32 => gu = 21
-      constants.gridUnit = Math.max(8 * font.pixelSize / 12, 8) //@!Ubuntu
-      constants.titlePixelSize = 18 * font.pixelSize / 12       //@!Ubuntu
-      constants.imageScaleFactor = Math.max(font.pixelSize / 12.0, 1.0) //@!Ubuntu
-    }                                                           //@!Ubuntu
-  }                                                             //@!Ubuntu
+      constants.gridUnit = Math.max(8 * font.pixelSize / 12, 8)
+      constants.titlePixelSize = 18 * font.pixelSize / 12
+      constants.imageScaleFactor = Math.max(font.pixelSize / 12.0, 1.0)
+    }
+  }
 
   Component.onCompleted: {
     app.frameEditor = frameEditor
@@ -264,14 +161,14 @@ MainView {
     onDownloadFinished: app.imageDownloaded(data, contentType, url)
   }
 
-  DropArea {                        //@QtQuick2
-    anchors.fill: parent            //@QtQuick2
-    onDropped: {                    //@QtQuick2
-      if (drop.hasUrls) {           //@QtQuick2
-        app.openDropUrls(drop.urls) //@QtQuick2
-      }                             //@QtQuick2
-    }                               //@QtQuick2
-  }                                 //@QtQuick2
+  DropArea {
+    anchors.fill: parent
+    onDropped: {
+      if (drop.hasUrls) {
+        app.openDropUrls(drop.urls)
+      }
+    }
+  }
 
   function confirmedOpenDirectory(path) {
     function openIfCompleted(ok) {

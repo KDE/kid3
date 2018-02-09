@@ -1,10 +1,10 @@
 /**
- * \file Label.qml
- * Text label.
+ * \file ScaledImage.qml
+ * Image with scaled source size for smoothly scaled SVG icons.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 16 Feb 2015
+ * \date 31 Oct 2015-2018
  *
  * Copyright (C) 2015  Urs Fleisch
  *
@@ -21,9 +21,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.6
 
-Text {
-  width: implicitWidth
-  height: implicitHeight
+Image {
+  property int originalWidth: 0
+  property int originalHeight: 0
+  sourceSize.width: if (originalWidth > 0)
+                      originalWidth * constants.imageScaleFactor
+  sourceSize.height: if (originalHeight > 0)
+                       originalHeight * constants.imageScaleFactor
+  Component.onCompleted: {
+    originalWidth = sourceSize.width
+    originalHeight = sourceSize.height
+  }
 }

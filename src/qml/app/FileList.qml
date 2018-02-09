@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,15 +21,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
-RaisableRectangle {
+Rectangle {
+  id: fileList
   property alias actionButtons: fileButtonRow.control
+
+  signal fileActivated
 
   function currentFilePath() {
     return fileModel.getDataValue(fileModel.currentRow,
@@ -56,7 +56,7 @@ RaisableRectangle {
   }
 
   ListView {
-    id: fileList
+    id: fileListView
 
     anchors.left: parent.left
     anchors.top: fileButtonRow.control ? fileButtonRow.bottom : parent.top
@@ -65,13 +65,13 @@ RaisableRectangle {
     anchors.margins: constants.margins
     clip: true
 
-    model: CheckableListModel {
+    model: Kid3.CheckableListModel {
       id: fileModel
       sourceModel: app.fileProxyModel
       selectionModel: app.fileSelectionModel
       rootIndex: app.fileRootIndex
       onCurrentRowChanged: {
-        fileList.currentIndex = row
+        fileListView.currentIndex = row
       }
     }
 
@@ -82,11 +82,16 @@ RaisableRectangle {
         if (!isDir) {
           ListView.view.currentIndex = index
           fileModel.currentRow = index
+          fileList.fileActivated()
         } else {
           confirmedOpenDirectory(filePath)
         }
       }
-      selected: ListView.isCurrentItem
+      highlighted: ListView.isCurrentItem
+      background: Rectangle {
+        color: highlighted ? constants.palette.highlight : "transparent"
+      }
+
       Row {
         anchors.fill: parent
 
@@ -113,21 +118,19 @@ RaisableRectangle {
           width: constants.gu(2)
           height: constants.gu(2)
           Image {
-            //anchors.fill: parent                       //@Ubuntu
-            //source: "image://kid3/fileicon/" + iconId  //@Ubuntu
-            source: iconId == "modified"               //@!Ubuntu
-                    ? "../icons/modified.svg"          //@!Ubuntu
-                    : "image://kid3/fileicon/" + (iconId || "null") //@!Ubuntu
-            sourceSize.width: parent.width             //@!Ubuntu
-            sourceSize.height: parent.height           //@!Ubuntu
+            source: iconId == "modified"
+                    ? "../icons/modified.svg"
+                    : "image://kid3/fileicon/" + (iconId || "null")
+            sourceSize.width: parent.width
+            sourceSize.height: parent.height
           }
         }
         Label {
           id: fileText
           anchors.verticalCenter: parent.verticalCenter
           text: fileName
-          color: selected
-            ? constants.selectedTextColor : constants.backgroundTextColor
+          color: fileDelegate.highlighted
+            ? constants.palette.highlightedText : constants.palette.text
         }
       }
     }

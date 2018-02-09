@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,11 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Page {
   id: page
@@ -37,35 +35,35 @@ Page {
     onReportImportEvent: {
       var str
       switch (type) {
-      case BatchImporter.ReadingDirectory:
+      case Kid3.BatchImporter.ReadingDirectory:
         str = qsTr("Reading Directory")
         break
-      case BatchImporter.Started:
+      case Kid3.BatchImporter.Started:
         str = qsTr("Started")
         break
-      case BatchImporter.SourceSelected:
+      case Kid3.BatchImporter.SourceSelected:
         str = qsTr("Source")
         break
-      case BatchImporter.QueryingAlbumList:
+      case Kid3.BatchImporter.QueryingAlbumList:
         str = qsTr("Querying")
         break
-      case BatchImporter.FetchingTrackList:
-      case BatchImporter.FetchingCoverArt:
+      case Kid3.BatchImporter.FetchingTrackList:
+      case Kid3.BatchImporter.FetchingCoverArt:
         str = qsTr("Fetching")
         break
-      case BatchImporter.TrackListReceived:
+      case Kid3.BatchImporter.TrackListReceived:
         str = qsTr("Data received")
         break
-      case BatchImporter.CoverArtReceived:
+      case Kid3.BatchImporter.CoverArtReceived:
         str = qsTr("Cover")
         break
-      case BatchImporter.Finished:
+      case Kid3.BatchImporter.Finished:
         str = qsTr("Finished")
         break
-      case BatchImporter.Aborted:
+      case Kid3.BatchImporter.Aborted:
         str = qsTr("Aborted")
         break
-      case BatchImporter.Error:
+      case Kid3.BatchImporter.Error:
         str = qsTr("Error")
         break
       }
@@ -75,6 +73,38 @@ Page {
       }
       str += "\n"
       textArea.text += str
+      textArea.cursorPosition = textArea.text.length
+    }
+  }
+
+  header: ToolBar {
+    IconButton {
+      id: prevButton
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      iconName: "go-previous"
+      width: visible ? height : 0
+      visible: page.StackView.view && page.StackView.view.depth > 1
+      onClicked: page.StackView.view.pop()
+    }
+    Label {
+      id: titleLabel
+      anchors.left: prevButton.right
+      anchors.right: startButton.left
+      anchors.verticalCenter: parent.verticalCenter
+      clip: true
+      text: page.title
+    }
+    ToolButton {
+      id: startButton
+      anchors.right: parent.right
+      anchors.margins: constants.margins
+      text: qsTr("Start")
+      onClicked: {
+        textArea.text = ""
+        app.batchImport(profileComboBox.currentText,
+                        script.toTagVersion(destinationComboBox.getTagVersion()))
+      }
     }
   }
 
@@ -96,13 +126,12 @@ Page {
     }
     ComboBox {
       id: destinationComboBox
-      dropDownParent: page
       width: parent.valueWidth
       model: [ qsTr("Tag 1"),
                qsTr("Tag 2"),
                qsTr("Tag 1 and Tag 2") ]
       function getTagVersion() {
-        return [ Frame.TagV1, Frame.TagV2, Frame.TagV2V1 ][currentIndex]
+        return [ Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV2V1 ][currentIndex]
       }
     }
 
@@ -115,56 +144,28 @@ Page {
     ComboBox {
       id: profileComboBox
       width: parent.valueWidth
-      dropDownParent: page
       model: configs.batchImportConfig().profileNames
       currentIndex: configs.batchImportConfig().profileIndex
     }
   }
 
-  TextArea {
-    id: textArea
+  ScrollView {
+    id: flick
     anchors {
       left: parent.left
       right: parent.right
       top: profileRow.bottom
-      bottom: buttonRow.top
-      margins: constants.margins
-    }
-    readOnly: true
-    selectByMouse: false
-  }
-  Row {
-    id: buttonRow
-    anchors {
-      left: parent.left
-      right: parent.right
       bottom: parent.bottom
       margins: constants.margins
     }
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Close")
-      onClicked: {
-        pageStack.pop()
-      }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Start")
-      onClicked: {
-        textArea.text = ""
-        app.batchImport(profileComboBox.currentText,
-                        script.toTagVersion(destinationComboBox.getTagVersion()))
-      }
+
+    TextArea {
+      id: textArea
+      readOnly: true
+      selectByMouse: false
     }
   }
 
-  onActiveChanged: {
-    if (active) {
-      textArea.text = ""
-    } else {
-      app.batchImporter.abort()
-    }
-  }
+  StackView.onActivated: textArea.text = ""
+  StackView.onDeactivated: app.batchImporter.abort()
 }

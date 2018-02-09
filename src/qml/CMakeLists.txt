@@ -5,7 +5,7 @@ if (NOT HAVE_QMLDIR_IN_QRC)
 # On Linux, this can be done in ~/.xsessionrc.
 set(qml_SUBDIRS script)
 if (BUILD_QML_APP)
-  set(qml_SUBDIRS ${qml_SUBDIRS} app componentsqtquick)
+  set(qml_SUBDIRS ${qml_SUBDIRS} app)
 endif (BUILD_QML_APP)
 
 set(qml_QML_SRCS)
@@ -26,12 +26,8 @@ endif (BUILD_QML_APP)
 add_custom_target(qml-sources SOURCES ${qml_QML_SRCS})
 
 # Preprocess installed QML files for Qt 4 or Ubuntu Components.
-if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
-  if (NOT HAVE_QT5)
-    set(_qmlpp_code 4)
-  else (NOT HAVE_QT5)
-    set(_qmlpp_code U)
-  endif (NOT HAVE_QT5)
+if (NOT HAVE_QT5)
+  set(_qmlpp_code 4)
   install(CODE "
     execute_process(
       COMMAND ${PYTHON_EXECUTABLE}
@@ -39,5 +35,5 @@ if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
       WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}\"
     )
     ")
-endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
+endif (NOT HAVE_QT5)
 endif (NOT HAVE_QMLDIR_IN_QRC)

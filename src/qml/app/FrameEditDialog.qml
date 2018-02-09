@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,12 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Dialog {
   id: page
@@ -34,12 +31,18 @@ Dialog {
   property QtObject frameObject
   signal frameEdited(variant frame)
 
-  function open(frame) {
+  modal: true
+  width: Math.min(root.width, constants.gu(70))
+  x: (root.width - width) / 2
+  y: 0
+  standardButtons: Dialog.Ok | Dialog.Cancel
+
+  function openFrame(frame) {
     page.title = frame.internalName
     fieldList.model = frame.fields
     frameObject = frame
-    page.show()
-    if (frame.type === Frame.FT_Picture) {
+    page.open()
+    if (frame.type === Kid3.Frame.FT_Picture) {
       app.setCoverArtImageData(frame.getBinaryData())
     }
   }
@@ -48,6 +51,7 @@ Dialog {
     id: textLineEdit
     TextField {
       text: _modelData.value
+      selectByMouse: true
       onAccepted: {
         focus = false
       }
@@ -61,11 +65,24 @@ Dialog {
 
   Component {
     id: textEdit
-    TextArea {
-      text: _modelData.value
-      onActiveFocusChanged: {
-        if (!activeFocus) {
-          _modelData.value = text
+
+    Row {
+      width: parent.width
+
+      Frame {
+        // Some space is left on the right side for flicking on a touch device.
+        width: parent.width - (fieldList.atYBeginning ? 0 : constants.gu(6))
+        TextArea {
+          id: textArea
+          width: parent.width
+          text: _modelData.value
+          selectByMouse: true
+          wrapMode: TextEdit.Wrap
+          onActiveFocusChanged: {
+            if (!activeFocus) {
+              _modelData.value = text
+            }
+          }
         }
       }
     }
@@ -75,14 +92,13 @@ Dialog {
     id: comboBoxEdit
 
     ComboBox {
-      dropDownParent: root
-      model: if (_modelData.id === Frame.ID_TextEnc)
+      model: if (_modelData.id === Kid3.Frame.ID_TextEnc)
                script.getTextEncodingNames()
-             else if (_modelData.id === Frame.ID_PictureType)
+             else if (_modelData.id === Kid3.Frame.ID_PictureType)
                script.getPictureTypeNames()
-             else if (_modelData.id === Frame.ID_TimestampFormat)
+             else if (_modelData.id === Kid3.Frame.ID_TimestampFormat)
                script.getTimestampFormatNames()
-             else if (_modelData.id === Frame.ID_ContentType)
+             else if (_modelData.id === Kid3.Frame.ID_ContentType)
                script.getContentTypeNames()
       currentIndex: _modelData.value
       onCurrentIndexChanged: _modelData.value = currentIndex
@@ -93,7 +109,7 @@ Dialog {
     id: exportFileSelectDialog
     FileSelectDialog {
       property variant field
-      parent: root
+      parent: ApplicationWindow.overlay
       title: qsTr("Export")
       onFinished: {
         if (path) {
@@ -107,7 +123,7 @@ Dialog {
     id: importFileSelectDialog
     FileSelectDialog {
       property variant field
-      parent: root
+      parent: ApplicationWindow.overlay
       title: qsTr("Import")
       onFinished: {
         if (path) {
@@ -163,16 +179,17 @@ Dialog {
     }
   }
 
-  ListView {
+  contentItem: ListView {
     id: fieldList
     clip: true
 
     // height: someFunction(contentHeight) will report a binding loop,
     // therefore the height is updated manually.
     function updateHeight() {
-      height = Math.min(contentHeight, root.height -
-                        //3 * constants.rowHeight - //@Ubuntu
-                        2 * constants.rowHeight - //@!Ubuntu
+      /// TODO: Calculate button height instead of 145.
+      page.height = Math.min(contentHeight + 145,
+                        root.height -
+                        3 * constants.rowHeight -
                         3 * constants.margins)
     }
     onVisibleChanged: if (visible) updateHeight()
@@ -191,21 +208,21 @@ Dialog {
         property QtObject _modelData: modelData
         sourceComponent:
             if (typeof modelData.value === "number")
-              if (modelData.id === Frame.ID_TextEnc ||
-                  modelData.id === Frame.ID_PictureType ||
-                  modelData.id === Frame.ID_TimestampFormat ||
-                  modelData.id === Frame.ID_ContentType)
+              if (modelData.id === Kid3.Frame.ID_TextEnc ||
+                  modelData.id === Kid3.Frame.ID_PictureType ||
+                  modelData.id === Kid3.Frame.ID_TimestampFormat ||
+                  modelData.id === Kid3.Frame.ID_ContentType)
                 comboBoxEdit
               else
                 textLineEdit
             else if (typeof modelData.value === "string")
-              if (modelData.id === Frame.ID_Text)
+              if (modelData.id === Kid3.Frame.ID_Text)
                 textEdit
               else
                 textLineEdit
             else if (typeof modelData.value === "object")
-              if (modelData.id === Frame.ID_Data &&
-                  modelData.type === Frame.FT_Picture)
+              if (modelData.id === Kid3.Frame.ID_Data &&
+                  modelData.type === Kid3.Frame.FT_Picture)
                 imageView
       }
       ThinDivider {
@@ -214,26 +231,15 @@ Dialog {
     }
   }
 
-  Row {
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
-      onClicked: {
-        page.hide()
-        page.frameEdited(null)
-        frameObject = null
-      }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
-      onClicked: {
-        fieldList.focus = false // to force editingFinished on delegate
-        page.hide()
-        page.frameEdited(frameObject)
-        frameObject = null
-      }
-    }
+  onRejected: {
+    page.close()
+    page.frameEdited(null)
+    frameObject = null
+  }
+  onAccepted: {
+    fieldList.focus = false // to force editingFinished on delegate
+    page.close()
+    page.frameEdited(frameObject)
+    frameObject = null
   }
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,16 +21,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Page {
   id: page
 
-  property int tagMask: Frame.TagV2V1
+  property int tagMask: Kid3.Frame.TagV2V1
   property string format
   property bool create: false
   property variant formats
@@ -48,6 +46,42 @@ Page {
         str += "\n"
       }
       textArea.text += str
+      textArea.cursorPosition = textArea.text.length
+    }
+  }
+
+  header: ToolBar {
+    IconButton {
+      id: prevButton
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      iconName: "go-previous"
+      width: visible ? height : 0
+      visible: page.StackView.view && page.StackView.view.depth > 1
+      onClicked: page.StackView.view.pop()
+    }
+    Label {
+      id: titleLabel
+      anchors.left: prevButton.right
+      anchors.right: startButton.left
+      anchors.verticalCenter: parent.verticalCenter
+      clip: true
+      text: page.title
+    }
+    ToolButton {
+      id: startButton
+      anchors.right: parent.right
+      anchors.margins: constants.margins
+      text: qsTr("Start")
+      onClicked: {
+        var errorMsg = app.performRenameActions()
+        if (errorMsg) {
+          textArea.text += qsTr("Error") + ": " + errorMsg
+          textArea.cursorPosition = textArea.text.length
+        } else {
+          page.refreshPreview()
+        }
+      }
     }
   }
 
@@ -74,7 +108,6 @@ Page {
     }
     ComboBox {
       id: actionComboBox
-      dropDownParent: page
       width: parent.valueWidth
       model: [ qsTr("Rename Directory"), qsTr("Create Directory") ]
       onCurrentIndexChanged: {
@@ -90,13 +123,12 @@ Page {
     }
     ComboBox {
       id: sourceComboBox
-      dropDownParent: page
       width: parent.valueWidth
       model: [ qsTr("From Tag 2 and Tag 1"),
                qsTr("From Tag 1"),
                qsTr("From Tag 2") ]
       onCurrentIndexChanged: {
-        page.tagMask = [ Frame.TagV2V1, Frame.TagV1, Frame.TagV2 ][currentIndex]
+        page.tagMask = [ Kid3.Frame.TagV2V1, Kid3.Frame.TagV1, Kid3.Frame.TagV2 ][currentIndex] || 3
         page.refreshPreview()
       }
     }
@@ -108,7 +140,6 @@ Page {
     }
     ComboBox {
       id: formatComboBox
-      dropDownParent: page
       width: parent.valueWidth
       model: page.formats
       onCurrentIndexChanged: {
@@ -128,44 +159,20 @@ Page {
     }
     text: qsTr("Preview")
   }
-  TextArea {
-    id: textArea
+  ScrollView {
+    id: flick
     anchors {
       left: parent.left
       right: parent.right
       top: previewLabel.bottom
-      bottom: buttonRow.top
-      margins: constants.margins
-    }
-    readOnly: true
-    selectByMouse: false
-  }
-  Row {
-    id: buttonRow
-    anchors {
-      left: parent.left
-      right: parent.right
       bottom: parent.bottom
       margins: constants.margins
     }
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
-      onClicked: {
-        pageStack.pop()
-      }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
-      onClicked: {
-        var errorMsg = app.performRenameActions()
-        if (errorMsg) {
-          console.debug("Rename error: " + errorMsg)
-        }
-        pageStack.pop()
-      }
+
+    TextArea {
+      id: textArea
+      readOnly: true
+      selectByMouse: false
     }
   }
 
@@ -175,13 +182,8 @@ Page {
                         page.format, page.create)
   }
 
-  onActiveChanged: {
-    if (active) {
-      refreshPreview()
-    } else {
-      app.dirRenamer.abort()
-    }
-  }
+  StackView.onActivated: refreshPreview()
+  StackView.onDeactivated: app.dirRenamer.abort()
 
   Component.onCompleted: {
     var defaultFormats = configs.renDirConfig().getDefaultDirFormatList()

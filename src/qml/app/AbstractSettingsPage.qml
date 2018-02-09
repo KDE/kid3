@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,18 +21,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Page {
   id: page
 
   signal clicked(int index)
   property list<SettingsElement> model
+
+  header: ToolBar {
+    IconButton {
+      id: prevButton
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      iconName: "go-previous"
+      width: visible ? height : 0
+      visible: page.StackView.view && page.StackView.view.depth > 1
+      onClicked: page.StackView.view.pop()
+    }
+    Label {
+      id: titleLabel
+      anchors.left: prevButton.right
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      clip: true
+      text: page.title
+    }
+  }
 
   Item {
     anchors.fill: parent
@@ -55,6 +71,7 @@ Page {
         control: TextField {
           width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           text: _modelData.value
+          selectByMouse: true
           onAccepted: {
             focus = false
           }
@@ -72,10 +89,11 @@ Page {
         text: _modelData.name
         control: ComboBox {
           width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
-          dropDownParent: root
-          currentText: _modelData.value
           model: _modelData.dropDownModel
           onCurrentTextChanged: _modelData.value = currentText
+          Component.onCompleted: {
+            currentIndex = find(_modelData.value)
+          }
         }
       }
     }
@@ -86,6 +104,7 @@ Page {
         control: TextField {
           width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           text: _modelData.value
+          selectByMouse: true
           onAccepted: {
             focus = false
           }
@@ -106,7 +125,6 @@ Page {
         text: _modelData.name
         control: ComboBox {
           width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
-          dropDownParent: root
           currentIndex: _modelData.value
           model: _modelData.dropDownModel
           onCurrentIndexChanged: _modelData.value = currentIndex

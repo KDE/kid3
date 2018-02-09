@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 7 Nov 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,14 +21,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Dialog {
   id: page
   title: qsTr("About Kid3")
+  modal: true
+  x: (root.width - width) / 2
+  y: root.height / 6
+  width: Math.min(root.width, constants.gu(40))
+
   Label {
     id: textLabel
     wrapMode: Text.WordWrap
@@ -44,13 +47,5 @@ Dialog {
             "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
             ).arg(script.getQtVersion())
     onLinkActivated: Qt.openUrlExternally(link)
-  }
-
-  Button {
-    width: parent.width
-    text: qsTr("OK")
-    onClicked: {
-      page.hide()
-    }
   }
 }

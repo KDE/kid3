@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,19 +21,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Collapsible {
   id: collapsible
   property int tagNr
   property QtObject appTag: app.tag(tagNr)
   property QtObject selTag: app.selectionInfo.tag(tagNr)
-  property bool hasFrameList: tagNr !== Frame.Tag_Id3v1
+  property bool hasFrameList: tagNr !== Kid3.Frame.Tag_Id3v1
 
   function acceptEdit() {
     // Force focus lost to store changes.
@@ -41,9 +38,9 @@ Collapsible {
   }
 
   text: qsTr("Tag %1").arg(tagNr + 1) + ": " + collapsible.selTag.tagFormat
-  visible: tagNr <= Frame.Tag_2 || selTag.tagUsed
+  visible: tagNr <= Kid3.Frame.Tag_2 || selTag.tagUsed
   buttons: [
-    Button {
+    IconButton {
       iconName: "edit"
       width: height
       onClicked: {
@@ -52,7 +49,7 @@ Collapsible {
       }
       visible: hasFrameList
     },
-    Button {
+    IconButton {
       iconName: "add"
       width: height
       onClicked: {
@@ -60,7 +57,7 @@ Collapsible {
       }
       visible: hasFrameList
     },
-    Button {
+    IconButton {
       iconName: "remove"
       width: height
       onClicked: {
@@ -69,51 +66,45 @@ Collapsible {
       }
       visible: hasFrameList
     },
-    Button {
+    IconButton {
       id: menuButton
       iconName: "navigation-menu"
       width: height
-      onClicked: constants.openPopup(menuPopoverComponent, menuButton)
+      onClicked: menu.open()
 
-      Component {
-        id: menuPopoverComponent
-        ActionSelectionPopover {
-          id: menuPopover
-          delegate: ActionSelectionDelegate {
-            popover: menuPopover
-          }
-          actions: ActionList {
-            Action {
-              text: qsTr("To Filename")
-              onTriggered: collapsible.appTag.getFilenameFromTags()
-            }
-            Action {
-              text: qsTr("From Filename")
-              onTriggered: collapsible.appTag.getTagsFromFilename()
-            }
-            Action {
-              text: qsTr("To Tag %1").arg(2)
-              onTriggered: app.copyTag(script.toTagNumber(tagNr),
-                                       script.toTagNumber(Frame.Tag_2))
-              visible: tagNr > Frame.Tag_2
-            }
-            Action {
-              text: qsTr("From Tag %1").arg(tagNr == Frame.Tag_2 ? "1" : "2")
-              onTriggered: collapsible.appTag.copyToOtherTag()
-            }
-            Action {
-              text: qsTr("Copy")
-              onTriggered: collapsible.appTag.copyTags()
-            }
-            Action {
-              text: qsTr("Paste")
-              onTriggered: collapsible.appTag.pasteTags()
-            }
-            Action {
-              text: qsTr("Remove")
-              onTriggered: collapsible.appTag.removeTags()
-            }
-          }
+      Menu {
+        id: menu
+        MenuItem {
+          id: toFileNameMenu
+          text: qsTr("To Filename")
+          onTriggered: collapsible.appTag.getFilenameFromTags()
+        }
+        MenuItem {
+          text: qsTr("From Filename")
+          onTriggered: collapsible.appTag.getTagsFromFilename()
+        }
+        MenuItem {
+          text: qsTr("To Tag %1").arg(2)
+          onTriggered: app.copyTag(script.toTagNumber(tagNr),
+                                   script.toTagNumber(Kid3.Frame.Tag_2))
+          visible: tagNr > Kid3.Frame.Tag_2
+          height: visible ? toFileNameMenu.height : 0
+        }
+        MenuItem {
+          text: qsTr("From Tag %1").arg(tagNr == Kid3.Frame.Tag_2 ? "1" : "2")
+          onTriggered: collapsible.appTag.copyToOtherTag()
+        }
+        MenuItem {
+          text: qsTr("Copy")
+          onTriggered: collapsible.appTag.copyTags()
+        }
+        MenuItem {
+          text: qsTr("Paste")
+          onTriggered: collapsible.appTag.pasteTags()
+        }
+        MenuItem {
+          text: qsTr("Remove")
+          onTriggered: collapsible.appTag.removeTags()
         }
       }
     }
@@ -124,11 +115,11 @@ Collapsible {
     enabled: collapsible.selTag.tagUsed
     clip: true
     width: parent.width
-    //height: count * constants.rowHeight //@QtQuick1
-    height: count ? contentHeight : 0 //@QtQuick2
+    height: count ? contentHeight : 0
     interactive: false
     model: collapsible.appTag.frameModel
     delegate: FrameDelegate {
+      height: constants.controlHeight
       width: frameTable.width
       tagNr: collapsible.tagNr
     }

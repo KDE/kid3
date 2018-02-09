@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 7 Jun 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,19 +28,11 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QDir>
-#if QT_VERSION >= 0x050000
 #ifndef NDEBUG
 #define QT_QML_DEBUG
 #endif
-#include <QQuickView>
 #include <QQmlApplicationEngine>
-#else
-#ifndef NDEBUG
-#define QT_DECLARATIVE_DEBUG
-#endif
-#include <QDeclarativeView>
-#include <QDeclarativeEngine>
-#endif
+#include <QQuickStyle>
 #include <typeinfo>
 #include "config.h"
 #include "loadtranslation.h"
@@ -126,16 +118,30 @@ int main(int argc, char* argv[])
   Q_INIT_RESOURCE(translations);
 #endif
 
+  QCoreApplication::setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   Kid3QtApplication app(argc, argv);
-  app.setApplicationName(QLatin1String("Kid3"));
+#ifdef Q_OS_ANDROID
+  QQuickStyle::setStyle(QLatin1String("Material"));
+#else
+  QString style = QQuickStyle::name();
+  if (style == QLatin1String("org.kde.desktop")) {
+    // The default KDE style currently fails with
+    // file:///usr/lib/qt/qml/QtQuick/Controls.2/org.kde.desktop/Dialog.qml:80
+    // Cannot assign to non-existent property "buttonBox"
+    style = QLatin1String("Default");
+  }
+  if (!style.isEmpty()) {
+    QQuickStyle::setStyle(style);
+  }
+#endif
 
   Utils::loadTranslation();
-
 #ifdef Q_OS_MAC
-  QDir dir(QApplication::applicationDirPath());
+  QDir dir(QCoreApplication::applicationDirPath());
   dir.cdUp();
   dir.cd(QLatin1String("PlugIns"));
-  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+  QCoreApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
   QStringList qmlDirs;
@@ -164,39 +170,22 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-#if QT_VERSION >= 0x050000
-  // To load a qml file containing an Item for a QQuickView.
-  QQuickView view;
+  QQmlApplicationEngine engine;
 #ifdef HAVE_QMLDIR_IN_QRC
-  view.engine()->addImportPath(QLatin1String(CFG_QMLDIR "/imports"));
+  engine.addImportPath(QLatin1String(CFG_QMLDIR "imports"));
   QDir pluginsDir;
   if (Kid3Application::findPluginsDirectory(pluginsDir) &&
       pluginsDir.cd(QLatin1String("imports/Kid3"))) {
-    view.engine()->addPluginPath(pluginsDir.absolutePath());
+    engine.addPluginPath(pluginsDir.absolutePath());
   }
-  view.setSource(QUrl(QLatin1String("qrc:///app/Main.qml")));
+  engine.load(QUrl(QLatin1String("qrc:///app/Main.qml")));
 #else
   QDir pluginsDir;
   if (Kid3Application::findPluginsDirectory(pluginsDir) &&
       pluginsDir.cd(QLatin1String("imports"))) {
-    view.engine()->addImportPath(pluginsDir.absolutePath());
+    engine.addImportPath(pluginsDir.absolutePath());
   }
-  view.setSource(QUrl::fromLocalFile(mainQmlPath));
-#endif
-  view.setResizeMode(QQuickView::SizeRootObjectToView);
-  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-  view.show();
-#else
-  QDeclarativeView view;
-  QDir pluginsDir;
-  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
-      pluginsDir.cd(QLatin1String("imports"))) {
-    view.engine()->addImportPath(pluginsDir.absolutePath());
-  }
-  view.setSource(QUrl::fromLocalFile(mainQmlPath));
-  view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
-  QObject::connect(view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
-  view.show();
+  engine.load(QUrl::fromLocalFile(mainQmlPath));
 #endif
   return app.exec();
 }

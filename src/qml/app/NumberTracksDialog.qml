@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,17 +21,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Dialog {
   id: page
 
   title: qsTr("Number Tracks")
+  standardButtons: Dialog.Ok | Dialog.Cancel
+  modal: true
+  x: (root.width - width) / 2
+  y: root.height / 6
 
+  ColumnLayout {
   Row {
     spacing: constants.spacing
     CheckBox {
@@ -47,6 +51,7 @@ Dialog {
   TextField {
     id: startNumberEdit
     text: "1"
+    selectByMouse: true
   }
   Label {
     text: qsTr("Destination:")
@@ -54,13 +59,12 @@ Dialog {
   }
   ComboBox {
     id: destinationComboBox
-    dropDownParent: page
     width: parent.valueWidth
     model: [ qsTr("Tag 1"),
              qsTr("Tag 2"),
              qsTr("Tag 1 and Tag 2") ]
     function getTagVersion() {
-      return [ Frame.TagV1, Frame.TagV2, Frame.TagV2V1 ][currentIndex]
+      return [ Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV2V1 ][currentIndex]
     }
   }
   Row {
@@ -90,38 +94,25 @@ Dialog {
   }
   TextField {
     id: totalEdit
+    selectByMouse: true
+  }
   }
 
-  Row {
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Cancel")
-      onClicked: {
-        page.hide()
+  onAccepted: {
+    var startNr = parseInt(startNumberEdit.text)
+    if (!isNaN(startNr)) {
+      var total = totalCheckBox.checked ? parseInt(totalEdit.text) : -1
+      if (isNaN(total)) {
+        total = -1
       }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("OK")
-      onClicked: {
-        var startNr = parseInt(startNumberEdit.text)
-        if (!isNaN(startNr)) {
-          var total = totalCheckBox.checked ? parseInt(totalEdit.text) : -1
-          if (isNaN(total)) {
-            total = -1
-          }
-          var options = 0
-          if (numberCheckBox.checked)
-            options |= Kid3Application.NumberTracksEnabled
-          if (resetCounterCheckBox.checked)
-            options |= Kid3Application.NumberTracksResetCounterForEachDirectory
-          app.numberTracks(startNr, total,
-                       script.toTagVersion(destinationComboBox.getTagVersion()),
-                       options)
-        }
-        page.hide()
-      }
+      var options = 0
+      if (numberCheckBox.checked)
+        options |= Kid3.Kid3Application.NumberTracksEnabled
+      if (resetCounterCheckBox.checked)
+        options |= Kid3.Kid3Application.NumberTracksResetCounterForEachDirectory
+      app.numberTracks(startNr, total,
+                   script.toTagVersion(destinationComboBox.getTagVersion()),
+                   options)
     }
   }
 

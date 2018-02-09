@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,11 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.Popups 1.0 //@Ubuntu
-import Kid3 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import Kid3 1.1 as Kid3
 
 Page {
   id: page
@@ -37,33 +35,64 @@ Page {
     onFileFiltered: {
       var str
       switch (type) {
-      case FileFilter.Started:
+      case Kid3.FileFilter.Started:
         str = qsTr("Started")
         break
-      case FileFilter.Directory:
+      case Kid3.FileFilter.Directory:
         str = " "
         str += fileName
         break
-      case FileFilter.ParseError:
+      case Kid3.FileFilter.ParseError:
         str = "parse error"
         break
-      case FileFilter.FilePassed:
+      case Kid3.FileFilter.FilePassed:
         str = "+ "
         str += fileName
         break
-      case FileFilter.FileFilteredOut:
+      case Kid3.FileFilter.FileFilteredOut:
         str = "- "
         str += fileName
         break
-      case FileFilter.Finished:
+      case Kid3.FileFilter.Finished:
         str = qsTr("Finished")
         break
-      case FileFilter.Aborted:
+      case Kid3.FileFilter.Aborted:
         str = qsTr("Aborted")
         break
       }
       str += "\n"
       textArea.text += str
+      textArea.cursorPosition = textArea.text.length
+    }
+  }
+
+  header: ToolBar {
+    IconButton {
+      id: prevButton
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      iconName: "go-previous"
+      width: visible ? height : 0
+      visible: page.StackView.view && page.StackView.view.depth > 1
+      onClicked: page.StackView.view.pop()
+    }
+    Label {
+      id: titleLabel
+      anchors.left: prevButton.right
+      anchors.right: startButton.left
+      anchors.verticalCenter: parent.verticalCenter
+      clip: true
+      text: page.title
+    }
+    ToolButton {
+      id: startButton
+      anchors.right: parent.right
+      anchors.margins: constants.margins
+      text: qsTr("Start")
+      onClicked: {
+        textArea.text = ""
+        app.applyFilter(expressionEdit.text)
+      }
     }
   }
 
@@ -90,7 +119,6 @@ Page {
     ComboBox {
       id: filterComboBox
       width: parent.valueWidth
-      dropDownParent: page
       model: configs.filterConfig().filterNames
       currentIndex: configs.filterConfig().filterIndex
     }
@@ -105,52 +133,31 @@ Page {
       id: expressionEdit
       width: parent.valueWidth
       text: configs.filterConfig().filterExpressions[filterComboBox.currentIndex]
+      selectByMouse: true
     }
   }
 
-  TextArea {
-    id: textArea
+  ScrollView {
+    id: flick
     anchors {
       left: parent.left
       right: parent.right
       top: filterGrid.bottom
-      bottom: buttonRow.top
-      margins: constants.margins
-    }
-    readOnly: true
-    selectByMouse: false
-  }
-  Row {
-    id: buttonRow
-    anchors {
-      left: parent.left
-      right: parent.right
       bottom: parent.bottom
       margins: constants.margins
     }
-    spacing: constants.spacing
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Close")
-      onClicked: {
-        pageStack.pop()
-      }
-    }
-    Button {
-      width: (parent.width - parent.spacing) / 2
-      text: qsTr("Apply")
-      onClicked: {
-        textArea.text = ""
-        app.applyFilter(expressionEdit.text)
-      }
+
+    TextArea {
+      id: textArea
+      readOnly: true
+      selectByMouse: false
     }
   }
 
-  onActiveChanged: {
-    if (active) {
-      textArea.text = ""
-    } else {
-      app.abortFilter()
-    }
+  StackView.onActivated: {
+    textArea.text = ""
+  }
+  StackView.onDeactivated: {
+    app.abortFilter()
   }
 }

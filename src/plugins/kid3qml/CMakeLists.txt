@@ -73,19 +73,15 @@ add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qm
   WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3"
 )
 
-# Preprocess QML files for Qt 4 or Ubuntu Components.
-if (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
-  if (NOT HAVE_QT5)
-    set(_qmlpp_code 4)
-  else (NOT HAVE_QT5)
-    set(_qmlpp_code U)
-  endif (NOT HAVE_QT5)
+# Preprocess QML files for Qt 4.
+if (NOT HAVE_QT5)
+  set(_qmlpp_code 4)
   add_custom_command(OUTPUT "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qmlpp.py ${_qmlpp_code}
     WORKING_DIRECTORY "${kid3_plugins_BINARY_DIR}/imports/Kid3"
     APPEND
   )
-endif (NOT HAVE_QT5 OR WITH_UBUNTUCOMPONENTS)
+endif (NOT HAVE_QT5)
 
 install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
               "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"

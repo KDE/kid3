@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Oct 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,10 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import "../componentsqtquick" //@!Ubuntu
-//import Ubuntu.Components 1.1 //@Ubuntu
-//import Ubuntu.Components.ListItems 1.0 //@Ubuntu
+import QtQuick 2.9
 
 Rectangle {
   id: listItem
@@ -41,8 +38,7 @@ Rectangle {
   width: parent ? parent.width : constants.gu(31)
   height: horizontal ? constants.rowHeight : 2 * constants.rowHeight
   color: selected
-         ? constants.palette.highlight : "transparent" //@!Ubuntu
-         //? Theme.palette.selected.background : Theme.palette.normal.background //@Ubuntu
+         ? constants.palette.highlight : "transparent"
 
   MouseArea {
     id: mouseArea
@@ -65,8 +61,7 @@ Rectangle {
     anchors.margins: constants.margins
     anchors.topMargin: 2 * constants.margins
     color: selected
-           ? constants.palette.highlightedText :constants.palette.text //@!Ubuntu
-           //? Theme.palette.selected.fieldText : Theme.palette.normal.fieldText //@Ubuntu
+           ? constants.palette.highlightedText :constants.palette.text
   }
   Item {
     id: controlContainer
