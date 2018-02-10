@@ -542,7 +542,7 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "TTA")
       return new TagLib::TrueAudio::File(stream);
     if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
-        ext == "MP4" || ext == "3G2")
+        ext == "MP4" || ext == "3G2" || ext == "M4V" || ext == "MP4V")
       return new TagLib::MP4::File(stream);
     if (ext == "WMA" || ext == "ASF")
       return new TagLib::ASF::File(stream);

@@ -128,7 +128,8 @@ Mp4v2MetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
     return QStringList() << QLatin1String(".m4a") << QLatin1String(".m4b")
-                         << QLatin1String(".m4p") << QLatin1String(".mp4");
+                         << QLatin1String(".m4p") << QLatin1String(".mp4")
+                         << QLatin1String(".m4v") << QLatin1String(".mp4v");
   }
   return QStringList();
 }

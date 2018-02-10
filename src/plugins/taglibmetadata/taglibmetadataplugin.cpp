@@ -136,6 +136,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
         || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
+        || ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v")
 #endif
 #ifdef TAGLIB_WITH_ASF
         || ext == QLatin1String(".wma") || ext ==  QLatin1String(".asf")
@@ -179,6 +180,7 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4") <<
+      QLatin1String(".m4v") << QLatin1String(".mp4v") <<
 #endif
 #ifdef TAGLIB_WITH_ASF
       QLatin1String(".wma") << QLatin1String(".asf") <<
