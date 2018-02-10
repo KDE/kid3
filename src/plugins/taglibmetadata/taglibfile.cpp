@@ -4297,7 +4297,24 @@ static void prefixMp4FreeFormName(TagLib::String& name,
     if (getMp4TypeForName(name, type, valueType)) {
       // free form
       if (name[0] == ':') name = name.substr(1);
-      name = "----:com.apple.iTunes:" + name;
+      TagLib::String freeFormName = "----:com.apple.iTunes:" + name;
+      unsigned int nameLen;
+      if (!mp4Tag->contains(freeFormName) && (nameLen = name.length()) > 0) {
+        // Not an iTunes free form name, maybe using another prefix
+        // (such as "----:com.nullsoft.winamp:").
+        // Search for a frame which ends with this name.
+        const TagLib::MP4::ItemMap& items = mp4Tag->itemMap();
+        for (TagLib::MP4::ItemMap::ConstIterator it = items.begin();
+             it != items.end();
+             ++it) {
+          const TagLib::String& key = it->first;
+          if (key.substr(key.length() - nameLen, nameLen) == name) {
+            freeFormName = key;
+            break;
+          }
+        }
+      }
+      name = freeFormName;
     }
   }
 }
