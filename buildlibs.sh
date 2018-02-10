@@ -251,6 +251,15 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_versio
 test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
 
+if test "$compiler" = "cross-android"; then
+  openssl_version=1.0.2n
+  # See http://doc.qt.io/qt-5/opensslsupport.html
+  test -f Setenv-android.sh ||
+  $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
+  test -f openssl-${openssl_version}.tar.gz ||
+  $DOWNLOAD https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+fi
+
 # Create patch files
 
 if test "$compiler" = "cross-mingw"; then
@@ -2045,6 +2054,48 @@ index 6960f8c..44f44cd 100644
  static int init_report(const char *env);
 EOF
 
+if test "$compiler" = "cross-android"; then
+test -f openssl_android.patch ||
+cat >openssl_android.patch <<"EOF"
+--- Setenv-android.sh	2018-02-10 13:37:18.181017337 +0100
++++ Setenv-android.sh.new	2018-02-10 13:33:11.661974672 +0100
+@@ -102,7 +102,7 @@
+ # https://android.googlesource.com/platform/ndk/+/ics-mr0/docs/STANDALONE-TOOLCHAIN.html
+ 
+ ANDROID_TOOLCHAIN=""
+-for host in "linux-x86_64" "linux-x86" "darwin-x86_64" "darwin-x86"
++for host in "linux-x86_64" "linux-x86" "darwin-x86_64" "darwin-x86" "windows-x86" "windows-x86_64"
+ do
+   if [ -d "$ANDROID_NDK_ROOT/toolchains/$_ANDROID_EABI/prebuilt/$host/bin" ]; then
+     ANDROID_TOOLCHAIN="$ANDROID_NDK_ROOT/toolchains/$_ANDROID_EABI/prebuilt/$host/bin"
+@@ -124,6 +124,9 @@
+ 	arch-x86)	  
+       ANDROID_TOOLS="i686-linux-android-gcc i686-linux-android-ranlib i686-linux-android-ld"
+ 	  ;;	  
++	arch-arm64)
++      ANDROID_TOOLS="aarch64-linux-android-gcc aarch64-linux-android-ranlib aarch64-linux-android-ld"
++	  ;;
+ 	*)
+ 	  echo "ERROR ERROR ERROR"
+ 	  ;;
+@@ -206,6 +209,14 @@
+ 	export CROSS_COMPILE="i686-linux-android-"
+ fi
+ 
++if [ "$_ANDROID_ARCH" == "arch-arm64" ]; then
++	export MACHINE=armv8
++	export RELEASE=2.6.37
++	export SYSTEM=android64
++	export ARCH=arm
++	export CROSS_COMPILE="aarch64-linux-android-"
++fi
++
+ # For the Android toolchain
+ # https://android.googlesource.com/platform/ndk/+/ics-mr0/docs/STANDALONE-TOOLCHAIN.html
+ export ANDROID_SYSROOT="$ANDROID_NDK_ROOT/platforms/$_ANDROID_API/$_ANDROID_ARCH"
+EOF
+fi
+
 cd ..
 
 
@@ -2221,6 +2272,21 @@ fi
 cd ..
 fi
 
+if test "$compiler" = "cross-android"; then
+  
+echo "### Extracting openssl"
+
+if ! test -d openssl-${openssl_version}; then
+  tar xzf source/openssl-${openssl_version}.tar.gz
+  cp source/Setenv-android.sh openssl-${openssl_version}/
+  cd openssl-${openssl_version}/
+  sed -i 's/\r$//' Setenv-android.sh
+  chmod +x Setenv-android.sh
+  patch -p0 <../source/openssl_android.patch
+  cd ..
+fi
+
+fi
 
 # Build from sources
 
@@ -2235,8 +2301,6 @@ done
 
 if test "$compiler" = "cross-android"; then
 
-echo "### Building taglib"
-
 _android_sdk_root=/opt/android/sdk
 _android_ndk_root=$_android_sdk_root/ndk-bundle
 _android_abi=armeabi-v7a
@@ -2246,8 +2310,33 @@ _android_qt_root=/opt/qt5/5.9.4/android_armv7
 #_android_toolchain_prefix=x86
 #_android_qt_root=/opt/qt5/5.9.4/android_x86
 
+if test ! -d openssl-${openssl_version}/inst; then
+echo "### Building OpenSSL"
+
+cd openssl-${openssl_version}/
+sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=arm-linux-androideabi-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-arm/' Setenv-android.sh
+sed -i "s#^_ANDROID_NDK=.*#ANDROID_NDK_ROOT=$_android_ndk_root#" Setenv-android.sh
+sed -i '/FIPS_SIG location/,/^fi$/ d' Setenv-android.sh
+
+. ./Setenv-android.sh
+./Configure shared android
+
+make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+
+mkdir -p inst/usr/local/lib
+cp --dereference libssl.so libcrypto.so inst/usr/local/lib/
+arm-linux-androideabi-strip -s inst/usr/local/lib/*.so
+cd inst
+tar czf ../../bin/openssl-${openssl_version}.tgz usr
+cd ../..
+tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
+
+fi
+
+echo "### Building taglib"
+
 cd taglib-${taglib_version}/
-cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake
+cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
 make install
 cd ..
 
@@ -2261,7 +2350,7 @@ _android_abi=$_android_abi
 _android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config ../../kid3
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make ../../kid3
 EOF
   chmod +x kid3/build.sh
 fi
