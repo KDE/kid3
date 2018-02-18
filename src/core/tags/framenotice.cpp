@@ -124,6 +124,17 @@ bool isMusicalKey(const QString& str)
   if (len < 1 || len > 3)
     return false;
 
+  // Although not in the ID3v2 standard, allow commonly used Camelot wheel
+  // values 1A-12A, 1B-12B http://www.mixedinkey.com/harmonic-mixing-guide/
+  const QChar lastChar = str.at(len - 1);
+  if (lastChar == QLatin1Char('A') || lastChar == QLatin1Char('B')) {
+    bool ok;
+    int nr = str.left(len - 1).toInt(&ok);
+    if (ok && nr >= 1 && nr <= 12) {
+      return true;
+    }
+  }
+
   const QString allowedChars(QLatin1String("ABCDEFGb#mo"));
   for (int i = 0; i < len; ++i) {
     if (!allowedChars.contains(str.at(i))) {
@@ -178,7 +189,8 @@ QString FrameNotice::getDescription() const
     QT_TRANSLATE_NOOP("@default", "Format is YYYY"),
     QT_TRANSLATE_NOOP("@default", "Must begin with a year and a space character"),
     QT_TRANSLATE_NOOP("@default", "Must be ISO 8601 date/time"),
-    QT_TRANSLATE_NOOP("@default", "Must be musical key, 3 characters, A-G, b, #, m, o"),
+    QT_TRANSLATE_NOOP("@default", "Must be musical key, 3 characters, A-G, b, #, m, o\n"
+                                  "or Camelot wheel value 1A-12A, 1B-12B"),
     QT_TRANSLATE_NOOP("@default", "Must have ISO 639-2 language code, 3 lowercase characters"),
     QT_TRANSLATE_NOOP("@default", "Must be ISRC code, 12 characters"),
     QT_TRANSLATE_NOOP("@default", "Must be list of strings separated by '|'"),
