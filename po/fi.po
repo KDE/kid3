@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1550,7 +1550,9 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr "Tulee olla ISO 8601 -aikaleima"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
@@ -2685,8 +2687,8 @@ msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Tämä ohjelma käyttää <a href=\"http://www.qt.io/\">Qt</a>:n versiota %1."
 
-msgid "OK"
-msgstr "OK"
+msgid "Start"
+msgstr "Alku"
 
 msgid "Destination:"
 msgstr "Kohde:"
@@ -2700,20 +2702,11 @@ msgstr "2-tunniste"
 msgid "Profile:"
 msgstr "Profiili:"
 
-msgid "Start"
-msgstr "Alku"
-
-msgid "Cancel"
-msgstr "Peruuta"
-
 msgid "Filter:"
 msgstr "Suodin:"
 
 msgid "Expression:"
 msgstr "Lauseke:"
-
-msgid "Apply"
-msgstr "Käytä"
 
 msgid "About"
 msgstr "Tietoja"
@@ -2723,12 +2716,6 @@ msgstr "Asetukset"
 
 msgid "Quit"
 msgstr "Lopeta"
-
-msgid "Yes"
-msgstr "Kyllä"
-
-msgid "No"
-msgstr "Ei"
 
 msgid "Start number:"
 msgstr "Aloittava numero:"
@@ -2831,9 +2818,3 @@ msgstr "Määrittää tiedostonimi"
 
 msgid "To Tag %1"
 msgstr "%1-tunnisteella"
-
-msgid "Select All"
-msgstr "Valitse kaikki"
-
-msgid "Cut"
-msgstr "Leikkaa"

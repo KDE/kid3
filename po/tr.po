@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-01-03 13:32+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -1550,8 +1550,12 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr "ISO 8601 zaman etiketi olmalı"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
-msgstr "İlk anahtar olmalı, 3 karakter, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"İlk anahtar olmalı, 3 karakter, A-G, b, #, m, o\n"
+"veya Camelot Wheel değeri 1A-12A, 1B-12B"
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "Geçerli bir ISO 639 dil kodu değildir"
@@ -2684,8 +2688,8 @@ msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Bu program <a href=\"http://www.qt.io/\">Qt</a> sürüm %1 kullanmaktadır."
 
-msgid "OK"
-msgstr "Tamam"
+msgid "Start"
+msgstr "Başlat"
 
 msgid "Destination:"
 msgstr "Hedef:"
@@ -2699,20 +2703,11 @@ msgstr "Tag 2"
 msgid "Profile:"
 msgstr "Profil:"
 
-msgid "Start"
-msgstr "Başlat"
-
-msgid "Cancel"
-msgstr "İptal"
-
 msgid "Filter:"
 msgstr "Filtre:"
 
 msgid "Expression:"
 msgstr "İfade:"
-
-msgid "Apply"
-msgstr "Uygula"
 
 msgid "About"
 msgstr "Hakkında"
@@ -2722,12 +2717,6 @@ msgstr "Ayarlar"
 
 msgid "Quit"
 msgstr "Çık"
-
-msgid "Yes"
-msgstr "Evet"
-
-msgid "No"
-msgstr "Hayır"
 
 msgid "Start number:"
 msgstr "Başlangıç numarası:"
@@ -2830,9 +2819,3 @@ msgstr "Dosya adı için"
 
 msgid "To Tag %1"
 msgstr "Tag %1'için"
-
-msgid "Select All"
-msgstr "Tümünü Seç"
-
-msgid "Cut"
-msgstr "Kes"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1552,8 +1552,12 @@ msgstr "Musí začít s rokem a prostorovým charakterem"
 msgid "Must be ISO 8601 date/time"
 msgstr "Musí být časové razítko ISO 8601"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
-msgstr "Musí být tónina na začátku, 3 znaky, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Musí být tónina na začátku, 3 znaky, A-G, b, #, m, o\n"
+"nebo hodnotou Camelot Wheel 1A-12A, 1B-12B"
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "Není platný kód jazyka (podle ISO 639-2)"
@@ -2685,8 +2689,8 @@ msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Tento program používá knihovnu <a href=\"http://www.qt.io/\">Qt</a> verze %1."
 
-msgid "OK"
-msgstr "OK"
+msgid "Start"
+msgstr "Začátek"
 
 msgid "Destination:"
 msgstr "Cíl:"
@@ -2700,20 +2704,11 @@ msgstr "Značka 2"
 msgid "Profile:"
 msgstr "Profil:"
 
-msgid "Start"
-msgstr "Začátek"
-
-msgid "Cancel"
-msgstr "Zrušit"
-
 msgid "Filter:"
 msgstr "Filtr:"
 
 msgid "Expression:"
 msgstr "Výraz:"
-
-msgid "Apply"
-msgstr "Použít"
 
 msgid "About"
 msgstr "O programu"
@@ -2723,12 +2718,6 @@ msgstr "Nastavení"
 
 msgid "Quit"
 msgstr "Ukončit"
-
-msgid "Yes"
-msgstr "Ano"
-
-msgid "No"
-msgstr "Ne"
 
 msgid "Start number:"
 msgstr "Začáteční číslo:"
@@ -2831,9 +2820,3 @@ msgstr "Podle názvu souboru"
 
 msgid "To Tag %1"
 msgstr "Podle značky %1"
-
-msgid "Select All"
-msgstr "Vybrat vše"
-
-msgid "Cut"
-msgstr "Vyjmout"

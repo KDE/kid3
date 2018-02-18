@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -1549,7 +1549,9 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr ""
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
@@ -2681,8 +2683,8 @@ msgstr "评分信息"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "这个程序使用的是 <a href=\"http://www.qt.io/\">Qt</a> %1 版本。"
 
-msgid "OK"
-msgstr "确定"
+msgid "Start"
+msgstr "开始"
 
 msgid "Destination:"
 msgstr "目标："
@@ -2696,20 +2698,11 @@ msgstr "标签 2"
 msgid "Profile:"
 msgstr "配置文件:"
 
-msgid "Start"
-msgstr "开始"
-
-msgid "Cancel"
-msgstr "取消"
-
 msgid "Filter:"
 msgstr "过滤："
 
 msgid "Expression:"
 msgstr "表达式："
-
-msgid "Apply"
-msgstr "应用"
 
 msgid "About"
 msgstr "关于"
@@ -2719,12 +2712,6 @@ msgstr "设置"
 
 msgid "Quit"
 msgstr "退出"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "No"
-msgstr "不"
 
 msgid "Start number:"
 msgstr "起始编号："
@@ -2827,9 +2814,3 @@ msgstr "至文件名"
 
 msgid "To Tag %1"
 msgstr "到标签 %1"
-
-msgid "Select All"
-msgstr "全部选中"
-
-msgid "Cut"
-msgstr "剪切"

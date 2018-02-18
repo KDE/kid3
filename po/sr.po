@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -1553,7 +1553,9 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr "Мора бити ISO 8601 временски печат"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
@@ -2686,8 +2688,8 @@ msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "Овај програм користи издање <a href=\"http://www.qt.io/\">КуТ</a>‑а %1."
 
-msgid "OK"
-msgstr "У реду"
+msgid "Start"
+msgstr "Почетак"
 
 msgid "Destination:"
 msgstr "Одредиште:"
@@ -2701,20 +2703,11 @@ msgstr "ознака 2"
 msgid "Profile:"
 msgstr "Профил:"
 
-msgid "Start"
-msgstr "Почетак"
-
-msgid "Cancel"
-msgstr "Одустани"
-
 msgid "Filter:"
 msgstr "Филтер:"
 
 msgid "Expression:"
 msgstr "Израз:"
-
-msgid "Apply"
-msgstr "Примени"
 
 msgid "About"
 msgstr "О програму"
@@ -2724,12 +2717,6 @@ msgstr "Подешавање"
 
 msgid "Quit"
 msgstr "Напусти"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Не"
 
 msgid "Start number:"
 msgstr "Почетни број:"
@@ -2832,9 +2819,3 @@ msgstr "У имена фајла"
 
 msgid "To Tag %1"
 msgstr "У ознаке %1"
-
-msgid "Select All"
-msgstr "Изабери све"
-
-msgid "Cut"
-msgstr "Исеци"

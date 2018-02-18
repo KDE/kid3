@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1542,8 +1542,12 @@ msgstr "Skal begynde med et år og et mellemrum"
 msgid "Must be ISO 8601 date/time"
 msgstr "Skal være dato/klokkeslæt i ISO 8601-format"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
-msgstr "Skal indtaste, 3 karakterer, A-G, B, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Skal indtaste, 3 karakterer, A-G, B, #, m, o\n"
+"eller Camelot Wheel værdi 1A-12A, 1B-12B"
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "Skal være ISO 639-2-sprogkode på tre bogstaver"
@@ -2673,8 +2677,8 @@ msgstr "Vurdering information"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "Dette program bruger <a href=\"http://www.qt.io/\">Qt</a> version %1."
 
-msgid "OK"
-msgstr "OK"
+msgid "Start"
+msgstr "Start"
 
 msgid "Destination:"
 msgstr "Destination:"
@@ -2688,20 +2692,11 @@ msgstr "Tag 2"
 msgid "Profile:"
 msgstr "Profil:"
 
-msgid "Start"
-msgstr "Start"
-
-msgid "Cancel"
-msgstr "Annullér"
-
 msgid "Filter:"
 msgstr "Filter:"
 
 msgid "Expression:"
 msgstr "Udtryk:"
-
-msgid "Apply"
-msgstr "Anvend"
 
 msgid "About"
 msgstr "Om"
@@ -2711,12 +2706,6 @@ msgstr "Indstillinger"
 
 msgid "Quit"
 msgstr "Afslut"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "No"
-msgstr "Nej"
 
 msgid "Start number:"
 msgstr "Startnummer:"
@@ -2819,9 +2808,3 @@ msgstr "Til filnavn"
 
 msgid "To Tag %1"
 msgstr "Til Tag %1"
-
-msgid "Select All"
-msgstr "Vælgt alt"
-
-msgid "Cut"
-msgstr "Klip"

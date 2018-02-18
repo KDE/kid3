@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -1553,7 +1553,9 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr ""
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
@@ -2686,8 +2688,8 @@ msgstr "評分資訊"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "這個程式使用 <a href=\"http://www.qt.io/\">Qt</a> 版本 %1。"
 
-msgid "OK"
-msgstr "確定"
+msgid "Start"
+msgstr "開始"
 
 msgid "Destination:"
 msgstr "到:"
@@ -2701,20 +2703,11 @@ msgstr "標籤 2"
 msgid "Profile:"
 msgstr "設定檔:"
 
-msgid "Start"
-msgstr "開始"
-
-msgid "Cancel"
-msgstr "取消"
-
 msgid "Filter:"
 msgstr "篩選:"
 
 msgid "Expression:"
 msgstr "算式:"
-
-msgid "Apply"
-msgstr "套用"
 
 msgid "About"
 msgstr "關於"
@@ -2724,12 +2717,6 @@ msgstr "設定"
 
 msgid "Quit"
 msgstr "離開"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "No"
-msgstr "否"
 
 msgid "Start number:"
 msgstr "起始編號:"
@@ -2832,9 +2819,3 @@ msgstr "到檔名"
 
 msgid "To Tag %1"
 msgstr "到標籤 %1"
-
-msgid "Select All"
-msgstr "全選"
-
-msgid "Cut"
-msgstr "剪下"

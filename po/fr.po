@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -1551,8 +1551,12 @@ msgstr "Doit commencer par une année et une espace"
 msgid "Must be ISO 8601 date/time"
 msgstr "Doit être un horodatage ISO 8601"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
-msgstr "Doit être une tonalité, 3 caractères, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Doit être une tonalité, 3 caractères, A-G, b, #, m, o\n"
+"ou valeur de Camelot Wheel 1A-12A, 1B-12B"
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "Doit avoir un code de langue ISO 639-2, 3 caractères minuscules"
@@ -2684,8 +2688,8 @@ msgstr "Information classement"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr "Ce programme utilise <a href=\"http://www.qt.io/\">Qt</a> version %1."
 
-msgid "OK"
-msgstr "OK"
+msgid "Start"
+msgstr "Démarrer"
 
 msgid "Destination:"
 msgstr "Destination:"
@@ -2699,20 +2703,11 @@ msgstr "Balise 2"
 msgid "Profile:"
 msgstr "Profil:"
 
-msgid "Start"
-msgstr "Démarrer"
-
-msgid "Cancel"
-msgstr "Annuler"
-
 msgid "Filter:"
 msgstr "Filtre:"
 
 msgid "Expression:"
 msgstr "Expression:"
-
-msgid "Apply"
-msgstr "Appliquer"
 
 msgid "About"
 msgstr "À propos"
@@ -2722,12 +2717,6 @@ msgstr "Configuration"
 
 msgid "Quit"
 msgstr "Quitter"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Start number:"
 msgstr "Nombre de début:"
@@ -2830,9 +2819,3 @@ msgstr "Au nom de fichier"
 
 msgid "To Tag %1"
 msgstr "À balise %1"
-
-msgid "Select All"
-msgstr "Sélectionner tout"
-
-msgid "Cut"
-msgstr "Couper"

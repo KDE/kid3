@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.5.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2017-11-12 11:15+0100\n"
+"POT-Creation-Date: 2018-02-18 06:54+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -1550,7 +1550,9 @@ msgstr ""
 msgid "Must be ISO 8601 date/time"
 msgstr "Peab olema ISO-8601 ajatempel"
 
-msgid "Must be musical key, 3 characters, A-G, b, #, m, o"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
@@ -2683,8 +2685,8 @@ msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
 "See programm kasutab <a href=\"http://www.qt.io/\">Qt</a> versiooni %1."
 
-msgid "OK"
-msgstr "OK"
+msgid "Start"
+msgstr "Alusta"
 
 msgid "Destination:"
 msgstr "Sihtkoht:"
@@ -2698,20 +2700,11 @@ msgstr "Silt 2"
 msgid "Profile:"
 msgstr "Profiil:"
 
-msgid "Start"
-msgstr "Alusta"
-
-msgid "Cancel"
-msgstr "Loobu"
-
 msgid "Filter:"
 msgstr "Filter:"
 
 msgid "Expression:"
 msgstr "Avaldis:"
-
-msgid "Apply"
-msgstr "Rakenda"
 
 msgid "About"
 msgstr "Teave"
@@ -2721,12 +2714,6 @@ msgstr "Seadistused"
 
 msgid "Quit"
 msgstr "Välju"
-
-msgid "Yes"
-msgstr "Jah"
-
-msgid "No"
-msgstr "Ei"
 
 msgid "Start number:"
 msgstr "Algusnumber:"
@@ -2829,9 +2816,3 @@ msgstr "Esitada failinime"
 
 msgid "To Tag %1"
 msgstr "Esitada silt %1"
-
-msgid "Select All"
-msgstr "Vali kõik"
-
-msgid "Cut"
-msgstr "Lõika"
