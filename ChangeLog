@@ -1,3 +1,25 @@
+Sun Mar 18 16:49:46 CET 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.6.0
+
+	* New:
+	  + New look for Android app using Qt Quick Controls 2.
+	  + Editor for star ratings, configurable mapping between rating
+	    values and number of stars.
+	  + Option to restrict length of file names.
+	  + Option to show hidden files in file and directory lists.
+
+	* Improved:
+	  + Support adding unknown 4 letter atoms to M4A files.
+	  + Allow Camelot wheel value 1A-12A, 1B-12B for initial key.
+
+	* Fixed:
+	  + Windows: Renaming directories which contain subfolders.
+	  + Adding and finding unified frames by their frame ID.
+	  + Deletion of M4A atoms which are not known or which have an
+	    unofficial free form prefix.
+	  + Support files with m4v extension.
+
 Wed Nov  1 12:36:45 CET 2017  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.5.1
