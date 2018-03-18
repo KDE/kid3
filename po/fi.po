@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.5.1\n"
+"Project-Id-Version: Kid3 3.6.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-02-18 06:54+0100\n"
+"POT-Creation-Date: 2018-03-18 16:04+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1468,6 +1468,15 @@ msgstr "Osan laskea"
 
 msgid "Show Work & Movement"
 msgstr "Käytä teosta ja osaa"
+
+msgid "Podcast URL"
+msgstr "Podcast osoite"
+
+msgid "Podcast GUID"
+msgstr "Podcast GUID"
+
+msgid "Composer ID"
+msgstr "Säveltäjä ID"
 
 msgid "XID"
 msgstr "XID"

@@ -134,6 +134,10 @@ static const struct {
   { "atID", Frame::FT_Other },
   { "plID", Frame::FT_Other },
   { "geID", Frame::FT_Other },
+  { "purl", Frame::FT_Other },
+  { "egid", Frame::FT_Other },
+  { "cmID", Frame::FT_Other },
+  { "xid ", Frame::FT_Other },
 #endif
   { "covr", Frame::FT_Picture }
 },
@@ -340,14 +344,10 @@ static QByteArray getValueByteArray(const char* name,
     }
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
-  } else if (std::strcmp(name, "tvsn") == 0) {
-    if (size >= 4) {
-      uint val = value[3] + (value[2] << 8) + (value[1] << 16) + (value[0] << 24);
-      if (val > 0) {
-        str.setNum(val);
-      }
-    }
-  } else if (std::strcmp(name, "tves") == 0) {
+  } else if (std::strcmp(name, "tvsn") == 0 || std::strcmp(name, "tves") == 0 ||
+             std::strcmp(name, "sfID") == 0 || std::strcmp(name, "cnID") == 0 ||
+             std::strcmp(name, "atID") == 0 || std::strcmp(name, "geID") == 0 ||
+             std::strcmp(name, "cmID") == 0 || std::strcmp(name, "xid ") == 0) {
     if (size >= 4) {
       uint val = value[3] + (value[2] << 8) +
         (value[1] << 16) + (value[0] << 24);
@@ -355,49 +355,11 @@ static QByteArray getValueByteArray(const char* name,
         str.setNum(val);
       }
     }
-  } else if (std::strcmp(name, "pcst") == 0) {
+  } else if (std::strcmp(name, "pcst") == 0 || std::strcmp(name, "hdvd") == 0 ||
+             std::strcmp(name, "stik") == 0 || std::strcmp(name, "rtng") == 0 ||
+             std::strcmp(name, "akID") == 0) {
     if (size >= 1) {
       str.setNum(value[0]);
-    }
-  } else if (std::strcmp(name, "hdvd") == 0) {
-    if (size >= 1) {
-      str.setNum(value[0]);
-    }
-  } else if (std::strcmp(name, "stik") == 0) {
-    if (size >= 1) {
-      str.setNum(value[0]);
-    }
-  } else if (std::strcmp(name, "rtng") == 0) {
-    if (size >= 1) {
-      str.setNum(value[0]);
-    }
-  } else if (std::strcmp(name, "akID") == 0) {
-    if (size >= 1) {
-      str.setNum(value[0]);
-    }
-  } else if (std::strcmp(name, "sfID") == 0) {
-    if (size >= 4) {
-      uint val = value[3] + (value[2] << 8) +
-        (value[1] << 16) + (value[0] << 24);
-      if (val > 0) {
-        str.setNum(val);
-      }
-    }
-  } else if (std::strcmp(name, "cnID") == 0) {
-    if (size >= 4) {
-      uint val = value[3] + (value[2] << 8) +
-        (value[1] << 16) + (value[0] << 24);
-      if (val > 0) {
-        str.setNum(val);
-      }
-    }
-  } else if (std::strcmp(name, "atID") == 0) {
-    if (size >= 4) {
-      uint val = value[3] + (value[2] << 8) +
-        (value[1] << 16) + (value[0] << 24);
-      if (val > 0) {
-        str.setNum(val);
-      }
     }
   } else if (std::strcmp(name, "plID") == 0) {
     if (size >= 8) {
@@ -405,14 +367,6 @@ static QByteArray getValueByteArray(const char* name,
         ((qulonglong)value[5] << 16) + ((qulonglong)value[4] << 24) +
         ((qulonglong)value[3] << 32) + ((qulonglong)value[2] << 40) +
         ((qulonglong)value[1] << 48) + ((qulonglong)value[0] << 56);
-      if (val > 0) {
-        str.setNum(val);
-      }
-    }
-  } else if (std::strcmp(name, "geID") == 0) {
-    if (size >= 4) {
-      uint val = value[3] + (value[2] << 8) +
-        (value[1] << 16) + (value[0] << 24);
       if (val > 0) {
         str.setNum(val);
       }
@@ -758,6 +712,11 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           } else if (name == QLatin1String("geID")) {
             uint32_t val = str.toULong();
             MP4TagsSetGenreID(tags, &val);
+          } else if (name == QLatin1String("cmID")) {
+            uint32_t val = str.toULong();
+            MP4TagsSetComposerID(tags, &val);
+          } else if (name == QLatin1String("xid ")) {
+            MP4TagsSetXID(tags, str);
           } else {
             MP4ItmfItem* item;
             if (name.length() == 4 &&
@@ -1346,7 +1305,8 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
     QLatin1String("geID") << QLatin1String("hdvd") << QLatin1String("keyw") << QLatin1String("ldes") << QLatin1String("pcst") <<
     QLatin1String("plID") << QLatin1String("purd") << QLatin1String("rtng") << QLatin1String("sfID") <<
     QLatin1String("sosn") << QLatin1String("stik") << QLatin1String("tven") <<
-    QLatin1String("tves") << QLatin1String("tvnn") << QLatin1String("tvsh") << QLatin1String("tvsn");
+    QLatin1String("tves") << QLatin1String("tvnn") << QLatin1String("tvsh") << QLatin1String("tvsn") <<
+    QLatin1String("purl") << QLatin1String("egid") << QLatin1String("cmID") << QLatin1String("xid ");
 #endif
   return lst;
 }

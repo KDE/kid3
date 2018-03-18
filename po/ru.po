@@ -7,9 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.5.1\n"
+"Project-Id-Version: Kid3 3.6.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-02-18 06:54+0100\n"
+"POT-Creation-Date: 2018-03-18 16:04+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -1470,6 +1470,15 @@ msgstr "Количество части"
 
 msgid "Show Work & Movement"
 msgstr "Используйте произведение и часть"
+
+msgid "Podcast URL"
+msgstr "Подкаст URL"
+
+msgid "Podcast GUID"
+msgstr "Подкаст GUID"
+
+msgid "Composer ID"
+msgstr "Композитор ID"
 
 msgid "XID"
 msgstr "XID"
