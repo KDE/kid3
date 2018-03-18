@@ -4289,7 +4289,13 @@ static void stripMp4FreeFormName(TagLib::String& name)
 static void prefixMp4FreeFormName(TagLib::String& name,
                                   const TagLib::MP4::Tag* mp4Tag)
 {
-  if (!mp4Tag->contains(name) && !name.startsWith("----") &&
+  if (
+#if TAGLIB_VERSION >= 0x011000
+      !mp4Tag->contains(name)
+#else
+      !const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(name)
+#endif
+      && !name.startsWith("----") &&
       !(name.length() == 4 &&
         (name[0] == '\251' || (name[0] >= 'a' && name[0] <= 'z')))) {
     Frame::Type type;
@@ -4299,12 +4305,29 @@ static void prefixMp4FreeFormName(TagLib::String& name,
       if (name[0] == ':') name = name.substr(1);
       TagLib::String freeFormName = "----:com.apple.iTunes:" + name;
       unsigned int nameLen;
-      if (!mp4Tag->contains(freeFormName) && (nameLen = name.length()) > 0) {
+      if (
+#if TAGLIB_VERSION >= 0x011000
+          !mp4Tag->contains(freeFormName)
+#else
+          !const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(
+            freeFormName)
+#endif
+          && (nameLen = name.length()) > 0) {
         // Not an iTunes free form name, maybe using another prefix
         // (such as "----:com.nullsoft.winamp:").
         // Search for a frame which ends with this name.
+#if TAGLIB_VERSION >= 0x011000
         const TagLib::MP4::ItemMap& items = mp4Tag->itemMap();
-        for (TagLib::MP4::ItemMap::ConstIterator it = items.begin();
+#else
+        const TagLib::MP4::ItemListMap& items =
+            const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap();
+#endif
+        for (
+#if TAGLIB_VERSION >= 0x011000
+             TagLib::MP4::ItemMap::ConstIterator it = items.begin();
+#else
+             TagLib::MP4::ItemListMap::ConstIterator it = items.begin();
+#endif
              it != items.end();
              ++it) {
           const TagLib::String& key = it->first;
