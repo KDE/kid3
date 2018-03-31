@@ -347,7 +347,7 @@ static QByteArray getValueByteArray(const char* name,
   } else if (std::strcmp(name, "tvsn") == 0 || std::strcmp(name, "tves") == 0 ||
              std::strcmp(name, "sfID") == 0 || std::strcmp(name, "cnID") == 0 ||
              std::strcmp(name, "atID") == 0 || std::strcmp(name, "geID") == 0 ||
-             std::strcmp(name, "cmID") == 0 || std::strcmp(name, "xid ") == 0) {
+             std::strcmp(name, "cmID") == 0) {
     if (size >= 4) {
       uint val = value[3] + (value[2] << 8) +
         (value[1] << 16) + (value[0] << 24);
