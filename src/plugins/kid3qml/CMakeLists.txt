@@ -118,9 +118,11 @@ if ((WIN32 OR APPLE) AND HAVE_QT5)
   install(DIRECTORY "${QT_QML_DIR}/QtQuick.2"
     DESTINATION "${WITH_PLUGINSDIR}/imports"
     FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                   PATTERN "qmldir")
+                   PATTERN "qmldir"
+                   PATTERN "*.dSYM" EXCLUDE)
   install(DIRECTORY "${QT_QML_DIR}/QtQuick/Layouts"
     DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick"
     FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                   PATTERN "qmldir")
+                   PATTERN "qmldir"
+                   PATTERN "*.dSYM" EXCLUDE)
 endif ()

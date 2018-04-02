@@ -24,13 +24,20 @@
 # buildkid3.bat from a Windows command prompt.
 #
 # You can also build a Windows version from Linux using the MinGW cross
-# compiler. Set compiler="cross-mingw" below.
+# compiler.
+# COMPILER=cross-mingw QTPREFIX=/path/to/Qt5.6.3-mingw/5.6.3/mingw49_32 ../kid3/buildlibs.sh
 #
 # For Mac: XCode, Qt, html\docbook.xsl. XCode and Qt should be installed at
 # the default location, docbook.xsl in
 # $HOME/docbook-xsl-1.72.0/html/docbook.xsl.
 #
-# To build for Android, set compiler="cross-android".
+# You can also build a macOS version from Linux using the osxcross toolchain.
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.6.3-mac/5.6.3/clang_64 ../kid3/buildlibs.sh
+#
+# To build for Android, set COMPILER="cross-android".
+#
+# To build a self-contained Linux package use
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.6.3-linux/5.6.3/gcc_64 ../kid3/buildlibs.sh
 #
 # The source code for the libraries is downloaded from Debian and Ubuntu
 # repositories. If the files are no longer available, use a later version,
@@ -49,7 +56,7 @@ thisdir=$(pwd)
 kernel=$(uname)
 test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
-compiler="gcc"
+compiler=${COMPILER:-gcc}
 
 qt_version=5.6.3
 zlib_version=1.2.8
@@ -57,7 +64,7 @@ zlib_patchlevel=5
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.5
-libvorbis_patchlevel=4.2
+libvorbis_patchlevel=4
 ffmpeg_version=3.4.2
 ffmpeg_patchlevel=1
 #libav_version=11.12
@@ -72,22 +79,28 @@ chromaprint_patchlevel=1
 mp4v2_version=2.0.0
 mp4v2_patchlevel=6
 
-FLAC_BUILD_OPTION="--enable-debug"
-ID3LIB_BUILD_OPTION="--enable-debug=minimum"
-AV_BUILD_OPTION="--enable-debug=1"
-CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
-# Uncomment for debug build
-#FLAC_BUILD_OPTION="--enable-debug"
-#ID3LIB_BUILD_OPTION="--enable-debug=yes"
-#AV_BUILD_OPTION="--enable-debug=3"
-#CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
-
-# Uncomment for a LINUX_SELF_CONTAINED build
-#export CC="gcc-4.8"
-#export CXX="g++-4.8"
-#export CFLAGS="-O2 -fPIC"
-#export CXXFLAGS="-O2 -fPIC"
-#AV_BUILD_OPTION="$AV_BUILD_OPTION --enable-pic --extra-ldexeflags=-pie"
+if test "$compiler" = "gcc-debug"; then
+  export CFLAGS="-fPIC"
+  export CXXFLAGS="-fPIC"
+  FLAC_BUILD_OPTION="--enable-debug"
+  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
+  AV_BUILD_OPTION="--enable-debug=3 --enable-pic --extra-ldexeflags=-pie"
+  CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
+elif test "$compiler" = "gcc-self-contained"; then
+  export CC="gcc-4.8"
+  export CXX="g++-4.8"
+  export CFLAGS="-O2 -fPIC"
+  export CXXFLAGS="-O2 -fPIC"
+  FLAC_BUILD_OPTION="--enable-debug"
+  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
+  AV_BUILD_OPTION="--enable-debug=1 --enable-pic --extra-ldexeflags=-pie"
+  CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+else
+  FLAC_BUILD_OPTION="--enable-debug"
+  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
+  AV_BUILD_OPTION="--enable-debug=1"
+  CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+fi
 
 if ! which cmake >/dev/null; then
   echo cmake not found.
@@ -113,6 +126,16 @@ CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake"
 # I am using a custom built cross mingw (--disable-sjlj-exceptions --enable-threads=posix)
 cross_host="i686-w64-mingw32"
 CONFIGURE_OPTIONS="--host=${cross_host}"
+elif test "$compiler" = "cross-macos"; then
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
+cross_host="x86_64-apple-darwin17"
+CONFIGURE_OPTIONS="--host=${cross_host}"
+export CC=x86_64-apple-darwin17-clang
+export CXX=x86_64-apple-darwin17-clang++
+export AR=x86_64-apple-darwin17-ar
+export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
+export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
 fi
 
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
@@ -262,19 +285,38 @@ fi
 
 # Create patch files
 
+if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
+  if test -n "$QTBINARYDIR"; then
+    _qt_bin_dir=$QTBINARYDIR
+  else
+    for d in $thisdir/qtbase5-dev-tools* /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin /usr/bin; do
+      if test -x $d/moc; then
+        _qt_bin_dir=$d
+        break
+      fi
+    done
+  fi
+  if test -n "$QTPREFIX"; then
+    _qt_prefix=$QTPREFIX
+  else
+    if test "$compiler" = "cross-mingw"; then
+      for d in /windows/Qt/${qt_version}/mingw* /windows/Qt/Qt${qt_version}/${qt_version}/mingw* $thisdir/Qt*-mingw/${qt_version}/mingw*; do
+        if test -d $d; then
+          _qt_prefix=$d
+          break
+        fi
+      done
+    elif test "$compiler" = "cross-macos"; then
+      for d in $thisdir/Qt*-mac/${qt_version}/clang_64 $HOME/Development/Qt*-mac/${qt_version}/clang_64; do
+        if test -d $d; then
+          _qt_prefix=$d
+          break
+        fi
+      done
+    fi
+  fi
+fi
 if test "$compiler" = "cross-mingw"; then
-  for d in $thisdir/qtbase5-dev-tools* /usr/lib/${HOSTTYPE/i686/i386}-linux-gnu/qt5/bin /usr/bin; do
-    if test -x $d/moc; then
-      _qt_bin_dir=$d
-      break
-    fi
-  done
-  for d in /windows/Qt/${qt_version}/mingw* /windows/Qt/Qt${qt_version}/${qt_version}/mingw* $thisdir/Qt*-mingw/${qt_version}/mingw*; do
-    if test -d $d; then
-      _qt_prefix=$d
-      break
-    fi
-  done
   cat >$thisdir/mingw.cmake <<EOF
 set(QT_PREFIX ${_qt_prefix})
 
@@ -291,6 +333,39 @@ set(QT_BINARY_DIR ${_qt_bin_dir})
 set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
 set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt5Core.a)
 set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
+set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
+set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
+set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
+
+foreach (_exe moc rcc lupdate lrelease uic)
+  if (NOT TARGET Qt5::\${_exe})
+    add_executable(Qt5::\${_exe} IMPORTED)
+    set_target_properties(Qt5::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+EOF
+elif test "$compiler" = "cross-macos"; then
+  osxprefix=${OSXPREFIX:-/opt/osxcross/target}
+  test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:$PATH
+  cat >$thisdir/osxcross.cmake <<EOF
+set(QT_PREFIX $_qt_prefix)
+
+set (CMAKE_SYSTEM_NAME Darwin)
+set (CMAKE_C_COMPILER $osxprefix/lib/ccache/bin/x86_64-apple-darwin17-clang)
+set (CMAKE_CXX_COMPILER $osxprefix/lib/ccache/bin/x86_64-apple-darwin17-clang++)
+set (CMAKE_FIND_ROOT_PATH $osxprefix/x86_64-apple-darwin17;$osxprefix/SDK/MacOSX10.13.sdk/usr;$osxprefix/x86_64-apple-darwin17;$osxprefix/SDK/MacOSX10.13.sdk;$osxprefix/SDK/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers;\${QT_PREFIX};$thisdir/buildroot/usr/local)
+set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set (CMAKE_AR:FILEPATH x86_64-apple-darwin17-ar)
+set (CMAKE_RANLIB:FILEPATH x86_64-apple-darwin17-ranlib)
+
+set(QT_INCLUDE_DIRS_NO_SYSTEM ON)
+set(QT_BINARY_DIR ${_qt_bin_dir})
+set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
+set(Qt5Core_DIR \${QT_PREFIX}/lib/cmake/Qt5Core)
 set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
@@ -2668,6 +2743,8 @@ AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
 if test $(uname) = "MSYS_NT-6.1"; then
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
 fi
+elif test "$compiler" = "cross-macos"; then
+AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${cross_host}- --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
 fi
 if ( test $kernel = "Darwin" || test $kernel = "MINGW" ) && test -n "${ffmpeg_version}"; then
 AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
@@ -2845,15 +2922,47 @@ rm -f \$INSTDIR.zip
 7z a \$INSTDIR.zip \$INSTDIR
 EOF
       chmod +x kid3/make_package.sh
+    elif test "$compiler" = "cross-macos"; then
+      cat >kid3/build.sh <<EOF
+test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:\$PATH
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+EOF
+      cat >kid3/make_package.sh <<EOF
+#!/bin/bash
+VERSION=\$(grep VERSION config.h | cut -d'"' -f2)
+rm -rf inst
+DESTDIR=\$(pwd)/inst ninja install/strip
+ln -s /Applications inst/Applications
+genisoimage -V "Kid3" -D -R -apple -no-pad -o uncompressed.dmg inst
+dmg dmg uncompressed.dmg kid3-\$VERSION-Darwin.dmg
+rm uncompressed.dmg
+EOF
+      chmod +x kid3/make_package.sh
+    elif test "$compiler" = "gcc-self-contained"; then
+      if test -n "$QTPREFIX"; then
+        _qt_prefix=$QTPREFIX
+      else
+        for d in /opt/qt5/${qt_version}/gcc_64 /opt/qt5/Qt${qt_version}/${qt_version}/gcc_64 $thisdir/Qt*-linux/${qt_version}/gcc_64; do
+          if test -d $d; then
+            _qt_prefix=$d
+            break
+          fi
+        done
+      fi
+      taglib_config_version=$taglib_version
+      taglib_config_version=${taglib_config_version%beta*}
+      cat >kid3/build.sh <<EOF
+BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
+export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
+cmake -GNinja -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_C_COMPILER=gcc-4.8 -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+EOF
     else
       taglib_config_version=$taglib_version
       taglib_config_version=${taglib_config_version%beta*}
       cat >kid3/build.sh <<EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-# For a LINUX_SELF_CONTAINED build, change BUILD_SHARED_LIBS, WITH_QML to ON and add
-# -G Ninja -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_C_COMPILER=gcc-4.8 -DQT_QMAKE_EXECUTABLE=/opt/qt5/5.6.3/gcc_64/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF
-cmake -DBUILD_SHARED_LIBS=OFF -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=OFF -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
     fi
     chmod +x kid3/build.sh

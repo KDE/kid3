@@ -115,6 +115,12 @@ if (APPLE)
                  ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
   set_target_properties(${KID3_EXECUTABLE} PROPERTIES
       MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
+  if (CMAKE_CXX_COMPILER MATCHES "/osxcross/")
+    # When cross compiling, CPack does not know that is should be APPLE.
+    install(CODE "
+  set(APPLE TRUE)
+  ")
+  endif ()
 endif (APPLE)
 
 install(TARGETS ${KID3_EXECUTABLE}
@@ -153,7 +159,8 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   install(DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
     DESTINATION ${plugin_dest_dir}
     FILES_MATCHING PATTERN "*jpeg${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                   PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}")
+                   PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                   PATTERN "*.dSYM" EXCLUDE)
 
   if (LINUX_SELF_CONTAINED)
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -162,10 +169,12 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     if (APPLE)
       install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
         DESTINATION kid3.app/Contents/MacOS
-        FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                       PATTERN "*.dSYM" EXCLUDE)
       install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
         DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                       PATTERN "*.dSYM" EXCLUDE)
     elseif (WIN32)
       install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
         DESTINATION ${plugin_dest_dir}
@@ -190,7 +199,8 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING
         PATTERN "*d4${CMAKE_SHARED_LIBRARY_SUFFIX}" EXCLUDE
-        PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}"
+        PATTERN "*.dSYM" EXCLUDE)
   endif (HAVE_PHONON)
 
   if (WIN32)

@@ -37,7 +37,7 @@
 #include <QAction>
 #include <QElapsedTimer>
 #if defined Q_OS_MAC && QT_VERSION >= 0x050200
-#include <CoreFoundation/CFUrl.h>
+#include <CoreFoundation/CFURL.h>
 #endif
 #include <QFileIconProvider>
 #if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
