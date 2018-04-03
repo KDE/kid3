@@ -50,6 +50,7 @@
 
 # Exit if an error occurs
 set -e
+shopt -s extglob
 
 thisdir=$(pwd)
 
@@ -124,7 +125,11 @@ CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake"
 # Note that Ubuntu i686-w64-mingw32 is incompatible (sjlj) with the mingw (dw2)
 # used for the Qt mingw binaries >=4.8.6.
 # I am using a custom built cross mingw (--disable-sjlj-exceptions --enable-threads=posix)
-cross_host="i686-w64-mingw32"
+if test -n "$QTPREFIX" && test -z "${QTPREFIX%%*64?(/)}"; then
+  cross_host="x86_64-w64-mingw32"
+else
+  cross_host="i686-w64-mingw32"
+fi
 CONFIGURE_OPTIONS="--host=${cross_host}"
 elif test "$compiler" = "cross-macos"; then
 CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
@@ -2343,6 +2348,9 @@ unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
 patch -p1 <../source/mp4v2_win32.patch
+if test -z "${cross_host##x86_64*}"; then
+sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
+fi
 fi
 cd ..
 fi
@@ -2737,7 +2745,10 @@ if test "$compiler" = "cross-mingw"; then
 # mkstemp is not available when building on Windows
 sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
 sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
-AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include --extra-cflags=-march=i486"
+AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
+if test -n "${cross_host##x86_64*}"; then
+AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
+fi
 elif test $kernel = "MINGW"; then
 AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
 if test $(uname) = "MSYS_NT-6.1"; then
@@ -2883,6 +2894,11 @@ if test $kernel = "Linux"; then
       cat >kid3/build.sh <<EOF
 cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
+      if test -z "${cross_host##x86_64*}"; then
+        _gccDll=libgcc_s_seh-1.dll
+      else
+        _gccDll=libgcc_s_dw2-1.dll
+      fi
       cat >kid3/make_package.sh <<EOF
 #!/bin/bash
 VERSION=\$(grep VERSION config.h | cut -d'"' -f2)
@@ -2908,7 +2924,7 @@ fi
 
 cp -f po/*.qm doc/*/kid3*.html \$INSTDIR
 
-for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll libgcc_s_dw2-1.dll libstdc++-6.dll libwinpthread-1.dll; do
+for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
   cp \$QT_BIN_DIR/\$f \$INSTDIR
 done
 

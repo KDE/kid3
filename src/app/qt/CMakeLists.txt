@@ -204,7 +204,7 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   endif (HAVE_PHONON)
 
   if (WIN32)
-    string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)"
+    string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+|x86_64-w64-mingw32-g\\+\\+)"
            _crossMingwMatch "${CMAKE_CXX_COMPILER}")
     if (_crossMingwMatch)
       # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
@@ -252,7 +252,7 @@ if (WIN32)
   else (NOT HAVE_QT5)
     # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
     # A folder with reduced ICU libraries can be copied to the Qt bin directory.
-    get_target_property(_qtBinDir Qt5::qmake LOCATION)
+    get_target_property(_qtBinDir Qt5::Core LOCATION)
     get_filename_component(_qtBinDir ${_qtBinDir} PATH)
     install(DIRECTORY "${_qtBinDir}/icu_reduced/"
             DESTINATION ${WITH_BINDIR} OPTIONAL)

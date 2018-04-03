@@ -10,7 +10,7 @@ if(WITH_ID3LIB)
     endif (NOT MSVC)
     if (WIN32)
       set(ID3LIB_DEFINITIONS -DID3LIB_LINKOPTION=1)
-      string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+)" _crossMingwMatch "${CMAKE_CXX_COMPILER}")
+      string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+|x86_64-w64-mingw32-g\\+\\+)" _crossMingwMatch "${CMAKE_CXX_COMPILER}")
       if (NOT _crossMingwMatch)
         set(ID3LIB_LIBRARIES ${ID3LIB_LIBRARIES} -liconv)
         # libiconv-2.dll is at the same place where the compiler is, C:\msys64\mingw32\bin
