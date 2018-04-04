@@ -204,15 +204,13 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   endif (HAVE_PHONON)
 
   if (WIN32)
-    string(REGEX MATCH "(i586-mingw32msvc-g\\+\\+|i686-w64-mingw32-g\\+\\+|x86_64-w64-mingw32-g\\+\\+)"
-           _crossMingwMatch "${CMAKE_CXX_COMPILER}")
-    if (_crossMingwMatch)
+    if (CMAKE_CROSSCOMPILING)
       # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
       # when building a Windows package from Linux with CMake 3.5.
       install(CODE "
       set(gp_tool DO_NOT_USE)
       ")
-    endif (_crossMingwMatch)
+    endif (CMAKE_CROSSCOMPILING)
   endif (WIN32)
 
   # Install and fix up all dependencies of the executable and the plugins.
