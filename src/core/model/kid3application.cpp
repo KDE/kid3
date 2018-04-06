@@ -957,7 +957,8 @@ QStringList Kid3Application::saveDirectory()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     bool renamed = false;
-    if (!taggedFile->writeTags(false, &renamed,
+    if (taggedFile->isChanged() &&
+        !taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().preserveTime())) {
       QString errorMsg = taggedFile->getAbsFilename();
       errorFiles.push_back(errorMsg);
