@@ -4151,6 +4151,11 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "plID", Frame::FT_Other, MVT_LongLong },
   { "geID", Frame::FT_Other, MVT_UInt },
   { "ownr", Frame::FT_Other, MVT_String },
+#ifdef TAGLIB_WITH_MP4_SHWM
+  { "purl", Frame::FT_Other, MVT_String },
+  { "egid", Frame::FT_Other, MVT_String },
+  { "cmID", Frame::FT_Other, MVT_UInt },
+#endif
   { "xid ", Frame::FT_Other, MVT_String },
 #if TAGLIB_VERSION >= 0x010602
   { "covr", Frame::FT_Picture, MVT_CoverArt },

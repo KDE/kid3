@@ -876,6 +876,53 @@ Index: b/taglib/mpeg/id3v2/id3v2framefactory.cpp
      {
 EOF
 
+test -f taglib_cmID_purl_egid.patch.patch ||
+  cat >taglib_cmID_purl_egid.patch.patch <<"EOF"
+index 11d3cc51..a3636a9d 100644
+--- a/taglib/mp4/mp4tag.cpp
++++ b/taglib/mp4/mp4tag.cpp
+@@ -78,7 +78,8 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
+       parseInt(atom);
+     }
+     else if(atom->name == "tvsn" || atom->name == "tves" || atom->name == "cnID" ||
+-            atom->name == "sfID" || atom->name == "atID" || atom->name == "geID") {
++            atom->name == "sfID" || atom->name == "atID" || atom->name == "geID" ||
++            atom->name == "cmID") {
+       parseUInt(atom);
+     }
+     else if(atom->name == "plID") {
+@@ -93,6 +94,9 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
+     else if(atom->name == "covr") {
+       parseCovr(atom);
+     }
++    else if(atom->name == "purl" || atom->name == "egid") {
++      parseText(atom, -1);
++    }
+     else {
+       parseText(atom);
+     }
+@@ -480,7 +484,8 @@ MP4::Tag::save()
+       data.append(renderInt(name.data(String::Latin1), it->second));
+     }
+     else if(name == "tvsn" || name == "tves" || name == "cnID" ||
+-            name == "sfID" || name == "atID" || name == "geID") {
++            name == "sfID" || name == "atID" || name == "geID" ||
++            name == "cmID") {
+       data.append(renderUInt(name.data(String::Latin1), it->second));
+     }
+     else if(name == "plID") {
+@@ -492,6 +497,9 @@ MP4::Tag::save()
+     else if(name == "covr") {
+       data.append(renderCovr(name.data(String::Latin1), it->second));
+     }
++    else if(name == "purl" || name == "egid") {
++      data.append(renderText(name.data(String::Latin1), it->second, TypeImplicit));
++    }
+     else if(name.size() == 4){
+       data.append(renderText(name.data(String::Latin1), it->second));
+     }
+EOF
+
 test -f mp4v2_win32.patch ||
   cat >mp4v2_win32.patch <<"EOF"
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
@@ -2321,6 +2368,7 @@ if ! test -d taglib-${taglib_version}; then
   if test "${taglib_version}" = "1.11.1"; then
     patch -p1 <../source/taglib_mp4shwm.patch
     patch -p1 <../source/taglib_CVE-2017-12678.patch
+    patch -p1 <../source/taglib_cmID_purl_egid.patch.patch
   fi
   cd ..
 fi
