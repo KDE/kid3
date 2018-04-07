@@ -59,18 +59,102 @@
 set -e
 shopt -s extglob
 
+thisdir=$(pwd)
+srcdir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+kernel=$(uname)
+test ${kernel:0:5} = "MINGW" && kernel="MINGW"
+
+# Administrative subtasks
+
+# Changes version and date strings in all known Kid3 files.
+if test "$1" = "changeversion"; then
+  OLDVER=$2
+  NEWVER=$3
+  if test -z "$OLDVER" || test -z "$NEWVER"; then
+    echo "Usage: $0 $1 old-version-nr new-version-nr, e.g. $0 $1 0.8 0.9"
+    exit 1
+  fi
+
+  echo "### Change version and date strings"
+
+  DATE=$(LC_TIME=C date)
+  DATE_R=$(date -R)
+  DATE_F=$(date +"%F")
+  DATE_Y=$(date +"%Y")
+
+  OLDMAJOR=$(echo $OLDVER | cut -f 1 -d .)
+  OLDMINOR=$(echo $OLDVER | cut -f 2 -d .)
+  OLDPATCH=$(echo $OLDVER | cut -f 3 -d .)
+  test -z $OLDPATCH && OLDPATCH=0
+
+  NEWMAJOR=$(echo $NEWVER | cut -f 1 -d .)
+  NEWMINOR=$(echo $NEWVER | cut -f 2 -d .)
+  NEWPATCH=$(echo $NEWVER | cut -f 3 -d .)
+  test -z $NEWPATCH && NEWPATCH=0
+
+  cd "$srcdir"
+  sed -i "1 i\
+kid3 (${NEWVER}-0) unstable; urgency=low\n\n  * New upstream release.\n\n\
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  ${DATE_R}\n" deb/changelog
+  sed -i "s/^<releaseinfo>${OLDVER}<\/releaseinfo>$/<releaseinfo>${NEWVER}<\/releaseinfo>/; s/^<year>[0-9]\+<\/year>$/<year>${DATE_Y}<\/year>/; s/^<date>[0-9-]\+<\/date>$/<date>${DATE_F}<\/date>/" doc/de/index.docbook
+  sed -i "s/^<releaseinfo>${OLDVER}<\/releaseinfo>$/<releaseinfo>${NEWVER}<\/releaseinfo>/; s/^<year>[0-9]\+<\/year>$/<year>${DATE_Y}<\/year>/; s/^<date>[0-9-]\+<\/date>$/<date>${DATE_F}<\/date>/" doc/en/index.docbook
+  sed -i "s/PROJECTVERSION=\"${OLDVER}\"/PROJECTVERSION=\"${NEWVER}\"/" po/extract-merge.sh
+  sed -i "s/Project-Id-Version: Kid3 ${OLDVER}/Project-Id-Version: Kid3 ${NEWVER}/" po/*.po*
+  sed -i "s/^Version:        ${OLDVER}$/Version:        ${NEWVER}/; s/^Entered-date:   [0-9-]\+$/Entered-date:   ${DATE_F}/; s/http:\/\/prdownloads.sourceforge.net\/kid3\/kid3-${OLDVER}.tar.gz?download/http:\/\/prdownloads.sourceforge.net\/kid3\/kid3-${NEWVER}.tar.gz?download/" kid3.lsm
+  sed -i "s/^Version:      ${OLDVER}$/Version:      ${NEWVER}/" kid3.spec
+  sed -i "s/^Copyright 2003-[0-9]\+ Urs Fleisch <ufleisch@users.sourceforge.net>$/Copyright 2003-${DATE_Y} Urs Fleisch <ufleisch@users.sourceforge.net>/" deb/copyright
+  sed -i "1 i\
+${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\n" ChangeLog
+  sed -i "s/PROJECT_NUMBER         = ${OLDVER}/PROJECT_NUMBER         = ${NEWVER}/" Doxyfile
+  sed -i "s/set(CPACK_PACKAGE_VERSION_MAJOR ${OLDMAJOR})/set(CPACK_PACKAGE_VERSION_MAJOR ${NEWMAJOR})/; s/set(CPACK_PACKAGE_VERSION_MINOR ${OLDMINOR})/set(CPACK_PACKAGE_VERSION_MINOR ${NEWMINOR})/; s/set(CPACK_PACKAGE_VERSION_PATCH ${OLDPATCH})/set(CPACK_PACKAGE_VERSION_PATCH ${NEWPATCH})/; s/set(RELEASE_YEAR [0-9]\+)/set(RELEASE_YEAR ${DATE_Y})/" CMakeLists.txt
+  if test $OLDVER != $NEWVER; then
+    OLDCODE=$(sed -n "s/ \+set(QT_ANDROID_APP_VERSION_CODE \([0-9]\+\))/\1/p" CMakeLists.txt)
+    NEWCODE=$[ $OLDCODE + 1 ]
+    sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
+  fi
+  cd - >/dev/null
+  exit 0
+fi
+
+if test "$1" = "cleanuppo"; then
+  echo "### Clean up .po files"
+
+  for f in $srcdir/po/*.po*; do
+    sed -i "/#, qt-format/ d; /#, kde-format/ d; /^#~ msg/ d" $f
+  done
+  exit 0
+fi
+
+if test "$1" = "makearchive"; then
+  VERSION=$2
+  if test -z "$VERSION"; then
+    VERSION=$(date +"%Y%m%d")
+  fi
+
+  DIR=kid3-$VERSION
+  TGZ=$DIR.tar.gz
+  if test -e "$TGZ"; then
+    echo "$TGZ already exists!"
+    exit 1
+  fi
+
+  cd $srcdir
+  git archive --format=tar --prefix=$DIR/ HEAD | gzip >$thisdir/$TGZ
+  cd - >/dev/null
+  exit 0
+fi
+
+# End of subtasks
+
+
 if test -f CMakeLists.txt; then
   echo "Do not run this script from the source directory!"
   echo "Start it from a build directory at the same level as the source directory."
   exit 1
 fi
 
-target=${1:-libs}
-
-thisdir=$(pwd)
-
-kernel=$(uname)
-test ${kernel:0:5} = "MINGW" && kernel="MINGW"
+target=${*:-libs package}
 
 qt_version=5.6.3
 zlib_version=1.2.8
@@ -117,7 +201,7 @@ if test -z "$COMPILER"; then
 fi
 
 compiler=${COMPILER:-gcc}
-echo -n "Building $target with $compiler"
+echo -n "### Building $target with $compiler"
 if test -n "$QTPREFIX"; then
   echo -n " using $QTPREFIX"
 fi
@@ -134,7 +218,7 @@ elif test "$compiler" = "cross-macos"; then
   osxprefix=${OSXPREFIX:-/opt/osxcross/target}
 fi
 
-if test $target = "libs"; then
+if [[ $target = *"libs"* ]]; then
 
 if test "$compiler" = "gcc-debug"; then
   export CFLAGS="-fPIC"
@@ -160,7 +244,7 @@ else
 fi
 
 if ! which cmake >/dev/null; then
-  echo cmake not found.
+  echo "cmake not found."
   return
   exit 1
 fi
@@ -2273,9 +2357,9 @@ cd ..
 # Extract and patch sources
 
 if test -n "$ZLIB_ROOT_PATH"; then
-  echo "### Extracting zlib"
-
   if ! test -d zlib-${zlib_version}; then
+    echo "### Extracting zlib"
+
     tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
     cd zlib-${zlib_version}/
 
@@ -2286,18 +2370,18 @@ if test -n "$ZLIB_ROOT_PATH"; then
   fi
 fi
 
-echo "### Extracting libogg"
-
 if ! test -d libogg-${libogg_version}; then
+  echo "### Extracting libogg"
+
   tar xzf source/libogg_${libogg_version}.orig.tar.gz
   cd libogg-${libogg_version}/
   gunzip -c ../source/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
   cd ..
 fi
 
-echo "### Extracting libvorbis"
-
 if ! test -d libvorbis-${libvorbis_version}; then
+  echo "### Extracting libvorbis"
+
   tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
   cd libvorbis-${libvorbis_version}/
   unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
@@ -2310,9 +2394,9 @@ if ! test -d libvorbis-${libvorbis_version}; then
   cd ..
 fi
 
-echo "### Extracting libflac"
-
 if ! test -d flac-${libflac_version}; then
+  echo "### Extracting libflac"
+
   unxz -c source/flac_${libflac_version}.orig.tar.xz | tar x
   cd flac-${libflac_version}/
   unxz -c ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz | tar x
@@ -2325,9 +2409,9 @@ if ! test -d flac-${libflac_version}; then
   cd ..
 fi
 
-echo "### Extracting id3lib"
-
 if ! test -d id3lib-${id3lib_version}; then
+  echo "### Extracting id3lib"
+
   tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
   cd id3lib-${id3lib_version}/
   unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
@@ -2339,9 +2423,9 @@ if ! test -d id3lib-${id3lib_version}; then
   cd ..
 fi
 
-echo "### Extracting taglib"
-
 if ! test -d taglib-${taglib_version}; then
+  echo "### Extracting taglib"
+
   tar xzf source/taglib-${taglib_version}.tar.gz
   cd taglib-${taglib_version}/
   taglib_nr=${taglib_version:0:3}
@@ -2373,20 +2457,24 @@ if ! test -d taglib-${taglib_version}; then
   cd ..
 fi
 
-echo "### Extracting ffmpeg"
-
 if test -n "${ffmpeg_version}"; then
-  unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
-  cd ffmpeg-${ffmpeg_version}/
-  unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-  if test $ffmpeg_version = "3.1.3"; then
-    patch -p1 <../source/ffmpeg_mingw.patch
+  if ! test -d ffmpeg-${ffmpeg_version}; then
+    echo "### Extracting ffmpeg"
+
+    unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
+    cd ffmpeg-${ffmpeg_version}/
+    unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
+    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test $ffmpeg_version = "3.1.3"; then
+      patch -p1 <../source/ffmpeg_mingw.patch
+    fi
+    cd ..
   fi
-  cd ..
 else
   if test "${libav_version%.*}" = "0.8"; then
     if ! test -d libav-${libav_version}; then
+      echo "### Extracting libav"
+
       tar xzf source/libav_${libav_version}.orig.tar.gz
       cd libav-${libav_version}/
       tar xzf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
@@ -2403,6 +2491,8 @@ else
     fi
   else
     if ! test -d libav-${libav_version}; then
+      echo "### Extracting libav"
+
       unxz -c source/libav_${libav_version}.orig.tar.xz | tar x || true
       echo Can be ignored: Cannot create symlink to README.md
       cd libav-${libav_version}/
@@ -2421,9 +2511,9 @@ else
   fi
 fi
 
-echo "### Extracting chromaprint"
-
 if ! test -d chromaprint-${chromaprint_version}; then
+  echo "### Extracting chromaprint"
+
   tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
   cd chromaprint-${chromaprint_version}/
   unxz -c ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz | tar x
@@ -2431,9 +2521,9 @@ if ! test -d chromaprint-${chromaprint_version}; then
   cd ..
 fi
 
-echo "### Extracting mp4v2"
-
 if ! test -d mp4v2-${mp4v2_version}; then
+  echo "### Extracting mp4v2"
+
   tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
   cd mp4v2-${mp4v2_version}/
   unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz | tar x
@@ -2449,9 +2539,9 @@ fi
 
 if test "$compiler" = "cross-android"; then
 
-echo "### Extracting openssl"
-
 if ! test -d openssl-${openssl_version}; then
+  echo "### Extracting openssl"
+
   tar xzf source/openssl-${openssl_version}.tar.gz
   cp source/Setenv-android.sh openssl-${openssl_version}/
   cd openssl-${openssl_version}/
@@ -2513,17 +2603,20 @@ if test "$compiler" = "cross-android"; then
     tar czf ../../bin/openssl-${openssl_version}.tgz usr
     cd ../..
     tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
-
   fi
 
-  echo "### Building taglib"
+  if ! test -f $BUILDROOT/usr/local/lib/libtag.a; then
+    echo "### Building taglib"
 
-  cd taglib-${taglib_version}/
-  cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
-  make install
-  cd ..
+    cd taglib-${taglib_version}/
+    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
+    make install
+    cd ..
+  fi
 
   if ! test -d kid3; then
+    echo "### Creating kid3 build directory"
+
     mkdir kid3
     cat >kid3/build.sh <<EOF
 _java_root=/usr/lib/jvm/java-7-openjdk-amd64
@@ -2540,66 +2633,74 @@ EOF
 
 elif test "$compiler" = "msvc"; then
 
-  echo "### Building libogg"
+  if test ! -d libogg-${libogg_version}/inst; then
+    echo "### Building libogg"
 
-  cd libogg-${libogg_version}/
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Release;Platform=Win32"
-  mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
-  cp win32/VS2010/Win32/Debug/libogg_static.lib inst/lib/Debug/
-  cp win32/VS2010/Win32/Release/libogg_static.lib inst/lib/Release/
-  cp include/ogg/*.h inst/include/ogg/
-  cd inst
-  tar czf ../../bin/libogg-${libogg_version}.tgz include lib
-  cd ../..
-  tar xmzf bin/libogg-${libogg_version}.tgz $BUILDROOT
+    cd libogg-${libogg_version}/
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Release;Platform=Win32"
+    mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
+    cp win32/VS2010/Win32/Debug/libogg_static.lib inst/lib/Debug/
+    cp win32/VS2010/Win32/Release/libogg_static.lib inst/lib/Release/
+    cp include/ogg/*.h inst/include/ogg/
+    cd inst
+    tar czf ../../bin/libogg-${libogg_version}.tgz include lib
+    cd ../..
+    tar xmzf bin/libogg-${libogg_version}.tgz $BUILDROOT
+  fi
 
-  echo "### Building libvorbis"
+  if test ! -d libvorbis-${libvorbis_version}/inst; then
+    echo "### Building libvorbis"
 
-  cd libvorbis-${libvorbis_version}/
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
-  mkdir -p inst/include/vorbis inst/lib/Debug inst/lib/Release
-  cp win32/VS2010/Win32/Debug/*.lib inst/lib/Debug/
-  cp win32/VS2010/Win32/Release/*.lib inst/lib/Release/
-  cp include/vorbis/*.h inst/include/vorbis/
-  cd inst
-  tar czf ../../bin/libvorbis-${libvorbis_version}.tgz include lib
-  cd ../..
-  tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
+    cd libvorbis-${libvorbis_version}/
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
+    mkdir -p inst/include/vorbis inst/lib/Debug inst/lib/Release
+    cp win32/VS2010/Win32/Debug/*.lib inst/lib/Debug/
+    cp win32/VS2010/Win32/Release/*.lib inst/lib/Release/
+    cp include/vorbis/*.h inst/include/vorbis/
+    cd inst
+    tar czf ../../bin/libvorbis-${libvorbis_version}.tgz include lib
+    cd ../..
+    tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
+  fi
 
-  echo "### Building id3lib"
+  if test ! -d id3lib-${id3lib_version}/inst; then
+    echo "### Building id3lib"
 
-  cd id3lib-${id3lib_version}/
-  test -f config.h || sed 's/^#define CXX_HAS_BUGGY_FOR_LOOPS 1/\/\/#define CXX_HAS_BUGGY_FOR_LOOPS 1/' config.h.win32 >config.h
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
-  $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
-  mkdir -p inst/include inst/lib/Debug inst/lib/Release
-  cp -a include/id3* inst/include
-  cp id3libd.lib inst/lib/Debug/id3lib.lib
-  cp id3lib.lib inst/lib/Release/
-  cd inst
-  tar czf ../../bin/id3lib-${id3lib_version}.tgz include lib
-  cd ../..
-  tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
+    cd id3lib-${id3lib_version}/
+    test -f config.h || sed 's/^#define CXX_HAS_BUGGY_FOR_LOOPS 1/\/\/#define CXX_HAS_BUGGY_FOR_LOOPS 1/' config.h.win32 >config.h
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
+    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
+    mkdir -p inst/include inst/lib/Debug inst/lib/Release
+    cp -a include/id3* inst/include
+    cp id3libd.lib inst/lib/Debug/id3lib.lib
+    cp id3lib.lib inst/lib/Release/
+    cd inst
+    tar czf ../../bin/id3lib-${id3lib_version}.tgz include lib
+    cd ../..
+    tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
+  fi
 
-  echo "### Building taglib"
+  if test ! -d taglib-${taglib_version}/inst; then
+    echo "### Building taglib"
 
-  cd taglib-${taglib_version}/
-  test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_INSTALL_PREFIX=
-  mkdir -p instd
-  DESTDIR=instd cmake --build . --config Debug --target install
-  mkdir -p inst
-  DESTDIR=inst cmake --build . --config Release --target install
-  mv inst/lib inst/Release
-  mv instd/lib inst/Debug
-  mkdir -p inst/lib
-  mv inst/Debug inst/Release inst/lib/
-  rm -rf instd
-  cd inst
-  tar czf ../../bin/taglib-${taglib_version}.tgz include lib
-  cd ../..
-  tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
+    cd taglib-${taglib_version}/
+    test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_INSTALL_PREFIX=
+    mkdir -p instd
+    DESTDIR=instd cmake --build . --config Debug --target install
+    mkdir -p inst
+    DESTDIR=inst cmake --build . --config Release --target install
+    mv inst/lib inst/Release
+    mv instd/lib inst/Debug
+    mkdir -p inst/lib
+    mv inst/Debug inst/Release inst/lib/
+    rm -rf instd
+    cd inst
+    tar czf ../../bin/taglib-${taglib_version}.tgz include lib
+    cd ../..
+    tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
+  fi
 
 else
 
@@ -2611,7 +2712,7 @@ else
              mp4v2-${mp4v2_version}; do
       test -d $d/inst && rm -rf $d/inst
     done
-fi
+  fi
 
   if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}/inst; then
     echo "### Building zlib"
@@ -2984,14 +3085,14 @@ fi
   fi
 
 
-  echo "### Installing to root directory"
-
   if ! test -d kid3; then
+    echo "### Creating kid3 build directory"
+
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
       cat >kid3/build.sh <<EOF
 #!/bin/bash
-cmake $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
     elif test "$compiler" = "cross-macos"; then
       cat >kid3/build.sh <<EOF
@@ -3062,28 +3163,22 @@ EOF
   fi
 
 fi
+fi
 
-echo "### Built successfully"
+if [[ $target = *"package"* ]]; then
+  echo "### Building kid3 package"
 
-elif test $target = "package"; then
-  pushd kid3
+  pushd kid3 >/dev/null
   if test -f build.sh && ! test -f Makefile && ! test -f build.ninja; then
     ./build.sh
   fi
   if test "$compiler" = "cross-mingw"; then
-    if test -z "${cross_host##x86_64*}"; then
-      _gccDll=libgcc_s_seh-1.dll
-    else
-      _gccDll=libgcc_s_dw2-1.dll
-    fi
+    ninja
     _version=$(grep VERSION config.h | cut -d'"' -f2)
     _instdir=kid3-$_version-win32
-    _qtBinDir=${QTPREFIX}/bin
-    _qtTranslationsDir=${QTPREFIX}/translations
-
     test -d $_instdir && rm -rf $_instdir
     mkdir -p $_instdir
-    make install/strip DESTDIR=$(pwd)/$_instdir
+    DESTDIR=$(pwd)/$_instdir ninja install/strip
 
     _plugin_qt_version=$(grep "Created by.*Qt" src/plugins/musicbrainzimport/moc_musicbrainzimportplugin.cpp)
     _plugin_qt_version=${_plugin_qt_version##* \(Qt }
@@ -3097,10 +3192,17 @@ elif test $target = "package"; then
 
     cp -f po/*.qm doc/*/kid3*.html $_instdir
 
+    _qtBinDir=${QTPREFIX}/bin
+    if test -z "${cross_host##x86_64*}"; then
+      _gccDll=libgcc_s_seh-1.dll
+    else
+      _gccDll=libgcc_s_dw2-1.dll
+    fi
     for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
       cp $_qtBinDir/$f $_instdir
     done
 
+    _qtTranslationsDir=${QTPREFIX}/translations
     for f in po/*.qm; do
       l=${f#*_};
       l=${l%.qm};
@@ -3111,11 +3213,11 @@ elif test $target = "package"; then
     7z a $_instdir.zip $_instdir
   elif test "$compiler" = "cross-macos"; then
     test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:$PATH
-    _version=$(grep VERSION config.h | cut -d'"' -f2)
     rm -rf inst
     DESTDIR=$(pwd)/inst ninja install/strip
     ln -s /Applications inst/Applications
     genisoimage -V "Kid3" -D -R -apple -no-pad -o uncompressed.dmg inst
+    _version=$(grep VERSION config.h | cut -d'"' -f2)
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
@@ -3125,6 +3227,10 @@ elif test $target = "package"; then
       echo "You have to copy libssl.so and libcrypto.so to the Qt directory:"
       echo "sudo cp -a buildroot/usr/local/lib/lib{ssl,crypto}.so $QTPREFIX/lib/"
     fi
+  elif test "$compiler" = "gcc-self-contained"; then
+    ninja package
+    _tgz=(kid3-*-Linux.tar.gz)
+    test -f "$_tgz" && mv $_tgz ${_tgz%%tar.gz}tgz
   else
     if test -f build.ninja; then
       ninja package
@@ -3132,5 +3238,7 @@ elif test $target = "package"; then
       make package
     fi
   fi
-  popd
+  popd >/dev/null
 fi
+
+echo "### Built successfully"
