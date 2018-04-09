@@ -374,7 +374,7 @@ QWidget* FrameItemDelegate::createEditor(
          type == Frame::FT_Artist || type == Frame::FT_Album)) {
       if (lineEdit) {
         if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textChanged(QString)),
+          connect(lineEdit, SIGNAL(textEdited(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
         }
         lineEdit->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
@@ -382,7 +382,7 @@ QWidget* FrameItemDelegate::createEditor(
     } else {
       if (lineEdit) {
         if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textChanged(QString)),
+          connect(lineEdit, SIGNAL(textEdited(QString)),
                   this, SLOT(formatTextIfEnabled(QString)));
         }
         if (TagFormatConfig::instance().enableValidation()) {

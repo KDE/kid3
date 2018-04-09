@@ -237,7 +237,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(m_nameLabel, 0, 0);
 
   m_nameLineEdit = new QLineEdit(m_fileWidget);
-  connect(m_nameLineEdit, SIGNAL(textChanged(QString)), this,
+  connect(m_nameLineEdit, SIGNAL(textEdited(QString)), this,
       SLOT(nameLineEditChanged(QString)));
   fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
   m_fileLabel->setBuddy(m_nameLineEdit);
