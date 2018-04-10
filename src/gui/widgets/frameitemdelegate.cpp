@@ -327,7 +327,7 @@ void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
     if (str != txt) {
       int curPos = le->cursorPosition();
       le->setText(str);
-      le->setCursorPosition(curPos);
+      le->setCursorPosition(curPos + str.length() - txt.length());
     }
   }
 }
