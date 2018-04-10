@@ -726,6 +726,7 @@ void Kid3Form::onFirstDirectoryOpened()
   foreach (int column, guiCfg.fileListVisibleColumns()) {
     m_fileListBox->resizeColumnToContents(column);
   }
+  m_fileListBox->scrollTo(m_fileListBox->currentIndex());
 }
 
 /**
