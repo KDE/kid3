@@ -203,15 +203,14 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
         PATTERN "*.dSYM" EXCLUDE)
   endif (HAVE_PHONON)
 
-  if (WIN32)
-    if (CMAKE_CROSSCOMPILING)
-      # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
-      # when building a Windows package from Linux with CMake 3.5.
-      install(CODE "
-      set(gp_tool DO_NOT_USE)
-      ")
-    endif (CMAKE_CROSSCOMPILING)
-  endif (WIN32)
+  if (CMAKE_CROSSCOMPILING AND NOT APPLE)
+    # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
+    # when cross-packaging, this does not seem to be supported.
+    # https://public.kitware.com/pipermail/cmake/2012-March/049497.html
+    install(CODE "
+    set(gp_tool DO_NOT_USE)
+    ")
+  endif (CMAKE_CROSSCOMPILING AND NOT APPLE)
 
   # Install and fix up all dependencies of the executable and the plugins.
   # On Mac OS X only keep the i386 code in the Qt libraries and plugins.
