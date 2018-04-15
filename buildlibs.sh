@@ -254,6 +254,13 @@ if test $kernel = "MSYS_NT-6.1"; then
   CONFIGURE_OPTIONS="--build=x86_64-w64-mingw32 --target=i686-w64-mingw32"
 fi
 if test $kernel = "MINGW"; then
+  # Use mingw from Qt
+  if test -n "$QTPREFIX"; then
+    test -z "${PATH##$QTPREFIX*}" || PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw492_32/bin:$QTPREFIX/../../Tools/mingw492_32/opt/bin:$PATH
+  else
+    echo "QTPREFIX is not set"
+    exit 1
+  fi
   CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
 elif test $kernel = "Darwin"; then
   CMAKE_OPTIONS="-G \"Unix Makefiles\""
@@ -2951,6 +2958,8 @@ else
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
         fi
       elif test $kernel = "MINGW"; then
+        # mkstemp is not available when building with mingw from Qt
+        sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
         AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
         if test $(uname) = "MSYS_NT-6.1"; then
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
@@ -3126,9 +3135,39 @@ EOF
 cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-/opt/local//share/xsl/docbook-xsl} ../../kid3
 EOF
     elif test $kernel = "MINGW"; then
+      _qtToolsMingw=($QTPREFIX/../../Tools/mingw*)
+      _qtToolsMingw=$(realpath $_qtToolsMingw)
       cat >kid3/build.sh <<EOF
 #!/bin/bash
+test -z "\${PATH##$QTPREFIX*}" || PATH=$QTPREFIX/bin:$_qtToolsMingw/bin:$_qtToolsMingw/opt/bin:/c/Python36:\$HOME/prg/dumpbin:\$PATH
+XSLTPROCDIR=\$HOME/prg/xsltproc DOCBOOKDIR=\$HOME/prg/docbook-xsl-1.72.0 INCLUDE=../buildroot/usr/local/include  LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
+EOF
+      _qtPrefixWin=${QTPREFIX//\//\\}
+      _qtPrefixWin=${_qtPrefixWin/\\c/C:}
+      _qtToolsMingwWin=${_qtToolsMingw//\//\\}
+      _qtToolsMingwWin=${_qtToolsMingwWin/\\c/C:}
+      cat >kid3/build.bat <<EOF
+set XSLTPROCDIR=%HOME%/prg/xsltproc
+set DOCBOOKDIR=%HOME%/prg/docbook-xsl-1.72.0
+set INCLUDE=../buildroot/usr/local/include
+set LIB=../buildroot/usr/local/lib
+echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
+if errorlevel 1 (
+  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python36;%HOME%\prg\dumpbin;%PATH%
+)
 cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
+EOF
+      cat >kid3/run.bat <<EOF
+set thisdir=%~dp0
+echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
+if errorlevel 1 (
+  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python36;%HOME%\prg\dumpbin;%PATH%
+)
+echo ;%PATH%; | find /C /I ";%thisdir%src\core;"
+if errorlevel 1 (
+  path %thisdir%src\core;%thisdir%src\gui;%PATH%
+)
+start src\app\qt\kid3
 EOF
     else
       taglib_config_version=$taglib_version
@@ -3223,6 +3262,8 @@ if [[ $target = *"package"* ]]; then
   elif test "$compiler" = "cross-android"; then
     if test -f $QTPREFIX/lib/libssl.so && test -f $QTPREFIX/lib/libcrypto.so; then
       make apk
+      _version=$(grep VERSION config.h | cut -d'"' -f2)
+      cp -a android/bin/QtApp-release-signed.apk kid3-$_version-android.apk
     else
       echo "You have to copy libssl.so and libcrypto.so to the Qt directory:"
       echo "sudo cp -a buildroot/usr/local/lib/lib{ssl,crypto}.so $QTPREFIX/lib/"
