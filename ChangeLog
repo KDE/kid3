@@ -1,3 +1,16 @@
+Mon Apr 23 11:26:19 CEST 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.6.1
+
+	* Improved:
+	  + Faster saving when many files are unchanged.
+	  + Support for cross building.
+
+	* Fixed:
+	  + Parsing of xid atom with Mp4v2Metadata plugin.
+	  + Scroll to opened file after sorting file list.
+	  + Avoid recursion when automatically applying format.
+
 Sun Mar 18 16:49:46 CET 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.6.0
