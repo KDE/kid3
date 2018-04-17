@@ -94,6 +94,7 @@ void GuiConfig::writeToConfig(ISettings* config) const
      ++it, ++i) {
     config->setValue(QLatin1String("VSplitterSize") + QString::number(i), QVariant(*it));
   }
+  config->setValue(QLatin1String("ConfigWindowGeometry"), QVariant(m_configWindowGeometry));
   config->endGroup();
 }
 
@@ -157,6 +158,8 @@ void GuiConfig::readFromConfig(ISettings* config)
       break;
     }
   }
+  m_configWindowGeometry = config->value(QLatin1String("ConfigWindowGeometry"),
+                                         m_configWindowGeometry).toByteArray();
   config->endGroup();
 }
 
@@ -261,5 +264,13 @@ void GuiConfig::setPlayOnDoubleClick(bool playOnDoubleClick)
   if (m_playOnDoubleClick != playOnDoubleClick) {
     m_playOnDoubleClick = playOnDoubleClick;
     emit playOnDoubleClickChanged(m_playOnDoubleClick);
+  }
+}
+
+void GuiConfig::setConfigWindowGeometry(const QByteArray& configWindowGeometry)
+{
+  if (m_configWindowGeometry != configWindowGeometry) {
+    m_configWindowGeometry = configWindowGeometry;
+    emit configWindowGeometryChanged(m_configWindowGeometry);
   }
 }

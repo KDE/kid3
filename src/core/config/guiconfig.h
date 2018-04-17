@@ -60,6 +60,8 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   Q_PROPERTY(bool hidePicture READ hidePicture WRITE setHidePicture NOTIFY hidePictureChanged)
   /** true to play file on double click */
   Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
+  /** config window geometry */
+  Q_PROPERTY(QByteArray configWindowGeometry READ configWindowGeometry WRITE setConfigWindowGeometry NOTIFY configWindowGeometryChanged)
 
 public:
   /**
@@ -164,6 +166,12 @@ public:
   /** Set if play file on double click is enabled. */
   void setPlayOnDoubleClick(bool playOnDoubleClick);
 
+  /** Get config window geometry. */
+  QByteArray configWindowGeometry() const { return m_configWindowGeometry; }
+
+  /** Set import window geometry. */
+  void setConfigWindowGeometry(const QByteArray& configWindowGeometry);
+
 signals:
   /** Emitted when @a fileListSortColumn changed. */
   void fileListSortColumnChanged(int fileListSortColumn);
@@ -204,6 +212,9 @@ signals:
   /** Emitted when @a playOnDoubleClick changed. */
   void playOnDoubleClickChanged(bool playOnDoubleClick);
 
+  /** Emitted when @a configWindowGeometry changed. */
+  void configWindowGeometryChanged(const QByteArray& configWindowGeometry);
+
 private:
   friend GuiConfig& StoredConfig<GuiConfig>::instance();
 
@@ -215,6 +226,7 @@ private:
   QList<int> m_dirListVisibleColumns;
   QList<int> m_splitterSizes;
   QList<int> m_vSplitterSizes;
+  QByteArray m_configWindowGeometry;
   bool m_autoHideTags;
   bool m_hideFile;
   bool m_hideTag[Frame::Tag_NumValues];

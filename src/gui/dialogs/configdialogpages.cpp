@@ -693,6 +693,12 @@ void ConfigDialogPages::setConfigs(
   }
   m_enabledPluginsModel->setStringList(importPlugins);
   m_enabledPluginsModel->setBitMask(importPluginsMask);
+
+  if (!guiCfg.configWindowGeometry().isEmpty()) {
+    if (QWidget* configDialog = qobject_cast<QWidget*>(parent())) {
+      configDialog->restoreGeometry(guiCfg.configWindowGeometry());
+    }
+  }
 }
 
 /**
@@ -796,4 +802,8 @@ void ConfigDialogPages::getConfig() const
     }
   }
   importCfg.setDisabledPlugins(disabledPlugins);
+
+  if (QWidget* configDialog = qobject_cast<QWidget*>(parent())) {
+    guiCfg.setConfigWindowGeometry(configDialog->saveGeometry());
+  }
 }
