@@ -78,9 +78,12 @@ public:
   /**
    * Get file extension including the dot.
    *
+   * @param preferFromFilename true to prefer extension from current filename
+   *                           over default extension for file type
+   *
    * @return file extension, e.g. ".mp3".
    */
-  QString getFileExtension() const;
+  QString getFileExtension(bool preferFromFilename = false) const;
 
   /**
    * Get the total number of tracks in the directory.

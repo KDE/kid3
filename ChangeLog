@@ -4,6 +4,7 @@ Mon Apr 23 11:26:19 CEST 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Improved:
 	  + Faster saving when many files are unchanged.
+	  + Do not change file extension when creating file name from tags.
 	  + Support for cross building.
 
 	* Fixed:

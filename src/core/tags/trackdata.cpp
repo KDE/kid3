@@ -394,7 +394,7 @@ QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
       str.remove(0, sepPos + 1);
     }
     // add extension to str
-    str += getFileExtension();
+    str += getFileExtension(true);
   }
 
   TrackDataFormatReplacer fmt(*this, str);
@@ -419,9 +419,12 @@ QString TrackData::getFormatToolTip(bool onlyRows)
 /**
  * Get file extension including the dot.
  *
+ * @param preferFromFilename true to prefer extension from current filename
+ *                           over default extension for file type
+ *
  * @return file extension, e.g. ".mp3".
  */
-QString TrackData::getFileExtension() const
+QString TrackData::getFileExtension(bool preferFromFilename) const
 {
   QString fileExtension;
   QString absFilename;
@@ -429,12 +432,13 @@ QString TrackData::getFileExtension() const
     fileExtension = taggedFile->getFileExtension();
     absFilename = taggedFile->getAbsFilename();
   }
-  if (!fileExtension.isEmpty()) {
-    return fileExtension;
-  } else {
+  if (preferFromFilename || fileExtension.isEmpty()) {
     int dotPos = absFilename.lastIndexOf(QLatin1Char('.'));
-    return dotPos != -1 ? absFilename.mid(dotPos) : QString();
+    if (dotPos != -1) {
+      return absFilename.mid(dotPos);
+    }
   }
+  return fileExtension;
 }
 
 /**
