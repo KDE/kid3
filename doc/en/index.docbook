@@ -2060,13 +2060,7 @@ instead. For ID3v2.4.0 frames, all three encodings are possible.
 </para>
 <para>
 <guilabel>Version used for new tags</guilabel> determines whether new ID3v2
-tags are created as version 2.3.0 or 2.4.0. In the first case, id3lib is used
-as it was in earlier versions of &kid3; and TagLib is only applied when an
-ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
-(TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
-created tags will then be saved in version 2.4.0.
-When <guilabel>ID3v2.3.0 (TagLib)</guilabel> is selected, TagLib is also used
-for ID3v2.3.0 tags.
+tags are created as version 2.3.0 or 2.4.0.
 </para>
 <para>
 <guilabel>Track number digits</guilabel> is the number of digits in Track
@@ -2329,23 +2323,21 @@ and why you may want to use them instead of TagLib are listed below.
 <listitem><para><guilabel>Id3libMetadata</guilabel>:
 Uses <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> for ID3v1.1
 and ID3v2.3 tags in MP3, MP2, AAC files. Supports a few more frame types
-than TagLib. Another reason to use it is that TagLib only supports
-ID3v2.3 since version 1.8.</para></listitem>
+than TagLib.</para></listitem>
 <listitem><para><guilabel>OggFlacMetadata</guilabel>:
 Uses <ulink url="http://xiph.org/ogg/">libogg</ulink>,
 <ulink url="http://xiph.org/vorbis/">libvorbis, libvorbisfile</ulink> for Ogg
 files, and additionally <ulink url="http://flac.sourceforge.net">libFLAC++
-and libFLAC</ulink> for FLAC files. Reasons to use them are pictures in Ogg
-files, which are not supported by TagLib and that these are the official
+and libFLAC</ulink> for FLAC files. These are the official
 libraries for these formats.</para></listitem>
 <listitem><para><guilabel>TaglibMetadata</guilabel>:
 Uses <ulink url="http://taglib.github.io/">TagLib</ulink> which supports a
-lot of audio file formats. Since version 1.8, it also supports ID3v2.3, so it
-can be used for all audio files supported by &kid3;.</para></listitem>
+lot of audio file formats. It can be used for all audio files supported by
+&kid3;.</para></listitem>
 <listitem><para><guilabel>Mp4v2Metadata</guilabel>:
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> was originally used
-by &kid3; to support M4A files. However, newer versions of TagLib provide good
-M4A support, so this plugin is not built by default.
+by &kid3; to support M4A files. Can be used in case of problems with the M4A
+support of TagLib.
 </para></listitem>
 </itemizedlist>
 
