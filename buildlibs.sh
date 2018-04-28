@@ -164,7 +164,7 @@ libogg_patchlevel=1
 libvorbis_version=1.3.5
 libvorbis_patchlevel=4
 ffmpeg_version=3.4.2
-ffmpeg_patchlevel=1
+ffmpeg_patchlevel=2
 #libav_version=11.12
 #libav_patchlevel=1
 libflac_version=1.3.2
@@ -2623,10 +2623,10 @@ if test "$compiler" = "cross-android"; then
 
   if ! test -d kid3; then
     echo "### Creating kid3 build directory"
-
     mkdir kid3
     cat >kid3/build.sh <<EOF
-_java_root=/usr/lib/jvm/java-7-openjdk-amd64
+#!/bin/bash
+_java_root=(/usr/lib/jvm/java-[78]-openjdk-amd64)
 _android_sdk_root=$_android_sdk_root
 _android_ndk_root=$_android_ndk_root
 _android_abi=$_android_abi
