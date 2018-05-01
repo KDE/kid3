@@ -3549,6 +3549,18 @@ void setIdentifier(TagLib::ID3v2::TableOfContentsFrame* f,
 }
 
 template <>
+void setValue(TagLib::ID3v2::ChapterFrame* f, const TagLib::String& text)
+{
+  f->setElementID(text.data(TagLib::String::Latin1));
+}
+
+template <>
+void setValue(TagLib::ID3v2::TableOfContentsFrame* f, const TagLib::String& text)
+{
+  f->setElementID(text.data(TagLib::String::Latin1));
+}
+
+template <>
 void setData(TagLib::ID3v2::ChapterFrame* f,
              const Frame::Field& fld)
 {
