@@ -27,6 +27,9 @@
 #include "qmlcommandplugin.h"
 #include <QDir>
 #if QT_VERSION >= 0x050000
+#ifndef NDEBUG
+#define QT_QML_DEBUG
+#endif
 #include <QQuickView>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
