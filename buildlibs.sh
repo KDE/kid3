@@ -186,7 +186,7 @@ if test -z "$COMPILER"; then
   elif test -f osxcross.cmake; then
     COMPILER=cross-macos
     QTPREFIX=$(sed -ne '1 s/set(QT_PREFIX \([^)]\+\))/\1/p' osxcross.cmake)
-  elif test -d openssl-${openssl_version}; then
+  elif test -f openssl-${openssl_version}/Setenv-android.sh; then
     COMPILER=cross-android
     test -f kid3/CMakeCache.txt &&
       QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
@@ -416,7 +416,7 @@ test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
 test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
   $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
 
-if test "$compiler" = "cross-android"; then
+if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained"; then
   # See http://doc.qt.io/qt-5/opensslsupport.html
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
@@ -2558,6 +2558,13 @@ if ! test -d openssl-${openssl_version}; then
   cd ..
 fi
 
+elif test "$compiler" = "gcc-self-contained"; then
+
+if ! test -d openssl-${openssl_version}; then
+  echo "### Extracting openssl"
+  tar xzf source/openssl-${openssl_version}.tar.gz
+fi
+
 fi
 
 # Build from sources
@@ -2719,6 +2726,22 @@ else
              mp4v2-${mp4v2_version}; do
       test -d $d/inst && rm -rf $d/inst
     done
+  fi
+
+  if test "$compiler" = "gcc-self-contained" && test ! -d openssl-${openssl_version}/inst; then
+    echo "### Building OpenSSL"
+
+    cd openssl-${openssl_version}
+    ./Configure shared no-ssl3-method enable-ec_nistp_64_gcc_128 linux-x86_64 -Wa,--noexecstack
+    make depend || true
+	  make build_libs
+    mkdir -p inst/usr/local/ssl
+    cp --dereference libssl.so libcrypto.so inst/usr/local/ssl/
+    strip -s inst/usr/local/ssl/*.so
+    cd inst
+    tar czf ../../bin/openssl-${openssl_version}.tgz usr
+    cd ../..
+    tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
   fi
 
   if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}/inst; then
