@@ -4348,7 +4348,8 @@ static void prefixMp4FreeFormName(TagLib::String& name,
              it != items.end();
              ++it) {
           const TagLib::String& key = it->first;
-          if (key.substr(key.length() - nameLen, nameLen) == name) {
+          if (key.length() >= nameLen &&
+              key.substr(key.length() - nameLen, nameLen) == name) {
             freeFormName = key;
             break;
           }
