@@ -212,6 +212,27 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     ")
   endif (CMAKE_CROSSCOMPILING AND NOT APPLE)
 
+  if (LINUX_SELF_CONTAINED)
+    # CMake 3.11.1 gets the prerequisites type wrong if a plugin uses a
+    # library which is in a parent directory but still inside the bundle.
+    # Override the type from "other" to "local" in such cases.
+    install(CODE "
+    function(gp_resolved_file_type_override resolved_file type_var)
+      if(\${\${type_var}} STREQUAL other)
+        get_filename_component(bundle_app_path \"${bundle_app}\" PATH)
+        string(LENGTH \"\${bundle_app_path}/\" bundle_app_length)
+        string(LENGTH \"\${resolved_file}\" resolved_file_length)
+        if(\${resolved_file_length} GREATER \${bundle_app_length})
+          string(SUBSTRING \"\${resolved_file}\" 0 \${bundle_app_length} resolved_file_path)
+          if(resolved_file_path STREQUAL \"\${bundle_app_path}/\")
+            set(\${type_var} local PARENT_SCOPE)
+          endif()
+        endif()
+      endif()
+    endfunction()
+    ")
+  endif()
+
   # Install and fix up all dependencies of the executable and the plugins.
   # On Mac OS X only keep the i386 code in the Qt libraries and plugins.
   install(CODE "

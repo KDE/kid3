@@ -19,6 +19,10 @@ macro (INSTALL_KID3_PLUGIN _target _name)
     set(PLUGIN_LIBRARIES ${PLUGIN_LIBRARIES} ${_target} PARENT_SCOPE)
     set(PLUGIN_NAMES ${PLUGIN_NAMES} ${_name}Plugin PARENT_SCOPE)
   endif (BUILD_SHARED_LIBS)
+  if (LINUX_SELF_CONTAINED)
+    # Just to keep CMake quiet, not needed at run time.
+    set_target_properties(${_target} PROPERTIES INSTALL_RPATH "\$ORIGIN/..")
+  endif (LINUX_SELF_CONTAINED)
 endmacro (INSTALL_KID3_PLUGIN _target _name)
 
 add_definitions(-DKID3_BUILD_PLUGIN_LIB)

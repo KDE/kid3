@@ -58,6 +58,11 @@ if (ANDROID)
   string(REPLACE "<CMAKE_SHARED_LIBRARY_SONAME_CXX_FLAG><TARGET_SONAME>" ""
          CMAKE_CXX_CREATE_SHARED_MODULE "${CMAKE_CXX_CREATE_SHARED_MODULE}")
 endif (ANDROID)
+if (LINUX_SELF_CONTAINED)
+  # Just to keep CMake quiet, not needed at run time.
+  set_target_properties(
+    ${plugin_TARGET} PROPERTIES INSTALL_RPATH "\$ORIGIN/../../..")
+endif (LINUX_SELF_CONTAINED)
 
 if (WIN32)
   set(_qmldirPluginName libkid3qml)
