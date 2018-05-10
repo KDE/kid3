@@ -43,7 +43,7 @@ Kid3Script {
 
     function readCsvFile(filePath) {
       var filePathCol = -1
-      var lines = ("" + script.readFile(filePath)).split("\n")
+      var lines = ("" + script.readFile(filePath)).split(/[\r\n]+/)
       for (var i = 0; i < lines.length; ++i) {
         var line = lines[i]
         if (line.length > 0) {
