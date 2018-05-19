@@ -78,6 +78,55 @@ int starCountToRating(int starCount, const QModelIndex& index) {
 }
 
 
+class DateTimeValidator : public QValidator {
+public:
+  explicit DateTimeValidator(QObject* parent = 0);
+  virtual ~DateTimeValidator();
+
+  virtual State validate(QString& input, int& pos) const;
+  virtual void fixup(QString& input) const;
+
+private:
+  const QRegExp m_re;
+  mutable QString m_lastValidInput;
+};
+
+DateTimeValidator::DateTimeValidator(QObject* parent)
+  : QValidator(parent), m_re(FrameNotice::isoDateTimeRexExp())
+{
+}
+
+DateTimeValidator::~DateTimeValidator()
+{
+}
+
+QValidator::State DateTimeValidator::validate(QString& input, int& pos) const
+{
+  QRegExp dateTimeRe = m_re;
+  if (dateTimeRe.exactMatch(input)) {
+    m_lastValidInput = input;
+    return Acceptable;
+  } else {
+    const int len = dateTimeRe.matchedLength();
+    if (len == input.size()) {
+      return Intermediate;
+    } else if (len > 0 && m_lastValidInput.endsWith(input.mid(len))) {
+      return Intermediate;
+    } else {
+      pos = input.size();
+      return Invalid;
+    }
+  }
+}
+
+void DateTimeValidator::fixup(QString& input) const
+{
+  if (!m_lastValidInput.isEmpty()) {
+    input = m_lastValidInput;
+  }
+}
+
+
 /**
  * Helper class providing methods to paint stars for a rating.
  */
@@ -261,8 +310,7 @@ FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent) :
   QItemDelegate(parent),
   m_genreModel(genreModel),
   m_trackNumberValidator(new TrackNumberValidator(this)),
-  m_dateTimeValidator(new QRegExpValidator(FrameNotice::isoDateTimeRexExp(),
-                                           this)) {
+  m_dateTimeValidator(new DateTimeValidator(this)) {
   setObjectName(QLatin1String("FrameItemDelegate"));
 }
 
