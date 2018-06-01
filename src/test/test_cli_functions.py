@@ -749,7 +749,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  12- 06 Kingdom Come.ape\n'
                 '  -2- 08 Hail And Kill.wav\n'
                 '  -2- 09 The Warriors Prayer.opus\n'
-                '  -2- 10 Blood Of The Kings.aiff\n')
+                '  -2- 10 Blood Of The Kings.aif\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'tag 2',
                  '-c', 'numbertracks 101',
@@ -781,7 +781,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 ['- 01 Wheels Of Fire.m4a', '- 02 Kings Of Metal.flac',
                  '- 03 Heart Of Steel.spx', '+ 05 The Crown And The Ring (Lament Of The Kings).mp3',
                  '- 06 Kingdom Come.ape', '+ 08 Hail And Kill.wav', '- 09 The Warriors Prayer.opus',
-                 '- 10 Blood Of The Kings.aiff', 'Finished'])
+                 '- 10 Blood Of The Kings.aif', 'Finished'])
             call_kid3_cli(['-c', 'renamedir "%{artist} - [%{year}] %{album}" "create"', tmpdir])
             new_dirname = 'Manowar - [1988] Kings Of Metal'
             new_dirpath = os.path.join(tmpdir, new_dirname)
@@ -798,7 +798,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '06 Kingdom Come.ape\n'
                 '08 Hail And Kill.wav\n'
                 '09 The Warriors Prayer.opus\n'
-                '10 Blood Of The Kings.aiff\n')
+                '10 Blood Of The Kings.aif\n')
 
     def test_filename_tag_format(self):
         with tempfile.TemporaryDirectory() as tmpdir:
