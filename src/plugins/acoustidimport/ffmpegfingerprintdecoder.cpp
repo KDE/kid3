@@ -504,7 +504,9 @@ public:
 FFmpegFingerprintDecoder::FFmpegFingerprintDecoder(QObject* parent) :
   AbstractFingerprintDecoder(parent)
 {
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(58, 9, 100)
   ::av_register_all();
+#endif
   ::av_log_set_level(AV_LOG_ERROR);
 
   m_buffer1 = reinterpret_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
