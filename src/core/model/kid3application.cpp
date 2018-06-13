@@ -1878,6 +1878,9 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
       if (selectedFrame->getIndex() != -1) {
         framelist->editFrame();
       } else {
+        // Edit a frame which does not exist, switch to add mode.
+        m_addFrameTaggedFile = m_editFrameTaggedFile;
+        m_editFrameTaggedFile = 0;
         framelist->addAndEditFrame();
       }
     } else {
