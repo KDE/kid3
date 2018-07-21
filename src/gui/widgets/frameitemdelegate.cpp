@@ -78,12 +78,34 @@ int starCountToRating(int starCount, const QModelIndex& index) {
 }
 
 
+/**
+ * Validator for date/time values.
+ */
 class DateTimeValidator : public QValidator {
 public:
+  /**
+   * Constructor.
+   * @param parent parent object
+   */
   explicit DateTimeValidator(QObject* parent = 0);
+
+  /**
+   * Destructor.
+   */
   virtual ~DateTimeValidator();
 
+  /**
+   * Validate input string.
+   * @param input input string
+   * @param pos current position in input string
+   * @return validation state.
+   */
   virtual State validate(QString& input, int& pos) const;
+
+  /**
+   * Attempt to change input string to be valid.
+   * @param input input string
+   */
   virtual void fixup(QString& input) const;
 
 private:
