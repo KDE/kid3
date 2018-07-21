@@ -1522,6 +1522,9 @@ msgstr "Тег 1 и тег 2"
 msgid "All Tags"
 msgstr "Все теги"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Подготовьте t1/добавьте t2, если не пусто"
+
 msgid "Truncated"
 msgstr "Обрезанные"
 

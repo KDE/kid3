@@ -141,7 +141,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_fileNameFormatComboBox->setEnabled(false);
   m_fileNameFormatComboBox->addItems(
     QStringList() <<
-    QLatin1String("%{artist} - %{album}") << QLatin1String("%{artist} - [%{year}] %{album}") << QLatin1String("%{album}") <<
+    QLatin1String("%{artist} - %{album}") << QLatin1String("%{artist} - %{\"[\"year\"] \"}%{album}") << QLatin1String("%{album}") <<
     QLatin1String("playlist_%{artist}_-_%{album}") << QLatin1String("playlist"));
   connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
           m_fileNameFormatComboBox, SLOT(setEnabled(bool)));

@@ -1516,6 +1516,9 @@ msgstr ""
 msgid "All Tags"
 msgstr ""
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr ""
+
 msgid "Truncated"
 msgstr ""
 

@@ -1523,6 +1523,9 @@ msgstr "標籤 1 與 標籤 2"
 msgid "All Tags"
 msgstr "所有標籤"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "如果不为空，则前置t1/追加t2"
+
 msgid "Truncated"
 msgstr "截斷"
 

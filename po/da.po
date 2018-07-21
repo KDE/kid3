@@ -1512,6 +1512,9 @@ msgstr "Tag 1 og Tag 2"
 msgid "All Tags"
 msgstr "Alle Tags"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Forord t1/tilføj t2 hvis ikke tom"
+
 msgid "Truncated"
 msgstr "Afbrudte"
 

@@ -1520,6 +1520,9 @@ msgstr "ознака 1 и ознака 2"
 msgid "All Tags"
 msgstr "Сви ознаке"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Припремите t1/аппенд t2 ако није празно"
+
 msgid "Truncated"
 msgstr "Одсјечена"
 

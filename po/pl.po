@@ -1522,6 +1522,9 @@ msgstr "Znacznik 1 i znacznik 2"
 msgid "All Tags"
 msgstr "Wszystkie znaczniki"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Dodaj t1/dołącz t2, jeśli nie jest pusty"
+
 msgid "Truncated"
 msgstr "Obcięte"
 

@@ -1521,6 +1521,9 @@ msgstr "Tag 1 und Tag 2"
 msgid "All Tags"
 msgstr "Alle Tags"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "t1 voranstellen/t2 anhängen, wenn nicht leer"
+
 msgid "Truncated"
 msgstr "Abgeschnitten"
 

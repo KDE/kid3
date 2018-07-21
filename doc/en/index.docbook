@@ -443,6 +443,20 @@ format specific names like <userinput>%{popm}</userinput>.
 </para>
 
 <para>
+It is possible to prepend and append strings to the replacement for a format
+code by adding them in double quotes inside the curly braces of a format
+code. These strings will only be put into the resulting string if the format
+code yields a nonempty value. For example, if the file name shall
+both contain the title and the subtitle, one could use
+<userinput>%{title} [%{subtitle}]</userinput> in the format string. But this
+would result in a string ending with <computeroutput> []</computeroutput> if
+no subtitle frame exists for a file. In order to omit the brackets if no
+subtitle is present, <userinput>%{title}%{" ["subtitle"]"}</userinput> shall
+be used instead. This will omit the brackets, the leading space and the
+subtitle if not subtitle exists.
+</para>
+
+<para>
 A second <guilabel>Format</guilabel> combo box (with arrow down) is used
 to generate the tags from the filename. If the format
 of the filename does not match this pattern, a few other commonly used formats

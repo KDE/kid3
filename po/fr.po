@@ -1521,6 +1521,9 @@ msgstr "Balise 1 et balise 2"
 msgid "All Tags"
 msgstr "Toutes les balises"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Préfixer t1/ajouter t2 si non vide"
+
 msgid "Truncated"
 msgstr "Tronqué"
 

@@ -1522,6 +1522,9 @@ msgstr "Značka 1 a značka 2"
 msgid "All Tags"
 msgstr "Všechny značky"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Přepojte t1/připojit t2, pokud není prázdný"
+
 msgid "Truncated"
 msgstr "Zkrácená"
 

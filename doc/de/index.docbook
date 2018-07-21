@@ -463,6 +463,22 @@ auch formatspezifische wie <userinput>%{popm}</userinput>.
 </para>
 
 <para>
+Es ist möglich, zusätzlichen Text vor und nach dem Wert, welcher für einen
+Formatcode ersetzt wird, einzufügen indem man diesen in Anführungszeichen
+innerhalb der geschwungenen Klammern hinzufügt. Dieser Text wird nur dann
+eingefügt, wenn der Wert für den Formatcode nicht leer ist. Als Beispiel
+könnte man für einen Dateinamen, welcher sowohl den Titel als auch den
+Untertitel enthalten soll, <userinput>%{title} [%{subtitle}]</userinput> als
+Format verwenden. Aber dies würde im Falle von nicht vorhandenem Untertitel
+dazu führen, dass der resultierende Dateinamen mit
+<computeroutput> []</computeroutput> endet. Um diese leeren Klammern am Ende
+zu verhindern, kann <userinput>%{title}%{" ["subtitle"]"}</userinput>
+verwendet werden. Dieses Format lässt die eckigen Klammern, das führende
+Leerzeichen und den Untertitel weg, wenn kein entsprechendes Element vorhanden
+ist.
+</para>
+
+<para>
 Ein zweites <guilabel>Format</guilabel> Auswahlfeld (mit Pfeil runter)
 wird verwendet, um die Tags aus dem Dateinamen zu
 generieren. Falls der Dateinamen nicht diesem Format entspricht, werden noch

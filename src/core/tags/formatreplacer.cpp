@@ -93,6 +93,7 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 
       int codePos = pos + 1;
       int codeLen = 0;
+      QString prefix, postfix;
       bool urlEncode = false;
       bool htmlEscape = false;
       QString repl;
@@ -109,6 +110,20 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
         if (closingBracePos > codePos + 1) {
           QString longCode =
             m_str.mid(codePos + 1, closingBracePos - codePos - 1).toLower();
+          if (longCode.startsWith(QLatin1Char('"'))) {
+            int prefixEnd = longCode.indexOf(QLatin1Char('"'), 1);
+            if (prefixEnd != -1 && prefixEnd < longCode.length() - 2) {
+              prefix = longCode.mid(1, prefixEnd - 1);
+              longCode.remove(0, prefixEnd + 1);
+            }
+          }
+          if (longCode.endsWith(QLatin1Char('"'))) {
+            int postfixStart = longCode.lastIndexOf(QLatin1Char('"'), -2);
+            if (postfixStart != -1 && postfixStart > 1) {
+              postfix = longCode.mid(postfixStart + 1, longCode.length() - postfixStart - 2);
+              longCode.truncate(postfixStart);
+            }
+          }
           repl = getReplacement(longCode);
           codeLen = closingBracePos - pos + 1;
         }
@@ -128,6 +143,14 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
         }
         if (htmlEscape) {
           repl = escapeHtml(repl);
+        }
+        if (!repl.isEmpty()) {
+          if (!prefix.isEmpty()) {
+            repl = prefix + repl;
+          }
+          if (!postfix.isEmpty()) {
+            repl += postfix;
+          }
         }
         if (!repl.isNull() || codeLen > 2) {
           m_str.replace(pos, codeLen, repl);

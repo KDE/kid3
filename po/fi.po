@@ -1520,6 +1520,9 @@ msgstr "1- ja 2-tunnisteet"
 msgid "All Tags"
 msgstr "Kaikki tunnisteet"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Lähetä t1/lisää t2, jos se ei ole tyhjä"
+
 msgid "Truncated"
 msgstr "Lyhennetyt"
 

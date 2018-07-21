@@ -1520,6 +1520,9 @@ msgstr "Tag 1 ve Tag 2"
 msgid "All Tags"
 msgstr "Tüm etiketler"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "t1'i ekle/t2'yi ekle, boş değilse"
+
 msgid "Truncated"
 msgstr "Kirpildi"
 

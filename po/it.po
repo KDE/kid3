@@ -1520,6 +1520,9 @@ msgstr "Tag 1 e Tag 2"
 msgid "All Tags"
 msgstr "Tutti i Tag"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Anteporre t1/aggiungi t2 se non vuoto"
+
 msgid "Truncated"
 msgstr "Troncato"
 

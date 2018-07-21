@@ -1520,6 +1520,9 @@ msgstr "Tag 1 en Tag 2"
 msgid "All Tags"
 msgstr "Alle tags"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "t1 doorvoegen/t2 toevoegen als deze niet leeg is"
+
 msgid "Truncated"
 msgstr "Afgebroken"
 

@@ -1520,6 +1520,9 @@ msgstr "oznaka 1 i oznaka 2"
 msgid "All Tags"
 msgstr "Svi oznake"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Prebrojite t1/dodajte t2 ako nisu prazni"
+
 msgid "Truncated"
 msgstr "Odsečena"
 

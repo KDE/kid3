@@ -1521,6 +1521,9 @@ msgstr "Etiqueta 1 y etiqueta 2"
 msgid "All Tags"
 msgstr "Todas las etiquetas"
 
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Anteponer t1/anexar t2 si no está vacío"
+
 msgid "Truncated"
 msgstr "Truncado"
 
