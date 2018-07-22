@@ -154,6 +154,113 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 
 
 /**
+ * Widget containing controls to edit tags.
+ * This QWidget subclass exists to allow dropping files and images to
+ * the right side of the Kid3 window.
+ */
+class Kid3EditWidget : public QWidget {
+public:
+  /**
+   * Constructor.
+   * @param app application
+   * @param parent parent widget
+   */
+  explicit Kid3EditWidget(Kid3Application* app, QWidget* parent = 0)
+    : QWidget(parent), m_app(app) {
+    setAcceptDrops(true);
+  }
+
+protected:
+  /**
+   * Accept drag.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragEnterEvent(QDragEnterEvent* ev);
+
+  /**
+   * Handle event when mouse is moved while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragMoveEvent(QDragMoveEvent* ev);
+
+  /**
+   * Handle event when mouse leaves widget while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragLeaveEvent(QDragLeaveEvent* ev);
+
+  /**
+   * Handle drop event.
+   *
+   * @param ev drop event.
+   */
+  virtual void dropEvent(QDropEvent* ev);
+
+private:
+  Kid3Application* const m_app;
+};
+
+/**
+ * Handle event when mouse is moved while dragging.
+ *
+ * @param ev drag event.
+ */
+void Kid3EditWidget::dragMoveEvent(QDragMoveEvent* ev)
+{
+  if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list")) ||
+      ev->mimeData()->hasImage()) {
+    ev->acceptProposedAction();
+  } else {
+    ev->ignore();
+  }
+}
+
+/**
+ * Accept drag.
+ *
+ * @param ev drag event.
+ */
+void Kid3EditWidget::dragEnterEvent(QDragEnterEvent* ev)
+{
+  Kid3EditWidget::dragMoveEvent(ev);
+}
+
+/**
+ * Handle event when mouse leaves widget while dragging.
+ *
+ * @param ev drag event.
+ */
+void Kid3EditWidget::dragLeaveEvent(QDragLeaveEvent* ev)
+{
+  ev->accept();
+}
+
+/**
+ * Handle drop event.
+ *
+ * @param ev drop event.
+ */
+void Kid3EditWidget::dropEvent(QDropEvent* ev)
+{
+  if (ev->mimeData()->hasImage()) {
+    QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
+    ev->acceptProposedAction();
+    m_app->dropImage(image);
+    return;
+  } else if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list"))) {
+    QList<QUrl> urls = ev->mimeData()->urls();
+    ev->acceptProposedAction();
+    m_app->openDropUrls(urls);
+  } else {
+    ev->ignore();
+  }
+}
+
+
+/**
  * Constructs an Id3Form as a child of 'parent', with the
  * name 'name' and widget flags set to 'f'.
  * @param app application
@@ -179,7 +286,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     s_expandPixmap = new QPixmap((const char**)expand_xpm);
   }
 
-  setAcceptDrops(true);
   setWindowTitle(tr("Kid3"));
 
   m_leftSideWidget = new QStackedWidget(this);
@@ -208,7 +314,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   connect(m_app, SIGNAL(directoryOpened()),
           this, SLOT(onFirstDirectoryOpened()));
 
-  m_rightHalfVBox = new QWidget;
+  m_rightHalfVBox = new Kid3EditWidget(m_app);
   QScrollArea* scrollView = new QScrollArea(this);
   scrollView->setWidget(m_rightHalfVBox);
   scrollView->setWidgetResizable(true);
@@ -475,62 +581,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 Kid3Form::~Kid3Form()
 {
   m_app->removeFrameEditor(m_mainWin);
-}
-
-/**
- * Handle event when mouse is moved while dragging.
- *
- * @param ev drag event.
- */
-void Kid3Form::dragMoveEvent(QDragMoveEvent* ev)
-{
-  if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list")) ||
-      ev->mimeData()->hasImage()) {
-    ev->acceptProposedAction();
-  } else {
-    ev->ignore();
-  }
-}
-
-/**
- * Accept drag.
- *
- * @param ev drag event.
- */
-void Kid3Form::dragEnterEvent(QDragEnterEvent* ev)
-{
-  Kid3Form::dragMoveEvent(ev);
-}
-
-/**
- * Handle event when mouse leaves widget while dragging.
- *
- * @param ev drag event.
- */
-void Kid3Form::dragLeaveEvent(QDragLeaveEvent* ev)
-{
-  ev->accept();
-}
-
-/**
- * Handle drop event.
- *
- * @param ev drop event.
- */
-void Kid3Form::dropEvent(QDropEvent* ev)
-{
-  if (ev->mimeData()->hasImage()) {
-    QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
-    ev->acceptProposedAction();
-    m_app->dropImage(image);
-    return;
-  } else if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list"))) {
-    QList<QUrl> urls = ev->mimeData()->urls();
-    ev->acceptProposedAction();
-    m_app->openDropUrls(urls);
-  } else {
-    ev->ignore();
-  }
 }
 
 /**

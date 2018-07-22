@@ -73,6 +73,21 @@ public:
    */
   void setDeleteAction(QAction* action);
 
+protected:
+  /**
+   * Enable dragging if the item is pressed at the left icon side.
+   * @param event mouse event
+   */
+  virtual void mousePressEvent(QMouseEvent* event);
+
+  /**
+   * Called when a drag operation is started.
+   * Reimplemented to close all tagged files before being dropped to another
+   * application, which would not be able to open them on Windows.
+   * @param supportedActions drop actions
+   */
+  virtual void startDrag(Qt::DropActions supportedActions);
+
 public slots:
   /**
    * Init the user actions for the context menu.

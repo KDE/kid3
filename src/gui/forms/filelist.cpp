@@ -32,6 +32,7 @@
 #include <QMenu>
 #include <QHeaderView>
 #include <QDesktopServices>
+#include <QMouseEvent>
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
@@ -108,6 +109,57 @@ QSize FileList::sizeHint() const
 {
   return QSize(fontMetrics().maxWidth() * 25,
                QTreeView::sizeHint().height());
+}
+
+/**
+ * Enable dragging if the item is pressed at the left icon side.
+ * @param event mouse event
+ */
+void FileList::mousePressEvent(QMouseEvent* event)
+{
+  QPoint pos = event->pos();
+  if (pos.x() < 80) {
+    QModelIndex idx = indexAt(pos);
+    if (const FileProxyModel* fsModel =
+        qobject_cast<const FileProxyModel*>(idx.model())) {
+      if (!FileProxyModel::getTaggedFileOfIndex(idx)) {
+        // The file possibly dragged is not a tagged file, e.g. an image file.
+        // Make it the only draggable file in order to keep the selection of
+        // tagged files while still being able to drag an image file on them.
+        const_cast<FileProxyModel*>(fsModel)->setExclusiveDraggableIndex(idx);
+        setSelectionMode(MultiSelection);
+      } else {
+        const_cast<FileProxyModel*>(fsModel)->setExclusiveDraggableIndex(
+              QPersistentModelIndex());
+        setSelectionMode(ExtendedSelection);
+      }
+    }
+    setDragEnabled(true);
+  } else {
+    setDragEnabled(false);
+    setSelectionMode(ExtendedSelection);
+  }
+  ConfigurableTreeView::mousePressEvent(event);
+}
+
+/**
+ * Called when a drag operation is started.
+ * Reimplemented to close all tagged files before being dropped to another
+ * application, which would not be able to open them on Windows.
+ * @param supportedActions drop actions
+ */
+void FileList::startDrag(Qt::DropActions supportedActions)
+{
+  foreach (const QModelIndex& index, selectedIndexes()) {
+    const QAbstractItemModel* mdl = index.model();
+    if (index.column() == 0 &&
+        mdl && (mdl->flags(index) & Qt::ItemIsDragEnabled)) {
+      if (TaggedFile* tf = FileProxyModel::getTaggedFileOfIndex(index)) {
+        tf->closeFileHandle();
+      }
+    }
+  }
+  ConfigurableTreeView::startDrag(supportedActions);
 }
 
 /**

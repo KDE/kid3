@@ -257,6 +257,28 @@ bool FileProxyModel::filterAcceptsRow(
 }
 
 /**
+ * Get item flags.
+ * @param index index of item
+ * @return default flags plus drag enabled depending on
+ * setExclusiveDraggableIndex().
+ */
+Qt::ItemFlags FileProxyModel::flags(const QModelIndex& index) const
+{
+  Qt::ItemFlags itemFlags = QSortFilterProxyModel::flags(index);
+
+  if (index.isValid()) {
+    if (!m_exclusiveDraggableIndex.isValid() ||
+        index == m_exclusiveDraggableIndex) {
+      itemFlags |= Qt::ItemIsDragEnabled;
+    } else {
+      itemFlags &= ~Qt::ItemIsDragEnabled;
+    }
+  }
+
+  return itemFlags;
+}
+
+/**
  * Get data for a given role.
  * @param index model index
  * @param role item data role

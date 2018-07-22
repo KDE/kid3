@@ -67,6 +67,14 @@ public:
   virtual ~FileProxyModel();
 
   /**
+   * Get item flags.
+   * @param index index of item
+   * @return default flags plus drag enabled depending on
+   * setExclusiveDraggableIndex().
+   */
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+
+  /**
    * Get data for a given role.
    * @param index model index
    * @param role item data role
@@ -236,6 +244,16 @@ public:
    * @return true if at least one of the files in the model has been modified.
    */
   bool isModified() const { return m_numModifiedFiles > 0; }
+
+  /**
+   * Set index of item which shall be the only item which can be dragged.
+   * This can be used to retain the selection while dragging a single item,
+   * e.g. a picture to be embedded.
+   * @param index index of single item which is draggable
+   */
+  void setExclusiveDraggableIndex(const QPersistentModelIndex& index) {
+    m_exclusiveDraggableIndex = index;
+  }
 
   /**
    * Get icon provider.
@@ -482,6 +500,7 @@ private:
 
   QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;
+  QPersistentModelIndex m_exclusiveDraggableIndex;
   QList<QRegExp> m_includeFolderFilters;
   QList<QRegExp> m_excludeFolderFilters;
   TaggedFileIconProvider* m_iconProvider;
