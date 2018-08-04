@@ -1,13 +1,13 @@
-# Estonian translation of Kid3
+# Kid3 Estonian Translation.
 # This file is put in the public domain.
 #
 # Mihkel Tõnnov <mihhkel@gmail.com>, 2007–2010, 2014.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.0\n"
+"Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-03-18 16:04+0100\n"
+"POT-Creation-Date: 2018-08-04 12:12+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"

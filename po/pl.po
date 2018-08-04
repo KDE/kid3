@@ -1,15 +1,14 @@
-# translation of pl.po to English
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kid3 Polish Translation.
+# This file is put in the public domain.
 #
 # Tomasz Argasiński <targasinski@o2.pl>, 2007.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2007.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.0\n"
+"Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-03-18 16:04+0100\n"
+"POT-Creation-Date: 2018-08-04 12:12+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"

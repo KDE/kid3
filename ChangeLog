@@ -1,3 +1,20 @@
+Fri Aug 24 12:15:09 CEST 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.6.2
+
+	* Improved:
+	  + Format from tags with custom strings prepended/appended when
+	    replaced format code is not empty %{"t1"code"t2"}.
+
+	* Fixed:
+	  + MP4 free form names longer than 4 characters with TagLib.
+	  + Support DOS line endings with "Import CSV".
+	  + Set CTOC and CHAP element ID from values in the frame table.
+	  + Correctly add frame when "Edit" is clicked on non existing frame.
+	  + Show correct icon in Wayland session.
+	  + Improve editing of ISO date/time values with validation enabled.
+	  + Bundle OpenSSL libraries with self-contained Linux package.
+
 Mon Apr 23 11:26:19 CEST 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.6.1

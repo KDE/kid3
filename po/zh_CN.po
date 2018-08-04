@@ -1,12 +1,12 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Kid3 Chinese Simplified Translation.
+# This file is put in the public domain.
 #
 # shlinux <lishaohui.qd@163.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.1\n"
+"Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-03-18 16:04+0100\n"
+"POT-Creation-Date: 2018-08-04 12:12+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.5\n"
 "X-Language: zh_CN\n"
-"X-Source-Language: C\n"
+"X-Source-Language: en\n"
 
 msgid "Timeout"
 msgstr "超时"
