@@ -33,6 +33,7 @@ set(model_SRCS
   model/frameobjectmodel.cpp
   model/iusercommandprocessor.cpp
   model/mprisinterface.cpp
+  model/proxyitemselectionmodel.cpp
 )
 
 set(model_MOC_HDRS
@@ -56,6 +57,7 @@ set(model_MOC_HDRS
   model/frameeditorobject.h
   model/frameobjectmodel.h
   model/mprisinterface.h
+  model/proxyitemselectionmodel.h
 )
 
 if (HAVE_QTDBUS)
