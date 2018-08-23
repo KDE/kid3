@@ -2,7 +2,7 @@
 /usr/share/metainfo/kid3.appdata.xml
 /usr/share/icons/hicolor/*/apps/kid3.*
 # KDE 5 BEGIN
-/usr/share/applications/kid3.desktop
+/usr/share/applications/net.sourceforge.kid3.desktop
 /usr/share/doc/HTML/*/kid3/*
 /usr/share/kxmlgui5/kid3/kid3ui.rc
 # KDE 5 END
