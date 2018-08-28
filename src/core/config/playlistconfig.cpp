@@ -44,9 +44,50 @@ PlaylistConfig::PlaylistConfig() :
 }
 
 /**
+ * Copy constructor.
+ * @param other instance to be copied
+ */
+PlaylistConfig::PlaylistConfig(const PlaylistConfig& other)
+  : StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
+    m_location(other.m_location),
+    m_format(other.m_format),
+    m_fileNameFormat(other.m_fileNameFormat),
+    m_sortTagField(other.m_sortTagField),
+    m_infoFormat(other.m_infoFormat),
+    m_useFileNameFormat(other.m_useFileNameFormat),
+    m_onlySelectedFiles(other.m_onlySelectedFiles),
+    m_useSortTagField(other.m_useSortTagField),
+    m_useFullPath(other.m_useFullPath),
+    m_writeInfo(other.m_writeInfo)
+{
+}
+
+/**
  * Destructor.
  */
 PlaylistConfig::~PlaylistConfig() {}
+
+/**
+ * Assignment operator.
+ * @param other instance to be copied
+ * @return reference to this instance.
+ */
+PlaylistConfig& PlaylistConfig::operator=(const PlaylistConfig& other)
+{
+  if (&other != this) {
+    m_location = other.m_location;
+    m_format = other.m_format;
+    m_fileNameFormat = other.m_fileNameFormat;
+    m_sortTagField = other.m_sortTagField;
+    m_infoFormat = other.m_infoFormat;
+    m_useFileNameFormat = other.m_useFileNameFormat;
+    m_onlySelectedFiles = other.m_onlySelectedFiles;
+    m_useSortTagField = other.m_useSortTagField;
+    m_useFullPath = other.m_useFullPath;
+    m_writeInfo = other.m_writeInfo;
+  }
+  return *this;
+}
 
 /**
  * Persist configuration.

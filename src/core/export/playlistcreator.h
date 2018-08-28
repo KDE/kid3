@@ -29,11 +29,12 @@
 
 #include <QString>
 #include <QMap>
+#include "playlistconfig.h"
 
 class QModelIndex;
+class QPersistentModelIndex;
 class TaggedFile;
 class ImportTrackData;
-class PlaylistConfig;
 
 /**
  * Playlist creator.
@@ -87,6 +88,13 @@ public:
      */
     bool add();
 
+    /**
+     * Get additional information for item.
+     * @param info additional information is returned here
+     * @param duration the duration of the track is returned here
+     */
+    void getInfo(QString& info, unsigned long& duration);
+
   private:
     /**
      * Format string using tags and properties of item.
@@ -119,14 +127,40 @@ public:
    */
   bool write();
 
+  /**
+   * Write a playlist from a list of model indexes.
+   * @param playlistPath file path to be used for playlist
+   * @param indexes indexes in FileProxyModel
+   * @return true if ok.
+   */
+  bool write(const QString& playlistPath,
+             const QList<QPersistentModelIndex>& indexes);
+
+  /**
+   * Read playlist from file
+   * @param playlistPath path to playlist file
+   * @param filePaths absolute paths to the playlist files are returned here
+   * @param format the playlist format is returned here
+   * @param hasFullPath true is returned here if the files use absolute paths
+   * @param hasInfo true is returned here if the playlist contains additional
+   *                information
+   * @return true if ok.
+   */
+  bool read(const QString& playlistPath, QStringList& filePaths,
+            PlaylistConfig::PlaylistFormat& format,
+            bool& hasFullPath, bool& hasInfo) const;
+
 private:
   friend class Item;
 
   struct Entry {
+    Entry() : duration(0) {}
     unsigned long duration;
     QString filePath;
     QString info;
   };
+
+  bool write(const QList<Entry>& entries);
 
   const PlaylistConfig& m_cfg;
   QString m_playlistDirName;

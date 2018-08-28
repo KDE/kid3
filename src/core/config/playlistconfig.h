@@ -84,9 +84,22 @@ public:
   explicit PlaylistConfig();
 
   /**
+   * Copy constructor.
+   * @param other instance to be copied
+   */
+  PlaylistConfig(const PlaylistConfig& other);
+
+  /**
    * Destructor.
    */
   virtual ~PlaylistConfig();
+
+  /**
+   * Assignment operator.
+   * @param other instance to be copied
+   * @return reference to this instance.
+   */
+  PlaylistConfig& operator=(const PlaylistConfig& other);
 
   /**
    * Persist configuration.
