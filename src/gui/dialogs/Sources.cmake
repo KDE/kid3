@@ -17,6 +17,7 @@ set(dialogs_SRCS
   dialogs/tagimportdialog.cpp
   dialogs/textimportdialog.cpp
   dialogs/findreplacedialog.cpp
+  dialogs/playlisteditdialog.cpp
 )
 
 set(dialogs_MOC_HDRS
@@ -37,4 +38,5 @@ set(dialogs_MOC_HDRS
   dialogs/tagimportdialog.h
   dialogs/textimportdialog.h
   dialogs/findreplacedialog.h
+  dialogs/playlisteditdialog.h
 )

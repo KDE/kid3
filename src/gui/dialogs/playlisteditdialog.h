@@ -1,0 +1,72 @@
+/**
+ * \file playlisteditdialog.h
+ * Edit playlist dialog.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 05 Aug 2018
+ *
+ * Copyright (C) 2018  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef PLAYLISTEDITDIALOG_H
+#define PLAYLISTEDITDIALOG_H
+
+#include <QDialog>
+
+class QDialogButtonBox;
+class QItemSelectionModel;
+class PlaylistModel;
+
+/**
+ * Edit playlist dialog.
+ */
+class PlaylistEditDialog : public QDialog {
+  Q_OBJECT
+public:
+  /**
+   * Constructor.
+   * @param selModel selection model of associated file proxy model
+   * @param parent parent widget
+   */
+  explicit PlaylistEditDialog(QItemSelectionModel* selModel,
+                              QWidget* parent = 0);
+
+  /**
+   * Destructor.
+   */
+  virtual ~PlaylistEditDialog();
+  
+  /**
+   * Set playlist to edit.
+   * @param path path to playlist file
+   */
+  void setPlaylistFile(const QString& path);
+
+private slots:
+  void setModified(bool modified);
+  void showHelp();
+
+private:
+  void setWindowCaption();
+
+  QDialogButtonBox* m_buttonBox;
+  PlaylistModel* m_playlistModel;
+};
+
+#endif // PLAYLISTEDITDIALOG_H
