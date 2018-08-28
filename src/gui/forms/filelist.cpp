@@ -41,6 +41,7 @@
 #include "guiconfig.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
+#include "playlisteditdialog.h"
 
 namespace {
 
@@ -87,10 +88,8 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(QPoint)),
       this, SLOT(customContextMenu(QPoint)));
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(this, SIGNAL(doubleClicked(QModelIndex)),
-          this, SLOT(playIfTaggedFile(QModelIndex)));
-#endif
+          this, SLOT(onDoubleClicked(QModelIndex)));
 }
 
 /**
@@ -438,20 +437,37 @@ void FileList::customContextMenu(const QPoint& pos)
   contextMenu(currentIndex(), mapToGlobal(pos));
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
- * Play item if it is a tagged file.
+ * Handle double click to file.
  *
  * @param index model index of item
  */
-void FileList::playIfTaggedFile(const QModelIndex& index)
+void FileList::onDoubleClicked(const QModelIndex& index)
 {
-  if (GuiConfig::instance().playOnDoubleClick() &&
-      FileProxyModel::getTaggedFileOfIndex(index)) {
-    m_mainWin->slotPlayAudio();
+  if (FileProxyModel::getTaggedFileOfIndex(index)) {
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+    if (GuiConfig::instance().playOnDoubleClick()) {
+      m_mainWin->slotPlayAudio();
+    }
+#endif
+  } else if (const FileProxyModel* model =
+             qobject_cast<const FileProxyModel*>(index.model())) {
+    QString path = model->filePath(index);
+    int dotPos = path.lastIndexOf(QLatin1Char('.'));
+    if (dotPos != -1) {
+      QString ext = path.mid(dotPos + 1);
+      if (ext == QLatin1String("m3u") || ext == QLatin1String("M3U") ||
+          ext == QLatin1String("pls") || ext == QLatin1String("PLS") ||
+          ext == QLatin1String("xspf") || ext == QLatin1String("XSPF")) {
+        PlaylistEditDialog* dialog = new PlaylistEditDialog(selectionModel(),
+                                                            this);
+        dialog->setPlaylistFile(path);
+        dialog->show();
+      }
+    }
+
   }
 }
-#endif
 
 /**
  * Set rename action.

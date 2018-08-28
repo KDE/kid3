@@ -139,14 +139,12 @@ private slots:
    */
   void customContextMenu(const QPoint& pos);
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
-   * Play item if it is a tagged file.
+   * Handle double click to file.
    *
    * @param index model index of item
    */
-  void playIfTaggedFile(const QModelIndex& index);
-#endif
+  void onDoubleClicked(const QModelIndex& index);
 
   /**
    * Open with standard application.
