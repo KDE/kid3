@@ -4,6 +4,7 @@ set(forms_SRCS
   forms/kid3form.cpp
   forms/basemainwindow.cpp
   forms/iplatformtools.cpp
+  forms/playlistview.cpp
 )
 
 set(forms_MOC_HDRS
@@ -11,4 +12,5 @@ set(forms_MOC_HDRS
   forms/configurabletreeview.h
   forms/kid3form.h
   forms/basemainwindow.h
+  forms/playlistview.h
 )
