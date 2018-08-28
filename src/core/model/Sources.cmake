@@ -33,6 +33,7 @@ set(model_SRCS
   model/frameobjectmodel.cpp
   model/iusercommandprocessor.cpp
   model/mprisinterface.cpp
+  model/playlistmodel.cpp
   model/proxyitemselectionmodel.cpp
 )
 
@@ -57,6 +58,7 @@ set(model_MOC_HDRS
   model/frameeditorobject.h
   model/frameobjectmodel.h
   model/mprisinterface.h
+  model/playlistmodel.h
   model/proxyitemselectionmodel.h
 )
 
