@@ -44,6 +44,20 @@ PlaylistView::PlaylistView(QWidget* parent)
   connect(deleteAction, SIGNAL(triggered()),
           this, SLOT(deleteCurrentRow()));
   addAction(deleteAction);
+
+  QAction* moveUpAction = new QAction(this);
+  moveUpAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Up);
+  moveUpAction->setShortcutContext(Qt::WidgetShortcut);
+  connect(moveUpAction, SIGNAL(triggered()),
+          this, SLOT(moveUpCurrentRow()));
+  addAction(moveUpAction);
+
+  QAction* moveDownAction = new QAction(this);
+  moveDownAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Down);
+  moveDownAction->setShortcutContext(Qt::WidgetShortcut);
+  connect(moveDownAction, SIGNAL(triggered()),
+          this, SLOT(moveDownCurrentRow()));
+  addAction(moveDownAction);
 }
 
 PlaylistView::~PlaylistView()
@@ -297,6 +311,41 @@ void PlaylistView::deleteCurrentRow()
         setCurrentIndex(mdl->index(row, 0));
       } else if (row > 0 && row - 1 < numRows) {
         setCurrentIndex(mdl->index(row - 1, 0));
+      }
+    }
+  }
+}
+
+void PlaylistView::moveUpCurrentRow()
+{
+  swapRows(-1, 0);
+}
+
+void PlaylistView::moveDownCurrentRow()
+{
+  swapRows(0, 1);
+}
+
+void PlaylistView::swapRows(int offset1, int offset2)
+{
+  if (QAbstractItemModel* mdl = model()) {
+    QModelIndex idx = currentIndex();
+    if (idx.isValid()) {
+      int row1 = idx.row() + offset1;
+      int row2 = idx.row() + offset2;
+      int numRows = mdl->rowCount();
+      if (row1 >= 0 && row2 >= 0 && row1 < numRows && row2 < numRows) {
+        QModelIndex idx1 = mdl->index(row1, 0);
+        QModelIndex idx2 = mdl->index(row2, 0);
+        QVariant val1 = idx1.data(m_dropRole);
+        QVariant val2 = idx2.data(m_dropRole);
+        mdl->setData(idx1, val2, m_dropRole);
+        mdl->setData(idx2, val1, m_dropRole);
+        if (offset1 == 0) {
+          setCurrentIndex(idx2);
+        } else if (offset2 == 0) {
+          setCurrentIndex(idx1);
+        }
       }
     }
   }

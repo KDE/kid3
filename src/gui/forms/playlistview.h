@@ -86,6 +86,8 @@ protected:
 
 private slots:
   void deleteCurrentRow();
+  void moveUpCurrentRow();
+  void moveDownCurrentRow();
 
 private:
   bool droppingOnItself(QDropEvent* event, const QModelIndex& index);
@@ -94,6 +96,7 @@ private:
   DropIndicatorPosition position(const QPoint& pos, const QRect& rect,
                                  const QModelIndex& idx) const;
   QList<int> getSelectedRows() const;
+  void swapRows(int offset1, int offset2);
 
   int m_dropRole;
 };
