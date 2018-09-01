@@ -53,6 +53,7 @@ class FilterDialog;
 class FileFilter;
 class DownloadDialog;
 class PlaylistDialog;
+class PlaylistEditDialog;
 class PlaylistConfig;
 class EditFrameFieldsDialog;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -239,6 +240,12 @@ public slots:
   bool slotCreatePlaylist();
 
   /**
+   * Open dialog to edit playlist.
+   * @param playlistPath path to playlist file
+   */
+  void showPlaylistEditDialog(const QString& playlistPath);
+
+  /**
    * Import.
    */
   void slotImport();
@@ -392,10 +399,15 @@ private slots:
   void applyImportedTrackData();
 
   /**
-   * Called when the edit fram dialog is finished.
+   * Called when the edit frame dialog is finished.
    * @param result dialog result
    */
   void onEditFrameDialogFinished(int result);
+
+  /**
+   * Called when a playlist edit dialog is closed.
+   */
+  void onPlaylistEditDialogFinished();
 
   /**
    * Toggle expanded state of directory in the file list.
@@ -461,6 +473,12 @@ private:
    * @return false if user canceled.
    */
   bool saveModified(bool doNotRevert = false);
+
+  /**
+   * If a playlist was modified, save after asking user.
+   * @return false if user canceled.
+   */
+  bool saveModifiedPlaylists();
 
   /**
    * Update track data and create import dialog.
@@ -550,6 +568,8 @@ private:
   DownloadDialog* m_downloadDialog;
   /** Playlist dialog */
   PlaylistDialog* m_playlistDialog;
+  /** Playlist edit dialogs */
+  QMap<QString, PlaylistEditDialog*> m_playlistEditDialogs;
   /** Progress dialog */
   ProgressWidget* m_progressWidget;
   QProgressBar* m_progressBar;

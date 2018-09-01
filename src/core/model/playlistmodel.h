@@ -150,7 +150,10 @@ public:
 
   /**
    * Set playlist to edit.
-   * @param path path to playlist file
+   * If the same @a path is already set, nothing is done.
+   * An empty @a path can be used to clear the model, so that the playlist
+   * will be read from the file when called the next time with a path.
+   * @param path path to playlist file, empty to clear
    */
   void setPlaylistFile(const QString& path);
 

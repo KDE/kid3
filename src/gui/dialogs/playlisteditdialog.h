@@ -41,11 +41,12 @@ class PlaylistEditDialog : public QDialog {
 public:
   /**
    * Constructor.
+   * @param model playlist model
    * @param selModel selection model of associated file proxy model
    * @param parent parent widget
    */
-  explicit PlaylistEditDialog(QItemSelectionModel* selModel,
-                              QWidget* parent = 0);
+  PlaylistEditDialog(PlaylistModel* model, QItemSelectionModel* selModel,
+                     QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -53,10 +54,17 @@ public:
   virtual ~PlaylistEditDialog();
   
   /**
-   * Set playlist to edit.
-   * @param path path to playlist file
+   * Get playlist model.
+   * @return playlist model.
    */
-  void setPlaylistFile(const QString& path);
+  PlaylistModel* playlistModel() const { return m_playlistModel; }
+
+protected:
+  /**
+   * Ask user before closing with unsaved modifications.
+   * @param event close event
+   */
+  virtual void closeEvent(QCloseEvent* event);
 
 private slots:
   void setModified(bool modified);

@@ -56,6 +56,7 @@
 #include "downloadclient.h"
 #include "downloaddialog.h"
 #include "playlistdialog.h"
+#include "playlisteditdialog.h"
 #include "editframefieldsdialog.h"
 #include "progresswidget.h"
 #include "fileproxymodel.h"
@@ -66,6 +67,7 @@
 #include "pictureframe.h"
 #include "fileconfig.h"
 #include "playlistconfig.h"
+#include "playlistmodel.h"
 #include "exportconfig.h"
 #include "guiconfig.h"
 #include "tagconfig.h"
@@ -167,6 +169,7 @@ BaseMainWindowImpl::~BaseMainWindowImpl()
   delete m_filterDialog;
   delete m_browseCoverArtDialog;
   delete m_playlistDialog;
+  qDeleteAll(m_playlistEditDialogs);
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   delete m_playToolBar;
 #endif
@@ -414,6 +417,28 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 }
 
 /**
+ * If a playlist was modified, save after asking user.
+ * @return false if user canceled.
+ */
+bool BaseMainWindowImpl::saveModifiedPlaylists()
+{
+  if (m_app->hasModifiedPlaylistModel()) {
+    int answer = m_platformTools->warningYesNoCancel(
+        m_w,
+        tr("A playlist has been modified.\n"
+           "Do you want to save it?"),
+        tr("Warning"));
+    if (answer == QMessageBox::Yes) {
+      m_app->saveModifiedPlaylistModels();
+    }
+    if (answer != QMessageBox::Yes && answer != QMessageBox::No) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
  * Free allocated resources.
  * Our destructor may not be called, so cleanup is done here.
  */
@@ -435,7 +460,7 @@ void BaseMainWindowImpl::cleanup()
 bool BaseMainWindowImpl::queryBeforeClosing()
 {
   updateCurrentSelection();
-  if (saveModified(true)) {
+  if (saveModified(true) && saveModifiedPlaylists()) {
     saveOptions();
     cleanup();
     return true;
@@ -562,6 +587,37 @@ bool BaseMainWindowImpl::writePlaylist(const PlaylistConfig& cfg)
 bool BaseMainWindowImpl::slotCreatePlaylist()
 {
   return writePlaylist(PlaylistConfig::instance());
+}
+
+/**
+ * Open dialog to edit playlist.
+ * @param playlistPath path to playlist file
+ */
+void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
+{
+  PlaylistEditDialog* dialog = m_playlistEditDialogs.value(playlistPath);
+  if (!dialog) {
+    PlaylistModel* model = m_app->playlistModel(playlistPath);
+    dialog = new PlaylistEditDialog(model,
+                                    m_form->getFileList()->selectionModel(),
+                                    m_w);
+    connect(dialog, SIGNAL(finished(int)),
+            this, SLOT(onPlaylistEditDialogFinished()));
+    m_playlistEditDialogs.insert(playlistPath, dialog);
+  }
+  dialog->show();
+  dialog->raise();
+}
+
+/**
+ * Called when a playlist edit dialog is closed.
+ */
+void BaseMainWindowImpl::onPlaylistEditDialogFinished()
+{
+  if (PlaylistEditDialog* dialog = qobject_cast<PlaylistEditDialog*>(sender())) {
+    m_playlistEditDialogs.remove(m_playlistEditDialogs.key(dialog));
+    dialog->deleteLater();
+  }
 }
 
 /**

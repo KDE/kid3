@@ -41,7 +41,6 @@
 #include "guiconfig.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
-#include "playlisteditdialog.h"
 
 namespace {
 
@@ -459,10 +458,7 @@ void FileList::onDoubleClicked(const QModelIndex& index)
       if (ext == QLatin1String("m3u") || ext == QLatin1String("M3U") ||
           ext == QLatin1String("pls") || ext == QLatin1String("PLS") ||
           ext == QLatin1String("xspf") || ext == QLatin1String("XSPF")) {
-        PlaylistEditDialog* dialog = new PlaylistEditDialog(selectionModel(),
-                                                            this);
-        dialog->setPlaylistFile(path);
-        dialog->show();
+        m_mainWin->showPlaylistEditDialog(path);
       }
     }
 

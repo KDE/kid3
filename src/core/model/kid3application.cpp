@@ -61,6 +61,7 @@
 #include "framelist.h"
 #include "frameeditorobject.h"
 #include "frameobjectmodel.h"
+#include "playlistmodel.h"
 #include "pixmapprovider.h"
 #include "pictureframe.h"
 #include "textimporter.h"
@@ -1296,6 +1297,53 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 bool Kid3Application::writePlaylist()
 {
   return writePlaylist(PlaylistConfig::instance());
+}
+
+/**
+ * Get playlist model for a play list file.
+ * @param path path to playlist file
+ * @return playlist model.
+ */
+PlaylistModel* Kid3Application::playlistModel(const QString& path)
+{
+  PlaylistModel* model = m_playlistModels.value(path);
+  if (!model) {
+    model = new PlaylistModel(m_fileProxyModel, this);
+    m_playlistModels.insert(path, model);
+  }
+  model->setPlaylistFile(path);
+  return model;
+}
+
+/**
+ * Check if any playlist model has unsaved modifications.
+ * @return true if there is a modified playlist model.
+ */
+bool Kid3Application::hasModifiedPlaylistModel() const
+{
+  for (QMap<QString, PlaylistModel*>::const_iterator it =
+           m_playlistModels.constBegin();
+       it != m_playlistModels.constEnd();
+       ++it) {
+    if ((*it)->modified()) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Save all modified playlist models.
+ */
+void Kid3Application::saveModifiedPlaylistModels()
+{
+  for (QMap<QString, PlaylistModel*>::iterator it = m_playlistModels.begin();
+       it != m_playlistModels.end();
+       ++it) {
+    if ((*it)->modified()) {
+      (*it)->save();
+    }
+  }
 }
 
 /**

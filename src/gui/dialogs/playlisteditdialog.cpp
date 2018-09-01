@@ -28,29 +28,28 @@
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QMessageBox>
+#include <QCloseEvent>
 #include "contexthelp.h"
-#include "fileproxymodel.h"
 #include "playlistmodel.h"
 #include "proxyitemselectionmodel.h"
 #include "playlistview.h"
 
 /**
  * Constructor.
+ * @param model playlist model
  * @param selModel selection model of associated file proxy model
  * @param parent parent widget
  */
-PlaylistEditDialog::PlaylistEditDialog(QItemSelectionModel* selModel,
+PlaylistEditDialog::PlaylistEditDialog(PlaylistModel* model,
+                                       QItemSelectionModel* selModel,
                                        QWidget* parent)
-  : QDialog(parent)
+  : QDialog(parent), m_playlistModel(model)
 {
   setObjectName(QLatin1String("PlaylistEditDialog"));
   setModal(false);
   setSizeGripEnabled(true);
   setAttribute(Qt::WA_DeleteOnClose);
-
-  FileProxyModel* fsModel = qobject_cast<FileProxyModel*>(
-        const_cast<QAbstractItemModel*>(selModel->model()));
-  m_playlistModel = new PlaylistModel(fsModel, this);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QListView* playlist = new PlaylistView;
@@ -70,7 +69,7 @@ PlaylistEditDialog::PlaylistEditDialog(QItemSelectionModel* selModel,
   vlayout->addWidget(playlist);
   m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Help |
                                      QDialogButtonBox::Save |
-                                     QDialogButtonBox::Close);
+                                     QDialogButtonBox::Cancel);
   connect(m_buttonBox, SIGNAL(helpRequested()), this, SLOT(showHelp()));
   connect(m_buttonBox, SIGNAL(accepted()), m_playlistModel, SLOT(save()));
   connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -86,16 +85,8 @@ PlaylistEditDialog::PlaylistEditDialog(QItemSelectionModel* selModel,
  */
 PlaylistEditDialog::~PlaylistEditDialog()
 {
-}
-
-/**
- * Set playlist to edit.
- * @param path path to playlist file
- */
-void PlaylistEditDialog::setPlaylistFile(const QString& path)
-{
-  m_playlistModel->setPlaylistFile(path);
-  setWindowCaption();
+  // Force rereading the file on the next Kid3Application::playlistModel().
+  m_playlistModel->setPlaylistFile(QString());
 }
 
 /**
@@ -127,4 +118,25 @@ void PlaylistEditDialog::setWindowCaption()
     }
   }
   setWindowTitle(title);
+}
+
+void PlaylistEditDialog::closeEvent(QCloseEvent* event)
+{
+  if (m_playlistModel->modified()) {
+    int answer = QMessageBox::warning(
+          this, tr("Warning"),
+          tr("A playlist has been modified.\n"
+             "Do you want to save it?"),
+          QMessageBox::Yes | QMessageBox::Default,
+          QMessageBox::No,
+          QMessageBox::Cancel | QMessageBox::Escape);
+    if (answer == QMessageBox::Yes) {
+      m_playlistModel->save();
+    }
+    if (answer != QMessageBox::Yes && answer != QMessageBox::No) {
+      event->ignore();
+      return;
+    }
+  }
+  QDialog::closeEvent(event);
 }

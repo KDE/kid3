@@ -53,6 +53,7 @@ class FrameTableModel;
 class TaggedFileSelection;
 class ConfigStore;
 class PlaylistConfig;
+class PlaylistModel;
 class DownloadClient;
 class TaggedFile;
 class FrameList;
@@ -469,6 +470,24 @@ public:
    * @return true if ok.
    */
   Q_INVOKABLE bool writePlaylist();
+
+  /**
+   * Get playlist model for a play list file.
+   * @param path path to playlist file
+   * @return playlist model.
+   */
+  PlaylistModel* playlistModel(const QString& path);
+
+  /**
+   * Check if any playlist model has unsaved modifications.
+   * @return true if there is a modified playlist model.
+   */
+  bool hasModifiedPlaylistModel() const;
+
+  /**
+   * Save all modified playlist models.
+   */
+  void saveModifiedPlaylistModels();
 
   /**
    * Perform rename actions and change application directory afterwards if it
@@ -1457,6 +1476,7 @@ private:
   GenreModel* m_genreModel[Frame::Tag_NumValues];
   FrameTableModel* m_framesModel[Frame::Tag_NumValues];
   QItemSelectionModel* m_framesSelectionModel[Frame::Tag_NumValues];
+  QMap<QString, PlaylistModel*> m_playlistModels;
   /** Frame list */
   FrameList* m_framelist[Frame::Tag_NumValues];
   /** Tag context */

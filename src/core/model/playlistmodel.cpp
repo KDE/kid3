@@ -156,10 +156,26 @@ Qt::DropActions PlaylistModel::supportedDropActions() const
 
 /**
  * Set playlist to edit.
- * @param path path to playlist file
+ * If the same @a path is already set, nothing is done.
+ * An empty @a path can be used to clear the model, so that the playlist
+ * will be read from the file when called the next time with a path.
+ * @param path path to playlist file, empty to clear
  */
 void PlaylistModel::setPlaylistFile(const QString& path)
 {
+  if (m_playlistFilePath == path)
+    return;
+
+  if (path.isEmpty()) {
+    m_playlistFilePath.clear();
+    m_playlistFileName.clear();
+    beginResetModel();
+    m_items.clear();
+    endResetModel();
+    setModified(false);
+    return;
+  }
+
   PlaylistCreator creator(QString(), m_playlistConfig);
   QList<QPersistentModelIndex> entries;
   QStringList filePaths;
