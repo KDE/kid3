@@ -175,6 +175,12 @@ public:
   /** Set if info format is written. */
   void setWriteInfo(bool writeInfo);
 
+  /**
+   * Get file extension for playlist format.
+   * @return ".m3u", ".pls" or ".xspf".
+   */
+  QString fileExtensionForFormat() const;
+
 signals:
   /** Emitted when @a location changed. */
   void locationChanged(PlaylistLocation location);

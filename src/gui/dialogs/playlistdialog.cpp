@@ -68,6 +68,14 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   fileNameFormatLayout->addWidget(m_fileNameFormatButton);
   fileNameFormatLayout->addWidget(m_fileNameFormatComboBox);
   fnGroupBoxLayout->addLayout(fileNameFormatLayout);
+
+  QHBoxLayout* fileNameForEmptyLayout = new QHBoxLayout;
+  m_fileNameForEmptyButton = new QRadioButton(this);
+  m_fileNameForEmptyEdit = new QLineEdit(this);
+  fileNameForEmptyLayout->addWidget(m_fileNameForEmptyButton);
+  fileNameForEmptyLayout->addWidget(m_fileNameForEmptyEdit);
+  fnGroupBoxLayout->addLayout(fileNameForEmptyLayout);
+
   QHBoxLayout* locationLayout = new QHBoxLayout;
   QLabel* locationLabel = new QLabel(this);
   m_locationComboBox = new QComboBox(this);
@@ -145,6 +153,13 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
     QLatin1String("playlist_%{artist}_-_%{album}") << QLatin1String("playlist"));
   connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
           m_fileNameFormatComboBox, SLOT(setEnabled(bool)));
+  m_fileNameForEmptyButton->setText(tr("Create ne&w empty playlist:"));
+  m_fileNameForEmptyEdit->setText(tr("New"));
+  m_fileNameForEmptyEdit->setEnabled(false);
+  // Position line edit aligned with combo box.
+  m_fileNameForEmptyEdit->setSizePolicy(m_fileNameFormatComboBox->sizePolicy());
+  connect(m_fileNameForEmptyButton, SIGNAL(toggled(bool)),
+          m_fileNameForEmptyEdit, SLOT(setEnabled(bool)));
   locationLabel->setText(tr("Cr&eate in:"));
   locationLabel->setBuddy(m_locationComboBox);
   m_locationComboBox->addItems(
@@ -261,6 +276,16 @@ void PlaylistDialog::getCurrentConfig(PlaylistConfig& cfg) const
   cfg.setFileNameFormat(m_fileNameFormatComboBox->currentText());
   cfg.setSortTagField(m_sortTagFieldComboBox->currentText());
   cfg.setInfoFormat(m_writeInfoComboBox->currentText());
+}
+
+/**
+ * Get the entered file name to create a new empty playlist.
+ * @return file name if "Create new empty playlist" is selected, else empty.
+ */
+QString PlaylistDialog::getFileNameForNewEmptyPlaylist() const
+{
+  return m_fileNameForEmptyButton->isChecked()
+      ? m_fileNameForEmptyEdit->text() : QString();
 }
 
 /**

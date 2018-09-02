@@ -215,3 +215,16 @@ void PlaylistConfig::setWriteInfo(bool writeInfo)
     emit writeInfoChanged(m_writeInfo);
   }
 }
+
+QString PlaylistConfig::fileExtensionForFormat() const
+{
+  switch (m_format) {
+  case PlaylistConfig::PF_M3U:
+    return QLatin1String(".m3u");
+  case PlaylistConfig::PF_PLS:
+    return QLatin1String(".pls");
+  case PlaylistConfig::PF_XSPF:
+    return QLatin1String(".xspf");
+  }
+  return QString();
+}

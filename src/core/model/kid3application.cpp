@@ -1290,6 +1290,28 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 }
 
 /**
+ * Write empty playlist.
+ * @param cfg playlist configuration to use
+ * @param fileName file name for playlist
+ * @return true if ok.
+ */
+bool Kid3Application::writeEmptyPlaylist(const PlaylistConfig& cfg,
+                                         const QString& fileName)
+{
+  QString path = getDirPath();
+  PlaylistCreator plCtr(path, cfg);
+  if (!path.endsWith(QLatin1Char('/'))) {
+    path += QLatin1Char('/');
+  }
+  path += fileName;
+  QString ext = cfg.fileExtensionForFormat();
+  if (!path.endsWith(ext)) {
+    path += ext;
+  }
+  return plCtr.write(path, QList<QPersistentModelIndex>());
+}
+
+/**
  * Write playlist using current playlist configuration.
  *
  * @return true if ok.

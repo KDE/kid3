@@ -465,6 +465,14 @@ public:
   bool writePlaylist(const PlaylistConfig& cfg);
 
   /**
+   * Write empty playlist.
+   * @param cfg playlist configuration to use
+   * @param fileName file name for playlist
+   * @return true if ok.
+   */
+  bool writeEmptyPlaylist(const PlaylistConfig& cfg, const QString& fileName);
+
+  /**
    * Write playlist using current playlist configuration.
    *
    * @return true if ok.

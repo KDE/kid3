@@ -556,7 +556,13 @@ void BaseMainWindowImpl::slotPlaylistDialog()
   if (m_playlistDialog->exec() == QDialog::Accepted) {
     PlaylistConfig cfg;
     m_playlistDialog->getCurrentConfig(cfg);
-    writePlaylist(cfg);
+    QString newEmptyPlaylistFileName =
+        m_playlistDialog->getFileNameForNewEmptyPlaylist();
+    if (newEmptyPlaylistFileName.isEmpty()) {
+      writePlaylist(cfg);
+    } else {
+      m_app->writeEmptyPlaylist(cfg, newEmptyPlaylistFileName);
+    }
   }
 }
 

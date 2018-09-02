@@ -32,6 +32,7 @@
 class QRadioButton;
 class QCheckBox;
 class QComboBox;
+class QLineEdit;
 class PlaylistConfig;
 
 /**
@@ -65,6 +66,12 @@ public:
    */
   void getCurrentConfig(PlaylistConfig& cfg) const;
 
+  /**
+   * Get the entered file name to create a new empty playlist.
+   * @return file name if "Create new empty playlist" is selected, else empty.
+   */
+  QString getFileNameForNewEmptyPlaylist() const;
+
 private slots:
   /**
    * Save the local settings to the configuration.
@@ -79,6 +86,8 @@ private slots:
 private:
   QRadioButton* m_sameAsDirNameButton;
   QRadioButton* m_fileNameFormatButton;
+  QRadioButton* m_fileNameForEmptyButton;
+  QLineEdit* m_fileNameForEmptyEdit;
   QComboBox* m_locationComboBox;
   QComboBox* m_formatComboBox;
   QCheckBox* m_onlySelectedFilesCheckBox;

@@ -128,6 +128,9 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         if (m_cfg.writeInfo()) {
           stream << "#EXTM3U\n";
         }
+        if (entries.isEmpty() && m_cfg.useFullPath()) {
+          stream << "# Kid3: useFullPath\n";
+        }
         for (QList<Entry>::const_iterator it = entries.constBegin();
              it != entries.constEnd();
              ++it) {
@@ -154,6 +157,16 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
           ++nr;
         }
         stream << "Version=2\n";
+        if (entries.isEmpty() && (m_cfg.useFullPath() || m_cfg.writeInfo())) {
+          stream << "; Kid3:";
+          if (m_cfg.useFullPath()) {
+            stream << " useFullPath";
+          }
+          if (m_cfg.writeInfo()) {
+            stream << " writeInfo";
+          }
+          stream << "\n";
+        }
       }
       break;
       case PlaylistConfig::PF_XSPF:
@@ -187,6 +200,9 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         }
 
         stream << "  </trackList>\n";
+        if (entries.isEmpty() && m_cfg.writeInfo()) {
+          stream << "  <!-- Kid3: writeInfo -->\n";
+        }
         stream << "</playlist>\n";
       }
       break;
@@ -245,6 +261,9 @@ bool PlaylistCreator::read(
         if (line.startsWith(QLatin1Char('#'))) {
           if (line.startsWith(QLatin1String("#EXT"))) {
             hasInfo = true;
+          } else if (line.startsWith(QLatin1String("# Kid3:")) &&
+                     line.contains(QLatin1String("useFullPath"))) {
+            hasFullPath = true;
           }
         } else {
           path = line.trimmed();
@@ -259,6 +278,13 @@ bool PlaylistCreator::read(
         } else if (line.startsWith(QLatin1String("Title")) ||
                    line.startsWith(QLatin1String("Length"))) {
           hasInfo = true;
+        } else if (line.startsWith(QLatin1String("; Kid3:"))) {
+          if (line.contains(QLatin1String("useFullPath"))) {
+            hasFullPath = true;
+          }
+          if (line.contains(QLatin1String("writeInfo"))) {
+            hasInfo = true;
+          }
         }
         break;
       case PlaylistConfig::PF_XSPF:
@@ -281,8 +307,12 @@ bool PlaylistCreator::read(
                    line.contains(QLatin1String("<creator>")) ||
                    line.contains(QLatin1String("<album>")) ||
                    line.contains(QLatin1String("<trackNum>")) ||
-                   line.contains(QLatin1String("<duration>"))) {
+                   line.contains(QLatin1String("<duration>")) ||
+                   line.contains(QLatin1String("<!-- Kid3: writeInfo -->"))) {
           hasInfo = true;
+        } else if (line.startsWith(QLatin1String("<playlist")) &&
+                   !line.contains(QLatin1String("xml:base="))) {
+          hasFullPath = true;
         }
         break;
       }
@@ -415,20 +445,8 @@ bool PlaylistCreator::Item::add()
         m_ctr.m_playlistFileName.replace(illegalChar, replacement);
       }
     }
-    QString ext;
-    switch (m_ctr.m_cfg.format()) {
-      case PlaylistConfig::PF_M3U:
-        ext = QLatin1String(".m3u");
-        break;
-      case PlaylistConfig::PF_PLS:
-        ext = QLatin1String(".pls");
-        break;
-      case PlaylistConfig::PF_XSPF:
-        ext = QLatin1String(".xspf");
-        break;
-    }
     m_ctr.m_playlistFileName = FilenameFormatConfig::instance().joinFileName(
-          m_ctr.m_playlistFileName, ext);
+          m_ctr.m_playlistFileName, m_ctr.m_cfg.fileExtensionForFormat());
   }
   QString filePath = m_dirName + m_taggedFile->getFilename();
   if (!m_ctr.m_cfg.useFullPath() &&
