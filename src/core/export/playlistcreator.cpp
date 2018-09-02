@@ -236,14 +236,7 @@ bool PlaylistCreator::read(
 
     hasFullPath = false;
     hasInfo = false;
-    format = PlaylistConfig::PF_M3U;
-    if (playlistFileName.endsWith(QLatin1String(".m3u"), Qt::CaseInsensitive)) {
-      format = PlaylistConfig::PF_M3U;
-    } else if (playlistFileName.endsWith(QLatin1String(".pls"), Qt::CaseInsensitive)) {
-      format = PlaylistConfig::PF_PLS;
-    } else if (playlistFileName.endsWith(QLatin1String(".xspf"), Qt::CaseInsensitive)) {
-      format = PlaylistConfig::PF_XSPF;
-    }
+    format = PlaylistConfig::formatFromFileExtension(playlistFileName);
 
     QTextStream stream(&file);
     QString codecName = FileConfig::instance().textEncoding();

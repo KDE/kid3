@@ -39,6 +39,7 @@
 #include "basemainwindow.h"
 #include "useractionsconfig.h"
 #include "guiconfig.h"
+#include "playlistconfig.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
 
@@ -204,6 +205,13 @@ void FileList::initUserActions()
 void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
   if (index.isValid()) {
+    QString path;
+    bool isPlaylist = false;
+    if (const FileProxyModel* model =
+            qobject_cast<const FileProxyModel*>(index.model())) {
+      path = model->filePath(index);
+      PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
+    }
     QMenu menu(this);
     menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
     menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
@@ -216,6 +224,13 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
+    if (isPlaylist) {
+      QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);
+      editPlaylistAction->setData(path);
+      connect(editPlaylistAction, SIGNAL(triggered()),
+              this, SLOT(editPlaylist()));
+      menu.addAction(editPlaylistAction);
+    }
     menu.addAction(tr("&Open"), this, SLOT(openFile()));
     menu.addAction(tr("Open Containing &Folder"),
                    this, SLOT(openContainingFolder()));
@@ -452,16 +467,21 @@ void FileList::onDoubleClicked(const QModelIndex& index)
   } else if (const FileProxyModel* model =
              qobject_cast<const FileProxyModel*>(index.model())) {
     QString path = model->filePath(index);
-    int dotPos = path.lastIndexOf(QLatin1Char('.'));
-    if (dotPos != -1) {
-      QString ext = path.mid(dotPos + 1);
-      if (ext == QLatin1String("m3u") || ext == QLatin1String("M3U") ||
-          ext == QLatin1String("pls") || ext == QLatin1String("PLS") ||
-          ext == QLatin1String("xspf") || ext == QLatin1String("XSPF")) {
-        m_mainWin->showPlaylistEditDialog(path);
-      }
+    bool isPlaylist = false;
+    PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
+    if (isPlaylist) {
+      m_mainWin->showPlaylistEditDialog(path);
     }
+  }
+}
 
+/**
+ * Called when "Edit" action is called from context menu.
+ */
+void FileList::editPlaylist()
+{
+  if (QAction* action = qobject_cast<QAction*>(sender())) {
+    m_mainWin->showPlaylistEditDialog(action->data().toString());
   }
 }
 

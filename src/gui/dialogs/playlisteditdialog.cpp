@@ -113,7 +113,7 @@ void PlaylistEditDialog::setWindowCaption()
   if (!fileName.isEmpty()) {
     title += QLatin1String(" - ");
     title += fileName;
-    if (m_playlistModel->modified()) {
+    if (m_playlistModel->isModified()) {
       title += tr(" [modified]");
     }
   }
@@ -122,7 +122,7 @@ void PlaylistEditDialog::setWindowCaption()
 
 void PlaylistEditDialog::closeEvent(QCloseEvent* event)
 {
-  if (m_playlistModel->modified()) {
+  if (m_playlistModel->isModified()) {
     int answer = QMessageBox::warning(
           this, tr("Warning"),
           tr("A playlist has been modified.\n"

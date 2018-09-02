@@ -152,6 +152,11 @@ private slots:
   void openFile();
 
   /**
+   * Called when "Edit" action is called from context menu.
+   */
+  void editPlaylist();
+
+  /**
    * Open containing folder.
    */
   void openContainingFolder();

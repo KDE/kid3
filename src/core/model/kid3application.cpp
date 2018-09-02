@@ -1347,7 +1347,7 @@ bool Kid3Application::hasModifiedPlaylistModel() const
            m_playlistModels.constBegin();
        it != m_playlistModels.constEnd();
        ++it) {
-    if ((*it)->modified()) {
+    if ((*it)->isModified()) {
       return true;
     }
   }
@@ -1362,7 +1362,7 @@ void Kid3Application::saveModifiedPlaylistModels()
   for (QMap<QString, PlaylistModel*>::iterator it = m_playlistModels.begin();
        it != m_playlistModels.end();
        ++it) {
-    if ((*it)->modified()) {
+    if ((*it)->isModified()) {
       (*it)->save();
     }
   }
@@ -3101,7 +3101,8 @@ void Kid3Application::playAudio()
 {
   QStringList files;
   int fileNr = 0;
-  if (m_fileSelectionModel->selectedRows().size() > 1) {
+  QModelIndexList selectedRows = m_fileSelectionModel->selectedRows();
+  if (selectedRows.size() > 1) {
     // play only the selected files if more than one is selected
     SelectedTaggedFileIterator it(m_fileProxyModelRootIndex,
                                   m_fileSelectionModel,
@@ -3110,17 +3111,30 @@ void Kid3Application::playAudio()
       files.append(it.next()->getAbsFilename());
     }
   } else {
-    // play all files if none or only one is selected
-    int idx = 0;
-    ModelIterator it(m_fileProxyModelRootIndex);
-    while (it.hasNext()) {
-      QModelIndex index = it.next();
-      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-        files.append(taggedFile->getAbsFilename());
-        if (m_fileSelectionModel->isSelected(index)) {
-          fileNr = idx;
+    if (selectedRows.size() == 1) {
+      // If a playlist file is selected, play the files in the playlist.
+      QModelIndex index = selectedRows.first();
+      index = index.sibling(index.row(), 0);
+      QString path = m_fileProxyModel->filePath(index);
+      bool isPlaylist = false;
+      PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
+      if (isPlaylist) {
+        files = playlistModel(path)->pathsInPlaylist();
+      }
+    }
+    if (files.isEmpty()) {
+      // play all files if none or only one is selected
+      int idx = 0;
+      ModelIterator it(m_fileProxyModelRootIndex);
+      while (it.hasNext()) {
+        QModelIndex index = it.next();
+        if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+          files.append(taggedFile->getAbsFilename());
+          if (m_fileSelectionModel->isSelected(index)) {
+            fileNr = idx;
+          }
+          ++idx;
         }
-        ++idx;
       }
     }
   }

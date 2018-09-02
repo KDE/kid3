@@ -161,7 +161,7 @@ public:
    * Modification state of playlist.
    * @return true if modified.
    */
-  bool modified() const { return m_modified; }
+  bool isModified() const { return m_modified; }
 
   /**
    * Set modification state of playlist.
@@ -169,6 +169,12 @@ public:
    * @param modified true if modified
    */
   void setModified(bool modified);
+
+  /**
+   * Get paths to files in playlist.
+   * @return list of absolute paths.
+   */
+  QStringList pathsInPlaylist() const;
 
 public slots:
   /**
@@ -178,7 +184,7 @@ public slots:
 
 signals:
   /**
-   * Emitted when modified() is changed.
+   * Emitted when isModified() is changed.
    * @param modified true if modified
    */
   void modifiedChanged(bool modified);

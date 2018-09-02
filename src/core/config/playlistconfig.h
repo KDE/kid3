@@ -181,6 +181,15 @@ public:
    */
   QString fileExtensionForFormat() const;
 
+  /**
+   * Get playlist format from file extension.
+   * @param path file path or name ending with extension
+   * @param ok if set true is returned here if @a path has a playlist extension
+   * @return playlist format.
+   */
+  static PlaylistFormat formatFromFileExtension(const QString& path,
+                                                bool* ok = 0);
+
 signals:
   /** Emitted when @a location changed. */
   void locationChanged(PlaylistLocation location);

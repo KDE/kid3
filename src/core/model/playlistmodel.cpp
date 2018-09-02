@@ -154,13 +154,6 @@ Qt::DropActions PlaylistModel::supportedDropActions() const
   return Qt::MoveAction | Qt::CopyAction;
 }
 
-/**
- * Set playlist to edit.
- * If the same @a path is already set, nothing is done.
- * An empty @a path can be used to clear the model, so that the playlist
- * will be read from the file when called the next time with a path.
- * @param path path to playlist file, empty to clear
- */
 void PlaylistModel::setPlaylistFile(const QString& path)
 {
   if (m_playlistFilePath == path)
@@ -215,12 +208,21 @@ void PlaylistModel::setModified(bool modified)
   }
 }
 
-/**
- * Save changes to playlist file.
- */
 void PlaylistModel::save()
 {
   PlaylistCreator creator(QString(), m_playlistConfig);
   creator.write(m_playlistFilePath, m_items);
   setModified(false);
+}
+
+QStringList PlaylistModel::pathsInPlaylist() const
+{
+  QStringList paths;
+  foreach (const QPersistentModelIndex& idx, m_items) {
+    if (const FileProxyModel* model =
+        qobject_cast<const FileProxyModel*>(idx.model())) {
+      paths.append(model->filePath(idx));
+    }
+  }
+  return paths;
 }

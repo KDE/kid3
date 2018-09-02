@@ -228,3 +228,23 @@ QString PlaylistConfig::fileExtensionForFormat() const
   }
   return QString();
 }
+
+PlaylistConfig::PlaylistFormat PlaylistConfig::formatFromFileExtension(
+    const QString& path, bool* ok)
+{
+  PlaylistFormat format = PlaylistConfig::PF_M3U;
+  bool unknown = false;
+  if (path.endsWith(QLatin1String(".m3u"), Qt::CaseInsensitive)) {
+    format = PlaylistConfig::PF_M3U;
+  } else if (path.endsWith(QLatin1String(".pls"), Qt::CaseInsensitive)) {
+    format = PlaylistConfig::PF_PLS;
+  } else if (path.endsWith(QLatin1String(".xspf"), Qt::CaseInsensitive)) {
+    format = PlaylistConfig::PF_XSPF;
+  } else {
+    unknown = true;
+  }
+  if (ok) {
+    *ok = !unknown;
+  }
+  return format;
+}
