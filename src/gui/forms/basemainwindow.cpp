@@ -604,8 +604,19 @@ void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
     connect(dialog, SIGNAL(finished(int)),
             this, SLOT(onPlaylistEditDialogFinished()));
     m_playlistEditDialogs.insert(playlistPath, dialog);
+
+    // The playlist windows are placed above the directory list.
+    // If multiple playlist windows are open, they are displaced by the height
+    // of the title bar.
+    QWidget* dirList = m_form->getDirList();
+    int titleBarHeight = dialog->style()->pixelMetric(QStyle::PM_TitleBarHeight);
+    int yOffset = titleBarHeight * m_playlistEditDialogs.size();
+    QRect geometry(dirList->mapToGlobal(QPoint(0, 0)), dirList->size());
+    geometry.setTop(geometry.top() + yOffset);
+    dialog->setGeometry(geometry);
   }
-  dialog->show();
+
+  dialog->showNormal();
   dialog->raise();
 }
 
