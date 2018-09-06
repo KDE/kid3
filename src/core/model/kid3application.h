@@ -480,6 +480,22 @@ public:
   Q_INVOKABLE bool writePlaylist();
 
   /**
+   * Get items of a playlist.
+   * @param path path to playlist file
+   * @return list of absolute paths to playlist items.
+   */
+  Q_INVOKABLE QStringList getPlaylistItems(const QString& path);
+
+  /**
+   * Set items of a playlist.
+   * @param path path to playlist file
+   * @param items list of absolute paths to playlist items
+   * @return true if ok, false if not all @a items were found and added or
+   *         saving failed.
+   */
+  Q_INVOKABLE bool setPlaylistItems(const QString& path, const QStringList& items);
+
+  /**
    * Get playlist model for a play list file.
    * @param path path to playlist file
    * @return playlist model.

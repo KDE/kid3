@@ -146,6 +146,31 @@ public slots:
   bool createPlaylist();
 
   /**
+   * Get items of a playlist.
+   * @param path path to playlist file
+   * @return list of absolute paths to playlist items.
+   */
+  QStringList getPlaylistItems(const QString& path);
+
+  /**
+   * Set items of a playlist.
+   *
+   * When using qdbus to call this function from the bash, the @a items have to
+   * be enclosed in parentheses and the files must exist:
+   *
+   * @code
+   * qdbus net.sourceforge.kid3 /Kid3 setPlaylistItems "/path/to/playlist.m3u"
+   *   \( "/path/to/file1" "/path/to/file2" \)
+   * @endcode
+   *
+   * @param path path to playlist file
+   * @param items list of absolute paths to playlist items
+   * @return true if ok, false if not all @a items were found and added or
+   *         saving failed.
+   */
+  bool setPlaylistItems(const QString& path, const QStringList& items);
+
+  /**
    * Quit the application.
    * Omitted Q_NOREPLY because the Qt 3 moc chokes on it.
    */

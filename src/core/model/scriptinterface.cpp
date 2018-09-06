@@ -188,6 +188,28 @@ bool ScriptInterface::createPlaylist()
 }
 
 /**
+ * Get items of a playlist.
+ * @param path path to playlist file
+ * @return list of absolute paths to playlist items.
+ */
+QStringList ScriptInterface::getPlaylistItems(const QString& path)
+{
+  return m_app->getPlaylistItems(path);
+}
+
+/**
+ * Set items of a playlist.
+ * @param path path to playlist file
+ * @param items list of absolute paths to playlist items
+ * @return true if ok, false if not all @a items were found and added or
+ *         saving failed.
+ */
+bool ScriptInterface::setPlaylistItems(const QString& path, const QStringList& items)
+{
+  return m_app->setPlaylistItems(path, items);
+}
+
+/**
  * Quit the application.
  */
 void ScriptInterface::quit()

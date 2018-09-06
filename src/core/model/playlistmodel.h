@@ -176,11 +176,19 @@ public:
    */
   QStringList pathsInPlaylist() const;
 
+  /**
+   * Set paths to files in playlist.
+   * @param paths list of absolute paths
+   * @return true if ok, false if not all @a paths were found and added.
+   */
+  bool setPathsInPlaylist(const QStringList& paths);
+
 public slots:
   /**
    * Save changes to playlist file.
+   * @return true if ok.
    */
-  void save();
+  bool save();
 
 signals:
   /**

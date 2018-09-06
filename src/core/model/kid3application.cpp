@@ -1322,18 +1322,53 @@ bool Kid3Application::writePlaylist()
 }
 
 /**
+ * Get items of a playlist.
+ * @param path path to playlist file
+ * @return list of absolute paths to playlist items.
+ */
+QStringList Kid3Application::getPlaylistItems(const QString& path)
+{
+  return playlistModel(path)->pathsInPlaylist();
+}
+
+/**
+ * Set items of a playlist.
+ * @param path path to playlist file
+ * @param items list of absolute paths to playlist items
+ * @return true if ok, false if not all @a items were found and added or
+ *         saving failed.
+ */
+bool Kid3Application::setPlaylistItems(const QString& path,
+                                       const QStringList& items)
+{
+  PlaylistModel* model = playlistModel(path);
+  if (model->setPathsInPlaylist(items)) {
+    return model->save();
+  }
+  return false;
+}
+
+/**
  * Get playlist model for a play list file.
  * @param path path to playlist file
  * @return playlist model.
  */
 PlaylistModel* Kid3Application::playlistModel(const QString& path)
 {
-  PlaylistModel* model = m_playlistModels.value(path);
+  // Create an absolute path with a value which does not depend on the file's
+  // existence or whether the path given is relative or absolute.
+  QString absPath;
+  if (!path.isEmpty()) {
+    QFileInfo fileInfo(path);
+    absPath = fileInfo.absoluteDir().filePath(fileInfo.fileName());
+  }
+
+  PlaylistModel* model = m_playlistModels.value(absPath);
   if (!model) {
     model = new PlaylistModel(m_fileProxyModel, this);
-    m_playlistModels.insert(path, model);
+    m_playlistModels.insert(absPath, model);
   }
-  model->setPlaylistFile(path);
+  model->setPlaylistFile(absPath);
   return model;
 }
 

@@ -169,16 +169,18 @@ void PlaylistModel::setPlaylistFile(const QString& path)
     return;
   }
 
+  m_playlistConfig = PlaylistConfig::instance();
   PlaylistCreator creator(QString(), m_playlistConfig);
   QList<QPersistentModelIndex> entries;
   QStringList filePaths;
   PlaylistConfig::PlaylistFormat format;
   bool useFullPath;
   bool writeInfo;
+
+  QFileInfo fileInfo(path);
+  m_playlistFileName = fileInfo.fileName();
+  m_playlistFilePath = fileInfo.absoluteDir().filePath(m_playlistFileName);
   if (creator.read(path, filePaths, format, useFullPath, writeInfo)) {
-    QFileInfo fileInfo(path);
-    m_playlistFilePath = path;
-    m_playlistFileName = fileInfo.fileName();
     beginResetModel();
     m_items.clear();
     foreach (const QString& filePath, filePaths) {
@@ -189,15 +191,19 @@ void PlaylistModel::setPlaylistFile(const QString& path)
     }
     endResetModel();
 
-    m_playlistConfig = PlaylistConfig::instance();
     m_playlistConfig.setFormat(format);
     m_playlistConfig.setUseFullPath(useFullPath);
     m_playlistConfig.setWriteInfo(writeInfo);
-
-    setModified(false);
   } else {
-    qWarning("Failed to open %s", qPrintable(path));
+    // File does not exist yet, prepare model to be populated with
+    // setPathsInPlaylist().
+    beginResetModel();
+    m_items.clear();
+    endResetModel();
+
+    m_playlistConfig.setFormat(PlaylistConfig::formatFromFileExtension(path));
   }
+  setModified(false);
 }
 
 void PlaylistModel::setModified(bool modified)
@@ -208,11 +214,14 @@ void PlaylistModel::setModified(bool modified)
   }
 }
 
-void PlaylistModel::save()
+bool PlaylistModel::save()
 {
   PlaylistCreator creator(QString(), m_playlistConfig);
-  creator.write(m_playlistFilePath, m_items);
-  setModified(false);
+  if (creator.write(m_playlistFilePath, m_items)) {
+    setModified(false);
+    return true;
+  }
+  return false;
 }
 
 QStringList PlaylistModel::pathsInPlaylist() const
@@ -225,4 +234,22 @@ QStringList PlaylistModel::pathsInPlaylist() const
     }
   }
   return paths;
+}
+
+bool PlaylistModel::setPathsInPlaylist(const QStringList& paths)
+{
+  bool ok = true;
+  beginResetModel();
+  m_items.clear();
+  foreach (const QString& filePath, paths) {
+    QModelIndex index = m_fsModel->index(filePath);
+    if (index.isValid()) {
+      m_items.append(index);
+    } else {
+      ok = false;
+    }
+  }
+  endResetModel();
+  setModified(true);
+  return ok;
 }
