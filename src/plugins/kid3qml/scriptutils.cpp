@@ -265,6 +265,37 @@ bool ScriptUtils::renameFile(const QString& oldName, const QString& newName)
 }
 
 /**
+ * Copy file.
+ * @param source path to source file
+ * @param dest path to destination file
+ * @return true if ok.
+ */
+bool ScriptUtils::copyFile(const QString& source, const QString& dest)
+{
+  return QFile::copy(source, dest);
+}
+
+/**
+ * Create directory.
+ * @param path path to new directory
+ * @return true if ok.
+ */
+bool ScriptUtils::makeDir(const QString& path)
+{
+  return QDir().mkpath(path);
+}
+
+/**
+ * Remove directory.
+ * @param path path to directory to remove
+ * @return true if ok.
+ */
+bool ScriptUtils::removeDir(const QString& path)
+{
+  return QDir().rmpath(path);
+}
+
+/**
  * Get path of temporary directory.
  * @return temporary directory.
  */
@@ -510,4 +541,18 @@ QString ScriptUtils::selectFileName(const QString& caption, const QString& dir,
                                                  0, options)
                   : QFileDialog::getOpenFileName(0, caption, dir, filter,
                                                  0, options);
+}
+
+/**
+ * @brief Open a file select dialog to get a directory name.
+ * @param caption dialog caption
+ * @param dir working directory
+ * @return selected directory, empty if canceled.
+ */
+QString ScriptUtils::selectDirName(const QString& caption, const QString& dir)
+{
+  QFileDialog::Options options =
+      MainWindowConfig::instance().dontUseNativeDialogs()
+      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0);
+  return QFileDialog::getExistingDirectory(0, caption, dir, options);
 }

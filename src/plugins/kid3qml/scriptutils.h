@@ -187,6 +187,29 @@ public:
                                      const QString& newName);
 
   /**
+   * Copy file.
+   * @param source path to source file
+   * @param dest path to destination file
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool copyFile(const QString& source,
+                                   const QString& dest);
+
+  /**
+   * Create directory.
+   * @param path path to new directory
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool makeDir(const QString& path);
+
+  /**
+   * Remove directory.
+   * @param path path to directory to remove
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool removeDir(const QString& path);
+
+  /**
    * Get path of temporary directory.
    * @return temporary directory.
    */
@@ -329,6 +352,15 @@ public:
   Q_INVOKABLE static QString selectFileName(
       const QString& caption = QString(), const QString& dir = QString(),
       const QString& filter = QString(), bool saveFile = false);
+
+  /**
+   * @brief Open a file select dialog to get a directory name.
+   * @param caption dialog caption
+   * @param dir working directory
+   * @return selected directory, empty if canceled.
+   */
+  Q_INVOKABLE static QString selectDirName(
+      const QString& caption = QString(), const QString& dir = QString());
 };
 
 #endif // SCRIPTUTILS_H
