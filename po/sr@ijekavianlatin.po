@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -2013,6 +2013,9 @@ msgstr "Ime fajla liste numera"
 msgid "Same as &directory name"
 msgstr "Isto kao ime &direktorijuma"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Napravite novu praznu listu:"
+
 msgid "Cr&eate in:"
 msgstr "N&apravi u:"
 
@@ -2051,6 +2054,19 @@ msgstr "Upiši samo &spisak fajlova"
 
 msgid "Write &info using"
 msgstr "Upiši &informacije koristeći"
+
+msgid "Playlist"
+msgstr "Lista numera"
+
+msgid "Warning"
+msgstr "Upozorenje"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Lista pesama je izmenjena.\n"
+"Želite li da sačuvate izmjene?"
 
 msgid "Preview"
 msgstr "Pregled"
@@ -2125,9 +2141,6 @@ msgstr ""
 "Trenutni direktorijum je izmijenjen.\n"
 "Želite li da sačuvate izmjene?"
 
-msgid "Warning"
-msgstr "Upozorenje"
-
 msgid "Exiting..."
 msgstr "Izlazim..."
 
@@ -2181,6 +2194,9 @@ msgstr "Raz&granaj sve"
 
 msgid "&Collapse all"
 msgstr "&Sakupi sve"
+
+msgid "E&dit"
+msgstr "&Uredi"
 
 msgid "&Open"
 msgstr "&Otvori"

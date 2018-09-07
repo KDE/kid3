@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2017,6 +2017,9 @@ msgstr "Název souboru se seznamem skladeb"
 msgid "Same as &directory name"
 msgstr "Stejný jako &název adresáře"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Vytvořte nový prázdný seznam skladeb:"
+
 msgid "Cr&eate in:"
 msgstr "V&ytvořit v:"
 
@@ -2055,6 +2058,19 @@ msgstr "Zapsat pouze &seznamy souborů"
 
 msgid "Write &info using"
 msgstr "Zapsat ú&daje pomocí"
+
+msgid "Playlist"
+msgstr "Seznam skladeb"
+
+msgid "Warning"
+msgstr "Varování"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Playlist byl upraven.\n"
+"Chcete jej uložit?"
 
 msgid "Preview"
 msgstr "Náhled"
@@ -2129,9 +2145,6 @@ msgstr ""
 "Nynější adresář byl změněn.\n"
 "Chcete jej uložit?"
 
-msgid "Warning"
-msgstr "Varování"
-
 msgid "Exiting..."
 msgstr "Ukončuje se..."
 
@@ -2185,6 +2198,9 @@ msgstr "&Rozbalit vše"
 
 msgid "&Collapse all"
 msgstr "&Složit vše"
+
+msgid "E&dit"
+msgstr "Úp&ravy"
 
 msgid "&Open"
 msgstr "&Otevřít"

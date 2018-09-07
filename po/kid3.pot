@@ -1,13 +1,14 @@
-# Kid3 LANGUAGE Translation.
-# This file is put in the public domain.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Kid3 package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.6.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2009,6 +2010,9 @@ msgstr ""
 msgid "Same as &directory name"
 msgstr ""
 
+msgid "Create ne&w empty playlist:"
+msgstr ""
+
 msgid "Cr&eate in:"
 msgstr ""
 
@@ -2046,6 +2050,17 @@ msgid "Write only &list of files"
 msgstr ""
 
 msgid "Write &info using"
+msgstr ""
+
+msgid "Playlist"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
 msgstr ""
 
 msgid "Preview"
@@ -2119,9 +2134,6 @@ msgid ""
 "Do you want to save it?"
 msgstr ""
 
-msgid "Warning"
-msgstr ""
-
 msgid "Exiting..."
 msgstr ""
 
@@ -2174,6 +2186,9 @@ msgid "&Expand all"
 msgstr ""
 
 msgid "&Collapse all"
+msgstr ""
+
+msgid "E&dit"
 msgstr ""
 
 msgid "&Open"

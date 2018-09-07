@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -2013,6 +2013,9 @@ msgstr "播放列表文件名"
 msgid "Same as &directory name"
 msgstr "与目录同名(&D)"
 
+msgid "Create ne&w empty playlist:"
+msgstr "創建新的空播放列表(&W):"
+
 msgid "Cr&eate in:"
 msgstr "创建在(&E)："
 
@@ -2051,6 +2054,19 @@ msgstr "仅根据文件列表来写入(&L)"
 
 msgid "Write &info using"
 msgstr "写入依据(&I)"
+
+msgid "Playlist"
+msgstr "播放列表"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"播放列表已被修改\n"
+"要保存吗？"
 
 msgid "Preview"
 msgstr "预览"
@@ -2125,9 +2141,6 @@ msgstr ""
 "当前目录已修改\n"
 "要保存吗？"
 
-msgid "Warning"
-msgstr "警告"
-
 msgid "Exiting..."
 msgstr "退出..."
 
@@ -2181,6 +2194,9 @@ msgstr "全部展开&E)"
 
 msgid "&Collapse all"
 msgstr "全部折叠(&C)"
+
+msgid "E&dit"
+msgstr "编辑(&E)"
 
 msgid "&Open"
 msgstr "打开(&O)"

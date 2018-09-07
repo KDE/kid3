@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -2015,6 +2015,9 @@ msgstr "Dateiname der Stückliste"
 msgid "Same as &directory name"
 msgstr "Wie &Verzeichnisname"
 
+msgid "Create ne&w empty playlist:"
+msgstr "Erstelle neue leere Stü&ckliste:"
+
 msgid "Cr&eate in:"
 msgstr "&Erstellen in:"
 
@@ -2053,6 +2056,19 @@ msgstr "Nur &Liste der Dateien schreiben"
 
 msgid "Write &info using"
 msgstr "&Information schreiben"
+
+msgid "Playlist"
+msgstr "Stückliste"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Eine Stückliste wurde verändert.\n"
+"Soll sie gespeichert werden?"
 
 msgid "Preview"
 msgstr "Vorschau"
@@ -2129,9 +2145,6 @@ msgstr ""
 "Das aktuelle Verzeichnis wurde verändert.\n"
 "Soll es gespeichert werden?"
 
-msgid "Warning"
-msgstr "Warnung"
-
 msgid "Exiting..."
 msgstr "Beende..."
 
@@ -2185,6 +2198,9 @@ msgstr "Alle &ausklappen"
 
 msgid "&Collapse all"
 msgstr "Alle &einklappen"
+
+msgid "E&dit"
+msgstr "&Bearbeiten"
 
 msgid "&Open"
 msgstr "&Öffnen"

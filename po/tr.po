@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -2017,6 +2017,9 @@ msgstr ""
 msgid "Same as &directory name"
 msgstr ""
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Yeni boş oynatma listesi oluştur:"
+
 msgid "Cr&eate in:"
 msgstr "&Oluşturulacak:"
 
@@ -2055,6 +2058,19 @@ msgstr ""
 
 msgid "Write &info using"
 msgstr ""
+
+msgid "Playlist"
+msgstr "Parça listesi"
+
+msgid "Warning"
+msgstr "Uyarı"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Bir oynatma listesi değiştirildi.\n"
+"Kaydetmek istiyor musunuz?"
 
 msgid "Preview"
 msgstr "Önizleme"
@@ -2129,9 +2145,6 @@ msgstr ""
 "İçinde bulunduğunuz dizin değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
-msgid "Warning"
-msgstr "Uyarı"
-
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
 
@@ -2185,6 +2198,9 @@ msgstr "&Tümünü Aç"
 
 msgid "&Collapse all"
 msgstr "Tümünü &Kapat"
+
+msgid "E&dit"
+msgstr "Dü&zen"
 
 msgid "&Open"
 msgstr "A&ç"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2010,6 +2010,9 @@ msgstr "Filnavn på afspilningsliste"
 msgid "Same as &directory name"
 msgstr "Samme som biblio&teksnavnet"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Opret ny tom spilleliste:"
+
 msgid "Cr&eate in:"
 msgstr "&Opret i:"
 
@@ -2048,6 +2051,19 @@ msgstr "Skriv kun &liste over filer"
 
 msgid "Write &info using"
 msgstr "Skriv &info med"
+
+msgid "Playlist"
+msgstr "Afspilningsliste"
+
+msgid "Warning"
+msgstr "Advarsel"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"En afspilningsliste er blevet ændret.\n"
+"Ønsker du at gemme det?"
 
 msgid "Preview"
 msgstr "Forhåndsvisning"
@@ -2122,9 +2138,6 @@ msgstr ""
 "Det nuværende bibliotek er blevet modificeret.\n"
 "Ønsker du at gemme det?"
 
-msgid "Warning"
-msgstr "Advarsel"
-
 msgid "Exiting..."
 msgstr "Afslutter..."
 
@@ -2178,6 +2191,9 @@ msgstr "Udvid all&e"
 
 msgid "&Collapse all"
 msgstr "&Kollaps alle"
+
+msgid "E&dit"
+msgstr "&Redigér"
 
 msgid "&Open"
 msgstr "&Åbn"

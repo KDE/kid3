@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2016,6 +2016,9 @@ msgstr "Nazwa pliku playlisty"
 msgid "Same as &directory name"
 msgstr "Taka jak nazwa &katalogu"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Utwórz nową pustą listę odtwarzania:"
+
 msgid "Cr&eate in:"
 msgstr "&Utwórz w:"
 
@@ -2054,6 +2057,19 @@ msgstr "Tylko &listy plików"
 
 msgid "Write &info using"
 msgstr "Dodatkowa &informacja z maski"
+
+msgid "Playlist"
+msgstr "Lista odtwarzania"
+
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Lista odtwarzania została zmodyfikowana.\n"
+"Czy chcesz go zapisać?"
 
 msgid "Preview"
 msgstr "Podgląd"
@@ -2128,9 +2144,6 @@ msgstr ""
 "Bieżący katalog został zmodyfikowany.\n"
 "Czy chcesz go zapisać?"
 
-msgid "Warning"
-msgstr "Ostrzeżenie"
-
 msgid "Exiting..."
 msgstr "Kończenie pracy..."
 
@@ -2185,6 +2198,9 @@ msgstr "&Rozwiń wszystko"
 
 msgid "&Collapse all"
 msgstr "&Zwiń wszystko"
+
+msgid "E&dit"
+msgstr "&Edycja"
 
 msgid "&Open"
 msgstr "O&twórz"

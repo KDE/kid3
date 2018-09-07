@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-09-07 20:41+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -2014,6 +2014,9 @@ msgstr "Esitusloendi failinimi"
 msgid "Same as &directory name"
 msgstr "Sama mis &kataloogil"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Loo uus tühi esitusloend:"
+
 msgid "Cr&eate in:"
 msgstr "Loomis&koht:"
 
@@ -2052,6 +2055,19 @@ msgstr "Kirjutatakse ainult failide &loend"
 
 msgid "Write &info using"
 msgstr "Kirjutatakse &info"
+
+msgid "Playlist"
+msgstr "Esitusnimekiri"
+
+msgid "Warning"
+msgstr "Hoiatus"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Esitusloendit on muudetud.\n"
+"Kas salvestada see?"
 
 msgid "Preview"
 msgstr "Eelvaade"
@@ -2126,9 +2142,6 @@ msgstr ""
 "Kataloogi sisu on muudetud.\n"
 "Kas salvestada see?"
 
-msgid "Warning"
-msgstr "Hoiatus"
-
 msgid "Exiting..."
 msgstr "Väljumine..."
 
@@ -2182,6 +2195,9 @@ msgstr "&Laienda kõik"
 
 msgid "&Collapse all"
 msgstr "&Ahenda kõik"
+
+msgid "E&dit"
+msgstr "&Redigeerimine"
 
 msgid "&Open"
 msgstr "Ava&mine"
