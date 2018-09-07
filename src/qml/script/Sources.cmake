@@ -8,4 +8,5 @@ set (script_QML_SRCS
   script/ExtractAlbumArt.qml
   script/EmbedAlbumArt.qml
   script/EmbedLyrics.qml
+  script/ExportPlaylist.qml
 )

@@ -179,6 +179,10 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(QLatin1String("Import CSV"), QLatin1String("@qml %{qmlpath}/script/ImportCsv.qml"), false, true));
   }
+  if (!upgradeOnly || ConfigStore::getConfigVersion() < 4) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(QLatin1String("Export Playlist Folder"), QLatin1String("@qml %{qmlpath}/script/ExportPlaylist.qml"), false, true));
+  }
 #endif
 }
 
