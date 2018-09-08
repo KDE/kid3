@@ -389,7 +389,12 @@ ein
 den Mülleimer</para></listitem>
 <listitem><para>
 <guimenuitem>Wiedergabe</guimenuitem>: Spielt die Datei ab,
-siehe <link linkend="play">Wiedergabe</link>
+siehe <link linkend="play">Wiedergabe</link>. Wenn die ausgewählte Datei eine
+Wiedergabeliste ist, so werden deren Stücke abgespielt.
+</para></listitem>
+<listitem><para>
+<guimenuitem>Bearbeiten</guimenuitem>: Bearbeitet Wiedergabeliste, siehe <link
+linkend="edit-playlist">Wiedergabeliste bearbeiten</link>.
 </para></listitem>
 <listitem><para>Bei den weiteren Menüeinträgen handelt es sich um
 Benutzerbefehle, welche in <link linkend="configure-kid3">Kid3 einrichten</link>
@@ -397,6 +402,61 @@ bei <guilabel>Benutzerbefehle</guilabel> definiert werden können. Dort kann
 auch die Wiedergabe von Dateien per Doppelklick aktiviert werden.
 </para></listitem>
 </itemizedlist>
+</para>
+</sect2>
+
+<sect2 id="edit-playlist">
+<title>Wiedergabeliste bearbeiten</title>
+
+<para>
+Eine Wiedergabeliste kann entweder mit den Stücken eines Verzeichnisses oder
+leer erstellt werden, siehe hierzu <link linkend="create-playlist">Stückliste
+erstellen</link>. Die so erstellte Datei kann mittels Doppelklick oder Wahl
+von <guilabel>Bearbeiten</guilabel> aus dem Kontext-Menü der Dateiliste
+bearbeitet werden. Es wird ein Dialog mit den Einträgen der Stückliste
+geöffnet. Es können mehrere Stücklisten gleichzeitig bearbeitet werden.
+</para>
+<para>
+Neue Einträge können mit "Drag and Drop" aus der Dateiliste, einem
+Dateimanager oder einer anderen Stückliste hinzugefügt werden. Wenn ein
+Eintrag aus einer anderen Stückliste hineingezogen wird, so wird der Eintrag
+abhängig von den Systemeinstellungen verschoben oder kopiert. Für die jeweils
+andere Operation muss gleichzeitig die Umschalt-Taste (<keycap>Shift</keycap>)
+bzw. die Steuerungs-Taste (<keycap>Ctrl</keycap>) gedrückt werden. Um Einträge
+innerhalb der Stückliste zu verschieben, kann ebenfalls "Drag and Drop"
+verwendet werden. Alternativ können Einträge mit den Tastenkombinationen
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
+und
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>
+verschoben werden. Um einen Eintrag zu löschen, kann <keycap>Delete</keycap>
+gedrückt werden.
+</para>
+<para>
+Um Einträge aus der Dateiliste mittels "Drag and Drop" zu ziehen, ist
+folgendes zu beachten: Die Einträge müssen links (bei den Icons) gezogen
+werden, eine entsprechende Geste im rechten Bereich führt zu einer
+Mehrfachselektion, eine solche ist somit immer noch einfach möglich.
+</para>
+<para>
+Wenn eine Stückliste modifiziert wurde, so können die Änderungen mit
+<guibutton>Speichern</guibutton> übernommen oder mit
+<guibutton>Abbrechen</guibutton> verworfen werden. Beim Schliessen des
+Fensters erfolgt eine Sicherheitsabfrage, wenn noch ungesicherte Änderungen
+vorhanden sind.
+</para>
+<para>
+In einer Wiedergabeliste ausgewählte Stücke werden automatisch auch in der
+Dateiliste ausgewählt, womit auch ihre Tags bearbeitet werden können.
+</para>
+<para>
+Um Aktionen auf einer Wiedergabeliste auszuführen, muss sie in der Dateiliste
+ausgewählt werden. In deren Kontext-Menü führt
+<guimenuitem>Bearbeiten</guimenuitem> zum hier beschriebenen Dialog und
+<guimenuitem>Wiedergabe</guimenuitem> spielt die Stückliste ab. Es lassen sich
+auch Benutzerbefehle für Wiedergabelisten definieren, zum <link
+linkend="qml-examples">Beispiel</link> <guilabel>Export Playlist
+Folder</guilabel>, welche die Stücke einer Wiedergabeliste in ein Verzeichnis
+kopiert.
 </para>
 </sect2>
 
@@ -1523,8 +1583,10 @@ Wiedergabeliste aus dem Namen des Verzeichnisses. Es kann aber auch ein
 <guibutton>Format</guibutton> mit Werten aus den Tags benutzt werden,
 z.B. "%{artist} - %{album}", um die Namen von Interpret und Album im
 Dateinamen zu haben. Es können dieselben Format Codes wie bei
-<link linkend="export">Exportieren</link> verwendet werden. Die
-Dateierweiterung richtet sich nach dem Format der Stückliste.
+<link linkend="export">Exportieren</link> verwendet werden.
+<guibutton>Erstelle neue leere Stückliste</guibutton> erzeugt eine leere
+Stückliste mit dem angegebenen Namen.
+Die Dateierweiterung richtet sich nach dem Format der Stückliste.
 </para>
 <para>
 Wo die Wiedergabeliste erstellt wird, kann bestimmt werden mit der
@@ -3660,6 +3722,48 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 
+<sect2 id="dbus-getPlaylistItems">
+<title>Dateien einer Stückliste abfragen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>getPlaylistItems</function></funcdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+</funcprototype>
+</funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>Pfad zu Datei</para></listitem>
+  </varlistentry>
+</variablelist>
+<para>Gibt eine Liste mit absoluten Pfaden zu den Stücken der Wiedergabeliste
+zurück.</para>
+</sect2>
+
+<sect2 id="dbus-setPlaylistItems">
+<title>Dateien einer Stückliste setzen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>setPlaylistItems</function></funcdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>array <parameter>items</parameter></paramdef>
+</funcprototype>
+</funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>Pfad zu Datei</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>items</replaceable></term>
+    <listitem><para>Liste mit absoluten Pfaden zu den Stücken der
+    Wiedergabeliste</para></listitem>
+  </varlistentry>
+</variablelist>
+<para>Wenn OK wird true zurückgegeben, false wenn nicht alle Stücke gefunden
+wurden oder das Speichern fehlgeschlagen ist.</para>
+</sect2>
+
 <sect2 id="dbus-quit">
 <title>Anwendung beenden</title>
 <funcsynopsis>
@@ -4353,6 +4457,12 @@ verfügbaren Zeichencodierungen anzeigt.
 Exportiert rekursiv alle Tags aller Dateien in eine CSV-Datei.
 </para></listitem>
 <listitem><para>
+<guilabel>Export Playlist Folder</guilabel>
+(<filename>ExportPlaylist.qml</filename>):
+Kopiert alle Dateien einer Playlist in ein Verzeichnis und benennt sie gemäss
+ihrer Position um.
+</para></listitem>
+<listitem><para>
 <guilabel>QML Console</guilabel>
 (<filename>QmlConsole.qml</filename>):
 Einfache Konsole, um die Funktionen von &kid3;'s QML API auszuprobieren.
@@ -4412,6 +4522,9 @@ script.readFile(filePath): Lese Daten von Datei
 script.removeFile(filePath): Lösche Datei, true wenn OK
 script.fileExists(filePath): true wenn Datei existiert
 script.renameFile(oldName, newName): Datei umbenennen, true wenn OK
+script.copyFile(source, dest): Kopiere Datei, true wenn OK
+script.makeDir(path): Erstelle Verzeichnis, true wenn OK
+script.removeDir(path): Lösche Verzeichnis, true wenn OK
 script.tempPath(): Verzeichnis temporärer Dateien
 script.listDir(path, [nameFilters], [classify]): Liste der Verzeichniseinträge
 script.system(program, [args], [msecs]): Systemkommando synchron ausführen,
@@ -4452,6 +4565,8 @@ app.importFromTags(tag, source, extraction): Aus Tags importieren
 app.downloadImage(url, allFilesInDir): Bild herunterladen
 app.exportTags(tag, path, fmtIdx): Datei exportieren
 app.writePlaylist(): Stückliste erstellen
+app.getPlaylistItems(path): Stücke einer Wiedergabeliste
+app.setPlaylistItems(path, items): Setze Stücke einer Wiedergabeliste
 app.selectAllFiles(): Alles auswählen
 app.deselectAllFiles(): Gesamte Auswahl aufheben
 app.firstFile([select], [onlyTaggedFiles]): Erste Datei

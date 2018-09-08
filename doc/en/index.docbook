@@ -373,7 +373,12 @@ current tree if the shift key is pressed)
 </para></listitem>
 <listitem><para>
 <guimenuitem>Play</guimenuitem>: Plays a file,
-see <link linkend="play">Play</link>
+see <link linkend="play">Play</link>. If the selected file is a playlist, the
+files of the playlist will be played.
+</para></listitem>
+<listitem><para>
+<guimenuitem>Edit</guimenuitem>: Edit a playlist,
+see <link linkend="edit-playlist">Edit Playlist</link>.
 </para></listitem>
 <listitem><para>The subsequent entries are user commands, which can be defined
 in the <guilabel>User Actions</guilabel> tab of
@@ -381,6 +386,54 @@ in the <guilabel>User Actions</guilabel> tab of
 click can also be activated there.
 </para></listitem>
 </itemizedlist>
+</para>
+</sect2>
+
+<sect2 id="edit-playlist">
+<title>Edit Playlist</title>
+
+<para>
+A playlist can be created empty or containing the tracks of a folder, see <link
+linkend="create-playlist">Create Playlist</link>. The playlist file created in
+such a way can be edited by double click or using <guilabel>Edit</guilabel>
+from the file list context menu. A dialog with the entries of the playlist is
+shown. It is possible to open multiple playlists simultaneously.
+</para>
+<para>
+New entries can be added by drag'n'drop from the file list, a file manager or
+another playlist. If an entry is dragged from another playlist, it will be
+moved or copied depending on the system preferences. To invoke the other
+operation, respectively, the <keycap>Shift</keycap> or <keycap>Ctrl</keycap>
+key has to be pressed. Reordering entries within the playlist is also possible
+via drag'n'drop. Alternatively, entries can be moved using the keyboard shortcuts
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
+and
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>.
+An entry can be removed using the <keycap>Delete</keycap> key.
+</para>
+<para>
+Please note the following: To drag entries from the file list, they have to be
+held at the left side (near the icons), the same gesture at the right side
+will perform a multi selection, such an action is hereby still easily possible.
+</para>
+<para>
+When a playlist has been modified, the changes can be stored using
+<guibutton>Save</guibutton> or discarded using
+<guibutton>Cancel</guibutton>. When the window is closed, a confirmation
+prompt is shown if there are unsaved changes.
+</para>
+<para>
+Tracks selected in a playlist will be automatically selected in the file list,
+thereby making it possible to edit their tags.
+</para>
+<para>
+To execute actions on a playlist, its file must be selected in the file
+list. <guimenuitem>Edit</guimenuitem> from the context menu will lead to the
+dialog described in this section, and <guimenuitem>Play</guimenuitem> will
+start the media player with the tracks from the playlist. User actions can act
+on playlists, for <link linkend="qml-examples">example</link> <guilabel>Export
+Playlist Folder</guilabel>, which copies the files from a playlist into a
+folder.
 </para>
 </sect2>
 
@@ -1430,8 +1483,10 @@ The name of the playlist can be the <guibutton>Same as directory
 name</guibutton> or use a <guibutton>Format</guibutton> with values
 from the tags, e.g. "%{artist} - %{album}" to have the artist and album
 name in the playlist file name. The format codes are the same as for
-<link linkend="export">Export</link>. The extension depends on the playlist
-format.
+<link linkend="export">Export</link>.
+<guibutton>Create new empty playlist</guibutton> will make an empty playlist
+with the given name.
+The extension depends on the playlist format.
 </para>
 <para>
 The location of the generated playlist is determined by the selection of
@@ -3478,6 +3533,46 @@ following methods:
 <para>Returns true if OK.</para>
 </sect2>
 
+<sect2 id="dbus-getPlaylistItems">
+<title>Get items of a playlist</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>getPlaylistItems</function></funcdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+</funcprototype>
+</funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>path to playlist file</para></listitem>
+  </varlistentry>
+</variablelist>
+<para>Returns list of absolute paths to playlist items.</para>
+</sect2>
+
+<sect2 id="dbus-setPlaylistItems">
+<title>Set items of a playlist</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>setPlaylistItems</function></funcdef>
+  <paramdef>string <parameter>path</parameter></paramdef>
+  <paramdef>array <parameter>items</parameter></paramdef>
+</funcprototype>
+</funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>path</replaceable></term>
+    <listitem><para>path to playlist file</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>items</replaceable></term>
+    <listitem><para>list of absolute paths to playlist items</para></listitem>
+  </varlistentry>
+</variablelist>
+<para>Returns true if OK, false if not all items were found and added or
+saving failed.</para>
+</sect2>
+
 <sect2 id="dbus-quit">
 <title>Quit the application</title>
 <funcsynopsis>
@@ -4161,6 +4256,12 @@ current file in all available character encodings.
 Export recursively all tags of all files to a CSV file.
 </para></listitem>
 <listitem><para>
+<guilabel>Export Playlist Folder</guilabel>
+(<filename>ExportPlaylist.qml</filename>):
+Copy all files from a playlist into a directory and rename them according to
+their position.
+</para></listitem>
+<listitem><para>
 <guilabel>QML Console</guilabel>
 (<filename>QmlConsole.qml</filename>):
 Simple console to play with &kid3;'s QML API.
@@ -4217,8 +4318,11 @@ script.writeFile(filePath, data): Write data to file, true if OK
 script.readFile(filePath): Read data from file
 script.removeFile(filePath): Delete file, true if OK
 script.fileExists(filePath): true if file exists
-script.renameFile(oldName, newName): rename file, true if OK
-script.tempPath(): path to temporary directory
+script.renameFile(oldName, newName): Rename file, true if OK
+script.copyFile(source, dest): Copy file, true if OK
+script.makeDir(path): Create directory, true if OK
+script.removeDir(path): Remove directory, true if OK
+script.tempPath(): Path to temporary directory
 script.listDir(path, [nameFilters], [classify]): List directory entries
 script.system(program, [args], [msecs]): Synchronously start a system command,
   [exit code, standard output, standard error] if not timeout
@@ -4258,6 +4362,8 @@ app.importFromTags(tag, source, extraction): Import from tags
 app.downloadImage(url, allFilesInDir): Download image
 app.exportTags(tag, path, fmtIdx): Export file
 app.writePlaylist(): Write playlist
+app.getPlaylistItems(path): Get items of a playlist
+app.setPlaylistItems(path, items): Set items of a playlist
 app.selectAllFiles(): Select all
 app.deselectAllFiles(): Deselect
 app.firstFile([select], [onlyTaggedFiles]): To first file
