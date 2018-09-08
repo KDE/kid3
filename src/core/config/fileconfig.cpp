@@ -170,7 +170,7 @@ void FileConfig::readFromConfig(ISettings* config)
       m_formatFromFilenameItems += QString::fromLatin1(*sl);
     }
   }
-  if (ConfigStore::getConfigVersion() < 2) {
+  if (ConfigStore::getConfigVersion() < 4) {
     // Reset file name filter if it is set to "All Supported Files" in order
     // to introduce newly supported file formats (e.g. *.dsf) when the
     // configuration version is increased.

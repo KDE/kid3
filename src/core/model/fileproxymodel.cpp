@@ -991,6 +991,8 @@ QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
     nameFilters.append(qMakePair(text, pattern));
   }
   if (!allPatterns.isEmpty()) {
+    // Add extensions for playlists.
+    allPatterns += QLatin1String(" *.m3u *.pls *.xspf");
     nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
   }
   nameFilters.append(qMakePair(tr("All Files"), QString(QLatin1Char('*'))));
