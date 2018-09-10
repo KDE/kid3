@@ -958,6 +958,10 @@ QStringList Kid3Application::saveDirectory()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     QString fileName = taggedFile->getFilename();
+    if (taggedFile->isFilenameChanged() &&
+        Utils::replaceIllegalFileNameCharacters(fileName)) {
+      taggedFile->setFilename(fileName);
+    }
     bool renamed = false;
     if (taggedFile->isChanged() &&
         !taggedFile->writeTags(false, &renamed,

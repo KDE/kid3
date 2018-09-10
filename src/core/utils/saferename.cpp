@@ -26,6 +26,7 @@
 
 #include "saferename.h"
 #include <QDir>
+#include "formatconfig.h"
 
 #ifdef Q_OS_WIN32
 
@@ -67,4 +68,32 @@ bool Utils::safeRename(const QString& dirPath,
     return false;
 
   return QDir(dirPath).rename(oldName, newName);
+}
+
+bool Utils::replaceIllegalFileNameCharacters(QString& fileName)
+{
+#ifdef Q_OS_WIN32
+  static const char illegalChars[] = "<>:\"|?*\\/";
+#else
+  static const char illegalChars[] = "/";
+#endif
+  QMap<QString, QString> replaceMap;
+  bool changed = false;
+  for (int i = 0;
+       i < static_cast<int>(sizeof(illegalChars) / sizeof(illegalChars[0]));
+       ++i) {
+    QChar illegalChar = QLatin1Char(illegalChars[i]);
+    if (fileName.contains(illegalChar)) {
+      if (!changed) {
+        const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+        if (fnCfg.strRepEnabled()) {
+          replaceMap = fnCfg.strRepMap();
+        }
+        changed = true;
+      }
+      QString replacement = replaceMap.value(illegalChar);
+      fileName.replace(illegalChar, replacement);
+    }
+  }
+  return changed;
 }

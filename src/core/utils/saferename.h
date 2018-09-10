@@ -68,6 +68,15 @@ bool KID3_CORE_EXPORT safeRename(const QString& oldName, const QString& newName)
 bool KID3_CORE_EXPORT safeRename(const QString& dirPath,
                 const QString& oldName, const QString& newName);
 
+/**
+ * Replace illegal characters in a file name.
+ * Use replacements from the file name format config if enabled,
+ * otherwise remove the characters.
+ * @param fileName fileName, illegal characters will be replaced
+ * @return true if @a fileName was changed.
+ */
+bool KID3_CORE_EXPORT replaceIllegalFileNameCharacters(QString& fileName);
+
 }
 
 #endif // SAFERENAME_H

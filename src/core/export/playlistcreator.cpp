@@ -34,6 +34,7 @@
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "fileproxymodel.h"
+#include "saferename.h"
 #include "config.h"
 
 /**
@@ -416,27 +417,7 @@ bool PlaylistCreator::Item::add()
       m_ctr.m_playlistFileName = QDir(m_ctr.m_playlistDirName).dirName();
     } else {
       m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.fileNameFormat());
-
-      // Replace illegal characters in the playlist file name.
-      // Use replacements from the file name format config if enabled,
-      // otherwise remove the characters.
-      const FormatConfig& fnCfg = FilenameFormatConfig::instance();
-      QMap<QString, QString> replaceMap;
-      if (fnCfg.strRepEnabled()) {
-        replaceMap = fnCfg.strRepMap();
-      }
-#ifdef Q_OS_WIN32
-      static const char illegalChars[] = "<>:\"|?*\\/";
-#else
-      static const char illegalChars[] = "/";
-#endif
-      for (int i = 0;
-           i < static_cast<int>(sizeof(illegalChars) / sizeof(illegalChars[0]));
-           ++i) {
-        QChar illegalChar = QLatin1Char(illegalChars[i]);
-        QString replacement = replaceMap.value(illegalChar);
-        m_ctr.m_playlistFileName.replace(illegalChar, replacement);
-      }
+      Utils::replaceIllegalFileNameCharacters(m_ctr.m_playlistFileName);
     }
     m_ctr.m_playlistFileName = FilenameFormatConfig::instance().joinFileName(
           m_ctr.m_playlistFileName, m_ctr.m_cfg.fileExtensionForFormat());
