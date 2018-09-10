@@ -50,6 +50,9 @@ PlaylistEditDialog::PlaylistEditDialog(PlaylistModel* model,
   setModal(false);
   setSizeGripEnabled(true);
   setAttribute(Qt::WA_DeleteOnClose);
+#ifdef Q_OS_MAC
+  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+#endif
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QListView* playlist = new PlaylistView;
