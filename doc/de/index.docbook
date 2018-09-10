@@ -420,16 +420,19 @@ geöffnet. Es können mehrere Stücklisten gleichzeitig bearbeitet werden.
 Neue Einträge können mit "Drag and Drop" aus der Dateiliste, einem
 Dateimanager oder einer anderen Stückliste hinzugefügt werden. Wenn ein
 Eintrag aus einer anderen Stückliste hineingezogen wird, so wird der Eintrag
-abhängig von den Systemeinstellungen verschoben oder kopiert. Für die jeweils
+abhängig vom System verschoben oder kopiert. Für die jeweils
 andere Operation muss gleichzeitig die Umschalt-Taste (<keycap>Shift</keycap>)
-bzw. die Steuerungs-Taste (<keycap>Ctrl</keycap>) gedrückt werden. Um Einträge
+bzw. die Steuerungs-Taste (<keycap>Ctrl</keycap>) gedrückt werden
+(auf macOS muss <keycap>Alt</keycap> gedrückt werden, um zu kopieren statt zu
+verschieben). Um Einträge
 innerhalb der Stückliste zu verschieben, kann ebenfalls "Drag and Drop"
 verwendet werden. Alternativ können Einträge mit den Tastenkombinationen
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
 und
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>
-verschoben werden. Um einen Eintrag zu löschen, kann <keycap>Delete</keycap>
-gedrückt werden.
+verschoben werden (auf macOS muss <keycap>Command</keycap> statt
+<keycap>Ctrl</keycap> gedrückt werden). Um einen Eintrag zu löschen, kann
+<keycap>Delete</keycap> gedrückt werden.
 </para>
 <para>
 Um Einträge aus der Dateiliste mittels "Drag and Drop" zu ziehen, ist

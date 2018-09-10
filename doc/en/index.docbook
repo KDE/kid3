@@ -402,13 +402,15 @@ shown. It is possible to open multiple playlists simultaneously.
 <para>
 New entries can be added by drag'n'drop from the file list, a file manager or
 another playlist. If an entry is dragged from another playlist, it will be
-moved or copied depending on the system preferences. To invoke the other
-operation, respectively, the <keycap>Shift</keycap> or <keycap>Ctrl</keycap>
+moved or copied depending on the system. To invoke the other
+operation, respectively, the <keycap>Shift</keycap>, <keycap>Ctrl</keycap>
+or <keycap>Alt</keycap> (to copy instead of move on macOS)
 key has to be pressed. Reordering entries within the playlist is also possible
 via drag'n'drop. Alternatively, entries can be moved using the keyboard shortcuts
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
 and
-<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>.
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>
+(on macOS <keycap>Command</keycap> has to be pressed instead of <keycap>Ctrl</keycap>).
 An entry can be removed using the <keycap>Delete</keycap> key.
 </para>
 <para>
