@@ -91,7 +91,7 @@ endif (NOT HAVE_QT5)
 install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/qmldir"
               "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
         DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-if (NOT WIN32 AND NOT ANDROID)
+if (NOT WIN32 AND NOT ANDROID AND NOT(CMAKE_CXX_COMPILER MATCHES "/osxcross/"))
   if (HAVE_QT5)
     get_target_property(_qmakeLocation Qt5::qmake LOCATION)
   else (HAVE_QT5)
@@ -112,7 +112,7 @@ if (NOT WIN32 AND NOT ANDROID)
 
   install(FILES "${kid3_plugins_BINARY_DIR}/imports/Kid3/plugins.qmltypes"
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3 OPTIONAL)
-endif (NOT WIN32 AND NOT ANDROID)
+endif ()
 
 if ((WIN32 OR APPLE) AND HAVE_QT5)
   # Install essential QML modules.

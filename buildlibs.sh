@@ -33,6 +33,8 @@
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
 # COMPILER=cross-macos QTPREFIX=/path/to/Qt5.6.3-mac/5.6.3/clang_64 ../kid3/buildlibs.sh
+# or
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.6-mac/5.9.6/clang_64 QTBINARYDIR=/path/to/Qt5.9.6-linux/5.9.6/gcc_64/bin ../kid3/buildlibs.sh
 #
 # To build for Android, set COMPILER="cross-android".
 #
@@ -490,6 +492,10 @@ EOF
 elif test "$compiler" = "cross-macos"; then
   test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:$PATH
   cat >$thisdir/osxcross.cmake <<EOF
+if (POLICY CMP0025)
+  cmake_policy(SET CMP0025 NEW)
+endif (POLICY CMP0025)
+
 set(QT_PREFIX $_qt_prefix)
 
 set (CMAKE_SYSTEM_NAME Darwin)
@@ -2732,7 +2738,7 @@ else
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
-    ./Configure shared no-ssl3-method enable-ec_nistp_64_gcc_128 linux-x86_64 -Wa,--noexecstack
+    ./Configure shared enable-ec_nistp_64_gcc_128 linux-x86_64 -Wa,--noexecstack
     make depend || true
 	  make build_libs
     mkdir -p inst/usr/local/ssl

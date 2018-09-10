@@ -297,11 +297,9 @@ if (LINUX_SELF_CONTAINED)
   ")
   install(DIRECTORY "${_qtLibDir}/icu_reduced/"
           DESTINATION ${WITH_BINDIR} OPTIONAL)
-  if (Qt5Widgets_VERSION VERSION_LESS 5.7.0)
-    # Qt 5.6.3 searches for OpenSSL 1.0, which is not found on distributions
-    # as new as Ubuntu 18.04. Install them in the application directory.
-    install(FILES "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libssl.so"
-                  "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libcrypto.so"
-            DESTINATION ${WITH_BINDIR})
-  endif ()
+  # Qt searches for OpenSSL 1.0, which is not found on distributions
+  # as new as Ubuntu 18.04. Install them in the application directory.
+  install(FILES "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libssl.so"
+                "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libcrypto.so"
+          DESTINATION ${WITH_BINDIR})
 endif (LINUX_SELF_CONTAINED)
