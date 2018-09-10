@@ -957,10 +957,40 @@ QStringList Kid3Application::saveDirectory()
   TaggedFileIterator it(m_fileProxyModelRootIndex);
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
+    QString fileName = taggedFile->getFilename();
     bool renamed = false;
     if (taggedFile->isChanged() &&
         !taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().preserveTime())) {
+      QDir dir(taggedFile->getDirname());
+      if (dir.exists(fileName) && taggedFile->isFilenameChanged()) {
+        // File is renamed to a file name which already exists.
+        // Try another file name ending with a number.
+        QString baseName = fileName;
+        QString ext;
+        int dotPos = baseName.lastIndexOf(QLatin1Char('.'));
+        if (dotPos != -1) {
+          ext = baseName.mid(dotPos);
+          baseName.truncate(dotPos);
+        }
+        baseName.append('(');
+        ext.prepend(')');
+        bool ok = false;
+        for (int nr = 1; nr < 100; ++nr) {
+          QString newName = baseName + QString::number(nr) + ext;
+          if (!dir.exists(newName)) {
+            taggedFile->setFilename(newName);
+            ok = taggedFile->writeTags(false, &renamed,
+                                       FileConfig::instance().preserveTime());
+            break;
+          }
+        }
+        if (ok) {
+          continue;
+        } else {
+          taggedFile->setFilename(fileName);
+        }
+      }
       QString errorMsg = taggedFile->getAbsFilename();
       errorFiles.push_back(errorMsg);
     }
