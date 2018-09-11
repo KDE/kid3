@@ -17,11 +17,11 @@ if(WITH_TAGLIB)
       exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --cflags RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_CFLAGS)
       exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --version RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_VERSION)
       if(TAGLIB_LIBRARIES AND TAGLIB_CFLAGS AND TAGLIB_VERSION)
-        if(NOT ${TAGLIB_VERSION} VERSION_LESS 1.4)
+        if(NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
           set(HAVE_TAGLIB 1)
           message(STATUS "TagLib found: ${TAGLIB_LIBRARIES}")
           set(TAGLIB_LIBRARIES ${TAGLIB_LIBRARIES} ${ZLIB_LIBRARIES} -lstdc++)
-        endif(NOT ${TAGLIB_VERSION} VERSION_LESS 1.4)
+        endif(NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
       endif(TAGLIB_LIBRARIES AND TAGLIB_CFLAGS AND TAGLIB_VERSION)
     endif(TAGLIBCONFIG_EXECUTABLE)
   endif ()
@@ -57,6 +57,10 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
     taglibfile.cpp
     taglibext/aac/aacfiletyperesolver.cpp
     taglibext/mp2/mp2filetyperesolver.cpp
+    taglibext/dsf/dsffiletyperesolver.cpp
+    taglibext/dsf/dsffile.cpp
+    taglibext/dsf/dsfproperties.cpp
+    taglibext/dsf/dsfheader.cpp
   )
 
   if (NOT ${TAGLIB_VERSION} VERSION_GREATER 1.9.1)
@@ -65,32 +69,6 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
       taglibext/eventtimingcodesframe.cpp
     )
   endif (NOT ${TAGLIB_VERSION} VERSION_GREATER 1.9.1)
-
-  if (NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
-    set(plugin_SRCS ${plugin_SRCS}
-      taglibext/dsf/dsffiletyperesolver.cpp
-      taglibext/dsf/dsffile.cpp
-      taglibext/dsf/dsfproperties.cpp
-      taglibext/dsf/dsfheader.cpp
-    )
-  endif (NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
-
-  if (TAGLIB_VERSION STREQUAL "1.4")
-    set(plugin_SRCS ${plugin_SRCS}
-      taglibext/urllinkframe.cpp
-      taglibext/unsynchronizedlyricsframe.cpp
-      taglibext/generalencapsulatedobjectframe.cpp
-      taglibext/speex/speexfile.cpp
-      taglibext/speex/speexproperties.cpp
-      taglibext/speex/taglib_speexfiletyperesolver.cpp
-      taglibext/trueaudio/taglib_trueaudiofiletyperesolver.cpp
-      taglibext/trueaudio/ttafile.cpp
-      taglibext/trueaudio/ttaproperties.cpp
-      taglibext/wavpack/taglib_wavpackfiletyperesolver.cpp
-      taglibext/wavpack/wvfile.cpp
-      taglibext/wavpack/wvproperties.cpp
-    )
-  endif (TAGLIB_VERSION STREQUAL "1.4")
 
   set(plugin_MOC_HDRS
     taglibmetadataplugin.h

@@ -40,18 +40,11 @@
 /** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
                         ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
-/* Workaround for the wrong TAGLIB_MINOR_VERSION in TagLib 1.8.0 */
-#if defined HAVE_TAGLIB_ID3V23_SUPPORT && TAGLIB_VERSION == 0x010700
-#undef TAGLIB_VERSION
-#define TAGLIB_VERSION 0x010800
-#endif
 
 class QTextCodec;
-#if TAGLIB_VERSION >= 0x010800
 class FileIOStream;
-#endif
 
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+#ifdef TAGLIB_WITH_MP4
   namespace TagLib {
     namespace MP4 {
       class Tag;
@@ -352,7 +345,6 @@ private:
    */
   void readAudioProperties();
 
-#if TAGLIB_VERSION >= 0x010800
   /**
    * Get tracker name of a module file.
    *
@@ -373,7 +365,6 @@ private:
    * or default
    */
   void setId3v2VersionOrDefault(int id3v2Version);
-#endif
 
   /**
    * Get internal name of a Vorbis frame.
@@ -384,7 +375,7 @@ private:
    */
   QString getVorbisName(const Frame& frame) const;
 
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+#ifdef TAGLIB_WITH_MP4
   /**
    * Set a frame in an MP4 tag.
    * @param frame frame to set
@@ -404,23 +395,6 @@ private:
    *         QString::null if unknown.
    */
   static QString getTagFormat(const TagLib::Tag* tag, TagType& type);
-
-#if TAGLIB_VERSION < 0x010800
-  /**
-   * Register open TagLib file, so that the number of open files can be limited.
-   * If the number of open files exceeds a limit, files are closed.
-   *
-   * @param tagLibFile new open file to be registered
-   */
-  static void registerOpenFile(TagLibFile* tagLibFile);
-
-  /**
-   * Deregister open TagLib file.
-   *
-   * @param tagLibFile file which is no longer open
-   */
-  static void deregisterOpenFile(TagLibFile* tagLibFile);
-#endif
 
   /**
    * Set the text codec to be used for tag 1.
@@ -446,10 +420,8 @@ private:
 
   TagLib::FileRef m_fileRef; /**< file reference */
   TagLib::Tag* m_tag[NUM_TAGS];
-#if TAGLIB_VERSION >= 0x010800
   FileIOStream* m_stream;
   int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
-#endif
   int m_activatedFeatures;   /**< TF_ID3v23, TF_ID3v24, or 0 */
 
   /* Cached information updated in readTags() */
@@ -459,7 +431,6 @@ private:
   QString m_fileExtension;
   DetailInfo m_detailInfo;
 
-#if TAGLIB_VERSION >= 0x010700
   class Pictures : public QList<Frame> {
   public:
     Pictures() : m_read(false) {}
@@ -471,15 +442,9 @@ private:
   };
 
   Pictures m_pictures;
-#endif
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
-
-#if TAGLIB_VERSION < 0x010800
-  /** list of TagLib files with open file descriptor */
-  static QList<TagLibFile*> s_openFiles;
-#endif
 };
 
 #endif // TAGLIBFILE_H

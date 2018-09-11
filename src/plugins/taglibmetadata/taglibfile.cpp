@@ -51,32 +51,14 @@
 #include <commentsframe.h>
 #include <attachedpictureframe.h>
 #include <uniquefileidentifierframe.h>
-
-#if TAGLIB_VERSION <= 0x010400
-#include "taglibext/generalencapsulatedobjectframe.h"
-#include "taglibext/urllinkframe.h"
-#include "taglibext/unsynchronizedlyricsframe.h"
-#include "taglibext/speex/speexfile.h"
-#include "taglibext/speex/taglib_speexfiletyperesolver.h"
-#include "taglibext/trueaudio/ttafile.h"
-#include "taglibext/trueaudio/taglib_trueaudiofiletyperesolver.h"
-#include "taglibext/wavpack/wvfile.h"
-#include "taglibext/wavpack/taglib_wavpackfiletyperesolver.h"
-#else
 #include <generalencapsulatedobjectframe.h>
 #include <urllinkframe.h>
 #include <unsynchronizedlyricsframe.h>
 #include <speexfile.h>
 #include <trueaudiofile.h>
 #include <wavpackfile.h>
-#endif
-
-#if TAGLIB_VERSION >= 0x010500
 #include <oggflacfile.h>
 #include <relativevolumeframe.h>
-#endif
-
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
 #include <mp4file.h>
 #endif
@@ -87,13 +69,7 @@
 #include <wavfile.h>
 #include <popularimeterframe.h>
 #include <privateframe.h>
-#endif
-
-#if TAGLIB_VERSION >= 0x010700
 #include <apefile.h>
-#endif
-
-#if TAGLIB_VERSION >= 0x010800
 #include <ownershipframe.h>
 #include <modfile.h>
 #include <s3mfile.h>
@@ -102,16 +78,9 @@
 #ifdef HAVE_TAGLIB_XM_SUPPORT
 #include <xmfile.h>
 #endif
-#endif
-
-#if TAGLIB_VERSION >= 0x010900
 #include <opusfile.h>
-#endif
-
-#if TAGLIB_VERSION >= 0x010901
 #include "taglibext/dsf/dsffiletyperesolver.h"
 #include "taglibext/dsf/dsffile.h"
-#endif
 
 #if TAGLIB_VERSION >= 0x010a00
 #include <synchronizedlyricsframe.h>
@@ -151,14 +120,9 @@ TagLib::String toTString(const QString& s)
 /** Convert TagLib::String @a s to a QString. */
 inline QString toQString(const TagLib::String& s)
 {
-#if TAGLIB_VERSION >= 0x010900
   return QString::fromWCharArray(s.toCWString(), s.size());
-#else
-  return TStringToQString(s);
-#endif
 }
 
-#if TAGLIB_VERSION >= 0x010700
 /**
  * Set a picture frame from a FLAC picture.
  *
@@ -208,12 +172,10 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
   pic->setColorDepth(imgProps.depth());
   pic->setNumColors(imgProps.numColors());
 }
-#endif
 
 }
 
 
-#if TAGLIB_VERSION >= 0x010900
 /**
  * TagLib::RIFF::WAV::File subclass with additional method for id3 chunk name.
  */
@@ -263,10 +225,8 @@ void WavFile::changeToLowercaseId3Chunk()
     setChunkData("id3 ", data);
   }
 }
-#endif
 
 
-#if TAGLIB_VERSION >= 0x010800
 /**
  * Wrapper around TagLib::FileStream which reduces the number of open file
  * descriptors.
@@ -535,10 +495,8 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
       return new TagLib::WavPack::File(stream);
     if (ext == "SPX")
       return new TagLib::Ogg::Speex::File(stream);
-#if TAGLIB_VERSION >= 0x010900
     if (ext == "OPUS")
       return new TagLib::Ogg::Opus::File(stream);
-#endif
     if (ext == "TTA")
       return new TagLib::TrueAudio::File(stream);
     if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
@@ -549,11 +507,7 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "AIF" || ext == "AIFF")
       return new TagLib::RIFF::AIFF::File(stream);
     if (ext == "WAV")
-#if TAGLIB_VERSION >= 0x010900
       return new WavFile(stream);
-#else
-      return new TagLib::RIFF::WAV::File(stream);
-#endif
     if (ext == "APE")
       return new TagLib::APE::File(stream);
     if (ext == "MOD" || ext == "MODULE" || ext == "NST" || ext == "WOW")
@@ -566,10 +520,8 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "XM")
       return new TagLib::XM::File(stream);
 #endif
-#if TAGLIB_VERSION >= 0x010901
     if (ext == "DSF")
       return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
-#endif
   }
   return 0;
 }
@@ -602,7 +554,6 @@ void FileIOStream::deregisterOpenFile(FileIOStream* stream)
 {
   s_openFiles.removeAll(stream);
 }
-#endif
 
 /**
  * Data encoding in ID3v1 tags.
@@ -676,11 +627,6 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 /** Default text encoding */
 TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
 
-#if TAGLIB_VERSION < 0x010800
-/** List of TagLib files with open file descriptor */
-QList<TagLibFile*> TagLibFile::s_openFiles;
-#endif
-
 
 /**
  * Constructor.
@@ -690,10 +636,8 @@ QList<TagLibFile*> TagLibFile::s_openFiles;
 TagLibFile::TagLibFile(const QPersistentModelIndex& idx) :
   TaggedFile(idx),
   m_tagInformationRead(false), m_fileRead(false),
-#if TAGLIB_VERSION >= 0x010800
   m_stream(0),
   m_id3v2Version(0),
-#endif
   m_activatedFeatures(0), m_duration(0)
 {
   FOR_TAGLIB_TAGS(tagNr) {
@@ -728,15 +672,9 @@ QString TagLibFile::taggedFileKey() const
 int TagLibFile::taggedFileFeatures() const
 {
   return TF_ID3v11 | TF_ID3v22 |
-#if TAGLIB_VERSION >= 0x010500
       TF_OggFlac |
-#endif
-#if TAGLIB_VERSION >= 0x010700
       TF_OggPictures |
-#endif
-#if TAGLIB_VERSION >= 0x010800
       TF_ID3v23 |
-#endif
       TF_ID3v24;
 }
 
@@ -776,10 +714,8 @@ void TagLibFile::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   closeFile(true);
-#if TAGLIB_VERSION >= 0x010700
   m_pictures.clear();
   m_pictures.setRead(false);
-#endif
   m_tagInformationRead = false;
   FOR_TAGLIB_TAGS(tagNr) {
     m_hasTag[tagNr] = false;
@@ -802,33 +738,17 @@ void TagLibFile::readTags(bool force)
   QByteArray fn = QFile::encodeName(fileName);
 
   if (force || m_fileRef.isNull()) {
-#if TAGLIB_VERSION >= 0x010800
     delete m_stream;
     m_stream = new FileIOStream(fileName);
     m_fileRef = TagLib::FileRef(FileIOStream::create(m_stream));
-#else
-#if TAGLIB_VERSION > 0x010400 && defined Q_OS_WIN32
-    int fnLen = fileName.length();
-    wchar_t* fnWs = new wchar_t[fnLen + 1];
-    fnWs[fnLen] = 0;
-    fileName.toWCharArray(fnWs);
-    m_fileRef = TagLib::FileRef(TagLib::FileName(fnWs));
-    delete [] fnWs;
-#else
-    m_fileRef = TagLib::FileRef(fn);
-#endif
-    registerOpenFile(this);
-#endif
     FOR_TAGLIB_TAGS(tagNr) {
       m_tag[tagNr] = 0;
       markTagUnchanged(tagNr);
     }
     m_fileRead = true;
 
-#if TAGLIB_VERSION >= 0x010700
     m_pictures.clear();
     m_pictures.setRead(false);
-#endif
   }
 
   TagLib::File* file;
@@ -840,12 +760,8 @@ void TagLibFile::readTags(bool force)
     TagLib::WavPack::File* wvFile;
 #endif
     TagLib::TrueAudio::File* ttaFile;
-#if TAGLIB_VERSION >= 0x010600
     TagLib::RIFF::WAV::File* wavFile;
-#endif
-#if TAGLIB_VERSION >= 0x010700
     TagLib::APE::File* apeFile;
-#endif
     m_fileExtension = QLatin1String(".mp3");
     m_isTagSupported[Frame::Tag_1] = false;
     if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -861,9 +777,7 @@ void TagLibFile::readTags(bool force)
       }
       if (!m_tag[Frame::Tag_2]) {
         TagLib::ID3v2::Tag* id3v2Tag = mpegFile->ID3v2Tag();
-#if TAGLIB_VERSION >= 0x010800
         setId3v2VersionFromTag(id3v2Tag);
-#endif
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
       }
@@ -887,7 +801,6 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_3] = flacFile->ID3v2Tag();
         markTagUnchanged(Frame::Tag_3);
       }
-#if TAGLIB_VERSION >= 0x010700
       if (!m_pictures.isRead()) {
         TagLib::List<TagLib::FLAC::Picture*> pics(flacFile->pictureList());
         int i = 0;
@@ -900,7 +813,6 @@ void TagLibFile::readTags(bool force)
         }
         m_pictures.setRead(true);
       }
-#endif
 #if TAGLIB_VERSION >= 0x010b00
     } else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".mpc");
@@ -936,7 +848,6 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = ttaFile->ID3v2Tag();
         markTagUnchanged(Frame::Tag_2);
       }
-#if TAGLIB_VERSION >= 0x010700
     } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".ape");
       m_isTagSupported[Frame::Tag_1] = true;
@@ -948,8 +859,6 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = apeFile->APETag();
         markTagUnchanged(Frame::Tag_2);
       }
-#endif
-#if TAGLIB_VERSION >= 0x010600
     } else if ((wavFile = dynamic_cast<TagLib::RIFF::WAV::File*>(file)) != 0) {
       m_fileExtension = QLatin1String(".wav");
       m_tag[Frame::Tag_1] = 0;
@@ -958,9 +867,7 @@ void TagLibFile::readTags(bool force)
       m_isTagSupported[Frame::Tag_3] = true;
       if (!m_tag[Frame::Tag_2]) {
         TagLib::ID3v2::Tag* id3v2Tag = wavFile->ID3v2Tag();
-#if TAGLIB_VERSION >= 0x010900
         setId3v2VersionFromTag(id3v2Tag);
-#endif
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
       }
@@ -974,7 +881,6 @@ void TagLibFile::readTags(bool force)
         markTagUnchanged(Frame::Tag_2);
       }
 #endif
-#endif
     } else {
       if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".ogg");
@@ -986,7 +892,6 @@ void TagLibFile::readTags(bool force)
       } else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".wv");
 #endif
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if (dynamic_cast<TagLib::MP4::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".m4a");
@@ -997,8 +902,6 @@ void TagLibFile::readTags(bool force)
 #endif
       } else if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".aiff");
-#endif
-#if TAGLIB_VERSION >= 0x010800
       } else if (dynamic_cast<TagLib::Mod::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".mod");
       } else if (dynamic_cast<TagLib::S3M::File*>(file) != 0) {
@@ -1009,15 +912,10 @@ void TagLibFile::readTags(bool force)
       } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".xm");
 #endif
-#endif
-#if TAGLIB_VERSION >= 0x010900
       } else if (dynamic_cast<TagLib::Ogg::Opus::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".opus");
-#endif
-#if TAGLIB_VERSION >= 0x010901
       } else if (dynamic_cast<DSFFile*>(file) != 0) {
         m_fileExtension = QLatin1String(".dsf");
-#endif
       }
       m_tag[Frame::Tag_1] = 0;
       markTagUnchanged(Frame::Tag_1);
@@ -1073,7 +971,6 @@ void TagLibFile::readTags(bool force)
  */
 void TagLibFile::closeFile(bool force)
 {
-#if TAGLIB_VERSION >= 0x010800
   if (force) {
     m_fileRef = TagLib::FileRef();
     delete m_stream;
@@ -1085,23 +982,6 @@ void TagLibFile::closeFile(bool force)
   } else if (m_stream) {
     m_stream->closeFileHandle();
   }
-#else
-  bool tagChanged = false;
-  FOR_TAGLIB_TAGS(tagNr) {
-    if (isTagChanged(tagNr)) {
-      tagChanged = true;
-      break;
-    }
-  }
-  if (force || !tagChanged) {
-    m_fileRef = TagLib::FileRef();
-    FOR_TAGLIB_TAGS(tagNr) {
-      m_tag[tagNr] = 0;
-    }
-    m_fileRead = false;
-    deregisterOpenFile(this);
-  }
-#endif
 }
 
 /**
@@ -1159,9 +1039,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 {
   QString fnStr(currentFilePath());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
-#if TAGLIB_VERSION >= 0x010800
     closeFile(false);
-#endif
     revertChangedFilename();
     return false;
   }
@@ -1195,19 +1073,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         }
       }
       if (saveMask != 0) {
-#if TAGLIB_VERSION >= 0x010800
         setId3v2VersionOrDefault(id3v2Version);
-#else
-        Q_UNUSED(id3v2Version);
-#endif
-        if (mpegFile->save(saveMask, false
-#if TAGLIB_VERSION >= 0x010800
-                           , m_id3v2Version
-#endif
-#if TAGLIB_VERSION >= 0x010900
-                           , false
-#endif
-                           )) {
+        if (mpegFile->save(saveMask, false, m_id3v2Version, false)) {
           fileChanged = true;
           FOR_TAGLIB_TAGS(tagNr) {
             if (saveMask & tagTypes[tagNr]) {
@@ -1282,7 +1149,6 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           fileChanged = true;
 #endif
         }
-#if TAGLIB_VERSION >= 0x010700
         else if (TagLib::APE::File* apeFile =
                  dynamic_cast<TagLib::APE::File*>(file)) {
           static const int tagTypes[NUM_TAGS] = {
@@ -1298,8 +1164,6 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             }
           }
         }
-#endif
-#if TAGLIB_VERSION >= 0x010700
         else if (TagLib::FLAC::File* flacFile =
             dynamic_cast<TagLib::FLAC::File*>(file)) {
 #if TAGLIB_VERSION >= 0x010b00
@@ -1323,8 +1187,6 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             flacFile->addPicture(pic);
           }
         }
-#endif
-#if TAGLIB_VERSION >= 0x010900
         else if (WavFile* wavFile = dynamic_cast<WavFile*>(file)) {
           static const TagLib::RIFF::WAV::File::TagTypes tagTypes[NUM_TAGS] = {
             TagLib::RIFF::WAV::File::NoTags, TagLib::RIFF::WAV::File::ID3v2,
@@ -1356,7 +1218,6 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             needsSave = false;
           }
         }
-#endif
 #if TAGLIB_VERSION >= 0x010b00
         else if (TagLib::Ogg::XiphComment* xiphComment =
                  dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
@@ -1461,9 +1322,7 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
       TagLib::MPC::File* mpcFile;
       TagLib::WavPack::File* wvFile;
       TagLib::TrueAudio::File* ttaFile;
-#if TAGLIB_VERSION >= 0x010700
       TagLib::APE::File* apeFile;
-#endif
       if (tagNr == Frame::Tag_1) {
         if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
           m_tag[tagNr] = mpegFile->ID3v1Tag(true);
@@ -1477,10 +1336,8 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
 #endif
         } else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
           m_tag[tagNr] = ttaFile->ID3v1Tag(true);
-#if TAGLIB_VERSION >= 0x010700
         } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
           m_tag[tagNr] = apeFile->ID3v1Tag(true);
-#endif
         }
       } else if (tagNr == Frame::Tag_2) {
         if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -1493,15 +1350,11 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
           m_tag[tagNr] = wvFile->APETag(true);
         } else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
           m_tag[tagNr] = ttaFile->ID3v2Tag(true);
-#if TAGLIB_VERSION >= 0x010700
         } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
           m_tag[tagNr] = apeFile->APETag(true);
-#endif
-#if TAGLIB_VERSION >= 0x010900
         } else if (TagLib::RIFF::WAV::File* wavFile =
                    dynamic_cast<TagLib::RIFF::WAV::File*>(file)) {
           m_tag[tagNr] = wavFile->ID3v2Tag();
-#endif
         }
       } else if (tagNr == Frame::Tag_3) {
         if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -1686,23 +1539,15 @@ void TagLibFile::readAudioProperties()
     TagLib::Ogg::Speex::Properties* speexProperties;
     TagLib::TrueAudio::Properties* ttaProperties;
     TagLib::WavPack::Properties* wvProperties;
-#if TAGLIB_VERSION >= 0x010700
     TagLib::APE::Properties* apeProperties;
-#endif
-#if TAGLIB_VERSION >= 0x010800
     TagLib::Mod::Properties* modProperties;
     TagLib::S3M::Properties* s3mProperties;
     TagLib::IT::Properties* itProperties;
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     TagLib::XM::Properties* xmProperties;
 #endif
-#endif
-#if TAGLIB_VERSION >= 0x010900
     TagLib::Ogg::Opus::Properties* opusProperties;
-#endif
-#if TAGLIB_VERSION >= 0x010901
     DSFProperties* dsfProperties;
-#endif
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
@@ -1766,7 +1611,6 @@ void TagLibFile::readAudioProperties()
       m_detailInfo.format += QLatin1Char(' ');
       m_detailInfo.format += QString::number(wvProperties->bitsPerSample());
       m_detailInfo.format += QLatin1String(" bit");
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<TagLib::MP4::Properties*>(audioProperties) != 0) {
       m_detailInfo.format = QLatin1String("MP4");
@@ -1779,16 +1623,12 @@ void TagLibFile::readAudioProperties()
       m_detailInfo.format = QLatin1String("AIFF");
     } else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != 0) {
       m_detailInfo.format = QLatin1String("WAV");
-#endif
-#if TAGLIB_VERSION >= 0x010700
     } else if ((apeProperties =
                 dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != 0) {
       m_detailInfo.format = QString(QLatin1String("APE %1.%2 %3 bit")).
         arg(apeProperties->version() / 1000).
         arg(apeProperties->version() % 1000).
         arg(apeProperties->bitsPerSample());
-#endif
-#if TAGLIB_VERSION >= 0x010800
     } else if ((modProperties =
                 dynamic_cast<TagLib::Mod::Properties*>(audioProperties)) != 0) {
       m_detailInfo.format = QString(QLatin1String("Mod %1 %2 Instruments")).
@@ -1818,19 +1658,14 @@ void TagLibFile::readAudioProperties()
           arg(xmProperties->version(), 0, 16).
           arg(xmProperties->instrumentCount());
 #endif
-#endif
-#if TAGLIB_VERSION >= 0x010900
     } else if ((opusProperties =
           dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != 0) {
       m_detailInfo.format = QString(QLatin1String("Opus %1")).
           arg(opusProperties->opusVersion());
-#endif
-#if TAGLIB_VERSION >= 0x010901
     } else if ((dsfProperties =
           dynamic_cast<DSFProperties*>(audioProperties)) != 0) {
       m_detailInfo.format = QString(QLatin1String("DSF %1")).
           arg(dsfProperties->version());
-#endif
     }
     m_detailInfo.bitrate = audioProperties->bitrate();
     m_detailInfo.sampleRate = audioProperties->sampleRate();
@@ -1843,7 +1678,6 @@ void TagLibFile::readAudioProperties()
   }
 }
 
-#if TAGLIB_VERSION >= 0x010800
 /**
  * Get tracker name of a module file.
  *
@@ -1893,7 +1727,6 @@ void TagLibFile::setId3v2VersionOrDefault(int id3v2Version)
         TagConfig::ID3v2_3_0 ? 3 : 4;
   }
 }
-#endif
 
 /**
  * Get duration of file.
@@ -1939,12 +1772,6 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
       if (header) {
         uint majorVersion = header->majorVersion();
         uint revisionNumber = header->revisionNumber();
-#if (TAGLIB_VERSION <= 0x010400)
-        // A wrong majorVersion is returned if a new ID3v2.4.0 tag is created.
-        if (majorVersion == 0 && revisionNumber == 0) {
-          majorVersion = 4;
-        }
-#endif
         return QString(QLatin1String("ID3v2.%1.%2")).
           arg(majorVersion).arg(revisionNumber);
       } else {
@@ -1956,7 +1783,6 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
     } else if (dynamic_cast<const TagLib::APE::Tag*>(tag) != 0) {
       type = TT_Ape;
       return QLatin1String("APE");
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<const TagLib::MP4::Tag*>(tag) != 0) {
       type = TT_Mp4;
@@ -1966,7 +1792,6 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
     } else if (dynamic_cast<const TagLib::ASF::Tag*>(tag) != 0) {
       type = TT_Asf;
       return QLatin1String("ASF");
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
     } else if (dynamic_cast<const TagLib::RIFF::Info::Tag*>(tag) != 0) {
@@ -2022,40 +1847,16 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MVIN - Movement Number"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MVNM - Movement Name"), true },
 #endif
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "OWNE - Ownership frame"),
-#if TAGLIB_VERSION >= 0x010800
-    true
-#else
-    false
-#endif
-  },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PRIV - Private frame"),
-#if TAGLIB_VERSION >= 0x010600
-      true
-#else
-      false
-#endif
-  },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "OWNE - Ownership frame"), true },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PRIV - Private frame"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCNT - Play counter"), false },
 #if TAGLIB_VERSION >= 0x010b00
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCST - Podcast"), true },
 #endif
-  { Frame::FT_Rating,         QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"),
-#if TAGLIB_VERSION >= 0x010600
-    true
-#else
-    false
-#endif
-  },
+  { Frame::FT_Rating,         QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POSS - Position synchronisation frame"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RBUF - Recommended buffer size"), false },
-  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVA2 - Relative volume adjustment (2)"),
-#if TAGLIB_VERSION >= 0x010500
-    true
-#else
-    false
-#endif
-  },
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVA2 - Relative volume adjustment (2)"), true },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVRB - Reverb"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SEEK - Seek frame"), false },
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SIGN - Signature frame"), false },
@@ -2555,7 +2356,6 @@ static QString getFieldsFromEtcoFrame(
   return QString();
 }
 
-#if TAGLIB_VERSION >= 0x010600
 /**
  * Get the fields from a private frame.
  *
@@ -2619,9 +2419,7 @@ static QString getFieldsFromPopmFrame(
 
   return text;
 }
-#endif
 
-#if TAGLIB_VERSION >= 0x010800
 /**
  * Get the fields from an ownership frame.
  *
@@ -2654,9 +2452,7 @@ static QString getFieldsFromOwneFrame(
 
   return text;
 }
-#endif
 
-#if TAGLIB_VERSION >= 0x010500
 /**
  * Get a string representation of the data in an RVA2 frame.
  * @param rva2Frame RVA2 frame
@@ -2760,7 +2556,6 @@ static QString getFieldsFromRva2Frame(
   fields.push_back(field);
   return text;
 }
-#endif
 
 #if TAGLIB_VERSION >= 0x010a00
 static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index);
@@ -2900,16 +2695,10 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
     const TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
     const TagLib::ID3v2::EventTimingCodesFrame* etcoFrame;
-#if TAGLIB_VERSION >= 0x010600
     const TagLib::ID3v2::PrivateFrame* privFrame;
     const TagLib::ID3v2::PopularimeterFrame* popmFrame;
-#endif
-#if TAGLIB_VERSION >= 0x010800
     const TagLib::ID3v2::OwnershipFrame* owneFrame;
-#endif
-#if TAGLIB_VERSION >= 0x010500
     const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
-#endif
 #if TAGLIB_VERSION >= 0x010a00
     const TagLib::ID3v2::ChapterFrame* chapFrame;
     const TagLib::ID3v2::TableOfContentsFrame* ctocFrame;
@@ -2948,24 +2737,18 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     } else if ((etcoFrame = dynamic_cast<const TagLib::ID3v2::EventTimingCodesFrame*>(
                 frame)) != 0) {
       return getFieldsFromEtcoFrame(etcoFrame, fields);
-#if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<const TagLib::ID3v2::PrivateFrame*>(
                 frame)) != 0) {
       return getFieldsFromPrivFrame(privFrame, fields);
     } else if ((popmFrame = dynamic_cast<const TagLib::ID3v2::PopularimeterFrame*>(
                 frame)) != 0) {
       return getFieldsFromPopmFrame(popmFrame, fields);
-#endif
-#if TAGLIB_VERSION >= 0x010800
     } else if ((owneFrame = dynamic_cast<const TagLib::ID3v2::OwnershipFrame*>(
                 frame)) != 0) {
       return getFieldsFromOwneFrame(owneFrame, fields);
-#endif
-#if TAGLIB_VERSION >= 0x010500
     } else if ((rva2Frame = dynamic_cast<const TagLib::ID3v2::RelativeVolumeFrame*>(
                 frame)) != 0) {
       return getFieldsFromRva2Frame(rva2Frame, fields);
-#endif
 #if TAGLIB_VERSION >= 0x010a00
     } else if ((chapFrame = dynamic_cast<const TagLib::ID3v2::ChapterFrame*>(
                 frame)) != 0) {
@@ -2976,21 +2759,6 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 #endif
     } else {
       TagLib::ByteVector id = frame->frameID();
-#if TAGLIB_VERSION < 0x010500
-      if (id.startsWith("WXXX")) {
-        TagLib::ID3v2::UserUrlLinkFrame userUrlLinkFrame(frame->render());
-        return getFieldsFromUserUrlFrame(&userUrlLinkFrame, fields);
-      } else if (id.startsWith("W")) {
-        TagLib::ID3v2::UrlLinkFrame urlLinkFrame(frame->render());
-        return getFieldsFromUrlFrame(&urlLinkFrame, fields);
-      } else if (id.startsWith("USLT")) {
-        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(frame->render());
-        return getFieldsFromUsltFrame(&usltFrm, fields);
-      } else if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(frame->render());
-        return getFieldsFromGeobFrame(&geobFrm, fields);
-      } else
-#endif
 #if TAGLIB_VERSION < 0x010a00
       if (id.startsWith("SYLT")) {
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(frame->render());
@@ -3267,7 +3035,6 @@ void setOwner(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
   f->setOwner(toTString(fld.m_value.toString()));
 }
 
-#if TAGLIB_VERSION >= 0x010600
 template <>
 void setOwner(TagLib::ID3v2::PrivateFrame* f,
               const Frame::Field& fld)
@@ -3282,7 +3049,6 @@ void setData(TagLib::ID3v2::PrivateFrame* f,
   QByteArray ba(fld.m_value.toByteArray());
   f->setData(TagLib::ByteVector(ba.data(), ba.size()));
 }
-#endif
 
 template <class T>
 void setIdentifier(T*, const Frame::Field&) {}
@@ -3370,7 +3136,6 @@ void setValue(TagLib::ID3v2::SynchronizedLyricsFrame* f, const TagLib::String& t
   f->setDescription(text);
 }
 
-#if TAGLIB_VERSION >= 0x010600
 template <>
 void setValue(TagLib::ID3v2::PrivateFrame* f, const TagLib::String& text)
 {
@@ -3388,7 +3153,6 @@ void setValue(TagLib::ID3v2::PopularimeterFrame* f, const TagLib::String& text)
 {
   f->setRating(text.toInt());
 }
-#endif
 
 template <class T>
 void setText(T* f, const TagLib::String& text)
@@ -3402,7 +3166,6 @@ void setText(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& te
   setStringOrList(f, text);
 }
 
-#if TAGLIB_VERSION >= 0x010600
 template <class T>
 void setEmail(T*, const Frame::Field&) {}
 
@@ -3429,9 +3192,7 @@ void setCounter(TagLib::ID3v2::PopularimeterFrame* f, const Frame::Field& fld)
 {
   f->setCounter(fld.m_value.toUInt());
 }
-#endif
 
-#if TAGLIB_VERSION >= 0x010800
 template <class T>
 void setDate(T*, const Frame::Field&) {}
 
@@ -3473,7 +3234,6 @@ void setValue(TagLib::ID3v2::OwnershipFrame* f, const TagLib::String& text)
 {
   f->setSeller(text);
 }
-#endif
 
 template <class T>
 void setTimestampFormat(T*, const Frame::Field&) {}
@@ -3507,7 +3267,6 @@ void setContentType(TagLib::ID3v2::SynchronizedLyricsFrame* f,
                fld.m_value.toInt()));
 }
 
-#if TAGLIB_VERSION >= 0x010500
 template <>
 void setIdentifier(TagLib::ID3v2::RelativeVolumeFrame* f,
                    const Frame::Field& fld)
@@ -3526,7 +3285,6 @@ void setValue(TagLib::ID3v2::RelativeVolumeFrame* f, const TagLib::String& text)
 {
   rva2FrameFromString(f, text);
 }
-#endif
 
 #if TAGLIB_VERSION >= 0x010a00
 static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
@@ -3716,7 +3474,6 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         case Frame::ID_Url:
           setUrl(tFrame, fld);
           break;
-#if TAGLIB_VERSION >= 0x010600
         case Frame::ID_Email:
           setEmail(tFrame, fld);
           break;
@@ -3726,8 +3483,6 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         case Frame::ID_Counter:
           setCounter(tFrame, fld);
           break;
-#endif
-#if TAGLIB_VERSION >= 0x010800
         case Frame::ID_Price:
           setPrice(tFrame, fld);
           break;
@@ -3737,7 +3492,6 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         case Frame::ID_Seller:
           setSeller(tFrame, fld);
           break;
-#endif
         case Frame::ID_TimestampFormat:
           setTimestampFormat(tFrame, fld);
           break;
@@ -3775,16 +3529,10 @@ static void setId3v2Frame(const TagLibFile* self,
     TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
     TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame;
     TagLib::ID3v2::EventTimingCodesFrame* etcoFrame;
-#if TAGLIB_VERSION >= 0x010600
     TagLib::ID3v2::PrivateFrame* privFrame;
     TagLib::ID3v2::PopularimeterFrame* popmFrame;
-#endif
-#if TAGLIB_VERSION >= 0x010800
     TagLib::ID3v2::OwnershipFrame* owneFrame;
-#endif
-#if TAGLIB_VERSION >= 0x010500
     TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
-#endif
 #if TAGLIB_VERSION >= 0x010a00
     TagLib::ID3v2::ChapterFrame* chapFrame;
     TagLib::ID3v2::TableOfContentsFrame* ctocFrame;
@@ -3832,24 +3580,18 @@ static void setId3v2Frame(const TagLibFile* self,
                 dynamic_cast<TagLib::ID3v2::EventTimingCodesFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(self, etcoFrame, frame);
-#if TAGLIB_VERSION >= 0x010600
     } else if ((privFrame = dynamic_cast<TagLib::ID3v2::PrivateFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(self, privFrame, frame);
     } else if ((popmFrame = dynamic_cast<TagLib::ID3v2::PopularimeterFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(self, popmFrame, frame);
-#endif
-#if TAGLIB_VERSION >= 0x010800
     } else if ((owneFrame = dynamic_cast<TagLib::ID3v2::OwnershipFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(self, owneFrame, frame);
-#endif
-#if TAGLIB_VERSION >= 0x010500
     } else if ((rva2Frame = dynamic_cast<TagLib::ID3v2::RelativeVolumeFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(self, rva2Frame, frame);
-#endif
 #if TAGLIB_VERSION >= 0x010a00
     } else if ((chapFrame = dynamic_cast<TagLib::ID3v2::ChapterFrame*>(
                   id3Frame)) != 0) {
@@ -3862,25 +3604,6 @@ static void setId3v2Frame(const TagLibFile* self,
       TagLib::ByteVector id(id3Frame->frameID());
       // create temporary objects for frames not known by TagLib,
       // an UnknownFrame copy will be created by the edit method.
-#if TAGLIB_VERSION < 0x010500
-      if (id.startsWith("WXXX")) {
-        TagLib::ID3v2::UserUrlLinkFrame userUrlLinkFrame(id3Frame->render());
-        setTagLibFrame(self, &userUrlLinkFrame, frame);
-        id3Frame->setData(userUrlLinkFrame.render());
-      } else if (id.startsWith("W")) {
-        TagLib::ID3v2::UrlLinkFrame urlLinkFrame(id3Frame->render());
-        setTagLibFrame(self, &urlLinkFrame, frame);
-        id3Frame->setData(urlLinkFrame.render());
-      } else if (id.startsWith("USLT")) {
-        TagLib::ID3v2::UnsynchronizedLyricsFrame usltFrm(id3Frame->render());
-        setTagLibFrame(self, &usltFrm, frame);
-        id3Frame->setData(usltFrm.render());
-      } else if (id.startsWith("GEOB")) {
-        TagLib::ID3v2::GeneralEncapsulatedObjectFrame geobFrm(id3Frame->render());
-        setTagLibFrame(self, &geobFrm, frame);
-        id3Frame->setData(geobFrm.render());
-      } else
-#endif
 #if TAGLIB_VERSION < 0x010a00
       if (id.startsWith("SYLT")) {
         TagLib::ID3v2::SynchronizedLyricsFrame syltFrm(id3Frame->render());
@@ -4015,10 +3738,8 @@ static Frame::Type getTypeFromApeName(const QString& name)
       type = Frame::FT_Track;
     } else if (name == QLatin1String("ENCODED BY")) {
       type = Frame::FT_EncodedBy;
-#if TAGLIB_VERSION >= 0x010800
     } else if (name.startsWith(QLatin1String("COVER ART"))) {
       type = Frame::FT_Picture;
-#endif
     }
   }
   return type;
@@ -4043,7 +3764,6 @@ QString TagLibFile::getVorbisName(const Frame& frame) const
   }
 }
 
-#if TAGLIB_VERSION >= 0x010800
 /**
  * Get internal name of an APE picture frame.
  *
@@ -4059,7 +3779,6 @@ static TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
   name += ')';
   return name;
 }
-#endif
 
 /**
  * Get internal name of an APE frame.
@@ -4075,14 +3794,12 @@ static QString getApeName(const Frame& frame)
     return QLatin1String("YEAR");
   } else if (type == Frame::FT_Track) {
     return QLatin1String("TRACK");
-#if TAGLIB_VERSION >= 0x010800
   } else if (type == Frame::FT_Picture) {
     PictureFrame::PictureType pictureType;
     if (!PictureFrame::getPictureType(frame, pictureType)) {
       pictureType = Frame::PT_CoverFront;
     }
     return toQString(getApePictureName(pictureType));
-#endif
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
@@ -4094,9 +3811,7 @@ static QString getApeName(const Frame& frame)
 /** Type of data in MP4 frame. */
 enum Mp4ValueType {
   MVT_ByteArray,
-#if TAGLIB_VERSION >= 0x010602
   MVT_CoverArt,
-#endif
   MVT_String,
   MVT_Bool,
   MVT_Int,
@@ -4169,11 +3884,7 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "cmID", Frame::FT_Other, MVT_UInt },
 #endif
   { "xid ", Frame::FT_Other, MVT_String },
-#if TAGLIB_VERSION >= 0x010602
   { "covr", Frame::FT_Picture, MVT_CoverArt },
-#else
-  { "covr", Frame::FT_Picture, MVT_ByteArray },
-#endif
 #ifdef TAGLIB_WITH_MP4_SHWM
   { "\251wrk", Frame::FT_Other, MVT_String },
   { "\251mvn", Frame::FT_Other, MVT_String },
@@ -4307,7 +4018,7 @@ static void prefixMp4FreeFormName(TagLib::String& name,
                                   const TagLib::MP4::Tag* mp4Tag)
 {
   if (
-#if TAGLIB_VERSION >= 0x011000
+#if TAGLIB_VERSION >= 0x010a00
       !mp4Tag->contains(name)
 #else
       !const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(name)
@@ -4323,7 +4034,7 @@ static void prefixMp4FreeFormName(TagLib::String& name,
       TagLib::String freeFormName = "----:com.apple.iTunes:" + name;
       unsigned int nameLen;
       if (
-#if TAGLIB_VERSION >= 0x011000
+#if TAGLIB_VERSION >= 0x010a00
           !mp4Tag->contains(freeFormName)
 #else
           !const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(
@@ -4333,14 +4044,14 @@ static void prefixMp4FreeFormName(TagLib::String& name,
         // Not an iTunes free form name, maybe using another prefix
         // (such as "----:com.nullsoft.winamp:").
         // Search for a frame which ends with this name.
-#if TAGLIB_VERSION >= 0x011000
+#if TAGLIB_VERSION >= 0x010a00
         const TagLib::MP4::ItemMap& items = mp4Tag->itemMap();
 #else
         const TagLib::MP4::ItemListMap& items =
             const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap();
 #endif
         for (
-#if TAGLIB_VERSION >= 0x011000
+#if TAGLIB_VERSION >= 0x010a00
              TagLib::MP4::ItemMap::ConstIterator it = items.begin();
 #else
              TagLib::MP4::ItemListMap::ConstIterator it = items.begin();
@@ -4411,7 +4122,6 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       }
       return TagLib::MP4::Item(str1.toInt(), str2.toInt());
     }
-#if TAGLIB_VERSION >= 0x010602
     case MVT_CoverArt:
     {
       QByteArray ba;
@@ -4429,15 +4139,12 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       coverArtList.append(coverArt);
       return TagLib::MP4::Item(coverArtList);
     }
-#endif
-#if TAGLIB_VERSION >= 0x010800
     case MVT_Byte:
       return TagLib::MP4::Item(static_cast<uchar>(frame.getValue().toInt()));
     case MVT_UInt:
       return TagLib::MP4::Item(frame.getValue().toUInt());
     case MVT_LongLong:
       return TagLib::MP4::Item(frame.getValue().toLongLong());
-#endif
     case MVT_ByteArray:
     default:
       // binary data and album art are not handled by TagLib
@@ -4445,7 +4152,6 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
   }
 }
 
-#if TAGLIB_VERSION >= 0x010600
 /**
  * Set a frame in an MP4 tag.
  * @param frame frame to set
@@ -4469,7 +4175,6 @@ void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
     markTagChanged(Frame::Tag_2, frame.getType());
   }
 }
-#endif
 #endif
 
 #ifdef TAGLIB_WITH_ASF
@@ -4631,7 +4336,6 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
   }
 }
 
-#if TAGLIB_VERSION >= 0x010700
 /**
  * Get a picture frame from a WM/Picture.
  *
@@ -4679,89 +4383,6 @@ static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
   picture.setDescription(toTString(description));
   picture.setPicture(TagLib::ByteVector(data.data(), data.size()));
 }
-#elif TAGLIB_VERSION >= 0x010602
-/**
- * Get a picture frame from the bytes in a WM/Picture frame.
- * The WM/Picture frame has the following data:
- * 1 byte picture type, 4 bytes (little endian) size of picture data,
- * UTF16_LE mime type, UTF16_LE description, picture data.
- *
- * @param data bytes in WM/Picture frame
- * @param frame the picture frame is returned here
- *
- * @return true if ok.
- */
-static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
-{
-  uint len = data.size();
-  if (len < 10)
-    return false;
-  char pictureType = data[0];
-  if (pictureType < 0 || pictureType > 20)
-    return false;
-  uint picSize =
-     ((unsigned char)data[1] & 0xff)        |
-    (((unsigned char)data[2] & 0xff) << 8)  |
-    (((unsigned char)data[3] & 0xff) << 16) |
-    (((unsigned char)data[4] & 0xff) << 24);
-  if (picSize > len - 9)
-    return false;
-  uint offset = 5;
-  QString mimeType = QString::fromUtf16(
-    reinterpret_cast<const ushort*>(data.mid(offset, len - offset).data()));
-  offset += mimeType.length() * 2 + 2;
-  if (offset >= len - 1)
-    return false;
-  QString description = QString::fromUtf16(
-    reinterpret_cast<const ushort*>(data.mid(offset, len - offset).data()));
-  offset += description.length() * 2 + 2;
-  if (offset > len)
-    return false;
-  TagLib::ByteVector picture = data.mid(offset, len - offset);
-  PictureFrame::setFields(frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
-                          mimeType,
-                          static_cast<PictureFrame::PictureType>(pictureType),
-                          description,
-                          QByteArray(picture.data(), picture.size()));
-  frame.setType(Frame::FT_Picture);
-  return true;
-}
-
-/**
- * Render the bytes of a WM/Picture frame from a picture frame.
- *
- * @param frame picture frame
- * @param data  the bytes for the WM/Picture are returned here
- */
-static void renderAsfPicture(const Frame& frame, TagLib::ByteVector& data)
-{
-  Frame::TextEncoding enc;
-  PictureFrame::PictureType pictureType;
-  QByteArray picture;
-  QString imgFormat, mimeType, description;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
-                          description, picture);
-  if (frame.isValueChanged()) {
-    description = frame.getValue();
-  }
-
-  data.resize(5);
-  data[0] = pictureType;
-  uint size = picture.size();
-  data[1] = size & 0xff;
-  size >>= 8;
-  data[2] = size & 0xff;
-  size >>= 8;
-  data[3] = size & 0xff;
-  size >>= 8;
-  data[4] = size & 0xff;
-  data.append(toTString(mimeType).data(TagLib::String::UTF16LE));
-  data.append(TagLib::ByteVector(2, 0));
-  data.append(toTString(description).data(TagLib::String::UTF16LE));
-  data.append(TagLib::ByteVector(2, 0));
-  data.append(TagLib::ByteVector(picture.data(), picture.size()));
-}
-#endif
 
 /**
  * Get an ASF attribute for a frame.
@@ -4800,25 +4421,16 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
           return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
         }
       }
-#if TAGLIB_VERSION >= 0x010700
       else {
         TagLib::ASF::Picture picture;
         renderAsfPicture(frame, picture);
         return TagLib::ASF::Attribute(picture);
       }
-#elif TAGLIB_VERSION >= 0x010602
-      else {
-        TagLib::ByteVector bv;
-        renderAsfPicture(frame, bv);
-        return TagLib::ASF::Attribute(bv);
-      }
-#endif
   }
   return TagLib::ASF::Attribute();
 }
 #endif
 
-#if TAGLIB_VERSION >= 0x010800
 /**
  * Get a picture frame from the bytes in an APE cover art frame.
  * The cover art frame has the following data:
@@ -4877,7 +4489,6 @@ static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
   data.append('\0');
   data.append(TagLib::ByteVector(picture.constData(), picture.size()));
 }
-#endif
 
 #if TAGLIB_VERSION >= 0x010a00
 /**
@@ -5096,13 +4707,11 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       TagLib::ID3v2::Tag* id3v2Tag;
       TagLib::Ogg::XiphComment* oggTag;
       TagLib::APE::Tag* apeTag;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       TagLib::MP4::Tag* mp4Tag;
 #endif
 #ifdef TAGLIB_WITH_ASF
       TagLib::ASF::Tag* asfTag;
-#endif
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != 0) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
@@ -5117,7 +4726,6 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != 0) {
         QString frameValue(frame.getValue());
         if (frame.getType() == Frame::FT_Picture) {
-#if TAGLIB_VERSION >= 0x010700
           if (m_pictures.isRead()) {
             int idx = frame.getIndex();
             if (idx >= 0 && idx < m_pictures.size()) {
@@ -5144,17 +4752,9 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               oggTag->addField("COVERARTMIME", toTString(mimeType), true);
             }
           }
-#else
-          return false;
-#endif
         }
         TagLib::String key = toTString(getVorbisName(frame));
         TagLib::String value = toTString(frameValue);
-#if TAGLIB_VERSION <= 0x010400
-        // Remove all fields with that key, because TagLib <= 1.4 crashes
-        // using an invalidated iterator after calling erase().
-        oggTag->addField(key, value, true);
-#else
         const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
         if (fieldListMap.contains(key) && fieldListMap[key].size() > 1) {
           int i = 0;
@@ -5177,7 +4777,6 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         } else {
           oggTag->addField(key, value, true);
         }
-#endif
         if (frame.getType() == Frame::FT_Track) {
           int numTracks = getTotalNumberOfTracksIfEnabled();
           if (numTracks > 0) {
@@ -5187,7 +4786,6 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         markTagChanged(tagNr, frame.getType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
-#if TAGLIB_VERSION >= 0x010800
         if (frame.getType() == Frame::FT_Picture) {
           TagLib::ByteVector data;
           renderApePicture(frame, data);
@@ -5203,16 +4801,8 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           apeTag->addValue(toTString(getApeName(frame)),
                            toTString(frame.getValue()));
         }
-#else
-        if (frame.getType() == Frame::FT_Picture) {
-          return false;
-        }
-        apeTag->addValue(toTString(getApeName(frame)),
-                         toTString(frame.getValue()));
-#endif
         markTagChanged(tagNr, frame.getType());
         return true;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
         setMp4Frame(frame, mp4Tag);
@@ -5220,11 +4810,6 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 #endif
 #ifdef TAGLIB_WITH_ASF
       } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != 0) {
-#if !(TAGLIB_VERSION >= 0x010602)
-        if (frame.getType() == Frame::FT_Picture) {
-          return false;
-        }
-#endif
         switch (index) {
           case AFI_Title:
             asfTag->setTitle(toTString(frame.getValue()));
@@ -5277,7 +4862,6 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         }
         markTagChanged(tagNr, frame.getType());
         return true;
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
       } else if (TagLib::RIFF::Info::Tag* infoTag =
@@ -5358,7 +4942,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           bool ok = false;
           if (dynamic_cast<TagLib::ID3v2::Tag*>(tag) != 0) {
             ok = setId3v2Unicode(tag, yearStr, tstr, frameId);
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+#ifdef TAGLIB_WITH_MP4
           } else if (TagLib::MP4::Tag* mp4Tag =
                      dynamic_cast<TagLib::MP4::Tag*>(tag)) {
             TagLib::String name;
@@ -5396,7 +4980,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           QString trackStr = trackNumberString(num, numTracks);
           if (num != static_cast<int>(oldNum)) {
             TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag);
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+#ifdef TAGLIB_WITH_MP4
             TagLib::MP4::Tag* mp4Tag;
 #endif
             if (id3v2Tag) {
@@ -5420,7 +5004,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                 id3v2Tag->addFrame(frame);
 #endif
               }
-#if TAGLIB_VERSION >= 0x010600 && defined TAGLIB_WITH_MP4
+#ifdef TAGLIB_WITH_MP4
             } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(tag)) != 0) {
               // Set a frame in order to store the total number too.
               Frame frame(Frame::FT_Track, str, QLatin1String(""), -1);
@@ -5603,7 +5187,6 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     ((TagLib::ID3v2::SynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
   } else if (frameId == QLatin1String("ETCO")) {
     id3Frame = new TagLib::ID3v2::EventTimingCodesFrame;
-#if TAGLIB_VERSION >= 0x010600
   } else if (frameId == QLatin1String("POPM")) {
     TagLib::ID3v2::PopularimeterFrame* popmFrame =
         new TagLib::ID3v2::PopularimeterFrame;
@@ -5620,15 +5203,10 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
         privFrame->setData(TagLib::ByteVector(data.constData(), data.size()));
       }
     }
-#endif
-#if TAGLIB_VERSION >= 0x010800
   } else if (frameId == QLatin1String("OWNE")) {
     id3Frame = new TagLib::ID3v2::OwnershipFrame(enc);
-#endif
-#if TAGLIB_VERSION >= 0x010500
   } else if (frameId == QLatin1String("RVA2")) {
     id3Frame = new TagLib::ID3v2::RelativeVolumeFrame;
-#endif
 #if TAGLIB_VERSION >= 0x010b00
   } else if (frameId == QLatin1String("PCST")) {
     id3Frame = new TagLib::ID3v2::PodcastFrame;
@@ -5689,13 +5267,11 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       TagLib::ID3v2::Tag* id3v2Tag;
       TagLib::Ogg::XiphComment* oggTag;
       TagLib::APE::Tag* apeTag;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       TagLib::MP4::Tag* mp4Tag;
 #endif
 #ifdef TAGLIB_WITH_ASF
       TagLib::ASF::Tag* asfTag;
-#endif
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != 0) {
         TagLib::ID3v2::Frame* id3Frame = createId3FrameFromFrame(this, frame);
@@ -5736,7 +5312,6 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         QString name(getVorbisName(frame));
         QString value(frame.getValue());
         if (frame.getType() == Frame::FT_Picture) {
-#if TAGLIB_VERSION >= 0x010700
           if (frame.getFieldList().empty()) {
             PictureFrame::setFields(
               frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
@@ -5751,20 +5326,13 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           } else {
             PictureFrame::getFieldsToBase64(frame, value);
           }
-#else
-          return false;
-#endif
         }
         TagLib::String tname = toTString(name);
         TagLib::String tvalue = toTString(value);
         if (tvalue.isEmpty()) {
           tvalue = " "; // empty values are not added by TagLib
         }
-#if TAGLIB_VERSION <= 0x010400
-        oggTag->addField(tname, tvalue);
-#else
         oggTag->addField(tname, tvalue, false);
-#endif
         frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
 
         const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -5784,7 +5352,6 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         markTagChanged(tagNr, frame.getType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
-#if TAGLIB_VERSION >= 0x010800
         if (frame.getType() == Frame::FT_Picture &&
             frame.getFieldList().isEmpty()) {
           // Do not replace an already existing picture.
@@ -5814,18 +5381,6 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           }
           apeTag->addValue(tname, tvalue, true);
         }
-#else
-        if (frame.getType() == Frame::FT_Picture) {
-          return false;
-        }
-        QString name(getApeName(frame));
-        TagLib::String tname = toTString(name);
-        TagLib::String tvalue = toTString(frame.getValue());
-        if (tvalue.isEmpty()) {
-          tvalue = " "; // empty values are not added by TagLib
-        }
-        apeTag->addValue(tname, tvalue, true);
-#endif
         frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
 
         const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -5843,15 +5398,12 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         frame.setIndex(found ? index : -1);
         markTagChanged(tagNr, frame.getType());
         return true;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
-#if TAGLIB_VERSION >= 0x010602
         if (frame.getType() == Frame::FT_Picture &&
             frame.getFieldList().empty()) {
           PictureFrame::setFields(frame);
         }
-#endif
         TagLib::String name;
         TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
         if (!item.isValid()) {
@@ -5879,16 +5431,10 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 #endif
 #ifdef TAGLIB_WITH_ASF
       } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != 0) {
-#if TAGLIB_VERSION >= 0x010602
         if (frame.getType() == Frame::FT_Picture &&
             frame.getFieldList().empty()) {
           PictureFrame::setFields(frame);
         }
-#else
-        if (frame.getType() == Frame::FT_Picture) {
-          return false;
-        }
-#endif
         TagLib::String name;
         TagLib::ASF::Attribute::AttributeTypes valueType;
         getAsfTypeForFrame(frame, name, valueType);
@@ -5920,7 +5466,6 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         frame.setIndex(found ? index : -1);
         markTagChanged(tagNr, frame.getType());
         return true;
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
       } else if (TagLib::RIFF::Info::Tag* infoTag =
@@ -5978,13 +5523,11 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
       TagLib::ID3v2::Tag* id3v2Tag;
       TagLib::Ogg::XiphComment* oggTag;
       TagLib::APE::Tag* apeTag;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       TagLib::MP4::Tag* mp4Tag;
 #endif
 #ifdef TAGLIB_WITH_ASF
       TagLib::ASF::Tag* asfTag;
-#endif
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != 0) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
@@ -5995,7 +5538,6 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         }
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != 0) {
         QString frameValue(frame.getValue());
-#if TAGLIB_VERSION >= 0x010700
         if (frame.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
             int idx = frame.getIndex();
@@ -6012,16 +5554,9 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
             PictureFrame::getFieldsToBase64(frame, frameValue);
           }
         }
-#endif
         TagLib::String key =
           toTString(frame.getInternalName());
-#if TAGLIB_VERSION <= 0x010400
-        // Remove all fields with that key, because TagLib <= 1.4 crashes
-        // using an invalidated iterator after calling erase().
-        oggTag->removeField(key);
-#else
         oggTag->removeField(key, toTString(frameValue));
-#endif
         markTagChanged(tagNr, frame.getType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
@@ -6029,7 +5564,6 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         apeTag->removeItem(key);
         markTagChanged(tagNr, frame.getType());
         return true;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
         TagLib::String name = toTString(frame.getInternalName());
@@ -6089,7 +5623,6 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         markTagChanged(tagNr, frame.getType());
         return true;
 #endif
-#endif
 #if TAGLIB_VERSION >= 0x010a00
       } else if (TagLib::RIFF::Info::Tag* infoTag =
                  dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
@@ -6140,7 +5673,6 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
         }
       }
     }
-#if TAGLIB_VERSION >= 0x010600
   } else if (id3Frame->frameID().startsWith("PRIV")) {
     QVariant fieldValue = frame.getFieldValue(Frame::ID_Owner);
     if (fieldValue.isValid()) {
@@ -6150,7 +5682,6 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
                   frame.getInternalName() + QLatin1Char('\n') + owner));
       }
     }
-#endif
   }
   return frame;
 }
@@ -6176,13 +5707,11 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       TagLib::ID3v2::Tag* id3v2Tag;
       TagLib::Ogg::XiphComment* oggTag;
       TagLib::APE::Tag* apeTag;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       TagLib::MP4::Tag* mp4Tag;
 #endif
 #ifdef TAGLIB_WITH_ASF
       TagLib::ASF::Tag* asfTag;
-#endif
 #endif
       if (flt.areAllEnabled()) {
         if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != 0) {
@@ -6199,9 +5728,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
                it != fieldListMap.end();) {
             oggTag->removeField((*it++).first);
           }
-#if TAGLIB_VERSION >= 0x010700
           m_pictures.clear();
-#endif
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
           const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -6210,7 +5737,6 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             apeTag->removeItem((*it++).first);
           }
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
           mp4Tag->itemListMap().clear();
@@ -6225,7 +5751,6 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           asfTag->setRating("");
           asfTag->attributeListMap().clear();
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
         } else if (TagLib::RIFF::Info::Tag* infoTag =
@@ -6266,11 +5791,9 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
               ++it;
             }
           }
-#if TAGLIB_VERSION >= 0x010700
           if (flt.isEnabled(Frame::FT_Picture)) {
             m_pictures.clear();
           }
-#endif
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
           const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -6284,7 +5807,6 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             }
           }
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
           TagLib::MP4::ItemListMap& itemListMap = mp4Tag->itemListMap();
@@ -6331,7 +5853,6 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           }
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
 #endif
-#endif
 #if TAGLIB_VERSION >= 0x010a00
         } else if (TagLib::RIFF::Info::Tag* infoTag =
                    dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
@@ -6373,13 +5894,11 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
       TagLib::ID3v2::Tag* id3v2Tag;
       TagLib::Ogg::XiphComment* oggTag;
       TagLib::APE::Tag* apeTag;
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       TagLib::MP4::Tag* mp4Tag;
 #endif
 #ifdef TAGLIB_WITH_ASF
       TagLib::ASF::Tag* asfTag;
-#endif
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != 0) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
@@ -6427,7 +5946,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             }
           }
         }
-#if TAGLIB_VERSION >= 0x010700
         if (m_pictures.isRead()) {
           for (Pictures::iterator it = m_pictures.begin();
                it != m_pictures.end();
@@ -6435,7 +5953,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             frames.insert(*it);
           }
         }
-#endif
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != 0) {
         const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
         int i = 0;
@@ -6451,15 +5968,12 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
           Frame frame(type, values.size() > 0
                       ? toQString(values.front()) : QLatin1String(""),
                       name, i++);
-#if TAGLIB_VERSION >= 0x010800
           if (type == Frame::FT_Picture) {
             TagLib::ByteVector data = (*it).second.binaryData();
             parseApePicture(name, data, frame);
           }
-#endif
           frames.insert(frame);
         }
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != 0) {
         const TagLib::MP4::ItemListMap& itemListMap = mp4Tag->itemListMap();
@@ -6497,7 +6011,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               }
               break;
             }
-#if TAGLIB_VERSION >= 0x010602
             case MVT_CoverArt:
             {
               TagLib::MP4::CoverArtList coverArtList = (*it).second.toCoverArtList();
@@ -6518,8 +6031,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               }
               break;
             }
-#endif
-#if TAGLIB_VERSION >= 0x010800
             case MVT_Byte:
               value.setNum((*it).second.toByte());
               break;
@@ -6529,7 +6040,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             case MVT_LongLong:
               value.setNum((*it).second.toLongLong());
               break;
-#endif
             case MVT_ByteArray:
             default:
               // binary data and album art are not handled by TagLib
@@ -6614,27 +6124,13 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               field.m_value = ba;
               frame.fieldList().push_back(field);
             }
-#if TAGLIB_VERSION >= 0x010700
             ++i;
             if (type == Frame::FT_Picture) {
               parseAsfPicture((*ait).toPicture(), frame);
             }
             frames.insert(frame);
-#elif TAGLIB_VERSION >= 0x010602
-            ++i;
-            if (type == Frame::FT_Picture) {
-              parseAsfPicture((*ait).toByteVector(), frame);
-            }
-            frames.insert(frame);
-#else
-            if (type != Frame::FT_Picture) {
-              ++i;
-              frames.insert(frame);
-            }
-#endif
           }
         }
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
       } else if (TagLib::RIFF::Info::Tag* infoTag =
@@ -6713,7 +6209,6 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(QString::fromLatin1(ts.str));
       }
     }
-#if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
   } else if (m_tagType[tagNr] == TT_Mp4) {
     TagLib::String name;
@@ -6746,11 +6241,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       name = "";
       type = static_cast<Frame::Type>(k);
       getAsfNameForType(type, name, valueType);
-      if (!name.isEmpty()
-#if !(TAGLIB_VERSION >= 0x010602)
-          && type != Frame::FT_Picture
-#endif
-        ) {
+      if (!name.isEmpty()) {
         lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
@@ -6759,7 +6250,6 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(QString::fromLatin1(asfNameTypeValues[i].name));
       }
     }
-#endif
 #endif
 #if TAGLIB_VERSION >= 0x010a00
   } else if (m_tagType[tagNr] == TT_Info) {
@@ -6810,15 +6300,8 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       "VERSION",
       "VOLUME"
     };
-#if TAGLIB_VERSION >= 0x010800
     const bool picturesSupported = m_pictures.isRead() ||
         m_tagType[tagNr] == TT_Vorbis || m_tagType[tagNr] == TT_Ape;
-#elif TAGLIB_VERSION >= 0x010700
-    const bool picturesSupported = m_pictures.isRead() ||
-        m_tagType[tagNr] == TT_Vorbis;
-#else
-    const bool picturesSupported = false;
-#endif
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
         lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
@@ -6879,59 +6362,6 @@ void TagLibFile::notifyConfigurationChange()
   setTextCodecV1(id3v1TextCodec);
 }
 
-#if TAGLIB_VERSION < 0x010800
-/**
- * Register open TagLib file, so that the number of open files can be limited.
- * If the number of open files exceeds a limit, files are closed.
- *
- * @param tagLibFile new open file to be registered
- */
-void TagLibFile::registerOpenFile(TagLibFile* tagLibFile)
-{
-  if (s_openFiles.contains(tagLibFile))
-    return;
-
-  int numberOfFilesToClose = s_openFiles.size() - 15;
-  if (numberOfFilesToClose > 5) {
-    QList<TagLibFile*> filesToClose;
-    for (QList<TagLibFile*>::iterator it = s_openFiles.begin();
-         it != s_openFiles.end();
-         ++it) {
-      TagLibFile* tlf = *it;
-      bool tagChanged = false;
-      FOR_TAGLIB_TAGS(tagNr) {
-        if (tlf->isTagChanged(tagNr)) {
-          tagChanged = true;
-          break;
-        }
-      }
-      if (!tagChanged) {
-        filesToClose.append(tlf);
-        if (--numberOfFilesToClose <= 0) {
-          break;
-        }
-      }
-    }
-    for (QList<TagLibFile*>::iterator it = filesToClose.begin();
-         it != filesToClose.end();
-         ++it) {
-      (*it)->closeFile(false);
-    }
-  }
-  s_openFiles.append(tagLibFile);
-}
-
-/**
- * Deregister open TagLib file.
- *
- * @param tagLibFile file which is no longer open
- */
-void TagLibFile::deregisterOpenFile(TagLibFile* tagLibFile)
-{
-  s_openFiles.removeAll(tagLibFile);
-}
-#endif
-
 
 /**
  * Used to register file types at static initialization time.
@@ -6953,11 +6383,6 @@ public:
 private:
   Q_DISABLE_COPY(TagLibInitializer)
 
-#if TAGLIB_VERSION <= 0x010400
-  SpeexFileTypeResolver* m_speexFileTypeResolver;
-  WavPackFileTypeResolver* m_wavPackFileTypeResolver;
-  TTAFileTypeResolver* m_ttaFileTypeResolver;
-#endif
   AACFileTypeResolver* m_aacFileTypeResolver;
   MP2FileTypeResolver* m_mp2FileTypeResolver;
   TextCodecStringHandler* m_textCodecStringHandler;
@@ -6965,11 +6390,6 @@ private:
 
 
 TagLibInitializer::TagLibInitializer() :
-#if TAGLIB_VERSION <= 0x010400
-  m_speexFileTypeResolver(new SpeexFileTypeResolver),
-  m_wavPackFileTypeResolver(new WavPackFileTypeResolver),
-  m_ttaFileTypeResolver(new TTAFileTypeResolver),
-#endif
   m_aacFileTypeResolver(new AACFileTypeResolver),
   m_mp2FileTypeResolver(new MP2FileTypeResolver),
   m_textCodecStringHandler(new TextCodecStringHandler)
@@ -6978,11 +6398,6 @@ TagLibInitializer::TagLibInitializer() :
 
 void TagLibInitializer::init()
 {
-#if TAGLIB_VERSION <= 0x010400
-  TagLib::FileRef::addFileTypeResolver(m_speexFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(m_wavPackFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(m_ttaFileTypeResolver);
-#endif
   TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver);
   TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver);
   TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler);
@@ -6992,11 +6407,6 @@ TagLibInitializer::~TagLibInitializer() {
   delete m_textCodecStringHandler;
   delete m_mp2FileTypeResolver;
   delete m_aacFileTypeResolver;
-#if TAGLIB_VERSION <= 0x010400
-  delete m_ttaFileTypeResolver;
-  delete m_wavPackFileTypeResolver;
-  delete m_speexFileTypeResolver;
-#endif
 }
 
 static TagLibInitializer tagLibInitializer;
