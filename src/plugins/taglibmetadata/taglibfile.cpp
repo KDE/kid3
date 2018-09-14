@@ -955,6 +955,8 @@ void TagLibFile::readTags(bool force)
     setFilename(currentFilename());
   }
 
+  closeFile(false);
+
   notifyModelDataChanged(priorIsTagInformationRead);
 }
 
@@ -1249,9 +1251,10 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
   // On Windows it is necessary to close the file before renaming it,
   // so it is done even if the file is not changed.
 #ifndef Q_OS_WIN32
-  if (fileChanged)
+  closeFile(fileChanged);
+#else
+  closeFile(true);
 #endif
-    closeFile(true);
 
   // restore time stamp
   if (actime || modtime) {
