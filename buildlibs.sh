@@ -199,6 +199,7 @@ if test -z "$COMPILER"; then
     QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
   elif grep -q "^CMAKE_BUILD_TYPE.*=Debug$" kid3/CMakeCache.txt 2>/dev/null; then
     COMPILER=gcc-debug
+    QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
   fi
 fi
 
@@ -418,7 +419,7 @@ test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
 test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
   $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
 
-if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained"; then
+if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
   # See http://doc.qt.io/qt-5/opensslsupport.html
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
@@ -2564,7 +2565,7 @@ if ! test -d openssl-${openssl_version}; then
   cd ..
 fi
 
-elif test "$compiler" = "gcc-self-contained"; then
+elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
 
 if ! test -d openssl-${openssl_version}; then
   echo "### Extracting openssl"
@@ -2734,7 +2735,7 @@ else
     done
   fi
 
-  if test "$compiler" = "gcc-self-contained" && test ! -d openssl-${openssl_version}/inst; then
+  if ( test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" ) && test ! -d openssl-${openssl_version}/inst; then
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
@@ -3198,6 +3199,15 @@ if errorlevel 1 (
 )
 start src\app\qt\kid3
 EOF
+    elif test "$compiler" = "gcc-debug"; then
+      taglib_config_version=$taglib_version
+      taglib_config_version=${taglib_config_version%beta*}
+      cat >kid3/build.sh <<EOF
+#!/bin/bash
+BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
+export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
+cmake -GNinja -DBUILD_SHARED_LIBS=ON -DQT_QMAKE_EXECUTABLE=${QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QT5=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_GCC_PCH=OFF -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+EOF
     else
       taglib_config_version=$taglib_version
       taglib_config_version=${taglib_config_version%beta*}
@@ -3301,6 +3311,8 @@ if [[ $target = *"package"* ]]; then
     ninja package
     _tgz=(kid3-*-Linux.tar.gz)
     test -f "$_tgz" && mv $_tgz ${_tgz%%tar.gz}tgz
+  elif test "$compiler" = "gcc-debug"; then
+    ninja
   else
     if test -f build.ninja; then
       ninja package
