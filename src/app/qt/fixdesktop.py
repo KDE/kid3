@@ -10,7 +10,11 @@ def fix_desktop():
     # displayed, and they do not work unless their action is visible
     # in a toolbar.
     try:
-        is_ubuntu = platform.linux_distribution()[0].lower() == 'ubuntu'
+        try:
+            import distro
+            is_ubuntu = distro.id() == 'ubuntu'
+        except:
+            is_ubuntu = platform.linux_distribution()[0].lower() == 'ubuntu'
     except:
         is_ubuntu = False
     if is_ubuntu:
