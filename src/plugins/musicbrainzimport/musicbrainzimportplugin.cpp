@@ -27,10 +27,6 @@
 #include "musicbrainzimportplugin.h"
 #include "musicbrainzimporter.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(MusicBrainzImportPlugin, MusicBrainzImportPlugin)
-#endif
-
 static const QLatin1String IMPORTER_NAME("MusicBrainzImport");
 
 /*!

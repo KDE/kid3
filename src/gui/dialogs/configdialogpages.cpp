@@ -381,15 +381,6 @@ QWidget* ConfigDialogPages::createFilesPage()
        ++it) {
     QString nameFilter = m_platformTools->fileDialogNameFilter(
           QList<QPair<QString, QString> >() << *it);
-#if QT_VERSION < 0x050000
-    // Filters from the KDE 4 file dialog are not consistent, filter uses
-    // something like "*.mp3|MP3 (*.mp3)", but the current filter returns only
-    // something like "*.mp3".
-    int pipeIndex = nameFilter.indexOf(QLatin1Char('|'));
-    if (pipeIndex != -1) {
-      nameFilter = nameFilter.left(pipeIndex);
-    }
-#endif
     m_nameFilterComboBox->addItem(it->first, nameFilter);
   }
   nameFilterLabel->setBuddy(m_nameFilterComboBox);
@@ -723,12 +714,7 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setPreserveTime(m_preserveTimeCheckBox->isChecked());
   fileCfg.setMarkChanges(m_markChangesCheckBox->isChecked());
   fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
-#if QT_VERSION >= 0x050200
   fileCfg.setNameFilter(m_nameFilterComboBox->currentData().toString());
-#else
-  fileCfg.setNameFilter(m_nameFilterComboBox->itemData(
-                          m_nameFilterComboBox->currentIndex()).toString());
-#endif
   fileCfg.setIncludeFolders(
         folderPatternListFromString(m_includeFoldersLineEdit->text(), true));
   fileCfg.setExcludeFolders(

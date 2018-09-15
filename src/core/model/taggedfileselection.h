@@ -165,7 +165,6 @@ public:
    */
   QString getTagFormat(Frame::TagNumber tagNr) const;
 
-#if QT_VERSION >= 0x050000
   /**
    * Get context for tag.
    * @param tagNr tag number
@@ -174,16 +173,6 @@ public:
   Q_INVOKABLE TaggedFileSelectionTagContext* tag(Frame::TagNumber tagNr) const {
     return m_tagContext[tagNr];
   }
-#else
-  /**
-   * Get context for tag.
-   * @param tagNr tag number, for Qt 4 an int to be usable in QML
-   * @return tag context.
-   */
-  Q_INVOKABLE TaggedFileSelectionTagContext* tag(int tagNr) const {
-    return m_tagContext[tagNr];
-  }
-#endif
 
   /**
    * Check if filename is changed.

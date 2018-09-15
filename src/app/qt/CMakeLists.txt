@@ -20,7 +20,7 @@ set(qt_MOC_HDRS
   shortcutsmodel.h
   shortcutsdelegate.h
 )
-qt4_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS})
+qt5_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS})
 set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
 
 if (APPLE)
@@ -104,7 +104,7 @@ endif (UNIX AND NOT APPLE)
 
 add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
 set(qt_RESOURCES kid3.qrc)
-qt4_add_resources(qt_GEN_RCS ${qt_RESOURCES})
+qt5_add_resources(qt_GEN_RCS ${qt_RESOURCES})
 add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
   ${qt_SRCS} ${qt_GEN_RCS})
 
@@ -165,43 +165,32 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   if (LINUX_SELF_CONTAINED)
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}")
   endif ()
-  if (HAVE_QT5)
-    if (APPLE)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-        DESTINATION kid3.app/Contents/MacOS
-        FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                       PATTERN "*.dSYM" EXCLUDE)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                       PATTERN "*.dSYM" EXCLUDE)
-    elseif (WIN32)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    elseif (LINUX_SELF_CONTAINED)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    endif (APPLE)
-  endif (HAVE_QT5)
-
-  if (HAVE_PHONON)
-    install(DIRECTORY "${QT_PLUGINS_DIR}/phonon_backend"
+  if (APPLE)
+    install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+      DESTINATION kid3.app/Contents/MacOS
+      FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                     PATTERN "*.dSYM" EXCLUDE)
+    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
       DESTINATION ${plugin_dest_dir}
-      FILES_MATCHING
-        PATTERN "*d4${CMAKE_SHARED_LIBRARY_SUFFIX}" EXCLUDE
-        PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}"
-        PATTERN "*.dSYM" EXCLUDE)
-  endif (HAVE_PHONON)
+      FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                     PATTERN "*.dSYM" EXCLUDE)
+  elseif (WIN32)
+    install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+  elseif (LINUX_SELF_CONTAINED)
+    install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+  endif (APPLE)
 
   if (CMAKE_CROSSCOMPILING AND NOT APPLE)
     # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
@@ -256,29 +245,16 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 endif (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
 if (WIN32)
-  if (NOT HAVE_QT5)
-    # Unfortunately, the binutils which come with the gcc-4.4.0 in the MinGW
-    # for Qt generate an executable which cannot be analyzed with dumpbin.
-    # This happens when Kid3 is linked with libav (used with Chromaprint).
-    # Therefore, the dependencies for kid3.exe are not added to the bundle.
-    # This workaround adds the missing files.
-    install(FILES "${QT_BINARY_DIR}/QtNetwork4.dll"
-                  "${QT_BINARY_DIR}/QtXml4.dll"
-                  "${QT_BINARY_DIR}/libwinpthread-1.dll"
-                  "${QT_BINARY_DIR}/libiconv-2.dll"
-            DESTINATION ${WITH_BINDIR})
-  else (NOT HAVE_QT5)
-    # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
-    # A folder with reduced ICU libraries can be copied to the Qt bin directory.
-    get_target_property(_qtBinDir Qt5::Core LOCATION)
-    get_filename_component(_qtBinDir ${_qtBinDir} PATH)
-    install(DIRECTORY "${_qtBinDir}/icu_reduced/"
-            DESTINATION ${WITH_BINDIR} OPTIONAL)
-    # Install missing DLLs.
-    file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
-    install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
-            DESTINATION ${WITH_BINDIR})
-  endif (NOT HAVE_QT5)
+  # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
+  # A folder with reduced ICU libraries can be copied to the Qt bin directory.
+  get_target_property(_qtBinDir Qt5::Core LOCATION)
+  get_filename_component(_qtBinDir ${_qtBinDir} PATH)
+  install(DIRECTORY "${_qtBinDir}/icu_reduced/"
+          DESTINATION ${WITH_BINDIR} OPTIONAL)
+  # Install missing DLLs.
+  file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
+  install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
+          DESTINATION ${WITH_BINDIR})
 endif (WIN32)
 
 if (LINUX_SELF_CONTAINED)

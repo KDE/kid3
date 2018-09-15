@@ -28,10 +28,6 @@
 #include "freedbimporter.h"
 #include "tracktypeimporter.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(FreedbImportPlugin, FreedbImportPlugin)
-#endif
-
 static const QLatin1String FREEDB_IMPORTER_NAME("FreedbImport");
 static const QLatin1String TRACKTYPE_IMPORTER_NAME("TrackTypeImport");
 

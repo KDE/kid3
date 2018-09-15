@@ -16,7 +16,7 @@ if (WITH_GCC_PCH)
   add_definitions(${GCC_PCH_COMPILE_FLAGS})
 endif (WITH_GCC_PCH)
 
-qt4_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS})
+qt5_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS})
 
 add_library(kid3-core ${core_SRCS} ${core_GEN_MOC_SRCS})
 set_target_properties(kid3-core PROPERTIES VERSION ${KID3_VERSION})

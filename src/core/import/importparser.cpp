@@ -138,11 +138,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
     m_trackIncrNr = 0;
   }
 
-#if QT_VERSION >= 0x050100
   m_pattern.remove(QRegularExpression(QLatin1String("%\\{[^}]+\\}")));
-#else
-  m_pattern.remove(QRegExp(QLatin1String("%\\{[^}]+\\}")));
-#endif
   m_re.setPattern(m_pattern);
 }
 
@@ -157,18 +153,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
  */
 bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int& pos)
 {
-/** @cond */
-#if QT_VERSION >= 0x050100
   QRegularExpressionMatch match;
-#define m_re_indexIn(s, i) (match = m_re.match(s, i)).capturedStart()
-#define m_re_cap(i) match.captured(i)
-#define m_re_matchedLength() match.capturedLength()
-#else
-#define m_re_indexIn(s, i) m_re.indexIn(s, i)
-#define m_re_cap(i) m_re.cap(i)
-#define m_re_matchedLength() m_re.matchedLength()
-#endif
-/** @endcond */
   int idx, oldpos = pos;
   if (m_pattern.isEmpty()) {
     m_trackDuration.clear();
@@ -180,8 +165,8 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
     m_trackDuration.clear();
     int dsp = 0; // "duration search pos"
     int lastDsp = dsp;
-    while ((idx = m_re_indexIn(text, dsp)) != -1) {
-      QString durationStr = m_re_cap(m_codePos[QLatin1String("__duration")]);
+    while ((idx = (match = m_re.match(text, dsp)).capturedStart()) != -1) {
+      QString durationStr = match.captured(m_codePos[QLatin1String("__duration")]);
       int duration;
       QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
       if (durationRe.indexIn(durationStr) != -1) {
@@ -192,7 +177,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
       }
       m_trackDuration.append(duration);
 
-      dsp = idx + m_re_matchedLength();
+      dsp = idx + match.capturedLength();
       if (dsp > lastDsp) { /* avoid endless loop */
         lastDsp = dsp;
       } else {
@@ -200,12 +185,12 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
       }
     }
   }
-  if ((idx = m_re_indexIn(text, pos)) != -1) {
+  if ((idx = (match = m_re.match(text, pos)).capturedStart()) != -1) {
     for (QMap<QString, int>::iterator it = m_codePos.begin();
          it != m_codePos.end();
          ++it) {
       QString name = it.key();
-      QString str = m_re_cap(*it);
+      QString str = match.captured(*it);
       if (!str.isEmpty() && !name.startsWith(QLatin1String("__"))) {
         frames.setValue(Frame::ExtendedType(name), str);
       }
@@ -213,7 +198,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
     if (m_trackIncrEnabled) {
       frames.setTrack(m_trackIncrNr++);
     }
-    pos = idx + m_re_matchedLength();
+    pos = idx + match.capturedLength();
     if (pos > oldpos) { /* avoid endless loop */
       return true;
     }

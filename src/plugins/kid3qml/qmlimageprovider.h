@@ -30,11 +30,7 @@
 #include <QtGlobal>
 #include "pixmapprovider.h"
 
-#if QT_VERSION >= 0x050000
 #include <QQuickImageProvider>
-#else
-#include <QDeclarativeImageProvider>
-#endif
 
 /**
  * Image provider to get images from QML code.
@@ -44,13 +40,7 @@
  * - "data" followed by a changing string to force loading of the image set with
  *   TaggedFileIconProvider::setImageData().
  */
-class QmlImageProvider : public 
-#if QT_VERSION >= 0x050000
-QQuickImageProvider
-#else
-QDeclarativeImageProvider
-#endif
-, public PixmapProvider {
+class QmlImageProvider : public QQuickImageProvider, public PixmapProvider {
 public:
   /**
    * Constructor.

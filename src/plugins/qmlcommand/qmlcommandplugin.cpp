@@ -26,7 +26,6 @@
 
 #include "qmlcommandplugin.h"
 #include <QDir>
-#if QT_VERSION >= 0x050000
 #ifndef NDEBUG
 #define QT_QML_DEBUG
 #endif
@@ -35,28 +34,7 @@
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QTimer>
-#else
-#include <QDeclarativeView>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
-#include <QDeclarativeComponent>
-#include <QDeclarativeItem>
-#include <QCloseEvent>
-#endif
 #include "kid3application.h"
-
-#if QT_VERSION < 0x050000
-//! @cond
-#define QQmlEngine QDeclarativeEngine
-#define QQuickView QmlView
-#define QQmlComponent QDeclarativeComponent
-#define QQmlError QDeclarativeError
-//! @endcond
-#endif
-
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(QmlCommandPlugin, QmlCommandPlugin)
-#endif
 
 /**
  * Constructor.
@@ -194,15 +172,9 @@ void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
     engine->addImportPath(pluginsDir.absolutePath());
   }
   engine->rootContext()->setContextProperty(QLatin1String("app"), m_app);
-#if QT_VERSION >= 0x050000
   connect(engine, SIGNAL(warnings(QList<QQmlError>)),
           this, SLOT(onEngineError(QList<QQmlError>)),
           Qt::UniqueConnection);
-#else
-  connect(engine, SIGNAL(warnings(QList<QDeclarativeError>)),
-          this, SLOT(onEngineError(QList<QDeclarativeError>)),
-          Qt::UniqueConnection);
-#endif
 }
 
 /**
@@ -248,7 +220,6 @@ void QmlCommandPlugin::onQmlViewFinished()
 {
   if (m_qmlView) {
     m_qmlView->close();
-#if QT_VERSION >= 0x050000
     // Unfortunately, calling close() on the QQuickView will not give a
     // QEvent::Close in an installed event filter, there is no closeEvent(),
     // closing() is not signalled. What remains is the hard way.
@@ -257,7 +228,6 @@ void QmlCommandPlugin::onQmlViewFinished()
     // then a qml script is started.
     m_qmlView = 0;
     QTimer::singleShot(0, this, SLOT(onEngineFinished()));
-#endif
   }
 }
 
@@ -278,11 +248,7 @@ void QmlCommandPlugin::onQmlEngineQuit()
 void QmlCommandPlugin::onEngineFinished()
 {
   if (m_showOutput) {
-#if QT_VERSION >= 0x050000
     qInstallMessageHandler(0);
-#else
-    qInstallMsgHandler(0);
-#endif
     s_messageHandlerInstance = 0;
   }
 }
@@ -294,11 +260,7 @@ void QmlCommandPlugin::onEngineReady()
 {
   if (m_showOutput) {
     s_messageHandlerInstance = this;
-#if QT_VERSION >= 0x050000
     qInstallMessageHandler(messageHandler);
-#else
-    qInstallMsgHandler(messageHandler);
-#endif
   }
 }
 
@@ -308,46 +270,9 @@ QmlCommandPlugin* QmlCommandPlugin::s_messageHandlerInstance = 0;
 /**
  * Message handler emitting commandOutput().
  */
-#if QT_VERSION >= 0x050000
 void QmlCommandPlugin::messageHandler(QtMsgType, const QMessageLogContext&, const QString& msg)
 {
   if (s_messageHandlerInstance) {
     emit s_messageHandlerInstance->commandOutput(msg);
   }
 }
-#else
-void QmlCommandPlugin::messageHandler(QtMsgType, const char* msg)
-{
-  if (s_messageHandlerInstance) {
-    emit s_messageHandlerInstance->commandOutput(QString::fromUtf8(msg));
-  }
-}
-#endif
-
-
-#if QT_VERSION < 0x050000
-/**
- * Constructor.
- * @param parent parent widget
- */
-QmlView::QmlView(QWidget* parent) : QDeclarativeView(parent)
-{
-}
-
-/**
- * Destructor.
- */
-QmlView::~QmlView()
-{
-}
-
-/**
- * Handle close event.
- * @param ev close event
- */
-void QmlView::closeEvent(QCloseEvent* ev)
-{
-  ev->accept();
-  emit closing(0);
-}
-#endif

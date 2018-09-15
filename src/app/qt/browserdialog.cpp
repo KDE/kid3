@@ -59,7 +59,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 
   QLocale locale;
   QStringList docPaths;
-#if QT_VERSION >= 0x040800 && !defined Q_OS_WIN32
+#ifndef Q_OS_WIN32
   foreach (const QString& uiLang, locale.uiLanguages()) {
     QString lang(uiLang.left(2));
     docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");

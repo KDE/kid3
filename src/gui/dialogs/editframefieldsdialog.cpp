@@ -38,10 +38,8 @@
 #include <QBuffer>
 #include <QVBoxLayout>
 #include <QMimeData>
-#if QT_VERSION >= 0x050000
 #include <QMimeDatabase>
 #include <QMimeType>
-#endif
 #include "kid3application.h"
 #include "imageviewer.h"
 #include "taggedfile.h"
@@ -842,7 +840,6 @@ void BinaryOpenSave::loadData()
 void BinaryOpenSave::saveData()
 {
   QString dir = m_defaultDir.isEmpty() ? m_app->getDirName() : m_defaultDir;
-#if QT_VERSION >= 0x050000
   QString fileName(m_defaultFile);
   if (fileName.isEmpty()) {
     fileName = QLatin1String("untitled");
@@ -862,15 +859,6 @@ void BinaryOpenSave::saveData()
     dir += QLatin1Char('.');
     dir += suffix;
   }
-#else
-  if (!m_defaultFile.isEmpty()) {
-    QChar separator = QDir::separator();
-    if (!dir.endsWith(separator)) {
-      dir += separator;
-    }
-    dir += m_defaultFile;
-  }
-#endif
   QString fn = m_platformTools->getSaveFileName(
         this, QString(), dir, m_filter, 0);
   if (!fn.isEmpty()) {
@@ -893,9 +881,7 @@ void BinaryOpenSave::copyData()
     QImage image;
     if (image.loadFromData(m_byteArray)) {
       cb->setImage(image, QClipboard::Clipboard);
-    }
-#if QT_VERSION >= 0x050000
-    else {
+    } else {
       QMimeDatabase mimeDb;
       QString mimeType = mimeDb.mimeTypeForData(m_byteArray).name();
       if (!mimeType.isEmpty()) {
@@ -904,7 +890,6 @@ void BinaryOpenSave::copyData()
         cb->setMimeData(mimeData);
       }
     }
-#endif
   }
 }
 

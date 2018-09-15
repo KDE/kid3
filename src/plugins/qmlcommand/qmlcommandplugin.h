@@ -28,20 +28,12 @@
 #define QMLCOMMANDPLUGIN_H
 
 #include <QObject>
-#if QT_VERSION < 0x050000
-#include <QDeclarativeView>
-#endif
 #include "iusercommandprocessor.h"
 
 class Kid3Application;
-#if QT_VERSION >= 0x050000
 class QQuickView;
 class QQmlEngine;
 class QQmlError;
-#else
-class QDeclarativeEngine;
-class QQuickCloseEvent;
-#endif
 
 /**
  * Starter for QML scripts.
@@ -49,9 +41,7 @@ class QQuickCloseEvent;
 class KID3_PLUGIN_EXPORT QmlCommandPlugin :
     public QObject, public IUserCommandProcessor {
   Q_OBJECT
-#if QT_VERSION >= 0x050000
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IUserCommandProcessor")
-#endif
   Q_INTERFACES(IUserCommandProcessor)
 public:
   /**
@@ -111,76 +101,25 @@ signals:
   void commandOutput(const QString& msg);
 
 private slots:
-#if QT_VERSION >= 0x050000
   void onEngineError(const QList<QQmlError>& errors);
-#else
-  void onEngineError(const QList<QDeclarativeError>& errors);
-#endif
   void onQmlViewClosing();
   void onQmlViewFinished();
   void onQmlEngineQuit();
   void onEngineFinished();
 
 private:
-#if QT_VERSION >= 0x050000
   void setupQmlEngine(QQmlEngine* engine);
-#else
-  void setupQmlEngine(QDeclarativeEngine* engine);
-#endif
   void onEngineReady();
 
-#if QT_VERSION >= 0x050000
   static void messageHandler(QtMsgType type, const QMessageLogContext& context,
                              const QString& msg);
-#else
-  static void messageHandler(QtMsgType type, const char* msg);
-#endif
 
   Kid3Application* m_app;
-#if QT_VERSION >= 0x050000
   QQuickView* m_qmlView;
   QQmlEngine* m_qmlEngine;
-#else
-  QDeclarativeView* m_qmlView;
-  QDeclarativeEngine* m_qmlEngine;
-#endif
   bool m_showOutput;
 
   static QmlCommandPlugin* s_messageHandlerInstance;
 };
-
-#if QT_VERSION < 0x050000
-/**
- * QDeclarativeView with a closing signal.
- */
-class QmlView : public QDeclarativeView {
-  Q_OBJECT
-public:
-  /**
-   * Constructor.
-   * @param parent parent widget
-   */
-  explicit QmlView(QWidget* parent = 0);
-
-  /**
-   * Destructor.
-   */
-  virtual ~QmlView();
-
-signals:
-  /**
-   * Emitted when window is closed.
-   * @param ev close event, always 0, just for compatibility with Qt 5
-   */
-  void closing(QQuickCloseEvent* ev);
-
-protected:
-  /**
-   * Handle close event.
-   * @param ev close event
-   */
-  virtual void closeEvent(QCloseEvent* ev);
-};
-#endif
 
 #endif // QMLCOMMANDPLUGIN_H

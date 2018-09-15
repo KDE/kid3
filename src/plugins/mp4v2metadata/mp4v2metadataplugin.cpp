@@ -27,10 +27,6 @@
 #include "mp4v2metadataplugin.h"
 #include "m4afile.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Mp4v2MetadataPlugin, Mp4v2MetadataPlugin)
-#endif
-
 static const QLatin1String TAGGEDFILE_KEY("Mp4v2Metadata");
 
 /*!

@@ -33,14 +33,11 @@ WITH_ID3LIB: build with id3lib
 WITH_VORBIS: build with Ogg/Vorbis
 WITH_FLAC: build with FLAC
 WITH_CHROMAPRINT: build with Chromaprint
-WITH_PHONON: build with Phonon
 WITH_DBUS: build with D-Bus
 WITH_READLINE: build with readline
 
 The following options are OFF by default and can be set to ON to enable:
 
-WITH_QT4: force use of Qt4
-WITH_QT5: force use of Qt5
 WITH_MP4V2: build with mp4v2
 WITH_FFMPEG: force use of FFmpeg for Chromaprint decoding
 WITH_CHROMAPRINT_FFMPEG: link FFmpeg only for Chromaprint FFT

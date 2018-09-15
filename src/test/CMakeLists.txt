@@ -26,7 +26,7 @@ testmusicbrainzreleaseimportparser.h
 testdiscogsimporter.h
 )
 
-qt4_wrap_cpp(test_GEN_MOC_SRCS ${test_MOC_HDRS})
+qt5_wrap_cpp(test_GEN_MOC_SRCS ${test_MOC_HDRS})
 add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
 add_executable(kid3-test ${test_SRCS} ${test_GEN_MOC_SRCS})
 target_link_libraries(kid3-test kid3-core ${QT_QTTEST_LIBRARY} -lstdc++)

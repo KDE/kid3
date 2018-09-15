@@ -29,10 +29,8 @@
 #include <QImage>
 #include <QBuffer>
 #include <QCoreApplication>
-#if QT_VERSION >= 0x050000
 #include <QMimeDatabase>
 #include <QMimeType>
-#endif
 
 namespace {
 
@@ -601,40 +599,8 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
 QString PictureFrame::getMimeTypeForFile(const QString& fileName,
                                          QString* imgFormat)
 {
-#if QT_VERSION >= 0x050000
   QMimeDatabase mimeDb;
   QString mimeType = mimeDb.mimeTypeForFile(fileName).name();
-#else
-  static const struct {
-    const char* ext;
-    const char* type;
-  } extType[] = {
-  { ".jpg",  "image/jpeg" },
-  { ".jpeg", "image/jpeg" },
-  { ".png",  "image/png" },
-  { ".gif",  "image/gif" },
-  { ".ico",  "image/vnd.microsoft.icon" },
-  { ".svg",  "image/svg+xml" },
-  { ".txt",  "text/plain" },
-  { ".html", "text/html" },
-  { ".htm",  "text/html" },
-  { ".css",  "text/css" },
-  { ".pdf",  "application/pdf" },
-  { ".bin",  "application/octet-stream" },
-  { ".js",   "application/javascript" },
-  { ".json", "application/json" },
-  { ".woff", "application/font-woff" },
-  { ".ttf",  "application/font-sfnt" },
-  { ".eot",  "application/vnd.ms-fontobject" }
-  };
-  QString mimeType;
-  for (unsigned int i = 0; i < sizeof extType / sizeof extType[0]; ++i) {
-    if (fileName.endsWith(QLatin1String(extType[i].ext), Qt::CaseInsensitive)) {
-      mimeType = QString::fromLatin1(extType[i].type);
-      break;
-    }
-  }
-#endif
   if (imgFormat) {
     if (mimeType == QLatin1String("image/jpeg")) {
       *imgFormat = QLatin1String("JPG");

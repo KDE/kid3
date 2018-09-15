@@ -39,10 +39,6 @@
 #include "mainwindowconfig.h"
 #include "config.h"
 
-#if QT_VERSION < 0x050000
-Q_DECLARE_METATYPE(QModelIndex)
-#endif
-
 namespace {
 
 /**
@@ -81,11 +77,7 @@ QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVari
 {
   QList<QPersistentModelIndex> indexes;
   foreach (const QVariant& var, lst) {
-#if QT_VERSION >= 0x050000
     indexes.append(var.toModelIndex());
-#else
-    indexes.append(qvariant_cast<QModelIndex>(var));
-#endif
   }
   return indexes;
 }

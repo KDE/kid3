@@ -82,13 +82,7 @@ void TaggedFileIconProvider::createIcons()
   QFont font(QLatin1String("helvetica"));
   font.setPixelSize(halfHeight);
   QFont smallFont(font);
-  smallFont.setStretch(
-#if QT_VERSION >= 0x050000
-        QFont::Condensed
-#else
-        QFont::SemiCondensed
-#endif
-        );
+  smallFont.setStretch(QFont::Condensed);
   for (unsigned i = 0; i < sizeof(idTexts) / sizeof(idTexts[0]); ++i) {
     const char* text1 = idTexts[i].text1;
     const char* text2 = idTexts[i].text2;

@@ -69,9 +69,7 @@ class Kid3ApplicationTagContext;
 class IAbortable;
 class ICorePlatformTools;
 class IUserCommandProcessor;
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class AudioPlayer;
-#endif
 class PixmapProvider;
 class FrameEditorObject;
 
@@ -293,7 +291,6 @@ public:
    */
   BatchImporter* getBatchImporter() { return m_batchImporter; }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Get audio player.
    * This method will create an audio player if it does not already exist.
@@ -307,9 +304,7 @@ public:
    * Delete audio player.
    */
   void deleteAudioPlayer();
-#endif
 
-#if QT_VERSION >= 0x050000
   /**
    * Get context for tag.
    * @param tagNr tag number
@@ -318,16 +313,6 @@ public:
   Q_INVOKABLE Kid3ApplicationTagContext* tag(Frame::TagNumber tagNr) const {
     return m_tagContext[tagNr];
   }
-#else
-  /**
-   * Get context for tag.
-   * @param tagNr tag number, for Qt 4 an int to be usable in QML
-   * @return tag context.
-   */
-  Q_INVOKABLE Kid3ApplicationTagContext* tag(int tagNr) const {
-    return m_tagContext[tagNr];
-  }
-#endif
 
   /**
    * Get current index in file proxy model or root index if current index is
@@ -1177,7 +1162,6 @@ public slots:
    */
   bool batchImport(const QString& profileName, Frame::TagVersion tagVersion);
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
    */
@@ -1198,7 +1182,6 @@ public slots:
    * Deactivate the MPRIS D-Bus Interface if it is active.
    */
   void deactivateMprisInterface();
-#endif
 #endif
 
   /**
@@ -1517,12 +1500,10 @@ private:
   DirRenamer* m_dirRenamer;
   /** Batch importer */
   BatchImporter* m_batchImporter;
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Audio player */
   AudioPlayer* m_player;
 #ifdef HAVE_QTDBUS
   QString m_mprisServiceName;
-#endif
 #endif
   FileFilter* m_expressionFileFilter;
   /** Information about selected tagged files */

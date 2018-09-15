@@ -80,12 +80,8 @@
 #include "dirrenamer.h"
 #include "iplatformtools.h"
 #include "saferename.h"
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
-#endif
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "playtoolbar.h"
-#endif
 
 /**
  * Constructor.
@@ -105,9 +101,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
   m_playlistDialog(0), m_progressWidget(0),
   m_progressBar(0), m_progressAbortButton(0), m_editFrameDialog(0),
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_playToolBar(0),
-#endif
   m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
   m_progressTerminationHandler(0),
   m_progressDisconnected(false),
@@ -152,9 +146,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, SLOT(updateWindowCaption()));
   connect(m_app, SIGNAL(longRunningOperationProgress(QString,int,int,bool*)),
           this, SLOT(showOperationProgress(QString,int,int,bool*)));
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
-#endif
 }
 
 /**
@@ -170,9 +162,7 @@ BaseMainWindowImpl::~BaseMainWindowImpl()
   delete m_browseCoverArtDialog;
   delete m_playlistDialog;
   qDeleteAll(m_playlistEditDialogs);
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   delete m_playToolBar;
-#endif
 }
 
 /**
@@ -996,7 +986,6 @@ void BaseMainWindowImpl::terminateFilter()
   }
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play audio file.
  */
@@ -1028,7 +1017,6 @@ void BaseMainWindowImpl::showPlayToolBar()
   }
   m_playToolBar->show();
 }
-#endif
 
 /**
  * Set window title with information from directory, filter and modification
@@ -1584,7 +1572,6 @@ void BaseMainWindow::init()
   m_impl->init();
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play audio file.
  */
@@ -1592,7 +1579,6 @@ void BaseMainWindow::slotPlayAudio()
 {
   m_impl->slotPlayAudio();
 }
-#endif
 
 /**
  * Change status message.

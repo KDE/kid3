@@ -26,7 +26,7 @@
 
 #include "mprisinterface.h"
 
-#if (defined HAVE_PHONON || QT_VERSION >= 0x050000) && defined HAVE_QTDBUS
+#ifdef HAVE_QTDBUS
 
 #include <QDBusMessage>
 #include <QDBusConnection>

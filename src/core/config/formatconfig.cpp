@@ -259,20 +259,16 @@ QString FormatConfig::joinFileName(const QString& baseName,
 /** Returns a lowercase copy of @a str. */
 QString FormatConfig::toLower(const QString& str) const
 {
-#if QT_VERSION >= 0x040800
   if (m_locale)
     return m_locale->toLower(str);
-#endif
   return str.toLower();
 }
 
 /** Returns an uppercase copy of @a str. */
 QString FormatConfig::toUpper(const QString& str) const
 {
-#if QT_VERSION >= 0x040800
   if (m_locale)
     return m_locale->toUpper(str);
-#endif
   return str.toUpper();
 }
 
@@ -478,11 +474,7 @@ QStringList FormatConfig::getCaseConversionNames()
  */
 QStringList FormatConfig::getLocaleNames()
 {
-  return QStringList() << tr("None")
-#if QT_VERSION >= 0x040800
-                       << QLocale().uiLanguages()
-#endif
-                          ;
+  return QStringList() << tr("None") << QLocale().uiLanguages();
 }
 
 

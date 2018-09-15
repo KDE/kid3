@@ -36,11 +36,11 @@
 #include <QPluginLoader>
 #include <QAction>
 #include <QElapsedTimer>
-#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+#ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
 #include <QFileIconProvider>
-#if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
 #include <QStandardPaths>
 #endif
 #ifdef HAVE_QTDBUS
@@ -85,18 +85,11 @@
 #include "iservertrackimporterfactory.h"
 #include "itaggedfilefactory.h"
 #include "iusercommandprocessor.h"
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
 #ifdef HAVE_QTDBUS
 #include "mprisinterface.h"
 #endif
-#endif
-
 #include "importplugins.h"
-
-#if QT_VERSION < 0x050000
-Q_DECLARE_METATYPE(QModelIndex)
-#endif
 
 namespace {
 
@@ -246,9 +239,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_tagSearcher(new TagSearcher(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
-#endif
   m_expressionFileFilter(0),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(0), m_filterPassed(0), m_filterTotal(0),
@@ -318,7 +309,7 @@ Kid3Application::~Kid3Application()
 {
   delete m_namedBatchImportProfile;
   delete m_configStore;
-#if defined Q_OS_MAC && QT_VERSION >= 0x050000
+#ifdef Q_OS_MAC
   // If a song is played, then stopped and Kid3 is terminated, it will crash in
   // the QMediaPlayer destructor (Dispatch queue: com.apple.main-thread,
   // objc_msgSend() selector name: setRate). Avoid calling the destructor by
@@ -394,11 +385,7 @@ void Kid3Application::initPlugins()
       }
     }
     orderedFactories.removeAll(0);
-#if QT_VERSION >= 0x040800
     FileProxyModel::taggedFileFactories().swap(orderedFactories);
-#else
-    FileProxyModel::taggedFileFactories() = orderedFactories;
-#endif
   }
 }
 
@@ -577,7 +564,6 @@ void Kid3Application::checkPlugin(QObject* plugin)
   }
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Get audio player.
  * @return audio player.
@@ -672,7 +658,6 @@ void Kid3Application::deactivateMprisInterface()
   }
 }
 #endif
-#endif
 
 /**
  * Get settings.
@@ -765,7 +750,7 @@ void Kid3Application::readConfig()
 bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
   QStringList pathList(paths);
-#if QT_VERSION >= 0x050000 && defined Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
   if (pathList.isEmpty()) {
     QStringList musicLocations =
         QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
@@ -1537,12 +1522,7 @@ void Kid3Application::downloadImage(const QUrl& url, DownloadImageDestination de
  */
 void Kid3Application::downloadImage(const QString& url, bool allFilesInDir)
 {
-#if QT_VERSION >= 0x050000
   QUrl imgurl(url);
-#else
-  QUrl imgurl = url.contains(QLatin1Char('%'))
-      ? QUrl::fromEncoded(url.toAscii()) : QUrl(url);
-#endif
   downloadImage(imgurl, allFilesInDir
                 ? ImageForAllFilesInDirectory : ImageForSelectedFiles);
 }
@@ -2309,7 +2289,7 @@ void Kid3Application::openDrop(const QStringList& paths)
 void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
 {
   QList<QUrl> urls(urlList);
-#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+#ifdef Q_OS_MAC
   // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
   for (QList<QUrl>::iterator it = urls.begin(); it != urls.end(); ++it) {
     if (it->host().isEmpty() &&
@@ -2320,13 +2300,7 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
 #endif
   if (urls.isEmpty())
     return;
-  if (
-#if QT_VERSION >= 0x040800
-    urls.first().isLocalFile()
-#else
-    !urls.first().toLocalFile().isEmpty()
-#endif
-    ) {
+  if (urls.first().isLocalFile()) {
     QStringList localFiles;
     foreach (const QUrl& url, urls) {
       localFiles.append(url.toLocalFile());
@@ -3162,7 +3136,6 @@ void Kid3Application::numberTracks(int nr, int total,
   delete it;
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play audio file.
  */
@@ -3218,7 +3191,6 @@ void Kid3Application::showAudioPlayer()
 {
   emit aboutToPlayAudio();
 }
-#endif
 
 /**
  * Get number of tracks in current directory.
@@ -3780,11 +3752,7 @@ void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
   QItemSelection selection;
   QModelIndex firstIndex;
   foreach (const QVariant& var, indexes) {
-#if QT_VERSION >= 0x050000
     QModelIndex index = var.toModelIndex();
-#else
-    QModelIndex index = qvariant_cast<QModelIndex>(var);
-#endif
     if (!firstIndex.isValid()) {
       firstIndex = index;
     }

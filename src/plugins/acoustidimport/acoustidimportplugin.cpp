@@ -27,10 +27,6 @@
 #include "acoustidimportplugin.h"
 #include "musicbrainzclient.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(AcoustidImportPlugin, AcoustidImportPlugin)
-#endif
-
 static const QLatin1String IMPORTER_NAME("AcoustidImport");
 
 /*!

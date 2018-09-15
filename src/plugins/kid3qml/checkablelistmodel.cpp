@@ -193,9 +193,6 @@ void CheckableListModel::setSourceModel(QAbstractItemModel* srcModel)
     }
     QAbstractProxyModel::setSourceModel(srcModel);
     if (srcModel) {
-#if QT_VERSION < 0x050000
-      setRoleNames(srcModel->roleNames());
-#endif
       connect(srcModel, SIGNAL(modelAboutToBeReset()),
               this, SLOT(onModelAboutToBeReset()));
       connect(srcModel, SIGNAL(modelReset()),

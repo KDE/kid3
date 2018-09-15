@@ -415,14 +415,9 @@ int TagSearcher::findInString(const QString& str, int& idx) const
                       ? Qt::CaseSensitive : Qt::CaseInsensitive);
     return idx != -1 ? m_params.getSearchText().length() : -1;
   } else {
-#if QT_VERSION >= 0x050100
     QRegularExpressionMatch match = m_regExp.match(str, idx);
     idx = match.capturedStart();
     return match.hasMatch() ? match.capturedLength() : -1;
-#else
-    idx = m_regExp.indexIn(str, idx);
-    return idx != -1 ? m_regExp.matchedLength() : -1;
-#endif
   }
 }
 
@@ -452,7 +447,6 @@ void TagSearcher::setParameters(Parameters params)
   if (m_iterator) {
     m_iterator->setDirectionBackwards(flags & Backwards);
   }
-#if QT_VERSION >= 0x050100
   if (flags & RegExp) {
     m_regExp.setPattern(m_params.getSearchText());
     m_regExp.setPatternOptions(flags & CaseSensitive
@@ -462,14 +456,6 @@ void TagSearcher::setParameters(Parameters params)
     m_regExp.setPattern(QString());
     m_regExp.setPatternOptions(QRegularExpression::NoPatternOption);
   }
-#else
-  if (flags & RegExp) {
-    m_regExp = QRegExp(m_params.getSearchText(), flags & CaseSensitive
-                       ? Qt::CaseSensitive : Qt::CaseInsensitive);
-  } else {
-    m_regExp = QRegExp();
-  }
-#endif
 }
 
 /**

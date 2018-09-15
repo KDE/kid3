@@ -26,11 +26,7 @@
 
 #include "filefilter.h"
 #include "taggedfile.h"
-#if QT_VERSION >= 0x050100
 #include <QRegularExpression>
-#else
-#include <QRegExp>
-#endif
 #include <QCoreApplication>
 
 /**
@@ -173,13 +169,7 @@ bool FileFilter::parse()
     } else if (op == QLatin1String("contains")) {
       m_parser.pushBool(var2.indexOf(var1) >= 0);
     } else if (op == QLatin1String("matches")) {
-      m_parser.pushBool(
-#if QT_VERSION >= 0x050100
-            QRegularExpression(var1).match(var2).hasMatch()
-#else
-            QRegExp(var1).indexIn(var2) != -1
-#endif
-            );
+      m_parser.pushBool(QRegularExpression(var1).match(var2).hasMatch());
     }
   }
   if (!m_parser.hasError()) {

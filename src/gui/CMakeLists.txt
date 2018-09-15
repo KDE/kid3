@@ -19,7 +19,7 @@ if (WITH_GCC_PCH)
   add_definitions(${GCC_PCH_COMPILE_FLAGS})
 endif (WITH_GCC_PCH)
 
-qt4_wrap_cpp(gui_GEN_MOC_SRCS ${gui_MOC_HDRS})
+qt5_wrap_cpp(gui_GEN_MOC_SRCS ${gui_MOC_HDRS})
 
 add_library(kid3-gui ${gui_SRCS} ${gui_GEN_MOC_SRCS})
 set_target_properties(kid3-gui PROPERTIES VERSION ${KID3_VERSION})

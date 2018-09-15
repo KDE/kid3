@@ -34,26 +34,14 @@ class ICorePlatformTools;
 class Kid3Application;
 class QmlImageProvider;
 
-#if QT_VERSION >= 0x050000
 #include <QQmlExtensionPlugin>
-#else
-#include <QDeclarativeExtensionPlugin>
-#endif
 
 /**
  * QML plugin for Kid3 application.
  */
-class KID3_PLUGIN_EXPORT Kid3QmlPlugin : public
-#if QT_VERSION >= 0x050000
-QQmlExtensionPlugin
-#else
-QDeclarativeExtensionPlugin
-#endif
-{
+class KID3_PLUGIN_EXPORT Kid3QmlPlugin : public QQmlExtensionPlugin {
   Q_OBJECT
-#if QT_VERSION >= 0x050000
   Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
-#endif
 public:
   /**
    * Constructor.
@@ -77,13 +65,7 @@ public:
    * @param engine QML engine
    * @param uri URI of imported module, must be "Kid3"
    */
-  virtual void initializeEngine(
-#if QT_VERSION >= 0x050000
-    QQmlEngine* engine
-#else
-    QDeclarativeEngine* engine
-#endif
-    , const char* uri);
+  virtual void initializeEngine(QQmlEngine* engine, const char* uri);
 
 private:
   ICorePlatformTools* m_platformTools;

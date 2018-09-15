@@ -56,9 +56,7 @@ class PlaylistDialog;
 class PlaylistEditDialog;
 class PlaylistConfig;
 class EditFrameFieldsDialog;
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class PlayToolBar;
-#endif
 class DirContents;
 class FileProxyModel;
 class DirProxyModel;
@@ -301,12 +299,10 @@ public slots:
    */
   void slotFilter();
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
    */
   void slotPlayAudio();
-#endif
 
   /**
    * Update files of current selection.
@@ -370,12 +366,10 @@ private slots:
   void updateAfterFrameModification(TaggedFile* taggedFile,
                                     Frame::TagNumber tagNr);
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Show play tool bar.
    */
   void showPlayToolBar();
-#endif
 
   /**
    * Expand item if it is a directory.
@@ -576,10 +570,8 @@ private:
   QToolButton* m_progressAbortButton;
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Play toolbar */
   PlayToolBar* m_playToolBar;
-#endif
   Frame m_editFrame;
   TaggedFile* m_editFrameTaggedFile;
   Frame::TagNumber m_editFrameTagNr;
@@ -661,12 +653,10 @@ public:
    */
   virtual void setWindowCaption(const QString& caption, bool modified) = 0;
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
    */
   void slotPlayAudio();
-#endif
 
   /**
    * Update files of current selection.

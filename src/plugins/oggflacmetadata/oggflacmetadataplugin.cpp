@@ -29,10 +29,6 @@
 #include "flacfile.hpp"
 #include "tagconfig.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(OggFlacMetadataPlugin, OggFlacMetadataPlugin)
-#endif
-
 #ifdef HAVE_VORBIS
 static const QLatin1String OGG_KEY("OggMetadata");
 #endif

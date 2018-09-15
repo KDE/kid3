@@ -35,11 +35,7 @@
 
 namespace {
 
-#if QT_VERSION >= 0x050000
 const char* const QT_TRANSLATION_PREFIX = "qtbase_";
-#else
-const char* const QT_TRANSLATION_PREFIX = "qt_";
-#endif
 
 }
 
@@ -54,7 +50,7 @@ void Utils::loadTranslation(const QString& lang)
   QLocale locale;
 
   QStringList languages(
-#if QT_VERSION >= 0x040800 && !defined Q_OS_WIN32
+#ifndef Q_OS_WIN32
         locale.uiLanguages()
 #else
         locale.name()

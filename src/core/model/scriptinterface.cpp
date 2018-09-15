@@ -645,7 +645,6 @@ void ScriptInterface::reparseConfiguration()
   m_app->readConfig();
 }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play selected audio files.
  */
@@ -653,6 +652,5 @@ void ScriptInterface::playAudio()
 {
   m_app->playAudio();
 }
-#endif
 
 #endif // HAVE_QTDBUS

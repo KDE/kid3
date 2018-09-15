@@ -66,7 +66,7 @@ if(WITH_MP4V2)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-  qt4_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
+  qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
 
   add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
   target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES} ${MP4V2_LIBRARIES})

@@ -64,7 +64,7 @@
 #include "fileproxymodel.h"
 #include "taggedfileiconprovider.h"
 #include "kid3application.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x050200
+#ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
 

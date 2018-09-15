@@ -275,10 +275,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
          << new CopyCommand(this)
          << new PasteCommand(this)
          << new RemoveCommand(this)
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
-         << new PlayCommand(this)
-#endif
-         ;
+         << new PlayCommand(this);
   connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
           this, SLOT(updateSelectedFiles()));
   connect(m_app, SIGNAL(selectedFilesUpdated()),

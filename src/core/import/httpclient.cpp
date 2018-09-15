@@ -234,11 +234,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
     host.chop(3);
   }
   QUrl url;
-#if QT_VERSION >= 0x050000
   url.setUrl(scheme + QLatin1String("://") + host + path);
-#else
-  url.setEncodedUrl((scheme + QLatin1String("://") + host + path).toAscii());
-#endif
   sendRequest(url, headers);
 }
 

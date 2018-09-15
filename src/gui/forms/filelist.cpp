@@ -221,9 +221,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     if (m_deleteAction) {
       menu.addAction(m_deleteAction);
     }
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
-#endif
     if (isPlaylist) {
       QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);
       editPlaylistAction->setData(path);
@@ -459,11 +457,9 @@ void FileList::customContextMenu(const QPoint& pos)
 void FileList::onDoubleClicked(const QModelIndex& index)
 {
   if (FileProxyModel::getTaggedFileOfIndex(index)) {
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
     if (GuiConfig::instance().playOnDoubleClick()) {
       m_mainWin->slotPlayAudio();
     }
-#endif
   } else if (const FileProxyModel* model =
              qobject_cast<const FileProxyModel*>(index.model())) {
     QString path = model->filePath(index);

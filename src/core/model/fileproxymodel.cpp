@@ -81,9 +81,6 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_sortTimer->setSingleShot(true);
   m_sortTimer->setInterval(100);
   connect(m_sortTimer, SIGNAL(timeout()), this, SLOT(emitSortingFinished()));
-#if QT_VERSION < 0x050000
-  setRoleNames(getRoleHash());
-#endif
 }
 
 /**
@@ -95,7 +92,6 @@ FileProxyModel::~FileProxyModel()
   delete m_iconProvider;
 }
 
-#if QT_VERSION >= 0x050000
 /**
  * Map role identifiers to role property names in scripting languages.
  * @return hash mapping role identifiers to names.
@@ -105,7 +101,6 @@ QHash<int,QByteArray> FileProxyModel::roleNames() const
   static QHash<int, QByteArray> roles = getRoleHash();
   return roles;
 }
-#endif
 
 /**
  * Get file information of model index.
@@ -361,9 +356,6 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
     }
   }
   QSortFilterProxyModel::setSourceModel(sourceModel);
-#if QT_VERSION < 0x050000
-  setRoleNames(getRoleHash());
-#endif
 }
 
 /**
@@ -475,9 +467,7 @@ void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
  */
 void FileProxyModel::resetInternalData()
 {
-#if QT_VERSION >= 0x040800 && QT_VERSION != 0x050000
   QSortFilterProxyModel::resetInternalData();
-#endif
   clearTaggedFileStore();
   m_filteredOut.clear();
   m_loadTimer->stop();
@@ -492,9 +482,6 @@ void FileProxyModel::resetInternalData()
 void FileProxyModel::resetModel()
 {
   beginResetModel();
-#if QT_VERSION < 0x040800 || QT_VERSION == 0x050000
-  resetInternalData();
-#endif
   endResetModel();
 }
 
@@ -533,15 +520,8 @@ void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
                                       const QStringList& excludeFolders)
 {
   QList<QRegExp> oldIncludeFolderFilters, oldExcludeFolderFilters;
-#if QT_VERSION >= 0x040800
   m_includeFolderFilters.swap(oldIncludeFolderFilters);
   m_excludeFolderFilters.swap(oldExcludeFolderFilters);
-#else
-  oldIncludeFolderFilters = m_includeFolderFilters;
-  m_includeFolderFilters.clear();
-  oldExcludeFolderFilters = m_excludeFolderFilters;
-  m_excludeFolderFilters.clear();
-#endif
   foreach (QString filter, includeFolders) {
     filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
     m_includeFolderFilters.append(

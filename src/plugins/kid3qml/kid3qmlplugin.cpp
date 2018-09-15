@@ -26,14 +26,8 @@
 
 #include "kid3qmlplugin.h"
 #include <QCoreApplication>
-#if QT_VERSION >= 0x050000
 #include <QQmlComponent>
 #include <QQmlContext>
-#else
-#include <QDeclarativeComponent>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
-#endif
 #include "kid3application.h"
 #include "coreplatformtools.h"
 #include "qmlimageprovider.h"
@@ -56,14 +50,7 @@
 #include "batchimporter.h"
 #include "downloadclient.h"
 #include "config.h"
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
-#endif
-
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Kid3QmlPlugin, Kid3QmlPlugin)
-Q_DECLARE_METATYPE(QModelIndex)
-#endif
 
 Q_DECLARE_METATYPE(Kid3Application*)
 Q_DECLARE_METATYPE(QAbstractItemModel*)
@@ -88,9 +75,7 @@ Q_DECLARE_METATYPE(DirRenamer*)
 Q_DECLARE_METATYPE(BatchImporter*)
 Q_DECLARE_METATYPE(DownloadClient*)
 Q_DECLARE_METATYPE(Kid3ApplicationTagContext*)
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 Q_DECLARE_METATYPE(AudioPlayer*)
-#endif
 
 namespace {
 
@@ -106,13 +91,7 @@ namespace {
  * @param engine QML engine
  * @return plugins directory path, empty if not found.
  */
-QString getPluginsPathFromImportPathList(
-#if QT_VERSION >= 0x050000
-    QQmlEngine* engine
-#else
-    QDeclarativeEngine* engine
-#endif
-    )
+QString getPluginsPathFromImportPathList(QQmlEngine* engine)
 {
   QString cfgPluginsDir(QLatin1String(CFG_PLUGINSDIR));
   if (cfgPluginsDir.startsWith(QLatin1String("./"))) {
@@ -144,12 +123,8 @@ QString getPluginsPathFromImportPathList(
  * @param parent parent object
  */
 Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent) :
-#if QT_VERSION >= 0x050000
-  QQmlExtensionPlugin(parent)
-#else
-  QDeclarativeExtensionPlugin(parent)
-#endif
-  , m_platformTools(0), m_kid3App(0), m_imageProvider(0), m_ownsKid3App(false)
+  QQmlExtensionPlugin(parent),
+  m_platformTools(0), m_kid3App(0), m_imageProvider(0), m_ownsKid3App(false)
 {
 }
 
@@ -223,13 +198,8 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<Kid3ApplicationTagContext>(uri, 1, 0,
         "Kid3ApplicationTagContext",
         QLatin1String("Retrieve it using app.tag()"));
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
     qmlRegisterUncreatableType<AudioPlayer>(uri, 1, 0, "AudioPlayer",
         QLatin1String("Retrieve it using app.getAudioPlayer()"));
-#endif
-#if QT_VERSION < 0x050000
-    qRegisterMetaType<QModelIndex>();
-#endif
   }
 }
 
@@ -238,26 +208,14 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
  * @param engine QML engine
  * @param uri URI of imported module, must be "Kid3"
  */
-void Kid3QmlPlugin::initializeEngine(
-#if QT_VERSION >= 0x050000
-    QQmlEngine* engine
-#else
-    QDeclarativeEngine* engine
-#endif
-    , const char* uri)
+void Kid3QmlPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
   if (qstrcmp(uri, "Kid3") == 0) {
     Kid3Application::setPluginsPathFallback(
           getPluginsPathFromImportPathList(engine));
-#if QT_VERSION >= 0x050000
     QQmlContext* rootContext = engine->rootContext();
     m_kid3App = qvariant_cast<Kid3Application*>(
           rootContext->contextProperty(QLatin1String("app")));
-#else
-    QDeclarativeContext* rootContext = engine->rootContext();
-    m_kid3App = qobject_cast<Kid3Application*>(qvariant_cast<QObject*>(
-          rootContext->contextProperty(QLatin1String("app"))));
-#endif
     if (!m_kid3App) {
       m_platformTools = new CorePlatformTools;
       m_kid3App = new Kid3Application(m_platformTools);

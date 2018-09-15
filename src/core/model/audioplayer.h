@@ -28,23 +28,12 @@
 #define AUDIOPLAYER_H
 
 #include <QObject>
-#include "config.h"
-
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
-
 #include <QStringList>
+#include "config.h"
 #include "kid3api.h"
 
-#ifdef HAVE_PHONON
-namespace Phonon {
-  class AudioOutput;
-  class MediaObject;
-}
-#else
 class QMediaPlayer;
 class QMediaPlaylist;
-#endif
-
 class Kid3Application;
 class TaggedFile;
 
@@ -142,32 +131,11 @@ public:
    */
   void setVolume(int volume);
 
-#ifdef HAVE_PHONON
-  /**
-   * Play a track from the files.
-   *
-   * @param fileNr index in list of files set with setFiles()
-   */
-  void playTrack(int fileNr);
-
-  /**
-   * Access to media object.
-   * @return media object.
-   */
-  Phonon::MediaObject* mediaObject() { return m_mediaObject; }
-
-  /**
-   * Access to audio output.
-   * @return audio output.
-   */
-  Phonon::AudioOutput* audioOutput() { return m_audioOutput; }
-#else
   /**
    * Access to media player.
    * @return media player.
    */
   QMediaPlayer* mediaPlayer() { return m_mediaPlayer; }
-#endif
 
 signals:
   /**
@@ -246,29 +214,12 @@ public slots:
   void next();
 
 private slots:
-#ifdef HAVE_PHONON
-  /**
-   * Update display and button state when the current source is changed.
-   */
-  void currentSourceChanged();
-
-  /**
-   * Queue next track when the current track is about to finish.
-   */
-  void aboutToFinish();
-
-  /**
-   * Signal volumeChanged() when the volume is changed.
-   * @param volume volume
-   */
-  void onVolumeChanged(qreal volume);
-#else
   /**
    * Update display and button state when the current source is changed.
    * @param position number of song in play list
    */
   void currentIndexChanged(int position);
-#endif
+
   /**
    * Signal stateChanged() when the playing state is changed.
    */
@@ -276,33 +227,8 @@ private slots:
 
 private:
   Kid3Application* m_app;
-#ifdef HAVE_PHONON
-  /**
-   * Select a track from the files and optionally start playing it.
-   *
-   * @param fileNr index in list of files set with setFiles()
-   * @param play   true to play track
-   */
-  void selectTrack(int fileNr, bool play);
-
-  Phonon::MediaObject* m_mediaObject;
-  Phonon::AudioOutput* m_audioOutput;
-
-  QStringList m_files;
-  int m_fileNr;
-#else
   QMediaPlayer* m_mediaPlayer;
   QMediaPlaylist* m_mediaPlaylist;
-#endif
 };
-
-#else // HAVE_PHONON
-
-// Just to suppress moc "No relevant classes found" warning.
-class AudioPlayer : public QObject {
-Q_OBJECT
-};
-
-#endif // HAVE_PHONON
 
 #endif // AUDIOPLAYER_H

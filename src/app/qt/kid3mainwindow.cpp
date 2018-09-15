@@ -107,7 +107,7 @@ void Kid3MainWindow::initActions()
 {
   QToolBar* toolBar = new QToolBar(this);
   toolBar->setObjectName(QLatin1String("MainToolbar"));
-#if defined Q_OS_MAC && QT_VERSION >= 0x050000
+#ifdef Q_OS_MAC
   toolBar->setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
 #endif
   QMenuBar* menubar = menuBar();
@@ -463,7 +463,6 @@ void Kid3MainWindow::initActions()
     }
   }
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   toolsMenu->addSeparator();
   QAction* toolsPlay = new QAction(this);
   toolsPlay->setStatusTip(tr("Play"));
@@ -475,7 +474,6 @@ void Kid3MainWindow::initActions()
     app(), SLOT(playAudio()));
   toolsMenu->addAction(toolsPlay);
   toolBar->addAction(toolsPlay);
-#endif
 
   menuTitle = tr("&Settings");
   QMenu* settingsMenu = menubar->addMenu(menuTitle);

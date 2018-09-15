@@ -3,7 +3,7 @@ set(qml_SRCS
 )
 
 if (HAVE_QMLDIR_IN_QRC)
-  qt4_add_resources(qmlapp_GEN_RCS qmlapp.qrc)
+  qt5_add_resources(qmlapp_GEN_RCS qmlapp.qrc)
 else (HAVE_QMLDIR_IN_QRC)
   set(qmlapp_GEN_RCS)
 endif (HAVE_QMLDIR_IN_QRC)
@@ -18,7 +18,7 @@ if (HAVE_TRANSLATIONSDIR_IN_QRC)
       ${CMAKE_CURRENT_BINARY_DIR}/../../../po ${_qrcPrefix}
     DEPENDS translations
   )
-  qt4_add_resources(
+  qt5_add_resources(
     translations_GEN_RCS ${CMAKE_CURRENT_BINARY_DIR}/translations.qrc)
 else (HAVE_TRANSLATIONSDIR_IN_QRC)
   set(translations_GEN_RCS)

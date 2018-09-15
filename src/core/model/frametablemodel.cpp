@@ -98,9 +98,6 @@ FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != 0)
 {
   setObjectName(QLatin1String("FrameTableModel"));
-#if QT_VERSION < 0x050000
-  setRoleNames(getRoleHash());
-#endif
 }
 
 /**
@@ -364,7 +361,6 @@ bool FrameTableModel::removeRows(int row, int count,
   return true;
 }
 
-#if QT_VERSION >= 0x050000
 /**
  * Map role identifiers to role property names in scripting languages.
  * @return hash mapping role identifiers to names.
@@ -374,7 +370,6 @@ QHash<int,QByteArray> FrameTableModel::roleNames() const
   static QHash<int, QByteArray> roles = getRoleHash();
   return roles;
 }
-#endif
 
 /**
  * Get the frame at a specific position in the collection.

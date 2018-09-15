@@ -30,9 +30,7 @@
 #include <QItemDelegate>
 #include "config.h"
 
-#if QT_VERSION >= 0x050200
 class QKeySequenceEdit;
-#endif
 
 /**
  * Item delegate to edit and reset keyboard shortcuts.
@@ -121,36 +119,11 @@ public:
    */
   virtual ~ShortcutsDelegateEditor();
 
-#if QT_VERSION >= 0x050200
   /*!
    * Get edit widget.
    * @return editor widget
    */
   QKeySequenceEdit* getEditor() { return m_editor; }
-#else
-  /*!
-   * Get edit widget.
-   * @return editor widget
-   */
-  QLineEdit* getEditor() { return m_editor; }
-
-  /**
-   * Filters events if this object has been installed as an event filter for
-   * the @a watched object.
-   * @param watched watched object
-   * @param ev event
-   * @return true to stop further event handling
-   */
-  virtual bool eventFilter(QObject* watched, QEvent* ev);
-
-protected:
-  /**
-   * Receive events.
-   * @param ev event
-   * @return true if event was recognized and processed
-   */
-  virtual bool event(QEvent* ev);
-#endif
 
 signals:
   /**
@@ -169,11 +142,7 @@ signals:
   void resetClicked();
 
 private:
-#if QT_VERSION >= 0x050200
   QKeySequenceEdit* m_editor;
-#else
-  QLineEdit* m_editor;
-#endif
 };
 
 #endif // SHORTCUTSDELEGATE_H

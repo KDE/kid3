@@ -30,7 +30,7 @@
 #include <QObject>
 #include "config.h"
 
-#if (defined HAVE_PHONON || QT_VERSION >= 0x050000) && defined HAVE_QTDBUS
+#ifdef HAVE_QTDBUS
 
 #include <QDBusAbstractAdaptor>
 #include <QStringList>

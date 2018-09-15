@@ -27,9 +27,7 @@
 #include "kdeconfigdialog.h"
 #include "contexthelp.h"
 #include "configdialogpages.h"
-#if QT_VERSION >= 0x050000
 #include <QPushButton>
-#endif
 
 /**
  * Constructor.
@@ -55,7 +53,6 @@ KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
   addPage(m_pages->createNetworkPage(), tr("Network"), QLatin1String("preferences-system-network"));
   addPage(m_pages->createPluginsPage(), tr("Plugins"), QLatin1String("preferences-plugin"));
 
-#if QT_VERSION >= 0x050000
   setStandardButtons(QDialogButtonBox::RestoreDefaults |
                      QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
                      QDialogButtonBox::Help);
@@ -69,12 +66,6 @@ KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
               m_pages, SLOT(setDefaultConfig()));
     }
   }
-#else
-  setButtons(Default | Ok | Cancel | Help);
-  enableButton(Default, true);
-  connect(this, SIGNAL(defaultClicked()), m_pages, SLOT(setDefaultConfig()));
-  setHelp(QLatin1String("configure-kid3"));
-#endif
 }
 
 /**

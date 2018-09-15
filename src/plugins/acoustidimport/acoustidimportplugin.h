@@ -36,9 +36,7 @@
 class KID3_PLUGIN_EXPORT AcoustidImportPlugin :
     public QObject, public IServerTrackImporterFactory {
   Q_OBJECT
-#if QT_VERSION >= 0x050000
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IServerTrackImporterFactory")
-#endif
   Q_INTERFACES(IServerTrackImporterFactory)
 public:
   /*!

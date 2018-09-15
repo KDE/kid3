@@ -167,11 +167,9 @@ void TimeEventEditor::showEvent(QShowEvent* event)
  */
 void TimeEventEditor::hideEvent(QHideEvent* event)
 {
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   AudioPlayer* player = m_app->getAudioPlayer();
   disconnect(player, 0, this, 0);
   m_fileIsPlayed = false;
-#endif
   QWidget::hideEvent(event);
 }
 
@@ -200,7 +198,6 @@ void TimeEventEditor::setModel(TimeEventModel* model)
  */
 void TimeEventEditor::preparePlayer()
 {
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_app->showAudioPlayer();
   AudioPlayer* player = m_app->getAudioPlayer();
   QString filePath = m_taggedFile->getAbsFilename();
@@ -212,7 +209,6 @@ void TimeEventEditor::preparePlayer()
           this, SLOT(onTrackChanged(QString)), Qt::UniqueConnection);
   connect(player, SIGNAL(positionChanged(qint64)),
           this, SLOT(onPositionChanged(qint64)), Qt::UniqueConnection);
-#endif
 }
 
 /**
@@ -221,11 +217,9 @@ void TimeEventEditor::preparePlayer()
 void TimeEventEditor::addItem()
 {
   QTime timeStamp;
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   preparePlayer();
   AudioPlayer* player = m_app->getAudioPlayer();
   timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
-#endif
   if (m_model) {
     // If the current row is empty, set the time stamp there, else insert a new
     // row sorted by time stamps or use the first empty row.
@@ -423,7 +417,6 @@ void TimeEventEditor::addOffset()
  */
 void TimeEventEditor::seekPosition()
 {
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   QModelIndex index = m_tableView->currentIndex();
   if (index.isValid() && m_fileIsPlayed) {
     QTime timeStamp =
@@ -433,7 +426,6 @@ void TimeEventEditor::seekPosition()
       player->setCurrentPosition(QTime(0, 0).msecsTo(timeStamp));
     }
   }
-#endif
 }
 
 /**

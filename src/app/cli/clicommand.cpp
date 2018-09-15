@@ -1061,7 +1061,6 @@ void RemoveCommand::startCommand()
 }
 
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 PlayCommand::PlayCommand(Kid3Cli* processor) :
   CliCommand(processor, QLatin1String("play"), tr("Play"),
              QLatin1String("[S]\n"
@@ -1097,4 +1096,3 @@ void PlayCommand::startCommand()
     cli()->app()->playAudio();
   }
 }
-#endif

@@ -124,13 +124,11 @@ public:
    */
   virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
-#if QT_VERSION >= 0x050000
   /**
    * Map role identifiers to role property names in scripting languages.
    * @return hash mapping role identifiers to names.
    */
   virtual QHash<int, QByteArray> roleNames() const;
-#endif
 
   /**
    * Reset the model.

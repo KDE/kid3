@@ -36,9 +36,7 @@
 class KID3_PLUGIN_EXPORT MusicBrainzImportPlugin :
     public QObject, public IServerImporterFactory {
   Q_OBJECT
-#if QT_VERSION >= 0x050000
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IServerImporterFactory")
-#endif
   Q_INTERFACES(IServerImporterFactory)
 public:
   /*!

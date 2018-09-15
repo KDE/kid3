@@ -597,7 +597,6 @@ protected:
   virtual void startCommand();
 };
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /** Play audio file. */
 class PlayCommand : public CliCommand {
   Q_OBJECT
@@ -608,6 +607,5 @@ public:
 protected:
   virtual void startCommand();
 };
-#endif
 
 #endif // CLICOMMAND_H

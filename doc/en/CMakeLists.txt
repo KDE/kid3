@@ -1,9 +1,5 @@
 if (BUILD_KDE_APP)
-  if (HAVE_QT5)
-    kf5_create_handbook(index.docbook)
-  else (HAVE_QT5)
-    kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en SUBDIR kid3)
-  endif (HAVE_QT5)
+  kf5_create_handbook(index.docbook)
 endif (BUILD_KDE_APP)
 
 if (BUILD_QT_APP)

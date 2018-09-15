@@ -11,9 +11,6 @@
 /* Define if QML is enabled */
 #cmakedefine HAVE_QML 1
 
-/* Define if you have Phonon installed */
-#cmakedefine HAVE_PHONON 1
-
 /* Define if mntent.h is available */
 #cmakedefine HAVE_MNTENT_H 1
 

@@ -78,9 +78,6 @@ void StandardIOHandler::start()
   connect(m_conInThread, SIGNAL(started()), this, SLOT(blockingReadLine()));
   connect(m_conInThread, SIGNAL(finished()), this, SLOT(deleteLater()));
   connect(m_conInThread, SIGNAL(finished()), m_conInThread, SLOT(deleteLater()));
-#if QT_VERSION < 0x050000
-  connect(m_conInThread, SIGNAL(terminated()), m_conInThread, SLOT(deleteLater()));
-#endif
   moveToThread(m_conInThread);
 
   m_conInThread->start();

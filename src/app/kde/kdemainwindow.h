@@ -28,11 +28,7 @@
 #define KDEMAINWINDOW_H
 
 #include <QtGlobal>
-#if QT_VERSION >= 0x050000
 #include <KXmlGuiWindow>
-#else
-#include <kxmlguiwindow.h>
-#endif
 #include "basemainwindow.h"
 
 class QAction;
@@ -135,11 +131,7 @@ private slots:
    *
    * @param url URL of directory to open
    */
-#if QT_VERSION >= 0x050000
   void slotFileOpenRecentUrl(const QUrl& url);
-#else
-  void slotFileOpenRecentUrl(const KUrl& url);
-#endif
 
   /**
    * Shortcuts configuration.

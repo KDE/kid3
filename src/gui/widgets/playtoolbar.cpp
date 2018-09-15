@@ -26,8 +26,6 @@
 
 #include "playtoolbar.h"
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
-
 #include <QAction>
 #include <QLCDNumber>
 #include <QHBoxLayout>
@@ -36,14 +34,8 @@
 #include <QStyle>
 #include <QLabel>
 #include <QSplitter>
-#ifdef HAVE_PHONON
-#include <phonon/mediaobject.h>
-#include <phonon/seekslider.h>
-#include <phonon/volumeslider.h>
-#else
 #include <QMediaPlaylist>
 #include <QSlider>
-#endif
 #include "audioplayer.h"
 
 static const QString zeroTime(QLatin1String(" 0:00"));
@@ -76,16 +68,6 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   QSplitter* splitter = new QSplitter(this);
   m_titleLabel = new QLabel(splitter);
 
-#ifdef HAVE_PHONON
-  Phonon::MediaObject* mediaObject = m_player->mediaObject();
-  Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(splitter);
-  seekSlider->setMediaObject(mediaObject);
-  seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  seekSlider->setIconVisible(false);
-  Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(this);
-  volumeSlider->setAudioOutput(m_player->audioOutput());
-  volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-#else
   QMediaPlayer* mediaPlayer = m_player->mediaPlayer();
   m_seekSlider = new QSlider(Qt::Horizontal, splitter);
   m_seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -107,7 +89,6 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   setVolumeToolTip(volume);
   connect(m_volumeSlider, SIGNAL(actionTriggered(int)),
           this, SLOT(volumeAction(int)));
-#endif
 
   m_timeLcd = new QLCDNumber(this);
   m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
@@ -119,19 +100,11 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   addAction(m_previousAction);
   addAction(m_nextAction);
   addWidget(splitter);
-#ifdef HAVE_PHONON
-  addWidget(volumeSlider);
-#else
   addAction(m_muteAction);
   addWidget(m_volumeSlider);
-#endif
   addWidget(m_timeLcd);
   addAction(closeAction);
 
-#ifdef HAVE_PHONON
-  connect(mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
-          this, SLOT(stateChanged(Phonon::State)));
-#else
   connect(mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
           this, SLOT(stateChanged(QMediaPlayer::State)));
   connect(mediaPlayer, SIGNAL(error(QMediaPlayer::Error)),
@@ -141,7 +114,6 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   connect(mediaPlayer, SIGNAL(volumeChanged(int)),
           this, SLOT(setVolumeToolTip(int)));
   connect(m_muteAction, SIGNAL(triggered()), this, SLOT(toggleMute()));
-#endif
   connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(tick(qint64)));
   connect(m_player, SIGNAL(trackChanged(QString,bool,bool)),
           this, SLOT(trackChanged(QString,bool,bool)));
@@ -154,7 +126,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   connect(m_nextAction, SIGNAL(triggered()), m_player, SLOT(next()));
   connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
-#if defined Q_OS_MAC && QT_VERSION >= 0x050000
+#ifdef Q_OS_MAC
   setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
 #endif
 }
@@ -191,49 +163,11 @@ void PlayToolBar::tick(qint64 msec)
   }
   m_timeLcd->display(QString(QLatin1String("%1:%2")).arg(minutes, 2, 10, QLatin1Char(' '))
                      .arg(seconds, 2, 10, QLatin1Char('0')));
-#ifndef HAVE_PHONON
   if (!m_seekSlider->isSliderDown()) {
     m_seekSlider->setValue(msec / 1000);
   }
-#endif
 }
 
-#ifdef HAVE_PHONON
-/**
- * Update button states when the Phonon state changed.
- *
- * @param newState new Phonon state
- */
-void PlayToolBar::stateChanged(Phonon::State newState)
-{
-  switch (newState) {
-    case Phonon::ErrorState:
-      m_playOrPauseAction->setEnabled(false);
-      m_stopAction->setEnabled(false);
-      emit errorMessage(m_player->mediaObject()->errorString());
-      break;
-    case Phonon::PlayingState:
-      m_playOrPauseAction->setEnabled(true);
-      m_playOrPauseAction->setIcon(m_pauseIcon);
-      m_stopAction->setEnabled(true);
-      break;
-    case Phonon::PausedState:
-      m_playOrPauseAction->setEnabled(true);
-      m_playOrPauseAction->setIcon(m_playIcon);
-      m_stopAction->setEnabled(true);
-      break;
-    case Phonon::StoppedState:
-      m_playOrPauseAction->setEnabled(true);
-      m_playOrPauseAction->setIcon(m_playIcon);
-      m_stopAction->setEnabled(false);
-      m_timeLcd->display(zeroTime);
-      break;
-    default:
-      m_playOrPauseAction->setEnabled(false);
-      break;
-  }
-}
-#else
 /**
  * Update button states when the Phonon state changed.
  *
@@ -329,7 +263,6 @@ void PlayToolBar::toggleMute()
   m_muteAction->setIcon(style()->standardIcon(muted
       ? QStyle::SP_MediaVolumeMuted : QStyle::SP_MediaVolume));
 }
-#endif
 
 /**
  * Update display and button state when the current track is changed.
@@ -341,14 +274,6 @@ void PlayToolBar::toggleMute()
 void  PlayToolBar::trackChanged(const QString& filePath,
                                 bool hasPrevious, bool hasNext)
 {
-#ifdef HAVE_PHONON
-  m_timeLcd->display(zeroTime);
-  QFileInfo fi(filePath);
-  m_titleLabel->setText(fi.fileName());
-
-  m_previousAction->setEnabled(hasPrevious);
-  m_nextAction->setEnabled(hasNext);
-#else
   QFileInfo fi(filePath);
   m_titleLabel->setText(fi.fileName());
 
@@ -360,7 +285,4 @@ void  PlayToolBar::trackChanged(const QString& filePath,
   if (maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
-#endif
 }
-
-#endif // HAVE_PHONON

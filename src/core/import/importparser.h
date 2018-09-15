@@ -28,11 +28,7 @@
 #define IMPORTPARSER_H
 
 #include <QString>
-#if QT_VERSION >= 0x050100
 #include <QRegularExpression>
-#else
-#include <QRegExp>
-#endif
 #include <QMap>
 #include <QList>
 #include "kid3api.h"
@@ -86,11 +82,7 @@ private:
   /** track regexp pattern */
   QString m_pattern;
   /** regexp object */
-#if QT_VERSION >= 0x050100
   QRegularExpression m_re;
-#else
-  QRegExp m_re;
-#endif
   /** automatically incremented track number */
   int m_trackIncrNr;
   QMap<QString, int> m_codePos;

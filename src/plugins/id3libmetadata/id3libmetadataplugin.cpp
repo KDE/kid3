@@ -27,10 +27,6 @@
 #include "id3libmetadataplugin.h"
 #include "mp3file.h"
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Id3libMetadataPlugin, Id3libMetadataPlugin)
-#endif
-
 static const QLatin1String TAGGEDFILE_KEY("Id3libMetadata");
 
 /*!

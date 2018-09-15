@@ -25,15 +25,4 @@ endif (BUILD_QML_APP)
 # Only used to add the QML sources to the project.
 add_custom_target(qml-sources SOURCES ${qml_QML_SRCS})
 
-# Preprocess installed QML files for Qt 4 or Ubuntu Components.
-if (NOT HAVE_QT5)
-  set(_qmlpp_code 4)
-  install(CODE "
-    execute_process(
-      COMMAND ${PYTHON_EXECUTABLE}
-        ${kid3_SOURCE_DIR}/src/plugins/kid3qml/qmlpp.py ${_qmlpp_code}
-      WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}\"
-    )
-    ")
-endif (NOT HAVE_QT5)
 endif (NOT HAVE_QMLDIR_IN_QRC)

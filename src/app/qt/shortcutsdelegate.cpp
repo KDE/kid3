@@ -30,9 +30,7 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-#if QT_VERSION >= 0x050200
 #include <QKeySequenceEdit>
-#endif
 
 /**
  * Constructor.
@@ -183,15 +181,9 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   QFrame(parent) {
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   hlayout->setContentsMargins(0, 0, 0, 0);
-#if QT_VERSION >= 0x050200
   delete lineEdit;
   m_editor = new QKeySequenceEdit(parent);
   connect(m_editor, SIGNAL(editingFinished()), this, SIGNAL(valueEntered()));
-#else
-  m_editor = lineEdit;
-  m_editor->setReadOnly(true);
-  m_editor->installEventFilter(this);
-#endif
   setFocusProxy(m_editor);
   hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
   QToolButton* clearButton = new QToolButton(this);
@@ -210,75 +202,3 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
 ShortcutsDelegateEditor::~ShortcutsDelegateEditor()
 {
 }
-
-#if QT_VERSION < 0x050200
-bool ShortcutsDelegateEditor::event(QEvent* ev)
-{
-  QEvent::Type eventType = ev->type();
-  if (eventType != QEvent::ShortcutOverride &&
-      eventType != QEvent::KeyPress &&
-      eventType != QEvent::KeyRelease)
-    return QFrame::event(ev);
-
-  if (eventType == QEvent::ShortcutOverride) {
-    QKeyEvent* keyEvent = static_cast<QKeyEvent*>(ev);
-    int keyCode = 0;
-
-    // Check modifiers pressed
-    if (keyEvent->modifiers() & Qt::ControlModifier)
-      keyCode |= Qt::ControlModifier;
-    if (keyEvent->modifiers() & Qt::AltModifier)
-      keyCode |= Qt::AltModifier;
-    if (keyEvent->modifiers() & Qt::ShiftModifier)
-      keyCode |= Qt::ShiftModifier;
-    if (keyEvent->modifiers() & Qt::MetaModifier)
-      keyCode |= Qt::MetaModifier;
-
-    switch (keyEvent->key()) {
-    // These keys can't be used
-    case Qt::Key_Shift:
-    case Qt::Key_Control:
-    case Qt::Key_Meta:
-    case Qt::Key_Alt:
-    case Qt::Key_AltGr:
-    case Qt::Key_Super_L:
-    case Qt::Key_Super_R:
-    case Qt::Key_Menu:
-    case Qt::Key_Hyper_L:
-    case Qt::Key_Hyper_R:
-    case Qt::Key_Help:
-    case Qt::Key_Direction_L:
-    case Qt::Key_Direction_R:
-      break;
-
-    default:
-      keyCode |= keyEvent->key();
-    }
-
-    QString keyString = QKeySequence(keyCode).toString();
-    if (!keyString.endsWith(QLatin1Char('+'))) {
-      m_editor->setText(keyString);
-      emit valueEntered();
-    }
-  }
-  return true;
-}
-
-/**
- * Filters events if this object has been installed as an event filter for
- * the @a watched object.
- * @param watched watched object
- * @param ev event
- * @return true to stop further event handling
- */
-bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* ev)
-{
-  QEvent::Type eventType = ev->type();
-  if (eventType == QEvent::KeyPress ||
-      eventType == QEvent::KeyRelease ||
-      eventType == QEvent::ShortcutOverride)
-    return event(ev);
-  else
-    return QFrame::eventFilter(watched, ev);
-}
-#endif

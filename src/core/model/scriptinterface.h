@@ -38,7 +38,6 @@ class Kid3Application;
  * Adaptor class for interface net.sourceforge.Kid3
  * Create net.sourceforge.Kid3.xml with:
  * echo "#define HAVE_QTDBUS" >config.h
- * echo "#define HAVE_PHONON" >>config.h
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
  * rm config.h
  */
@@ -423,12 +422,10 @@ public slots:
    */
   void reparseConfiguration();
 
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play selected audio files.
    */
   void playAudio();
-#endif
 
 private slots:
   void onRenameActionsScheduled();
