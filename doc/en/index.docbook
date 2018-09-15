@@ -2243,8 +2243,8 @@ displayed lay between these values and are compatible with what the Windows
 Explorer uses.
 </para>
 
-<table>
-  <title>Entry in Rating table</title>
+<table id="table-rating">
+  <title>Entry in Rating Table</title>
   <tgroup cols="6">
     <thead>
       <row><entry>Name</entry><entry>1</entry> <entry>2</entry>  <entry>3</entry>  <entry>4</entry>  <entry>5</entry></row>

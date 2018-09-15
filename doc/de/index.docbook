@@ -2396,7 +2396,7 @@ und 255. Die Schwellwerte für die anzuzeigende Anzahl Sterne liegen dazwischen
 und sind so gewählt, dass sie kompatibel mit dem Windows Explorer sind.
 </para>
 
-<table>
+<table id="table-rating">
   <title>Eintrag in Bewertungs-Tabelle</title>
   <tgroup cols="6">
     <thead>
