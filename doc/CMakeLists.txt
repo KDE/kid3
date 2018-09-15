@@ -39,7 +39,7 @@ endmacro (kid3_create_handbook)
 # Create handbook for KDE 5.
 # Replace meinproc5 with wrapper to change DTD version, then generate KDE help.
 macro (kf5_create_handbook _docbook)
-  cmake_minimum_required(VERSION 2.8.12)
+  cmake_minimum_required(VERSION 3.3)
   find_package(ECM REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
   include(KDEInstallDirs)
