@@ -119,7 +119,7 @@ def generate_ts(lupdate_cmd, podir, srcdir):
             if fn.endswith('.cpp'):
                 sources.append(os.path.join(root, fn))
     os.chdir(srcdir)
-    os.system(lupdate_cmd + ' -recursive . -ts ' +
+    os.system(lupdate_cmd + ' -recursive -locations none . -ts ' +
               ' '.join([os.path.join(curdir, 'tmp_' + l + '.ts')
                         for l in languages]))
     os.chdir(curdir)
