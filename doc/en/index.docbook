@@ -2215,8 +2215,9 @@ right mouse button is clicked.  Replacement is only active, if the
 <para>
 The table in <guilabel>Rating</guilabel> contains the mapping of star ratings
 to the effective values stored in the tag. The frames with rating information
-are listed in the Rating row of the <link linkend="table-frame-list">frame
-list</link>. For these frames, the rating can be set by giving a number of
+are listed in the Rating row of the
+<!--change manpageframe list.--><link linkend="table-frame-list">frame list</link>.
+For these frames, the rating can be set by giving a number of
 stars out of five stars. Different tag formats and different applications use
 different values to map the star rating to the value stored in the tag. In
 order to display the correct number of stars, &kid3; will look up a map in

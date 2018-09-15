@@ -2366,8 +2366,9 @@ Maustaste drückt. Ersetzungen werden nur durchgeführt, wenn das
 <para>
 Die Tabelle in <guilabel>Bewertung</guilabel> enthält die Zuordnungen zwischen
 der Anzahl Sterne und den effektiv in den Tags gespeicherten Werten. Die
-Frames mit Bewertungsinformationen sind in der Zeile Bewertung der <link
-linkend="table-frame-list">Frame-Liste</link> aufgeführt. In diesen Frames
+Frames mit Bewertungsinformationen sind in der Zeile Bewertung der
+<!--change manpageFrame-Liste--><link linkend="table-frame-list">Frame-Liste</link>
+aufgeführt. In diesen Frames
 kann eine Bewertung mit 1 bis 5 Sternen gesetzt werden. Verschiedene
 Tag-Formate und unterschiedliche Applikationen benutzen unterschiedliche Werte
 um die Anzahl Sterne im Tag zu speichern. Um die korrekte Anzahl Sterne
