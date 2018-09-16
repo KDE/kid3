@@ -16,11 +16,20 @@ if (WITH_GCC_PCH)
   add_definitions(${GCC_PCH_COMPILE_FLAGS})
 endif (WITH_GCC_PCH)
 
-qt5_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS})
+qt5_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS} TARGET kid3-core)
 
 add_library(kid3-core ${core_SRCS} ${core_GEN_MOC_SRCS})
 set_target_properties(kid3-core PROPERTIES VERSION ${KID3_VERSION})
-target_link_libraries(kid3-core ${BASIC_LIBRARIES} ${PLUGIN_LIBRARIES})
+target_link_libraries(kid3-core Qt5::Core;Qt5::Gui;Qt5::Widgets;Qt5::Network;Qt5::Xml;Qt5::Multimedia)
+if (WITH_DBUS)
+  target_link_libraries(kid3-core Qt5::DBus)
+endif ()
+if (PLUGIN_LIBRARIES)
+  target_link_libraries(kid3-core ${PLUGIN_LIBRARIES})
+endif ()
+if (APPLE)
+  target_link_libraries(kid3-core "-framework CoreServices")
+endif (APPLE)
 
 if (BUILD_SHARED_LIBS)
   install(TARGETS kid3-core

@@ -28,7 +28,6 @@
 #define STARRATINGMAPPINGSMODEL_H
 
 #include <QAbstractTableModel>
-#include <QHeaderView>
 #include "kid3api.h"
 
 /**

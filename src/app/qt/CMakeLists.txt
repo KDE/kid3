@@ -20,7 +20,7 @@ set(qt_MOC_HDRS
   shortcutsmodel.h
   shortcutsdelegate.h
 )
-qt5_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS})
+qt5_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS} TARGET ${KID3_EXECUTABLE})
 set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
 
 if (APPLE)

@@ -28,7 +28,7 @@ add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
 if (NOT ANDROID)
   add_executable(kid3-qml MACOSX_BUNDLE WIN32 ${qml_SRCS} ${qmlapp_GEN_RCS} ${translations_GEN_RCS})
 
-  target_link_libraries(kid3-qml kid3-gui -lstdc++)
+  target_link_libraries(kid3-qml kid3-gui Qt5::QuickControls2 -lstdc++)
 
   install(TARGETS kid3-qml
     BUNDLE DESTINATION .
@@ -38,5 +38,5 @@ else (NOT ANDROID)
   # Make symbols visible so that main can be found.
   set_target_properties(kid3-qml PROPERTIES COMPILE_FLAGS -fvisibility=default)
 
-  target_link_libraries(kid3-qml kid3-gui -lstdc++)
+  target_link_libraries(kid3-qml kid3-gui Qt5::QuickControls2 -lstdc++)
 endif (NOT ANDROID)

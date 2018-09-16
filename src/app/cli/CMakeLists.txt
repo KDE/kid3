@@ -54,7 +54,7 @@ set(cli_MOC_HDRS
   clicommand.h
   standardiohandler.h
 )
-qt5_wrap_cpp(cli_GEN_MOC_SRCS ${cli_MOC_HDRS})
+qt5_wrap_cpp(cli_GEN_MOC_SRCS ${cli_MOC_HDRS} TARGET kid3-cli)
 set(cli_SRCS ${cli_SRCS} ${cli_GEN_MOC_SRCS})
 
 add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})

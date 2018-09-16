@@ -82,10 +82,10 @@ if (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
+  qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS} TARGET ${plugin_TARGET})
 
   add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
-  target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES} ${TAGLIB_LIBRARIES})
+  target_link_libraries(${plugin_TARGET} kid3-core ${TAGLIB_LIBRARIES})
 
   INSTALL_KID3_PLUGIN(${plugin_TARGET} ${plugin_NAME})
 endif (TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)

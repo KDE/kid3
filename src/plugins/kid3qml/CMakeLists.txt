@@ -25,7 +25,7 @@ endif (WITH_GCC_PCH)
 
 string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
+qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS} TARGET ${plugin_TARGET})
 
 set(_targetDependencies ${plugin_SRCS} ${plugin_GEN_MOC_SRCS}
   ${plugin_QML_SRCS} "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml")
@@ -35,7 +35,7 @@ if (APPLE)
 else (APPLE)
   add_library(${plugin_TARGET} MODULE ${_targetDependencies})
 endif (APPLE)
-target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES})
+target_link_libraries(${plugin_TARGET} kid3-core Qt5::Quick)
 
 if (NOT HAVE_QMLDIR_IN_QRC)
   install(TARGETS ${plugin_TARGET}

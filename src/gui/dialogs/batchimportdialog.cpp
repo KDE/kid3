@@ -34,6 +34,7 @@
 #include <QLabel>
 #include <QString>
 #include <QTableView>
+#include <QHeaderView>
 #include "batchimporter.h"
 #include "batchimportsourcedialog.h"
 #include "batchimportconfig.h"

@@ -134,10 +134,10 @@ if(WITH_CHROMAPRINT)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
+  qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS} TARGET ${plugin_TARGET})
 
   add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
-  target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES} ${CHROMAPRINT_LIBS})
+  target_link_libraries(${plugin_TARGET} kid3-core ${CHROMAPRINT_LIBS})
   if (APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386")
     # To suppress linker error
     # ld: illegal text-relocation to non_lazy_ptr in ../libavformat.a

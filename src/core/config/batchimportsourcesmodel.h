@@ -28,7 +28,6 @@
 #define BATCHIMPORTSOURCESMODEL_H
 
 #include <QAbstractTableModel>
-#include <QHeaderView>
 #include "batchimportprofile.h"
 #include "kid3api.h"
 
