@@ -85,7 +85,7 @@ bool Kid3QtApplication::event(QEvent* e)
 {
 #ifdef Q_OS_MAC
   if (e->type() == QEvent::FileOpen) {
-    emit openFileRequested(QStringList() << static_cast<QFileOpenEvent*>(e)->file());
+    emit openFileRequested({static_cast<QFileOpenEvent*>(e)->file()});
     return true;
   }
 #endif

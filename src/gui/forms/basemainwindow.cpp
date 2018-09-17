@@ -487,7 +487,7 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
     QString dir = m_platformTools->getExistingDirectory(m_w, QString(),
                                                         m_app->getDirName());
     if (!dir.isEmpty()) {
-      m_app->openDirectory(QStringList() << dir);
+      m_app->openDirectory({dir});
     }
   }
 }
@@ -500,7 +500,7 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
 void BaseMainWindowImpl::openRecentDirectory(const QString& dir)
 {
   updateCurrentSelection();
-  confirmedOpenDirectory(QStringList() << dir);
+  confirmedOpenDirectory({dir});
 }
 
 /**

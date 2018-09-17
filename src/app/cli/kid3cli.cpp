@@ -434,7 +434,7 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
       if (!wildcardPart.isEmpty()) {
         QDir dir(partBefore);
         if (!dir.exists(wildcardPart)) {
-          const QStringList entries = dir.entryList(QStringList() << wildcardPart,
+          const QStringList entries = dir.entryList({wildcardPart},
                                     QDir::AllEntries | QDir::NoDotAndDotDot);
           if (!entries.isEmpty()) {
             for (const QString& entry : entries) {

@@ -2932,7 +2932,7 @@ QString Kid3Application::performRenameActions()
   m_dirRenamer->setDirName(getDirName());
   m_dirRenamer->performActions(&errorMsg);
   if (m_dirRenamer->getDirName() != getDirName()) {
-    openDirectory(QStringList() << m_dirRenamer->getDirName());
+    openDirectory({m_dirRenamer->getDirName()});
   }
   return errorMsg;
 }

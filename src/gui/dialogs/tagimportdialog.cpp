@@ -51,12 +51,9 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("Format:")
-                      << tr("Source:")
-                      << tr("Extraction:"),
-        QStringList() << QString()
-                      << TrackDataFormatReplacer::getToolTip()
-                      << ImportParser::getFormatToolTip(),
+        {tr("Format:"), tr("Source:"), tr("Extraction:")},
+        {QString(), TrackDataFormatReplacer::getToolTip(),
+         ImportParser::getFormatToolTip()},
         this);
   vboxLayout->addWidget(m_formatListEdit);
 
@@ -116,9 +113,8 @@ void TagImportDialog::setFormatFromConfig()
 {
   const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << importCfg.importTagsNames()
-                             << importCfg.importTagsSources()
-                             << importCfg.importTagsExtractions(),
+        {importCfg.importTagsNames(), importCfg.importTagsSources(),
+         importCfg.importTagsExtractions()},
         importCfg.importTagsIndex());
 }
 

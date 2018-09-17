@@ -51,7 +51,7 @@ AmazonImportPlugin::~AmazonImportPlugin()
  */
 QStringList AmazonImportPlugin::serverImporterKeys() const
 {
-  return QStringList() << IMPORTER_NAME;
+  return {IMPORTER_NAME};
 }
 
 /**

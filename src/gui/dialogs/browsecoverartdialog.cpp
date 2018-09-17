@@ -100,10 +100,8 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
 
   QGroupBox* srcbox = new QGroupBox(tr("&Source"), this);
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("Source:")
-                      << tr("URL:"),
-        QStringList() << QString()
-                      << getToolTip(),
+        {tr("Source:"), tr("URL:")},
+        {QString(), getToolTip()},
         srcbox);
 
   QVBoxLayout* vbox = new QVBoxLayout;
@@ -115,8 +113,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
 
   QGroupBox* tabbox = new QGroupBox(tr("&URL extraction"), this);
   m_matchUrlTableModel = new ConfigTableModel(tabbox);
-  m_matchUrlTableModel->setLabels(
-    QStringList() << tr("Match") << tr("Picture URL"));
+  m_matchUrlTableModel->setLabels({tr("Match"), tr("Picture URL")});
   m_matchUrlTable = new ConfigTable(m_matchUrlTableModel, tabbox);
   m_matchUrlTable->setHorizontalResizeModes(
       m_matchUrlTableModel->getHorizontalResizeModes());
@@ -207,8 +204,7 @@ void BrowseCoverArtDialog::setSourceFromConfig()
 {
   const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << importCfg.pictureSourceNames()
-                             << importCfg.pictureSourceUrls(),
+        {importCfg.pictureSourceNames(),importCfg.pictureSourceUrls()},
         importCfg.pictureSourceIndex());
 }
 
@@ -261,6 +257,6 @@ void BrowseCoverArtDialog::accept()
   }
   m_process->launchCommand(
     tr("Browse Cover Art"),
-    QStringList() << NetworkConfig::instance().browser() << m_url);
+    {NetworkConfig::instance().browser(), m_url});
   QDialog::accept();
 }

@@ -701,8 +701,7 @@ QStringList TagConfig::getTextEncodingNames()
  */
 QStringList TagConfig::getId3v2VersionNames()
 {
-  return QStringList() << QLatin1String("ID3v2.3.0")
-                       << QLatin1String("ID3v2.4.0");
+  return {QLatin1String("ID3v2.3.0"), QLatin1String("ID3v2.4.0")};
 }
 
 /**
@@ -710,8 +709,7 @@ QStringList TagConfig::getId3v2VersionNames()
  */
 QStringList TagConfig::getCommentNames()
 {
-  return QStringList() << QLatin1String("COMMENT")
-                       << QLatin1String("DESCRIPTION");
+  return {QLatin1String("COMMENT"), QLatin1String("DESCRIPTION")};
 }
 
 /**
@@ -719,8 +717,7 @@ QStringList TagConfig::getCommentNames()
  */
 QStringList TagConfig::getPictureNames()
 {
-  return QStringList() << QLatin1String("METADATA_BLOCK_PICTURE")
-                       << QLatin1String("COVERART");
+  return {QLatin1String("METADATA_BLOCK_PICTURE"), QLatin1String("COVERART")};
 }
 
 /**
@@ -728,7 +725,5 @@ QStringList TagConfig::getPictureNames()
  */
 QStringList TagConfig::getRiffTrackNames()
 {
-  return QStringList() << QLatin1String("IPRT")
-                       << QLatin1String("ITRK")
-                       << QLatin1String("TRCK");
+  return {QLatin1String("IPRT"), QLatin1String("ITRK"), QLatin1String("TRCK")};
 }

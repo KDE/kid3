@@ -306,7 +306,7 @@ void PwdCommand::startCommand()
   QString path = cli()->app()->getDirPath();
   if (path.isNull()) {
     path = QDir::currentPath();
-    cli()->app()->openDirectory(QStringList() << path);
+    cli()->app()->openDirectory({path});
   }
   cli()->writeLine(path);
 }

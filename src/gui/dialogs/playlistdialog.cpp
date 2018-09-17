@@ -147,10 +147,13 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_fileNameFormatButton->setText(tr("&Format:"));
   m_fileNameFormatComboBox->setEditable(true);
   m_fileNameFormatComboBox->setEnabled(false);
-  m_fileNameFormatComboBox->addItems(
-    QStringList() <<
-    QLatin1String("%{artist} - %{album}") << QLatin1String("%{artist} - %{\"[\"year\"] \"}%{album}") << QLatin1String("%{album}") <<
-    QLatin1String("playlist_%{artist}_-_%{album}") << QLatin1String("playlist"));
+  m_fileNameFormatComboBox->addItems({
+    QLatin1String("%{artist} - %{album}"),
+    QLatin1String("%{artist} - %{\"[\"year\"] \"}%{album}"),
+    QLatin1String("%{album}"),
+    QLatin1String("playlist_%{artist}_-_%{album}"),
+    QLatin1String("playlist")
+  });
   connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
           m_fileNameFormatComboBox, SLOT(setEnabled(bool)));
   m_fileNameForEmptyButton->setText(tr("Create ne&w empty playlist:"));
@@ -162,15 +165,16 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
           m_fileNameForEmptyEdit, SLOT(setEnabled(bool)));
   locationLabel->setText(tr("Cr&eate in:"));
   locationLabel->setBuddy(m_locationComboBox);
-  m_locationComboBox->addItems(
-    QStringList() <<
-    tr("Current directory") <<
-    tr("Every directory") <<
-    tr("Top-level directory"));
+  m_locationComboBox->addItems({
+    tr("Current directory"),
+    tr("Every directory"),
+    tr("Top-level directory")
+  });
   pcGroupBox->setTitle(tr("Playlist Content"));
   formatLabel->setText(tr("For&mat:"));
   formatLabel->setBuddy(m_formatComboBox);
-  m_formatComboBox->addItems(QStringList() << QLatin1String("M3U") << QLatin1String("PLS") << QLatin1String("XSPF"));
+  m_formatComboBox->addItems(
+    {QLatin1String("M3U"), QLatin1String("PLS"), QLatin1String("XSPF")});
   m_onlySelectedFilesCheckBox->setText(tr("Incl&ude only the selected files"));
   m_sortFileNameButton->setText(tr("Sort by file &name"));
   m_sortFileNameButton->setChecked(true);
@@ -196,10 +200,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_writeInfoButton->setText(tr("Write &info using"));
   m_writeInfoComboBox->setEditable(true);
   m_writeInfoComboBox->setEnabled(false);
-  m_writeInfoComboBox->addItems(
-    QStringList() <<
-    QLatin1String("%{artist} - %{title}") << QLatin1String("%{title}") <<
-    QLatin1String("%{track.1}/%{tracks} - %{artist} - %{album} - %{title}"));
+  m_writeInfoComboBox->addItems({
+    QLatin1String("%{artist} - %{title}"), QLatin1String("%{title}"),
+    QLatin1String("%{track.1}/%{tracks} - %{artist} - %{album} - %{title}")
+  });
   connect(m_writeInfoButton, SIGNAL(toggled(bool)),
           m_writeInfoComboBox, SLOT(setEnabled(bool)));
 

@@ -55,8 +55,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   m_localeComboBox->addItems(FormatConfig::getLocaleNames());
   m_strRepCheckBox = new QCheckBox(tr("String replacement:"), this);
   m_strReplTableModel = new ConfigTableModel(this);
-  m_strReplTableModel->setLabels(
-    QStringList() << tr("From") << tr("To"));
+  m_strReplTableModel->setLabels({tr("From"), tr("To")});
   m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());

@@ -63,36 +63,37 @@ QString MprisInterface::desktopEntry() const
 
 QStringList MprisInterface::supportedUriSchemes() const
 {
-  return QStringList() << QLatin1String("file");
+  return {QLatin1String("file")};
 }
 
 QStringList MprisInterface::supportedMimeTypes() const
 {
-  return QStringList()
-      << QLatin1String("audio/mpeg")
-      << QLatin1String("audio/ogg")
-      << QLatin1String("application/ogg")
-      << QLatin1String("audio/x-flac")
-      << QLatin1String("audio/x-flac+ogg")
-      << QLatin1String("audio/x-vorbis+ogg")
-      << QLatin1String("audio/x-speex+ogg")
-      << QLatin1String("audio/x-oggflac")
-      << QLatin1String("audio/x-musepack")
-      << QLatin1String("audio/aac")
-      << QLatin1String("audio/mp4")
-      << QLatin1String("audio/x-speex")
-      << QLatin1String("audio/x-tta")
-      << QLatin1String("audio/x-wavpack")
-      << QLatin1String("audio/x-aiff")
-      << QLatin1String("audio/x-it")
-      << QLatin1String("audio/x-mod")
-      << QLatin1String("audio/x-s3m")
-      << QLatin1String("audio/x-ms-wma")
-      << QLatin1String("audio/x-wav")
-      << QLatin1String("audio/x-xm")
-      << QLatin1String("audio/opus")
-      << QLatin1String("audio/x-opus+ogg")
-      << QLatin1String("audio/x-dsf");
+  return {
+   QLatin1String("audio/mpeg"),
+   QLatin1String("audio/ogg"),
+   QLatin1String("application/ogg"),
+   QLatin1String("audio/x-flac"),
+   QLatin1String("audio/x-flac+ogg"),
+   QLatin1String("audio/x-vorbis+ogg"),
+   QLatin1String("audio/x-speex+ogg"),
+   QLatin1String("audio/x-oggflac"),
+   QLatin1String("audio/x-musepack"),
+   QLatin1String("audio/aac"),
+   QLatin1String("audio/mp4"),
+   QLatin1String("audio/x-speex"),
+   QLatin1String("audio/x-tta"),
+   QLatin1String("audio/x-wavpack"),
+   QLatin1String("audio/x-aiff"),
+   QLatin1String("audio/x-it"),
+   QLatin1String("audio/x-mod"),
+   QLatin1String("audio/x-s3m"),
+   QLatin1String("audio/x-ms-wma"),
+   QLatin1String("audio/x-wav"),
+   QLatin1String("audio/x-xm"),
+   QLatin1String("audio/opus"),
+   QLatin1String("audio/x-opus+ogg"),
+   QLatin1String("audio/x-dsf")
+  };
 }
 
 
@@ -180,7 +181,7 @@ void MprisPlayerInterface::SetPosition(const QDBusObjectPath& trackId,
 
 void MprisPlayerInterface::OpenUri(const QString& uri)
 {
-  m_audioPlayer->setFiles(QStringList() << QUrl(uri).toLocalFile());
+  m_audioPlayer->setFiles({QUrl(uri).toLocalFile()});
 }
 
 
@@ -430,8 +431,8 @@ const
   if (m_coverArtDirName != dirPath) {
     m_coverArtDirName = dirPath;
     QStringList files = QDir(dirPath).entryList(
-          QStringList() << QLatin1String("*.jpg") << QLatin1String("*.jpeg")
-                        << QLatin1String("*.png"), QDir::Files);
+        {QLatin1String("*.jpg"), QLatin1String("*.jpeg"),QLatin1String("*.png")},
+        QDir::Files);
     m_coverArtFileName = !files.isEmpty() ? files.first() : QString();
   }
   return !m_coverArtFileName.isEmpty()

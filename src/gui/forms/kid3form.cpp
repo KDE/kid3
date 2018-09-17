@@ -641,7 +641,7 @@ void Kid3Form::dirSelected(const QModelIndex& index)
     m_app->setDirUpIndex(
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
     m_mainWin->updateCurrentSelection();
-    m_mainWin->confirmedOpenDirectory(QStringList() << dirPath);
+    m_mainWin->confirmedOpenDirectory({dirPath});
   }
 }
 
@@ -889,12 +889,12 @@ void Kid3Form::readConfig()
   if (!guiCfg.splitterSizes().isEmpty()) {
     setSizes(guiCfg.splitterSizes());
   } else {
-    setSizes(QList<int>() << 307 << 601);
+    setSizes({307, 601});
   }
   if (!guiCfg.vSplitterSizes().isEmpty()) {
     m_vSplitter->setSizes(guiCfg.vSplitterSizes());
   } else {
-    m_vSplitter->setSizes(QList<int>() << 451 << 109);
+    m_vSplitter->setSizes({451, 109});
   }
 
   // Block signals on combo boxes while setting contents to avoid

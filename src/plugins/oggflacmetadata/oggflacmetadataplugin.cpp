@@ -67,14 +67,14 @@ QString OggFlacMetadataPlugin::name() const
  */
 QStringList OggFlacMetadataPlugin::taggedFileKeys() const
 {
-  return QStringList()
+  return {
 #ifdef HAVE_VORBIS
-      << OGG_KEY
+      OGG_KEY,
 #endif
 #ifdef HAVE_FLAC
-      << FLAC_KEY
+      FLAC_KEY,
 #endif
-         ;
+  };
 }
 
 /**
@@ -150,12 +150,12 @@ OggFlacMetadataPlugin::supportedFileExtensions(const QString& key) const
 {
 #ifdef HAVE_VORBIS
   if (key == OGG_KEY) {
-    return QStringList() << QLatin1String(".oga") << QLatin1String(".ogg");
+    return {QLatin1String(".oga"), QLatin1String(".ogg")};
   }
 #endif
 #ifdef HAVE_FLAC
   if (key == FLAC_KEY) {
-    return QStringList() << QLatin1String(".flac");
+    return {QLatin1String(".flac")};
   }
 #endif
   return QStringList();

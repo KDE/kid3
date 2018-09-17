@@ -62,12 +62,8 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
 
   QString formatToolTip = ImportParser::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("Format:")
-                      << tr("Header:")
-                      << tr("Tracks:"),
-        QStringList() << QString()
-                      << formatToolTip
-                      << formatToolTip,
+        {tr("Format:"), tr("Header:"), tr("Tracks:")},
+        {QString(), formatToolTip, formatToolTip},
         this);
   vboxLayout->addWidget(m_formatListEdit);
 
@@ -119,9 +115,8 @@ void TextImportDialog::setFormatFromConfig()
 {
   const ImportConfig& importCfg = ImportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << importCfg.importFormatNames()
-                             << importCfg.importFormatHeaders()
-                             << importCfg.importFormatTracks(),
+        {importCfg.importFormatNames(), importCfg.importFormatHeaders(),
+         importCfg.importFormatTracks()},
         importCfg.importFormatIndex());
 }
 

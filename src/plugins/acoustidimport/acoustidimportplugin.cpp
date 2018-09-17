@@ -51,7 +51,7 @@ AcoustidImportPlugin::~AcoustidImportPlugin()
  */
 QStringList AcoustidImportPlugin::serverTrackImporterKeys() const
 {
-  return QStringList() << IMPORTER_NAME;
+  return {IMPORTER_NAME};
 }
 
 /**

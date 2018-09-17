@@ -73,20 +73,20 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
 
   m_albumTableModel = new QStandardItemModel(this);
   m_albumTableModel->setColumnCount(2);
-  m_albumTableModel->setHorizontalHeaderLabels(
-    QStringList() <<
-    QLatin1String("08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]") <<
-    QLatin1String("A Not So Short State"));
+  m_albumTableModel->setHorizontalHeaderLabels({
+    QLatin1String("08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]"),
+    QLatin1String("A Not So Short State")
+  });
   m_albumTable = new QTableView(this);
   m_albumTable->setModel(m_albumTableModel);
   m_albumTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
   m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
   m_albumTable->resizeColumnsToContents();
   m_albumTable->setItemDelegateForColumn(0, new ComboBoxDelegate(this));
-  m_albumTableModel->setHorizontalHeaderLabels(
-    QStringList() <<
-    tr("Track Title/Artist - Album") <<
-    tr("State"));
+  m_albumTableModel->setHorizontalHeaderLabels({
+    tr("Track Title/Artist - Album"),
+    tr("State")
+  });
   initTable();
   vlayout->addWidget(m_albumTable);
 

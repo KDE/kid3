@@ -60,7 +60,7 @@ QmlCommandPlugin::~QmlCommandPlugin()
  */
 QStringList QmlCommandPlugin::userCommandKeys() const
 {
-  return QStringList() << QLatin1String("qml") << QLatin1String("qmlview");
+  return {QLatin1String("qml"), QLatin1String("qmlview")};
 }
 
 /**

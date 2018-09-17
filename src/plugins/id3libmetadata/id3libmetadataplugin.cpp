@@ -60,7 +60,7 @@ QString Id3libMetadataPlugin::name() const
  */
 QStringList Id3libMetadataPlugin::taggedFileKeys() const
 {
-  return QStringList() << TAGGEDFILE_KEY;
+  return {TAGGEDFILE_KEY};
 }
 
 /**
@@ -126,8 +126,7 @@ QStringList
 Id3libMetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
-    return QStringList() << QLatin1String(".mp3") << QLatin1String(".mp2")
-                         << QLatin1String(".aac");
+    return {QLatin1String(".mp3"), QLatin1String(".mp2"), QLatin1String(".aac")};
   }
   return QStringList();
 }

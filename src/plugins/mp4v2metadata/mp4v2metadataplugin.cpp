@@ -60,7 +60,7 @@ QString Mp4v2MetadataPlugin::name() const
  */
 QStringList Mp4v2MetadataPlugin::taggedFileKeys() const
 {
-  return QStringList() << TAGGEDFILE_KEY;
+  return {TAGGEDFILE_KEY};
 }
 
 /**
@@ -123,9 +123,10 @@ QStringList
 Mp4v2MetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
-    return QStringList() << QLatin1String(".m4a") << QLatin1String(".m4b")
-                         << QLatin1String(".m4p") << QLatin1String(".mp4")
-                         << QLatin1String(".m4v") << QLatin1String(".mp4v");
+    return {
+      QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
+      QLatin1String(".mp4"), QLatin1String(".m4v"), QLatin1String(".mp4v")
+    };
   }
   return QStringList();
 }

@@ -202,7 +202,7 @@ void TimeEventEditor::preparePlayer()
   AudioPlayer* player = m_app->getAudioPlayer();
   QString filePath = m_taggedFile->getAbsFilename();
   if (player->getFileName() != filePath) {
-    player->setFiles(QStringList() << filePath, -1);
+    player->setFiles({filePath}, -1);
   }
   m_fileIsPlayed = true;
   connect(player, SIGNAL(trackChanged(QString,bool,bool)),
@@ -332,12 +332,12 @@ QString TimeEventEditor::getLrcNameFilter() const
 {
   const char* const lyricsStr = QT_TRANSLATE_NOOP("@default", "Lyrics");
   const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
-  return m_platformTools->fileDialogNameFilter(
-        QList<QPair<QString, QString> >()
-        << qMakePair(QCoreApplication::translate("@default", lyricsStr),
-                     QString(QLatin1String("*.lrc")))
-        << qMakePair(QCoreApplication::translate("@default", allFilesStr),
-                     QString(QLatin1Char('*'))));
+  return m_platformTools->fileDialogNameFilter({
+        qMakePair(QCoreApplication::translate("@default", lyricsStr),
+                  QString(QLatin1String("*.lrc"))),
+        qMakePair(QCoreApplication::translate("@default", allFilesStr),
+                  QString(QLatin1Char('*')))
+  });
 }
 
 /**

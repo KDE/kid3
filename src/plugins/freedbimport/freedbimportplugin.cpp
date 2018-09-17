@@ -53,8 +53,7 @@ FreedbImportPlugin::~FreedbImportPlugin()
  */
 QStringList FreedbImportPlugin::serverImporterKeys() const
 {
-  return QStringList() << FREEDB_IMPORTER_NAME
-                       << TRACKTYPE_IMPORTER_NAME;
+  return {FREEDB_IMPORTER_NAME, TRACKTYPE_IMPORTER_NAME};
 }
 
 /**

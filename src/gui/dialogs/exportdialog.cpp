@@ -78,14 +78,8 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   QString formatToolTip = ImportTrackData::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("&Format:")
-                      << tr("H&eader:")
-                      << tr("&Tracks:")
-                      << tr("F&ooter:"),
-        QStringList() << QString()
-                      << formatToolTip
-                      << formatToolTip
-                      << formatToolTip,
+        {tr("&Format:"), tr("H&eader:"), tr("&Tracks:"), tr("F&ooter:")},
+        {QString(), formatToolTip, formatToolTip, formatToolTip},
         this);
   connect(m_formatListEdit, SIGNAL(formatChanged()),
           this, SLOT(showPreview()));
@@ -204,10 +198,8 @@ void ExportDialog::setFormatFromConfig()
 {
   const ExportConfig& exportCfg = ExportConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << exportCfg.exportFormatNames()
-                             << exportCfg.exportFormatHeaders()
-                             << exportCfg.exportFormatTracks()
-                             << exportCfg.exportFormatTrailers(),
+        {exportCfg.exportFormatNames(), exportCfg.exportFormatHeaders(),
+         exportCfg.exportFormatTracks(), exportCfg.exportFormatTrailers()},
         exportCfg.exportFormatIndex());
 }
 

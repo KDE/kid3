@@ -62,10 +62,8 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   vlayout->addWidget(m_previewBox);
 
   m_formatListEdit = new FormatListEdit(
-        QStringList() << tr("&Filter:")
-                      << tr("&Expression:"),
-        QStringList() << QString()
-                      << FileFilter::getFormatToolTip(),
+        {tr("&Filter:"), tr("&Expression:")},
+        {QString(), FileFilter::getFormatToolTip()},
         this);
   vlayout->addWidget(m_formatListEdit);
 
@@ -130,8 +128,7 @@ void FilterDialog::setFiltersFromConfig()
 {
   const FilterConfig& filterCfg = FilterConfig::instance();
   m_formatListEdit->setFormats(
-        QList<QStringList>() << filterCfg.filterNames()
-                             << filterCfg.filterExpressions(),
+        {filterCfg.filterNames(), filterCfg.filterExpressions()},
         filterCfg.filterIndex());
 }
 

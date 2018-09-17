@@ -60,7 +60,7 @@ QString TaglibMetadataPlugin::name() const
  */
 QStringList TaglibMetadataPlugin::taggedFileKeys() const
 {
-  return QStringList() << TAGGEDFILE_KEY;
+  return {TAGGEDFILE_KEY};
 }
 
 /**
@@ -148,24 +148,26 @@ QStringList
 TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
-    return QStringList() << QLatin1String(".flac") << QLatin1String(".mp3") << QLatin1String(".mpc") << QLatin1String(".oga") << QLatin1String(".ogg") <<
-      QLatin1String(".spx") << QLatin1String(".tta") << QLatin1String(".aac") << QLatin1String(".mp2") <<
+    return {
+      QLatin1String(".flac"), QLatin1String(".mp3"), QLatin1String(".mpc"), QLatin1String(".oga"), QLatin1String(".ogg"),
+      QLatin1String(".spx"), QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
 #ifdef TAGLIB_WITH_MP4
-      QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4") <<
-      QLatin1String(".m4v") << QLatin1String(".mp4v") <<
+      QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"), QLatin1String(".mp4"),
+      QLatin1String(".m4v"), QLatin1String(".mp4v"),
 #endif
 #ifdef TAGLIB_WITH_ASF
-      QLatin1String(".wma") << QLatin1String(".asf") <<
+      QLatin1String(".wma"), QLatin1String(".asf"),
 #endif
-      QLatin1String(".aif") << QLatin1String(".aiff") << QLatin1String(".wav") <<
-      QLatin1String(".ape") <<
-      QLatin1String(".mod") << QLatin1String(".s3m") << QLatin1String(".it") <<
+      QLatin1String(".aif"), QLatin1String(".aiff"), QLatin1String(".wav"),
+      QLatin1String(".ape"),
+      QLatin1String(".mod"), QLatin1String(".s3m"), QLatin1String(".it"),
 #ifdef HAVE_TAGLIB_XM_SUPPORT
-      QLatin1String(".xm") <<
+      QLatin1String(".xm"),
 #endif
-      QLatin1String(".opus") <<
-      QLatin1String(".dsf") <<
-      QLatin1String(".wv");
+      QLatin1String(".opus"),
+      QLatin1String(".dsf"),
+      QLatin1String(".wv")
+    };
   }
   return QStringList();
 }
