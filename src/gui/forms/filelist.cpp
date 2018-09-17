@@ -149,7 +149,8 @@ void FileList::mousePressEvent(QMouseEvent* event)
  */
 void FileList::startDrag(Qt::DropActions supportedActions)
 {
-  foreach (const QModelIndex& index, selectedIndexes()) {
+  const auto indexes = selectedIndexes();
+  for (const QModelIndex& index : indexes) {
     const QAbstractItemModel* mdl = index.model();
     if (index.column() == 0 &&
         mdl && (mdl->flags(index) & Qt::ItemIsDragEnabled)) {
@@ -286,9 +287,9 @@ QStringList FileList::formatStringList(const QStringList& format)
 {
   QStringList files;
   TaggedFile* firstSelectedFile = 0;
-  QModelIndexList selItems(selectionModel()
+  const QModelIndexList selItems(selectionModel()
        ? selectionModel()->selectedRows() : QModelIndexList());
-  foreach (const QModelIndex& index, selItems) {
+  for (const QModelIndex& index : selItems) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       if (!firstSelectedFile) {
         firstSelectedFile = taggedFile;
@@ -331,7 +332,7 @@ QStringList FileList::formatStringList(const QStringList& format)
         if (firstSelectedFile) {
           // use merged tags to format string
           frames.clear();
-          foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+          for (Frame::TagNumber tagNr : Frame::allTagNumbers()) {
             if (frames.empty()) {
               firstSelectedFile->getAllFrames(tagNr, frames);
             } else {
@@ -519,7 +520,8 @@ void FileList::openFile()
   if (QItemSelectionModel* selModel = selectionModel()) {
     if (const FileProxyModel* fsModel =
         qobject_cast<const FileProxyModel*>(selModel->model())) {
-      foreach (const QModelIndex& index, selModel->selectedRows()) {
+      const auto indexes = selModel->selectedRows();
+      for (const QModelIndex& index : indexes) {
         QDesktopServices::openUrl(
               QUrl::fromLocalFile(fsModel->filePath(index)));
       }

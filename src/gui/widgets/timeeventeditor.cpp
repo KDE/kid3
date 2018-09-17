@@ -362,7 +362,8 @@ void TimeEventEditor::deleteRows()
 
   QMap<int, int> rows;
   if (QItemSelectionModel* selModel = m_tableView->selectionModel()) {
-    foreach (const QModelIndex& index, selModel->selectedIndexes()) {
+    const auto indexes = selModel->selectedIndexes();
+    for (const QModelIndex& index : indexes) {
       rows.insert(index.row(), 0);
     }
   }
@@ -387,7 +388,8 @@ void TimeEventEditor::clearCells()
                      ? QVariant::Int : QVariant::String);
   QVariant emptyTime(QVariant::Time);
   if (QItemSelectionModel* selModel = m_tableView->selectionModel()) {
-    foreach (const QModelIndex& index, selModel->selectedIndexes()) {
+    const auto indexes = selModel->selectedIndexes();
+    for (const QModelIndex& index : indexes) {
       m_model->setData(index, index.column() == TimeEventModel::CI_Time
                        ? emptyTime : emptyData);
     }
@@ -404,7 +406,8 @@ void TimeEventEditor::addOffset()
 
   int offset = QInputDialog::getInt(this, tr("Offset"), tr("Milliseconds"));
   if (QItemSelectionModel* selModel = m_tableView->selectionModel()) {
-    foreach (const QModelIndex& index, selModel->selectedIndexes()) {
+    const auto indexes = selModel->selectedIndexes();
+    for (const QModelIndex& index : indexes) {
       if (index.column() == TimeEventModel::CI_Time) {
         m_model->setData(index, index.data().toTime().addMSecs(offset));
       }

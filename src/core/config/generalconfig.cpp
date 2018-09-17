@@ -55,7 +55,7 @@ GeneralConfig::~GeneralConfig() {}
 QStringList GeneralConfig::intListToStringList(const QList<int>& intList)
 {
   QStringList result;
-  foreach (int value, intList) {
+  for (int value : intList) {
     result.append(QString::number(value));
   }
   return result;
@@ -69,7 +69,7 @@ QStringList GeneralConfig::intListToStringList(const QList<int>& intList)
 QList<int> GeneralConfig::stringListToIntList(const QStringList& strList)
 {
   QList<int> result;
-  foreach (const QString& value, strList) {
+  for (const QString& value : strList) {
     result.append(value.toInt());
   }
   return result;

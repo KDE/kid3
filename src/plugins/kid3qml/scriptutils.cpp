@@ -67,7 +67,7 @@ ScriptUtils::~ScriptUtils()
 QStringList ScriptUtils::toStringList(const QList<QUrl>& urls)
 {
   QStringList paths;
-  foreach (const QUrl& url, urls) {
+  for (const QUrl& url : urls) {
     paths.append(url.toLocalFile());
   }
   return paths;
@@ -76,7 +76,7 @@ QStringList ScriptUtils::toStringList(const QList<QUrl>& urls)
 QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVariantList& lst)
 {
   QList<QPersistentModelIndex> indexes;
-  foreach (const QVariant& var, lst) {
+  for (const QVariant& var : lst) {
     indexes.append(var.toModelIndex());
   }
   return indexes;
@@ -307,8 +307,8 @@ QStringList ScriptUtils::listDir(
     const QString& path, const QStringList& nameFilters, bool classify)
 {
   QStringList dirList;
-  QFileInfoList entries = QDir(path).entryInfoList(nameFilters);
-  foreach (const QFileInfo& fi, entries) {
+  const QFileInfoList entries = QDir(path).entryInfoList(nameFilters);
+  for (const QFileInfo& fi : entries) {
     QString fileName = fi.fileName();
     if (classify) {
       if (fi.isDir()) fileName += QLatin1Char('/');

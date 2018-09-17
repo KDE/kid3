@@ -124,7 +124,8 @@ bool QmlCommandPlugin::startUserCommand(
       } else {
         // Probably an error.
         if (m_showOutput && m_qmlView->status() == QQuickView::Error) {
-          foreach (const QQmlError& err, m_qmlView->errors()) {
+          const auto errs = m_qmlView->errors();
+          for (const QQmlError& err : errs) {
             emit commandOutput(err.toString());
           }
         }
@@ -148,7 +149,8 @@ bool QmlCommandPlugin::startUserCommand(
       } else {
         // Probably an error.
         if (m_showOutput && component.isError()) {
-          foreach (const QQmlError& err, component.errors()) {
+          const auto errs = component.errors();
+          for (const QQmlError& err : errs) {
             emit commandOutput(err.toString());
           }
         }
@@ -192,7 +194,7 @@ QObject* QmlCommandPlugin::qobject()
 void QmlCommandPlugin::onEngineError(const QList<QQmlError>& errors)
 {
   if (QQmlEngine* engine = qobject_cast<QQmlEngine*>(sender())) {
-    foreach (const QQmlError& err, errors) {
+    for (const QQmlError& err : errors) {
       emit commandOutput(err.toString());
     }
     engine->clearComponentCache();

@@ -283,7 +283,7 @@ TrackData::TrackData()
 TrackData::TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
   m_taggedFileIndex(taggedFile.getIndex())
 {
-  foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagVersion)) {
+  for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagVersion)) {
     if (empty()) {
       taggedFile.getAllFrames(tagNr, *this);
     } else {
@@ -577,7 +577,7 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
       return result;
     TaggedFile* taggedFile = trackData.getTaggedFile();
     FrameCollection frames;
-    foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+    for (Frame::TagNumber tagNr : Frame::allTagNumbers()) {
       taggedFile->getAllFrames(tagNr, frames);
       result = frames.getValue(type);
       if (!result.isEmpty())
@@ -598,7 +598,7 @@ void ImportTrackDataVector::readTags(Frame::TagVersion tagVersion)
   for (iterator it = begin(); it != end(); ++it) {
     if (TaggedFile* taggedFile = it->getTaggedFile()) {
       it->clear();
-      foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagVersion)) {
+      for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagVersion)) {
         if (it->empty()) {
           taggedFile->getAllFrames(tagNr, *it);
         } else {

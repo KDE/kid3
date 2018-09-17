@@ -233,7 +233,7 @@ public:
    * Get list of available tag versions with translated description.
    * @return tag version/description pairs.
    */
-  static QList<QPair<TagVersion, QString> > availableTagVersions();
+  static const QList<QPair<TagVersion, QString> > availableTagVersions();
 
   /**
    * Get highest priority tag number which is set in a tag mask.
@@ -253,7 +253,7 @@ public:
    * @param tagMask tag mask with bits set for tags
    * @return list of tag numbers.
    */
-  static QList<TagNumber> tagNumbersFromMask(TagVersion tagMask) {
+  static const QList<TagNumber> tagNumbersFromMask(TagVersion tagMask) {
     QList<TagNumber> result;
     if (tagMask & TagV2) result << Tag_2;
     if (tagMask & TagV1) result << Tag_1;
@@ -265,7 +265,7 @@ public:
    * Get all tag numbers, ordered from highest to lowest priority.
    * @return list of tag numbers.
    */
-  static QList<TagNumber> allTagNumbers() {
+  static const QList<TagNumber> allTagNumbers() {
     return tagNumbersFromMask(TagVAll);
   }
 

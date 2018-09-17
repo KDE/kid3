@@ -407,7 +407,7 @@ void GetCommand::startCommand()
   if (name == QLatin1String("all")) {
     cli()->writeFileInformation(tagMask);
   } else {
-    foreach (Frame::TagNumber tagNr, Frame::tagNumbersFromMask(tagMask)) {
+    for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagMask)) {
       QString value = cli()->app()->getFrame(Frame::tagVersionFromNumber(tagNr),
                                              name);
       if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {

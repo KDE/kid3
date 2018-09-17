@@ -282,9 +282,11 @@ void CheckableListModel::onRowsInserted(const QModelIndex& parent,
 void CheckableListModel::onSelectionChanged(const QItemSelection& selected,
                                           const QItemSelection& deselected)
 {
-  foreach (const QItemSelectionRange& range, mapSelectionFromSource(selected))
+  const auto selectedRanges = mapSelectionFromSource(selected);
+  for (const QItemSelectionRange& range : selectedRanges)
     emit dataChanged(range.topLeft(), range.bottomRight());
-  foreach (const QItemSelectionRange& range, mapSelectionFromSource(deselected))
+  const auto deselectedRanges = mapSelectionFromSource(deselected);
+  for (const QItemSelectionRange& range : deselectedRanges)
     emit dataChanged(range.topLeft(), range.bottomRight());
 }
 

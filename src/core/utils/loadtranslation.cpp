@@ -72,7 +72,8 @@ void Utils::loadTranslation(const QString& lang)
 
   // translation file for Qt
   QTranslator* qtTr = new QTranslator(qApp);
-  foreach (const QString& localeName, languages) {
+  const auto localeNames = languages;
+  for (const QString& localeName : localeNames) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
 #if defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID
@@ -94,7 +95,7 @@ void Utils::loadTranslation(const QString& lang)
 
   // translation file for application strings
   QTranslator* kid3Tr = new QTranslator(qApp);
-  foreach (const QString& localeName, languages) {
+  for (const QString& localeName : localeNames) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
         (!translationsDir.isNull() &&

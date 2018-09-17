@@ -421,7 +421,8 @@ TaggedFileOfSelectedDirectoriesIterator::TaggedFileOfSelectedDirectoriesIterator
   if (selectModel &&
       (m_model = qobject_cast<const FileProxyModel*>(selectModel->model()))
       != 0) {
-    foreach (const QModelIndex& index, selectModel->selectedRows()) {
+    const auto indexes = selectModel->selectedRows();
+    for (const QModelIndex& index : indexes) {
       if (m_model->isDir(index)) {
         m_dirIndexes.append(getIndexesOfDirWithSubDirs(index));
       }

@@ -135,7 +135,8 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
         indexesWithChildren.append(idx);
     }
     qDebug("%s", qPrintable(rowStr));
-    foreach (const QModelIndex& idx, indexesWithChildren) {
+    const auto idxs = indexesWithChildren;
+    for (const QModelIndex& idx : idxs) {
       dumpModel(model, idx, indent + 2);
     }
   }

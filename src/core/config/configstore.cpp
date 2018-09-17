@@ -66,7 +66,8 @@ ConfigStore::~ConfigStore()
  */
 void ConfigStore::writeToConfig()
 {
-  foreach (GeneralConfig* cfg, m_configurations) {
+  const auto cfgs = m_configurations;
+  for (const GeneralConfig* cfg : cfgs) {
     cfg->writeToConfig(m_config);
   }
   m_config->beginGroup(QLatin1String("ConfigStore"));

@@ -74,7 +74,7 @@ AudioPlayer::~AudioPlayer()
 void AudioPlayer::setFiles(const QStringList& files, int fileNr)
 {
   m_mediaPlaylist->clear();
-  foreach (const QString& file, files) {
+  for (const QString& file : files) {
     m_mediaPlaylist->addMedia(QUrl::fromLocalFile(file));
   }
   if (fileNr != -1) {

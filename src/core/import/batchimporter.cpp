@@ -430,7 +430,8 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
 
 ServerImporter* BatchImporter::getImporter(const QString& name)
 {
-  foreach (ServerImporter* importer, m_importers) {
+  const auto importers = m_importers;
+  for (ServerImporter* importer : importers) {
     if (QString::fromLatin1(importer->name()) == name) {
       return importer;
     }

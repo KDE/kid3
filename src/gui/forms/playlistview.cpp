@@ -185,7 +185,8 @@ QAbstractItemView::DropIndicatorPosition PlaylistView::position(
 QList<int> PlaylistView::getSelectedRows() const
 {
   QSet<int> selRows;
-  foreach (const QModelIndex& idx, selectedIndexes()) {
+  const auto idxs = selectedIndexes();
+  for (const QModelIndex& idx : idxs) {
     selRows.insert(idx.row());
   }
 
@@ -206,7 +207,7 @@ void PlaylistView::dropEvent(QDropEvent* event)
       int row = -1;
       if (dropOn(event, &row, &col, &index)) {
         if (QAbstractItemModel* mdl = model()) {
-          QList<int> selRows = getSelectedRows();
+          const QList<int> selRows = getSelectedRows();
           if (!selRows.isEmpty()) {
             int top = selRows.first();
             int dropRow = row;
@@ -214,7 +215,7 @@ void PlaylistView::dropEvent(QDropEvent* event)
               dropRow = mdl->rowCount(index);
             }
             int offset = dropRow - top;
-            foreach (int theRow, selRows) {
+            for (int theRow : selRows) {
               int r = theRow + offset;
               if (r > mdl->rowCount(index) || r < 0) {
                 r = 0;
@@ -222,11 +223,11 @@ void PlaylistView::dropEvent(QDropEvent* event)
               mdl->insertRow(r, index);
             }
 
-            selRows = getSelectedRows();
-            if (!selRows.isEmpty()) {
-              top = selRows.first();
+            const QList<int> newSelRows = getSelectedRows();
+            if (!newSelRows.isEmpty()) {
+              top = newSelRows.first();
               offset = dropRow - top;
-              foreach (int theRow, selRows) {
+              for (int theRow : newSelRows) {
                 int r = theRow + offset;
                 if (r > mdl->rowCount(index) || r < 0) {
                   r = 0;

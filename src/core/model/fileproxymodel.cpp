@@ -437,7 +437,7 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
 {
   QRegExp wildcardRe(QLatin1String("\\.\\w+"));
   QSet<QString> exts;
-  foreach (const QString& filter, filters) {
+  for (const QString& filter : filters) {
     int pos = 0;
     while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
       int len = wildcardRe.matchedLength();
@@ -522,13 +522,13 @@ void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
   QList<QRegExp> oldIncludeFolderFilters, oldExcludeFolderFilters;
   m_includeFolderFilters.swap(oldIncludeFolderFilters);
   m_excludeFolderFilters.swap(oldExcludeFolderFilters);
-  foreach (QString filter, includeFolders) {
+  for (QString filter : includeFolders) {
     filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
     m_includeFolderFilters.append(
           QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
   }
 
-  foreach (QString filter, excludeFolders) {
+  for (QString filter : excludeFolders) {
     filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
     m_excludeFolderFilters.append(
           QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
@@ -739,8 +739,10 @@ TaggedFile* FileProxyModel::createTaggedFile(
     const QString& fileName,
     const QPersistentModelIndex& idx) {
   TaggedFile* taggedFile = 0;
-  foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
-    foreach (const QString& key, factory->taggedFileKeys()) {
+  const auto factories = s_taggedFileFactories;
+  for (ITaggedFileFactory* factory : factories) {
+    const auto keys = factory->taggedFileKeys();
+    for (const QString& key : keys) {
       if ((factory->taggedFileFeatures(key) & feature) != 0 &&
           (taggedFile = factory->createTaggedFile(key, fileName, idx,
                                                   feature))
@@ -764,8 +766,10 @@ TaggedFile* FileProxyModel::createTaggedFile(
     const QString& fileName,
     const QPersistentModelIndex& idx) {
   TaggedFile* taggedFile = 0;
-  foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
-    foreach (const QString& key, factory->taggedFileKeys()) {
+  const auto factories = s_taggedFileFactories;
+  for (ITaggedFileFactory* factory : factories) {
+    const auto keys = factory->taggedFileKeys();
+    for (const QString& key : keys) {
       taggedFile = factory->createTaggedFile(key, fileName, idx);
       if (taggedFile) {
         return taggedFile;
@@ -939,8 +943,10 @@ void FileProxyModel::notifyModelDataChanged(const QModelIndex& index)
 QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
 {
   QStringList extensions;
-  foreach (ITaggedFileFactory* factory, taggedFileFactories()) {
-    foreach (const QString& key, factory->taggedFileKeys()) {
+  const auto factories = taggedFileFactories();
+  for (ITaggedFileFactory* factory : factories) {
+    const auto keys = factory->taggedFileKeys();
+    for (const QString& key : keys) {
       extensions.append(factory->supportedFileExtensions(key));
     }
   }

@@ -101,7 +101,8 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
   }
 
   QString pluginsPath;
-  foreach (const QString& path, engine->importPathList()) {
+  const auto paths = engine->importPathList();
+  for (const QString& path : paths) {
     int index = path.indexOf(cfgPluginsDir);
     if (index != -1) {
       pluginsPath = path.left(index + cfgPluginsDir.length());

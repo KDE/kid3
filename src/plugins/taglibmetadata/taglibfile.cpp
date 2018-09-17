@@ -1183,7 +1183,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           }
 #endif
           flacFile->removePictures();
-          foreach (const Frame& frame, m_pictures) {
+          const auto frames = m_pictures;
+          for (const Frame& frame : frames) {
             TagLib::FLAC::Picture* pic = new TagLib::FLAC::Picture;
             frameToFlacPicture(frame, pic);
             flacFile->addPicture(pic);
@@ -1224,7 +1225,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         else if (TagLib::Ogg::XiphComment* xiphComment =
                  dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
           xiphComment->removeAllPictures();
-          foreach (const Frame& frame, m_pictures) {
+          const auto frames = m_pictures;
+          for (const Frame& frame : frames) {
             TagLib::FLAC::Picture* pic = new TagLib::FLAC::Picture;
             frameToFlacPicture(frame, pic);
             xiphComment->addPicture(pic);
@@ -2507,7 +2509,8 @@ static void rva2FrameFromString(TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
 {
   // Unfortunately, it is not possible to remove data for a specific channel.
   // Only the whole frame could be deleted and a new one created.
-  foreach (const QString& line, toQString(text).split(QLatin1Char('\n'))) {
+  const auto lines = toQString(text).split(QLatin1Char('\n'));
+  for (const QString& line : lines) {
     QStringList strs = line.split(QLatin1Char(' '));
     if (strs.size() > 1) {
       bool ok;
@@ -4587,7 +4590,8 @@ static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
     }
     QStringList riffTrackNames = TagConfig::getRiffTrackNames();
     riffTrackNames.append(TagConfig::instance().riffTrackName());
-    foreach (const QString& str, riffTrackNames) {
+    const auto constRiffTrackNames = riffTrackNames;
+    for (const QString& str : constRiffTrackNames) {
       QByteArray ba = str.toLatin1();
       strNumMap.insert(TagLib::ByteVector(ba.constData(), ba.size()),
                        Frame::FT_Track);

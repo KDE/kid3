@@ -301,7 +301,8 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
 
   QVariantList synchedData;
   bool hasMsTimeStamps = false;
-  foreach (const TimeEvent& timeEvent, m_timeEvents) {
+  const auto timeEvents = m_timeEvents;
+  for (const TimeEvent& timeEvent : timeEvents) {
     if (!timeEvent.time.isNull()) {
       QString str = timeEvent.data.toString();
       // Remove escaping, restore new line characters.
@@ -389,7 +390,8 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
 
   QVariantList synchedData;
   bool hasMsTimeStamps = false;
-  foreach (const TimeEvent& timeEvent, m_timeEvents) {
+  const auto timeEvents = m_timeEvents;
+  for (const TimeEvent& timeEvent : timeEvents) {
     if (!timeEvent.time.isNull()) {
       int code = timeEvent.data.toInt();
 
@@ -552,7 +554,8 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
             continue;
           }
         }
-        foreach (const QTime& time, emptyEvents) {
+        const auto times = emptyEvents;
+        for (const QTime& time : times) {
           timeEvents.append(TimeEvent(time, str));
         }
         timeEvents.append(TimeEvent(timeStamp, str));
@@ -603,7 +606,8 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
     stream << QLatin1String("[al:") << album << QLatin1String("]\r\n");
     atBegin = false;
   }
-  foreach (const TimeEvent& timeEvent, m_timeEvents) {
+  const auto timeEvents = m_timeEvents;
+  for (const TimeEvent& timeEvent : timeEvents) {
     QTime time = timeEvent.time.toTime();
     if (time.isValid()) {
       char firstChar = '\0';

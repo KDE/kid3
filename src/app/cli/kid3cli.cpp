@@ -59,7 +59,7 @@ private:
 Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds) :
   m_cmds(cmds)
 {
-  foreach (const CliCommand* cmd, cmds) {
+  for (const CliCommand* cmd : cmds) {
     m_commands.append(cmd->name().toLocal8Bit());
   }
 }
@@ -91,7 +91,7 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
 
   QString argSpec;
   if (isFirstParameter) {
-    foreach (const CliCommand* cmd, m_cmds) {
+    for (const CliCommand* cmd : m_cmds) {
       if (cmdName == cmd->name()) {
         argSpec = cmd->argumentSpecification();
         break;
@@ -136,9 +136,9 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
             const QString& valuesStr = argSpecs.at(1);
             int valuesIdx = valuesStr.indexOf(QLatin1String("S = \""));
             if (valuesIdx != -1) {
-              QStringList values =
+              const QStringList values =
                   valuesStr.mid(valuesIdx + 4).split(QLatin1String(" | "));
-              foreach (const QString& value, values) {
+              for (const QString& value : values) {
                 if (value.startsWith(QLatin1Char('"')) &&
                     value.endsWith(QLatin1Char('"'))) {
                   m_parameters.append(
@@ -370,7 +370,8 @@ void Kid3Cli::writeHelp(const QString& cmdName)
       maxLength = qMax(cmdStr.size(), maxLength);
     }
   }
-  foreach (QStringList strs, cmdStrs) {
+  const auto constCmdStrs = cmdStrs;
+  for (QStringList strs : constCmdStrs) {
     QString cmdStr = strs.takeFirst();
     cmdStr += QString(maxLength - cmdStr.size() + 2, QLatin1Char(' '));
     cmdStr += strs.takeFirst();
@@ -417,7 +418,7 @@ bool Kid3Cli::openDirectory(const QStringList& paths)
 QStringList Kid3Cli::expandWildcards(const QStringList& paths)
 {
   QStringList expandedPaths;
-  foreach (const QString& path, paths) {
+  for (const QString& path : paths) {
     QStringList expandedPath;
     int wcIdx = path.indexOf(QRegExp(QLatin1String("[?*]")));
     if (wcIdx != -1) {
@@ -433,10 +434,10 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
       if (!wildcardPart.isEmpty()) {
         QDir dir(partBefore);
         if (!dir.exists(wildcardPart)) {
-          QStringList entries = dir.entryList(QStringList() << wildcardPart,
+          const QStringList entries = dir.entryList(QStringList() << wildcardPart,
                                     QDir::AllEntries | QDir::NoDotAndDotDot);
           if (!entries.isEmpty()) {
-            foreach (const QString& entry, entries) {
+            for (const QString& entry : entries) {
               expandedPath.append(partBefore + entry + partAfter);
             }
           }
@@ -461,7 +462,7 @@ bool Kid3Cli::selectFile(const QStringList& paths)
 {
   bool ok = true;
   FileProxyModel* model = m_app->getFileProxyModel();
-  foreach (const QString& fileName, paths) {
+  for (const QString& fileName : paths) {
     QModelIndex index = model->index(fileName);
     if (index.isValid()) {
       m_app->getFileSelectionModel()->setCurrentIndex(
@@ -633,7 +634,8 @@ void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
       indexesWithChildren.append(idx);
     }
     writeLine(propsStr + indentStr + nameStr);
-    foreach (const QModelIndex& idx, indexesWithChildren) {
+    const auto idxs = indexesWithChildren;
+    for (const QModelIndex& idx : idxs) {
       printFileProxyModel(model, idx, indent + 2);
     }
   }
@@ -701,10 +703,10 @@ void Kid3Cli::onArgCommandFinished() {
 
 bool Kid3Cli::parseOptions()
 {
-  QStringList args = m_args.mid(1);
+  const QStringList args = m_args.mid(1);
   QStringList paths;
   bool isCommand = false;
-  foreach (const QString& arg, args) {
+  for (const QString& arg : args) {
     if (isCommand) {
       m_argCommands.append(arg);
       isCommand = false;

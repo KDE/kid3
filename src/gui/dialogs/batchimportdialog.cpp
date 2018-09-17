@@ -181,7 +181,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+  const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
   for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
        tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
@@ -214,7 +214,8 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   profileLayout->addLayout(nameLayout);
 
   QStringList servers;
-  foreach (const ServerImporter* si, m_importers) {
+  const auto sis = m_importers;
+  for (const ServerImporter* si : sis) {
     servers.append(QString::fromLatin1(si->name()));
   }
   m_profileModel = new BatchImportSourcesModel(this);
@@ -382,7 +383,8 @@ void BatchImportDialog::setGuiControlsFromProfile()
     m_profileComboBox->setItemText(m_profileIdx, m_profiles.at(m_profileIdx).getName());
   } else {
     m_profileComboBox->clear();
-    foreach (const BatchImportProfile& profile, m_profiles) {
+    const auto profiles = m_profiles;
+    for (const BatchImportProfile& profile : profiles) {
       m_profileComboBox->addItem(profile.getName());
     }
   }
@@ -443,7 +445,8 @@ void BatchImportDialog::saveConfig()
 
   QStringList names, sources;
   setProfileFromGuiControls();
-  foreach (const BatchImportProfile& profile, m_profiles) {
+  const auto profiles = m_profiles;
+  for (const BatchImportProfile& profile : profiles) {
     names.append(profile.getName());
     sources.append(profile.getSourcesAsString());
   }

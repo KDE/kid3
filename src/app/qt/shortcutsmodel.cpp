@@ -149,8 +149,9 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
           si.setCustomShortcut(value.toString());
           QString keyString(si.activeShortcut());
           if (!keyString.isEmpty()) {
-            foreach (const ShortcutGroup& g, m_shortcutGroups) {
-              foreach (const ShortcutItem& i, g) {
+            const auto gs = m_shortcutGroups;
+            for (const ShortcutGroup& g : gs) {
+              for (const ShortcutItem& i : g) {
                 if (i.activeShortcut() == keyString &&
                     si.action() != i.action()) {
                   emit shortcutAlreadyUsed(keyString, g.context(), i.action());

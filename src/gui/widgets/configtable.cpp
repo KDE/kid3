@@ -58,7 +58,7 @@ void ConfigTable::setHorizontalResizeModes(
 {
   QHeaderView* header = m_tableView->horizontalHeader();
   int col = 0;
-  foreach (QHeaderView::ResizeMode mode, resizeModes)
+  for (QHeaderView::ResizeMode mode : resizeModes)
     header->setSectionResizeMode(col++, mode);
 }
 

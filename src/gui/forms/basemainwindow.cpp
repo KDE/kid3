@@ -310,11 +310,11 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   m_app->deleteAudioPlayer();
 #endif
 
-  QStringList errorFiles = m_app->saveDirectory();
+  const QStringList errorFiles = m_app->saveDirectory();
 
   if (!errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
-    foreach (const QString& filePath, errorFiles) {
+    for (const QString& filePath : errorFiles) {
       QFileInfo fileInfo(filePath);
       if (!fileInfo.isWritable()) {
         errorMsgs.append(tr("%1 is not writable").arg(fileInfo.fileName()));
@@ -338,7 +338,8 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         FileProxyModel* model =
             qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
         TaggedFile* taggedFile;
-        foreach (const QString& filePath, notWritableFiles) {
+        const auto filePaths = notWritableFiles;
+        for (const QString& filePath : filePaths) {
           QFile::setPermissions(filePath,
               QFile::permissions(filePath) | QFile::WriteUser);
           if (model &&
@@ -705,7 +706,7 @@ void BaseMainWindowImpl::slotBrowseCoverArt()
   if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
     taggedFile->readTags(false);
     frames2.clear();
-    foreach (Frame::TagNumber tagNr, Frame::allTagNumbers()) {
+    for (Frame::TagNumber tagNr : Frame::allTagNumbers()) {
       if (frames2.empty()) {
         taggedFile->getAllFrames(tagNr, frames2);
       } else {
@@ -1262,9 +1263,11 @@ void BaseMainWindowImpl::renameFile()
     return;
 
   QList<QPersistentModelIndex> selItems;
-  foreach (const QModelIndex& index, selectModel->selectedRows())
+  const auto indexes = selectModel->selectedRows();
+  for (const QModelIndex& index : indexes)
     selItems.append(index);
-  foreach (const QPersistentModelIndex& index, selItems) {
+  const auto selectedIndexes = selItems;
+  for (const QPersistentModelIndex& index : selectedIndexes) {
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index);
     QString absFilename, dirName, fileName;
     if (taggedFile) {
@@ -1337,9 +1340,11 @@ void BaseMainWindowImpl::deleteFile()
 
   QStringList files;
   QList<QPersistentModelIndex> selItems;
-  foreach (const QModelIndex& index, selectModel->selectedRows())
+  const auto indexes = selectModel->selectedRows();
+  for (const QModelIndex& index : indexes)
     selItems.append(index);
-  foreach (const QPersistentModelIndex& index, selItems) {
+  const auto selectedIndexes = selItems;
+  for (const QPersistentModelIndex& index : selectedIndexes) {
     files.append(model->filePath(index));
   }
 
@@ -1355,7 +1360,7 @@ void BaseMainWindowImpl::deleteFile()
           tr("Move to Trash"))) {
       bool rmdirError = false;
       files.clear();
-      foreach (const QPersistentModelIndex& index, selItems) {
+      for (const QPersistentModelIndex& index : selectedIndexes) {
         QString absFilename(model->filePath(index));
         if (model->isDir(index)) {
           if (!m_platformTools->moveToTrash(absFilename)) {

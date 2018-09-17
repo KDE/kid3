@@ -366,7 +366,8 @@ void Kid3Application::initPlugins()
   TagConfig& tagCfg = TagConfig::instance();
   importCfg.clearAvailablePlugins();
   tagCfg.clearAvailablePlugins();
-  foreach (QObject* plugin, loadPlugins()) {
+  const auto plugins = loadPlugins();
+  for (QObject* plugin : plugins) {
     checkPlugin(plugin);
   }
   // Order the meta data plugins as configured.
@@ -376,7 +377,8 @@ void Kid3Application::initPlugins()
     for (int i = 0; i < pluginOrder.size(); ++i) {
       orderedFactories.append(0);
     }
-    foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
+    const auto factories = FileProxyModel::taggedFileFactories();
+    for (ITaggedFileFactory* factory : factories) {
       int idx = pluginOrder.indexOf(factory->name());
       if (idx >= 0) {
         orderedFactories[idx] = factory;
@@ -458,21 +460,22 @@ QObjectList Kid3Application::loadPlugins()
 
     // Construct a set of disabled plugin file names
     QMap<QString, QString> disabledImportPluginFileNames;
-    QStringList disabledPlugins = importCfg.disabledPlugins();
-    foreach (const QString& pluginName, disabledPlugins) {
+    const QStringList disabledPlugins = importCfg.disabledPlugins();
+    for (const QString& pluginName : disabledPlugins) {
       disabledImportPluginFileNames.insert(pluginFileName(pluginName),
                                            pluginName);
     }
     QMap<QString, QString> disabledTagPluginFileNames;
-    QStringList disabledTagPlugins = tagCfg.disabledPlugins();
-    foreach (const QString& pluginName, disabledTagPlugins) {
+    const QStringList disabledTagPlugins = tagCfg.disabledPlugins();
+    for (const QString& pluginName : disabledTagPlugins) {
       disabledTagPluginFileNames.insert(pluginFileName(pluginName),
                                         pluginName);
     }
 
     QStringList availablePlugins = importCfg.availablePlugins();
     QStringList availableTagPlugins = tagCfg.availablePlugins();
-    foreach (const QString& fileName, pluginsDir.entryList(QDir::Files)) {
+    const auto fileNames = pluginsDir.entryList(QDir::Files);
+    for (const QString& fileName : fileNames) {
       if (disabledImportPluginFileNames.contains(fileName)) {
         availablePlugins.append(
               disabledImportPluginFileNames.value(fileName));
@@ -517,7 +520,8 @@ void Kid3Application::checkPlugin(QObject* plugin)
     availablePlugins.append(plugin->objectName());
     importCfg.setAvailablePlugins(availablePlugins);
     if (!importCfg.disabledPlugins().contains(plugin->objectName())) {
-      foreach (const QString& key, importerFactory->serverImporterKeys()) {
+      const auto keys = importerFactory->serverImporterKeys();
+      for (const QString& key : keys) {
         m_importers.append(importerFactory->createServerImporter(
                              key, m_netMgr, m_trackDataModel));
       }
@@ -530,7 +534,8 @@ void Kid3Application::checkPlugin(QObject* plugin)
     availablePlugins.append(plugin->objectName());
     importCfg.setAvailablePlugins(availablePlugins);
     if (!importCfg.disabledPlugins().contains(plugin->objectName())) {
-      foreach (const QString& key, importerFactory->serverTrackImporterKeys()) {
+      const auto keys = importerFactory->serverTrackImporterKeys();
+      for (const QString& key : keys) {
         m_trackImporters.append(importerFactory->createServerTrackImporter(
                              key, m_netMgr, m_trackDataModel));
       }
@@ -544,7 +549,8 @@ void Kid3Application::checkPlugin(QObject* plugin)
     tagCfg.setAvailablePlugins(availablePlugins);
     if (!tagCfg.disabledPlugins().contains(plugin->objectName())) {
       int features = tagCfg.taggedFileFeatures();
-      foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
+      const auto keys = taggedFileFactory->taggedFileKeys();
+      for (const QString& key : keys) {
         taggedFileFactory->initialize(key);
         features |= taggedFileFactory->taggedFileFeatures(key);
       }
@@ -749,7 +755,7 @@ void Kid3Application::readConfig()
  */
 bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
-  QStringList pathList(paths);
+  const QStringList pathList(paths);
 #ifdef Q_OS_ANDROID
   if (pathList.isEmpty()) {
     QStringList musicLocations =
@@ -762,7 +768,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   bool ok = true;
   QStringList filePaths;
   QStringList dirComponents;
-  foreach (const QString& path, pathList) {
+  for (const QString& path : pathList) {
     if (!path.isEmpty()) {
       QFileInfo fileInfo(path);
       if (fileCheck && !fileInfo.exists()) {
@@ -819,7 +825,8 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
     }
     m_fileSystemModel->setFilter(filter);
     rootIndex = m_fileSystemModel->setRootPath(dir);
-    foreach (const QString& filePath, filePaths) {
+    const auto constFilePaths = filePaths;
+    for (const QString& filePath : constFilePaths) {
       fileIndexes.append(m_fileSystemModel->index(filePath));
     }
     ok = rootIndex.isValid();
@@ -831,7 +838,8 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
     QModelIndex oldRootIndex = m_fileProxyModelRootIndex;
     m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
     m_fileProxyModelFileIndexes.clear();
-    foreach (const QModelIndex& fileIndex, fileIndexes) {
+    const auto constFileIndexes = fileIndexes;
+    for (const QModelIndex& fileIndex : constFileIndexes) {
       m_fileProxyModelFileIndexes.append(
             m_fileProxyModel->mapFromSource(fileIndex));
     }
@@ -862,8 +870,8 @@ void Kid3Application::onDirectoryOpened()
   if (m_fileProxyModelRootIndex.isValid()) {
     m_fileSelectionModel->clearSelection();
     if (!m_fileProxyModelFileIndexes.isEmpty()) {
-      foreach (const QPersistentModelIndex& fileIndex,
-               m_fileProxyModelFileIndexes) {
+      const auto fileIndexes = m_fileProxyModelFileIndexes;
+      for (const QPersistentModelIndex& fileIndex : fileIndexes) {
         m_fileSelectionModel->select(fileIndex,
             QItemSelectionModel::Select | QItemSelectionModel::Rows);
       }
@@ -1027,7 +1035,8 @@ void Kid3Application::frameModelsToTags()
 void Kid3Application::tagsToFrameModels()
 {
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+  const auto selectedIndexes = m_fileSelectionModel->selectedRows();
+  for (const QModelIndex& index : selectedIndexes) {
     indexes.append(QPersistentModelIndex(index));
   }
 
@@ -1044,7 +1053,8 @@ void Kid3Application::tagsToFrameModels()
 void Kid3Application::selectedTagsToFrameModels(const QItemSelection& selected)
 {
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, selected.indexes()) {
+  const auto selectedIndexes = selected.indexes();
+  for (const QModelIndex& index : selectedIndexes) {
     if (index.column() == 0) {
       indexes.append(QPersistentModelIndex(index));
     }
@@ -1545,7 +1555,8 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
                                          QString());
   // If no directories are selected, process files of the current directory.
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+  const auto selectedIndexes = m_fileSelectionModel->selectedRows();
+  for (const QModelIndex& index : selectedIndexes) {
     if (m_fileProxyModel->isDir(index)) {
       indexes.append(index);
     }
@@ -1975,7 +1986,8 @@ TaggedFile* Kid3Application::getSelectedFile()
 void Kid3Application::updateCurrentSelection()
 {
   m_currentSelection.clear();
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+  const auto selectedIndexes = m_fileSelectionModel->selectedRows();
+  for (const QModelIndex& index : selectedIndexes) {
     m_currentSelection.append(QPersistentModelIndex(index));
   }
 }
@@ -2242,7 +2254,7 @@ void Kid3Application::openDrop(const QStringList& paths)
 {
   QStringList filePaths;
   QStringList picturePaths;
-  foreach (QString txt, paths) {
+  for (QString txt : paths) {
     int lfPos = txt.indexOf(QLatin1Char('\n'));
     if (lfPos > 0 && lfPos < static_cast<int>(txt.length()) - 1) {
       txt.truncate(lfPos + 1);
@@ -2263,7 +2275,8 @@ void Kid3Application::openDrop(const QStringList& paths)
     emit fileSelectionUpdateRequested();
     emit confirmedOpenDirectoryRequested(filePaths);
   } else if (!picturePaths.isEmpty()) {
-    foreach (const QString& picturePath, picturePaths) {
+    const auto constPicturePaths = picturePaths;
+    for (const QString& picturePath : constPicturePaths) {
       PictureFrame frame;
       if (PictureFrame::setDataFromFile(frame, picturePath)) {
         QString fileName(picturePath);
@@ -2302,8 +2315,8 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
     return;
   if (urls.first().isLocalFile()) {
     QStringList localFiles;
-    foreach (const QUrl& url, urls) {
-      localFiles.append(url.toLocalFile());
+    for (auto it = urls.constBegin(); it != urls.constEnd(); ++it) {
+      localFiles.append(it->toLocalFile());
     }
     openDrop(localFiles);
   } else {
@@ -2567,16 +2580,16 @@ bool Kid3Application::selectFile(const QString& filePath, bool select)
 QStringList Kid3Application::getSelectedFilePaths(bool onlyTaggedFiles) const
 {
   QStringList files;
-  QModelIndexList selItems = m_fileSelectionModel->selectedRows();
+  const QModelIndexList selItems = m_fileSelectionModel->selectedRows();
   if (onlyTaggedFiles) {
-    foreach (const QModelIndex& index, selItems) {
+    for (const QModelIndex& index : selItems) {
       if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index))
       {
         files.append(taggedFile->getAbsFilename());
       }
     }
   } else {
-    foreach (const QModelIndex& index, selItems) {
+    for (const QModelIndex& index : selItems) {
       files.append(m_fileProxyModel->filePath(index));
     }
   }
@@ -2683,7 +2696,8 @@ void Kid3Application::scheduleRenameActions()
   // If directories are selected, rename them, else process files of the
   // current directory.
   QList<QPersistentModelIndex> indexes;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+  const auto selectedIndexes = m_fileSelectionModel->selectedRows();
+  for (const QModelIndex& index : selectedIndexes) {
     if (m_fileProxyModel->isDir(index)) {
       indexes.append(index);
     }
@@ -3227,7 +3241,7 @@ void Kid3Application::resetFileFilterIfNotMatching(const QStringList& filePaths)
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
               FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
   if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
-    foreach (const QString& filePath, filePaths) {
+    for (const QString& filePath : filePaths) {
       if (!QDir::match(nameFilters, filePath) &&
           !QFileInfo(filePath).isDir()) {
         setAllFilesFileFilter();
@@ -3252,8 +3266,10 @@ void Kid3Application::setAllFilesFileFilter() {
  */
 void Kid3Application::notifyConfigurationChange()
 {
-  foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
-    foreach (const QString& key, factory->taggedFileKeys()) {
+  const auto factories = FileProxyModel::taggedFileFactories();
+  for (ITaggedFileFactory* factory : factories) {
+    const auto keys = factory->taggedFileKeys();
+    for (const QString& key : keys) {
       factory->notifyConfigurationChange(key);
     }
   }
@@ -3737,7 +3753,8 @@ void Kid3Application::removeFrameEditor(IFrameEditor* frameEditor)
 QVariantList Kid3Application::getFileSelectionRows()
 {
   QVariantList rows;
-  foreach (const QModelIndex& index, m_fileSelectionModel->selectedRows()) {
+  const auto indexes = m_fileSelectionModel->selectedRows();
+  for (const QModelIndex& index : indexes) {
     rows.append(index.row());
   }
   return rows;
@@ -3751,7 +3768,7 @@ void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
 {
   QItemSelection selection;
   QModelIndex firstIndex;
-  foreach (const QVariant& var, indexes) {
+  for (const QVariant& var : indexes) {
     QModelIndex index = var.toModelIndex();
     if (!firstIndex.isValid()) {
       firstIndex = index;

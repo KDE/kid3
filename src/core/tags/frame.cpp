@@ -724,7 +724,7 @@ QString Frame::getDisplayName(const QString& name)
 QMap<QString, QString> Frame::getDisplayNameMap(const QStringList& names)
 {
   QMap<QString, QString> map;
-  foreach (const QString& name, names) {
+  for (const QString& name : names) {
     map.insert(getDisplayName(name), name);
   }
   return map;
@@ -747,7 +747,8 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
                          name.toLatin1().constData()), name);
     }
     QMap<QByteArray, QByteArray> idStrMap = getDisplayNamesOfIds();
-    foreach (const QByteArray& name, idStrMap.values()) {
+    const auto names = idStrMap.values();
+    for (const QByteArray& name : names) {
       nameMap.insert(QCoreApplication::translate("@default", name),
                      QString::fromLatin1(name));
     }
@@ -894,7 +895,7 @@ const char* const* Frame::Field::getContentTypeNames()
  * Get list of available tag versions with translated description.
  * @return tag version/description pairs.
  */
-QList<QPair<Frame::TagVersion, QString> > Frame::availableTagVersions()
+const QList<QPair<Frame::TagVersion, QString> > Frame::availableTagVersions()
 {
   QList<QPair<TagVersion, QString> > result;
   FOR_ALL_TAGS(tagNr) {
@@ -1165,8 +1166,7 @@ FrameCollection::const_iterator FrameCollection::searchByName(
   QString ucName = name.toUpper().remove(QLatin1Char('/'));
   int len = ucName.length();
   for (it = begin(); it != end(); ++it) {
-    foreach (const QString& frameName,
-             QStringList() << it->getName() << it->getInternalName()) {
+    for (const QString& frameName : {it->getName(), it->getInternalName()}) {
       QString ucFrameName(frameName.toUpper().remove(QLatin1Char('/')));
       if (ucName == ucFrameName.leftRef(len)) {
         return it;
@@ -1199,8 +1199,8 @@ FrameCollection::const_iterator FrameCollection::findByName(
   if (it == end()) {
     it = searchByName(name);
     if (it == end()) {
-      foreach (const QByteArray& id,
-               getDisplayNamesOfIds().keys(name.toLatin1())) {
+      const auto ids = getDisplayNamesOfIds().keys(name.toLatin1());
+      for (const QByteArray& id : ids) {
         if (!id.isEmpty()) {
           it = searchByName(QString::fromLatin1(id));
           if (it != end()) {

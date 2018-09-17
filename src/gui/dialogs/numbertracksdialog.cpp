@@ -67,7 +67,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QLabel* destLabel = new QLabel(tr("&Destination:"), this);
   m_destComboBox = new QComboBox(this);
   m_destComboBox->setEditable(false);
-  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+  const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
   for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
        tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {

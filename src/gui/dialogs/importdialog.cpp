@@ -154,10 +154,12 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox;
   m_serverComboBox->setEditable(false);
-  foreach (const ServerImporter* si, m_importers) {
+  const auto sis = m_importers;
+  for (const ServerImporter* si : sis) {
     m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
   }
-  foreach (const ServerTrackImporter* si, m_trackImporters) {
+  const auto stis = m_trackImporters;
+  for (const ServerTrackImporter* si : stis) {
     m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
   }
   butlayout->addWidget(m_serverComboBox);
@@ -173,7 +175,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  QList<QPair<Frame::TagVersion, QString> > tagVersions =
+  const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
   for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
        tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
@@ -407,7 +409,8 @@ void ImportDialog::clear()
   m_maxDiffSpinBox->setValue(importCfg.maxTimeDifference());
   m_columnVisibility = importCfg.importVisibleColumns();
 
-  foreach (int frameType, checkableFrameTypes()) {
+  const auto frameTypes = checkableFrameTypes();
+  for (int frameType : frameTypes) {
     if (frameType < 64) {
       int column = m_trackDataModel->columnForFrameType(frameType);
       if (column != -1) {
@@ -599,7 +602,8 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
 {
   if (QWidget* widget = qobject_cast<QWidget*>(sender())) {
     QMenu menu(widget);
-    foreach (int frameType, checkableFrameTypes()) {
+    const auto frameTypes = checkableFrameTypes();
+    for (int frameType : frameTypes) {
       int column = m_trackDataModel->columnForFrameType(frameType);
       if (column != -1) {
         QAction* action = new QAction(&menu);

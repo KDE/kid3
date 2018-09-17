@@ -152,7 +152,8 @@ int main(int argc, char* argv[])
   qmlDirs.append(QLatin1String(CFG_QMLDIR));
 #endif
   QString mainQmlPath;
-  foreach (const QString& qmlDir, qmlDirs) {
+  const auto constQmlDirs = qmlDirs;
+  for (const QString& qmlDir : constQmlDirs) {
     QString qmlPath(qmlDir);
     Utils::prependApplicationDirPathIfRelative(qmlPath);
     qmlPath += QDir::separator();

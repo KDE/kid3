@@ -74,7 +74,7 @@ QString folderPatternListToString(const QStringList& folders,
 {
   QStringList patterns;
   QChar sep = QLatin1Char(' ');
-  foreach (const QString& folder, folders) {
+  for (const QString& folder : folders) {
     QString pattern = folder.trimmed();
     if (!pattern.isEmpty()) {
       if (pattern.contains(QLatin1Char(' '))) {
@@ -109,7 +109,8 @@ QStringList folderPatternListFromString(const QString& patterns,
   QStringList folders;
   const QChar sep = patterns.contains(QLatin1Char(';'))
       ? QLatin1Char(';') : QLatin1Char(' ');
-  foreach (const QString& pattern, patterns.split(sep)) {
+  const auto patternList = patterns.split(sep);
+  for (const QString& pattern : patternList) {
     QString folder = pattern.trimmed();
     if (!folder.isEmpty()) {
       folders.append(folder);
@@ -600,7 +601,8 @@ void ConfigDialogPages::setConfigs(
     }
   }
   m_quickAccessTagsModel->clear();
-  foreach (int frameType, frameTypes) {
+  const auto constFrameTypes = frameTypes;
+  for (int frameType : constFrameTypes) {
     QStandardItem* item = new QStandardItem(
           Frame::ExtendedType(static_cast<Frame::Type>(frameType)).getTranslatedName());
     item->setData(frameType, Qt::UserRole);
@@ -650,7 +652,8 @@ void ConfigDialogPages::setConfigs(
     for (int i = 0; i < pluginOrder.size(); ++i) {
       metadataPlugins.append(QString());
     }
-    foreach (const QString& pluginName, tagCfg.availablePlugins()) {
+    const auto pluginNames = tagCfg.availablePlugins();
+    for (const QString& pluginName : pluginNames) {
       int pluginIdx = pluginOrder.indexOf(pluginName);
       if (pluginIdx >= 0) {
         metadataPlugins[pluginIdx] = pluginName;

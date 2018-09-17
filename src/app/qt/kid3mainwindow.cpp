@@ -191,7 +191,8 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileImport);
 
   int importerIdx = 0;
-  foreach (const ServerImporter* si, app()->getServerImporters()) {
+  const auto sis = app()->getServerImporters();
+  for (const ServerImporter* si : sis) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(
           si->name()).toLower().remove(QLatin1Char(' '));
@@ -211,7 +212,8 @@ void Kid3MainWindow::initActions()
     ++importerIdx;
   }
 
-  foreach (const ServerTrackImporter* si, app()->getServerTrackImporters()) {
+  const auto stis = app()->getServerTrackImporters();
+  for (const ServerTrackImporter* si : stis) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(
           si->name()).toLower().remove(QLatin1Char(' '));

@@ -102,9 +102,9 @@ bool parseCredits(const QString& str, FrameCollection& frames)
        ++it) {
     int nameStart = (*it).indexOf(QLatin1String(" - "));
     if (nameStart != -1) {
-      QStringList names = (*it).mid(nameStart + 3).split(QLatin1String(", "));
+      const QStringList names = (*it).mid(nameStart + 3).split(QLatin1String(", "));
       QString name;
-      foreach (const QString& namesPart, names) {
+      for (const QString& namesPart : names) {
         if (!name.isEmpty()) {
           name += QLatin1String(", ");
         }

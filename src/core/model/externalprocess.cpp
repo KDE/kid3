@@ -133,8 +133,8 @@ ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
   QObject(parent), m_app(app), m_parent(parent), m_process(0), m_outputViewer(0)
 {
   setObjectName(QLatin1String("ExternalProcess"));
-  foreach (IUserCommandProcessor* userCommandProcessor,
-           m_app->getUserCommandProcessors()) {
+  const auto userCommandProcessors = m_app->getUserCommandProcessors();
+  for (IUserCommandProcessor* userCommandProcessor : userCommandProcessors) {
     userCommandProcessor->initialize(m_app);
     connect(userCommandProcessor->qobject(), SIGNAL(commandOutput(QString)),
             this, SLOT(showOutputLine(QString)));
@@ -146,8 +146,8 @@ ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
  */
 ExternalProcess::~ExternalProcess()
 {
-  foreach (IUserCommandProcessor* userCommandProcessor,
-           m_app->getUserCommandProcessors()) {
+  const auto userCommandProcessors = m_app->getUserCommandProcessors();
+  for (IUserCommandProcessor* userCommandProcessor : userCommandProcessors) {
     userCommandProcessor->cleanup();
   }
   if (m_outputViewer) {
@@ -203,8 +203,8 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
   QString program = arguments.takeFirst();
   if (program.startsWith(QLatin1Char('@'))) {
     program = program.mid(1);
-    foreach (IUserCommandProcessor* userCommandProcessor,
-             m_app->getUserCommandProcessors()) {
+    const auto userCommandProcessors = m_app->getUserCommandProcessors();
+    for (IUserCommandProcessor* userCommandProcessor : userCommandProcessors) {
       if (userCommandProcessor->userCommandKeys().contains(program) &&
           userCommandProcessor->startUserCommand(program, arguments, showOutput))
         return;

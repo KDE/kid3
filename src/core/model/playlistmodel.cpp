@@ -183,7 +183,8 @@ void PlaylistModel::setPlaylistFile(const QString& path)
   if (creator.read(path, filePaths, format, useFullPath, writeInfo)) {
     beginResetModel();
     m_items.clear();
-    foreach (const QString& filePath, filePaths) {
+    const auto constFilePaths = filePaths;
+    for (const QString& filePath :  constFilePaths) {
       QModelIndex index = m_fsModel->index(filePath);
       if (index.isValid()) {
         m_items.append(index);
@@ -227,7 +228,8 @@ bool PlaylistModel::save()
 QStringList PlaylistModel::pathsInPlaylist() const
 {
   QStringList paths;
-  foreach (const QPersistentModelIndex& idx, m_items) {
+  const auto idxs = m_items;
+  for (const QPersistentModelIndex& idx : idxs) {
     if (const FileProxyModel* model =
         qobject_cast<const FileProxyModel*>(idx.model())) {
       paths.append(model->filePath(idx));
@@ -241,7 +243,7 @@ bool PlaylistModel::setPathsInPlaylist(const QStringList& paths)
   bool ok = true;
   beginResetModel();
   m_items.clear();
-  foreach (const QString& filePath, paths) {
+  for (const QString& filePath : paths) {
     QModelIndex index = m_fsModel->index(filePath);
     if (index.isValid()) {
       m_items.append(index);

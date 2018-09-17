@@ -39,7 +39,8 @@ void copyOldSettings(QSettings* config)
           QLatin1String("Kid3"));
     if (oldSettings.contains(QLatin1String("/kid3/General Options/ExportFormatIdx"))) {
       oldSettings.beginGroup(QLatin1String("/kid3"));
-      foreach (const QString& key, oldSettings.allKeys()) {
+      const auto keys = oldSettings.allKeys();
+      for (const QString& key : keys) {
         QString newKey(key);
         newKey.replace(QLatin1String("Recent Files"),
                        QLatin1String("RecentFiles"));

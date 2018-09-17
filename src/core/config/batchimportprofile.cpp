@@ -49,8 +49,8 @@ void BatchImportProfile::setSourcesFromString(const QString& str)
 {
   m_sources.clear();
   if (!str.isEmpty()) {
-    QStringList srcStrs = str.split(QLatin1Char(';'));
-    foreach (const QString& srcStr, srcStrs) {
+    const QStringList srcStrs = str.split(QLatin1Char(';'));
+    for (const QString& srcStr : srcStrs) {
       QStringList propStrs = srcStr.split(QLatin1Char(':'));
       Source src;
       if (propStrs.size() > 0)
@@ -75,7 +75,8 @@ void BatchImportProfile::setSourcesFromString(const QString& str)
 QString BatchImportProfile::getSourcesAsString() const
 {
   QStringList strs;
-  foreach (const Source& src, m_sources) {
+  const auto srcs = m_sources;
+  for (const Source& src : srcs) {
     QString enableStr;
     if (src.standardTagsEnabled())   enableStr += QLatin1Char('S');
     if (src.additionalTagsEnabled()) enableStr += QLatin1Char('A');

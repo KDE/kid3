@@ -92,10 +92,10 @@ void MessageDialog::setText(const QString &text)
 void MessageDialog::setInformativeText(const QString& text)
 {
   m_textEdit->setText(text);
-  QStringList lines = text.split(QLatin1Char('\n'));
+  const QStringList lines = text.split(QLatin1Char('\n'));
   QFontMetrics fm(m_textEdit->fontMetrics());
   int maxWidth = 0;
-  foreach (const QString& line, lines) {
+  for (const QString& line : lines) {
     int lineWidth = fm.width(line);
     if (maxWidth < lineWidth) {
       maxWidth = lineWidth;
