@@ -40,7 +40,7 @@ void TestDiscogsImporter::testQueryAlbums()
 
   QStandardItemModel* albumModel = m_importer->getAlbumListModel();
   QVERIFY(albumModel->rowCount() > 0);
-  AlbumListItem* item = static_cast<AlbumListItem*>(albumModel->item(0, 0));
+  auto  item = static_cast<AlbumListItem*>(albumModel->item(0, 0));
   QVERIFY(item);
   QVERIFY(item->type() == AlbumListItem::Type);
   QCOMPARE(item->text(), QString(QLatin1String("Wizard - Odin")));

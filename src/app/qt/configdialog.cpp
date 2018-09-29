@@ -63,8 +63,8 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
   setSizeGripEnabled(true);
-  QVBoxLayout* topLayout = new QVBoxLayout(this);
-  QTabWidget* tabWidget = new QTabWidget(this);
+  auto topLayout = new QVBoxLayout(this);
+  auto tabWidget = new QTabWidget(this);
   tabWidget->setUsesScrollButtons(false);
 
   tabWidget->addTab(m_pages->createTagsPage(), tr("&Tags"));
@@ -75,7 +75,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
 
   {
     QWidget* shortcutsPage = new QWidget;
-    QVBoxLayout* vlayout = new QVBoxLayout(shortcutsPage);
+    auto vlayout = new QVBoxLayout(shortcutsPage);
     m_shortcutsTreeView = new QTreeView;
     m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
     m_shortcutsTreeView->setItemDelegateForColumn(
@@ -105,8 +105,8 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
 
   {
     QWidget* appearancePage = new QWidget;
-    QVBoxLayout* vlayout = new QVBoxLayout(appearancePage);
-    QGridLayout* fontStyleLayout = new QGridLayout;
+    auto vlayout = new QVBoxLayout(appearancePage);
+    auto fontStyleLayout = new QGridLayout;
 
     m_useApplicationFontCheckBox = new QCheckBox(tr("Use custom app&lication font"), appearancePage);
     m_applicationFontButton = new QPushButton(tr("A&pplication Font..."), appearancePage);
@@ -127,7 +127,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_useNativeDialogsCheckBox =
         new QCheckBox(tr("Use native system file &dialogs"), appearancePage);
     vlayout->addWidget(m_useNativeDialogsCheckBox);
-    QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    auto vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
     vlayout->addItem(vspacer);
     tabWidget->addTab(appearancePage, tr("&Appearance"));
   }
@@ -135,8 +135,8 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   m_styleChanged = false;
 
   topLayout->addWidget(tabWidget);
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hlayout = new QHBoxLayout;
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   QPushButton* defaultsButton = new QPushButton(tr("Restore Defaults"), this);

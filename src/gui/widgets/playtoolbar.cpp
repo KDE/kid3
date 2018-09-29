@@ -65,7 +65,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   QAction* closeAction = new QAction(
     style()->standardIcon(QStyle::SP_TitleBarCloseButton), tr("Close"), this);
 
-  QSplitter* splitter = new QSplitter(this);
+  auto splitter = new QSplitter(this);
   m_titleLabel = new QLabel(splitter);
 
   QMediaPlayer* mediaPlayer = m_player->mediaPlayer();

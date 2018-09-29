@@ -193,7 +193,7 @@ QObject* QmlCommandPlugin::qobject()
  */
 void QmlCommandPlugin::onEngineError(const QList<QQmlError>& errors)
 {
-  if (QQmlEngine* engine = qobject_cast<QQmlEngine*>(sender())) {
+  if (auto engine = qobject_cast<QQmlEngine*>(sender())) {
     for (const QQmlError& err : errors) {
       emit commandOutput(err.toString());
     }
@@ -207,7 +207,7 @@ void QmlCommandPlugin::onEngineError(const QList<QQmlError>& errors)
  */
 void QmlCommandPlugin::onQmlViewClosing()
 {
-  if (QQuickView* view = qobject_cast<QQuickView*>(sender())) {
+  if (auto view = qobject_cast<QQuickView*>(sender())) {
     // This will invoke destruction of the currently loaded QML code.
     view->setSource(QUrl());
     view->engine()->clearComponentCache();

@@ -159,7 +159,7 @@ void TaggedFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
   Frame frame;
   frame.setValue(QLatin1String(""));
   for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-    Frame::Type type = static_cast<Frame::Type>(i);
+    auto type = static_cast<Frame::Type>(i);
     if (flt.isEnabled(type)) {
       frame.setExtendedType(Frame::ExtendedType(type));
       setFrame(tagNr, frame);
@@ -908,10 +908,10 @@ void TaggedFile::updateMarkedState(Frame::TagNumber tagNr,
   }
 
   if (tagCfg.markOversizedPictures()) {
-    FrameCollection::const_iterator it =
+    auto it =
         frames.findByExtendedType(Frame::ExtendedType(Frame::FT_Picture));
     while (it != frames.end() && it->getType() == Frame::FT_Picture) {
-      Frame& frame = const_cast<Frame&>(*it);
+      auto& frame = const_cast<Frame&>(*it);
       if (FrameNotice::addPictureTooLargeNotice(
             frame, tagCfg.maximumPictureSize())) {
         m_marked = true;
@@ -955,7 +955,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
                            const FrameCollection& frames, bool onlyChanged)
 {
   if (tagNr == Frame::Tag_Id3v1) {
-    for (FrameCollection::const_iterator it = frames.begin();
+    for (auto it = frames.begin();
          it != frames.end();
          ++it) {
       if (!onlyChanged || it->isValueChanged()) {
@@ -967,7 +967,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
     FrameCollection myFrames;
     QSet<int> replacedIndexes;
 
-    for (FrameCollection::const_iterator it = frames.begin();
+    for (auto it = frames.begin();
          it != frames.end();
          ++it) {
       if (!onlyChanged || it->isValueChanged()) {
@@ -985,7 +985,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
               getAllFrames(tagNr, myFrames);
               myFramesValid = true;
             }
-            FrameCollection::iterator myIt = myFrames.find(*it);
+            auto myIt = myFrames.find(*it);
             int myIndex = -1;
             while (myIt != myFrames.end() && !(*it < *myIt) &&
                    (myIndex = myIt->getIndex()) != -1) {

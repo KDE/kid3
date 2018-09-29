@@ -230,7 +230,7 @@ QStringList PlaylistModel::pathsInPlaylist() const
   QStringList paths;
   const auto idxs = m_items;
   for (const QPersistentModelIndex& idx : idxs) {
-    if (const FileProxyModel* model =
+    if (const auto model =
         qobject_cast<const FileProxyModel*>(idx.model())) {
       paths.append(model->filePath(idx));
     }

@@ -60,7 +60,7 @@ QWidget* ShortcutsDelegate::createEditor(
   const QModelIndex& index) const
 {
   QWidget* editor = QItemDelegate::createEditor(parent, option, index);
-  if (QLineEdit* le = qobject_cast<QLineEdit*>(editor)) {
+  if (auto le = qobject_cast<QLineEdit*>(editor)) {
     editor = new ShortcutsDelegateEditor(le, parent);
     connect(editor, SIGNAL(clearClicked()), this, SLOT(clearAndCloseEditor()));
     connect(editor, SIGNAL(resetClicked()), this, SLOT(resetToDefault()));
@@ -74,7 +74,7 @@ QWidget* ShortcutsDelegate::createEditor(
  */
 void ShortcutsDelegate::resetToDefault()
 {
-  if (ShortcutsDelegateEditor* editor =
+  if (auto editor =
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     m_resetFlag = true;
     emit commitData(editor);
@@ -87,7 +87,7 @@ void ShortcutsDelegate::resetToDefault()
  */
 void ShortcutsDelegate::commitAndCloseEditor()
 {
-  if (ShortcutsDelegateEditor* editor =
+  if (auto editor =
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     emit commitData(editor);
     emit closeEditor(editor);
@@ -99,7 +99,7 @@ void ShortcutsDelegate::commitAndCloseEditor()
  */
 void ShortcutsDelegate::clearAndCloseEditor()
 {
-  if (ShortcutsDelegateEditor* editor =
+  if (auto editor =
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     editor->getEditor()->clear();
     emit commitData(editor);
@@ -115,7 +115,7 @@ void ShortcutsDelegate::clearAndCloseEditor()
 void ShortcutsDelegate::setEditorData(
   QWidget* editor, const QModelIndex& index) const
 {
-  if (ShortcutsDelegateEditor* compoundWidget =
+  if (auto compoundWidget =
       qobject_cast<ShortcutsDelegateEditor*>(editor)) {
     QItemDelegate::setEditorData(compoundWidget->getEditor(), index);
   }
@@ -130,7 +130,7 @@ void ShortcutsDelegate::setEditorData(
 void ShortcutsDelegate::setModelData(
   QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-  if (ShortcutsDelegateEditor* compoundWidget =
+  if (auto compoundWidget =
       qobject_cast<ShortcutsDelegateEditor*>(editor)) {
     if (m_resetFlag) {
       m_resetFlag = false;
@@ -179,18 +179,18 @@ void ShortcutsDelegate::updateEditorGeometry(
 ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   QLineEdit* lineEdit, QWidget* parent) :
   QFrame(parent) {
-  QHBoxLayout* hlayout = new QHBoxLayout(this);
+  auto hlayout = new QHBoxLayout(this);
   hlayout->setContentsMargins(0, 0, 0, 0);
   delete lineEdit;
   m_editor = new QKeySequenceEdit(parent);
   connect(m_editor, SIGNAL(editingFinished()), this, SIGNAL(valueEntered()));
   setFocusProxy(m_editor);
   hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
-  QToolButton* clearButton = new QToolButton(this);
+  auto clearButton = new QToolButton(this);
   clearButton->setText(tr("Clear"));
   connect(clearButton, SIGNAL(clicked()), this, SIGNAL(clearClicked()));
   hlayout->addWidget(clearButton);
-  QToolButton* resetButton = new QToolButton(this);
+  auto resetButton = new QToolButton(this);
   resetButton->setText(tr("Reset"));
   connect(resetButton, SIGNAL(clicked()), this, SIGNAL(resetClicked()));
   hlayout->addWidget(resetButton);

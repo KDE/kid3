@@ -66,7 +66,7 @@ int PictureLabelIntern::heightForWidth(int w) const
 PictureLabel::PictureLabel(QWidget* parent) : QWidget(parent), m_pixmapHash(0)
 {
   setObjectName(QLatin1String("PictureLabel"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
   m_pictureLabel = new PictureLabelIntern;
   layout->addWidget(m_pictureLabel);

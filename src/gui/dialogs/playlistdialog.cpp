@@ -56,12 +56,12 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   setWindowTitle(tr("Create Playlist"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
-  QGroupBox* fnGroupBox = new QGroupBox(this);
-  QVBoxLayout* fnGroupBoxLayout = new QVBoxLayout(fnGroupBox);
+  auto vlayout = new QVBoxLayout(this);
+  auto fnGroupBox = new QGroupBox(this);
+  auto fnGroupBoxLayout = new QVBoxLayout(fnGroupBox);
   m_sameAsDirNameButton = new QRadioButton(this);
   fnGroupBoxLayout->addWidget(m_sameAsDirNameButton);
-  QHBoxLayout* fileNameFormatLayout = new QHBoxLayout;
+  auto fileNameFormatLayout = new QHBoxLayout;
   m_fileNameFormatButton = new QRadioButton(this);
   m_fileNameFormatComboBox = new QComboBox(this);
   m_fileNameFormatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
@@ -69,14 +69,14 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   fileNameFormatLayout->addWidget(m_fileNameFormatComboBox);
   fnGroupBoxLayout->addLayout(fileNameFormatLayout);
 
-  QHBoxLayout* fileNameForEmptyLayout = new QHBoxLayout;
+  auto fileNameForEmptyLayout = new QHBoxLayout;
   m_fileNameForEmptyButton = new QRadioButton(this);
   m_fileNameForEmptyEdit = new QLineEdit(this);
   fileNameForEmptyLayout->addWidget(m_fileNameForEmptyButton);
   fileNameForEmptyLayout->addWidget(m_fileNameForEmptyEdit);
   fnGroupBoxLayout->addLayout(fileNameForEmptyLayout);
 
-  QHBoxLayout* locationLayout = new QHBoxLayout;
+  auto locationLayout = new QHBoxLayout;
   QLabel* locationLabel = new QLabel(this);
   m_locationComboBox = new QComboBox(this);
   locationLayout->addWidget(locationLabel);
@@ -84,9 +84,9 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   fnGroupBoxLayout->addLayout(locationLayout);
   vlayout->addWidget(fnGroupBox);
 
-  QGroupBox* pcGroupBox = new QGroupBox(this);
-  QVBoxLayout* pcGroupBoxLayout = new QVBoxLayout(pcGroupBox);
-  QHBoxLayout* formatLayout = new QHBoxLayout;
+  auto pcGroupBox = new QGroupBox(this);
+  auto pcGroupBoxLayout = new QVBoxLayout(pcGroupBox);
+  auto formatLayout = new QHBoxLayout;
   QLabel* formatLabel = new QLabel(this);
   m_formatComboBox = new QComboBox(this);
   formatLayout->addWidget(formatLabel);
@@ -99,10 +99,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   sortLine->setFrameShape(QFrame::HLine);
   sortLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(sortLine);
-  QButtonGroup* sortButtonGroup = new QButtonGroup(pcGroupBox);
+  auto sortButtonGroup = new QButtonGroup(pcGroupBox);
   m_sortFileNameButton = new QRadioButton(this);
   pcGroupBoxLayout->addWidget(m_sortFileNameButton);
-  QHBoxLayout* sortTagFieldLayout = new QHBoxLayout;
+  auto sortTagFieldLayout = new QHBoxLayout;
   m_sortTagFieldButton = new QRadioButton(this);
   m_sortTagFieldComboBox = new QComboBox(this);
   m_sortTagFieldComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
@@ -116,7 +116,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   pathLine->setFrameShape(QFrame::HLine);
   pathLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(pathLine);
-  QButtonGroup* pathButtonGroup = new QButtonGroup(pcGroupBox);
+  auto pathButtonGroup = new QButtonGroup(pcGroupBox);
   m_relPathButton = new QRadioButton(this);
   pcGroupBoxLayout->addWidget(m_relPathButton);
   m_fullPathButton = new QRadioButton(this);
@@ -128,10 +128,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   writeLine->setFrameShape(QFrame::HLine);
   writeLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(writeLine);
-  QButtonGroup* writeButtonGroup = new QButtonGroup(pcGroupBox);
+  auto writeButtonGroup = new QButtonGroup(pcGroupBox);
   m_writeListButton = new QRadioButton(this);
   pcGroupBoxLayout->addWidget(m_writeListButton);
-  QHBoxLayout* writeInfoLayout = new QHBoxLayout;
+  auto writeInfoLayout = new QHBoxLayout;
   m_writeInfoButton = new QRadioButton(this);
   m_writeInfoComboBox = new QComboBox(this);
   m_writeInfoComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
@@ -207,7 +207,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   connect(m_writeInfoButton, SIGNAL(toggled(bool)),
           m_writeInfoComboBox, SLOT(setEnabled(bool)));
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
@@ -216,7 +216,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 

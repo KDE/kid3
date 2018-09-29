@@ -39,7 +39,7 @@ ChapterEditor::ChapterEditor(QWidget* parent) :
   QWidget(parent)
 {
   setObjectName(QLatin1String("ChapterEditor"));
-  QFormLayout* formatLayout = new QFormLayout(this);
+  auto formatLayout = new QFormLayout(this);
   formatLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   QString timeFormat(QLatin1String("hh:mm:ss.zzz"));
   QString inputMask(QLatin1String("HHHHHHHH"));

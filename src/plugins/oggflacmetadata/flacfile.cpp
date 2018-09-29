@@ -111,7 +111,7 @@ static bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
   pic->set_description(
     reinterpret_cast<const FLAC__byte*>(
       static_cast<const char*>(description.toUtf8())));
-  const FLAC__byte* data = reinterpret_cast<const FLAC__byte*>(ba.data());
+  const auto data = reinterpret_cast<const FLAC__byte*>(ba.data());
   int dataLength = ba.size();
   if (!data || dataLength <= 0) {
     // Avoid assertion crash in FLAC__metadata_object_picture_set_data().
@@ -167,7 +167,7 @@ void FlacFile::readTags(bool force)
           if (mdt == FLAC__METADATA_TYPE_STREAMINFO) {
             FLAC::Metadata::Prototype* proto = mdit.get_block();
             if (proto) {
-              FLAC::Metadata::StreamInfo* si =
+              auto si =
                 dynamic_cast<FLAC::Metadata::StreamInfo*>(proto);
               readFileInfo(m_fileInfo, si);
               delete proto;
@@ -175,7 +175,7 @@ void FlacFile::readTags(bool force)
           } else if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
             FLAC::Metadata::Prototype* proto = mdit.get_block();
             if (proto) {
-              FLAC::Metadata::VorbisComment* vc =
+              auto vc =
                 dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
               if (vc && vc->is_valid()) {
                 unsigned numComments = vc->get_num_comments();
@@ -205,7 +205,7 @@ void FlacFile::readTags(bool force)
           else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
             FLAC::Metadata::Prototype* proto = mdit.get_block();
             if (proto) {
-              FLAC::Metadata::Picture* pic =
+              auto pic =
                 dynamic_cast<FLAC::Metadata::Picture*>(proto);
               if (pic) {
                 Frame frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), pictureNr++);
@@ -281,7 +281,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         } else {
           FLAC::Metadata::Prototype* proto = mdit.get_block();
           if (proto) {
-            FLAC::Metadata::VorbisComment* vc =
+            auto vc =
               dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
             if (vc && vc->is_valid()) {
               setVorbisComment(vc);
@@ -296,7 +296,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         if (pictureIt != m_pictures.end()) {
           FLAC::Metadata::Prototype* proto = mdit.get_block();
           if (proto) {
-            FLAC::Metadata::Picture* pic =
+            auto pic =
               dynamic_cast<FLAC::Metadata::Picture*>(proto);
             if (pic) {
               if (setPicture(*pictureIt++, pic)) {
@@ -314,7 +314,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         }
       } else if (mdt == FLAC__METADATA_TYPE_PADDING) {
         if (pictureIt != m_pictures.end()) {
-          FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
+          auto pic = new FLAC::Metadata::Picture;
           if (setPicture(*pictureIt, pic) && mdit.set_block(pic)) {
             ++pictureIt;
             pictureSet = true;
@@ -328,7 +328,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #endif
       if (!mdit.next()) {
         if (!commentsSet) {
-          FLAC::Metadata::VorbisComment* vc = new FLAC::Metadata::VorbisComment;
+          auto vc = new FLAC::Metadata::VorbisComment;
           if (vc->is_valid()) {
             setVorbisComment(vc);
             if (mdit.insert_block_after(vc)) {
@@ -341,7 +341,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         }
 #ifdef HAVE_FLAC_PICTURE
         while (pictureIt != m_pictures.end()) {
-          FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
+          auto pic = new FLAC::Metadata::Picture;
           if (setPicture(*pictureIt, pic) && mdit.insert_block_after(pic)) {
             pictureSet = true;
           } else {

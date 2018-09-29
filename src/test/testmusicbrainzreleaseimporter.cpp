@@ -39,7 +39,7 @@ void TestMusicBrainzReleaseImporter::testQueryAlbums()
   queryAlbums(QLatin1String("Wizard"), QLatin1String("Odin"));
   QStandardItemModel* albumModel = m_importer->getAlbumListModel();
   QCOMPARE(albumModel->rowCount(), 3);
-  AlbumListItem* item = static_cast<AlbumListItem*>(albumModel->item(0, 0));
+  auto  item = static_cast<AlbumListItem*>(albumModel->item(0, 0));
   QVERIFY(item);
   QVERIFY(item->type() == AlbumListItem::Type);
   QCOMPARE(item->text(), QString(QLatin1String("Wizard - Odin")));

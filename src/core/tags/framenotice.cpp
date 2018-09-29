@@ -342,8 +342,8 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
 
   QSet<QString> uniqueIds;
   bool marked = false;
-  for (FrameCollection::iterator it = frames.begin(); it != frames.end(); ++it) {
-    Frame& frame = const_cast<Frame&>(*it);
+  for (auto it = frames.begin(); it != frames.end(); ++it) {
+    auto& frame = const_cast<Frame&>(*it);
     QString name = frame.getInternalName();
     QString id = name.left(4);
     QString uniqueId;

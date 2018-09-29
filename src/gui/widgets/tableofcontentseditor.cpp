@@ -39,7 +39,7 @@ TableOfContentsEditor::TableOfContentsEditor(QWidget* parent) :
   QWidget(parent)
 {
   setObjectName(QLatin1String("TableOfContentsEditor"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_isTopLevelCheckBox = new QCheckBox(tr("Top level"));
   layout->addWidget(m_isTopLevelCheckBox);
   m_isOrderedCheckBox = new QCheckBox(tr("Ordered"));

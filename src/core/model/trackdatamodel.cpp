@@ -84,7 +84,7 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     const ImportTrackData& trackData = m_trackDataVector.at(index.row());
     Frame::ExtendedType type = m_frameTypes.at(index.column());
-    int typeOrProperty = static_cast<int>(type.getType());
+    auto typeOrProperty = static_cast<int>(type.getType());
     if (typeOrProperty < FT_FirstTrackProperty) {
       QString value(trackData.getValue(type));
       if (!value.isNull())
@@ -176,7 +176,7 @@ QVariant TrackDataModel::headerData(
     return QVariant();
   if (orientation == Qt::Horizontal && section < m_frameTypes.size()) {
     Frame::ExtendedType type = m_frameTypes.at(section);
-    int typeOrProperty = static_cast<int>(type.getType());
+    auto typeOrProperty = static_cast<int>(type.getType());
     if (typeOrProperty < FT_FirstTrackProperty) {
       return typeOrProperty == Frame::FT_Track
         ? tr("Track") // shorter header for track number
@@ -398,7 +398,7 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
   if (static_cast<int>(type.getType()) >= FT_FirstTrackProperty)
     return nullptr;
 
-  FrameCollection::const_iterator it = trackData.findByExtendedType(type);
+  auto it = trackData.findByExtendedType(type);
   return it != trackData.end() ? &(*it) : nullptr;
 }
 
@@ -426,7 +426,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
   for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
        tit != trackDataVector.constEnd();
        ++tit) {
-    for (FrameCollection::const_iterator fit = tit->begin();
+    for (auto fit = tit->begin();
          fit != tit->end();
          ++fit) {
       Frame::ExtendedType type = fit->getExtendedType();

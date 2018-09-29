@@ -59,8 +59,8 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   setObjectName(QLatin1String("ServerTrackImportDialog"));
   setModal(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
-  QHBoxLayout* serverLayout = new QHBoxLayout;
+  auto vlayout = new QVBoxLayout(this);
+  auto serverLayout = new QHBoxLayout;
   m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
   m_serverComboBox->setEditable(true);
@@ -90,8 +90,8 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   initTable();
   vlayout->addWidget(m_albumTable);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hlayout = new QHBoxLayout;
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   m_helpButton = new QPushButton(tr("&Help"), this);
   m_helpButton->setAutoDefault(false);
@@ -207,7 +207,7 @@ void ServerTrackImportDialog::initTable()
   m_trackResults.resize(numRows);
   m_albumTableModel->setRowCount(numRows);
   for (int i = 0; i < numRows; ++i) {
-    QStandardItem* item = new QStandardItem;
+    auto item = new QStandardItem;
     QStringList cbItems;
     cbItems << tr("No result") << tr("Unknown");
     item->setData(cbItems.first(), Qt::EditRole);

@@ -48,7 +48,7 @@ DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
  */
 bool DirProxyModel::filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const
 {
-  QFileSystemModel* srcModel = qobject_cast<QFileSystemModel*>(sourceModel());
+  auto srcModel = qobject_cast<QFileSystemModel*>(sourceModel());
   if (srcModel) {
     return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
   }
@@ -86,7 +86,7 @@ bool DirProxyModel::lessThan(const QModelIndex& left,
   // has to be used.
   Q_ASSERT_X(sourceModel()->metaObject() == &QFileSystemModel::staticMetaObject,
              "lessThan", "source model must be QFileSystemModel");
-  QFileSystemModel* fsModel = static_cast<QFileSystemModel*>(sourceModel());
+  auto fsModel = static_cast<QFileSystemModel*>(sourceModel());
   switch (sortColumn()) {
   case 0:
     return left.data().toString().compare(right.data().toString()) < 0;

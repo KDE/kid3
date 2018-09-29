@@ -112,7 +112,7 @@ void RecentFilesMenu::updateRecentFileActions()
   for (QStringList::const_iterator it = m_files.begin();
        it != m_files.end();
        ++it) {
-    QAction* act = new QAction(this);
+    auto act = new QAction(this);
     act->setText(QString(QLatin1String("&%1 %2")).arg(++i).arg(*it));
     act->setData(*it);
     connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
@@ -120,7 +120,7 @@ void RecentFilesMenu::updateRecentFileActions()
   }
   if (i > 0) {
     addSeparator();
-    QAction* clearListAction = new QAction(this);
+    auto clearListAction = new QAction(this);
     clearListAction->setText(tr("&Clear List"));
     connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
     this->addAction(clearListAction);
@@ -135,7 +135,7 @@ void RecentFilesMenu::updateRecentFileActions()
  */
 void RecentFilesMenu::openRecentFile()
 {
-  QAction* action = qobject_cast<QAction*>(sender());
+  auto action = qobject_cast<QAction*>(sender());
   if (action) {
     emit loadFile(action->data().toString());
   }

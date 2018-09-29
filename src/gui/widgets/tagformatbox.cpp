@@ -39,7 +39,7 @@ TagFormatBox::TagFormatBox(const QString& title, QWidget* parent)
   : FormatBox(title, parent),
     m_validationCheckBox(nullptr)
 {
-  if (QFormLayout* formLayout = qobject_cast<QFormLayout*>(layout())) {
+  if (auto formLayout = qobject_cast<QFormLayout*>(layout())) {
     m_validationCheckBox = new QCheckBox(tr("Validation"));
     formLayout->insertRow(1, m_validationCheckBox);
   }

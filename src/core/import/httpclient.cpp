@@ -94,7 +94,7 @@ HttpClient::~HttpClient()
  */
 void HttpClient::networkReplyFinished()
 {
-  if (QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender())) {
+  if (auto reply = qobject_cast<QNetworkReply*>(sender())) {
     QByteArray data(reply->readAll());
     m_rcvBodyType = reply->header(QNetworkRequest::ContentTypeHeader).toString();
     m_rcvBodyLen = reply->header(QNetworkRequest::ContentLengthHeader).toUInt();
@@ -151,7 +151,7 @@ void HttpClient::networkReplyProgress(qint64 received, qint64 total)
  */
 void HttpClient::networkReplyError(QNetworkReply::NetworkError)
 {
-  if (QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender())) {
+  if (auto reply = qobject_cast<QNetworkReply*>(sender())) {
     emitProgress(reply->errorString(), -1, -1);
   }
 }

@@ -49,7 +49,7 @@ namespace {
  * @return value used in configuration, kept for backwards compatibility.
  */
 inline int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
-  int renDirSrc = static_cast<int>(tagVersion);
+  auto renDirSrc = static_cast<int>(tagVersion);
   if (renDirSrc == 3)
     renDirSrc = 0;
   return renDirSrc;

@@ -86,7 +86,7 @@ QVariant ScriptUtils::getRoleData(
     QObject* modelObj, int row, const QByteArray& roleName,
     QModelIndex parent)
 {
-  if (QAbstractItemModel* model = qobject_cast<QAbstractItemModel*>(modelObj)) {
+  if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
     for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
          it != roleHash.constEnd();
@@ -103,7 +103,7 @@ bool ScriptUtils::setRoleData(
     QObject* modelObj, int row, const QByteArray& roleName,
     const QVariant& value, QModelIndex parent)
 {
-  if (QAbstractItemModel* model = qobject_cast<QAbstractItemModel*>(modelObj)) {
+  if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
     for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
          it != roleHash.constEnd();

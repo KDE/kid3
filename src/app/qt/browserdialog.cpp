@@ -49,7 +49,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 {
   setObjectName(QLatin1String("BrowserDialog"));
   setWindowTitle(caption);
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
   QString docDir;
 #ifdef CFG_DOCDIR
@@ -87,7 +87,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
   vlayout->addWidget(m_textBrowser);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* backButton = new QPushButton(tr("&Back"), this);
   backButton->setEnabled(false);
   connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
@@ -105,28 +105,28 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   findLabel->setBuddy(m_findLineEdit);
   connect(m_findLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
   hlayout->addWidget(m_findLineEdit);
-  QAction* findAction = new QAction(this);
+  auto findAction = new QAction(this);
   findAction->setShortcut(QKeySequence::Find);
   connect(findAction, SIGNAL(triggered()), m_findLineEdit, SLOT(setFocus()));
   m_findLineEdit->addAction(findAction);
-  QAction* findPreviousAction = new QAction(this);
+  auto findPreviousAction = new QAction(this);
   findPreviousAction->setIcon(
         QIcon(style()->standardIcon(QStyle::SP_ArrowBack)));
   findPreviousAction->setText(tr("Find Previous"));
   findPreviousAction->setShortcut(QKeySequence::FindPrevious);
   connect(findPreviousAction, SIGNAL(triggered()),
           this, SLOT(findPrevious()));
-  QToolButton* findPreviousButton = new QToolButton(this);
+  auto findPreviousButton = new QToolButton(this);
   findPreviousButton->setDefaultAction(findPreviousAction);
   hlayout->addWidget(findPreviousButton);
-  QAction* findNextAction = new QAction(this);
+  auto findNextAction = new QAction(this);
   findNextAction->setIcon(
         QIcon(style()->standardIcon(QStyle::SP_ArrowForward)));
   findNextAction->setText(tr("Find Next"));
   findNextAction->setShortcut(QKeySequence::FindNext);
   connect(findNextAction, SIGNAL(triggered()),
           this, SLOT(findNext()));
-  QToolButton* findNextButton = new QToolButton(this);
+  auto findNextButton = new QToolButton(this);
   findNextButton->setDefaultAction(findNextAction);
   hlayout->addWidget(findNextButton);
   hlayout->addStretch();

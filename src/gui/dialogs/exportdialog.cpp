@@ -66,7 +66,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   setWindowTitle(tr("Export"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
   m_edit = new QTextEdit(this);
   m_edit->setAcceptRichText(false);
   vlayout->addWidget(m_edit);
@@ -85,7 +85,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
           this, SLOT(showPreview()));
   vlayout->addWidget(m_formatListEdit);
 
-  QHBoxLayout* butlayout = new QHBoxLayout;
+  auto butlayout = new QHBoxLayout;
   m_fileButton = new QPushButton(tr("To F&ile..."), this);
   m_fileButton->setAutoDefault(false);
   butlayout->addWidget(m_fileButton);
@@ -96,7 +96,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(m_clipButton);
   connect(m_clipButton, SIGNAL(clicked()), this, SLOT(slotToClipboard()));
 
-  QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                            QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
 
@@ -115,7 +115,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   vlayout->addLayout(butlayout);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
@@ -126,7 +126,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 

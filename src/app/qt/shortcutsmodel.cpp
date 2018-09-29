@@ -142,7 +142,7 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
   if (index.isValid() && index.column() == ShortcutColumn && role == Qt::EditRole) {
     QModelIndex parentIndex = index.parent();
     if (parentIndex.isValid()) {
-      if (ShortcutGroup* group =
+      if (auto group =
           const_cast<ShortcutGroup*>(shortcutGroupForIndex(parentIndex))) {
         if (index.row() >= 0 && index.row() < group->size()) {
           ShortcutItem si((*group)[index.row()]);

@@ -59,7 +59,7 @@ size_t oggread(void* ptr, size_t size, size_t nmemb, void* stream)
   if (!stream || !size)
     return 0;
 
-  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  auto iodev = reinterpret_cast<QIODevice*>(stream);
   qint64 len = iodev->read(reinterpret_cast<char*>(ptr), size * nmemb);
   return len / size;
 }
@@ -77,7 +77,7 @@ size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
   if (!stream || !size)
     return 0;
 
-  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  auto iodev = reinterpret_cast<QIODevice*>(stream);
   qint64 len = iodev->write(reinterpret_cast<const char*>(ptr), size * nmemb);
   return len / size;
 }
@@ -91,7 +91,7 @@ size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
  */
 int oggseek(void* stream, ogg_int64_t offset, int whence)
 {
-  QIODevice* iodev = reinterpret_cast<QIODevice*>(stream);
+  auto iodev = reinterpret_cast<QIODevice*>(stream);
   if (!iodev || iodev->isSequential())
     return -1;
 
@@ -114,7 +114,7 @@ int oggseek(void* stream, ogg_int64_t offset, int whence)
  */
 int oggclose(void* stream)
 {
-  if (QIODevice* iodev = reinterpret_cast<QIODevice*>(stream)) {
+  if (auto iodev = reinterpret_cast<QIODevice*>(stream)) {
     iodev->close();
     return 0;
   }
@@ -128,7 +128,7 @@ int oggclose(void* stream)
  */
 long oggtell(void* stream)
 {
-  if (QIODevice* iodev = reinterpret_cast<QIODevice*>(stream)) {
+  if (auto iodev = reinterpret_cast<QIODevice*>(stream)) {
     return iodev->pos();
   }
   return -1;
@@ -432,7 +432,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
   if (strNumMap.empty()) {
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
-      Frame::Type type = static_cast<Frame::Type>(i);
+      auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
     strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);

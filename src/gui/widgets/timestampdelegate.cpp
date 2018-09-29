@@ -55,7 +55,7 @@ QWidget* TimeStampDelegate::createEditor(
   QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const
 {
   QTime time = index.data().toTime();
-  QTimeEdit* timeEdit = new QTimeEdit(parent);
+  auto timeEdit = new QTimeEdit(parent);
   timeEdit->setDisplayFormat(time.hour() == 0 ? QLatin1String("mm:ss.zzz")
                                               : QLatin1String("hh:mm:ss.zzz"));
   connect(timeEdit, SIGNAL(editingFinished()),
@@ -68,7 +68,7 @@ QWidget* TimeStampDelegate::createEditor(
  */
 void TimeStampDelegate::commitAndCloseEditor()
 {
-  if (QTimeEdit* editor = qobject_cast<QTimeEdit*>(sender())) {
+  if (auto editor = qobject_cast<QTimeEdit*>(sender())) {
     emit commitData(editor);
     emit closeEditor(editor);
   }

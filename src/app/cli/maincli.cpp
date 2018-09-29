@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
   }
 
   ICorePlatformTools* platformTools = new CorePlatformTools;
-  Kid3Application* kid3App = new Kid3Application(platformTools);
+  auto kid3App = new Kid3Application(platformTools);
   Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "), args);
   QTimer::singleShot(0, &kid3cli, SLOT(execute()));
   int rc = app.exec();

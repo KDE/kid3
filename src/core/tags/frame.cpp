@@ -653,7 +653,7 @@ Frame::Type Frame::getTypeFromName(const QString& name)
   if (strNumMap.empty()) {
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
-      Frame::Type type = static_cast<Frame::Type>(i);
+      auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getNameFromType(type)).
                        remove(QLatin1Char(' ')).toUpper(), type);
     }
@@ -991,13 +991,13 @@ quint64 FrameCollection::s_quickAccessFrames =
 void FrameCollection::filterDifferent(FrameCollection& others)
 {
   QByteArray frameData, othersData;
-  iterator it = begin();
+  auto it = begin();
   while (it != end()) {
-    Frame& frame = const_cast<Frame&>(*it);
+    auto& frame = const_cast<Frame&>(*it);
     // This frame list is not tied to a specific file, so the
     // index is not valid.
     frame.setIndex(-1);
-    iterator othersIt = others.find(frame);
+    auto othersIt = others.find(frame);
     if (othersIt == others.end()) {
       frame.setDifferent();
       ++it;
@@ -1022,11 +1022,11 @@ void FrameCollection::filterDifferent(FrameCollection& others)
 
   // Insert frames which are in others but not in this (not marked as already
   // handled by index -2) as different frames.
-  for (iterator othersIt = others.begin();
+  for (auto othersIt = others.begin();
        othersIt != others.end();
        ++othersIt) {
     if (othersIt->getIndex() != -2) {
-      Frame& frame = const_cast<Frame&>(*othersIt);
+      auto& frame = const_cast<Frame&>(*othersIt);
       frame.setIndex(-1);
       frame.setDifferent();
       insert(frame);
@@ -1046,7 +1046,7 @@ void FrameCollection::addMissingStandardFrames()
        ++i, mask <<= 1) {
     if (s_quickAccessFrames & mask) {
       Frame frame(static_cast<Frame::Type>(i), QString(), QString(), -1);
-      FrameCollection::const_iterator it = find(frame);
+      auto it = find(frame);
       if (it == end()) {
         insert(frame);
       }
@@ -1064,7 +1064,7 @@ void FrameCollection::addMissingStandardFrames()
 FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
 {
   FrameCollection frames;
-  for (const_iterator it = begin();
+  for (auto it = begin();
        it != end();
        ++it) {
     if (flt.isEnabled(it->getType(), it->getName())) {
@@ -1083,7 +1083,7 @@ FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
  */
 void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 {
-  for (iterator it = begin();
+  for (auto it = begin();
        it != end();) {
     if (!flt.isEnabled(it->getType(), it->getName())) {
       erase(it++);
@@ -1098,8 +1098,8 @@ void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
  */
 void FrameCollection::setIndexesInvalid()
 {
-  for (iterator it = begin(); it != end(); ++it) {
-    Frame& frame = const_cast<Frame&>(*it);
+  for (auto it = begin(); it != end(); ++it) {
+    auto& frame = const_cast<Frame&>(*it);
     frame.setIndex(-1);
   }
 }
@@ -1112,13 +1112,13 @@ void FrameCollection::setIndexesInvalid()
  */
 void FrameCollection::merge(const FrameCollection& frames)
 {
-  for (const_iterator otherIt = frames.begin();
+  for (auto otherIt = frames.begin();
        otherIt != frames.end();
        ++otherIt) {
-    iterator it = find(*otherIt);
+    auto it = find(*otherIt);
     if (it != end()) {
       QString value(otherIt->getValue());
-      Frame& frameFound = const_cast<Frame&>(*it);
+      auto& frameFound = const_cast<Frame&>(*it);
       if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
         frameFound.setValueIfChanged(value);
       }
@@ -1195,7 +1195,7 @@ FrameCollection::const_iterator FrameCollection::findByName(
     const QString& name, int index) const
 {
   Frame frame(Frame::ExtendedType(name), QLatin1String(""), -1);
-  const_iterator it = find(frame);
+  auto it = find(frame);
   if (it == end()) {
     it = searchByName(name);
     if (it == end()) {
@@ -1233,7 +1233,7 @@ FrameCollection::const_iterator FrameCollection::findByExtendedType(
     const Frame::ExtendedType& type) const
 {
   Frame frame(type, QLatin1String(""), -1);
-  const_iterator it = find(frame);
+  auto it = find(frame);
   if (it == end()) {
     it = searchByName(frame.getInternalName());
   }
@@ -1268,7 +1268,7 @@ FrameCollection::const_iterator FrameCollection::findByIndex(int index) const
 QString FrameCollection::getValue(Frame::Type type) const
 {
   Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
-  const_iterator it = find(frame);
+  auto it = find(frame);
   return it != end() ? it->getValue() : QString();
 }
 
@@ -1283,7 +1283,7 @@ QString FrameCollection::getValue(Frame::Type type) const
  */
 QString FrameCollection::getValue(const Frame::ExtendedType& type) const
 {
-  const_iterator it = findByExtendedType(type);
+  auto it = findByExtendedType(type);
   return it != end() ? it->getValue() : QString();
 }
 
@@ -1297,9 +1297,9 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
 {
   if (!value.isNull()) {
     Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
-    iterator it = find(frame);
+    auto it = find(frame);
     if (it != end()) {
-      Frame& frameFound = const_cast<Frame&>(*it);
+      auto& frameFound = const_cast<Frame&>(*it);
       frameFound.setValueIfChanged(value);
     } else {
       frame.setValueIfChanged(value);
@@ -1321,12 +1321,12 @@ void FrameCollection::setValue(const Frame::ExtendedType& type,
 {
   if (!value.isNull()) {
     Frame frame(type, QLatin1String(""), -1);
-    const_iterator it = find(frame);
+    auto it = find(frame);
     if (it == end()) {
       it = searchByName(type.getInternalName());
     }
     if (it != end()) {
-      Frame& frameFound = const_cast<Frame&>(*it);
+      auto& frameFound = const_cast<Frame&>(*it);
       frameFound.setValueIfChanged(value);
     } else {
       frame.setValueIfChanged(value);
@@ -1370,11 +1370,11 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
  */
 void FrameCollection::markChangedFrames(const FrameCollection& other)
 {
-  for (FrameCollection::iterator it = begin(); it != end(); ++it) {
-    const_iterator otherIt = it->getIndex() != -1
+  for (auto it = begin(); it != end(); ++it) {
+    auto otherIt = it->getIndex() != -1
         ? other.findByIndex(it->getIndex())
         : other.find(*it);
-    Frame& frame = const_cast<Frame&>(*it);
+    auto& frame = const_cast<Frame&>(*it);
     frame.setValueChanged(!(otherIt != other.end() && otherIt->isEqual(*it)));
   }
 }
@@ -1486,7 +1486,7 @@ bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
   if (type <= Frame::FT_LastFrame) {
     return (m_enabledFrames & (1ULL << type)) != 0;
   } else if (!name.isEmpty()) {
-    std::set<QString>::const_iterator it = m_disabledOtherFrames.find(name);
+    auto it = m_disabledOtherFrames.find(name);
     return it == m_disabledOtherFrames.end();
   } else {
     return true;
@@ -1510,7 +1510,7 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
     }
   } else if (!name.isEmpty()) {
     if (en) {
-      std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+      auto it = m_disabledOtherFrames.find(name);
       if (it != m_disabledOtherFrames.end()) {
         m_disabledOtherFrames.erase(it);
       }
@@ -1605,7 +1605,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       name.truncate(dotIndex);
     }
 
-    FrameCollection::const_iterator it = m_frames.findByName(name);
+    auto it = m_frames.findByName(name);
     if (it != m_frames.end()) {
       if (fieldName.isEmpty()) {
         result = it->getValue().trimmed();

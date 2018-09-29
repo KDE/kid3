@@ -1757,10 +1757,10 @@ void Kid3Application::applyTextEncoding()
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
     taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
-    for (FrameCollection::iterator frameIt = frames.begin();
+    for (auto frameIt = frames.begin();
          frameIt != frames.end();
          ++frameIt) {
-      Frame& frame = const_cast<Frame&>(*frameIt);
+      auto& frame = const_cast<Frame&>(*frameIt);
       Frame::TextEncoding enc = encoding;
       if (taggedFile->getTagFormat(Frame::Tag_Id3v2) == QLatin1String("ID3v2.3.0")) {
         // TagLib sets the ID3v2.3.0 frame containing the date internally with
@@ -1849,7 +1849,7 @@ void Kid3Application::copyToOtherTag(Frame::TagVersion tagMask)
  */
 void Kid3Application::copyTagsActionData()
 {
-  if (QAction* action = qobject_cast<QAction*>(sender())) {
+  if (auto action = qobject_cast<QAction*>(sender())) {
     QByteArray ba = action->data().toByteArray();
     if (ba.size() == 2) {
       Frame::TagNumber srcTagNr = Frame::tagNumberCast(ba.at(0));
@@ -2038,7 +2038,7 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
  */
 void Kid3Application::onFrameEdited(const Frame* frame)
 {
-  FrameList* framelist = qobject_cast<FrameList*>(sender());
+  auto framelist = qobject_cast<FrameList*>(sender());
   if (!framelist || !frame)
     return;
 
@@ -2058,7 +2058,7 @@ void Kid3Application::onFrameEdited(const Frame* frame)
       TaggedFile* currentFile = tfit.next();
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
-      for (FrameCollection::const_iterator it = frames.begin();
+      for (auto it = frames.begin();
            it != frames.end();
            ++it) {
         if (it->getName() == m_editFrameName) {
@@ -2111,7 +2111,7 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
       int currentIndex = 0;
-      for (FrameCollection::const_iterator it = frames.begin();
+      for (auto it = frames.begin();
            it != frames.end();
            ++it) {
         if (it->getName() == name) {
@@ -2183,7 +2183,7 @@ void Kid3Application::onFrameAdded(const Frame* frame, Frame::TagNumber tagNr)
   if (!frame)
     return;
 
-  FrameList* framelist = qobject_cast<FrameList*>(sender());
+  auto framelist = qobject_cast<FrameList*>(sender());
   if (!framelist) {
     framelist = m_framelist[tagNr];
   }
@@ -3100,7 +3100,7 @@ void Kid3Application::numberTracks(int nr, int total,
         FrameCollection frames;
         taggedFile->getAllFrames(tagNr, frames);
         Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
-        FrameCollection::const_iterator frameIt = frames.find(frame);
+        auto frameIt = frames.find(frame);
         QString value;
         if (options & NumberTracksEnabled) {
           if (total > 0) {
@@ -3389,7 +3389,7 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  FrameCollection::const_iterator it =
+  auto it =
       ft->frames().findByName(frameName, index);
   if (it != ft->frames().end()) {
     if (!dataFileName.isEmpty()) {
@@ -3454,7 +3454,7 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
   QVariantMap map;
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  for (FrameCollection::const_iterator it = ft->frames().begin();
+  for (auto it = ft->frames().begin();
        it != ft->frames().end();
        ++it) {
     QString name(it->getName());
@@ -3499,7 +3499,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
   int index = 0;
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   FrameCollection frames(ft->frames());
-  FrameCollection::const_iterator it = frames.findByName(frameName, index);
+  auto it = frames.findByName(frameName, index);
   if (it != frames.end()) {
     QString frmName(it->getName());
     bool isPicture, isGeob, isSylt = false;
@@ -3552,7 +3552,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
                (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
       deleteFrame(tagNr, frmName, index);
     } else {
-      Frame& frame = const_cast<Frame&>(*it);
+      auto& frame = const_cast<Frame&>(*it);
       if (fieldName.isEmpty()) {
         frame.setValueIfChanged(value);
       } else {
@@ -3655,7 +3655,7 @@ QByteArray Kid3Application::getPictureData() const
 {
   QByteArray data;
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
-  FrameCollection::const_iterator it = frames.findByExtendedType(
+  auto it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
   if (it != frames.end()) {
     PictureFrame::getData(*it, data);
@@ -3670,7 +3670,7 @@ QByteArray Kid3Application::getPictureData() const
 void Kid3Application::setPictureData(const QByteArray& data)
 {
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
-  FrameCollection::const_iterator it = frames.findByExtendedType(
+  auto it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
   PictureFrame frame;
   if (it != frames.end()) {

@@ -40,7 +40,7 @@ ProgressWidget::ProgressWidget(QWidget* parent) : QFrame(parent),
 {
   setFrameShape(QFrame::StyledPanel);
   setFrameShadow(QFrame::Sunken);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_title = new QLabel;
   QFont titleFont = font();
   titleFont.setPointSize(titleFont.pointSize() + 3);
@@ -52,7 +52,7 @@ ProgressWidget::ProgressWidget(QWidget* parent) : QFrame(parent),
   layout->addWidget(m_label);
   m_progress = new QProgressBar;
   layout->addWidget(m_progress);
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   m_cancelButton = new QPushButton(tr("&Cancel"));
   connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
   buttonLayout->addStretch();

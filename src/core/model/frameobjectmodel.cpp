@@ -113,13 +113,13 @@ QList<QObject*> FrameObjectModel::fields()
   const int numFields = m_frame.getFieldList().size();
   if (numFields > 0) {
     for (int i = 0; i < numFields; ++i) {
-      FrameFieldObject* fieldObj = new FrameFieldObject(i, this);
+      auto fieldObj = new FrameFieldObject(i, this);
       connect(fieldObj, SIGNAL(valueChanged(QVariant)),
               this, SIGNAL(fieldsChanged()));
       lst.append(fieldObj);
     }
   } else {
-    FrameFieldObject* fieldObj = new FrameFieldObject(-1, this);
+    auto fieldObj = new FrameFieldObject(-1, this);
     connect(fieldObj, SIGNAL(valueChanged(QVariant)),
             this, SIGNAL(fieldsChanged()));
     lst.append(fieldObj);

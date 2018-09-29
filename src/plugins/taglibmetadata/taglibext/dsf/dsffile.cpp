@@ -103,7 +103,7 @@ void DSFFile::FilePrivate::shrinkTag() {
     nlist.append(*it);
   }
 
-  TagLib::ID3v2::Tag *ntag = new TagLib::ID3v2::Tag();
+  auto ntag = new TagLib::ID3v2::Tag();
   for (it = nlist.begin(); it != nlist.end(); it++) {
     tag->removeFrame(*it, false);  // Don't delete, just transfer the ownership
     ntag->addFrame(*it);

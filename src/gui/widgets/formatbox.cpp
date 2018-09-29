@@ -59,7 +59,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());
-  QFormLayout* formLayout = new QFormLayout(this);
+  auto formLayout = new QFormLayout(this);
   formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   formLayout->addRow(m_formatEditingCheckBox);
   formLayout->addRow(tr("Case conversion:"), m_caseConvComboBox);

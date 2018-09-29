@@ -105,7 +105,7 @@ Kid3MainWindow::~Kid3MainWindow()
  */
 void Kid3MainWindow::initActions()
 {
-  QToolBar* toolBar = new QToolBar(this);
+  auto toolBar = new QToolBar(this);
   toolBar->setObjectName(QLatin1String("MainToolbar"));
 #ifdef Q_OS_MAC
   toolBar->setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
@@ -114,7 +114,7 @@ void Kid3MainWindow::initActions()
   QString menuTitle(tr("&File"));
   QMenu* fileMenu = menubar->addMenu(menuTitle);
 
-  QAction* fileOpen = new QAction(this);
+  auto fileOpen = new QAction(this);
   fileOpen->setStatusTip(tr("Open files"));
   fileOpen->setText(tr("&Open..."));
   fileOpen->setShortcut(QKeySequence::Open);
@@ -137,7 +137,7 @@ void Kid3MainWindow::initActions()
       QIcon(QLatin1String(":/images/document-open-recent.png"))));
   fileMenu->addMenu(m_fileOpenRecent);
 
-  QAction* fileOpenDirectory = new QAction(this);
+  auto fileOpenDirectory = new QAction(this);
   fileOpenDirectory->setStatusTip(tr("Opens a directory"));
   fileOpenDirectory->setText(tr("O&pen Directory..."));
   fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
@@ -150,7 +150,7 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileOpenDirectory);
   fileMenu->addSeparator();
 
-  QAction* fileSave = new QAction(this);
+  auto fileSave = new QAction(this);
   fileSave->setStatusTip(tr("Saves the changed files"));
   fileSave->setText(tr("&Save"));
   fileSave->setShortcut(QKeySequence::Save);
@@ -163,7 +163,7 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileSave);
   toolBar->addAction(fileSave);
 
-  QAction* fileRevert = new QAction(this);
+  auto fileRevert = new QAction(this);
   fileRevert->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
   fileRevert->setText(tr("Re&vert"));
@@ -178,7 +178,7 @@ void Kid3MainWindow::initActions()
   toolBar->addAction(fileRevert);
   fileMenu->addSeparator();
 
-  QAction* fileImport = new QAction(this);
+  auto fileImport = new QAction(this);
   fileImport->setData(-1);
   fileImport->setStatusTip(tr("Import from file or clipboard"));
   fileImport->setText(tr("&Import..."));
@@ -200,7 +200,7 @@ void Kid3MainWindow::initActions()
     if (dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
-    QAction* fileImportServer = new QAction(this);
+    auto fileImportServer = new QAction(this);
     fileImportServer->setData(importerIdx);
     fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
     fileImportServer->setText(tr("Import from %1...").arg(serverName));
@@ -221,7 +221,7 @@ void Kid3MainWindow::initActions()
     if (dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
-    QAction* fileImportServer = new QAction(this);
+    auto fileImportServer = new QAction(this);
     fileImportServer->setData(importerIdx);
     fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
     fileImportServer->setText(tr("Import from %1...").arg(serverName));
@@ -233,7 +233,7 @@ void Kid3MainWindow::initActions()
     ++importerIdx;
   }
 
-  QAction* fileBatchImport = new QAction(this);
+  auto fileBatchImport = new QAction(this);
   fileBatchImport->setStatusTip(tr("Automatic import"));
   fileBatchImport->setText(tr("Automatic I&mport..."));
   fileBatchImport->setObjectName(QLatin1String("batch_import"));
@@ -242,7 +242,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotBatchImport()));
   fileMenu->addAction(fileBatchImport);
 
-  QAction* fileBrowseCoverArt = new QAction(this);
+  auto fileBrowseCoverArt = new QAction(this);
   fileBrowseCoverArt->setStatusTip(tr("Browse album cover artwork"));
   fileBrowseCoverArt->setText(tr("&Browse Cover Art..."));
   fileBrowseCoverArt->setObjectName(QLatin1String("browse_cover_art"));
@@ -252,7 +252,7 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileBrowseCoverArt);
   fileMenu->addSeparator();
 
-  QAction* fileExport = new QAction(this);
+  auto fileExport = new QAction(this);
   fileExport->setStatusTip(tr("Export to file or clipboard"));
   fileExport->setText(tr("&Export..."));
   fileExport->setIcon(QIcon::fromTheme(QLatin1String("document-export"),
@@ -263,7 +263,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotExport()));
   fileMenu->addAction(fileExport);
 
-  QAction* fileCreatePlaylist = new QAction(this);
+  auto fileCreatePlaylist = new QAction(this);
   fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
   fileCreatePlaylist->setText(tr("&Create Playlist..."));
   fileCreatePlaylist->setIcon(
@@ -277,7 +277,7 @@ void Kid3MainWindow::initActions()
   toolBar->addAction(fileCreatePlaylist);
   fileMenu->addSeparator();
 
-  QAction* fileQuit = new QAction(this);
+  auto fileQuit = new QAction(this);
   fileQuit->setStatusTip(tr("Quits the application"));
   fileQuit->setText(tr("&Quit"));
   fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
@@ -292,7 +292,7 @@ void Kid3MainWindow::initActions()
 
   menuTitle = tr("&Edit");
   QMenu* editMenu = menubar->addMenu(menuTitle);
-  QAction* editSelectAll = new QAction(this);
+  auto editSelectAll = new QAction(this);
   editSelectAll->setStatusTip(tr("Select all files"));
   editSelectAll->setText(tr("Select &All"));
   editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
@@ -308,7 +308,7 @@ void Kid3MainWindow::initActions()
           form(), SLOT(selectAllFiles()));
   editMenu->addAction(editSelectAll);
 
-  QAction* editDeselect = new QAction(this);
+  auto editDeselect = new QAction(this);
   editDeselect->setStatusTip(tr("Deselect all files"));
   editDeselect->setText(tr("Dese&lect"));
   editDeselect->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_A);
@@ -318,7 +318,7 @@ void Kid3MainWindow::initActions()
           form(), SLOT(deselectAllFiles()));
   editMenu->addAction(editDeselect);
 
-  QAction* editSelectAllInDir = new QAction(this);
+  auto editSelectAllInDir = new QAction(this);
   editSelectAllInDir->setStatusTip(
         tr("Select all files in the current directory"));
   editSelectAllInDir->setText(tr("Select All in &Directory"));
@@ -328,7 +328,7 @@ void Kid3MainWindow::initActions()
     app(), SLOT(selectAllInDirectory()));
   editMenu->addAction(editSelectAllInDir);
 
-  QAction* editPreviousFile = new QAction(this);
+  auto editPreviousFile = new QAction(this);
   editPreviousFile->setStatusTip(tr("Select previous file"));
   editPreviousFile->setText(tr("&Previous File"));
   editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
@@ -341,7 +341,7 @@ void Kid3MainWindow::initActions()
   editMenu->addAction(editPreviousFile);
   toolBar->addAction(editPreviousFile);
 
-  QAction* editNextFile = new QAction(this);
+  auto editNextFile = new QAction(this);
   editNextFile->setStatusTip(tr("Select next file"));
   editNextFile->setText(tr("&Next File"));
   editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
@@ -355,7 +355,7 @@ void Kid3MainWindow::initActions()
   toolBar->addAction(editNextFile);
   editMenu->addSeparator();
 
-  QAction* editFind = new QAction(this);
+  auto editFind = new QAction(this);
   editFind->setStatusTip(tr("Find"));
   editFind->setText(tr("&Find..."));
   editFind->setShortcut(QKeySequence::Find);
@@ -369,7 +369,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(find()));
   editMenu->addAction(editFind);
 
-  QAction* editReplace = new QAction(this);
+  auto editReplace = new QAction(this);
   editReplace->setStatusTip(tr("Find and replace"));
   editReplace->setText(tr("&Replace..."));
   editReplace->setShortcut(QKeySequence::Replace);
@@ -385,7 +385,7 @@ void Kid3MainWindow::initActions()
 
   menuTitle = tr("&Tools");
   QMenu* toolsMenu = menubar->addMenu(menuTitle);
-  QAction* toolsApplyFilenameFormat = new QAction(this);
+  auto toolsApplyFilenameFormat = new QAction(this);
   toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
   toolsApplyFilenameFormat->setText(tr("Apply &Filename Format"));
   toolsApplyFilenameFormat->setObjectName(
@@ -395,7 +395,7 @@ void Kid3MainWindow::initActions()
     app(), SLOT(applyFilenameFormat()));
   toolsMenu->addAction(toolsApplyFilenameFormat);
 
-  QAction* toolsApplyTagFormat = new QAction(this);
+  auto toolsApplyTagFormat = new QAction(this);
   toolsApplyTagFormat->setStatusTip(tr("Apply Tag Format"));
   toolsApplyTagFormat->setText(tr("Apply &Tag Format"));
   toolsApplyTagFormat->setObjectName(QLatin1String("apply_id3_format"));
@@ -404,7 +404,7 @@ void Kid3MainWindow::initActions()
     app(), SLOT(applyTagFormat()));
   toolsMenu->addAction(toolsApplyTagFormat);
 
-  QAction* toolsApplyTextEncoding = new QAction(this);
+  auto toolsApplyTextEncoding = new QAction(this);
   toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));
   toolsApplyTextEncoding->setText(tr("Apply Text &Encoding"));
   toolsApplyTextEncoding->setObjectName(QLatin1String("apply_text_encoding"));
@@ -414,7 +414,7 @@ void Kid3MainWindow::initActions()
   toolsMenu->addAction(toolsApplyTextEncoding);
   toolsMenu->addSeparator();
 
-  QAction* toolsRenameDirectory = new QAction(this);
+  auto toolsRenameDirectory = new QAction(this);
   toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
   toolsRenameDirectory->setText(tr("&Rename Directory..."));
   toolsRenameDirectory->setObjectName(QLatin1String("rename_directory"));
@@ -423,7 +423,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotRenameDirectory()));
   toolsMenu->addAction(toolsRenameDirectory);
 
-  QAction* toolsNumberTracks = new QAction(this);
+  auto toolsNumberTracks = new QAction(this);
   toolsNumberTracks->setStatusTip(tr("Number Tracks"));
   toolsNumberTracks->setText(tr("&Number Tracks..."));
   toolsNumberTracks->setObjectName(QLatin1String("number_tracks"));
@@ -432,7 +432,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotNumberTracks()));
   toolsMenu->addAction(toolsNumberTracks);
 
-  QAction* toolsFilter = new QAction(this);
+  auto toolsFilter = new QAction(this);
   toolsFilter->setStatusTip(tr("Filter"));
   toolsFilter->setText(tr("F&ilter..."));
   toolsFilter->setObjectName(QLatin1String("filter"));
@@ -444,7 +444,7 @@ void Kid3MainWindow::initActions()
 
   const TagConfig& tagCfg = TagConfig::instance();
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
-    QAction* toolsConvertToId3v24 = new QAction(this);
+    auto toolsConvertToId3v24 = new QAction(this);
     toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
     toolsConvertToId3v24->setObjectName(QLatin1String("convert_to_id3v24"));
@@ -454,7 +454,7 @@ void Kid3MainWindow::initActions()
     toolsMenu->addAction(toolsConvertToId3v24);
 
     if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
-      QAction* toolsConvertToId3v23 = new QAction(this);
+      auto toolsConvertToId3v23 = new QAction(this);
       toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
       toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));
       toolsConvertToId3v23->setObjectName(QLatin1String("convert_to_id3v23"));
@@ -466,7 +466,7 @@ void Kid3MainWindow::initActions()
   }
 
   toolsMenu->addSeparator();
-  QAction* toolsPlay = new QAction(this);
+  auto toolsPlay = new QAction(this);
   toolsPlay->setStatusTip(tr("Play"));
   toolsPlay->setText(tr("&Play"));
   toolsPlay->setIcon(QIcon(style()->standardIcon(QStyle::SP_MediaPlay)));
@@ -521,7 +521,7 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotSettingsAutoHideTags()));
   settingsMenu->addAction(m_settingsAutoHideTags);
 
-  QAction* settingsConfigure = new QAction(this);
+  auto settingsConfigure = new QAction(this);
   settingsConfigure->setStatusTip(tr("Configure Kid3"));
   settingsConfigure->setText(tr("&Configure Kid3..."));
   settingsConfigure->setIcon(QIcon::fromTheme(
@@ -539,7 +539,7 @@ void Kid3MainWindow::initActions()
 
   menuTitle = tr("&Help");
   QMenu* helpMenu = menubar->addMenu(menuTitle);
-  QAction* helpHandbook = new QAction(this);
+  auto helpHandbook = new QAction(this);
   helpHandbook->setStatusTip(tr("Kid3 Handbook"));
   helpHandbook->setText(tr("Kid3 &Handbook"));
   helpHandbook->setIcon(QIcon::fromTheme(QLatin1String("help-contents"),
@@ -551,7 +551,7 @@ void Kid3MainWindow::initActions()
     this, SLOT(slotHelpHandbook()));
   helpMenu->addAction(helpHandbook);
 
-  QAction* helpAbout = new QAction(this);
+  auto helpAbout = new QAction(this);
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
 #ifndef Q_OS_MAC
@@ -565,7 +565,7 @@ void Kid3MainWindow::initActions()
     this, SLOT(slotHelpAbout()));
   helpMenu->addAction(helpAbout);
 
-  QAction* helpAboutQt = new QAction(this);
+  auto helpAboutQt = new QAction(this);
   helpAboutQt->setStatusTip(tr("About Qt"));
   helpAboutQt->setText(tr("About &Qt"));
   helpAboutQt->setMenuRole(QAction::AboutQtRole);
@@ -668,7 +668,7 @@ void Kid3MainWindow::initAction(const QString& text, const QString& name,
                                 const QObject* receiver, const char* slot,
                                 const QString& context)
 {
-  QAction* action = new QAction(form());
+  auto action = new QAction(form());
   action->setStatusTip(text);
   action->setText(text);
   action->setObjectName(name);
@@ -860,7 +860,7 @@ void Kid3MainWindow::slotHelpAboutQt()
 void Kid3MainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
-  ConfigDialog* dialog = new ConfigDialog(m_platformTools, this, caption,
+  auto dialog = new ConfigDialog(m_platformTools, this, caption,
                                           m_shortcutsModel);
   dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {

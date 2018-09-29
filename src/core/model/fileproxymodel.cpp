@@ -336,7 +336,7 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
  */
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
-  QFileSystemModel* fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
+  auto fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
   Q_ASSERT_X(fsModel != nullptr , "setSourceModel",
              "sourceModel is not QFileSystemModel");
   if (fsModel != m_fsModel) {
@@ -689,7 +689,7 @@ TaggedFile* FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index) {
  * @return directory path, null if not directory
  */
 QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
-  const FileProxyModel* model =
+  const auto model =
       qobject_cast<const FileProxyModel*>(index.model());
   if (!model || !model->isDir(index))
     return QString();
@@ -713,7 +713,7 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(tagLibFile);
       // setData() will not invalidate the model, so this should be safe.
-      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+      auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
         setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
@@ -795,7 +795,7 @@ TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(id3libFile);
       // setData() will not invalidate the model, so this should be safe.
-      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+      auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
         setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
@@ -848,7 +848,7 @@ TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(tagLibFile);
       // setData() will not invalidate the model, so this should be safe.
-      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+      auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
         setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);

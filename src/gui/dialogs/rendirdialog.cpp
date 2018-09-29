@@ -56,14 +56,14 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
   setWindowTitle(tr("Rename Directory"));
   setSizeGripEnabled(true);
 
-  QWizardPage* mainPage = new QWizardPage;
+  auto mainPage = new QWizardPage;
 
-  QVBoxLayout* mainLayout = new QVBoxLayout(mainPage);
+  auto mainLayout = new QVBoxLayout(mainPage);
   setupMainPage(mainPage, mainLayout);
   mainPage->setTitle(tr("Format"));
   addPage(mainPage);
 
-  QWizardPage* previewPage = new QWizardPage;
+  auto previewPage = new QWizardPage;
   setupPreviewPage(previewPage);
   previewPage->setTitle(tr("Preview"));
   addPage(previewPage);
@@ -93,7 +93,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
     return;
   }
 
-  QFormLayout* actionLayout = new QFormLayout;
+  auto actionLayout = new QFormLayout;
   actionLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
@@ -138,7 +138,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
  */
 void RenDirDialog::setupPreviewPage(QWidget* page)
 {
-  QVBoxLayout* vlayout = new QVBoxLayout(page);
+  auto vlayout = new QVBoxLayout(page);
   m_edit = new QTextEdit(page);
   m_edit->setReadOnly(true);
   m_edit->setAcceptRichText(false);

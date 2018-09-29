@@ -41,12 +41,12 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
   QWidget(parent)
 {
   setObjectName(QLatin1String("AbstractListEdit"));
-  QHBoxLayout* hlayout = new QHBoxLayout(this);
+  auto hlayout = new QHBoxLayout(this);
   m_itemView = itemView;
   m_itemView->setModel(model);
   hlayout->setContentsMargins(0, 0, 0, 0);
   hlayout->addWidget(m_itemView);
-  QVBoxLayout* vlayout = new QVBoxLayout;
+  auto vlayout = new QVBoxLayout;
   m_addPushButton = new QPushButton(tr("&Add..."), this);
   m_moveUpPushButton = new QPushButton(tr("Move &Up"), this);
   m_moveDownPushButton = new QPushButton(tr("Move &Down"), this);

@@ -153,7 +153,7 @@ const QWidget* FrameTable::getCurrentEditor() const
  */
 void FrameTable::contextMenu(int row, int col, const QPoint& pos)
 {
-  const FrameTableModel* ftModel =
+  const auto ftModel =
     qobject_cast<const FrameTableModel*>(model());
   if (ftModel && col == 0 && row >= 0) {
     QMenu menu(this);
@@ -187,14 +187,14 @@ void FrameTable::customContextMenu(const QPoint& pos)
  */
 void FrameTable::setValueSelection(int row, int start, int length)
 {
-  if (const FrameTableModel* ftModel =
+  if (const auto ftModel =
       qobject_cast<const FrameTableModel*>(model())) {
     QModelIndex idx = ftModel->index(row, FrameTableModel::CI_Value);
     if (idx.isValid()) {
       scrollTo(idx);
       setCurrentIndex(idx);
       edit(idx);
-      if (QLineEdit* le = qobject_cast<QLineEdit*>(indexWidget(idx))) {
+      if (auto le = qobject_cast<QLineEdit*>(indexWidget(idx))) {
         le->setSelection(start, length);
       }
     }

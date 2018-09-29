@@ -315,10 +315,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           this, SLOT(onFirstDirectoryOpened()));
 
   m_rightHalfVBox = new Kid3EditWidget(m_app);
-  QScrollArea* scrollView = new QScrollArea(this);
+  auto scrollView = new QScrollArea(this);
   scrollView->setWidget(m_rightHalfVBox);
   scrollView->setWidgetResizable(true);
-  QVBoxLayout* rightHalfLayout = new QVBoxLayout(m_rightHalfVBox);
+  auto rightHalfLayout = new QVBoxLayout(m_rightHalfVBox);
   rightHalfLayout->setSpacing(0);
 
   m_fileButton = new QToolButton(m_rightHalfVBox);
@@ -329,7 +329,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #endif
   connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
   m_fileLabel = new QLabel(tr("F&ile"), m_rightHalfVBox);
-  QHBoxLayout* fileButtonLayout = new QHBoxLayout;
+  auto fileButtonLayout = new QHBoxLayout;
   fileButtonLayout->addWidget(m_fileButton);
   fileButtonLayout->addWidget(m_fileLabel);
   rightHalfLayout->addLayout(fileButtonLayout);
@@ -337,7 +337,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_fileWidget = new QWidget(m_rightHalfVBox);
   m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   rightHalfLayout->addWidget(m_fileWidget);
-  QGridLayout* fileLayout = new QGridLayout(m_fileWidget);
+  auto fileLayout = new QGridLayout(m_fileWidget);
 
   m_nameLabel = new QLabel(tr("Name:"), m_fileWidget);
   fileLayout->addWidget(m_nameLabel, 0, 0);
@@ -429,7 +429,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #endif
     connect(m_tagButton[tagNr], SIGNAL(clicked()), tag(tagNr), SLOT(showHideTag()));
     m_tagLabel[tagNr] = new QLabel(tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
-    QHBoxLayout* tagButtonLayout = new QHBoxLayout;
+    auto tagButtonLayout = new QHBoxLayout;
     tagButtonLayout->addWidget(m_tagButton[tagNr]);
     tagButtonLayout->addWidget(m_tagLabel[tagNr]);
     rightHalfLayout->addLayout(tagButtonLayout);
@@ -440,14 +440,14 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     }
     rightHalfLayout->addWidget(m_tagWidget[tagNr], 100);
 
-    QHBoxLayout* idHBoxLayout = new QHBoxLayout(m_tagWidget[tagNr]);
+    auto idHBoxLayout = new QHBoxLayout(m_tagWidget[tagNr]);
     m_frameTable[tagNr] = new FrameTable(m_app->frameModel(tagNr), m_app->genreModel(tagNr),
                                      m_tagWidget[tagNr]);
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
     m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
 
-    QVBoxLayout* buttonsVBoxLayout = new QVBoxLayout;
+    auto buttonsVBoxLayout = new QVBoxLayout;
     idHBoxLayout->addLayout(buttonsVBoxLayout);
 
     if (tagNr <= Frame::Tag_2) {
@@ -478,7 +478,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       tabWidget = pastePushButton;
     } else {
       m_id3PushButton[tagNr] = new QPushButton(tr("From"));
-      QMenu* menu = new QMenu(this);
+      auto menu = new QMenu(this);
       QAction* action = menu->addAction(tr("Filename"));
       connect(action, SIGNAL(triggered()),
               m_app->tag(tagNr), SLOT(getTagsFromFilename()));

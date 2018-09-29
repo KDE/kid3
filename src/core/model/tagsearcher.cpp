@@ -282,8 +282,8 @@ bool TagSearcher::searchInFrames(const FrameCollection& frames,
 {
   int idx = 0;
   int frameNr = 0;
-  FrameCollection::const_iterator begin = frames.begin();
-  FrameCollection::const_iterator end = frames.end();
+  auto begin = frames.begin();
+  auto end = frames.end();
   if (pos->getPart() == part) {
     idx = pos->m_matchedPos + advanceChars;
     for (frameNr = 0;
@@ -293,7 +293,7 @@ bool TagSearcher::searchInFrames(const FrameCollection& frames,
   }
   int len = -1;
   QString frameName;
-  for (FrameCollection::const_iterator it = begin; it != end; ++it, ++frameNr) {
+  for (auto it = begin; it != end; ++it, ++frameNr) {
     if ((m_params.getFlags() & AllFrames) ||
         (m_params.getFrameMask() & (1ULL << it->getType()))) {
       len = findInString(it->getValue(), idx);
@@ -346,15 +346,15 @@ void TagSearcher::replaceNext()
         FrameCollection frames;
         taggedFile->getAllFrames(
               Position::partToTagNumber(m_currentPosition.getPart()), frames);
-        FrameCollection::iterator it = frames.begin();
-        FrameCollection::iterator end = frames.end();
+        auto it = frames.begin();
+        auto end = frames.end();
         for (int frameNr = 0;
              frameNr < m_currentPosition.getFrameIndex() && it != end;
              ++frameNr) {
           ++it;
         }
         if (it != end) {
-          Frame& frame = const_cast<Frame&>(*it);
+          auto& frame = const_cast<Frame&>(*it);
           QString str = frame.getValue();
           replaced = str.mid(m_currentPosition.getMatchedPos(),
                              m_currentPosition.getMatchedLength());

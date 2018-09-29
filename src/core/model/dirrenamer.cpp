@@ -468,7 +468,7 @@ QStringList DirRenamer::describeAction(const RenameAction& action) const
   static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
 
   QStringList actionStrs;
-  unsigned typeIdx = static_cast<unsigned>(action.m_type);
+  auto typeIdx = static_cast<unsigned>(action.m_type);
   if (typeIdx >= numTypeStr) {
     typeIdx = numTypeStr - 1;
   }

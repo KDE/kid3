@@ -135,7 +135,7 @@ char* ReadlineCompleter::completionGenerator(
   while (listIndex < completions.size()) {
     const QByteArray& name = completions.at(listIndex++);
     if (name.left(textLen) == text) {
-      char* r = reinterpret_cast<char*>(::malloc(name.length() + 1));
+      auto r = reinterpret_cast<char*>(::malloc(name.length() + 1));
       qstrcpy(r, name.constData());
       return r;
     }

@@ -257,7 +257,7 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
 {
   QString text;
   if (numChars > 0 && str && *str) {
-    QChar* qcarray = new QChar[numChars];
+    auto qcarray = new QChar[numChars];
     // Unfortunately, Unicode support in id3lib is rather buggy
     // in the current version: The codes are mirrored.
     // In the hope that my patches will be included, I try here
@@ -445,7 +445,7 @@ static unicode_t* newFixedUpUnicode(const QString& text)
   // LSB >= 0x80 bug.
   const QChar* qcarray = text.unicode();
   int unicode_size = text.length();
-  unicode_t* unicode = new unicode_t[unicode_size + 1];
+  auto unicode = new unicode_t[unicode_size + 1];
   for (int i = 0; i < unicode_size; ++i) {
     unicode[i] = (ushort)qcarray[i].unicode();
     if (UNICODE_SUPPORT_BUGGY) {
@@ -1076,7 +1076,7 @@ static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
     if (textBegin > numBytes)
       break;
 
-    quint32 time = qFromBigEndian<quint32>(
+    auto time = qFromBigEndian<quint32>(
           reinterpret_cast<const uchar*>(bytes.constData()) + textEnd);
     timeEvents.append(time);
     timeEvents.append(str);
@@ -1165,7 +1165,7 @@ static QVariantList etcoBytesToList(const QByteArray& bytes)
     if (pos + 4 > numBytes)
       break;
 
-    quint32 time = qFromBigEndian<quint32>(
+    auto time = qFromBigEndian<quint32>(
           reinterpret_cast<const uchar*>(bytes.constData()) + pos);
     pos += 4;
     timeEvents.append(time);

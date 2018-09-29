@@ -335,7 +335,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         errorMsgs,
         tr("File Error"));
       if (rc == QMessageBox::Yes) {
-        FileProxyModel* model =
+        auto model =
             qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
         TaggedFile* taggedFile;
         const auto filePaths = notWritableFiles;
@@ -622,7 +622,7 @@ void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
  */
 void BaseMainWindowImpl::onPlaylistEditDialogFinished()
 {
-  if (PlaylistEditDialog* dialog = qobject_cast<PlaylistEditDialog*>(sender())) {
+  if (auto dialog = qobject_cast<PlaylistEditDialog*>(sender())) {
     m_playlistEditDialogs.remove(m_playlistEditDialogs.key(dialog));
     dialog->deleteLater();
   }
@@ -661,7 +661,7 @@ void BaseMainWindowImpl::applyImportedTrackData()
  */
 void BaseMainWindowImpl::slotImport()
 {
-  if (QAction* action = qobject_cast<QAction*>(sender())) {
+  if (auto action = qobject_cast<QAction*>(sender())) {
     setupImportDialog();
     if (m_importDialog) {
       m_importDialog->showWithSubDialog(action->data().toInt());
@@ -1232,7 +1232,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
  */
 void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
 {
-  if (EditFrameFieldsDialog* dialog =
+  if (auto dialog =
       qobject_cast<EditFrameFieldsDialog*>(sender())) {
     if (result == QDialog::Accepted) {
       const Frame::FieldList& fields = dialog->getUpdatedFieldList();
@@ -1257,7 +1257,7 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
 void BaseMainWindowImpl::renameFile()
 {
   QItemSelectionModel* selectModel = m_app->getFileSelectionModel();
-  FileProxyModel* model =
+  auto model =
       qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
   if (!selectModel || !model)
     return;
@@ -1333,7 +1333,7 @@ void BaseMainWindowImpl::renameFile()
 void BaseMainWindowImpl::deleteFile()
 {
   QItemSelectionModel* selectModel = m_app->getFileSelectionModel();
-  FileProxyModel* model =
+  auto model =
       qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
   if (!selectModel || !model)
     return;

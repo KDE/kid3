@@ -53,9 +53,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   setObjectName(QLatin1String("FindReplaceDialog"));
   setWindowTitle(tr("Find and Replace"));
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
-  QGridLayout* findReplaceLayout = new QGridLayout;
+  auto findReplaceLayout = new QGridLayout;
   QLabel* findLabel = new QLabel(tr("F&ind:"));
   m_findEdit = new QComboBox;
   m_findEdit->setEditable(true);
@@ -90,9 +90,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   findReplaceLayout->setColumnStretch(1, 1);
   vlayout->addLayout(findReplaceLayout);
 
-  QHBoxLayout* optionsTagsLayout = new QHBoxLayout;
+  auto optionsTagsLayout = new QHBoxLayout;
   QGroupBox* optionsBox = new QGroupBox(tr("Options"));
-  QVBoxLayout* optionsLayout = new QVBoxLayout(optionsBox);
+  auto optionsLayout = new QVBoxLayout(optionsBox);
   m_matchCaseCheckBox = new QCheckBox(tr("&Match case"));
   optionsLayout->addWidget(m_matchCaseCheckBox);
   m_backwardsCheckBox = new QCheckBox(tr("&Backwards"));
@@ -103,11 +103,11 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   optionsTagsLayout->addWidget(optionsBox);
 
   QGroupBox* tagsGroupBox = new QGroupBox(tr("&Tags"));
-  QVBoxLayout* tagsLayout = new QVBoxLayout(tagsGroupBox);
+  auto tagsLayout = new QVBoxLayout(tagsGroupBox);
   m_allFramesCheckBox = new QCheckBox(tr("Select a&ll"));
   m_allFramesCheckBox->setChecked(true);
   tagsLayout->addWidget(m_allFramesCheckBox);
-  QListView* tagsListView = new QListView;
+  auto tagsListView = new QListView;
   tagsListView->setDisabled(true);
   connect(m_allFramesCheckBox, SIGNAL(toggled(bool)),
           tagsListView, SLOT(setDisabled(bool)));
@@ -124,7 +124,7 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   optionsTagsLayout->addWidget(tagsGroupBox);
   vlayout->addLayout(optionsTagsLayout);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"));
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

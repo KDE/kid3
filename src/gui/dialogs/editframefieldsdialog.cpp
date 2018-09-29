@@ -254,7 +254,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
   QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledTextEdit"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QTextEdit(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -279,7 +279,7 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledLineEdit"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QLineEdit(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -304,7 +304,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
          const char* const* strlst) : QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledComboBox"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -333,7 +333,7 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
   QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledSpinBox"));
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_spinbox = new QSpinBox(this);
   if (layout && m_label && m_spinbox) {
@@ -757,7 +757,7 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   m_byteArray(field.m_value.toByteArray()), m_isChanged(false)
 {
   setObjectName(QLatin1String("BinaryOpenSave"));
-  QHBoxLayout* layout = new QHBoxLayout(this);
+  auto layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(tr("From Clip&board"), this);
   QPushButton* toClipboardButton = new QPushButton(tr("&To Clipboard"), this);
@@ -823,7 +823,7 @@ void BinaryOpenSave::loadData()
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
       int size = file.size();
-      char* data = new char[size];
+      auto data = new char[size];
       QDataStream stream(&file);
       stream.readRawData(data, size);
       m_byteArray = QByteArray(data, size);
@@ -885,7 +885,7 @@ void BinaryOpenSave::copyData()
       QMimeDatabase mimeDb;
       QString mimeType = mimeDb.mimeTypeForData(m_byteArray).name();
       if (!mimeType.isEmpty()) {
-        QMimeData* mimeData = new QMimeData;
+        auto mimeData = new QMimeData;
         mimeData->setData(mimeType, m_byteArray);
         cb->setMimeData(mimeData);
       }
@@ -1130,7 +1130,7 @@ void SubframeFieldControl::updateTag()
     m_fields.erase(m_begin, m_end);
     Frame::Field field;
     field.m_id = Frame::ID_Subframe;
-    for (FrameCollection::iterator it = frames.begin();
+    for (auto it = frames.begin();
          it != frames.end();
          ++it) {
       field.m_value = it->getExtendedType().getName();
@@ -1272,7 +1272,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
 
   m_vlayout = new QVBoxLayout(this);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* okButton = new QPushButton(tr("&OK"));
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"));
   hlayout->addStretch();
@@ -1342,27 +1342,27 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::Int:
       case QVariant::UInt:
         if (fld.m_id == Frame::ID_TextEnc) {
-          IntComboBoxControl* cbox = new IntComboBoxControl(
+          auto cbox = new IntComboBoxControl(
                 fld, Frame::Field::getTextEncodingNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::ID_PictureType) {
-          IntComboBoxControl* cbox = new IntComboBoxControl(
+          auto cbox = new IntComboBoxControl(
                 fld, PictureFrame::getPictureTypeNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::ID_TimestampFormat) {
-          IntComboBoxControl* cbox = new IntComboBoxControl(
+          auto cbox = new IntComboBoxControl(
                 fld, Frame::Field::getTimestampFormatNames());
           m_fieldcontrols.append(cbox);
         }
         else if (fld.m_id == Frame::ID_ContentType) {
-          IntComboBoxControl* cbox = new IntComboBoxControl(
+          auto cbox = new IntComboBoxControl(
                 fld, Frame::Field::getContentTypeNames());
           m_fieldcontrols.append(cbox);
         }
         else {
-          IntFieldControl* intctl = new IntFieldControl(fld);
+          auto intctl = new IntFieldControl(fld);
           m_fieldcontrols.append(intctl);
         }
         break;
@@ -1370,18 +1370,18 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::String:
         if (fld.m_id == Frame::ID_Text) {
           // Large textedit for text fields
-          TextFieldControl* textctl = new TextFieldControl(fld);
+          auto textctl = new TextFieldControl(fld);
           m_fieldcontrols.append(textctl);
         }
         else {
-          LineFieldControl* textctl = new LineFieldControl(fld);
+          auto textctl = new LineFieldControl(fld);
           m_fieldcontrols.append(textctl);
         }
         break;
 
       case QVariant::ByteArray:
       {
-        BinFieldControl* binctl = new BinFieldControl(
+        auto binctl = new BinFieldControl(
               m_platformTools, m_app, fld, frame, taggedFile);
         m_fieldcontrols.append(binctl);
         break;
@@ -1391,21 +1391,21 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       {
         QString frameName = frame.getName();
         if (frameName.startsWith(QLatin1String("SYLT"))) {
-          TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
+          auto timeEventCtl = new TimeEventFieldControl(
                 m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
                 TimeEventModel::SynchronizedLyrics);
           m_fieldcontrols.append(timeEventCtl);
         } else if (frameName.startsWith(QLatin1String("ETCO"))) {
-          TimeEventFieldControl* timeEventCtl = new TimeEventFieldControl(
+          auto timeEventCtl = new TimeEventFieldControl(
                 m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
                 TimeEventModel::EventTimingCodes);
           m_fieldcontrols.append(timeEventCtl);
         } else if (frameName.startsWith(QLatin1String("CHAP"))) {
-          ChapterFieldControl* chapCtl = new ChapterFieldControl(fld);
+          auto chapCtl = new ChapterFieldControl(fld);
           m_fieldcontrols.append(chapCtl);
           subframeMissing = true;
         } else if (frameName.startsWith(QLatin1String("CTOC"))) {
-          TableOfContentsFieldControl* tocCtl =
+          auto tocCtl =
               new TableOfContentsFieldControl(fld);
           m_fieldcontrols.append(tocCtl);
           subframeMissing = true;

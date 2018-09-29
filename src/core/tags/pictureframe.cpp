@@ -534,7 +534,7 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly)) {
       int size = file.size();
-      char* data = new char[size];
+      auto data = new char[size];
       QDataStream stream(&file);
       stream.readRawData(data, size);
       QByteArray ba;
@@ -696,7 +696,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
   QString description(QLatin1String(""));
   ImageProperties imgProps;
   if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
-    unsigned long baSize = static_cast<unsigned long>(ba.size());
+    auto baSize = static_cast<unsigned long>(ba.size());
     if (baSize < 32) return;
     int index = 0;
     pictureType = static_cast<PictureFrame::PictureType>(

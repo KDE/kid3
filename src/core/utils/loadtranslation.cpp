@@ -71,7 +71,7 @@ void Utils::loadTranslation(const QString& lang)
   const QString searchDelimiters(QLatin1String("_.-"));
 
   // translation file for Qt
-  QTranslator* qtTr = new QTranslator(qApp);
+  auto qtTr = new QTranslator(qApp);
   const auto localeNames = languages;
   for (const QString& localeName : localeNames) {
     if (
@@ -94,7 +94,7 @@ void Utils::loadTranslation(const QString& lang)
   qApp->installTranslator(qtTr);
 
   // translation file for application strings
-  QTranslator* kid3Tr = new QTranslator(qApp);
+  auto kid3Tr = new QTranslator(qApp);
   for (const QString& localeName : localeNames) {
     if (
         localeName.startsWith(QLatin1String("en")) ||

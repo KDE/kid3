@@ -415,14 +415,14 @@ QWidget* FrameItemDelegate::createEditor(
 {
   int row = index.row();
   int col = index.column();
-  const FrameTableModel* ftModel =
+  const auto ftModel =
     qobject_cast<const FrameTableModel*>(index.model());
   if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
     Frame::Type type = static_cast<Frame::Type>(
       index.data(FrameTableModel::FrameTypeRole).toInt());
     bool id3v1 = ftModel && ftModel->isId3v1();
     if (type == Frame::FT_Genre) {
-      QComboBox* cb = new QComboBox(parent);
+      auto cb = new QComboBox(parent);
       if (!id3v1) {
         cb->setEditable(true);
         cb->setAutoCompletion(true);
@@ -432,13 +432,13 @@ QWidget* FrameItemDelegate::createEditor(
       cb->setModel(m_genreModel);
       return cb;
     } else if (type == Frame::FT_Rating) {
-      StarEditor *editor = new StarEditor(parent);
+      auto editor = new StarEditor(parent);
       connect(editor, SIGNAL(editingFinished()),
               this, SLOT(commitAndCloseEditor()));
       return editor;
     }
     QWidget* editor = QItemDelegate::createEditor(parent, option, index);
-    QLineEdit* lineEdit = qobject_cast<QLineEdit*>(editor);
+    auto lineEdit = qobject_cast<QLineEdit*>(editor);
     if (id3v1 &&
         (type == Frame::FT_Comment || type == Frame::FT_Title ||
          type == Frame::FT_Artist || type == Frame::FT_Album)) {
@@ -479,13 +479,13 @@ void FrameItemDelegate::setEditorData(
 {
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
-    if (StarEditor* starEditor = qobject_cast<StarEditor*>(editor)) {
+    if (auto starEditor = qobject_cast<StarEditor*>(editor)) {
       int starCount = starCountFromRating(index.data().toInt(), index);
       starEditor->setStarCount(starCount);
       return;
     }
   }
-  QComboBox* cb = qobject_cast<QComboBox*>(editor);
+  auto cb = qobject_cast<QComboBox*>(editor);
   if (cb) {
     QString genreStr(index.model()->data(index).toString());
     cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
@@ -504,14 +504,14 @@ void FrameItemDelegate::setModelData(
   QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
-    if (StarEditor* starEditor = qobject_cast<StarEditor*>(editor)) {
+    if (auto starEditor = qobject_cast<StarEditor*>(editor)) {
       if (starEditor->isStarCountEdited()) {
         model->setData(index, starCountToRating(starEditor->starCount(), index));
       }
       return;
     }
   }
-  QComboBox* cb = qobject_cast<QComboBox *>(editor);
+  auto cb = qobject_cast<QComboBox *>(editor);
   if (cb) {
     model->setData(index, cb->currentText());
   } else {
@@ -524,7 +524,7 @@ void FrameItemDelegate::setModelData(
  */
 void FrameItemDelegate::commitAndCloseEditor()
 {
-  if (StarEditor* editor = qobject_cast<StarEditor*>(sender())) {
+  if (auto editor = qobject_cast<StarEditor*>(sender())) {
     emit commitData(editor);
     emit closeEditor(editor);
   }

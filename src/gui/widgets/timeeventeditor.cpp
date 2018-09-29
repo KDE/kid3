@@ -102,11 +102,11 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   m_byteArray(field.m_value.toByteArray()), m_fileIsPlayed(false)
 {
   setObjectName(QLatin1String("TimeEventEditor"));
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   vlayout->addWidget(m_label);
   vlayout->setContentsMargins(0, 0, 0, 0);
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   QPushButton* addButton = new QPushButton(tr("&Add"), this);
   addButton->setAutoDefault(false);
   QPushButton* deleteButton = new QPushButton(tr("&Delete"), this);

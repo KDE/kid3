@@ -50,8 +50,8 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   setWindowTitle(tr("Number Tracks"));
 
   const NumberTracksConfig& cfg = NumberTracksConfig::instance();
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
-  QHBoxLayout* trackLayout = new QHBoxLayout;
+  auto vlayout = new QVBoxLayout(this);
+  auto trackLayout = new QHBoxLayout;
   m_numberTracksCheckBox = new QCheckBox(tr("Start &number:"), this);
   m_numberTracksCheckBox->setChecked(cfg.isTrackNumberingEnabled());
   m_trackSpinBox = new QSpinBox(this);
@@ -60,7 +60,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   trackLayout->addWidget(m_numberTracksCheckBox);
   trackLayout->addWidget(m_trackSpinBox);
 
-  QSpacerItem* trackSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto trackSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   trackLayout->addItem(trackSpacer);
 
@@ -86,7 +86,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   m_resetCounterCheckBox->setChecked(cfg.isDirectoryCounterResetEnabled());
   vlayout->addWidget(m_resetCounterCheckBox);
 
-  QHBoxLayout* totalLayout = new QHBoxLayout;
+  auto totalLayout = new QHBoxLayout;
   m_totalNumTracksCheckBox = new QCheckBox(tr("&Total number of tracks:"),
                                            this);
   m_totalNumTrackSpinBox = new QSpinBox(this);
@@ -95,12 +95,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
     totalLayout->addWidget(m_totalNumTracksCheckBox);
     totalLayout->addWidget(m_totalNumTrackSpinBox);
   }
-  QSpacerItem* totalSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto totalSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   totalLayout->addItem(totalSpacer);
   vlayout->addLayout(totalLayout);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
@@ -111,7 +111,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 

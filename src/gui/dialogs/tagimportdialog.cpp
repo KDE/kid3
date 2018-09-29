@@ -48,7 +48,7 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   setWindowTitle(tr("Import from Tags"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vboxLayout = new QVBoxLayout(this);
+  auto vboxLayout = new QVBoxLayout(this);
 
   m_formatListEdit = new FormatListEdit(
         {tr("Format:"), tr("Source:"), tr("Extraction:")},
@@ -57,7 +57,7 @@ TagImportDialog::TagImportDialog(QWidget* parent,
         this);
   vboxLayout->addWidget(m_formatListEdit);
 
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);

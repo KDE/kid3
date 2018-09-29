@@ -54,7 +54,7 @@ PlaylistEditDialog::PlaylistEditDialog(PlaylistModel* model,
   setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 #endif
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
   QListView* playlist = new PlaylistView;
   playlist->setModel(m_playlistModel);
   playlist->setSelectionMode(QAbstractItemView::ExtendedSelection);

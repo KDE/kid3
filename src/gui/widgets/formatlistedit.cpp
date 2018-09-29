@@ -45,9 +45,9 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   QWidget(parent)
 {
   setObjectName(QLatin1String("FormatListEdit"));
-  QHBoxLayout* hlayout = new QHBoxLayout(this);
+  auto hlayout = new QHBoxLayout(this);
   hlayout->setContentsMargins(0, 0, 0, 0);
-  QFormLayout* formatLayout = new QFormLayout;
+  auto formatLayout = new QFormLayout;
   formatLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   bool comboBoxCreated = false;
   for (int i = 0; i < labels.size(); ++i) {
@@ -66,7 +66,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
       formatLayout->addRow(label, m_formatComboBox);
       comboBoxCreated = true;
     } else {
-      QLineEdit* ed = new QLineEdit;
+      auto ed = new QLineEdit;
       connect(ed, SIGNAL(returnPressed()), this, SIGNAL(formatChanged()));
       if (!toolTip.isEmpty())
         ed->setToolTip(toolTip);
@@ -75,7 +75,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
     }
   }
   hlayout->addLayout(formatLayout);
-  QVBoxLayout* vlayout = new QVBoxLayout;
+  auto vlayout = new QVBoxLayout;
 #ifdef Q_OS_MAC
   vlayout->setSpacing(6);
 #endif

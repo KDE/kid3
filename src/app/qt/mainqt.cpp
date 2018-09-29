@@ -75,11 +75,11 @@ int main(int argc, char* argv[])
   }
 
   IPlatformTools* platformTools = new PlatformTools;
-  Kid3Application* kid3App = new Kid3Application(platformTools);
+  auto kid3App = new Kid3Application(platformTools);
 #ifdef HAVE_QTDBUS
   kid3App->activateDbusInterface();
 #endif
-  Kid3MainWindow* kid3 = new Kid3MainWindow(platformTools, kid3App);
+  auto kid3 = new Kid3MainWindow(platformTools, kid3App);
   kid3->setAttribute(Qt::WA_DeleteOnClose);
   QObject::connect(&app, SIGNAL(openFileRequested(QStringList)), kid3App, SLOT(openDrop(QStringList)));
   kid3->show();

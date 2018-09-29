@@ -527,7 +527,7 @@ QStringList ScriptInterface::getTag(int tagMask)
 
   QStringList lst;
   FrameTableModel* ft = m_app->frameModel(tagNr);
-  for (FrameCollection::const_iterator it = ft->frames().begin();
+  for (auto it = ft->frames().begin();
        it != ft->frames().end();
        ++it) {
     lst << it->getName();

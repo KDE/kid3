@@ -58,7 +58,7 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
   setWindowTitle(tr("Import from File/Clipboard"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vboxLayout = new QVBoxLayout(this);
+  auto vboxLayout = new QVBoxLayout(this);
 
   QString formatToolTip = ImportParser::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
@@ -67,7 +67,7 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
         this);
   vboxLayout->addWidget(m_formatListEdit);
 
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);

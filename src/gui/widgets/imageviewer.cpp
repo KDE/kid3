@@ -44,9 +44,9 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   setObjectName(QLatin1String("ImageViewer"));
   setModal(true);
   setWindowTitle(tr("View Picture"));
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto vlayout = new QVBoxLayout(this);
+  auto hlayout = new QHBoxLayout;
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   m_image = new QLabel(this);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);

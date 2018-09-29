@@ -49,11 +49,11 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   setWindowTitle(tr("Filter"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
   m_previewBox = new QGroupBox(tr("&Preview"));
   m_previewBox->setCheckable(true);
   m_previewBox->setChecked(false);
-  QVBoxLayout* previewLayout = new QVBoxLayout(m_previewBox);
+  auto previewLayout = new QVBoxLayout(m_previewBox);
   m_edit = new QTextEdit;
   m_edit->setReadOnly(true);
   m_edit->setTabStopWidth(20);
@@ -67,7 +67,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
         this);
   vlayout->addWidget(m_formatListEdit);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
@@ -78,7 +78,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 

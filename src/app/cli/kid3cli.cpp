@@ -667,7 +667,7 @@ void Kid3Cli::readLine(const QString& line)
  * Called when a command is finished.
  */
 void Kid3Cli::onCommandFinished() {
-  if (CliCommand* cmd = qobject_cast<CliCommand*>(sender())) {
+  if (auto cmd = qobject_cast<CliCommand*>(sender())) {
     disconnect(cmd, SIGNAL(finished()), this, SLOT(onCommandFinished()));
     if (cmd->hasError()) {
       QString msg(cmd->getErrorMessage());
@@ -684,7 +684,7 @@ void Kid3Cli::onCommandFinished() {
  * Called when an argument command is finished.
  */
 void Kid3Cli::onArgCommandFinished() {
-  if (CliCommand* cmd = qobject_cast<CliCommand*>(sender())) {
+  if (auto cmd = qobject_cast<CliCommand*>(sender())) {
     disconnect(cmd, SIGNAL(finished()), this, SLOT(onArgCommandFinished()));
     if (!cmd->hasError()) {
       cmd->clear();

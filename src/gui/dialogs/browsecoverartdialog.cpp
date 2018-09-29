@@ -79,7 +79,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   setWindowTitle(tr("Browse Cover Art"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
   m_edit = new QTextEdit(this);
   m_edit->setReadOnly(true);
@@ -88,7 +88,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   QGroupBox* artistAlbumBox = new QGroupBox(tr("&Artist/Album"), this);
   m_artistLineEdit = new QLineEdit(artistAlbumBox);
   m_albumLineEdit = new QLineEdit(artistAlbumBox);
-  QHBoxLayout* hbox = new QHBoxLayout;
+  auto hbox = new QHBoxLayout;
   hbox->addWidget(m_artistLineEdit);
   hbox->addWidget(m_albumLineEdit);
   artistAlbumBox->setLayout(hbox);
@@ -104,7 +104,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
         {QString(), getToolTip()},
         srcbox);
 
-  QVBoxLayout* vbox = new QVBoxLayout;
+  auto vbox = new QVBoxLayout;
   vbox->addWidget(m_formatListEdit);
   srcbox->setLayout(vbox);
   vlayout->addWidget(srcbox);
@@ -117,12 +117,12 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   m_matchUrlTable = new ConfigTable(m_matchUrlTableModel, tabbox);
   m_matchUrlTable->setHorizontalResizeModes(
       m_matchUrlTableModel->getHorizontalResizeModes());
-  QVBoxLayout* tablayout = new QVBoxLayout;
+  auto tablayout = new QVBoxLayout;
   tablayout->addWidget(m_matchUrlTable);
   tabbox->setLayout(tablayout);
   vlayout->addWidget(tabbox);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
@@ -133,7 +133,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 

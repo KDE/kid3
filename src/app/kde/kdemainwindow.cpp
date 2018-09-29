@@ -480,7 +480,7 @@ void KdeMainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
   KConfigSkeleton* configSkeleton = new KConfigSkeleton;
-  KdeConfigDialog* dialog = new KdeConfigDialog(m_platformTools, this, caption,
+  auto dialog = new KdeConfigDialog(m_platformTools, this, caption,
                                                 configSkeleton);
   dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {

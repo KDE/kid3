@@ -109,7 +109,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_tagImportDialog = nullptr;
   m_serverTrackImportDialog = nullptr;
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
   m_trackDataTable = new QTableView(this);
   m_trackDataTable->setModel(m_trackDataModel);
@@ -128,7 +128,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
       this, SLOT(showTableHeaderContextMenu(QPoint)));
   vlayout->addWidget(m_trackDataTable);
 
-  QHBoxLayout* accuracyLayout = new QHBoxLayout;
+  auto accuracyLayout = new QHBoxLayout;
   QLabel* accuracyLabel = new QLabel(tr("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
@@ -142,7 +142,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   accuracyLayout->addWidget(m_coverArtUrlLabel, 1);
   vlayout->addLayout(accuracyLayout);
 
-  QHBoxLayout* butlayout = new QHBoxLayout;
+  auto butlayout = new QHBoxLayout;
   QPushButton* fileButton = new QPushButton(tr("From F&ile/Clipboard..."));
   fileButton->setAutoDefault(false);
   butlayout->addWidget(fileButton);
@@ -167,7 +167,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
     serverButton->hide();
     m_serverComboBox->hide();
   }
-  QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
   QLabel* destLabel = new QLabel;
@@ -183,7 +183,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   }
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
-  QToolButton* revertButton = new QToolButton;
+  auto revertButton = new QToolButton;
   revertButton->setIcon(
         m_platformTools->iconFromTheme(QLatin1String("document-revert")));
   revertButton->setToolTip(tr("Revert"));
@@ -193,14 +193,14 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   butlayout->addWidget(revertButton);
   vlayout->addLayout(butlayout);
 
-  QHBoxLayout* matchLayout = new QHBoxLayout;
+  auto matchLayout = new QHBoxLayout;
   m_mismatchCheckBox = new QCheckBox(
     tr("Check maximum allowable time &difference (sec):"));
   matchLayout->addWidget(m_mismatchCheckBox);
   m_maxDiffSpinBox = new QSpinBox;
   m_maxDiffSpinBox->setMaximum(9999);
   matchLayout->addWidget(m_maxDiffSpinBox);
-  QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   matchLayout->addItem(matchSpacer);
   QLabel* matchLabel = new QLabel(tr("Match with:"));
@@ -227,8 +227,8 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
   connect(this, SIGNAL(finished(int)), this, SLOT(hideSubdialogs()));
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hlayout = new QHBoxLayout;
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
@@ -529,7 +529,7 @@ void ImportDialog::maxDiffChanged() {
  * @param fromIndex index of position moved to
  */
 void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
-  QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
+  auto vHeader = qobject_cast<QHeaderView*>(sender());
   if (vHeader) {
     // revert movement, but avoid recursion
     disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), nullptr, nullptr);
@@ -537,7 +537,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     connect(vHeader, SIGNAL(sectionMoved(int,int,int)), this, SLOT(moveTableRow(int,int,int)));
   }
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  int numTracks = static_cast<int>(trackDataVector.size());
+  auto numTracks = static_cast<int>(trackDataVector.size());
   if (fromIndex < numTracks && toIndex < numTracks) {
     // swap elements but keep file durations and names
     ImportTrackData fromData(trackDataVector[fromIndex]);
@@ -606,7 +606,7 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
     for (int frameType : frameTypes) {
       int column = m_trackDataModel->columnForFrameType(frameType);
       if (column != -1) {
-        QAction* action = new QAction(&menu);
+        auto action = new QAction(&menu);
         action->setText(
               m_trackDataModel->headerData(column, Qt::Horizontal).toString());
         action->setData(frameType);
@@ -629,7 +629,7 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
  */
 void ImportDialog::toggleTableColumnVisibility(bool visible)
 {
-  if (QAction* action = qobject_cast<QAction*>(sender())) {
+  if (auto action = qobject_cast<QAction*>(sender())) {
     bool ok;
     int frameType = action->data().toInt(&ok);
     if (ok && frameType < 64) {

@@ -61,7 +61,7 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
   QMenu menu(headerView);
   for (int column = 1; column < headerView->count(); ++column) {
     const quint32 mask = 1 << column;
-    QAction* action = new QAction(&menu);
+    auto action = new QAction(&menu);
     action->setText(model()->headerData(column, Qt::Horizontal).toString());
     action->setData(column);
     action->setCheckable(true);
@@ -80,7 +80,7 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
  */
 void ConfigurableTreeView::toggleColumnVisibility(bool visible)
 {
-  if (QAction* action = qobject_cast<QAction*>(sender())) {
+  if (auto action = qobject_cast<QAction*>(sender())) {
     bool ok;
     int column = action->data().toInt(&ok);
     if (ok) {

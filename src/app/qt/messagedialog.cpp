@@ -42,9 +42,9 @@ MessageDialog::MessageDialog(QWidget* parent)
   : QDialog(parent)
 {
   setObjectName(QLatin1String("MessageDialog"));
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   m_iconLabel = new QLabel;
   m_iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   hlayout->addWidget(m_iconLabel);

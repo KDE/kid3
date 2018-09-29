@@ -61,7 +61,7 @@ void CheckableListModel::setSelectionModel(QItemSelectionModel* selModel)
 
 void CheckableListModel::setSelectionModelObject(QObject *obj)
 {
-  if (QItemSelectionModel* selModel = qobject_cast<QItemSelectionModel*>(obj)) {
+  if (auto selModel = qobject_cast<QItemSelectionModel*>(obj)) {
     setSelectionModel(selModel);
   }
 }
@@ -171,7 +171,7 @@ bool CheckableListModel::setData(const QModelIndex& index,
     if (!m_selModel)
       return false;
 
-    Qt::CheckState state = static_cast<Qt::CheckState>(value.toInt());
+    auto state = static_cast<Qt::CheckState>(value.toInt());
     const QModelIndex srcIndex = mapToSource(index);
     m_selModel->setCurrentIndex(srcIndex, state == Qt::Checked
       ? QItemSelectionModel::Select | QItemSelectionModel::Rows
@@ -217,7 +217,7 @@ void CheckableListModel::setSourceModel(QAbstractItemModel* srcModel)
 
 void CheckableListModel::setSourceModelObject(QObject* obj)
 {
-  if (QAbstractItemModel* srcModel = qobject_cast<QAbstractItemModel*>(obj)) {
+  if (auto srcModel = qobject_cast<QAbstractItemModel*>(obj)) {
     setSourceModel(srcModel);
   }
 }

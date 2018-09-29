@@ -52,9 +52,9 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
 {
   setObjectName(QLatin1String("ServerImportDialog"));
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
 
-  QHBoxLayout* findLayout = new QHBoxLayout;
+  auto findLayout = new QHBoxLayout;
   m_artistLineEdit = new QComboBox(this);
   m_albumLineEdit = new QComboBox(this);
   m_findButton = new QPushButton(tr("&Find"), this);
@@ -73,7 +73,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   connect(m_findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
   vlayout->addLayout(findLayout);
 
-  QHBoxLayout* serverLayout = new QHBoxLayout;
+  auto serverLayout = new QHBoxLayout;
   m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
   m_serverComboBox->setEditable(true);
@@ -87,7 +87,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_cgiLabel->setBuddy(m_cgiLineEdit);
   vlayout->addLayout(serverLayout);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   m_standardTagsCheckBox = new QCheckBox(tr("&Standard Tags"), this);
   m_additionalTagsCheckBox = new QCheckBox(tr("&Additional Tags"), this);
   m_coverArtCheckBox = new QCheckBox(tr("C&over Art"), this);
@@ -102,7 +102,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   connect(m_albumListBox, SIGNAL(activated(QModelIndex)),
       this, SLOT(requestTrackList(QModelIndex)));
 
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   m_helpButton = new QPushButton(tr("&Help"), this);
   m_helpButton->setAutoDefault(false);
   m_saveButton = new QPushButton(tr("&Save Settings"), this);
@@ -113,7 +113,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
   buttonLayout->addWidget(m_saveButton);
   connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   buttonLayout->addItem(hspacer);
   buttonLayout->addWidget(closeButton);
@@ -481,7 +481,7 @@ void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
  */
 void ServerImportDialog::requestTrackList(QStandardItem* li)
 {
-  AlbumListItem* ali = static_cast<AlbumListItem*>(li);
+  auto ali = static_cast<AlbumListItem*>(li);
   if (ali && ali->type() == AlbumListItem::Type) {
     ServerImporterConfig cfg;
     getImportSourceConfig(&cfg);

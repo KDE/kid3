@@ -137,7 +137,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       index.row() < 0 || index.row() >= static_cast<int>(frames().size()) ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return QVariant();
-  FrameCollection::iterator it = frameAt(index.row());
+  auto it = frameAt(index.row());
   bool isModified = false, isTruncated = false;
   if ((role == Qt::BackgroundColorRole && index.column() == CI_Enable) ||
       role == ModifiedRole) {
@@ -159,7 +159,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
           it->getValue() != Frame::differentRepresentation()) {
         QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
         if (fieldValue.isValid()) {
-          PictureFrame::PictureType pictureType =
+          auto pictureType =
               static_cast<PictureFrame::PictureType>(fieldValue.toInt());
           if (pictureType != PictureFrame::PT_Other) {
             QString typeName = PictureFrame::getPictureTypeName(pictureType);
@@ -242,9 +242,9 @@ bool FrameTableModel::setData(const QModelIndex& index,
   if ((role == Qt::EditRole && index.column() == CI_Value) ||
       role == ValueRole) {
     QString valueStr(value.toString());
-    FrameCollection::iterator it = frameAt(index.row());
+    auto it = frameAt(index.row());
     if (valueStr != (*it).getValue()) {
-      Frame& frame = const_cast<Frame&>(*it);
+      auto& frame = const_cast<Frame&>(*it);
       if (valueStr.isNull()) valueStr = QLatin1String("");
       frame.setValueIfChanged(valueStr);
       emit dataChanged(index, index);
@@ -330,7 +330,7 @@ bool FrameTableModel::insertRows(int, int count, const QModelIndex&)
  */
 void FrameTableModel::insertFrame(const Frame& frame)
 {
-  FrameCollection::iterator it = m_frames.upper_bound(frame);
+  auto it = m_frames.upper_bound(frame);
   int row = rowOf(it);
   beginInsertRows(QModelIndex(), row, row);
   it = m_frames.insert(it, frame);
@@ -460,7 +460,7 @@ void FrameTableModel::markChangedFrames(quint64 frameMask)
 const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 {
   if (index.isValid() && index.row() < static_cast<int>(frames().size())) {
-    FrameCollection::iterator it = frameAt(index.row());
+    auto it = frameAt(index.row());
     return &(*it);
   }
   return nullptr;

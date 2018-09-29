@@ -164,12 +164,12 @@ ConfigDialogPages::~ConfigDialogPages()
 QWidget* ConfigDialogPages::createTagsPage()
 {
   QWidget* tagsPage = new QWidget;
-  QVBoxLayout* vlayout = new QVBoxLayout(tagsPage);
+  auto vlayout = new QVBoxLayout(tagsPage);
 
   QWidget* tag1Page = new QWidget;
-  QVBoxLayout* tag1Layout = new QVBoxLayout(tag1Page);
+  auto tag1Layout = new QVBoxLayout(tag1Page);
   QGroupBox* v1GroupBox = new QGroupBox(tr("ID3v1"), tag1Page);
-  QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
+  auto v1GroupBoxLayout = new QGridLayout(v1GroupBox);
   m_markTruncationsCheckBox = new QCheckBox(tr("&Mark truncated fields"), v1GroupBox);
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
   QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
@@ -183,10 +183,10 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag1Layout->addStretch();
 
   QWidget* tag2Page = new QWidget;
-  QHBoxLayout* tag2Layout = new QHBoxLayout(tag2Page);
-  QVBoxLayout* tag2LeftLayout = new QVBoxLayout;
+  auto tag2Layout = new QHBoxLayout(tag2Page);
+  auto tag2LeftLayout = new QVBoxLayout;
   QGroupBox* v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
-  QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
+  auto v2GroupBoxLayout = new QGridLayout(v2GroupBox);
   m_totalNumTracksCheckBox = new QCheckBox(tr("Use &track/total number of tracks format"), v2GroupBox);
   v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
   QLabel* trackNumberDigitsLabel = new QLabel(tr("Track number &digits:"), v2GroupBox);
@@ -242,7 +242,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_pictureNameComboBox->addItems(TagConfig::getPictureNames());
   m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   pictureNameLabel->setBuddy(m_pictureNameComboBox);
-  QGridLayout* vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
+  auto vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
   vorbisGroupBoxLayout->addWidget(commentNameLabel, 0, 0);
   vorbisGroupBoxLayout->addWidget(m_commentNameComboBox, 0, 1);
   vorbisGroupBoxLayout->addWidget(pictureNameLabel, 1, 0);
@@ -253,7 +253,7 @@ QWidget* ConfigDialogPages::createTagsPage()
     vorbisGroupBox->hide();
   }
   QGroupBox* pictureGroupBox = new QGroupBox(tr("Picture"), tag2Page);
-  QHBoxLayout* pictureGroupBoxLayout = new QHBoxLayout(pictureGroupBox);
+  auto pictureGroupBoxLayout = new QHBoxLayout(pictureGroupBox);
   m_markOversizedPicturesCheckBox =
       new QCheckBox(tr("Mark if &larger than (bytes):"));
   m_maximumPictureSizeSpinBox = new QSpinBox;
@@ -264,20 +264,20 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2LeftLayout->addStretch();
   tag2Layout->addLayout(tag2LeftLayout);
 
-  QVBoxLayout* tag2RightLayout = new QVBoxLayout;
+  auto tag2RightLayout = new QVBoxLayout;
   QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
   m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"), genresGroupBox);
   m_genresEditModel = new QStringListModel(genresGroupBox);
-  StringListEdit* genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
-  QVBoxLayout* vbox = new QVBoxLayout;
+  auto genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
+  auto vbox = new QVBoxLayout;
   vbox->addWidget(m_onlyCustomGenresCheckBox);
   vbox->addWidget(genresEdit);
   genresGroupBox->setLayout(vbox);
   tag2RightLayout->addWidget(genresGroupBox);
 
   QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Frames"));
-  QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
-  QListView* quickAccessTagsListView = new QListView;
+  auto quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
+  auto quickAccessTagsListView = new QListView;
   m_quickAccessTagsModel = new QStandardItemModel(quickAccessTagsGroupBox);
   quickAccessTagsListView->setModel(m_quickAccessTagsModel);
   quickAccessTagsListView->setAcceptDrops(true);
@@ -295,7 +295,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2Layout->addLayout(tag2RightLayout);
 
   QWidget* tag3Page = new QWidget;
-  QVBoxLayout* tag3Layout = new QVBoxLayout(tag3Page);
+  auto tag3Layout = new QVBoxLayout(tag3Page);
   QGroupBox* riffGroupBox = new QGroupBox(tr("RIFF INFO"), tag3Page);
   QLabel* trackNameLabel = new QLabel(tr("Track nu&mber field name:"), riffGroupBox);
   m_trackNameComboBox = new QComboBox(riffGroupBox);
@@ -303,7 +303,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_trackNameComboBox->addItems(TagConfig::getRiffTrackNames());
   m_trackNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   trackNameLabel->setBuddy(m_trackNameComboBox);
-  QGridLayout* riffGroupBoxLayout = new QGridLayout(riffGroupBox);
+  auto riffGroupBoxLayout = new QGridLayout(riffGroupBox);
   riffGroupBoxLayout->addWidget(trackNameLabel, 0, 0);
   riffGroupBoxLayout->addWidget(m_trackNameComboBox, 0, 1);
   riffGroupBox->setLayout(riffGroupBoxLayout);
@@ -311,18 +311,18 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag3Layout->addStretch();
 
   QWidget* tag1AndTag2Page = new QWidget;
-  QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
+  auto tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
   QString tagFormatTitle(tr("&Tag Format"));
   m_tagFormatBox = new TagFormatBox(tagFormatTitle, tag1AndTag2Page);
   QGroupBox* ratingGroupBox = new QGroupBox(tr("Rating"), tag1AndTag2Page);
-  QVBoxLayout* ratingLayout = new QVBoxLayout(ratingGroupBox);
+  auto ratingLayout = new QVBoxLayout(ratingGroupBox);
   m_starRatingMappingsModel = new StarRatingMappingsModel(ratingGroupBox);
-  TableModelEdit* ratingEdit = new TableModelEdit(m_starRatingMappingsModel);
+  auto ratingEdit = new TableModelEdit(m_starRatingMappingsModel);
   ratingLayout->addWidget(ratingEdit);
   tag1AndTag2Layout->addWidget(m_tagFormatBox);
   tag1AndTag2Layout->addWidget(ratingGroupBox);
 
-  QTabWidget* tagsTabWidget = new QTabWidget;
+  auto tagsTabWidget = new QTabWidget;
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v11) {
     tagsTabWidget->addTab(tag1Page, tr("Tag &1"));
   }
@@ -341,15 +341,15 @@ QWidget* ConfigDialogPages::createTagsPage()
 QWidget* ConfigDialogPages::createFilesPage()
 {
   QWidget* filesPage = new QWidget;
-  QVBoxLayout* vlayout = new QVBoxLayout(filesPage);
-  QHBoxLayout* hlayout = new QHBoxLayout;
-  QVBoxLayout* leftLayout = new QVBoxLayout;
-  QVBoxLayout* rightLayout = new QVBoxLayout;
+  auto vlayout = new QVBoxLayout(filesPage);
+  auto hlayout = new QHBoxLayout;
+  auto leftLayout = new QVBoxLayout;
+  auto rightLayout = new QVBoxLayout;
 
   QGroupBox* startupGroupBox = new QGroupBox(tr("Startup"), filesPage);
   m_loadLastOpenedFileCheckBox = new QCheckBox(tr("&Load last-opened files"),
                                                startupGroupBox);
-  QVBoxLayout* startupLayout = new QVBoxLayout;
+  auto startupLayout = new QVBoxLayout;
   startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
   startupGroupBox->setLayout(startupLayout);
   leftLayout->addWidget(startupGroupBox);
@@ -361,7 +361,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   m_fileTextEncodingComboBox->addItems(FileConfig::getTextCodecNames());
   m_fileTextEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
                                                         QSizePolicy::Minimum));
-  QFormLayout* formLayout = new QFormLayout;
+  auto formLayout = new QFormLayout;
   formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   formLayout->addRow(m_preserveTimeCheckBox);
   formLayout->addRow(m_markChangesCheckBox);
@@ -394,7 +394,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   excludeFoldersLabel->setBuddy(m_excludeFoldersLineEdit);
   m_showHiddenFilesCheckBox = new QCheckBox(tr("&Show hidden files"),
                                             fileListGroupBox);
-  QGridLayout* fileListGroupBoxLayout = new QGridLayout(fileListGroupBox);
+  auto fileListGroupBoxLayout = new QGridLayout(fileListGroupBox);
   fileListGroupBoxLayout->addWidget(nameFilterLabel, 0, 0);
   fileListGroupBoxLayout->addWidget(m_nameFilterComboBox, 0, 1);
   fileListGroupBoxLayout->addWidget(includeFoldersLabel, 1, 0);
@@ -422,12 +422,12 @@ QWidget* ConfigDialogPages::createFilesPage()
 QWidget* ConfigDialogPages::createActionsPage()
 {
   QWidget* actionsPage = new QWidget;
-  QVBoxLayout* vlayout = new QVBoxLayout(actionsPage);
+  auto vlayout = new QVBoxLayout(actionsPage);
   QGroupBox* browserGroupBox = new QGroupBox(tr("Browser"), actionsPage);
   QLabel* browserLabel = new QLabel(tr("Web &browser:"), browserGroupBox);
   m_browserLineEdit = new QLineEdit(browserGroupBox);
   browserLabel->setBuddy(m_browserLineEdit);
-  QHBoxLayout* hbox = new QHBoxLayout;
+  auto hbox = new QHBoxLayout;
   hbox->addWidget(browserLabel);
   hbox->addWidget(m_browserLineEdit);
   browserGroupBox->setLayout(hbox);
@@ -440,7 +440,7 @@ QWidget* ConfigDialogPages::createActionsPage()
   m_commandsTable = new ConfigTable(m_commandsTableModel, commandsGroupBox);
   m_commandsTable->setHorizontalResizeModes(
     m_commandsTableModel->getHorizontalResizeModes());
-  QVBoxLayout* commandsLayout = new QVBoxLayout;
+  auto commandsLayout = new QVBoxLayout;
   commandsLayout->addWidget(m_playOnDoubleClickCheckBox);
   commandsLayout->addWidget(m_commandsTable);
   commandsGroupBox->setLayout(commandsLayout);
@@ -455,7 +455,7 @@ QWidget* ConfigDialogPages::createActionsPage()
 QWidget* ConfigDialogPages::createNetworkPage()
 {
   QWidget* networkPage = new QWidget;
-  QVBoxLayout* vlayout = new QVBoxLayout(networkPage);
+  auto vlayout = new QVBoxLayout(networkPage);
   QGroupBox* proxyGroupBox = new QGroupBox(tr("Proxy"), networkPage);
   m_proxyCheckBox = new QCheckBox(tr("&Proxy:"), proxyGroupBox);
   m_proxyLineEdit = new QLineEdit(proxyGroupBox);
@@ -467,13 +467,13 @@ QWidget* ConfigDialogPages::createNetworkPage()
   m_proxyPasswordLineEdit = new QLineEdit(proxyGroupBox);
   proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
   m_proxyPasswordLineEdit->setEchoMode(QLineEdit::Password);
-  QVBoxLayout* vbox = new QVBoxLayout;
-  QHBoxLayout* proxyHbox = new QHBoxLayout;
+  auto vbox = new QVBoxLayout;
+  auto proxyHbox = new QHBoxLayout;
   proxyHbox->addWidget(m_proxyCheckBox);
   proxyHbox->addWidget(m_proxyLineEdit);
   vbox->addLayout(proxyHbox);
   vbox->addWidget(m_proxyAuthenticationCheckBox);
-  QGridLayout* authLayout = new QGridLayout;
+  auto authLayout = new QGridLayout;
   authLayout->addWidget(proxyUserNameLabel, 0, 0);
   authLayout->addWidget(m_proxyUserNameLineEdit, 0, 1);
   authLayout->addWidget(proxyPasswordLabel, 1, 0);
@@ -482,7 +482,7 @@ QWidget* ConfigDialogPages::createNetworkPage()
   proxyGroupBox->setLayout(vbox);
   vlayout->addWidget(proxyGroupBox);
 
-  QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+  auto vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
   vlayout->addItem(vspacer);
   return networkPage;
 }
@@ -494,23 +494,23 @@ QWidget* ConfigDialogPages::createNetworkPage()
 QWidget* ConfigDialogPages::createPluginsPage()
 {
   QWidget* pluginsPage = new QWidget;
-  QVBoxLayout* vlayout = new QVBoxLayout(pluginsPage);
+  auto vlayout = new QVBoxLayout(pluginsPage);
   QGroupBox* metadataGroupBox = new QGroupBox(
         tr("&Metadata Plugins && Priority"), pluginsPage);
 
 
-  QVBoxLayout* metadataPluginsLayout = new QVBoxLayout(metadataGroupBox);
+  auto metadataPluginsLayout = new QVBoxLayout(metadataGroupBox);
   m_enabledMetadataPluginsModel =
       new CheckableStringListModel(metadataGroupBox);
-  StringListEdit* metadataEdit =
+  auto metadataEdit =
       new StringListEdit(m_enabledMetadataPluginsModel, metadataGroupBox);
   metadataEdit->setEditingDisabled(true);
   metadataPluginsLayout->addWidget(metadataEdit);
   vlayout->addWidget(metadataGroupBox);
 
   QGroupBox* pluginsGroupBox = new QGroupBox(tr("A&vailable Plugins"));
-  QVBoxLayout* pluginsLayout = new QVBoxLayout(pluginsGroupBox);
-  QListView* pluginsListView = new QListView;
+  auto pluginsLayout = new QVBoxLayout(pluginsGroupBox);
+  auto pluginsListView = new QListView;
   pluginsListView->setSelectionMode(QAbstractItemView::NoSelection);
   m_enabledPluginsModel = new CheckableStringListModel(pluginsGroupBox);
   pluginsListView->setModel(m_enabledPluginsModel);

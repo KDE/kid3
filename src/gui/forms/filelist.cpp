@@ -119,7 +119,7 @@ void FileList::mousePressEvent(QMouseEvent* event)
   QPoint pos = event->pos();
   if (pos.x() < 80) {
     QModelIndex idx = indexAt(pos);
-    if (const FileProxyModel* fsModel =
+    if (const auto fsModel =
         qobject_cast<const FileProxyModel*>(idx.model())) {
       if (!FileProxyModel::getTaggedFileOfIndex(idx)) {
         // The file possibly dragged is not a tagged file, e.g. an image file.
@@ -208,7 +208,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
   if (index.isValid()) {
     QString path;
     bool isPlaylist = false;
-    if (const FileProxyModel* model =
+    if (const auto model =
             qobject_cast<const FileProxyModel*>(index.model())) {
       path = model->filePath(index);
       PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
@@ -251,7 +251,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
       } else if (it->getCommand() == QLatin1String("@separator")) {
         userMenu->addSeparator();
       } else if (it->getCommand() == QLatin1String("@endmenu")) {
-        if (QMenu* parentMenu = qobject_cast<QMenu*>(userMenu->parent())) {
+        if (auto parentMenu = qobject_cast<QMenu*>(userMenu->parent())) {
           userMenu = parentMenu;
         }
       }
@@ -461,7 +461,7 @@ void FileList::onDoubleClicked(const QModelIndex& index)
     if (GuiConfig::instance().playOnDoubleClick()) {
       m_mainWin->slotPlayAudio();
     }
-  } else if (const FileProxyModel* model =
+  } else if (const auto model =
              qobject_cast<const FileProxyModel*>(index.model())) {
     QString path = model->filePath(index);
     bool isPlaylist = false;
@@ -477,7 +477,7 @@ void FileList::onDoubleClicked(const QModelIndex& index)
  */
 void FileList::editPlaylist()
 {
-  if (QAction* action = qobject_cast<QAction*>(sender())) {
+  if (auto action = qobject_cast<QAction*>(sender())) {
     m_mainWin->showPlaylistEditDialog(action->data().toString());
   }
 }
@@ -518,7 +518,7 @@ void FileList::setDeleteAction(QAction* action)
 void FileList::openFile()
 {
   if (QItemSelectionModel* selModel = selectionModel()) {
-    if (const FileProxyModel* fsModel =
+    if (const auto fsModel =
         qobject_cast<const FileProxyModel*>(selModel->model())) {
       const auto indexes = selModel->selectedRows();
       for (const QModelIndex& index : indexes) {

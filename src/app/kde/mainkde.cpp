@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
             QT_TRANSLATE_NOOP("@default", "Your emails")));
 
   IPlatformTools* platformTools = new KdePlatformTools;
-  Kid3Application* kid3App = new Kid3Application(platformTools);
+  auto kid3App = new Kid3Application(platformTools);
 #ifdef HAVE_QTDBUS
   kid3App->activateDbusInterface();
 #endif
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
       n++;
     }
   } else {
-    KdeMainWindow* kid3 = new KdeMainWindow(platformTools, kid3App);
+    auto kid3 = new KdeMainWindow(platformTools, kid3App);
     kid3->show();
 
     if (parser.positionalArguments().count()) {

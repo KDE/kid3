@@ -55,12 +55,12 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
   m_editFrameDialog(nullptr), m_editFrameRow(-1)
 {
   setObjectName(QLatin1String("SubframesEditor"));
-  QHBoxLayout* layout = new QHBoxLayout(this);
+  auto layout = new QHBoxLayout(this);
   m_frameTableModel = new FrameTableModel(false, this);
   m_frameTable = new FrameTable(m_frameTableModel, new GenreModel(false, this),
                                 this);
   layout->addWidget(m_frameTable);
-  QVBoxLayout* buttonLayout = new QVBoxLayout;
+  auto buttonLayout = new QVBoxLayout;
   m_editButton = new QPushButton(tr("Edit..."));
   m_editButton->setDefault(false);
   m_editButton->setAutoDefault(false);
@@ -103,10 +103,10 @@ void SubframesEditor::setFrames(FrameCollection& frames)
 void SubframesEditor::getFrames(FrameCollection& frames) const
 {
   frames = m_frameTableModel->frames();
-  for (FrameCollection::iterator it = frames.begin();
+  for (auto it = frames.begin();
        it != frames.end();
        ++it) {
-    Frame& frame = const_cast<Frame&>(*it);
+    auto& frame = const_cast<Frame&>(*it);
     if (frame.isValueChanged()) {
       frame.setFieldListFromValue();
     }
@@ -198,7 +198,7 @@ void SubframesEditor::editFrame(const Frame& frame, int row)
  */
 void SubframesEditor::onEditFrameDialogFinished(int result)
 {
-  if (EditFrameFieldsDialog* dialog =
+  if (auto dialog =
       qobject_cast<EditFrameFieldsDialog*>(sender())) {
     if (result == QDialog::Accepted) {
       const Frame::FieldList& fields = dialog->getUpdatedFieldList();

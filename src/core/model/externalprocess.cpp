@@ -45,15 +45,15 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 {
   setObjectName(QLatin1String("OutputViewer"));
   setModal(false);
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  auto vlayout = new QVBoxLayout(this);
   m_textEdit = new QTextEdit(this);
   m_textEdit->setReadOnly(true);
   m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
   m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
   vlayout->addWidget(m_textEdit);
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  auto buttonLayout = new QHBoxLayout;
   QPushButton* clearButton = new QPushButton(tr("C&lear"), this);
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   buttonLayout->addWidget(clearButton);

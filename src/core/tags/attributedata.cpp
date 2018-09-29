@@ -120,7 +120,7 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
           if (i == 4 || i == 6 || i == 8 || i == 10) {
             str += QLatin1Char('-');
           }
-          unsigned char c = (unsigned char)data[i];
+          auto c = (unsigned char)data[i];
           unsigned char d = c >> 4;
           str += QLatin1Char(d >= 10 ? d - 10 + 'A' : d + '0');
           d = c & 0x0f;

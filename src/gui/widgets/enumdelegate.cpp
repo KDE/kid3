@@ -53,7 +53,7 @@ EnumDelegate::~EnumDelegate()
 QWidget* EnumDelegate::createEditor(
   QWidget* parent, const QStyleOptionViewItem&, const QModelIndex&) const
 {
-  QComboBox* cb = new QComboBox(parent);
+  auto cb = new QComboBox(parent);
   cb->addItems(getEnumStrings());
   return cb;
 }
@@ -66,7 +66,7 @@ QWidget* EnumDelegate::createEditor(
 void EnumDelegate::setEditorData(
   QWidget* editor, const QModelIndex& index) const
 {
-  QComboBox* cb = qobject_cast<QComboBox*>(editor);
+  auto cb = qobject_cast<QComboBox*>(editor);
   int enumNr = index.data(Qt::EditRole).toInt();
   if (cb && enumNr >= 0) {
     cb->setCurrentIndex(getIndexForEnum(enumNr));
@@ -84,7 +84,7 @@ void EnumDelegate::setEditorData(
 void EnumDelegate::setModelData(
   QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-  QComboBox* cb = qobject_cast<QComboBox*>(editor);
+  auto cb = qobject_cast<QComboBox*>(editor);
   if (cb) {
     int enumNr = getEnumForIndex(cb->currentIndex());
     if (enumNr >= 0) {

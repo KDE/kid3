@@ -113,12 +113,12 @@ BatchImportSourceListEdit::~BatchImportSourceListEdit()
  */
 void BatchImportSourceListEdit::addItem()
 {
-  BatchImportSourceDialog* dialog = new BatchImportSourceDialog(this);
+  auto dialog = new BatchImportSourceDialog(this);
   dialog->setServerNames(m_serverNames);
   if (dialog->exec() == QDialog::Accepted) {
     BatchImportProfile::Source source;
     dialog->getSource(source);
-    if (BatchImportSourcesModel* model =
+    if (auto model =
         qobject_cast<BatchImportSourcesModel*>(getItemView()->model())) {
       int row = model->rowCount();
       model->insertRow(row);
@@ -134,11 +134,11 @@ void BatchImportSourceListEdit::editItem()
 {
   QModelIndex index = getItemView()->currentIndex();
   if (index.isValid()) {
-    if (BatchImportSourcesModel* model =
+    if (auto model =
         qobject_cast<BatchImportSourcesModel*>(getItemView()->model())) {
       BatchImportProfile::Source source;
       model->getBatchImportSource(index.row(), source);
-      BatchImportSourceDialog* dialog = new BatchImportSourceDialog(this);
+      auto dialog = new BatchImportSourceDialog(this);
       dialog->setServerNames(m_serverNames);
       dialog->setSource(source);
       if (dialog->exec() == QDialog::Accepted) {
@@ -164,8 +164,8 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   setWindowTitle(tr("Automatic Import"));
   setSizeGripEnabled(true);
 
-  QVBoxLayout* vlayout = new QVBoxLayout(this);
-  QSplitter* splitter = new QSplitter(Qt::Vertical);
+  auto vlayout = new QVBoxLayout(this);
+  auto splitter = new QSplitter(Qt::Vertical);
 
   m_edit = new QTextEdit(this);
   m_edit->setReadOnly(true);
@@ -173,10 +173,10 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   splitter->addWidget(m_edit);
 
   QWidget* profileWidget = new QWidget;
-  QVBoxLayout* profileLayout = new QVBoxLayout(profileWidget);
+  auto profileLayout = new QVBoxLayout(profileWidget);
   profileLayout->setContentsMargins(0, 0, 0, 0);
 
-  QHBoxLayout* destLayout = new QHBoxLayout;
+  auto destLayout = new QHBoxLayout;
   QLabel* destLabel = new QLabel(tr("D&estination:"));
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
@@ -192,7 +192,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   destLayout->addStretch();
   profileLayout->addLayout(destLayout);
 
-  QHBoxLayout* nameLayout = new QHBoxLayout;
+  auto nameLayout = new QHBoxLayout;
   QLabel* profileLabel = new QLabel(tr("&Profile:"));
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
@@ -219,14 +219,14 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
     servers.append(QString::fromLatin1(si->name()));
   }
   m_profileModel = new BatchImportSourcesModel(this);
-  BatchImportSourceListEdit* profileListEdit =
+  auto profileListEdit =
       new BatchImportSourceListEdit(m_profileModel, this);
   profileListEdit->setServerNames(servers);
   profileLayout->addWidget(profileListEdit);
   splitter->addWidget(profileWidget);
   vlayout->addWidget(splitter);
 
-  QHBoxLayout* hlayout = new QHBoxLayout;
+  auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

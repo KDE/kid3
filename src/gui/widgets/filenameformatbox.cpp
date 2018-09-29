@@ -40,7 +40,7 @@ FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
   : FormatBox(title, parent),
     m_maximumLengthCheckBox(nullptr), m_maximumLengthSpinBox(nullptr)
 {
-  if (QFormLayout* formLayout = qobject_cast<QFormLayout*>(layout())) {
+  if (auto formLayout = qobject_cast<QFormLayout*>(layout())) {
     m_maximumLengthCheckBox = new QCheckBox(tr("Maximum length:"));
     m_maximumLengthSpinBox = new QSpinBox;
     m_maximumLengthSpinBox->setMinimum(10);

@@ -74,7 +74,7 @@ bool PlaylistCreator::write(const QString& playlistPath,
 
   QList<Entry> entries;
   for (const QPersistentModelIndex& index : indexes) {
-    if (const FileProxyModel* model =
+    if (const auto model =
         qobject_cast<const FileProxyModel*>(index.model())) {
       QString filePath = model->filePath(index);
       PlaylistCreator::Entry entry;

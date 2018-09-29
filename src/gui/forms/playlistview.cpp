@@ -38,21 +38,21 @@
 PlaylistView::PlaylistView(QWidget* parent)
   : QListView(parent), m_dropRole(QFileSystemModel::FilePathRole)
 {
-  QAction* deleteAction = new QAction(this);
+  auto deleteAction = new QAction(this);
   deleteAction->setShortcut(QKeySequence::Delete);
   deleteAction->setShortcutContext(Qt::WidgetShortcut);
   connect(deleteAction, SIGNAL(triggered()),
           this, SLOT(deleteCurrentRow()));
   addAction(deleteAction);
 
-  QAction* moveUpAction = new QAction(this);
+  auto moveUpAction = new QAction(this);
   moveUpAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Up);
   moveUpAction->setShortcutContext(Qt::WidgetShortcut);
   connect(moveUpAction, SIGNAL(triggered()),
           this, SLOT(moveUpCurrentRow()));
   addAction(moveUpAction);
 
-  QAction* moveDownAction = new QAction(this);
+  auto moveDownAction = new QAction(this);
   moveDownAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Down);
   moveDownAction->setShortcutContext(Qt::WidgetShortcut);
   connect(moveDownAction, SIGNAL(triggered()),
