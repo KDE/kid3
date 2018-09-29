@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigTable();
+  virtual ~ConfigTable() override;
 
   /**
    * Set the resize modes to be used for the columns.
@@ -62,12 +62,12 @@ public slots:
   /**
    * Add a new item.
    */
-  virtual void addItem();
+  virtual void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem();
+  virtual void editItem() override;
 
   /**
    * Insert a new row into the table.

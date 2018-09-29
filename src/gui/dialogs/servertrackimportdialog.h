@@ -65,7 +65,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerTrackImportDialog();
+  virtual ~ServerTrackImportDialog() override;
 
   /**
    * Set importer to be used.
@@ -104,18 +104,18 @@ public slots:
   /**
    * Shows the dialog as a modal dialog.
    */
-  int exec();
+  virtual int exec() override;
 
 protected slots:
   /**
    * Hides the dialog and sets the result to QDialog::Accepted.
    */
-  virtual void accept();
+  virtual void accept() override;
 
   /**
    * Hides the dialog and sets the result to QDialog::Rejected.
    */
-  virtual void reject();
+  virtual void reject() override;
 
 private slots:
   /**

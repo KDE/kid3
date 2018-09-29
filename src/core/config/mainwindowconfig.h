@@ -63,21 +63,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MainWindowConfig();
+  virtual ~MainWindowConfig() override;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /** Get mainwindow geometry. */
   QByteArray geometry() const { return m_geometry; }

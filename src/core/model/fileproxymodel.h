@@ -64,7 +64,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileProxyModel();
+  virtual ~FileProxyModel() override;
 
   /**
    * Get item flags.
@@ -72,7 +72,7 @@ public:
    * @return default flags plus drag enabled depending on
    * setExclusiveDraggableIndex().
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -81,7 +81,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role=Qt::DisplayRole) const;
+                        int role=Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -91,26 +91,26 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role=Qt::EditRole);
+                       int role=Qt::EditRole) override;
 
   /**
    * Set source model.
    * @param sourceModel source model, must be QFileSystemModel
    */
-  virtual void setSourceModel(QAbstractItemModel* sourceModel);
+  virtual void setSourceModel(QAbstractItemModel* sourceModel) override;
 
   /**
    * Check if more data is available.
    * @param parent parent index of items to fetch
    * @return true if more data available.
    */
-  virtual bool canFetchMore(const QModelIndex& parent) const;
+  virtual bool canFetchMore(const QModelIndex& parent) const override;
 
   /**
    * Fetches any available data.
    * @param parent parent index of items to fetch
    */
-  virtual void fetchMore(const QModelIndex& parent);
+  virtual void fetchMore(const QModelIndex& parent) override;
 
   /**
    * Sort model.
@@ -122,13 +122,13 @@ public:
    * @param column column to sort
    * @param order ascending or descending order
    */
-  virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
+  virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
   /**
    * Map role identifiers to role property names in scripting languages.
    * @return hash mapping role identifiers to names.
    */
-  virtual QHash<int, QByteArray> roleNames() const;
+  virtual QHash<int, QByteArray> roleNames() const override;
 
   /**
    * Reset the model.
@@ -452,7 +452,7 @@ protected:
    *
    * @return true to include row.
    */
-  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
+  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
 
 private:
   /**

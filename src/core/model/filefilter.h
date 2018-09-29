@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileFilter();
+  virtual ~FileFilter() override;
 
   /**
    * Set filter expression.
@@ -93,13 +93,13 @@ public:
   /**
    * Clear abort flag.
    */
-  virtual void clearAborted();
+  virtual void clearAborted() override;
 
   /**
    * Check if dialog was aborted.
    * @return true if aborted.
    */
-  virtual bool isAborted() const;
+  virtual bool isAborted() const override;
 
   /**
    * Get help text for format codes supported by formatString().
@@ -115,7 +115,7 @@ public slots:
   /**
    * Set abort flag.
    */
-  virtual void abort();
+  virtual void abort() override;
 
 private:
   /**

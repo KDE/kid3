@@ -60,21 +60,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ExportConfig();
+  virtual ~ExportConfig() override;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /**
    * Get tag source to export.

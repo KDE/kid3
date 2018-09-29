@@ -45,25 +45,25 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Settings();
+  virtual ~Kid3Settings() override;
 
   /**
    * Use settings subgroup.
    * @param prefix group name
    */
-  virtual void beginGroup(const QString& prefix);
+  virtual void beginGroup(const QString& prefix) override;
 
   /**
    * Finnish using settings subgroup.
    */
-  virtual void endGroup();
+  virtual void endGroup() override;
 
   /**
    * Set value for setting.
    * @param key name of setting
    * @param value value for setting
    */
-  virtual void setValue(const QString& key, const QVariant& value);
+  virtual void setValue(const QString& key, const QVariant& value) override;
 
   /**
    * Get value for setting.
@@ -72,25 +72,25 @@ public:
    * @return value of setting as variant.
    */
   virtual QVariant value(const QString& key,
-                         const QVariant& defaultValue) const;
+                         const QVariant& defaultValue) const override;
 
   /**
    * Remove setting.
    * @param key name of setting
    */
-  virtual void remove(const QString& key);
+  virtual void remove(const QString& key) override;
 
   /**
    * Check if setting exists.
    * @param key name of setting
    * @return true if setting exists.
    */
-  virtual bool contains(const QString& key) const;
+  virtual bool contains(const QString& key) const override;
 
   /**
    * Write unsaved changes to permanent storage.
    */
-  virtual void sync();
+  virtual void sync() override;
 
 private:
   QSettings* m_config;

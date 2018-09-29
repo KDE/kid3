@@ -48,7 +48,7 @@ public:
                           QItemSelectionModel* sourceSelectionModel,
                           QObject* parent = 0);
 
-  virtual ~ProxyItemSelectionModel();
+  virtual ~ProxyItemSelectionModel() override;
 
   /**
    * Select item at @a index using @a command.
@@ -56,7 +56,7 @@ public:
    * @param command selection command
    */
   virtual void select(const QModelIndex& index,
-                      QItemSelectionModel::SelectionFlags command);
+                      QItemSelectionModel::SelectionFlags command) override;
 
   /**
    * Select @a selection using @a command.
@@ -64,7 +64,7 @@ public:
    * @param command selection command
    */
   virtual void select(const QItemSelection& selection,
-                      QItemSelectionModel::SelectionFlags command);
+                      QItemSelectionModel::SelectionFlags command) override;
 
 private slots:
   void onSelectionChanged(const QItemSelection& selected,

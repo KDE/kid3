@@ -59,7 +59,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~HttpClient();
+  virtual ~HttpClient() override;
 
   /**
    * Send a HTTP GET request.

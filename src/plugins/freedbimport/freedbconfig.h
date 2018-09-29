@@ -45,14 +45,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FreedbConfig();
+  virtual ~FreedbConfig() override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
 private:
   friend FreedbConfig&
@@ -76,14 +76,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackTypeConfig();
+  virtual ~TrackTypeConfig() override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
 private:
   friend TrackTypeConfig&

@@ -55,21 +55,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilterConfig();
+  virtual ~FilterConfig() override;
 
   /**
    * Persist configuration.
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /**
    * Set the filename format in the "Filename Tag Mismatch" filter.

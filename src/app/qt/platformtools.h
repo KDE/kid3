@@ -46,13 +46,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlatformTools();
+  virtual ~PlatformTools() override;
 
   /**
    * Get application settings.
    * @return settings instance.
    */
-  virtual ISettings* applicationSettings();
+  virtual ISettings* applicationSettings() override;
 
   /**
    * Move file or directory to trash.
@@ -61,21 +61,21 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool moveToTrash(const QString& path) const;
+  virtual bool moveToTrash(const QString& path) const override;
 
   /**
    * Display help for a topic.
    *
    * @param anchor anchor in help document
    */
-  virtual void displayHelp(const QString& anchor);
+  virtual void displayHelp(const QString& anchor) override;
 
   /**
    * Get a themed icon by name.
    * @param name name of icon
    * @return icon.
    */
-  virtual QIcon iconFromTheme(const QString& name) const;
+  virtual QIcon iconFromTheme(const QString& name) const override;
 
   /**
    * Construct a name filter string suitable for file dialogs.
@@ -84,14 +84,14 @@ public:
    * @return name filter string.
    */
   virtual QString fileDialogNameFilter(
-      const QList<QPair<QString, QString> >& nameFilters) const;
+      const QList<QPair<QString, QString> >& nameFilters) const override;
 
   /**
    * Get file pattern part of m_nameFilter.
    * @param nameFilter name filter string
    * @return file patterns, e.g. "*.mp3".
    */
-  virtual QString getNameFilterPatterns(const QString& nameFilter) const;
+  virtual QString getNameFilterPatterns(const QString& nameFilter) const override;
 
   /**
    * Display error dialog with item list.
@@ -101,7 +101,7 @@ public:
    * @param caption caption
    */
   virtual void errorList(QWidget* parent, const QString& text,
-      const QStringList& strlist, const QString& caption);
+      const QStringList& strlist, const QString& caption) override;
 
   /**
    * Display warning dialog with yes, no, cancel buttons.
@@ -111,7 +111,7 @@ public:
    * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
    */
   virtual int warningYesNoCancel(QWidget* parent, const QString& text,
-      const QString& caption);
+      const QString& caption) override;
 
   /**
    * Display warning dialog with item list.
@@ -122,7 +122,7 @@ public:
    * @return QMessageBox::Yes or QMessageBox::No.
    */
   virtual int warningYesNoList(QWidget* parent, const QString& text,
-      const QStringList& strlist, const QString& caption);
+      const QStringList& strlist, const QString& caption) override;
 
   /**
    * Display dialog to select an existing file.
@@ -135,7 +135,7 @@ public:
    */
   virtual QString getOpenFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
-      QString* selectedFilter);
+      QString* selectedFilter) override;
 
   /**
    * Display dialog to select existing files.
@@ -148,7 +148,7 @@ public:
    */
   virtual QStringList getOpenFileNames(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
-      QString* selectedFilter);
+      QString* selectedFilter) override;
 
   /**
    * Display dialog to select a file to save.
@@ -161,7 +161,7 @@ public:
    */
   virtual QString getSaveFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
-      QString* selectedFilter);
+      QString* selectedFilter) override;
 
   /**
    * Display dialog to select an existing directory.
@@ -171,7 +171,7 @@ public:
    * @return selected directory, empty if canceled.
    */
   virtual QString getExistingDirectory(QWidget* parent,
-      const QString& caption, const QString& startDir);
+      const QString& caption, const QString& startDir) override;
 
   /**
    * Display warning dialog.
@@ -181,7 +181,7 @@ public:
    * @param caption caption
    */
   virtual void warningDialog(QWidget* parent,
-      const QString& text, const QString& details, const QString& caption);
+      const QString& text, const QString& details, const QString& caption) override;
 
   /**
    * Display warning dialog with options to continue or cancel.
@@ -192,7 +192,7 @@ public:
    * @return true if continue was selected.
    */
   virtual bool warningContinueCancelList(QWidget* parent,
-      const QString& text, const QStringList& strlist, const QString& caption);
+      const QString& text, const QStringList& strlist, const QString& caption) override;
 
 private:
   BrowserDialog* m_helpBrowser;

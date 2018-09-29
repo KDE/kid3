@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlImageProvider();
+  virtual ~QmlImageProvider() override;
 
   /**
    * Request a pixmap.
@@ -62,7 +62,7 @@ public:
    * @return pixmap for ID.
    */
   virtual QPixmap requestPixmap(const QString& id, QSize* size,
-                                const QSize& requestedSize);
+                                const QSize& requestedSize) override;
 };
 
 #endif // QMLIMAGEPROVIDER_H

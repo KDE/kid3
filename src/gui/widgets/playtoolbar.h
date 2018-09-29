@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlayToolBar();
+  virtual ~PlayToolBar() override;
 
 signals:
   /**
@@ -141,7 +141,7 @@ protected:
   /**
    * Stop sound when window is closed.
    */
-  virtual void closeEvent(QCloseEvent*);
+  virtual void closeEvent(QCloseEvent*) override;
 
 private:
   QIcon m_playIcon;

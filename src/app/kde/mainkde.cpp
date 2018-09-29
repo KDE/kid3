@@ -55,7 +55,7 @@ public:
    * @param event event
    * @return return value from receiver's event handler.
    */
-  virtual bool notify(QObject* receiver, QEvent* event);
+  virtual bool notify(QObject* receiver, QEvent* event) override;
 };
 
 /**

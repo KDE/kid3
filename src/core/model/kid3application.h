@@ -141,7 +141,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Application();
+  virtual ~Kid3Application() override;
 
 #ifdef HAVE_QTDBUS
   /**

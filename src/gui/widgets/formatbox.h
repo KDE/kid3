@@ -53,7 +53,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatBox();
+  virtual ~FormatBox() override;
 
   /**
    * Set the values from a format configuration.

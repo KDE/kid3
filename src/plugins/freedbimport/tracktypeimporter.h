@@ -47,29 +47,29 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackTypeImporter();
+  virtual ~TrackTypeImporter() override;
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const;
+  virtual const char* name() const override;
 
   /** NULL-terminated array of server strings, 0 if not used */
-  virtual const char** serverList() const;
+  virtual const char** serverList() const override;
 
   /** default server, 0 to disable */
-  virtual const char* defaultServer() const;
+  virtual const char* defaultServer() const override;
 
   /** configuration, 0 if not used */
-  virtual ServerImporterConfig* config() const;
+  virtual ServerImporterConfig* config() const override;
 
   /**
    * Process finished findCddbAlbum request.
    *
    * @param searchStr search data received
    */
-  virtual void parseFindResults(const QByteArray& searchStr);
+  virtual void parseFindResults(const QByteArray& searchStr) override;
 
   /**
    * Send a query command to search on the server.
@@ -80,7 +80,7 @@ public:
    */
   virtual void sendFindQuery(
     const ServerImporterConfig* cfg,
-    const QString& artist, const QString& album);
+    const QString& artist, const QString& album) override;
 };
 
 #endif

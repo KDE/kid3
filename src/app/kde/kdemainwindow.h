@@ -56,41 +56,41 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdeMainWindow();
+  virtual ~KdeMainWindow() override;
 
   /**
    * Init menu and toolbar actions.
    */
-  virtual void initActions();
+  virtual void initActions() override;
 
   /**
    * Add directory to recent files list.
    *
    * @param dirName path to directory
    */
-  virtual void addDirectoryToRecentFiles(const QString& dirName);
+  virtual void addDirectoryToRecentFiles(const QString& dirName) override;
 
   /**
    * Read settings from the configuration.
    */
-  virtual void readConfig();
+  virtual void readConfig() override;
 
   /**
    * Store geometry and recent files in settings.
    */
-  virtual void saveConfig();
+  virtual void saveConfig() override;
 
   /**
    * Get action for Settings/Auto Hide Tags.
    * @return action.
    */
-  virtual QAction* autoHideTagsAction();
+  virtual QAction* autoHideTagsAction() override;
 
   /**
    * Get action for Settings/Hide Picture.
    * @return action.
    */
-  virtual QAction* showHidePictureAction();
+  virtual QAction* showHidePictureAction() override;
 
   /**
    * Set main window caption.
@@ -98,7 +98,7 @@ public:
    * @param caption caption without application name
    * @param modified true if any file is modified
    */
-  virtual void setWindowCaption(const QString& caption, bool modified);
+  virtual void setWindowCaption(const QString& caption, bool modified) override;
 
 protected:
   /**
@@ -108,7 +108,7 @@ protected:
    *
    * @return FALSE if user canceled.
    */
-  virtual bool queryClose();
+  virtual bool queryClose() override;
 
   /**
    * Saves the window properties for each open window during session end
@@ -116,14 +116,14 @@ protected:
    *
    * @param cfg application configuration
    */
-  virtual void saveProperties(KConfigGroup& cfg);
+  virtual void saveProperties(KConfigGroup& cfg) override;
 
   /**
    * Reads the session config file and restores the application's state.
    *
    * @param cfg application configuration
    */
-  virtual void readProperties(const KConfigGroup& cfg);
+  virtual void readProperties(const KConfigGroup& cfg) override;
 
 private slots:
   /**

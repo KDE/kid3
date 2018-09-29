@@ -55,7 +55,7 @@ protected:
    *
    * @return true to include row.
    */
-  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
+  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
 
   /**
    * Sort comparison function.
@@ -63,7 +63,7 @@ protected:
    * @param right index of right item in source model
    * @return true if left is less than right.
    */
-  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
 };
 
 #endif // DIRPROXYMODEL_H

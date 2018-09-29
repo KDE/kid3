@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  ~ConfigStore();
+  virtual ~ConfigStore() override;
 
   /**
    * Persist all added configurations.

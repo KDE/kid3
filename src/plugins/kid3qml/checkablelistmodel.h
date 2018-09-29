@@ -63,7 +63,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CheckableListModel();
+  virtual ~CheckableListModel() override;
 
   /**
    * Get selection model.
@@ -145,36 +145,36 @@ public:
   void setCurrentRow(int row);
 
   /** Set item flags. */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /** Get data for a given role. */
-  virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+  virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
   /** Set data for a given role. */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole);
+                       int role = Qt::EditRole) override;
 
   /** Set source model. */
-  virtual void setSourceModel(QAbstractItemModel* srcModel);
+  virtual void setSourceModel(QAbstractItemModel* srcModel) override;
 
   /** Get index in model. */
   virtual QModelIndex index(int row, int column,
-                            const QModelIndex& parent = QModelIndex()) const;
+                            const QModelIndex& parent = QModelIndex()) const override;
 
   /** Get parent model index. */
-  virtual QModelIndex parent(const QModelIndex& child) const;
+  virtual QModelIndex parent(const QModelIndex& child) const override;
 
   /** Get number of rows under given @a parent. */
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /** Get number of columns under given @a parent. */
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const;
+  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /** Map proxy index to index of source model. */
-  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const;
+  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const override;
 
   /** Map index of source model to proxy index. */
-  virtual QModelIndex mapFromSource(const QModelIndex& srcIndex) const;
+  virtual QModelIndex mapFromSource(const QModelIndex& srcIndex) const override;
 
 signals:
   /** Emitted when source model is changed. */

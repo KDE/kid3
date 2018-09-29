@@ -43,14 +43,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EventCodeDelegate();
+  virtual ~EventCodeDelegate() override;
 
 protected:
   // Reimplemented from EnumDelegate.
-  virtual QStringList getEnumStrings() const;
-  virtual QString getStringForEnum(int enumNr) const;
-  virtual int getIndexForEnum(int enumNr) const;
-  virtual int getEnumForIndex(int index) const;
+  virtual QStringList getEnumStrings() const override;
+  virtual QString getStringForEnum(int enumNr) const override;
+  virtual int getIndexForEnum(int enumNr) const override;
+  virtual int getEnumForIndex(int index) const override;
 };
 
 #endif // EVENTCODEDELEGATE_H

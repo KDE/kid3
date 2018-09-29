@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  ~RenDirDialog();
+  virtual ~RenDirDialog() override;
 
   /**
    * Start dialog.
@@ -93,7 +93,7 @@ protected:
   /**
    * Called when the wizard is canceled.
    */
-  virtual void reject();
+  virtual void reject() override;
 
 signals:
   /**

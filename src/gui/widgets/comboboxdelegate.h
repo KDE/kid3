@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ComboBoxDelegate();
+  virtual ~ComboBoxDelegate() override;
 
   /**
    * Create an editor to edit the cells contents.
@@ -54,17 +54,17 @@ public:
    */
   virtual QWidget* createEditor(QWidget* parent,
                                 const QStyleOptionViewItem& option,
-                                const QModelIndex& index ) const;
+                                const QModelIndex& index ) const override;
 
   /**
    * Set data to be edited by the editor.
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
+  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   virtual void setModelData(QWidget* editor, QAbstractItemModel* model,
-                            const QModelIndex& index) const;
+                            const QModelIndex& index) const override;
 };
 
 #endif // COMBOBOXDELEGATE_H

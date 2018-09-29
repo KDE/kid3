@@ -131,12 +131,12 @@ namespace TagLib {
       /*!
        * Destroys this EventTimingCodesFrame instance.
        */
-      virtual ~EventTimingCodesFrame();
+      virtual ~EventTimingCodesFrame() override;
 
       /*!
        * Returns a null string.
        */
-      virtual String toString() const;
+      virtual String toString() const override;
 
       /*!
        * Returns the timestamp format.
@@ -165,8 +165,8 @@ namespace TagLib {
     protected:
       // Reimplementations.
 
-      virtual void parseFields(const ByteVector &data);
-      virtual ByteVector renderFields() const;
+      virtual void parseFields(const ByteVector &data) override;
+      virtual ByteVector renderFields() const override;
 
     private:
       /*!

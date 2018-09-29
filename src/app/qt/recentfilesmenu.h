@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~RecentFilesMenu();
+  virtual ~RecentFilesMenu() override;
 
   /**
    * Add directory to list of recent files.

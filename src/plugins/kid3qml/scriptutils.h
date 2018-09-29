@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ScriptUtils();
+  virtual ~ScriptUtils() override;
 
   /**
    * Convert a list of URLs to a list of local file paths.

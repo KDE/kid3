@@ -190,7 +190,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~WavFile();
+  virtual ~WavFile() override;
 
   /**
    * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
@@ -246,7 +246,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileIOStream();
+  virtual ~FileIOStream() override;
 
   /**
    * Close the file handle.
@@ -255,19 +255,19 @@ public:
   void closeFileHandle();
 
   // Reimplemented from TagLib::IOStream, delegate to TagLib::FileStream.
-  TagLib::FileName name() const;
-  TagLib::ByteVector readBlock(ulong length);
-  void writeBlock(const TagLib::ByteVector &data);
-  void insert(const TagLib::ByteVector &data,
-              ulong start = 0, ulong replace = 0);
-  void removeBlock(ulong start = 0, ulong length = 0);
-  bool readOnly() const;
-  bool isOpen() const;
-  void seek(long offset, Position p = Beginning);
-  void clear();
-  long tell() const;
-  long length();
-  void truncate(long length);
+  virtual TagLib::FileName name() const override;
+  virtual TagLib::ByteVector readBlock(ulong length) override;
+  virtual void writeBlock(const TagLib::ByteVector &data) override;
+  virtual void insert(const TagLib::ByteVector &data,
+              ulong start = 0, ulong replace = 0) override;
+  virtual void removeBlock(ulong start = 0, ulong length = 0) override;
+  virtual bool readOnly() const override;
+  virtual bool isOpen() const override;
+  virtual void seek(long offset, Position p = Beginning) override;
+  virtual void clear() override;
+  virtual long tell() const override;
+  virtual long length() override;
+  virtual void truncate(long length) override;
 
   /**
    * Create a TagLib file for a stream.
@@ -575,14 +575,14 @@ public:
    *
    * @param data data to decode
    */
-  virtual TagLib::String parse(const TagLib::ByteVector& data) const;
+  virtual TagLib::String parse(const TagLib::ByteVector& data) const override;
 
   /**
    * Encode a byte vector with the data from a string.
    *
    * @param s string to encode
    */
-  virtual TagLib::ByteVector render(const TagLib::String& s) const;
+  virtual TagLib::ByteVector render(const TagLib::String& s) const override;
 
   /**
    * Set text codec.

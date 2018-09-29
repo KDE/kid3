@@ -48,13 +48,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AcoustidImportPlugin();
+  virtual ~AcoustidImportPlugin() override;
 
   /**
    * Get keys of available server importers.
    * @return list of keys.
    */
-  virtual QStringList serverTrackImporterKeys() const;
+  virtual QStringList serverTrackImporterKeys() const override;
 
   /**
    * Create server importer.
@@ -66,7 +66,7 @@ public:
    */
   virtual ServerTrackImporter* createServerTrackImporter(
       const QString& key,
-      QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel);
+      QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };
 
 #endif // ACOUSTIDIMPORTPLUGIN_H

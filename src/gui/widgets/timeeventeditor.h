@@ -62,7 +62,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventEditor();
+  virtual ~TimeEventEditor() override;
 
   /**
    * Set time event model.
@@ -75,13 +75,13 @@ protected:
    * Connect to player when editor is shown.
    * @param event event
    */
-  virtual void showEvent(QShowEvent* event);
+  virtual void showEvent(QShowEvent* event) override;
 
   /**
    * Disconnect from player when editor is hidden.
    * @param event event
    */
-  virtual void hideEvent(QHideEvent* event);
+  virtual void hideEvent(QHideEvent* event) override;
 
 private slots:
   /**

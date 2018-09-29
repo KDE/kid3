@@ -46,18 +46,18 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StringListEdit();
+  virtual ~StringListEdit() override;
 
 public slots:
   /**
    * Add a new item.
    */
-  virtual void addItem();
+  virtual void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem();
+  virtual void editItem() override;
 };
 
 #endif // STRINGLISTEDIT_H

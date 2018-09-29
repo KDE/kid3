@@ -81,7 +81,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatConfig();
+  virtual ~FormatConfig() override;
 
   /**
    * Set specific properties for a filename format.
@@ -128,14 +128,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /** Get mapping for string replacement. */
   QMap<QString, QString> strRepMap() const { return m_strRepMap; }
@@ -273,7 +273,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilenameFormatConfig();
+  virtual ~FilenameFormatConfig() override;
 
 private:
   friend FilenameFormatConfig&
@@ -299,7 +299,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagFormatConfig();
+  virtual ~TagFormatConfig() override;
 
 private:
   friend TagFormatConfig&

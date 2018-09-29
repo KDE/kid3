@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EnumDelegate();
+  virtual ~EnumDelegate() override;
 
   /**
    * Create an editor to edit the cells contents.
@@ -54,14 +54,14 @@ public:
    */
   virtual QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
-    const QModelIndex& index) const;
+    const QModelIndex& index) const override;
 
   /**
    * Set data to be edited by the editor.
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
+  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   /**
    * Set model data supplied by editor.
@@ -70,7 +70,7 @@ public:
    * @param index  index of item
    */
   virtual void setModelData(
-    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
   /**
    * Get size needed by delegate.
@@ -79,7 +79,7 @@ public:
    * @return size needed by delegate.
    */
   virtual QSize sizeHint(const QStyleOptionViewItem& option,
-                         const QModelIndex& index) const;
+                         const QModelIndex& index) const override;
 
 protected:
   /**
@@ -91,7 +91,7 @@ protected:
    */
   virtual void drawDisplay(
     QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect,
-    const QString& text) const;
+    const QString& text) const override;
 
   /**
    * Get list of string representations for an enum.

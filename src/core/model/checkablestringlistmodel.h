@@ -46,14 +46,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CheckableStringListModel();
+  virtual ~CheckableStringListModel() override;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -62,7 +62,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const;
+                        int role = Qt::DisplayRole) const override;
   /**
    * Set data for a given role.
    * @param index model index
@@ -71,7 +71,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole);
+                       int role = Qt::EditRole) override;
 
 
   /**
@@ -81,7 +81,7 @@ public:
    * @param parent parent model index
    * @return true if rows were successfully inserted.
    */
-  virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
+  virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Remove rows.
@@ -90,7 +90,7 @@ public:
    * @param parent parent model index
    * @return true if rows were successfully removed.
    */
-  virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+  virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Set mask with checked state for the items in the model.

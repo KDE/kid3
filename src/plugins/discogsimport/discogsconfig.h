@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsConfig();
+  virtual ~DiscogsConfig() override;
 
 private:
   friend DiscogsConfig&

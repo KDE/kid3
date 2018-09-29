@@ -71,7 +71,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Form();
+  virtual ~Kid3Form() override;
 
   /**
    * Get context for tag.

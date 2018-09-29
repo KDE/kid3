@@ -54,13 +54,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlCommandPlugin();
+  virtual ~QmlCommandPlugin() override;
 
   /**
    * Get keys of available user commands.
    * @return list of keys, ["qml", "qmlview"].
    */
-  virtual QStringList userCommandKeys() const;
+  virtual QStringList userCommandKeys() const override;
 
   /**
    * Initialize processor.
@@ -68,13 +68,13 @@ public:
    * to set the application context.
    * @param app application context
    */
-  virtual void initialize(Kid3Application* app);
+  virtual void initialize(Kid3Application* app) override;
 
   /**
    * Cleanup processor.
    * This method must be invoked to close and delete the QML resources.
    */
-  virtual void cleanup();
+  virtual void cleanup() override;
 
   /**
    * Start a QML script.
@@ -85,13 +85,13 @@ public:
    * @return true if command is started.
    */
   virtual bool startUserCommand(
-      const QString& key, const QStringList& arguments, bool showOutput);
+      const QString& key, const QStringList& arguments, bool showOutput) override;
 
   /**
    * Return object which emits commandOutput() signal.
    * @return this.
    */
-  virtual QObject* qobject();
+  virtual QObject* qobject() override;
 
 signals:
   /**

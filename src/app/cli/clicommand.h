@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CliCommand();
+  virtual ~CliCommand() override;
 
   /**
    * Reset state to defaults.
@@ -163,7 +163,7 @@ protected:
    * Called on timeout.
    * @param event timer event
    */
-  void timerEvent(QTimerEvent* event);
+  virtual void timerEvent(QTimerEvent* event) override;
 
   /**
    * Start specific command.
@@ -224,7 +224,7 @@ public:
   explicit HelpCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -236,7 +236,7 @@ public:
   explicit TimeoutCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -248,8 +248,8 @@ public:
   explicit QuitCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
 };
 
 
@@ -261,9 +261,9 @@ public:
   explicit CdCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
-  virtual void disconnectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
 };
 
 
@@ -275,7 +275,7 @@ public:
   explicit PwdCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -287,7 +287,7 @@ public:
   explicit LsCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -299,7 +299,7 @@ public:
   explicit SaveCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -311,7 +311,7 @@ public:
   explicit SelectCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -323,7 +323,7 @@ public:
   explicit TagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -335,7 +335,7 @@ public:
   explicit GetCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -347,7 +347,7 @@ public:
   explicit SetCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -359,7 +359,7 @@ public:
   explicit RevertCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 
@@ -371,7 +371,7 @@ public:
   explicit ImportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Automatic import from servers. */
@@ -382,9 +382,9 @@ public:
   explicit BatchImportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
-  virtual void disconnectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
 
 private slots:
   void onReportImportEvent(int type, const QString& text);
@@ -398,9 +398,9 @@ public:
   explicit AlbumArtCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
-  virtual void disconnectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
 
 private slots:
   void onDownloadFinished(const QByteArray& data,
@@ -415,7 +415,7 @@ public:
   explicit ExportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Create playlist file. */
@@ -426,7 +426,7 @@ public:
   explicit PlaylistCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Apply file name format. */
@@ -437,7 +437,7 @@ public:
   explicit FilenameFormatCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Apply tag format. */
@@ -448,7 +448,7 @@ public:
   explicit TagFormatCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Apply text encoding. */
@@ -459,7 +459,7 @@ public:
   explicit TextEncodingCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Rename directory. */
@@ -470,9 +470,9 @@ public:
   explicit RenameDirectoryCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
-  virtual void disconnectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
 
 private slots:
   void onActionScheduled(const QStringList& actionStrs);
@@ -490,7 +490,7 @@ public:
   explicit NumberTracksCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Filter files. */
@@ -501,9 +501,9 @@ public:
   explicit FilterCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
-  virtual void connectResultSignal();
-  virtual void disconnectResultSignal();
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
 
 private slots:
   void onFileFiltered(int type, const QString& fileName);
@@ -517,7 +517,7 @@ public:
   explicit ToId3v24Command(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Convert ID3v2.4 to ID3v2.3. */
@@ -528,7 +528,7 @@ public:
   explicit ToId3v23Command(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Set file name from tags. */
@@ -539,7 +539,7 @@ public:
   explicit TagToFilenameCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Set tags from file name. */
@@ -550,7 +550,7 @@ public:
   explicit FilenameToTagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Copy between tag 1 and tag 2. */
@@ -561,7 +561,7 @@ public:
   explicit TagToOtherTagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Copy to clipboard. */
@@ -572,7 +572,7 @@ public:
   explicit CopyCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Paste from clipboard. */
@@ -583,7 +583,7 @@ public:
   explicit PasteCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Remove tags. */
@@ -594,7 +594,7 @@ public:
   explicit RemoveCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 /** Play audio file. */
@@ -605,7 +605,7 @@ public:
   explicit PlayCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand();
+  virtual void startCommand() override;
 };
 
 #endif // CLICOMMAND_H

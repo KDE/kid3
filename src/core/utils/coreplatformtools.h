@@ -44,13 +44,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CorePlatformTools();
+  virtual ~CorePlatformTools() override;
 
   /**
    * Get application settings.
    * @return settings instance.
    */
-  virtual ISettings* applicationSettings();
+  virtual ISettings* applicationSettings() override;
 
   /**
    * Move file or directory to trash.
@@ -59,7 +59,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool moveToTrash(const QString& path) const;
+  virtual bool moveToTrash(const QString& path) const override;
 
   /**
    * Construct a name filter string suitable for file dialogs.
@@ -68,14 +68,14 @@ public:
    * @return name filter string.
    */
   virtual QString fileDialogNameFilter(
-      const QList<QPair<QString, QString> >& nameFilters) const;
+      const QList<QPair<QString, QString> >& nameFilters) const override;
 
   /**
    * Get file pattern part of m_nameFilter.
    * @param nameFilter name filter string
    * @return file patterns, e.g. "*.mp3".
    */
-  virtual QString getNameFilterPatterns(const QString& nameFilter) const;
+  virtual QString getNameFilterPatterns(const QString& nameFilter) const override;
 
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
   /**

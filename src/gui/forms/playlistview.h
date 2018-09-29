@@ -41,7 +41,7 @@ public:
    * @param parent parent widget
    */
   explicit PlaylistView(QWidget* parent = 0);
-  virtual ~PlaylistView();
+  virtual ~PlaylistView() override;
 
   /**
    * Get role which is used when setting dropped items.
@@ -61,28 +61,28 @@ protected:
    *
    * @param event drag event.
    */
-  virtual void dragEnterEvent(QDragEnterEvent* event);
+  virtual void dragEnterEvent(QDragEnterEvent* event) override;
 
   /**
    * Handle event when mouse is moved while dragging.
    *
    * @param event drag event.
    */
-  virtual void dragMoveEvent(QDragMoveEvent* event);
+  virtual void dragMoveEvent(QDragMoveEvent* event) override;
 
   /**
    * Handle event when mouse leaves widget while dragging.
    *
    * @param event drag event.
    */
-  virtual void dragLeaveEvent(QDragLeaveEvent* event);
+  virtual void dragLeaveEvent(QDragLeaveEvent* event) override;
 
   /**
    * Handle drop event.
    *
    * @param event drop event.
    */
-  virtual void dropEvent(QDropEvent* event);
+  virtual void dropEvent(QDropEvent* event) override;
 
 private slots:
   void deleteCurrentRow();

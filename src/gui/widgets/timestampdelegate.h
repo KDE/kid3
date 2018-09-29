@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeStampDelegate();
+  virtual ~TimeStampDelegate() override;
 
   /**
    * Create an editor to edit the cell contents.
@@ -55,7 +55,7 @@ public:
    */
   virtual QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
-    const QModelIndex& index) const;
+    const QModelIndex& index) const override;
 
   /**
    * Render delegate.
@@ -64,7 +64,7 @@ public:
    * @param index index of item
    */
   virtual void paint(QPainter* painter, const QStyleOptionViewItem& option,
-                     const QModelIndex& index) const;
+                     const QModelIndex& index) const override;
 
 private slots:
   void commitAndCloseEditor();

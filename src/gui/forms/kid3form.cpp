@@ -116,7 +116,7 @@ public:
    */
   explicit PictureDblClickHandler(Kid3Application* app) :
     QObject(app), m_app(app) {}
-  virtual ~PictureDblClickHandler() {}
+  virtual ~PictureDblClickHandler() override {}
 
 protected:
   /**
@@ -127,7 +127,7 @@ protected:
    *
    * @return true if event is filtered.
    */
-  virtual bool eventFilter(QObject* obj, QEvent* event);
+  virtual bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
   Kid3Application* m_app;
@@ -176,28 +176,28 @@ protected:
    *
    * @param ev drag event.
    */
-  virtual void dragEnterEvent(QDragEnterEvent* ev);
+  virtual void dragEnterEvent(QDragEnterEvent* ev) override;
 
   /**
    * Handle event when mouse is moved while dragging.
    *
    * @param ev drag event.
    */
-  virtual void dragMoveEvent(QDragMoveEvent* ev);
+  virtual void dragMoveEvent(QDragMoveEvent* ev) override;
 
   /**
    * Handle event when mouse leaves widget while dragging.
    *
    * @param ev drag event.
    */
-  virtual void dragLeaveEvent(QDragLeaveEvent* ev);
+  virtual void dragLeaveEvent(QDragLeaveEvent* ev) override;
 
   /**
    * Handle drop event.
    *
    * @param ev drop event.
    */
-  virtual void dropEvent(QDropEvent* ev);
+  virtual void dropEvent(QDropEvent* ev) override;
 
 private:
   Kid3Application* const m_app;

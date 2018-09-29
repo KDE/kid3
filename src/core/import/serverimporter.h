@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerImporter();
+  virtual ~ServerImporter() override;
 
   /**
    * Name of import source.
@@ -203,14 +203,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AlbumListItem();
+  virtual ~AlbumListItem() override;
 
   /**
    * Get type of item.
    * Used to distinguish items of this custom type from base class items.
    * @return AlbumListItem::Type.
    */
-  virtual int type() const;
+  virtual int type() const override;
 
   /**
    * Get category.

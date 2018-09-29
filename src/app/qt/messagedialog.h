@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MessageDialog();
+  virtual ~MessageDialog() override;
 
   /**
    * Set the text to be displayed.

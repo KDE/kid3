@@ -42,7 +42,7 @@ class TestServerImporterBase : public QObject {
   Q_OBJECT
 public:
   explicit TestServerImporterBase(QObject* parent = 0);
-  virtual ~TestServerImporterBase();
+  virtual ~TestServerImporterBase() override;
 
 public slots:
   void onFindFinished(const QByteArray& searchStr);

@@ -72,21 +72,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GuiConfig();
+  virtual ~GuiConfig() override;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /** Get sorted column in file list. */
   int fileListSortColumn() const { return m_fileListSortColumn; }

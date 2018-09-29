@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameItemDelegate();
+  virtual ~FrameItemDelegate() override;
 
   /**
    * Render delegate.
@@ -56,7 +56,7 @@ public:
    * @param index index of item
    */
   virtual void paint(QPainter* painter, const QStyleOptionViewItem& option,
-                     const QModelIndex& index) const;
+                     const QModelIndex& index) const override;
 
   /**
    * Get size needed by delegate.
@@ -65,7 +65,7 @@ public:
    * @return size needed by delegate.
    */
   virtual QSize sizeHint(const QStyleOptionViewItem& option,
-                         const QModelIndex& index) const;
+                         const QModelIndex& index) const override;
 
   /**
    * Create an editor to edit the cells contents.
@@ -76,14 +76,14 @@ public:
    */
   virtual QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
-    const QModelIndex& index) const;
+    const QModelIndex& index) const override;
 
   /**
    * Set data to be edited by the editor.
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
+  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   /**
    * Set model data supplied by editor.
@@ -92,7 +92,7 @@ public:
    * @param index  index of item
    */
   virtual void setModelData(
-    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
 private slots:
   /**
@@ -128,7 +128,7 @@ public:
    * Get size needed by editor.
    * @return size needed by editor.
    */
-  virtual QSize sizeHint() const;
+  virtual QSize sizeHint() const override;
 
   /**
    * Set star rating.
@@ -160,25 +160,25 @@ protected:
    * Called when widget is painted.
    * @param event paint event
    */
-  virtual void paintEvent(QPaintEvent* event);
+  virtual void paintEvent(QPaintEvent* event) override;
 
   /**
    * Called when the mouse is moved inside the widget.
    * @param event mouse event
    */
-  virtual void mouseMoveEvent(QMouseEvent* event);
+  virtual void mouseMoveEvent(QMouseEvent* event) override;
 
   /**
    * Called when the mouse is released inside the widget.
    * @param event mouse event
    */
-  virtual void mouseReleaseEvent(QMouseEvent* event);
+  virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
   /**
    * Called when a key is pressed while the widget has focus.
    * @param event key event
    */
-  virtual void keyPressEvent(QKeyEvent* event);
+  virtual void keyPressEvent(QKeyEvent* event) override;
 
 private:
   int starAtPosition(int x);

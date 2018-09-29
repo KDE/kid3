@@ -57,24 +57,24 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BiDirFileProxyModelIterator();
+  virtual ~BiDirFileProxyModelIterator() override;
 
   /**
    * Abort operation.
    */
-  virtual void abort();
+  virtual void abort() override;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const;
+  virtual bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted();
+  virtual void clearAborted() override;
 
   /**
    * Set root index of file proxy model.

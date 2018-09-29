@@ -63,14 +63,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsModel();
+  virtual ~ShortcutsModel() override;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -79,7 +79,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const;
+                        int role = Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -89,7 +89,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole);
+                       int role = Qt::EditRole) override;
 
   /**
    * Get data for header section.
@@ -99,21 +99,21 @@ public:
    * @return header data for role
    */
   virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role = Qt::DisplayRole) const;
+                              int role = Qt::DisplayRole) const override;
 
   /**
    * Get number of rows.
    * @param parent parent model index
    * @return number of rows, if parent is valid number of children
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const;
+  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Get number of columns.
    * @param parent parent model index
    * @return number of columns for children of given \a parent
    */
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const;
+  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get model index of item.
@@ -123,14 +123,14 @@ public:
    * @return model index of item
    */
   virtual QModelIndex index(int row, int column,
-                            const QModelIndex& parent = QModelIndex()) const;
+                            const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get parent of item.
    * @param index model index of item
    * @return model index of parent item
    */
-  virtual QModelIndex parent(const QModelIndex& index) const;
+  virtual QModelIndex parent(const QModelIndex& index) const override;
 
   /**
    * Register an action.

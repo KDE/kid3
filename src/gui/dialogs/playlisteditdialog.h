@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistEditDialog();
+  virtual ~PlaylistEditDialog() override;
   
   /**
    * Get playlist model.
@@ -64,7 +64,7 @@ protected:
    * Ask user before closing with unsaved modifications.
    * @param event close event
    */
-  virtual void closeEvent(QCloseEvent* event);
+  virtual void closeEvent(QCloseEvent* event) override;
 
 private slots:
   void setModified(bool modified);

@@ -60,21 +60,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportConfig();
+  virtual ~BatchImportConfig() override;
 
   /**
    * Persist configuration.
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /**
    * Get a batch import profile.

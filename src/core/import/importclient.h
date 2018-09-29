@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ImportClient();
+  virtual ~ImportClient() override;
 
   /**
    * Send a query command to search on the server.

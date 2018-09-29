@@ -37,8 +37,8 @@ namespace {
 class PictureLabelIntern : public QLabel {
 public:
   explicit PictureLabelIntern(QWidget* parent = 0);
-  virtual ~PictureLabelIntern();
-  virtual int heightForWidth(int w) const;
+  virtual ~PictureLabelIntern() override;
+  virtual int heightForWidth(int w) const override;
 };
 
 PictureLabelIntern::PictureLabelIntern(QWidget* parent) : QLabel(parent)

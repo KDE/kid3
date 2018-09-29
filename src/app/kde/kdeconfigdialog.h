@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdeConfigDialog();
+  virtual ~KdeConfigDialog() override;
 
   /**
    * Set values in dialog from current configuration.
@@ -81,7 +81,7 @@ protected:
    * the same as the default configuration.
    * @return false
    */
-  virtual bool isDefault();
+  virtual bool isDefault() override;
 
 private:
   ConfigDialogPages* m_pages;

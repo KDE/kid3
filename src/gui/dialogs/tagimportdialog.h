@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagImportDialog();
+  virtual ~TagImportDialog() override;
 
   /**
    * Clear dialog data.

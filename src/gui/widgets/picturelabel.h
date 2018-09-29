@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PictureLabel();
+  virtual ~PictureLabel() override;
 
   /**
    * Set picture data.

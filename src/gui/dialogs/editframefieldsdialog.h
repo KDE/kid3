@@ -153,7 +153,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FieldControl();
+  virtual ~FieldControl() override;
 
   /**
    * Update field from data in field control.
@@ -188,7 +188,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EditFrameFieldsDialog();
+  virtual ~EditFrameFieldsDialog() override;
 
   /**
    * Set frame to edit.

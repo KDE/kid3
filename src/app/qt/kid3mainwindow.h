@@ -54,41 +54,41 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3MainWindow();
+  virtual ~Kid3MainWindow() override;
 
   /**
    * Init menu and toolbar actions.
    */
-  virtual void initActions();
+  virtual void initActions() override;
 
   /**
    * Add directory to recent files list.
    *
    * @param dirName path to directory
    */
-  virtual void addDirectoryToRecentFiles(const QString& dirName);
+  virtual void addDirectoryToRecentFiles(const QString& dirName) override;
 
   /**
    * Read settings from the configuration.
    */
-  virtual void readConfig();
+  virtual void readConfig() override;
 
   /**
    * Store geometry and recent files in settings.
    */
-  virtual void saveConfig();
+  virtual void saveConfig() override;
 
   /**
    * Get action for Settings/Auto Hide Tags.
    * @return action.
    */
-  virtual QAction* autoHideTagsAction();
+  virtual QAction* autoHideTagsAction() override;
 
   /**
    * Get action for Settings/Hide Picture.
    * @return action.
    */
-  virtual QAction* showHidePictureAction();
+  virtual QAction* showHidePictureAction() override;
 
   /**
    * Set main window caption.
@@ -96,7 +96,7 @@ public:
    * @param caption caption without application name
    * @param modified true if any file is modified
    */
-  virtual void setWindowCaption(const QString& caption, bool modified);
+  virtual void setWindowCaption(const QString& caption, bool modified) override;
 
 protected:
   /**
@@ -104,7 +104,7 @@ protected:
    *
    * @param ce close event
    */
-  virtual void closeEvent(QCloseEvent* ce);
+  virtual void closeEvent(QCloseEvent* ce) override;
 
 private slots:
   /**

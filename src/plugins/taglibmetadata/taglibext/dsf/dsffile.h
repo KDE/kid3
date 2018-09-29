@@ -93,12 +93,12 @@ class DSFFile : public TagLib::File
   /*!
    * Destroys this instance of the File.
    */
-  virtual ~DSFFile();
+  virtual ~DSFFile() override;
 
   /*!
    * Returns a pointer to a ID3v2 tag
    */
-  virtual TagLib::Tag *tag() const;
+  virtual TagLib::Tag *tag() const override;
 
   /*!
    * Implements the reading part of the unified property interface.
@@ -122,7 +122,7 @@ class DSFFile : public TagLib::File
    * Returns the DSF::Properties for this file.  If no audio properties
    * were read then this will return a null pointer.
    */
-  virtual TagLib::AudioProperties *audioProperties() const;
+  virtual TagLib::AudioProperties *audioProperties() const override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this
@@ -139,7 +139,7 @@ class DSFFile : public TagLib::File
    *
    * \see save(int tags)
    */
-  virtual bool save();
+  virtual bool save() override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this

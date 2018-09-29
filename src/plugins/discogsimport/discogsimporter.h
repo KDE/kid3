@@ -47,36 +47,36 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsImporter();
+  virtual ~DiscogsImporter() override;
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const;
+  virtual const char* name() const override;
 
   /** anchor to online help, 0 to disable */
-  virtual const char* helpAnchor() const;
+  virtual const char* helpAnchor() const override;
 
   /** configuration, 0 if not used */
-  virtual ServerImporterConfig* config() const;
+  virtual ServerImporterConfig* config() const override;
 
   /** additional tags option, false if not used */
-  virtual bool additionalTags() const;
+  virtual bool additionalTags() const override;
 
   /**
    * Process finished findCddbAlbum request.
    *
    * @param searchStr search data received
    */
-  virtual void parseFindResults(const QByteArray& searchStr);
+  virtual void parseFindResults(const QByteArray& searchStr) override;
 
   /**
    * Parse result of album request and populate m_trackDataModel with results.
    *
    * @param albumStr album data received
    */
-  virtual void parseAlbumResults(const QByteArray& albumStr);
+  virtual void parseAlbumResults(const QByteArray& albumStr) override;
 
   /**
    * Send a query command to search on the server.
@@ -87,7 +87,7 @@ public:
    */
   virtual void sendFindQuery(
     const ServerImporterConfig* cfg,
-    const QString& artist, const QString& album);
+    const QString& artist, const QString& album) override;
 
   /**
    * Send a query command to fetch the track list
@@ -98,7 +98,7 @@ public:
    * @param id       ID
    */
   virtual void sendTrackListQuery(
-    const ServerImporterConfig* cfg, const QString& cat, const QString& id);
+    const ServerImporterConfig* cfg, const QString& cat, const QString& id) override;
 
 private:
   QMap<QByteArray, QByteArray> m_discogsHeaders;

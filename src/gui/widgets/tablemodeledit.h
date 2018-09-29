@@ -48,17 +48,17 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableModelEdit();
+  virtual ~TableModelEdit() override;
 
   /**
    * Add a new item.
    */
-  virtual void addItem();
+  virtual void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem();
+  virtual void editItem() override;
 
 private:
   QTableView* m_tableView;

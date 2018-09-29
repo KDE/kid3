@@ -76,7 +76,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MprisInterface();
+  virtual ~MprisInterface() override;
 
 public slots:
   /**
@@ -153,7 +153,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MprisPlayerInterface();
+  virtual ~MprisPlayerInterface() override;
 
 public slots:
   /**

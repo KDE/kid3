@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameTable();
+  virtual ~FrameTable() override;
 
   /**
    * Filters events if this object has been installed as an event filter
@@ -65,7 +65,7 @@ public:
    * @param event   event
    * @return true to filter event out.
    */
-  virtual bool eventFilter(QObject* watched, QEvent* event);
+  virtual bool eventFilter(QObject* watched, QEvent* event) override;
 
   /**
    * Commit data from the current editor.

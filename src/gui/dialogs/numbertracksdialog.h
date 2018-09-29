@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  ~NumberTracksDialog();
+  virtual ~NumberTracksDialog() override;
 
   /**
    * Get start number.

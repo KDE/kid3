@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GenreModel();
+  virtual ~GenreModel() override;
 
   /**
    * Initialize module with genres.

@@ -81,7 +81,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaggedFileSelection();
+  virtual ~TaggedFileSelection() override;
 
   /**
    * Start adding tagged files to selection.

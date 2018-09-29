@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableOfContentsEditor();
+  virtual ~TableOfContentsEditor() override;
 
   /**
    * Set chapters in table of contents.

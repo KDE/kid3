@@ -49,7 +49,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourceDialog();
+  virtual ~BatchImportSourceDialog() override;
 
   /**
    * Fill batch import source from dialog controls.

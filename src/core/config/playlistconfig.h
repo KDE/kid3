@@ -92,7 +92,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistConfig();
+  virtual ~PlaylistConfig() override;
 
   /**
    * Assignment operator.
@@ -106,14 +106,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config) override;
 
   /** Get playlist location. */
   PlaylistLocation location() const { return m_location; }

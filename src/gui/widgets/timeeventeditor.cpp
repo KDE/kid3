@@ -57,14 +57,14 @@ public:
   /** Constructor. */
   TimeEventTableView(QWidget* parent = 0) : QTableView(parent) {}
   /** Destructor. */
-  virtual ~TimeEventTableView() {}
+  virtual ~TimeEventTableView() override {}
 
 protected:
   /**
    * Handle key events, delete cell contents if Delete key is pressed.
    * @param event key event
    */
-  virtual void keyPressEvent(QKeyEvent* event);
+  virtual void keyPressEvent(QKeyEvent* event) override;
 };
 
 void TimeEventTableView::keyPressEvent(QKeyEvent* event)

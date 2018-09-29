@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameEditorObject();
+  virtual ~FrameEditorObject() override;
 
   // IFrameEditor implementation
 
@@ -69,7 +69,7 @@ public:
    * @param taggedFile tagged file where frame has to be set
    */
   virtual void editFrameOfTaggedFile(const Frame* frame,
-                                     TaggedFile* taggedFile);
+                                     TaggedFile* taggedFile) override;
 
   /**
    * Let user select a frame type.
@@ -79,26 +79,26 @@ public:
    * @param frame is filled with the selected frame
    * @param taggedFile tagged file for which frame has to be selected
    */
-  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile);
+  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile) override;
 
   /**
    * Return object which emits frameSelected(), frameEdited() signals.
    *
    * @return object which emits signals.
    */
-  virtual QObject* qobject();
+  virtual QObject* qobject() override;
 
   /**
    * Get the tag number of the edited frame.
    * @return tag number, default is Frame::Tag_2.
    */
-  virtual Frame::TagNumber tagNumber() const { return m_tagNr; }
+  virtual Frame::TagNumber tagNumber() const override { return m_tagNr; }
 
   /**
    * Set the tag number of the edited frame.
    * @param tagNr tag number
    */
-  virtual void setTagNumber(Frame::TagNumber tagNr) { m_tagNr = tagNr; }
+  virtual void setTagNumber(Frame::TagNumber tagNr) override { m_tagNr = tagNr; }
 
   // End of IFrameEditor implementation
 

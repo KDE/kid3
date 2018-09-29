@@ -49,14 +49,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistModel();
+  virtual ~PlaylistModel() override;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Set data for a given role.
@@ -66,7 +66,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role=Qt::EditRole);
+                       int role=Qt::EditRole) override;
 
   /**
    * Get number of rows.
@@ -74,7 +74,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const;
+  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -82,7 +82,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const;
+  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Insert rows.
@@ -93,7 +93,7 @@ public:
    * @return true if successful
    */
   virtual bool insertRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex());
+                          const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Remove rows.
@@ -103,7 +103,7 @@ public:
    * @return true if successful
    */
   virtual bool removeRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex());
+                          const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Get model index of item.
@@ -113,34 +113,34 @@ public:
    * @return model index of item
    */
   virtual QModelIndex index(int row, int column,
-                            const QModelIndex& parent=QModelIndex()) const;
+                            const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Get parent of item.
    * @param child model index of item
    * @return model index of parent item
    */
-  virtual QModelIndex parent(const QModelIndex& child) const;
+  virtual QModelIndex parent(const QModelIndex& child) const override;
 
   /**
    * Map from index in proxy model to model index.
    * @param proxyIndex index in proxy model
    * @return index in source model.
    */
-  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const;
+  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const override;
 
   /**
    * Map from model index to index in proxy model.
    * @param sourceIndex index in source model
    * @return index in proxy model.
    */
-  virtual QModelIndex mapFromSource(const QModelIndex& sourceIndex) const;
+  virtual QModelIndex mapFromSource(const QModelIndex& sourceIndex) const override;
 
   /**
    * Get supported drop actions.
    * @return supported drop actions.
    */
-  virtual Qt::DropActions supportedDropActions() const;
+  virtual Qt::DropActions supportedDropActions() const override;
 
   /**
    * Get name of playlist file.

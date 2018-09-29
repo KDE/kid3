@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ProgressWidget();
+  virtual ~ProgressWidget() override;
 
   /**
    * Set title.

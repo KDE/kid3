@@ -53,7 +53,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractListEdit();
+  virtual ~AbstractListEdit() override;
 
   /**
    * Disable editing of items.

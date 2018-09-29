@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourceListEdit();
+  virtual ~BatchImportSourceListEdit() override;
 
   /**
    * Set names of import servers.
@@ -74,12 +74,12 @@ public slots:
   /**
    * Add a new item.
    */
-  virtual void addItem();
+  virtual void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem();
+  virtual void editItem() override;
 
 private:
   QTableView* m_tableView;

@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackNumberValidator();
+  virtual ~TrackNumberValidator() override;
 
   /**
    * Validate input string.
@@ -52,13 +52,13 @@ public:
    * @param pos current position
    * @return current state of input (Invalid, Intermediate or Acceptable).
    */
-  virtual QValidator::State validate(QString& input, int& pos) const;
+  virtual QValidator::State validate(QString& input, int& pos) const override;
 
   /**
    * Attempt to change @a input to be valid.
    * @param input input string
    */
-  virtual void fixup(QString& input) const;
+  virtual void fixup(QString& input) const override;
 };
 
 #endif // TRACKNUMBERVALIDATOR_H

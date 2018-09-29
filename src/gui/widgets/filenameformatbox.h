@@ -48,21 +48,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilenameFormatBox();
+  virtual ~FilenameFormatBox() override;
 
   /**
    * Set the values from a format configuration.
    *
    * @param cfg format configuration
    */
-  virtual void fromFormatConfig(const FormatConfig& cfg);
+  virtual void fromFormatConfig(const FormatConfig& cfg) override;
 
   /**
    * Store the values in a format configuration.
    *
    * @param cfg format configuration
    */
-  virtual void toFormatConfig(FormatConfig& cfg) const;
+  virtual void toFormatConfig(FormatConfig& cfg) const override;
 
 private:
   QCheckBox* m_maximumLengthCheckBox;

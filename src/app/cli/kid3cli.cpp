@@ -44,11 +44,11 @@
 class Kid3CliCompleter : public ReadlineCompleter {
 public:
   explicit Kid3CliCompleter(const QList<CliCommand*>& cmds);
-  virtual ~Kid3CliCompleter();
+  virtual ~Kid3CliCompleter() override;
 
-  virtual QList<QByteArray> getCommandList() const;
-  virtual QList<QByteArray> getParameterList() const;
-  virtual bool updateParameterList(const char* buffer);
+  virtual QList<QByteArray> getCommandList() const override;
+  virtual QList<QByteArray> getParameterList() const override;
+  virtual bool updateParameterList(const char* buffer) override;
 
 private:
   const QList<CliCommand*>& m_cmds;

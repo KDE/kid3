@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractFingerprintDecoder() = 0;
+  virtual ~AbstractFingerprintDecoder() override = 0;
 
   /**
    * Run decoder on audio file.

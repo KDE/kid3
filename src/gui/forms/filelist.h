@@ -53,13 +53,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileList();
+  virtual ~FileList() override;
 
   /**
    * Returns the recommended size for the widget.
    * @return recommended size.
    */
-  virtual QSize sizeHint() const;
+  virtual QSize sizeHint() const override;
 
   /**
    * Set rename action.
@@ -78,7 +78,7 @@ protected:
    * Enable dragging if the item is pressed at the left icon side.
    * @param event mouse event
    */
-  virtual void mousePressEvent(QMouseEvent* event);
+  virtual void mousePressEvent(QMouseEvent* event) override;
 
   /**
    * Called when a drag operation is started.
@@ -86,7 +86,7 @@ protected:
    * application, which would not be able to open them on Windows.
    * @param supportedActions drop actions
    */
-  virtual void startDrag(Qt::DropActions supportedActions);
+  virtual void startDrag(Qt::DropActions supportedActions) override;
 
 public slots:
   /**

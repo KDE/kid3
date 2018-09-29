@@ -61,7 +61,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AudioPlayer();
+  virtual ~AudioPlayer() override;
 
   /**
    * Set files to be played.

@@ -54,42 +54,42 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzClient();
+  virtual ~MusicBrainzClient() override;
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const;
+  virtual const char* name() const override;
 
   /** NULL-terminated array of server strings, 0 if not used */
-  virtual const char** serverList() const;
+  virtual const char** serverList() const override;
 
   /** default server, 0 to disable */
-  virtual const char* defaultServer() const;
+  virtual const char* defaultServer() const override;
 
   /** anchor to online help, 0 to disable */
-  virtual const char* helpAnchor() const;
+  virtual const char* helpAnchor() const override;
 
   /** configuration, 0 if not used */
-  virtual ServerImporterConfig* config() const;
+  virtual ServerImporterConfig* config() const override;
 
   /**
    * Set configuration.
    *
    * @param cfg import server configuration, 0 if not used
    */
-  virtual void setConfig(const ServerImporterConfig* cfg);
+  virtual void setConfig(const ServerImporterConfig* cfg) override;
 
   /**
    * Add the files in the file list.
    */
-  virtual void start();
+  virtual void start() override;
 
   /**
    * Reset the client state.
    */
-  virtual void stop();
+  virtual void stop() override;
 
 signals:
   /**

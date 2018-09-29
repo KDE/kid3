@@ -81,7 +81,7 @@ public:
   /**
    * Destructor.
    */
-  ~ImportDialog();
+  virtual ~ImportDialog() override;
 
   /**
    * Shows the dialog as a modeless dialog.

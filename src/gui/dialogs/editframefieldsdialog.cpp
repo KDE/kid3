@@ -66,7 +66,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledTextEdit();
+  virtual ~LabeledTextEdit() override;
 
   /**
    * Get text.
@@ -121,7 +121,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledLineEdit();
+  virtual ~LabeledLineEdit() override;
 
   /**
    * Get text.
@@ -166,7 +166,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledComboBox();
+  virtual ~LabeledComboBox() override;
 
   /**
    * Get index of selected item.
@@ -214,7 +214,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledSpinBox();
+  virtual ~LabeledSpinBox() override;
 
   /**
    * Get value.
@@ -373,7 +373,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Mp3FieldControl();
+  virtual ~Mp3FieldControl() override;
 
 protected:
   /** field */
@@ -400,12 +400,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextFieldControl() {}
+  virtual ~TextFieldControl() override {}
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -414,7 +414,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Text editor widget */
@@ -434,12 +434,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LineFieldControl() {}
+  virtual ~LineFieldControl() override {}
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -448,7 +448,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Line editor widget */
@@ -468,12 +468,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IntFieldControl() {}
+  virtual ~IntFieldControl() override {}
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -482,7 +482,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Spin box widget */
@@ -504,12 +504,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IntComboBoxControl() {}
+  virtual ~IntComboBoxControl() override {}
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -518,7 +518,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Combo box widget */
@@ -547,12 +547,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BinFieldControl() {}
+  virtual ~BinFieldControl() override {}
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -561,7 +561,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Platform dependent tools */
@@ -600,12 +600,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventFieldControl();
+  virtual ~TimeEventFieldControl() override;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -614,7 +614,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Platform dependent tools */
@@ -649,12 +649,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SubframeFieldControl();
+  virtual ~SubframeFieldControl() override;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -663,7 +663,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
   IPlatformTools* m_platformTools;
@@ -688,12 +688,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ChapterFieldControl();
+  virtual ~ChapterFieldControl() override;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -702,7 +702,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
   ChapterEditor* m_editor;
@@ -720,12 +720,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableOfContentsFieldControl();
+  virtual ~TableOfContentsFieldControl() override;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag();
+  virtual void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -734,7 +734,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent);
+  virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
   TableOfContentsEditor* m_editor;

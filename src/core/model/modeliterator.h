@@ -210,19 +210,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const { return m_nextFile != 0; }
+  virtual bool hasNext() const override { return m_nextFile != 0; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next();
+  virtual TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const { return m_nextFile; }
+  virtual TaggedFile* peekNext() const override { return m_nextFile; }
 
   /**
    * Try to close the file handles.
@@ -268,19 +268,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const { return m_nextFile != 0; }
+  virtual bool hasNext() const override { return m_nextFile != 0; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next();
+  virtual TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const { return m_nextFile; }
+  virtual TaggedFile* peekNext() const override { return m_nextFile; }
 
   /**
    * Check if nothing is selected.
@@ -322,19 +322,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const;
+  virtual bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next();
+  virtual TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const;
+  virtual TaggedFile* peekNext() const override;
 
   /**
    * Get first tagged file in directory.
@@ -384,19 +384,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const;
+  virtual bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next();
+  virtual TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const;
+  virtual TaggedFile* peekNext() const override;
 
 private:
   int m_row;
@@ -436,19 +436,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const;
+  virtual bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next();
+  virtual TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const;
+  virtual TaggedFile* peekNext() const override;
 
 private:
   /**

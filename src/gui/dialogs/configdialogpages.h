@@ -68,7 +68,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigDialogPages();
+  virtual ~ConfigDialogPages() override;
 
   /**
    * Create page with tags settings.

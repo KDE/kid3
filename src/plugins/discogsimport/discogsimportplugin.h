@@ -48,13 +48,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsImportPlugin();
+  virtual ~DiscogsImportPlugin() override;
 
   /**
    * Get keys of available server importers.
    * @return list of keys.
    */
-  virtual QStringList serverImporterKeys() const;
+  virtual QStringList serverImporterKeys() const override;
 
   /**
    * Create server importer.
@@ -66,7 +66,7 @@ public:
    */
   virtual ServerImporter* createServerImporter(
       const QString& key,
-      QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel);
+      QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };
 
 #endif // DISCOGSIMPORTPLUGIN_H

@@ -61,12 +61,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Cli();
+  virtual ~Kid3Cli() override;
 
   /**
    * Execute process.
    */
-  virtual void execute();
+  virtual void execute() override;
 
   /**
    * Access to application.
@@ -159,7 +159,7 @@ protected:
    * Process command line.
    * @param line command line
    */
-  virtual void readLine(const QString& line);
+  virtual void readLine(const QString& line) override;
 
 private slots:
   /**

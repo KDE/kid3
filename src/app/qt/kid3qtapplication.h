@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3QtApplication();
+  virtual ~Kid3QtApplication() override;
 
   /**
    * Called when session manager wants application to commit all its data.
@@ -60,7 +60,7 @@ public:
    * @param event event
    * @return return value from receiver's event handler.
    */
-  virtual bool notify(QObject* receiver, QEvent* event);
+  virtual bool notify(QObject* receiver, QEvent* event) override;
 
 signals:
   /**
@@ -75,5 +75,5 @@ protected:
    * @param e event
    * @return true if event handled.
    */
-  virtual bool event(QEvent* e);
+  virtual bool event(QEvent* e) override;
 };

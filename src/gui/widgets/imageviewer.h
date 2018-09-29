@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ImageViewer() {}
+  virtual ~ImageViewer() override {}
 
 private:
   /** image to view */

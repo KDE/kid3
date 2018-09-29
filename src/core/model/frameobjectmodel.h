@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameObjectModel();
+  virtual ~FrameObjectModel() override;
 
   /**
    * Get frame name.
@@ -141,7 +141,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameFieldObject();
+  virtual ~FrameFieldObject() override;
 
   /**
    * Get field name.

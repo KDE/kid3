@@ -1208,7 +1208,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameFormatReplacer();
+  virtual ~FrameFormatReplacer() override;
 
   /**
    * Get help text for supported format codes.
@@ -1238,7 +1238,7 @@ protected:
    * @return replacement string,
    *         QString::null if code not found.
    */
-  virtual QString getReplacement(const QString& code) const;
+  virtual QString getReplacement(const QString& code) const override;
 
 private:
   const FrameCollection& m_frames;

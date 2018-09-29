@@ -246,18 +246,18 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagSearcher();
+  virtual ~TagSearcher() override;
 
   /**
    * Clear abort flag.
    */
-  virtual void clearAborted();
+  virtual void clearAborted() override;
 
   /**
    * Check if dialog was aborted.
    * @return true if aborted.
    */
-  virtual bool isAborted() const;
+  virtual bool isAborted() const override;
 
   /**
    * Set model of files to be searched.
@@ -288,7 +288,7 @@ public slots:
    * Stop current search, so that the next call to findNext() will use the
    * index set with setStartIndex().
    */
-  virtual void abort();
+  virtual void abort() override;
 
   /**
    * Find next occurrence of string.

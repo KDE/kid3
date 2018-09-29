@@ -41,7 +41,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IPlatformTools();
+  virtual ~IPlatformTools() override;
 
   /**
    * Display help for a topic.

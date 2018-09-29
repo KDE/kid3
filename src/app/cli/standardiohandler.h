@@ -45,24 +45,24 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StandardIOHandler();
+  virtual ~StandardIOHandler() override;
 
   /**
    * Write a line to standard output.
    * @param line line to write
    */
-  virtual void writeLine(const QString& line);
+  virtual void writeLine(const QString& line) override;
 
   /**
    * Write a line to standard error.
    * @param line line to write
    */
-  virtual void writeErrorLine(const QString& line);
+  virtual void writeErrorLine(const QString& line) override;
 
   /**
    * Flush the standard output.
    */
-  virtual void flushStandardOutput();
+  virtual void flushStandardOutput() override;
 
   /**
    * Read the next line.
@@ -70,7 +70,7 @@ public:
    * input in the read thread.
    * When the line is ready, lineReady() is emitted.
    */
-  virtual void readLine();
+  virtual void readLine() override;
 
 public slots:
   /**
@@ -78,13 +78,13 @@ public slots:
    * This will start a read thread. lineReady() is emitted when the first
    * line is ready. To request subsequent lines, readLine() has to be called.
    */
-  virtual void start();
+  virtual void start() override;
 
   /**
    * Stop processing.
    * This will stop the read thread and finally delete this object.
    */
-  virtual void stop();
+  virtual void stop() override;
 
 private slots:
   /**

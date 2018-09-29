@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportDialog();
+  virtual ~BatchImportDialog() override;
 
   /**
    * Read the local settings from the configuration.

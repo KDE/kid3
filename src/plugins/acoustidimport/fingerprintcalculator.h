@@ -59,7 +59,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FingerprintCalculator();
+  virtual ~FingerprintCalculator() override;
 
   /**
    * Calculate audio fingerprint for audio file.

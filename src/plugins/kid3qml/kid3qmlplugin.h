@@ -52,20 +52,20 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3QmlPlugin();
+  virtual ~Kid3QmlPlugin() override;
 
   /**
    * Register the types used by the QML plugin.
    * @param uri URI of imported module, must be "Kid3"
    */
-  virtual void registerTypes(const char* uri);
+  virtual void registerTypes(const char* uri) override;
 
   /**
    * Initialize the QML engine when the plugin is imported.
    * @param engine QML engine
    * @param uri URI of imported module, must be "Kid3"
    */
-  virtual void initializeEngine(QQmlEngine* engine, const char* uri);
+  virtual void initializeEngine(QQmlEngine* engine, const char* uri) override;
 
 private:
   ICorePlatformTools* m_platformTools;

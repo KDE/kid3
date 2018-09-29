@@ -50,19 +50,19 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DirRenamer();
+  virtual ~DirRenamer() override;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const;
+  virtual bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted();
+  virtual void clearAborted() override;
 
   /**
    * Set version of tags used to get rename information.
@@ -141,7 +141,7 @@ public slots:
   /**
    * Abort operation.
    */
-  virtual void abort();
+  virtual void abort() override;
 
 signals:
   /**

@@ -58,7 +58,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~OutputViewer();
+    virtual ~OutputViewer() override;
 
     /**
      * Append text.
@@ -86,7 +86,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ExternalProcess();
+  virtual ~ExternalProcess() override;
 
   /**
    * Launch a command.

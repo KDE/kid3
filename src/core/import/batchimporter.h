@@ -70,19 +70,19 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImporter();
+  virtual ~BatchImporter() override;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const;
+  virtual bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted();
+  virtual void clearAborted() override;
 
   /**
    * Set importers.
@@ -135,7 +135,7 @@ public slots:
   /**
    * Abort batch import.
    */
-  virtual void abort();
+  virtual void abort() override;
 
 private slots:
   void onFindFinished(const QByteArray& searchStr);

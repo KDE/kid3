@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  ~BrowserDialog();
+  virtual ~BrowserDialog() override;
 
   /**
    * Show context help.

@@ -68,14 +68,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameTableModel();
+  virtual ~FrameTableModel() override;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -84,7 +84,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role=Qt::DisplayRole) const;
+                        int role=Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -94,7 +94,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role=Qt::EditRole);
+                       int role=Qt::EditRole) override;
 
   /**
    * Get data for header section.
@@ -104,7 +104,7 @@ public:
    * @return header data for role
    */
   virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role=Qt::DisplayRole) const;
+                              int role=Qt::DisplayRole) const override;
 
   /**
    * Set data for header section.
@@ -112,7 +112,7 @@ public:
    * @return false
    */
   virtual bool setHeaderData(int, Qt::Orientation, const QVariant&,
-                             int=Qt::EditRole) { return false; }
+                             int=Qt::EditRole) override { return false; }
 
   /**
    * Get number of rows.
@@ -120,7 +120,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const;
+  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -128,7 +128,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const;
+  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const override;
 
   /**
    * Remove rows.
@@ -138,7 +138,7 @@ public:
    * @return true if successful
    */
   virtual bool removeRows(int row, int count,
-                          const QModelIndex& parent=QModelIndex());
+                          const QModelIndex& parent=QModelIndex()) override;
 
   /**
    * Insert rows.
@@ -149,13 +149,13 @@ public:
    * @return true if successful
    */
   virtual bool insertRows(int row, int count,
-                          const QModelIndex& parent=QModelIndex());
+                          const QModelIndex& parent=QModelIndex()) override;
 
   /**
    * Map role identifiers to role property names in scripting languages.
    * @return hash mapping role identifiers to names.
    */
-  virtual QHash<int,QByteArray> roleNames() const;
+  virtual QHash<int,QByteArray> roleNames() const override;
 
   /**
    * Insert a frame.

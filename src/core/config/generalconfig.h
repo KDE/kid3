@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GeneralConfig();
+  virtual ~GeneralConfig() override;
 
   /**
    * Persist configuration.

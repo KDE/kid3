@@ -92,7 +92,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DateTimeValidator();
+  virtual ~DateTimeValidator() override;
 
   /**
    * Validate input string.
@@ -100,13 +100,13 @@ public:
    * @param pos current position in input string
    * @return validation state.
    */
-  virtual State validate(QString& input, int& pos) const;
+  virtual State validate(QString& input, int& pos) const override;
 
   /**
    * Attempt to change input string to be valid.
    * @param input input string
    */
-  virtual void fixup(QString& input) const;
+  virtual void fixup(QString& input) const override;
 
 private:
   const QRegExp m_re;

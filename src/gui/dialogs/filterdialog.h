@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  ~FilterDialog();
+  virtual ~FilterDialog() override;
 
   /**
    * Read the local settings from the configuration.

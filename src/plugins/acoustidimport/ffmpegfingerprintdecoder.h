@@ -43,13 +43,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FFmpegFingerprintDecoder();
+  virtual ~FFmpegFingerprintDecoder() override;
 
   /**
    * Run decoder on audio file.
    * @param filePath path to audio file
    */
-  virtual void start(const QString& filePath);
+  virtual void start(const QString& filePath) override;
 
 private:
   qint16* m_buffer1;

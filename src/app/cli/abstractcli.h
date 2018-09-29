@@ -38,7 +38,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCliIO();
+  virtual ~AbstractCliIO() override;
 
   /**
    * Write a line to standard output.
@@ -102,7 +102,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCli();
+  virtual ~AbstractCli() override;
 
   /**
    * Write a line to standard output.
