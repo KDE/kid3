@@ -38,7 +38,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit ComboBoxDelegate(QObject* parent = 0);
+  explicit ComboBoxDelegate(QObject* parent = nullptr);
 
   /**
    * Destructor.

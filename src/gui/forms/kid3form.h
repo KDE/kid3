@@ -66,7 +66,7 @@ public:
    * @param parent parent widget
    */
   Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
-           QWidget* parent = 0);
+           QWidget* parent = nullptr);
 
   /**
    * Destructor.

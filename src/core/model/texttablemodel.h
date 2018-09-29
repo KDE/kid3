@@ -41,7 +41,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit TextTableModel(QObject* parent = 0);
+  explicit TextTableModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

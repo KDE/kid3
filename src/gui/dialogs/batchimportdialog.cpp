@@ -55,7 +55,7 @@ public:
    * @param parent parent widget
    */
   explicit BatchImportSourceListEdit(BatchImportSourcesModel* model,
-                                     QWidget* parent = 0);
+                                     QWidget* parent = nullptr);
 
   /**
    * Destructor.

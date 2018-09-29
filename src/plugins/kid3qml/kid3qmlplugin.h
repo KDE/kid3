@@ -47,7 +47,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit Kid3QmlPlugin(QObject* parent = 0);
+  explicit Kid3QmlPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

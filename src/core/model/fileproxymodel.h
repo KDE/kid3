@@ -59,7 +59,7 @@ public:
    *
    * @param parent parent object
    */
-  explicit FileProxyModel(QObject* parent = 0);
+  explicit FileProxyModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

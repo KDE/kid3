@@ -476,7 +476,7 @@ public:
    *
    * @return number, 0 if parsing failed, -1 if str is null
    */
-  static int splitNumberAndTotal(const QString& str, int* total=0);
+  static int splitNumberAndTotal(const QString& str, int* total=nullptr);
 
   /**
    * Get access and modification time of file.

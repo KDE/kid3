@@ -46,7 +46,7 @@ public:
    */
   ProxyItemSelectionModel(QAbstractItemModel* proxyModel,
                           QItemSelectionModel* sourceSelectionModel,
-                          QObject* parent = 0);
+                          QObject* parent = nullptr);
 
   virtual ~ProxyItemSelectionModel() override;
 

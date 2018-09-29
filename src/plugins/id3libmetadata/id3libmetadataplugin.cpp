@@ -112,7 +112,7 @@ TaggedFile* Id3libMetadataPlugin::createTaggedFile(
       return new Mp3File(idx);
     }
   }
-  return 0;
+  return nullptr;
 }
 
 /**

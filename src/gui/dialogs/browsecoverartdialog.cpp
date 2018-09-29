@@ -72,7 +72,7 @@ static QString getToolTip()
  */
 BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
                                            QWidget* parent) :
-  QDialog(parent), m_app(app), m_process(0)
+  QDialog(parent), m_app(app), m_process(nullptr)
 {
   setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);

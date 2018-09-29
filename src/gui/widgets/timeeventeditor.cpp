@@ -55,7 +55,7 @@
 class TimeEventTableView : public QTableView {
 public:
   /** Constructor. */
-  TimeEventTableView(QWidget* parent = 0) : QTableView(parent) {}
+  TimeEventTableView(QWidget* parent = nullptr) : QTableView(parent) {}
   /** Destructor. */
   virtual ~TimeEventTableView() override {}
 
@@ -97,8 +97,8 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
                                  const TaggedFile* taggedFile,
                                  Frame::TagNumber tagNr) :
   QWidget(parent),
-  m_platformTools(platformTools), m_app(app), m_eventCodeDelegate(0),
-  m_model(0), m_taggedFile(taggedFile), m_tagNr(tagNr),
+  m_platformTools(platformTools), m_app(app), m_eventCodeDelegate(nullptr),
+  m_model(nullptr), m_taggedFile(taggedFile), m_tagNr(tagNr),
   m_byteArray(field.m_value.toByteArray()), m_fileIsPlayed(false)
 {
   setObjectName(QLatin1String("TimeEventEditor"));
@@ -168,7 +168,7 @@ void TimeEventEditor::showEvent(QShowEvent* event)
 void TimeEventEditor::hideEvent(QHideEvent* event)
 {
   AudioPlayer* player = m_app->getAudioPlayer();
-  disconnect(player, 0, this, 0);
+  disconnect(player, nullptr, this, nullptr);
   m_fileIsPlayed = false;
   QWidget::hideEvent(event);
 }
@@ -188,7 +188,7 @@ void TimeEventEditor::setModel(TimeEventModel* model)
     m_tableView->setItemDelegateForColumn(1, m_eventCodeDelegate);
   } else {
     m_label->setText(tr("Lyrics"));
-    m_tableView->setItemDelegateForColumn(1, 0);
+    m_tableView->setItemDelegateForColumn(1, nullptr);
   }
   m_tableView->setModel(m_model);
 }
@@ -272,7 +272,7 @@ void TimeEventEditor::importData()
     return;
 
   QString loadFileName = m_platformTools->getOpenFileName(this, QString(),
-        m_taggedFile->getDirname(), getLrcNameFilter(), 0);
+        m_taggedFile->getDirname(), getLrcNameFilter(), nullptr);
   if (!loadFileName.isEmpty()) {
     QFile file(loadFileName);
     if (file.open(QIODevice::ReadOnly)) {
@@ -298,7 +298,7 @@ void TimeEventEditor::exportData()
   }
   suggestedFileName += QLatin1String(".lrc");
   QString saveFileName = m_platformTools->getSaveFileName(
-        this, QString(), suggestedFileName, getLrcNameFilter(), 0);
+        this, QString(), suggestedFileName, getLrcNameFilter(), nullptr);
   if (!saveFileName.isEmpty()) {
     QFile file(saveFileName);
     if (file.open(QIODevice::WriteOnly)) {

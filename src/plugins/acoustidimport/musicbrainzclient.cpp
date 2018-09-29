@@ -207,12 +207,12 @@ const char* MusicBrainzClient::name() const {
 /** NULL-terminated array of server strings, 0 if not used */
 const char** MusicBrainzClient::serverList() const
 {
-  return 0;
+  return nullptr;
 }
 
 /** default server, 0 to disable */
 const char* MusicBrainzClient::defaultServer() const {
-  return 0;
+  return nullptr;
 }
 
 /** anchor to online help, 0 to disable */
@@ -222,7 +222,7 @@ const char* MusicBrainzClient::helpAnchor() const {
 
 /** configuration, 0 if not used */
 ServerImporterConfig* MusicBrainzClient::config() const {
-  return 0;
+  return nullptr;
 }
 
 /**

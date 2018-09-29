@@ -395,7 +395,7 @@ public:
    * @param field field to edit
    */
   TextFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_edit(0) {}
+    Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
@@ -429,7 +429,7 @@ public:
    * @param field field to edit
    */
   LineFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_edit(0) {}
+    Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
@@ -463,7 +463,7 @@ public:
    * @param field field to edit
    */
   IntFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_numInp(0) {}
+    Mp3FieldControl(field), m_numInp(nullptr) {}
 
   /**
    * Destructor.
@@ -499,7 +499,7 @@ public:
    */
   IntComboBoxControl(Frame::Field& field,
                      const char* const* lst) :
-    Mp3FieldControl(field), m_ptInp(0), m_strLst(lst) {}
+    Mp3FieldControl(field), m_ptInp(nullptr), m_strLst(lst) {}
 
   /**
    * Destructor.
@@ -542,7 +542,7 @@ public:
                   Frame::Field& field,
                   const Frame& frame, const TaggedFile* taggedFile) :
     Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-    m_bos(0), m_frame(frame), m_taggedFile(taggedFile) {}
+    m_bos(nullptr), m_frame(frame), m_taggedFile(taggedFile) {}
 
   /**
    * Destructor.
@@ -818,7 +818,7 @@ void BinaryOpenSave::loadData()
 {
   QString loadfilename = m_platformTools->getOpenFileName(this, QString(),
         m_defaultDir.isEmpty() ? m_app->getDirName() : m_defaultDir,
-        m_filter, 0);
+        m_filter, nullptr);
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
@@ -860,7 +860,7 @@ void BinaryOpenSave::saveData()
     dir += suffix;
   }
   QString fn = m_platformTools->getSaveFileName(
-        this, QString(), dir, m_filter, 0);
+        this, QString(), dir, m_filter, nullptr);
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
@@ -922,8 +922,8 @@ void TextFieldControl::updateTag()
 QWidget* TextFieldControl::createWidget(QWidget* parent)
 {
   m_edit = new LabeledTextEdit(parent);
-  if (m_edit == NULL)
-    return NULL;
+  if (m_edit == nullptr)
+    return nullptr;
 
   m_edit->setLabel(Frame::Field::getFieldIdName(
                      static_cast<Frame::FieldId>(m_field.m_id)));
@@ -1056,7 +1056,7 @@ TimeEventFieldControl::TimeEventFieldControl(
     Frame::TagNumber tagNr, TimeEventModel::Type type) :
   Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
   m_fields(fields), m_taggedFile(taggedFile), m_tagNr(tagNr),
-  m_model(new TimeEventModel(this)), m_editor(0)
+  m_model(new TimeEventModel(this)), m_editor(nullptr)
 {
   m_model->setType(type);
   if (type == TimeEventModel::EventTimingCodes) {
@@ -1108,7 +1108,7 @@ SubframeFieldControl::SubframeFieldControl(
     Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
   Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
   m_taggedFile(taggedFile), m_tagNr(tagNr), m_fields(fields),
-  m_begin(begin), m_end(end), m_editor(0)
+  m_begin(begin), m_end(end), m_editor(nullptr)
 {
 }
 
@@ -1160,7 +1160,7 @@ QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
  * @param field field to edit
  */
 ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(0)
+  Mp3FieldControl(field), m_editor(nullptr)
 {
 }
 
@@ -1207,7 +1207,7 @@ QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
  * @param field field to edit
  */
 TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(0)
+  Mp3FieldControl(field), m_editor(nullptr)
 {
 }
 

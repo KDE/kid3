@@ -41,7 +41,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit BatchImportSourcesModel(QObject* parent = 0);
+  explicit BatchImportSourcesModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

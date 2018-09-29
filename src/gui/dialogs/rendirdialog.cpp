@@ -49,7 +49,7 @@
  * @param dirRenamer directory renamer
  */
 RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
-  QWizard(parent), m_taggedFile(0), m_dirRenamer(dirRenamer)
+  QWizard(parent), m_taggedFile(nullptr), m_dirRenamer(dirRenamer)
 {
   setObjectName(QLatin1String("RenDirDialog"));
   setModal(true);

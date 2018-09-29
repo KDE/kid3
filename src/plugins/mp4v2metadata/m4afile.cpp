@@ -414,7 +414,7 @@ void M4aFile::readTags(bool force)
     if (list) {
       for (uint32_t i = 0; i < list->size; ++i) {
         MP4ItmfItem& item = list->elements[i];
-        const char* key = 0;
+        const char* key = nullptr;
         if (memcmp(item.code, "----", 4) == 0) {
           // free form tagfield
           if (item.name) {

@@ -38,7 +38,7 @@ TestServerImporterBase::TestServerImporterBase(QObject* parent) :
   QObject(parent),
   m_netMgr(new QNetworkAccessManager(this)),
   m_trackDataModel(new TrackDataModel(this)),
-  m_importer(0), m_settings(0), m_configStore(0)
+  m_importer(nullptr), m_settings(nullptr), m_configStore(nullptr)
 {
   if (!ConfigStore::instance()) {
     m_settings = new DummySettings;
@@ -84,7 +84,7 @@ void TestServerImporterBase::setServerImporter(ServerImporter* importer)
 
 void TestServerImporterBase::setServerImporter(const QString& key)
 {
-  ServerImporter* serverImporter = 0;
+  ServerImporter* serverImporter = nullptr;
   QObjectList plugins = Kid3Application::loadPlugins();
   foreach (QObject* plugin, plugins) {
     if (IServerImporterFactory* importerFactory =
@@ -96,7 +96,7 @@ void TestServerImporterBase::setServerImporter(const QString& key)
       }
     }
   }
-  QVERIFY(serverImporter != 0);
+  QVERIFY(serverImporter != nullptr);
   setServerImporter(serverImporter);
 }
 

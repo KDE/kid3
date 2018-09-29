@@ -41,7 +41,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit CheckableStringListModel(QObject* parent = 0);
+  explicit CheckableStringListModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

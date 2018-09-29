@@ -76,7 +76,7 @@ public:
    * elements
    * @param parent parent object
    */
-  TaggedFileSelection(FrameTableModel* framesModel[], QObject* parent = 0);
+  TaggedFileSelection(FrameTableModel* framesModel[], QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -231,7 +231,7 @@ signals:
 
 private:
   struct State {
-    State() : m_singleFile(0), m_fileCount(0) {
+    State() : m_singleFile(nullptr), m_fileCount(0) {
       FOR_ALL_TAGS(tagNr) {
         m_tagSupportedCount[tagNr] = 0;
         m_hasTag[tagNr] = false;
@@ -241,7 +241,7 @@ private:
     TaggedFile* singleFile() const { return m_singleFile; }
     bool isEmpty() const { return m_fileCount == 0; }
     bool hasTag(Frame::TagNumber tagNr) const { return m_hasTag[tagNr]; }
-    bool isSingleFileSelected() const { return m_singleFile != 0; }
+    bool isSingleFileSelected() const { return m_singleFile != nullptr; }
     bool isTagUsed(Frame::TagNumber tagNr) const { return m_tagSupportedCount[tagNr] > 0; }
 
     /** If a single file is selected, this tagged file, else 0 */

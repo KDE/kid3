@@ -40,7 +40,7 @@
  */
 FrameList::FrameList(Frame::TagNumber tagNr,
                      FrameTableModel* ftm, QItemSelectionModel* selModel) :
-  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(0), m_frameEditor(0),
+  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(nullptr), m_frameEditor(nullptr),
   m_frameTableModel(ftm), m_selectionModel(selModel),
   m_cursorRow(-1), m_cursorColumn(-1), m_tagNr(tagNr), m_addingFrame(false)
 {
@@ -205,7 +205,7 @@ void FrameList::selectAddAndEditFrame()
     m_frameEditor->setTagNumber(m_tagNr);
     m_frameEditor->selectFrame(&m_frame, m_taggedFile);
   } else {
-    emit frameAdded(0);
+    emit frameAdded(nullptr);
   }
 }
 
@@ -222,7 +222,7 @@ void FrameList::onFrameSelected(Frame::TagNumber tagNr, const Frame* frame)
   if (frame) {
     addAndEditFrame();
   } else {
-    emit frameAdded(0);
+    emit frameAdded(nullptr);
   }
 }
 
@@ -235,7 +235,7 @@ void FrameList::addAndEditFrame()
   if (m_taggedFile) {
     m_oldChangedFrames = m_taggedFile->getChangedFrames(m_tagNr);
     if (!m_taggedFile->addFrame(m_tagNr, m_frame)) {
-      emit frameAdded(0);
+      emit frameAdded(nullptr);
     } else if (m_frameEditor) {
       m_addingFrame = true;
       m_frameEditor->setTagNumber(m_tagNr);
@@ -245,7 +245,7 @@ void FrameList::addAndEditFrame()
       onFrameEdited(m_tagNr, &m_frame);
     }
   } else {
-    emit frameAdded(0);
+    emit frameAdded(nullptr);
   }
 }
 

@@ -45,7 +45,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit SignalEmissionDumper(QObject* parent = 0);
+  explicit SignalEmissionDumper(QObject* parent = nullptr);
 
   /**
    * Destructor.

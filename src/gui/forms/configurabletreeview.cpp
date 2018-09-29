@@ -34,7 +34,7 @@
  * @param parent parent widget
  */
 ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
-  m_columnVisibility(0xffffffff), m_oldModel(0), m_oldSelectionModel(0)
+  m_columnVisibility(0xffffffff), m_oldModel(nullptr), m_oldSelectionModel(nullptr)
 {
   QHeaderView* headerView = header();
   setSortingEnabled(true);
@@ -160,7 +160,7 @@ void ConfigurableTreeView::disconnectModel()
     m_oldRootIndex = rootIndex();
     m_oldSelectionModel = selectionModel();
     m_oldModel = model();
-    setModel(0);
+    setModel(nullptr);
   }
 }
 
@@ -177,7 +177,7 @@ void ConfigurableTreeView::reconnectModel()
     setRootIndex(QModelIndex());
     setRootIndex(m_oldRootIndex);
     m_oldRootIndex = QPersistentModelIndex();
-    m_oldSelectionModel = 0;
-    m_oldModel = 0;
+    m_oldSelectionModel = nullptr;
+    m_oldModel = nullptr;
   }
 }

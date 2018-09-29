@@ -47,8 +47,8 @@
  * @param parent  parent widget
  */
 ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
-    m_serverComboBox(0), m_cgiLineEdit(0), m_standardTagsCheckBox(0),
-    m_additionalTagsCheckBox(0), m_coverArtCheckBox(0), m_source(0)
+    m_serverComboBox(nullptr), m_cgiLineEdit(nullptr), m_standardTagsCheckBox(nullptr),
+    m_additionalTagsCheckBox(nullptr), m_coverArtCheckBox(nullptr), m_source(nullptr)
 {
   setObjectName(QLatin1String("ServerImportDialog"));
 
@@ -170,7 +170,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       }
       if (m_source->serverList()) {
         QStringList strList;
-        for (const char** sl = m_source->serverList(); *sl != 0; ++sl) {
+        for (const char** sl = m_source->serverList(); *sl != nullptr; ++sl) {
           strList += QString::fromLatin1(*sl);
         }
         m_serverComboBox->clear();

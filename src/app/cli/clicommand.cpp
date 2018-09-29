@@ -1070,7 +1070,7 @@ PlayCommand::PlayCommand(Kid3Cli* processor) :
 
 void PlayCommand::startCommand()
 {
-  AudioPlayer* player = 0;
+  AudioPlayer* player = nullptr;
   QString param;
   if (args().size() > 1) {
     param = args().at(1);

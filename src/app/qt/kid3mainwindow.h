@@ -49,7 +49,7 @@ public:
    * @param parent parent widget
    */
   explicit Kid3MainWindow(IPlatformTools* platformTools, Kid3Application* app,
-                          QWidget* parent = 0);
+                          QWidget* parent = nullptr);
 
   /**
    * Destructor.

@@ -38,7 +38,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit FFmpegFingerprintDecoder(QObject* parent = 0);
+  explicit FFmpegFingerprintDecoder(QObject* parent = nullptr);
 
   /**
    * Destructor.

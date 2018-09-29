@@ -109,7 +109,7 @@ TaggedFile* Mp4v2MetadataPlugin::createTaggedFile(
         ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v"))
       return new M4aFile(idx);
   }
-  return 0;
+  return nullptr;
 }
 
 /**

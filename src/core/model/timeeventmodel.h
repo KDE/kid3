@@ -73,7 +73,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit TimeEventModel(QObject* parent = 0);
+  explicit TimeEventModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

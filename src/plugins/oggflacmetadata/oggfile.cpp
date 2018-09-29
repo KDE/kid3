@@ -872,7 +872,7 @@ bool OggFile::readFileInfo(FileInfo& info, const QString& fn) const
   QFile fp(fn);
   if (fp.open(QIODevice::ReadOnly)) {
     OggVorbis_File vf;
-    if (::ov_open_callbacks(&fp, &vf, 0, 0, ovcb) == 0) {
+    if (::ov_open_callbacks(&fp, &vf, nullptr, 0, ovcb) == 0) {
       vorbis_info* vi = ::ov_info(&vf, -1);
       if (vi) {
         info.valid = true;

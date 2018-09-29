@@ -68,7 +68,7 @@ QHash<int,QByteArray> getRoleHash()
  * @param parent parent object
  */
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
-  m_iconProvider(new TaggedFileIconProvider), m_fsModel(0),
+  m_iconProvider(new TaggedFileIconProvider), m_fsModel(nullptr),
   m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
   m_numModifiedFiles(0), m_isLoading(false)
 {
@@ -337,7 +337,7 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
   QFileSystemModel* fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
-  Q_ASSERT_X(fsModel != 0 , "setSourceModel",
+  Q_ASSERT_X(fsModel != nullptr , "setSourceModel",
              "sourceModel is not QFileSystemModel");
   if (fsModel != m_fsModel) {
     if (m_fsModel) {
@@ -423,8 +423,8 @@ void FileProxyModel::fetchMore(const QModelIndex& parent)
  */
 void FileProxyModel::sort(int column, Qt::SortOrder order)
 {
-  QAbstractItemModel* srcModel = 0;
-  if (rowCount() > 0 && (srcModel = sourceModel()) != 0) {
+  QAbstractItemModel* srcModel = nullptr;
+  if (rowCount() > 0 && (srcModel = sourceModel()) != nullptr) {
     srcModel->sort(column, order);
   }
 }
@@ -655,7 +655,7 @@ void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
  */
 bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
                                           TaggedFile** taggedFile) {
-  if (!(index.isValid() && index.model() != 0))
+  if (!(index.isValid() && index.model() != nullptr))
     return false;
   QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
   if (!data.canConvert<TaggedFile*>())
@@ -673,11 +673,11 @@ bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
  * TaggedFile or if has a TaggedFile which is null.
  */
 TaggedFile* FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index) {
-  if (!(index.isValid() && index.model() != 0))
-    return 0;
+  if (!(index.isValid() && index.model() != nullptr))
+    return nullptr;
   QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
   if (!data.canConvert<TaggedFile*>())
-    return 0;
+    return nullptr;
   return data.value<TaggedFile*>();
 }
 
@@ -738,7 +738,7 @@ TaggedFile* FileProxyModel::createTaggedFile(
     TaggedFile::Feature feature,
     const QString& fileName,
     const QPersistentModelIndex& idx) {
-  TaggedFile* taggedFile = 0;
+  TaggedFile* taggedFile = nullptr;
   const auto factories = s_taggedFileFactories;
   for (ITaggedFileFactory* factory : factories) {
     const auto keys = factory->taggedFileKeys();
@@ -746,12 +746,12 @@ TaggedFile* FileProxyModel::createTaggedFile(
       if ((factory->taggedFileFeatures(key) & feature) != 0 &&
           (taggedFile = factory->createTaggedFile(key, fileName, idx,
                                                   feature))
-          != 0) {
+          != nullptr) {
         return taggedFile;
       }
     }
   }
-  return 0;
+  return nullptr;
 }
 
 /**
@@ -765,7 +765,7 @@ TaggedFile* FileProxyModel::createTaggedFile(
 TaggedFile* FileProxyModel::createTaggedFile(
     const QString& fileName,
     const QPersistentModelIndex& idx) {
-  TaggedFile* taggedFile = 0;
+  TaggedFile* taggedFile = nullptr;
   const auto factories = s_taggedFileFactories;
   for (ITaggedFileFactory* factory : factories) {
     const auto keys = factory->taggedFileKeys();
@@ -776,7 +776,7 @@ TaggedFile* FileProxyModel::createTaggedFile(
       }
     }
   }
-  return 0;
+  return nullptr;
 }
 
 /**

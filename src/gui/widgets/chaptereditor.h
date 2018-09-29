@@ -43,7 +43,7 @@ public:
    *
    * @param parent parent widget
    */
-  explicit ChapterEditor(QWidget* parent = 0);
+  explicit ChapterEditor(QWidget* parent = nullptr);
 
   /**
    * Destructor.

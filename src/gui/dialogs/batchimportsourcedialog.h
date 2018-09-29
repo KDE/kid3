@@ -44,7 +44,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit BatchImportSourceDialog(QWidget* parent = 0);
+  explicit BatchImportSourceDialog(QWidget* parent = nullptr);
 
   /**
    * Destructor.

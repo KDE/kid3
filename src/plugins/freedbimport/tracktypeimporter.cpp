@@ -64,7 +64,7 @@ const char** TrackTypeImporter::serverList() const
 {
   static const char* servers[] = {
     "tracktype.org:80",
-    0                  // end of StrList
+    nullptr            // end of StrList
   };
   return servers;
 }

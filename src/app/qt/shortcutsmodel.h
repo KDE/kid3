@@ -58,7 +58,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit ShortcutsModel(QObject* parent = 0);
+  explicit ShortcutsModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

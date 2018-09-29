@@ -115,7 +115,7 @@ TaggedFile* AudioPlayer::getTaggedFile() const
   if (index.isValid()) {
     return FileProxyModel::getTaggedFileOfIndex(index);
   }
-  return 0;
+  return nullptr;
 }
 
 /**

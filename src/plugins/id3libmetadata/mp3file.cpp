@@ -61,7 +61,7 @@
 namespace {
 
 /** Text codec for ID3v1 tags, 0 to use default (ISO 8859-1) */
-const QTextCodec* s_textCodecV1 = 0;
+const QTextCodec* s_textCodecV1 = nullptr;
 
 /** Default text encoding */
 ID3_TextEnc s_defaultTextEncoding = ID3TE_ISO8859_1;
@@ -80,7 +80,7 @@ ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
  * @param idx index in file proxy model
  */
 Mp3File::Mp3File(const QPersistentModelIndex& idx) :
-  TaggedFile(idx), m_tagV1(0), m_tagV2(0)
+  TaggedFile(idx), m_tagV1(nullptr), m_tagV2(nullptr)
 {
 }
 
@@ -234,12 +234,12 @@ void Mp3File::clearTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (m_tagV1) {
     delete m_tagV1;
-    m_tagV1 = 0;
+    m_tagV1 = nullptr;
     markTagUnchanged(Frame::Tag_1);
   }
   if (m_tagV2) {
     delete m_tagV2;
-    m_tagV2 = 0;
+    m_tagV2 = nullptr;
     markTagUnchanged(Frame::Tag_2);
   }
   notifyModelDataChanged(priorIsTagInformationRead);
@@ -290,10 +290,10 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
  * @return string,
  *         "" if the field does not exist.
  */
-static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
+static QString getString(ID3_Field* field, const QTextCodec* codec = nullptr)
 {
   QString text(QLatin1String(""));
-  if (field != NULL) {
+  if (field != nullptr) {
     ID3_TextEnc enc = field->GetEncoding();
     if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
       size_t numItems = field->GetNumTextItems();
@@ -345,7 +345,7 @@ static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
  *         QString::null if the tags do not exist.
  */
 static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
-                            const QTextCodec* codec = 0)
+                            const QTextCodec* codec = nullptr)
 {
   if (!tag) {
     return QString();
@@ -353,7 +353,7 @@ static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
   QString str(QLatin1String(""));
   ID3_Field* fld;
   ID3_Frame* frame = tag->Find(id);
-  if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != NULL)) {
+  if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != nullptr)) {
     str = getString(fld, codec);
   }
   return str;
@@ -512,7 +512,7 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
  * @param codec        text codec to use, 0 for default
  */
 static void setString(ID3_Field* field, const QString& text,
-                      const QTextCodec* codec = 0)
+                      const QTextCodec* codec = nullptr)
 {
   if (text.indexOf(Frame::stringListSeparator()) == -1) {
     ID3_TextEnc enc = field->GetEncoding();
@@ -549,11 +549,11 @@ static void setString(ID3_Field* field, const QString& text,
  */
 static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
                          bool allowUnicode = false, bool replace = true,
-                         bool removeEmpty = true, const QTextCodec* codec = 0)
+                         bool removeEmpty = true, const QTextCodec* codec = nullptr)
 {
   bool changed = false;
   if (tag && !text.isNull()) {
-    ID3_Frame* frame = NULL;
+    ID3_Frame* frame = nullptr;
     bool removeOnly = removeEmpty && text.isEmpty();
     if (replace || removeOnly) {
       if (id == ID3FID_COMMENT && tag->HasV2Tag()) {
@@ -567,7 +567,7 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
         changed = true;
       }
     }
-    if (!removeOnly && (replace || tag->Find(id) == NULL)) {
+    if (!removeOnly && (replace || tag->Find(id) == nullptr)) {
       frame = new ID3_Frame(id);
       if (frame) {
         ID3_Field* fld = frame->GetField(ID3FN_TEXT);
@@ -718,7 +718,7 @@ void Mp3File::getDetailInfo(DetailInfo& info) const
     return;
   }
 
-  const Mp3_Headerinfo* headerInfo = 0;
+  const Mp3_Headerinfo* headerInfo = nullptr;
   if (m_tagV2) {
     headerInfo = m_tagV2->GetMp3HeaderInfo();
   }
@@ -794,7 +794,7 @@ void Mp3File::getDetailInfo(DetailInfo& info) const
 unsigned Mp3File::getDuration() const
 {
   unsigned duration = 0;
-  const Mp3_Headerinfo* info = NULL;
+  const Mp3_Headerinfo* info = nullptr;
   if (m_tagV2) {
     info = m_tagV2->GetMp3HeaderInfo();
   }
@@ -854,14 +854,14 @@ static const struct TypeStrOfId {
   Frame::Type type;
   const char* str;
 } typeStrOfId[] = {
-  { Frame::FT_UnknownFrame,   0 },                                                                                       /* ???? */
+  { Frame::FT_UnknownFrame,   nullptr },                                                                                 /* ???? */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "AENC - Audio encryption") },                                /* AENC */
   { Frame::FT_Picture,        QT_TRANSLATE_NOOP("@default", "APIC - Attached picture") },                                /* APIC */
-  { Frame::FT_Other,          0 },                                                                                       /* ASPI */
+  { Frame::FT_Other,          nullptr },                                                                                 /* ASPI */
   { Frame::FT_Comment,        QT_TRANSLATE_NOOP("@default", "COMM - Comments") },                                        /* COMM */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "COMR - Commercial") },                                      /* COMR */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ENCR - Encryption method registration") },                  /* ENCR */
-  { Frame::FT_Other,          0 },                                                                                       /* EQU2 */
+  { Frame::FT_Other,          nullptr },                                                                                 /* EQU2 */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "EQUA - Equalization") },                                    /* EQUA */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes") },                              /* ETCO */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "GEOB - General encapsulated object") },                     /* GEOB */
@@ -876,11 +876,11 @@ static const struct TypeStrOfId {
   { Frame::FT_Rating,         QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter") },                                   /* POPM */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POSS - Position synchronisation frame") },                  /* POSS */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RBUF - Recommended buffer size") },                         /* RBUF */
-  { Frame::FT_Other,          0 },                                                                                       /* RVA2 */
+  { Frame::FT_Other,          nullptr },                                                                                 /* RVA2 */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVAD - Relative volume adjustment") },                      /* RVAD */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVRB - Reverb") },                                          /* RVRB */
-  { Frame::FT_Other,          0 },                                                                                       /* SEEK */
-  { Frame::FT_Other,          0 },                                                                                       /* SIGN */
+  { Frame::FT_Other,          nullptr },                                                                                 /* SEEK */
+  { Frame::FT_Other,          nullptr },                                                                                 /* SIGN */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYLT - Synchronized lyric/text") },                         /* SYLT */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYTC - Synchronized tempo codes") },                        /* SYTC */
   { Frame::FT_Album,          QT_TRANSLATE_NOOP("@default", "TALB - Album/Movie/Show title") },                          /* TALB */
@@ -889,13 +889,13 @@ static const struct TypeStrOfId {
   { Frame::FT_Genre,          QT_TRANSLATE_NOOP("@default", "TCON - Content type") },                                    /* TCON */
   { Frame::FT_Copyright,      QT_TRANSLATE_NOOP("@default", "TCOP - Copyright message") },                               /* TCOP */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDAT - Date") },                                            /* TDAT */
-  { Frame::FT_Other,          0 },                                                                                       /* TDEN */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TDEN */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDLY - Playlist delay") },                                  /* TDLY */
-  { Frame::FT_Other,          0 },                                                                                       /* TDOR */
-  { Frame::FT_Other,          0 },                                                                                       /* TDRC */
-  { Frame::FT_Other,          0 },                                                                                       /* TDRL */
-  { Frame::FT_Other,          0 },                                                                                       /* TDTG */
-  { Frame::FT_Other,          0 },                                                                                       /* TIPL */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TDOR */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TDRC */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TDRL */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TDTG */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TIPL */
   { Frame::FT_EncodedBy,      QT_TRANSLATE_NOOP("@default", "TENC - Encoded by") },                                      /* TENC */
   { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer") },                            /* TEXT */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TFLT - File type") },                                       /* TFLT */
@@ -906,9 +906,9 @@ static const struct TypeStrOfId {
   { Frame::FT_InitialKey,     QT_TRANSLATE_NOOP("@default", "TKEY - Initial key") },                                     /* TKEY */
   { Frame::FT_Language,       QT_TRANSLATE_NOOP("@default", "TLAN - Language(s)") },                                     /* TLAN */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TLEN - Length") },                                          /* TLEN */
-  { Frame::FT_Other,          0 },                                                                                       /* TMCL */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TMCL */
   { Frame::FT_Media,          QT_TRANSLATE_NOOP("@default", "TMED - Media type") },                                      /* TMED */
-  { Frame::FT_Other,          0 },                                                                                       /* TMOO */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TMOO */
   { Frame::FT_OriginalAlbum,  QT_TRANSLATE_NOOP("@default", "TOAL - Original album/movie/show title") },                 /* TOAL */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TOFN - Original filename") },                               /* TOFN */
   { Frame::FT_Author,         QT_TRANSLATE_NOOP("@default", "TOLY - Original lyricist(s)/text writer(s)") },             /* TOLY */
@@ -920,19 +920,19 @@ static const struct TypeStrOfId {
   { Frame::FT_Conductor,      QT_TRANSLATE_NOOP("@default", "TPE3 - Conductor/performer refinement") },                  /* TPE3 */
   { Frame::FT_Remixer,        QT_TRANSLATE_NOOP("@default", "TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
   { Frame::FT_Disc,           QT_TRANSLATE_NOOP("@default", "TPOS - Part of a set") },                                   /* TPOS */
-  { Frame::FT_Other,          0 },                                                                                       /* TPRO */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TPRO */
   { Frame::FT_Publisher,      QT_TRANSLATE_NOOP("@default", "TPUB - Publisher") },                                       /* TPUB */
   { Frame::FT_Track,          QT_TRANSLATE_NOOP("@default", "TRCK - Track number/Position in set") },                    /* TRCK */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRDA - Recording dates") },                                 /* TRDA */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRSN - Internet radio station name") },                     /* TRSN */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRSO - Internet radio station owner") },                    /* TRSO */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TSIZ - Size") },                                            /* TSIZ */
-  { Frame::FT_Other,          0 },                                                                                       /* TSOA */
-  { Frame::FT_Other,          0 },                                                                                       /* TSOP */
-  { Frame::FT_Other,          0 },                                                                                       /* TSOT */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TSOA */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TSOP */
+  { Frame::FT_Other,          nullptr },                                                                                 /* TSOT */
   { Frame::FT_Isrc,           QT_TRANSLATE_NOOP("@default", "TSRC - ISRC (international standard recording code)") },    /* TSRC */
   { Frame::FT_EncoderSettings,QT_TRANSLATE_NOOP("@default", "TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
-  { Frame::FT_Part,           0 },                                                                                       /* TSST */
+  { Frame::FT_Part,           nullptr },                                                                                 /* TSST */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TXXX - User defined text information") },                   /* TXXX */
   { Frame::FT_Date,           QT_TRANSLATE_NOOP("@default", "TYER - Year") },                                            /* TYER */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "UFID - Unique file identifier") },                          /* UFID */
@@ -1215,7 +1215,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
   ID3_TextEnc enc = ID3TE_NONE;
   ID3_Field* id3Field;
   Frame::Field field;
-  while ((id3Field = iter->GetNext()) != 0) {
+  while ((id3Field = iter->GetNext()) != nullptr) {
     ID3_FieldID id = id3Field->GetID();
     ID3_FieldType type = id3Field->GetType();
     field.m_id = id;
@@ -1279,12 +1279,12 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
  */
 static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
 {
-  ID3_Frame* result = 0;
+  ID3_Frame* result = nullptr;
   if (tag) {
     ID3_Frame* frame;
     ID3_Tag::Iterator* iter = tag->CreateIterator();
     int i = 0;
-    while ((frame = iter->GetNext()) != 0) {
+    while ((frame = iter->GetNext()) != nullptr) {
       if (i == index) {
         result = frame;
         break;
@@ -1431,7 +1431,7 @@ bool Mp3File::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) c
     codec = s_textCodecV1;
   } else if (tagNr == Frame::Tag_2) {
     tag = m_tagV2;
-    codec = 0;
+    codec = nullptr;
   } else {
     return false;
   }
@@ -1497,14 +1497,14 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         if (frame.isValueChanged() || frame.getFieldList().empty()) {
           QString value(frame.getValue());
           ID3_Field* fld;
-          if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
+          if ((fld = id3Frame->GetField(ID3FN_URL)) != nullptr) {
             if (getString(fld) != value) {
               fld->Set(value.toLatin1().data());
               markTagChanged(Frame::Tag_2, frame.getType());
             }
             return true;
-          } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
-              (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
+          } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != nullptr ||
+              (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != nullptr) {
             ID3_FrameID id = id3Frame->GetID();
             if (id == ID3FID_CONTENTTYPE) {
               if (!TagConfig::instance().genreNotNumeric()) {
@@ -1550,7 +1550,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             }
             return true;
           } else if (id3Frame->GetID() == ID3FID_PRIVATE &&
-                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != nullptr) {
             ID3_Field* ownerFld = id3Frame->GetField(ID3FN_OWNER);
             QString owner;
             QByteArray newData, oldData;
@@ -1566,7 +1566,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               return true;
             }
           } else if (id3Frame->GetID() == ID3FID_CDID &&
-                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != nullptr) {
             QByteArray newData, oldData;
             if (AttributeData::isHexString(value, 'F', QLatin1String("+")) &&
                 AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
@@ -1580,7 +1580,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               return true;
             }
           } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID &&
-                     (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+                     (fld = id3Frame->GetField(ID3FN_DATA)) != nullptr) {
             QByteArray newData, oldData;
             if (AttributeData::isHexString(value, 'Z')) {
               newData = (value + QLatin1Char('\0')).toLatin1();
@@ -1594,7 +1594,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               return true;
             }
           } else if (id3Frame->GetID() == ID3FID_POPULARIMETER &&
-                     (fld = id3Frame->GetField(ID3FN_RATING)) != 0) {
+                     (fld = id3Frame->GetField(ID3FN_RATING)) != nullptr) {
             if (getString(fld) != value) {
               fld->Set(value.toInt());
               markTagChanged(Frame::Tag_2, frame.getType());
@@ -1628,7 +1628,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     allowUnicode = false;
   } else if (tagNr == Frame::Tag_2) {
     tag = m_tagV2;
-    codec = 0;
+    codec = nullptr;
     allowUnicode = true;
   } else {
     return false;
@@ -1723,7 +1723,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
  */
 ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
 {
-  ID3_Frame* id3Frame = 0;
+  ID3_Frame* id3Frame = nullptr;
   ID3_FrameID id;
   if (frame.getType() != Frame::FT_Other) {
     id = getId3libFrameIdForType(frame.getType());
@@ -1860,7 +1860,7 @@ bool Mp3File::addFrame(Frame::TagNumber tagNr, Frame& frame)
   if (tagNr == Frame::Tag_2) {
     // Add a new frame.
     ID3_Frame* id3Frame;
-    if (m_tagV2 && (id3Frame = createId3FrameFromFrame(frame)) != 0) {
+    if (m_tagV2 && (id3Frame = createId3FrameFromFrame(frame)) != nullptr) {
       m_tagV2->AttachFrame(id3Frame);
       frame.setIndex(m_tagV2->NumFrames() - 1);
       if (frame.fieldList().empty()) {
@@ -2001,7 +2001,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       if (flt.areAllEnabled()) {
         ID3_Tag::Iterator* iter = m_tagV1->CreateIterator();
         ID3_Frame* frame;
-        while ((frame = iter->GetNext()) != NULL) {
+        while ((frame = iter->GetNext()) != nullptr) {
           m_tagV1->RemoveFrame(frame);
         }
 #ifdef Q_OS_WIN32
@@ -2029,7 +2029,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       if (flt.areAllEnabled()) {
         ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
         ID3_Frame* frame;
-        while ((frame = iter->GetNext()) != NULL) {
+        while ((frame = iter->GetNext()) != nullptr) {
           m_tagV2->RemoveFrame(frame);
         }
 #ifdef Q_OS_WIN32
@@ -2050,7 +2050,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       } else {
         ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
         ID3_Frame* id3Frame;
-        while ((id3Frame = iter->GetNext()) != NULL) {
+        while ((id3Frame = iter->GetNext()) != nullptr) {
           Frame frame(createFrameFromId3libFrame(id3Frame, -1));
           if (flt.isEnabled(frame.getType(), frame.getName())) {
             m_tagV2->RemoveFrame(id3Frame);
@@ -2090,7 +2090,7 @@ void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
       ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
       ID3_Frame* id3Frame;
       int i = 0;
-      while ((id3Frame = iter->GetNext()) != 0) {
+      while ((id3Frame = iter->GetNext()) != nullptr) {
         Frame frame(createFrameFromId3libFrame(id3Frame, i++));
         frames.insert(frame);
       }
@@ -2193,7 +2193,7 @@ void Mp3File::notifyConfigurationChange()
 {
   const QTextCodec* id3v1TextCodec =
     TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : 0;
+    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : nullptr;
   setDefaultTextEncoding(
     static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
   setTextCodecV1(id3v1TextCodec);

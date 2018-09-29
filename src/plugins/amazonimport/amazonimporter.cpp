@@ -63,7 +63,7 @@ const char** AmazonImporter::serverList() const
     // Parsing only works with English text
     "www.amazon.com",
     "www.amazon.co.uk",
-    0                  // end of StrList
+    nullptr            // end of StrList
   };
   return servers;
 }

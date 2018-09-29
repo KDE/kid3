@@ -40,7 +40,7 @@
  * Constructor.
  */
 PlatformTools::PlatformTools() :
-  m_helpBrowser(0)
+  m_helpBrowser(nullptr)
 {
 }
 
@@ -89,7 +89,7 @@ void PlatformTools::displayHelp(const QString& anchor)
     const char* const kid3HandbookStr =
         QT_TRANSLATE_NOOP("@default", "Kid3 Handbook");
     QString caption(QCoreApplication::translate("@default", kid3HandbookStr));
-    m_helpBrowser = new BrowserDialog(0, caption);
+    m_helpBrowser = new BrowserDialog(nullptr, caption);
   }
   m_helpBrowser->goToAnchor(anchor);
   m_helpBrowser->setModal(!anchor.isEmpty());
@@ -190,7 +190,7 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**
@@ -209,7 +209,7 @@ QStringList PlatformTools::getOpenFileNames(QWidget* parent,
   return QFileDialog::getOpenFileNames(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**
@@ -227,7 +227,7 @@ QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**

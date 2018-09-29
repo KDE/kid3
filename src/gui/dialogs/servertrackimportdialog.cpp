@@ -53,8 +53,8 @@
  */
 ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
                                                  TrackDataModel* trackDataModel)
-  : QDialog(parent), m_statusBar(0),
-    m_client(0), m_trackDataModel(trackDataModel)
+  : QDialog(parent), m_statusBar(nullptr),
+    m_client(nullptr), m_trackDataModel(trackDataModel)
 {
   setObjectName(QLatin1String("ServerTrackImportDialog"));
   setModal(true);
@@ -161,7 +161,7 @@ void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
       m_serverComboBox->show();
       if (m_client->serverList()) {
         QStringList strList;
-        for (const char** sl = m_client->serverList(); *sl != 0; ++sl) {
+        for (const char** sl = m_client->serverList(); *sl != nullptr; ++sl) {
           strList += QString::fromLatin1(*sl);
         }
         m_serverComboBox->clear();

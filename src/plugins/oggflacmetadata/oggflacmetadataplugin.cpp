@@ -135,7 +135,7 @@ TaggedFile* OggFlacMetadataPlugin::createTaggedFile(
       return new FlacFile(idx);
   }
 #endif
-  return 0;
+  return nullptr;
 }
 
 /**

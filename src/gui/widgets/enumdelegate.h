@@ -38,7 +38,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit EnumDelegate(QObject* parent = 0);
+  explicit EnumDelegate(QObject* parent = nullptr);
 
   /**
    * Destructor.

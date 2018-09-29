@@ -42,7 +42,7 @@
  * @param parent parent object
  */
 QmlCommandPlugin::QmlCommandPlugin(QObject* parent) : QObject(parent),
-  m_app(0), m_qmlView(0), m_qmlEngine(0), m_showOutput(false)
+  m_app(nullptr), m_qmlView(nullptr), m_qmlEngine(nullptr), m_showOutput(false)
 {
   setObjectName(QLatin1String("QmlCommand"));
 }
@@ -84,11 +84,11 @@ void QmlCommandPlugin::cleanup()
     m_qmlView->close();
   }
   delete m_qmlView;
-  m_qmlView = 0;
+  m_qmlView = nullptr;
   delete m_qmlEngine;
-  m_qmlEngine = 0;
+  m_qmlEngine = nullptr;
   if (s_messageHandlerInstance == this) {
-    s_messageHandlerInstance = 0;
+    s_messageHandlerInstance = nullptr;
   }
 }
 
@@ -228,7 +228,7 @@ void QmlCommandPlugin::onQmlViewFinished()
     // Calling m_qmlView->deleteLater() will cause a crash when the QML console
     // is started, a command executed (e.g. app.nextFile()), then .quit and
     // then a qml script is started.
-    m_qmlView = 0;
+    m_qmlView = nullptr;
     QTimer::singleShot(0, this, SLOT(onEngineFinished()));
   }
 }
@@ -250,8 +250,8 @@ void QmlCommandPlugin::onQmlEngineQuit()
 void QmlCommandPlugin::onEngineFinished()
 {
   if (m_showOutput) {
-    qInstallMessageHandler(0);
-    s_messageHandlerInstance = 0;
+    qInstallMessageHandler(nullptr);
+    s_messageHandlerInstance = nullptr;
   }
 }
 
@@ -267,7 +267,7 @@ void QmlCommandPlugin::onEngineReady()
 }
 
 /** Instance of QmlCommandPlugin running and generating messages. */
-QmlCommandPlugin* QmlCommandPlugin::s_messageHandlerInstance = 0;
+QmlCommandPlugin* QmlCommandPlugin::s_messageHandlerInstance = nullptr;
 
 /**
  * Message handler emitting commandOutput().

@@ -33,7 +33,7 @@ namespace {
 QList<QStandardItem*> createGenreItems()
 {
   QList<QStandardItem*> items;
-  for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
+  for (const char** sl = Genres::s_strList; *sl != nullptr; ++sl) {
     items.append(new QStandardItem(QString::fromLatin1(*sl)));
   }
   return items;

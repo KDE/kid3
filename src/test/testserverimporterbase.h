@@ -41,7 +41,7 @@ class ConfigStore;
 class TestServerImporterBase : public QObject {
   Q_OBJECT
 public:
-  explicit TestServerImporterBase(QObject* parent = 0);
+  explicit TestServerImporterBase(QObject* parent = nullptr);
   virtual ~TestServerImporterBase() override;
 
 public slots:

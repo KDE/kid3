@@ -46,7 +46,7 @@ public:
    * @param parent parent widget
    */
   PlaylistEditDialog(PlaylistModel* model, QItemSelectionModel* selModel,
-                     QWidget* parent = 0);
+                     QWidget* parent = nullptr);
 
   /**
    * Destructor.

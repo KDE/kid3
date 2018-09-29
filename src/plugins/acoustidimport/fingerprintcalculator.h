@@ -54,7 +54,7 @@ public:
   /**
    * Constructor.
    */
-  explicit FingerprintCalculator(QObject* parent = 0);
+  explicit FingerprintCalculator(QObject* parent = nullptr);
 
   /**
    * Destructor.

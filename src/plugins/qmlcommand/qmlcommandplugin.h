@@ -49,7 +49,7 @@ public:
    *
    * @param parent parent object
    */
-  explicit QmlCommandPlugin(QObject* parent = 0);
+  explicit QmlCommandPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

@@ -40,7 +40,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit ConfigObjects(QObject* parent = 0);
+  explicit ConfigObjects(QObject* parent = nullptr);
 
   /**
    * Destructor.

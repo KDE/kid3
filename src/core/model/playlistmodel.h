@@ -44,7 +44,7 @@ public:
    * @param fsModel file proxy model
    * @param parent parent object
    */
-  explicit PlaylistModel(FileProxyModel* fsModel, QObject* parent = 0);
+  explicit PlaylistModel(FileProxyModel* fsModel, QObject* parent = nullptr);
 
   /**
    * Destructor.

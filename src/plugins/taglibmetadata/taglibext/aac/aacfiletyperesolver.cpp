@@ -65,7 +65,7 @@ TagLib::File *AACFileTypeResolver::createFile(const char *fileName,
         return new TagLib::MPEG::File(fileName, readProperties, propertiesStyle);
     }
 
-    return 0;
+    return nullptr;
 }
 
 #endif

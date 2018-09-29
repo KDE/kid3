@@ -104,10 +104,10 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 
-  m_serverImportDialog = 0;
-  m_textImportDialog = 0;
-  m_tagImportDialog = 0;
-  m_serverTrackImportDialog = 0;
+  m_serverImportDialog = nullptr;
+  m_textImportDialog = nullptr;
+  m_tagImportDialog = nullptr;
+  m_serverTrackImportDialog = nullptr;
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
 
@@ -532,7 +532,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
   QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
   if (vHeader) {
     // revert movement, but avoid recursion
-    disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), 0, 0);
+    disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
     connect(vHeader, SIGNAL(sectionMoved(int,int,int)), this, SLOT(moveTableRow(int,int,int)));
   }

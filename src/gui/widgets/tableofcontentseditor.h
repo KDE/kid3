@@ -43,7 +43,7 @@ public:
    *
    * @param parent parent widget
    */
-  explicit TableOfContentsEditor(QWidget* parent = 0);
+  explicit TableOfContentsEditor(QWidget* parent = nullptr);
 
   /**
    * Destructor.

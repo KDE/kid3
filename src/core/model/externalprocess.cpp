@@ -130,7 +130,7 @@ void ExternalProcess::OutputViewer::scrollToBottom()
  * @param parent parent object
  */
 ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
-  QObject(parent), m_app(app), m_parent(parent), m_process(0), m_outputViewer(0)
+  QObject(parent), m_app(app), m_parent(parent), m_process(nullptr), m_outputViewer(nullptr)
 {
   setObjectName(QLatin1String("ExternalProcess"));
   const auto userCommandProcessors = m_app->getUserCommandProcessors();
@@ -185,7 +185,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   if (showOutput) {
     if (!m_outputViewer) {
-      m_outputViewer = new OutputViewer(0);
+      m_outputViewer = new OutputViewer(nullptr);
     }
     m_process->setProcessChannelMode(QProcess::MergedChannels);
     connect(m_process, SIGNAL(readyReadStandardOutput()),

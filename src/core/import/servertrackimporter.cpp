@@ -49,16 +49,16 @@ ServerTrackImporter::~ServerTrackImporter()
 }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** ServerTrackImporter::serverList() const { return 0; }
+const char** ServerTrackImporter::serverList() const { return nullptr; }
 
 /** default server, 0 to disable */
-const char* ServerTrackImporter::defaultServer() const { return 0; }
+const char* ServerTrackImporter::defaultServer() const { return nullptr; }
 
 /** anchor to online help, 0 to disable */
-const char* ServerTrackImporter::helpAnchor() const { return 0; }
+const char* ServerTrackImporter::helpAnchor() const { return nullptr; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* ServerTrackImporter::config() const { return 0; }
+ServerImporterConfig* ServerTrackImporter::config() const { return nullptr; }
 
 /**
  * Set configuration.

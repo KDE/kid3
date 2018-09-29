@@ -47,7 +47,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit FrameObjectModel(QObject* parent = 0);
+  explicit FrameObjectModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

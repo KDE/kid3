@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit ScriptUtils(QObject* parent = 0);
+  explicit ScriptUtils(QObject* parent = nullptr);
 
   /**
    * Destructor.

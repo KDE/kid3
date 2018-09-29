@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit ProgressWidget(QWidget* parent = 0);
+  explicit ProgressWidget(QWidget* parent = nullptr);
 
   /**
    * Destructor.

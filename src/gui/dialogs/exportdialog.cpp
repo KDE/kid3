@@ -151,11 +151,11 @@ ExportDialog::~ExportDialog()
 void ExportDialog::slotToFile()
 {
   QString fileName = m_platformTools->getSaveFileName(this, QString(),
-      ImportConfig::instance().importDir(), QString(), 0);
+      ImportConfig::instance().importDir(), QString(), nullptr);
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(
-        0, tr("File Error"),
+        nullptr, tr("File Error"),
         tr("Error while writing file:\n") + fileName,
         QMessageBox::Ok, Qt::NoButton);
     }

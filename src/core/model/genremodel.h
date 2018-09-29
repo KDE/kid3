@@ -41,7 +41,7 @@ public:
    * @param id3v1 true to create genres for ID3v1
    * @param parent parent widget
    */
-  explicit GenreModel(bool id3v1, QObject* parent = 0);
+  explicit GenreModel(bool id3v1, QObject* parent = nullptr);
 
   /**
    * Destructor.

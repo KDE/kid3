@@ -42,7 +42,7 @@ static const char* defaultToFilenameFormats[] = {
   "%{artist}-%{title}",
   "(%{artist}) %{title}",
   "%{artist}-%{title}-%{album}",
-  0
+  nullptr
 };
 
 /** Default from filename format list */
@@ -68,7 +68,7 @@ static const char* defaultFromFilenameFormats[] = {
   "%{album}/%{artist}-%{title}",
   "%{album}/(%{artist}) %{title}",
   "%{artist}-%{title}-%{album}",
-  0
+  nullptr
 };
 
 /**
@@ -161,12 +161,12 @@ void FileConfig::readFromConfig(ISettings* config)
   config->endGroup();
 
   if (m_formatItems.isEmpty()) {
-    for (const char** sl = defaultToFilenameFormats; *sl != 0; ++sl) {
+    for (const char** sl = defaultToFilenameFormats; *sl != nullptr; ++sl) {
       m_formatItems += QString::fromLatin1(*sl);
     }
   }
   if (m_formatFromFilenameItems.isEmpty()) {
-    for (const char** sl = defaultFromFilenameFormats; *sl != 0; ++sl) {
+    for (const char** sl = defaultFromFilenameFormats; *sl != nullptr; ++sl) {
       m_formatFromFilenameItems += QString::fromLatin1(*sl);
     }
   }

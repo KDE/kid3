@@ -125,7 +125,7 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
  */
 Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent) :
   QQmlExtensionPlugin(parent),
-  m_platformTools(0), m_kid3App(0), m_imageProvider(0), m_ownsKid3App(false)
+  m_platformTools(nullptr), m_kid3App(nullptr), m_imageProvider(nullptr), m_ownsKid3App(false)
 {
 }
 

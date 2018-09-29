@@ -43,7 +43,7 @@ public:
    * @param model item model
    * @param parent parent widget
    */
-  explicit TableModelEdit(QAbstractItemModel* model, QWidget* parent = 0);
+  explicit TableModelEdit(QAbstractItemModel* model, QWidget* parent = nullptr);
 
   /**
    * Destructor.

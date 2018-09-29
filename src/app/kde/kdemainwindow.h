@@ -51,7 +51,7 @@ public:
    * @param parent parent widget
    */
   explicit KdeMainWindow(IPlatformTools* platformTools,
-                         Kid3Application* app, QWidget* parent = 0);
+                         Kid3Application* app, QWidget* parent = nullptr);
 
   /**
    * Destructor.

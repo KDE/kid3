@@ -156,7 +156,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
 void TextImportDialog::fromFile()
 {
   importFromFile(m_platformTools->getOpenFileName(this, QString(),
-      ImportConfig::instance().importDir(), QString(), 0)
+      ImportConfig::instance().importDir(), QString(), nullptr)
     );
 }
 

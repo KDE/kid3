@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit TaglibMetadataPlugin(QObject* parent = 0);
+  explicit TaglibMetadataPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

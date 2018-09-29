@@ -40,7 +40,7 @@
  * Constructor.
  */
 KdePlatformTools::KdePlatformTools() :
-  m_settings(0), m_config(0)
+  m_settings(nullptr), m_config(nullptr)
 {
 }
 
@@ -200,7 +200,7 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**
@@ -219,7 +219,7 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
   return QFileDialog::getOpenFileNames(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**
@@ -238,7 +238,7 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
 }
 
 /**

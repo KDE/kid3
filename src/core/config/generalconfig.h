@@ -156,7 +156,7 @@ public:
 
 template <class Derived, class Base>
 Derived& StoredConfig<Derived, Base>::instance() {
-  Derived* obj = 0;
+  Derived* obj = nullptr;
   ConfigStore* store = ConfigStore::instance();
   if (Derived::s_index >= 0) {
     obj = static_cast<Derived*>(store->configuration(Derived::s_index));

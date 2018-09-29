@@ -50,7 +50,7 @@ public:
    * @param parent parent widget
    */
   explicit BatchImportDialog(const QList<ServerImporter*>& importers,
-                             QWidget* parent = 0);
+                             QWidget* parent = nullptr);
 
   /**
    * Destructor.

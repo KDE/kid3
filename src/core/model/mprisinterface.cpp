@@ -101,7 +101,7 @@ MprisPlayerInterface::MprisPlayerInterface(AudioPlayer* player)
   : QDBusAbstractAdaptor(player), m_audioPlayer(player),
     m_hasPrevious(false), m_hasNext(false),
     m_hasFiles(m_audioPlayer->getFileCount() > 0),
-    m_tempCoverArtFile(0)
+    m_tempCoverArtFile(nullptr)
 {
   connect(m_audioPlayer, SIGNAL(stateChanged(AudioPlayer::State)),
           this, SLOT(onStateChanged()));

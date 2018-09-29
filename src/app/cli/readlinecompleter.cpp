@@ -31,7 +31,7 @@
 #include <cstdlib>
 
 /** Installed readline completer. */
-ReadlineCompleter* ReadlineCompleter::s_completer = 0;
+ReadlineCompleter* ReadlineCompleter::s_completer = nullptr;
 
 /**
  * Destructor.
@@ -65,7 +65,7 @@ void ReadlineCompleter::install()
 char** ReadlineCompleter::completion(const char* text, int start, int end)
 {
   Q_UNUSED(end)
-  char** matches = 0;
+  char** matches = nullptr;
 
   if (start == 0) {
     matches = ::rl_completion_matches(text, commandGenerator);
@@ -97,7 +97,7 @@ char* ReadlineCompleter::commandGenerator(const char* text, int state)
   if (s_completer) {
     return completionGenerator(s_completer->getCommandList(), text, state);
   }
-  return 0;
+  return nullptr;
 }
 
 /**
@@ -112,7 +112,7 @@ char* ReadlineCompleter::parameterGenerator(const char* text, int state)
   if (s_completer) {
     return completionGenerator(s_completer->getParameterList(), text, state);
   }
-  return 0;
+  return nullptr;
 }
 
 /**
@@ -141,5 +141,5 @@ char* ReadlineCompleter::completionGenerator(
     }
   }
 
-  return 0;
+  return nullptr;
 }

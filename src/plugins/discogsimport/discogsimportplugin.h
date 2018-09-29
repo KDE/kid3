@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit DiscogsImportPlugin(QObject* parent = 0);
+  explicit DiscogsImportPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

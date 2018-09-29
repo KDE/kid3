@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit OggFlacMetadataPlugin(QObject* parent = 0);
+  explicit OggFlacMetadataPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

@@ -69,5 +69,5 @@ ServerTrackImporter* AcoustidImportPlugin::createServerTrackImporter(
   if (key == IMPORTER_NAME) {
     return new MusicBrainzClient(netMgr, trackDataModel);
   }
-  return 0;
+  return nullptr;
 }

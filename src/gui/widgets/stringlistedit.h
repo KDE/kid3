@@ -41,7 +41,7 @@ public:
    * @param model item model, e.g. a QStringListModel
    * @param parent parent widget
    */
-  explicit StringListEdit(QAbstractItemModel* model, QWidget* parent = 0);
+  explicit StringListEdit(QAbstractItemModel* model, QWidget* parent = nullptr);
 
   /**
    * Destructor.

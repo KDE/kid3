@@ -39,7 +39,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit TrackNumberValidator(QObject* parent = 0);
+  explicit TrackNumberValidator(QObject* parent = nullptr);
 
   /**
    * Destructor.

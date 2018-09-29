@@ -54,19 +54,19 @@ ServerImporter::~ServerImporter()
 }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** ServerImporter::serverList() const { return 0; }
+const char** ServerImporter::serverList() const { return nullptr; }
 
 /** default server, 0 to disable */
-const char* ServerImporter::defaultServer() const { return 0; }
+const char* ServerImporter::defaultServer() const { return nullptr; }
 
 /** default CGI path, 0 to disable */
-const char* ServerImporter::defaultCgiPath() const { return 0; }
+const char* ServerImporter::defaultCgiPath() const { return nullptr; }
 
 /** anchor to online help, 0 to disable */
-const char* ServerImporter::helpAnchor() const { return 0; }
+const char* ServerImporter::helpAnchor() const { return nullptr; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* ServerImporter::config() const { return 0; }
+ServerImporterConfig* ServerImporter::config() const { return nullptr; }
 
 /** additional tags option, false if not used */
 bool ServerImporter::additionalTags() const { return false; }

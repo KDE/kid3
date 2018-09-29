@@ -80,8 +80,8 @@ QString nameForAction(const QString& text)
  * @param mainWin main window
  */
 FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
-  ConfigurableTreeView(parent), m_process(0), m_mainWin(mainWin),
-  m_renameAction(0), m_deleteAction(0)
+  ConfigurableTreeView(parent), m_process(nullptr), m_mainWin(mainWin),
+  m_renameAction(nullptr), m_deleteAction(nullptr)
 {
   setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
@@ -286,7 +286,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 QStringList FileList::formatStringList(const QStringList& format)
 {
   QStringList files;
-  TaggedFile* firstSelectedFile = 0;
+  TaggedFile* firstSelectedFile = nullptr;
   const QModelIndexList selItems(selectionModel()
        ? selectionModel()->selectedRows() : QModelIndexList());
   for (const QModelIndex& index : selItems) {
@@ -540,7 +540,7 @@ void FileList::openContainingFolder()
       const FileProxyModel* fsModel;
       QModelIndex index = indexes.first().parent();
       if (index.isValid() &&
-          (fsModel = qobject_cast<const FileProxyModel*>(index.model())) != 0 &&
+          (fsModel = qobject_cast<const FileProxyModel*>(index.model())) != nullptr &&
           fsModel->isDir(index)) {
         QDesktopServices::openUrl(
               QUrl::fromLocalFile(fsModel->filePath(index)));

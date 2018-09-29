@@ -42,7 +42,7 @@ public:
    * @param genreModel genre model
    * @param parent parent QTableView
    */
-  explicit FrameItemDelegate(GenreModel* genreModel, QObject* parent = 0);
+  explicit FrameItemDelegate(GenreModel* genreModel, QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -122,7 +122,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit StarEditor(QWidget* parent = 0);
+  explicit StarEditor(QWidget* parent = nullptr);
 
   /**
    * Get size needed by editor.

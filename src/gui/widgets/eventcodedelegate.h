@@ -38,7 +38,7 @@ public:
    * @brief Constructor.
    * @param parent parent object
    */
-  explicit EventCodeDelegate(QObject* parent = 0);
+  explicit EventCodeDelegate(QObject* parent = nullptr);
 
   /**
    * Destructor.

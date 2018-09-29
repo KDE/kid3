@@ -58,7 +58,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit CheckableListModel(QObject* parent = 0);
+  explicit CheckableListModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

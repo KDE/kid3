@@ -130,7 +130,7 @@ private slots:
    *
    * @param action action of selected menu, 0 to use sender() action
    */
-  void executeAction(QAction* action = 0);
+  void executeAction(QAction* action = nullptr);
 
   /**
    * Display a custom context menu with operations for selected files.

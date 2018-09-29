@@ -51,7 +51,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit TrackDataModel(QObject* parent = 0);
+  explicit TrackDataModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

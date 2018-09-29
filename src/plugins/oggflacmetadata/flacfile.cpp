@@ -42,7 +42,7 @@
  * @param idx index in file proxy model
  */
 FlacFile::FlacFile(const QPersistentModelIndex& idx) :
-  OggFile(idx), m_chain(0)
+  OggFile(idx), m_chain(nullptr)
 {
 }
 
@@ -150,7 +150,7 @@ void FlacFile::readTags(bool force)
     markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
     QByteArray fnIn = QFile::encodeName(currentFilePath());
-    readFileInfo(m_fileInfo, 0); // just to start invalid
+    readFileInfo(m_fileInfo, nullptr); // just to start invalid
     if (!m_chain) {
       m_chain = new FLAC::Metadata::Chain;
     }
@@ -266,7 +266,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
       // to FLAC__METADATA_CHAIN_STATUS_OK (!?), so we have to delete the
       // chain to avoid a crash with the next call to writeTags().
       delete m_chain;
-      m_chain = 0;
+      m_chain = nullptr;
       return false;
     }
 
@@ -393,7 +393,7 @@ void FlacFile::clearTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (m_chain) {
     delete m_chain;
-    m_chain = 0;
+    m_chain = nullptr;
   }
 #ifdef HAVE_FLAC_PICTURE
   m_pictures.clear();

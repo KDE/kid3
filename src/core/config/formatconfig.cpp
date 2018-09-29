@@ -38,7 +38,7 @@
 FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
   m_caseConversion(AllFirstLettersUppercase),
-  m_locale(0),
+  m_locale(nullptr),
   m_maximumLength(255),
   m_enableMaximumLength(false),
   m_filenameFormatter(false),
@@ -68,7 +68,7 @@ void FormatConfig::setAsFilenameFormatter()
   m_caseConversion = NoChanges;
   m_localeName = QString();
   delete m_locale;
-  m_locale = 0;
+  m_locale = nullptr;
   m_strRepEnabled = true;
   m_strRepMap[QLatin1String("/")] = QLatin1Char('-');
   m_strRepMap[QLatin1String(":")] = QLatin1Char('-');

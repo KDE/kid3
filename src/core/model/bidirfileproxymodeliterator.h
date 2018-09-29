@@ -52,7 +52,7 @@ public:
    * @param parent parent object
    */
   explicit BiDirFileProxyModelIterator(FileProxyModel* model,
-                                       QObject* parent = 0);
+                                       QObject* parent = nullptr);
 
   /**
    * Destructor.

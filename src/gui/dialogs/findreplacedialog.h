@@ -47,7 +47,7 @@ public:
    *
    * @param parent parent widget
    */
-  explicit FindReplaceDialog(QWidget* parent = 0);
+  explicit FindReplaceDialog(QWidget* parent = nullptr);
 
   /**
    * Destructor.

@@ -306,7 +306,7 @@ Kid3Cli::~Kid3Cli()
 CliCommand* Kid3Cli::commandForArgs(const QString& line)
 {
   if (line.isEmpty())
-    return 0;
+    return nullptr;
 
   QStringList args = splitArgs(line);
   if (!args.isEmpty()) {
@@ -321,7 +321,7 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
       }
     }
   }
-  return 0;
+  return nullptr;
 }
 
 /**

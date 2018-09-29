@@ -50,7 +50,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit FrameEditorObject(QObject* parent = 0);
+  explicit FrameEditorObject(QObject* parent = nullptr);
 
   /**
    * Destructor.

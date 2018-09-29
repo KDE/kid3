@@ -32,7 +32,7 @@
 /**
  * Constructor.
  */
-KdeSettings::KdeSettings(KConfig* config) : m_config(config), m_group(0)
+KdeSettings::KdeSettings(KConfig* config) : m_config(config), m_group(nullptr)
 {
   migrateOldSettings();
 }
@@ -61,7 +61,7 @@ void KdeSettings::beginGroup(const QString& prefix)
 void KdeSettings::endGroup()
 {
   delete m_group;
-  m_group = 0;
+  m_group = nullptr;
 }
 
 /**

@@ -62,7 +62,7 @@ static const char* const fieldIdNames[] = {
   QT_TRANSLATE_NOOP("@default", "Price"),
   QT_TRANSLATE_NOOP("@default", "Date"),
   QT_TRANSLATE_NOOP("@default", "Seller"),
-  0
+  nullptr
 };
 
 static const char* const textEncodingNames[] = {
@@ -70,14 +70,14 @@ static const char* const textEncodingNames[] = {
   QT_TRANSLATE_NOOP("@default", "UTF16"),
   QT_TRANSLATE_NOOP("@default", "UTF16BE"),
   QT_TRANSLATE_NOOP("@default", "UTF8"),
-  0
+  nullptr
 };
 
 static const char* const timestampFormatNames[] = {
   QT_TRANSLATE_NOOP("@default", "Other"),
   QT_TRANSLATE_NOOP("@default", "MPEG frames as unit"),
   QT_TRANSLATE_NOOP("@default", "Milliseconds as unit"),
-  0
+  nullptr
 };
 
 static const char* const contentTypeNames[] = {
@@ -88,7 +88,7 @@ static const char* const contentTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Events"),
   QT_TRANSLATE_NOOP("@default", "Chord"),
   QT_TRANSLATE_NOOP("@default", "Trivia/pop up"),
-  0
+  nullptr
 };
 
 
@@ -795,20 +795,20 @@ Frame::FieldId Frame::Field::getFieldId(const QString& fieldName)
   const char* const* fn;
   int id;
   // First try to find an exact English match.
-  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+  for (fn = fieldIdNames, id = 0; *fn != nullptr; ++fn, ++id) {
     if (fieldName == QLatin1String(*fn)) {
       return static_cast<FieldId>(id);
     }
   }
   // Then try to find a lowercase match ignoring spaces.
   QString lcName = fieldName.toLower().remove(QLatin1Char(' '));
-  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+  for (fn = fieldIdNames, id = 0; *fn != nullptr; ++fn, ++id) {
     if (lcName ==  QString::fromLatin1(*fn).toLower().remove(QLatin1Char(' '))) {
       return static_cast<FieldId>(id);
     }
   }
   // Finally try to find a translated name.
-  for (fn = fieldIdNames, id = 0; *fn != 0; ++fn, ++id) {
+  for (fn = fieldIdNames, id = 0; *fn != nullptr; ++fn, ++id) {
     if (fieldName == QCoreApplication::translate("@default", *fn)) {
       return static_cast<FieldId>(id);
     }

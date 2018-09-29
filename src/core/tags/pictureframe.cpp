@@ -59,7 +59,7 @@ static const char* const pictureTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Illustration"),
   QT_TRANSLATE_NOOP("@default", "Band/artist logotype"),
   QT_TRANSLATE_NOOP("@default", "Publisher/Studio logotype"),
-  NULL
+  nullptr
 };
 
 /**
@@ -87,7 +87,7 @@ static const char* const pictureTypeStrings[] = {
   "Illustration",
   "Band Logotype",
   "Publisher Logotype",
-  NULL
+  nullptr
 };
 
 }
@@ -823,7 +823,7 @@ const char* PictureFrame::getPictureTypeString(PictureType type)
 {
   return type >= 0 && type < static_cast<int>(
         sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1)
-      ? pictureTypeStrings[type] : 0;
+      ? pictureTypeStrings[type] : nullptr;
 }
 
 /**

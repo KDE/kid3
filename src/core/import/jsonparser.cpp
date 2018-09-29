@@ -47,7 +47,7 @@ public:
    * @param ok if not null, true is returned here on success
    * @return deserialized string-variant map
    */
-  QVariant deserialize(const QString& str, bool* ok = 0);
+  QVariant deserialize(const QString& str, bool* ok = nullptr);
 
 private:
   void skipWhiteSpace();

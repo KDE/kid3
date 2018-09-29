@@ -39,7 +39,7 @@ public:
    *
    * @param parent parent object
    */
-  explicit DirProxyModel(QObject* parent = 0);
+  explicit DirProxyModel(QObject* parent = nullptr);
 
   /**
    * Reset the model.

@@ -152,7 +152,7 @@ public:
     TextEncoding enc = TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
     const QString& mimeType = QLatin1String("image/jpeg"), PictureType pictureType = PT_CoverFront,
     const QString& description = QLatin1String(""), const QByteArray& data = QByteArray(),
-    const ImageProperties* imgProps = 0);
+    const ImageProperties* imgProps = nullptr);
 
   /**
    * Set all fields of a GEOB frame.
@@ -188,7 +188,7 @@ public:
                         TextEncoding& enc, QString& imgFormat,
                         QString& mimeType, PictureType& pictureType,
                         QString& description, QByteArray& data,
-                        ImageProperties* imgProps = 0);
+                        ImageProperties* imgProps = nullptr);
 
   /**
    * Check if all the fields of two picture frames are equal.
@@ -358,7 +358,7 @@ public:
    * @return mime type of file, null if not recognized.
    */
   static QString getMimeTypeForFile(const QString& fileName,
-                                    QString* imgFormat = 0);
+                                    QString* imgFormat = nullptr);
 
   /**
    * Set the MIME type and image format from a file.

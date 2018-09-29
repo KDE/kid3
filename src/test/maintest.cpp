@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     new TestMusicBrainzReleaseImportParser,
     new TestMusicBrainzReleaseImporter,
     new TestDiscogsImporter,
-    0
+    nullptr
   };
 
   QObject ts;

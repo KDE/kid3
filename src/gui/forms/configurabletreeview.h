@@ -39,7 +39,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit ConfigurableTreeView(QWidget* parent = 0);
+  explicit ConfigurableTreeView(QWidget* parent = nullptr);
 
   /**
    * Destructor.

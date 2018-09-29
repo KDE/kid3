@@ -45,7 +45,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit DirRenamer(QObject* parent = 0);
+  explicit DirRenamer(QObject* parent = nullptr);
 
   /**
    * Destructor.

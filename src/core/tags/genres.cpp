@@ -228,7 +228,7 @@ const char* Genres::s_genre[Genres::count + 3] = {
   "World Music",            // 181,
   "Worldbeat",              // 133,
   "Custom",                 // place for temporary custom genres
-  0                         // end of StrList
+  nullptr                   // end of StrList
 };
 
 /**

@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit Id3libMetadataPlugin(QObject* parent = 0);
+  explicit Id3libMetadataPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

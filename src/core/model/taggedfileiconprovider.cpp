@@ -66,12 +66,12 @@ void TaggedFileIconProvider::createIcons()
     const char* text1;
     const char* text2;
   } idTexts[] = {
-    {"null", 0, 0},
+    {"null", nullptr, nullptr},
     {"notag", "NO", "TAG" },
     {"v1v2", "V1", "V2"},
-    {"v1", "V1", 0},
-    {"v2", 0, "V2"},
-    {"v3", 0, "V3"},
+    {"v1", "V1", nullptr},
+    {"v2", nullptr, "V2"},
+    {"v3", nullptr, "V3"},
     {"v1v3", "V1", "V3"},
     {"v2v3", "V2", "V3"},
     {"v1v2v3", "V1", "23"}

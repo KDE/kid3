@@ -46,7 +46,7 @@ public:
    *
    * @param parent parent widget
    */
-  explicit MessageDialog(QWidget* parent = 0);
+  explicit MessageDialog(QWidget* parent = nullptr);
 
   /**
    * Destructor.

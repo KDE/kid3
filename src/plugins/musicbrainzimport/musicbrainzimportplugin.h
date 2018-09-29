@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit MusicBrainzImportPlugin(QObject* parent = 0);
+  explicit MusicBrainzImportPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

@@ -188,7 +188,7 @@ public:
    * @return playlist format.
    */
   static PlaylistFormat formatFromFileExtension(const QString& path,
-                                                bool* ok = 0);
+                                                bool* ok = nullptr);
 
 signals:
   /** Emitted when @a location changed. */

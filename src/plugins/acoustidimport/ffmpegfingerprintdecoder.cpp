@@ -111,7 +111,7 @@ private:
 
 class Codec {
 public:
-  Codec() : m_ptr(0), m_impl(0), m_frame(0), m_opened(false) {
+  Codec() : m_ptr(nullptr), m_impl(nullptr), m_frame(nullptr), m_opened(false) {
   }
 
   ~Codec() {
@@ -138,7 +138,7 @@ public:
 #if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 5, 0)
         ::avcodec_open(m_ptr, m_impl) >= 0
 #else
-        ::avcodec_open2(m_ptr, m_impl, 0) >= 0
+        ::avcodec_open2(m_ptr, m_impl, nullptr) >= 0
 #endif
           ;
     }
@@ -233,18 +233,18 @@ private:
 
 class Format {
 public:
-  Format(const char* fileName) : m_ptr(0), m_streamIndex(-1), m_hasError(false) {
+  Format(const char* fileName) : m_ptr(nullptr), m_streamIndex(-1), m_hasError(false) {
     if (
 #if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 2, 0)
         ::av_open_input_file(&m_ptr, fileName, 0, 0, 0) != 0
 #else
-        ::avformat_open_input(&m_ptr, fileName, 0, 0) != 0
+        ::avformat_open_input(&m_ptr, fileName, nullptr, nullptr) != 0
 #endif
         ||
 #if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 5, 0)
         ::av_find_stream_info(m_ptr) < 0
 #else
-        ::avformat_find_stream_info(m_ptr, 0) < 0
+        ::avformat_find_stream_info(m_ptr, nullptr) < 0
 #endif
       )
       m_hasError = true;
@@ -262,7 +262,7 @@ public:
   bool hasError() const { return m_hasError; }
 
   AVStream* findAudioStream(Codec* codec) {
-    AVStream* stream = 0;
+    AVStream* stream = nullptr;
 #if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(52, 91, 0)
     for (unsigned i = 0; i < m_ptr->nb_streams; ++i) {
       codec->m_ptr = m_ptr->streams[i]->codec;
@@ -314,8 +314,8 @@ private:
 #if defined HAVE_AVRESAMPLE || defined HAVE_SWRESAMPLE
 class Converter {
 public:
-  Converter() : m_ptr(0), m_maxDstNumSamples(0), m_isOpen(false) {
-    m_dstData[0] = 0;
+  Converter() : m_ptr(nullptr), m_maxDstNumSamples(0), m_isOpen(false) {
+    m_dstData[0] = nullptr;
   }
 
   ~Converter() {
@@ -352,9 +352,9 @@ public:
     }
 #elif defined HAVE_SWRESAMPLE
     if ((m_ptr = ::swr_alloc_set_opts(
-           0, channelLayout, AV_SAMPLE_FMT_S16, codecCtx.sampleRate(),
+           nullptr, channelLayout, AV_SAMPLE_FMT_S16, codecCtx.sampleRate(),
            channelLayout, codecCtx.sampleFormat(), codecCtx.sampleRate(),
-           0, 0)) != 0) {
+           0, nullptr)) != nullptr) {
       m_isOpen = ::swr_init(m_ptr) >= 0;
       return m_isOpen;
     }
@@ -374,7 +374,7 @@ public:
           int dstLinesize = 0;
           if (::av_samples_alloc(m_dstData, &dstLinesize, codecCtx.channels(),
                       codecCtx.m_frame->nb_samples, AV_SAMPLE_FMT_S16, 1) < 0) {
-            return 0;
+            return nullptr;
           }
           m_maxDstNumSamples = codecCtx.m_frame->nb_samples;
         }
@@ -426,9 +426,9 @@ public:
         result = buffer2;
       }
       if (numSamplesOut < 0) {
-        return 0;
+        return nullptr;
       }
-      bufferSize = ::av_samples_get_buffer_size(0, codecCtx.channels(),
+      bufferSize = ::av_samples_get_buffer_size(nullptr, codecCtx.channels(),
                    numSamplesOut, AV_SAMPLE_FMT_S16, 1);
       return result;
     } else {

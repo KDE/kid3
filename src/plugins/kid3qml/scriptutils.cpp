@@ -136,7 +136,7 @@ QString ScriptUtils::properties(QObject* obj)
 {
   QString str;
   const QMetaObject* meta;
-  if (obj && (meta = obj->metaObject()) != 0) {
+  if (obj && (meta = obj->metaObject()) != nullptr) {
     str += QLatin1String("className: ");
     str += QString::fromLatin1(meta->className());
     for (int i = 0; i < meta->propertyCount(); i++) {
@@ -528,11 +528,11 @@ QString ScriptUtils::selectFileName(const QString& caption, const QString& dir,
 {
   QFileDialog::Options options =
       MainWindowConfig::instance().dontUseNativeDialogs()
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0);
-  return saveFile ? QFileDialog::getSaveFileName(0, caption, dir, filter,
-                                                 0, options)
-                  : QFileDialog::getOpenFileName(0, caption, dir, filter,
-                                                 0, options);
+      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr);
+  return saveFile ? QFileDialog::getSaveFileName(nullptr, caption, dir, filter,
+                                                 nullptr, options)
+                  : QFileDialog::getOpenFileName(nullptr, caption, dir, filter,
+                                                 nullptr, options);
 }
 
 /**
@@ -545,6 +545,6 @@ QString ScriptUtils::selectDirName(const QString& caption, const QString& dir)
 {
   QFileDialog::Options options =
       MainWindowConfig::instance().dontUseNativeDialogs()
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0);
-  return QFileDialog::getExistingDirectory(0, caption, dir, options);
+      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr);
+  return QFileDialog::getExistingDirectory(nullptr, caption, dir, options);
 }

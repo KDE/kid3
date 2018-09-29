@@ -69,9 +69,9 @@
 #endif
 
 /** Collapse pixmap, will be allocated in constructor */
-QPixmap* Kid3Form::s_collapsePixmap = 0;
+QPixmap* Kid3Form::s_collapsePixmap = nullptr;
 /** Expand pixmap, will be allocated in constructor */
-QPixmap* Kid3Form::s_expandPixmap = 0;
+QPixmap* Kid3Form::s_expandPixmap = nullptr;
 
 /** picture for collapse pixmap */
 static const char* const collapse_xpm[] = {
@@ -165,7 +165,7 @@ public:
    * @param app application
    * @param parent parent widget
    */
-  explicit Kid3EditWidget(Kid3Application* app, QWidget* parent = 0)
+  explicit Kid3EditWidget(Kid3Application* app, QWidget* parent = nullptr)
     : QWidget(parent), m_app(app) {
     setAcceptDrops(true);
   }
@@ -268,7 +268,7 @@ void Kid3EditWidget::dropEvent(QDropEvent* ev)
  */
 Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
                    QWidget* parent)
-  : QSplitter(parent), m_pictureLabel(0), m_app(app), m_mainWin(mainWin)
+  : QSplitter(parent), m_pictureLabel(nullptr), m_app(app), m_mainWin(mainWin)
 {
   setObjectName(QLatin1String("Kid3Form"));
 
@@ -391,7 +391,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       setTabOrder(tabWidget, m_fnButton[tagNr]);
       tabWidget = m_fnButton[tagNr];
     } else {
-      m_fnButton[tagNr] = 0;
+      m_fnButton[tagNr] = nullptr;
     }
   }
 
@@ -416,7 +416,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       setTabOrder(tabWidget, m_toTagButton[tagNr]);
       tabWidget = m_toTagButton[tagNr];
     } else {
-      m_toTagButton[tagNr] = 0;
+      m_toTagButton[tagNr] = nullptr;
     }
   }
 
@@ -1025,7 +1025,7 @@ FrameTable* Kid3Form::getEditingFrameTable() const
       }
     }
   }
-  return 0;
+  return nullptr;
 }
 
 /**

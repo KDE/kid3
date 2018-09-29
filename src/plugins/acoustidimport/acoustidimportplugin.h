@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit AcoustidImportPlugin(QObject* parent = 0);
+  explicit AcoustidImportPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

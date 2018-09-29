@@ -69,5 +69,5 @@ ServerImporter* MusicBrainzImportPlugin::createServerImporter(
   if (key == IMPORTER_NAME) {
     return new MusicBrainzImporter(netMgr, trackDataModel);
   }
-  return 0;
+  return nullptr;
 }

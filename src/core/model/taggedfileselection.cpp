@@ -64,7 +64,7 @@ TaggedFileSelection::~TaggedFileSelection()
 void TaggedFileSelection::beginAddTaggedFiles()
 {
   m_lastState = m_state;
-  m_state.m_singleFile = 0;
+  m_state.m_singleFile = nullptr;
   m_state.m_fileCount = 0;
   FOR_ALL_TAGS(tagNr) {
     m_state.m_tagSupportedCount[tagNr] = 0;
@@ -157,7 +157,7 @@ void TaggedFileSelection::addTaggedFile(TaggedFile* taggedFile)
       ++m_state.m_tagSupportedCount[tagNr];
     }
   }
-  m_state.m_singleFile = m_state.m_fileCount == 0 ? taggedFile : 0;
+  m_state.m_singleFile = m_state.m_fileCount == 0 ? taggedFile : nullptr;
   ++m_state.m_fileCount;
 
   FOR_ALL_TAGS(tagNr) {

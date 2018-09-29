@@ -35,7 +35,7 @@ static const char* dirFmt[] = {
   "%{artist}/%{\"[\"year\"] \"}%{album}",
   "%{album}",
   "%{\"[\"year\"] \"}%{album}",
-  0                  // end of StrList
+  nullptr            // end of StrList
 };
 
 /** Default directory format list */
@@ -144,7 +144,7 @@ void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSrc)
 QStringList RenDirConfig::getDefaultDirFormatList()
 {
   QStringList strList;
-  for (const char** sl = s_defaultDirFmtList; *sl != 0; ++sl) {
+  for (const char** sl = s_defaultDirFmtList; *sl != nullptr; ++sl) {
     strList += QString::fromLatin1(*sl);
   }
   return strList;

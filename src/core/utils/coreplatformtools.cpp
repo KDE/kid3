@@ -35,7 +35,7 @@
  * Constructor.
  */
 CorePlatformTools::CorePlatformTools() :
-  m_settings(0), m_config(0)
+  m_settings(nullptr), m_config(nullptr)
 {
 }
 
@@ -191,7 +191,7 @@ bool findMountPoint(dev_t dev, QString& mountPoint)
   if (FILE* fp = ::setmntent("/proc/mounts", "r")) {
     struct stat st;
     struct mntent* mnt;
-    while ((mnt = ::getmntent(fp)) != 0) {
+    while ((mnt = ::getmntent(fp)) != nullptr) {
       if (::stat(mnt->mnt_dir, &st) != 0) {
         continue;
       }

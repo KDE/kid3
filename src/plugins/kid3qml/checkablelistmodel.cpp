@@ -28,7 +28,7 @@
 #include <QItemSelectionModel>
 
 CheckableListModel::CheckableListModel(QObject* parent) :
-  QAbstractProxyModel(parent), m_selModel(0)
+  QAbstractProxyModel(parent), m_selModel(nullptr)
 {
 }
 
@@ -45,7 +45,7 @@ void CheckableListModel::setSelectionModel(QItemSelectionModel* selModel)
 {
   if (m_selModel != selModel) {
     if (m_selModel) {
-      disconnect(m_selModel, 0, this, 0);
+      disconnect(m_selModel, nullptr, this, nullptr);
     }
     m_selModel = selModel;
     if (m_selModel) {
@@ -189,7 +189,7 @@ void CheckableListModel::setSourceModel(QAbstractItemModel* srcModel)
     emit sourceModelChanged();
 
     if (sourceModel()) {
-      disconnect(sourceModel(), 0, this, 0);
+      disconnect(sourceModel(), nullptr, this, nullptr);
     }
     QAbstractProxyModel::setSourceModel(srcModel);
     if (srcModel) {

@@ -97,7 +97,7 @@ public:
    * @param io I/O handler
    * @param parent parent object
    */
-  explicit AbstractCli(AbstractCliIO* io, QObject* parent = 0);
+  explicit AbstractCli(AbstractCliIO* io, QObject* parent = nullptr);
 
   /**
    * Destructor.

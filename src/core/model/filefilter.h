@@ -52,7 +52,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit FileFilter(QObject* parent = 0);
+  explicit FileFilter(QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -88,7 +88,7 @@ public:
    *
    * @return true if file passes through filter.
    */
-  bool filter(TaggedFile& taggedFile, bool* ok = 0);
+  bool filter(TaggedFile& taggedFile, bool* ok = nullptr);
 
   /**
    * Clear abort flag.

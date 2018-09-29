@@ -40,7 +40,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit StarRatingMappingsModel(QObject* parent = 0);
+  explicit StarRatingMappingsModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

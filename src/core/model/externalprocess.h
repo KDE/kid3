@@ -81,7 +81,7 @@ public:
    * @param app application context
    * @param parent parent object
    */
-  explicit ExternalProcess(Kid3Application* app, QWidget* parent = 0);
+  explicit ExternalProcess(Kid3Application* app, QWidget* parent = nullptr);
 
   /**
    * Destructor.

@@ -40,7 +40,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit TextExporter(QObject* parent = 0);
+  explicit TextExporter(QObject* parent = nullptr);
 
   /**
    * Destructor.

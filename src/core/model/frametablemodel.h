@@ -63,7 +63,7 @@ public:
    * @param id3v1  true if model for ID3v1 frames
    * @param parent parent widget
    */
-  explicit FrameTableModel(bool id3v1, QObject* parent = 0);
+  explicit FrameTableModel(bool id3v1, QObject* parent = nullptr);
 
   /**
    * Destructor.

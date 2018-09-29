@@ -33,7 +33,7 @@
  * Constructor.
  */
 FingerprintCalculator::FingerprintCalculator(QObject* parent) : QObject(parent),
-  m_chromaprintCtx(0),
+  m_chromaprintCtx(nullptr),
   m_decoder(AbstractFingerprintDecoder::createFingerprintDecoder(this))
 {
   connect(m_decoder, SIGNAL(started(int,int)),

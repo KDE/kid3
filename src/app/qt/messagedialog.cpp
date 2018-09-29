@@ -146,8 +146,8 @@ void MessageDialog::setIcon(QMessageBox::Icon icon)
   if (hasIcon) {
     QStyle* widgetStyle = style();
     int iconSize = widgetStyle->pixelMetric(
-          QStyle::PM_MessageBoxIconSize, 0, this);
-    m_iconLabel->setPixmap(widgetStyle->standardIcon(sp, 0, this).
+          QStyle::PM_MessageBoxIconSize, nullptr, this);
+    m_iconLabel->setPixmap(widgetStyle->standardIcon(sp, nullptr, this).
                            pixmap(iconSize, iconSize));
   } else {
     m_iconLabel->setPixmap(QPixmap());

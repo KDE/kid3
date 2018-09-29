@@ -463,7 +463,7 @@ const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
     FrameCollection::iterator it = frameAt(index.row());
     return &(*it);
   }
-  return 0;
+  return nullptr;
 }
 
 /**

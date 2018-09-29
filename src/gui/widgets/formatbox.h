@@ -48,7 +48,7 @@ public:
    * @param title  title
    * @param parent parent widget
    */
-  explicit FormatBox(const QString& title, QWidget* parent = 0);
+  explicit FormatBox(const QString& title, QWidget* parent = nullptr);
 
   /**
    * Destructor.

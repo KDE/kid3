@@ -391,15 +391,15 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
       index.row() >= static_cast<int>(m_trackDataVector.size()) ||
       index.column() < 0 ||
       index.column() >= static_cast<int>(m_frameTypes.size()))
-    return 0;
+    return nullptr;
 
   const ImportTrackData& trackData = m_trackDataVector.at(index.row());
   Frame::ExtendedType type = m_frameTypes.at(index.column());
   if (static_cast<int>(type.getType()) >= FT_FirstTrackProperty)
-    return 0;
+    return nullptr;
 
   FrameCollection::const_iterator it = trackData.findByExtendedType(type);
-  return it != trackData.end() ? &(*it) : 0;
+  return it != trackData.end() ? &(*it) : nullptr;
 }
 
 /**

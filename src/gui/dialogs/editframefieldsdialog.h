@@ -183,7 +183,7 @@ public:
    * @param parent     parent widget
    */
   EditFrameFieldsDialog(IPlatformTools* platformTools, Kid3Application* app,
-                        QWidget* parent = 0);
+                        QWidget* parent = nullptr);
 
   /**
    * Destructor.

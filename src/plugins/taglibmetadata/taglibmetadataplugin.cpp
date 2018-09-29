@@ -134,7 +134,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext2 == QLatin1String(".wv"))
       return new TagLibFile(idx);
   }
-  return 0;
+  return nullptr;
 }
 
 /**

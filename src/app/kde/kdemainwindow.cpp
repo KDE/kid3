@@ -58,8 +58,8 @@ KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
                              Kid3Application* app, QWidget* parent) :
   KXmlGuiWindow(parent),
   BaseMainWindow(this, platformTools, app),
-  m_platformTools(platformTools), m_fileOpenRecent(0),
-  m_settingsAutoHideTags(0), m_settingsShowHidePicture(0)
+  m_platformTools(platformTools), m_fileOpenRecent(nullptr),
+  m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
 {
   init();
 }

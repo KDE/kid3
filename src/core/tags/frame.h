@@ -712,7 +712,7 @@ public:
    *
    * @return number in string ignoring total after slash.
    */
-  static int numberWithoutTotal(const QString& str, bool* ok = 0);
+  static int numberWithoutTotal(const QString& str, bool* ok = nullptr);
 
   /**
    * Get representation of different frames in multiple files.

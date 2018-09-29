@@ -198,7 +198,7 @@ AbstractTaggedFileIterator::~AbstractTaggedFileIterator()
  * @param rootIdx root of model to iterate
  */
 TaggedFileIterator::TaggedFileIterator(const QPersistentModelIndex& rootIdx) :
-    m_it(rootIdx), m_nextFile(0)
+    m_it(rootIdx), m_nextFile(nullptr)
 {
   next();
 }
@@ -210,10 +210,10 @@ TaggedFileIterator::TaggedFileIterator(const QPersistentModelIndex& rootIdx) :
 TaggedFile* TaggedFileIterator::next()
 {
   TaggedFile* result = m_nextFile;
-  m_nextFile = 0;
+  m_nextFile = nullptr;
   while (m_it.hasNext()) {
     QPersistentModelIndex index = m_it.next();
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
       break;
   }
   return result;
@@ -245,7 +245,7 @@ SelectedTaggedFileIterator::SelectedTaggedFileIterator(
     const QPersistentModelIndex& rootIdx,
     const QItemSelectionModel* selectModel,
     bool allIfNoneSelected):
-    m_it(rootIdx), m_nextFile(0), m_selectModel(selectModel),
+    m_it(rootIdx), m_nextFile(nullptr), m_selectModel(selectModel),
     m_allSelected(!m_selectModel ||
                   (allIfNoneSelected && !m_selectModel->hasSelection()))
 {
@@ -259,14 +259,14 @@ SelectedTaggedFileIterator::SelectedTaggedFileIterator(
 TaggedFile* SelectedTaggedFileIterator::next()
 {
   TaggedFile* result = m_nextFile;
-  m_nextFile = 0;
+  m_nextFile = nullptr;
   while (m_it.hasNext()) {
     QPersistentModelIndex index = m_it.next();
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
         (m_allSelected || m_selectModel->isSelected(index)))
       break;
     else
-      m_nextFile = 0;
+      m_nextFile = nullptr;
   }
   return result;
 }
@@ -289,7 +289,7 @@ TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
     const QPersistentModelIndex& index) :
     m_row(0), m_model(index.model()),
     m_parentIdx(m_model && m_model->hasChildren(index)
-                ? index : QPersistentModelIndex(index.parent())), m_nextFile(0)
+                ? index : QPersistentModelIndex(index.parent())), m_nextFile(nullptr)
 {
   next();
 }
@@ -300,7 +300,7 @@ TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
  */
 bool TaggedFileOfDirectoryIterator::hasNext() const
 {
-  return m_model && m_nextFile != 0;
+  return m_model && m_nextFile != nullptr;
 }
 
 /**
@@ -309,12 +309,12 @@ bool TaggedFileOfDirectoryIterator::hasNext() const
  */
 TaggedFile* TaggedFileOfDirectoryIterator::next() {
   if (!m_model)
-    return 0;
+    return nullptr;
   TaggedFile* result = m_nextFile;
-  m_nextFile = 0;
+  m_nextFile = nullptr;
   while (m_row < m_model->rowCount(m_parentIdx)) {
     QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
       break;
   }
   return result;
@@ -327,7 +327,7 @@ TaggedFile* TaggedFileOfDirectoryIterator::next() {
 TaggedFile* TaggedFileOfDirectoryIterator::peekNext() const
 {
   if (!m_model)
-    return 0;
+    return nullptr;
   return m_nextFile;
 }
 
@@ -342,7 +342,7 @@ TaggedFile* TaggedFileOfDirectoryIterator::first(
   TaggedFileOfDirectoryIterator it(index);
   if (it.hasNext())
     return it.peekNext();
-  return 0;
+  return nullptr;
 }
 
 
@@ -374,7 +374,7 @@ SelectedTaggedFileOfDirectoryIterator::SelectedTaggedFileOfDirectoryIterator(
  */
 bool SelectedTaggedFileOfDirectoryIterator::hasNext() const
 {
-  return m_model && m_nextFile != 0;
+  return m_model && m_nextFile != nullptr;
 }
 
 /**
@@ -383,16 +383,16 @@ bool SelectedTaggedFileOfDirectoryIterator::hasNext() const
  */
 TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
   if (!m_model)
-    return 0;
+    return nullptr;
   TaggedFile* result = m_nextFile;
-  m_nextFile = 0;
+  m_nextFile = nullptr;
   while (m_row < m_model->rowCount(m_parentIdx)) {
     QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
         (m_allSelected || m_selectModel->isSelected(index)))
       break;
     else
-      m_nextFile = 0;
+      m_nextFile = nullptr;
   }
   return result;
 }
@@ -404,7 +404,7 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
 TaggedFile* SelectedTaggedFileOfDirectoryIterator::peekNext() const
 {
   if (!m_model)
-    return 0;
+    return nullptr;
   return m_nextFile;
 }
 
@@ -415,12 +415,12 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::peekNext() const
  * @param selectModel selection model
  */
 TaggedFileOfSelectedDirectoriesIterator::TaggedFileOfSelectedDirectoriesIterator(
-  const QItemSelectionModel* selectModel) : m_model(0), m_dirIdx(0), m_row(0),
-  m_nextFile(0)
+  const QItemSelectionModel* selectModel) : m_model(nullptr), m_dirIdx(0), m_row(0),
+  m_nextFile(nullptr)
 {
   if (selectModel &&
       (m_model = qobject_cast<const FileProxyModel*>(selectModel->model()))
-      != 0) {
+      != nullptr) {
     const auto indexes = selectModel->selectedRows();
     for (const QModelIndex& index : indexes) {
       if (m_model->isDir(index)) {
@@ -459,7 +459,7 @@ TaggedFileOfSelectedDirectoriesIterator::getIndexesOfDirWithSubDirs(
  */
 bool TaggedFileOfSelectedDirectoriesIterator::hasNext() const
 {
-  return m_model && m_nextFile != 0;
+  return m_model && m_nextFile != nullptr;
 }
 
 /**
@@ -469,16 +469,16 @@ bool TaggedFileOfSelectedDirectoriesIterator::hasNext() const
 TaggedFile* TaggedFileOfSelectedDirectoriesIterator::next()
 {
   if (!m_model)
-    return 0;
+    return nullptr;
   TaggedFile* result = m_nextFile;
-  m_nextFile = 0;
+  m_nextFile = nullptr;
   while (!m_nextFile) {
     if (m_dirIdx >= m_dirIndexes.size())
       break;
     QPersistentModelIndex parentIdx(m_dirIndexes.at(m_dirIdx));
     while (m_row < m_model->rowCount(parentIdx)) {
       QModelIndex index = m_model->index(m_row++, 0, parentIdx);
-      if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+      if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
         break;
     }
     if (m_row >= m_model->rowCount(parentIdx)) {
@@ -496,6 +496,6 @@ TaggedFile* TaggedFileOfSelectedDirectoriesIterator::next()
 TaggedFile* TaggedFileOfSelectedDirectoriesIterator::peekNext() const
 {
   if (!m_model)
-    return 0;
+    return nullptr;
   return m_nextFile;
 }

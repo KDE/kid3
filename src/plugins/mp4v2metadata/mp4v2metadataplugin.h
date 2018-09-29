@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit Mp4v2MetadataPlugin(QObject* parent = 0);
+  explicit Mp4v2MetadataPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

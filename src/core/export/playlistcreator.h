@@ -71,7 +71,7 @@ public:
      * Check if item is a tagged file.
      * @return true if item is file.
      */
-    bool isFile() const { return m_taggedFile != 0; }
+    bool isFile() const { return m_taggedFile != nullptr; }
 
     /**
      * Get the directory of the item.

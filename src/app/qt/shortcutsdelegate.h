@@ -42,7 +42,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit ShortcutsDelegate(QObject* parent = 0);
+  explicit ShortcutsDelegate(QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -112,7 +112,7 @@ public:
    * @param parent parent widget
    */
   explicit ShortcutsDelegateEditor(QLineEdit* lineEdit,
-                                   QWidget* parent = 0);
+                                   QWidget* parent = nullptr);
 
   /**
    * Destructor.

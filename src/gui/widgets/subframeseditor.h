@@ -55,7 +55,7 @@ public:
    */
   explicit SubframesEditor(IPlatformTools* platformTools, Kid3Application* app,
                            const TaggedFile* taggedFile, Frame::TagNumber tagNr,
-                           QWidget* parent = 0);
+                           QWidget* parent = nullptr);
 
   /**
    * Destructor.

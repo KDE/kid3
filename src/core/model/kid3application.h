@@ -136,7 +136,7 @@ public:
    * @param parent parent object
    */
   explicit Kid3Application(ICorePlatformTools* platformTools,
-                           QObject* parent = 0);
+                           QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -550,7 +550,7 @@ public:
    * @param options options for numbering operation
    */
   Q_INVOKABLE void numberTracks(int nr, int total, Frame::TagVersion tagVersion,
-                                NumberTrackOptions options = 0);
+                                NumberTrackOptions options = nullptr);
 
   /**
    * Set track data with tagged files of directory.

@@ -76,7 +76,7 @@ const char** FreedbImporter::serverList() const
     "ru.freedb.org:80",
     "uk.freedb.org:80",
     "us.freedb.org:80",
-    0                  // end of StrList
+    nullptr      // end of StrList
   };
   return servers;
 }

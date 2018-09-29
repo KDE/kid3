@@ -142,7 +142,7 @@ QStringList GeneralConfig::getTextCodecNames()
       "windows-1257",
       "windows-1258",
       "WINSAMI2 (WS2)",
-      0
+      nullptr
     };
     Q_ASSERT(qstrcmp(codecs[TextEncodingLatin1Index], "ISO-8859-1 (latin1)") == 0);
     const char* const* str = codecs;

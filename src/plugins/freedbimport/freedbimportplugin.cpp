@@ -73,5 +73,5 @@ ServerImporter* FreedbImportPlugin::createServerImporter(
   } else if (key == TRACKTYPE_IMPORTER_NAME) {
     return new TrackTypeImporter(netMgr, trackDataModel);
   }
-  return 0;
+  return nullptr;
 }

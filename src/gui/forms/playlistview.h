@@ -40,7 +40,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit PlaylistView(QWidget* parent = 0);
+  explicit PlaylistView(QWidget* parent = nullptr);
   virtual ~PlaylistView() override;
 
   /**

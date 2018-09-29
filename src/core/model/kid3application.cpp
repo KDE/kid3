@@ -225,7 +225,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
-  m_defaultFileIconProvider(0), m_fileIconProvider(0),
+  m_defaultFileIconProvider(nullptr), m_fileIconProvider(nullptr),
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
@@ -239,14 +239,14 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_tagSearcher(new TagSearcher(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
-  m_player(0),
-  m_expressionFileFilter(0),
+  m_player(nullptr),
+  m_expressionFileFilter(nullptr),
   m_downloadImageDest(ImageForSelectedFiles),
-  m_fileFilter(0), m_filterPassed(0), m_filterTotal(0),
-  m_namedBatchImportProfile(0),
-  m_batchImportProfile(0), m_batchImportTagVersion(Frame::TagNone),
-  m_editFrameTaggedFile(0), m_addFrameTaggedFile(0),
-  m_frameEditor(0), m_storedFrameEditor(0), m_imageProvider(0),
+  m_fileFilter(nullptr), m_filterPassed(0), m_filterTotal(0),
+  m_namedBatchImportProfile(nullptr),
+  m_batchImportProfile(nullptr), m_batchImportTagVersion(Frame::TagNone),
+  m_editFrameTaggedFile(nullptr), m_addFrameTaggedFile(nullptr),
+  m_frameEditor(nullptr), m_storedFrameEditor(nullptr), m_imageProvider(nullptr),
 #ifdef HAVE_QTDBUS
   m_dbusEnabled(false),
 #endif
@@ -605,7 +605,7 @@ void Kid3Application::deleteAudioPlayer() {
     }
 #endif
     delete m_player;
-    m_player = 0;
+    m_player = nullptr;
   }
 }
 
@@ -1975,7 +1975,7 @@ TaggedFile* Kid3Application::getSelectedFile()
   QModelIndexList selItems(
       m_fileSelectionModel->selectedRows());
   if (selItems.size() != 1)
-    return 0;
+    return nullptr;
 
   return FileProxyModel::getTaggedFileOfIndex(selItems.first());
 }
@@ -2011,7 +2011,7 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
       } else {
         // Edit a frame which does not exist, switch to add mode.
         m_addFrameTaggedFile = m_editFrameTaggedFile;
-        m_editFrameTaggedFile = 0;
+        m_editFrameTaggedFile = nullptr;
         framelist->addAndEditFrame();
       }
     } else {
@@ -2143,7 +2143,7 @@ void Kid3Application::addFrame(Frame::TagNumber tagNr,
 
   FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
-  TaggedFile* currentFile = 0;
+  TaggedFile* currentFile = nullptr;
   m_addFrameTaggedFile = getSelectedFile();
   if (m_addFrameTaggedFile) {
     currentFile = m_addFrameTaggedFile;
@@ -2168,7 +2168,7 @@ void Kid3Application::addFrame(Frame::TagNumber tagNr,
       }
     } else {
       framelist->setFrame(*frame);
-      onFrameAdded(framelist->pasteFrame() ? &framelist->getFrame() : 0, tagNr);
+      onFrameAdded(framelist->pasteFrame() ? &framelist->getFrame() : nullptr, tagNr);
     }
   }
 }
@@ -2228,7 +2228,7 @@ void Kid3Application::onFrameAdded(const Frame* frame, Frame::TagNumber tagNr)
  */
 void Kid3Application::selectAndAddFrame(Frame::TagNumber tagNr)
 {
-  addFrame(tagNr, 0, true);
+  addFrame(tagNr, nullptr, true);
 }
 
 /**
@@ -2381,7 +2381,7 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
            it != trackDataVector.constEnd();
            ++it) {
         TaggedFile* taggedFile;
-        if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != 0) {
+        if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != nullptr) {
           taggedFile->readTags(false);
           taggedFile->addFrame(Frame::Tag_Picture, frame);
         }
@@ -3739,10 +3739,10 @@ void Kid3Application::setFrameEditor(FrameEditorObject* frameEditor)
 void Kid3Application::removeFrameEditor(IFrameEditor* frameEditor)
 {
   if (m_storedFrameEditor == frameEditor) {
-    m_storedFrameEditor = 0;
+    m_storedFrameEditor = nullptr;
   }
   if (m_frameEditor == frameEditor) {
-    setFrameEditor(0);
+    setFrameEditor(nullptr);
   }
 }
 

@@ -43,7 +43,7 @@
  */
 FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
                        QWidget* parent) :
-  QTableView(parent), m_currentEditor(0)
+  QTableView(parent), m_currentEditor(nullptr)
 {
   setObjectName(QLatin1String("FrameTable"));
   setModel(model);
@@ -103,7 +103,7 @@ bool FrameTable::eventFilter(QObject*, QEvent* event)
       }
     } else if (type == QEvent::ChildRemoved) {
       if (m_currentEditor == ((QChildEvent*)event)->child()) {
-        m_currentEditor = 0;
+        m_currentEditor = nullptr;
       }
     } else if (type == QEvent::WindowDeactivate) {
       // this is done to avoid losing focus when the window is deactivated
@@ -141,7 +141,7 @@ bool FrameTable::acceptEdit()
  */
 const QWidget* FrameTable::getCurrentEditor() const
 {
-  return state() == EditingState ? m_currentEditor : 0;
+  return state() == EditingState ? m_currentEditor : nullptr;
 }
 
 /**

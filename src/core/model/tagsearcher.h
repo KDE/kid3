@@ -241,7 +241,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit TagSearcher(QObject* parent = 0);
+  explicit TagSearcher(QObject* parent = nullptr);
 
   /**
    * Destructor.

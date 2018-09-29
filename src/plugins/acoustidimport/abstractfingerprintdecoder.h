@@ -39,7 +39,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit AbstractFingerprintDecoder(QObject* parent = 0);
+  explicit AbstractFingerprintDecoder(QObject* parent = nullptr);
 
   /**
    * Destructor.

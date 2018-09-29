@@ -27,7 +27,7 @@
 #include "contexthelp.h"
 #include "iplatformtools.h"
 
-IPlatformTools* ContextHelp::s_platformTools = 0;
+IPlatformTools* ContextHelp::s_platformTools = nullptr;
 
 /**
  * Initialize context help.

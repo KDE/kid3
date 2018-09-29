@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent widget
    */
-  explicit ConfigTableModel(QObject* parent = 0);
+  explicit ConfigTableModel(QObject* parent = nullptr);
 
   /**
    * Destructor.

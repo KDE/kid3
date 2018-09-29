@@ -52,7 +52,7 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
                                  QWidget* parent) :
   QWidget(parent), m_platformTools(platformTools), m_app(app),
   m_taggedFile(taggedFile), m_tagNr(tagNr),
-  m_editFrameDialog(0), m_editFrameRow(-1)
+  m_editFrameDialog(nullptr), m_editFrameRow(-1)
 {
   setObjectName(QLatin1String("SubframesEditor"));
   QHBoxLayout* layout = new QHBoxLayout(this);

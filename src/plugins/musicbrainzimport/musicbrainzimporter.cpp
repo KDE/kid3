@@ -63,12 +63,12 @@ const char* MusicBrainzImporter::name() const {
 /** NULL-terminated array of server strings, 0 if not used */
 const char** MusicBrainzImporter::serverList() const
 {
-  return 0;
+  return nullptr;
 }
 
 /** default server, 0 to disable */
 const char* MusicBrainzImporter::defaultServer() const {
-  return 0;
+  return nullptr;
 }
 
 /** anchor to online help, 0 to disable */

@@ -41,7 +41,7 @@ public:
    * @param title  title
    * @param parent parent widget
    */
-  explicit TagFormatBox(const QString& title, QWidget* parent = 0);
+  explicit TagFormatBox(const QString& title, QWidget* parent = nullptr);
 
   /**
    * Destructor.

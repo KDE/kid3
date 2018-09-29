@@ -335,7 +335,7 @@ bool PlaylistCreator::read(
  */
 PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
   m_ctr(ctr), m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)),
-  m_trackData(0), m_isDir(false)
+  m_trackData(nullptr), m_isDir(false)
 {
   if (m_taggedFile) {
     m_dirName = m_taggedFile->getDirname();

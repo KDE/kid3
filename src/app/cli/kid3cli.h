@@ -56,7 +56,7 @@ public:
    */
   explicit Kid3Cli(Kid3Application* app,
                    AbstractCliIO* io, const QStringList& args,
-                   QObject* parent = 0);
+                   QObject* parent = nullptr);
 
   /**
    * Destructor.

@@ -64,7 +64,7 @@ bool TagSearcher::Position::isValid() const
  * @param parent parent object
  */
 TagSearcher::TagSearcher(QObject* parent) : QObject(parent),
-  m_fileProxyModel(0), m_iterator(0), m_aborted(false), m_started(false)
+  m_fileProxyModel(nullptr), m_iterator(nullptr), m_aborted(false), m_started(false)
 {
 }
 
@@ -100,7 +100,7 @@ void TagSearcher::setModel(FileProxyModel* model)
 {
   if (m_iterator && m_fileProxyModel != model) {
     delete m_iterator;
-    m_iterator = 0;
+    m_iterator = nullptr;
   }
   m_fileProxyModel = model;
   if (m_fileProxyModel && !m_iterator) {

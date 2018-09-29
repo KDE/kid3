@@ -51,7 +51,7 @@ public:
    */
   FormatListEdit(const QStringList& labels,
                  const QStringList& tooltips,
-                 QWidget* parent = 0);
+                 QWidget* parent = nullptr);
 
   /**
    * Destructor.
@@ -77,7 +77,7 @@ public:
    *   the names, the second the corresponding string for the first line edit,
    *   etc.
    */
-  QList<QStringList> getFormats(int* index = 0);
+  QList<QStringList> getFormats(int* index = nullptr);
 
   /**
    * Get a format string from the format currently displayed in the GUI.

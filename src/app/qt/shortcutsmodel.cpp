@@ -82,7 +82,7 @@ const ShortcutsModel::ShortcutGroup* ShortcutsModel::shortcutGroupForIndex(
       isTopLevelItem(index)) {
     return &m_shortcutGroups.at(index.row());
   }
-  return 0;
+  return nullptr;
 }
 
 /**
@@ -233,7 +233,7 @@ QModelIndex ShortcutsModel::index(int row, int column,
 {
   if (parent.isValid()) {
     const ShortcutGroup* group;
-    if ((group = shortcutGroupForIndex(parent)) != 0 &&
+    if ((group = shortcutGroupForIndex(parent)) != nullptr &&
         column >= 0 && column < NumColumns &&
         row >= 0 && row <= group->size()) {
       return createIndex(row, column, parent.row());

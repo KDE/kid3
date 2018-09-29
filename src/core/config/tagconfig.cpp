@@ -360,11 +360,11 @@ void TagConfig::setDefaultPluginOrder()
     "OggFlacMetadata",
     "Mp4v2Metadata",
     "TaglibMetadata",
-    0
+    nullptr
   };
 
   m_pluginOrder.clear();
-  for (const char* const* pn = defaultPluginOrder; *pn != 0; ++pn) {
+  for (const char* const* pn = defaultPluginOrder; *pn != nullptr; ++pn) {
     m_pluginOrder += QString::fromLatin1(*pn);
   }
 }

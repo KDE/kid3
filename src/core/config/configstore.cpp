@@ -41,7 +41,7 @@ static const int CONFIG_VERSION = 4;
 int ConfigStore::s_configVersion = -1;
 
 
-ConfigStore* ConfigStore::s_self = 0;
+ConfigStore* ConfigStore::s_self = nullptr;
 
 /**
  * Constructor.

@@ -63,7 +63,7 @@ public:
   /**
    * Constructor.
    */
-  explicit ConfigDialogPages(IPlatformTools* platformTools, QObject* parent = 0);
+  explicit ConfigDialogPages(IPlatformTools* platformTools, QObject* parent = nullptr);
 
   /**
    * Destructor.

@@ -93,17 +93,17 @@
 BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools,
                                        Kid3Application* app) :
-  m_platformTools(platformTools), m_w(mainWin), m_self(0),
+  m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
   m_app(app),
-  m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
-  m_exportDialog(0), m_findReplaceDialog(0), m_renDirDialog(0),
-  m_numberTracksDialog(0), m_filterDialog(0),
+  m_importDialog(nullptr), m_batchImportDialog(nullptr), m_browseCoverArtDialog(nullptr),
+  m_exportDialog(nullptr), m_findReplaceDialog(nullptr), m_renDirDialog(nullptr),
+  m_numberTracksDialog(nullptr), m_filterDialog(nullptr),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(0), m_progressWidget(0),
-  m_progressBar(0), m_progressAbortButton(0), m_editFrameDialog(0),
-  m_playToolBar(0),
-  m_editFrameTaggedFile(0), m_editFrameTagNr(Frame::Tag_2),
-  m_progressTerminationHandler(0),
+  m_playlistDialog(nullptr), m_progressWidget(nullptr),
+  m_progressBar(nullptr), m_progressAbortButton(nullptr), m_editFrameDialog(nullptr),
+  m_playToolBar(nullptr),
+  m_editFrameTaggedFile(nullptr), m_editFrameTagNr(Frame::Tag_2),
+  m_progressTerminationHandler(nullptr),
   m_progressDisconnected(false),
   m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
@@ -265,12 +265,12 @@ void BaseMainWindowImpl::showOperationProgress(const QString& name,
     if (m_progressBar) {
       m_w->statusBar()->removeWidget(m_progressBar);
       delete m_progressBar;
-      m_progressBar = 0;
+      m_progressBar = nullptr;
     }
     if (m_progressAbortButton) {
       m_w->statusBar()->removeWidget(m_progressAbortButton);
       delete m_progressAbortButton;
-      m_progressAbortButton = 0;
+      m_progressAbortButton = nullptr;
     }
     slotStatusMsg(tr("Ready."));
   } else if (done < total || (done == 0 && total == 0)) {
@@ -344,7 +344,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
               QFile::permissions(filePath) | QFile::WriteUser);
           if (model &&
               (taggedFile = FileProxyModel::getTaggedFileOfIndex(
-                 model->index(filePath))) != 0) {
+                 model->index(filePath))) != nullptr) {
             taggedFile->undoRevertChangedFilename();
           }
         }
@@ -737,7 +737,7 @@ void BaseMainWindowImpl::slotExport()
   m_exportDialog->showPreview();
   m_exportDialog->exec();
   delete m_exportDialog;
-  m_exportDialog = 0;
+  m_exportDialog = nullptr;
 }
 
 /**
@@ -880,7 +880,7 @@ void BaseMainWindowImpl::slotRenameDirectory()
       TaggedFileOfDirectoryIterator::first(m_app->currentOrRootIndex())) {
       m_renDirDialog->startDialog(taggedFile);
     } else {
-      m_renDirDialog->startDialog(0, m_app->getDirName());
+      m_renDirDialog->startDialog(nullptr, m_app->getDirName());
     }
     if (m_renDirDialog->exec() == QDialog::Accepted) {
       QString errorMsg(m_app->performRenameActions());
@@ -1152,7 +1152,7 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
       *frame = Frame(type, QLatin1String(""), name, -1);
     }
   }
-  emit frameSelected(m_editFrameTagNr, ok ? frame : 0);
+  emit frameSelected(m_editFrameTagNr, ok ? frame : nullptr);
 }
 
 /**
@@ -1196,7 +1196,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
                                                TaggedFile* taggedFile)
 {
   if (!frame || !taggedFile) {
-    emit frameEdited(m_editFrameTagNr, 0);
+    emit frameEdited(m_editFrameTagNr, nullptr);
     return;
   }
 
@@ -1248,7 +1248,7 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
     }
   }
   emit frameEdited(m_editFrameTagNr,
-                   result == QDialog::Accepted ? &m_editFrame : 0);
+                   result == QDialog::Accepted ? &m_editFrame : nullptr);
 }
 
 /**
@@ -1314,7 +1314,7 @@ void BaseMainWindowImpl::renameFile()
         }
 #else
         QMessageBox::warning(
-          0, tr("File Error"),
+          nullptr, tr("File Error"),
           tr("Error while renaming:\n") +
           tr("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
           QMessageBox::Ok, Qt::NoButton);
@@ -1499,7 +1499,7 @@ void BaseMainWindowImpl::stopProgressMonitoring()
     (this->*m_progressTerminationHandler)();
   }
   m_progressTitle.clear();
-  m_progressTerminationHandler = 0;
+  m_progressTerminationHandler = nullptr;
 }
 
 /**

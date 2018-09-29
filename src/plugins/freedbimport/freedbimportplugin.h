@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit FreedbImportPlugin(QObject* parent = 0);
+  explicit FreedbImportPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

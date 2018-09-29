@@ -87,7 +87,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit DateTimeValidator(QObject* parent = 0);
+  explicit DateTimeValidator(QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -391,7 +391,7 @@ void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
 {
   QLineEdit* le;
   if (TagFormatConfig::instance().formatWhileEditing() &&
-      (le = qobject_cast<QLineEdit*>(sender())) != 0) {
+      (le = qobject_cast<QLineEdit*>(sender())) != nullptr) {
     QString str(txt);
     TagFormatConfig::instance().formatString(str);
     if (str != txt) {

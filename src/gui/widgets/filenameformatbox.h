@@ -43,7 +43,7 @@ public:
    * @param title  title
    * @param parent parent widget
    */
-  explicit FilenameFormatBox(const QString& title, QWidget* parent = 0);
+  explicit FilenameFormatBox(const QString& title, QWidget* parent = nullptr);
 
   /**
    * Destructor.

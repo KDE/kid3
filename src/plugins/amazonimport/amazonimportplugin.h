@@ -43,7 +43,7 @@ public:
    * Constructor.
    * @param parent parent object
    */
-  explicit AmazonImportPlugin(QObject* parent = 0);
+  explicit AmazonImportPlugin(QObject* parent = nullptr);
 
   /**
    * Destructor.

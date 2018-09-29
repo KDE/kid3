@@ -33,7 +33,7 @@
  * @param parent parent object
  */
 FrameEditorObject::FrameEditorObject(QObject* parent) : QObject(parent),
-  m_selectFrame(0), m_editFrameTaggedFile(0), m_frameObjectModel(0),
+  m_selectFrame(nullptr), m_editFrameTaggedFile(nullptr), m_frameObjectModel(nullptr),
   m_tagNr(Frame::Tag_2)
 {
 }
@@ -58,7 +58,7 @@ void FrameEditorObject::editFrameOfTaggedFile(const Frame* frame,
                                                TaggedFile* taggedFile)
 {
   if (!frame || !taggedFile) {
-    emit frameEdited(m_tagNr, 0);
+    emit frameEdited(m_tagNr, nullptr);
     return;
   }
 
@@ -87,7 +87,7 @@ void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
     }
     emit frameEdited(m_tagNr, &m_editFrame);
   } else {
-    emit frameEdited(m_tagNr, 0);
+    emit frameEdited(m_tagNr, nullptr);
   }
 }
 
@@ -123,7 +123,7 @@ void FrameEditorObject::onFrameSelectionFinished(const QString& displayName)
     *m_selectFrame = Frame(type, QLatin1String(""), name, -1);
     emit frameSelected(m_tagNr, m_selectFrame);
   } else {
-    emit frameSelected(m_tagNr, 0);
+    emit frameSelected(m_tagNr, nullptr);
   }
 }
 

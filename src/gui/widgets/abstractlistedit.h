@@ -48,7 +48,7 @@ public:
    * @param parent parent widget
    */
   AbstractListEdit(QAbstractItemView* itemView,
-                   QAbstractItemModel* model, QWidget* parent = 0);
+                   QAbstractItemModel* model, QWidget* parent = nullptr);
 
   /**
    * Destructor.

@@ -47,8 +47,8 @@ enum DataFlags {
  */
 BatchImporter::BatchImporter(QNetworkAccessManager* netMgr) : QObject(netMgr),
   m_downloadClient(new DownloadClient(netMgr)),
-  m_currentImporter(0), m_trackDataModel(0), m_albumModel(0),
-  m_albumListItem(0), m_tagVersion(Frame::TagNone), m_state(Idle),
+  m_currentImporter(nullptr), m_trackDataModel(nullptr), m_albumModel(nullptr),
+  m_albumListItem(nullptr), m_tagVersion(Frame::TagNone), m_state(Idle),
   m_trackListNr(-1), m_sourceNr(-1), m_albumNr(-1),
   m_requestedData(0), m_importedData(0)
 {
@@ -179,7 +179,7 @@ void BatchImporter::stateTransition()
     }
     break;
   case CheckNextSource:
-    m_currentImporter = 0;
+    m_currentImporter = nullptr;
     forever {
       ++m_sourceNr;
       if (m_sourceNr < 0 || m_sourceNr >= m_profile.getSources().size()) {
@@ -187,7 +187,7 @@ void BatchImporter::stateTransition()
       }
       const BatchImportProfile::Source& profileSource =
           m_profile.getSources().at(m_sourceNr);
-      if ((m_currentImporter = getImporter(profileSource.getName())) != 0) {
+      if ((m_currentImporter = getImporter(profileSource.getName())) != nullptr) {
         m_requestedData = 0;
         if (profileSource.standardTagsEnabled())
           m_requestedData |= StandardTags;
@@ -214,7 +214,7 @@ void BatchImporter::stateTransition()
       emit reportImportEvent(QueryingAlbumList,
                              m_currentArtist + QLatin1String(" - ") + m_currentAlbum);
       m_albumNr = -1;
-      m_albumModel = 0;
+      m_albumModel = nullptr;
       connect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
               this, SLOT(onFindFinished(QByteArray)));
       connect(m_currentImporter, SIGNAL(progress(QString,int,int)),
@@ -224,7 +224,7 @@ void BatchImporter::stateTransition()
     }
     break;
   case CheckNextAlbum:
-    m_albumListItem = 0;
+    m_albumListItem = nullptr;
     forever {
       ++m_albumNr;
       if (!m_albumModel ||
@@ -232,7 +232,7 @@ void BatchImporter::stateTransition()
         break;
       }
       if ((m_albumListItem =
-          static_cast<AlbumListItem*>(m_albumModel->item(m_albumNr, 0))) != 0 &&
+          static_cast<AlbumListItem*>(m_albumModel->item(m_albumNr, 0))) != nullptr &&
           m_albumListItem->type() == AlbumListItem::Type) {
         break;
       }
@@ -436,5 +436,5 @@ ServerImporter* BatchImporter::getImporter(const QString& name)
       return importer;
     }
   }
-  return 0;
+  return nullptr;
 }

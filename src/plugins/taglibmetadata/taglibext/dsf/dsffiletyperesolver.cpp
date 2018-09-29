@@ -65,7 +65,7 @@ TagLib::File *DSFFileTypeResolver::createFile(const char *fileName,
         return new DSFFile(fileName, readProperties, propertiesStyle);
     }
 
-    return 0;
+    return nullptr;
 }
 
 #endif

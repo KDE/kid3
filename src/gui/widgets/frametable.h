@@ -49,7 +49,7 @@ public:
    * @param parent parent widget
    */
   explicit FrameTable(FrameTableModel* model, GenreModel* genreModel,
-                      QWidget* parent = 0);
+                      QWidget* parent = nullptr);
 
   /**
    * Destructor.

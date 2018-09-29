@@ -48,7 +48,7 @@
  * @param prompt command line prompt
  */
 StandardIOHandler::StandardIOHandler(const char* prompt) :
-  m_prompt(prompt), m_conInThread(0),
+  m_prompt(prompt), m_conInThread(nullptr),
   m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly)
 {
 #ifdef Q_OS_WIN32

@@ -44,9 +44,9 @@ public:
     ID3v2Location(0),
     ID3v2OriginalSize(0),
     fileSize(0),
-    tag(0),
+    tag(nullptr),
     hasID3v2(false),
-    properties(0)
+    properties(nullptr)
   {}
 
   ~FilePrivate()

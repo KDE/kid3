@@ -69,5 +69,5 @@ ServerImporter* AmazonImportPlugin::createServerImporter(
   if (key == IMPORTER_NAME) {
     return new AmazonImporter(netMgr, trackDataModel);
   }
-  return 0;
+  return nullptr;
 }

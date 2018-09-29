@@ -210,7 +210,7 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override { return m_nextFile != 0; }
+  virtual bool hasNext() const override { return m_nextFile != nullptr; }
 
   /**
    * Advance iterator and return next item.
@@ -268,7 +268,7 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override { return m_nextFile != 0; }
+  virtual bool hasNext() const override { return m_nextFile != nullptr; }
 
   /**
    * Advance iterator and return next item.
