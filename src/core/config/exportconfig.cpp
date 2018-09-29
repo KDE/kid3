@@ -171,12 +171,10 @@ void ExportConfig::readFromConfig(ISettings* config)
   while (expTracks.size() < numExpNames) expTracks.append(QLatin1String(""));
   while (expTrailers.size() < numExpNames) expTrailers.append(QLatin1String(""));
 
-  QStringList::const_iterator expNamesIt, expHeadersIt, expTracksIt,
-    expTrailersIt;
-  for (expNamesIt = expNames.begin(), expHeadersIt = expHeaders.begin(),
-         expTracksIt = expTracks.begin(), expTrailersIt = expTrailers.begin();
-       expNamesIt != expNames.end() && expHeadersIt != expHeaders.end() &&
-         expTracksIt != expTracks.end() && expTrailersIt != expTrailers.end();
+  for (auto expNamesIt = expNames.constBegin(), expHeadersIt = expHeaders.constBegin(),
+         expTracksIt = expTracks.constBegin(), expTrailersIt = expTrailers.constBegin();
+       expNamesIt != expNames.constEnd() && expHeadersIt != expHeaders.constEnd() &&
+         expTracksIt != expTracks.constEnd() && expTrailersIt != expTrailers.constEnd();
        ++expNamesIt, ++expHeadersIt, ++expTracksIt, ++expTrailersIt) {
     int idx = m_exportFormatNames.indexOf(*expNamesIt);
     if (idx >= 0) {

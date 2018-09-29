@@ -250,9 +250,7 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
                            const QPersistentModelIndex& index)
 {
   // do not add an action if the source or destination is already in an action
-  for (RenameActionList::const_iterator it = m_actions.begin();
-       it != m_actions.end();
-       ++it) {
+  for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
     if ((!src.isEmpty() && (*it).m_src == src) ||
         (!dest.isEmpty() && (*it).m_dest == dest)){
       return;
@@ -285,9 +283,7 @@ bool DirRenamer::actionHasSource(const QString& src) const
   if (src.isEmpty()) {
     return false;
   }
-  for (RenameActionList::const_iterator it = m_actions.begin();
-       it != m_actions.end();
-       ++it) {
+  for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
     if ((*it).m_src == src) {
       return true;
     }
@@ -305,9 +301,7 @@ bool DirRenamer::actionHasDestination(const QString& dest) const
   if (dest.isEmpty()) {
     return false;
   }
-  for (RenameActionList::const_iterator it = m_actions.begin();
-       it != m_actions.end();
-       ++it) {
+  for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
     if ((*it).m_dest == dest) {
       return true;
     }
@@ -325,9 +319,7 @@ void DirRenamer::replaceIfAlreadyRenamed(QString& src) const
   bool found = true;
   for (int i = 0; found && i <  5; ++i) {
     found = false;
-    for (RenameActionList::const_iterator it = m_actions.begin();
-         it != m_actions.end();
-         ++it) {
+    for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
       if ((*it).m_type == RenameAction::RenameDirectory &&
           (*it).m_src == src) {
         src = (*it).m_dest;
@@ -425,9 +417,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
  */
 void DirRenamer::performActions(QString* errorMsg)
 {
-  for (RenameActionList::const_iterator it = m_actions.begin();
-       it != m_actions.end();
-       ++it) {
+  for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
     switch ((*it).m_type) {
       case RenameAction::CreateDirectory:
         createDirectory((*it).m_dest, errorMsg);

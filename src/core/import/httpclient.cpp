@@ -200,10 +200,7 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
                                    username, password));
 
   QNetworkRequest request(url);
-  for (RawHeaderMap::const_iterator it =
-         headers.constBegin();
-       it != headers.constEnd();
-       ++it) {
+  for (auto it = headers.constBegin(); it != headers.constEnd(); ++it) {
     request.setRawHeader(it.key(), it.value());
   }
   QNetworkReply* reply = m_netMgr->get(request);

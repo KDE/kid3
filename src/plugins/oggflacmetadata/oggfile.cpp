@@ -273,7 +273,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
             if (vc) {
               ::vorbis_comment_clear(vc);
               ::vorbis_comment_init(vc);
-              CommentList::iterator it = m_comments.begin();
+              auto it = m_comments.begin();
               while (it != m_comments.end()) {
                 QString name((*it).getName());
                 QString value((*it).getValue());
@@ -439,9 +439,8 @@ static Frame::Type getTypeFromVorbisName(QString name)
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
     strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char('=')).toUpper());
-  if (it != strNumMap.end()) {
+  auto it = strNumMap.constFind(name.remove(QLatin1Char('=')).toUpper());
+  if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return Frame::FT_Other;
@@ -480,8 +479,7 @@ void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
     markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
-    for (OggFile::CommentList::iterator it = m_comments.begin();
-         it != m_comments.end();) {
+    for (auto it = m_comments.begin(); it != m_comments.end();) {
       QString name((*it).getName());
       if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
         it = m_comments.erase(it);
@@ -787,9 +785,7 @@ void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
     frames.clear();
     QString name;
     int i = 0;
-    for (OggFile::CommentList::const_iterator it = m_comments.begin();
-         it != m_comments.end();
-         ++it) {
+    for (auto it = m_comments.constBegin(); it != m_comments.constEnd(); ++it) {
       name = (*it).getName();
       Frame::Type type = getTypeFromVorbisName(name);
       if (type == Frame::FT_Picture) {

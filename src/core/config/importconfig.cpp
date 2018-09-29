@@ -314,11 +314,10 @@ void ImportConfig::readFromConfig(ISettings* config)
   QStringList keys = config->value(QLatin1String("MatchPictureUrlMapKeys"), QStringList()).toStringList();
   QStringList values = config->value(QLatin1String("MatchPictureUrlMapValues"), QStringList()).toStringList();
   if (!keys.empty() && !values.empty()) {
-    QStringList::Iterator itk, itv;
     m_matchPictureUrlMap.clear();
-    for (itk = keys.begin(), itv = values.begin();
-       itk != keys.end() && itv != values.end();
-       ++itk, ++itv) {
+    for (auto itk = keys.constBegin(), itv = values.constBegin();
+         itk != keys.constEnd() && itv != values.constEnd();
+         ++itk, ++itv) {
       m_matchPictureUrlMap[*itk] = *itv;
     }
   }
@@ -339,11 +338,10 @@ void ImportConfig::readFromConfig(ISettings* config)
   while (picUrls.size() < numPicNames) picUrls.append(QLatin1String(""));
 
   /* Use defaults if no configuration found */
-  QStringList::const_iterator namesIt, headersIt, tracksIt;
-  for (namesIt = names.begin(), headersIt = headers.begin(),
-         tracksIt = tracks.begin();
-       namesIt != names.end() && headersIt != headers.end() &&
-         tracksIt != tracks.end();
+  for (auto namesIt = names.constBegin(), headersIt = headers.constBegin(),
+         tracksIt = tracks.constBegin();
+       namesIt != names.constEnd() && headersIt != headers.constEnd() &&
+         tracksIt != tracks.constEnd();
        ++namesIt, ++headersIt, ++tracksIt) {
     int idx = m_importFormatNames.indexOf(*namesIt);
     if (idx >= 0) {
@@ -356,11 +354,10 @@ void ImportConfig::readFromConfig(ISettings* config)
     }
   }
 
-  QStringList::const_iterator tagsNamesIt, sourcesIt, extractionsIt;
-  for (tagsNamesIt = tagsNames.begin(), sourcesIt = tagsSources.begin(),
-         extractionsIt = tagsExtractions.begin();
-       tagsNamesIt != tagsNames.end() && sourcesIt != tagsSources.end() &&
-         extractionsIt != tagsExtractions.end();
+  for (auto tagsNamesIt = tagsNames.constBegin(), sourcesIt = tagsSources.constBegin(),
+         extractionsIt = tagsExtractions.constBegin();
+       tagsNamesIt != tagsNames.constEnd() && sourcesIt != tagsSources.constEnd() &&
+         extractionsIt != tagsExtractions.constEnd();
        ++tagsNamesIt, ++sourcesIt, ++extractionsIt) {
     int idx = m_importTagsNames.indexOf(*tagsNamesIt);
     if (idx >= 0) {
@@ -373,9 +370,8 @@ void ImportConfig::readFromConfig(ISettings* config)
     }
   }
 
-  QStringList::const_iterator picNamesIt, picUrlsIt;
-  for (picNamesIt = picNames.begin(), picUrlsIt = picUrls.begin();
-       picNamesIt != picNames.end() && picUrlsIt != picUrls.end();
+  for (auto picNamesIt = picNames.constBegin(), picUrlsIt = picUrls.constBegin();
+       picNamesIt != picNames.constEnd() && picUrlsIt != picUrls.constEnd();
        ++picNamesIt, ++picUrlsIt) {
     int idx = m_pictureSourceNames.indexOf(*picNamesIt);
     if (idx >= 0) {
@@ -590,9 +586,7 @@ QVariantMap ImportConfig::matchPictureUrlVariantMap() const
 {
   QVariantMap map;
   QMap<QString, QString> urlMap = matchPictureUrlMap();
-  for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
-       it != urlMap.constEnd();
-       ++it) {
+  for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
     map.insert(it.key(), it.value());
   }
   return map;
@@ -601,9 +595,7 @@ QVariantMap ImportConfig::matchPictureUrlVariantMap() const
 void ImportConfig::setMatchPictureUrlVariantMap(const QVariantMap& map)
 {
   QMap<QString, QString> urlMap;
-  for (QVariantMap::const_iterator it = map.constBegin();
-       it != map.constEnd();
-       ++it) {
+  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
     urlMap.insert(it.key(), it.value().toString());
   }
   setMatchPictureUrlMap(urlMap);

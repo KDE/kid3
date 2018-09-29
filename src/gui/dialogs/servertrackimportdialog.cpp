@@ -196,9 +196,7 @@ void ServerTrackImportDialog::initTable()
 
   int numRows = 0;
   const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
-  for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
-       it != trackDataVector.constEnd();
-       ++it) {
+  for (auto it = trackDataVector.constBegin(); it != trackDataVector.constEnd(); ++it) {
     if (it->isEnabled()) {
       ++numRows;
     }
@@ -283,7 +281,7 @@ void ServerTrackImportDialog::apply()
 {
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   trackDataVector.setCoverArtUrl(QUrl());
-  ImportTrackDataVector::iterator it = trackDataVector.begin();
+  auto it = trackDataVector.begin();
   bool newTrackData = false;
   int numRows = m_albumTableModel->rowCount();
   for (int index = 0; index < numRows; ++index) {
@@ -350,8 +348,8 @@ void ServerTrackImportDialog::updateFileTrackData(int index)
   QString str(numResults == 0 ?
               tr("No result") : tr("No result selected"));
   stringList.push_back(str);
-  for (ImportTrackDataVector::const_iterator it = m_trackResults[index].begin();
-       it != m_trackResults[index].end();
+  for (auto it = m_trackResults[index].constBegin();
+       it != m_trackResults[index].constEnd();
        ++it) {
     str.sprintf("%02d ", (*it).getTrack());
     str += (*it).getTitle();
@@ -446,7 +444,7 @@ void ServerTrackImportDialog::showFilenameInStatusBar(const QModelIndex& index)
 
     int rowNr = 0;
     const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
-    for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+    for (auto it = trackDataVector.constBegin();
          it != trackDataVector.constEnd();
          ++it) {
       if (it->isEnabled()) {

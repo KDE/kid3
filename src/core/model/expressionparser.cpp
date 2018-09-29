@@ -136,7 +136,7 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
     operatorStack.pop_back();
     m_rpnStack.push_back(lastOp);
   }
-  m_rpnIterator = m_rpnStack.begin();
+  m_rpnIterator = m_rpnStack.constBegin();
 }
 
 
@@ -177,7 +177,7 @@ static QString boolToString(bool b)
  */
 void ExpressionParser::clearEvaluation()
 {
-  m_rpnIterator = m_rpnStack.begin();
+  m_rpnIterator = m_rpnStack.constBegin();
   m_varStack.clear();
   m_error = false;
 }
@@ -249,7 +249,7 @@ bool ExpressionParser::popTwoBools(bool& var1, bool& var2)
  */
 bool ExpressionParser::evaluate(QString& op, QString& var1, QString& var2)
 {
-  while (m_rpnIterator != m_rpnStack.end()) {
+  while (m_rpnIterator != m_rpnStack.constEnd()) {
     QString token = *m_rpnIterator++;
     if (token == QLatin1String("and")) {
       bool b1, b2;

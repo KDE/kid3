@@ -334,7 +334,7 @@ void TrackDataModel::setTimeDifferenceCheck(bool enable, int maxDiff) {
 int TrackDataModel::calculateAccuracy() const
 {
   int numImportTracks = 0, numTracks = 0, numMismatches = 0, numMatches = 0;
-  for (ImportTrackDataVector::const_iterator it = m_trackDataVector.constBegin();
+  for (auto it = m_trackDataVector.constBegin();
        it != m_trackDataVector.constEnd();
        ++it) {
     const ImportTrackData& trackData = *it;
@@ -423,7 +423,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
         Frame::ExtendedType(static_cast<Frame::Type>(initFrameTypes[i]), QLatin1String("")));
   }
 
-  for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
+  for (auto tit = trackDataVector.constBegin();
        tit != trackDataVector.constEnd();
        ++tit) {
     for (auto fit = tit->cbegin(); fit != tit->cend(); ++fit) {

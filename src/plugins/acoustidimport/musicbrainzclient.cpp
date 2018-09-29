@@ -396,7 +396,7 @@ void MusicBrainzClient::start()
   m_filenameOfTrack.clear();
   m_idsOfTrack.clear();
   const ImportTrackDataVector& trackDataVector(trackDataModel()->trackData());
-  for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+  for (auto it = trackDataVector.constBegin();
        it != trackDataVector.constEnd();
        ++it) {
     if (it->isEnabled()) {

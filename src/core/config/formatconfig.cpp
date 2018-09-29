@@ -217,8 +217,7 @@ void FormatConfig::formatString(QString& str) const
     }
   }
   if (m_strRepEnabled) {
-    QMap<QString, QString>::ConstIterator it;
-    for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
+    for (auto it = m_strRepMap.constBegin(); it != m_strRepMap.constEnd(); ++it) {
       str.replace(it.key(), *it);
     }
   }
@@ -344,11 +343,10 @@ void FormatConfig::readFromConfig(ISettings* config)
   QStringList values = config->value(QLatin1String("StrRepMapValues"),
                                      QStringList()).toStringList();
   if (!keys.empty() && !values.empty()) {
-    QStringList::Iterator itk, itv;
     m_strRepMap.clear();
-    for (itk = keys.begin(), itv = values.begin();
-       itk != keys.end() && itv != values.end();
-       ++itk, ++itv) {
+    for (auto itk = keys.constBegin(), itv = values.constBegin();
+         itk != keys.constEnd() && itv != values.constEnd();
+         ++itk, ++itv) {
       m_strRepMap[*itk] = *itv;
     }
   }
@@ -404,7 +402,7 @@ void FormatConfig::setStrRepMap(const QMap<QString, QString>& strRepMap)
 QVariantMap FormatConfig::strRepVariantMap() const
 {
   QVariantMap map;
-  for (QMap<QString, QString>::const_iterator it = m_strRepMap.constBegin();
+  for (auto it = m_strRepMap.constBegin();
        it != m_strRepMap.constEnd();
        ++it) {
     map.insert(it.key(), it.value());
@@ -415,9 +413,7 @@ QVariantMap FormatConfig::strRepVariantMap() const
 void FormatConfig::setStrRepVariantMap(const QVariantMap& map)
 {
   QMap<QString, QString> strRepMap;
-  for (QVariantMap::const_iterator it = map.constBegin();
-       it != map.constEnd();
-       ++it) {
+  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
     strRepMap.insert(it.key(), it.value().toString());
   }
   setStrRepMap(strRepMap);

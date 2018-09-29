@@ -349,9 +349,7 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
       if (m_requestedData & (StandardTags | AdditionalTags)) {
         // Set imported data in tags of files.
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-        for (ImportTrackDataVector::iterator it = trackDataVector.begin();
-             it != trackDataVector.end();
-             ++it) {
+        for (auto it = trackDataVector.begin(); it != trackDataVector.end(); ++it) {
           if (TaggedFile* taggedFile = it->getTaggedFile()) {
             taggedFile->readTags(false);
             it->removeDisabledFrames(m_frameFilter);
@@ -408,9 +406,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
         emit reportImportEvent(CoverArtReceived, url);
         PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-        for (ImportTrackDataVector::iterator it = trackDataVector.begin();
-             it != trackDataVector.end();
-             ++it) {
+        for (auto it = trackDataVector.begin(); it != trackDataVector.end(); ++it) {
           if (TaggedFile* taggedFile = it->getTaggedFile()) {
             taggedFile->readTags(false);
             taggedFile->addFrame(Frame::Tag_Picture, frame);

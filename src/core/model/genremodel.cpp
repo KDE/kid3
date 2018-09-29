@@ -74,9 +74,7 @@ void GenreModel::init()
   }
   QStringList customGenres = TagConfig::instance().customGenres();
   if (m_id3v1) {
-    for (QStringList::const_iterator it = customGenres.constBegin();
-         it != customGenres.constEnd();
-         ++it) {
+    for (auto it = customGenres.constBegin(); it != customGenres.constEnd(); ++it) {
       if (Genres::getNumber(*it) != 255) {
         items.append(new QStandardItem(*it));
       }
@@ -86,9 +84,7 @@ void GenreModel::init()
       items = createGenreItems();
     }
   } else {
-    for (QStringList::const_iterator it = customGenres.constBegin();
-         it != customGenres.constEnd();
-         ++it) {
+    for (auto it = customGenres.constBegin(); it != customGenres.constEnd(); ++it) {
       items.append(new QStandardItem(*it));
     }
   }

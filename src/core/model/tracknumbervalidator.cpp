@@ -49,9 +49,7 @@ TrackNumberValidator::~TrackNumberValidator()
  */
 QValidator::State TrackNumberValidator::validate(QString& input, int&) const
 {
-  for (QString::const_iterator it = input.constBegin();
-       it != input.constEnd();
-       ++it) {
+  for (auto it = input.constBegin(); it != input.constEnd(); ++it) {
     if (!it->isDigit() && *it != QLatin1Char('/')) {
       return Invalid;
     }

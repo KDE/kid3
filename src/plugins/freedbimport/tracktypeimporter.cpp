@@ -99,7 +99,7 @@ theoretically, but never seen
   QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
   bool inEntries = false;
   m_albumListModel->clear();
-  for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
+  for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
     if (*it == QLatin1String(".")) {
       break;
     }

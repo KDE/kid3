@@ -37,7 +37,7 @@ if (WITH_GCC_PCH)
     message(STATUS "Generating ${_gchFilename}")
 
     file(REMOVE ${_gchFilename})
-    set(_additionalFlags "-DQT_CORE_LIB -DQT_DBUS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -Wundef -Wcast-align -Wall -W -Wpointer-arith  -fno-check-new -fno-common -Woverloaded-virtual -D_REENTRANT -DQT_NO_EXCEPTIONS -DQT_NO_STL -fvisibility=hidden -fvisibility-inlines-hidden -DQT_ASCII_CAST_WARNINGS -DQT_NO_CAST_TO_ASCII -DQT_NO_URL_CAST_FROM_STRING")
+    set(_additionalFlags "-DQT_CORE_LIB -DQT_DBUS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -Wundef -Wcast-align -Wall -W -Wpointer-arith  -fno-check-new -fno-common -Woverloaded-virtual -D_REENTRANT -DQT_NO_EXCEPTIONS -DQT_NO_STL -fvisibility=hidden -fvisibility-inlines-hidden -DQT_ASCII_CAST_WARNINGS -DQT_NO_CAST_TO_ASCII -DQT_NO_URL_CAST_FROM_STRING -DQT_STRICT_ITERATORS")
     if (CMAKE_BUILD_TYPE MATCHES Debug)
       set(_additionalFlags "${_additionalFlags} -g -DQT_DEBUG")
     else (CMAKE_BUILD_TYPE MATCHES Debug)

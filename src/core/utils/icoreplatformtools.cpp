@@ -46,10 +46,7 @@ QString ICorePlatformTools::qtFileDialogNameFilter(
     const QList<QPair<QString, QString> >& nameFilters)
 {
   QString filter;
-  for (QList<QPair<QString, QString> >::const_iterator it =
-       nameFilters.constBegin();
-       it != nameFilters.constEnd();
-       ++it) {
+  for (auto it = nameFilters.constBegin(); it != nameFilters.constEnd(); ++it) {
     if (!filter.isEmpty()) {
       filter += QLatin1String(";;");
     }

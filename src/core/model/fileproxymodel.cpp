@@ -241,9 +241,7 @@ bool FileProxyModel::filterAcceptsRow(
       return passesExcludeFolderFilters(m_fsModel->filePath(srcIndex));
     if (m_extensions.isEmpty())
       return true;
-    for (QStringList::const_iterator it = m_extensions.begin();
-         it != m_extensions.end();
-         ++it) {
+    for (auto it = m_extensions.constBegin(); it != m_extensions.constEnd(); ++it) {
       if (item.endsWith(*it, Qt::CaseInsensitive))
         return true;
     }
@@ -549,7 +547,7 @@ bool FileProxyModel::passesIncludeFolderFilters(const QString& dirPath) const
 {
   if (!m_includeFolderFilters.isEmpty()) {
     bool included = false;
-    for (QList<QRegExp>::const_iterator it = m_includeFolderFilters.constBegin();
+    for (auto it = m_includeFolderFilters.constBegin();
          it != m_includeFolderFilters.constEnd();
          ++it) {
       if (it->exactMatch(dirPath)) {
@@ -573,7 +571,7 @@ bool FileProxyModel::passesIncludeFolderFilters(const QString& dirPath) const
 bool FileProxyModel::passesExcludeFolderFilters(const QString& dirPath) const
 {
   if (!m_excludeFolderFilters.isEmpty()) {
-    for (QList<QRegExp>::const_iterator it = m_excludeFolderFilters.constBegin();
+    for (auto it = m_excludeFolderFilters.constBegin();
          it != m_excludeFolderFilters.constEnd();
          ++it) {
       if (it->exactMatch(dirPath)) {
@@ -953,8 +951,7 @@ QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
   // remove duplicates
   extensions.sort();
   QString lastExt(QLatin1String(""));
-  for (QStringList::iterator it = extensions.begin();
-       it != extensions.end();) {
+  for (auto it = extensions.begin(); it != extensions.end();) {
     if (*it == lastExt) {
       it = extensions.erase(it);
     } else {
@@ -965,8 +962,8 @@ QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
 
   QString allPatterns;
   QList<QPair<QString, QString> > nameFilters;
-  for (QStringList::const_iterator it = extensions.begin();
-       it != extensions.end();
+  for (auto it = extensions.constBegin();
+       it != extensions.constEnd();
        ++it) {
     QString text = (*it).mid(1).toUpper();
     QString pattern = QLatin1Char('*') + *it;

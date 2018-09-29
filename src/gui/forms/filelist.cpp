@@ -53,9 +53,7 @@ namespace {
 QString nameForAction(const QString& text)
 {
   QString name;
-  for (QString::const_iterator cit = text.constBegin();
-       cit != text.constEnd();
-       ++cit) {
+  for (auto cit = text.constBegin(); cit != text.constEnd(); ++cit) {
     if (cit->toLatin1() == '\0') {
       continue;
     }
@@ -172,10 +170,7 @@ void FileList::initUserActions()
   int id = 0;
   const QList<UserActionsConfig::MenuCommand> commands =
       UserActionsConfig::instance().contextMenuCommands();
-  for (QList<UserActionsConfig::MenuCommand>::const_iterator
-         it = commands.constBegin();
-       it != commands.constEnd();
-       ++it) {
+  for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
     const QString text((*it).getName());
     const QString name = nameForAction(text);
     if (!name.isEmpty() && it->getCommand() != QLatin1String("@beginmenu")) {
@@ -190,9 +185,7 @@ void FileList::initUserActions()
     }
     ++id;
   }
-  for (QMap<QString, QAction*>::const_iterator it = oldUserActions.constBegin();
-       it != oldUserActions.constEnd();
-       ++it) {
+  for (auto it = oldUserActions.constBegin(); it != oldUserActions.constEnd(); ++it) {
     emit userActionRemoved(it.key(), it.value());
   }
 }
@@ -236,10 +229,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     QMenu* userMenu = &menu;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
-    for (QList<UserActionsConfig::MenuCommand>::const_iterator
-           it = commands.constBegin();
-         it != commands.constEnd();
-         ++it) {
+    for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
       const QString text((*it).getName());
       const QString name = nameForAction(text);
       if (!text.isEmpty()) {
@@ -309,9 +299,7 @@ QStringList FileList::formatStringList(const QStringList& format)
 
   FrameCollection frames;
   QStringList fmt;
-  for (QStringList::const_iterator it = format.begin();
-       it != format.end();
-       ++it) {
+  for (auto it = format.constBegin(); it != format.constEnd(); ++it) {
     if ((*it).indexOf(QLatin1Char('%')) == -1) {
       fmt.push_back(*it);
     } else {
@@ -322,9 +310,7 @@ QStringList FileList::formatStringList(const QStringList& format)
         // list of URLs or URL
         QUrl url;
         url.setScheme(QLatin1String("file"));
-        for (QStringList::const_iterator fit = files.begin();
-             fit != files.end();
-             ++fit) {
+        for (auto fit = files.constBegin(); fit != files.constEnd(); ++fit) {
           url.setPath(*fit);
           fmt.push_back(url.toString());
         }
@@ -427,10 +413,7 @@ void FileList::executeAction(QAction* action)
     id = 0;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
-    for (QList<UserActionsConfig::MenuCommand>::const_iterator
-           it = commands.constBegin();
-         it != commands.constEnd();
-         ++it) {
+    for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
       if (name == (*it).getName()) {
         executeContextCommand(id);
         break;

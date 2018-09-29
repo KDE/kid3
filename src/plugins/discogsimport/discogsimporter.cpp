@@ -97,9 +97,7 @@ bool parseCredits(const QString& str, FrameCollection& frames)
 {
   bool result = false;
   QStringList lines = str.split(QLatin1Char('\n'));
-  for (QStringList::const_iterator it = lines.begin();
-       it != lines.end();
-       ++it) {
+  for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
     int nameStart = (*it).indexOf(QLatin1String(" - "));
     if (nameStart != -1) {
       const QStringList names = (*it).mid(nameStart + 3).split(QLatin1String(", "));
@@ -111,9 +109,7 @@ bool parseCredits(const QString& str, FrameCollection& frames)
         name += fixUpArtist(namesPart);
       }
       QStringList credits = (*it).left(nameStart).split(QLatin1String(", "));
-      for (QStringList::const_iterator cit = credits.begin();
-           cit != credits.end();
-           ++cit) {
+      for (auto cit = credits.constBegin(); cit != credits.constEnd(); ++cit) {
         static const struct {
           const char* credit;
           Frame::Type type;
@@ -367,9 +363,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     int genreNum = 255;
-    for (QStringList::const_iterator it = genreList.begin();
-         it != genreList.end();
-         ++it) {
+    for (auto it = genreList.constBegin(); it != genreList.constEnd(); ++it) {
       genreNum = Genres::getNumber(*it);
       if (genreNum != 255) {
         break;
@@ -530,7 +524,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         "(?:<span>)?(\\d+):(\\d+)</"));
       QRegExp indexRe(QLatin1String("<td class=\"track_index\">([^<]+)$"));
       QRegExp rowEndRe(QLatin1String("</td>[\\s\\r\\n]*</tr>"));
-      ImportTrackDataVector::iterator it = trackDataVector.begin();
+      auto it = trackDataVector.begin();
       bool atTrackDataListEnd = (it == trackDataVector.end());
       int trackNr = 1;
       start = 0;

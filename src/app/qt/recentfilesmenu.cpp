@@ -109,9 +109,7 @@ void RecentFilesMenu::updateRecentFileActions()
 {
   int i = 0;
   clear();
-  for (QStringList::const_iterator it = m_files.begin();
-       it != m_files.end();
-       ++it) {
+  for (auto it = m_files.constBegin(); it != m_files.constEnd(); ++it) {
     auto act = new QAction(this);
     act->setText(QString(QLatin1String("&%1 %2")).arg(++i).arg(*it));
     act->setData(*it);

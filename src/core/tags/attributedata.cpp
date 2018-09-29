@@ -88,9 +88,8 @@ AttributeData::AttributeData(const QString& name)
       strNumMap.insert(QString::fromLatin1(typeOfWmPriv[i].str), typeOfWmPriv[i].type);
     }
   }
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name);
-  m_type = (it != strNumMap.end()) ? static_cast<Type>(*it) : Unknown;
+  auto it = strNumMap.constFind(name);
+  m_type = (it != strNumMap.constEnd()) ? static_cast<Type>(*it) : Unknown;
 }
 
 /**

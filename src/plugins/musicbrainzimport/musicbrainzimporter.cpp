@@ -382,7 +382,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
 
-    ImportTrackDataVector::iterator it = trackDataVector.begin();
+    auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
     int discNr = 1, trackNr = 1;
     bool ok;

@@ -279,9 +279,7 @@ void CommandsTableModel::setCommandList(
 QList<UserActionsConfig::MenuCommand> CommandsTableModel::getCommandList() const
 {
   QList<UserActionsConfig::MenuCommand> cmdList;
-  for (QList<UserActionsConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
-       it != m_cmdList.constEnd();
-       ++it) {
+  for (auto it = m_cmdList.constBegin(); it != m_cmdList.constEnd(); ++it) {
     if (!it->getName().isEmpty() ||
         it->getCommand() == QLatin1String("@separator") ||
         it->getCommand() == QLatin1String("@endmenu")) {

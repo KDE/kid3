@@ -479,9 +479,7 @@ QSet<QString> getLowerCaseWords(const QString& str)
   if (!str.isEmpty()) {
     QString normalized = str.normalized(QString::NormalizationForm_D).toLower();
     QString simplified;
-    for (QString::const_iterator it = normalized.constBegin();
-         it != normalized.constEnd();
-         ++it) {
+    for (auto it = normalized.constBegin(); it != normalized.constEnd(); ++it) {
       if (it->isLetter()) {
         simplified += *it;
       } else if (it->isPunct() || it->isSpace() || it->isSymbol()) {

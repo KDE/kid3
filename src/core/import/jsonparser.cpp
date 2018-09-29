@@ -124,9 +124,7 @@ QString variantToValueString(const QVariant& var)
   } else if (type == QVariant::Map) {
     // Serialize into an object container "{...}".
     QVariantMap map(var.toMap());
-    for (QMap<QString, QVariant>::const_iterator it = map.constBegin();
-         it != map.constEnd();
-         ++it) {
+    for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
       value += QString(QLatin1String("%1\"%2\": %3")).arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", ")).
           arg(it.key()).arg(variantToValueString(it.value()));
     }

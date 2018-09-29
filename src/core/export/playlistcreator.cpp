@@ -132,9 +132,7 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         if (entries.isEmpty() && m_cfg.useFullPath()) {
           stream << "# Kid3: useFullPath\n";
         }
-        for (QList<Entry>::const_iterator it = entries.constBegin();
-             it != entries.constEnd();
-             ++it) {
+        for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           if (m_cfg.writeInfo()) {
             stream << QString(QLatin1String("#EXTINF:%1,%2\n")).
               arg((*it).duration).arg((*it).info);
@@ -147,9 +145,7 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         unsigned nr = 1;
         stream << "[playlist]\n";
         stream << QString(QLatin1String("NumberOfEntries=%1\n")).arg(entries.size());
-        for (QList<Entry>::const_iterator it = entries.constBegin();
-             it != entries.constEnd();
-             ++it) {
+        for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           stream << QString(QLatin1String("File%1=%2\n")).arg(nr).arg((*it).filePath);
           if (m_cfg.writeInfo()) {
             stream << QString(QLatin1String("Title%1=%2\n")).arg(nr).arg((*it).info);
@@ -183,9 +179,7 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         stream << line;
         stream << "  <trackList>\n";
 
-        for (QList<Entry>::const_iterator it = entries.constBegin();
-             it != entries.constEnd();
-             ++it) {
+        for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           stream << "    <track>\n";
           QUrl url((*it).filePath);
           if (m_cfg.useFullPath()) {

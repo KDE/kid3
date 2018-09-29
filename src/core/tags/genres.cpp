@@ -479,8 +479,8 @@ int Genres::getNumber(const QString& str)
       strNumMap.insert(QString::fromLatin1(s_genre[i]), s_genreNum[i]);
     }
   }
-  QMap<QString, int>::const_iterator it = strNumMap.find(str);
-  if (it != strNumMap.end()) {
+  auto it = strNumMap.constFind(str);
+  if (it != strNumMap.constEnd()) {
     return *it;
   }
   return 255; // 255 for unknown

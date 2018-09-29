@@ -304,7 +304,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
     QRegExp nrTitleRe(QLatin1String("\\s*\\d+\\.\\s+(.*\\S)"));
     FrameCollection frames(framesHdr);
-    ImportTrackDataVector::iterator it = trackDataVector.begin();
+    auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
     int trackNr = 1;
     while (start >= 0) {
@@ -464,9 +464,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   } else if (!framesHdr.empty()) {
     // if there are no track data, fill frame header data
-    for (ImportTrackDataVector::iterator it = trackDataVector.begin();
-         it != trackDataVector.end();
-         ++it) {
+    for (auto it = trackDataVector.begin(); it != trackDataVector.end(); ++it) {
       if (it->isEnabled()) {
         (*it).setFrameCollection(framesHdr);
       }

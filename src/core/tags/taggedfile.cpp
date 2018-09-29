@@ -460,9 +460,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 
   re.setPattern(pattern);
   if ((match = re.match(fileName)).hasMatch()) {
-    for (QMap<QString, int>::iterator it = codePos.begin();
-         it != codePos.end();
-         ++it) {
+    for (auto it = codePos.begin(); it != codePos.end(); ++it) {
       QString name = it.key();
       QString str = match.captured(*it);
       if (!str.isEmpty()) {

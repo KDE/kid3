@@ -403,8 +403,8 @@ void Frame::setValueFromFieldList()
 {
   if (!getFieldList().empty()) {
     QString text;
-    for (Frame::FieldList::const_iterator fldIt = getFieldList().begin();
-         fldIt != getFieldList().end();
+    for (auto fldIt = getFieldList().constBegin();
+         fldIt != getFieldList().constEnd();
          ++fldIt) {
       int id = (*fldIt).m_id;
       if (id == ID_Text ||
@@ -426,10 +426,8 @@ void Frame::setValueFromFieldList()
 void Frame::setFieldListFromValue()
 {
   if (!fieldList().empty()) {
-    Frame::FieldList::iterator it = fieldList().end();
-    for (Frame::FieldList::iterator fldIt = fieldList().begin();
-         fldIt != fieldList().end();
-         ++fldIt) {
+    auto it = fieldList().end();
+    for (auto fldIt = fieldList().begin(); fldIt != fieldList().end(); ++fldIt) {
       int id = (*fldIt).m_id;
       if (id == ID_Text ||
           id == ID_Description ||
@@ -509,9 +507,7 @@ void Frame::setValueAsNumber(int n)
  */
 QVariant Frame::getFieldValue(FieldId id) const
 {
-  for (FieldList::const_iterator it = m_fieldList.begin();
-       it != m_fieldList.end();
-       ++it) {
+  for (auto it = m_fieldList.constBegin(); it != m_fieldList.constEnd(); ++it) {
     if ((*it).m_id == id) {
       return (*it).m_value;
     }
@@ -551,8 +547,7 @@ bool Frame::isEqual(const Frame& other) const
   if (m_fieldList.size() != otherFieldList.size())
     return false;
 
-  FieldList::const_iterator thisIt, otherIt;
-  for (thisIt = m_fieldList.constBegin(), otherIt = otherFieldList.constBegin();
+  for (auto thisIt = m_fieldList.constBegin(), otherIt = otherFieldList.constBegin();
        thisIt != m_fieldList.constEnd() && otherIt != otherFieldList.constEnd();
        ++thisIt, ++otherIt) {
     if (thisIt->m_id != otherIt->m_id || thisIt->m_value != otherIt->m_value) {
@@ -574,9 +569,7 @@ bool Frame::isEqual(const Frame& other) const
  */
 bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 {
-  for (Frame::FieldList::iterator it = frame.fieldList().begin();
-       it != frame.fieldList().end();
-       ++it) {
+  for (auto it = frame.fieldList().begin(); it != frame.fieldList().end(); ++it) {
     if ((*it).m_id == id) {
       (*it).m_value = value;
       if (id == ID_Description) frame.setValue(value.toString());
@@ -614,8 +607,8 @@ QVariant Frame::getField(const Frame& frame, FieldId id)
 {
   QVariant result;
   if (!frame.getFieldList().empty()) {
-    for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
-         it != frame.getFieldList().end();
+    for (auto it = frame.getFieldList().constBegin();
+         it != frame.getFieldList().constEnd();
          ++it) {
       if ((*it).m_id == id) {
         result = (*it).m_value;
@@ -660,8 +653,8 @@ Frame::Type Frame::getTypeFromName(const QString& name)
   }
   QString ucName(name.toUpper());
   ucName.remove(QLatin1Char(' '));
-  QMap<QString, int>::const_iterator it = strNumMap.find(ucName);
-  if (it != strNumMap.end()) {
+  auto it = strNumMap.constFind(ucName);
+  if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return Frame::FT_Other;
@@ -709,7 +702,7 @@ QString Frame::getDisplayName(const QString& name)
     id = nameStr.toLatin1();
   }
 
-  QMap<QByteArray, QByteArray>::const_iterator it = idStrMap.constFind(id);
+  auto it = idStrMap.constFind(id);
   if (it != idStrMap.constEnd()) {
     return QCoreApplication::translate("@default", it->constData());
   }
@@ -963,9 +956,7 @@ void Frame::dump() const
          getNameFromType(getType()), m_index,
          m_valueChanged, qPrintable(m_marked.getDescription()));
   qDebug("  fields=");
-  for (FieldList::const_iterator it = m_fieldList.begin();
-       it != m_fieldList.end();
-       ++it) {
+  for (auto it = m_fieldList.constBegin(); it != m_fieldList.constEnd(); ++it) {
     qDebug("  Field: id=%s, value=%s",
            qPrintable(
              Field::getFieldIdName(static_cast<FieldId>((*it).m_id))),
@@ -1413,9 +1404,7 @@ FrameCollection FrameCollection::fromSubframes(
   FrameCollection frames;
   Frame frame;
   int index = 0;
-  for (Frame::FieldList::const_iterator it = begin;
-       it != end;
-       ++it) {
+  for (auto it = begin; it != end; ++it) {
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::ID_Subframe) {
       if (frame.getType() != Frame::FT_UnknownFrame) {

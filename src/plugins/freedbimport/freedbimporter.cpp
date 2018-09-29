@@ -122,7 +122,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
   QString title;
   bool inEntries = false;
   m_albumListModel->clear();
-  for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
+  for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
     if (inEntries) {
       if (titleRe.indexIn(*it) != -1) {
         title = titleRe.cap(1);
@@ -235,8 +235,8 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   trackDataVector.setCoverArtUrl(QUrl());
   FrameCollection frames(framesHdr);
-  ImportTrackDataVector::iterator it = trackDataVector.begin();
-  QList<int>::const_iterator tdit = trackDuration.begin();
+  auto it = trackDataVector.begin();
+  auto tdit = trackDuration.constBegin();
   bool atTrackDataListEnd = (it == trackDataVector.end());
   int pos = 0;
   int oldpos = pos;
@@ -255,7 +255,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
     } else {
       break;
     }
-    int duration = (tdit != trackDuration.end()) ?
+    int duration = (tdit != trackDuration.constEnd()) ?
       *tdit++ : 0;
     if (atTrackDataListEnd) {
       ImportTrackData trackData;

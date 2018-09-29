@@ -789,8 +789,8 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
         dirComponents = dirPathComponents;
       } else {
         // Reduce dirPath to common prefix.
-        QStringList::iterator dirIt = dirComponents.begin();
-        QStringList::const_iterator dirPathIt = dirPathComponents.constBegin();
+        auto dirIt = dirComponents.begin();
+        auto dirPathIt = dirPathComponents.constBegin();
         while (dirIt != dirComponents.end() &&
                dirPathIt != dirPathComponents.constEnd() &&
                *dirIt == *dirPathIt) {
@@ -1016,9 +1016,8 @@ void Kid3Application::frameModelsToTags()
   if (!m_currentSelection.isEmpty()) {
     FOR_ALL_TAGS(tagNr) {
       FrameCollection frames(m_framesModel[tagNr]->getEnabledFrames());
-      for (QList<QPersistentModelIndex>::const_iterator it =
-           m_currentSelection.begin();
-           it != m_currentSelection.end();
+      for (auto it = m_currentSelection.constBegin();
+           it != m_currentSelection.constEnd();
            ++it) {
         if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
           taggedFile->setFrames(tagNr, frames);
@@ -1092,9 +1091,7 @@ bool Kid3Application::addTaggedFilesToSelection(
   int longRunningTotal = 0;
   int done = 0;
   bool aborted = false;
-  for (QList<QPersistentModelIndex>::const_iterator it = indexes.constBegin();
-       it != indexes.constEnd();
-       ++it, ++done) {
+  for (auto it = indexes.constBegin(); it != indexes.constEnd(); ++it, ++done) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
       m_selection->addTaggedFile(taggedFile);
       if (!longRunningTotal) {
@@ -1407,8 +1404,7 @@ PlaylistModel* Kid3Application::playlistModel(const QString& path)
  */
 bool Kid3Application::hasModifiedPlaylistModel() const
 {
-  for (QMap<QString, PlaylistModel*>::const_iterator it =
-           m_playlistModels.constBegin();
+  for (auto it = m_playlistModels.constBegin();
        it != m_playlistModels.constEnd();
        ++it) {
     if ((*it)->isModified()) {
@@ -1423,9 +1419,7 @@ bool Kid3Application::hasModifiedPlaylistModel() const
  */
 void Kid3Application::saveModifiedPlaylistModels()
 {
-  for (QMap<QString, PlaylistModel*>::iterator it = m_playlistModels.begin();
-       it != m_playlistModels.end();
-       ++it) {
+  for (auto it = m_playlistModels.begin(); it != m_playlistModels.end(); ++it) {
     if ((*it)->isModified()) {
       (*it)->save();
     }
@@ -1469,7 +1463,7 @@ void Kid3Application::filesToTrackDataModel(Frame::TagVersion tagVersion)
 void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
 {
   ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
-  ImportTrackDataVector::iterator it = trackDataList.begin();
+  auto it = trackDataList.begin();
   FrameFilter flt;
   Frame::TagNumber fltTagNr = Frame::tagNumberFromMask(tagVersion);
   if (fltTagNr < Frame::Tag_NumValues) {
@@ -1772,9 +1766,7 @@ void Kid3Application::applyTextEncoding()
           enc = Frame::TE_UTF16;
       }
       Frame::FieldList& fields = frame.fieldList();
-      for (Frame::FieldList::iterator fieldIt = fields.begin();
-           fieldIt != fields.end();
-           ++fieldIt) {
+      for (auto fieldIt = fields.begin(); fieldIt != fields.end(); ++fieldIt) {
         if (fieldIt->m_id == Frame::ID_TextEnc &&
             fieldIt->m_value.toInt() != enc) {
           fieldIt->m_value = enc;
@@ -2298,7 +2290,7 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
   QList<QUrl> urls(urlList);
 #ifdef Q_OS_MAC
   // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
-  for (QList<QUrl>::iterator it = urls.begin(); it != urls.end(); ++it) {
+  for (auto it = urls.begin(); it != urls.end(); ++it) {
     if (it->host().isEmpty() &&
         it->path().startsWith(QLatin1String("/.file/id="))) {
       *it = QUrl::fromCFURL(CFURLCreateFilePathURL(NULL, it->toCFURL(), NULL));
@@ -2370,8 +2362,7 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
     } else if (getDownloadImageDestination() == ImageForImportTrackData) {
       const ImportTrackDataVector& trackDataVector(
             getTrackDataModel()->trackData());
-      for (ImportTrackDataVector::const_iterator it =
-           trackDataVector.constBegin();
+      for (auto it = trackDataVector.constBegin();
            it != trackDataVector.constEnd();
            ++it) {
         TaggedFile* taggedFile;

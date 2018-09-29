@@ -104,9 +104,8 @@ void BatchImportConfig::readFromConfig(ISettings* config)
   while (sources.size() < numNames)
     sources.append(QLatin1String(""));
   /* Use defaults if no configuration found */
-  QStringList::const_iterator namesIt, sourcesIt;
-  for (namesIt = names.begin(), sourcesIt = sources.begin();
-       namesIt != names.end() && sourcesIt != sources.end();
+  for (auto namesIt = names.constBegin(), sourcesIt = sources.constBegin();
+       namesIt != names.constEnd() && sourcesIt != sources.constEnd();
        ++namesIt, ++sourcesIt) {
     int idx = m_profileNames.indexOf(*namesIt);
     if (idx >= 0) {
@@ -131,7 +130,7 @@ void BatchImportConfig::readFromConfig(ISettings* config)
 bool BatchImportConfig::getProfileByName(const QString& name,
                                          BatchImportProfile& profile) const
 {
-  for (QStringList::const_iterator namesIt = m_profileNames.constBegin(),
+  for (auto namesIt = m_profileNames.constBegin(),
        sourcesIt = m_profileSources.constBegin();
        namesIt != m_profileNames.constEnd() &&
        sourcesIt != m_profileSources.constEnd();

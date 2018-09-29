@@ -96,9 +96,7 @@ bool CheckableListModel::setDataValue(int row, const QByteArray& roleName,
                                       const QVariant& value)
 {
   QHash<int,QByteArray> roleHash = roleNames();
-  for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
-       it != roleHash.constEnd();
-       ++it) {
+  for (auto it = roleHash.constBegin(); it != roleHash.constEnd(); ++it) {
     if (it.value() == roleName) {
       return setData(index(row, 0), value, it.key());
     }
@@ -110,9 +108,7 @@ QVariant CheckableListModel::getDataValue(int row,
                                           const QByteArray& roleName) const
 {
   QHash<int,QByteArray> roleHash = roleNames();
-  for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
-       it != roleHash.constEnd();
-       ++it) {
+  for (auto it = roleHash.constBegin(); it != roleHash.constEnd(); ++it) {
     if (it.value() == roleName) {
       return data(index(row, 0), it.key());
     }

@@ -255,7 +255,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
     bool pictureSet = false;
     bool pictureRemoved = false;
-    PictureList::iterator pictureIt = m_pictures.begin();
+    auto pictureIt = m_pictures.begin();
 #endif
 
     FLAC::Metadata::Chain::Status status = m_chain->status();
@@ -431,7 +431,7 @@ bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     if (frame.getType() == Frame::FT_Picture) {
       int index = frame.getIndex();
       if (index != -1 && index < static_cast<int>(m_pictures.size())) {
-        PictureList::iterator it = m_pictures.begin() + index;
+        auto it = m_pictures.begin() + index;
         if (it != m_pictures.end()) {
           Frame newFrame(frame);
           PictureFrame::setDescription(newFrame, frame.getValue());
@@ -528,9 +528,7 @@ void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
   OggFile::getAllFrames(tagNr, frames);
   if (tagNr == Frame::Tag_2) {
     int i = 0;
-    for (PictureList::iterator it = m_pictures.begin();
-         it != m_pictures.end();
-         ++it) {
+    for (auto it = m_pictures.begin(); it != m_pictures.end(); ++it) {
       (*it).setIndex(i++);
       frames.insert(*it);
     }
@@ -559,7 +557,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
   }
 #endif
   // then our comments are appended
-  CommentList::iterator it = m_comments.begin();
+  auto it = m_comments.begin();
   while (it != m_comments.end()) {
     QString name((*it).getName());
     QString value((*it).getValue());

@@ -1148,7 +1148,9 @@ void SubframeFieldControl::updateTag()
 QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
   m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, m_tagNr,
                                  parent);
-  FrameCollection frames = FrameCollection::fromSubframes(m_begin, m_end);
+  FrameCollection frames = FrameCollection::fromSubframes(
+        static_cast<Frame::FieldList::const_iterator>(m_begin),
+        static_cast<Frame::FieldList::const_iterator>(m_end));
   m_editor->setFrames(frames);
   return m_editor;
 }
@@ -1320,9 +1322,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   m_fieldcontrols.clear();
   bool subframeMissing = false;
 
-  for (Frame::FieldList::iterator fldIt = m_fields.begin();
-       fldIt != m_fields.end();
-       ++fldIt) {
+  for (auto fldIt = m_fields.begin(); fldIt != m_fields.end(); ++fldIt) {
     Frame::Field& fld = *fldIt;
     if (fld.m_id == Frame::ID_ImageProperties)
       continue;

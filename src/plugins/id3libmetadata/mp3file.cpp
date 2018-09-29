@@ -467,7 +467,7 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
 {
   ID3_TextEnc enc = field->GetEncoding();
   bool first = true;
-  for (QStringList::const_iterator it = lst.begin(); it != lst.end(); ++it) {
+  for (auto it = lst.constBegin(); it != lst.constEnd(); ++it) {
     if (first) {
       if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
         unicode_t* unicode = newFixedUpUnicode(*it);
@@ -1320,8 +1320,8 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
   ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
   ID3_FrameID id3Id = id3Frame->GetID();
   ID3_TextEnc enc = ID3TE_NONE;
-  for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
-       fldIt != frame.getFieldList().end();
+  for (auto fldIt = frame.getFieldList().constBegin();
+       fldIt != frame.getFieldList().constEnd();
        ++fldIt) {
     ID3_Field* id3Field = iter->GetNext();
     if (!id3Field) {
@@ -1938,9 +1938,7 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
     const Frame::FieldList& fields = frame.getFieldList();
     QString owner;
     QByteArray data;
-    for (Frame::FieldList::const_iterator it = fields.begin();
-         it != fields.end();
-         ++it) {
+    for (auto it = fields.constBegin(); it != fields.constEnd(); ++it) {
       if ((*it).m_id == Frame::ID_Owner) {
         owner = (*it).m_value.toString();
         if (!owner.isEmpty()) {

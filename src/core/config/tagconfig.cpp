@@ -150,9 +150,7 @@ int StarRatingMapping::starCountToRating(int starCount, const QString& type) con
 const QVector<int>& StarRatingMapping::valuesForType(const QString& type) const
 {
   // First search in the maps for the given type.
-  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
-       it != m_maps.constEnd();
-       ++it) {
+  for (auto it = m_maps.constBegin(); it != m_maps.constEnd(); ++it) {
     if (type == it->first) {
       return it->second;
     }
@@ -164,13 +162,9 @@ const QVector<int>& StarRatingMapping::valuesForType(const QString& type) const
 QStringList StarRatingMapping::toStringList() const
 {
   QStringList strs;
-  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
-       it != m_maps.constEnd();
-       ++it) {
+  for (auto it = m_maps.constBegin(); it != m_maps.constEnd(); ++it) {
     QString str = it->first;
-    for (QVector<int>::const_iterator sit = it->second.constBegin();
-         sit != it->second.constEnd();
-         ++sit) {
+    for (auto sit = it->second.constBegin(); sit != it->second.constEnd(); ++sit) {
       str += QLatin1Char(',');
       str += QString::number(*sit);
     }
@@ -182,9 +176,7 @@ QStringList StarRatingMapping::toStringList() const
 void StarRatingMapping::fromStringList(const QStringList& strs)
 {
   QList<QPair<QString, QVector<int> > > maps;
-  for (QStringList::const_iterator it = strs.constBegin();
-       it != strs.constEnd();
-       ++it) {
+  for (auto it = strs.constBegin(); it != strs.constEnd(); ++it) {
     QStringList parts = it->split(QLatin1Char(','));
     const int numParts = parts.size();
     if (numParts >= MAX_STAR_COUNT + 1) {
@@ -215,9 +207,7 @@ void StarRatingMapping::fromStringList(const QStringList& strs)
 
 QString StarRatingMapping::defaultPopmEmail() const
 {
-  for (QList<QPair<QString, QVector<int> > >::const_iterator it = m_maps.constBegin();
-       it != m_maps.constEnd();
-       ++it) {
+  for (auto it = m_maps.constBegin(); it != m_maps.constEnd(); ++it) {
     QString type = it->first;
     if (type.startsWith(QLatin1String("POPM"))) {
       return type.length() > 4 && type.at(4) == QLatin1Char('.')

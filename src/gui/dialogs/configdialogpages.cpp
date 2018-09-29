@@ -377,9 +377,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   m_nameFilterComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
                                                   QSizePolicy::Minimum));
   QList<QPair<QString, QString> > filters = FileProxyModel::createNameFilters();
-  for (QList<QPair<QString, QString> >::const_iterator it = filters.constBegin();
-       it != filters.constEnd();
-       ++it) {
+  for (auto it = filters.constBegin(); it != filters.constEnd(); ++it) {
     QString nameFilter = m_platformTools->fileDialogNameFilter({*it});
     m_nameFilterComboBox->addItem(it->first, nameFilter);
   }

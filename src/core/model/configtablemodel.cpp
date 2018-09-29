@@ -212,9 +212,7 @@ void ConfigTableModel::setMap(const QMap<QString, QString>& map)
 {
   beginResetModel();
   m_keyValues.clear();
-  for (QMap<QString, QString>::const_iterator it = map.constBegin();
-      it != map.constEnd();
-       ++it) {
+  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
     m_keyValues.append(qMakePair(it.key(), it.value()));
   }
   // make sure that at least one line is in the table
@@ -230,9 +228,7 @@ void ConfigTableModel::setMap(const QMap<QString, QString>& map)
 QMap<QString, QString> ConfigTableModel::getMap() const
 {
   QMap<QString, QString> map;
-  for (QList<QPair<QString, QString> >::const_iterator it = m_keyValues.constBegin();
-      it != m_keyValues.constEnd();
-      ++it) {
+  for (auto it = m_keyValues.constBegin(); it != m_keyValues.constEnd(); ++it) {
     if (!it->first.isEmpty()) {
       map.insert(it->first, it->second);
     }

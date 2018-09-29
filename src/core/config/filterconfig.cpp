@@ -115,9 +115,8 @@ void FilterConfig::readFromConfig(ISettings* config)
     expressions.append(QLatin1String(""));
 
   /* Use defaults if no configuration found */
-  QStringList::const_iterator namesIt, expressionsIt;
-  for (namesIt = names.begin(), expressionsIt = expressions.begin();
-       namesIt != names.end() && expressionsIt != expressions.end();
+  for (auto namesIt = names.constBegin(), expressionsIt = expressions.constBegin();
+       namesIt != names.constEnd() && expressionsIt != expressions.constEnd();
        ++namesIt, ++expressionsIt) {
     int idx = m_filterNames.indexOf(*namesIt);
     if (idx >= 0) {

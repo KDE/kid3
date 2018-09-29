@@ -203,8 +203,8 @@ static QString getNameForType(Frame::Type type)
     }
   }
   if (type != Frame::FT_Other) {
-    QMap<Frame::Type, QString>::const_iterator it = typeNameMap.find(type);
-    if (it != typeNameMap.end()) {
+    auto it = typeNameMap.constFind(type);
+    if (it != typeNameMap.constEnd()) {
       return *it;
     }
   }
@@ -231,8 +231,8 @@ static Frame::Type getTypeForName(const QString& name,
         nameTypeMap.insert(QString::fromLatin1(nameTypes[i].name), nameTypes[i].type);
       }
     }
-    QMap<QString, Frame::Type>::const_iterator it = nameTypeMap.find(name);
-    if (it != nameTypeMap.end()) {
+    auto it = nameTypeMap.constFind(name);
+    if (it != nameTypeMap.constEnd()) {
       return *it;
     }
   }
@@ -244,8 +244,8 @@ static Frame::Type getTypeForName(const QString& name,
         freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameTypes[i].name), freeFormNameTypes[i].type);
       }
     }
-    QMap<QString, Frame::Type>::const_iterator it = freeFormNameTypeMap.find(name);
-    if (it != freeFormNameTypeMap.end()) {
+    auto it = freeFormNameTypeMap.constFind(name);
+    if (it != freeFormNameTypeMap.constEnd()) {
       return *it;
     }
     return Frame::FT_Other;
@@ -575,9 +575,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
       MP4MetadataDelete(handle);
 #endif
 
-      for (MetadataMap::const_iterator it = m_metadata.begin();
-           it != m_metadata.end();
-           ++it) {
+      for (auto it = m_metadata.constBegin(); it != m_metadata.constEnd(); ++it) {
         const QByteArray& value = *it;
         if (!value.isEmpty()) {
           const QString& name = it.key();
@@ -903,8 +901,7 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
     markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
-    for (MetadataMap::iterator it = m_metadata.begin();
-         it != m_metadata.end();) {
+    for (auto it = m_metadata.begin(); it != m_metadata.end();) {
       QString name(it.key());
       Frame::Type type = getTypeForName(name);
       if (flt.isEnabled(type, name)) {
@@ -931,8 +928,8 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 QString M4aFile::getTextField(const QString& name) const
 {
   if (m_fileRead) {
-    MetadataMap::const_iterator it = m_metadata.find(name);
-    if (it != m_metadata.end()) {
+    auto it = m_metadata.constFind(name);
+    if (it != m_metadata.constEnd()) {
       return QString::fromUtf8((*it).data(), (*it).size());
     }
     return QLatin1String("");
@@ -954,7 +951,7 @@ void M4aFile::setTextField(const QString& name, const QString& value,
 {
   if (m_fileRead && !value.isNull()) {
     QByteArray str = value.toUtf8();
-    MetadataMap::iterator it = m_metadata.find(name);
+    auto it = m_metadata.find(name);
     if (it != m_metadata.end()) {
       if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
         *it = str;
@@ -1087,7 +1084,7 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     QString name(frame.getInternalName());
-    MetadataMap::iterator it = m_metadata.find(name);
+    auto it = m_metadata.find(name);
     if (it != m_metadata.end()) {
       if (frame.getType() != Frame::FT_Picture) {
         QByteArray str = frame.getValue().toUtf8();
@@ -1198,7 +1195,7 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     QString name(frame.getInternalName());
-    MetadataMap::iterator it = m_metadata.find(name);
+    auto it = m_metadata.find(name);
     if (it != m_metadata.end()) {
       m_metadata.erase(it);
       markTagChanged(Frame::Tag_2, frame.getType());
@@ -1222,9 +1219,7 @@ void M4aFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
     frames.clear();
     QString name;
     QString value;
-    for (MetadataMap::const_iterator it = m_metadata.begin();
-         it != m_metadata.end();
-         ++it) {
+    for (auto it = m_metadata.constBegin(); it != m_metadata.constEnd(); ++it) {
       name = it.key();
       Frame::Type type = getTypeForName(name);
       if (type != Frame::FT_Picture) {

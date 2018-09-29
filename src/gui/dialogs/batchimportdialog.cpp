@@ -183,8 +183,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   m_destComboBox->setEditable(false);
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
-  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
-       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+  for (auto it = tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
     m_destComboBox->addItem(it->second, it->first);
   }
   destLabel->setBuddy(m_destComboBox);
@@ -401,8 +400,7 @@ void BatchImportDialog::setProfileFromConfig()
   const QStringList sources = batchImportCfg.profileSources();
 
   m_profiles.clear();
-  QStringList::const_iterator namesIt, sourcesIt;
-  for (namesIt = names.constBegin(), sourcesIt = sources.constBegin();
+  for (auto namesIt = names.constBegin(), sourcesIt = sources.constBegin();
        namesIt != names.constEnd() && sourcesIt != sources.constEnd();
        ++namesIt, ++sourcesIt) {
     BatchImportProfile profile;

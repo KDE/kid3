@@ -533,9 +533,7 @@ void FileIOStream::registerOpenFile(FileIOStream* stream)
 
   int numberOfFilesToClose = s_openFiles.size() - 15;
   if (numberOfFilesToClose > 5) {
-    for (QList<FileIOStream*>::iterator it = s_openFiles.begin();
-         it != s_openFiles.end();
-         ++it) {
+    for (auto it = s_openFiles.begin(); it != s_openFiles.end(); ++it) {
       (*it)->closeFileHandle();
       if (--numberOfFilesToClose <= 0) {
         break;
@@ -802,10 +800,9 @@ void TagLibFile::readTags(bool force)
         markTagUnchanged(Frame::Tag_3);
       }
       if (!m_pictures.isRead()) {
-        TagLib::List<TagLib::FLAC::Picture*> pics(flacFile->pictureList());
+        const TagLib::List<TagLib::FLAC::Picture*> pics(flacFile->pictureList());
         int i = 0;
-        for (TagLib::List<TagLib::FLAC::Picture*>::ConstIterator it =
-             pics.begin(); it != pics.end(); ++it) {
+        for (auto it = pics.begin(); it != pics.end(); ++it) {
           PictureFrame frame;
           flacPictureToFrame(*it, frame);
           frame.setIndex(i++);
@@ -927,10 +924,9 @@ void TagLibFile::readTags(bool force)
       if (!m_pictures.isRead()) {
         if (auto xiphComment =
             dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
-          TagLib::List<TagLib::FLAC::Picture*> pics(xiphComment->pictureList());
+          const TagLib::List<TagLib::FLAC::Picture*> pics(xiphComment->pictureList());
           int i = 0;
-          for (TagLib::List<TagLib::FLAC::Picture*>::ConstIterator it =
-               pics.begin(); it != pics.end(); ++it) {
+          for (auto it = pics.begin(); it != pics.end(); ++it) {
             PictureFrame frame;
             flacPictureToFrame(*it, frame);
             frame.setIndex(i++);
@@ -2312,12 +2308,9 @@ static QString getFieldsFromSyltFrame(
 
   field.m_id = Frame::ID_Data;
   QVariantList synchedData;
-  TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList stl =
+  const TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList stl =
       syltFrame->synchedText();
-  for (TagLib::ID3v2::SynchronizedLyricsFrame::SynchedTextList::ConstIterator
-       it = stl.begin();
-       it != stl.end();
-       ++it) {
+  for (auto it = stl.begin(); it != stl.end(); ++it) {
     synchedData.append(static_cast<quint32>(it->time));
     synchedData.append(toQString(it->text));
   }
@@ -2346,12 +2339,9 @@ static QString getFieldsFromEtcoFrame(
 
   field.m_id = Frame::ID_Data;
   QVariantList synchedData;
-  TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList sel =
+  const TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList sel =
       etcoFrame->synchedEvents();
-  for (TagLib::ID3v2::EventTimingCodesFrame::SynchedEventList::ConstIterator
-       it = sel.begin();
-       it != sel.end();
-       ++it) {
+  for (auto it = sel.begin(); it != sel.end(); ++it) {
     synchedData.append(static_cast<quint32>(it->time));
     synchedData.append(static_cast<int>(it->type));
   }
@@ -2471,12 +2461,9 @@ static QString rva2FrameToString(
     const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame)
 {
   QString text;
-  TagLib::List<TagLib::ID3v2::RelativeVolumeFrame::ChannelType> channels =
+  const TagLib::List<TagLib::ID3v2::RelativeVolumeFrame::ChannelType> channels =
       rva2Frame->channels();
-  for (TagLib::List<TagLib::ID3v2::RelativeVolumeFrame::ChannelType>::
-       ConstIterator it = channels.begin();
-       it != channels.end();
-       ++it) {
+  for (auto it = channels.begin(); it != channels.end(); ++it) {
     TagLib::ID3v2::RelativeVolumeFrame::ChannelType type = *it;
     if (!text.isEmpty()) {
       text += QLatin1Char('\n');
@@ -2632,10 +2619,8 @@ static QString getFieldsFromCtocFrame(
   data.append(ctocFrame->isTopLevel());
   data.append(ctocFrame->isOrdered());
   QStringList elements;
-  TagLib::ByteVectorList childElements = ctocFrame->childElements();
-  for (TagLib::ByteVectorList::ConstIterator it = childElements.begin();
-       it != childElements.end();
-       ++it) {
+  const TagLib::ByteVectorList childElements = ctocFrame->childElements();
+  for (auto it = childElements.begin(); it != childElements.end(); ++it) {
     elements.append(toQString(TagLib::String(*it, TagLib::String::Latin1)));
   }
   data.append(elements);
@@ -3337,10 +3322,8 @@ void setData(TagLib::ID3v2::ChapterFrame* f,
   }
   // The embedded frames are deleted here because frames without subframes
   // do not have an ID_Subframe field and setSubframes() is not called.
-  TagLib::ID3v2::FrameList l = f->embeddedFrameList();
-  for (TagLib::ID3v2::FrameList::ConstIterator it = l.begin();
-       it != l.end();
-       ++it) {
+  const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
+  for (auto it = l.begin(); it != l.end(); ++it) {
     f->removeEmbeddedFrame(*it, true);
   }
 }
@@ -3355,7 +3338,7 @@ void setData(TagLib::ID3v2::TableOfContentsFrame* f,
     f->setIsOrdered(data.at(1).toBool());
     QStringList elementStrings = data.at(2).toStringList();
     TagLib::ByteVectorList elements;
-    for (QStringList::const_iterator it = elementStrings.constBegin();
+    for (auto it = elementStrings.constBegin();
          it != elementStrings.constEnd();
          ++it) {
       QByteArray id = it->toLatin1();
@@ -3365,10 +3348,8 @@ void setData(TagLib::ID3v2::TableOfContentsFrame* f,
   }
   // The embedded frames are deleted here because frames without subframes
   // do not have an ID_Subframe field and setSubframes() is not called.
-  TagLib::ID3v2::FrameList l = f->embeddedFrameList();
-  for (TagLib::ID3v2::FrameList::ConstIterator it = l.begin();
-       it != l.end();
-       ++it) {
+  const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
+  for (auto it = l.begin(); it != l.end(); ++it) {
     f->removeEmbeddedFrame(*it, true);
   }
 }
@@ -3427,9 +3408,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
     setValue(tFrame, toTString(text));
     setTextEncoding(tFrame, getTextEncodingConfig(needsUnicode(text)));
   } else {
-    for (Frame::FieldList::const_iterator fldIt = fieldList.begin();
-         fldIt != fieldList.end();
-         ++fldIt) {
+    for (auto fldIt = fieldList.constBegin(); fldIt != fieldList.constEnd(); ++fldIt) {
       const Frame::Field& fld = *fldIt;
       switch (fld.m_id) {
         case Frame::ID_Text:
@@ -3715,9 +3694,8 @@ static Frame::Type getTypeFromVorbisName(QString name)
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
     strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
-  QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char('=')).toUpper());
-  if (it != strNumMap.end()) {
+  auto it = strNumMap.constFind(name.remove(QLatin1Char('=')).toUpper());
+  if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return Frame::FT_Other;
@@ -3944,8 +3922,8 @@ static void getMp4NameForType(Frame::Type type, TagLib::String& name,
   name = "";
   value = MVT_String;
   if (type != Frame::FT_Other) {
-    QMap<Frame::Type, unsigned>::const_iterator it = typeNameMap.find(type);
-    if (it != typeNameMap.end()) {
+    auto it = typeNameMap.constFind(type);
+    if (it != typeNameMap.constEnd()) {
       name = mp4NameTypeValues[*it].name;
       value = mp4NameTypeValues[*it].value;
     }
@@ -3972,8 +3950,8 @@ static bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
       nameTypeMap.insert(mp4NameTypeValues[i].name, i);
     }
   }
-  QMap<TagLib::String, unsigned>::const_iterator it = nameTypeMap.find(name);
-  if (it != nameTypeMap.end()) {
+  auto it = nameTypeMap.constFind(name);
+  if (it != nameTypeMap.constEnd()) {
     type = mp4NameTypeValues[*it].type;
     value = mp4NameTypeValues[*it].value;
     return name[0] >= 'A' && name[0] <= 'Z';
@@ -4052,14 +4030,7 @@ static void prefixMp4FreeFormName(TagLib::String& name,
         const TagLib::MP4::ItemListMap& items =
             const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap();
 #endif
-        for (
-#if TAGLIB_VERSION >= 0x010a00
-             auto it = items.begin();
-#else
-             TagLib::MP4::ItemListMap::ConstIterator it = items.begin();
-#endif
-             it != items.end();
-             ++it) {
+        for (auto it = items.begin(); it != items.end(); ++it) {
           const TagLib::String& key = it->first;
           if (key.length() >= nameLen &&
               key.substr(key.length() - nameLen, nameLen) == name) {
@@ -4280,8 +4251,8 @@ static void getAsfNameForType(Frame::Type type, TagLib::String& name,
   name = "";
   value = TagLib::ASF::Attribute::UnicodeType;
   if (type != Frame::FT_Other) {
-    QMap<Frame::Type, unsigned>::const_iterator it = typeNameMap.find(type);
-    if (it != typeNameMap.end()) {
+    auto it = typeNameMap.constFind(type);
+    if (it != typeNameMap.constEnd()) {
       name = asfNameTypeValues[*it].name;
       value = asfNameTypeValues[*it].value;
     }
@@ -4306,8 +4277,8 @@ static void getAsfTypeForName(const TagLib::String& name, Frame::Type& type,
       nameTypeMap.insert(asfNameTypeValues[i].name, i);
     }
   }
-  QMap<TagLib::String, unsigned>::const_iterator it = nameTypeMap.find(name);
-  if (it != nameTypeMap.end()) {
+  auto it = nameTypeMap.constFind(name);
+  if (it != nameTypeMap.constEnd()) {
     type = asfNameTypeValues[*it].type;
     value = asfNameTypeValues[*it].value;
   } else {
@@ -4593,7 +4564,7 @@ static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
                        Frame::FT_Track);
     }
   }
-  QMap<TagLib::ByteVector, int>::const_iterator it = strNumMap.constFind(id);
+  auto it = strNumMap.constFind(id);
   if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
@@ -4765,10 +4736,8 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           for (auto it = fieldListMap.begin();
                it != fieldListMap.end();
                ++it) {
-            TagLib::StringList stringList = (*it).second;
-            for (TagLib::StringList::ConstIterator slit = stringList.begin();
-                 slit != stringList.end();
-                 ++slit) {
+            const TagLib::StringList stringList = (*it).second;
+            for (auto slit = stringList.begin(); slit != stringList.end(); ++slit) {
               if (i++ == index) {
                 oldValue = *slit;
                 break;
@@ -5481,12 +5450,10 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         infoTag->setFieldText(id, tvalue);
         QString name = QString::fromLatin1(id.data(), id.size());
         frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
-        TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
+        const TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
         int index = 0;
         bool found = false;
-        for (TagLib::RIFF::Info::FieldListMap::ConstIterator it = itemListMap.begin();
-             it != itemListMap.end();
-             ++it) {
+        for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
           if ((*it).first == id) {
             found = true;
             break;
@@ -5758,10 +5725,8 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #if TAGLIB_VERSION >= 0x010a00
         } else if (auto infoTag =
                    dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
-          TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
-          for (TagLib::RIFF::Info::FieldListMap::ConstIterator it = itemListMap.begin();
-               it != itemListMap.end();
-               ++it) {
+          const TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
+          for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
             infoTag->removeField((*it).first);
           }
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
@@ -5859,10 +5824,8 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #if TAGLIB_VERSION >= 0x010a00
         } else if (auto infoTag =
                    dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
-          TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
-          for (TagLib::RIFF::Info::FieldListMap::ConstIterator it = itemListMap.begin();
-               it != itemListMap.end();
-               ++it) {
+          const TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
+          for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
             TagLib::ByteVector id = (*it).first;
             QString name = QString::fromLatin1(id.data(), id.size());
             if (flt.isEnabled(getTypeFromInfoName(id), name)) {
@@ -5928,10 +5891,8 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
              ++it) {
           QString name = toQString((*it).first);
           Frame::Type type = getTypeFromVorbisName(name);
-          TagLib::StringList stringList = (*it).second;
-          for (TagLib::StringList::ConstIterator slit = stringList.begin();
-               slit != stringList.end();
-               ++slit) {
+          const TagLib::StringList stringList = (*it).second;
+          for (auto slit = stringList.begin(); slit != stringList.end(); ++slit) {
             if (type == Frame::FT_Picture) {
               Frame frame(type, QLatin1String(""), name, i++);
               PictureFrame::setFieldsFromBase64(
@@ -5950,9 +5911,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
           }
         }
         if (m_pictures.isRead()) {
-          for (Pictures::iterator it = m_pictures.begin();
-               it != m_pictures.end();
-               ++it) {
+          for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
             frames.insert(*it);
           }
         }
@@ -6138,11 +6097,9 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 #if TAGLIB_VERSION >= 0x010a00
       } else if (auto infoTag =
                  dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
-        TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
+        const TagLib::RIFF::Info::FieldListMap itemListMap = infoTag->fieldListMap();
         int i = 0;
-        for (TagLib::RIFF::Info::FieldListMap::ConstIterator it = itemListMap.begin();
-             it != itemListMap.end();
-             ++it) {
+        for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
           TagLib::ByteVector id = (*it).first;
           TagLib::String s = (*it).second;
           QString name = QString::fromLatin1(id.data(), id.size());

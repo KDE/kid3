@@ -104,9 +104,7 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
   QUrl imgurl;
   QMap<QString, QString> urlMap =
       ImportConfig::instance().matchPictureUrlMap();
-  for (QMap<QString, QString>::const_iterator it = urlMap.constBegin();
-       it != urlMap.constEnd();
-       ++it) {
+  for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
     QRegularExpression re(it.key());
     QRegularExpressionMatch match = re.match(
           urlStr, 0, QRegularExpression::NormalMatch,

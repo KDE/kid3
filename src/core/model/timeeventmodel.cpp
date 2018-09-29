@@ -223,9 +223,7 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
 {
   QVariantList synchedData;
   bool unitIsFrames = false;
-  for (Frame::FieldList::const_iterator it = fields.constBegin();
-       it != fields.constEnd();
-       ++it) {
+  for (auto it = fields.constBegin(); it != fields.constEnd(); ++it) {
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
@@ -287,11 +285,9 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
  */
 void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
 {
-  Frame::FieldList::iterator timeStampFormatIt = fields.end();
-  Frame::FieldList::iterator dataIt = fields.end();
-  for (Frame::FieldList::iterator it = fields.begin();
-       it != fields.end();
-       ++it) {
+  auto timeStampFormatIt = fields.end();
+  auto dataIt = fields.end();
+  for (auto it = fields.begin(); it != fields.end(); ++it) {
     if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
     } else if (it->m_value.type() == QVariant::List) {
@@ -343,9 +339,7 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
 {
   QVariantList synchedData;
   bool unitIsFrames = false;
-  for (Frame::FieldList::const_iterator it = fields.constBegin();
-       it != fields.constEnd();
-       ++it) {
+  for (auto it = fields.constBegin(); it != fields.constEnd(); ++it) {
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
@@ -376,11 +370,9 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
  */
 void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
 {
-  Frame::FieldList::iterator timeStampFormatIt = fields.end();
-  Frame::FieldList::iterator dataIt = fields.end();
-  for (Frame::FieldList::iterator it = fields.begin();
-       it != fields.end();
-       ++it) {
+  auto timeStampFormatIt = fields.end();
+  auto dataIt = fields.end();
+  for (auto it = fields.begin(); it != fields.end(); ++it) {
     if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
     } else if (it->m_value.type() == QVariant::List) {
@@ -424,9 +416,7 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
 void TimeEventModel::markRowForTimeStamp(const QTime& timeStamp)
 {
   int row = 0, oldRow = m_markedRow, newRow = -1;
-  for (QList<TimeEvent>::const_iterator it = m_timeEvents.constBegin();
-       it != m_timeEvents.constEnd();
-       ++it) {
+  for (auto it = m_timeEvents.constBegin(); it != m_timeEvents.constEnd(); ++it) {
     const TimeEvent& timeEvent = *it;
     QTime time = timeEvent.time.toTime();
     if (time.isValid() && time >= timeStamp) {

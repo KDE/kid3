@@ -65,8 +65,8 @@ void TextExporter::updateText(
   m_text.clear();
   const int numTracks = m_trackDataVector.size();
   int trackNr = 0;
-  for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-       it != m_trackDataVector.end();
+  for (auto it = m_trackDataVector.constBegin();
+       it != m_trackDataVector.constEnd();
        ++it) {
     if (trackNr == 0 && !headerFormat.isEmpty()) {
       m_text.append((*it).formatString(headerFormat));

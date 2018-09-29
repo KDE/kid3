@@ -234,7 +234,7 @@ void StarRatingMappingsModel::makeRowValid(int row)
   }
   QVector<int>& values = m_maps[row].second;
   int previousValue = 0;
-  for (QVector<int>::iterator it = values.begin(); it != values.end(); ++it) {
+  for (auto it = values.begin(); it != values.end(); ++it) {
     if (*it <= previousValue) {
       *it = previousValue + 1;
     }

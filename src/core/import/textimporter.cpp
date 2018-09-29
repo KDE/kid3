@@ -87,7 +87,7 @@ bool TextImporter::updateTrackData(
   FrameCollection frames(framesHdr);
   bool start = true;
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  ImportTrackDataVector::iterator it = trackDataVector.begin();
+  auto it = trackDataVector.begin();
   bool atTrackDataListEnd = (it == trackDataVector.end());
   while (getNextTags(frames, start)) {
     start = false;
@@ -129,8 +129,8 @@ bool TextImporter::updateTrackData(
     QList<int> trackDuration = getTrackDurations();
     if (!trackDuration.isEmpty()) {
       it = trackDataVector.begin();
-      for (QList<int>::const_iterator tdit = trackDuration.begin();
-           tdit != trackDuration.end();
+      for (auto tdit = trackDuration.constBegin();
+           tdit != trackDuration.constEnd();
            ++tdit) {
         if (it != trackDataVector.end()) {
           if (it->isEnabled()) {
@@ -200,9 +200,7 @@ void TextImporter::importFromTags(
 {
   ImportParser parser;
   parser.setFormat(extractionFormat);
-  for (ImportTrackDataVector::iterator it = trackDataVector.begin();
-       it != trackDataVector.end();
-       ++it) {
+  for (auto it = trackDataVector.begin(); it != trackDataVector.end(); ++it) {
     if (it->isEnabled()) {
       QString text(it->formatString(sourceFormat));
       int pos = 0;

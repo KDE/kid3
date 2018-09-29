@@ -53,8 +53,8 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
     auto md = new MatchData[numTracks];
     int numFiles = 0, numImports = 0;
     int i = 0;
-    for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
-         it != trackDataVector.end();
+    for (auto it = trackDataVector.constBegin();
+         it != trackDataVector.constEnd();
          ++it) {
       if (i >= numTracks) {
         break;
@@ -179,8 +179,8 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
 
     // 1st pass: Get track data and keep correct assignments.
     int i = 0;
-    for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
-         it != trackDataVector.end();
+    for (auto it = trackDataVector.constBegin();
+         it != trackDataVector.constEnd();
          ++it) {
       if (i >= numTracks) {
         break;
@@ -266,8 +266,8 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
     auto md = new MatchData[numTracks];
     int numFiles = 0, numImports = 0;
     int i = 0;
-    for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
-         it != trackDataVector.end();
+    for (auto it = trackDataVector.constBegin();
+         it != trackDataVector.constEnd();
          ++it) {
       if (i >= numTracks) {
         break;

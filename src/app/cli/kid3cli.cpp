@@ -311,9 +311,7 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
   QStringList args = splitArgs(line);
   if (!args.isEmpty()) {
     const QString& name = args.at(0);
-    for (QList<CliCommand*>::iterator it = m_cmds.begin();
-         it != m_cmds.end();
-         ++it) {
+    for (auto it = m_cmds.begin(); it != m_cmds.end(); ++it) {
       CliCommand* cmd = *it;
       if (name == cmd->name()) {
         cmd->setArgs(args);
@@ -355,9 +353,7 @@ void Kid3Cli::writeHelp(const QString& cmdName)
   }
   QList<QStringList> cmdStrs;
   int maxLength = 0;
-  for (QList<CliCommand*>::const_iterator it = m_cmds.constBegin();
-       it != m_cmds.constEnd();
-       ++it) {
+  for (auto it = m_cmds.constBegin(); it != m_cmds.constEnd(); ++it) {
     const CliCommand* cmd = *it;
     QString cmdStr = cmd->name();
     if (cmdName.isEmpty() || cmdName == cmdStr) {

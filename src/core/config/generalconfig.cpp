@@ -175,7 +175,7 @@ int GeneralConfig::indexFromTextCodecName(const QString& textEncoding)
 {
   int index = 0;
   QStringList textEncodingList = getTextCodecNames();
-  for (QStringList::const_iterator it = textEncodingList.constBegin();
+  for (auto it = textEncodingList.constBegin();
        it != textEncodingList.constEnd();
        ++it) {
     if (getTextCodecName(*it) == textEncoding) {

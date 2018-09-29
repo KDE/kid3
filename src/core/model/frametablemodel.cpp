@@ -206,18 +206,14 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   } else if (role == FieldIdsRole) {
     QVariantList result;
     const Frame::FieldList& fields = it->getFieldList();
-    for (Frame::FieldList::const_iterator fit = fields.constBegin();
-         fit != fields.constEnd();
-         ++fit) {
+    for (auto fit = fields.constBegin(); fit != fields.constEnd(); ++fit) {
       result.append(fit->m_id);
     }
     return result;
   } else if (role == FieldValuesRole) {
     QVariantList result;
     const Frame::FieldList& fields = it->getFieldList();
-    for (Frame::FieldList::const_iterator fit = fields.constBegin();
-         fit != fields.constEnd();
-         ++fit) {
+    for (auto fit = fields.constBegin(); fit != fields.constEnd(); ++fit) {
       result.append(fit->m_value);
     }
     return result;
@@ -388,10 +384,7 @@ FrameCollection::iterator FrameTableModel::frameAt(int row) const {
  */
 int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
   int row = 0;
-  for (QVector<FrameCollection::iterator>::const_iterator it =
-       m_frameOfRow.constBegin();
-       it != m_frameOfRow.constEnd();
-       ++it) {
+  for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if (frameIt == *it)
       break;
     ++row;
@@ -437,12 +430,10 @@ void FrameTableModel::markChangedFrames(quint64 frameMask)
   if (!FileConfig::instance().markChanges() || !changedBits)
     return;
 
-  FrameCollection::const_iterator it;
-  int row;
   const FrameCollection& frameCollection = frames();
-  for (it = frameCollection.begin(), row = 0;
-       it != frameCollection.end();
-       ++it, ++row) {
+  auto it = frameCollection.begin();
+  int row = 0;
+  for (; it != frameCollection.end(); ++it, ++row) {
     if (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(changedBits) * 8 &&
          (changedBits & (1ULL << (*it).getType())) != 0)) {
@@ -474,10 +465,7 @@ const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 int FrameTableModel::getRowWithFrameIndex(int index) const
 {
   int row = 0;
-  for (QVector<FrameCollection::iterator>::const_iterator it =
-       m_frameOfRow.constBegin();
-       it != m_frameOfRow.constEnd();
-       ++it) {
+  for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if ((*it)->getIndex() == index) {
       return row;
     }
@@ -494,10 +482,7 @@ int FrameTableModel::getRowWithFrameIndex(int index) const
 int FrameTableModel::getRowWithFrameName(const QString& name) const
 {
   int row = 0;
-  for (QVector<FrameCollection::iterator>::const_iterator it =
-       m_frameOfRow.constBegin();
-       it != m_frameOfRow.constEnd();
-       ++it) {
+  for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if ((*it)->getName() == name) {
       return row;
     }
@@ -521,10 +506,7 @@ FrameFilter FrameTableModel::getEnabledFrameFilter(
   bool allDisabled = true;
   int numberRows = rowCount();
   int row = 0;
-  for (QVector<FrameCollection::iterator>::const_iterator it =
-       m_frameOfRow.constBegin();
-       it != m_frameOfRow.constEnd();
-       ++it) {
+  for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if (row >= numberRows) break;
     if (!m_frameSelected.at(row)) {
       filter.enable((*it)->getType(), (*it)->getName(), false);
@@ -548,10 +530,7 @@ FrameCollection FrameTableModel::getEnabledFrames() const
   FrameCollection enabledFrames;
   const int numberRows = m_frameSelected.size();
   int row = 0;
-  for (QVector<FrameCollection::iterator>::const_iterator it =
-       m_frameOfRow.constBegin();
-       it != m_frameOfRow.constEnd();
-       ++it) {
+  for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if (row >= numberRows) break;
     if (m_frameSelected.at(row)) {
       enabledFrames.insert(**it);
@@ -658,10 +637,9 @@ void FrameTableModel::deselectAllFrames()
  */
 void FrameTableModel::selectChangedFrames()
 {
-  int row;
-  QVector<FrameCollection::iterator>::const_iterator it;
-  for (row = 0, it = m_frameOfRow.constBegin();
-       row < m_frameSelected.size() && it != m_frameOfRow.constEnd();
+  int row = 0;
+  auto it = m_frameOfRow.constBegin();
+  for (; row < m_frameSelected.size() && it != m_frameOfRow.constEnd();
        ++row, ++it) {
     if ((*it)->isValueChanged()) {
       m_frameSelected[row] = true;
@@ -698,11 +676,9 @@ void FrameTableModel::updateFrameRowMapping()
 {
   const FrameCollection& frameCollection = frames();
   m_frameOfRow.resize(frameCollection.size());
-  FrameCollection::iterator frameIt;
-  QVector<FrameCollection::iterator>::iterator rowIt;
-  for (frameIt = frameCollection.begin(), rowIt = m_frameOfRow.begin();
-       frameIt != frameCollection.end();
-       ++frameIt, ++rowIt) {
+  auto frameIt = frameCollection.begin();
+  auto rowIt = m_frameOfRow.begin();
+  for (; frameIt != frameCollection.end(); ++frameIt, ++rowIt) {
     *rowIt = frameIt;
   }
   if (!m_frameTypeSeqNr.isEmpty()) {
@@ -731,11 +707,9 @@ void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
   m_frameTypeSeqNr[Frame::FT_UnknownFrame] = Frame::FT_UnknownFrame;
   m_frameTypeSeqNr[Frame::FT_Other] = Frame::FT_Other;
 
-  int seqNr;
-  QList<int>::const_iterator it;
-  for (it = frameTypes.constBegin(), seqNr = 0;
-       it != frameTypes.constEnd();
-       ++it, ++seqNr) {
+  int seqNr = 0;
+  auto it = frameTypes.constBegin();
+  for (; it != frameTypes.constEnd(); ++it, ++seqNr) {
     int frameType = *it;
     if (frameType < 0 || frameType > Frame::FT_LastFrame) {
       qWarning("FrameTableModel::setFrameOrder: Invalid frame type %d",

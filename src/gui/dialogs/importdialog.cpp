@@ -177,8 +177,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_destComboBox->setEditable(false);
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
-  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
-       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+  for (auto it = tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
     m_destComboBox->addItem(it->second, it->first);
   }
   destLabel->setBuddy(m_destComboBox);

@@ -103,8 +103,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
-  for (QList<QPair<Frame::TagVersion, QString> >::const_iterator it =
-       tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+  for (auto it = tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
     m_tagversionComboBox->addItem(it->second, it->first);
   }
   actionLayout->addRow(tr("&Source:"), m_tagversionComboBox);

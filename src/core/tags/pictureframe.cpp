@@ -279,8 +279,8 @@ void PictureFrame::getFields(const Frame& frame,
                              QString& description, QByteArray& data,
                              ImageProperties* imgProps)
 {
-  for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
-       it != frame.getFieldList().end();
+  for (auto it = frame.getFieldList().constBegin();
+       it != frame.getFieldList().constEnd();
        ++it) {
     switch ((*it).m_id) {
       case ID_TextEnc:

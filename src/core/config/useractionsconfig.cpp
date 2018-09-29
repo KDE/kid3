@@ -53,9 +53,8 @@ void UserActionsConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
   int cmdNr = 1;
-  for (QList<MenuCommand>::const_iterator
-         it = m_contextMenuCommands.begin();
-       it != m_contextMenuCommands.end();
+  for (auto it = m_contextMenuCommands.constBegin();
+       it != m_contextMenuCommands.constEnd();
        ++it) {
     config->setValue(QString(QLatin1String("Command%1")).arg(cmdNr++), QVariant((*it).toStringList()));
   }
@@ -197,8 +196,7 @@ void UserActionsConfig::setContextMenuCommands(const QList<MenuCommand>& context
 QVariantList UserActionsConfig::contextMenuCommandVariantList() const
 {
   QVariantList lst;
-  for (QList<MenuCommand>::const_iterator
-       it = m_contextMenuCommands.constBegin();
+  for (auto it = m_contextMenuCommands.constBegin();
        it != m_contextMenuCommands.constEnd();
        ++it) {
     lst.append(it->toStringList());
@@ -209,9 +207,7 @@ QVariantList UserActionsConfig::contextMenuCommandVariantList() const
 void UserActionsConfig::setContextMenuCommandVariantList(const QVariantList& lst)
 {
   QList<MenuCommand> commands;
-  for (QVariantList::const_iterator it = lst.constBegin();
-       it != lst.constEnd();
-       ++it) {
+  for (auto it = lst.constBegin(); it != lst.constEnd(); ++it) {
     commands.append(MenuCommand(it->toStringList()));
   }
   setContextMenuCommands(commands);

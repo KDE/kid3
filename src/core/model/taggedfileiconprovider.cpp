@@ -110,9 +110,7 @@ void TaggedFileIconProvider::createIcons()
     m_pixmapMap.insert(idTexts[i].id, pixmap);
   }
 
-  for (QMap<QByteArray, QPixmap>::const_iterator it = m_pixmapMap.constBegin();
-       it != m_pixmapMap.constEnd();
-       ++it) {
+  for (auto it = m_pixmapMap.constBegin(); it != m_pixmapMap.constEnd(); ++it) {
     m_iconMap.insert(it.key(), QIcon(it.value()));
   }
 

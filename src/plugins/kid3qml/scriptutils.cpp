@@ -88,9 +88,7 @@ QVariant ScriptUtils::getRoleData(
 {
   if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
-    for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
-         it != roleHash.constEnd();
-         ++it) {
+    for (auto it = roleHash.constBegin(); it != roleHash.constEnd(); ++it) {
       if (it.value() == roleName) {
         return model->index(row, 0, parent).data(it.key());
       }
@@ -105,9 +103,7 @@ bool ScriptUtils::setRoleData(
 {
   if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
-    for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
-         it != roleHash.constEnd();
-         ++it) {
+    for (auto it = roleHash.constBegin(); it != roleHash.constEnd(); ++it) {
       if (it.value() == roleName) {
         return model->setData(model->index(row, 0, parent), value, it.key());
       }
@@ -121,9 +117,7 @@ QVariant ScriptUtils::getIndexRoleData(const QModelIndex& index,
 {
   if (const QAbstractItemModel* model = index.model()) {
     QHash<int,QByteArray> roleHash = model->roleNames();
-    for (QHash<int,QByteArray>::const_iterator it = roleHash.constBegin();
-         it != roleHash.constEnd();
-         ++it) {
+    for (auto it = roleHash.constBegin(); it != roleHash.constEnd(); ++it) {
       if (it.value() == roleName) {
         return index.data(it.key());
       }

@@ -82,15 +82,13 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("DirListVisibleColumns"),
                    QVariant(intListToStringList(m_dirListVisibleColumns)));
 
-  QList<int>::const_iterator it;
-  int i;
-  for (it = m_splitterSizes.begin(), i = 0;
-     it != m_splitterSizes.end();
-     ++it, ++i) {
+  auto it = m_splitterSizes.constBegin();
+  int i = 0;
+  for (; it != m_splitterSizes.constEnd(); ++it, ++i) {
     config->setValue(QLatin1String("SplitterSize") + QString::number(i), QVariant(*it));
   }
-  for (it = m_vSplitterSizes.begin(), i = 0;
-     it != m_vSplitterSizes.end();
+  for (it = m_vSplitterSizes.constBegin(), i = 0;
+     it != m_vSplitterSizes.constEnd();
      ++it, ++i) {
     config->setValue(QLatin1String("VSplitterSize") + QString::number(i), QVariant(*it));
   }

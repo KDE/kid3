@@ -76,9 +76,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   }
   docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
   docPaths += QDir::currentPath() + QLatin1String("/kid3_en.html");
-  for (QStringList::const_iterator it = docPaths.begin();
-       it != docPaths.end();
-       ++it) {
+  for (auto it = docPaths.constBegin(); it != docPaths.constEnd(); ++it) {
     m_filename = *it;
     if (QFile::exists(m_filename)) break;
   }
