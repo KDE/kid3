@@ -255,18 +255,33 @@ public:
   void closeFileHandle();
 
   // Reimplemented from TagLib::IOStream, delegate to TagLib::FileStream.
+  /** File name in local file system encoding. */
   virtual TagLib::FileName name() const override;
+  /** Read block of size @a length at current pointer. */
   virtual TagLib::ByteVector readBlock(ulong length) override;
+  /** Write block @a data at current pointer. */
   virtual void writeBlock(const TagLib::ByteVector &data) override;
+  /**
+   * Insert @a data at position @a start in the file overwriting @a replace
+   * bytes of the original content.
+   */
   virtual void insert(const TagLib::ByteVector &data,
               ulong start = 0, ulong replace = 0) override;
+  /** Remove block starting at @a start for @a length bytes. */
   virtual void removeBlock(ulong start = 0, ulong length = 0) override;
+  /** True if the file is read only. */
   virtual bool readOnly() const override;
+  /** Check if open in constructor succeeded. */
   virtual bool isOpen() const override;
+  /** Move I/O pointer to @a offset in the file from position @a p. */
   virtual void seek(long offset, Position p = Beginning) override;
+  /** Reset the end-of-file and error flags on the file. */
   virtual void clear() override;
+  /** Current offset within the file. */
   virtual long tell() const override;
+  /** Length of the file. */
   virtual long length() override;
+  /** Truncate the file to @a length. */
   virtual void truncate(long length) override;
 
   /**
