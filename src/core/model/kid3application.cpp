@@ -1757,9 +1757,7 @@ void Kid3Application::applyTextEncoding()
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
     taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
-    for (auto frameIt = frames.begin();
-         frameIt != frames.end();
-         ++frameIt) {
+    for (auto frameIt = frames.begin(); frameIt != frames.end(); ++frameIt) {
       auto& frame = const_cast<Frame&>(*frameIt);
       Frame::TextEncoding enc = encoding;
       if (taggedFile->getTagFormat(Frame::Tag_Id3v2) == QLatin1String("ID3v2.3.0")) {
@@ -2058,9 +2056,7 @@ void Kid3Application::onFrameEdited(const Frame* frame)
       TaggedFile* currentFile = tfit.next();
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
-      for (auto it = frames.begin();
-           it != frames.end();
-           ++it) {
+      for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
         if (it->getName() == m_editFrameName) {
           currentFile->deleteFrame(tagNr, *it);
           break;
@@ -2111,9 +2107,7 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
       int currentIndex = 0;
-      for (auto it = frames.begin();
-           it != frames.end();
-           ++it) {
+      for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
         if (it->getName() == name) {
           if (currentIndex == index) {
             currentFile->deleteFrame(tagNr, *it);
@@ -3389,8 +3383,7 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  auto it =
-      ft->frames().findByName(frameName, index);
+  auto it = ft->frames().findByName(frameName, index);
   if (it != ft->frames().end()) {
     if (!dataFileName.isEmpty()) {
       bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
@@ -3454,9 +3447,7 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
   QVariantMap map;
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  for (auto it = ft->frames().begin();
-       it != ft->frames().end();
-       ++it) {
+  for (auto it = ft->frames().cbegin(); it != ft->frames().cend(); ++it) {
     QString name(it->getName());
     int nlPos = name.indexOf(QLatin1Char('\n'));
     if (nlPos > 0) {

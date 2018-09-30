@@ -955,9 +955,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
                            const FrameCollection& frames, bool onlyChanged)
 {
   if (tagNr == Frame::Tag_Id3v1) {
-    for (auto it = frames.begin();
-         it != frames.end();
-         ++it) {
+    for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
       if (!onlyChanged || it->isValueChanged()) {
         setFrame(tagNr, *it);
       }
@@ -967,9 +965,7 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
     FrameCollection myFrames;
     QSet<int> replacedIndexes;
 
-    for (auto it = frames.begin();
-         it != frames.end();
-         ++it) {
+    for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
       if (!onlyChanged || it->isValueChanged()) {
         if (it->getIndex() != -1) {
           // The frame has an index, so the original tag can be modified

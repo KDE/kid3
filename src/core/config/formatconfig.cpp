@@ -279,9 +279,7 @@ QString FormatConfig::toUpper(const QString& str) const
  */
 void FormatConfig::formatFrames(FrameCollection& frames) const
 {
-  for (auto it = frames.begin();
-       it != frames.end();
-       ++it) {
+  for (auto it = frames.begin(); it != frames.end(); ++it) {
     auto& frame = const_cast<Frame&>(*it);
     if (frame.getType() != Frame::FT_Genre) {
       QString value(frame.getValue());

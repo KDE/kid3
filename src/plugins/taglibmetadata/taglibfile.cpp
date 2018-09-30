@@ -3383,9 +3383,7 @@ void setSubframes(const TagLibFile* self, TagLib::ID3v2::ChapterFrame* f,
                   Frame::FieldList::const_iterator end)
 {
   FrameCollection frames = FrameCollection::fromSubframes(begin, end);
-  for (auto it = frames.begin();
-       it != frames.end();
-       ++it) {
+  for (auto it = frames.begin(); it != frames.end(); ++it) {
     f->addEmbeddedFrame(createId3FrameFromFrame(self, const_cast<Frame&>(*it)));
   }
 }
@@ -3396,9 +3394,7 @@ void setSubframes(const TagLibFile* self, TagLib::ID3v2::TableOfContentsFrame* f
                   Frame::FieldList::const_iterator end)
 {
   FrameCollection frames = FrameCollection::fromSubframes(begin, end);
-  for (auto it = frames.begin();
-       it != frames.end();
-       ++it) {
+  for (auto it = frames.begin(); it != frames.end(); ++it) {
     f->addEmbeddedFrame(createId3FrameFromFrame(self, const_cast<Frame&>(*it)));
   }
 }

@@ -282,8 +282,8 @@ bool TagSearcher::searchInFrames(const FrameCollection& frames,
 {
   int idx = 0;
   int frameNr = 0;
-  auto begin = frames.begin();
-  auto end = frames.end();
+  auto begin = frames.cbegin();
+  auto end = frames.cend();
   if (pos->getPart() == part) {
     idx = pos->m_matchedPos + advanceChars;
     for (frameNr = 0;

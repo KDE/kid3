@@ -103,9 +103,7 @@ void SubframesEditor::setFrames(FrameCollection& frames)
 void SubframesEditor::getFrames(FrameCollection& frames) const
 {
   frames = m_frameTableModel->frames();
-  for (auto it = frames.begin();
-       it != frames.end();
-       ++it) {
+  for (auto it = frames.begin(); it != frames.end(); ++it) {
     auto& frame = const_cast<Frame&>(*it);
     if (frame.isValueChanged()) {
       frame.setFieldListFromValue();

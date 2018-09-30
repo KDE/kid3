@@ -90,9 +90,7 @@ void TaggedFileSelection::endAddTaggedFiles()
           (m_state.m_tagSupportedCount[tagNr] > 0 ||
            m_state.m_fileCount == 0)) {
         const FrameCollection& frames = m_framesModel[tagNr]->frames();
-        for (auto it = frames.begin();
-             it != frames.end();
-             ++it) {
+        for (auto it = frames.cbegin(); it != frames.end(); ++it) {
           if (!(*it).getValue().isEmpty()) {
             m_state.m_hasTag[tagNr] = true;
             break;

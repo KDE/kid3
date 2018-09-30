@@ -227,9 +227,7 @@ QVariantMap MprisPlayerInterface::metadata() const
 
       QString artPath;
       QStringList albumArtists, artists, comments, composers, genres, lyricists;
-      for (auto it = trackData.begin();
-           it != trackData.end();
-           ++it) {
+      for (auto it = trackData.cbegin(); it != trackData.cend(); ++it) {
         const Frame& frame = *it;
         switch (frame.getType()) {
         case Frame::FT_Album:

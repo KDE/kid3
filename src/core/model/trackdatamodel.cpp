@@ -426,9 +426,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
   for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
        tit != trackDataVector.constEnd();
        ++tit) {
-    for (auto fit = tit->begin();
-         fit != tit->end();
-         ++fit) {
+    for (auto fit = tit->cbegin(); fit != tit->cend(); ++fit) {
       Frame::ExtendedType type = fit->getExtendedType();
       if (type.getType() > Frame::FT_LastV1Frame &&
           !newFrameTypes.contains(type)) {
