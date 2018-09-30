@@ -1053,8 +1053,7 @@ QString M4aFile::getTagFormat(Frame::TagNumber tagNr) const
  */
 bool M4aFile::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const
 {
-  QString name = getNameForType(type);
- if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
+  if (type < Frame::FT_FirstFrame || type > Frame::FT_LastV1Frame ||
       tagNr > 1)
     return false;
 

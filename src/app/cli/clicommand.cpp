@@ -438,7 +438,7 @@ void SetCommand::startCommand()
         cli()->updateSelection();
       }
     } else if (!value.isEmpty()) {
-      setError(tr("Could not set \"%1\" for %2").arg(value).arg(name));
+      setError(tr("Could not set \"%1\" for %2").arg(value, name));
     }
   } else {
     showUsage();

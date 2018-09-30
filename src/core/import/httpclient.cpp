@@ -283,7 +283,7 @@ void HttpClient::splitNamePort(const QString& namePort,
   int colPos = namePort.lastIndexOf(QLatin1Char(':'));
   if (colPos >= 0) {
     bool ok;
-    port = namePort.mid(colPos + 1).toInt(&ok);
+    port = namePort.midRef(colPos + 1).toInt(&ok);
     if (!ok) port = 80;
     name = namePort.left(colPos);
   } else {

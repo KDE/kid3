@@ -118,7 +118,7 @@ bool DirRenamer::renameDirectory(
   const QString& olddir, const QString& newdir,
   const QPersistentModelIndex& index, QString* errorMsg) const
 {
-  if (QFileInfo(newdir).exists()) {
+  if (QFileInfo::exists(newdir)) {
     if (errorMsg) {
       errorMsg->append(tr("File %1 already exists\n").arg(newdir));
     }
@@ -138,7 +138,7 @@ bool DirRenamer::renameDirectory(
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(olddir).arg(newdir));
+      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(olddir, newdir));
     }
     return false;
   }
@@ -166,7 +166,7 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
   if (QFileInfo(newfn).isFile()) {
     return true;
   }
-  if (QFileInfo(newfn).exists()) {
+  if (QFileInfo::exists(newfn)) {
     if (errorMsg) {
       errorMsg->append(tr("%1 already exists\n").arg(newfn));
     }
@@ -186,7 +186,7 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(oldfn).arg(newfn));
+      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(oldfn, newfn));
     }
     return false;
   }

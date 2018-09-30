@@ -498,7 +498,7 @@ QString Genres::getNameString(const QString& str)
     int cpPos, n;
     bool ok;
     if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
-      n = str.mid(1, cpPos - 1).toInt(&ok);
+      n = str.midRef(1, cpPos - 1).toInt(&ok);
       if (ok && n <= 0xff) {
         return QString::fromLatin1(getName(n));
       }

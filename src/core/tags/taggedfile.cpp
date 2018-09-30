@@ -654,8 +654,8 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
     return str.toInt();
 
   if (total)
-    *total = str.mid(slashPos + 1).toInt();
-  return str.left(slashPos).toInt();
+    *total = str.midRef(slashPos + 1).toInt();
+  return str.leftRef(slashPos).toInt();
 }
 
 /**

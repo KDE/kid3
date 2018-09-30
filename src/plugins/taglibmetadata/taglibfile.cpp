@@ -748,7 +748,6 @@ void TagLibFile::readTags(bool force)
 {
   bool priorIsTagInformationRead = isTagInformationRead();
   QString fileName = currentFilePath();
-  QByteArray fn = QFile::encodeName(fileName);
 
   if (force || m_fileRef.isNull()) {
     delete m_stream;
@@ -1304,7 +1303,7 @@ static QString getGenreString(const TagLib::String& str)
     int cpPos = 0, n = 0xff;
     bool ok = false;
     if (qs[0] == QLatin1Char('(') && (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
-      n = qs.mid(1, cpPos - 1).toInt(&ok);
+      n = qs.midRef(1, cpPos - 1).toInt(&ok);
       if (!ok || n > 0xff) {
         n = 0xff;
       }

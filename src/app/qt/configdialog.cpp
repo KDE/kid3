@@ -254,8 +254,9 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
 {
   m_shortcutAlreadyUsedLabel->setText(
         tr("The keyboard shortcut '%1' is already assigned to '%2'.").
-        arg(key).
-        arg(context + QLatin1Char('/') + (action ? action->text().remove(QLatin1Char('&')) : QLatin1String("?"))));
+        arg(key, context + QLatin1Char('/') +
+            (action ? action->text().remove(QLatin1Char('&'))
+                    : QLatin1String("?"))));
 }
 
 /**

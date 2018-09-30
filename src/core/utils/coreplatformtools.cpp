@@ -179,8 +179,7 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
     return false;
   QTextStream stream(&file);
   stream << QString(QLatin1String("[Trash Info]\nPath=%1\nDeletionDate=%2\n")).
-    arg(absPath).
-    arg(QDateTime::currentDateTime().toString(Qt::ISODate));
+    arg(absPath, QDateTime::currentDateTime().toString(Qt::ISODate));
   file.close();
   return QDir().rename(absPath, filesPath + QLatin1Char('/') + destName);
 }

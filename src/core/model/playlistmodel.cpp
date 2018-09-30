@@ -171,7 +171,6 @@ void PlaylistModel::setPlaylistFile(const QString& path)
 
   m_playlistConfig = PlaylistConfig::instance();
   PlaylistCreator creator(QString(), m_playlistConfig);
-  QList<QPersistentModelIndex> entries;
   QStringList filePaths;
   PlaylistConfig::PlaylistFormat format;
   bool useFullPath;

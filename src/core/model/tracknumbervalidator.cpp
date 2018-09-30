@@ -75,9 +75,9 @@ QValidator::State TrackNumberValidator::validate(QString& input, int&) const
       return Intermediate;
     }
 
-    input.left(slashPos).toULongLong(&ok);
+    input.leftRef(slashPos).toULongLong(&ok);
     if (ok) {
-      input.mid(slashPos + 1).toULongLong(&ok);
+      input.midRef(slashPos + 1).toULongLong(&ok);
     }
   }
   return ok ? Acceptable : Invalid;

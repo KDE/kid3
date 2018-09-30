@@ -412,7 +412,7 @@ static int getGenreNum(const ID3_Tag* tag)
   int cpPos = 0, n = 0xff;
   if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
     bool ok;
-    n = str.mid(1, cpPos - 1).toInt(&ok);
+    n = str.midRef(1, cpPos - 1).toInt(&ok);
     if (!ok || n > 0xff) {
       n = 0xff;
     }

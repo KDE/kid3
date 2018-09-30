@@ -1317,7 +1317,7 @@ void BaseMainWindowImpl::renameFile()
         QMessageBox::warning(
           nullptr, tr("File Error"),
           tr("Error while renaming:\n") +
-          tr("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
+          tr("Rename %1 to %2 failed\n").arg(fileName, newFileName),
           QMessageBox::Ok, Qt::NoButton);
 #endif
       }

@@ -402,7 +402,6 @@ Frame::~Frame()
 void Frame::setValueFromFieldList()
 {
   if (!getFieldList().empty()) {
-    QString text;
     for (auto fldIt = getFieldList().constBegin();
          fldIt != getFieldList().constEnd();
          ++fldIt) {
@@ -465,7 +464,7 @@ int Frame::numberWithoutTotal(const QString& str, bool* ok)
   int slashPos = str.indexOf(QLatin1Char('/'));
   return slashPos == -1 ?
     str.toInt(ok) :
-    str.left(slashPos).toInt(ok);
+    str.leftRef(slashPos).toInt(ok);
 }
 
 /**
@@ -818,8 +817,8 @@ Frame::FieldId Frame::Field::getFieldId(const QString& fieldName)
  */
 QString Frame::Field::getTextEncodingName(TextEncoding type)
 {
-  if (type >= 0 &&
-      type < static_cast<int>(
+  if (static_cast<int>(type) >= 0 &&
+      static_cast<int>(type) < static_cast<int>(
         sizeof(textEncodingNames) / sizeof(textEncodingNames[0]) - 1)) {
     return QCoreApplication::translate("@default", textEncodingNames[type]);
   }
