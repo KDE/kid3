@@ -36,14 +36,14 @@ FingerprintCalculator::FingerprintCalculator(QObject* parent) : QObject(parent),
   m_chromaprintCtx(nullptr),
   m_decoder(AbstractFingerprintDecoder::createFingerprintDecoder(this))
 {
-  connect(m_decoder, SIGNAL(started(int,int)),
-          this, SLOT(startChromaprint(int,int)));
-  connect(m_decoder, SIGNAL(bufferReady(QByteArray)),
-          this, SLOT(feedChromaprint(QByteArray)));
-  connect(m_decoder, SIGNAL(error(int)),
-          this, SLOT(receiveError(int)));
-  connect(m_decoder, SIGNAL(finished(int)),
-          this, SLOT(finishChromaprint(int)));
+  connect(m_decoder, &AbstractFingerprintDecoder::started,
+          this, &FingerprintCalculator::startChromaprint);
+  connect(m_decoder, &AbstractFingerprintDecoder::bufferReady,
+          this, &FingerprintCalculator::feedChromaprint);
+  connect(m_decoder, &AbstractFingerprintDecoder::error,
+          this, &FingerprintCalculator::receiveError);
+  connect(m_decoder, &AbstractFingerprintDecoder::finished,
+          this, &FingerprintCalculator::finishChromaprint);
 }
 
 /**

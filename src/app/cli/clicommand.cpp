@@ -123,7 +123,7 @@ void CliCommand::terminate() {
  */
 void CliCommand::connectResultSignal()
 {
-  QTimer::singleShot(0, this, SLOT(terminate()));
+  QTimer::singleShot(0, this, &CliCommand::terminate);
 }
 
 /**
@@ -252,7 +252,7 @@ void QuitCommand::startCommand()
       return;
     }
   }
-  disconnect(this, SIGNAL(finished()), cli(), SLOT(onCommandFinished()));
+  disconnect(this, &CliCommand::finished, cli(), &Kid3Cli::onCommandFinished);
   cli()->terminate();
 }
 
@@ -284,14 +284,14 @@ void CdCommand::startCommand()
 
 void CdCommand::connectResultSignal()
 {
-  connect(cli()->app(), SIGNAL(directoryOpened()),
-    this, SLOT(terminate()));
+  connect(cli()->app(), &Kid3Application::directoryOpened,
+    this, &CdCommand::terminate);
 }
 
 void CdCommand::disconnectResultSignal()
 {
-  disconnect(cli()->app(), SIGNAL(directoryOpened()),
-    this, SLOT(terminate()));
+  disconnect(cli()->app(), &Kid3Application::directoryOpened,
+    this, &CdCommand::terminate);
 }
 
 
@@ -535,19 +535,19 @@ void BatchImportCommand::startCommand()
 void BatchImportCommand::connectResultSignal()
 {
   BatchImporter* importer = cli()->app()->getBatchImporter();
-  connect(importer, SIGNAL(reportImportEvent(int,QString)),
-          this, SLOT(onReportImportEvent(int,QString)));
-  connect(importer, SIGNAL(finished()),
-          this, SLOT(terminate()));
+  connect(importer, &BatchImporter::reportImportEvent,
+          this, &BatchImportCommand::onReportImportEvent);
+  connect(importer, &BatchImporter::finished,
+          this, &BatchImportCommand::terminate);
 }
 
 void BatchImportCommand::disconnectResultSignal()
 {
   BatchImporter* importer = cli()->app()->getBatchImporter();
-  disconnect(importer, SIGNAL(reportImportEvent(int,QString)),
-             this, SLOT(onReportImportEvent(int,QString)));
-  disconnect(importer, SIGNAL(finished()),
-             this, SLOT(terminate()));
+  disconnect(importer, &BatchImporter::reportImportEvent,
+             this, &BatchImportCommand::onReportImportEvent);
+  disconnect(importer, &BatchImporter::finished,
+             this, &BatchImportCommand::terminate);
 }
 
 void BatchImportCommand::onReportImportEvent(int type, const QString& text)
@@ -617,16 +617,16 @@ void AlbumArtCommand::startCommand()
 void AlbumArtCommand::connectResultSignal()
 {
   DownloadClient* downloadClient = cli()->app()->getDownloadClient();
-  connect(downloadClient, SIGNAL(downloadFinished(QByteArray,QString,QString)),
-          this, SLOT(onDownloadFinished(QByteArray,QString,QString)));
+  connect(downloadClient, &DownloadClient::downloadFinished,
+          this, &AlbumArtCommand::onDownloadFinished);
 }
 
 void AlbumArtCommand::disconnectResultSignal()
 {
   DownloadClient* downloadClient = cli()->app()->getDownloadClient();
   disconnect(downloadClient,
-             SIGNAL(downloadFinished(QByteArray,QString,QString)),
-             this, SLOT(onDownloadFinished(QByteArray,QString,QString)));
+             &DownloadClient::downloadFinished,
+             this, &AlbumArtCommand::onDownloadFinished);
 }
 
 void AlbumArtCommand::onDownloadFinished(
@@ -771,19 +771,19 @@ void RenameDirectoryCommand::startCommand()
 void RenameDirectoryCommand::connectResultSignal()
 {
   DirRenamer* renamer = cli()->app()->getDirRenamer();
-  connect(renamer, SIGNAL(actionScheduled(QStringList)),
-          this, SLOT(onActionScheduled(QStringList)));
-  connect(cli()->app(), SIGNAL(renameActionsScheduled()),
-          this, SLOT(onRenameActionsScheduled()));
+  connect(renamer, &DirRenamer::actionScheduled,
+          this, &RenameDirectoryCommand::onActionScheduled);
+  connect(cli()->app(), &Kid3Application::renameActionsScheduled,
+          this, &RenameDirectoryCommand::onRenameActionsScheduled);
 }
 
 void RenameDirectoryCommand::disconnectResultSignal()
 {
   DirRenamer* renamer = cli()->app()->getDirRenamer();
-  disconnect(renamer, SIGNAL(actionScheduled(QStringList)),
-             this, SLOT(onActionScheduled(QStringList)));
-  disconnect(cli()->app(), SIGNAL(renameActionsScheduled()),
-             this, SLOT(onRenameActionsScheduled()));
+  disconnect(renamer, &DirRenamer::actionScheduled,
+             this, &RenameDirectoryCommand::onActionScheduled);
+  disconnect(cli()->app(), &Kid3Application::renameActionsScheduled,
+             this, &RenameDirectoryCommand::onRenameActionsScheduled);
 }
 
 void RenameDirectoryCommand::onActionScheduled(const QStringList& actionStrs)
@@ -876,15 +876,15 @@ void FilterCommand::startCommand()
 
 void FilterCommand::connectResultSignal()
 {
-  connect(cli()->app(), SIGNAL(fileFiltered(int,QString,int,int)),
-          this, SLOT(onFileFiltered(int,QString)));
+  connect(cli()->app(), &Kid3Application::fileFiltered,
+          this, &FilterCommand::onFileFiltered);
 }
 
 void FilterCommand::disconnectResultSignal()
 {
   cli()->app()->abortFilter();
-  disconnect(cli()->app(), SIGNAL(fileFiltered(int,QString,int,int)),
-             this, SLOT(onFileFiltered(int,QString)));
+  disconnect(cli()->app(), &Kid3Application::fileFiltered,
+             this, &FilterCommand::onFileFiltered);
 }
 
 void FilterCommand::onFileFiltered(int type, const QString& fileName)

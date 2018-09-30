@@ -71,12 +71,12 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &FilterDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &FilterDialog::saveConfig);
 
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
@@ -90,8 +90,8 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_applyButton);
   hlayout->addWidget(closeButton);
-  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyOrAbortFilter()));
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(m_applyButton, &QAbstractButton::clicked, this, &FilterDialog::applyOrAbortFilter);
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
   connect(this, SIGNAL(rejected()), &m_fileFilter, SLOT(abort()));
 
   vlayout->addLayout(hlayout);

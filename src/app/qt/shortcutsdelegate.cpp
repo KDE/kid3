@@ -183,16 +183,16 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   hlayout->setContentsMargins(0, 0, 0, 0);
   delete lineEdit;
   m_editor = new QKeySequenceEdit(parent);
-  connect(m_editor, SIGNAL(editingFinished()), this, SIGNAL(valueEntered()));
+  connect(m_editor, &QKeySequenceEdit::editingFinished, this, &ShortcutsDelegateEditor::valueEntered);
   setFocusProxy(m_editor);
   hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
   auto clearButton = new QToolButton(this);
   clearButton->setText(tr("Clear"));
-  connect(clearButton, SIGNAL(clicked()), this, SIGNAL(clearClicked()));
+  connect(clearButton, &QAbstractButton::clicked, this, &ShortcutsDelegateEditor::clearClicked);
   hlayout->addWidget(clearButton);
   auto resetButton = new QToolButton(this);
   resetButton->setText(tr("Reset"));
-  connect(resetButton, SIGNAL(clicked()), this, SIGNAL(resetClicked()));
+  connect(resetButton, &QAbstractButton::clicked, this, &ShortcutsDelegateEditor::resetClicked);
   hlayout->addWidget(resetButton);
 }
 

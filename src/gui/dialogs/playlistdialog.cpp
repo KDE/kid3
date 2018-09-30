@@ -154,15 +154,15 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
     QLatin1String("playlist_%{artist}_-_%{album}"),
     QLatin1String("playlist")
   });
-  connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
-          m_fileNameFormatComboBox, SLOT(setEnabled(bool)));
+  connect(m_fileNameFormatButton, &QAbstractButton::toggled,
+          m_fileNameFormatComboBox, &QWidget::setEnabled);
   m_fileNameForEmptyButton->setText(tr("Create ne&w empty playlist:"));
   m_fileNameForEmptyEdit->setText(tr("New"));
   m_fileNameForEmptyEdit->setEnabled(false);
   // Position line edit aligned with combo box.
   m_fileNameForEmptyEdit->setSizePolicy(m_fileNameFormatComboBox->sizePolicy());
-  connect(m_fileNameForEmptyButton, SIGNAL(toggled(bool)),
-          m_fileNameForEmptyEdit, SLOT(setEnabled(bool)));
+  connect(m_fileNameForEmptyButton, &QAbstractButton::toggled,
+          m_fileNameForEmptyEdit, &QWidget::setEnabled);
   locationLabel->setText(tr("Cr&eate in:"));
   locationLabel->setBuddy(m_locationComboBox);
   m_locationComboBox->addItems({
@@ -190,8 +190,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
     lst.append(QLatin1String("%{") + frameName + QLatin1String("}"));
   }
   m_sortTagFieldComboBox->addItems(lst);
-  connect(m_sortTagFieldButton, SIGNAL(toggled(bool)),
-          m_sortTagFieldComboBox, SLOT(setEnabled(bool)));
+  connect(m_sortTagFieldButton, &QAbstractButton::toggled,
+          m_sortTagFieldComboBox, &QWidget::setEnabled);
   m_relPathButton->setText(tr("Use &relative path for files in playlist"));
   m_relPathButton->setChecked(true);
   m_fullPathButton->setText(tr("Use full p&ath for files in playlist"));
@@ -204,28 +204,28 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
     QLatin1String("%{artist} - %{title}"), QLatin1String("%{title}"),
     QLatin1String("%{track.1}/%{tracks} - %{artist} - %{album} - %{title}")
   });
-  connect(m_writeInfoButton, SIGNAL(toggled(bool)),
-          m_writeInfoComboBox, SLOT(setEnabled(bool)));
+  connect(m_writeInfoButton, &QAbstractButton::toggled,
+          m_writeInfoComboBox, &QWidget::setEnabled);
 
   auto hlayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &PlaylistDialog::showHelp);
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &PlaylistDialog::saveConfig);
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
   hlayout->addWidget(okButton);
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(cancelButton);
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   vlayout->addLayout(hlayout);
 }
 

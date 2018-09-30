@@ -47,14 +47,14 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
   m_mediaPlayer = new QMediaPlayer(this);
   m_mediaPlaylist = new QMediaPlaylist(m_mediaPlayer);
   m_mediaPlayer->setPlaylist(m_mediaPlaylist);
-  connect(m_mediaPlaylist, SIGNAL(currentIndexChanged(int)),
-          this, SLOT(currentIndexChanged(int)));
-  connect(m_mediaPlayer, SIGNAL(positionChanged(qint64)),
-          this, SIGNAL(positionChanged(qint64)));
-  connect(m_mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
-          this, SLOT(onStateChanged()));
-  connect(m_mediaPlayer, SIGNAL(volumeChanged(int)),
-          this, SIGNAL(volumeChanged(int)));
+  connect(m_mediaPlaylist, &QMediaPlaylist::currentIndexChanged,
+          this, &AudioPlayer::currentIndexChanged);
+  connect(m_mediaPlayer, &QMediaPlayer::positionChanged,
+          this, &AudioPlayer::positionChanged);
+  connect(m_mediaPlayer, &QMediaPlayer::stateChanged,
+          this, &AudioPlayer::onStateChanged);
+  connect(m_mediaPlayer, &QMediaPlayer::volumeChanged,
+          this, &AudioPlayer::volumeChanged);
 }
 
 

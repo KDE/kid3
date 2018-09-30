@@ -75,8 +75,8 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
   setEditTriggers(AllEditTriggers);
   viewport()->installEventFilter(this); // keep track of editors
   setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this, SIGNAL(customContextMenuRequested(QPoint)),
-      this, SLOT(customContextMenu(QPoint)));
+  connect(this, &QWidget::customContextMenuRequested,
+      this, &FrameTable::customContextMenu);
 }
 
 /**
@@ -158,9 +158,9 @@ void FrameTable::contextMenu(int row, int col, const QPoint& pos)
   if (ftModel && col == 0 && row >= 0) {
     QMenu menu(this);
     QAction* action = menu.addAction(tr("&Select all"));
-    connect(action, SIGNAL(triggered()), ftModel, SLOT(selectAllFrames()));
+    connect(action, &QAction::triggered, ftModel, &FrameTableModel::selectAllFrames);
     action = menu.addAction(tr("&Deselect all"));
-    connect(action, SIGNAL(triggered()), ftModel, SLOT(deselectAllFrames()));
+    connect(action, &QAction::triggered, ftModel, &FrameTableModel::deselectAllFrames);
     menu.setMouseTracking(true);
     menu.exec(pos);
   }

@@ -111,42 +111,42 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
   ContextHelp::init(m_platformTools);
 
   DownloadClient* downloadClient = m_app->getDownloadClient();
-  connect(downloadClient, SIGNAL(progress(QString,int,int)),
-          m_downloadDialog, SLOT(updateProgressStatus(QString,int,int)));
-  connect(downloadClient, SIGNAL(downloadStarted(QString)),
-          m_downloadDialog, SLOT(showStartOfDownload(QString)));
-  connect(downloadClient, SIGNAL(aborted()),
-          m_downloadDialog, SLOT(reset()));
-  connect(m_downloadDialog, SIGNAL(canceled()),
-          downloadClient, SLOT(cancelDownload()));
+  connect(downloadClient, &HttpClient::progress,
+          m_downloadDialog, &DownloadDialog::updateProgressStatus);
+  connect(downloadClient, &DownloadClient::downloadStarted,
+          m_downloadDialog, &DownloadDialog::showStartOfDownload);
+  connect(downloadClient, &DownloadClient::aborted,
+          m_downloadDialog, &QProgressDialog::reset);
+  connect(m_downloadDialog, &QProgressDialog::canceled,
+          downloadClient, &DownloadClient::cancelDownload);
   connect(downloadClient,
-    SIGNAL(downloadFinished(QByteArray,QString,QString)),
+    &DownloadClient::downloadFinished,
     m_app,
-    SLOT(imageDownloaded(QByteArray,QString,QString)));
+    &Kid3Application::imageDownloaded);
 
-  connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
-          this, SLOT(updateCurrentSelection()));
-  connect(m_app, SIGNAL(selectedFilesUpdated()),
-          this, SLOT(updateGuiControls()));
-  connect(m_app, SIGNAL(selectedFilesChanged(QItemSelection,QItemSelection)),
-          this, SLOT(applySelectionChange(QItemSelection,QItemSelection)));
-  connect(m_app, SIGNAL(frameModified(TaggedFile*,Frame::TagNumber)),
-          this, SLOT(updateAfterFrameModification(TaggedFile*,Frame::TagNumber)));
-  connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QStringList)),
-          this, SLOT(confirmedOpenDirectory(QStringList)));
-  connect(m_app, SIGNAL(toggleExpandedRequested(QModelIndex)),
-          this, SLOT(toggleExpanded(QModelIndex)));
-  connect(m_app, SIGNAL(expandFileListRequested()),
-          this, SLOT(expandFileList()));
-  connect(m_app, SIGNAL(directoryOpened()),
-          this, SLOT(onDirectoryOpened()));
-  connect(m_app, SIGNAL(modifiedChanged(bool)),
-          this, SLOT(updateWindowCaption()));
-  connect(m_app, SIGNAL(filteredChanged(bool)),
-          this, SLOT(updateWindowCaption()));
-  connect(m_app, SIGNAL(longRunningOperationProgress(QString,int,int,bool*)),
-          this, SLOT(showOperationProgress(QString,int,int,bool*)));
-  connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
+  connect(m_app, &Kid3Application::fileSelectionUpdateRequested,
+          this, &BaseMainWindowImpl::updateCurrentSelection);
+  connect(m_app, &Kid3Application::selectedFilesUpdated,
+          this, &BaseMainWindowImpl::updateGuiControls);
+  connect(m_app, &Kid3Application::selectedFilesChanged,
+          this, &BaseMainWindowImpl::applySelectionChange);
+  connect(m_app, &Kid3Application::frameModified,
+          this, &BaseMainWindowImpl::updateAfterFrameModification);
+  connect(m_app, &Kid3Application::confirmedOpenDirectoryRequested,
+          this, &BaseMainWindowImpl::confirmedOpenDirectory);
+  connect(m_app, &Kid3Application::toggleExpandedRequested,
+          this, &BaseMainWindowImpl::toggleExpanded);
+  connect(m_app, &Kid3Application::expandFileListRequested,
+          this, &BaseMainWindowImpl::expandFileList);
+  connect(m_app, &Kid3Application::directoryOpened,
+          this, &BaseMainWindowImpl::onDirectoryOpened);
+  connect(m_app, &Kid3Application::modifiedChanged,
+          this, &BaseMainWindowImpl::updateWindowCaption);
+  connect(m_app, &Kid3Application::filteredChanged,
+          this, &BaseMainWindowImpl::updateWindowCaption);
+  connect(m_app, &Kid3Application::longRunningOperationProgress,
+          this, &BaseMainWindowImpl::showOperationProgress);
+  connect(m_app, &Kid3Application::aboutToPlayAudio, this, &BaseMainWindowImpl::showPlayToolBar);
 }
 
 /**
@@ -598,8 +598,8 @@ void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
     dialog = new PlaylistEditDialog(model,
                                     m_form->getFileList()->selectionModel(),
                                     m_w);
-    connect(dialog, SIGNAL(finished(int)),
-            this, SLOT(onPlaylistEditDialogFinished()));
+    connect(dialog, &QDialog::finished,
+            this, &BaseMainWindowImpl::onPlaylistEditDialogFinished);
     m_playlistEditDialogs.insert(playlistPath, dialog);
 
     // The playlist windows are placed above the directory list.
@@ -642,8 +642,8 @@ void BaseMainWindowImpl::setupImportDialog()
                        m_app->genreModel(Frame::Tag_2),
                        m_app->getServerImporters(),
                        m_app->getServerTrackImporters());
-    connect(m_importDialog, SIGNAL(accepted()),
-            this, SLOT(applyImportedTrackData()));
+    connect(m_importDialog, &QDialog::accepted,
+            this, &BaseMainWindowImpl::applyImportedTrackData);
   }
   m_importDialog->clear();
 }
@@ -681,12 +681,12 @@ void BaseMainWindowImpl::slotBatchImport()
             SIGNAL(start(BatchImportProfile,Frame::TagVersion)),
             m_app,
             SLOT(batchImport(BatchImportProfile,Frame::TagVersion)));
-    connect(m_app->getBatchImporter(), SIGNAL(reportImportEvent(int,QString)),
-            m_batchImportDialog, SLOT(showImportEvent(int,QString)));
+    connect(m_app->getBatchImporter(), &BatchImporter::reportImportEvent,
+            m_batchImportDialog, &BatchImportDialog::showImportEvent);
     connect(m_batchImportDialog, SIGNAL(abort()),
             m_app->getBatchImporter(), SLOT(abort()));
-    connect(m_app->getBatchImporter(), SIGNAL(finished()),
-            this, SLOT(updateGuiControls()));
+    connect(m_app->getBatchImporter(), &BatchImporter::finished,
+            this, &BaseMainWindowImpl::updateGuiControls);
   }
   m_app->getBatchImporter()->clearAborted();
   m_batchImportDialog->readConfig();
@@ -787,18 +787,18 @@ void BaseMainWindowImpl::findReplace(bool findOnly)
   TagSearcher* tagSearcher = m_app->getTagSearcher();
   if (!m_findReplaceDialog) {
     m_findReplaceDialog = new FindReplaceDialog(m_w);
-    connect(m_findReplaceDialog, SIGNAL(findRequested(TagSearcher::Parameters)),
-            m_app, SLOT(findText(TagSearcher::Parameters)));
+    connect(m_findReplaceDialog, &FindReplaceDialog::findRequested,
+            m_app, &Kid3Application::findText);
     connect(m_findReplaceDialog,
-            SIGNAL(replaceRequested(TagSearcher::Parameters)),
-            m_app, SLOT(replaceText(TagSearcher::Parameters)));
+            &FindReplaceDialog::replaceRequested,
+            m_app, &Kid3Application::replaceText);
     connect(m_findReplaceDialog,
-            SIGNAL(replaceAllRequested(TagSearcher::Parameters)),
-            m_app, SLOT(replaceAll(TagSearcher::Parameters)));
-    connect(m_findReplaceDialog, SIGNAL(finished(int)),
-            this, SLOT(deactivateFindReplace()));
-    connect(tagSearcher, SIGNAL(progress(QString)),
-            m_findReplaceDialog, SLOT(showProgress(QString)));
+            &FindReplaceDialog::replaceAllRequested,
+            m_app, &Kid3Application::replaceAll);
+    connect(m_findReplaceDialog, &QDialog::finished,
+            this, &BaseMainWindowImpl::deactivateFindReplace);
+    connect(tagSearcher, &TagSearcher::progress,
+            m_findReplaceDialog, &FindReplaceDialog::showProgress);
   }
   m_findReplaceDialog->init(findOnly);
   m_findReplaceDialog->show();
@@ -807,10 +807,10 @@ void BaseMainWindowImpl::findReplace(bool findOnly)
     if (selItems.size() == 1) {
       tagSearcher->setStartIndex(selItems.first());
     }
-    connect(tagSearcher, SIGNAL(textFound()),
-            this, SLOT(showFoundText()));
-    connect(tagSearcher, SIGNAL(textReplaced()),
-            this, SLOT(updateReplacedText()));
+    connect(tagSearcher, &TagSearcher::textFound,
+            this, &BaseMainWindowImpl::showFoundText);
+    connect(tagSearcher, &TagSearcher::textReplaced,
+            this, &BaseMainWindowImpl::updateReplacedText);
     m_findReplaceActive = true;
   }
 }
@@ -823,10 +823,10 @@ void BaseMainWindowImpl::deactivateFindReplace()
   if (m_findReplaceActive) {
     TagSearcher* tagSearcher = m_app->getTagSearcher();
     tagSearcher->abort();
-    disconnect(tagSearcher, SIGNAL(textFound()),
-               this, SLOT(showFoundText()));
-    disconnect(tagSearcher, SIGNAL(textReplaced()),
-               this, SLOT(updateReplacedText()));
+    disconnect(tagSearcher, &TagSearcher::textFound,
+               this, &BaseMainWindowImpl::showFoundText);
+    disconnect(tagSearcher, &TagSearcher::textReplaced,
+               this, &BaseMainWindowImpl::updateReplacedText);
     m_findReplaceActive = false;
   }
 }
@@ -871,10 +871,10 @@ void BaseMainWindowImpl::slotRenameDirectory()
   if (saveModified()) {
     if (!m_renDirDialog) {
       m_renDirDialog = new RenDirDialog(m_w, m_app->getDirRenamer());
-      connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
-              m_app, SLOT(scheduleRenameActions()));
-      connect(m_app->getDirRenamer(), SIGNAL(actionScheduled(QStringList)),
-              m_renDirDialog, SLOT(displayActionPreview(QStringList)));
+      connect(m_renDirDialog, &RenDirDialog::actionSchedulingRequested,
+              m_app, &Kid3Application::scheduleRenameActions);
+      connect(m_app->getDirRenamer(), &DirRenamer::actionScheduled,
+              m_renDirDialog, &RenDirDialog::displayActionPreview);
     }
     if (TaggedFile* taggedFile =
       TaggedFileOfDirectoryIterator::first(m_app->currentOrRootIndex())) {
@@ -939,10 +939,10 @@ void BaseMainWindowImpl::slotFilter()
       m_filterDialog = new FilterDialog(m_w);
       connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
               m_app, SLOT(applyFilter(FileFilter&)));
-      connect(m_app, SIGNAL(fileFiltered(int,QString,int,int)),
-              m_filterDialog, SLOT(showFilterEvent(int,QString)));
-      connect(m_app, SIGNAL(fileFiltered(int,QString,int,int)),
-              this, SLOT(filterProgress(int,QString,int,int)));
+      connect(m_app, &Kid3Application::fileFiltered,
+              m_filterDialog, &FilterDialog::showFilterEvent);
+      connect(m_app, &Kid3Application::fileFiltered,
+              this, &BaseMainWindowImpl::filterProgress);
     }
     FilterConfig::instance().setFilenameFormat(
           FileConfig::instance().toFilenameFormat());
@@ -1004,11 +1004,11 @@ void BaseMainWindowImpl::showPlayToolBar()
     m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), m_w);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
     m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
-    connect(m_playToolBar, SIGNAL(errorMessage(QString)),
-            this, SLOT(slotStatusMsg(QString)));
+    connect(m_playToolBar, &PlayToolBar::errorMessage,
+            this, &BaseMainWindowImpl::slotStatusMsg);
 #ifdef HAVE_QTDBUS
-    connect(m_playToolBar, SIGNAL(closed()),
-            m_app, SLOT(deactivateMprisInterface()));
+    connect(m_playToolBar, &PlayToolBar::closed,
+            m_app, &Kid3Application::deactivateMprisInterface);
 #endif
 #ifdef Q_OS_WIN32
     // Phonon on Windows cannot play if the file is open.
@@ -1217,8 +1217,8 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
   }
   if (!m_editFrameDialog) {
     m_editFrameDialog = new EditFrameFieldsDialog(m_platformTools, m_app, m_w);
-    connect(m_editFrameDialog, SIGNAL(finished(int)),
-            this, SLOT(onEditFrameDialogFinished(int)));
+    connect(m_editFrameDialog, &QDialog::finished,
+            this, &BaseMainWindowImpl::onEditFrameDialogFinished);
   }
   m_editFrameDialog->setWindowTitle(name);
   m_editFrameDialog->setFrame(m_editFrame, m_editFrameTaggedFile,
@@ -1407,8 +1407,8 @@ void BaseMainWindowImpl::expandFileList()
 {
   m_expandNotificationNeeded = sender() == m_app;
   connect(m_app->getFileProxyModelIterator(),
-          SIGNAL(nextReady(QPersistentModelIndex)),
-          this, SLOT(expandNextDirectory(QPersistentModelIndex)));
+          &FileProxyModelIterator::nextReady,
+          this, &BaseMainWindowImpl::expandNextDirectory);
   // If this slot is invoked from the file list menu action and the
   // shift key is pressed, only expand the current subtree.
   QObject* emitter = sender();
@@ -1450,8 +1450,8 @@ void BaseMainWindowImpl::terminateExpandFileList()
 {
   m_app->getFileProxyModelIterator()->abort();
   disconnect(m_app->getFileProxyModelIterator(),
-             SIGNAL(nextReady(QPersistentModelIndex)),
-             this, SLOT(expandNextDirectory(QPersistentModelIndex)));
+             &FileProxyModelIterator::nextReady,
+             this, &BaseMainWindowImpl::expandNextDirectory);
   if (m_expandNotificationNeeded) {
     m_expandNotificationNeeded = false;
     m_app->notifyExpandFileListFinished();

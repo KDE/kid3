@@ -64,17 +64,17 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
   m_editButton = new QPushButton(tr("Edit..."));
   m_editButton->setDefault(false);
   m_editButton->setAutoDefault(false);
-  connect(m_editButton, SIGNAL(clicked()), this, SLOT(onEditClicked()));
+  connect(m_editButton, &QAbstractButton::clicked, this, &SubframesEditor::onEditClicked);
   buttonLayout->addWidget(m_editButton);
   m_addButton = new QPushButton(tr("Add..."));
   m_addButton->setDefault(false);
   m_addButton->setAutoDefault(false);
-  connect(m_addButton, SIGNAL(clicked()), this, SLOT(onAddClicked()));
+  connect(m_addButton, &QAbstractButton::clicked, this, &SubframesEditor::onAddClicked);
   buttonLayout->addWidget(m_addButton);
   m_deleteButton = new QPushButton(tr("Delete"));
   m_deleteButton->setDefault(false);
   m_deleteButton->setAutoDefault(false);
-  connect(m_deleteButton, SIGNAL(clicked()), this, SLOT(onDeleteClicked()));
+  connect(m_deleteButton, &QAbstractButton::clicked, this, &SubframesEditor::onDeleteClicked);
   buttonLayout->addWidget(m_deleteButton);
   buttonLayout->addStretch();
   layout->addLayout(buttonLayout);
@@ -182,8 +182,8 @@ void SubframesEditor::editFrame(const Frame& frame, int row)
   }
   if (!m_editFrameDialog) {
     m_editFrameDialog = new EditFrameFieldsDialog(m_platformTools, m_app, this);
-    connect(m_editFrameDialog, SIGNAL(finished(int)),
-            this, SLOT(onEditFrameDialogFinished(int)));
+    connect(m_editFrameDialog, &QDialog::finished,
+            this, &SubframesEditor::onEditFrameDialogFinished);
   }
   m_editFrameDialog->setWindowTitle(name);
   m_editFrameDialog->setFrame(m_editFrame, m_taggedFile, m_tagNr);

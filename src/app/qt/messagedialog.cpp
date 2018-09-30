@@ -62,8 +62,8 @@ MessageDialog::MessageDialog(QWidget* parent)
 
   m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
   m_buttonBox->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-  connect(m_buttonBox, SIGNAL(clicked(QAbstractButton*)),
-          this, SLOT(buttonClicked(QAbstractButton*)));
+  connect(m_buttonBox, &QDialogButtonBox::clicked,
+          this, &MessageDialog::buttonClicked);
   vlayout->addWidget(m_buttonBox);
 }
 

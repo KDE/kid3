@@ -86,15 +86,15 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     tabWidget->addTab(shortcutsPage, tr("&Keyboard Shortcuts"));
 
     connect(m_shortcutsModel,
-            SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
+            &ShortcutsModel::shortcutAlreadyUsed,
             this,
-            SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
+            &ConfigDialog::warnAboutAlreadyUsedShortcut);
     connect(m_shortcutsModel,
-            SIGNAL(shortcutSet(QString,QString,const QAction*)),
+            &ShortcutsModel::shortcutSet,
             this,
-            SLOT(clearAlreadyUsedShortcutWarning()));
-    connect(this, SIGNAL(rejected()),
-            m_shortcutsModel, SLOT(discardChangedShortcuts()));
+            &ConfigDialog::clearAlreadyUsedShortcutWarning);
+    connect(this, &QDialog::rejected,
+            m_shortcutsModel, &ShortcutsModel::discardChangedShortcuts);
     m_shortcutsTreeView->setModel(m_shortcutsModel);
     m_shortcutsTreeView->expandAll();
     m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
@@ -118,10 +118,10 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     fontStyleLayout->addWidget(m_applicationStyleComboBox, 1, 1);
     m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
-    connect(m_applicationFontButton, SIGNAL(clicked()), this, SLOT(slotSelectFont()));
+    connect(m_applicationFontButton, &QAbstractButton::clicked, this, &ConfigDialog::slotSelectFont);
     connect(m_applicationStyleComboBox, SIGNAL(activated(QString)), this, SLOT(slotSelectStyle(QString)));
-    connect(m_useApplicationFontCheckBox, SIGNAL(toggled(bool)), m_applicationFontButton, SLOT(setEnabled(bool)));
-    connect(m_useApplicationStyleCheckBox, SIGNAL(toggled(bool)), m_applicationStyleComboBox, SLOT(setEnabled(bool)));
+    connect(m_useApplicationFontCheckBox, &QAbstractButton::toggled, m_applicationFontButton, &QWidget::setEnabled);
+    connect(m_useApplicationStyleCheckBox, &QAbstractButton::toggled, m_applicationStyleComboBox, &QWidget::setEnabled);
     vlayout->addLayout(fontStyleLayout);
 
     m_useNativeDialogsCheckBox =
@@ -148,14 +148,14 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
   okButton->setDefault(true);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
-  connect(defaultsButton, SIGNAL(clicked()),
-          m_pages, SLOT(setDefaultConfig()));
-  connect(defaultsButton, SIGNAL(clicked()),
-          this, SLOT(setDefaultConfig()));
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotRevertFontAndStyle()));
+  connect(helpButton, &QAbstractButton::clicked, this, &ConfigDialog::slotHelp);
+  connect(defaultsButton, &QAbstractButton::clicked,
+          m_pages, &ConfigDialogPages::setDefaultConfig);
+  connect(defaultsButton, &QAbstractButton::clicked,
+          this, &ConfigDialog::setDefaultConfig);
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
+  connect(cancelButton, &QAbstractButton::clicked, this, &ConfigDialog::slotRevertFontAndStyle);
   topLayout->addLayout(hlayout);
 }
 

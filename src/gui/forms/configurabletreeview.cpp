@@ -40,8 +40,8 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
   setSortingEnabled(true);
   headerView->setSectionResizeMode(QHeaderView::ResizeToContents);
   headerView->setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(header(), SIGNAL(customContextMenuRequested(QPoint)),
-          this, SLOT(showHeaderContextMenu(QPoint)));
+  connect(header(), &QWidget::customContextMenuRequested,
+          this, &ConfigurableTreeView::showHeaderContextMenu);
 }
 
 /**
@@ -66,8 +66,8 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
     action->setData(column);
     action->setCheckable(true);
     action->setChecked((m_columnVisibility & mask) != 0);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(toggleColumnVisibility(bool)));
+    connect(action, &QAction::triggered,
+            this, &ConfigurableTreeView::toggleColumnVisibility);
     menu.addAction(action);
   }
   menu.setMouseTracking(true);

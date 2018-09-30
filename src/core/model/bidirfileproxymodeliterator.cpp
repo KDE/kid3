@@ -172,14 +172,14 @@ void BiDirFileProxyModelIterator::fetchNext()
     }
     if (next.isValid()) {
       if (m_model->isDir(next) && m_model->canFetchMore(next)) {
-        connect(m_model, SIGNAL(sortingFinished()),
-                this, SLOT(onDirectoryLoaded()));
+        connect(m_model, &FileProxyModel::sortingFinished,
+                this, &BiDirFileProxyModelIterator::onDirectoryLoaded);
         m_model->fetchMore(next);
         return;
       }
       if (++count >= 10) {
         // Avoid spinning too long to keep the GUI responsive.
-        QTimer::singleShot(0, this, SLOT(fetchNext()));
+        QTimer::singleShot(0, this, &BiDirFileProxyModelIterator::fetchNext);
         return;
       }
       m_currentIndex = next;
@@ -197,8 +197,8 @@ void BiDirFileProxyModelIterator::fetchNext()
  */
 void BiDirFileProxyModelIterator::onDirectoryLoaded()
 {
-  disconnect(m_model, SIGNAL(sortingFinished()),
-             this, SLOT(onDirectoryLoaded()));
+  disconnect(m_model, &FileProxyModel::sortingFinished,
+             this, &BiDirFileProxyModelIterator::onDirectoryLoaded);
   fetchNext();
 }
 

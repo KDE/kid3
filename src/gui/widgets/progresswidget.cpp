@@ -54,7 +54,7 @@ ProgressWidget::ProgressWidget(QWidget* parent) : QFrame(parent),
   layout->addWidget(m_progress);
   auto buttonLayout = new QHBoxLayout;
   m_cancelButton = new QPushButton(tr("&Cancel"));
-  connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(onCancelClicked()));
+  connect(m_cancelButton, &QAbstractButton::clicked, this, &ProgressWidget::onCancelClicked);
   buttonLayout->addStretch();
   buttonLayout->addWidget(m_cancelButton);
   layout->addLayout(buttonLayout);

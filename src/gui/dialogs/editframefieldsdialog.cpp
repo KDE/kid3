@@ -771,12 +771,12 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   layout->addWidget(openButton);
   layout->addWidget(saveButton);
   layout->addWidget(viewButton);
-  connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
-  connect(toClipboardButton, SIGNAL(clicked()), this, SLOT(copyData()));
-  connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
-  connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
-  connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
+  connect(m_clipButton, &QAbstractButton::clicked, this, &BinaryOpenSave::clipData);
+  connect(toClipboardButton, &QAbstractButton::clicked, this, &BinaryOpenSave::copyData);
+  connect(openButton, &QAbstractButton::clicked, this, &BinaryOpenSave::loadData);
+  connect(saveButton, &QAbstractButton::clicked, this, &BinaryOpenSave::saveData);
+  connect(viewButton, &QAbstractButton::clicked, this, &BinaryOpenSave::viewData);
+  connect(QApplication::clipboard(), &QClipboard::dataChanged, this, &BinaryOpenSave::setClipButtonState);
   setClipButtonState();
 }
 
@@ -1280,8 +1280,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   hlayout->addWidget(cancelButton);
   okButton->setAutoDefault(false);
   cancelButton->setAutoDefault(false);
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   m_vlayout->addLayout(hlayout);
   setMinimumWidth(525);
 }

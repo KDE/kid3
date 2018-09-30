@@ -77,8 +77,8 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   if (maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
-  connect(m_seekSlider, SIGNAL(actionTriggered(int)),
-          this, SLOT(seekAction(int)));
+  connect(m_seekSlider, &QAbstractSlider::actionTriggered,
+          this, &PlayToolBar::seekAction);
   m_muteAction = new QAction(
         style()->standardIcon(QStyle::SP_MediaVolume), tr("Mute"), this);
   m_volumeSlider = new QSlider(Qt::Horizontal, this);
@@ -87,8 +87,8 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   int volume = mediaPlayer->volume();
   m_volumeSlider->setValue(volume);
   setVolumeToolTip(volume);
-  connect(m_volumeSlider, SIGNAL(actionTriggered(int)),
-          this, SLOT(volumeAction(int)));
+  connect(m_volumeSlider, &QAbstractSlider::actionTriggered,
+          this, &PlayToolBar::volumeAction);
 
   m_timeLcd = new QLCDNumber(this);
   m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
@@ -105,26 +105,26 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   addWidget(m_timeLcd);
   addAction(closeAction);
 
-  connect(mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
-          this, SLOT(stateChanged(QMediaPlayer::State)));
+  connect(mediaPlayer, &QMediaPlayer::stateChanged,
+          this, &PlayToolBar::stateChanged);
   connect(mediaPlayer, SIGNAL(error(QMediaPlayer::Error)),
           this, SLOT(error(QMediaPlayer::Error)));
-  connect(mediaPlayer, SIGNAL(durationChanged(qint64)),
-          this, SLOT(durationChanged(qint64)));
-  connect(mediaPlayer, SIGNAL(volumeChanged(int)),
-          this, SLOT(setVolumeToolTip(int)));
-  connect(m_muteAction, SIGNAL(triggered()), this, SLOT(toggleMute()));
-  connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(tick(qint64)));
-  connect(m_player, SIGNAL(trackChanged(QString,bool,bool)),
-          this, SLOT(trackChanged(QString,bool,bool)));
-  connect(m_player, SIGNAL(aboutToPlay(QString)),
-          this, SIGNAL(aboutToPlay(QString)));
-  connect(m_playOrPauseAction, SIGNAL(triggered()),
-          m_player, SLOT(playOrPause()));
-  connect(m_stopAction, SIGNAL(triggered()), m_player, SLOT(stop()));
-  connect(m_previousAction, SIGNAL(triggered()), m_player, SLOT(previous()));
-  connect(m_nextAction, SIGNAL(triggered()), m_player, SLOT(next()));
-  connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+  connect(mediaPlayer, &QMediaPlayer::durationChanged,
+          this, &PlayToolBar::durationChanged);
+  connect(mediaPlayer, &QMediaPlayer::volumeChanged,
+          this, &PlayToolBar::setVolumeToolTip);
+  connect(m_muteAction, &QAction::triggered, this, &PlayToolBar::toggleMute);
+  connect(m_player, &AudioPlayer::positionChanged, this, &PlayToolBar::tick);
+  connect(m_player, &AudioPlayer::trackChanged,
+          this, &PlayToolBar::trackChanged);
+  connect(m_player, &AudioPlayer::aboutToPlay,
+          this, &PlayToolBar::aboutToPlay);
+  connect(m_playOrPauseAction, &QAction::triggered,
+          m_player, &AudioPlayer::playOrPause);
+  connect(m_stopAction, &QAction::triggered, m_player, &AudioPlayer::stop);
+  connect(m_previousAction, &QAction::triggered, m_player, &AudioPlayer::previous);
+  connect(m_nextAction, &QAction::triggered, m_player, &AudioPlayer::next);
+  connect(closeAction, &QAction::triggered, this, &QWidget::close);
 
 #ifdef Q_OS_MAC
   setStyleSheet(QLatin1String("QToolButton { border: 0; }"));

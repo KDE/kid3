@@ -127,20 +127,20 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   buttonLayout->addWidget(exportButton);
   buttonLayout->addWidget(helpButton);
   buttonLayout->addStretch();
-  connect(addButton, SIGNAL(clicked()), this, SLOT(addItem()));
-  connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteRows()));
-  connect(clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
-  connect(importButton, SIGNAL(clicked()), this, SLOT(importData()));
-  connect(exportButton, SIGNAL(clicked()), this, SLOT(exportData()));
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(addButton, &QAbstractButton::clicked, this, &TimeEventEditor::addItem);
+  connect(deleteButton, &QAbstractButton::clicked, this, &TimeEventEditor::deleteRows);
+  connect(clipButton, &QAbstractButton::clicked, this, &TimeEventEditor::clipData);
+  connect(importButton, &QAbstractButton::clicked, this, &TimeEventEditor::importData);
+  connect(exportButton, &QAbstractButton::clicked, this, &TimeEventEditor::exportData);
+  connect(helpButton, &QAbstractButton::clicked, this, &TimeEventEditor::showHelp);
   vlayout->addLayout(buttonLayout);
   m_tableView = new TimeEventTableView;
   m_tableView->verticalHeader()->hide();
   m_tableView->horizontalHeader()->setStretchLastSection(true);
   m_tableView->setItemDelegateForColumn(0, new TimeStampDelegate(this));
   m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(m_tableView, SIGNAL(customContextMenuRequested(QPoint)),
-      this, SLOT(customContextMenu(QPoint)));
+  connect(m_tableView, &QWidget::customContextMenuRequested,
+      this, &TimeEventEditor::customContextMenu);
   vlayout->addWidget(m_tableView);
 }
 
@@ -157,7 +157,7 @@ TimeEventEditor::~TimeEventEditor()
  */
 void TimeEventEditor::showEvent(QShowEvent* event)
 {
-  QTimer::singleShot(0, this, SLOT(preparePlayer()));
+  QTimer::singleShot(0, this, &TimeEventEditor::preparePlayer);
   QWidget::showEvent(event);
 }
 
@@ -205,10 +205,10 @@ void TimeEventEditor::preparePlayer()
     player->setFiles({filePath}, -1);
   }
   m_fileIsPlayed = true;
-  connect(player, SIGNAL(trackChanged(QString,bool,bool)),
-          this, SLOT(onTrackChanged(QString)), Qt::UniqueConnection);
-  connect(player, SIGNAL(positionChanged(qint64)),
-          this, SLOT(onPositionChanged(qint64)), Qt::UniqueConnection);
+  connect(player, &AudioPlayer::trackChanged,
+          this, &TimeEventEditor::onTrackChanged, Qt::UniqueConnection);
+  connect(player, &AudioPlayer::positionChanged,
+          this, &TimeEventEditor::onPositionChanged, Qt::UniqueConnection);
 }
 
 /**
@@ -440,17 +440,17 @@ void TimeEventEditor::customContextMenu(const QPoint& pos)
 {
   QMenu menu(this);
   QAction* action = menu.addAction(tr("&Insert row"));
-  connect(action, SIGNAL(triggered()), this, SLOT(insertRow()));
+  connect(action, &QAction::triggered, this, &TimeEventEditor::insertRow);
   QModelIndex index = m_tableView->indexAt(pos);
   if (index.isValid()) {
     action = menu.addAction(tr("&Delete rows"));
-    connect(action, SIGNAL(triggered()), this, SLOT(deleteRows()));
+    connect(action, &QAction::triggered, this, &TimeEventEditor::deleteRows);
     action = menu.addAction(tr("C&lear"));
-    connect(action, SIGNAL(triggered()), this, SLOT(clearCells()));
+    connect(action, &QAction::triggered, this, &TimeEventEditor::clearCells);
     action = menu.addAction(tr("&Add offset..."));
-    connect(action, SIGNAL(triggered()), this, SLOT(addOffset()));
+    connect(action, &QAction::triggered, this, &TimeEventEditor::addOffset);
     action = menu.addAction(tr("&Seek to position"));
-    connect(action, SIGNAL(triggered()), this, SLOT(seekPosition()));
+    connect(action, &QAction::triggered, this, &TimeEventEditor::seekPosition);
   }
   menu.setMouseTracking(true);
   menu.exec(m_tableView->mapToGlobal(pos));

@@ -59,14 +59,14 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
   vlayout->addWidget(m_removePushButton);
   vlayout->addStretch();
 
-  connect(m_addPushButton, SIGNAL(clicked()), this, SLOT(addItem()));
-  connect(m_moveUpPushButton, SIGNAL(clicked()), this, SLOT(moveUpItem()));
-  connect(m_moveDownPushButton, SIGNAL(clicked()), this, SLOT(moveDownItem()));
-  connect(m_editPushButton, SIGNAL(clicked()), this, SLOT(editItem()));
-  connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
+  connect(m_addPushButton, &QAbstractButton::clicked, this, &AbstractListEdit::addItem);
+  connect(m_moveUpPushButton, &QAbstractButton::clicked, this, &AbstractListEdit::moveUpItem);
+  connect(m_moveDownPushButton, &QAbstractButton::clicked, this, &AbstractListEdit::moveDownItem);
+  connect(m_editPushButton, &QAbstractButton::clicked, this, &AbstractListEdit::editItem);
+  connect(m_removePushButton, &QAbstractButton::clicked, this, &AbstractListEdit::removeItem);
   connect(m_itemView->selectionModel(),
-          SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-          this, SLOT(setButtonEnableState()));
+          &QItemSelectionModel::currentChanged,
+          this, &AbstractListEdit::setButtonEnableState);
 
   setButtonEnableState();
   hlayout->addLayout(vlayout);

@@ -128,13 +128,13 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Opens a directory"));
   action->setShortcut(QKeySequence(QLatin1String("Ctrl+D")));
   collection->addAction(QLatin1String("open_directory"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotFileOpenDirectory()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
   action = new QAction(QIcon::fromTheme(QLatin1String("document-import")),
                        tr("&Import..."), this);
   action->setStatusTip(tr("Import from file or clipboard"));
   action->setData(-1);
   collection->addAction(QLatin1String("import"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotImport);
 
   int importerIdx = 0;
   const auto sis = app()->getServerImporters();
@@ -150,7 +150,7 @@ void KdeMainWindow::initActions()
     action->setData(importerIdx);
     action->setStatusTip(tr("Import from %1").arg(serverName));
     collection->addAction(actionName, action);
-    connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotImport);
     ++importerIdx;
   }
 
@@ -167,82 +167,82 @@ void KdeMainWindow::initActions()
     action->setStatusTip(tr("Import from %1").arg(serverName));
     action->setData(importerIdx);
     collection->addAction(actionName, action);
-    connect(action, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotImport);
     ++importerIdx;
   }
 
   action = new QAction(tr("Automatic I&mport..."), this);
   action->setStatusTip(tr("Automatic import"));
   collection->addAction(QLatin1String("batch_import"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotBatchImport);
 
   action = new QAction(tr("&Browse Cover Art..."), this);
   action->setStatusTip(tr("Browse album cover artwork"));
   collection->addAction(QLatin1String("browse_cover_art"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotBrowseCoverArt()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotBrowseCoverArt);
   action = new QAction(QIcon::fromTheme(QLatin1String("document-export")), tr("&Export..."), this);
   action->setStatusTip(tr("Export to file or clipboard"));
   collection->addAction(QLatin1String("export"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotExport()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotExport);
   action = new QAction(QIcon::fromTheme(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
   action->setStatusTip(tr("Create M3U Playlist"));
   collection->addAction(QLatin1String("create_playlist"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotPlaylistDialog()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotPlaylistDialog);
   action = new QAction(tr("Apply &Filename Format"), this);
   action->setStatusTip(tr("Apply Filename Format"));
   collection->addAction(QLatin1String("apply_filename_format"), action);
-  connect(action, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
+  connect(action, &QAction::triggered, app(), &Kid3Application::applyFilenameFormat);
   action = new QAction(tr("Apply &Tag Format"), this);
   action->setStatusTip(tr("Apply Tag Format"));
   collection->addAction(QLatin1String("apply_id3_format"), action);
-  connect(action, SIGNAL(triggered()), app(), SLOT(applyTagFormat()));
+  connect(action, &QAction::triggered, app(), &Kid3Application::applyTagFormat);
   action = new QAction(tr("Apply Text &Encoding"), this);
   action->setStatusTip(tr("Apply Text Encoding"));
   collection->addAction(QLatin1String("apply_text_encoding"), action);
-  connect(action, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));
+  connect(action, &QAction::triggered, app(), &Kid3Application::applyTextEncoding);
   action = new QAction(tr("&Rename Directory..."), this);
   action->setStatusTip(tr("Rename Directory"));
   collection->addAction(QLatin1String("rename_directory"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotRenameDirectory()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotRenameDirectory);
   action = new QAction(tr("&Number Tracks..."), this);
   action->setStatusTip(tr("Number Tracks"));
   collection->addAction(QLatin1String("number_tracks"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotNumberTracks()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotNumberTracks);
   action = new QAction(tr("F&ilter..."), this);
   action->setStatusTip(tr("Filter"));
   collection->addAction(QLatin1String("filter"), action);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotFilter);
   const TagConfig& tagCfg = TagConfig::instance();
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     action = new QAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
     action->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     collection->addAction(QLatin1String("convert_to_id3v24"), action);
-    connect(action, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
+    connect(action, &QAction::triggered, app(), &Kid3Application::convertToId3v24);
     if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
       action = new QAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
       action->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
       collection->addAction(QLatin1String("convert_to_id3v23"), action);
-      connect(action, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
+      connect(action, &QAction::triggered, app(), &Kid3Application::convertToId3v23);
     }
   }
   action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), tr("&Play"), this);
   action->setStatusTip(tr("Play"));
   collection->addAction(QLatin1String("play"), action);
-  connect(action, SIGNAL(triggered()), app(), SLOT(playAudio()));
+  connect(action, &QAction::triggered, app(), &Kid3Application::playAudio);
   m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
   m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
   m_settingsShowHidePicture->setCheckable(true);
   collection->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
-  connect(m_settingsShowHidePicture, SIGNAL(triggered()), impl(), SLOT(slotSettingsShowHidePicture()));
+  connect(m_settingsShowHidePicture, &QAction::triggered, impl(), &BaseMainWindowImpl::slotSettingsShowHidePicture);
   m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
   m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
   m_settingsAutoHideTags->setCheckable(true);
   collection->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
-  connect(m_settingsAutoHideTags, SIGNAL(triggered()), impl(), SLOT(slotSettingsAutoHideTags()));
+  connect(m_settingsAutoHideTags, &QAction::triggered, impl(), &BaseMainWindowImpl::slotSettingsAutoHideTags);
   action = new QAction(tr("Select All in &Directory"), this);
   action->setStatusTip(tr("Select all files in the current directory"));
   collection->addAction(QLatin1String("select_all_in_directory"), action);
-  connect(action, SIGNAL(triggered()), app(), SLOT(selectAllInDirectory()));
+  connect(action, &QAction::triggered, app(), &Kid3Application::selectAllInDirectory);
   action = new QAction(QIcon::fromTheme(QLatin1String("go-previous")), tr("&Previous File"), this);
   action->setStatusTip(tr("Select previous file"));
   collection->setDefaultShortcuts(action,
@@ -266,82 +266,82 @@ void KdeMainWindow::initActions()
     action = new QAction(tr("Filename") + QLatin1String(": ") +
                          tr("From Tag %1").arg(tagStr), this);
     collection->addAction(QLatin1String("filename_from_v") + tagStr, action);
-    connect(action, SIGNAL(triggered()), appTag, SLOT(getFilenameFromTags()));
+    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::getFilenameFromTags);
     tagStr = QLatin1Char('v') + tagStr + QLatin1Char('_');
     action = new QAction(actionPrefix + tr("From Filename"), this);
     collection->addAction(tagStr + QLatin1String("from_filename"), action);
-    connect(action, SIGNAL(triggered()), appTag, SLOT(getTagsFromFilename()));
+    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::getTagsFromFilename);
     if (otherTagNr < Frame::Tag_NumValues) {
       QString otherTagStr = Frame::tagNumberToString(otherTagNr);
       action = new QAction(actionPrefix + tr("From Tag %1").arg(otherTagStr),
                            this);
       collection->addAction(tagStr + QLatin1String("from_v") + otherTagStr,
                             action);
-      connect(action, SIGNAL(triggered()), appTag, SLOT(copyToOtherTag()));
+      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::copyToOtherTag);
     }
     action = new QAction(actionPrefix + tr("Copy"), this);
     collection->addAction(tagStr + QLatin1String("copy"), action);
-    connect(action, SIGNAL(triggered()), appTag, SLOT(copyTags()));
+    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::copyTags);
     action = new QAction(actionPrefix + tr("Paste"), this);
     collection->addAction(tagStr + QLatin1String("paste"), action);
-    connect(action, SIGNAL(triggered()), appTag, SLOT(pasteTags()));
+    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::pasteTags);
     action = new QAction(actionPrefix + tr("Remove"), this);
     collection->addAction(tagStr + QLatin1String("remove"), action);
-    connect(action, SIGNAL(triggered()), appTag, SLOT(removeTags()));
+    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::removeTags);
     action = new QAction(actionPrefix + tr("Focus"), this);
     collection->addAction(tagStr + QLatin1String("focus"), action);
-    connect(action, SIGNAL(triggered()), formTag, SLOT(setFocusTag()));
+    connect(action, &QAction::triggered, formTag, &Kid3FormTagContext::setFocusTag);
     if (tagNr != Frame::Tag_Id3v1) {
       actionPrefix += tr("Frames:") + QLatin1Char(' ');
       action = new QAction(actionPrefix + tr("Edit"), this);
       collection->addAction(tagStr + QLatin1String("frames_edit"), action);
-      connect(action, SIGNAL(triggered()), appTag, SLOT(editFrame()));
+      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::editFrame);
       action = new QAction(actionPrefix + tr("Add"), this);
       collection->addAction(tagStr + QLatin1String("frames_add"), action);
-      connect(action, SIGNAL(triggered()), appTag, SLOT(addFrame()));
+      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::addFrame);
       action = new QAction(actionPrefix + tr("Delete"), this);
       collection->addAction(tagStr + QLatin1String("frames_delete"), action);
-      connect(action, SIGNAL(triggered()), appTag, SLOT(deleteFrame()));
+      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::deleteFrame);
     }
   }
 
   action = new QAction(tr("Filename") + QLatin1String(": ") + tr("Focus"),
                        this);
   collection->addAction(QLatin1String("filename_focus"), action);
-  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusFilename()));
+  connect(action, &QAction::triggered, form(), &Kid3Form::setFocusFilename);
 
   action = new QAction(tr("File List") + QLatin1String(": ") + tr("Focus"),
                        this);
   collection->addAction(QLatin1String("filelist_focus"), action);
-  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusFileList()));
+  connect(action, &QAction::triggered, form(), &Kid3Form::setFocusFileList);
   action = new QAction(tr("&Rename"), this);
   action->setShortcut(QKeySequence(Qt::Key_F2));
   action->setShortcutContext(Qt::WidgetShortcut);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(renameFile()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::renameFile);
   collection->addAction(QLatin1String("filelist_rename"), action);
   form()->getFileList()->setRenameAction(action);
   action = new QAction(tr("&Move to Trash"), this);
   action->setShortcut(QKeySequence::Delete);
   action->setShortcutContext(Qt::WidgetShortcut);
-  connect(action, SIGNAL(triggered()), impl(), SLOT(deleteFile()));
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::deleteFile);
   collection->addAction(QLatin1String("filelist_delete"), action);
   form()->getFileList()->setDeleteAction(action);
   action = new QAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"),
                        this);
   collection->addAction(QLatin1String("dirlist_focus"), action);
-  connect(action, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));
+  connect(action, &QAction::triggered, form(), &Kid3Form::setFocusDirList);
 
   FileList* fileList = form()->getFileList();
   // Do not support user action keyboard shortcuts with KDE 4, it would only
   // print "Attempt to use QAction (..) with KXMLGUIFactory!" warnings.
-  connect(fileList, SIGNAL(userActionAdded(QString,QAction*)),
-          this, SLOT(onUserActionAdded(QString,QAction*)));
-  connect(fileList, SIGNAL(userActionRemoved(QString,QAction*)),
-          this, SLOT(onUserActionRemoved(QString,QAction*)));
+  connect(fileList, &FileList::userActionAdded,
+          this, &KdeMainWindow::onUserActionAdded);
+  connect(fileList, &FileList::userActionRemoved,
+          this, &KdeMainWindow::onUserActionRemoved);
   fileList->initUserActions();
   const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
-  connect(&userActionsCfg, SIGNAL(contextMenuCommandsChanged()),
-          fileList, SLOT(initUserActions()));
+  connect(&userActionsCfg, &UserActionsConfig::contextMenuCommandsChanged,
+          fileList, &FileList::initUserActions);
 
   createGUI();
 }

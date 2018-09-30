@@ -112,18 +112,18 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   okButton->setDefault(true);
   cancelButton->setAutoDefault(false);
   applyButton->setAutoDefault(false);
-  connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(m_helpButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::showHelp);
+  connect(m_saveButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::saveConfig);
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-  connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+  connect(applyButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::apply);
   vlayout->addLayout(hlayout);
 
   m_statusBar = new QStatusBar(this);
   vlayout->addWidget(m_statusBar);
   connect(m_albumTable->selectionModel(),
-          SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
-          this, SLOT(showFilenameInStatusBar(QModelIndex)));
+          &QItemSelectionModel::currentRowChanged,
+          this, &ServerTrackImportDialog::showFilenameInStatusBar);
 }
 
 /**
@@ -142,18 +142,18 @@ ServerTrackImportDialog::~ServerTrackImportDialog()
 void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
 {
   if (m_client) {
-    disconnect(m_client, SIGNAL(statusChanged(int,QString)),
-               this, SLOT(setFileStatus(int,QString)));
-    disconnect(m_client, SIGNAL(resultsReceived(int,ImportTrackDataVector&)),
-               this, SLOT(setResults(int,ImportTrackDataVector&)));
+    disconnect(m_client, &ServerTrackImporter::statusChanged,
+               this, &ServerTrackImportDialog::setFileStatus);
+    disconnect(m_client, &ServerTrackImporter::resultsReceived,
+               this, &ServerTrackImportDialog::setResults);
   }
   m_client = source;
 
   if (m_client) {
-    connect(m_client, SIGNAL(statusChanged(int,QString)),
-            this, SLOT(setFileStatus(int,QString)));
-    connect(m_client, SIGNAL(resultsReceived(int,ImportTrackDataVector&)),
-            this, SLOT(setResults(int,ImportTrackDataVector&)));
+    connect(m_client, &ServerTrackImporter::statusChanged,
+            this, &ServerTrackImportDialog::setFileStatus);
+    connect(m_client, &ServerTrackImporter::resultsReceived,
+            this, &ServerTrackImportDialog::setResults);
 
     setWindowTitle(QCoreApplication::translate("@default", m_client->name()));
     if (m_client->defaultServer()) {

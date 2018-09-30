@@ -59,15 +59,15 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
       m_formatComboBox->setInsertPolicy(QComboBox::NoInsert);
       connect(m_formatComboBox, SIGNAL(activated(int)),
               this, SLOT(updateLineEdits(int)));
-      connect(m_formatComboBox->lineEdit(), SIGNAL(editingFinished()),
-              this, SLOT(commitCurrentEdits()));
+      connect(m_formatComboBox->lineEdit(), &QLineEdit::editingFinished,
+              this, &FormatListEdit::commitCurrentEdits);
       if (!toolTip.isEmpty())
         m_formatComboBox->setToolTip(toolTip);
       formatLayout->addRow(label, m_formatComboBox);
       comboBoxCreated = true;
     } else {
       auto ed = new QLineEdit;
-      connect(ed, SIGNAL(returnPressed()), this, SIGNAL(formatChanged()));
+      connect(ed, &QLineEdit::returnPressed, this, &FormatListEdit::formatChanged);
       if (!toolTip.isEmpty())
         ed->setToolTip(toolTip);
       formatLayout->addRow(label, ed);
@@ -87,8 +87,8 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   vlayout->addWidget(m_removePushButton);
   vlayout->addStretch();
   hlayout->addLayout(vlayout);
-  connect(m_addPushButton, SIGNAL(clicked()), this, SLOT(addItem()));
-  connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
+  connect(m_addPushButton, &QAbstractButton::clicked, this, &FormatListEdit::addItem);
+  connect(m_removePushButton, &QAbstractButton::clicked, this, &FormatListEdit::removeItem);
   setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 }
 

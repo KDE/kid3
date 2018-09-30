@@ -276,12 +276,12 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
          << new PasteCommand(this)
          << new RemoveCommand(this)
          << new PlayCommand(this);
-  connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
-          this, SLOT(updateSelectedFiles()));
-  connect(m_app, SIGNAL(selectedFilesUpdated()),
-          this, SLOT(updateSelection()));
-  connect(m_app, SIGNAL(selectedFilesChanged(QItemSelection,QItemSelection)),
-          this, SLOT(updateSelection()));
+  connect(m_app, &Kid3Application::fileSelectionUpdateRequested,
+          this, &Kid3Cli::updateSelectedFiles);
+  connect(m_app, &Kid3Application::selectedFilesUpdated,
+          this, &Kid3Cli::updateSelection);
+  connect(m_app, &Kid3Application::selectedFilesChanged,
+          this, &Kid3Cli::updateSelection);
 #ifdef HAVE_READLINE
   m_completer = new Kid3CliCompleter(m_cmds);
   m_completer->install();
@@ -651,7 +651,7 @@ void Kid3Cli::readLine(const QString& line)
   flushStandardOutput();
   CliCommand* cmd = commandForArgs(line);
   if (cmd) {
-    connect(cmd, SIGNAL(finished()), this, SLOT(onCommandFinished()));
+    connect(cmd, &CliCommand::finished, this, &Kid3Cli::onCommandFinished);
     cmd->execute();
   } else {
     writeErrorLine(tr("Unknown command '%1'. Type 'help' for help.").arg(line));
@@ -664,7 +664,7 @@ void Kid3Cli::readLine(const QString& line)
  */
 void Kid3Cli::onCommandFinished() {
   if (auto cmd = qobject_cast<CliCommand*>(sender())) {
-    disconnect(cmd, SIGNAL(finished()), this, SLOT(onCommandFinished()));
+    disconnect(cmd, &CliCommand::finished, this, &Kid3Cli::onCommandFinished);
     if (cmd->hasError()) {
       QString msg(cmd->getErrorMessage());
       if (!msg.startsWith(QLatin1Char('_'))) {
@@ -681,7 +681,7 @@ void Kid3Cli::onCommandFinished() {
  */
 void Kid3Cli::onArgCommandFinished() {
   if (auto cmd = qobject_cast<CliCommand*>(sender())) {
-    disconnect(cmd, SIGNAL(finished()), this, SLOT(onArgCommandFinished()));
+    disconnect(cmd, &CliCommand::finished, this, &Kid3Cli::onArgCommandFinished);
     if (!cmd->hasError()) {
       cmd->clear();
       executeNextArgCommand();
@@ -725,8 +725,8 @@ bool Kid3Cli::parseOptions()
   if (paths.isEmpty()) {
     paths.append(QDir::currentPath());
   }
-  connect(m_app, SIGNAL(directoryOpened()),
-    this, SLOT(onInitialDirectoryOpened()));
+  connect(m_app, &Kid3Application::directoryOpened,
+    this, &Kid3Cli::onInitialDirectoryOpened);
   if (!openDirectory(expandWildcards(paths))) {
     writeErrorLine(tr("%1 does not exist").arg(paths.join(QLatin1String(", "))));
   }
@@ -739,8 +739,8 @@ bool Kid3Cli::parseOptions()
  */
 void Kid3Cli::onInitialDirectoryOpened()
 {
-  disconnect(m_app, SIGNAL(directoryOpened()),
-    this, SLOT(onInitialDirectoryOpened()));
+  disconnect(m_app, &Kid3Application::directoryOpened,
+    this, &Kid3Cli::onInitialDirectoryOpened);
   if (!m_argCommands.isEmpty()) {
     if (!m_app->getRootIndex().isValid()) {
       // Do not execute commands if directory could not be opened.
@@ -769,7 +769,7 @@ void Kid3Cli::executeNextArgCommand()
   QString line = m_argCommands.takeFirst();
   CliCommand* cmd = commandForArgs(line);
   if (cmd) {
-    connect(cmd, SIGNAL(finished()), this, SLOT(onArgCommandFinished()));
+    connect(cmd, &CliCommand::finished, this, &Kid3Cli::onArgCommandFinished);
     cmd->execute();
   } else {
     writeErrorLine(tr("Unknown command '%1', -h for help.").arg(line));

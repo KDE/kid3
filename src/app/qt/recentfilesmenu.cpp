@@ -113,14 +113,14 @@ void RecentFilesMenu::updateRecentFileActions()
     auto act = new QAction(this);
     act->setText(QString(QLatin1String("&%1 %2")).arg(++i).arg(*it));
     act->setData(*it);
-    connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
+    connect(act, &QAction::triggered, this, &RecentFilesMenu::openRecentFile);
     this->addAction(act);
   }
   if (i > 0) {
     addSeparator();
     auto clearListAction = new QAction(this);
     clearListAction->setText(tr("&Clear List"));
-    connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+    connect(clearListAction, &QAction::triggered, this, &RecentFilesMenu::clearList);
     this->addAction(clearListAction);
     setEnabled(true);
   } else {

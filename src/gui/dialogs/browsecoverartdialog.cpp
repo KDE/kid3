@@ -93,10 +93,10 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   hbox->addWidget(m_albumLineEdit);
   artistAlbumBox->setLayout(hbox);
   vlayout->addWidget(artistAlbumBox);
-  connect(m_artistLineEdit, SIGNAL(returnPressed()),
-          this, SLOT(showPreview()));
-  connect(m_albumLineEdit, SIGNAL(returnPressed()),
-          this, SLOT(showPreview()));
+  connect(m_artistLineEdit, &QLineEdit::returnPressed,
+          this, &BrowseCoverArtDialog::showPreview);
+  connect(m_albumLineEdit, &QLineEdit::returnPressed,
+          this, &BrowseCoverArtDialog::showPreview);
 
   QGroupBox* srcbox = new QGroupBox(tr("&Source"), this);
   m_formatListEdit = new FormatListEdit(
@@ -108,8 +108,8 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   vbox->addWidget(m_formatListEdit);
   srcbox->setLayout(vbox);
   vlayout->addWidget(srcbox);
-  connect(m_formatListEdit, SIGNAL(formatChanged()),
-          this, SLOT(showPreview()));
+  connect(m_formatListEdit, &FormatListEdit::formatChanged,
+          this, &BrowseCoverArtDialog::showPreview);
 
   QGroupBox* tabbox = new QGroupBox(tr("&URL extraction"), this);
   m_matchUrlTableModel = new ConfigTableModel(tabbox);
@@ -126,12 +126,12 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &BrowseCoverArtDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &BrowseCoverArtDialog::saveConfig);
 
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
@@ -145,7 +145,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   hlayout->addWidget(browseButton);
   hlayout->addWidget(cancelButton);
   connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);
 }

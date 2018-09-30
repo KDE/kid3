@@ -85,8 +85,8 @@ void AbstractCli::quitApplicationWithReturnCode()
  */
 void AbstractCli::execute()
 {
-  connect(m_io, SIGNAL(lineReady(QString)),
-          this, SLOT(readLine(QString)), Qt::QueuedConnection);
+  connect(m_io, &AbstractCliIO::lineReady,
+          this, &AbstractCli::readLine, Qt::QueuedConnection);
   m_io->start();
 }
 
@@ -100,7 +100,7 @@ void AbstractCli::terminate()
   if (m_returnCode == 0) {
     QTimer::singleShot(0, qApp, SLOT(quit()));
   } else {
-    QTimer::singleShot(0, this, SLOT(quitApplicationWithReturnCode()));
+    QTimer::singleShot(0, this, &AbstractCli::quitApplicationWithReturnCode);
   }
 }
 

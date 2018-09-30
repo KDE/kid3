@@ -110,10 +110,12 @@ bool QmlCommandPlugin::startUserCommand(
         m_qmlView = new QQuickView;
         m_qmlView->setResizeMode(QQuickView::SizeRootObjectToView);
         setupQmlEngine(m_qmlView->engine());
+        // New style functor based connection is not possible because
+        // QQuickCloseEvent is not public (QTBUG-36453, QTBUG-55722).
         connect(m_qmlView, SIGNAL(closing(QQuickCloseEvent*)),
                 this, SLOT(onQmlViewClosing()));
-        connect(m_qmlView->engine(), SIGNAL(quit()),
-                this, SLOT(onQmlViewFinished()), Qt::QueuedConnection);
+        connect(m_qmlView->engine(), &QQmlEngine::quit,
+                this, &QmlCommandPlugin::onQmlViewFinished, Qt::QueuedConnection);
       }
       m_qmlView->engine()->rootContext()->setContextProperty(
             QLatin1String("args"), arguments);
@@ -137,7 +139,7 @@ bool QmlCommandPlugin::startUserCommand(
       m_showOutput = showOutput;
       if (!m_qmlEngine) {
         m_qmlEngine = new QQmlEngine;
-        connect(m_qmlEngine, SIGNAL(quit()), this, SLOT(onQmlEngineQuit()));
+        connect(m_qmlEngine, &QQmlEngine::quit, this, &QmlCommandPlugin::onQmlEngineQuit);
         setupQmlEngine(m_qmlEngine);
       }
       m_qmlEngine->rootContext()->setContextProperty(QLatin1String("args"),
@@ -174,8 +176,8 @@ void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
     engine->addImportPath(pluginsDir.absolutePath());
   }
   engine->rootContext()->setContextProperty(QLatin1String("app"), m_app);
-  connect(engine, SIGNAL(warnings(QList<QQmlError>)),
-          this, SLOT(onEngineError(QList<QQmlError>)),
+  connect(engine, &QQmlEngine::warnings,
+          this, &QmlCommandPlugin::onEngineError,
           Qt::UniqueConnection);
 }
 
@@ -229,7 +231,7 @@ void QmlCommandPlugin::onQmlViewFinished()
     // is started, a command executed (e.g. app.nextFile()), then .quit and
     // then a qml script is started.
     m_qmlView = nullptr;
-    QTimer::singleShot(0, this, SLOT(onEngineFinished()));
+    QTimer::singleShot(0, this, &QmlCommandPlugin::onEngineFinished);
   }
 }
 

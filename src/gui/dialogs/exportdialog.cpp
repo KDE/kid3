@@ -81,20 +81,20 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
         {tr("&Format:"), tr("H&eader:"), tr("&Tracks:"), tr("F&ooter:")},
         {QString(), formatToolTip, formatToolTip, formatToolTip},
         this);
-  connect(m_formatListEdit, SIGNAL(formatChanged()),
-          this, SLOT(showPreview()));
+  connect(m_formatListEdit, &FormatListEdit::formatChanged,
+          this, &ExportDialog::showPreview);
   vlayout->addWidget(m_formatListEdit);
 
   auto butlayout = new QHBoxLayout;
   m_fileButton = new QPushButton(tr("To F&ile..."), this);
   m_fileButton->setAutoDefault(false);
   butlayout->addWidget(m_fileButton);
-  connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotToFile()));
+  connect(m_fileButton, &QAbstractButton::clicked, this, &ExportDialog::slotToFile);
 
   m_clipButton = new QPushButton(tr("To Clip&board"), this);
   m_clipButton->setAutoDefault(false);
   butlayout->addWidget(m_clipButton);
-  connect(m_clipButton, SIGNAL(clicked()), this, SLOT(slotToClipboard()));
+  connect(m_clipButton, &QAbstractButton::clicked, this, &ExportDialog::slotToClipboard);
 
   auto butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                            QSizePolicy::Minimum);
@@ -119,12 +119,12 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &ExportDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &ExportDialog::saveConfig);
 
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
@@ -133,7 +133,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
 
   vlayout->addLayout(hlayout);
 }

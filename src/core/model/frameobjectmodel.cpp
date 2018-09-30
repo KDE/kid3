@@ -114,14 +114,14 @@ QList<QObject*> FrameObjectModel::fields()
   if (numFields > 0) {
     for (int i = 0; i < numFields; ++i) {
       auto fieldObj = new FrameFieldObject(i, this);
-      connect(fieldObj, SIGNAL(valueChanged(QVariant)),
-              this, SIGNAL(fieldsChanged()));
+      connect(fieldObj, &FrameFieldObject::valueChanged,
+              this, &FrameObjectModel::fieldsChanged);
       lst.append(fieldObj);
     }
   } else {
     auto fieldObj = new FrameFieldObject(-1, this);
-    connect(fieldObj, SIGNAL(valueChanged(QVariant)),
-            this, SIGNAL(fieldsChanged()));
+    connect(fieldObj, &FrameFieldObject::valueChanged,
+            this, &FrameObjectModel::fieldsChanged);
     lst.append(fieldObj);
   }
   return lst;

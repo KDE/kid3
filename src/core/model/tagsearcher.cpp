@@ -105,8 +105,8 @@ void TagSearcher::setModel(FileProxyModel* model)
   m_fileProxyModel = model;
   if (m_fileProxyModel && !m_iterator) {
     m_iterator = new BiDirFileProxyModelIterator(m_fileProxyModel, this);
-    connect(m_iterator, SIGNAL(nextReady(QPersistentModelIndex)),
-            this, SLOT(searchNextFile(QPersistentModelIndex)));
+    connect(m_iterator, &BiDirFileProxyModelIterator::nextReady,
+            this, &TagSearcher::searchNextFile);
   }
 }
 
@@ -383,8 +383,8 @@ void TagSearcher::replaceNext()
 void TagSearcher::replaceAll(const TagSearcher::Parameters& params)
 {
   setParameters(params);
-  disconnect(this, SIGNAL(textFound()), this, SLOT(replaceThenFindNext()));
-  connect(this, SIGNAL(textFound()), this, SLOT(replaceThenFindNext()),
+  disconnect(this, &TagSearcher::textFound, this, &TagSearcher::replaceThenFindNext);
+  connect(this, &TagSearcher::textFound, this, &TagSearcher::replaceThenFindNext,
           Qt::QueuedConnection);
   replaceNext();
 }
@@ -397,7 +397,7 @@ void TagSearcher::replaceThenFindNext()
   if (!m_aborted && m_currentPosition.isValid()) {
     replaceNext();
   } else {
-    disconnect(this, SIGNAL(textFound()), this, SLOT(replaceThenFindNext()));
+    disconnect(this, &TagSearcher::textFound, this, &TagSearcher::replaceThenFindNext);
   }
 }
 

@@ -304,15 +304,15 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setRootIsDecorated(false);
   m_dirListBox->setModel(m_app->getDirProxyModel());
   m_dirListBox->setSelectionModel(m_app->getDirSelectionModel());
-  connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
-      SLOT(dirSelected(QModelIndex)));
+  connect(m_dirListBox, &QAbstractItemView::activated, this,
+      &Kid3Form::dirSelected);
 
-  connect(m_app, SIGNAL(fileRootIndexChanged(QModelIndex)),
-          this, SLOT(setFileRootIndex(QModelIndex)));
-  connect(m_app, SIGNAL(dirRootIndexChanged(QModelIndex)),
-          this, SLOT(setDirRootIndex(QModelIndex)));
-  connect(m_app, SIGNAL(directoryOpened()),
-          this, SLOT(onFirstDirectoryOpened()));
+  connect(m_app, &Kid3Application::fileRootIndexChanged,
+          this, &Kid3Form::setFileRootIndex);
+  connect(m_app, &Kid3Application::dirRootIndexChanged,
+          this, &Kid3Form::setDirRootIndex);
+  connect(m_app, &Kid3Application::directoryOpened,
+          this, &Kid3Form::onFirstDirectoryOpened);
 
   m_rightHalfVBox = new Kid3EditWidget(m_app);
   auto scrollView = new QScrollArea(this);
@@ -327,7 +327,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #ifdef Q_OS_MAC
   m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-  connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
+  connect(m_fileButton, &QAbstractButton::clicked, this, &Kid3Form::showHideFile);
   m_fileLabel = new QLabel(tr("F&ile"), m_rightHalfVBox);
   auto fileButtonLayout = new QHBoxLayout;
   fileButtonLayout->addWidget(m_fileButton);
@@ -343,8 +343,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(m_nameLabel, 0, 0);
 
   m_nameLineEdit = new QLineEdit(m_fileWidget);
-  connect(m_nameLineEdit, SIGNAL(textEdited(QString)), this,
-      SLOT(nameLineEditChanged(QString)));
+  connect(m_nameLineEdit, &QLineEdit::textEdited, this,
+      &Kid3Form::nameLineEditChanged);
   fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
   m_fileLabel->setBuddy(m_nameLineEdit);
 
@@ -357,15 +357,15 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
   m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
-  connect(m_formatComboBox, SIGNAL(editTextChanged(QString)),
-          this, SLOT(onFormatEditTextChanged(QString)));
+  connect(m_formatComboBox, &QComboBox::editTextChanged,
+          this, &Kid3Form::onFormatEditTextChanged);
   m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
   m_formatFromFilenameComboBox->setEditable(true);
   m_formatFromFilenameComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
   m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
-  connect(m_formatFromFilenameComboBox, SIGNAL(editTextChanged(QString)),
-          this, SLOT(onFormatFromFilenameEditTextChanged(QString)));
+  connect(m_formatFromFilenameComboBox, &QComboBox::editTextChanged,
+          this, &Kid3Form::onFormatFromFilenameEditTextChanged);
 
   fileLayout->addWidget(m_formatComboBox, 1, 1);
 
@@ -385,8 +385,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       m_fnButton[tagNr] = new QPushButton(tr("Tag %1").arg(tagStr),
                                           m_fileWidget);
       m_fnButton[tagNr]->setToolTip(tr("Filename from Tag %1").arg(tagStr));
-      connect(m_fnButton[tagNr], SIGNAL(clicked()),
-              m_app->tag(tagNr), SLOT(getFilenameFromTags()));
+      connect(m_fnButton[tagNr], &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::getFilenameFromTags);
       fileLayout->addWidget(m_fnButton[tagNr], 1, column++);
       setTabOrder(tabWidget, m_fnButton[tagNr]);
       tabWidget = m_fnButton[tagNr];
@@ -410,8 +410,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       m_toTagButton[tagNr] =
         new QPushButton(tr("Tag %1").arg(tagStr), m_fileWidget);
       m_toTagButton[tagNr]->setToolTip(tr("Tag %1 from Filename").arg(tagStr));
-      connect(m_toTagButton[tagNr], SIGNAL(clicked()),
-              m_app->tag(tagNr), SLOT(getTagsFromFilename()));
+      connect(m_toTagButton[tagNr], &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::getTagsFromFilename);
       fileLayout->addWidget(m_toTagButton[tagNr], 2, column++);
       setTabOrder(tabWidget, m_toTagButton[tagNr]);
       tabWidget = m_toTagButton[tagNr];
@@ -427,7 +427,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #ifdef Q_OS_MAC
     m_tagButton[tagNr]->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-    connect(m_tagButton[tagNr], SIGNAL(clicked()), tag(tagNr), SLOT(showHideTag()));
+    connect(m_tagButton[tagNr], &QAbstractButton::clicked, tag(tagNr), &Kid3FormTagContext::showHideTag);
     m_tagLabel[tagNr] = new QLabel(tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
     auto tagButtonLayout = new QHBoxLayout;
     tagButtonLayout->addWidget(m_tagButton[tagNr]);
@@ -457,22 +457,22 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
         new QPushButton(tr("From Tag %1")
                         .arg(Frame::tagNumberToString(otherTagNr)),
                         m_tagWidget[tagNr]);
-      connect(m_id3PushButton[tagNr], SIGNAL(clicked()),
-              m_app->tag(tagNr), SLOT(copyToOtherTag()));
+      connect(m_id3PushButton[tagNr], &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::copyToOtherTag);
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
 
       QPushButton* copyPushButton = new QPushButton(tr("Copy"),
                                                     m_tagWidget[tagNr]);
-      connect(copyPushButton, SIGNAL(clicked()),
-              m_app->tag(tagNr), SLOT(copyTags()));
+      connect(copyPushButton, &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::copyTags);
       buttonsVBoxLayout->addWidget(copyPushButton);
       setTabOrder(m_id3PushButton[tagNr], copyPushButton);
 
       QPushButton* pastePushButton =
         new QPushButton(tr("Paste"), m_tagWidget[tagNr]);
-      connect(pastePushButton, SIGNAL(clicked()),
-              m_app->tag(tagNr), SLOT(pasteTags()));
+      connect(pastePushButton, &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
       buttonsVBoxLayout->addWidget(pastePushButton);
       setTabOrder(copyPushButton, pastePushButton);
       tabWidget = pastePushButton;
@@ -480,8 +480,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       m_id3PushButton[tagNr] = new QPushButton(tr("From"));
       auto menu = new QMenu(this);
       QAction* action = menu->addAction(tr("Filename"));
-      connect(action, SIGNAL(triggered()),
-              m_app->tag(tagNr), SLOT(getTagsFromFilename()));
+      connect(action, &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::getTagsFromFilename);
       FOR_ALL_TAGS(fromTagNr) {
         if (fromTagNr != tagNr) {
           action = menu->addAction(
@@ -490,13 +490,13 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           ba.append(static_cast<char>(fromTagNr));
           ba.append(static_cast<char>(tagNr));
           action->setData(ba);
-          connect(action, SIGNAL(triggered()),
-                  m_app, SLOT(copyTagsActionData()));
+          connect(action, &QAction::triggered,
+                  m_app, &Kid3Application::copyTagsActionData);
         }
       }
       action = menu->addAction(tr("Paste"));
-      connect(action, SIGNAL(triggered()),
-              m_app->tag(tagNr), SLOT(pasteTags()));
+      connect(action, &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
       m_id3PushButton[tagNr]->setMenu(menu);
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
@@ -504,8 +504,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       QPushButton* toButton = new QPushButton(tr("To"));
       menu = new QMenu(this);
       action = menu->addAction(tr("Filename"));
-      connect(action, SIGNAL(triggered()),
-              m_app->tag(tagNr), SLOT(getFilenameFromTags()));
+      connect(action, &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::getFilenameFromTags);
       FOR_ALL_TAGS(fromTagNr) {
         if (fromTagNr != tagNr) {
           action = menu->addAction(
@@ -514,13 +514,13 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           ba.append(static_cast<char>(tagNr));
           ba.append(static_cast<char>(fromTagNr));
           action->setData(ba);
-          connect(action, SIGNAL(triggered()),
-                  m_app, SLOT(copyTagsActionData()));
+          connect(action, &QAction::triggered,
+                  m_app, &Kid3Application::copyTagsActionData);
         }
       }
       action = menu->addAction(tr("Copy"));
-      connect(action, SIGNAL(triggered()),
-              m_app->tag(tagNr), SLOT(copyTags()));
+      connect(action, &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::copyTags);
       toButton->setMenu(menu);
       buttonsVBoxLayout->addWidget(toButton);
       setTabOrder(m_id3PushButton[tagNr], toButton);
@@ -529,7 +529,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
     QPushButton* removePushButton =
       new QPushButton(tr("Remove"), m_tagWidget[tagNr]);
-    connect(removePushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(removeTags()));
+    connect(removePushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::removeTags);
     buttonsVBoxLayout->addWidget(removePushButton);
     setTabOrder(tabWidget, removePushButton);
     tabWidget = removePushButton;
@@ -542,17 +542,17 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
       QPushButton* editFramesPushButton =
         new QPushButton(tr("Edit..."), m_tagWidget[tagNr]);
-      connect(editFramesPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(editFrame()));
+      connect(editFramesPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::editFrame);
       buttonsVBoxLayout->addWidget(editFramesPushButton);
       setTabOrder(tabWidget, editFramesPushButton);
       QPushButton* framesAddPushButton =
         new QPushButton(tr("Add..."), m_tagWidget[tagNr]);
-      connect(framesAddPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(addFrame()));
+      connect(framesAddPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::addFrame);
       buttonsVBoxLayout->addWidget(framesAddPushButton);
       setTabOrder(editFramesPushButton, framesAddPushButton);
       QPushButton* deleteFramesPushButton =
         new QPushButton(tr("Delete"), m_tagWidget[tagNr]);
-      connect(deleteFramesPushButton, SIGNAL(clicked()), m_app->tag(tagNr), SLOT(deleteFrame()));
+      connect(deleteFramesPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::deleteFrame);
       buttonsVBoxLayout->addWidget(deleteFramesPushButton);
       setTabOrder(framesAddPushButton, deleteFramesPushButton);
       tabWidget = deleteFramesPushButton;
@@ -768,8 +768,8 @@ void Kid3Form::onFormatFromFilenameEditTextChanged(const QString& text)
 void Kid3Form::onFirstDirectoryOpened()
 {
   // Only call this once.
-  disconnect(m_app, SIGNAL(directoryOpened()),
-             this, SLOT(onFirstDirectoryOpened()));
+  disconnect(m_app, &Kid3Application::directoryOpened,
+             this, &Kid3Form::onFirstDirectoryOpened);
   const GuiConfig& guiCfg = GuiConfig::instance();
   m_app->getFileProxyModel()->sort(guiCfg.fileListSortColumn(),
                                    guiCfg.fileListSortOrder());

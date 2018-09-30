@@ -50,10 +50,10 @@ void CheckableListModel::setSelectionModel(QItemSelectionModel* selModel)
     m_selModel = selModel;
     if (m_selModel) {
       connect(m_selModel,
-              SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-              this, SLOT(onSelectionChanged(QItemSelection,QItemSelection)));
-      connect(m_selModel, SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-              this, SLOT(onCurrentChanged(QModelIndex,QModelIndex)));
+              &QItemSelectionModel::selectionChanged,
+              this, &CheckableListModel::onSelectionChanged);
+      connect(m_selModel, &QItemSelectionModel::currentChanged,
+              this, &CheckableListModel::onCurrentChanged);
     }
     emit selectionModelChanged();
   }
@@ -189,24 +189,24 @@ void CheckableListModel::setSourceModel(QAbstractItemModel* srcModel)
     }
     QAbstractProxyModel::setSourceModel(srcModel);
     if (srcModel) {
-      connect(srcModel, SIGNAL(modelAboutToBeReset()),
-              this, SLOT(onModelAboutToBeReset()));
-      connect(srcModel, SIGNAL(modelReset()),
-              this, SLOT(onModelReset()));
-      connect(srcModel, SIGNAL(layoutAboutToBeChanged()),
-              this, SIGNAL(layoutAboutToBeChanged()));
-      connect(srcModel, SIGNAL(layoutChanged()),
-              this, SIGNAL(layoutChanged()));
-      connect(srcModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-              this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-      connect(srcModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
-              this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
-      connect(srcModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-              this, SLOT(onRowsRemoved(QModelIndex,int,int)));
-      connect(srcModel, SIGNAL(rowsAboutToBeInserted(QModelIndex,int,int)),
-              this, SLOT(onRowsAboutToBeInserted(QModelIndex,int,int)));
-      connect(srcModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-              this, SLOT(onRowsInserted(QModelIndex,int,int)));
+      connect(srcModel, &QAbstractItemModel::modelAboutToBeReset,
+              this, &CheckableListModel::onModelAboutToBeReset);
+      connect(srcModel, &QAbstractItemModel::modelReset,
+              this, &CheckableListModel::onModelReset);
+      connect(srcModel, &QAbstractItemModel::layoutAboutToBeChanged,
+              this, &QAbstractItemModel::layoutAboutToBeChanged);
+      connect(srcModel, &QAbstractItemModel::layoutChanged,
+              this, &QAbstractItemModel::layoutChanged);
+      connect(srcModel, &QAbstractItemModel::dataChanged,
+              this, &CheckableListModel::onDataChanged);
+      connect(srcModel, &QAbstractItemModel::rowsAboutToBeRemoved,
+              this, &CheckableListModel::onRowsAboutToBeRemoved);
+      connect(srcModel, &QAbstractItemModel::rowsRemoved,
+              this, &CheckableListModel::onRowsRemoved);
+      connect(srcModel, &QAbstractItemModel::rowsAboutToBeInserted,
+              this, &CheckableListModel::onRowsAboutToBeInserted);
+      connect(srcModel, &QAbstractItemModel::rowsInserted,
+              this, &CheckableListModel::onRowsInserted);
     }
   }
 }

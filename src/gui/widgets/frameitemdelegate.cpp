@@ -433,8 +433,8 @@ QWidget* FrameItemDelegate::createEditor(
       return cb;
     } else if (type == Frame::FT_Rating) {
       auto editor = new StarEditor(parent);
-      connect(editor, SIGNAL(editingFinished()),
-              this, SLOT(commitAndCloseEditor()));
+      connect(editor, &StarEditor::editingFinished,
+              this, &FrameItemDelegate::commitAndCloseEditor);
       return editor;
     }
     QWidget* editor = QItemDelegate::createEditor(parent, option, index);
@@ -444,16 +444,16 @@ QWidget* FrameItemDelegate::createEditor(
          type == Frame::FT_Artist || type == Frame::FT_Album)) {
       if (lineEdit) {
         if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textEdited(QString)),
-                  this, SLOT(formatTextIfEnabled(QString)));
+          connect(lineEdit, &QLineEdit::textEdited,
+                  this, &FrameItemDelegate::formatTextIfEnabled);
         }
         lineEdit->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
       }
     } else {
       if (lineEdit) {
         if (TagFormatConfig::instance().formatWhileEditing()) {
-          connect(lineEdit, SIGNAL(textEdited(QString)),
-                  this, SLOT(formatTextIfEnabled(QString)));
+          connect(lineEdit, &QLineEdit::textEdited,
+                  this, &FrameItemDelegate::formatTextIfEnabled);
         }
         if (TagFormatConfig::instance().enableValidation()) {
           if (type == Frame::FT_Track || type == Frame::FT_Disc) {

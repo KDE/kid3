@@ -47,8 +47,8 @@ FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
     m_maximumLengthSpinBox->setMaximum(255);
     formLayout->setLabelAlignment(Qt::AlignLeft);
     formLayout->insertRow(1, m_maximumLengthCheckBox, m_maximumLengthSpinBox);
-    connect(m_maximumLengthCheckBox, SIGNAL(toggled(bool)),
-            m_maximumLengthSpinBox, SLOT(setEnabled(bool)));
+    connect(m_maximumLengthCheckBox, &QAbstractButton::toggled,
+            m_maximumLengthSpinBox, &QWidget::setEnabled);
   }
 }
 

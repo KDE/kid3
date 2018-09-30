@@ -121,11 +121,11 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_trackDataTable->horizontalHeader()->setSectionsMovable(true);
   m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
         Qt::CustomContextMenu);
-  connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int,int,int)),
-          this, SLOT(moveTableRow(int,int,int)));
+  connect(m_trackDataTable->verticalHeader(), &QHeaderView::sectionMoved,
+          this, &ImportDialog::moveTableRow);
   connect(m_trackDataTable->horizontalHeader(),
-          SIGNAL(customContextMenuRequested(QPoint)),
-      this, SLOT(showTableHeaderContextMenu(QPoint)));
+          &QWidget::customContextMenuRequested,
+      this, &ImportDialog::showTableHeaderContextMenu);
   vlayout->addWidget(m_trackDataTable);
 
   auto accuracyLayout = new QHBoxLayout;
@@ -187,8 +187,8 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
         m_platformTools->iconFromTheme(QLatin1String("document-revert")));
   revertButton->setToolTip(tr("Revert"));
   revertButton->setShortcut(QKeySequence::Undo);
-  connect(revertButton, SIGNAL(clicked()),
-          this, SLOT(changeTagDestination()));
+  connect(revertButton, &QAbstractButton::clicked,
+          this, &ImportDialog::changeTagDestination);
   butlayout->addWidget(revertButton);
   vlayout->addLayout(butlayout);
 
@@ -215,16 +215,16 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   matchLayout->addWidget(titleButton);
   vlayout->addLayout(matchLayout);
 
-  connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
-  connect(tagsButton, SIGNAL(clicked()), this, SLOT(fromTags()));
-  connect(serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
+  connect(fileButton, &QAbstractButton::clicked, this, &ImportDialog::fromText);
+  connect(tagsButton, &QAbstractButton::clicked, this, &ImportDialog::fromTags);
+  connect(serverButton, &QAbstractButton::clicked, this, &ImportDialog::fromServer);
   connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
-  connect(lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
-  connect(trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
-  connect(titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
-  connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
+  connect(lengthButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithLength);
+  connect(trackButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTrack);
+  connect(titleButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTitle);
+  connect(m_mismatchCheckBox, &QAbstractButton::toggled, this, &ImportDialog::showPreview);
   connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
-  connect(this, SIGNAL(finished(int)), this, SLOT(hideSubdialogs()));
+  connect(this, &QDialog::finished, this, &ImportDialog::hideSubdialogs);
 
   auto hlayout = new QHBoxLayout;
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
@@ -242,10 +242,10 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(helpButton, &QAbstractButton::clicked, this, &ImportDialog::showHelp);
+  connect(saveButton, &QAbstractButton::clicked, this, &ImportDialog::saveConfig);
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   vlayout->addLayout(hlayout);
 }
 
@@ -277,8 +277,8 @@ void ImportDialog::fromText()
   if (!m_textImportDialog) {
     m_textImportDialog = new TextImportDialog(
           m_platformTools, this, m_trackDataModel);
-    connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
-            this, SLOT(showPreview()));
+    connect(m_textImportDialog, &TextImportDialog::trackDataUpdated,
+            this, &ImportDialog::showPreview);
   }
   m_textImportDialog->clear();
   m_textImportDialog->show();
@@ -291,8 +291,8 @@ void ImportDialog::fromTags()
 {
   if (!m_tagImportDialog) {
     m_tagImportDialog = new TagImportDialog(this, m_trackDataModel);
-    connect(m_tagImportDialog, SIGNAL(trackDataUpdated()),
-            this, SLOT(showPreview()));
+    connect(m_tagImportDialog, &TagImportDialog::trackDataUpdated,
+            this, &ImportDialog::showPreview);
   }
   m_tagImportDialog->clear();
   m_tagImportDialog->show();
@@ -325,10 +325,10 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
 {
   if (!m_serverImportDialog) {
     m_serverImportDialog = new ServerImportDialog(this);
-    connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
-            this, SLOT(showPreview()));
-    connect(m_serverImportDialog, SIGNAL(accepted()),
-            this, SLOT(onServerImportDialogClosed()));
+    connect(m_serverImportDialog, &ServerImportDialog::trackDataUpdated,
+            this, &ImportDialog::showPreview);
+    connect(m_serverImportDialog, &QDialog::accepted,
+            this, &ImportDialog::onServerImportDialogClosed);
   }
   m_serverImportDialog->setImportSource(source);
   m_serverImportDialog->setArtistAlbum(
@@ -346,8 +346,8 @@ void ImportDialog::displayServerTrackImportDialog(ServerTrackImporter* source)
 {
   if (!m_serverTrackImportDialog) {
     m_serverTrackImportDialog = new ServerTrackImportDialog(this, m_trackDataModel);
-    connect(m_serverTrackImportDialog, SIGNAL(trackDataUpdated()),
-            this, SLOT(showPreview()));
+    connect(m_serverTrackImportDialog, &ServerTrackImportDialog::trackDataUpdated,
+            this, &ImportDialog::showPreview);
   }
   m_serverTrackImportDialog->setImportSource(source);
   m_serverTrackImportDialog->initTable();
@@ -533,7 +533,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     // revert movement, but avoid recursion
     disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
-    connect(vHeader, SIGNAL(sectionMoved(int,int,int)), this, SLOT(moveTableRow(int,int,int)));
+    connect(vHeader, &QHeaderView::sectionMoved, this, &ImportDialog::moveTableRow);
   }
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   auto numTracks = static_cast<int>(trackDataVector.size());
@@ -611,8 +611,8 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
         action->setData(frameType);
         action->setCheckable(true);
         action->setChecked((m_columnVisibility & (1ULL << frameType)) != 0ULL);
-        connect(action, SIGNAL(triggered(bool)),
-                this, SLOT(toggleTableColumnVisibility(bool)));
+        connect(action, &QAction::triggered,
+                this, &ImportDialog::toggleTableColumnVisibility);
         menu.addAction(action);
       }
     }

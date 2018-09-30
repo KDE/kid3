@@ -73,13 +73,13 @@ PlaylistEditDialog::PlaylistEditDialog(PlaylistModel* model,
   m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Help |
                                      QDialogButtonBox::Save |
                                      QDialogButtonBox::Cancel);
-  connect(m_buttonBox, SIGNAL(helpRequested()), this, SLOT(showHelp()));
-  connect(m_buttonBox, SIGNAL(accepted()), m_playlistModel, SLOT(save()));
-  connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  connect(m_buttonBox, &QDialogButtonBox::helpRequested, this, &PlaylistEditDialog::showHelp);
+  connect(m_buttonBox, &QDialogButtonBox::accepted, m_playlistModel, &PlaylistModel::save);
+  connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   vlayout->addWidget(m_buttonBox);
 
-  connect(m_playlistModel, SIGNAL(modifiedChanged(bool)),
-          this, SLOT(setModified(bool)));
+  connect(m_playlistModel, &PlaylistModel::modifiedChanged,
+          this, &PlaylistEditDialog::setModified);
   setModified(false);
 }
 

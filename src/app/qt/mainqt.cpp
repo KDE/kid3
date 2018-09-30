@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 #endif
   auto kid3 = new Kid3MainWindow(platformTools, kid3App);
   kid3->setAttribute(Qt::WA_DeleteOnClose);
-  QObject::connect(&app, SIGNAL(openFileRequested(QStringList)), kid3App, SLOT(openDrop(QStringList)));
+  QObject::connect(&app, &Kid3QtApplication::openFileRequested, kid3App, &Kid3Application::openDrop);
   kid3->show();
   if (args.size() > 1) {
     kid3->confirmedOpenDirectory(args.mid(1));

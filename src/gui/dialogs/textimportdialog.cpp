@@ -71,24 +71,24 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &TextImportDialog::showHelp);
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &TextImportDialog::saveConfig);
   buttonLayout->addStretch();
   QPushButton* fileButton = new QPushButton(tr("From F&ile..."), this);
   fileButton->setAutoDefault(false);
   buttonLayout->addWidget(fileButton);
-  connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
+  connect(fileButton, &QAbstractButton::clicked, this, &TextImportDialog::fromFile);
   QPushButton* clipButton = new QPushButton(tr("From Clip&board"), this);
   clipButton->setAutoDefault(false);
   buttonLayout->addWidget(clipButton);
-  connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
+  connect(clipButton, &QAbstractButton::clicked, this, &TextImportDialog::fromClipboard);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vboxLayout->addLayout(buttonLayout);
 }
 

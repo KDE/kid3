@@ -103,16 +103,16 @@ MprisPlayerInterface::MprisPlayerInterface(AudioPlayer* player)
     m_hasFiles(m_audioPlayer->getFileCount() > 0),
     m_tempCoverArtFile(nullptr)
 {
-  connect(m_audioPlayer, SIGNAL(stateChanged(AudioPlayer::State)),
-          this, SLOT(onStateChanged()));
-  connect(m_audioPlayer, SIGNAL(trackChanged(QString,bool,bool)),
-          this, SLOT(onTrackChanged(QString,bool,bool)));
-  connect(m_audioPlayer, SIGNAL(volumeChanged(int)),
-          this, SLOT(onVolumeChanged()));
-  connect(m_audioPlayer, SIGNAL(fileCountChanged(int)),
-          this, SLOT(onFileCountChanged(int)));
-  connect(m_audioPlayer, SIGNAL(currentPositionChanged(qint64)),
-          this, SLOT(onCurrentPositionChanged(qint64)));
+  connect(m_audioPlayer, &AudioPlayer::stateChanged,
+          this, &MprisPlayerInterface::onStateChanged);
+  connect(m_audioPlayer, &AudioPlayer::trackChanged,
+          this, &MprisPlayerInterface::onTrackChanged);
+  connect(m_audioPlayer, &AudioPlayer::volumeChanged,
+          this, &MprisPlayerInterface::onVolumeChanged);
+  connect(m_audioPlayer, &AudioPlayer::fileCountChanged,
+          this, &MprisPlayerInterface::onFileCountChanged);
+  connect(m_audioPlayer, &AudioPlayer::currentPositionChanged,
+          this, &MprisPlayerInterface::onCurrentPositionChanged);
 }
 
 MprisPlayerInterface::~MprisPlayerInterface()

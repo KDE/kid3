@@ -135,14 +135,14 @@ void FileProxyModelIterator::fetchNext()
     m_nextIdx = m_nodes.top();
     if (m_nextIdx.isValid()) {
       if (m_model->isDir(m_nextIdx) && m_model->canFetchMore(m_nextIdx)) {
-        connect(m_model, SIGNAL(sortingFinished()),
-                this, SLOT(onDirectoryLoaded()));
+        connect(m_model, &FileProxyModel::sortingFinished,
+                this, &FileProxyModelIterator::onDirectoryLoaded);
         m_model->fetchMore(m_nextIdx);
         return;
       }
       if (++count >= 10) {
         // Avoid spinning too long to keep the GUI responsive.
-        QTimer::singleShot(0, this, SLOT(fetchNext()));
+        QTimer::singleShot(0, this, &FileProxyModelIterator::fetchNext);
         return;
       }
       m_nodes.pop();
@@ -168,7 +168,7 @@ void FileProxyModelIterator::fetchNext()
  */
 void FileProxyModelIterator::onDirectoryLoaded()
 {
-  disconnect(m_model, SIGNAL(sortingFinished()),
-             this, SLOT(onDirectoryLoaded()));
+  disconnect(m_model, &FileProxyModel::sortingFinished,
+             this, &FileProxyModelIterator::onDirectoryLoaded);
   fetchNext();
 }

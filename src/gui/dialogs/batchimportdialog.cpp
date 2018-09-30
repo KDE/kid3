@@ -198,17 +198,17 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   m_profileComboBox->setEditable(true);
   connect(m_profileComboBox, SIGNAL(activated(int)),
           this, SLOT(changeProfile(int)));
-  connect(m_profileComboBox, SIGNAL(editTextChanged(QString)),
-          this, SLOT(changeProfileName(QString)));
+  connect(m_profileComboBox, &QComboBox::editTextChanged,
+          this, &BatchImportDialog::changeProfileName);
   profileLabel->setBuddy(m_profileComboBox);
   nameLayout->addWidget(m_profileComboBox, 1);
   QPushButton* profileAddButton = new QPushButton(tr("Add"));
-  connect(profileAddButton, SIGNAL(clicked()),
-          this, SLOT(addProfile()));
+  connect(profileAddButton, &QAbstractButton::clicked,
+          this, &BatchImportDialog::addProfile);
   nameLayout->addWidget(profileAddButton);
   QPushButton* profileRemoveButton = new QPushButton(tr("Remove"));
-  connect(profileRemoveButton, SIGNAL(clicked()),
-          this, SLOT(removeProfile()));
+  connect(profileRemoveButton, &QAbstractButton::clicked,
+          this, &BatchImportDialog::removeProfile);
   nameLayout->addWidget(profileRemoveButton);
   profileLayout->addLayout(nameLayout);
 
@@ -229,12 +229,12 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &BatchImportDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &BatchImportDialog::saveConfig);
   hlayout->addStretch();
 
   m_startAbortButton = new QPushButton(this);
@@ -245,9 +245,9 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_startAbortButton);
   hlayout->addWidget(closeButton);
-  connect(m_startAbortButton, SIGNAL(clicked()), this, SLOT(startOrAbortImport()));
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-  connect(this, SIGNAL(rejected()), this, SIGNAL(abort()));
+  connect(m_startAbortButton, &QAbstractButton::clicked, this, &BatchImportDialog::startOrAbortImport);
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
+  connect(this, &QDialog::rejected, this, &BatchImportDialog::abort);
 
   vlayout->addLayout(hlayout);
 }

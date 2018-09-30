@@ -369,22 +369,22 @@ void ScriptInterface::applyTextEncoding()
 bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
                                         bool create)
 {
-  connect(m_app, SIGNAL(renameActionsScheduled()),
-          this, SLOT(onRenameActionsScheduled()));
+  connect(m_app, &Kid3Application::renameActionsScheduled,
+          this, &ScriptInterface::onRenameActionsScheduled);
   if (m_app->renameDirectory(Frame::tagVersionCast(tagMask), format,
                              create)) {
     return true;
   } else {
-    disconnect(m_app, SIGNAL(renameActionsScheduled()),
-               this, SLOT(onRenameActionsScheduled()));
+    disconnect(m_app, &Kid3Application::renameActionsScheduled,
+               this, &ScriptInterface::onRenameActionsScheduled);
     return false;
   }
 }
 
 void ScriptInterface::onRenameActionsScheduled()
 {
-  disconnect(m_app, SIGNAL(renameActionsScheduled()),
-             this, SLOT(onRenameActionsScheduled()));
+  disconnect(m_app, &Kid3Application::renameActionsScheduled,
+             this, &ScriptInterface::onRenameActionsScheduled);
   m_errorMsg = m_app->performRenameActions();
   if (!m_errorMsg.isEmpty()) {
     m_errorMsg = QLatin1String("Error while renaming:\n") + m_errorMsg;

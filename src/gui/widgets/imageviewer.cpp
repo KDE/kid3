@@ -68,7 +68,7 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   vlayout->addWidget(m_image);
   hlayout->addItem(hspacer);
   hlayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vlayout->addLayout(hlayout);
 }
 

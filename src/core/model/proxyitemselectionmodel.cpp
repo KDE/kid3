@@ -35,22 +35,22 @@ ProxyItemSelectionModel::ProxyItemSelectionModel(
   : QItemSelectionModel(proxyModel, parent),
     m_proxySelectionModel(sourceSelectionModel), m_ignoreCurrentChanged(false)
 {
-  connect(this, SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-          this, SLOT(onCurrentChanged(QModelIndex)));
+  connect(this, &QItemSelectionModel::currentChanged,
+          this, &ProxyItemSelectionModel::onCurrentChanged);
 #if QT_VERSION >= 0x050500
-  connect(this, SIGNAL(modelChanged(QAbstractItemModel*)),
-          this, SLOT(onModelChanged()));
+  connect(this, &QItemSelectionModel::modelChanged,
+          this, &ProxyItemSelectionModel::onModelChanged);
 #endif
 
   connect(m_proxySelectionModel,
-          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SLOT(onSelectionChanged(QItemSelection,QItemSelection)));
+          &QItemSelectionModel::selectionChanged,
+          this, &ProxyItemSelectionModel::onSelectionChanged);
   connect(m_proxySelectionModel,
-          SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-          this, SLOT(onProxyCurrentChanged(QModelIndex)));
+          &QItemSelectionModel::currentChanged,
+          this, &ProxyItemSelectionModel::onProxyCurrentChanged);
 #if QT_VERSION >= 0x050500
-  connect(m_proxySelectionModel, SIGNAL(modelChanged(QAbstractItemModel*)),
-          this, SLOT(onModelChanged()));
+  connect(m_proxySelectionModel, &QItemSelectionModel::modelChanged,
+          this, &ProxyItemSelectionModel::onModelChanged);
 #endif
   onModelChanged();
 }

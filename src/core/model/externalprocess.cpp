@@ -59,8 +59,8 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   buttonLayout->addWidget(clearButton);
   buttonLayout->addItem(hspacer);
   buttonLayout->addWidget(closeButton);
-  connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(clearButton, &QAbstractButton::clicked, m_textEdit, &QTextEdit::clear);
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vlayout->addLayout(buttonLayout);
   resize(600, 424);
 }
@@ -188,15 +188,15 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
       m_outputViewer = new OutputViewer(nullptr);
     }
     m_process->setProcessChannelMode(QProcess::MergedChannels);
-    connect(m_process, SIGNAL(readyReadStandardOutput()),
-            this, SLOT(readFromStdout()));
+    connect(m_process, &QProcess::readyReadStandardOutput,
+            this, &ExternalProcess::readFromStdout);
     m_outputViewer->setWindowTitle(name);
     m_outputViewer->show();
     m_outputViewer->raise();
     m_outputViewer->scrollToBottom();
   } else {
-    disconnect(m_process, SIGNAL(readyReadStandardOutput()),
-               this, SLOT(readFromStdout()));
+    disconnect(m_process, &QProcess::readyReadStandardOutput,
+               this, &ExternalProcess::readFromStdout);
   }
 
   QStringList arguments = args;

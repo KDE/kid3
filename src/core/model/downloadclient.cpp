@@ -36,8 +36,8 @@
 DownloadClient::DownloadClient(QNetworkAccessManager* netMgr) :
   HttpClient(netMgr), m_canceled(false)
 {
-  connect(this, SIGNAL(bytesReceived(QByteArray)),
-          this, SLOT(requestFinished(QByteArray)));
+  connect(this, &HttpClient::bytesReceived,
+          this, &DownloadClient::requestFinished);
 }
 
 /**

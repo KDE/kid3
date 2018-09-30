@@ -41,22 +41,22 @@ PlaylistView::PlaylistView(QWidget* parent)
   auto deleteAction = new QAction(this);
   deleteAction->setShortcut(QKeySequence::Delete);
   deleteAction->setShortcutContext(Qt::WidgetShortcut);
-  connect(deleteAction, SIGNAL(triggered()),
-          this, SLOT(deleteCurrentRow()));
+  connect(deleteAction, &QAction::triggered,
+          this, &PlaylistView::deleteCurrentRow);
   addAction(deleteAction);
 
   auto moveUpAction = new QAction(this);
   moveUpAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Up);
   moveUpAction->setShortcutContext(Qt::WidgetShortcut);
-  connect(moveUpAction, SIGNAL(triggered()),
-          this, SLOT(moveUpCurrentRow()));
+  connect(moveUpAction, &QAction::triggered,
+          this, &PlaylistView::moveUpCurrentRow);
   addAction(moveUpAction);
 
   auto moveDownAction = new QAction(this);
   moveDownAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Down);
   moveDownAction->setShortcutContext(Qt::WidgetShortcut);
-  connect(moveDownAction, SIGNAL(triggered()),
-          this, SLOT(moveDownCurrentRow()));
+  connect(moveDownAction, &QAction::triggered,
+          this, &PlaylistView::moveDownCurrentRow);
   addAction(moveDownAction);
 }
 

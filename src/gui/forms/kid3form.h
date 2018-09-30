@@ -55,7 +55,7 @@ class Kid3FormTagContext;
 /**
  * Main widget.
  */
-class Kid3Form : public QSplitter {
+class KID3_GUI_EXPORT Kid3Form : public QSplitter {
   Q_OBJECT
 public:
   /**

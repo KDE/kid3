@@ -74,10 +74,10 @@ void TestServerImporterBase::setServerImporter(ServerImporter* importer)
   if (importer != m_importer) {
     m_importer = importer;
     if (m_importer) {
-      connect(m_importer, SIGNAL(findFinished(QByteArray)),
-              this, SLOT(onFindFinished(QByteArray)));
-      connect(m_importer, SIGNAL(albumFinished(QByteArray)),
-              this, SLOT(onAlbumFinished(QByteArray)));
+      connect(m_importer, &ImportClient::findFinished,
+              this, &TestServerImporterBase::onFindFinished);
+      connect(m_importer, &ImportClient::albumFinished,
+              this, &TestServerImporterBase::onAlbumFinished);
     }
   }
 }
@@ -105,9 +105,9 @@ void TestServerImporterBase::queryAlbums(const QString& artist, const QString& a
   QEventLoop eventLoop;
   QTimer timer;
   timer.setSingleShot(true);
-  connect(&timer, SIGNAL(timeout()), &eventLoop, SLOT(quit()));
-  connect(this, SIGNAL(albumsUpdated()),
-          &eventLoop, SLOT(quit()));
+  connect(&timer, &QTimer::timeout, &eventLoop, &QEventLoop::quit);
+  connect(this, &TestServerImporterBase::albumsUpdated,
+          &eventLoop, &QEventLoop::quit);
   m_importer->find(m_importer->config(), artist, album);
   timer.start(5000);
   eventLoop.exec();
@@ -119,9 +119,9 @@ void TestServerImporterBase::queryTracks(const QString& cat, const QString& id)
   QEventLoop eventLoop;
   QTimer timer;
   timer.setSingleShot(true);
-  connect(&timer, SIGNAL(timeout()), &eventLoop, SLOT(quit()));
-  connect(this, SIGNAL(trackDataUpdated()),
-          &eventLoop, SLOT(quit()));
+  connect(&timer, &QTimer::timeout, &eventLoop, &QEventLoop::quit);
+  connect(this, &TestServerImporterBase::trackDataUpdated,
+          &eventLoop, &QEventLoop::quit);
   m_importer->getTrackList(m_importer->config(), cat, id);
   timer.start(5000);
   eventLoop.exec();

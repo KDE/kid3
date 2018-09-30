@@ -259,14 +259,14 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
     m_framesModel[tagNr] = new FrameTableModel(id3v1, this);
     if (!id3v1) {
       m_framesModel[tagNr]->setFrameOrder(tagCfg.quickAccessFrameOrder());
-      connect(&tagCfg, SIGNAL(quickAccessFrameOrderChanged(QList<int>)),
-              m_framesModel[tagNr], SLOT(setFrameOrder(QList<int>)));
+      connect(&tagCfg, &TagConfig::quickAccessFrameOrderChanged,
+              m_framesModel[tagNr], &FrameTableModel::setFrameOrder);
     }
     m_framesSelectionModel[tagNr] = new QItemSelectionModel(m_framesModel[tagNr], this);
     m_framelist[tagNr] = new FrameList(tagNr, m_framesModel[tagNr],
         m_framesSelectionModel[tagNr]);
-    connect(m_framelist[tagNr], SIGNAL(frameEdited(const Frame*)),
-            this, SLOT(onFrameEdited(const Frame*)));
+    connect(m_framelist[tagNr], &FrameList::frameEdited,
+            this, &Kid3Application::onFrameEdited);
     connect(m_framelist[tagNr], SIGNAL(frameAdded(const Frame*)),
             this, SLOT(onFrameAdded(const Frame*)));
     m_tagContext[tagNr] = new Kid3ApplicationTagContext(this, tagNr);
@@ -285,18 +285,18 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,
-          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SLOT(fileSelected(QItemSelection,QItemSelection)));
+          &QItemSelectionModel::selectionChanged,
+          this, &Kid3Application::fileSelected);
   connect(m_fileSelectionModel,
-          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SIGNAL(fileSelectionChanged()));
-  connect(m_fileProxyModel, SIGNAL(modifiedChanged(bool)),
-          this, SIGNAL(modifiedChanged(bool)));
+          &QItemSelectionModel::selectionChanged,
+          this, &Kid3Application::fileSelectionChanged);
+  connect(m_fileProxyModel, &FileProxyModel::modifiedChanged,
+          this, &Kid3Application::modifiedChanged);
 
-  connect(m_selection, SIGNAL(singleFileChanged()),
-          this, SLOT(updateCoverArtImageId()));
-  connect(m_selection, SIGNAL(fileNameModified()),
-          this, SIGNAL(selectedFilesUpdated()));
+  connect(m_selection, &TaggedFileSelection::singleFileChanged,
+          this, &Kid3Application::updateCoverArtImageId);
+  connect(m_selection, &TaggedFileSelection::fileNameModified,
+          this, &Kid3Application::selectedFilesUpdated);
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
@@ -844,14 +844,14 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
             m_fileProxyModel->mapFromSource(fileIndex));
     }
     if (m_fileProxyModelRootIndex != oldRootIndex) {
-      connect(m_fileProxyModel, SIGNAL(sortingFinished()),
-              this, SLOT(onDirectoryLoaded()));
+      connect(m_fileProxyModel, &FileProxyModel::sortingFinished,
+              this, &Kid3Application::onDirectoryLoaded);
     } else {
-      QTimer::singleShot(0, this, SLOT(onDirectoryOpened()));
+      QTimer::singleShot(0, this, &Kid3Application::onDirectoryOpened);
     }
   }
   if (!ok) {
-    QTimer::singleShot(0, this, SLOT(onDirectoryOpened()));
+    QTimer::singleShot(0, this, &Kid3Application::onDirectoryOpened);
   }
   return ok;
 }
@@ -898,8 +898,8 @@ void Kid3Application::onDirectoryOpened()
  */
 void Kid3Application::onDirectoryLoaded()
 {
-  disconnect(m_fileProxyModel, SIGNAL(sortingFinished()),
-             this, SLOT(onDirectoryLoaded()));
+  disconnect(m_fileProxyModel, &FileProxyModel::sortingFinished,
+             this, &Kid3Application::onDirectoryLoaded);
   onDirectoryOpened();
 }
 
@@ -1559,8 +1559,8 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
     indexes.append(m_fileProxyModelRootIndex);
   }
 
-  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-          this, SLOT(batchImportNextFile(QPersistentModelIndex)));
+  connect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
+          this, &Kid3Application::batchImportNextFile);
   m_fileProxyModelIterator->start(indexes);
 }
 
@@ -1612,8 +1612,8 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
   if (terminated) {
     m_fileProxyModelIterator->abort();
     disconnect(m_fileProxyModelIterator,
-               SIGNAL(nextReady(QPersistentModelIndex)),
-               this, SLOT(batchImportNextFile(QPersistentModelIndex)));
+               &FileProxyModelIterator::nextReady,
+               this, &Kid3Application::batchImportNextFile);
     if (!m_batchImporter->isAborted()) {
       if (!m_batchImportTrackDataList.isEmpty()) {
         m_batchImportAlbums.append(m_batchImportTrackDataList);
@@ -2691,8 +2691,8 @@ void Kid3Application::scheduleRenameActions()
     indexes.append(m_fileProxyModelRootIndex);
   }
 
-  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-          this, SLOT(scheduleNextRenameAction(QPersistentModelIndex)));
+  connect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
+          this, &Kid3Application::scheduleNextRenameAction);
   m_fileProxyModelIterator->start(indexes);
 }
 
@@ -2715,8 +2715,8 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
   }
   if (terminated) {
     m_fileProxyModelIterator->abort();
-    disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-               this, SLOT(scheduleNextRenameAction(QPersistentModelIndex)));
+    disconnect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
+               this, &Kid3Application::scheduleNextRenameAction);
     emit renameActionsScheduled();
   }
 }
@@ -2758,8 +2758,8 @@ bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
  */
 void Kid3Application::applyFilterAfterReset()
 {
-  disconnect(this, SIGNAL(directoryOpened()),
-             this, SLOT(applyFilterAfterReset()));
+  disconnect(this, &Kid3Application::directoryOpened,
+             this, &Kid3Application::applyFilterAfterReset);
   proceedApplyingFilter();
 }
 
@@ -2780,8 +2780,8 @@ void Kid3Application::applyFilter(FileFilter& fileFilter)
    * is recreated in order to avoid calling invalidateFilter().
    */
   if (m_filterTotal - m_filterPassed > 4000) {
-    connect(this, SIGNAL(directoryOpened()),
-            this, SLOT(applyFilterAfterReset()));
+    connect(this, &Kid3Application::directoryOpened,
+            this, &Kid3Application::applyFilterAfterReset);
     openDirectoryAfterReset();
   } else {
     m_fileProxyModel->disableFilteringOutIndexes();
@@ -2805,8 +2805,8 @@ void Kid3Application::proceedApplyingFilter()
 
   m_lastProcessedDirName.clear();
   if (!justClearingFilter) {
-    connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-            this, SLOT(filterNextFile(QPersistentModelIndex)));
+    connect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
+            this, &Kid3Application::filterNextFile);
     m_fileProxyModelIterator->start(m_fileProxyModelRootIndex);
   } else {
     emit fileFiltered(FileFilter::Finished, QString(),
@@ -2874,8 +2874,8 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
     m_fileProxyModel->applyFilteringOutIndexes();
     setFiltered(!m_fileFilter->isEmptyFilterExpression());
 
-    disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
-               this, SLOT(filterNextFile(QPersistentModelIndex)));
+    disconnect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
+               this, &Kid3Application::filterNextFile);
   }
 }
 
@@ -2930,8 +2930,8 @@ QString Kid3Application::performRenameActions()
  */
 void Kid3Application::tryRenameActionsAfterReset()
 {
-  connect(this, SIGNAL(directoryOpened()),
-          this, SLOT(performRenameActionsAfterReset()));
+  connect(this, &Kid3Application::directoryOpened,
+          this, &Kid3Application::performRenameActionsAfterReset);
   openDirectoryAfterReset();
 }
 
@@ -2940,8 +2940,8 @@ void Kid3Application::tryRenameActionsAfterReset()
  */
 void Kid3Application::performRenameActionsAfterReset()
 {
-  disconnect(this, SIGNAL(directoryOpened()),
-             this, SLOT(performRenameActionsAfterReset()));
+  disconnect(this, &Kid3Application::directoryOpened,
+             this, &Kid3Application::performRenameActionsAfterReset);
   performRenameActions();
 }
 
@@ -2959,7 +2959,7 @@ void Kid3Application::tryRenameAfterReset(const QString& oldName,
 {
   m_renameAfterResetOldName = oldName;
   m_renameAfterResetNewName = newName;
-  connect(this, SIGNAL(directoryOpened()), this, SLOT(renameAfterReset()));
+  connect(this, &Kid3Application::directoryOpened, this, &Kid3Application::renameAfterReset);
   openDirectoryAfterReset();
 }
 
@@ -2968,7 +2968,7 @@ void Kid3Application::tryRenameAfterReset(const QString& oldName,
  */
 void Kid3Application::renameAfterReset()
 {
-  disconnect(this, SIGNAL(directoryOpened()), this, SLOT(renameAfterReset()));
+  disconnect(this, &Kid3Application::directoryOpened, this, &Kid3Application::renameAfterReset);
   if (!m_renameAfterResetOldName.isEmpty() &&
       !m_renameAfterResetNewName.isEmpty()) {
     Utils::safeRename(m_renameAfterResetOldName, m_renameAfterResetNewName);
@@ -3758,8 +3758,8 @@ void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
     selection.select(index, index);
   }
   disconnect(m_fileSelectionModel,
-             SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-             this, SIGNAL(fileSelectionChanged()));
+             &QItemSelectionModel::selectionChanged,
+             this, &Kid3Application::fileSelectionChanged);
   m_fileSelectionModel->select(selection,
                    QItemSelectionModel::Clear | QItemSelectionModel::Select |
                    QItemSelectionModel::Rows);
@@ -3768,8 +3768,8 @@ void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
         QItemSelectionModel::Select | QItemSelectionModel::Rows);
   }
   connect(m_fileSelectionModel,
-          SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SIGNAL(fileSelectionChanged()));
+          &QItemSelectionModel::selectionChanged,
+          this, &Kid3Application::fileSelectionChanged);
 }
 
 /**

@@ -61,20 +61,20 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &TagImportDialog::showHelp);
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &TagImportDialog::saveConfig);
   buttonLayout->addStretch();
   QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
   applyButton->setAutoDefault(false);
   buttonLayout->addWidget(applyButton);
-  connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+  connect(applyButton, &QAbstractButton::clicked, this, &TagImportDialog::apply);
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vboxLayout->addLayout(buttonLayout);
 }
 

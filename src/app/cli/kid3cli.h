@@ -154,6 +154,11 @@ public slots:
    */
   void updateSelection();
 
+  /**
+   * Called when a command is finished.
+   */
+  void onCommandFinished();
+
 protected:
   /**
    * Process command line.
@@ -167,11 +172,6 @@ private slots:
    * been opened. Start execution of commands if existing.
    */
   void onInitialDirectoryOpened();
-
-  /**
-   * Called when a command is finished.
-   */
-  void onCommandFinished();
 
   /**
    * Called when an argument command is finished.

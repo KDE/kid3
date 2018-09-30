@@ -103,12 +103,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &NumberTracksDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &NumberTracksDialog::saveConfig);
 
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
@@ -118,12 +118,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   okButton->setAutoDefault(false);
   okButton->setDefault(true);
   hlayout->addWidget(okButton);
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
 
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(cancelButton);
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);
 }

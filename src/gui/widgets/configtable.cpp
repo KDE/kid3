@@ -40,8 +40,8 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
   setAddButtonText(tr("&Add"));
   hideEditButton();
   m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(m_tableView, SIGNAL(customContextMenuRequested(QPoint)),
-      this, SLOT(customContextMenu(QPoint)));
+  connect(m_tableView, &QWidget::customContextMenuRequested,
+      this, &ConfigTable::customContextMenu);
 }
 
 /**
@@ -144,7 +144,7 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
     action = menu.addAction(tr("&Clear row"));
     if (action) action->setData((row << 2) | 2);
   }
-  connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
+  connect(&menu, &QMenu::triggered, this, &ConfigTable::executeAction);
   menu.setMouseTracking(true);
   menu.exec(pos);
 }

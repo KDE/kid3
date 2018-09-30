@@ -70,9 +70,9 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
 
   setOptions(HaveHelpButton | HaveCustomButton1);
   setButtonText(CustomButton1, tr("&Save Settings"));
-  connect(this, SIGNAL(helpRequested()), this, SLOT(showHelp()));
-  connect(this, SIGNAL(customButtonClicked(int)), this, SLOT(saveConfig()));
-  connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(pageChanged()));
+  connect(this, &QWizard::helpRequested, this, &RenDirDialog::showHelp);
+  connect(this, &QWizard::customButtonClicked, this, &RenDirDialog::saveConfig);
+  connect(this, &QWizard::currentIdChanged, this, &RenDirDialog::pageChanged);
 }
 
 /**
@@ -120,7 +120,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_tagversionComboBox->setCurrentIndex(
         m_tagversionComboBox->findData(renDirCfg.renDirSource()));
   connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-  connect(m_formatComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_formatComboBox, &QComboBox::editTextChanged, this, &RenDirDialog::slotUpdateNewDirname);
 
   m_currentDirLabel = new QLabel(page);
   m_newDirLabel = new QLabel(page);

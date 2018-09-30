@@ -73,14 +73,14 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_numModifiedFiles(0), m_isLoading(false)
 {
   setObjectName(QLatin1String("FileProxyModel"));
-  connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)),
-          this, SLOT(updateInsertedRows(QModelIndex,int,int)));
+  connect(this, &QAbstractItemModel::rowsInserted,
+          this, &FileProxyModel::updateInsertedRows);
   m_loadTimer->setSingleShot(true);
   m_loadTimer->setInterval(1000);
-  connect(m_loadTimer, SIGNAL(timeout()), this, SLOT(onDirectoryLoaded()));
+  connect(m_loadTimer, &QTimer::timeout, this, &FileProxyModel::onDirectoryLoaded);
   m_sortTimer->setSingleShot(true);
   m_sortTimer->setInterval(100);
-  connect(m_sortTimer, SIGNAL(timeout()), this, SLOT(emitSortingFinished()));
+  connect(m_sortTimer, &QTimer::timeout, this, &FileProxyModel::emitSortingFinished);
 }
 
 /**
@@ -340,17 +340,17 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
   if (fsModel != m_fsModel) {
     if (m_fsModel) {
       m_isLoading = false;
-      disconnect(m_fsModel, SIGNAL(rootPathChanged(QString)),
-                 this, SLOT(onStartLoading()));
-      disconnect(m_fsModel, SIGNAL(directoryLoaded(QString)),
-                 this, SLOT(onDirectoryLoaded()));
+      disconnect(m_fsModel, &QFileSystemModel::rootPathChanged,
+                 this, &FileProxyModel::onStartLoading);
+      disconnect(m_fsModel, &QFileSystemModel::directoryLoaded,
+                 this, &FileProxyModel::onDirectoryLoaded);
     }
     m_fsModel = fsModel;
     if (m_fsModel) {
-      connect(m_fsModel, SIGNAL(rootPathChanged(QString)),
-              this, SLOT(onStartLoading()));
-      connect(m_fsModel, SIGNAL(directoryLoaded(QString)),
-              this, SLOT(onDirectoryLoaded()));
+      connect(m_fsModel, &QFileSystemModel::rootPathChanged,
+              this, &FileProxyModel::onStartLoading);
+      connect(m_fsModel, &QFileSystemModel::directoryLoaded,
+              this, &FileProxyModel::onDirectoryLoaded);
     }
   }
   QSortFilterProxyModel::setSourceModel(sourceModel);

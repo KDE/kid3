@@ -60,8 +60,8 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   m_findEdit = new QComboBox;
   m_findEdit->setEditable(true);
   m_findEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
-  connect(m_findEdit->lineEdit(), SIGNAL(returnPressed()),
-          this, SLOT(onReturnPressedInFind()));
+  connect(m_findEdit->lineEdit(), &QLineEdit::returnPressed,
+          this, &FindReplaceDialog::onReturnPressedInFind);
   findLabel->setBuddy(m_findEdit);
   m_findButton = new QPushButton(tr("&Find"));
   m_findButton->setAutoDefault(true);
@@ -70,15 +70,15 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   m_replaceEdit = new QComboBox;
   m_replaceEdit->setEditable(true);
   m_replaceEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
-  connect(m_replaceEdit->lineEdit(), SIGNAL(returnPressed()),
-          this, SLOT(onReturnPressedInReplace()));
+  connect(m_replaceEdit->lineEdit(), &QLineEdit::returnPressed,
+          this, &FindReplaceDialog::onReturnPressedInReplace);
   m_replaceLabel->setBuddy(m_replaceEdit);
   m_replaceButton = new QPushButton(tr("&Replace"));
   m_replaceButton->setAutoDefault(true);
-  connect(m_replaceButton, SIGNAL(clicked()), this, SLOT(replace()));
+  connect(m_replaceButton, &QAbstractButton::clicked, this, &FindReplaceDialog::replace);
   m_replaceAllButton = new QPushButton(tr("Replace &all"));
   m_replaceAllButton->setAutoDefault(false);
-  connect(m_replaceAllButton, SIGNAL(clicked()), this, SLOT(replaceAll()));
+  connect(m_replaceAllButton, &QAbstractButton::clicked, this, &FindReplaceDialog::replaceAll);
 
   findReplaceLayout->addWidget(findLabel, 0, 0);
   findReplaceLayout->addWidget(m_findEdit, 0, 1);
@@ -109,8 +109,8 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   tagsLayout->addWidget(m_allFramesCheckBox);
   auto tagsListView = new QListView;
   tagsListView->setDisabled(true);
-  connect(m_allFramesCheckBox, SIGNAL(toggled(bool)),
-          tagsListView, SLOT(setDisabled(bool)));
+  connect(m_allFramesCheckBox, &QAbstractButton::toggled,
+          tagsListView, &QWidget::setDisabled);
   m_tagsModel = new CheckableStringListModel(tagsGroupBox);
   QStringList unifiedFrameNames;
   unifiedFrameNames.append(tr("Filename"));
@@ -128,19 +128,19 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   QPushButton* helpButton = new QPushButton(tr("&Help"));
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(helpButton, &QAbstractButton::clicked, this, &FindReplaceDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"));
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(saveButton, &QAbstractButton::clicked, this, &FindReplaceDialog::saveConfig);
 
   hlayout->addStretch();
 
   QPushButton* closeButton = new QPushButton(tr("&Close"));
   closeButton->setAutoDefault(false);
   hlayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);
 

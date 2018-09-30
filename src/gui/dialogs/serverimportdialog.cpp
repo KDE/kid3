@@ -70,7 +70,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   findLayout->addWidget(m_artistLineEdit);
   findLayout->addWidget(m_albumLineEdit);
   findLayout->addWidget(m_findButton);
-  connect(m_findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
+  connect(m_findButton, &QAbstractButton::clicked, this, &ServerImportDialog::slotFind);
   vlayout->addLayout(findLayout);
 
   auto serverLayout = new QHBoxLayout;
@@ -110,14 +110,14 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(m_helpButton);
-  connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(m_helpButton, &QAbstractButton::clicked, this, &ServerImportDialog::showHelp);
   buttonLayout->addWidget(m_saveButton);
-  connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(m_saveButton, &QAbstractButton::clicked, this, &ServerImportDialog::saveConfig);
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   buttonLayout->addItem(hspacer);
   buttonLayout->addWidget(closeButton);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vlayout->addLayout(buttonLayout);
 
   m_statusBar = new QStatusBar(this);
@@ -140,22 +140,22 @@ ServerImportDialog::~ServerImportDialog()
 void ServerImportDialog::setImportSource(ServerImporter* source)
 {
   if (m_source) {
-    disconnect(m_source, SIGNAL(progress(QString,int,int)),
-        this, SLOT(showStatusMessage(QString)));
-    disconnect(m_source, SIGNAL(findFinished(QByteArray)),
-        this, SLOT(slotFindFinished(QByteArray)));
-    disconnect(m_source, SIGNAL(albumFinished(QByteArray)),
-        this, SLOT(slotAlbumFinished(QByteArray)));
+    disconnect(m_source, &HttpClient::progress,
+        this, &ServerImportDialog::showStatusMessage);
+    disconnect(m_source, &ImportClient::findFinished,
+        this, &ServerImportDialog::slotFindFinished);
+    disconnect(m_source, &ImportClient::albumFinished,
+        this, &ServerImportDialog::slotAlbumFinished);
   }
   m_source = source;
 
   if (m_source) {
-    connect(m_source, SIGNAL(progress(QString,int,int)),
-        this, SLOT(showStatusMessage(QString)));
-    connect(m_source, SIGNAL(findFinished(QByteArray)),
-        this, SLOT(slotFindFinished(QByteArray)));
-    connect(m_source, SIGNAL(albumFinished(QByteArray)),
-        this, SLOT(slotAlbumFinished(QByteArray)));
+    connect(m_source, &HttpClient::progress,
+        this, &ServerImportDialog::showStatusMessage);
+    connect(m_source, &ImportClient::findFinished,
+        this, &ServerImportDialog::slotFindFinished);
+    connect(m_source, &ImportClient::albumFinished,
+        this, &ServerImportDialog::slotAlbumFinished);
 
     setWindowTitle(QCoreApplication::translate("@default", m_source->name()));
     if (m_source->defaultServer()) {

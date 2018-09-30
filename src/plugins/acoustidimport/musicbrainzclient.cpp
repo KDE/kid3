@@ -183,10 +183,10 @@ MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
   m_state(Idle), m_currentIndex(-1)
 {
   m_headers["User-Agent"] = "curl/7.52.1";
-  connect(httpClient(), SIGNAL(bytesReceived(QByteArray)),
-          this, SLOT(receiveBytes(QByteArray)));
-  connect(m_fingerprintCalculator, SIGNAL(finished(QString,int,int)),
-          this, SLOT(receiveFingerprint(QString,int,int)));
+  connect(httpClient(), &HttpClient::bytesReceived,
+          this, &MusicBrainzClient::receiveBytes);
+  connect(m_fingerprintCalculator, &FingerprintCalculator::finished,
+          this, &MusicBrainzClient::receiveFingerprint);
 }
 
 /**

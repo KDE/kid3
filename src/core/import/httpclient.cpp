@@ -71,7 +71,7 @@ HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
 {
   setObjectName(QLatin1String("HttpClient"));
   m_requestTimer->setSingleShot(true);
-  connect(m_requestTimer, SIGNAL(timeout()), this, SLOT(delayedSendRequest()));
+  connect(m_requestTimer, &QTimer::timeout, this, &HttpClient::delayedSendRequest);
 }
 
 /**
@@ -117,10 +117,10 @@ void HttpClient::networkReplyFinished()
           QNetworkRequest request(redirectUrl);
           reply = m_netMgr->get(request);
           m_reply = reply;
-          connect(reply, SIGNAL(finished()),
-                  this, SLOT(networkReplyFinished()));
-          connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-                  this, SLOT(networkReplyProgress(qint64,qint64)));
+          connect(reply, &QNetworkReply::finished,
+                  this, &HttpClient::networkReplyFinished);
+          connect(reply, &QNetworkReply::downloadProgress,
+                  this, &HttpClient::networkReplyProgress);
           connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
                   this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
           return;
@@ -205,10 +205,10 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
   }
   QNetworkReply* reply = m_netMgr->get(request);
   m_reply = reply;
-  connect(reply, SIGNAL(finished()),
-          this, SLOT(networkReplyFinished()));
-  connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-          this, SLOT(networkReplyProgress(qint64,qint64)));
+  connect(reply, &QNetworkReply::finished,
+          this, &HttpClient::networkReplyFinished);
+  connect(reply, &QNetworkReply::downloadProgress,
+          this, &HttpClient::networkReplyProgress);
   connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
   s_lastRequestTime[host] = now;

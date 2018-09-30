@@ -58,12 +58,12 @@ KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
                      QDialogButtonBox::Help);
   if (const QDialogButtonBox* buttons = buttonBox()) {
     if (QPushButton* helpButton = buttons->button(QDialogButtonBox::Help)) {
-      connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
+      connect(helpButton, &QAbstractButton::clicked, this, &KdeConfigDialog::slotHelp);
     }
     if (QPushButton* defaultsButton =
         buttons->button(QDialogButtonBox::RestoreDefaults)) {
-      connect(defaultsButton, SIGNAL(clicked()),
-              m_pages, SLOT(setDefaultConfig()));
+      connect(defaultsButton, &QAbstractButton::clicked,
+              m_pages, &ConfigDialogPages::setDefaultConfig);
     }
   }
 }

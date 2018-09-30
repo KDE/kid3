@@ -58,8 +58,8 @@ QWidget* TimeStampDelegate::createEditor(
   auto timeEdit = new QTimeEdit(parent);
   timeEdit->setDisplayFormat(time.hour() == 0 ? QLatin1String("mm:ss.zzz")
                                               : QLatin1String("hh:mm:ss.zzz"));
-  connect(timeEdit, SIGNAL(editingFinished()),
-          this, SLOT(commitAndCloseEditor()));
+  connect(timeEdit, &QAbstractSpinBox::editingFinished,
+          this, &TimeStampDelegate::commitAndCloseEditor);
   return timeEdit;
 }
 

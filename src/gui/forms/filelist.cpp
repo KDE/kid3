@@ -84,10 +84,10 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
   setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
   setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this, SIGNAL(customContextMenuRequested(QPoint)),
-      this, SLOT(customContextMenu(QPoint)));
-  connect(this, SIGNAL(doubleClicked(QModelIndex)),
-          this, SLOT(onDoubleClicked(QModelIndex)));
+  connect(this, &QWidget::customContextMenuRequested,
+      this, &FileList::customContextMenu);
+  connect(this, &QAbstractItemView::doubleClicked,
+          this, &FileList::onDoubleClicked);
 }
 
 /**
@@ -207,25 +207,25 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
       PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
     }
     QMenu menu(this);
-    menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
-    menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
+    menu.addAction(tr("&Expand all"), m_mainWin, &BaseMainWindowImpl::expandFileList);
+    menu.addAction(tr("&Collapse all"), this, &QTreeView::collapseAll);
     if (m_renameAction) {
       menu.addAction(m_renameAction);
     }
     if (m_deleteAction) {
       menu.addAction(m_deleteAction);
     }
-    menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+    menu.addAction(tr("&Play"), m_mainWin, &BaseMainWindowImpl::slotPlayAudio);
     if (isPlaylist) {
       QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);
       editPlaylistAction->setData(path);
-      connect(editPlaylistAction, SIGNAL(triggered()),
-              this, SLOT(editPlaylist()));
+      connect(editPlaylistAction, &QAction::triggered,
+              this, &FileList::editPlaylist);
       menu.addAction(editPlaylistAction);
     }
-    menu.addAction(tr("&Open"), this, SLOT(openFile()));
+    menu.addAction(tr("&Open"), this, &FileList::openFile);
     menu.addAction(tr("Open Containing &Folder"),
-                   this, SLOT(openContainingFolder()));
+                   this, &FileList::openContainingFolder);
     QMenu* userMenu = &menu;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
