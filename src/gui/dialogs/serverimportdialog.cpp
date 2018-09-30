@@ -99,8 +99,9 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_albumListBox = new QListView(this);
   m_albumListBox->setEditTriggers(QAbstractItemView::NoEditTriggers);
   vlayout->addWidget(m_albumListBox);
-  connect(m_albumListBox, SIGNAL(activated(QModelIndex)),
-      this, SLOT(requestTrackList(QModelIndex)));
+  connect(m_albumListBox, &QAbstractItemView::activated,
+      this, static_cast<void (ServerImportDialog::*)(const QModelIndex&)>(
+            &ServerImportDialog::requestTrackList));
 
   auto buttonLayout = new QHBoxLayout;
   m_helpButton = new QPushButton(tr("&Help"), this);

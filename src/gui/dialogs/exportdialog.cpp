@@ -110,8 +110,9 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   }
   srcLabel->setBuddy(m_srcComboBox);
   butlayout->addWidget(m_srcComboBox);
-  connect(m_srcComboBox, SIGNAL(activated(int)),
-          this, SLOT(onSrcComboBoxActivated(int)));
+  connect(m_srcComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated),
+          this, &ExportDialog::onSrcComboBoxActivated);
 
   vlayout->addLayout(butlayout);
 

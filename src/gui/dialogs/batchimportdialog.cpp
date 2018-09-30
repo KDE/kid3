@@ -196,8 +196,9 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
   m_profileComboBox->setEditable(true);
-  connect(m_profileComboBox, SIGNAL(activated(int)),
-          this, SLOT(changeProfile(int)));
+  connect(m_profileComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated),
+          this, &BatchImportDialog::changeProfile);
   connect(m_profileComboBox, &QComboBox::editTextChanged,
           this, &BatchImportDialog::changeProfileName);
   profileLabel->setBuddy(m_profileComboBox);

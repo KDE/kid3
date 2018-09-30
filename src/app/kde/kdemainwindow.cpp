@@ -81,46 +81,46 @@ void KdeMainWindow::initActions()
 {
   KActionCollection* collection = actionCollection();
   QAction* action = KStandardAction::open(
-      impl(), SLOT(slotFileOpen()), collection);
+      impl(), &BaseMainWindowImpl::slotFileOpen, collection);
   action->setStatusTip(tr("Open files"));
   m_fileOpenRecent = KStandardAction::openRecent(
-      this, SLOT(slotFileOpenRecentUrl(QUrl)), collection);
+      this, &KdeMainWindow::slotFileOpenRecentUrl, collection);
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
   action = KStandardAction::revert(
-      app(), SLOT(revertFileModifications()), collection);
+      app(), &Kid3Application::revertFileModifications, collection);
   action->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
   collection->setDefaultShortcuts(action,
                           KStandardShortcut::shortcut(KStandardShortcut::Undo));
   action = KStandardAction::save(
-      impl(), SLOT(slotFileSave()), collection);
+      impl(), &BaseMainWindowImpl::slotFileSave, collection);
   action->setStatusTip(tr("Saves the changed files"));
   action = KStandardAction::quit(
-      impl(), SLOT(slotFileQuit()), collection);
+      impl(), &BaseMainWindowImpl::slotFileQuit, collection);
   action->setStatusTip(tr("Quits the application"));
   action = KStandardAction::selectAll(
-      form(), SLOT(selectAllFiles()), collection);
+      form(), &Kid3Form::selectAllFiles, collection);
   action->setStatusTip(tr("Select all files"));
   action->setShortcut(QKeySequence(QLatin1String("Alt+Shift+A")));
   action = KStandardAction::deselect(
-      form(), SLOT(deselectAllFiles()), collection);
+      form(), &Kid3Form::deselectAllFiles, collection);
   action->setStatusTip(tr("Deselect all files"));
   action = KStandardAction::find(
-      impl(), SLOT(find()), collection);
+      impl(), &BaseMainWindowImpl::find, collection);
   action->setStatusTip(tr("Find"));
   action = KStandardAction::replace(
-      impl(), SLOT(findReplace()), collection);
+      impl(), &BaseMainWindowImpl::findReplace, collection);
   action->setStatusTip(tr("Find and replace"));
   setStandardToolBarMenuEnabled(true);
   createStandardStatusBarAction();
   action = KStandardAction::keyBindings(
-    this, SLOT(slotSettingsShortcuts()), collection);
+    this, &KdeMainWindow::slotSettingsShortcuts, collection);
   action->setStatusTip(tr("Configure Shortcuts"));
   action = KStandardAction::configureToolbars(
-    this, SLOT(slotSettingsToolbars()), collection);
+    this, &KdeMainWindow::slotSettingsToolbars, collection);
   action->setStatusTip(tr("Configure Toolbars"));
   action = KStandardAction::preferences(
-      this, SLOT(slotSettingsConfigure()), collection);
+      this, &KdeMainWindow::slotSettingsConfigure, collection);
   action->setStatusTip(tr("Preferences dialog"));
 
   action = new QAction(QIcon::fromTheme(QLatin1String("document-open")),
@@ -248,13 +248,13 @@ void KdeMainWindow::initActions()
   collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Prior));
   collection->addAction(QLatin1String("previous_file"), action);
-  connect(action, SIGNAL(triggered()), form(), SLOT(previousFile()));
+  connect(action, &QAction::triggered, form(), &Kid3Form::selectPreviousTaggedFile);
   action = new QAction(QIcon::fromTheme(QLatin1String("go-next")), tr("&Next File"), this);
   action->setStatusTip(tr("Select next file"));
   collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Next));
   collection->addAction(QLatin1String("next_file"), action);
-  connect(action, SIGNAL(triggered()), form(), SLOT(nextFile()));
+  connect(action, &QAction::triggered, form(), &Kid3Form::selectNextTaggedFile);
   FOR_ALL_TAGS(tagNr) {
     Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
           tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;

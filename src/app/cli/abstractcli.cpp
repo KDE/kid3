@@ -98,7 +98,7 @@ void AbstractCli::terminate()
   flushStandardOutput();
   m_io->stop();
   if (m_returnCode == 0) {
-    QTimer::singleShot(0, qApp, SLOT(quit()));
+    QTimer::singleShot(0, qApp, &QCoreApplication::quit);
   } else {
     QTimer::singleShot(0, this, &AbstractCli::quitApplicationWithReturnCode);
   }

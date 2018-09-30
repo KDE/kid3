@@ -119,7 +119,9 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
     connect(m_applicationFontButton, &QAbstractButton::clicked, this, &ConfigDialog::slotSelectFont);
-    connect(m_applicationStyleComboBox, SIGNAL(activated(QString)), this, SLOT(slotSelectStyle(QString)));
+    connect(m_applicationStyleComboBox,
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::activated),
+            this, &ConfigDialog::slotSelectStyle);
     connect(m_useApplicationFontCheckBox, &QAbstractButton::toggled, m_applicationFontButton, &QWidget::setEnabled);
     connect(m_useApplicationStyleCheckBox, &QAbstractButton::toggled, m_applicationStyleComboBox, &QWidget::setEnabled);
     vlayout->addLayout(fontStyleLayout);

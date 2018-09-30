@@ -121,8 +121,10 @@ void HttpClient::networkReplyFinished()
                   this, &HttpClient::networkReplyFinished);
           connect(reply, &QNetworkReply::downloadProgress,
                   this, &HttpClient::networkReplyProgress);
-          connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
-                  this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
+          connect(reply,
+                  static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(
+                    &QNetworkReply::error),
+                  this, &HttpClient::networkReplyError);
           return;
         }
       }
@@ -209,8 +211,10 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
           this, &HttpClient::networkReplyFinished);
   connect(reply, &QNetworkReply::downloadProgress,
           this, &HttpClient::networkReplyProgress);
-  connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
-          this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
+  connect(reply,
+          static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(
+            &QNetworkReply::error),
+          this, &HttpClient::networkReplyError);
   s_lastRequestTime[host] = now;
   emitProgress(tr("Request sent..."), 0, 0);
 }

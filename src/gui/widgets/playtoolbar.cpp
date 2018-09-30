@@ -107,8 +107,9 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
 
   connect(mediaPlayer, &QMediaPlayer::stateChanged,
           this, &PlayToolBar::stateChanged);
-  connect(mediaPlayer, SIGNAL(error(QMediaPlayer::Error)),
-          this, SLOT(error(QMediaPlayer::Error)));
+  connect(mediaPlayer, static_cast<void (QMediaPlayer::*)(QMediaPlayer::Error)>(
+            &QMediaPlayer::error),
+          this, &PlayToolBar::error);
   connect(mediaPlayer, &QMediaPlayer::durationChanged,
           this, &PlayToolBar::durationChanged);
   connect(mediaPlayer, &QMediaPlayer::volumeChanged,

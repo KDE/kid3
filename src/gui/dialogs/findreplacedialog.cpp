@@ -65,7 +65,7 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   findLabel->setBuddy(m_findEdit);
   m_findButton = new QPushButton(tr("&Find"));
   m_findButton->setAutoDefault(true);
-  connect(m_findButton, SIGNAL(clicked()), this, SLOT(find()));
+  connect(m_findButton, &QAbstractButton::clicked, this, &FindReplaceDialog::find);
   m_replaceLabel = new QLabel(tr("Re&place:"));
   m_replaceEdit = new QComboBox;
   m_replaceEdit->setEditable(true);

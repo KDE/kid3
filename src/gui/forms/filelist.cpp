@@ -177,7 +177,7 @@ void FileList::initUserActions()
       QAction* action = oldUserActions.take(name);
       if (!action) {
         action = new QAction(text, this);
-        connect(action, SIGNAL(triggered()), this, SLOT(executeAction()));
+        connect(action, &QAction::triggered, this, &FileList::executeSenderAction);
         emit userActionAdded(name, action);
       }
       action->setData(id);
@@ -421,6 +421,16 @@ void FileList::executeAction(QAction* action)
       ++id;
     }
   }
+}
+
+/**
+ * Execute context menu action which sent signal.
+ * Same as executeAction() with default arguments, provided for functor-based
+ * connections.
+ */
+void FileList::executeSenderAction()
+{
+  executeAction(nullptr);
 }
 
 /**

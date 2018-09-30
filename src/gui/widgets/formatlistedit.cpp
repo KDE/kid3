@@ -57,8 +57,9 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
       m_formatComboBox = new QComboBox;
       m_formatComboBox->setEditable(true);
       m_formatComboBox->setInsertPolicy(QComboBox::NoInsert);
-      connect(m_formatComboBox, SIGNAL(activated(int)),
-              this, SLOT(updateLineEdits(int)));
+      connect(m_formatComboBox, static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::activated),
+              this, &FormatListEdit::updateLineEdits);
       connect(m_formatComboBox->lineEdit(), &QLineEdit::editingFinished,
               this, &FormatListEdit::commitCurrentEdits);
       if (!toolTip.isEmpty())

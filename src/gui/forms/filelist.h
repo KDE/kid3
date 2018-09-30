@@ -133,6 +133,13 @@ private slots:
   void executeAction(QAction* action = nullptr);
 
   /**
+   * Execute context menu action which sent signal.
+   * Same as executeAction() with default arguments, provided for functor-based
+   * connections.
+   */
+  void executeSenderAction();
+
+  /**
    * Display a custom context menu with operations for selected files.
    *
    * @param pos  position where context menu is drawn on screen

@@ -1402,6 +1402,14 @@ private slots:
   void onFrameAdded(const Frame* frame, Frame::TagNumber tagNr = Frame::Tag_2);
 
   /**
+   * Called by framelist when a frame is added.
+   * Same as onFrameAdded() with default argument, provided for functor-based
+   * connections.
+   * @param frame added frame, 0 if canceled
+   */
+  void onTag2FrameAdded(const Frame* frame);
+
+  /**
    * If an image provider is used, update its picture and change the
    * coverArtImageId property if the picture of the selection changed.
    * This can be used to change a QML image.

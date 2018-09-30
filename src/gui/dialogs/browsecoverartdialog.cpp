@@ -144,7 +144,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(browseButton);
   hlayout->addWidget(cancelButton);
-  connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(browseButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);

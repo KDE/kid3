@@ -92,7 +92,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   hlayout->addWidget(closeButton);
   connect(m_applyButton, &QAbstractButton::clicked, this, &FilterDialog::applyOrAbortFilter);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
-  connect(this, SIGNAL(rejected()), &m_fileFilter, SLOT(abort()));
+  connect(this, &FilterDialog::rejected, &m_fileFilter, &FileFilter::abort);
 
   vlayout->addLayout(hlayout);
 }

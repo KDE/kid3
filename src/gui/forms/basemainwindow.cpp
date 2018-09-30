@@ -677,14 +677,14 @@ void BaseMainWindowImpl::slotBatchImport()
   if (!m_batchImportDialog) {
     m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
                                                 m_w);
-    connect(m_batchImportDialog,
-            SIGNAL(start(BatchImportProfile,Frame::TagVersion)),
-            m_app,
-            SLOT(batchImport(BatchImportProfile,Frame::TagVersion)));
+    connect(m_batchImportDialog, &BatchImportDialog::start,
+            m_app, static_cast<void (Kid3Application::*)(
+              const BatchImportProfile&, Frame::TagVersion)>(
+              &Kid3Application::batchImport));
     connect(m_app->getBatchImporter(), &BatchImporter::reportImportEvent,
             m_batchImportDialog, &BatchImportDialog::showImportEvent);
-    connect(m_batchImportDialog, SIGNAL(abort()),
-            m_app->getBatchImporter(), SLOT(abort()));
+    connect(m_batchImportDialog, &BatchImportDialog::abort,
+            m_app->getBatchImporter(), &BatchImporter::abort);
     connect(m_app->getBatchImporter(), &BatchImporter::finished,
             this, &BaseMainWindowImpl::updateGuiControls);
   }
@@ -937,8 +937,9 @@ void BaseMainWindowImpl::slotFilter()
   if (saveModified()) {
     if (!m_filterDialog) {
       m_filterDialog = new FilterDialog(m_w);
-      connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
-              m_app, SLOT(applyFilter(FileFilter&)));
+      connect(m_filterDialog, &FilterDialog::apply,
+              m_app, static_cast<void (Kid3Application::*)(FileFilter&)>(
+                &Kid3Application::applyFilter));
       connect(m_app, &Kid3Application::fileFiltered,
               m_filterDialog, &FilterDialog::showFilterEvent);
       connect(m_app, &Kid3Application::fileFiltered,
@@ -1012,8 +1013,8 @@ void BaseMainWindowImpl::showPlayToolBar()
 #endif
 #ifdef Q_OS_WIN32
     // Phonon on Windows cannot play if the file is open.
-    connect(m_playToolBar, SIGNAL(aboutToPlay(QString)),
-            m_app, SLOT(closeFileHandle(QString)));
+    connect(m_playToolBar, &PlayToolBar::aboutToPlay,
+            m_app, &Kid3Application::closeFileHandle);
 #endif
   }
   m_playToolBar->show();

@@ -105,7 +105,8 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   hlayout->addWidget(m_findLineEdit);
   auto findAction = new QAction(this);
   findAction->setShortcut(QKeySequence::Find);
-  connect(findAction, SIGNAL(triggered()), m_findLineEdit, SLOT(setFocus()));
+  connect(findAction, &QAction::triggered,
+          m_findLineEdit, static_cast<void (QWidget::*)()>(&QWidget::setFocus));
   m_findLineEdit->addAction(findAction);
   auto findPreviousAction = new QAction(this);
   findPreviousAction->setIcon(

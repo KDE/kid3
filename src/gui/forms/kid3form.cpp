@@ -1011,6 +1011,28 @@ bool Kid3Form::previousFile(bool select, bool onlyTaggedFiles)
 }
 
 /**
+ * Select the next tagged file as the current file.
+ * Same as nextFile() with default arguments, provided for functor-based
+ * connections.
+ * @return true if a next file exists.
+ */
+bool Kid3Form::selectNextTaggedFile()
+{
+  return nextFile(true, true);
+}
+
+/**
+ * Select the previous tagged file as the current file.
+ * Same as previousFile() with default arguments, provided for functor-based
+ * connections.
+ * @return true if a previous file exists.
+ */
+bool Kid3Form::selectPreviousTaggedFile()
+{
+  return previousFile(true, true);
+}
+
+/**
  * Get frame table which is currently in editing state.
  * The returned frame table can be used to restore the editing state after
  * changing the current file.

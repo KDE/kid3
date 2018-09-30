@@ -218,12 +218,14 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   connect(fileButton, &QAbstractButton::clicked, this, &ImportDialog::fromText);
   connect(tagsButton, &QAbstractButton::clicked, this, &ImportDialog::fromTags);
   connect(serverButton, &QAbstractButton::clicked, this, &ImportDialog::fromServer);
-  connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
+  connect(m_serverComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated), this, &ImportDialog::fromServer);
   connect(lengthButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithLength);
   connect(trackButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTrack);
   connect(titleButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTitle);
   connect(m_mismatchCheckBox, &QAbstractButton::toggled, this, &ImportDialog::showPreview);
-  connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
+  connect(m_maxDiffSpinBox, static_cast<void (QSpinBox::*)(int)>(
+            &QSpinBox::valueChanged), this, &ImportDialog::maxDiffChanged);
   connect(this, &QDialog::finished, this, &ImportDialog::hideSubdialogs);
 
   auto hlayout = new QHBoxLayout;
@@ -531,7 +533,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
   auto vHeader = qobject_cast<QHeaderView*>(sender());
   if (vHeader) {
     // revert movement, but avoid recursion
-    disconnect(vHeader, SIGNAL(sectionMoved(int,int,int)), nullptr, nullptr);
+    disconnect(vHeader, &QHeaderView::sectionsMoved, nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
     connect(vHeader, &QHeaderView::sectionMoved, this, &ImportDialog::moveTableRow);
   }

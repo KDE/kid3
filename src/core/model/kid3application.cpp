@@ -267,8 +267,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
         m_framesSelectionModel[tagNr]);
     connect(m_framelist[tagNr], &FrameList::frameEdited,
             this, &Kid3Application::onFrameEdited);
-    connect(m_framelist[tagNr], SIGNAL(frameAdded(const Frame*)),
-            this, SLOT(onFrameAdded(const Frame*)));
+    connect(m_framelist[tagNr], &FrameList::frameAdded,
+            this, &Kid3Application::onTag2FrameAdded);
     m_tagContext[tagNr] = new Kid3ApplicationTagContext(this, tagNr);
   }
   m_selection = new TaggedFileSelection(m_framesModel, this);
@@ -2206,6 +2206,17 @@ void Kid3Application::onFrameAdded(const Frame* frame, Frame::TagNumber tagNr)
     }
     emit selectedFilesUpdated();
   }
+}
+
+/**
+ * Called by framelist when a frame is added.
+ * Same as onFrameAdded() with default argument, provided for functor-based
+ * connections.
+ * @param frame added frame, 0 if canceled
+ */
+void Kid3Application::onTag2FrameAdded(const Frame* frame)
+{
+  onFrameAdded(frame, Frame::Tag_2);
 }
 
 /**

@@ -290,6 +290,22 @@ public slots:
   bool previousFile(bool select = true, bool onlyTaggedFiles = true);
 
   /**
+   * Select the next tagged file as the current file.
+   * Same as nextFile() with default arguments, provided for functor-based
+   * connections.
+   * @return true if a next file exists.
+   */
+  bool selectNextTaggedFile();
+
+  /**
+   * Select the previous tagged file as the current file.
+   * Same as previousFile() with default arguments, provided for functor-based
+   * connections.
+   * @return true if a previous file exists.
+   */
+  bool selectPreviousTaggedFile();
+
+  /**
    * Set the root index of the file list.
    *
    * @param index root index of directory in file system model

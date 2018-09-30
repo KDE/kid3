@@ -336,8 +336,8 @@ void Kid3MainWindow::initActions()
       QIcon(QLatin1String(":/images/go-previous.png"))));
   editPreviousFile->setObjectName(QLatin1String("previous_file"));
   m_shortcutsModel->registerAction(editPreviousFile, menuTitle);
-  connect(editPreviousFile, SIGNAL(triggered()),
-    form(), SLOT(previousFile()));
+  connect(editPreviousFile, &QAction::triggered,
+    form(), &Kid3Form::selectPreviousTaggedFile);
   editMenu->addAction(editPreviousFile);
   toolBar->addAction(editPreviousFile);
 
@@ -349,8 +349,8 @@ void Kid3MainWindow::initActions()
       QIcon(QLatin1String(":/images/go-next.png"))));
   editNextFile->setObjectName(QLatin1String("next_file"));
   m_shortcutsModel->registerAction(editNextFile, menuTitle);
-  connect(editNextFile, SIGNAL(triggered()),
-    form(), SLOT(nextFile()));
+  connect(editNextFile, &QAction::triggered,
+    form(), &Kid3Form::selectNextTaggedFile);
   editMenu->addAction(editNextFile);
   toolBar->addAction(editNextFile);
   editMenu->addSeparator();
@@ -600,12 +600,14 @@ void Kid3MainWindow::initFormActions()
   QString ctx(tr("Filename"));
   FOR_ALL_TAGS(tagNr) {
     QString tagStr = Frame::tagNumberToString(tagNr);
-    initAction(tr("From Tag %1").arg(tagStr),
-               QLatin1String("filename_from_v") + tagStr,
-               app()->tag(tagNr), SLOT(getFilenameFromTags()), ctx);
+    connect(addFormAction(tr("From Tag %1").arg(tagStr),
+                          QLatin1String("filename_from_v") + tagStr, ctx),
+            &QAction::triggered,
+            app()->tag(tagNr), &Kid3ApplicationTagContext::getFilenameFromTags);
   }
-  initAction(tr("Focus"), QLatin1String("filename_focus"),
-             form(), SLOT(setFocusFilename()), ctx);
+  connect(addFormAction(tr("Focus"), QLatin1String("filename_focus"), ctx),
+          &QAction::triggered,
+          form(), &Kid3Form::setFocusFilename);
   FOR_ALL_TAGS(tagNr) {
     Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
           tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
@@ -614,34 +616,45 @@ void Kid3MainWindow::initFormActions()
     Kid3FormTagContext* formTag = form()->tag(tagNr);
     ctx = tr("Tag %1").arg(tagStr);
     tagStr = QLatin1Char('v') + tagStr + QLatin1Char('_');
-    initAction(tr("From Filename"), tagStr + QLatin1String("from_filename"),
-               appTag, SLOT(getTagsFromFilename()), ctx);
+    connect(addFormAction(tr("From Filename"),
+                          tagStr + QLatin1String("from_filename"), ctx),
+            &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::getTagsFromFilename);
     if (otherTagNr < Frame::Tag_NumValues) {
       QString otherTagStr = Frame::tagNumberToString(otherTagNr);
-      initAction(tr("From Tag %1").arg(otherTagStr),
-                 tagStr + QLatin1String("from_v") + otherTagStr,
-                 appTag, SLOT(copyToOtherTag()), ctx);
+      connect(addFormAction(tr("From Tag %1").arg(otherTagStr),
+                            tagStr + QLatin1String("from_v") + otherTagStr, ctx),
+              &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::copyToOtherTag);
     }
-    initAction(tr("Copy"), tagStr + QLatin1String("copy"),
-               appTag, SLOT(copyTags()), ctx);
-    initAction(tr("Paste"), tagStr + QLatin1String("paste"),
-               appTag, SLOT(pasteTags()), ctx);
-    initAction(tr("Remove"), tagStr + QLatin1String("remove"),
-               appTag, SLOT(removeTags()), ctx);
+    connect(addFormAction(tr("Copy"), tagStr + QLatin1String("copy"), ctx),
+            &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::copyTags);
+    connect(addFormAction(tr("Paste"), tagStr + QLatin1String("paste"), ctx),
+            &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::pasteTags);
+    connect(addFormAction(tr("Remove"), tagStr + QLatin1String("remove"), ctx),
+            &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::removeTags);
     if (tagNr != Frame::Tag_Id3v1) {
-      initAction(tr("Edit"), tagStr + QLatin1String("frames_edit"),
-                 appTag, SLOT(editFrame()), ctx);
-      initAction(tr("Add"), tagStr + QLatin1String("frames_add"),
-                 appTag, SLOT(addFrame()), ctx);
-      initAction(tr("Delete"), tagStr + QLatin1String("frames_delete"),
-                 appTag, SLOT(deleteFrame()), ctx);
+      connect(addFormAction(tr("Edit"), tagStr + QLatin1String("frames_edit"), ctx),
+              &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::editFrame);
+      connect(addFormAction(tr("Add"), tagStr + QLatin1String("frames_add"), ctx),
+              &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::addFrame);
+      connect(addFormAction(tr("Delete"), tagStr + QLatin1String("frames_delete"), ctx),
+              &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::deleteFrame);
     }
-    initAction(tr("Focus"), tagStr + QLatin1String("focus"),
-               formTag, SLOT(setFocusTag()), ctx);
+    connect(addFormAction(tr("Focus"), tagStr + QLatin1String("focus"), ctx),
+            &QAction::triggered,
+            formTag, &Kid3FormTagContext::setFocusTag);
   }
   ctx = tr("File List");
-  initAction(tr("Focus"), QLatin1String("filelist_focus"),
-             form(), SLOT(setFocusFileList()), ctx);
+  connect(addFormAction(tr("Focus"), QLatin1String("filelist_focus"), ctx),
+          &QAction::triggered,
+          form(), &Kid3Form::setFocusFileList);
   QAction* renameAction = new QAction(tr("&Rename"), this);
   renameAction->setObjectName(QLatin1String("filelist_rename"));
   renameAction->setShortcut(QKeySequence(Qt::Key_F2));
@@ -657,24 +670,24 @@ void Kid3MainWindow::initFormActions()
   form()->getFileList()->setDeleteAction(deleteAction);
   m_shortcutsModel->registerAction(deleteAction, ctx);
   ctx = tr("Directory List");
-  initAction(tr("Focus"), QLatin1String("dirlist_focus"),
-             form(), SLOT(setFocusDirList()), ctx);
+  connect(addFormAction(tr("Focus"), QLatin1String("dirlist_focus"), ctx),
+          &QAction::triggered,
+          form(), &Kid3Form::setFocusDirList);
 }
 
 /**
- * Init action of form.
+ * Add action of form.
  */
-void Kid3MainWindow::initAction(const QString& text, const QString& name,
-                                const QObject* receiver, const char* slot,
-                                const QString& context)
+QAction* Kid3MainWindow::addFormAction(const QString& text, const QString& name,
+                                       const QString& context)
 {
   auto action = new QAction(form());
   action->setStatusTip(text);
   action->setText(text);
   action->setObjectName(name);
   m_shortcutsModel->registerAction(action, context);
-  connect(action, SIGNAL(triggered()), receiver, slot);
   addAction(action);
+  return action;
 }
 
 /**

@@ -114,8 +114,8 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   applyButton->setAutoDefault(false);
   connect(m_helpButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::showHelp);
   connect(m_saveButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::saveConfig);
-  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(okButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::reject);
   connect(applyButton, &QAbstractButton::clicked, this, &ServerTrackImportDialog::apply);
   vlayout->addLayout(hlayout);
 

@@ -100,14 +100,16 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_actionComboBox->insertItem(ActionRename, tr("Rename Directory"));
   m_actionComboBox->insertItem(ActionCreate, tr("Create Directory"));
   actionLayout->addRow(tr("&Action:"), m_actionComboBox);
-  connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_actionComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
   for (auto it = tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
     m_tagversionComboBox->addItem(it->second, it->first);
   }
   actionLayout->addRow(tr("&Source:"), m_tagversionComboBox);
-  connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_tagversionComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
 
   m_formatComboBox = new QComboBox(page);
   m_formatComboBox->addItems(RenDirConfig::getDefaultDirFormatList());
@@ -119,7 +121,8 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   actionLayout->addRow(tr("&Format:"), m_formatComboBox);
   m_tagversionComboBox->setCurrentIndex(
         m_tagversionComboBox->findData(renDirCfg.renDirSource()));
-  connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_formatComboBox, static_cast<void (QComboBox::*)(int)>(
+            &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
   connect(m_formatComboBox, &QComboBox::editTextChanged, this, &RenDirDialog::slotUpdateNewDirname);
 
   m_currentDirLabel = new QLabel(page);

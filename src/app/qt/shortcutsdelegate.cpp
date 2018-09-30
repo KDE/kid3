@@ -61,10 +61,16 @@ QWidget* ShortcutsDelegate::createEditor(
 {
   QWidget* editor = QItemDelegate::createEditor(parent, option, index);
   if (auto le = qobject_cast<QLineEdit*>(editor)) {
-    editor = new ShortcutsDelegateEditor(le, parent);
-    connect(editor, SIGNAL(clearClicked()), this, SLOT(clearAndCloseEditor()));
-    connect(editor, SIGNAL(resetClicked()), this, SLOT(resetToDefault()));
-    connect(editor, SIGNAL(valueEntered()), this, SLOT(commitAndCloseEditor()));
+    auto shortcutsEditor = new ShortcutsDelegateEditor(le, parent);
+    editor = shortcutsEditor;
+    connect(shortcutsEditor, &ShortcutsDelegateEditor::clearClicked,
+            this, &ShortcutsDelegate::clearAndCloseEditor);
+    connect(shortcutsEditor, &ShortcutsDelegateEditor::clearClicked,
+            this, &ShortcutsDelegate::clearAndCloseEditor);
+    connect(shortcutsEditor, &ShortcutsDelegateEditor::resetClicked,
+            this, &ShortcutsDelegate::resetToDefault);
+    connect(shortcutsEditor, &ShortcutsDelegateEditor::valueEntered,
+            this, &ShortcutsDelegate::commitAndCloseEditor);
   }
   return editor;
 }

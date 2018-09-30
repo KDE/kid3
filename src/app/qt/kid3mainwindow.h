@@ -34,6 +34,7 @@ class QAction;
 class QSessionManager;
 class RecentFilesMenu;
 class ShortcutsModel;
+class Kid3ApplicationTagContext;
 
 /**
  * Kid3 main window.
@@ -171,11 +172,10 @@ private:
   void initFormActions();
 
   /**
-   * Init action of form.
+   * Add action of form.
    */
-  void initAction(const QString& text, const QString& name,
-                  const QObject* receiver, const char* slot,
-                  const QString& context);
+  QAction* addFormAction(const QString& text, const QString& name,
+                         const QString& context);
 
   IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;
