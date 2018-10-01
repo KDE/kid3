@@ -25,6 +25,7 @@
  */
 
 #include "kdemainwindow.h"
+#include <kconfigwidgets_version.h>
 #include <KConfig>
 #include <KToggleAction>
 #include <KStandardAction>
@@ -80,47 +81,107 @@ KdeMainWindow::~KdeMainWindow()
 void KdeMainWindow::initActions()
 {
   KActionCollection* collection = actionCollection();
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   QAction* action = KStandardAction::open(
       impl(), &BaseMainWindowImpl::slotFileOpen, collection);
+#else
+  QAction* action = KStandardAction::open(
+      impl(), SLOT(slotFileOpen()), collection);
+#endif
   action->setStatusTip(tr("Open files"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   m_fileOpenRecent = KStandardAction::openRecent(
       this, &KdeMainWindow::slotFileOpenRecentUrl, collection);
+#else
+  m_fileOpenRecent = KStandardAction::openRecent(
+      this, SLOT(slotFileOpenRecentUrl(QUrl)), collection);
+#endif
   m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::revert(
       app(), &Kid3Application::revertFileModifications, collection);
+#else
+  action = KStandardAction::revert(
+      app(), SLOT(revertFileModifications()), collection);
+#endif
   action->setStatusTip(
       tr("Reverts the changes of all or the selected files"));
   collection->setDefaultShortcuts(action,
                           KStandardShortcut::shortcut(KStandardShortcut::Undo));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::save(
       impl(), &BaseMainWindowImpl::slotFileSave, collection);
+#else
+  action = KStandardAction::save(
+      impl(), SLOT(slotFileSave()), collection);
+#endif
   action->setStatusTip(tr("Saves the changed files"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::quit(
       impl(), &BaseMainWindowImpl::slotFileQuit, collection);
+#else
+  action = KStandardAction::quit(
+      impl(), SLOT(slotFileQuit()), collection);
+#endif
   action->setStatusTip(tr("Quits the application"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::selectAll(
       form(), &Kid3Form::selectAllFiles, collection);
+#else
+  action = KStandardAction::selectAll(
+      form(), SLOT(selectAllFiles()), collection);
+#endif
   action->setStatusTip(tr("Select all files"));
   action->setShortcut(QKeySequence(QLatin1String("Alt+Shift+A")));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::deselect(
       form(), &Kid3Form::deselectAllFiles, collection);
+#else
+  action = KStandardAction::deselect(
+      form(), SLOT(deselectAllFiles()), collection);
+#endif
   action->setStatusTip(tr("Deselect all files"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::find(
       impl(), &BaseMainWindowImpl::find, collection);
+#else
+  action = KStandardAction::find(
+      impl(), SLOT(find()), collection);
+#endif
   action->setStatusTip(tr("Find"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::replace(
       impl(), &BaseMainWindowImpl::findReplace, collection);
+#else
+  action = KStandardAction::replace(
+      impl(), SLOT(findReplace()), collection);
+#endif
   action->setStatusTip(tr("Find and replace"));
   setStandardToolBarMenuEnabled(true);
   createStandardStatusBarAction();
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::keyBindings(
     this, &KdeMainWindow::slotSettingsShortcuts, collection);
+#else
+  action = KStandardAction::keyBindings(
+    this, SLOT(slotSettingsShortcuts()), collection);
+#endif
   action->setStatusTip(tr("Configure Shortcuts"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::configureToolbars(
     this, &KdeMainWindow::slotSettingsToolbars, collection);
+#else
+  action = KStandardAction::configureToolbars(
+    this, SLOT(slotSettingsToolbars()), collection);
+#endif
   action->setStatusTip(tr("Configure Toolbars"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::preferences(
       this, &KdeMainWindow::slotSettingsConfigure, collection);
+#else
+  action = KStandardAction::preferences(
+      this, SLOT(slotSettingsConfigure()), collection);
+#endif
   action->setStatusTip(tr("Preferences dialog"));
 
   action = new QAction(QIcon::fromTheme(QLatin1String("document-open")),

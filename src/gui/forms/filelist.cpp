@@ -207,15 +207,24 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
       PlaylistConfig::formatFromFileExtension(path, &isPlaylist);
     }
     QMenu menu(this);
+#if QT_VERSION >= 0x050600
     menu.addAction(tr("&Expand all"), m_mainWin, &BaseMainWindowImpl::expandFileList);
     menu.addAction(tr("&Collapse all"), this, &QTreeView::collapseAll);
+#else
+    menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
+    menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
+#endif
     if (m_renameAction) {
       menu.addAction(m_renameAction);
     }
     if (m_deleteAction) {
       menu.addAction(m_deleteAction);
     }
+#if QT_VERSION >= 0x050600
     menu.addAction(tr("&Play"), m_mainWin, &BaseMainWindowImpl::slotPlayAudio);
+#else
+    menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+#endif
     if (isPlaylist) {
       QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);
       editPlaylistAction->setData(path);
@@ -223,9 +232,15 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
               this, &FileList::editPlaylist);
       menu.addAction(editPlaylistAction);
     }
+#if QT_VERSION >= 0x050600
     menu.addAction(tr("&Open"), this, &FileList::openFile);
     menu.addAction(tr("Open Containing &Folder"),
                    this, &FileList::openContainingFolder);
+#else
+    menu.addAction(tr("&Open"), this, SLOT(openFile()));
+    menu.addAction(tr("Open Containing &Folder"),
+                   this, SLOT(openContainingFolder()));
+#endif
     QMenu* userMenu = &menu;
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
