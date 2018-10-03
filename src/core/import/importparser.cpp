@@ -111,8 +111,8 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
   };
   int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
   m_pattern = fmt;
-  for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-    m_pattern.replace(QString::fromLatin1(codeToName[i].from), QString::fromLatin1(codeToName[i].to));
+  for (const auto& c2n : codeToName) {
+    m_pattern.replace(QString::fromLatin1(c2n.from), QString::fromLatin1(c2n.to));
   }
 
   m_codePos.clear();

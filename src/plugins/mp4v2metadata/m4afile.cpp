@@ -186,13 +186,13 @@ static QString getNameForType(Frame::Type type)
   static QMap<Frame::Type, QString> typeNameMap;
   if (typeNameMap.empty()) {
     // first time initialization
-    for (unsigned i = 0; i < sizeof(nameTypes) / sizeof(nameTypes[0]); ++i) {
-      if (nameTypes[i].type != Frame::FT_Other) {
-        typeNameMap.insert(nameTypes[i].type, QString::fromLatin1(nameTypes[i].name));
+    for (const auto& nameType : nameTypes) {
+      if (nameType.type != Frame::FT_Other) {
+        typeNameMap.insert(nameType.type, QString::fromLatin1(nameType.name));
       }
     }
-    for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
-      typeNameMap.insert(freeFormNameTypes[i].type, QString::fromLatin1(freeFormNameTypes[i].name));
+    for (const auto& freeFormNameType : freeFormNameTypes) {
+      typeNameMap.insert(freeFormNameType.type, QString::fromLatin1(freeFormNameType.name));
     }
   }
   if (type != Frame::FT_Other) {
@@ -220,8 +220,8 @@ static Frame::Type getTypeForName(const QString& name,
     static QMap<QString, Frame::Type> nameTypeMap;
     if (nameTypeMap.empty()) {
       // first time initialization
-      for (unsigned i = 0; i < sizeof(nameTypes) / sizeof(nameTypes[0]); ++i) {
-        nameTypeMap.insert(QString::fromLatin1(nameTypes[i].name), nameTypes[i].type);
+      for (const auto& nameType : nameTypes) {
+        nameTypeMap.insert(QString::fromLatin1(nameType.name), nameType.type);
       }
     }
     auto it = nameTypeMap.constFind(name);
@@ -233,8 +233,8 @@ static Frame::Type getTypeForName(const QString& name,
     static QMap<QString, Frame::Type> freeFormNameTypeMap;
     if (freeFormNameTypeMap.empty()) {
       // first time initialization
-      for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
-        freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameTypes[i].name), freeFormNameTypes[i].type);
+      for (const auto& freeFormNameType : freeFormNameTypes) {
+        freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameType.name), freeFormNameType.type);
       }
     }
     auto it = freeFormNameTypeMap.constFind(name);
@@ -1280,8 +1280,8 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
   };
 
   QStringList lst;
-  for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
-    lst.append(Frame::ExtendedType(types[i], QLatin1String("")).
+  for (auto type : types) {
+    lst.append(Frame::ExtendedType(type, QLatin1String("")).
                getName());
   }
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106

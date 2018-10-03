@@ -79,10 +79,8 @@ bool Utils::replaceIllegalFileNameCharacters(QString& fileName)
 #endif
   QMap<QString, QString> replaceMap;
   bool changed = false;
-  for (int i = 0;
-       i < static_cast<int>(sizeof(illegalChars) / sizeof(illegalChars[0]));
-       ++i) {
-    QChar illegalChar = QLatin1Char(illegalChars[i]);
+  for (auto ic : illegalChars) {
+    QChar illegalChar = QLatin1Char(ic);
     if (fileName.contains(illegalChar)) {
       if (!changed) {
         const FormatConfig& fnCfg = FilenameFormatConfig::instance();

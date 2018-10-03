@@ -83,9 +83,9 @@ void TaggedFileIconProvider::createIcons()
   font.setPixelSize(halfHeight);
   QFont smallFont(font);
   smallFont.setStretch(QFont::Condensed);
-  for (unsigned i = 0; i < sizeof(idTexts) / sizeof(idTexts[0]); ++i) {
-    const char* text1 = idTexts[i].text1;
-    const char* text2 = idTexts[i].text2;
+  for (const auto& it : idTexts) {
+    const char* text1 = it.text1;
+    const char* text2 = it.text2;
 
     QPixmap pixmap(m_requestedSize);
     pixmap.fill(Qt::transparent);
@@ -107,7 +107,7 @@ void TaggedFileIconProvider::createIcons()
       painter.drawText(QPoint(3, height - 1), QLatin1String(text2));
     }
 
-    m_pixmapMap.insert(idTexts[i].id, pixmap);
+    m_pixmapMap.insert(it.id, pixmap);
   }
 
   for (auto it = m_pixmapMap.constBegin(); it != m_pixmapMap.constEnd(); ++it) {

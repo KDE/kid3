@@ -321,8 +321,8 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
   static QMap<QByteArray, QByteArray> idStrMap;
   if (idStrMap.isEmpty()) {
     // first time initialization
-    for (unsigned int i = 0; i < sizeof(strOfId) / sizeof(strOfId[0]); ++i) {
-      idStrMap.insert(strOfId[i].id, strOfId[i].str);
+    for (const auto& soi : strOfId) {
+      idStrMap.insert(soi.id, soi.str);
     }
   }
   return idStrMap;
@@ -1544,9 +1544,9 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       { "genre", 'g' }
     };
     const char c = code[0].toLatin1();
-    for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
-      if (shortToLong[i].shortCode == c) {
-        name = QString::fromLatin1(shortToLong[i].longCode);
+    for (const auto& s2l : shortToLong) {
+      if (s2l.shortCode == c) {
+        name = QString::fromLatin1(s2l.longCode);
         break;
       }
     }

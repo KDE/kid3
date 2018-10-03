@@ -1994,10 +1994,7 @@ static void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& t
 static const char* getStringForType(Frame::Type type)
 {
   if (type != Frame::FT_Other) {
-    for (unsigned i = 0;
-         i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]);
-         ++i) {
-      const TypeStrOfId& ts = typeStrOfId[i];
+    for (const auto& ts : typeStrOfId) {
       if (ts.type == type) {
         return ts.str;
       }

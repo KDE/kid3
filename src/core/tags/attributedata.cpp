@@ -83,9 +83,8 @@ AttributeData::AttributeData(const QString& name)
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (unsigned i = 0; i < sizeof(typeOfWmPriv) / sizeof(typeOfWmPriv[0]);
-         ++i) {
-      strNumMap.insert(QString::fromLatin1(typeOfWmPriv[i].str), typeOfWmPriv[i].type);
+    for (const auto& twp : typeOfWmPriv) {
+      strNumMap.insert(QString::fromLatin1(twp.str), twp.type);
     }
   }
   auto it = strNumMap.constFind(name);

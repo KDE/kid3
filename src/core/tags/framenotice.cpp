@@ -317,20 +317,14 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
   static QMap<Warning, CheckFunction> checks;
   static QMap<QString, Frame::FieldId> uniques;
   if (warnings.isEmpty()) {
-    for (unsigned int i = 0;
-         i < sizeof(idWarning) / sizeof (idWarning[0]);
-         ++i) {
-      warnings[QString::fromLatin1(idWarning[i].id)] = idWarning[i].warning;
+    for (const auto& iw : idWarning) {
+      warnings[QString::fromLatin1(iw.id)] = iw.warning;
     }
-    for (unsigned int i = 0;
-         i < sizeof(warningFunc) / sizeof (warningFunc[0]);
-         ++i) {
-      checks[warningFunc[i].warning] = warningFunc[i].func;
+    for (const auto& wf : warningFunc) {
+      checks[wf.warning] = wf.func;
     }
-    for (unsigned int i = 0;
-         i < sizeof(uniqIdField) / sizeof (uniqIdField[0]);
-         ++i) {
-      uniques[QString::fromLatin1(uniqIdField[i].id)] = uniqIdField[i].field;
+    for (const auto& uif : uniqIdField) {
+      uniques[QString::fromLatin1(uif.id)] = uif.field;
     }
   }
 

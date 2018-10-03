@@ -407,13 +407,11 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
     Frame::FT_Artist, Frame::FT_Album, Frame::FT_Date, Frame::FT_Genre,
     Frame::FT_Comment
   };
-  unsigned numStandardColumns =
-    sizeof(initFrameTypes) / sizeof(initFrameTypes[0]);
 
   QList<Frame::ExtendedType> newFrameTypes;
-  for (unsigned i = 0; i < numStandardColumns; ++i) {
+  for (auto initFrameType : initFrameTypes) {
     newFrameTypes.append(
-        Frame::ExtendedType(static_cast<Frame::Type>(initFrameTypes[i]), QLatin1String("")));
+        Frame::ExtendedType(static_cast<Frame::Type>(initFrameType), QLatin1String("")));
   }
 
   for (auto tit = trackDataVector.constBegin();

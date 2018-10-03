@@ -77,9 +77,9 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
         { "qmlpath", 'q' }
       };
       const char c = code[0].toLatin1();
-      for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
-        if (shortToLong[i].shortCode == c) {
-          name = QString::fromLatin1(shortToLong[i].longCode);
+      for (const auto& s2l : shortToLong) {
+        if (s2l.shortCode == c) {
+          name = QString::fromLatin1(s2l.longCode);
           break;
         }
       }

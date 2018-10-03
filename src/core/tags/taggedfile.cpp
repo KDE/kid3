@@ -412,9 +412,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   const QString prefix(QLatin1String(useCustomCaptures ? "%{" : "%\\{"));
   const QString suffix(QLatin1String(useCustomCaptures ? "}"  : "\\}"));
   const int prefixLen = prefix.length();
-  for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-    QString from = QString::fromLatin1(codeToName[i].from);
-    QString to = QString::fromLatin1(codeToName[i].to);
+  for (const auto& c2n : codeToName) {
+    QString from = QString::fromLatin1(c2n.from);
+    QString to = QString::fromLatin1(c2n.to);
     from = from.size() == 1 ? QLatin1Char('%') + from : prefix + from + suffix;
     to = prefix + to + suffix;
     pattern.replace(from, to);
