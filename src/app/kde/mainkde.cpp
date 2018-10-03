@@ -103,10 +103,10 @@ int main(int argc, char* argv[])
                       QStringLiteral("ufleisch@users.sourceforge.net"));
   aboutData.setProductName(QByteArray("kid3"));
   KAboutData::setApplicationData(aboutData);
-  app.setApplicationName(aboutData.componentName());
-  app.setApplicationDisplayName(aboutData.displayName());
-  app.setOrganizationDomain(aboutData.organizationDomain());
-  app.setApplicationVersion(aboutData.version());
+  QCoreApplication::setApplicationName(aboutData.componentName());
+  QGuiApplication::setApplicationDisplayName(aboutData.displayName());
+  QCoreApplication::setOrganizationDomain(aboutData.organizationDomain());
+  QCoreApplication::setApplicationVersion(aboutData.version());
   QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kid3")));
 
   QCommandLineParser parser;
@@ -163,7 +163,7 @@ int main(int argc, char* argv[])
     }
   }
 
-  int rc = app.exec();
+  int rc = QApplication::exec();
   delete kid3App;
   delete platformTools;
   return rc;

@@ -396,7 +396,7 @@ void Kid3Application::initPlugins()
 bool Kid3Application::findPluginsDirectory(QDir& pluginsDir) {
   // First check if we are running from the build directory to load the
   // plugins from there.
-  pluginsDir = qApp->applicationDirPath();
+  pluginsDir = QCoreApplication::applicationDirPath();
   QString dirName = pluginsDir.dirName();
 #ifdef Q_OS_WIN
   QString buildType;

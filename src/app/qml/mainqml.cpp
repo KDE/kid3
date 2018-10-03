@@ -181,5 +181,5 @@ int main(int argc, char* argv[])
   }
   engine.load(QUrl::fromLocalFile(mainQmlPath));
 #endif
-  return app.exec();
+  return QApplication::exec();
 }

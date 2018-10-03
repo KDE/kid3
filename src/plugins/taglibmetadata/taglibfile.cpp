@@ -5092,7 +5092,7 @@ static bool isFrameIdValid(const QString& frameId)
 static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
                                                      Frame& frame)
 {
-  TagLib::String::Type enc = self->getDefaultTextEncoding();
+  TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
   QString name = frame.getType() != Frame::FT_Other ?
     QString::fromLatin1(getStringForType(frame.getType())) :
     frame.getName();

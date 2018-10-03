@@ -51,7 +51,7 @@ int _CRT_glob = 0;
 int main(int argc, char* argv[])
 {
   QCoreApplication app(argc, argv);
-  app.setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setApplicationName(QLatin1String("Kid3"));
 
   Utils::loadTranslation();
 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
   auto kid3App = new Kid3Application(platformTools);
   Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "), args);
   QTimer::singleShot(0, &kid3cli, &Kid3Cli::execute);
-  int rc = app.exec();
+  int rc = QCoreApplication::exec();
   delete kid3App;
   delete platformTools;
   return rc;

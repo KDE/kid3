@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
   Kid3QtApplication app(argc, argv);
-  app.setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setApplicationName(QLatin1String("Kid3"));
 
   Utils::loadTranslation();
 
@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
     kid3->confirmedOpenDirectory(QStringList()
                                  << FileConfig::instance().lastOpenedFile());
   }
-  int rc = app.exec();
+  int rc = QApplication::exec();
   delete kid3App;
   delete platformTools;
   return rc;

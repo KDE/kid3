@@ -231,7 +231,7 @@ const QRegExp& FrameNotice::isoDateTimeRexExp()
  */
 bool FrameNotice::addPictureTooLargeNotice(Frame& frame, int maxSize)
 {
-  QVariant data = frame.getField(frame, Frame::ID_Data);
+  QVariant data = Frame::getField(frame, Frame::ID_Data);
   if (!data.isNull()) {
     if (data.toByteArray().size() > maxSize) {
       frame.setMarked(FrameNotice::TooLarge);
