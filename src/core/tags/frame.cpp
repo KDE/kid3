@@ -1667,7 +1667,7 @@ QString FrameFormatReplacer::getToolTip(bool onlyRows)
   str += QCoreApplication::translate("@default", "Genre");
   str += QLatin1String("</td></tr>\n");
 
-  str += QLatin1String("<tr><td></td><td>%{\"t1\"title\"t2\"}...</td><td>");
+  str += QLatin1String(R"(<tr><td></td><td>%{"t1"title"t2"}...</td><td>)");
   const char* const prependAppendStr =
       QT_TRANSLATE_NOOP("@default", "Prepend t1/append t2 if not empty");
   str += QCoreApplication::translate("@default", prependAppendStr);

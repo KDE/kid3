@@ -85,11 +85,11 @@ ImportConfig::ImportConfig() :
    */
   m_importFormatNames.append(QLatin1String("CSV unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}([^\\r\\n\\t]*)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)"));
+  m_importFormatTracks.append(QLatin1String(R"(%{track}(\d+)\t%{title}([^\r\n\t]*)\t%{artist}([^\r\n\t]*)\t%{album}([^\r\n\t]*)\t%{year}([^\r\n\t]*)\t%{genre}([^\r\n\t]*)\t%{comment}([^\r\n\t]*)\t(?:\d+:)?%{duration}(\d+:\d+))"));
 
   m_importFormatNames.append(QLatin1String("CSV quoted"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
+  m_importFormatTracks.append(QLatin1String(R"lit("?%{track}(\d+)"?\t"?%{title}([^\r\n\t"]*)"?\t"?%{artist}([^\r\n\t"]*)"?\t"?%{album}([^\r\n\t"]*)"?\t"?%{year}([^\r\n\t]*)"?\t"?%{genre}([^\r\n\t"]*)"?\t"?%{comment}([^\r\n\t"]*)"?\t"?(?:\d+:)?%{duration}(\d+:\d+))lit"));
 
   m_importFormatNames.append(QLatin1String("CSV more unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
@@ -130,24 +130,24 @@ ImportConfig::ImportConfig() :
     "\"?%{subtitle}([^\\r\\n\\t\"]*)\"?\\t\"?%{website}([^\\r\\n\\t\"]*)"));
 
   m_importFormatNames.append(QLatin1String("freedb HTML text"));
-  m_importFormatHeaders.append(QLatin1String("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}([^\\r\\n\\t]*)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]"));
-  m_importFormatTracks.append(QLatin1String("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)"));
+  m_importFormatHeaders.append(QLatin1String(R"(%{artist}(\S[^\r\n/]*\S)\s*/\s*%{album}(\S[^\r\n]*\S)[\r\n]+\s*tracks:\s+\d+.*year:\s*%{year}([^\r\n\t]*)?.*genre:\s*%{genre}(\S[^\r\n]*\S)?[\r\n])"));
+  m_importFormatTracks.append(QLatin1String(R"([\r\n]%{track}(\d+)[\.\s]+%{duration}(\d+:\d+)\s+%{title}(\S[^\r\n]*\S))"));
 
   m_importFormatNames.append(QLatin1String("freedb HTML source"));
-  m_importFormatHeaders.append(QLatin1String("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}([^\\r\\n\\t]*)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]"));
-  m_importFormatTracks.append(QLatin1String("<td[^>]*>\\s*%{track}(\\d+).</td><td[^>]*>\\s*%{duration}(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\\r\\n]+)"));
+  m_importFormatHeaders.append(QLatin1String(R"(<[^>]+>%{artist}([^<\s][^\r\n/]*\S)\s*/\s*%{album}(\S[^\r\n]*[^\s>])<[^>]+>[\r\n]+\s*tracks:\s+\d+.*year:\s*%{year}([^\r\n\t]*)?.*genre:\s*%{genre}(\S[^\r\n>]*\S)?<[^>]+>[\r\n])"));
+  m_importFormatTracks.append(QLatin1String(R"(<td[^>]*>\s*%{track}(\d+).</td><td[^>]*>\s*%{duration}(\d+:\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\r\n]+))"));
 
   m_importFormatNames.append(QLatin1String("Title"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("\\s*%{title}(\\S[^\\r\\n]*\\S)\\s*"));
+  m_importFormatTracks.append(QLatin1String(R"(\s*%{title}(\S[^\r\n]*\S)\s*)"));
 
   m_importFormatNames.append(QLatin1String("Track Title"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s*"));
+  m_importFormatTracks.append(QLatin1String(R"(\s*%{track}(\d+)[\.\s]+%{title}(\S[^\r\n]*\S)\s*)"));
 
   m_importFormatNames.append(QLatin1String("Track Title Time"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s+%{duration}(\\d+:\\d+)\\s*"));
+  m_importFormatTracks.append(QLatin1String(R"(\s*%{track}(\d+)[\.\s]+%{title}(\S[^\r\n]*\S)\s+%{duration}(\d+:\d+)\s*)"));
 
   m_importFormatNames.append(QLatin1String("Custom Format"));
   m_importFormatHeaders.append(QLatin1String(""));
@@ -171,7 +171,7 @@ ImportConfig::ImportConfig() :
 
   m_importTagsNames.append(QLatin1String("Track Number from Title"));
   m_importTagsSources.append(QLatin1String("%{title}"));
-  m_importTagsExtractions.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S.*\\S)\\s*"));
+  m_importTagsExtractions.append(QLatin1String(R"(\s*%{track}(\d+)[\.\s]+%{title}(\S.*\S)\s*)"));
 
   m_importTagsNames.append(QLatin1String("Track Number to Title"));
   m_importTagsSources.append(QLatin1String("%{track} %{title}"));
@@ -419,7 +419,7 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_matchPictureUrlMap.remove(QLatin1String(
       "http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*"));
   m_matchPictureUrlMap.remove(QLatin1String(
-      "http://cdbaby.com/cd/(\\w)(\\w)(\\w+)"));
+      R"(http://cdbaby.com/cd/(\w)(\w)(\w+))"));
   m_matchPictureUrlMap.remove(QLatin1String(
       "http://www.jamendo.com/en/album/(\\d+)"));
 }

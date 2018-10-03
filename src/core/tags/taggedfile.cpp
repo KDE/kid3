@@ -470,7 +470,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // album/track - artist - song
-  re.setPattern(QLatin1String("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)[_ ]-[_ ]([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setTrack(match.captured(2).toInt());
@@ -480,7 +480,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album (year)/track song
-  re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)[_ ]\\((\\d{4})\\)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(([^/]+)[_ ]-[_ ]([^/]+)[_ ]\((\d{4})\)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -491,7 +491,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album/track song
-  re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(([^/]+)[_ ]-[_ ]([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -500,7 +500,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // /artist - album - track - song
-  re.setPattern(QLatin1String("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\. ]+(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -509,7 +509,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // album/artist - track - song
-  re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(([^/]+)/([^/]+[^-_\./ ])[-_\. ]+(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setArtist(match.captured(2));
@@ -518,7 +518,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // artist/album/track song
-  re.setPattern(QLatin1String("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(R"(([^/]+)/([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));

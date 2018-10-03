@@ -109,7 +109,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
   }
   QString str = isUtf8 ? QString::fromUtf8(searchStr) :
                          QString::fromLatin1(searchStr);
-  QRegExp titleRe(QLatin1String("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>"));
+  QRegExp titleRe(QLatin1String(R"(<a href="[^"]+/cd/[^"]+"><b>([^<]+)</b></a>)"));
   QRegExp catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
   QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
   QString title;
@@ -197,16 +197,16 @@ static void parseFreedbTrackDurations(
 static void parseFreedbAlbumData(const QString& text,
                                  FrameCollection& frames)
 {
-  QRegExp fdre(QLatin1String("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]"));
+  QRegExp fdre(QLatin1String(R"(DTITLE=\s*(\S[^\r\n]*\S)\s*/\s*(\S[^\r\n]*\S)[\r\n])"));
   if (fdre.indexIn(text) != -1) {
     frames.setArtist(fdre.cap(1));
     frames.setAlbum(fdre.cap(2));
   }
-  fdre.setPattern(QLatin1String("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D"));
+  fdre.setPattern(QLatin1String(R"(EXTD=[^\r\n]*YEAR:\s*(\d+)\D)"));
   if (fdre.indexIn(text) != -1) {
     frames.setYear(fdre.cap(1).toInt());
   }
-  fdre.setPattern(QLatin1String("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D"));
+  fdre.setPattern(QLatin1String(R"(EXTD=[^\r\n]*ID3G:\s*(\d+)\D)"));
   if (fdre.indexIn(text) != -1) {
     frames.setGenre(QString::fromLatin1(Genres::getName(fdre.cap(1).toInt())));
   }
@@ -235,7 +235,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   int oldpos = pos;
   int tracknr = 0;
   for (;;) {
-    QRegExp fdre(QString(QLatin1String("TTITLE%1=([^\\r\\n]+)[\\r\\n]")).arg(tracknr));
+    QRegExp fdre(QString(QLatin1String(R"(TTITLE%1=([^\r\n]+)[\r\n])")).arg(tracknr));
     QString title;
     int idx;
     while ((idx = fdre.indexIn(text, pos)) != -1) {

@@ -295,7 +295,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   }
   if (start >= 0) {
     QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
-    QRegExp nrTitleRe(QLatin1String("\\s*\\d+\\.\\s+(.*\\S)"));
+    QRegExp nrTitleRe(QLatin1String(R"(\s*\d+\.\s+(.*\S))"));
     FrameCollection frames(framesHdr);
     auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());

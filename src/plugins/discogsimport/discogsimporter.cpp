@@ -49,12 +49,12 @@ QString fixUpArtist(QString str)
   str.replace(QLatin1String("* / "), QLatin1String(" / "));
   str.replace(QLatin1String("*,"), QLatin1String(","));
   str.remove(QRegExp(QLatin1String("\\*$")));
-  str.remove(QRegExp(QLatin1String("[*\\s]*\\(\\d+\\)\\(tracks:[^)]+\\)")));
+  str.remove(QRegExp(QLatin1String(R"([*\s]*\(\d+\)\(tracks:[^)]+\))")));
   str.replace(QRegExp(
     QLatin1String("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)(\\s*/\\s*,|\\s*&amp;|"
                   "\\s*And|\\s*and)")),
     QLatin1String("\\1"));
-  str.remove(QRegExp(QLatin1String("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$")));
+  str.remove(QRegExp(QLatin1String(R"([*\s]*\((?:\d+|tracks:[^)]+)\)$)")));
   return ServerImporter::removeHtml(str);
 }
 
@@ -456,6 +456,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     /*
      * cover art can be found in image source
      */
+    // Using a raw string literal in the next line would disturb doxygen.
     start = str.indexOf(QLatin1String("<meta property=\"og:image\" content=\""));
     if (start >= 0) {
       start += 35;
@@ -504,7 +505,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 
       FrameCollection frames(framesHdr);
       QRegExp posRe(QLatin1String(
-        "<td [^>]*class=\"tracklist_track_pos\">(\\d+)</td>"));
+        R"(<td [^>]*class="tracklist_track_pos">(\d+)</td>)"));
       QRegExp artistsRe(QLatin1String(
         "class=\"tracklist_content_multi_artist_dash\">&ndash;</span>"
         "<a href=\"/artist/[^>]+>([^<]+)</a>"));
@@ -516,7 +517,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         "<td [^>]*class=\"tracklist_track_duration\"[^>]*>(?:<meta[^>]*>)?"
         "(?:<span>)?(\\d+):(\\d+)</"));
       QRegExp indexRe(QLatin1String("<td class=\"track_index\">([^<]+)$"));
-      QRegExp rowEndRe(QLatin1String("</td>[\\s\\r\\n]*</tr>"));
+      QRegExp rowEndRe(QLatin1String(R"(</td>[\s\r\n]*</tr>)"));
       auto it = trackDataVector.begin();
       bool atTrackDataListEnd = (it == trackDataVector.end());
       int trackNr = 1;

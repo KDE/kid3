@@ -458,7 +458,7 @@ void TimeEventModel::clearMarkedRow()
 void TimeEventModel::fromLrcFile(QTextStream& stream)
 {
   QRegExp timeStampRe(QLatin1String(
-                        "([[<])(\\d\\d):(\\d\\d)(?:\\.(\\d{1,3}))?([\\]>])"));
+                        R"(([[<])(\d\d):(\d\d)(?:\.(\d{1,3}))?([\]>]))"));
   QList<TimeEvent> timeEvents;
   bool isFirstLine = true;
   forever {

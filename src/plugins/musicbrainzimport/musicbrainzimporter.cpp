@@ -282,7 +282,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                           namedItem(QLatin1String("name")).toElement().text());
       QString date(release.namedItem(QLatin1String("date")).toElement().text());
       if (!date.isEmpty()) {
-        QRegExp dateRe(QLatin1String("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?"));
+        QRegExp dateRe(QLatin1String(R"((\d{4})(?:-\d{2})?(?:-\d{2})?)"));
         int year = 0;
         if (dateRe.exactMatch(date)) {
           year = dateRe.cap(1).toInt();

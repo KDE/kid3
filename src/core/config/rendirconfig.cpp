@@ -29,12 +29,12 @@
 /** Default directory format list */
 static const char* dirFmt[] = {
   "%{artist} - %{album}",
-  "%{artist} - %{\"[\"year\"] \"}%{album}",
+  R"(%{artist} - %{"["year"] "}%{album})",
   "%{artist} - %{album}%{\" (\"year\")\"}",
   "%{artist}/%{album}",
-  "%{artist}/%{\"[\"year\"] \"}%{album}",
+  R"(%{artist}/%{"["year"] "}%{album})",
   "%{album}",
-  "%{\"[\"year\"] \"}%{album}",
+  R"(%{"["year"] "}%{album})",
   nullptr            // end of StrList
 };
 

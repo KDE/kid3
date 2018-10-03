@@ -37,7 +37,7 @@ static const char* defaultToFilenameFormats[] = {
   "%{track}. %{artist} - %{title}",
   "%{artist} - %{track} - %{title}",
   "%{artist} - %{album} - %{track} - %{title}",
-  "%{artist} - %{\"[\"year\"] \"}%{album} - %{track} - %{title}",
+ R"(%{artist} - %{"["year"] "}%{album} - %{track} - %{title})",
   "%{artist} - %{title}",
   "%{artist}-%{title}",
   "(%{artist}) %{title}",

@@ -37,12 +37,12 @@ ExportConfig::ExportConfig() :
 {
   m_exportFormatNames.append(QLatin1String("CSV unquoted"));
   m_exportFormatHeaders.append(QLatin1String(""));
-  m_exportFormatTracks.append(QLatin1String("%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t%{duration}.00"));
+  m_exportFormatTracks.append(QLatin1String(R"(%{track}\t%{title}\t%{artist}\t%{album}\t%{year}\t%{genre}\t%{comment}\t%{duration}.00)"));
   m_exportFormatTrailers.append(QLatin1String(""));
 
   m_exportFormatNames.append(QLatin1String("CSV quoted"));
   m_exportFormatHeaders.append(QLatin1String(""));
-  m_exportFormatTracks.append(QLatin1String("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\""));
+  m_exportFormatTracks.append(QLatin1String(R"("%{track}"\t"%{title}"\t"%{artist}"\t"%{album}"\t"%{year}"\t"%{genre}"\t"%{comment}"\t"%{duration}.00")"));
   m_exportFormatTrailers.append(QLatin1String(""));
 
   m_exportFormatNames.append(QLatin1String("CSV more unquoted"));
@@ -95,23 +95,23 @@ ExportConfig::ExportConfig() :
   m_exportFormatTrailers.append(QLatin1String("NumberOfEntries=%{tracks}\\nVersion=2"));
 
   m_exportFormatNames.append(QLatin1String("HTML"));
-  m_exportFormatHeaders.append(QLatin1String("<html>\\n <head>\\n  <title>%h{artist} - %h{album}</title>\\n </head>\\n <body>\\n  <h1>%h{artist} - %h{album}</h1>\\n  <dl>"));
+  m_exportFormatHeaders.append(QLatin1String(R"(<html>\n <head>\n  <title>%h{artist} - %h{album}</title>\n </head>\n <body>\n  <h1>%h{artist} - %h{album}</h1>\n  <dl>)"));
   m_exportFormatTracks.append(QLatin1String("   <dt><a href=\"%{url}\">%h{track}. %h{title}</a></dt>"));
   m_exportFormatTrailers.append(QLatin1String("  </dl>\\n </body>\\n</html>"));
 
   m_exportFormatNames.append(QLatin1String("Kover XML"));
-  m_exportFormatHeaders.append(QLatin1String("<kover>\\n <title>\\n  <text><![CDATA[%{artist} ]]></text>\\n  <text><![CDATA[%{album}]]></text>\\n </title>\\n <content>"));
+  m_exportFormatHeaders.append(QLatin1String(R"(<kover>\n <title>\n  <text><![CDATA[%{artist} ]]></text>\n  <text><![CDATA[%{album}]]></text>\n </title>\n <content>)"));
   m_exportFormatTracks.append(QLatin1String("  <text><![CDATA[%{track}. %{title}]]></text>"));
   m_exportFormatTrailers.append(QLatin1String(" </content>\\n</kover>"));
 
   m_exportFormatNames.append(QLatin1String("Technical Details"));
-  m_exportFormatHeaders.append(QLatin1String("File\\tBitrate\\tVBR\\tDuration\\tSamplerate\\tChannels\\tMode\\tCodec"));
-  m_exportFormatTracks.append(QLatin1String("%{file}\\t%{bitrate}\\t%{vbr}\\t%{duration}\\t%{samplerate}\\t%{channels}\\t%{mode}\\t%{codec}"));
+  m_exportFormatHeaders.append(QLatin1String(R"(File\tBitrate\tVBR\tDuration\tSamplerate\tChannels\tMode\tCodec)"));
+  m_exportFormatTracks.append(QLatin1String(R"(%{file}\t%{bitrate}\t%{vbr}\t%{duration}\t%{samplerate}\t%{channels}\t%{mode}\t%{codec})"));
   m_exportFormatTrailers.append(QLatin1String(""));
 
   m_exportFormatNames.append(QLatin1String("CDRDAO TOC"));
-  m_exportFormatHeaders.append(QLatin1String("CD_DA\\nCD_TEXT {\\n  LANGUAGE_MAP {\\n    0 : EN\\n  }\\n  LANGUAGE 0 {\\n    TITLE \"%{album}\"\\n    PERFORMER \"%{artist}\"\\n  }\\n}\\n"));
-  m_exportFormatTracks.append(QLatin1String("TRACK AUDIO\\nCD_TEXT {\\n  LANGUAGE 0 {\\n    TITLE \"%{title}\"\\n    PERFORMER \"%{artist}\"\\n  }\\n}\\nFILE \"%{file}\" 0\\n"));
+  m_exportFormatHeaders.append(QLatin1String(R"(CD_DA\nCD_TEXT {\n  LANGUAGE_MAP {\n    0 : EN\n  }\n  LANGUAGE 0 {\n    TITLE "%{album}"\n    PERFORMER "%{artist}"\n  }\n}\n)"));
+  m_exportFormatTracks.append(QLatin1String(R"(TRACK AUDIO\nCD_TEXT {\n  LANGUAGE 0 {\n    TITLE "%{title}"\n    PERFORMER "%{artist}"\n  }\n}\nFILE "%{file}" 0\n)"));
   m_exportFormatTrailers.append(QLatin1String(""));
 
   m_exportFormatNames.append(QLatin1String("Custom Format"));
@@ -190,8 +190,8 @@ void ExportConfig::readFromConfig(ISettings* config)
   // Use HTML escaping for old HTML export format.
   int htmlIdx = m_exportFormatNames.indexOf(QLatin1String("HTML"));
   if (htmlIdx != -1) {
-    if (m_exportFormatHeaders.at(htmlIdx) == QLatin1String("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>")) {
-      m_exportFormatHeaders[htmlIdx] = QLatin1String("<html>\\n <head>\\n  <title>%h{artist} - %h{album}</title>\\n </head>\\n <body>\\n  <h1>%h{artist} - %h{album}</h1>\\n  <dl>");
+    if (m_exportFormatHeaders.at(htmlIdx) == QLatin1String(R"(<html>\n <head>\n  <title>%{artist} - %{album}</title>\n </head>\n <body>\n  <h1>%{artist} - %{album}</h1>\n  <dl>)")) {
+      m_exportFormatHeaders[htmlIdx] = QLatin1String(R"(<html>\n <head>\n  <title>%h{artist} - %h{album}</title>\n </head>\n <body>\n  <h1>%h{artist} - %h{album}</h1>\n  <dl>)");
     }
     if (m_exportFormatTracks.at(htmlIdx) == QLatin1String("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>")) {
       m_exportFormatTracks[htmlIdx] = QLatin1String("   <dt><a href=\"%{url}\">%h{track}. %h{title}</a></dt>");
