@@ -128,7 +128,7 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
         }
         case 'S':
           // specific command
-          if (argSpecs.size() > 0) {
+          if (argSpecs.size() > 1) {
             const QString& valuesStr = argSpecs.at(1);
             int valuesIdx = valuesStr.indexOf(QLatin1String("S = \""));
             if (valuesIdx != -1) {
@@ -220,7 +220,6 @@ QStringList splitArgs(const QString& str)
     } while (!c.isSpace());
     params.append(param);
   }
-  return QStringList();
 }
 
 }

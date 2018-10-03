@@ -32,7 +32,7 @@
 #include "dsffiletyperesolver.h"
 #include "dsffile.h"
 
-#include <string.h>
+#include <cstring>
 
 #if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010400  && defined _WIN32
 

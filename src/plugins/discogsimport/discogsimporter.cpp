@@ -125,11 +125,9 @@ bool parseCredits(const QString& str, FrameCollection& frames)
           { "Songwriter", Frame::FT_Composer }
         };
         bool found = false;
-        for (unsigned i = 0;
-             i < sizeof(creditToType) / sizeof(creditToType[0]);
-             ++i) {
-          if (*cit == QString::fromLatin1(creditToType[i].credit)) {
-            frames.setValue(creditToType[i].type, name);
+        for (const auto& c2t : creditToType) {
+          if (*cit == QString::fromLatin1(c2t.credit)) {
+            frames.setValue(c2t.type, name);
             found = true;
             break;
           }
@@ -151,13 +149,11 @@ bool parseCredits(const QString& str, FrameCollection& frames)
             { "Co-producer", "Producer" },
             { "Executive Producer", "Producer" }
           };
-          for (unsigned i = 0;
-               i < sizeof(creditToArrangement) / sizeof(creditToArrangement[0]);
-               ++i) {
+          for (const auto& c2a : creditToArrangement) {
             if ((*cit).startsWith(
-                  QString::fromLatin1(creditToArrangement[i].credit))) {
+                  QString::fromLatin1(c2a.credit))) {
               addInvolvedPeople(frames, Frame::FT_Arranger,
-                QString::fromLatin1(creditToArrangement[i].arrangement), name);
+                QString::fromLatin1(c2a.arrangement), name);
               found = true;
               break;
             }
@@ -175,10 +171,8 @@ bool parseCredits(const QString& str, FrameCollection& frames)
             "Clarinet", "Horn", "Cornet", "Flute", "Oboe", "Saxophone",
             "Trumpet", "Tuba", "Trombone"
           };
-          for (unsigned i = 0;
-               i < sizeof(instruments) / sizeof(instruments[0]);
-               ++i) {
-            if ((*cit).contains(QString::fromLatin1(instruments[i]))) {
+          for (auto instrument : instruments) {
+            if ((*cit).contains(QString::fromLatin1(instrument))) {
               addInvolvedPeople(frames, Frame::FT_Performer, *cit, name);
               found = true;
               break;
@@ -335,10 +329,10 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     // in the Style field.
     QStringList genreList;
     static const char* const fields[] = { "Style:", "Genre:" };
-    for (unsigned i = 0; i < sizeof(fields) / sizeof(fields[0]); ++i) {
-      start = str.indexOf(QString::fromLatin1(fields[i]) + QLatin1Char('<'));
+    for (auto field : fields) {
+      start = str.indexOf(QString::fromLatin1(field) + QLatin1Char('<'));
       if (start >= 0) {
-        start += qstrlen(fields[i]); // skip field
+        start += qstrlen(field); // skip field
         end = str.indexOf(QLatin1String("</div>"), start + 1);
         if (end > start) {
           QString genreStr = str.mid(start, end - start);

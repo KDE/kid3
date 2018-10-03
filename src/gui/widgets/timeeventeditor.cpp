@@ -57,7 +57,7 @@ public:
   /** Constructor. */
   TimeEventTableView(QWidget* parent = nullptr) : QTableView(parent) {}
   /** Destructor. */
-  virtual ~TimeEventTableView() override {}
+  virtual ~TimeEventTableView() override = default;
 
 protected:
   /**
@@ -65,6 +65,9 @@ protected:
    * @param event key event
    */
   virtual void keyPressEvent(QKeyEvent* event) override;
+
+private:
+  Q_DISABLE_COPY(TimeEventTableView)
 };
 
 void TimeEventTableView::keyPressEvent(QKeyEvent* event)

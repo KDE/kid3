@@ -140,15 +140,15 @@ void ISettings::migrateOldSettings()
       { "General Options/ExportFormatIdx", "Export/ExportFormatIdx", QVariant::Int },
       { "General Options/ExportWindowGeometry", "Export/ExportWindowGeometry", QVariant::ByteArray }
     };
-    for (unsigned int i = 0; i < sizeof(mappings) / sizeof(mappings[0]); ++i) {
-      QStringList groupKey = QString::fromLatin1(mappings[i].oldKey).
+    for (const auto& mapping : mappings) {
+      QStringList groupKey = QString::fromLatin1(mapping.oldKey).
           split(QLatin1Char('/'));
       beginGroup(groupKey.at(0));
       if (contains(groupKey.at(1))) {
-        QVariant val = value(groupKey.at(1), QVariant(mappings[i].type));
+        QVariant val = value(groupKey.at(1), QVariant(mapping.type));
         remove(groupKey.at(1));
         endGroup();
-        groupKey = QString::fromLatin1(mappings[i].newKey).
+        groupKey = QString::fromLatin1(mapping.newKey).
             split(QLatin1Char('/'));
         beginGroup(groupKey.at(0));
         setValue(groupKey.at(1), val);

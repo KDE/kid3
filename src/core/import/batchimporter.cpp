@@ -62,7 +62,7 @@ BatchImporter::BatchImporter(QNetworkAccessManager* netMgr) : QObject(netMgr),
  * @param importers available importers
  * @param trackDataModel track data model used by importers
  */
-void BatchImporter::setImporters(QList<ServerImporter*> importers,
+void BatchImporter::setImporters(const QList<ServerImporter*>& importers,
                                  TrackDataModel* trackDataModel)
 {
   m_importers = importers;

@@ -601,7 +601,7 @@ QVariant FileProxyModel::retrieveTaggedFileVariant(
  * @return true if index and value valid
  */
 bool FileProxyModel::storeTaggedFileVariant(const QPersistentModelIndex& index,
-                     QVariant value) {
+                     const QVariant& value) {
   if (index.isValid()) {
     if (value.isValid()) {
       if (value.canConvert<TaggedFile*>()) {

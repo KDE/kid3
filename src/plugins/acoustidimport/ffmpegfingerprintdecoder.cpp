@@ -29,8 +29,8 @@
 #include "ffmpegfingerprintdecoder.h"
 #include "acoustidconfig.h"
 
-#include <stdint.h>
-#include <stdio.h>
+#include <cstdint>
+#include <cstdio>
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
@@ -106,6 +106,9 @@ public:
   int streamIndex() const { return m_ptr ? m_ptr->stream_index : -1; }
 
 private:
+  Packet(const Packet&) = delete;
+  Packet& operator=(const Packet&) = delete;
+
   AVPacket* m_ptr;
 };
 
@@ -223,6 +226,9 @@ public:
   }
 
 private:
+  Codec(const Codec&) = delete;
+  Codec& operator=(const Codec&) = delete;
+
   friend class Format;
   friend class Converter;
   AVCodecContext* m_ptr;
@@ -306,6 +312,9 @@ public:
   }
 
 private:
+  Format(const Format&) = delete;
+  Format& operator=(const Format&) = delete;
+
   AVFormatContext* m_ptr;
   int m_streamIndex;
   bool m_hasError;
@@ -437,6 +446,9 @@ public:
   }
 
 private:
+  Converter(const Converter&) = delete;
+  Converter& operator=(const Converter&) = delete;
+
 #ifdef HAVE_AVRESAMPLE
   AVAudioResampleContext* m_ptr;
 #elif defined HAVE_SWRESAMPLE

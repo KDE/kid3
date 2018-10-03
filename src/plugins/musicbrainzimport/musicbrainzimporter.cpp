@@ -212,11 +212,9 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
           { "remixer", Frame::FT_Remixer }
         };
         bool found = false;
-        for (unsigned i = 0;
-             i < sizeof(creditToType) / sizeof(creditToType[0]);
-             ++i) {
-          if (type == QString::fromLatin1(creditToType[i].credit)) {
-            frames.setValue(creditToType[i].type, artist);
+        for (const auto& c2t : creditToType) {
+          if (type == QString::fromLatin1(c2t.credit)) {
+            frames.setValue(c2t.type, artist);
             found = true;
             break;
           }

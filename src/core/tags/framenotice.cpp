@@ -32,7 +32,7 @@
 
 namespace {
 
-typedef bool (*CheckFunction)(const QString& str);
+using CheckFunction = bool (*)(const QString&);
 
 bool beginsWithYearAndSpace(const QString& str)
 {
@@ -54,10 +54,7 @@ bool isDayMonth(const QString& str)
 
   int day = str.leftRef(2).toInt();
   int month = str.midRef(2).toInt();
-  if (day < 1 || day > 31 || month < 1 || month > 12)
-    return false;
-
-  return true;
+  return !(day < 1 || day > 31 || month < 1 || month > 12);
 }
 
 bool isHourMinute(const QString& str)
@@ -67,10 +64,7 @@ bool isHourMinute(const QString& str)
 
   int hour = str.leftRef(2).toInt();
   int minute = str.midRef(2).toInt();
-  if (hour < 0 || hour > 23 || minute < 0 || minute > 59)
-    return false;
-
-  return true;
+  return !(hour < 0 || hour > 23 || minute < 0 || minute > 59);
 }
 
 bool isNumeric(const QString& str)

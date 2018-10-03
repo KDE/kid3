@@ -470,7 +470,7 @@ private:
    * @return true if index and value valid
    */
   bool storeTaggedFileVariant(const QPersistentModelIndex& index,
-                              QVariant value);
+                              const QVariant& value);
 
   /**
    * Clear store with tagged files.

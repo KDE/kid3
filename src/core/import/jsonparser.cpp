@@ -29,7 +29,7 @@
 #include <QString>
 #include <QVariant>
 #include <QDateTime>
-#include <limits.h>
+#include <climits>
 
 /**
  * JSON deserializer.
@@ -117,16 +117,18 @@ QString variantToValueString(const QVariant& var)
     QVariantList lst(var.toList());
     // Serialize into an array container "[...]".
     for (int i = 0; i < lst.size(); i++) {
-      value += QString(QLatin1String("%1%2")).arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", ")).
-          arg(variantToValueString(lst.at(i)));
+      value += QString(QLatin1String("%1%2"))
+          .arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", "),
+               variantToValueString(lst.at(i)));
     }
     value = QString(QLatin1String("[%1]")).arg(value);
   } else if (type == QVariant::Map) {
     // Serialize into an object container "{...}".
     QVariantMap map(var.toMap());
     for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-      value += QString(QLatin1String("%1\"%2\": %3")).arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", ")).
-          arg(it.key(), variantToValueString(it.value()));
+      value += QString(QLatin1String("%1\"%2\": %3"))
+          .arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", "),
+               it.key(), variantToValueString(it.value()));
     }
     value = QString(QLatin1String("{%1}")).arg(value);
   } else {

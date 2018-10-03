@@ -29,8 +29,8 @@
 #include <QFile>
 #include <QDir>
 #include <QByteArray>
-#include <stdio.h>
-#include <math.h>
+#include <cstdio>
+#include <cmath>
 #ifdef HAVE_VORBIS
 #include <vorbis/vorbisfile.h>
 #include "vcedit.h"
@@ -839,8 +839,8 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
     lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
                getName());
   }
-  for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
-    lst.append(QString::fromLatin1(fieldNames[i]));
+  for (auto fieldName : fieldNames) {
+    lst.append(QString::fromLatin1(fieldName));
   }
   return lst;
 }

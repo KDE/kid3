@@ -30,7 +30,7 @@
 
 namespace {
 
-static const int TopLevelId = -1;
+const int TopLevelId = -1;
 
 bool isTopLevelItem(const QModelIndex& index)
 {

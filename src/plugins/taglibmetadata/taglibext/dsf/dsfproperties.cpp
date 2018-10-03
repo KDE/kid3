@@ -19,7 +19,7 @@
  *   02110-1301  USA                                                       *
  ***************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 
 // Kid3: Remove taglib/ from includes
 #include <tstring.h>

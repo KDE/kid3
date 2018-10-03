@@ -114,7 +114,7 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
           }
           if (longCode.endsWith(QLatin1Char('"'))) {
             int postfixStart = longCode.lastIndexOf(QLatin1Char('"'), -2);
-            if (postfixStart != -1 && postfixStart > 1) {
+            if (postfixStart > 1) {
               postfix = longCode.mid(postfixStart + 1, longCode.length() - postfixStart - 2);
               longCode.truncate(postfixStart);
             }

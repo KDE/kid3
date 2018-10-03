@@ -199,6 +199,10 @@ public:
    * lowercase "id3 " chunk names.
    */
   void changeToLowercaseId3Chunk();
+
+private:
+  WavFile(const WavFile&) = delete;
+  WavFile& operator=(const WavFile&) = delete;
 };
 
 WavFile::WavFile(TagLib::IOStream *stream) : TagLib::RIFF::WAV::File(stream)
@@ -291,6 +295,9 @@ public:
   static TagLib::File* create(IOStream* stream);
 
 private:
+  FileIOStream(const FileIOStream&) = delete;
+  FileIOStream& operator=(const FileIOStream&) = delete;
+
   /**
    * Open file handle, is called by operations which need a file handle.
    *
@@ -573,12 +580,12 @@ public:
   /**
    * Constructor.
    */
-  TextCodecStringHandler() {}
+  TextCodecStringHandler() = default;
 
   /**
    * Destructor.
    */
-  virtual ~TextCodecStringHandler() {}
+  virtual ~TextCodecStringHandler() = default;
 
   /**
    * Decode a string from data.
@@ -601,6 +608,9 @@ public:
   static void setTextCodec(const QTextCodec* codec) { s_codec = codec; }
 
 private:
+  TextCodecStringHandler(const TextCodecStringHandler&) = delete;
+  TextCodecStringHandler& operator=(const TextCodecStringHandler&) = delete;
+
   static const QTextCodec* s_codec;
 };
 
@@ -1953,7 +1963,7 @@ static const struct TypeStrOfId {
  * @param type the type is returned here
  * @param str  the description is returned here
  */
-static void getTypeStringForFrameId(TagLib::ByteVector id, Frame::Type& type,
+static void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& type,
                                     const char*& str)
 {
   static TagLib::Map<TagLib::ByteVector, unsigned> idIndexMap;
@@ -5133,10 +5143,10 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     }
   } else if (frameId == QLatin1String("APIC")) {
     id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
-    ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
-    ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setMimeType(
+    static_cast<TagLib::ID3v2::AttachedPictureFrame*>(id3Frame)->setTextEncoding(enc);
+    static_cast<TagLib::ID3v2::AttachedPictureFrame*>(id3Frame)->setMimeType(
       "image/jpeg");
-    ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setType(
+    static_cast<TagLib::ID3v2::AttachedPictureFrame*>(id3Frame)->setType(
       TagLib::ID3v2::AttachedPictureFrame::FrontCover);
   } else if (frameId == QLatin1String("UFID")) {
     // the bytevector must not be empty
@@ -5153,7 +5163,7 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     }
   } else if (frameId == QLatin1String("GEOB")) {
     id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
-    ((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
+    static_cast<TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(id3Frame)->setTextEncoding(enc);
   } else if (frameId.startsWith(QLatin1String("W"))) {
     if (frameId == QLatin1String("WXXX")) {
       id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
@@ -5164,10 +5174,10 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     }
   } else if (frameId == QLatin1String("USLT")) {
     id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
-    ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+    static_cast<TagLib::ID3v2::UnsynchronizedLyricsFrame*>(id3Frame)->setLanguage("eng");
   } else if (frameId == QLatin1String("SYLT")) {
     id3Frame = new TagLib::ID3v2::SynchronizedLyricsFrame(enc);
-    ((TagLib::ID3v2::SynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+    static_cast<TagLib::ID3v2::SynchronizedLyricsFrame*>(id3Frame)->setLanguage("eng");
   } else if (frameId == QLatin1String("ETCO")) {
     id3Frame = new TagLib::ID3v2::EventTimingCodesFrame;
   } else if (frameId == QLatin1String("POPM")) {
@@ -6174,8 +6184,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
                  getName());
     }
-    for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
-      const TypeStrOfId& ts = typeStrOfId[i];
+    for (const auto& ts : typeStrOfId) {
       if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
         lst.append(QString::fromLatin1(ts.str));
       }
@@ -6194,12 +6203,12 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
-    for (unsigned i = 0; i < sizeof(mp4NameTypeValues) / sizeof(mp4NameTypeValues[0]); ++i) {
-      if (mp4NameTypeValues[i].type == Frame::FT_Other &&
-          mp4NameTypeValues[i].value != MVT_ByteArray &&
-          !(mp4NameTypeValues[i].name[0] >= 'A' &&
-            mp4NameTypeValues[i].name[0] <= 'Z')) {
-        lst.append(QString::fromLatin1(mp4NameTypeValues[i].name));
+    for (const auto& mp4NameTypeValue : mp4NameTypeValues) {
+      if (mp4NameTypeValue.type == Frame::FT_Other &&
+          mp4NameTypeValue.value != MVT_ByteArray &&
+          !(mp4NameTypeValue.name[0] >= 'A' &&
+            mp4NameTypeValue.name[0] <= 'Z')) {
+        lst.append(QString::fromLatin1(mp4NameTypeValue.name));
       }
     }
 #endif
@@ -6216,9 +6225,9 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
-    for (unsigned i = 0; i < sizeof(asfNameTypeValues) / sizeof(asfNameTypeValues[0]); ++i) {
-      if (asfNameTypeValues[i].type == Frame::FT_Other) {
-        lst.append(QString::fromLatin1(asfNameTypeValues[i].name));
+    for (const auto& asfNameTypeValue : asfNameTypeValues) {
+      if (asfNameTypeValue.type == Frame::FT_Other) {
+        lst.append(QString::fromLatin1(asfNameTypeValue.name));
       }
     }
 #endif
@@ -6243,8 +6252,8 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
       }
     }
-    for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
-      lst.append(QString::fromLatin1(fieldNames[i]));
+    for (auto fieldName : fieldNames) {
+      lst.append(QString::fromLatin1(fieldName));
     }
 #endif
   } else {
@@ -6279,8 +6288,8 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
                    getName());
       }
     }
-    for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
-      lst.append(QString::fromLatin1(fieldNames[i]));
+    for (auto fieldName : fieldNames) {
+      lst.append(QString::fromLatin1(fieldName));
     }
   }
   return lst;

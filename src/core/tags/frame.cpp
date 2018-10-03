@@ -33,7 +33,7 @@
 
 namespace {
 
-static const char* const fieldIdNames[] = {
+const char* const fieldIdNames[] = {
   "Unknown",
   QT_TRANSLATE_NOOP("@default", "Text Encoding"),
   QT_TRANSLATE_NOOP("@default", "Text"),
@@ -65,7 +65,7 @@ static const char* const fieldIdNames[] = {
   nullptr
 };
 
-static const char* const textEncodingNames[] = {
+const char* const textEncodingNames[] = {
   QT_TRANSLATE_NOOP("@default", "ISO-8859-1"),
   QT_TRANSLATE_NOOP("@default", "UTF16"),
   QT_TRANSLATE_NOOP("@default", "UTF16BE"),
@@ -73,14 +73,14 @@ static const char* const textEncodingNames[] = {
   nullptr
 };
 
-static const char* const timestampFormatNames[] = {
+const char* const timestampFormatNames[] = {
   QT_TRANSLATE_NOOP("@default", "Other"),
   QT_TRANSLATE_NOOP("@default", "MPEG frames as unit"),
   QT_TRANSLATE_NOOP("@default", "Milliseconds as unit"),
   nullptr
 };
 
-static const char* const contentTypeNames[] = {
+const char* const contentTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Other"),
   QT_TRANSLATE_NOOP("@default", "Lyrics"),
   QT_TRANSLATE_NOOP("@default", "Text transcription"),

@@ -39,8 +39,8 @@
 
 namespace {
 
-static const int MAX_STAR_COUNT = 5;
-static const int STAR_SCALE_FACTOR = 20;
+const int MAX_STAR_COUNT = 5;
+const int STAR_SCALE_FACTOR = 20;
 
 QString ratingTypeName(const QModelIndex& index) {
   QString name = index.data(FrameTableModel::InternalNameRole).toString();
@@ -109,6 +109,8 @@ public:
   virtual void fixup(QString& input) const override;
 
 private:
+  Q_DISABLE_COPY(DateTimeValidator)
+
   const QRegExp m_re;
   mutable QString m_lastValidInput;
 };

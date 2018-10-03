@@ -142,8 +142,8 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
 #include <QDir>
 #include <QDateTime>
 #include <QTextStream>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -222,11 +222,7 @@ bool findExtVolumeTrash(const QString& volumeRoot, QString& trashDir)
   } else {
     trashDir += QString(QLatin1String("-%1")).arg(uid);
   }
-  if (QDir(trashDir).exists() ||
-      QDir().mkpath(trashDir)) {
-    return true;
-  }
-  return false;
+  return QDir(trashDir).exists() || QDir().mkpath(trashDir);
 }
 
 } // anonymous namespace

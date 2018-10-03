@@ -37,7 +37,7 @@ namespace {
 /**
  * List of picture type strings, NULL terminated.
  */
-static const char* const pictureTypeNames[] = {
+const char* const pictureTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Other"),
   QT_TRANSLATE_NOOP("@default", "32x32 pixels PNG file icon"),
   QT_TRANSLATE_NOOP("@default", "Other file icon"),
@@ -65,7 +65,7 @@ static const char* const pictureTypeNames[] = {
 /**
  * List of untranslated picture type strings, NULL terminated.
  */
-static const char* const pictureTypeStrings[] = {
+const char* const pictureTypeStrings[] = {
   "Other",
   "Png Icon",
   "Icon",

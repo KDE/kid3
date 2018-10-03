@@ -870,7 +870,7 @@ public:
   /**
    * Default value for quick access frames.
    */
-  static const quint64 DEFAULT_QUICK_ACCESS_FRAMES =
+  static constexpr quint64 DEFAULT_QUICK_ACCESS_FRAMES =
       (1ULL << Frame::FT_Title)   |
       (1ULL << Frame::FT_Artist)  |
       (1ULL << Frame::FT_Album)   |

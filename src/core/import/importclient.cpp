@@ -92,7 +92,8 @@ void ImportClient::requestFinished(const QByteArray& rcvStr)
  * @param cat category
  * @param id  ID
  */
-void ImportClient::getTrackList(const ServerImporterConfig* cfg, QString cat, QString id)
+void ImportClient::getTrackList(const ServerImporterConfig* cfg,
+                                const QString& cat, const QString& id)
 {
   sendTrackListQuery(cfg, cat, id);
   m_requestType = RT_Album;

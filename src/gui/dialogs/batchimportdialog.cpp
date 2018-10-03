@@ -70,7 +70,7 @@ public:
     m_serverNames = servers;
   }
 
-public slots:
+public:
   /**
    * Add a new item.
    */
@@ -82,6 +82,8 @@ public slots:
   virtual void editItem() override;
 
 private:
+  Q_DISABLE_COPY(BatchImportSourceListEdit)
+
   QTableView* m_tableView;
   QStringList m_serverNames;
 };

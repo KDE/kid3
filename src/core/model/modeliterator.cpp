@@ -361,6 +361,7 @@ SelectedTaggedFileOfDirectoryIterator::SelectedTaggedFileOfDirectoryIterator(
     m_row(0), m_model(index.model()),
     m_parentIdx(m_model && m_model->hasChildren(index)
                 ? index : QPersistentModelIndex(index.parent())),
+    m_nextFile(nullptr),
     m_selectModel(selectModel),
     m_allSelected(!m_selectModel ||
                   (allIfNoneSelected && !m_selectModel->hasSelection()))

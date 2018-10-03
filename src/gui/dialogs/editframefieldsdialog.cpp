@@ -101,6 +101,8 @@ public:
   void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
+  Q_DISABLE_COPY(LabeledTextEdit)
+
   /** Label above edit */
   QLabel* m_label;
   /** Text editor */
@@ -145,6 +147,8 @@ public:
   void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
+  Q_DISABLE_COPY(LabeledLineEdit)
+
   /** Label above edit */
   QLabel* m_label;
   /** Line editor */
@@ -194,6 +198,8 @@ public:
   void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
+  Q_DISABLE_COPY(LabeledComboBox)
+
   /** Label above combo box */
   QLabel* m_label;
   /** Combo box */
@@ -238,6 +244,8 @@ public:
   void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
+  Q_DISABLE_COPY(LabeledSpinBox)
+
   /** Label above edit */
   QLabel* m_label;
   /** Text editor */
@@ -350,6 +358,9 @@ public:
 protected:
   /** field */
   Frame::Field& m_field;
+
+private:
+  Q_DISABLE_COPY(Mp3FieldControl)
 };
 
 /** Control to edit standard UTF text fields */
@@ -384,6 +395,9 @@ public:
 protected:
   /** Text editor widget */
   LabeledTextEdit* m_edit;
+
+private:
+  Q_DISABLE_COPY(TextFieldControl)
 };
 
 /** Control to edit single line text fields */
@@ -418,6 +432,9 @@ public:
 protected:
   /** Line editor widget */
   LabeledLineEdit* m_edit;
+
+private:
+  Q_DISABLE_COPY(LineFieldControl)
 };
 
 /** Control to edit integer fields */
@@ -452,6 +469,9 @@ public:
 protected:
   /** Spin box widget */
   LabeledSpinBox* m_numInp;
+
+private:
+  Q_DISABLE_COPY(IntFieldControl)
 };
 
 /** Control to edit integer fields using a combo box with given values */
@@ -490,6 +510,9 @@ protected:
   LabeledComboBox* m_ptInp;
   /** List of strings with possible selections */
   const char* const* m_strLst;
+
+private:
+  Q_DISABLE_COPY(IntComboBoxControl)
 };
 
 /** Control to import, export and view data from binary fields */
@@ -539,6 +562,9 @@ protected:
   const Frame& m_frame;
   /** tagged file */
   const TaggedFile* m_taggedFile;
+
+private:
+  Q_DISABLE_COPY(BinFieldControl)
 };
 
 /**
@@ -596,6 +622,9 @@ protected:
   TimeEventModel* m_model;
   /** editor widget */
   TimeEventEditor* m_editor;
+
+private:
+  Q_DISABLE_COPY(TimeEventFieldControl)
 };
 
 /** Control to edit a subframe */
@@ -631,6 +660,8 @@ public:
   virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
+  Q_DISABLE_COPY(SubframeFieldControl)
+
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   const TaggedFile* m_taggedFile;
@@ -670,6 +701,8 @@ public:
   virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
+  Q_DISABLE_COPY(ChapterFieldControl)
+
   ChapterEditor* m_editor;
 };
 
@@ -702,6 +735,8 @@ public:
   virtual QWidget* createWidget(QWidget* parent) override;
 
 private:
+  Q_DISABLE_COPY(TableOfContentsFieldControl)
+
   TableOfContentsEditor* m_editor;
 };
 
@@ -1248,9 +1283,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   // Remove all items, keep the last item.
   for (int i = m_vlayout->count() - 2; i >= 0; --i) {
     if (QLayoutItem* item = m_vlayout->takeAt(i)) {
-      if (QWidget* widget = item->widget()) {
-        delete widget;
-      }
+      delete item->widget();
       delete item;
     }
   }

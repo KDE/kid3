@@ -94,7 +94,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools,
                                        Kid3Application* app) :
   m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
-  m_app(app),
+  m_form(nullptr), m_app(app),
   m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
   m_progressWidget(nullptr),

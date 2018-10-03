@@ -93,7 +93,8 @@ public:
    * @param cat category
    * @param id  ID
    */
-  void getTrackList(const ServerImporterConfig* cfg, QString cat, QString id);
+  void getTrackList(const ServerImporterConfig* cfg,
+                    const QString& cat, const QString& id);
 
  /**
   * Encode a query in an URL.

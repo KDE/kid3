@@ -107,8 +107,7 @@ static const char* const expand_xpm[] = {
 /**
  * Event filter for double click on picture label.
  */
-class PictureDblClickHandler : public QObject
-{
+class PictureDblClickHandler : public QObject {
 public:
   /**
    * Constructor.
@@ -116,7 +115,7 @@ public:
    */
   explicit PictureDblClickHandler(Kid3Application* app) :
     QObject(app), m_app(app) {}
-  virtual ~PictureDblClickHandler() override {}
+  virtual ~PictureDblClickHandler() override = default;
 
 protected:
   /**
@@ -130,6 +129,8 @@ protected:
   virtual bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
+  Q_DISABLE_COPY(PictureDblClickHandler)
+
   Kid3Application* m_app;
 };
 

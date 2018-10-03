@@ -30,9 +30,7 @@
 /**
  * Constructor.
  */
-BatchImportProfile::BatchImportProfile()
-{
-}
+BatchImportProfile::BatchImportProfile() = default;
 
 /**
  * Restore batch import sources from serialized string.
@@ -44,13 +42,14 @@ void BatchImportProfile::setSourcesFromString(const QString& str)
   if (!str.isEmpty()) {
     const QStringList srcStrs = str.split(QLatin1Char(';'));
     for (const QString& srcStr : srcStrs) {
-      QStringList propStrs = srcStr.split(QLatin1Char(':'));
+      const QStringList propStrs = srcStr.split(QLatin1Char(':'));
+      const int propStrsSize = propStrs.size();
       Source src;
-      if (propStrs.size() > 0)
+      if (propStrsSize > 0)
         src.setName(propStrs.at(0));
-      if (propStrs.size() > 1)
+      if (propStrsSize > 1)
         src.setRequiredAccuracy(propStrs.at(1).toInt());
-      if (propStrs.size() > 2) {
+      if (propStrsSize > 2) {
         const QString& enableStr = propStrs.at(2);
         src.enableStandardTags(enableStr.contains(QLatin1Char('S')));
         src.enableAdditionalTags(enableStr.contains(QLatin1Char('A')));

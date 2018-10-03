@@ -19,7 +19,7 @@
  *   02110-1301  USA                                                       *
  ***************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 
 // Kid3: Remove taglib/ from includes
 #include <id3v2tag.h>
@@ -51,8 +51,8 @@ public:
 
   ~FilePrivate()
   {
-    if (properties) delete properties;
-    if (tag) delete tag;
+    delete properties;
+    delete tag;
   }
 
   const TagLib::ID3v2::FrameFactory *ID3v2FrameFactory;

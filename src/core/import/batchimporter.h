@@ -89,7 +89,7 @@ public:
    * @param importers available importers
    * @param trackDataModel track data model used by importers
    */
-  void setImporters(QList<ServerImporter*> importers,
+  void setImporters(const QList<ServerImporter*>& importers,
                     TrackDataModel* trackDataModel);
 
   /**

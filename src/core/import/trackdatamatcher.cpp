@@ -26,7 +26,7 @@
 
 #include "trackdatamatcher.h"
 #include <QDir>
-#include <limits.h>
+#include <climits>
 #include "trackdatamodel.h"
 
 /**
@@ -255,8 +255,8 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
   struct MatchData {
     QSet<QString> fileWords;  // words in file name
     QSet<QString> titleWords; // words in title
-    int assignedTo;   // number of file import is assigned to, -1 if not assigned
-    int assignedFrom; // number of import assigned to file, -1 if not assigned
+    int assignedTo = -1;   // number of file import is assigned to, -1 if not assigned
+    int assignedFrom = -1; // number of import assigned to file, -1 if not assigned
   };
 
   bool failed = false;

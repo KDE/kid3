@@ -31,7 +31,7 @@
  * @param parent parent widget
  */
 CheckableStringListModel::CheckableStringListModel(QObject* parent) :
-  QStringListModel(parent)
+  QStringListModel(parent), m_bitMask(0)
 {
 }
 

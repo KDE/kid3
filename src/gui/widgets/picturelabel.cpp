@@ -39,6 +39,9 @@ public:
   explicit PictureLabelIntern(QWidget* parent = nullptr);
   virtual ~PictureLabelIntern() override = default;
   virtual int heightForWidth(int w) const override;
+
+private:
+  Q_DISABLE_COPY(PictureLabelIntern)
 };
 
 PictureLabelIntern::PictureLabelIntern(QWidget* parent) : QLabel(parent)

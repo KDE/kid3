@@ -264,8 +264,7 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 /**
  * Constructor.
  */
-TrackData::TrackData()
-{}
+TrackData::TrackData() = default;
 
 /**
  * Constructor.
