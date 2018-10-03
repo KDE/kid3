@@ -45,13 +45,6 @@ TextExporter::TextExporter(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-TextExporter::~TextExporter()
-{
-}
-
-/**
  * Update text from tags.
  *
  * @param headerFormat header format

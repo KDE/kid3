@@ -162,12 +162,6 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
 }
 
 /**
- * Destructor.
- */
-ConfigDialog::~ConfigDialog()
-{}
-
-/**
  * Set values in dialog from current configuration.
  */
 void ConfigDialog::setConfig()

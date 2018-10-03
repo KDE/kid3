@@ -129,12 +129,6 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-NumberTracksDialog::~NumberTracksDialog()
-{}
-
-/**
  * Get start number.
  */
 int NumberTracksDialog::getStartNumber() const

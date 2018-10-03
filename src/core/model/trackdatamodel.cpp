@@ -39,13 +39,6 @@ TrackDataModel::TrackDataModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-TrackDataModel::~TrackDataModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

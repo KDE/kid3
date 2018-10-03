@@ -98,12 +98,6 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
 }
 
 /**
- * Destructor.
- */
-FilterDialog::~FilterDialog()
-{}
-
-/**
  * Apply or abort filter.
  */
 void FilterDialog::applyOrAbortFilter()

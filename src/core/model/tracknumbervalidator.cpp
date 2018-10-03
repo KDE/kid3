@@ -35,13 +35,6 @@ TrackNumberValidator::TrackNumberValidator(QObject *parent) : QValidator(parent)
 }
 
 /**
- * Destructor.
- */
-TrackNumberValidator::~TrackNumberValidator()
-{
-}
-
-/**
  * Validate input string.
  * @param input input string
  * @param pos current position

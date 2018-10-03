@@ -102,7 +102,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCli() override;
+  virtual ~AbstractCli() override = default;
 
   /**
    * Write a line to standard output.

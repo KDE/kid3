@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerTrackImporter() override;
+  virtual ~ServerTrackImporter() override = default;
 
   /**
    * Name of import source.

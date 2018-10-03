@@ -28,6 +28,7 @@
 #define TAGCONFIG_H
 
 #include <QStringList>
+#include <QScopedPointer>
 #include "generalconfig.h"
 #include "kid3api.h"
 
@@ -450,7 +451,7 @@ signals:
 private:
   friend TagConfig& StoredConfig<TagConfig>::instance();
 
-  StarRatingMapping* m_starRatingMapping;
+  QScopedPointer<StarRatingMapping> m_starRatingMapping;
 
   QString m_commentName;
   QString m_riffTrackName;

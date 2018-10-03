@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~RenDirConfig() override;
+  virtual ~RenDirConfig() override = default;
 
   /**
    * Persist configuration.

@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzImportPlugin() override;
+  virtual ~MusicBrainzImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.

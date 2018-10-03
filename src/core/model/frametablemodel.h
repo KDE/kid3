@@ -68,7 +68,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameTableModel() override;
+  virtual ~FrameTableModel() override = default;
 
   /**
    * Get item flags for index.

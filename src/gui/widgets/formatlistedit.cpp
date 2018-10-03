@@ -94,13 +94,6 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
 }
 
 /**
- * Destructor.
- */
-FormatListEdit::~FormatListEdit()
-{
-}
-
-/**
  * Set format strings.
  *
  * @param formats list of format stringlists, the first stringlist contains

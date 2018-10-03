@@ -37,13 +37,6 @@ FindReplaceConfig::FindReplaceConfig() :
 }
 
 /**
- * Destructor.
- */
-FindReplaceConfig::~FindReplaceConfig()
-{
-}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

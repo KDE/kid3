@@ -72,7 +72,7 @@ static QString getToolTip()
  */
 BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
                                            QWidget* parent) :
-  QDialog(parent), m_app(app), m_process(nullptr)
+  QDialog(parent), m_app(app)
 {
   setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);
@@ -155,7 +155,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
  */
 BrowseCoverArtDialog::~BrowseCoverArtDialog()
 {
-  delete m_process;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -253,7 +253,7 @@ void BrowseCoverArtDialog::showHelp()
 void BrowseCoverArtDialog::accept()
 {
   if (!m_process) {
-    m_process = new ExternalProcess(m_app, this);
+    m_process.reset(new ExternalProcess(m_app, this));
   }
   m_process->launchCommand(
     tr("Browse Cover Art"),

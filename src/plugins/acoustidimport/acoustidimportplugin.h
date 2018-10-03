@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AcoustidImportPlugin() override;
+  virtual ~AcoustidImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.

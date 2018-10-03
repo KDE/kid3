@@ -62,7 +62,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerImportDialog() override;
+  virtual ~ServerImportDialog() override = default;
 
   /**
    * Set importer to be used.

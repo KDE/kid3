@@ -46,13 +46,6 @@ MusicBrainzImporter::MusicBrainzImporter(
 }
 
 /**
- * Destructor.
- */
-MusicBrainzImporter::~MusicBrainzImporter()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

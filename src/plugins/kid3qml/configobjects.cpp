@@ -46,10 +46,6 @@ ConfigObjects::ConfigObjects(QObject* parent) : QObject(parent)
 {
 }
 
-ConfigObjects::~ConfigObjects()
-{
-}
-
 QObject* ConfigObjects::batchImportConfig()
 {
   return &BatchImportConfig::instance();

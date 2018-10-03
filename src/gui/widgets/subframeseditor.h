@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SubframesEditor() override;
+  virtual ~SubframesEditor() override = default;
 
   /**
    * Set subframes.

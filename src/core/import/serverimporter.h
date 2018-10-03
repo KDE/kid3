@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerImporter() override;
+  virtual ~ServerImporter() override = default;
 
   /**
    * Name of import source.
@@ -203,7 +203,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AlbumListItem() override;
+  virtual ~AlbumListItem() override = default;
 
   /**
    * Get type of item.

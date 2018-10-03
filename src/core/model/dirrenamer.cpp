@@ -44,13 +44,6 @@ DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-DirRenamer::~DirRenamer()
-{
-}
-
-/**
  * Get parent directory.
  *
  * @param dir directory

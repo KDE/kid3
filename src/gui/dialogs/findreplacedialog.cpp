@@ -156,13 +156,6 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
 }
 
 /**
- * Destructor.
- */
-FindReplaceDialog::~FindReplaceDialog()
-{
-}
-
-/**
  * Initialize dialog before it is displayed.
  * @param findOnly true to display only find part of dialog
  */

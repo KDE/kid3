@@ -68,12 +68,6 @@ MessageDialog::MessageDialog(QWidget* parent)
 }
 
 /**
- * Destructor.
- */
-MessageDialog::~MessageDialog()
-{}
-
-/**
  * Set the text to be displayed.
  *
  * @param text message text.

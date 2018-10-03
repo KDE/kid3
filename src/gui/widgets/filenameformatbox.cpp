@@ -53,13 +53,6 @@ FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
 }
 
 /**
- * Destructor.
- */
-FilenameFormatBox::~FilenameFormatBox()
-{
-}
-
-/**
  * Set the values from a format configuration.
  *
  * @param cfg format configuration

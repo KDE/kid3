@@ -35,7 +35,7 @@
  * Constructor.
  */
 CorePlatformTools::CorePlatformTools() :
-  m_settings(nullptr), m_config(nullptr)
+  m_settings(nullptr)
 {
 }
 
@@ -44,7 +44,7 @@ CorePlatformTools::CorePlatformTools() :
  */
 CorePlatformTools::~CorePlatformTools()
 {
-  delete m_config;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -63,9 +63,9 @@ ISettings* CorePlatformTools::applicationSettings()
       m_settings = new QSettings(
             QFile::decodeName(configPath), QSettings::IniFormat, qApp);
     }
-    m_config = new Kid3Settings(m_settings);
+    m_config.reset(new Kid3Settings(m_settings));
   }
-  return m_config;
+  return m_config.data();
 }
 
 #ifdef Q_OS_WIN32

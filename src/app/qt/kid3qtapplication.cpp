@@ -41,13 +41,6 @@ Kid3QtApplication::Kid3QtApplication(int& argc, char** argv) : QApplication(argc
 }
 
 /**
- * Destructor.
- */
-Kid3QtApplication::~Kid3QtApplication()
-{
-}
-
-/**
  * Called when session manager wants application to commit all its data.
  *
  * This method is reimplemented to avoid closing all top level widgets and

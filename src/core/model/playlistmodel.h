@@ -49,7 +49,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistModel() override;
+  virtual ~PlaylistModel() override = default;
 
   /**
    * Get item flags for index.

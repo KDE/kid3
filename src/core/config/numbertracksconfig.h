@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~NumberTracksConfig() override;
+  virtual ~NumberTracksConfig() override = default;
 
   /**
    * Persist configuration.

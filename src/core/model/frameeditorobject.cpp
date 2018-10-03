@@ -39,13 +39,6 @@ FrameEditorObject::FrameEditorObject(QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-FrameEditorObject::~FrameEditorObject()
-{
-}
-
-/**
  * Let user edit a frame and then update the fields
  * when the edits are accepted.
  * frameEdited() is emitted when the edit dialog is closed with the edited

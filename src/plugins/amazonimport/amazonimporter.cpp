@@ -44,13 +44,6 @@ AmazonImporter::AmazonImporter(
 }
 
 /**
- * Destructor.
- */
-AmazonImporter::~AmazonImporter()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

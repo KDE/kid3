@@ -31,6 +31,9 @@
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "cliconfig.h"
+#ifdef HAVE_READLINE
+#include <QScopedPointer>
+#endif
 
 class QTimer;
 class Kid3Application;
@@ -194,7 +197,7 @@ private:
   Kid3Application* m_app;
   QStringList m_args;
 #ifdef HAVE_READLINE
-  Kid3CliCompleter* m_completer;
+  QScopedPointer<Kid3CliCompleter> m_completer;
 #endif
   QList<CliCommand*> m_cmds;
   QStringList m_argCommands;

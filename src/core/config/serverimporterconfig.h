@@ -71,7 +71,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerImporterConfig() override;
+  virtual ~ServerImporterConfig() override = default;
 
   /**
    * Persist configuration.

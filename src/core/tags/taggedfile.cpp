@@ -61,13 +61,6 @@ TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
 }
 
 /**
- * Destructor.
- */
-TaggedFile::~TaggedFile()
-{
-}
-
-/**
  * Get file proxy model.
  * @return file proxy model.
  */
@@ -1084,13 +1077,6 @@ bool TaggedFile::setFileTimeStamps(const QString& path,
 TaggedFile::DetailInfo::DetailInfo() :
   channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0),
   valid(false), vbr(false)
-{
-}
-
-/**
- * Destructor.
- */
-TaggedFile::DetailInfo::~DetailInfo()
 {
 }
 

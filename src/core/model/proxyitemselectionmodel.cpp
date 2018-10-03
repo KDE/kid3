@@ -55,10 +55,6 @@ ProxyItemSelectionModel::ProxyItemSelectionModel(
   onModelChanged();
 }
 
-ProxyItemSelectionModel::~ProxyItemSelectionModel()
-{
-}
-
 void ProxyItemSelectionModel::select(
     const QModelIndex& index, QItemSelectionModel::SelectionFlags command)
 {

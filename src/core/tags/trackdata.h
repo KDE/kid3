@@ -320,7 +320,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackDataFormatReplacer() override;
+  virtual ~TrackDataFormatReplacer() override = default;
 
   /**
    * Get help text for supported format codes.

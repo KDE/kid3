@@ -147,7 +147,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~UserActionsConfig() override;
+  virtual ~UserActionsConfig() override = default;
 
   /**
    * Persist configuration.

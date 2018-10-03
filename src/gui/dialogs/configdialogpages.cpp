@@ -151,13 +151,6 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
 }
 
 /**
- * Destructor.
- */
-ConfigDialogPages::~ConfigDialogPages()
-{
-}
-
-/**
  * Create page with tags settings.
  * @return tags page.
  */

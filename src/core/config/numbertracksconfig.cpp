@@ -64,11 +64,6 @@ NumberTracksConfig::NumberTracksConfig() :
 }
 
 /**
- * Destructor.
- */
-NumberTracksConfig::~NumberTracksConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

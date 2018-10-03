@@ -39,13 +39,6 @@ Mp4v2MetadataPlugin::Mp4v2MetadataPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-Mp4v2MetadataPlugin::~Mp4v2MetadataPlugin()
-{
-}
-
-/**
  * Get name of factory, the same as the QObject::objectName() of the plugin.
  * @return factory name.
  */

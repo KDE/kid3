@@ -38,13 +38,6 @@ ComboBoxDelegate::ComboBoxDelegate(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-ComboBoxDelegate::~ComboBoxDelegate()
-{
-}
-
-/**
  * Create an editor to edit the cells contents.
  * @param parent parent widget
  * @param option style

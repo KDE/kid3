@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigObjects() override;
+  virtual ~ConfigObjects() override = default;
 
   /** Get batch import configuration. */
   Q_INVOKABLE static QObject* batchImportConfig();

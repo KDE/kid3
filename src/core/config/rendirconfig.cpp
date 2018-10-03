@@ -83,11 +83,6 @@ RenDirConfig::RenDirConfig() :
 }
 
 /**
- * Destructor.
- */
-RenDirConfig::~RenDirConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~M4aFile() override;
+  virtual ~M4aFile() override = default;
 
   /**
    * Get key of tagged file format.

@@ -58,13 +58,6 @@ BatchImporter::BatchImporter(QNetworkAccessManager* netMgr) : QObject(netMgr),
 }
 
 /**
- * Destructor.
- */
-BatchImporter::~BatchImporter()
-{
-}
-
-/**
  * Set importers.
  * @param importers available importers
  * @param trackDataModel track data model used by importers

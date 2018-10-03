@@ -101,13 +101,6 @@ FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-FrameTableModel::~FrameTableModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

@@ -48,13 +48,6 @@ MainWindowConfig::MainWindowConfig() :
 }
 
 /**
- * Destructor.
- */
-MainWindowConfig::~MainWindowConfig()
-{
-}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

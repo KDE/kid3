@@ -27,6 +27,7 @@
 #ifndef KDEPLATFORMTOOLS_H
 #define KDEPLATFORMTOOLS_H
 
+#include <QScopedPointer>
 #include "iplatformtools.h"
 
 class KConfig;
@@ -193,8 +194,8 @@ public:
       const QString& text, const QStringList& strlist, const QString& caption) override;
 
 private:
-  KConfig* m_settings;
-  ISettings* m_config;
+  QScopedPointer<KConfig> m_settings;
+  QScopedPointer<ISettings> m_config;
 };
 
 #endif // KDEPLATFORMTOOLS_H

@@ -133,7 +133,7 @@ public:
   /**
    * Destructor.
    */
-  ~PictureFrame();
+  ~PictureFrame() = default;
 
   /**
    * Set all properties.

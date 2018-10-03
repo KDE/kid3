@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ComboBoxDelegate() override;
+  virtual ~ComboBoxDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.

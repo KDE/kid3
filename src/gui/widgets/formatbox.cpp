@@ -69,11 +69,6 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-FormatBox::~FormatBox() {}
-
-/**
  * Set the values from a format configuration.
  *
  * @param cfg format configuration

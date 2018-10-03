@@ -42,13 +42,6 @@ ShortcutsDelegate::ShortcutsDelegate(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-ShortcutsDelegate::~ShortcutsDelegate()
-{
-}
-
-/**
  * Create an editor to edit the cells contents.
  * @param parent parent widget
  * @param option style
@@ -200,11 +193,4 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   resetButton->setText(tr("Reset"));
   connect(resetButton, &QAbstractButton::clicked, this, &ShortcutsDelegateEditor::resetClicked);
   hlayout->addWidget(resetButton);
-}
-
-/**
- * Destructor.
- */
-ShortcutsDelegateEditor::~ShortcutsDelegateEditor()
-{
 }

@@ -81,13 +81,6 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
 }
 
 /**
- * Destructor.
- */
-SubframesEditor::~SubframesEditor()
-{
-}
-
-/**
  * Set subframes.
  * @param frames subframes, will be cleared
  */

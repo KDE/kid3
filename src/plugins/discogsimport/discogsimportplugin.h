@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsImportPlugin() override;
+  virtual ~DiscogsImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.

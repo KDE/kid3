@@ -39,13 +39,6 @@ MusicBrainzImportPlugin::MusicBrainzImportPlugin(QObject* parent) : QObject(pare
 }
 
 /**
- * Destructor.
- */
-MusicBrainzImportPlugin::~MusicBrainzImportPlugin()
-{
-}
-
-/**
  * Get keys of available server importers.
  * @return list of keys.
  */

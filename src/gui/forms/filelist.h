@@ -29,6 +29,7 @@
 
 #include <QList>
 #include <QMap>
+#include <QScopedPointer>
 #include "configurabletreeview.h"
 #include "config.h"
 #include "kid3api.h"
@@ -195,7 +196,7 @@ private:
   QStringList formatStringList(const QStringList& format);
 
   /** Process for context menu commands */
-  ExternalProcess* m_process;
+  QScopedPointer<ExternalProcess> m_process;
   BaseMainWindowImpl* m_mainWin;
   QAction* m_renameAction;
   QAction* m_deleteAction;

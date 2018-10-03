@@ -51,13 +51,6 @@ TaggedFileSelection::TaggedFileSelection(
 }
 
 /**
- * Destructor.
- */
-TaggedFileSelection::~TaggedFileSelection()
-{
-}
-
-/**
  * Start adding tagged files to selection.
  * Has to be called before adding the first file using addTaggedFile().
  */

@@ -37,13 +37,6 @@ EnumDelegate::EnumDelegate(QObject* parent) : QItemDelegate(parent)
 }
 
 /**
- * Destructor.
- */
-EnumDelegate::~EnumDelegate()
-{
-}
-
-/**
  * Create an editor to edit the cells contents.
  * @param parent parent widget
  * @param option style

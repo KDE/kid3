@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigurableTreeView() override;
+  virtual ~ConfigurableTreeView() override = default;
 
   /**
    * Set visible columns.

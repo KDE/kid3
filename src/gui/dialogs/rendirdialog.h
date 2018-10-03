@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~RenDirDialog() override;
+  virtual ~RenDirDialog() override = default;
 
   /**
    * Start dialog.

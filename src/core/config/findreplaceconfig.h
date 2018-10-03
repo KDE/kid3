@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FindReplaceConfig() override;
+  virtual ~FindReplaceConfig() override = default;
 
   /**
    * Persist configuration.

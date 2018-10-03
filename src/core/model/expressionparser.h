@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  ~ExpressionParser();
+  ~ExpressionParser() = default;
 
   /**
    * Tokenize an expression in reverse polish notation.

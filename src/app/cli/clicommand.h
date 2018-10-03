@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CliCommand() override;
+  virtual ~CliCommand() override = default;
 
   /**
    * Reset state to defaults.

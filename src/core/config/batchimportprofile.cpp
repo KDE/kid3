@@ -35,13 +35,6 @@ BatchImportProfile::BatchImportProfile()
 }
 
 /**
- * Destructor.
- */
-BatchImportProfile::~BatchImportProfile()
-{
-}
-
-/**
  * Restore batch import sources from serialized string.
  * @param str string representation of import sources
  */

@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzImporter() override;
+  virtual ~MusicBrainzImporter() override = default;
 
   /**
    * Name of import source.

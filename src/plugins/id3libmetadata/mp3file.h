@@ -27,6 +27,7 @@
 #ifndef MP3FILE_H
 #define MP3FILE_H
 
+#include <QScopedPointer>
 #include "taggedfile.h"
 #include "tagconfig.h"
 
@@ -271,10 +272,10 @@ private:
   static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
   /** ID3v1 tags */
-  ID3_Tag* m_tagV1;
+  QScopedPointer<ID3_Tag> m_tagV1;
 
   /** ID3v2 tags */
-  ID3_Tag* m_tagV2;
+  QScopedPointer<ID3_Tag> m_tagV2;
 };
 
 #endif // MP3FILE_H

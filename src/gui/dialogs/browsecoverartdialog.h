@@ -28,6 +28,7 @@
 #define BROWSECOVERARTDIALOG_H
 
 #include <QDialog>
+#include <QScopedPointer>
 #include "frame.h"
 
 class QTextEdit;
@@ -117,7 +118,7 @@ private:
   /** Application context */
   Kid3Application* m_app;
   /** Process for browser command */
-  ExternalProcess* m_process;
+  QScopedPointer<ExternalProcess> m_process;
 };
 
 #endif

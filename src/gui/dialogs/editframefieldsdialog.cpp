@@ -66,7 +66,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledTextEdit() override;
+  virtual ~LabeledTextEdit() override = default;
 
   /**
    * Get text.
@@ -121,7 +121,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledLineEdit() override;
+  virtual ~LabeledLineEdit() override = default;
 
   /**
    * Get text.
@@ -166,7 +166,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledComboBox() override;
+  virtual ~LabeledComboBox() override = default;
 
   /**
    * Get index of selected item.
@@ -214,7 +214,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledSpinBox() override;
+  virtual ~LabeledSpinBox() override = default;
 
   /**
    * Get value.
@@ -264,13 +264,6 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-LabeledTextEdit::~LabeledTextEdit()
-{
-}
-
-/**
  * Constructor.
  *
  * @param parent parent widget
@@ -285,13 +278,6 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_edit);
-}
-
-/**
- * Destructor.
- */
-LabeledLineEdit::~LabeledLineEdit()
-{
 }
 
 /**
@@ -318,13 +304,6 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 }
 
 /**
- * Destructor.
- */
-LabeledComboBox::~LabeledComboBox()
-{
-}
-
-/**
  * Constructor.
  *
  * @param parent parent widget
@@ -342,13 +321,6 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
     layout->addWidget(m_label);
     layout->addWidget(m_spinbox);
   }
-}
-
-/**
- * Destructor.
- */
-LabeledSpinBox::~LabeledSpinBox()
-{
 }
 
 
@@ -373,19 +345,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Mp3FieldControl() override;
+  virtual ~Mp3FieldControl() override = default;
 
 protected:
   /** field */
   Frame::Field& m_field;
 };
-
-/**
- * Destructor.
- */
-Mp3FieldControl::~Mp3FieldControl()
-{
-}
 
 /** Control to edit standard UTF text fields */
 class TextFieldControl : public Mp3FieldControl {
@@ -400,7 +365,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextFieldControl() override {}
+  virtual ~TextFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -434,7 +399,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LineFieldControl() override {}
+  virtual ~LineFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -468,7 +433,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IntFieldControl() override {}
+  virtual ~IntFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -504,7 +469,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IntComboBoxControl() override {}
+  virtual ~IntComboBoxControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -547,7 +512,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BinFieldControl() override {}
+  virtual ~BinFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -600,7 +565,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventFieldControl() override;
+  virtual ~TimeEventFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -649,7 +614,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SubframeFieldControl() override;
+  virtual ~SubframeFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -688,7 +653,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ChapterFieldControl() override;
+  virtual ~ChapterFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -720,7 +685,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableOfContentsFieldControl() override;
+  virtual ~TableOfContentsFieldControl() override = default;
 
   /**
    * Update field from data in field control.
@@ -1067,13 +1032,6 @@ TimeEventFieldControl::TimeEventFieldControl(
 }
 
 /**
- * Destructor.
- */
-TimeEventFieldControl::~TimeEventFieldControl()
-{
-}
-
-/**
  * Update field with data from dialog.
  */
 void TimeEventFieldControl::updateTag()
@@ -1109,13 +1067,6 @@ SubframeFieldControl::SubframeFieldControl(
   Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
   m_taggedFile(taggedFile), m_tagNr(tagNr), m_fields(fields),
   m_begin(begin), m_end(end), m_editor(nullptr)
-{
-}
-
-/**
- * Destructor.
- */
-SubframeFieldControl::~SubframeFieldControl()
 {
 }
 
@@ -1165,13 +1116,6 @@ ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
 }
 
 /**
- * Destructor.
- */
-ChapterFieldControl::~ChapterFieldControl()
-{
-}
-
-/**
  * Update field from data in field control.
  */
 void ChapterFieldControl::updateTag()
@@ -1208,13 +1152,6 @@ QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
  */
 TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
   Mp3FieldControl(field), m_editor(nullptr)
-{
-}
-
-/**
- * Destructor.
- */
-TableOfContentsFieldControl::~TableOfContentsFieldControl()
 {
 }
 

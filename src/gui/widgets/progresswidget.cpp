@@ -62,13 +62,6 @@ ProgressWidget::ProgressWidget(QWidget* parent) : QFrame(parent),
 }
 
 /**
- * Destructor.
- */
-ProgressWidget::~ProgressWidget()
-{
-}
-
-/**
  * Set title.
  * @param text title
  */

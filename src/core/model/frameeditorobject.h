@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameEditorObject() override;
+  virtual ~FrameEditorObject() override = default;
 
   // IFrameEditor implementation
 

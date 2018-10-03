@@ -91,11 +91,6 @@ FileConfig::FileConfig() :
 }
 
 /**
- * Destructor.
- */
-FileConfig::~FileConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

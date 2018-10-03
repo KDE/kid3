@@ -138,12 +138,6 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 }
 
 /**
- * Destructor.
- */
-BrowserDialog::~BrowserDialog()
-{}
-
-/**
  * Display help document at anchor.
  *
  * @param anchor anchor

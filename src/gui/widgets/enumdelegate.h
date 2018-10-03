@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EnumDelegate() override;
+  virtual ~EnumDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.

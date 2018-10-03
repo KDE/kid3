@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~OggFlacMetadataPlugin() override;
+  virtual ~OggFlacMetadataPlugin() override = default;
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.

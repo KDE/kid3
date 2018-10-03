@@ -63,7 +63,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CheckableListModel() override;
+  virtual ~CheckableListModel() override = default;
 
   /**
    * Get selection model.

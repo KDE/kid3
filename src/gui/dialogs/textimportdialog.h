@@ -28,6 +28,7 @@
 #define TEXTIMPORTDIALOG_H
 
 #include <QDialog>
+#include <QScopedPointer>
 
 class TextImporter;
 class TrackDataModel;
@@ -108,7 +109,7 @@ private:
   /** format editor */
   FormatListEdit* m_formatListEdit;
   /** text importer */
-  TextImporter* m_textImporter;
+  QScopedPointer<TextImporter> m_textImporter;
 };
 
 #endif

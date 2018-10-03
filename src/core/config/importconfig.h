@@ -92,7 +92,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ImportConfig() override;
+  virtual ~ImportConfig() override = default;
 
   /**
    * Persist configuration.

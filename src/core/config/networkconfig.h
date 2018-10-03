@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~NetworkConfig() override;
+  virtual ~NetworkConfig() override = default;
 
   /**
    * Persist configuration.

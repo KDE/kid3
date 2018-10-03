@@ -39,8 +39,3 @@ AmazonConfig::AmazonConfig() :
   setAdditionalTagsUsed(true);
   setServer(QLatin1String("www.amazon.com"));
 }
-
-/**
- * Destructor.
- */
-AmazonConfig::~AmazonConfig() {}

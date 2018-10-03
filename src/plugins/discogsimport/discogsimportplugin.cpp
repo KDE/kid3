@@ -39,13 +39,6 @@ DiscogsImportPlugin::DiscogsImportPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-DiscogsImportPlugin::~DiscogsImportPlugin()
-{
-}
-
-/**
  * Get keys of available server importers.
  * @return list of keys.
  */

@@ -78,7 +78,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventModel() override;
+  virtual ~TimeEventModel() override = default;
 
   /**
    * Get item flags for index.

@@ -80,7 +80,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileConfig() override;
+  virtual ~FileConfig() override = default;
 
   /**
    * Persist configuration.

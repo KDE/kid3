@@ -29,6 +29,7 @@
 
 #include <QDialog>
 #include <QTextEdit>
+#include <QScopedPointer>
 #include "kid3api.h"
 
 class QProcess;
@@ -58,7 +59,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~OutputViewer() override;
+    virtual ~OutputViewer() override = default;
 
     /**
      * Append text.
@@ -115,7 +116,7 @@ private:
   Kid3Application* m_app;
   QWidget* m_parent;
   QProcess* m_process;
-  OutputViewer* m_outputViewer;
+  QScopedPointer<OutputViewer> m_outputViewer;
 };
 
 #endif // EXTERNALPROCESS_H

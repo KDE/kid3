@@ -66,7 +66,9 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
   QMainWindow(parent),
   BaseMainWindow(this, platformTools, app),
   m_platformTools(platformTools),
-  m_shortcutsModel(new ShortcutsModel(this))
+  m_fileOpenRecent(nullptr), m_shortcutsModel(new ShortcutsModel(this)),
+  m_viewToolBar(nullptr), m_viewStatusBar(nullptr),
+  m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
 {
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
   QString dataRootDir(QLatin1String(CFG_DATAROOTDIR));
@@ -88,13 +90,6 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
 
   connect(qApp, &QGuiApplication::commitDataRequest,
           this, &Kid3MainWindow::onCommitDataRequest);
-}
-
-/**
- * Destructor.
- */
-Kid3MainWindow::~Kid3MainWindow()
-{
 }
 
 /** Only defined for generation of translation files */

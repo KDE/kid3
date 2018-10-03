@@ -214,13 +214,6 @@ DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
 }
 
 /**
- * Destructor.
- */
-DiscogsImporter::~DiscogsImporter()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

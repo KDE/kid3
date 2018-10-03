@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CheckableStringListModel() override;
+  virtual ~CheckableStringListModel() override = default;
 
   /**
    * Get item flags for index.

@@ -41,7 +41,7 @@ public:
    * @param parent parent widget
    */
   explicit PlaylistView(QWidget* parent = nullptr);
-  virtual ~PlaylistView() override;
+  virtual ~PlaylistView() override = default;
 
   /**
    * Get role which is used when setting dropped items.

@@ -40,8 +40,3 @@ MusicBrainzConfig::MusicBrainzConfig() :
   setAdditionalTagsUsed(true);
   setServer(QLatin1String("musicbrainz.org"));
 }
-
-/**
- * Destructor.
- */
-MusicBrainzConfig::~MusicBrainzConfig() {}

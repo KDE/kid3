@@ -45,13 +45,6 @@ TrackTypeImporter::TrackTypeImporter(QNetworkAccessManager* netMgr,
 }
 
 /**
- * Destructor.
- */
-TrackTypeImporter::~TrackTypeImporter()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

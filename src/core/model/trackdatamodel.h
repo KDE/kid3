@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackDataModel() override;
+  virtual ~TrackDataModel() override = default;
 
   /**
    * Get item flags for index.

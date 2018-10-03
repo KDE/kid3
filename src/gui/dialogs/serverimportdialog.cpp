@@ -127,13 +127,6 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
 }
 
 /**
- * Destructor.
- */
-ServerImportDialog::~ServerImportDialog()
-{
-}
-
-/**
  * Set importer to be used.
  *
  * @param source  import source to use

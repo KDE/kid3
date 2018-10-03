@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameList() override;
+  virtual ~FrameList() override = default;
 
   /**
    * Get editor for frames.

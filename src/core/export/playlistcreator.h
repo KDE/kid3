@@ -29,6 +29,7 @@
 
 #include <QString>
 #include <QMap>
+#include <QScopedPointer>
 #include "playlistconfig.h"
 
 class QModelIndex;
@@ -59,7 +60,7 @@ public:
     /**
      * Destructor.
      */
-    ~Item();
+    ~Item() = default;
 
     /**
      * Check if item is a directory.
@@ -107,7 +108,7 @@ public:
 
     PlaylistCreator& m_ctr;
     TaggedFile* m_taggedFile;
-    ImportTrackData* m_trackData;
+    QScopedPointer<ImportTrackData> m_trackData;
     QString m_dirName;
     bool m_isDir;
   };

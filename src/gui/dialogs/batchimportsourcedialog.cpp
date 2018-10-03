@@ -84,13 +84,6 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-BatchImportSourceDialog::~BatchImportSourceDialog()
-{
-}
-
-/**
  * Set names of import servers.
  * @param servers server names
  */

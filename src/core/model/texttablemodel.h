@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextTableModel() override;
+  virtual ~TextTableModel() override = default;
 
   /**
    * Get item flags for index.

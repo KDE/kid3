@@ -78,7 +78,7 @@ QString nameForAction(const QString& text)
  * @param mainWin main window
  */
 FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
-  ConfigurableTreeView(parent), m_process(nullptr), m_mainWin(mainWin),
+  ConfigurableTreeView(parent), m_mainWin(mainWin),
   m_renameAction(nullptr), m_deleteAction(nullptr)
 {
   setObjectName(QLatin1String("FileList"));
@@ -95,7 +95,7 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
  */
 FileList::~FileList()
 {
-  delete m_process;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -399,7 +399,7 @@ void FileList::executeContextCommand(int id)
     args = formatStringList(args);
 
     if (!m_process) {
-      m_process = new ExternalProcess(m_mainWin->app(), this);
+      m_process.reset(new ExternalProcess(m_mainWin->app(), this));
     }
     m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(),
                              menuCmd.outputShown());

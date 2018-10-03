@@ -42,13 +42,6 @@ ExpressionParser::ExpressionParser(QStringList operators) :
 }
 
 /**
- * Destructor.
- */
-ExpressionParser::~ExpressionParser()
-{
-}
-
-/**
  * Compare operator priority.
  *
  * @return true if op1 has less priority than op2.

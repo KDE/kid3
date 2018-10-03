@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ChapterEditor() override;
+  virtual ~ChapterEditor() override = default;
 
   /**
    * Set start and end time of chapter.

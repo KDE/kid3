@@ -42,11 +42,6 @@ TrackDataFormatReplacer::TrackDataFormatReplacer(
   FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
 
 /**
- * Destructor.
- */
-TrackDataFormatReplacer::~TrackDataFormatReplacer() {}
-
-/**
  * Replace a format code (one character %c or multiple characters %{chars}).
  * Supported format fields:
  * Those supported by FrameFormatReplacer::getReplacement()

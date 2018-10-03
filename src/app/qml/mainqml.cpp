@@ -53,7 +53,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3QtApplication() override;
+  virtual ~Kid3QtApplication() override = default;
 
   /**
    * Called when session manager wants application to commit all its data.
@@ -75,13 +75,6 @@ public:
    */
   virtual bool notify(QObject* receiver, QEvent* event) override;
 };
-
-/**
- * Destructor.
- */
-Kid3QtApplication::~Kid3QtApplication()
-{
-}
 
 /**
  * Send event to receiver.

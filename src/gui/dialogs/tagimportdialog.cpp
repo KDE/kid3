@@ -79,13 +79,6 @@ TagImportDialog::TagImportDialog(QWidget* parent,
 }
 
 /**
- * Destructor.
- */
-TagImportDialog::~TagImportDialog()
-{
-}
-
-/**
  * Clear dialog data.
  */
 void TagImportDialog::clear()

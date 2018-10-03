@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourcesModel() override;
+  virtual ~BatchImportSourcesModel() override = default;
 
   /**
    * Get item flags for index.

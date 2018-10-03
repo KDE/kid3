@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EventCodeDelegate() override;
+  virtual ~EventCodeDelegate() override = default;
 
 protected:
   // Reimplemented from EnumDelegate.

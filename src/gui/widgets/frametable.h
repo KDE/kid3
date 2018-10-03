@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameTable() override;
+  virtual ~FrameTable() override = default;
 
   /**
    * Filters events if this object has been installed as an event filter

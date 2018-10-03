@@ -329,7 +329,7 @@ bool PlaylistCreator::read(
  */
 PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
   m_ctr(ctr), m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)),
-  m_trackData(nullptr), m_isDir(false)
+  m_isDir(false)
 {
   if (m_taggedFile) {
     m_dirName = m_taggedFile->getDirname();
@@ -342,14 +342,6 @@ PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
   }
   // fix double separators
   m_dirName.replace(QLatin1String("//"), QLatin1String("/"));
-}
-
-/**
- * Destructor.
- */
-PlaylistCreator::Item::~Item()
-{
-  delete m_trackData;
 }
 
 /**
@@ -385,7 +377,7 @@ QString PlaylistCreator::Item::formatString(const QString& format)
 {
   if (!m_trackData) {
     m_taggedFile = FileProxyModel::readTagsFromTaggedFile(m_taggedFile);
-    m_trackData = new ImportTrackData(*m_taggedFile, Frame::TagVAll);
+    m_trackData.reset(new ImportTrackData(*m_taggedFile, Frame::TagVAll));
   }
   return m_trackData->formatString(format);
 }

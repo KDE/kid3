@@ -41,13 +41,6 @@ DownloadClient::DownloadClient(QNetworkAccessManager* netMgr) :
 }
 
 /**
- * Destructor.
- */
-DownloadClient::~DownloadClient()
-{
-}
-
-/**
  * Send a download request.
  *
  * @param url URL of resource to download

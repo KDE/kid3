@@ -41,13 +41,6 @@ FileFilter::FileFilter(QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-FileFilter::~FileFilter()
-{
-}
-
-/**
  * Initialize the parser.
  * This method has to be called before the first call to parse()
  * and afterwards when the expression has been changed.

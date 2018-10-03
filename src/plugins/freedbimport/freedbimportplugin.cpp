@@ -41,13 +41,6 @@ FreedbImportPlugin::FreedbImportPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-FreedbImportPlugin::~FreedbImportPlugin()
-{
-}
-
-/**
  * Get keys of available server importers.
  * @return list of keys.
  */

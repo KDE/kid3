@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsDelegate() override;
+  virtual ~ShortcutsDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.
@@ -117,7 +117,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsDelegateEditor() override;
+  virtual ~ShortcutsDelegateEditor() override = default;
 
   /*!
    * Get edit widget.

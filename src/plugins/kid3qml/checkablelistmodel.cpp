@@ -32,10 +32,6 @@ CheckableListModel::CheckableListModel(QObject* parent) :
 {
 }
 
-CheckableListModel::~CheckableListModel()
-{
-}
-
 QItemSelectionModel* CheckableListModel::selectionModel() const
 {
   return m_selModel;

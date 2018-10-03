@@ -66,11 +66,6 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 }
 
 /**
- * Destructor.
- */
-ExternalProcess::OutputViewer::~OutputViewer() {}
-
-/**
  * Append text.
  */
 void ExternalProcess::OutputViewer::append(const QString& text)
@@ -130,7 +125,7 @@ void ExternalProcess::OutputViewer::scrollToBottom()
  * @param parent parent object
  */
 ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
-  QObject(parent), m_app(app), m_parent(parent), m_process(nullptr), m_outputViewer(nullptr)
+  QObject(parent), m_app(app), m_parent(parent), m_process(nullptr)
 {
   setObjectName(QLatin1String("ExternalProcess"));
   const auto userCommandProcessors = m_app->getUserCommandProcessors();
@@ -153,7 +148,6 @@ ExternalProcess::~ExternalProcess()
   if (m_outputViewer) {
     m_outputViewer->close();
   }
-  delete m_outputViewer;
 }
 
 /**
@@ -185,7 +179,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   if (showOutput) {
     if (!m_outputViewer) {
-      m_outputViewer = new OutputViewer(nullptr);
+      m_outputViewer.reset(new OutputViewer(nullptr));
     }
     m_process->setProcessChannelMode(QProcess::MergedChannels);
     connect(m_process, &QProcess::readyReadStandardOutput,

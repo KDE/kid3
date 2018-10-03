@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdeMainWindow() override;
+  virtual ~KdeMainWindow() override = default;
 
   /**
    * Init menu and toolbar actions.

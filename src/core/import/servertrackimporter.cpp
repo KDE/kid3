@@ -41,13 +41,6 @@ ServerTrackImporter::ServerTrackImporter(QNetworkAccessManager* netMgr,
   m_trackDataModel(trackDataModel) {
 }
 
-/**
- * Destructor.
- */
-ServerTrackImporter::~ServerTrackImporter()
-{
-}
-
 /** NULL-terminated array of server strings, 0 if not used */
 const char** ServerTrackImporter::serverList() const { return nullptr; }
 

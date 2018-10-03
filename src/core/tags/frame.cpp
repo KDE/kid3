@@ -390,13 +390,6 @@ Frame::Frame(const ExtendedType& type, const QString& value, int index) :
 }
 
 /**
- * Destructor.
- */
-Frame::~Frame()
-{
-}
-
-/**
  * Set the value from a field in the field list.
  */
 void Frame::setValueFromFieldList()
@@ -1437,11 +1430,6 @@ FrameCollection FrameCollection::fromSubframes(
 FrameFilter::FrameFilter() : m_enabledFrames(0) {}
 
 /**
- * Destructor.
- */
-FrameFilter::~FrameFilter() {}
-
-/**
  * Enable all frames.
  */
 void FrameFilter::enableAll()
@@ -1518,11 +1506,6 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
 FrameFormatReplacer::FrameFormatReplacer(
   const FrameCollection& frames, const QString& str) :
   FormatReplacer(str), m_frames(frames) {}
-
-/**
- * Destructor.
- */
-FrameFormatReplacer::~FrameFormatReplacer() {}
 
 /**
  * Replace a format code (one character %c or multiple characters %{chars}).

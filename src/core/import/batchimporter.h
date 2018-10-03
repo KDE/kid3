@@ -70,7 +70,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImporter() override;
+  virtual ~BatchImporter() override = default;
 
   /**
    * Check if operation is aborted.

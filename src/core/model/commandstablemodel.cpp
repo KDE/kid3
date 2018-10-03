@@ -47,13 +47,6 @@ CommandsTableModel::CommandsTableModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-CommandsTableModel::~CommandsTableModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

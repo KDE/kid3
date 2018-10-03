@@ -35,13 +35,6 @@ EventCodeDelegate::EventCodeDelegate(QObject* parent) : EnumDelegate(parent)
 {
 }
 
-/**
- * Destructor.
- */
-EventCodeDelegate::~EventCodeDelegate()
-{
-}
-
 QStringList EventCodeDelegate::getEnumStrings() const
 {
   return EventTimeCode::getTranslatedStrings();

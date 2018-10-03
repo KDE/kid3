@@ -47,11 +47,6 @@ CommandFormatReplacer::CommandFormatReplacer(
   FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
 
 /**
- * Destructor.
- */
-CommandFormatReplacer::~CommandFormatReplacer() {}
-
-/**
  * Replace a format code (one character %c or multiple characters %{chars}).
  * Supported format fields:
  * Those supported by FrameFormatReplacer::getReplacement()

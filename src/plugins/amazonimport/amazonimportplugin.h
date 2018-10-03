@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AmazonImportPlugin() override;
+  virtual ~AmazonImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.

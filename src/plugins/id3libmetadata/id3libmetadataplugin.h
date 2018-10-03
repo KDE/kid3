@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Id3libMetadataPlugin() override;
+  virtual ~Id3libMetadataPlugin() override = default;
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.

@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BiDirFileProxyModelIterator() override;
+  virtual ~BiDirFileProxyModelIterator() override = default;
 
   /**
    * Abort operation.

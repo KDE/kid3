@@ -28,6 +28,7 @@
 #define IMPORTDIALOG_H
 
 #include <QDialog>
+#include <QScopedPointer>
 #include "config.h"
 #include "importconfig.h"
 
@@ -246,13 +247,13 @@ private:
   /** track importers for differen servers */
   QList<ServerTrackImporter*> m_trackImporters;
   /** Server track import dialog */
-  ServerTrackImportDialog* m_serverTrackImportDialog;
+  QScopedPointer<ServerTrackImportDialog> m_serverTrackImportDialog;
   /** Server import dialog */
-  ServerImportDialog* m_serverImportDialog;
+  QScopedPointer<ServerImportDialog> m_serverImportDialog;
   /** Text import dialog */
-  TextImportDialog* m_textImportDialog;
+  QScopedPointer<TextImportDialog> m_textImportDialog;
   /** Tag import dialog */
-  TagImportDialog* m_tagImportDialog;
+  QScopedPointer<TagImportDialog> m_tagImportDialog;
 };
 
 #endif

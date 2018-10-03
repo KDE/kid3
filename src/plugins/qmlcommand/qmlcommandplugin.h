@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlCommandPlugin() override;
+  virtual ~QmlCommandPlugin() override = default;
 
   /**
    * Get keys of available user commands.

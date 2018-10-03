@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourceListEdit() override;
+  virtual ~BatchImportSourceListEdit() override = default;
 
   /**
    * Set names of import servers.
@@ -99,13 +99,6 @@ BatchImportSourceListEdit::BatchImportSourceListEdit(
   setObjectName(QLatin1String("BatchImportSourceListEdit"));
   m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-}
-
-/**
- * Destructor.
- */
-BatchImportSourceListEdit::~BatchImportSourceListEdit()
-{
 }
 
 /**
@@ -252,12 +245,6 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
 
   vlayout->addLayout(hlayout);
 }
-
-/**
- * Destructor.
- */
-BatchImportDialog::~BatchImportDialog()
-{}
 
 /**
  * Start or abort batch import.

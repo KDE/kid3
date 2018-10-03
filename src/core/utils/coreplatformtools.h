@@ -27,6 +27,7 @@
 #ifndef COREPLATFORMTOOLS_H
 #define COREPLATFORMTOOLS_H
 
+#include <QScopedPointer>
 #include "icoreplatformtools.h"
 
 class QSettings;
@@ -90,7 +91,7 @@ public:
 
 private:
   QSettings* m_settings;
-  ISettings* m_config;
+  QScopedPointer<ISettings> m_config;
 };
 
 #endif // COREPLATFORMTOOLS_H

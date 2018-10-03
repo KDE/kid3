@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FindReplaceDialog() override;
+  virtual ~FindReplaceDialog() override = default;
 
   /**
    * Initialize dialog before it is displayed.

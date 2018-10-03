@@ -49,13 +49,6 @@ TableOfContentsEditor::TableOfContentsEditor(QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-TableOfContentsEditor::~TableOfContentsEditor()
-{
-}
-
-/**
  * Set chapters in table of contents.
  * @param isTopLevel true if top level
  * @param isOrdered true if contents are ordered

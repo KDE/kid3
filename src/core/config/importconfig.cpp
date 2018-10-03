@@ -229,11 +229,6 @@ ImportConfig::ImportConfig() :
 }
 
 /**
- * Destructor.
- */
-ImportConfig::~ImportConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

@@ -27,6 +27,7 @@
 #ifndef FORMATCONFIG_H
 #define FORMATCONFIG_H
 
+#include <QScopedPointer>
 #include "config.h"
 #include "generalconfig.h"
 #include <QMap>
@@ -247,7 +248,7 @@ private:
   CaseConversion m_caseConversion;
   QString m_localeName;
   /** Locale to use for string conversions */
-  const QLocale* m_locale;
+  QScopedPointer<const QLocale> m_locale;
   int m_maximumLength;
   bool m_enableMaximumLength;
   /** true if it is a file formatter */
@@ -273,7 +274,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilenameFormatConfig() override;
+  virtual ~FilenameFormatConfig() override = default;
 
 private:
   friend FilenameFormatConfig&
@@ -299,7 +300,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagFormatConfig() override;
+  virtual ~TagFormatConfig() override = default;
 
 private:
   friend TagFormatConfig&

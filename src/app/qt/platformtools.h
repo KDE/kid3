@@ -27,6 +27,7 @@
 #ifndef PLATFORMTOOLS_H
 #define PLATFORMTOOLS_H
 
+#include <QScopedPointer>
 #include "iplatformtools.h"
 #include "coreplatformtools.h"
 
@@ -195,7 +196,7 @@ public:
       const QString& text, const QStringList& strlist, const QString& caption) override;
 
 private:
-  BrowserDialog* m_helpBrowser;
+  QScopedPointer<BrowserDialog> m_helpBrowser;
 };
 
 #endif // PLATFORMTOOLS_H

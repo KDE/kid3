@@ -46,13 +46,6 @@ TagFormatBox::TagFormatBox(const QString& title, QWidget* parent)
 }
 
 /**
- * Destructor.
- */
-TagFormatBox::~TagFormatBox()
-{
-}
-
-/**
  * Set the values from a format configuration.
  *
  * @param cfg format configuration

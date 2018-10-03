@@ -51,11 +51,6 @@ ServerImporterConfig::ServerImporterConfig() :
   m_coverArt(false) {}
 
 /**
- * Destructor.
- */
-ServerImporterConfig::~ServerImporterConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

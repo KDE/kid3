@@ -230,12 +230,6 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
 }
 
 /**
- * Destructor.
- */
-PlaylistDialog::~PlaylistDialog()
-{}
-
-/**
  * Read the local settings from the configuration.
  */
 void PlaylistDialog::readConfig()

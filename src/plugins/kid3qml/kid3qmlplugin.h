@@ -28,6 +28,7 @@
 #define KID3QMLPLUGIN_H
 
 #include <QtGlobal>
+#include <QScopedPointer>
 #include "kid3api.h"
 
 class ICorePlatformTools;
@@ -70,7 +71,7 @@ public:
 private:
   ICorePlatformTools* m_platformTools;
   Kid3Application* m_kid3App;
-  QmlImageProvider* m_imageProvider;
+  QScopedPointer<QmlImageProvider> m_imageProvider;
   bool m_ownsKid3App;
 };
 

@@ -39,13 +39,6 @@ AmazonImportPlugin::AmazonImportPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-AmazonImportPlugin::~AmazonImportPlugin()
-{
-}
-
-/**
  * Get keys of available server importers.
  * @return list of keys.
  */

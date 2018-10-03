@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FreedbConfig() override;
+  virtual ~FreedbConfig() override = default;
 
   /**
    * Read persisted configuration.
@@ -76,7 +76,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackTypeConfig() override;
+  virtual ~TrackTypeConfig() override = default;
 
   /**
    * Read persisted configuration.

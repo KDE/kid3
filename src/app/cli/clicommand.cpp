@@ -63,13 +63,6 @@ CliCommand::CliCommand(Kid3Cli* processor,
 }
 
 /**
- * Destructor.
- */
-CliCommand::~CliCommand()
-{
-}
-
-/**
  * Reset state to defaults.
  */
 void CliCommand::clear()

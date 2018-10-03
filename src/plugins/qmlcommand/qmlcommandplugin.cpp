@@ -48,13 +48,6 @@ QmlCommandPlugin::QmlCommandPlugin(QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-QmlCommandPlugin::~QmlCommandPlugin()
-{
-}
-
-/**
  * Get keys of available user commands.
  * @return list of keys, ["qml", "qmlview"].
  */

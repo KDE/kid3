@@ -92,7 +92,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistConfig() override;
+  virtual ~PlaylistConfig() override = default;
 
   /**
    * Assignment operator.

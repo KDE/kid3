@@ -55,13 +55,6 @@ ScriptInterface::ScriptInterface(Kid3Application* app) :
 }
 
 /**
- * Destructor.
- */
-ScriptInterface::~ScriptInterface()
-{
-}
-
-/**
  * Open file or directory.
  *
  * @param path path to file or directory

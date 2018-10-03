@@ -39,10 +39,6 @@ TableModelEdit::TableModelEdit(QAbstractItemModel* model, QWidget* parent)
   m_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
-TableModelEdit::~TableModelEdit()
-{
-}
-
 void TableModelEdit::addItem()
 {
   QAbstractItemModel* model = getItemView()->model();

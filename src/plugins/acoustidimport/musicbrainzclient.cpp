@@ -190,13 +190,6 @@ MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
 }
 
 /**
- * Destructor.
- */
-MusicBrainzClient::~MusicBrainzClient()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

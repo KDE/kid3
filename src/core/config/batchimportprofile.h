@@ -131,7 +131,7 @@ public:
   /**
    * Destructor.
    */
-  ~BatchImportProfile();
+  ~BatchImportProfile() = default;
 
  /**
   * Get name.

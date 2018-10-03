@@ -37,7 +37,7 @@ namespace {
 class PictureLabelIntern : public QLabel {
 public:
   explicit PictureLabelIntern(QWidget* parent = nullptr);
-  virtual ~PictureLabelIntern() override;
+  virtual ~PictureLabelIntern() override = default;
   virtual int heightForWidth(int w) const override;
 };
 
@@ -45,10 +45,6 @@ PictureLabelIntern::PictureLabelIntern(QWidget* parent) : QLabel(parent)
 {
   setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
   setWordWrap(true);
-}
-
-PictureLabelIntern::~PictureLabelIntern()
-{
 }
 
 int PictureLabelIntern::heightForWidth(int w) const
@@ -74,13 +70,6 @@ PictureLabel::PictureLabel(QWidget* parent) : QWidget(parent), m_pixmapHash(0)
   m_sizeLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
   layout->addWidget(m_sizeLabel);
   clearPicture();
-}
-
-/**
- * Destructor.
- */
-PictureLabel::~PictureLabel()
-{
 }
 
 /**

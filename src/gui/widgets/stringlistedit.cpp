@@ -43,13 +43,6 @@ StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-StringListEdit::~StringListEdit()
-{
-}
-
-/**
  * Add a new item.
  */
 void StringListEdit::addItem()

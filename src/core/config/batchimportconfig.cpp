@@ -56,13 +56,6 @@ BatchImportConfig::BatchImportConfig() :
 }
 
 /**
- * Destructor.
- */
-BatchImportConfig::~BatchImportConfig()
-{
-}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

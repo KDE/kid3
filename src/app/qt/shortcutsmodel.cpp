@@ -49,13 +49,6 @@ ShortcutsModel::ShortcutsModel(QObject* parent) : QAbstractItemModel(parent)
 }
 
 /**
- * Destructor.
- */
-ShortcutsModel::~ShortcutsModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

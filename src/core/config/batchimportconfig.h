@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportConfig() override;
+  virtual ~BatchImportConfig() override = default;
 
   /**
    * Persist configuration.

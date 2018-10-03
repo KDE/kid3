@@ -39,8 +39,7 @@
 /**
  * Constructor.
  */
-PlatformTools::PlatformTools() :
-  m_helpBrowser(nullptr)
+PlatformTools::PlatformTools()
 {
 }
 
@@ -53,7 +52,6 @@ PlatformTools::~PlatformTools()
     // Without close() the application will not quit when the main window is
     // closed but the help browser is still open.
     m_helpBrowser->close();
-    delete m_helpBrowser;
   }
 }
 
@@ -89,7 +87,7 @@ void PlatformTools::displayHelp(const QString& anchor)
     const char* const kid3HandbookStr =
         QT_TRANSLATE_NOOP("@default", "Kid3 Handbook");
     QString caption(QCoreApplication::translate("@default", kid3HandbookStr));
-    m_helpBrowser = new BrowserDialog(nullptr, caption);
+    m_helpBrowser.reset(new BrowserDialog(nullptr, caption));
   }
   m_helpBrowser->goToAnchor(anchor);
   m_helpBrowser->setModal(!anchor.isEmpty());

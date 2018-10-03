@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagFormatBox() override;
+  virtual ~TagFormatBox() override = default;
 
   /**
    * Set the values from a format configuration.

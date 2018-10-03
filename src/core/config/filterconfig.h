@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilterConfig() override;
+  virtual ~FilterConfig() override = default;
 
   /**
    * Persist configuration.

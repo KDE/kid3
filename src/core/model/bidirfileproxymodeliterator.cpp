@@ -42,13 +42,6 @@ BiDirFileProxyModelIterator::BiDirFileProxyModelIterator(FileProxyModel* model,
 }
 
 /**
- * Destructor.
- */
-BiDirFileProxyModelIterator::~BiDirFileProxyModelIterator()
-{
-}
-
-/**
  * Abort operation.
  */
 void BiDirFileProxyModelIterator::abort()

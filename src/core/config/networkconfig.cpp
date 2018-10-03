@@ -51,11 +51,6 @@ NetworkConfig::NetworkConfig() :
 }
 
 /**
- * Destructor.
- */
-NetworkConfig::~NetworkConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

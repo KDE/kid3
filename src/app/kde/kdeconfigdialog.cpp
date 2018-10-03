@@ -69,12 +69,6 @@ KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
 }
 
 /**
- * Destructor.
- */
-KdeConfigDialog::~KdeConfigDialog()
-{}
-
-/**
  * Set values in dialog from current configuration.
  */
 void KdeConfigDialog::setConfig()

@@ -158,13 +158,6 @@ PictureFrame::PictureFrame(const Frame& frame)
 }
 
 /**
- * Destructor.
- */
-PictureFrame::~PictureFrame()
-{
-}
-
-/**
  * Set all properties.
  *
  * @param frame       frame to set

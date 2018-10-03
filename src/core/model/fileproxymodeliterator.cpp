@@ -57,13 +57,6 @@ FileProxyModelIterator::FileProxyModelIterator(FileProxyModel* model) :
 }
 
 /**
- * Destructor.
- */
-FileProxyModelIterator::~FileProxyModelIterator()
-{
-}
-
-/**
  * Abort operation.
  */
 void FileProxyModelIterator::abort()

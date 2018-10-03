@@ -36,13 +36,6 @@ FrameObjectModel::FrameObjectModel(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-FrameObjectModel::~FrameObjectModel()
-{
-}
-
-/**
  * Get frame name.
  * @return translated frame name.
  */
@@ -166,13 +159,6 @@ QByteArray FrameObjectModel::getBinaryData() const
  */
 FrameFieldObject::FrameFieldObject(int index, FrameObjectModel* parent) :
   QObject(parent), m_index(index)
-{
-}
-
-/**
- * Destructor.
- */
-FrameFieldObject::~FrameFieldObject()
 {
 }
 

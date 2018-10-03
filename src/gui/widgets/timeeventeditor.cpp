@@ -145,13 +145,6 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
 }
 
 /**
- * Destructor.
- */
-TimeEventEditor::~TimeEventEditor()
-{
-}
-
-/**
  * Connect to player when editor is shown.
  * @param event event
  */

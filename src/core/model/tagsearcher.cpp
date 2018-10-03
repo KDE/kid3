@@ -69,13 +69,6 @@ TagSearcher::TagSearcher(QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-TagSearcher::~TagSearcher()
-{
-}
-
-/**
  * Clear abort flag.
  */
 void TagSearcher::clearAborted()

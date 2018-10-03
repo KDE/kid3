@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeStampDelegate() override;
+  virtual ~TimeStampDelegate() override = default;
 
   /**
    * Create an editor to edit the cell contents.

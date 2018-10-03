@@ -60,7 +60,7 @@ public:
     /** Constructor. */
     DetailInfo();
     /** Destructor. */
-    ~DetailInfo();
+    ~DetailInfo() = default;
 
     QString format;          /**< format description */
     ChannelMode channelMode; /**< channel mode */
@@ -88,7 +88,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaggedFile();
+  virtual ~TaggedFile() = default;
 
   /**
    * Set file name.

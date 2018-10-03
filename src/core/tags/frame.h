@@ -481,7 +481,7 @@ public:
   /**
    * Destructor.
    */
-  ~Frame();
+  ~Frame() = default;
 
   /**
    * Less than operator.
@@ -825,7 +825,7 @@ public:
   /**
    * Destructor.
    */
-  ~FrameFilter();
+  ~FrameFilter() = default;
 
   /**
    * Enable all frames.
@@ -1208,7 +1208,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameFormatReplacer() override;
+  virtual ~FrameFormatReplacer() override = default;
 
   /**
    * Get help text for supported format codes.

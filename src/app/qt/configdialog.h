@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigDialog() override;
+  virtual ~ConfigDialog() override = default;
 
   /**
    * Set values in dialog from current configuration.

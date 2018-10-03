@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DirRenamer() override;
+  virtual ~DirRenamer() override = default;
 
   /**
    * Check if operation is aborted.

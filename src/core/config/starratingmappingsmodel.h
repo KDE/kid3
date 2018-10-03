@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StarRatingMappingsModel() override;
+  virtual ~StarRatingMappingsModel() override = default;
 
   /**
    * Get item flags for index.

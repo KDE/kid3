@@ -49,11 +49,6 @@ GuiConfig::GuiConfig() :
 }
 
 /**
- * Destructor.
- */
-GuiConfig::~GuiConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

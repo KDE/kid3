@@ -72,7 +72,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GuiConfig() override;
+  virtual ~GuiConfig() override = default;
 
   /**
    * Persist configuration.

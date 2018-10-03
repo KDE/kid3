@@ -45,11 +45,6 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-ConfigTable::~ConfigTable() {}
-
-/**
  * Set the resize modes to be used for the columns.
  * @param resizeModes list of resize modes for the columns
  */

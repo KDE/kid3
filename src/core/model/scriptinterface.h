@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ScriptInterface() override;
+  virtual ~ScriptInterface() override = default;
 
 public slots:
   /**

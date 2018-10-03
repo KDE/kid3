@@ -76,12 +76,6 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
 }
 
 /**
- * Destructor.
- */
-RenDirDialog::~RenDirDialog()
-{}
-
-/**
  * Set up the main wizard page.
  *
  * @param page    widget

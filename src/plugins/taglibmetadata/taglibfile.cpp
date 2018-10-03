@@ -31,6 +31,7 @@
 #include <QByteArray>
 #include <QImage>
 #include <QVarLengthArray>
+#include <QScopedPointer>
 #include "genres.h"
 #include "attributedata.h"
 #include "pictureframe.h"
@@ -190,7 +191,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~WavFile() override;
+  virtual ~WavFile() override = default;
 
   /**
    * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
@@ -201,10 +202,6 @@ public:
 };
 
 WavFile::WavFile(TagLib::IOStream *stream) : TagLib::RIFF::WAV::File(stream)
-{
-}
-
-WavFile::~WavFile()
 {
 }
 
@@ -6357,9 +6354,9 @@ public:
 private:
   Q_DISABLE_COPY(TagLibInitializer)
 
-  AACFileTypeResolver* m_aacFileTypeResolver;
-  MP2FileTypeResolver* m_mp2FileTypeResolver;
-  TextCodecStringHandler* m_textCodecStringHandler;
+  QScopedPointer<AACFileTypeResolver> m_aacFileTypeResolver;
+  QScopedPointer<MP2FileTypeResolver> m_mp2FileTypeResolver;
+  QScopedPointer<TextCodecStringHandler> m_textCodecStringHandler;
 };
 
 
@@ -6372,15 +6369,12 @@ TagLibInitializer::TagLibInitializer() :
 
 void TagLibInitializer::init()
 {
-  TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver);
-  TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler);
+  TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver.data());
+  TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver.data());
+  TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler.data());
 }
 
 TagLibInitializer::~TagLibInitializer() {
-  delete m_textCodecStringHandler;
-  delete m_mp2FileTypeResolver;
-  delete m_aacFileTypeResolver;
 }
 
 static TagLibInitializer tagLibInitializer;

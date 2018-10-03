@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FreedbImportPlugin() override;
+  virtual ~FreedbImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.

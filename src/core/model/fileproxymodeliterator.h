@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileProxyModelIterator() override;
+  virtual ~FileProxyModelIterator() override = default;
 
   /**
    * Abort operation.

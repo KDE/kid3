@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Settings() override;
+  virtual ~Kid3Settings() override = default;
 
   /**
    * Use settings subgroup.

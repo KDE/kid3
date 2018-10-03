@@ -41,13 +41,6 @@ TimeEventModel::TimeEventModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-TimeEventModel::~TimeEventModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

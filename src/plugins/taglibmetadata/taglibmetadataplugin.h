@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaglibMetadataPlugin() override;
+  virtual ~TaglibMetadataPlugin() override = default;
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.

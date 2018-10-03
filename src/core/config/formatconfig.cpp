@@ -38,7 +38,6 @@
 FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
   m_caseConversion(AllFirstLettersUppercase),
-  m_locale(nullptr),
   m_maximumLength(255),
   m_enableMaximumLength(false),
   m_filenameFormatter(false),
@@ -54,7 +53,7 @@ FormatConfig::FormatConfig(const QString& grp) :
  */
 FormatConfig::~FormatConfig()
 {
-  delete m_locale;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -67,8 +66,7 @@ void FormatConfig::setAsFilenameFormatter()
   m_filenameFormatter = true;
   m_caseConversion = NoChanges;
   m_localeName = QString();
-  delete m_locale;
-  m_locale = nullptr;
+  m_locale.reset();
   m_strRepEnabled = true;
   m_strRepMap[QLatin1String("/")] = QLatin1Char('-');
   m_strRepMap[QLatin1String(":")] = QLatin1Char('-');
@@ -361,8 +359,7 @@ void FormatConfig::setLocaleName(const QString& localeName)
 {
   if (localeName != m_localeName) {
     m_localeName = localeName;
-    delete m_locale;
-    m_locale = new QLocale(m_localeName);
+    m_locale.reset(new QLocale(m_localeName));
     emit localeNameChanged(m_localeName);
   }
 }
@@ -484,13 +481,6 @@ FilenameFormatConfig::FilenameFormatConfig() :
   setAsFilenameFormatter();
 }
 
-/**
- * Destructor.
- */
-FilenameFormatConfig::~FilenameFormatConfig()
-{
-}
-
 
 int TagFormatConfig::s_index = -1;
 
@@ -499,12 +489,5 @@ int TagFormatConfig::s_index = -1;
  */
 TagFormatConfig::TagFormatConfig() :
   StoredConfig<TagFormatConfig, FormatConfig>(QLatin1String("TagFormat"))
-{
-}
-
-/**
- * Destructor.
- */
-TagFormatConfig::~TagFormatConfig()
 {
 }

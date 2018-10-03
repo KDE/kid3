@@ -243,7 +243,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_expressionFileFilter(nullptr),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(nullptr), m_filterPassed(0), m_filterTotal(0),
-  m_namedBatchImportProfile(nullptr),
   m_batchImportProfile(nullptr), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(nullptr), m_addFrameTaggedFile(nullptr),
   m_frameEditor(nullptr), m_storedFrameEditor(nullptr), m_imageProvider(nullptr),
@@ -307,8 +306,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
  */
 Kid3Application::~Kid3Application()
 {
-  delete m_namedBatchImportProfile;
-  delete m_configStore;
 #ifdef Q_OS_MAC
   // If a song is played, then stopped and Kid3 is terminated, it will crash in
   // the QMediaPlayer destructor (Dispatch queue: com.apple.main-thread,
@@ -1574,7 +1571,7 @@ bool Kid3Application::batchImport(const QString& profileName,
                                   Frame::TagVersion tagVersion)
 {
   if (!m_namedBatchImportProfile) {
-    m_namedBatchImportProfile = new BatchImportProfile;
+    m_namedBatchImportProfile.reset(new BatchImportProfile);
   }
   if (BatchImportConfig::instance().getProfileByName(
         profileName, *m_namedBatchImportProfile)) {

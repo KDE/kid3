@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileFilter() override;
+  virtual ~FileFilter() override = default;
 
   /**
    * Set filter expression.

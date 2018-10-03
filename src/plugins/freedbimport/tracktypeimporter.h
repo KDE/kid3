@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackTypeImporter() override;
+  virtual ~TrackTypeImporter() override = default;
 
   /**
    * Name of import source.

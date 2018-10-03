@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ExportConfig() override;
+  virtual ~ExportConfig() override = default;
 
   /**
    * Persist configuration.

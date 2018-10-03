@@ -60,10 +60,6 @@ PlaylistView::PlaylistView(QWidget* parent)
   addAction(moveDownAction);
 }
 
-PlaylistView::~PlaylistView()
-{
-}
-
 /**
  * Check if the drop index if child of a dropped item.
  * @param event drop event

@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameItemDelegate() override;
+  virtual ~FrameItemDelegate() override = default;
 
   /**
    * Render delegate.

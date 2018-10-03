@@ -121,11 +121,6 @@ ExportConfig::ExportConfig() :
 }
 
 /**
- * Destructor.
- */
-ExportConfig::~ExportConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

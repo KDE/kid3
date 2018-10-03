@@ -57,14 +57,6 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
           this, &AudioPlayer::volumeChanged);
 }
 
-
-/**
- * Destructor.
- */
-AudioPlayer::~AudioPlayer()
-{
-}
-
 /**
  * Set files to be played.
  *

@@ -97,7 +97,7 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
  */
 TextImportDialog::~TextImportDialog()
 {
-  delete m_textImporter;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

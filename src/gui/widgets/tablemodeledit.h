@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableModelEdit() override;
+  virtual ~TableModelEdit() override = default;
 
   /**
    * Add a new item.

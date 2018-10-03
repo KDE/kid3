@@ -34,13 +34,6 @@ DummySettings::DummySettings()
 }
 
 /**
- * Destructor.
- */
-DummySettings::~DummySettings()
-{
-}
-
-/**
  * Use settings subgroup.
  * @param prefix group name
  */

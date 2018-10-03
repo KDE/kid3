@@ -147,13 +147,6 @@ OggFile::OggFile(const QPersistentModelIndex& idx) :
 }
 
 /**
- * Destructor.
- */
-OggFile::~OggFile()
-{
-}
-
-/**
  * Get key of tagged file format.
  * @return "OggMetadata".
  */

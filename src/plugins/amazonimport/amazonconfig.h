@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AmazonConfig() override;
+  virtual ~AmazonConfig() override = default;
 
 private:
   friend AmazonConfig&

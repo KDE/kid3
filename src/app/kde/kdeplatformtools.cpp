@@ -39,8 +39,7 @@
 /**
  * Constructor.
  */
-KdePlatformTools::KdePlatformTools() :
-  m_settings(nullptr), m_config(nullptr)
+KdePlatformTools::KdePlatformTools()
 {
 }
 
@@ -49,8 +48,7 @@ KdePlatformTools::KdePlatformTools() :
  */
 KdePlatformTools::~KdePlatformTools()
 {
-  delete m_config;
-  delete m_settings;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -60,10 +58,10 @@ KdePlatformTools::~KdePlatformTools()
 ISettings* KdePlatformTools::applicationSettings()
 {
   if (!m_config) {
-    m_settings = new KConfig;
-    m_config = new KdeSettings(m_settings);
+    m_settings.reset(new KConfig);
+    m_config.reset(new KdeSettings(m_settings.data()));
   }
-  return m_config;
+  return m_config.data();
 }
 
 /**

@@ -36,13 +36,6 @@ QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider) :
 }
 
 /**
- * Destructor.
- */
-QmlImageProvider::~QmlImageProvider()
-{
-}
-
-/**
  * Request a pixmap.
  * @param id ID of pixmap to get, "image://kid3/fileicon/..." or
  *  "image://kid3/data..."

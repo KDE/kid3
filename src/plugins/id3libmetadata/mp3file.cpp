@@ -80,7 +80,7 @@ ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
  * @param idx index in file proxy model
  */
 Mp3File::Mp3File(const QPersistentModelIndex& idx) :
-  TaggedFile(idx), m_tagV1(nullptr), m_tagV2(nullptr)
+  TaggedFile(idx)
 {
 }
 
@@ -89,12 +89,6 @@ Mp3File::Mp3File(const QPersistentModelIndex& idx) :
  */
 Mp3File::~Mp3File()
 {
-  if (m_tagV1) {
-    delete m_tagV1;
-  }
-  if (m_tagV2) {
-    delete m_tagV2;
-  }
 }
 
 /**
@@ -131,7 +125,7 @@ void Mp3File::readTags(bool force)
     markTagUnchanged(Frame::Tag_1);
   }
   if (!m_tagV1) {
-    m_tagV1 = new ID3_Tag;
+    m_tagV1.reset(new ID3_Tag);
     m_tagV1->Link(fn, ID3TT_ID3V1);
     markTagUnchanged(Frame::Tag_1);
   }
@@ -142,7 +136,7 @@ void Mp3File::readTags(bool force)
     markTagUnchanged(Frame::Tag_2);
   }
   if (!m_tagV2) {
-    m_tagV2 = new ID3_Tag;
+    m_tagV2.reset(new ID3_Tag);
     m_tagV2->Link(fn, ID3TT_ID3V2);
     markTagUnchanged(Frame::Tag_2);
   }
@@ -233,13 +227,11 @@ void Mp3File::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   if (m_tagV1) {
-    delete m_tagV1;
-    m_tagV1 = nullptr;
+    m_tagV1.reset();
     markTagUnchanged(Frame::Tag_1);
   }
   if (m_tagV2) {
-    delete m_tagV2;
-    m_tagV2 = nullptr;
+    m_tagV2.reset();
     markTagUnchanged(Frame::Tag_2);
   }
   notifyModelDataChanged(priorIsTagInformationRead);
@@ -1427,10 +1419,10 @@ bool Mp3File::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) c
   const ID3_Tag* tag;
   const QTextCodec* codec;
   if (tagNr == Frame::Tag_1) {
-    tag = m_tagV1;
+    tag = m_tagV1.data();
     codec = s_textCodecV1;
   } else if (tagNr == Frame::Tag_2) {
-    tag = m_tagV2;
+    tag = m_tagV2.data();
     codec = nullptr;
   } else {
     return false;
@@ -1490,7 +1482,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     // If the frame has an index, change that specific frame
     int index = frame.getIndex();
     if (index != -1 && m_tagV2) {
-      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2.data(), index);
       if (id3Frame) {
         // If value is changed or field list is empty,
         // set from value, else from FieldList.
@@ -1623,11 +1615,11 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
   const QTextCodec* codec;
   bool allowUnicode;
   if (tagNr == Frame::Tag_1) {
-    tag = m_tagV1;
+    tag = m_tagV1.data();
     codec = s_textCodecV1;
     allowUnicode = false;
   } else if (tagNr == Frame::Tag_2) {
-    tag = m_tagV2;
+    tag = m_tagV2.data();
     codec = nullptr;
     allowUnicode = true;
   } else {
@@ -1891,7 +1883,7 @@ bool Mp3File::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
     // If the frame has an index, delete that specific frame
     int index = frame.getIndex();
     if (index != -1 && m_tagV2) {
-      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+      ID3_Frame* id3Frame = getId3v2Frame(m_tagV2.data(), index);
       if (id3Frame) {
         m_tagV2->RemoveFrame(id3Frame);
         markTagChanged(Frame::Tag_2, frame.getType());

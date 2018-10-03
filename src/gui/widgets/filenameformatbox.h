@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilenameFormatBox() override;
+  virtual ~FilenameFormatBox() override = default;
 
   /**
    * Set the values from a format configuration.

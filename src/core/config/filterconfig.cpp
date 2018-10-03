@@ -70,11 +70,6 @@ FilterConfig::FilterConfig() :
 }
 
 /**
- * Destructor.
- */
-FilterConfig::~FilterConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

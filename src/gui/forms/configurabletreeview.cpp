@@ -45,13 +45,6 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
 }
 
 /**
- * Destructor.
- */
-ConfigurableTreeView::~ConfigurableTreeView()
-{
-}
-
-/**
  * Show context menu for header.
  * @param pos context menu position
  */

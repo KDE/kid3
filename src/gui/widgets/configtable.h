@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigTable() override;
+  virtual ~ConfigTable() override = default;
 
   /**
    * Set the resize modes to be used for the columns.

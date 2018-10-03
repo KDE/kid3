@@ -246,7 +246,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagSearcher() override;
+  virtual ~TagSearcher() override = default;
 
   /**
    * Clear abort flag.

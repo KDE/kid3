@@ -46,13 +46,6 @@ ServerImporter::ServerImporter(QNetworkAccessManager* netMgr,
   setObjectName(QLatin1String("ServerImporter"));
 }
 
-/**
- * Destructor.
- */
-ServerImporter::~ServerImporter()
-{
-}
-
 /** NULL-terminated array of server strings, 0 if not used */
 const char** ServerImporter::serverList() const { return nullptr; }
 
@@ -132,13 +125,6 @@ AlbumListItem::AlbumListItem(const QString& text,
 {
   setData(cat, Qt::UserRole + 1);
   setData(idStr, Qt::UserRole + 2);
-}
-
-/**
- * Destructor.
- */
-AlbumListItem::~AlbumListItem()
-{
 }
 
 /**

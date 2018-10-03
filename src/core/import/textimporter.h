@@ -28,6 +28,7 @@
 #define TEXTIMPORTER_H
 
 #include <QString>
+#include <QScopedPointer>
 #include "kid3api.h"
 
 class ImportTrackDataVector;
@@ -117,9 +118,9 @@ private:
   /** track format */
   QString m_trackFormat;
   /** header parser object */
-  ImportParser* m_headerParser;
+  QScopedPointer<ImportParser> m_headerParser;
   /** track parser object */
-  ImportParser* m_trackParser;
+  QScopedPointer<ImportParser> m_trackParser;
   /** track data */
   TrackDataModel* m_trackDataModel;
 };

@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StringListEdit() override;
+  virtual ~StringListEdit() override = default;
 
 public slots:
   /**

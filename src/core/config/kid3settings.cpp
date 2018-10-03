@@ -63,13 +63,6 @@ Kid3Settings::Kid3Settings(QSettings* config) : m_config(config)
 }
 
 /**
- * Destructor.
- */
-Kid3Settings::~Kid3Settings()
-{
-}
-
-/**
  * Use settings subgroup.
  * @param prefix group name
  */

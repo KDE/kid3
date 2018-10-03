@@ -60,10 +60,6 @@ ScriptUtils::ScriptUtils(QObject *parent) : QObject(parent)
 {
 }
 
-ScriptUtils::~ScriptUtils()
-{
-}
-
 QStringList ScriptUtils::toStringList(const QList<QUrl>& urls)
 {
   QStringList paths;

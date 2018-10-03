@@ -39,8 +39,3 @@ DiscogsConfig::DiscogsConfig() :
   setAdditionalTagsUsed(true);
   setServer(QLatin1String("www.discogs.com"));
 }
-
-/**
- * Destructor.
- */
-DiscogsConfig::~DiscogsConfig() {}

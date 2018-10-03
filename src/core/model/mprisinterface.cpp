@@ -45,10 +45,6 @@ MprisInterface::MprisInterface(AudioPlayer* player)
 {
 }
 
-MprisInterface::~MprisInterface()
-{
-}
-
 QString MprisInterface::identity() const
 {
   return QLatin1String("Kid3");

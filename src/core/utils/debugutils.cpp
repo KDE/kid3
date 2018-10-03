@@ -37,13 +37,6 @@ DebugUtils::SignalEmissionDumper::SignalEmissionDumper(QObject* parent) :
 {
 }
 
-/**
- * Destructor.
- */
-DebugUtils::SignalEmissionDumper::~SignalEmissionDumper()
-{
-}
-
 #ifndef QT_NO_DEBUG
 
 /**

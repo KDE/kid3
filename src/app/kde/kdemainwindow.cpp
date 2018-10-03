@@ -65,13 +65,6 @@ KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
   init();
 }
 
-/**
- * Destructor.
- */
-KdeMainWindow::~KdeMainWindow()
-{
-}
-
 /** Only defined for generation of translation files */
 #define MAIN_TOOLBAR_FOR_PO QT_TRANSLATE_NOOP("@default", "Main Toolbar")
 

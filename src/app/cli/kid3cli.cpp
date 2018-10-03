@@ -44,7 +44,7 @@
 class Kid3CliCompleter : public ReadlineCompleter {
 public:
   explicit Kid3CliCompleter(const QList<CliCommand*>& cmds);
-  virtual ~Kid3CliCompleter() override;
+  virtual ~Kid3CliCompleter() override = default;
 
   virtual QList<QByteArray> getCommandList() const override;
   virtual QList<QByteArray> getParameterList() const override;
@@ -62,10 +62,6 @@ Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds) :
   for (const CliCommand* cmd : cmds) {
     m_commands.append(cmd->name().toLocal8Bit());
   }
-}
-
-Kid3CliCompleter::~Kid3CliCompleter()
-{
 }
 
 QList<QByteArray> Kid3CliCompleter::getCommandList() const
@@ -283,7 +279,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
   connect(m_app, &Kid3Application::selectedFilesChanged,
           this, &Kid3Cli::updateSelection);
 #ifdef HAVE_READLINE
-  m_completer = new Kid3CliCompleter(m_cmds);
+  m_completer.reset(new Kid3CliCompleter(m_cmds));
   m_completer->install();
 #endif
 }
@@ -293,9 +289,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
  */
 Kid3Cli::~Kid3Cli()
 {
-#ifdef HAVE_READLINE
-  delete m_completer;
-#endif
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

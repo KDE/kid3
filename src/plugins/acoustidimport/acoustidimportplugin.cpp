@@ -39,13 +39,6 @@ AcoustidImportPlugin::AcoustidImportPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-AcoustidImportPlugin::~AcoustidImportPlugin()
-{
-}
-
-/**
  * Get keys of available server importers.
  * @return list of keys.
  */

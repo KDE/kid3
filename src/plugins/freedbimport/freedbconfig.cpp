@@ -44,11 +44,6 @@ FreedbConfig::FreedbConfig(const QString& grp) :
 }
 
 /**
- * Destructor.
- */
-FreedbConfig::~FreedbConfig() {}
-
-/**
  * Read persisted configuration.
  *
  * @param config KDE configuration
@@ -69,13 +64,6 @@ int TrackTypeConfig::s_index = -1;
  */
 TrackTypeConfig::TrackTypeConfig() :
   StoredConfig<TrackTypeConfig, FreedbConfig>(QLatin1String("TrackType"))
-{
-}
-
-/**
- * Destructor.
- */
-TrackTypeConfig::~TrackTypeConfig()
 {
 }
 

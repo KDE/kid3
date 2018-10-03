@@ -48,11 +48,6 @@ FrameList::FrameList(Frame::TagNumber tagNr,
 }
 
 /**
- * Destructor.
- */
-FrameList::~FrameList() {}
-
-/**
  * Get ID of selected frame list item.
  *
  * @return ID of selected item,

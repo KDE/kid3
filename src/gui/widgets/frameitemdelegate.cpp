@@ -92,7 +92,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DateTimeValidator() override;
+  virtual ~DateTimeValidator() override = default;
 
   /**
    * Validate input string.
@@ -115,10 +115,6 @@ private:
 
 DateTimeValidator::DateTimeValidator(QObject* parent)
   : QValidator(parent), m_re(FrameNotice::isoDateTimeRexExp())
-{
-}
-
-DateTimeValidator::~DateTimeValidator()
 {
 }
 
@@ -334,13 +330,6 @@ FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent) :
   m_trackNumberValidator(new TrackNumberValidator(this)),
   m_dateTimeValidator(new DateTimeValidator(this)) {
   setObjectName(QLatin1String("FrameItemDelegate"));
-}
-
-/**
- * Destructor.
- */
-FrameItemDelegate::~FrameItemDelegate()
-{
 }
 
 /**

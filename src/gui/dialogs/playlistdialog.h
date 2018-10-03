@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistDialog() override;
+  virtual ~PlaylistDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

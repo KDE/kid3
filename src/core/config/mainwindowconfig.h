@@ -63,7 +63,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MainWindowConfig() override;
+  virtual ~MainWindowConfig() override = default;
 
   /**
    * Persist configuration.

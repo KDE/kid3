@@ -140,13 +140,6 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 }
 
 /**
- * Destructor.
- */
-ExportDialog::~ExportDialog()
-{
-}
-
-/**
  * Export to a file.
  */
 void ExportDialog::slotToFile()

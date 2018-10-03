@@ -63,7 +63,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsModel() override;
+  virtual ~ShortcutsModel() override = default;
 
   /**
    * Get item flags for index.

@@ -60,7 +60,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ExportDialog() override;
+  virtual ~ExportDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

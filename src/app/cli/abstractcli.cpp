@@ -47,13 +47,6 @@ AbstractCli::AbstractCli(AbstractCliIO* io, QObject* parent) : QObject(parent),
 }
 
 /**
- * Destructor.
- */
-AbstractCli::~AbstractCli()
-{
-}
-
-/**
  * Prompt next line from standard input.
  * Has to be called when the processing in readLine() is finished and
  * the user shall be prompted for the next line.

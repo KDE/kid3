@@ -27,6 +27,7 @@
 #ifndef KDESETTINGS_H
 #define KDESETTINGS_H
 
+#include <QScopedPointer>
 #include "isettings.h"
 
 class KConfig;
@@ -95,7 +96,7 @@ public:
 
 private:
   KConfig* m_config;
-  KConfigGroup* m_group;
+  QScopedPointer<KConfigGroup> m_group;
 };
 
 #endif // KDESETTINGS_H

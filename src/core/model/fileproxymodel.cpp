@@ -89,7 +89,6 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
 FileProxyModel::~FileProxyModel()
 {
   clearTaggedFileStore();
-  delete m_iconProvider;
 }
 
 /**

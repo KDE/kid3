@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Mp4v2MetadataPlugin() override;
+  virtual ~Mp4v2MetadataPlugin() override = default;
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.

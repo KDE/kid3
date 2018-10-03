@@ -47,13 +47,6 @@ FreedbImporter::FreedbImporter(QNetworkAccessManager* netMgr,
 }
 
 /**
- * Destructor.
- */
-FreedbImporter::~FreedbImporter()
-{
-}
-
-/**
  * Name of import source.
  * @return name.
  */

@@ -39,13 +39,6 @@ TaglibMetadataPlugin::TaglibMetadataPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-TaglibMetadataPlugin::~TaglibMetadataPlugin()
-{
-}
-
-/**
  * Get name of factory, the same as the QObject::objectName() of the plugin.
  * @return factory name.
  */

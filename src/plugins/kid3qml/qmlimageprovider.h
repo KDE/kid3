@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlImageProvider() override;
+  virtual ~QmlImageProvider() override = default;
 
   /**
    * Request a pixmap.

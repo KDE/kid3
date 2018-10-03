@@ -32,7 +32,7 @@
 /**
  * Constructor.
  */
-KdeSettings::KdeSettings(KConfig* config) : m_config(config), m_group(nullptr)
+KdeSettings::KdeSettings(KConfig* config) : m_config(config)
 {
   migrateOldSettings();
 }
@@ -42,7 +42,7 @@ KdeSettings::KdeSettings(KConfig* config) : m_config(config), m_group(nullptr)
  */
 KdeSettings::~KdeSettings()
 {
-  delete m_group;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -51,8 +51,7 @@ KdeSettings::~KdeSettings()
  */
 void KdeSettings::beginGroup(const QString& prefix)
 {
-  delete m_group;
-  m_group = new KConfigGroup(m_config, prefix);
+  m_group.reset(new KConfigGroup(m_config, prefix));
 }
 
 /**
@@ -60,8 +59,7 @@ void KdeSettings::beginGroup(const QString& prefix)
  */
 void KdeSettings::endGroup()
 {
-  delete m_group;
-  m_group = nullptr;
+  m_group.reset();
 }
 
 /**

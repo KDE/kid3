@@ -39,13 +39,6 @@ TimeStampDelegate::TimeStampDelegate(QObject* parent) : QItemDelegate(parent)
 }
 
 /**
- * Destructor.
- */
-TimeStampDelegate::~TimeStampDelegate()
-{
-}
-
-/**
  * Create an editor to edit the cell contents.
  * @param parent parent widget
  * @param index  index of item

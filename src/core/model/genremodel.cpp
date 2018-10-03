@@ -53,13 +53,6 @@ GenreModel::GenreModel(bool id3v1, QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-GenreModel::~GenreModel()
-{
-}
-
-/**
  * Initialize module with genres.
  * This method is called by the constructor. It shall be called after
  * construction if genre settings are changed.

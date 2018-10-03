@@ -59,7 +59,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DownloadDialog() override;
+  virtual ~DownloadDialog() override = default;
 
 public slots:
   /**

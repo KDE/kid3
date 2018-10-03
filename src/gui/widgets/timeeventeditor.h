@@ -62,7 +62,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventEditor() override;
+  virtual ~TimeEventEditor() override = default;
 
   /**
    * Set time event model.

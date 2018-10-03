@@ -40,11 +40,6 @@ UserActionsConfig::UserActionsConfig() :
 }
 
 /**
- * Destructor.
- */
-UserActionsConfig::~UserActionsConfig() {}
-
-/**
  * Persist configuration.
  *
  * @param config configuration

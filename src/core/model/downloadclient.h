@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DownloadClient() override;
+  virtual ~DownloadClient() override = default;
 
   /**
    * Send a download request.

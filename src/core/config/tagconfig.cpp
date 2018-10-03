@@ -253,7 +253,6 @@ TagConfig::TagConfig() :
  */
 TagConfig::~TagConfig()
 {
-  delete m_starRatingMapping;
 }
 
 /**

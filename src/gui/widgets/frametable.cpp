@@ -80,11 +80,6 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
 }
 
 /**
- * Destructor.
- */
-FrameTable::~FrameTable() {}
-
-/**
  * Filters events if this object has been installed as an event filter
  * for the watched object.
  * This method is reimplemented to keep track of the current open editor.

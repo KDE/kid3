@@ -30,6 +30,7 @@
 #include <QObject>
 #include <QPersistentModelIndex>
 #include <QUrl>
+#include <QScopedPointer>
 #include "frame.h"
 #include "trackdata.h"
 #include "filefilter.h"
@@ -1476,7 +1477,7 @@ private:
 
   ICorePlatformTools* m_platformTools;
   /** Configuration */
-  ConfigStore* m_configStore;
+  QScopedPointer<ConfigStore> m_configStore;
   /** model of filesystem */
   QFileIconProvider* m_defaultFileIconProvider;
   QFileIconProvider* m_fileIconProvider;
@@ -1545,7 +1546,7 @@ private:
   int m_filterPassed;
   int m_filterTotal;
   /* Context for batchImportNextFile() */
-  BatchImportProfile* m_namedBatchImportProfile;
+  QScopedPointer<BatchImportProfile> m_namedBatchImportProfile;
   const BatchImportProfile* m_batchImportProfile;
   Frame::TagVersion m_batchImportTagVersion;
   QList<ImportTrackDataVector> m_batchImportAlbums;

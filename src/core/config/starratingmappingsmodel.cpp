@@ -43,13 +43,6 @@ StarRatingMappingsModel::StarRatingMappingsModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-StarRatingMappingsModel::~StarRatingMappingsModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

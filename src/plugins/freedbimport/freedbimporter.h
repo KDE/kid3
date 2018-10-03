@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FreedbImporter() override;
+  virtual ~FreedbImporter() override = default;
 
   /**
    * Name of import source.

@@ -39,13 +39,6 @@ Id3libMetadataPlugin::Id3libMetadataPlugin(QObject* parent) : QObject(parent)
 }
 
 /**
- * Destructor.
- */
-Id3libMetadataPlugin::~Id3libMetadataPlugin()
-{
-}
-
-/**
  * Get name of factory, the same as the QObject::objectName() of the plugin.
  * @return factory name.
  */

@@ -45,8 +45,7 @@ TextImporter::TextImporter(TrackDataModel* trackDataModel) :
  */
 TextImporter::~TextImporter()
 {
-  delete m_headerParser;
-  delete m_trackParser;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

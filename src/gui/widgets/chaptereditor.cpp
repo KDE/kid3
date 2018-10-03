@@ -58,13 +58,6 @@ ChapterEditor::ChapterEditor(QWidget* parent) :
 }
 
 /**
- * Destructor.
- */
-ChapterEditor::~ChapterEditor()
-{
-}
-
-/**
  * Set start and end time of chapter.
  * @param startTimeMs start time in ms
  * @param endTimeMs end time in ms

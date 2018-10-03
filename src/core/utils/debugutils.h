@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SignalEmissionDumper() override;
+  virtual ~SignalEmissionDumper() override = default;
 
   /**
    * Monitor signal emissions of object

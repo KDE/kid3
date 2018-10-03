@@ -41,13 +41,6 @@ RecentFilesMenu::RecentFilesMenu(QWidget* parent) : QMenu(parent)
 }
 
 /**
- * Destructor.
- */
-RecentFilesMenu::~RecentFilesMenu()
-{
-}
-
-/**
  * Add directory to list of recent files.
  *
  * @param dir path to directory

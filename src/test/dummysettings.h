@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DummySettings() override;
+  virtual ~DummySettings() override = default;
 
   /**
    * Use settings subgroup.

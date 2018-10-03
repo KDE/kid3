@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~OggFile() override;
+  virtual ~OggFile() override = default;
 
   /**
    * Get key of tagged file format.

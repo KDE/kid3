@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackNumberValidator() override;
+  virtual ~TrackNumberValidator() override = default;
 
   /**
    * Validate input string.

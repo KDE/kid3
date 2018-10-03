@@ -48,7 +48,7 @@ public:
                           QItemSelectionModel* sourceSelectionModel,
                           QObject* parent = nullptr);
 
-  virtual ~ProxyItemSelectionModel() override;
+  virtual ~ProxyItemSelectionModel() override = default;
 
   /**
    * Select item at @a index using @a command.

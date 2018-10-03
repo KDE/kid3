@@ -29,6 +29,7 @@
 
 #include <QMainWindow>
 #include <QDateTime>
+#include <QScopedPointer>
 #include "config.h"
 #include "iframeeditor.h"
 #include "trackdata.h"
@@ -543,25 +544,25 @@ private:
   /** Application logic */
   Kid3Application* m_app;
   /** Import dialog */
-  ImportDialog* m_importDialog;
+  QScopedPointer<ImportDialog> m_importDialog;
   /** Batch import dialog */
-  BatchImportDialog* m_batchImportDialog;
+  QScopedPointer<BatchImportDialog> m_batchImportDialog;
   /** Browse cover art dialog */
-  BrowseCoverArtDialog* m_browseCoverArtDialog;
+  QScopedPointer<BrowseCoverArtDialog> m_browseCoverArtDialog;
   /** Export dialog */
   ExportDialog* m_exportDialog;
   /** Find and replace dialog */
   FindReplaceDialog* m_findReplaceDialog;
   /** Rename directory dialog */
-  RenDirDialog* m_renDirDialog;
+  QScopedPointer<RenDirDialog> m_renDirDialog;
   /** Number tracks dialog */
-  NumberTracksDialog* m_numberTracksDialog;
+  QScopedPointer<NumberTracksDialog> m_numberTracksDialog;
   /** Filter dialog */
-  FilterDialog* m_filterDialog;
+  QScopedPointer<FilterDialog> m_filterDialog;
   /** Download dialog */
   DownloadDialog* m_downloadDialog;
   /** Playlist dialog */
-  PlaylistDialog* m_playlistDialog;
+  QScopedPointer<PlaylistDialog> m_playlistDialog;
   /** Playlist edit dialogs */
   QMap<QString, PlaylistEditDialog*> m_playlistEditDialogs;
   /** Progress dialog */
@@ -571,7 +572,7 @@ private:
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
   /** Play toolbar */
-  PlayToolBar* m_playToolBar;
+  QScopedPointer<PlayToolBar> m_playToolBar;
   Frame m_editFrame;
   TaggedFile* m_editFrameTaggedFile;
   Frame::TagNumber m_editFrameTagNr;
@@ -674,7 +675,7 @@ public:
    * Access to implementation object.
    * @return implementation object.
    */
-  BaseMainWindowImpl* impl() { return m_impl; }
+  BaseMainWindowImpl* impl() { return m_impl.data(); }
 
 protected:
   /**
@@ -728,7 +729,7 @@ protected:
   Kid3Form* form();
 
 private:
-  BaseMainWindowImpl* m_impl;
+  QScopedPointer<BaseMainWindowImpl> m_impl;
 };
 
 #endif /* BASEMAINWINDOW_H */

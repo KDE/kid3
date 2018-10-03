@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsImporter() override;
+  virtual ~DiscogsImporter() override = default;
 
   /**
    * Name of import source.

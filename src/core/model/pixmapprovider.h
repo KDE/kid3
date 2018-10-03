@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  ~PixmapProvider();
+  ~PixmapProvider() = default;
 
   /**
    * Request a pixmap.

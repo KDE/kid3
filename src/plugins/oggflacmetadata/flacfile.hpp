@@ -27,6 +27,7 @@
 #ifndef FLACFILE_H
 #define FLACFILE_H
 
+#include <QScopedPointer>
 #include "oggflacconfig.h"
 #include "oggfile.hpp"
 
@@ -192,7 +193,7 @@ private:
 #endif // HAVE_FLAC_PICTURE
 
   /** FLAC metadata chain. */
-  FLAC::Metadata::Chain* m_chain;
+  QScopedPointer<FLAC::Metadata::Chain> m_chain;
 };
 
 #endif // FLACFILE_H

@@ -37,13 +37,6 @@ ConfigTableModel::ConfigTableModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-ConfigTableModel::~ConfigTableModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

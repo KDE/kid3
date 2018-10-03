@@ -42,7 +42,7 @@
  * @param idx index in file proxy model
  */
 FlacFile::FlacFile(const QPersistentModelIndex& idx) :
-  OggFile(idx), m_chain(nullptr)
+  OggFile(idx)
 {
 }
 
@@ -51,9 +51,7 @@ FlacFile::FlacFile(const QPersistentModelIndex& idx) :
  */
 FlacFile::~FlacFile()
 {
-  if (m_chain) {
-    delete m_chain;
-  }
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 #ifdef HAVE_FLAC_PICTURE
@@ -152,7 +150,7 @@ void FlacFile::readTags(bool force)
     QByteArray fnIn = QFile::encodeName(currentFilePath());
     readFileInfo(m_fileInfo, nullptr); // just to start invalid
     if (!m_chain) {
-      m_chain = new FLAC::Metadata::Chain;
+      m_chain.reset(new FLAC::Metadata::Chain);
     }
     if (m_chain && m_chain->is_valid()) {
       if (m_chain->read(fnIn)) {
@@ -265,8 +263,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
       // empty file with flac extension. m_chain->status() will set the status
       // to FLAC__METADATA_CHAIN_STATUS_OK (!?), so we have to delete the
       // chain to avoid a crash with the next call to writeTags().
-      delete m_chain;
-      m_chain = nullptr;
+      m_chain.reset();
       return false;
     }
 
@@ -392,8 +389,7 @@ void FlacFile::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   if (m_chain) {
-    delete m_chain;
-    m_chain = nullptr;
+    m_chain.reset();
   }
 #ifdef HAVE_FLAC_PICTURE
   m_pictures.clear();

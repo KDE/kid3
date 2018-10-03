@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3QtApplication() override;
+  virtual ~Kid3QtApplication() override = default;
 
   /**
    * Called when session manager wants application to commit all its data.

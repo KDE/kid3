@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextExporter() override;
+  virtual ~TextExporter() override = default;
 
   /**
    * Set data to be exported.

@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigTableModel() override;
+  virtual ~ConfigTableModel() override = default;
 
   /**
    * Get item flags for index.

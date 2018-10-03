@@ -41,13 +41,6 @@ DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
 }
 
 /**
- * Destructor.
- */
-DownloadDialog::~DownloadDialog()
-{
-}
-
-/**
  * Show dialog to report start of download.
  * @param url URL of download
  */

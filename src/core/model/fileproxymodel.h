@@ -32,6 +32,7 @@
 #include <QSet>
 #include <QFileInfo>
 #include <QStringList>
+#include <QScopedPointer>
 #include "taggedfile.h"
 #include "kid3api.h"
 
@@ -257,7 +258,7 @@ public:
    * Get icon provider.
    * @return icon provider.
    */
-  TaggedFileIconProvider* getIconProvider() const { return m_iconProvider; }
+  TaggedFileIconProvider* getIconProvider() const { return m_iconProvider.data(); }
 
   /**
    * Access to tagged file factories.
@@ -501,7 +502,7 @@ private:
   QPersistentModelIndex m_exclusiveDraggableIndex;
   QList<QRegExp> m_includeFolderFilters;
   QList<QRegExp> m_excludeFolderFilters;
-  TaggedFileIconProvider* m_iconProvider;
+  QScopedPointer<TaggedFileIconProvider> m_iconProvider;
   QFileSystemModel* m_fsModel;
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;

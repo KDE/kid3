@@ -95,13 +95,10 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        Kid3Application* app) :
   m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
   m_app(app),
-  m_importDialog(nullptr), m_batchImportDialog(nullptr), m_browseCoverArtDialog(nullptr),
-  m_exportDialog(nullptr), m_findReplaceDialog(nullptr), m_renDirDialog(nullptr),
-  m_numberTracksDialog(nullptr), m_filterDialog(nullptr),
+  m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
   m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_playlistDialog(nullptr), m_progressWidget(nullptr),
+  m_progressWidget(nullptr),
   m_progressBar(nullptr), m_progressAbortButton(nullptr), m_editFrameDialog(nullptr),
-  m_playToolBar(nullptr),
   m_editFrameTaggedFile(nullptr), m_editFrameTagNr(Frame::Tag_2),
   m_progressTerminationHandler(nullptr),
   m_progressDisconnected(false),
@@ -154,15 +151,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
  */
 BaseMainWindowImpl::~BaseMainWindowImpl()
 {
-  delete m_importDialog;
-  delete m_batchImportDialog;
-  delete m_renDirDialog;
-  delete m_numberTracksDialog;
-  delete m_filterDialog;
-  delete m_browseCoverArtDialog;
-  delete m_playlistDialog;
   qDeleteAll(m_playlistEditDialogs);
-  delete m_playToolBar;
 }
 
 /**
@@ -304,8 +293,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   // files from being saved.
   if (m_playToolBar) {
     m_playToolBar->close();
-    delete m_playToolBar;
-    m_playToolBar = 0;
+    m_playToolBar.reset();
   }
   m_app->deleteAudioPlayer();
 #endif
@@ -541,7 +529,7 @@ void BaseMainWindowImpl::slotStatusMsg(const QString& text)
 void BaseMainWindowImpl::slotPlaylistDialog()
 {
   if (!m_playlistDialog) {
-    m_playlistDialog = new PlaylistDialog(m_w);
+    m_playlistDialog.reset(new PlaylistDialog(m_w));
   }
   m_playlistDialog->readConfig();
   if (m_playlistDialog->exec() == QDialog::Accepted) {
@@ -636,13 +624,13 @@ void BaseMainWindowImpl::setupImportDialog()
   m_app->filesToTrackDataModel(ImportConfig::instance().importDest());
   if (!m_importDialog) {
     QString caption(tr("Import"));
-    m_importDialog =
+    m_importDialog.reset(
       new ImportDialog(m_platformTools, m_w, caption,
                        m_app->getTrackDataModel(),
                        m_app->genreModel(Frame::Tag_2),
                        m_app->getServerImporters(),
-                       m_app->getServerTrackImporters());
-    connect(m_importDialog, &QDialog::accepted,
+                       m_app->getServerTrackImporters()));
+    connect(m_importDialog.data(), &QDialog::accepted,
             this, &BaseMainWindowImpl::applyImportedTrackData);
   }
   m_importDialog->clear();
@@ -675,15 +663,15 @@ void BaseMainWindowImpl::slotImport()
 void BaseMainWindowImpl::slotBatchImport()
 {
   if (!m_batchImportDialog) {
-    m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
-                                                m_w);
-    connect(m_batchImportDialog, &BatchImportDialog::start,
+    m_batchImportDialog.reset(new BatchImportDialog(m_app->getServerImporters(),
+                                                m_w));
+    connect(m_batchImportDialog.data(), &BatchImportDialog::start,
             m_app, static_cast<void (Kid3Application::*)(
               const BatchImportProfile&, Frame::TagVersion)>(
               &Kid3Application::batchImport));
     connect(m_app->getBatchImporter(), &BatchImporter::reportImportEvent,
-            m_batchImportDialog, &BatchImportDialog::showImportEvent);
-    connect(m_batchImportDialog, &BatchImportDialog::abort,
+            m_batchImportDialog.data(), &BatchImportDialog::showImportEvent);
+    connect(m_batchImportDialog.data(), &BatchImportDialog::abort,
             m_app->getBatchImporter(), &BatchImporter::abort);
     connect(m_app->getBatchImporter(), &BatchImporter::finished,
             this, &BaseMainWindowImpl::updateGuiControls);
@@ -699,7 +687,7 @@ void BaseMainWindowImpl::slotBatchImport()
 void BaseMainWindowImpl::slotBrowseCoverArt()
 {
   if (!m_browseCoverArtDialog) {
-    m_browseCoverArtDialog = new BrowseCoverArtDialog(m_app, m_w);
+    m_browseCoverArtDialog.reset(new BrowseCoverArtDialog(m_app, m_w));
   }
   FrameCollection frames2;
   QModelIndex index = m_form->getFileList()->currentIndex();
@@ -870,11 +858,11 @@ void BaseMainWindowImpl::slotRenameDirectory()
 {
   if (saveModified()) {
     if (!m_renDirDialog) {
-      m_renDirDialog = new RenDirDialog(m_w, m_app->getDirRenamer());
-      connect(m_renDirDialog, &RenDirDialog::actionSchedulingRequested,
+      m_renDirDialog.reset(new RenDirDialog(m_w, m_app->getDirRenamer()));
+      connect(m_renDirDialog.data(), &RenDirDialog::actionSchedulingRequested,
               m_app, &Kid3Application::scheduleRenameActions);
       connect(m_app->getDirRenamer(), &DirRenamer::actionScheduled,
-              m_renDirDialog, &RenDirDialog::displayActionPreview);
+              m_renDirDialog.data(), &RenDirDialog::displayActionPreview);
     }
     if (TaggedFile* taggedFile =
       TaggedFileOfDirectoryIterator::first(m_app->currentOrRootIndex())) {
@@ -907,7 +895,7 @@ void BaseMainWindowImpl::slotRenameDirectory()
 void BaseMainWindowImpl::slotNumberTracks()
 {
   if (!m_numberTracksDialog) {
-    m_numberTracksDialog = new NumberTracksDialog(m_w);
+    m_numberTracksDialog.reset(new NumberTracksDialog(m_w));
   }
   m_numberTracksDialog->setTotalNumberOfTracks(
     m_app->getTotalNumberOfTracksInDir(),
@@ -936,12 +924,12 @@ void BaseMainWindowImpl::slotFilter()
 {
   if (saveModified()) {
     if (!m_filterDialog) {
-      m_filterDialog = new FilterDialog(m_w);
-      connect(m_filterDialog, &FilterDialog::apply,
+      m_filterDialog.reset(new FilterDialog(m_w));
+      connect(m_filterDialog.data(), &FilterDialog::apply,
               m_app, static_cast<void (Kid3Application::*)(FileFilter&)>(
                 &Kid3Application::applyFilter));
       connect(m_app, &Kid3Application::fileFiltered,
-              m_filterDialog, &FilterDialog::showFilterEvent);
+              m_filterDialog.data(), &FilterDialog::showFilterEvent);
       connect(m_app, &Kid3Application::fileFiltered,
               this, &BaseMainWindowImpl::filterProgress);
     }
@@ -1002,18 +990,18 @@ void BaseMainWindowImpl::slotPlayAudio()
 void BaseMainWindowImpl::showPlayToolBar()
 {
   if (!m_playToolBar) {
-    m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), m_w);
+    m_playToolBar.reset(new PlayToolBar(m_app->getAudioPlayer(), m_w));
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
-    m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
-    connect(m_playToolBar, &PlayToolBar::errorMessage,
+    m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar.data());
+    connect(m_playToolBar.data(), &PlayToolBar::errorMessage,
             this, &BaseMainWindowImpl::slotStatusMsg);
 #ifdef HAVE_QTDBUS
-    connect(m_playToolBar, &PlayToolBar::closed,
+    connect(m_playToolBar.data(), &PlayToolBar::closed,
             m_app, &Kid3Application::deactivateMprisInterface);
 #endif
 #ifdef Q_OS_WIN32
     // Phonon on Windows cannot play if the file is open.
-    connect(m_playToolBar, &PlayToolBar::aboutToPlay,
+    connect(m_playToolBar.data(), &PlayToolBar::aboutToPlay,
             m_app, &Kid3Application::closeFileHandle);
 #endif
   }
@@ -1566,7 +1554,7 @@ BaseMainWindow::BaseMainWindow(QMainWindow* mainWin,
  */
 BaseMainWindow::~BaseMainWindow()
 {
-  delete m_impl;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

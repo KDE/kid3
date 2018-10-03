@@ -36,13 +36,6 @@ CheckableStringListModel::CheckableStringListModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-CheckableStringListModel::~CheckableStringListModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

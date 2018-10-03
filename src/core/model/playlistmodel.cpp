@@ -39,10 +39,6 @@ PlaylistModel::PlaylistModel(FileProxyModel* fsModel, QObject* parent)
   setSourceModel(m_fsModel);
 }
 
-PlaylistModel::~PlaylistModel()
-{
-}
-
 Qt::ItemFlags PlaylistModel::flags(const QModelIndex& index) const
 {
   if (!index.isValid())

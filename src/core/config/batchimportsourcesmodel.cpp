@@ -47,13 +47,6 @@ BatchImportSourcesModel::BatchImportSourcesModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-BatchImportSourcesModel::~BatchImportSourcesModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags

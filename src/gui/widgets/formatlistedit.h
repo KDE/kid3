@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatListEdit() override;
+  virtual ~FormatListEdit() override = default;
 
   /**
    * Set format strings.

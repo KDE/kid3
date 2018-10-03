@@ -63,11 +63,6 @@ PlaylistConfig::PlaylistConfig(const PlaylistConfig& other)
 }
 
 /**
- * Destructor.
- */
-PlaylistConfig::~PlaylistConfig() {}
-
-/**
  * Assignment operator.
  * @param other instance to be copied
  * @return reference to this instance.

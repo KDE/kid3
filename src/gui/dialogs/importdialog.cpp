@@ -104,11 +104,6 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 
-  m_serverImportDialog = nullptr;
-  m_textImportDialog = nullptr;
-  m_tagImportDialog = nullptr;
-  m_serverTrackImportDialog = nullptr;
-
   auto vlayout = new QVBoxLayout(this);
 
   m_trackDataTable = new QTableView(this);
@@ -256,10 +251,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
  */
 ImportDialog::~ImportDialog()
 {
-  delete m_textImportDialog;
-  delete m_tagImportDialog;
-  delete m_serverImportDialog;
-  delete m_serverTrackImportDialog;
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**
@@ -277,9 +269,9 @@ void ImportDialog::fromServer()
 void ImportDialog::fromText()
 {
   if (!m_textImportDialog) {
-    m_textImportDialog = new TextImportDialog(
-          m_platformTools, this, m_trackDataModel);
-    connect(m_textImportDialog, &TextImportDialog::trackDataUpdated,
+    m_textImportDialog.reset(new TextImportDialog(
+          m_platformTools, this, m_trackDataModel));
+    connect(m_textImportDialog.data(), &TextImportDialog::trackDataUpdated,
             this, &ImportDialog::showPreview);
   }
   m_textImportDialog->clear();
@@ -292,8 +284,8 @@ void ImportDialog::fromText()
 void ImportDialog::fromTags()
 {
   if (!m_tagImportDialog) {
-    m_tagImportDialog = new TagImportDialog(this, m_trackDataModel);
-    connect(m_tagImportDialog, &TagImportDialog::trackDataUpdated,
+    m_tagImportDialog.reset(new TagImportDialog(this, m_trackDataModel));
+    connect(m_tagImportDialog.data(), &TagImportDialog::trackDataUpdated,
             this, &ImportDialog::showPreview);
   }
   m_tagImportDialog->clear();
@@ -326,10 +318,10 @@ void ImportDialog::displayServerImportDialog(int importerIdx)
 void ImportDialog::displayServerImportDialog(ServerImporter* source)
 {
   if (!m_serverImportDialog) {
-    m_serverImportDialog = new ServerImportDialog(this);
-    connect(m_serverImportDialog, &ServerImportDialog::trackDataUpdated,
+    m_serverImportDialog.reset(new ServerImportDialog(this));
+    connect(m_serverImportDialog.data(), &ServerImportDialog::trackDataUpdated,
             this, &ImportDialog::showPreview);
-    connect(m_serverImportDialog, &QDialog::accepted,
+    connect(m_serverImportDialog.data(), &QDialog::accepted,
             this, &ImportDialog::onServerImportDialogClosed);
   }
   m_serverImportDialog->setImportSource(source);
@@ -347,8 +339,8 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
 void ImportDialog::displayServerTrackImportDialog(ServerTrackImporter* source)
 {
   if (!m_serverTrackImportDialog) {
-    m_serverTrackImportDialog = new ServerTrackImportDialog(this, m_trackDataModel);
-    connect(m_serverTrackImportDialog, &ServerTrackImportDialog::trackDataUpdated,
+    m_serverTrackImportDialog.reset(new ServerTrackImportDialog(this, m_trackDataModel));
+    connect(m_serverTrackImportDialog.data(), &ServerTrackImportDialog::trackDataUpdated,
             this, &ImportDialog::showPreview);
   }
   m_serverTrackImportDialog->setImportSource(source);

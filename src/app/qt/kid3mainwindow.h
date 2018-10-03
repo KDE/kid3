@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3MainWindow() override;
+  virtual ~Kid3MainWindow() override = default;
 
   /**
    * Init menu and toolbar actions.

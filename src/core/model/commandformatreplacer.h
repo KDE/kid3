@@ -49,7 +49,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CommandFormatReplacer() override;
+  virtual ~CommandFormatReplacer() override = default;
 
   /**
    * Get help text for supported format codes.

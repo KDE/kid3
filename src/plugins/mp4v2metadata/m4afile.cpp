@@ -71,13 +71,6 @@ M4aFile::M4aFile(const QPersistentModelIndex& idx) :
 {
 }
 
-/**
- * Destructor.
- */
-M4aFile::~M4aFile()
-{
-}
-
 /** Mapping between frame types and field names. */
 static const struct {
   const char* name;

@@ -38,13 +38,6 @@ PixmapProvider::PixmapProvider(TaggedFileIconProvider* iconProvider) :
 }
 
 /**
- * Destructor.
- */
-PixmapProvider::~PixmapProvider()
-{
-}
-
-/**
  * Request a pixmap.
  * @param id ID of pixmap to get, "image://kid3/fileicon/..." or
  *  "image://kid3/data..."

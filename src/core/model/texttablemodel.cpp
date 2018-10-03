@@ -38,13 +38,6 @@ TextTableModel::TextTableModel(QObject* parent) :
 }
 
 /**
- * Destructor.
- */
-TextTableModel::~TextTableModel()
-{
-}
-
-/**
  * Get item flags for index.
  * @param index model index
  * @return item flags
