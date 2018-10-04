@@ -42,9 +42,9 @@ PlaylistModel::PlaylistModel(FileProxyModel* fsModel, QObject* parent)
 Qt::ItemFlags PlaylistModel::flags(const QModelIndex& index) const
 {
   if (!index.isValid())
-    return QAbstractItemModel::flags(index) | Qt::ItemIsDropEnabled;
+    return QAbstractProxyModel::flags(index) | Qt::ItemIsDropEnabled;
 
-  return QAbstractItemModel::flags(index) | Qt::ItemIsDropEnabled |
+  return QAbstractProxyModel::flags(index) | Qt::ItemIsDropEnabled |
       Qt::ItemIsDragEnabled;
 }
 

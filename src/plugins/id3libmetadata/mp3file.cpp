@@ -520,7 +520,8 @@ static void setString(ID3_Field* field, const QString& text,
       field->Set(text.toUtf8().data());
     } else {
       // enc == ID3TE_ISO8859_1
-      field->Set(codec ? codec->fromUnicode(text).data() : text.toLatin1().data());
+      field->Set(codec ? codec->fromUnicode(text).constData()
+                       : text.toLatin1().constData());
     }
   } else {
     setStringList(field, text.split(Frame::stringListSeparator()));

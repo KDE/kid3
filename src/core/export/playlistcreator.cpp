@@ -173,7 +173,8 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         if (!m_cfg.useFullPath()) {
           QUrl url(m_playlistDirName);
           url.setScheme(QLatin1String("file"));
-          line += QString(QLatin1String(" xml:base=\"%1\"")).arg(QString::fromLatin1(url.toEncoded().data()));
+          line += QString(QLatin1String(" xml:base=\"%1\""))
+              .arg(QString::fromLatin1(url.toEncoded().constData()));
         }
         line += QLatin1String(">\n");
         stream << line;
@@ -185,8 +186,8 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
           if (m_cfg.useFullPath()) {
             url.setScheme(QLatin1String("file"));
           }
-          stream << QString(QLatin1String("      <location>%1</location>\n")).arg(
-            QString::fromLatin1(url.toEncoded().data()));
+          stream << QString(QLatin1String("      <location>%1</location>\n"))
+                    .arg(QString::fromLatin1(url.toEncoded().constData()));
           if (m_cfg.writeInfo()) {
             // the info is already formatted in the case of XSPF
             stream << (*it).info;
