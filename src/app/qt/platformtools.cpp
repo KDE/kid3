@@ -41,6 +41,7 @@
  */
 PlatformTools::PlatformTools()
 {
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

@@ -153,7 +153,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FieldControl() override;
+  virtual ~FieldControl() override = default;
 
   /**
    * Update field from data in field control.

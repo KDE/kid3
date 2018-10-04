@@ -73,13 +73,6 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
 }
 
 /**
- * Destructor.
- */
-AbstractListEdit::~AbstractListEdit()
-{
-}
-
-/**
  * Disable editing of items.
  * When editing is disabled, the Add, Edit and Remove buttons are hidden.
  * @param disable true to disable, false (default) to enable editing.

@@ -43,11 +43,6 @@ enum { TextEncodingLatin1Index = 13 };
 GeneralConfig::GeneralConfig(const QString& grp) : m_group(grp) {}
 
 /**
- * Destructor.
- */
-GeneralConfig::~GeneralConfig() {}
-
-/**
  * Convert list of integers to list of strings.
  * @param intList list of integers
  * @return list of strings.

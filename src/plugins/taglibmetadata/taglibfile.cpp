@@ -193,16 +193,15 @@ public:
    */
   virtual ~WavFile() override = default;
 
+  WavFile(const WavFile&) = delete;
+  WavFile& operator=(const WavFile&) = delete;
+
   /**
    * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
    * This method has to be called after successully calling save() to use
    * lowercase "id3 " chunk names.
    */
   void changeToLowercaseId3Chunk();
-
-private:
-  WavFile(const WavFile&) = delete;
-  WavFile& operator=(const WavFile&) = delete;
 };
 
 WavFile::WavFile(TagLib::IOStream *stream) : TagLib::RIFF::WAV::File(stream)
@@ -248,6 +247,9 @@ public:
    * Destructor.
    */
   virtual ~FileIOStream() override;
+
+  FileIOStream(const FileIOStream&) = delete;
+  FileIOStream& operator=(const FileIOStream&) = delete;
 
   /**
    * Close the file handle.
@@ -295,9 +297,6 @@ public:
   static TagLib::File* create(IOStream* stream);
 
 private:
-  FileIOStream(const FileIOStream&) = delete;
-  FileIOStream& operator=(const FileIOStream&) = delete;
-
   /**
    * Open file handle, is called by operations which need a file handle.
    *
@@ -587,6 +586,9 @@ public:
    */
   virtual ~TextCodecStringHandler() = default;
 
+  TextCodecStringHandler(const TextCodecStringHandler&) = delete;
+  TextCodecStringHandler& operator=(const TextCodecStringHandler&) = delete;
+
   /**
    * Decode a string from data.
    *
@@ -608,9 +610,6 @@ public:
   static void setTextCodec(const QTextCodec* codec) { s_codec = codec; }
 
 private:
-  TextCodecStringHandler(const TextCodecStringHandler&) = delete;
-  TextCodecStringHandler& operator=(const TextCodecStringHandler&) = delete;
-
   static const QTextCodec* s_codec;
 };
 
@@ -6381,6 +6380,7 @@ void TagLibInitializer::init()
 }
 
 TagLibInitializer::~TagLibInitializer() {
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 static TagLibInitializer tagLibInitializer;

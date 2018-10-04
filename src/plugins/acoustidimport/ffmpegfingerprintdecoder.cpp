@@ -103,12 +103,12 @@ public:
     }
   }
 
-  int streamIndex() const { return m_ptr ? m_ptr->stream_index : -1; }
-
-private:
   Packet(const Packet&) = delete;
   Packet& operator=(const Packet&) = delete;
 
+  int streamIndex() const { return m_ptr ? m_ptr->stream_index : -1; }
+
+private:
   AVPacket* m_ptr;
 };
 
@@ -133,6 +133,9 @@ public:
       ::avcodec_free_context(&m_ptr);
 #endif
   }
+
+  Codec(const Codec&) = delete;
+  Codec& operator=(const Codec&) = delete;
 
   bool open() {
     m_opened = false;
@@ -226,9 +229,6 @@ public:
   }
 
 private:
-  Codec(const Codec&) = delete;
-  Codec& operator=(const Codec&) = delete;
-
   friend class Format;
   friend class Converter;
   AVCodecContext* m_ptr;
@@ -264,6 +264,9 @@ public:
       ::avformat_close_input(&m_ptr);
 #endif
   }
+
+  Format(const Format&) = delete;
+  Format& operator=(const Format&) = delete;
 
   bool hasError() const { return m_hasError; }
 
@@ -312,9 +315,6 @@ public:
   }
 
 private:
-  Format(const Format&) = delete;
-  Format& operator=(const Format&) = delete;
-
   AVFormatContext* m_ptr;
   int m_streamIndex;
   bool m_hasError;
@@ -342,6 +342,9 @@ public:
 #endif
     }
   }
+
+  Converter(const Converter&) = delete;
+  Converter& operator=(const Converter&) = delete;
 
   bool createForCodec(const Codec& codecCtx) {
     int64_t channelLayout = codecCtx.channelLayout();
@@ -446,9 +449,6 @@ public:
   }
 
 private:
-  Converter(const Converter&) = delete;
-  Converter& operator=(const Converter&) = delete;
-
 #ifdef HAVE_AVRESAMPLE
   AVAudioResampleContext* m_ptr;
 #elif defined HAVE_SWRESAMPLE

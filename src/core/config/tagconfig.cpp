@@ -253,6 +253,7 @@ TagConfig::TagConfig() :
  */
 TagConfig::~TagConfig()
 {
+  // Must not be inline because of forwared declared QScopedPointer.
 }
 
 /**

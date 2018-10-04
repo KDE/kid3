@@ -45,13 +45,6 @@ ImportClient::ImportClient(QNetworkAccessManager* netMgr) :
 }
 
 /**
- * Destructor.
- */
-ImportClient::~ImportClient()
-{
-}
-
-/**
  * Find keyword on server.
  *
  * @param cfg    import source configuration

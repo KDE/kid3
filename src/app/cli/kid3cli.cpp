@@ -51,6 +51,8 @@ public:
   virtual bool updateParameterList(const char* buffer) override;
 
 private:
+  Q_DISABLE_COPY(Kid3CliCompleter)
+
   const QList<CliCommand*>& m_cmds;
   QList<QByteArray> m_commands;
   QList<QByteArray> m_parameters;

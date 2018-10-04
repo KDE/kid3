@@ -29,14 +29,6 @@
 #include <QCoreApplication>
 
 /**
- * Destructor.
- */
-AbstractCliIO::~AbstractCliIO()
-{
-}
-
-
-/**
  * Constructor.
  * @param io I/O handler
  * @param parent parent object

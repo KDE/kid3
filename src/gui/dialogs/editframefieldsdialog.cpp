@@ -332,14 +332,6 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
 }
 
 
-/**
- * Destructor.
- */
-FieldControl::~FieldControl()
-{
-}
-
-
 /** Base class for MP3 field controls */
 class Mp3FieldControl : public FieldControl {
 public:
