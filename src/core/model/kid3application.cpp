@@ -873,7 +873,7 @@ void Kid3Application::onDirectoryOpened()
         m_fileSelectionModel->select(fileIndex,
             QItemSelectionModel::Select | QItemSelectionModel::Rows);
       }
-      m_fileSelectionModel->setCurrentIndex(m_fileProxyModelFileIndexes.first(),
+      m_fileSelectionModel->setCurrentIndex(m_fileProxyModelFileIndexes.constFirst(),
                                             QItemSelectionModel::NoUpdate);
     } else {
       m_fileSelectionModel->setCurrentIndex(m_fileProxyModelRootIndex,

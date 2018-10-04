@@ -344,13 +344,12 @@ void ServerTrackImportDialog::setFileStatus(int index, const QString& status)
 void ServerTrackImportDialog::updateFileTrackData(int index)
 {
   QStringList stringList;
-  const int numResults = m_trackResults[index].size();
+  const ImportTrackDataVector& trackData = m_trackResults.at(index);
+  const int numResults = trackData.size();
   QString str(numResults == 0 ?
               tr("No result") : tr("No result selected"));
   stringList.push_back(str);
-  for (auto it = m_trackResults[index].constBegin();
-       it != m_trackResults[index].constEnd();
-       ++it) {
+  for (auto it = trackData.constBegin(); it != trackData.constEnd(); ++it) {
     str.sprintf("%02d ", (*it).getTrack());
     str += (*it).getTitle();
     str += QLatin1Char('/');

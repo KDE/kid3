@@ -857,7 +857,7 @@ void BinaryOpenSave::saveData()
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
       QDataStream stream(&file);
-      stream.writeRawData(m_byteArray.data(), m_byteArray.size());
+      stream.writeRawData(m_byteArray.constData(), m_byteArray.size());
       file.close();
     }
   }
