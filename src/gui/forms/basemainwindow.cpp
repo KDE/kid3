@@ -302,6 +302,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
 
   if (!errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
+    errorMsgs.reserve(errorFiles.size());
     for (const QString& filePath : errorFiles) {
       QFileInfo fileInfo(filePath);
       if (!fileInfo.isWritable()) {
@@ -1253,6 +1254,7 @@ void BaseMainWindowImpl::renameFile()
 
   QList<QPersistentModelIndex> selItems;
   const auto indexes = selectModel->selectedRows();
+  selItems.reserve(indexes.size());
   for (const QModelIndex& index : indexes)
     selItems.append(index);
   const auto selectedIndexes = selItems;
@@ -1330,6 +1332,7 @@ void BaseMainWindowImpl::deleteFile()
   QStringList files;
   QList<QPersistentModelIndex> selItems;
   const auto indexes = selectModel->selectedRows();
+  selItems.reserve(indexes.size());
   for (const QModelIndex& index : indexes)
     selItems.append(index);
   const auto selectedIndexes = selItems;

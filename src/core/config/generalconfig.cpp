@@ -50,6 +50,7 @@ GeneralConfig::GeneralConfig(const QString& grp) : m_group(grp) {}
 QStringList GeneralConfig::intListToStringList(const QList<int>& intList)
 {
   QStringList result;
+  result.reserve(intList.size());
   for (int value : intList) {
     result.append(QString::number(value));
   }
@@ -64,6 +65,7 @@ QStringList GeneralConfig::intListToStringList(const QList<int>& intList)
 QList<int> GeneralConfig::stringListToIntList(const QStringList& strList)
 {
   QList<int> result;
+  result.reserve(strList.size());
   for (const QString& value : strList) {
     result.append(value.toInt());
   }

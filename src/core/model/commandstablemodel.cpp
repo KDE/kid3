@@ -242,6 +242,7 @@ QList<QHeaderView::ResizeMode>
     CommandsTableModel::getHorizontalResizeModes() const
 {
   QList<QHeaderView::ResizeMode> resizeModes;
+  resizeModes.reserve(CI_NumColumns);
   for (int i = 0; i < CI_NumColumns; ++i) {
     QHeaderView::ResizeMode mode = QHeaderView::Interactive;
     if (i == CI_Confirm || i == CI_Output)

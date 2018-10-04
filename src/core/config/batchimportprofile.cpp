@@ -68,6 +68,7 @@ QString BatchImportProfile::getSourcesAsString() const
 {
   QStringList strs;
   const auto srcs = m_sources;
+  strs.reserve(srcs.size());
   for (const Source& src : srcs) {
     QString enableStr;
     if (src.standardTagsEnabled())   enableStr += QLatin1Char('S');

@@ -176,12 +176,13 @@ QStringList StarRatingMapping::toStringList() const
 void StarRatingMapping::fromStringList(const QStringList& strs)
 {
   QList<QPair<QString, QVector<int> > > maps;
+  QVector<int> values;
   for (auto it = strs.constBegin(); it != strs.constEnd(); ++it) {
     QStringList parts = it->split(QLatin1Char(','));
     const int numParts = parts.size();
     if (numParts >= MAX_STAR_COUNT + 1) {
       bool ok = false;
-      QVector<int> values;
+      values.resize(0);
       int lastValue = -1;
       for (int i = numParts - MAX_STAR_COUNT; i < numParts; ++i) {
         int value = parts.at(i).toInt(&ok);

@@ -209,6 +209,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   profileLayout->addLayout(nameLayout);
 
   QStringList servers;
+  servers.reserve(m_importers.size());
   const auto sis = m_importers;
   for (const ServerImporter* si : sis) {
     servers.append(QString::fromLatin1(si->name()));
@@ -433,6 +434,8 @@ void BatchImportDialog::saveConfig()
 
   QStringList names, sources;
   setProfileFromGuiControls();
+  names.reserve(m_profiles.size());
+  sources.reserve(m_profiles.size());
   const auto profiles = m_profiles;
   for (const BatchImportProfile& profile : profiles) {
     names.append(profile.getName());

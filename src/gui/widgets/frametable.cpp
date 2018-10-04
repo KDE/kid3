@@ -84,10 +84,11 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
  * for the watched object.
  * This method is reimplemented to keep track of the current open editor.
  * It has to be installed on the viewport of the table.
+ * @param watched watched object
  * @param event event
  * @return true to filter event out.
  */
-bool FrameTable::eventFilter(QObject*, QEvent* event)
+bool FrameTable::eventFilter(QObject* watched, QEvent* event)
 {
   if (event) {
     QEvent::Type type = event->type();
@@ -109,7 +110,7 @@ bool FrameTable::eventFilter(QObject*, QEvent* event)
       }
     }
   }
-  return false;
+  return QTableView::eventFilter(watched, event);
 }
 
 /**

@@ -63,6 +63,7 @@ ScriptUtils::ScriptUtils(QObject *parent) : QObject(parent)
 QStringList ScriptUtils::toStringList(const QList<QUrl>& urls)
 {
   QStringList paths;
+  paths.reserve(urls.size());
   for (const QUrl& url : urls) {
     paths.append(url.toLocalFile());
   }
@@ -72,6 +73,7 @@ QStringList ScriptUtils::toStringList(const QList<QUrl>& urls)
 QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVariantList& lst)
 {
   QList<QPersistentModelIndex> indexes;
+  indexes.reserve(lst.size());
   for (const QVariant& var : lst) {
     indexes.append(var.toModelIndex());
   }
@@ -80,7 +82,7 @@ QList<QPersistentModelIndex> ScriptUtils::toPersistentModelIndexList(const QVari
 
 QVariant ScriptUtils::getRoleData(
     QObject* modelObj, int row, const QByteArray& roleName,
-    QModelIndex parent)
+    const QModelIndex& parent)
 {
   if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
@@ -95,7 +97,7 @@ QVariant ScriptUtils::getRoleData(
 
 bool ScriptUtils::setRoleData(
     QObject* modelObj, int row, const QByteArray& roleName,
-    const QVariant& value, QModelIndex parent)
+    const QVariant& value, const QModelIndex& parent)
 {
   if (auto model = qobject_cast<QAbstractItemModel*>(modelObj)) {
     QHash<int,QByteArray> roleHash = model->roleNames();
@@ -298,6 +300,7 @@ QStringList ScriptUtils::listDir(
 {
   QStringList dirList;
   const QFileInfoList entries = QDir(path).entryInfoList(nameFilters);
+  dirList.reserve(entries.size());
   for (const QFileInfo& fi : entries) {
     QString fileName = fi.fileName();
     if (classify) {

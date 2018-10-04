@@ -835,6 +835,8 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
   };
 
   QStringList lst;
+  lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1 +
+              sizeof(fieldNames) / sizeof(fieldNames[0]));
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
     lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
                getName());

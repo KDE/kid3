@@ -91,7 +91,7 @@ public:
    * @return model data.
    */
   Q_INVOKABLE static QVariant getRoleData(QObject* modelObj, int row, const QByteArray& roleName,
-      QModelIndex parent = QModelIndex());
+      const QModelIndex& parent = QModelIndex());
 
   /**
    * Set data for @a roleName and @a row in @a model.
@@ -104,7 +104,7 @@ public:
    */
   Q_INVOKABLE static bool setRoleData(QObject* modelObj, int row,
       const QByteArray& roleName, const QVariant& value,
-      QModelIndex parent = QModelIndex());
+      const QModelIndex& parent = QModelIndex());
 
   /**
    * Get data for @a roleName and model @a index.

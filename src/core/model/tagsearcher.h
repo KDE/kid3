@@ -334,7 +334,7 @@ private slots:
   void replaceThenFindNext();
 
 private:
-  void setParameters(Parameters params);
+  void setParameters(const Parameters& params);
   void findNext(int advanceChars);
   void replaceNext();
   void continueSearch(int advanceChars);

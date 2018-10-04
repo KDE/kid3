@@ -822,6 +822,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
     }
     m_fileSystemModel->setFilter(filter);
     rootIndex = m_fileSystemModel->setRootPath(dir);
+    fileIndexes.reserve(filePaths.size());
     const auto constFilePaths = filePaths;
     for (const QString& filePath : constFilePaths) {
       fileIndexes.append(m_fileSystemModel->index(filePath));
@@ -1032,6 +1033,7 @@ void Kid3Application::tagsToFrameModels()
 {
   QList<QPersistentModelIndex> indexes;
   const auto selectedIndexes = m_fileSelectionModel->selectedRows();
+  indexes.reserve(selectedIndexes.size());
   for (const QModelIndex& index : selectedIndexes) {
     indexes.append(QPersistentModelIndex(index));
   }
@@ -2582,6 +2584,7 @@ QStringList Kid3Application::getSelectedFilePaths(bool onlyTaggedFiles) const
       }
     }
   } else {
+    files.reserve(selItems.size());
     for (const QModelIndex& index : selItems) {
       files.append(m_fileProxyModel->filePath(index));
     }
@@ -3744,6 +3747,7 @@ QVariantList Kid3Application::getFileSelectionRows()
 {
   QVariantList rows;
   const auto indexes = m_fileSelectionModel->selectedRows();
+  rows.reserve(indexes.size());
   for (const QModelIndex& index : indexes) {
     rows.append(index.row());
   }

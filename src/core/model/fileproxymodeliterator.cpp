@@ -140,8 +140,10 @@ void FileProxyModelIterator::fetchNext()
       }
       m_nodes.pop();
       ++m_numDone;
+      const int numRows = m_model->rowCount(m_nextIdx);
       QStack<QPersistentModelIndex> childNodes;
-      for (int row = m_model->rowCount(m_nextIdx) - 1; row >= 0; --row) {
+      childNodes.reserve(numRows);
+      for (int row = numRows - 1; row >= 0; --row) {
         childNodes.push(m_model->index(row, 0, m_nextIdx));
       }
       qStableSort(childNodes.begin(), childNodes.end(),

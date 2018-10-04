@@ -586,6 +586,7 @@ void ConfigDialogPages::setConfigs(
   QList<int> frameTypes = tagCfg.quickAccessFrameOrder();
   if (frameTypes.size() != Frame::FT_LastFrame + 1) {
     frameTypes.clear();
+    frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
     for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
       frameTypes.append(i);
     }
@@ -720,7 +721,9 @@ void ConfigDialogPages::getConfig() const
   QList<int> frameTypes;
   bool isStandardFrameOrder = true;
   quint64 frameMask = 0;
-  for (int row = 0; row < m_quickAccessTagsModel->rowCount(); ++row) {
+  const int numQuickAccessTags = m_quickAccessTagsModel->rowCount();
+  frameTypes.reserve(numQuickAccessTags);
+  for (int row = 0; row < numQuickAccessTags; ++row) {
     QModelIndex index = m_quickAccessTagsModel->index(row, 0);
     int frameType = index.data(Qt::UserRole).toInt();
     if (frameType != row) {
@@ -760,7 +763,9 @@ void ConfigDialogPages::getConfig() const
   networkCfg.setProxyPassword(m_proxyPasswordLineEdit->text());
 
   QStringList pluginOrder, disabledPlugins;
-  for (int row = 0; row < m_enabledMetadataPluginsModel->rowCount(); ++row) {
+  const int numPlugins = m_enabledMetadataPluginsModel->rowCount();
+  pluginOrder.reserve(numPlugins);
+  for (int row = 0; row < numPlugins; ++row) {
     QString pluginName =
         m_enabledMetadataPluginsModel->index(row).data().toString();
     pluginOrder.append(pluginName);

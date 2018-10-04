@@ -841,7 +841,9 @@ void Kid3Form::setFocusDirList()
 static QStringList getItemsFromComboBox(const QComboBox* comboBox)
 {
   QStringList lst;
-  for (int i = 0; i < comboBox->count(); ++i) {
+  const int numItems = comboBox->count();
+  lst.reserve(numItems);
+  for (int i = 0; i < numItems; ++i) {
     lst += comboBox->itemText(i);
   }
   return lst;

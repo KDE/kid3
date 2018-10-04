@@ -61,6 +61,7 @@ private:
 Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds) :
   m_cmds(cmds)
 {
+  m_commands.reserve(cmds.size());
   for (const CliCommand* cmd : cmds) {
     m_commands.append(cmd->name().toLocal8Bit());
   }
@@ -118,6 +119,7 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
           // frame name
           static QList<QByteArray> frameNames;
           if (frameNames.isEmpty()) {
+            frameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
             for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
               frameNames.append(
                     Frame::ExtendedType(static_cast<Frame::Type>(k),

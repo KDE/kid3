@@ -433,7 +433,7 @@ void TagSearcher::replaceString(QString& str) const
  * Set and preprocess search parameters.
  * @param params search parameters
  */
-void TagSearcher::setParameters(Parameters params)
+void TagSearcher::setParameters(const Parameters& params)
 {
   m_params = params;
   SearchFlags flags = m_params.getFlags();

@@ -159,6 +159,7 @@ EventTimeCode EventTimeCode::fromIndex(int index)
 QStringList EventTimeCode::getTranslatedStrings()
 {
   QStringList strings;
+  strings.reserve(numCodes);
   for (int i = 0; i < numCodes; ++i) {
     strings << QCoreApplication::translate("@default", codes[i].text);
   }

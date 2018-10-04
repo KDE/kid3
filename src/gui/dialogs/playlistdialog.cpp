@@ -182,6 +182,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_sortTagFieldComboBox->setEditable(true);
   m_sortTagFieldComboBox->setEnabled(false);
   QStringList lst;
+  lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     QString frameName =
         Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).getName().

@@ -113,8 +113,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
           tagsListView, &QWidget::setDisabled);
   m_tagsModel = new CheckableStringListModel(tagsGroupBox);
   QStringList unifiedFrameNames;
+  unifiedFrameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 2);
   unifiedFrameNames.append(tr("Filename"));
-  for (int i = Frame::FT_FirstFrame; i< Frame::FT_LastFrame; ++i) {
+  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
     unifiedFrameNames.append(
         Frame::ExtendedType(static_cast<Frame::Type>(i)).getTranslatedName());
   }
