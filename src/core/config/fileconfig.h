@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILECONFIG_H
-#define FILECONFIG_H
+#pragma once
 
 #include <QStringList>
 #include "generalconfig.h"
@@ -272,5 +271,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

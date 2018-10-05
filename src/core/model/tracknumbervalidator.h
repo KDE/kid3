@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKNUMBERVALIDATOR_H
-#define TRACKNUMBERVALIDATOR_H
+#pragma once
 
 #include <QValidator>
 #include "kid3api.h"
@@ -60,5 +59,3 @@ public:
    */
   virtual void fixup(QString& input) const override;
 };
-
-#endif // TRACKNUMBERVALIDATOR_H

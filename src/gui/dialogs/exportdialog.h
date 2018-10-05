@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXPORTDIALOG_H
-#define EXPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QStringList>
@@ -125,5 +124,3 @@ private:
   /** text table model */
   TextTableModel* m_textTableModel;
 };
-
-#endif

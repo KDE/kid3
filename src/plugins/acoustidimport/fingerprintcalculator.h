@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FINGERPRINTCALCULATOR_H
-#define FINGERPRINTCALCULATOR_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -114,5 +113,3 @@ private:
   ChromaprintContext* m_chromaprintCtx;
   AbstractFingerprintDecoder* m_decoder;
 };
-
-#endif // FINGERPRINTCALCULATOR_H

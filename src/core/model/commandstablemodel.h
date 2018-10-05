@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDSTABLEMODEL_H
-#define COMMANDSTABLEMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QHeaderView>
@@ -152,5 +151,3 @@ public:
 private:
   QList<UserActionsConfig::MenuCommand> m_cmdList;
 };
-
-#endif // COMMANDSTABLEMODEL_H

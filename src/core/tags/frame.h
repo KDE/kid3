@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAME_H
-#define FRAME_H
+#pragma once
 
 #include "formatreplacer.h"
 #include <QString>
@@ -1223,5 +1222,3 @@ protected:
 private:
   const FrameCollection& m_frames;
 };
-
-#endif // FRAME_H

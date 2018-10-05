@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERTRACKIMPORTDIALOG_H
-#define SERVERTRACKIMPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QString>
@@ -190,5 +189,3 @@ private:
   TrackDataModel* m_trackDataModel;
   QVector<ImportTrackDataVector> m_trackResults;
 };
-
-#endif // SERVERTRACKIMPORTDIALOG_H

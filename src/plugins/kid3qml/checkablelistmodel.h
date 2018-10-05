@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CHECKABLELISTMODEL_HPP
-#define CHECKABLELISTMODEL_HPP
+#pragma once
 
 #include <QAbstractProxyModel>
 #include <QItemSelectionModel>
@@ -210,5 +209,3 @@ private:
   QItemSelectionModel* m_selModel;
   QPersistentModelIndex m_rootIndex;
 };
-
-#endif // CHECKABLELISTMODEL_HPP

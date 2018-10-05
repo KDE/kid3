@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PICTURELABEL_H
-#define PICTURELABEL_H
+#pragma once
 
 #include <QWidget>
 
@@ -66,5 +65,3 @@ private:
   QLabel* m_sizeLabel;
   uint m_pixmapHash;
 };
-
-#endif // PICTURELABEL_H

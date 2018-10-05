@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGFORMATBOX_H
-#define TAGFORMATBOX_H
+#pragma once
 
 #include "formatbox.h"
 
@@ -65,5 +64,3 @@ public:
 private:
   QCheckBox* m_validationCheckBox;
 };
-
-#endif // TAGFORMATBOX_H

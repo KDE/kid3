@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERIMPORTER_H
-#define SERVERIMPORTER_H
+#pragma once
 
 #include "importclient.h"
 #include <QString>
@@ -232,5 +231,3 @@ public:
   static void dumpAlbumList(const QStandardItemModel* albumModel);
 #endif
 };
-
-#endif

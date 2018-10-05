@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKTYPEIMPORTER_H
-#define TRACKTYPEIMPORTER_H
+#pragma once
 
 #include "freedbimporter.h"
 
@@ -82,5 +81,3 @@ public:
     const ServerImporterConfig* cfg,
     const QString& artist, const QString& album) override;
 };
-
-#endif

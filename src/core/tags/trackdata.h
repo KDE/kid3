@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKDATA_H
-#define TRACKDATA_H
+#pragma once
 
 #include <QVector>
 #include <QString>
@@ -354,5 +353,3 @@ protected:
 private:
   const TrackData& m_trackData;
 };
-
-#endif // TRACKDATA_H

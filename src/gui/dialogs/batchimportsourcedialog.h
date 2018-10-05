@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTSOURCEDIALOG_H
-#define BATCHIMPORTSOURCEDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "batchimportprofile.h"
@@ -76,5 +75,3 @@ private:
   QCheckBox* m_additionalTagsCheckBox;
   QCheckBox* m_coverArtCheckBox;
 };
-
-#endif // BATCHIMPORTSOURCEDIALOG_H

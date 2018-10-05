@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KDEMAINWINDOW_H
-#define KDEMAINWINDOW_H
+#pragma once
 
 #include <QtGlobal>
 #include <KXmlGuiWindow>
@@ -169,5 +168,3 @@ private:
   KToggleAction* m_settingsAutoHideTags;
   KToggleAction* m_settingsShowHidePicture;
 };
-
-#endif /* KDEMAINWINDOW_H */

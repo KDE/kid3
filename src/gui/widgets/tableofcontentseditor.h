@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLEOFCONTENTSEDITOR_H
-#define TABLEOFCONTENTSEDITOR_H
+#pragma once
 
 #include <QWidget>
 
@@ -71,5 +70,3 @@ private:
   QCheckBox* m_isTopLevelCheckBox;
   QCheckBox* m_isOrderedCheckBox;
 };
-
-#endif // TABLEOFCONTENTSEDITOR_H

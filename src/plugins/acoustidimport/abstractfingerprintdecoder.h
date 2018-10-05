@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABSTRACTFINGERPRINTDECODER_H
-#define ABSTRACTFINGERPRINTDECODER_H
+#pragma once
 
 #include <QObject>
 
@@ -103,5 +102,3 @@ signals:
 private:
   bool m_stopped;
 };
-
-#endif // ABSTRACTFINGERPRINTDECODER_H

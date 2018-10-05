@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGIMPORTDIALOG_H
-#define TAGIMPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -89,5 +88,3 @@ private:
   FormatListEdit* m_formatListEdit;
   TrackDataModel* m_trackDataModel;
 };
-
-#endif

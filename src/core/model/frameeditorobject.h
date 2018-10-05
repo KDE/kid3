@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMEEDITOROBJECT_H
-#define FRAMEEDITOROBJECT_H
+#pragma once
 
 #include <QObject>
 #include <QMap>
@@ -165,5 +164,3 @@ private:
   QMap<QString, QString> m_displayNameMap;
   Frame::TagNumber m_tagNr;
 };
-
-#endif // FRAMEEDITOROBJECT_H

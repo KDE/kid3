@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXTERNALPROCESS_H
-#define EXTERNALPROCESS_H
+#pragma once
 
 #include <QDialog>
 #include <QTextEdit>
@@ -118,5 +117,3 @@ private:
   QProcess* m_process;
   QScopedPointer<OutputViewer> m_outputViewer;
 };
-
-#endif // EXTERNALPROCESS_H

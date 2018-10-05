@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATREPLACER_H
-#define FORMATREPLACER_H
+#pragma once
 
 #include <QString>
 #include "kid3api.h"
@@ -110,5 +109,3 @@ protected:
 private:
   QString m_str;
 };
-
-#endif // FORMATREPLACER_H

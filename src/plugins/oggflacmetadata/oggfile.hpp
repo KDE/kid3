@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OGGFILE_H
-#define OGGFILE_H
+#pragma once
 
 #include "oggflacconfig.h"
 #include <QList>
@@ -308,5 +307,3 @@ private:
   bool readFileInfo(FileInfo& info, const QString& fn) const;
 #endif // HAVE_VORBIS
 };
-
-#endif // OGGFILE_H

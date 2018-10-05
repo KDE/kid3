@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IUSERCOMMANDPROCESSOR_H
-#define IUSERCOMMANDPROCESSOR_H
+#pragma once
 
 #include <QtPlugin>
 #include "kid3api.h"
@@ -89,5 +88,3 @@ public:
 
 Q_DECLARE_INTERFACE(IUserCommandProcessor,
                     "net.sourceforge.kid3.IUserCommandProcessor")
-
-#endif // IUSERCOMMANDPROCESSOR_H

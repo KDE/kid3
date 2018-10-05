@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TIMEEVENTEDITOR_H
-#define TIMEEVENTEDITOR_H
+#pragma once
 
 #include <QWidget>
 #include "frame.h"
@@ -172,5 +171,3 @@ private:
   QByteArray m_byteArray;
   bool m_fileIsPlayed;
 };
-
-#endif // TIMEEVENTEDITOR_H

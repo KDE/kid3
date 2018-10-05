@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FREEDBIMPORTPLUGIN_H
-#define FREEDBIMPORTPLUGIN_H
+#pragma once
 
 #include <QObject>
 #include "iserverimporterfactory.h"
@@ -68,5 +67,3 @@ public:
       const QString& key,
       QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };
-
-#endif // FREEDBIMPORTPLUGIN_H

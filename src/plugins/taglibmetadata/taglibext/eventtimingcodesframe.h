@@ -23,8 +23,7 @@
  *   http://www.mozilla.org/MPL/                                           *
  ***************************************************************************/
 
-#ifndef TAGLIB_EVENTTIMINGCODESFRAME_H
-#define TAGLIB_EVENTTIMINGCODESFRAME_H
+#pragma once
 
 #include "id3v2frame.h"
 #include "tlist.h"
@@ -182,4 +181,3 @@ namespace TagLib {
 
   }
 }
-#endif

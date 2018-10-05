@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTVIEW_H
-#define PLAYLISTVIEW_H
+#pragma once
 
 #include <QListView>
 #include "kid3api.h"
@@ -100,5 +99,3 @@ private:
 
   int m_dropRole;
 };
-
-#endif // PLAYLISTVIEW_H

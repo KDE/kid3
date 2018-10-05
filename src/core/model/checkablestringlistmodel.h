@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CHECKABLESTRINGLISTMODEL_H
-#define CHECKABLESTRINGLISTMODEL_H
+#pragma once
 
 #include <QStringListModel>
 #include "kid3api.h"
@@ -109,5 +108,3 @@ public:
 private:
   quint64 m_bitMask;
 };
-
-#endif // CHECKABLESTRINGLISTMODEL_H

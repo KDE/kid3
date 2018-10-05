@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONTEXTHELP_H
-#define CONTEXTHELP_H
+#pragma once
 
 #include <QString>
 #include "kid3api.h"
@@ -54,5 +53,3 @@ public:
 private:
   static IPlatformTools* s_platformTools;
 };
-
-#endif // CONTEXTHELP_H

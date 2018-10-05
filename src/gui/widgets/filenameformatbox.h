@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILENAMEFORMATBOX_H
-#define FILENAMEFORMATBOX_H
+#pragma once
 
 #include "formatbox.h"
 
@@ -68,5 +67,3 @@ private:
   QCheckBox* m_maximumLengthCheckBox;
   QSpinBox* m_maximumLengthSpinBox;
 };
-
-#endif // FILENAMEFORMATBOX_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3FORM_H
-#define KID3FORM_H
+#pragma once
 
 #include <QSplitter>
 #include <QLineEdit>
@@ -423,5 +422,3 @@ private:
   Kid3Form* const m_form;
   const Frame::TagNumber m_tagNr;
 };
-
-#endif // KID3FORM_H

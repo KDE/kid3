@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FINDREPLACEDIALOG_H
-#define FINDREPLACEDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "tagsearcher.h"
@@ -150,5 +149,3 @@ private:
   QStatusBar* m_statusBar;
   CheckableStringListModel* m_tagsModel;
 };
-
-#endif // FINDREPLACEDIALOG_H

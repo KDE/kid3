@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTDIALOG_H
-#define BATCHIMPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "batchimportprofile.h"
@@ -170,5 +169,3 @@ private:
   /** true if m_startAbortButton is an Abort button */
   bool m_isAbortButton;
 };
-
-#endif

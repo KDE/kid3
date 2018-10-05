@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXPORTCONFIG_H
-#define EXPORTCONFIG_H
+#pragma once
 
 #include <QStringList>
 #include "generalconfig.h"
@@ -161,5 +160,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

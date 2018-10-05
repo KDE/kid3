@@ -14,8 +14,7 @@
  *   MA  02110-1301  USA                                                   *
  ***************************************************************************/
 
-#ifndef TAGLIB_MP2FILETYPERESOLVER_H
-#define TAGLIB_MP2FILETYPERESOLVER_H
+#pragma once
 
 #include <tfile.h>
 #include <fileref.h>
@@ -41,7 +40,5 @@ public:
             TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const override;
     virtual ~MP2FileTypeResolver() {}
 };
-
-#endif
 
 #endif

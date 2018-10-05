@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NUMBERTRACKSCONFIG_H
-#define NUMBERTRACKSCONFIG_H
+#pragma once
 
 #include "generalconfig.h"
 #include "trackdata.h"
@@ -136,5 +135,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

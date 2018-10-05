@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STANDARDIOHANDLER_H
-#define STANDARDIOHANDLER_H
+#pragma once
 
 #include "abstractcli.h"
 #include <QTextStream>
@@ -103,5 +102,3 @@ private:
   bool m_consoleMode;
 #endif
 };
-
-#endif // STANDARDIOHANDLER_H

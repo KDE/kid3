@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERIMPORTDIALOG_H
-#define SERVERIMPORTDIALOG_H
+#pragma once
 
 #include "config.h"
 #include <QDialog>
@@ -232,5 +231,3 @@ private:
   QStatusBar* m_statusBar;
   ServerImporter* m_source;
 };
-
-#endif

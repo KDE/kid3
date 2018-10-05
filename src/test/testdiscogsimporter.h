@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTDISCOGSIMPORTER_H
-#define TESTDISCOGSIMPORTER_H
+#pragma once
 
 #include "testserverimporterbase.h"
 
@@ -36,5 +35,3 @@ private slots:
   void testQueryAlbums();
   void testQueryTracks();
 };
-
-#endif

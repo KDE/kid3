@@ -19,8 +19,7 @@
  *   02110-1301  USA                                                       *
  ***************************************************************************/
 
-#ifndef TAGLIB_DSFHEADER_H
-#define TAGLIB_DSFHEADER_H
+#pragma once
 
 //#include <taglib/taglib_export.h>
 
@@ -158,6 +157,3 @@ class DSFHeader
   class HeaderPrivate;
   HeaderPrivate *d;
 };
-
-
-#endif

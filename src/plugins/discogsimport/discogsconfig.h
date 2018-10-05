@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISCOGSCONFIG_H
-#define DISCOGSCONFIG_H
+#pragma once
 
 #include "serverimporterconfig.h"
 
@@ -51,5 +50,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif // DISCOGSCONFIG_H

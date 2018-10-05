@@ -19,8 +19,7 @@
  *   02110-1301  USA                                                       *
  ***************************************************************************/
 
-#ifndef TAGLIB_DSFPROPERTIES_H
-#define TAGLIB_DSFPROPERTIES_H
+#pragma once
 
 // Kid3: Remove taglib/ from includes
 #include <audioproperties.h>
@@ -97,5 +96,3 @@ class DSFProperties : public TagLib::AudioProperties
   class PropertiesPrivate;
   PropertiesPrivate *d;
 };
-
-#endif

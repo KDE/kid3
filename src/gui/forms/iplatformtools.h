@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IPLATFORMTOOLS_H
-#define IPLATFORMTOOLS_H
+#pragma once
 
 #include "icoreplatformtools.h"
 
@@ -158,5 +157,3 @@ public:
   virtual bool warningContinueCancelList(QWidget* parent,
    const QString& text, const QStringList& strlist, const QString& caption) = 0;
 };
-
-#endif // IPLATFORMTOOLS_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEXTTABLEMODEL_H
-#define TEXTTABLEMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QList>
@@ -102,5 +101,3 @@ private:
   QList<QStringList> m_cells;
   bool m_hasHeaderLine;
 };
-
-#endif // TEXTTABLEMODEL_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGSTORE_H
-#define CONFIGSTORE_H
+#pragma once
 
 #include <QObject>
 #include <QList>
@@ -91,5 +90,3 @@ private:
   static ConfigStore* s_self;
   static int s_configVersion;
 };
-
-#endif // CONFIGSTORE_H

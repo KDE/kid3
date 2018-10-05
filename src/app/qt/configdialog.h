@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGDIALOG_H
-#define CONFIGDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -132,5 +131,3 @@ private:
   bool m_fontChanged;
   bool m_styleChanged;
 };
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILELIST_H
-#define FILELIST_H
+#pragma once
 
 #include <QList>
 #include <QMap>
@@ -202,5 +201,3 @@ private:
   QAction* m_deleteAction;
   QMap<QString, QAction*> m_userActions;
 };
-
-#endif // FILELIST_H

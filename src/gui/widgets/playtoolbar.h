@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYTOOLBAR_H
-#define PLAYTOOLBAR_H
+#pragma once
 
 #include <QToolBar>
 #include "config.h"
@@ -161,5 +160,3 @@ private:
   QSlider* m_seekSlider;
   QSlider* m_volumeSlider;
 };
-
-#endif // PLAYTOOLBAR_H

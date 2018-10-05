@@ -26,8 +26,7 @@
  * 02110-1301, USA.
  */
 
-#ifndef PROXYITEMSELECTIONMODEL_H
-#define PROXYITEMSELECTIONMODEL_H
+#pragma once
 
 #include <QItemSelectionModel>
 #include "kid3api.h"
@@ -80,5 +79,3 @@ private:
   QItemSelectionModel* m_proxySelectionModel;
   bool m_ignoreCurrentChanged;
 };
-
-#endif // PROXYITEMSELECTIONMODEL_H

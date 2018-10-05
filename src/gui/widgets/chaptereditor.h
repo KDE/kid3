@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CHAPTEREDITOR_H
-#define CHAPTEREDITOR_H
+#pragma once
 
 #include <QWidget>
 
@@ -80,5 +79,3 @@ private:
   QLineEdit* m_startOffsetEdit;
   QLineEdit* m_endOffsetEdit;
 };
-
-#endif // CHAPTEREDITOR_H

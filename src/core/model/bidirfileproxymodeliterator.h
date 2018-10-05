@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BIDIRFILEPROXYMODELITERATOR_H
-#define BIDIRFILEPROXYMODELITERATOR_H
+#pragma once
 
 #include <QObject>
 #include <QStack>
@@ -142,5 +141,3 @@ private:
   bool m_aborted;
   bool m_suspended;
 };
-
-#endif // FILEPROXYMODELITERATOR_H

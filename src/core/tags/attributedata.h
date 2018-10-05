@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ATTRIBUTEDATA_H
-#define ATTRIBUTEDATA_H
+#pragma once
 
 #include <QString>
 #include <QByteArray>
@@ -107,5 +106,3 @@ public:
 private:
   Type m_type;
 };
-
-#endif // ATTRIBUTEDATA_H

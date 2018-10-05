@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MPRISINTERFACE_H
-#define MPRISINTERFACE_H
+#pragma once
 
 #include <QObject>
 #include "config.h"
@@ -270,5 +269,3 @@ class MprisInterface : public QObject {
 };
 
 #endif
-
-#endif // MPRISINTERFACE_H

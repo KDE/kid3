@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MP3FILE_H
-#define MP3FILE_H
+#pragma once
 
 #include <QScopedPointer>
 #include "taggedfile.h"
@@ -277,5 +276,3 @@ private:
   /** ID3v2 tags */
   QScopedPointer<ID3_Tag> m_tagV2;
 };
-
-#endif // MP3FILE_H

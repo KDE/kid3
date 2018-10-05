@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ISETTINGS_H
-#define ISETTINGS_H
+#pragma once
 
 #include <QVariant>
 #include "kid3api.h"
@@ -95,5 +94,3 @@ protected:
    */
   void migrateOldSettings();
 };
-
-#endif // ISETTINGS_H

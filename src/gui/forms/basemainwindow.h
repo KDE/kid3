@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BASEMAINWINDOW_H
-#define BASEMAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QDateTime>
@@ -731,5 +730,3 @@ protected:
 private:
   QScopedPointer<BaseMainWindowImpl> m_impl;
 };
-
-#endif /* BASEMAINWINDOW_H */

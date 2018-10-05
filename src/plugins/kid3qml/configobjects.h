@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGOBJECTS_H
-#define CONFIGOBJECTS_H
+#pragma once
 
 #include <QObject>
 #include "kid3api.h"
@@ -95,5 +94,3 @@ public:
   /** Get main window configuration. */
   Q_INVOKABLE static QObject* mainWindowConfig();
 };
-
-#endif // CONFIGOBJECTS_H

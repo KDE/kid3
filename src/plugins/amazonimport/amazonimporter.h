@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AMAZONIMPORTER_H
-#define AMAZONIMPORTER_H
+#pragma once
 
 #include "serverimporter.h"
 
@@ -106,5 +105,3 @@ public:
   virtual void sendTrackListQuery(
     const ServerImporterConfig* cfg, const QString& cat, const QString& id) override;
 };
-
-#endif

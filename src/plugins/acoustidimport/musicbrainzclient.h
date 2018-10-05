@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICBRAINZCLIENT_H
-#define MUSICBRAINZCLIENT_H
+#pragma once
 
 #include <QObject>
 #include "servertrackimporter.h"
@@ -130,5 +129,3 @@ private:
   ImportTrackDataVector m_currentTrackData;
   QMap<QByteArray, QByteArray> m_headers;
 };
-
-#endif // MUSICBRAINZCLIENT_H

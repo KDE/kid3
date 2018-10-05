@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMEITEMDELEGATE_H
-#define FRAMEITEMDELEGATE_H
+#pragma once
 
 #include <QItemDelegate>
 
@@ -188,5 +187,3 @@ private:
   int m_paintedStarCount;
   bool m_starCountEdited;
 };
-
-#endif // FRAMEITEMDELEGATE_H

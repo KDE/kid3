@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COREPLATFORMTOOLS_H
-#define COREPLATFORMTOOLS_H
+#pragma once
 
 #include <QScopedPointer>
 #include "icoreplatformtools.h"
@@ -93,5 +92,3 @@ private:
   QSettings* m_settings;
   QScopedPointer<ISettings> m_config;
 };
-
-#endif // COREPLATFORMTOOLS_H

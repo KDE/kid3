@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef M4AFILE_H
-#define M4AFILE_H
+#pragma once
 
 #include "taggedfile.h"
 #include <QMap>
@@ -250,5 +249,3 @@ private:
   /** Metadata. */
   MetadataMap m_metadata;
 };
-
-#endif // M4AFILE_H

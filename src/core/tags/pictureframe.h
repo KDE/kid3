@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PICTUREFRAME_H
-#define PICTUREFRAME_H
+#pragma once
 
 #include "frame.h"
 
@@ -421,5 +420,3 @@ public:
 };
 
 Q_DECLARE_METATYPE(PictureFrame::ImageProperties)
-
-#endif // PICTUREFRAME_H

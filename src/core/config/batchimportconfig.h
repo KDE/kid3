@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTCONFIG_H
-#define BATCHIMPORTCONFIG_H
+#pragma once
 
 #include <QStringList>
 #include "config.h"
@@ -147,5 +146,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

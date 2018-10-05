@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BROWSERDIALOG_H
-#define BROWSERDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -70,5 +69,3 @@ private:
   QLineEdit* m_findLineEdit;
   QString m_filename;
 };
-
-#endif // BROWSERDIALOG_H

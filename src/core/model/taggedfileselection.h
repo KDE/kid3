@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGGEDFILESELECTION_H
-#define TAGGEDFILESELECTION_H
+#pragma once
 
 #include <QObject>
 #include "frame.h"
@@ -313,5 +312,3 @@ private:
   const Frame::TagNumber m_tagNr;
   const Frame::TagVersion m_tagVersion;
 };
-
-#endif // TAGGEDFILESELECTION_H

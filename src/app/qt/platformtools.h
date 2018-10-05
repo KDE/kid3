@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLATFORMTOOLS_H
-#define PLATFORMTOOLS_H
+#pragma once
 
 #include <QScopedPointer>
 #include "iplatformtools.h"
@@ -198,5 +197,3 @@ public:
 private:
   QScopedPointer<BrowserDialog> m_helpBrowser;
 };
-
-#endif // PLATFORMTOOLS_H

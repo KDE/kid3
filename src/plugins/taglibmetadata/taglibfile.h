@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGLIBFILE_H
-#define TAGLIBFILE_H
+#pragma once
 
 #include "taglibconfig.h"
 
@@ -446,5 +445,3 @@ private:
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
 };
-
-#endif // TAGLIBFILE_H

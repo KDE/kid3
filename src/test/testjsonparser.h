@@ -25,8 +25,7 @@
  */
 
 
-#ifndef TESTJSONPARSER_H
-#define TESTJSONPARSER_H
+#pragma once
 
 #include <QTest>
 
@@ -40,5 +39,3 @@ private slots:
   void serializeAndDeserializeTypes();
   void deserializeMusicData();
 };
-
-#endif

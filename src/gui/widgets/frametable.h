@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMETABLE_H
-#define FRAMETABLE_H
+#pragma once
 
 #include <QTableView>
 
@@ -110,5 +109,3 @@ private slots:
 private:
   QWidget* m_currentEditor;
 };
-
-#endif // FRAMETABLE_H

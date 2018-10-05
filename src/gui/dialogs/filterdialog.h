@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILTERDIALOG_H
-#define FILTERDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QTextEdit>
@@ -127,5 +126,3 @@ private:
   /** true if m_applyButton is an Abort button */
   bool m_isAbortButton;
 };
-
-#endif

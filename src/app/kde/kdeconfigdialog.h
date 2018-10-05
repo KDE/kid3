@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KDECONFIGDIALOG_H
-#define KDECONFIGDIALOG_H
+#pragma once
 
 #include <QtGlobal>
 #include <KConfigDialog>
@@ -86,5 +85,3 @@ protected:
 private:
   ConfigDialogPages* m_pages;
 };
-
-#endif

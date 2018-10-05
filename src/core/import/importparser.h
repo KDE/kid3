@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTPARSER_H
-#define IMPORTPARSER_H
+#pragma once
 
 #include <QString>
 #include <QRegularExpression>
@@ -90,5 +89,3 @@ private:
   /** true if automatic track number incrementing is used */
   bool m_trackIncrEnabled;
 };
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISCOGSIMPORTER_H
-#define DISCOGSIMPORTER_H
+#pragma once
 
 #include "serverimporter.h"
 
@@ -103,5 +102,3 @@ public:
 private:
   QMap<QByteArray, QByteArray> m_discogsHeaders;
 };
-
-#endif

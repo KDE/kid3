@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ICOREPLATFORMTOOLS_H
-#define ICOREPLATFORMTOOLS_H
+#pragma once
 
 #include <QList>
 #include <QPair>
@@ -96,5 +95,3 @@ protected:
    */
   static QString qtNameFilterPatterns(const QString& nameFilter);
 };
-
-#endif // ICOREPLATFORMTOOLS_H

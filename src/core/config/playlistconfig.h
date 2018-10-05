@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTCONFIG_H
-#define PLAYLISTCONFIG_H
+#pragma once
 
 #include <QString>
 #include "config.h"
@@ -246,5 +245,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif // PLAYLISTCONFIG_H

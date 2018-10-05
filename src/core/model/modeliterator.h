@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MODELITERATOR_H
-#define MODELITERATOR_H
+#pragma once
 
 #include <QPersistentModelIndex>
 #include <QStack>
@@ -465,5 +464,3 @@ private:
   int m_row;
   TaggedFile* m_nextFile;
 };
-
-#endif // MODELITERATOR_H

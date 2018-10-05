@@ -8,8 +8,7 @@
  * last modified: $ID:$
  */
 
-#ifndef __VCEDIT_H
-#define __VCEDIT_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,6 +63,3 @@ extern char *   vcedit_error(vcedit_state *state);
 #ifdef __cplusplus
 }
 #endif 
-
-#endif /* __VCEDIT_H */
-

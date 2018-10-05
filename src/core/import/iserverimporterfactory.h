@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ISERVERIMPORTERFACTORY_H
-#define ISERVERIMPORTERFACTORY_H
+#pragma once
 
 #include <QtPlugin>
 #include "kid3api.h"
@@ -67,5 +66,3 @@ public:
 
 Q_DECLARE_INTERFACE(IServerImporterFactory,
                     "net.sourceforge.kid3.IServerImporterFactory")
-
-#endif // ISERVERIMPORTERFACTORY_H

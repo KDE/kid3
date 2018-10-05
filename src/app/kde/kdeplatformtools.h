@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KDEPLATFORMTOOLS_H
-#define KDEPLATFORMTOOLS_H
+#pragma once
 
 #include <QScopedPointer>
 #include "iplatformtools.h"
@@ -197,5 +196,3 @@ private:
   QScopedPointer<KConfig> m_settings;
   QScopedPointer<ISettings> m_config;
 };
-
-#endif // KDEPLATFORMTOOLS_H

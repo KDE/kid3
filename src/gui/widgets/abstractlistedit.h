@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABSTRACTLISTEDIT_H
-#define ABSTRACTLISTEDIT_H
+#pragma once
 
 #include <QWidget>
 
@@ -119,5 +118,3 @@ private:
   QPushButton* m_editPushButton;
   QPushButton* m_removePushButton;
 };
-
-#endif // ABSTRACTLISTEDIT_H

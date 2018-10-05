@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTDIALOG_H
-#define PLAYLISTDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -101,5 +100,3 @@ private:
   QComboBox* m_sortTagFieldComboBox;
   QComboBox* m_writeInfoComboBox;
 };
-
-#endif // PLAYLISTDIALOG_H

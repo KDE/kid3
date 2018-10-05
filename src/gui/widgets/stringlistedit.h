@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRINGLISTEDIT_H
-#define STRINGLISTEDIT_H
+#pragma once
 
 #include "abstractlistedit.h"
 
@@ -59,5 +58,3 @@ public slots:
    */
   virtual void editItem() override;
 };
-
-#endif // STRINGLISTEDIT_H

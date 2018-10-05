@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXPRESSIONPARSER_H
-#define EXPRESSIONPARSER_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -127,5 +126,3 @@ private:
   QStringList::const_iterator m_rpnIterator;
   bool m_error;
 };
-
-#endif

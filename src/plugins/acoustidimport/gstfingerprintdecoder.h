@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GSTFINGERPRINTDECODER_H
-#define GSTFINGERPRINTDECODER_H
+#pragma once
 
 #include <gst/gst.h>
 #include "abstractfingerprintdecoder.h"
@@ -84,5 +83,3 @@ private:
   gint m_rate;
   bool m_gotPad;
 };
-
-#endif // GSTFINGERPRINTDECODER_H

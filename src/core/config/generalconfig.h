@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GENERALCONFIG_H
-#define GENERALCONFIG_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -167,5 +166,3 @@ Derived& StoredConfig<Derived, Base>::instance() {
   }
   return *obj;
 }
-
-#endif

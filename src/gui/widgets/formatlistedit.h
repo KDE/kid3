@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATLISTEDIT_H
-#define FORMATLISTEDIT_H
+#pragma once
 
 #include <QWidget>
 #include <QList>
@@ -132,5 +131,3 @@ private:
   QPushButton* m_addPushButton;
   QPushButton* m_removePushButton;
 };
-
-#endif // FORMATLISTEDIT_H

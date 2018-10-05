@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGTABLE_H
-#define CONFIGTABLE_H
+#pragma once
 
 #include <QTableView>
 #include <QList>
@@ -116,5 +115,3 @@ public slots:
 private:
   QTableView* m_tableView;
 };
-
-#endif // CONFIGTABLE_H

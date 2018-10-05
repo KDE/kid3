@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3APPLICATION_H
-#define KID3APPLICATION_H
+#pragma once
 
 #include <QObject>
 #include <QPersistentModelIndex>
@@ -1682,5 +1681,3 @@ private:
   const Frame::TagNumber m_tagNr;
   const Frame::TagVersion m_tagVersion;
 };
-
-#endif // KID3APPLICATION_H

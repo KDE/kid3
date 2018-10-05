@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FREEDBCONFIG_H
-#define FREEDBCONFIG_H
+#pragma once
 
 #include "serverimporterconfig.h"
 
@@ -92,5 +91,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DIRRENAMER_H
-#define DIRRENAMER_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -295,5 +294,3 @@ private:
   bool m_aborted;
   bool m_actionCreate;
 };
-
-#endif // DIRRENAMER_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IFRAMEEDITOR_H
-#define IFRAMEEDITOR_H
+#pragma once
 
 #include "kid3api.h"
 #include "frame.h"
@@ -84,5 +83,3 @@ public:
    */
   virtual void setTagNumber(Frame::TagNumber tagNr) = 0;
 };
-
-#endif // IFRAMEEDITOR_H

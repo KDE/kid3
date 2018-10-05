@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DOWNLOADDIALOG_H
-#define DOWNLOADDIALOG_H
+#pragma once
 
 #include <QProgressDialog>
 #include <QString>
@@ -80,5 +79,3 @@ public slots:
 private:
   QString m_url;
 };
-
-#endif // DOWNLOADDIALOG_H

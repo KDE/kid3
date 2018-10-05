@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGDIALOGPAGES_H
-#define CONFIGDIALOGPAGES_H
+#pragma once
 
 #include <QObject>
 #include <QStringList>
@@ -208,5 +207,3 @@ private:
   /** Model with enabled plugins */
   CheckableStringListModel* m_enabledPluginsModel;
 };
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROGRESSWIDGET_H
-#define PROGRESSWIDGET_H
+#pragma once
 
 #include <QFrame>
 
@@ -131,5 +130,3 @@ private:
   int m_percentage;
   bool m_wasCanceled;
 };
-
-#endif // PROGRESSWIDGET_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLEMODELEDIT_H
-#define TABLEMODELEDIT_H
+#pragma once
 
 #include "abstractlistedit.h"
 
@@ -63,5 +62,3 @@ public:
 private:
   QTableView* m_tableView;
 };
-
-#endif // TABLEMODELEDIT_H

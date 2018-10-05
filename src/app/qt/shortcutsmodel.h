@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHORTCUTSMODEL_H
-#define SHORTCUTSMODEL_H
+#pragma once
 
 #include <QAbstractItemModel>
 #include <QList>
@@ -253,5 +252,3 @@ private:
 
   QList<ShortcutGroup> m_shortcutGroups;
 };
-
-#endif // SHORTCUTSMODEL_H

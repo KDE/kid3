@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3MAINWINDOW_H
-#define KID3MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include "basemainwindow.h"
@@ -185,5 +184,3 @@ private:
   QAction* m_settingsAutoHideTags;
   QAction* m_settingsShowHidePicture;
 };
-
-#endif /* KID3MAINWINDOW_H */

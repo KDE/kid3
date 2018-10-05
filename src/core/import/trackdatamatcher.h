@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKDATAMATCHER_H
-#define TRACKDATAMATCHER_H
+#pragma once
 
 #include "kid3api.h"
 
@@ -61,5 +60,3 @@ bool KID3_CORE_EXPORT matchWithTrack(TrackDataModel* trackDataModel);
 bool KID3_CORE_EXPORT matchWithTitle(TrackDataModel* trackDataModel);
 
 }
-
-#endif // TRACKDATAMATCHER_H

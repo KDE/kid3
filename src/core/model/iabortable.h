@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IABORTABLE_H
-#define IABORTABLE_H
+#pragma once
 
 #include "kid3api.h"
 
@@ -56,5 +55,3 @@ public:
    */
   virtual void clearAborted() = 0;
 };
-
-#endif // IABORTABLE_H

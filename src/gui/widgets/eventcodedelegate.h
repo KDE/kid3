@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EVENTCODEDELEGATE_H
-#define EVENTCODEDELEGATE_H
+#pragma once
 
 #include "enumdelegate.h"
 
@@ -52,5 +51,3 @@ protected:
   virtual int getIndexForEnum(int enumNr) const override;
   virtual int getEnumForIndex(int index) const override;
 };
-
-#endif // EVENTCODEDELEGATE_H

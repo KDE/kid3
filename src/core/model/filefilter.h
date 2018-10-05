@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILEFILTER_H
-#define FILEFILTER_H
+#pragma once
 
 #include "expressionparser.h"
 #include "trackdata.h"
@@ -141,5 +140,3 @@ private:
   ImportTrackData m_trackData12;
   bool m_aborted;
 };
-
-#endif

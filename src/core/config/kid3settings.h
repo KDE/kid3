@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3SETTINGS_H
-#define KID3SETTINGS_H
+#pragma once
 
 #include "isettings.h"
 
@@ -95,5 +94,3 @@ public:
 private:
   QSettings* m_config;
 };
-
-#endif // KID3SETTINGS_H

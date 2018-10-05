@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DOWNLOADCLIENT_H
-#define DOWNLOADCLIENT_H
+#pragma once
 
 #include <QString>
 #include "httpclient.h"
@@ -107,5 +106,3 @@ private:
   QUrl m_url;
   bool m_canceled;
 };
-
-#endif // DOWNLOADCLIENT_H

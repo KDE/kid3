@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QMLCOMMANDPLUGIN_H
-#define QMLCOMMANDPLUGIN_H
+#pragma once
 
 #include <QObject>
 #include "iusercommandprocessor.h"
@@ -121,5 +120,3 @@ private:
 
   static QmlCommandPlugin* s_messageHandlerInstance;
 };
-
-#endif // QMLCOMMANDPLUGIN_H

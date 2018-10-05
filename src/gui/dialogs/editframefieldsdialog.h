@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EDITFRAMEFIELDSDIALOG_H
-#define EDITFRAMEFIELDSDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QLabel>
@@ -196,5 +195,3 @@ private:
   Frame::Field m_valueField;
   QList<FieldControl*> m_fieldcontrols;
 };
-
-#endif // EDITFRAMEFIELDSDIALOG_H

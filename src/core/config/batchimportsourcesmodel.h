@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTSOURCESMODEL_H
-#define BATCHIMPORTSOURCESMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include "batchimportprofile.h"
@@ -158,5 +157,3 @@ public:
 private:
   QList<BatchImportProfile::Source> m_sources;
 };
-
-#endif // BATCHIMPORTSOURCESMODEL_H

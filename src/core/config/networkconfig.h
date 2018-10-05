@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NETWORKCONFIG_H
-#define NETWORKCONFIG_H
+#pragma once
 
 #include "generalconfig.h"
 #include "kid3api.h"
@@ -146,5 +145,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SUBFRAMESEDITOR_H
-#define SUBFRAMESEDITOR_H
+#pragma once
 
 #include <QWidget>
 #include "frame.h"
@@ -96,5 +95,3 @@ private:
   Frame m_editFrame;
   int m_editFrameRow;
 };
-
-#endif // SUBFRAMESEDITOR_H

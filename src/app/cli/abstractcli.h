@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABSTRACTCLI_H
-#define ABSTRACTCLI_H
+#pragma once
 
 #include <QObject>
 
@@ -163,5 +162,3 @@ private:
   AbstractCliIO* m_io;
   int m_returnCode;
 };
-
-#endif // ABSTRACTCLI_H

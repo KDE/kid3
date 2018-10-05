@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGSEARCHER_H
-#define TAGSEARCHER_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -351,5 +350,3 @@ private:
   bool m_aborted;
   bool m_started;
 };
-
-#endif // TAGSEARCHER_H

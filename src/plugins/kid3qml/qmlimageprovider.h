@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QMLIMAGEPROVIDER_H
-#define QMLIMAGEPROVIDER_H
+#pragma once
 
 #include <QtGlobal>
 #include "pixmapprovider.h"
@@ -64,5 +63,3 @@ public:
   virtual QPixmap requestPixmap(const QString& id, QSize* size,
                                 const QSize& requestedSize) override;
 };
-
-#endif // QMLIMAGEPROVIDER_H

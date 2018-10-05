@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEXTEXPORTER_H
-#define TEXTEXPORTER_H
+#pragma once
 
 #include <QObject>
 #include "trackdata.h"
@@ -105,5 +104,3 @@ private:
   ImportTrackDataVector m_trackDataVector;
   QString m_text;
 };
-
-#endif // TEXTEXPORTER_H

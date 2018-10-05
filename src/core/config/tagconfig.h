@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGCONFIG_H
-#define TAGCONFIG_H
+#pragma once
 
 #include <QStringList>
 #include <QScopedPointer>
@@ -479,5 +478,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

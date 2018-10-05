@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMETABLEMODEL_H
-#define FRAMETABLEMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QVector>
@@ -306,5 +305,3 @@ private:
   bool m_id3v1;
   bool m_guiApp;
 };
-
-#endif // FRAMETABLEMODEL_H

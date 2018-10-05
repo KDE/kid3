@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QTFINGERPRINTDECODER_H
-#define QTFINGERPRINTDECODER_H
+#pragma once
 
 #include <QtGlobal>
 #include "abstractfingerprintdecoder.h"
@@ -88,5 +87,3 @@ private:
   QAudioDecoder* m_decoder;
   QTimer* m_timer;
 };
-
-#endif // QTFINGERPRINTDECODER_H

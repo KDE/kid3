@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SCRIPTINTERFACE_H
-#define SCRIPTINTERFACE_H
+#pragma once
 
 #include "config.h"
 #ifdef HAVE_QTDBUS
@@ -443,5 +442,3 @@ class ScriptInterface : public QObject {
 };
 
 #endif // HAVE_QTDBUS
-
-#endif // SCRIPTINTERFACE_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#pragma once
 
 #include "kid3api.h"
 
@@ -57,5 +56,3 @@ QVariant KID3_CORE_EXPORT deserialize(const QString& str, bool* ok = nullptr);
 QString KID3_CORE_EXPORT serialize(const QVariant& var);
 
 }
-
-#endif

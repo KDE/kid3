@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAFERENAME_H
-#define SAFERENAME_H
+#pragma once
 
 #include "kid3api.h"
 
@@ -78,5 +77,3 @@ bool KID3_CORE_EXPORT safeRename(const QString& dirPath,
 bool KID3_CORE_EXPORT replaceIllegalFileNameCharacters(QString& fileName);
 
 }
-
-#endif // SAFERENAME_H

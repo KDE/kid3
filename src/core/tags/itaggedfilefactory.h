@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ITAGGEDFILEFACTORY_H
-#define ITAGGEDFILEFACTORY_H
+#pragma once
 
 #include <QtPlugin>
 #include "kid3api.h"
@@ -111,5 +110,3 @@ public:
 
 Q_DECLARE_INTERFACE(ITaggedFileFactory,
                     "net.sourceforge.kid3.ITaggedFileFactory")
-
-#endif // ITAGGEDFILEFACTORY_H

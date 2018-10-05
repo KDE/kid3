@@ -19,8 +19,7 @@
  *   02110-1301  USA                                                       *
  ***************************************************************************/
 
-#ifndef TAGLIB_DSFFILE_H
-#define TAGLIB_DSFFILE_H
+#pragma once
 
 // Kid3: Remove taglib/ from includes
 #include <tfile.h>
@@ -245,5 +244,3 @@ class DSFFile : public TagLib::File
   class FilePrivate;
   FilePrivate *d;
 };
-
-#endif

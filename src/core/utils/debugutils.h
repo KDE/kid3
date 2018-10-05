@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEBUGUTILS_H
-#define DEBUGUTILS_H
+#pragma once
 
 #include <QObject>
 #include <QModelIndex>
@@ -76,5 +75,3 @@ void KID3_CORE_EXPORT dumpModel(const QAbstractItemModel& model,
 #endif
 
 }
-
-#endif // DEBUGUTILS_H

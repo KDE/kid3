@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDFORMATREPLACER_H
-#define COMMANDFORMATREPLACER_H
+#pragma once
 
 #include "frame.h"
 
@@ -82,5 +81,3 @@ private:
   const QStringList& m_files;
   const bool m_isDir;
 };
-
-#endif // COMMANDFORMATREPLACER_H

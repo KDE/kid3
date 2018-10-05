@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGGEDFILEICONPROVIDER_H
-#define TAGGEDFILEICONPROVIDER_H
+#pragma once
 
 #include <QIcon>
 #include <QPixmap>
@@ -96,5 +95,3 @@ private:
   QMap<QByteArray, QPixmap> m_pixmapMap;
   QSize m_requestedSize;
 };
-
-#endif // TAGGEDFILEICONPROVIDER_H

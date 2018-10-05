@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILEPROXYMODEL_H
-#define FILEPROXYMODEL_H
+#pragma once
 
 #include <QSortFilterProxyModel>
 #include <QHash>
@@ -514,5 +513,3 @@ private:
 };
 
 Q_DECLARE_METATYPE(TaggedFile*)
-
-#endif // FILEPROXYMODEL_H

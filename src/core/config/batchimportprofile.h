@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTPROFILE_H
-#define BATCHIMPORTPROFILE_H
+#pragma once
 
 #include <QString>
 #include <QList>
@@ -163,5 +162,3 @@ private:
   QString m_name;
   QList<Source> m_sources;
 };
-
-#endif // BATCHIMPORTPROFILE_H

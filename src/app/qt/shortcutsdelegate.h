@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHORTCUTSDELEGATE_H
-#define SHORTCUTSDELEGATE_H
+#pragma once
 
 #include <QItemDelegate>
 #include "config.h"
@@ -144,5 +143,3 @@ signals:
 private:
   QKeySequenceEdit* m_editor;
 };
-
-#endif // SHORTCUTSDELEGATE_H

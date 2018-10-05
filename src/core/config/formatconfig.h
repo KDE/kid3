@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATCONFIG_H
-#define FORMATCONFIG_H
+#pragma once
 
 #include <QScopedPointer>
 #include "config.h"
@@ -309,5 +308,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

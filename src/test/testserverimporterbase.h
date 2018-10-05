@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTSERVERIMPORTERBASE_H
-#define TESTSERVERIMPORTERBASE_H
+#pragma once
 
 #include <QObject>
 
@@ -64,5 +63,3 @@ protected:
   ISettings* m_settings;
   ConfigStore* m_configStore;
 };
-
-#endif

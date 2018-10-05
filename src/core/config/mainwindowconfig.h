@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWINDOWCONFIG_H
-#define MAINWINDOWCONFIG_H
+#pragma once
 
 #include "generalconfig.h"
 #include "kid3api.h"
@@ -177,5 +176,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

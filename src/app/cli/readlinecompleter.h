@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef READLINECOMPLETER_H
-#define READLINECOMPLETER_H
+#pragma once
 
 #include <QList>
 #include <QByteArray>
@@ -73,5 +72,3 @@ private:
 
   static ReadlineCompleter* s_completer;
 };
-
-#endif // READLINECOMPLETER_H

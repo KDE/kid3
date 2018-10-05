@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGTABLEMODEL_H
-#define CONFIGTABLEMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QHeaderView>
@@ -159,5 +158,3 @@ private:
   QStringList m_labels;
   QList<QPair<QString, QString> > m_keyValues;
 };
-
-#endif // CONFIGTABLEMODEL_H

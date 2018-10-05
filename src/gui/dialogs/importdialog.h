@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTDIALOG_H
-#define IMPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QScopedPointer>
@@ -255,5 +254,3 @@ private:
   /** Tag import dialog */
   QScopedPointer<TagImportDialog> m_tagImportDialog;
 };
-
-#endif

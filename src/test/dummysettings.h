@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DUMMYSETTINGS_H
-#define DUMMYSETTINGS_H
+#pragma once
 
 #include "isettings.h"
 
@@ -91,5 +90,3 @@ public:
    */
   virtual void sync() override;
 };
-
-#endif // DUMMYSETTINGS_H

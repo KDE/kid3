@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FLACFILE_H
-#define FLACFILE_H
+#pragma once
 
 #include <QScopedPointer>
 #include "oggflacconfig.h"
@@ -195,5 +194,3 @@ private:
   /** FLAC metadata chain. */
   QScopedPointer<FLAC::Metadata::Chain> m_chain;
 };
-
-#endif // FLACFILE_H

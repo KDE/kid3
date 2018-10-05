@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RENDIRDIALOG_H
-#define RENDIRDIALOG_H
+#pragma once
 
 #include <QString>
 #include <QList>
@@ -166,5 +165,3 @@ private:
   TaggedFile* m_taggedFile;
   DirRenamer* m_dirRenamer;
 };
-
-#endif

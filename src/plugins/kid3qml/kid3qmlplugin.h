@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3QMLPLUGIN_H
-#define KID3QMLPLUGIN_H
+#pragma once
 
 #include <QtGlobal>
 #include <QScopedPointer>
@@ -74,5 +73,3 @@ private:
   QScopedPointer<QmlImageProvider> m_imageProvider;
   bool m_ownsKid3App;
 };
-
-#endif // KID3QMLPLUGIN_H

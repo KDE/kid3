@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMELIST_H
-#define FRAMELIST_H
+#pragma once
 
 #include <QObject>
 #include "frame.h"
@@ -250,5 +249,3 @@ private:
   /** true while a frame is added */
   bool m_addingFrame;
 };
-
-#endif // FRAMELIST_H

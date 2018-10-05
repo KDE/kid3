@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTMUSICBRAINZRELEASEIMPORTPARSER_H
-#define TESTMUSICBRAINZRELEASEIMPORTPARSER_H
+#pragma once
 
 #include "testserverimporterbase.h"
 
@@ -39,5 +38,3 @@ private slots:
   void testParseAlbums();
   void testParseTracks();
 };
-
-#endif

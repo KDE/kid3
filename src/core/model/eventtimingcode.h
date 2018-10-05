@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EVENTTIMINGCODE_H
-#define EVENTTIMINGCODE_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -95,5 +94,3 @@ public:
 private:
   int m_code;
 };
-
-#endif // EVENTTIMINGCODE_H

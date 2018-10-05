@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMAGEVIEWER_H
-#define IMAGEVIEWER_H
+#pragma once
 
 #include <QDialog>
 
@@ -53,5 +52,3 @@ private:
   /** image to view */
   QLabel* m_image;
 };
-
-#endif // IMAGEVIEWER_H

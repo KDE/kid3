@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTMODEL_H
-#define PLAYLISTMODEL_H
+#pragma once
 
 #include <QAbstractProxyModel>
 #include "playlistconfig.h"
@@ -205,5 +204,3 @@ private:
   FileProxyModel* m_fsModel;
   bool m_modified;
 };
-
-#endif // PLAYLISTMODEL_H

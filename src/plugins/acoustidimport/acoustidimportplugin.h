@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ACOUSTIDIMPORTPLUGIN_H
-#define ACOUSTIDIMPORTPLUGIN_H
+#pragma once
 
 #include <QObject>
 #include "iservertrackimporterfactory.h"
@@ -68,5 +67,3 @@ public:
       const QString& key,
       QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };
-
-#endif // ACOUSTIDIMPORTPLUGIN_H

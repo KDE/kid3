@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NUMBERTRACKSDIALOG_H
-#define NUMBERTRACKSDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "trackdata.h"
@@ -118,5 +117,3 @@ private:
   /** spinbox with total number of tracks */
   QSpinBox* m_totalNumTrackSpinBox;
 };
-
-#endif

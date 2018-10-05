@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGGEDFILE_H
-#define TAGGEDFILE_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -654,5 +653,3 @@ private:
   /** true if tagged file is marked */
   bool m_marked;
 };
-
-#endif // TAGGEDFILE_H

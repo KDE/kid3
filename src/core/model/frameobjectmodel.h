@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMEOBJECTMODEL_H
-#define FRAMEOBJECTMODEL_H
+#pragma once
 
 #include <QObject>
 #include "frame.h"
@@ -184,5 +183,3 @@ private:
 
   const int m_index;
 };
-
-#endif // FRAMEOBJECTMODEL_H

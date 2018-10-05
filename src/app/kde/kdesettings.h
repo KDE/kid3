@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KDESETTINGS_H
-#define KDESETTINGS_H
+#pragma once
 
 #include <QScopedPointer>
 #include "isettings.h"
@@ -98,5 +97,3 @@ private:
   KConfig* m_config;
   QScopedPointer<KConfigGroup> m_group;
 };
-
-#endif // KDESETTINGS_H

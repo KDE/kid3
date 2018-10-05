@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEXTIMPORTDIALOG_H
-#define TEXTIMPORTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QScopedPointer>
@@ -111,5 +110,3 @@ private:
   /** text importer */
   QScopedPointer<TextImporter> m_textImporter;
 };
-
-#endif

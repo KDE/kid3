@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ENUMDELEGATE_H
-#define ENUMDELEGATE_H
+#pragma once
 
 #include <QItemDelegate>
 
@@ -120,5 +119,3 @@ protected:
    */
   virtual int getEnumForIndex(int index) const = 0;
 };
-
-#endif // ENUMDELEGATE_H

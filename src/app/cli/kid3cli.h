@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3CLI_H
-#define KID3CLI_H
+#pragma once
 
 #include "abstractcli.h"
 #include "taggedfile.h"
@@ -209,5 +208,3 @@ private:
   int m_timeoutMs;
   bool m_fileNameChanged;
 };
-
-#endif // KID3CLI_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TIMEEVENTMODEL_H
-#define TIMEEVENTMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QHeaderView>
@@ -265,5 +264,3 @@ private:
   QList<TimeEvent> m_timeEvents;
   bool m_guiApp;
 };
-
-#endif // TIMEEVENTMODEL_H

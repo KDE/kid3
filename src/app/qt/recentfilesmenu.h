@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RECENTFILESMENU_H
-#define RECENTFILESMENU_H
+#pragma once
 
 #include <QStringList>
 #include <QMenu>
@@ -96,5 +95,3 @@ private:
 
   QStringList m_files;
 };
-
-#endif // RECENTFILESMENU_H

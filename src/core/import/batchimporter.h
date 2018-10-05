@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCHIMPORTER_H
-#define BATCHIMPORTER_H
+#pragma once
 
 #include <QObject>
 #include "trackdata.h"
@@ -180,5 +179,3 @@ private:
   QString m_currentAlbum;
   FrameFilter m_frameFilter;
 };
-
-#endif // BATCHIMPORTER_H

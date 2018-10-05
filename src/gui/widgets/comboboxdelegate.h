@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMBOBOXDELEGATE_H
-#define COMBOBOXDELEGATE_H
+#pragma once
 
 #include <QStyledItemDelegate>
 
@@ -66,5 +65,3 @@ public:
   virtual void setModelData(QWidget* editor, QAbstractItemModel* model,
                             const QModelIndex& index) const override;
 };
-
-#endif // COMBOBOXDELEGATE_H

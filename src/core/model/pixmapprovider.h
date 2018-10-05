@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PIXMAPPROVIDER_H
-#define PIXMAPPROVIDER_H
+#pragma once
 
 #include <QByteArray>
 #include <QPixmap>
@@ -84,5 +83,3 @@ private:
   QPixmap m_dataPixmap;
   uint m_pixmapHash;
 };
-
-#endif // PIXMAPPROVIDER_H

@@ -19,12 +19,9 @@
  *   USA                                                                   *
  ***************************************************************************/
 
-#ifndef TAGLIB_DEBUG_H
-#define TAGLIB_DEBUG_H
+#pragma once
 
 namespace TagLib {
 #define debug(x)
 #define debugData(x)
 }
-
-#endif

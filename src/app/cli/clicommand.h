@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CLICOMMAND_H
-#define CLICOMMAND_H
+#pragma once
 
 #include <QObject>
 #include "trackdata.h"
@@ -607,5 +606,3 @@ public:
 protected:
   virtual void startCommand() override;
 };
-
-#endif // CLICOMMAND_H

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AUDIOPLAYER_H
-#define AUDIOPLAYER_H
+#pragma once
 
 #include <QObject>
 #include <QStringList>
@@ -230,5 +229,3 @@ private:
   QMediaPlayer* m_mediaPlayer;
   QMediaPlaylist* m_mediaPlaylist;
 };
-
-#endif // AUDIOPLAYER_H

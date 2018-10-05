@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTCONFIG_H
-#define IMPORTCONFIG_H
+#pragma once
 
 #include <QStringList>
 #include <QMap>
@@ -358,5 +357,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-#endif

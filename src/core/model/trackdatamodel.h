@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRACKDATAMODEL_H
-#define TRACKDATAMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QList>
@@ -227,5 +226,3 @@ private:
   int m_maxDiff;
   bool m_diffCheckEnabled;
 };
-
-#endif // TRACKDATAMODEL_H

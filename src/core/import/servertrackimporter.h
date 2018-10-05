@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERTRACKIMPORTER_H
-#define SERVERTRACKIMPORTER_H
+#pragma once
 
 #include <QObject>
 #include "kid3api.h"
@@ -123,5 +122,3 @@ private:
   HttpClient* m_httpClient;
   TrackDataModel* m_trackDataModel;
 };
-
-#endif // SERVERTRACKIMPORTER_H

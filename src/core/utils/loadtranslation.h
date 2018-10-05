@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LOADTRANSLATION_H
-#define LOADTRANSLATION_H
+#pragma once
 
 #include <QString>
 #include "kid3api.h"
@@ -48,5 +47,3 @@ void KID3_CORE_EXPORT loadTranslation(const QString& lang = QString());
 void KID3_CORE_EXPORT prependApplicationDirPathIfRelative(QString& path);
 
 }
-
-#endif // LOADTRANSLATION_H

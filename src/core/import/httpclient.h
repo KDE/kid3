@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HTTPCLIENT_H
-#define HTTPCLIENT_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -203,5 +202,3 @@ private:
   /** Minimum interval between two requests to server in ms */
   static QMap<QString, int> s_minimumRequestInterval;
 };
-
-#endif

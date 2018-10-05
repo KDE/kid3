@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTEDITDIALOG_H
-#define PLAYLISTEDITDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -76,5 +75,3 @@ private:
   QDialogButtonBox* m_buttonBox;
   PlaylistModel* m_playlistModel;
 };
-
-#endif // PLAYLISTEDITDIALOG_H

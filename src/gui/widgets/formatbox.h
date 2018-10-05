@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FORMATBOX_H
-#define FORMATBOX_H
+#pragma once
 
 #include <QGroupBox>
 
@@ -77,5 +76,3 @@ private:
   ConfigTableModel* m_strReplTableModel;
   QCheckBox* m_formatEditingCheckBox;
 };
-
-#endif

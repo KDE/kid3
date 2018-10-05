@@ -23,8 +23,7 @@
  *   http://www.mozilla.org/MPL/                                           *
  ***************************************************************************/
 
-#ifndef TAGLIB_SYNCHRONIZEDLYRICSFRAME_H
-#define TAGLIB_SYNCHRONIZEDLYRICSFRAME_H
+#pragma once
 
 #include "id3v2frame.h"
 #include "tlist.h"
@@ -228,4 +227,3 @@ namespace TagLib {
 
   }
 }
-#endif

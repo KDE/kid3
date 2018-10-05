@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGLIBMETADATAPLUGIN_H
-#define TAGLIBMETADATAPLUGIN_H
+#pragma once
 
 #include <QObject>
 #include "itaggedfilefactory.h"
@@ -110,5 +109,3 @@ public:
    */
   virtual void notifyConfigurationChange(const QString& key) override;
 };
-
-#endif // TAGLIBMETADATAPLUGIN_H

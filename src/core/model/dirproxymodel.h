@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DIRPROXYMODEL_H
-#define DIRPROXYMODEL_H
+#pragma once
 
 #include <QSortFilterProxyModel>
 
@@ -65,5 +64,3 @@ protected:
    */
   virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
 };
-
-#endif // DIRPROXYMODEL_H

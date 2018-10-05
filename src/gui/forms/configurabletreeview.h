@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGURABLETREEVIEW_H
-#define CONFIGURABLETREEVIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -100,5 +99,3 @@ private:
   QItemSelectionModel* m_oldSelectionModel;
   QPersistentModelIndex m_oldRootIndex;
 };
-
-#endif // CONFIGURABLETREEVIEW_H

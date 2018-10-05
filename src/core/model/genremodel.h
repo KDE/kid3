@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GENREMODEL_H
-#define GENREMODEL_H
+#pragma once
 
 #include <QStandardItemModel>
 #include "kid3api.h"
@@ -66,5 +65,3 @@ public:
 private:
   bool m_id3v1;
 };
-
-#endif // GENREMODEL_H

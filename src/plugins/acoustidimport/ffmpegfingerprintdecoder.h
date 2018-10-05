@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FFMPEGFINGERPRINTDECODER_H
-#define FFMPEGFINGERPRINTDECODER_H
+#pragma once
 
 #include "abstractfingerprintdecoder.h"
 
@@ -55,5 +54,3 @@ private:
   qint16* m_buffer1;
   qint16* m_buffer2;
 };
-
-#endif // FFMPEGFINGERPRINTDECODER_H

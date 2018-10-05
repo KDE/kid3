@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTUTILS_H
-#define TESTUTILS_H
+#pragma once
 
 class QObject;
 class QStringList;
@@ -47,5 +46,3 @@ namespace TestUtils {
 int runTestSuite(const QObject& testSuite, QStringList& args);
 
 }
-
-#endif

@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERIMPORTERCONFIG_H
-#define SERVERIMPORTERCONFIG_H
+#pragma once
 
 #include "generalconfig.h"
 #include <QString>
@@ -170,5 +169,3 @@ private:
   bool m_additionalTags;
   bool m_coverArt;
 };
-
-#endif

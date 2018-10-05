@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SCRIPTUTILS_H
-#define SCRIPTUTILS_H
+#pragma once
 
 #include <QObject>
 #include <QStringList>
@@ -362,5 +361,3 @@ public:
   Q_INVOKABLE static QString selectDirName(
       const QString& caption = QString(), const QString& dir = QString());
 };
-
-#endif // SCRIPTUTILS_H

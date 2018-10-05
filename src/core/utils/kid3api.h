@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3API_H
-#define KID3API_H
+#pragma once
 
 #ifdef KID3_SHARED
 
@@ -56,5 +55,3 @@
 #define KID3_PLUGIN_EXPORT
 
 #endif
-
-#endif // KID3API_H

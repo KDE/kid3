@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TIMESTAMPDELEGATE_H
-#define TIMESTAMPDELEGATE_H
+#pragma once
 
 #include <QItemDelegate>
 
@@ -69,5 +68,3 @@ public:
 private slots:
   void commitAndCloseEditor();
 };
-
-#endif // TIMESTAMPDELEGATE_H

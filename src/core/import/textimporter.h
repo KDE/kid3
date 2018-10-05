@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEXTIMPORTER_H
-#define TEXTIMPORTER_H
+#pragma once
 
 #include <QString>
 #include <QScopedPointer>
@@ -124,5 +123,3 @@ private:
   /** track data */
   TrackDataModel* m_trackDataModel;
 };
-
-#endif

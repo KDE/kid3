@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GENRES_H
-#define GENRES_H
+#pragma once
 
 #include <QtGlobal>
 #include "kid3api.h"
@@ -105,5 +104,3 @@ public:
    */
   static const unsigned char s_genreNum[Genres::count + 1];
 };
-
-#endif /* GENRES_H */

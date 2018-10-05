@@ -19,8 +19,7 @@
  *   MA  02110-1301  USA                                                   *
  ***************************************************************************/
 
-#ifndef TAGLIB_DSFFILETYPERESOLVER_H
-#define TAGLIB_DSFFILETYPERESOLVER_H
+#pragma once
 
 #include <tfile.h>
 #include <fileref.h>
@@ -46,7 +45,5 @@ public:
             TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const override;
     virtual ~DSFFileTypeResolver() {}
 };
-
-#endif
 
 #endif

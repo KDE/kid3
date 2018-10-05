@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYLISTCREATOR_H
-#define PLAYLISTCREATOR_H
+#pragma once
 
 #include <QString>
 #include <QMap>
@@ -168,5 +167,3 @@ private:
   QString m_playlistFileName;
   QMap<QString, Entry> m_entries;
 };
-
-#endif // PLAYLISTCREATOR_H

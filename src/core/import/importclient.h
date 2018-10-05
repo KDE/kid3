@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTCLIENT_H
-#define IMPORTCLIENT_H
+#pragma once
 
 #include "httpclient.h"
 #include "kid3api.h"
@@ -136,5 +135,3 @@ private:
     RT_Album
   } m_requestType;
 };
-
-#endif

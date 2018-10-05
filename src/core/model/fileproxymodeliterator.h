@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILEPROXYMODELITERATOR_H
-#define FILEPROXYMODELITERATOR_H
+#pragma once
 
 #include <QObject>
 #include <QStack>
@@ -132,5 +131,3 @@ private:
   int m_numDone;
   bool m_aborted;
 };
-
-#endif // FILEPROXYMODELITERATOR_H

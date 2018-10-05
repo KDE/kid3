@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAMENOTICE_H
-#define FRAMENOTICE_H
+#pragma once
 
 #include <QObject>
 #include "kid3api.h"
@@ -116,5 +115,3 @@ public:
 private:
   Warning m_warning;
 };
-
-#endif // FRAMENOTICE_H

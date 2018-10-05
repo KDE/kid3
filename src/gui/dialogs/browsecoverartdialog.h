@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BROWSECOVERARTDIALOG_H
-#define BROWSECOVERARTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QScopedPointer>
@@ -120,5 +119,3 @@ private:
   /** Process for browser command */
   QScopedPointer<ExternalProcess> m_process;
 };
-
-#endif

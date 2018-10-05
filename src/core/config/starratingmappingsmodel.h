@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STARRATINGMAPPINGSMODEL_H
-#define STARRATINGMAPPINGSMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include "kid3api.h"
@@ -145,5 +144,3 @@ private:
 
   QList<QPair<QString, QVector<int> > > m_maps;
 };
-
-#endif // STARRATINGMAPPINGSMODEL_H

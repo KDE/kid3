@@ -24,8 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MESSAGEDIALOG_H
-#define MESSAGEDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QMessageBox>
@@ -119,5 +118,3 @@ private:
   QTextEdit* m_textEdit;
   QDialogButtonBox* m_buttonBox;
 };
-
-#endif // MESSAGEDIALOG_H
