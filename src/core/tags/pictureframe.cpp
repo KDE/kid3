@@ -622,6 +622,8 @@ bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName
   return false;
 }
 
+namespace {
+
 /**
  * Get a 32-bit number from a byte array stored in big-endian order.
  *
@@ -630,8 +632,7 @@ bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName
  *
  * @return big endian 32-bit value.
  */
-static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
-                                                    int index)
+unsigned long getBigEndianULongFromByteArray(const QByteArray& data, int index)
 {
   return
      (static_cast<unsigned char>(data[index + 3]) & 0xff)        |
@@ -647,8 +648,8 @@ static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
  * @param data  byte array
  * @param index index of first byte in data
  */
-static void renderBigEndianULongToByteArray(unsigned long value,
-                                            QByteArray& data, int index)
+void renderBigEndianULongToByteArray(unsigned long value,
+                                     QByteArray& data, int index)
 {
   data[index + 3] = value & 0xff;
   value >>= 8;
@@ -667,12 +668,14 @@ static void renderBigEndianULongToByteArray(unsigned long value,
  * @param index index of first byte in data
  * @param len   number of bytes to copy
  */
-static void renderCharsToByteArray(const char* str, QByteArray& data,
-                                   int index, int len)
+void renderCharsToByteArray(const char* str, QByteArray& data,
+                            int index, int len)
 {
   for (int i = 0; i < len; ++i) {
     data[index++] = *str++;
   }
+}
+
 }
 
 /**

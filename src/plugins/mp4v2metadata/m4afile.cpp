@@ -61,18 +61,10 @@
 #define MP4TagsSetGenreID MP4TagsSetGEID
 #endif
 
-/**
- * Constructor.
- *
- * @param idx index in file proxy model
- */
-M4aFile::M4aFile(const QPersistentModelIndex& idx) :
-  TaggedFile(idx), m_fileRead(false)
-{
-}
+namespace {
 
 /** Mapping between frame types and field names. */
-static const struct {
+const struct {
   const char* name;
   Frame::Type type;
 } nameTypes[] = {
@@ -181,7 +173,7 @@ freeFormNameTypes[] = {
  *
  * @return field name, QString::null if not defined.
  */
-static QString getNameForType(Frame::Type type)
+QString getNameForType(Frame::Type type)
 {
   static QMap<Frame::Type, QString> typeNameMap;
   if (typeNameMap.empty()) {
@@ -213,8 +205,7 @@ static QString getNameForType(Frame::Type type)
  *
  * @return type, FT_Unknown or FT_Other if not predefined field.
  */
-static Frame::Type getTypeForName(const QString& name,
-                                  bool onlyPredefined = false)
+Frame::Type getTypeForName(const QString& name, bool onlyPredefined = false)
 {
   if (name.length() == 4) {
     static QMap<QString, Frame::Type> nameTypeMap;
@@ -257,7 +248,7 @@ static Frame::Type getTypeForName(const QString& name,
  *
  * @return true if a free form field.
  */
-static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
+bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
 {
   bool result = false;
   if (getTypeForName(name, true) == Frame::FT_UnknownFrame) {
@@ -282,8 +273,8 @@ static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
  *
  * @return byte array with string representation.
  */
-static QByteArray getValueByteArray(const char* name,
-                                    const uint8_t* value, uint32_t size)
+QByteArray getValueByteArray(const char* name,
+                             const uint8_t* value, uint32_t size)
 {
   QByteArray str;
   if (name[0] == '\251') {
@@ -369,6 +360,18 @@ static QByteArray getValueByteArray(const char* name,
     str = QByteArray(reinterpret_cast<const char*>(value), size);
   }
   return str;
+}
+
+}
+
+/**
+ * Constructor.
+ *
+ * @param idx index in file proxy model
+ */
+M4aFile::M4aFile(const QPersistentModelIndex& idx) :
+  TaggedFile(idx), m_fileRead(false)
+{
 }
 
 /**

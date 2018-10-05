@@ -44,12 +44,14 @@
 #include "configtablemodel.h"
 #include "formatlistedit.h"
 
+namespace {
+
 /**
  * Get help text for supported format codes.
  *
  * @return help text.
  */
-static QString getToolTip()
+QString getToolTip()
 {
   QString str = QLatin1String("<table>\n");
   str += FrameFormatReplacer::getToolTip(true);
@@ -62,6 +64,8 @@ static QString getToolTip()
 
   str += QLatin1String("</table>\n");
   return str;
+}
+
 }
 
 /**

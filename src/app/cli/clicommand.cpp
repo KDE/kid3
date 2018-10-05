@@ -44,8 +44,12 @@
 #include "dirrenamer.h"
 #include "audioplayer.h"
 
+namespace {
+
 /** Default command timeout in milliseconds. */
-static const int DEFAULT_TIMEOUT_MS = 3000;
+const int DEFAULT_TIMEOUT_MS = 3000;
+
+}
 
 /**
  * Constructor.

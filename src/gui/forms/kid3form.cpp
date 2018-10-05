@@ -73,8 +73,10 @@ QPixmap* Kid3Form::s_collapsePixmap = nullptr;
 /** Expand pixmap, will be allocated in constructor */
 QPixmap* Kid3Form::s_expandPixmap = nullptr;
 
+namespace {
+
 /** picture for collapse pixmap */
-static const char* const collapse_xpm[] = {
+const char* const collapse_xpm[] = {
   "7 7 3 1",
   " \tc None",
   ".\tc #FFFFFF",
@@ -89,7 +91,7 @@ static const char* const collapse_xpm[] = {
 };
 
 /** picture for expand pixmap */
-static const char* const expand_xpm[] = {
+const char* const expand_xpm[] = {
   "7 7 3 1",
   " \tc None",
   ".\tc #FFFFFF",
@@ -260,6 +262,26 @@ void Kid3EditWidget::dropEvent(QDropEvent* ev)
   }
 }
 
+
+/**
+ * Get the items from a combo box.
+ *
+ * @param comboBox combo box
+ *
+ * @return item texts from combo box.
+ */
+QStringList getItemsFromComboBox(const QComboBox* comboBox)
+{
+  QStringList lst;
+  const int numItems = comboBox->count();
+  lst.reserve(numItems);
+  for (int i = 0; i < numItems; ++i) {
+    lst += comboBox->itemText(i);
+  }
+  return lst;
+}
+
+}
 
 /**
  * Constructs an Id3Form as a child of 'parent', with the
@@ -829,24 +851,6 @@ void Kid3Form::setFocusFileList()
 void Kid3Form::setFocusDirList()
 {
   m_dirListBox->setFocus();
-}
-
-/**
- * Get the items from a combo box.
- *
- * @param comboBox combo box
- *
- * @return item texts from combo box.
- */
-static QStringList getItemsFromComboBox(const QComboBox* comboBox)
-{
-  QStringList lst;
-  const int numItems = comboBox->count();
-  lst.reserve(numItems);
-  for (int i = 0; i < numItems; ++i) {
-    lst += comboBox->itemText(i);
-  }
-  return lst;
 }
 
 /**

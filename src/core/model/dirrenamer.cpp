@@ -33,15 +33,7 @@
 #include "modeliterator.h"
 #include "formatconfig.h"
 
-/**
- * Constructor.
- * @param parent parent object
- */
-DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
-  m_tagVersion(Frame::TagVAll), m_aborted(false), m_actionCreate(false)
-{
-  setObjectName(QLatin1String("DirRenamer"));
-}
+namespace {
 
 /**
  * Get parent directory.
@@ -51,7 +43,7 @@ DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
  * @return parent directory (terminated by separator),
  *         empty string if no separator in dir.
  */
-static QString parentDirectory(const QString& dir)
+QString parentDirectory(const QString& dir)
 {
   QString parent(dir);
   int slashPos = parent.lastIndexOf(QLatin1Char('/'));
@@ -61,6 +53,18 @@ static QString parentDirectory(const QString& dir)
     parent = QLatin1String("");
   }
   return parent;
+}
+
+}
+
+/**
+ * Constructor.
+ * @param parent parent object
+ */
+DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
+  m_tagVersion(Frame::TagVAll), m_aborted(false), m_actionCreate(false)
+{
+  setObjectName(QLatin1String("DirRenamer"));
 }
 
 /** Only defined for generation of translation files */

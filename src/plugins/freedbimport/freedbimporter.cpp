@@ -31,7 +31,11 @@
 #include "config.h"
 #include "genres.h"
 
-static const char gnudbServer[] = "www.gnudb.org:80";
+namespace {
+
+const char gnudbServer[] = "www.gnudb.org:80";
+
+}
 
 /**
  * Constructor.
@@ -132,13 +136,15 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
   }
 }
 
+namespace {
+
 /**
  * Parse the track durations from freedb.org.
  *
  * @param text          text buffer containing data from freedb.org
  * @param trackDuration list for results
  */
-static void parseFreedbTrackDurations(
+void parseFreedbTrackDurations(
   const QString& text,
   QList<int>& trackDuration)
 {
@@ -194,8 +200,7 @@ static void parseFreedbTrackDurations(
  * @param text text buffer containing data from freedb.org
  * @param frames tags to put result
  */
-static void parseFreedbAlbumData(const QString& text,
-                                 FrameCollection& frames)
+void parseFreedbAlbumData(const QString& text, FrameCollection& frames)
 {
   QRegExp fdre(QLatin1String(R"(DTITLE=\s*(\S[^\r\n]*\S)\s*/\s*(\S[^\r\n]*\S)[\r\n])"));
   if (fdre.indexIn(text) != -1) {
@@ -210,6 +215,8 @@ static void parseFreedbAlbumData(const QString& text,
   if (fdre.indexIn(text) != -1) {
     frames.setGenre(QString::fromLatin1(Genres::getName(fdre.cap(1).toInt())));
   }
+}
+
 }
 
 /**

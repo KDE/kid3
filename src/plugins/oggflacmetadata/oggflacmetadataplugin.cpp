@@ -29,12 +29,16 @@
 #include "flacfile.hpp"
 #include "tagconfig.h"
 
+namespace {
+
 #ifdef HAVE_VORBIS
-static const QLatin1String OGG_KEY("OggMetadata");
+const QLatin1String OGG_KEY("OggMetadata");
 #endif
 #ifdef HAVE_FLAC
-static const QLatin1String FLAC_KEY("FlacMetadata");
+const QLatin1String FLAC_KEY("FlacMetadata");
 #endif
+
+}
 
 /*!
  * Constructor.

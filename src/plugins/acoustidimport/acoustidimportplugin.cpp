@@ -27,7 +27,11 @@
 #include "acoustidimportplugin.h"
 #include "musicbrainzclient.h"
 
-static const QLatin1String IMPORTER_NAME("AcoustidImport");
+namespace {
+
+const QLatin1String IMPORTER_NAME("AcoustidImport");
+
+}
 
 /*!
  * Constructor.

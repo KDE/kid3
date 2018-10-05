@@ -174,8 +174,6 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
   pic->setNumColors(imgProps.numColors());
 }
 
-}
-
 
 /**
  * TagLib::RIFF::WAV::File subclass with additional method for id3 chunk name.
@@ -227,6 +225,7 @@ void WavFile::changeToLowercaseId3Chunk()
   }
 }
 
+}
 
 /**
  * Wrapper around TagLib::FileStream which reduces the number of open file
@@ -572,6 +571,8 @@ void FileIOStream::deregisterOpenFile(FileIOStream* stream)
   s_openFiles.removeAll(stream);
 }
 
+namespace {
+
 /**
  * Data encoding in ID3v1 tags.
  */
@@ -643,6 +644,7 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
   }
 }
 
+}
 
 /** Default text encoding */
 TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
@@ -1295,6 +1297,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
   return true;
 }
 
+namespace {
+
 /**
  * Get a genre string from a string which can contain the genre itself,
  * or only the genre number or the genre number in parenthesis.
@@ -1303,7 +1307,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
  *
  * @return genre.
  */
-static QString getGenreString(const TagLib::String& str)
+QString getGenreString(const TagLib::String& str)
 {
   if (!str.isNull()) {
     QString qs = toQString(str);
@@ -1323,6 +1327,8 @@ static QString getGenreString(const TagLib::String& str)
   } else {
     return QLatin1String("");
   }
+}
+
 }
 
 /**
@@ -1395,13 +1401,15 @@ bool TagLibFile::makeTagSettable(Frame::TagNumber tagNr)
   return m_tag[tagNr] != nullptr;
 }
 
+namespace {
+
 /**
  * Check if string needs Unicode encoding.
  *
  * @return true if Unicode needed,
  *         false if Latin-1 sufficient.
  */
-static bool needsUnicode(const QString& qstr)
+bool needsUnicode(const QString& qstr)
 {
   bool result = false;
   uint unicodeSize = qstr.length();
@@ -1423,7 +1431,7 @@ static bool needsUnicode(const QString& qstr)
  *
  * @return text encoding.
  */
-static TagLib::String::Type getTextEncodingConfig(bool unicode)
+TagLib::String::Type getTextEncodingConfig(bool unicode)
 {
   TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
   if (unicode && enc == TagLib::String::Latin1) {
@@ -1437,7 +1445,7 @@ static TagLib::String::Type getTextEncodingConfig(bool unicode)
  *
  * @param id3v2Tag ID3v2 tag
  */
-static void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
+void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
 {
   const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList("COMM");
   for (auto it = frameList.begin();
@@ -1462,7 +1470,8 @@ static void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
  *
  * @return true if an ID3v2 Unicode field was written.
  */
-static bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String& tstr, const char* frameId)
+bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr,
+                     const TagLib::String& tstr, const char* frameId)
 {
   TagLib::ID3v2::Tag* id3v2Tag;
   if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != nullptr) {
@@ -1502,6 +1511,8 @@ static bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib:
     }
   }
   return false;
+}
+
 }
 
 /**
@@ -1840,8 +1851,10 @@ QString TagLibFile::getTagFormat(Frame::TagNumber tagNr) const
 }
 
 
+namespace {
+
 /** Types and descriptions for id3lib frame IDs */
-static const struct TypeStrOfId {
+const struct TypeStrOfId {
   const char* str;
   Frame::Type type;
   bool supported;
@@ -1963,8 +1976,8 @@ static const struct TypeStrOfId {
  * @param type the type is returned here
  * @param str  the description is returned here
  */
-static void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& type,
-                                    const char*& str)
+void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& type,
+                             const char*& str)
 {
   static TagLib::Map<TagLib::ByteVector, unsigned> idIndexMap;
   if (idIndexMap.isEmpty()) {
@@ -1991,7 +2004,7 @@ static void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& t
  *
  * @return string.
  */
-static const char* getStringForType(Frame::Type type)
+const char* getStringForType(Frame::Type type)
 {
   if (type != Frame::FT_Other) {
     for (const auto& ts : typeStrOfId) {
@@ -2012,7 +2025,7 @@ static const char* getStringForType(Frame::Type type)
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromTextFrame(
+QString getFieldsFromTextFrame(
   const TagLib::ID3v2::TextIdentificationFrame* tFrame,
   Frame::FieldList& fields, Frame::Type type)
 {
@@ -2055,7 +2068,7 @@ static QString getFieldsFromTextFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromApicFrame(
+QString getFieldsFromApicFrame(
   const TagLib::ID3v2::AttachedPictureFrame* apicFrame,
   Frame::FieldList& fields)
 {
@@ -2101,7 +2114,7 @@ static QString getFieldsFromApicFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromCommFrame(
+QString getFieldsFromCommFrame(
   const TagLib::ID3v2::CommentsFrame* commFrame, Frame::FieldList& fields)
 {
   QString text;
@@ -2135,7 +2148,7 @@ static QString getFieldsFromCommFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromUfidFrame(
+QString getFieldsFromUfidFrame(
   const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame,
   Frame::FieldList& fields)
 {
@@ -2169,7 +2182,7 @@ static QString getFieldsFromUfidFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromGeobFrame(
+QString getFieldsFromGeobFrame(
   const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame,
   Frame::FieldList& fields)
 {
@@ -2210,7 +2223,7 @@ static QString getFieldsFromGeobFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromUrlFrame(
+QString getFieldsFromUrlFrame(
   const TagLib::ID3v2::UrlLinkFrame* wFrame, Frame::FieldList& fields)
 {
   QString text;
@@ -2231,7 +2244,7 @@ static QString getFieldsFromUrlFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromUserUrlFrame(
+QString getFieldsFromUserUrlFrame(
   const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame, Frame::FieldList& fields)
 {
   QString text;
@@ -2261,7 +2274,7 @@ static QString getFieldsFromUserUrlFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromUsltFrame(
+QString getFieldsFromUsltFrame(
   const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame,
   Frame::FieldList& fields)
 {
@@ -2296,7 +2309,7 @@ static QString getFieldsFromUsltFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromSyltFrame(
+QString getFieldsFromSyltFrame(
   const TagLib::ID3v2::SynchronizedLyricsFrame* syltFrame,
   Frame::FieldList& fields)
 {
@@ -2346,7 +2359,7 @@ static QString getFieldsFromSyltFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromEtcoFrame(
+QString getFieldsFromEtcoFrame(
   const TagLib::ID3v2::EventTimingCodesFrame* etcoFrame,
   Frame::FieldList& fields)
 {
@@ -2377,7 +2390,7 @@ static QString getFieldsFromEtcoFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromPrivFrame(
+QString getFieldsFromPrivFrame(
   const TagLib::ID3v2::PrivateFrame* privFrame,
   Frame::FieldList& fields)
 {
@@ -2412,7 +2425,7 @@ static QString getFieldsFromPrivFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromPopmFrame(
+QString getFieldsFromPopmFrame(
   const TagLib::ID3v2::PopularimeterFrame* popmFrame,
   Frame::FieldList& fields)
 {
@@ -2441,7 +2454,7 @@ static QString getFieldsFromPopmFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromOwneFrame(
+QString getFieldsFromOwneFrame(
   const TagLib::ID3v2::OwnershipFrame* owneFrame,
   Frame::FieldList& fields)
 {
@@ -2475,7 +2488,7 @@ static QString getFieldsFromOwneFrame(
  * are integers, the volume adjustment is signed. Bits representing peak
  * and peak volume are omitted if they have zero bits.
  */
-static QString rva2FrameToString(
+QString rva2FrameToString(
     const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame)
 {
   QString text;
@@ -2509,8 +2522,8 @@ static QString rva2FrameToString(
  * @param text string representation
  * @see rva2FrameToString()
  */
-static void rva2FrameFromString(TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
-                                const TagLib::String& text)
+void rva2FrameFromString(TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
+                         const TagLib::String& text)
 {
   // Unfortunately, it is not possible to remove data for a specific channel.
   // Only the whole frame could be deleted and a new one created.
@@ -2552,7 +2565,7 @@ static void rva2FrameFromString(TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromRva2Frame(
+QString getFieldsFromRva2Frame(
   const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame,
   Frame::FieldList& fields)
 {
@@ -2569,7 +2582,7 @@ static QString getFieldsFromRva2Frame(
 }
 
 #if TAGLIB_VERSION >= 0x010a00
-static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index);
+Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index);
 
 /**
  * Get the fields from a chapter frame.
@@ -2579,7 +2592,7 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromChapFrame(
+QString getFieldsFromChapFrame(
   const TagLib::ID3v2::ChapterFrame* chapFrame,
   Frame::FieldList& fields)
 {
@@ -2621,7 +2634,7 @@ static QString getFieldsFromChapFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromCtocFrame(
+QString getFieldsFromCtocFrame(
   const TagLib::ID3v2::TableOfContentsFrame* ctocFrame,
   Frame::FieldList& fields)
 {
@@ -2668,7 +2681,7 @@ static QString getFieldsFromCtocFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromUnknownFrame(
+QString getFieldsFromUnknownFrame(
   const TagLib::ID3v2::Frame* unknownFrame, Frame::FieldList& fields)
 {
   Frame::Field field;
@@ -2690,8 +2703,8 @@ static QString getFieldsFromUnknownFrame(
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
-                                     Frame::FieldList& fields, Frame::Type type)
+QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
+                              Frame::FieldList& fields, Frame::Type type)
 {
   if (frame) {
     const TagLib::ID3v2::TextIdentificationFrame* tFrame;
@@ -2790,7 +2803,7 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
  *
  * @return 3 byte vector with language code.
  */
-static TagLib::ByteVector languageCodeByteVector(QString str)
+TagLib::ByteVector languageCodeByteVector(QString str)
 {
   uint len = str.length();
   if (len > 3) {
@@ -3114,7 +3127,8 @@ void setValue(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
   f->setDescription(text);
 }
 
-static void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f,
+                     const TagLib::String& text)
 {
   if (text.find(Frame::stringListSeparator().toLatin1()) == -1) {
     f->setText(text);
@@ -3296,8 +3310,8 @@ void setValue(TagLib::ID3v2::RelativeVolumeFrame* f, const TagLib::String& text)
 }
 
 #if TAGLIB_VERSION >= 0x010a00
-static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
-                                                     Frame& frame);
+TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
+                                              Frame& frame);
 
 template <>
 void setIdentifier(TagLib::ID3v2::ChapterFrame* f,
@@ -3514,7 +3528,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
  * @param id3Frame original ID3v2 frame
  * @param frame    frame with fields to set in new frame
  */
-static void setId3v2Frame(const TagLibFile* self,
+void setId3v2Frame(const TagLibFile* self,
   TagLib::ID3v2::Frame* id3Frame, const Frame& frame)
 {
   if (id3Frame) {
@@ -3628,7 +3642,7 @@ static void setId3v2Frame(const TagLibFile* self,
  *
  * @return name.
  */
-static const char* getVorbisNameFromType(Frame::Type type)
+const char* getVorbisNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
     "TITLE",           // FT_Title,
@@ -3699,7 +3713,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
  *
  * @return frame type.
  */
-static Frame::Type getTypeFromVorbisName(QString name)
+Frame::Type getTypeFromVorbisName(QString name)
 {
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
@@ -3726,7 +3740,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
  *
  * @return frame type.
  */
-static Frame::Type getTypeFromApeName(const QString& name)
+Frame::Type getTypeFromApeName(const QString& name)
 {
   Frame::Type type = getTypeFromVorbisName(name);
   if (type == Frame::FT_Other) {
@@ -3741,6 +3755,8 @@ static Frame::Type getTypeFromApeName(const QString& name)
     }
   }
   return type;
+}
+
 }
 
 /**
@@ -3762,6 +3778,8 @@ QString TagLibFile::getVorbisName(const Frame& frame) const
   }
 }
 
+namespace {
+
 /**
  * Get internal name of an APE picture frame.
  *
@@ -3769,7 +3787,7 @@ QString TagLibFile::getVorbisName(const Frame& frame) const
  *
  * @return APE key.
  */
-static TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
+TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
 {
   TagLib::String name("COVER ART (");
   name += TagLib::String(PictureFrame::getPictureTypeString(pictureType)).
@@ -3785,7 +3803,7 @@ static TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
  *
  * @return APE key.
  */
-static QString getApeName(const Frame& frame)
+QString getApeName(const Frame& frame)
 {
   Frame::Type type = frame.getType();
   if (type == Frame::FT_Date) {
@@ -3827,7 +3845,7 @@ struct Mp4NameTypeValue {
 };
 
 /** Mapping between frame types and field names. */
-static const Mp4NameTypeValue mp4NameTypeValues[] = {
+const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "\251nam", Frame::FT_Title, MVT_String },
   { "\251ART", Frame::FT_Artist, MVT_String },
   { "\251wrt", Frame::FT_Composer, MVT_String },
@@ -3924,8 +3942,8 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
  * @param name  the MP4 name is returned here
  * @param value the MP4 value type is returned here
  */
-static void getMp4NameForType(Frame::Type type, TagLib::String& name,
-                              Mp4ValueType& value)
+void getMp4NameForType(Frame::Type type, TagLib::String& name,
+                       Mp4ValueType& value)
 {
   static QMap<Frame::Type, unsigned> typeNameMap;
   if (typeNameMap.empty()) {
@@ -3957,8 +3975,8 @@ static void getMp4NameForType(Frame::Type type, TagLib::String& name,
  *
  * @return true if free-form frame.
  */
-static bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
-                              Mp4ValueType& value)
+bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
+                       Mp4ValueType& value)
 {
   static QMap<TagLib::String, unsigned> nameTypeMap;
   if (nameTypeMap.empty()) {
@@ -3985,7 +4003,7 @@ static bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
  *
  * @param name MP4 frame name to be stripped
  */
-static void stripMp4FreeFormName(TagLib::String& name)
+void stripMp4FreeFormName(TagLib::String& name)
 {
   if (name.startsWith("----")) {
     int nameStart = name.rfind(":");
@@ -4012,8 +4030,7 @@ static void stripMp4FreeFormName(TagLib::String& name)
  * @param name MP4 frame name to be prefixed
  * @param mp4Tag tag to check for existing item
  */
-static void prefixMp4FreeFormName(TagLib::String& name,
-                                  const TagLib::MP4::Tag* mp4Tag)
+void prefixMp4FreeFormName(TagLib::String& name, const TagLib::MP4::Tag* mp4Tag)
 {
   if (
 #if TAGLIB_VERSION >= 0x010a00
@@ -4023,7 +4040,8 @@ static void prefixMp4FreeFormName(TagLib::String& name,
 #endif
       && !name.startsWith("----") &&
       !(name.length() == 4 &&
-        (name[0] == '\251' || (name[0] >= 'a' && name[0] <= 'z')))) {
+        (static_cast<char>(name[0]) == '\251' ||
+         (name[0] >= 'a' && name[0] <= 'z')))) {
     Frame::Type type;
     Mp4ValueType valueType;
     if (getMp4TypeForName(name, type, valueType)) {
@@ -4069,8 +4087,8 @@ static void prefixMp4FreeFormName(TagLib::String& name,
  * @param name  the MP4 name is returned here
  * @param value the MP4 value type is returned here
  */
-static void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
-                               Mp4ValueType& value)
+void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
+                        Mp4ValueType& value)
 {
   if (frame.getType() != Frame::FT_Other) {
     getMp4NameForType(frame.getType(), name, value);
@@ -4092,7 +4110,7 @@ static void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
  *
  * @return MP4 item, an invalid item is returned if not supported.
  */
-static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& name)
+TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& name)
 {
   Mp4ValueType valueType;
   getMp4TypeForFrame(frame, name, valueType);
@@ -4143,6 +4161,8 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
   }
 }
 
+}
+
 /**
  * Set a frame in an MP4 tag.
  * @param frame frame to set
@@ -4168,6 +4188,8 @@ void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
 }
 #endif
 
+namespace {
+
 #ifdef TAGLIB_WITH_ASF
 /** Indices of fixed ASF frames. */
 enum AsfFrameIndex {
@@ -4187,7 +4209,7 @@ struct AsfNameTypeValue {
 };
 
 /** Mapping between frame types and field names. */
-static const AsfNameTypeValue asfNameTypeValues[] = {
+const AsfNameTypeValue asfNameTypeValues[] = {
   { "Title", Frame::FT_Title, TagLib::ASF::Attribute::UnicodeType },
   { "Author", Frame::FT_Artist, TagLib::ASF::Attribute::UnicodeType },
   { "WM/AlbumTitle", Frame::FT_Album, TagLib::ASF::Attribute::UnicodeType },
@@ -4252,8 +4274,8 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
  * @param name  the ASF name is returned here
  * @param value the ASF value type is returned here
  */
-static void getAsfNameForType(Frame::Type type, TagLib::String& name,
-                              TagLib::ASF::Attribute::AttributeTypes& value)
+void getAsfNameForType(Frame::Type type, TagLib::String& name,
+                       TagLib::ASF::Attribute::AttributeTypes& value)
 {
   static QMap<Frame::Type, unsigned> typeNameMap;
   if (typeNameMap.empty()) {
@@ -4284,8 +4306,8 @@ static void getAsfNameForType(Frame::Type type, TagLib::String& name,
  * @param type  the frame type is returned here
  * @param value the ASF value type is returned here
  */
-static void getAsfTypeForName(const TagLib::String& name, Frame::Type& type,
-                              TagLib::ASF::Attribute::AttributeTypes& value)
+void getAsfTypeForName(const TagLib::String& name, Frame::Type& type,
+                       TagLib::ASF::Attribute::AttributeTypes& value)
 {
   static QMap<TagLib::String, unsigned> nameTypeMap;
   if (nameTypeMap.empty()) {
@@ -4312,8 +4334,8 @@ static void getAsfTypeForName(const TagLib::String& name, Frame::Type& type,
  * @param name  the name for the attribute is returned here
  * @param value the ASF value type is returned here
  */
-static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
-                               TagLib::ASF::Attribute::AttributeTypes& value)
+void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
+                        TagLib::ASF::Attribute::AttributeTypes& value)
 {
   if (frame.getType() != Frame::FT_Other) {
     getAsfNameForType(frame.getType(), name, value);
@@ -4335,7 +4357,7 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
  *
  * @return true if ok.
  */
-static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
+bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
 {
   if (!picture.isValid())
     return false;
@@ -4357,7 +4379,7 @@ static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
  * @param frame   picture frame
  * @param picture the ASF picture is returned here
  */
-static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
+void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
 {
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
@@ -4383,7 +4405,7 @@ static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
  *
  * @return ASF attribute, an empty attribute is returned if not supported.
  */
-static TagLib::ASF::Attribute getAsfAttributeForFrame(
+TagLib::ASF::Attribute getAsfAttributeForFrame(
   const Frame& frame,
   TagLib::ASF::Attribute::AttributeTypes valueType)
 {
@@ -4431,8 +4453,8 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
  * @param data bytes in APE cover art frame
  * @param frame the picture frame is returned here
  */
-static void parseApePicture(const QString& name,
-                            const TagLib::ByteVector& data, Frame& frame)
+void parseApePicture(const QString& name,
+                     const TagLib::ByteVector& data, Frame& frame)
 {
   QByteArray picture;
   TagLib::String description;
@@ -4465,7 +4487,7 @@ static void parseApePicture(const QString& name,
  * @param frame picture frame
  * @param data  the bytes for the APE cover art are returned here
  */
-static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
+void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
 {
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
@@ -4489,7 +4511,7 @@ static void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
  *
  * @return name, NULL if not supported.
  */
-static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
+TagLib::ByteVector getInfoNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
     "INAM",  // FT_Title,
@@ -4561,7 +4583,7 @@ static TagLib::ByteVector getInfoNameFromType(Frame::Type type)
  *
  * @return frame type.
  */
-static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
+Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
 {
   static QMap<TagLib::ByteVector, int> strNumMap;
   if (strNumMap.isEmpty()) {
@@ -4596,7 +4618,7 @@ static Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
  *
  * @return INFO id, "IKEY" if not found.
  */
-static TagLib::ByteVector getInfoName(const Frame& frame)
+TagLib::ByteVector getInfoName(const Frame& frame)
 {
   TagLib::ByteVector str = getInfoNameFromType(frame.getType());
   if (!str.isEmpty()) {
@@ -4612,6 +4634,8 @@ static TagLib::ByteVector getInfoName(const Frame& frame)
   return "IKEY";
 }
 #endif
+
+}
 
 /**
  * Get a specific frame from the tags.
@@ -5075,6 +5099,8 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
   return true;
 }
 
+namespace {
+
 /**
  * Check if an ID3v2.4.0 frame ID is valid.
  *
@@ -5082,7 +5108,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
  *
  * @return true if frame ID is valid.
  */
-static bool isFrameIdValid(const QString& frameId)
+bool isFrameIdValid(const QString& frameId)
 {
   Frame::Type type;
   const char* str;
@@ -5096,8 +5122,8 @@ static bool isFrameIdValid(const QString& frameId)
  * @param frame frame
  * @return TagLib ID3 frame, 0 if invalid.
  */
-static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
-                                                     Frame& frame)
+TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
+                                              Frame& frame)
 {
   TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
   QString name = frame.getType() != Frame::FT_Other ?
@@ -5236,6 +5262,8 @@ static TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
     }
   }
   return id3Frame;
+}
+
 }
 
 /**
@@ -5628,13 +5656,15 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
   return TaggedFile::deleteFrame(tagNr, frame);
 }
 
+namespace {
+
 /**
  * Create a frame from a TagLib ID3 frame.
  * @param id3Frame TagLib ID3 frame
  * @param index, -1 if not used
  * @return frame.
  */
-static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index)
+Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index)
 {
   Frame::Type type;
   const char* name;
@@ -5672,6 +5702,8 @@ static Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int i
     }
   }
   return frame;
+}
+
 }
 
 /**
@@ -6339,6 +6371,7 @@ void TagLibFile::notifyConfigurationChange()
   setTextCodecV1(id3v1TextCodec);
 }
 
+namespace {
 
 /**
  * Used to register file types at static initialization time.
@@ -6384,7 +6417,9 @@ TagLibInitializer::~TagLibInitializer() {
   // Must not be inline because of forwared declared QScopedPointer.
 }
 
-static TagLibInitializer tagLibInitializer;
+TagLibInitializer tagLibInitializer;
+
+}
 
 /**
  * Static initialization.

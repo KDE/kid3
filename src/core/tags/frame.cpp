@@ -924,18 +924,23 @@ Frame::TagNumber Frame::tagNumberFromString(const QString& str)
 }
 
 #ifndef QT_NO_DEBUG
+
+namespace {
+
 /**
  * Get string representation of variant.
  * @param val variant value
  * @return string representation.
  */
-static QString variantToString(const QVariant& val)
+QString variantToString(const QVariant& val)
 {
   if (val.type() == QVariant::ByteArray) {
     return QString(QLatin1String("ByteArray of %1 bytes")).arg(val.toByteArray().size());
   } else {
     return val.toString();
   }
+}
+
 }
 
 /**

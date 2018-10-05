@@ -341,6 +341,8 @@ bool OggFile::writeTags(bool, bool*, bool) { return false; }
 void OggFile::clearTags(bool) {}
 #endif // HAVE_VORBIS
 
+namespace {
+
 /**
  * Get name of frame from type.
  *
@@ -348,7 +350,7 @@ void OggFile::clearTags(bool) {}
  *
  * @return name.
  */
-static const char* getVorbisNameFromType(Frame::Type type)
+const char* getVorbisNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
     "TITLE",           // FT_Title,
@@ -419,7 +421,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
  *
  * @return frame type.
  */
-static Frame::Type getTypeFromVorbisName(QString name)
+Frame::Type getTypeFromVorbisName(QString name)
 {
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
@@ -446,7 +448,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
  *
  * @return Vorbis key.
  */
-static QString getVorbisName(const Frame& frame)
+QString getVorbisName(const Frame& frame)
 {
   Frame::Type type = frame.getType();
   if (type <= Frame::FT_LastFrame) {
@@ -454,6 +456,8 @@ static QString getVorbisName(const Frame& frame)
   } else {
     return frame.getName().remove(QLatin1Char('=')).toUpper();
   }
+}
+
 }
 
 /**

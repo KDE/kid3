@@ -75,8 +75,6 @@ int starCountToRating(int starCount, const QModelIndex& index) {
       : TagConfig::instance().starCountToRating(starCount, ratingTypeName(index));
 }
 
-}
-
 
 /**
  * Validator for date/time values.
@@ -223,6 +221,8 @@ void StarPainter::paint(QPainter& painter, const QRect& rect,
   }
 
   painter.restore();
+}
+
 }
 
 /**

@@ -29,8 +29,10 @@
 
 int FileConfig::s_index = -1;
 
+namespace {
+
 /** Default to filename format list */
-static const char* defaultToFilenameFormats[] = {
+const char* defaultToFilenameFormats[] = {
   "%{track} %{title}",
   "%{track}. %{title}",
   "%{track} - %{artist} - %{title}",
@@ -46,7 +48,7 @@ static const char* defaultToFilenameFormats[] = {
 };
 
 /** Default from filename format list */
-static const char* defaultFromFilenameFormats[] = {
+const char* defaultFromFilenameFormats[] = {
   "%{artist} - %{album}/%{track} %{title}",
   "%{artist} - %{album}/%{track}. %{title}",
   "%{artist} - [%{year}] %{album}/%{track} %{title}",
@@ -70,6 +72,8 @@ static const char* defaultFromFilenameFormats[] = {
   "%{artist}-%{title}-%{album}",
   nullptr
 };
+
+}
 
 /**
  * Constructor.

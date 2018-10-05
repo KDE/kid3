@@ -321,6 +321,9 @@ void TaggedFile::notifyTruncationChanged(bool priorTruncation) const
   }
 }
 
+
+namespace {
+
 /**
  * Remove artist part from album string.
  * This is used when only the album is needed, but the regexp in
@@ -330,7 +333,7 @@ void TaggedFile::notifyTruncationChanged(bool priorTruncation) const
  *
  * @return album with artist removed.
  */
-static QString removeArtist(const QString& album)
+QString removeArtist(const QString& album)
 {
   QString str(album);
   int pos = str.indexOf(QLatin1String(" - "));
@@ -338,6 +341,8 @@ static QString removeArtist(const QString& album)
     str.remove(0, pos + 3);
   }
   return str;
+}
+
 }
 
 /**

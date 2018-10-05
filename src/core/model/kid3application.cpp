@@ -173,7 +173,6 @@ void extractFileFieldIndex(
   }
 }
 
-}
 
 /**
  * Provides null icons for the file information.
@@ -212,6 +211,7 @@ QIcon NullFileIconProvider::icon(IconType type) const
   return QIcon();
 }
 
+}
 
 /** Fallback for path to search for plugins */
 QString Kid3Application::s_pluginsPathFallback;

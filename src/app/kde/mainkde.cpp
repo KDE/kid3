@@ -37,6 +37,8 @@
 #include "kdeplatformtools.h"
 #include "kid3application.h"
 
+namespace {
+
 /**
  * QApplication subclass which catches exceptions.
  */
@@ -72,6 +74,8 @@ bool Kid3KdeApplication::notify(QObject* receiver, QEvent* event)
     qWarning("Exception %s (%s) was caught", typeid(ex).name(), ex.what());
   }
   return false;
+}
+
 }
 
 /**

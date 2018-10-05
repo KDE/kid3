@@ -26,8 +26,10 @@
 
 #include "rendirconfig.h"
 
+namespace {
+
 /** Default directory format list */
-static const char* dirFmt[] = {
+const char* dirFmt[] = {
   "%{artist} - %{album}",
   R"(%{artist} - %{"["year"] "}%{album})",
   "%{artist} - %{album}%{\" (\"year\")\"}",
@@ -38,10 +40,6 @@ static const char* dirFmt[] = {
   nullptr            // end of StrList
 };
 
-/** Default directory format list */
-const char** RenDirConfig::s_defaultDirFmtList = &dirFmt[0];
-
-namespace {
 
 /**
  * Convert tag version to rename directory value in configuration.
@@ -69,6 +67,8 @@ inline Frame::TagVersion renDirCfgToTagVersion(int renDirSrc) {
 
 }
 
+/** Default directory format list */
+const char** RenDirConfig::s_defaultDirFmtList = &dirFmt[0];
 int RenDirConfig::s_index = -1;
 
 /**

@@ -27,6 +27,8 @@
 #include "configstore.h"
 #include "generalconfig.h"
 
+namespace {
+
 /**
  * Current configuration file version.
  * 0: <= 3.0.2
@@ -35,7 +37,9 @@
  * 3: 3.3
  * 4: 3.7
  */
-static const int CONFIG_VERSION = 4;
+const int CONFIG_VERSION = 4;
+
+}
 
 /** Version of configuration file read, -1 if not read yet. */
 int ConfigStore::s_configVersion = -1;

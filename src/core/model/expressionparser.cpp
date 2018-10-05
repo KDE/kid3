@@ -29,6 +29,42 @@
 
 #include "expressionparser.h"
 
+namespace {
+
+/**
+ * Convert a string to a boolean.
+ *
+ * @param str string
+ * @param b   the boolean is returned here
+ *
+ * @return true if ok.
+ */
+bool stringToBool(const QString& str, bool& b)
+{
+  if (str == QLatin1String("1") || str == QLatin1String("true") || str == QLatin1String("on") || str == QLatin1String("yes")) {
+    b = true;
+    return true;
+  } else if (str == QLatin1String("0") || str == QLatin1String("false") || str == QLatin1String("off") || str == QLatin1String("no")) {
+    b = false;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Convert a boolean to a string.
+ *
+ * @param b boolean to convert
+ *
+ * @return "1" or "0".
+ */
+QString boolToString(bool b)
+{
+  return b ? QLatin1String("1") : QLatin1String("0");
+}
+
+}
+
 /**
  * Constructor.
  *
@@ -130,39 +166,6 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
     m_rpnStack.push_back(lastOp);
   }
   m_rpnIterator = m_rpnStack.constBegin();
-}
-
-
-/**
- * Convert a string to a boolean.
- *
- * @param str string
- * @param b   the boolean is returned here
- *
- * @return true if ok.
- */
-static bool stringToBool(const QString& str, bool& b)
-{
-  if (str == QLatin1String("1") || str == QLatin1String("true") || str == QLatin1String("on") || str == QLatin1String("yes")) {
-    b = true;
-    return true;
-  } else if (str == QLatin1String("0") || str == QLatin1String("false") || str == QLatin1String("off") || str == QLatin1String("no")) {
-    b = false;
-    return true;
-  }
-  return false;
-}
-
-/**
- * Convert a boolean to a string.
- *
- * @param b boolean to convert
- *
- * @return "1" or "0".
- */
-static QString boolToString(bool b)
-{
-  return b ? QLatin1String("1") : QLatin1String("0");
 }
 
 /**

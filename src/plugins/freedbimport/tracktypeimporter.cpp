@@ -29,7 +29,11 @@
 #include "freedbconfig.h"
 #include "config.h"
 
-static const char trackTypeServer[] = "tracktype.org:80";
+namespace {
+
+const char trackTypeServer[] = "tracktype.org:80";
+
+}
 
 /**
  * Constructor.

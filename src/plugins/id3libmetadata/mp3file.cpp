@@ -238,6 +238,8 @@ void Mp3File::clearTags(bool force)
   notifyModelDataChanged(priorIsTagInformationRead);
 }
 
+namespace {
+
 /**
  * Fix up a unicode string from id3lib.
  *
@@ -246,7 +248,7 @@ void Mp3File::clearTags(bool force)
  *
  * @return string as QString.
  */
-static QString fixUpUnicode(const unicode_t* str, size_t numChars)
+QString fixUpUnicode(const unicode_t* str, size_t numChars)
 {
   QString text;
   if (numChars > 0 && str && *str) {
@@ -283,7 +285,7 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
  * @return string,
  *         "" if the field does not exist.
  */
-static QString getString(ID3_Field* field, const QTextCodec* codec = nullptr)
+QString getString(ID3_Field* field, const QTextCodec* codec = nullptr)
 {
   QString text(QLatin1String(""));
   if (field != nullptr) {
@@ -337,8 +339,8 @@ static QString getString(ID3_Field* field, const QTextCodec* codec = nullptr)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
-                            const QTextCodec* codec = nullptr)
+QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
+                     const QTextCodec* codec = nullptr)
 {
   if (!tag) {
     return QString();
@@ -360,7 +362,7 @@ static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-static int getYear(const ID3_Tag* tag)
+int getYear(const ID3_Tag* tag)
 {
   QString str = getTextField(tag, ID3FID_YEAR);
   if (str.isNull()) return -1;
@@ -376,7 +378,7 @@ static int getYear(const ID3_Tag* tag)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-static int getTrackNum(const ID3_Tag* tag)
+int getTrackNum(const ID3_Tag* tag)
 {
   QString str = getTextField(tag, ID3FID_TRACKNUM);
   if (str.isNull()) return -1;
@@ -397,7 +399,7 @@ static int getTrackNum(const ID3_Tag* tag)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-static int getGenreNum(const ID3_Tag* tag)
+int getGenreNum(const ID3_Tag* tag)
 {
   QString str = getTextField(tag, ID3FID_CONTENTTYPE);
   if (str.isNull()) return -1;
@@ -425,7 +427,7 @@ static int getGenreNum(const ID3_Tag* tag)
  *
  * @return new allocated unicode string, has to be freed with delete [].
  */
-static unicode_t* newFixedUpUnicode(const QString& text)
+unicode_t* newFixedUpUnicode(const QString& text)
 {
   // Unfortunately, Unicode support in id3lib is rather buggy in the
   // current version: The codes are mirrored, a second different
@@ -456,7 +458,7 @@ static unicode_t* newFixedUpUnicode(const QString& text)
  * @param field field
  * @param lst   string list to set
  */
-static void setStringList(ID3_Field* field, const QStringList& lst)
+void setStringList(ID3_Field* field, const QStringList& lst)
 {
   ID3_TextEnc enc = field->GetEncoding();
   bool first = true;
@@ -504,8 +506,8 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
  * @param text         text to set
  * @param codec        text codec to use, 0 for default
  */
-static void setString(ID3_Field* field, const QString& text,
-                      const QTextCodec* codec = nullptr)
+void setString(ID3_Field* field, const QString& text,
+               const QTextCodec* codec = nullptr)
 {
   if (text.indexOf(Frame::stringListSeparator()) == -1) {
     ID3_TextEnc enc = field->GetEncoding();
@@ -541,9 +543,9 @@ static void setString(ID3_Field* field, const QString& text,
  *
  * @return true if the field was changed.
  */
-static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
-                         bool allowUnicode = false, bool replace = true,
-                         bool removeEmpty = true, const QTextCodec* codec = nullptr)
+bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
+                  bool allowUnicode = false, bool replace = true,
+                  bool removeEmpty = true, const QTextCodec* codec = nullptr)
 {
   bool changed = false;
   if (tag && !text.isNull()) {
@@ -603,7 +605,7 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
  *
  * @return true if the field was changed.
  */
-static bool setYear(ID3_Tag* tag, int num)
+bool setYear(ID3_Tag* tag, int num)
 {
   bool changed = false;
   if (num >= 0) {
@@ -617,6 +619,8 @@ static bool setYear(ID3_Tag* tag, int num)
               setTextField(tag, ID3FID_YEAR, str);
   }
   return changed;
+}
+
 }
 
 /**
@@ -639,6 +643,8 @@ bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks) const
   return changed;
 }
 
+namespace {
+
 /**
  * Set genre.
  *
@@ -647,7 +653,7 @@ bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks) const
  *
  * @return true if the field was changed.
  */
-static bool setGenreNum(ID3_Tag* tag, int num)
+bool setGenreNum(ID3_Tag* tag, int num)
 {
   bool changed = false;
   if (num >= 0) {
@@ -661,6 +667,8 @@ static bool setGenreNum(ID3_Tag* tag, int num)
               setTextField(tag, ID3FID_CONTENTTYPE, str);
   }
   return changed;
+}
+
 }
 
 /**
@@ -843,8 +851,10 @@ QString Mp3File::getTagFormat(Frame::TagNumber tagNr) const
   return QString();
 }
 
+namespace {
+
 /** Types and descriptions for id3lib frame IDs */
-static const struct TypeStrOfId {
+const struct TypeStrOfId {
   Frame::Type type;
   const char* str;
 } typeStrOfId[] = {
@@ -955,8 +965,8 @@ struct not_used { int array_size_check[
  * @param type the type is returned here
  * @param str  the description is returned here, 0 if not available
  */
-static void getTypeStringForId3libFrameId(ID3_FrameID id, Frame::Type& type,
-                                          const char*& str)
+void getTypeStringForId3libFrameId(ID3_FrameID id, Frame::Type& type,
+                                   const char*& str)
 {
   const TypeStrOfId& ts = typeStrOfId[id <= ID3FID_WWWUSER ? id : 0];
   type = ts.type;
@@ -970,7 +980,7 @@ static void getTypeStringForId3libFrameId(ID3_FrameID id, Frame::Type& type,
  *
  * @return id3lib frame ID or ID3FID_NOFRAME if type not found.
  */
-static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
+ID3_FrameID getId3libFrameIdForType(Frame::Type type)
 {
   // IPLS is mapped to FT_Arranger and FT_Performer
   if (type == Frame::FT_Performer) {
@@ -1001,7 +1011,7 @@ static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
  *
  * @return id3lib frame ID or ID3FID_NOFRAME if name not found.
  */
-static ID3_FrameID getId3libFrameIdForName(const QString& name)
+ID3_FrameID getId3libFrameIdForName(const QString& name)
 {
   if (name.length() >= 4) {
     QByteArray nameBytes = name.toLatin1();
@@ -1023,7 +1033,7 @@ static ID3_FrameID getId3libFrameIdForName(const QString& name)
  * @param enc encoding
  * @return list containing time, text, time, text, ...
  */
-static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
+QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
 {
   QVariantList timeEvents;
   const int numBytes = bytes.size();
@@ -1084,8 +1094,7 @@ static QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
  * @param synchedData list containing time, text, time, text, ...
  * @return binary field bytes.
  */
-static QByteArray syltListToBytes(const QVariantList& synchedData,
-                                  ID3_TextEnc enc)
+QByteArray syltListToBytes(const QVariantList& synchedData, ID3_TextEnc enc)
 {
   QByteArray bytes;
   QListIterator<QVariant> it(synchedData);
@@ -1145,7 +1154,7 @@ static QByteArray syltListToBytes(const QVariantList& synchedData,
  * @param bytes binary field
  * @return list containing time, code, time, code, ...
  */
-static QVariantList etcoBytesToList(const QByteArray& bytes)
+QVariantList etcoBytesToList(const QByteArray& bytes)
 {
   QVariantList timeEvents;
   const int numBytes = bytes.size();
@@ -1174,7 +1183,7 @@ static QVariantList etcoBytesToList(const QByteArray& bytes)
  * @param synchedData list containing time, code, time, code, ...
  * @return binary field bytes.
  */
-static QByteArray etcoListToBytes(const QVariantList& synchedData)
+QByteArray etcoListToBytes(const QVariantList& synchedData)
 {
   QByteArray bytes;
   QListIterator<QVariant> it(synchedData);
@@ -1200,8 +1209,7 @@ static QByteArray etcoListToBytes(const QVariantList& synchedData)
  *
  * @return text representation of fields (Text or URL).
  */
-static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
-                                     Frame::FieldList& fields)
+QString getFieldsFromId3Frame(ID3_Frame* id3Frame, Frame::FieldList& fields)
 {
   QString text;
   ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
@@ -1271,7 +1279,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
  *
  * @return frame, 0 if index invalid.
  */
-static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
+ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
 {
   ID3_Frame* result = nullptr;
   if (tag) {
@@ -1301,6 +1309,8 @@ static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
 #endif
   }
   return result;
+}
+
 }
 
 /**
@@ -1898,13 +1908,15 @@ bool Mp3File::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
   return TaggedFile::deleteFrame(tagNr, frame);
 }
 
+namespace {
+
 /**
  * Create a frame from an id3lib frame.
  * @param id3Frame id3lib frame
  * @param index, -1 if not used
  * @return frame.
  */
-static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
+Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
 {
   Frame::Type type;
   const char* name;
@@ -1978,6 +1990,8 @@ static Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
     }
   }
   return frame;
+}
+
 }
 
 /**

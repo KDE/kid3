@@ -27,7 +27,11 @@
 #include "discogsimportplugin.h"
 #include "discogsimporter.h"
 
-static const QLatin1String IMPORTER_NAME("DiscogsImport");
+namespace {
+
+const QLatin1String IMPORTER_NAME("DiscogsImport");
+
+}
 
 /*!
  * Constructor.

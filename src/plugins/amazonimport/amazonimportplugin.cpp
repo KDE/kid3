@@ -27,7 +27,11 @@
 #include "amazonimportplugin.h"
 #include "amazonimporter.h"
 
-static const QLatin1String IMPORTER_NAME("AmazonImport");
+namespace {
+
+const QLatin1String IMPORTER_NAME("AmazonImport");
+
+}
 
 /*!
  * Constructor.

@@ -28,6 +28,8 @@
 #include <QTimer>
 #include "fileproxymodel.h"
 
+namespace {
+
 /**
  * GreaterThan functor to sort modex indexes by string data.
  */
@@ -45,6 +47,8 @@ public:
     return lhs.data().toString().compare(rhs.data().toString()) > 0;
   }
 };
+
+}
 
 /**
  * Constructor.

@@ -38,6 +38,8 @@
 #include "loadtranslation.h"
 #include "kid3application.h"
 
+namespace {
+
 /**
  * QApplication subclass with adapted session management.
  */
@@ -92,6 +94,7 @@ bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
   return false;
 }
 
+}
 
 /**
  * Main program.

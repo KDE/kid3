@@ -28,8 +28,12 @@
 #include "freedbimporter.h"
 #include "tracktypeimporter.h"
 
-static const QLatin1String FREEDB_IMPORTER_NAME("FreedbImport");
-static const QLatin1String TRACKTYPE_IMPORTER_NAME("TrackTypeImport");
+namespace {
+
+const QLatin1String FREEDB_IMPORTER_NAME("FreedbImport");
+const QLatin1String TRACKTYPE_IMPORTER_NAME("TrackTypeImport");
+
+}
 
 /*!
  * Constructor.

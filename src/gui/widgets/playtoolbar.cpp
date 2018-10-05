@@ -38,7 +38,11 @@
 #include <QSlider>
 #include "audioplayer.h"
 
-static const QString zeroTime(QLatin1String(" 0:00"));
+namespace {
+
+const QString zeroTime(QLatin1String(" 0:00"));
+
+}
 
 /**
  * Constructor.

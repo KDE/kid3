@@ -27,7 +27,11 @@
 #include "mp4v2metadataplugin.h"
 #include "m4afile.h"
 
-static const QLatin1String TAGGEDFILE_KEY("Mp4v2Metadata");
+namespace {
+
+const QLatin1String TAGGEDFILE_KEY("Mp4v2Metadata");
+
+}
 
 /*!
  * Constructor.

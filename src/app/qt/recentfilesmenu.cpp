@@ -28,7 +28,11 @@
 #include <QAction>
 #include <QDir>
 
-static const int MAX_RECENT_FILES = 10;
+namespace {
+
+const int MAX_RECENT_FILES = 10;
+
+}
 
 /**
  * Constructor.

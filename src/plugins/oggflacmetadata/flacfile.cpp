@@ -36,23 +36,7 @@
 #include <cmath>
 #include <QByteArray>
 
-/**
- * Constructor.
- *
- * @param idx index in file proxy model
- */
-FlacFile::FlacFile(const QPersistentModelIndex& idx) :
-  OggFile(idx)
-{
-}
-
-/**
- * Destructor.
- */
-FlacFile::~FlacFile()
-{
-  // Must not be inline because of forwared declared QScopedPointer.
-}
+namespace {
 
 #ifdef HAVE_FLAC_PICTURE
 /**
@@ -61,7 +45,7 @@ FlacFile::~FlacFile()
  * @param frame frame to set
  * @param pic   picture block to get
  */
-static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
+void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
 {
   QByteArray ba(reinterpret_cast<const char*>(pic->get_data()),
     pic->get_data_length());
@@ -87,7 +71,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
  *
  * @return true if ok.
  */
-static bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
+bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
 {
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
@@ -125,6 +109,26 @@ static bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
   return true;
 }
 #endif // HAVE_FLAC_PICTURE
+
+}
+
+/**
+ * Constructor.
+ *
+ * @param idx index in file proxy model
+ */
+FlacFile::FlacFile(const QPersistentModelIndex& idx) :
+  OggFile(idx)
+{
+}
+
+/**
+ * Destructor.
+ */
+FlacFile::~FlacFile()
+{
+  // Must not be inline because of forwared declared QScopedPointer.
+}
 
 /**
  * Get key of tagged file format.

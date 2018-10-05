@@ -27,7 +27,11 @@
 #include "id3libmetadataplugin.h"
 #include "mp3file.h"
 
-static const QLatin1String TAGGEDFILE_KEY("Id3libMetadata");
+namespace {
+
+const QLatin1String TAGGEDFILE_KEY("Id3libMetadata");
+
+}
 
 /*!
  * Constructor.

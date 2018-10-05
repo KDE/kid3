@@ -27,7 +27,11 @@
 #include "musicbrainzimportplugin.h"
 #include "musicbrainzimporter.h"
 
-static const QLatin1String IMPORTER_NAME("MusicBrainzImport");
+namespace {
+
+const QLatin1String IMPORTER_NAME("MusicBrainzImport");
+
+}
 
 /*!
  * Constructor.

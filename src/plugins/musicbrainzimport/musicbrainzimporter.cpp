@@ -127,6 +127,8 @@ void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
   }
 }
 
+namespace {
+
 /**
  * Uppercase the first characters of each word in a string.
  *
@@ -134,7 +136,7 @@ void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
  *
  * @return string with first letters in uppercase.
  */
-static QString upperCaseFirstLetters(const QString& str)
+QString upperCaseFirstLetters(const QString& str)
 {
   QString result(str);
   int len = result.length();
@@ -162,7 +164,7 @@ static QString upperCaseFirstLetters(const QString& str)
  * @param involvement involvement (e.g. instrument)
  * @param involvee    name of involvee (e.g. musician)
  */
-static void addInvolvedPeople(
+void addInvolvedPeople(
   FrameCollection& frames, Frame::Type type,
   const QString& involvement, const QString& involvee)
 {
@@ -182,7 +184,7 @@ static void addInvolvedPeople(
  *
  * @return true if credits found.
  */
-static bool parseCredits(const QDomElement& relationList, FrameCollection& frames)
+bool parseCredits(const QDomElement& relationList, FrameCollection& frames)
 {
   bool result = false;
   QDomNode relation(relationList.firstChild());
@@ -228,6 +230,8 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
     relation = relation.nextSibling();
   }
   return result;
+}
+
 }
 
 /**

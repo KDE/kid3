@@ -27,7 +27,11 @@
 #include "taglibmetadataplugin.h"
 #include "taglibfile.h"
 
-static const QLatin1String TAGGEDFILE_KEY("TaglibMetadata");
+namespace {
+
+const QLatin1String TAGGEDFILE_KEY("TaglibMetadata");
+
+}
 
 /*!
  * Constructor.

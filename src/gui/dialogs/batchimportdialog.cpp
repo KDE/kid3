@@ -43,6 +43,8 @@
 #include "contexthelp.h"
 #include "abstractlistedit.h"
 
+namespace {
+
 /**
  * Widget to edit a list of import sources.
  */
@@ -144,6 +146,7 @@ void BatchImportSourceListEdit::editItem()
   }
 }
 
+}
 
 /**
  * Constructor.

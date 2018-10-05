@@ -31,6 +31,8 @@
 #include <QDateTime>
 #include <climits>
 
+namespace {
+
 /**
  * JSON deserializer.
  */
@@ -285,6 +287,7 @@ QString JsonDeserializer::parseSymbol()
   return result;
 }
 
+}
 
 /**
  * Serialize a variant as a JSON string.

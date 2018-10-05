@@ -28,7 +28,9 @@
 
 #include <QCoreApplication>
 
-static const struct {
+namespace {
+
+const struct {
   const char* text;
   int code;
 } codes[] = {
@@ -75,8 +77,9 @@ static const struct {
   { QT_TRANSLATE_NOOP("@default", "audio file ends"), 0xfe }
 };
 
-static const int numCodes = static_cast<int>(sizeof codes / sizeof codes[0]);
+const int numCodes = static_cast<int>(sizeof codes / sizeof codes[0]);
 
+}
 
 /**
  * Get string representation.

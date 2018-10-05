@@ -26,8 +26,6 @@
 
 #include "freedbconfig.h"
 
-class QString;
-
 int FreedbConfig::s_index = -1;
 
 /**
