@@ -53,12 +53,12 @@ if (BUILD_KDE_APP)
   kde_enable_exceptions()
   add_subdirectory(kde)
   ecm_install_icons(ICONS
-    hisc-apps-kid3.svgz
-    hi128-apps-kid3.png
-    hi16-apps-kid3.png
-    hi32-apps-kid3.png
-    hi48-apps-kid3.png
-    hi64-apps-kid3.png
+    sc-apps-kid3.svgz
+    128-apps-kid3.png
+    16-apps-kid3.png
+    32-apps-kid3.png
+    48-apps-kid3.png
+    64-apps-kid3.png
     DESTINATION ${ICON_INSTALL_DIR}
     THEME hicolor
   )
