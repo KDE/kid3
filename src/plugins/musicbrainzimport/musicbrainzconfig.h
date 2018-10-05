@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzConfig() override = default;
+  virtual ~MusicBrainzConfig() override;
 
 private:
   friend MusicBrainzConfig&

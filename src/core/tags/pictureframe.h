@@ -82,25 +82,25 @@ public:
     }
 
     /** Width of picture in pixels. */
-    uint width() const { return m_width; }
+    int width() const { return m_width; }
 
     /** Height of picture in pixels. */
-    uint height() const { return m_height; }
+    int height() const { return m_height; }
 
     /** Color depth of picture in bits-per-pixel.*/
-    uint depth() const { return m_depth; }
+    int depth() const { return m_depth; }
 
     /**
      * Number of colors used for indexed-color pictures (e.g. GIF),
      * or 0 for non-indexed pictures.
      */
-    uint numColors() const { return m_numColors; }
+    int numColors() const { return m_numColors; }
 
   private:
-    uint m_width;
-    uint m_height;
-    uint m_depth;
-    uint m_numColors;
+    int m_width;
+    int m_height;
+    int m_depth;
+    int m_numColors;
     uint m_imageHash;
   };
 
@@ -129,11 +129,6 @@ public:
    * @param frame general frame
    */
   explicit PictureFrame(const Frame& frame);
-
-  /**
-   * Destructor.
-   */
-  ~PictureFrame() = default;
 
   /**
    * Set all properties.

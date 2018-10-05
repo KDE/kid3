@@ -187,14 +187,7 @@ public:
    * @param stream stream to open
    */
   explicit WavFile(TagLib::IOStream *stream);
-
-  /**
-   * Destructor.
-   */
-  virtual ~WavFile() override = default;
-
-  WavFile(const WavFile&) = delete;
-  WavFile& operator=(const WavFile&) = delete;
+  virtual ~WavFile() override;
 
   /**
    * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
@@ -203,6 +196,14 @@ public:
    */
   void changeToLowercaseId3Chunk();
 };
+
+/**
+ * Destructor.
+ */
+WavFile::~WavFile()
+{
+  // not inline or default to silence weak-vtables warning
+}
 
 WavFile::WavFile(TagLib::IOStream *stream) : TagLib::RIFF::WAV::File(stream)
 {

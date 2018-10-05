@@ -183,11 +183,6 @@ private:
     RenameAction() : m_type(ReportError) {}
 
     /**
-     * Destructor.
-     */
-    ~RenameAction() {}
-
-    /**
      * Test for equality.
      * @param rhs right hand side
      * @return true if equal.

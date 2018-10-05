@@ -39,3 +39,11 @@ AmazonConfig::AmazonConfig() :
   setAdditionalTagsUsed(true);
   setServer(QLatin1String("www.amazon.com"));
 }
+
+/**
+ * Destructor.
+ */
+AmazonConfig::~AmazonConfig()
+{
+  // not inline or default to silence weak-vtables warning
+}

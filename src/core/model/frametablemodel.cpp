@@ -95,7 +95,7 @@ QHash<int,QByteArray> getRoleHash()
 FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
   m_id3v1(id3v1),
-  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != 0)
+  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }

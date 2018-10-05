@@ -754,8 +754,8 @@ QString Frame::Field::getFieldIdName(FieldId type)
   struct not_used { int array_size_check[
       sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2
       ? 1 : -1 ]; };
-  if (type >= 0 &&
-      type < static_cast<int>(
+  if (static_cast<int>(type) >= 0 &&
+      static_cast<int>(type) < static_cast<int>(
         sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) - 1)) {
     return QCoreApplication::translate("@default", fieldIdNames[type]);
   }

@@ -93,12 +93,12 @@ bool FrameTable::eventFilter(QObject* watched, QEvent* event)
   if (event) {
     QEvent::Type type = event->type();
     if (type == QEvent::ChildAdded) {
-      QObject* obj = ((QChildEvent*)event)->child();
+      QObject* obj = static_cast<QChildEvent*>(event)->child();
       if (obj && obj->isWidgetType()) {
-        m_currentEditor = (QWidget*)obj;
+        m_currentEditor = static_cast<QWidget*>(obj);
       }
     } else if (type == QEvent::ChildRemoved) {
-      if (m_currentEditor == ((QChildEvent*)event)->child()) {
+      if (m_currentEditor == static_cast<QChildEvent*>(event)->child()) {
         m_currentEditor = nullptr;
       }
     } else if (type == QEvent::WindowDeactivate) {

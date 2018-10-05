@@ -161,11 +161,6 @@ public:
     Parameters() : m_frameMask(0), m_flags(AllFrames) {}
 
     /**
-     * Destructor.
-     */
-    ~Parameters() {}
-
-    /**
      * Get search text.
      * @return text.
      */

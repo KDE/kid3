@@ -356,10 +356,10 @@ static QByteArray getValueByteArray(const char* name,
     }
   } else if (std::strcmp(name, "plID") == 0) {
     if (size >= 8) {
-      qulonglong val = (qulonglong)value[7] + ((qulonglong)value[6] << 8) +
-        ((qulonglong)value[5] << 16) + ((qulonglong)value[4] << 24) +
-        ((qulonglong)value[3] << 32) + ((qulonglong)value[2] << 40) +
-        ((qulonglong)value[1] << 48) + ((qulonglong)value[0] << 56);
+      qulonglong val = static_cast<qulonglong>(value[7]) + (static_cast<qulonglong>(value[6]) << 8) +
+        (static_cast<qulonglong>(value[5]) << 16) + (static_cast<qulonglong>(value[4]) << 24) +
+        (static_cast<qulonglong>(value[3]) << 32) + (static_cast<qulonglong>(value[2]) << 40) +
+        (static_cast<qulonglong>(value[1]) << 48) + (static_cast<qulonglong>(value[0]) << 56);
       if (val > 0) {
         str.setNum(val);
       }
@@ -620,7 +620,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             MP4TagsSetCompilation(tags, &cpl);
           } else if (name == QLatin1String("covr")) {
             MP4TagArtwork artwork;
-            artwork.data = (void *)value.data();
+            artwork.data = const_cast<char*>(value.data());
             artwork.size = value.size();
             artwork.type = MP4_ART_UNDEFINED;
             MP4TagsAddArtwork(tags, &artwork);

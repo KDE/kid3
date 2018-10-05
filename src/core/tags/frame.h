@@ -479,11 +479,6 @@ public:
   Frame(const ExtendedType& type, const QString& value, int index);
 
   /**
-   * Destructor.
-   */
-  ~Frame() = default;
-
-  /**
    * Less than operator.
    * Needed for sorting in multiset.
    * @param rhs right hand side to compare
@@ -823,11 +818,6 @@ public:
   FrameFilter();
 
   /**
-   * Destructor.
-   */
-  ~FrameFilter() = default;
-
-  /**
    * Enable all frames.
    */
   void enableAll();
@@ -878,16 +868,6 @@ public:
       (1ULL << Frame::FT_Date)    |
       (1ULL << Frame::FT_Track)   |
       (1ULL << Frame::FT_Genre);
-
-  /**
-   * Constructor.
-   */
-  FrameCollection() {}
-
-  /**
-   * Destructor.
-   */
-  ~FrameCollection() {}
 
   /**
    * Set values which are different inactive.

@@ -59,8 +59,6 @@ public:
 
     /** Constructor. */
     DetailInfo();
-    /** Destructor. */
-    ~DetailInfo() = default;
 
     QString format;          /**< format description */
     ChannelMode channelMode; /**< channel mode */

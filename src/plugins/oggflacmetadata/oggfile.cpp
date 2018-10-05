@@ -273,8 +273,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
                 if (!value.isEmpty()) {
                   ::vorbis_comment_add_tag(
                     vc,
-                    const_cast<char*>(name.toLatin1().data()),
-                    const_cast<char*>((const char*)value.toUtf8().data()));
+                    name.toLatin1().data(),
+                    value.toUtf8().data());
                   ++it;
                 } else {
                   it = m_comments.erase(it);

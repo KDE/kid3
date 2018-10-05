@@ -634,10 +634,10 @@ static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
                                                     int index)
 {
   return
-     ((unsigned char)data[index + 3] & 0xff)        |
-    (((unsigned char)data[index + 2] & 0xff) << 8)  |
-    (((unsigned char)data[index + 1] & 0xff) << 16) |
-    (((unsigned char)data[index + 0] & 0xff) << 24);
+     (static_cast<unsigned char>(data[index + 3]) & 0xff)        |
+    ((static_cast<unsigned char>(data[index + 2]) & 0xff) << 8)  |
+    ((static_cast<unsigned char>(data[index + 1]) & 0xff) << 16) |
+    ((static_cast<unsigned char>(data[index + 0]) & 0xff) << 24);
 }
 
 /**
@@ -789,8 +789,8 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
  */
 QString PictureFrame::getPictureTypeName(PictureType type)
 {
-  if (type >= 0 &&
-      type < static_cast<int>(
+  if (static_cast<int>(type) >= 0 &&
+      static_cast<int>(type) < static_cast<int>(
         sizeof(pictureTypeNames) / sizeof(pictureTypeNames[0]) - 1)) {
     return QCoreApplication::translate("@default", pictureTypeNames[type]);
   }
@@ -814,7 +814,8 @@ const char* const* PictureFrame::getPictureTypeNames()
  */
 const char* PictureFrame::getPictureTypeString(PictureType type)
 {
-  return type >= 0 && type < static_cast<int>(
+  return static_cast<int>(type) >= 0 &&
+      static_cast<int>(type) < static_cast<int>(
         sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1)
       ? pictureTypeStrings[type] : nullptr;
 }

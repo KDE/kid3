@@ -45,6 +45,14 @@ TextExporter::TextExporter(QObject* parent) : QObject(parent)
 }
 
 /**
+ * Destructor.
+ */
+TextExporter::~TextExporter()
+{
+  // not inline or default to silence weak-vtables warning
+}
+
+/**
  * Update text from tags.
  *
  * @param headerFormat header format

@@ -59,7 +59,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~OutputViewer() override = default;
+    virtual ~OutputViewer() override;
 
     /**
      * Append text.

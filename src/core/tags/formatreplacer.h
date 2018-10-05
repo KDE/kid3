@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatReplacer() = default;
+  virtual ~FormatReplacer();
 
   /**
    * Set string with format codes.

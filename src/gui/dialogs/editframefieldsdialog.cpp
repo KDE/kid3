@@ -53,6 +53,45 @@
 #include "subframeseditor.h"
 #include "pictureframe.h"
 
+/** Base class for field controls */
+class FieldControl : public QObject {
+public:
+  /**
+   * Constructor.
+   */
+  FieldControl() {}
+
+  /**
+   * Destructor.
+   */
+  virtual ~FieldControl() override;
+
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag() = 0;
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent) = 0;
+};
+
+/**
+ * Destructor.
+ */
+FieldControl::~FieldControl()
+{
+  // not inline or default to silence weak-vtables warning
+}
+
+
+namespace  {
+
 /** QTextEdit with label above */
 class LabeledTextEdit : public QWidget {
 public:
@@ -109,6 +148,24 @@ private:
   QTextEdit* m_edit;
 };
 
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ */
+LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
+  QWidget(parent)
+{
+  setObjectName(QLatin1String("LabeledTextEdit"));
+  auto layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_edit = new QTextEdit(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+  m_edit->setAcceptRichText(false);
+  layout->addWidget(m_label);
+  layout->addWidget(m_edit);
+}
+
 
 /** LineEdit with label above */
 class LabeledLineEdit : public QWidget {
@@ -154,6 +211,23 @@ private:
   /** Line editor */
   QLineEdit* m_edit;
 };
+
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ */
+LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
+  QWidget(parent)
+{
+  setObjectName(QLatin1String("LabeledLineEdit"));
+  auto layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_edit = new QLineEdit(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+  layout->addWidget(m_label);
+  layout->addWidget(m_edit);
+}
 
 
 /** Combo box with label above */
@@ -206,6 +280,29 @@ private:
   QComboBox* m_combo;
 };
 
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ * @param strlst list with ComboBox items, terminated by NULL
+ */
+LabeledComboBox::LabeledComboBox(QWidget* parent,
+         const char* const* strlst) : QWidget(parent)
+{
+  setObjectName(QLatin1String("LabeledComboBox"));
+  auto layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_combo = new QComboBox(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+  QStringList strList;
+  while (*strlst) {
+    strList += QCoreApplication::translate("@default", *strlst++);
+  }
+  m_combo->addItems(strList);
+  layout->addWidget(m_label);
+  layout->addWidget(m_combo);
+}
+
 
 /** QSpinBox with label above */
 class LabeledSpinBox : public QWidget {
@@ -252,65 +349,6 @@ private:
   QSpinBox* m_spinbox;
 };
 
-
-/**
- * Constructor.
- *
- * @param parent parent widget
- */
-LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
-  QWidget(parent)
-{
-  setObjectName(QLatin1String("LabeledTextEdit"));
-  auto layout = new QVBoxLayout(this);
-  m_label = new QLabel(this);
-  m_edit = new QTextEdit(this);
-  layout->setContentsMargins(0, 0, 0, 0);
-  m_edit->setAcceptRichText(false);
-  layout->addWidget(m_label);
-  layout->addWidget(m_edit);
-}
-
-/**
- * Constructor.
- *
- * @param parent parent widget
- */
-LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
-  QWidget(parent)
-{
-  setObjectName(QLatin1String("LabeledLineEdit"));
-  auto layout = new QVBoxLayout(this);
-  m_label = new QLabel(this);
-  m_edit = new QLineEdit(this);
-  layout->setContentsMargins(0, 0, 0, 0);
-  layout->addWidget(m_label);
-  layout->addWidget(m_edit);
-}
-
-/**
- * Constructor.
- *
- * @param parent parent widget
- * @param strlst list with ComboBox items, terminated by NULL
- */
-LabeledComboBox::LabeledComboBox(QWidget* parent,
-         const char* const* strlst) : QWidget(parent)
-{
-  setObjectName(QLatin1String("LabeledComboBox"));
-  auto layout = new QVBoxLayout(this);
-  m_label = new QLabel(this);
-  m_combo = new QComboBox(this);
-  layout->setContentsMargins(0, 0, 0, 0);
-  QStringList strList;
-  while (*strlst) {
-    strList += QCoreApplication::translate("@default", *strlst++);
-  }
-  m_combo->addItems(strList);
-  layout->addWidget(m_label);
-  layout->addWidget(m_combo);
-}
-
 /**
  * Constructor.
  *
@@ -355,6 +393,7 @@ private:
   Q_DISABLE_COPY(Mp3FieldControl)
 };
 
+
 /** Control to edit standard UTF text fields */
 class TextFieldControl : public Mp3FieldControl {
 public:
@@ -391,6 +430,34 @@ protected:
 private:
   Q_DISABLE_COPY(TextFieldControl)
 };
+
+/**
+ * Update field with data from dialog.
+ */
+void TextFieldControl::updateTag()
+{
+  m_field.m_value = m_edit->text();
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* TextFieldControl::createWidget(QWidget* parent)
+{
+  m_edit = new LabeledTextEdit(parent);
+  if (m_edit == nullptr)
+    return nullptr;
+
+  m_edit->setLabel(Frame::Field::getFieldIdName(
+                     static_cast<Frame::FieldId>(m_field.m_id)));
+  m_edit->setText(m_field.m_value.toString());
+  m_edit->setFocus();
+  return m_edit;
+}
+
 
 /** Control to edit single line text fields */
 class LineFieldControl : public Mp3FieldControl {
@@ -429,6 +496,30 @@ private:
   Q_DISABLE_COPY(LineFieldControl)
 };
 
+/**
+ * Update field with data from dialog.
+ */
+void LineFieldControl::updateTag()
+{
+  m_field.m_value = m_edit->text();
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* LineFieldControl::createWidget(QWidget* parent)
+{
+  m_edit = new LabeledLineEdit(parent);
+  m_edit->setLabel(Frame::Field::getFieldIdName(
+                     static_cast<Frame::FieldId>(m_field.m_id)));
+  m_edit->setText(m_field.m_value.toString());
+  return m_edit;
+}
+
+
 /** Control to edit integer fields */
 class IntFieldControl : public Mp3FieldControl {
 public:
@@ -465,6 +556,30 @@ protected:
 private:
   Q_DISABLE_COPY(IntFieldControl)
 };
+
+/**
+ * Update field with data from dialog.
+ */
+void IntFieldControl::updateTag()
+{
+  m_field.m_value = m_numInp->value();
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* IntFieldControl::createWidget(QWidget* parent)
+{
+  m_numInp = new LabeledSpinBox(parent);
+  m_numInp->setLabel(Frame::Field::getFieldIdName(
+                       static_cast<Frame::FieldId>(m_field.m_id)));
+  m_numInp->setValue(m_field.m_value.toInt());
+  return m_numInp;
+}
+
 
 /** Control to edit integer fields using a combo box with given values */
 class IntComboBoxControl : public Mp3FieldControl {
@@ -506,6 +621,30 @@ protected:
 private:
   Q_DISABLE_COPY(IntComboBoxControl)
 };
+
+/**
+ * Update field with data from dialog.
+ */
+void IntComboBoxControl::updateTag()
+{
+  m_field.m_value = m_ptInp->currentItem();
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* IntComboBoxControl::createWidget(QWidget* parent)
+{
+  m_ptInp = new LabeledComboBox(parent, m_strLst);
+  m_ptInp->setLabel(Frame::Field::getFieldIdName(
+                      static_cast<Frame::FieldId>(m_field.m_id)));
+  m_ptInp->setCurrentItem(m_field.m_value.toInt());
+  return m_ptInp;
+}
+
 
 /** Control to import, export and view data from binary fields */
 class BinFieldControl : public Mp3FieldControl {
@@ -560,6 +699,46 @@ private:
 };
 
 /**
+ * Update field with data from dialog.
+ */
+void BinFieldControl::updateTag()
+{
+  if (m_bos && m_bos->isChanged()) {
+    m_field.m_value = m_bos->getData();
+  }
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* BinFieldControl::createWidget(QWidget* parent)
+{
+  m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
+  m_bos->setLabel(Frame::Field::getFieldIdName(
+                    static_cast<Frame::FieldId>(m_field.m_id)));
+  if (m_taggedFile) {
+    m_bos->setDefaultDir(m_taggedFile->getDirname());
+  }
+  if (m_frame.getType() == Frame::FT_Picture) {
+    m_bos->setDefaultFile(FileConfig::instance().defaultCoverFileName());
+    const char* const imagesStr = QT_TRANSLATE_NOOP("@default", "Images");
+    const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
+    m_bos->setFilter(m_platformTools->fileDialogNameFilter(
+               QList<QPair<QString, QString> >()
+               << qMakePair(QCoreApplication::translate("@default", imagesStr),
+                            QString(QLatin1String("*.jpg *.jpeg *.png")))
+               << qMakePair(QCoreApplication::translate("@default",
+                                                        allFilesStr),
+                            QString(QLatin1Char('*')))));
+  }
+  return m_bos;
+}
+
+
+/**
  * Control to edit time event fields (synchronized lyrics and event timing
  * codes).
  */
@@ -608,16 +787,69 @@ protected:
   Frame::FieldList& m_fields;
   /** tagged file */
   const TaggedFile* m_taggedFile;
-  /** number of edited tag */
-  Frame::TagNumber m_tagNr;
   /** item model */
   TimeEventModel* m_model;
   /** editor widget */
   TimeEventEditor* m_editor;
+  /** number of edited tag */
+  Frame::TagNumber m_tagNr;
 
 private:
   Q_DISABLE_COPY(TimeEventFieldControl)
 };
+
+/**
+ * Constructor.
+ * @param platformTools platform tools
+ * @param app application context
+ * @param field field to edit
+ * @param fields fields of frame to edit
+ * @param taggedFile file
+ * @param tagNr tag number
+ * @param type SynchronizedLyrics or EventTimingCodes
+ */
+TimeEventFieldControl::TimeEventFieldControl(
+    IPlatformTools* platformTools, Kid3Application* app, Frame::Field& field,
+    Frame::FieldList& fields, const TaggedFile* taggedFile,
+    Frame::TagNumber tagNr, TimeEventModel::Type type) :
+  Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
+  m_fields(fields), m_taggedFile(taggedFile),
+  m_model(new TimeEventModel(this)), m_editor(nullptr), m_tagNr(tagNr)
+{
+  m_model->setType(type);
+  if (type == TimeEventModel::EventTimingCodes) {
+    m_model->fromEtcoFrame(m_fields);
+  } else {
+    m_model->fromSyltFrame(m_fields);
+  }
+}
+
+/**
+ * Update field with data from dialog.
+ */
+void TimeEventFieldControl::updateTag()
+{
+  if (m_model->getType() == TimeEventModel::EventTimingCodes) {
+    m_model->toEtcoFrame(m_fields);
+  } else {
+    m_model->toSyltFrame(m_fields);
+  }
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
+{
+  m_editor = new TimeEventEditor(m_platformTools, m_app, parent,
+                                 m_field, m_taggedFile, m_tagNr);
+  m_editor->setModel(m_model);
+  return m_editor;
+}
+
 
 /** Control to edit a subframe */
 class SubframeFieldControl : public Mp3FieldControl {
@@ -657,12 +889,62 @@ private:
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   const TaggedFile* m_taggedFile;
-  Frame::TagNumber m_tagNr;
   Frame::FieldList& m_fields;
   Frame::FieldList::iterator m_begin;
   Frame::FieldList::iterator m_end;
   SubframesEditor* m_editor;
+  Frame::TagNumber m_tagNr;
 };
+
+/**
+ * Constructor.
+ */
+SubframeFieldControl::SubframeFieldControl(
+    IPlatformTools* platformTools, Kid3Application* app,
+    const TaggedFile* taggedFile, Frame::TagNumber tagNr, Frame::FieldList& fields,
+    Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
+  Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
+  m_taggedFile(taggedFile), m_fields(fields),
+  m_begin(begin), m_end(end), m_editor(nullptr), m_tagNr(tagNr)
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void SubframeFieldControl::updateTag()
+{
+  if (m_editor) {
+    FrameCollection frames;
+    m_editor->getFrames(frames);
+    m_fields.erase(m_begin, m_end);
+    Frame::Field field;
+    field.m_id = Frame::ID_Subframe;
+    for (auto it = frames.begin(); it != frames.end(); ++it) {
+      field.m_value = it->getExtendedType().getName();
+      m_fields.append(field);
+      m_fields.append(it->getFieldList());
+    }
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
+  m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, m_tagNr,
+                                 parent);
+  FrameCollection frames = FrameCollection::fromSubframes(
+        static_cast<Frame::FieldList::const_iterator>(m_begin),
+        static_cast<Frame::FieldList::const_iterator>(m_end));
+  m_editor->setFrames(frames);
+  return m_editor;
+}
+
 
 /** Control to edit a chapter */
 class ChapterFieldControl : public Mp3FieldControl {
@@ -698,6 +980,47 @@ private:
   ChapterEditor* m_editor;
 };
 
+/**
+ * Constructor.
+ * @param field field to edit
+ */
+ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
+  Mp3FieldControl(field), m_editor(nullptr)
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void ChapterFieldControl::updateTag()
+{
+  if (m_editor) {
+    quint32 startTimeMs, endTimeMs, startOffset, endOffset;
+    m_editor->getValues(startTimeMs, endTimeMs, startOffset, endOffset);
+    QVariantList lst;
+    lst << startTimeMs << endTimeMs << startOffset << endOffset;
+    m_field.m_value = lst;
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
+  m_editor = new ChapterEditor(parent);
+  QVariantList lst = m_field.m_value.toList();
+  if (lst.size() >= 4) {
+    m_editor->setValues(lst.at(0).toUInt(), lst.at(1).toUInt(),
+                        lst.at(2).toUInt(), lst.at(3).toUInt());
+  }
+  return m_editor;
+}
+
+
 /** Control to edit table of contents. */
 class TableOfContentsFieldControl : public Mp3FieldControl {
 public:
@@ -731,6 +1054,48 @@ private:
 
   TableOfContentsEditor* m_editor;
 };
+
+/**
+ * Constructor.
+ * @param field field to edit
+ */
+TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
+  Mp3FieldControl(field), m_editor(nullptr)
+{
+}
+
+/**
+ * Update field from data in field control.
+ */
+void TableOfContentsFieldControl::updateTag()
+{
+  if (m_editor) {
+    bool isTopLevel, isOrdered;
+    QStringList elements = m_editor->getValues(isTopLevel, isOrdered);
+    QVariantList lst;
+    lst << isTopLevel << isOrdered << elements;
+    m_field.m_value = lst;
+  }
+}
+
+/**
+ * Create widget to edit field data.
+ *
+ * @param parent parent widget
+ *
+ * @return widget to edit field data.
+ */
+QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
+  m_editor = new TableOfContentsEditor(parent);
+  QVariantList lst = m_field.m_value.toList();
+  if (lst.size() >= 3) {
+    m_editor->setValues(lst.at(0).toBool(), lst.at(1).toBool(),
+                        lst.at(2).toStringList());
+  }
+  return m_editor;
+}
+
+}
 
 
 /**
@@ -814,11 +1179,11 @@ void BinaryOpenSave::loadData()
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
-      int size = file.size();
+      auto size = file.size();
       auto data = new char[size];
       QDataStream stream(&file);
-      stream.readRawData(data, size);
-      m_byteArray = QByteArray(data, size);
+      stream.readRawData(data, static_cast<int>(size));
+      m_byteArray = QByteArray(data, static_cast<int>(size));
       m_isChanged = true;
       delete [] data;
       file.close();
@@ -895,322 +1260,6 @@ void BinaryOpenSave::viewData()
     ImageViewer iv(this, image);
     iv.exec();
   }
-}
-
-/**
- * Update field with data from dialog.
- */
-void TextFieldControl::updateTag()
-{
-  m_field.m_value = m_edit->text();
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* TextFieldControl::createWidget(QWidget* parent)
-{
-  m_edit = new LabeledTextEdit(parent);
-  if (m_edit == nullptr)
-    return nullptr;
-
-  m_edit->setLabel(Frame::Field::getFieldIdName(
-                     static_cast<Frame::FieldId>(m_field.m_id)));
-  m_edit->setText(m_field.m_value.toString());
-  m_edit->setFocus();
-  return m_edit;
-}
-
-/**
- * Update field with data from dialog.
- */
-void LineFieldControl::updateTag()
-{
-  m_field.m_value = m_edit->text();
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* LineFieldControl::createWidget(QWidget* parent)
-{
-  m_edit = new LabeledLineEdit(parent);
-  m_edit->setLabel(Frame::Field::getFieldIdName(
-                     static_cast<Frame::FieldId>(m_field.m_id)));
-  m_edit->setText(m_field.m_value.toString());
-  return m_edit;
-}
-
-/**
- * Update field with data from dialog.
- */
-void IntFieldControl::updateTag()
-{
-  m_field.m_value = m_numInp->value();
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* IntFieldControl::createWidget(QWidget* parent)
-{
-  m_numInp = new LabeledSpinBox(parent);
-  m_numInp->setLabel(Frame::Field::getFieldIdName(
-                       static_cast<Frame::FieldId>(m_field.m_id)));
-  m_numInp->setValue(m_field.m_value.toInt());
-  return m_numInp;
-}
-
-/**
- * Update field with data from dialog.
- */
-void IntComboBoxControl::updateTag()
-{
-  m_field.m_value = m_ptInp->currentItem();
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* IntComboBoxControl::createWidget(QWidget* parent)
-{
-  m_ptInp = new LabeledComboBox(parent, m_strLst);
-  m_ptInp->setLabel(Frame::Field::getFieldIdName(
-                      static_cast<Frame::FieldId>(m_field.m_id)));
-  m_ptInp->setCurrentItem(m_field.m_value.toInt());
-  return m_ptInp;
-}
-
-/**
- * Update field with data from dialog.
- */
-void BinFieldControl::updateTag()
-{
-  if (m_bos && m_bos->isChanged()) {
-    m_field.m_value = m_bos->getData();
-  }
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* BinFieldControl::createWidget(QWidget* parent)
-{
-  m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
-  m_bos->setLabel(Frame::Field::getFieldIdName(
-                    static_cast<Frame::FieldId>(m_field.m_id)));
-  if (m_taggedFile) {
-    m_bos->setDefaultDir(m_taggedFile->getDirname());
-  }
-  if (m_frame.getType() == Frame::FT_Picture) {
-    m_bos->setDefaultFile(FileConfig::instance().defaultCoverFileName());
-    const char* const imagesStr = QT_TRANSLATE_NOOP("@default", "Images");
-    const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
-    m_bos->setFilter(m_platformTools->fileDialogNameFilter(
-               QList<QPair<QString, QString> >()
-               << qMakePair(QCoreApplication::translate("@default", imagesStr),
-                            QString(QLatin1String("*.jpg *.jpeg *.png")))
-               << qMakePair(QCoreApplication::translate("@default",
-                                                        allFilesStr),
-                            QString(QLatin1Char('*')))));
-  }
-  return m_bos;
-}
-
-/**
- * Constructor.
- * @param platformTools platform tools
- * @param app application context
- * @param field field to edit
- * @param fields fields of frame to edit
- * @param taggedFile file
- * @param tagNr tag number
- * @param type SynchronizedLyrics or EventTimingCodes
- */
-TimeEventFieldControl::TimeEventFieldControl(
-    IPlatformTools* platformTools, Kid3Application* app, Frame::Field& field,
-    Frame::FieldList& fields, const TaggedFile* taggedFile,
-    Frame::TagNumber tagNr, TimeEventModel::Type type) :
-  Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-  m_fields(fields), m_taggedFile(taggedFile), m_tagNr(tagNr),
-  m_model(new TimeEventModel(this)), m_editor(nullptr)
-{
-  m_model->setType(type);
-  if (type == TimeEventModel::EventTimingCodes) {
-    m_model->fromEtcoFrame(m_fields);
-  } else {
-    m_model->fromSyltFrame(m_fields);
-  }
-}
-
-/**
- * Update field with data from dialog.
- */
-void TimeEventFieldControl::updateTag()
-{
-  if (m_model->getType() == TimeEventModel::EventTimingCodes) {
-    m_model->toEtcoFrame(m_fields);
-  } else {
-    m_model->toSyltFrame(m_fields);
-  }
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-QWidget* TimeEventFieldControl::createWidget(QWidget* parent)
-{
-  m_editor = new TimeEventEditor(m_platformTools, m_app, parent,
-                                 m_field, m_taggedFile, m_tagNr);
-  m_editor->setModel(m_model);
-  return m_editor;
-}
-
-/**
- * Constructor.
- */
-SubframeFieldControl::SubframeFieldControl(
-    IPlatformTools* platformTools, Kid3Application* app,
-    const TaggedFile* taggedFile, Frame::TagNumber tagNr, Frame::FieldList& fields,
-    Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
-  Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
-  m_taggedFile(taggedFile), m_tagNr(tagNr), m_fields(fields),
-  m_begin(begin), m_end(end), m_editor(nullptr)
-{
-}
-
-/**
- * Update field from data in field control.
- */
-void SubframeFieldControl::updateTag()
-{
-  if (m_editor) {
-    FrameCollection frames;
-    m_editor->getFrames(frames);
-    m_fields.erase(m_begin, m_end);
-    Frame::Field field;
-    field.m_id = Frame::ID_Subframe;
-    for (auto it = frames.begin(); it != frames.end(); ++it) {
-      field.m_value = it->getExtendedType().getName();
-      m_fields.append(field);
-      m_fields.append(it->getFieldList());
-    }
-  }
-}
-
-/**
- * Create widget to edit field data.
- *
- * @param parent parent widget
- *
- * @return widget to edit field data.
- */
-QWidget* SubframeFieldControl::createWidget(QWidget* parent) {
-  m_editor = new SubframesEditor(m_platformTools, m_app, m_taggedFile, m_tagNr,
-                                 parent);
-  FrameCollection frames = FrameCollection::fromSubframes(
-        static_cast<Frame::FieldList::const_iterator>(m_begin),
-        static_cast<Frame::FieldList::const_iterator>(m_end));
-  m_editor->setFrames(frames);
-  return m_editor;
-}
-
-/**
- * Constructor.
- * @param field field to edit
- */
-ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(nullptr)
-{
-}
-
-/**
- * Update field from data in field control.
- */
-void ChapterFieldControl::updateTag()
-{
-  if (m_editor) {
-    quint32 startTimeMs, endTimeMs, startOffset, endOffset;
-    m_editor->getValues(startTimeMs, endTimeMs, startOffset, endOffset);
-    QVariantList lst;
-    lst << startTimeMs << endTimeMs << startOffset << endOffset;
-    m_field.m_value = lst;
-  }
-}
-
-/**
- * Create widget to edit field data.
- *
- * @param parent parent widget
- *
- * @return widget to edit field data.
- */
-QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
-  m_editor = new ChapterEditor(parent);
-  QVariantList lst = m_field.m_value.toList();
-  if (lst.size() >= 4) {
-    m_editor->setValues(lst.at(0).toUInt(), lst.at(1).toUInt(),
-                        lst.at(2).toUInt(), lst.at(3).toUInt());
-  }
-  return m_editor;
-}
-
-/**
- * Constructor.
- * @param field field to edit
- */
-TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(nullptr)
-{
-}
-
-/**
- * Update field from data in field control.
- */
-void TableOfContentsFieldControl::updateTag()
-{
-  if (m_editor) {
-    bool isTopLevel, isOrdered;
-    QStringList elements = m_editor->getValues(isTopLevel, isOrdered);
-    QVariantList lst;
-    lst << isTopLevel << isOrdered << elements;
-    m_field.m_value = lst;
-  }
-}
-
-/**
- * Create widget to edit field data.
- *
- * @param parent parent widget
- *
- * @return widget to edit field data.
- */
-QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
-  m_editor = new TableOfContentsEditor(parent);
-  QVariantList lst = m_field.m_value.toList();
-  if (lst.size() >= 3) {
-    m_editor->setValues(lst.at(0).toBool(), lst.at(1).toBool(),
-                        lst.at(2).toStringList());
-  }
-  return m_editor;
 }
 
 

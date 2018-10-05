@@ -207,8 +207,6 @@ protected:
     CommentField(const QString& name = QString(),
                  const QString& value = QString()) :
       m_name(name), m_value(value) {}
-    /** Destructor. */
-    ~CommentField() {}
     /**
      * Get name.
      * @return name.

@@ -35,6 +35,13 @@
 FormatReplacer::FormatReplacer(const QString& str) : m_str(str) {}
 
 /**
+ * Destructor.
+ */
+FormatReplacer::~FormatReplacer()
+{
+}
+
+/**
  * Replace escaped characters.
  * Replaces the escaped characters ("\n", "\t", "\r", "\\", "\a", "\b",
  * "\f", "\v") with the corresponding characters.

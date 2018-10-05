@@ -89,7 +89,9 @@ ImportConfig::ImportConfig() :
 
   m_importFormatNames.append(QLatin1String("CSV quoted"));
   m_importFormatHeaders.append(QLatin1String(""));
-  m_importFormatTracks.append(QLatin1String(R"lit("?%{track}(\d+)"?\t"?%{title}([^\r\n\t"]*)"?\t"?%{artist}([^\r\n\t"]*)"?\t"?%{album}([^\r\n\t"]*)"?\t"?%{year}([^\r\n\t]*)"?\t"?%{genre}([^\r\n\t"]*)"?\t"?%{comment}([^\r\n\t"]*)"?\t"?(?:\d+:)?%{duration}(\d+:\d+))lit"));
+  // Using a raw string literal here causes clang to issue
+  // "Unbalanced opening parenthesis in C++ code".
+  m_importFormatTracks.append(QLatin1String("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
   m_importFormatNames.append(QLatin1String("CSV more unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));

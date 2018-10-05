@@ -66,6 +66,14 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 }
 
 /**
+ * Destructor.
+ */
+ExternalProcess::OutputViewer::~OutputViewer()
+{
+  // not inline or default to silence weak-vtables warning
+}
+
+/**
  * Append text.
  */
 void ExternalProcess::OutputViewer::append(const QString& text)

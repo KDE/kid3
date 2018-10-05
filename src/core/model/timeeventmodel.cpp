@@ -35,7 +35,7 @@
  */
 TimeEventModel::TimeEventModel(QObject* parent) :
   QAbstractTableModel(parent), m_type(SynchronizedLyrics), m_markedRow(-1),
-  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != 0)
+  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
 {
   setObjectName(QLatin1String("TimeEventModel"));
 }

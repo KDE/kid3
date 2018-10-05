@@ -39,3 +39,11 @@ DiscogsConfig::DiscogsConfig() :
   setAdditionalTagsUsed(true);
   setServer(QLatin1String("www.discogs.com"));
 }
+
+/**
+ * Destructor.
+ */
+DiscogsConfig::~DiscogsConfig()
+{
+  // not inline or default to silence weak-vtables warning
+}

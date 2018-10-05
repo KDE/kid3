@@ -76,6 +76,14 @@ PictureLabel::PictureLabel(QWidget* parent) : QWidget(parent), m_pixmapHash(0)
 }
 
 /**
+ * Destructor.
+ */
+PictureLabel::~PictureLabel()
+{
+  // not inline or default to silence weak-vtables warning
+}
+
+/**
  * Clear picture.
  */
 void PictureLabel::clearPicture()

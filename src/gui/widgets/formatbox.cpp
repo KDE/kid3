@@ -95,7 +95,7 @@ void FormatBox::toFormatConfig(FormatConfig& cfg) const
 {
   cfg.setFormatWhileEditing(m_formatEditingCheckBox->isChecked());
   cfg.setCaseConversion(
-    (FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex());
+    static_cast<FormatConfig::CaseConversion>(m_caseConvComboBox->currentIndex()));
   if (cfg.caseConversion() >= FormatConfig::NumCaseConversions) {
     cfg.setCaseConversion(FormatConfig::NoChanges);
   }

@@ -118,7 +118,7 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
           if (i == 4 || i == 6 || i == 8 || i == 10) {
             str += QLatin1Char('-');
           }
-          auto c = (unsigned char)data[i];
+          auto c = static_cast<unsigned char>(data[i]);
           unsigned char d = c >> 4;
           str += QLatin1Char(d >= 10 ? d - 10 + 'A' : d + '0');
           d = c & 0x0f;
@@ -169,8 +169,8 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
         unsigned char buf[16];
         unsigned char* bufPtr = buf;
         for (int i = 0; i < 32;) {
-          unsigned char h = (unsigned char)hexStr[i++].toLatin1();
-          unsigned char l = (unsigned char)hexStr[i++].toLatin1();
+          auto h = static_cast<unsigned char>(hexStr[i++].toLatin1());
+          auto l = static_cast<unsigned char>(hexStr[i++].toLatin1());
           if (!((h >= '0' && h <= '9') || (h >= 'A' && h <= 'F')) ||
               !((l >= '0' && l <= '9') || (l >= 'A' && l <= 'F'))) {
             return false;

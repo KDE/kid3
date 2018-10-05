@@ -282,24 +282,24 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
     if (role == TaggedFileRole) {
       return retrieveTaggedFileVariant(index);
     } else if (role == Qt::DecorationRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
       if (taggedFile) {
         return m_iconProvider->iconForTaggedFile(taggedFile);
       }
     } else if (role == Qt::BackgroundRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
       if (taggedFile) {
         QColor color = m_iconProvider->backgroundForTaggedFile(taggedFile);
         if (color.isValid())
           return color;
       }
     } else if (role == IconIdRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
       return taggedFile
           ? m_iconProvider->iconIdForTaggedFile(taggedFile)
           : QByteArray("");
     } else if (role == TruncatedRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
       return taggedFile &&
           ((TagConfig::instance().markTruncations() &&
             taggedFile->getTruncationFlags(Frame::Tag_Id3v1) != 0) ||
@@ -605,13 +605,13 @@ bool FileProxyModel::storeTaggedFileVariant(const QPersistentModelIndex& index,
   if (index.isValid()) {
     if (value.isValid()) {
       if (value.canConvert<TaggedFile*>()) {
-        TaggedFile* oldItem = m_taggedFiles.value(index, 0);
+        TaggedFile* oldItem = m_taggedFiles.value(index, nullptr);
         delete oldItem;
         m_taggedFiles.insert(index, value.value<TaggedFile*>());
         return true;
       }
     } else {
-      if (TaggedFile* oldFile = m_taggedFiles.value(index, 0)) {
+      if (TaggedFile* oldFile = m_taggedFiles.value(index, nullptr)) {
         m_taggedFiles.remove(index);
         delete oldFile;
       }

@@ -259,9 +259,9 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
     for (size_t i = 0; i < numChars; i++) {
       qcarray[i] =
         UNICODE_SUPPORT_BUGGY ?
-        (ushort)(((str[i] & 0x00ff) << 8) |
+        static_cast<ushort>(((str[i] & 0x00ff) << 8) |
                  ((str[i] & 0xff00) >> 8)) :
-        (ushort)str[i];
+        static_cast<ushort>(str[i]);
       if (qcarray[i].isNull()) { ++numZeroes; }
     }
     // remove a single trailing zero character
@@ -440,10 +440,10 @@ static unicode_t* newFixedUpUnicode(const QString& text)
   int unicode_size = text.length();
   auto unicode = new unicode_t[unicode_size + 1];
   for (int i = 0; i < unicode_size; ++i) {
-    unicode[i] = (ushort)qcarray[i].unicode();
+    unicode[i] = qcarray[i].unicode();
     if (UNICODE_SUPPORT_BUGGY) {
-      unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
-                            ((unicode[i] & 0xff00) >> 8));
+      unicode[i] = static_cast<ushort>(((unicode[i] & 0x00ff) << 8) |
+                                       ((unicode[i] & 0xff00) >> 8));
     }
   }
   unicode[unicode_size] = 0;

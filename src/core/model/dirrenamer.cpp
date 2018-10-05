@@ -348,7 +348,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           // starts with a separator and the search starts with the
           // second character.
           int slashPos = newPart.indexOf(QLatin1Char('/'), 1);
-          if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+          if (slashPos != -1 && slashPos != newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
             // => create one directory
@@ -370,7 +370,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
         if (newDirname.startsWith(parent)) {
           QString newPart(newDirname.mid(parent.length()));
           int slashPos = newPart.indexOf(QLatin1Char('/'));
-          if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+          if (slashPos != -1 && slashPos != newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
             // => rename current directory, then create additional

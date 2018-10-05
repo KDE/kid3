@@ -329,8 +329,8 @@ void FormatConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
   m_formatWhileEditing = config->value(QLatin1String("FormatWhileEditing"), m_formatWhileEditing).toBool();
-  m_caseConversion = (CaseConversion)config->value(QLatin1String("CaseConversion"),
-                                                   (int)m_caseConversion).toInt();
+  m_caseConversion = static_cast<CaseConversion>(config->value(QLatin1String("CaseConversion"),
+                                                               static_cast<int>(m_caseConversion)).toInt());
   m_localeName = config->value(QLatin1String("LocaleName"), m_localeName).toString();
   m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"), m_strRepEnabled).toBool();
   m_enableValidation = config->value(QLatin1String("EnableValidation"), m_enableValidation).toBool();

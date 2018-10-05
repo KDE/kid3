@@ -254,7 +254,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   const TagConfig& tagCfg = TagConfig::instance();
   FOR_ALL_TAGS(tagNr) {
     bool id3v1 = tagNr == Frame::Tag_Id3v1;
-    m_genreModel[tagNr] = new GenreModel(id3v1, this),
+    m_genreModel[tagNr] = new GenreModel(id3v1, this);
     m_framesModel[tagNr] = new FrameTableModel(id3v1, this);
     if (!id3v1) {
       m_framesModel[tagNr]->setFrameOrder(tagCfg.quickAccessFrameOrder());
@@ -372,7 +372,7 @@ void Kid3Application::initPlugins()
   if (!pluginOrder.isEmpty()) {
     QList<ITaggedFileFactory*> orderedFactories;
     for (int i = 0; i < pluginOrder.size(); ++i) {
-      orderedFactories.append(0);
+      orderedFactories.append(nullptr);
     }
     const auto factories = FileProxyModel::taggedFileFactories();
     for (ITaggedFileFactory* factory : factories) {
@@ -383,7 +383,7 @@ void Kid3Application::initPlugins()
         orderedFactories.append(factory);
       }
     }
-    orderedFactories.removeAll(0);
+    orderedFactories.removeAll(nullptr);
     FileProxyModel::taggedFileFactories().swap(orderedFactories);
   }
 }

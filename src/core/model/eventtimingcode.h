@@ -43,11 +43,6 @@ public:
   explicit EventTimeCode(int code) : m_code(code) {}
 
   /**
-   * Destructor.
-   */
-  ~EventTimeCode() {}
-
-  /**
    * Get code.
    * @return code.
    */

@@ -281,10 +281,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   }
 
   if (!s_collapsePixmap) {
-    s_collapsePixmap = new QPixmap((const char**)collapse_xpm);
+    s_collapsePixmap = new QPixmap(const_cast<const char**>(collapse_xpm));
   }
   if (!s_expandPixmap) {
-    s_expandPixmap = new QPixmap((const char**)expand_xpm);
+    s_expandPixmap = new QPixmap(const_cast<const char**>(expand_xpm));
   }
 
   setWindowTitle(tr("Kid3"));

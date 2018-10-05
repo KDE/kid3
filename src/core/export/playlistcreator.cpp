@@ -169,7 +169,9 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
       case PlaylistConfig::PF_XSPF:
       {
         stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-        QString line = QLatin1String(R"(<playlist version="1" xmlns="http://xspf.org/ns/0/")");
+        // Using a raw string literal here causes clang to issue
+        // "Unbalanced opening parenthesis in C++ code".
+        QString line = QLatin1String("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"");
         if (!m_cfg.useFullPath()) {
           QUrl url(m_playlistDirName);
           url.setScheme(QLatin1String("file"));

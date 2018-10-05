@@ -49,11 +49,6 @@ public:
     }
 
     /**
-     * Destructor.
-     */
-    ~Source() {}
-
-    /**
      * Get name.
      * @return name.
      */
@@ -127,11 +122,6 @@ public:
    * Constructor.
    */
   BatchImportProfile();
-
-  /**
-   * Destructor.
-   */
-  ~BatchImportProfile() = default;
 
  /**
   * Get name.

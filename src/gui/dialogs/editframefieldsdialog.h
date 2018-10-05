@@ -29,13 +29,14 @@
 
 #include <QDialog>
 #include <QLabel>
-#include "frame.h"
 #include <QList>
+#include "frame.h"
 
 class QVBoxLayout;
 class TaggedFile;
 class IPlatformTools;
 class Kid3Application;
+class FieldControl;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
@@ -139,35 +140,6 @@ class BinaryOpenSave : public QWidget {
   QString m_filter;
   /** true if m_byteArray changed */
   bool m_isChanged;
-};
-
-
-/** Base class for field controls */
-class FieldControl : public QObject {
-public:
-  /**
-   * Constructor.
-   */
-  FieldControl() {}
-
-  /**
-   * Destructor.
-   */
-  virtual ~FieldControl() override = default;
-
-  /**
-   * Update field from data in field control.
-   */
-  virtual void updateTag() = 0;
-
-  /**
-   * Create widget to edit field data.
-   *
-   * @param parent parent widget
-   *
-   * @return widget to edit field data.
-   */
-  virtual QWidget* createWidget(QWidget* parent) = 0;
 };
 
 
