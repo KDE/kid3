@@ -59,7 +59,8 @@ if (UNIX AND NOT APPLE)
   )
   add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
-    DESTINATION "${WITH_DATAROOTDIR}/applications")
+    DESTINATION "${WITH_DATAROOTDIR}/applications"
+    RENAME net.sourceforge.kid3-qt.desktop)
   add_custom_command(OUTPUT kid3-qt.appdata.xml
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixappdata.py
       ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml >kid3-qt.appdata.xml
@@ -67,7 +68,8 @@ if (UNIX AND NOT APPLE)
   )
   add_custom_target("appdata-file" ALL DEPENDS kid3-qt.appdata.xml)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
-    DESTINATION "${WITH_DATAROOTDIR}/metainfo")
+    DESTINATION "${WITH_DATAROOTDIR}/metainfo"
+    RENAME net.sourceforge.kid3-qt.appdata.xml)
   if (GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../sc-apps-kid3.svgz >kid3-qt.svg

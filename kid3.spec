@@ -76,7 +76,7 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %doc AUTHORS ChangeLog COPYING LICENSE README
 %{_bindir}/kid3
 %{_datadir}/applications/kde4/*kid3.desktop
-%{_datadir}/metainfo/kid3.appdata.xml
+%{_datadir}/metainfo/*kid3.appdata.xml
 %{_datadir}/icons/hicolor/*x*/apps/kid3.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3.svgz
 %{_datadir}/kde4/apps/kid3/
@@ -117,7 +117,7 @@ Authors: Urs Fleisch
 %doc AUTHORS ChangeLog COPYING LICENSE README
 %{_bindir}/kid3-qt
 %{_datadir}/applications/*kid3-qt.desktop
-%{_datadir}/metainfo/kid3-qt.appdata.xml
+%{_datadir}/metainfo/*kid3-qt.appdata.xml
 %{_datadir}/icons/hicolor/*x*/apps/kid3-qt.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3-qt.svg
 %{_datadir}/doc/kid3-qt/
