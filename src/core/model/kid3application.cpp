@@ -2245,8 +2245,9 @@ void Kid3Application::editOrAddPicture()
  * Open directory or add pictures on drop.
  *
  * @param paths paths of directories or files in directory
+ * @param isInternal true if this is an internal drop
  */
-void Kid3Application::openDrop(const QStringList& paths)
+void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
 {
   QStringList filePaths;
   QStringList picturePaths;
@@ -2266,7 +2267,7 @@ void Kid3Application::openDrop(const QStringList& paths)
       }
     }
   }
-  if (!filePaths.isEmpty()) {
+  if (!filePaths.isEmpty() && !isInternal) {
     resetFileFilterIfNotMatching(filePaths);
     emit fileSelectionUpdateRequested();
     emit confirmedOpenDirectoryRequested(filePaths);
@@ -2291,11 +2292,22 @@ void Kid3Application::openDrop(const QStringList& paths)
 }
 
 /**
+ * Open directory or add pictures on drop.
+ *
+ * @param paths paths of directories or files in directory
+ */
+void Kid3Application::openDrop(const QStringList& paths)
+{
+  dropLocalFiles(paths, false);
+}
+
+/**
  * Handle drop of URLs.
  *
  * @param urlList picture, tagged file and folder URLs to handle (if local)
+ * @param isInternal true if this is an internal drop
  */
-void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
+void Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
 {
   QList<QUrl> urls(urlList);
 #ifdef Q_OS_MAC
@@ -2314,10 +2326,20 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
     for (auto it = urls.constBegin(); it != urls.constEnd(); ++it) {
       localFiles.append(it->toLocalFile());
     }
-    openDrop(localFiles);
+    dropLocalFiles(localFiles, isInternal);
   } else {
     dropUrl(urls.first());
   }
+}
+
+/**
+ * Handle drop of URLs.
+ *
+ * @param urlList picture, tagged file and folder URLs to handle (if local)
+ */
+void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
+{
+  dropUrls(urlList, false);
 }
 
 /**

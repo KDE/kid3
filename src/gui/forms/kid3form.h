@@ -318,6 +318,35 @@ public slots:
    */
   void setDirRootIndex(const QModelIndex& index);
 
+protected:
+  /**
+   * Accept drag.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragEnterEvent(QDragEnterEvent* ev) override;
+
+  /**
+   * Handle event when mouse is moved while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragMoveEvent(QDragMoveEvent* ev) override;
+
+  /**
+   * Handle event when mouse leaves widget while dragging.
+   *
+   * @param ev drag event.
+   */
+  virtual void dragLeaveEvent(QDragLeaveEvent* ev) override;
+
+  /**
+   * Handle drop event.
+   *
+   * @param ev drop event.
+   */
+  virtual void dropEvent(QDropEvent* ev) override;
+
 private slots:
   /**
    * Toggle visibility of file controls.

@@ -371,6 +371,14 @@ public:
   QString getDirPath() const;
 
   /**
+   * Handle drop of URLs.
+   *
+   * @param urlList picture, tagged file and folder URLs to handle (if local)
+   * @param isInternal true if this is an internal drop
+   */
+  void dropUrls(const QList<QUrl>& urlList, bool isInternal);
+
+  /**
    * Save all changed files.
    * longRunningOperationProgress() is emitted while saving files.
    *
@@ -1460,6 +1468,14 @@ private:
    * @return true if ok.
    */
   bool openDirectoryAfterReset(const QStringList& paths = QStringList());
+
+  /**
+   * Open directory or add pictures on drop.
+   *
+   * @param paths paths of directories or files in directory
+   * @param isInternal true if this is an internal drop
+   */
+  void dropLocalFiles(const QStringList& paths, bool isInternal);
 
   /**
    * Second stage for applyFilter().
