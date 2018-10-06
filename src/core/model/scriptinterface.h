@@ -78,7 +78,7 @@ public slots:
    * Get a detailed error message provided by some methods.
    * @return detailed error message.
    */
-  QString getErrorMessage() const;
+  QString getErrorMessage() const; // clazy:exclude=const-signal-or-slot
 
   /**
    * Revert changes in the selected files.

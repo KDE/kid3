@@ -139,7 +139,7 @@ ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
   const auto userCommandProcessors = m_app->getUserCommandProcessors();
   for (IUserCommandProcessor* userCommandProcessor : userCommandProcessors) {
     userCommandProcessor->initialize(m_app);
-    connect(userCommandProcessor->qobject(), SIGNAL(commandOutput(QString)),
+    connect(userCommandProcessor->qobject(), SIGNAL(commandOutput(QString)), // clazy:exclude=old-style-connect
             this, SLOT(showOutputLine(QString)));
   }
 }

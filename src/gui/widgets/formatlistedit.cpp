@@ -72,7 +72,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
       if (!toolTip.isEmpty())
         ed->setToolTip(toolTip);
       formatLayout->addRow(label, ed);
-      m_lineEdits.append(ed);
+      m_lineEdits.append(ed); // clazy:exclude=reserve-candidates
     }
   }
   hlayout->addLayout(formatLayout);
@@ -182,7 +182,7 @@ void FormatListEdit::commitCurrentEdits()
     QString text(i == 0
                  ? m_formatComboBox->currentText()
                  : m_lineEdits.at(i - 1)->text());
-    QStringList& fmts = m_formats[i];
+    QStringList& fmts = m_formats[i]; // clazy:exclude=detaching-member
     if (index < fmts.size()) {
       fmts[index] = text;
     }

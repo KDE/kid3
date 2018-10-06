@@ -93,7 +93,7 @@ bool TimeEventModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_timeEvents.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  TimeEvent& timeEvent = m_timeEvents[index.row()];
+  TimeEvent& timeEvent = m_timeEvents[index.row()]; // clazy:exclude=detaching-member
   if (index.column() == CI_Time) {
     timeEvent.time = value.toTime();
   } else {

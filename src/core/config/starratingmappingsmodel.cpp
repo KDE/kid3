@@ -93,7 +93,7 @@ bool StarRatingMappingsModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_maps.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  QPair<QString, QVector<int> >& item = m_maps[index.row()];
+  QPair<QString, QVector<int> >& item = m_maps[index.row()]; // clazy:exclude=detaching-member
   bool changed = false;
   if (role == Qt::EditRole) {
     if (index.column() == CI_Name) {
@@ -220,12 +220,12 @@ QList<QPair<QString, QVector<int> > > StarRatingMappingsModel::getMappings() con
  */
 void StarRatingMappingsModel::makeRowValid(int row)
 {
-  QString& type = m_maps[row].first;
+  QString& type = m_maps[row].first; // clazy:exclude=detaching-member
   type = type.trimmed();
   if (type == QLatin1String("POPM.")) {
     type.truncate(4);
   }
-  QVector<int>& values = m_maps[row].second;
+  QVector<int>& values = m_maps[row].second; // clazy:exclude=detaching-member
   int previousValue = 0;
   for (auto it = values.begin(); it != values.end(); ++it) {
     if (*it <= previousValue) {

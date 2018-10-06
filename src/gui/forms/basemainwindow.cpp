@@ -307,7 +307,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
       QFileInfo fileInfo(filePath);
       if (!fileInfo.isWritable()) {
         errorMsgs.append(tr("%1 is not writable").arg(fileInfo.fileName()));
-        notWritableFiles.append(filePath);
+        notWritableFiles.append(filePath); // clazy:exclude=reserve-candidates
       } else {
         errorMsgs.append(fileInfo.fileName());
       }
@@ -1337,7 +1337,7 @@ void BaseMainWindowImpl::deleteFile()
     selItems.append(index);
   const auto selectedIndexes = selItems;
   for (const QPersistentModelIndex& index : selectedIndexes) {
-    files.append(model->filePath(index));
+    files.append(model->filePath(index)); // clazy:exclude=reserve-candidates
   }
 
   const int numFiles = files.size();
@@ -1357,7 +1357,7 @@ void BaseMainWindowImpl::deleteFile()
         if (model->isDir(index)) {
           if (!m_platformTools->moveToTrash(absFilename)) {
             rmdirError = true;
-            files.append(absFilename);
+            files.append(absFilename); // clazy:exclude=reserve-candidates
           }
         } else {
           if (TaggedFile* taggedFile =
@@ -1367,7 +1367,7 @@ void BaseMainWindowImpl::deleteFile()
             taggedFile->closeFileHandle();
           }
           if (!m_platformTools->moveToTrash(absFilename)) {
-            files.append(absFilename);
+            files.append(absFilename); // clazy:exclude=reserve-candidates
           }
         }
       }

@@ -308,7 +308,7 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
   QStringList args = splitArgs(line);
   if (!args.isEmpty()) {
     const QString& name = args.at(0);
-    for (auto it = m_cmds.begin(); it != m_cmds.end(); ++it) {
+    for (auto it = m_cmds.begin(); it != m_cmds.end(); ++it) { // clazy:exclude=detaching-member
       CliCommand* cmd = *it;
       if (name == cmd->name()) {
         cmd->setArgs(args);
@@ -431,14 +431,14 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
                                     QDir::AllEntries | QDir::NoDotAndDotDot);
           if (!entries.isEmpty()) {
             for (const QString& entry : entries) {
-              expandedPath.append(partBefore + entry + partAfter);
+              expandedPath.append(partBefore + entry + partAfter); // clazy:exclude=reserve-candidates
             }
           }
         }
       }
     }
     if (expandedPath.isEmpty()) {
-      expandedPaths.append(path);
+      expandedPaths.append(path); // clazy:exclude=reserve-candidates
     } else {
       expandedPaths.append(expandedPath);
     }

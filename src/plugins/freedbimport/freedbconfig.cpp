@@ -72,7 +72,7 @@ TrackTypeConfig::TrackTypeConfig() :
  */
 void TrackTypeConfig::readFromConfig(ISettings* config)
 {
-  ServerImporterConfig::readFromConfig(config);
+  ServerImporterConfig::readFromConfig(config); // clazy:exclude=skipped-base-method
   if (server() == QLatin1String("gnudb.gnudb.org:80")) {
     setServer(QLatin1String("tracktype.org:80")); // replace default
   }

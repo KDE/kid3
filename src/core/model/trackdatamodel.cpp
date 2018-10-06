@@ -410,7 +410,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
 
   QList<Frame::ExtendedType> newFrameTypes;
   for (auto initFrameType : initFrameTypes) {
-    newFrameTypes.append(
+    newFrameTypes.append( // clazy:exclude=reserve-candidates
         Frame::ExtendedType(static_cast<Frame::Type>(initFrameType), QLatin1String("")));
   }
 

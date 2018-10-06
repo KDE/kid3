@@ -191,10 +191,10 @@ public:
 
 signals:
   /** Emitted when @a location changed. */
-  void locationChanged(PlaylistLocation location);
+  void locationChanged(PlaylistConfig::PlaylistLocation location);
 
   /** Emitted when @a format changed. */
-  void formatChanged(PlaylistFormat format);
+  void formatChanged(PlaylistConfig::PlaylistFormat format);
 
   /** Emitted when @a fileNameFormat changed. */
   void fileNameFormatChanged(const QString& fileNameFormat);

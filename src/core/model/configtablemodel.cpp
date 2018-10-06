@@ -85,7 +85,7 @@ bool ConfigTableModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_keyValues.size() ||
       index.column() < 0 || index.column() >= 2)
     return false;
-  QPair<QString, QString>& keyValue = m_keyValues[index.row()];
+  QPair<QString, QString>& keyValue = m_keyValues[index.row()]; // clazy:exclude=detaching-member
   if (index.column() == 0) {
     keyValue.first = value.toString();
   } else {

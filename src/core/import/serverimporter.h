@@ -204,6 +204,9 @@ public:
    */
   virtual ~AlbumListItem() override = default;
 
+  AlbumListItem(const AlbumListItem& other) = delete;
+  AlbumListItem &operator=(const AlbumListItem& other) = delete;
+
   /**
    * Get type of item.
    * Used to distinguish items of this custom type from base class items.

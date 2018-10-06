@@ -140,7 +140,7 @@ QStringList RenDirConfig::getDefaultDirFormatList()
 {
   QStringList strList;
   for (const char** sl = s_defaultDirFmtList; *sl != nullptr; ++sl) {
-    strList += QString::fromLatin1(*sl);
+    strList += QString::fromLatin1(*sl); // clazy:exclude=reserve-candidates
   }
   return strList;
 }

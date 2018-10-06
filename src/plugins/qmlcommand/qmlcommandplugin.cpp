@@ -105,7 +105,7 @@ bool QmlCommandPlugin::startUserCommand(
         setupQmlEngine(m_qmlView->engine());
         // New style functor based connection is not possible because
         // QQuickCloseEvent is not public (QTBUG-36453, QTBUG-55722).
-        connect(m_qmlView, SIGNAL(closing(QQuickCloseEvent*)),
+        connect(m_qmlView, SIGNAL(closing(QQuickCloseEvent*)), // clazy:exclude=old-style-connect
                 this, SLOT(onQmlViewClosing()));
         connect(m_qmlView->engine(), &QQmlEngine::quit,
                 this, &QmlCommandPlugin::onQmlViewFinished, Qt::QueuedConnection);

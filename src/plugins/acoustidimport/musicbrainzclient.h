@@ -90,19 +90,6 @@ public:
    */
   virtual void stop() override;
 
-signals:
-  /**
-   * Emitted when status of a file changed.
-   * Parameter: index of file, status text
-   */
-  void statusChanged(int, QString);
-
-  /**
-   * Emitted when results for a file are received.
-   * Parameter index of file, track data list
-   */
-  void resultsReceived(int, ImportTrackDataVector&);
-
 private slots:
   void receiveBytes(const QByteArray& bytes);
 

@@ -71,7 +71,7 @@ QString boolToString(bool b)
  * @param operators additional operators (besides not, and, or),
  *                  highest priority first
  */
-ExpressionParser::ExpressionParser(QStringList operators) :
+ExpressionParser::ExpressionParser(QStringList operators) : // clazy:exclude=function-args-by-ref
   m_operators(operators << QLatin1String("not") << QLatin1String("and") << QLatin1String("or")),
   m_error(false)
 {

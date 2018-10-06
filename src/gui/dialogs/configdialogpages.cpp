@@ -80,7 +80,7 @@ QString folderPatternListToString(const QStringList& folders,
       if (pattern.contains(QLatin1Char(' '))) {
         sep = QLatin1Char(';');
       }
-      patterns.append(pattern);
+      patterns.append(pattern); // clazy:exclude=reserve-candidates
     }
   }
   patterns.removeDuplicates();
@@ -113,7 +113,7 @@ QStringList folderPatternListFromString(const QString& patterns,
   for (const QString& pattern : patternList) {
     QString folder = pattern.trimmed();
     if (!folder.isEmpty()) {
-      folders.append(folder);
+      folders.append(folder); // clazy:exclude=reserve-candidates
     }
   }
 
@@ -641,7 +641,7 @@ void ConfigDialogPages::setConfigs(
   QStringList pluginOrder = tagCfg.pluginOrder();
   if (!pluginOrder.isEmpty()) {
     for (int i = 0; i < pluginOrder.size(); ++i) {
-      metadataPlugins.append(QString());
+      metadataPlugins.append(QString()); // clazy:exclude=reserve-candidates
     }
     const auto pluginNames = tagCfg.availablePlugins();
     for (const QString& pluginName : pluginNames) {
@@ -649,7 +649,7 @@ void ConfigDialogPages::setConfigs(
       if (pluginIdx >= 0) {
         metadataPlugins[pluginIdx] = pluginName;
       } else {
-        metadataPlugins.append(pluginName);
+        metadataPlugins.append(pluginName); // clazy:exclude=reserve-candidates
       }
     }
     metadataPlugins.removeAll(QString());
@@ -771,7 +771,7 @@ void ConfigDialogPages::getConfig() const
     pluginOrder.append(pluginName);
     if (m_enabledMetadataPluginsModel->index(row).data(Qt::CheckStateRole).
         toInt() != Qt::Checked) {
-      disabledPlugins.append(pluginName);
+      disabledPlugins.append(pluginName); // clazy:exclude=reserve-candidates
     }
   }
   tagCfg.setPluginOrder(pluginOrder);

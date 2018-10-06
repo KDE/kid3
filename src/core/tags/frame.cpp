@@ -418,8 +418,8 @@ void Frame::setValueFromFieldList()
 void Frame::setFieldListFromValue()
 {
   if (!fieldList().empty()) {
-    auto it = fieldList().end();
-    for (auto fldIt = fieldList().begin(); fldIt != fieldList().end(); ++fldIt) {
+    auto it = fieldList().end(); // clazy:exclude=detaching-member
+    for (auto fldIt = fieldList().begin(); fldIt != fieldList().end(); ++fldIt) { // clazy:exclude=detaching-member
       int id = (*fldIt).m_id;
       if (id == ID_Text ||
           id == ID_Description ||
@@ -561,7 +561,7 @@ bool Frame::isEqual(const Frame& other) const
  */
 bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 {
-  for (auto it = frame.fieldList().begin(); it != frame.fieldList().end(); ++it) {
+  for (auto it = frame.fieldList().begin(); it != frame.fieldList().end(); ++it) { // clazy:exclude=detaching-member
     if ((*it).m_id == id) {
       (*it).m_value = value;
       if (id == ID_Description) frame.setValue(value.toString());
@@ -1395,8 +1395,8 @@ void FrameCollection::dump() const
  * @return frames constructed from subframe fields.
  */
 FrameCollection FrameCollection::fromSubframes(
-    Frame::FieldList::const_iterator begin,
-    Frame::FieldList::const_iterator end)
+    Frame::FieldList::const_iterator begin, // clazy:exclude=function-args-by-ref
+    Frame::FieldList::const_iterator end) // clazy:exclude=function-args-by-ref
 {
   FrameCollection frames;
   Frame frame;

@@ -57,7 +57,7 @@ bool PlaylistModel::setData(const QModelIndex& index,
       index.column() == 0) {
     QModelIndex idx = m_fsModel->index(value.toString());
     if (idx.isValid()) {
-      QPersistentModelIndex& itemIdx = m_items[index.row()];
+      QPersistentModelIndex& itemIdx = m_items[index.row()]; // clazy:exclude=detaching-member
       if (itemIdx != idx) {
         itemIdx = idx;
         emit dataChanged(index, index);

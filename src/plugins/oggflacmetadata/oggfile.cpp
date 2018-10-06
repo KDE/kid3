@@ -266,7 +266,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
             if (vc) {
               ::vorbis_comment_clear(vc);
               ::vorbis_comment_init(vc);
-              auto it = m_comments.begin();
+              auto it = m_comments.begin(); // clazy:exclude=detaching-member
               while (it != m_comments.end()) {
                 QString name((*it).getName());
                 QString value((*it).getValue());
@@ -476,7 +476,7 @@ void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
     markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
-    for (auto it = m_comments.begin(); it != m_comments.end();) {
+    for (auto it = m_comments.begin(); it != m_comments.end();) { // clazy:exclude=detaching-member
       QString name((*it).getName());
       if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
         it = m_comments.erase(it);

@@ -1189,6 +1189,9 @@ public:
    */
   virtual ~FrameFormatReplacer() override = default;
 
+  FrameFormatReplacer(const FrameFormatReplacer& other) = delete;
+  FrameFormatReplacer &operator=(const FrameFormatReplacer& other) = delete;
+
   /**
    * Get help text for supported format codes.
    *

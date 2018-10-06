@@ -337,7 +337,7 @@ void MusicBrainzClient::processNextStep()
   {
     if (!verifyIdIndex())
       return;
-    QStringList& ids = m_idsOfTrack[m_currentIndex];
+    QStringList& ids = m_idsOfTrack[m_currentIndex]; // clazy:exclude=detaching-member
     if (!ids.isEmpty()) {
       emit statusChanged(m_currentIndex, tr("Metadata Lookup"));
       QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +

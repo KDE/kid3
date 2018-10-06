@@ -162,7 +162,7 @@ void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
       if (m_client->serverList()) {
         QStringList strList;
         for (const char** sl = m_client->serverList(); *sl != nullptr; ++sl) {
-          strList += QString::fromLatin1(*sl);
+          strList += QString::fromLatin1(*sl); // clazy:exclude=reserve-candidates
         }
         m_serverComboBox->clear();
         m_serverComboBox->addItems(strList);

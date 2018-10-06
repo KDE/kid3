@@ -902,7 +902,7 @@ private:
 SubframeFieldControl::SubframeFieldControl(
     IPlatformTools* platformTools, Kid3Application* app,
     const TaggedFile* taggedFile, Frame::TagNumber tagNr, Frame::FieldList& fields,
-    Frame::FieldList::iterator begin, Frame::FieldList::iterator end) :
+    Frame::FieldList::iterator begin, Frame::FieldList::iterator end) : // clazy:exclude=function-args-by-ref
   Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
   m_taggedFile(taggedFile), m_fields(fields),
   m_begin(begin), m_end(end), m_editor(nullptr), m_tagNr(tagNr)
@@ -1333,7 +1333,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
   m_fieldcontrols.clear();
   bool subframeMissing = false;
 
-  for (auto fldIt = m_fields.begin(); fldIt != m_fields.end(); ++fldIt) {
+  for (auto fldIt = m_fields.begin(); fldIt != m_fields.end(); ++fldIt) { // clazy:exclude=detaching-member
     Frame::Field& fld = *fldIt;
     if (fld.m_id == Frame::ID_ImageProperties)
       continue;
@@ -1341,7 +1341,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
     if (fld.m_id == Frame::ID_Subframe) {
       SubframeFieldControl* subframeCtl =
           new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
-            m_fields, fldIt, m_fields.end());
+            m_fields, fldIt, m_fields.end()); // clazy:exclude=detaching-member
       m_fieldcontrols.append(subframeCtl);
       subframeMissing = false;
       break;
@@ -1433,7 +1433,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
     // Add an empty subframe so that subframes can be added
     SubframeFieldControl* subframeCtl =
         new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
-          m_fields, m_fields.end(), m_fields.end());
+          m_fields, m_fields.end(), m_fields.end()); // clazy:exclude=detaching-member
     m_fieldcontrols.append(subframeCtl);
   }
 

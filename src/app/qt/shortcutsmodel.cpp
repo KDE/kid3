@@ -265,7 +265,7 @@ void ShortcutsModel::registerAction(QAction* action, const QString& context)
   ShortcutItem item(action);
   ShortcutGroup group(context);
 
-  auto it = m_shortcutGroups.begin();
+  auto it = m_shortcutGroups.begin(); // clazy:exclude=detaching-member
   for (; it != m_shortcutGroups.end(); ++it) {
     if (it->context() == group.context()) {
       it->append(item);
@@ -286,7 +286,7 @@ void ShortcutsModel::registerAction(QAction* action, const QString& context)
  */
 void ShortcutsModel::unregisterAction(QAction* action, const QString& context)
 {
-  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) {
+  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     if (git->context() == context) {
       for (auto iit = git->begin(); iit != git->end(); ++iit) {
         if (iit->action() == action) {
@@ -310,7 +310,7 @@ void ShortcutsModel::unregisterAction(QAction* action, const QString& context)
 bool ShortcutsModel::assignChangedShortcuts()
 {
   bool changed = false;
-  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) {
+  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
       if (iit->isCustomShortcutChanged()) {
         iit->assignCustomShortcut();
@@ -326,7 +326,7 @@ bool ShortcutsModel::assignChangedShortcuts()
  */
 void ShortcutsModel::discardChangedShortcuts()
 {
-  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) {
+  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
       iit->revertCustomShortcut();
     }
@@ -339,7 +339,7 @@ void ShortcutsModel::discardChangedShortcuts()
 void ShortcutsModel::clearShortcuts()
 {
   beginResetModel();
-  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) {
+  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
       iit->clearCustomShortcut();
     }
@@ -382,7 +382,7 @@ void ShortcutsModel::writeToConfig(ISettings* config) const
 void ShortcutsModel::readFromConfig(ISettings* config)
 {
   config->beginGroup(QLatin1String("Shortcuts"));
-  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) {
+  for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
       QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
       if (!actionName.isEmpty() && config->contains(actionName)) {

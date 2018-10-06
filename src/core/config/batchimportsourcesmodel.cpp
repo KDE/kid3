@@ -115,7 +115,7 @@ bool BatchImportSourcesModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_sources.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  BatchImportProfile::Source& item = m_sources[index.row()];
+  BatchImportProfile::Source& item = m_sources[index.row()]; // clazy:exclude=detaching-member
   if (role == Qt::EditRole) {
     switch (index.column()) {
     case CI_Name:

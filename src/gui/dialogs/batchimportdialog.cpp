@@ -352,7 +352,7 @@ void BatchImportDialog::setProfileFromGuiControls()
     m_profileComboBox->setEditText(m_profiles.at(0).getName());
   }
   if (m_profileIdx >= 0 && m_profileIdx < m_profiles.size()) {
-    BatchImportProfile& profile = m_profiles[m_profileIdx];
+    BatchImportProfile& profile = m_profiles[m_profileIdx]; // clazy:exclude=detaching-member
     profile.setSources(sources);
   }
 }

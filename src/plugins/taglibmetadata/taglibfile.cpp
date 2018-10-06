@@ -551,7 +551,7 @@ void FileIOStream::registerOpenFile(FileIOStream* stream)
 
   int numberOfFilesToClose = s_openFiles.size() - 15;
   if (numberOfFilesToClose > 5) {
-    for (auto it = s_openFiles.begin(); it != s_openFiles.end(); ++it) {
+    for (auto it = s_openFiles.begin(); it != s_openFiles.end(); ++it) { // clazy:exclude=detaching-member
       (*it)->closeFileHandle();
       if (--numberOfFilesToClose <= 0) {
         break;
@@ -3387,13 +3387,13 @@ void setData(TagLib::ID3v2::TableOfContentsFrame* f,
 }
 
 template <class T>
-void setSubframes(const TagLibFile*, T*, Frame::FieldList::const_iterator,
+void setSubframes(const TagLibFile*, T*, Frame::FieldList::const_iterator, // clazy:exclude=function-args-by-ref
                   Frame::FieldList::const_iterator) {}
 
 template <>
 void setSubframes(const TagLibFile* self, TagLib::ID3v2::ChapterFrame* f,
-                  Frame::FieldList::const_iterator begin,
-                  Frame::FieldList::const_iterator end)
+                  Frame::FieldList::const_iterator begin, // clazy:exclude=function-args-by-ref
+                  Frame::FieldList::const_iterator end) // clazy:exclude=function-args-by-ref
 {
   FrameCollection frames = FrameCollection::fromSubframes(begin, end);
   for (auto it = frames.begin(); it != frames.end(); ++it) {
@@ -3403,8 +3403,8 @@ void setSubframes(const TagLibFile* self, TagLib::ID3v2::ChapterFrame* f,
 
 template <>
 void setSubframes(const TagLibFile* self, TagLib::ID3v2::TableOfContentsFrame* f,
-                  Frame::FieldList::const_iterator begin,
-                  Frame::FieldList::const_iterator end)
+                  Frame::FieldList::const_iterator begin, // clazy:exclude=function-args-by-ref
+                  Frame::FieldList::const_iterator end) // clazy:exclude=function-args-by-ref
 {
   FrameCollection frames = FrameCollection::fromSubframes(begin, end);
   for (auto it = frames.begin(); it != frames.end(); ++it) {
@@ -6210,7 +6210,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
   QStringList lst;
   if (m_tagType[tagNr] == TT_Id3v2) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")). // clazy:exclude=reserve-candidates
                  getName());
     }
     for (const auto& ts : typeStrOfId) {
@@ -6229,7 +6229,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       getMp4NameForType(type, name, valueType);
       if (!name.isEmpty() && valueType != MVT_ByteArray &&
           !(name[0] >= 'A' && name[0] <= 'Z')) {
-        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName()); // clazy:exclude=reserve-candidates
       }
     }
     for (const auto& mp4NameTypeValue : mp4NameTypeValues) {
@@ -6251,7 +6251,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       type = static_cast<Frame::Type>(k);
       getAsfNameForType(type, name, valueType);
       if (!name.isEmpty()) {
-        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName()); // clazy:exclude=reserve-candidates
       }
     }
     for (const auto& asfNameTypeValue : asfNameTypeValues) {
@@ -6278,11 +6278,11 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       auto type = static_cast<Frame::Type>(k);
       if (!getInfoNameFromType(type).isEmpty()) {
-        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getName()); // clazy:exclude=reserve-candidates
       }
     }
     for (auto fieldName : fieldNames) {
-      lst.append(QString::fromLatin1(fieldName));
+      lst.append(QString::fromLatin1(fieldName)); // clazy:exclude=reserve-candidates
     }
 #endif
   } else {
@@ -6318,7 +6318,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       }
     }
     for (auto fieldName : fieldNames) {
-      lst.append(QString::fromLatin1(fieldName));
+      lst.append(QString::fromLatin1(fieldName)); // clazy:exclude=reserve-candidates
     }
   }
   return lst;

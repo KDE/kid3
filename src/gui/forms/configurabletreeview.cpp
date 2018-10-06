@@ -123,7 +123,7 @@ QList<int> ConfigurableTreeView::getVisibleColumns() const
   for (int visualIdx = 0; visualIdx < headerView->count(); ++visualIdx) {
     int logicalIdx = headerView->logicalIndex(visualIdx);
     if (!headerView->isSectionHidden(logicalIdx)) {
-      columns.append(logicalIdx);
+      columns.append(logicalIdx); // clazy:exclude=reserve-candidates
     }
   }
   return columns;

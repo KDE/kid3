@@ -165,7 +165,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       if (m_source->serverList()) {
         QStringList strList;
         for (const char** sl = m_source->serverList(); *sl != nullptr; ++sl) {
-          strList += QString::fromLatin1(*sl);
+          strList += QString::fromLatin1(*sl); // clazy:exclude=reserve-candidates
         }
         m_serverComboBox->clear();
         m_serverComboBox->addItems(strList);

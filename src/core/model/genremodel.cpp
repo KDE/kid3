@@ -34,7 +34,7 @@ QList<QStandardItem*> createGenreItems()
 {
   QList<QStandardItem*> items;
   for (const char** sl = Genres::s_strList; *sl != nullptr; ++sl) {
-    items.append(new QStandardItem(QString::fromLatin1(*sl)));
+    items.append(new QStandardItem(QString::fromLatin1(*sl))); // clazy:exclude=reserve-candidates
   }
   return items;
 }

@@ -42,13 +42,15 @@ class CheckableListModel : public QAbstractProxyModel {
   Q_OBJECT
   /** Source model, equivalent to the model propery of VisualDataModel. */
   Q_PROPERTY(QObject* sourceModel
-             READ sourceModel WRITE setSourceModelObject)
+             READ sourceModel WRITE setSourceModelObject
+             NOTIFY sourceModelChanged)
   /** Selection model used to store the selections with the checkState role. */
   Q_PROPERTY(QObject* selectionModel
              READ selectionModel WRITE setSelectionModelObject
              NOTIFY selectionModelChanged)
   /** Root node in the hierarchical source model. */
-  Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex)
+  Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex
+             NOTIFY rootIndexChanged)
   /** Current row. */
   Q_PROPERTY(int currentRow READ currentRow WRITE setCurrentRow
              NOTIFY currentRowChanged)

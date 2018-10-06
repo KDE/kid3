@@ -577,6 +577,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           const QString& name = it.key();
           const QByteArray& str = value;
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+          // clazy:excludeall=qlatin1string-non-ascii
           if (name == QLatin1String("\251nam")) {
             MP4TagsSetName(tags, str);
           } else if (name == QLatin1String("\251ART")) {
@@ -897,7 +898,7 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
     markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
-    for (auto it = m_metadata.begin(); it != m_metadata.end();) {
+    for (auto it = m_metadata.begin(); it != m_metadata.end();) { // clazy:exclude=detaching-member
       QString name(it.key());
       Frame::Type type = getTypeForName(name);
       if (flt.isEnabled(type, name)) {
@@ -947,7 +948,7 @@ void M4aFile::setTextField(const QString& name, const QString& value,
 {
   if (m_fileRead && !value.isNull()) {
     QByteArray str = value.toUtf8();
-    auto it = m_metadata.find(name);
+    auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
       if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
         *it = str;
@@ -1079,7 +1080,7 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     QString name(frame.getInternalName());
-    auto it = m_metadata.find(name);
+    auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
       if (frame.getType() != Frame::FT_Picture) {
         QByteArray str = frame.getValue().toUtf8();
@@ -1190,7 +1191,7 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     QString name(frame.getInternalName());
-    auto it = m_metadata.find(name);
+    auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
       m_metadata.erase(it);
       markTagChanged(Frame::Tag_2, frame.getType());
@@ -1284,7 +1285,7 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
 
   QStringList lst;
   for (auto type : types) {
-    lst.append(Frame::ExtendedType(type, QLatin1String("")).
+    lst.append(Frame::ExtendedType(type, QLatin1String("")). // clazy:exclude=reserve-candidates
                getName());
   }
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106

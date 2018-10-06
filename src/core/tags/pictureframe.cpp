@@ -145,7 +145,7 @@ PictureFrame::PictureFrame(
  */
 PictureFrame::PictureFrame(const Frame& frame)
 {
-  *(static_cast<Frame*>(this)) = frame;
+  *(static_cast<Frame*>(this)) = frame; // clazy:exclude=unneeded-cast
   setType(FT_Picture);
 
   // Make sure all fields are available in the correct order

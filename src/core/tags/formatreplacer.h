@@ -53,6 +53,9 @@ public:
    */
   virtual ~FormatReplacer();
 
+  FormatReplacer(const FormatReplacer& other) = delete;
+  FormatReplacer &operator=(const FormatReplacer& other) = delete;
+
   /**
    * Set string with format codes.
    * @param str string with format codes

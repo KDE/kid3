@@ -166,7 +166,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
     int dsp = 0; // "duration search pos"
     int lastDsp = dsp;
     while ((idx = (match = m_re.match(text, dsp)).capturedStart()) != -1) {
-      QString durationStr = match.captured(m_codePos[QLatin1String("__duration")]);
+      QString durationStr = match.captured(m_codePos.value(QLatin1String("__duration")));
       int duration;
       QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
       if (durationRe.indexIn(durationStr) != -1) {

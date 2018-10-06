@@ -569,7 +569,7 @@ QStringList ScriptInterface::getInformation()
     FOR_ALL_TAGS(tagNr) {
       QString tag = taggedFile->getTagFormat(tagNr);
       if (!tag.isEmpty()) {
-        lst << QLatin1String("Tag ") + Frame::tagNumberToString(tagNr) << tag;
+        lst << QLatin1String("Tag ") + Frame::tagNumberToString(tagNr) << tag; // clazy:exclude=reserve-candidates
       }
     }
   }

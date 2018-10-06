@@ -257,7 +257,7 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
     bool pictureSet = false;
     bool pictureRemoved = false;
-    auto pictureIt = m_pictures.begin();
+    auto pictureIt = m_pictures.begin(); // clazy:exclude=detaching-member
 #endif
 
     FLAC::Metadata::Chain::Status status = m_chain->status();
@@ -528,7 +528,7 @@ void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
   OggFile::getAllFrames(tagNr, frames);
   if (tagNr == Frame::Tag_2) {
     int i = 0;
-    for (auto it = m_pictures.begin(); it != m_pictures.end(); ++it) {
+    for (auto it = m_pictures.begin(); it != m_pictures.end(); ++it) { // clazy:exclude=detaching-member
       (*it).setIndex(i++);
       frames.insert(*it);
     }
@@ -557,7 +557,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
   }
 #endif
   // then our comments are appended
-  auto it = m_comments.begin();
+  auto it = m_comments.begin(); // clazy:exclude=detaching-member
   while (it != m_comments.end()) {
     QString name((*it).getName());
     QString value((*it).getValue());

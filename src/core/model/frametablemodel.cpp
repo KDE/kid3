@@ -670,12 +670,12 @@ void FrameTableModel::updateFrameRowMapping()
   const FrameCollection& frameCollection = frames();
   m_frameOfRow.resize(frameCollection.size());
   auto frameIt = frameCollection.begin();
-  auto rowIt = m_frameOfRow.begin();
+  auto rowIt = m_frameOfRow.begin(); // clazy:exclude=detaching-member
   for (; frameIt != frameCollection.end(); ++frameIt, ++rowIt) {
     *rowIt = frameIt;
   }
   if (!m_frameTypeSeqNr.isEmpty()) {
-    std::stable_sort(m_frameOfRow.begin(), m_frameOfRow.end(),
+    std::stable_sort(m_frameOfRow.begin(), m_frameOfRow.end(), // clazy:exclude=detaching-member
                      FrameLessThan(m_frameTypeSeqNr));
   }
 }

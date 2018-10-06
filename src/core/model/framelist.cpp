@@ -172,17 +172,17 @@ void FrameList::setFrameEditor(IFrameEditor* frameEditor)
   if (m_frameEditor != frameEditor) {
     if (m_frameEditor) {
       QObject* obj = m_frameEditor->qobject();
-      disconnect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)),
+      disconnect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)), // clazy:exclude=old-style-connect
                  this, SLOT(onFrameSelected(Frame::TagNumber,const Frame*)));
-      disconnect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)),
+      disconnect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)), // clazy:exclude=old-style-connect
                  this, SLOT(onFrameEdited(Frame::TagNumber,const Frame*)));
     }
     m_frameEditor = frameEditor;
     if (m_frameEditor) {
       QObject* obj = m_frameEditor->qobject();
-      connect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)),
+      connect(obj, SIGNAL(frameSelected(Frame::TagNumber,const Frame*)), // clazy:exclude=old-style-connect
               this, SLOT(onFrameSelected(Frame::TagNumber,const Frame*)));
-      connect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)),
+      connect(obj, SIGNAL(frameEdited(Frame::TagNumber,const Frame*)), // clazy:exclude=old-style-connect
               this, SLOT(onFrameEdited(Frame::TagNumber,const Frame*)));
     }
   }

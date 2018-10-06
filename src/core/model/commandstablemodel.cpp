@@ -113,7 +113,7 @@ bool CommandsTableModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_cmdList.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  UserActionsConfig::MenuCommand& item = m_cmdList[index.row()];
+  UserActionsConfig::MenuCommand& item = m_cmdList[index.row()]; // clazy:exclude=detaching-member
   if (role == Qt::EditRole) {
     switch (index.column()) {
     case CI_Name:

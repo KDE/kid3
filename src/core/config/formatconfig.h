@@ -212,7 +212,7 @@ signals:
   void strRepMapChanged(const QMap<QString, QString>& strRepMap);
 
   /** Emitted when @a caseConversion changed. */
-  void caseConversionChanged(CaseConversion caseConversion);
+  void caseConversionChanged(FormatConfig::CaseConversion caseConversion);
 
   /** Emitted when @a localeName changed. */
   void localeNameChanged(const QString& localeName);

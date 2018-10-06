@@ -45,6 +45,9 @@ public:
    */
   virtual ~DummySettings() override = default;
 
+  DummySettings(const DummySettings& other) = delete;
+  DummySettings &operator=(const DummySettings& other) = delete;
+
   /**
    * Use settings subgroup.
    * @param prefix group name

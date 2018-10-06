@@ -134,7 +134,7 @@ public:
    * @return frames.
    */
   FrameCollection& getFrameCollection() {
-    return *(static_cast<FrameCollection*>(this));
+    return *this;
   }
 
   /**
@@ -142,7 +142,7 @@ public:
    * @param frames frames
    */
   void setFrameCollection(const FrameCollection& frames) {
-    *(static_cast<FrameCollection*>(this)) = frames;
+    *(static_cast<FrameCollection*>(this)) = frames; // clazy:exclude=unneeded-cast
   }
 
   /**
@@ -320,6 +320,9 @@ public:
    * Destructor.
    */
   virtual ~TrackDataFormatReplacer() override = default;
+
+  TrackDataFormatReplacer(const TrackDataFormatReplacer& other) = delete;
+  TrackDataFormatReplacer &operator=(const TrackDataFormatReplacer& other) = delete;
 
   /**
    * Get help text for supported format codes.

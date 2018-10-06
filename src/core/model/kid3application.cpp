@@ -372,7 +372,7 @@ void Kid3Application::initPlugins()
   if (!pluginOrder.isEmpty()) {
     QList<ITaggedFileFactory*> orderedFactories;
     for (int i = 0; i < pluginOrder.size(); ++i) {
-      orderedFactories.append(nullptr);
+      orderedFactories.append(nullptr); // clazy:exclude=reserve-candidates
     }
     const auto factories = FileProxyModel::taggedFileFactories();
     for (ITaggedFileFactory* factory : factories) {
@@ -380,7 +380,7 @@ void Kid3Application::initPlugins()
       if (idx >= 0) {
         orderedFactories[idx] = factory;
       } else {
-        orderedFactories.append(factory);
+        orderedFactories.append(factory); // clazy:exclude=reserve-candidates
       }
     }
     orderedFactories.removeAll(nullptr);
@@ -1418,7 +1418,7 @@ bool Kid3Application::hasModifiedPlaylistModel() const
  */
 void Kid3Application::saveModifiedPlaylistModels()
 {
-  for (auto it = m_playlistModels.begin(); it != m_playlistModels.end(); ++it) {
+  for (auto it = m_playlistModels.begin(); it != m_playlistModels.end(); ++it) { // clazy:exclude=detaching-member
     if ((*it)->isModified()) {
       (*it)->save();
     }
@@ -2260,9 +2260,9 @@ void Kid3Application::openDrop(const QStringList& paths)
       if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
-        picturePaths.append(dir);
+        picturePaths.append(dir); // clazy:exclude=reserve-candidates
       } else {
-        filePaths.append(dir);
+        filePaths.append(dir); // clazy:exclude=reserve-candidates
       }
     }
   }
@@ -2539,7 +2539,7 @@ void Kid3Application::selectAllInDirectory()
     for (int row = 0; row < m_fileProxyModel->rowCount(parent); ++row) {
       QModelIndex index = m_fileProxyModel->index(row, 0, parent);
       if (!m_fileProxyModel->hasChildren(index)) {
-        selection.append(QItemSelectionRange(index));
+        selection.append(QItemSelectionRange(index)); // clazy:exclude=reserve-candidates
       }
     }
     m_fileSelectionModel->select(selection,

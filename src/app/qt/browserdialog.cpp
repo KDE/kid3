@@ -65,7 +65,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
     QString lang(uiLang.left(2));
     docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
     if (!docDir.isNull()) {
-      docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+      docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html"); // clazy:exclude=reserve-candidates
     }
   }
 #endif

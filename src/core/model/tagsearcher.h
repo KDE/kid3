@@ -288,14 +288,14 @@ public slots:
    * Find next occurrence of string.
    * @param params search parameters
    */
-  void find(const Parameters& params);
+  void find(const TagSearcher::Parameters& params);
 
   /**
    * Replace found text.
    * @param params search parameters
    * @return true if replaced.
    */
-  void replace(const Parameters& params);
+  void replace(const TagSearcher::Parameters& params);
 
   /**
    * Replace all occurrences.
