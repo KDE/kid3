@@ -163,12 +163,16 @@ void extractFileFieldIndex(
     frameName.truncate(dotIndex);
   }
   int bracketIndex = frameName.indexOf(QLatin1Char('['));
-  if (bracketIndex != -1 && bracketIndex + 2 < frameName.length() &&
-      frameName.at(bracketIndex + 2) == QLatin1Char(']')) {
-    const char indexChar = frameName.at(bracketIndex + 1).toLatin1();
-    if (indexChar >= '0' && indexChar <= '9') {
-      index = indexChar - '0';
-      frameName.remove(bracketIndex, 3);
+  if (bracketIndex != -1) {
+    const int closingBracketIndex =
+        frameName.indexOf(QLatin1Char(']'), bracketIndex + 1);
+    if (closingBracketIndex > bracketIndex) {
+      bool ok;
+      index = frameName.midRef(
+          bracketIndex + 1, closingBracketIndex - bracketIndex - 1).toInt(&ok);
+      if (ok) {
+        frameName.remove(bracketIndex, closingBracketIndex - bracketIndex + 1);
+      }
     }
   }
 }
