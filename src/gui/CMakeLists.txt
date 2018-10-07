@@ -1,32 +1,108 @@
-include_directories(
-  ../core/utils ../core/config ../core/tags ../core/export ../core/import ../core/model
-  widgets dialogs forms
+qt5_wrap_cpp(gui_GEN_MOC_SRCS
+  widgets/abstractlistedit.h
+  widgets/configtable.h
+  widgets/formatbox.h
+  widgets/filenameformatbox.h
+  widgets/tagformatbox.h
+  widgets/formatlistedit.h
+  widgets/frametable.h
+  widgets/imageviewer.h
+  widgets/playtoolbar.h
+  widgets/stringlistedit.h
+  widgets/timeeventeditor.h
+  widgets/timestampdelegate.h
+  widgets/chaptereditor.h
+  widgets/tableofcontentseditor.h
+  widgets/subframeseditor.h
+  widgets/progresswidget.h
+  widgets/frameitemdelegate.h
+  widgets/tablemodeledit.h
+  dialogs/batchimportdialog.h
+  dialogs/batchimportsourcedialog.h
+  dialogs/browsecoverartdialog.h
+  dialogs/configdialogpages.h
+  dialogs/downloaddialog.h
+  dialogs/editframefieldsdialog.h
+  dialogs/exportdialog.h
+  dialogs/filterdialog.h
+  dialogs/importdialog.h
+  dialogs/servertrackimportdialog.h
+  dialogs/numbertracksdialog.h
+  dialogs/playlistdialog.h
+  dialogs/rendirdialog.h
+  dialogs/serverimportdialog.h
+  dialogs/tagimportdialog.h
+  dialogs/textimportdialog.h
+  dialogs/findreplacedialog.h
+  dialogs/playlisteditdialog.h
+  forms/filelist.h
+  forms/configurabletreeview.h
+  forms/kid3form.h
+  forms/basemainwindow.h
+  forms/playlistview.h
+  TARGET kid3-gui
 )
 
-set(gui_SRCS)
-set(gui_MOC_HDRS)
-foreach (_subdir widgets dialogs forms)
-  include(${_subdir}/Sources.cmake)
-  set(gui_SRCS ${gui_SRCS} ${${_subdir}_SRCS})
-  set(gui_MOC_HDRS ${gui_MOC_HDRS} ${${_subdir}_MOC_HDRS})
-endforeach()
+add_library(kid3-gui
+  widgets/abstractlistedit.cpp
+  widgets/comboboxdelegate.cpp
+  widgets/configtable.cpp
+  widgets/formatbox.cpp
+  widgets/filenameformatbox.cpp
+  widgets/tagformatbox.cpp
+  widgets/formatlistedit.cpp
+  widgets/frametable.cpp
+  widgets/imageviewer.cpp
+  widgets/picturelabel.cpp
+  widgets/playtoolbar.cpp
+  widgets/stringlistedit.cpp
+  widgets/timeeventeditor.cpp
+  widgets/enumdelegate.cpp
+  widgets/eventcodedelegate.cpp
+  widgets/timestampdelegate.cpp
+  widgets/chaptereditor.cpp
+  widgets/tableofcontentseditor.cpp
+  widgets/subframeseditor.cpp
+  widgets/progresswidget.cpp
+  widgets/frameitemdelegate.cpp
+  widgets/tablemodeledit.cpp
+  dialogs/batchimportdialog.cpp
+  dialogs/batchimportsourcedialog.cpp
+  dialogs/browsecoverartdialog.cpp
+  dialogs/configdialogpages.cpp
+  dialogs/contexthelp.cpp
+  dialogs/downloaddialog.cpp
+  dialogs/editframefieldsdialog.cpp
+  dialogs/exportdialog.cpp
+  dialogs/filterdialog.cpp
+  dialogs/importdialog.cpp
+  dialogs/servertrackimportdialog.cpp
+  dialogs/numbertracksdialog.cpp
+  dialogs/playlistdialog.cpp
+  dialogs/rendirdialog.cpp
+  dialogs/serverimportdialog.cpp
+  dialogs/tagimportdialog.cpp
+  dialogs/textimportdialog.cpp
+  dialogs/findreplacedialog.cpp
+  dialogs/playlisteditdialog.cpp
+  forms/filelist.cpp
+  forms/configurabletreeview.cpp
+  forms/kid3form.cpp
+  forms/basemainwindow.cpp
+  forms/iplatformtools.cpp
+  forms/playlistview.cpp
+  ${gui_GEN_MOC_SRCS}
+)
 
-add_definitions(-DKID3_BUILD_GUI_LIB)
-if (NOT BUILD_SHARED_LIBS)
-  add_definitions(${QT_EXECUTABLE_COMPILE_FLAGS})
-endif (NOT BUILD_SHARED_LIBS)
-if (WITH_GCC_PCH)
-  add_definitions(${GCC_PCH_COMPILE_FLAGS})
-endif (WITH_GCC_PCH)
+target_include_directories(kid3-gui PRIVATE widgets PUBLIC dialogs forms)
 
-qt5_wrap_cpp(gui_GEN_MOC_SRCS ${gui_MOC_HDRS} TARGET kid3-gui)
+target_compile_definitions(kid3-gui PRIVATE KID3_BUILD_GUI_LIB)
 
-add_library(kid3-gui ${gui_SRCS} ${gui_GEN_MOC_SRCS})
 set_target_properties(kid3-gui PROPERTIES VERSION ${KID3_VERSION})
 target_link_libraries(kid3-gui kid3-core)
 
-if (BUILD_SHARED_LIBS)
+if(BUILD_SHARED_LIBS)
   install(TARGETS kid3-gui
     LIBRARY DESTINATION ${WITH_LIBDIR}
     RUNTIME DESTINATION ${WITH_BINDIR})
-endif (BUILD_SHARED_LIBS)
+endif()

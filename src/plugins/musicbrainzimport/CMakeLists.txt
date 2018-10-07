@@ -1,24 +1,18 @@
-set(plugin_SRCS
-  musicbrainzimportplugin.cpp
-  musicbrainzimporter.cpp
-  musicbrainzconfig.cpp
-)
-
-set(plugin_MOC_HDRS
-  musicbrainzimportplugin.h
-)
-
 set(plugin_NAME MusicBrainzImport)
-
-if (WITH_GCC_PCH)
-  add_definitions(${GCC_PCH_COMPILE_FLAGS})
-endif (WITH_GCC_PCH)
 
 string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-qt5_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS} TARGET ${plugin_TARGET})
+qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+  musicbrainzimportplugin.h
+  TARGET ${plugin_TARGET}
+)
 
-add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
-target_link_libraries(${plugin_TARGET} kid3-core)
+add_library(${plugin_TARGET}
+  musicbrainzimportplugin.cpp
+  musicbrainzimporter.cpp
+  musicbrainzconfig.cpp
+  ${plugin_GEN_MOC_SRCS}
+)
+target_link_libraries(${plugin_TARGET} kid3-core Kid3Plugin)
 
 INSTALL_KID3_PLUGIN(${plugin_TARGET} ${plugin_NAME})

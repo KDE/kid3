@@ -1,28 +1,64 @@
-if (NOT HAVE_QMLDIR_IN_QRC)
-# Before starting Qt Creator, export the environment variable
-# QML_IMPORT_PATH=<qt5dir>/qml:<qt5dir>/imports
-# so that the editor supports the QML types.
-# On Linux, this can be done in ~/.xsessionrc.
-set(qml_SUBDIRS script)
-if (BUILD_QML_APP)
-  set(qml_SUBDIRS ${qml_SUBDIRS} app)
-endif (BUILD_QML_APP)
-
-set(qml_QML_SRCS)
-foreach (_subdir ${qml_SUBDIRS})
-  include(${_subdir}/Sources.cmake)
-  set(qml_QML_SRCS ${qml_QML_SRCS} ${${_subdir}_QML_SRCS})
-  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_subdir}
+if(NOT HAVE_QMLDIR_IN_QRC)
+  # Before starting Qt Creator, export the environment variable
+  # QML_IMPORT_PATH=<qt5dir>/qml:<qt5dir>/imports
+  # so that the editor supports the QML types.
+  # On Linux, this can be done in ~/.xsessionrc.
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/script
           DESTINATION ${WITH_QMLDIR}
           FILES_MATCHING PATTERN "*.qml" PATTERN "*.js")
-endforeach (_subdir)
-if (BUILD_QML_APP)
-  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons
-          DESTINATION ${WITH_QMLDIR}
-          FILES_MATCHING PATTERN "*.png" PATTERN "*.svg")
-endif (BUILD_QML_APP)
 
-# Only used to add the QML sources to the project.
-add_custom_target(qml-sources SOURCES ${qml_QML_SRCS})
+  if(BUILD_QML_APP)
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/app
+            DESTINATION ${WITH_QMLDIR}
+            FILES_MATCHING PATTERN "*.qml" PATTERN "*.js")
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons
+            DESTINATION ${WITH_QMLDIR}
+            FILES_MATCHING PATTERN "*.png" PATTERN "*.svg")
+  endif()
 
-endif (NOT HAVE_QMLDIR_IN_QRC)
+  # Only used to add the QML sources to the project.
+  add_custom_target(qml-sources SOURCES
+    script/ReplayGain2SoundCheck.qml
+    script/ResizeAlbumArt.qml
+    script/QmlConsole.qml
+    script/ShowTextEncodingV1.qml
+    script/ExportCsv.qml
+    script/ImportCsv.qml
+    script/ExtractAlbumArt.qml
+    script/EmbedAlbumArt.qml
+    script/EmbedLyrics.qml
+    script/ExportPlaylist.qml
+  )
+  if(BUILD_QML_APP)
+    # Only used to add the QML sources to the project.
+    add_custom_target(qmlapp-sources SOURCES
+      app/Main.qml
+      app/MainPage.qml
+      app/Collapsible.qml
+      app/FrameDelegate.qml
+      app/FrameEditDialog.qml
+      app/FrameSelectDialog.qml
+      app/MessageDialog.qml
+      app/UiConstants.qml
+      app/FileList.qml
+      app/FileCollapsible.qml
+      app/TagCollapsible.qml
+      app/PictureCollapsible.qml
+      app/FileSelectDialog.qml
+      app/RenameDirectoryPage.qml
+      app/NumberTracksDialog.qml
+      app/FilterPage.qml
+      app/BatchImportPage.qml
+      app/AbstractSettingsPage.qml
+      app/SettingsElement.qml
+      app/SettingsPage.qml
+      app/SettingsItem.qml
+      app/AboutDialog.qml
+      app/Empty.qml
+      app/Standard.qml
+      app/ThinDivider.qml
+      app/IconButton.qml
+      app/ThinDivider.qml
+    )
+  endif()  
+endif()

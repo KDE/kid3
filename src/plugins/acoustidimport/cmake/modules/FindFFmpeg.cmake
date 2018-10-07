@@ -1,134 +1,165 @@
-# Locate ffmpeg
-# This module defines
-# FFMPEG_LIBRARIES
-# FFMPEG_FOUND, if false, do not try to link to ffmpeg
-# FFMPEG_INCLUDE_DIR, where to find the headers
+# FindFFmpeg
+# ----------
 #
-# $FFMPEG_DIR is an environment variable that would
-# correspond to the ./configure --prefix=$FFMPEG_DIR
+# Find the native FFmpeg includes and libraries
 #
-# Created by Robert Osfield.
-# Modified by Lukas Lalinsky.
+# This module defines the following variables:
+#
+#  FFmpeg_INCLUDE_<component>: where to find <component>.h
+#  FFmpeg_LIBRARY_<component>: where to find the <component> library
+#  FFmpeg_INCLUDES: aggregate all the include paths
+#  FFmpeg_LIBRARIES: aggregate all the paths to the libraries
+#  FFmpeg_FOUND: True if all components have been found
+#
+# This module defines the following targets, which are prefered over variables:
+#
+#  FFmpeg::<component>: Target to use <component> directly, with include path,
+#    library and dependencies set up. If you are using a static build, you are
+#    responsible for adding any external dependencies (such as zlib, bzlib...).
+#
+# <component> can be one of:
+#   avcodec
+#   avdevice
+#   avfilter
+#   avformat
+#   postproc
+#   swresample
+#   swscale
+#
 
-
-#In ffmpeg code, old version use "#include <header.h>" and newer use "#include <libname/header.h>"
-#In OSG ffmpeg plugin, we use "#include <header.h>" for compatibility with old version of ffmpeg
-
-#We have to search the path which contain the header.h (useful for old version)
-#and search the path which contain the libname/header.h (useful for new version)
-
-#Then we need to include ${FFMPEG_libname_INCLUDE_DIRS} (in old version case, use by ffmpeg header and osg plugin code)
-#                                                       (in new version case, use by ffmpeg header) 
-#and ${FFMPEG_libname_INCLUDE_DIRS/libname}             (in new version case, use by osg plugin code)
-
-# Macro to find header and lib directories
-# example: FFMPEG_FIND(AVFORMAT avformat avformat.h)
-MACRO(FFMPEG_FIND varname shortname headername)
-
-	FIND_PATH(FFMPEG_${varname}_INCLUDE_DIRS lib${shortname}/${headername}
-		PATHS
-		${FFMPEG_ROOT}/include
-		$ENV{FFMPEG_DIR}/include
-		~/Library/Frameworks
-		/Library/Frameworks
-		/usr/local/include
-		/usr/include/
-		/sw/include # Fink
-		/opt/local/include # DarwinPorts
-		/opt/csw/include # Blastwave
-		/opt/include
-		/usr/freeware/include
-		NO_DEFAULT_PATH
-		PATH_SUFFIXES ffmpeg
-		DOC "Location of FFMPEG Headers"
-	)
-	FIND_PATH(FFMPEG_${varname}_INCLUDE_DIRS lib${shortname}/${headername}
-		PATH_SUFFIXES ffmpeg
-		DOC "Location of FFMPEG Headers"
-	)
-
-  if(WIN32 OR APPLE OR FFMPEG_ROOT)
-    FIND_LIBRARY(FFMPEG_${varname}_LIBRARIES
-        NAMES ${shortname}
-        PATHS
-        ${FFMPEG_ROOT}/lib
-        $ENV{FFMPEG_DIR}/lib
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local/lib
-        /usr/local/lib64
-        /usr/lib
-        /usr/lib64
-        /sw/lib
-        /opt/local/lib
-        /opt/csw/lib
-        /opt/lib
-        /usr/freeware/lib64
-		NO_DEFAULT_PATH
-        DOC "Location of FFMPEG Libraries"
-    )
-    FIND_LIBRARY(FFMPEG_${varname}_LIBRARIES
-        NAMES ${shortname}
-        DOC "Location of FFMPEG Libraries"
-    )
-  else(WIN32 OR APPLE OR FFMPEG_ROOT)
-    pkg_check_modules(FFMPEG_${varname} lib${shortname})
-  endif(WIN32 OR APPLE OR FFMPEG_ROOT)
-
-    IF (FFMPEG_${varname}_LIBRARIES AND FFMPEG_${varname}_INCLUDE_DIRS)
-        SET(FFMPEG_${varname}_FOUND 1)
-    ENDIF(FFMPEG_${varname}_LIBRARIES AND FFMPEG_${varname}_INCLUDE_DIRS)
-
-ENDMACRO(FFMPEG_FIND)
-
-SET(FFMPEG_ROOT "$ENV{FFMPEG_DIR}" CACHE PATH "Location of FFMPEG")
-
-# find stdint.h
-FIND_PATH(FFMPEG_STDINT_INCLUDE_DIR stdint.h
-    PATHS
-    ${FFMPEG_ROOT}/include
-    $ENV{FFMPEG_DIR}/include
-    ~/Library/Frameworks
-    /Library/Frameworks
-    /usr/local/include
-    /usr/include
-    /sw/include # Fink
-    /opt/local/include # DarwinPorts
-    /opt/csw/include # Blastwave
-    /opt/include
-    /usr/freeware/include
-    PATH_SUFFIXES ffmpeg
-    DOC "Location of FFMPEG stdint.h Header"
+set(_FFmpeg_ALL_COMPONENTS
+  avcodec
+  avdevice
+  avfilter
+  avformat
+  avutil
+  postproc
+  swresample
+  swscale
 )
 
-FFMPEG_FIND(LIBAVFORMAT avformat avformat.h)
-FFMPEG_FIND(LIBAVDEVICE avdevice avdevice.h)
-FFMPEG_FIND(LIBAVCODEC  avcodec  avcodec.h)
-FFMPEG_FIND(LIBAVCODEC_FFT  avcodec  avfft.h)
-FFMPEG_FIND(LIBAVUTIL   avutil   avutil.h)
-FFMPEG_FIND(LIBSWSCALE  swscale  swscale.h)  # not sure about the header to look for here.
-FFMPEG_FIND(LIBSWRESAMPLE swresample swresample.h)
-FFMPEG_FIND(LIBAVRESAMPLE avresample avresample.h)
+set(_FFmpeg_DEPS_avcodec avutil)
+set(_FFmpeg_DEPS_avdevice avcodec avformat avutil)
+set(_FFmpeg_DEPS_avfilter avutil)
+set(_FFmpeg_DEPS_avformat avcodec avutil)
+set(_FFmpeg_DEPS_postproc avutil)
+set(_FFmpeg_DEPS_swresample avutil)
+set(_FFmpeg_DEPS_swscale avutil)
 
-SET(FFMPEG_FOUND "NO")
-# Note we don't check FFMPEG_LIBSWSCALE_FOUND here, it's optional.
-IF   (FFMPEG_LIBAVFORMAT_FOUND AND FFMPEG_LIBAVDEVICE_FOUND AND FFMPEG_LIBAVCODEC_FOUND AND FFMPEG_LIBAVUTIL_FOUND AND FFMPEG_STDINT_INCLUDE_DIR)
+function(find_ffmpeg LIBNAME)
+  if(DEFINED ENV{FFMPEG_DIR})
+    set(FFMPEG_DIR $ENV{FFMPEG_DIR})
+  endif()
 
-    SET(FFMPEG_FOUND "YES")
+  if(FFMPEG_DIR)
+    list(APPEND INCLUDE_PATHS
+      ${FFMPEG_DIR}
+      ${FFMPEG_DIR}/ffmpeg
+      ${FFMPEG_DIR}/lib${LIBNAME}
+      ${FFMPEG_DIR}/include/lib${LIBNAME}
+      ${FFMPEG_DIR}/include/ffmpeg
+      ${FFMPEG_DIR}/include
+      NO_DEFAULT_PATH
+      NO_CMAKE_FIND_ROOT_PATH
+    )
+    list(APPEND LIB_PATHS
+      ${FFMPEG_DIR}
+      ${FFMPEG_DIR}/lib
+      ${FFMPEG_DIR}/lib${LIBNAME}
+      NO_DEFAULT_PATH
+      NO_CMAKE_FIND_ROOT_PATH
+    )
+  else()
+    list(APPEND INCLUDE_PATHS
+      /usr/local/include/ffmpeg
+      /usr/local/include/lib${LIBNAME}
+      /usr/include/ffmpeg
+      /usr/include/lib${LIBNAME}
+      /usr/include/ffmpeg/lib${LIBNAME}
+    )
 
-    SET(FFMPEG_INCLUDE_DIRS ${FFMPEG_LIBAVFORMAT_INCLUDE_DIRS})
+    list(APPEND LIB_PATHS
+      /usr/local/lib
+      /usr/lib
+    )
+  endif()
 
-    SET(FFMPEG_LIBRARY_DIRS ${FFMPEG_LIBAVFORMAT_LIBRARY_DIRS})
+  find_path(FFmpeg_INCLUDE_${LIBNAME} lib${LIBNAME}/${LIBNAME}.h
+    HINTS ${INCLUDE_PATHS}
+  )
 
-    # Note we don't add FFMPEG_LIBSWSCALE_LIBRARIES here, it will be added if found later.
-    SET(FFMPEG_LIBRARIES
-        ${FFMPEG_LIBAVFORMAT_LIBRARIES}
-        ${FFMPEG_LIBAVDEVICE_LIBRARIES}
-        ${FFMPEG_LIBAVCODEC_LIBRARIES}
-        ${FFMPEG_LIBAVUTIL_LIBRARIES})
+  find_library(FFmpeg_LIBRARY_${LIBNAME} ${LIBNAME}
+    HINTS ${LIB_PATHS}
+  )
 
-ELSE ()
+  if(NOT FFMPEG_DIR AND (NOT FFmpeg_LIBRARY_${LIBNAME} OR NOT FFmpeg_INCLUDE_${LIBNAME}))
+    # Didn't find it in the usual paths, try pkg-config
+    find_package(PkgConfig QUIET)
+    pkg_check_modules(FFmpeg_PKGCONFIG_${LIBNAME} QUIET lib${LIBNAME})
 
-#    MESSAGE(STATUS "Could not find FFMPEG")
+    find_path(FFmpeg_INCLUDE_${LIBNAME} lib${LIBNAME}/${LIBNAME}.h
+      ${FFmpeg_PKGCONFIG_${LIBNAME}_INCLUDE_DIRS}
+    )
 
-ENDIF()
+    find_library(FFmpeg_LIBRARY_${LIBNAME} ${LIBNAME}
+      ${FFmpeg_PKGCONFIG_${LIBNAME}_LIBRARY_DIRS}
+    )
+  endif()
+
+  if(FFmpeg_INCLUDE_${LIBNAME} AND FFmpeg_LIBRARY_${LIBNAME})
+    set(FFmpeg_INCLUDE_${LIBNAME} "${FFmpeg_INCLUDE_${LIBNAME}}" PARENT_SCOPE)
+    set(FFmpeg_LIBRARY_${LIBNAME} "${FFmpeg_LIBRARY_${LIBNAME}}" PARENT_SCOPE)
+    set(FFmpeg_${c}_FOUND TRUE PARENT_SCOPE)
+    if(NOT FFmpeg_FIND_QUIETLY)
+      message("--  Found ${LIBNAME}: ${FFmpeg_INCLUDE_${LIBNAME}} ${FFmpeg_LIBRARY_${LIBNAME}}")
+    endif()
+  endif()
+endfunction()
+
+foreach(c ${_FFmpeg_ALL_COMPONENTS})
+  find_ffmpeg(${c})
+endforeach()
+
+foreach(c ${_FFmpeg_ALL_COMPONENTS})
+  if(FFmpeg_${c}_FOUND)
+    list(APPEND FFmpeg_INCLUDES ${FFmpeg_INCLUDE_${c}})
+    list(APPEND FFmpeg_LIBRARIES ${FFmpeg_LIBRARY_${c}})
+
+    add_library(FFmpeg::${c} IMPORTED UNKNOWN)
+    set_target_properties(FFmpeg::${c} PROPERTIES
+      IMPORTED_LOCATION ${FFmpeg_LIBRARY_${c}}
+      INTERFACE_INCLUDE_DIRECTORIES ${FFmpeg_INCLUDE_${c}}
+    )
+    if(_FFmpeg_DEPS_${c})
+      set(deps)
+      foreach(dep ${_FFmpeg_DEPS_${c}})
+        list(APPEND deps FFmpeg::${dep})
+      endforeach()
+
+      set_target_properties(FFmpeg::${c} PROPERTIES
+        INTERFACE_LINK_LIBRARIES "${deps}"
+      )
+      unset(deps)
+    endif()
+  endif()
+endforeach()
+
+if(FFmpeg_INCLUDES)
+  list(REMOVE_DUPLICATES FFmpeg_INCLUDES)
+endif()
+
+foreach(c ${FFmpeg_FIND_COMPONENTS})
+  list(APPEND _FFmpeg_REQUIRED_VARS FFmpeg_INCLUDE_${c} FFmpeg_LIBRARY_${c})
+endforeach()
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(FFmpeg
+  REQUIRED_VARS ${_FFmpeg_REQUIRED_VARS}
+  HANDLE_COMPONENTS
+)
+
+foreach(c ${_FFmpeg_ALL_COMPONENTS})
+  unset(_FFmpeg_DEPS_${c})
+endforeach()
+unset(_FFmpeg_ALL_COMPONENTS)
+unset(_FFmpeg_REQUIRED_VARS)

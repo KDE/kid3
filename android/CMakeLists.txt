@@ -13,11 +13,11 @@ add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
 )
 add_custom_target(android-package
   DEPENDS ${_androidPackageDir}/res/drawable/icon.png)
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(_keystorePathAlias ${CMAKE_BINARY_DIR}/ufleisch-release-key.keystore ufleisch_android)
-else ()
+else()
   set(_keystorePathAlias)
-endif ()
+endif()
 add_qt_android_apk(apk kid3-qml
   NAME Kid3
   PACKAGE_NAME "net.sourceforge.kid3"

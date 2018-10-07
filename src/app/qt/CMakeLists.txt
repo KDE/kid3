@@ -1,4 +1,4 @@
-set(qt_SRCS
+add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
   mainqt.cpp
   platformtools.cpp
   kid3mainwindow.cpp
@@ -10,7 +10,7 @@ set(qt_SRCS
   shortcutsmodel.cpp
   shortcutsdelegate.cpp
 )
-set(qt_MOC_HDRS
+qt5_wrap_cpp(qt_GEN_MOC_SRCS
   kid3mainwindow.h
   kid3qtapplication.h
   recentfilesmenu.h
@@ -19,11 +19,11 @@ set(qt_MOC_HDRS
   configdialog.h
   shortcutsmodel.h
   shortcutsdelegate.h
+  TARGET ${KID3_EXECUTABLE}
 )
-qt5_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS} TARGET ${KID3_EXECUTABLE})
-set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
+target_sources(${KID3_EXECUTABLE} PRIVATE ${qt_GEN_MOC_SRCS})
 
-if (APPLE)
+if(APPLE)
   # Icon and properties for .plist file
   set(MACOSX_BUNDLE_BUNDLE_NAME "Kid3")
   set(MACOSX_BUNDLE_BUNDLE_EXECUTABLE "kid3")
@@ -33,23 +33,23 @@ if (APPLE)
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2003-${RELEASE_YEAR} Urs Fleisch")
   set_source_files_properties(kid3.icns
     PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-  set(qt_SRCS ${qt_SRCS} kid3.icns)
+  target_sources(${KID3_EXECUTABLE} PRIVATE kid3.icns)
   set_source_files_properties(qt.conf
     PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-  set(qt_SRCS ${qt_SRCS} qt.conf)
-elseif (WIN32)
-  if (MINGW)
+  target_sources(${KID3_EXECUTABLE} PRIVATE qt.conf)
+elseif(WIN32)
+  if(MINGW)
     # support for Windows resource files with MinGW
     set(CMAKE_RC_COMPILER_INIT windres)
     enable_language(RC)
     set(CMAKE_RC_COMPILE_OBJECT
       "<CMAKE_RC_COMPILER> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-  endif (MINGW)
+  endif()
   # add Windows resource file with icon
-  set(qt_SRCS ${qt_SRCS} kid3win.rc)
-endif (APPLE)
+  target_sources(${KID3_EXECUTABLE} PRIVATE kid3win.rc)
+endif()
 
-if (UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE)
   find_program(GZIP_PROGRAM gzip)
   # install desktop file and icons for Linux
   add_custom_command(OUTPUT kid3-qt.desktop
@@ -70,19 +70,19 @@ if (UNIX AND NOT APPLE)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
     DESTINATION "${WITH_DATAROOTDIR}/metainfo"
     RENAME net.sourceforge.kid3-qt.appdata.xml)
-  if (GZIP_PROGRAM)
+  if(GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../sc-apps-kid3.svgz >kid3-qt.svg
       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../sc-apps-kid3.svgz
     )
-    set(qt_SRCS ${qt_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg)
+    target_sources(${KID3_EXECUTABLE} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps")
-  else (GZIP_PROGRAM)
+  else()
     install(FILES ../sc-apps-kid3.svgz
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
             RENAME kid3-qt.svgz)
-  endif (GZIP_PROGRAM)
+  endif()
   install(FILES ../128-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/128x128/apps"
           RENAME kid3-qt.png)
@@ -98,38 +98,37 @@ if (UNIX AND NOT APPLE)
   install(FILES ../16-apps-kid3.png
           DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
           RENAME kid3-qt.png)
-elseif (APPLE)
+elseif(APPLE)
   install(FILES ../48-apps-kid3.png
           DESTINATION ${WITH_DATAROOTDIR}
           RENAME kid3.png)
-endif (UNIX AND NOT APPLE)
+endif()
 
-add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
-set(qt_RESOURCES kid3.qrc)
-qt5_add_resources(qt_GEN_RCS ${qt_RESOURCES})
-add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
-  ${qt_SRCS} ${qt_GEN_RCS})
+qt5_add_resources(qt_GEN_RCS kid3.qrc)
+target_sources(${KID3_EXECUTABLE} PRIVATE
+  ${qt_GEN_RCS}
+)
 
 target_link_libraries(${KID3_EXECUTABLE} kid3-gui -lstdc++)
 
-if (APPLE)
+if(APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../macosx/Info.plist.in
                  ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
   set_target_properties(${KID3_EXECUTABLE} PROPERTIES
       MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
-  if (CMAKE_CXX_COMPILER MATCHES "/osxcross/")
+  if(CMAKE_CXX_COMPILER MATCHES "/osxcross/")
     # When cross compiling, CPack does not know that is should be APPLE.
     install(CODE "
   set(APPLE TRUE)
   ")
-  endif ()
-endif (APPLE)
+  endif()
+endif()
 
 install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${WITH_BINDIR})
 
-if (LINUX_SELF_CONTAINED)
+if(LINUX_SELF_CONTAINED)
   # Change RPATH/RUNPATH of executable/library.
   macro(CHANGE_RPATH _rpath _file)
     install(CODE "
@@ -138,23 +137,23 @@ if (LINUX_SELF_CONTAINED)
   endmacro()
 
   set_target_properties(${KID3_EXECUTABLE} PROPERTIES INSTALL_RPATH "\$ORIGIN")
-endif (LINUX_SELF_CONTAINED)
+endif()
 
-if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
+if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
   # Put Qt libraries and plugins into installation package to create a
   # standalone bundle on Mac OS X and Windows
   set(plugin_dest_dir ${WITH_BINDIR})
   set(bundle_app
    "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
-  if (APPLE)
+  if(APPLE)
     set(plugin_dest_dir kid3.app/Contents/PlugIns)
     set(bundle_app "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app")
-  endif (APPLE)
-  if (WIN32)
+  endif()
+  if(WIN32)
     set(bundle_app
       "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/kid3.exe")
-  endif (WIN32)
+  endif()
   string(REPLACE "/./" "/" bundle_app ${bundle_app})
 
   # Install Qt JPEG and Phonon plugins
@@ -164,10 +163,10 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
                    PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}"
                    PATTERN "*.dSYM" EXCLUDE)
 
-  if (LINUX_SELF_CONTAINED)
+  if(LINUX_SELF_CONTAINED)
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}")
-  endif ()
-  if (APPLE)
+  endif()
+  if(APPLE)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION kid3.app/Contents/MacOS
       FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
@@ -176,14 +175,14 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
                      PATTERN "*.dSYM" EXCLUDE)
-  elseif (WIN32)
+  elseif(WIN32)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
     install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
-  elseif (LINUX_SELF_CONTAINED)
+  elseif(LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -192,18 +191,18 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
-  endif (APPLE)
+  endif()
 
-  if (CMAKE_CROSSCOMPILING AND NOT APPLE)
+  if(CMAKE_CROSSCOMPILING AND NOT APPLE)
     # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
     # when cross-packaging, this does not seem to be supported.
     # https://public.kitware.com/pipermail/cmake/2012-March/049497.html
     install(CODE "
     set(gp_tool DO_NOT_USE)
     ")
-  endif (CMAKE_CROSSCOMPILING AND NOT APPLE)
+  endif()
 
-  if (LINUX_SELF_CONTAINED)
+  if(LINUX_SELF_CONTAINED)
     # CMake 3.11.1 gets the prerequisites type wrong if a plugin uses a
     # library which is in a parent directory but still inside the bundle.
     # Override the type from "other" to "local" in such cases.
@@ -229,24 +228,24 @@ if (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   install(CODE "
     file(GLOB_RECURSE QTPLUGINS
       \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
-    if (APPLE)
+    if(APPLE)
       file(GLOB_RECURSE QTPLATFORMPLUGINS
         \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app/Contents/MacOS/platforms/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
       set(QTPLUGINS \"\${QTPLUGINS};\${QTPLATFORMPLUGINS}\")
-    endif (APPLE)
+    endif()
     file(GLOB_RECURSE KID3PLUGINS
       \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_PLUGINSDIR}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
     include(BundleUtilities)
     set(bundle_libs \"\${QTPLUGINS};\${KID3PLUGINS}\")
-    if (APPLE AND BUILD_CLI_APP)
+    if(APPLE AND BUILD_CLI_APP)
       set(bundle_libs \"\${bundle_libs};\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}/kid3-cli\")
-    endif (APPLE AND BUILD_CLI_APP)
+    endif()
     fixup_bundle(\"${bundle_app}\" \"\${bundle_libs}\" \"${QT_LIBRARY_DIR}\")
     ")
 
-endif (APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
+endif()
 
-if (WIN32)
+if(WIN32)
   # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
   get_target_property(_qtBinDir Qt5::Core LOCATION)
@@ -257,21 +256,21 @@ if (WIN32)
   file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
   install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
           DESTINATION ${WITH_BINDIR})
-endif (WIN32)
+endif()
 
-if (LINUX_SELF_CONTAINED)
+if(LINUX_SELF_CONTAINED)
   # Use reduced size ICU libraries.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
   get_target_property(_qtBinDir Qt5::qmake LOCATION)
   get_filename_component(_qtBinDir ${_qtBinDir} PATH)
   string(REPLACE "/bin" "/lib" _qtLibDir "${_qtBinDir}")
   install(CODE "
-    if (EXISTS \"${_qtLibDir}/icu_reduced\")
+    if(EXISTS \"${_qtLibDir}/icu_reduced\")
       file(GLOB _iculibs \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/libicu*\")
-      if (_iculibs)
+      if(_iculibs)
         file(REMOVE \${_iculibs})
-      endif ()
-    endif ()
+      endif()
+    endif()
   ")
   install(DIRECTORY "${_qtLibDir}/icu_reduced/"
           DESTINATION ${WITH_BINDIR} OPTIONAL)
@@ -280,4 +279,4 @@ if (LINUX_SELF_CONTAINED)
   install(FILES "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libssl.so"
                 "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libcrypto.so"
           DESTINATION ${WITH_BINDIR})
-endif (LINUX_SELF_CONTAINED)
+endif()

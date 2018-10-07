@@ -11,5 +11,5 @@ file(WRITE ${_outFile}
 foreach(_qmPath ${_qmFiles})
   get_filename_component(_qmFile ${_qmPath} NAME)
   file(APPEND ${_outFile} "    <file alias=\"${_qmFile}\">${_qmPath}</file>\n")
-endforeach(_qmPath ${_qmFiles})
-file( APPEND ${_outFile} "  </qresource>\n</RCC>\n")
+endforeach()
+file(APPEND ${_outFile} "  </qresource>\n</RCC>\n")

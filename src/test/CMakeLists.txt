@@ -1,31 +1,20 @@
-include_directories(
-  ../core/utils
-  ../core/model
-  ../core/tags
-  ../core/import
-  ../core/config
+qt5_wrap_cpp(test_GEN_MOC_SRCS
+  testjsonparser.h
+  testserverimporterbase.h
+  testmusicbrainzreleaseimporter.h
+  testmusicbrainzreleaseimportparser.h
+  testdiscogsimporter.h
+  TARGET kid3-test
 )
-
-set(test_SRCS
-dummysettings.cpp
-testutils.cpp
-testjsonparser.cpp
-testserverimporterbase.cpp
-testmusicbrainzreleaseimporter.cpp
-testmusicbrainzreleaseimportparser.cpp
-testdiscogsimporter.cpp
-maintest.cpp
+add_executable(kid3-test
+  dummysettings.cpp
+  testutils.cpp
+  testjsonparser.cpp
+  testserverimporterbase.cpp
+  testmusicbrainzreleaseimporter.cpp
+  testmusicbrainzreleaseimportparser.cpp
+  testdiscogsimporter.cpp
+  maintest.cpp
+  ${test_GEN_MOC_SRCS}
 )
-
-set(test_MOC_HDRS
-testjsonparser.h
-testserverimporterbase.h
-testmusicbrainzreleaseimporter.h
-testmusicbrainzreleaseimportparser.h
-testdiscogsimporter.h
-)
-
-qt5_wrap_cpp(test_GEN_MOC_SRCS ${test_MOC_HDRS} TARGET kid3-test)
-add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
-add_executable(kid3-test ${test_SRCS} ${test_GEN_MOC_SRCS})
 target_link_libraries(kid3-test kid3-core Qt5::Test -lstdc++)
