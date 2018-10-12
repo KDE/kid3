@@ -1,16 +1,14 @@
-# translation of ru.po to English
-# translation of ru.po to
 # Kid3 Russian Translation.
-# Copyright (C) 2003, 2004, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+# This file is put in the public domain.
 #
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
 # Olesya Gerasimenko <gammaray@basealt.ru>, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.0\n"
+"Project-Id-Version: Kid3 3.6.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-08-04 12:12+0200\n"
+"POT-Creation-Date: 2018-10-12 12:07+0200\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -18,9 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -443,12 +440,6 @@ msgstr "Список каталогов"
 
 msgid "Configure - Kid3"
 msgstr "Настройка — Kid3"
-
-msgid "Open"
-msgstr "Открыть"
-
-msgid "Save As"
-msgstr "Сохранить как"
 
 msgid "directory to open"
 msgstr "каталог для открытия"
@@ -1730,7 +1721,7 @@ msgid "&Browse"
 msgstr "&Браузер"
 
 msgid "Click Browse to start"
-msgstr "Нажмите кнопку «Браузер» для начала поиска."
+msgstr "Нажмите кнопку «Браузер» для начала поиска"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Затем перетащите изображение из браузера в Kid3."
@@ -1888,6 +1879,9 @@ msgstr "&Доступные модули"
 msgid "Changes take only effect after a restart!"
 msgstr "Изменения вступят в силу только после следующего запуска!"
 
+msgid "Images"
+msgstr "Изображения"
+
 msgid "From Clip&board"
 msgstr "Из &буфера обмена"
 
@@ -1896,9 +1890,6 @@ msgstr "&В буфер обмена"
 
 msgid "&View..."
 msgstr "&Вид..."
-
-msgid "Images"
-msgstr "Изображения"
 
 msgid "Export"
 msgstr "Экспорт"
@@ -2023,6 +2014,9 @@ msgstr "Имя файла cписка воспроизведения"
 msgid "Same as &directory name"
 msgstr "Совпадает с именем &каталога"
 
+msgid "Create ne&w empty playlist:"
+msgstr "&Создать список воспроизведения:"
+
 msgid "Cr&eate in:"
 msgstr "Создать &в:"
 
@@ -2061,6 +2055,19 @@ msgstr "Записать только &список файлов"
 
 msgid "Write &info using"
 msgstr "Записать &информацию, используя"
+
+msgid "Playlist"
+msgstr "Задержка списка воспроизведения"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменён.\n"
+"Сохранить его?"
 
 msgid "Preview"
 msgstr "Просмотр"
@@ -2135,9 +2142,6 @@ msgstr ""
 "Текущий каталог был изменён.\n"
 "Сохранить его?"
 
-msgid "Warning"
-msgstr "Предупреждение"
-
 msgid "Exiting..."
 msgstr "Выход..."
 
@@ -2191,6 +2195,9 @@ msgstr "&Развернуть все"
 
 msgid "&Collapse all"
 msgstr "&Свернуть все"
+
+msgid "E&dit"
+msgstr "&Правка"
 
 msgid "&Open"
 msgstr "&Открыть"
@@ -2722,6 +2729,9 @@ msgstr "Тег 2"
 msgid "Profile:"
 msgstr "Профиль:"
 
+msgid "Open"
+msgstr "Открыть"
+
 msgid "Filter:"
 msgstr "Фильтр:"
 
@@ -2838,4 +2848,3 @@ msgstr "В имя файла"
 
 msgid "To Tag %1"
 msgstr "В тег %1"
-
