@@ -71,6 +71,12 @@ int main(int argc, char* argv[])
 
   ICorePlatformTools* platformTools = new CorePlatformTools;
   auto kid3App = new Kid3Application(platformTools);
+#ifdef HAVE_QTDBUS
+  if (args.size() > 1 && args.at(1) == QLatin1String("--dbus")) {
+    args.removeAt(1);
+    kid3App->activateDbusInterface();
+  }
+#endif
   Kid3Cli kid3cli(kid3App, new StandardIOHandler("kid3-cli> "), args);
   QTimer::singleShot(0, &kid3cli, &Kid3Cli::execute);
   int rc = QCoreApplication::exec();

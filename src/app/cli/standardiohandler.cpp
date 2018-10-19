@@ -58,9 +58,9 @@ StandardIOHandler::StandardIOHandler(const char* prompt) :
 }
 
 /**
- * Destructor.
+ * Restore terminal on cleanup.
  */
-StandardIOHandler::~StandardIOHandler()
+void StandardIOHandler::cleanup()
 {
 #ifdef HAVE_READLINE
   ::rl_cleanup_after_signal();

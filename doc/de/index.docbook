@@ -109,6 +109,7 @@ end manpage include-->
 <cmdsynopsis>
 <command>kid3-cli</command>
 <arg><option>&doublehyphen;portable</option></arg>
+<arg><option>&doublehyphen;dbus</option></arg>
 <group>
 <arg choice="plain"><option>-h</option></arg>
 <arg choice="plain"><option>&doublehyphen;help</option></arg>
@@ -126,6 +127,10 @@ end manpage include-->
 <term><option>&doublehyphen;portable</option></term>
 <listitem><para>Speichert die Einstellungen in der Datei
 <filename>kid3.ini</filename> im Applikationsverzeichnis.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>&doublehyphen;dbus</option></term>
+<listitem><para>Aktiviert die D-Bus Schnittstelle.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><replaceable>DATEI</replaceable></term>

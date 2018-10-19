@@ -37,7 +37,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCliIO() override = default;
+  virtual ~AbstractCliIO() override;
+
+  /**
+   * Can be reimplemented for cleanup, e.g. restoring the terminal.
+   * Is called from the destructor.
+   */
+  virtual void cleanup();
 
   /**
    * Write a line to standard output.
@@ -161,4 +167,5 @@ private slots:
 private:
   AbstractCliIO* m_io;
   int m_returnCode;
+  bool m_terminating;
 };

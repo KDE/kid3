@@ -29,13 +29,37 @@
 #include <QCoreApplication>
 
 /**
+ * Destructor.
+ */
+AbstractCliIO::~AbstractCliIO()
+{
+  cleanup();
+}
+
+/**
+ * Can be reimplemented for cleanup, e.g. restoring the terminal.
+ * Is called from the destructor.
+ */
+void AbstractCliIO::cleanup()
+{
+}
+
+
+/**
  * Constructor.
  * @param io I/O handler
  * @param parent parent object
  */
 AbstractCli::AbstractCli(AbstractCliIO* io, QObject* parent) : QObject(parent),
-  m_io(io), m_returnCode(0)
+  m_io(io), m_returnCode(0), m_terminating(false)
 {
+  // To make sure cleanup is called when application is terminated by D-Bus.
+  connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
+          this, [this]() {
+    if (!m_terminating) {
+      m_io->cleanup();
+    }
+  });
 }
 
 /**
@@ -80,6 +104,7 @@ void AbstractCli::execute()
  */
 void AbstractCli::terminate()
 {
+  m_terminating = true;
   flushStandardOutput();
   m_io->stop();
   if (m_returnCode == 0) {

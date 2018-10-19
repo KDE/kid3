@@ -44,7 +44,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StandardIOHandler() override;
+  virtual ~StandardIOHandler() override = default;
+
+  /**
+   * Restore terminal on cleanup.
+   */
+  virtual void cleanup() override;
 
   /**
    * Write a line to standard output.
