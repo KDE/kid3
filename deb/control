@@ -6,7 +6,7 @@ Uploaders: Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 9),
  extra-cmake-modules,
- kio-dev,
+ kio-dev | libkf5kio-dev,
  kdoctools-dev,
  qtmultimedia5-dev,
  qtdeclarative5-dev,
