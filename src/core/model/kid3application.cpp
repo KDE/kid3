@@ -756,15 +756,12 @@ void Kid3Application::readConfig()
  */
 bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
 {
-  const QStringList pathList(paths);
 #ifdef Q_OS_ANDROID
-  if (pathList.isEmpty()) {
-    QStringList musicLocations =
-        QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-    if (!musicLocations.isEmpty()) {
-      pathList.append(musicLocations.first());
-    }
-  }
+  const QStringList musicLocations =
+      QStandardPaths::standardLocations(QStandardPaths::MusicLocation).mid(0, 1);
+  const QStringList pathList = paths.isEmpty() ? musicLocations : paths;
+#else
+  const QStringList pathList(paths);
 #endif
   bool ok = true;
   QStringList filePaths;

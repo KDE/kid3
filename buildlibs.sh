@@ -2589,7 +2589,7 @@ if test "$compiler" = "cross-android"; then
 
   _android_sdk_root=/opt/android/sdk
   _android_ndk_root=$_android_sdk_root/ndk-bundle
-  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.4/android_armv7}
+  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.6/android_armv7}
   if test -z "${_android_qt_root%%*x86}"; then
     _android_abi=x86
     _android_toolchain_prefix=x86
@@ -2640,7 +2640,7 @@ if test "$compiler" = "cross-android"; then
     mkdir kid3
     cat >kid3/build.sh <<EOF
 #!/bin/bash
-_java_root=(/usr/lib/jvm/java-[78]-openjdk-amd64)
+_java_root=/usr/lib/jvm/java-8-openjdk
 _android_sdk_root=$_android_sdk_root
 _android_ndk_root=$_android_ndk_root
 _android_abi=$_android_abi

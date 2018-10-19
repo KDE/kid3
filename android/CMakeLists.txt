@@ -8,7 +8,7 @@ configure_file(AndroidManifest.xml.in
 add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res/drawable
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/hi48-apps-kid3.png
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/48-apps-kid3.png
           ${_androidPackageDir}/res/drawable/icon.png
 )
 add_custom_target(android-package
