@@ -156,7 +156,11 @@ void FormatListEdit::updateComboBoxAndLineEdits(int index)
 {
   m_formatComboBox->clear();
   if (!m_formats.isEmpty()) {
+#if QT_VERSION >= 0x050600
     const QStringList& firstFormat = m_formats.constFirst();
+#else
+    const QStringList& firstFormat = m_formats.first();
+#endif
     m_formatComboBox->addItems(firstFormat);
     if (index >= 0 && index < firstFormat.size()) {
       m_formatComboBox->setCurrentIndex(index);
@@ -217,7 +221,12 @@ void FormatListEdit::addItem()
   if (!m_formats.isEmpty()) {
     // first search for an existing empty format
     int index = -1;
-    for (int fmtIdx = m_formats.constFirst().size() - 1; fmtIdx > 0; --fmtIdx) {
+#if QT_VERSION >= 0x050600
+    for (int fmtIdx = m_formats.constFirst().size() - 1; fmtIdx > 0; --fmtIdx)
+#else
+    for (int fmtIdx = m_formats.first().size() - 1; fmtIdx > 0; --fmtIdx)
+#endif
+    {
       bool allEmpty = true;
       for (int leIdx = 1; leIdx < m_formats.size(); ++leIdx) {
         const QStringList& fmts = m_formats.at(leIdx);
@@ -237,7 +246,11 @@ void FormatListEdit::addItem()
       for (int i = 0; i < m_formats.size(); ++i) {
         m_formats[i].append(i == 0 ? tr("New") : QLatin1String(""));
       }
+#if QT_VERSION >= 0x050600
       index = m_formats.constFirst().size() - 1;
+#else
+      index = m_formats.first().size() - 1;
+#endif
     }
     updateComboBoxAndLineEdits(index);
     m_formatComboBox->lineEdit()->setFocus();
@@ -260,7 +273,11 @@ void FormatListEdit::removeItem()
     }
   }
   if (!m_formats.isEmpty()) {
+#if QT_VERSION >= 0x050600
     const QStringList& fmts = m_formats.constFirst();
+#else
+    const QStringList& fmts = m_formats.first();
+#endif
     if (index >= fmts.size()) {
       index = fmts.size() - 1;
     }
