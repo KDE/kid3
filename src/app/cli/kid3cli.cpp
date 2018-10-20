@@ -722,6 +722,7 @@ bool Kid3Cli::parseOptions()
   if (paths.isEmpty()) {
     paths.append(QDir::currentPath());
   }
+  m_app->readConfig();
   connect(m_app, &Kid3Application::directoryOpened,
     this, &Kid3Cli::onInitialDirectoryOpened);
   if (!openDirectory(expandWildcards(paths))) {
