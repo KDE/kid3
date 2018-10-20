@@ -1433,6 +1433,7 @@ codes listed below but all tag frame names can be used.
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Path</para></listitem>
 <listitem><para>%u %{url} URL</para></listitem>
+<listitem><para>%{dirname} Directory name</para></listitem>
 <listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
 <listitem><para>%D %{seconds} Duration in seconds</para></listitem>
 <listitem><para>%n %{tracks} Number of tracks of the album</para></listitem>
@@ -1724,6 +1725,8 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%{dirname} Directory name (e.g. %{year" "}%{dirname}
+will prepend the year to the current directory name)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -3233,8 +3236,8 @@ If not all libraries are present, &kid3; is built with reduced functionality.
 So you should take care to have all desired development packages installed.
 On the other side, <userinput>cmake</userinput>-options control which
 libraries are compiled in. The default is
-<userinput>-D WITH_TAGLIB:BOOL=ON -D WITH_MP4V2:BOOL=OFF -D WITH_ID3LIB:BOOL=ON
--D WITH_CHROMAPRINT:BOOL=ON -D WITH_VORBIS:BOOL=ON -D WITH_FLAC:BOOL=ON
+<userinput>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON
+-DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON
 </userinput>. These options can be disabled using
 <userinput>OFF</userinput>.
 </para>
@@ -3245,19 +3248,13 @@ To build both a KDE and a Qt application, set
 <userinput>-DWITH_APPS="Qt;KDE"</userinput>.
 </para>
 <para>
-Qt 4 or Qt 5 can be used. To force the use of Qt 4, set
-<userinput>-DWITH_QT4=ON</userinput>, to force the use of Qt 5, set
-<userinput>-DWITH_QT5=ON</userinput>, if both these options are OFF (default),
-Qt 4 is preferred if both versions are installed. To use a specific Qt
-installation, set
+To use a specific Qt installation, set
 <userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>.
-If building the KDE application is enabled, setting Qt 4 will use KDE 4,
-whereas setting Qt 5 will use KDE 5.
 </para>
 <para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
-the script <filename>build-deb.sh</filename>is available.
+the script <filename>build-deb.sh</filename> is available.
 </para>
 
 <para>
@@ -3294,7 +3291,7 @@ to set the path of the configuration file.</para>
 <title>D-Bus Examples</title>
 
 <para>
-The Qt 4 and KDE 4 versions on Linux offer a D-Bus-Interface to control
+On Linux a D-Bus-interface can be used to control
 &kid3; by scripts. Scripts can be written in any language with D-Bus-bindings
 (e.g. in Python) and can be added to the <guilabel>User Actions</guilabel> to
 extend the functionality of &kid3;.
@@ -4121,18 +4118,13 @@ Alternatively, the script could also be started independent of Kid3 using the
 QML tools.
 
 <screen width="80">
-qmlviewer -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
-</screen>
-
-For Qt 5, the commands
-<screen width="80">
 qml -apptype widget -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
 or
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-can be used. On Windows and OS X, the import path must be adapted to the
+On Windows and OS X, the import path must be adapted to the
 <filename>imports</filename> folder inside the installation directory. Scripts
 started outside of &kid3; will use the current directory, so it should be
 changed beforehand.
@@ -4294,9 +4286,8 @@ example script with a user interface.
 <classname>Kid3Script</classname> is a regular QML component located inside
 the plugin directory. You could use another QML component just as well. Using
 <classname>Kid3Script</classname> makes it easy to start the script function
-using the <function>onRun</function> signal handler. It also hides the
-differences between the QtQuick versions, so as to make scripts compatible
-with both Qt 4 and Qt 5. Moreover it offers some functions:
+using the <function>onRun</function> signal handler.
+Moreover it offers some functions:
 
 <programlisting>
 onRun: Signal handler which is invoked when the script is started

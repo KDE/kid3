@@ -116,6 +116,13 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         url.setPath(m_trackData.getAbsFilename());
         url.setScheme(QLatin1String("file"));
         result = url.toString();
+      } else if (name == QLatin1String("dirname")) {
+        const QString dirPath = m_trackData.getDirname();
+        int sepPos = dirPath.lastIndexOf(QLatin1Char('/'));
+        if (sepPos < 0) {
+          sepPos = dirPath.lastIndexOf(QDir::separator());
+        }
+        result = sepPos >= 0 ? dirPath.mid(sepPos + 1) : dirPath;
       } else if (name == QLatin1String("duration")) {
         result = TaggedFile::formatTime(m_trackData.getFileDuration());
       } else if (name == QLatin1String("seconds")) {
@@ -188,6 +195,12 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 
   str += QLatin1String("<tr><td>%u</td><td>%{url}</td><td>");
   str += QCoreApplication::translate("@default", "URL");
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td></td><td>%{dirname}</td><td>");
+  const char* const directoryNameStr =
+      QT_TRANSLATE_NOOP("@default", "Directory name");
+  str += QCoreApplication::translate("@default", directoryNameStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
@@ -326,6 +339,17 @@ QString TrackData::getFilename() const
 {
   TaggedFile* taggedFile = getTaggedFile();
   return taggedFile ? taggedFile->getFilename() : QString();
+}
+
+/**
+ * Get directory name.
+ *
+ * @return directory name.
+ */
+QString TrackData::getDirname() const
+{
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getDirname() : QString();
 }
 
 /**

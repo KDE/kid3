@@ -1528,6 +1528,7 @@ die Namen aller Tag Frames verwendet werden.
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
 <listitem><para>%p %{filepath} Pfadname</para></listitem>
 <listitem><para>%u %{url} URL</para></listitem>
+<listitem><para>%{dirname} Verzeichnisname</para></listitem>
 <listitem><para>%d %{duration} Dauer in Minuten:Sekunden</para></listitem>
 <listitem><para>%D %{seconds} Dauer in Sekunden</para></listitem>
 <listitem><para>%n %{tracks} Anzahl Tracks im Album</para></listitem>
@@ -1842,6 +1843,8 @@ Werte aus den Tags im Verzeichnisnamen einzusetzen:
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%{dirname} Verzeichnisname (z.B. %{year" "}%{dirname} fügt
+vorne am bestehenden Verzeichnisnamen die Jahreszahl hinzu)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -3421,8 +3424,8 @@ reduzierter Funktionalität kompiliert. Es sollte also darauf geachtet werden,
 dass die Entwicklungspakete aller gewünschten Bibliotheken auch installiert
 sind. Andererseits kann mit <userinput>cmake</userinput>-Optionen bestimmt
 werden, was verwendet werden soll. Die Voreinstellung ist
-<userinput>-D WITH_TAGLIB:BOOL=ON -D WITH_MP4V2:BOOL=OFF -D WITH_ID3LIB:BOOL=ON
--D WITH_CHROMAPRINT:BOOL=ON -D WITH_VORBIS:BOOL=ON -D WITH_FLAC:BOOL=ON
+<userinput>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON
+-DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON
 </userinput>. Entsprechend kann auch
 <userinput>OFF</userinput> gesetzt werden.
 </para>
@@ -3433,14 +3436,8 @@ Um sowohl eine KDE als auch eine Qt Applikation zu kompilieren, wird
 <userinput>-DWITH_APPS="Qt;KDE"</userinput> gesetzt.
 </para>
 <para>
-Qt 4 oder Qt 5 können verwendet werden. Um Qt 4 zu erzwingen, kann
-<userinput>-DWITH_QT4=ON</userinput> gesetzt werden, entsprechend
-<userinput>-DWITH_QT5=ON</userinput> für Qt 5, wenn beide Optionen
-ausgeschaltet sind (Standardeinstellung), so wird Qt 4 bevorzugt, wenn beide
-Versionen installiert sind. Um eine bestimmte Qt-Installation zu nutzen, kann
+Um eine bestimmte Qt-Installation zu nutzen, kann
 <userinput>-DQT_QMAKE_EXECUTABLE=/Pfad/zu/qmake</userinput> gesetzt werden.
-Wenn die KDE Applikation eingeschaltet ist, so wird mit Qt 4 KDE 4 verwendet
-und mit Qt 5 KDE 5.
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
@@ -3482,7 +3479,7 @@ werden, um den Pfad der Konfigurationsdatei zu bestimmen.</para>
 <title>D-Bus Beispiele</title>
 
 <para>
-Die Qt 4 und KDE 4 Versionen unter Linux bieten eine D-Bus Schnittstelle, mit
+Unter Linux steht eine D-Bus Schnittstelle zur Verfügung, mit
 welcher Kid3 über Skripte gesteuert werden kann. Skripte können in jeder
 Sprache, für die D-Bus-Anbindungen existieren, geschrieben werden (z.B. in
 Python) und können über die <guilabel>Benutzerbefehle</guilabel> die
@@ -4318,18 +4315,13 @@ Alternativ lässt sich das Skript auch unabhängig von Kid3 mit den
 QML-Werkzeugen starten.
 
 <screen width="80">
-qmlviewer -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
-</screen>
-
-Bei Qt 5 wird stattdessen
-<screen width="80">
 qml -apptype widget -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
 oder
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-verwendet. Bei Windows und OS X muss der Importpfad angepasst werden, damit er
+Bei Windows und OS X muss der Importpfad angepasst werden, damit er
 auf <filename>imports</filename> bei den Plugins im
 Installationsverzeichnis verweist. Außerhalb von Kid3 gestartete Skripte
 verwenden das aktuelle Verzeichnis, es sollte also vorangehend in das gewünschte
@@ -4497,10 +4489,7 @@ für ein Skript mit Benutzeroberfläche verfügbar ist.
 Plugin-Verzeichnis. Man kann ebenso gut andere QML-Komponenten als Basis
 brauchen. Die Verwendung von <classname>Kid3Script</classname> sorgt dafür,
 dass sich eine Skript-Funktion einfach im <function>onRun</function> Signal
-Handler aufrufen lässt. Falls das Skript keine weitere QML Komponenten
-verwendet, bleibt es auch unabhängig von der QtQuick-Version, kann also sowohl
-mit Qt 4 also auch mit Qt 5 verwendet werden. Darüber hinaus werden noch
-einige Funktionen geboten:
+Handler aufrufen lässt. Darüber hinaus werden noch einige Funktionen geboten:
 
 <programlisting>
 onRun: Signal Handler, welcher beim Start des Skripts aufgerufen wird

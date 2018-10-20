@@ -75,6 +75,13 @@ public:
   QString getFilename() const;
 
   /**
+   * Get directory name.
+   *
+   * @return directory name.
+   */
+  QString getDirname() const;
+
+  /**
    * Get file extension including the dot.
    *
    * @param preferFromFilename true to prefer extension from current filename
