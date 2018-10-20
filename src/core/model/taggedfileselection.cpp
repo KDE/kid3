@@ -83,7 +83,7 @@ void TaggedFileSelection::endAddTaggedFiles()
           (m_state.m_tagSupportedCount[tagNr] > 0 ||
            m_state.m_fileCount == 0)) {
         const FrameCollection& frames = m_framesModel[tagNr]->frames();
-        for (auto it = frames.cbegin(); it != frames.end(); ++it) {
+        for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
           if (!(*it).getValue().isEmpty()) {
             m_state.m_hasTag[tagNr] = true;
             break;
@@ -255,7 +255,7 @@ QByteArray TaggedFileSelection::getPicture() const
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
   auto it = frames.find(
         Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
-  if (it != frames.end() && !it->isInactive()) {
+  if (it != frames.cend() && !it->isInactive()) {
     PictureFrame::getData(*it, data);
   }
   return data;

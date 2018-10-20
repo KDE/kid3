@@ -424,9 +424,9 @@ void FrameTableModel::markChangedFrames(quint64 frameMask)
     return;
 
   const FrameCollection& frameCollection = frames();
-  auto it = frameCollection.begin();
+  auto it = frameCollection.cbegin();
   int row = 0;
-  for (; it != frameCollection.end(); ++it, ++row) {
+  for (; it != frameCollection.cend(); ++it, ++row) {
     if (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(changedBits) * 8 &&
          (changedBits & (1ULL << (*it).getType())) != 0)) {
@@ -669,9 +669,9 @@ void FrameTableModel::updateFrameRowMapping()
 {
   const FrameCollection& frameCollection = frames();
   m_frameOfRow.resize(frameCollection.size());
-  auto frameIt = frameCollection.begin();
+  auto frameIt = frameCollection.cbegin();
   auto rowIt = m_frameOfRow.begin(); // clazy:exclude=detaching-member
-  for (; frameIt != frameCollection.end(); ++frameIt, ++rowIt) {
+  for (; frameIt != frameCollection.cend(); ++frameIt, ++rowIt) {
     *rowIt = frameIt;
   }
   if (!m_frameTypeSeqNr.isEmpty()) {

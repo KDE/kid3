@@ -906,7 +906,7 @@ void TaggedFile::updateMarkedState(Frame::TagNumber tagNr,
   if (tagCfg.markOversizedPictures()) {
     auto it =
         frames.findByExtendedType(Frame::ExtendedType(Frame::FT_Picture));
-    while (it != frames.end() && it->getType() == Frame::FT_Picture) {
+    while (it != frames.cend() && it->getType() == Frame::FT_Picture) {
       auto& frame = const_cast<Frame&>(*it);
       if (FrameNotice::addPictureTooLargeNotice(
             frame, tagCfg.maximumPictureSize())) {

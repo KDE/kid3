@@ -392,7 +392,7 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
     return nullptr;
 
   auto it = trackData.findByExtendedType(type);
-  return it != trackData.end() ? &(*it) : nullptr;
+  return it != trackData.cend() ? &(*it) : nullptr;
 }
 
 /**

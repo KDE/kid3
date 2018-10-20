@@ -1052,9 +1052,7 @@ void FrameCollection::addMissingStandardFrames()
 FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
 {
   FrameCollection frames;
-  for (auto it = begin();
-       it != end();
-       ++it) {
+  for (auto it = cbegin(); it != cend(); ++it) {
     if (flt.isEnabled(it->getType(), it->getName())) {
       Frame frame = *it;
       frame.setIndex(-1);
@@ -1071,8 +1069,7 @@ FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
  */
 void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 {
-  for (auto it = begin();
-       it != end();) {
+  for (auto it = begin(); it != end();) {
     if (!flt.isEnabled(it->getType(), it->getName())) {
       erase(it++);
     } else {
@@ -1100,9 +1097,7 @@ void FrameCollection::setIndexesInvalid()
  */
 void FrameCollection::merge(const FrameCollection& frames)
 {
-  for (auto otherIt = frames.begin();
-       otherIt != frames.end();
-       ++otherIt) {
+  for (auto otherIt = frames.cbegin(); otherIt != frames.cend(); ++otherIt) {
     auto it = find(*otherIt);
     if (it != end()) {
       QString value(otherIt->getValue());
@@ -1148,13 +1143,14 @@ FrameCollection::const_iterator FrameCollection::searchByName(
     const QString& name) const
 {
   if (name.isEmpty())
-    return end();
+    return cend();
 
   const_iterator it;
   QString ucName = name.toUpper().remove(QLatin1Char('/'));
   int len = ucName.length();
-  for (it = begin(); it != end(); ++it) {
-    for (const QString& frameName : {it->getName(), it->getInternalName()}) {
+  for (it = cbegin(); it != cend(); ++it) {
+    const QStringList names{it->getName(), it->getInternalName()};
+    for (const QString& frameName : names) {
       QString ucFrameName(frameName.toUpper().remove(QLatin1Char('/')));
       if (ucName == ucFrameName.leftRef(len)) {
         return it;
@@ -1184,25 +1180,25 @@ FrameCollection::const_iterator FrameCollection::findByName(
 {
   Frame frame(Frame::ExtendedType(name), QLatin1String(""), -1);
   auto it = find(frame);
-  if (it == end()) {
+  if (it == cend()) {
     it = searchByName(name);
-    if (it == end()) {
+    if (it == cend()) {
       const auto ids = getDisplayNamesOfIds().keys(name.toLatin1());
       for (const QByteArray& id : ids) {
         if (!id.isEmpty()) {
           it = searchByName(QString::fromLatin1(id));
-          if (it != end()) {
+          if (it != cend()) {
             break;
           }
         }
       }
     }
   }
-  if (index > 0 && it != end()) {
+  if (index > 0 && it != cend()) {
     const Frame::ExtendedType extendedType = it->getExtendedType();
-    for (int i = 0; i < index && it != end(); ++i, ++it) {}
-    if (it != end() && !(it->getExtendedType() == extendedType)) {
-      it = end();
+    for (int i = 0; i < index && it != cend(); ++i, ++it) {}
+    if (it != cend() && !(it->getExtendedType() == extendedType)) {
+      it = cend();
     }
   }
   return it;
@@ -1222,7 +1218,7 @@ FrameCollection::const_iterator FrameCollection::findByExtendedType(
 {
   Frame frame(type, QLatin1String(""), -1);
   auto it = find(frame);
-  if (it == end()) {
+  if (it == cend()) {
     it = searchByName(frame.getInternalName());
   }
   return it;
@@ -1238,7 +1234,7 @@ FrameCollection::const_iterator FrameCollection::findByExtendedType(
 FrameCollection::const_iterator FrameCollection::findByIndex(int index) const
 {
   const_iterator it;
-  for (it = begin(); it != end(); ++it) {
+  for (it = cbegin(); it != cend(); ++it) {
     if (it->getIndex() == index) {
       break;
     }
@@ -1257,7 +1253,7 @@ QString FrameCollection::getValue(Frame::Type type) const
 {
   Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
   auto it = find(frame);
-  return it != end() ? it->getValue() : QString();
+  return it != cend() ? it->getValue() : QString();
 }
 
 /**
@@ -1272,7 +1268,7 @@ QString FrameCollection::getValue(Frame::Type type) const
 QString FrameCollection::getValue(const Frame::ExtendedType& type) const
 {
   auto it = findByExtendedType(type);
-  return it != end() ? it->getValue() : QString();
+  return it != cend() ? it->getValue() : QString();
 }
 
 /**
@@ -1363,7 +1359,7 @@ void FrameCollection::markChangedFrames(const FrameCollection& other)
         ? other.findByIndex(it->getIndex())
         : other.find(*it);
     auto& frame = const_cast<Frame&>(*it);
-    frame.setValueChanged(!(otherIt != other.end() && otherIt->isEqual(*it)));
+    frame.setValueChanged(!(otherIt != other.cend() && otherIt->isEqual(*it)));
   }
 }
 
@@ -1374,9 +1370,7 @@ void FrameCollection::markChangedFrames(const FrameCollection& other)
 void FrameCollection::dump() const
 {
   qDebug("FrameCollection:");
-  for (const_iterator it = begin();
-       it != end();
-       ++it) {
+  for (const_iterator it = cbegin(); it != cend(); ++it) {
     (*it).dump();
   }
 }
@@ -1582,7 +1576,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
     }
 
     auto it = m_frames.findByName(name);
-    if (it != m_frames.end()) {
+    if (it != m_frames.cend()) {
       if (fieldName.isEmpty()) {
         result = it->getValue().trimmed();
       } else {

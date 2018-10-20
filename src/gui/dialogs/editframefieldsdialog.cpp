@@ -920,7 +920,7 @@ void SubframeFieldControl::updateTag()
     m_fields.erase(m_begin, m_end);
     Frame::Field field;
     field.m_id = Frame::ID_Subframe;
-    for (auto it = frames.begin(); it != frames.end(); ++it) {
+    for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
       field.m_value = it->getExtendedType().getName();
       m_fields.append(field);
       m_fields.append(it->getFieldList());

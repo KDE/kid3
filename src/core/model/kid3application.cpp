@@ -3413,8 +3413,9 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  auto it = ft->frames().findByName(frameName, index);
-  if (it != ft->frames().end()) {
+  const FrameCollection& frames = ft->frames();
+  auto it = frames.findByName(frameName, index);
+  if (it != frames.cend()) {
     if (!dataFileName.isEmpty()) {
       bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
       if (isSylt ||
@@ -3434,7 +3435,6 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
           if (codecName != QLatin1String("System")) {
             stream.setCodec(codecName.toLatin1());
           }
-          const FrameCollection& frames = ft->frames();
           timeEventModel.toLrcFile(stream, frames.getTitle(),
                                    frames.getArtist(), frames.getAlbum());
           file.close();
@@ -3448,7 +3448,7 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
         const int frameIndex = it->getIndex();
         const int row = frameIndex >= 0
             ? ft->getRowWithFrameIndex(frameIndex)
-            : std::distance(ft->frames().begin(), it);
+            : std::distance(frames.cbegin(), it);
         if (row != -1) {
           return QLatin1String(ft->index(row, FrameTableModel::CI_Enable)
                                .data(Qt::CheckStateRole).toInt() == Qt::Checked
@@ -3477,7 +3477,8 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
   QVariantMap map;
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   FrameTableModel* ft = m_framesModel[tagNr];
-  for (auto it = ft->frames().cbegin(); it != ft->frames().cend(); ++it) {
+  const FrameCollection& frames = ft->frames();
+  for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
     QString name(it->getName());
     int nlPos = name.indexOf(QLatin1Char('\n'));
     if (nlPos > 0) {
@@ -3581,7 +3582,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           const int frameIndex = frame.getIndex();
           const int row = frameIndex >= 0
               ? ft->getRowWithFrameIndex(frameIndex)
-              : std::distance(frames.begin(), it);
+              : std::distance(frames.cbegin(), it);
           if (row != -1) {
             ft->setData(ft->index(row, FrameTableModel::CI_Enable),
                         !value.isEmpty() && value != QLatin1String("0")
@@ -3678,7 +3679,7 @@ QByteArray Kid3Application::getPictureData() const
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
   auto it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
-  if (it != frames.end()) {
+  if (it != frames.cend()) {
     PictureFrame::getData(*it, data);
   }
   return data;
@@ -3694,7 +3695,7 @@ void Kid3Application::setPictureData(const QByteArray& data)
   auto it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
   PictureFrame frame;
-  if (it != frames.end()) {
+  if (it != frames.cend()) {
     frame = PictureFrame(*it);
     deleteFrame(Frame::Tag_Picture, QLatin1String("Picture"));
   }
