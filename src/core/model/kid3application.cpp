@@ -1832,6 +1832,9 @@ void Kid3Application::pasteTags(Frame::TagVersion tagMask)
 void Kid3Application::copyToOtherTag(Frame::TagVersion tagMask)
 {
   Frame::TagNumber dstTagNr = Frame::tagNumberFromMask(tagMask);
+  if (dstTagNr >= Frame::Tag_NumValues)
+    return;
+
   Frame::TagNumber srcTagNr = dstTagNr == Frame::Tag_2
       ? Frame::Tag_1 : Frame::Tag_2;
   copyTag(srcTagNr, dstTagNr);
@@ -3412,6 +3415,9 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   int index = 0;
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return QString();
+
   FrameTableModel* ft = m_framesModel[tagNr];
   const FrameCollection& frames = ft->frames();
   auto it = frames.findByName(frameName, index);
@@ -3476,6 +3482,9 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
 {
   QVariantMap map;
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return QVariantMap();
+
   FrameTableModel* ft = m_framesModel[tagNr];
   const FrameCollection& frames = ft->frames();
   for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
@@ -3504,11 +3513,16 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  * @param name    name of frame (e.g. "Artist")
  * @param value   value of frame
+ *
+ * @return true if ok.
  */
 bool Kid3Application::setFrame(Frame::TagVersion tagMask,
                                const QString& name, const QString& value)
 {
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
+  if (tagNr >= Frame::Tag_NumValues)
+    return false;
+
   FrameTableModel* ft = m_framesModel[tagNr];
   if (name == QLatin1String("*.selected")) {
     ft->setAllCheckStates(!value.isEmpty() && value != QLatin1String("0")

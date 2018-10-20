@@ -631,6 +631,8 @@ public:
    * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
    * @param name    name of frame (e.g. "artist")
    * @param value   value of frame
+   *
+   * @return true if ok.
    */
   Q_INVOKABLE bool setFrame(Frame::TagVersion tagMask, const QString& name,
                             const QString& value);
