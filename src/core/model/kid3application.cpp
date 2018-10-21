@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2017  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -249,7 +249,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_fileFilter(nullptr), m_filterPassed(0), m_filterTotal(0),
   m_batchImportProfile(nullptr), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(nullptr), m_addFrameTaggedFile(nullptr),
-  m_frameEditor(nullptr), m_storedFrameEditor(nullptr), m_imageProvider(nullptr),
+  m_frameEditor(nullptr), m_storedFrameEditor(nullptr),
+  m_imageProvider(nullptr),
 #ifdef HAVE_QTDBUS
   m_dbusEnabled(false),
 #endif
@@ -700,8 +701,7 @@ void Kid3Application::applyChangedConfiguration()
   }
 
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                            fileCfg.nameFilter()).
-                          split(QLatin1Char(' ')));
+                            fileCfg.nameFilter()).split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
                                      fileCfg.excludeFolders());
@@ -812,8 +812,7 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   if (ok) {
     const FileConfig& fileCfg = FileConfig::instance();
     QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                              fileCfg.nameFilter()).
-                            split(QLatin1Char(' ')));
+                              fileCfg.nameFilter()).split(QLatin1Char(' ')));
     m_fileProxyModel->setNameFilters(nameFilters);
     m_fileProxyModel->setFolderFilters(fileCfg.includeFolders(),
                                        fileCfg.excludeFolders());
@@ -2101,8 +2100,7 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
         firstFile = false;
         taggedFile = currentFile;
         framelist->setTaggedFile(taggedFile);
-        name = frameName.isEmpty() ? framelist->getSelectedName() :
-          frameName;
+        name = frameName.isEmpty() ? framelist->getSelectedName() : frameName;
       }
       FrameCollection frames;
       currentFile->getAllFrames(tagNr, frames);
@@ -2162,7 +2160,8 @@ void Kid3Application::addFrame(Frame::TagNumber tagNr,
       }
     } else {
       framelist->setFrame(*frame);
-      onFrameAdded(framelist->pasteFrame() ? &framelist->getFrame() : nullptr, tagNr);
+      onFrameAdded(framelist->pasteFrame() ? &framelist->getFrame()
+                                           : nullptr, tagNr);
     }
   }
 }
@@ -3001,7 +3000,8 @@ void Kid3Application::tryRenameAfterReset(const QString& oldName,
 {
   m_renameAfterResetOldName = oldName;
   m_renameAfterResetNewName = newName;
-  connect(this, &Kid3Application::directoryOpened, this, &Kid3Application::renameAfterReset);
+  connect(this, &Kid3Application::directoryOpened,
+          this, &Kid3Application::renameAfterReset);
   openDirectoryAfterReset();
 }
 
@@ -3333,7 +3333,8 @@ void Kid3Application::convertToId3v24()
           // Restore the frames
           FrameFilter frameFlt;
           frameFlt.enableAll();
-          taggedFile->setFrames(Frame::Tag_Id3v2, frames.copyEnabledFrames(frameFlt), false);
+          taggedFile->setFrames(Frame::Tag_Id3v2,
+                                frames.copyEnabledFrames(frameFlt), false);
         }
 
         // Write the file with ID3v2.4 tags
@@ -3382,7 +3383,8 @@ void Kid3Application::convertToId3v23()
           // Restore the frames
           FrameFilter frameFlt;
           frameFlt.enableAll();
-          taggedFile->setFrames(Frame::Tag_Id3v2, frames.copyEnabledFrames(frameFlt), false);
+          taggedFile->setFrames(Frame::Tag_Id3v2,
+                                frames.copyEnabledFrames(frameFlt), false);
         }
 
         // Write the file with ID3v2.3 tags
@@ -3869,6 +3871,6 @@ void Kid3Application::setCoverArtImageData(const QByteArray& picture)
  */
 void Kid3Application::setNextCoverArtImageId() {
   static quint32 nr = 0;
-  m_coverArtImageId = QString(QLatin1String("image://kid3/data/%1")).
-      arg(nr++, 8, 16, QLatin1Char('0'));
+  m_coverArtImageId = QString(QLatin1String("image://kid3/data/%1"))
+      .arg(nr++, 8, 16, QLatin1Char('0'));
 }

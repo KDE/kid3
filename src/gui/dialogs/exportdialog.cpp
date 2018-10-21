@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,9 +57,9 @@
  * @param textExporter text exporter to use
  */
 ExportDialog::ExportDialog(IPlatformTools* platformTools,
-                           QWidget* parent, TextExporter* textExporter) :
-  QDialog(parent), m_platformTools(platformTools),
-  m_textExporter(textExporter), m_textTableModel(new TextTableModel(this))
+                           QWidget* parent, TextExporter* textExporter)
+  : QDialog(parent), m_platformTools(platformTools),
+    m_textExporter(textExporter), m_textTableModel(new TextTableModel(this))
 {
   setObjectName(QLatin1String("ExportDialog"));
   setModal(true);

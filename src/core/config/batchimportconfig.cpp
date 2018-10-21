@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,9 +34,9 @@ int BatchImportConfig::s_index = -1;
 /**
  * Constructor.
  */
-BatchImportConfig::BatchImportConfig() :
-  StoredConfig<BatchImportConfig>(QLatin1String("BatchImport")),
-  m_importDest(Frame::TagV2), m_profileIdx(0)
+BatchImportConfig::BatchImportConfig()
+  : StoredConfig<BatchImportConfig>(QLatin1String("BatchImport")),
+    m_importDest(Frame::TagV2), m_profileIdx(0)
 {
   /**
    * Preset profile expressions.
@@ -48,7 +48,8 @@ BatchImportConfig::BatchImportConfig() :
     QLatin1String("Cover Art") <<
     QLatin1String("Custom Profile");
   m_profileSources <<
-    QLatin1String("MusicBrainz Release:75:SAC;Discogs:75:SAC;Amazon:75:SAC;gnudb.org:75:S;TrackType.org:75:S") <<
+    QLatin1String("MusicBrainz Release:75:SAC;Discogs:75:SAC;Amazon:75:SAC;"
+                  "gnudb.org:75:S;TrackType.org:75:S") <<
     QLatin1String("MusicBrainz Release:75:SAC") <<
     QLatin1String("Discogs:75:SAC") <<
     QLatin1String("Amazon:75:C;Discogs:75:C;MusicBrainz Release:75:C") <<

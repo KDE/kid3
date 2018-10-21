@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -93,9 +93,9 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           // Find the unassigned import with the best difference
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
-              int comparedDiff = md[i].fileLen > md[comparedTrack].importLen ?
-                md[i].fileLen - md[comparedTrack].importLen :
-                md[comparedTrack].importLen - md[i].fileLen;
+              int comparedDiff = md[i].fileLen > md[comparedTrack].importLen
+                  ? md[i].fileLen - md[comparedTrack].importLen
+                  : md[comparedTrack].importLen - md[i].fileLen;
               if (comparedDiff < bestDiff) {
                 bestDiff = comparedDiff;
                 bestTrack = comparedTrack;
@@ -121,9 +121,9 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           // Find the unassigned file with the best difference
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
-              int comparedDiff = md[comparedTrack].fileLen > md[i].importLen ?
-                md[comparedTrack].fileLen - md[i].importLen :
-                md[i].importLen - md[comparedTrack].fileLen;
+              int comparedDiff = md[comparedTrack].fileLen > md[i].importLen
+                  ? md[comparedTrack].fileLen - md[i].importLen
+                  : md[i].importLen - md[comparedTrack].fileLen;
               if (comparedDiff < bestDiff) {
                 bestDiff = comparedDiff;
                 bestTrack = comparedTrack;

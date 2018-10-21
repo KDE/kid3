@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,8 +37,7 @@ class GenreModel;
  * Table to edit frames.
  */
 class FrameTable : public QTableView {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

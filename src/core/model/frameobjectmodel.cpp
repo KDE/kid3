@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 02 Sep 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -157,8 +157,8 @@ QByteArray FrameObjectModel::getBinaryData() const
  * @param index index in field list
  * @param parent parent object
  */
-FrameFieldObject::FrameFieldObject(int index, FrameObjectModel* parent) :
-  QObject(parent), m_index(index)
+FrameFieldObject::FrameFieldObject(int index, FrameObjectModel* parent)
+  : QObject(parent), m_index(index)
 {
 }
 

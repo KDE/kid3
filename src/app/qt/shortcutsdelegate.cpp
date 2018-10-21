@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,8 +36,8 @@
  * Constructor.
  * @param parent parent object
  */
-ShortcutsDelegate::ShortcutsDelegate(QObject* parent) :
-  QItemDelegate(parent), m_resetFlag(false)
+ShortcutsDelegate::ShortcutsDelegate(QObject* parent)
+  : QItemDelegate(parent), m_resetFlag(false)
 {
 }
 
@@ -176,21 +176,24 @@ void ShortcutsDelegate::updateEditorGeometry(
  * @param parent parent widget
  */
 ShortcutsDelegateEditor::ShortcutsDelegateEditor(
-  QLineEdit* lineEdit, QWidget* parent) :
-  QFrame(parent) {
+  QLineEdit* lineEdit, QWidget* parent)
+  : QFrame(parent) {
   auto hlayout = new QHBoxLayout(this);
   hlayout->setContentsMargins(0, 0, 0, 0);
   delete lineEdit;
   m_editor = new QKeySequenceEdit(parent);
-  connect(m_editor, &QKeySequenceEdit::editingFinished, this, &ShortcutsDelegateEditor::valueEntered);
+  connect(m_editor, &QKeySequenceEdit::editingFinished,
+          this, &ShortcutsDelegateEditor::valueEntered);
   setFocusProxy(m_editor);
   hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
   auto clearButton = new QToolButton(this);
   clearButton->setText(tr("Clear"));
-  connect(clearButton, &QAbstractButton::clicked, this, &ShortcutsDelegateEditor::clearClicked);
+  connect(clearButton, &QAbstractButton::clicked,
+          this, &ShortcutsDelegateEditor::clearClicked);
   hlayout->addWidget(clearButton);
   auto resetButton = new QToolButton(this);
   resetButton->setText(tr("Reset"));
-  connect(resetButton, &QAbstractButton::clicked, this, &ShortcutsDelegateEditor::resetClicked);
+  connect(resetButton, &QAbstractButton::clicked,
+          this, &ShortcutsDelegateEditor::resetClicked);
   hlayout->addWidget(resetButton);
 }

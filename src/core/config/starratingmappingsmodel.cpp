@@ -36,8 +36,8 @@ enum ColumnIndex {
  * Constructor.
  * @param parent parent widget
  */
-StarRatingMappingsModel::StarRatingMappingsModel(QObject* parent) :
-  QAbstractTableModel(parent)
+StarRatingMappingsModel::StarRatingMappingsModel(QObject* parent)
+  : QAbstractTableModel(parent)
 {
   setObjectName(QLatin1String("StarRatingMappingsModel"));
 }

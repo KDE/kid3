@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2011  Urs Fleisch
+ * Copyright (C) 2004-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,7 @@
 /**
  * freedb.org importer.
  */
-class FreedbImporter : public ServerImporter
-{
+class FreedbImporter : public ServerImporter {
 public:
   /**
    * Constructor.

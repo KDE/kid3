@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2017  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,7 @@ class QNetworkAccessManager;
  * Client to connect to HTTP server.
  */
 class KID3_CORE_EXPORT HttpClient : public QObject {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /** Name-value map for raw HTTP headers. */
   typedef QMap<QByteArray, QByteArray> RawHeaderMap;

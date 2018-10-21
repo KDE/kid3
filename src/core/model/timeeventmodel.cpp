@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2017  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,9 +33,9 @@
  * Constructor.
  * @param parent parent widget
  */
-TimeEventModel::TimeEventModel(QObject* parent) :
-  QAbstractTableModel(parent), m_type(SynchronizedLyrics), m_markedRow(-1),
-  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
+TimeEventModel::TimeEventModel(QObject* parent)
+  : QAbstractTableModel(parent), m_type(SynchronizedLyrics), m_markedRow(-1),
+    m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
 {
   setObjectName(QLatin1String("TimeEventModel"));
 }
@@ -649,10 +649,10 @@ QString TimeEventModel::timeStampToString(const QTime& time)
   if (min < 0)  min = 0;
   if (sec < 0)  sec = 0;
   if (msec < 0) msec = 0;
-  QString text = QString(QLatin1String("%1:%2.%3")).
-      arg(min, 2, 10, QLatin1Char('0')).
-      arg(sec, 2, 10, QLatin1Char('0')).
-      arg(msec / 10, 2, 10, QLatin1Char('0'));
+  QString text = QString(QLatin1String("%1:%2.%3"))
+      .arg(min, 2, 10, QLatin1Char('0'))
+      .arg(sec, 2, 10, QLatin1Char('0'))
+      .arg(msec / 10, 2, 10, QLatin1Char('0'));
   if (hour != 0) {
     text.prepend(QString::number(hour) + QLatin1Char(':'));
   }

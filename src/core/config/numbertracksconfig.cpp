@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,12 +54,12 @@ int NumberTracksConfig::s_index = -1;
 /**
  * Constructor.
  */
-NumberTracksConfig::NumberTracksConfig() :
-  StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
-  m_numberTracksDst(Frame::TagV1),
-  m_numberTracksStart(1),
-  m_trackNumberingEnabled(true),
-  m_directoryCounterResetEnabled(false)
+NumberTracksConfig::NumberTracksConfig()
+  : StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
+    m_numberTracksDst(Frame::TagV1),
+    m_numberTracksStart(1),
+    m_trackNumberingEnabled(true),
+    m_directoryCounterResetEnabled(false)
 {
 }
 
@@ -73,9 +73,12 @@ void NumberTracksConfig::writeToConfig(ISettings* config) const
   config->beginGroup(m_group);
   config->setValue(QLatin1String("NumberTracksDestination"),
                    QVariant(tagVersionToNumberTracksDestCfg(m_numberTracksDst)));
-  config->setValue(QLatin1String("NumberTracksStartNumber"), QVariant(m_numberTracksStart));
-  config->setValue(QLatin1String("EnableTrackNumbering"), QVariant(m_trackNumberingEnabled));
-  config->setValue(QLatin1String("ResetCounterForEachDirectory"), QVariant(m_directoryCounterResetEnabled));
+  config->setValue(QLatin1String("NumberTracksStartNumber"),
+                   QVariant(m_numberTracksStart));
+  config->setValue(QLatin1String("EnableTrackNumbering"),
+                   QVariant(m_trackNumberingEnabled));
+  config->setValue(QLatin1String("ResetCounterForEachDirectory"),
+                   QVariant(m_directoryCounterResetEnabled));
   config->endGroup();
 }
 
@@ -89,9 +92,13 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   config->beginGroup(m_group);
   m_numberTracksDst = numberTracksDestCfgToTagVersion(
         config->value(QLatin1String("NumberTracksDestination"), 0).toInt());
-  m_numberTracksStart = config->value(QLatin1String("NumberTracksStartNumber"), 1).toInt();
-  m_trackNumberingEnabled = config->value(QLatin1String("EnableTrackNumbering"), m_trackNumberingEnabled).toBool();
-  m_directoryCounterResetEnabled = config->value(QLatin1String("ResetCounterForEachDirectory"), m_directoryCounterResetEnabled).toBool();
+  m_numberTracksStart = config->value(QLatin1String("NumberTracksStartNumber"),
+                                      1).toInt();
+  m_trackNumberingEnabled = config->value(QLatin1String("EnableTrackNumbering"),
+                                          m_trackNumberingEnabled).toBool();
+  m_directoryCounterResetEnabled =
+      config->value(QLatin1String("ResetCounterForEachDirectory"),
+                    m_directoryCounterResetEnabled).toBool();
   config->endGroup();
 }
 

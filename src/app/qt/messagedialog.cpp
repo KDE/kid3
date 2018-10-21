@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Aug 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -141,8 +141,8 @@ void MessageDialog::setIcon(QMessageBox::Icon icon)
     QStyle* widgetStyle = style();
     int iconSize = widgetStyle->pixelMetric(
           QStyle::PM_MessageBoxIconSize, nullptr, this);
-    m_iconLabel->setPixmap(widgetStyle->standardIcon(sp, nullptr, this).
-                           pixmap(iconSize, iconSize));
+    m_iconLabel->setPixmap(widgetStyle->standardIcon(sp, nullptr, this)
+                           .pixmap(iconSize, iconSize));
   } else {
     m_iconLabel->setPixmap(QPixmap());
   }

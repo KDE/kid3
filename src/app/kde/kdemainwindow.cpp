@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -56,11 +56,11 @@
  * @param parent parent widget
  */
 KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
-                             Kid3Application* app, QWidget* parent) :
-  KXmlGuiWindow(parent),
-  BaseMainWindow(this, platformTools, app),
-  m_platformTools(platformTools), m_fileOpenRecent(nullptr),
-  m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
+                             Kid3Application* app, QWidget* parent)
+  : KXmlGuiWindow(parent),
+    BaseMainWindow(this, platformTools, app),
+    m_platformTools(platformTools), m_fileOpenRecent(nullptr),
+    m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
 {
   init();
 }
@@ -182,7 +182,8 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Opens a directory"));
   action->setShortcut(QKeySequence(QLatin1String("Ctrl+D")));
   collection->addAction(QLatin1String("open_directory"), action);
-  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
+  connect(action, &QAction::triggered,
+          impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
   action = new QAction(QIcon::fromTheme(QLatin1String("document-import")),
                        tr("&Import..."), this);
   action->setStatusTip(tr("Import from file or clipboard"));
@@ -194,8 +195,8 @@ void KdeMainWindow::initActions()
   const auto sis = app()->getServerImporters();
   for (const ServerImporter* si : sis) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().
-        remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(si->name()).toLower()
+        .remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
@@ -211,8 +212,8 @@ void KdeMainWindow::initActions()
   const auto stis = app()->getServerTrackImporters();
   for (const ServerTrackImporter* si : stis) {
     QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().
-        remove(QLatin1Char(' '));
+    QString actionName = QString::fromLatin1(si->name()).toLower()
+        .remove(QLatin1Char(' '));
     int dotPos = actionName.indexOf(QLatin1Char('.'));
     if (dotPos != -1)
       actionName.truncate(dotPos);
@@ -234,11 +235,13 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Browse album cover artwork"));
   collection->addAction(QLatin1String("browse_cover_art"), action);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotBrowseCoverArt);
-  action = new QAction(QIcon::fromTheme(QLatin1String("document-export")), tr("&Export..."), this);
+  action = new QAction(QIcon::fromTheme(QLatin1String("document-export")),
+                       tr("&Export..."), this);
   action->setStatusTip(tr("Export to file or clipboard"));
   collection->addAction(QLatin1String("export"), action);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotExport);
-  action = new QAction(QIcon::fromTheme(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
+  action = new QAction(QIcon::fromTheme(QLatin1String("view-media-playlist")),
+                       tr("&Create Playlist..."), this);
   action->setStatusTip(tr("Create M3U Playlist"));
   collection->addAction(QLatin1String("create_playlist"), action);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotPlaylistDialog);
@@ -279,7 +282,8 @@ void KdeMainWindow::initActions()
       connect(action, &QAction::triggered, app(), &Kid3Application::convertToId3v23);
     }
   }
-  action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), tr("&Play"), this);
+  action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")),
+                       tr("&Play"), this);
   action->setStatusTip(tr("Play"));
   collection->addAction(QLatin1String("play"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::playAudio);
@@ -287,31 +291,36 @@ void KdeMainWindow::initActions()
   m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
   m_settingsShowHidePicture->setCheckable(true);
   collection->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
-  connect(m_settingsShowHidePicture, &QAction::triggered, impl(), &BaseMainWindowImpl::slotSettingsShowHidePicture);
+  connect(m_settingsShowHidePicture, &QAction::triggered,
+          impl(), &BaseMainWindowImpl::slotSettingsShowHidePicture);
   m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
   m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
   m_settingsAutoHideTags->setCheckable(true);
   collection->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
-  connect(m_settingsAutoHideTags, &QAction::triggered, impl(), &BaseMainWindowImpl::slotSettingsAutoHideTags);
+  connect(m_settingsAutoHideTags, &QAction::triggered,
+          impl(), &BaseMainWindowImpl::slotSettingsAutoHideTags);
   action = new QAction(tr("Select All in &Directory"), this);
   action->setStatusTip(tr("Select all files in the current directory"));
   collection->addAction(QLatin1String("select_all_in_directory"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::selectAllInDirectory);
-  action = new QAction(QIcon::fromTheme(QLatin1String("go-previous")), tr("&Previous File"), this);
+  action = new QAction(QIcon::fromTheme(QLatin1String("go-previous")),
+                       tr("&Previous File"), this);
   action->setStatusTip(tr("Select previous file"));
   collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Prior));
   collection->addAction(QLatin1String("previous_file"), action);
   connect(action, &QAction::triggered, form(), &Kid3Form::selectPreviousTaggedFile);
-  action = new QAction(QIcon::fromTheme(QLatin1String("go-next")), tr("&Next File"), this);
+  action = new QAction(QIcon::fromTheme(QLatin1String("go-next")),
+                       tr("&Next File"), this);
   action->setStatusTip(tr("Select next file"));
   collection->setDefaultShortcuts(action,
                          KStandardShortcut::shortcut(KStandardShortcut::Next));
   collection->addAction(QLatin1String("next_file"), action);
   connect(action, &QAction::triggered, form(), &Kid3Form::selectNextTaggedFile);
   FOR_ALL_TAGS(tagNr) {
-    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
-          tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
+        ? Frame::Tag_2
+        : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
     QString tagStr = Frame::tagNumberToString(tagNr);
     Kid3ApplicationTagContext* appTag = app()->tag(tagNr);
     Kid3FormTagContext* formTag = form()->tag(tagNr);
@@ -320,42 +329,52 @@ void KdeMainWindow::initActions()
     action = new QAction(tr("Filename") + QLatin1String(": ") +
                          tr("From Tag %1").arg(tagStr), this);
     collection->addAction(QLatin1String("filename_from_v") + tagStr, action);
-    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::getFilenameFromTags);
+    connect(action, &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::getFilenameFromTags);
     tagStr = QLatin1Char('v') + tagStr + QLatin1Char('_');
     action = new QAction(actionPrefix + tr("From Filename"), this);
     collection->addAction(tagStr + QLatin1String("from_filename"), action);
-    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::getTagsFromFilename);
+    connect(action, &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::getTagsFromFilename);
     if (otherTagNr < Frame::Tag_NumValues) {
       QString otherTagStr = Frame::tagNumberToString(otherTagNr);
       action = new QAction(actionPrefix + tr("From Tag %1").arg(otherTagStr),
                            this);
       collection->addAction(tagStr + QLatin1String("from_v") + otherTagStr,
                             action);
-      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::copyToOtherTag);
+      connect(action, &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::copyToOtherTag);
     }
     action = new QAction(actionPrefix + tr("Copy"), this);
     collection->addAction(tagStr + QLatin1String("copy"), action);
-    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::copyTags);
+    connect(action, &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::copyTags);
     action = new QAction(actionPrefix + tr("Paste"), this);
     collection->addAction(tagStr + QLatin1String("paste"), action);
-    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::pasteTags);
+    connect(action, &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::pasteTags);
     action = new QAction(actionPrefix + tr("Remove"), this);
     collection->addAction(tagStr + QLatin1String("remove"), action);
-    connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::removeTags);
+    connect(action, &QAction::triggered,
+            appTag, &Kid3ApplicationTagContext::removeTags);
     action = new QAction(actionPrefix + tr("Focus"), this);
     collection->addAction(tagStr + QLatin1String("focus"), action);
-    connect(action, &QAction::triggered, formTag, &Kid3FormTagContext::setFocusTag);
+    connect(action, &QAction::triggered,
+            formTag, &Kid3FormTagContext::setFocusTag);
     if (tagNr != Frame::Tag_Id3v1) {
       actionPrefix += tr("Frames:") + QLatin1Char(' ');
       action = new QAction(actionPrefix + tr("Edit"), this);
       collection->addAction(tagStr + QLatin1String("frames_edit"), action);
-      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::editFrame);
+      connect(action, &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::editFrame);
       action = new QAction(actionPrefix + tr("Add"), this);
       collection->addAction(tagStr + QLatin1String("frames_add"), action);
-      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::addFrame);
+      connect(action, &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::addFrame);
       action = new QAction(actionPrefix + tr("Delete"), this);
       collection->addAction(tagStr + QLatin1String("frames_delete"), action);
-      connect(action, &QAction::triggered, appTag, &Kid3ApplicationTagContext::deleteFrame);
+      connect(action, &QAction::triggered,
+              appTag, &Kid3ApplicationTagContext::deleteFrame);
     }
   }
 

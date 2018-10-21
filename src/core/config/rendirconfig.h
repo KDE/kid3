@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,11 +36,14 @@
 class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig> {
   Q_OBJECT
   /** directory name format */
-  Q_PROPERTY(QString dirFormat READ dirFormat WRITE setDirFormat NOTIFY dirFormatChanged)
+  Q_PROPERTY(QString dirFormat READ dirFormat WRITE setDirFormat
+             NOTIFY dirFormatChanged)
   /** index of directory name format selected */
-  Q_PROPERTY(int dirFormatIndex READ dirFormatIndex WRITE setDirFormatIndex NOTIFY dirFormatIndexChanged)
+  Q_PROPERTY(int dirFormatIndex READ dirFormatIndex WRITE setDirFormatIndex
+             NOTIFY dirFormatIndexChanged)
   /** rename directory from tags 1, tags 2, or both */
-  Q_PROPERTY(int renDirSource READ renDirSource WRITE setRenDirSrcInt NOTIFY renDirSourceChanged)
+  Q_PROPERTY(int renDirSource READ renDirSource WRITE setRenDirSrcInt
+             NOTIFY renDirSourceChanged)
 
 public:
   /**

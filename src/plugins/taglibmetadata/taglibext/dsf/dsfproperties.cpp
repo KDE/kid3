@@ -32,19 +32,19 @@
 class DSFProperties::PropertiesPrivate
 {
 public:
-  PropertiesPrivate(DSFFile *f, ReadStyle s) :
-    file(f),
-    style(s),
-    length(0),
-    bitrate(0),
-    sampleRate(0),
-    channels(0),
-    ID3v2Offset(0),
-    sampleCount(0),
-    fileSize(0),
-    bitsPerSample(1),
-    version(DSFHeader::Version1),
-    channelType(DSFHeader::Stereo)
+  PropertiesPrivate(DSFFile *f, ReadStyle s)
+    : file(f),
+      style(s),
+      length(0),
+      bitrate(0),
+      sampleRate(0),
+      channels(0),
+      ID3v2Offset(0),
+      sampleCount(0),
+      fileSize(0),
+      bitsPerSample(1),
+      version(DSFHeader::Version1),
+      channelType(DSFHeader::Stereo)
    {}
 
   DSFFile *file;

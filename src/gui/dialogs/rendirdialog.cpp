@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2004
  *
- * Copyright (C) 2004-2013  Urs Fleisch
+ * Copyright (C) 2004-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,8 +48,8 @@
  * @param parent parent widget
  * @param dirRenamer directory renamer
  */
-RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
-  QWizard(parent), m_taggedFile(nullptr), m_dirRenamer(dirRenamer)
+RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer)
+  : QWizard(parent), m_taggedFile(nullptr), m_dirRenamer(dirRenamer)
 {
   setObjectName(QLatin1String("RenDirDialog"));
   setModal(true);
@@ -117,7 +117,8 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
         m_tagversionComboBox->findData(renDirCfg.renDirSource()));
   connect(m_formatComboBox, static_cast<void (QComboBox::*)(int)>(
             &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
-  connect(m_formatComboBox, &QComboBox::editTextChanged, this, &RenDirDialog::slotUpdateNewDirname);
+  connect(m_formatComboBox, &QComboBox::editTextChanged,
+          this, &RenDirDialog::slotUpdateNewDirname);
 
   m_currentDirLabel = new QLabel(page);
   m_newDirLabel = new QLabel(page);
@@ -183,7 +184,8 @@ QString RenDirDialog::getNewDirname() const
  * Set configuration from dialog in directory renamer.
  */
 void RenDirDialog::setDirRenamerConfiguration() {
-  m_dirRenamer->setTagVersion(Frame::tagVersionCast(m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
+  m_dirRenamer->setTagVersion(Frame::tagVersionCast(
+    m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
   m_dirRenamer->setAction(m_actionComboBox->currentIndex() == ActionCreate);
   m_dirRenamer->setFormat(m_formatComboBox->currentText());
 }
@@ -196,7 +198,8 @@ void RenDirDialog::slotUpdateNewDirname()
   if (m_taggedFile) {
     setDirRenamerConfiguration();
     QString currentDirname;
-    QString newDirname(m_dirRenamer->generateNewDirname(m_taggedFile, &currentDirname));
+    QString newDirname(m_dirRenamer->generateNewDirname(m_taggedFile,
+                                                        &currentDirname));
     m_currentDirLabel->setText(currentDirname);
     setNewDirname(newDirname);
   }

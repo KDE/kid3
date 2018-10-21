@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Aug 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,7 +61,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role=Qt::DisplayRole) const override;
+                        int role = Qt::DisplayRole) const override;
 
   /**
    * Get data for header section.
@@ -71,7 +71,7 @@ public:
    * @return header data for role
    */
   virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role=Qt::DisplayRole) const override;
+                              int role = Qt::DisplayRole) const override;
 
   /**
    * Get number of rows.
@@ -79,7 +79,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
+  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -87,7 +87,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const override;
+  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Set the text to be displayed in the table.

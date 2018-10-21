@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,8 +37,8 @@
  * Constructor.
  * @param parent parent widget
  */
-BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
-  QDialog(parent)
+BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent)
+  : QDialog(parent)
 {
   setObjectName(QLatin1String("BatchImportSourceDialog"));
   setWindowTitle(tr("Import Source"));

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Aug 2011
  *
- * Copyright (C) 2011-2017  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,8 @@
  * Constructor.
  * @param parent parent widget
  */
-TextTableModel::TextTableModel(QObject* parent) :
-  QAbstractTableModel(parent), m_hasHeaderLine(false)
+TextTableModel::TextTableModel(QObject* parent)
+  : QAbstractTableModel(parent), m_hasHeaderLine(false)
 {
   setObjectName(QLatin1String("TextTableModel"));
 }

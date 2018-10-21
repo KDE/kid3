@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 May 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,8 @@
  * Constructor.
  * @param parent parent object
  */
-ComboBoxDelegate::ComboBoxDelegate(QObject* parent) :
-  QStyledItemDelegate(parent)
+ComboBoxDelegate::ComboBoxDelegate(QObject* parent)
+  : QStyledItemDelegate(parent)
 {
   setObjectName(QLatin1String("ComboBoxDelegate"));
 }

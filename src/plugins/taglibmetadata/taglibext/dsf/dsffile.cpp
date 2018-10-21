@@ -39,14 +39,14 @@ class DSFFile::FilePrivate
 {
 public:
   FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory 
-	      = TagLib::ID3v2::FrameFactory::instance()) :
-    ID3v2FrameFactory(frameFactory),
-    ID3v2Location(0),
-    ID3v2OriginalSize(0),
-    fileSize(0),
-    tag(nullptr),
-    hasID3v2(false),
-    properties(nullptr)
+        = TagLib::ID3v2::FrameFactory::instance())
+    : ID3v2FrameFactory(frameFactory),
+      ID3v2Location(0),
+      ID3v2OriginalSize(0),
+      fileSize(0),
+      tag(nullptr),
+      hasID3v2(false),
+      properties(nullptr)
   {}
 
   ~FilePrivate()
@@ -131,8 +131,8 @@ DSFFile::DSFFile(TagLib::FileName file, bool readProperties,
 DSFFile::DSFFile(TagLib::FileName file, 
 		 TagLib::ID3v2::FrameFactory *frameFactory,
 		 bool readProperties, 
-		 TagLib::AudioProperties::ReadStyle propertiesStyle) :
-  TagLib::File(file)
+     TagLib::AudioProperties::ReadStyle propertiesStyle)
+  : TagLib::File(file)
 {
   d = new FilePrivate(frameFactory);
 
@@ -143,8 +143,8 @@ DSFFile::DSFFile(TagLib::FileName file,
 DSFFile::DSFFile(TagLib::IOStream *stream, 
 		 TagLib::ID3v2::FrameFactory *frameFactory,
 		 bool readProperties, 
-		 TagLib::AudioProperties::ReadStyle propertiesStyle) :
-  TagLib::File(stream)
+     TagLib::AudioProperties::ReadStyle propertiesStyle)
+  : TagLib::File(stream)
 {
   d = new FilePrivate(frameFactory);
 

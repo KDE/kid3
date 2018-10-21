@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2017  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -78,19 +78,19 @@ const char* defaultFromFilenameFormats[] = {
 /**
  * Constructor.
  */
-FileConfig::FileConfig() :
-  StoredConfig<FileConfig>(QLatin1String("Files")),
-  m_nameFilter(QLatin1String("")),
-  m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
-  m_formatItem(0),
-  m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
-  m_formatFromFilenameItem(0),
-  m_defaultCoverFileName(QLatin1String("folder.jpg")),
-  m_textEncoding(QLatin1String("System")),
-  m_preserveTime(false),
-  m_markChanges(true),
-  m_loadLastOpenedFile(true),
-  m_showHiddenFiles(false)
+FileConfig::FileConfig()
+  : StoredConfig<FileConfig>(QLatin1String("Files")),
+    m_nameFilter(QLatin1String("")),
+    m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
+    m_formatItem(0),
+    m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
+    m_formatFromFilenameItem(0),
+    m_defaultCoverFileName(QLatin1String("folder.jpg")),
+    m_textEncoding(QLatin1String("System")),
+    m_preserveTime(false),
+    m_markChanges(true),
+    m_loadLastOpenedFile(true),
+    m_showHiddenFiles(false)
 {
 }
 
@@ -132,10 +132,13 @@ void FileConfig::readFromConfig(ISettings* config)
   m_nameFilter =
       config->value(QLatin1String("NameFilter"), QLatin1String("")).toString();
   m_includeFolders =
-      config->value(QLatin1String("IncludeFolders"), m_includeFolders).toStringList();
+      config->value(QLatin1String("IncludeFolders"),
+                    m_includeFolders).toStringList();
   m_excludeFolders =
-      config->value(QLatin1String("ExcludeFolders"), m_excludeFolders).toStringList();
-  m_showHiddenFiles = config->value(QLatin1String("ShowHiddenFiles"), m_showHiddenFiles).toBool();
+      config->value(QLatin1String("ExcludeFolders"),
+                    m_excludeFolders).toStringList();
+  m_showHiddenFiles = config->value(QLatin1String("ShowHiddenFiles"),
+                                    m_showHiddenFiles).toBool();
   m_formatItem =
       config->value(QLatin1String("FormatItem"), 0).toInt();
   m_formatItems =
@@ -146,17 +149,25 @@ void FileConfig::readFromConfig(ISettings* config)
   m_formatFromFilenameItems =
       config->value(QLatin1String("FormatFromFilenameItems"),
                     m_formatFromFilenameItems).toStringList();
-  m_preserveTime = config->value(QLatin1String("PreserveTime"), m_preserveTime).toBool();
-  m_markChanges = config->value(QLatin1String("MarkChanges"), m_markChanges).toBool();
+  m_preserveTime = config->value(QLatin1String("PreserveTime"),
+                                 m_preserveTime).toBool();
+  m_markChanges = config->value(QLatin1String("MarkChanges"),
+                                m_markChanges).toBool();
 
   m_formatText =
-      config->value(QLatin1String("FormatText"), QString::fromLatin1(defaultToFilenameFormats[0])).toString();
+      config->value(QLatin1String("FormatText"),
+                    QString::fromLatin1(defaultToFilenameFormats[0])).toString();
   m_formatFromFilenameText =
-      config->value(QLatin1String("FormatFromFilenameText"), QString::fromLatin1(defaultFromFilenameFormats[0])).toString();
-  m_loadLastOpenedFile = config->value(QLatin1String("LoadLastOpenedFile"), m_loadLastOpenedFile).toBool();
-  m_textEncoding = config->value(QLatin1String("TextEncoding"), QLatin1String("System")).toString();
-  m_lastOpenedFile = config->value(QLatin1String("LastOpenedFile"), m_lastOpenedFile).toString();
-  m_defaultCoverFileName = config->value(QLatin1String("DefaultCoverFileName"), m_defaultCoverFileName).toString();
+      config->value(QLatin1String("FormatFromFilenameText"),
+                    QString::fromLatin1(defaultFromFilenameFormats[0])).toString();
+  m_loadLastOpenedFile = config->value(QLatin1String("LoadLastOpenedFile"),
+                                       m_loadLastOpenedFile).toBool();
+  m_textEncoding = config->value(QLatin1String("TextEncoding"),
+                                 QLatin1String("System")).toString();
+  m_lastOpenedFile = config->value(QLatin1String("LastOpenedFile"),
+                                   m_lastOpenedFile).toString();
+  m_defaultCoverFileName = config->value(QLatin1String("DefaultCoverFileName"),
+                                         m_defaultCoverFileName).toString();
   config->endGroup();
 
   if (m_formatItems.isEmpty()) {

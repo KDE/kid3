@@ -117,8 +117,7 @@ bool setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
  *
  * @param idx index in file proxy model
  */
-FlacFile::FlacFile(const QPersistentModelIndex& idx) :
-  OggFile(idx)
+FlacFile::FlacFile(const QPersistentModelIndex& idx) : OggFile(idx)
 {
 }
 
@@ -187,12 +186,12 @@ void FlacFile::readTags(bool force)
                   if (entry.is_valid()) {
                     QString name =
                       QString::fromUtf8(entry.get_field_name(),
-                                        entry.get_field_name_length()).
-                      trimmed().toUpper();
+                                        entry.get_field_name_length())
+                        .trimmed().toUpper();
                     QString value =
                       QString::fromUtf8(entry.get_field_value(),
-                                        entry.get_field_value_length()).
-                      trimmed();
+                                        entry.get_field_value_length())
+                        .trimmed();
                     if (!value.isEmpty()) {
                       m_comments.push_back(
                         CommentField(name, value));
@@ -463,8 +462,9 @@ bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
     if (frame.getType() == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(
-          frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
-          PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
+              frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+              QLatin1String("image/jpeg"), PictureFrame::PT_CoverFront,
+              QLatin1String(""), QByteArray());
       }
       PictureFrame::setDescription(frame, frame.getValue());
       frame.setIndex(m_pictures.size());

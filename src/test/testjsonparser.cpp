@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012-2013  Urs Fleisch
+ * Copyright (C) 2012-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,13 +40,16 @@ void TestJsonParser::serializeAndDeserializeMessage()
 {
   QMap<QString, QVariant> map;
 
-  map[QLatin1String("uri")] = QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k");
+  map[QLatin1String("uri")] =
+      QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k");
   map[QLatin1String("duration")] = 334;
   map[QLatin1String("embed")] = true;
   map[QLatin1String("format")] = QLatin1String("12\"");
 
   QString str = JsonParser::serialize(map);
-  QCOMPARE(str, QString(QLatin1String("{\"duration\": 334, \"embed\": true, \"format\": \"12\\\"\", \"uri\": \"http://www.youtube.com/watch?v=QVdDhOnoR8k\"}")));
+  QCOMPARE(str, QString(QLatin1String(
+    "{\"duration\": 334, \"embed\": true, \"format\": \"12\\\"\", \"uri\": "
+    "\"http://www.youtube.com/watch?v=QVdDhOnoR8k\"}")));
 
   bool ok;
   QVariant json = JsonParser::deserialize(str, &ok);
@@ -54,7 +57,8 @@ void TestJsonParser::serializeAndDeserializeMessage()
   QVERIFY(ok);
   QVariant val = deser.value(QLatin1String("uri"));
   QCOMPARE(val.type(), QVariant::String);
-  QCOMPARE(val.toString(), QString(QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k")));
+  QCOMPARE(val.toString(),
+         QString(QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k")));
   val = deser.value(QLatin1String("duration"));
   QCOMPARE(val.type(), QVariant::Int);
   QCOMPARE(val.toInt(), 334);
@@ -139,7 +143,8 @@ void TestJsonParser::deserializeMusicData()
   QVariantMap musicMap = JsonParser::deserialize(musicStr, &ok).toMap();
   QVERIFY(ok);
   QCOMPARE(musicMap.value(QLatin1String("id")), QVariant(1));
-  QCOMPARE(musicMap.value(QLatin1String("title")), QVariant(QLatin1String("Stockholm")));
+  QCOMPARE(musicMap.value(QLatin1String("title")),
+           QVariant(QLatin1String("Stockholm")));
 
   QVariantList styles;
   styles << QLatin1String("Deep House");

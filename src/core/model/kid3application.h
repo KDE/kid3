@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2017  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1619,9 +1619,9 @@ public:
    * @param app application
    * @param tagNr tag number
    */
-  Kid3ApplicationTagContext(Kid3Application* app, Frame::TagNumber tagNr) :
-    QObject(app), m_app(app), m_tagNr(tagNr),
-    m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
+  Kid3ApplicationTagContext(Kid3Application* app, Frame::TagNumber tagNr)
+    : QObject(app), m_app(app), m_tagNr(tagNr),
+      m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
   }
 
 public slots:

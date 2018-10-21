@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Jun 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,8 +45,8 @@ QList<QStandardItem*> createGenreItems()
  * Constructor.
  * @param parent parent widget
  */
-GenreModel::GenreModel(bool id3v1, QObject* parent) :
-  QStandardItemModel(parent), m_id3v1(id3v1)
+GenreModel::GenreModel(bool id3v1, QObject* parent)
+  : QStandardItemModel(parent), m_id3v1(id3v1)
 {
   setObjectName(QLatin1String("GenreModel"));
   init();

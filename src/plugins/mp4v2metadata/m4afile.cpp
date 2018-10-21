@@ -43,9 +43,11 @@
 
 /** MPEG4IP version as 16-bit hex number with major and minor version. */
 #if defined MP4V2_PROJECT_version_major && defined MP4V2_PROJECT_version_minor
-#define MPEG4IP_MAJOR_MINOR_VERSION ((MP4V2_PROJECT_version_major << 8) | MP4V2_PROJECT_version_minor)
+#define MPEG4IP_MAJOR_MINOR_VERSION ((MP4V2_PROJECT_version_major << 8) | \
+  MP4V2_PROJECT_version_minor)
 #elif defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
-#define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | MPEG4IP_MINOR_VERSION)
+#define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | \
+  MPEG4IP_MINOR_VERSION)
 #else
 #define MPEG4IP_MAJOR_MINOR_VERSION 0x0009
 #endif
@@ -184,7 +186,8 @@ QString getNameForType(Frame::Type type)
       }
     }
     for (const auto& freeFormNameType : freeFormNameTypes) {
-      typeNameMap.insert(freeFormNameType.type, QString::fromLatin1(freeFormNameType.name));
+      typeNameMap.insert(freeFormNameType.type,
+                         QString::fromLatin1(freeFormNameType.name));
     }
   }
   if (type != Frame::FT_Other) {
@@ -225,7 +228,8 @@ Frame::Type getTypeForName(const QString& name, bool onlyPredefined = false)
     if (freeFormNameTypeMap.empty()) {
       // first time initialization
       for (const auto& freeFormNameType : freeFormNameTypes) {
-        freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameType.name), freeFormNameType.type);
+        freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameType.name),
+                                   freeFormNameType.type);
       }
     }
     auto it = freeFormNameTypeMap.constFind(name);
@@ -347,10 +351,15 @@ QByteArray getValueByteArray(const char* name,
     }
   } else if (std::strcmp(name, "plID") == 0) {
     if (size >= 8) {
-      qulonglong val = static_cast<qulonglong>(value[7]) + (static_cast<qulonglong>(value[6]) << 8) +
-        (static_cast<qulonglong>(value[5]) << 16) + (static_cast<qulonglong>(value[4]) << 24) +
-        (static_cast<qulonglong>(value[3]) << 32) + (static_cast<qulonglong>(value[2]) << 40) +
-        (static_cast<qulonglong>(value[1]) << 48) + (static_cast<qulonglong>(value[0]) << 56);
+      qulonglong val =
+          static_cast<qulonglong>(value[7]) +
+          (static_cast<qulonglong>(value[6]) << 8) +
+          (static_cast<qulonglong>(value[5]) << 16) +
+          (static_cast<qulonglong>(value[4]) << 24) +
+          (static_cast<qulonglong>(value[3]) << 32) +
+          (static_cast<qulonglong>(value[2]) << 40) +
+          (static_cast<qulonglong>(value[1]) << 48) +
+          (static_cast<qulonglong>(value[0]) << 56);
       if (val > 0) {
         str.setNum(val);
       }
@@ -369,8 +378,8 @@ QByteArray getValueByteArray(const char* name,
  *
  * @param idx index in file proxy model
  */
-M4aFile::M4aFile(const QPersistentModelIndex& idx) :
-  TaggedFile(idx), m_fileRead(false)
+M4aFile::M4aFile(const QPersistentModelIndex& idx)
+  : TaggedFile(idx), m_fileRead(false)
 {
 }
 
@@ -421,8 +430,11 @@ void M4aFile::readTags(bool force)
         }
         if (key) {
           QByteArray ba;
-          if (item.dataList.size > 0 && item.dataList.elements[0].value && item.dataList.elements[0].valueSize > 0) {
-            ba = getValueByteArray(key, item.dataList.elements[0].value, item.dataList.elements[0].valueSize);
+          if (item.dataList.size > 0 &&
+              item.dataList.elements[0].value &&
+              item.dataList.elements[0].valueSize > 0) {
+            ba = getValueByteArray(key, item.dataList.elements[0].value,
+                item.dataList.elements[0].valueSize);
           }
           m_metadata[QString::fromLatin1(key)] = ba;
         }

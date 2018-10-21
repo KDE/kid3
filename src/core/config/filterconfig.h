@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,13 +37,17 @@
 class KID3_CORE_EXPORT FilterConfig : public StoredConfig<FilterConfig> {
   Q_OBJECT
   /** Names of filter expressions */
-  Q_PROPERTY(QStringList filterNames READ filterNames WRITE setFilterNames NOTIFY filterNamesChanged)
+  Q_PROPERTY(QStringList filterNames READ filterNames WRITE setFilterNames
+             NOTIFY filterNamesChanged)
   /** Filter expressions */
-  Q_PROPERTY(QStringList filterExpressions READ filterExpressions WRITE setFilterExpressions NOTIFY filterExpressionsChanged)
+  Q_PROPERTY(QStringList filterExpressions READ filterExpressions
+             WRITE setFilterExpressions NOTIFY filterExpressionsChanged)
   /** Selected filter */
-  Q_PROPERTY(int filterIndex READ filterIndex WRITE setFilterIndex NOTIFY filterIndexChanged)
+  Q_PROPERTY(int filterIndex READ filterIndex WRITE setFilterIndex
+             NOTIFY filterIndexChanged)
   /** Window geometry */
-  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
 
 public:
   /**

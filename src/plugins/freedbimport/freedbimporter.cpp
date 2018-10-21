@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2013  Urs Fleisch
+ * Copyright (C) 2004-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,8 +44,8 @@ const char gnudbServer[] = "www.gnudb.org:80";
  * @param trackDataModel track data to be filled with imported values
  */
 FreedbImporter::FreedbImporter(QNetworkAccessManager* netMgr,
-                               TrackDataModel *trackDataModel) :
-  ServerImporter(netMgr, trackDataModel)
+                               TrackDataModel *trackDataModel)
+  : ServerImporter(netMgr, trackDataModel)
 {
   setObjectName(QLatin1String("FreedbImporter"));
 }
@@ -111,8 +111,8 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
     QByteArray charset(searchStr.mid(charSetPos, 5));
     isUtf8 = charset == "utf-8" || charset == "UTF-8";
   }
-  QString str = isUtf8 ? QString::fromUtf8(searchStr) :
-                         QString::fromLatin1(searchStr);
+  QString str = isUtf8 ? QString::fromUtf8(searchStr)
+                       : QString::fromLatin1(searchStr);
   QRegExp titleRe(QLatin1String(R"(<a href="[^"]+/cd/[^"]+"><b>([^<]+)</b></a>)"));
   QRegExp catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
   QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));

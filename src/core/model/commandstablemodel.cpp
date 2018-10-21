@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2017  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,8 +40,8 @@ enum ColumnIndex {
  * Constructor.
  * @param parent parent widget
  */
-CommandsTableModel::CommandsTableModel(QObject* parent) :
-  QAbstractTableModel(parent)
+CommandsTableModel::CommandsTableModel(QObject* parent)
+  : QAbstractTableModel(parent)
 {
   setObjectName(QLatin1String("CommandsTableModel"));
 }

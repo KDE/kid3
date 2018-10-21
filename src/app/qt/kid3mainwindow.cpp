@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -62,13 +62,12 @@
  * @param parent parent widget
  */
 Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
-                               Kid3Application* app, QWidget* parent) :
-  QMainWindow(parent),
-  BaseMainWindow(this, platformTools, app),
-  m_platformTools(platformTools),
-  m_fileOpenRecent(nullptr), m_shortcutsModel(new ShortcutsModel(this)),
-  m_viewToolBar(nullptr), m_viewStatusBar(nullptr),
-  m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
+                               Kid3Application* app, QWidget* parent)
+  : QMainWindow(parent), BaseMainWindow(this, platformTools, app),
+    m_platformTools(platformTools),
+    m_fileOpenRecent(nullptr), m_shortcutsModel(new ShortcutsModel(this)),
+    m_viewToolBar(nullptr), m_viewStatusBar(nullptr),
+    m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
 {
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
   QString dataRootDir(QLatin1String(CFG_DATAROOTDIR));
@@ -604,8 +603,9 @@ void Kid3MainWindow::initFormActions()
           &QAction::triggered,
           form(), &Kid3Form::setFocusFilename);
   FOR_ALL_TAGS(tagNr) {
-    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
-          tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+    Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
+        ? Frame::Tag_2
+        : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
     QString tagStr = Frame::tagNumberToString(tagNr);
     Kid3ApplicationTagContext* appTag = app()->tag(tagNr);
     Kid3FormTagContext* formTag = form()->tag(tagNr);

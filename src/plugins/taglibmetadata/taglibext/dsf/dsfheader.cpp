@@ -35,16 +35,16 @@
 class DSFHeader::HeaderPrivate : public TagLib::RefCounter
 {
 public:
-  HeaderPrivate() :
-    isValid(false),
-    version(Version1),
-    sampleCount(0),
-    channelType(Stereo),
-    channelNum(2),
-    sampleRate(0),
-    bitsPerSample(0),
-    ID3v2Offset(0),
-    fileSize(0)
+  HeaderPrivate()
+    : isValid(false),
+      version(Version1),
+      sampleCount(0),
+      channelType(Stereo),
+      channelNum(2),
+      sampleRate(0),
+      bitsPerSample(0),
+      ID3v2Offset(0),
+      fileSize(0)
   {}
 
   bool isValid;

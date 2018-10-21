@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,15 +40,20 @@ class BatchImportProfile;
 class KID3_CORE_EXPORT BatchImportConfig : public StoredConfig<BatchImportConfig> {
   Q_OBJECT
   /** tag version to import */
-  Q_PROPERTY(int importDest READ importDest WRITE setImportDestInt NOTIFY importDestChanged)
+  Q_PROPERTY(int importDest READ importDest WRITE setImportDestInt
+             NOTIFY importDestChanged)
   /** Names of profiles */
-  Q_PROPERTY(QStringList profileNames READ profileNames WRITE setProfileNames NOTIFY profileNamesChanged)
+  Q_PROPERTY(QStringList profileNames READ profileNames WRITE setProfileNames
+             NOTIFY profileNamesChanged)
   /** Profile import sources */
-  Q_PROPERTY(QStringList profileSources READ profileSources WRITE setProfileSources NOTIFY profileSourcesChanged)
+  Q_PROPERTY(QStringList profileSources READ profileSources
+             WRITE setProfileSources NOTIFY profileSourcesChanged)
   /** Selected profile */
-  Q_PROPERTY(int profileIndex READ profileIndex WRITE setProfileIndex NOTIFY profileIndexChanged)
+  Q_PROPERTY(int profileIndex READ profileIndex WRITE setProfileIndex
+             NOTIFY profileIndexChanged)
   /** Window geometry */
-  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
 
 public:
   /**

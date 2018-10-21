@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -115,8 +115,8 @@ public:
    * Constructor.
    * @param app application
    */
-  explicit PictureDblClickHandler(Kid3Application* app) :
-    QObject(app), m_app(app) {}
+  explicit PictureDblClickHandler(Kid3Application* app)
+    : QObject(app), m_app(app) {}
   virtual ~PictureDblClickHandler() override = default;
 
 protected:
@@ -270,15 +270,18 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
   m_formatComboBox = new QComboBox(m_fileWidget);
   m_formatComboBox->setEditable(true);
-  m_formatComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
+  m_formatComboBox->setSizeAdjustPolicy(
+        QComboBox::AdjustToMinimumContentsLengthWithIcon);
   m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
   connect(m_formatComboBox, &QComboBox::editTextChanged,
           this, &Kid3Form::onFormatEditTextChanged);
   m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
   m_formatFromFilenameComboBox->setEditable(true);
-  m_formatFromFilenameComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
-  m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  m_formatFromFilenameComboBox->setSizeAdjustPolicy(
+        QComboBox::AdjustToMinimumContentsLengthWithIcon);
+  m_formatFromFilenameComboBox->setSizePolicy(
+        QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
   connect(m_formatFromFilenameComboBox, &QComboBox::editTextChanged,
           this, &Kid3Form::onFormatFromFilenameEditTextChanged);
@@ -343,8 +346,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 #ifdef Q_OS_MAC
     m_tagButton[tagNr]->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-    connect(m_tagButton[tagNr], &QAbstractButton::clicked, tag(tagNr), &Kid3FormTagContext::showHideTag);
-    m_tagLabel[tagNr] = new QLabel(tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
+    connect(m_tagButton[tagNr], &QAbstractButton::clicked,
+            tag(tagNr), &Kid3FormTagContext::showHideTag);
+    m_tagLabel[tagNr] = new QLabel(
+          tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
     auto tagButtonLayout = new QHBoxLayout;
     tagButtonLayout->addWidget(m_tagButton[tagNr]);
     tagButtonLayout->addWidget(m_tagLabel[tagNr]);
@@ -357,8 +362,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     rightHalfLayout->addWidget(m_tagWidget[tagNr], 100);
 
     auto idHBoxLayout = new QHBoxLayout(m_tagWidget[tagNr]);
-    m_frameTable[tagNr] = new FrameTable(m_app->frameModel(tagNr), m_app->genreModel(tagNr),
-                                     m_tagWidget[tagNr]);
+    m_frameTable[tagNr] = new FrameTable(
+          m_app->frameModel(tagNr), m_app->genreModel(tagNr), m_tagWidget[tagNr]);
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
     m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
@@ -367,8 +372,9 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     idHBoxLayout->addLayout(buttonsVBoxLayout);
 
     if (tagNr <= Frame::Tag_2) {
-      Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
-            tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+      Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
+          ? Frame::Tag_2
+          : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
       m_id3PushButton[tagNr] =
         new QPushButton(tr("From Tag %1")
                         .arg(Frame::tagNumberToString(otherTagNr)),
@@ -445,7 +451,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
     QPushButton* removePushButton =
       new QPushButton(tr("Remove"), m_tagWidget[tagNr]);
-    connect(removePushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::removeTags);
+    connect(removePushButton, &QAbstractButton::clicked,
+            m_app->tag(tagNr), &Kid3ApplicationTagContext::removeTags);
     buttonsVBoxLayout->addWidget(removePushButton);
     setTabOrder(tabWidget, removePushButton);
     tabWidget = removePushButton;
@@ -458,17 +465,20 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
       QPushButton* editFramesPushButton =
         new QPushButton(tr("Edit..."), m_tagWidget[tagNr]);
-      connect(editFramesPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::editFrame);
+      connect(editFramesPushButton, &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::editFrame);
       buttonsVBoxLayout->addWidget(editFramesPushButton);
       setTabOrder(tabWidget, editFramesPushButton);
       QPushButton* framesAddPushButton =
         new QPushButton(tr("Add..."), m_tagWidget[tagNr]);
-      connect(framesAddPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::addFrame);
+      connect(framesAddPushButton, &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::addFrame);
       buttonsVBoxLayout->addWidget(framesAddPushButton);
       setTabOrder(editFramesPushButton, framesAddPushButton);
       QPushButton* deleteFramesPushButton =
         new QPushButton(tr("Delete"), m_tagWidget[tagNr]);
-      connect(deleteFramesPushButton, &QAbstractButton::clicked, m_app->tag(tagNr), &Kid3ApplicationTagContext::deleteFrame);
+      connect(deleteFramesPushButton, &QAbstractButton::clicked,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::deleteFrame);
       buttonsVBoxLayout->addWidget(deleteFramesPushButton);
       setTabOrder(framesAddPushButton, deleteFramesPushButton);
       tabWidget = deleteFramesPushButton;
@@ -572,7 +582,8 @@ void Kid3Form::markChangedFilename(bool en)
 {
   if (en) {
     QPalette changedPalette(m_nameLabel->palette());
-    changedPalette.setBrush(QPalette::Active, QPalette::Window, changedPalette.mid());
+    changedPalette.setBrush(QPalette::Active, QPalette::Window,
+                            changedPalette.mid());
     m_nameLabel->setPalette(changedPalette);
   } else {
     m_nameLabel->setPalette(QPalette());
@@ -630,8 +641,9 @@ void Kid3Form::enableControls(Frame::TagNumber tagNr, bool enable)
   if (m_toTagButton[tagNr]) {
     m_toTagButton[tagNr]->setEnabled(enable);
   }
-  Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1 ? Frame::Tag_2 :
-        tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+  Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
+      ? Frame::Tag_2
+      : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
   if (otherTagNr < Frame::Tag_NumValues) {
     m_id3PushButton[otherTagNr]->setEnabled(enable);
   }

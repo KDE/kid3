@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -56,8 +56,7 @@ class ServerTrackImporter;
  * Import dialog.
  */
 class ImportDialog : public QDialog {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

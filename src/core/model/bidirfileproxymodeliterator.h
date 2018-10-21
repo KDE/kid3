@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21-Feb-2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,8 +40,8 @@ class FileProxyModel;
  * FileProxyModel in both directions and the iteration can be suspended and
  * resumed.
  */
-class KID3_CORE_EXPORT BiDirFileProxyModelIterator :
-    public QObject, public IAbortable {
+class KID3_CORE_EXPORT BiDirFileProxyModelIterator
+    : public QObject, public IAbortable {
   Q_OBJECT
 public:
   /**

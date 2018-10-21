@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24-Aug-2010
  *
- * Copyright (C) 2010-2013  Urs Fleisch
+ * Copyright (C) 2010-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,8 +50,8 @@ const QString zeroTime(QLatin1String(" 0:00"));
  * @param player audio player
  * @param parent parent widget
  */
-PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
-  QToolBar(parent), m_player(player)
+PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
+  : QToolBar(parent), m_player(player)
 {
   setObjectName(QLatin1String("Kid3Player"));
   setWindowTitle(tr("Play"));

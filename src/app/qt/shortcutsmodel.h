@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -105,7 +105,7 @@ public:
    * @param parent parent model index
    * @return number of rows, if parent is valid number of children
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
+  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.

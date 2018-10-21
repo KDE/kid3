@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,7 @@
 /**
  * Discogs importer.
  */
-class DiscogsImporter : public ServerImporter
-{
+class DiscogsImporter : public ServerImporter {
 public:
   /**
    * Constructor.

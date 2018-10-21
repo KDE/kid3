@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Oct 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,8 +35,7 @@
  * Context menu commands configuration table.
  */
 class ConfigTable : public AbstractListEdit {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

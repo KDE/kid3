@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,8 +39,8 @@ public:
   class KID3_CORE_EXPORT ImageProperties {
   public:
     /** Default constructor. */
-    ImageProperties() :
-      m_width(0), m_height(0), m_depth(0), m_numColors(0), m_imageHash(0) {}
+    ImageProperties()
+      : m_width(0), m_height(0), m_depth(0), m_numColors(0), m_imageHash(0) {}
 
     /**
      * Construct from properties in METADATA_BLOCK_PICTURE.
@@ -52,9 +52,9 @@ public:
      * @param data image data
      */
     ImageProperties(uint width, uint height, uint depth, uint numColors,
-                    const QByteArray& data) :
-      m_width(width), m_height(height), m_depth(depth), m_numColors(numColors),
-      m_imageHash(qHash(data)) {}
+                    const QByteArray& data)
+      : m_width(width), m_height(height), m_depth(depth), m_numColors(numColors),
+        m_imageHash(qHash(data)) {}
 
     /**
      * Construct properties from a new image.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,8 +36,7 @@ class QAbstractItemModel;
  * Widget to edit a string list.
  */
 class AbstractListEdit : public QWidget {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

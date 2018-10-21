@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,8 +38,8 @@
  * @param parent parent widget
  * @param img    image to display in window
  */
-ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
-  QDialog(parent)
+ImageViewer::ImageViewer(QWidget* parent, const QImage& img)
+  : QDialog(parent)
 {
   setObjectName(QLatin1String("ImageViewer"));
   setModal(true);

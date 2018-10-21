@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,12 +45,13 @@ enum DataFlags {
  * Constructor.
  * @param netMgr network access manager
  */
-BatchImporter::BatchImporter(QNetworkAccessManager* netMgr) : QObject(netMgr),
-  m_downloadClient(new DownloadClient(netMgr)),
-  m_currentImporter(nullptr), m_trackDataModel(nullptr), m_albumModel(nullptr),
-  m_albumListItem(nullptr), m_tagVersion(Frame::TagNone), m_state(Idle),
-  m_trackListNr(-1), m_sourceNr(-1), m_albumNr(-1),
-  m_requestedData(0), m_importedData(0)
+BatchImporter::BatchImporter(QNetworkAccessManager* netMgr)
+  : QObject(netMgr),
+    m_downloadClient(new DownloadClient(netMgr)),
+    m_currentImporter(nullptr), m_trackDataModel(nullptr), m_albumModel(nullptr),
+    m_albumListItem(nullptr), m_tagVersion(Frame::TagNone), m_state(Idle),
+    m_trackListNr(-1), m_sourceNr(-1), m_albumNr(-1),
+    m_requestedData(0), m_importedData(0)
 {
   connect(m_downloadClient, &DownloadClient::downloadFinished,
           this, &BatchImporter::onImageDownloaded);

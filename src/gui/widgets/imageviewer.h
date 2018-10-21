@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@ class QLabel;
 
 /** Window to view image */
 class ImageViewer : public QDialog {
-Q_OBJECT
+  Q_OBJECT
 public:
   /**
    * Constructor.

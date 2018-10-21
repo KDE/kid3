@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2014  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -81,7 +81,7 @@ public:
    * @return data for role
    */
   virtual QVariant data(const QModelIndex& index,
-                        int role=Qt::DisplayRole) const override;
+                        int role = Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -91,7 +91,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role=Qt::EditRole) override;
+                       int role = Qt::EditRole) override;
 
   /**
    * Set source model.

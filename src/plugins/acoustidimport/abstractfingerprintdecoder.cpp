@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,8 +30,8 @@
  * Constructor.
  * @param parent parent object
  */
-AbstractFingerprintDecoder::AbstractFingerprintDecoder(QObject* parent) :
-  QObject(parent), m_stopped(false)
+AbstractFingerprintDecoder::AbstractFingerprintDecoder(QObject* parent)
+  : QObject(parent), m_stopped(false)
 {
 }
 

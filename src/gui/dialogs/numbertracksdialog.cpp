@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 May 2006
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,8 @@
  *
  * @param parent parent widget
  */
-NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
-  QDialog(parent)
+NumberTracksDialog::NumberTracksDialog(QWidget* parent)
+  : QDialog(parent)
 {
   setObjectName(QLatin1String("NumberTracksDialog"));
   setModal(true);

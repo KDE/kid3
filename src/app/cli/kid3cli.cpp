@@ -58,8 +58,8 @@ private:
   QList<QByteArray> m_parameters;
 };
 
-Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds) :
-  m_cmds(cmds)
+Kid3CliCompleter::Kid3CliCompleter(const QList<CliCommand*>& cmds)
+  : m_cmds(cmds)
 {
   m_commands.reserve(cmds.size());
   for (const CliCommand* cmd : cmds) {
@@ -102,8 +102,8 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
   if (!argSpec.isEmpty()) {
     QStringList argSpecs = argSpec.split(QLatin1Char('\n'));
     if (!argSpecs.isEmpty()) {
-      QString argTypes = argSpecs.first().
-          remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+      QString argTypes = argSpecs.first().remove(QLatin1Char('['))
+                                         .remove(QLatin1Char(']'));
       if (!argTypes.isEmpty()) {
         char argType = argTypes.at(0).toLatin1();
         switch (argType) {
@@ -122,9 +122,9 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
             frameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
             for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
               frameNames.append(
-                    Frame::ExtendedType(static_cast<Frame::Type>(k),
-                                        QLatin1String("")).
-                    getName().toLower().remove(QLatin1Char(' ')).toLocal8Bit());
+                    Frame::ExtendedType(
+                      static_cast<Frame::Type>(k), QLatin1String(""))
+                    .getName().toLower().remove(QLatin1Char(' ')).toLocal8Bit());
             }
           }
           m_parameters = frameNames;
@@ -536,8 +536,8 @@ void Kid3Cli::writeFileInformation(int tagMask)
         QString value =
             ft->index(row, FrameTableModel::CI_Value).data().toString();
         if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
-          bool changed = ft->index(row, FrameTableModel::CI_Enable).
-              data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
+          bool changed = ft->index(row, FrameTableModel::CI_Enable)
+              .data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
           QString line = changed ? QLatin1String("*") : QLatin1String(" ");
           line += QLatin1Char(' ');
           line += name;

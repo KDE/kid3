@@ -137,14 +137,16 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_totalNumTracksCheckBox(nullptr), m_commentNameComboBox(nullptr),
   m_pictureNameComboBox(nullptr), m_markOversizedPicturesCheckBox(nullptr),
   m_maximumPictureSizeSpinBox(nullptr), m_genreNotNumericCheckBox(nullptr),
-  m_lowercaseId3ChunkCheckBox(nullptr), m_markStandardViolationsCheckBox(nullptr),
-  m_textEncodingComboBox(nullptr), m_id3v2VersionComboBox(nullptr),
-  m_trackNumberDigitsSpinBox(nullptr), m_fnFormatBox(nullptr), m_tagFormatBox(nullptr),
+  m_lowercaseId3ChunkCheckBox(nullptr),
+  m_markStandardViolationsCheckBox(nullptr), m_textEncodingComboBox(nullptr),
+  m_id3v2VersionComboBox(nullptr), m_trackNumberDigitsSpinBox(nullptr),
+  m_fnFormatBox(nullptr), m_tagFormatBox(nullptr),
   m_onlyCustomGenresCheckBox(nullptr), m_genresEditModel(nullptr),
   m_quickAccessTagsModel(nullptr), m_starRatingMappingsModel(nullptr),
   m_trackNameComboBox(nullptr), m_playOnDoubleClickCheckBox(nullptr),
-  m_commandsTable(nullptr), m_commandsTableModel(nullptr), m_browserLineEdit(nullptr),
-  m_proxyCheckBox(nullptr), m_proxyLineEdit(nullptr), m_proxyAuthenticationCheckBox(nullptr),
+  m_commandsTable(nullptr), m_commandsTableModel(nullptr),
+  m_browserLineEdit(nullptr), m_proxyCheckBox(nullptr),
+  m_proxyLineEdit(nullptr), m_proxyAuthenticationCheckBox(nullptr),
   m_proxyUserNameLineEdit(nullptr), m_proxyPasswordLineEdit(nullptr),
   m_enabledMetadataPluginsModel(nullptr), m_enabledPluginsModel(nullptr)
 {
@@ -163,12 +165,14 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto tag1Layout = new QVBoxLayout(tag1Page);
   QGroupBox* v1GroupBox = new QGroupBox(tr("ID3v1"), tag1Page);
   auto v1GroupBoxLayout = new QGridLayout(v1GroupBox);
-  m_markTruncationsCheckBox = new QCheckBox(tr("&Mark truncated fields"), v1GroupBox);
+  m_markTruncationsCheckBox = new QCheckBox(
+        tr("&Mark truncated fields"), v1GroupBox);
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
   QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
   m_textEncodingV1ComboBox->addItems(TagConfig::getTextCodecNames());
-  m_textEncodingV1ComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_textEncodingV1ComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
   v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
   v1GroupBoxLayout->addWidget(m_textEncodingV1ComboBox, 1, 1);
@@ -180,18 +184,24 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto tag2LeftLayout = new QVBoxLayout;
   QGroupBox* v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
   auto v2GroupBoxLayout = new QGridLayout(v2GroupBox);
-  m_totalNumTracksCheckBox = new QCheckBox(tr("Use &track/total number of tracks format"), v2GroupBox);
+  m_totalNumTracksCheckBox = new QCheckBox(
+        tr("Use &track/total number of tracks format"), v2GroupBox);
   v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
-  QLabel* trackNumberDigitsLabel = new QLabel(tr("Track number &digits:"), v2GroupBox);
+  QLabel* trackNumberDigitsLabel = new QLabel(
+        tr("Track number &digits:"), v2GroupBox);
   m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
   m_trackNumberDigitsSpinBox->setMaximum(5);
-  m_genreNotNumericCheckBox = new QCheckBox(tr("&Genre as text instead of numeric string"), v2GroupBox);
-  m_lowercaseId3ChunkCheckBox = new QCheckBox(tr("&WAV files with lowercase id3 chunk"), v2GroupBox);
-  m_markStandardViolationsCheckBox = new QCheckBox(tr("Mar&k standard violations"));
+  m_genreNotNumericCheckBox = new QCheckBox(
+        tr("&Genre as text instead of numeric string"), v2GroupBox);
+  m_lowercaseId3ChunkCheckBox = new QCheckBox(
+        tr("&WAV files with lowercase id3 chunk"), v2GroupBox);
+  m_markStandardViolationsCheckBox =
+      new QCheckBox(tr("Mar&k standard violations"));
   QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
   m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
-  m_textEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_textEncodingComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingLabel->setBuddy(m_textEncodingComboBox);
   v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
   v2GroupBoxLayout->addWidget(m_lowercaseId3ChunkCheckBox, 2, 0, 1, 2);
@@ -205,13 +215,15 @@ QWidget* ConfigDialogPages::createTagsPage()
     textEncodingLabel->hide();
     m_textEncodingComboBox->hide();
   }
-  QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"), v2GroupBox);
+  QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"),
+                                         v2GroupBox);
   m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23)
     m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0"), TagConfig::ID3v2_3_0);
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24)
     m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0"), TagConfig::ID3v2_4_0);
-  m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_id3v2VersionComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
   v2GroupBoxLayout->addWidget(id3v2VersionLabel, 5, 0);
   v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 5, 1);
@@ -224,16 +236,20 @@ QWidget* ConfigDialogPages::createTagsPage()
   v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 6, 1);
   tag2LeftLayout->addWidget(v2GroupBox);
   QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
-  QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"), vorbisGroupBox);
+  QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"),
+                                        vorbisGroupBox);
   m_commentNameComboBox = new QComboBox(vorbisGroupBox);
-  QLabel* pictureNameLabel = new QLabel(tr("&Picture field name:"), vorbisGroupBox);
+  QLabel* pictureNameLabel = new QLabel(tr("&Picture field name:"),
+                                        vorbisGroupBox);
   m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
   m_commentNameComboBox->setEditable(true);
   m_commentNameComboBox->addItems(TagConfig::getCommentNames());
-  m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_commentNameComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   commentNameLabel->setBuddy(m_commentNameComboBox);
   m_pictureNameComboBox->addItems(TagConfig::getPictureNames());
-  m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_pictureNameComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   pictureNameLabel->setBuddy(m_pictureNameComboBox);
   auto vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
   vorbisGroupBoxLayout->addWidget(commentNameLabel, 0, 0);
@@ -259,7 +275,8 @@ QWidget* ConfigDialogPages::createTagsPage()
 
   auto tag2RightLayout = new QVBoxLayout;
   QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
-  m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"), genresGroupBox);
+  m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"),
+                                             genresGroupBox);
   m_genresEditModel = new QStringListModel(genresGroupBox);
   auto genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
   auto vbox = new QVBoxLayout;
@@ -290,11 +307,13 @@ QWidget* ConfigDialogPages::createTagsPage()
   QWidget* tag3Page = new QWidget;
   auto tag3Layout = new QVBoxLayout(tag3Page);
   QGroupBox* riffGroupBox = new QGroupBox(tr("RIFF INFO"), tag3Page);
-  QLabel* trackNameLabel = new QLabel(tr("Track nu&mber field name:"), riffGroupBox);
+  QLabel* trackNameLabel = new QLabel(tr("Track nu&mber field name:"),
+                                      riffGroupBox);
   m_trackNameComboBox = new QComboBox(riffGroupBox);
   m_trackNameComboBox->setEditable(true);
   m_trackNameComboBox->addItems(TagConfig::getRiffTrackNames());
-  m_trackNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_trackNameComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   trackNameLabel->setBuddy(m_trackNameComboBox);
   auto riffGroupBoxLayout = new QGridLayout(riffGroupBox);
   riffGroupBoxLayout->addWidget(trackNameLabel, 0, 0);
@@ -347,7 +366,8 @@ QWidget* ConfigDialogPages::createFilesPage()
   startupGroupBox->setLayout(startupLayout);
   leftLayout->addWidget(startupGroupBox);
   QGroupBox* saveGroupBox = new QGroupBox(tr("Save"), filesPage);
-  m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"), saveGroupBox);
+  m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"),
+                                         saveGroupBox);
   m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
   m_coverFileNameLineEdit = new QLineEdit(saveGroupBox);
   m_fileTextEncodingComboBox = new QComboBox(saveGroupBox);
@@ -424,7 +444,8 @@ QWidget* ConfigDialogPages::createActionsPage()
   browserGroupBox->setLayout(hbox);
   vlayout->addWidget(browserGroupBox);
 
-  QGroupBox* commandsGroupBox = new QGroupBox(tr("Context &Menu Commands"), actionsPage);
+  QGroupBox* commandsGroupBox = new QGroupBox(tr("Context &Menu Commands"),
+                                              actionsPage);
   m_playOnDoubleClickCheckBox =
       new QCheckBox(tr("&Play on double click"), commandsGroupBox);
   m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
@@ -450,11 +471,14 @@ QWidget* ConfigDialogPages::createNetworkPage()
   QGroupBox* proxyGroupBox = new QGroupBox(tr("Proxy"), networkPage);
   m_proxyCheckBox = new QCheckBox(tr("&Proxy:"), proxyGroupBox);
   m_proxyLineEdit = new QLineEdit(proxyGroupBox);
-  m_proxyAuthenticationCheckBox = new QCheckBox(tr("&Use authentication with proxy"), proxyGroupBox);
-  QLabel* proxyUserNameLabel = new QLabel(tr("Proxy user &name:"), proxyGroupBox);
+  m_proxyAuthenticationCheckBox = new QCheckBox(
+        tr("&Use authentication with proxy"), proxyGroupBox);
+  QLabel* proxyUserNameLabel =
+      new QLabel(tr("Proxy user &name:"), proxyGroupBox);
   m_proxyUserNameLineEdit = new QLineEdit(proxyGroupBox);
   proxyUserNameLabel->setBuddy(m_proxyUserNameLineEdit);
-  QLabel* proxyPasswordLabel = new QLabel(tr("Proxy pass&word:"), proxyGroupBox);
+  QLabel* proxyPasswordLabel =
+      new QLabel(tr("Proxy pass&word:"), proxyGroupBox);
   m_proxyPasswordLineEdit = new QLineEdit(proxyGroupBox);
   proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
   m_proxyPasswordLineEdit->setEchoMode(QLineEdit::Password);
@@ -473,7 +497,8 @@ QWidget* ConfigDialogPages::createNetworkPage()
   proxyGroupBox->setLayout(vbox);
   vlayout->addWidget(proxyGroupBox);
 
-  auto vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+  auto vspacer = new QSpacerItem(0, 0,
+                                 QSizePolicy::Minimum, QSizePolicy::Expanding);
   vlayout->addItem(vspacer);
   return networkPage;
 }
@@ -595,7 +620,8 @@ void ConfigDialogPages::setConfigs(
   const auto constFrameTypes = frameTypes;
   for (int frameType : constFrameTypes) {
     QStandardItem* item = new QStandardItem(
-          Frame::ExtendedType(static_cast<Frame::Type>(frameType)).getTranslatedName());
+          Frame::ExtendedType(static_cast<Frame::Type>(frameType))
+          .getTranslatedName());
     item->setData(frameType, Qt::UserRole);
     item->setCheckable(true);
     item->setCheckState((frameMask & (1ULL << frameType))
@@ -769,8 +795,8 @@ void ConfigDialogPages::getConfig() const
     QString pluginName =
         m_enabledMetadataPluginsModel->index(row).data().toString();
     pluginOrder.append(pluginName);
-    if (m_enabledMetadataPluginsModel->index(row).data(Qt::CheckStateRole).
-        toInt() != Qt::Checked) {
+    if (m_enabledMetadataPluginsModel->index(row).data(Qt::CheckStateRole)
+        .toInt() != Qt::Checked) {
       disabledPlugins.append(pluginName); // clazy:exclude=reserve-candidates
     }
   }
@@ -779,8 +805,8 @@ void ConfigDialogPages::getConfig() const
 
   disabledPlugins.clear();
   for (int row = 0; row < m_enabledPluginsModel->rowCount(); ++row) {
-    if (m_enabledPluginsModel->index(row).data(Qt::CheckStateRole).
-        toInt() != Qt::Checked) {
+    if (m_enabledPluginsModel->index(row).data(Qt::CheckStateRole)
+        .toInt() != Qt::Checked) {
       disabledPlugins.append(
             m_enabledPluginsModel->index(row).data().toString());
     }

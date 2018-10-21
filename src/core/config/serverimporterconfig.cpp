@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,10 +33,10 @@
  *
  * @param grp         configuration group
  */
-ServerImporterConfig::ServerImporterConfig(const QString& grp) :
-  GeneralConfig(grp),
-  m_cgiPathUsed(true), m_additionalTagsUsed(false),
-  m_standardTags(true), m_additionalTags(true), m_coverArt(true)
+ServerImporterConfig::ServerImporterConfig(const QString& grp)
+  : GeneralConfig(grp),
+    m_cgiPathUsed(true), m_additionalTagsUsed(false),
+    m_standardTags(true), m_additionalTags(true), m_coverArt(true)
 {
 }
 
@@ -44,11 +44,11 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp) :
  * Constructor.
  * Used to create temporary configuration.
  */
-ServerImporterConfig::ServerImporterConfig() :
-  GeneralConfig(QLatin1String("Temporary")),
-  m_cgiPathUsed(false),
-  m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
-  m_coverArt(false) {}
+ServerImporterConfig::ServerImporterConfig()
+  : GeneralConfig(QLatin1String("Temporary")),
+    m_cgiPathUsed(false),
+    m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
+    m_coverArt(false) {}
 
 /**
  * Persist configuration.

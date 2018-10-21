@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jan 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,10 +41,12 @@ namespace {
  */
 bool stringToBool(const QString& str, bool& b)
 {
-  if (str == QLatin1String("1") || str == QLatin1String("true") || str == QLatin1String("on") || str == QLatin1String("yes")) {
+  if (str == QLatin1String("1") || str == QLatin1String("true") ||
+      str == QLatin1String("on") || str == QLatin1String("yes")) {
     b = true;
     return true;
-  } else if (str == QLatin1String("0") || str == QLatin1String("false") || str == QLatin1String("off") || str == QLatin1String("no")) {
+  } else if (str == QLatin1String("0") || str == QLatin1String("false") ||
+             str == QLatin1String("off") || str == QLatin1String("no")) {
     b = false;
     return true;
   }
@@ -72,7 +74,8 @@ QString boolToString(bool b)
  *                  highest priority first
  */
 ExpressionParser::ExpressionParser(QStringList operators) : // clazy:exclude=function-args-by-ref
-  m_operators(operators << QLatin1String("not") << QLatin1String("and") << QLatin1String("or")),
+  m_operators(operators << QLatin1String("not") << QLatin1String("and")
+                        << QLatin1String("or")),
   m_error(false)
 {
 }
@@ -130,7 +133,8 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
         // skip quoted string
         end = begin + 1;
         while (end < len &&
-               !(expr[end] == QLatin1Char('"') && (end <= 0 || expr[end - 1] != QLatin1Char('\\')))) {
+               !(expr[end] == QLatin1Char('"') &&
+                 (end <= 0 || expr[end - 1] != QLatin1Char('\\')))) {
           ++end;
         }
         token = expr.mid(begin + 1, end - begin - 1);
@@ -139,7 +143,8 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
       } else {
         // skip spaces
         end = begin;
-        while (end < len && expr[end] != QLatin1Char(' ') && expr[end] != QLatin1Char(')')) {
+        while (end < len && expr[end] != QLatin1Char(' ') &&
+               expr[end] != QLatin1Char(')')) {
           ++end;
         }
         token = expr.mid(begin, end - begin);

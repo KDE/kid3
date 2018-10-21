@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2017  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,39 +36,56 @@
 class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   Q_OBJECT
   /** filter of file names to be opened */
-  Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter NOTIFY nameFilterChanged)
+  Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter
+             NOTIFY nameFilterChanged)
   /** patterns for folders to include in file list */
-  Q_PROPERTY(QStringList includeFolders READ includeFolders WRITE setIncludeFolders NOTIFY includeFoldersChanged)
+  Q_PROPERTY(QStringList includeFolders READ includeFolders
+             WRITE setIncludeFolders NOTIFY includeFoldersChanged)
   /** patterns for folders to exclude in file list */
-  Q_PROPERTY(QStringList excludeFolders READ excludeFolders WRITE setExcludeFolders NOTIFY excludeFoldersChanged)
+  Q_PROPERTY(QStringList excludeFolders READ excludeFolders
+             WRITE setExcludeFolders NOTIFY excludeFoldersChanged)
   /** true to show hidden files */
-  Q_PROPERTY(bool showHiddenFiles READ showHiddenFiles WRITE setShowHiddenFiles NOTIFY showHiddenFilesChanged)
+  Q_PROPERTY(bool showHiddenFiles READ showHiddenFiles WRITE setShowHiddenFiles
+             NOTIFY showHiddenFilesChanged)
   /** filename format */
-  Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
+  Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat
+             WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
   /** index of filename format selected */
-  Q_PROPERTY(int toFilenameFormatIndex READ toFilenameFormatIndex WRITE setToFilenameFormatIndex NOTIFY toFilenameFormatIndexChanged)
+  Q_PROPERTY(int toFilenameFormatIndex READ toFilenameFormatIndex
+             WRITE setToFilenameFormatIndex NOTIFY toFilenameFormatIndexChanged)
   /** filename formats */
-  Q_PROPERTY(QStringList toFilenameFormats READ toFilenameFormats WRITE setToFilenameFormats NOTIFY toFilenameFormatsChanged)
+  Q_PROPERTY(QStringList toFilenameFormats READ toFilenameFormats
+             WRITE setToFilenameFormats NOTIFY toFilenameFormatsChanged)
   /** from filename format */
-  Q_PROPERTY(QString fromFilenameFormat READ fromFilenameFormat WRITE setFromFilenameFormat NOTIFY fromFilenameFormatChanged)
+  Q_PROPERTY(QString fromFilenameFormat READ fromFilenameFormat
+             WRITE setFromFilenameFormat NOTIFY fromFilenameFormatChanged)
   /** index of from filename format selected */
-  Q_PROPERTY(int fromFilenameFormatIndex READ fromFilenameFormatIndex WRITE setFromFilenameFormatIndex NOTIFY fromFilenameFormatIndexChanged)
+  Q_PROPERTY(int fromFilenameFormatIndex READ fromFilenameFormatIndex
+             WRITE setFromFilenameFormatIndex NOTIFY fromFilenameFormatIndexChanged)
   /** from filename formats */
-  Q_PROPERTY(QStringList fromFilenameFormats READ fromFilenameFormats WRITE setFromFilenameFormats NOTIFY fromFilenameFormatsChanged)
+  Q_PROPERTY(QStringList fromFilenameFormats READ fromFilenameFormats
+             WRITE setFromFilenameFormats NOTIFY fromFilenameFormatsChanged)
   /** default file name to save cover art */
-  Q_PROPERTY(QString defaultCoverFileName READ defaultCoverFileName WRITE setDefaultCoverFileName NOTIFY defaultCoverFileNameChanged)
+  Q_PROPERTY(QString defaultCoverFileName READ defaultCoverFileName
+             WRITE setDefaultCoverFileName NOTIFY defaultCoverFileNameChanged)
   /** path to last opened file */
-  Q_PROPERTY(QString lastOpenedFile READ lastOpenedFile WRITE setLastOpenedFile NOTIFY lastOpenedFileChanged)
+  Q_PROPERTY(QString lastOpenedFile READ lastOpenedFile WRITE setLastOpenedFile
+             NOTIFY lastOpenedFileChanged)
   /** text encoding used for exports and playlists */
-  Q_PROPERTY(QString textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
+  Q_PROPERTY(QString textEncoding READ textEncoding WRITE setTextEncoding
+             NOTIFY textEncodingChanged)
   /** text encoding used for exports and playlists */
-  Q_PROPERTY(int textEncodingIndex READ textEncodingIndex WRITE setTextEncodingIndex NOTIFY textEncodingChanged)
+  Q_PROPERTY(int textEncodingIndex READ textEncodingIndex
+             WRITE setTextEncodingIndex NOTIFY textEncodingChanged)
   /** true to preserve file time stamps */
-  Q_PROPERTY(bool preserveTime READ preserveTime WRITE setPreserveTime NOTIFY preserveTimeChanged)
+  Q_PROPERTY(bool preserveTime READ preserveTime WRITE setPreserveTime
+             NOTIFY preserveTimeChanged)
   /** true to mark changed fields */
-  Q_PROPERTY(bool markChanges READ markChanges WRITE setMarkChanges NOTIFY markChangesChanged)
+  Q_PROPERTY(bool markChanges READ markChanges WRITE setMarkChanges
+             NOTIFY markChangesChanged)
   /** true to open last opened file on startup */
-  Q_PROPERTY(bool loadLastOpenedFile READ loadLastOpenedFile WRITE setLoadLastOpenedFile NOTIFY loadLastOpenedFileChanged)
+  Q_PROPERTY(bool loadLastOpenedFile READ loadLastOpenedFile
+             WRITE setLoadLastOpenedFile NOTIFY loadLastOpenedFileChanged)
 
 public:
   /**

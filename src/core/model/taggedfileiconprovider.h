@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29-Mar-2011
  *
- * Copyright (C) 2011-2014  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *

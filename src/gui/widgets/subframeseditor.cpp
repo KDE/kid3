@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Sep 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,10 +49,10 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
                                  Kid3Application* app,
                                  const TaggedFile* taggedFile,
                                  Frame::TagNumber tagNr,
-                                 QWidget* parent) :
-  QWidget(parent), m_platformTools(platformTools), m_app(app),
-  m_taggedFile(taggedFile), m_tagNr(tagNr),
-  m_editFrameDialog(nullptr), m_editFrameRow(-1)
+                                 QWidget* parent)
+  : QWidget(parent), m_platformTools(platformTools), m_app(app),
+    m_taggedFile(taggedFile), m_tagNr(tagNr),
+    m_editFrameDialog(nullptr), m_editFrameRow(-1)
 {
   setObjectName(QLatin1String("SubframesEditor"));
   auto layout = new QHBoxLayout(this);

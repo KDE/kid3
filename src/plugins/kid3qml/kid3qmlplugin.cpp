@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Sep 2014
  *
- * Copyright (C) 2014-2017  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -123,9 +123,9 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
  * Constructor.
  * @param parent parent object
  */
-Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent) :
-  QQmlExtensionPlugin(parent),
-  m_platformTools(nullptr), m_kid3App(nullptr), m_ownsKid3App(false)
+Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent)
+  : QQmlExtensionPlugin(parent),
+    m_platformTools(nullptr), m_kid3App(nullptr), m_ownsKid3App(false)
 {
 }
 

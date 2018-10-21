@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -363,8 +363,8 @@ private:
  * }
  * @endcode
  */
-class SelectedTaggedFileOfDirectoryIterator :
-    public AbstractTaggedFileIterator {
+class SelectedTaggedFileOfDirectoryIterator
+    : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -420,8 +420,8 @@ private:
  * }
  * @endcode
  */
-class TaggedFileOfSelectedDirectoriesIterator :
-    public AbstractTaggedFileIterator {
+class TaggedFileOfSelectedDirectoriesIterator
+    : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.

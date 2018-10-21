@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Aug 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,8 +41,8 @@
  */
 FormatListEdit::FormatListEdit(const QStringList& labels,
                                const QStringList& tooltips,
-                               QWidget* parent) :
-  QWidget(parent)
+                               QWidget* parent)
+  : QWidget(parent)
 {
   setObjectName(QLatin1String("FormatListEdit"));
   auto hlayout = new QHBoxLayout(this);

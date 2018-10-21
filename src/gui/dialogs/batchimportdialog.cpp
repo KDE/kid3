@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -97,12 +97,13 @@ private:
  * @param parent parent widget
  */
 BatchImportSourceListEdit::BatchImportSourceListEdit(
-    BatchImportSourcesModel* model, QWidget* parent) :
-  AbstractListEdit(m_tableView = new QTableView, model, parent)
+    BatchImportSourcesModel* model, QWidget* parent)
+  : AbstractListEdit(m_tableView = new QTableView, model, parent)
 {
   setObjectName(QLatin1String("BatchImportSourceListEdit"));
   m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-  m_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  m_tableView->horizontalHeader()->setSectionResizeMode(
+        QHeaderView::ResizeToContents);
 }
 
 /**
@@ -229,12 +230,14 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
-  connect(helpButton, &QAbstractButton::clicked, this, &BatchImportDialog::showHelp);
+  connect(helpButton, &QAbstractButton::clicked,
+          this, &BatchImportDialog::showHelp);
 
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
-  connect(saveButton, &QAbstractButton::clicked, this, &BatchImportDialog::saveConfig);
+  connect(saveButton, &QAbstractButton::clicked,
+          this, &BatchImportDialog::saveConfig);
   hlayout->addStretch();
 
   m_startAbortButton = new QPushButton(this);
@@ -245,7 +248,8 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_startAbortButton);
   hlayout->addWidget(closeButton);
-  connect(m_startAbortButton, &QAbstractButton::clicked, this, &BatchImportDialog::startOrAbortImport);
+  connect(m_startAbortButton, &QAbstractButton::clicked,
+          this, &BatchImportDialog::startOrAbortImport);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
   connect(this, &QDialog::rejected, this, &BatchImportDialog::abort);
 
@@ -373,7 +377,8 @@ void BatchImportDialog::setGuiControlsFromProfile()
     m_profileIdx = 0;
   m_profileModel->setBatchImportSources(m_profiles.at(m_profileIdx).getSources());
   if (m_profileComboBox->count() == m_profiles.size()) {
-    m_profileComboBox->setItemText(m_profileIdx, m_profiles.at(m_profileIdx).getName());
+    m_profileComboBox->setItemText(m_profileIdx,
+                                   m_profiles.at(m_profileIdx).getName());
   } else {
     m_profileComboBox->clear();
     const auto profiles = m_profiles;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -173,8 +173,8 @@ private:
      * @param index model index of item to rename
      */
     RenameAction(Type type, const QString& src, const QString& dest,
-                 const QPersistentModelIndex& index) :
-      m_type(type), m_src(src), m_dest(dest), m_index(index) {}
+                 const QPersistentModelIndex& index)
+      : m_type(type), m_src(src), m_dest(dest), m_index(index) {}
 
     /**
      * Constructor.

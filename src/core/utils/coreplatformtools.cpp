@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,8 +34,8 @@
 /**
  * Constructor.
  */
-CorePlatformTools::CorePlatformTools() :
-  m_settings(nullptr)
+CorePlatformTools::CorePlatformTools()
+  : m_settings(nullptr)
 {
 }
 
@@ -164,9 +164,11 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
   QString destName(fileName);
   int counter = 1;
   while (QFile::exists(filesPath + QLatin1Char('/') + destName) ||
-         QFile::exists(infoPath + QLatin1Char('/') + destName + QLatin1String(".trashinfo"))) {
+         QFile::exists(infoPath + QLatin1Char('/') + destName +
+                       QLatin1String(".trashinfo"))) {
     ++counter;
-    destName = QString(QLatin1String("%1.%2.%3")).arg(baseName).arg(counter).arg(suffix);
+    destName = QString(QLatin1String("%1.%2.%3"))
+        .arg(baseName).arg(counter).arg(suffix);
   }
   if (!(QDir(filesPath).exists() ||
         QDir().mkpath(filesPath)) ||
@@ -178,8 +180,8 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
   if (!file.open(QIODevice::WriteOnly))
     return false;
   QTextStream stream(&file);
-  stream << QString(QLatin1String("[Trash Info]\nPath=%1\nDeletionDate=%2\n")).
-    arg(absPath, QDateTime::currentDateTime().toString(Qt::ISODate));
+  stream << QString(QLatin1String("[Trash Info]\nPath=%1\nDeletionDate=%2\n"))
+    .arg(absPath, QDateTime::currentDateTime().toString(Qt::ISODate));
   file.close();
   return QDir().rename(absPath, filesPath + QLatin1Char('/') + destName);
 }
@@ -252,7 +254,8 @@ bool CorePlatformTools::moveFileToTrash(const QString& path)
   QString trashDir;
   if (pathStat.st_dev == trashStat.st_dev) {
     QByteArray xdhEnv = qgetenv("XDG_DATA_HOME");
-    topDir = !xdhEnv.isEmpty() ? QString::fromLatin1(xdhEnv) : QDir::homePath() + QLatin1String("/.local/share");
+    topDir = !xdhEnv.isEmpty() ? QString::fromLatin1(xdhEnv)
+                               : QDir::homePath() + QLatin1String("/.local/share");
     trashDir = topDir + QLatin1String("/Trash");
   } else if (!(findMountPoint(pathStat.st_dev, topDir) &&
                findExtVolumeTrash(topDir, trashDir))) {

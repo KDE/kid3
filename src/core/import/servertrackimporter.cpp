@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,10 +35,10 @@
  *                       is passed with filenames set
  */
 ServerTrackImporter::ServerTrackImporter(QNetworkAccessManager* netMgr,
-                                         TrackDataModel* trackDataModel) :
-  QObject(netMgr),
-  m_httpClient(new HttpClient(netMgr)),
-  m_trackDataModel(trackDataModel) {
+                                         TrackDataModel* trackDataModel)
+  : QObject(netMgr),
+    m_httpClient(new HttpClient(netMgr)),
+    m_trackDataModel(trackDataModel) {
 }
 
 /** NULL-terminated array of server strings, 0 if not used */

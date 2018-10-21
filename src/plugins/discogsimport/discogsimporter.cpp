@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2014  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -197,8 +197,8 @@ bool parseCredits(const QString& str, FrameCollection& frames)
  * @param trackDataModel track data to be filled with imported values
  */
 DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
-                                 TrackDataModel* trackDataModel) :
-  ServerImporter(netMgr, trackDataModel)
+                                 TrackDataModel* trackDataModel)
+  : ServerImporter(netMgr, trackDataModel)
 {
   setObjectName(QLatin1String("DiscogsImporter"));
   m_discogsHeaders["User-Agent"] =

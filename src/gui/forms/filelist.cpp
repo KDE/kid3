@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2014  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,9 +77,9 @@ QString nameForAction(const QString& text)
  * @param parent parent widget
  * @param mainWin main window
  */
-FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
-  ConfigurableTreeView(parent), m_mainWin(mainWin),
-  m_renameAction(nullptr), m_deleteAction(nullptr)
+FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin)
+  : ConfigurableTreeView(parent), m_mainWin(mainWin),
+    m_renameAction(nullptr), m_deleteAction(nullptr)
 {
   setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
@@ -208,7 +208,8 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     }
     QMenu menu(this);
 #if QT_VERSION >= 0x050600
-    menu.addAction(tr("&Expand all"), m_mainWin, &BaseMainWindowImpl::expandFileList);
+    menu.addAction(tr("&Expand all"), m_mainWin,
+                   &BaseMainWindowImpl::expandFileList);
     menu.addAction(tr("&Collapse all"), this, &QTreeView::collapseAll);
 #else
     menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
@@ -361,9 +362,11 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 void FileList::executeContextCommand(int id)
 {
-  if (id < static_cast<int>(UserActionsConfig::instance().contextMenuCommands().size())) {
+  if (id < static_cast<int>(
+        UserActionsConfig::instance().contextMenuCommands().size())) {
     QStringList args;
-    const UserActionsConfig::MenuCommand& menuCmd = UserActionsConfig::instance().contextMenuCommands().at(id);
+    const UserActionsConfig::MenuCommand& menuCmd =
+        UserActionsConfig::instance().contextMenuCommands().at(id);
     QString cmd = menuCmd.getCommand();
 
     int len = cmd.length();

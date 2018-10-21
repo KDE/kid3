@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,17 +33,21 @@
 /**
  * Configuration for track numbering.
  */
-class KID3_CORE_EXPORT NumberTracksConfig :
-  public StoredConfig<NumberTracksConfig> {
+class KID3_CORE_EXPORT NumberTracksConfig
+    : public StoredConfig<NumberTracksConfig> {
   Q_OBJECT
   /** number tracks in tags 1, tags 2, or both */
-  Q_PROPERTY(int numberTracksDestination READ numberTracksDestination WRITE setNumberTracksDstInt NOTIFY numberTracksDestinationChanged)
+  Q_PROPERTY(int numberTracksDestination READ numberTracksDestination
+             WRITE setNumberTracksDstInt NOTIFY numberTracksDestinationChanged)
   /** number tracks start number */
-  Q_PROPERTY(int numberTracksStart READ numberTracksStart WRITE setNumberTracksStart NOTIFY numberTracksStartChanged)
+  Q_PROPERTY(int numberTracksStart READ numberTracksStart
+             WRITE setNumberTracksStart NOTIFY numberTracksStartChanged)
   /** enable track numbering */
-  Q_PROPERTY(bool trackNumberingEnabled READ isTrackNumberingEnabled WRITE setTrackNumberingEnabled NOTIFY trackNumberingEnabledChanged)
+  Q_PROPERTY(bool trackNumberingEnabled READ isTrackNumberingEnabled
+             WRITE setTrackNumberingEnabled NOTIFY trackNumberingEnabledChanged)
   /** reset of counter for each directory */
-  Q_PROPERTY(bool directoryCounterResetEnabled READ isDirectoryCounterResetEnabled WRITE setDirectoryCounterResetEnabled NOTIFY directoryCounterResetEnabledChanged)
+  Q_PROPERTY(bool directoryCounterResetEnabled READ isDirectoryCounterResetEnabled
+             WRITE setDirectoryCounterResetEnabled NOTIFY directoryCounterResetEnabledChanged)
 public:
   /**
    * Constructor.

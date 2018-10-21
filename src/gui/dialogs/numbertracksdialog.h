@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 May 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,7 @@ class QCheckBox;
  * Number tracks dialog.
  */
 class NumberTracksDialog : public QDialog {
-Q_OBJECT
+  Q_OBJECT
 public:
   /**
    * Constructor.

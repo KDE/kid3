@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2014  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,8 +40,7 @@ class ExternalProcess;
  * List of files to operate on.
  */
 class KID3_GUI_EXPORT FileList : public ConfigurableTreeView {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -280,9 +280,9 @@ public:
    * @param tagNr tag number
    */
   TaggedFileSelectionTagContext(TaggedFileSelection* selection,
-                                Frame::TagNumber tagNr) :
-    QObject(selection), m_selection(selection), m_tagNr(tagNr),
-    m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
+                                Frame::TagNumber tagNr)
+    : QObject(selection), m_selection(selection), m_tagNr(tagNr),
+      m_tagVersion(Frame::tagVersionFromNumber(tagNr)) {
   }
 
 signals:

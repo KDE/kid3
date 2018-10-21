@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Jul 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,8 +32,8 @@
 /**
  * Interface for server importer factory.
  */
-class KID3_PLUGIN_EXPORT FreedbImportPlugin :
-    public QObject, public IServerImporterFactory {
+class KID3_PLUGIN_EXPORT FreedbImportPlugin
+    : public QObject, public IServerImporterFactory {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IServerImporterFactory")
   Q_INTERFACES(IServerImporterFactory)

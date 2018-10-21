@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Jun 2011
  *
- * Copyright (C) 2011-2014  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@
  *
  * @param netMgr network access manager
  */
-DownloadClient::DownloadClient(QNetworkAccessManager* netMgr) :
-  HttpClient(netMgr), m_canceled(false)
+DownloadClient::DownloadClient(QNetworkAccessManager* netMgr)
+  : HttpClient(netMgr), m_canceled(false)
 {
   connect(this, &HttpClient::bytesReceived,
           this, &DownloadClient::requestFinished);

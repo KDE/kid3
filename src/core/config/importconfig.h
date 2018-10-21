@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,49 +38,71 @@
 class KID3_CORE_EXPORT ImportConfig : public StoredConfig<ImportConfig> {
   Q_OBJECT
   /** available plugins, this information is not stored in the configuration */
-  Q_PROPERTY(QStringList availablePlugins READ availablePlugins WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
+  Q_PROPERTY(QStringList availablePlugins READ availablePlugins
+             WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
   /** import server */
-  Q_PROPERTY(int importServer READ importServer WRITE setImportServer NOTIFY importServerChanged)
+  Q_PROPERTY(int importServer READ importServer WRITE setImportServer
+             NOTIFY importServerChanged)
   /** tag version to import */
-  Q_PROPERTY(int importDest READ importDest WRITE setImportDestInt NOTIFY importDestChanged)
+  Q_PROPERTY(int importDest READ importDest WRITE setImportDestInt
+             NOTIFY importDestChanged)
   /** Names of import formats */
-  Q_PROPERTY(QStringList importFormatNames READ importFormatNames WRITE setImportFormatNames NOTIFY importFormatNamesChanged)
+  Q_PROPERTY(QStringList importFormatNames READ importFormatNames
+             WRITE setImportFormatNames NOTIFY importFormatNamesChanged)
   /** regexp describing header import format */
-  Q_PROPERTY(QStringList importFormatHeaders READ importFormatHeaders WRITE setImportFormatHeaders NOTIFY importFormatHeadersChanged)
+  Q_PROPERTY(QStringList importFormatHeaders READ importFormatHeaders
+             WRITE setImportFormatHeaders NOTIFY importFormatHeadersChanged)
   /** regexp describing track import format */
-  Q_PROPERTY(QStringList importFormatTracks READ importFormatTracks WRITE setImportFormatTracks NOTIFY importFormatTracksChanged)
+  Q_PROPERTY(QStringList importFormatTracks READ importFormatTracks
+             WRITE setImportFormatTracks NOTIFY importFormatTracksChanged)
   /** selected import format */
-  Q_PROPERTY(int importFormatIndex READ importFormatIndex WRITE setImportFormatIndex NOTIFY importFormatIndexChanged)
+  Q_PROPERTY(int importFormatIndex READ importFormatIndex
+             WRITE setImportFormatIndex NOTIFY importFormatIndexChanged)
   /** maximum allowable time difference */
-  Q_PROPERTY(int maxTimeDifference READ maxTimeDifference WRITE setMaxTimeDifference NOTIFY maxTimeDifferenceChanged)
+  Q_PROPERTY(int maxTimeDifference READ maxTimeDifference
+             WRITE setMaxTimeDifference NOTIFY maxTimeDifferenceChanged)
   /** visible optional columns in import table */
-  Q_PROPERTY(quint64 importVisibleColumns READ importVisibleColumns WRITE setImportVisibleColumns NOTIFY importVisibleColumnsChanged)
+  Q_PROPERTY(quint64 importVisibleColumns READ importVisibleColumns
+             WRITE setImportVisibleColumns NOTIFY importVisibleColumnsChanged)
   /** import window geometry */
-  Q_PROPERTY(QByteArray importWindowGeometry READ importWindowGeometry WRITE setImportWindowGeometry NOTIFY importWindowGeometryChanged)
+  Q_PROPERTY(QByteArray importWindowGeometry READ importWindowGeometry
+             WRITE setImportWindowGeometry NOTIFY importWindowGeometryChanged)
   /** Names of import tags formats */
-  Q_PROPERTY(QStringList importTagsNames READ importTagsNames WRITE setImportTagsNames NOTIFY importTagsNamesChanged)
+  Q_PROPERTY(QStringList importTagsNames READ importTagsNames
+             WRITE setImportTagsNames NOTIFY importTagsNamesChanged)
   /** Expressions for tag import sources */
-  Q_PROPERTY(QStringList importTagsSources READ importTagsSources WRITE setImportTagsSources NOTIFY importTagsSourcesChanged)
+  Q_PROPERTY(QStringList importTagsSources READ importTagsSources
+             WRITE setImportTagsSources NOTIFY importTagsSourcesChanged)
   /** regexp describing extraction from import tag sources */
-  Q_PROPERTY(QStringList importTagsExtractions READ importTagsExtractions WRITE setImportTagsExtractions NOTIFY importTagsExtractionsChanged)
+  Q_PROPERTY(QStringList importTagsExtractions READ importTagsExtractions
+             WRITE setImportTagsExtractions NOTIFY importTagsExtractionsChanged)
   /** selected import tags format */
-  Q_PROPERTY(int importTagsIndex READ importTagsIndex WRITE setImportTagsIndex NOTIFY importTagsIndexChanged)
+  Q_PROPERTY(int importTagsIndex READ importTagsIndex WRITE setImportTagsIndex
+             NOTIFY importTagsIndexChanged)
   /** names of picture sources */
-  Q_PROPERTY(QStringList pictureSourceNames READ pictureSourceNames WRITE setPictureSourceNames NOTIFY pictureSourceNamesChanged)
+  Q_PROPERTY(QStringList pictureSourceNames READ pictureSourceNames
+             WRITE setPictureSourceNames NOTIFY pictureSourceNamesChanged)
   /** picture source URLs */
-  Q_PROPERTY(QStringList pictureSourceUrls READ pictureSourceUrls WRITE setPictureSourceUrls NOTIFY pictureSourceUrlsChanged)
+  Q_PROPERTY(QStringList pictureSourceUrls READ pictureSourceUrls
+             WRITE setPictureSourceUrls NOTIFY pictureSourceUrlsChanged)
   /** selected picture source */
-  Q_PROPERTY(int pictureSourceIndex READ pictureSourceIndex WRITE setPictureSourceIndex NOTIFY pictureSourceIndexChanged)
+  Q_PROPERTY(int pictureSourceIndex READ pictureSourceIndex
+             WRITE setPictureSourceIndex NOTIFY pictureSourceIndexChanged)
   /** Browse cover art window geometry */
-  Q_PROPERTY(QByteArray browseCoverArtWindowGeometry READ browseCoverArtWindowGeometry WRITE setBrowseCoverArtWindowGeometry NOTIFY browseCoverArtWindowGeometryChanged)
+  Q_PROPERTY(QByteArray browseCoverArtWindowGeometry READ browseCoverArtWindowGeometry
+             WRITE setBrowseCoverArtWindowGeometry NOTIFY browseCoverArtWindowGeometryChanged)
   /** Mapping for picture URL matching */
-  Q_PROPERTY(QVariantMap matchPictureUrlMap READ matchPictureUrlVariantMap WRITE setMatchPictureUrlVariantMap NOTIFY matchPictureUrlMapChanged)
+  Q_PROPERTY(QVariantMap matchPictureUrlMap READ matchPictureUrlVariantMap
+             WRITE setMatchPictureUrlVariantMap NOTIFY matchPictureUrlMapChanged)
   /** Last directory used for import or export. */
-  Q_PROPERTY(QString importDir READ importDir WRITE setImportDir NOTIFY importDirChanged)
+  Q_PROPERTY(QString importDir READ importDir WRITE setImportDir
+             NOTIFY importDirChanged)
   /** Disabled plugins */
-  Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
+  Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins
+             WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
   /** check maximum allowable time difference */
-  Q_PROPERTY(bool enableTimeDifferenceCheck READ enableTimeDifferenceCheck WRITE setEnableTimeDifferenceCheck NOTIFY enableTimeDifferenceCheckChanged)
+  Q_PROPERTY(bool enableTimeDifferenceCheck READ enableTimeDifferenceCheck
+             WRITE setEnableTimeDifferenceCheck NOTIFY enableTimeDifferenceCheckChanged)
 
 public:
   /**

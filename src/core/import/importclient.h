@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,10 +34,8 @@ class ServerImporterConfig;
 /**
  * Client to connect to server with import data.
  */
-class KID3_CORE_EXPORT ImportClient : public HttpClient
-{
-Q_OBJECT
-
+class KID3_CORE_EXPORT ImportClient : public HttpClient {
+  Q_OBJECT
 public:
   /**
    * Constructor.

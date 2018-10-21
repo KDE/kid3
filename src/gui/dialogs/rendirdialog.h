@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2004
  *
- * Copyright (C) 2004-2007  Urs Fleisch
+ * Copyright (C) 2004-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,7 @@ class DirRenamer;
  * Rename directory dialog.
  */
 class RenDirDialog : public QWizard {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

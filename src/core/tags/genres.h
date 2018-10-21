@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -91,7 +91,7 @@ public:
    */
   static const char** s_strList;
 
- private:
+private:
   /**
    * Alphabetic list of genres, starts with unknown (empty) entry.
    *

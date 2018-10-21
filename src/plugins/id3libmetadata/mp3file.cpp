@@ -50,7 +50,8 @@
 #define UNICODE_SUPPORT_BUGGY 1
 #else
 /** This will be set for id3lib versions with Unicode bugs. */
-#define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
+#define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + \
+  ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
 #if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 407
@@ -79,8 +80,8 @@ ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
  *
  * @param idx index in file proxy model
  */
-Mp3File::Mp3File(const QPersistentModelIndex& idx) :
-  TaggedFile(idx)
+Mp3File::Mp3File(const QPersistentModelIndex& idx)
+  : TaggedFile(idx)
 {
 }
 
@@ -259,11 +260,10 @@ QString fixUpUnicode(const unicode_t* str, size_t numChars)
     // to work around these bugs.
     size_t numZeroes = 0;
     for (size_t i = 0; i < numChars; i++) {
-      qcarray[i] =
-        UNICODE_SUPPORT_BUGGY ?
-        static_cast<ushort>(((str[i] & 0x00ff) << 8) |
-                 ((str[i] & 0xff00) >> 8)) :
-        static_cast<ushort>(str[i]);
+      qcarray[i] = UNICODE_SUPPORT_BUGGY
+          ? static_cast<ushort>(((str[i] & 0x00ff) << 8) |
+                                ((str[i] & 0xff00) >> 8))
+          : static_cast<ushort>(str[i]);
       if (qcarray[i].isNull()) { ++numZeroes; }
     }
     // remove a single trailing zero character
@@ -309,9 +309,8 @@ QString getString(ID3_Field* field, const QTextCodec* codec = nullptr)
       // (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
       size_t numItems = field->GetNumTextItems();
       if (numItems <= 1) {
-        text = codec ?
-          codec->toUnicode(field->GetRawText(), field->Size()) :
-          QString::fromLatin1(field->GetRawText());
+        text = codec ? codec->toUnicode(field->GetRawText(), field->Size())
+                     : QString::fromLatin1(field->GetRawText());
       } else {
         // if there are multiple items, put them into one string
         // separated by a special separator.
@@ -405,7 +404,8 @@ int getGenreNum(const ID3_Tag* tag)
   if (str.isNull()) return -1;
   if (str.isEmpty()) return 0xff;
   int cpPos = 0, n = 0xff;
-  if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
+  if ((str[0] == QLatin1Char('(')) &&
+      ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
     bool ok;
     n = str.midRef(1, cpPos - 1).toInt(&ok);
     if (!ok || n > 0xff) {
@@ -1560,8 +1560,9 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             QByteArray newData, oldData;
             if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
                 AttributeData(owner).toByteArray(value, newData)) {
-              oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
-                                   static_cast<int>(fld->Size()));
+              oldData =
+                  QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                             static_cast<int>(fld->Size()));
               if (newData != oldData) {
                 fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                          newData.size());
@@ -1588,8 +1589,9 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             QByteArray newData, oldData;
             if (AttributeData::isHexString(value, 'Z')) {
               newData = (value + QLatin1Char('\0')).toLatin1();
-              oldData = QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
-                                   static_cast<int>(fld->Size()));
+              oldData =
+                  QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
+                             static_cast<int>(fld->Size()));
               if (newData != oldData) {
                 fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                          static_cast<size_t>(newData.size()));
@@ -1648,8 +1650,10 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     if (getTextField(tag, frameId, codec) != str &&
         setTextField(tag, frameId, str, allowUnicode, true, true, codec)) {
       markTagChanged(tagNr, type);
-      QString s = checkTruncation(tagNr, str, 1ULL << type, type == Frame::FT_Comment ? 28 : 30);
-      if (!s.isNull()) setTextField(tag, frameId, s, allowUnicode, true, true, codec);
+      QString s = checkTruncation(tagNr, str, 1ULL << type,
+                                  type == Frame::FT_Comment ? 28 : 30);
+      if (!s.isNull()) setTextField(tag, frameId, s, allowUnicode, true, true,
+                                    codec);
     }
     break;
   }
@@ -1756,7 +1760,8 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
       }
       fld->SetEncoding(enc);
     }
-    if (id == ID3FID_USERTEXT && !frame.getName().startsWith(QLatin1String("TXXX"))) {
+    if (id == ID3FID_USERTEXT &&
+        !frame.getName().startsWith(QLatin1String("TXXX"))) {
       fld = id3Frame->GetField(ID3FN_DESCRIPTION);
       if (fld) {
         QString description;
@@ -1780,7 +1785,8 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
           setString(fld, frame.getName());
         }
       }
-    } else if (id == ID3FID_PRIVATE && !frame.getName().startsWith(QLatin1String("PRIV"))) {
+    } else if (id == ID3FID_PRIVATE &&
+               !frame.getName().startsWith(QLatin1String("PRIV"))) {
       fld = id3Frame->GetField(ID3FN_OWNER);
       if (fld) {
         setString(fld, frame.getName());
@@ -1965,7 +1971,8 @@ Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
     QVariant fieldValue = frame.getFieldValue(Frame::ID_Data);
     if (fieldValue.isValid()) {
       QString str;
-      if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
+      if (AttributeData(AttributeData::Utf16)
+          .toString(fieldValue.toByteArray(), str) &&
           AttributeData::isHexString(str, 'F', QLatin1String("+"))) {
         frame.setValue(str);
       }
@@ -2154,8 +2161,8 @@ QStringList Mp3File::getFrameIds(Frame::TagNumber tagNr) const
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     if (type != Frame::FT_Part) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).
-                 getName());
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type),
+                                     QLatin1String("")).getName());
     }
   }
   for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
@@ -2199,7 +2206,8 @@ void Mp3File::notifyConfigurationChange()
 {
   const QTextCodec* id3v1TextCodec =
     TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : nullptr;
+    QTextCodec::codecForName(
+          TagConfig::instance().textEncodingV1().toLatin1().data()) : nullptr;
   setDefaultTextEncoding(
     static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
   setTextCodecV1(id3v1TextCodec);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@
  *
  * @param rootIdx root of model to iterate
  */
-ModelIterator::ModelIterator(const QPersistentModelIndex& rootIdx) :
-    m_model(rootIdx.model())
+ModelIterator::ModelIterator(const QPersistentModelIndex& rootIdx)
+    : m_model(rootIdx.model())
 {
   m_nodes.push(rootIdx);
   next();
@@ -110,8 +110,8 @@ QVariant ModelIterator::peekNextData(int role) const {
  *
  * @param rootIdx root of model to iterate
  */
-ModelBfsIterator::ModelBfsIterator(const QPersistentModelIndex& rootIdx) :
-    m_model(rootIdx.model()), m_nextIdx(rootIdx), m_parentIdx(rootIdx), m_row(0)
+ModelBfsIterator::ModelBfsIterator(const QPersistentModelIndex& rootIdx)
+    : m_model(rootIdx.model()), m_nextIdx(rootIdx), m_parentIdx(rootIdx), m_row(0)
 {
 }
 
@@ -197,8 +197,8 @@ AbstractTaggedFileIterator::~AbstractTaggedFileIterator()
  *
  * @param rootIdx root of model to iterate
  */
-TaggedFileIterator::TaggedFileIterator(const QPersistentModelIndex& rootIdx) :
-    m_it(rootIdx), m_nextFile(nullptr)
+TaggedFileIterator::TaggedFileIterator(const QPersistentModelIndex& rootIdx)
+    : m_it(rootIdx), m_nextFile(nullptr)
 {
   next();
 }
@@ -244,10 +244,10 @@ void TaggedFileIterator::closeFileHandles(const QPersistentModelIndex& index)
 SelectedTaggedFileIterator::SelectedTaggedFileIterator(
     const QPersistentModelIndex& rootIdx,
     const QItemSelectionModel* selectModel,
-    bool allIfNoneSelected):
-    m_it(rootIdx), m_nextFile(nullptr), m_selectModel(selectModel),
-    m_allSelected(!m_selectModel ||
-                  (allIfNoneSelected && !m_selectModel->hasSelection()))
+    bool allIfNoneSelected)
+    : m_it(rootIdx), m_nextFile(nullptr), m_selectModel(selectModel),
+      m_allSelected(!m_selectModel ||
+                    (allIfNoneSelected && !m_selectModel->hasSelection()))
 {
   next();
 }
@@ -286,10 +286,12 @@ bool SelectedTaggedFileIterator::hasNoSelection() const
  * @param index of the directory or a file in it
  */
 TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
-    const QPersistentModelIndex& index) :
-    m_row(0), m_model(index.model()),
-    m_parentIdx(m_model && m_model->hasChildren(index)
-                ? index : QPersistentModelIndex(index.parent())), m_nextFile(nullptr)
+    const QPersistentModelIndex& index)
+    : m_row(0), m_model(index.model()),
+      m_parentIdx(m_model && m_model->hasChildren(index)
+                  ? index
+                  : QPersistentModelIndex(index.parent())),
+      m_nextFile(nullptr)
 {
   next();
 }
@@ -357,8 +359,8 @@ TaggedFile* TaggedFileOfDirectoryIterator::first(
 SelectedTaggedFileOfDirectoryIterator::SelectedTaggedFileOfDirectoryIterator(
   const QPersistentModelIndex& index,
   const QItemSelectionModel* selectModel,
-  bool allIfNoneSelected) :
-    m_row(0), m_model(index.model()),
+  bool allIfNoneSelected)
+  : m_row(0), m_model(index.model()),
     m_parentIdx(m_model && m_model->hasChildren(index)
                 ? index : QPersistentModelIndex(index.parent())),
     m_nextFile(nullptr),

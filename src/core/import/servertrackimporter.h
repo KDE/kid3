@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,8 +38,7 @@ class HttpClient;
 /**
  * Abstract base class for track imports from a server.
  */
-class KID3_CORE_EXPORT ServerTrackImporter : public QObject
-{
+class KID3_CORE_EXPORT ServerTrackImporter : public QObject {
   Q_OBJECT
 public:
   /**

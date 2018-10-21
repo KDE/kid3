@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -92,8 +92,8 @@ QString EventTimeCode::toString() const
       return QString::fromLatin1(codes[i].text);
     }
   }
-  return QString(QLatin1String("reserved for future use %1")).
-      arg(m_code, 2, 16, QLatin1Char('0'));
+  return QString(QLatin1String("reserved for future use %1"))
+      .arg(m_code, 2, 16, QLatin1Char('0'));
 }
 
 /**
@@ -109,8 +109,8 @@ QString EventTimeCode::toTranslatedString() const
   }
   const char* const reservedForFutureUseStr =
       QT_TRANSLATE_NOOP("@default", "reserved for future use %1");
-  return QCoreApplication::translate("@default", reservedForFutureUseStr).
-      arg(m_code, 2, 16, QLatin1Char('0'));
+  return QCoreApplication::translate("@default", reservedForFutureUseStr)
+      .arg(m_code, 2, 16, QLatin1Char('0'));
 }
 
 /**

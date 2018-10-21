@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -120,8 +120,8 @@ QString ServerImporter::removeHtml(QString str)
  * @param idStr   ID
  */
 AlbumListItem::AlbumListItem(const QString& text,
-        const QString& cat, const QString& idStr) :
-  QStandardItem(text)
+        const QString& cat, const QString& idStr)
+  : QStandardItem(text)
 {
   setData(cat, Qt::UserRole + 1);
   setData(idStr, Qt::UserRole + 2);

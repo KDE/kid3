@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,10 +43,10 @@ int NetworkConfig::s_index = -1;
 /**
  * Constructor.
  */
-NetworkConfig::NetworkConfig() :
-  StoredConfig<NetworkConfig>(QLatin1String("Network")),
-  m_useProxy(false),
-  m_useProxyAuthentication(false)
+NetworkConfig::NetworkConfig()
+  : StoredConfig<NetworkConfig>(QLatin1String("Network")),
+    m_useProxy(false),
+    m_useProxyAuthentication(false)
 {
 }
 
@@ -60,7 +60,8 @@ void NetworkConfig::writeToConfig(ISettings* config) const
   config->beginGroup(m_group);
   config->setValue(QLatin1String("UseProxy"), QVariant(m_useProxy));
   config->setValue(QLatin1String("Proxy"), QVariant(m_proxy));
-  config->setValue(QLatin1String("UseProxyAuthentication"), QVariant(m_useProxyAuthentication));
+  config->setValue(QLatin1String("UseProxyAuthentication"),
+                   QVariant(m_useProxyAuthentication));
   config->setValue(QLatin1String("ProxyUserName"), QVariant(m_proxyUserName));
   config->setValue(QLatin1String("ProxyPassword"), QVariant(m_proxyPassword));
   config->setValue(QLatin1String("Browser"), QVariant(m_browser));
@@ -77,9 +78,12 @@ void NetworkConfig::readFromConfig(ISettings* config)
   config->beginGroup(m_group);
   m_useProxy = config->value(QLatin1String("UseProxy"), m_useProxy).toBool();
   m_proxy = config->value(QLatin1String("Proxy"), m_proxy).toString();
-  m_useProxyAuthentication = config->value(QLatin1String("UseProxyAuthentication"), m_useProxyAuthentication).toBool();
-  m_proxyUserName = config->value(QLatin1String("ProxyUserName"), m_proxyUserName).toString();
-  m_proxyPassword = config->value(QLatin1String("ProxyPassword"), m_proxyPassword).toString();
+  m_useProxyAuthentication = config->value(QLatin1String("UseProxyAuthentication"),
+                                           m_useProxyAuthentication).toBool();
+  m_proxyUserName = config->value(QLatin1String("ProxyUserName"),
+                                  m_proxyUserName).toString();
+  m_proxyPassword = config->value(QLatin1String("ProxyPassword"),
+                                  m_proxyPassword).toString();
   m_browser = config->value(QLatin1String("Browser"), QString()).toString();
   if (m_browser.isEmpty()) {
     setDefaultBrowser();

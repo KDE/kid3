@@ -32,8 +32,8 @@
  * Constructor.
  * @param parent parent widget
  */
-TrackDataModel::TrackDataModel(QObject* parent) :
-  QAbstractTableModel(parent), m_maxDiff(0), m_diffCheckEnabled(false)
+TrackDataModel::TrackDataModel(QObject* parent)
+  : QAbstractTableModel(parent), m_maxDiff(0), m_diffCheckEnabled(false)
 {
   setObjectName(QLatin1String("TrackDataModel"));
 }

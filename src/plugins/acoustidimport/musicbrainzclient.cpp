@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,7 +58,8 @@ QStringList parseAcoustidIds(const QByteArray& bytes)
       int endPos = bytes.indexOf(']', startPos);
       if (endPos > startPos) {
         QRegExp idRe(QLatin1String("\"id\":\\s*\"([^\"]+)\""));
-        QString recordings(QString::fromLatin1(bytes.mid(startPos, endPos - startPos)));
+        QString recordings(QString::fromLatin1(bytes.mid(startPos,
+                                                         endPos - startPos)));
         int pos = 0;
         while ((pos = idRe.indexIn(recordings, pos)) != -1) {
           ids.append(idRe.cap(1));
@@ -119,26 +120,32 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
   QDomDocument doc;
   if (doc.setContent(xmlStr, false)) {
     QDomElement recording =
-      doc.namedItem(QLatin1String("metadata")).namedItem(QLatin1String("recording")).toElement();
+      doc.namedItem(QLatin1String("metadata"))
+        .namedItem(QLatin1String("recording")).toElement();
     if (!recording.isNull()) {
       bool ok;
       ImportTrackData frames;
-      frames.setTitle(recording.namedItem(QLatin1String("title")).toElement().text());
-      int length = recording.namedItem(QLatin1String("length")).toElement().text().toInt(&ok);
+      frames.setTitle(recording.namedItem(QLatin1String("title")).toElement()
+                      .text());
+      int length = recording.namedItem(QLatin1String("length")).toElement()
+          .text().toInt(&ok);
       if (ok) {
         frames.setImportDuration(length / 1000);
       }
       QDomNode artistNode = recording.namedItem(QLatin1String("artist-credit"));
       if (!artistNode.isNull()) {
-        QString artist(artistNode.namedItem(QLatin1String("name-credit")).namedItem(QLatin1String("artist")).
-            namedItem(QLatin1String("name")).toElement().text());
+        QString artist(artistNode.namedItem(QLatin1String("name-credit"))
+                       .namedItem(QLatin1String("artist"))
+                       .namedItem(QLatin1String("name")).toElement().text());
         frames.setArtist(artist);
       }
-      QDomNode releaseNode = recording.namedItem(QLatin1String("release-list")).
-          namedItem(QLatin1String("release"));
+      QDomNode releaseNode = recording.namedItem(QLatin1String("release-list"))
+          .namedItem(QLatin1String("release"));
       if (!releaseNode.isNull()) {
-        frames.setAlbum(releaseNode.namedItem(QLatin1String("title")).toElement().text());
-        QString date(releaseNode.namedItem(QLatin1String("date")).toElement().text());
+        frames.setAlbum(releaseNode.namedItem(QLatin1String("title"))
+                        .toElement().text());
+        QString date(releaseNode.namedItem(QLatin1String("date")).toElement()
+                     .text());
         if (!date.isEmpty()) {
           QRegExp dateRe(QLatin1String(R"((\d{4})(?:-\d{2})?(?:-\d{2})?)"));
           int year = 0;
@@ -151,11 +158,14 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
             frames.setYear(year);
           }
         }
-        QDomNode trackNode = releaseNode.namedItem(QLatin1String("medium-list")).
-            namedItem(QLatin1String("medium")).namedItem(QLatin1String("track-list")).namedItem(QLatin1String("track"));
+        QDomNode trackNode = releaseNode
+            .namedItem(QLatin1String("medium-list"))
+            .namedItem(QLatin1String("medium"))
+            .namedItem(QLatin1String("track-list"))
+            .namedItem(QLatin1String("track"));
         if (!trackNode.isNull()) {
-          int trackNr = trackNode.namedItem(QLatin1String("position")).toElement().text().
-              toInt(&ok);
+          int trackNr = trackNode.namedItem(QLatin1String("position"))
+              .toElement().text().toInt(&ok);
           if (ok) {
             frames.setTrack(trackNr);
           }
@@ -177,10 +187,10 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
  *                      is passed with filenames set
  */
 MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
-                                     TrackDataModel *trackDataModel) :
-  ServerTrackImporter(netMgr, trackDataModel),
-  m_fingerprintCalculator(new FingerprintCalculator(this)),
-  m_state(Idle), m_currentIndex(-1)
+                                     TrackDataModel *trackDataModel)
+  : ServerTrackImporter(netMgr, trackDataModel),
+    m_fingerprintCalculator(new FingerprintCalculator(this)),
+    m_state(Idle), m_currentIndex(-1)
 {
   m_headers["User-Agent"] = "curl/7.52.1";
   connect(httpClient(), &HttpClient::bytesReceived,
@@ -304,9 +314,10 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
   if (error == FingerprintCalculator::Ok) {
     m_state = GettingIds;
     emit statusChanged(m_currentIndex, tr("ID Lookup"));
-    QString path(QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
-                 QString::number(duration) +
-                 QLatin1String("&fingerprint=") + fingerprint);
+    QString path(
+      QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
+      QString::number(duration) +
+      QLatin1String("&fingerprint=") + fingerprint);
     httpClient()->sendRequest(QLatin1String("api.acoustid.org"), path,
                               QLatin1String("https"));
   } else {

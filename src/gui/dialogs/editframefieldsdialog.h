@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,9 +39,8 @@ class FieldControl;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
- Q_OBJECT
-
- public:
+  Q_OBJECT
+public:
   /**
    * Constructor.
    *
@@ -90,7 +89,7 @@ class BinaryOpenSave : public QWidget {
    */
   void setFilter(const QString& filter) { m_filter = filter; }
 
- public slots:
+public slots:
   /**
    * Enable the "From Clipboard" button if the clipboard contains an image.
    */
@@ -122,7 +121,7 @@ class BinaryOpenSave : public QWidget {
    */
   void viewData();
 
- private:
+private:
   IPlatformTools* m_platformTools;
   Kid3Application* m_app;
   /** Array with binary data */
@@ -144,7 +143,7 @@ class BinaryOpenSave : public QWidget {
 
 /** Field edit dialog */
 class EditFrameFieldsDialog : public QDialog {
-Q_OBJECT
+  Q_OBJECT
 public:
   /**
    * Constructor.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -101,8 +101,8 @@ QSize EnumDelegate::sizeHint(const QStyleOptionViewItem& option,
   bool ok;
   int enumNr = index.data(Qt::EditRole).toInt(&ok);
   if (ok) {
-    QFont fnt(qvariant_cast<QFont>(index.data(Qt::FontRole)).
-              resolve(option.font));
+    QFont fnt(qvariant_cast<QFont>(index.data(Qt::FontRole))
+              .resolve(option.font));
     QFontMetrics fm(fnt);
     int origWidth = fm.width(QString::number(enumNr));
     int delegateWidth = fm.width(getStringForEnum(enumNr));

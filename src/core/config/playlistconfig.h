@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Sep 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,25 +37,34 @@
 class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
   Q_OBJECT
   /** Playlist location */
-  Q_PROPERTY(int location READ location WRITE setLocationInt NOTIFY locationChanged)
+  Q_PROPERTY(int location READ location WRITE setLocationInt
+             NOTIFY locationChanged)
   /** Playlist format */
   Q_PROPERTY(int format READ format WRITE setFormatInt NOTIFY formatChanged)
   /** Playlist file name format */
-  Q_PROPERTY(QString fileNameFormat READ fileNameFormat WRITE setFileNameFormat NOTIFY fileNameFormatChanged)
+  Q_PROPERTY(QString fileNameFormat READ fileNameFormat WRITE setFileNameFormat
+             NOTIFY fileNameFormatChanged)
   /** Tag field used for sorting */
-  Q_PROPERTY(QString sortTagField READ sortTagField WRITE setSortTagField NOTIFY sortTagFieldChanged)
+  Q_PROPERTY(QString sortTagField READ sortTagField WRITE setSortTagField
+             NOTIFY sortTagFieldChanged)
   /** Format for additional information */
-  Q_PROPERTY(QString infoFormat READ infoFormat WRITE setInfoFormat NOTIFY infoFormatChanged)
+  Q_PROPERTY(QString infoFormat READ infoFormat WRITE setInfoFormat
+             NOTIFY infoFormatChanged)
   /** Use file name format if true, else directory name */
-  Q_PROPERTY(bool useFileNameFormat READ useFileNameFormat WRITE setUseFileNameFormat NOTIFY useFileNameFormatChanged)
+  Q_PROPERTY(bool useFileNameFormat READ useFileNameFormat
+             WRITE setUseFileNameFormat NOTIFY useFileNameFormatChanged)
   /** Include only selected files if true, else all files */
-  Q_PROPERTY(bool onlySelectedFiles READ onlySelectedFiles WRITE setOnlySelectedFiles NOTIFY onlySelectedFilesChanged)
+  Q_PROPERTY(bool onlySelectedFiles READ onlySelectedFiles
+             WRITE setOnlySelectedFiles NOTIFY onlySelectedFilesChanged)
   /** Sort by tag field if true, else file name */
-  Q_PROPERTY(bool useSortTagField READ useSortTagField WRITE setUseSortTagField NOTIFY useSortTagFieldChanged)
+  Q_PROPERTY(bool useSortTagField READ useSortTagField WRITE setUseSortTagField
+             NOTIFY useSortTagFieldChanged)
   /** Use full path for files in playlist if true, else relative path */
-  Q_PROPERTY(bool useFullPath READ useFullPath WRITE setUseFullPath NOTIFY useFullPathChanged)
+  Q_PROPERTY(bool useFullPath READ useFullPath WRITE setUseFullPath
+             NOTIFY useFullPathChanged)
   /** Write info format, else only list of files */
-  Q_PROPERTY(bool writeInfo READ writeInfo WRITE setWriteInfo NOTIFY writeInfoChanged)
+  Q_PROPERTY(bool writeInfo READ writeInfo WRITE setWriteInfo
+             NOTIFY writeInfoChanged)
   Q_ENUMS(PlaylistFormat)
   Q_ENUMS(PlaylistLocation)
 public:

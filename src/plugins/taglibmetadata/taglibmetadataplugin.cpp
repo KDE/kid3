@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 27 Jul 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -110,19 +110,23 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
   if (key == TAGGEDFILE_KEY) {
     QString ext = fileName.right(4).toLower();
     QString ext2 = ext.right(3);
-    if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac")))
-        || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
+    if (   ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2")
+        || ext == QLatin1String(".aac")
+        || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga")
+        || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
         || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
 #ifdef TAGLIB_WITH_MP4
-        || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
+        || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b")
+        || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
         || ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v")
 #endif
 #ifdef TAGLIB_WITH_ASF
-        || ext == QLatin1String(".wma") || ext ==  QLatin1String(".asf")
+        || ext == QLatin1String(".wma") || ext == QLatin1String(".asf")
 #endif
-        || ext == QLatin1String(".aif") || ext ==  QLatin1String("aiff") || ext ==  QLatin1String(".wav")
-        || ext == QLatin1String(".ape")
-        || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m") || ext2 == QLatin1String(".it")
+        || ext == QLatin1String(".aif") || ext == QLatin1String("aiff")
+        || ext == QLatin1String(".wav") || ext == QLatin1String(".ape")
+        || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m")
+        || ext2 == QLatin1String(".it")
 #ifdef HAVE_TAGLIB_XM_SUPPORT
         || ext2 == QLatin1String(".xm")
 #endif
@@ -146,11 +150,12 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
     return {
-      QLatin1String(".flac"), QLatin1String(".mp3"), QLatin1String(".mpc"), QLatin1String(".oga"), QLatin1String(".ogg"),
-      QLatin1String(".spx"), QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
+      QLatin1String(".flac"), QLatin1String(".mp3"), QLatin1String(".mpc"),
+      QLatin1String(".oga"), QLatin1String(".ogg"), QLatin1String(".spx"),
+      QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
 #ifdef TAGLIB_WITH_MP4
-      QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"), QLatin1String(".mp4"),
-      QLatin1String(".m4v"), QLatin1String(".mp4v"),
+      QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
+      QLatin1String(".mp4"), QLatin1String(".m4v"), QLatin1String(".mp4v"),
 #endif
 #ifdef TAGLIB_WITH_ASF
       QLatin1String(".wma"), QLatin1String(".asf"),

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,10 +33,10 @@
  *
  * @param trackDataModel track data to be filled with imported values
  */
-TextImporter::TextImporter(TrackDataModel* trackDataModel) :
-  m_headerParser(new ImportParser),
-  m_trackParser(new ImportParser),
-  m_trackDataModel(trackDataModel)
+TextImporter::TextImporter(TrackDataModel* trackDataModel)
+  : m_headerParser(new ImportParser),
+    m_trackParser(new ImportParser),
+    m_trackDataModel(trackDataModel)
 {
 }
 

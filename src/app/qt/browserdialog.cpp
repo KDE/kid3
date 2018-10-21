@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -63,7 +63,8 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   const auto uiLangs = locale.uiLanguages();
   for (const QString& uiLang : uiLangs) {
     QString lang(uiLang.left(2));
-    docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+    docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang +
+        QLatin1String(".html");
     if (!docDir.isNull()) {
       docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html"); // clazy:exclude=reserve-candidates
     }
@@ -74,7 +75,8 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
     docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html");
     docPaths += docDir + QLatin1String("/kid3_en.html");
   }
-  docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+  docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang +
+      QLatin1String(".html");
   docPaths += QDir::currentPath() + QLatin1String("/kid3_en.html");
   for (auto it = docPaths.constBegin(); it != docPaths.constEnd(); ++it) {
     m_filename = *it;
@@ -88,20 +90,25 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   auto hlayout = new QHBoxLayout;
   QPushButton* backButton = new QPushButton(tr("&Back"), this);
   backButton->setEnabled(false);
-  connect(backButton, &QAbstractButton::clicked, m_textBrowser, &QTextBrowser::backward);
-  connect(m_textBrowser, &QTextBrowser::backwardAvailable, backButton, &QWidget::setEnabled);
+  connect(backButton, &QAbstractButton::clicked,
+          m_textBrowser, &QTextBrowser::backward);
+  connect(m_textBrowser, &QTextBrowser::backwardAvailable,
+          backButton, &QWidget::setEnabled);
   hlayout->addWidget(backButton);
   QPushButton* forwardButton = new QPushButton(tr("&Forward"), this);
   forwardButton->setEnabled(false);
-  connect(forwardButton, &QAbstractButton::clicked, m_textBrowser, &QTextBrowser::forward);
-  connect(m_textBrowser, &QTextBrowser::forwardAvailable, forwardButton, &QWidget::setEnabled);
+  connect(forwardButton, &QAbstractButton::clicked,
+          m_textBrowser, &QTextBrowser::forward);
+  connect(m_textBrowser, &QTextBrowser::forwardAvailable,
+          forwardButton, &QWidget::setEnabled);
   hlayout->addWidget(forwardButton);
   QLabel* findLabel = new QLabel(tr("&Find:"), this);
   hlayout->addWidget(findLabel);
   m_findLineEdit = new QLineEdit(this);
   m_findLineEdit->setFocus();
   findLabel->setBuddy(m_findLineEdit);
-  connect(m_findLineEdit, &QLineEdit::returnPressed, this, &BrowserDialog::findNext);
+  connect(m_findLineEdit, &QLineEdit::returnPressed,
+          this, &BrowserDialog::findNext);
   hlayout->addWidget(m_findLineEdit);
   auto findAction = new QAction(this);
   findAction->setShortcut(QKeySequence::Find);

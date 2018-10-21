@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -60,9 +60,9 @@ const int DEFAULT_TIMEOUT_MS = 3000;
  */
 CliCommand::CliCommand(Kid3Cli* processor,
                        const QString& name, const QString& help,
-                       const QString& argspec) :
-  QObject(processor), m_processor(processor), m_name(name), m_help(help),
-  m_argspec(argspec), m_timerId(0), m_timeoutMs(DEFAULT_TIMEOUT_MS), m_result(0)
+                       const QString& argspec)
+  : QObject(processor), m_processor(processor), m_name(name), m_help(help),
+    m_argspec(argspec), m_timerId(0), m_timeoutMs(DEFAULT_TIMEOUT_MS), m_result(0)
 {
 }
 
@@ -182,9 +182,9 @@ void CliCommand::showUsage()
 
 
 
-HelpCommand::HelpCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("help"), tr("Help"),
-             QLatin1String("[S]\nS = ") + tr("Command name"))
+HelpCommand::HelpCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("help"), tr("Help"),
+               QLatin1String("[S]\nS = ") + tr("Command name"))
 {
 }
 
@@ -194,10 +194,10 @@ void HelpCommand::startCommand()
 }
 
 
-TimeoutCommand::TimeoutCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("timeout"), tr("Overwrite timeout"),
-             QLatin1String("[S]\nS = \"default\" | \"off\" | ") + tr("Time") +
-             QLatin1String(" [ms]"))
+TimeoutCommand::TimeoutCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("timeout"), tr("Overwrite timeout"),
+               QLatin1String("[S]\nS = \"default\" | \"off\" | ") + tr("Time") +
+               QLatin1String(" [ms]"))
 {
 }
 
@@ -233,9 +233,9 @@ void TimeoutCommand::startCommand()
 }
 
 
-QuitCommand::QuitCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("exit"), tr("Quit application"),
-             QLatin1String("[S]\nS = \"force\""))
+QuitCommand::QuitCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("exit"), tr("Quit application"),
+               QLatin1String("[S]\nS = \"force\""))
 {
 }
 
@@ -259,9 +259,9 @@ void QuitCommand::connectResultSignal()
 }
 
 
-CdCommand::CdCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("cd"), tr("Change directory"),
-             QLatin1String("[P]"))
+CdCommand::CdCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("cd"), tr("Change directory"),
+               QLatin1String("[P]"))
 {
 }
 
@@ -292,9 +292,9 @@ void CdCommand::disconnectResultSignal()
 }
 
 
-PwdCommand::PwdCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("pwd"),
-             tr("Print the filename of the current working directory"))
+PwdCommand::PwdCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("pwd"),
+               tr("Print the filename of the current working directory"))
 {
 }
 
@@ -309,8 +309,8 @@ void PwdCommand::startCommand()
 }
 
 
-LsCommand::LsCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("ls"), tr("Directory list"))
+LsCommand::LsCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("ls"), tr("Directory list"))
 {
   setTimeout(10000);
 }
@@ -321,8 +321,8 @@ void LsCommand::startCommand()
 }
 
 
-SaveCommand::SaveCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("save"), tr("Saves the changed files"))
+SaveCommand::SaveCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("save"), tr("Saves the changed files"))
 {
 }
 
@@ -338,10 +338,10 @@ void SaveCommand::startCommand()
 }
 
 
-SelectCommand::SelectCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("select"), tr("Select file"),
-             QLatin1String("[P|S]\n"
-             "S = \"all\" | \"none\" | \"first\" | \"previous\" | \"next\""))
+SelectCommand::SelectCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("select"), tr("Select file"),
+               QLatin1String("[P|S]\n"
+                "S = \"all\" | \"none\" | \"first\" | \"previous\" | \"next\""))
 {
 }
 
@@ -371,9 +371,9 @@ void SelectCommand::startCommand()
 }
 
 
-TagCommand::TagCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("tag"), tr("Select tag"),
-             QLatin1String("[T]"))
+TagCommand::TagCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("tag"), tr("Select tag"),
+               QLatin1String("[T]"))
 {
 }
 
@@ -388,9 +388,9 @@ void TagCommand::startCommand()
 }
 
 
-GetCommand::GetCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("get"), tr("Get tag frame"),
-             QLatin1String("[N|S] [T]\nS = \"all\""))
+GetCommand::GetCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("get"), tr("Get tag frame"),
+               QLatin1String("[N|S] [T]\nS = \"all\""))
 {
 }
 
@@ -416,9 +416,9 @@ void GetCommand::startCommand()
 }
 
 
-SetCommand::SetCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("set"), tr("Set tag frame"),
-             QLatin1String("N V [T]"))
+SetCommand::SetCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("set"), tr("Set tag frame"),
+               QLatin1String("N V [T]"))
 {
 }
 
@@ -443,9 +443,9 @@ void SetCommand::startCommand()
 }
 
 
-RevertCommand::RevertCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("revert"),
-             tr("Revert"))
+RevertCommand::RevertCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("revert"),
+               tr("Revert"))
 {
 }
 
@@ -455,13 +455,13 @@ void RevertCommand::startCommand()
 }
 
 
-ImportCommand::ImportCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("import"),
-             tr("Import from file"),
-             QLatin1String("P S [T]\nP S = ") +
-             tr("File path") + QLatin1Char(' ') + tr("Format name") +
-             QLatin1String(" | tags ") + tr("Source") + QLatin1Char(' ') +
-             tr("Extraction"))
+ImportCommand::ImportCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("import"),
+               tr("Import from file"),
+               QLatin1String("P S [T]\nP S = ") +
+               tr("File path") + QLatin1Char(' ') + tr("Format name") +
+               QLatin1String(" | tags ") + tr("Source") + QLatin1Char(' ') +
+               tr("Extraction"))
 {
 }
 
@@ -502,10 +502,10 @@ void ImportCommand::startCommand()
 }
 
 
-BatchImportCommand::BatchImportCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("autoimport"),
-             tr("Automatic import"), QLatin1String("[S] [T]\nS = ") +
-             tr("Profile name"))
+BatchImportCommand::BatchImportCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("autoimport"),
+               tr("Automatic import"), QLatin1String("[S] [T]\nS = ") +
+               tr("Profile name"))
 {
   setTimeout(60000);
 }
@@ -590,10 +590,10 @@ void BatchImportCommand::onReportImportEvent(int type, const QString& text)
 }
 
 
-AlbumArtCommand::AlbumArtCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("albumart"),
-             tr("Download album cover artwork"),
-             QLatin1String("U [S]\nS = \"all\""))
+AlbumArtCommand::AlbumArtCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("albumart"),
+               tr("Download album cover artwork"),
+               QLatin1String("U [S]\nS = \"all\""))
 {
   setTimeout(10000);
 }
@@ -634,10 +634,10 @@ void AlbumArtCommand::onDownloadFinished(
 }
 
 
-ExportCommand::ExportCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("export"),
-             tr("Export to file"),
-             QLatin1String("P S [T]\nS = ") + tr("Format name"))
+ExportCommand::ExportCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("export"),
+               tr("Export to file"),
+               QLatin1String("P S [T]\nS = ") + tr("Format name"))
 {
 }
 
@@ -673,8 +673,8 @@ void ExportCommand::startCommand()
 }
 
 
-PlaylistCommand::PlaylistCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("playlist"), tr("Create playlist"))
+PlaylistCommand::PlaylistCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("playlist"), tr("Create playlist"))
 {
 }
 
@@ -686,9 +686,9 @@ void PlaylistCommand::startCommand()
 }
 
 
-FilenameFormatCommand::FilenameFormatCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("filenameformat"),
-             tr("Apply filename format"))
+FilenameFormatCommand::FilenameFormatCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("filenameformat"),
+               tr("Apply filename format"))
 {
 }
 
@@ -698,8 +698,8 @@ void FilenameFormatCommand::startCommand()
 }
 
 
-TagFormatCommand::TagFormatCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("tagformat"), tr("Apply tag format"))
+TagFormatCommand::TagFormatCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("tagformat"), tr("Apply tag format"))
 {
 }
 
@@ -709,9 +709,9 @@ void TagFormatCommand::startCommand()
 }
 
 
-TextEncodingCommand::TextEncodingCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("textencoding"),
-             tr("Apply text encoding"))
+TextEncodingCommand::TextEncodingCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("textencoding"),
+               tr("Apply text encoding"))
 {
 }
 
@@ -721,10 +721,10 @@ void TextEncodingCommand::startCommand()
 }
 
 
-RenameDirectoryCommand::RenameDirectoryCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("renamedir"), tr("Rename directory"),
+RenameDirectoryCommand::RenameDirectoryCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("renamedir"), tr("Rename directory"),
        QLatin1String("[F] [S] [T]\nS = \"create\" | \"rename\" | \"dryrun\"")),
-  m_dryRun(false)
+    m_dryRun(false)
 {
 }
 
@@ -811,9 +811,9 @@ void RenameDirectoryCommand::onRenameActionsScheduled()
 }
 
 
-NumberTracksCommand::NumberTracksCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("numbertracks"), tr("Number tracks"),
-             QLatin1String("[S] [T]\nS = ") + tr("Track number"))
+NumberTracksCommand::NumberTracksCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("numbertracks"), tr("Number tracks"),
+               QLatin1String("[S] [T]\nS = ") + tr("Track number"))
 {
 }
 
@@ -836,9 +836,9 @@ void NumberTracksCommand::startCommand()
 }
 
 
-FilterCommand::FilterCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("filter"), tr("Filter"),
-             QLatin1String("F|S\nS = ") + tr("Filter name"))
+FilterCommand::FilterCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("filter"), tr("Filter"),
+               QLatin1String("F|S\nS = ") + tr("Filter name"))
 {
   setTimeout(60000);
 }
@@ -920,8 +920,8 @@ void FilterCommand::onFileFiltered(int type, const QString& fileName)
 }
 
 
-ToId3v24Command::ToId3v24Command(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("to24"), tr("Convert ID3v2.3 to ID3v2.4"))
+ToId3v24Command::ToId3v24Command(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("to24"), tr("Convert ID3v2.3 to ID3v2.4"))
 {
 }
 
@@ -931,8 +931,8 @@ void ToId3v24Command::startCommand()
 }
 
 
-ToId3v23Command::ToId3v23Command(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("to23"), tr("Convert ID3v2.4 to ID3v2.3"))
+ToId3v23Command::ToId3v23Command(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("to23"), tr("Convert ID3v2.4 to ID3v2.3"))
 {
 }
 
@@ -942,9 +942,9 @@ void ToId3v23Command::startCommand()
 }
 
 
-TagToFilenameCommand::TagToFilenameCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("fromtag"), tr("Filename from tag"),
-             QLatin1String("[F] [T]"))
+TagToFilenameCommand::TagToFilenameCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("fromtag"), tr("Filename from tag"),
+               QLatin1String("[F] [T]"))
 {
 }
 
@@ -972,9 +972,9 @@ void TagToFilenameCommand::startCommand()
 }
 
 
-FilenameToTagCommand::FilenameToTagCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("totag"), tr("Tag from filename"),
-             QLatin1String("[F] [T]"))
+FilenameToTagCommand::FilenameToTagCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("totag"), tr("Tag from filename"),
+               QLatin1String("[F] [T]"))
 {
 }
 
@@ -1002,9 +1002,9 @@ void FilenameToTagCommand::startCommand()
 }
 
 
-TagToOtherTagCommand::TagToOtherTagCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("syncto"), tr("Tag to other tag"),
-             QLatin1String("T"))
+TagToOtherTagCommand::TagToOtherTagCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("syncto"), tr("Tag to other tag"),
+               QLatin1String("T"))
 {
 }
 
@@ -1019,9 +1019,9 @@ void TagToOtherTagCommand::startCommand()
 }
 
 
-CopyCommand::CopyCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("copy"), tr("Copy"),
-             QLatin1String("[T]"))
+CopyCommand::CopyCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("copy"), tr("Copy"),
+               QLatin1String("[T]"))
 {
 }
 
@@ -1032,9 +1032,9 @@ void CopyCommand::startCommand()
 }
 
 
-PasteCommand::PasteCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("paste"), tr("Paste"),
-             QLatin1String("[T]"))
+PasteCommand::PasteCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("paste"), tr("Paste"),
+               QLatin1String("[T]"))
 {
 }
 
@@ -1045,9 +1045,9 @@ void PasteCommand::startCommand()
 }
 
 
-RemoveCommand::RemoveCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("remove"), tr("Remove"),
-             QLatin1String("[T]"))
+RemoveCommand::RemoveCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("remove"), tr("Remove"),
+               QLatin1String("[T]"))
 {
 }
 
@@ -1058,10 +1058,10 @@ void RemoveCommand::startCommand()
 }
 
 
-PlayCommand::PlayCommand(Kid3Cli* processor) :
-  CliCommand(processor, QLatin1String("play"), tr("Play"),
-             QLatin1String("[S]\n"
-             "S = \"pause\" | \"stop\" | \"previous\" | \"next\""))
+PlayCommand::PlayCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("play"), tr("Play"),
+               QLatin1String("[S]\n"
+               "S = \"pause\" | \"stop\" | \"previous\" | \"next\""))
 {
 }
 

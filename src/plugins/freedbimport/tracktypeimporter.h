@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,7 @@
 /**
  * TrackType.org importer.
  */
-class TrackTypeImporter : public FreedbImporter
-{
+class TrackTypeImporter : public FreedbImporter {
 public:
   /**
    * Constructor.

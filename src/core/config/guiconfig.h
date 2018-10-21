@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2014  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,31 +36,44 @@
 class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   Q_OBJECT
   /** sorted column in file list */
-  Q_PROPERTY(int fileListSortColumn READ fileListSortColumn WRITE setFileListSortColumn NOTIFY fileListSortColumnChanged)
+  Q_PROPERTY(int fileListSortColumn READ fileListSortColumn
+             WRITE setFileListSortColumn NOTIFY fileListSortColumnChanged)
   /** sort order in file list */
-  Q_PROPERTY(Qt::SortOrder fileListSortOrder READ fileListSortOrder WRITE setFileListSortOrder NOTIFY fileListSortOrderChanged)
+  Q_PROPERTY(Qt::SortOrder fileListSortOrder READ fileListSortOrder
+             WRITE setFileListSortOrder NOTIFY fileListSortOrderChanged)
   /** visible columns in file list */
-  Q_PROPERTY(QList<int> fileListVisibleColumns READ fileListVisibleColumns WRITE setFileListVisibleColumns NOTIFY fileListVisibleColumnsChanged)
+  Q_PROPERTY(QList<int> fileListVisibleColumns READ fileListVisibleColumns
+             WRITE setFileListVisibleColumns NOTIFY fileListVisibleColumnsChanged)
   /** sorted column in directory list */
-  Q_PROPERTY(int dirListSortColumn READ dirListSortColumn WRITE setDirListSortColumn NOTIFY dirListSortColumnChanged)
+  Q_PROPERTY(int dirListSortColumn READ dirListSortColumn
+             WRITE setDirListSortColumn NOTIFY dirListSortColumnChanged)
   /** sort order in directory list */
-  Q_PROPERTY(Qt::SortOrder dirListSortOrder READ dirListSortOrder WRITE setDirListSortOrder NOTIFY dirListSortOrderChanged)
+  Q_PROPERTY(Qt::SortOrder dirListSortOrder READ dirListSortOrder
+             WRITE setDirListSortOrder NOTIFY dirListSortOrderChanged)
   /** visible columns in directory list */
-  Q_PROPERTY(QList<int> dirListVisibleColumns READ dirListVisibleColumns WRITE setDirListVisibleColumns NOTIFY dirListVisibleColumnsChanged)
+  Q_PROPERTY(QList<int> dirListVisibleColumns READ dirListVisibleColumns
+             WRITE setDirListVisibleColumns NOTIFY dirListVisibleColumnsChanged)
   /** size of splitter in main window */
-  Q_PROPERTY(QList<int> splitterSizes READ splitterSizes WRITE setSplitterSizes NOTIFY splitterSizesChanged)
+  Q_PROPERTY(QList<int> splitterSizes READ splitterSizes
+             WRITE setSplitterSizes NOTIFY splitterSizesChanged)
   /** size of file/dirlist splitter */
-  Q_PROPERTY(QList<int> vSplitterSizes READ vSplitterSizes WRITE setVSplitterSizes NOTIFY vSplitterSizesChanged)
+  Q_PROPERTY(QList<int> vSplitterSizes READ vSplitterSizes
+             WRITE setVSplitterSizes NOTIFY vSplitterSizesChanged)
   /** true to automatically hide unused tags */
-  Q_PROPERTY(bool autoHideTags READ autoHideTags WRITE setAutoHideTags NOTIFY autoHideTagsChanged)
+  Q_PROPERTY(bool autoHideTags READ autoHideTags WRITE setAutoHideTags
+             NOTIFY autoHideTagsChanged)
   /** true to hide file controls */
-  Q_PROPERTY(bool hideFile READ hideFile WRITE setHideFile NOTIFY hideFileChanged)
+  Q_PROPERTY(bool hideFile READ hideFile WRITE setHideFile
+             NOTIFY hideFileChanged)
   /** true to hide picture preview */
-  Q_PROPERTY(bool hidePicture READ hidePicture WRITE setHidePicture NOTIFY hidePictureChanged)
+  Q_PROPERTY(bool hidePicture READ hidePicture WRITE setHidePicture
+             NOTIFY hidePictureChanged)
   /** true to play file on double click */
-  Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
+  Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick
+             WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
   /** config window geometry */
-  Q_PROPERTY(QByteArray configWindowGeometry READ configWindowGeometry WRITE setConfigWindowGeometry NOTIFY configWindowGeometryChanged)
+  Q_PROPERTY(QByteArray configWindowGeometry READ configWindowGeometry
+             WRITE setConfigWindowGeometry NOTIFY configWindowGeometryChanged)
 
 public:
   /**

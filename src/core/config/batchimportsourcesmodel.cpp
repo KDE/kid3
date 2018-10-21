@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2017  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,8 +40,8 @@ enum ColumnIndex {
  * Constructor.
  * @param parent parent widget
  */
-BatchImportSourcesModel::BatchImportSourcesModel(QObject* parent) :
-  QAbstractTableModel(parent)
+BatchImportSourcesModel::BatchImportSourcesModel(QObject* parent)
+  : QAbstractTableModel(parent)
 {
   setObjectName(QLatin1String("BatchImportSourcesModel"));
 }

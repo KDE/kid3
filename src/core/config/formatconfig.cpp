@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,15 +35,15 @@
 /**
  * Constructor.
  */
-FormatConfig::FormatConfig(const QString& grp) :
-  GeneralConfig(grp),
-  m_caseConversion(AllFirstLettersUppercase),
-  m_maximumLength(255),
-  m_enableMaximumLength(false),
-  m_filenameFormatter(false),
-  m_formatWhileEditing(false),
-  m_strRepEnabled(false),
-  m_enableValidation(true)
+FormatConfig::FormatConfig(const QString& grp)
+  : GeneralConfig(grp),
+    m_caseConversion(AllFirstLettersUppercase),
+    m_maximumLength(255),
+    m_enableMaximumLength(false),
+    m_filenameFormatter(false),
+    m_formatWhileEditing(false),
+    m_strRepEnabled(false),
+    m_enableValidation(true)
 {
   m_strRepMap.clear();
 }
@@ -328,14 +328,21 @@ void FormatConfig::writeToConfig(ISettings* config) const
 void FormatConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
-  m_formatWhileEditing = config->value(QLatin1String("FormatWhileEditing"), m_formatWhileEditing).toBool();
-  m_caseConversion = static_cast<CaseConversion>(config->value(QLatin1String("CaseConversion"),
-                                                               static_cast<int>(m_caseConversion)).toInt());
-  m_localeName = config->value(QLatin1String("LocaleName"), m_localeName).toString();
-  m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"), m_strRepEnabled).toBool();
-  m_enableValidation = config->value(QLatin1String("EnableValidation"), m_enableValidation).toBool();
-  m_enableMaximumLength = config->value(QLatin1String("EnableMaximumLength"), m_enableMaximumLength).toBool();
-  m_maximumLength = config->value(QLatin1String("MaximumLength"), m_maximumLength).toInt();
+  m_formatWhileEditing = config->value(QLatin1String("FormatWhileEditing"),
+                                       m_formatWhileEditing).toBool();
+  m_caseConversion = static_cast<CaseConversion>(
+        config->value(QLatin1String("CaseConversion"),
+                      static_cast<int>(m_caseConversion)).toInt());
+  m_localeName = config->value(QLatin1String("LocaleName"),
+                               m_localeName).toString();
+  m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"),
+                                  m_strRepEnabled).toBool();
+  m_enableValidation = config->value(QLatin1String("EnableValidation"),
+                                     m_enableValidation).toBool();
+  m_enableMaximumLength = config->value(QLatin1String("EnableMaximumLength"),
+                                        m_enableMaximumLength).toBool();
+  m_maximumLength = config->value(QLatin1String("MaximumLength"),
+                                  m_maximumLength).toInt();
   QStringList keys = config->value(QLatin1String("StrRepMapKeys"),
                                    QStringList()).toStringList();
   QStringList values = config->value(QLatin1String("StrRepMapValues"),
@@ -474,9 +481,9 @@ int FilenameFormatConfig::s_index = -1;
 /**
  * Constructor.
  */
-FilenameFormatConfig::FilenameFormatConfig() :
-  StoredConfig<FilenameFormatConfig, FormatConfig>(
-    QLatin1String("FilenameFormat"))
+FilenameFormatConfig::FilenameFormatConfig()
+  : StoredConfig<FilenameFormatConfig, FormatConfig>(
+      QLatin1String("FilenameFormat"))
 {
   setAsFilenameFormatter();
 }
@@ -487,7 +494,7 @@ int TagFormatConfig::s_index = -1;
 /**
  * Constructor.
  */
-TagFormatConfig::TagFormatConfig() :
-  StoredConfig<TagFormatConfig, FormatConfig>(QLatin1String("TagFormat"))
+TagFormatConfig::TagFormatConfig()
+  : StoredConfig<TagFormatConfig, FormatConfig>(QLatin1String("TagFormat"))
 {
 }

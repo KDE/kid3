@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2012  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,8 +36,7 @@ class FingerprintCalculator;
 /**
  * MusicBrainz client.
  */
-class MusicBrainzClient : public ServerTrackImporter
-{
+class MusicBrainzClient : public ServerTrackImporter {
   Q_OBJECT
 public:
   /**

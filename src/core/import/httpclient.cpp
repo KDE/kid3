@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2017  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -65,9 +65,9 @@ static struct MinimumRequestIntervalInitializer {
  *
  * @param netMgr  network access manager
  */
-HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
-  QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0),
-  m_requestTimer(new QTimer(this))
+HttpClient::HttpClient(QNetworkAccessManager* netMgr)
+  : QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0),
+    m_requestTimer(new QTimer(this))
 {
   setObjectName(QLatin1String("HttpClient"));
   m_requestTimer->setSingleShot(true);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012-2013  Urs Fleisch
+ * Copyright (C) 2012-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -140,7 +140,8 @@ QString variantToValueString(const QVariant& var)
     } else if (type == QVariant::String || type == QVariant::DateTime ||
                type == QVariant::Date || type == QVariant::Time) {
       value = QLatin1Char('"') +
-          value.replace(QLatin1Char('\\'), QLatin1String("\\\\")).replace(QLatin1Char('"'), QLatin1String("\\\"")) + QLatin1Char('"');
+          value.replace(QLatin1Char('\\'), QLatin1String("\\\\"))
+          .replace(QLatin1Char('"'), QLatin1String("\\\"")) + QLatin1Char('"');
     }
   }
   return value;
@@ -203,7 +204,8 @@ void JsonDeserializer::skipWhiteSpace()
 {
   QChar ch;
   while (m_pos < m_len && ((ch = m_str.at(m_pos)) == QLatin1Char(' ') ||
-                         ch == QLatin1Char('\t') || ch == QLatin1Char('\r') || ch == QLatin1Char('\n'))) {
+                           ch == QLatin1Char('\t') || ch == QLatin1Char('\r') ||
+                           ch == QLatin1Char('\n'))) {
     ++m_pos;
   }
 }
@@ -236,13 +238,15 @@ QString JsonDeserializer::parseSymbol()
         searchPos = endPos + 1;
       }
       if (endPos > m_pos) {
-        result = m_str.mid(m_pos, ++endPos - m_pos).
-            replace(QLatin1String("\\\""), QLatin1String("\"")).replace(QLatin1String("\\\\"), QLatin1String("\\"));
+        result = m_str.mid(m_pos, ++endPos - m_pos)
+            .replace(QLatin1String("\\\""), QLatin1String("\""))
+            .replace(QLatin1String("\\\\"), QLatin1String("\\"));
         m_pos = endPos;
       }
     } else if (beginCh == QLatin1Char('{') || beginCh == QLatin1Char('[')) {
       // Object or array, find end. Nesting is supported.
-      const QChar endCh = beginCh == QLatin1Char('{') ? QLatin1Char('}') : QLatin1Char(']');
+      const QChar endCh = beginCh == QLatin1Char('{') ? QLatin1Char('}')
+                                                      : QLatin1Char(']');
       int nestingLevel = 0;
       bool insideString = false;
       QChar lastCh;

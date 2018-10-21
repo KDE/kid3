@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,8 +46,8 @@
  *
  * @param idx index in file proxy model
  */
-TaggedFile::TaggedFile(const QPersistentModelIndex& idx) :
-  m_index(idx), m_truncation(0), m_modified(false), m_marked(false)
+TaggedFile::TaggedFile(const QPersistentModelIndex& idx)
+  : m_index(idx), m_truncation(0), m_modified(false), m_marked(false)
 {
   FOR_ALL_TAGS(tagNr) {
     m_changedFrames[tagNr] = 0;
@@ -475,7 +475,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // album/track - artist - song
-  re.setPattern(QLatin1String(R"(([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)[_ ]-[_ ]([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)[_ ]-[_ ])"
+    R"(([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setTrack(match.captured(2).toInt());
@@ -485,7 +487,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album (year)/track song
-  re.setPattern(QLatin1String(R"(([^/]+)[_ ]-[_ ]([^/]+)[_ ]\((\d{4})\)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(([^/]+)[_ ]-[_ ]([^/]+)[_ ]\((\d{4})\)/(\d{1,3})[-_\. ]+)"
+    R"(([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -496,7 +500,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album/track song
-  re.setPattern(QLatin1String(R"(([^/]+)[_ ]-[_ ]([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(([^/]+)[_ ]-[_ ]([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -505,7 +510,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // /artist - album - track - song
-  re.setPattern(QLatin1String(R"(/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\. ]+(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\. ]+)"
+    R"((\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -514,7 +521,9 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // album/artist - track - song
-  re.setPattern(QLatin1String(R"(([^/]+)/([^/]+[^-_\./ ])[-_\. ]+(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(([^/]+)/([^/]+[^-_\./ ])[-_\. ]+(\d{1,3})[-_\. ]+)"
+    R"(([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setArtist(match.captured(2));
@@ -523,7 +532,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // artist/album/track song
-  re.setPattern(QLatin1String(R"(([^/]+)/([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
+  re.setPattern(QLatin1String(
+    R"(([^/]+)/([^/]+)/(\d{1,3})[-_\. ]+([^-_\./ ][^/]+)\..{2,4}$)"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setArtist(match.captured(1));
     frames.setAlbum(match.captured(2));
@@ -532,7 +542,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // album/artist - song
-  re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{2,4}$"));
+  re.setPattern(QLatin1String(
+    "([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{2,4}$"));
   if ((match = re.match(fn)).hasMatch()) {
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setArtist(match.captured(2));
@@ -585,8 +596,10 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     // another file would be overwritten and an error is reported.
     if (QFile::exists(dirname + QDir::separator() + fnNew)) {
       struct stat statOld, statNew;
-      if (::stat((dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
-          ::stat((dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
+      if (::stat((dirname + QDir::separator() + fnOld).toLatin1().data(),
+                 &statOld) == 0 &&
+          ::stat((dirname + QDir::separator() + fnNew).toLatin1().data(),
+                 &statNew) == 0 &&
           !(statOld.st_ino == statNew.st_ino &&
             statOld.st_dev == statNew.st_dev)) {
         qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
@@ -1079,9 +1092,9 @@ bool TaggedFile::setFileTimeStamps(const QString& path,
 /**
  * Constructor.
  */
-TaggedFile::DetailInfo::DetailInfo() :
-  channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0),
-  valid(false), vbr(false)
+TaggedFile::DetailInfo::DetailInfo()
+  : channelMode(CM_None), channels(0), sampleRate(0), bitrate(0), duration(0),
+    valid(false), vbr(false)
 {
 }
 

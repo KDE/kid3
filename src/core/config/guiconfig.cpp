@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2014  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,16 +32,16 @@ int GuiConfig::s_index = -1;
 /**
  * Constructor.
  */
-GuiConfig::GuiConfig() :
-  StoredConfig<GuiConfig>(QLatin1String("GUI")),
-  m_fileListSortColumn(0),
-  m_fileListSortOrder(Qt::AscendingOrder),
-  m_dirListSortColumn(0),
-  m_dirListSortOrder(Qt::AscendingOrder),
-  m_autoHideTags(true),
-  m_hideFile(false),
-  m_hidePicture(false),
-  m_playOnDoubleClick(false)
+GuiConfig::GuiConfig()
+  : StoredConfig<GuiConfig>(QLatin1String("GUI")),
+    m_fileListSortColumn(0),
+    m_fileListSortOrder(Qt::AscendingOrder),
+    m_dirListSortColumn(0),
+    m_dirListSortOrder(Qt::AscendingOrder),
+    m_autoHideTags(true),
+    m_hideFile(false),
+    m_hidePicture(false),
+    m_playOnDoubleClick(false)
 {
   FOR_ALL_TAGS(tagNr) {
     m_hideTag[tagNr] = false;
@@ -63,7 +63,8 @@ void GuiConfig::writeToConfig(ISettings* config) const
                      QVariant(m_hideTag[tagNr]));
   }
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
-  config->setValue(QLatin1String("PlayOnDoubleClick"), QVariant(m_playOnDoubleClick));
+  config->setValue(QLatin1String("PlayOnDoubleClick"),
+                   QVariant(m_playOnDoubleClick));
   config->setValue(QLatin1String("FileListSortColumn"),
                    QVariant(m_fileListSortColumn));
   config->setValue(QLatin1String("FileListSortOrder"),
@@ -80,14 +81,17 @@ void GuiConfig::writeToConfig(ISettings* config) const
   auto it = m_splitterSizes.constBegin();
   int i = 0;
   for (; it != m_splitterSizes.constEnd(); ++it, ++i) {
-    config->setValue(QLatin1String("SplitterSize") + QString::number(i), QVariant(*it));
+    config->setValue(QLatin1String("SplitterSize") + QString::number(i),
+                     QVariant(*it));
   }
   for (it = m_vSplitterSizes.constBegin(), i = 0;
      it != m_vSplitterSizes.constEnd();
      ++it, ++i) {
-    config->setValue(QLatin1String("VSplitterSize") + QString::number(i), QVariant(*it));
+    config->setValue(QLatin1String("VSplitterSize") + QString::number(i),
+                     QVariant(*it));
   }
-  config->setValue(QLatin1String("ConfigWindowGeometry"), QVariant(m_configWindowGeometry));
+  config->setValue(QLatin1String("ConfigWindowGeometry"),
+                   QVariant(m_configWindowGeometry));
   config->endGroup();
 }
 
@@ -99,23 +103,27 @@ void GuiConfig::writeToConfig(ISettings* config) const
 void GuiConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
-  m_autoHideTags = config->value(QLatin1String("AutoHideTags"), m_autoHideTags).toBool();
-  m_hideFile = config->value(QLatin1String("HideFile"), m_hideFile).toBool();
+  m_autoHideTags = config->value(QLatin1String("AutoHideTags"),
+                                 m_autoHideTags).toBool();
+  m_hideFile = config->value(QLatin1String("HideFile"),
+                             m_hideFile).toBool();
   FOR_ALL_TAGS(tagNr) {
     m_hideTag[tagNr] = config->value(
           QLatin1String("HideV") + Frame::tagNumberToString(tagNr),
           m_hideTag[tagNr]).toBool();
   }
-  m_hidePicture = config->value(QLatin1String("HidePicture"), m_hidePicture).toBool();
-  m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"), m_playOnDoubleClick).toBool();
+  m_hidePicture = config->value(QLatin1String("HidePicture"),
+                                m_hidePicture).toBool();
+  m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"),
+                                      m_playOnDoubleClick).toBool();
   m_fileListSortColumn = config->value(QLatin1String("FileListSortColumn"),
                                        m_fileListSortColumn).toInt();
   m_fileListSortOrder = static_cast<Qt::SortOrder>(
         config->value(QLatin1String("FileListSortOrder"),
                       static_cast<int>(m_fileListSortOrder)).toInt());
   m_fileListVisibleColumns = stringListToIntList(
-        config->value(QLatin1String("FileListVisibleColumns"), QStringList()).
-        toStringList());
+        config->value(QLatin1String("FileListVisibleColumns"), QStringList())
+        .toStringList());
   if (m_fileListVisibleColumns.isEmpty()) {
     // Uninitialized, otherwise there is at least the value 0 in the list.
     m_fileListVisibleColumns << 0 << 1 << 3;
@@ -126,8 +134,8 @@ void GuiConfig::readFromConfig(ISettings* config)
         config->value(QLatin1String("DirListSortOrder"),
                       static_cast<int>(m_dirListSortOrder)).toInt());
   m_dirListVisibleColumns = stringListToIntList(
-        config->value(QLatin1String("DirListVisibleColumns"), QStringList()).
-        toStringList());
+        config->value(QLatin1String("DirListVisibleColumns"), QStringList())
+        .toStringList());
   if (m_dirListVisibleColumns.isEmpty()) {
     // Uninitialized, otherwise there is at least the value 0 in the list.
     m_dirListVisibleColumns << 0 << 3;
@@ -135,7 +143,8 @@ void GuiConfig::readFromConfig(ISettings* config)
 
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {
-    int val = config->value(QLatin1String("SplitterSize") + QString::number(i), -1).toInt();
+    int val = config->value(QLatin1String("SplitterSize") + QString::number(i),
+                            -1).toInt();
     if (val != -1) {
       m_splitterSizes.push_back(val);
     } else {
@@ -144,7 +153,8 @@ void GuiConfig::readFromConfig(ISettings* config)
   }
   m_vSplitterSizes.clear();
   for (int j = 0; j < 5; ++j) {
-    int val = config->value(QLatin1String("VSplitterSize") + QString::number(j), -1).toInt();
+    int val = config->value(QLatin1String("VSplitterSize") + QString::number(j),
+                            -1).toInt();
     if (val != -1) {
       m_vSplitterSizes.push_back(val);
     } else {

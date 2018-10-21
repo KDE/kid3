@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,9 +32,9 @@ int MusicBrainzConfig::s_index = -1;
 /**
  * Constructor.
  */
-MusicBrainzConfig::MusicBrainzConfig() :
-  StoredConfig<MusicBrainzConfig, ServerImporterConfig>(
-    QLatin1String("MusicBrainz"))
+MusicBrainzConfig::MusicBrainzConfig()
+  : StoredConfig<MusicBrainzConfig, ServerImporterConfig>(
+      QLatin1String("MusicBrainz"))
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);

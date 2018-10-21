@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11-Jan-2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -75,8 +75,8 @@ QString getToolTip()
  * @param parent parent widget
  */
 BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
-                                           QWidget* parent) :
-  QDialog(parent), m_app(app)
+                                           QWidget* parent)
+  : QDialog(parent), m_app(app)
 {
   setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);

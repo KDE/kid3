@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Aug 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,8 +43,8 @@
  */
 CommandFormatReplacer::CommandFormatReplacer(
   const FrameCollection& frames, const QString& str,
-  const QStringList& files, bool isDir) :
-  FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
+  const QStringList& files, bool isDir)
+  : FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
 
 /**
  * Replace a format code (one character %c or multiple characters %{chars}).

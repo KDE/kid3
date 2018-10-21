@@ -333,8 +333,8 @@ private:
 
 QList<FileIOStream*> FileIOStream::s_openFiles;
 
-FileIOStream::FileIOStream(const QString& fileName) :
-  m_fileStream(nullptr), m_offset(0)
+FileIOStream::FileIOStream(const QString& fileName)
+  : m_fileStream(nullptr), m_offset(0)
 {
 #ifdef Q_OS_WIN32
   int fnLen = fileName.length();
@@ -624,9 +624,9 @@ const QTextCodec* TextCodecStringHandler::s_codec = nullptr;
  */
 TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) const
 {
-  return s_codec ?
-    toTString(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace() :
-    TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
+  return s_codec
+      ? toTString(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace()
+      : TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
 }
 
 /**
@@ -655,12 +655,12 @@ TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
  *
  * @param idx index in file proxy model
  */
-TagLibFile::TagLibFile(const QPersistentModelIndex& idx) :
-  TaggedFile(idx),
-  m_tagInformationRead(false), m_fileRead(false),
-  m_stream(nullptr),
-  m_id3v2Version(0),
-  m_activatedFeatures(0), m_duration(0)
+TagLibFile::TagLibFile(const QPersistentModelIndex& idx)
+  : TaggedFile(idx),
+    m_tagInformationRead(false), m_fileRead(false),
+    m_stream(nullptr),
+    m_id3v2Version(0),
+    m_activatedFeatures(0), m_duration(0)
 {
   FOR_TAGLIB_TAGS(tagNr) {
     m_hasTag[tagNr] = false;
@@ -1658,47 +1658,47 @@ void TagLibFile::readAudioProperties()
       m_detailInfo.format = QLatin1String("WAV");
     } else if ((apeProperties =
                 dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("APE %1.%2 %3 bit")).
-        arg(apeProperties->version() / 1000).
-        arg(apeProperties->version() % 1000).
-        arg(apeProperties->bitsPerSample());
+      m_detailInfo.format = QString(QLatin1String("APE %1.%2 %3 bit"))
+        .arg(apeProperties->version() / 1000)
+        .arg(apeProperties->version() % 1000)
+        .arg(apeProperties->bitsPerSample());
     } else if ((modProperties =
                 dynamic_cast<TagLib::Mod::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("Mod %1 %2 Instruments")).
-          arg(getTrackerName()).
-          arg(modProperties->instrumentCount());
+      m_detailInfo.format = QString(QLatin1String("Mod %1 %2 Instruments"))
+          .arg(getTrackerName())
+          .arg(modProperties->instrumentCount());
     } else if ((s3mProperties =
                 dynamic_cast<TagLib::S3M::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("S3M %1 V%2 T%3")).
-          arg(getTrackerName()).
-          arg(s3mProperties->fileFormatVersion()).
-          arg(s3mProperties->trackerVersion(), 0, 16);
+      m_detailInfo.format = QString(QLatin1String("S3M %1 V%2 T%3"))
+          .arg(getTrackerName())
+          .arg(s3mProperties->fileFormatVersion())
+          .arg(s3mProperties->trackerVersion(), 0, 16);
       m_detailInfo.channelMode = s3mProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
     } else if ((itProperties =
                 dynamic_cast<TagLib::IT::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("IT %1 V%2 %3 Instruments")).
-          arg(getTrackerName()).
-          arg(itProperties->version(), 0, 16).
-          arg(itProperties->instrumentCount());
+      m_detailInfo.format = QString(QLatin1String("IT %1 V%2 %3 Instruments"))
+          .arg(getTrackerName())
+          .arg(itProperties->version(), 0, 16)
+          .arg(itProperties->instrumentCount());
       m_detailInfo.channelMode = itProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
                 dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("XM %1 V%2 %3 Instruments")).
-          arg(getTrackerName()).
-          arg(xmProperties->version(), 0, 16).
-          arg(xmProperties->instrumentCount());
+      m_detailInfo.format = QString(QLatin1String("XM %1 V%2 %3 Instruments"))
+          .arg(getTrackerName())
+          .arg(xmProperties->version(), 0, 16)
+          .arg(xmProperties->instrumentCount());
 #endif
     } else if ((opusProperties =
           dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("Opus %1")).
-          arg(opusProperties->opusVersion());
+      m_detailInfo.format = QString(QLatin1String("Opus %1"))
+          .arg(opusProperties->opusVersion());
     } else if ((dsfProperties =
           dynamic_cast<DSFProperties*>(audioProperties)) != nullptr) {
-      m_detailInfo.format = QString(QLatin1String("DSF %1")).
-          arg(dsfProperties->version());
+      m_detailInfo.format = QString(QLatin1String("DSF %1"))
+          .arg(dsfProperties->version());
     }
     m_detailInfo.bitrate = audioProperties->bitrate();
     m_detailInfo.sampleRate = audioProperties->sampleRate();
@@ -1805,8 +1805,8 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
       if (header) {
         uint majorVersion = header->majorVersion();
         uint revisionNumber = header->revisionNumber();
-        return QString(QLatin1String("ID3v2.%1.%2")).
-          arg(majorVersion).arg(revisionNumber);
+        return QString(QLatin1String("ID3v2.%1.%2"))
+          .arg(majorVersion).arg(revisionNumber);
       } else {
         return QLatin1String("ID3v2");
       }
@@ -3165,8 +3165,8 @@ void setValue(TagLib::ID3v2::PrivateFrame* f, const TagLib::String& text)
   QByteArray newData;
   TagLib::String owner = f->owner();
   if (!owner.isEmpty() &&
-      AttributeData(toQString(owner)).
-      toByteArray(toQString(text), newData)) {
+      AttributeData(toQString(owner))
+      .toByteArray(toQString(text), newData)) {
     f->setData(TagLib::ByteVector(newData.data(), newData.size()));
   }
 }
@@ -3790,8 +3790,8 @@ namespace {
 TagLib::String getApePictureName(PictureFrame::PictureType pictureType)
 {
   TagLib::String name("COVER ART (");
-  name += TagLib::String(PictureFrame::getPictureTypeString(pictureType)).
-      upper();
+  name += TagLib::String(PictureFrame::getPictureTypeString(pictureType))
+      .upper();
   name += ')';
   return name;
 }
@@ -5126,9 +5126,9 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
                                               Frame& frame)
 {
   TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
-  QString name = frame.getType() != Frame::FT_Other ?
-    QString::fromLatin1(getStringForType(frame.getType())) :
-    frame.getName();
+  QString name = frame.getType() != Frame::FT_Other
+      ? QString::fromLatin1(getStringForType(frame.getType()))
+      : frame.getName();
   QString frameId = name;
   frameId.truncate(4);
   TagLib::ID3v2::Frame* id3Frame = nullptr;
@@ -6034,7 +6034,8 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
                 ba = QByteArray(bv.data(), bv.size());
                 PictureFrame::setFields(
                   frame, Frame::TE_ISO8859_1,
-                  coverArt.format() == TagLib::MP4::CoverArt::PNG ? QLatin1String("PNG") : QLatin1String("JPG"),
+                  coverArt.format() == TagLib::MP4::CoverArt::PNG
+                      ? QLatin1String("PNG") : QLatin1String("JPG"),
                   coverArt.format() == TagLib::MP4::CoverArt::PNG ?
                   QLatin1String("image/png") : QLatin1String("image/jpeg"),
                   PictureFrame::PT_CoverFront, QLatin1String(""), ba);
@@ -6313,8 +6314,8 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         m_tagType[tagNr] == TT_Vorbis || m_tagType[tagNr] == TT_Ape;
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
-        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
-                   getName());
+        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                       QLatin1String("")).getName());
       }
     }
     for (auto fieldName : fieldNames) {
@@ -6399,10 +6400,10 @@ private:
 };
 
 
-TagLibInitializer::TagLibInitializer() :
-  m_aacFileTypeResolver(new AACFileTypeResolver),
-  m_mp2FileTypeResolver(new MP2FileTypeResolver),
-  m_textCodecStringHandler(new TextCodecStringHandler)
+TagLibInitializer::TagLibInitializer()
+  : m_aacFileTypeResolver(new AACFileTypeResolver),
+    m_mp2FileTypeResolver(new MP2FileTypeResolver),
+    m_textCodecStringHandler(new TextCodecStringHandler)
 {
 }
 

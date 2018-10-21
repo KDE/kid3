@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Oct 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@
  *
  * @param parent parent widget
  */
-ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
-  AbstractListEdit(m_tableView = new QTableView, model, parent)
+ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent)
+  : AbstractListEdit(m_tableView = new QTableView, model, parent)
 {
   setObjectName(QLatin1String("ConfigTable"));
   setAddButtonText(tr("&Add"));

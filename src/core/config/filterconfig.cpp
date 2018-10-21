@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@ int FilterConfig::s_index = -1;
 /**
  * Constructor.
  */
-FilterConfig::FilterConfig() :
-  StoredConfig<FilterConfig>(QLatin1String("Filter")), m_filterIdx(0)
+FilterConfig::FilterConfig()
+  : StoredConfig<FilterConfig>(QLatin1String("Filter")), m_filterIdx(0)
 {
   /**
    * Preset filter expressions.
@@ -55,15 +55,29 @@ FilterConfig::FilterConfig() :
     QLatin1String("Custom Filter");
   m_filterExpressions <<
     QLatin1String("") <<
-    QLatin1String("not (%{filepath} contains \"%{artist} - %{album}/%{track} %{title}\")") <<
+    QLatin1String("not (%{filepath} contains "
+                  "\"%{artist} - %{album}/%{track} %{title}\")") <<
     QLatin1String("%{tag1} equals \"\"") <<
     QLatin1String("%{tag2} equals \"\"") <<
     QLatin1String("%{tag2} equals \"ID3v2.2.0\"") <<
     QLatin1String("%{tag2} equals \"ID3v2.3.0\"") <<
     QLatin1String("%{tag2} equals \"ID3v2.4.0\"") <<
-    QLatin1String("not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})") <<
-    QLatin1String("%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}") <<
-    QLatin1String(R"(%{title} equals "" or %{artist} equals "" or %{album} equals "" or %{year} equals "" or %{tracknumber} equals "" or %{genre} equals "")") <<
+    QLatin1String("not (%1{title} equals %2{title} and "
+                  "%1{album} equals %2{album} and "
+                  "%1{artist} equals %2{artist} and "
+                  "%1{comment} equals %2{comment} and "
+                  "%1{year} equals %2{year} and "
+                  "%1{track} equals %2{track} and "
+                  "%1{genre} equals %2{genre})") <<
+    QLatin1String("%1{title} equals %2{title} and "
+                  "%1{album} equals %2{album} and "
+                  "%1{artist} equals %2{artist} and "
+                  "%1{comment} equals %2{comment} and "
+                  "%1{year} equals %2{year} and %1{track} equals %2{track} and "
+                  "%1{genre} equals %2{genre}") <<
+    QLatin1String(R"(%{title} equals "" or %{artist} equals "" or )"
+                  R"(%{album} equals "" or %{year} equals "" or )"
+                  R"(%{tracknumber} equals "" or %{genre} equals "")") <<
     QLatin1String("%{picture} equals \"\"") <<
     QLatin1String("not (%{marked} equals \"\")") <<
     QLatin1String("");

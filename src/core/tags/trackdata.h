@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 7 Jul 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -190,8 +190,8 @@ public:
    * @param taggedFile tagged file providing track data
    * @param tagVersion source of frames
    */
-  ImportTrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
-    TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
+  ImportTrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion)
+    : TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
 
   /**
    * Get duration of import.

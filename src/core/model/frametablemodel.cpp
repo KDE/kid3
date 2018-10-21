@@ -57,10 +57,10 @@ QHash<int,QByteArray> getRoleHash()
  * @param id3v1  true if model for ID3v1 frames
  * @param parent parent widget
  */
-FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
-  QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-  m_id3v1(id3v1),
-  m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
+FrameTableModel::FrameTableModel(bool id3v1, QObject* parent)
+  : QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
+    m_id3v1(id3v1),
+    m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }

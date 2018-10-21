@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,9 +47,9 @@
  * Constructor.
  * @param prompt command line prompt
  */
-StandardIOHandler::StandardIOHandler(const char* prompt) :
-  m_prompt(prompt), m_conInThread(nullptr),
-  m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly)
+StandardIOHandler::StandardIOHandler(const char* prompt)
+  : m_prompt(prompt), m_conInThread(nullptr),
+    m_cout(stdout, QIODevice::WriteOnly), m_cerr(stderr, QIODevice::WriteOnly)
 {
 #ifdef Q_OS_WIN32
   DWORD mode;

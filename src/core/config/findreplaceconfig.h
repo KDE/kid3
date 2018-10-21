@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Mar 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,9 +40,11 @@ class BatchImportProfile;
 class KID3_CORE_EXPORT FindReplaceConfig : public StoredConfig<FindReplaceConfig> {
   Q_OBJECT
   /** search parameters */
-  Q_PROPERTY(QVariantList parameterList READ parameterList WRITE setParameterList NOTIFY parameterListChanged)
+  Q_PROPERTY(QVariantList parameterList READ parameterList
+             WRITE setParameterList NOTIFY parameterListChanged)
   /** window geometry */
-  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
 
 public:
   /**

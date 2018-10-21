@@ -326,11 +326,12 @@ void StarEditor::modifyStarCount(int starCount)
  * @param genreModel genre model
  * @param parent parent QTableView
  */
-FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent) :
-  QItemDelegate(parent),
-  m_genreModel(genreModel),
-  m_trackNumberValidator(new TrackNumberValidator(this)),
-  m_dateTimeValidator(new DateTimeValidator(this)) {
+FrameItemDelegate::FrameItemDelegate(GenreModel* genreModel, QObject* parent)
+  : QItemDelegate(parent),
+    m_genreModel(genreModel),
+    m_trackNumberValidator(new TrackNumberValidator(this)),
+    m_dateTimeValidator(new DateTimeValidator(this))
+{
   setObjectName(QLatin1String("FrameItemDelegate"));
 }
 

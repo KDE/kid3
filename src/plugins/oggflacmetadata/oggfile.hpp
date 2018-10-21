@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -204,8 +204,8 @@ protected:
   public:
     /** Constructor. */
     CommentField(const QString& name = QString(),
-                 const QString& value = QString()) :
-      m_name(name), m_value(value) {}
+                 const QString& value = QString())
+      : m_name(name), m_value(value) {}
     /**
      * Get name.
      * @return name.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 31 Dec 2008
  *
- * Copyright (C) 2008-2013  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@
  * @param parent  parent widget
  * @param caption dialog title
  */
-DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
-  QProgressDialog(parent)
+DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption)
+  : QProgressDialog(parent)
 {
   setObjectName(QLatin1String("DownloadDialog"));
   setWindowTitle(caption);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Feb 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,8 +38,8 @@
  * @param str       string with format codes
  */
 TrackDataFormatReplacer::TrackDataFormatReplacer(
-  const TrackData& trackData, const QString& str) :
-  FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
+  const TrackData& trackData, const QString& str)
+  : FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
 
 /**
  * Replace a format code (one character %c or multiple characters %{chars}).
@@ -287,8 +287,8 @@ TrackData::TrackData() = default;
  * @param taggedFile tagged file providing track data
  * @param tagVersion source of frames
  */
-TrackData::TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion) :
-  m_taggedFileIndex(taggedFile.getIndex())
+TrackData::TrackData(TaggedFile& taggedFile, Frame::TagVersion tagVersion)
+  : m_taggedFileIndex(taggedFile.getIndex())
 {
   for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagVersion)) {
     if (empty()) {

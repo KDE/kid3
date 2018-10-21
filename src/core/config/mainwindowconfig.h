@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Apr 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,23 +35,30 @@
 class KID3_CORE_EXPORT MainWindowConfig : public StoredConfig<MainWindowConfig> {
   Q_OBJECT
   /** mainwindow geometry */
-  Q_PROPERTY(QByteArray geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+  Q_PROPERTY(QByteArray geometry READ geometry WRITE setGeometry
+             NOTIFY geometryChanged)
   /** mainwindow state */
-  Q_PROPERTY(QByteArray windowState READ windowState WRITE setWindowState NOTIFY windowStateChanged)
+  Q_PROPERTY(QByteArray windowState READ windowState WRITE setWindowState
+             NOTIFY windowStateChanged)
   /** custom application font family */
-  Q_PROPERTY(QString fontFamily READ fontFamily WRITE setFontFamily NOTIFY fontFamilyChanged)
+  Q_PROPERTY(QString fontFamily READ fontFamily WRITE setFontFamily
+             NOTIFY fontFamilyChanged)
   /** custom application font size */
-  Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+  Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize
+             NOTIFY fontSizeChanged)
   /** custom application style, empty if not used */
   Q_PROPERTY(QString style READ style WRITE setStyle NOTIFY styleChanged)
   /** true if custom application font is used */
   Q_PROPERTY(bool useFont READ useFont WRITE setUseFont NOTIFY useFontChanged)
   /** true to hide toolbar */
-  Q_PROPERTY(bool hideToolBar READ hideToolBar WRITE setHideToolBar NOTIFY hideToolBarChanged)
+  Q_PROPERTY(bool hideToolBar READ hideToolBar WRITE setHideToolBar
+             NOTIFY hideToolBarChanged)
   /** true to hide statusbar */
-  Q_PROPERTY(bool hideStatusBar READ hideStatusBar WRITE setHideStatusBar NOTIFY hideStatusBarChanged)
+  Q_PROPERTY(bool hideStatusBar READ hideStatusBar WRITE setHideStatusBar
+             NOTIFY hideStatusBarChanged)
   /** Don't use the native file dialog if true */
-  Q_PROPERTY(bool dontUseNativeDialogs READ dontUseNativeDialogs WRITE setDontUseNativeDialogs NOTIFY dontUseNativeDialogsChanged)
+  Q_PROPERTY(bool dontUseNativeDialogs READ dontUseNativeDialogs
+             WRITE setDontUseNativeDialogs NOTIFY dontUseNativeDialogsChanged)
 
 public:
   /**

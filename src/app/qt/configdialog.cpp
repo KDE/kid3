@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,10 +55,10 @@
  * @param shortcutsModel shortcuts model
  */
 ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
-                           QString& caption, ShortcutsModel* shortcutsModel) :
-  QDialog(parent),
-  m_pages(new ConfigDialogPages(platformTools, this)),
-  m_shortcutsModel(shortcutsModel)
+                           QString& caption, ShortcutsModel* shortcutsModel)
+  : QDialog(parent),
+    m_pages(new ConfigDialogPages(platformTools, this)),
+    m_shortcutsModel(shortcutsModel)
 {
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
@@ -108,9 +108,12 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     auto vlayout = new QVBoxLayout(appearancePage);
     auto fontStyleLayout = new QGridLayout;
 
-    m_useApplicationFontCheckBox = new QCheckBox(tr("Use custom app&lication font"), appearancePage);
-    m_applicationFontButton = new QPushButton(tr("A&pplication Font..."), appearancePage);
-    m_useApplicationStyleCheckBox = new QCheckBox(tr("Use custom application &style"), appearancePage);
+    m_useApplicationFontCheckBox =
+        new QCheckBox(tr("Use custom app&lication font"), appearancePage);
+    m_applicationFontButton =
+        new QPushButton(tr("A&pplication Font..."), appearancePage);
+    m_useApplicationStyleCheckBox =
+        new QCheckBox(tr("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
     fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
     fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
@@ -118,12 +121,15 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     fontStyleLayout->addWidget(m_applicationStyleComboBox, 1, 1);
     m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
-    connect(m_applicationFontButton, &QAbstractButton::clicked, this, &ConfigDialog::slotSelectFont);
+    connect(m_applicationFontButton, &QAbstractButton::clicked,
+            this, &ConfigDialog::slotSelectFont);
     connect(m_applicationStyleComboBox,
             static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::activated),
             this, &ConfigDialog::slotSelectStyle);
-    connect(m_useApplicationFontCheckBox, &QAbstractButton::toggled, m_applicationFontButton, &QWidget::setEnabled);
-    connect(m_useApplicationStyleCheckBox, &QAbstractButton::toggled, m_applicationStyleComboBox, &QWidget::setEnabled);
+    connect(m_useApplicationFontCheckBox, &QAbstractButton::toggled,
+            m_applicationFontButton, &QWidget::setEnabled);
+    connect(m_useApplicationStyleCheckBox, &QAbstractButton::toggled,
+            m_applicationStyleComboBox, &QWidget::setEnabled);
     vlayout->addLayout(fontStyleLayout);
 
     m_useNativeDialogsCheckBox =
@@ -157,7 +163,8 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
           this, &ConfigDialog::setDefaultConfig);
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-  connect(cancelButton, &QAbstractButton::clicked, this, &ConfigDialog::slotRevertFontAndStyle);
+  connect(cancelButton, &QAbstractButton::clicked,
+          this, &ConfigDialog::slotRevertFontAndStyle);
   topLayout->addLayout(hlayout);
 }
 
@@ -247,8 +254,8 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
     const QString& key, const QString& context, const QAction* action)
 {
   m_shortcutAlreadyUsedLabel->setText(
-        tr("The keyboard shortcut '%1' is already assigned to '%2'.").
-        arg(key, context + QLatin1Char('/') +
+        tr("The keyboard shortcut '%1' is already assigned to '%2'.")
+        .arg(key, context + QLatin1Char('/') +
             (action ? action->text().remove(QLatin1Char('&'))
                     : QLatin1String("?"))));
 }

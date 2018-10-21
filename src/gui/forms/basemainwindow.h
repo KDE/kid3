@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -513,7 +513,9 @@ private:
    * @param disconnectModel true to disconnect the file list models while the
    * progress widget is shown
    */
-  void startProgressMonitoring(const QString& title, void (BaseMainWindowImpl::*terminationHandler)(), bool disconnectModel);
+  void startProgressMonitoring(const QString& title,
+                               void (BaseMainWindowImpl::*terminationHandler)(),
+                               bool disconnectModel);
 
   /**
    * Stop monitoring the progress started with startProgressMonitoring().

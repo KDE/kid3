@@ -42,8 +42,8 @@
  * @param parent parent widget
  */
 FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
-                       QWidget* parent) :
-  QTableView(parent), m_currentEditor(nullptr)
+                       QWidget* parent)
+  : QTableView(parent), m_currentEditor(nullptr)
 {
   setObjectName(QLatin1String("FrameTable"));
   setModel(model);

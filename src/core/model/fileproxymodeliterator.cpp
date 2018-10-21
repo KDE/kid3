@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03-Feb-2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,8 +33,8 @@
  *
  * @param model file proxy model
  */
-FileProxyModelIterator::FileProxyModelIterator(FileProxyModel* model) :
-  QObject(model), m_model(model), m_numDone(0), m_aborted(false)
+FileProxyModelIterator::FileProxyModelIterator(FileProxyModel* model)
+  : QObject(model), m_model(model), m_numDone(0), m_aborted(false)
 {
 }
 

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,19 +38,26 @@ class KID3_CORE_EXPORT ServerImporterConfig : public GeneralConfig {
   /** server */
   Q_PROPERTY(QString server READ server WRITE setServer NOTIFY serverChanged)
   /** CGI path used for access */
-  Q_PROPERTY(QString cgiPath READ cgiPath WRITE setCgiPath NOTIFY cgiPathChanged)
+  Q_PROPERTY(QString cgiPath READ cgiPath WRITE setCgiPath
+             NOTIFY cgiPathChanged)
   /** window geometry */
-  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry WRITE setWindowGeometry NOTIFY windowGeometryChanged)
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
   /** true if CgiPath configuration is used */
-  Q_PROPERTY(bool cgiPathUsed READ cgiPathUsed WRITE setCgiPathUsed NOTIFY cgiPathUsedChanged)
+  Q_PROPERTY(bool cgiPathUsed READ cgiPathUsed WRITE setCgiPathUsed
+             NOTIFY cgiPathUsedChanged)
   /** true if additional tags configuration is used */
-  Q_PROPERTY(bool additionalTagsUsed READ additionalTagsUsed WRITE setAdditionalTagsUsed NOTIFY additionalTagsUsedChanged)
+  Q_PROPERTY(bool additionalTagsUsed READ additionalTagsUsed
+             WRITE setAdditionalTagsUsed NOTIFY additionalTagsUsedChanged)
   /** standard tags imported */
-  Q_PROPERTY(bool standardTags READ standardTags WRITE setStandardTags NOTIFY standardTagsChanged)
+  Q_PROPERTY(bool standardTags READ standardTags WRITE setStandardTags
+             NOTIFY standardTagsChanged)
   /** additional tags imported */
-  Q_PROPERTY(bool additionalTags READ additionalTags WRITE setAdditionalTags NOTIFY additionalTagsChanged)
+  Q_PROPERTY(bool additionalTags READ additionalTags WRITE setAdditionalTags
+             NOTIFY additionalTagsChanged)
   /** cover art imported */
-  Q_PROPERTY(bool coverArt READ coverArt WRITE setCoverArt NOTIFY coverArtChanged)
+  Q_PROPERTY(bool coverArt READ coverArt WRITE setCoverArt
+             NOTIFY coverArtChanged)
 
 public:
   /**

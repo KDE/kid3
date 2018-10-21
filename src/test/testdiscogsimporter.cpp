@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012-2013  Urs Fleisch
+ * Copyright (C) 2012-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,26 +53,44 @@ void TestDiscogsImporter::testQueryTracks()
   queryTracks(QLatin1String("Wizard-Odin/release"), QLatin1String("2487778"));
 
   QStringList titles;
-  titles << QLatin1String("The Prophecy") << QLatin1String("Betrayer") << QLatin1String("Dead Hope") << QLatin1String("Dark God")
-         << QLatin1String("Lokis Punishment") << QLatin1String("Beginning Of The End") << QLatin1String("Thor's Hammer")
-         << QLatin1String("Hall Of Odin") << QLatin1String("The Powergod") << QLatin1String("March Of The Einherjers")
-         << QLatin1String("End Of All") << QLatin1String("Ultimate War (Bonus Track)")
-         << QLatin1String("Golden Dawn (Bonus Track)") << QLatin1String("Betrayer");
+  titles << QLatin1String("The Prophecy") << QLatin1String("Betrayer")
+         << QLatin1String("Dead Hope") << QLatin1String("Dark God")
+         << QLatin1String("Lokis Punishment")
+         << QLatin1String("Beginning Of The End")
+         << QLatin1String("Thor's Hammer")
+         << QLatin1String("Hall Of Odin") << QLatin1String("The Powergod")
+         << QLatin1String("March Of The Einherjers")
+         << QLatin1String("End Of All")
+         << QLatin1String("Ultimate War (Bonus Track)")
+         << QLatin1String("Golden Dawn (Bonus Track)")
+         << QLatin1String("Betrayer");
   QStringList lengths;
-  lengths << QLatin1String("5:19") << QLatin1String("4:53") << QLatin1String("6:02") << QLatin1String("5:43") << QLatin1String("5:08") << QLatin1String("4:01") << QLatin1String("5:01")
-          << QLatin1String("5:06") << QLatin1String("5:21") << QLatin1String("5:40") << QLatin1String("3:53") << QLatin1String("4:52") << QLatin1String("5:05") << QLatin1String("");
+  lengths << QLatin1String("5:19") << QLatin1String("4:53")
+          << QLatin1String("6:02") << QLatin1String("5:43")
+          << QLatin1String("5:08") << QLatin1String("4:01")
+          << QLatin1String("5:01") << QLatin1String("5:06")
+          << QLatin1String("5:21") << QLatin1String("5:40")
+          << QLatin1String("3:53") << QLatin1String("4:52")
+          << QLatin1String("5:05") << QLatin1String("");
   QCOMPARE(m_trackDataModel->rowCount(), 14);
   for (int row = 0; row < 11; ++row) {
     QCOMPARE(m_trackDataModel->index(row, 0).data().toString(), lengths.at(row));
     QCOMPARE(m_trackDataModel->index(row, 3).data().toInt(), row + 1);
     QCOMPARE(m_trackDataModel->index(row, 4).data().toString(), titles.at(row));
-    QCOMPARE(m_trackDataModel->index(row, 5).data().toString(), QString(QLatin1String("Wizard")));
-    QCOMPARE(m_trackDataModel->index(row, 6).data().toString(), QString(QLatin1String("Odin")));
+    QCOMPARE(m_trackDataModel->index(row, 5).data().toString(),
+             QString(QLatin1String("Wizard")));
+    QCOMPARE(m_trackDataModel->index(row, 6).data().toString(),
+             QString(QLatin1String("Odin")));
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
-    QCOMPARE(m_trackDataModel->index(row, 8).data().toString(), QString(QLatin1String("Heavy Metal")));
-    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString(QLatin1String("LMP 0303-054 Ltd. CD")));
-    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString(QLatin1String("CD, Album, Limited Edition, Enhanced, Digipak")));
-    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString(QLatin1String("LMP")));
-    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString(QLatin1String("Germany")));
+    QCOMPARE(m_trackDataModel->index(row, 8).data().toString(),
+             QString(QLatin1String("Heavy Metal")));
+    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(),
+             QString(QLatin1String("LMP 0303-054 Ltd. CD")));
+    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(),
+             QString(QLatin1String("CD, Album, Limited Edition, Enhanced, Digipak")));
+    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(),
+             QString(QLatin1String("LMP")));
+    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(),
+             QString(QLatin1String("Germany")));
   }
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -66,11 +66,15 @@ private:
 
   void raiseError(FingerprintCalculator::Error error);
   static gboolean cb_timeout(gpointer data);
-  static void cb_message(GstBus* bus, GstMessage* message, GstFingerprintDecoder* self);
-  static void cb_pad_added(GstElement* dec, GstPad* pad, GstFingerprintDecoder* self);
+  static void cb_message(GstBus* bus, GstMessage* message,
+                         GstFingerprintDecoder* self);
+  static void cb_pad_added(GstElement* dec, GstPad* pad,
+                           GstFingerprintDecoder* self);
   static void cb_no_more_pads(GstElement* dec, GstFingerprintDecoder* self);
-  static void cb_notify_caps(GstPad *pad, GParamSpec* spec, GstFingerprintDecoder* self);
-  static void cb_unknown_type(GstElement* dec, GstPad* pad, GstCaps* caps, GstFingerprintDecoder* self);
+  static void cb_notify_caps(GstPad *pad, GParamSpec* spec,
+                             GstFingerprintDecoder* self);
+  static void cb_unknown_type(GstElement* dec, GstPad* pad, GstCaps* caps,
+                              GstFingerprintDecoder* self);
   static void cb_new_buffer(GstElement* sink, GstFingerprintDecoder* self);
 
   GMainLoop* m_loop;

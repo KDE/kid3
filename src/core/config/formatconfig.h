@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,25 +40,32 @@ class FrameCollection;
 /**
  * Format configuration.
  */
-class KID3_CORE_EXPORT FormatConfig : public GeneralConfig
-{
+class KID3_CORE_EXPORT FormatConfig : public GeneralConfig {
   Q_OBJECT
   /** Mapping for string replacement */
-  Q_PROPERTY(QVariantMap strRepMap READ strRepVariantMap WRITE setStrRepVariantMap NOTIFY strRepMapChanged)
+  Q_PROPERTY(QVariantMap strRepMap READ strRepVariantMap
+             WRITE setStrRepVariantMap NOTIFY strRepMapChanged)
   /** Case conversion option */
-  Q_PROPERTY(int caseConversion READ caseConversion WRITE setCaseConversionInt NOTIFY caseConversionChanged)
+  Q_PROPERTY(int caseConversion READ caseConversion WRITE setCaseConversionInt
+             NOTIFY caseConversionChanged)
   /** name of locale to use for string conversions */
-  Q_PROPERTY(QString localeName READ localeName WRITE setLocaleName NOTIFY localeNameChanged)
+  Q_PROPERTY(QString localeName READ localeName WRITE setLocaleName
+             NOTIFY localeNameChanged)
   /** maximum length */
-  Q_PROPERTY(int maximumLength READ maximumLength WRITE setMaximumLength NOTIFY maximumLengthChanged)
+  Q_PROPERTY(int maximumLength READ maximumLength WRITE setMaximumLength
+             NOTIFY maximumLengthChanged)
   /** true to enable length restriction */
-  Q_PROPERTY(bool enableMaximumLength READ enableMaximumLength WRITE setEnableMaximumLength NOTIFY enableMaximumLengthChanged)
+  Q_PROPERTY(bool enableMaximumLength READ enableMaximumLength
+             WRITE setEnableMaximumLength NOTIFY enableMaximumLengthChanged)
   /** true to enable formating in line edits */
-  Q_PROPERTY(bool formatWhileEditing READ formatWhileEditing WRITE setFormatWhileEditing NOTIFY formatWhileEditingChanged)
+  Q_PROPERTY(bool formatWhileEditing READ formatWhileEditing
+             WRITE setFormatWhileEditing NOTIFY formatWhileEditingChanged)
   /** true if string replacement enabled */
-  Q_PROPERTY(bool strRepEnabled READ strRepEnabled WRITE setStrRepEnabled NOTIFY strRepEnabledChanged)
+  Q_PROPERTY(bool strRepEnabled READ strRepEnabled WRITE setStrRepEnabled
+             NOTIFY strRepEnabledChanged)
   /** true to enable data validation */
-  Q_PROPERTY(bool enableValidation READ enableValidation WRITE setEnableValidation NOTIFY enableValidationChanged)
+  Q_PROPERTY(bool enableValidation READ enableValidation
+             WRITE setEnableValidation NOTIFY enableValidationChanged)
   Q_ENUMS(CaseConversion)
 public:
   /** Case conversion options. */
@@ -261,8 +268,8 @@ private:
 /**
  * FormatConfig subclass for stored filename format configuration instance.
  */
-class KID3_CORE_EXPORT FilenameFormatConfig :
-    public StoredConfig<FilenameFormatConfig, FormatConfig> {
+class KID3_CORE_EXPORT FilenameFormatConfig
+    : public StoredConfig<FilenameFormatConfig, FormatConfig> {
   Q_OBJECT
 public:
   /**
@@ -287,8 +294,8 @@ private:
 /**
  * FormatConfig subclass for stored tag format configuration instance.
  */
-class KID3_CORE_EXPORT TagFormatConfig :
-    public StoredConfig<TagFormatConfig, FormatConfig> {
+class KID3_CORE_EXPORT TagFormatConfig
+    : public StoredConfig<TagFormatConfig, FormatConfig> {
   Q_OBJECT
 public:
   /**

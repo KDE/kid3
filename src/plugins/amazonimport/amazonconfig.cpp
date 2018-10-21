@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,8 +32,8 @@ int AmazonConfig::s_index = -1;
 /**
  * Constructor.
  */
-AmazonConfig::AmazonConfig() :
-  StoredConfig<AmazonConfig, ServerImporterConfig>(QLatin1String("Amazon"))
+AmazonConfig::AmazonConfig()
+  : StoredConfig<AmazonConfig, ServerImporterConfig>(QLatin1String("Amazon"))
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);

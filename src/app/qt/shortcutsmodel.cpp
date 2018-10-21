@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2017  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -360,7 +360,8 @@ void ShortcutsModel::writeToConfig(ISettings* config) const
        git != m_shortcutGroups.constEnd();
        ++git) {
     for (auto iit = git->constBegin(); iit != git->constEnd(); ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
+      QString actionName(iit->action() ? iit->action()->objectName()
+                                       : QLatin1String(""));
       if (!actionName.isEmpty()) {
         if (iit->isCustomShortcutActive()) {
           config->setValue(actionName, iit->customShortcut());
@@ -384,7 +385,8 @@ void ShortcutsModel::readFromConfig(ISettings* config)
   config->beginGroup(QLatin1String("Shortcuts"));
   for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
+      QString actionName(iit->action() ? iit->action()->objectName()
+                                       : QLatin1String(""));
       if (!actionName.isEmpty() && config->contains(actionName)) {
         QString keyStr(config->value(actionName, QString()).toString());
         iit->setCustomShortcut(keyStr);
@@ -396,8 +398,8 @@ void ShortcutsModel::readFromConfig(ISettings* config)
 }
 
 
-ShortcutsModel::ShortcutItem::ShortcutItem(QAction* act) :
-  m_action(act), m_defaultShortcut(m_action->shortcut().toString())
+ShortcutsModel::ShortcutItem::ShortcutItem(QAction* act)
+  : m_action(act), m_defaultShortcut(m_action->shortcut().toString())
 {
 }
 
@@ -424,12 +426,13 @@ void ShortcutsModel::ShortcutItem::assignCustomShortcut()
 
 QString ShortcutsModel::ShortcutItem::actionText() const
 {
-  return m_action ? m_action->text().remove(QLatin1Char('&')) : QLatin1String("");
+  return m_action ? m_action->text().remove(QLatin1Char('&'))
+                  : QLatin1String("");
 }
 
 
-ShortcutsModel::ShortcutGroup::ShortcutGroup(const QString& ctx) :
-  m_context(ctx)
+ShortcutsModel::ShortcutGroup::ShortcutGroup(const QString& ctx)
+  : m_context(ctx)
 {
   m_context.remove(QLatin1Char('&'));
 }

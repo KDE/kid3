@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 27 Jul 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,8 +32,8 @@
 /**
  * Mp4v2 metadata plugin.
  */
-class KID3_PLUGIN_EXPORT Mp4v2MetadataPlugin :
-    public QObject, public ITaggedFileFactory {
+class KID3_PLUGIN_EXPORT Mp4v2MetadataPlugin
+    : public QObject, public ITaggedFileFactory {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.ITaggedFileFactory")
   Q_INTERFACES(ITaggedFileFactory)

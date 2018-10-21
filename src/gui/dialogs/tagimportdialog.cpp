@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Jun 2011
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,8 +41,8 @@
  * @param trackDataModel track data to be filled with imported values
  */
 TagImportDialog::TagImportDialog(QWidget* parent,
-                                 TrackDataModel* trackDataModel) :
-  QDialog(parent), m_trackDataModel(trackDataModel)
+                                 TrackDataModel* trackDataModel)
+  : QDialog(parent), m_trackDataModel(trackDataModel)
 {
   setObjectName(QLatin1String("TagImportDialog"));
   setWindowTitle(tr("Import from Tags"));

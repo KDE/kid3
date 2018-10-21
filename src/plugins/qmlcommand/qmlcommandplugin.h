@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,8 +37,8 @@ class QQmlError;
 /**
  * Starter for QML scripts.
  */
-class KID3_PLUGIN_EXPORT QmlCommandPlugin :
-    public QObject, public IUserCommandProcessor {
+class KID3_PLUGIN_EXPORT QmlCommandPlugin
+    : public QObject, public IUserCommandProcessor {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IUserCommandProcessor")
   Q_INTERFACES(IUserCommandProcessor)

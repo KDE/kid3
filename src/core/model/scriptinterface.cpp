@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,8 +47,8 @@
  *
  * @param app parent application
  */
-ScriptInterface::ScriptInterface(Kid3Application* app) :
-  QDBusAbstractAdaptor(app), m_app(app)
+ScriptInterface::ScriptInterface(Kid3Application* app)
+  : QDBusAbstractAdaptor(app), m_app(app)
 {
   setObjectName(QLatin1String("ScriptInterface"));
   setAutoRelaySignals(true);
@@ -79,7 +79,8 @@ bool ScriptInterface::save()
     m_errorMsg.clear();
     return true;
   } else {
-    m_errorMsg = QLatin1String("Error while writing file:\n") + errorFiles.join(QLatin1String("\n"));
+    m_errorMsg = QLatin1String("Error while writing file:\n") +
+        errorFiles.join(QLatin1String("\n"));
     return false;
   }
 }
@@ -197,7 +198,8 @@ QStringList ScriptInterface::getPlaylistItems(const QString& path)
  * @return true if ok, false if not all @a items were found and added or
  *         saving failed.
  */
-bool ScriptInterface::setPlaylistItems(const QString& path, const QStringList& items)
+bool ScriptInterface::setPlaylistItems(const QString& path,
+                                       const QStringList& items)
 {
   return m_app->setPlaylistItems(path, items);
 }

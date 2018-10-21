@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2008  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,8 +43,7 @@ class FormatListEdit;
  * Export dialog.
  */
 class ExportDialog : public QDialog {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

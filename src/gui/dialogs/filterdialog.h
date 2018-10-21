@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,8 +38,7 @@ class FormatListEdit;
  * Filter dialog.
  */
 class FilterDialog : public QDialog {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

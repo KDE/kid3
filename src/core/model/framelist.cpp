@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,10 +39,10 @@
  * @param selModel item selection model
  */
 FrameList::FrameList(Frame::TagNumber tagNr,
-                     FrameTableModel* ftm, QItemSelectionModel* selModel) :
-  QObject(ftm), m_oldChangedFrames(0), m_taggedFile(nullptr), m_frameEditor(nullptr),
-  m_frameTableModel(ftm), m_selectionModel(selModel),
-  m_cursorRow(-1), m_cursorColumn(-1), m_tagNr(tagNr), m_addingFrame(false)
+                     FrameTableModel* ftm, QItemSelectionModel* selModel)
+  : QObject(ftm), m_oldChangedFrames(0), m_taggedFile(nullptr),
+    m_frameEditor(nullptr), m_frameTableModel(ftm), m_selectionModel(selModel),
+    m_cursorRow(-1), m_cursorColumn(-1), m_tagNr(tagNr), m_addingFrame(false)
 {
   setObjectName(QLatin1String("FrameList"));
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2012  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,8 +41,8 @@ class Kid3Application;
  * rm config.h
  */
 class ScriptInterface : public QDBusAbstractAdaptor {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
+  Q_OBJECT
+  Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
 public:
   /**
    * Constructor.

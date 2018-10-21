@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Feb 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,8 +32,8 @@
 /**
  * Constructor.
  */
-TagSearcher::Position::Position() :
-  m_part(FileName), m_frameIndex(-1), m_matchedPos(-1), m_matchedLength(-1)
+TagSearcher::Position::Position()
+  : m_part(FileName), m_frameIndex(-1), m_matchedPos(-1), m_matchedLength(-1)
 {
 }
 

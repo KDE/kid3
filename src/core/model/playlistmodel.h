@@ -65,7 +65,7 @@ public:
    * @return true if successful
    */
   virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role=Qt::EditRole) override;
+                       int role = Qt::EditRole) override;
 
   /**
    * Get number of rows.
@@ -73,7 +73,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent=QModelIndex()) const override;
+  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -81,7 +81,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent=QModelIndex()) const override;
+  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Insert rows.
@@ -112,7 +112,7 @@ public:
    * @return model index of item
    */
   virtual QModelIndex index(int row, int column,
-                            const QModelIndex& parent=QModelIndex()) const override;
+                            const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get parent of item.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Jan 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -62,7 +62,8 @@ int PictureLabelIntern::heightForWidth(int w) const
  *
  * @param parent parent widget
  */
-PictureLabel::PictureLabel(QWidget* parent) : QWidget(parent), m_pixmapHash(0)
+PictureLabel::PictureLabel(QWidget* parent)
+  : QWidget(parent), m_pixmapHash(0)
 {
   setObjectName(QLatin1String("PictureLabel"));
   auto layout = new QVBoxLayout(this);

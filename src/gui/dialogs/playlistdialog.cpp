@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,8 +48,8 @@
  *
  * @param parent  parent widget
  */
-PlaylistDialog::PlaylistDialog(QWidget* parent):
-  QDialog(parent)
+PlaylistDialog::PlaylistDialog(QWidget* parent)
+  : QDialog(parent)
 {
   setObjectName(QLatin1String("PlaylistDialog"));
   setModal(true);
@@ -185,8 +185,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     QString frameName =
-        Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).getName().
-        toLower();
+        Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String(""))
+        .getName().toLower();
     if (frameName == QLatin1String("track number")) frameName = QLatin1String("track.3");
     lst.append(QLatin1String("%{") + frameName + QLatin1String("}"));
   }

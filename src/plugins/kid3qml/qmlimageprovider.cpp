@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Jun 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,8 +30,8 @@
  * Constructor.
  * @param iconProvider icon provider to use
  */
-QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider) :
-  QQuickImageProvider(QQuickImageProvider::Pixmap), PixmapProvider(iconProvider)
+QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider)
+  : QQuickImageProvider(QQuickImageProvider::Pixmap), PixmapProvider(iconProvider)
 {
 }
 

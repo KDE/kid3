@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21-Feb-2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,9 +35,9 @@
  * @param parent parent object
  */
 BiDirFileProxyModelIterator::BiDirFileProxyModelIterator(FileProxyModel* model,
-                                                         QObject *parent) :
-  QObject(parent), m_model(model), m_backwards(false),
-  m_aborted(false), m_suspended(false)
+                                                         QObject *parent)
+  : QObject(parent), m_model(model), m_backwards(false),
+    m_aborted(false), m_suspended(false)
 {
 }
 

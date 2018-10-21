@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Apr 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,8 +36,8 @@
  * @param model item model, e.g. a QStringListModel
  * @param parent parent widget
  */
-StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent) :
-  AbstractListEdit(new QListView, model, parent)
+StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent)
+  : AbstractListEdit(new QListView, model, parent)
 {
   setObjectName(QLatin1String("StringListEdit"));
 }

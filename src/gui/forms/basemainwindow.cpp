@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2017  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -92,17 +92,17 @@
  */
 BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools,
-                                       Kid3Application* app) :
-  m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
-  m_form(nullptr), m_app(app),
-  m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
-  m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-  m_progressWidget(nullptr),
-  m_progressBar(nullptr), m_progressAbortButton(nullptr), m_editFrameDialog(nullptr),
-  m_editFrameTaggedFile(nullptr), m_editFrameTagNr(Frame::Tag_2),
-  m_progressTerminationHandler(nullptr),
-  m_progressDisconnected(false),
-  m_findReplaceActive(false), m_expandNotificationNeeded(false)
+                                       Kid3Application* app)
+  : m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
+    m_form(nullptr), m_app(app),
+    m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
+    m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
+    m_progressWidget(nullptr),
+    m_progressBar(nullptr), m_progressAbortButton(nullptr),
+    m_editFrameDialog(nullptr), m_editFrameTaggedFile(nullptr),
+    m_editFrameTagNr(Frame::Tag_2),
+    m_progressTerminationHandler(nullptr),  m_progressDisconnected(false),
+    m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
   m_downloadDialog->close();
   ContextHelp::init(m_platformTools);
@@ -143,7 +143,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, &BaseMainWindowImpl::updateWindowCaption);
   connect(m_app, &Kid3Application::longRunningOperationProgress,
           this, &BaseMainWindowImpl::showOperationProgress);
-  connect(m_app, &Kid3Application::aboutToPlayAudio, this, &BaseMainWindowImpl::showPlayToolBar);
+  connect(m_app, &Kid3Application::aboutToPlayAudio,
+          this, &BaseMainWindowImpl::showPlayToolBar);
 }
 
 /**
@@ -358,7 +359,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
  */
 bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 {
-  bool completed=true;
+  bool completed = true;
 
   if(m_app->isModified() && !m_app->getDirName().isEmpty())
   {
@@ -371,7 +372,7 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
     {
     case QMessageBox::Yes:
       saveDirectory();
-      completed=true;
+      completed = true;
       break;
 
     case QMessageBox::No:
@@ -380,15 +381,15 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
           m_app->getFileSelectionModel()->clearSelection();
         m_app->revertFileModifications();
       }
-      completed=true;
+      completed = true;
       break;
 
     case QMessageBox::Cancel:
-      completed=false;
+      completed = false;
       break;
 
     default:
-      completed=false;
+      completed = false;
       break;
     }
   }
@@ -1233,7 +1234,8 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
         m_editFrame.setValueFromFieldList();
       }
       if (m_editFrameTaggedFile->setFrame(m_editFrameTagNr, m_editFrame)) {
-        m_editFrameTaggedFile->markTagChanged(m_editFrameTagNr, m_editFrame.getType());
+        m_editFrameTaggedFile->markTagChanged(m_editFrameTagNr,
+                                              m_editFrame.getType());
       }
     }
   }
@@ -1316,7 +1318,8 @@ void BaseMainWindowImpl::renameFile()
 }
 
 /** Only defined for generation of translation files */
-#define WANT_TO_DELETE_FOR_PO QT_TRANSLATE_NOOP("@default", "Do you really want to move these %1 items to the trash?")
+#define WANT_TO_DELETE_FOR_PO \
+  QT_TRANSLATE_NOOP("@default", "Do you really want to move these %1 items to the trash?")
 
 /**
  * Delete the selected file(s).
@@ -1345,8 +1348,8 @@ void BaseMainWindowImpl::deleteFile()
     if (m_platformTools->warningContinueCancelList(
           m_w,
           numFiles > 1
-          ? tr("Do you really want to move these %1 items to the trash?").
-            arg(numFiles)
+          ? tr("Do you really want to move these %1 items to the trash?")
+            .arg(numFiles)
           : tr("Do you really want to move this item to the trash?"),
           files,
           tr("Move to Trash"))) {
@@ -1460,9 +1463,9 @@ void BaseMainWindowImpl::terminateExpandFileList()
  * @param disconnectModel true to disconnect the file list models while the
  * progress widget is shown
  */
-void BaseMainWindowImpl::startProgressMonitoring(const QString& title,
-                                                 void (BaseMainWindowImpl::*terminationHandler)(),
-                                                 bool disconnectModel)
+void BaseMainWindowImpl::startProgressMonitoring(
+    const QString& title, void (BaseMainWindowImpl::*terminationHandler)(),
+    bool disconnectModel)
 {
   if (!m_progressTitle.isEmpty() && m_progressTitle != title) {
     stopProgressMonitoring();

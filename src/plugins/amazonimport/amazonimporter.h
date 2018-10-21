@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2011  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,8 +31,7 @@
 /**
  * Amazon importer.
  */
-class AmazonImporter : public ServerImporter
-{
+class AmazonImporter : public ServerImporter {
 public:
   /**
    * Constructor.

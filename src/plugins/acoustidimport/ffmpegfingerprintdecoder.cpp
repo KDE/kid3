@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -513,8 +513,8 @@ public:
 }
 
 
-FFmpegFingerprintDecoder::FFmpegFingerprintDecoder(QObject* parent) :
-  AbstractFingerprintDecoder(parent)
+FFmpegFingerprintDecoder::FFmpegFingerprintDecoder(QObject* parent)
+  : AbstractFingerprintDecoder(parent)
 {
 #if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(58, 9, 100)
   ::av_register_all();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,8 +35,8 @@
 /**
  * Constructor.
  */
-TaggedFileIconProvider::TaggedFileIconProvider() :
-  m_requestedSize(16, 16)
+TaggedFileIconProvider::TaggedFileIconProvider()
+  : m_requestedSize(16, 16)
 {
 }
 

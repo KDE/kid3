@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24-Aug-2010
  *
- * Copyright (C) 2010  Urs Fleisch
+ * Copyright (C) 2010-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,7 @@ class QSlider;
  * Audio player toolbar.
  */
 class PlayToolBar : public QToolBar {
-Q_OBJECT
-
+  Q_OBJECT
 public:
   /**
    * Constructor.

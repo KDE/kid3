@@ -346,7 +346,8 @@ Frame::ExtendedType::ExtendedType(Type type) :
  */
 QString Frame::ExtendedType::getName() const
 {
-  return m_type != FT_Other ? QString::fromLatin1(getNameFromType(m_type)) : m_name;
+  return m_type != FT_Other ? QString::fromLatin1(getNameFromType(m_type))
+                            : m_name;
 }
 
 /**
@@ -355,15 +356,17 @@ QString Frame::ExtendedType::getName() const
  */
 QString Frame::ExtendedType::getTranslatedName() const
 {
-  return m_type != FT_Other ? QCoreApplication::translate("@default", getNameFromType(m_type)) : m_name;
+  return m_type != FT_Other
+      ? QCoreApplication::translate("@default", getNameFromType(m_type))
+      : m_name;
 }
 
 
 /**
  * Constructor.
  */
-Frame::Frame() :
-  m_index(-1), m_marked(FrameNotice::None), m_valueChanged(false)
+Frame::Frame()
+  : m_index(-1), m_marked(FrameNotice::None), m_valueChanged(false)
 {
 }
 
@@ -371,9 +374,9 @@ Frame::Frame() :
  * Constructor.
  */
 Frame::Frame(Type type, const QString& value,
-             const QString& name, int index) :
-  m_extendedType(type, name), m_index(index), m_value(value),
-  m_marked(FrameNotice::None), m_valueChanged(false)
+             const QString& name, int index)
+  : m_extendedType(type, name), m_index(index), m_value(value),
+    m_marked(FrameNotice::None), m_valueChanged(false)
 {
 }
 
@@ -383,9 +386,9 @@ Frame::Frame(Type type, const QString& value,
  * @param value value
  * @param index index inside tag, -1 if unknown
  */
-Frame::Frame(const ExtendedType& type, const QString& value, int index) :
-  m_extendedType(type), m_index(index), m_value(value),
-  m_marked(FrameNotice::None), m_valueChanged(false)
+Frame::Frame(const ExtendedType& type, const QString& value, int index)
+  : m_extendedType(type), m_index(index), m_value(value),
+    m_marked(FrameNotice::None), m_valueChanged(false)
 {
 }
 
@@ -455,9 +458,9 @@ void Frame::setFieldListFromValue()
 int Frame::numberWithoutTotal(const QString& str, bool* ok)
 {
   int slashPos = str.indexOf(QLatin1Char('/'));
-  return slashPos == -1 ?
-    str.toInt(ok) :
-    str.leftRef(slashPos).toInt(ok);
+  return slashPos == -1
+      ? str.toInt(ok)
+      : str.leftRef(slashPos).toInt(ok);
 }
 
 /**
@@ -639,8 +642,8 @@ Frame::Type Frame::getTypeFromName(const QString& name)
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       auto type = static_cast<Frame::Type>(i);
-      strNumMap.insert(QString::fromLatin1(getNameFromType(type)).
-                       remove(QLatin1Char(' ')).toUpper(), type);
+      strNumMap.insert(QString::fromLatin1(getNameFromType(type))
+                       .remove(QLatin1Char(' ')).toUpper(), type);
     }
   }
   QString ucName(name.toUpper());
@@ -935,7 +938,8 @@ namespace {
 QString variantToString(const QVariant& val)
 {
   if (val.type() == QVariant::ByteArray) {
-    return QString(QLatin1String("ByteArray of %1 bytes")).arg(val.toByteArray().size());
+    return QString(QLatin1String("ByteArray of %1 bytes"))
+        .arg(val.toByteArray().size());
   } else {
     return val.toString();
   }
@@ -1503,8 +1507,8 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
  * @param str    string with format codes
  */
 FrameFormatReplacer::FrameFormatReplacer(
-  const FrameCollection& frames, const QString& str) :
-  FormatReplacer(str), m_frames(frames) {}
+  const FrameCollection& frames, const QString& str)
+  : FormatReplacer(str), m_frames(frames) {}
 
 /**
  * Replace a format code (one character %c or multiple characters %{chars}).
@@ -1564,7 +1568,8 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
     }
     int len = lcName.length();
     if (len > 2 && lcName.at(len - 2) == QLatin1Char('.') &&
-        lcName.at(len - 1) >= QLatin1Char('0') && lcName.at(len - 1) <= QLatin1Char('9')) {
+        lcName.at(len - 1) >= QLatin1Char('0') &&
+        lcName.at(len - 1) <= QLatin1Char('9')) {
       fieldWidth = lcName.at(len - 1).toLatin1() - '0';
       lcName.truncate(len - 2);
       name.truncate(len - 2);

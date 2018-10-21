@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,19 +36,26 @@
 class KID3_CORE_EXPORT ExportConfig : public StoredConfig<ExportConfig> {
   Q_OBJECT
   /** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
-  Q_PROPERTY(int exportSource READ exportSource WRITE setExportSourceInt NOTIFY exportSourceChanged)
+  Q_PROPERTY(int exportSource READ exportSource WRITE setExportSourceInt
+             NOTIFY exportSourceChanged)
   /** Names of export formats */
-  Q_PROPERTY(QStringList exportFormatNames READ exportFormatNames WRITE setExportFormatNames NOTIFY exportFormatNamesChanged)
+  Q_PROPERTY(QStringList exportFormatNames READ exportFormatNames
+             WRITE setExportFormatNames NOTIFY exportFormatNamesChanged)
   /** regexp describing header export format */
-  Q_PROPERTY(QStringList exportFormatHeaders READ exportFormatHeaders WRITE setExportFormatHeaders NOTIFY exportFormatHeadersChanged)
+  Q_PROPERTY(QStringList exportFormatHeaders READ exportFormatHeaders
+             WRITE setExportFormatHeaders NOTIFY exportFormatHeadersChanged)
   /** regexp describing track export format */
-  Q_PROPERTY(QStringList exportFormatTracks READ exportFormatTracks WRITE setExportFormatTracks NOTIFY exportFormatTracksChanged)
+  Q_PROPERTY(QStringList exportFormatTracks READ exportFormatTracks
+             WRITE setExportFormatTracks NOTIFY exportFormatTracksChanged)
   /** regexp describing trailer export format */
-  Q_PROPERTY(QStringList exportFormatTrailers READ exportFormatTrailers WRITE setExportFormatTrailers NOTIFY exportFormatTrailersChanged)
+  Q_PROPERTY(QStringList exportFormatTrailers READ exportFormatTrailers
+             WRITE setExportFormatTrailers NOTIFY exportFormatTrailersChanged)
   /** selected export format */
-  Q_PROPERTY(int exportFormatIndex READ exportFormatIndex WRITE setExportFormatIndex NOTIFY exportFormatIndexChanged)
+  Q_PROPERTY(int exportFormatIndex READ exportFormatIndex
+             WRITE setExportFormatIndex NOTIFY exportFormatIndexChanged)
   /** export window geometry */
-  Q_PROPERTY(QByteArray exportWindowGeometry READ exportWindowGeometry WRITE setExportWindowGeometry NOTIFY exportWindowGeometryChanged)
+  Q_PROPERTY(QByteArray exportWindowGeometry READ exportWindowGeometry
+             WRITE setExportWindowGeometry NOTIFY exportWindowGeometryChanged)
 
 public:
   /**

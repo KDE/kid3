@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -153,8 +153,8 @@ private:
  *
  * @param parent parent widget
  */
-LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
-  QWidget(parent)
+LabeledTextEdit::LabeledTextEdit(QWidget* parent)
+  : QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledTextEdit"));
   auto layout = new QVBoxLayout(this);
@@ -217,8 +217,8 @@ private:
  *
  * @param parent parent widget
  */
-LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
-  QWidget(parent)
+LabeledLineEdit::LabeledLineEdit(QWidget* parent)
+  : QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledLineEdit"));
   auto layout = new QVBoxLayout(this);
@@ -354,8 +354,8 @@ private:
  *
  * @param parent parent widget
  */
-LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
-  QWidget(parent)
+LabeledSpinBox::LabeledSpinBox(QWidget* parent)
+  : QWidget(parent)
 {
   setObjectName(QLatin1String("LabeledSpinBox"));
   auto layout = new QVBoxLayout(this);
@@ -377,8 +377,8 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  Mp3FieldControl(Frame::Field& field) :
-    m_field(field) {}
+  Mp3FieldControl(Frame::Field& field)
+    : m_field(field) {}
 
   /**
    * Destructor.
@@ -401,8 +401,8 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  TextFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_edit(nullptr) {}
+  TextFieldControl(Frame::Field& field)
+    : Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
@@ -466,8 +466,8 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  LineFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_edit(nullptr) {}
+  LineFieldControl(Frame::Field& field)
+    : Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
@@ -527,8 +527,8 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  IntFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field), m_numInp(nullptr) {}
+  IntFieldControl(Frame::Field& field)
+    : Mp3FieldControl(field), m_numInp(nullptr) {}
 
   /**
    * Destructor.
@@ -590,8 +590,8 @@ public:
    * @param lst list of strings with possible selections, NULL terminated
    */
   IntComboBoxControl(Frame::Field& field,
-                     const char* const* lst) :
-    Mp3FieldControl(field), m_ptInp(nullptr), m_strLst(lst) {}
+                     const char* const* lst)
+    : Mp3FieldControl(field), m_ptInp(nullptr), m_strLst(lst) {}
 
   /**
    * Destructor.
@@ -659,9 +659,9 @@ public:
    */
   BinFieldControl(IPlatformTools* platformTools, Kid3Application* app,
                   Frame::Field& field,
-                  const Frame& frame, const TaggedFile* taggedFile) :
-    Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-    m_bos(nullptr), m_frame(frame), m_taggedFile(taggedFile) {}
+                  const Frame& frame, const TaggedFile* taggedFile)
+    : Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
+      m_bos(nullptr), m_frame(frame), m_taggedFile(taggedFile) {}
 
   /**
    * Destructor.
@@ -811,10 +811,10 @@ private:
 TimeEventFieldControl::TimeEventFieldControl(
     IPlatformTools* platformTools, Kid3Application* app, Frame::Field& field,
     Frame::FieldList& fields, const TaggedFile* taggedFile,
-    Frame::TagNumber tagNr, TimeEventModel::Type type) :
-  Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-  m_fields(fields), m_taggedFile(taggedFile),
-  m_model(new TimeEventModel(this)), m_editor(nullptr), m_tagNr(tagNr)
+    Frame::TagNumber tagNr, TimeEventModel::Type type)
+  : Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
+    m_fields(fields), m_taggedFile(taggedFile),
+    m_model(new TimeEventModel(this)), m_editor(nullptr), m_tagNr(tagNr)
 {
   m_model->setType(type);
   if (type == TimeEventModel::EventTimingCodes) {
@@ -901,7 +901,8 @@ private:
  */
 SubframeFieldControl::SubframeFieldControl(
     IPlatformTools* platformTools, Kid3Application* app,
-    const TaggedFile* taggedFile, Frame::TagNumber tagNr, Frame::FieldList& fields,
+    const TaggedFile* taggedFile, Frame::TagNumber tagNr,
+    Frame::FieldList& fields,
     Frame::FieldList::iterator begin, Frame::FieldList::iterator end) : // clazy:exclude=function-args-by-ref
   Mp3FieldControl(*begin), m_platformTools(platformTools), m_app(app),
   m_taggedFile(taggedFile), m_fields(fields),
@@ -984,8 +985,8 @@ private:
  * Constructor.
  * @param field field to edit
  */
-ChapterFieldControl::ChapterFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(nullptr)
+ChapterFieldControl::ChapterFieldControl(Frame::Field& field)
+  : Mp3FieldControl(field), m_editor(nullptr)
 {
 }
 
@@ -1059,8 +1060,8 @@ private:
  * Constructor.
  * @param field field to edit
  */
-TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field) :
-  Mp3FieldControl(field), m_editor(nullptr)
+TableOfContentsFieldControl::TableOfContentsFieldControl(Frame::Field& field)
+  : Mp3FieldControl(field), m_editor(nullptr)
 {
 }
 
@@ -1108,10 +1109,10 @@ QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
  */
 BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
                                Kid3Application* app,
-                               QWidget* parent, const Frame::Field& field) :
-  QWidget(parent),
-  m_platformTools(platformTools), m_app(app),
-  m_byteArray(field.m_value.toByteArray()), m_isChanged(false)
+                               QWidget* parent, const Frame::Field& field)
+  : QWidget(parent),
+    m_platformTools(platformTools), m_app(app),
+    m_byteArray(field.m_value.toByteArray()), m_isChanged(false)
 {
   setObjectName(QLatin1String("BinaryOpenSave"));
   auto layout = new QHBoxLayout(this);
@@ -1128,12 +1129,18 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   layout->addWidget(openButton);
   layout->addWidget(saveButton);
   layout->addWidget(viewButton);
-  connect(m_clipButton, &QAbstractButton::clicked, this, &BinaryOpenSave::clipData);
-  connect(toClipboardButton, &QAbstractButton::clicked, this, &BinaryOpenSave::copyData);
-  connect(openButton, &QAbstractButton::clicked, this, &BinaryOpenSave::loadData);
-  connect(saveButton, &QAbstractButton::clicked, this, &BinaryOpenSave::saveData);
-  connect(viewButton, &QAbstractButton::clicked, this, &BinaryOpenSave::viewData);
-  connect(QApplication::clipboard(), &QClipboard::dataChanged, this, &BinaryOpenSave::setClipButtonState);
+  connect(m_clipButton, &QAbstractButton::clicked,
+          this, &BinaryOpenSave::clipData);
+  connect(toClipboardButton, &QAbstractButton::clicked,
+          this, &BinaryOpenSave::copyData);
+  connect(openButton, &QAbstractButton::clicked,
+          this, &BinaryOpenSave::loadData);
+  connect(saveButton, &QAbstractButton::clicked,
+          this, &BinaryOpenSave::saveData);
+  connect(viewButton, &QAbstractButton::clicked,
+          this, &BinaryOpenSave::viewData);
+  connect(QApplication::clipboard(), &QClipboard::dataChanged,
+          this, &BinaryOpenSave::setClipButtonState);
   setClipButtonState();
 }
 
@@ -1272,8 +1279,8 @@ void BinaryOpenSave::viewData()
  */
 EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
                                              Kid3Application* app,
-                                             QWidget* parent) :
-  QDialog(parent), m_platformTools(platformTools), m_app(app)
+                                             QWidget* parent)
+  : QDialog(parent), m_platformTools(platformTools), m_app(app)
 {
   setObjectName(QLatin1String("EditFrameFieldsDialog"));
 

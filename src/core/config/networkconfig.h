@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,15 +37,18 @@ class KID3_CORE_EXPORT NetworkConfig : public StoredConfig<NetworkConfig> {
   /** proxy used for access */
   Q_PROPERTY(QString proxy READ proxy WRITE setProxy NOTIFY proxyChanged)
   /** proxy user name */
-  Q_PROPERTY(QString proxyUserName READ proxyUserName WRITE setProxyUserName NOTIFY proxyUserNameChanged)
+  Q_PROPERTY(QString proxyUserName READ proxyUserName WRITE setProxyUserName
+             NOTIFY proxyUserNameChanged)
   /** proxy password */
-  Q_PROPERTY(QString proxyPassword READ proxyPassword WRITE setProxyPassword NOTIFY proxyPasswordChanged)
+  Q_PROPERTY(QString proxyPassword READ proxyPassword WRITE setProxyPassword
+             NOTIFY proxyPasswordChanged)
   /** web browser substituted for %b */
   Q_PROPERTY(QString browser READ browser WRITE setBrowser NOTIFY browserChanged)
   /** true if proxy is used */
   Q_PROPERTY(bool useProxy READ useProxy WRITE setUseProxy NOTIFY useProxyChanged)
   /** true to use proxy authentication */
-  Q_PROPERTY(bool useProxyAuthentication READ useProxyAuthentication WRITE setUseProxyAuthentication NOTIFY useProxyAuthenticationChanged)
+  Q_PROPERTY(bool useProxyAuthentication READ useProxyAuthentication
+             WRITE setUseProxyAuthentication NOTIFY useProxyAuthenticationChanged)
 
 public:
   /**

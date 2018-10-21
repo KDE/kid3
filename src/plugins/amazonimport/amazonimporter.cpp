@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,9 @@ AmazonImporter::AmazonImporter(
  * Name of import source.
  * @return name.
  */
-const char* AmazonImporter::name() const { return QT_TRANSLATE_NOOP("@default", "Amazon"); }
+const char* AmazonImporter::name() const {
+  return QT_TRANSLATE_NOOP("@default", "Amazon");
+}
 
 /** NULL-terminated array of server strings, 0 if not used */
 const char** AmazonImporter::serverList() const
@@ -391,8 +393,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
                                              runtimeStart);
                 if (runtimeEnd > runtimeStart &&
                     durationRe.indexIn(
-                      str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1).
-                      remove(QLatin1Char('\n')).remove(QLatin1Char('\r')))
+                      str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1)
+                      .remove(QLatin1Char('\n')).remove(QLatin1Char('\r')))
                     >= 0) {
                   duration = durationRe.cap(1).toInt() * 60 +
                       durationRe.cap(2).toInt();

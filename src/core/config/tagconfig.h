@@ -39,55 +39,80 @@ class StarRatingMapping;
 class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   Q_OBJECT
   /** features provided by metadata plugins */
-  Q_PROPERTY(int taggedFileFeatures READ taggedFileFeatures WRITE setTaggedFileFeatures NOTIFY taggedFileFeaturesChanged)
+  Q_PROPERTY(int taggedFileFeatures READ taggedFileFeatures
+             WRITE setTaggedFileFeatures NOTIFY taggedFileFeaturesChanged)
   /** true to mark truncated ID3v1.1 fields */
-  Q_PROPERTY(bool markTruncations READ markTruncations WRITE setMarkTruncations NOTIFY markTruncationsChanged)
+  Q_PROPERTY(bool markTruncations READ markTruncations WRITE setMarkTruncations
+             NOTIFY markTruncationsChanged)
   /** true to mark oversized pictures */
-  Q_PROPERTY(bool markOversizedPictures READ markOversizedPictures WRITE setMarkOversizedPictures NOTIFY markOversizedPicturesChanged)
+  Q_PROPERTY(bool markOversizedPictures READ markOversizedPictures
+             WRITE setMarkOversizedPictures NOTIFY markOversizedPicturesChanged)
   /** Maximum size of picture in bytes */
-  Q_PROPERTY(int maximumPictureSize READ maximumPictureSize WRITE setMaximumPictureSize NOTIFY maximumPictureSizeChanged)
+  Q_PROPERTY(int maximumPictureSize READ maximumPictureSize
+             WRITE setMaximumPictureSize NOTIFY maximumPictureSizeChanged)
   /** true to mark standard violations */
-  Q_PROPERTY(bool markStandardViolations READ markStandardViolations WRITE setMarkStandardViolations NOTIFY markStandardViolationsChanged)
+  Q_PROPERTY(bool markStandardViolations READ markStandardViolations
+             WRITE setMarkStandardViolations NOTIFY markStandardViolationsChanged)
   /** true to write total number of tracks into track fields */
-  Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
+  Q_PROPERTY(bool enableTotalNumberOfTracks READ enableTotalNumberOfTracks
+             WRITE setEnableTotalNumberOfTracks NOTIFY enableTotalNumberOfTracksChanged)
   /** true to write genres as text instead of numeric string */
-  Q_PROPERTY(bool genreNotNumeric READ genreNotNumeric WRITE setGenreNotNumeric NOTIFY genreNotNumericChanged)
+  Q_PROPERTY(bool genreNotNumeric READ genreNotNumeric WRITE setGenreNotNumeric
+             NOTIFY genreNotNumericChanged)
   /** true to use "id3 " instead of "ID3 " chunk names in WAV files */
-  Q_PROPERTY(bool lowercaseId3RiffChunk READ lowercaseId3RiffChunk WRITE setLowercaseId3RiffChunk NOTIFY lowercaseId3RiffChunkChanged)
+  Q_PROPERTY(bool lowercaseId3RiffChunk READ lowercaseId3RiffChunk
+             WRITE setLowercaseId3RiffChunk NOTIFY lowercaseId3RiffChunkChanged)
   /** field name used for Vorbis comment entries */
-  Q_PROPERTY(QString commentName READ commentName WRITE setCommentName NOTIFY commentNameChanged)
+  Q_PROPERTY(QString commentName READ commentName WRITE setCommentName
+             NOTIFY commentNameChanged)
   /** index of field name used for Vorbis picture entries */
-  Q_PROPERTY(int pictureNameIndex READ pictureNameIndex WRITE setPictureNameIndex NOTIFY pictureNameIndexChanged)
+  Q_PROPERTY(int pictureNameIndex READ pictureNameIndex
+             WRITE setPictureNameIndex NOTIFY pictureNameIndexChanged)
   /** field name used for RIFF track entries */
-  Q_PROPERTY(QString riffTrackName READ riffTrackName WRITE setRiffTrackName NOTIFY riffTrackNameChanged)
+  Q_PROPERTY(QString riffTrackName READ riffTrackName WRITE setRiffTrackName
+             NOTIFY riffTrackNameChanged)
   /** custom genres for ID3v2.3 */
-  Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres NOTIFY customGenresChanged)
+  Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres
+             NOTIFY customGenresChanged)
   /** version used for new ID3v2 tags */
-  Q_PROPERTY(int id3v2Version READ id3v2Version WRITE setId3v2Version NOTIFY id3v2VersionChanged)
+  Q_PROPERTY(int id3v2Version READ id3v2Version WRITE setId3v2Version
+             NOTIFY id3v2VersionChanged)
   /** text encoding used for new ID3v1 tags */
-  Q_PROPERTY(QString textEncodingV1 READ textEncodingV1 WRITE setTextEncodingV1 NOTIFY textEncodingV1Changed)
+  Q_PROPERTY(QString textEncodingV1 READ textEncodingV1 WRITE setTextEncodingV1
+             NOTIFY textEncodingV1Changed)
   /** text encoding used for new ID3v1 tags */
-  Q_PROPERTY(int textEncodingV1Index READ textEncodingV1Index WRITE setTextEncodingV1Index NOTIFY textEncodingV1Changed)
+  Q_PROPERTY(int textEncodingV1Index READ textEncodingV1Index
+             WRITE setTextEncodingV1Index NOTIFY textEncodingV1Changed)
   /** text encoding used for new ID3v2 tags */
-  Q_PROPERTY(int textEncoding READ textEncoding WRITE setTextEncoding NOTIFY textEncodingChanged)
+  Q_PROPERTY(int textEncoding READ textEncoding WRITE setTextEncoding
+             NOTIFY textEncodingChanged)
   /** frames which are displayed for Tag 2 even if not present */
-  Q_PROPERTY(quint64 quickAccessFrames READ quickAccessFrames WRITE setQuickAccessFrames NOTIFY quickAccessFramesChanged)
+  Q_PROPERTY(quint64 quickAccessFrames READ quickAccessFrames
+             WRITE setQuickAccessFrames NOTIFY quickAccessFramesChanged)
   /** order of frames which are displayed for Tag 2 even if not present */
-  Q_PROPERTY(QList<int> quickAccessFrameOrder READ quickAccessFrameOrder WRITE setQuickAccessFrameOrder NOTIFY quickAccessFrameOrderChanged)
+  Q_PROPERTY(QList<int> quickAccessFrameOrder READ quickAccessFrameOrder
+             WRITE setQuickAccessFrameOrder NOTIFY quickAccessFrameOrderChanged)
   /** number of digits in track number */
-  Q_PROPERTY(int trackNumberDigits READ trackNumberDigits WRITE setTrackNumberDigits NOTIFY trackNumberDigitsChanged)
+  Q_PROPERTY(int trackNumberDigits READ trackNumberDigits
+             WRITE setTrackNumberDigits NOTIFY trackNumberDigitsChanged)
   /** true to show only custom genres in combo boxes */
-  Q_PROPERTY(bool onlyCustomGenres READ onlyCustomGenres WRITE setOnlyCustomGenres NOTIFY onlyCustomGenresChanged)
+  Q_PROPERTY(bool onlyCustomGenres READ onlyCustomGenres
+             WRITE setOnlyCustomGenres NOTIFY onlyCustomGenresChanged)
   /** the order in which meta data plugins are tried when opening a file */
-  Q_PROPERTY(QStringList pluginOrder READ pluginOrder WRITE setPluginOrder NOTIFY pluginOrderChanged)
+  Q_PROPERTY(QStringList pluginOrder READ pluginOrder
+             WRITE setPluginOrder NOTIFY pluginOrderChanged)
   /** disabled plugins */
-  Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
+  Q_PROPERTY(QStringList disabledPlugins READ disabledPlugins
+             WRITE setDisabledPlugins NOTIFY disabledPluginsChanged)
   /** list of available plugins. */
-  Q_PROPERTY(QStringList availablePlugins READ availablePlugins WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
+  Q_PROPERTY(QStringList availablePlugins READ availablePlugins
+             WRITE setAvailablePlugins NOTIFY availablePluginsChanged)
   /** mapping between star count and rating values. */
-  Q_PROPERTY(QStringList starRatingMappingStrings READ starRatingMappingStrings WRITE setStarRatingMappingStrings NOTIFY starRatingMappingsChanged)
+  Q_PROPERTY(QStringList starRatingMappingStrings READ starRatingMappingStrings
+             WRITE setStarRatingMappingStrings NOTIFY starRatingMappingsChanged)
   /** default value for Email field in POPM frame. */
-  Q_PROPERTY(QString defaultPopmEmail READ defaultPopmEmail NOTIFY starRatingMappingsChanged)
+  Q_PROPERTY(QString defaultPopmEmail READ defaultPopmEmail
+             NOTIFY starRatingMappingsChanged)
   Q_ENUMS(Id3v2Version)
   Q_ENUMS(TextEncoding)
   Q_ENUMS(VorbisPictureName)

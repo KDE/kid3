@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,8 @@ const char trackTypeServer[] = "tracktype.org:80";
  * @param trackDataModel track data to be filled with imported values
  */
 TrackTypeImporter::TrackTypeImporter(QNetworkAccessManager* netMgr,
-                                     TrackDataModel *trackDataModel) :
-  FreedbImporter(netMgr, trackDataModel)
+                                     TrackDataModel *trackDataModel)
+  : FreedbImporter(netMgr, trackDataModel)
 {
   setObjectName(QLatin1String("TrackTypeImporter"));
 }

@@ -224,26 +224,26 @@ int TagConfig::s_index = -1;
 /**
  * Constructor.
  */
-TagConfig::TagConfig() :
-  StoredConfig<TagConfig>(QLatin1String("Tags")),
-  m_starRatingMapping(new StarRatingMapping),
-  m_commentName(QString::fromLatin1(defaultCommentName)),
-  m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
-  m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
-  m_id3v2Version(ID3v2_3_0),
-  m_textEncodingV1(QLatin1String("ISO-8859-1")),
-  m_textEncoding(TE_ISO8859_1),
-  m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
-  m_trackNumberDigits(1),
-  m_taggedFileFeatures(0),
-  m_maximumPictureSize(131072),
-  m_markOversizedPictures(false),
-  m_markStandardViolations(true),
-  m_onlyCustomGenres(false),
-  m_markTruncations(true),
-  m_enableTotalNumberOfTracks(false),
-  m_genreNotNumeric(true),
-  m_lowercaseId3RiffChunk(false)
+TagConfig::TagConfig()
+  : StoredConfig<TagConfig>(QLatin1String("Tags")),
+    m_starRatingMapping(new StarRatingMapping),
+    m_commentName(QString::fromLatin1(defaultCommentName)),
+    m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
+    m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
+    m_id3v2Version(ID3v2_3_0),
+    m_textEncodingV1(QLatin1String("ISO-8859-1")),
+    m_textEncoding(TE_ISO8859_1),
+    m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
+    m_trackNumberDigits(1),
+    m_taggedFileFeatures(0),
+    m_maximumPictureSize(131072),
+    m_markOversizedPictures(false),
+    m_markStandardViolations(true),
+    m_onlyCustomGenres(false),
+    m_markTruncations(true),
+    m_enableTotalNumberOfTracks(false),
+    m_genreNotNumeric(true),
+    m_lowercaseId3RiffChunk(false)
 {
   m_disabledPlugins << QLatin1String("Id3libMetadata")
                     << QLatin1String("Mp4v2Metadata");
@@ -265,33 +265,54 @@ TagConfig::~TagConfig()
 void TagConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
-  config->setValue(QLatin1String("MarkTruncations"), QVariant(m_markTruncations));
-  config->setValue(QLatin1String("MarkOversizedPictures"), QVariant(m_markOversizedPictures));
-  config->setValue(QLatin1String("MaximumPictureSize"), QVariant(m_maximumPictureSize));
-  config->setValue(QLatin1String("MarkStandardViolations"), QVariant(m_markStandardViolations));
-  config->setValue(QLatin1String("EnableTotalNumberOfTracks"), QVariant(m_enableTotalNumberOfTracks));
-  config->setValue(QLatin1String("GenreNotNumeric"), QVariant(m_genreNotNumeric));
-  config->setValue(QLatin1String("LowercaseId3RiffChunk"), QVariant(m_lowercaseId3RiffChunk));
-  config->setValue(QLatin1String("CommentName"), QVariant(m_commentName));
-  config->setValue(QLatin1String("PictureNameItem"), QVariant(m_pictureNameItem));
-  config->setValue(QLatin1String("RiffTrackName"), QVariant(m_riffTrackName));
-  config->setValue(QLatin1String("CustomGenres"), QVariant(m_customGenres));
-  config->setValue(QLatin1String("ID3v2Version"), QVariant(m_id3v2Version));
-  config->setValue(QLatin1String("TextEncodingV1"), QVariant(m_textEncodingV1));
-  config->setValue(QLatin1String("TextEncoding"), QVariant(m_textEncoding));
+  config->setValue(QLatin1String("MarkTruncations"),
+                   QVariant(m_markTruncations));
+  config->setValue(QLatin1String("MarkOversizedPictures"),
+                   QVariant(m_markOversizedPictures));
+  config->setValue(QLatin1String("MaximumPictureSize"),
+                   QVariant(m_maximumPictureSize));
+  config->setValue(QLatin1String("MarkStandardViolations"),
+                   QVariant(m_markStandardViolations));
+  config->setValue(QLatin1String("EnableTotalNumberOfTracks"),
+                   QVariant(m_enableTotalNumberOfTracks));
+  config->setValue(QLatin1String("GenreNotNumeric"),
+                   QVariant(m_genreNotNumeric));
+  config->setValue(QLatin1String("LowercaseId3RiffChunk"),
+                   QVariant(m_lowercaseId3RiffChunk));
+  config->setValue(QLatin1String("CommentName"),
+                   QVariant(m_commentName));
+  config->setValue(QLatin1String("PictureNameItem"),
+                   QVariant(m_pictureNameItem));
+  config->setValue(QLatin1String("RiffTrackName"),
+                   QVariant(m_riffTrackName));
+  config->setValue(QLatin1String("CustomGenres"),
+                   QVariant(m_customGenres));
+  config->setValue(QLatin1String("ID3v2Version"),
+                   QVariant(m_id3v2Version));
+  config->setValue(QLatin1String("TextEncodingV1"),
+                   QVariant(m_textEncodingV1));
+  config->setValue(QLatin1String("TextEncoding"),
+                   QVariant(m_textEncoding));
 #ifdef Q_OS_MAC
   // Convince Mac OS X to store a 64-bit value.
-  config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames | (Q_UINT64_C(1) << 63)));
+  config->setValue(QLatin1String("QuickAccessFrames"),
+                   QVariant(m_quickAccessFrames | (Q_UINT64_C(1) << 63)));
 #else
-  config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames));
+  config->setValue(QLatin1String("QuickAccessFrames"),
+                   QVariant(m_quickAccessFrames));
 #endif
   config->setValue(QLatin1String("QuickAccessFrameOrder"),
                    QVariant(intListToStringList(m_quickAccessFrameOrder)));
-  config->setValue(QLatin1String("TrackNumberDigits"), QVariant(m_trackNumberDigits));
-  config->setValue(QLatin1String("OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
-  config->setValue(QLatin1String("PluginOrder"), QVariant(m_pluginOrder));
-  config->setValue(QLatin1String("DisabledPlugins"), QVariant(m_disabledPlugins));
-  config->setValue(QLatin1String("StarRatingMapping"), QVariant(m_starRatingMapping->toStringList()));
+  config->setValue(QLatin1String("TrackNumberDigits"),
+                   QVariant(m_trackNumberDigits));
+  config->setValue(QLatin1String("OnlyCustomGenres"),
+                   QVariant(m_onlyCustomGenres));
+  config->setValue(QLatin1String("PluginOrder"),
+                   QVariant(m_pluginOrder));
+  config->setValue(QLatin1String("DisabledPlugins"),
+                   QVariant(m_disabledPlugins));
+  config->setValue(QLatin1String("StarRatingMapping"),
+                   QVariant(m_starRatingMapping->toStringList()));
   config->endGroup();
 }
 
@@ -303,36 +324,58 @@ void TagConfig::writeToConfig(ISettings* config) const
 void TagConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
-  m_markTruncations = config->value(QLatin1String("MarkTruncations"), m_markTruncations).toBool();
-  m_markOversizedPictures = config->value(QLatin1String("MarkOversizedPictures"), m_markOversizedPictures).toBool();
-  m_maximumPictureSize = config->value(QLatin1String("MaximumPictureSize"), m_maximumPictureSize).toInt();
-  m_markStandardViolations = config->value(QLatin1String("MarkStandardViolations"), m_markStandardViolations).toBool();
-  m_enableTotalNumberOfTracks = config->value(QLatin1String("EnableTotalNumberOfTracks"), m_enableTotalNumberOfTracks).toBool();
-  m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"), m_genreNotNumeric).toBool();
-  m_lowercaseId3RiffChunk = config->value(QLatin1String("LowercaseId3RiffChunk"), m_lowercaseId3RiffChunk).toBool();
-  m_commentName = config->value(QLatin1String("CommentName"), QString::fromLatin1(defaultCommentName)).toString();
-  m_pictureNameItem = config->value(QLatin1String("PictureNameItem"), VP_METADATA_BLOCK_PICTURE).toInt();
-  m_riffTrackName = config->value(QLatin1String("RiffTrackName"), QString::fromLatin1(defaultRiffTrackName)).toString();
+  m_markTruncations = config->value(QLatin1String("MarkTruncations"),
+                                    m_markTruncations).toBool();
+  m_markOversizedPictures = config->value(QLatin1String("MarkOversizedPictures"),
+                                          m_markOversizedPictures).toBool();
+  m_maximumPictureSize = config->value(QLatin1String("MaximumPictureSize"),
+                                       m_maximumPictureSize).toInt();
+  m_markStandardViolations =
+      config->value(QLatin1String("MarkStandardViolations"),
+                    m_markStandardViolations).toBool();
+  m_enableTotalNumberOfTracks =
+      config->value(QLatin1String("EnableTotalNumberOfTracks"),
+                    m_enableTotalNumberOfTracks).toBool();
+  m_genreNotNumeric = config->value(QLatin1String("GenreNotNumeric"),
+                                    m_genreNotNumeric).toBool();
+  m_lowercaseId3RiffChunk = config->value(QLatin1String("LowercaseId3RiffChunk"),
+                                          m_lowercaseId3RiffChunk).toBool();
+  m_commentName =
+      config->value(QLatin1String("CommentName"),
+                    QString::fromLatin1(defaultCommentName)).toString();
+  m_pictureNameItem = config->value(QLatin1String("PictureNameItem"),
+                                    VP_METADATA_BLOCK_PICTURE).toInt();
+  m_riffTrackName =
+      config->value(QLatin1String("RiffTrackName"),
+                    QString::fromLatin1(defaultRiffTrackName)).toString();
   m_customGenres = config->value(QLatin1String("CustomGenres"),
                                  m_customGenres).toStringList();
-  m_id3v2Version = config->value(QLatin1String("ID3v2Version"), ID3v2_3_0).toInt();
-  m_textEncodingV1 = config->value(QLatin1String("TextEncodingV1"), QLatin1String("ISO-8859-1")).toString();
-  m_textEncoding = config->value(QLatin1String("TextEncoding"), TE_ISO8859_1).toInt();
-  m_quickAccessFrames = config->value(QLatin1String("QuickAccessFrames"),
-                                     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toULongLong();
+  m_id3v2Version = config->value(QLatin1String("ID3v2Version"),
+                                 ID3v2_3_0).toInt();
+  m_textEncodingV1 = config->value(QLatin1String("TextEncodingV1"),
+                                   QLatin1String("ISO-8859-1")).toString();
+  m_textEncoding = config->value(QLatin1String("TextEncoding"),
+                                 TE_ISO8859_1).toInt();
+  m_quickAccessFrames =
+      config->value(QLatin1String("QuickAccessFrames"),
+                    FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toULongLong();
 #ifdef Q_OS_MAC
   m_quickAccessFrames &= ~(Q_UINT64_C(1) << 63);
 #endif
   m_quickAccessFrameOrder = stringListToIntList(
-        config->value(QLatin1String("QuickAccessFrameOrder"), QStringList()).
-        toStringList());
-  m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
-  m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
+        config->value(QLatin1String("QuickAccessFrameOrder"), QStringList())
+        .toStringList());
+  m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"),
+                                      1).toInt();
+  m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"),
+                                     m_onlyCustomGenres).toBool();
   m_pluginOrder = config->value(QLatin1String("PluginOrder"),
                                  m_pluginOrder).toStringList();
   m_disabledPlugins = config->value(QLatin1String("DisabledPlugins"),
                                  m_disabledPlugins).toStringList();
-  m_starRatingMapping->fromStringList(config->value(QLatin1String("StarRatingMapping"), QStringList()).toStringList());
+  m_starRatingMapping->fromStringList(
+        config->value(QLatin1String("StarRatingMapping"),
+                      QStringList()).toStringList());
   config->endGroup();
 
   if (m_pluginOrder.isEmpty()) {

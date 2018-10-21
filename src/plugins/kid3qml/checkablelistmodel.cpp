@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Sep 2014
  *
- * Copyright (C) 2014-2017  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,8 +27,8 @@
 #include "checkablelistmodel.h"
 #include <QItemSelectionModel>
 
-CheckableListModel::CheckableListModel(QObject* parent) :
-  QAbstractProxyModel(parent), m_selModel(nullptr)
+CheckableListModel::CheckableListModel(QObject* parent)
+  : QAbstractProxyModel(parent), m_selModel(nullptr)
 {
 }
 

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Mar 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -98,11 +98,11 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
                                  Kid3Application* app,
                                  QWidget* parent, const Frame::Field& field,
                                  const TaggedFile* taggedFile,
-                                 Frame::TagNumber tagNr) :
-  QWidget(parent),
-  m_platformTools(platformTools), m_app(app), m_eventCodeDelegate(nullptr),
-  m_model(nullptr), m_taggedFile(taggedFile), m_tagNr(tagNr),
-  m_byteArray(field.m_value.toByteArray()), m_fileIsPlayed(false)
+                                 Frame::TagNumber tagNr)
+  : QWidget(parent),
+    m_platformTools(platformTools), m_app(app), m_eventCodeDelegate(nullptr),
+    m_model(nullptr), m_taggedFile(taggedFile), m_tagNr(tagNr),
+    m_byteArray(field.m_value.toByteArray()), m_fileIsPlayed(false)
 {
   setObjectName(QLatin1String("TimeEventEditor"));
   auto vlayout = new QVBoxLayout(this);
@@ -221,13 +221,13 @@ void TimeEventEditor::addItem()
     // row sorted by time stamps or use the first empty row.
     QModelIndex index = m_tableView->currentIndex();
     if (!(index.isValid() &&
-          (index = index.sibling(index.row(), TimeEventModel::CI_Time)).
-          data().isNull())) {
+          (index = index.sibling(index.row(), TimeEventModel::CI_Time))
+          .data().isNull())) {
       int row = 0;
       bool insertRow = true;
       while (row < m_model->rowCount()) {
-        QTime time = m_model->index(row, TimeEventModel::CI_Time).
-            data().toTime();
+        QTime time = m_model->index(row, TimeEventModel::CI_Time)
+            .data().toTime();
         if (time.isNull()) {
           insertRow = false;
           break;

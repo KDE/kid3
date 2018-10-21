@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,26 +39,32 @@
  */
 KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
                                  QWidget* parent, QString& caption,
-                                 KConfigSkeleton* configSkeleton) :
-  KConfigDialog(parent, QLatin1String("configure"), configSkeleton),
-  m_pages(new ConfigDialogPages(platformTools, this))
+                                 KConfigSkeleton* configSkeleton)
+  : KConfigDialog(parent, QLatin1String("configure"), configSkeleton),
+    m_pages(new ConfigDialogPages(platformTools, this))
 {
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 
-  addPage(m_pages->createTagsPage(), tr("Tags"), QLatin1String("applications-multimedia"));
-  addPage(m_pages->createFilesPage(), tr("Files"), QLatin1String("document-save"));
-  addPage(m_pages->createActionsPage(), tr("User Actions"), QLatin1String("preferences-other"));
-  addPage(m_pages->createNetworkPage(), tr("Network"), QLatin1String("preferences-system-network"));
-  addPage(m_pages->createPluginsPage(), tr("Plugins"), QLatin1String("preferences-plugin"));
+  addPage(m_pages->createTagsPage(), tr("Tags"),
+          QLatin1String("applications-multimedia"));
+  addPage(m_pages->createFilesPage(), tr("Files"),
+          QLatin1String("document-save"));
+  addPage(m_pages->createActionsPage(), tr("User Actions"),
+          QLatin1String("preferences-other"));
+  addPage(m_pages->createNetworkPage(), tr("Network"),
+          QLatin1String("preferences-system-network"));
+  addPage(m_pages->createPluginsPage(), tr("Plugins"),
+          QLatin1String("preferences-plugin"));
 
   setStandardButtons(QDialogButtonBox::RestoreDefaults |
                      QDialogButtonBox::Ok | QDialogButtonBox::Cancel |
                      QDialogButtonBox::Help);
   if (const QDialogButtonBox* buttons = buttonBox()) {
     if (QPushButton* helpButton = buttons->button(QDialogButtonBox::Help)) {
-      connect(helpButton, &QAbstractButton::clicked, this, &KdeConfigDialog::slotHelp);
+      connect(helpButton, &QAbstractButton::clicked,
+              this, &KdeConfigDialog::slotHelp);
     }
     if (QPushButton* defaultsButton =
         buttons->button(QDialogButtonBox::RestoreDefaults)) {

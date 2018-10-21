@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Oct 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,11 +34,11 @@
 #include "trackdatamodel.h"
 #include "configstore.h"
 
-TestServerImporterBase::TestServerImporterBase(QObject* parent) :
-  QObject(parent),
-  m_netMgr(new QNetworkAccessManager(this)),
-  m_trackDataModel(new TrackDataModel(this)),
-  m_importer(nullptr), m_settings(nullptr), m_configStore(nullptr)
+TestServerImporterBase::TestServerImporterBase(QObject* parent)
+  : QObject(parent),
+    m_netMgr(new QNetworkAccessManager(this)),
+    m_trackDataModel(new TrackDataModel(this)),
+    m_importer(nullptr), m_settings(nullptr), m_configStore(nullptr)
 {
   if (!ConfigStore::instance()) {
     m_settings = new DummySettings;

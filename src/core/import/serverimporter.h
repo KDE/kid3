@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -38,8 +38,7 @@ class TrackDataModel;
 /**
  * Generic baseclass to import from an external source.
  */
-class KID3_CORE_EXPORT ServerImporter : public ImportClient
-{
+class KID3_CORE_EXPORT ServerImporter : public ImportClient {
   Q_OBJECT
 
 public:

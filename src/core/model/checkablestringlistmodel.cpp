@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,8 +30,8 @@
  * Constructor.
  * @param parent parent widget
  */
-CheckableStringListModel::CheckableStringListModel(QObject* parent) :
-  QStringListModel(parent), m_bitMask(0)
+CheckableStringListModel::CheckableStringListModel(QObject* parent)
+  : QStringListModel(parent), m_bitMask(0)
 {
 }
 

@@ -93,11 +93,11 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
                            TrackDataModel* trackDataModel,
                            GenreModel* genreModel,
                            const QList<ServerImporter*>& importers,
-                           const QList<ServerTrackImporter*>& trackImporters) :
-  QDialog(parent), m_platformTools(platformTools),
-  m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
-  m_trackDataModel(trackDataModel), m_importers(importers),
-  m_trackImporters(trackImporters)
+                           const QList<ServerTrackImporter*>& trackImporters)
+  : QDialog(parent), m_platformTools(platformTools),
+    m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
+    m_trackDataModel(trackDataModel), m_importers(importers),
+    m_trackImporters(trackImporters)
 {
   setObjectName(QLatin1String("ImportDialog"));
   setModal(false);
@@ -133,7 +133,8 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   QLabel* coverArtLabel = new QLabel(tr("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);
   m_coverArtUrlLabel = new QLabel(QLatin1String(" -"));
-  m_coverArtUrlLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
+  m_coverArtUrlLabel->setSizePolicy(QSizePolicy::Ignored,
+                                    QSizePolicy::Preferred);
   accuracyLayout->addWidget(m_coverArtUrlLabel, 1);
   vlayout->addLayout(accuracyLayout);
 
@@ -210,15 +211,22 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   matchLayout->addWidget(titleButton);
   vlayout->addLayout(matchLayout);
 
-  connect(fileButton, &QAbstractButton::clicked, this, &ImportDialog::fromText);
-  connect(tagsButton, &QAbstractButton::clicked, this, &ImportDialog::fromTags);
-  connect(serverButton, &QAbstractButton::clicked, this, &ImportDialog::fromServer);
+  connect(fileButton, &QAbstractButton::clicked,
+          this, &ImportDialog::fromText);
+  connect(tagsButton, &QAbstractButton::clicked,
+          this, &ImportDialog::fromTags);
+  connect(serverButton, &QAbstractButton::clicked,
+          this, &ImportDialog::fromServer);
   connect(m_serverComboBox, static_cast<void (QComboBox::*)(int)>(
             &QComboBox::activated), this, &ImportDialog::fromServer);
-  connect(lengthButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithLength);
-  connect(trackButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTrack);
-  connect(titleButton, &QAbstractButton::clicked, this, &ImportDialog::matchWithTitle);
-  connect(m_mismatchCheckBox, &QAbstractButton::toggled, this, &ImportDialog::showPreview);
+  connect(lengthButton, &QAbstractButton::clicked,
+          this, &ImportDialog::matchWithLength);
+  connect(trackButton, &QAbstractButton::clicked,
+          this, &ImportDialog::matchWithTrack);
+  connect(titleButton, &QAbstractButton::clicked,
+          this, &ImportDialog::matchWithTitle);
+  connect(m_mismatchCheckBox, &QAbstractButton::toggled,
+          this, &ImportDialog::showPreview);
   connect(m_maxDiffSpinBox, static_cast<void (QSpinBox::*)(int)>(
             &QSpinBox::valueChanged), this, &ImportDialog::maxDiffChanged);
   connect(this, &QDialog::finished, this, &ImportDialog::hideSubdialogs);
@@ -239,8 +247,10 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
-  connect(helpButton, &QAbstractButton::clicked, this, &ImportDialog::showHelp);
-  connect(saveButton, &QAbstractButton::clicked, this, &ImportDialog::saveConfig);
+  connect(helpButton, &QAbstractButton::clicked,
+          this, &ImportDialog::showHelp);
+  connect(saveButton, &QAbstractButton::clicked,
+          this, &ImportDialog::saveConfig);
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   vlayout->addLayout(hlayout);
@@ -436,9 +446,11 @@ void ImportDialog::showPreview()
 
   int accuracy = m_trackDataModel->calculateAccuracy();
   m_accuracyPercentLabel->setText(accuracy >= 0 && accuracy <= 100
-                                  ? QString::number(accuracy) + QLatin1Char('%') : QLatin1String("-"));
+                                  ? QString::number(accuracy) + QLatin1Char('%')
+                                  : QLatin1String("-"));
   QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
-  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-") : coverArtUrl.toString());
+  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-")
+                                                    : coverArtUrl.toString());
 }
 
 /**
@@ -527,7 +539,8 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     // revert movement, but avoid recursion
     disconnect(vHeader, &QHeaderView::sectionsMoved, nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
-    connect(vHeader, &QHeaderView::sectionMoved, this, &ImportDialog::moveTableRow);
+    connect(vHeader, &QHeaderView::sectionMoved,
+            this, &ImportDialog::moveTableRow);
   }
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   auto numTracks = static_cast<int>(trackDataVector.size());

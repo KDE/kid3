@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,8 +42,8 @@
  * @param title  title
  * @param parent parent widget
  */
-FormatBox::FormatBox(const QString& title, QWidget* parent) :
-  QGroupBox(title, parent)
+FormatBox::FormatBox(const QString& title, QWidget* parent)
+  : QGroupBox(title, parent)
 {
   m_formatEditingCheckBox = new QCheckBox(tr("Automatically apply format"),
                                           this);

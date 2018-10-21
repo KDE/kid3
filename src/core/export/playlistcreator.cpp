@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2009
  *
- * Copyright (C) 2009-2013  Urs Fleisch
+ * Copyright (C) 2009-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -134,8 +134,8 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         }
         for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           if (m_cfg.writeInfo()) {
-            stream << QString(QLatin1String("#EXTINF:%1,%2\n")).
-              arg((*it).duration).arg((*it).info);
+            stream << QString(QLatin1String("#EXTINF:%1,%2\n"))
+              .arg((*it).duration).arg((*it).info);
           }
           stream << (*it).filePath << "\n";
         }
@@ -330,9 +330,9 @@ bool PlaylistCreator::read(
  * @param index model index
  * @param ctr  associated playlist creator
  */
-PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
-  m_ctr(ctr), m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)),
-  m_isDir(false)
+PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr)
+  : m_ctr(ctr), m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)),
+    m_isDir(false)
 {
   if (m_taggedFile) {
     m_dirName = m_taggedFile->getDirname();

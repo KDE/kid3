@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,8 +37,8 @@
  * @param parent parent widget
  */
 AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
-                                   QAbstractItemModel* model, QWidget* parent) :
-  QWidget(parent)
+                                   QAbstractItemModel* model, QWidget* parent)
+  : QWidget(parent)
 {
   setObjectName(QLatin1String("AbstractListEdit"));
   auto hlayout = new QHBoxLayout(this);

@@ -141,8 +141,8 @@ long oggtell(void* stream)
  *
  * @param idx index in file proxy model
  */
-OggFile::OggFile(const QPersistentModelIndex& idx) :
-  TaggedFile(idx), m_fileRead(false)
+OggFile::OggFile(const QPersistentModelIndex& idx)
+  : TaggedFile(idx), m_fileRead(false)
 {
 }
 
@@ -842,8 +842,8 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
   lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1 +
               sizeof(fieldNames) / sizeof(fieldNames[0]));
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
-               getName());
+    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                   QLatin1String("")).getName());
   }
   for (auto fieldName : fieldNames) {
     lst.append(QString::fromLatin1(fieldName));

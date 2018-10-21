@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Aug 2014
  *
- * Copyright (C) 2014  Urs Fleisch
+ * Copyright (C) 2014-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,8 @@
  * @param argc number of arguments (including command)
  * @param argv arguments
  */
-Kid3QtApplication::Kid3QtApplication(int& argc, char** argv) : QApplication(argc, argv)
+Kid3QtApplication::Kid3QtApplication(int& argc, char** argv)
+  : QApplication(argc, argv)
 {
 }
 

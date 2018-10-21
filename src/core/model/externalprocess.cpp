@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Feb 2007
  *
- * Copyright (C) 2007-2013  Urs Fleisch
+ * Copyright (C) 2007-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -132,8 +132,8 @@ void ExternalProcess::OutputViewer::scrollToBottom()
  * @param app application context
  * @param parent parent object
  */
-ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent) :
-  QObject(parent), m_app(app), m_parent(parent), m_process(nullptr)
+ExternalProcess::ExternalProcess(Kid3Application* app, QWidget* parent)
+  : QObject(parent), m_app(app), m_parent(parent), m_process(nullptr)
 {
   setObjectName(QLatin1String("ExternalProcess"));
   const auto userCommandProcessors = m_app->getUserCommandProcessors();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,10 +46,8 @@ class ImportTrackDataVector;
 /**
  * Generic dialog to import from an external source.
  */
-class ServerImportDialog : public QDialog
-{
-Q_OBJECT
-
+class ServerImportDialog : public QDialog {
+  Q_OBJECT
 public:
   /**
    * Constructor.

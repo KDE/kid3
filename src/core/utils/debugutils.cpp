@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jan 2013
  *
- * Copyright (C) 2013  Urs Fleisch
+ * Copyright (C) 2013-2018  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,8 +32,8 @@
  * Constructor.
  * @param parent parent object
  */
-DebugUtils::SignalEmissionDumper::SignalEmissionDumper(QObject* parent) :
-  QObject(parent)
+DebugUtils::SignalEmissionDumper::SignalEmissionDumper(QObject* parent)
+  : QObject(parent)
 {
 }
 
@@ -120,9 +120,9 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
       QModelIndex idx(model.index(row, column, parent));
       if (column > 0)
         rowStr += QLatin1String(",");
-      rowStr += QString(QLatin1String("%1%2:")).
-          arg(model.hasChildren(idx) ? QLatin1String("p") : QLatin1String("")).
-          arg(column);
+      rowStr += QString(QLatin1String("%1%2:"))
+          .arg(model.hasChildren(idx) ? QLatin1String("p") : QLatin1String(""))
+          .arg(column);
       rowStr += model.data(idx).toString();
       if (model.hasChildren(idx))
         indexesWithChildren.append(idx);
