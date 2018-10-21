@@ -28,28 +28,6 @@
 #include <QTimer>
 #include "fileproxymodel.h"
 
-namespace {
-
-/**
- * GreaterThan functor to sort modex indexes by string data.
- */
-class PersistentModelIndexGreaterThan {
-public:
-  /**
-   * Greater than call operator.
-   * @param lhs left hand side
-   * @param rhs right hand side
-   * @return true if string data of @a lhs is greater than string data of
-   * @a rhs.
-   */
-  inline bool operator()(const QPersistentModelIndex& lhs,
-                         const QPersistentModelIndex& rhs) const {
-    return lhs.data().toString().compare(rhs.data().toString()) > 0;
-  }
-};
-
-}
-
 /**
  * Constructor.
  *
@@ -151,7 +129,10 @@ void FileProxyModelIterator::fetchNext()
         childNodes.push(m_model->index(row, 0, m_nextIdx));
       }
       qStableSort(childNodes.begin(), childNodes.end(),
-                  PersistentModelIndexGreaterThan());
+                  [](const QPersistentModelIndex& lhs,
+                     const QPersistentModelIndex& rhs) {
+        return lhs.data().toString().compare(rhs.data().toString()) > 0;
+      });
       m_nodes += childNodes;
       emit nextReady(m_nextIdx);
     }

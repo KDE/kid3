@@ -35,41 +35,6 @@
 
 namespace {
 
-/**
- * Sort comparator functor used for m_frameOfRow.
- */
-class FrameLessThan {
-public:
-  /**
-   * Constructor.
-   * @param frameTypeSeqNr sequence numbers for frame types
-   */
-  explicit FrameLessThan(const QVector<int>& frameTypeSeqNr) :
-    m_frameTypeSeqNr(frameTypeSeqNr) {
-  }
-
-  /**
-   * Call operator.
-   * @param lhs left hand side
-   * @param rhs right hand side
-   * @return true if frame of @a lhs precedes frame of @a rhs.
-   */
-  bool operator()(FrameCollection::iterator lhs, FrameCollection::iterator rhs)
-  {
-    int lhsType = lhs->getType();
-    int rhsType = rhs->getType();
-    int lhsSeqNr = m_frameTypeSeqNr.at(lhsType);
-    int rhsSeqNr = m_frameTypeSeqNr.at(rhsType);
-    return lhsSeqNr < rhsSeqNr ||
-           (lhsType == Frame::FT_Other && lhsType == rhsType &&
-            lhs->getInternalName() < rhs->getInternalName());
-  }
-
-private:
-  const QVector<int>& m_frameTypeSeqNr;
-};
-
-
 QHash<int,QByteArray> getRoleHash()
 {
   QHash<int, QByteArray> roles;
@@ -675,8 +640,18 @@ void FrameTableModel::updateFrameRowMapping()
     *rowIt = frameIt;
   }
   if (!m_frameTypeSeqNr.isEmpty()) {
+    const QVector<int>& frameTypeSeqNr = m_frameTypeSeqNr;
     std::stable_sort(m_frameOfRow.begin(), m_frameOfRow.end(), // clazy:exclude=detaching-member
-                     FrameLessThan(m_frameTypeSeqNr));
+                     [&frameTypeSeqNr](FrameCollection::iterator lhs,
+                                       FrameCollection::iterator rhs) {
+      int lhsType = lhs->getType();
+      int rhsType = rhs->getType();
+      int lhsSeqNr = frameTypeSeqNr.at(lhsType);
+      int rhsSeqNr = frameTypeSeqNr.at(rhsType);
+      return lhsSeqNr < rhsSeqNr ||
+             (lhsType == Frame::FT_Other && lhsType == rhsType &&
+              lhs->getInternalName() < rhs->getInternalName());
+    });
   }
 }
 
