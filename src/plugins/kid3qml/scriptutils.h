@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QUrl>
 #include <QPersistentModelIndex>
+#include <QJSValue>
 #include "trackdata.h"
 
 /**
@@ -236,6 +237,16 @@ public:
       const QString& program, const QStringList& args = QStringList(),
       int msecs = -1);
 
+  /**
+   * Asynchronously start a system command.
+   * @param program executable
+   * @param args arguments
+   * @param callback will be called with parameters [exit code, standard output,
+   * standard error] when command finished
+   */
+  Q_INVOKABLE void systemAsync(
+      const QString& program, const QStringList& args = QStringList(),
+      QJSValue callback = QJSValue());
 
   /**
    * Get value of environment variable.

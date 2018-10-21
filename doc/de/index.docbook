@@ -4527,6 +4527,8 @@ script.tempPath(): Verzeichnis temporärer Dateien
 script.listDir(path, [nameFilters], [classify]): Liste der Verzeichniseinträge
 script.system(program, [args], [msecs]): Systemkommando synchron ausführen,
   [exit code, standard output, standard error] wenn kein Timeout
+script.systemAsync(program, [args], [callback]): Systemkommando asynchron
+ausführen, callback wird mit [exit code, standard output, standard error] aufgerufen
 script.getEnv(varName): Wert einer Umgebungsvariablen
 script.setEnv(varName, value): Setze Wert einer Umgebungsvariablen
 script.getQtVersion(): Qt Version, z.B. "5.4.1"

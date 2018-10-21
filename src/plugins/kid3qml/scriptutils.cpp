@@ -25,6 +25,7 @@
  */
 
 #include "scriptutils.h"
+#include <memory>
 #include <QMetaProperty>
 #include <QCoreApplication>
 #include <QFile>
@@ -34,6 +35,7 @@
 #include <QFileDialog>
 #include <QBuffer>
 #include <QCryptographicHash>
+#include <QJSEngine>
 #include "pictureframe.h"
 #include "saferename.h"
 #include "mainwindowconfig.h"
@@ -332,6 +334,27 @@ QVariantList ScriptUtils::system(
         << QString::fromLocal8Bit(proc.readAllStandardError());
   }
   return QVariantList();
+}
+
+void ScriptUtils::systemAsync(
+    const QString& program, const QStringList& args, QJSValue callback)
+{
+  QProcess* proc = new QProcess(this);
+  auto conn = std::make_shared<QMetaObject::Connection>();
+  *conn = QObject::connect(
+        proc, static_cast<void (QProcess::*)(int)>(&QProcess::finished),
+        this, [proc, conn, callback](int exitCode) mutable {
+    QObject::disconnect(*conn);
+    if (!callback.isUndefined()) {
+      QVariantList result{
+        exitCode,
+        QString::fromLocal8Bit(proc->readAllStandardOutput()),
+        QString::fromLocal8Bit(proc->readAllStandardError())
+      };
+      callback.call({callback.engine()->toScriptValue(result)});
+    }
+  });
+  proc->start(program, args);
 }
 
 /**

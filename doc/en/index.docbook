@@ -4325,6 +4325,9 @@ script.tempPath(): Path to temporary directory
 script.listDir(path, [nameFilters], [classify]): List directory entries
 script.system(program, [args], [msecs]): Synchronously start a system command,
   [exit code, standard output, standard error] if not timeout
+script.systemAsync(program, [args], [callback]): Asynchronously start a system
+command, callback will be called with [exit code, standard output, standard
+error]
 script.getEnv(varName): Get value of environment variable
 script.setEnv(varName, value): Set value of environment variable
 script.getQtVersion(): Qt version string, e.g. "5.4.1"
