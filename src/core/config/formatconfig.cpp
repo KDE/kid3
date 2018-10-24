@@ -30,6 +30,7 @@
 #include <QLocale>
 #include <QCoreApplication>
 #include "generalconfig.h"
+#include "isettings.h"
 #include "frame.h"
 
 /**

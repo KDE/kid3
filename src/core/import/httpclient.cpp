@@ -29,6 +29,7 @@
 #include <QNetworkRequest>
 #include <QNetworkProxy>
 #include <QByteArray>
+#include <QTimer>
 #include "networkconfig.h"
 
 

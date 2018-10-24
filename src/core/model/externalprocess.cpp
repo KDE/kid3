@@ -32,6 +32,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextCursor>
+#include <QTextEdit>
 #include "taggedfile.h"
 #include "iusercommandprocessor.h"
 #include "kid3application.h"

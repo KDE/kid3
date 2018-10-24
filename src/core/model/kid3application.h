@@ -28,11 +28,9 @@
 
 #include <QObject>
 #include <QPersistentModelIndex>
-#include <QUrl>
 #include <QScopedPointer>
 #include "frame.h"
 #include "trackdata.h"
-#include "filefilter.h"
 #include "tagsearcher.h"
 #include "generalconfig.h"
 #include "config.h"
@@ -44,6 +42,7 @@ class QItemSelection;
 class QModelIndex;
 class QNetworkAccessManager;
 class QDir;
+class QUrl;
 class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
@@ -72,6 +71,7 @@ class IUserCommandProcessor;
 class AudioPlayer;
 class PixmapProvider;
 class FrameEditorObject;
+class FileFilter;
 
 /**
  * Kid3 application logic, independent of GUI.

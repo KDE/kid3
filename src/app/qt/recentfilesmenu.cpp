@@ -27,6 +27,7 @@
 #include "recentfilesmenu.h"
 #include <QAction>
 #include <QDir>
+#include "isettings.h"
 
 namespace {
 

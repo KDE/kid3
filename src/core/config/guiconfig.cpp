@@ -26,6 +26,7 @@
 
 #include "guiconfig.h"
 #include <QStringList>
+#include "isettings.h"
 
 int GuiConfig::s_index = -1;
 

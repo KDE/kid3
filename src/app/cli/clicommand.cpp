@@ -33,6 +33,7 @@
 #include "kid3application.h"
 #include "fileproxymodel.h"
 #include "frametablemodel.h"
+#include "filefilter.h"
 #include "importconfig.h"
 #include "exportconfig.h"
 #include "filterconfig.h"

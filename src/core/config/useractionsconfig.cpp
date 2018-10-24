@@ -27,6 +27,7 @@
 #include "useractionsconfig.h"
 #include <QStringList>
 #include <cstdlib>
+#include "isettings.h"
 #include "config.h"
 
 int UserActionsConfig::s_index = -1;

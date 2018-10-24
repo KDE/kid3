@@ -26,6 +26,7 @@
 
 #include "importconfig.h"
 #include <QString>
+#include "isettings.h"
 #include "config.h"
 
 namespace {

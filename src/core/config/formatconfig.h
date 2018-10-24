@@ -27,10 +27,9 @@
 #pragma once
 
 #include <QScopedPointer>
-#include "config.h"
-#include "generalconfig.h"
-#include <QMap>
+#include <QVariantMap>
 #include <QStringList>
+#include "generalconfig.h"
 #include "kid3api.h"
 
 class QString;

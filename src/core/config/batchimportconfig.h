@@ -27,9 +27,8 @@
 #pragma once
 
 #include <QStringList>
-#include "config.h"
 #include "generalconfig.h"
-#include "trackdata.h"
+#include "frame.h"
 #include "kid3api.h"
 
 class BatchImportProfile;

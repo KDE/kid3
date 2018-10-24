@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QObject>
-#include <QStack>
 #include <QPersistentModelIndex>
 #include "iabortable.h"
 #include "kid3api.h"

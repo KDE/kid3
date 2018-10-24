@@ -26,6 +26,7 @@
 
 #include "filterconfig.h"
 #include <QString>
+#include "isettings.h"
 #include "config.h"
 
 int FilterConfig::s_index = -1;

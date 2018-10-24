@@ -26,6 +26,7 @@
 
 #include "configstore.h"
 #include "generalconfig.h"
+#include "isettings.h"
 
 namespace {
 

@@ -28,8 +28,7 @@
 
 #include <QDialog>
 #include <QScopedPointer>
-#include "config.h"
-#include "importconfig.h"
+#include "frame.h"
 
 class IPlatformTools;
 class QString;

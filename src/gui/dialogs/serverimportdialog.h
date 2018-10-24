@@ -26,10 +26,8 @@
 
 #pragma once
 
-#include "config.h"
 #include <QDialog>
 #include <QString>
-#include <QStandardItem>
 
 class QLineEdit;
 class QLabel;
@@ -38,6 +36,7 @@ class QPushButton;
 class QCheckBox;
 class QStatusBar;
 class QListView;
+class QStandardItem;
 class QStandardItemModel;
 class ServerImporter;
 class ServerImporterConfig;

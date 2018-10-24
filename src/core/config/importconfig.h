@@ -30,7 +30,7 @@
 #include <QMap>
 #include "config.h"
 #include "generalconfig.h"
-#include "trackdata.h"
+#include "frame.h"
 
 /**
  * Import configuration.

@@ -27,6 +27,7 @@
 #include "batchimportconfig.h"
 #include <QString>
 #include "batchimportprofile.h"
+#include "isettings.h"
 #include "config.h"
 
 int BatchImportConfig::s_index = -1;

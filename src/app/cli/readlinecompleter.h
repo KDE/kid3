@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QList>
-#include <QByteArray>
 
 /**
  * Abstract base class for readline completer.

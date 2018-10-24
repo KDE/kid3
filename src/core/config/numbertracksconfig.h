@@ -27,7 +27,7 @@
 #pragma once
 
 #include "generalconfig.h"
-#include "trackdata.h"
+#include "frame.h"
 #include "kid3api.h"
 
 /**

@@ -28,7 +28,8 @@
 
 #include <QObject>
 #include <QString>
-#include "trackdata.h"
+#include <QPersistentModelIndex>
+#include "frame.h"
 #include "iabortable.h"
 #include "kid3api.h"
 

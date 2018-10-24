@@ -26,9 +26,9 @@
 
 #pragma once
 
-#include "importclient.h"
 #include <QString>
 #include <QStandardItem>
+#include "importclient.h"
 
 class QStandardItemModel;
 class ServerImporterConfig;

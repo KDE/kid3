@@ -27,8 +27,7 @@
 #pragma once
 
 #include "abstractcli.h"
-#include "taggedfile.h"
-#include "trackdata.h"
+#include "frame.h"
 #include "cliconfig.h"
 #ifdef HAVE_READLINE
 #include <QScopedPointer>

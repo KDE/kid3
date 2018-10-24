@@ -26,7 +26,6 @@
 
 #pragma once
 
-#include <QString>
 #include <QList>
 #include "kid3api.h"
 

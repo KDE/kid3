@@ -26,6 +26,7 @@
 
 #include "networkconfig.h"
 #include <cstdlib>
+#include "isettings.h"
 
 namespace {
 

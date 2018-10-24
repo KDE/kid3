@@ -25,6 +25,7 @@
  */
 
 #include "playlistconfig.h"
+#include "isettings.h"
 #include "config.h"
 
 int PlaylistConfig::s_index = -1;

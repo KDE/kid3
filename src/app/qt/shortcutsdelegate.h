@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QItemDelegate>
-#include "config.h"
 
 class QKeySequenceEdit;
 

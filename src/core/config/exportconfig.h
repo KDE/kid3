@@ -28,7 +28,7 @@
 
 #include <QStringList>
 #include "generalconfig.h"
-#include "trackdata.h"
+#include "frame.h"
 
 /**
  * Export configuration.

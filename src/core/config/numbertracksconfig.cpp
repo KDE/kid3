@@ -25,6 +25,7 @@
  */
 
 #include "numbertracksconfig.h"
+#include "isettings.h"
 
 namespace {
 

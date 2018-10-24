@@ -25,6 +25,7 @@
  */
 
 #include "exportconfig.h"
+#include "isettings.h"
 
 int ExportConfig::s_index = -1;
 

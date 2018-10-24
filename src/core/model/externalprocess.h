@@ -27,13 +27,13 @@
 #pragma once
 
 #include <QDialog>
-#include <QTextEdit>
 #include <QScopedPointer>
 #include "kid3api.h"
 
 class QProcess;
 class QString;
 class QStringList;
+class QTextEdit;
 class Kid3Application;
 class TaggedFile;
 

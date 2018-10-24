@@ -26,14 +26,12 @@
 
 #pragma once
 
-#include "taglibconfig.h"
-
 #include <QtGlobal>
+#include "taglibconfig.h"
 #include "taggedfile.h"
 #include "tagconfig.h"
 #include <taglib.h>
 #include <fileref.h>
-#include <tag.h>
 #include <id3v2frame.h>
 
 /** TagLib version in with 8 bits for major, minor and patch version. */

@@ -28,8 +28,7 @@
 
 #include <QSplitter>
 #include <QLineEdit>
-#include "taggedfile.h"
-#include "config.h"
+#include "frame.h"
 
 class QLabel;
 class QCheckBox;

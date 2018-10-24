@@ -29,6 +29,7 @@
 #include <QVector>
 #include "taggedfile.h"
 #include "frame.h"
+#include "isettings.h"
 
 namespace {
 

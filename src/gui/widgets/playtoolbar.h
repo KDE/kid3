@@ -27,8 +27,6 @@
 #pragma once
 
 #include <QToolBar>
-#include "config.h"
-#include <QStringList>
 #include <QIcon>
 #include <QMediaPlayer>
 

@@ -27,9 +27,7 @@
 #pragma once
 
 #include <QObject>
-#include "trackdata.h"
-#include "filefilter.h"
-#include "config.h"
+#include "frame.h"
 
 class QModelIndex;
 class Kid3Cli;

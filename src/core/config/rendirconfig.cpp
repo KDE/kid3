@@ -25,6 +25,7 @@
  */
 
 #include "rendirconfig.h"
+#include "isettings.h"
 
 namespace {
 

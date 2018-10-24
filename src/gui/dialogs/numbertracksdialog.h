@@ -27,7 +27,7 @@
 #pragma once
 
 #include <QDialog>
-#include "trackdata.h"
+#include "frame.h"
 
 class QSpinBox;
 class QComboBox;

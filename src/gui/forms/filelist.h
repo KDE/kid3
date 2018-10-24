@@ -30,7 +30,6 @@
 #include <QMap>
 #include <QScopedPointer>
 #include "configurabletreeview.h"
-#include "config.h"
 #include "kid3api.h"
 
 class BaseMainWindowImpl;

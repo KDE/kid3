@@ -29,7 +29,6 @@
 #include <QString>
 #include <QList>
 #include <QWizard>
-#include "trackdata.h"
 
 class QComboBox;
 class QLabel;

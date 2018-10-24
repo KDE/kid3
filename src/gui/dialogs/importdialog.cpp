@@ -47,6 +47,7 @@
 #include <QMenu>
 #include <QCoreApplication>
 #include "config.h"
+#include "importconfig.h"
 #include "genres.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"

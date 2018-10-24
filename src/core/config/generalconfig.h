@@ -29,8 +29,9 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "isettings.h"
 #include "configstore.h"
+
+class ISettings;
 
 /**
  * Abstract base class for configurations.

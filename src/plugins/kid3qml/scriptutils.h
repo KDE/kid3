@@ -31,7 +31,7 @@
 #include <QUrl>
 #include <QPersistentModelIndex>
 #include <QJSValue>
-#include "trackdata.h"
+#include "frame.h"
 
 /**
  * QML support functions.

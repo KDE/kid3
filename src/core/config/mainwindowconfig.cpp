@@ -25,6 +25,7 @@
  */
 
 #include "mainwindowconfig.h"
+#include "isettings.h"
 
 int MainWindowConfig::s_index = -1;
 

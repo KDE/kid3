@@ -26,6 +26,7 @@
 
 #pragma once
 
+#include <QVariantList>
 #include "generalconfig.h"
 #include "kid3api.h"
 

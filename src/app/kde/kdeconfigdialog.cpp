@@ -25,9 +25,10 @@
  */
 
 #include "kdeconfigdialog.h"
+#include <QPushButton>
+#include <KConfigSkeleton>
 #include "contexthelp.h"
 #include "configdialogpages.h"
-#include <QPushButton>
 
 /**
  * Constructor.

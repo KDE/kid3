@@ -27,8 +27,6 @@
 #pragma once
 
 #include <QObject>
-#include <QStringList>
-#include "config.h"
 #include "kid3api.h"
 
 class QCheckBox;

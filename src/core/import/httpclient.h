@@ -27,16 +27,16 @@
 #pragma once
 
 #include <QObject>
-#include <QString>
+//#include <QString>
 #include <QNetworkReply>
 #include <QPointer>
 #include <QMap>
-#include <QDateTime>
-#include <QTimer>
 #include "kid3api.h"
 
 class QByteArray;
 class QNetworkAccessManager;
+class QDateTime;
+class QTimer;
 
 /**
  * Client to connect to HTTP server.

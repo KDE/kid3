@@ -26,11 +26,11 @@
 
 #pragma once
 
-#include "formatreplacer.h"
 #include <QString>
 #include <QVariant>
 #include <QList>
 #include <set>
+#include "formatreplacer.h"
 #include "framenotice.h"
 #include "kid3api.h"
 

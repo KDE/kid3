@@ -28,7 +28,8 @@
 
 #include <QStringList>
 #include <QMenu>
-#include "generalconfig.h"
+
+class ISettings;
 
 /**
  * Menu to open recent files.

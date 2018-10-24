@@ -26,8 +26,8 @@
 
 #pragma once
 
-#include "oggflacconfig.h"
 #include <QList>
+#include "oggflacconfig.h"
 #include "taggedfile.h"
 
 

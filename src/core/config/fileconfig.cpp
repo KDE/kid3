@@ -26,6 +26,7 @@
 
 #include "fileconfig.h"
 #include <QCoreApplication>
+#include "isettings.h"
 
 int FileConfig::s_index = -1;
 

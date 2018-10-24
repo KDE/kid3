@@ -36,6 +36,7 @@
 #include <QPluginLoader>
 #include <QAction>
 #include <QElapsedTimer>
+#include <QUrl>
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
@@ -51,6 +52,7 @@
 #include "icoreplatformtools.h"
 #include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
+#include "filefilter.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "trackdatamodel.h"
@@ -75,6 +77,7 @@
 #include "importconfig.h"
 #include "guiconfig.h"
 #include "playlistconfig.h"
+#include "isettings.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
 #include "iframeeditor.h"

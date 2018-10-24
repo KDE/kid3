@@ -25,6 +25,7 @@
  */
 
 #include "findreplaceconfig.h"
+#include "isettings.h"
 
 int FindReplaceConfig::s_index = -1;
 

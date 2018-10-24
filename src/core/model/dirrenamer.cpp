@@ -28,6 +28,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QCoreApplication>
+#include "trackdata.h"
 #include "saferename.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"

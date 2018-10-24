@@ -28,7 +28,6 @@
 
 #include <QDialog>
 #include <QStringList>
-#include "trackdata.h"
 
 class IPlatformTools;
 class QTextEdit;

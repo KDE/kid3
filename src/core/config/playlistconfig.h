@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QString>
-#include "config.h"
 #include "generalconfig.h"
 #include "kid3api.h"
 

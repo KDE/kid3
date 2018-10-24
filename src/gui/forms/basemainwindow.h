@@ -29,9 +29,8 @@
 #include <QMainWindow>
 #include <QDateTime>
 #include <QScopedPointer>
-#include "config.h"
 #include "iframeeditor.h"
-#include "trackdata.h"
+#include "frame.h"
 #include "kid3api.h"
 
 class QProgressBar;

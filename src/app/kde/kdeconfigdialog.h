@@ -28,11 +28,11 @@
 
 #include <QtGlobal>
 #include <KConfigDialog>
-#include <KConfigSkeleton>
 
 class QString;
 class QWidget;
 class QComboBox;
+class KConfigSkeleton;
 class ConfigDialogPages;
 class IPlatformTools;
 

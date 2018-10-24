@@ -37,6 +37,7 @@
 
 class QFileSystemModel;
 class QTimer;
+class QFileInfo;
 class TaggedFileIconProvider;
 class ITaggedFileFactory;
 

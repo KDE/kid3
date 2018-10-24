@@ -26,6 +26,7 @@
 
 #include "serverimporterconfig.h"
 #include <QtGlobal>
+#include "isettings.h"
 
 /**
  * Constructor.
