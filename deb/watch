@@ -1,3 +1,3 @@
 version=3
 opts=pgpsigurlmangle=s/$/.asc/ \
-http://sf.net/kid3/kid3-([\d.]*)\.tar\.gz debian svn-upgrade
+http://sf.net/kid3/kid3-([\d.]*)\.tar\.gz

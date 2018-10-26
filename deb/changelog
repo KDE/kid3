@@ -1,26 +1,43 @@
-kid3 (3.6.2-0) unstable; urgency=low
+kid3 (3.6.2-2) unstable; urgency=medium
+
+  * Bump Standards-Version to 4.2.1.
+  * Switch build type to RelWithDebInfo.
+    Closes: #909148
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 12 Oct 2018 10:15:30 +0200
+
+kid3 (3.6.2-1) unstable; urgency=medium
 
   * New upstream release.
+  * Bump Standards-Version to 4.2.0.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 24 Aug 2018 12:15:09 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 24 Aug 2018 09:44:37 +0200
 
-kid3 (3.6.1-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 23 Apr 2018 11:26:19 +0200
-
-kid3 (3.6.0-0) unstable; urgency=low
+kid3 (3.6.1-1) unstable; urgency=medium
 
   * New upstream release.
+    - Fixes FTCBFS.
+      Closes: #900008
+  * Add environment variables from the patch of #900008.
+  * Replace build dependencies on deprecated framework packages.
+    Closes: #885391
+  * Bump Standards-Version to 4.1.4.
+  * Move package to my own repository.
+  * Remove upgrade option from debian/watch.
+  * Move source.lintian-overrides file to source directory.
+  * Remove trailing whitespace from debian/changelog.
+  * Bump debian/compat to level 11.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 18 Mar 2018 16:49:46 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 05 Jun 2018 14:29:54 +0200
 
-kid3 (3.5.1-0) unstable; urgency=low
+kid3 (3.5.1-1) unstable; urgency=medium
 
   * New upstream release.
+    - Adjust install files.
+  * Bump Standards-Version to 4.1.1 (no changes required).
+  * Remove trailing whitespaces from debian/changelog.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Wed, 01 Nov 2017 12:36:45 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 07 Nov 2017 10:24:02 +0100
 
 kid3 (3.5.0-2) unstable; urgency=medium
 
@@ -405,7 +422,7 @@ kid3 (0.9-2) unstable; urgency=low
   * Add debian/rules get-orig-source target for http://buildserver.net
 
   [Ana Beatriz Guerrero Lopez]
-  * Package split, now it provides: kid3 (integrated with KDE) and kid3-qt 
+  * Package split, now it provides: kid3 (integrated with KDE) and kid3-qt
     (for non-KDE users).
   * Improve package descriptions. Thanks Urs!
   * Added post-release patches: kid3-0.9-desktop, kid3-0.9-kid3-qt-icon and
@@ -422,7 +439,7 @@ kid3 (0.9-1) unstable; urgency=low
 
 kid3 (0.8.1-3) unstable; urgency=low
 
-  * Rebuild due to FLAC 1.1.4 transition. (Closes: #426651) 
+  * Rebuild due to FLAC 1.1.4 transition. (Closes: #426651)
 
  -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Tue, 05 Jun 2007 20:19:35 +0100
 
@@ -436,7 +453,7 @@ kid3 (0.8.1-1) experimental; urgency=low
 
   * New upstream release.
   * Compiled against libtunepimp 0.5.2. (Closes: #397325)
-  * Removed relibtoolization at build time, does not seem necessary now. 
+  * Removed relibtoolization at build time, does not seem necessary now.
 
  -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 24 Nov 2006 01:29:55 +0100
 
@@ -489,14 +506,14 @@ kid3 (0.6-2) unstable; urgency=low
 kid3 (0.6-1) unstable; urgency=low
 
   * Added a patch to remove the old .ogg file when both the tags and the
-    filename are changed. Patch by Urs Fleisch, thanks (closes: 
+    filename are changed. Patch by Urs Fleisch, thanks (closes:
     bug#339066).
 
  -- Aurelien Jarno <aurel32@debian.org>  Mon, 14 Nov 2005 21:14:17 +0100
 
 kid3 (0.6-0) unstable; urgency=low
 
-  * New upstream version: 
+  * New upstream version:
     - support for Ogg/Vorbis and FLAC files (closes: bug#308120)
     - import from MusicBrainz
     - usability improvements (closes: bug#308122)
@@ -527,13 +544,13 @@ kid3 (0.5-4) unstable; urgency=low
 
 kid3 (0.5-3) unstable; urgency=low
 
-  * Fixed po/de.po (closes: bug#314026). 
+  * Fixed po/de.po (closes: bug#314026).
 
  -- Aurelien Jarno <aurel32@debian.org>  Wed, 15 Jun 2005 11:34:40 +0200
 
 kid3 (0.5-2) unstable; urgency=low
 
-  * Included patch #1079111 (from kid3.sf.net) to handle filenames with 
+  * Included patch #1079111 (from kid3.sf.net) to handle filenames with
     accents correctly (closes: bug#291925).
 
  -- Aurelien Jarno <aurel32@debian.org>  Fri, 28 Jan 2005 02:12:50 +0100
@@ -546,7 +563,7 @@ kid3 (0.5-1) unstable; urgency=low
 
 kid3 (0.4-2) unstable; urgency=low
 
-  * Improved description (closes: bug#246411). 
+  * Improved description (closes: bug#246411).
 
  -- Aurelien Jarno <aurel32@debian.org>  Thu, 29 Apr 2004 02:11:57 +0200
 
@@ -555,4 +572,3 @@ kid3 (0.4-1) unstable; urgency=low
   * Initial Release (closes: bug#205938).
 
  -- Aurelien Jarno <aurel32@debian.org>  Sat, 17 Apr 2004 19:02:02 +0200
-

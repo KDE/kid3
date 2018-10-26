@@ -2,16 +2,11 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-# To build with KDE 5:
-# In dh_auto_configure, remove
-# CONFIG_INSTALL_DIR, DATA_INSTALL_DIR, HTML_INSTALL_DIR, KCFG_INSTALL_DIR.
-# To get rid of the warning, remove the rm command in dh_auto_install.
-# Adapt control and kid3.install according to the comments in the files.
 DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
 
-BASE_CMAKE_DEFS = -DWITH_MP4V2=ON -DKDE_INSTALL_BINDIR=$(DEB_CMAKE_PREFIX)/bin -Wno-dev
+BASE_CMAKE_DEFS = -DWITH_MP4V2=ON -DKDE_INSTALL_BINDIR=$(DEB_CMAKE_PREFIX)/bin -Wno-dev -DWITH_FFMPEG=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 %:
 	dh $@ --parallel --builddirectory=kid3-build
@@ -22,8 +17,6 @@ override_dh_auto_configure:
 		-DCMAKE_INSTALL_PREFIX=$(DEB_CMAKE_PREFIX) \
 		$(BASE_CMAKE_DEFS) \
 		-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib/kid3 \
-		-DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
-		-DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
 		-DCMAKE_C_FLAGS="$(CFLAGS)" \
 		-DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
 
