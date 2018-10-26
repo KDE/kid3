@@ -603,6 +603,13 @@ void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
     QRect geometry(dirList->mapToGlobal(QPoint(0, 0)), dirList->size());
     geometry.setTop(geometry.top() + yOffset);
     dialog->setGeometry(geometry);
+
+    QStringList filesNotFound = model->filesNotFound();
+    if (!filesNotFound.isEmpty()) {
+      m_platformTools->warningDialog(
+            m_w, tr("Files not found"), filesNotFound.join(QLatin1Char('\n')),
+            tr("Error"));
+    }
   }
 
   dialog->showNormal();

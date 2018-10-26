@@ -2144,6 +2144,9 @@ msgstr "Afslutter..."
 msgid "Creating playlist..."
 msgstr "Opretter afspilningsliste..."
 
+msgid "Files not found"
+msgstr "Filer ikke fundet"
+
 msgid "Import"
 msgstr "Importér"
 

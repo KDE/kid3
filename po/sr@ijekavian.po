@@ -2147,6 +2147,9 @@ msgstr "Излазим..."
 msgid "Creating playlist..."
 msgstr "Правим листу нумера..."
 
+msgid "Files not found"
+msgstr "Датотеке нису пронађене"
+
 msgid "Import"
 msgstr "Увези"
 

@@ -155,6 +155,7 @@ void PlaylistModel::setPlaylistFile(const QString& path)
   if (m_playlistFilePath == path)
     return;
 
+  m_filesNotFound.clear();
   if (path.isEmpty()) {
     m_playlistFilePath.clear();
     m_playlistFileName.clear();
@@ -183,6 +184,8 @@ void PlaylistModel::setPlaylistFile(const QString& path)
       QModelIndex index = m_fsModel->index(filePath);
       if (index.isValid()) {
         m_items.append(index);
+      } else {
+        m_filesNotFound.append(filePath);
       }
     }
     endResetModel();

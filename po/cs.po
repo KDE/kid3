@@ -2151,6 +2151,9 @@ msgstr "Ukončuje se..."
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
 
+msgid "Files not found"
+msgstr "Soubory nebyly nalezeny"
+
 msgid "Import"
 msgstr "Zavést"
 

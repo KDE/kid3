@@ -2151,6 +2151,9 @@ msgstr "Çıkılıyor..."
 msgid "Creating playlist..."
 msgstr "Playlist Yaratılıyor..."
 
+msgid "Files not found"
+msgstr "Dosyalar bulunamadı"
+
 msgid "Import"
 msgstr "Al"
 

@@ -2148,6 +2148,9 @@ msgstr "Выход..."
 msgid "Creating playlist..."
 msgstr "Создание списка воспроизведения..."
 
+msgid "Files not found"
+msgstr "Файлы не найдены"
+
 msgid "Import"
 msgstr "Импорт"
 

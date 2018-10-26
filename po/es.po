@@ -2150,6 +2150,9 @@ msgstr "Saliendo..."
 msgid "Creating playlist..."
 msgstr "Creando lista de reproducción..."
 
+msgid "Files not found"
+msgstr "Archivos no encontrados"
+
 msgid "Import"
 msgstr "Importar"
 

@@ -152,9 +152,16 @@ public:
    * If the same @a path is already set, nothing is done.
    * An empty @a path can be used to clear the model, so that the playlist
    * will be read from the file when called the next time with a path.
+   * Check filesNotFound() to see if some files could not be located.
    * @param path path to playlist file, empty to clear
    */
   void setPlaylistFile(const QString& path);
+
+  /**
+   * Get list of files which were not found when setPlaylistFile() was called.
+   * @return list of file entries which could not be located.
+   */
+  QStringList filesNotFound() const { return m_filesNotFound; }
 
   /**
    * Modification state of playlist.
@@ -201,6 +208,7 @@ private:
   QString m_playlistFilePath;
   QString m_playlistFileName;
   QList<QPersistentModelIndex> m_items;
+  QStringList m_filesNotFound;
   FileProxyModel* m_fsModel;
   bool m_modified;
 };

@@ -2151,6 +2151,9 @@ msgstr "Beende..."
 msgid "Creating playlist..."
 msgstr "Erstelle Stückliste..."
 
+msgid "Files not found"
+msgstr "Dateien nicht gefunden"
+
 msgid "Import"
 msgstr "Importieren"
 

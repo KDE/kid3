@@ -2148,6 +2148,9 @@ msgstr "Väljumine..."
 msgid "Creating playlist..."
 msgstr "Esitusnimekirja loomine..."
 
+msgid "Files not found"
+msgstr "Failid ei leitud"
+
 msgid "Import"
 msgstr "Import"
 

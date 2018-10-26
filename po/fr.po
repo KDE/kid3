@@ -2150,6 +2150,9 @@ msgstr "Quitter..."
 msgid "Creating playlist..."
 msgstr "Création d'une liste de lecture..."
 
+msgid "Files not found"
+msgstr "Fichiers introuvables"
+
 msgid "Import"
 msgstr "Importer"
 

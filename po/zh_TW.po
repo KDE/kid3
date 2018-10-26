@@ -2152,6 +2152,9 @@ msgstr "離開..."
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
+msgid "Files not found"
+msgstr "找不到档案"
+
 msgid "Import"
 msgstr "匯入"
 

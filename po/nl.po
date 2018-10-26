@@ -2151,6 +2151,9 @@ msgstr "Bezig met afsluiten..."
 msgid "Creating playlist..."
 msgstr "Speellijst Aanmaken..."
 
+msgid "Files not found"
+msgstr "Bestanden niet gevonden"
+
 msgid "Import"
 msgstr "Importeren"
 

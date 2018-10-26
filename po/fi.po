@@ -2150,6 +2150,9 @@ msgstr "Poistutaan..."
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
 
+msgid "Files not found"
+msgstr "Tiedostoja ei löydy"
+
 msgid "Import"
 msgstr "Tuo"
 

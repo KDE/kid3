@@ -2140,6 +2140,9 @@ msgstr ""
 msgid "Creating playlist..."
 msgstr ""
 
+msgid "Files not found"
+msgstr ""
+
 msgid "Import"
 msgstr ""
 

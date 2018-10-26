@@ -2150,6 +2150,9 @@ msgstr "Kończenie pracy..."
 msgid "Creating playlist..."
 msgstr "Tworzenie listy odtwarzania..."
 
+msgid "Files not found"
+msgstr "Pliki nie znalezione"
+
 msgid "Import"
 msgstr "Importuj"
 
