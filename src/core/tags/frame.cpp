@@ -153,9 +153,7 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Rating")           // FT_Rating,
                                   // FT_LastFrame = FT_Rating
   };
-  struct not_used { int array_size_check[
-      sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
-      ? 1 : -1 ]; };
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   return type <= Frame::FT_LastFrame ? names[type] : "Unknown";
 }
 
@@ -754,9 +752,8 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
  */
 QString Frame::Field::getFieldIdName(FieldId type)
 {
-  struct not_used { int array_size_check[
-      sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2
-      ? 1 : -1 ]; };
+  Q_STATIC_ASSERT(
+      sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2);
   if (static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(
         sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) - 1)) {

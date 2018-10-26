@@ -190,9 +190,7 @@ QString FrameNotice::getDescription() const
     QT_TRANSLATE_NOOP("@default", "Must be list of strings separated by '|'"),
     QT_TRANSLATE_NOOP("@default", "Has excess white space"),
   };
-  struct not_used { int array_size_check[
-      sizeof(descriptions) / sizeof(descriptions[0]) == NumWarnings
-      ? 1 : -1 ]; };
+  Q_STATIC_ASSERT(sizeof(descriptions) / sizeof(descriptions[0]) == NumWarnings);
   return m_warning < NumWarnings
       ? QCoreApplication::translate("@default", descriptions[m_warning])
       : QString();

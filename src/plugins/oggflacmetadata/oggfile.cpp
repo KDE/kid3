@@ -404,9 +404,7 @@ const char* getVorbisNameFromType(Frame::Type type)
     "RATING"           // FT_Rating,
                        // FT_LastFrame = FT_Rating
   };
-  struct not_used { int array_size_check[
-      sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
-      ? 1 : -1 ]; };
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   if (type == Frame::FT_Picture &&
       TagConfig::instance().pictureNameIndex() == TagConfig::VP_COVERART) {
     return "COVERART";

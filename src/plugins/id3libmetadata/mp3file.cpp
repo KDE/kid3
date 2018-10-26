@@ -952,11 +952,7 @@ const struct TypeStrOfId {
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WPUB - Official publisher webpage") },                      /* WPUB */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WXXX - User defined URL link") }                            /* WXXX */
 };
-
-/** Not instantiated struct to check array size at compilation time. */
-struct not_used { int array_size_check[
-    sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1
-    ? 1 : -1 ]; /**< not used */ };
+Q_STATIC_ASSERT(sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1);
 
 /**
  * Get type and description of frame.
