@@ -30,6 +30,7 @@
 #include <QNetworkProxy>
 #include <QByteArray>
 #include <QTimer>
+#include <QDateTime>
 #include "networkconfig.h"
 
 
