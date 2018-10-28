@@ -1577,6 +1577,10 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       name.truncate(dotIndex);
     }
 
+    if (name == QLatin1String("disk")) {
+      name = QLatin1String("disc number");
+    }
+
     auto it = m_frames.findByName(name);
     if (it != m_frames.cend()) {
       if (fieldName.isEmpty()) {
