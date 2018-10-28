@@ -163,19 +163,19 @@ zlib_version=1.2.8
 zlib_patchlevel=5
 libogg_version=1.3.2
 libogg_patchlevel=1
-libvorbis_version=1.3.5
-libvorbis_patchlevel=4
-ffmpeg_version=3.4.2
-ffmpeg_patchlevel=2
+libvorbis_version=1.3.6
+libvorbis_patchlevel=1
+ffmpeg_version=3.4.3
+ffmpeg_patchlevel=1
 #libav_version=11.12
 #libav_patchlevel=1
 libflac_version=1.3.2
-libflac_patchlevel=1
+libflac_patchlevel=3
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
 taglib_version=1.11.1
 chromaprint_version=1.4.3
-chromaprint_patchlevel=1
+chromaprint_patchlevel=2
 mp4v2_version=2.0.0
 mp4v2_patchlevel=6
 openssl_version=1.0.2n
@@ -2217,6 +2217,71 @@ diff -ruN mp4v2-2.0.0.orig/libplatform/platform_win32_impl.h mp4v2-2.0.0/libplat
 +}}} // namespace mp4v2::platform::win32
 EOF
 
+test -f taglib_CVE-2018-11439.patch ||
+  cat >taglib_CVE-2018-11439.patch <<"EOF"
+From 2c4ae870ec086f2ddd21a47861a3709c36faac45 Mon Sep 17 00:00:00 2001
+From: Scott Gayou <github.scott@gmail.com>
+Date: Tue, 9 Oct 2018 18:46:55 -0500
+Subject: Fixed OOB read when loading invalid ogg flac file. (#868) (#869)
+
+CVE-2018-11439 is caused by a failure to check the minimum length
+of a ogg flac header. This header is detailed in full at:
+https://xiph.org/flac/ogg_mapping.html. Added more strict checking
+for entire header.
+
+diff --git a/taglib/ogg/flac/oggflacfile.cpp b/taglib/ogg/flac/oggflacfile.cpp
+index 53d04508..07ea9dcc 100644
+--- a/taglib/ogg/flac/oggflacfile.cpp
++++ b/taglib/ogg/flac/oggflacfile.cpp
+@@ -231,11 +231,21 @@ void Ogg::FLAC::File::scan()
+ 
+   if(!metadataHeader.startsWith("fLaC"))  {
+     // FLAC 1.1.2+
++    // See https://xiph.org/flac/ogg_mapping.html for the header specification.
++    if(metadataHeader.size() < 13)
++      return;
++
++    if(metadataHeader[0] != 0x7f)
++      return;
++
+     if(metadataHeader.mid(1, 4) != "FLAC")
+       return;
+ 
+-    if(metadataHeader[5] != 1)
+-      return; // not version 1
++    if(metadataHeader[5] != 1 && metadataHeader[6] != 0)
++      return; // not version 1.0
++
++    if(metadataHeader.mid(9, 4) != "fLaC")
++      return;
+ 
+     metadataHeader = metadataHeader.mid(13);
+   }
+EOF
+
+test -f taglib_ogg_packet_loss.patch ||
+  cat >taglib_ogg_packet_loss.patch <<"EOF"
+From 9336c82da3a04552168f208cd7a5fa4646701ea4 Mon Sep 17 00:00:00 2001
+From: Tsuda Kageyu <tsuda.kageyu@gmail.com>
+Date: Thu, 1 Dec 2016 11:32:01 +0900
+Subject: Fix possible Ogg packet losses.
+
+
+diff --git a/taglib/ogg/oggfile.cpp b/taglib/ogg/oggfile.cpp
+index 86b0b076..c36e4d46 100644
+--- a/taglib/ogg/oggfile.cpp
++++ b/taglib/ogg/oggfile.cpp
+@@ -253,7 +253,7 @@ void Ogg::File::writePacket(unsigned int i, const ByteVector &packet)
+   ByteVectorList packets = firstPage->packets();
+   packets[i - firstPage->firstPacketIndex()] = packet;
+ 
+-  if(firstPage != lastPage && lastPage->packetCount() > 2) {
++  if(firstPage != lastPage && lastPage->packetCount() > 1) {
+     ByteVectorList lastPagePackets = lastPage->packets();
+     lastPagePackets.erase(lastPagePackets.begin());
+     packets.append(lastPagePackets);
+EOF
+
 test -f vorbis_alloc_on_heap.patch ||
 cat >vorbis_alloc_on_heap.patch <<"EOF"
 From: Ralph Giles <giles@thaumas.net>
@@ -2467,6 +2532,8 @@ if ! test -d taglib-${taglib_version}; then
     patch -p1 <../source/taglib_mp4shwm.patch
     patch -p1 <../source/taglib_CVE-2017-12678.patch
     patch -p1 <../source/taglib_cmID_purl_egid.patch.patch
+    patch -p1 <../source/taglib_CVE-2018-11439.patch
+    patch -p1 <../source/taglib_ogg_packet_loss.patch
   fi
   cd ..
 fi

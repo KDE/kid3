@@ -10,32 +10,42 @@ if(WIN32 OR CMAKE_CXX_COMPILER MATCHES "/osxcross/")
     set(TAGLIB_LIBRARIES ${TAGLIB_LIBRARY} ${TAGLIB_INTERFACE_LIBRARIES})
   endif()
 else()
-  find_program(TAGLIBCONFIG_EXECUTABLE NAMES taglib-config PATHS /usr/bin /usr/local/bin ${BIN_INSTALL_DIR})
-  if(TAGLIBCONFIG_EXECUTABLE)
-    exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --libs RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_LDFLAGS)
-    exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --cflags RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_CFLAGS)
-    exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --version RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_VERSION)
-    if(TAGLIB_LDFLAGS AND TAGLIB_VERSION)
-      if(NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
-        # Extract library name and path from TAGLIB_LDFLAGS, which has
-        # the format "-L/usr/lib -ltag"
-        string(REGEX MATCH "-L *(.+) +-l *(.+)" _match ${TAGLIB_LDFLAGS})
-        if(_match)
-          find_library(TAGLIB_LIBRARY NAMES ${CMAKE_MATCH_2}
-                                      HINTS ${CMAKE_MATCH_1}
-                                      NO_CMAKE_FIND_ROOT_PATH)
-        endif()
-        # Extract include path from TAGLIB_CFLAGS, which has the format
-        # "-I/usr/include/taglib"
-        string(REPLACE "-I" "" TAGLIB_INCLUDE_DIR "${TAGLIB_CFLAGS}")
-        if(TAGLIB_LIBRARY AND TAGLIB_INCLUDE_DIR)
-          message(STATUS "TagLib found: ${TAGLIB_LIBRARY}")
-          set(HAVE_TAGLIB 1)
-          set(TAGLIB_INCLUDES ${TAGLIB_INCLUDE_DIR})
-          set(TAGLIB_DEFINITIONS)
-          set(TAGLIB_INTERFACE_LIBRARIES ${ZLIB_LIBRARIES} -lstdc++)
-          set(TAGLIB_LIBRARIES ${TAGLIB_LIBRARY} ${TAGLIB_INTERFACE_LIBRARIES})
-        endif()
+  if(WITH_TAGLIB)
+    find_program(TAGLIBCONFIG_EXECUTABLE NAMES taglib-config PATHS /usr/bin /usr/local/bin ${BIN_INSTALL_DIR})
+    if(TAGLIBCONFIG_EXECUTABLE)
+      exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --libs RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_LDFLAGS)
+      exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --cflags RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_CFLAGS)
+      exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --version RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_VERSION)
+      set(TAGLIB_DEFINITIONS)
+    endif()
+  elseif(TAGLIB_LIBRARIES)
+    # WITH_TAGLIB is set OFF, but the variables HAVE_TAGLIB, TAGLIB_LIBRARIES,
+    # TAGLIB_CFLAGS, TAGLIB_VERSION are explicitly set.
+    set(TAGLIB_LDFLAGS ${TAGLIB_LIBRARIES})
+    string(REGEX MATCH "-D[^ ]+" TAGLIB_DEFINITIONS ${TAGLIB_CFLAGS})
+  endif()
+  if(TAGLIB_LDFLAGS AND TAGLIB_VERSION)
+    if(NOT ${TAGLIB_VERSION} VERSION_LESS 1.9.1)
+      # Extract library name and path from TAGLIB_LDFLAGS, which has
+      # the format "-L/usr/lib -ltag"
+      string(REGEX MATCH "-L *([^ ]+) +-l *([^ ]+)" _match ${TAGLIB_LDFLAGS})
+      if(_match)
+        find_library(TAGLIB_LIBRARY NAMES ${CMAKE_MATCH_2}
+                                    HINTS ${CMAKE_MATCH_1}
+                                    NO_CMAKE_FIND_ROOT_PATH)
+      endif()
+      # Extract include path from TAGLIB_CFLAGS, which has the format
+      # "-I/usr/include/taglib"
+      string(REGEX MATCH "-I *([^ ]+)" _match ${TAGLIB_CFLAGS})
+      if(_match)
+        set(TAGLIB_INCLUDE_DIR ${CMAKE_MATCH_1})
+      endif()
+      if(TAGLIB_LIBRARY AND TAGLIB_INCLUDE_DIR)
+        message(STATUS "TagLib found: ${TAGLIB_LIBRARY}")
+        set(HAVE_TAGLIB 1)
+        set(TAGLIB_INCLUDES ${TAGLIB_INCLUDE_DIR})
+        set(TAGLIB_INTERFACE_LIBRARIES ${ZLIB_LIBRARIES} -lstdc++)
+        set(TAGLIB_LIBRARIES ${TAGLIB_LIBRARY} ${TAGLIB_INTERFACE_LIBRARIES})
       endif()
     endif()
   endif()
