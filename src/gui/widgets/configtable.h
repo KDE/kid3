@@ -31,6 +31,8 @@
 #include <QHeaderView>
 #include "abstractlistedit.h"
 
+enum class ModelSectionResizeMode : int;
+
 /**
  * Context menu commands configuration table.
  */
@@ -54,7 +56,7 @@ public:
    * Set the resize modes to be used for the columns.
    * @param resizeModes list of resize modes for the columns
    */
-  void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
+  void setHorizontalResizeModes(const QList<ModelSectionResizeMode>& resizeModes);
 
 public slots:
   /**

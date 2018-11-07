@@ -371,6 +371,13 @@ private slots:
    */
   void onFirstDirectoryOpened();
 
+  /**
+   * Copy tags using QAction::data().
+   * The source and destination tag numbers are taken from the first two bytes
+   * in QAction::data().toByteArray() if the sender() is a QAction.
+   */
+  void copyTagsActionData();
+
 private:
   /**
    * Format string within line edit.

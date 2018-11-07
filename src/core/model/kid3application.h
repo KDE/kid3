@@ -941,13 +941,6 @@ public slots:
   void copyToOtherTag(Frame::TagVersion tagMask);
 
   /**
-   * Copy tags using QAction::data().
-   * The source and destination tag numbers are taken from the first two bytes
-   * in QAction::data().toByteArray() if the sender() is a QAction.
-   */
-  void copyTagsActionData();
-
-  /**
    * Copy from a tag to another tag.
    * @param srcTagNr source tag number
    * @param dstTagNr destination tag number

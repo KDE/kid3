@@ -26,6 +26,7 @@
 
 #include "commandstablemodel.h"
 #include "commandformatreplacer.h"
+#include "modelsectionresizemode.h"
 
 /** Column indices. */
 enum ColumnIndex {
@@ -238,17 +239,17 @@ bool CommandsTableModel::removeRows(int row, int count,
  * Get the resize modes to be used for the columns.
  * @return list of resize modes for the columns
  */
-QList<QHeaderView::ResizeMode>
+QList<ModelSectionResizeMode>
     CommandsTableModel::getHorizontalResizeModes() const
 {
-  QList<QHeaderView::ResizeMode> resizeModes;
+  QList<ModelSectionResizeMode> resizeModes;
   resizeModes.reserve(CI_NumColumns);
   for (int i = 0; i < CI_NumColumns; ++i) {
-    QHeaderView::ResizeMode mode = QHeaderView::Interactive;
+    ModelSectionResizeMode mode = ModelSectionResizeMode::Interactive;
     if (i == CI_Confirm || i == CI_Output)
-      mode = QHeaderView::ResizeToContents;
+      mode = ModelSectionResizeMode::ResizeToContents;
     else if (i == CI_Command)
-      mode = QHeaderView::Stretch;
+      mode = ModelSectionResizeMode::Stretch;
     resizeModes.append(mode);
   }
   return resizeModes;

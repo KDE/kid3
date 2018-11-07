@@ -27,11 +27,12 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include <QHeaderView>
 #include <QStringList>
 #include <QPair>
 #include <QMap>
 #include "kid3api.h"
+
+enum class ModelSectionResizeMode : int;
 
 /**
  * Context menu commands configuration table model.
@@ -134,7 +135,7 @@ public:
    * Get the resize modes to be used for the columns.
    * @return list of resize modes for the columns
    */
-  QList<QHeaderView::ResizeMode> getHorizontalResizeModes() const;
+  QList<ModelSectionResizeMode> getHorizontalResizeModes() const;
 
   /**
    * Set the column labels.

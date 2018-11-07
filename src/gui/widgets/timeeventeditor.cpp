@@ -41,6 +41,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
+#include <QHeaderView>
 #include "config.h"
 #include "fileconfig.h"
 #include "timeeventmodel.h"

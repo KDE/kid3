@@ -27,6 +27,8 @@
 #include "timeeventmodel.h"
 #include <QApplication>
 #include <QTextStream>
+#include <QPalette>
+#include <QBrush>
 #include "eventtimingcode.h"
 
 /**

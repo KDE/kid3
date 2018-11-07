@@ -25,6 +25,7 @@
  */
 
 #include "configtablemodel.h"
+#include "modelsectionresizemode.h"
 
 /**
  * Constructor.
@@ -178,11 +179,10 @@ bool ConfigTableModel::removeRows(int row, int count,
  * Get the resize modes to be used for the columns.
  * @return list of resize modes for the columns
  */
-QList<QHeaderView::ResizeMode>
+QList<ModelSectionResizeMode>
     ConfigTableModel::getHorizontalResizeModes() const
 {
-  return QList<QHeaderView::ResizeMode>()
-      << QHeaderView::Stretch << QHeaderView::Stretch;
+  return {ModelSectionResizeMode::Stretch, ModelSectionResizeMode::Stretch};
 }
 
 /**

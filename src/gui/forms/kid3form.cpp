@@ -413,7 +413,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           ba.append(static_cast<char>(tagNr));
           action->setData(ba);
           connect(action, &QAction::triggered,
-                  m_app, &Kid3Application::copyTagsActionData);
+                  this, &Kid3Form::copyTagsActionData);
         }
       }
       action = menu->addAction(tr("Paste"));
@@ -437,7 +437,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           ba.append(static_cast<char>(fromTagNr));
           action->setData(ba);
           connect(action, &QAction::triggered,
-                  m_app, &Kid3Application::copyTagsActionData);
+                  this, &Kid3Form::copyTagsActionData);
         }
       }
       action = menu->addAction(tr("Copy"));
@@ -1063,4 +1063,24 @@ void Kid3Form::setLeftSideWidget(QWidget* widget)
 void Kid3Form::removeLeftSideWidget(QWidget* widget)
 {
   m_leftSideWidget->removeWidget(widget);
+}
+
+/**
+ * Copy tags using QAction::data().
+ * The source and destination tag numbers are taken from the first two bytes
+ * in QAction::data().toByteArray() if the sender() is a QAction.
+ */
+void Kid3Form::copyTagsActionData()
+{
+  if (auto action = qobject_cast<QAction*>(sender())) {
+    QByteArray ba = action->data().toByteArray();
+    if (ba.size() == 2) {
+      Frame::TagNumber srcTagNr = Frame::tagNumberCast(ba.at(0));
+      Frame::TagNumber dstTagNr = Frame::tagNumberCast(ba.at(1));
+      if (srcTagNr != Frame::Tag_NumValues &&
+          dstTagNr != Frame::Tag_NumValues) {
+        m_app->copyTag(srcTagNr, dstTagNr);
+      }
+    }
+  }
 }

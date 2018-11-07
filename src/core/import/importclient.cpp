@@ -26,7 +26,6 @@
 
 #include "importclient.h"
 #include <QRegExp>
-#include <QStatusBar>
 #include <QUrl>
 
 #include "serverimporterconfig.h"

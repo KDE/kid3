@@ -29,7 +29,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QTextStream>
-#include <QApplication>
+#include <QGuiApplication>
 #include <QClipboard>
 #include "exportconfig.h"
 #include "importconfig.h"
@@ -135,7 +135,7 @@ bool TextExporter::exportToFile(const QString& fn)
 void TextExporter::exportToClipboard()
 {
   // Avoid crash when called from QCoreApplication.
-  if (qobject_cast<QApplication*>(QCoreApplication::instance())) {
-    QApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
+  if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
+    QGuiApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
   }
 }

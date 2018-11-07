@@ -27,6 +27,7 @@
 #include "configtable.h"
 #include <QToolTip>
 #include <QMenu>
+#include "modelsectionresizemode.h"
 
 /**
  * Constructor.
@@ -49,12 +50,21 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent)
  * @param resizeModes list of resize modes for the columns
  */
 void ConfigTable::setHorizontalResizeModes(
-  const QList<QHeaderView::ResizeMode>& resizeModes)
+  const QList<ModelSectionResizeMode>& resizeModes)
 {
+  Q_STATIC_ASSERT(static_cast<QHeaderView::ResizeMode>(
+    ModelSectionResizeMode::Interactive) == QHeaderView::Interactive);
+  Q_STATIC_ASSERT(static_cast<QHeaderView::ResizeMode>(
+    ModelSectionResizeMode::Stretch) == QHeaderView::Stretch);
+  Q_STATIC_ASSERT(static_cast<QHeaderView::ResizeMode>(
+    ModelSectionResizeMode::Fixed) == QHeaderView::Fixed);
+  Q_STATIC_ASSERT(static_cast<QHeaderView::ResizeMode>(
+    ModelSectionResizeMode::ResizeToContents) == QHeaderView::ResizeToContents);
   QHeaderView* header = m_tableView->horizontalHeader();
   int col = 0;
-  for (QHeaderView::ResizeMode mode : resizeModes)
-    header->setSectionResizeMode(col++, mode);
+  for (auto mode : resizeModes)
+    header->setSectionResizeMode(col++,
+                                 static_cast<QHeaderView::ResizeMode>(mode));
 }
 
 /**

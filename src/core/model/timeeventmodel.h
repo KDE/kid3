@@ -27,10 +27,11 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include <QHeaderView>
 #include <QTime>
 #include "frame.h"
 #include "kid3api.h"
+
+class QTextStream;
 
 /**
  * Time event model.

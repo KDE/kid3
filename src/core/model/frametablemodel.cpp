@@ -25,7 +25,7 @@
  */
 
 #include "frametablemodel.h"
-#include <QApplication>
+#include <QGuiApplication>
 #include <QBrush>
 #include <QPalette>
 #include <algorithm>
@@ -60,7 +60,7 @@ QHash<int,QByteArray> getRoleHash()
 FrameTableModel::FrameTableModel(bool id3v1, QObject* parent)
   : QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
     m_id3v1(id3v1),
-    m_guiApp(qobject_cast<QApplication*>(QCoreApplication::instance()) != nullptr)
+    m_guiApp(qobject_cast<QGuiApplication*>(QCoreApplication::instance()) != nullptr)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }
@@ -136,7 +136,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == CI_Enable) {
       return !isModified ? Qt::NoBrush
-                         : m_guiApp ? QApplication::palette().mid()
+                         : m_guiApp ? QGuiApplication::palette().mid()
                                     : QBrush(Qt::gray);
     } else if (index.column() == CI_Value) {
       return isTruncated ? QBrush(Qt::red) : Qt::NoBrush;

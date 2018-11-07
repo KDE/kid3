@@ -31,10 +31,9 @@
 #include <QTextStream>
 #include <QNetworkAccessManager>
 #include <QTimer>
-#include <QApplication>
+#include <QGuiApplication>
 #include <QClipboard>
 #include <QPluginLoader>
-#include <QAction>
 #include <QElapsedTimer>
 #include <QUrl>
 #ifdef Q_OS_MAC
@@ -282,7 +281,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   setObjectName(QLatin1String("Kid3Application"));
 #ifndef Q_OS_MAC
   // Do not use the file icon provider on the Mac and with a QCoreApplication.
-  if (!qobject_cast<QApplication*>(QCoreApplication::instance()))
+  if (!qobject_cast<QGuiApplication*>(QCoreApplication::instance()))
 #endif
   {
     m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
@@ -327,7 +326,7 @@ Kid3Application::~Kid3Application()
   // Do not restore the file icon provider with QCoreApplication, it would raise
   // a "No style available without QApplication!" assertion.
   if (m_fileIconProvider &&
-      qobject_cast<QApplication*>(QCoreApplication::instance())) {
+      qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
     m_fileSystemModel->setIconProvider(m_defaultFileIconProvider);
     delete m_fileIconProvider;
   }
@@ -1181,8 +1180,8 @@ bool Kid3Application::importTags(Frame::TagVersion tagMask,
   QString text;
   if (path == QLatin1String("clipboard")) {
     // Avoid crash when called from QCoreApplication.
-    if (qobject_cast<QApplication*>(QCoreApplication::instance())) {
-      QClipboard* cb = QApplication::clipboard();
+    if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
+      QClipboard* cb = QGuiApplication::clipboard();
       text = cb->text(QClipboard::Clipboard);
       if (text.isNull())
         text = cb->text(QClipboard::Selection);
@@ -1840,26 +1839,6 @@ void Kid3Application::copyToOtherTag(Frame::TagVersion tagMask)
   Frame::TagNumber srcTagNr = dstTagNr == Frame::Tag_2
       ? Frame::Tag_1 : Frame::Tag_2;
   copyTag(srcTagNr, dstTagNr);
-}
-
-/**
- * Copy tags using QAction::data().
- * The source and destination tag numbers are taken from the first two bytes
- * in QAction::data().toByteArray() if the sender() is a QAction.
- */
-void Kid3Application::copyTagsActionData()
-{
-  if (auto action = qobject_cast<QAction*>(sender())) {
-    QByteArray ba = action->data().toByteArray();
-    if (ba.size() == 2) {
-      Frame::TagNumber srcTagNr = Frame::tagNumberCast(ba.at(0));
-      Frame::TagNumber dstTagNr = Frame::tagNumberCast(ba.at(1));
-      if (srcTagNr != Frame::Tag_NumValues &&
-          dstTagNr != Frame::Tag_NumValues) {
-        copyTag(srcTagNr, dstTagNr);
-      }
-    }
-  }
 }
 
 /**
