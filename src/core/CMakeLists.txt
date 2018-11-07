@@ -1,3 +1,5 @@
+option(WITH_QT_PRIVATE_HEADERS "Use private Qt headers" OFF)
+
 qt5_wrap_cpp(core_GEN_MOC_SRCS
   utils/debugutils.h
   config/batchimportsourcesmodel.h
@@ -48,6 +50,8 @@ qt5_wrap_cpp(core_GEN_MOC_SRCS
   model/mprisinterface.h
   model/playlistmodel.h
   model/proxyitemselectionmodel.h
+  model/filesystemmodel.h
+  model/fileinfogatherer_p.h
   TARGET kid3-core
 )
 if(HAVE_QTDBUS)
@@ -144,6 +148,8 @@ add_library(kid3-core
   model/mprisinterface.cpp
   model/playlistmodel.cpp
   model/proxyitemselectionmodel.cpp
+  model/filesystemmodel.cpp
+  model/fileinfogatherer.cpp
 )
 if(HAVE_QTDBUS)
   target_sources(kid3-core PRIVATE model/scriptinterface.cpp)
@@ -166,15 +172,19 @@ if(CMAKE_VERSION VERSION_GREATER "3.8")
 else()
   target_compile_features(kid3-core PUBLIC cxx_auto_type cxx_nullptr cxx_override)
 endif()
-target_link_libraries(kid3-core Qt5::Core;Qt5::Gui;Qt5::Widgets;Qt5::Network;Qt5::Xml;Qt5::Multimedia)
+target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Xml Qt5::Multimedia)
+if(WITH_QT_PRIVATE_HEADERS)
+  target_compile_definitions(kid3-core PRIVATE USE_QT_PRIVATE_HEADERS)
+  target_link_libraries(kid3-core PRIVATE Qt5::CorePrivate Qt5::WidgetsPrivate)
+endif()
 if(WITH_DBUS)
-  target_link_libraries(kid3-core Qt5::DBus)
+  target_link_libraries(kid3-core PUBLIC Qt5::DBus)
 endif()
 if(PLUGIN_LIBRARIES)
-  target_link_libraries(kid3-core ${PLUGIN_LIBRARIES})
+  target_link_libraries(kid3-core PUBLIC ${PLUGIN_LIBRARIES})
 endif()
 if(APPLE)
-  target_link_libraries(kid3-core "-framework CoreServices")
+  target_link_libraries(kid3-core PUBLIC "-framework CoreServices")
 endif()
 
 if(BUILD_SHARED_LIBS)
