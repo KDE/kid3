@@ -31,12 +31,12 @@
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QMimeData>
-#include <QFileSystemModel>
 #include <QAction>
 #include <QUrl>
+#include "filesystemmodel.h"
 
 PlaylistView::PlaylistView(QWidget* parent)
-  : QListView(parent), m_dropRole(QFileSystemModel::FilePathRole)
+  : QListView(parent), m_dropRole(FileSystemModel::FilePathRole)
 {
   auto deleteAction = new QAction(this);
   deleteAction->setShortcut(QKeySequence::Delete);

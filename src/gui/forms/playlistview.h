@@ -44,7 +44,7 @@ public:
 
   /**
    * Get role which is used when setting dropped items.
-   * @return role, default is QFileSystemModel::FilePathRole.
+   * @return role, default is FileSystemModel::FilePathRole.
    */
   int dropRole() const { return m_dropRole; }
 

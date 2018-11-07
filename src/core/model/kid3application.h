@@ -35,14 +35,13 @@
 #include "generalconfig.h"
 #include "config.h"
 
-class QFileIconProvider;
-class QFileSystemModel;
 class QItemSelectionModel;
 class QItemSelection;
 class QModelIndex;
 class QNetworkAccessManager;
 class QDir;
 class QUrl;
+class FileSystemModel;
 class FileProxyModel;
 class FileProxyModelIterator;
 class DirProxyModel;
@@ -155,7 +154,7 @@ public:
   * Get file system model.
   * @return file system model.
   */
-  QFileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
+  FileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
 
  /**
   * Get file proxy model.
@@ -1097,7 +1096,7 @@ public slots:
    * Fetch entries of directory if not already fetched.
    * This works like FileList::expand(), but without expanding tree view
    * items and independent of the GUI. The processing is done in the background
-   * by QFileSystemModel, so the fetched items are not immediately available
+   * by FileSystemModel, so the fetched items are not immediately available
    * after calling this method.
    *
    * @param index index of directory item
@@ -1512,9 +1511,7 @@ private:
   /** Configuration */
   QScopedPointer<ConfigStore> m_configStore;
   /** model of filesystem */
-  QFileIconProvider* m_defaultFileIconProvider;
-  QFileIconProvider* m_fileIconProvider;
-  QFileSystemModel* m_fileSystemModel;
+  FileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;
   FileProxyModelIterator* m_fileProxyModelIterator;
   DirProxyModel* m_dirProxyModel;

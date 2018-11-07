@@ -25,8 +25,8 @@
  */
 
 #include "dirproxymodel.h"
-#include <QFileSystemModel>
 #include <QDateTime>
+#include "filesystemmodel.h"
 
 /**
  * Constructor.
@@ -48,7 +48,7 @@ DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
  */
 bool DirProxyModel::filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const
 {
-  auto srcModel = qobject_cast<QFileSystemModel*>(sourceModel());
+  auto srcModel = qobject_cast<FileSystemModel*>(sourceModel());
   if (srcModel) {
     return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
   }
@@ -81,12 +81,12 @@ bool DirProxyModel::lessThan(const QModelIndex& left,
     return !orderIsAscending;
   }
 
-  // The data() in QFileSystemModel are String QVariants, therefore
+  // The data() in FileSystemModel are String QVariants, therefore
   // QSortFilterProxyModel::lessThan() is of no use here, custom sorting
   // has to be used.
-  Q_ASSERT_X(sourceModel()->metaObject() == &QFileSystemModel::staticMetaObject,
-             "lessThan", "source model must be QFileSystemModel");
-  auto fsModel = static_cast<QFileSystemModel*>(sourceModel());
+  Q_ASSERT_X(sourceModel()->metaObject() == &FileSystemModel::staticMetaObject,
+             "lessThan", "source model must be FileSystemModel");
+  auto fsModel = static_cast<FileSystemModel*>(sourceModel());
   switch (sortColumn()) {
   case 0:
     return left.data().toString().compare(right.data().toString()) < 0;

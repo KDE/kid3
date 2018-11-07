@@ -150,6 +150,7 @@ add_library(kid3-core
   model/proxyitemselectionmodel.cpp
   model/filesystemmodel.cpp
   model/fileinfogatherer.cpp
+  model/abstractfiledecorationprovider.cpp
 )
 if(HAVE_QTDBUS)
   target_sources(kid3-core PRIVATE model/scriptinterface.cpp)
@@ -172,10 +173,10 @@ if(CMAKE_VERSION VERSION_GREATER "3.8")
 else()
   target_compile_features(kid3-core PUBLIC cxx_auto_type cxx_nullptr cxx_override)
 endif()
-target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Xml Qt5::Multimedia)
+target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml Qt5::Multimedia)
 if(WITH_QT_PRIVATE_HEADERS)
   target_compile_definitions(kid3-core PRIVATE USE_QT_PRIVATE_HEADERS)
-  target_link_libraries(kid3-core PRIVATE Qt5::CorePrivate Qt5::WidgetsPrivate)
+  target_link_libraries(kid3-core PRIVATE Qt5::CorePrivate)
 endif()
 if(WITH_DBUS)
   target_link_libraries(kid3-core PUBLIC Qt5::DBus)

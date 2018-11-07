@@ -35,9 +35,9 @@
 #include "taggedfile.h"
 #include "kid3api.h"
 
-class QFileSystemModel;
 class QTimer;
 class QFileInfo;
+class FileSystemModel;
 class TaggedFileIconProvider;
 class ITaggedFileFactory;
 
@@ -47,7 +47,7 @@ class ITaggedFileFactory;
 class KID3_CORE_EXPORT FileProxyModel : public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  /** Custom role, extending QFileSystemModel::Roles. */
+  /** Custom role, extending FileSystemModel::Roles. */
   enum Roles {
     TaggedFileRole = Qt::UserRole + 4,
     IconIdRole = Qt::UserRole + 5,
@@ -96,7 +96,7 @@ public:
 
   /**
    * Set source model.
-   * @param sourceModel source model, must be QFileSystemModel
+   * @param sourceModel source model, must be FileSystemModel
    */
   virtual void setSourceModel(QAbstractItemModel* sourceModel) override;
 
@@ -116,7 +116,7 @@ public:
   /**
    * Sort model.
    *
-   * This method will directly call QFileSystemModel::sort() on the
+   * This method will directly call FileSystemModel::sort() on the
    * sourceModel() to take advantage of that specialized behavior. This
    * will change the order in the souce model.
    *
@@ -503,7 +503,7 @@ private:
   QList<QRegExp> m_includeFolderFilters;
   QList<QRegExp> m_excludeFolderFilters;
   QScopedPointer<TaggedFileIconProvider> m_iconProvider;
-  QFileSystemModel* m_fsModel;
+  FileSystemModel* m_fsModel;
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;
   QStringList m_extensions;

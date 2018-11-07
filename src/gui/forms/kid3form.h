@@ -49,6 +49,7 @@ class ConfigurableTreeView;
 class PictureLabel;
 class BaseMainWindowImpl;
 class Kid3FormTagContext;
+class AbstractFileDecorationProvider;
 
 /**
  * Main widget.
@@ -420,6 +421,7 @@ private:
   PictureLabel* m_pictureLabel;
   Kid3Application* m_app;
   BaseMainWindowImpl* m_mainWin;
+  QScopedPointer<AbstractFileDecorationProvider> m_iconProvider;
 
   /** Collapse pixmap, will be allocated in constructor */
   static QPixmap* s_collapsePixmap;

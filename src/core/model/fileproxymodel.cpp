@@ -25,8 +25,8 @@
  */
 
 #include "fileproxymodel.h"
-#include <QFileSystemModel>
 #include <QTimer>
+#include "filesystemmodel.h"
 #include "taggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
 #include "tagconfig.h"
@@ -51,8 +51,8 @@ namespace {
 QHash<int,QByteArray> getRoleHash()
 {
   QHash<int, QByteArray> roles;
-  roles[QFileSystemModel::FileNameRole] = "fileName";
-  roles[QFileSystemModel::FilePathRole] = "filePath";
+  roles[FileSystemModel::FileNameRole] = "fileName";
+  roles[FileSystemModel::FilePathRole] = "filePath";
   roles[FileProxyModel::IconIdRole] = "iconId";
   roles[FileProxyModel::TruncatedRole] = "truncated";
   roles[FileProxyModel::IsDirRole] = "isDir";
@@ -329,26 +329,26 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
 
 /**
  * Set source model.
- * @param sourceModel source model, must be QFileSystemModel
+ * @param sourceModel source model, must be FileSystemModel
  */
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
-  auto fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
+  auto fsModel = qobject_cast<FileSystemModel*>(sourceModel);
   Q_ASSERT_X(fsModel != nullptr , "setSourceModel",
-             "sourceModel is not QFileSystemModel");
+             "sourceModel is not FileSystemModel");
   if (fsModel != m_fsModel) {
     if (m_fsModel) {
       m_isLoading = false;
-      disconnect(m_fsModel, &QFileSystemModel::rootPathChanged,
+      disconnect(m_fsModel, &FileSystemModel::rootPathChanged,
                  this, &FileProxyModel::onStartLoading);
-      disconnect(m_fsModel, &QFileSystemModel::directoryLoaded,
+      disconnect(m_fsModel, &FileSystemModel::directoryLoaded,
                  this, &FileProxyModel::onDirectoryLoaded);
     }
     m_fsModel = fsModel;
     if (m_fsModel) {
-      connect(m_fsModel, &QFileSystemModel::rootPathChanged,
+      connect(m_fsModel, &FileSystemModel::rootPathChanged,
               this, &FileProxyModel::onStartLoading);
-      connect(m_fsModel, &QFileSystemModel::directoryLoaded,
+      connect(m_fsModel, &FileSystemModel::directoryLoaded,
               this, &FileProxyModel::onDirectoryLoaded);
     }
   }
@@ -411,7 +411,7 @@ void FileProxyModel::fetchMore(const QModelIndex& parent)
 /**
  * Sort model.
  *
- * This method will directly call QFileSystemModel::sort() on the
+ * This method will directly call FileSystemModel::sort() on the
  * sourceModel() to take advantage of that specialized behavior. This
  * will change the order in the souce model.
  *

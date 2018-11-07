@@ -25,7 +25,6 @@
  */
 
 #include "kid3application.h"
-#include <QFileSystemModel>
 #include <QItemSelectionModel>
 #include <QTextCodec>
 #include <QTextStream>
@@ -39,7 +38,6 @@
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
-#include <QFileIconProvider>
 #ifdef Q_OS_ANDROID
 #include <QStandardPaths>
 #endif
@@ -48,6 +46,7 @@
 #include <unistd.h>
 #include "scriptinterface.h"
 #endif
+#include "filesystemmodel.h"
 #include "icoreplatformtools.h"
 #include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
@@ -179,44 +178,6 @@ void extractFileFieldIndex(
   }
 }
 
-
-/**
- * Provides null icons for the file information.
- * Set an instance with QFileSystemModel::setIconProvider() as a workaround
- * for QTBUG-41796. It is also used to have a QFileSystemModel in a
- * QCoreApplication.
- */
-class NullFileIconProvider : public QFileIconProvider {
-public:
-  /**
-   * Provide icons for file information.
-   * This will always return a null icon, forcing QFileSystemModel to use
-   * standard directory and file icons.
-   * @param info not used
-   * @return null icon.
-   */
-  virtual QIcon icon(const QFileInfo& info) const override;
-
-  /**
-   * Provide icons for file information.
-   * @param type not used
-   * @return null icon.
-   */
-  virtual QIcon icon(IconType type) const override;
-};
-
-QIcon NullFileIconProvider::icon(const QFileInfo& info) const
-{
-  Q_UNUSED(info)
-  return QIcon();
-}
-
-QIcon NullFileIconProvider::icon(IconType type) const
-{
-  Q_UNUSED(type)
-  return QIcon();
-}
-
 }
 
 /** Fallback for path to search for plugins */
@@ -231,8 +192,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
-  m_defaultFileIconProvider(nullptr), m_fileIconProvider(nullptr),
-  m_fileSystemModel(new QFileSystemModel(this)),
+  m_fileSystemModel(new FileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
   m_dirProxyModel(new DirProxyModel(this)),
@@ -279,15 +239,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   }
   m_selection = new TaggedFileSelection(m_framesModel, this);
   setObjectName(QLatin1String("Kid3Application"));
-#ifndef Q_OS_MAC
-  // Do not use the file icon provider on the Mac and with a QCoreApplication.
-  if (!qobject_cast<QGuiApplication*>(QCoreApplication::instance()))
-#endif
-  {
-    m_defaultFileIconProvider = m_fileSystemModel->iconProvider();
-    m_fileIconProvider = new NullFileIconProvider;
-    m_fileSystemModel->setIconProvider(m_fileIconProvider);
-  }
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,
@@ -323,13 +274,6 @@ Kid3Application::~Kid3Application()
     m_player->setParent(0);
   }
 #endif
-  // Do not restore the file icon provider with QCoreApplication, it would raise
-  // a "No style available without QApplication!" assertion.
-  if (m_fileIconProvider &&
-      qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
-    m_fileSystemModel->setIconProvider(m_defaultFileIconProvider);
-    delete m_fileIconProvider;
-  }
 }
 
 #ifdef HAVE_QTDBUS
@@ -2608,7 +2552,7 @@ QStringList Kid3Application::getSelectedFilePaths(bool onlyTaggedFiles) const
  * Fetch entries of directory if not already fetched.
  * This works like FileList::expand(), but without expanding tree view
  * items and independent of the GUI. The processing is done in the background
- * by QFileSystemModel, so the fetched items are not immediately available
+ * by FileSystemModel, so the fetched items are not immediately available
  * after calling this method.
  *
  * @param index index of directory item
@@ -2770,7 +2714,7 @@ bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
   m_fileProxyModel->resetModel();
   m_dirProxyModel->resetModel();
   m_fileSystemModel->deleteLater();
-  m_fileSystemModel = new QFileSystemModel(this);
+  m_fileSystemModel = new FileSystemModel(this);
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   return openDirectory(dirs);

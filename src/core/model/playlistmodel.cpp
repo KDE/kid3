@@ -26,7 +26,7 @@
 
 #include "playlistmodel.h"
 #include <QFileInfo>
-#include <QFileSystemModel>
+#include "filesystemmodel.h"
 #include "fileproxymodel.h"
 #include "playlistcreator.h"
 #include "fileconfig.h"
@@ -51,7 +51,7 @@ Qt::ItemFlags PlaylistModel::flags(const QModelIndex& index) const
 bool PlaylistModel::setData(const QModelIndex& index,
                             const QVariant& value, int role)
 {
-  if (role == QFileSystemModel::FilePathRole &&
+  if (role == FileSystemModel::FilePathRole &&
       index.isValid() &&
       index.row() >= 0 && index.row() < m_items.size() &&
       index.column() == 0) {

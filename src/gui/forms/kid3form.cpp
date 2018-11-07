@@ -45,10 +45,11 @@
 #include <QScrollArea>
 #include <QUrl>
 #include <QApplication>
-#include <QFileSystemModel>
 #include <QMimeData>
 #include <QMenu>
+#include <QFileIconProvider>
 #include <QStyle>
+#include "filesystemmodel.h"
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
@@ -63,6 +64,7 @@
 #include "formatconfig.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
+#include "filesystemmodel.h"
 #include "taggedfileiconprovider.h"
 #include "kid3application.h"
 #ifdef Q_OS_MAC
@@ -156,6 +158,47 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
   }
 }
 
+
+/**
+ * File decoration provider for FileSystemModel delegating to QFileIconProvider.
+ */
+class WidgetFileDecorationProvider : public AbstractFileDecorationProvider {
+public:
+  virtual QVariant headerDecoration() const override {
+    // From QFileSystemModel:
+    // ### TODO oh man this is ugly and doesn't even work all the way!
+    // it is still 2 pixels off
+    QImage pixmap(16, 1, QImage::Format_Mono);
+    pixmap.fill(0);
+    pixmap.setAlphaChannel(pixmap.createAlphaMask());
+    return pixmap;
+  }
+
+  virtual QVariant computerDecoration() const override {
+    return m_provider.icon(QFileIconProvider::Computer);
+  }
+
+  virtual QVariant folderDecoration() const override {
+    return m_provider.icon(QFileIconProvider::Folder);
+  }
+
+  virtual QVariant fileDecoration() const override {
+    return m_provider.icon(QFileIconProvider::File);
+  }
+
+  virtual QVariant decoration(const QFileInfo& info) const override {
+    return m_provider.icon(info);
+  }
+
+  virtual QString type(const QFileInfo& info) const override {
+    return m_provider.type(info);
+  }
+
+private:
+  QFileIconProvider m_provider;
+};
+
+
 /**
  * Get the items from a combo box.
  *
@@ -184,7 +227,8 @@ QStringList getItemsFromComboBox(const QComboBox* comboBox)
  */
 Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
                    QWidget* parent)
-  : QSplitter(parent), m_pictureLabel(nullptr), m_app(app), m_mainWin(mainWin)
+  : QSplitter(parent), m_pictureLabel(nullptr), m_app(app), m_mainWin(mainWin),
+    m_iconProvider(new WidgetFileDecorationProvider)
 {
   setObjectName(QLatin1String("Kid3Form"));
 
@@ -210,6 +254,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_leftSideWidget->addWidget(m_vSplitter);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   FileProxyModel* fileProxyModel = m_app->getFileProxyModel();
+  if (FileSystemModel* fsModel =
+          qobject_cast<FileSystemModel*>(fileProxyModel->sourceModel())) {
+    fsModel->setDecorationProvider(m_iconProvider.data());
+  }
   TaggedFileIconProvider* tagIconProvider = fileProxyModel->getIconProvider();
   tagIconProvider->setModifiedIcon(
         QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon));
@@ -622,7 +670,7 @@ void Kid3Form::formatLineEdit(QLineEdit* le, const QString& txt,
  */
 void Kid3Form::dirSelected(const QModelIndex& index)
 {
-  QString dirPath = index.data(QFileSystemModel::FilePathRole).toString();
+  QString dirPath = index.data(FileSystemModel::FilePathRole).toString();
   if (!dirPath.isEmpty()) {
     m_app->setDirUpIndex(
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
