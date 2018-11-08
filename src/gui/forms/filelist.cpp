@@ -33,6 +33,12 @@
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QMouseEvent>
+#include <QDialog>
+#include <QLayout>
+#include <QPushButton>
+#include <QTextCursor>
+#include <QTextEdit>
+#include <QMessageBox>
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
@@ -44,6 +50,144 @@
 #include "commandformatreplacer.h"
 
 namespace {
+
+/**
+ * Dialog to show output from external process.
+ */
+class OutputViewer : public QDialog, public ExternalProcess::IOutputViewer {
+public:
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  explicit OutputViewer(QWidget* parent);
+
+  /**
+   * Destructor.
+   */
+  virtual ~OutputViewer() override;
+
+  /**
+   * Set caption.
+   * @param title caption
+   */
+  virtual void setCaption(const QString& title) override;
+
+  /**
+   * Append text.
+   */
+  virtual void append(const QString& text) override;
+
+  /**
+   * Scroll text to bottom.
+   */
+  virtual void scrollToBottom() override;
+
+private:
+  QTextEdit* m_textEdit;
+};
+
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ */
+OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
+{
+  setObjectName(QLatin1String("OutputViewer"));
+  setModal(false);
+  auto vlayout = new QVBoxLayout(this);
+  m_textEdit = new QTextEdit(this);
+  m_textEdit->setReadOnly(true);
+  m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
+  m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
+  vlayout->addWidget(m_textEdit);
+  auto buttonLayout = new QHBoxLayout;
+  QPushButton* clearButton = new QPushButton(tr("C&lear"), this);
+  auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  buttonLayout->addWidget(clearButton);
+  buttonLayout->addItem(hspacer);
+  buttonLayout->addWidget(closeButton);
+  connect(clearButton, &QAbstractButton::clicked, m_textEdit, &QTextEdit::clear);
+  connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  vlayout->addLayout(buttonLayout);
+  resize(600, 424);
+}
+
+/**
+ * Destructor.
+ */
+OutputViewer::~OutputViewer()
+{
+  // not inline or default to silence weak-vtables warning
+}
+
+/**
+ * Set caption.
+ * @param title caption
+ */
+void OutputViewer::setCaption(const QString& title)
+{
+  setWindowTitle(title);
+  show();
+  raise();
+}
+
+/**
+ * Append text.
+ */
+void OutputViewer::append(const QString& text)
+{
+  if (text.isEmpty())
+    return;
+
+  QString txt(text);
+  txt.replace(QLatin1String("\r\n"), QLatin1String("\n"));
+  int startPos = 0;
+  int txtLen = txt.length();
+  while (startPos < txtLen) {
+    QChar ch;
+    int len;
+    int crLfPos = txt.indexOf(QRegExp(QLatin1String("[\\r\\n]")), startPos);
+    if (crLfPos >= startPos) {
+      ch = txt.at(crLfPos);
+      len = crLfPos - startPos;
+    } else {
+      ch = QChar();
+      len = -1;
+    }
+    QString line(txt.mid(startPos, len));
+    if (!m_textEdit->textCursor().atBlockEnd()) {
+      QTextCursor cursor = m_textEdit->textCursor();
+      cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor,
+                          line.length());
+      m_textEdit->setTextCursor(cursor);
+    }
+    m_textEdit->insertPlainText(line);
+    if (ch == QLatin1Char('\r')) {
+      m_textEdit->moveCursor(QTextCursor::StartOfLine);
+    } else if (ch == QLatin1Char('\n')) {
+      m_textEdit->moveCursor(QTextCursor::EndOfLine);
+      m_textEdit->insertPlainText(ch);
+    }
+    if (len == -1) {
+      break;
+    }
+    startPos = crLfPos + 1;
+  }
+}
+
+/**
+ * Scroll text to bottom.
+ */
+void OutputViewer::scrollToBottom()
+{
+  m_textEdit->moveCursor(QTextCursor::End);
+}
+
 
 /**
  * Create a name for an action.
@@ -404,8 +548,24 @@ void FileList::executeContextCommand(int id)
     if (!m_process) {
       m_process.reset(new ExternalProcess(m_mainWin->app(), this));
     }
-    m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(),
-                             menuCmd.outputShown());
+    if (menuCmd.outputShown() && !m_process->outputViewer()) {
+      m_process->setOutputViewer(new OutputViewer(this));
+    }
+    if (menuCmd.mustBeConfirmed() && !args.isEmpty()) {
+      if (QMessageBox::question(
+            this, menuCmd.getName(),
+            tr("Execute ") + args.join(QLatin1String(" ")) + QLatin1Char('?'),
+            QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
+        return;
+      }
+    }
+    if (!m_process->launchCommand(menuCmd.getName(), args,
+                                  menuCmd.outputShown())) {
+      QMessageBox::warning(
+        this, menuCmd.getName(),
+        tr("Could not execute ") + args.join(QLatin1String(" ")),
+        QMessageBox::Ok, Qt::NoButton);
+    }
   }
 }
 

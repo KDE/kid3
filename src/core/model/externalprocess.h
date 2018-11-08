@@ -26,16 +26,13 @@
 
 #pragma once
 
-#include <QDialog>
-#include <QScopedPointer>
+#include <QObject>
 #include "kid3api.h"
 
 class QProcess;
 class QString;
 class QStringList;
-class QTextEdit;
 class Kid3Application;
-class TaggedFile;
 
 /**
  * Handler for external process.
@@ -44,34 +41,30 @@ class KID3_CORE_EXPORT ExternalProcess : public QObject {
   Q_OBJECT
 public:
   /**
-   * Dialog to show output from external process.
+   * Interface for viewer to show output from external process.
    */
-  class OutputViewer : public QDialog {
+  class KID3_CORE_EXPORT IOutputViewer {
   public:
-    /**
-     * Constructor.
-     *
-     * @param parent parent widget
-     */
-    explicit OutputViewer(QWidget* parent);
-
     /**
      * Destructor.
      */
-    virtual ~OutputViewer() override;
+    virtual ~IOutputViewer() = 0;
+
+    /**
+     * Set caption.
+     * @param title caption
+     */
+    virtual void setCaption(const QString& title) = 0;
 
     /**
      * Append text.
      */
-    void append(const QString& text);
+    virtual void append(const QString& text) = 0;
 
     /**
      * Scroll text to bottom.
      */
-    void scrollToBottom();
-
-  private:
-    QTextEdit* m_textEdit;
+    virtual void scrollToBottom() = 0;
   };
 
 
@@ -81,7 +74,7 @@ public:
    * @param app application context
    * @param parent parent object
    */
-  explicit ExternalProcess(Kid3Application* app, QWidget* parent = nullptr);
+  explicit ExternalProcess(Kid3Application* app, QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -89,15 +82,27 @@ public:
   virtual ~ExternalProcess() override;
 
   /**
+   * Get output viewer.
+   * @return output viewer, default is null.
+   */
+  IOutputViewer* outputViewer() const { return m_outputViewer; }
+
+  /**
+   * Set output viewer.
+   * @param viewer output viewer to be used
+   */
+  void setOutputViewer(IOutputViewer* viewer) { m_outputViewer = viewer; }
+
+  /**
    * Launch a command.
    *
    * @param name       display name
    * @param args       command and arguments
-   * @param confirm    true if confirmation required
    * @param showOutput true to show output of process
+   * @return false if process could not be executed.
    */
-  void launchCommand(const QString& name, const QStringList& args,
-                     bool confirm = false, bool showOutput = false);
+  bool launchCommand(const QString& name, const QStringList& args,
+                     bool showOutput = false);
 
 private slots:
   /**
@@ -113,7 +118,6 @@ private slots:
 
 private:
   Kid3Application* m_app;
-  QWidget* m_parent;
   QProcess* m_process;
-  QScopedPointer<OutputViewer> m_outputViewer;
+  IOutputViewer* m_outputViewer;
 };
