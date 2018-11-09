@@ -141,7 +141,7 @@ Kid3Script {
 
     var importPath = getArguments()[0]
     if (!importPath) {
-      importPath = script.selectFileName(
+      importPath = app.selectFileName(
         "Import", app.dirName, "CSV files (*.csv);;All files (*)", false)
       if (!importPath) {
         Qt.quit()

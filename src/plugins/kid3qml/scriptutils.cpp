@@ -32,7 +32,6 @@
 #include <QDir>
 #include <QProcess>
 #include <QImage>
-#include <QFileDialog>
 #include <QBuffer>
 #include <QCryptographicHash>
 #include <QJSEngine>
@@ -529,38 +528,4 @@ QVariant ScriptUtils::scaleImage(const QVariant& var, int width, int height)
     }
   }
   return QVariant();
-}
-
-/**
- * @brief Open a file select dialog to get a file name.
- * @param caption dialog caption
- * @param dir working directory
- * @param filter file type filter
- * @param saveFile true to open a save file dialog
- * @return selected file, empty if canceled.
- */
-QString ScriptUtils::selectFileName(const QString& caption, const QString& dir,
-                                    const QString& filter, bool saveFile)
-{
-  QFileDialog::Options options =
-      MainWindowConfig::instance().dontUseNativeDialogs()
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr);
-  return saveFile ? QFileDialog::getSaveFileName(nullptr, caption, dir, filter,
-                                                 nullptr, options)
-                  : QFileDialog::getOpenFileName(nullptr, caption, dir, filter,
-                                                 nullptr, options);
-}
-
-/**
- * @brief Open a file select dialog to get a directory name.
- * @param caption dialog caption
- * @param dir working directory
- * @return selected directory, empty if canceled.
- */
-QString ScriptUtils::selectDirName(const QString& caption, const QString& dir)
-{
-  QFileDialog::Options options =
-      MainWindowConfig::instance().dontUseNativeDialogs()
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr);
-  return QFileDialog::getExistingDirectory(nullptr, caption, dir, options);
 }

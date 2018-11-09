@@ -62,7 +62,7 @@ Kid3Script {
       }
       var exportPath = getArguments()[0]
       if (!exportPath) {
-        exportPath = script.selectDirName(
+        exportPath = app.selectDirName(
           "Select Destination Directory", app.dirName)
       }
       if (!exportPath) {

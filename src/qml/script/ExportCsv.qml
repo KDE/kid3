@@ -92,7 +92,7 @@ Kid3Script {
         }
         var exportPath = getArguments()[0]
         if (!exportPath) {
-          exportPath = script.selectFileName(
+          exportPath = app.selectFileName(
             "Export", app.dirName + "/export.csv",
             "CSV files (*.csv);;All files (*)", true)
           if (!exportPath) {

@@ -35,6 +35,68 @@ ICorePlatformTools::~ICorePlatformTools()
 }
 
 /**
+ * Display dialog to select an existing file.
+ * This default implementation only displays a warning, it is only supported
+ * when having a GUI.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString ICorePlatformTools::getOpenFileName(QWidget* parent,
+    const QString& caption, const QString& dir, const QString& filter,
+    QString* selectedFilter)
+{
+  Q_UNUSED(parent)
+  Q_UNUSED(selectedFilter)
+  qWarning("getOpenFileName(%s, %s, %s) not implemented without GUI.",
+           qPrintable(caption), qPrintable(dir), qPrintable(filter));
+  return QString();
+}
+
+/**
+ * Display dialog to select a file to save.
+ * This default implementation only displays a warning, it is only supported
+ * when having a GUI.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString ICorePlatformTools::getSaveFileName(QWidget* parent,
+    const QString& caption, const QString& dir, const QString& filter,
+    QString* selectedFilter)
+{
+  Q_UNUSED(parent)
+  Q_UNUSED(selectedFilter)
+  qWarning("getSaveFileName(%s, %s, %s) not implemented without GUI.",
+           qPrintable(caption), qPrintable(dir), qPrintable(filter));
+  return QString();
+}
+
+/**
+ * Display dialog to select an existing directory.
+ * This default implementation only displays a warning, it is only supported
+ * when having a GUI.
+ * @param parent parent widget
+ * @param caption caption
+ * @param startDir start directory
+ * @return selected directory, empty if canceled.
+ */
+QString ICorePlatformTools::getExistingDirectory(QWidget* parent,
+    const QString& caption, const QString& startDir)
+{
+  Q_UNUSED(parent)
+  qWarning("getExistingDirectory(%s, %s) not implemented without GUI.",
+           qPrintable(caption), qPrintable(startDir));
+  return QString();
+}
+
+/**
  * Construct a name filter string suitable for file dialogs.
  * This function can be used to implement fileDialogNameFilter()
  * for QFileDialog.

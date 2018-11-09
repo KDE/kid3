@@ -839,6 +839,29 @@ public:
   Q_INVOKABLE void setCoverArtImageData(const QByteArray& picture);
 
   /**
+   * Open a file select dialog to get a file name.
+   * For script support, is only supported when a GUI is available.
+   * @param caption dialog caption
+   * @param dir working directory
+   * @param filter file type filter
+   * @param saveFile true to open a save file dialog
+   * @return selected file, empty if canceled.
+   */
+  Q_INVOKABLE QString selectFileName(
+      const QString& caption = QString(), const QString& dir = QString(),
+      const QString& filter = QString(), bool saveFile = false);
+
+  /**
+   * Open a file select dialog to get a directory name.
+   * For script support, is only supported when a GUI is available.
+   * @param caption dialog caption
+   * @param dir working directory
+   * @return selected directory, empty if canceled.
+   */
+  Q_INVOKABLE QString selectDirName(
+      const QString& caption = QString(), const QString& dir = QString());
+
+  /**
    * Notify the tagged file factories about the changed configuration.
    */
   static void notifyConfigurationChange();

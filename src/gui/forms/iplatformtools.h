@@ -88,19 +88,6 @@ public:
       const QStringList& strlist, const QString& caption) = 0;
 
   /**
-   * Display dialog to select an existing file.
-   * @param parent parent widget
-   * @param caption caption
-   * @param dir directory
-   * @param filter filter
-   * @param selectedFilter the selected filter is returned here
-   * @return selected file, empty if canceled.
-   */
-  virtual QString getOpenFileName(QWidget* parent,
-      const QString& caption, const QString& dir, const QString& filter,
-      QString* selectedFilter) = 0;
-
-  /**
    * Display dialog to select existing files.
    * @param parent parent widget
    * @param caption caption
@@ -112,29 +99,6 @@ public:
   virtual QStringList getOpenFileNames(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) = 0;
-
-  /**
-   * Display dialog to select a file to save.
-   * @param parent parent widget
-   * @param caption caption
-   * @param dir directory
-   * @param filter filter
-   * @param selectedFilter the selected filter is returned here
-   * @return selected file, empty if canceled.
-   */
-  virtual QString getSaveFileName(QWidget* parent,
-      const QString& caption, const QString& dir, const QString& filter,
-      QString* selectedFilter) = 0;
-
-  /**
-   * Display dialog to select an existing directory.
-   * @param parent parent widget
-   * @param caption caption
-   * @param startDir start directory
-   * @return selected directory, empty if canceled.
-   */
-  virtual QString getExistingDirectory(QWidget* parent,
-      const QString& caption, const QString& startDir) = 0;
 
   /**
    * Display warning dialog.

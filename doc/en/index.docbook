@@ -4340,8 +4340,9 @@ script.saveImage(img, filePath, [format]): Save an image to a file, true if OK
 script.imageProperties(img): Get properties of an image, map containing
   "width", "height", "depth" and "colorCount", empty if invalid image
 script.scaleImage(img, width, [height]): Scale an image, returns scaled image
-script.selectFileName(caption, dir, filter, saveFile): Open file dialog to
+app.selectFileName(caption, dir, filter, saveFile): Open file dialog to
 select a file
+app.selectDirName(caption, dir): Open file dialog to select a directory
 </programlisting>
 
 </sect2>

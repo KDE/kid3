@@ -3856,3 +3856,33 @@ void Kid3Application::setNextCoverArtImageId() {
   m_coverArtImageId = QString(QLatin1String("image://kid3/data/%1"))
       .arg(nr++, 8, 16, QLatin1Char('0'));
 }
+
+/**
+ * Open a file select dialog to get a file name.
+ * For script support, is only supported when a GUI is available.
+ * @param caption dialog caption
+ * @param dir working directory
+ * @param filter file type filter
+ * @param saveFile true to open a save file dialog
+ * @return selected file, empty if canceled.
+ */
+QString Kid3Application::selectFileName(const QString& caption, const QString& dir,
+                                        const QString& filter, bool saveFile)
+{
+  return saveFile
+      ? m_platformTools->getSaveFileName(nullptr, caption, dir, filter, nullptr)
+      : m_platformTools->getOpenFileName(nullptr, caption, dir, filter, nullptr);
+}
+
+/**
+ * Open a file select dialog to get a directory name.
+ * For script support, is only supported when a GUI is available.
+ * @param caption dialog caption
+ * @param dir working directory
+ * @return selected directory, empty if canceled.
+ */
+QString Kid3Application::selectDirName(const QString& caption,
+                                       const QString& dir)
+{
+  return m_platformTools->getExistingDirectory(nullptr, caption, dir);
+}

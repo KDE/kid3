@@ -31,6 +31,7 @@
 #include "kid3api.h"
 
 class QString;
+class QWidget;
 class ISettings;
 
 /**
@@ -73,6 +74,48 @@ public:
    * @return file patterns, e.g. "*.mp3".
    */
   virtual QString getNameFilterPatterns(const QString& nameFilter) const = 0;
+
+  /**
+   * Display dialog to select an existing file.
+   * This default implementation only displays a warning, it is only supported
+   * when having a GUI.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected file, empty if canceled.
+   */
+  virtual QString getOpenFileName(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter);
+
+  /**
+   * Display dialog to select a file to save.
+   * This default implementation only displays a warning, it is only supported
+   * when having a GUI.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected file, empty if canceled.
+   */
+  virtual QString getSaveFileName(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter);
+
+  /**
+   * Display dialog to select an existing directory.
+   * This default implementation only displays a warning, it is only supported
+   * when having a GUI.
+   * @param parent parent widget
+   * @param caption caption
+   * @param startDir start directory
+   * @return selected directory, empty if canceled.
+   */
+  virtual QString getExistingDirectory(QWidget* parent,
+      const QString& caption, const QString& startDir);
 
 protected:
   /**

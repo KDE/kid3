@@ -350,25 +350,4 @@ public:
    */
   Q_INVOKABLE static QVariant scaleImage(const QVariant& var,
                                          int width, int height = -1);
-
-  /**
-   * @brief Open a file select dialog to get a file name.
-   * @param caption dialog caption
-   * @param dir working directory
-   * @param filter file type filter
-   * @param saveFile true to open a save file dialog
-   * @return selected file, empty if canceled.
-   */
-  Q_INVOKABLE static QString selectFileName(
-      const QString& caption = QString(), const QString& dir = QString(),
-      const QString& filter = QString(), bool saveFile = false);
-
-  /**
-   * @brief Open a file select dialog to get a directory name.
-   * @param caption dialog caption
-   * @param dir working directory
-   * @return selected directory, empty if canceled.
-   */
-  Q_INVOKABLE static QString selectDirName(
-      const QString& caption = QString(), const QString& dir = QString());
 };
