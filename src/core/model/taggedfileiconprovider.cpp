@@ -27,8 +27,6 @@
 #include "taggedfileiconprovider.h"
 #include <QPixmap>
 #include <QPainter>
-#include <QApplication>
-#include <QStyle>
 #include "taggedfile.h"
 #include "tagconfig.h"
 
@@ -114,10 +112,10 @@ void TaggedFileIconProvider::createIcons()
     m_iconMap.insert(it.key(), QIcon(it.value()));
   }
 
-  QIcon modifiedIcon =
-      QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon);
-  m_iconMap.insert("modified", modifiedIcon);
-  m_pixmapMap.insert("modified", modifiedIcon.pixmap(m_requestedSize));
+  if (!m_modifiedIcon.isNull()) {
+    m_iconMap.insert("modified", m_modifiedIcon);
+    m_pixmapMap.insert("modified", m_modifiedIcon.pixmap(m_requestedSize));
+  }
 }
 
 /**

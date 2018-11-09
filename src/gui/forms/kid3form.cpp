@@ -48,6 +48,7 @@
 #include <QFileSystemModel>
 #include <QMimeData>
 #include <QMenu>
+#include <QStyle>
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
@@ -209,9 +210,11 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_leftSideWidget->addWidget(m_vSplitter);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   FileProxyModel* fileProxyModel = m_app->getFileProxyModel();
+  TaggedFileIconProvider* tagIconProvider = fileProxyModel->getIconProvider();
+  tagIconProvider->setModifiedIcon(
+        QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon));
   int iconHeight = (((fontMetrics().height() - 1) / 16) + 1) * 16;
-  fileProxyModel->getIconProvider()->setRequestedSize(
-        QSize(iconHeight, iconHeight));
+  tagIconProvider->setRequestedSize(QSize(iconHeight, iconHeight));
   m_fileListBox->setModel(fileProxyModel);
   m_fileListBox->setSelectionModel(m_app->getFileSelectionModel());
   m_dirListBox = new ConfigurableTreeView(m_vSplitter);

@@ -45,6 +45,14 @@ public:
   TaggedFileIconProvider();
 
   /**
+   * Set icon to be used for modified files.
+   * @param icon modified icon
+   */
+  void setModifiedIcon(const QIcon& icon) {
+    m_modifiedIcon = icon;
+  }
+
+  /**
    * Set the requested size for icons.
    *
    * The size set with this method will be used to create icons.
@@ -94,4 +102,5 @@ private:
   QMap<QByteArray, QIcon> m_iconMap;
   QMap<QByteArray, QPixmap> m_pixmapMap;
   QSize m_requestedSize;
+  QIcon m_modifiedIcon;
 };
