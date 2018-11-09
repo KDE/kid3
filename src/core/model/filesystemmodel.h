@@ -8,6 +8,7 @@
  * - Remove QT_..._CONFIG, QT_..._NAMESPACE, Q_..._EXPORT...
  * - Allow compilation without Qt private headers (USE_QT_PRIVATE_HEADERS)
  * - Replace include guards by #pragma once
+ * - Remove dependencies to Qt5::Widgets
  */
 /****************************************************************************
 **
@@ -55,12 +56,13 @@
 #include <QtCore/qdir.h>
 #include <QtGui/qicon.h>
 #include <QtCore/qdiriterator.h>
+#include "kid3api.h"
 
 class ExtendedInformation;
 class FileSystemModelPrivate;
-class QFileIconProvider;
+class AbstractFileIconProvider;
 
-class FileSystemModel : public QAbstractItemModel
+class KID3_CORE_EXPORT FileSystemModel : public QAbstractItemModel
 {
     Q_OBJECT
     Q_PROPERTY(bool resolveSymlinks READ resolveSymlinks WRITE setResolveSymlinks)
@@ -71,6 +73,7 @@ Q_SIGNALS:
     void rootPathChanged(const QString &newPath);
     void fileRenamed(const QString &path, const QString &oldName, const QString &newName);
     void directoryLoaded(const QString &path);
+    void fileRenameFailed(const QString &path, const QString &oldName, const QString &newName);
 
 public:
     enum Roles {
@@ -120,8 +123,8 @@ public:
     QString rootPath() const;
     QDir rootDirectory() const;
 
-    void setIconProvider(QFileIconProvider *provider);
-    QFileIconProvider *iconProvider() const;
+    void setIconProvider(AbstractFileIconProvider *provider);
+    AbstractFileIconProvider *iconProvider() const;
 
     void setFilter(QDir::Filters filters);
     QDir::Filters filter() const;

@@ -8,6 +8,8 @@
  * - Remove QT_..._CONFIG, QT_..._NAMESPACE, Q_..._EXPORT...
  * - Allow compilation without Qt private headers (USE_QT_PRIVATE_HEADERS)
  * - Remove moc includes
+ * - Remove dependencies to Qt5::Widgets
+ * - Do not display a message box from setData(), this will crash without GUI
  */
 /****************************************************************************
 **
@@ -53,8 +55,7 @@
 #include <qmimedata.h>
 #include <qurl.h>
 #include <qdebug.h>
-#include <qmessagebox.h>
-#include <qapplication.h>
+#include <qcoreevent.h>
 #include <QtCore/qcollator.h>
 
 #include <algorithm>
@@ -63,6 +64,8 @@
 #  include <QtCore/QVarLengthArray>
 #  include <qt_windows.h>
 #endif
+
+#include "abstractfileiconprovider.h"
 
 /*!
     \enum QFileSystemModel::Roles
@@ -716,7 +719,9 @@ QVariant FileSystemModel::myComputer(int role) const
         return FileSystemModelPrivate::myComputer();
 #ifndef QT_NO_FILESYSTEMWATCHER
     case Qt::DecorationRole:
-        return d->fileInfoGatherer.iconProvider()->icon(QFileIconProvider::Computer);
+        return d->fileInfoGatherer.iconProvider()
+                ? d->fileInfoGatherer.iconProvider()->computerIcon()
+                : QIcon();
 #endif
     }
     return QVariant();
@@ -754,9 +759,13 @@ QVariant FileSystemModel::data(const QModelIndex &index, int role) const
 #ifndef QT_NO_FILESYSTEMWATCHER
             if (icon.isNull()) {
                 if (d->node(index)->isDir())
-                    icon = d->fileInfoGatherer.iconProvider()->icon(QFileIconProvider::Folder);
+                    icon = d->fileInfoGatherer.iconProvider()
+                            ? d->fileInfoGatherer.iconProvider()->folderIcon()
+                            : QIcon();
                 else
-                    icon = d->fileInfoGatherer.iconProvider()->icon(QFileIconProvider::File);
+                    icon = d->fileInfoGatherer.iconProvider()
+                            ? d->fileInfoGatherer.iconProvider()->fileIcon()
+                            : QIcon();
             }
 #endif // QT_NO_FILESYSTEMWATCHER
             return icon;
@@ -905,10 +914,7 @@ bool FileSystemModel::setData(const QModelIndex &idx, const QVariant &value, int
     if (newName.isEmpty()
         || QDir::toNativeSeparators(newName).contains(QDir::separator())
         || !QDir(parentPath).rename(oldName, newName)) {
-        QMessageBox::information(0, FileSystemModel::tr("Invalid filename"),
-                                FileSystemModel::tr("<b>The name \"%1\" can not be used.</b><p>Try using another name, with fewer characters or no punctuations marks.")
-                                .arg(newName),
-                                 QMessageBox::Ok);
+        emit fileRenameFailed(parentPath, oldName, newName);
         return false;
     } else {
         /*
@@ -1453,7 +1459,7 @@ QDir FileSystemModel::rootDirectory() const
 /*!
     Sets the \a provider of file icons for the directory model.
 */
-void FileSystemModel::setIconProvider(QFileIconProvider *provider)
+void FileSystemModel::setIconProvider(AbstractFileIconProvider *provider)
 {
     Q_D(FileSystemModel);
 #ifndef QT_NO_FILESYSTEMWATCHER
@@ -1465,7 +1471,7 @@ void FileSystemModel::setIconProvider(QFileIconProvider *provider)
 /*!
     Returns the file icon provider for this directory model.
 */
-QFileIconProvider *FileSystemModel::iconProvider() const
+AbstractFileIconProvider *FileSystemModel::iconProvider() const
 {
 #ifndef QT_NO_FILESYSTEMWATCHER
     Q_D(const FileSystemModel);

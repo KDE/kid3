@@ -8,6 +8,7 @@
  * - Remove QT_..._CONFIG, QT_..._NAMESPACE, Q_..._EXPORT...
  * - Allow compilation without Qt private headers (USE_QT_PRIVATE_HEADERS)
  * - Replace include guards by #pragma once
+ * - Remove dependencies to Qt5::Widgets
  */
 /****************************************************************************
 **
@@ -69,7 +70,7 @@
 #include <qmutex.h>
 #include <qwaitcondition.h>
 #include <qfilesystemwatcher.h>
-#include <qfileiconprovider.h>
+#include <qicon.h>
 #include <qpair.h>
 #include <qstack.h>
 #include <qdatetime.h>
@@ -165,7 +166,7 @@ private :
     QFileInfo mFileInfo;
 };
 
-class QFileIconProvider;
+class AbstractFileIconProvider;
 
 class FileInfoGatherer : public QThread
 {
@@ -185,7 +186,7 @@ public:
     void clear();
     void removePath(const QString &path);
     ExtendedInformation getInfo(const QFileInfo &info) const;
-    QFileIconProvider *iconProvider() const;
+    AbstractFileIconProvider *iconProvider() const;
     bool resolveSymlinks() const;
 
 public Q_SLOTS:
@@ -193,7 +194,7 @@ public Q_SLOTS:
     void fetchExtendedInformation(const QString &path, const QStringList &files);
     void updateFile(const QString &path);
     void setResolveSymlinks(bool enable);
-    void setIconProvider(QFileIconProvider *provider);
+    void setIconProvider(AbstractFileIconProvider *provider);
 
 private Q_SLOTS:
     void driveAdded();
@@ -220,7 +221,6 @@ private:
 #ifdef Q_OS_WIN
     bool m_resolveSymlinks; // not accessed by run()
 #endif
-    QFileIconProvider *m_iconProvider; // not accessed by run()
-    QFileIconProvider defaultProvider;
+    AbstractFileIconProvider *m_iconProvider;
 };
 /** \endcond */

@@ -9,6 +9,7 @@
  * - Allow compilation without Qt private headers (USE_QT_PRIVATE_HEADERS)
  * - Allow compilation with Qt versions < 5.7
  * - Replace include guards by #pragma once
+ * - Remove dependencies to Qt5::Widgets
  */
 /****************************************************************************
 **
@@ -75,10 +76,11 @@
 #include <qfileinfo.h>
 #include <qtimer.h>
 #include <qhash.h>
+#include "abstractfileiconprovider.h"
 
 class ExtendedInformation;
 class FileSystemModelPrivate;
-class QFileIconProvider;
+class AbstractFileIconProvider;
 
 #if defined(Q_OS_WIN)
 class FileSystemModelNodePathKey : public QString
@@ -186,7 +188,9 @@ public:
         inline int visibleLocation(const QString &childName) {
             return visibleChildren.indexOf(childName);
         }
-        void updateIcon(QFileIconProvider *iconProvider, const QString &path) {
+        void updateIcon(AbstractFileIconProvider *iconProvider, const QString &path) {
+            if (!iconProvider)
+                return;
             if (info)
                 info->icon = iconProvider->icon(QFileInfo(path));
 #if QT_VERSION >= 0x050700
@@ -206,7 +210,9 @@ public:
             }
         }
 
-        void retranslateStrings(QFileIconProvider *iconProvider, const QString &path) {
+        void retranslateStrings(AbstractFileIconProvider *iconProvider, const QString &path) {
+            if (!iconProvider)
+                return;
             if (info)
                 info->displayType = iconProvider->type(QFileInfo(path));
 #if QT_VERSION >= 0x050700

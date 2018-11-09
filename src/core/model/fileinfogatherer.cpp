@@ -8,6 +8,7 @@
  * - Remove QT_..._CONFIG, QT_..._NAMESPACE, Q_..._EXPORT...
  * - Allow compilation with Qt versions < 5.7
  * - Remove moc includes
+ * - Remove dependencies to Qt5::Widgets
  */
 /****************************************************************************
 **
@@ -58,6 +59,7 @@
 #if defined(Q_OS_VXWORKS)
 #  include "qplatformdefs.h"
 #endif
+#include "abstractfileiconprovider.h"
 
 #ifdef QT_BUILD_INTERNAL
 static QBasicAtomicInt fetchedRoot = Q_BASIC_ATOMIC_INITIALIZER(false);
@@ -95,7 +97,7 @@ FileInfoGatherer::FileInfoGatherer(QObject *parent)
 #ifdef Q_OS_WIN
       m_resolveSymlinks(true),
 #endif
-      m_iconProvider(&defaultProvider)
+      m_iconProvider(Q_NULLPTR)
 {
 #ifndef QT_NO_FILESYSTEMWATCHER
     watcher = new QFileSystemWatcher(this);
@@ -158,12 +160,12 @@ bool FileInfoGatherer::resolveSymlinks() const
 #endif
 }
 
-void FileInfoGatherer::setIconProvider(QFileIconProvider *provider)
+void FileInfoGatherer::setIconProvider(AbstractFileIconProvider *provider)
 {
     m_iconProvider = provider;
 }
 
-QFileIconProvider *FileInfoGatherer::iconProvider() const
+AbstractFileIconProvider *FileInfoGatherer::iconProvider() const
 {
     return m_iconProvider;
 }
@@ -283,8 +285,13 @@ void FileInfoGatherer::run()
 ExtendedInformation FileInfoGatherer::getInfo(const QFileInfo &fileInfo) const
 {
     ExtendedInformation info(fileInfo);
-    info.icon = m_iconProvider->icon(fileInfo);
-    info.displayType = m_iconProvider->type(fileInfo);
+    if (m_iconProvider) {
+        info.icon = m_iconProvider->icon(fileInfo);
+        info.displayType = m_iconProvider->type(fileInfo);
+    } else {
+        info.icon = QIcon();
+        info.displayType = AbstractFileIconProvider::fileTypeDescription(fileInfo);
+    }
 #ifndef QT_NO_FILESYSTEMWATCHER
     // ### Not ready to listen all modifications by default
     static const bool watchFiles = qEnvironmentVariableIsSet("QT_FILESYSTEMMODEL_WATCH_FILES");
