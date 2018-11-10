@@ -37,6 +37,7 @@
 #endif
 #include "pictureframe.h"
 #include "tagconfig.h"
+#include "fileproxymodel.h"
 
 namespace {
 
@@ -241,13 +242,16 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
   if (m_fileRead && (force || isTagChanged(Frame::Tag_2))) {
     bool writeOk = false;
     // we have to rename the original file and delete it afterwards
-    QString filename = currentFilename();
-    QString tempFilename(filename + QLatin1String("_KID3"));
-    if (!renameFile(filename, tempFilename)) {
+    const QString filename = currentFilename();
+    const QString newFilename = getFilename();
+    const QString tempFilename(filename + QLatin1String("_KID3"));
+    setFilename(tempFilename); // getFilename() will now return tempFilename
+    if (!renameFile()) {
+      setFilename(newFilename);
       return false;
     }
     QString fnIn = dirname + QDir::separator() + tempFilename;
-    QString fnOut = dirname + QDir::separator() + getFilename();
+    QString fnOut = dirname + QDir::separator() + newFilename;
     QFile fpIn(fnIn);
     if (fpIn.open(QIODevice::ReadOnly)) {
 
@@ -296,21 +300,30 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
         setFileTimeStamps(fnOut, actime, modtime);
       }
     }
+    const FileProxyModel* model = getFileProxyModel();
     if (!writeOk) {
       // restore old file
-      QDir(dirname).remove(getFilename());
-      renameFile(tempFilename, currentFilename());
+      if (!(model && model->remove(model->index(fnOut)))) {
+        QDir(dirname).remove(newFilename);
+      }
+      markFilenameUnchanged(); // currentFilename() will now return tempFilename
+      setFilename(newFilename); // getFilename() will now return newFilename
+      renameFile();
+      markFilenameUnchanged(); // currentFilename() will now return newFilename
       return false;
     }
     markTagUnchanged(Frame::Tag_2);
-    QDir(dirname).remove(tempFilename);
+    if (!(model && model->remove(model->index(fnIn)))) {
+      QDir(dirname).remove(tempFilename);
+    }
+    setFilename(newFilename);
     if (isFilenameChanged()) {
       markFilenameUnchanged();
       *renamed = true;
     }
   } else if (isFilenameChanged()) {
     // tags not changed, but file name
-    if (!renameFile(currentFilename(), getFilename())) {
+    if (!renameFile()) {
       return false;
     }
     markFilenameUnchanged();

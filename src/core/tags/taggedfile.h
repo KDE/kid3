@@ -369,6 +369,11 @@ public:
   void undoRevertChangedFilename();
 
   /**
+   * Update the current filename after the file was renamed.
+   */
+  void updateCurrentFilename();
+
+  /**
    * Check if tag was changed.
    * @param tagNr tag number
    * @return true if tag 1 was changed.
@@ -504,13 +509,9 @@ protected:
   /**
    * Rename a file.
    * This methods takes care of case insensitive filesystems.
-   *
-   * @param fnOld old filename
-   * @param fnNew new filename
-   *
    * @return true if ok.
    */
-  bool renameFile(const QString& fnOld, const QString& fnNew) const;
+  bool renameFile() const;
 
   /**
    * Get field name for comment from configuration.

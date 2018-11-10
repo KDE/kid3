@@ -239,6 +239,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   }
   m_selection = new TaggedFileSelection(m_framesModel, this);
   setObjectName(QLatin1String("Kid3Application"));
+  m_fileSystemModel->setReadOnly(false);
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,
@@ -2715,6 +2716,7 @@ bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
   m_dirProxyModel->resetModel();
   m_fileSystemModel->deleteLater();
   m_fileSystemModel = new FileSystemModel(this);
+  m_fileSystemModel->setReadOnly(false);
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   return openDirectory(dirs);

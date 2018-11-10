@@ -96,6 +96,23 @@ void TaggedFile::setFilename(const QString& fn)
 }
 
 /**
+ * Update the current filename after the file was renamed.
+ */
+void TaggedFile::updateCurrentFilename()
+{
+  if (const FileProxyModel* model = getFileProxyModel()) {
+    const QString newName = model->fileName(m_index);
+    if (!newName.isEmpty() && m_filename != newName) {
+      if (m_newFilename == m_filename) {
+        m_newFilename = newName;
+      }
+      m_filename = newName;
+      updateModifiedState();
+    }
+  }
+}
+
+/**
  * Get current path to file.
  * @return absolute path.
  */
@@ -579,15 +596,15 @@ QString TaggedFile::formatTime(unsigned seconds)
 /**
  * Rename a file.
  * This methods takes care of case insensitive filesystems.
- *
- * @param fnOld old filename
- * @param fnNew new filename
- *
  * @return true if ok.
  */
-bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
+bool TaggedFile::renameFile() const
 {
-  QString dirname = getDirname();
+  const QString dirname = getDirname();
+  const QString fnOld = currentFilename();
+  const QString fnNew = getFilename();
+  auto model = const_cast<FileProxyModel*>(getFileProxyModel());
+
   if (fnNew.toLower() == fnOld.toLower()) {
     // If the filenames only differ in case, the new file is reported to
     // already exist on case insensitive filesystems (e.g. Windows),
@@ -613,12 +630,14 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     // insensitive filesystems (e.g. Windows).
     QString temp_filename(fnNew);
     temp_filename.append(QLatin1String("_CASE"));
-    if (!Utils::safeRename(dirname, fnOld, temp_filename)) {
+    if (!((model && model->rename(m_index, temp_filename)) ||
+          Utils::safeRename(dirname, fnOld, temp_filename))) {
       qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
              temp_filename.toLatin1().data());
       return false;
     }
-    if (!Utils::safeRename(dirname, temp_filename, fnNew)) {
+    if (!((model && model->rename(m_index, fnNew)) ||
+          Utils::safeRename(dirname, temp_filename, fnNew))) {
       qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
              fnNew.toLatin1().data());
       return false;
@@ -627,7 +646,8 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
            fnNew.toLatin1().data(), fnNew.toLatin1().data());
     return false;
-  } else if (!Utils::safeRename(dirname, fnOld, fnNew)) {
+  } else if (!((model && model->rename(m_index, fnNew)) ||
+               Utils::safeRename(dirname, fnOld, fnNew))) {
     qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
            fnNew.toLatin1().data());
     return false;

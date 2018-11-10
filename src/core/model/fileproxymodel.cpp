@@ -30,6 +30,7 @@
 #include "taggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
 #include "tagconfig.h"
+#include "saferename.h"
 #include "config.h"
 
 /** Only defined for generation of translation files */
@@ -180,6 +181,18 @@ bool FileProxyModel::rmdir(const QModelIndex& index) const
 }
 
 /**
+ * Rename file or directory of @a index to @a newName.
+ * @return true if ok
+ */
+bool FileProxyModel::rename(const QModelIndex& index, const QString& newName)
+{
+  if (Utils::hasIllegalFileNameCharacters(newName))
+    return false;
+
+  return setData(index, newName);
+}
+
+/**
  * Get index for given path and column.
  * @param path path to file or directory
  * @param column model column
@@ -266,6 +279,8 @@ Qt::ItemFlags FileProxyModel::flags(const QModelIndex& index) const
       itemFlags &= ~Qt::ItemIsDragEnabled;
     }
   }
+  // Prevent inplace editing (i.e. renaming) of files and directories.
+  itemFlags &= ~Qt::ItemIsEditable;
 
   return itemFlags;
 }

@@ -257,6 +257,14 @@ public:
    */
   void closeFileHandle();
 
+  /**
+   * Change the file name.
+   * Can be used to modify the file name when it has changed because a path
+   * component was renamed.
+   * @param fileName path to file
+   */
+  void setName(const QString& fileName);
+
   // Reimplemented from TagLib::IOStream, delegate to TagLib::FileStream.
   /** File name in local file system encoding. */
   virtual TagLib::FileName name() const override;
@@ -334,18 +342,9 @@ private:
 QList<FileIOStream*> FileIOStream::s_openFiles;
 
 FileIOStream::FileIOStream(const QString& fileName)
-  : m_fileStream(nullptr), m_offset(0)
+  : m_fileName(nullptr), m_fileStream(nullptr), m_offset(0)
 {
-#ifdef Q_OS_WIN32
-  int fnLen = fileName.length();
-  m_fileName = new wchar_t[fnLen + 1];
-  m_fileName[fnLen] = 0;
-  fileName.toWCharArray(m_fileName);
-#else
-  QByteArray fn = QFile::encodeName(fileName);
-  m_fileName = new char[fn.size() + 1];
-  qstrcpy(m_fileName, fn.data());
-#endif
+  setName(fileName);
 }
 
 FileIOStream::~FileIOStream()
@@ -382,6 +381,21 @@ void FileIOStream::closeFileHandle()
     m_fileStream = nullptr;
     deregisterOpenFile(this);
   }
+}
+
+void FileIOStream::setName(const QString& fileName)
+{
+  delete m_fileName;
+#ifdef Q_OS_WIN32
+  int fnLen = fileName.length();
+  m_fileName = new wchar_t[fnLen + 1];
+  m_fileName[fnLen] = 0;
+  fileName.toWCharArray(m_fileName);
+#else
+  QByteArray fn = QFile::encodeName(fileName);
+  m_fileName = new char[fn.size() + 1];
+  qstrcpy(m_fileName, fn.data());
+#endif
 }
 
 TagLib::FileName FileIOStream::name() const
@@ -1074,6 +1088,18 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
   bool fileChanged = false;
   TagLib::File* file;
   if (!m_fileRef.isNull() && (file = m_fileRef.file()) != nullptr) {
+    if (m_stream) {
+#ifndef Q_OS_WIN32
+      QString fileName = QFile::decodeName(m_stream->name());
+#else
+      QString fileName = toQString(m_stream->name().toString());
+#endif
+      if (fnStr != fileName) {
+        qDebug("TagLibFile: Fix file name mismatch, should be '%s', not '%s'",
+               qPrintable(fnStr), qPrintable(fileName));
+        m_stream->setName(fnStr);
+      }
+    }
     auto mpegFile = dynamic_cast<TagLib::MPEG::File*>(file);
     if (mpegFile) {
       static const int tagTypes[NUM_TAGS] = {
@@ -1283,7 +1309,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
   }
 
   if (isFilenameChanged()) {
-    if (!renameFile(currentFilename(), getFilename())) {
+    if (!renameFile()) {
       return false;
     }
     markFilenameUnchanged();

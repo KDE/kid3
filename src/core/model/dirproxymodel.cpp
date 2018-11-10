@@ -39,6 +39,17 @@ DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
 }
 
 /**
+ * Get item flags.
+ * @param index index of item
+ * @return default flags without editable.
+ */
+Qt::ItemFlags DirProxyModel::flags(const QModelIndex& index) const
+{
+  // Prevent inplace editing (i.e. renaming) of directories.
+  return QSortFilterProxyModel::flags(index) & ~Qt::ItemIsEditable;
+}
+
+/**
  * Check if row should be included in model.
  *
  * @param srcRow source row

@@ -1304,7 +1304,14 @@ void BaseMainWindowImpl::renameFile()
         TaggedFileIterator::closeFileHandles(index);
       }
       QString newPath = dirName + QLatin1Char('/') + newFileName;
-      if (!Utils::safeRename(absFilename, newPath)) {
+      if (model->rename(index, newFileName)) {
+        if (taggedFile) {
+          taggedFile->updateCurrentFilename();
+          if (selItems.size() == 1) {
+            m_form->setFilename(newFileName);
+          }
+        }
+      } else {
 #ifdef Q_OS_WIN32
         if (QMessageBox::warning(
               0, tr("File Error"),

@@ -215,6 +215,12 @@ public:
   bool rmdir(const QModelIndex& index) const;
 
   /**
+   * Rename file or directory of @a index to @a newName.
+   * @return true if ok
+   */
+  bool rename(const QModelIndex& index, const QString& newName);
+
+  /**
    * Get index for given path and column.
    * @param path path to file or directory
    * @param column model column

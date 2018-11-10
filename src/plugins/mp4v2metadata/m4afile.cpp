@@ -866,7 +866,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
   }
 
   if (isFilenameChanged()) {
-    if (!renameFile(currentFilename(), getFilename())) {
+    if (!renameFile()) {
       return false;
     }
     markFilenameUnchanged();

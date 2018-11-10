@@ -41,6 +41,13 @@ public:
   explicit DirProxyModel(QObject* parent = nullptr);
 
   /**
+   * Get item flags.
+   * @param index index of item
+   * @return default flags without editable.
+   */
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+
+  /**
    * Reset the model.
    */
   void resetModel();
