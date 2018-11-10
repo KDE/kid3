@@ -62,15 +62,11 @@
 // We mean it.
 //
 
-#ifdef USE_QT_PRIVATE_HEADERS
-#include <QtWidgets/private/qtwidgetsglobal_p.h>
-#endif
-
 #include <qthread.h>
 #include <qmutex.h>
 #include <qwaitcondition.h>
 #include <qfilesystemwatcher.h>
-#include <qicon.h>
+#include <qvariant.h>
 #include <qpair.h>
 #include <qstack.h>
 #include <qdatetime.h>
@@ -160,13 +156,13 @@ public:
     }
 
     QString displayType;
-    QIcon icon;
+    QVariant icon;
 
 private :
     QFileInfo mFileInfo;
 };
 
-class AbstractFileIconProvider;
+class AbstractFileDecorationProvider;
 
 class FileInfoGatherer : public QThread
 {
@@ -186,7 +182,7 @@ public:
     void clear();
     void removePath(const QString &path);
     ExtendedInformation getInfo(const QFileInfo &info) const;
-    AbstractFileIconProvider *iconProvider() const;
+    AbstractFileDecorationProvider *decorationProvider() const;
     bool resolveSymlinks() const;
 
 public Q_SLOTS:
@@ -194,7 +190,7 @@ public Q_SLOTS:
     void fetchExtendedInformation(const QString &path, const QStringList &files);
     void updateFile(const QString &path);
     void setResolveSymlinks(bool enable);
-    void setIconProvider(AbstractFileIconProvider *provider);
+    void setDecorationProvider(AbstractFileDecorationProvider *provider);
 
 private Q_SLOTS:
     void driveAdded();
@@ -221,6 +217,6 @@ private:
 #ifdef Q_OS_WIN
     bool m_resolveSymlinks; // not accessed by run()
 #endif
-    AbstractFileIconProvider *m_iconProvider;
+    AbstractFileDecorationProvider *m_decorationProvider;
 };
 /** \endcond */

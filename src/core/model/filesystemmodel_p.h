@@ -64,7 +64,6 @@
 //
 
 #ifdef USE_QT_PRIVATE_HEADERS
-#include <QtWidgets/private/qtwidgetsglobal_p.h>
 #include <private/qabstractitemmodel_p.h>
 #endif
 #include <qabstractitemmodel.h>
@@ -72,15 +71,14 @@
 #include "fileinfogatherer_p.h"
 #include <qpair.h>
 #include <qdir.h>
-#include <qicon.h>
 #include <qfileinfo.h>
 #include <qtimer.h>
 #include <qhash.h>
-#include "abstractfileiconprovider.h"
+#include "abstractfiledecorationprovider.h"
 
 class ExtendedInformation;
 class FileSystemModelPrivate;
-class AbstractFileIconProvider;
+class AbstractFileDecorationProvider;
 
 #if defined(Q_OS_WIN)
 class FileSystemModelNodePathKey : public QString
@@ -147,7 +145,7 @@ public:
         inline bool isHidden() const { if (info) return info->isHidden(); return false; }
         inline bool isSymLink(bool ignoreNtfsSymLinks = false) const { return info && info->isSymLink(ignoreNtfsSymLinks); }
         inline bool caseSensitive() const { if (info) return info->isCaseSensitive(); return false; }
-        inline QIcon icon() const { if (info) return info->icon; return QIcon(); }
+        inline QVariant icon() const { if (info) return info->icon; return QVariant(); }
 
         inline bool operator <(const FileSystemNode &node) const {
             if (caseSensitive() || node.caseSensitive())
@@ -188,11 +186,11 @@ public:
         inline int visibleLocation(const QString &childName) {
             return visibleChildren.indexOf(childName);
         }
-        void updateIcon(AbstractFileIconProvider *iconProvider, const QString &path) {
+        void updateIcon(AbstractFileDecorationProvider *iconProvider, const QString &path) {
             if (!iconProvider)
                 return;
             if (info)
-                info->icon = iconProvider->icon(QFileInfo(path));
+                info->icon = iconProvider->decoration(QFileInfo(path));
 #if QT_VERSION >= 0x050700
             for (FileSystemNode *child : qAsConst(children)) {
 #else
@@ -210,7 +208,7 @@ public:
             }
         }
 
-        void retranslateStrings(AbstractFileIconProvider *iconProvider, const QString &path) {
+        void retranslateStrings(AbstractFileDecorationProvider *iconProvider, const QString &path) {
             if (!iconProvider)
                 return;
             if (info)
@@ -315,7 +313,7 @@ public:
             delayedSortTimer.start(0);
     }
 
-    QIcon icon(const QModelIndex &index) const;
+    QVariant icon(const QModelIndex &index) const;
     QString name(const QModelIndex &index) const;
     QString displayName(const QModelIndex &index) const;
     QString filePath(const QModelIndex &index) const;

@@ -54,13 +54,12 @@
 #include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qpair.h>
 #include <QtCore/qdir.h>
-#include <QtGui/qicon.h>
 #include <QtCore/qdiriterator.h>
 #include "kid3api.h"
 
 class ExtendedInformation;
 class FileSystemModelPrivate;
-class AbstractFileIconProvider;
+class AbstractFileDecorationProvider;
 
 class KID3_CORE_EXPORT FileSystemModel : public QAbstractItemModel
 {
@@ -123,8 +122,8 @@ public:
     QString rootPath() const;
     QDir rootDirectory() const;
 
-    void setIconProvider(AbstractFileIconProvider *provider);
-    AbstractFileIconProvider *iconProvider() const;
+    void setDecorationProvider(AbstractFileDecorationProvider *provider);
+    AbstractFileDecorationProvider *decorationProvider() const;
 
     void setFilter(QDir::Filters filters);
     QDir::Filters filter() const;
@@ -150,7 +149,7 @@ public:
     QModelIndex mkdir(const QModelIndex &parent, const QString &name);
     bool rmdir(const QModelIndex &index);
     inline QString fileName(const QModelIndex &index) const;
-    inline QIcon fileIcon(const QModelIndex &index) const;
+    inline QVariant fileDecoration(const QModelIndex &index) const;
     QFile::Permissions permissions(const QModelIndex &index) const;
     QFileInfo fileInfo(const QModelIndex &index) const;
     bool remove(const QModelIndex &index);
@@ -177,8 +176,8 @@ private:
 
 inline QString FileSystemModel::fileName(const QModelIndex &aindex) const
 { return aindex.data(Qt::DisplayRole).toString(); }
-inline QIcon FileSystemModel::fileIcon(const QModelIndex &aindex) const
-{ return qvariant_cast<QIcon>(aindex.data(Qt::DecorationRole)); }
+inline QVariant FileSystemModel::fileDecoration(const QModelIndex &aindex) const
+{ return aindex.data(Qt::DecorationRole); }
 
 // Kid3, needed by moc generated moc_filesystemmodel.cpp.
 #include "filesystemmodel_p.h"

@@ -65,7 +65,7 @@
 #  include <qt_windows.h>
 #endif
 
-#include "abstractfileiconprovider.h"
+#include "abstractfiledecorationprovider.h"
 
 /*!
     \enum QFileSystemModel::Roles
@@ -719,9 +719,9 @@ QVariant FileSystemModel::myComputer(int role) const
         return FileSystemModelPrivate::myComputer();
 #ifndef QT_NO_FILESYSTEMWATCHER
     case Qt::DecorationRole:
-        return d->fileInfoGatherer.iconProvider()
-                ? d->fileInfoGatherer.iconProvider()->computerIcon()
-                : QIcon();
+        return d->fileInfoGatherer.decorationProvider()
+                ? d->fileInfoGatherer.decorationProvider()->computerDecoration()
+                : QVariant();
 #endif
     }
     return QVariant();
@@ -755,17 +755,17 @@ QVariant FileSystemModel::data(const QModelIndex &index, int role) const
         return d->name(index);
     case Qt::DecorationRole:
         if (index.column() == 0) {
-            QIcon icon = d->icon(index);
+            QVariant icon = d->icon(index);
 #ifndef QT_NO_FILESYSTEMWATCHER
             if (icon.isNull()) {
                 if (d->node(index)->isDir())
-                    icon = d->fileInfoGatherer.iconProvider()
-                            ? d->fileInfoGatherer.iconProvider()->folderIcon()
-                            : QIcon();
+                    icon = d->fileInfoGatherer.decorationProvider()
+                            ? d->fileInfoGatherer.decorationProvider()->folderDecoration()
+                            : QVariant();
                 else
-                    icon = d->fileInfoGatherer.iconProvider()
-                            ? d->fileInfoGatherer.iconProvider()->fileIcon()
-                            : QIcon();
+                    icon = d->fileInfoGatherer.decorationProvider()
+                            ? d->fileInfoGatherer.decorationProvider()->fileDecoration()
+                            : QVariant();
             }
 #endif // QT_NO_FILESYSTEMWATCHER
             return icon;
@@ -884,10 +884,10 @@ QString FileSystemModelPrivate::displayName(const QModelIndex &index) const
 /*!
     \internal
 */
-QIcon FileSystemModelPrivate::icon(const QModelIndex &index) const
+QVariant FileSystemModelPrivate::icon(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return QIcon();
+        return QVariant();
     return node(index)->icon();
 }
 
@@ -956,12 +956,10 @@ QVariant FileSystemModel::headerData(int section, Qt::Orientation orientation, i
     switch (role) {
     case Qt::DecorationRole:
         if (section == 0) {
-            // ### TODO oh man this is ugly and doesn't even work all the way!
-            // it is still 2 pixels off
-            QImage pixmap(16, 1, QImage::Format_Mono);
-            pixmap.fill(0);
-            pixmap.setAlphaChannel(pixmap.createAlphaMask());
-            return pixmap;
+            Q_D(const FileSystemModel);
+            return d->fileInfoGatherer.decorationProvider()
+                    ? d->fileInfoGatherer.decorationProvider()->headerDecoration()
+                    : QVariant();
         }
         break;
     case Qt::TextAlignmentRole:
@@ -1459,11 +1457,11 @@ QDir FileSystemModel::rootDirectory() const
 /*!
     Sets the \a provider of file icons for the directory model.
 */
-void FileSystemModel::setIconProvider(AbstractFileIconProvider *provider)
+void FileSystemModel::setDecorationProvider(AbstractFileDecorationProvider *provider)
 {
     Q_D(FileSystemModel);
 #ifndef QT_NO_FILESYSTEMWATCHER
-    d->fileInfoGatherer.setIconProvider(provider);
+    d->fileInfoGatherer.setDecorationProvider(provider);
 #endif
     d->root.updateIcon(provider, QString());
 }
@@ -1471,11 +1469,11 @@ void FileSystemModel::setIconProvider(AbstractFileIconProvider *provider)
 /*!
     Returns the file icon provider for this directory model.
 */
-AbstractFileIconProvider *FileSystemModel::iconProvider() const
+AbstractFileDecorationProvider *FileSystemModel::decorationProvider() const
 {
 #ifndef QT_NO_FILESYSTEMWATCHER
     Q_D(const FileSystemModel);
-    return d->fileInfoGatherer.iconProvider();
+    return d->fileInfoGatherer.decorationProvider();
 #else
     return 0;
 #endif
@@ -1648,7 +1646,7 @@ bool FileSystemModel::event(QEvent *event)
 #ifndef QT_NO_FILESYSTEMWATCHER
     Q_D(FileSystemModel);
     if (event->type() == QEvent::LanguageChange) {
-        d->root.retranslateStrings(d->fileInfoGatherer.iconProvider(), QString());
+        d->root.retranslateStrings(d->fileInfoGatherer.decorationProvider(), QString());
         return true;
     }
 #endif

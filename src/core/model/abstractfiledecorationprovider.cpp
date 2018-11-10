@@ -1,6 +1,6 @@
 /**
- * \file abstractfileiconprovider.cpp
- * Indirection for QFileIconProvider to use it without Qt5::Widgets.
+ * \file abstractfiledecorationprovider.cpp
+ * Indirection for QFileIconProvider to use it without Gui and Widgets.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,16 +24,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "abstractfileiconprovider.h"
+#include "abstractfiledecorationprovider.h"
 #include <QString>
 #include <QDir>
 #include <QCoreApplication>
 
-AbstractFileIconProvider::~AbstractFileIconProvider()
+AbstractFileDecorationProvider::~AbstractFileDecorationProvider()
 {
 }
 
-QString AbstractFileIconProvider::type(const QFileInfo &info) const
+QString AbstractFileDecorationProvider::type(const QFileInfo &info) const
 {
     return fileTypeDescription(info);
 }
@@ -78,7 +78,7 @@ static bool isRootPath(const QString &path)
     return false;
 }
 
-QString AbstractFileIconProvider::fileTypeDescription(const QFileInfo &info)
+QString AbstractFileDecorationProvider::fileTypeDescription(const QFileInfo &info)
 {
     if (isRootPath(info.absoluteFilePath()))
         return QCoreApplication::translate("QFileDialog", "Drive");

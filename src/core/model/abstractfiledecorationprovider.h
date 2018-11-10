@@ -1,6 +1,6 @@
 /**
- * \file abstractfileiconprovider.h
- * Indirection for QFileIconProvider to use it without Qt5::Widgets.
+ * \file abstractfiledecorationprovider.h
+ * Indirection for QFileIconProvider to use it without Gui and Widgets.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -30,24 +30,26 @@
 
 class QString;
 class QFileInfo;
-class QIcon;
+class QVariant;
 
 /**
  * Provides icons for the FileSystemModel.
  */
-class KID3_CORE_EXPORT AbstractFileIconProvider
+class KID3_CORE_EXPORT AbstractFileDecorationProvider
 {
 public:
-    virtual ~AbstractFileIconProvider();
+    virtual ~AbstractFileDecorationProvider();
 
+    /** Section 0 headerData() for Qt::DecorationRole */
+    virtual QVariant headerDecoration() const = 0;
     /** Computer icon. */
-    virtual QIcon computerIcon() const = 0;
+    virtual QVariant computerDecoration() const = 0;
     /** Folder icon. */
-    virtual QIcon folderIcon() const = 0;
+    virtual QVariant folderDecoration() const = 0;
     /** File icon. */
-    virtual QIcon fileIcon() const = 0;
+    virtual QVariant fileDecoration() const = 0;
     /** Icon for a file type. */
-    virtual QIcon icon(const QFileInfo &info) const = 0;
+    virtual QVariant decoration(const QFileInfo &info) const = 0;
     /** Description for a file type. */
     virtual QString type(const QFileInfo &info) const;
 

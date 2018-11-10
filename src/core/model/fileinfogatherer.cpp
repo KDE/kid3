@@ -59,7 +59,7 @@
 #if defined(Q_OS_VXWORKS)
 #  include "qplatformdefs.h"
 #endif
-#include "abstractfileiconprovider.h"
+#include "abstractfiledecorationprovider.h"
 
 #ifdef QT_BUILD_INTERNAL
 static QBasicAtomicInt fetchedRoot = Q_BASIC_ATOMIC_INITIALIZER(false);
@@ -97,7 +97,7 @@ FileInfoGatherer::FileInfoGatherer(QObject *parent)
 #ifdef Q_OS_WIN
       m_resolveSymlinks(true),
 #endif
-      m_iconProvider(Q_NULLPTR)
+      m_decorationProvider(Q_NULLPTR)
 {
 #ifndef QT_NO_FILESYSTEMWATCHER
     watcher = new QFileSystemWatcher(this);
@@ -160,14 +160,14 @@ bool FileInfoGatherer::resolveSymlinks() const
 #endif
 }
 
-void FileInfoGatherer::setIconProvider(AbstractFileIconProvider *provider)
+void FileInfoGatherer::setDecorationProvider(AbstractFileDecorationProvider *provider)
 {
-    m_iconProvider = provider;
+    m_decorationProvider = provider;
 }
 
-AbstractFileIconProvider *FileInfoGatherer::iconProvider() const
+AbstractFileDecorationProvider *FileInfoGatherer::decorationProvider() const
 {
-    return m_iconProvider;
+    return m_decorationProvider;
 }
 
 /*!
@@ -285,12 +285,12 @@ void FileInfoGatherer::run()
 ExtendedInformation FileInfoGatherer::getInfo(const QFileInfo &fileInfo) const
 {
     ExtendedInformation info(fileInfo);
-    if (m_iconProvider) {
-        info.icon = m_iconProvider->icon(fileInfo);
-        info.displayType = m_iconProvider->type(fileInfo);
+    if (m_decorationProvider) {
+        info.icon = m_decorationProvider->decoration(fileInfo);
+        info.displayType = m_decorationProvider->type(fileInfo);
     } else {
-        info.icon = QIcon();
-        info.displayType = AbstractFileIconProvider::fileTypeDescription(fileInfo);
+        info.icon = QVariant();
+        info.displayType = AbstractFileDecorationProvider::fileTypeDescription(fileInfo);
     }
 #ifndef QT_NO_FILESYSTEMWATCHER
     // ### Not ready to listen all modifications by default
