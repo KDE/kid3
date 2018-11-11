@@ -215,6 +215,12 @@ public:
   bool rmdir(const QModelIndex& index) const;
 
   /**
+   * Create a directory with @a name in the @a parent model index.
+   * @return index of created directory.
+   */
+  QModelIndex mkdir(const QModelIndex& parent, const QString& name) const;
+
+  /**
    * Rename file or directory of @a index to @a newName.
    * @return true if ok
    */

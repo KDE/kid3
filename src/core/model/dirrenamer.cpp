@@ -75,14 +75,24 @@ DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
  * Create a directory if it does not exist.
  *
  * @param dir      directory path
+ * @param index    model index of item to rename
  * @param errorMsg if not NULL and an error occurred, a message is appended here,
  *                 otherwise it is not touched
  *
  * @return true if directory exists or was created successfully.
  */
-bool DirRenamer::createDirectory(const QString& dir,
-                   QString* errorMsg) const
+bool DirRenamer::createDirectory(
+    const QString& dir, const QPersistentModelIndex& index,
+    QString* errorMsg) const
 {
+  if (auto model = qobject_cast<const FileProxyModel*>(index.model())) {
+    const QString parentDirName = model->filePath(index.parent());
+    const QString relativeName = QDir(parentDirName).relativeFilePath(dir);
+    if (model->mkdir(index.parent(), relativeName).isValid() &&
+        QFileInfo(dir).isDir()) {
+      return true;
+    }
+  }
   if (QFileInfo(dir).isDir() ||
     (QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
     return true;
@@ -131,6 +141,14 @@ bool DirRenamer::renameDirectory(
   if (index.isValid()) {
     // The directory must be closed before renaming on Windows.
     TaggedFileIterator::closeFileHandles(index);
+  }
+  if (auto model = const_cast<FileProxyModel*>(
+        qobject_cast<const FileProxyModel*>(index.model()))) {
+    const QString parentDirName = model->filePath(index.parent());
+    const QString relativeName = QDir(parentDirName).relativeFilePath(newdir);
+    if (model->rename(index, relativeName) && QFileInfo(newdir).isDir()) {
+      return true;
+    }
   }
   if (Utils::safeRename(olddir, newdir) && QFileInfo(newdir).isDir()) {
     return true;
@@ -361,7 +379,8 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
             createDir = false;
           }
           // Create a directory for each file and move it.
-          addAction(RenameAction::CreateDirectory, currentDirname + newPart);
+          addAction(RenameAction::CreateDirectory, QString(),
+                    currentDirname + newPart, taggedFile->getIndex());
           if (!createDir) {
             addAction(RenameAction::RenameFile,
                       dirWithFiles + QLatin1Char('/') + taggedFile->getFilename(),
@@ -418,7 +437,7 @@ void DirRenamer::performActions(QString* errorMsg)
   for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
     switch ((*it).m_type) {
       case RenameAction::CreateDirectory:
-        createDirectory((*it).m_dest, errorMsg);
+        createDirectory((*it).m_dest, (*it).m_index, errorMsg);
         break;
       case RenameAction::RenameDirectory:
         if (renameDirectory((*it).m_src, (*it).m_dest, (*it).m_index,

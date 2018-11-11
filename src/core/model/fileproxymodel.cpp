@@ -181,6 +181,19 @@ bool FileProxyModel::rmdir(const QModelIndex& index) const
 }
 
 /**
+ * Create a directory with @a name in the @a parent model index.
+ * @return index of created directory.
+ */
+QModelIndex FileProxyModel::mkdir(const QModelIndex& parent, const QString& name) const
+{
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(parent));
+    return mapFromSource(m_fsModel->mkdir(sourceIndex, name));
+  }
+  return QModelIndex();
+}
+
+/**
  * Rename file or directory of @a index to @a newName.
  * @return true if ok
  */

@@ -204,12 +204,14 @@ private:
    * Create a directory if it does not exist.
    *
    * @param dir      directory path
+   * @param index    model index of item to rename
    * @param errorMsg if not NULL and an error occurred, a message is appended here,
    *                 otherwise it is not touched
    *
    * @return true if directory exists or was created successfully.
    */
-  bool createDirectory(const QString& dir, QString* errorMsg) const;
+  bool createDirectory(const QString& dir, const QPersistentModelIndex& index,
+                       QString* errorMsg) const;
 
   /**
    * Rename a directory.
