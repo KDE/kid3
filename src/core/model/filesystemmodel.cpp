@@ -1742,6 +1742,12 @@ void FileSystemModelPrivate::removeNode(FileSystemModelPrivate::FileSystemNode *
         q->beginRemoveRows(parent, translateVisibleLocation(parentNode, vLocation),
                                        translateVisibleLocation(parentNode, vLocation));
     FileSystemNode * node = parentNode->children.take(name);
+#ifndef QT_NO_FILESYSTEMWATCHER
+    if (node->info && node->info->isDir()) {
+        // Remove watched path when directory is removed or renamed
+        fileInfoGatherer.removePath(node->info->fileInfo().filePath());
+    }
+#endif
     delete node;
     // cleanup sort files after removing rather then re-sorting which is O(n)
     if (vLocation >= 0)
