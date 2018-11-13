@@ -180,6 +180,7 @@ public:
 
     // only callable from this->thread():
     void clear();
+    void addPath(const QString &path);
     void removePath(const QString &path);
     ExtendedInformation getInfo(const QFileInfo &info) const;
     AbstractFileDecorationProvider *decorationProvider() const;

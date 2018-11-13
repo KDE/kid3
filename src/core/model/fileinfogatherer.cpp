@@ -227,6 +227,19 @@ void FileInfoGatherer::clear()
 }
 
 /*
+    Add a \a path to the watcher
+*/
+void FileInfoGatherer::addPath(const QString &path)
+{
+#ifndef QT_NO_FILESYSTEMWATCHER
+    QMutexLocker locker(&mutex);
+    watcher->addPath(path);
+#else
+    Q_UNUSED(path);
+#endif
+}
+
+/*
     Remove a \a path from the watcher
 
     \sa listed()

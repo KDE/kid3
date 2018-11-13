@@ -937,6 +937,11 @@ bool FileSystemModel::setData(const QModelIndex &idx, const QVariant &value, int
         nodeToRename->parent = parentNode;
 #ifndef QT_NO_FILESYSTEMWATCHER
         nodeToRename->populate(d->fileInfoGatherer.getInfo(QFileInfo(parentPath, newName)));
+        if (nodeToRename->isDir()) {
+            // Update watcher when directory is renamed
+            d->fileInfoGatherer.removePath(parentPath + QLatin1Char('/') + oldName);
+            d->fileInfoGatherer.addPath(parentPath + QLatin1Char('/') + newName);
+        }
 #endif
         nodeToRename->isVisible = true;
         parentNode->children[newName] = nodeToRename.take();
