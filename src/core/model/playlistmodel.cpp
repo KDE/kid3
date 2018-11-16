@@ -37,6 +37,8 @@ PlaylistModel::PlaylistModel(FileProxyModel* fsModel, QObject* parent)
 {
   setObjectName(QLatin1String("PlaylistModel"));
   setSourceModel(m_fsModel);
+  connect(m_fsModel, &FileProxyModel::modelAboutToBeReset,
+          this, &PlaylistModel::onSourceModelAboutToBeReset);
 }
 
 Qt::ItemFlags PlaylistModel::flags(const QModelIndex& index) const
@@ -252,4 +254,25 @@ bool PlaylistModel::setPathsInPlaylist(const QStringList& paths)
   endResetModel();
   setModified(true);
   return ok;
+}
+
+void PlaylistModel::onSourceModelAboutToBeReset()
+{
+  m_pathsSavedDuringReset = pathsInPlaylist();
+  // Restoring the model when modelReset() is signaled would cause an invalid
+  // read of a deallocated file system node. Wait until the model is reloaded.
+  connect(m_fsModel, &FileProxyModel::sortingFinished,
+          this, &PlaylistModel::onSourceModelReloaded);
+}
+
+void PlaylistModel::onSourceModelReloaded()
+{
+  disconnect(m_fsModel, &FileProxyModel::sortingFinished,
+             this, &PlaylistModel::onSourceModelReloaded);
+  if (!m_pathsSavedDuringReset.isEmpty()) {
+    const bool oldModified = isModified();
+    setPathsInPlaylist(m_pathsSavedDuringReset);
+    m_pathsSavedDuringReset.clear();
+    setModified(oldModified);
+  }
 }

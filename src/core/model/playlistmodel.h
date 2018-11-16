@@ -203,11 +203,16 @@ signals:
    */
   void modifiedChanged(bool modified);
 
+private slots:
+  void onSourceModelAboutToBeReset();
+  void onSourceModelReloaded();
+
 private:
   PlaylistConfig m_playlistConfig;
   QString m_playlistFilePath;
   QString m_playlistFileName;
   QList<QPersistentModelIndex> m_items;
+  QStringList m_pathsSavedDuringReset;
   QStringList m_filesNotFound;
   FileProxyModel* m_fsModel;
   bool m_modified;

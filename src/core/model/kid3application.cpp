@@ -2691,8 +2691,6 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
 
 /**
  * Open directory after resetting the file system model.
- * This will create a new file system model and reset the file and directory
- * proxy models.
  * When finished directoryOpened() is emitted, also if false is returned.
  *
  * @param paths file or directory paths, if multiple paths are given, the
@@ -2703,7 +2701,6 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
  */
 bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
 {
-  qDebug("Reset file system model");
   // Clear the selection.
   m_selection->beginAddTaggedFiles();
   m_selection->endAddTaggedFiles();
@@ -2711,14 +2708,7 @@ bool Kid3Application::openDirectoryAfterReset(const QStringList& paths)
   if (dirs.isEmpty()) {
     dirs.append(m_fileSystemModel->rootPath());
   }
-  m_fileSystemModel->setRootPath(QString());
-  m_fileProxyModel->resetModel();
-  m_dirProxyModel->resetModel();
-  m_fileSystemModel->deleteLater();
-  m_fileSystemModel = new FileSystemModel(this);
-  m_fileSystemModel->setReadOnly(false);
-  m_fileProxyModel->setSourceModel(m_fileSystemModel);
-  m_dirProxyModel->setSourceModel(m_fileSystemModel);
+  m_fileSystemModel->clear();
   return openDirectory(dirs);
 }
 

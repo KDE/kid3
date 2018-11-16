@@ -502,15 +502,6 @@ void FileProxyModel::resetInternalData()
 }
 
 /**
- * Reset the model.
- */
-void FileProxyModel::resetModel()
-{
-  beginResetModel();
-  endResetModel();
-}
-
-/**
  * Stop filtering out indexes.
  */
 void FileProxyModel::disableFilteringOutIndexes()

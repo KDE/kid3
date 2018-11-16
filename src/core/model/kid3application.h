@@ -378,6 +378,18 @@ public:
   void dropUrls(const QList<QUrl>& urlList, bool isInternal);
 
   /**
+   * Open directory after resetting the file system model.
+   * When finished directoryOpened() is emitted, also if false is returned.
+   *
+   * @param paths file or directory paths, if multiple paths are given, the
+   * common directory is opened and the files are selected, if empty, the
+   * currently open directory is reopened
+   *
+   * @return true if ok.
+   */
+  bool openDirectoryAfterReset(const QStringList& paths = QStringList());
+
+  /**
    * Save all changed files.
    * longRunningOperationProgress() is emitted while saving files.
    *
@@ -1471,20 +1483,6 @@ private:
    * it is added
    */
   void addFrame(Frame::TagNumber tagNr, const Frame* frame, bool edit = false);
-
-  /**
-   * Open directory after resetting the file system model.
-   * This will create a new file system model and reset the file and directory
-   * proxy models.
-   * When finished directoryOpened() is emitted, also if false is returned.
-   *
-   * @param paths file or directory paths, if multiple paths are given, the
-   * common directory is opened and the files are selected, if empty, the
-   * currently open directory is reopened
-   *
-   * @return true if ok.
-   */
-  bool openDirectoryAfterReset(const QStringList& paths = QStringList());
 
   /**
    * Open directory or add pictures on drop.

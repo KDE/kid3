@@ -132,11 +132,6 @@ public:
   virtual QHash<int, QByteArray> roleNames() const override;
 
   /**
-   * Reset the model.
-   */
-  void resetModel();
-
-  /**
    * Check if the model is currently loading a directory.
    * @return true if loading is in progress.
    */

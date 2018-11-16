@@ -47,11 +47,6 @@ public:
    */
   virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-  /**
-   * Reset the model.
-   */
-  void resetModel();
-
 protected:
   /**
    * Check if row should be included in model.
