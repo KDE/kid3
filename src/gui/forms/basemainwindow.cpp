@@ -485,6 +485,17 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
 }
 
 /**
+ * Reload the current directory.
+ */
+void BaseMainWindowImpl::slotFileReload()
+{
+  updateCurrentSelection();
+  if(saveModified()) {
+    m_app->openDirectoryAfterReset();
+  }
+}
+
+/**
  * Open recent directory.
  *
  * @param dir directory to open

@@ -184,6 +184,15 @@ void KdeMainWindow::initActions()
   collection->addAction(QLatin1String("open_directory"), action);
   connect(action, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
+
+  action = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")),
+                       tr("Re&load"), this);
+  action->setStatusTip(tr("Reload directory"));
+  action->setShortcut(QKeySequence::Refresh);
+  collection->addAction(QLatin1String("reload"), action);
+  connect(action, &QAction::triggered,
+          impl(), &BaseMainWindowImpl::slotFileReload);
+
   action = new QAction(QIcon::fromTheme(QLatin1String("document-import")),
                        tr("&Import..."), this);
   action->setStatusTip(tr("Import from file or clipboard"));

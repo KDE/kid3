@@ -26,5 +26,7 @@
     <file>images/help-contents@2x.png</file>
     <file>images/view-media-playlist.png</file>
     <file>images/view-media-playlist@2x.png</file>
+    <file>images/view-refresh.png</file>
+    <file>images/view-refresh@2x.png</file>
   </qresource>
 </RCC>

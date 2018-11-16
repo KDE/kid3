@@ -208,6 +208,11 @@ public slots:
   void slotFileOpenDirectory();
 
   /**
+   * Reload the current directory.
+   */
+  void slotFileReload();
+
+  /**
    * Save modified files.
    */
   void slotFileSave();

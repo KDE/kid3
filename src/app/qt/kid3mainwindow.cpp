@@ -142,6 +142,18 @@ void Kid3MainWindow::initActions()
   connect(fileOpenDirectory, &QAction::triggered,
     impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
   fileMenu->addAction(fileOpenDirectory);
+
+  auto fileReload = new QAction(this);
+  fileReload->setStatusTip(tr("Reload directory"));
+  fileReload->setText(tr("Re&load"));
+  fileReload->setShortcut(QKeySequence::Refresh);
+  fileReload->setIcon(QIcon::fromTheme(QLatin1String("view-refresh"),
+      QIcon(QLatin1String(":/images/view-refresh.png"))));
+  fileReload->setObjectName(QLatin1String("reload"));
+  m_shortcutsModel->registerAction(fileReload, menuTitle);
+  connect(fileReload, &QAction::triggered,
+    impl(), &BaseMainWindowImpl::slotFileReload);
+  fileMenu->addAction(fileReload);
   fileMenu->addSeparator();
 
   auto fileSave = new QAction(this);
