@@ -1362,6 +1362,19 @@ QFile::Permissions FileSystemModel::permissions(const QModelIndex &index) const
 }
 
 /*!
+    Free resources used by file system model and reset root path to default.
+    The model state will be as after creation, but all properties except the
+    root path remain the same.
+ */
+void FileSystemModel::clear()
+{
+    Q_D(FileSystemModel);
+    beginResetModel();
+    d->clear();
+    endResetModel();
+}
+
+/*!
     Sets the directory that is being watched by the model to \a newPath by
     installing a \l{QFileSystemWatcher}{file system watcher} on it. Any
     changes to files and directories within this directory will be
@@ -1925,6 +1938,22 @@ void FileSystemModelPrivate::_q_fileSystemChanged(const QString &path, const QVe
 void FileSystemModelPrivate::_q_resolvedName(const QString &fileName, const QString &resolvedName)
 {
     resolvedSymLinks[fileName] = resolvedName;
+}
+
+void FileSystemModelPrivate::clear()
+{
+    forceSort = true;
+    setRootPath = false;
+    rootDir.setPath(QString::fromLatin1("."));
+#ifndef QT_NO_FILESYSTEMWATCHER
+    fileInfoGatherer.clear();
+#endif
+    delayedSortTimer.stop();
+    bypassFilters.clear();
+    resolvedSymLinks.clear();
+    root.clear();
+    fetchingTimer.stop();
+    toFetch.clear();
 }
 
 /*!

@@ -118,6 +118,7 @@ public:
 #endif
 
     // QFileSystemModel specific API
+    void clear();
     QModelIndex setRootPath(const QString &path);
     QString rootPath() const;
     QDir rootDirectory() const;

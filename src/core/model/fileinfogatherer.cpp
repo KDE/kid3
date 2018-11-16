@@ -224,6 +224,9 @@ void FileInfoGatherer::clear()
     watcher->removePaths(watcher->files());
     watcher->removePaths(watcher->directories());
 #endif
+
+    path.clear();
+    files.clear();
 }
 
 /*

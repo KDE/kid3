@@ -119,6 +119,18 @@ public:
             info = 0;
             parent = 0;
         }
+        void clear() {
+            fileName.clear();
+            populatedChildren = false;
+            isVisible = false;
+            qDeleteAll(children);
+            children.clear();
+            visibleChildren.clear();
+            dirtyChildrenIndex = -1;
+            parent = Q_NULLPTR;
+            delete info;
+            info = Q_NULLPTR;
+        }
 
         QString fileName;
 #if defined(Q_OS_WIN)
@@ -262,6 +274,7 @@ public:
         delayedSortTimer.setSingleShot(true);
     }
 
+    void clear();
     void init();
     /*
       \internal
