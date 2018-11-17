@@ -49,6 +49,7 @@
 #include <QMenu>
 #include <QFileIconProvider>
 #include <QStyle>
+#include <QHeaderView>
 #include "filesystemmodel.h"
 #include "frametable.h"
 #include "frametablemodel.h"
@@ -808,11 +809,32 @@ void Kid3Form::onFirstDirectoryOpened()
   const GuiConfig& guiCfg = GuiConfig::instance();
   m_app->getFileProxyModel()->sort(guiCfg.fileListSortColumn(),
                                    guiCfg.fileListSortOrder());
+  int firstFileSectionSize = 0;
+  const QHeaderView* fileHeader = m_fileListBox->header();
   const auto columns = guiCfg.fileListVisibleColumns();
   for (int column : columns) {
     m_fileListBox->resizeColumnToContents(column);
+    if (firstFileSectionSize <= 0 && fileHeader) {
+      firstFileSectionSize = fileHeader->sectionSize(column);
+    }
   }
   m_fileListBox->scrollTo(m_fileListBox->currentIndex());
+
+  int firstDirSectionSize = 0;
+  QHeaderView* dirHeader = m_dirListBox->header();
+  const auto dirColumns = guiCfg.dirListVisibleColumns();
+  for (int column : dirColumns) {
+    m_dirListBox->resizeColumnToContents(column);
+    if (firstDirSectionSize <= 0 && dirHeader) {
+      firstDirSectionSize = dirHeader->sectionSize(column);
+      if (firstDirSectionSize < firstFileSectionSize) {
+        // The directory column often only contains "." and "..", which results
+        // in a small size. Make it at least as wide as the corresponding
+        // file list column.
+        dirHeader->resizeSection(column, firstFileSectionSize);
+      }
+    }
+  }
 }
 
 /**
