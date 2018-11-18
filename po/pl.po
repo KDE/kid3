@@ -6,9 +6,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -297,6 +297,12 @@ msgstr "&Otwórz katalog..."
 msgid "Opens a directory"
 msgstr "Otwiera katalog"
 
+msgid "Re&load"
+msgstr "O&dśwież"
+
+msgid "Reload directory"
+msgstr "Ponownie wczytaj katalog"
+
 msgid "&Import..."
 msgstr "&Importuj..."
 
@@ -440,12 +446,6 @@ msgstr "Lista katalogów"
 
 msgid "Configure - Kid3"
 msgstr "Konfiguracja - Kid3"
-
-msgid "Open"
-msgstr "Otwórz"
-
-msgid "Save As"
-msgstr "Zapisz jako"
 
 msgid "directory to open"
 msgstr "katalog do otwarcia"
@@ -692,6 +692,15 @@ msgstr "Rok"
 msgid "Length"
 msgstr "Długość"
 
+msgid "Drive"
+msgstr "Napęd"
+
+msgid "%1 File"
+msgstr "Plik %1"
+
+msgid "Folder"
+msgstr "Katalog"
+
 msgid "Filenames"
 msgstr "Nazwy plików"
 
@@ -878,15 +887,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "&Wyczyść"
-
-msgid "Execute "
-msgstr "Wykonaj"
-
-msgid "Could not execute "
-msgstr "Nie można wykonać"
-
 msgid "True if strings are equal"
 msgstr "łańcuchy są równe"
 
@@ -922,6 +922,35 @@ msgstr "Wszystkie obsługiwane pliki"
 
 msgid "All Files"
 msgstr "Wszystkie pliki"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 bajtów"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Typ"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Rodzaj"
+
+msgid "My Computer"
+msgstr "Mój komputer"
+
+msgid "Computer"
+msgstr "Komputer"
 
 msgid "Text"
 msgstr "Tekst"
@@ -1881,6 +1910,9 @@ msgstr "&Dostępne wtyczki"
 msgid "Changes take only effect after a restart!"
 msgstr "Zmiany będą widoczne dopiero po ponownym uruchomieniu!"
 
+msgid "Images"
+msgstr "Obrazy"
+
 msgid "From Clip&board"
 msgstr "Ze &schowka"
 
@@ -1889,9 +1921,6 @@ msgstr "&Do schowka"
 
 msgid "&View..."
 msgstr "&Widok..."
-
-msgid "Images"
-msgstr "Obrazy"
 
 msgid "Export"
 msgstr "Eksportuj"
@@ -2211,6 +2240,12 @@ msgstr "O&twórz"
 msgid "Open Containing &Folder"
 msgstr "Ot&wórz katalog"
 
+msgid "Execute "
+msgstr "Wykonaj"
+
+msgid "Could not execute "
+msgstr "Nie można wykonać"
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2360,6 +2395,9 @@ msgstr "Milisekundy"
 
 msgid "&Delete rows"
 msgstr "&Usuń wiersze"
+
+msgid "C&lear"
+msgstr "&Wyczyść"
 
 msgid "&Add offset..."
 msgstr "&Dodaj przesunięcie..."
@@ -2734,6 +2772,9 @@ msgstr "Znacznik 2"
 
 msgid "Profile:"
 msgstr "Profil:"
+
+msgid "Open"
+msgstr "Otwórz"
 
 msgid "Filter:"
 msgstr "Filtr:"

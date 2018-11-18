@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "&Klasör Aç..."
 msgid "Opens a directory"
 msgstr "Bir dizin açar"
 
+msgid "Re&load"
+msgstr "Y&eniden Yükle"
+
+msgid "Reload directory"
+msgstr "Geçerli dizini yenile"
+
 msgid "&Import..."
 msgstr "A&l..."
 
@@ -439,12 +445,6 @@ msgstr "Dizin listesi"
 
 msgid "Configure - Kid3"
 msgstr "Yapılandır - Kid3"
-
-msgid "Open"
-msgstr "Aç"
-
-msgid "Save As"
-msgstr "Farklı Kaydet"
 
 msgid "directory to open"
 msgstr "açılacak dizin"
@@ -691,6 +691,15 @@ msgstr "Yıl"
 msgid "Length"
 msgstr "Süre"
 
+msgid "Drive"
+msgstr "Sürücü"
+
+msgid "%1 File"
+msgstr "Dosya %1"
+
+msgid "Folder"
+msgstr "Dizin"
+
 msgid "Filenames"
 msgstr "Dosya isimleri"
 
@@ -877,15 +886,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "Temiz&le"
-
-msgid "Execute "
-msgstr "Çalıştır"
-
-msgid "Could not execute "
-msgstr "Çalıştırılamadı "
-
 msgid "True if strings are equal"
 msgstr ""
 
@@ -921,6 +921,35 @@ msgstr "Desteklenen Bütün Dosyalar"
 
 msgid "All Files"
 msgstr "Tüm Dosyalar"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 bayt"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Tür"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Tür"
+
+msgid "My Computer"
+msgstr "Çalma sayacı"
+
+msgid "Computer"
+msgstr "Bilgisayar"
 
 msgid "Text"
 msgstr "Metin"
@@ -1882,6 +1911,9 @@ msgstr "&Kullanılabilir eklentiler"
 msgid "Changes take only effect after a restart!"
 msgstr "Yeniden başlattıktan sonra etkinleştirilir!"
 
+msgid "Images"
+msgstr "Resimler"
+
 msgid "From Clip&board"
 msgstr "&Panodan"
 
@@ -1890,9 +1922,6 @@ msgstr "Pan&oya"
 
 msgid "&View..."
 msgstr "Görü&nüm..."
-
-msgid "Images"
-msgstr "Resimler"
 
 msgid "Export"
 msgstr "Dışa Aktar"
@@ -2211,6 +2240,12 @@ msgstr "A&ç"
 msgid "Open Containing &Folder"
 msgstr "&İçeren Klasörü Aç"
 
+msgid "Execute "
+msgstr "Çalıştır"
+
+msgid "Could not execute "
+msgstr "Çalıştırılamadı "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2360,6 +2395,9 @@ msgstr "Milisaniye"
 
 msgid "&Delete rows"
 msgstr "Satırları &Sil"
+
+msgid "C&lear"
+msgstr "Temiz&le"
 
 msgid "&Add offset..."
 msgstr "&Ekle konum..."
@@ -2733,6 +2771,9 @@ msgstr "Tag 2"
 
 msgid "Profile:"
 msgstr "Profil:"
+
+msgid "Open"
+msgstr "Aç"
 
 msgid "Filter:"
 msgstr "Filtre:"

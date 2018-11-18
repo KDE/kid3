@@ -4,9 +4,9 @@
 # shlinux <lishaohui.qd@163.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -295,6 +295,12 @@ msgstr "打开目录(&P)..."
 msgid "Opens a directory"
 msgstr "打开目录"
 
+msgid "Re&load"
+msgstr "重新装入(&L)"
+
+msgid "Reload directory"
+msgstr "重载当前文件夹"
+
 msgid "&Import..."
 msgstr "导入(&I)..."
 
@@ -438,12 +444,6 @@ msgstr "目录列表"
 
 msgid "Configure - Kid3"
 msgstr "配置 - Kid3"
-
-msgid "Open"
-msgstr "打开"
-
-msgid "Save As"
-msgstr "另存为"
 
 msgid "directory to open"
 msgstr "要打开的目录"
@@ -690,6 +690,15 @@ msgstr "年份"
 msgid "Length"
 msgstr "时长"
 
+msgid "Drive"
+msgstr "驱动器"
+
+msgid "%1 File"
+msgstr "%1 文件"
+
+msgid "Folder"
+msgstr "文件夹"
+
 msgid "Filenames"
 msgstr "文件名"
 
@@ -876,15 +885,6 @@ msgstr "音频文件结束"
 msgid "reserved for future use %1"
 msgstr "预留为将来使用 %1"
 
-msgid "C&lear"
-msgstr "清除(&l)"
-
-msgid "Execute "
-msgstr "执行"
-
-msgid "Could not execute "
-msgstr "无法执行"
-
 msgid "True if strings are equal"
 msgstr "字符串相同的话则为真"
 
@@ -920,6 +920,36 @@ msgstr "支持的全部文件"
 
 msgid "All Files"
 msgstr "全部文件"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 字节"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "种类"
+
+#, fuzzy
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "类型"
+
+msgid "My Computer"
+msgstr "我的计算机"
+
+msgid "Computer"
+msgstr "计算机"
 
 msgid "Text"
 msgstr "文本"
@@ -1878,6 +1908,9 @@ msgstr "可用的插件(&V)"
 msgid "Changes take only effect after a restart!"
 msgstr "修改在重启后才会生效！"
 
+msgid "Images"
+msgstr "图片"
+
 msgid "From Clip&board"
 msgstr "从剪贴板(&b)"
 
@@ -1886,9 +1919,6 @@ msgstr "到剪贴板(&T)"
 
 msgid "&View..."
 msgstr "视图(&V)..."
-
-msgid "Images"
-msgstr "图片"
 
 msgid "Export"
 msgstr "导出"
@@ -2207,6 +2237,12 @@ msgstr "打开(&O)"
 msgid "Open Containing &Folder"
 msgstr "打开包含的文件夹(&F)"
 
+msgid "Execute "
+msgstr "执行"
+
+msgid "Could not execute "
+msgstr "无法执行"
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2356,6 +2392,9 @@ msgstr "亳秒"
 
 msgid "&Delete rows"
 msgstr "删除列(&D)"
+
+msgid "C&lear"
+msgstr "清除(&l)"
 
 msgid "&Add offset..."
 msgstr "添加偏移(&A)..."
@@ -2728,6 +2767,9 @@ msgstr "标签 2"
 
 msgid "Profile:"
 msgstr "配置文件:"
+
+msgid "Open"
+msgstr "打开"
 
 msgid "Filter:"
 msgstr "过滤："

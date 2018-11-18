@@ -6,9 +6,9 @@
 # Olesya Gerasimenko <gammaray@basealt.ru>, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-10-12 12:07+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "Открыть &каталог..."
 
 msgid "Opens a directory"
 msgstr "Открыть каталог"
+
+msgid "Re&load"
+msgstr "О&бновить"
+
+msgid "Reload directory"
+msgstr "Обновить каталог"
 
 msgid "&Import..."
 msgstr "&Импорт..."
@@ -688,6 +694,15 @@ msgstr "Год"
 msgid "Length"
 msgstr "Длительность"
 
+msgid "Drive"
+msgstr "Диск"
+
+msgid "%1 File"
+msgstr "%1 файл"
+
+msgid "Folder"
+msgstr "Папка"
+
 msgid "Filenames"
 msgstr "Имена файлов"
 
@@ -874,15 +889,6 @@ msgstr "конец аудиофайла"
 msgid "reserved for future use %1"
 msgstr "зарезервировано для использования в будущем %1"
 
-msgid "C&lear"
-msgstr "О&чистить"
-
-msgid "Execute "
-msgstr "Выполнить "
-
-msgid "Could not execute "
-msgstr "Не удалось выполнить "
-
 msgid "True if strings are equal"
 msgstr "Значение «True», если строки идентичны"
 
@@ -918,6 +924,35 @@ msgstr "Все поддерживаемые файлы"
 
 msgid "All Files"
 msgstr "Все файлы"
+
+msgid "%1 TB"
+msgstr "%1 ТБ"
+
+msgid "%1 GB"
+msgstr "%1 Гб"
+
+msgid "%1 MB"
+msgstr "%1 Мб"
+
+msgid "%1 KB"
+msgstr "%1 КБ"
+
+msgid "%1 bytes"
+msgstr "%1 байт"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Вид"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Тип"
+
+msgid "My Computer"
+msgstr "Мой компьютер"
+
+msgid "Computer"
+msgstr "Компьютер"
 
 msgid "Text"
 msgstr "Текст"
@@ -2208,6 +2243,12 @@ msgstr "&Открыть"
 msgid "Open Containing &Folder"
 msgstr "О&ткрыть содержащую папку"
 
+msgid "Execute "
+msgstr "Выполнить "
+
+msgid "Could not execute "
+msgstr "Не удалось выполнить "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2357,6 +2398,9 @@ msgstr "Миллисекунды"
 
 msgid "&Delete rows"
 msgstr "&Удалить строки"
+
+msgid "C&lear"
+msgstr "О&чистить"
 
 msgid "&Add offset..."
 msgstr "&Добавить смещение..."

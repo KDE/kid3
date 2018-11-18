@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -297,6 +297,12 @@ msgstr "Avaa &kansio..."
 msgid "Opens a directory"
 msgstr "Avaa kansion"
 
+msgid "Re&load"
+msgstr "Lataa uu&delleen"
+
+msgid "Reload directory"
+msgstr "Lataa nykyinen kansio uudelleen"
+
 msgid "&Import..."
 msgstr "T&uo..."
 
@@ -440,12 +446,6 @@ msgstr "Kansioluettelo"
 
 msgid "Configure - Kid3"
 msgstr "Asetukset – Kid3"
-
-msgid "Open"
-msgstr "Avaa"
-
-msgid "Save As"
-msgstr "Tallenna nimellä"
 
 msgid "directory to open"
 msgstr "avattava kansio"
@@ -692,6 +692,15 @@ msgstr "Vuosi"
 msgid "Length"
 msgstr "Kesto"
 
+msgid "Drive"
+msgstr "Asema"
+
+msgid "%1 File"
+msgstr "%1-tiedosto"
+
+msgid "Folder"
+msgstr "Kansio"
+
 msgid "Filenames"
 msgstr "Tiedostot"
 
@@ -878,15 +887,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "&Tyhjennä"
-
-msgid "Execute "
-msgstr "Suorita"
-
-msgid "Could not execute "
-msgstr "Ei voitu suorittaa "
-
 msgid "True if strings are equal"
 msgstr "Tosi, jos merkkijonot ovat yhtäläiset"
 
@@ -922,6 +922,35 @@ msgstr "Kaikki tuetut tiedostot"
 
 msgid "All Files"
 msgstr "Kaikki tiedostot"
+
+msgid "%1 TB"
+msgstr "%1 Tt"
+
+msgid "%1 GB"
+msgstr "%1 Gt"
+
+msgid "%1 MB"
+msgstr "%1 Mt"
+
+msgid "%1 KB"
+msgstr "%1 kt"
+
+msgid "%1 bytes"
+msgstr "%1 tavua"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Tyyppi"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "My Computer"
+msgstr "Oma tietokone"
+
+msgid "Computer"
+msgstr "Tietokone"
 
 msgid "Text"
 msgstr "Teksti"
@@ -1879,6 +1908,9 @@ msgstr "&Käytettävissä olevat liitännäiset"
 msgid "Changes take only effect after a restart!"
 msgstr "Muutokset tulevat voimaan uudelleenkäynnistyksen jälkeen!"
 
+msgid "Images"
+msgstr "Kuvat"
+
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
 
@@ -1887,9 +1919,6 @@ msgstr "L&eikepöydälle"
 
 msgid "&View..."
 msgstr "&Näytä..."
-
-msgid "Images"
-msgstr "Kuvat"
 
 msgid "Export"
 msgstr "Vie"
@@ -2210,6 +2239,12 @@ msgstr "&Avaa"
 msgid "Open Containing &Folder"
 msgstr "A&vaa sisältävä kansio"
 
+msgid "Execute "
+msgstr "Suorita"
+
+msgid "Could not execute "
+msgstr "Ei voitu suorittaa "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2359,6 +2394,9 @@ msgstr "Millisekuntia"
 
 msgid "&Delete rows"
 msgstr "&Poista rivit"
+
+msgid "C&lear"
+msgstr "&Tyhjennä"
 
 msgid "&Add offset..."
 msgstr "L&isää siirros..."
@@ -2732,6 +2770,9 @@ msgstr "2-tunniste"
 
 msgid "Profile:"
 msgstr "Profiili:"
+
+msgid "Open"
+msgstr "Avaa"
 
 msgid "Filter:"
 msgstr "Suodin:"

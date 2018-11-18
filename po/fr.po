@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "Ouvrir ré&pertoire..."
 msgid "Opens a directory"
 msgstr "Ouvrir un répertoire"
 
+msgid "Re&load"
+msgstr "Rechar&ger"
+
+msgid "Reload directory"
+msgstr "Recharger le répertoire"
+
 msgid "&Import..."
 msgstr "&Importer..."
 
@@ -439,12 +445,6 @@ msgstr "Liste des répertoires"
 
 msgid "Configure - Kid3"
 msgstr "Configurer Kid3"
-
-msgid "Open"
-msgstr "Ouvrir"
-
-msgid "Save As"
-msgstr "Enregistrer sous"
 
 msgid "directory to open"
 msgstr "dossier à ouvrir"
@@ -691,6 +691,15 @@ msgstr "Année"
 msgid "Length"
 msgstr "Longueur"
 
+msgid "Drive"
+msgstr "Lecteur"
+
+msgid "%1 File"
+msgstr "Fichier %1"
+
+msgid "Folder"
+msgstr "Dossier"
+
 msgid "Filenames"
 msgstr "Noms des fichiers"
 
@@ -877,15 +886,6 @@ msgstr "Fichier audio finit"
 msgid "reserved for future use %1"
 msgstr "Réservé pour une utilisation future %1"
 
-msgid "C&lear"
-msgstr "E&ffacer"
-
-msgid "Execute "
-msgstr "Exécuter "
-
-msgid "Could not execute "
-msgstr "Impossible d'exécuter "
-
 msgid "True if strings are equal"
 msgstr "Les chaînes sont identiques"
 
@@ -921,6 +921,35 @@ msgstr "Tous les fichiers pris en charge"
 
 msgid "All Files"
 msgstr "Tous les fichiers"
+
+msgid "%1 TB"
+msgstr "%1 To"
+
+msgid "%1 GB"
+msgstr "%1 Go"
+
+msgid "%1 MB"
+msgstr "%1 Mo"
+
+msgid "%1 KB"
+msgstr "%1 Ko"
+
+msgid "%1 bytes"
+msgstr "%1 octets"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Type"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Type"
+
+msgid "My Computer"
+msgstr "Mon ordinateur"
+
+msgid "Computer"
+msgstr "Ordinateur"
 
 msgid "Text"
 msgstr "Texte"
@@ -1880,6 +1909,9 @@ msgstr "Modules externes &disponibles"
 msgid "Changes take only effect after a restart!"
 msgstr "Les modifications ne prendront effet qu'après un redémarrage!"
 
+msgid "Images"
+msgstr "Images"
+
 msgid "From Clip&board"
 msgstr "Depuis &presse-papier"
 
@@ -1888,9 +1920,6 @@ msgstr "&Dans le presse-papiers"
 
 msgid "&View..."
 msgstr "&Affichage..."
-
-msgid "Images"
-msgstr "Images"
 
 msgid "Export"
 msgstr "Exporter"
@@ -2210,6 +2239,12 @@ msgstr "&Ouvrir"
 msgid "Open Containing &Folder"
 msgstr "Ouvrir le dossier &conteneur"
 
+msgid "Execute "
+msgstr "Exécuter "
+
+msgid "Could not execute "
+msgstr "Impossible d'exécuter "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2359,6 +2394,9 @@ msgstr "Millisecondes"
 
 msgid "&Delete rows"
 msgstr "&Supprimer lignes"
+
+msgid "C&lear"
+msgstr "E&ffacer"
 
 msgid "&Add offset..."
 msgstr "Ajouter un &décalage..."
@@ -2731,6 +2769,9 @@ msgstr "Balise 2"
 
 msgid "Profile:"
 msgstr "Profil:"
+
+msgid "Open"
+msgstr "Ouvrir"
 
 msgid "Filter:"
 msgstr "Filtre:"

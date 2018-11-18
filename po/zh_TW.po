@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -299,6 +299,12 @@ msgstr "開啟目錄(&P)..."
 msgid "Opens a directory"
 msgstr "開啟目錄"
 
+msgid "Re&load"
+msgstr "重新載入(&L)"
+
+msgid "Reload directory"
+msgstr "重新載入目錄"
+
 msgid "&Import..."
 msgstr "匯入(&I)..."
 
@@ -442,12 +448,6 @@ msgstr "目錄清單"
 
 msgid "Configure - Kid3"
 msgstr "設定 - Kid3"
-
-msgid "Open"
-msgstr "開啟"
-
-msgid "Save As"
-msgstr "另存新檔"
 
 msgid "directory to open"
 msgstr "開啟目錄"
@@ -694,6 +694,15 @@ msgstr "年"
 msgid "Length"
 msgstr "長度"
 
+msgid "Drive"
+msgstr "磁碟"
+
+msgid "%1 File"
+msgstr "%1 檔案"
+
+msgid "Folder"
+msgstr "資料夾"
+
 msgid "Filenames"
 msgstr "檔名"
 
@@ -880,15 +889,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "清除(&l)"
-
-msgid "Execute "
-msgstr "執行"
-
-msgid "Could not execute "
-msgstr "無法執行"
-
 msgid "True if strings are equal"
 msgstr "字串相等的話則為真"
 
@@ -924,6 +924,37 @@ msgstr "所有支援檔案"
 
 msgid "All Files"
 msgstr "所有檔案"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 位元組"
+
+#, fuzzy
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "種類"
+
+#, fuzzy
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "型態"
+
+msgid "My Computer"
+msgstr "我的電腦"
+
+msgid "Computer"
+msgstr "電腦"
 
 msgid "Text"
 msgstr "文字"
@@ -1883,6 +1914,9 @@ msgstr "可用的外掛程式(&V)"
 msgid "Changes take only effect after a restart!"
 msgstr "某些變更在重新啟動後才會生效!"
 
+msgid "Images"
+msgstr "圖片"
+
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
 
@@ -1891,9 +1925,6 @@ msgstr "至剪貼簿(&T)"
 
 msgid "&View..."
 msgstr "檢視(&V)..."
-
-msgid "Images"
-msgstr "圖片"
 
 msgid "Export"
 msgstr "匯出"
@@ -2212,6 +2243,12 @@ msgstr "開啟(&O)"
 msgid "Open Containing &Folder"
 msgstr "開啟所在資料夾(&F)"
 
+msgid "Execute "
+msgstr "執行"
+
+msgid "Could not execute "
+msgstr "無法執行"
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2361,6 +2398,9 @@ msgstr "亳秒"
 
 msgid "&Delete rows"
 msgstr "刪除列(&D)"
+
+msgid "C&lear"
+msgstr "清除(&l)"
 
 msgid "&Add offset..."
 msgstr "添加偏移(&A)..."
@@ -2733,6 +2773,9 @@ msgstr "標籤 2"
 
 msgid "Profile:"
 msgstr "設定檔:"
+
+msgid "Open"
+msgstr "開啟"
 
 msgid "Filter:"
 msgstr "篩選:"

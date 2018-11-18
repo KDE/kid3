@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.6.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,6 +293,12 @@ msgstr ""
 msgid "Opens a directory"
 msgstr ""
 
+msgid "Re&load"
+msgstr ""
+
+msgid "Reload directory"
+msgstr ""
+
 msgid "&Import..."
 msgstr ""
 
@@ -435,12 +441,6 @@ msgid "Directory List"
 msgstr ""
 
 msgid "Configure - Kid3"
-msgstr ""
-
-msgid "Open"
-msgstr ""
-
-msgid "Save As"
 msgstr ""
 
 msgid "directory to open"
@@ -688,6 +688,15 @@ msgstr ""
 msgid "Length"
 msgstr ""
 
+msgid "Drive"
+msgstr ""
+
+msgid "%1 File"
+msgstr ""
+
+msgid "Folder"
+msgstr ""
+
 msgid "Filenames"
 msgstr ""
 
@@ -874,15 +883,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr ""
-
-msgid "Execute "
-msgstr ""
-
-msgid "Could not execute "
-msgstr ""
-
 msgid "True if strings are equal"
 msgstr ""
 
@@ -917,6 +917,35 @@ msgid "All Supported Files"
 msgstr ""
 
 msgid "All Files"
+msgstr ""
+
+msgid "%1 TB"
+msgstr ""
+
+msgid "%1 GB"
+msgstr ""
+
+msgid "%1 MB"
+msgstr ""
+
+msgid "%1 KB"
+msgstr ""
+
+msgid "%1 bytes"
+msgstr ""
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr ""
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr ""
+
+msgid "My Computer"
+msgstr ""
+
+msgid "Computer"
 msgstr ""
 
 msgid "Text"
@@ -1875,6 +1904,9 @@ msgstr ""
 msgid "Changes take only effect after a restart!"
 msgstr ""
 
+msgid "Images"
+msgstr ""
+
 msgid "From Clip&board"
 msgstr ""
 
@@ -1882,9 +1914,6 @@ msgid "&To Clipboard"
 msgstr ""
 
 msgid "&View..."
-msgstr ""
-
-msgid "Images"
 msgstr ""
 
 msgid "Export"
@@ -2200,6 +2229,12 @@ msgstr ""
 msgid "Open Containing &Folder"
 msgstr ""
 
+msgid "Execute "
+msgstr ""
+
+msgid "Could not execute "
+msgstr ""
+
 msgid "Kid3"
 msgstr ""
 
@@ -2345,6 +2380,9 @@ msgid "Milliseconds"
 msgstr ""
 
 msgid "&Delete rows"
+msgstr ""
+
+msgid "C&lear"
 msgstr ""
 
 msgid "&Add offset..."
@@ -2717,6 +2755,9 @@ msgid "Tag 2"
 msgstr ""
 
 msgid "Profile:"
+msgstr ""
+
+msgid "Open"
 msgstr ""
 
 msgid "Filter:"

@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "A&brir el directorio..."
 msgid "Opens a directory"
 msgstr "Abre un directorio"
 
+msgid "Re&load"
+msgstr "Recar&gar"
+
+msgid "Reload directory"
+msgstr "Recargar directorio"
+
 msgid "&Import..."
 msgstr "&Importar..."
 
@@ -439,12 +445,6 @@ msgstr "Lista de directorios"
 
 msgid "Configure - Kid3"
 msgstr "Configurar - Kid3"
-
-msgid "Open"
-msgstr "Abrir"
-
-msgid "Save As"
-msgstr "Guardar como"
 
 msgid "directory to open"
 msgstr "Directorio a abrir"
@@ -691,6 +691,15 @@ msgstr "Año"
 msgid "Length"
 msgstr "Longitud"
 
+msgid "Drive"
+msgstr "Unidad"
+
+msgid "%1 File"
+msgstr "Archivo %1"
+
+msgid "Folder"
+msgstr "Carpeta"
+
 msgid "Filenames"
 msgstr "Nombres de archivos"
 
@@ -877,15 +886,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "&Limpiar"
-
-msgid "Execute "
-msgstr "Ejecutar "
-
-msgid "Could not execute "
-msgstr "No se pudo ejecutar "
-
 msgid "True if strings are equal"
 msgstr "Las cadenas son iguales"
 
@@ -921,6 +921,35 @@ msgstr "Todos los archivos soportados"
 
 msgid "All Files"
 msgstr "Todos los archivos"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Clase"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Tipo"
+
+msgid "My Computer"
+msgstr "Mi equipo"
+
+msgid "Computer"
+msgstr "Ordenador"
 
 msgid "Text"
 msgstr "Texto"
@@ -1881,6 +1910,9 @@ msgstr "Extensiones &disponibles"
 msgid "Changes take only effect after a restart!"
 msgstr "¡Los cambios tendrán efecto en la siguiente ejecución!"
 
+msgid "Images"
+msgstr "Imágenes"
+
 msgid "From Clip&board"
 msgstr "Del &portapapeles"
 
@@ -1889,9 +1921,6 @@ msgstr "&Al portapapeles"
 
 msgid "&View..."
 msgstr "&Ver..."
-
-msgid "Images"
-msgstr "Imágenes"
 
 msgid "Export"
 msgstr "Exportar"
@@ -2210,6 +2239,12 @@ msgstr "&Abrir"
 msgid "Open Containing &Folder"
 msgstr "Abrir &carpeta contenedora"
 
+msgid "Execute "
+msgstr "Ejecutar "
+
+msgid "Could not execute "
+msgstr "No se pudo ejecutar "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2359,6 +2394,9 @@ msgstr "Milisegundos"
 
 msgid "&Delete rows"
 msgstr "&Eliminar filas"
+
+msgid "C&lear"
+msgstr "&Limpiar"
 
 msgid "&Add offset..."
 msgstr "&Agrega desplazamiento..."
@@ -2731,6 +2769,9 @@ msgstr "Etiqueta 2"
 
 msgid "Profile:"
 msgstr "Perfil:"
+
+msgid "Open"
+msgstr "Abrir"
 
 msgid "Filter:"
 msgstr "Filtro:"

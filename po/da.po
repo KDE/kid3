@@ -4,9 +4,9 @@
 # Martin Eilsøe <martin.eilsoe@gmail.com>, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -291,6 +291,12 @@ msgstr "&Åbn bibliotek..."
 msgid "Opens a directory"
 msgstr "Åbner et bibliotek"
 
+msgid "Re&load"
+msgstr "Ge&nindlæs"
+
+msgid "Reload directory"
+msgstr "Genindlæs liste"
+
 msgid "&Import..."
 msgstr "&Importér..."
 
@@ -434,12 +440,6 @@ msgstr "Biblioteksliste"
 
 msgid "Configure - Kid3"
 msgstr "Konfigurér Kid3"
-
-msgid "Open"
-msgstr "Åbn"
-
-msgid "Save As"
-msgstr "Gem som"
 
 msgid "directory to open"
 msgstr "Bibliotek der skal åbnes"
@@ -686,6 +686,15 @@ msgstr "År"
 msgid "Length"
 msgstr "Længde"
 
+msgid "Drive"
+msgstr "Drev"
+
+msgid "%1 File"
+msgstr "%1-fil"
+
+msgid "Folder"
+msgstr "Mappe"
+
 msgid "Filenames"
 msgstr "Filnavne"
 
@@ -872,15 +881,6 @@ msgstr "Slut på audio fil"
 msgid "reserved for future use %1"
 msgstr "Reserveret til fremtidig brug %1"
 
-msgid "C&lear"
-msgstr "&Rens"
-
-msgid "Execute "
-msgstr "Iværksæt "
-
-msgid "Could not execute "
-msgstr "Kunne ikke iværksætte "
-
 msgid "True if strings are equal"
 msgstr "Sand hvis strenge er ens"
 
@@ -916,6 +916,35 @@ msgstr "Alle supporterede filer"
 
 msgid "All Files"
 msgstr "Alle filer"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Art"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Type"
+
+msgid "My Computer"
+msgstr "Min computer"
+
+msgid "Computer"
+msgstr "Computer"
 
 msgid "Text"
 msgstr "Tekst"
@@ -1875,6 +1904,9 @@ msgstr "Plugins til r&ådighed"
 msgid "Changes take only effect after a restart!"
 msgstr "Ændringerne får først effekt efter genstart af programmet!"
 
+msgid "Images"
+msgstr "Billeder"
+
 msgid "From Clip&board"
 msgstr "Fra klippe&bord"
 
@@ -1883,9 +1915,6 @@ msgstr "Til &Klippebord"
 
 msgid "&View..."
 msgstr "&Vis..."
-
-msgid "Images"
-msgstr "Billeder"
 
 msgid "Export"
 msgstr "Eksportér"
@@ -2204,6 +2233,12 @@ msgstr "&Åbn"
 msgid "Open Containing &Folder"
 msgstr "Å&bn sammenfoldet bibliotek"
 
+msgid "Execute "
+msgstr "Iværksæt "
+
+msgid "Could not execute "
+msgstr "Kunne ikke iværksætte "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2352,6 +2387,9 @@ msgstr "Millisekunder"
 
 msgid "&Delete rows"
 msgstr "Slet r&ækker"
+
+msgid "C&lear"
+msgstr "&Rens"
 
 msgid "&Add offset..."
 msgstr "Tilf&øj offset..."
@@ -2724,6 +2762,9 @@ msgstr "Tag 2"
 
 msgid "Profile:"
 msgstr "Profil:"
+
+msgid "Open"
+msgstr "Åbn"
 
 msgid "Filter:"
 msgstr "Filter:"

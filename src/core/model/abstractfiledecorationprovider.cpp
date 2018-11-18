@@ -80,21 +80,28 @@ static bool isRootPath(const QString &path)
 
 QString AbstractFileDecorationProvider::fileTypeDescription(const QFileInfo &info)
 {
-    if (isRootPath(info.absoluteFilePath()))
-        return QCoreApplication::translate("QFileDialog", "Drive");
+    if (isRootPath(info.absoluteFilePath())) {
+        const char* const driveStr = QT_TRANSLATE_NOOP("@default", "Drive");
+        return QCoreApplication::translate("@default", driveStr);
+    }
     if (info.isFile()) {
         if (!info.suffix().isEmpty()) {
             //: %1 is a file name suffix, for example txt
-            return QCoreApplication::translate("QFileDialog", "%1 File").arg(info.suffix());
+            const char* const suffixStr = QT_TRANSLATE_NOOP("@default", "%1 File");
+            return QCoreApplication::translate("@default", suffixStr).arg(info.suffix());
         }
-        return QCoreApplication::translate("QFileDialog", "File");
+        const char* const fileStr = QT_TRANSLATE_NOOP("@default", "File");
+        return QCoreApplication::translate("@default", fileStr);
     }
 
-    if (info.isDir())
-        return QCoreApplication::translate("QFileDialog", "Folder");
-
-    if (info.isSymLink())
-        return QCoreApplication::translate("QFileDialog", "Shortcut");
-
-    return QCoreApplication::translate("QFileDialog", "Unknown");
+    if (info.isDir()) {
+        const char* const folderStr = QT_TRANSLATE_NOOP("@default", "Folder");
+        return QCoreApplication::translate("@default", folderStr);
+    }
+    if (info.isSymLink()) {
+        const char* const shortcutStr = QT_TRANSLATE_NOOP("@default", "Shortcut");
+        return QCoreApplication::translate("@default", shortcutStr);
+    }
+    const char* const unknownStr = QT_TRANSLATE_NOOP("@default", "Unknown");
+    return QCoreApplication::translate("@default", unknownStr);
 }

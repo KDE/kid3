@@ -5,9 +5,9 @@
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "&Verzeichnis öffnen..."
 msgid "Opens a directory"
 msgstr "Öffnet ein Verzeichnis"
 
+msgid "Re&load"
+msgstr "&Neu laden"
+
+msgid "Reload directory"
+msgstr "Verzeichnis neu einlesen"
+
 msgid "&Import..."
 msgstr "&Importieren..."
 
@@ -439,12 +445,6 @@ msgstr "Verzeichnisliste"
 
 msgid "Configure - Kid3"
 msgstr "Kid3 einrichten"
-
-msgid "Open"
-msgstr "Öffnen"
-
-msgid "Save As"
-msgstr "Speichern unter"
 
 msgid "directory to open"
 msgstr "Zu öffnendes Verzeichnis"
@@ -691,6 +691,15 @@ msgstr "Jahr"
 msgid "Length"
 msgstr "Länge"
 
+msgid "Drive"
+msgstr "Laufwerk"
+
+msgid "%1 File"
+msgstr "%1 Datei"
+
+msgid "Folder"
+msgstr "Ordner"
+
 msgid "Filenames"
 msgstr "Dateinamen"
 
@@ -877,15 +886,6 @@ msgstr "Audio-Datei endet"
 msgid "reserved for future use %1"
 msgstr "Reserviert für spätere Verwendung %1"
 
-msgid "C&lear"
-msgstr "&Löschen"
-
-msgid "Execute "
-msgstr "Ausführen von "
-
-msgid "Could not execute "
-msgstr "Konnte nicht ausführen "
-
 msgid "True if strings are equal"
 msgstr "Wahr wenn die Zeichenketten gleich sind"
 
@@ -921,6 +921,35 @@ msgstr "Alle unterstützten Dateitypen"
 
 msgid "All Files"
 msgstr "Alle Dateien"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 Byte"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Art"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Typ"
+
+msgid "My Computer"
+msgstr "Mein Computer"
+
+msgid "Computer"
+msgstr "Computer"
 
 msgid "Text"
 msgstr "Text"
@@ -1880,6 +1909,9 @@ msgstr "&Verfügbare Erweiterungen"
 msgid "Changes take only effect after a restart!"
 msgstr "Änderungen werden erst nach einem Neustart der Anwendung wirksam!"
 
+msgid "Images"
+msgstr "Bilder"
+
 msgid "From Clip&board"
 msgstr "Von Zwischena&blage"
 
@@ -1888,9 +1920,6 @@ msgstr "In &Zwischenablage"
 
 msgid "&View..."
 msgstr "&Ansicht..."
-
-msgid "Images"
-msgstr "Bilder"
 
 msgid "Export"
 msgstr "Exportieren"
@@ -2211,6 +2240,12 @@ msgstr "&Öffnen"
 msgid "Open Containing &Folder"
 msgstr "Enthaltenden &Ordner öffnen"
 
+msgid "Execute "
+msgstr "Ausführen von "
+
+msgid "Could not execute "
+msgstr "Konnte nicht ausführen "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2360,6 +2395,9 @@ msgstr "Millisekunden"
 
 msgid "&Delete rows"
 msgstr "Zeilen ent&fernen"
+
+msgid "C&lear"
+msgstr "&Löschen"
 
 msgid "&Add offset..."
 msgstr "Zeitabstand &hinzufügen..."
@@ -2733,6 +2771,9 @@ msgstr "Tag 2"
 
 msgid "Profile:"
 msgstr "Profil:"
+
+msgid "Open"
+msgstr "Öffnen"
 
 msgid "Filter:"
 msgstr "Filter:"

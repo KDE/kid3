@@ -39,6 +39,7 @@
 #include <QTextCursor>
 #include <QTextEdit>
 #include <QMessageBox>
+#include <QCoreApplication>
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
@@ -104,10 +105,12 @@ OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
   vlayout->addWidget(m_textEdit);
   auto buttonLayout = new QHBoxLayout;
-  QPushButton* clearButton = new QPushButton(tr("C&lear"), this);
+  QPushButton* clearButton = new QPushButton(
+        QCoreApplication::translate("FileList", "C&lear"), this);
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  QPushButton* closeButton = new QPushButton(
+        QCoreApplication::translate("FileList", "&Close"), this);
   buttonLayout->addWidget(clearButton);
   buttonLayout->addItem(hspacer);
   buttonLayout->addWidget(closeButton);

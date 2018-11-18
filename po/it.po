@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "A&pri cartella..."
 msgid "Opens a directory"
 msgstr "Apre una cartella"
 
+msgid "Re&load"
+msgstr "&Ricarica"
+
+msgid "Reload directory"
+msgstr "Ricarica cartella"
+
 msgid "&Import..."
 msgstr "&Importa..."
 
@@ -439,12 +445,6 @@ msgstr "Lista delle cartelle"
 
 msgid "Configure - Kid3"
 msgstr "Configura - Kid3"
-
-msgid "Open"
-msgstr "Apri"
-
-msgid "Save As"
-msgstr "Salva con nome"
 
 msgid "directory to open"
 msgstr "cartella da aprire"
@@ -691,6 +691,15 @@ msgstr "Anno"
 msgid "Length"
 msgstr "Lunghezza"
 
+msgid "Drive"
+msgstr "Unità"
+
+msgid "%1 File"
+msgstr "File %1"
+
+msgid "Folder"
+msgstr "Cartella"
+
 msgid "Filenames"
 msgstr "nomi dei file"
 
@@ -877,15 +886,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "A&zzera"
-
-msgid "Execute "
-msgstr "Esegui "
-
-msgid "Could not execute "
-msgstr "Non eseguire "
-
 msgid "True if strings are equal"
 msgstr "True se le stringhe sono uguali"
 
@@ -921,6 +921,35 @@ msgstr "Tutti i file supportati"
 
 msgid "All Files"
 msgstr "Tutti i file"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 byte"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Tipo"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Tipo"
+
+msgid "My Computer"
+msgstr "Mio Computer"
+
+msgid "Computer"
+msgstr "Computer"
 
 msgid "Text"
 msgstr "Testo"
@@ -1881,6 +1910,9 @@ msgstr "Plugin &disponibili"
 msgid "Changes take only effect after a restart!"
 msgstr "I cambiamenti avranno luogo dopo il riavvio!"
 
+msgid "Images"
+msgstr "Immagini"
+
 msgid "From Clip&board"
 msgstr "Dagli a&ppunti"
 
@@ -1889,9 +1921,6 @@ msgstr "&Negli Appunti"
 
 msgid "&View..."
 msgstr "Visuali&zza..."
-
-msgid "Images"
-msgstr "Immagini"
 
 msgid "Export"
 msgstr "Esporta"
@@ -2211,6 +2240,12 @@ msgstr "&Apri"
 msgid "Open Containing &Folder"
 msgstr "Apri &cartella contenitore"
 
+msgid "Execute "
+msgstr "Esegui "
+
+msgid "Could not execute "
+msgstr "Non eseguire "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2360,6 +2395,9 @@ msgstr "Millisecondi"
 
 msgid "&Delete rows"
 msgstr "&Elimina righe"
+
+msgid "C&lear"
+msgstr "A&zzera"
 
 msgid "&Add offset..."
 msgstr "&Aggiungi scostamento..."
@@ -2732,6 +2770,9 @@ msgstr "Tag 2"
 
 msgid "Profile:"
 msgstr "Profilo:"
+
+msgid "Open"
+msgstr "Apri"
 
 msgid "Filter:"
 msgstr "Filtro:"

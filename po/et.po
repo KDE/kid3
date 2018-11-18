@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -297,6 +297,12 @@ msgstr "Ava &kataloog..."
 msgid "Opens a directory"
 msgstr "Avab kataloogi valimise dialoogi"
 
+msgid "Re&load"
+msgstr "Laadi &uuesti"
+
+msgid "Reload directory"
+msgstr "Uuendada käesoleva kausta sisu"
+
 msgid "&Import..."
 msgstr "&Impordi..."
 
@@ -440,12 +446,6 @@ msgstr "Kataloogiloend"
 
 msgid "Configure - Kid3"
 msgstr "Seadistamine - Kid3"
-
-msgid "Open"
-msgstr "Avamine"
-
-msgid "Save As"
-msgstr "Salvestamine"
 
 msgid "directory to open"
 msgstr "avatav kataloog"
@@ -692,6 +692,15 @@ msgstr "Aasta"
 msgid "Length"
 msgstr "Pikkus"
 
+msgid "Drive"
+msgstr "Ketas"
+
+msgid "%1 File"
+msgstr "%1 fail"
+
+msgid "Folder"
+msgstr "Kataloog"
+
 msgid "Filenames"
 msgstr "Failinimed"
 
@@ -878,15 +887,6 @@ msgstr ""
 msgid "reserved for future use %1"
 msgstr ""
 
-msgid "C&lear"
-msgstr "P&uhasta"
-
-msgid "Execute "
-msgstr "Käivita"
-
-msgid "Could not execute "
-msgstr "Käivitamine pole võimalik"
-
 msgid "True if strings are equal"
 msgstr "Tõene, kui stringid on võrdsed"
 
@@ -922,6 +922,35 @@ msgstr "Kõik toetatud failid"
 
 msgid "All Files"
 msgstr "Kõik failid"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 baiti"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Liik"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Tüüp"
+
+msgid "My Computer"
+msgstr "Minu arvuti"
+
+msgid "Computer"
+msgstr "Arvuti"
 
 msgid "Text"
 msgstr "Tekst"
@@ -1879,6 +1908,9 @@ msgstr "S&aadaolevad pluginad"
 msgid "Changes take only effect after a restart!"
 msgstr "Muudatused jõustuvad pärast taaskäivitamist!"
 
+msgid "Images"
+msgstr "Pildid"
+
 msgid "From Clip&board"
 msgstr "&Lõikepuhvrist"
 
@@ -1887,9 +1919,6 @@ msgstr "Lõi&kepuhvrisse"
 
 msgid "&View..."
 msgstr "&Näita..."
-
-msgid "Images"
-msgstr "Pildid"
 
 msgid "Export"
 msgstr "Eksport"
@@ -2208,6 +2237,12 @@ msgstr "Ava&mine"
 msgid "Open Containing &Folder"
 msgstr "Ava &kataloog"
 
+msgid "Execute "
+msgstr "Käivita"
+
+msgid "Could not execute "
+msgstr "Käivitamine pole võimalik"
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2357,6 +2392,9 @@ msgstr "Millisekundit"
 
 msgid "&Delete rows"
 msgstr "&Kustuta rida"
+
+msgid "C&lear"
+msgstr "P&uhasta"
 
 msgid "&Add offset..."
 msgstr "L&isa kompenseerida..."
@@ -2730,6 +2768,9 @@ msgstr "Silt 2"
 
 msgid "Profile:"
 msgstr "Profiil:"
+
+msgid "Open"
+msgstr "Avamine"
 
 msgid "Filter:"
 msgstr "Filter:"

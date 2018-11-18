@@ -5,9 +5,9 @@
 # Toon van Gerwen <toon@vgerwen.nl>, 2012, 2013, 2014, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.6.2\n"
+"Project-Id-Version: Kid3 3.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-09-07 20:41+0200\n"
+"POT-Creation-Date: 2018-11-19 21:45+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -296,6 +296,12 @@ msgstr "&Map openen..."
 msgid "Opens a directory"
 msgstr "Opent een map"
 
+msgid "Re&load"
+msgstr "Her&laden"
+
+msgid "Reload directory"
+msgstr "Map herladen"
+
 msgid "&Import..."
 msgstr "&Importeren..."
 
@@ -439,12 +445,6 @@ msgstr "Mappenlijst"
 
 msgid "Configure - Kid3"
 msgstr "Kid3 instellen"
-
-msgid "Open"
-msgstr "Openen"
-
-msgid "Save As"
-msgstr "Opslaan als"
 
 msgid "directory to open"
 msgstr "Map te openen"
@@ -691,6 +691,15 @@ msgstr "Jaar"
 msgid "Length"
 msgstr "Lengte"
 
+msgid "Drive"
+msgstr "Station"
+
+msgid "%1 File"
+msgstr "%1 bestand"
+
+msgid "Folder"
+msgstr "Map"
+
 msgid "Filenames"
 msgstr "Bestandsnamen"
 
@@ -877,15 +886,6 @@ msgstr "audio bestand eindigd"
 msgid "reserved for future use %1"
 msgstr "omgekeerd voor verder gebruik %1"
 
-msgid "C&lear"
-msgstr "&Wissen"
-
-msgid "Execute "
-msgstr "Uitvoeren "
-
-msgid "Could not execute "
-msgstr "Kon bewerking niet uitvoeren "
-
 msgid "True if strings are equal"
 msgstr "Waar als strings gelijk zijn"
 
@@ -921,6 +921,35 @@ msgstr "Alle ondersteunde bestanden"
 
 msgid "All Files"
 msgstr "Alle bestanden"
+
+msgid "%1 TB"
+msgstr "%1 TB"
+
+msgid "%1 GB"
+msgstr "%1 GB"
+
+msgid "%1 MB"
+msgstr "%1 MB"
+
+msgid "%1 KB"
+msgstr "%1 KB"
+
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+msgctxt "Match OS X Finder"
+msgid "Kind"
+msgstr "Type"
+
+msgctxt "All other platforms"
+msgid "Type"
+msgstr "Type"
+
+msgid "My Computer"
+msgstr "Mijn computer"
+
+msgid "Computer"
+msgstr "Computer"
 
 msgid "Text"
 msgstr "Tekst"
@@ -1880,6 +1909,9 @@ msgstr "&Beschikbare plugins"
 msgid "Changes take only effect after a restart!"
 msgstr "Wijzigingen worden pas doorgevoerd na een herstart!"
 
+msgid "Images"
+msgstr "Afbeeldingen"
+
 msgid "From Clip&board"
 msgstr "Van Klem&bord"
 
@@ -1888,9 +1920,6 @@ msgstr "&Naar Klembord"
 
 msgid "&View..."
 msgstr "&Beeld..."
-
-msgid "Images"
-msgstr "Afbeeldingen"
 
 msgid "Export"
 msgstr "Exporteren"
@@ -2213,6 +2242,12 @@ msgstr "&Openen"
 msgid "Open Containing &Folder"
 msgstr "&Bijbehorende map openen"
 
+msgid "Execute "
+msgstr "Uitvoeren "
+
+msgid "Could not execute "
+msgstr "Kon bewerking niet uitvoeren "
+
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -2362,6 +2397,9 @@ msgstr "Milliseconden"
 
 msgid "&Delete rows"
 msgstr "Rijen &verwijderen"
+
+msgid "C&lear"
+msgstr "&Wissen"
 
 msgid "&Add offset..."
 msgstr "T&oevoegen verplaatsing..."
@@ -2734,6 +2772,9 @@ msgstr "Tag 2"
 
 msgid "Profile:"
 msgstr "Profiel:"
+
+msgid "Open"
+msgstr "Openen"
 
 msgid "Filter:"
 msgstr "Filter:"
