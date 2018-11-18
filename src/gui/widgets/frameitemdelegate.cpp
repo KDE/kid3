@@ -429,6 +429,22 @@ QWidget* FrameItemDelegate::createEditor(
               this, &FrameItemDelegate::commitAndCloseEditor);
       return editor;
     }
+    if (ftModel && index.data().toString() == Frame::differentRepresentation()) {
+      Frame::ExtendedType extType(
+            type, index.data(FrameTableModel::InternalNameRole).toString());
+      QSet<QString> valueSet = ftModel->getCompletionsForType(extType);
+      if (!valueSet.isEmpty()) {
+        QStringList values = valueSet.toList();
+        values.sort();
+        auto cb = new QComboBox(parent);
+        cb->setEditable(true);
+        cb->setAutoCompletion(true);
+        cb->setDuplicatesEnabled(false);
+        cb->addItems(values);
+        cb->setEditText(index.data().toString());
+        return cb;
+      }
+    }
     QWidget* editor = QItemDelegate::createEditor(parent, option, index);
     auto lineEdit = qobject_cast<QLineEdit*>(editor);
     if (id3v1 &&
@@ -479,8 +495,12 @@ void FrameItemDelegate::setEditorData(
   }
   auto cb = qobject_cast<QComboBox*>(editor);
   if (cb) {
-    QString genreStr(index.model()->data(index).toString());
-    cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
+    Frame::Type type = static_cast<Frame::Type>(
+      index.data(FrameTableModel::FrameTypeRole).toInt());
+    if (type == Frame::FT_Genre) {
+      QString genreStr(index.model()->data(index).toString());
+      cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
+    }
   } else {
     QItemDelegate::setEditorData(editor, index);
   }

@@ -242,11 +242,28 @@ public:
   void transferFrames(FrameCollection& src);
 
   /**
+   * Start filtering different values.
+   */
+  void beginFilterDifferent();
+
+  /**
    * Set values which are different inactive.
    *
    * @param others frames to compare, will be modified
    */
   void filterDifferent(FrameCollection& others);
+
+  /**
+   * End filtering different values.
+   */
+  void endFilterDifferent();
+
+  /**
+   * Get the different values which have been filtered for a frame type.
+   * @param type frame type
+   * @return different values.
+   */
+  QSet<QString> getCompletionsForType(Frame::ExtendedType type) const;
 
 public slots:
   /**
@@ -301,6 +318,7 @@ private:
   quint64 m_changedFrames;
   FrameCollection m_frames;
   QVector<FrameCollection::iterator> m_frameOfRow;
+  QHash<Frame::ExtendedType, QSet<QString>> m_differentValues;
   QVector<int> m_frameTypeSeqNr;
   bool m_id3v1;
   bool m_guiApp;

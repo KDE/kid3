@@ -62,6 +62,7 @@ void TaggedFileSelection::beginAddTaggedFiles()
   FOR_ALL_TAGS(tagNr) {
     m_state.m_tagSupportedCount[tagNr] = 0;
     m_state.m_hasTag[tagNr] = false;
+    m_framesModel[tagNr]->beginFilterDifferent();
   }
 }
 
@@ -74,6 +75,7 @@ void TaggedFileSelection::endAddTaggedFiles()
   FOR_ALL_TAGS(tagNr) {
     m_framesModel[tagNr]->setAllCheckStates(
           m_state.m_tagSupportedCount[tagNr] == 1);
+    m_framesModel[tagNr]->endFilterDifferent();
   }
   if (GuiConfig::instance().autoHideTags()) {
     // If a tag is supposed to be absent, make sure that there is really no

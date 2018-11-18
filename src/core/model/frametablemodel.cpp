@@ -541,6 +541,32 @@ void FrameTableModel::transferFrames(FrameCollection& src)
 }
 
 /**
+ * Start filtering different values.
+ */
+void FrameTableModel::beginFilterDifferent()
+{
+  m_differentValues.clear();
+}
+
+/**
+ * End filtering different values.
+ */
+void FrameTableModel::endFilterDifferent()
+{
+}
+
+/**
+ * Get the different values which have been filtered for a frame type.
+ * @param type frame type
+ * @return different values.
+ */
+QSet<QString> FrameTableModel::getCompletionsForType(
+    Frame::ExtendedType type) const
+{
+  return m_differentValues.value(type);
+}
+
+/**
  * Set values which are different inactive.
  *
  * @param others frames to compare, will be modified
@@ -549,7 +575,7 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
 {
   int oldNumFrames = m_frames.size();
 
-  m_frames.filterDifferent(others);
+  m_frames.filterDifferent(others, &m_differentValues);
   updateFrameRowMapping();
   resizeFrameSelected();
 

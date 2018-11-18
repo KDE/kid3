@@ -976,8 +976,11 @@ quint64 FrameCollection::s_quickAccessFrames =
  * Set values which are different inactive.
  *
  * @param others frames to compare, will be modified
+ * @param differentValues optional storage for the different values
  */
-void FrameCollection::filterDifferent(FrameCollection& others)
+void FrameCollection::filterDifferent(
+    FrameCollection& others,
+    QHash<Frame::ExtendedType, QSet<QString>>* differentValues)
 {
   QByteArray frameData, othersData;
   auto it = begin();
@@ -999,6 +1002,14 @@ void FrameCollection::filterDifferent(FrameCollection& others)
              !(PictureFrame::getData(*it, frameData) &&
                PictureFrame::getData(*othersIt, othersData) &&
                frameData == othersData))) {
+          if (differentValues && it->getType() != Frame::FT_Picture &&
+              it->getType() != Frame::FT_Genre) {
+            auto& valueSet = (*differentValues)[it->getExtendedType()];
+            if (it->getValue() != Frame::differentRepresentation()) {
+              valueSet.insert(it->getValue());
+            }
+            valueSet.insert(othersIt->getValue());
+          }
           const_cast<Frame&>(*it).setDifferent();
         }
         // Mark as already handled.

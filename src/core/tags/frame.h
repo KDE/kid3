@@ -29,6 +29,8 @@
 #include <QString>
 #include <QVariant>
 #include <QList>
+#include <QSet>
+#include <QHash>
 #include <set>
 #include "formatreplacer.h"
 #include "framenotice.h"
@@ -872,8 +874,10 @@ public:
    * Set values which are different inactive.
    *
    * @param others frames to compare, will be modified!
+   * @param differentValues optional storage for the different values
    */
-  void filterDifferent(FrameCollection& others);
+  void filterDifferent(FrameCollection& others,
+          QHash<Frame::ExtendedType, QSet<QString>>* differentValues = nullptr);
 
   /**
    * Add standard frames which are missing.
@@ -1225,3 +1229,8 @@ protected:
 private:
   const FrameCollection& m_frames;
 };
+
+/** Hash function to use Frame::ExtendedType as a QHash key. */
+inline uint qHash(const Frame::ExtendedType& key) {
+  return qHash(key.getType()) ^ qHash(key.getInternalName());
+}
