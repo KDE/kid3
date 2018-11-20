@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2018-08-24</date>
-<releaseinfo>3.6.2</releaseinfo>
+<date>2018-12-23</date>
+<releaseinfo>3.7.0</releaseinfo>
 
 <abstract>
 <para>
@@ -977,6 +977,18 @@ and the chosen file is selected.</para></listitem>
 </menuchoice></term>
 <listitem><para><action>Opens a directory.</action> All files matching the selected
 file name filter will be displayed in the file listbox.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycap>F5</keycap>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Reload</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Reload directory.</action> Modified files have to be
+saved before. Expanded subfolders will be collapsed.</para></listitem>
 </varlistentry>
 
 <varlistentry>

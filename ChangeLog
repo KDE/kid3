@@ -1,3 +1,29 @@
+Sun Dec 23 12:05:20 CET 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.7.0
+
+	* New:
+	  + Add and reorder playlist items using drag'n'drop.
+	  + Edit tags from files referenced in playlist.
+	  + Play songs from playlist.
+	  + Drag image files from file list to embed them in audio files.
+	  + Drag files from file list into other applications.
+	  + Reload action to refresh file list.
+	  + Completions with different values when selecting multiple files.
+	  + Option "--dbus" to have a D-Bus interface with kid3-cli.
+	  + Code "%{dirname}" to use current directory name when renaming.
+	  + Code "%{disk}" as alias for "%{disc number}"
+
+	* Improved:
+	  + Reduce number of open file handles.
+	  + Allow user to resize file and directory list columns.
+	  + Modernize code base, support only Qt 5, C++11, CMake 3.
+
+	* Fixed:
+	  + Add a number if a file is renamed with an existing name.
+	  + Avoid losing changes when a directory is renamed.
+	  + Change notifications for files in renamed directory.
+
 Fri Aug 24 12:15:09 CEST 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.6.2

@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2018-08-24</date>
-<releaseinfo>3.6.2</releaseinfo>
+<date>2018-12-23</date>
+<releaseinfo>3.7.0</releaseinfo>
 
 <abstract>
 <para>
@@ -1041,6 +1041,19 @@ angezeigt. Die gewählte Datei wird selektiert.</para></listitem>
 <listitem><para><action>Ein Verzeichnis wird geöffnet</action>, und alle Dateien,
 welche den gewählten Dateinamenfilter erfüllen, werden im Dateilistenfeld
 angezeigt.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycap>F5</keycap>
+</shortcut>
+<guimenu>Datei</guimenu>
+<guimenuitem>Neu laden</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Verzeichnis neu einlesen.</action> Veränderte Dateien
+müssen vorher gespeichert werden. Ausgeklappte Unterverzeichnisse werden
+eingeklappt.</para></listitem>
 </varlistentry>
 
 <varlistentry>
