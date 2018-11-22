@@ -1384,6 +1384,10 @@ void BaseMainWindowImpl::deleteFile()
       files.clear();
       for (const QPersistentModelIndex& index : selectedIndexes) {
         QString absFilename(model->filePath(index));
+        if (!QFileInfo(absFilename).isWritable()) {
+          QFile::setPermissions(absFilename,
+              QFile::permissions(absFilename) | QFile::WriteUser);
+        }
         if (model->isDir(index)) {
           if (!m_platformTools->moveToTrash(absFilename)) {
             rmdirError = true;

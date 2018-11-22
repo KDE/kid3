@@ -142,6 +142,7 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
 #include <QDir>
 #include <QDateTime>
 #include <QTextStream>
+#include <QUrl>
 #include <cstdlib>
 #include <cstdio>
 #include <sys/types.h>
@@ -181,7 +182,8 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
     return false;
   QTextStream stream(&file);
   stream << QString(QLatin1String("[Trash Info]\nPath=%1\nDeletionDate=%2\n"))
-    .arg(absPath, QDateTime::currentDateTime().toString(Qt::ISODate));
+    .arg(QString::fromLatin1(QUrl(absPath).toEncoded()),
+         QDateTime::currentDateTime().toString(Qt::ISODate));
   file.close();
   return QDir().rename(absPath, filesPath + QLatin1Char('/') + destName);
 }
