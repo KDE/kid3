@@ -1873,6 +1873,12 @@ msgstr "&Verborgen bestanden tonen"
 msgid "&Filename Format"
 msgstr "B&estandsnaamstructuur"
 
+msgid "Filename from Tag"
+msgstr "Bestandsnaam van Tag"
+
+msgid "Tag from Filename"
+msgstr "Tag van bestandsnaam"
+
 msgid "Browser"
 msgstr "Browser"
 

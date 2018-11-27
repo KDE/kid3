@@ -50,18 +50,12 @@ class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   /** filename format */
   Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat
              WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
-  /** index of filename format selected */
-  Q_PROPERTY(int toFilenameFormatIndex READ toFilenameFormatIndex
-             WRITE setToFilenameFormatIndex NOTIFY toFilenameFormatIndexChanged)
   /** filename formats */
   Q_PROPERTY(QStringList toFilenameFormats READ toFilenameFormats
              WRITE setToFilenameFormats NOTIFY toFilenameFormatsChanged)
   /** from filename format */
   Q_PROPERTY(QString fromFilenameFormat READ fromFilenameFormat
              WRITE setFromFilenameFormat NOTIFY fromFilenameFormatChanged)
-  /** index of from filename format selected */
-  Q_PROPERTY(int fromFilenameFormatIndex READ fromFilenameFormatIndex
-             WRITE setFromFilenameFormatIndex NOTIFY fromFilenameFormatIndexChanged)
   /** from filename formats */
   Q_PROPERTY(QStringList fromFilenameFormats READ fromFilenameFormats
              WRITE setFromFilenameFormats NOTIFY fromFilenameFormatsChanged)
@@ -142,12 +136,6 @@ public:
   /** Set filename format. */
   void setToFilenameFormat(const QString& toFilenameFormat);
 
-  /** Get index of filename format selected. */
-  int toFilenameFormatIndex() const { return m_formatItem; }
-
-  /** Set index of filename format selected. */
-  void setToFilenameFormatIndex(int toFilenameFormatIndex);
-
   /** Get filename formats. */
   QStringList toFilenameFormats() const { return m_formatItems; }
 
@@ -159,12 +147,6 @@ public:
 
   /** Set from filename format. */
   void setFromFilenameFormat(const QString& fromFilenameFormat);
-
-  /** Get index of from filename format selected. */
-  int fromFilenameFormatIndex() const { return m_formatFromFilenameItem; }
-
-  /** Set index of from filename format selected. */
-  void setFromFilenameFormatIndex(int fromFilenameFormatIndex);
 
   /** Get from filename formats. */
   QStringList fromFilenameFormats() const {
@@ -232,17 +214,11 @@ signals:
   /** Emitted when @a formatText changed. */
   void toFilenameFormatChanged(const QString& toFilenameFormat);
 
-  /** Emitted when @a formatItem changed. */
-  void toFilenameFormatIndexChanged(int toFilenameFormatIndex);
-
   /** Emitted when @a formatItems changed. */
   void toFilenameFormatsChanged(const QStringList& toFilenameFormats);
 
   /** Emitted when @a formatFromFilenameText changed. */
   void fromFilenameFormatChanged(const QString& fromFilenameFormat);
-
-  /** Emitted when @a formatFromFilenameItem changed. */
-  void fromFilenameFormatIndexChanged(int fromFilenameFormatIndex);
 
   /** Emitted when @a formatFromFilenameItems changed. */
   void fromFilenameFormatsChanged(const QStringList& fromFilenameFormats);
@@ -268,14 +244,14 @@ signals:
 private:
   friend FileConfig& StoredConfig<FileConfig>::instance();
 
+  void initFormatListsIfEmpty();
+
   QString m_nameFilter;
   QStringList m_includeFolders;
   QStringList m_excludeFolders;
   QString m_formatText;
-  int m_formatItem;
   QStringList m_formatItems;
   QString m_formatFromFilenameText;
-  int m_formatFromFilenameItem;
   QStringList m_formatFromFilenameItems;
   QString m_defaultCoverFileName;
   QString m_lastOpenedFile;

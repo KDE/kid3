@@ -1871,6 +1871,12 @@ msgstr "&Скривени фајлови"
 msgid "&Filename Format"
 msgstr "Формат имена &фајла"
 
+msgid "Filename from Tag"
+msgstr "ознаке у име фајла"
+
+msgid "Tag from Filename"
+msgstr "ознаку из имена фајла"
+
 msgid "Browser"
 msgstr "Прегледач"
 

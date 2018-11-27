@@ -1874,6 +1874,12 @@ msgstr "Gizli do&syaları göster"
 msgid "&Filename Format"
 msgstr "&Dosya adı Biçimi"
 
+msgid "Filename from Tag"
+msgstr "Dosya adı tag'den"
+
+msgid "Tag from Filename"
+msgstr "Tag dosya adından"
+
 msgid "Browser"
 msgstr "Gözat"
 

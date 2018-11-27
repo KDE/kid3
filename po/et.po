@@ -1872,6 +1872,12 @@ msgstr "P&eidetud failide näitamine"
 msgid "&Filename Format"
 msgstr "&Failinime vorming"
 
+msgid "Filename from Tag"
+msgstr "Failinimi sildi põhjal"
+
+msgid "Tag from Filename"
+msgstr "Silt failinime põhjal"
+
 msgid "Browser"
 msgstr "Veebilehitseja"
 

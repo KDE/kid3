@@ -379,6 +379,16 @@ private slots:
    */
   void copyTagsActionData();
 
+  /**
+   * Set items of "Format <arrow up>" combo box from file configuration.
+   */
+  void setToFilenameFormats();
+
+  /**
+   * Set items of "Format <arrow down>" combo box from file configuration.
+   */
+  void setFromFilenameFormats();
+
 private:
   /**
    * Format string within line edit.

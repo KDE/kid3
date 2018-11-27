@@ -1874,6 +1874,12 @@ msgstr "Mo&strar archivos ocultos"
 msgid "&Filename Format"
 msgstr "Formato de &nombre de archivo"
 
+msgid "Filename from Tag"
+msgstr "Nombre de archivo de etiqueta"
+
+msgid "Tag from Filename"
+msgstr "Etiqueta desde nombre de archivo"
+
 msgid "Browser"
 msgstr "Navegador"
 

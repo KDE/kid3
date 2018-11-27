@@ -1875,6 +1875,12 @@ msgstr "Zo&brazovat skryté soubory"
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 
+msgid "Filename from Tag"
+msgstr "Název souboru ze značky"
+
+msgid "Tag from Filename"
+msgstr "Značka z názvu souboru"
+
 msgid "Browser"
 msgstr "Prohlížeč"
 

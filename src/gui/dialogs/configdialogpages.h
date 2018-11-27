@@ -113,6 +113,10 @@ public slots:
    */
   void setDefaultConfig();
 
+private slots:
+  void editFormatsFromTag();
+  void editFormatsToTag();
+
 private:
   /**
    * Set values in dialog from given configurations.
@@ -204,4 +208,8 @@ private:
   CheckableStringListModel* m_enabledMetadataPluginsModel;
   /** Model with enabled plugins */
   CheckableStringListModel* m_enabledPluginsModel;
+  /** Available formats for tag to filename */
+  QStringList m_toFilenameFormats;
+  /** Available formats for tag from filename */
+  QStringList m_fromFilenameFormats;
 };

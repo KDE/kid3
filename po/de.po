@@ -1873,6 +1873,12 @@ msgstr "Ver&steckte Dateien anzeigen"
 msgid "&Filename Format"
 msgstr "&Dateinamenformat"
 
+msgid "Filename from Tag"
+msgstr "Dateiname von Tag"
+
+msgid "Tag from Filename"
+msgstr "Tag von Dateiname"
+
 msgid "Browser"
 msgstr "Browser"
 

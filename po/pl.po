@@ -1873,6 +1873,12 @@ msgstr "Wyświetlaj &ukryte pliki"
 msgid "&Filename Format"
 msgstr "&Format nazwy pliku"
 
+msgid "Filename from Tag"
+msgstr "Nazwa pliku ze znacznika"
+
+msgid "Tag from Filename"
+msgstr "Znacznik wczytaj z nazwy pliku"
+
 msgid "Browser"
 msgstr "Przeglądarka"
 

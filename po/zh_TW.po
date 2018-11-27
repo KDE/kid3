@@ -1877,6 +1877,12 @@ msgstr "顯示隱藏檔(&S)"
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
+msgid "Filename from Tag"
+msgstr "檔名從標籤"
+
+msgid "Tag from Filename"
+msgstr "標籤從檔名"
+
 msgid "Browser"
 msgstr "瀏覽"
 

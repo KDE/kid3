@@ -1878,6 +1878,12 @@ msgstr "Показывать &скрытые файлы"
 msgid "&Filename Format"
 msgstr "&Формат имени файла"
 
+msgid "Filename from Tag"
+msgstr "Имя файла из тега"
+
+msgid "Tag from Filename"
+msgstr "Тег из имени файла"
+
 msgid "Browser"
 msgstr "Браузер"
 

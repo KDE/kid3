@@ -1868,6 +1868,12 @@ msgstr "Vis &skjulte filer"
 msgid "&Filename Format"
 msgstr "&Format på filnavn"
 
+msgid "Filename from Tag"
+msgstr "Filnavn fra tag"
+
+msgid "Tag from Filename"
+msgstr "Tag fra filnavn"
+
 msgid "Browser"
 msgstr "Browser"
 

@@ -1868,6 +1868,12 @@ msgstr ""
 msgid "&Filename Format"
 msgstr ""
 
+msgid "Filename from Tag"
+msgstr ""
+
+msgid "Tag from Filename"
+msgstr ""
+
 msgid "Browser"
 msgstr ""
 

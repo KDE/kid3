@@ -1872,6 +1872,12 @@ msgstr "&Näytä piilotiedostot"
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 
+msgid "Filename from Tag"
+msgstr "Tiedostonimi tunnisteesta"
+
+msgid "Tag from Filename"
+msgstr "Tunniste tiedostonimestä"
+
 msgid "Browser"
 msgstr "Selain"
 

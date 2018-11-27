@@ -517,6 +517,13 @@ subtitle if not subtitle exists.
 </para>
 
 <para>
+The list of available formats can be edited in the dialog which appears when
+clicking the <guibutton>Filename from tag</guibutton> button in the
+<guilabel>File</guilabel> tab of the
+<link linkend="configure-kid3">settings</link>.
+</para>
+
+<para>
 A second <guilabel>Format</guilabel> combo box (with arrow down) is used
 to generate the tags from the filename. If the format
 of the filename does not match this pattern, a few other commonly used formats
@@ -527,6 +534,14 @@ are tried.
 Some commonly used filename formats are already available in the combo box,
 but it is also possible to type in some special format into the line edit.
 </para>
+
+<para>
+The list of available formats can be edited in the dialog which appears when
+clicking the <guibutton>Tag from filename</guibutton> button in the
+<guilabel>File</guilabel> tab of the
+<link linkend="configure-kid3">settings</link>.
+</para>
+
 <para>
 Internally, a regular expression is built from the format codes. If advanced
 regular expressions are required, the format to generate the tags from the
@@ -821,7 +836,8 @@ offer this information.
 For information synchronized with the audio data, a specific editor is
 available. These frames are supported for ID3v2.3.0 and ID3v2.4.0 tags. To add
 such a frame, the specific frame name has to be selected in the list which
-appears when the <guibutton>Add</guibutton> button is clicked - <guilabel>Synchronized Lyrics</guilabel> or <guilabel>Event Timing
+appears when the <guibutton>Add</guibutton> button is clicked -
+<guilabel>Synchronized Lyrics</guilabel> or <guilabel>Event Timing
 Codes</guilabel>, respectively. The editor is the same for both types, for the
 event timing codes, only a predefined set of events is available whereas for
 the synchronized lyrics, text has to be entered. In the following, editing
@@ -2306,11 +2322,19 @@ exclude the iTunes folder from the file list. If multiple such expressions
 have to be used, they can be separated by spaces or semicolons.
 </para>
 <para>
+The buttons <guibutton>Filename from tag</guibutton> and <guibutton>Tag from
+filename</guibutton> in section <guilabel>Format</guilabel> open dialogs to
+edit the formats which are available in the <guilabel>Format</guilabel> combo
+boxes (with arrows up and down), which can be found in the
+<link linkend="file">File</link> section of the main window.
+</para>
+<para>
 <guilabel>Filename Format</guilabel> contains options for the format of the
 filenames. The same options as in <guilabel>Tag Format</guilabel> are available.
 </para>
 <para>
-The <guilabel>User Actions</guilabel> page contains a table with the commands which are available in the context menu of the file list. For critical
+The <guilabel>User Actions</guilabel> page contains a table with the commands
+which are available in the context menu of the file list. For critical
 operations such as deleting files, it is advisable to mark
 <guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
 the command.

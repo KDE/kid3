@@ -83,9 +83,7 @@ FileConfig::FileConfig()
   : StoredConfig<FileConfig>(QLatin1String("Files")),
     m_nameFilter(QLatin1String("")),
     m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
-    m_formatItem(0),
     m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
-    m_formatFromFilenameItem(0),
     m_defaultCoverFileName(QLatin1String("folder.jpg")),
     m_textEncoding(QLatin1String("System")),
     m_preserveTime(false),
@@ -93,6 +91,7 @@ FileConfig::FileConfig()
     m_loadLastOpenedFile(true),
     m_showHiddenFiles(false)
 {
+  initFormatListsIfEmpty();
 }
 
 /**
@@ -107,10 +106,8 @@ void FileConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("IncludeFolders"), QVariant(m_includeFolders));
   config->setValue(QLatin1String("ExcludeFolders"), QVariant(m_excludeFolders));
   config->setValue(QLatin1String("ShowHiddenFiles"), QVariant(m_showHiddenFiles));
-  config->setValue(QLatin1String("FormatItem"), QVariant(m_formatItem));
   config->setValue(QLatin1String("FormatItems"), QVariant(m_formatItems));
   config->setValue(QLatin1String("FormatText"), QVariant(m_formatText));
-  config->setValue(QLatin1String("FormatFromFilenameItem"), QVariant(m_formatFromFilenameItem));
   config->setValue(QLatin1String("FormatFromFilenameItems"), QVariant(m_formatFromFilenameItems));
   config->setValue(QLatin1String("FormatFromFilenameText"), QVariant(m_formatFromFilenameText));
   config->setValue(QLatin1String("PreserveTime"), QVariant(m_preserveTime));
@@ -140,13 +137,9 @@ void FileConfig::readFromConfig(ISettings* config)
                     m_excludeFolders).toStringList();
   m_showHiddenFiles = config->value(QLatin1String("ShowHiddenFiles"),
                                     m_showHiddenFiles).toBool();
-  m_formatItem =
-      config->value(QLatin1String("FormatItem"), 0).toInt();
   m_formatItems =
       config->value(QLatin1String("FormatItems"),
                     m_formatItems).toStringList();
-  m_formatFromFilenameItem =
-      config->value(QLatin1String("FormatFromFilenameItem"), 0).toInt();
   m_formatFromFilenameItems =
       config->value(QLatin1String("FormatFromFilenameItems"),
                     m_formatFromFilenameItems).toStringList();
@@ -171,16 +164,7 @@ void FileConfig::readFromConfig(ISettings* config)
                                          m_defaultCoverFileName).toString();
   config->endGroup();
 
-  if (m_formatItems.isEmpty()) {
-    for (const char** sl = defaultToFilenameFormats; *sl != nullptr; ++sl) {
-      m_formatItems += QString::fromLatin1(*sl);
-    }
-  }
-  if (m_formatFromFilenameItems.isEmpty()) {
-    for (const char** sl = defaultFromFilenameFormats; *sl != nullptr; ++sl) {
-      m_formatFromFilenameItems += QString::fromLatin1(*sl);
-    }
-  }
+  initFormatListsIfEmpty();
   if (ConfigStore::getConfigVersion() < 4) {
     // Reset file name filter if it is set to "All Supported Files" in order
     // to introduce newly supported file formats (e.g. *.dsf) when the
@@ -188,6 +172,20 @@ void FileConfig::readFromConfig(ISettings* config)
     if (m_nameFilter.startsWith(QCoreApplication::translate(
                                   "Kid3Application", "All Supported Files"))) {
       m_nameFilter.clear();
+    }
+  }
+}
+
+void FileConfig::initFormatListsIfEmpty()
+{
+  if (m_formatItems.size() <= 1) {
+    for (const char** sl = defaultToFilenameFormats; *sl != nullptr; ++sl) {
+      m_formatItems += QString::fromLatin1(*sl);
+    }
+  }
+  if (m_formatFromFilenameItems.size() <= 1) {
+    for (const char** sl = defaultFromFilenameFormats; *sl != nullptr; ++sl) {
+      m_formatFromFilenameItems += QString::fromLatin1(*sl);
     }
   }
 }
@@ -232,18 +230,11 @@ void FileConfig::setToFilenameFormat(const QString& formatText)
   }
 }
 
-void FileConfig::setToFilenameFormatIndex(int formatItem)
-{
-  if (m_formatItem != formatItem) {
-    m_formatItem = formatItem;
-    emit toFilenameFormatIndexChanged(m_formatItem);
-  }
-}
-
 void FileConfig::setToFilenameFormats(const QStringList& formatItems)
 {
   if (m_formatItems != formatItems) {
     m_formatItems = formatItems;
+    m_formatItems.removeDuplicates();
     emit toFilenameFormatsChanged(m_formatItems);
   }
 }
@@ -256,18 +247,11 @@ void FileConfig::setFromFilenameFormat(const QString& formatFromFilenameText)
   }
 }
 
-void FileConfig::setFromFilenameFormatIndex(int formatFromFilenameItem)
-{
-  if (m_formatFromFilenameItem != formatFromFilenameItem) {
-    m_formatFromFilenameItem = formatFromFilenameItem;
-    emit fromFilenameFormatIndexChanged(m_formatFromFilenameItem);
-  }
-}
-
 void FileConfig::setFromFilenameFormats(const QStringList& formatFromFilenameItems)
 {
   if (m_formatFromFilenameItems != formatFromFilenameItems) {
     m_formatFromFilenameItems = formatFromFilenameItems;
+    m_formatFromFilenameItems.removeDuplicates();
     emit fromFilenameFormatsChanged(m_formatFromFilenameItems);
   }
 }

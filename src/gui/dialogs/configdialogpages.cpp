@@ -52,6 +52,7 @@
 #include "networkconfig.h"
 #include "importconfig.h"
 #include "stringlistedit.h"
+#include "stringlisteditdialog.h"
 #include "configtable.h"
 #include "commandstablemodel.h"
 #include "checkablestringlistmodel.h"
@@ -414,6 +415,21 @@ QWidget* ConfigDialogPages::createFilesPage()
   fileListGroupBoxLayout->addWidget(m_excludeFoldersLineEdit, 2, 1);
   fileListGroupBoxLayout->addWidget(m_showHiddenFilesCheckBox, 3, 0, 1, 2);
   rightLayout->addWidget(fileListGroupBox);
+
+  auto formatGroupBox = new QGroupBox(tr("Format"), filesPage);
+  auto formatLayout = new QHBoxLayout(formatGroupBox);
+  auto editFormatsFromTagButton =
+          new QPushButton(tr("Filename from tag") + QLatin1String("..."));
+  connect(editFormatsFromTagButton, &QPushButton::clicked,
+          this, &ConfigDialogPages::editFormatsFromTag);
+  formatLayout->addWidget(editFormatsFromTagButton);
+  auto editFormatsToTagButton =
+          new QPushButton(tr("Tag from filename") + QLatin1String("..."));
+  connect(editFormatsToTagButton, &QPushButton::clicked,
+          this, &ConfigDialogPages::editFormatsToTag);
+  formatLayout->addWidget(editFormatsToTagButton);
+  rightLayout->addWidget(formatGroupBox);
+
   rightLayout->addStretch();
 
   hlayout->addLayout(leftLayout);
@@ -424,6 +440,38 @@ QWidget* ConfigDialogPages::createFilesPage()
   m_fnFormatBox = new FilenameFormatBox(fnFormatTitle, filesPage);
   vlayout->addWidget(m_fnFormatBox);
   return filesPage;
+}
+
+/**
+ * Open dialog to edit "Filename from tag" formats.
+ */
+void ConfigDialogPages::editFormatsFromTag()
+{
+  QWidget* parentWindow = nullptr;
+  if (auto button = qobject_cast<QPushButton*>(sender())) {
+    parentWindow = button->window();
+  }
+  StringListEditDialog dialog(
+        m_toFilenameFormats, tr("Filename from Tag"), parentWindow);
+  if (dialog.exec() == QDialog::Accepted) {
+    m_toFilenameFormats = dialog.stringList();
+  }
+}
+
+/**
+ * Open dialog to edit "Filename to tag" formats.
+ */
+void ConfigDialogPages::editFormatsToTag()
+{
+  QWidget* parentWindow = nullptr;
+  if (auto button = qobject_cast<QPushButton*>(sender())) {
+    parentWindow = button->window();
+  }
+  StringListEditDialog dialog(
+        m_fromFilenameFormats, tr("Tag from Filename"), parentWindow);
+  if (dialog.exec() == QDialog::Accepted) {
+    m_fromFilenameFormats = dialog.stringList();
+  }
 }
 
 /**
@@ -604,6 +652,8 @@ void ConfigDialogPages::setConfigs(
         folderPatternListToString(fileCfg.excludeFolders(), false));
   m_showHiddenFilesCheckBox->setChecked(fileCfg.showHiddenFiles());
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
+  m_toFilenameFormats = fileCfg.toFilenameFormats();
+  m_fromFilenameFormats = fileCfg.fromFilenameFormats();
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
   m_starRatingMappingsModel->setMappings(tagCfg.starRatingMappings());
@@ -741,6 +791,8 @@ void ConfigDialogPages::getConfig() const
         folderPatternListFromString(m_excludeFoldersLineEdit->text(), false));
   fileCfg.setShowHiddenFiles(m_showHiddenFilesCheckBox->isChecked());
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
+  fileCfg.setToFilenameFormats(m_toFilenameFormats);
+  fileCfg.setFromFilenameFormats(m_fromFilenameFormats);
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
   tagCfg.setStarRatingMappings(m_starRatingMappingsModel->getMappings());

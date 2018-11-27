@@ -547,6 +547,13 @@ ist.
 </para>
 
 <para>
+Die Liste der verfügbaren Formate kann in dem Dialog bearbeitet werden,
+welcher erscheint, wenn der Knopf <guibutton>Dateiname von Tag</guibutton>
+im <guilabel>Dateien</guilabel>-Reiter der
+<link linkend="configure-kid3">Einstellungen</link> gedrückt wird.
+</para>
+
+<para>
 Ein zweites <guilabel>Format</guilabel> Auswahlfeld (mit Pfeil runter)
 wird verwendet, um die Tags aus dem Dateinamen zu
 generieren. Falls der Dateinamen nicht diesem Format entspricht, werden noch
@@ -558,6 +565,14 @@ Einige häufig verwendete Dateinamen-Formate sind bereits vordefiniert und
 über das Auswahlfeld verfügbar, aber es ist auch möglich, ein eigenes Format
 in das Eingabefeld einzutragen.
 </para>
+
+<para>
+Die Liste der verfügbaren Formate kann in dem Dialog bearbeitet werden,
+welcher erscheint, wenn der Knopf <guibutton>Tag von Dateiname</guibutton>
+im <guilabel>Dateien</guilabel>-Reiter der
+<link linkend="configure-kid3">Einstellungen</link> gedrückt wird.
+</para>
+
 <para>
 Intern wird ein regulärer Ausdruck aus den Formatcodes gebildet. Wenn
 die volle Ausdruckskraft regulärer Ausdrücke gebraucht wird, ist es auch
@@ -2462,6 +2477,13 @@ Dateinamen-Platzhalter enthalten, beispielsweise
 <filename>*/iTunes/*</filename> um das iTunes-Verzeichnis auszublenden. Wenn
 mehrere solche Ausdrücke verwendet werden, so können sie durch Leerzeichen
 oder Strichpunkte getrennt werden.
+</para>
+<para>
+Die Knöpfe <guibutton>Dateiname von Tag</guibutton> und <guibutton>Tag von
+Dateiname</guibutton> im Abschnitt <guilabel>Format</guilabel> öffnen Dialoge,
+um die Formate zu bearbeiten, welche in den <guilabel>Format</guilabel>
+Auswahlfeldern (mit Pfeilen rauf und runter) des Abschnittes
+<link linkend="file">Datei</link> im Hauptfenster verfügbar sind.
 </para>
 <para>
 <guilabel>Dateinamen Format</guilabel> enthält Einstellungen für das

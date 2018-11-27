@@ -1872,6 +1872,12 @@ msgstr "显示隐藏文件(&S)"
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 
+msgid "Filename from Tag"
+msgstr "由标签生成文件名"
+
+msgid "Tag from Filename"
+msgstr "由文件名生成标签"
+
 msgid "Browser"
 msgstr "浏览"
 

@@ -1873,6 +1873,12 @@ msgstr "Afficher le&s fichiers cachés"
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 
+msgid "Filename from Tag"
+msgstr "Nom de fichier depuis balise"
+
+msgid "Tag from Filename"
+msgstr "Balise depuis le nom de fichier"
+
 msgid "Browser"
 msgstr "Navigateur"
 

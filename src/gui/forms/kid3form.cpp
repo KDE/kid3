@@ -218,6 +218,32 @@ QStringList getItemsFromComboBox(const QComboBox* comboBox)
   return lst;
 }
 
+/**
+ * Set items in combo box and add current item if not already existing.
+ * @param items combo box item
+ * @param currentItem current item
+ * @param comboBox combo box to set
+ */
+void setItemsInComboBox(const QStringList& items, const QString& currentItem,
+                        QComboBox* comboBox)
+{
+  QStringList allItems = items;
+  int idx = allItems.indexOf(currentItem);
+  if (idx == -1) {
+    allItems.append(currentItem);
+    idx = allItems.size() - 1;
+  }
+  // Block signals on combo box while setting contents to avoid
+  // editTextChanged() signals causing configuration changes.
+  comboBox->blockSignals(true);
+  if (!allItems.isEmpty()) {
+    comboBox->clear();
+    comboBox->addItems(allItems);
+  }
+  comboBox->setCurrentIndex(idx);
+  comboBox->blockSignals(false);
+}
+
 }
 
 /**
@@ -896,10 +922,8 @@ void Kid3Form::saveConfig()
   FileConfig& fileCfg = FileConfig::instance();
   guiCfg.setSplitterSizes(sizes());
   guiCfg.setVSplitterSizes(m_vSplitter->sizes());
-  fileCfg.setToFilenameFormatIndex(m_formatComboBox->currentIndex());
   fileCfg.setToFilenameFormat(m_formatComboBox->currentText());
   fileCfg.setToFilenameFormats(getItemsFromComboBox(m_formatComboBox));
-  fileCfg.setFromFilenameFormatIndex(m_formatFromFilenameComboBox->currentIndex());
   fileCfg.setFromFilenameFormat(m_formatFromFilenameComboBox->currentText());
   fileCfg.setFromFilenameFormats(getItemsFromComboBox(m_formatFromFilenameComboBox));
   if (!guiCfg.autoHideTags()) {
@@ -938,28 +962,12 @@ void Kid3Form::readConfig()
     m_vSplitter->setSizes({451, 109});
   }
 
-  // Block signals on combo boxes while setting contents to avoid
-  // editTextChanged() signals causing configuration changes.
-  m_formatComboBox->blockSignals(true);
-  m_formatFromFilenameComboBox->blockSignals(true);
-  if (!fileCfg.toFilenameFormats().isEmpty()) {
-    m_formatComboBox->clear();
-    m_formatComboBox->addItems(fileCfg.toFilenameFormats());
-  }
-  if (!fileCfg.fromFilenameFormats().isEmpty()) {
-    m_formatFromFilenameComboBox->clear();
-    m_formatFromFilenameComboBox->addItems(fileCfg.fromFilenameFormats());
-  }
-  m_formatComboBox->setItemText(fileCfg.toFilenameFormatIndex(),
-                                fileCfg.toFilenameFormat());
-  m_formatComboBox->setCurrentIndex(fileCfg.toFilenameFormatIndex());
-  m_formatFromFilenameComboBox->setItemText(
-    fileCfg.fromFilenameFormatIndex(),
-    fileCfg.fromFilenameFormat());
-  m_formatFromFilenameComboBox->setCurrentIndex(
-    fileCfg.fromFilenameFormatIndex());
-  m_formatComboBox->blockSignals(false);
-  m_formatFromFilenameComboBox->blockSignals(false);
+  setToFilenameFormats();
+  setFromFilenameFormats();
+  connect(&fileCfg, &FileConfig::toFilenameFormatsChanged,
+          this, &Kid3Form::setToFilenameFormats, Qt::UniqueConnection);
+  connect(&fileCfg, &FileConfig::fromFilenameFormatsChanged,
+          this, &Kid3Form::setFromFilenameFormats, Qt::UniqueConnection);
 
   if (!guiCfg.autoHideTags()) {
     hideFile(guiCfg.hideFile());
@@ -974,6 +982,26 @@ void Kid3Form::readConfig()
   m_dirListBox->sortByColumn(guiCfg.dirListSortColumn(),
                              guiCfg.dirListSortOrder());
   m_dirListBox->setVisibleColumns(guiCfg.dirListVisibleColumns());
+}
+
+/**
+ * Set items of "Format <arrow up>" combo box from file configuration.
+ */
+void Kid3Form::setToFilenameFormats()
+{
+  const FileConfig& fileCfg = FileConfig::instance();
+  setItemsInComboBox(fileCfg.toFilenameFormats(), fileCfg.toFilenameFormat(),
+                     m_formatComboBox);
+}
+
+/**
+ * Set items of "Format <arrow down>" combo box from file configuration.
+ */
+void Kid3Form::setFromFilenameFormats()
+{
+  const FileConfig& fileCfg = FileConfig::instance();
+  setItemsInComboBox(fileCfg.fromFilenameFormats(), fileCfg.fromFilenameFormat(),
+                     m_formatFromFilenameComboBox);
 }
 
 /**

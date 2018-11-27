@@ -1874,6 +1874,12 @@ msgstr "&Mostra i file nascosti"
 msgid "&Filename Format"
 msgstr "Formato nome&file"
 
+msgid "Filename from Tag"
+msgstr "Nome file da Tag"
+
+msgid "Tag from Filename"
+msgstr "Tag dal Nome file"
+
 msgid "Browser"
 msgstr "Browser"
 

@@ -85,6 +85,7 @@ add_library(kid3-gui
   dialogs/textimportdialog.cpp
   dialogs/findreplacedialog.cpp
   dialogs/playlisteditdialog.cpp
+  dialogs/stringlisteditdialog.cpp
   forms/filelist.cpp
   forms/configurabletreeview.cpp
   forms/kid3form.cpp
