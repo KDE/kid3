@@ -2115,11 +2115,17 @@ msgstr "Направи директоријум"
 msgid "&Action:"
 msgstr "&Радња:"
 
+msgid "&Edit..."
+msgstr "У&реди..."
+
 msgid "From:"
 msgstr "Из:"
 
 msgid "To:"
 msgstr "У:"
+
+msgid "Directory Name from Tag"
+msgstr "Ознаке у име директоријума"
 
 msgid "C&GI Path:"
 msgstr "Ц&ГИ путања:"
@@ -2289,9 +2295,6 @@ msgstr "Помери &горе"
 
 msgid "Move &Down"
 msgstr "Помери до&ле"
-
-msgid "&Edit..."
-msgstr "У&реди..."
 
 msgid "&Remove"
 msgstr "У&клони"

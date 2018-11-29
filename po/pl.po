@@ -2115,11 +2115,17 @@ msgstr "Utwórz katalog"
 msgid "&Action:"
 msgstr "Zd&arzenie:"
 
+msgid "&Edit..."
+msgstr "&Edycja..."
+
 msgid "From:"
 msgstr "Z:"
 
 msgid "To:"
 msgstr "Do:"
+
+msgid "Directory Name from Tag"
+msgstr "Nazwa katalogu ze znacznika"
 
 msgid "C&GI Path:"
 msgstr "Ścieżka C&GI:"
@@ -2290,9 +2296,6 @@ msgstr "&Przesuń w górę"
 
 msgid "Move &Down"
 msgstr "&Przesuń niżej"
-
-msgid "&Edit..."
-msgstr "&Edycja..."
 
 msgid "&Remove"
 msgstr "&Usuń"

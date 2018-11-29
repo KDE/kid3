@@ -2115,11 +2115,17 @@ msgstr "Crear directorio"
 msgid "&Action:"
 msgstr "A&cción:"
 
+msgid "&Edit..."
+msgstr "&Editar..."
+
 msgid "From:"
 msgstr "De:"
 
 msgid "To:"
 msgstr "A:"
+
+msgid "Directory Name from Tag"
+msgstr "Nombre de directorio de etiqueta"
 
 msgid "C&GI Path:"
 msgstr "Ruta de C&GI:"
@@ -2289,9 +2295,6 @@ msgstr "S&ubir"
 
 msgid "Move &Down"
 msgstr "&Bajar"
-
-msgid "&Edit..."
-msgstr "&Editar..."
 
 msgid "&Remove"
 msgstr "&Eliminar"

@@ -2119,11 +2119,17 @@ msgstr "Создать каталог"
 msgid "&Action:"
 msgstr "Д&ействие:"
 
+msgid "&Edit..."
+msgstr "&Изменить..."
+
 msgid "From:"
 msgstr "Из:"
 
 msgid "To:"
 msgstr "В:"
+
+msgid "Directory Name from Tag"
+msgstr "Имя каталога из тега"
 
 msgid "C&GI Path:"
 msgstr "Путь к C&GI:"
@@ -2293,9 +2299,6 @@ msgstr "Переместить вв&ерх"
 
 msgid "Move &Down"
 msgstr "Переместить &вниз"
-
-msgid "&Edit..."
-msgstr "&Изменить..."
 
 msgid "&Remove"
 msgstr "&Убрать"

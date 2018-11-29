@@ -2107,10 +2107,16 @@ msgstr ""
 msgid "&Action:"
 msgstr ""
 
+msgid "&Edit..."
+msgstr ""
+
 msgid "From:"
 msgstr ""
 
 msgid "To:"
+msgstr ""
+
+msgid "Directory Name from Tag"
 msgstr ""
 
 msgid "C&GI Path:"
@@ -2278,9 +2284,6 @@ msgid "Move &Up"
 msgstr ""
 
 msgid "Move &Down"
-msgstr ""
-
-msgid "&Edit..."
 msgstr ""
 
 msgid "&Remove"

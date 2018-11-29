@@ -1739,7 +1739,8 @@ because UTF8 is not supported for this format.</para></listitem>
 <listitem><para>This dialog offers the possibility to automatically rename the
 currently open directory according to the tags in the files. Several formats
 are preconfigured to include information about artist, album and year in the
-directory name. It is also possible to set a custom format, the following
+directory name. It is also possible to set a custom format and
+<guibutton>Edit</guibutton> the list of available formats. The following
 special codes are used to insert tag values into the directory name:
 </para>
 

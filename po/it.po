@@ -2115,11 +2115,17 @@ msgstr "Crea cartella"
 msgid "&Action:"
 msgstr "&Azione:"
 
+msgid "&Edit..."
+msgstr "&Modifica..."
+
 msgid "From:"
 msgstr "Da:"
 
 msgid "To:"
 msgstr "A:"
+
+msgid "Directory Name from Tag"
+msgstr "Nome cartella da Tag"
 
 msgid "C&GI Path:"
 msgstr "Percorso C&GI:"
@@ -2290,9 +2296,6 @@ msgstr "Sposta in &alto"
 
 msgid "Move &Down"
 msgstr "Sposta in &basso"
-
-msgid "&Edit..."
-msgstr "&Modifica..."
 
 msgid "&Remove"
 msgstr "&Rimuovi"

@@ -2116,11 +2116,17 @@ msgstr "Vytvořit adresář"
 msgid "&Action:"
 msgstr "&Činnost:"
 
+msgid "&Edit..."
+msgstr "&Upravit..."
+
 msgid "From:"
 msgstr "Z:"
 
 msgid "To:"
 msgstr "Do:"
+
+msgid "Directory Name from Tag"
+msgstr "Název adresáře ze značky"
 
 msgid "C&GI Path:"
 msgstr "Cesta C&GI:"
@@ -2290,9 +2296,6 @@ msgstr "Posunout &nahoru"
 
 msgid "Move &Down"
 msgstr "Posunout &dolů"
-
-msgid "&Edit..."
-msgstr "&Upravit..."
 
 msgid "&Remove"
 msgstr "&Odstranit"

@@ -2113,11 +2113,17 @@ msgstr "Luo kansio"
 msgid "&Action:"
 msgstr "T&oiminto:"
 
+msgid "&Edit..."
+msgstr "&Muokkaa..."
+
 msgid "From:"
 msgstr "Alkuperäinen:"
 
 msgid "To:"
 msgstr "Uusi:"
+
+msgid "Directory Name from Tag"
+msgstr "Kansion nimi tunnisteesta"
 
 msgid "C&GI Path:"
 msgstr "&CGI-polku:"
@@ -2289,9 +2295,6 @@ msgstr "Siirrä &ylemmäs"
 
 msgid "Move &Down"
 msgstr "Siirrä &alemmas"
-
-msgid "&Edit..."
-msgstr "&Muokkaa..."
 
 msgid "&Remove"
 msgstr "&Poista"

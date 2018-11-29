@@ -38,9 +38,9 @@ class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig> {
   /** directory name format */
   Q_PROPERTY(QString dirFormat READ dirFormat WRITE setDirFormat
              NOTIFY dirFormatChanged)
-  /** index of directory name format selected */
-  Q_PROPERTY(int dirFormatIndex READ dirFormatIndex WRITE setDirFormatIndex
-             NOTIFY dirFormatIndexChanged)
+  /** available directory name formats */
+  Q_PROPERTY(QStringList dirFormats READ dirFormats WRITE setDirFormats
+             NOTIFY dirFormatsChanged)
   /** rename directory from tags 1, tags 2, or both */
   Q_PROPERTY(int renDirSource READ renDirSource WRITE setRenDirSrcInt
              NOTIFY renDirSourceChanged)
@@ -76,11 +76,11 @@ public:
   /** Set directory name format. */
   void setDirFormat(const QString& dirFormat);
 
-  /** Get index of directory name format selected. */
-  int dirFormatIndex() const { return m_dirFormatItem; }
+  /** Get available directory name formats. */
+  QStringList dirFormats() const { return m_dirFormatItems; }
 
-  /** Set index of directory name format selected. */
-  void setDirFormatIndex(int dirFormatIndex);
+  /** Set available directory name formats. */
+  void setDirFormats(const QStringList& dirFormatItems);
 
   /** Get tag source when renaming directory. */
   Frame::TagVersion renDirSource() const { return m_renDirSrc; }
@@ -88,15 +88,12 @@ public:
   /** Set tag source when renaming directory. */
   void setRenDirSource(Frame::TagVersion renDirSource);
 
-  /** Get default directory format list. */
-  Q_INVOKABLE static QStringList getDefaultDirFormatList();
-
 signals:
   /** Emitted when @a dirFormatText changed. */
   void dirFormatChanged(const QString& dirFormat);
 
-  /** Emitted when @a dirFormatItem changed. */
-  void dirFormatIndexChanged(int dirFormatIndex);
+  /** Emitted when @a dirFormats changed. */
+  void dirFormatsChanged(const QStringList& dirFormats);
 
   /** Emitted when @a renDirSrc changed. */
   void renDirSourceChanged(Frame::TagVersion renDirSource);
@@ -109,7 +106,7 @@ private:
   }
 
   QString m_dirFormatText;
-  int m_dirFormatItem;
+  QStringList m_dirFormatItems;
   Frame::TagVersion m_renDirSrc;
 
   static const char** s_defaultDirFmtList;

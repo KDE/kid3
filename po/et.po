@@ -2113,11 +2113,17 @@ msgstr "Kataloogi loomine"
 msgid "&Action:"
 msgstr "&Toiming:"
 
+msgid "&Edit..."
+msgstr "&Muuda..."
+
 msgid "From:"
 msgstr "Faili nimeks:"
 
 msgid "To:"
 msgstr "Faili nimest:"
+
+msgid "Directory Name from Tag"
+msgstr "Kataloogi nimi sildi põhjal"
 
 msgid "C&GI Path:"
 msgstr "C&GI tee:"
@@ -2287,9 +2293,6 @@ msgstr "Liiguta &üles"
 
 msgid "Move &Down"
 msgstr "Lii&guta alla"
-
-msgid "&Edit..."
-msgstr "&Muuda..."
 
 msgid "&Remove"
 msgstr "&Eemalda"

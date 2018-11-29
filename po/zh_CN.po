@@ -2113,11 +2113,17 @@ msgstr "创建目录"
 msgid "&Action:"
 msgstr "动作(&A):"
 
+msgid "&Edit..."
+msgstr "编辑(&E)..."
+
 msgid "From:"
 msgstr "从："
 
 msgid "To:"
 msgstr "到："
+
+msgid "Directory Name from Tag"
+msgstr "目录名從標籤"
 
 msgid "C&GI Path:"
 msgstr "CGI路径(&G)："
@@ -2287,9 +2293,6 @@ msgstr "上移(&U)"
 
 msgid "Move &Down"
 msgstr "下移(&D)"
-
-msgid "&Edit..."
-msgstr "编辑(&E)..."
 
 msgid "&Remove"
 msgstr "移除(&R)"

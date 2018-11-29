@@ -1857,7 +1857,9 @@ UTF8 nicht.</para></listitem>
 Verzeichnis gemäß den Tags umzubenennen. Verschiedene Formate sind
 vordefiniert und Informationen über Interpret, Album und Jahr in den
 Verzeichnisnamen zu übernehmen. Es ist auch möglich, ein eigenes Format zu
-definieren, die folgenden Codes können verwendet werden, um
+definieren und die verfügbaren Formate zu bearbeiten
+(Knopf <guibutton>Bearbeiten</guibutton>).
+Die folgenden Codes können verwendet werden, um
 Werte aus den Tags im Verzeichnisnamen einzusetzen:
 </para>
 

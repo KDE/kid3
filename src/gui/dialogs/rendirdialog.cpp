@@ -41,6 +41,7 @@
 #include "contexthelp.h"
 #include "rendirconfig.h"
 #include "dirrenamer.h"
+#include "stringlisteditdialog.h"
 
 /**
  * Constructor.
@@ -105,14 +106,21 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   connect(m_tagversionComboBox, static_cast<void (QComboBox::*)(int)>(
             &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
 
+  auto formatLayout = new QHBoxLayout;
   m_formatComboBox = new QComboBox(page);
-  m_formatComboBox->addItems(RenDirConfig::getDefaultDirFormatList());
   m_formatComboBox->setEditable(true);
   const RenDirConfig& renDirCfg = RenDirConfig::instance();
-  m_formatComboBox->setItemText(renDirCfg.dirFormatIndex(),
-                                renDirCfg.dirFormat());
-  m_formatComboBox->setCurrentIndex(renDirCfg.dirFormatIndex());
-  actionLayout->addRow(tr("&Format:"), m_formatComboBox);
+  m_formats = renDirCfg.dirFormats();
+  m_format = renDirCfg.dirFormat();
+  setFormats();
+  formatLayout->addWidget(m_formatComboBox, 1);
+  auto editFormatsButton = new QPushButton(tr("&Edit..."));
+  connect(editFormatsButton, &QPushButton::clicked,
+          this, &RenDirDialog::editFormats);
+  formatLayout->addWidget(editFormatsButton);
+  auto formatLabel = new QLabel(tr("&Format:"));
+  formatLabel->setBuddy(m_formatComboBox);
+  actionLayout->addRow(formatLabel, formatLayout);
   m_tagversionComboBox->setCurrentIndex(
         m_tagversionComboBox->findData(renDirCfg.renDirSource()));
   connect(m_formatComboBox, static_cast<void (QComboBox::*)(int)>(
@@ -187,7 +195,8 @@ void RenDirDialog::setDirRenamerConfiguration() {
   m_dirRenamer->setTagVersion(Frame::tagVersionCast(
     m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
   m_dirRenamer->setAction(m_actionComboBox->currentIndex() == ActionCreate);
-  m_dirRenamer->setFormat(m_formatComboBox->currentText());
+  m_format = m_formatComboBox->currentText();
+  m_dirRenamer->setFormat(m_format);
 }
 
 /**
@@ -211,8 +220,10 @@ void RenDirDialog::slotUpdateNewDirname()
 void RenDirDialog::saveConfig()
 {
   RenDirConfig& renDirCfg = RenDirConfig::instance();
-  renDirCfg.setDirFormatIndex(m_formatComboBox->currentIndex());
-  renDirCfg.setDirFormat(m_formatComboBox->currentText());
+  m_format = m_formatComboBox->currentText();
+  setFormats();
+  renDirCfg.setDirFormats(m_formats);
+  renDirCfg.setDirFormat(m_format);
   renDirCfg.setRenDirSource(Frame::tagVersionCast(
     m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
 }
@@ -281,6 +292,38 @@ void RenDirDialog::pageChanged()
     setDirRenamerConfiguration();
     emit actionSchedulingRequested();
   }
+}
+
+/**
+ * Open dialog to edit formats.
+ */
+void RenDirDialog::editFormats()
+{
+  setFormats();
+  StringListEditDialog dialog(m_formats, tr("Directory Name from Tag"), this);
+  if (dialog.exec() == QDialog::Accepted) {
+    m_formats = dialog.stringList();
+    setFormats();
+  }
+}
+
+/**
+ * Set items of format combo box from configuration.
+ */
+void RenDirDialog::setFormats()
+{
+  int idx = m_formats.indexOf(m_format);
+  if (idx == -1) {
+    m_formats.append(m_format);
+    idx = m_formats.size() - 1;
+  }
+  m_formatComboBox->blockSignals(true);
+  if (!m_formats.isEmpty()) {
+    m_formatComboBox->clear();
+    m_formatComboBox->addItems(m_formats);
+  }
+  m_formatComboBox->setCurrentIndex(idx);
+  m_formatComboBox->blockSignals(false);
 }
 
 /**

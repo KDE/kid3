@@ -2114,11 +2114,17 @@ msgstr "Map aanmaken"
 msgid "&Action:"
 msgstr "A&ctie:"
 
+msgid "&Edit..."
+msgstr "Be&werken..."
+
 msgid "From:"
 msgstr "Van:"
 
 msgid "To:"
 msgstr "Aan:"
+
+msgid "Directory Name from Tag"
+msgstr "Mapnaam van Tag"
 
 msgid "C&GI Path:"
 msgstr "C&GI Locatie:"
@@ -2292,9 +2298,6 @@ msgstr "Om&hoog"
 
 msgid "Move &Down"
 msgstr "Om&laag"
-
-msgid "&Edit..."
-msgstr "Be&werken..."
 
 msgid "&Remove"
 msgstr "&Verwijderen"

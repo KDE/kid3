@@ -2116,11 +2116,17 @@ msgstr "Dizin Yarat"
 msgid "&Action:"
 msgstr "&Eylem:"
 
+msgid "&Edit..."
+msgstr "Dü&zen..."
+
 msgid "From:"
 msgstr "Şuradan:"
 
 msgid "To:"
 msgstr "Şuraya:"
+
+msgid "Directory Name from Tag"
+msgstr "Dizin adı tag'den"
 
 msgid "C&GI Path:"
 msgstr "C&GI Yolu:"
@@ -2290,9 +2296,6 @@ msgstr "&Yukarı Taşı"
 
 msgid "Move &Down"
 msgstr "&Aşağı Taşı"
-
-msgid "&Edit..."
-msgstr "Dü&zen..."
 
 msgid "&Remove"
 msgstr "Ka&ldır"

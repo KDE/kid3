@@ -186,7 +186,7 @@ Page {
   StackView.onDeactivated: app.dirRenamer.abort()
 
   Component.onCompleted: {
-    var defaultFormats = configs.renDirConfig().getDefaultDirFormatList()
+    var defaultFormats = configs.renDirConfig().dirFormats
     format = configs.renDirConfig().dirFormat
     if (defaultFormats.indexOf(format) === -1) {
       defaultFormats.push(format)

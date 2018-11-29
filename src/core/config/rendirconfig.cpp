@@ -78,7 +78,6 @@ int RenDirConfig::s_index = -1;
 RenDirConfig::RenDirConfig()
   : StoredConfig<RenDirConfig>(QLatin1String("RenameDirectory")),
     m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
-    m_dirFormatItem(0),
     m_renDirSrc(Frame::TagVAll)
 {
 }
@@ -91,7 +90,7 @@ RenDirConfig::RenDirConfig()
 void RenDirConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
-  config->setValue(QLatin1String("DirFormatItem"), QVariant(m_dirFormatItem));
+  config->setValue(QLatin1String("DirFormatItems"), QVariant(m_dirFormatItems));
   config->setValue(QLatin1String("DirFormatText"), QVariant(m_dirFormatText));
   config->setValue(QLatin1String("RenameDirectorySource"),
                    QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
@@ -106,14 +105,21 @@ void RenDirConfig::writeToConfig(ISettings* config) const
 void RenDirConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
-  m_dirFormatItem =
-      config->value(QLatin1String("DirFormatItem"), 0).toInt();
+  m_dirFormatItems =
+      config->value(QLatin1String("DirFormatItems"),
+                    m_dirFormatItems).toStringList();
   m_renDirSrc = renDirCfgToTagVersion(
         config->value(QLatin1String("RenameDirectorySource"), 0).toInt());
   m_dirFormatText =
       config->value(QLatin1String("DirFormatText"),
                     QString::fromLatin1(s_defaultDirFmtList[0])).toString();
   config->endGroup();
+
+  if (m_dirFormatItems.size() <= 1) {
+    for (const char** sl = s_defaultDirFmtList; *sl != nullptr; ++sl) {
+      m_dirFormatItems += QString::fromLatin1(*sl); // clazy:exclude=reserve-candidates
+    }
+  }
 }
 
 void RenDirConfig::setDirFormat(const QString& dirFormatText)
@@ -124,11 +130,12 @@ void RenDirConfig::setDirFormat(const QString& dirFormatText)
   }
 }
 
-void RenDirConfig::setDirFormatIndex(int dirFormatItem)
+void RenDirConfig::setDirFormats(const QStringList& dirFormatItems)
 {
-  if (m_dirFormatItem != dirFormatItem) {
-    m_dirFormatItem = dirFormatItem;
-    emit dirFormatIndexChanged(m_dirFormatItem);
+  if (m_dirFormatItems != dirFormatItems) {
+    m_dirFormatItems = dirFormatItems;
+    m_dirFormatItems.removeDuplicates();
+    emit dirFormatsChanged(m_dirFormatItems);
   }
 }
 
@@ -138,13 +145,4 @@ void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSrc)
     m_renDirSrc = renDirSrc;
     emit renDirSourceChanged(m_renDirSrc);
   }
-}
-
-QStringList RenDirConfig::getDefaultDirFormatList()
-{
-  QStringList strList;
-  for (const char** sl = s_defaultDirFmtList; *sl != nullptr; ++sl) {
-    strList += QString::fromLatin1(*sl); // clazy:exclude=reserve-candidates
-  }
-  return strList;
 }

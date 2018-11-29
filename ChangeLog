@@ -12,7 +12,9 @@ Sun Dec 23 12:05:20 CET 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Completions with different values when selecting multiple files.
 	  + Option "--dbus" to have a D-Bus interface with kid3-cli.
 	  + Code "%{dirname}" to use current directory name when renaming.
-	  + Code "%{disk}" as alias for "%{disc number}"
+	  + Code "%{disk}" as alias for "%{disc number}".
+	  + Edit list of availble formats to set file and directory names
+	    from the tags and vice versa.
 
 	* Improved:
 	  + Reduce number of open file handles.

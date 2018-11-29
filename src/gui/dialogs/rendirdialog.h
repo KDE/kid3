@@ -125,6 +125,11 @@ private slots:
    */
   void pageChanged();
 
+  /**
+   * Open dialog to edit formats.
+   */
+  void editFormats();
+
 private:
   /** Action to be performed. */
   enum Action { ActionRename = 0, ActionCreate = 1 };
@@ -154,6 +159,11 @@ private:
    */
   void setDirRenamerConfiguration();
 
+  /**
+   * Set items of format combo box from configuration.
+   */
+  void setFormats();
+
   QComboBox* m_formatComboBox;
   QComboBox* m_actionComboBox;
   QComboBox* m_tagversionComboBox;
@@ -162,4 +172,6 @@ private:
   QTextEdit* m_edit;
   TaggedFile* m_taggedFile;
   DirRenamer* m_dirRenamer;
+  QStringList m_formats;
+  QString m_format;
 };

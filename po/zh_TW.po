@@ -2119,11 +2119,17 @@ msgstr "建立目錄"
 msgid "&Action:"
 msgstr "動作(&A):"
 
+msgid "&Edit..."
+msgstr "編輯(&E)..."
+
 msgid "From:"
 msgstr "從："
 
 msgid "To:"
 msgstr "至："
+
+msgid "Directory Name from Tag"
+msgstr "目錄名稱從標籤"
 
 msgid "C&GI Path:"
 msgstr "CGI路徑(&G):"
@@ -2293,9 +2299,6 @@ msgstr "上移(&U)"
 
 msgid "Move &Down"
 msgstr "下移(&D)"
-
-msgid "&Edit..."
-msgstr "編輯(&E)..."
 
 msgid "&Remove"
 msgstr "移除(&R)"

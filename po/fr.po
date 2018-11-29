@@ -2114,11 +2114,17 @@ msgstr "Créer répertoire"
 msgid "&Action:"
 msgstr "A&ction:"
 
+msgid "&Edit..."
+msgstr "M&odifier..."
+
 msgid "From:"
 msgstr "De:"
 
 msgid "To:"
 msgstr "À:"
+
+msgid "Directory Name from Tag"
+msgstr "Nom de répertoire depuis balise"
 
 msgid "C&GI Path:"
 msgstr "Dossier du C&GI:"
@@ -2289,9 +2295,6 @@ msgstr "&Monter"
 
 msgid "Move &Down"
 msgstr "&Descendre"
-
-msgid "&Edit..."
-msgstr "M&odifier..."
 
 msgid "&Remove"
 msgstr "Su&pprimer"

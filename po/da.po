@@ -2109,11 +2109,17 @@ msgstr "Opret bibliotek"
 msgid "&Action:"
 msgstr "H&andling:"
 
+msgid "&Edit..."
+msgstr "&Redigér..."
+
 msgid "From:"
 msgstr "Fra:"
 
 msgid "To:"
 msgstr "Til:"
+
+msgid "Directory Name from Tag"
+msgstr "Biblioteksnavn fra tag"
 
 msgid "C&GI Path:"
 msgstr "C&GI-sti:"
@@ -2283,9 +2289,6 @@ msgstr "Flyt &op"
 
 msgid "Move &Down"
 msgstr "Flyt &ned"
-
-msgid "&Edit..."
-msgstr "&Redigér..."
 
 msgid "&Remove"
 msgstr "&Fjern"
