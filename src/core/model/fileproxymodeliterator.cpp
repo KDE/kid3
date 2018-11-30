@@ -135,6 +135,8 @@ void FileProxyModelIterator::fetchNext()
       });
       m_nodes += childNodes;
       emit nextReady(m_nextIdx);
+    } else {
+      m_nodes.pop();
     }
   }
   m_nodes.clear();
