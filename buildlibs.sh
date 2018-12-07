@@ -2217,6 +2217,445 @@ diff -ruN mp4v2-2.0.0.orig/libplatform/platform_win32_impl.h mp4v2-2.0.0/libplat
 +}}} // namespace mp4v2::platform::win32
 EOF
 
+test -f mp4v2_clang6.patch ||
+  cat >mp4v2_clang6.patch <<"EOF"
+diff -ru mp4v2-2.0.0.orig/libutil/Utility.cpp mp4v2-2.0.0/libutil/Utility.cpp
+--- mp4v2-2.0.0.orig/libutil/Utility.cpp	2012-05-21 00:11:53.000000000 +0200
++++ mp4v2-2.0.0/libutil/Utility.cpp	2018-12-07 06:52:54.298395112 +0100
+@@ -531,26 +531,26 @@
+                 printHelp( false, false );
+                 return SUCCESS;
+ 
+-            case LC_DEBUG:
++            case (int)LC_DEBUG:
+                 debugUpdate( std::strtoul( prog::optarg, NULL, 0 ) );
+                 break;
+ 
+-            case LC_VERBOSE:
++            case (int)LC_VERBOSE:
+             {
+                 const uint32_t level = std::strtoul( prog::optarg, NULL, 0 );
+                 _verbosity = ( level < 4 ) ? level : 3;
+                 break;
+             }
+ 
+-            case LC_HELP:
++            case (int)LC_HELP:
+                 printHelp( true, false );
+                 return SUCCESS;
+ 
+-            case LC_VERSION:
++            case (int)LC_VERSION:
+                 printVersion( false );
+                 return SUCCESS;
+ 
+-            case LC_VERSIONX:
++            case (int)LC_VERSIONX:
+                 printVersion( true );
+                 return SUCCESS;
+ 
+diff -ru mp4v2-2.0.0.orig/src/mp4.cpp mp4v2-2.0.0/src/mp4.cpp
+--- mp4v2-2.0.0.orig/src/mp4.cpp	2012-05-21 00:11:53.000000000 +0200
++++ mp4v2-2.0.0/src/mp4.cpp	2018-12-07 06:43:25.145879532 +0100
+@@ -870,7 +870,7 @@
+         }
+ 
+         catch (...) {
+-            return MP4_INVALID_TRACK_ID;
++            return (mp4v2_ismacrypParams *)MP4_INVALID_TRACK_ID;
+         }
+     }
+ 
+diff -ru mp4v2-2.0.0.orig/src/mp4util.h mp4v2-2.0.0/src/mp4util.h
+--- mp4v2-2.0.0.orig/src/mp4util.h	2012-05-21 00:11:53.000000000 +0200
++++ mp4v2-2.0.0/src/mp4util.h	2018-12-07 06:38:56.557204609 +0100
+@@ -33,7 +33,7 @@
+ #ifndef ASSERT
+ #   define ASSERT(expr) \
+         if (!(expr)) { \
+-            throw new Exception("assert failure: "LIBMPV42_STRINGIFY((expr)), __FILE__, __LINE__, __FUNCTION__ ); \
++            throw new Exception("assert failure: " LIBMPV42_STRINGIFY((expr)), __FILE__, __LINE__, __FUNCTION__ ); \
+         }
+ #endif
+ 
+diff -ru mp4v2-2.0.0.orig/util/mp4art.cpp mp4v2-2.0.0/util/mp4art.cpp
+--- mp4v2-2.0.0.orig/util/mp4art.cpp	2012-05-21 00:11:55.000000000 +0200
++++ mp4v2-2.0.0/util/mp4art.cpp	2018-12-07 06:54:49.929641777 +0100
+@@ -377,11 +377,11 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_ART_ANY:
++        case (int)LC_ART_ANY:
+             _artFilter = numeric_limits<uint32_t>::max();
+             break;
+ 
+-        case LC_ART_INDEX:
++        case (int)LC_ART_INDEX:
+         {
+             istringstream iss( prog::optarg );
+             iss >> _artFilter;
+@@ -390,29 +390,29 @@
+             break;
+         }
+ 
+-        case LC_LIST:
++        case (int)LC_LIST:
+             _action = &ArtUtility::actionList;
+             break;
+ 
+-        case LC_ADD:
++        case (int)LC_ADD:
+             _action = &ArtUtility::actionAdd;
+             _artImageFile = prog::optarg;
+             if( _artImageFile.empty() )
+                 return herrf( "invalid image file: empty-string\n" );
+             break;
+ 
+-        case LC_REMOVE:
++        case (int)LC_REMOVE:
+             _action = &ArtUtility::actionRemove;
+             break;
+ 
+-        case LC_REPLACE:
++        case (int)LC_REPLACE:
+             _action = &ArtUtility::actionReplace;
+             _artImageFile = prog::optarg;
+             if( _artImageFile.empty() )
+                 return herrf( "invalid image file: empty-string\n" );
+             break;
+ 
+-        case LC_EXTRACT:
++        case (int)LC_EXTRACT:
+             _action = &ArtUtility::actionExtract;
+             break;
+ 
+diff -ru mp4v2-2.0.0.orig/util/mp4chaps.cpp mp4v2-2.0.0/util/mp4chaps.cpp
+--- mp4v2-2.0.0.orig/util/mp4chaps.cpp	2012-05-21 00:11:55.000000000 +0200
++++ mp4v2-2.0.0/util/mp4chaps.cpp	2018-12-07 06:56:37.808767340 +0100
+@@ -634,32 +634,32 @@
+ 
+     switch( code ) {
+         case 'A':
+-        case LC_CHPT_ANY:
++        case (int)LC_CHPT_ANY:
+             _ChapterType = MP4ChapterTypeAny;
+             break;
+ 
+         case 'Q':
+-        case LC_CHPT_QT:
++        case (int)LC_CHPT_QT:
+             _ChapterType = MP4ChapterTypeQt;
+             break;
+ 
+         case 'N':
+-        case LC_CHPT_NERO:
++        case (int)LC_CHPT_NERO:
+             _ChapterType = MP4ChapterTypeNero;
+             break;
+ 
+         case 'C':
+-        case LC_CHPT_COMMON:
++        case (int)LC_CHPT_COMMON:
+             _ChapterFormat = CHPT_FMT_COMMON;
+             break;
+ 
+         case 'l':
+-        case LC_CHP_LIST:
++        case (int)LC_CHP_LIST:
+             _action = &ChapterUtility::actionList;
+             break;
+ 
+         case 'e':
+-        case LC_CHP_EVERY:
++        case (int)LC_CHP_EVERY:
+         {
+             istringstream iss( prog::optarg );
+             iss >> _ChaptersEvery;
+@@ -675,7 +675,7 @@
+             _action = &ChapterUtility::actionExport;
+             break;
+ 
+-        case LC_CHP_EXPORT:
++        case (int)LC_CHP_EXPORT:
+             _action = &ChapterUtility::actionExport;
+             /* currently not supported since the chapters of n input files would be written to one chapter file
+             _ChapterFile = prog::optarg;
+@@ -690,7 +690,7 @@
+             _action = &ChapterUtility::actionImport;
+             break;
+ 
+-        case LC_CHP_IMPORT:
++        case (int)LC_CHP_IMPORT:
+             _action = &ChapterUtility::actionImport;
+             /* currently not supported since the chapters of n input files would be read from one chapter file
+             _ChapterFile = prog::optarg;
+@@ -702,12 +702,12 @@
+             break;
+ 
+         case 'c':
+-        case LC_CHP_CONVERT:
++        case (int)LC_CHP_CONVERT:
+             _action = &ChapterUtility::actionConvert;
+             break;
+ 
+         case 'r':
+-        case LC_CHP_REMOVE:
++        case (int)LC_CHP_REMOVE:
+             _action = &ChapterUtility::actionRemove;
+             break;
+ 
+diff -ru mp4v2-2.0.0.orig/util/mp4file.cpp mp4v2-2.0.0/util/mp4file.cpp
+--- mp4v2-2.0.0.orig/util/mp4file.cpp	2012-05-21 00:11:55.000000000 +0200
++++ mp4v2-2.0.0/util/mp4file.cpp	2018-12-07 06:57:29.218284178 +0100
+@@ -190,15 +190,15 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_LIST:
++        case (int)LC_LIST:
+             _action = &FileUtility::actionList;
+             break;
+ 
+-        case LC_OPTIMIZE:
++        case (int)LC_OPTIMIZE:
+             _action = &FileUtility::actionOptimize;
+             break;
+ 
+-        case LC_DUMP:
++        case (int)LC_DUMP:
+             _action = &FileUtility::actionDump;
+             break;
+ 
+diff -ru mp4v2-2.0.0.orig/util/mp4subtitle.cpp mp4v2-2.0.0/util/mp4subtitle.cpp
+--- mp4v2-2.0.0.orig/util/mp4subtitle.cpp	2012-05-21 00:11:55.000000000 +0200
++++ mp4v2-2.0.0/util/mp4subtitle.cpp	2018-12-07 06:58:11.247535746 +0100
+@@ -165,25 +165,25 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_LIST:
++        case (int)LC_LIST:
+             _action = &SubtitleUtility::actionList;
+             break;
+ 
+-        case LC_EXPORT:
++        case (int)LC_EXPORT:
+             _action = &SubtitleUtility::actionExport;
+             _stTextFile = prog::optarg;
+             if( _stTextFile.empty() )
+                 return herrf( "invalid TXT file: empty-string\n" );
+             break;
+ 
+-        case LC_IMPORT:
++        case (int)LC_IMPORT:
+             _action = &SubtitleUtility::actionImport;
+             _stTextFile = prog::optarg;
+             if( _stTextFile.empty() )
+                 return herrf( "invalid TXT file: empty-string\n" );
+             break;
+ 
+-        case LC_REMOVE:
++        case (int)LC_REMOVE:
+             _action = &SubtitleUtility::actionRemove;
+             break;
+ 
+diff -ru mp4v2-2.0.0.orig/util/mp4track.cpp mp4v2-2.0.0/util/mp4track.cpp
+--- mp4v2-2.0.0.orig/util/mp4track.cpp	2012-05-21 00:11:55.000000000 +0200
++++ mp4v2-2.0.0/util/mp4track.cpp	2018-12-07 07:02:07.978741963 +0100
+@@ -789,11 +789,11 @@
+     handled = true;
+ 
+     switch( code ) {
+-        case LC_TRACK_WILDCARD:
++        case (int)LC_TRACK_WILDCARD:
+             _trackMode = TM_WILDCARD;
+             break;
+ 
+-        case LC_TRACK_INDEX:
++        case (int)LC_TRACK_INDEX:
+         {
+             _trackMode = TM_INDEX;
+             istringstream iss( prog::optarg );
+@@ -803,7 +803,7 @@
+             break;
+         }
+ 
+-        case LC_TRACK_ID:
++        case (int)LC_TRACK_ID:
+         {
+             _trackMode = TM_ID;
+             istringstream iss( prog::optarg );
+@@ -813,142 +813,142 @@
+             break;
+         }
+ 
+-        case LC_LIST:
++        case (int)LC_LIST:
+             _action = &TrackUtility::actionList;
+             break;
+ 
+-        case LC_COLR_PARMS:
++        case (int)LC_COLR_PARMS:
+             _colorParameterItem.convertFromCSV( prog::optarg );
+             break;
+ 
+-        case LC_COLR_PARM_HD:
++        case (int)LC_COLR_PARM_HD:
+             _colorParameterItem.primariesIndex        = 1;
+             _colorParameterItem.transferFunctionIndex = 1;
+             _colorParameterItem.matrixIndex           = 1;
+             break;
+ 
+-        case LC_COLR_PARM_SD:
++        case (int)LC_COLR_PARM_SD:
+             _colorParameterItem.primariesIndex        = 6;
+             _colorParameterItem.transferFunctionIndex = 1;
+             _colorParameterItem.matrixIndex           = 6;
+             break;
+ 
+-        case LC_COLR_LIST:
++        case (int)LC_COLR_LIST:
+             _action = &TrackUtility::actionColorParameterList;
+             break;
+ 
+-        case LC_ENABLED:
++        case (int)LC_ENABLED:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setEnabled;
+             _actionTrackModifierSet_name     = "enabled";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_INMOVIE:
++        case (int)LC_INMOVIE:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setInMovie;
+             _actionTrackModifierSet_name     = "inMovie";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_INPREVIEW:
++        case (int)LC_INPREVIEW:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setInPreview;
+             _actionTrackModifierSet_name     = "inPreview";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_LAYER:
++        case (int)LC_LAYER:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setLayer;
+             _actionTrackModifierSet_name     = "layer";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_ALTGROUP:
++        case (int)LC_ALTGROUP:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setAlternateGroup;
+             _actionTrackModifierSet_name     = "alternateGroup";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_VOLUME:
++        case (int)LC_VOLUME:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setVolume;
+             _actionTrackModifierSet_name     = "volume";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_WIDTH:
++        case (int)LC_WIDTH:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setWidth;
+             _actionTrackModifierSet_name     = "width";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_HEIGHT:
++        case (int)LC_HEIGHT:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setHeight;
+             _actionTrackModifierSet_name     = "height";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_LANGUAGE:
++        case (int)LC_LANGUAGE:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setLanguage;
+             _actionTrackModifierSet_name     = "language";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_HDLRNAME:
++        case (int)LC_HDLRNAME:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setHandlerName;
+             _actionTrackModifierSet_name     = "handlerName";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_UDTANAME:
++        case (int)LC_UDTANAME:
+             _action = &TrackUtility::actionTrackModifierSet;
+             _actionTrackModifierSet_function = &TrackModifier::setUserDataName;
+             _actionTrackModifierSet_name     = "userDataName";
+             _actionTrackModifierSet_value    = prog::optarg;
+             break;
+ 
+-        case LC_UDTANAME_R:
++        case (int)LC_UDTANAME_R:
+             _action = &TrackUtility::actionTrackModifierRemove;
+             _actionTrackModifierRemove_function = &TrackModifier::removeUserDataName;
+             _actionTrackModifierRemove_name     = "userDataName";
+             break;
+ 
+-        case LC_COLR_ADD:
++        case (int)LC_COLR_ADD:
+             _action = &TrackUtility::actionColorParameterAdd;
+             break;
+ 
+-        case LC_COLR_SET:
++        case (int)LC_COLR_SET:
+             _action = &TrackUtility::actionColorParameterSet;
+             break;
+ 
+-        case LC_COLR_REMOVE:
++        case (int)LC_COLR_REMOVE:
+             _action = &TrackUtility::actionColorParameterRemove;
+             break;
+ 
+-        case LC_PASP_PARMS:
++        case (int)LC_PASP_PARMS:
+             _pictureAspectRatioItem.convertFromCSV( prog::optarg );
+             break;
+ 
+-        case LC_PASP_LIST:
++        case (int)LC_PASP_LIST:
+             _action = &TrackUtility::actionPictureAspectRatioList;
+             break;
+ 
+-        case LC_PASP_ADD:
++        case (int)LC_PASP_ADD:
+             _action = &TrackUtility::actionPictureAspectRatioAdd;
+             break;
+ 
+-        case LC_PASP_SET:
++        case (int)LC_PASP_SET:
+             _action = &TrackUtility::actionPictureAspectRatioSet;
+             break;
+ 
+-        case LC_PASP_REMOVE:
++        case (int)LC_PASP_REMOVE:
+             _action = &TrackUtility::actionPictureAspectRatioRemove;
+             break;
+ 
+EOF
+
 test -f taglib_CVE-2018-11439.patch ||
   cat >taglib_CVE-2018-11439.patch <<"EOF"
 From 2c4ae870ec086f2ddd21a47861a3709c36faac45 Mon Sep 17 00:00:00 2001
@@ -2614,6 +3053,9 @@ if ! test -d mp4v2-${mp4v2_version}; then
     if test -z "${cross_host##x86_64*}"; then
       sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
     fi
+  fi
+  if test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
+    patch -p1 <../source/mp4v2_clang6.patch
   fi
   cd ..
 fi
@@ -3178,7 +3620,7 @@ else
 
     cd mp4v2-${mp4v2_version}/
     if test $kernel = "MINGW" || test "$compiler" = "cross-mingw" ||
-       test $kernel = "Darwin"; then
+       test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
       autoreconf -i
     fi
     test -f Makefile || CXXFLAGS="$CXXFLAGS -g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
