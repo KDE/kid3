@@ -87,7 +87,7 @@ ImportConfig::ImportConfig()
   m_importFormatNames.append(QLatin1String("CSV unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
   m_importFormatTracks.append(QLatin1String(
-    R"(%{track}(\d+)\t%{title}([^\r\n\t]*)\t%{artist}([^\r\n\t]*)\t)"
+    R"(%{track}([^\r\n\t]*)\t%{title}([^\r\n\t]*)\t%{artist}([^\r\n\t]*)\t)"
     R"(%{album}([^\r\n\t]*)\t%{year}([^\r\n\t]*)\t%{genre}([^\r\n\t]*)\t)"
     R"(%{comment}([^\r\n\t]*)\t(?:\d+:)?%{duration}(\d+:\d+))"));
 
@@ -96,15 +96,15 @@ ImportConfig::ImportConfig()
   // Using a raw string literal here causes clang to issue
   // "Unbalanced opening parenthesis in C++ code".
   m_importFormatTracks.append(QLatin1String(
-    "\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?"
+    "\"?%{track}([^\\r\\n\\t\"]*)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?"
     "%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?"
-    "\\t\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?"
+    "\\t\"?%{year}([^\\r\\n\\t\"]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?"
     "\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
   m_importFormatNames.append(QLatin1String("CSV more unquoted"));
   m_importFormatHeaders.append(QLatin1String(""));
   m_importFormatTracks.append(QLatin1String(
-    "%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t"
+    "%{track}([^\\r\\n\\t]*)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t"
     "%{album}([^\\r\\n\\t]*)\\t%{year}([^\\r\\n\\t]*)\\t%{genre}([^\\r\\n\\t]*)\\"
     "t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\\t"
     "%{album artist}([^\\r\\n\\t]*)\\t%{arranger}([^\\r\\n\\t]*)\\t"
@@ -122,9 +122,9 @@ ImportConfig::ImportConfig()
   m_importFormatNames.append(QLatin1String("CSV more quoted"));
   m_importFormatHeaders.append(QLatin1String(""));
   m_importFormatTracks.append(QLatin1String(
-    "\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t"
+    "\"?%{track}([^\\r\\n\\t\"]*)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t"
-    "\"?%{year}([^\\r\\n\\t]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
+    "\"?%{year}([^\\r\\n\\t\"]*)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\"?\\t"
     "\"?%{album artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{arranger}([^\\r\\n\\t\"]*)\"?\\t"
