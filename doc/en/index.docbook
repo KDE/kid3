@@ -129,10 +129,6 @@ end manpage include-->
 inside application directory.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><option>&doublehyphen;dbus</option></term>
-<listitem><para>Activate the D-Bus interface.</para></listitem>
-</varlistentry>
-<varlistentry>
 <term><replaceable>FILE</replaceable></term>
 <listitem><para>If <filename><replaceable>FILE</replaceable></filename> is the
 path to a directory, it will be opened. If one or more file paths are given,
@@ -180,6 +176,11 @@ application.</para></listitem>
 
 <sect1 id="options-kid3-cli"><title>kid3-cli</title>
 <variablelist>
+
+<varlistentry>
+<term><option>&doublehyphen;dbus</option></term>
+<listitem><para>Activate the D-Bus interface.</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><option>-c</option></term>
@@ -300,7 +301,7 @@ and file names to generate tags. Therefore we select all files, then click the
 <guilabel>To:</guilabel> <guibutton>Tag 1</guibutton> button in the <guilabel>File</guilabel>
 section. This will set the title, artist, album and track values in all files.
 To set the year and genre values of all files, we keep all files selected and
-type in "2002" for the <guilabel>Year</guilabel> and select "Pop" from the
+type in "2002" for the <guilabel>Date</guilabel> and select "Pop" from the
 <guilabel>Genre</guilabel> combobox. To set only these two values, their checkboxes
 are automatically checked and all other checkboxes are left unchecked. Now we change the
 selection by only selecting the first file and we see that all tags contain
@@ -321,7 +322,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <sect1 id="gui-elements">
 <title>The GUI Elements</title>
 <para>
-The &kid3; GUI is separated in five sections: At the left are the file
+The &kid3; GUI is separated in six sections: At the left are the file
 and directory listboxes, the right side contains the <guilabel>File</guilabel>,
 <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> and <guilabel>Tag 3
 </guilabel> sections.
@@ -344,7 +345,7 @@ Besides <guilabel>Name</guilabel>, also other columns
 <guilabel>Size</guilabel>, <guilabel>Type</guilabel>, <guilabel>Date
 Modified</guilabel> with file details can be displayed. Columns can be hidden
 by unchecking their name in the context menu of the list header. The order of
-the columns can be changed by drag'n'drop. The sort order can be toggled by
+the columns can be changed by drag and drop. The sort order can be toggled by
 clicking on the column header.
 </para>
 <para>
@@ -405,13 +406,13 @@ from the file list context menu. A dialog with the entries of the playlist is
 shown. It is possible to open multiple playlists simultaneously.
 </para>
 <para>
-New entries can be added by drag'n'drop from the file list, a file manager or
+New entries can be added by drag and drop from the file list, a file manager or
 another playlist. If an entry is dragged from another playlist, it will be
 moved or copied depending on the system. To invoke the other
 operation, respectively, the <keycap>Shift</keycap>, <keycap>Ctrl</keycap>
 or <keycap>Alt</keycap> (to copy instead of move on macOS)
 key has to be pressed. Reordering entries within the playlist is also possible
-via drag'n'drop. Alternatively, entries can be moved using the keyboard shortcuts
+via drag and drop. Alternatively, entries can be moved using the keyboard shortcuts
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
 and
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>
@@ -582,7 +583,7 @@ files are directly set according to the filenames.
 The line edit widgets for <guilabel>Title</guilabel>,
 <guilabel>Artist</guilabel>,
 <guilabel>Album</guilabel>, <guilabel>Comment</guilabel>,
-<guilabel>Year</guilabel>, <guilabel>Track</guilabel> and
+<guilabel>Date</guilabel>, <guilabel>Track Number</guilabel> and
 <guilabel>Genre</guilabel> are used to edit the corresponding value in the
 first tag of the selected files. The value will be changed when the file
 selection is altered or before operations like <guimenuitem>Save</guimenuitem>
@@ -596,7 +597,7 @@ widgets contain the values found in the tags of this file. If a tag is not
 found in the file, the corresponding empty value is displayed, which is an
 empty string for the <guilabel>Title</guilabel>, <guilabel>Artist</guilabel>,
 <guilabel>Album</guilabel> and <guilabel>Comment</guilabel> line edits, 0 for the
-numerical <guilabel>Year</guilabel> and <guilabel>Track</guilabel> edits and
+numerical <guilabel>Date</guilabel> and <guilabel>Track Number</guilabel> edits and
 an empty selected value for the <guilabel>Genre</guilabel>
 combo box. The values can be changed and if the corresponding check box is
 checked, they will be set for the selected file after the selection is
@@ -1193,7 +1194,7 @@ time can be set in seconds. If a mismatch in a length is detected, the length
 is displayed with a red background in the preview table.
 </para>
 <para>
-It the files are ordered differently than the imported tracks, their assigned
+If the files are ordered differently than the imported tracks, their assigned
 tracks have to be changed. This task can be facilitated using
 the <guilabel>Match with</guilabel>
 buttons <guibutton>Length</guibutton>, <guibutton>Track</guibutton>,
@@ -1232,7 +1233,7 @@ the contents of other tag frames. This can be used to simply copy information
 between tags or extract a part from one frame and insert it in another.
 </para>
 <para>
-As in the <link linkend="import-text">import from file/clipboard</link>,
+As in the <link linkend="import-text">import from file/clipboard</link> dialog,
 there are freely configurable formats to perform different operations. Already
 preconfigured are formats to copy the Album value to Album Artist, Composer or
 Conductor, and to extract the Track Number from Title fields which contain a
@@ -1405,7 +1406,7 @@ source. A cover image can then be dragged from the browser into the &kid3;
 window and will be set in the picture frame of the selected files.
 </para>
 <para>
-Because not all browsers support drag'n'drop of images and the pictures on
+Because not all browsers support drag and drop of images and the pictures on
 websites often have a URL, in such cases &kid3; will receive the URL and not
 the picture. If the URL points to a picture, it will be downloaded. However,
 if the URL refers to some other web resource, it has to be translated to the
@@ -1416,7 +1417,7 @@ expressions in parentheses are inserted into the pattern of the
 right <guilabel>Picture URL</guilabel> column (at the positions marked with \1
 etc.). The replaced regular expression contains the URL of the picture. By
 this means cover art can be imported from Amazon, Google Images, etc. using
-drag'n'drop. It is also possible to define your own mappings.
+drag and drop. It is also possible to define your own mappings.
 </para>
 </listitem>
 </varlistentry>
@@ -2380,7 +2381,7 @@ path to the QML script is passed as a parameter. The provided scripts can be
 found in the folder <filename>%{qmlpath}/script/</filename> (on
 Linux typically <filename>/usr/share/kid3/qml/script/</filename>, on
 Windows <filename>qml/script/</filename> inside the installation directory,
-and on OS X in the app folder
+and on macOS in the app folder
 <filename>kid3.app/Contents/Resources/qml/script/</filename>). Custom scripts
 can be stored in any directory. If the QML code uses GUI components,
 <command>@qmlview</command> shall be used instead of
@@ -2530,7 +2531,7 @@ button available, e.g. next file, previous file, select all.
 <guimenu>Help</guimenu>
 <guimenuitem>About Kid3</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Displays a short information about Kid3;.
+<listitem><para><action>Displays a short information about &kid3;.
 </action></para></listitem>
 </varlistentry>
 
@@ -2629,7 +2630,7 @@ file paths are given, change to their common directory and select the files.
 <command>ls</command>
 </cmdsynopsis>
 <para>List the contents of the current directory. This corresponds to the file
-list in the &kid3; GUI. Four characters before the file names show the state
+list in the &kid3; GUI. Five characters before the file names show the state
 of the file.
 </para>
 
@@ -2642,12 +2643,14 @@ of the file.
 otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
 <listitem><para><computeroutput>2</computeroutput> File has a tag 2,
 otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
+<listitem><para><computeroutput>3</computeroutput> File has a tag 3,
+otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
 </itemizedlist>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput></screen>
+  1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput></screen>
 
 <para>In this example, all files have a tag 1, the second file also has a tag
 2 and it is selected. The third file is modified.
@@ -2688,19 +2691,19 @@ directory.
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>select first</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-> 1- 01 Intro.mp3
-  12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput>
+> 1-- 01 Intro.mp3
+  12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>select next</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput>
+  1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>select *.mp3</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-> 1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
->*1- 03 Outro.mp3</computeroutput></screen>
+> 1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+>*1-- 03 Outro.mp3</computeroutput></screen>
 </sect2>
 
 <sect2 id="cli-tag">
@@ -2712,7 +2715,7 @@ directory.
 <para>Many commands have an optional <replaceable>TAG-NUMBERS</replaceable>
 parameter, which specifies whether the command operates on tag 1, 2, or 3. If
 this parameter is omitted, the default tag numbers are used, which can be set
-by this command. At startup, is is set to <literal>12</literal> which means
+by this command. At startup, it is set to <literal>12</literal> which means
 that information is read from tag 2 if available, else from tag 1;
 modifications are done on tag 2. The
 <option><replaceable>TAG-NUMBERS</replaceable></option> can be set to
@@ -2752,10 +2755,10 @@ Tag 1: ID3v1.1
 <prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
 Intro</computeroutput></screen>
 <para>To save the contents of a picture frame to a file, use
-<screen width="65"><userinput>get picture:"/path/to/folder.jpg"</userinput></screen>
+<screen width="65"><userinput>get picture:'/path/to/folder.jpg'</userinput></screen>
 </para>
 <para>To save synchronized lyrics to an LRC file, use
-<screen width="65"><userinput>get SYLT:"/path/to/lyrics.lrc"</userinput></screen>
+<screen width="65"><userinput>get SYLT:'/path/to/lyrics.lrc'</userinput></screen>
 </para>
 <para>It is possible to get only a specific field from a frame, for example
 <userinput>get POPM.Email</userinput> for the Email field of a Popularimeter
@@ -2783,12 +2786,12 @@ for example <userinput>get artist.selected</userinput> will return
 <para>This command sets the value of a specific tag frame.
 If <replaceable>FRAME-VALUE</replaceable> is empty, the frame is deleted.
 </para>
-<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer 'O.H. Wonder'</userinput></screen>
 <para>To set the contents of a picture frame from a file, use
-<screen width="65"><userinput>set picture:"/path/to/folder.jpg" "Picture Description"</userinput></screen>
+<screen width="65"><userinput>set picture:'/path/to/folder.jpg' 'Picture Description'</userinput></screen>
 </para>
 <para>To set synchronized lyrics from an LRC file, use
-<screen width="65"><userinput>set SYLT:"/path/to/lyrics.lrc" "Lyrics Description"</userinput></screen>
+<screen width="65"><userinput>set SYLT:'/path/to/lyrics.lrc' 'Lyrics Description'</userinput></screen>
 </para>
 <para>
 To set a specific field of a frame, the field name can be given after a dot,
@@ -2985,8 +2988,8 @@ Started
 + 03 Outro.mp3
 Finished</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-  1- 03 Outro.mp3</computeroutput>
+  1-- 01 Intro.mp3
+  1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>filter All</userinput><computeroutput>
 Started
   /home/urs/One Hit Wonder - Let's Tag
@@ -2995,9 +2998,9 @@ Started
 + 03 Outro.mp3
 Finished</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-  12 02 We Only Got This One.mp3
-  1- 03 Outro.mp3</computeroutput></screen>
+  1-- 01 Intro.mp3
+  12- 02 We Only Got This One.mp3
+  1-- 03 Outro.mp3</computeroutput></screen>
 </sect2>
 
 <sect2 id="cli-to24">
@@ -3022,7 +3025,7 @@ Finished</computeroutput>
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
 <para>Set the file names of the selected files from values in the tags, for
-example <userinput>fromtag "%{track} - %{title}" 1</userinput>. If no format
+example <userinput>fromtag '%{track} - %{title}' 1</userinput>. If no format
 is specified, the format set in the GUI is used.
 </para>
 </sect2>
@@ -3035,7 +3038,7 @@ is specified, the format set in the GUI is used.
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
 <para>Set the tag frames from the file names, for example <userinput>totag
-"%{albumartist} - %{album}/%{track} %{title}" 2</userinput>. If no format
+'%{albumartist} - %{album}/%{track} %{title}' 2</userinput>. If no format
 is specified, the format set in the GUI is used. If the format
 of the filename does not match this pattern, a few other commonly used formats
 are tried.
@@ -3156,9 +3159,8 @@ the arranger frame:</para>
 Sound Check iTunNORM frames from replay gain information.</para>
 <programlisting>
 <![CDATA[
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Generate iTunes Sound Check from ReplayGain.
-from __future__ import print_function
 import os, sys, subprocess
 
 def rg2sc(dirpath):
@@ -3212,7 +3214,7 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 
 <para>
 &kid3; can be found at
-<ulink url="http://kid3.sourceforge.net">http://kid3.sourceforge.net</ulink>.
+<ulink url="https://kid3.sourceforge.io">https://kid3.sourceforge.io</ulink>.
 </para>
 </sect1>
 
@@ -3224,7 +3226,7 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
 systems where these libraries are available, e.g. for GNU/Linux, Windows
-and Mac OS X.
+and macOS.
 
 To tag Ogg/Vorbis
 files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
@@ -3242,9 +3244,9 @@ To import from acoustic fingerprints,
 and <ulink url="http://libav.org/">libav</ulink> are used.
 </para>
 <para>
-&kid3; is available for most Linux distributions, Windows and Mac OS X.
-Links can be found on <ulink url="http://kid3.sourceforge.net">
-http://kid3.sourceforge.net</ulink>.
+&kid3; is available for most Linux distributions, Windows and macOS.
+Links can be found on <ulink url="https://kid3.sourceforge.io">
+https://kid3.sourceforge.io</ulink>.
 </para>
 
 </sect1>
@@ -3295,10 +3297,9 @@ the script <filename>build-deb.sh</filename> is available.
 </para>
 
 <para>
-The Qt application can also be compiled for Windows and Mac OS X.
-The scripts in the folders <filename>win32</filename> and
-<filename>macosx</filename> can be used to build and create packages.
-The libraries can be installed using <filename>buildlibs.sh</filename>.
+The Qt application can also be compiled for Windows and macOS.
+The script <filename>buildlibs.sh</filename> can be used to download
+and build all required libraries and create a &kid3; package.
 </para>
 
 </sect1>
@@ -3306,13 +3307,11 @@ The libraries can be installed using <filename>buildlibs.sh</filename>.
 <sect1 id="configuration">
 <title>Configuration</title>
 
-<para>With KDE, the file name filter and format, the import formats, the
-filename and ID3 formats, the toolbar and statusbar
-settings as well as the window size will be be saved in the standard
-location in file <filename>kid3rc</filename>.
+<para>With KDE, the settings are stored in
+<filename>.config/kid3rc</filename>.
 As a Qt application, this file is
 in <filename>.config/Kid3/Kid3.conf</filename>. On Windows,
-the configuration is stored in the registry.
+the configuration is stored in the registry. on macOS in a plist file.
 </para>
 <para>The environment variable <varname>KID3_CONFIG_FILE</varname> can be used
 to set the path of the configuration file.</para>
@@ -4161,7 +4160,7 @@ or
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-On Windows and OS X, the import path must be adapted to the
+On Windows and macOS, the import path must be adapted to the
 <filename>imports</filename> folder inside the installation directory. Scripts
 started outside of &kid3; will use the current directory, so it should be
 changed beforehand.
@@ -4179,8 +4178,9 @@ Kid3Script {
   onRun: {
     app.firstFile()
     do {
-      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat)
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         console.log(app.getFrame(tagv2, "title"))
+      }
     } while (app.nextFile())
   }
 }
@@ -4334,6 +4334,8 @@ configs: Access to configuration objects
 getArguments(): List of script arguments
 isStandalone(): true if the script was not started from within Kid3
 setTimeout(callback, delay): Starts callback after delay ms
+firstFile(): To first selected file
+nextFile(): To next selected file
 </programlisting>
 
 </para>
@@ -4377,9 +4379,6 @@ script.saveImage(img, filePath, [format]): Save an image to a file, true if OK
 script.imageProperties(img): Get properties of an image, map containing
   "width", "height", "depth" and "colorCount", empty if invalid image
 script.scaleImage(img, width, [height]): Scale an image, returns scaled image
-app.selectFileName(caption, dir, filter, saveFile): Open file dialog to
-select a file
-app.selectDirName(caption, dir): Open file dialog to select a directory
 </programlisting>
 
 </sect2>
@@ -4441,6 +4440,9 @@ app.selectionInfo.detailInfo: Format details
 app.selectionInfo.tag(Frame.Tag_1).tagFormat: Tag 1 format
 app.selectionInfo.tag(Frame.Tag_2).tagFormat: Tag 2 format
 app.selectionInfo.formatString(tag, format): Substitute codes in format string
+app.selectFileName(caption, dir, filter, saveFile): Open file dialog to
+select a file
+app.selectDirName(caption, dir): Open file dialog to select a directory
 </programlisting>
 
 <para>

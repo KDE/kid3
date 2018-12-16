@@ -129,10 +129,6 @@ end manpage include-->
 <filename>kid3.ini</filename> im Applikationsverzeichnis.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><option>&doublehyphen;dbus</option></term>
-<listitem><para>Aktiviert die D-Bus Schnittstelle.</para></listitem>
-</varlistentry>
-<varlistentry>
 <term><replaceable>DATEI</replaceable></term>
 <listitem><para>Wenn <filename><replaceable>DATEI</replaceable></filename> der
 Pfad auf ein Verzeichnis ist, so wird es geöffnet. Wenn einer oder mehrere
@@ -181,6 +177,11 @@ Anwendung.</para></listitem>
 
 <sect1 id="options-kid3-cli"><title>kid3-cli</title>
 <variablelist>
+
+<varlistentry>
+<term><option>&doublehyphen;dbus</option></term>
+<listitem><para>Aktiviert die D-Bus Schnittstelle.</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><option>-c</option></term>
@@ -289,7 +290,7 @@ Format, was auch Sinn macht, weil die Dateinamen kurz werden (wichtig bei
 den kleinen Anzeigen mobiler MP3 Player) und alphabetisch in der richtigen
 Reihenfolge geordnet werden (wichtig falls ein Hardware MP3 Player die
 Stücke in alphabetischer Reihenfolge abspielt oder in der Reihenfolge, wie
-sie auf CD gebrannt wurde - diese Reihenfolge ist bei <command>mkisofs</command>
+sie auf CD gebrannt wurden - diese Reihenfolge ist bei <command>mkisofs</command>
 alphabetisch). Darüber hinaus sind Interpret und Album bereits im
 Verzeichnisnamen enthalten und brauchen nicht im Dateinamen wiederholt zu
 werden. Doch zurück zu unserem Beispiel - das Verzeichnis sieht
@@ -308,7 +309,7 @@ Listenfeld aus und klicken auf <guilabel>Nach:</guilabel> <guibutton>Tag 1</guib
 <guilabel>Datei</guilabel> Sektion. Dadurch werden Titel, Interpret,
 Album und Nummer in allen Dateien gesetzt. Um die Werte für Jahr und Genre
 in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
-"2002" in das Feld <guilabel>Jahr</guilabel> und wählen "Pop" im
+"2002" in das Feld <guilabel>Datum</guilabel> und wählen "Pop" im
 <guilabel>Genre</guilabel> Auswahlfeld. Um einzig diese zwei Werte zu
 verändern, werden ihre Markierungsfelder automatisch aktiviert, und alle anderen Markierungsfelder
 bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
@@ -331,7 +332,7 @@ im Verzeichnis.
 <sect1 id="gui-elements">
 <title>Die Elemente der Benutzeroberfläche</title>
 <para>
-Die &kid3; Benutzeroberfläche ist in fünf Sektionen aufgeteilt: Links finden sich das
+Die &kid3; Benutzeroberfläche ist in sechs Sektionen aufgeteilt: Links finden sich das
 Dateilistenfeld und das Verzeichnislistenfeld, die rechte Seite enthält
 die <guilabel>Datei</guilabel>,
 <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> und <guilabel>Tag 3
@@ -422,7 +423,7 @@ bearbeitet werden. Es wird ein Dialog mit den Einträgen der Stückliste
 geöffnet. Es können mehrere Stücklisten gleichzeitig bearbeitet werden.
 </para>
 <para>
-Neue Einträge können mit "Drag and Drop" aus der Dateiliste, einem
+Neue Einträge können mit "Drag'n'Drop" aus der Dateiliste, einem
 Dateimanager oder einer anderen Stückliste hinzugefügt werden. Wenn ein
 Eintrag aus einer anderen Stückliste hineingezogen wird, so wird der Eintrag
 abhängig vom System verschoben oder kopiert. Für die jeweils
@@ -430,7 +431,7 @@ andere Operation muss gleichzeitig die Umschalt-Taste (<keycap>Shift</keycap>)
 bzw. die Steuerungs-Taste (<keycap>Ctrl</keycap>) gedrückt werden
 (auf macOS muss <keycap>Alt</keycap> gedrückt werden, um zu kopieren statt zu
 verschieben). Um Einträge
-innerhalb der Stückliste zu verschieben, kann ebenfalls "Drag and Drop"
+innerhalb der Stückliste zu verschieben, kann ebenfalls "Drag'n'Drop"
 verwendet werden. Alternativ können Einträge mit den Tastenkombinationen
 <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
 und
@@ -440,7 +441,7 @@ verschoben werden (auf macOS muss <keycap>Command</keycap> statt
 <keycap>Delete</keycap> gedrückt werden.
 </para>
 <para>
-Um Einträge aus der Dateiliste mittels "Drag and Drop" zu ziehen, ist
+Um Einträge aus der Dateiliste mittels "Drag'n'Drop" zu ziehen, ist
 folgendes zu beachten: Die Einträge müssen links (bei den Icons) gezogen
 werden, eine entsprechende Geste im rechten Bereich führt zu einer
 Mehrfachselektion, eine solche ist somit immer noch einfach möglich.
@@ -448,7 +449,7 @@ Mehrfachselektion, eine solche ist somit immer noch einfach möglich.
 <para>
 Wenn eine Stückliste modifiziert wurde, so können die Änderungen mit
 <guibutton>Speichern</guibutton> übernommen oder mit
-<guibutton>Abbrechen</guibutton> verworfen werden. Beim Schliessen des
+<guibutton>Abbrechen</guibutton> verworfen werden. Beim Schließen des
 Fensters erfolgt eine Sicherheitsabfrage, wenn noch ungesicherte Änderungen
 vorhanden sind.
 </para>
@@ -476,7 +477,7 @@ Die Verzeichnisliste enthält die Verzeichnisse, welche das geöffnete
 Verzeichnis enthält, sowie das aktuelle (<filename>.</filename>) und das
 übergeordnete (<filename>..</filename>) Verzeichnis. Sie erlaubt den raschen
 Wechsel zwischen Verzeichnissen, ohne den Umweg über die
-<guimenuitem>Öffnen...</guimenuitem> Funktion oder "Drag and Drop".
+<guimenuitem>Öffnen...</guimenuitem> Funktion oder "Drag'n'Drop".
 </para>
 <para>
 Die Anzeige, Reihenfolge und Sortierung der Spalten kann auf dieselbe Weise
@@ -614,7 +615,7 @@ werden die Werte direkt gemäß den Dateinamen gesetzt.
 Die Eingabefelder für <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>,
 <guilabel>Album</guilabel>, <guilabel>Kommentar</guilabel>,
-<guilabel>Jahr</guilabel>, <guilabel>Nummer</guilabel> und
+<guilabel>Datum</guilabel>, <guilabel>Tracknummer</guilabel> und
 <guilabel>Genre</guilabel> werden benutzt um die entsprechenden Werte im
 ersten Tag der ausgewählten Dateien zu editieren. Die Werte werden
 verändert, wenn die Dateiauswahl geändert wird oder vor Operationen wie
@@ -629,8 +630,8 @@ aktiviert und die Eingabefelder enthalten die Werte aus den Tags in der
 Datei. Wenn ein Tag nicht vorhanden ist, werden die leeren Werte angezeigt,
 d.h. eine leere Zeichenkette für die Felder <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>, <guilabel>Album</guilabel> und
-<guilabel>Kommentar</guilabel>, 0 für <guilabel>Jahr</guilabel> und
-<guilabel>Nummer</guilabel> und ein leerer Auswahleintrag bei
+<guilabel>Kommentar</guilabel>, 0 für <guilabel>Datum</guilabel> und
+<guilabel>Tracknummer</guilabel> und ein leerer Auswahleintrag bei
 <guilabel>Genre</guilabel>. Die Werte können editiert werden und werden
 für die ausgewählte Datei beim Ändern der Auswahl gesetzt, sofern das
 entsprechende Markierungsfeld aktiviert ist. Die Datei wird dann durch
@@ -715,7 +716,7 @@ in den ausgewählten Dateien.
 </para>
 <para>
 <guilabel>Albumcover hierhin ziehen</guilabel> wird angezeigt wenn die Datei
-kein Album Cover Bild enthält. Bilder kann man mittels "Drag and Drop" vom
+kein Album Cover Bild enthält. Bilder kann man mittels "Drag'n'Drop" vom
 Browser oder Dateimanager hinzufügen; sie werden dann hier angezeigt. Das
 Editieren oder Hinzufügen eines Bild-Elements kann mit einem Doppelklick
 ausgelöst werden.
@@ -1162,7 +1163,7 @@ vorhandenen Tags. Für eine erfolgreiche MusicBrainz-Suche kann es daher
 hilfreich sein, vorhandene Informationen (z.B. Interpret und Album) vorangehend
 in den Tags zu speichern. Wenn ein Resultat gefunden wurde, so endet die Suche
 im Zustand "Erkannt", andernfalls wurde nichts gefunden oder gleich mehrere
-mögliche Resultate, von den der Benutzer eines auswählen kann.
+mögliche Resultate, von denen der Benutzer eines auswählen kann.
 <guibutton>OK</guibutton> und <guibutton>Anwenden</guibutton> übernehmen die
 importierten Daten, <guibutton>Abbrechen</guibutton> schließt den
 Dialog. Das Schließen des Dialogs kann eine Weile dauern, da noch die ganze
@@ -2541,7 +2542,7 @@ verwendet. Danach wird der Pfad zum QML-Skript angegeben. Die mitgelieferten
 Skripte liegen im Verzeichnis <filename>%{qmlpath}/script/</filename> (unter
 Linux typischerweise <filename>/usr/share/kid3/qml/script/</filename>, bei
 Windows in <filename>qml/script/</filename> innerhalb des
-Installationsverzeichnisses, und bei OS X im App-Verzeichnis
+Installationsverzeichnisses, und bei macOS im App-Verzeichnis
 <filename>kid3.app/Contents/Resources/qml/script/</filename>). Eigene Skripte
 können aber auch in einem beliebigen anderen Verzeichnis gespeichert werden.
 Wenn der QML-Code grafische Elemente innerhalb eines Fensters öffnet, so muss
@@ -2572,7 +2573,7 @@ definieren, z.B. eine Bildsuche bei
 <para>
 Um dem Tag 2 Album Cover Bilder hinzuzufügen, kann man mit den oben
 beschriebenen Benutzerbefehlen über Google Images oder Amazon nach Bildern
-suchen. Die Bilder können mit "Drag and Drop" hinzugefügt werden. Bilder können auch
+suchen. Die Bilder können mit "Drag'n'Drop" hinzugefügt werden. Bilder können auch
 mit <guibutton>Hinzufügen</guibutton> eines Bild Elementes und Importieren
 einer Datei oder Einfügen aus der Zwischenablage in ein Tag gebracht
 werden. Unterstützt sind Bilder für ID3v2, MP4, FLAC, Ogg und ASF Tags.
@@ -2698,7 +2699,7 @@ alles auswählen.
 <guimenu>Hilfe</guimenu>
 <guimenuitem>Über Kid3</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Zeigt eine kurze Information über Kid3 an.
+<listitem><para><action>Zeigt eine kurze Information über &kid3; an.
 </action></para></listitem>
 </varlistentry>
 
@@ -2800,7 +2801,7 @@ und die Dateien werden ausgewählt.
 <command>ls</command>
 </cmdsynopsis>
 <para>Zeigt den Inhalt des aktuellen Verzeichnisses an. Dies entspricht der
-Dateiliste im &kid3; GUI. Vier Zeichen auf der linken Seite des Dateinamens
+Dateiliste im &kid3; GUI. Fünf Zeichen auf der linken Seite des Dateinamens
 zeigen Zustandsinformationen an.
 </para>
 
@@ -2813,12 +2814,14 @@ zeigen Zustandsinformationen an.
 sonst wird '<computeroutput>-</computeroutput>' angezeigt.</para></listitem>
 <listitem><para><computeroutput>2</computeroutput> Datei hat ein Tag 2,
 sonst wird '<computeroutput>-</computeroutput>' angezeigt.</para></listitem>
+<listitem><para><computeroutput>3</computeroutput> Datei hat ein Tag 3,
+sonst wird '<computeroutput>-</computeroutput>' angezeigt.</para></listitem>
 </itemizedlist>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput></screen>
+  1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput></screen>
 
 <para>In diesem Beispiel haben alle Dateien ein Tag 1, die zweite Datei hat
 auch ein Tag 2 und ist ausgewählt. Die dritte Datei ist verändert.
@@ -2859,19 +2862,19 @@ werden. Wildcards sind möglich, so werden mit <userinput>select
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>select first</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-> 1- 01 Intro.mp3
-  12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput>
+> 1-- 01 Intro.mp3
+  12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>select next</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
- *1- 03 Outro.mp3</computeroutput>
+  1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+ *1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>select *.mp3</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-> 1- 01 Intro.mp3
-> 12 02 We Only Got This One.mp3
->*1- 03 Outro.mp3</computeroutput></screen>
+> 1-- 01 Intro.mp3
+> 12- 02 We Only Got This One.mp3
+>*1-- 03 Outro.mp3</computeroutput></screen>
 </sect2>
 
 <sect2 id="cli-tag">
@@ -2925,10 +2928,10 @@ Tag 1: ID3v1.1
 <prompt>kid3-cli&gt; </prompt><userinput>get title</userinput><computeroutput>
 Intro</computeroutput></screen>
 <para>Ein Bild kann in einer Datei gespeichert werden.
-<screen width="65"><userinput>get picture:"/pfad/zu/folder.jpg"</userinput></screen>
+<screen width="65"><userinput>get picture:'/pfad/zu/folder.jpg'</userinput></screen>
 </para>
 <para>Synchronisierter Liedtext wird im LRC-Format exportiert.
-<screen width="65"><userinput>get SYLT:"/pfad/zu/lyrics.lrc"</userinput></screen>
+<screen width="65"><userinput>get SYLT:'/pfad/zu/lyrics.lrc'</userinput></screen>
 </para>
 <para>Es können auch nur bestimmte Felder abgefragt werden, beispielsweise
 kann das Email-Feld eines Popularimeter-Frames mit
@@ -2957,13 +2960,13 @@ ist, sonst <computeroutput>0</computeroutput>.
 <para>Dieser Befehl setzt den Wert eines bestimmten Tag-Elements. Wenn
 <replaceable>ELEMENTWERT</replaceable> leer ist, so wird das Element gelöscht.
 </para>
-<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer "O.H. Wonder"</userinput></screen>
+<screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>set remixer 'O.H. Wonder'</userinput></screen>
 <para>Um den Inhalt eines Bild-Elements aus einer Datei zu befüllen, kann
-<screen width="65"><userinput>set picture:"/pfad/zu/folder.jpg" "Bildbeschreibung"</userinput></screen>
+<screen width="65"><userinput>set picture:'/pfad/zu/folder.jpg' 'Bildbeschreibung'</userinput></screen>
 verwendet werden.
 </para>
 <para>Synchronisierter Liedtext kann aus einer LRC-Datei importiert werden.
-<screen width="65"><userinput>set SYLT:"/pfad/zu/lyrics.lrc" "Beschreibung"</userinput></screen>
+<screen width="65"><userinput>set SYLT:'/pfad/zu/lyrics.lrc' 'Beschreibung'</userinput></screen>
 </para>
 <para>
 Um ein bestimmtes Feld eines Frames zu setzen, kann der Feldname nach einem
@@ -3006,9 +3009,7 @@ allen Dateien, falls keine selektiert sind).
 <arg choice="req"><replaceable>FORMATNAME</replaceable></arg>
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
-<para>Die Tags werden aus <replaceable>DATEI</replaceable> importiert (oder
-von der Zwischenablage falls <userinput>clipboard</userinput> für
-<replaceable>DATEI</replaceable> angegeben wird) im Format
+<para>Die Tags werden aus <replaceable>DATEI</replaceable> importiert im Format
 <replaceable>FORMATNAME</replaceable> (z.B. <userinput>"CSV
 unquoted"</userinput>, siehe <link linkend="import-text">Importieren</link>).
 </para>
@@ -3062,9 +3063,7 @@ http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen
 <arg choice="req"><replaceable>FORMATNAME</replaceable></arg>
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
-<para>Tags werden in die Datei <replaceable>DATEI</replaceable> exportiert
-(oder in die Zwischenablage, falls <userinput>clipboard</userinput> für
-<replaceable>DATEI</replaceable> angegeben wird) im Format
+<para>Tags werden in die Datei <replaceable>DATEI</replaceable> exportiert im Format
 <replaceable>FORMATNAME</replaceable> (z.B. <userinput>"CSV
 unquoted"</userinput>, siehe <link linkend="export">Exportieren</link>).
 </para>
@@ -3173,8 +3172,8 @@ Begonnen
 + 03 Outro.mp3
 Fertig</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-  1- 03 Outro.mp3</computeroutput>
+  1-- 01 Intro.mp3
+  1-- 03 Outro.mp3</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>filter All</userinput><computeroutput>
 Begonnen
   /home/urs/One Hit Wonder - Let's Tag
@@ -3183,9 +3182,9 @@ Begonnen
 + 03 Outro.mp3
 Fertig</computeroutput>
 <prompt>kid3-cli&gt; </prompt><userinput>ls</userinput><computeroutput>
-  1- 01 Intro.mp3
-  12 02 We Only Got This One.mp3
-  1- 03 Outro.mp3</computeroutput></screen>
+  1-- 01 Intro.mp3
+  12- 02 We Only Got This One.mp3
+  1-- 03 Outro.mp3</computeroutput></screen>
 </sect2>
 
 <sect2 id="cli-to24">
@@ -3210,7 +3209,7 @@ Fertig</computeroutput>
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
 <para>Setzt die Dateinamen der ausgewählten Dateien anhand der Werte in den
-Tags, z.B. <userinput>fromtag "%{track} - %{title}" 1</userinput>. Wenn kein
+Tags, z.B. <userinput>fromtag '%{track} - %{title}' 1</userinput>. Wenn kein
 Format angegeben wird, wird dasjenige verwendet, welches im GUI gesetzt ist.
 </para>
 </sect2>
@@ -3223,7 +3222,7 @@ Format angegeben wird, wird dasjenige verwendet, welches im GUI gesetzt ist.
 <arg><replaceable>TAGNUMMERN</replaceable></arg>
 </cmdsynopsis>
 <para>Setzt die Tag-Elemente anhand der Dateinamen, z.B. <userinput>totag
-"%{albumartist} - %{album}/%{track} %{title}" 2</userinput>. Wenn kein
+'%{albumartist} - %{album}/%{track} %{title}' 2</userinput>. Wenn kein
 Format angegeben wird, wird dasjenige verwendet, welches im GUI gesetzt ist.
 Falls der Dateiname nicht diesem Format entspricht, werden noch
 einige andere, gängige Formate ausprobiert.
@@ -3349,9 +3348,8 @@ konvertieren und das Arrangierung Element entfernen:</para>
 Sound Check iTunNORM Frames aus Replay Gain Information.</para>
 <programlisting>
 <![CDATA[
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Generate iTunes Sound Check from ReplayGain.
-from __future__ import print_function
 import os, sys, subprocess
 
 def rg2sc(dirpath):
@@ -3404,7 +3402,7 @@ Programmiert von Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 
 <para>
 &kid3; ist zu finden unter
-<ulink url="http://kid3.sourceforge.net">http://kid3.sourceforge.net</ulink>.
+<ulink url="https://kid3.sourceforge.io">https://kid3.sourceforge.io</ulink>.
 </para>
 </sect1>
 
@@ -3416,7 +3414,7 @@ Programmiert von Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 url="http://www.kde.org">KDE</ulink> ist empfohlen aber nicht notwendig,
 denn &kid3; kann auch als reine Qt Applikation kompiliert werden. &kid3;
 läuft auf Systemen, wo diese Programmbibliotheken vorhanden sind,
-z.B. auf GNU/Linux, Windows und Mac OS X.
+z.B. auf GNU/Linux, Windows und macOS.
 Um Ogg/Vorbis Dateien zu taggen werden
 <ulink url="http://xiph.org/ogg/">libogg</ulink>,
 <ulink url="http://xiph.org/vorbis/">libvorbis und libvorbisfile</ulink>
@@ -3433,9 +3431,9 @@ werden <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
 und <ulink url="http://libav.org/">libav</ulink> verwendet.
 </para>
 <para>
-&kid3; ist für die meisten Linux-Distributionen, Windows und Mac OS X
-erhältlich. Links finden sich auf <ulink url="http://kid3.sourceforge.net">
-http://kid3.sourceforge.net</ulink>.
+&kid3; ist für die meisten Linux-Distributionen, Windows und macOS
+erhältlich. Links finden sich auf <ulink url="https://kid3.sourceforge.io">
+https://kid3.sourceforge.io</ulink>.
 </para>
 
 </sect1>
@@ -3483,10 +3481,10 @@ vorhanden, für Debian-Pakete steht das Skript
 </para>
 
 <para>
-Die Qt Anwendung kann auch unter Windows und Mac OS X kompiliert werden.
-Die Verzeichnisse <filename>win32</filename> und <filename>macosx</filename>
-beinhalten Skripte zum Kompilieren und Erzeugen von Paketen. Das Skript
-<filename>buildlibs.sh</filename> erstellt die notwendigen Programmbibliotheken.
+Die Qt Anwendung kann auch für Windows und macOS kompiliert werden.
+Das Skript <filename>buildlibs.sh</filename> kann verwendet werden, um alle
+benötigten Programmbibliotheken herunterzuladen und zu kompilieren und ein
+&kid3;-Paket zu erstellen.
 </para>
 
 </sect1>
@@ -3494,13 +3492,12 @@ beinhalten Skripte zum Kompilieren und Erzeugen von Paketen. Das Skript
 <sect1 id="configuration">
 <title>Konfiguration</title>
 
-<para>Mit KDE werden der Dateinamenfilter, das Dateinamenformat, die
-Importformate, die Dateinamen- und ID3-Formate, die
-Einstellungen für die Werkzeug- und Statusleiste sowie die Fenstergröße im
-Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.
+<para>Unter KDE werden die Einstellungen in
+<filename>.config/kid3rc</filename> gespeichert.
 Als Qt-Anwendung liegt diese Datei
 in <filename>.config/Kid3/Kid3.conf</filename>. Unter
-Windows wird die Konfiguration in der Registry gespeichert.
+Windows wird die Konfiguration in der Registry gespeichert, unter macOS in
+einer plist-Datei.
 </para>
 <para>Die Umgebungsvariable <varname>KID3_CONFIG_FILE</varname> kann gesetzt
 werden, um den Pfad der Konfigurationsdatei zu bestimmen.</para>
@@ -4358,7 +4355,7 @@ oder
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-Bei Windows und OS X muss der Importpfad angepasst werden, damit er
+Bei Windows und macOS muss der Importpfad angepasst werden, damit er
 auf <filename>imports</filename> bei den Plugins im
 Installationsverzeichnis verweist. Außerhalb von Kid3 gestartete Skripte
 verwenden das aktuelle Verzeichnis, es sollte also vorangehend in das gewünschte
@@ -4377,8 +4374,9 @@ Kid3Script {
   onRun: {
     app.firstFile()
     do {
-      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat)
+      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         console.log(app.getFrame(tagv2, "title"))
+      }
     } while (app.nextFile())
   }
 }
@@ -4536,6 +4534,8 @@ configs: Zugriff auf Konfigurations-Objekte
 getArguments(): Liste mit Skript-Argumenten
 isStandalone(): true wenn Skript nicht aus Kid3 heraus gestartet wird
 setTimeout(callback, delay): Startet callback nach delay ms
+firstFile(): Erste ausgewählte Datei
+nextFile(): Nächste ausgewählte Datei
 </programlisting>
 
 </para>
@@ -4578,9 +4578,6 @@ script.saveImage(img, filePath, [format]): Speichere Bild in Datei, true wenn OK
 script.imageProperties(img): Eigenschaften eines Bildes, enthält
   "width", "height", "depth" und "colorCount", leer wenn Bild ungültig
 script.scaleImage(img, width, [height]): Liefert skaliertes Bild
-app.selectFileName(caption, dir, filter, saveFile): Öffnet Dateidialog, um
-eine Datei auszuwählen
-app.selectDirName(caption, dir): Öffnet Dateidialog, um Verzeichnis auszuwählen
 </programlisting>
 
 </sect2>
@@ -4642,6 +4639,9 @@ app.selectionInfo.detailInfo: Format Details
 app.selectionInfo.tag(Frame.Tag_1).tagFormat: Tag 1 Format
 app.selectionInfo.tag(Frame.Tag_2).tagFormat: Tag 2 Format
 app.selectionInfo.formatString(tag, format): Ersetze Format-Codes
+app.selectFileName(caption, dir, filter, saveFile): Öffnet Dateidialog, um
+eine Datei auszuwählen
+app.selectDirName(caption, dir): Öffnet Dateidialog, um Verzeichnis auszuwählen
 </programlisting>
 
 <para>
