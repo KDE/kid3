@@ -2721,6 +2721,38 @@ index 86b0b076..c36e4d46 100644
      packets.append(lastPagePackets);
 EOF
 
+test -f taglib_aiff_padding.patch ||
+  cat >taglib_aiff_padding.patch <<"EOF"
+--- a/taglib/riff/rifffile.cpp
++++ b/taglib/riff/rifffile.cpp
+@@ -330,9 +330,22 @@
+ 
+     if(offset & 1) {
+       const ByteVector iByte = readBlock(1);
+-      if(iByte.size() == 1 && iByte[0] == '\0') {
+-        chunk.padding = 1;
+-        offset++;
++      if(iByte.size() == 1) {
++        bool skipPadding = iByte[0] == '\0';
++        if(!skipPadding) {
++          // Padding byte is not zero, check if it is good to ignore it
++          const ByteVector fourCcAfterPadding = readBlock(4);
++          if(isValidChunkName(fourCcAfterPadding) &&
++             !isValidChunkName(ByteVector(iByte).append(fourCcAfterPadding.mid(0, 3)))) {
++            // Use the padding, it is followed by a valid chunk name whereas
++            // ignoring it would give an invalid chunk name.
++            skipPadding = true;
++          }
++        }
++        if(skipPadding) {
++          chunk.padding = 1;
++          offset++;
++        }
+       }
+     }
+ 
+EOF
+
 test -f vorbis_alloc_on_heap.patch ||
 cat >vorbis_alloc_on_heap.patch <<"EOF"
 From: Ralph Giles <giles@thaumas.net>
@@ -2973,6 +3005,7 @@ if ! test -d taglib-${taglib_version}; then
     patch -p1 <../source/taglib_cmID_purl_egid.patch.patch
     patch -p1 <../source/taglib_CVE-2018-11439.patch
     patch -p1 <../source/taglib_ogg_packet_loss.patch
+    patch -p1 <../source/taglib_aiff_padding.patch
   fi
   cd ..
 fi
