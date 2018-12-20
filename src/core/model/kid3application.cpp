@@ -854,6 +854,24 @@ void Kid3Application::onDirectoryLoaded()
 }
 
 /**
+ * Unload all tags.
+ * The tags of all files which are not modified or selected are freed to
+ * reclaim their memory.
+ */
+void Kid3Application::unloadAllTags()
+{
+  TaggedFileIterator it(m_fileProxyModelRootIndex);
+  while (it.hasNext()) {
+    TaggedFile* taggedFile = it.next();
+    if (taggedFile->isTagInformationRead() && !taggedFile->isChanged() &&
+        !m_fileSelectionModel->isSelected(taggedFile->getIndex())) {
+      taggedFile->clearTags(false);
+      taggedFile->closeFileHandle();
+    }
+  }
+}
+
+/**
  * Get directory path of opened directory.
  * @return directory path.
  */

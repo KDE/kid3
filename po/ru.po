@@ -303,6 +303,9 @@ msgstr "О&бновить"
 msgid "Reload directory"
 msgstr "Обновить каталог"
 
+msgid "Unload"
+msgstr "Выгрузить"
+
 msgid "&Import..."
 msgstr "&Импорт..."
 

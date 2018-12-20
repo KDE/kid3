@@ -305,6 +305,9 @@ msgstr "重新載入(&L)"
 msgid "Reload directory"
 msgstr "重新載入目錄"
 
+msgid "Unload"
+msgstr "卸載"
+
 msgid "&Import..."
 msgstr "匯入(&I)..."
 

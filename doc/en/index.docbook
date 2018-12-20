@@ -3406,6 +3406,16 @@ following methods:
 <para>Returns true if OK.</para>
 </sect2>
 
+<sect2 id="dbus-unloadAllTags">
+<title>Unload the tags of all files which are not modified or selected</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>unloadAllTags</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
 <sect2 id="dbus-save">
 <title>Save all modified files</title>
 <funcsynopsis>
@@ -4394,6 +4404,7 @@ details, refer to the respective notes.
 
 <programlisting>
 app.openDirectory(path): Open directory
+app.unloadAllTags(): Unload all tags
 app.saveDirectory(): Save directory
 app.revertFileModifications(): Revert
 app.importTags(tag, path, fmtIdx): Import file

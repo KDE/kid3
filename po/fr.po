@@ -302,6 +302,9 @@ msgstr "Rechar&ger"
 msgid "Reload directory"
 msgstr "Recharger le répertoire"
 
+msgid "Unload"
+msgstr "Décharger"
+
 msgid "&Import..."
 msgstr "&Importer..."
 

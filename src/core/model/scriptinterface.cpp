@@ -67,6 +67,16 @@ bool ScriptInterface::openDirectory(const QString& path)
 }
 
 /**
+ * Unload all tags.
+ * The tags of all files which are not modified or selected are freed to
+ * reclaim their memory.
+ */
+void ScriptInterface::unloadAllTags()
+{
+  m_app->unloadAllTags();
+}
+
+/**
  * Save all modified files.
  *
  * @return true if ok,

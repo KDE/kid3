@@ -303,6 +303,9 @@ msgstr "O&dśwież"
 msgid "Reload directory"
 msgstr "Ponownie wczytaj katalog"
 
+msgid "Unload"
+msgstr "Wyłącz"
+
 msgid "&Import..."
 msgstr "&Importuj..."
 

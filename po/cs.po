@@ -302,6 +302,9 @@ msgstr "O&bnovit"
 msgid "Reload directory"
 msgstr "Obnovit adresář"
 
+msgid "Unload"
+msgstr "Uvolnit"
+
 msgid "&Import..."
 msgstr "&Zavést..."
 

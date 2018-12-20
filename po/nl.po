@@ -302,6 +302,9 @@ msgstr "Her&laden"
 msgid "Reload directory"
 msgstr "Map herladen"
 
+msgid "Unload"
+msgstr "Ontladen"
+
 msgid "&Import..."
 msgstr "&Importeren..."
 

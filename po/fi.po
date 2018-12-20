@@ -303,6 +303,9 @@ msgstr "Lataa uu&delleen"
 msgid "Reload directory"
 msgstr "Lataa nykyinen kansio uudelleen"
 
+msgid "Unload"
+msgstr "Poista"
+
 msgid "&Import..."
 msgstr "T&uo..."
 

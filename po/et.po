@@ -303,6 +303,9 @@ msgstr "Laadi &uuesti"
 msgid "Reload directory"
 msgstr "Uuendada käesoleva kausta sisu"
 
+msgid "Unload"
+msgstr "Eemalda"
+
 msgid "&Import..."
 msgstr "&Impordi..."
 

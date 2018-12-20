@@ -299,6 +299,9 @@ msgstr ""
 msgid "Reload directory"
 msgstr ""
 
+msgid "Unload"
+msgstr ""
+
 msgid "&Import..."
 msgstr ""
 

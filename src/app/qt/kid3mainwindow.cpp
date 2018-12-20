@@ -154,6 +154,15 @@ void Kid3MainWindow::initActions()
   connect(fileReload, &QAction::triggered,
     impl(), &BaseMainWindowImpl::slotFileReload);
   fileMenu->addAction(fileReload);
+
+  auto fileUnload = new QAction(this);
+  fileUnload->setText(tr("Unload"));
+  fileUnload->setObjectName(QLatin1String("unload"));
+  m_shortcutsModel->registerAction(fileUnload, menuTitle);
+  connect(fileUnload, &QAction::triggered,
+          app(), &Kid3Application::unloadAllTags);
+  addAction(fileUnload);
+
   fileMenu->addSeparator();
 
   auto fileSave = new QAction(this);

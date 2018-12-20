@@ -301,6 +301,9 @@ msgstr "&Učitaj ponovo"
 msgid "Reload directory"
 msgstr "Ponovo učitaj spisak"
 
+msgid "Unload"
+msgstr "Unload"
+
 msgid "&Import..."
 msgstr "&Uvezi..."
 

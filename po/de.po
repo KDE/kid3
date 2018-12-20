@@ -302,6 +302,9 @@ msgstr "&Neu laden"
 msgid "Reload directory"
 msgstr "Verzeichnis neu einlesen"
 
+msgid "Unload"
+msgstr "Entladen"
+
 msgid "&Import..."
 msgstr "&Importieren..."
 

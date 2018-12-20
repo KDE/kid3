@@ -302,6 +302,9 @@ msgstr "Y&eniden Yükle"
 msgid "Reload directory"
 msgstr "Geçerli dizini yenile"
 
+msgid "Unload"
+msgstr "Kaldır"
+
 msgid "&Import..."
 msgstr "A&l..."
 

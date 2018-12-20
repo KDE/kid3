@@ -297,6 +297,9 @@ msgstr "Ge&nindlæs"
 msgid "Reload directory"
 msgstr "Genindlæs liste"
 
+msgid "Unload"
+msgstr "Fjern"
+
 msgid "&Import..."
 msgstr "&Importér..."
 

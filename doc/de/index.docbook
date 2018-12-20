@@ -3593,6 +3593,16 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <para>Wenn OK wird true zurückgegeben.</para>
 </sect2>
 
+<sect2 id="dbus-unloadAllTags">
+<title>Entlade die Tags aller nicht selektierten oder modifizierten Dateien</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>unloadAllTags</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
 <sect2 id="dbus-save">
 <title>Speichere alle veränderten Dateien</title>
 <funcsynopsis>
@@ -4593,6 +4603,7 @@ die dortige Beschreibung verwiesen.
 
 <programlisting>
 app.openDirectory(path): Verzeichnis öffnen
+app.unloadAllTags(): Entlade alle Tags
 app.saveDirectory(): Speichern
 app.revertFileModifications(): Zuletzt gespeicherte Fassung
 app.importTags(tag, path, fmtIdx): Datei importieren

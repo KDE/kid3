@@ -5,6 +5,8 @@
       <arg type="b" direction="out"/>
       <arg name="path" type="s" direction="in"/>
     </method>
+    <method name="unloadAllTags">
+    </method>
     <method name="save">
       <arg type="b" direction="out"/>
     </method>
@@ -18,6 +20,11 @@
       <arg name="tagMask" type="i" direction="in"/>
       <arg name="path" type="s" direction="in"/>
       <arg name="fmtIdx" type="i" direction="in"/>
+    </method>
+    <method name="importFromTags">
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="source" type="s" direction="in"/>
+      <arg name="extraction" type="s" direction="in"/>
     </method>
     <method name="batchImport">
       <arg type="b" direction="out"/>
@@ -36,6 +43,15 @@
     </method>
     <method name="createPlaylist">
       <arg type="b" direction="out"/>
+    </method>
+    <method name="getPlaylistItems">
+      <arg type="as" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
+    </method>
+    <method name="setPlaylistItems">
+      <arg type="b" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
+      <arg name="items" type="as" direction="in"/>
     </method>
     <method name="quit">
     </method>

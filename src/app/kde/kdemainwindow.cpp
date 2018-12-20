@@ -193,6 +193,10 @@ void KdeMainWindow::initActions()
   connect(action, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotFileReload);
 
+  action = new QAction(tr("Unload"), this);
+  collection->addAction(QLatin1String("unload"), action);
+  connect(action, &QAction::triggered, app(), &Kid3Application::unloadAllTags);
+
   action = new QAction(QIcon::fromTheme(QLatin1String("document-import")),
                        tr("&Import..."), this);
   action->setStatusTip(tr("Import from file or clipboard"));

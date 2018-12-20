@@ -913,6 +913,13 @@ public slots:
   void openDropUrls(const QList<QUrl>& urlList);
 
   /**
+   * Unload all tags.
+   * The tags of all files which are not modified or selected are freed to
+   * reclaim their memory.
+   */
+  void unloadAllTags();
+
+  /**
    * Revert file modifications.
    * Acts on selected files or all files if no file is selected.
    */

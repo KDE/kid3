@@ -302,6 +302,9 @@ msgstr "&Ricarica"
 msgid "Reload directory"
 msgstr "Ricarica cartella"
 
+msgid "Unload"
+msgstr "Scarica"
+
 msgid "&Import..."
 msgstr "&Importa..."
 
