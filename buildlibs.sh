@@ -3087,7 +3087,7 @@ if ! test -d mp4v2-${mp4v2_version}; then
       sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
     fi
   fi
-  if test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
+  if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++"; then
     patch -p1 <../source/mp4v2_clang6.patch
   fi
   cd ..
@@ -3538,6 +3538,9 @@ else
         fi
       elif test "$compiler" = "cross-macos"; then
         AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${cross_host}- --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
+      elif test "$compiler" = "gcc-debug" || test "$compiler" = "gcc-self-contained"; then
+        test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
+        test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
       fi
       if ( test $kernel = "Darwin" || test $kernel = "MINGW" ) && test -n "${ffmpeg_version}"; then
         AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
@@ -3652,10 +3655,7 @@ else
     echo "### Building mp4v2"
 
     cd mp4v2-${mp4v2_version}/
-    if test $kernel = "MINGW" || test "$compiler" = "cross-mingw" ||
-       test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
-      autoreconf -i
-    fi
+    autoreconf -i
     test -f Makefile || CXXFLAGS="$CXXFLAGS -g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
