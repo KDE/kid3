@@ -32,14 +32,14 @@
 # $HOME/docbook-xsl-1.72.0/html/docbook.xsl.
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.6.3-mac/5.6.3/clang_64 ../kid3/buildlibs.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/buildlibs.sh
 # or
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.6-mac/5.9.6/clang_64 QTBINARYDIR=/path/to/Qt5.9.6-linux/5.9.6/gcc_64/bin ../kid3/buildlibs.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 QTBINARYDIR=/path/to/Qt5.9.7-linux/5.9.7/gcc_64/bin ../kid3/buildlibs.sh
 #
 # To build for Android, set COMPILER="cross-android".
 #
 # To build a self-contained Linux package use
-# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.6.3-linux/5.6.3/gcc_64 ../kid3/buildlibs.sh
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.9.7-linux/5.9.7/gcc_64 ../kid3/buildlibs.sh
 #
 # When cross compiling make sure that the host Qt version is not larger than
 # the target Qt version, otherwise moc and plugins will fail. To provide
@@ -158,7 +158,7 @@ fi
 
 target=${*:-libs package}
 
-qt_version=5.6.3
+qt_version=5.9.7
 zlib_version=1.2.8
 zlib_patchlevel=5
 libogg_version=1.3.2
@@ -3131,7 +3131,7 @@ if test "$compiler" = "cross-android"; then
 
   _android_sdk_root=/opt/android/sdk
   _android_ndk_root=$_android_sdk_root/ndk-bundle
-  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.6/android_armv7}
+  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
   if test -z "${_android_qt_root%%*x86}"; then
     _android_abi=x86
     _android_toolchain_prefix=x86
@@ -3180,9 +3180,10 @@ if test "$compiler" = "cross-android"; then
   if ! test -d kid3; then
     echo "### Creating kid3 build directory"
     mkdir kid3
+    test -e ufleisch-release-key.keystore && cp -a ufleisch-release-key.keystore kid3/
     cat >kid3/build.sh <<EOF
 #!/bin/bash
-_java_root=/usr/lib/jvm/java-8-openjdk
+_java_root=/usr/lib/jvm/java-8-openjdk-amd64
 _android_sdk_root=$_android_sdk_root
 _android_ndk_root=$_android_ndk_root
 _android_abi=$_android_abi
@@ -3842,7 +3843,7 @@ if [[ $target = *"package"* ]]; then
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
     if test -f $QTPREFIX/lib/libssl.so && test -f $QTPREFIX/lib/libcrypto.so; then
-      make apk
+      JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
       _version=$(grep VERSION config.h | cut -d'"' -f2)
       cp -a android/bin/QtApp-release-signed.apk kid3-$_version-android.apk
     else
