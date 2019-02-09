@@ -265,7 +265,7 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
 void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 {
   QRegExp nlSpaceRe(QLatin1String("[\r\n]+\\s*"));
-  QRegExp atDiscogsRe(QLatin1String("\\s*\\([^)]+\\) at Discogs\n?$"));
+  QRegExp atDiscogsRe(QLatin1String("\\s*\\([^)]+\\) (?:at|\\|) Discogs\n?$"));
   QString str = QString::fromUtf8(albumStr);
 
   FrameCollection framesHdr;
