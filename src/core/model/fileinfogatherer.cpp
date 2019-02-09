@@ -61,6 +61,52 @@
 #endif
 #include "abstractfiledecorationprovider.h"
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+
+/**
+ * Check if path is a drive which could cause an insert disk dialog to pop up.
+ *
+ * This method should be used before calling QFileInfo::permissions(),
+ * or QFileInfo::isReadable() on Windows.
+ * The bug has been reported for Windows 7 32-bit and could be reproduced with
+ * Windows XP. To trigger the bug, a CD has to be inserted and then removed once
+ * before fetching the root directory with a file system model. See
+ * https://forum.qt.io/topic/34799/checking-is-a-drive-is-readable-in-qt-pops-up-a-no-disk-error-in-windows-7
+ *
+ * @param path drive path, e.g. "D:/"
+ * @return true if path is for a drive and getting volume information fails.
+ */
+bool ExtendedInformation::isInvalidDrive(const QString &path)
+{
+    // Windows drive nodes are queried with paths like "D:/", check if path is
+    // a drive letter followed by a colon.
+    const int pathLen = path.length();
+    if (pathLen < 2 || pathLen > 3 || path.at(1) != QLatin1Char(':') ||
+        !path.at(0).isLetter())
+        return false;
+
+    const DWORD VOLUME_NAME_SIZE = 255;
+    const DWORD FILE_SYSTEM_NAME_SIZE = 255;
+    LPCWSTR rootPathName = (LPCWSTR)path.utf16();
+    UCHAR fileSystemNameBuffer[255], volumeNameBuffer[255];
+    DWORD volumeSerialNumber, maximumComponentLength, fileSystemFlags;
+
+    BOOL bSuccess = ::GetVolumeInformationW(
+        rootPathName,
+        (LPWSTR)volumeNameBuffer,
+        VOLUME_NAME_SIZE,
+        &volumeSerialNumber,
+        &maximumComponentLength,
+        &fileSystemFlags,
+        (LPWSTR)fileSystemNameBuffer,
+        FILE_SYSTEM_NAME_SIZE
+    );
+
+    return !bSuccess;
+}
+#endif // Q_OS_WIN
+
 #ifdef QT_BUILD_INTERNAL
 static QBasicAtomicInt fetchedRoot = Q_BASIC_ATOMIC_INITIALIZER(false);
 void qt_test_resetFetchedRoot()

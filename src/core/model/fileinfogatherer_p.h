@@ -106,6 +106,11 @@ public:
 #endif
 
     QFile::Permissions permissions() const {
+#ifdef Q_OS_WIN
+        if (isInvalidDrive(mFileInfo.filePath())) {
+            return 0;
+        }
+#endif
         return mFileInfo.permissions();
     }
 
@@ -159,6 +164,9 @@ public:
     QVariant icon;
 
 private :
+#ifdef Q_OS_WIN
+    static bool isInvalidDrive(const QString &path);
+#endif
     QFileInfo mFileInfo;
 };
 
