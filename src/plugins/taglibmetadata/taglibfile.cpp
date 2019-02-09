@@ -796,6 +796,7 @@ void TagLibFile::readTags(bool force)
 #endif
     TagLib::TrueAudio::File* ttaFile;
     TagLib::RIFF::WAV::File* wavFile;
+    DSFFile* dsfFile;
     TagLib::APE::File* apeFile;
     m_fileExtension = QLatin1String(".mp3");
     m_isTagSupported[Frame::Tag_1] = false;
@@ -915,6 +916,16 @@ void TagLibFile::readTags(bool force)
         markTagUnchanged(Frame::Tag_2);
       }
 #endif
+    } else if ((dsfFile = dynamic_cast<DSFFile*>(file)) != nullptr) {
+      m_fileExtension = QLatin1String(".dsf");
+      m_tag[Frame::Tag_1] = nullptr;
+      markTagUnchanged(Frame::Tag_1);
+      if (!m_tag[Frame::Tag_2]) {
+        TagLib::ID3v2::Tag* id3v2Tag = dsfFile->ID3v2Tag();
+        setId3v2VersionFromTag(id3v2Tag);
+        m_tag[Frame::Tag_2] = id3v2Tag;
+        markTagUnchanged(Frame::Tag_2);
+      }
     } else {
       if (dynamic_cast<TagLib::Vorbis::File*>(file) != nullptr) {
         m_fileExtension = QLatin1String(".ogg");
@@ -948,8 +959,6 @@ void TagLibFile::readTags(bool force)
 #endif
       } else if (dynamic_cast<TagLib::Ogg::Opus::File*>(file) != nullptr) {
         m_fileExtension = QLatin1String(".opus");
-      } else if (dynamic_cast<DSFFile*>(file) != nullptr) {
-        m_fileExtension = QLatin1String(".dsf");
       }
       m_tag[Frame::Tag_1] = nullptr;
       markTagUnchanged(Frame::Tag_1);
@@ -1259,6 +1268,16 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             if (TagConfig::instance().lowercaseId3RiffChunk()) {
               wavFile->changeToLowercaseId3Chunk();
             }
+            fileChanged = true;
+            FOR_TAGLIB_TAGS(tagNr) {
+              markTagUnchanged(tagNr);
+            }
+            needsSave = false;
+          }
+        }
+        else if (auto dsfFile = dynamic_cast<DSFFile*>(file)) {
+          setId3v2VersionOrDefault(id3v2Version);
+          if (dsfFile->save(m_id3v2Version)) {
             fileChanged = true;
             FOR_TAGLIB_TAGS(tagNr) {
               markTagUnchanged(tagNr);
