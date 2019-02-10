@@ -2725,9 +2725,9 @@ test -f taglib_aiff_padding.patch ||
   cat >taglib_aiff_padding.patch <<"EOF"
 --- a/taglib/riff/rifffile.cpp
 +++ b/taglib/riff/rifffile.cpp
-@@ -330,9 +330,22 @@
- 
+@@ -325,9 +325,20 @@ void RIFF::File::read()
      if(offset & 1) {
+       seek(offset);
        const ByteVector iByte = readBlock(1);
 -      if(iByte.size() == 1 && iByte[0] == '\0') {
 -        chunk.padding = 1;
@@ -2737,10 +2737,8 @@ test -f taglib_aiff_padding.patch ||
 +        if(!skipPadding) {
 +          // Padding byte is not zero, check if it is good to ignore it
 +          const ByteVector fourCcAfterPadding = readBlock(4);
-+          if(isValidChunkName(fourCcAfterPadding) &&
-+             !isValidChunkName(ByteVector(iByte).append(fourCcAfterPadding.mid(0, 3)))) {
-+            // Use the padding, it is followed by a valid chunk name whereas
-+            // ignoring it would give an invalid chunk name.
++          if(isValidChunkName(fourCcAfterPadding)) {
++            // Use the padding, it is followed by a valid chunk name.
 +            skipPadding = true;
 +          }
 +        }
