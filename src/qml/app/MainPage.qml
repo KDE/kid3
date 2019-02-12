@@ -152,6 +152,13 @@ Page {
             }
           }
           MenuItem {
+            text: qsTr("Open")
+            onTriggered: {
+              openDialog.filePath = app.dirName
+              openDialog.open()
+            }
+          }
+          MenuItem {
             text: qsTr("Save")
             onTriggered: {
               var errorFiles = app.saveDirectory()

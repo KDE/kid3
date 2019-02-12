@@ -4366,6 +4366,8 @@ script.writeFile(filePath, data): Write data to file, true if OK
 script.readFile(filePath): Read data from file
 script.removeFile(filePath): Delete file, true if OK
 script.fileExists(filePath): true if file exists
+script.classifyFile(filePath): Get class of file (dir "/", symlink "@", exe "*",
+  file " ")
 script.renameFile(oldName, newName): Rename file, true if OK
 script.copyFile(source, dest): Copy file, true if OK
 script.makeDir(path): Create directory, true if OK

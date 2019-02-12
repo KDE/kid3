@@ -239,6 +239,28 @@ bool ScriptUtils::fileExists(const QString& filePath)
 }
 
 /**
+ * @brief Get type of file.
+ * @param filePath path to file
+ * @return "/" for directories, "@" for symlinks, "*" for executables,
+ *         " " for files.
+ */
+QString ScriptUtils::classifyFile(const QString& filePath)
+{
+  QFileInfo fi(filePath);
+  if (fi.isSymLink()) {
+    return QLatin1String("@");
+  } else if (fi.isDir()) {
+    return QLatin1String("/");
+  } else if (fi.isExecutable()) {
+    return QLatin1String("*");
+  } else if (fi.isFile()) {
+    return QLatin1String(" ");
+  } else {
+    return QString();
+  }
+}
+
+/**
  * Rename file.
  * @param oldName old name
  * @param newName new name

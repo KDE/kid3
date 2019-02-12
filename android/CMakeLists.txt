@@ -38,7 +38,8 @@ add_qt_android_apk(apk kid3-qml
     lib/libQt5QuickControls2.so lib/libQt5QuickTemplates2.so
 #    lib/libQt5MultimediaQuick_p.so plugins/mediaservice/libqtmedia_android.so plugins/audio/libqtaudio_opensles.so plugins/video/videonode/libqtsgvideonode_android.so plugins/playlistformats/libqtmultimedia_m3u.so
 #    qml/Enginio/libenginioplugin.so qml/Enginio/plugins.qmltypes qml/Enginio/qmldir
-#    qml/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so qml/Qt/labs/folderlistmodel/plugins.qmltypes qml/Qt/labs/folderlistmodel/qmldir qml/Qt/labs/settings/libqmlsettingsplugin.so qml/Qt/labs/settings/plugins.qmltypes qml/Qt/labs/settings/qmldir
+    qml/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so qml/Qt/labs/folderlistmodel/plugins.qmltypes qml/Qt/labs/folderlistmodel/qmldir
+#    qml/Qt/labs/settings/libqmlsettingsplugin.so qml/Qt/labs/settings/plugins.qmltypes qml/Qt/labs/settings/qmldir
 #    qml/Qt/WebSockets/qmldir
 #    qml/Qt3D/Input/libquick3dinputplugin.so qml/Qt3D/Input/qmldir qml/Qt3D/libquick3dcoreplugin.so qml/Qt3D/qmldir qml/Qt3D/Renderer/libquick3drendererplugin.so qml/Qt3D/Renderer/qmldir
 #    qml/QtBluetooth/libdeclarative_bluetooth.so qml/QtBluetooth/plugins.qmltypes qml/QtBluetooth/qmldir

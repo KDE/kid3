@@ -41,7 +41,7 @@
 #ifdef Q_OS_ANDROID
 #include <QStandardPaths>
 #endif
-#ifdef Q_OS_LINUX
+#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
 #include <malloc.h>
 #endif
 #ifdef HAVE_QTDBUS
@@ -872,7 +872,7 @@ void Kid3Application::unloadAllTags()
       taggedFile->closeFileHandle();
     }
   }
-#ifdef Q_OS_LINUX
+#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
   if (::malloc_trim(0)) {
     qDebug("Memory released by malloc_trim()");
   }

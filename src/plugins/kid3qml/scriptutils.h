@@ -178,6 +178,14 @@ public:
   Q_INVOKABLE static bool fileExists(const QString& filePath);
 
   /**
+   * @brief Get type of file.
+   * @param filePath path to file
+   * @return "/" for directories, "@" for symlinks, "*" for executables,
+   *         " " for files.
+   */
+  Q_INVOKABLE static QString classifyFile(const QString& filePath);
+
+  /**
    * Rename file.
    * @param oldName old name
    * @param newName new name
