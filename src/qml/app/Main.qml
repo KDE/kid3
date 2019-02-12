@@ -202,4 +202,11 @@ ApplicationWindow {
       Qt.quit()
     }
   }
+
+  onClosing: {
+    confirmedQuit()
+    if (app.modified) {
+      close.accepted = false
+    }
+  }
 }
