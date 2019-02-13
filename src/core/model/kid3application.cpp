@@ -261,6 +261,19 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 
   initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
+
+#ifdef Q_OS_ANDROID
+  // Make sure that configuration changes are saved for the Android app.
+  if (auto guiApp =
+      qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
+    QObject::connect(guiApp, &QGuiApplication::applicationStateChanged,
+                     this, [this](Qt::ApplicationState state) {
+      if (state == Qt::ApplicationSuspended) {
+        saveConfig();
+      }
+    });
+  }
+#endif
 }
 
 /**
