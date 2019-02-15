@@ -31,10 +31,11 @@ AbstractSettingsPage {
   model: [
     SettingsElement { name: qsTr("Tags") },
     SettingsElement { name: qsTr("Files") },
-    SettingsElement { name: qsTr("Plugins") }
+    SettingsElement { name: qsTr("Plugins") },
+    SettingsElement { name: qsTr("Appearance") }
   ]
   onClicked: pageStack.push(
-               [ tagsPage, filesPage, pluginsPage ][index])
+               [ tagsPage, filesPage, pluginsPage, appearancePage ][index])
   Component {
     id: tagsPage
     AbstractSettingsPage {
@@ -68,6 +69,7 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Ogg/Vorbis comment field name")
           dropDownModel: configs.tagConfig().getCommentNames()
+          value: ""
         },
         SettingsElement {
           name: qsTr("Ogg/Vorbis picture field name")
@@ -76,6 +78,7 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("RIFF track number field name")
           dropDownModel: configs.tagConfig().getRiffTrackNames()
+          value: ""
         },
         SettingsElement {
           name: qsTr("Mark if picture larger than maxium size")
@@ -93,6 +96,7 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.tagFormatConfig().getLocaleNames()
+          value: ""
         },
         SettingsElement {
           name: qsTr("String replacement")
@@ -175,6 +179,7 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.filenameFormatConfig().getLocaleNames()
+          value: ""
         },
         SettingsElement {
           name: qsTr("String replacement")
@@ -189,11 +194,13 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
+          value: ""
           width: constants.gu(45)
         },
         SettingsElement {
           name: qsTr("From filename format")
           dropDownModel: configs.fileConfig().fromFilenameFormats
+          value: ""
           width: constants.gu(45)
         }
       ]
@@ -291,6 +298,28 @@ AbstractSettingsPage {
           settingsModel.push(elementObj)
         }
         model = settingsModel
+      }
+    }
+  }
+  Component {
+    id: appearancePage
+    AbstractSettingsPage {
+      title: qsTr("Appearance")
+      visible: false
+      model: [
+        SettingsElement {
+          name: qsTr("Theme")
+          value: ""
+          dropDownModel: configs.mainWindowConfig().getQtQuickStyleNames()
+        }
+      ]
+      StackView.onActivated: {
+        var mainWindowCfg = configs.mainWindowConfig()
+        model[0].value = mainWindowCfg.qtQuickStyle
+      }
+      StackView.onDeactivated: {
+        var mainWindowCfg = configs.mainWindowConfig()
+        mainWindowCfg.qtQuickStyle = model[0].value
       }
     }
   }

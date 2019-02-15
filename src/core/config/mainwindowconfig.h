@@ -59,6 +59,9 @@ class KID3_CORE_EXPORT MainWindowConfig : public StoredConfig<MainWindowConfig> 
   /** Don't use the native file dialog if true */
   Q_PROPERTY(bool dontUseNativeDialogs READ dontUseNativeDialogs
              WRITE setDontUseNativeDialogs NOTIFY dontUseNativeDialogsChanged)
+  /** Qt Quick style and theme, empty if not used */
+  Q_PROPERTY(QString qtQuickStyle READ qtQuickStyle WRITE setQtQuickStyle
+             NOTIFY qtQuickStyleChanged)
 
 public:
   /**
@@ -139,6 +142,17 @@ public:
   /** Set if native file dialogs are used. */
   void setDontUseNativeDialogs(bool dontUseNativeDialogs);
 
+  /** Get Qt Quick style, empty if not used. */
+  QString qtQuickStyle() const { return m_qtQuickStyle; }
+
+  /** Set Qt Quick style. */
+  void setQtQuickStyle(const QString& qtQuickStyle);
+
+  /**
+   * String list of available Qt Quick styles.
+   */
+  Q_INVOKABLE static QStringList getQtQuickStyleNames();
+
 signals:
   /** Emitted when @a geometry changed. */
   void geometryChanged(const QByteArray& geometry);
@@ -167,6 +181,9 @@ signals:
   /** Emitted when @a dontUseNativeDialogs changed. */
   void dontUseNativeDialogsChanged(bool dontUseNativeDialogs);
 
+  /** Emitted when @a qtQuickStyle changed. */
+  void qtQuickStyleChanged(const QString& qtQuickStyle);
+
 private:
   friend MainWindowConfig& StoredConfig<MainWindowConfig>::instance();
 
@@ -175,6 +192,7 @@ private:
   QString m_fontFamily;
   int m_fontSize;
   QString m_style;
+  QString m_qtQuickStyle;
   bool m_useFont;
   bool m_hideToolBar;
   bool m_hideStatusBar;

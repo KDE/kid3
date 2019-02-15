@@ -2808,6 +2808,9 @@ msgstr ""
 msgid "From Tag 2"
 msgstr ""
 
+msgid "Appearance"
+msgstr ""
+
 msgid "Mark truncated fields"
 msgstr ""
 
@@ -2881,6 +2884,9 @@ msgid "To filename format"
 msgstr ""
 
 msgid "From filename format"
+msgstr ""
+
+msgid "Theme"
 msgstr ""
 
 msgid "To Filename"

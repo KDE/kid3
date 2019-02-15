@@ -91,9 +91,7 @@ Page {
           width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
           model: _modelData.dropDownModel
           onCurrentTextChanged: _modelData.value = currentText
-          Component.onCompleted: {
-            currentIndex = find(_modelData.value)
-          }
+          currentIndex: find(_modelData.value)
         }
       }
     }

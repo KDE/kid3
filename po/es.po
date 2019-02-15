@@ -2821,6 +2821,9 @@ msgstr "De etiqueta 1"
 msgid "From Tag 2"
 msgstr "De etiqueta 2"
 
+msgid "Appearance"
+msgstr "Aspecto"
+
 msgid "Mark truncated fields"
 msgstr "Marcar campos truncados"
 
@@ -2895,6 +2898,9 @@ msgstr "Formato a nombre de archivo"
 
 msgid "From filename format"
 msgstr "Formato desde de nombre de archivo"
+
+msgid "Theme"
+msgstr "Tema"
 
 msgid "To Filename"
 msgstr "A nombre de archivo"

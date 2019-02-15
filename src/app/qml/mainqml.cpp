@@ -28,6 +28,7 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QDir>
+#include <QSettings>
 #ifndef NDEBUG
 #define QT_QML_DEBUG
 #endif
@@ -116,22 +117,31 @@ int main(int argc, char* argv[])
 
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-  Kid3QtApplication app(argc, argv);
-#ifdef Q_OS_ANDROID
-  QQuickStyle::setStyle(QLatin1String("Material"));
-#else
-  QString style = QQuickStyle::name();
-  if (style == QLatin1String("org.kde.desktop")) {
-    // The default KDE style currently fails with
-    // file:///usr/lib/qt/qml/QtQuick/Controls.2/org.kde.desktop/Dialog.qml:80
-    // Cannot assign to non-existent property "buttonBox"
-    style = QLatin1String("Default");
-  }
-  if (!style.isEmpty()) {
-    QQuickStyle::setStyle(style);
-  }
-#endif
 
+  // The QtQuickStyle setting has to be read bypassing the regular
+  // configuration object because the style environment variable
+  // must be set before the QGuiApplication is created.
+  auto style = QSettings(QSettings::UserScope, QLatin1String("Kid3"),
+                         QLatin1String("Kid3"))
+      .value(QLatin1String("MainWindow/QtQuickStyle")).toByteArray();
+  if (style.isEmpty()) {
+#ifdef Q_OS_ANDROID
+    style = "Material/Light";
+#else
+    style = "Default";
+#endif
+  }
+  auto styleTheme = style.split('/');
+  style = styleTheme.at(0);
+  if (!style.isEmpty()) {
+    qputenv("QT_QUICK_CONTROLS_STYLE", style);
+  }
+  auto theme = styleTheme.size() > 1 ? styleTheme.at(1) : "";
+  if (!theme.isEmpty() && style == "Material") {
+    qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME", theme);
+  }
+
+  Kid3QtApplication app(argc, argv);
   Utils::loadTranslation();
 #ifdef Q_OS_MAC
   QDir dir(QCoreApplication::applicationDirPath());

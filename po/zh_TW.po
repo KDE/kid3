@@ -2825,6 +2825,9 @@ msgstr "從標籤 1"
 msgid "From Tag 2"
 msgstr "從標籤 2"
 
+msgid "Appearance"
+msgstr "外觀設定"
+
 msgid "Mark truncated fields"
 msgstr "標記被截斷的欄位"
 
@@ -2899,6 +2902,9 @@ msgstr "到檔案名稱格式"
 
 msgid "From filename format"
 msgstr "檔案名稱格式"
+
+msgid "Theme"
+msgstr "主題"
 
 msgid "To Filename"
 msgstr "到檔名"

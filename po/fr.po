@@ -2821,6 +2821,9 @@ msgstr "Depuis balise 1"
 msgid "From Tag 2"
 msgstr "Depuis balise 2"
 
+msgid "Appearance"
+msgstr "Apparence"
+
 msgid "Mark truncated fields"
 msgstr "Marquer les champs tronqués"
 
@@ -2895,6 +2898,9 @@ msgstr "Format au nom de fichier"
 
 msgid "From filename format"
 msgstr "Format depuis le nom de fichier"
+
+msgid "Theme"
+msgstr "Thème"
 
 msgid "To Filename"
 msgstr "Au nom de fichier"

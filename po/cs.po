@@ -2823,6 +2823,9 @@ msgstr "Ze značky 1"
 msgid "From Tag 2"
 msgstr "Ze značky 2"
 
+msgid "Appearance"
+msgstr "Vzhled"
+
 msgid "Mark truncated fields"
 msgstr "Označit zkrácená pole"
 
@@ -2897,6 +2900,9 @@ msgstr "Do formátu názvu souboru"
 
 msgid "From filename format"
 msgstr "Z formátu názvu souboru"
+
+msgid "Theme"
+msgstr "Motiv"
 
 msgid "To Filename"
 msgstr "Podle názvu souboru"

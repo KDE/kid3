@@ -2823,6 +2823,9 @@ msgstr "Tag 1'den"
 msgid "From Tag 2"
 msgstr "Tag 2'den"
 
+msgid "Appearance"
+msgstr "Görünüm"
+
 msgid "Mark truncated fields"
 msgstr ""
 
@@ -2897,6 +2900,9 @@ msgstr "Dosya adı için biçimi"
 
 msgid "From filename format"
 msgstr "Dosya adı Biçimi"
+
+msgid "Theme"
+msgstr "Tema"
 
 msgid "To Filename"
 msgstr "Dosya adı için"

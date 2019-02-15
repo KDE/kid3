@@ -2819,6 +2819,9 @@ msgstr "Iz oznake 1"
 msgid "From Tag 2"
 msgstr "Iz oznake 2"
 
+msgid "Appearance"
+msgstr "Izgled"
+
 msgid "Mark truncated fields"
 msgstr "Označi odsečena polja"
 
@@ -2893,6 +2896,9 @@ msgstr "Format u imena fajla"
 
 msgid "From filename format"
 msgstr "Format iz imena fajla"
+
+msgid "Theme"
+msgstr "Tema"
 
 msgid "To Filename"
 msgstr "U imena fajla"

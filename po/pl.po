@@ -2824,6 +2824,9 @@ msgstr "Ze znacznika 1"
 msgid "From Tag 2"
 msgstr "Ze znacznika 2"
 
+msgid "Appearance"
+msgstr "Wygląd"
+
 msgid "Mark truncated fields"
 msgstr "Oznacz obcięte pola"
 
@@ -2898,6 +2901,9 @@ msgstr "Format do nazwy pliku"
 
 msgid "From filename format"
 msgstr "Format od nazwy pliku"
+
+msgid "Theme"
+msgstr "Motyw"
 
 msgid "To Filename"
 msgstr "Do nazwy pliku"

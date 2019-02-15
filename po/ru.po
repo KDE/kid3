@@ -2827,6 +2827,9 @@ msgstr "Из тега 1"
 msgid "From Tag 2"
 msgstr "Из тега 2"
 
+msgid "Appearance"
+msgstr "Внешний вид"
+
 msgid "Mark truncated fields"
 msgstr "Отмечать усечённые поля"
 
@@ -2901,6 +2904,9 @@ msgstr "В формат имени файла"
 
 msgid "From filename format"
 msgstr "Из формата имени файла"
+
+msgid "Theme"
+msgstr "Тема"
 
 msgid "To Filename"
 msgstr "В имя файла"

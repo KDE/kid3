@@ -2820,6 +2820,9 @@ msgstr "Silt 1 põhjal"
 msgid "From Tag 2"
 msgstr "Silt 2 põhjal"
 
+msgid "Appearance"
+msgstr "Välimus"
+
 msgid "Mark truncated fields"
 msgstr "Lühikeseks jäävad väljad tõstetakse esile"
 
@@ -2894,6 +2897,9 @@ msgstr "Esitada failinime vorming"
 
 msgid "From filename format"
 msgstr "Failinime põhjal vorming"
+
+msgid "Theme"
+msgstr "Teema"
 
 msgid "To Filename"
 msgstr "Esitada failinime"

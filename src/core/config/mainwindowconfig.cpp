@@ -65,6 +65,7 @@ void MainWindowConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("FontSize"), QVariant(m_fontSize));
   config->setValue(QLatin1String("Style"), QVariant(m_style));
   config->setValue(QLatin1String("DontUseNativeDialogs"), QVariant(m_dontUseNativeDialogs));
+  config->setValue(QLatin1String("QtQuickStyle"), QVariant(m_qtQuickStyle));
   config->endGroup();
 }
 
@@ -86,6 +87,7 @@ void MainWindowConfig::readFromConfig(ISettings* config)
   m_style = config->value(QLatin1String("Style"), m_style).toString();
   m_dontUseNativeDialogs = config->value(QLatin1String("DontUseNativeDialogs"),
                                          m_dontUseNativeDialogs).toBool();
+  m_qtQuickStyle = config->value(QLatin1String("QtQuickStyle"), m_qtQuickStyle).toString();
   config->endGroup();
 }
 
@@ -159,4 +161,21 @@ void MainWindowConfig::setDontUseNativeDialogs(bool dontUseNativeDialogs)
     m_dontUseNativeDialogs = dontUseNativeDialogs;
     emit dontUseNativeDialogsChanged(m_dontUseNativeDialogs);
   }
+}
+
+void MainWindowConfig::setQtQuickStyle(const QString& qtQuickStyle)
+{
+  if (m_qtQuickStyle != qtQuickStyle) {
+    m_qtQuickStyle = qtQuickStyle;
+    emit styleChanged(m_qtQuickStyle);
+  }
+}
+
+QStringList MainWindowConfig::getQtQuickStyleNames()
+{
+  return {
+    QLatin1String("Material/Light"),
+    QLatin1String("Material/Dark"),
+    QLatin1String("Material/System")
+  };
 }
