@@ -100,7 +100,7 @@ ItemDelegate {
 
   Rectangle {
     anchors.fill: parent
-    color: highlighted ? constants.palette.highlight : "transparent"
+    color: highlighted ? constants.highlightColor : "transparent"
 
     CheckBox {
       id: frameEnabledCheckBox
@@ -142,7 +142,7 @@ ItemDelegate {
       text: name
       clip: true
       color: highlighted
-             ? constants.palette.highlightedText : constants.palette.text
+             ? constants.highlightedTextColor : constants.textColor
     }
 
     Loader {

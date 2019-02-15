@@ -23,6 +23,7 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import QtQml 2.2
 import Kid3 1.1 as Kid3
 
@@ -142,6 +143,12 @@ ApplicationWindow {
     app.frameEditor = frameEditor
     app.readConfig()
     app.openDirectory(configs.fileConfig().lastOpenedFile)
+    if (mainPage.Material) {
+      constants.highlightColor = mainPage.Material.primary
+      constants.highlightedTextColor = mainPage.Material.foreground
+      constants.textColor = mainPage.Material.foreground
+      constants.baseColor = mainPage.Material.background
+    }
   }
 
   Component.onDestruction: {

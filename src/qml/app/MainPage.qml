@@ -266,7 +266,7 @@ Page {
 
       FileList {
         id: fileList
-        color: constants.palette.base
+        color: constants.baseColor
         anchors.fill: parent
 
         onFileActivated: {
@@ -280,7 +280,7 @@ Page {
     Rectangle {
       id: rightSide
 
-      color: constants.palette.base
+      color: constants.baseColor
       anchors.right: parent.right
       anchors.top: parent.top
       anchors.bottom: parent.bottom

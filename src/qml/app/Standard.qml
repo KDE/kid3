@@ -42,7 +42,7 @@ ItemDelegate {
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
       color: highlighted
-             ? constants.palette.highlightedText :constants.palette.text
+             ? constants.highlightedTextColor :constants.textColor
       rightPadding: listItem.spacing
       text: listItem.text
       font: listItem.font

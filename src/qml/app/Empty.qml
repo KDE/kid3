@@ -35,7 +35,7 @@ Rectangle {
   width: parent ? parent.width : constants.gu(31)
   height: constants.rowHeight
   color: selected
-         ? constants.palette.highlight : "transparent"
+         ? constants.highlightColor : "transparent"
 
   MouseArea {
     id: mouseArea

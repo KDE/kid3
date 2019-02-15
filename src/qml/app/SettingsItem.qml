@@ -38,7 +38,7 @@ Rectangle {
   width: parent ? parent.width : constants.gu(31)
   height: horizontal ? constants.rowHeight : 2 * constants.rowHeight
   color: selected
-         ? constants.palette.highlight : "transparent"
+         ? constants.highlightColor : "transparent"
 
   MouseArea {
     id: mouseArea
@@ -61,7 +61,7 @@ Rectangle {
     anchors.margins: constants.margins
     anchors.topMargin: 2 * constants.margins
     color: selected
-           ? constants.palette.highlightedText :constants.palette.text
+           ? constants.highlightedTextColor :constants.textColor
   }
   Item {
     id: controlContainer

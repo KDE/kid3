@@ -89,7 +89,7 @@ Rectangle {
       }
       highlighted: ListView.isCurrentItem
       background: Rectangle {
-        color: highlighted ? constants.palette.highlight : "transparent"
+        color: highlighted ? constants.highlightColor : "transparent"
       }
 
       Row {
@@ -130,7 +130,7 @@ Rectangle {
           anchors.verticalCenter: parent.verticalCenter
           text: fileName
           color: fileDelegate.highlighted
-            ? constants.palette.highlightedText : constants.palette.text
+            ? constants.highlightedTextColor : constants.textColor
         }
       }
     }

@@ -48,4 +48,8 @@ QtObject {
   property int rowHeight: gu(6)
   property int controlHeight: gu(5)
   property SystemPalette palette: SystemPalette {}
+  property color highlightColor: palette.highlight
+  property color highlightedTextColor: palette.highlightedText
+  property color textColor: palette.text
+  property color baseColor: palette.base
 }

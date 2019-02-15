@@ -59,7 +59,7 @@ Dialog {
         highlighted: ListView.view.currentIndex === index
         onClicked: ListView.view.currentIndex = index
         background: Rectangle {
-          color: highlighted ? constants.palette.highlight : "transparent"
+          color: highlighted ? constants.highlightColor : "transparent"
         }
       }
     }
