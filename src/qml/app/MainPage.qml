@@ -161,10 +161,12 @@ Page {
           MenuItem {
             text: qsTr("Save")
             onTriggered: {
+              app.frameModelsToTags()
               var errorFiles = app.saveDirectory()
               if (errorFiles.length > 0) {
                 console.debug("Save error:" + errorFiles)
               }
+              app.tagsToFrameModels()
             }
           }
           MenuItem {
