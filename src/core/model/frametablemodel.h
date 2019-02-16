@@ -47,7 +47,8 @@ public:
     TruncatedRole =  Qt::UserRole + 5,
     InternalNameRole =  Qt::UserRole + 6,
     FieldIdsRole =  Qt::UserRole + 7,
-    FieldValuesRole =  Qt::UserRole + 8
+    FieldValuesRole =  Qt::UserRole + 8,
+    CompletionsRole =  Qt::UserRole + 9
   };
 
   /** Column indices. */

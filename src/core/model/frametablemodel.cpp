@@ -47,6 +47,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[FrameTableModel::InternalNameRole] = "internalName";
   roles[FrameTableModel::FieldIdsRole] = "fieldIds";
   roles[FrameTableModel::FieldValuesRole] = "fieldValues";
+  roles[FrameTableModel::CompletionsRole] = "completions";
   return roles;
 }
 
@@ -174,6 +175,10 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     for (auto fit = fields.constBegin(); fit != fields.constEnd(); ++fit) {
       result.append(fit->m_value);
     }
+    return result;
+  } else if (role == CompletionsRole) {
+    QStringList result = getCompletionsForType(it->getExtendedType()).toList();
+    result.sort();
     return result;
   }
   return QVariant();

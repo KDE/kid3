@@ -58,6 +58,28 @@ ItemDelegate {
   }
 
   Component {
+    id: differentTextEdit
+    Item {
+      ComboBox {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        editable: true
+        model: [String.fromCharCode(0x2260)].concat(
+          script.getRoleData(frameModel, index, "completions"))
+        onCurrentTextChanged: script.setRoleData(frameModel, index, "value",
+                              currentIndex === -1 && editText || currentText)
+        Component.onCompleted: {
+          currentIndex = model.indexOf(value)
+          if (currentIndex === -1) {
+            editText = value;
+          }
+        }
+      }
+    }
+  }
+
+  Component {
     id: genreEdit
     Item {
       ComboBox {
@@ -152,7 +174,8 @@ ItemDelegate {
       height: parent.height
       sourceComponent: !frameDelegate.ListView.isCurrentItem
                        ? valueText : frameType === Kid3.Frame.FT_Genre
-                         ? genreEdit : textEdit
+                         ? genreEdit : value === String.fromCharCode(0x2260)
+                           ? differentTextEdit : textEdit
     }
 
   }
