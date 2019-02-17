@@ -118,11 +118,19 @@ Rectangle {
           width: constants.gu(2)
           height: constants.gu(2)
           Image {
-            source: iconId == "modified"
-                    ? "../icons/modified.svg"
-                    : "image://kid3/fileicon/" + (iconId || "null")
+            source: "image://kid3/fileicon/" +
+                    (iconId && iconId != "modified" ? iconId : "null")
             sourceSize.width: parent.width
             sourceSize.height: parent.height
+            visible: iconId != "modified"
+          }
+          Text {
+            anchors.fill: parent
+            font.family: materialFont.name
+            font.pixelSize: 16
+            text: "M"
+            color: fileText.color
+            visible: iconId == "modified"
           }
         }
         Label {

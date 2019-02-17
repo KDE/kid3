@@ -72,6 +72,7 @@ Page {
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
       iconName: "go-previous"
+      color: titleLabel.color
       width: visible ? height : 0
       visible: page.StackView.view && page.StackView.view.depth > 1
       onClicked: page.StackView.view.pop()

@@ -1,0 +1,90 @@
+#!/usr/bin/fontforge -script
+# -*- mode: python; -*-
+# Taken from https://github.com/pteromys/svgs2ttf
+# Modified to run without argument to generate kid3material.ttf.
+
+import sys
+import os.path
+import json
+
+IMPORT_OPTIONS = ('removeoverlap', 'correctdir')
+
+try:
+    unicode
+except NameError:
+    unicode = str
+
+def loadConfig(filename='font.json'):
+    with open(filename) as f:
+        return json.load(f)
+
+def setProperties(font, config):
+    props = config['props']
+    lang = props.pop('lang', 'English (US)')
+    family = props.pop('family', None)
+    style = props.pop('style', 'Regular')
+    props['encoding'] = props.get('encoding', 'UnicodeFull')
+    if family is not None:
+        font.familyname = family
+        font.fontname = family + '-' + style
+        font.fullname = family + ' ' + style
+    for k, v in config['props'].items():
+        if hasattr(font, k):
+            if isinstance(v, list):
+                v = tuple(v)
+            setattr(font, k, v)
+        else:
+            font.appendSFNTName(lang, k, v)
+    for t in config.get('sfnt_names', []):
+        font.appendSFNTName(str(t[0]), str(t[1]), unicode(t[2]))
+
+def addGlyphs(font, config):
+    for k, v in config['glyphs'].items():
+        g = font.createMappedChar(int(k, 0))
+        # Get outlines
+        src = '%s.svg' % k
+        if not isinstance(v, dict):
+            v = {'src': v or src}
+        src = '%s%s%s' % (config.get('input', '.'), os.path.sep, v.pop('src', src))
+        g.importOutlines(src, IMPORT_OPTIONS)
+        g.removeOverlap()
+        # Copy attributes
+        for k2, v2 in v.items():
+            if hasattr(g, k2):
+                if isinstance(v2, list):
+                    v2 = tuple(v2)
+                setattr(g, k2, v2)
+
+def processConfig(config):
+    font = fontforge.font()
+    setProperties(font, config)
+    addGlyphs(font, config)
+    for outfile in config['output']:
+        sys.stderr.write('Generating %s...\n' % outfile)
+        font.generate(outfile)
+
+def main(config_file):
+    config = loadConfig(config_file)
+    os.chdir(os.path.dirname(config_file) or '.')
+    processConfig(config)
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        sys.stdout.write('Generating font for kid3\n')
+        config = {
+            'output': ['kid3material.ttf'],
+            'glyphs': {'0x3e': 'chevron_right.svg', '0x3d': 'menu.svg',
+                       '0x4d': 'modified.svg', '0x3c': 'chevron_left.svg',
+                       '0x5e': 'expand_less.svg', '0x53': 'select_all.svg',
+                       '0x2b': 'add.svg', '0x3a': 'more_vert.svg',
+                       '0x58': 'clear.svg', '0x2f': 'create.svg',
+                       '0x2d': 'remove.svg'},
+            'props': {'em': 1024, 'ascent': 960, 'descent': 64,
+                      'family': 'kid3material'}
+            }
+        processConfig(config)
+        #sys.stderr.write("\nUsage: %s something.json\n" % sys.argv[0] )
+
+# vim: set filetype=python:

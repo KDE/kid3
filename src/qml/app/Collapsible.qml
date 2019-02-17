@@ -29,6 +29,7 @@ Column {
   property alias checked: checkBox.checked
   property alias buttons: buttonContainer.data
   property alias content: contentContainer.content
+  property alias labelColor: label.color
 
   Rectangle {
     id: collapsibleRect

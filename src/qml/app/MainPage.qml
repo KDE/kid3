@@ -60,6 +60,7 @@ Page {
       anchors.verticalCenter: parent.verticalCenter
       iconName: page.StackView.view.depth > 1 ? "go-previous"
                                               : "drawer";
+      color: titleLabel.color
       width: height
       onClicked: {
         if (page.StackView.view.depth > 1) {
@@ -100,6 +101,7 @@ Page {
       spacing: constants.spacing
       IconButton {
         iconName: "go-up"
+        color: titleLabel.color
         width: height
         onClicked: {
           var parentDir = fileList.parentFilePath()
@@ -111,6 +113,7 @@ Page {
       IconButton {
         property bool selectAll: true
         iconName: "select"
+        color: titleLabel.color
         width: height
         onClicked: {
           if (selectAll) {
@@ -124,12 +127,14 @@ Page {
       IconButton {
         id: previousButton
         iconName: "go-previous"
+        color: titleLabel.color
         visible: body.state != "narrow" || drawer.position === 0.0
         width: height
         onClicked: app.previousFile()
       }
       IconButton {
         iconName: "go-next"
+        color: titleLabel.color
         visible: previousButton.visible
         width: height
         onClicked: app.nextFile()
@@ -137,6 +142,7 @@ Page {
       IconButton {
         id: menuButton
         iconName: "navigation-menu"
+        color: titleLabel.color
         width: height
         onClicked: menu.open()
         Menu {

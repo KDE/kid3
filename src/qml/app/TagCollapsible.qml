@@ -42,6 +42,7 @@ Collapsible {
   buttons: [
     IconButton {
       iconName: "edit"
+      color: collapsible.labelColor
       width: height
       onClicked: {
         appTag.frameList.selectByRow(frameTable.currentIndex)
@@ -51,6 +52,7 @@ Collapsible {
     },
     IconButton {
       iconName: "add"
+      color: collapsible.labelColor
       width: height
       onClicked: {
         appTag.addFrame()
@@ -59,6 +61,7 @@ Collapsible {
     },
     IconButton {
       iconName: "remove"
+      color: collapsible.labelColor
       width: height
       onClicked: {
         appTag.frameList.selectByRow(frameTable.currentIndex)
@@ -69,6 +72,7 @@ Collapsible {
     IconButton {
       id: menuButton
       iconName: "navigation-menu"
+      color: collapsible.labelColor
       width: height
       onClicked: menu.open()
 

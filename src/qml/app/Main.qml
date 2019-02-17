@@ -36,6 +36,11 @@ ApplicationWindow {
   width: constants.gu(100)
   height: constants.gu(100)
 
+  FontLoader {
+    id: materialFont
+    source: "../icons/kid3material.ttf"
+  }
+
   UiConstants {
     id: constants
   }

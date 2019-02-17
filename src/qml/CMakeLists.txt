@@ -13,7 +13,7 @@ if(NOT HAVE_QMLDIR_IN_QRC)
             FILES_MATCHING PATTERN "*.qml" PATTERN "*.js")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons
             DESTINATION ${WITH_QMLDIR}
-            FILES_MATCHING PATTERN "*.png" PATTERN "*.svg")
+            FILES_MATCHING PATTERN "*.ttf" PATTERN "triangle_*.svg")
   endif()
 
   # Only used to add the QML sources to the project.

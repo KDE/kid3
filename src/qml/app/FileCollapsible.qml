@@ -35,15 +35,19 @@ Collapsible {
   content: Item {
     width: parent.width
     height: fileNameEdit.height + constants.gu(2)
-    Image {
+    Item {
       id: fileNameModifiedImage
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
-      source: app.selectionInfo.fileNameChanged
-              ? "../icons/modified.svg"
-              : "image://kid3/fileicon/null"
-      sourceSize.width: constants.gu(2)
-      sourceSize.height: constants.gu(2)
+      width: constants.gu(2)
+      height: constants.gu(2)
+      Text {
+        font.family: materialFont.name
+        font.pixelSize: 16
+        text: "M"
+        color: fileNameLabel.color
+        visible: app.selectionInfo.fileNameChanged
+      }
     }
     Label {
       id: fileNameLabel

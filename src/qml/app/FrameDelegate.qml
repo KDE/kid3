@@ -148,11 +148,12 @@ ItemDelegate {
       color: truncated ? constants.errorColor : "transparent"
       width: constants.gu(2)
       height: constants.gu(2)
-      Image {
-        source: modified ? "../icons/modified.svg"
-                         : "image://kid3/fileicon/null"
-        sourceSize.width: parent.width
-        sourceSize.height: parent.height
+      Text {
+        font.family: materialFont.name
+        font.pixelSize: 16
+        text: "M"
+        color: frameNameLabel.color
+        visible: modified
       }
     }
     Label {

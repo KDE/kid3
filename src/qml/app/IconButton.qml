@@ -26,21 +26,25 @@ import QtQuick.Controls 2.2
 
 ToolButton {
   property string iconName
+  property alias color: text.color
 
-  ScaledImage {
+  Text {
+    id: text
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
-    source: if (iconName) "../icons/" + {
-              "go-up": "expand_less.svg",
-              "select": "select_all.svg",
-              "clear": "clear.svg",
-              "go-previous": "chevron_left.svg",
-              "go-next": "chevron_right.svg",
-              "drawer": "menu.svg",
-              "navigation-menu": "more_vert.svg",
-              "edit": "create.svg",
-              "add": "add.svg",
-              "remove": "remove.svg"
+    font.family: materialFont.name
+    font.pixelSize: 24
+    text: if (iconName) {
+              "go-up": "^",
+              "select": "S",
+              "clear": "X",
+              "go-previous": "<",
+              "go-next": ">",
+              "drawer": "=",
+              "navigation-menu": ":",
+              "edit": "/",
+              "add": "+",
+              "remove": "-"
             }[iconName]
   }
 }

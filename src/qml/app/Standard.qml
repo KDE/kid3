@@ -63,12 +63,16 @@ ItemDelegate {
         if (control) control.parent = controlContainer;
       }
     }
-    ScaledImage {
+    Text {
       id: progressionImage
       anchors.right: parent.right
       anchors.verticalCenter: parent.verticalCenter
       anchors.margins: constants.margins
-      source: "../icons/chevron_right.svg"
+      font.family: materialFont.name
+      font.pixelSize: 24
+      text: ">"
+      color: highlighted
+             ? constants.highlightedTextColor :constants.textColor
       visible: progression
     }
   }
