@@ -155,6 +155,15 @@ ItemDelegate {
         color: frameNameLabel.color
         visible: modified
       }
+      MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+      }
+      ToolTip {
+        parent: frameNameLabel
+        visible: mouseArea.pressed && truncated && notice
+        text: notice
+      }
     }
     Label {
       id: frameNameLabel
