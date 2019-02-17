@@ -145,9 +145,13 @@ Dialog {
         width: parent.width
         text: qsTr("Import")
         onClicked: {
+          var coverFileName = configs.fileConfig().defaultCoverFileName
+          if (coverFileName.indexOf("%") !== -1) {
+            coverFileName = app.selectionInfo.formatString(Kid3.Frame.Tag_2,
+                                                           coverFileName)
+          }
           constants.openPopup(importFileSelectDialog, importButton,
-                        {"filePath": app.dirName + "/" +
-                                     configs.fileConfig().defaultCoverFileName,
+                        {"filePath": app.dirName + "/" + coverFileName,
                           "field": _modelData})
         }
       }
@@ -158,9 +162,13 @@ Dialog {
         text: qsTr("Export")
 
         onClicked: {
+          var coverFileName = configs.fileConfig().defaultCoverFileName
+          if (coverFileName.indexOf("%") !== -1) {
+            coverFileName = app.selectionInfo.formatString(Kid3.Frame.Tag_2,
+                                                           coverFileName)
+          }
           constants.openPopup(exportFileSelectDialog, exportButton,
-                        {"filePath": app.dirName + "/" +
-                                     configs.fileConfig().defaultCoverFileName,
+                        {"filePath": app.dirName + "/" + coverFileName,
                           "field": _modelData})
         }
       }

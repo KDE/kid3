@@ -656,12 +656,15 @@ public:
    * @param field      field to edit
    * @param frame      frame with fields to edit
    * @param taggedFile file
+   * @param tagNr tag number
    */
   BinFieldControl(IPlatformTools* platformTools, Kid3Application* app,
                   Frame::Field& field,
-                  const Frame& frame, const TaggedFile* taggedFile)
+                  const Frame& frame, const TaggedFile* taggedFile,
+                  Frame::TagNumber tagNr)
     : Mp3FieldControl(field), m_platformTools(platformTools), m_app(app),
-      m_bos(nullptr), m_frame(frame), m_taggedFile(taggedFile) {}
+      m_bos(nullptr), m_frame(frame), m_taggedFile(taggedFile), m_tagNr(tagNr)
+  {}
 
   /**
    * Destructor.
@@ -693,6 +696,8 @@ protected:
   const Frame& m_frame;
   /** tagged file */
   const TaggedFile* m_taggedFile;
+  /** number of edited tag */
+  Frame::TagNumber m_tagNr;
 
 private:
   Q_DISABLE_COPY(BinFieldControl)
@@ -723,7 +728,13 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
   if (m_frame.getType() == Frame::FT_Picture) {
-    m_bos->setDefaultFile(FileConfig::instance().defaultCoverFileName());
+    QString coverFileName = FileConfig::instance().defaultCoverFileName();
+    if (coverFileName.contains(QLatin1Char('%'))) {
+      TrackData trackData(*const_cast<TaggedFile*>(m_taggedFile),
+                          Frame::tagVersionFromNumber(m_tagNr));
+      coverFileName = trackData.formatString(coverFileName);
+    }
+    m_bos->setDefaultFile(coverFileName);
     const char* const imagesStr = QT_TRANSLATE_NOOP("@default", "Images");
     const char* const allFilesStr = QT_TRANSLATE_NOOP("@default", "All Files");
     m_bos->setFilter(m_platformTools->fileDialogNameFilter(
@@ -1398,7 +1409,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::ByteArray:
       {
         auto binctl = new BinFieldControl(
-              m_platformTools, m_app, fld, frame, taggedFile);
+              m_platformTools, m_app, fld, frame, taggedFile, tagNr);
         m_fieldcontrols.append(binctl);
         break;
       }
