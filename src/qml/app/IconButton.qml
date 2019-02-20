@@ -36,6 +36,7 @@ ToolButton {
     font.pixelSize: 24
     text: if (iconName) {
               "go-up": "^",
+              "go-down": "V",
               "select": "S",
               "clear": "X",
               "go-previous": "<",

@@ -80,7 +80,7 @@ if __name__ == '__main__':
                        '0x5e': 'expand_less.svg', '0x53': 'select_all.svg',
                        '0x2b': 'add.svg', '0x3a': 'more_vert.svg',
                        '0x58': 'clear.svg', '0x2f': 'create.svg',
-                       '0x2d': 'remove.svg'},
+                       '0x2d': 'remove.svg', '0x56': 'expand_more.svg'},
             'props': {'em': 1024, 'ascent': 960, 'descent': 64,
                       'family': 'kid3material'}
             }
