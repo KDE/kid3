@@ -39,209 +39,203 @@ AbstractSettingsPage {
   Component {
     id: tagsPage
     AbstractSettingsPage {
+      property QtObject tagCfg: configs.tagConfig()
+      property QtObject fmtCfg: configs.tagFormatConfig()
       title: qsTr("Tags")
       visible: false
       model: [
         SettingsElement {
           name: qsTr("Mark truncated fields")
+          onActivated: function() { value = tagCfg.markTruncations; }
+          onDeactivated: function() { tagCfg.markTruncations = value; }
         },
         SettingsElement {
           name: qsTr("ID3v1 text encoding")
           dropDownModel: configs.tagConfig().getTextCodecNames()
+          onActivated: function() { value = tagCfg.textEncodingV1Index; }
+          onDeactivated: function() { tagCfg.textEncodingV1Index = value; }
         },
         SettingsElement {
           name: qsTr("ID3v2 text encoding")
           dropDownModel: configs.tagConfig().getTextEncodingNames()
+          onActivated: function() { value = tagCfg.textEncoding; }
+          onDeactivated: function() { tagCfg.textEncoding = value; }
         },
         SettingsElement {
           name: qsTr("Use track/total number of tracks format")
+          onActivated: function() { value = tagCfg.enableTotalNumberOfTracks; }
+          onDeactivated: function() { tagCfg.enableTotalNumberOfTracks = value; }
         },
         SettingsElement {
           name: qsTr("Genre as text instead of numeric string")
+          onActivated: function() { value = tagCfg.genreNotNumeric; }
+          onDeactivated: function() { tagCfg.genreNotNumeric = value; }
         },
         SettingsElement {
           name: qsTr("WAV files with lowercase id3 chunk")
+          onActivated: function() { value = tagCfg.lowercaseId3RiffChunk; }
+          onDeactivated: function() { tagCfg.lowercaseId3RiffChunk = value; }
         },
         SettingsElement {
           name: qsTr("Version used for new ID3v2 tags")
           dropDownModel: configs.tagConfig().getId3v2VersionNames()
+          onActivated: function() { value = tagCfg.id3v2Version; }
+          onDeactivated: function() { tagCfg.id3v2Version = value; }
         },
         SettingsElement {
           name: qsTr("Ogg/Vorbis comment field name")
           dropDownModel: configs.tagConfig().getCommentNames()
           value: ""
+          onActivated: function() { value = tagCfg.commentName; }
+          onDeactivated: function() { tagCfg.commentName = value; }
         },
         SettingsElement {
           name: qsTr("Ogg/Vorbis picture field name")
           dropDownModel: configs.tagConfig().getPictureNames()
+          onActivated: function() { value = tagCfg.pictureNameIndex; }
+          onDeactivated: function() { tagCfg.pictureNameIndex = value; }
         },
         SettingsElement {
           name: qsTr("RIFF track number field name")
           dropDownModel: configs.tagConfig().getRiffTrackNames()
           value: ""
+          onActivated: function() { value = tagCfg.riffTrackName; }
+          onDeactivated: function() { tagCfg.riffTrackName = value; }
         },
         SettingsElement {
           name: qsTr("Mark if picture larger than maxium size")
+          onActivated: function() { value = tagCfg.markOversizedPictures; }
+          onDeactivated: function() { tagCfg.markOversizedPictures = value; }
         },
         SettingsElement {
           name: qsTr("Picture maximum size (bytes)")
+          onActivated: function() { value = tagCfg.maximumPictureSize; }
+          onDeactivated: function() { tagCfg.maximumPictureSize = value; }
         },
         SettingsElement {
           name: qsTr("Show only custom genres")
+          onActivated: function() { value = tagCfg.onlyCustomGenres; }
+          onDeactivated: function() { tagCfg.onlyCustomGenres = value; }
         },
         SettingsElement {
           name: qsTr("Case conversion")
           dropDownModel: configs.tagFormatConfig().getCaseConversionNames()
+          onActivated: function() { value = fmtCfg.caseConversion; }
+          onDeactivated: function() { fmtCfg.caseConversion = value; }
         },
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.tagFormatConfig().getLocaleNames()
           value: ""
+          onActivated: function() {
+            value = dropDownModel.indexOf(fmtCfg.localeName) === -1
+                ? dropDownModel[0] : fmtCfg.localeName;
+          }
+          onDeactivated: function() {
+            fmtCfg.localeName = dropDownModel.indexOf(value) > 0 ? value : "";
+          }
         },
         SettingsElement {
           name: qsTr("String replacement")
+          onActivated: function() { value = fmtCfg.strRepEnabled; }
+          onDeactivated: function() { fmtCfg.strRepEnabled = value; }
         }
       ]
-      StackView.onActivated: {
-        var tagCfg = configs.tagConfig()
-        var fmtCfg = configs.tagFormatConfig()
-        model[0].value = tagCfg.markTruncations
-        model[1].value = tagCfg.textEncodingV1Index
-        model[2].value = tagCfg.textEncoding
-        model[3].value = tagCfg.enableTotalNumberOfTracks
-        model[4].value = tagCfg.genreNotNumeric
-        model[5].value = tagCfg.lowercaseId3RiffChunk
-        model[6].value = tagCfg.id3v2Version
-        model[7].value = tagCfg.commentName
-        model[8].value = tagCfg.pictureNameIndex
-        model[9].value = tagCfg.riffTrackName
-        model[10].value = tagCfg.markOversizedPictures
-        model[11].value = tagCfg.maximumPictureSize
-        model[12].value = tagCfg.onlyCustomGenres
-        model[13].value = fmtCfg.caseConversion
-        model[14].value =
-            model[14].dropDownModel.indexOf(fmtCfg.localeName) === -1
-            ? model[14].dropDownModel[0] : fmtCfg.localeName
-        model[15].value = fmtCfg.strRepEnabled
-      }
-      StackView.onDeactivated: {
-        var tagCfg = configs.tagConfig()
-        var fmtCfg = configs.tagFormatConfig()
-        tagCfg.markTruncations = model[0].value
-        tagCfg.textEncodingV1Index = model[1].value
-        tagCfg.textEncoding = model[2].value
-        tagCfg.enableTotalNumberOfTracks = model[3].value
-        tagCfg.genreNotNumeric = model[4].value
-        tagCfg.lowercaseId3RiffChunk = model[5].value
-        tagCfg.id3v2Version = model[6].value
-        tagCfg.commentName = model[7].value
-        tagCfg.pictureNameIndex = model[8].value
-        tagCfg.riffTrackName = model[9].value
-        tagCfg.markOversizedPictures = model[10].value
-        tagCfg.maximumPictureSize = model[11].value
-        tagCfg.onlyCustomGenres = model[12].value
-        fmtCfg.caseConversion = model[13].value
-        fmtCfg.localeName =
-            model[14].dropDownModel.indexOf(model[14].value) > 0
-            ? model[14].value : ""
-        fmtCfg.strRepEnabled = model[15].value
-      }
+      StackView.onActivated: activateAll()
+      StackView.onDeactivated: deactivateAll()
     }
   }
   Component {
     id: filesPage
     AbstractSettingsPage {
+      property QtObject fileCfg: configs.fileConfig()
+      property QtObject fmtCfg: configs.filenameFormatConfig()
       title: qsTr("Files")
       visible: false
       model: [
         SettingsElement {
           name: qsTr("Load last-opened files")
+          onActivated: function() { value = fileCfg.loadLastOpenedFile; }
+          onDeactivated: function() { fileCfg.loadLastOpenedFile = value; }
         },
         SettingsElement {
           name: qsTr("Preserve file timestamp")
+          onActivated: function() { value = fileCfg.preserveTime; }
+          onDeactivated: function() { fileCfg.preserveTime = value; }
         },
         SettingsElement {
           name: qsTr("Mark changes")
+          onActivated: function() { value = fileCfg.markChanges; }
+          onDeactivated: function() { fileCfg.markChanges = value; }
         },
         SettingsElement {
           name: qsTr("Automatically apply format")
+          onActivated: function() { value = fmtCfg.formatWhileEditing; }
+          onDeactivated: function() { fmtCfg.formatWhileEditing = value; }
         },
         SettingsElement {
           name: qsTr("Use maximum length")
+          onActivated: function() { value = fmtCfg.enableMaximumLength; }
+          onDeactivated: function() { fmtCfg.enableMaximumLength = value; }
         },
         SettingsElement {
           name: qsTr("Maximum length")
+          onActivated: function() { value = fmtCfg.maximumLength; }
+          onDeactivated: function() { fmtCfg.maximumLength = value; }
         },
         SettingsElement {
           name: qsTr("Case conversion")
           dropDownModel: configs.filenameFormatConfig().getCaseConversionNames()
+          onActivated: function() { value = fmtCfg.caseConversion; }
+          onDeactivated: function() { fmtCfg.caseConversion = value; }
         },
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.filenameFormatConfig().getLocaleNames()
           value: ""
+          onActivated: function() {
+            value = dropDownModel.indexOf(fmtCfg.localeName) === -1
+                ? dropDownModel[0] : fmtCfg.localeName;
+          }
+          onDeactivated: function() {
+            fmtCfg.localeName = dropDownModel.indexOf(value) > 0 ? value : "";
+          }
         },
         SettingsElement {
           name: qsTr("String replacement")
+          onActivated: function() { value = fmtCfg.strRepEnabled; }
+          onDeactivated: function() { fmtCfg.strRepEnabled = value; }
         },
         SettingsElement {
           name: qsTr("Filename for cover")
+          onActivated: function() { value = fileCfg.defaultCoverFileName; }
+          onDeactivated: function() { fileCfg.defaultCoverFileName = value; }
         },
         SettingsElement {
           name: qsTr("Playlist text encoding")
           dropDownModel: configs.fileConfig().getTextCodecNames()
+          onActivated: function() { value = fileCfg.textEncodingIndex; }
+          onDeactivated: function() { fileCfg.textEncodingIndex = value; }
         },
         SettingsElement {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
           value: ""
           width: constants.gu(45)
+          onActivated: function() { value = fileCfg.toFilenameFormat; }
+          onDeactivated: function() { fileCfg.toFilenameFormat = value; }
         },
         SettingsElement {
           name: qsTr("From filename format")
           dropDownModel: configs.fileConfig().fromFilenameFormats
           value: ""
           width: constants.gu(45)
+          onActivated: function() { value = fileCfg.fromFilenameFormat; }
+          onDeactivated: function() { fileCfg.fromFilenameFormat = value; }
         }
       ]
-      StackView.onActivated: {
-        var fileCfg = configs.fileConfig()
-        var fmtCfg = configs.filenameFormatConfig()
-        model[0].value = fileCfg.loadLastOpenedFile
-        model[1].value = fileCfg.preserveTime
-        model[2].value = fileCfg.markChanges
-        model[3].value = fmtCfg.formatWhileEditing
-        model[4].value = fmtCfg.enableMaximumLength
-        model[5].value = fmtCfg.maximumLength
-        model[6].value = fmtCfg.caseConversion
-        model[7].value =
-            model[7].dropDownModel.indexOf(fmtCfg.localeName) === -1
-            ? model[7].dropDownModel[0] : fmtCfg.localeName
-        model[8].value = fmtCfg.strRepEnabled
-        model[9].value = fileCfg.defaultCoverFileName
-        model[10].value = fileCfg.textEncodingIndex
-        model[11].value = fileCfg.toFilenameFormat
-        model[12].value = fileCfg.fromFilenameFormat
-      }
-      StackView.onDeactivated: {
-        var fileCfg = configs.fileConfig()
-        var fmtCfg = configs.filenameFormatConfig()
-        fileCfg.loadLastOpenedFile = model[0].value
-        fileCfg.preserveTime = model[1].value
-        fileCfg.markChanges = model[2].value
-        fmtCfg.formatWhileEditing = model[3].value
-        fmtCfg.enableMaximumLength = model[4].value
-        fmtCfg.maximumLength = model[5].value
-        fmtCfg.caseConversion = model[6].value
-        fmtCfg.localeName =
-            model[7].dropDownModel.indexOf(model[7].value) > 0
-            ? model[7].value : ""
-        fmtCfg.strRepEnabled = model[8].value
-        fileCfg.defaultCoverFileName = model[9].value
-        fileCfg.textEncodingIndex = model[10].value
-        fileCfg.toFilenameFormat = model[11].value
-        fileCfg.fromFilenameFormat = model[12].value
-      }
+      StackView.onActivated: activateAll()
+      StackView.onDeactivated: deactivateAll()
     }
   }
   Component {
@@ -304,6 +298,7 @@ AbstractSettingsPage {
   Component {
     id: appearancePage
     AbstractSettingsPage {
+      property QtObject mainWindowCfg: configs.mainWindowConfig()
       title: qsTr("Appearance")
       visible: false
       model: [
@@ -311,16 +306,12 @@ AbstractSettingsPage {
           name: qsTr("Theme")
           value: ""
           dropDownModel: configs.mainWindowConfig().getQtQuickStyleNames()
+          onActivated: function() { value = mainWindowCfg.qtQuickStyle; }
+          onDeactivated: function() { mainWindowCfg.qtQuickStyle = value; }
         }
       ]
-      StackView.onActivated: {
-        var mainWindowCfg = configs.mainWindowConfig()
-        model[0].value = mainWindowCfg.qtQuickStyle
-      }
-      StackView.onDeactivated: {
-        var mainWindowCfg = configs.mainWindowConfig()
-        mainWindowCfg.qtQuickStyle = model[0].value
-      }
+      StackView.onActivated: activateAll()
+      StackView.onDeactivated: deactivateAll()
     }
   }
 }

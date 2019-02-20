@@ -28,4 +28,6 @@ QtObject {
   property variant value
   property variant dropDownModel
   property int width
+  property var onActivated
+  property var onDeactivated
 }

@@ -22,6 +22,7 @@
  */
 
 import QtQuick 2.9
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 Page {
@@ -29,6 +30,22 @@ Page {
 
   signal clicked(int index)
   property list<SettingsElement> model
+
+  function activateAll() {
+    for (var i = 0; i < model.length; i++) {
+      if (model[i].onActivated) {
+        model[i].onActivated()
+      }
+    }
+  }
+
+  function deactivateAll() {
+    for (var i = 0; i < model.length; i++) {
+      if (model[i].onDeactivated) {
+        model[i].onDeactivated()
+      }
+    }
+  }
 
   header: ToolBar {
     IconButton {
@@ -97,6 +114,27 @@ Page {
       }
     }
     Component {
+      id: stringSelectionEditDelegate
+      SettingsItem {
+        id: settingsItem
+        text: _modelData.name
+        control: RowLayout {
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
+          IconButton {
+            iconName: "edit"
+            color: settingsItem.labelColor
+            onClicked: _modelData.onEdit()
+          }
+          ComboBox {
+            Layout.fillWidth: true
+            model: _modelData.dropDownModel
+            onCurrentTextChanged: _modelData.value = currentText
+            currentIndex: find(_modelData.value)
+          }
+        }
+      }
+    }
+    Component {
       id: numberDelegate
       SettingsItem {
         text: _modelData.name
@@ -154,7 +192,10 @@ Page {
               booleanDelegate
             else if (typeof modelData.value === "string")
               if (modelData.dropDownModel)
-                stringSelectionDelegate
+                if (onEdit)
+                  stringSelectionEditDelegate
+                else
+                  stringSelectionDelegate
               else
                 stringDelegate
             else if (typeof modelData.value === "number")
