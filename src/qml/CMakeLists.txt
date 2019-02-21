@@ -59,6 +59,7 @@ if(NOT HAVE_QMLDIR_IN_QRC)
       app/ThinDivider.qml
       app/IconButton.qml
       app/ThinDivider.qml
+      app/StringListEditPage.qml
     )
   endif()  
 endif()

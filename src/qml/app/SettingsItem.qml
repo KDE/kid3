@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Oct 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2019  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,6 +28,7 @@ Rectangle {
 
   property bool selected: false
   property alias text: textLabel.text
+  property alias labelColor: textLabel.color
   property alias control: controlContainer.control
 
   property bool horizontal : !control ||

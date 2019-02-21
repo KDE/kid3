@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2019  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,6 +22,7 @@
  */
 
 import QtQuick 2.9
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import Kid3 1.1 as Kid3
 
@@ -139,13 +140,36 @@ Page {
       height: formatComboBox.height
       text: qsTr("Format:")
     }
-    ComboBox {
-      id: formatComboBox
+    RowLayout {
       width: parent.valueWidth
-      model: page.formats
-      onCurrentIndexChanged: {
-        page.format = model[currentIndex]
-        page.refreshPreview()
+      IconButton {
+        iconName: "edit"
+        color: formatLabel.color
+        onClicked: page.StackView.view.push(editDirFormatsPage)
+
+        StringListEditPage {
+          id: editDirFormatsPage
+          title: qsTr("Directory Name from Tag")
+          visible: false
+          StackView.onActivated: {
+            setList(page.formats)
+            setCurrentIndex(formatComboBox.currentIndex)
+          }
+          StackView.onDeactivated: {
+            page.formats = getList()
+            formatComboBox.currentIndex = getCurrentIndex()
+            formatComboBox.currentIndexChanged()
+          }
+        }
+      }
+      ComboBox {
+        id: formatComboBox
+        Layout.fillWidth: true
+        model: page.formats
+        onCurrentIndexChanged: {
+          page.format = model[currentIndex]
+          page.refreshPreview()
+        }
       }
     }
   }
@@ -183,15 +207,24 @@ Page {
                         page.format, page.create)
   }
 
-  StackView.onActivated: refreshPreview()
-  StackView.onDeactivated: app.dirRenamer.abort()
+  StackView.onActivated: {
+    refreshPreview()
+  }
+  StackView.onDeactivated: {
+    app.dirRenamer.abort()
+    configs.renDirConfig().dirFormats = formats
+    configs.renDirConfig().dirFormat = format
+  }
 
   Component.onCompleted: {
     var defaultFormats = configs.renDirConfig().dirFormats
     format = configs.renDirConfig().dirFormat
-    if (defaultFormats.indexOf(format) === -1) {
+    var idx = defaultFormats.indexOf(format)
+    if (idx === -1) {
+      idx = defaultFormats.length
       defaultFormats.push(format)
     }
     formats = defaultFormats
+    formatComboBox.currentIndex = idx
   }
 }

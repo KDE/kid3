@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2019  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,4 +30,5 @@ QtObject {
   property int width
   property var onActivated
   property var onDeactivated
+  property var onEdit
 }

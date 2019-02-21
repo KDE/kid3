@@ -24,6 +24,7 @@
     <file alias="app/SettingsPage.qml">../../qml/app/SettingsPage.qml</file>
     <file alias="app/SettingsItem.qml">../../qml/app/SettingsItem.qml</file>
     <file alias="app/Standard.qml">../../qml/app/Standard.qml</file>
+    <file alias="app/StringListEditPage.qml">../../qml/app/StringListEditPage.qml</file>
     <file alias="app/TagCollapsible.qml">../../qml/app/TagCollapsible.qml</file>
     <file alias="app/ThinDivider.qml">../../qml/app/ThinDivider.qml</file>
     <file alias="app/UiConstants.qml">../../qml/app/UiConstants.qml</file>

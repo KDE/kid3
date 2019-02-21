@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2019  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -221,17 +221,45 @@ AbstractSettingsPage {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
           value: ""
-          width: constants.gu(45)
+          width: constants.gu(51)
           onActivated: function() { value = fileCfg.toFilenameFormat; }
           onDeactivated: function() { fileCfg.toFilenameFormat = value; }
+          onEdit: function() {
+            stringListEditPage.title = qsTr("Filename from Tag")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setList(dropDownModel)
+              stringListEditPage.setCurrentIndex(dropDownModel.indexOf(value))
+            }
+            stringListEditPage.onDeactivated = function() {
+              var lst = stringListEditPage.getList()
+              configs.fileConfig().toFilenameFormats = lst
+              configs.fileConfig().toFilenameFormat =
+                  lst[stringListEditPage.getCurrentIndex()]
+            }
+            page.StackView.view.push(stringListEditPage);
+          }
         },
         SettingsElement {
           name: qsTr("From filename format")
           dropDownModel: configs.fileConfig().fromFilenameFormats
           value: ""
-          width: constants.gu(45)
+          width: constants.gu(51)
           onActivated: function() { value = fileCfg.fromFilenameFormat; }
           onDeactivated: function() { fileCfg.fromFilenameFormat = value; }
+          onEdit: function() {
+            stringListEditPage.title = qsTr("Tag from Filename")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setList(dropDownModel)
+              stringListEditPage.setCurrentIndex(dropDownModel.indexOf(value))
+            }
+            stringListEditPage.onDeactivated = function() {
+              var lst = stringListEditPage.getList()
+              configs.fileConfig().fromFilenameFormats = lst
+              configs.fileConfig().fromFilenameFormat =
+                  lst[stringListEditPage.getCurrentIndex()]
+            }
+            page.StackView.view.push(stringListEditPage);
+          }
         }
       ]
       StackView.onActivated: activateAll()
@@ -313,5 +341,14 @@ AbstractSettingsPage {
       StackView.onActivated: activateAll()
       StackView.onDeactivated: deactivateAll()
     }
+  }
+
+  StringListEditPage {
+    id: stringListEditPage
+    property var onActivated
+    property var onDeactivated
+    visible: false
+    StackView.onActivated: onActivated()
+    StackView.onDeactivated: onDeactivated()
   }
 }
