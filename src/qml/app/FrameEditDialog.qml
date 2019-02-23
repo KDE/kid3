@@ -147,7 +147,7 @@ Dialog {
         onClicked: {
           var coverFileName = configs.fileConfig().defaultCoverFileName
           if (coverFileName.indexOf("%") !== -1) {
-            coverFileName = app.selectionInfo.formatString(Kid3.Frame.Tag_2,
+            coverFileName = app.selectionInfo.formatString(Kid3.Frame.TagV2V1,
                                                            coverFileName)
           }
           constants.openPopup(importFileSelectDialog, importButton,
@@ -164,7 +164,7 @@ Dialog {
         onClicked: {
           var coverFileName = configs.fileConfig().defaultCoverFileName
           if (coverFileName.indexOf("%") !== -1) {
-            coverFileName = app.selectionInfo.formatString(Kid3.Frame.Tag_2,
+            coverFileName = app.selectionInfo.formatString(Kid3.Frame.TagV2V1,
                                                            coverFileName)
           }
           constants.openPopup(exportFileSelectDialog, exportButton,
