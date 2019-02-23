@@ -105,6 +105,21 @@ Dialog {
     }
   }
 
+  MessageDialog {
+    signal completed(bool ok)
+
+    id: confirmOverwriteDialog
+    width: Math.min(root.width, constants.gu(70))
+    x: (root.width - width) / 2
+    y: root.height / 6
+    parent: ApplicationWindow.overlay
+    title: qsTr("Warning")
+    text: qsTr("File already exists. Overwrite?")
+    standardButtons: Dialog.Yes | Dialog.No
+    onYes: completed(true)
+    onNo: completed(false)
+  }
+
   Component {
     id: exportFileSelectDialog
     FileSelectDialog {
@@ -113,7 +128,19 @@ Dialog {
       title: qsTr("Export")
       onFinished: {
         if (path) {
-          script.writeFile(path, field.value)
+          if (script.fileExists(path)) {
+            function writeIfOk(ok) {
+              confirmOverwriteDialog.completed.disconnect(writeIfOk)
+              if (ok) {
+                script.writeFile(path, field.value)
+              }
+            }
+
+            confirmOverwriteDialog.completed.connect(writeIfOk)
+            confirmOverwriteDialog.open()
+          } else {
+            script.writeFile(path, field.value)
+          }
         }
       }
     }

@@ -2789,6 +2789,9 @@ msgstr "过滤："
 msgid "Expression:"
 msgstr "表达式："
 
+msgid "File already exists. Overwrite?"
+msgstr "文件已经存在。您要覆盖它吗？"
+
 msgid "About"
 msgstr "关于"
 

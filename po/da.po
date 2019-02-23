@@ -2784,6 +2784,9 @@ msgstr "Filter:"
 msgid "Expression:"
 msgstr "Udtryk:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Filen eksisterer allerede. Overskriv?"
+
 msgid "About"
 msgstr "Om"
 

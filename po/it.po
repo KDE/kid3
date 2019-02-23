@@ -2792,6 +2792,9 @@ msgstr "Filtro:"
 msgid "Expression:"
 msgstr "Espressione:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Il file esiste già. Sovrascrivi?"
+
 msgid "About"
 msgstr "Informazioni su"
 

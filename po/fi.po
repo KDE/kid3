@@ -2792,6 +2792,9 @@ msgstr "Suodin:"
 msgid "Expression:"
 msgstr "Lauseke:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Tiedosto on jo olemassa. Ylikirjoita?"
+
 msgid "About"
 msgstr "Tietoja"
 

@@ -2789,6 +2789,9 @@ msgstr "Filter:"
 msgid "Expression:"
 msgstr "Izraz:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Fajl već postoji. Prebrisati ga?"
+
 msgid "About"
 msgstr "O programu"
 

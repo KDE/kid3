@@ -56,5 +56,6 @@ Dialog {
 
   contentItem: Label {
     id: msg
+    wrapMode: Text.WordWrap
   }
 }

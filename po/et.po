@@ -2790,6 +2790,9 @@ msgstr "Filter:"
 msgid "Expression:"
 msgstr "Avaldis:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Fail on juba olemas. Kas kirjutada see üle?"
+
 msgid "About"
 msgstr "Teave"
 

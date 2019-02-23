@@ -2793,6 +2793,9 @@ msgstr "Filtr:"
 msgid "Expression:"
 msgstr "Výraz:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Soubor již existuje. Chcete jej přepsat?"
+
 msgid "About"
 msgstr "O programu"
 

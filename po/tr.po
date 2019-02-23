@@ -2793,6 +2793,9 @@ msgstr "Filtre:"
 msgid "Expression:"
 msgstr "İfade:"
 
+msgid "File already exists. Overwrite?"
+msgstr "Zaten adında bir dosya var. Üzerine yaz?"
+
 msgid "About"
 msgstr "Hakkında"
 

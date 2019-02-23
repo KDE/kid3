@@ -2795,6 +2795,9 @@ msgstr "篩選:"
 msgid "Expression:"
 msgstr "算式:"
 
+msgid "File already exists. Overwrite?"
+msgstr "檔已經存在。您要覆寫它嗎？"
+
 msgid "About"
 msgstr "關於"
 

@@ -2778,6 +2778,9 @@ msgstr ""
 msgid "Expression:"
 msgstr ""
 
+msgid "File already exists. Overwrite?"
+msgstr ""
+
 msgid "About"
 msgstr ""
 
