@@ -28,7 +28,12 @@ import QtQuick.Controls 2.2
 Page {
   id: page
 
+  readonly property string mapSeparator: String.fromCharCode(0x00a0) +
+                       String.fromCharCode(0x2192) + String.fromCharCode(0x00a0)
+  property bool hasMap: false
+
   function setList(lst) {
+    hasMap = false
     listView.model.clear()
     for (var i = 0; i < lst.length; i++) {
       listView.model.append({"name": lst[i]})
@@ -41,6 +46,28 @@ Page {
       lst.push(listView.model.get(i).name)
     }
     return lst
+  }
+
+  function setMap(map) {
+    hasMap = true
+    listView.model.clear()
+    for (var key in map) {
+      if (map.hasOwnProperty(key)) {
+        listView.model.append({"name": key + mapSeparator + map[key]})
+      }
+    }
+  }
+
+  function getMap() {
+    var map = {}
+    for (var i = 0; i < listView.model.count; i++) {
+      var s = listView.model.get(i).name
+      var sepPos = s.indexOf(mapSeparator)
+      if (sepPos !== -1) {
+        map[s.substring(0, sepPos)] = s.substring(sepPos + mapSeparator.length)
+      }
+    }
+    return map
   }
 
   function setCurrentIndex(index) {
@@ -71,7 +98,7 @@ Page {
       width: parent.width
     }
 
-    onAccepted: completed(true)
+    onAccepted: completed(!hasMap || text.indexOf(mapSeparator) !== -1)
     onRejected: completed(false)
   }
 
@@ -133,7 +160,7 @@ Page {
             }
           }
 
-          editDialog.text = ""
+          editDialog.text = hasMap ? mapSeparator : ""
           editDialog.completed.connect(modifyIfCompleted)
           editDialog.open()
         }
