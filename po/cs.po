@@ -2847,6 +2847,9 @@ msgstr "WAV soubory s malá písmena id3 bloku"
 msgid "Version used for new ID3v2 tags"
 msgstr "Verze používaná pro nové značky ID3v2"
 
+msgid "Track number digits"
+msgstr "Počet číslic v čísle skladby"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Název pole s poznámkou Ogg/Vorbis"
 
@@ -2865,6 +2868,9 @@ msgstr "Největší velikost obrázků (byty)"
 msgid "Show only custom genres"
 msgstr "Ukázat pouze vlastní žánry"
 
+msgid "Custom Genres"
+msgstr "Vlastní žánry"
+
 msgid "Case conversion"
 msgstr "Psaní velkých/malých písmen"
 
@@ -2872,6 +2878,9 @@ msgid "Locale"
 msgstr "Jazyk"
 
 msgid "String replacement"
+msgstr "Nahrazení řetězce"
+
+msgid "String Replacement"
 msgstr "Nahrazení řetězce"
 
 msgid "Load last-opened files"

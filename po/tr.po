@@ -2847,6 +2847,9 @@ msgstr "Küçük id3 parça ile WAV dosyalarını"
 msgid "Version used for new ID3v2 tags"
 msgstr "Yeni tag'lar için kullanılan sürüm"
 
+msgid "Track number digits"
+msgstr "Hane sayısı"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis lütfen yeni dosya ismi yazın"
 
@@ -2865,6 +2868,9 @@ msgstr "Maksimum boyut (bayt)"
 msgid "Show only custom genres"
 msgstr ""
 
+msgid "Custom Genres"
+msgstr ""
+
 msgid "Case conversion"
 msgstr ""
 
@@ -2872,6 +2878,9 @@ msgid "Locale"
 msgstr "Dil"
 
 msgid "String replacement"
+msgstr ""
+
+msgid "String Replacement"
 msgstr ""
 
 msgid "Load last-opened files"

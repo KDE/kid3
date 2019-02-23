@@ -2848,6 +2848,9 @@ msgstr "WAV-bestanden met kleine letters id3 chunk"
 msgid "Version used for new ID3v2 tags"
 msgstr "Gebruikte versie voor nieuwe Tags"
 
+msgid "Track number digits"
+msgstr "Tracknummer aantal cijfers"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis naam commentaarveld"
 
@@ -2866,6 +2869,9 @@ msgstr "Maximum grootte (bytes)"
 msgid "Show only custom genres"
 msgstr "Toon alleen aangepaste genres"
 
+msgid "Custom Genres"
+msgstr "Aangepaste Genres"
+
 msgid "Case conversion"
 msgstr "Hoofd-/kleine letter"
 
@@ -2873,6 +2879,9 @@ msgid "Locale"
 msgstr "Taal"
 
 msgid "String replacement"
+msgstr "Tekenreeks vervangen"
+
+msgid "String Replacement"
 msgstr "Tekenreeks vervangen"
 
 msgid "Load last-opened files"

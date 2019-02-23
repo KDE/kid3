@@ -2851,6 +2851,9 @@ msgstr "Файлы WAV с блоком id3 в нижнем регистре"
 msgid "Version used for new ID3v2 tags"
 msgstr "Версия, используемая для новых тегов ID3v2"
 
+msgid "Track number digits"
+msgstr "Количество цифр в номере дорожки"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Имя поля комментария Ogg/Vorbis"
 
@@ -2869,6 +2872,9 @@ msgstr "Максимальный размер изображения (в бай�
 msgid "Show only custom genres"
 msgstr "Показывать только пользовательские жанры"
 
+msgid "Custom Genres"
+msgstr "Пользовательские жанры"
+
 msgid "Case conversion"
 msgstr "Преобразование регистра"
 
@@ -2876,6 +2882,9 @@ msgid "Locale"
 msgstr "Локаль"
 
 msgid "String replacement"
+msgstr "Замена строк"
+
+msgid "String Replacement"
 msgstr "Замена строк"
 
 msgid "Load last-opened files"

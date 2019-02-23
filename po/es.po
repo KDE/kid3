@@ -2845,6 +2845,9 @@ msgstr "Archivos WAV con minúscula porción id3"
 msgid "Version used for new ID3v2 tags"
 msgstr "Versión utilizada para nuevas etiquetas"
 
+msgid "Track number digits"
+msgstr "Número de dígitos en pista"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis nombre de campo comentario"
 
@@ -2863,6 +2866,9 @@ msgstr "Tamaño máximo de imágenes (bytes)"
 msgid "Show only custom genres"
 msgstr "Mostrar sólo géneros personalizados"
 
+msgid "Custom Genres"
+msgstr "Géneros personalizados"
+
 msgid "Case conversion"
 msgstr "Mayúsculas / minúsculas"
 
@@ -2870,6 +2876,9 @@ msgid "Locale"
 msgstr "Locale"
 
 msgid "String replacement"
+msgstr "Reemplazar cadenas"
+
+msgid "String Replacement"
 msgstr "Reemplazar cadenas"
 
 msgid "Load last-opened files"

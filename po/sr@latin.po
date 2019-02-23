@@ -2843,6 +2843,9 @@ msgstr "WAV datoteka s malih slova id3 komad"
 msgid "Version used for new ID3v2 tags"
 msgstr "Izdanje za nove oznake"
 
+msgid "Track number digits"
+msgstr "Broj cifara numere"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis ime polja komentara"
 
@@ -2861,6 +2864,9 @@ msgstr "Najveća veličina (bajtova)"
 msgid "Show only custom genres"
 msgstr "Prikaži samo posebne žanrove"
 
+msgid "Custom Genres"
+msgstr "Posebni žanrovi"
+
 msgid "Case conversion"
 msgstr "Veličina slova"
 
@@ -2868,6 +2874,9 @@ msgid "Locale"
 msgstr "Lokalitet"
 
 msgid "String replacement"
+msgstr "Zamena teksta"
+
+msgid "String Replacement"
 msgstr "Zamena teksta"
 
 msgid "Load last-opened files"

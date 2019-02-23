@@ -2848,6 +2848,9 @@ msgstr "WAV z małymi części id3"
 msgid "Version used for new ID3v2 tags"
 msgstr "Wersja używana dla nowych znaczników"
 
+msgid "Track number digits"
+msgstr "Numer ścieżki liczba cyfr"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis nazwa pola komentarza"
 
@@ -2866,6 +2869,9 @@ msgstr "Maksymalny rozmiar (bajty)"
 msgid "Show only custom genres"
 msgstr "Pokazuj tylko własne gatunki"
 
+msgid "Custom Genres"
+msgstr "Własne gatunki"
+
 msgid "Case conversion"
 msgstr "Konwersja przypadków"
 
@@ -2873,6 +2879,9 @@ msgid "Locale"
 msgstr "Lokalizacja"
 
 msgid "String replacement"
+msgstr "Zastępczy ciąg znaków"
+
+msgid "String Replacement"
 msgstr "Zastępczy ciąg znaków"
 
 msgid "Load last-opened files"

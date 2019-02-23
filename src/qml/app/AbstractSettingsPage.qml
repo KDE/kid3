@@ -76,9 +76,26 @@ Page {
       SettingsItem {
         text: _modelData.name
         control: CheckBox {
-          id: checkField
           checked: _modelData.value
           onClicked: _modelData.value = checked
+        }
+      }
+    }
+    Component {
+      id: booleanEditDelegate
+      SettingsItem {
+        id: settingsItem
+        text: _modelData.name
+        control: RowLayout {
+          IconButton {
+            iconName: "edit"
+            color: settingsItem.labelColor
+            onClicked: _modelData.onEdit()
+          }
+          CheckBox {
+            checked: _modelData.value
+            onClicked: _modelData.value = checked
+          }
         }
       }
     }
@@ -189,7 +206,10 @@ Page {
         property variant _modelData: modelData
         sourceComponent:
             if (typeof modelData.value === "boolean")
-              booleanDelegate
+              if (onEdit)
+                booleanEditDelegate
+              else
+                booleanDelegate
             else if (typeof modelData.value === "string")
               if (modelData.dropDownModel)
                 if (onEdit)

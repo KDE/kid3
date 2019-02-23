@@ -2846,6 +2846,9 @@ msgstr "WAV-tiedostoja pieniä id3 osa"
 msgid "Version used for new ID3v2 tags"
 msgstr "Uusien tunnisteiden versio"
 
+msgid "Track number digits"
+msgstr "Numeroiden määrä"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis kommenttikentän nimi"
 
@@ -2864,6 +2867,9 @@ msgstr "Enimmäiskoko (tavuja)"
 msgid "Show only custom genres"
 msgstr "Näytä vain omat tyylilajit"
 
+msgid "Custom Genres"
+msgstr "Omat tyylilajit"
+
 msgid "Case conversion"
 msgstr "Kirjaintason muunnos"
 
@@ -2871,6 +2877,9 @@ msgid "Locale"
 msgstr "Maa-asetukset"
 
 msgid "String replacement"
+msgstr "Merkkijonojen korvaus"
+
+msgid "String Replacement"
 msgstr "Merkkijonojen korvaus"
 
 msgid "Load last-opened files"

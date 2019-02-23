@@ -2843,6 +2843,9 @@ msgstr "小写id3块WAV文件"
 msgid "Version used for new ID3v2 tags"
 msgstr "新标签使用的版本"
 
+msgid "Track number digits"
+msgstr "音轨编号位数"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis 注释栏名称"
 
@@ -2861,6 +2864,9 @@ msgstr "最大尺寸(字节)"
 msgid "Show only custom genres"
 msgstr "仅显示自定义流派"
 
+msgid "Custom Genres"
+msgstr "自定义流派"
+
 msgid "Case conversion"
 msgstr "大小写转换"
 
@@ -2868,6 +2874,9 @@ msgid "Locale"
 msgstr "地区"
 
 msgid "String replacement"
+msgstr "字词替换"
+
+msgid "String Replacement"
 msgstr "字词替换"
 
 msgid "Load last-opened files"

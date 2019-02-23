@@ -83,6 +83,11 @@ AbstractSettingsPage {
           onDeactivated: function() { tagCfg.id3v2Version = value; }
         },
         SettingsElement {
+          name: qsTr("Track number digits")
+          onActivated: function() { value = tagCfg.trackNumberDigits; }
+          onDeactivated: function() { tagCfg.trackNumberDigits = value; }
+        },
+        SettingsElement {
           name: qsTr("Ogg/Vorbis comment field name")
           dropDownModel: configs.tagConfig().getCommentNames()
           value: ""
@@ -116,6 +121,16 @@ AbstractSettingsPage {
           name: qsTr("Show only custom genres")
           onActivated: function() { value = tagCfg.onlyCustomGenres; }
           onDeactivated: function() { tagCfg.onlyCustomGenres = value; }
+          onEdit: function() {
+            stringListEditPage.title = qsTr("Custom Genres")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setList(tagCfg.customGenres)
+            }
+            stringListEditPage.onDeactivated = function() {
+              tagCfg.customGenres = stringListEditPage.getList()
+            }
+            page.StackView.view.push(stringListEditPage);
+          }
         },
         SettingsElement {
           name: qsTr("Case conversion")
@@ -139,6 +154,16 @@ AbstractSettingsPage {
           name: qsTr("String replacement")
           onActivated: function() { value = fmtCfg.strRepEnabled; }
           onDeactivated: function() { fmtCfg.strRepEnabled = value; }
+          onEdit: function() {
+            stringListEditPage.title = qsTr("String Replacement")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setMap(fmtCfg.strRepMap)
+            }
+            stringListEditPage.onDeactivated = function() {
+              fmtCfg.strRepMap = stringListEditPage.getMap()
+            }
+            page.StackView.view.push(stringListEditPage);
+          }
         }
       ]
       StackView.onActivated: activateAll()
@@ -205,6 +230,16 @@ AbstractSettingsPage {
           name: qsTr("String replacement")
           onActivated: function() { value = fmtCfg.strRepEnabled; }
           onDeactivated: function() { fmtCfg.strRepEnabled = value; }
+          onEdit: function() {
+            stringListEditPage.title = qsTr("String Replacement")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setMap(fmtCfg.strRepMap)
+            }
+            stringListEditPage.onDeactivated = function() {
+              fmtCfg.strRepMap = stringListEditPage.getMap()
+            }
+            page.StackView.view.push(stringListEditPage);
+          }
         },
         SettingsElement {
           name: qsTr("Filename for cover")

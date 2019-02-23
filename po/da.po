@@ -2838,6 +2838,9 @@ msgstr "WAV-filer med små bogstavs id3 stumper"
 msgid "Version used for new ID3v2 tags"
 msgstr "Version anvendt til nye ID3v2 tags"
 
+msgid "Track number digits"
+msgstr "Spornummer"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Navn på Ogg/Vorbis kommentar felt"
 
@@ -2856,6 +2859,9 @@ msgstr "Maksimum størrelse på billeder (Bytes)"
 msgid "Show only custom genres"
 msgstr "Vis kun brugerdefineret genrer"
 
+msgid "Custom Genres"
+msgstr "Brugerdefineret genre"
+
 msgid "Case conversion"
 msgstr "Store/små bogstavskonvertering"
 
@@ -2863,6 +2869,9 @@ msgid "Locale"
 msgstr "Sprog"
 
 msgid "String replacement"
+msgstr "Streng erstatning"
+
+msgid "String Replacement"
 msgstr "Streng erstatning"
 
 msgid "Load last-opened files"

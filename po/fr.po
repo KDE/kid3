@@ -2845,6 +2845,9 @@ msgstr "Fichiers WAV avec nom du morceau id3 en minuscules"
 msgid "Version used for new ID3v2 tags"
 msgstr "Version utilisée pour balises novelles"
 
+msgid "Track number digits"
+msgstr "Nombre de chiffres dans le numéro de piste"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis nom du champ commentaire"
 
@@ -2863,6 +2866,9 @@ msgstr "Taille maximum des images (en octets)"
 msgid "Show only custom genres"
 msgstr "Montrer seulement les genres pernonnalisés"
 
+msgid "Custom Genres"
+msgstr "Genres personnalisés"
+
 msgid "Case conversion"
 msgstr "Conversion de la casse"
 
@@ -2870,6 +2876,9 @@ msgid "Locale"
 msgstr "Localisation"
 
 msgid "String replacement"
+msgstr "Remplacement de chaînes"
+
+msgid "String Replacement"
 msgstr "Remplacement de chaînes"
 
 msgid "Load last-opened files"

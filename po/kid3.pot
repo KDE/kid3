@@ -2832,6 +2832,9 @@ msgstr ""
 msgid "Version used for new ID3v2 tags"
 msgstr ""
 
+msgid "Track number digits"
+msgstr ""
+
 msgid "Ogg/Vorbis comment field name"
 msgstr ""
 
@@ -2850,6 +2853,9 @@ msgstr ""
 msgid "Show only custom genres"
 msgstr ""
 
+msgid "Custom Genres"
+msgstr ""
+
 msgid "Case conversion"
 msgstr ""
 
@@ -2857,6 +2863,9 @@ msgid "Locale"
 msgstr ""
 
 msgid "String replacement"
+msgstr ""
+
+msgid "String Replacement"
 msgstr ""
 
 msgid "Load last-opened files"

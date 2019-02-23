@@ -2844,6 +2844,9 @@ msgstr "WAV faile väiketähed id3 tüki"
 msgid "Version used for new ID3v2 tags"
 msgstr "Uutes siltides kasutatav versioon"
 
+msgid "Track number digits"
+msgstr "Numbrite vähim arv loo numbris"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis kommentaarivälja nimi"
 
@@ -2862,6 +2865,9 @@ msgstr "Maksimumsuurus (baiti)"
 msgid "Show only custom genres"
 msgstr "Näidatakse ainult kohandatud stiile"
 
+msgid "Custom Genres"
+msgstr "Kohandatud stiilid"
+
 msgid "Case conversion"
 msgstr "Tõstu muutmine"
 
@@ -2869,6 +2875,9 @@ msgid "Locale"
 msgstr "Lokaat"
 
 msgid "String replacement"
+msgstr "Stringiasendus"
+
+msgid "String Replacement"
 msgstr "Stringiasendus"
 
 msgid "Load last-opened files"

@@ -2843,6 +2843,9 @@ msgstr "WAV датотеке са малих слова id3 парче"
 msgid "Version used for new ID3v2 tags"
 msgstr "Издање за нове ознаке"
 
+msgid "Track number digits"
+msgstr "Број цифара нумере"
+
 msgid "Ogg/Vorbis comment field name"
 msgstr "Огг/Ворбис име поља коментара"
 
@@ -2861,6 +2864,9 @@ msgstr "Највећа величина (бајтова)"
 msgid "Show only custom genres"
 msgstr "Прикажи само посебне жанрове"
 
+msgid "Custom Genres"
+msgstr "Посебни жанрови"
+
 msgid "Case conversion"
 msgstr "Величина слова"
 
@@ -2868,7 +2874,10 @@ msgid "Locale"
 msgstr "Локалитет"
 
 msgid "String replacement"
-msgstr "Замјена текста:"
+msgstr "Замјена текста"
+
+msgid "String Replacement"
+msgstr "Замјена текста"
 
 msgid "Load last-opened files"
 msgstr ""
