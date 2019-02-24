@@ -105,6 +105,12 @@
        variable < NUM_TAGS; \
        variable = static_cast<Frame::TagNumber>(variable + 1))
 
+/** for loop through all supported tag number values in reverse order. */
+#define FOR_TAGLIB_TAGS_REVERSE(variable) \
+  for (Frame::TagNumber variable = static_cast<Frame::TagNumber>(NUM_TAGS - 1); \
+       variable >= Frame::Tag_1; \
+       variable = static_cast<Frame::TagNumber>(variable - 1))
+
 namespace {
 
 /** Convert QString @a s to a TagLib::String. */
@@ -1116,7 +1122,10 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         TagLib::MPEG::File::APE
       };
       int saveMask = 0;
-      FOR_TAGLIB_TAGS(tagNr) {
+      // We iterate through the tags in reverse order to work around
+      // a TagLib bug: When stripping the APE tag after the ID3v1 tag,
+      // the ID3v1 tag is not removed.
+      FOR_TAGLIB_TAGS_REVERSE(tagNr) {
         if (m_tag[tagNr] && (force || isTagChanged(tagNr))) {
           if (m_tag[tagNr]->isEmpty()) {
             mpegFile->strip(tagTypes[tagNr]);
