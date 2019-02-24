@@ -2031,6 +2031,7 @@ void Kid3Application::onFrameEdited(const Frame* frame)
       framelist->pasteFrame();
     }
     emit selectedFilesUpdated();
+    framelist->selectByName(frame->getName());
   }
 }
 
@@ -2082,7 +2083,9 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
         }
       }
     }
+    framelist->saveCursor();
     emit selectedFilesUpdated();
+    framelist->restoreCursor();
   }
 }
 
@@ -2178,6 +2181,7 @@ void Kid3Application::onFrameAdded(const Frame* frame, Frame::TagNumber tagNr)
       framelist->setSelectedId(frameId);
     }
     emit selectedFilesUpdated();
+    framelist->selectByName(frame->getName());
   }
 }
 

@@ -183,6 +183,16 @@ public:
    */
   Frame::TagNumber tagNumber() const { return m_tagNr; }
 
+  /**
+   * Save the current cursor position.
+   */
+  void saveCursor();
+
+  /**
+   * Restore the cursor position saved with saveCursor().
+   */
+  void restoreCursor();
+
 signals:
   /**
    * Emitted when the dialog to add and edit a frame is closed and an
@@ -205,16 +215,6 @@ private slots:
 private:
   FrameList(const FrameList&);
   FrameList& operator=(const FrameList&);
-
-  /**
-   * Save the current cursor position.
-   */
-  void saveCursor();
-
-  /**
-   * Restore the cursor position saved with saveCursor().
-   */
-  void restoreCursor();
 
   /**
    * Get frame of selected frame list item.
