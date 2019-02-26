@@ -3188,6 +3188,7 @@ _android_abi=$_android_abi
 _android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
+# Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
 cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make ../../kid3
 EOF
     chmod +x kid3/build.sh
@@ -3843,7 +3844,13 @@ if [[ $target = *"package"* ]]; then
     if test -f $QTPREFIX/lib/libssl.so && test -f $QTPREFIX/lib/libcrypto.so; then
       JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
       _version=$(grep VERSION config.h | cut -d'"' -f2)
-      cp -a android/bin/QtApp-release-signed.apk kid3-$_version-android.apk
+      if test -d android/bin; then
+        # ANT
+        cp -a android/bin/QtApp-release-signed.apk kid3-$_version-android.apk
+      else
+        # Gradle
+        cp -a android/build/outputs/apk/android-release-signed.apk kid3-$_version-android.apk
+      fi
     else
       echo "You have to copy libssl.so and libcrypto.so to the Qt directory:"
       echo "sudo cp -a buildroot/usr/local/lib/lib{ssl,crypto}.so $QTPREFIX/lib/"
