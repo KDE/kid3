@@ -5,6 +5,8 @@ set(QT_ANDROID_BUILD_TOOLS_REVISION "23.0.1")
 set(_androidPackageDir ${CMAKE_CURRENT_BINARY_DIR}/package)
 configure_file(AndroidManifest.xml.in
                ${_androidPackageDir}/AndroidManifest.xml @ONLY)
+configure_file(Kid3Activity.java
+               ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java COPYONLY)
 add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res/drawable
@@ -35,7 +37,7 @@ add_qt_android_apk(apk kid3-qml
     lib/libQt5Multimedia.so lib/libQt5Qml.so
 #    plugins/qmltooling/libqmldbg_qtquick2.so plugins/qmltooling/libqmldbg_tcp.so
     lib/libQt5Quick.so lib/libQt5Widgets.so lib/libQt5Svg.so
-    lib/libQt5QuickControls2.so lib/libQt5QuickTemplates2.so
+    lib/libQt5QuickControls2.so lib/libQt5QuickTemplates2.so lib/libQt5AndroidExtras.so
 #    lib/libQt5MultimediaQuick_p.so plugins/mediaservice/libqtmedia_android.so plugins/audio/libqtaudio_opensles.so plugins/video/videonode/libqtsgvideonode_android.so plugins/playlistformats/libqtmultimedia_m3u.so
 #    qml/Enginio/libenginioplugin.so qml/Enginio/plugins.qmltypes qml/Enginio/qmldir
     qml/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so qml/Qt/labs/folderlistmodel/plugins.qmltypes qml/Qt/labs/folderlistmodel/qmldir

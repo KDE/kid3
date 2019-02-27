@@ -60,6 +60,12 @@ if(HAVE_QTDBUS)
     TARGET kid3-core
   )
 endif()
+if(ANDROID)
+  qt5_wrap_cpp(android_GEN_MOC_SRCS
+    utils/androidutils.h
+    TARGET kid3-core
+  )
+endif()
 
 add_library(kid3-core
   utils/debugutils.cpp
@@ -155,9 +161,15 @@ add_library(kid3-core
 if(HAVE_QTDBUS)
   target_sources(kid3-core PRIVATE model/scriptinterface.cpp)
 endif()
+if(ANDROID)
+  target_sources(kid3-core PRIVATE utils/androidutils.cpp)
+endif()
 target_sources(kid3-core PRIVATE ${core_GEN_MOC_SRCS})
 if(HAVE_QTDBUS)
   target_sources(kid3-core PRIVATE ${qtdbus_GEN_MOC_SRCS})
+endif()
+if(ANDROID)
+  target_sources(kid3-core PRIVATE ${android_GEN_MOC_SRCS})
 endif()
 
 target_include_directories(kid3-core PUBLIC utils config tags export import model)
@@ -186,6 +198,9 @@ if(PLUGIN_LIBRARIES)
 endif()
 if(APPLE)
   target_link_libraries(kid3-core PUBLIC "-framework CoreServices")
+endif()
+if(ANDROID)
+  target_link_libraries(kid3-core PUBLIC Qt5::AndroidExtras)
 endif()
 
 if(BUILD_SHARED_LIBS)

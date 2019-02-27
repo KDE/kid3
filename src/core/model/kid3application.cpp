@@ -93,6 +93,9 @@
 #ifdef HAVE_QTDBUS
 #include "mprisinterface.h"
 #endif
+#ifdef Q_OS_ANDROID
+#include "androidutils.h"
+#endif
 #include "importplugins.h"
 
 namespace {
@@ -216,6 +219,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_editFrameTaggedFile(nullptr), m_addFrameTaggedFile(nullptr),
   m_frameEditor(nullptr), m_storedFrameEditor(nullptr),
   m_imageProvider(nullptr),
+#ifdef Q_OS_ANDROID
+  m_pendingIntentsChecked(false),
+#endif
 #ifdef HAVE_QTDBUS
   m_dbusEnabled(false),
 #endif
@@ -263,6 +269,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
 
 #ifdef Q_OS_ANDROID
+  new AndroidUtils(this);
   // Make sure that configuration changes are saved for the Android app.
   if (auto guiApp =
       qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
@@ -270,9 +277,20 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                      this, [this](Qt::ApplicationState state) {
       if (state == Qt::ApplicationSuspended) {
         saveConfig();
+      } else if (state == Qt::ApplicationActive) {
+        // When the app becomes active for the first time,
+        // check if it was launched with an intent.
+        if (!m_pendingIntentsChecked) {
+          m_pendingIntentsChecked = true;
+          AndroidUtils::instance()->checkPendingIntents();
+        }
       }
     });
   }
+  QObject::connect(AndroidUtils::instance(), &AndroidUtils::fileUrlReceived,
+                   this, [this](const QString& path) {
+    dropLocalFiles({path}, false);
+  });
 #endif
 }
 

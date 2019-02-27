@@ -1605,6 +1605,9 @@ private:
   PixmapProvider* m_imageProvider;
   QString m_coverArtImageId;
 
+#ifdef Q_OS_ANDROID
+  bool m_pendingIntentsChecked;
+#endif
 #ifdef HAVE_QTDBUS
   /** true if D-Bus is enabled */
   bool m_dbusEnabled;
