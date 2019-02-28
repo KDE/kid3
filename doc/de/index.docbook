@@ -2382,6 +2382,8 @@ Anwendungen verwenden "ITRK", andere "IPRT".
 der Tags.
 Wenn <guilabel>Format automatisch anwenden</guilabel> aktiviert ist,
 wird die Eingabe während dem Editieren automatisch formatiert.
+<guilabel>Überprüfung</guilabel> aktiviert die Validation in Eingabefeldern
+mit Tracknummer/Total- und Datum/Zeit-Werten.
 <guilabel>Groß/Kleinschreibung</guilabel> kann auf <guilabel>Keine
 Änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
 <guilabel>Alles Großbuchstaben</guilabel>, <guilabel>Den ersten Buchstaben
@@ -2972,6 +2974,23 @@ verwendet werden.
 Um ein bestimmtes Feld eines Frames zu setzen, kann der Feldname nach einem
 Punkt angegeben werden, z.B. für das Zähler-Feld des Popularimeter-Frames.
 <screen width="65"><userinput>set POPM.Counter 5</userinput></screen>
+</para>
+<para>
+Eine Anwendung für das Setzen spezifischer Felder ist der Fall, dass man ein
+TXXX-Frame mit "rating" als Beschreibung möchte anstelle eines POPM Frames
+(dies scheint für die Anwendung gewisser Plugins nötig zu sein). Man kann ein
+solches TXXX-Rating-Frame mit kid3-cli erstellen, muss dazu jedoch zuerst das
+Frame mit der Beschreibung erstellen und dann den Wert setzen.
+<screen width="65">
+<prompt>kid3-cli&gt; </prompt><userinput>set rating ""</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set TXXX.Description rating</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set rating 5</userinput>
+</screen>
+Der erste Befehl löscht ein allenfalls vorhandenes POPM frame, denn wenn ein
+solches existiert, würde <userinput>set rating 5</userinput> das POPM-Frame
+setzen und nicht das TXXX-Frame. Eine andere Möglichkeit wäre <userinput>set
+TXXX.Text 5</userinput>, aber dies funktioniert nur, wenn kein anderes
+TXXX-Frame vorhanden ist.
 </para>
 <para>
 Um mehrere Frames desselben Typs zu setzen, kann der Index in eckigen Klammern

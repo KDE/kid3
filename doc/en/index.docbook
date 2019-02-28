@@ -2234,6 +2234,8 @@ there are applications which use "ITRK", others use "IPRT".
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
 When <guilabel>Automatically apply format</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits.
+<guilabel>Validation</guilabel> enables validators in the controls with
+track/total and date/time values.
 The <guilabel>Case conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
 uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
@@ -2797,6 +2799,24 @@ If <replaceable>FRAME-VALUE</replaceable> is empty, the frame is deleted.
 To set a specific field of a frame, the field name can be given after a dot,
 e.g. to set the Counter field of a Popularimeter frame, use
 <screen width="65"><userinput>set POPM.Counter 5</userinput></screen>
+</para>
+<para>
+An application for field specifications is the case where you want a custom
+TXXX frame with "rating" description instead of a standard Popularimeter frame
+(this seems to be used by some plugins). You can create such a TXXX rating
+frame with kid3-cli, however, you have to first create a TXXX frame with
+description "rating" and then set the value of this frame to the rating
+value.
+<screen width="65">
+<prompt>kid3-cli&gt; </prompt><userinput>set rating ""</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set TXXX.Description rating</userinput>
+<prompt>kid3-cli&gt; </prompt><userinput>set rating 5</userinput>
+</screen>
+The first command will delete an existing POPM frame, because if such a frame
+exists, <userinput>set rating 5</userinput> would set the POPM frame and not
+the TXXX frame. Another possibility would be to use <userinput>set TXXX.Text
+5</userinput>, but this would only work if there is no other TXXX frame
+present.
 </para>
 <para>
 To set multiple frames of the same kind, an index can be given in brackets,
