@@ -50,9 +50,9 @@ public:
 
   /**
    * Emit signal when a view or edit intent to open a file is received.
-   * @param url URL or path of file
+   * @param path path of file
    */
-  void emitFileUrlReceived(const QString& url);
+  void emitFilePathReceived(const QString& path);
 
   /**
    * Get a pointer to the application's config store instance.
@@ -65,7 +65,7 @@ signals:
    * Emitted when a view or edit intent to open a file is received.
    * @param path path to file
    */
-  void fileUrlReceived(const QString& path);
+  void filePathReceived(const QString& path);
 
 private:
   static AndroidUtils* s_self;

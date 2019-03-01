@@ -287,7 +287,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
       }
     });
   }
-  QObject::connect(AndroidUtils::instance(), &AndroidUtils::fileUrlReceived,
+  QObject::connect(AndroidUtils::instance(), &AndroidUtils::filePathReceived,
                    this, [this](const QString& path) {
     dropLocalFiles({path}, false);
   });

@@ -5,16 +5,21 @@ set(QT_ANDROID_BUILD_TOOLS_REVISION "23.0.1")
 set(_androidPackageDir ${CMAKE_CURRENT_BINARY_DIR}/package)
 configure_file(AndroidManifest.xml.in
                ${_androidPackageDir}/AndroidManifest.xml @ONLY)
-configure_file(Kid3Activity.java
-               ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java COPYONLY)
+add_custom_command(OUTPUT ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/src/net/sourceforge/kid3
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
+          ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
+)               
 add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res/drawable
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/48-apps-kid3.png
           ${_androidPackageDir}/res/drawable/icon.png
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/48-apps-kid3.png
 )
 add_custom_target(android-package
-  DEPENDS ${_androidPackageDir}/res/drawable/icon.png)
+  DEPENDS ${_androidPackageDir}/res/drawable/icon.png
+          ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java)
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(_keystorePathAlias ${CMAKE_BINARY_DIR}/ufleisch-release-key.keystore ufleisch_android)
 else()

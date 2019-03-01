@@ -44,7 +44,7 @@ import org.qtproject.qt5.android.bindings.QtActivity;
 
 public class Kid3Activity extends QtActivity {
     // Implemented in androidutils.cpp
-    public static native void setFileUrlReceived(String url);
+    public static native void setFilePathFromIntent(String path);
 
     private static boolean isIntentPending;
     private static boolean isInitialized;
@@ -103,12 +103,16 @@ public class Kid3Activity extends QtActivity {
                 // content or file
                 String intentScheme = intentUri.getScheme();
                 if ("file".equals(intentScheme)) {
-                    setFileUrlReceived(intentUri.toString());
+                    String filePath = intentUri.getPath();
+                    if (filePath == null) {
+                        filePath = intentUri.toString();
+                    }
+                    setFilePathFromIntent(filePath);
                 } else if ("content".equals(intentScheme)) {
                     String filePath = getRealPathFromURI(this, intentUri);
                     if (filePath != null) {
                         Log.d("Kid3", "Real path: " + filePath);
-                        setFileUrlReceived(filePath);
+                        setFilePathFromIntent(filePath);
                     }
                 }
             }
@@ -160,15 +164,19 @@ public class Kid3Activity extends QtActivity {
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[] { split[1] };
                 return getDataColumn(context, contentUri, selection, selectionArgs);
-            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-                if ("com.google.android.apps.photos.content".equals(authority))
-                    return uri.getLastPathSegment();
-                return getDataColumn(context, uri, null, null);
             }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+        }
+        if ("content".equalsIgnoreCase(uri.getScheme())) {
             if ("com.google.android.apps.photos.content".equals(authority))
                 return uri.getLastPathSegment();
-            return getDataColumn(context, uri, null, null);
+            String path = getDataColumn(context, uri, null, null);
+            if (path == null) {
+                path = uri.getPath();
+                if (path != null && path.startsWith("/external_storage_root/")) {
+                    path = Environment.getExternalStorageDirectory() + path.substring(22);
+                }
+            }
+            return path;
         } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -178,24 +186,19 @@ public class Kid3Activity extends QtActivity {
     // Get the value of the data column for this URI.
     private static String getDataColumn(Context context, Uri uri, String selection,
                                         String[] selectionArgs) {
-
-        Cursor cursor = null;
         String result = null;
         final String column = "_data";
         final String[] projection = { column };
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int index = cursor.getColumnIndexOrThrow(column);
-                result = cursor.getString(index);
+        Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndex(column);
+                if (index != -1) {
+                    result = cursor.getString(index);
+                }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            if (cursor != null)
-                cursor.close();
+            cursor.close();
         }
         return result;
     }

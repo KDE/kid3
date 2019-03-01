@@ -49,11 +49,9 @@ void AndroidUtils::checkPendingIntents()
 #endif
 }
 
-void AndroidUtils::emitFileUrlReceived(const QString& url)
+void AndroidUtils::emitFilePathReceived(const QString& path)
 {
-  qDebug("emitFileUrlReceived(%s)", qPrintable(url));
-  emit fileUrlReceived(url.startsWith(QLatin1String("file://"))
-                       ? url.mid(7) : url);
+  emit filePathReceived(path);
 }
 
 
@@ -62,15 +60,15 @@ void AndroidUtils::emitFileUrlReceived(const QString& url)
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_net_sourceforge_kid3_Kid3Activity_setFileUrlReceived(
-    JNIEnv* env, jobject obj, jstring url)
+JNIEXPORT void JNICALL Java_net_sourceforge_kid3_Kid3Activity_setFilePathFromIntent(
+    JNIEnv* env, jobject obj, jstring path)
 {
   Q_UNUSED(obj)
-  const char* urlStr = env->GetStringUTFChars(url, NULL);
+  const char* pathStr = env->GetStringUTFChars(path, NULL);
   if (AndroidUtils* utils = AndroidUtils::instance()) {
-    utils->emitFileUrlReceived(QString::fromUtf8(urlStr));
+    utils->emitFilePathReceived(QString::fromUtf8(pathStr));
   }
-  env->ReleaseStringUTFChars(url, urlStr);
+  env->ReleaseStringUTFChars(path, pathStr);
 }
 
 #ifdef __cplusplus
