@@ -83,9 +83,25 @@ Page {
   Dialog {
     id: editDialog
 
-    property alias text: textLineEdit.text
-
     signal completed(bool ok)
+
+    function setText(text) {
+      if (hasMap) {
+        var keyValue = text.split(mapSeparator)
+        textLineEdit.text = keyValue[0]
+        mapValueLineEdit.text = keyValue[1] || ""
+      } else {
+        textLineEdit.text = text
+      }
+    }
+
+    function getText() {
+      if (hasMap) {
+        return textLineEdit.text + mapSeparator + mapValueLineEdit.text
+      } else {
+        return textLineEdit.text
+      }
+    }
 
     modal: true
     width: Math.min(root.width, constants.gu(70))
@@ -93,12 +109,24 @@ Page {
     y: 0
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-    TextField {
-      id: textLineEdit
+    RowLayout {
       width: parent.width
+      TextField {
+        id: textLineEdit
+        Layout.fillWidth: true
+      }
+      Label {
+        text: mapSeparator
+        visible: hasMap
+      }
+      TextField {
+        id: mapValueLineEdit
+        Layout.fillWidth: true
+        visible: hasMap
+      }
     }
 
-    onAccepted: completed(!hasMap || text.indexOf(mapSeparator) !== -1)
+    onAccepted: completed(true)
     onRejected: completed(false)
   }
 
@@ -156,11 +184,24 @@ Page {
           function modifyIfCompleted(ok) {
             editDialog.completed.disconnect(modifyIfCompleted)
             if (ok) {
-              listView.model.append({"name": editDialog.text})
+              if (hasMap) {
+                // Insert in sorted order
+                var text = editDialog.getText()
+                var idx = 0
+                while (idx < listView.model.count &&
+                       listView.model.get(idx).name < text) {
+                  ++idx
+                }
+                listView.model.insert(idx, {"name": text})
+                listView.currentIndex = idx
+              } else {
+                listView.model.append({"name": editDialog.getText()})
+                listView.currentIndex = listView.count - 1
+              }
             }
           }
 
-          editDialog.text = hasMap ? mapSeparator : ""
+          editDialog.setText("")
           editDialog.completed.connect(modifyIfCompleted)
           editDialog.open()
         }
@@ -196,11 +237,11 @@ Page {
             function modifyIfCompleted(ok) {
               editDialog.completed.disconnect(modifyIfCompleted)
               if (ok) {
-                listView.model.set(idx, {"name": editDialog.text})
+                listView.model.set(idx, {"name": editDialog.getText()})
               }
             }
 
-            editDialog.text = listView.model.get(idx).name
+            editDialog.setText(listView.model.get(idx).name)
             editDialog.completed.connect(modifyIfCompleted)
             editDialog.open()
           }
