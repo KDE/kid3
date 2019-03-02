@@ -3470,6 +3470,35 @@ void setSubframes(const TagLibFile* self, TagLib::ID3v2::TableOfContentsFrame* f
 //! @endcond
 
 /**
+ * Fix up the format of the value if needed for an ID3v2 frame.
+ *
+ * @param self this TagLibFile instance
+ * @param frameType type of frame
+ * @param value the value to be set for frame, will be modified if needed
+ */
+void fixUpTagLibFrameValue(const TagLibFile* self,
+                           Frame::Type frameType, QString& value)
+{
+  if (frameType == Frame::FT_Genre) {
+    if (!TagConfig::instance().genreNotNumeric()) {
+      value = Genres::getNumberString(value, false);
+    }
+  } else if (frameType == Frame::FT_Track) {
+    self->formatTrackNumberIfEnabled(value, true);
+  } else if ((frameType == Frame::FT_Arranger ||
+              frameType == Frame::FT_Performer) &&
+             !value.isEmpty() &&
+             !value.contains(Frame::stringListSeparator())) {
+    // When using TIPL or TMCL and writing an ID3v2.3.0 tag, TagLib
+    // needs in ID3v2::Tag::downgradeFrames() a string list with at
+    // least two elements, otherwise it will not take the value over
+    // to an IPLS frame. If there is a single value in such a case,
+    // add a second element.
+    value += Frame::stringListSeparator();
+  }
+}
+
+/**
  * Set the fields in a TagLib ID3v2 frame.
  *
  * @param self   this TagLibFile instance
@@ -3484,13 +3513,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
   // set from value, else from FieldList.
   if (frame.isValueChanged() || fieldList.empty()) {
     QString text(frame.getValue());
-    if (frame.getType() == Frame::FT_Genre) {
-      if (!TagConfig::instance().genreNotNumeric()) {
-        text = Genres::getNumberString(text, false);
-      }
-    } else if (frame.getType() == Frame::FT_Track) {
-      self->formatTrackNumberIfEnabled(text, true);
-    }
+    fixUpTagLibFrameValue(self, frame.getType(), text);
     setValue(tFrame, toTString(text));
     setTextEncoding(tFrame, getTextEncodingConfig(needsUnicode(text)));
   } else {
@@ -3500,13 +3523,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         case Frame::ID_Text:
         {
           QString value(fld.m_value.toString());
-          if (frame.getType() == Frame::FT_Genre) {
-            if (!TagConfig::instance().genreNotNumeric()) {
-              value = Genres::getNumberString(value, false);
-            }
-          } else if (frame.getType() == Frame::FT_Track) {
-            self->formatTrackNumberIfEnabled(value, true);
-          }
+          fixUpTagLibFrameValue(self, frame.getType(), value);
           setText(tFrame, toTString(value));
           break;
         }
