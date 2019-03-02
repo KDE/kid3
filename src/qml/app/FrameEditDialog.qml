@@ -29,6 +29,7 @@ Dialog {
   id: page
 
   property QtObject frameObject
+  property string imageSource: app.coverArtImageId
   signal frameEdited(variant frame)
 
   modal: true
@@ -158,6 +159,9 @@ Dialog {
       onFinished: {
         if (path) {
           field.value = script.readFile(path)
+          page.imageSource = path
+        } else {
+          page.imageSource = app.coverArtImageId
         }
       }
     }
@@ -212,7 +216,7 @@ Dialog {
         Image {
           anchors.fill: parent
           fillMode: Image.PreserveAspectFit
-          source: app.coverArtImageId
+          source: page.imageSource
           cache: false
         }
       }
@@ -271,6 +275,9 @@ Dialog {
     }
   }
 
+  onOpened: {
+    page.imageSource = app.coverArtImageId
+  }
   onRejected: {
     page.close()
     page.frameEdited(null)
