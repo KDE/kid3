@@ -122,6 +122,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
 #endif
 #ifdef TAGLIB_WITH_ASF
         || ext == QLatin1String(".wma") || ext == QLatin1String(".asf")
+        || ext == QLatin1String(".wmv")
 #endif
         || ext == QLatin1String(".aif") || ext == QLatin1String("aiff")
         || ext == QLatin1String(".wav") || ext == QLatin1String(".ape")
@@ -158,7 +159,7 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
       QLatin1String(".mp4"), QLatin1String(".m4v"), QLatin1String(".mp4v"),
 #endif
 #ifdef TAGLIB_WITH_ASF
-      QLatin1String(".wma"), QLatin1String(".asf"),
+      QLatin1String(".wma"), QLatin1String(".asf"), QLatin1String(".wmv"),
 #endif
       QLatin1String(".aif"), QLatin1String(".aiff"), QLatin1String(".wav"),
       QLatin1String(".ape"),

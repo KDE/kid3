@@ -540,7 +540,7 @@ TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
     if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
         ext == "MP4" || ext == "3G2" || ext == "M4V" || ext == "MP4V")
       return new TagLib::MP4::File(stream);
-    if (ext == "WMA" || ext == "ASF")
+    if (ext == "WMA" || ext == "ASF" || ext == "WMV")
       return new TagLib::ASF::File(stream);
     if (ext == "AIF" || ext == "AIFF")
       return new TagLib::RIFF::AIFF::File(stream);
