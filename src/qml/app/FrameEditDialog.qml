@@ -126,6 +126,8 @@ Dialog {
       property variant field
       parent: ApplicationWindow.overlay
       title: qsTr("Export")
+      saveMode: true
+      nameFilters: ["*.jpg", "*.jpeg", "*.png"]
       onFinished: {
         if (path) {
           if (script.fileExists(path)) {
@@ -152,6 +154,7 @@ Dialog {
       property variant field
       parent: ApplicationWindow.overlay
       title: qsTr("Import")
+      nameFilters: ["*.jpg", "*.jpeg", "*.png"]
       onFinished: {
         if (path) {
           field.value = script.readFile(path)
@@ -178,8 +181,9 @@ Dialog {
                                                            coverFileName)
           }
           constants.openPopup(importFileSelectDialog, importButton,
-                        {"filePath": app.dirName + "/" + coverFileName,
-                          "field": _modelData})
+                        {"folder": app.dirName,
+                         "currentFile": coverFileName,
+                         "field": _modelData})
         }
       }
 
@@ -195,8 +199,9 @@ Dialog {
                                                            coverFileName)
           }
           constants.openPopup(exportFileSelectDialog, exportButton,
-                        {"filePath": app.dirName + "/" + coverFileName,
-                          "field": _modelData})
+                        {"folder": app.dirName,
+                         "currentFile": coverFileName,
+                         "field": _modelData})
         }
       }
 

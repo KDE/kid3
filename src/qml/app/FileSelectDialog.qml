@@ -29,14 +29,15 @@ import Qt.labs.folderlistmodel 2.1
 Dialog {
   id: page
 
-  property alias filePath: textField.text
   signal finished(string path)
   signal fileSelected(string fileName)
   property bool showDotAndDotDot: true
   property bool showHidden: true
   property bool showDirsFirst: true
+  property bool saveMode: false
+  property string currentFile: ""
   property string folder: ""
-  property string nameFilters: "*.*"
+  property var nameFilters: ["*.*"]
 
   title: qsTr("Open")
   modal: true
@@ -45,7 +46,12 @@ Dialog {
   width: Math.min(root.width, constants.gu(65))
   height: Math.min(root.height, constants.gu(80))
   standardButtons: Dialog.Ok | Dialog.Cancel
-  onAccepted: page.finished(page.filePath)
+  onAccepted: page.finished(getCurrentFilePath())
+  onRejected: page.finished(null)
+
+  function getCurrentFilePath() {
+    return folderField.text + "/" + currentFileField.text
+  }
 
   function simplifyPath(path) {
     if (typeof path === "object") {
@@ -74,24 +80,45 @@ Dialog {
     folderListModel.folder = "file://" + path
   }
 
+  function setCurrentFile(name) {
+    var idx = folderListModel.indexOf(folderListModel.folder + "/" + name)
+    if (idx >= 0) {
+      fileListView.currentIndex = idx
+    }
+  }
+
   ColumnLayout {
     anchors.fill: parent
-    Label {
-      id: label
-      text: qsTr("File path")
-    }
-    TextField {
-      id: textField
-      implicitWidth: parent.width
-      selectByMouse: true
-      onEditingFinished: {
-        setFolder(text)
+    GridLayout {
+      id: pathLayout
+      columns: 2
+      Label {
+        text: qsTr("Folder")
+      }
+      TextField {
+        id: folderField
+        Layout.fillWidth: true
+        selectByMouse: true
+        onEditingFinished: {
+          setFolder(text)
+        }
+      }
+      Label {
+        text: qsTr("File")
+      }
+      TextField {
+        id: currentFileField
+        Layout.fillWidth: true
+        selectByMouse: true
+        onEditingFinished: {
+          setCurrentFile(text)
+        }
       }
     }
     ListView {
       id: fileListView
       width: parent.width
-      anchors.top: textField.bottom
+      anchors.top: pathLayout.bottom
       anchors.topMargin: constants.margins
       anchors.bottom: parent.bottom
 
@@ -113,33 +140,36 @@ Dialog {
         onClicked: {
           if (!fileIsDir) {
             ListView.view.currentIndex = index
-            textField.text = filePath
+            currentFileField.text = fileName
             return;
           }
+          if (!page.saveMode) {
+            currentFileField.text = ""
+          }
           ListView.view.currentIndex = -1
-          var currentPath = simplifyPath(textField.text)
+          var currentPath = simplifyPath(folderField.text)
           if (currentPath === "") {
             currentPath = "/"
           }
-          var selectedFileName = fileName
-          if (selectedFileName === "..") {
+          var selectedDirName = fileName
+          if (selectedDirName === "..") {
             if (currentPath !== "/") {
-              textField.text = simplifyPath(folderListModel.parentFolder)
+              folderField.text = simplifyPath(folderListModel.parentFolder)
               folderListModel.folder = folderListModel.parentFolder
             }
-          } else if (selectedFileName === ".") {
-            textField.text = simplifyPath(folderListModel.folder)
+          } else if (selectedDirName === ".") {
+            folderField.text = simplifyPath(folderListModel.folder)
           } else {
             if (currentPath === "/") {
-              folderListModel.folder = "file:///" + selectedFileName
+              folderListModel.folder = "file:///" + selectedDirName
             } else {
-              folderListModel.folder += "/" + selectedFileName
+              folderListModel.folder += "/" + selectedDirName
             }
             if (currentPath[currentPath.length - 1] !== "/") {
               currentPath += "/"
             }
-            currentPath += selectedFileName
-            textField.text = currentPath
+            currentPath += selectedDirName
+            folderField.text = currentPath
           }
         }
         highlighted: ListView.isCurrentItem
@@ -162,6 +192,9 @@ Dialog {
     }
   }
   onOpened: {
-    setFolder(filePath)
+    folderField.text = page.folder
+    currentFileField.text = page.currentFile
+    setFolder(page.folder)
+    setCurrentFile(page.currentFile)
   }
 }

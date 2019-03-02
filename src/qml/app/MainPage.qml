@@ -82,7 +82,7 @@ Page {
       MouseArea {
         anchors.fill: parent
         onPressAndHold: {
-          openDialog.filePath = app.dirName
+          openDialog.folder = app.dirName
           openDialog.open()
         }
 
@@ -160,7 +160,7 @@ Page {
           MenuItem {
             text: qsTr("Open")
             onTriggered: {
-              openDialog.filePath = app.dirName
+              openDialog.folder = app.dirName
               openDialog.open()
             }
           }
