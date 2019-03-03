@@ -8,17 +8,12 @@
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:scheme="content"/>
-				<data android:scheme="file"/>
-				<data android:mimeType="audio/*"/>
-			</intent-filter>
-			<intent-filter>
 				<action android:name="android.intent.action.EDIT" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:scheme="content"/>
 				<data android:scheme="file"/>
 				<data android:mimeType="audio/*"/>
+				<data android:mimeType="video/*"/>
 			</intent-filter>
 			<meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
 			<meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
