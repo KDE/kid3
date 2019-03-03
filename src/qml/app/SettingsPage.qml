@@ -90,9 +90,12 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Ogg/Vorbis comment field name")
           dropDownModel: configs.tagConfig().getCommentNames()
-          value: ""
-          onActivated: function() { value = tagCfg.commentName; }
-          onDeactivated: function() { tagCfg.commentName = value; }
+          onActivated: function() {
+            value = dropDownModel.indexOf(tagCfg.commentName)
+          }
+          onDeactivated: function() {
+            tagCfg.commentName = dropDownModel[value]
+          }
         },
         SettingsElement {
           name: qsTr("Ogg/Vorbis picture field name")
@@ -103,9 +106,12 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("RIFF track number field name")
           dropDownModel: configs.tagConfig().getRiffTrackNames()
-          value: ""
-          onActivated: function() { value = tagCfg.riffTrackName; }
-          onDeactivated: function() { tagCfg.riffTrackName = value; }
+          onActivated: function() {
+            value = dropDownModel.indexOf(tagCfg.riffTrackName)
+          }
+          onDeactivated: function() {
+            tagCfg.riffTrackName = dropDownModel[value]
+          }
         },
         SettingsElement {
           name: qsTr("Mark if picture larger than maxium size")
@@ -129,7 +135,7 @@ AbstractSettingsPage {
             stringListEditPage.onDeactivated = function() {
               tagCfg.customGenres = stringListEditPage.getList()
             }
-            page.StackView.view.push(stringListEditPage);
+            page.StackView.view.push(stringListEditPage)
           }
         },
         SettingsElement {
@@ -141,13 +147,12 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.tagFormatConfig().getLocaleNames()
-          value: ""
           onActivated: function() {
-            value = dropDownModel.indexOf(fmtCfg.localeName) === -1
-                ? dropDownModel[0] : fmtCfg.localeName;
+            var idx = dropDownModel.indexOf(fmtCfg.localeName)
+            value = idx === -1 ? 0 : idx
           }
           onDeactivated: function() {
-            fmtCfg.localeName = dropDownModel.indexOf(value) > 0 ? value : "";
+            fmtCfg.localeName = value > 0 ? dropDownModel[value] : ""
           }
         },
         SettingsElement {
@@ -162,7 +167,7 @@ AbstractSettingsPage {
             stringListEditPage.onDeactivated = function() {
               fmtCfg.strRepMap = stringListEditPage.getMap()
             }
-            page.StackView.view.push(stringListEditPage);
+            page.StackView.view.push(stringListEditPage)
           }
         }
       ]
@@ -217,13 +222,12 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("Locale")
           dropDownModel: configs.filenameFormatConfig().getLocaleNames()
-          value: ""
           onActivated: function() {
-            value = dropDownModel.indexOf(fmtCfg.localeName) === -1
-                ? dropDownModel[0] : fmtCfg.localeName;
+            var idx = dropDownModel.indexOf(fmtCfg.localeName)
+            value = idx === -1 ? 0 : idx
           }
           onDeactivated: function() {
-            fmtCfg.localeName = dropDownModel.indexOf(value) > 0 ? value : "";
+            fmtCfg.localeName = value > 0 ? dropDownModel[value] : ""
           }
         },
         SettingsElement {
@@ -238,7 +242,7 @@ AbstractSettingsPage {
             stringListEditPage.onDeactivated = function() {
               fmtCfg.strRepMap = stringListEditPage.getMap()
             }
-            page.StackView.view.push(stringListEditPage);
+            page.StackView.view.push(stringListEditPage)
           }
         },
         SettingsElement {
@@ -255,10 +259,13 @@ AbstractSettingsPage {
         SettingsElement {
           name: qsTr("To filename format")
           dropDownModel: configs.fileConfig().toFilenameFormats
-          value: ""
           width: constants.gu(51)
-          onActivated: function() { value = fileCfg.toFilenameFormat; }
-          onDeactivated: function() { fileCfg.toFilenameFormat = value; }
+          onActivated: function() {
+            value = dropDownModel.indexOf(fileCfg.toFilenameFormat)
+          }
+          onDeactivated: function() {
+            fileCfg.toFilenameFormat = dropDownModel[value]
+          }
           onEdit: function() {
             stringListEditPage.title = qsTr("Filename from Tag")
             stringListEditPage.onActivated = function() {
@@ -271,16 +278,19 @@ AbstractSettingsPage {
               configs.fileConfig().toFilenameFormat =
                   lst[stringListEditPage.getCurrentIndex()]
             }
-            page.StackView.view.push(stringListEditPage);
+            page.StackView.view.push(stringListEditPage)
           }
         },
         SettingsElement {
           name: qsTr("From filename format")
           dropDownModel: configs.fileConfig().fromFilenameFormats
-          value: ""
           width: constants.gu(51)
-          onActivated: function() { value = fileCfg.fromFilenameFormat; }
-          onDeactivated: function() { fileCfg.fromFilenameFormat = value; }
+          onActivated: function() {
+            value = dropDownModel.indexOf(fileCfg.fromFilenameFormat)
+          }
+          onDeactivated: function() {
+            fileCfg.fromFilenameFormat = dropDownModel[value]
+          }
           onEdit: function() {
             stringListEditPage.title = qsTr("Tag from Filename")
             stringListEditPage.onActivated = function() {
@@ -293,7 +303,7 @@ AbstractSettingsPage {
               configs.fileConfig().fromFilenameFormat =
                   lst[stringListEditPage.getCurrentIndex()]
             }
-            page.StackView.view.push(stringListEditPage);
+            page.StackView.view.push(stringListEditPage)
           }
         }
       ]
@@ -367,10 +377,13 @@ AbstractSettingsPage {
       model: [
         SettingsElement {
           name: qsTr("Theme")
-          value: ""
           dropDownModel: configs.mainWindowConfig().getQtQuickStyleNames()
-          onActivated: function() { value = mainWindowCfg.qtQuickStyle; }
-          onDeactivated: function() { mainWindowCfg.qtQuickStyle = value; }
+          onActivated: function() {
+            value = dropDownModel.indexOf(mainWindowCfg.qtQuickStyle)
+          }
+          onDeactivated: function() {
+            mainWindowCfg.qtQuickStyle = dropDownModel[value]
+          }
         }
       ]
       StackView.onActivated: activateAll()

@@ -119,39 +119,6 @@ Page {
       }
     }
     Component {
-      id: stringSelectionDelegate
-      SettingsItem {
-        text: _modelData.name
-        control: ComboBox {
-          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
-          model: _modelData.dropDownModel
-          onCurrentTextChanged: _modelData.value = currentText
-          currentIndex: find(_modelData.value)
-        }
-      }
-    }
-    Component {
-      id: stringSelectionEditDelegate
-      SettingsItem {
-        id: settingsItem
-        text: _modelData.name
-        control: RowLayout {
-          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
-          IconButton {
-            iconName: "edit"
-            color: settingsItem.labelColor
-            onClicked: _modelData.onEdit()
-          }
-          ComboBox {
-            Layout.fillWidth: true
-            model: _modelData.dropDownModel
-            onCurrentTextChanged: _modelData.value = currentText
-            currentIndex: find(_modelData.value)
-          }
-        }
-      }
-    }
-    Component {
       id: numberDelegate
       SettingsItem {
         text: _modelData.name
@@ -174,7 +141,7 @@ Page {
       }
     }
     Component {
-      id: numberSelectionDelegate
+      id: selectionDelegate
       SettingsItem {
         text: _modelData.name
         control: ComboBox {
@@ -182,6 +149,27 @@ Page {
           currentIndex: _modelData.value
           model: _modelData.dropDownModel
           onCurrentIndexChanged: _modelData.value = currentIndex
+        }
+      }
+    }
+    Component {
+      id: selectionEditDelegate
+      SettingsItem {
+        id: settingsItem
+        text: _modelData.name
+        control: RowLayout {
+          width: Math.min(_modelData.width || constants.gu(40), page.width - 2 * constants.margins)
+          IconButton {
+            iconName: "edit"
+            color: settingsItem.labelColor
+            onClicked: _modelData.onEdit()
+          }
+          ComboBox {
+            Layout.fillWidth: true
+            currentIndex: _modelData.value
+            model: _modelData.dropDownModel
+            onCurrentIndexChanged: _modelData.value = currentIndex
+          }
         }
       }
     }
@@ -205,24 +193,20 @@ Page {
         property int _index: index
         property variant _modelData: modelData
         sourceComponent:
-            if (typeof modelData.value === "boolean")
+            if (modelData.dropDownModel)
+              if (onEdit)
+                selectionEditDelegate
+              else
+                selectionDelegate
+            else if (typeof modelData.value === "boolean")
               if (onEdit)
                 booleanEditDelegate
               else
                 booleanDelegate
             else if (typeof modelData.value === "string")
-              if (modelData.dropDownModel)
-                if (onEdit)
-                  stringSelectionEditDelegate
-                else
-                  stringSelectionDelegate
-              else
-                stringDelegate
+              stringDelegate
             else if (typeof modelData.value === "number")
-              if (modelData.dropDownModel)
-                numberSelectionDelegate
-              else
-                numberDelegate
+              numberDelegate
             else
               clickDelegate
       }
