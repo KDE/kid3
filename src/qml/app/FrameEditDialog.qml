@@ -270,6 +270,10 @@ Dialog {
                 imageView
       }
       ThinDivider {
+        anchors {
+          left: parent.left
+          right: parent.right
+        }
         visible: index != fieldList.count - 1
       }
     }

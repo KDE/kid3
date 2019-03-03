@@ -24,10 +24,6 @@
 import QtQuick 2.9
 
 Rectangle {
-  anchors {
-    left: parent.left
-    right: parent.right
-  }
   height: 2
   gradient: Gradient {
     GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0.1) }

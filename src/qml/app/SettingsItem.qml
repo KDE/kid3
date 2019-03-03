@@ -57,8 +57,8 @@ Rectangle {
   Text {
     id: textLabel
     height: constants.rowHeight
-    anchors.left: parent.left
-    anchors.top: parent.top
+    anchors.left: listItem.left
+    anchors.top: listItem.top
     anchors.margins: constants.margins
     anchors.topMargin: 2 * constants.margins
     color: selected
@@ -70,7 +70,7 @@ Rectangle {
     width: horizontal ? parent.width - 2 * constants.margins - textLabel.width
                       : parent.width - 1 * constants.margins
     height: constants.rowHeight
-    anchors.right: parent.right
+    anchors.right: listItem.right
     anchors.bottom: divider.top
     onControlChanged: {
       if (control) {
@@ -83,6 +83,10 @@ Rectangle {
   }
   ThinDivider {
     id: divider
-    anchors.bottom: parent.bottom
+    anchors {
+      left: listItem.left
+      right: listItem.right
+      bottom: listItem.bottom
+    }
   }
 }
