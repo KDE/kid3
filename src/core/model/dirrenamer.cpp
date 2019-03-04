@@ -34,7 +34,176 @@
 #include "modeliterator.h"
 #include "formatconfig.h"
 
+/**
+ * Data collected by DirNameFormatReplacer during a rename session.
+ */
+class DirNameFormatReplacerContext {
+public:
+  /**
+   * Store value for aggregate function.
+   * @param code aggregating code, e.g. "max-year"
+   * @param value value of base code (e.g. "year")
+   */
+  void addValue(const QString& code, const QString& value);
+
+  /**
+   * Register the replaced directory name which still contains
+   * placeholders for the aggregate codes.
+   * @param dirName directory name with replacements and aggregate codes,
+   *                QString() to terminate the rename session
+   */
+  void putDirName(const QString& dirName);
+
+  /**
+   * Get and clear the replacements for all the replacement codes
+   * encountered during this rename session.
+   * Shall be called at the end of the rename session
+   * @return list of (directory with aggregate codes,
+   *         directory with replaced aggregate codes) pairs.
+   */
+  QList<QPair<QString, QString>> takeReplacements();
+
+  /**
+   * Check if aggregated codes are used.
+   * @return true if aggregated codes have been added using addValue().
+   */
+  bool hasAggregatedCodes() const { return !m_aggregatedCodes.isEmpty(); }
+
+private:
+  QString getAggregate(const QString& code) const;
+
+  QList<QPair<QString, QString>> m_replacements;
+  QHash<QString, QStringList> m_currentCodes;
+  QHash<QString, QStringList> m_aggregatedCodes;
+  QString m_aggregatedDirName;
+};
+
+void DirNameFormatReplacerContext::addValue(const QString& code,
+                                            const QString& value)
+{
+  m_currentCodes[code].append(value);
+}
+
+void DirNameFormatReplacerContext::putDirName(const QString& dirName)
+{
+  if (m_aggregatedDirName.isEmpty()) {
+    // First directory name, start aggregation.
+    m_aggregatedDirName = dirName;
+    m_aggregatedCodes = m_currentCodes;
+  } else if (m_aggregatedDirName != dirName) {
+    // New directory name, replace aggregated values and return result.
+    QString replacedDirName = m_aggregatedDirName;
+    for (auto it = m_aggregatedCodes.constBegin();
+         it != m_aggregatedCodes.constEnd();
+         ++it) {
+      replacedDirName.replace(it.key(), getAggregate(it.key()));
+    }
+    if (replacedDirName != m_aggregatedDirName) {
+      m_replacements.append({m_aggregatedDirName, replacedDirName});
+    }
+    m_aggregatedCodes = m_currentCodes;
+    m_aggregatedDirName = dirName;
+  } else {
+    // Still the same directory name, keep on aggregating.
+    for (auto it = m_currentCodes.constBegin();
+         it != m_currentCodes.constEnd();
+         ++it) {
+      m_aggregatedCodes[it.key()].append(it.value());
+    }
+  }
+  m_currentCodes.clear();
+}
+
+QList<QPair<QString, QString>> DirNameFormatReplacerContext::takeReplacements()
+{
+  // Terminate current directory aggregation.
+  putDirName(QString());
+  QList<QPair<QString, QString>> result;
+  m_replacements.swap(result);
+  return result;
+}
+
+QString DirNameFormatReplacerContext::getAggregate(const QString& code) const
+{
+  QString result;
+  const QStringList values = m_aggregatedCodes.value(code);
+  if (code.startsWith(QLatin1String("max-"))) {
+    for (const QString& value : values) {
+      if (value > result) {
+        result = value;
+      }
+    }
+  } else if (code.startsWith(QLatin1String("min-"))) {
+    for (const QString& value : values) {
+      if (result.isNull() || value < result) {
+        result = value;
+      }
+    }
+  } else if (code.startsWith(QLatin1String("unq-"))) {
+    for (const QString& value : values) {
+      if (result.isNull()) {
+        result = value;
+      } else if (value != result) {
+        result.clear();
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+
 namespace {
+
+/**
+ * Specialized track data format replacer using context to support
+ * aggregate functions.
+ */
+class DirNameFormatReplacer : public TrackDataFormatReplacer {
+public:
+  /**
+   * Constructor.
+   * @param context context to store aggregate data
+   * @param trackData track data
+   * @param str string with format codes
+   */
+  explicit DirNameFormatReplacer(
+    DirNameFormatReplacerContext& context,
+    const TrackData& trackData,
+    const QString& str = QString());
+
+  virtual ~DirNameFormatReplacer() override = default;
+
+  DirNameFormatReplacer(const DirNameFormatReplacer& other) = delete;
+  DirNameFormatReplacer &operator=(const DirNameFormatReplacer& other) = delete;
+
+protected:
+  virtual QString getReplacement(const QString& code) const override;
+
+private:
+  DirNameFormatReplacerContext& m_context;
+};
+
+DirNameFormatReplacer::DirNameFormatReplacer(
+    DirNameFormatReplacerContext& context,
+    const TrackData& trackData,
+    const QString& str)
+  : TrackDataFormatReplacer(trackData, str), m_context(context)
+{
+}
+
+QString DirNameFormatReplacer::getReplacement(const QString& code) const
+{
+  if (code.startsWith(QLatin1String("max-")) ||
+      code.startsWith(QLatin1String("min-")) ||
+      code.startsWith(QLatin1String("unq-"))) {
+    QString value = TrackDataFormatReplacer::getReplacement(code.mid(4));
+    m_context.addValue(code, value);
+    return code;
+  }
+  return TrackDataFormatReplacer::getReplacement(code);
+}
+
 
 /**
  * Get parent directory.
@@ -63,9 +232,18 @@ QString parentDirectory(const QString& dir)
  * @param parent parent object
  */
 DirRenamer::DirRenamer(QObject* parent) : QObject(parent),
+  m_fmtContext(new DirNameFormatReplacerContext),
   m_tagVersion(Frame::TagVAll), m_aborted(false), m_actionCreate(false)
 {
   setObjectName(QLatin1String("DirRenamer"));
+}
+
+/**
+ * Destructor.
+ */
+DirRenamer::~DirRenamer()
+{
+  delete m_fmtContext;
 }
 
 /** Only defined for generation of translation files */
@@ -238,7 +416,10 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     } else if (!newdir.isEmpty()) {
       newdir.append(QLatin1Char('/'));
     }
-    QString baseName = trackData.formatFilenameFromTags(m_format, true);
+    DirNameFormatReplacer fmt(*m_fmtContext, trackData, m_format);
+    fmt.replacePercentCodes(FormatReplacer::FSF_ReplaceSeparators);
+    QString baseName = fmt.getString();
+    m_fmtContext->putDirName(baseName);
     newdir.append(
           FilenameFormatConfig::instance().joinFileName(baseName, QString()));
   }
@@ -275,7 +456,9 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
 
   RenameAction action(type, src, dest, index);
   m_actions.append(action);
-  emit actionScheduled(describeAction(action));
+  if (!m_fmtContext->hasAggregatedCodes()) {
+    emit actionScheduled(describeAction(action));
+  }
 }
 
 /**
@@ -423,6 +606,23 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
       }
     }
     if (!again) break;
+  }
+}
+
+/**
+ * Terminate scheduling of actions.
+ */
+void DirRenamer::endScheduleActions()
+{
+  if (m_fmtContext->hasAggregatedCodes()) {
+    const auto replacements = m_fmtContext->takeReplacements();
+    for (RenameAction& action : m_actions) {
+      for (const auto& replacement : replacements) {
+        action.m_src.replace(replacement.first, replacement.second);
+        action.m_dest.replace(replacement.first, replacement.second);
+      }
+      emit actionScheduled(describeAction(action));
+    }
   }
 }
 

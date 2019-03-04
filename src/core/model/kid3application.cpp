@@ -2746,6 +2746,7 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
     m_fileProxyModelIterator->abort();
     disconnect(m_fileProxyModelIterator, &FileProxyModelIterator::nextReady,
                this, &Kid3Application::scheduleNextRenameAction);
+    m_dirRenamer->endScheduleActions();
     emit renameActionsScheduled();
   }
 }

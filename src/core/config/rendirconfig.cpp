@@ -33,6 +33,7 @@ namespace {
 const char* dirFmt[] = {
   "%{artist} - %{album}",
   R"(%{artist} - %{"["year"] "}%{album})",
+  "%{artist} - [%{max-year}] %{album}",
   "%{artist} - %{album}%{\" (\"year\")\"}",
   "%{artist}/%{album}",
   R"(%{artist}/%{"["year"] "}%{album})",

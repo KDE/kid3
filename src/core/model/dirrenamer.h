@@ -34,6 +34,7 @@
 #include "kid3api.h"
 
 class TaggedFile;
+class DirNameFormatReplacerContext;
 
 /**
  * Directory renamer.
@@ -50,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DirRenamer() override = default;
+  virtual ~DirRenamer() override;
 
   /**
    * Check if operation is aborted.
@@ -107,6 +108,13 @@ public:
    * @param taggedFile file in directory
    */
   void scheduleAction(TaggedFile* taggedFile);
+
+  /**
+   * Terminate scheduling of actions.
+   * Has to be called after completing the scheduleAction() calls. It will
+   * postprocess the actions when aggregate functions are used.
+   */
+  void endScheduleActions();
 
   /**
    * Perform the scheduled rename actions.
@@ -290,6 +298,7 @@ private:
    */
   QStringList describeAction(const RenameAction& action) const;
 
+  DirNameFormatReplacerContext* m_fmtContext;
   RenameActionList m_actions;
   Frame::TagVersion m_tagVersion;
   QString m_format;

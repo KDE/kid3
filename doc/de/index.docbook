@@ -1876,6 +1876,13 @@ Werte aus den Tags im Verzeichnisnamen einzusetzen:
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%{dirname} Verzeichnisname (z.B. %{year" "}%{dirname} fügt
 vorne am bestehenden Verzeichnisnamen die Jahreszahl hinzu)</para></listitem>
+<listitem><para>%{max-year} Die maximale Jahreszahl, welche für dieses
+Verzeichnis gefunden wurde, es können auch andere Codes als "year" verwendet
+werden</para></listitem>
+<listitem><para>%{min-year} Die minimale Jahreszahl, welche für dieses
+Verzeichnis gefunden wurde</para></listitem>
+<listitem><para>%{unq-year} Die einzige Jahreszahl, welche für dieses
+Verzeichnis gefunden wurde, leer falls nicht eindeutig</para></listitem>
 </itemizedlist>
 
 <para>

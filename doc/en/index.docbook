@@ -1757,6 +1757,12 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%{dirname} Directory name (e.g. %{year" "}%{dirname}
 will prepend the year to the current directory name)</para></listitem>
+<listitem><para>%{max-year} The maximum year value found for this directory,
+can also be used with other codes than "year"</para></listitem>
+<listitem><para>%{min-year} The minimum year value found for this
+directory</para></listitem> 
+<listitem><para>%{unq-year} The unique year value found for this directory or
+empty if not unique</para></listitem>
 </itemizedlist>
 
 <para>
