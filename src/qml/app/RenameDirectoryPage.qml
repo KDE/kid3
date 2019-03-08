@@ -152,12 +152,12 @@ Page {
           title: qsTr("Directory Name from Tag")
           visible: false
           StackView.onActivated: {
-            setList(page.formats)
-            setCurrentIndex(formatComboBox.currentIndex)
+            setElements(page.formats)
+            currentIndex = formatComboBox.currentIndex
           }
           StackView.onDeactivated: {
-            page.formats = getList()
-            formatComboBox.currentIndex = getCurrentIndex()
+            page.formats = getElements()
+            formatComboBox.currentIndex = currentIndex
             formatComboBox.currentIndexChanged()
           }
         }

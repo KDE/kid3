@@ -130,10 +130,10 @@ AbstractSettingsPage {
           onEdit: function() {
             stringListEditPage.title = qsTr("Custom Genres")
             stringListEditPage.onActivated = function() {
-              stringListEditPage.setList(tagCfg.customGenres)
+              stringListEditPage.setElements(tagCfg.customGenres)
             }
             stringListEditPage.onDeactivated = function() {
-              tagCfg.customGenres = stringListEditPage.getList()
+              tagCfg.customGenres = stringListEditPage.getElements()
             }
             page.StackView.view.push(stringListEditPage)
           }
@@ -160,14 +160,14 @@ AbstractSettingsPage {
           onActivated: function() { value = fmtCfg.strRepEnabled; }
           onDeactivated: function() { fmtCfg.strRepEnabled = value; }
           onEdit: function() {
-            stringListEditPage.title = qsTr("String Replacement")
-            stringListEditPage.onActivated = function() {
-              stringListEditPage.setMap(fmtCfg.strRepMap)
+            mapEditPage.title = qsTr("String Replacement")
+            mapEditPage.onActivated = function() {
+              mapEditPage.setElements(fmtCfg.strRepMap)
             }
-            stringListEditPage.onDeactivated = function() {
-              fmtCfg.strRepMap = stringListEditPage.getMap()
+            mapEditPage.onDeactivated = function() {
+              fmtCfg.strRepMap = mapEditPage.getElements()
             }
-            page.StackView.view.push(stringListEditPage)
+            page.StackView.view.push(mapEditPage)
           }
         }
       ]
@@ -235,14 +235,14 @@ AbstractSettingsPage {
           onActivated: function() { value = fmtCfg.strRepEnabled; }
           onDeactivated: function() { fmtCfg.strRepEnabled = value; }
           onEdit: function() {
-            stringListEditPage.title = qsTr("String Replacement")
-            stringListEditPage.onActivated = function() {
-              stringListEditPage.setMap(fmtCfg.strRepMap)
+            mapEditPage.title = qsTr("String Replacement")
+            mapEditPage.onActivated = function() {
+              mapEditPage.setElements(fmtCfg.strRepMap)
             }
-            stringListEditPage.onDeactivated = function() {
-              fmtCfg.strRepMap = stringListEditPage.getMap()
+            mapEditPage.onDeactivated = function() {
+              fmtCfg.strRepMap = mapEditPage.getElements()
             }
-            page.StackView.view.push(stringListEditPage)
+            page.StackView.view.push(mapEditPage)
           }
         },
         SettingsElement {
@@ -269,14 +269,14 @@ AbstractSettingsPage {
           onEdit: function() {
             stringListEditPage.title = qsTr("Filename from Tag")
             stringListEditPage.onActivated = function() {
-              stringListEditPage.setList(dropDownModel)
-              stringListEditPage.setCurrentIndex(dropDownModel.indexOf(value))
+              stringListEditPage.setElements(dropDownModel)
+              stringListEditPage.currentIndex = value
             }
             stringListEditPage.onDeactivated = function() {
-              var lst = stringListEditPage.getList()
+              var lst = stringListEditPage.getElements()
               configs.fileConfig().toFilenameFormats = lst
               configs.fileConfig().toFilenameFormat =
-                  lst[stringListEditPage.getCurrentIndex()]
+                  lst[stringListEditPage.currentIndex]
             }
             page.StackView.view.push(stringListEditPage)
           }
@@ -294,14 +294,14 @@ AbstractSettingsPage {
           onEdit: function() {
             stringListEditPage.title = qsTr("Tag from Filename")
             stringListEditPage.onActivated = function() {
-              stringListEditPage.setList(dropDownModel)
-              stringListEditPage.setCurrentIndex(dropDownModel.indexOf(value))
+              stringListEditPage.setElements(dropDownModel)
+              stringListEditPage.currentIndex = value
             }
             stringListEditPage.onDeactivated = function() {
-              var lst = stringListEditPage.getList()
+              var lst = stringListEditPage.getElements()
               configs.fileConfig().fromFilenameFormats = lst
               configs.fileConfig().fromFilenameFormat =
-                  lst[stringListEditPage.getCurrentIndex()]
+                  lst[stringListEditPage.currentIndex]
             }
             page.StackView.view.push(stringListEditPage)
           }
@@ -393,6 +393,14 @@ AbstractSettingsPage {
 
   StringListEditPage {
     id: stringListEditPage
+    property var onActivated
+    property var onDeactivated
+    visible: false
+    StackView.onActivated: onActivated()
+    StackView.onDeactivated: onDeactivated()
+  }
+  MapEditPage {
+    id: mapEditPage
     property var onActivated
     property var onDeactivated
     visible: false

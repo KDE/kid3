@@ -28,19 +28,53 @@ import QtQuick.Controls 2.2
 Page {
   id: page
 
-  readonly property string mapSeparator: String.fromCharCode(0x00a0) +
-                       String.fromCharCode(0x2192) + String.fromCharCode(0x00a0)
-  property bool hasMap: false
+  property alias model: listView.model
+  property alias currentIndex: listView.currentIndex
+  property alias count: listView.count
+  property Dialog editDialog: textEditDialog
 
-  function setList(lst) {
-    hasMap = false
+  property var onAddClicked: function() {
+    function modifyIfCompleted(ok) {
+      editDialog.completed.disconnect(modifyIfCompleted)
+      if (ok) {
+        addElement(editDialog.getElement())
+      }
+    }
+
+    editDialog.setElement({name: ""})
+    editDialog.completed.connect(modifyIfCompleted)
+    editDialog.open()
+  }
+
+  property var onEditClicked: function() {
+    var idx = listView.currentIndex
+    if (idx >= 0) {
+      function modifyIfCompleted(ok) {
+        editDialog.completed.disconnect(modifyIfCompleted)
+        if (ok) {
+          listView.model.set(idx, editDialog.getElement())
+        }
+      }
+
+      editDialog.setElement(listView.model.get(idx))
+      editDialog.completed.connect(modifyIfCompleted)
+      editDialog.open()
+    }
+  }
+
+  function addElement(element) {
+    model.append(element)
+    currentIndex = count - 1
+  }
+
+  function setElements(lst) {
     listView.model.clear()
     for (var i = 0; i < lst.length; i++) {
       listView.model.append({"name": lst[i]})
     }
   }
 
-  function getList() {
+  function getElements() {
     var lst = []
     for (var i = 0; i < listView.model.count; i++) {
       lst.push(listView.model.get(i).name)
@@ -48,59 +82,19 @@ Page {
     return lst
   }
 
-  function setMap(map) {
-    hasMap = true
-    listView.model.clear()
-    for (var key in map) {
-      if (map.hasOwnProperty(key)) {
-        listView.model.append({"name": key + mapSeparator + map[key]})
-      }
-    }
-  }
-
-  function getMap() {
-    var map = {}
-    for (var i = 0; i < listView.model.count; i++) {
-      var s = listView.model.get(i).name
-      var sepPos = s.indexOf(mapSeparator)
-      if (sepPos !== -1) {
-        map[s.substring(0, sepPos)] = s.substring(sepPos + mapSeparator.length)
-      }
-    }
-    return map
-  }
-
-  function setCurrentIndex(index) {
-    listView.currentIndex = index
-  }
-
-  function getCurrentIndex() {
-    return listView.currentIndex
-  }
-
   title: qsTr("Edit")
 
   Dialog {
-    id: editDialog
+    id: textEditDialog
 
     signal completed(bool ok)
 
-    function setText(text) {
-      if (hasMap) {
-        var keyValue = text.split(mapSeparator)
-        textLineEdit.text = keyValue[0]
-        mapValueLineEdit.text = keyValue[1] || ""
-      } else {
-        textLineEdit.text = text
-      }
+    function setElement(element) {
+      textLineEdit.text = element.name
     }
 
-    function getText() {
-      if (hasMap) {
-        return textLineEdit.text + mapSeparator + mapValueLineEdit.text
-      } else {
-        return textLineEdit.text
-      }
+    function getElement() {
+      return {name: textLineEdit.text}
     }
 
     modal: true
@@ -109,21 +103,10 @@ Page {
     y: 0
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-    RowLayout {
+    TextField {
+      id: textLineEdit
       width: parent.width
-      TextField {
-        id: textLineEdit
-        Layout.fillWidth: true
-      }
-      Label {
-        text: mapSeparator
-        visible: hasMap
-      }
-      TextField {
-        id: mapValueLineEdit
-        Layout.fillWidth: true
-        visible: hasMap
-      }
+      selectByMouse: true
     }
 
     onAccepted: completed(true)
@@ -180,31 +163,7 @@ Page {
       IconButton {
         iconName: "add"
         color: invisibleLabel.color
-        onClicked: {
-          function modifyIfCompleted(ok) {
-            editDialog.completed.disconnect(modifyIfCompleted)
-            if (ok) {
-              if (hasMap) {
-                // Insert in sorted order
-                var text = editDialog.getText()
-                var idx = 0
-                while (idx < listView.model.count &&
-                       listView.model.get(idx).name < text) {
-                  ++idx
-                }
-                listView.model.insert(idx, {"name": text})
-                listView.currentIndex = idx
-              } else {
-                listView.model.append({"name": editDialog.getText()})
-                listView.currentIndex = listView.count - 1
-              }
-            }
-          }
-
-          editDialog.setText("")
-          editDialog.completed.connect(modifyIfCompleted)
-          editDialog.open()
-        }
+        onClicked: onAddClicked()
       }
       IconButton {
         iconName: "go-up"
@@ -231,21 +190,7 @@ Page {
       IconButton {
         iconName: "edit"
         color: invisibleLabel.color
-        onClicked: {
-          var idx = listView.currentIndex
-          if (idx >= 0) {
-            function modifyIfCompleted(ok) {
-              editDialog.completed.disconnect(modifyIfCompleted)
-              if (ok) {
-                listView.model.set(idx, {"name": editDialog.getText()})
-              }
-            }
-
-            editDialog.setText(listView.model.get(idx).name)
-            editDialog.completed.connect(modifyIfCompleted)
-            editDialog.open()
-          }
-        }
+        onClicked: onEditClicked()
       }
       IconButton {
         iconName: "remove"

@@ -15,6 +15,7 @@
     <file alias="app/IconButton.qml">../../qml/app/IconButton.qml</file>
     <file alias="app/MainPage.qml">../../qml/app/MainPage.qml</file>
     <file alias="app/Main.qml">../../qml/app/Main.qml</file>
+    <file alias="app/MapEditPage.qml">../../qml/app/MapEditPage.qml</file>
     <file alias="app/MessageDialog.qml">../../qml/app/MessageDialog.qml</file>
     <file alias="app/NumberTracksDialog.qml">../../qml/app/NumberTracksDialog.qml</file>
     <file alias="app/PictureCollapsible.qml">../../qml/app/PictureCollapsible.qml</file>
