@@ -291,6 +291,10 @@ Dialog {
     fieldList.focus = false // to force editingFinished on delegate
     page.close()
     page.frameEdited(frameObject)
+    // To force update of picture collapsible
+    if (frameObject.type === Kid3.Frame.FT_Picture) {
+      app.setCoverArtImageData(frameObject.getBinaryData())
+    }
     frameObject = null
   }
 }
