@@ -63,6 +63,15 @@ Collapsible {
       anchors.margins: constants.margins
       text: app.selectionInfo.fileName
       selectByMouse: true
+      focus: true
+      onAccepted: {
+        focus = false
+      }
+      onActiveFocusChanged: {
+        if (!activeFocus) {
+          app.selectionInfo.fileName = text
+        }
+      }
     }
   }
 }
