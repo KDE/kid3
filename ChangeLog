@@ -1,3 +1,29 @@
+Mon Mar 18 16:19:08 CET 2019  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.7.1
+
+	* New:
+	  + Support max-, min-, unq- aggregation when renaming directories.
+	  + Android: Support dark and light themes.
+	  + Android: Support opening files with Kid3 from other apps.
+	  + Android: Settings for formats, character replacements and import
+	    profiles.
+
+	* Improved:
+	  + Support format codes in file name for cover.
+	  + Support WMV extension.
+	  + Android: Better file select dialog.
+
+	* Fixed:
+	  + Support setting of ID3v2 version for DSF files.
+	  + Avoid jumping around frames while deleting.
+	  + Removal of multiple tags where not all tags are removed.
+	  + Setting of a simple string as value for IPLS frame with TagLib.
+	  + Adapted to Discogs server update.
+	  + Windows: Avoid insert disk dialog.
+	  + Android: Save settings when app is suspended.
+	  + Android: GUI updates on changes.
+
 Sun Dec 23 12:05:20 CET 2018  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.7.0

@@ -1,7 +1,7 @@
 Begin4
 Title:          Kid3 -- Efficient Audio Tagger
-Version:        3.7.0
-Entered-date:   2018-12-23
+Version:        3.7.1
+Entered-date:   2019-03-18
 Description:    Audio tagger to edit ID3v1.1, ID3v2.3, ID3v2.4, Ogg/Vorbis, Opus, DSF
                 FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV
                 and AIFF tags, multiple files, generate tags from file names
@@ -12,7 +12,7 @@ Maintained-by:  Urs Fleisch <ufleisch@users.sourceforge.net>
 Home-page:      http://kid3.sourceforge.net
 Alternate-site: http://www.kde-apps.org/content/show.php?content=10415
 Primary-site:   http://www.sourceforge.net/projects/kid3
-                http://prdownloads.sourceforge.net/kid3/kid3-3.7.0.tar.gz?download
+                http://prdownloads.sourceforge.net/kid3/kid3-3.7.1.tar.gz?download
 Platform:       Linux, Windows.
 Copying-policy: GPL
 End
