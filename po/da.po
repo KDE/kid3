@@ -4,9 +4,9 @@
 # Martin Eilsøe <martin.eilsoe@gmail.com>, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2786,6 +2786,12 @@ msgstr "Udtryk:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Filen eksisterer allerede. Overskriv?"
+
+msgid "Profiles"
+msgstr "Profiler"
+
+msgid "Profile"
+msgstr "Profil"
 
 msgid "About"
 msgstr "Om"

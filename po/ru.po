@@ -6,9 +6,9 @@
 # Olesya Gerasimenko <gammaray@basealt.ru>, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -2799,6 +2799,12 @@ msgstr "Выражение:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Файл уже существует. Перезаписать?"
+
+msgid "Profiles"
+msgstr "Профили"
+
+msgid "Profile"
+msgstr "Профиль"
 
 msgid "About"
 msgstr "О программе"

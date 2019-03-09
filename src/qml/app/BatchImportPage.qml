@@ -22,6 +22,7 @@
  */
 
 import QtQuick 2.9
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import Kid3 1.1 as Kid3
 
@@ -127,26 +128,51 @@ Page {
     }
     ComboBox {
       id: destinationComboBox
+      readonly property var tagVersions: [
+        Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV2V1
+      ]
       width: parent.valueWidth
       model: [ qsTr("Tag 1"),
                qsTr("Tag 2"),
                qsTr("Tag 1 and Tag 2") ]
+      currentIndex: tagVersions.indexOf(configs.batchImportConfig().importDest)
       function getTagVersion() {
-        return [ Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV2V1 ][currentIndex]
+        return tagVersions[currentIndex]
       }
     }
 
     Label {
+      id: profileLabel
       width: parent.labelWidth
       height: profileComboBox.height
       verticalAlignment: Text.AlignVCenter
       text: qsTr("Profile:")
     }
-    ComboBox {
-      id: profileComboBox
+    RowLayout {
       width: parent.valueWidth
-      model: configs.batchImportConfig().profileNames
-      currentIndex: configs.batchImportConfig().profileIndex
+      IconButton {
+        iconName: "edit"
+        color: profileLabel.color
+        onClicked: {
+          editProfilesPage.currentIndex = profileComboBox.currentIndex
+          page.StackView.view.push(editProfilesPage)
+        }
+
+        ImportProfilesEditPage {
+          id: editProfilesPage
+          visible: false
+          onFinished: {
+            profileComboBox.currentIndex = currentIndex
+            profileComboBox.currentIndexChanged()
+          }
+        }
+      }
+      ComboBox {
+        id: profileComboBox
+        Layout.fillWidth: true
+        model: configs.batchImportConfig().profileNames
+        currentIndex: configs.batchImportConfig().profileIndex
+      }
     }
   }
 
@@ -168,5 +194,9 @@ Page {
   }
 
   StackView.onActivated: textArea.text = ""
-  StackView.onDeactivated: app.batchImporter.abort()
+  StackView.onDeactivated: {
+    app.batchImporter.abort()
+    configs.batchImportConfig().importDest = destinationComboBox.getTagVersion()
+    configs.batchImportConfig().profileIndex = profileComboBox.currentIndex
+  }
 }

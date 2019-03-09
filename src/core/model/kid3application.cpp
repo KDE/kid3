@@ -69,6 +69,7 @@
 #include "pictureframe.h"
 #include "textimporter.h"
 #include "textexporter.h"
+#include "serverimporter.h"
 #include "dirrenamer.h"
 #include "saferename.h"
 #include "configstore.h"
@@ -551,6 +552,20 @@ void Kid3Application::checkPlugin(QObject* plugin)
       m_userCommandProcessors.append(userCommandProcessor);
     }
   }
+}
+
+/**
+ * Get names of available server track importers.
+ * @return list of server track importer names.
+ */
+QStringList Kid3Application::getServerImporterNames() const
+{
+  QStringList names;
+  const auto importers = m_importers;
+  for (const ServerImporter* importer : importers) {
+    names.append(QString::fromLatin1(importer->name()));
+  }
+  return names;
 }
 
 /**

@@ -61,6 +61,7 @@ if(NOT HAVE_QMLDIR_IN_QRC)
       app/ThinDivider.qml
       app/StringListEditPage.qml
       app/MapEditPage.qml
+      app/ImportProfilesEditPage.qml
     )
   endif()  
 endif()

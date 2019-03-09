@@ -257,6 +257,12 @@ public:
   QList<ServerImporter*> getServerImporters() { return m_importers; }
 
   /**
+   * Get names of available server track importers.
+   * @return list of server track importer names.
+   */
+  Q_INVOKABLE QStringList getServerImporterNames() const;
+
+  /**
    * Get available server track importers.
    * @return list of server track importers.
    */

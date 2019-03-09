@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -2792,6 +2792,12 @@ msgstr "Avaldis:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Fail on juba olemas. Kas kirjutada see üle?"
+
+msgid "Profiles"
+msgstr "Profiilid"
+
+msgid "Profile"
+msgstr "Profiil"
 
 msgid "About"
 msgstr "Teave"

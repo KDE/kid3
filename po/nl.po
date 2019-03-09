@@ -5,9 +5,9 @@
 # Toon van Gerwen <toon@vgerwen.nl>, 2012, 2013, 2014, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -2796,6 +2796,12 @@ msgstr "Uitdrukking:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Bestand bestaat reeds. Overschrijven?"
+
+msgid "Profiles"
+msgstr "Profielen"
+
+msgid "Profile"
+msgstr "Profiel"
 
 msgid "About"
 msgstr "Over"

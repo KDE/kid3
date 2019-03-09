@@ -4,9 +4,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -2791,6 +2791,12 @@ msgstr "Израз:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Фајл већ постоји. Пребрисати га?"
+
+msgid "Profiles"
+msgstr "Профили"
+
+msgid "Profile"
+msgstr "Профил"
 
 msgid "About"
 msgstr "О програму"

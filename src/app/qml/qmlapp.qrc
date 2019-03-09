@@ -13,6 +13,7 @@
     <file alias="app/FrameEditDialog.qml">../../qml/app/FrameEditDialog.qml</file>
     <file alias="app/FrameSelectDialog.qml">../../qml/app/FrameSelectDialog.qml</file>
     <file alias="app/IconButton.qml">../../qml/app/IconButton.qml</file>
+    <file alias="app/ImportProfilesEditPage.qml">../../qml/app/ImportProfilesEditPage.qml</file>
     <file alias="app/MainPage.qml">../../qml/app/MainPage.qml</file>
     <file alias="app/Main.qml">../../qml/app/Main.qml</file>
     <file alias="app/MapEditPage.qml">../../qml/app/MapEditPage.qml</file>

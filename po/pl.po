@@ -6,9 +6,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.0\n"
+"Project-Id-Version: Kid3 3.7.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2018-11-19 21:45+0100\n"
+"POT-Creation-Date: 2019-03-09 15:48+0100\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2796,6 +2796,12 @@ msgstr "Wyrażenie:"
 
 msgid "File already exists. Overwrite?"
 msgstr "Plik już istnieje. Zastąp?"
+
+msgid "Profiles"
+msgstr "Profile"
+
+msgid "Profile"
+msgstr "Profil"
 
 msgid "About"
 msgstr "O programie"
