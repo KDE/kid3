@@ -35,6 +35,7 @@
 #include <QBuffer>
 #include <QCryptographicHash>
 #include <QJSEngine>
+#include <QStandardPaths>
 #include "pictureframe.h"
 #include "saferename.h"
 #include "mainwindowconfig.h"
@@ -309,6 +310,15 @@ bool ScriptUtils::removeDir(const QString& path)
 QString ScriptUtils::tempPath()
 {
   return QDir::tempPath();
+}
+
+/**
+ * Get directory containing the user's music.
+ * @return music directory.
+ */
+QString ScriptUtils::musicPath()
+{
+  return QStandardPaths::writableLocation(QStandardPaths::MusicLocation);
 }
 
 /**

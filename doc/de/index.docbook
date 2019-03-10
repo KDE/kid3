@@ -4599,6 +4599,7 @@ script.copyFile(source, dest): Kopiere Datei, true wenn OK
 script.makeDir(path): Erstelle Verzeichnis, true wenn OK
 script.removeDir(path): Lösche Verzeichnis, true wenn OK
 script.tempPath(): Verzeichnis temporärer Dateien
+script.musicPath(): Musik-Verzeichnis
 script.listDir(path, [nameFilters], [classify]): Liste der Verzeichniseinträge
 script.system(program, [args], [msecs]): Systemkommando synchron ausführen,
   [exit code, standard output, standard error] wenn kein Timeout

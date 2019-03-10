@@ -224,6 +224,12 @@ public:
   Q_INVOKABLE static QString tempPath();
 
   /**
+   * Get directory containing the user's music.
+   * @return music directory.
+   */
+  Q_INVOKABLE static QString musicPath();
+
+  /**
    * List directory entries.
    * @param path directory path
    * @param nameFilters list of name filters, e.g. ["*.jpg", "*.png"]

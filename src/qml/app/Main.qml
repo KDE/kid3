@@ -147,7 +147,11 @@ ApplicationWindow {
   Component.onCompleted: {
     app.frameEditor = frameEditor
     app.readConfig()
-    app.openDirectory(configs.fileConfig().lastOpenedFile)
+    var path = configs.fileConfig().lastOpenedFile
+    if (!path || !script.fileExists(path)) {
+      path = script.musicPath()
+    }
+    app.openDirectory(path)
     if (mainPage.Material) {
       constants.highlightColor = mainPage.Material.primary
       constants.highlightedTextColor = mainPage.Material.foreground
