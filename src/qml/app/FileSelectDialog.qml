@@ -91,8 +91,10 @@ Dialog {
     anchors.fill: parent
     GridLayout {
       id: pathLayout
-      columns: 2
+      Layout.maximumWidth: parent.width
+      columns: 3
       Label {
+        id: folderLabel
         text: qsTr("Folder")
       }
       TextField {
@@ -103,12 +105,94 @@ Dialog {
           setFolder(text)
         }
       }
+      IconButton {
+        id: menuButton
+        iconName: "navigation-menu"
+        color: folderLabel.color
+        onClicked: menu.open()
+        Menu {
+          id: menu
+
+          // https://stackoverflow.com/questions/49599322/qt-getting-cleaner-storage-volumes-info-on-android
+          function getMountedVolumes() {
+            var vols = script.mountedVolumes()
+            var result = []
+            var i
+            switch (Qt.platform.os) {
+            case "android":
+              var sd = /\/storage\/[0-9A-F]{4}-[0-9A-F]{4}/, sdc = 1
+              var usb = /\/mnt\/media_rw\/[0-9A-F]{4}-[0-9A-F]{4}/, usbc = 1
+              result.push({name: "Internal Storage",
+                      rootPath: "/storage/emulated/0",
+                      isValid: true,
+                      isReady: true})
+              for (i = 0; i < vols.length; ++i) {
+                if (sd.test(vols[i].rootPath)) {
+                  vols[i].name = "SD Card " + sdc++
+                  result.push(vols[i])
+                } else if (usb.test(vols[i].rootPath)) {
+                  vols[i].name = "USB drive " + usbc++
+                  result.push(vols[i])
+                }
+              }
+              return result
+            case "linux":
+              for (i = 0; i < vols.length; ++i) {
+                var path = vols[i].rootPath
+                if (path.indexOf("/media/") !== -1 ||
+                    (path.substr(0, 4) !== "/run" &&
+                     path.substr(0, 5) !== "/snap")) {
+                  result.push(vols[i])
+                }
+              }
+              return result
+            }
+            return vols
+          }
+
+          function addEntry(text, path) {
+            // This will cause a warning, is there a workaround?
+            // Created graphical object was not placed in the graphics scene.
+            menu.addItem(menuItem.createObject(menu, {text: text, path: path}))
+          }
+
+          function setupEntries() {
+            while (menu.itemAt(0)) {
+              removeItem(0)
+            }
+            menu.addEntry("Music", script.musicPath())
+            var vols = getMountedVolumes();
+            for (var i = 0; i < vols.length; ++i) {
+              var vol = vols[i]
+              if (vol.isValid && vol.isReady && !vol.isReadOnly) {
+                menu.addEntry(vol.displayName || vol.name || vol.path,
+                              vol.rootPath)
+              }
+            }
+          }
+
+          Component {
+            id: menuItem
+            MenuItem {
+              property string path
+              onTriggered: {
+                folderField.text = path
+                setFolder(path)
+                if (!page.saveMode) {
+                  currentFileField.text = ""
+                }
+              }
+            }
+          }
+        }
+      }
       Label {
         text: qsTr("File")
       }
       TextField {
         id: currentFileField
         Layout.fillWidth: true
+        Layout.columnSpan: 2
         selectByMouse: true
         onEditingFinished: {
           setCurrentFile(text)
@@ -117,6 +201,7 @@ Dialog {
     }
     ListView {
       id: fileListView
+      Layout.maximumWidth: parent.width
       width: parent.width
       anchors.top: pathLayout.bottom
       anchors.topMargin: constants.margins
@@ -196,5 +281,6 @@ Dialog {
     currentFileField.text = page.currentFile
     setFolder(page.folder)
     setCurrentFile(page.currentFile)
+    menu.setupEntries()
   }
 }

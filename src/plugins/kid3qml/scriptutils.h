@@ -230,6 +230,14 @@ public:
   Q_INVOKABLE static QString musicPath();
 
   /**
+   * Get list of currently mounted filesystems.
+   * @return list with storage information maps containing the keys
+   * name, displayName, isValid, isReadOnly, isReady, rootPath,
+   * blockSize, mbytesAvailable, mbytesFree, mbytesTotal.
+   */
+  Q_INVOKABLE QVariantList mountedVolumes();
+
+  /**
    * List directory entries.
    * @param path directory path
    * @param nameFilters list of name filters, e.g. ["*.jpg", "*.png"]

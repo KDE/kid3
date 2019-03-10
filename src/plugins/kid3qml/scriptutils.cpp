@@ -36,6 +36,7 @@
 #include <QCryptographicHash>
 #include <QJSEngine>
 #include <QStandardPaths>
+#include <QStorageInfo>
 #include "pictureframe.h"
 #include "saferename.h"
 #include "mainwindowconfig.h"
@@ -319,6 +320,35 @@ QString ScriptUtils::tempPath()
 QString ScriptUtils::musicPath()
 {
   return QStandardPaths::writableLocation(QStandardPaths::MusicLocation);
+}
+
+/**
+ * Get list of currently mounted filesystems.
+ * @return list with storage information maps containing the keys
+ * name, displayName, isValid, isReadOnly, isReady, rootPath,
+ * blockSize, mbytesAvailable, mbytesFree, mbytesTotal.
+ */
+QVariantList ScriptUtils::mountedVolumes()
+{
+  QVariantList result;
+  for (const QStorageInfo& si : QStorageInfo::mountedVolumes()) {
+    QVariantMap map;
+    map.insert(QLatin1String("name"), si.name());
+    map.insert(QLatin1String("displayName"), si.displayName());
+    map.insert(QLatin1String("isValid"), si.isValid());
+    map.insert(QLatin1String("isReadOnly"), si.isReadOnly());
+    map.insert(QLatin1String("isReady"), si.isReady());
+    map.insert(QLatin1String("rootPath"), si.rootPath());
+    map.insert(QLatin1String("blockSize"), si.blockSize());
+    map.insert(QLatin1String("mbytesAvailable"),
+               static_cast<int>(si.bytesAvailable() / (1024 * 1024)));
+    map.insert(QLatin1String("mbytesFree"),
+               static_cast<int>(si.bytesFree() / (1024 * 1024)));
+    map.insert(QLatin1String("mbytesTotal"),
+               static_cast<int>(si.bytesTotal() / (1024 * 1024)));
+    result.append(map);
+  }
+  return result;
 }
 
 /**
