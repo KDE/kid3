@@ -6276,7 +6276,9 @@ void TagLibFile::addFieldList(Frame::TagNumber tagNr, Frame& frame) const
 QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
 {
   QStringList lst;
-  if (m_tagType[tagNr] == TT_Id3v2) {
+  if (m_tagType[tagNr] == TT_Id3v2 ||
+      (m_tagType[tagNr] == TT_Unknown &&
+       dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr]))) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")). // clazy:exclude=reserve-candidates
                  getName());
