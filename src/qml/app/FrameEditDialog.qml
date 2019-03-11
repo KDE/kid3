@@ -29,7 +29,7 @@ Dialog {
   id: page
 
   property QtObject frameObject
-  property string imageSource: app.coverArtImageId
+  property string imageSource
   signal frameEdited(variant frame)
 
   modal: true
@@ -159,7 +159,7 @@ Dialog {
       onFinished: {
         if (path) {
           field.value = script.readFile(path)
-          page.imageSource = path
+          page.imageSource = "file://" + path
         } else {
           page.imageSource = app.coverArtImageId
         }
