@@ -117,7 +117,7 @@ ${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\
   fi
   cd - >/dev/null
   exit 0
-fi
+fi # changeversion
 
 if test "$1" = "cleanuppo"; then
   echo "### Clean up .po files"
@@ -126,7 +126,7 @@ if test "$1" = "cleanuppo"; then
     sed -i "/#, qt-format/ d; /#, kde-format/ d; /^#~ msg/ d" $f
   done
   exit 0
-fi
+fi # cleanuppo
 
 if test "$1" = "makearchive"; then
   VERSION=$2
@@ -145,7 +145,7 @@ if test "$1" = "makearchive"; then
   git archive --format=tar --prefix=$DIR/ HEAD | gzip >$thisdir/$TGZ
   cd - >/dev/null
   exit 0
-fi
+fi # makearchive
 
 # End of subtasks
 
@@ -293,29 +293,29 @@ fi
 if test $kernel = "Darwin"; then
   ARCH=$(uname -m)
   #ARCH=i386
-if test "$ARCH" = "i386"; then
-  # To build a 32-bit Mac OS X version of Kid3 use:
-  # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-${qt_version}-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
-  # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
-  # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
-  ARCH_FLAG="-arch i386"
-  export CC=gcc
-  export CXX=g++
-else
-  ARCH_FLAG="-Xarch_x86_64"
-fi
-if [[ $(sw_vers -productVersion) = 10.1* ]]; then
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
-  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
-  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
-  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
-else
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
-  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
-  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
-  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.5"
-fi
-fi
+  if test "$ARCH" = "i386"; then
+    # To build a 32-bit Mac OS X version of Kid3 use:
+    # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-${qt_version}-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
+    # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
+    # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
+    ARCH_FLAG="-arch i386"
+    export CC=gcc
+    export CXX=g++
+  else
+    ARCH_FLAG="-Xarch_x86_64"
+  fi
+  if [[ $(sw_vers -productVersion) = 10.1* ]]; then
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
+    export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
+    export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+    export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+  else
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
+    export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+    export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+    export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.5"
+  fi
+fi # Darwin
 
 if which wget >/dev/null; then
   DOWNLOAD=wget
@@ -358,66 +358,70 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
-test -f flac_${libflac_version}.orig.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
-
-test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
-test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
-
-test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz
-test -f libogg_${libogg_version}.orig.tar.gz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
-
-test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
-test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
-
 test -f taglib-${taglib_version}.tar.gz ||
   $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
 
-if test -n "$ZLIB_ROOT_PATH"; then
-  test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
-  test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
-fi
+if test "$compiler" != "cross-android"; then
 
-if test -n "${ffmpeg_version}"; then
-  test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
-  test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
-  ffmpeg_dir=ffmpeg-${ffmpeg_version}
-else
-  if test "${libav_version%.*}" = "0.8"; then
-    test -f libav_${libav_version}.orig.tar.gz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
-    test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.gz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
-  else
-    test -f libav_${libav_version}.orig.tar.xz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.xz
-    test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.xz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
-    ffmpeg_dir=libav-${libav_version}
+  test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
+  test -f flac_${libflac_version}.orig.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
+
+  test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
+  test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
+
+  test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz
+  test -f libogg_${libogg_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
+
+  test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
+  test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
+
+  if test -n "$ZLIB_ROOT_PATH"; then
+    test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
+    test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
   fi
-fi
 
-test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
-test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
+  if test -n "${ffmpeg_version}"; then
+    test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
+    test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
+    ffmpeg_dir=ffmpeg-${ffmpeg_version}
+  else
+    if test "${libav_version%.*}" = "0.8"; then
+      test -f libav_${libav_version}.orig.tar.gz ||
+        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
+      test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.gz ||
+        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
+    else
+      test -f libav_${libav_version}.orig.tar.xz ||
+        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.xz
+      test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.xz ||
+        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
+      ffmpeg_dir=libav-${libav_version}
+    fi
+  fi
 
-test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
-test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
-  $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
+  test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
+  test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
+
+  test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
+  test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
+
+fi # !cross-android
 
 if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
   # See http://doc.qt.io/qt-5/opensslsupport.html
@@ -459,7 +463,7 @@ if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
       done
     fi
   fi
-fi
+fi # cross-mingw || cross-macos
 if test "$compiler" = "cross-mingw"; then
   cat >$thisdir/mingw.cmake <<EOF
 set(QT_PREFIX ${_qt_prefix})
@@ -526,7 +530,7 @@ foreach (_exe moc rcc lupdate lrelease uic)
   endif ()
 endforeach (_exe)
 EOF
-fi
+fi # cross-mingw, cross-macos
 
 test -f fink_flac.patch ||
   cat >fink_flac.patch <<"EOF"
@@ -2897,79 +2901,12 @@ if test "$compiler" = "cross-android"; then
  # https://android.googlesource.com/platform/ndk/+/ics-mr0/docs/STANDALONE-TOOLCHAIN.html
  export ANDROID_SYSROOT="$ANDROID_NDK_ROOT/platforms/$_ANDROID_API/$_ANDROID_ARCH"
 EOF
-fi
+fi # cross-android
 
 cd ..
 
 
 # Extract and patch sources
-
-if test -n "$ZLIB_ROOT_PATH"; then
-  if ! test -d zlib-${zlib_version}; then
-    echo "### Extracting zlib"
-
-    tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
-    cd zlib-${zlib_version}/
-
-    unxz -c ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz | tar x || true
-    echo Can be ignored: Cannot create symlink to debian.series
-    for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
-    cd ..
-  fi
-fi
-
-if ! test -d libogg-${libogg_version}; then
-  echo "### Extracting libogg"
-
-  tar xzf source/libogg_${libogg_version}.orig.tar.gz
-  cd libogg-${libogg_version}/
-  gunzip -c ../source/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
-  cd ..
-fi
-
-if ! test -d libvorbis-${libvorbis_version}; then
-  echo "### Extracting libvorbis"
-
-  tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
-  cd libvorbis-${libvorbis_version}/
-  unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-  if test $libvorbis_version = "1.3.5"; then
-    patch -p1 <../source/vorbis_alloc_on_heap.patch
-  fi
-  test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
-  sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
-  cd ..
-fi
-
-if ! test -d flac-${libflac_version}; then
-  echo "### Extracting libflac"
-
-  unxz -c source/flac_${libflac_version}.orig.tar.xz | tar x
-  cd flac-${libflac_version}/
-  unxz -c ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-  patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
-  if test $kernel = "Darwin"; then
-    patch -p1 <../source/fink_flac.patch
-    patch -p0 <patches/nasm.h.patch
-  fi
-  cd ..
-fi
-
-if ! test -d id3lib-${id3lib_version}; then
-  echo "### Extracting id3lib"
-
-  tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
-  cd id3lib-${id3lib_version}/
-  unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
-  patch -p1 <../source/id3lib-3.8.3_mingw.patch
-  patch -p1 <../source/id3lib-3.8.3_wintempfile.patch
-  test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
-  sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
-  cd ..
-fi
 
 if ! test -d taglib-${taglib_version}; then
   echo "### Extracting taglib"
@@ -3008,111 +2945,185 @@ if ! test -d taglib-${taglib_version}; then
   cd ..
 fi
 
-if test -n "${ffmpeg_version}"; then
-  if ! test -d ffmpeg-${ffmpeg_version}; then
-    echo "### Extracting ffmpeg"
+if test "$compiler" != "cross-android"; then
 
-    unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
-    cd ffmpeg-${ffmpeg_version}/
-    unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
+  if test -n "$ZLIB_ROOT_PATH"; then
+    if ! test -d zlib-${zlib_version}; then
+      echo "### Extracting zlib"
+
+      tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
+      cd zlib-${zlib_version}/
+
+      unxz -c ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz | tar x || true
+      echo Can be ignored: Cannot create symlink to debian.series
+      for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
+      cd ..
+    fi
+  fi
+
+  if ! test -d libogg-${libogg_version}; then
+    echo "### Extracting libogg"
+
+    tar xzf source/libogg_${libogg_version}.orig.tar.gz
+    cd libogg-${libogg_version}/
+    gunzip -c ../source/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
+    cd ..
+  fi
+
+  if ! test -d libvorbis-${libvorbis_version}; then
+    echo "### Extracting libvorbis"
+
+    tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
+    cd libvorbis-${libvorbis_version}/
+    unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-    if test $ffmpeg_version = "3.1.3"; then
-      patch -p1 <../source/ffmpeg_mingw.patch
+    if test $libvorbis_version = "1.3.5"; then
+      patch -p1 <../source/vorbis_alloc_on_heap.patch
+    fi
+    test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
+    sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
+    cd ..
+  fi
+
+  if ! test -d flac-${libflac_version}; then
+    echo "### Extracting libflac"
+
+    unxz -c source/flac_${libflac_version}.orig.tar.xz | tar x
+    cd flac-${libflac_version}/
+    unxz -c ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz | tar x
+    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
+    if test $kernel = "Darwin"; then
+      patch -p1 <../source/fink_flac.patch
+      patch -p0 <patches/nasm.h.patch
     fi
     cd ..
   fi
-else
-  if test "${libav_version%.*}" = "0.8"; then
-    if ! test -d libav-${libav_version}; then
-      echo "### Extracting libav"
 
-      tar xzf source/libav_${libav_version}.orig.tar.gz
-      cd libav-${libav_version}/
-      tar xzf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
-      oldifs=$IFS
-      IFS='
-'
-      for f in $(cat debian/patches/series); do
-        if test "${f:0:1}" != "#"; then
-          patch -p1 <debian/patches/$f
-        fi
-      done
-      IFS=$oldifs
+  if ! test -d id3lib-${id3lib_version}; then
+    echo "### Extracting id3lib"
+
+    tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
+    cd id3lib-${id3lib_version}/
+    unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
+    for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
+    patch -p1 <../source/id3lib-3.8.3_mingw.patch
+    patch -p1 <../source/id3lib-3.8.3_wintempfile.patch
+    test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
+    sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
+    cd ..
+  fi
+
+  if test -n "${ffmpeg_version}"; then
+    if ! test -d ffmpeg-${ffmpeg_version}; then
+      echo "### Extracting ffmpeg"
+
+      unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
+      cd ffmpeg-${ffmpeg_version}/
+      unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
+      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+      if test $ffmpeg_version = "3.1.3"; then
+        patch -p1 <../source/ffmpeg_mingw.patch
+      fi
       cd ..
     fi
   else
-    if ! test -d libav-${libav_version}; then
-      echo "### Extracting libav"
+    if test "${libav_version%.*}" = "0.8"; then
+      if ! test -d libav-${libav_version}; then
+        echo "### Extracting libav"
 
-      unxz -c source/libav_${libav_version}.orig.tar.xz | tar x || true
-      echo Can be ignored: Cannot create symlink to README.md
-      cd libav-${libav_version}/
-      unxz -c ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz | tar x
-      oldifs=$IFS
-      IFS='
+        tar xzf source/libav_${libav_version}.orig.tar.gz
+        cd libav-${libav_version}/
+        tar xzf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
+        oldifs=$IFS
+        IFS='
 '
-      for f in $(cat debian/patches/series); do
-        if test "${f:0:1}" != "#"; then
-          patch -p1 <debian/patches/$f
-        fi
-      done
-      IFS=$oldifs
-      cd ..
+        for f in $(cat debian/patches/series); do
+          if test "${f:0:1}" != "#"; then
+            patch -p1 <debian/patches/$f
+          fi
+        done
+        IFS=$oldifs
+        cd ..
+      fi
+    else
+      if ! test -d libav-${libav_version}; then
+        echo "### Extracting libav"
+
+        unxz -c source/libav_${libav_version}.orig.tar.xz | tar x || true
+        echo Can be ignored: Cannot create symlink to README.md
+        cd libav-${libav_version}/
+        unxz -c ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz | tar x
+        oldifs=$IFS
+        IFS='
+'
+        for f in $(cat debian/patches/series); do
+          if test "${f:0:1}" != "#"; then
+            patch -p1 <debian/patches/$f
+          fi
+        done
+        IFS=$oldifs
+        cd ..
+      fi
     fi
   fi
-fi
 
-if ! test -d chromaprint-${chromaprint_version}; then
-  echo "### Extracting chromaprint"
+  if ! test -d chromaprint-${chromaprint_version}; then
+    echo "### Extracting chromaprint"
 
-  tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
-  cd chromaprint-${chromaprint_version}/
-  unxz -c ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-  cd ..
-fi
+    tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
+    cd chromaprint-${chromaprint_version}/
+    unxz -c ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz | tar x
+    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    cd ..
+  fi
 
-if ! test -d mp4v2-${mp4v2_version}; then
-  echo "### Extracting mp4v2"
+  if ! test -d mp4v2-${mp4v2_version}; then
+    echo "### Extracting mp4v2"
 
-  tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
-  cd mp4v2-${mp4v2_version}/
-  unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz | tar x
-  for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-  if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
-    patch -p1 <../source/mp4v2_win32.patch
-    if test -z "${cross_host##x86_64*}"; then
-      sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
+    tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
+    cd mp4v2-${mp4v2_version}/
+    unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz | tar x
+    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+      patch -p1 <../source/mp4v2_win32.patch
+      if test -z "${cross_host##x86_64*}"; then
+        sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
+      fi
     fi
+    if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++"; then
+      patch -p1 <../source/mp4v2_clang6.patch
+    fi
+    cd ..
   fi
-  if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++"; then
-    patch -p1 <../source/mp4v2_clang6.patch
-  fi
-  cd ..
-fi
+
+fi # !cross-android
 
 if test "$compiler" = "cross-android"; then
 
-if ! test -d openssl-${openssl_version}; then
-  echo "### Extracting openssl"
+  if ! test -d openssl-${openssl_version}; then
+    echo "### Extracting openssl"
 
-  tar xzf source/openssl-${openssl_version}.tar.gz
-  cp source/Setenv-android.sh openssl-${openssl_version}/
-  cd openssl-${openssl_version}/
-  sed -i 's/\r$//' Setenv-android.sh
-  chmod +x Setenv-android.sh
-  patch -p0 <../source/openssl_android.patch
-  cd ..
-fi
+    tar xzf source/openssl-${openssl_version}.tar.gz
+    cp source/Setenv-android.sh openssl-${openssl_version}/
+    cd openssl-${openssl_version}/
+    sed -i 's/\r$//' Setenv-android.sh
+    test -n "$ANDROID_NDK_ROOT" && \
+      sed -i "s#^ANDROID_NDK_ROOT=.*#ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT#" \
+        Setenv-android.sh
+    chmod +x Setenv-android.sh
+    patch -p0 <../source/openssl_android.patch
+    cd ..
+  fi
 
-elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
+  elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
 
-if ! test -d openssl-${openssl_version}; then
-  echo "### Extracting openssl"
-  tar xzf source/openssl-${openssl_version}.tar.gz
-fi
+  if ! test -d openssl-${openssl_version}; then
+    echo "### Extracting openssl"
+    tar xzf source/openssl-${openssl_version}.tar.gz
+  fi
 
-fi
+fi # cross-android
 
 # Build from sources
 
@@ -3127,9 +3138,12 @@ done
 
 if test "$compiler" = "cross-android"; then
 
-  _android_sdk_root=/opt/android/sdk
-  _android_ndk_root=$_android_sdk_root/ndk-bundle
+  _java_root=${JAVA_HOME:-/usr/lib/jvm/java-8-openjdk-amd64}
+  _android_sdk_root=${ANDROID_SDK_ROOT:-/opt/android/sdk}
+  _android_ndk_root=${ANDROID_NDK_ROOT:-$_android_sdk_root/ndk-bundle}
   _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
+  test -f $_android_qt_root/bin/qmake ||
+    _android_qt_root=/opt/qt5/5.9.7/android_armv7
   if test -z "${_android_qt_root%%*x86}"; then
     _android_abi=x86
     _android_toolchain_prefix=x86
@@ -3170,7 +3184,7 @@ if test "$compiler" = "cross-android"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
+    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
     make install
     cd ..
   fi
@@ -3181,15 +3195,21 @@ if test "$compiler" = "cross-android"; then
     test -e ufleisch-release-key.keystore && cp -a ufleisch-release-key.keystore kid3/
     cat >kid3/build.sh <<EOF
 #!/bin/bash
-_java_root=/usr/lib/jvm/java-8-openjdk-amd64
+_java_root=$_java_root
 _android_sdk_root=$_android_sdk_root
 _android_ndk_root=$_android_ndk_root
 _android_abi=$_android_abi
 _android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
+_android_keystore_path=\$(pwd)/ufleisch-release-key.keystore
+_android_keystore_alias=ufleisch_android
+if ! test -f "\$_android_keystore_path"; then
+  _android_keystore_path=
+  _android_keystore_alias=
+fi
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
 # Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=../../kid3/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make ../../kid3
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
 EOF
     chmod +x kid3/build.sh
   fi
@@ -3265,7 +3285,7 @@ elif test "$compiler" = "msvc"; then
     tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
   fi
 
-else
+else #  cross-android, msvc
 
   if test "$1" = "clean"; then
     for d in zlib-${zlib_version} libogg-${libogg_version} \
@@ -3782,8 +3802,8 @@ EOF
     ${tar_cmd} bin/mp4v2-${mp4v2_version}.tgz -C /
   fi
 
-fi
-fi
+fi # cross-android, msvc, else
+fi # libs
 
 if [[ $target = *"package"* ]]; then
   echo "### Building kid3 package"
@@ -3841,20 +3861,17 @@ if [[ $target = *"package"* ]]; then
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
-    if test -f $QTPREFIX/lib/libssl.so && test -f $QTPREFIX/lib/libcrypto.so; then
-      JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
-      _version=$(grep VERSION config.h | cut -d'"' -f2)
-      if test -d android/bin; then
-        # ANT
-        cp -a android/bin/QtApp-release-signed.apk kid3-$_version-android.apk
-      else
-        # Gradle
-        cp -a android/build/outputs/apk/android-release-signed.apk kid3-$_version-android.apk
-      fi
-    else
-      echo "You have to copy libssl.so and libcrypto.so to the Qt directory:"
-      echo "sudo cp -a buildroot/usr/local/lib/lib{ssl,crypto}.so $QTPREFIX/lib/"
-    fi
+    JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
+    _version=$(grep VERSION config.h | cut -d'"' -f2)
+    for prefix in android/bin/QtApp-release android/build/outputs/apk/android-release; do
+      for suffix in signed unsigned; do
+        _apkpath=${prefix}-${suffix}.apk
+        if test -f $_apkpath; then
+          cp -a $_apkpath kid3-$_version-android.apk
+          break 2
+        fi
+      done
+    done
   elif test "$compiler" = "gcc-self-contained"; then
     ninja package
     _tgz=(kid3-*-Linux.tar.gz)
@@ -3869,6 +3886,6 @@ if [[ $target = *"package"* ]]; then
     fi
   fi
   popd >/dev/null
-fi
+fi # package
 
 echo "### Built successfully"
