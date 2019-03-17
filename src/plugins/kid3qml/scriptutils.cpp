@@ -339,7 +339,9 @@ QVariantList ScriptUtils::mountedVolumes()
     map.insert(QLatin1String("isReadOnly"), si.isReadOnly());
     map.insert(QLatin1String("isReady"), si.isReady());
     map.insert(QLatin1String("rootPath"), si.rootPath());
+#if QT_VERSION >= 0x050600
     map.insert(QLatin1String("blockSize"), si.blockSize());
+#endif
     map.insert(QLatin1String("mbytesAvailable"),
                static_cast<int>(si.bytesAvailable() / (1024 * 1024)));
     map.insert(QLatin1String("mbytesFree"),
