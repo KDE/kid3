@@ -50,6 +50,11 @@ endif()
 string(REPLACE "\\" "/" QT_ANDROID_NDK_ROOT ${QT_ANDROID_NDK_ROOT}) # androiddeployqt doesn't like backslashes in paths
 message(STATUS "Found Android NDK: ${QT_ANDROID_NDK_ROOT}")
 
+option(APK_ALL_TARGET "generate apk package with target 'all'" ON)
+if(APK_ALL_TARGET)
+    SET(APK_ALL ALL)
+endif()
+
 include(CMakeParseArguments)
 
 # define a macro to create an Android APK target
