@@ -97,16 +97,21 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
         set(QT_ANDROID_APP_PACKAGE_NAME org.qtproject.${SOURCE_TARGET})
     endif()
 
-    # detect latest Android SDK build-tools revision
-    set(QT_ANDROID_SDK_BUILDTOOLS_REVISION "0.0.0")
-    file(GLOB ALL_BUILD_TOOLS_VERSIONS RELATIVE ${QT_ANDROID_SDK_ROOT}/build-tools ${QT_ANDROID_SDK_ROOT}/build-tools/*)
-    foreach(BUILD_TOOLS_VERSION ${ALL_BUILD_TOOLS_VERSIONS})
-        # find subfolder with greatest version
-        if (${BUILD_TOOLS_VERSION} VERSION_GREATER ${QT_ANDROID_SDK_BUILDTOOLS_REVISION})
-            set(QT_ANDROID_SDK_BUILDTOOLS_REVISION ${BUILD_TOOLS_VERSION})
-        endif()
-    endforeach()
-    message("Detected Android SDK build tools version ${QT_ANDROID_SDK_BUILDTOOLS_REVISION}")
+    # set sdkBuildToolsRevision in qtdeploy.json
+    if(QT_ANDROID_BUILD_TOOLS_REVISION)
+        set(QT_ANDROID_SDK_BUILDTOOLS_REVISION ${QT_ANDROID_BUILD_TOOLS_REVISION})
+    else()
+        # detect latest Android SDK build-tools revision
+        set(QT_ANDROID_SDK_BUILDTOOLS_REVISION "0.0.0")
+        file(GLOB ALL_BUILD_TOOLS_VERSIONS RELATIVE ${QT_ANDROID_SDK_ROOT}/build-tools ${QT_ANDROID_SDK_ROOT}/build-tools/*)
+        foreach(BUILD_TOOLS_VERSION ${ALL_BUILD_TOOLS_VERSIONS})
+            # find subfolder with greatest version
+            if (${BUILD_TOOLS_VERSION} VERSION_GREATER ${QT_ANDROID_SDK_BUILDTOOLS_REVISION})
+                set(QT_ANDROID_SDK_BUILDTOOLS_REVISION ${BUILD_TOOLS_VERSION})
+            endif()
+        endforeach()
+        message("Detected Android SDK build tools version ${QT_ANDROID_SDK_BUILDTOOLS_REVISION}")
+    endif()
 
     # define the application source package directory
     if(ARG_PACKAGE_SOURCES)
