@@ -164,9 +164,9 @@ zlib_patchlevel=5
 libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.6
-libvorbis_patchlevel=1
-ffmpeg_version=3.4.3
-ffmpeg_patchlevel=1
+libvorbis_patchlevel=2
+ffmpeg_version=3.2.12
+ffmpeg_patchlevel=1~deb9u1
 #libav_version=11.12
 #libav_patchlevel=1
 libflac_version=1.3.2
@@ -175,9 +175,9 @@ id3lib_version=3.8.3
 id3lib_patchlevel=16.2
 taglib_version=1.11.1
 chromaprint_version=1.4.3
-chromaprint_patchlevel=2
+chromaprint_patchlevel=3
 mp4v2_version=2.0.0
-mp4v2_patchlevel=6
+mp4v2_patchlevel=5
 openssl_version=1.0.2n
 
 # Try to find the configuration from an existing build.
@@ -2658,6 +2658,17 @@ diff -ru mp4v2-2.0.0.orig/util/mp4track.cpp mp4v2-2.0.0/util/mp4track.cpp
              _action = &TrackUtility::actionPictureAspectRatioRemove;
              break;
  
+--- mp4v2-2.0.0.orig/src/rtphint.cpp	2019-03-19 12:39:04.147742509 +0100
++++ mp4v2-2.0.0/src/rtphint.cpp	2019-03-19 12:38:42.239637221 +0100
+@@ -339,7 +339,7 @@
+                 pSlash = strchr(pSlash, '/');
+                 if (pSlash != NULL) {
+                     pSlash++;
+-                    if (pSlash != '\0') {
++                    if (*pSlash != '\0') {
+                         length = (uint32_t)strlen(pRtpMap) - (pSlash - pRtpMap);
+                         *ppEncodingParams = (char *)MP4Calloc(length + 1);
+                         strncpy(*ppEncodingParams, pSlash, length);
 EOF
 
 test -f taglib_CVE-2018-11439.patch ||
@@ -3091,7 +3102,7 @@ if test "$compiler" != "cross-android"; then
         sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
       fi
     fi
-    if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++"; then
+    if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++" || test "$compiler" = "cross-mingw"; then
       patch -p1 <../source/mp4v2_clang6.patch
     fi
     cd ..
