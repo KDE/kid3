@@ -5,10 +5,14 @@ cmake_policy(SET CMP0026 OLD) # allow use of the LOCATION target property
 set(QT_ANDROID_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 # check the JAVA_HOME environment variable
-# (I couldn't find a way to set it from this script, it has to be defined outside)
-set(JAVA_HOME $ENV{JAVA_HOME})
-if(NOT JAVA_HOME)
-    message(FATAL_ERROR "The JAVA_HOME environment variable is not set. Please set it to the root directory of the JDK.")
+if(JAVA_HOME)
+    # Set JAVA_HOME environment variable.
+    set(ENV{JAVA_HOME} ${JAVA_HOME})
+else()
+    set(JAVA_HOME $ENV{JAVA_HOME})
+    if(NOT JAVA_HOME)
+        message(FATAL_ERROR "The JAVA_HOME environment variable is not set. Please set it or the JAVA_HOME CMake variable to the root directory of the JDK.")
+    endif()
 endif()
 
 # make sure that the Android toolchain is used
