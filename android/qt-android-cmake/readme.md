@@ -6,7 +6,7 @@ When using Qt for Android development, QMake & QtCreator is the only sane option
 
 This utility tries to avoids this by providing a CMake way of doing Android compilation and deployment, without QtCreator. It is based on:
 
-* the Android CMake toolchain at https://github.com/taka-no-me/android-cmake
+* the Android CMake toolchains available in the NDK
 * the ```androiddeployqt``` utility from the Qt Android SDK
 * the QML / Android example at https://github.com/calincru/QML-Android-Demo
 
@@ -59,15 +59,14 @@ First, you must make sure that the following environment variables are defined:
 Additionally you can define the following ones, but you can also define them as CMake variables if you prefer:
 
 * ```ANDROID_SDK```: root directory of the Android SDK
-* ```ANT```: Path of the ANT executable
 
 You can then run CMake:.
 
 **On Windows**
 ```
 cmake -G"MinGW Makefiles"
-      -DCMAKE_TOOLCHAIN_FILE=<qt-android-cmake>/toolchain/android.toolchain.cmake 
-      -DCMAKE_MAKE_PROGRAM="%ANDROID_NDK%/prebuilt/windows/bin/make.exe" .
+      -DCMAKE_TOOLCHAIN_FILE="%ANDROID_NDK%/build/cmake/android.toolchain.cmake" 
+      -DCMAKE_MAKE_PROGRAM="%ANDROID_NDK%/prebuilt/windows-x86_64/bin/make.exe" .
 ```
 
 **On Linux**
@@ -99,6 +98,20 @@ Example:
 ```cmake
 add_qt_android_apk(my_app_apk my_app
     NAME "My App"
+)
+```
+
+### VERSION_CODE
+
+The internal version of the application. It must be a single number, incremented everytime your app is updated on the play store (otherwise it has no importance). If not given, the number 1 is used.
+
+Note that the public version of the application, which is a different thing, is taken from the VERSION property of the CMake target. If none is provided, the VERSION_CODE number is used.
+
+Example:
+
+```cmake
+add_qt_android_apk(my_app_apk my_app
+    VERSION_CODE 6
 )
 ```
 
@@ -142,7 +155,7 @@ add_qt_android_apk(my_app_apk my_app
 
 ### KEYSTORE_PASSWORD
 
-The password associated to the gicen keystore. Note that this option is only considered if the ```KEYSTORE``` argument is used. If it is not given, the password will be asked directly in the console at build time.
+The password associated to the given keystore. Note that this option is only considered if the ```KEYSTORE``` argument is used. If it is not given, the password will be asked directly in the console at build time.
 
 Example:
 
@@ -176,6 +189,19 @@ add_qt_android_apk(my_app_apk my_app
     INSTALL
 )
 ```
+## Troubleshooting
+
+In case of 
+```
+-- Configuring done
+CMake Error in CMakeLists.txt:
+  No known features for CXX compiler
+
+  "GNU"
+
+  version 4.9.
+```
+see [Qt bug 54666](https://bugreports.qt.io/browse/QTBUG-54666) for details.
 
 ## Contact
 
