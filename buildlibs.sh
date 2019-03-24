@@ -3152,19 +3152,21 @@ if test "$compiler" = "cross-android"; then
   _java_root=${JAVA_HOME:-/usr/lib/jvm/java-8-openjdk-amd64}
   _android_sdk_root=${ANDROID_SDK_ROOT:-/opt/android/sdk}
   _android_ndk_root=${ANDROID_NDK_ROOT:-$_android_sdk_root/ndk-bundle}
+  _android_platform=${ANDROID_PLATFORM:-23}
+  _android_ccache=$(which ccache)
   _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
+  _android_toolchain_cmake=$_android_ndk_root/build/cmake/android.toolchain.cmake
+  test -f $_android_toolchain_cmake ||
+    _android_toolchain_cmake=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake
   test -f $_android_qt_root/bin/qmake ||
     _android_qt_root=/opt/qt5/5.9.7/android_armv7
   if test -z "${_android_qt_root%%*x86}"; then
     _android_abi=x86
-    _android_toolchain_prefix=x86
     _android_prefix=i686-linux-android
   else
     _android_abi=armeabi-v7a
-    _android_toolchain_prefix=
     _android_prefix=arm-linux-androideabi
   fi
-
   if test ! -d openssl-${openssl_version}/inst; then
     echo "### Building OpenSSL"
 
@@ -3176,9 +3178,18 @@ if test "$compiler" = "cross-android"; then
     fi
     sed -i "s#^_ANDROID_NDK=.*#ANDROID_NDK_ROOT=$_android_ndk_root#" Setenv-android.sh
     sed -i '/FIPS_SIG location/,/^fi$/ d' Setenv-android.sh
-
+    if test -d $_android_ndk_root/toolchains/llvm; then
+      sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=llvm/' Setenv-android.sh
+    fi
     . ./Setenv-android.sh
     ./Configure shared android
+    if test -d $_android_ndk_root/toolchains/llvm; then
+      if test "$_android_abi" = "x86"; then
+        sed -i 's/^CC=.*$/CC= i686-linux-android16-clang/; s/ -mandroid//' Makefile
+      else
+        sed -i 's/^CC=.*$/CC= armv7a-linux-androideabi16-clang/; s/ -mandroid//' Makefile
+      fi
+    fi
 
     make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
 
@@ -3195,7 +3206,7 @@ if test "$compiler" = "cross-android"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DANDROID_TOOLCHAIN_PREFIX=$_android_toolchain_prefix -DCMAKE_TOOLCHAIN_FILE=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=make
+    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
     make install
     cd ..
   fi
@@ -3209,8 +3220,9 @@ if test "$compiler" = "cross-android"; then
 _java_root=$_java_root
 _android_sdk_root=$_android_sdk_root
 _android_ndk_root=$_android_ndk_root
+_android_platform=$_android_platform
+_android_ccache=$_android_ccache
 _android_abi=$_android_abi
-_android_toolchain_prefix=$_android_toolchain_prefix
 _android_qt_root=$_android_qt_root
 _android_keystore_path=\$(pwd)/ufleisch-release-key.keystore
 _android_keystore_alias=ufleisch_android
@@ -3220,7 +3232,7 @@ if ! test -f "\$_android_keystore_path"; then
 fi
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
 # Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DQT_ANDROID_ANT=/usr/bin/ant -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_TOOLCHAIN_PREFIX=\$_android_toolchain_prefix -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
 EOF
     chmod +x kid3/build.sh
   fi
@@ -3874,7 +3886,7 @@ if [[ $target = *"package"* ]]; then
   elif test "$compiler" = "cross-android"; then
     JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
-    for prefix in android/bin/QtApp-release android/build/outputs/apk/android-release; do
+    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release; do
       for suffix in signed unsigned; do
         _apkpath=${prefix}-${suffix}.apk
         if test -f $_apkpath; then
