@@ -34,7 +34,7 @@ ToolButton {
     y: (parent.height - height) / 2
     font.family: materialFont.name
     font.pixelSize: 24
-    text: if (iconName) {
+    text: if (iconName) ({
               "go-up": "^",
               "go-down": "V",
               "select": "S",
@@ -46,6 +46,6 @@ ToolButton {
               "edit": "/",
               "add": "+",
               "remove": "-"
-            }[iconName]
+            })[iconName]
   }
 }
