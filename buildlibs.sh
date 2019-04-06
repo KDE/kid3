@@ -1,7 +1,8 @@
 #!/bin/bash
-# This script can be used to build static libraries for the Windows and Mac
-# versions of Kid3. Linux and BSD users do not need it because the libraries
-# can be installed from their repositories.
+# This script can be used to build Kid3 together with static libraries for the
+# Windows and Mac versions of Kid3. Linux and BSD users do not need it because
+# the libraries can be installed from their repositories, but they can use it
+# to generate a self contained package with a minimum of dependencies.
 #
 # First you have to install the necessary tools:
 #
@@ -27,16 +28,25 @@
 # compiler.
 # COMPILER=cross-mingw QTPREFIX=/path/to/Qt5.6.3-mingw/5.6.3/mingw49_32 ../kid3/buildlibs.sh
 #
-# For Mac: XCode, Qt, html/docbook.xsl. XCode and Qt should be installed at
-# the default location, docbook.xsl in
-# $HOME/docbook-xsl-1.72.0/html/docbook.xsl.
+# For Mac:
+#
+# Install XCode with the command line tools and Qt. The other build dependencies
+# can be installed with Homebrew, for instance:
+# brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl
+# Then call from a build directory
+# QTPREFIX=/path/to/Qt/5.9.7/clang_64 /path/to/kid3/buildlibs.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
 # COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/buildlibs.sh
 # or
 # COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 QTBINARYDIR=/path/to/Qt5.9.7-linux/5.9.7/gcc_64/bin ../kid3/buildlibs.sh
 #
-# To build for Android, set COMPILER="cross-android".
+# For Android:
+#
+# Install Qt and a compatible Android SDK and NDK, for example Qt 5.9.7, NDK 10e or Qt 5.12.2, NDK 19c.
+# COMPILER=cross-android QTPREFIX=/path/to/Qt/5.9.7/android_armv7 ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk-bundle ../buildlibs.sh
+#
+# For Linux:
 #
 # To build a self-contained Linux package use
 # COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.9.7-linux/5.9.7/gcc_64 ../kid3/buildlibs.sh
@@ -248,7 +258,7 @@ fi
 
 if ! which cmake >/dev/null; then
   echo "cmake not found."
-  return
+  return 2>/dev/null
   exit 1
 fi
 
@@ -3140,7 +3150,7 @@ fi # cross-android
 
 test -d bin || mkdir bin
 
-for d in /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-*; do
+for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl; do
   if test -e $d/html/docbook.xsl; then
     _docbook_xsl_dir=$d
     break
@@ -3747,7 +3757,7 @@ EOF
       _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
       cat >kid3/build.sh <<EOF
 #!/bin/bash
-cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-/opt/local//share/xsl/docbook-xsl} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
     elif test $kernel = "MINGW"; then
       _qtToolsMingw=($QTPREFIX/../../Tools/mingw*)
@@ -3755,7 +3765,7 @@ EOF
       cat >kid3/build.sh <<EOF
 #!/bin/bash
 test -z "\${PATH##$QTPREFIX*}" || PATH=$QTPREFIX/bin:$_qtToolsMingw/bin:$_qtToolsMingw/opt/bin:/c/Python36:\$HOME/prg/dumpbin:\$PATH
-XSLTPROCDIR=\$HOME/prg/xsltproc DOCBOOKDIR=\$HOME/prg/docbook-xsl-1.72.0 INCLUDE=../buildroot/usr/local/include  LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
+XSLTPROCDIR=\$HOME/prg/xsltproc DOCBOOKDIR=\$HOME/prg/docbook-xsl-1.72.0 INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
 EOF
       _qtPrefixWin=${QTPREFIX//\//\\}
       _qtPrefixWin=${_qtPrefixWin/\\c/C:}
@@ -3804,25 +3814,6 @@ cmake -GNinja -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF
 EOF
     fi
     chmod +x kid3/build.sh
-  fi
-
-  if test "$compiler" != "msvc" && test $kernel != "Linux"; then
-    if test $kernel = "Darwin"; then
-      tar_cmd="sudo tar xmozf"
-    else
-      tar_cmd="tar xmzf"
-    fi
-    if test -n "$ZLIB_ROOT_PATH"; then
-      ${tar_cmd} bin/zlib-${zlib_version}.tgz -C /
-    fi
-    ${tar_cmd} bin/libogg-${libogg_version}.tgz -C /
-    ${tar_cmd} bin/libvorbis-${libvorbis_version}.tgz -C /
-    ${tar_cmd} bin/flac-${libflac_version}.tgz -C /
-    ${tar_cmd} bin/id3lib-${id3lib_version}.tgz -C /
-    ${tar_cmd} bin/taglib-${taglib_version}.tgz -C /
-    ${tar_cmd} bin/${ffmpeg_dir}.tgz -C /
-    ${tar_cmd} bin/chromaprint-${chromaprint_version}.tgz -C /
-    ${tar_cmd} bin/mp4v2-${mp4v2_version}.tgz -C /
   fi
 
 fi # cross-android, msvc, else
