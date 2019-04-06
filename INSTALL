@@ -62,28 +62,6 @@ and the tar.gz archive into the SOURCES directory.
 rpmbuild -ba kid3.spec
 
 
-** Windows
+** Windows, macOS and Android
 
- - Install Qt/Windows Open Source Edition, CMake, MinGW and MSYS
- - Compile and install the libraries with MinGW and MSYS: id3lib, libvorbis,
-   libogg, FLAC, TagLib using the script buildlibs.sh
- - Install xsltproc and an XSL stylesheet to transform Docbook to HTML
-   (http://sourceforge.net/projects/docbook)
- - Point environment variables to the installed programs:
-   * %PYTHONDIR%\python
-   * %XSLTPROCDIR%\xsltproc
-   * %DOCBOOKDIR%\html\docbook.xsl
-   * %DUMPBINDIR%\dumpbin
-   * %CMAKEDIR%\bin\cmake
- - start win32/buildkid3.bat to build and create a ZIP-file
-
-
-** Mac OS X
-
- - Install Qt libraries for Mac, CMake and XCode
- - Compile and install the libraries id3lib, libvorbis,
-   libogg, FLAC, TagLib using the script buildlibs.sh
- - Install xsltproc and an XSL stylesheet to transform Docbook to HTML
-   (http://sourceforge.net/projects/docbook) in
-   $HOME/docbook-xsl-1.72.0/html/docbook.xsl
- - start macosx/buildkid3.sh to build and create a dmg image
+See instructions at the top of buildlibs.sh.

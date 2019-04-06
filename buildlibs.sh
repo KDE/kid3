@@ -8,21 +8,16 @@
 #
 # For Windows:
 #
-# Building the libraries needs msys/MinGW, CMake, yasm.
-# You should use the MinGW which comes with Qt and add msys tools to build
-# the libraries.
-# Download yasm from
-# http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-win32.exe
-# and copy it into msys /bin as yasm.exe.
-# Start the msys shell, add cmake to the path and start this script.
-# When the script has run successfully, the libraries are installed below
-# /usr/local/ in msys. You can then proceed to the Kid3 build.
+# Install Qt, you should use the MinGW which comes with Qt and add msys2
+# to build the libraries. Additional dependencies can be installed using
+# Chocolatey, e.g.
+# choco install cmake docbook-bundle ninja python3 Wget xsltproc yasm
+# Start the msys shell, add Qt and cmake to the path and start this script.
 #
-# Building Kid3 needs MinGW, CMake, Qt, xsltproc, html/docbook.xsl, dumpbin.
-# Dumpbin is needed for the final packages and can be found in the MS SDK or
-# MS Visual C++ Express Edition. Set the environment variables in
-# win32/buildkid3.bat, so that these tools can be found, then start
-# buildkid3.bat from a Windows command prompt.
+# export QTPREFIX=/path/to/Qt/5.6.3/mingw49_32 
+# test -z "${PATH##$QTPREFIX*}" ||
+# PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw492_32/bin:$QTPREFIX/../../Tools/mingw492_32/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
+# ../kid3/buildlibs.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
 # compiler.
@@ -34,7 +29,7 @@
 # can be installed with Homebrew, for instance:
 # brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl
 # Then call from a build directory
-# QTPREFIX=/path/to/Qt/5.9.7/clang_64 /path/to/kid3/buildlibs.sh
+# QTPREFIX=/path/to/Qt/5.9.7/clang_64 ../kid3/buildlibs.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
 # COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/buildlibs.sh
@@ -62,9 +57,10 @@
 #
 # buildlibs.sh will download, build and install zlib, libogg, libvorbis,
 # flac, id3lib, taglib, ffmpeg, chromaprint, mp4v2. When the libraries
-# are built, the Kid3 package can be created using this script with the
-# parameter "package".
+# are built, the Kid3 package is built. It is also possible to build only
+# the libraries or only the Kid3 package.
 #
+# ../kid3/buildlibs.sh libs
 # ../kid3/buildlibs.sh package
 
 # Exit if an error occurs
@@ -3150,7 +3146,9 @@ fi # cross-android
 
 test -d bin || mkdir bin
 
-for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl; do
+_chocoInstall=${ChocolateyInstall//\\/\/}
+_chocoInstall=${_chocoInstall/C:/\/c}
+for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
   if test -e $d/html/docbook.xsl; then
     _docbook_xsl_dir=$d
     break
@@ -3764,23 +3762,22 @@ EOF
       _qtToolsMingw=$(realpath $_qtToolsMingw)
       cat >kid3/build.sh <<EOF
 #!/bin/bash
-test -z "\${PATH##$QTPREFIX*}" || PATH=$QTPREFIX/bin:$_qtToolsMingw/bin:$_qtToolsMingw/opt/bin:/c/Python36:\$HOME/prg/dumpbin:\$PATH
-XSLTPROCDIR=\$HOME/prg/xsltproc DOCBOOKDIR=\$HOME/prg/docbook-xsl-1.72.0 INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
       _qtPrefixWin=${QTPREFIX//\//\\}
       _qtPrefixWin=${_qtPrefixWin/\\c/C:}
       _qtToolsMingwWin=${_qtToolsMingw//\//\\}
       _qtToolsMingwWin=${_qtToolsMingwWin/\\c/C:}
+      _docbookXslDirWin=${_docbook_xsl_dir//\//\\}
+      _docbookXslDirWin=${_docbookXslDirWin/\\c/C:}
       cat >kid3/build.bat <<EOF
-set XSLTPROCDIR=%HOME%/prg/xsltproc
-set DOCBOOKDIR=%HOME%/prg/docbook-xsl-1.72.0
 set INCLUDE=../buildroot/usr/local/include
 set LIB=../buildroot/usr/local/lib
 echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
 if errorlevel 1 (
-  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python36;%HOME%\prg\dumpbin;%PATH%
+  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python37;%PATH%
 )
-cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON ../../kid3
+cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbookXslDirWin:-%HOME%/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
       cat >kid3/run.bat <<EOF
 set thisdir=%~dp0
@@ -3792,6 +3789,7 @@ echo ;%PATH%; | find /C /I ";%thisdir%src\core;"
 if errorlevel 1 (
   path %thisdir%src\core;%thisdir%src\gui;%PATH%
 )
+set QT_PLUGIN_PATH=$_qtPrefixWin\plugins
 start src\app\qt\kid3
 EOF
     elif test "$compiler" = "gcc-debug"; then
