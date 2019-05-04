@@ -1658,6 +1658,12 @@ msgstr "Band-/Kunstnerlogo"
 msgid "Publisher/Studio logotype"
 msgstr "Udgiver-/Studielogo"
 
+msgid "Modification date"
+msgstr "Redigeringsdato"
+
+msgid "Creation date"
+msgstr "Oprettelsesdato"
+
 msgid "Number of tracks"
 msgstr "Antal spor"
 

@@ -1668,6 +1668,12 @@ msgstr "Логотип группы или исполнителя"
 msgid "Publisher/Studio logotype"
 msgstr "Логотип издателя или студии"
 
+msgid "Modification date"
+msgstr "Дата изменения"
+
+msgid "Creation date"
+msgstr "Дата создания"
+
 msgid "Number of tracks"
 msgstr "Количество дорожек"
 

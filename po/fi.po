@@ -1662,6 +1662,12 @@ msgstr "Yhtyeen/artistin logotyyppi"
 msgid "Publisher/Studio logotype"
 msgstr "Julkaisijan/studion logotyyppi"
 
+msgid "Modification date"
+msgstr "Muutospäivä"
+
+msgid "Creation date"
+msgstr "Luontipäivä"
+
 msgid "Number of tracks"
 msgstr "Kappaleiden lukumäärä"
 

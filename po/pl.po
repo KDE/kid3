@@ -1663,6 +1663,12 @@ msgstr "Logo zespołu/artysty"
 msgid "Publisher/Studio logotype"
 msgstr "Logo wydawcy/studia"
 
+msgid "Modification date"
+msgstr "Data zmiany"
+
+msgid "Creation date"
+msgstr "Data utworzenia"
+
 msgid "Number of tracks"
 msgstr "Liczba utworów"
 

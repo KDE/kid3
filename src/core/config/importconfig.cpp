@@ -211,6 +211,14 @@ ImportConfig::ImportConfig()
   m_importTagsExtractions.append(
         QLatin1String("%{title}(.+) +\\(%{comment}((?:Bonus|Remix)[^)]*)\\)"));
 
+  m_importTagsNames.append(QLatin1String("Modification Date to Date"));
+  m_importTagsSources.append(QLatin1String("%{modificationdate}"));
+  m_importTagsExtractions.append(QLatin1String(R"(%{date}(\d\d\d\d-\d\d-\d\d))"));
+
+  m_importTagsNames.append(QLatin1String("Filename to Original Filename"));
+  m_importTagsSources.append(QLatin1String("%{file}"));
+  m_importTagsExtractions.append(QLatin1String("%{TOFN}(.+)"));
+
   m_importTagsNames.append(QLatin1String("Custom Format"));
   m_importTagsSources.append(QLatin1String(""));
   m_importTagsExtractions.append(QLatin1String(""));

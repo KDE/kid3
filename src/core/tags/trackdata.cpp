@@ -28,6 +28,7 @@
 #include <QString>
 #include <QUrl>
 #include <QDir>
+#include <QDateTime>
 #include <QCoreApplication>
 #include "fileproxymodel.h"
 
@@ -111,6 +112,12 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         result = filename;
       } else if (name == QLatin1String("filepath")) {
         result = m_trackData.getAbsFilename();
+      } else if (name == QLatin1String("modificationdate")) {
+        return QFileInfo(m_trackData.getAbsFilename())
+            .lastModified().toString(Qt::ISODate);
+      } else if (name == QLatin1String("creationdate")) {
+        return QFileInfo(m_trackData.getAbsFilename())
+            .created().toString(Qt::ISODate);
       } else if (name == QLatin1String("url")) {
         QUrl url;
         url.setPath(m_trackData.getAbsFilename());
@@ -191,6 +198,18 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   const char* const absolutePathToFileStr =
       QT_TRANSLATE_NOOP("@default", "Absolute path to file");
   str += QCoreApplication::translate("@default", absolutePathToFileStr);
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td></td><td>%{modificationdate}</td><td>");
+  const char* const modificationDateStr =
+      QT_TRANSLATE_NOOP("@default", "Modification date");
+  str += QCoreApplication::translate("@default", modificationDateStr);
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("<tr><td></td><td>%{creationdate}</td><td>");
+  const char* const creationDateStr =
+      QT_TRANSLATE_NOOP("@default", "Creation date");
+  str += QCoreApplication::translate("@default", creationDateStr);
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%u</td><td>%{url}</td><td>");

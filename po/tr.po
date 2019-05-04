@@ -1664,6 +1664,12 @@ msgstr "Grup/sanatçı Logosu"
 msgid "Publisher/Studio logotype"
 msgstr "Yapımcı/Stüdyo Logosu"
 
+msgid "Modification date"
+msgstr "Değiştirilme tarihi"
+
+msgid "Creation date"
+msgstr "Oluşturma tarihi"
+
 msgid "Number of tracks"
 msgstr "Parça Sayısı"
 

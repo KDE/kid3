@@ -1665,6 +1665,12 @@ msgstr "Logotyp hudební skupiny/umělce"
 msgid "Publisher/Studio logotype"
 msgstr "Logotyp vydavatele/nahrávacího studia"
 
+msgid "Modification date"
+msgstr "Datum změny"
+
+msgid "Creation date"
+msgstr "Datum vytvoření"
+
 msgid "Number of tracks"
 msgstr "Počet skladeb"
 

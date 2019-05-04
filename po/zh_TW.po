@@ -1667,6 +1667,12 @@ msgstr "樂團╱演唱者標誌"
 msgid "Publisher/Studio logotype"
 msgstr "出版商╱錄音室標誌"
 
+msgid "Modification date"
+msgstr "更動日期"
+
+msgid "Creation date"
+msgstr "建立日期"
+
 msgid "Number of tracks"
 msgstr "音軌編號"
 

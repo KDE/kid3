@@ -1658,6 +1658,12 @@ msgstr ""
 msgid "Publisher/Studio logotype"
 msgstr ""
 
+msgid "Modification date"
+msgstr ""
+
+msgid "Creation date"
+msgstr ""
+
 msgid "Number of tracks"
 msgstr ""
 

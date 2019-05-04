@@ -1664,6 +1664,12 @@ msgstr "Логотип бенда/извођача"
 msgid "Publisher/Studio logotype"
 msgstr "Логотип издавача/студија"
 
+msgid "Modification date"
+msgstr "Датум измене"
+
+msgid "Creation date"
+msgstr "Датум стварања"
+
 msgid "Number of tracks"
 msgstr "Број нумера"
 
