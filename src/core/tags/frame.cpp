@@ -178,6 +178,7 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "ETCO", QT_TRANSLATE_NOOP("@default", "Event Timing Codes") },
     { "GEOB", QT_TRANSLATE_NOOP("@default", "General Object") },
     { "GRID", QT_TRANSLATE_NOOP("@default", "Group Identification") },
+    { "GRP1", QT_TRANSLATE_NOOP("@default", "Grouping") },
     { "LINK", QT_TRANSLATE_NOOP("@default", "Linked Information") },
     { "MCDI", QT_TRANSLATE_NOOP("@default", "Music CD Identifier") },
     { "MLLT", QT_TRANSLATE_NOOP("@default", "MPEG Lookup Table") },

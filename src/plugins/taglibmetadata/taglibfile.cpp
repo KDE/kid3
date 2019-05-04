@@ -1929,6 +1929,9 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "GEOB - General encapsulated object"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "GRID - Group identification registration"), Frame::FT_Other, false },
+#ifdef TAGLIB_WITH_MP4_SHWM
+  { QT_TRANSLATE_NOOP("@default", "GRP1 - Grouping"), Frame::FT_Other, true },
+#endif
   { QT_TRANSLATE_NOOP("@default", "LINK - Linked information"), Frame::FT_Other, false },
   { QT_TRANSLATE_NOOP("@default", "MCDI - Music CD identifier"), Frame::FT_Other, false },
   { QT_TRANSLATE_NOOP("@default", "MLLT - MPEG location lookup table"), Frame::FT_Other, false },
@@ -5214,6 +5217,7 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
 #endif
 #ifdef TAGLIB_WITH_MP4_SHWM
       || frameId == QLatin1String("MVIN") || frameId == QLatin1String("MVNM")
+      || frameId == QLatin1String("GRP1")
 #endif
     ) {
     if (frameId == QLatin1String("TXXX")) {
