@@ -1156,9 +1156,6 @@ msgstr "Original kunstner"
 msgid "Original Date"
 msgstr "Original dato"
 
-msgid "Disc Subtitle"
-msgstr "Disk-undertitel"
-
 msgid "Performer"
 msgstr "Performer"
 
@@ -1203,6 +1200,9 @@ msgstr "WWW Audio-Kilde"
 
 msgid "Release Date"
 msgstr "Udgivelsesdato"
+
+msgid "Work"
+msgstr "Forløb"
 
 msgid "Audio Encryption"
 msgstr "Audio kryptering"
@@ -1485,9 +1485,6 @@ msgstr "TV Show"
 
 msgid "TV Season"
 msgstr "TV Sæson"
-
-msgid "Work"
-msgstr "Forløb"
 
 msgid "Movement Count"
 msgstr "Sats antal"
@@ -2684,6 +2681,9 @@ msgstr "CTOC - Indholdsfortegnelse"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Udligning (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Gruppering"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Sats antal"

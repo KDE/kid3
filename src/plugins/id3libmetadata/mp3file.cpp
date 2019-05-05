@@ -904,9 +904,9 @@ const struct TypeStrOfId {
   { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer") },                            /* TEXT */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TFLT - File type") },                                       /* TFLT */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TIME - Time") },                                            /* TIME */
-  { Frame::FT_Grouping,       QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description") },                       /* TIT1 */
+  { Frame::FT_Work,           QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description") },                       /* TIT1 */
   { Frame::FT_Title,          QT_TRANSLATE_NOOP("@default", "TIT2 - Title/songname/content description") },              /* TIT2 */
-  { Frame::FT_Subtitle,       QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
+  { Frame::FT_Description,    QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
   { Frame::FT_InitialKey,     QT_TRANSLATE_NOOP("@default", "TKEY - Initial key") },                                     /* TKEY */
   { Frame::FT_Language,       QT_TRANSLATE_NOOP("@default", "TLAN - Language(s)") },                                     /* TLAN */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TLEN - Length") },                                          /* TLEN */
@@ -936,7 +936,7 @@ const struct TypeStrOfId {
   { Frame::FT_Other,          nullptr },                                                                                 /* TSOT */
   { Frame::FT_Isrc,           QT_TRANSLATE_NOOP("@default", "TSRC - ISRC (international standard recording code)") },    /* TSRC */
   { Frame::FT_EncoderSettings,QT_TRANSLATE_NOOP("@default", "TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
-  { Frame::FT_Part,           nullptr },                                                                                 /* TSST */
+  { Frame::FT_Subtitle,       nullptr },                                                                                 /* TSST */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TXXX - User defined text information") },                   /* TXXX */
   { Frame::FT_Date,           QT_TRANSLATE_NOOP("@default", "TYER - Year") },                                            /* TYER */
   { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "UFID - Unique file identifier") },                          /* UFID */
@@ -982,7 +982,9 @@ ID3_FrameID getId3libFrameIdForType(Frame::Type type)
   if (type == Frame::FT_Performer) {
     return ID3FID_INVOLVEDPEOPLE;
   } else if (type == Frame::FT_CatalogNumber ||
-             type == Frame::FT_ReleaseCountry) {
+             type == Frame::FT_ReleaseCountry ||
+             type == Frame::FT_Grouping ||
+             type == Frame::FT_Subtitle) {
     return ID3FID_USERTEXT;
   }
 
@@ -1765,6 +1767,10 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
           description = QLatin1String("CATALOGNUMBER");
         } else if (frame.getType() == Frame::FT_ReleaseCountry) {
           description = QLatin1String("RELEASECOUNTRY");
+        } else if (frame.getType() == Frame::FT_Grouping) {
+          description = QLatin1String("GROUPING");
+        } else if (frame.getType() == Frame::FT_Subtitle) {
+          description = QLatin1String("SUBTITLE");
         } else {
           description = frame.getName();
         }
@@ -1936,6 +1942,10 @@ Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
           frame.setType(Frame::FT_CatalogNumber);
         } else if (description == QLatin1String("RELEASECOUNTRY")) {
           frame.setType(Frame::FT_ReleaseCountry);
+        } else if (description == QLatin1String("GROUPING")) {
+          frame.setType(Frame::FT_Grouping);
+        } else if (description == QLatin1String("SUBTITLE")) {
+          frame.setType(Frame::FT_Subtitle);
         } else {
           frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
               frame.getInternalName() + QLatin1Char('\n') + description));
@@ -2156,10 +2166,8 @@ QStringList Mp3File::getFrameIds(Frame::TagNumber tagNr) const
 
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
-    if (type != Frame::FT_Part) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type),
-                                     QLatin1String("")).getName());
-    }
+    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type),
+                                   QLatin1String("")).getName());
   }
   for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
     if (typeStrOfId[i].type == Frame::FT_Other) {

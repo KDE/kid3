@@ -1164,9 +1164,6 @@ msgstr "Исходный исполнитель"
 msgid "Original Date"
 msgstr "Исходная дата"
 
-msgid "Disc Subtitle"
-msgstr "Подзаголовок диска"
-
 msgid "Performer"
 msgstr "Исполнитель"
 
@@ -1211,6 +1208,9 @@ msgstr "Веб-страница источника аудио"
 
 msgid "Release Date"
 msgstr "Дата выпуска"
+
+msgid "Work"
+msgstr "Название произведения"
 
 msgid "Audio Encryption"
 msgstr "Шифрование аудио"
@@ -1493,9 +1493,6 @@ msgstr "Название телепередачи"
 
 msgid "TV Season"
 msgstr "Телевизионный сезон"
-
-msgid "Work"
-msgstr "Название произведения"
 
 msgid "Movement Count"
 msgstr "Количество частей"
@@ -2697,6 +2694,9 @@ msgstr "CTOC — содержание"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 — частотная коррекция (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Группировка"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN — номер части"

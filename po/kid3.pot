@@ -1158,9 +1158,6 @@ msgstr ""
 msgid "Original Date"
 msgstr ""
 
-msgid "Disc Subtitle"
-msgstr ""
-
 msgid "Performer"
 msgstr ""
 
@@ -1204,6 +1201,9 @@ msgid "WWW Audio Source"
 msgstr ""
 
 msgid "Release Date"
+msgstr ""
+
+msgid "Work"
 msgstr ""
 
 msgid "Audio Encryption"
@@ -1486,9 +1486,6 @@ msgid "TV Show Name"
 msgstr ""
 
 msgid "TV Season"
-msgstr ""
-
-msgid "Work"
 msgstr ""
 
 msgid "Movement Count"
@@ -2677,6 +2674,9 @@ msgid "CTOC - Table of contents"
 msgstr ""
 
 msgid "EQU2 - Equalisation (2)"
+msgstr ""
+
+msgid "GRP1 - Grouping"
 msgstr ""
 
 msgid "MVIN - Movement Number"

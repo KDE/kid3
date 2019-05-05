@@ -558,8 +558,8 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         if (indexRe.indexIn(trackDataStr) >= 0) {
           if (additionalTags) {
             QString subtitle(removeHtml(indexRe.cap(1)));
-            framesHdr.setValue(Frame::FT_Part, subtitle);
-            frames.setValue(Frame::FT_Part, subtitle);
+            framesHdr.setValue(Frame::FT_Description, subtitle);
+            frames.setValue(Frame::FT_Description, subtitle);
           }
           continue;
         }

@@ -1161,9 +1161,6 @@ msgstr "原艺人"
 msgid "Original Date"
 msgstr "原出版日期"
 
-msgid "Disc Subtitle"
-msgstr "碟片副标题"
-
 msgid "Performer"
 msgstr "演出者"
 
@@ -1208,6 +1205,9 @@ msgstr "WWW 音频来源"
 
 msgid "Release Date"
 msgstr "发布日期"
+
+msgid "Work"
+msgstr "作品名称"
 
 msgid "Audio Encryption"
 msgstr "音频加密"
@@ -1491,9 +1491,6 @@ msgstr "排序名称"
 
 msgid "TV Season"
 msgstr "季"
-
-msgid "Work"
-msgstr "作品名称"
 
 msgid "Movement Count"
 msgstr "总章数"
@@ -2689,6 +2686,9 @@ msgstr "CTOC - 主目錄"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - 均衡 (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - 组群中"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - 乐章数"

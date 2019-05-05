@@ -81,7 +81,7 @@ public:
     FT_OriginalAlbum,
     FT_OriginalArtist,
     FT_OriginalDate,
-    FT_Part,
+    FT_Description,
     FT_Performer,
     FT_Picture,
     FT_Publisher,
@@ -98,7 +98,8 @@ public:
     FT_WWWAudioSource,
     FT_ReleaseDate,
     FT_Rating,
-    FT_LastFrame = FT_Rating,
+    FT_Work,
+    FT_LastFrame = FT_Work,
     FT_Other,
     FT_UnknownFrame
   };

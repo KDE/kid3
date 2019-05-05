@@ -1163,9 +1163,6 @@ msgstr "Původní umělec"
 msgid "Original Date"
 msgstr "Původní datum"
 
-msgid "Disc Subtitle"
-msgstr "Podtitul disku"
-
 msgid "Performer"
 msgstr "Účinkující hudebník"
 
@@ -1210,6 +1207,9 @@ msgstr "Internetová adresa zvukového zdroje"
 
 msgid "Release Date"
 msgstr "Datum vydání"
+
+msgid "Work"
+msgstr "Název díla"
 
 msgid "Audio Encryption"
 msgstr "Kódování zvuku"
@@ -1492,9 +1492,6 @@ msgstr "Název televizního pořadu"
 
 msgid "TV Season"
 msgstr "Televizní ada"
-
-msgid "Work"
-msgstr "Název díla"
 
 msgid "Movement Count"
 msgstr "Počet vět"
@@ -2692,6 +2689,9 @@ msgstr "CTOC - Obsah"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Vyrovnání (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Třídění do skupin"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Číslo věta"

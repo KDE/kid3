@@ -1162,9 +1162,6 @@ msgstr "Originaalesitaja"
 msgid "Original Date"
 msgstr "Originaali aasta"
 
-msgid "Disc Subtitle"
-msgstr "Plaadi alapealkiri"
-
 msgid "Performer"
 msgstr "Ettekandja"
 
@@ -1209,6 +1206,9 @@ msgstr "WWW-audioallikas"
 
 msgid "Release Date"
 msgstr "Väljalaske kuupäev"
+
+msgid "Work"
+msgstr "Teose pealkiri"
 
 msgid "Audio Encryption"
 msgstr "Audiokrüpteering"
@@ -1491,9 +1491,6 @@ msgstr "Telesaated"
 
 msgid "TV Season"
 msgstr "Hooaeg"
-
-msgid "Work"
-msgstr "Teose pealkiri"
 
 msgid "Movement Count"
 msgstr "Liikumise loendama"
@@ -2689,6 +2686,9 @@ msgstr "CTOC - Sisukord"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - ekvalaisimine (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Grupeerimine"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Liikumise number"

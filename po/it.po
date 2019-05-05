@@ -1161,9 +1161,6 @@ msgstr "Artista originale"
 msgid "Original Date"
 msgstr "Data originale"
 
-msgid "Disc Subtitle"
-msgstr "Sottotitolo disco"
-
 msgid "Performer"
 msgstr "Interprete"
 
@@ -1208,6 +1205,9 @@ msgstr "WWW della sorgente audio"
 
 msgid "Release Date"
 msgstr "Data di rilascio"
+
+msgid "Work"
+msgstr "Nome opera"
 
 msgid "Audio Encryption"
 msgstr "Cifratura audio"
@@ -1490,9 +1490,6 @@ msgstr "TV Show"
 
 msgid "TV Season"
 msgstr "Stagione"
-
-msgid "Work"
-msgstr "Nome opera"
 
 msgid "Movement Count"
 msgstr "Numero di movimenti"
@@ -2692,6 +2689,9 @@ msgstr "CTOC - Indice"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalizzazione (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Aggregazione"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Numero movimento"

@@ -398,7 +398,7 @@ const char* getVorbisNameFromType(Frame::Type type)
     "ORIGINALALBUM",   // FT_OriginalAlbum,
     "ORIGINALARTIST",  // FT_OriginalArtist,
     "ORIGINALDATE",    // FT_OriginalDate,
-    "PART",            // FT_Part,
+    "DESCRIPTION",     // FT_Description,
     "PERFORMER",       // FT_Performer,
     "METADATA_BLOCK_PICTURE", // FT_Picture,
     "PUBLISHER",       // FT_Publisher,
@@ -414,8 +414,9 @@ const char* getVorbisNameFromType(Frame::Type type)
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
     "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
     "RELEASEDATE",     // FT_ReleaseDate,
-    "RATING"           // FT_Rating,
-                       // FT_LastFrame = FT_Rating
+    "RATING",          // FT_Rating,
+    "WORK"             // FT_Work,
+                       // FT_LastFrame = FT_Work
   };
   Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   if (type == Frame::FT_Picture &&
@@ -441,7 +442,6 @@ Frame::Type getTypeFromVorbisName(QString name)
       auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
-    strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
     strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
@@ -827,7 +827,6 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
 
   static const char* const fieldNames[] = {
     "CONTACT",
-    "DESCRIPTION",
     "DISCTOTAL",
     "EAN/UPN",
     "ENCODING",

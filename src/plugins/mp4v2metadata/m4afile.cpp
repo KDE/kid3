@@ -98,7 +98,7 @@ const struct {
   { "tven", Frame::FT_Other },
   { "tvsn", Frame::FT_Other },
   { "tves", Frame::FT_Other },
-  { "desc", Frame::FT_Other },
+  { "desc", Frame::FT_Description },
   { "ldes", Frame::FT_Other },
   { "sonm", Frame::FT_SortName },
   { "soar", Frame::FT_SortArtist },
@@ -107,6 +107,7 @@ const struct {
   { "soco", Frame::FT_SortComposer },
   { "sosn", Frame::FT_Other },
   { "\251too", Frame::FT_EncoderSettings },
+  { "\251wrk", Frame::FT_Work },
   { "purd", Frame::FT_Other },
   { "pcst", Frame::FT_Other },
   { "keyw", Frame::FT_Other },
@@ -155,7 +156,6 @@ freeFormNameTypes[] = {
   { "ORIGINALALBUM", Frame::FT_OriginalAlbum },
   { "ORIGINALARTIST", Frame::FT_OriginalArtist },
   { "ORIGINALDATE", Frame::FT_OriginalDate },
-  { "PART", Frame::FT_Part },
   { "PERFORMER", Frame::FT_Performer },
   { "PUBLISHER", Frame::FT_Publisher },
   { "RELEASECOUNTRY", Frame::FT_ReleaseCountry },
@@ -1273,6 +1273,7 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
     Frame::FT_Copyright,
 #endif
+    Frame::FT_Description,
     Frame::FT_Disc,
     Frame::FT_EncodedBy,
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
@@ -1304,7 +1305,7 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
   lst << QLatin1String("pgap");
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
-  lst << QLatin1String("akID") << QLatin1String("apID") << QLatin1String("atID") << QLatin1String("catg") << QLatin1String("cnID") << QLatin1String("desc") <<
+  lst << QLatin1String("akID") << QLatin1String("apID") << QLatin1String("atID") << QLatin1String("catg") << QLatin1String("cnID") <<
     QLatin1String("geID") << QLatin1String("hdvd") << QLatin1String("keyw") << QLatin1String("ldes") << QLatin1String("pcst") <<
     QLatin1String("plID") << QLatin1String("purd") << QLatin1String("rtng") << QLatin1String("sfID") <<
     QLatin1String("sosn") << QLatin1String("stik") << QLatin1String("tven") <<

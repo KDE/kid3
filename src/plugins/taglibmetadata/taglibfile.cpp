@@ -1976,9 +1976,9 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "TGID - Podcast identifier"), Frame::FT_Other, true },
 #endif
   { QT_TRANSLATE_NOOP("@default", "TIPL - Involved people list"), Frame::FT_Arranger, true },
-  { QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description"), Frame::FT_Grouping, true },
+  { QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description"), Frame::FT_Work, true },
   { QT_TRANSLATE_NOOP("@default", "TIT2 - Title/songname/content description"), Frame::FT_Title, true },
-  { QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement"), Frame::FT_Subtitle, true },
+  { QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement"), Frame::FT_Description, true },
   { QT_TRANSLATE_NOOP("@default", "TKEY - Initial key"), Frame::FT_InitialKey, true },
   { QT_TRANSLATE_NOOP("@default", "TLAN - Language(s)"), Frame::FT_Language, true },
   { QT_TRANSLATE_NOOP("@default", "TLEN - Length"), Frame::FT_Other, true },
@@ -2007,7 +2007,7 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "TSOT - Title sort order"), Frame::FT_SortName, true },
   { QT_TRANSLATE_NOOP("@default", "TSRC - ISRC (international standard recording code)"), Frame::FT_Isrc, true },
   { QT_TRANSLATE_NOOP("@default", "TSSE - Software/Hardware and settings used for encoding"), Frame::FT_EncoderSettings, true },
-  { QT_TRANSLATE_NOOP("@default", "TSST - Set subtitle"), Frame::FT_Part, true },
+  { QT_TRANSLATE_NOOP("@default", "TSST - Set subtitle"), Frame::FT_Subtitle, true },
   { QT_TRANSLATE_NOOP("@default", "TXXX - User defined text information"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "UFID - Unique file identifier"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "USER - Terms of use"), Frame::FT_Other, false },
@@ -3751,7 +3751,7 @@ const char* getVorbisNameFromType(Frame::Type type)
     "ORIGINALALBUM",   // FT_OriginalAlbum,
     "ORIGINALARTIST",  // FT_OriginalArtist,
     "ORIGINALDATE",    // FT_OriginalDate,
-    "PART",            // FT_Part,
+    "DESCRIPTION",     // FT_Description,
     "PERFORMER",       // FT_Performer,
     "METADATA_BLOCK_PICTURE", // FT_Picture,
     "PUBLISHER",       // FT_Publisher,
@@ -3767,8 +3767,9 @@ const char* getVorbisNameFromType(Frame::Type type)
     "WWWAUDIOFILE",    // FT_WWWAudioFile,
     "WWWAUDIOSOURCE",  // FT_WWWAudioSource,
     "RELEASEDATE",     // FT_ReleaseDate,
-    "RATING"           // FT_Rating,
-                       // FT_LastFrame = FT_Rating
+    "RATING",          // FT_Rating,
+    "WORK"             // FT_Work,
+                       // FT_LastFrame = FT_Work
   };
   Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   if (type == Frame::FT_Picture &&
@@ -3794,7 +3795,6 @@ Frame::Type getTypeFromVorbisName(QString name)
       auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
-    strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
     strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
@@ -3942,7 +3942,7 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "tven", Frame::FT_Other, MVT_String },
   { "tvsn", Frame::FT_Other, MVT_UInt },
   { "tves", Frame::FT_Other, MVT_UInt },
-  { "desc", Frame::FT_Other, MVT_String },
+  { "desc", Frame::FT_Description, MVT_String },
   { "ldes", Frame::FT_Other, MVT_String },
   { "sonm", Frame::FT_SortName, MVT_String },
   { "soar", Frame::FT_SortArtist, MVT_String },
@@ -3974,7 +3974,7 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "xid ", Frame::FT_Other, MVT_String },
   { "covr", Frame::FT_Picture, MVT_CoverArt },
 #ifdef TAGLIB_WITH_MP4_SHWM
-  { "\251wrk", Frame::FT_Other, MVT_String },
+  { "\251wrk", Frame::FT_Work, MVT_String },
   { "\251mvn", Frame::FT_Other, MVT_String },
   { "\251mvi", Frame::FT_Other, MVT_Int },
   { "\251mvc", Frame::FT_Other, MVT_Int },
@@ -3994,7 +3994,6 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "ORIGINALALBUM", Frame::FT_OriginalAlbum, MVT_String },
   { "ORIGINALARTIST", Frame::FT_OriginalArtist, MVT_String },
   { "ORIGINALDATE", Frame::FT_OriginalDate, MVT_String },
-  { "PART", Frame::FT_Part, MVT_String },
   { "PERFORMER", Frame::FT_Performer, MVT_String },
   { "PUBLISHER", Frame::FT_Publisher, MVT_String },
   { "RELEASECOUNTRY", Frame::FT_ReleaseCountry, MVT_String },
@@ -4303,7 +4302,7 @@ const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/Conductor", Frame::FT_Conductor, TagLib::ASF::Attribute::UnicodeType },
   { "WM/PartOfSet", Frame::FT_Disc, TagLib::ASF::Attribute::UnicodeType },
   { "WM/EncodedBy", Frame::FT_EncodedBy, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/ContentGroupDescription", Frame::FT_Grouping, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/ContentGroupDescription", Frame::FT_Work, TagLib::ASF::Attribute::UnicodeType },
   { "WM/ISRC", Frame::FT_Isrc, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Language", Frame::FT_Language, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Writer", Frame::FT_Lyricist, TagLib::ASF::Attribute::UnicodeType },
@@ -4312,7 +4311,7 @@ const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/OriginalAlbumTitle", Frame::FT_OriginalAlbum, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalArtist", Frame::FT_OriginalArtist, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalReleaseYear", Frame::FT_OriginalDate, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/SubTitleDescription", Frame::FT_Part, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/SubTitleDescription", Frame::FT_Description, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Picture", Frame::FT_Picture, TagLib::ASF::Attribute::BytesType },
   { "WM/Publisher", Frame::FT_Publisher, TagLib::ASF::Attribute::UnicodeType },
   { "WM/ModifiedBy", Frame::FT_Remixer, TagLib::ASF::Attribute::UnicodeType },
@@ -4618,7 +4617,7 @@ TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     nullptr, // FT_OriginalAlbum,
     nullptr, // FT_OriginalArtist,
     nullptr, // FT_OriginalDate,
-    "PRT1",  // FT_Part,
+    nullptr, // FT_Description,
     "ISTR",  // FT_Performer,
     nullptr, // FT_Picture,
     "IPUB",  // FT_Publisher,
@@ -4629,13 +4628,14 @@ TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     nullptr, // FT_SortArtist,
     nullptr, // FT_SortComposer,
     nullptr, // FT_SortName,
-    nullptr, // FT_Subtitle,
+    "PRT1",  // FT_Subtitle,
     "IBSU",  // FT_Website,
     nullptr, // FT_WWWAudioFile,
     nullptr, // FT_WWWAudioSource,
     nullptr, // FT_ReleaseDate,
-    "IRTD"   // FT_Rating,
-             // FT_LastFrame = FT_Rating
+    "IRTD",  // FT_Rating,
+    nullptr, // FT_Work,
+             // FT_LastFrame = FT_Work
   };
   Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   if (type == Frame::FT_Track) {
@@ -5316,6 +5316,10 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
       description = "CATALOGNUMBER";
     } else if (frame.getType() == Frame::FT_ReleaseCountry) {
       description = "RELEASECOUNTRY";
+    } else if (frame.getType() == Frame::FT_Grouping) {
+      description = "GROUPING";
+    } else if (frame.getType() == Frame::FT_Subtitle) {
+      description = "SUBTITLE";
     } else {
       description = toTString(frame.getName());
       frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
@@ -5752,6 +5756,10 @@ Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index)
           frame.setType(Frame::FT_CatalogNumber);
         } else if (description == QLatin1String("RELEASECOUNTRY")) {
           frame.setType(Frame::FT_ReleaseCountry);
+        } else if (description == QLatin1String("GROUPING")) {
+          frame.setType(Frame::FT_Grouping);
+        } else if (description == QLatin1String("SUBTITLE")) {
+          frame.setType(Frame::FT_Subtitle);
         } else {
           if (description.startsWith(QLatin1String("QuodLibet::"))) {
             // remove ExFalso/QuodLibet "namespace"
@@ -6362,7 +6370,6 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
   } else {
     static const char* const fieldNames[] = {
       "CONTACT",
-      "DESCRIPTION",
       "DISCTOTAL",
       "EAN/UPN",
       "ENCODING",

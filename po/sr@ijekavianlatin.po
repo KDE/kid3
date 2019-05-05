@@ -1160,9 +1160,6 @@ msgstr "Izvorni izvođač"
 msgid "Original Date"
 msgstr "Izvorni datum"
 
-msgid "Disc Subtitle"
-msgstr "Dio"
-
 msgid "Performer"
 msgstr "Izvođač"
 
@@ -1207,6 +1204,9 @@ msgstr ""
 
 msgid "Release Date"
 msgstr "Datum izdanja"
+
+msgid "Work"
+msgstr ""
 
 msgid "Audio Encryption"
 msgstr "Audio šifrovanje"
@@ -1490,9 +1490,6 @@ msgstr "Redoslijed sortiranja naslova"
 
 msgid "TV Season"
 msgstr "Doba"
-
-msgid "Work"
-msgstr ""
 
 msgid "Movement Count"
 msgstr ""
@@ -2688,6 +2685,9 @@ msgstr "CTOC - Sadržaj"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - jednačenje (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Grupisanje"
 
 msgid "MVIN - Movement Number"
 msgstr ""

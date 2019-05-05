@@ -1161,9 +1161,6 @@ msgstr "Asıl Sanatçı"
 msgid "Original Date"
 msgstr "Asıl Tarih"
 
-msgid "Disc Subtitle"
-msgstr "Disk Altbaşlığı"
-
 msgid "Performer"
 msgstr "Sanatçı"
 
@@ -1208,6 +1205,9 @@ msgstr "Ses dosyasının WWW"
 
 msgid "Release Date"
 msgstr "Sürüm Tarihi"
+
+msgid "Work"
+msgstr "Eser adı"
 
 msgid "Audio Encryption"
 msgstr "Ses şifreleme"
@@ -1491,9 +1491,6 @@ msgstr "Başlık sıralaması"
 
 msgid "TV Season"
 msgstr "Sezon"
-
-msgid "Work"
-msgstr "Eser adı"
 
 msgid "Movement Count"
 msgstr "Bölüm sayısı"
@@ -2692,6 +2689,9 @@ msgstr "CTOC - İçindekiler"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Ekolayzır (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Gruplama"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Bölüm numarası"

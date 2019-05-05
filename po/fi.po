@@ -1162,9 +1162,6 @@ msgstr "Alkuperäinen artisti"
 msgid "Original Date"
 msgstr "Alkuperäinen päiväys"
 
-msgid "Disc Subtitle"
-msgstr "Levyn alaotsikko"
-
 msgid "Performer"
 msgstr "Esiintyjä"
 
@@ -1209,6 +1206,9 @@ msgstr "Äänilähteen WWW"
 
 msgid "Release Date"
 msgstr "Julkaisupäivämäärä"
+
+msgid "Work"
+msgstr "Teoksen nimi"
 
 msgid "Audio Encryption"
 msgstr "Äänen koodaus"
@@ -1491,9 +1491,6 @@ msgstr "Ohjelmat"
 
 msgid "TV Season"
 msgstr "Vuodenaika"
-
-msgid "Work"
-msgstr "Teoksen nimi"
 
 msgid "Movement Count"
 msgstr "Osan laskea"
@@ -2691,6 +2688,9 @@ msgstr "CTOC - Sisällysluettelo"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 – Ekvalisaatio (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Ryhmittely"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Osan numero"

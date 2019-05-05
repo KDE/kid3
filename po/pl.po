@@ -1162,9 +1162,6 @@ msgstr "Oryg. artysta"
 msgid "Original Date"
 msgstr "Oryginalna data"
 
-msgid "Disc Subtitle"
-msgstr "Podtytuł płyty"
-
 msgid "Performer"
 msgstr "Wykonawca"
 
@@ -1209,6 +1206,9 @@ msgstr "WWW źródła audio"
 
 msgid "Release Date"
 msgstr "Data wydania"
+
+msgid "Work"
+msgstr "Nazwa dzieła"
 
 msgid "Audio Encryption"
 msgstr "Szyfrowanie audio"
@@ -1492,9 +1492,6 @@ msgstr "Porządek sortowania tytułów"
 
 msgid "TV Season"
 msgstr "Sezon"
-
-msgid "Work"
-msgstr "Nazwa dzieła"
 
 msgid "Movement Count"
 msgstr "Liczba części"
@@ -2692,6 +2689,9 @@ msgstr "CTOC - Spis treści"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Grupowanie"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Nazwa części"

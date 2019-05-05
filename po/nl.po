@@ -1161,9 +1161,6 @@ msgstr "Originele Artiest"
 msgid "Original Date"
 msgstr "Originele Datum"
 
-msgid "Disc Subtitle"
-msgstr "Schijf bij-titel"
-
 msgid "Performer"
 msgstr "Artiest/uitvoerende"
 
@@ -1208,6 +1205,9 @@ msgstr "WWW van audio bron"
 
 msgid "Release Date"
 msgstr "Uitgiftedatum"
+
+msgid "Work"
+msgstr "Naam van werk"
 
 msgid "Audio Encryption"
 msgstr "Audio versleuteling"
@@ -1490,9 +1490,6 @@ msgstr "Programma"
 
 msgid "TV Season"
 msgstr "Seizoen"
-
-msgid "Work"
-msgstr "Naam van werk"
 
 msgid "Movement Count"
 msgstr "Aantal deel"
@@ -2694,6 +2691,9 @@ msgstr "CTOC - Inhoudsopgave"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Egalisatie (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Groepering"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Nummer van deel"

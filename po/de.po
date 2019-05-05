@@ -1135,7 +1135,7 @@ msgid "Encoding Time"
 msgstr "Kodierdatum"
 
 msgid "Grouping"
-msgstr "Werk"
+msgstr "Gruppierung"
 
 msgid "Initial Key"
 msgstr "Anfangstonart"
@@ -1160,9 +1160,6 @@ msgstr "Originalkünstler"
 
 msgid "Original Date"
 msgstr "Original Erscheinungsdatum"
-
-msgid "Disc Subtitle"
-msgstr "CD-Untertitel"
 
 msgid "Performer"
 msgstr "Musiker"
@@ -1208,6 +1205,9 @@ msgstr "WWW der Audio-Quelle"
 
 msgid "Release Date"
 msgstr "Erscheinungsdatum"
+
+msgid "Work"
+msgstr "Werktitel"
 
 msgid "Audio Encryption"
 msgstr "Audioverschlüsselung"
@@ -1490,9 +1490,6 @@ msgstr "TV Show"
 
 msgid "TV Season"
 msgstr "TV Staffel"
-
-msgid "Work"
-msgstr "Werktitel"
 
 msgid "Movement Count"
 msgstr "Anzahl Sätze"
@@ -2692,6 +2689,9 @@ msgstr "CTOC - Inhaltsverzeichnis"
 
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalisation (2)"
+
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Gruppierung"
 
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Nummer des Satzes"

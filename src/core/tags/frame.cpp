@@ -134,7 +134,7 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Original Album"),  // FT_OriginalAlbum,
     QT_TRANSLATE_NOOP("@default", "Original Artist"), // FT_OriginalArtist,
     QT_TRANSLATE_NOOP("@default", "Original Date"),   // FT_OriginalDate,
-    QT_TRANSLATE_NOOP("@default", "Disc Subtitle"),   // FT_Part,
+    QT_TRANSLATE_NOOP("@default", "Description"),     // FT_Description,
     QT_TRANSLATE_NOOP("@default", "Performer"),       // FT_Performer,
     QT_TRANSLATE_NOOP("@default", "Picture"),         // FT_Picture,
     QT_TRANSLATE_NOOP("@default", "Publisher"),       // FT_Publisher,
@@ -150,8 +150,9 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "WWW Audio File"),  // FT_WWWAudioFile,
     QT_TRANSLATE_NOOP("@default", "WWW Audio Source"), // FT_WWWAudioSource,
     QT_TRANSLATE_NOOP("@default", "Release Date"),    // FT_ReleaseDate,
-    QT_TRANSLATE_NOOP("@default", "Rating")           // FT_Rating,
-                                  // FT_LastFrame = FT_Rating
+    QT_TRANSLATE_NOOP("@default", "Rating"),          // FT_Rating,
+    QT_TRANSLATE_NOOP("@default", "Work")             // FT_Work,
+                                  // FT_LastFrame = FT_Work
   };
   Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
   return type <= Frame::FT_LastFrame ? names[type] : "Unknown";
@@ -295,7 +296,6 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "tvsh", QT_TRANSLATE_NOOP("@default", "TV Show Name") },
     { "tvsn", QT_TRANSLATE_NOOP("@default", "TV Season") },
     { "year", QT_TRANSLATE_NOOP("@default", "Year") },
-    { "\251wrk", QT_TRANSLATE_NOOP("@default", "Work") },
     { "\251mvn", QT_TRANSLATE_NOOP("@default", "Movement Name") },
     { "\251mvi", QT_TRANSLATE_NOOP("@default", "Movement Number") },
     { "\251mvc", QT_TRANSLATE_NOOP("@default", "Movement Count") },
