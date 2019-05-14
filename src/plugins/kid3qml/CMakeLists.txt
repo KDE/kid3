@@ -92,7 +92,7 @@ if(NOT WIN32 AND NOT ANDROID AND NOT(CMAKE_CXX_COMPILER MATCHES "/osxcross/"))
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3 OPTIONAL)
 endif()
 
-if(WIN32 OR APPLE)
+if(WIN32 OR APPLE OR LINUX_SELF_CONTAINED)
   # Install essential QML modules.
   get_target_property(QT_QML_DIR Qt5::qmake LOCATION)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)

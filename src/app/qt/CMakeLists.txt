@@ -191,6 +191,10 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/xcbglintegrations"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libqxcb-glx-integration${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/xcbglintegrations/libqxcb-glx-integration${CMAKE_SHARED_LIBRARY_SUFFIX}")
   endif()
 
   if(CMAKE_CROSSCOMPILING AND NOT APPLE)
