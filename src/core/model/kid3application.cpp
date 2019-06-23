@@ -250,6 +250,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_selection = new TaggedFileSelection(m_framesModel, this);
   setObjectName(QLatin1String("Kid3Application"));
   m_fileSystemModel->setReadOnly(false);
+  const FileConfig& fileCfg = FileConfig::instance();
+  m_fileSystemModel->setSortIgnoringPunctuation(fileCfg.sortIgnoringPunctuation());
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
   connect(m_fileSelectionModel,

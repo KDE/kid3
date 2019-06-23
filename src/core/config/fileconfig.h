@@ -47,6 +47,10 @@ class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig> {
   /** true to show hidden files */
   Q_PROPERTY(bool showHiddenFiles READ showHiddenFiles WRITE setShowHiddenFiles
              NOTIFY showHiddenFilesChanged)
+  /** true if punctuation characters and symbols are ignored when sorting */
+  Q_PROPERTY(bool sortIgnoringPunctuation READ sortIgnoringPunctuation
+             WRITE setSortIgnoringPunctuation
+             NOTIFY sortIgnoringPunctuationChanged)
   /** filename format */
   Q_PROPERTY(QString toFilenameFormat READ toFilenameFormat
              WRITE setToFilenameFormat NOTIFY toFilenameFormatChanged)
@@ -130,6 +134,12 @@ public:
   /** Set if hidden files are shown. */
   void setShowHiddenFiles(bool showHiddenFiles);
 
+  /** Check if punctuation characters and symbols are ignored when sorting. */
+  bool sortIgnoringPunctuation() const { return m_sortIgnoringPunctuation; }
+
+  /** Set if punctuation characters and symbols are ignored when sorting. */
+  void setSortIgnoringPunctuation(bool sortIgnoringPunctuation);
+
   /** Get filename format. */
   QString toFilenameFormat() const { return m_formatText; }
 
@@ -211,6 +221,9 @@ signals:
   /** Emitted when @a showHiddenFiles changed. */
   void showHiddenFilesChanged(bool showHiddenFiles);
 
+  /** Emitted when @a sortIgnoringPunctuation changed. */
+  void sortIgnoringPunctuationChanged(bool sortIgnoringPunctuation);
+
   /** Emitted when @a formatText changed. */
   void toFilenameFormatChanged(const QString& toFilenameFormat);
 
@@ -260,6 +273,7 @@ private:
   bool m_markChanges;
   bool m_loadLastOpenedFile;
   bool m_showHiddenFiles;
+  bool m_sortIgnoringPunctuation;
 
   /** Index in configuration storage */
   static int s_index;

@@ -266,7 +266,8 @@ public:
             setRootPath(false),
             filters(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::AllDirs),
             nameFilterDisables(true), // false on windows, true on mac and unix
-            disableRecursiveSort(false)
+            disableRecursiveSort(false),
+            sortIgnoringPunctuation(false)
 #ifndef USE_QT_PRIVATE_HEADERS
             , q_ptr(q)
 #endif
@@ -367,6 +368,7 @@ public:
     //It enable a sort which is not recursive, it means
     //we sort only what we see.
     bool disableRecursiveSort;
+    bool sortIgnoringPunctuation;
 #ifndef QT_NO_REGEXP
     QList<QRegExp> nameFilters;
 #endif

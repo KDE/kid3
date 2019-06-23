@@ -1045,8 +1045,9 @@ void FileSystemModelPrivate::_q_performDelayedSort()
 class FileSystemModelSorter
 {
 public:
-    inline FileSystemModelSorter(int column) : sortColumn(column)
+    inline FileSystemModelSorter(int column, bool ignorePunctuation = false) : sortColumn(column)
     {
+        naturalCompare.setIgnorePunctuation(ignorePunctuation);
         naturalCompare.setNumericMode(true);
         naturalCompare.setCaseSensitivity(Qt::CaseInsensitive);
     }
@@ -1132,7 +1133,7 @@ void FileSystemModelPrivate::sortChildren(int column, const QModelIndex &parent)
             iterator.value()->isVisible = false;
         }
     }
-    FileSystemModelSorter ms(column);
+    FileSystemModelSorter ms(column, sortIgnoringPunctuation);
     std::sort(values.begin(), values.end(), ms);
     // First update the new visible list
     indexNode->visibleChildren.clear();
@@ -1654,6 +1655,23 @@ QStringList FileSystemModel::nameFilters() const
     }
 #endif
     return filters;
+}
+
+/*!
+    \brief Whether punctuation characters and symbols are ignored when sorting,
+    \c false by default.
+    \sa QCollator::setIgnorePunctuation
+*/
+void FileSystemModel::setSortIgnoringPunctuation(bool ignore)
+{
+    Q_D(FileSystemModel);
+    d->sortIgnoringPunctuation = ignore;
+}
+
+bool FileSystemModel::sortIgnoringPunctuation() const
+{
+    Q_D(const FileSystemModel);
+    return d->sortIgnoringPunctuation;
 }
 
 /*!

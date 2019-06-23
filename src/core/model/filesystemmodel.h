@@ -141,6 +141,9 @@ public:
     void setNameFilters(const QStringList &filters);
     QStringList nameFilters() const;
 
+    void setSortIgnoringPunctuation(bool ignore);
+    bool sortIgnoringPunctuation() const;
+
     QString filePath(const QModelIndex &index) const;
     bool isDir(const QModelIndex &index) const;
     qint64 size(const QModelIndex &index) const;

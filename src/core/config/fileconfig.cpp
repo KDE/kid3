@@ -89,7 +89,8 @@ FileConfig::FileConfig()
     m_preserveTime(false),
     m_markChanges(true),
     m_loadLastOpenedFile(true),
-    m_showHiddenFiles(false)
+    m_showHiddenFiles(false),
+    m_sortIgnoringPunctuation(false)
 {
   initFormatListsIfEmpty();
 }
@@ -106,6 +107,7 @@ void FileConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("IncludeFolders"), QVariant(m_includeFolders));
   config->setValue(QLatin1String("ExcludeFolders"), QVariant(m_excludeFolders));
   config->setValue(QLatin1String("ShowHiddenFiles"), QVariant(m_showHiddenFiles));
+  config->setValue(QLatin1String("SortIgnoringPunctuation"), QVariant(m_sortIgnoringPunctuation));
   config->setValue(QLatin1String("FormatItems"), QVariant(m_formatItems));
   config->setValue(QLatin1String("FormatText"), QVariant(m_formatText));
   config->setValue(QLatin1String("FormatFromFilenameItems"), QVariant(m_formatFromFilenameItems));
@@ -137,6 +139,9 @@ void FileConfig::readFromConfig(ISettings* config)
                     m_excludeFolders).toStringList();
   m_showHiddenFiles = config->value(QLatin1String("ShowHiddenFiles"),
                                     m_showHiddenFiles).toBool();
+  m_sortIgnoringPunctuation = config->value(
+        QLatin1String("SortIgnoringPunctuation"),
+        m_sortIgnoringPunctuation).toBool();
   m_formatItems =
       config->value(QLatin1String("FormatItems"),
                     m_formatItems).toStringList();
@@ -219,6 +224,14 @@ void FileConfig::setShowHiddenFiles(bool showHiddenFiles)
   if (m_showHiddenFiles != showHiddenFiles) {
     m_showHiddenFiles = showHiddenFiles;
     emit showHiddenFilesChanged(m_showHiddenFiles);
+  }
+}
+
+void FileConfig::setSortIgnoringPunctuation(bool sortIgnoringPunctuation)
+{
+  if (m_sortIgnoringPunctuation != sortIgnoringPunctuation) {
+    m_sortIgnoringPunctuation = sortIgnoringPunctuation;
+    emit sortIgnoringPunctuationChanged(m_sortIgnoringPunctuation);
   }
 }
 
