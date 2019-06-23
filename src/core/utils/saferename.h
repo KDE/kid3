@@ -26,9 +26,8 @@
 
 #pragma once
 
+#include <QString>
 #include "kid3api.h"
-
-class QString;
 
 namespace Utils {
 
@@ -72,8 +71,12 @@ bool KID3_CORE_EXPORT safeRename(const QString& dirPath,
  * Use replacements from the file name format config if enabled,
  * otherwise remove the characters.
  * @param fileName fileName, illegal characters will be replaced
+ * @param defaultReplacement optional default for replacement
+ * @param illegalChars optional string containing the illegal characters
  * @return true if @a fileName was changed.
  */
-bool KID3_CORE_EXPORT replaceIllegalFileNameCharacters(QString& fileName);
+bool KID3_CORE_EXPORT replaceIllegalFileNameCharacters(
+    QString& fileName, const QString& defaultReplacement = QString(),
+    const char* illegalChars = nullptr);
 
 }

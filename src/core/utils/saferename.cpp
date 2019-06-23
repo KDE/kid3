@@ -70,17 +70,21 @@ bool Utils::safeRename(const QString& dirPath,
   return QDir(dirPath).rename(oldName, newName);
 }
 
-bool Utils::replaceIllegalFileNameCharacters(QString& fileName)
+bool Utils::replaceIllegalFileNameCharacters(
+    QString& fileName, const QString& defaultReplacement,
+    const char* illegalChars)
 {
+  if (!illegalChars) {
 #ifdef Q_OS_WIN32
-  static const char illegalChars[] = "<>:\"|?*\\/";
+    illegalChars = "<>:\"|?*\\/";
 #else
-  static const char illegalChars[] = "/";
+    illegalChars = "/";
 #endif
+  }
   QMap<QString, QString> replaceMap;
   bool changed = false;
-  for (auto ic : illegalChars) {
-    QChar illegalChar = QLatin1Char(ic);
+  for (const char* ic = illegalChars; *ic; ++ic) {
+    QChar illegalChar = QLatin1Char(*ic);
     if (fileName.contains(illegalChar)) {
       if (!changed) {
         const FormatConfig& fnCfg = FilenameFormatConfig::instance();
@@ -89,7 +93,7 @@ bool Utils::replaceIllegalFileNameCharacters(QString& fileName)
         }
         changed = true;
       }
-      QString replacement = replaceMap.value(illegalChar);
+      QString replacement = replaceMap.value(illegalChar, defaultReplacement);
       fileName.replace(illegalChar, replacement);
     }
   }

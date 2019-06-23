@@ -26,6 +26,7 @@
 
 #include "formatreplacer.h"
 #include <QUrl>
+#include "saferename.h"
 
 /**
  * Constructor.
@@ -138,9 +139,15 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 
       if (codeLen > 0) {
         if (flags & FSF_ReplaceSeparators) {
-          repl.replace(QLatin1Char('/'), QLatin1Char('-'));
-          repl.replace(QLatin1Char('\\'), QLatin1Char('-'));
-          repl.replace(QLatin1Char(':'), QLatin1Char('-'));
+#ifdef Q_OS_WIN32
+          static const char illegalChars[] = "<>:\"|?*\\/";
+#else
+          // ':' and '\' are included in the set of illegal characters to
+          // keep the old behavior when no string replacement is enabled.
+          static const char illegalChars[] = ":\\/";
+#endif
+          Utils::replaceIllegalFileNameCharacters(repl, QLatin1String("-"),
+                                                  illegalChars);
         }
         if (urlEncode) {
           repl = QString::fromLatin1(QUrl::toPercentEncoding(repl));
