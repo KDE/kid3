@@ -3411,6 +3411,11 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
   QString frameName(name);
   QString dataFileName, fieldName;
   int index = 0;
+  Frame::ExtendedType explicitType;
+  if (frameName.startsWith(QLatin1Char('!'))) {
+    frameName.remove(0, 1);
+    explicitType = Frame::ExtendedType(Frame::FT_Other, frameName);
+  }
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   if (tagNr >= Frame::Tag_NumValues)
@@ -3418,7 +3423,9 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
 
   FrameTableModel* ft = m_framesModel[tagNr];
   const FrameCollection& frames = ft->frames();
-  auto it = frames.findByName(frameName, index);
+  auto it = explicitType.getType() == Frame::FT_UnknownFrame
+      ? frames.findByName(frameName, index)
+      : frames.findByExtendedType(explicitType, index);
   if (it != frames.cend()) {
     if (!dataFileName.isEmpty()) {
       bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
@@ -3531,9 +3538,16 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
   QString frameName(name);
   QString dataFileName, fieldName;
   int index = 0;
+  Frame::ExtendedType explicitType;
+  if (frameName.startsWith(QLatin1Char('!'))) {
+    frameName.remove(0, 1);
+    explicitType = Frame::ExtendedType(Frame::FT_Other, frameName);
+  }
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
   FrameCollection frames(ft->frames());
-  auto it = frames.findByName(frameName, index);
+  auto it = explicitType.getType() == Frame::FT_UnknownFrame
+      ? frames.findByName(frameName, index)
+      : frames.findByExtendedType(explicitType, index);
   if (it != frames.end()) {
     QString frmName(it->getName());
     bool isPicture, isGeob, isSylt = false;
@@ -3616,7 +3630,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     }
     return true;
   } else if (tagMask & (Frame::TagV2 | Frame::TagV3)) {
-    Frame frame(Frame::ExtendedType(frameName), value, -1);
+    Frame frame(explicitType.getType() == Frame::FT_UnknownFrame
+                ? Frame::ExtendedType(frameName) : explicitType, value, -1);
     QString frmName(frame.getInternalName());
     bool isPicture, isGeob, isSylt = false;
     if (!dataFileName.isEmpty() &&

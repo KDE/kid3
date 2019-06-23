@@ -825,6 +825,13 @@ the specified format (the "|" is used as a separator between the strings).
 Values in this format are also set when importing data from servers which
 offer this information.
 </para></listitem>
+<listitem><para>
+To explicitly use a specific frame name which conflicts with a unified frame
+name, prepend an exclamation mark. For example, adding a frame of type "Media"
+to a Vorbis comment will create a frame with name "SOURCEMEDIA" because of the
+unified type mapping. In order to add a frame with name "MEDIA" and not
+"SOURCEMEDIA", use "!MEDIA" to force the explicit name.
+</para></listitem>
 </itemizedlist>
 </para>
 

@@ -1158,9 +1158,15 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
       m_w, tr("Add Frame"),
       tr("Select the frame ID"), nameMap.keys(), 0, true, &ok);
     if (ok) {
-      QString name = nameMap.value(displayName, displayName);
-      Frame::Type type = Frame::getTypeFromName(name);
-      *frame = Frame(type, QLatin1String(""), name, -1);
+      if (displayName.startsWith(QLatin1Char('!'))) {
+        QString name = displayName.mid(1);
+        Frame::ExtendedType type(Frame::FT_Other, name);
+        *frame = Frame(type, QLatin1String(""), -1);
+      } else {
+        QString name = nameMap.value(displayName, displayName);
+        Frame::Type type = Frame::getTypeFromName(name);
+        *frame = Frame(type, QLatin1String(""), name, -1);
+      }
     }
   }
   emit frameSelected(m_editFrameTagNr, ok ? frame : nullptr);

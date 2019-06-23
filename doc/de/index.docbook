@@ -870,6 +870,14 @@ Trennzeichen zwischen den einzelnen Zeichenketten). Entsprechende Werte werden
 auch beim Import von Daten von Servern, welche diese Informationen bieten,
 gesetzt.
 </para></listitem>
+<listitem><para>
+Um einen spezifischen Frame-Namen zu verwenden, welcher mit einem
+vereinheitlichten Frame-Namen kollidiert, muss ein Ausrufezeichen
+vorangestellt werden. Wenn man beispielsweise einem Vorbis-Tag ein Frame vom
+Typ "Media" hinzufügt, so wird ein "SOURCEMEDIA"-Frame erzeugt, weil es so
+zugeordnet ist. Um ausdrücklich ein "MEDIA"-Frame und nicht ein
+"SOURCEMEDIA"-Frame zu erhalten, muss "!MEDIA" verwendet werden.
+</para></listitem>
 </itemizedlist>
 </para>
 

@@ -1227,12 +1227,19 @@ FrameCollection::const_iterator FrameCollection::findByName(
  * @return iterator or end() if not found.
  */
 FrameCollection::const_iterator FrameCollection::findByExtendedType(
-    const Frame::ExtendedType& type) const
+    const Frame::ExtendedType& type, int index) const
 {
   Frame frame(type, QLatin1String(""), -1);
   auto it = find(frame);
   if (it == cend()) {
     it = searchByName(frame.getInternalName());
+  }
+  if (index > 0 && it != cend()) {
+    const Frame::ExtendedType extendedType = it->getExtendedType();
+    for (int i = 0; i < index && it != cend(); ++i, ++it) {}
+    if (it != cend() && !(it->getExtendedType() == extendedType)) {
+      it = cend();
+    }
   }
   return it;
 }

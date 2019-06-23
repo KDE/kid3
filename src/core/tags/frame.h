@@ -939,10 +939,12 @@ public:
    * @param type  type and name of the frame to find, if the exact name is not
    *              found, a case-insensitive search for the first name
    *              starting with this string is performed
+   * @param index 0 for first frame with @a type, 1 for second, etc.
    *
    * @return iterator or end() if not found.
    */
-  const_iterator findByExtendedType(const Frame::ExtendedType& type) const;
+  const_iterator findByExtendedType(const Frame::ExtendedType& type,
+                                    int index = 0) const;
 
   /**
    * Find a frame by index.
