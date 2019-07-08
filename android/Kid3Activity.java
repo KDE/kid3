@@ -28,6 +28,7 @@
 
 package net.sourceforge.kid3;
 
+import java.io.File;
 import java.lang.String;
 import android.content.ContentUris;
 import android.content.Context;
@@ -126,7 +127,7 @@ public class Kid3Activity extends QtActivity {
             // DocumentProvider
             if ("com.android.externalstorage.documents".equals(authority)) {
                 // ExternalStorageProvider
-                Log.d("Kid3","ExternalStorageProvider");
+                Log.d("Kid3", "ExternalStorageProvider");
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -135,9 +136,9 @@ public class Kid3Activity extends QtActivity {
                 }
             } else if ("com.android.providers.downloads.documents".equals(authority)) {
                 // DownloadsProvider
-                Log.d("Kid3","DownloadsProvider");
+                Log.d("Kid3", "DownloadsProvider");
                 final String id = DocumentsContract.getDocumentId(uri);
-                Log.d("Kid3","getDocumentId " + id);
+                Log.d("Kid3", "getDocumentId " + id);
                 long longId = 0;
                 try {
                     longId = Long.valueOf(id);
@@ -149,7 +150,7 @@ public class Kid3Activity extends QtActivity {
                 return getDataColumn(context, contentUri, null, null);
             } else if ("com.android.providers.media.documents".equals(authority)) {
                 // MediaProvider
-                Log.d("Kid3","MediaProvider");
+                Log.d("Kid3", "MediaProvider");
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -162,7 +163,7 @@ public class Kid3Activity extends QtActivity {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 }
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] { split[1] };
+                final String[] selectionArgs = new String[]{split[1]};
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
         }
@@ -171,9 +172,17 @@ public class Kid3Activity extends QtActivity {
                 return uri.getLastPathSegment();
             String path = getDataColumn(context, uri, null, null);
             if (path == null) {
+                int colonPos;
                 path = uri.getPath();
                 if (path != null && path.startsWith("/external_storage_root/")) {
                     path = Environment.getExternalStorageDirectory() + path.substring(22);
+                } else if (path != null && path.startsWith("/document/") &&
+                           (colonPos = path.indexOf(':')) != -1) {
+                    String storagePath = "/storage/" + path.substring(10, colonPos) +
+                                         "/" + path.substring(colonPos + 1);
+                    if ((new File(storagePath)).exists()) {
+                        path = storagePath;
+                    }
                 }
             }
             return path;
@@ -188,7 +197,7 @@ public class Kid3Activity extends QtActivity {
                                         String[] selectionArgs) {
         String result = null;
         final String column = "_data";
-        final String[] projection = { column };
+        final String[] projection = {column};
         Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
                 null);
         if (cursor != null) {
