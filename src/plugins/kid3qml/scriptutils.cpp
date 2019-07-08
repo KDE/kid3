@@ -241,6 +241,37 @@ bool ScriptUtils::fileExists(const QString& filePath)
 }
 
 /**
+ * Check if file is writable.
+ * @param filePath path to file
+ * @return true if file is writable.
+ */
+bool ScriptUtils::fileIsWritable(const QString& filePath)
+{
+  return QFileInfo(filePath).isWritable();
+}
+
+/**
+ * Get permissions of file.
+ * @param filePath path to file
+ * @return mode bits of file, e.g. 0x644.
+ */
+int ScriptUtils::getFilePermissions(const QString& filePath)
+{
+  return static_cast<int>(QFile::permissions(filePath));
+}
+
+/**
+ * Set permissions of file.
+ * @param filePath path to file
+ * @param modeBits mode bits of file, e.g. 0x644
+ * @return true if ok.
+ */
+bool ScriptUtils::setFilePermissions(const QString& filePath, int modeBits)
+{
+  return QFile::setPermissions(filePath, QFile::Permissions(modeBits));
+}
+
+/**
  * @brief Get type of file.
  * @param filePath path to file
  * @return "/" for directories, "@" for symlinks, "*" for executables,

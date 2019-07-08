@@ -4400,6 +4400,9 @@ script.writeFile(filePath, data): Write data to file, true if OK
 script.readFile(filePath): Read data from file
 script.removeFile(filePath): Delete file, true if OK
 script.fileExists(filePath): true if file exists
+script.fileIsWritable(filePath): true if file is writable
+script.getFilePermissions(filePath): Get file permission mode bits
+script.setFilePermissions(filePath, modeBits): Set file permission mode bits
 script.classifyFile(filePath): Get class of file (dir "/", symlink "@", exe "*",
   file " ")
 script.renameFile(oldName, newName): Rename file, true if OK

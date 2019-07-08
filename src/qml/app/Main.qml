@@ -91,8 +91,9 @@ ApplicationWindow {
     title: qsTr("Warning")
     text: qsTr("The current directory has been modified.\nDo you want to save it?")
     onYes: {
-      app.saveDirectory()
-      completed(true)
+      root.saveDirectory(function() {
+        completed(true)
+      })
     }
     onNo: {
       if (!doNotRevert) {
@@ -111,6 +112,44 @@ ApplicationWindow {
       } else {
         completed(true)
       }
+    }
+  }
+
+  MessageDialog {
+    property var errorMsgs: []
+
+    signal completed()
+
+    id: writeErrorDialog
+    x: (root.width - width) / 2
+    y: root.height / 6
+    parent: ApplicationWindow.overlay
+    title: qsTr("File Error")
+    text: qsTr("Error while writing file:\n") + errorMsgs.join("\n")
+    standardButtons: Dialog.Close
+    onClosed: {
+      completed()
+    }
+  }
+
+  MessageDialog {
+    property var errorMsgs: []
+
+    signal completed(bool ok)
+
+    id: changePermissionsDialog
+    x: (root.width - width) / 2
+    y: root.height / 6
+    parent: ApplicationWindow.overlay
+    title: qsTr("File Error")
+    text: qsTr("Error while writing file. Do you want to change the permissions?")
+          + "\n" + errorMsgs.join("\n")
+    standardButtons: Dialog.Yes | Dialog.No
+    onYes: {
+      completed(true)
+    }
+    onNo: {
+      completed(false)
     }
   }
 
@@ -182,6 +221,60 @@ ApplicationWindow {
     onDropped: {
       if (drop.hasUrls) {
         app.openDropUrls(drop.urls)
+      }
+    }
+  }
+
+  function saveDirectory(onCompleted) {
+    var errorFiles = app.saveDirectory()
+    var numErrorFiles = errorFiles.length
+    if (numErrorFiles > 0) {
+      var errorMsgs = [], notWritableFiles = []
+      for (var i = 0; i < numErrorFiles; i++) {
+        var errorFile = errorFiles[i]
+        var slashPos = errorFile.lastIndexOf("/")
+        var fileName = slashPos !== -1 ? errorFile.substr(slashPos + 1)
+                                       : errorFile
+        if (!script.fileIsWritable(errorFile)) {
+          errorMsgs.push(qsTr("%1 is not writable").arg(fileName))
+          notWritableFiles.push(errorFile)
+        } else {
+          errorMsgs.push(fileName)
+        }
+      }
+      if (notWritableFiles.length === 0) {
+        function resultReceived() {
+          writeErrorDialog.completed.disconnect(resultReceived)
+          if (onCompleted) {
+            onCompleted();
+          }
+        }
+        writeErrorDialog.errorMsgs = errorMsgs
+        writeErrorDialog.completed.connect(resultReceived)
+        writeErrorDialog.open()
+      } else {
+        function resultReceived(ok) {
+          changePermissionsDialog.completed.disconnect(resultReceived)
+          if (ok) {
+            for (var i = 0; i < notWritableFiles.length; i++) {
+              var errorFile = notWritableFiles[i]
+              var perms = script.getFilePermissions(errorFile)
+              script.setFilePermissions(errorFile, perms | 0x0200)
+            }
+            // Try again
+            app.saveDirectory()
+          }
+          if (onCompleted) {
+            onCompleted();
+          }
+        }
+        changePermissionsDialog.errorMsgs = errorMsgs
+        changePermissionsDialog.completed.connect(resultReceived)
+        changePermissionsDialog.open()
+      }
+    } else {
+      if (onCompleted) {
+        onCompleted();
       }
     }
   }

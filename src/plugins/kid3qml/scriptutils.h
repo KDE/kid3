@@ -178,6 +178,29 @@ public:
   Q_INVOKABLE static bool fileExists(const QString& filePath);
 
   /**
+   * Check if file is writable.
+   * @param filePath path to file
+   * @return true if file is writable.
+   */
+  Q_INVOKABLE static bool fileIsWritable(const QString& filePath);
+
+  /**
+   * Get permissions of file.
+   * @param filePath path to file
+   * @return mode bits of file, e.g. 0x644.
+   */
+  Q_INVOKABLE static int getFilePermissions(const QString& filePath);
+
+  /**
+   * Set permissions of file.
+   * @param filePath path to file
+   * @param modeBits mode bits of file, e.g. 0x644
+   * @return true if ok.
+   */
+  Q_INVOKABLE static bool setFilePermissions(const QString& filePath,
+                                             int modeBits);
+
+  /**
    * @brief Get type of file.
    * @param filePath path to file
    * @return "/" for directories, "@" for symlinks, "*" for executables,
