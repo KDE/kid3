@@ -2816,6 +2816,9 @@ msgstr "Asetukset"
 msgid "Quit"
 msgstr "Lopeta"
 
+msgid "SD card is only writable in %1"
+msgstr "SD-kortti on vain kirjoitettavissa %1"
+
 msgid "Start number:"
 msgstr "Aloittava numero:"
 

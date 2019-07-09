@@ -2821,6 +2821,9 @@ msgstr "Настройка"
 msgid "Quit"
 msgstr "Выход"
 
+msgid "SD card is only writable in %1"
+msgstr "SD-карта доступна для записи только в %1"
+
 msgid "Start number:"
 msgstr "Начальный номер:"
 

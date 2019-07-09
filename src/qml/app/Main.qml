@@ -133,6 +133,23 @@ ApplicationWindow {
   }
 
   MessageDialog {
+    property string externalFilesDir
+
+    signal completed()
+
+    id: sdCardErrorDialog
+    x: (root.width - width) / 2
+    y: root.height / 6
+    parent: ApplicationWindow.overlay
+    title: qsTr("File Error")
+    text: qsTr("SD card is only writable in %1").arg(externalFilesDir)
+    standardButtons: Dialog.Close
+    onClosed: {
+      completed()
+    }
+  }
+
+  MessageDialog {
     property var errorMsgs: []
 
     signal completed(bool ok)
@@ -252,6 +269,26 @@ ApplicationWindow {
         writeErrorDialog.errorMsgs = errorMsgs
         writeErrorDialog.completed.connect(resultReceived)
         writeErrorDialog.open()
+      } else if (Qt.platform.os === "android" &&
+                 notWritableFiles[0].substr(0, 19) !== "/storage/emulated/0" &&
+                 notWritableFiles[0].substr(0, 9) === "/storage/" &&
+                 notWritableFiles[0].indexOf(
+                   "Android/data/net.sourceforge.kid3/") === -1) {
+        var externalFilesDir = notWritableFiles[0].substr(
+              0, notWritableFiles[0].indexOf("/", 9) + 1) +
+            "Android/data/net.sourceforge.kid3/"
+        if (!script.fileExists(externalFilesDir)) {
+          script.makeDir(externalFilesDir)
+        }
+        function resultReceived() {
+          sdCardErrorDialog.completed.disconnect(resultReceived)
+          if (onCompleted) {
+            onCompleted();
+          }
+        }
+        sdCardErrorDialog.externalFilesDir = externalFilesDir
+        sdCardErrorDialog.completed.connect(resultReceived)
+        sdCardErrorDialog.open()
       } else {
         function resultReceived(ok) {
           changePermissionsDialog.completed.disconnect(resultReceived)

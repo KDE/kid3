@@ -2814,6 +2814,9 @@ msgstr "Seadistused"
 msgid "Quit"
 msgstr "Välju"
 
+msgid "SD card is only writable in %1"
+msgstr "SD-kaart on kirjutav ainult %1-s"
+
 msgid "Start number:"
 msgstr "Algusnumber:"
 

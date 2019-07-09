@@ -2819,6 +2819,9 @@ msgstr "設定"
 msgid "Quit"
 msgstr "離開"
 
+msgid "SD card is only writable in %1"
+msgstr "SD 卡只能在 ％1 中写入"
+
 msgid "Start number:"
 msgstr "起始編號:"
 

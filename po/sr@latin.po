@@ -2813,6 +2813,9 @@ msgstr "Podešavanje"
 msgid "Quit"
 msgstr "Napusti"
 
+msgid "SD card is only writable in %1"
+msgstr "SD kartica može se pisati samo u %1"
+
 msgid "Start number:"
 msgstr "Početni broj:"
 

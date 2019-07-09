@@ -2817,6 +2817,9 @@ msgstr "Ayarlar"
 msgid "Quit"
 msgstr "Çık"
 
+msgid "SD card is only writable in %1"
+msgstr "SD kart sadece %1 olarak yazılabilir"
+
 msgid "Start number:"
 msgstr "Başlangıç numarası:"
 

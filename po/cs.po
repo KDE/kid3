@@ -2817,6 +2817,9 @@ msgstr "Nastavení"
 msgid "Quit"
 msgstr "Ukončit"
 
+msgid "SD card is only writable in %1"
+msgstr "Karta typu SD je zapisovatelná pouze v %1"
+
 msgid "Start number:"
 msgstr "Začáteční číslo:"
 

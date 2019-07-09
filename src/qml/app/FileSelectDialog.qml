@@ -165,7 +165,7 @@ Dialog {
             for (var i = 0; i < vols.length; ++i) {
               var vol = vols[i]
               if (vol.isValid && vol.isReady && !vol.isReadOnly) {
-                menu.addEntry(vol.displayName || vol.name || vol.path,
+                menu.addEntry(vol.name || vol.displayName || vol.path,
                               vol.rootPath)
               }
             }

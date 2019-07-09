@@ -2815,6 +2815,9 @@ msgstr "Preferencias"
 msgid "Quit"
 msgstr "Salir"
 
+msgid "SD card is only writable in %1"
+msgstr "La tarjeta SD solo se puede escribir en %1"
+
 msgid "Start number:"
 msgstr "Número primero:"
 

@@ -2802,6 +2802,9 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
+msgid "SD card is only writable in %1"
+msgstr ""
+
 msgid "Start number:"
 msgstr ""
 

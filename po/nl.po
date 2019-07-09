@@ -2818,6 +2818,9 @@ msgstr "Instellingen"
 msgid "Quit"
 msgstr "Afsluiten"
 
+msgid "SD card is only writable in %1"
+msgstr "SD-kaart is alleen schrijfbaar in %1"
+
 msgid "Start number:"
 msgstr "Start nummer:"
 

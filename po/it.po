@@ -2816,6 +2816,9 @@ msgstr "Impostazioni"
 msgid "Quit"
 msgstr "Esci"
 
+msgid "SD card is only writable in %1"
+msgstr "La scheda SD è scrivibile solo in %1"
+
 msgid "Start number:"
 msgstr "Numero inizio:"
 
