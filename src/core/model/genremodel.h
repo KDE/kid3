@@ -26,13 +26,13 @@
 
 #pragma once
 
-#include <QStandardItemModel>
+#include <QStringListModel>
 #include "kid3api.h"
 
 /**
  * Genre model.
  */
-class KID3_CORE_EXPORT GenreModel : public QStandardItemModel {
+class KID3_CORE_EXPORT GenreModel : public QStringListModel {
   Q_OBJECT
 public:
   /**

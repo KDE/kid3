@@ -30,11 +30,11 @@
 
 namespace {
 
-QList<QStandardItem*> createGenreItems()
+QStringList createGenreItems()
 {
-  QList<QStandardItem*> items;
+  QStringList items;
   for (const char** sl = Genres::s_strList; *sl != nullptr; ++sl) {
-    items.append(new QStandardItem(QString::fromLatin1(*sl))); // clazy:exclude=reserve-candidates
+    items.append(QString::fromLatin1(*sl)); // clazy:exclude=reserve-candidates
   }
   return items;
 }
@@ -46,7 +46,7 @@ QList<QStandardItem*> createGenreItems()
  * @param parent parent widget
  */
 GenreModel::GenreModel(bool id3v1, QObject* parent)
-  : QStandardItemModel(parent), m_id3v1(id3v1)
+  : QStringListModel(parent), m_id3v1(id3v1)
 {
   setObjectName(QLatin1String("GenreModel"));
   init();
@@ -59,9 +59,9 @@ GenreModel::GenreModel(bool id3v1, QObject* parent)
  */
 void GenreModel::init()
 {
-  QList<QStandardItem*> items;
+  QStringList items;
   if (TagConfig::instance().onlyCustomGenres()) {
-    items.append(new QStandardItem(QLatin1String("")));
+    items.append(QLatin1String(""));
   } else {
     items = createGenreItems();
   }
@@ -69,7 +69,7 @@ void GenreModel::init()
   if (m_id3v1) {
     for (auto it = customGenres.constBegin(); it != customGenres.constEnd(); ++it) {
       if (Genres::getNumber(*it) != 255) {
-        items.append(new QStandardItem(*it));
+        items.append(*it);
       }
     }
     if (items.count() <= 1) {
@@ -78,11 +78,10 @@ void GenreModel::init()
     }
   } else {
     for (auto it = customGenres.constBegin(); it != customGenres.constEnd(); ++it) {
-      items.append(new QStandardItem(*it));
+      items.append(*it);
     }
   }
-  clear();
-  appendColumn(items);
+  setStringList(items);
 }
 
 /**
