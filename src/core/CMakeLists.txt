@@ -145,7 +145,6 @@ add_library(kid3-core
   model/tagsearcher.cpp
   model/timeeventmodel.cpp
   model/eventtimingcode.cpp
-  model/tracknumbervalidator.cpp
   model/taggedfileselection.cpp
   model/genremodel.cpp
   model/pixmapprovider.cpp

@@ -32,7 +32,7 @@
 /**
  * Validator for track and disc numbers with optional total.
  */
-class KID3_CORE_EXPORT TrackNumberValidator : public QValidator {
+class KID3_GUI_EXPORT TrackNumberValidator : public QValidator {
 public:
   /**
    * Constructor.

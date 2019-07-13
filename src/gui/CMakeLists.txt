@@ -66,6 +66,7 @@ add_library(kid3-gui
   widgets/progresswidget.cpp
   widgets/frameitemdelegate.cpp
   widgets/tablemodeledit.cpp
+  widgets/tracknumbervalidator.cpp
   dialogs/batchimportdialog.cpp
   dialogs/batchimportsourcedialog.cpp
   dialogs/browsecoverartdialog.cpp
