@@ -35,6 +35,7 @@
 #include <QPluginLoader>
 #include <QElapsedTimer>
 #include <QUrl>
+#include <QImage>
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
@@ -65,7 +66,7 @@
 #include "frameeditorobject.h"
 #include "frameobjectmodel.h"
 #include "playlistmodel.h"
-#include "pixmapprovider.h"
+#include "imagedataprovider.h"
 #include "pictureframe.h"
 #include "textimporter.h"
 #include "textexporter.h"
@@ -3846,7 +3847,7 @@ void Kid3Application::setFileSelectionIndexes(const QVariantList& indexes)
  * Set the image provider.
  * @param imageProvider image provider
  */
-void Kid3Application::setImageProvider(PixmapProvider* imageProvider) {
+void Kid3Application::setImageProvider(ImageDataProvider* imageProvider) {
   m_imageProvider = imageProvider;
 }
 

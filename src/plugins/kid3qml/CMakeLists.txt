@@ -27,7 +27,7 @@ target_sources(${plugin_TARGET} PRIVATE
   "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
 )
 
-target_link_libraries(${plugin_TARGET} kid3-core Qt5::Quick Kid3Plugin)
+target_link_libraries(${plugin_TARGET} kid3-core kid3-gui Qt5::Quick Kid3Plugin)
 
 if(NOT HAVE_QMLDIR_IN_QRC)
   install(TARGETS ${plugin_TARGET}

@@ -147,7 +147,6 @@ add_library(kid3-core
   model/eventtimingcode.cpp
   model/taggedfileselection.cpp
   model/genremodel.cpp
-  model/pixmapprovider.cpp
   model/frameeditorobject.cpp
   model/frameobjectmodel.cpp
   model/iusercommandprocessor.cpp

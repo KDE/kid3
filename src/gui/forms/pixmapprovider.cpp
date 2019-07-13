@@ -64,10 +64,11 @@ QPixmap PixmapProvider::getPixmap(const QString& id, QSize* size,
     m_fileIconProvider->setRequestedSize(requestedSize);
     return m_fileIconProvider->pixmapForIconId(imageId);
   } else if (imageId.startsWith("data")) {
-    if (!m_data.isEmpty()) {
-      uint hash = qHash(m_data);
+    QByteArray data = getImageData();
+    if (!data.isEmpty()) {
+      uint hash = qHash(data);
       if (m_dataPixmap.isNull() || hash != m_pixmapHash) {
-        if (m_dataPixmap.loadFromData(m_data)) {
+        if (m_dataPixmap.loadFromData(data)) {
           if (size) {
             *size = m_dataPixmap.size();
           }

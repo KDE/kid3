@@ -68,7 +68,7 @@ class IAbortable;
 class ICorePlatformTools;
 class IUserCommandProcessor;
 class AudioPlayer;
-class PixmapProvider;
+class ImageDataProvider;
 class FrameEditorObject;
 class FileFilter;
 
@@ -827,7 +827,7 @@ public:
    * Set the image provider.
    * @param imageProvider image provider
    */
-  void setImageProvider(PixmapProvider* imageProvider);
+  void setImageProvider(ImageDataProvider* imageProvider);
 
   /**
    * Get the numbers of the selected rows in a list suitable for scripting.
@@ -1608,7 +1608,7 @@ private:
   FrameEditorObject* m_frameEditor;
   IFrameEditor* m_storedFrameEditor;
   /* Support for image provider */
-  PixmapProvider* m_imageProvider;
+  ImageDataProvider* m_imageProvider;
   QString m_coverArtImageId;
 
 #ifdef Q_OS_ANDROID

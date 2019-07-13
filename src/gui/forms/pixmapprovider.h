@@ -26,9 +26,8 @@
 
 #pragma once
 
-#include <QByteArray>
 #include <QPixmap>
-#include "kid3api.h"
+#include "imagedataprovider.h"
 
 class TaggedFileIconProvider;
 
@@ -40,7 +39,7 @@ class TaggedFileIconProvider;
  * - "data" followed by a changing string to force loading of the image set with
  *   TaggedFileIconProvider::setImageData().
  */
-class KID3_CORE_EXPORT PixmapProvider {
+class KID3_GUI_EXPORT PixmapProvider : public ImageDataProvider {
 public:
   /**
    * Constructor.
@@ -63,23 +62,8 @@ public:
    */
   QPixmap getPixmap(const QString& id, QSize* size, const QSize& requestedSize);
 
-  /**
-   * Get image data for the pixmap available via the "data" icon ID.
-   * @return image data.
-   */
-  QByteArray getImageData() const { return m_data; }
-
-  /**
-   * Set image data for the pixmap available via the "data" icon ID.
-   * @param data image data
-   */
-  void setImageData(const QByteArray& data) {
-    m_data = data;
-  }
-
 private:
   TaggedFileIconProvider* m_fileIconProvider;
-  QByteArray m_data;
   QPixmap m_dataPixmap;
   uint m_pixmapHash;
 };
