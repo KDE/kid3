@@ -102,20 +102,20 @@ theoretically, but never seen
     }
     if (inEntries) {
       if (catIdTitleRe.exactMatch(*it)) {
-        m_albumListModel->appendRow(new AlbumListItem(
+        m_albumListModel->appendItem(
           catIdTitleRe.cap(3),
           catIdTitleRe.cap(1),
-          catIdTitleRe.cap(2)));
+          catIdTitleRe.cap(2));
       }
     } else {
       if ((*it).startsWith(QLatin1String("21")) && (*it).indexOf(QLatin1String(" match")) != -1) {
         inEntries = true;
       } else if ((*it).startsWith(QLatin1String("200 "))) {
         if (catIdTitleRe.exactMatch((*it).mid(4))) {
-          m_albumListModel->appendRow(new AlbumListItem(
+          m_albumListModel->appendItem(
             catIdTitleRe.cap(3),
             catIdTitleRe.cap(1),
-            catIdTitleRe.cap(2)));
+            catIdTitleRe.cap(2));
         }
       }
     }

@@ -49,7 +49,7 @@ BatchImporter::BatchImporter(QNetworkAccessManager* netMgr)
   : QObject(netMgr),
     m_downloadClient(new DownloadClient(netMgr)),
     m_currentImporter(nullptr), m_trackDataModel(nullptr), m_albumModel(nullptr),
-    m_albumListItem(nullptr), m_tagVersion(Frame::TagNone), m_state(Idle),
+    m_tagVersion(Frame::TagNone), m_state(Idle),
     m_trackListNr(-1), m_sourceNr(-1), m_albumNr(-1),
     m_requestedData(0), m_importedData(0)
 {
@@ -218,20 +218,21 @@ void BatchImporter::stateTransition()
     }
     break;
   case CheckNextAlbum:
-    m_albumListItem = nullptr;
+    m_albumListItemId.clear();
     forever {
       ++m_albumNr;
       if (!m_albumModel ||
           m_albumNr < 0 || m_albumNr >= m_albumModel->rowCount()) {
         break;
       }
-      if ((m_albumListItem =
-          static_cast<AlbumListItem*>(m_albumModel->item(m_albumNr, 0))) != nullptr &&
-          m_albumListItem->type() == AlbumListItem::Type) {
+      m_albumModel->getItem(m_albumNr, m_albumListItemText,
+                            m_albumListItemCategory,
+                            m_albumListItemId);
+      if (!m_albumListItemId.isEmpty()) {
         break;
       }
     }
-    if (m_albumListItem) {
+    if (!m_albumListItemId.isEmpty()) {
       m_state = GettingTracks;
     } else {
       m_state = CheckNextSource;
@@ -239,9 +240,9 @@ void BatchImporter::stateTransition()
     stateTransition();
     break;
   case GettingTracks:
-    if (m_albumListItem && m_currentImporter) {
+    if (!m_albumListItemId.isEmpty() && m_currentImporter) {
       emit reportImportEvent(FetchingTrackList,
-                             m_albumListItem->text());
+                             m_albumListItemText);
       int pendingData = m_requestedData & ~m_importedData;
       // Also fetch standard tags, so that accuracy can be measured
       m_currentImporter->setStandardTags(
@@ -253,8 +254,8 @@ void BatchImporter::stateTransition()
       connect(m_currentImporter, &HttpClient::progress,
               this, &BatchImporter::onAlbumProgress);
       m_currentImporter->getTrackList(m_currentImporter->config(),
-                                      m_albumListItem->getCategory(),
-                                      m_albumListItem->getId());
+                                      m_albumListItemCategory,
+                                      m_albumListItemId);
     }
     break;
   case GettingCover:

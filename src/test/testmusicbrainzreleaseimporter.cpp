@@ -37,14 +37,13 @@ void TestMusicBrainzReleaseImporter::initTestCase()
 void TestMusicBrainzReleaseImporter::testQueryAlbums()
 {
   queryAlbums(QLatin1String("Wizard"), QLatin1String("Odin"));
-  QStandardItemModel* albumModel = m_importer->getAlbumListModel();
+  AlbumListModel* albumModel = m_importer->getAlbumListModel();
   QCOMPARE(albumModel->rowCount(), 3);
-  auto  item = static_cast<AlbumListItem*>(albumModel->item(0, 0));
-  QVERIFY(item);
-  QVERIFY(item->type() == AlbumListItem::Type);
-  QCOMPARE(item->text(), QString(QLatin1String("Wizard - Odin")));
-  QCOMPARE(item->getCategory(), QString(QLatin1String("release")));
-  QVERIFY(!item->getId().isEmpty());
+  QString text, category, id;
+  albumModel->getItem(0, text, category, id);
+  QCOMPARE(text, QString(QLatin1String("Wizard - Odin")));
+  QCOMPARE(category, QString(QLatin1String("release")));
+  QVERIFY(!id.isEmpty());
 }
 
 void TestMusicBrainzReleaseImporter::testQueryTracks()

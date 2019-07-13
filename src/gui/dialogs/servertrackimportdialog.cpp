@@ -33,7 +33,6 @@
 #include <QLabel>
 #include <QStatusBar>
 #include <QTableView>
-#include <QStandardItemModel>
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -43,6 +42,26 @@
 #include "servertrackimporter.h"
 #include "comboboxdelegate.h"
 #include "trackdatamodel.h"
+#include "standardtablemodel.h"
+
+namespace {
+
+class AlbumTableModel : public StandardTableModel {
+public:
+  using StandardTableModel::StandardTableModel;
+
+  virtual Qt::ItemFlags flags(const QModelIndex& index) const override {
+    Qt::ItemFlags itemFlags =
+        QAbstractItemModel::flags(index) | Qt::ItemIsDropEnabled;
+    if (index.isValid())
+      itemFlags |= Qt::ItemIsDragEnabled;
+    if (index.column() != 1)
+      itemFlags |= Qt::ItemIsEditable;
+    return itemFlags;
+  }
+};
+
+}
 
 /**
  * Constructor.
@@ -71,7 +90,7 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   serverLayout->addWidget(m_serverComboBox);
   vlayout->addLayout(serverLayout);
 
-  m_albumTableModel = new QStandardItemModel(this);
+  m_albumTableModel = new AlbumTableModel(this);
   m_albumTableModel->setColumnCount(2);
   m_albumTableModel->setHorizontalHeaderLabels({
     QLatin1String("08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]"),
@@ -203,17 +222,16 @@ void ServerTrackImportDialog::initTable()
   }
 
   m_trackResults.resize(numRows);
-  m_albumTableModel->setRowCount(numRows);
+  m_albumTableModel->clear();
+  m_albumTableModel->insertRows(0, numRows);
   for (int i = 0; i < numRows; ++i) {
-    auto item = new QStandardItem;
     QStringList cbItems;
     cbItems << tr("No result") << tr("Unknown");
-    item->setData(cbItems.first(), Qt::EditRole);
-    item->setData(cbItems, Qt::UserRole);
-    m_albumTableModel->setItem(i, 0, item);
-    item = new QStandardItem(tr("Unknown"));
-    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-    m_albumTableModel->setItem(i, 1, item);
+    QModelIndex idx = m_albumTableModel->index(i, 0);
+    m_albumTableModel->setData(idx, cbItems.first(), Qt::EditRole);
+    m_albumTableModel->setData(idx, cbItems, Qt::UserRole);
+    idx = m_albumTableModel->index(i, 1);
+    m_albumTableModel->setData(idx, tr("Unknown"));
   }
   showFilenameInStatusBar(m_albumTable->currentIndex());
 }

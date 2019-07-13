@@ -27,13 +27,42 @@
 #pragma once
 
 #include <QString>
-#include <QStandardItem>
+#include "standardtablemodel.h"
 #include "importclient.h"
 
-class QStandardItemModel;
 class ServerImporterConfig;
 class ImportClient;
 class TrackDataModel;
+
+/**
+ * Model containing list of albums which can be imported.
+ */
+class KID3_CORE_EXPORT AlbumListModel : public StandardTableModel {
+public:
+  /**
+   * Constructor.
+   * @param parent parent object
+   */
+  explicit AlbumListModel(QObject* parent = nullptr);
+
+  /**
+   * Get and album item.
+   * @param row model row
+   * @param text the text is returned here
+   * @param category the category is returned here
+   * @param id the internal ID is returned here
+   */
+  void getItem(int row, QString& text, QString& category, QString& id) const;
+
+  /**
+   * Append an album item.
+   * @param text display test
+   * @param category category, e.g. "release"
+   * @param id internal ID
+   */
+  void appendItem(const QString& text,
+                  const QString& category, const QString& id);
+};
 
 /**
  * Generic baseclass to import from an external source.
@@ -101,7 +130,7 @@ public:
    *
    * @return album list item model.
    */
-  QStandardItemModel* getAlbumListModel() const { return m_albumListModel; }
+  AlbumListModel* getAlbumListModel() const { return m_albumListModel; }
 
   /**
    * Clear model data.
@@ -169,67 +198,11 @@ public:
   static QString removeHtml(QString str);
 
 protected:
-  QStandardItemModel* m_albumListModel; /**< albums to select */
+  AlbumListModel* m_albumListModel; /**< albums to select */
   TrackDataModel* m_trackDataModel; /**< model with tracks to import */
 
 private:
   bool m_standardTagsEnabled;
   bool m_additionalTagsEnabled;
   bool m_coverArtEnabled;
-};
-
-/**
- * QStandardItem subclass for album list.
- */
-class KID3_CORE_EXPORT AlbumListItem : public QStandardItem {
-public:
-  /**
-   * Type returned by type(), extension of QStandardItem::ItemType.
-   */
-  enum ItemType {
-    Type = UserType + 1
-  };
-
-  /**
-   * Constructor.
-   * @param text    title
-   * @param cat     category
-   * @param idStr   ID
-   */
-  AlbumListItem(const QString& text, const QString& cat, const QString& idStr);
-
-  /**
-   * Destructor.
-   */
-  virtual ~AlbumListItem() override = default;
-
-  AlbumListItem(const AlbumListItem& other) = delete;
-  AlbumListItem &operator=(const AlbumListItem& other) = delete;
-
-  /**
-   * Get type of item.
-   * Used to distinguish items of this custom type from base class items.
-   * @return AlbumListItem::Type.
-   */
-  virtual int type() const override;
-
-  /**
-   * Get category.
-   * @return category.
-   */
-  QString getCategory() const;
-
-  /**
-   * Get ID.
-   * @return ID.
-   */
-  QString getId() const;
-
-#ifndef QT_NO_DEBUG
-  /**
-   * Dump an album list.
-   * @param albumModel album list model
-   */
-  static void dumpAlbumList(const QStandardItemModel* albumModel);
-#endif
 };

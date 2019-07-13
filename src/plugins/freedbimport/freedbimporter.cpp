@@ -125,10 +125,10 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
         title = titleRe.cap(1);
       }
       if (catIdRe.indexIn(*it) != -1) {
-        m_albumListModel->appendRow(new AlbumListItem(
+        m_albumListModel->appendItem(
           title,
           catIdRe.cap(1),
-          catIdRe.cap(2)));
+          catIdRe.cap(2));
       }
     } else if ((*it).indexOf(QLatin1String(" albums found:")) != -1) {
       inEntries = true;

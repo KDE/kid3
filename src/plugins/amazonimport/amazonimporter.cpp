@@ -108,11 +108,11 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
     if (start == -1)
       break;
     end = start + nextElementRe.matchedLength();
-    m_albumListModel->appendRow(new AlbumListItem(
+    m_albumListModel->appendItem(
       nextElementRe.cap(1) + QLatin1String(" - ") +
       catIdTitleRe.cap(1),
       catIdTitleRe.cap(2),
-      catIdTitleRe.cap(3)));
+      catIdTitleRe.cap(3));
   }
 }
 

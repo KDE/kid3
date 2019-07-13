@@ -32,11 +32,10 @@
 #include "iabortable.h"
 
 class QNetworkAccessManager;
-class QStandardItemModel;
 class DownloadClient;
 class ServerImporter;
 class TrackDataModel;
-class AlbumListItem;
+class AlbumListModel;
 
 /**
  * Batch importer.
@@ -164,8 +163,10 @@ private:
   QList<ServerImporter*> m_importers;
   ServerImporter* m_currentImporter;
   TrackDataModel* m_trackDataModel;
-  QStandardItemModel* m_albumModel;
-  AlbumListItem* m_albumListItem;
+  AlbumListModel* m_albumModel;
+  QString m_albumListItemText;
+  QString m_albumListItemCategory;
+  QString m_albumListItemId;
   QList<ImportTrackDataVector> m_trackLists;
   BatchImportProfile m_profile;
   Frame::TagVersion m_tagVersion;

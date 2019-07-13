@@ -122,10 +122,10 @@ void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
           .toElement().namedItem(QLatin1String("name-credit")).toElement()
           .namedItem(QLatin1String("artist")).toElement();
       QString name = artist.namedItem(QLatin1String("name")).toElement().text();
-      m_albumListModel->appendRow(new AlbumListItem(
+      m_albumListModel->appendItem(
         name + QLatin1String(" - ") + title,
         QLatin1String("release"),
-        id));
+        id);
     }
   }
 }

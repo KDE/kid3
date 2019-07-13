@@ -36,8 +36,6 @@ class QPushButton;
 class QCheckBox;
 class QStatusBar;
 class QListView;
-class QStandardItem;
-class QStandardItemModel;
 class ServerImporter;
 class ServerImporterConfig;
 class ImportTrackDataVector;
@@ -168,9 +166,10 @@ private slots:
   /**
    * Request track list from server.
    *
-   * @param li standard item containing an AlbumListItem
+   * @param category category, e.g. "release"
+   * @param id internal ID
    */
-  void requestTrackList(QStandardItem* li);
+  void requestTrackList(const QString& category, const QString& id);
 
   /**
    * Request track list from server.

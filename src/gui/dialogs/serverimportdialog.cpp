@@ -471,17 +471,16 @@ void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
 /**
  * Request track list from server.
  *
- * @param li standard item containing an AlbumListItem
+ * @param category category, e.g. "release"
+ * @param id internal ID
  */
-void ServerImportDialog::requestTrackList(QStandardItem* li)
+void ServerImportDialog::requestTrackList(const QString& category,
+                                          const QString& id)
 {
-  auto ali = static_cast<AlbumListItem*>(li);
-  if (ali && ali->type() == AlbumListItem::Type) {
-    ServerImporterConfig cfg;
-    getImportSourceConfig(&cfg);
-    if (m_source)
-      m_source->getTrackList(&cfg, ali->getCategory(), ali->getId());
-  }
+  ServerImporterConfig cfg;
+  getImportSourceConfig(&cfg);
+  if (m_source)
+    m_source->getTrackList(&cfg, category, id);
 }
 
 /**
@@ -491,8 +490,13 @@ void ServerImportDialog::requestTrackList(QStandardItem* li)
  */
 void ServerImportDialog::requestTrackList(const QModelIndex& index)
 {
-  if (m_source)
-    requestTrackList(m_source->getAlbumListModel()->itemFromIndex(index));
+  if (m_source) {
+    QString text, category, id;
+    m_source->getAlbumListModel()->getItem(index.row(), text, category, id);
+    if (!id.isEmpty()) {
+      requestTrackList(category, id);
+    }
+  }
 }
 
 /**

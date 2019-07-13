@@ -31,7 +31,6 @@
 #include <QVector>
 
 class QTableView;
-class QStandardItemModel;
 class QLineEdit;
 class QLabel;
 class QComboBox;
@@ -39,6 +38,7 @@ class QPushButton;
 class QCheckBox;
 class QStatusBar;
 class QModelIndex;
+class StandardTableModel;
 class TrackDataModel;
 class ImportTrackData;
 class ImportTrackDataVector;
@@ -183,7 +183,7 @@ private:
   QTableView* m_albumTable;
   QPushButton* m_helpButton;
   QPushButton* m_saveButton;
-  QStandardItemModel* m_albumTableModel;
+  StandardTableModel* m_albumTableModel;
   QStatusBar* m_statusBar;
   ServerTrackImporter* m_client;
   TrackDataModel* m_trackDataModel;

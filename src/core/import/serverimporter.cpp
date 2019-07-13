@@ -25,7 +25,6 @@
  */
 
 #include "serverimporter.h"
-#include <QStandardItemModel>
 #include "serverimporterconfig.h"
 #include "importclient.h"
 #include "trackdata.h"
@@ -39,7 +38,7 @@
 ServerImporter::ServerImporter(QNetworkAccessManager* netMgr,
                                TrackDataModel* trackDataModel)
   : ImportClient(netMgr),
-    m_albumListModel(new QStandardItemModel(this)),
+    m_albumListModel(new AlbumListModel(this)),
     m_trackDataModel(trackDataModel), m_standardTagsEnabled(true),
     m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
@@ -113,61 +112,43 @@ QString ServerImporter::removeHtml(QString str)
 }
 
 
-/**
- * Constructor.
- * @param text    title
- * @param cat     category
- * @param idStr   ID
- */
-AlbumListItem::AlbumListItem(const QString& text,
-        const QString& cat, const QString& idStr)
-  : QStandardItem(text)
+AlbumListModel::AlbumListModel(QObject* parent)
+  : StandardTableModel(parent)
 {
-  setData(cat, Qt::UserRole + 1);
-  setData(idStr, Qt::UserRole + 2);
 }
 
 /**
- * Get type of item.
- * Used to distinguish items of this custom type from base class items.
- * @return AlbumListItem::Type.
+ * Get and album item.
+ * @param row model row
+ * @param text the text is returned here
+ * @param category the category is returned here
+ * @param id the internal ID is returned here
  */
-int AlbumListItem::type() const
+void AlbumListModel::getItem(int row, QString& text,
+                             QString& category, QString& id) const
 {
-  return Type;
-}
-
-/**
- * Get category.
- * @return category.
- */
-QString AlbumListItem::getCategory() const
-{
-  return data(Qt::UserRole + 1).toString();
-}
-
-/**
- * Get ID.
- * @return ID.
- */
-QString AlbumListItem::getId() const
-{
-  return data(Qt::UserRole + 2).toString();
-}
-
-#ifndef QT_NO_DEBUG
-/**
- * Dump an album list.
- * @param albumModel album list model
- */
-void AlbumListItem::dumpAlbumList(const QStandardItemModel* albumModel)
-{
-  for (int row = 0; row < albumModel->rowCount(); ++row) {
-    AlbumListItem* item = static_cast<AlbumListItem*>(albumModel->item(row, 0));
-    if (item && item->type() == AlbumListItem::Type) {
-      qDebug("%s (%s, %s)", qPrintable(item->text()),
-             qPrintable(item->getCategory()), qPrintable(item->getId()));
-    }
+  if (row < rowCount()) {
+    QModelIndex idx = index(row, 0);
+    text = idx.data().toString();
+    category = idx.data(Qt::UserRole).toString();
+    id = idx.data(Qt::UserRole + 1).toString();
   }
 }
-#endif
+
+/**
+ * Append an album item.
+ * @param text display test
+ * @param category category, e.g. "release"
+ * @param id internal ID
+ */
+void AlbumListModel::appendItem(const QString& text,
+                                const QString& category, const QString& id)
+{
+  int row = rowCount();
+  if (insertRow(row)) {
+    QModelIndex idx = index(row, 0);
+    setData(idx, text);
+    setData(idx, category, Qt::UserRole);
+    setData(idx, id, Qt::UserRole + 1);
+  }
+}

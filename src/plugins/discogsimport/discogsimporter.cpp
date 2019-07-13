@@ -248,10 +248,10 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
     QString artist = fixUpArtist(idTitleRe.cap(1).trimmed());
     QString title = removeHtml(idTitleRe.cap(4).trimmed());
     if (!title.isEmpty()) {
-      m_albumListModel->appendRow(new AlbumListItem(
+      m_albumListModel->appendItem(
         artist + QLatin1String(" - ") + title,
         idTitleRe.cap(2),
-        idTitleRe.cap(3)));
+        idTitleRe.cap(3));
     }
     pos += len;
   }
