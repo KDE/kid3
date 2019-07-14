@@ -50,6 +50,7 @@
 #include <QFileIconProvider>
 #include <QStyle>
 #include <QHeaderView>
+#include <QBuffer>
 #include "filesystemmodel.h"
 #include "frametable.h"
 #include "frametablemodel.h"
@@ -634,8 +635,12 @@ void Kid3Form::dropEvent(QDropEvent* ev)
     QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
     ev->acceptProposedAction();
     if (!image.isNull()) {
+      QByteArray ba;
+      QBuffer buffer(&ba);
+      buffer.open(QIODevice::WriteOnly);
+      image.save(&buffer, "JPG");
       PictureFrame frame;
-      if (PictureFrame::setDataFromImage(frame, image)) {
+      if (PictureFrame::setData(frame, ba)) {
         m_app->dropImage(&frame);
       }
     }

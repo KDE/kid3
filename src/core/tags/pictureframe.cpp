@@ -26,11 +26,11 @@
 
 #include "pictureframe.h"
 #include <QFile>
-#include <QImage>
-#include <QBuffer>
+#include <QDataStream>
 #include <QCoreApplication>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QtEndian>
 
 namespace {
 
@@ -99,12 +99,7 @@ const char* const pictureTypeStrings[] = {
  */
 PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
 {
-  QImage image;
-  if (image.loadFromData(data)) {
-    m_width = image.width();
-    m_height = image.height();
-    m_depth = image.bitPlaneCount();
-    m_numColors = image.colorCount();
+  if (loadFromData(data)) {
     m_imageHash = qHash(data);
   } else {
     m_width = 0;
@@ -113,6 +108,75 @@ PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
     m_numColors = 0;
     m_imageHash = 0;
   }
+}
+
+bool PictureFrame::ImageProperties::loadFromData(const QByteArray& data)
+{
+  const int len = data.size();
+  if (len > 2 && data.at(0) == '\xff' && data.at(1) == '\xd8') {
+    // JPEG
+    int i = 2;
+    while (i + 3 < len) {
+      if (data.at(i)== '\xff') {
+        quint8 marker = static_cast<quint8>(data.at(i + 1));
+        quint16 sectionLen = qFromBigEndian<quint16>(
+              reinterpret_cast<const uchar*>(data.constData()) + i + 2);
+        if (marker == 0xda) {
+          break; // start of scan
+        } else if ((marker == 0xc0 || marker == 0xc2) && i + 9 < len && sectionLen >= 8) {
+          quint8 precision = static_cast<quint8>(data.at(i + 4));
+          quint16 height = qFromBigEndian<quint16>(
+                reinterpret_cast<const uchar*>(data.constData()) + i + 5);
+          quint16 width = qFromBigEndian<quint16>(
+                reinterpret_cast<const uchar*>(data.constData()) + i + 7);
+          quint8 components = static_cast<quint8>(data.at(i + 9));
+          m_width = width;
+          m_height = height;
+          m_depth = precision * components;
+          m_numColors = 0;
+          return true;
+        }
+        i += sectionLen + 2;
+      } else {
+        break;
+      }
+    }
+  } else if (len > 8 && data.startsWith("\x89PNG\r\n\x1a\n")) {
+    // PNG
+    int i = 8;
+    while (i + 8 < len) {
+      quint32 chunkLen = qFromBigEndian<quint32>(
+            reinterpret_cast<const uchar*>(data.constData()) + i);
+      QByteArray chunkName = data.mid(i + 4, 4);
+      if (chunkName == "IHDR" && i + 20 < len && chunkLen >= 13) {
+        quint32 width = qFromBigEndian<quint32>(
+              reinterpret_cast<const uchar*>(data.constData()) + i + 8);
+        quint32 height = qFromBigEndian<quint32>(
+              reinterpret_cast<const uchar*>(data.constData()) + i + 12);
+        quint8 depth = static_cast<quint8>(data.at(i + 16));
+        quint8 color = static_cast<quint8>(data.at(i + 17));
+        // The next three bytes are compression, filter, interlace.
+        m_width = static_cast<int>(width);
+        m_height = static_cast<int>(height);
+        m_numColors = 0;
+        if (color == 0 || color == 3) {
+          m_depth = depth;
+        } else if (color == 2) {
+          m_depth = depth * 3;
+        } else if (color == 4 || color == 6) {
+          m_depth = depth * 4;
+        }
+        if (!(color & 1)) {
+          return true; // not indexed, no need to read the PLTE chunk
+        }
+      } else if (chunkName == "PLTE") {
+        m_numColors = chunkLen / 3;
+        return true;
+      }
+      i += chunkLen + 12;
+    }
+  }
+  return false;
 }
 
 
@@ -538,23 +602,6 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
     }
   }
   return result;
-}
-
-/**
- * Get binary data from image.
- *
- * @param frame frame to set
- * @param image image
- *
- * @return true if field found and set.
- */
-bool PictureFrame::setDataFromImage(Frame& frame, const QImage& image)
-{
-  QByteArray ba;
-  QBuffer buffer(&ba);
-  buffer.open(QIODevice::WriteOnly);
-  image.save(&buffer, "JPG");
-  return setData(frame, ba);
 }
 
 /**

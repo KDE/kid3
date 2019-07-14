@@ -29,7 +29,6 @@
 #include <QString>
 #include <QTextCodec>
 #include <QByteArray>
-#include <QImage>
 #include <QVarLengthArray>
 #include <QScopedPointer>
 #include "genres.h"

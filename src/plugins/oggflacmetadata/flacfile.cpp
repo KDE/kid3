@@ -31,7 +31,6 @@
 #include <FLAC++/metadata.h>
 #include <QFile>
 #include <QDir>
-#include <QImage>
 #include <cstdio>
 #include <cmath>
 #include <QByteArray>

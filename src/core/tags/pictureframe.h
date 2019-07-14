@@ -28,8 +28,6 @@
 
 #include "frame.h"
 
-class QImage;
-
 /** Frame containing picture. */
 class KID3_CORE_EXPORT PictureFrame : public Frame {
 public:
@@ -96,6 +94,8 @@ public:
     int numColors() const { return m_numColors; }
 
   private:
+    bool loadFromData(const QByteArray& data);
+
     int m_width;
     int m_height;
     int m_depth;
@@ -321,16 +321,6 @@ public:
    * @return true if file read, field found and set.
    */
   static bool setDataFromFile(Frame& frame, const QString& fileName);
-
-  /**
-   * Get binary data from image.
-   *
-   * @param frame frame to set
-   * @param image image
-   *
-   * @return true if field found and set.
-   */
-  static bool setDataFromImage(Frame& frame, const QImage& image);
 
   /**
    * Save binary data to a file.
