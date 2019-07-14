@@ -1262,7 +1262,11 @@ bool Kid3Application::exportTags(Frame::TagVersion tagVersion,
   m_textExporter->setTrackData(trackDataVector);
   m_textExporter->updateTextUsingConfig(fmtIdx);
   if (path == QLatin1String("clipboard")) {
-    m_textExporter->exportToClipboard();
+    // Avoid crash when called from QCoreApplication.
+    if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
+      QGuiApplication::clipboard()->setText(m_textExporter->getText(),
+                                            QClipboard::Clipboard);
+    }
     return true;
   } else {
     return m_textExporter->exportToFile(path);

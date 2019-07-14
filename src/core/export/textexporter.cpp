@@ -29,8 +29,6 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QTextStream>
-#include <QGuiApplication>
-#include <QClipboard>
 #include "exportconfig.h"
 #include "importconfig.h"
 #include "fileconfig.h"
@@ -127,15 +125,4 @@ bool TextExporter::exportToFile(const QString& fn)
     }
   }
   return false;
-}
-
-/**
- * Export to clipboard.
- */
-void TextExporter::exportToClipboard()
-{
-  // Avoid crash when called from QCoreApplication.
-  if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
-    QGuiApplication::clipboard()->setText(m_text, QClipboard::Clipboard);
-  }
 }

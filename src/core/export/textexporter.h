@@ -95,11 +95,6 @@ public:
    */
   bool exportToFile(const QString& fn);
 
-  /**
-   * Export to clipboard.
-   */
-  void exportToClipboard();
-
 private:
   ImportTrackDataVector m_trackDataVector;
   QString m_text;

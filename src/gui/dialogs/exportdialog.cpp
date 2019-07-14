@@ -25,6 +25,8 @@
  */
 
 #include "exportdialog.h"
+#include <QGuiApplication>
+#include <QClipboard>
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -161,7 +163,8 @@ void ExportDialog::slotToFile()
  */
 void ExportDialog::slotToClipboard()
 {
-  m_textExporter->exportToClipboard();
+  QGuiApplication::clipboard()->setText(m_textExporter->getText(),
+                                        QClipboard::Clipboard);
 }
 
 /**
