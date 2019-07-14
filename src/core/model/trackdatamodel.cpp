@@ -25,15 +25,18 @@
  */
 
 #include "trackdatamodel.h"
-#include <QBrush>
 #include "frametablemodel.h"
+#include "coretaggedfileiconprovider.h"
 
 /**
  * Constructor.
+ * @param colorProvider colorProvider
  * @param parent parent widget
  */
-TrackDataModel::TrackDataModel(QObject* parent)
-  : QAbstractTableModel(parent), m_maxDiff(0), m_diffCheckEnabled(false)
+TrackDataModel::TrackDataModel(CoreTaggedFileIconProvider* colorProvider,
+                               QObject* parent)
+  : QAbstractTableModel(parent),
+    m_colorProvider(colorProvider), m_maxDiff(0), m_diffCheckEnabled(false)
 {
   setObjectName(QLatin1String("TrackDataModel"));
 }
@@ -108,8 +111,9 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
     if (index.column() == 0 && m_diffCheckEnabled) {
       const ImportTrackData& trackData = m_trackDataVector.at(index.row());
       int diff = trackData.getTimeDifference();
-      if (diff >= 0) {
-        return diff > m_maxDiff ? QBrush(Qt::red) : Qt::NoBrush;
+      if (diff >= 0 && m_colorProvider) {
+        return m_colorProvider->colorForContext(diff > m_maxDiff
+            ? ColorContext::Error : ColorContext::None);
       }
     }
   } else if (role == Qt::CheckStateRole && index.column() == 0) {

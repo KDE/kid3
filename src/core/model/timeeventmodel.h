@@ -32,6 +32,7 @@
 #include "kid3api.h"
 
 class QTextStream;
+class CoreTaggedFileIconProvider;
 
 /**
  * Time event model.
@@ -71,9 +72,11 @@ public:
 
   /**
    * Constructor.
+   * @param colorProvider color provider
    * @param parent parent widget
    */
-  explicit TimeEventModel(QObject* parent = nullptr);
+  explicit TimeEventModel(CoreTaggedFileIconProvider* colorProvider = nullptr,
+                          QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -263,5 +266,5 @@ private:
   Type m_type;
   int m_markedRow;
   QList<TimeEvent> m_timeEvents;
-  bool m_guiApp;
+  CoreTaggedFileIconProvider* m_colorProvider;
 };

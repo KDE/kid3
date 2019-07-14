@@ -125,3 +125,37 @@ QVariant CoreTaggedFileIconProvider::backgroundForTaggedFile(
   Q_UNUSED(taggedFile)
   return QVariant();
 }
+
+/**
+ * Get brush with color for a context.
+ * @param context color context
+ * @return brush.
+ */
+QVariant CoreTaggedFileIconProvider::colorForContext(ColorContext context) const
+{
+  switch (context) {
+  case ColorContext::None:
+    break;
+  case ColorContext::Marked:
+    return QLatin1String("*");
+  case ColorContext::Error:
+    return QLatin1String("E");
+  }
+  return QVariant();
+}
+
+/**
+ * Get context for a brush.
+ * @param color brush
+ * @return color context.
+ */
+ColorContext CoreTaggedFileIconProvider::contextForColor(const QVariant& color) const
+{
+  QString code = color.toString();
+  if (code == QLatin1String("E")) {
+    return ColorContext::Error;
+  } else if (code == QLatin1String("*")) {
+    return ColorContext::Marked;
+  }
+  return ColorContext::None;
+}

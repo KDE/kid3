@@ -25,10 +25,8 @@
  */
 
 #include "frametablemodel.h"
-#include <QGuiApplication>
-#include <QBrush>
-#include <QPalette>
 #include <algorithm>
+#include "coretaggedfileiconprovider.h"
 #include "fileconfig.h"
 #include "pictureframe.h"
 #include "framenotice.h"
@@ -57,12 +55,13 @@ QHash<int,QByteArray> getRoleHash()
 /**
  * Constructor.
  * @param id3v1  true if model for ID3v1 frames
+ * @param colorProvider colorProvider
  * @param parent parent widget
  */
-FrameTableModel::FrameTableModel(bool id3v1, QObject* parent)
+FrameTableModel::FrameTableModel(
+    bool id3v1, CoreTaggedFileIconProvider* colorProvider, QObject* parent)
   : QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-    m_id3v1(id3v1),
-    m_guiApp(qobject_cast<QGuiApplication*>(QCoreApplication::instance()) != nullptr)
+    m_colorProvider(colorProvider), m_id3v1(id3v1)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }
@@ -136,12 +135,14 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
   } else if (role == Qt::BackgroundColorRole) {
-    if (index.column() == CI_Enable) {
-      return !isModified ? Qt::NoBrush
-                         : m_guiApp ? QGuiApplication::palette().mid()
-                                    : QBrush(Qt::gray);
-    } else if (index.column() == CI_Value) {
-      return isTruncated ? QBrush(Qt::red) : Qt::NoBrush;
+    if (m_colorProvider) {
+      if (index.column() == CI_Enable) {
+        return m_colorProvider->colorForContext(
+              isModified ? ColorContext::Marked : ColorContext::None);
+      } else if (index.column() == CI_Value) {
+        return m_colorProvider->colorForContext(
+              isTruncated ? ColorContext::Error : ColorContext::None);
+      }
     }
   } else if (role == Qt::ToolTipRole) {
     QString toolTip;

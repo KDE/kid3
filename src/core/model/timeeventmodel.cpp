@@ -25,20 +25,19 @@
  */
 
 #include "timeeventmodel.h"
-#include <QGuiApplication>
 #include <QTextStream>
-#include <QPalette>
-#include <QBrush>
+#include "coretaggedfileiconprovider.h"
 #include "eventtimingcode.h"
 
 /**
  * Constructor.
+ * @param colorProvider colorProvider
  * @param parent parent widget
  */
-TimeEventModel::TimeEventModel(QObject* parent)
+TimeEventModel::TimeEventModel(CoreTaggedFileIconProvider* colorProvider,
+                               QObject* parent)
   : QAbstractTableModel(parent), m_type(SynchronizedLyrics), m_markedRow(-1),
-    m_guiApp(qobject_cast<QGuiApplication*>(QCoreApplication::instance())
-             != nullptr)
+    m_colorProvider(colorProvider)
 {
   setObjectName(QLatin1String("TimeEventModel"));
 }
@@ -74,10 +73,10 @@ QVariant TimeEventModel::data(const QModelIndex& index, int role) const
       return timeEvent.time;
     else
       return timeEvent.data;
-  } else if (role == Qt::BackgroundColorRole && index.column() == CI_Data) {
-    return index.row() != m_markedRow ? Qt::NoBrush
-                                   : m_guiApp ? QGuiApplication::palette().mid()
-                                              : QBrush(Qt::gray);
+  } else if (role == Qt::BackgroundColorRole && index.column() == CI_Data &&
+             m_colorProvider) {
+    return m_colorProvider->colorForContext(index.row() == m_markedRow
+        ? ColorContext::Marked : ColorContext::None);
   }
   return QVariant();
 }

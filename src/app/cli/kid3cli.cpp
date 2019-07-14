@@ -29,8 +29,9 @@
 #include <QCoreApplication>
 #include <QItemSelectionModel>
 #include <QTimer>
-#include <QBrush>
 #include "kid3application.h"
+#include "icoreplatformtools.h"
+#include "coretaggedfileiconprovider.h"
 #include "fileproxymodel.h"
 #include "frametablemodel.h"
 #include "taggedfileselection.h"
@@ -536,8 +537,12 @@ void Kid3Cli::writeFileInformation(int tagMask)
         QString value =
             ft->index(row, FrameTableModel::CI_Value).data().toString();
         if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
-          bool changed = ft->index(row, FrameTableModel::CI_Enable)
-              .data(Qt::BackgroundColorRole).value<QBrush>() != Qt::NoBrush;
+          QVariant background = ft->index(row, FrameTableModel::CI_Enable)
+              .data(Qt::BackgroundColorRole);
+          CoreTaggedFileIconProvider* colorProvider =
+              m_app->getPlatformTools()->iconProvider();
+          bool changed = colorProvider &&
+            colorProvider->contextForColor(background) == ColorContext::Marked;
           QString line = changed ? QLatin1String("*") : QLatin1String(" ");
           line += QLatin1Char(' ');
           line += name;

@@ -206,7 +206,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_dirProxyModel(new DirProxyModel(this)),
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
   m_dirSelectionModel(new QItemSelectionModel(m_dirProxyModel, this)),
-  m_trackDataModel(new TrackDataModel(this)),
+  m_trackDataModel(new TrackDataModel(m_platformTools->iconProvider(), this)),
   m_netMgr(new QNetworkAccessManager(this)),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
@@ -233,7 +233,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   FOR_ALL_TAGS(tagNr) {
     bool id3v1 = tagNr == Frame::Tag_Id3v1;
     m_genreModel[tagNr] = new GenreModel(id3v1, this);
-    m_framesModel[tagNr] = new FrameTableModel(id3v1, this);
+    m_framesModel[tagNr] = new FrameTableModel(
+          id3v1, platformTools->iconProvider(), this);
     if (!id3v1) {
       m_framesModel[tagNr]->setFrameOrder(tagCfg.quickAccessFrameOrder());
       connect(&tagCfg, &TagConfig::quickAccessFrameOrderChanged,

@@ -38,7 +38,7 @@
 TestServerImporterBase::TestServerImporterBase(QObject* parent)
   : QObject(parent),
     m_netMgr(new QNetworkAccessManager(this)),
-    m_trackDataModel(new TrackDataModel(this)),
+    m_trackDataModel(new TrackDataModel(nullptr, this)),
     m_importer(nullptr), m_settings(nullptr), m_configStore(nullptr)
 {
   if (!ConfigStore::instance()) {

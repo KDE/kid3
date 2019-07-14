@@ -88,6 +88,20 @@ public:
    */
   virtual QVariant backgroundForTaggedFile(const TaggedFile* taggedFile) override;
 
+  /**
+   * Get brush with color for a context.
+   * @param context color context
+   * @return brush.
+   */
+  virtual QVariant colorForContext(ColorContext context) const override;
+
+  /**
+   * Get context for a brush.
+   * @param color brush
+   * @return color context.
+   */
+  virtual ColorContext contextForColor(const QVariant& color) const override;
+
 private:
   void createIcons();
 

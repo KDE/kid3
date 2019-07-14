@@ -25,6 +25,8 @@
  */
 
 #include "taggedfileiconprovider.h"
+#include <QGuiApplication>
+#include <QPalette>
 #include <QIcon>
 #include <QPixmap>
 #include <QColor>
@@ -177,4 +179,43 @@ QVariant TaggedFileIconProvider::backgroundForTaggedFile(
        taggedFile->isMarked()))
     return QColor(Qt::red);
   return QVariant();
+}
+
+/**
+ * Get brush with color for a context.
+ * @param context color context
+ * @return brush.
+ */
+QVariant TaggedFileIconProvider::colorForContext(ColorContext context) const
+{
+  const bool isGuiApp =
+      qobject_cast<QGuiApplication*>(QCoreApplication::instance()) != nullptr;
+  switch (context) {
+  case ColorContext::None:
+    break;
+  case ColorContext::Marked:
+    return isGuiApp ? QGuiApplication::palette().mid()
+                    : QBrush(Qt::gray);
+  case ColorContext::Error:
+    return QBrush(Qt::red);
+  }
+  return QBrush(Qt::NoBrush);
+}
+
+/**
+ * Get context for a brush.
+ * @param color brush
+ * @return color context.
+ */
+ColorContext TaggedFileIconProvider::contextForColor(const QVariant& color) const
+{
+  if (color.type() == QVariant::Brush) {
+    QBrush brush = color.value<QBrush>();
+    if (brush == Qt::red) {
+      return ColorContext::Error;
+    } else if (brush != Qt::NoBrush) {
+      return ColorContext::Marked;
+    }
+  }
+  return ColorContext::None;
 }

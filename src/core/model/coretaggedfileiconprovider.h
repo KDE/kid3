@@ -33,6 +33,15 @@ class QSize;
 class TaggedFile;
 
 /**
+ * Contextual colors.
+ */
+enum class ColorContext {
+  None,
+  Marked,
+  Error
+};
+
+/**
  * Provides icons for tagged files.
  */
 class KID3_CORE_EXPORT CoreTaggedFileIconProvider {
@@ -96,4 +105,18 @@ public:
    * @return background color for tagged file
    */
   virtual QVariant backgroundForTaggedFile(const TaggedFile* taggedFile);
+
+  /**
+   * Get brush with color for a context.
+   * @param context color context
+   * @return brush.
+   */
+  virtual QVariant colorForContext(ColorContext context) const;
+
+  /**
+   * Get context for a brush.
+   * @param color brush
+   * @return color context.
+   */
+  virtual ColorContext contextForColor(const QVariant& color) const;
 };

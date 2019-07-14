@@ -32,6 +32,8 @@
 #include "frame.h"
 #include "kid3api.h"
 
+class CoreTaggedFileIconProvider;
+
 /**
  * Model for table with frames.
  */
@@ -62,9 +64,11 @@ public:
   /**
    * Constructor.
    * @param id3v1  true if model for ID3v1 frames
+   * @param colorProvider colorProvider
    * @param parent parent widget
    */
-  explicit FrameTableModel(bool id3v1, QObject* parent = nullptr);
+  FrameTableModel(bool id3v1, CoreTaggedFileIconProvider* colorProvider,
+                  QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -322,6 +326,6 @@ private:
   QVector<FrameCollection::iterator> m_frameOfRow;
   QHash<Frame::ExtendedType, QSet<QString>> m_differentValues;
   QVector<int> m_frameTypeSeqNr;
+  CoreTaggedFileIconProvider* m_colorProvider;
   bool m_id3v1;
-  bool m_guiApp;
 };

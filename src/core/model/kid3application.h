@@ -150,6 +150,12 @@ public:
   void activateDbusInterface();
 #endif
 
+  /**
+   * Get platform tools.
+   * @return platform tools.
+   */
+  ICorePlatformTools* getPlatformTools() { return m_platformTools; }
+
  /**
   * Get file system model.
   * @return file system model.

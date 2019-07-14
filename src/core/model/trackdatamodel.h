@@ -31,6 +31,8 @@
 #include "trackdata.h"
 #include "kid3api.h"
 
+class CoreTaggedFileIconProvider;
+
 /**
  * Model for table with track data.
  */
@@ -48,9 +50,11 @@ public:
 
   /**
    * Constructor.
+   * @param colorProvider colorProvider
    * @param parent parent widget
    */
-  explicit TrackDataModel(QObject* parent = nullptr);
+  explicit TrackDataModel(CoreTaggedFileIconProvider* colorProvider,
+                          QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -223,6 +227,7 @@ public:
 private:
   ImportTrackDataVector m_trackDataVector;
   QList<Frame::ExtendedType> m_frameTypes;
+  CoreTaggedFileIconProvider* m_colorProvider;
   int m_maxDiff;
   bool m_diffCheckEnabled;
 };

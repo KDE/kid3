@@ -36,6 +36,7 @@
 #include "framelist.h"
 #include "taggedfile.h"
 #include "editframefieldsdialog.h"
+#include "iplatformtools.h"
 
 /**
  * Constructor.
@@ -56,7 +57,8 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
 {
   setObjectName(QLatin1String("SubframesEditor"));
   auto layout = new QHBoxLayout(this);
-  m_frameTableModel = new FrameTableModel(false, this);
+  m_frameTableModel = new FrameTableModel(
+        false, platformTools->iconProvider(), this);
   m_frameTable = new FrameTable(m_frameTableModel, new GenreModel(false, this),
                                 this);
   layout->addWidget(m_frameTable);
