@@ -30,12 +30,10 @@
 #include <QTextStream>
 #include <QNetworkAccessManager>
 #include <QTimer>
-#include <QGuiApplication>
-#include <QClipboard>
+#include <QCoreApplication>
 #include <QPluginLoader>
 #include <QElapsedTimer>
 #include <QUrl>
-#include <QImage>
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
@@ -276,22 +274,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #ifdef Q_OS_ANDROID
   new AndroidUtils(this);
   // Make sure that configuration changes are saved for the Android app.
-  if (auto guiApp =
-      qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
-    QObject::connect(guiApp, &QGuiApplication::applicationStateChanged,
-                     this, [this](Qt::ApplicationState state) {
-      if (state == Qt::ApplicationSuspended) {
-        saveConfig();
-      } else if (state == Qt::ApplicationActive) {
-        // When the app becomes active for the first time,
-        // check if it was launched with an intent.
-        if (!m_pendingIntentsChecked) {
-          m_pendingIntentsChecked = true;
-          AndroidUtils::instance()->checkPendingIntents();
-        }
-      }
-    });
-  }
+  // Old style connect syntax is used to avoid a dependency to QGuiApplication.
+  connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
+          this, SLOT(onApplicationStateChanged(Qt::ApplicationState)));
   QObject::connect(AndroidUtils::instance(), &AndroidUtils::filePathReceived,
                    this, [this](const QString& path) {
     dropLocalFiles({path}, false);
@@ -315,6 +300,26 @@ Kid3Application::~Kid3Application()
   }
 #endif
 }
+
+#ifdef Q_OS_ANDROID
+/**
+ * Save config when suspended, check intents when activated.
+ * @param state application state
+ */
+void Kid3Application::onApplicationStateChanged(Qt::ApplicationState state)
+{
+  if (state == Qt::ApplicationSuspended) {
+    saveConfig();
+  } else if (state == Qt::ApplicationActive) {
+    // When the app becomes active for the first time,
+    // check if it was launched with an intent.
+    if (!m_pendingIntentsChecked) {
+      m_pendingIntentsChecked = true;
+      AndroidUtils::instance()->checkPendingIntents();
+    }
+  }
+}
+#endif
 
 #ifdef HAVE_QTDBUS
 /**
@@ -1200,13 +1205,7 @@ bool Kid3Application::importTags(Frame::TagVersion tagMask,
   filesToTrackDataModel(importCfg.importDest());
   QString text;
   if (path == QLatin1String("clipboard")) {
-    // Avoid crash when called from QCoreApplication.
-    if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
-      QClipboard* cb = QGuiApplication::clipboard();
-      text = cb->text(QClipboard::Clipboard);
-      if (text.isNull())
-        text = cb->text(QClipboard::Selection);
-    }
+    text = m_platformTools->readFromClipboard();
   } else {
     QFile file(path);
     if (file.open(QIODevice::ReadOnly)) {
@@ -1262,12 +1261,7 @@ bool Kid3Application::exportTags(Frame::TagVersion tagVersion,
   m_textExporter->setTrackData(trackDataVector);
   m_textExporter->updateTextUsingConfig(fmtIdx);
   if (path == QLatin1String("clipboard")) {
-    // Avoid crash when called from QCoreApplication.
-    if (qobject_cast<QGuiApplication*>(QCoreApplication::instance())) {
-      QGuiApplication::clipboard()->setText(m_textExporter->getText(),
-                                            QClipboard::Clipboard);
-    }
-    return true;
+    return m_platformTools->writeToClipboard(m_textExporter->getText());
   } else {
     return m_textExporter->exportToFile(path);
   }
@@ -2364,18 +2358,13 @@ void Kid3Application::openDropUrls(const QList<QUrl>& urlList)
 /**
  * Add picture on drop.
  *
- * @param image dropped image.
+ * @param frame dropped picture frame
  */
-void Kid3Application::dropImage(const QImage& image)
+void Kid3Application::dropImage(Frame* frame)
 {
-  if (!image.isNull()) {
-    PictureFrame frame;
-    if (PictureFrame::setDataFromImage(frame, image)) {
-      PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-      addFrame(Frame::Tag_Picture, &frame);
-      emit selectedFilesUpdated();
-    }
-  }
+  PictureFrame::setTextEncoding(*frame, frameTextEncodingFromConfig());
+  addFrame(Frame::Tag_Picture, frame);
+  emit selectedFilesUpdated();
 }
 
 /**

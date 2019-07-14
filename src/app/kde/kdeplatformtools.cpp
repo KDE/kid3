@@ -33,7 +33,6 @@
 #include <QDesktopServices>
 #include "mainwindowconfig.h"
 #include "coreplatformtools.h"
-#include <QCoreApplication>
 #include "kdesettings.h"
 #include "taggedfileiconprovider.h"
 

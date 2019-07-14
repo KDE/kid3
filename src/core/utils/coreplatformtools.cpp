@@ -78,6 +78,26 @@ CoreTaggedFileIconProvider* CorePlatformTools::iconProvider()
   return new CoreTaggedFileIconProvider;
 }
 
+/**
+ * Write text to clipboard.
+ * @param text text to write
+ * @return true if operation is supported.
+ */
+bool CorePlatformTools::writeToClipboard(const QString& text) const
+{
+  Q_UNUSED(text);
+  return false;
+}
+
+/**
+ * Read text from clipboard.
+ * @return text, null if operation not supported.
+ */
+QString CorePlatformTools::readFromClipboard() const
+{
+  return QString();
+}
+
 #ifdef Q_OS_WIN32
 
 #include <QVector>

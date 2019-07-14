@@ -59,6 +59,19 @@ public:
   virtual CoreTaggedFileIconProvider* iconProvider() override;
 
   /**
+   * Write text to clipboard.
+   * @param text text to write
+   * @return true if operation is supported.
+   */
+  virtual bool writeToClipboard(const QString& text) const override;
+
+  /**
+   * Read text from clipboard.
+   * @return text, null if operation not supported.
+   */
+  virtual QString readFromClipboard() const override;
+
+  /**
    * Move file or directory to trash.
    *
    * @param path path to file or directory

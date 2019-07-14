@@ -25,10 +25,36 @@
  */
 
 #include "iplatformtools.h"
+#include <QGuiApplication>
+#include <QClipboard>
 
 /**
  * Destructor.
  */
 IPlatformTools::~IPlatformTools()
 {
+}
+
+/**
+ * Write text to clipboard.
+ * @param text text to write
+ * @return true if operation is supported.
+ */
+bool IPlatformTools::writeToClipboard(const QString& text) const
+{
+  QGuiApplication::clipboard()->setText(text, QClipboard::Clipboard);
+  return true;
+}
+
+/**
+ * Read text from clipboard.
+ * @return text, null if operation not supported.
+ */
+QString IPlatformTools::readFromClipboard() const
+{
+  QClipboard* cb = QGuiApplication::clipboard();
+  QString text = cb->text(QClipboard::Clipboard);
+  if (text.isNull())
+    text = cb->text(QClipboard::Selection);
+  return text;
 }

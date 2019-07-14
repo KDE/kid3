@@ -58,6 +58,7 @@
 #include "basemainwindow.h"
 #include "filelist.h"
 #include "framelist.h"
+#include "pictureframe.h"
 #include "configurabletreeview.h"
 #include "picturelabel.h"
 #include "fileconfig.h"
@@ -632,8 +633,12 @@ void Kid3Form::dropEvent(QDropEvent* ev)
   if (ev->mimeData()->hasImage()) {
     QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
     ev->acceptProposedAction();
-    m_app->dropImage(image);
-    return;
+    if (!image.isNull()) {
+      PictureFrame frame;
+      if (PictureFrame::setDataFromImage(frame, image)) {
+        m_app->dropImage(&frame);
+      }
+    }
   } else if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list"))) {
     QList<QUrl> urls = ev->mimeData()->urls();
     ev->acceptProposedAction();
