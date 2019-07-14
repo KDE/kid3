@@ -4,9 +4,9 @@
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 29-Mar-2011
+ * \date 13 Jul 2019
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2019  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,7 +25,9 @@
  */
 
 #include "taggedfileiconprovider.h"
+#include <QIcon>
 #include <QPixmap>
+#include <QColor>
 #include <QPainter>
 #include "taggedfile.h"
 #include "tagconfig.h"
@@ -36,6 +38,14 @@
 TaggedFileIconProvider::TaggedFileIconProvider()
   : m_requestedSize(16, 16)
 {
+}
+
+/**
+ * Set icon to be used for modified files.
+ * @param icon modified icon
+ */
+void TaggedFileIconProvider::setModifiedIcon(const QVariant& icon) {
+  m_modifiedIcon = icon;
 }
 
 /**
@@ -109,12 +119,13 @@ void TaggedFileIconProvider::createIcons()
   }
 
   for (auto it = m_pixmapMap.constBegin(); it != m_pixmapMap.constEnd(); ++it) {
-    m_iconMap.insert(it.key(), QIcon(it.value()));
+    m_iconMap.insert(it.key(), QIcon(it.value().value<QPixmap>()));
   }
 
   if (!m_modifiedIcon.isNull()) {
     m_iconMap.insert("modified", m_modifiedIcon);
-    m_pixmapMap.insert("modified", m_modifiedIcon.pixmap(m_requestedSize));
+    m_pixmapMap.insert("modified",
+                       m_modifiedIcon.value<QIcon>().pixmap(m_requestedSize));
   }
 }
 
@@ -125,7 +136,7 @@ void TaggedFileIconProvider::createIcons()
  *
  * @return icon for tagged file
  */
-QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
+QVariant TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
 {
   if (taggedFile) {
     if (m_iconMap.isEmpty()) {
@@ -133,39 +144,7 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
     }
     return m_iconMap.value(iconIdForTaggedFile(taggedFile));
   }
-  return QIcon();
-}
-
-/**
- * Get an icon ID for a tagged file.
- *
- * @param taggedFile tagged file
- *
- * @return icon ID for tagged file
- */
-QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
-    const TaggedFile* taggedFile) const
-{
-  if (taggedFile) {
-    if (taggedFile->isChanged()) {
-      return "modified";
-    } else {
-      if (!taggedFile->isTagInformationRead())
-        return "null";
-
-      QByteArray id;
-      if (taggedFile->hasTag(Frame::Tag_1))
-        id += "v1";
-      if (taggedFile->hasTag(Frame::Tag_2))
-        id += "v2";
-      if (taggedFile->hasTag(Frame::Tag_3))
-        id += "v3";
-      if (id.isEmpty())
-        id = "notag";
-      return id;
-    }
-  }
-  return "";
+  return QVariant();
 }
 
 /**
@@ -174,7 +153,7 @@ QByteArray TaggedFileIconProvider::iconIdForTaggedFile(
  * set with setImageData()
  * @return pixmap for @a id.
  */
-QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id)
+QVariant TaggedFileIconProvider::pixmapForIconId(const QByteArray& id)
 {
   if (m_pixmapMap.isEmpty()) {
     createIcons();
@@ -190,12 +169,12 @@ QPixmap TaggedFileIconProvider::pixmapForIconId(const QByteArray& id)
  * @return background color for tagged file, invalid color if background
  * should not be set
  */
-QColor TaggedFileIconProvider::backgroundForTaggedFile(
+QVariant TaggedFileIconProvider::backgroundForTaggedFile(
     const TaggedFile* taggedFile) {
   if (taggedFile &&
       ((TagConfig::instance().markTruncations() &&
         taggedFile->getTruncationFlags(Frame::Tag_Id3v1) != 0) ||
        taggedFile->isMarked()))
-    return Qt::red;
-  return QColor();
+    return QColor(Qt::red);
+  return QVariant();
 }

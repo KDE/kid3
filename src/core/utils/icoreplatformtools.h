@@ -33,6 +33,7 @@
 class QString;
 class QWidget;
 class ISettings;
+class CoreTaggedFileIconProvider;
 
 /**
  * Interface for GUI independent platform specific tools.
@@ -49,6 +50,12 @@ public:
    * @return settings instance.
    */
   virtual ISettings* applicationSettings() = 0;
+
+  /**
+   * Get icon provider for tagged files.
+   * @return icon provider.
+   */
+  virtual CoreTaggedFileIconProvider* iconProvider() = 0;
 
   /**
    * Move file or directory to trash.

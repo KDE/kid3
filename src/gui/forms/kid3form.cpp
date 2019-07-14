@@ -66,7 +66,7 @@
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
 #include "filesystemmodel.h"
-#include "taggedfileiconprovider.h"
+#include "coretaggedfileiconprovider.h"
 #include "kid3application.h"
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
@@ -285,7 +285,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           qobject_cast<FileSystemModel*>(fileProxyModel->sourceModel())) {
     fsModel->setDecorationProvider(m_iconProvider.data());
   }
-  TaggedFileIconProvider* tagIconProvider = fileProxyModel->getIconProvider();
+  CoreTaggedFileIconProvider* tagIconProvider = fileProxyModel->getIconProvider();
   tagIconProvider->setModifiedIcon(
         QApplication::style()->standardIcon(QStyle::SP_DriveFDIcon));
   int iconHeight = (((fontMetrics().height() - 1) / 16) + 1) * 16;

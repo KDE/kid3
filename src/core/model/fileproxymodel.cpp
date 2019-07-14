@@ -27,7 +27,7 @@
 #include "fileproxymodel.h"
 #include <QTimer>
 #include "filesystemmodel.h"
-#include "taggedfileiconprovider.h"
+#include "coretaggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
 #include "tagconfig.h"
 #include "saferename.h"
@@ -66,12 +66,15 @@ QHash<int,QByteArray> getRoleHash()
 /**
  * Constructor.
  *
+ * @param iconProvider icon provider
  * @param parent parent object
  */
-FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
-  m_iconProvider(new TaggedFileIconProvider), m_fsModel(nullptr),
-  m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
-  m_numModifiedFiles(0), m_isLoading(false)
+FileProxyModel::FileProxyModel(CoreTaggedFileIconProvider* iconProvider,
+                               QObject* parent)
+  : QSortFilterProxyModel(parent),
+    m_iconProvider(iconProvider), m_fsModel(nullptr),
+    m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
+    m_numModifiedFiles(0), m_isLoading(false)
 {
   setObjectName(QLatin1String("FileProxyModel"));
   connect(this, &QAbstractItemModel::rowsInserted,
@@ -317,8 +320,8 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
     } else if (role == Qt::BackgroundRole && index.column() == 0) {
       TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
       if (taggedFile) {
-        QColor color = m_iconProvider->backgroundForTaggedFile(taggedFile);
-        if (color.isValid())
+        QVariant color = m_iconProvider->backgroundForTaggedFile(taggedFile);
+        if (!color.isNull())
           return color;
       }
     } else if (role == IconIdRole && index.column() == 0) {
@@ -941,7 +944,7 @@ void FileProxyModel::notifyModificationChanged(const QModelIndex& index,
 
 /**
  * Called from tagged file to notify changes in extra model data, e.g. the
- * information on which the TaggedFileIconProvider depends.
+ * information on which the CoreTaggedFileIconProvider depends.
  * @param index model index
  */
 void FileProxyModel::notifyModelDataChanged(const QModelIndex& index)

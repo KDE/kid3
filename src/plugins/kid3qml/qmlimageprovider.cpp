@@ -30,7 +30,7 @@
  * Constructor.
  * @param iconProvider icon provider to use
  */
-QmlImageProvider::QmlImageProvider(TaggedFileIconProvider* iconProvider)
+QmlImageProvider::QmlImageProvider(CoreTaggedFileIconProvider* iconProvider)
   : QQuickImageProvider(QQuickImageProvider::Pixmap), PixmapProvider(iconProvider)
 {
 }

@@ -1,5 +1,5 @@
 /**
- * \file taggedfileiconprovider.h
+ * \file coretaggedfileiconprovider.h
  * Provides icons for tagged files.
  *
  * \b Project: Kid3
@@ -26,31 +26,32 @@
 
 #pragma once
 
-#include <QIcon>
-#include <QPixmap>
-#include <QColor>
-#include <QMap>
 #include "kid3api.h"
 
+class QVariant;
+class QSize;
 class TaggedFile;
 
 /**
  * Provides icons for tagged files.
  */
-class KID3_CORE_EXPORT TaggedFileIconProvider {
+class KID3_CORE_EXPORT CoreTaggedFileIconProvider {
 public:
   /**
    * Constructor.
    */
-  TaggedFileIconProvider();
+  CoreTaggedFileIconProvider();
+
+  /**
+   * Destructor.
+   */
+  virtual ~CoreTaggedFileIconProvider() = default;
 
   /**
    * Set icon to be used for modified files.
    * @param icon modified icon
    */
-  void setModifiedIcon(const QIcon& icon) {
-    m_modifiedIcon = icon;
-  }
+  virtual void setModifiedIcon(const QVariant& icon);
 
   /**
    * Set the requested size for icons.
@@ -59,7 +60,7 @@ public:
    *
    * @param size icon size, the default is 16x16.
    */
-  void setRequestedSize(const QSize& size);
+  virtual void setRequestedSize(const QSize& size);
 
   /**
    * Get an icon for a tagged file.
@@ -68,7 +69,7 @@ public:
    *
    * @return icon for tagged file
    */
-  QIcon iconForTaggedFile(const TaggedFile* taggedFile);
+  virtual QVariant iconForTaggedFile(const TaggedFile* taggedFile);
 
   /**
    * Get an icon ID for a tagged file.
@@ -77,7 +78,7 @@ public:
    *
    * @return icon ID for tagged file
    */
-  QByteArray iconIdForTaggedFile(const TaggedFile* taggedFile) const;
+  virtual QByteArray iconIdForTaggedFile(const TaggedFile* taggedFile) const;
 
   /**
    * Get pixmap for an icon ID.
@@ -85,7 +86,7 @@ public:
    * set with setImageData()
    * @return pixmap for @a id.
    */
-  QPixmap pixmapForIconId(const QByteArray& id);
+  virtual QVariant pixmapForIconId(const QByteArray& id);
 
   /**
    * Get background color for a tagged file.
@@ -94,13 +95,5 @@ public:
    *
    * @return background color for tagged file
    */
-  QColor backgroundForTaggedFile(const TaggedFile* taggedFile);
-
-private:
-  void createIcons();
-
-  QMap<QByteArray, QIcon> m_iconMap;
-  QMap<QByteArray, QPixmap> m_pixmapMap;
-  QSize m_requestedSize;
-  QIcon m_modifiedIcon;
+  virtual QVariant backgroundForTaggedFile(const TaggedFile* taggedFile);
 };

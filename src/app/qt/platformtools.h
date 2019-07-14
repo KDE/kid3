@@ -55,6 +55,12 @@ public:
   virtual ISettings* applicationSettings() override;
 
   /**
+   * Get icon provider for tagged files.
+   * @return icon provider.
+   */
+  virtual CoreTaggedFileIconProvider* iconProvider() override;
+
+  /**
    * Move file or directory to trash.
    *
    * @param path path to file or directory

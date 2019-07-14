@@ -38,7 +38,7 @@
 class QTimer;
 class QFileInfo;
 class FileSystemModel;
-class TaggedFileIconProvider;
+class CoreTaggedFileIconProvider;
 class ITaggedFileFactory;
 
 /**
@@ -58,9 +58,11 @@ public:
   /**
    * Constructor.
    *
+   * @param iconProvider icon provider
    * @param parent parent object
    */
-  explicit FileProxyModel(QObject* parent = nullptr);
+  explicit FileProxyModel(CoreTaggedFileIconProvider* iconProvider,
+                          QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -240,7 +242,7 @@ public:
 
   /**
    * Called from tagged file to notify changes in extra model data, e.g. the
-   * information on which the TaggedFileIconProvider depends.
+   * information on which the CoreTaggedFileIconProvider depends.
    * @param index model index
    */
   void notifyModelDataChanged(const QModelIndex& index);
@@ -265,7 +267,7 @@ public:
    * Get icon provider.
    * @return icon provider.
    */
-  TaggedFileIconProvider* getIconProvider() const { return m_iconProvider.data(); }
+  CoreTaggedFileIconProvider* getIconProvider() const { return m_iconProvider.data(); }
 
   /**
    * Access to tagged file factories.
@@ -509,7 +511,7 @@ private:
   QPersistentModelIndex m_exclusiveDraggableIndex;
   QList<QRegExp> m_includeFolderFilters;
   QList<QRegExp> m_excludeFolderFilters;
-  QScopedPointer<TaggedFileIconProvider> m_iconProvider;
+  QScopedPointer<CoreTaggedFileIconProvider> m_iconProvider;
   FileSystemModel* m_fsModel;
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;

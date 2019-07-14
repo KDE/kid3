@@ -34,6 +34,7 @@
 #include "browserdialog.h"
 #include "messagedialog.h"
 #include "kid3settings.h"
+#include "taggedfileiconprovider.h"
 #include "mainwindowconfig.h"
 
 /**
@@ -63,6 +64,15 @@ PlatformTools::~PlatformTools()
 ISettings* PlatformTools::applicationSettings()
 {
   return CorePlatformTools::applicationSettings();
+}
+
+/**
+ * Get icon provider for tagged files.
+ * @return icon provider.
+ */
+CoreTaggedFileIconProvider* PlatformTools::iconProvider()
+{
+  return new TaggedFileIconProvider;
 }
 
 /**

@@ -35,6 +35,7 @@
 #include "coreplatformtools.h"
 #include <QCoreApplication>
 #include "kdesettings.h"
+#include "taggedfileiconprovider.h"
 
 /**
  * Constructor.
@@ -62,6 +63,15 @@ ISettings* KdePlatformTools::applicationSettings()
     m_config.reset(new KdeSettings(m_settings.data()));
   }
   return m_config.data();
+}
+
+/**
+ * Get icon provider for tagged files.
+ * @return icon provider.
+ */
+CoreTaggedFileIconProvider* KdePlatformTools::iconProvider()
+{
+  return new TaggedFileIconProvider;
 }
 
 /**

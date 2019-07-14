@@ -29,7 +29,7 @@
 #include <QPixmap>
 #include "imagedataprovider.h"
 
-class TaggedFileIconProvider;
+class CoreTaggedFileIconProvider;
 
 /**
  * Image provider to get pixmaps by ID.
@@ -37,7 +37,7 @@ class TaggedFileIconProvider;
  * The following source IDs are supported (starting with "image://kid3/"):
  * - "fileicon/" followed by "null", "notag", "v1", "v2", "v1v2", or "modified",
  * - "data" followed by a changing string to force loading of the image set with
- *   TaggedFileIconProvider::setImageData().
+ *   CoreTaggedFileIconProvider::setImageData().
  */
 class KID3_GUI_EXPORT PixmapProvider : public ImageDataProvider {
 public:
@@ -45,7 +45,7 @@ public:
    * Constructor.
    * @param iconProvider icon provider to use
    */
-  explicit PixmapProvider(TaggedFileIconProvider* iconProvider);
+  explicit PixmapProvider(CoreTaggedFileIconProvider* iconProvider);
 
   /**
    * Destructor.
@@ -63,7 +63,7 @@ public:
   QPixmap getPixmap(const QString& id, QSize* size, const QSize& requestedSize);
 
 private:
-  TaggedFileIconProvider* m_fileIconProvider;
+  CoreTaggedFileIconProvider* m_fileIconProvider;
   QPixmap m_dataPixmap;
   uint m_pixmapHash;
 };

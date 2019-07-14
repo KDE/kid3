@@ -30,6 +30,7 @@
 #include <QCoreApplication>
 #include "config.h"
 #include "kid3settings.h"
+#include "coretaggedfileiconprovider.h"
 
 /**
  * Constructor.
@@ -66,6 +67,15 @@ ISettings* CorePlatformTools::applicationSettings()
     m_config.reset(new Kid3Settings(m_settings));
   }
   return m_config.data();
+}
+
+/**
+ * Get icon provider for tagged files.
+ * @return icon provider.
+ */
+CoreTaggedFileIconProvider* CorePlatformTools::iconProvider()
+{
+  return new CoreTaggedFileIconProvider;
 }
 
 #ifdef Q_OS_WIN32

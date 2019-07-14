@@ -138,7 +138,7 @@ add_library(kid3-core
   model/iframeeditor.cpp
   model/kid3application.cpp
   model/modeliterator.cpp
-  model/taggedfileiconprovider.cpp
+  model/coretaggedfileiconprovider.cpp
   model/texttablemodel.cpp
   model/trackdatamodel.cpp
   model/checkablestringlistmodel.cpp

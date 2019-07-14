@@ -37,7 +37,7 @@
  * The following source IDs are supported (starting with "image://kid3/"):
  * - "fileicon/" followed by "null", "notag", "v1", "v2", "v1v2", or "modified",
  * - "data" followed by a changing string to force loading of the image set with
- *   TaggedFileIconProvider::setImageData().
+ *   CoreTaggedFileIconProvider::setImageData().
  */
 class QmlImageProvider : public QQuickImageProvider, public PixmapProvider {
 public:
@@ -45,7 +45,7 @@ public:
    * Constructor.
    * @param iconProvider icon provider to use
    */
-  explicit QmlImageProvider(TaggedFileIconProvider* iconProvider);
+  explicit QmlImageProvider(CoreTaggedFileIconProvider* iconProvider);
 
   /**
    * Destructor.

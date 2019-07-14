@@ -26,13 +26,14 @@
 
 #include "pixmapprovider.h"
 #include <QHash>
-#include "taggedfileiconprovider.h"
+#include <QVariant>
+#include "coretaggedfileiconprovider.h"
 
 /**
  * Constructor.
  * @param iconProvider icon provider to use
  */
-PixmapProvider::PixmapProvider(TaggedFileIconProvider* iconProvider)
+PixmapProvider::PixmapProvider(CoreTaggedFileIconProvider* iconProvider)
   : m_fileIconProvider(iconProvider), m_pixmapHash(0)
 {
 }
@@ -62,7 +63,7 @@ QPixmap PixmapProvider::getPixmap(const QString& id, QSize* size,
       return pixmap;
     }
     m_fileIconProvider->setRequestedSize(requestedSize);
-    return m_fileIconProvider->pixmapForIconId(imageId);
+    return m_fileIconProvider->pixmapForIconId(imageId).value<QPixmap>();
   } else if (imageId.startsWith("data")) {
     QByteArray data = getImageData();
     if (!data.isEmpty()) {

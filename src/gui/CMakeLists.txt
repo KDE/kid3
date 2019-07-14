@@ -94,6 +94,7 @@ add_library(kid3-gui
   forms/iplatformtools.cpp
   forms/playlistview.cpp
   forms/pixmapprovider.cpp
+  forms/taggedfileiconprovider.cpp
   ${gui_GEN_MOC_SRCS}
 )
 

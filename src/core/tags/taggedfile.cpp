@@ -304,7 +304,7 @@ void TaggedFile::updateModifiedState()
 
 /**
  * Notify model about changes in extra model data, e.g. the information on
- * which the TaggedFileIconProvider depends.
+ * which the CoreTaggedFileIconProvider depends.
  *
  * This method shall be called when such data changes, e.g. at the end of
  * readTags() implementations.
