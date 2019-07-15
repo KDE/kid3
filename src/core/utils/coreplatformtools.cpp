@@ -98,6 +98,20 @@ QString CorePlatformTools::readFromClipboard() const
   return QString();
 }
 
+/**
+ * Create an audio player instance.
+ * @param app application context
+ * @param dbusEnabled true to enable MPRIS D-Bus interface
+ * @return audio player, nullptr if not supported.
+ */
+QObject* CorePlatformTools::createAudioPlayer(Kid3Application* app,
+                                              bool dbusEnabled) const
+{
+  Q_UNUSED(app)
+  Q_UNUSED(dbusEnabled)
+  return nullptr;
+}
+
 #ifdef Q_OS_WIN32
 
 #include <QVector>

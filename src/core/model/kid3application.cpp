@@ -89,10 +89,6 @@
 #include "iservertrackimporterfactory.h"
 #include "itaggedfilefactory.h"
 #include "iusercommandprocessor.h"
-#include "audioplayer.h"
-#ifdef HAVE_QTDBUS
-#include "mprisinterface.h"
-#endif
 #ifdef Q_OS_ANDROID
 #include "androidutils.h"
 #endif
@@ -581,15 +577,13 @@ QStringList Kid3Application::getServerImporterNames() const
  * Get audio player.
  * @return audio player.
  */
-AudioPlayer* Kid3Application::getAudioPlayer()
+QObject* Kid3Application::getAudioPlayer()
 {
   if (!m_player) {
-    m_player = new AudioPlayer(this);
 #ifdef HAVE_QTDBUS
-    if (m_dbusEnabled) {
-      new MprisInterface(m_player);
-      new MprisPlayerInterface(m_player);
-    }
+    m_player = m_platformTools->createAudioPlayer(this, m_dbusEnabled);
+#else
+    m_player = m_platformTools->createAudioPlayer(this, false);
 #endif
   }
 #ifdef HAVE_QTDBUS
@@ -605,7 +599,7 @@ AudioPlayer* Kid3Application::getAudioPlayer()
  */
 void Kid3Application::deleteAudioPlayer() {
   if (m_player) {
-    m_player->stop();
+    QMetaObject::invokeMethod(m_player, "stop");
 #ifdef HAVE_QTDBUS
     if (m_dbusEnabled) {
       deactivateMprisInterface();
@@ -3174,6 +3168,10 @@ void Kid3Application::numberTracks(int nr, int total,
  */
 void Kid3Application::playAudio()
 {
+  QObject* player = getAudioPlayer();
+  if (!player)
+    return;
+
   QStringList files;
   int fileNr = 0;
   QModelIndexList selectedRows = m_fileSelectionModel->selectedRows();
@@ -3214,7 +3212,8 @@ void Kid3Application::playAudio()
     }
   }
   emit aboutToPlayAudio();
-  getAudioPlayer()->setFiles(files, fileNr);
+  QMetaObject::invokeMethod(player, "setFiles",
+                            Q_ARG(QStringList, files), Q_ARG(int, fileNr));
 }
 
 /**

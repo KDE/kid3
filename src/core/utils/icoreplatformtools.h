@@ -30,10 +30,12 @@
 #include <QPair>
 #include "kid3api.h"
 
+class QObject;
 class QString;
 class QWidget;
 class ISettings;
 class CoreTaggedFileIconProvider;
+class Kid3Application;
 
 /**
  * Interface for GUI independent platform specific tools.
@@ -69,6 +71,15 @@ public:
    * @return text, null if operation not supported.
    */
   virtual QString readFromClipboard() const = 0;
+
+  /**
+   * Create an audio player instance.
+   * @param app application context
+   * @param dbusEnabled true to enable MPRIS D-Bus interface
+   * @return audio player, nullptr if not supported.
+   */
+  virtual QObject* createAudioPlayer(Kid3Application* app,
+                                     bool dbusEnabled) const = 0;
 
   /**
    * Move file or directory to trash.

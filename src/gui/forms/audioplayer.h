@@ -38,7 +38,7 @@ class TaggedFile;
 /**
  * Audio player toolbar.
  */
-class KID3_CORE_EXPORT AudioPlayer : public QObject {
+class KID3_GUI_EXPORT AudioPlayer : public QObject {
   Q_OBJECT
 
 public:
@@ -60,14 +60,6 @@ public:
    * Destructor.
    */
   virtual ~AudioPlayer() override = default;
-
-  /**
-   * Set files to be played.
-   *
-   * @param files  paths to files
-   * @param fileNr index of file to play (default 0), -1 to set without playing
-   */
-  void setFiles(const QStringList& files, int fileNr = 0);
 
   /**
    * Get number of files in play list.
@@ -181,6 +173,14 @@ signals:
   void fileCountChanged(int count);
 
 public slots:
+  /**
+   * Set files to be played.
+   *
+   * @param files  paths to files
+   * @param fileNr index of file to play (default 0), -1 to set without playing
+   */
+  void setFiles(const QStringList& files, int fileNr = 0);
+
   /**
    * Toggle between play and pause.
    */

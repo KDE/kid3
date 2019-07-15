@@ -67,7 +67,6 @@ class Kid3ApplicationTagContext;
 class IAbortable;
 class ICorePlatformTools;
 class IUserCommandProcessor;
-class AudioPlayer;
 class ImageDataProvider;
 class FrameEditorObject;
 class FileFilter;
@@ -309,7 +308,7 @@ public:
    * hold a pointer must be deleted before deleteAudioPlayer() is called!
    * @return audio player.
    */
-  Q_INVOKABLE AudioPlayer* getAudioPlayer();
+  Q_INVOKABLE QObject* getAudioPlayer();
 
   /**
    * Delete audio player.
@@ -1565,7 +1564,7 @@ private:
   /** Batch importer */
   BatchImporter* m_batchImporter;
   /** Audio player */
-  AudioPlayer* m_player;
+  QObject* m_player;
 #ifdef HAVE_QTDBUS
   QString m_mprisServiceName;
 #endif

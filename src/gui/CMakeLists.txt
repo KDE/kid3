@@ -40,6 +40,8 @@ qt5_wrap_cpp(gui_GEN_MOC_SRCS
   forms/kid3form.h
   forms/basemainwindow.h
   forms/playlistview.h
+  forms/audioplayer.h
+  forms/mprisinterface.h
   TARGET kid3-gui
 )
 
@@ -95,6 +97,8 @@ add_library(kid3-gui
   forms/playlistview.cpp
   forms/pixmapprovider.cpp
   forms/taggedfileiconprovider.cpp
+  forms/audioplayer.cpp
+  forms/mprisinterface.cpp
   ${gui_GEN_MOC_SRCS}
 )
 
@@ -103,7 +107,7 @@ target_include_directories(kid3-gui PRIVATE widgets PUBLIC dialogs forms)
 target_compile_definitions(kid3-gui PRIVATE KID3_BUILD_GUI_LIB)
 
 set_target_properties(kid3-gui PROPERTIES VERSION ${KID3_VERSION})
-target_link_libraries(kid3-gui kid3-core Qt5::Widgets)
+target_link_libraries(kid3-gui kid3-core Qt5::Widgets Qt5::Multimedia)
 
 if(BUILD_SHARED_LIBS)
   install(TARGETS kid3-gui

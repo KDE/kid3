@@ -28,7 +28,6 @@ qt5_wrap_cpp(core_GEN_MOC_SRCS
   import/importclient.h
   import/serverimporter.h
   import/servertrackimporter.h
-  model/audioplayer.h
   model/commandstablemodel.h
   model/dirrenamer.h
   model/downloadclient.h
@@ -47,7 +46,6 @@ qt5_wrap_cpp(core_GEN_MOC_SRCS
   model/genremodel.h
   model/frameeditorobject.h
   model/frameobjectmodel.h
-  model/mprisinterface.h
   model/playlistmodel.h
   model/proxyitemselectionmodel.h
   model/filesystemmodel.h
@@ -120,7 +118,6 @@ add_library(kid3-core
   import/textimporter.cpp
   import/trackdatamatcher.cpp
   model/iabortable.cpp
-  model/audioplayer.cpp
   model/commandformatreplacer.cpp
   model/commandstablemodel.cpp
   model/configtablemodel.cpp
@@ -150,7 +147,6 @@ add_library(kid3-core
   model/frameeditorobject.cpp
   model/frameobjectmodel.cpp
   model/iusercommandprocessor.cpp
-  model/mprisinterface.cpp
   model/playlistmodel.cpp
   model/proxyitemselectionmodel.cpp
   model/filesystemmodel.cpp
@@ -185,7 +181,7 @@ if(CMAKE_VERSION VERSION_GREATER "3.8")
 else()
   target_compile_features(kid3-core PUBLIC cxx_auto_type cxx_nullptr cxx_override)
 endif()
-target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml Qt5::Multimedia)
+target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Network Qt5::Xml)
 if(WITH_QT_PRIVATE_HEADERS)
   target_compile_definitions(kid3-core PRIVATE USE_QT_PRIVATE_HEADERS)
   target_link_libraries(kid3-core PRIVATE Qt5::CorePrivate)

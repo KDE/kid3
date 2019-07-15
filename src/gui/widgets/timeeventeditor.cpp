@@ -164,10 +164,11 @@ void TimeEventEditor::showEvent(QShowEvent* event)
  */
 void TimeEventEditor::hideEvent(QHideEvent* event)
 {
-  AudioPlayer* player = m_app->getAudioPlayer();
-  disconnect(player, nullptr, this, nullptr);
-  m_fileIsPlayed = false;
-  QWidget::hideEvent(event);
+  if (QObject* player = m_app->getAudioPlayer()) {
+    disconnect(player, nullptr, this, nullptr);
+    m_fileIsPlayed = false;
+    QWidget::hideEvent(event);
+  }
 }
 
 /**
@@ -196,16 +197,18 @@ void TimeEventEditor::setModel(TimeEventModel* model)
 void TimeEventEditor::preparePlayer()
 {
   m_app->showAudioPlayer();
-  AudioPlayer* player = m_app->getAudioPlayer();
-  QString filePath = m_taggedFile->getAbsFilename();
-  if (player->getFileName() != filePath) {
-    player->setFiles({filePath}, -1);
+  if (AudioPlayer* player =
+      qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+    QString filePath = m_taggedFile->getAbsFilename();
+    if (player->getFileName() != filePath) {
+      player->setFiles({filePath}, -1);
+    }
+    m_fileIsPlayed = true;
+    connect(player, &AudioPlayer::trackChanged,
+            this, &TimeEventEditor::onTrackChanged, Qt::UniqueConnection);
+    connect(player, &AudioPlayer::positionChanged,
+            this, &TimeEventEditor::onPositionChanged, Qt::UniqueConnection);
   }
-  m_fileIsPlayed = true;
-  connect(player, &AudioPlayer::trackChanged,
-          this, &TimeEventEditor::onTrackChanged, Qt::UniqueConnection);
-  connect(player, &AudioPlayer::positionChanged,
-          this, &TimeEventEditor::onPositionChanged, Qt::UniqueConnection);
 }
 
 /**
@@ -215,35 +218,37 @@ void TimeEventEditor::addItem()
 {
   QTime timeStamp;
   preparePlayer();
-  AudioPlayer* player = m_app->getAudioPlayer();
-  timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
-  if (m_model) {
-    // If the current row is empty, set the time stamp there, else insert a new
-    // row sorted by time stamps or use the first empty row.
-    QModelIndex index = m_tableView->currentIndex();
-    if (!(index.isValid() &&
-          (index = index.sibling(index.row(), TimeEventModel::CI_Time))
-          .data().isNull())) {
-      int row = 0;
-      bool insertRow = true;
-      while (row < m_model->rowCount()) {
-        QTime time = m_model->index(row, TimeEventModel::CI_Time)
-            .data().toTime();
-        if (time.isNull()) {
-          insertRow = false;
-          break;
-        } else if (time > timeStamp) {
-          break;
+  if (AudioPlayer* player =
+      qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+    timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
+    if (m_model) {
+      // If the current row is empty, set the time stamp there, else insert a new
+      // row sorted by time stamps or use the first empty row.
+      QModelIndex index = m_tableView->currentIndex();
+      if (!(index.isValid() &&
+            (index = index.sibling(index.row(), TimeEventModel::CI_Time))
+            .data().isNull())) {
+        int row = 0;
+        bool insertRow = true;
+        while (row < m_model->rowCount()) {
+          QTime time = m_model->index(row, TimeEventModel::CI_Time)
+              .data().toTime();
+          if (time.isNull()) {
+            insertRow = false;
+            break;
+          } else if (time > timeStamp) {
+            break;
+          }
+          ++row;
         }
-        ++row;
+        if (insertRow) {
+          m_model->insertRow(row);
+        }
+        index = m_model->index(row, TimeEventModel::CI_Time);
       }
-      if (insertRow) {
-        m_model->insertRow(row);
-      }
-      index = m_model->index(row, TimeEventModel::CI_Time);
+      m_model->setData(index, timeStamp);
+      m_tableView->scrollTo(index);
     }
-    m_model->setData(index, timeStamp);
-    m_tableView->scrollTo(index);
   }
 }
 
@@ -422,8 +427,10 @@ void TimeEventEditor::seekPosition()
     QTime timeStamp =
         index.sibling(index.row(), TimeEventModel::CI_Time).data().toTime();
     if (timeStamp.isValid()) {
-      AudioPlayer* player = m_app->getAudioPlayer();
-      player->setCurrentPosition(QTime(0, 0).msecsTo(timeStamp));
+      if (AudioPlayer* player =
+          qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+        player->setCurrentPosition(QTime(0, 0).msecsTo(timeStamp));
+      }
     }
   }
 }

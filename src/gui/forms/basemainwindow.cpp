@@ -1012,20 +1012,23 @@ void BaseMainWindowImpl::slotPlayAudio()
 void BaseMainWindowImpl::showPlayToolBar()
 {
   if (!m_playToolBar) {
-    m_playToolBar.reset(new PlayToolBar(m_app->getAudioPlayer(), m_w));
-    m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
-    m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar.data());
-    connect(m_playToolBar.data(), &PlayToolBar::errorMessage,
-            this, &BaseMainWindowImpl::slotStatusMsg);
+    if (AudioPlayer* player =
+        qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+      m_playToolBar.reset(new PlayToolBar(player, m_w));
+      m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
+      m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar.data());
+      connect(m_playToolBar.data(), &PlayToolBar::errorMessage,
+              this, &BaseMainWindowImpl::slotStatusMsg);
 #ifdef HAVE_QTDBUS
-    connect(m_playToolBar.data(), &PlayToolBar::closed,
-            m_app, &Kid3Application::deactivateMprisInterface);
+      connect(m_playToolBar.data(), &PlayToolBar::closed,
+              m_app, &Kid3Application::deactivateMprisInterface);
 #endif
 #ifdef Q_OS_WIN32
-    // Phonon on Windows cannot play if the file is open.
-    connect(m_playToolBar.data(), &PlayToolBar::aboutToPlay,
-            m_app, &Kid3Application::closeFileHandle);
+      // Phonon on Windows cannot play if the file is open.
+      connect(m_playToolBar.data(), &PlayToolBar::aboutToPlay,
+              m_app, &Kid3Application::closeFileHandle);
 #endif
+    }
   }
   m_playToolBar->show();
 }

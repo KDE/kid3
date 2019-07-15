@@ -72,6 +72,15 @@ public:
   virtual QString readFromClipboard() const override;
 
   /**
+   * Create an audio player instance.
+   * @param app application context
+   * @param dbusEnabled true to enable MPRIS D-Bus interface
+   * @return audio player, nullptr if not supported.
+   */
+  virtual QObject* createAudioPlayer(Kid3Application* app,
+                                     bool dbusEnabled) const override;
+
+  /**
    * Move file or directory to trash.
    *
    * @param path path to file or directory
