@@ -34,7 +34,6 @@
 #include "browserdialog.h"
 #include "messagedialog.h"
 #include "kid3settings.h"
-#include "taggedfileiconprovider.h"
 #include "mainwindowconfig.h"
 
 /**
@@ -72,7 +71,38 @@ ISettings* PlatformTools::applicationSettings()
  */
 CoreTaggedFileIconProvider* PlatformTools::iconProvider()
 {
-  return new TaggedFileIconProvider;
+  return GuiPlatformTools::iconProvider();
+}
+
+/**
+ * Write text to clipboard.
+ * @param text text to write
+ * @return true if operation is supported.
+ */
+bool PlatformTools::writeToClipboard(const QString& text) const
+{
+  return GuiPlatformTools::writeToClipboard(text);
+}
+
+/**
+ * Read text from clipboard.
+ * @return text, null if operation not supported.
+ */
+QString PlatformTools::readFromClipboard() const
+{
+  return GuiPlatformTools::readFromClipboard();
+}
+
+/**
+ * Create an audio player instance.
+ * @param app application context
+ * @param dbusEnabled true to enable MPRIS D-Bus interface
+ * @return audio player, nullptr if not supported.
+ */
+QObject* PlatformTools::createAudioPlayer(Kid3Application* app,
+                                   bool dbusEnabled) const
+{
+  return GuiPlatformTools::createAudioPlayer(app, dbusEnabled);
 }
 
 /**

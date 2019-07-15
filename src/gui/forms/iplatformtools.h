@@ -120,26 +120,4 @@ public:
    */
   virtual bool warningContinueCancelList(QWidget* parent,
    const QString& text, const QStringList& strlist, const QString& caption) = 0;
-
-  /**
-   * Write text to clipboard.
-   * @param text text to write
-   * @return true if operation is supported.
-   */
-  virtual bool writeToClipboard(const QString& text) const override;
-
-  /**
-   * Read text from clipboard.
-   * @return text, null if operation not supported.
-   */
-  virtual QString readFromClipboard() const override;
-
-  /**
-   * Create an audio player instance.
-   * @param app application context
-   * @param dbusEnabled true to enable MPRIS D-Bus interface
-   * @return audio player, nullptr if not supported.
-   */
-  virtual QObject* createAudioPlayer(Kid3Application* app,
-                                     bool dbusEnabled) const override;
 };

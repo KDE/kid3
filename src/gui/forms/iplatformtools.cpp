@@ -25,60 +25,10 @@
  */
 
 #include "iplatformtools.h"
-#include <QGuiApplication>
-#include <QClipboard>
-#include "config.h"
-#include "audioplayer.h"
-#ifdef HAVE_QTDBUS
-#include "mprisinterface.h"
-#endif
 
 /**
  * Destructor.
  */
 IPlatformTools::~IPlatformTools()
 {
-}
-
-/**
- * Write text to clipboard.
- * @param text text to write
- * @return true if operation is supported.
- */
-bool IPlatformTools::writeToClipboard(const QString& text) const
-{
-  QGuiApplication::clipboard()->setText(text, QClipboard::Clipboard);
-  return true;
-}
-
-/**
- * Read text from clipboard.
- * @return text, null if operation not supported.
- */
-QString IPlatformTools::readFromClipboard() const
-{
-  QClipboard* cb = QGuiApplication::clipboard();
-  QString text = cb->text(QClipboard::Clipboard);
-  if (text.isNull())
-    text = cb->text(QClipboard::Selection);
-  return text;
-}
-
-/**
- * Create an audio player instance.
- * @param app application context
- * @param dbusEnabled true to enable MPRIS D-Bus interface
- * @return audio player, nullptr if not supported.
- */
-QObject* IPlatformTools::createAudioPlayer(Kid3Application* app,
-                                           bool dbusEnabled) const
-{
-  AudioPlayer* player = new AudioPlayer(app);
-#ifdef HAVE_QTDBUS
-  if (dbusEnabled) {
-    new MprisInterface(player);
-    new MprisPlayerInterface(player);
-  }
-#endif
-  return player;
 }

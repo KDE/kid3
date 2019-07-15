@@ -99,6 +99,7 @@ add_library(kid3-gui
   forms/taggedfileiconprovider.cpp
   forms/audioplayer.cpp
   forms/mprisinterface.cpp
+  forms/guiplatformtools.cpp
   ${gui_GEN_MOC_SRCS}
 )
 

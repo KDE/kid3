@@ -29,7 +29,7 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include "kid3application.h"
-#include "coreplatformtools.h"
+#include "guiplatformtools.h"
 #include "qmlimageprovider.h"
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
@@ -217,7 +217,7 @@ void Kid3QmlPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     m_kid3App = qvariant_cast<Kid3Application*>(
           rootContext->contextProperty(QLatin1String("app")));
     if (!m_kid3App) {
-      m_platformTools = new CorePlatformTools;
+      m_platformTools = new GuiPlatformTools;
       m_kid3App = new Kid3Application(m_platformTools);
       m_ownsKid3App = true;
       rootContext->setContextProperty(QLatin1String("app"), m_kid3App);

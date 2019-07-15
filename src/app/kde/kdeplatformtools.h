@@ -28,13 +28,14 @@
 
 #include <QScopedPointer>
 #include "iplatformtools.h"
+#include "guiplatformtools.h"
 
 class KConfig;
 
 /**
  * KDE platform specific tools.
  */
-class KdePlatformTools : public IPlatformTools {
+class KdePlatformTools : public IPlatformTools, private GuiPlatformTools {
 public:
   /**
    * Constructor.
@@ -57,6 +58,28 @@ public:
    * @return icon provider.
    */
   virtual CoreTaggedFileIconProvider* iconProvider() override;
+
+  /**
+   * Write text to clipboard.
+   * @param text text to write
+   * @return true if operation is supported.
+   */
+  virtual bool writeToClipboard(const QString& text) const override;
+
+  /**
+   * Read text from clipboard.
+   * @return text, null if operation not supported.
+   */
+  virtual QString readFromClipboard() const override;
+
+  /**
+   * Create an audio player instance.
+   * @param app application context
+   * @param dbusEnabled true to enable MPRIS D-Bus interface
+   * @return audio player, nullptr if not supported.
+   */
+  virtual QObject* createAudioPlayer(Kid3Application* app,
+                                     bool dbusEnabled) const override;
 
   /**
    * Move file or directory to trash.

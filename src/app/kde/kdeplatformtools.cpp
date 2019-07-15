@@ -34,7 +34,6 @@
 #include "mainwindowconfig.h"
 #include "coreplatformtools.h"
 #include "kdesettings.h"
-#include "taggedfileiconprovider.h"
 
 /**
  * Constructor.
@@ -70,7 +69,38 @@ ISettings* KdePlatformTools::applicationSettings()
  */
 CoreTaggedFileIconProvider* KdePlatformTools::iconProvider()
 {
-  return new TaggedFileIconProvider;
+  return GuiPlatformTools::iconProvider();
+}
+
+/**
+ * Write text to clipboard.
+ * @param text text to write
+ * @return true if operation is supported.
+ */
+bool KdePlatformTools::writeToClipboard(const QString& text) const
+{
+  return GuiPlatformTools::writeToClipboard(text);
+}
+
+/**
+ * Read text from clipboard.
+ * @return text, null if operation not supported.
+ */
+QString KdePlatformTools::readFromClipboard() const
+{
+  return GuiPlatformTools::readFromClipboard();
+}
+
+/**
+ * Create an audio player instance.
+ * @param app application context
+ * @param dbusEnabled true to enable MPRIS D-Bus interface
+ * @return audio player, nullptr if not supported.
+ */
+QObject* KdePlatformTools::createAudioPlayer(Kid3Application* app,
+                                   bool dbusEnabled) const
+{
+  return GuiPlatformTools::createAudioPlayer(app, dbusEnabled);
 }
 
 /**
