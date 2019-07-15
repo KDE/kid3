@@ -274,8 +274,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
          << new TagToOtherTagCommand(this)
          << new CopyCommand(this)
          << new PasteCommand(this)
-         << new RemoveCommand(this)
-         << new PlayCommand(this);
+         << new RemoveCommand(this);
   connect(m_app, &Kid3Application::fileSelectionUpdateRequested,
           this, &Kid3Cli::updateSelectedFiles);
   connect(m_app, &Kid3Application::selectedFilesUpdated,

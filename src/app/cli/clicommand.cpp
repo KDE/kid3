@@ -43,7 +43,6 @@
 #include "batchimporter.h"
 #include "downloadclient.h"
 #include "dirrenamer.h"
-#include "audioplayer.h"
 
 namespace {
 
@@ -1056,41 +1055,4 @@ void RemoveCommand::startCommand()
 {
   Frame::TagVersion tagMask = getTagMaskParameter(1);
   cli()->app()->removeTags(tagMask);
-}
-
-
-PlayCommand::PlayCommand(Kid3Cli* processor)
-  : CliCommand(processor, QLatin1String("play"), tr("Play"),
-               QLatin1String("[S]\n"
-               "S = \"pause\" | \"stop\" | \"previous\" | \"next\""))
-{
-}
-
-void PlayCommand::startCommand()
-{
-  AudioPlayer* player = nullptr;
-  QString param;
-  if (args().size() > 1) {
-    param = args().at(1);
-    player = cli()->app()->getAudioPlayer();
-  }
-  if (param == QLatin1String("pause")) {
-    if (player) {
-      player->playOrPause();
-    }
-  } else if (param == QLatin1String("stop")) {
-    if (player) {
-      player->stop();
-    }
-  } else if (param == QLatin1String("previous")) {
-    if (player) {
-      player->previous();
-    }
-  } else if (param == QLatin1String("next")) {
-    if (player) {
-      player->next();
-    }
-  } else {
-    cli()->app()->playAudio();
-  }
 }

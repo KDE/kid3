@@ -3138,23 +3138,6 @@ command</link>.
 </para>
 </sect2>
 
-<sect2 id="cli-play">
-<title>Play</title>
-<cmdsynopsis>
-<command>play</command>
-<group>
-<arg choice="plain">pause</arg>
-<arg choice="plain">stop</arg>
-<arg choice="plain">previous</arg>
-<arg choice="plain">next</arg>
-</group>
-</cmdsynopsis>
-<para>Start audio playback. Once it has been started, it can be controlled
-with the <option>pause</option> (to pause and resume), <option>stop</option>,
-<option>previous</option> and <option>next</option> options.
-</para>
-</sect2>
-
 </sect1>
 
 <sect1 id="kid3-cli-examples">

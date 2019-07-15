@@ -593,14 +593,3 @@ public:
 protected:
   virtual void startCommand() override;
 };
-
-/** Play audio file. */
-class PlayCommand : public CliCommand {
-  Q_OBJECT
-public:
-  /** Constructor. */
-  explicit PlayCommand(Kid3Cli* processor);
-
-protected:
-  virtual void startCommand() override;
-};

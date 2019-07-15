@@ -3325,24 +3325,6 @@ Befehl</link> beschrieben.
 </para>
 </sect2>
 
-<sect2 id="cli-play">
-<title>Wiedergabe</title>
-<cmdsynopsis>
-<command>play</command>
-<group>
-<arg choice="plain">pause</arg>
-<arg choice="plain">stop</arg>
-<arg choice="plain">previous</arg>
-<arg choice="plain">next</arg>
-</group>
-</cmdsynopsis>
-<para>Startet die Wiedergabe, danach kann sie mit den Optionen
-<option>pause</option> (um zu pausieren und weiterzufahren),
-<option>stop</option>, <option>previous</option> und <option>next</option>
-kontrolliert werden.
-</para>
-</sect2>
-
 </sect1>
 
 <sect1 id="kid3-cli-examples">
