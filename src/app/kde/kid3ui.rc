@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kid3" version="16">
+<kpartgui name="kid3" version="17">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_open"/>
@@ -64,8 +64,6 @@
     <Action name="help_contents"/>
     <Separator/>
     <Action name="help_report_bug"/>
-    <Separator/>
-    <Action name="switch_application_language"/>
     <Separator/>
     <Action name="help_about_app"/>
     <Action name="help_about_kde"/>
