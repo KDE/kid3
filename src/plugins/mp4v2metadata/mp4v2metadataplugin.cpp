@@ -102,8 +102,9 @@ TaggedFile* Mp4v2MetadataPlugin::createTaggedFile(
   if (key == TAGGEDFILE_KEY) {
     QString ext = fileName.right(4).toLower();
     if (ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") ||
-        ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4") ||
-        ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v"))
+        ext == QLatin1String(".m4p") || ext == QLatin1String(".m4r") ||
+        ext == QLatin1String(".mp4") || ext == QLatin1String(".m4v") ||
+        ext == QLatin1String("mp4v"))
       return new M4aFile(idx);
   }
   return nullptr;
@@ -122,7 +123,8 @@ Mp4v2MetadataPlugin::supportedFileExtensions(const QString& key) const
   if (key == TAGGEDFILE_KEY) {
     return {
       QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
-      QLatin1String(".mp4"), QLatin1String(".m4v"), QLatin1String(".mp4v")
+      QLatin1String(".m4r"), QLatin1String(".mp4"), QLatin1String(".m4v"),
+      QLatin1String(".mp4v")
     };
   }
   return QStringList();

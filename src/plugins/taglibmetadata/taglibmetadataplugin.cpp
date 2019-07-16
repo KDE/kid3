@@ -117,8 +117,9 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
 #ifdef TAGLIB_WITH_MP4
         || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b")
-        || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
-        || ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v")
+        || ext == QLatin1String(".m4p") || ext == QLatin1String(".m4r")
+        || ext == QLatin1String(".mp4") || ext == QLatin1String(".m4v")
+        || ext == QLatin1String("mp4v")
 #endif
 #ifdef TAGLIB_WITH_ASF
         || ext == QLatin1String(".wma") || ext == QLatin1String(".asf")
@@ -156,7 +157,8 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
       QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
 #ifdef TAGLIB_WITH_MP4
       QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
-      QLatin1String(".mp4"), QLatin1String(".m4v"), QLatin1String(".mp4v"),
+      QLatin1String(".m4r"), QLatin1String(".mp4"), QLatin1String(".m4v"),
+      QLatin1String(".mp4v"),
 #endif
 #ifdef TAGLIB_WITH_ASF
       QLatin1String(".wma"), QLatin1String(".asf"), QLatin1String(".wmv"),
