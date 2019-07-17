@@ -396,15 +396,15 @@ AbstractSettingsPage {
     property var onActivated
     property var onDeactivated
     visible: false
-    StackView.onActivated: onActivated()
-    StackView.onDeactivated: onDeactivated()
+    StackView.onActivated: this.onActivated()
+    StackView.onDeactivated: this.onDeactivated()
   }
   MapEditPage {
     id: mapEditPage
     property var onActivated
     property var onDeactivated
     visible: false
-    StackView.onActivated: onActivated()
-    StackView.onDeactivated: onDeactivated()
+    StackView.onActivated: this.onActivated()
+    StackView.onDeactivated: this.onDeactivated()
   }
 }

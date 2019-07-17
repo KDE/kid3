@@ -297,13 +297,13 @@ Kid3Application::~Kid3Application()
 #endif
 }
 
-#ifdef Q_OS_ANDROID
 /**
  * Save config when suspended, check intents when activated.
  * @param state application state
  */
 void Kid3Application::onApplicationStateChanged(Qt::ApplicationState state)
 {
+#ifdef Q_OS_ANDROID
   if (state == Qt::ApplicationSuspended) {
     saveConfig();
   } else if (state == Qt::ApplicationActive) {
@@ -314,8 +314,10 @@ void Kid3Application::onApplicationStateChanged(Qt::ApplicationState state)
       AndroidUtils::instance()->checkPendingIntents();
     }
   }
-}
+#else
+  Q_UNUSED(state)
 #endif
+}
 
 #ifdef HAVE_QTDBUS
 /**

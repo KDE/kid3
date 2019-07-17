@@ -1471,13 +1471,11 @@ private slots:
    */
   void updateCoverArtImageId();
 
-#ifdef Q_OS_ANDROID
   /**
    * Save config when suspended, check intents when activated.
    * @param state application state
    */
   void onApplicationStateChanged(Qt::ApplicationState state);
-#endif
 
 private:
   /**
