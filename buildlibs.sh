@@ -184,7 +184,6 @@ chromaprint_version=1.4.3
 chromaprint_patchlevel=3
 mp4v2_version=2.0.0
 mp4v2_patchlevel=5
-openssl_version=1.0.2n
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
@@ -194,7 +193,7 @@ if test -z "$COMPILER"; then
   elif test -f osxcross.cmake; then
     COMPILER=cross-macos
     QTPREFIX=$(sed -ne '1 s/set(QT_PREFIX \([^)]\+\))/\1/p' osxcross.cmake)
-  elif test -f openssl-${openssl_version}/Setenv-android.sh; then
+  elif test $(ls openssl-*/Setenv-android.sh 2>/dev/null | wc -l) != "0"; then
     COMPILER=cross-android
     test -f kid3/CMakeCache.txt &&
       QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
@@ -215,6 +214,15 @@ if test -n "$QTPREFIX"; then
   echo -n " using $QTPREFIX"
 fi
 echo "."
+
+qt_major=${QTPREFIX##*5.}
+qt_major=${qt_major%%.*}
+if test "$qt_major" -gt 11; then
+  # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
+  openssl_version=1.1.1c
+else
+  openssl_version=1.0.2n
+fi
 
 if test "$compiler" = "cross-mingw"; then
   if test -n "$QTPREFIX" && test -z "${QTPREFIX%%*64?(/)}"; then
@@ -3251,7 +3259,11 @@ if test "$compiler" = "cross-android"; then
       sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=llvm/' Setenv-android.sh
     fi
     . ./Setenv-android.sh
-    ./Configure shared android
+    if test "$openssl_version" = "1.0.2n"; then
+      ./Configure shared android
+    else
+      ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-armeabi
+    fi
     if test -d $_android_ndk_root/toolchains/llvm; then
       if test "$_android_abi" = "x86"; then
         sed -i 's/^CC=.*$/CC= i686-linux-android16-clang/; s/ -mandroid//' Makefile
@@ -3260,8 +3272,11 @@ if test "$compiler" = "cross-android"; then
       fi
     fi
 
-    make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
-
+    if test "$openssl_version" = "1.0.2n"; then
+      make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+    else
+      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=.so build_libs
+    fi
     mkdir -p inst/usr/local/lib
     cp --dereference libssl.so libcrypto.so inst/usr/local/lib/
     $_android_prefix-strip -s inst/usr/local/lib/*.so
