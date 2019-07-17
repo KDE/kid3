@@ -202,10 +202,8 @@ Dialog {
     ListView {
       id: fileListView
       Layout.maximumWidth: parent.width
-      width: parent.width
-      anchors.top: pathLayout.bottom
-      anchors.topMargin: constants.margins
-      anchors.bottom: parent.bottom
+      Layout.fillWidth: true
+      Layout.fillHeight: true
 
       clip: true
 

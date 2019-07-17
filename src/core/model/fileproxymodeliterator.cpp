@@ -128,7 +128,7 @@ void FileProxyModelIterator::fetchNext()
       for (int row = numRows - 1; row >= 0; --row) {
         childNodes.push(m_model->index(row, 0, m_nextIdx));
       }
-      qStableSort(childNodes.begin(), childNodes.end(),
+      std::stable_sort(childNodes.begin(), childNodes.end(),
                   [](const QPersistentModelIndex& lhs,
                      const QPersistentModelIndex& rhs) {
         return lhs.data().toString().compare(rhs.data().toString()) > 0;

@@ -85,7 +85,7 @@ CoreTaggedFileIconProvider* CorePlatformTools::iconProvider()
  */
 bool CorePlatformTools::writeToClipboard(const QString& text) const
 {
-  Q_UNUSED(text);
+  Q_UNUSED(text)
   return false;
 }
 

@@ -547,7 +547,7 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
       }
     }
   }
-  qSort(timeEvents);
+  std::sort(timeEvents.begin(), timeEvents.end());
   setTimeEvents(timeEvents);
 }
 

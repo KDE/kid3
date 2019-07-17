@@ -136,7 +136,7 @@ QString variantToValueString(const QVariant& var)
   } else {
     value = var.toString();
     if (value.startsWith(QLatin1Char('{')) || value.startsWith(QLatin1Char('['))) {
-      ; // keep value
+      // keep value
     } else if (type == QVariant::String || type == QVariant::DateTime ||
                type == QVariant::Date || type == QVariant::Time) {
       value = QLatin1Char('"') +
