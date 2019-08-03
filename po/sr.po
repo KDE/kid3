@@ -22,9 +22,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Прековреме"
 
-msgid "Usage:"
-msgstr "Употреба:"
-
 msgid "Help"
 msgstr "Помоћ"
 
@@ -115,30 +112,6 @@ msgstr "Аутоматски увози"
 msgid "Profile name"
 msgstr "Име поставке"
 
-msgid "Reading Directory"
-msgstr "Приликом читања директоријума"
-
-msgid "Started"
-msgstr "Започет"
-
-msgid "Querying"
-msgstr "Затражујем"
-
-msgid "Fetching"
-msgstr "Добављам"
-
-msgid "Data received"
-msgstr "Подаци примљени"
-
-msgid "Cover"
-msgstr "Омот"
-
-msgid "Finished"
-msgstr "Завршено"
-
-msgid "Aborted"
-msgstr "Обустављено"
-
 msgid "Download album cover artwork"
 msgstr "Потражи слику омота албума"
 
@@ -196,8 +169,11 @@ msgstr "Налепи"
 msgid "Remove"
 msgstr "Уклони"
 
-msgid "Play"
-msgstr "Репродукција"
+msgid "Unknown command '%1'"
+msgstr "Непозната наредба '%1'"
+
+msgid "Usage:"
+msgstr "Употреба:"
 
 msgid "Parameter"
 msgstr "Параметар"
@@ -223,6 +199,15 @@ msgstr "Наредба"
 msgid "Available Commands"
 msgstr "Наредбе на располагању"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Непозната наредба '%1', -h за помоћ."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Непозната наредба '%1'. Користите 'help' да бисте добили помоћ."
+
+msgid "Tags"
+msgstr "Ознаке"
+
 msgid "File"
 msgstr "Фајл"
 
@@ -232,14 +217,29 @@ msgstr "Име"
 msgid "Tag %1"
 msgstr "ознака %1"
 
-msgid "Tags"
-msgstr "Ознаке"
+msgid "Reading Directory"
+msgstr "Приликом читања директоријума"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Непозната наредба '%1'. Користите 'help' да бисте добили помоћ."
+msgid "Started"
+msgstr "Започет"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Непозната наредба '%1', -h за помоћ."
+msgid "Querying"
+msgstr "Затражујем"
+
+msgid "Fetching"
+msgstr "Добављам"
+
+msgid "Data received"
+msgstr "Подаци примљени"
+
+msgid "Cover"
+msgstr "Омот"
+
+msgid "Finished"
+msgstr "Завршено"
+
+msgid "Aborted"
+msgstr "Обустављено"
 
 msgid "Files"
 msgstr "Фајлови"
@@ -378,6 +378,9 @@ msgstr "Претвори ИД3в2.4 у ИД3в2.&3"
 
 msgid "&Play"
 msgstr "Ре&продукуј"
+
+msgid "Play"
+msgstr "Репродукција"
 
 msgid "Show &Picture"
 msgstr "Прикажи с&лику"

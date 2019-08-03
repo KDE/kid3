@@ -26,9 +26,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "逾時"
 
-msgid "Usage:"
-msgstr "用法:"
-
 msgid "Help"
 msgstr "求助"
 
@@ -119,30 +116,6 @@ msgstr "自動匯入"
 msgid "Profile name"
 msgstr "設定檔名稱"
 
-msgid "Reading Directory"
-msgstr "正在讀取目錄"
-
-msgid "Started"
-msgstr "已開始"
-
-msgid "Querying"
-msgstr "正查詢"
-
-msgid "Fetching"
-msgstr "接收中"
-
-msgid "Data received"
-msgstr "获得的数据进行"
-
-msgid "Cover"
-msgstr "封面"
-
-msgid "Finished"
-msgstr "已完成"
-
-msgid "Aborted"
-msgstr "已中止"
-
 msgid "Download album cover artwork"
 msgstr "瀏覽專輯封面"
 
@@ -200,8 +173,11 @@ msgstr "貼上"
 msgid "Remove"
 msgstr "移除"
 
-msgid "Play"
-msgstr "播放"
+msgid "Unknown command '%1'"
+msgstr "未知的指令 '%1'"
+
+msgid "Usage:"
+msgstr "用法:"
 
 msgid "Parameter"
 msgstr "參數"
@@ -227,6 +203,15 @@ msgstr "指令"
 msgid "Available Commands"
 msgstr "可用的指令"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "未知的指令 '%1', 或用 -h 求助."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "未知的指令 '%1'. 輸入 'help' 就可以閱讀幫助訊息."
+
+msgid "Tags"
+msgstr "標籤"
+
 msgid "File"
 msgstr "檔案"
 
@@ -236,14 +221,29 @@ msgstr "名稱"
 msgid "Tag %1"
 msgstr "標籤 %1"
 
-msgid "Tags"
-msgstr "標籤"
+msgid "Reading Directory"
+msgstr "正在讀取目錄"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "未知的指令 '%1'. 輸入 'help' 就可以閱讀幫助訊息."
+msgid "Started"
+msgstr "已開始"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "未知的指令 '%1', 或用 -h 求助."
+msgid "Querying"
+msgstr "正查詢"
+
+msgid "Fetching"
+msgstr "接收中"
+
+msgid "Data received"
+msgstr "获得的数据进行"
+
+msgid "Cover"
+msgstr "封面"
+
+msgid "Finished"
+msgstr "已完成"
+
+msgid "Aborted"
+msgstr "已中止"
 
 msgid "Files"
 msgstr "檔案"
@@ -382,6 +382,9 @@ msgstr "從 ID3v2.4 轉換至 ID3v2.&3"
 
 msgid "&Play"
 msgstr "播放(&P)"
+
+msgid "Play"
+msgstr "播放"
 
 msgid "Show &Picture"
 msgstr "顯示圖片(&P)"
@@ -2819,6 +2822,7 @@ msgstr "設定"
 msgid "Quit"
 msgstr "離開"
 
+#, fuzzy, qt-format
 msgid "SD card is only writable in %1"
 msgstr "SD 卡只能在 ％1 中写入"
 

@@ -24,9 +24,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Limit czasu"
 
-msgid "Usage:"
-msgstr "Użycie:"
-
 msgid "Help"
 msgstr "Pomoc"
 
@@ -117,30 +114,6 @@ msgstr "Automatycznie importuj"
 msgid "Profile name"
 msgstr "Nazwa profilu"
 
-msgid "Reading Directory"
-msgstr "Czytanie katalogu"
-
-msgid "Started"
-msgstr "Uruchomiono"
-
-msgid "Querying"
-msgstr "Odpytywanie"
-
-msgid "Fetching"
-msgstr "Pobieranie"
-
-msgid "Data received"
-msgstr "Otrzymano dane"
-
-msgid "Cover"
-msgstr "Okładka"
-
-msgid "Finished"
-msgstr "Zakończono"
-
-msgid "Aborted"
-msgstr "Przerwane"
-
 msgid "Download album cover artwork"
 msgstr "Pobierz okładkę"
 
@@ -198,8 +171,11 @@ msgstr "Wklej"
 msgid "Remove"
 msgstr "Usuń"
 
-msgid "Play"
-msgstr "Odtwarzaj"
+msgid "Unknown command '%1'"
+msgstr "Nieznane polecenie '%1'"
+
+msgid "Usage:"
+msgstr "Użycie:"
 
 msgid "Parameter"
 msgstr "Parametr"
@@ -225,6 +201,15 @@ msgstr "Polecenie"
 msgid "Available Commands"
 msgstr "Dostępne polecenia"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Nieznane polecenie '%1', -h podaje pomoc."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Nieznane polecenie '%1'. Wpisz 'help' dla pomocy."
+
+msgid "Tags"
+msgstr "Znaczniki"
+
 msgid "File"
 msgstr "Plik"
 
@@ -234,14 +219,29 @@ msgstr "Nazwa"
 msgid "Tag %1"
 msgstr "Znacznik %1"
 
-msgid "Tags"
-msgstr "Znaczniki"
+msgid "Reading Directory"
+msgstr "Czytanie katalogu"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Nieznane polecenie '%1'. Wpisz 'help' dla pomocy."
+msgid "Started"
+msgstr "Uruchomiono"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Nieznane polecenie '%1', -h podaje pomoc."
+msgid "Querying"
+msgstr "Odpytywanie"
+
+msgid "Fetching"
+msgstr "Pobieranie"
+
+msgid "Data received"
+msgstr "Otrzymano dane"
+
+msgid "Cover"
+msgstr "Okładka"
+
+msgid "Finished"
+msgstr "Zakończono"
+
+msgid "Aborted"
+msgstr "Przerwane"
 
 msgid "Files"
 msgstr "Pliki"
@@ -380,6 +380,9 @@ msgstr "Konwertuj ID3v2.4 do ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Odtwarzaj"
+
+msgid "Play"
+msgstr "Odtwarzaj"
 
 msgid "Show &Picture"
 msgstr "Pokaż &obrazek"

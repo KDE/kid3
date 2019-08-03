@@ -1324,7 +1324,7 @@ oder einen Teil des Inhaltes eines Tag Frames zu extrahieren und in einem
 anderen Tag Frame einzufügen.
 </para>
 <para>
-Wie beim <link linkend="import-text">Import von Datei/Clipboard</link>
+Wie beim <link linkend="import-text">Import von Datei/Zwischenablage</link>
 stehen frei konfigurierbare Formate zur Verfügung, um verschiedene Operationen
 durchzuführen. Vorkonfigurierte Formate erlauben es beispielsweise, den Wert
 des Interpreten zum Album Interpreten, Komponisten oder Leiter zu kopieren,
@@ -1352,7 +1352,7 @@ angewendet, um neue Tag Werte zu setzen. Dieser reguläre Ausdruck enthält
 Klammerkonstrukte "(..)", um Felddaten zu extrahieren, und die
 Klammer-Konstrukte werden vom Format Code des Tag Frames eingeleitet. Es
 funktioniert also gleich wie bei den Formaten
-zum <link linkend="import-text">Import von Datei/Clipboard
+zum <link linkend="import-text">Import von Datei/Zwischenablage
 </link>.
 </para>
 </listitem>
@@ -3037,7 +3037,7 @@ allen Dateien, falls keine selektiert sind).
 </sect2>
 
 <sect2 id="cli-import">
-<title>Von Datei oder Zwischenablage importieren</title>
+<title>Von Datei importieren</title>
 <cmdsynopsis>
 <command>import</command>
 <arg choice="req"><replaceable>DATEI</replaceable></arg>
@@ -3091,7 +3091,7 @@ http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen
 </sect2>
 
 <sect2 id="cli-export">
-<title>In Datei oder Zwischenablage exportieren</title>
+<title>In Datei exportieren</title>
 <cmdsynopsis>
 <command>export</command>
 <arg choice="req"><replaceable>DATEI</replaceable></arg>
@@ -3392,6 +3392,40 @@ if __name__ == '__main__':
   rg2sc(sys.argv[1])
 ]]>
 </programlisting>
+</sect1>
+
+<sect1 id="kid3-cli-json">
+<title>JSON Format</title>
+<para>
+Um die Antworten von <command>kid3-cli</command> einfacher von Programmen zu
+verarbeiten, können sie im JSON-Format ausgegeben werden. Wenn
+das Kommando im JSON-Format daherkommt, so wird auch die Antwort in JSON
+geliefert. Wird im Kommando eine kompakte JSON-Repräsentation verwendet, so
+wird auch das Resultat kompakt. Wenn das Kommando ein "id"-Feld enthält, so
+wird es als JSON-RPC interpretiert und die Antwort enthält ein "jsonrpc"-Feld
+und die "id" der Anfrage. Dieselben Kommandos wie im Standard-CLI werden
+verwendet, der Befehl ist im "method"-Feld und die Parameter (sofern es solche
+hat) in der "params"-Liste. Die Antwort enthält ein "result"-Objekt, welches
+auch null sein kann, falls der entsprechende
+<command>kid3-cli</command>-Befehl kein Resultat ausgibt. Im Falle eines
+Fehlers wird ein "error"-Objekt zurückgegeben, welches "code" und "message"
+wie in JSON-RPC enthält.
+
+<screen width="80">
+<prompt>kid3-cli&gt; </prompt><userinput>{"method":"set","params":["artist","An Artist"]}</userinput>
+<computeroutput>{"result":null}</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"method":"get","params":["artist",2]}</userinput>
+<computeroutput>{"result":"An Artist"}</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"method": "get", "params": ["artist"]}</userinput>
+<computeroutput>{
+    "result": "An Artist"
+}
+</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"jsonrpc":"2.0","id":"123","method":"get","params":["artist"]}</userinput>
+<computeroutput>{"id":"123","jsonrpc":"2.0","result":"An Artist"}</computeroutput>
+</screen>
+
+</para>
 </sect1>
 </chapter>
 

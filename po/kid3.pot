@@ -20,9 +20,6 @@ msgstr ""
 msgid "Timeout"
 msgstr ""
 
-msgid "Usage:"
-msgstr ""
-
 msgid "Help"
 msgstr ""
 
@@ -113,30 +110,6 @@ msgstr ""
 msgid "Profile name"
 msgstr ""
 
-msgid "Reading Directory"
-msgstr ""
-
-msgid "Started"
-msgstr ""
-
-msgid "Querying"
-msgstr ""
-
-msgid "Fetching"
-msgstr ""
-
-msgid "Data received"
-msgstr ""
-
-msgid "Cover"
-msgstr ""
-
-msgid "Finished"
-msgstr ""
-
-msgid "Aborted"
-msgstr ""
-
 msgid "Download album cover artwork"
 msgstr ""
 
@@ -194,7 +167,10 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-msgid "Play"
+msgid "Unknown command '%1'"
+msgstr ""
+
+msgid "Usage:"
 msgstr ""
 
 msgid "Parameter"
@@ -221,6 +197,15 @@ msgstr ""
 msgid "Available Commands"
 msgstr ""
 
+msgid "Unknown command '%1', -h for help."
+msgstr ""
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr ""
+
+msgid "Tags"
+msgstr ""
+
 msgid "File"
 msgstr ""
 
@@ -230,13 +215,28 @@ msgstr ""
 msgid "Tag %1"
 msgstr ""
 
-msgid "Tags"
+msgid "Reading Directory"
 msgstr ""
 
-msgid "Unknown command '%1'. Type 'help' for help."
+msgid "Started"
 msgstr ""
 
-msgid "Unknown command '%1', -h for help."
+msgid "Querying"
+msgstr ""
+
+msgid "Fetching"
+msgstr ""
+
+msgid "Data received"
+msgstr ""
+
+msgid "Cover"
+msgstr ""
+
+msgid "Finished"
+msgstr ""
+
+msgid "Aborted"
 msgstr ""
 
 msgid "Files"
@@ -375,6 +375,9 @@ msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr ""
 
 msgid "&Play"
+msgstr ""
+
+msgid "Play"
 msgstr ""
 
 msgid "Show &Picture"

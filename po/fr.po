@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Délai dépassé"
 
-msgid "Usage:"
-msgstr "Utilisation:"
-
 msgid "Help"
 msgstr "Aide"
 
@@ -116,30 +113,6 @@ msgstr "Importer automatiquement"
 msgid "Profile name"
 msgstr "Nom du profil"
 
-msgid "Reading Directory"
-msgstr "Lecture du répertoire"
-
-msgid "Started"
-msgstr "Démarré"
-
-msgid "Querying"
-msgstr "Interrogation"
-
-msgid "Fetching"
-msgstr "Réception"
-
-msgid "Data received"
-msgstr "Donnée reçues"
-
-msgid "Cover"
-msgstr "Jaquettes"
-
-msgid "Finished"
-msgstr "Terminé"
-
-msgid "Aborted"
-msgstr "Abandonné"
-
 msgid "Download album cover artwork"
 msgstr "Télécharger la jaquette"
 
@@ -197,8 +170,11 @@ msgstr "Coller"
 msgid "Remove"
 msgstr "Supprimer"
 
-msgid "Play"
-msgstr "Lecture"
+msgid "Unknown command '%1'"
+msgstr "Commande inconnue '%1'"
+
+msgid "Usage:"
+msgstr "Utilisation:"
 
 msgid "Parameter"
 msgstr "Paramètre"
@@ -224,6 +200,15 @@ msgstr "Spécifique de commande"
 msgid "Available Commands"
 msgstr "Commandes disponibles"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Commande inconnue '%1', -h pour l'aide."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Commande inconnue '%1', tapez 'help' pour obtenir de l’aide."
+
+msgid "Tags"
+msgstr "Balises"
+
 msgid "File"
 msgstr "Fichier"
 
@@ -233,14 +218,29 @@ msgstr "Nom"
 msgid "Tag %1"
 msgstr "Balise %1"
 
-msgid "Tags"
-msgstr "Balises"
+msgid "Reading Directory"
+msgstr "Lecture du répertoire"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Commande inconnue '%1', tapez 'help' pour obtenir de l’aide."
+msgid "Started"
+msgstr "Démarré"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Commande inconnue '%1', -h pour l'aide."
+msgid "Querying"
+msgstr "Interrogation"
+
+msgid "Fetching"
+msgstr "Réception"
+
+msgid "Data received"
+msgstr "Donnée reçues"
+
+msgid "Cover"
+msgstr "Jaquettes"
+
+msgid "Finished"
+msgstr "Terminé"
+
+msgid "Aborted"
+msgstr "Abandonné"
 
 msgid "Files"
 msgstr "Fichiers"
@@ -379,6 +379,9 @@ msgstr "Convertir de ID3v2.4 vers ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Lire"
+
+msgid "Play"
+msgstr "Lecture"
 
 msgid "Show &Picture"
 msgstr "Afficher l'&image"

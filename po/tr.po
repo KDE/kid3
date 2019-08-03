@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Zaman aşımı"
 
-msgid "Usage:"
-msgstr "Kullanım:"
-
 msgid "Help"
 msgstr "Yardım"
 
@@ -116,30 +113,6 @@ msgstr "Otomatik al"
 msgid "Profile name"
 msgstr "Profil Adı"
 
-msgid "Reading Directory"
-msgstr "Okuma dizini"
-
-msgid "Started"
-msgstr "Başlamış"
-
-msgid "Querying"
-msgstr "Sorguluyor"
-
-msgid "Fetching"
-msgstr "İndiriliyor"
-
-msgid "Data received"
-msgstr "Alınan veri"
-
-msgid "Cover"
-msgstr "Kapak"
-
-msgid "Finished"
-msgstr "Tamamlandı"
-
-msgid "Aborted"
-msgstr "İptal edildi"
-
 msgid "Download album cover artwork"
 msgstr "Kapak resimlerini al"
 
@@ -197,8 +170,11 @@ msgstr "Yapıştır"
 msgid "Remove"
 msgstr "Kaldır"
 
-msgid "Play"
-msgstr "Çal"
+msgid "Unknown command '%1'"
+msgstr "Bilinmeyen komut '%1'"
+
+msgid "Usage:"
+msgstr "Kullanım:"
 
 msgid "Parameter"
 msgstr "Parametre"
@@ -224,6 +200,15 @@ msgstr "Komut"
 msgid "Available Commands"
 msgstr "Uygun komutlar"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Bilinmeyen komut '%1', yardım için -h."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Bilinmeyen komut '%1'. Yardım için 'help' yazınız."
+
+msgid "Tags"
+msgstr "Etiketler"
+
 msgid "File"
 msgstr "Dosya"
 
@@ -233,14 +218,29 @@ msgstr "İsim"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-msgid "Tags"
-msgstr "Etiketler"
+msgid "Reading Directory"
+msgstr "Okuma dizini"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Bilinmeyen komut '%1'. Yardım için 'help' yazınız."
+msgid "Started"
+msgstr "Başlamış"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Bilinmeyen komut '%1', yardım için -h."
+msgid "Querying"
+msgstr "Sorguluyor"
+
+msgid "Fetching"
+msgstr "İndiriliyor"
+
+msgid "Data received"
+msgstr "Alınan veri"
+
+msgid "Cover"
+msgstr "Kapak"
+
+msgid "Finished"
+msgstr "Tamamlandı"
+
+msgid "Aborted"
+msgstr "İptal edildi"
 
 msgid "Files"
 msgstr "Dosyalar"
@@ -379,6 +379,9 @@ msgstr "ID3v2.4 dönüştürmek için ID3v2.&3"
 
 msgid "&Play"
 msgstr "Ç&al"
+
+msgid "Play"
+msgstr "Çal"
 
 msgid "Show &Picture"
 msgstr "Resim &Göster"

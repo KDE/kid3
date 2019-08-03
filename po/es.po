@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Tiempo de espera"
 
-msgid "Usage:"
-msgstr "Uso:"
-
 msgid "Help"
 msgstr "Ayuda"
 
@@ -116,30 +113,6 @@ msgstr "Importar automáticamente"
 msgid "Profile name"
 msgstr "Nombre del perfil"
 
-msgid "Reading Directory"
-msgstr "Leyendo directorio"
-
-msgid "Started"
-msgstr "Iniciado"
-
-msgid "Querying"
-msgstr "Consultando"
-
-msgid "Fetching"
-msgstr "Obteniendo"
-
-msgid "Data received"
-msgstr "Datos recibidos"
-
-msgid "Cover"
-msgstr "Portada"
-
-msgid "Finished"
-msgstr "Finalizado"
-
-msgid "Aborted"
-msgstr "Abortado"
-
 msgid "Download album cover artwork"
 msgstr "Descargar las imágenes de las portadas"
 
@@ -197,8 +170,11 @@ msgstr "Pegar"
 msgid "Remove"
 msgstr "Eliminar"
 
-msgid "Play"
-msgstr "Reproducir"
+msgid "Unknown command '%1'"
+msgstr "Comando desconocido '%1'"
+
+msgid "Usage:"
+msgstr "Uso:"
 
 msgid "Parameter"
 msgstr "Parámetro"
@@ -224,6 +200,15 @@ msgstr "Específicos de la orden"
 msgid "Available Commands"
 msgstr "Comandos disponibles"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Comando desconocido '%1', -h para ayuda."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Comando desconocido '%1'. Escribe `help' para ayuda."
+
+msgid "Tags"
+msgstr "Etiquetas"
+
 msgid "File"
 msgstr "Archivo"
 
@@ -233,14 +218,29 @@ msgstr "Nombre"
 msgid "Tag %1"
 msgstr "Etiqueta %1"
 
-msgid "Tags"
-msgstr "Etiquetas"
+msgid "Reading Directory"
+msgstr "Leyendo directorio"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Comando desconocido '%1'. Escribe `help' para ayuda."
+msgid "Started"
+msgstr "Iniciado"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Comando desconocido '%1', -h para ayuda."
+msgid "Querying"
+msgstr "Consultando"
+
+msgid "Fetching"
+msgstr "Obteniendo"
+
+msgid "Data received"
+msgstr "Datos recibidos"
+
+msgid "Cover"
+msgstr "Portada"
+
+msgid "Finished"
+msgstr "Finalizado"
+
+msgid "Aborted"
+msgstr "Abortado"
 
 msgid "Files"
 msgstr "Archivos"
@@ -379,6 +379,9 @@ msgstr "Convertir ID3v2.4 en ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Reproducir"
+
+msgid "Play"
+msgstr "Reproducir"
 
 msgid "Show &Picture"
 msgstr "Mostrar &imagen"

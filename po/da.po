@@ -18,9 +18,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Timeout"
 
-msgid "Usage:"
-msgstr "Anvendelse:"
-
 msgid "Help"
 msgstr "Hjælp"
 
@@ -111,30 +108,6 @@ msgstr "Automatisk import"
 msgid "Profile name"
 msgstr "Profilnavn"
 
-msgid "Reading Directory"
-msgstr "Læser bibliotek"
-
-msgid "Started"
-msgstr "Begyndt"
-
-msgid "Querying"
-msgstr "Forespørger"
-
-msgid "Fetching"
-msgstr "Henter"
-
-msgid "Data received"
-msgstr "Data modtaget"
-
-msgid "Cover"
-msgstr "Omslag"
-
-msgid "Finished"
-msgstr "færdig"
-
-msgid "Aborted"
-msgstr "Afbrudt"
-
 msgid "Download album cover artwork"
 msgstr "Download album omslag"
 
@@ -192,8 +165,11 @@ msgstr "Indsæt"
 msgid "Remove"
 msgstr "Fjern"
 
-msgid "Play"
-msgstr "Afspil"
+msgid "Unknown command '%1'"
+msgstr "Ukendt kommando '%1'"
+
+msgid "Usage:"
+msgstr "Anvendelse:"
 
 msgid "Parameter"
 msgstr "Parameter"
@@ -219,6 +195,15 @@ msgstr "Kommandospecifikt"
 msgid "Available Commands"
 msgstr "Mulige kommandoer"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Ukendt kommando '%1', -h for Hjælp."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Ukendt kommando '%1'. Skriv 'help' for hjælp."
+
+msgid "Tags"
+msgstr "Tags"
+
 msgid "File"
 msgstr "Fil"
 
@@ -228,14 +213,29 @@ msgstr "Navn"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "Reading Directory"
+msgstr "Læser bibliotek"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Ukendt kommando '%1'. Skriv 'help' for hjælp."
+msgid "Started"
+msgstr "Begyndt"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Ukendt kommando '%1', -h for Hjælp."
+msgid "Querying"
+msgstr "Forespørger"
+
+msgid "Fetching"
+msgstr "Henter"
+
+msgid "Data received"
+msgstr "Data modtaget"
+
+msgid "Cover"
+msgstr "Omslag"
+
+msgid "Finished"
+msgstr "færdig"
+
+msgid "Aborted"
+msgstr "Afbrudt"
 
 msgid "Files"
 msgstr "Filer"
@@ -374,6 +374,9 @@ msgstr "Konvertér ID3v2.4 til ID3v2.&3"
 
 msgid "&Play"
 msgstr "Afs&pil"
+
+msgid "Play"
+msgstr "Afspil"
 
 msgid "Show &Picture"
 msgstr "Vis &billede"

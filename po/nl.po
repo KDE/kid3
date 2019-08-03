@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Tijdslimiet"
 
-msgid "Usage:"
-msgstr "Gebruik:"
-
 msgid "Help"
 msgstr "Help"
 
@@ -116,30 +113,6 @@ msgstr "Automatisch importeren"
 msgid "Profile name"
 msgstr "Profielnaam"
 
-msgid "Reading Directory"
-msgstr "Directory lezen"
-
-msgid "Started"
-msgstr "Begonnen"
-
-msgid "Querying"
-msgstr "Aanvraag loopt"
-
-msgid "Fetching"
-msgstr "Ophalen"
-
-msgid "Data received"
-msgstr "Gegevens ontvangen"
-
-msgid "Cover"
-msgstr "Hoes"
-
-msgid "Finished"
-msgstr "Voltooid"
-
-msgid "Aborted"
-msgstr "Afgebroken"
-
 msgid "Download album cover artwork"
 msgstr "Hoes ophalen"
 
@@ -197,8 +170,11 @@ msgstr "Tag plakken"
 msgid "Remove"
 msgstr "Tag verwijderen"
 
-msgid "Play"
-msgstr "Afspelen"
+msgid "Unknown command '%1'"
+msgstr "Onbekend commando '%1'"
+
+msgid "Usage:"
+msgstr "Gebruik:"
 
 msgid "Parameter"
 msgstr "Parameter"
@@ -224,6 +200,15 @@ msgstr "Commandospecifieke"
 msgid "Available Commands"
 msgstr "Beschikbare opdrachten"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Onbekend commando '%1', -h voor help."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Onbekend commando '%1'. Typ 'help' voor help."
+
+msgid "Tags"
+msgstr "Tags"
+
 msgid "File"
 msgstr "Bestand"
 
@@ -233,14 +218,29 @@ msgstr "Naam"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "Reading Directory"
+msgstr "Directory lezen"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Onbekend commando '%1'. Typ 'help' voor help."
+msgid "Started"
+msgstr "Begonnen"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Onbekend commando '%1', -h voor help."
+msgid "Querying"
+msgstr "Aanvraag loopt"
+
+msgid "Fetching"
+msgstr "Ophalen"
+
+msgid "Data received"
+msgstr "Gegevens ontvangen"
+
+msgid "Cover"
+msgstr "Hoes"
+
+msgid "Finished"
+msgstr "Voltooid"
+
+msgid "Aborted"
+msgstr "Afgebroken"
 
 msgid "Files"
 msgstr "Bestanden"
@@ -379,6 +379,9 @@ msgstr "Converteer ID3v2.4 naar ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Afspelen"
+
+msgid "Play"
+msgstr "Afspelen"
 
 msgid "Show &Picture"
 msgstr "&Afbeelding tonen"

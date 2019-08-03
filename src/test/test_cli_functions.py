@@ -6,6 +6,7 @@ import os
 import subprocess
 import tempfile
 import platform
+import json
 from kid3testsupport import kid3_cli_path, call_kid3_cli, create_test_file
 
 
@@ -86,10 +87,10 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get all 1',
                  '-c', 'save', mp3path]),
                 'A Title\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 1: ID3v1.1\n'
-                '* Title         A Title\n')
+                '* Title  A Title\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'set artist "An Artist" 1',
                  '-c', 'set album "An Album" 1',
@@ -98,7 +99,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set date 2016 1',
                  '-c', 'set comment "A Comment" 1',
                  '-c', 'get all 1', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\nTag 1: ID3v1.1\n'
                 '  Title         A Title\n'
                 '* Artist        An Artist\n'
@@ -128,9 +129,9 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'revert',
                  '-c', 'get all 1',
                  '-c', 'remove 1', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 1: ID3v1.1\n'
                 '* Title         A Title\n'
@@ -140,7 +141,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Date          2016\n'
                 '* Track Number  5\n'
                 '* Genre         Metal\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\nTag 1: ID3v1.1\n'
                 '* Title         A Title\n'
                 '* Artist        An Artist\n'
@@ -149,7 +150,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Date          2016\n'
                 '* Track Number  6\n'
                 '* Genre         Metal\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 1: ID3v1.1\n'
                 '  Title         A Title\n'
@@ -177,7 +178,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get title 2',
                  '-c', 'get all 2', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'set artist "An Artist" 2',
@@ -191,7 +192,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set picture:"%s" "A Description" 2' % jpgpath,
                  '-c', 'set comment "A Comment" 2',
                  '-c', 'get all 2', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '* Artist                  An Artist\n'
@@ -220,9 +221,9 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get picture:"%s" "A Description" 2' % picpath,
                  '-c', 'get all 2',
                  '-c', 'remove 2', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '* Artist                  An Artist\n'
@@ -234,7 +235,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Lyricist                A Lyricist\n'
                 '* Picture: Cover (front)  A Description\n'
                 '* Playlist Delay          100\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 1: ID3v1.1\n'
                 '* Artist        An Artist\n'
@@ -252,7 +253,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Lyricist                A Lyricist\n'
                 '* Picture: Cover (front)  A Description\n'
                 '* Playlist Delay          100\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Artist                  An Artist\n'
@@ -264,7 +265,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Lyricist                A Lyricist\n'
                 '  Picture: Cover (front)  A Description\n'
                 '  Playlist Delay          100\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.4.0\n'
                 '  Artist                  An Artist\n'
@@ -277,7 +278,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Picture: Cover (front)  A Description\n'
                 '  Playlist Delay          100\n'
                 'A Description\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Artist                  An Artist\n'
@@ -309,17 +310,17 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get POPM.Rating',
                  '-c', 'get POPM.Counter',
                  '-c', 'get POPM', mp3path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
-                '* Rating        5\n'
+                '* Rating  5\n'
                 '\n'
                 '5\n'
                 '0\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
-                '* Rating        4\n'
+                '* Rating  4\n'
                 'ufleisch@users.sourceforge.net\n'
                 '4\n'
                 '3\n'
@@ -337,7 +338,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get title 2',
                  '-c', 'get all 2', flacpath]),
-                'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.flac\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'set artist "A first artist"',
@@ -359,7 +360,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get', flacpath]),
                  'Comment 2\n'
                  'Comment 1\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
                  '  Name: test.flac\n'
                  'Tag 2: Vorbis\n'
                  '* Artist                  A first artist\n'
@@ -390,7 +391,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'remove',
                  '-c', 'get', flacpath]),
                  'Back Cover\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
                  '  Name: test.flac\n'
                  'Tag 2: Vorbis\n'
                  '* Artist                  A first artist\n'
@@ -406,7 +407,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '* Picture: Cover (back)   Back Cover\n'
                  '  Total Discs             2\n'
                  '  Total Tracks            12\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
                  '  Name: test.flac\n')
             with open(picpath, 'rb') as jpgfh:
                 ba = jpgfh.read()
@@ -420,19 +421,19 @@ class CliFunctionsTestCase(unittest.TestCase):
             create_test_file(test2path)
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get all 2', test1path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test1.mp3\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get all 2', test2path]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test2.mp3\n')
             expected = (
-                'Tag 2: \n'
-                '  Title         ≠\n'
-                '  Artist        An Artist\n'
-                '  Album         An Album\n'
-                '  Copyright     ≠\n'
-                '  Disc Number   ≠\n')
+                'Tag 2:\n'
+                '  Title        ≠\n'
+                '  Artist       An Artist\n'
+                '  Album        An Album\n'
+                '  Copyright    ≠\n'
+                '  Disc Number  ≠\n')
             if sys.platform == 'win32':
                 expected = expected.replace('≠', '?')
             self.assertEqual(call_kid3_cli(
@@ -474,44 +475,44 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get',
                  '-c', 'select next',
                  '-c', 'get', tmpdir]),
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                  '  Name: test1.mp3\n'
                  'Tag 2: ID3v2.3.0\n'
-                 '  Title         Title 1\n'
-                 '  Artist        An Artist\n'
-                 '  Album         An Album\n'
-                 '  Copyright     2017 Kid3\n'
-                 '  Disc Number   1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Title        Title 1\n'
+                 '  Artist       An Artist\n'
+                 '  Album        An Album\n'
+                 '  Copyright    2017 Kid3\n'
+                 '  Disc Number  1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                  '  Name: test1.mp3\n'
                  'Tag 2: ID3v2.3.0\n'
-                 '  Title         Title 1\n'
-                 '  Artist        An Artist\n'
-                 '  Copyright     2017 Kid3\n'
-                 '  Disc Number   1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Title        Title 1\n'
+                 '  Artist       An Artist\n'
+                 '  Copyright    2017 Kid3\n'
+                 '  Disc Number  1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                  '  Name: test2.mp3\n'
                  'Tag 2: ID3v2.3.0\n'
-                 '  Title         Title 2\n'
-                 '  Artist        An Artist\n'
-                 '  Album         An Album\n'
-                 '* Copyright     2017 Kid3\n'
-                 '* Disc Number   1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Title        Title 2\n'
+                 '  Artist       An Artist\n'
+                 '  Album        An Album\n'
+                 '* Copyright    2017 Kid3\n'
+                 '* Disc Number  1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                  '  Name: test1.mp3\n'
                  'Tag 2: ID3v2.3.0\n'
-                 '  Title         Title 1\n'
-                 '  Artist        An Artist\n'
-                 '  Album         An Album\n'
-                 '  Copyright     2017 Kid3\n'
-                 '  Disc Number   1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                 '  Title        Title 1\n'
+                 '  Artist       An Artist\n'
+                 '  Album        An Album\n'
+                 '  Copyright    2017 Kid3\n'
+                 '  Disc Number  1/2\n'
+                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                  '  Name: test2.mp3\n'
                  'Tag 2: ID3v2.3.0\n'
-                 '  Title         Title 2\n'
-                 '  Artist        An Artist\n'
-                 '  Album         An Album\n'
-                 '* Disc Number   1/2\n')
+                 '  Title        Title 2\n'
+                 '  Artist       An Artist\n'
+                 '  Album        An Album\n'
+                 '* Disc Number  1/2\n')
 
     def test_riff_info(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -522,7 +523,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get title 3',
                  '-c', 'get all 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'set artist "An Artist" 3',
@@ -534,7 +535,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set bpm "120" 3',
                  '-c', 'set comment "A Comment" 3',
                  '-c', 'get all 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -555,9 +556,9 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set comment "" 3',
                  '-c', 'get all 3',
                  '-c', 'remove 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -567,7 +568,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Track Number  2\n'
                 '* Genre         Heavy Metal\n'
                 '* BPM           120\n'
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -577,7 +578,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Track Number  6\n'
                 '* Genre         Heavy Metal\n'
                 '* BPM           120\n'
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -617,7 +618,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             os.remove(importpath)
             os.remove(exportpath)
             expected = (
-                'File: MP4 9 kbps 44100 Hz 2 Channels \n'
+                'File: MP4 9 kbps 44100 Hz 2 Channels\n'
                 '  Name: track00.m4a\n'
                 'Tag 2: MP4\n'
                 '  Title         Wheels Of Fire\n'
@@ -626,7 +627,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  1\n'
                 '  Genre         Metal\n'
-                'File: FLAC 705 kbps 44100 Hz 1 Channels \n'
+                'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
                 '  Name: track01.flac\n'
                 'Tag 2: Vorbis\n'
                 '  Title         Kings Of Metal\n'
@@ -635,7 +636,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  2\n'
                 '  Genre         Metal\n'
-                'File: Speex 1 44100 Hz 1 Channels \n'
+                'File: Speex 1 44100 Hz 1 Channels\n'
                 '  Name: track02.spx\n'
                 'Tag 2: Vorbis\n'
                 '  Title         Heart Of Steel\n'
@@ -644,7 +645,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  3\n'
                 '  Genre         Metal\n'
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: track03.mp3\n'
                 'Tag 1: ID3v1.1\n'
                 '  Title         The Crown And The Ring (Lament\n'
@@ -660,7 +661,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  5\n'
                 '  Genre         Metal\n'
-                'File: APE 3.990 16 bit 44100 Hz 1 Channels \n'
+                'File: APE 3.990 16 bit 44100 Hz 1 Channels\n'
                 '  Name: track04.ape\n'
                 'Tag 1: ID3v1.1\n'
                 '  Title         Kingdom Come\n'
@@ -676,7 +677,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  6\n'
                 '  Genre         Metal\n'
-                'File: WAV 44100 Hz 2 Channels \n'
+                'File: WAV 44100 Hz 2 Channels\n'
                 '  Name: track05.wav\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Title         Hail And Kill\n'
@@ -685,7 +686,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  8\n'
                 '  Genre         Metal\n'
-                'File: Opus 1 48000 Hz 1 Channels \n'
+                'File: Opus 1 48000 Hz 1 Channels\n'
                 '  Name: track06.opus\n'
                 'Tag 2: Vorbis\n'
                 '  Title         The Warriors Prayer\n'
@@ -694,7 +695,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  9\n'
                 '  Genre         Metal\n'
-                'File: AIFF 44100 Hz 2 Channels \n'
+                'File: AIFF 44100 Hz 2 Channels\n'
                 '  Name: track07.aif\n'
                 'Tag 2: ID3v2.4.0\n'
                 '  Title         Blood Of The Kings\n'
@@ -703,14 +704,14 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  10\n'
                 '  Genre         Metal\n'
-                'Tag 1: \n'
+                'Tag 1:\n'
                 '  Title         ≠\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
                 '  Date          1988\n'
                 '  Track Number  ≠\n'
                 '  Genre         Metal\n'
-                'Tag 2: \n'
+                'Tag 2:\n'
                 '  Title         ≠\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
@@ -809,7 +810,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 ['-c', 'totag "%{artist} - %{date} - %{album}/%{track}. %{title}" 2',
                  '-c', 'save',
                  '-c', 'get', os.path.join(albumdir, '*.mp3')]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: 01. A title.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Title         A title\n'
@@ -822,7 +823,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'tagformat',
                  '-c', 'save',
                  '-c', 'get all', albumdir]),
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: 01. A title.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Title         A Title\n'
@@ -831,7 +832,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          2016\n'
                 '  Track Number  1\n')
             expected = (
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '* Name: 01. Schön.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '* Title         Schön\n'
@@ -850,7 +851,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'filenameformat', albumdir]),
                 expected)
             expected = (
-                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels \n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: 01 Schoen.mp3\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Title         Schön\n'
@@ -864,6 +865,104 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get', os.path.join(albumdir, '*.mp3')]),
                 expected)
+
+
+class CliFunctionsJsonTestCase(unittest.TestCase):
+    def test_invalid(self):
+        for cmd, rsp in (
+                ('{"abc":"def"}',
+                 {'error': {'code': -1,
+                            'message': 'missing method: {"abc":"def"}'}}),
+                ('{"method":"unknown"}',
+                 {'error': {'code': -1,
+                            'message': 'Unknown command '
+                            '\'{"method":"unknown"}\', -h for help.'}}),
+                ('{"method":"timeout",params:["off"]}',
+                 {'error': {'code': -1,
+                            'message': 'unterminated object: '
+                            '{"method":"timeout",params:["off"]}'}}),
+                ('{"method":"timeout","params":["default"}',
+                 {'error': {'code': -1,
+                            'message': 'unterminated array: '
+                            '{"method":"timeout","params":["default"}'}}),
+                ('{"method":"unknown"}',
+                 {'error': {'code': -1,
+                            'message': 'Unknown command '
+                            '\'{"method":"unknown"}\', -h for help.'}}),
+        ):
+            p = subprocess.Popen([kid3_cli_path(), '-c', cmd],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = p.communicate()
+            result = json.loads(stdout)
+            self.assertEqual(result, rsp)
+            self.assertEqual(p.returncode, 1)
+
+    def test_timeout(self):
+        self.assertEqual(call_kid3_cli(
+            ['-c', '{"method":"timeout"}',
+             '-c', '{"method":"timeout","params":[5000]}',
+             '-c', '{"method":"timeout"}',
+             '-c', '{"method":"timeout","params":["off"]}',
+             '-c', '{"method":"timeout"}',
+             '-c', '{"method":"timeout","params":["default"]}',
+             '-c', '{"method":"timeout"}']),
+            '{"result":{"timeout":"default"}}\n'
+            '{"result":{"timeout":"5000 ms"}}\n'
+            '{"result":{"timeout":"5000 ms"}}\n'
+            '{"result":{"timeout":"off"}}\n'
+            '{"result":{"timeout":"off"}}\n'
+            '{"result":{"timeout":"default"}}\n'
+            '{"result":{"timeout":"default"}}\n')
+
+    def test_json_methods(self):
+        self.maxDiff=None
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mp3path = os.path.join(tmpdir, 'test.mp3')
+            create_test_file(mp3path)
+            self.assertEqual(call_kid3_cli(
+                ['-c', '{"method":"get","params":["title", 2]}',
+                 '-c', '{"method":"get","params":["all",[1,2]]}',
+                 '-c', '{"method":"set","params":["title","A Title"]}',
+                 '-c', '{"method":"get","params":["title"]}',
+                 '-c', '{"method": "get", "params": ["title"]}',
+                 '-c', '{"method":"get"}',
+                 '-c', '{"method":"select","params":["none"]}',
+                 '-c', '{"method":"ls"}',
+                 '-c', '{"method":"select","params":["first"]}',
+                 '-c', '{"method":"filenameformat"}',
+                 '-c', '{"method":"tagformat"}',
+                 '-c', '{"method":"textencoding"}',
+                 '-c', '{"method":"numbertracks","params":[3,2]}',
+                 '-c', '{"jsonrpc":"2.0","id":"1","method":"remove",'
+                         '"params":[1]}',
+                 '-c', '{"method":"ls"}',
+                mp3path]),
+                '{"result":null}\n'
+                '{"result":{"taggedFile":{"fileName":"test.mp3",'
+                  '"fileNameChanged":false,"format":'
+                  '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels"}}}\n'
+                '{"result":null}\n'
+                '{"result":"A Title"}\n'
+                '{\n'
+                '    "result": "A Title"\n'
+                '}\n\n'
+                '{"result":{"taggedFile":{"fileName":"test.mp3",'
+                  '"fileNameChanged":false,"format":'
+                  '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels",'
+                  '"tag2":{"format":"ID3v2.3.0","frames":[{"changed":true,'
+                  '"name":"Title","value":"A Title"}]}}}}\n'
+                '{"result":null}\n'
+                '{"result":{"files":[{"changed":true,"fileName":"test.mp3",'
+                  '"selected":false,"tags":[2]}]}}\n'
+                '{"result":null}\n'
+                '{"result":null}\n'
+                '{"result":null}\n'
+                '{"result":null}\n'
+                '{"result":null}\n'
+                '{"id":"1","jsonrpc":"2.0","result":null}\n'
+                '{"result":{"files":[{"changed":true,"fileName":"test.mp3",'
+                  '"selected":true,"tags":[2]}]}}\n')
+
 
 if __name__ == '__main__':
     unittest.main()

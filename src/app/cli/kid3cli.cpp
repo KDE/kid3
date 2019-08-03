@@ -29,6 +29,7 @@
 #include <QCoreApplication>
 #include <QItemSelectionModel>
 #include <QTimer>
+#include <QStringBuilder>
 #include "kid3application.h"
 #include "icoreplatformtools.h"
 #include "coretaggedfileiconprovider.h"
@@ -37,6 +38,9 @@
 #include "taggedfileselection.h"
 #include "clicommand.h"
 #include "cliconfig.h"
+#include "clierror.h"
+#include "textcliformatter.h"
+#include "jsoncliformatter.h"
 
 #ifdef HAVE_READLINE
 
@@ -161,76 +165,6 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
 #endif // HAVE_READLINE
 
 
-/** @cond */
-namespace {
-
-/**
- * Split string into command line arguments supporting quotes and escape
- * characters.
- * @param str command line string
- * @return list of arguments.
- */
-QStringList splitArgs(const QString& str)
-{
-  QStringList params;
-
-  for (int pos = 0; ; ) {
-    QChar c;
-    do {
-      if (pos >= str.size())
-        return params;
-      c = str.at(pos++);
-    } while (c.isSpace());
-    QString param = QLatin1String("");
-    if (c == QLatin1Char('~')) {
-      if (pos >= str.size() || str.at(pos).isSpace()) {
-        params.append(QDir::homePath());
-        continue;
-      }
-      if (str.at(pos) == QLatin1Char('/')) {
-        param = QDir::homePath();
-        c = QLatin1Char('/');
-        ++pos;
-      }
-    }
-    do {
-      if (c == QLatin1Char('"') || c == QLatin1Char('\'')) {
-        const QChar quote = c;
-        for (;;) {
-          if (pos >= str.size())
-            return QStringList();
-          c = str.at(pos++);
-          if (c == quote)
-            break;
-          if (c == QLatin1Char('\\')) {
-            if (pos >= str.size())
-              return QStringList();
-            c = str.at(pos++);
-            if (c != quote && c != QLatin1Char('\\'))
-              param += QLatin1Char('\\');
-          }
-          param += c;
-        }
-      } else {
-        if (c == QLatin1Char('\\')) {
-          if (pos >= str.size())
-            return QStringList();
-          c = str.at(pos++);
-        }
-        param += c;
-      }
-      if (pos >= str.size())
-        break;
-      c = str.at(pos++);
-    } while (!c.isSpace());
-    params.append(param);
-  }
-}
-
-}
-/** @endcond */
-
-
 /**
  * Constructor.
  * @param app application context
@@ -244,6 +178,10 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
   m_app(app), m_args(args),
   m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
 {
+  m_formatters << new JsonCliFormatter(io)
+               << new TextCliFormatter(io);
+  m_formatter = m_formatters.constLast();
+
   m_cmds << new HelpCommand(this)
          << new TimeoutCommand(this)
          << new QuitCommand(this)
@@ -305,7 +243,18 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
   if (line.isEmpty())
     return nullptr;
 
-  QStringList args = splitArgs(line);
+  // Default to the last formatter
+  m_formatter = m_formatters.constLast();
+
+  QStringList args;
+  for (auto fmt : m_formatters) {
+    args = fmt->parseArguments(line);
+    if (fmt->isFormatRecognized()) {
+      m_formatter = fmt;
+      break;
+    }
+  }
+
   if (!args.isEmpty()) {
     const QString& name = args.at(0);
     for (auto it = m_cmds.begin(); it != m_cmds.end(); ++it) { // clazy:exclude=detaching-member
@@ -322,13 +271,12 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
 /**
  * Display help about available commands.
  * @param cmdName command name, for all commands if empty
+ * @param usageMessage true if this is a usage error message
  */
-void Kid3Cli::writeHelp(const QString& cmdName)
+void Kid3Cli::writeHelp(const QString& cmdName, bool usageMessage)
 {
+  QString msg;
   if (cmdName.isEmpty()) {
-    writeLine(tr("Parameter"));
-    writeLine(QLatin1String("  P = ") + tr("File path"));
-    writeLine(QLatin1String("  U = ") + tr("URL"));
     QString tagNumbersStr;
     FOR_ALL_TAGS(tagNr) {
       if (!tagNumbersStr.isEmpty()) {
@@ -338,15 +286,18 @@ void Kid3Cli::writeHelp(const QString& cmdName)
       tagNumbersStr += Frame::tagNumberToString(tagNr);
       tagNumbersStr += QLatin1String("\" ");
     }
-    writeLine(QLatin1String("  T = ") + tr("Tag numbers") +
-              tagNumbersStr + QLatin1String("| \"12\" | ..."));
-    writeLine(QLatin1String("  N = ") + tr("Frame name") +
-              QLatin1String(" \"album\" | \"album artist\" | \"arranger\" | "
-                            "\"artist\" | ..."));
-    writeLine(QLatin1String("  V = ") + tr("Frame value"));
-    writeLine(QLatin1String("  F = ") + tr("Format"));
-    writeLine(QLatin1String("  S = ") + tr("Command specific"));
-    writeLine(tr("Available Commands"));
+    msg += tr("Parameter") %
+        QLatin1String("\n  P = ") % tr("File path") %
+        QLatin1String("\n  U = ") % tr("URL") %
+        QLatin1String("\n  T = ") % tr("Tag numbers") %
+        tagNumbersStr % QLatin1String("| \"12\" | ...") %
+        QLatin1String("\n  N = ") % tr("Frame name") %
+        QLatin1String(" \"album\" | \"album artist\" | \"arranger\" | "
+                      "\"artist\" | ...") %
+        QLatin1String("\n  V = ") % tr("Frame value") %
+        QLatin1String("\n  F = ") % tr("Format") %
+        QLatin1String("\n  S = ") % tr("Command specific") %
+        QLatin1Char('\n') % tr("Available Commands") % QLatin1Char('\n');
   }
   QList<QStringList> cmdStrs;
   int maxLength = 0;
@@ -366,14 +317,18 @@ void Kid3Cli::writeHelp(const QString& cmdName)
   const auto constCmdStrs = cmdStrs;
   for (QStringList strs : constCmdStrs) {
     QString cmdStr = strs.takeFirst();
-    cmdStr += QString(maxLength - cmdStr.size() + 2, QLatin1Char(' '));
-    cmdStr += strs.takeFirst();
-    writeLine(cmdStr);
+    cmdStr += QString(maxLength - cmdStr.size() + 2, QLatin1Char(' ')) %
+        strs.takeFirst() % QLatin1Char('\n');
+    msg += cmdStr;
     while (!strs.isEmpty()) {
-      cmdStr = QString(maxLength + 2, QLatin1Char(' '));
-      cmdStr += strs.takeFirst();
-      writeLine(cmdStr);
+      msg += QString(maxLength + 2, QLatin1Char(' ')) %
+          strs.takeFirst() % QLatin1Char('\n');
     }
+  }
+  if (usageMessage) {
+    writeError(msg.trimmed(), CliError::Usage);
+  } else {
+    writeResult(msg.trimmed());
   }
 }
 
@@ -503,56 +458,45 @@ void Kid3Cli::updateSelection()
  */
 void Kid3Cli::writeFileInformation(int tagMask)
 {
+  QVariantMap map;
   if (!m_detailInfo.isEmpty()) {
-    writeLine(tr("File") + QLatin1String(": ") + m_detailInfo);
+    map.insert(QLatin1String("format"), m_detailInfo.trimmed());
   }
   if (!m_filename.isEmpty()) {
-    QString line = m_fileNameChanged ? QLatin1String("*") : QLatin1String(" ");
-    line += QLatin1Char(' ');
-    line += tr("Name");
-    line += QLatin1String(": ");
-    line += m_filename;
-    writeLine(line);
+    map.insert(QLatin1String("fileNameChanged"), m_fileNameChanged);
+    map.insert(QLatin1String("fileName"), m_filename);
   }
   FOR_TAGS_IN_MASK(tagNr, tagMask) {
     FrameTableModel* ft = m_app->frameModel(tagNr);
-    int maxLength = 0;
-    bool hasValue = false;
+    QVariantList frames;
     for (int row = 0; row < ft->rowCount(); ++row) {
       QString name =
           ft->index(row, FrameTableModel::CI_Enable).data().toString();
       QString value =
           ft->index(row, FrameTableModel::CI_Value).data().toString();
-      maxLength = qMax(name.size(), maxLength);
-      hasValue = hasValue ||
-          !(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull());
-    }
-    if (hasValue) {
-      writeLine(tr("Tag %1").arg(Frame::tagNumberToString(tagNr)) +
-                QLatin1String(": ") + m_tagFormat[tagNr]);
-      for (int row = 0; row < ft->rowCount(); ++row) {
-        QString name =
-            ft->index(row, FrameTableModel::CI_Enable).data().toString();
-        QString value =
-            ft->index(row, FrameTableModel::CI_Value).data().toString();
-        if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
-          QVariant background = ft->index(row, FrameTableModel::CI_Enable)
-              .data(Qt::BackgroundColorRole);
-          CoreTaggedFileIconProvider* colorProvider =
-              m_app->getPlatformTools()->iconProvider();
-          bool changed = colorProvider &&
-            colorProvider->contextForColor(background) == ColorContext::Marked;
-          QString line = changed ? QLatin1String("*") : QLatin1String(" ");
-          line += QLatin1Char(' ');
-          line += name;
-          line += QString(maxLength - name.size() + 2,
-                          QLatin1Char(' '));
-          line += value;
-          writeLine(line);
-        }
+      if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
+        QVariant background = ft->index(row, FrameTableModel::CI_Enable)
+            .data(Qt::BackgroundColorRole);
+        CoreTaggedFileIconProvider* colorProvider =
+            m_app->getPlatformTools()->iconProvider();
+        bool changed = colorProvider &&
+          colorProvider->contextForColor(background) == ColorContext::Marked;
+        frames.append(QVariantMap{
+                        {QLatin1String("changed"), changed},
+                        {QLatin1String("name"), name},
+                        {QLatin1String("value"), value},
+                      });
       }
     }
+    if (!frames.isEmpty()) {
+      map.insert(QLatin1String("tag") + Frame::tagNumberToString(tagNr),
+                 QVariantMap{
+                   {QLatin1String("format"), m_tagFormat[tagNr]},
+                   {QLatin1String("frames"), frames}
+                 });
+    }
   }
+  writeResult(QVariantMap{{"taggedFile", map}});
 }
 
 /**
@@ -560,17 +504,12 @@ void Kid3Cli::writeFileInformation(int tagMask)
  */
 void Kid3Cli::writeTagMask()
 {
+  QVariantList tags;
   QString tagStr;
   FOR_TAGS_IN_MASK(tagNr, m_tagMask) {
-    if (!tagStr.isEmpty()) {
-      tagStr += QLatin1String(", ");
-    }
-    tagStr += Frame::tagNumberToString(tagNr);
+    tags.append(tagNr + 1);
   }
-  if (tagStr.isEmpty()) {
-    tagStr = QLatin1String("-");
-  }
-  writeLine(tr("Tags") + QLatin1String(": ") + tagStr);
+  writeResult(QVariantMap{{"tags", tags}});
 }
 
 /**
@@ -588,7 +527,10 @@ void Kid3Cli::setTagMask(Frame::TagVersion tagMask)
  */
 void Kid3Cli::writeFileList()
 {
-  printFileProxyModel(m_app->getFileProxyModel(), m_app->getRootIndex(), 1);
+  writeResult(QVariantMap{
+    {QLatin1String("files"),
+     listFiles(m_app->getFileProxyModel(), m_app->getRootIndex())}
+  });
 }
 
 /**
@@ -596,46 +538,100 @@ void Kid3Cli::writeFileList()
  *
  * @param model file proxy model
  * @param parent index of parent item
- * @param indent indentation as number of spaces
+ *
+ * @return list with file properties.
  */
-void Kid3Cli::printFileProxyModel(const FileProxyModel* model,
-                                  const QModelIndex& parent, int indent) {
+QVariantList Kid3Cli::listFiles(const FileProxyModel* model,
+                                const QModelIndex& parent)
+{
+  QVariantList lst;
   if (!model->hasChildren(parent))
-    return;
+    return lst;
 
   m_app->updateCurrentSelection();
   QSet<QPersistentModelIndex> selection = m_app->getCurrentSelection().toSet();
   for (int row = 0; row < model->rowCount(parent); ++row) {
-    QString indentStr(indent, QLatin1Char(' ')), nameStr;
-    QModelIndexList indexesWithChildren;
     QModelIndex idx(model->index(row, 0, parent));
-    QString propsStr = selection.contains(idx)
-        ? QLatin1String(">") : QLatin1String(" ");
+    QVariantMap map;
+    map.insert(QLatin1String("selected"), selection.contains(idx));
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(idx)) {
       taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
-      propsStr +=
-          (taggedFile->isChanged() ? QLatin1String("*") : QLatin1String(" "));
+      map.insert(QLatin1String("changed"), taggedFile->isChanged());
+      QVariantList tags;
       FOR_ALL_TAGS(tagNr) {
-        propsStr += taggedFile->hasTag(tagNr)
-            ? QLatin1Char('1' + tagNr) : QLatin1Char('-');
+        if (taggedFile->hasTag(tagNr)) {
+          tags.append(1 + tagNr);
+        }
       }
-      nameStr = taggedFile->getFilename();
+      map.insert(QLatin1String("tags"), tags);
+      map.insert(QLatin1String("fileName"), taggedFile->getFilename());
     } else {
-      propsStr += QString(3, QLatin1Char(' '));
       QVariant value(model->data(idx));
       if (value.isValid()) {
-        nameStr = value.toString();
+        map.insert(QLatin1String("fileName"), value.toString());
       }
     }
     if (model->hasChildren(idx)) {
-      indexesWithChildren.append(idx);
+      map.insert(QLatin1String("files"), listFiles(model, idx));
     }
-    writeLine(propsStr + indentStr + nameStr);
-    const auto idxs = indexesWithChildren;
-    for (const QModelIndex& idx : idxs) {
-      printFileProxyModel(model, idx, indent + 2);
-    }
+    lst.append(map);
   }
+  return lst;
+}
+
+/**
+ * Respond with an error message
+ * @param errorCode error code
+ */
+void Kid3Cli::writeErrorCode(CliError errorCode)
+{
+  m_formatter->writeError(errorCode);
+}
+
+/**
+ * Write a line to standard error.
+ * @param line line to write
+ */
+void Kid3Cli::writeErrorLine(const QString& line)
+{
+  m_formatter->writeError(line);
+}
+
+/**
+ * Respond with an error message.
+ * @param msg error message
+ * @param errorCode error code
+ */
+void Kid3Cli::writeError(const QString& msg, CliError errorCode)
+{
+  m_formatter->writeError(msg, errorCode);
+}
+
+/**
+ * Write result of command.
+ * @param str result as string
+ */
+void Kid3Cli::writeResult(const QString& str)
+{
+  m_formatter->writeResult(str);
+}
+
+/**
+ * Write result of command.
+ * @param map result as map
+ */
+void Kid3Cli::writeResult(const QVariantMap& map)
+{
+  m_formatter->writeResult(map);
+}
+
+/**
+ * Called when a command is finished.
+ */
+void Kid3Cli::finishWriting()
+{
+  m_formatter->finishWriting();
+  m_formatter->clear();
 }
 
 /**
@@ -655,7 +651,15 @@ void Kid3Cli::readLine(const QString& line)
     connect(cmd, &CliCommand::finished, this, &Kid3Cli::onCommandFinished);
     cmd->execute();
   } else {
-    writeErrorLine(tr("Unknown command '%1'. Type 'help' for help.").arg(line));
+    if (!m_formatter->isIncomplete()) {
+      QString errorMsg = m_formatter->getErrorMessage();
+      if (errorMsg.isEmpty()) {
+        writeErrorCode(CliError::MethodNotFound);
+      } else {
+        writeErrorLine(errorMsg);
+      }
+      finishWriting();
+    }
     promptNextLine();
   }
 }
@@ -761,6 +765,7 @@ void Kid3Cli::executeNextArgCommand()
       if (!errorFiles.isEmpty()) {
         writeErrorLine(tr("Error while writing file:\n") +
                        errorFiles.join(QLatin1String("\n")));
+        finishWriting();
         setReturnCode(1);
       }
     }
@@ -774,7 +779,12 @@ void Kid3Cli::executeNextArgCommand()
     connect(cmd, &CliCommand::finished, this, &Kid3Cli::onArgCommandFinished);
     cmd->execute();
   } else {
-    writeErrorLine(tr("Unknown command '%1', -h for help.").arg(line));
+    QString errorMsg = m_formatter->getErrorMessage();
+    if (errorMsg.isEmpty()) {
+      errorMsg = tr("Unknown command '%1', -h for help.").arg(line);
+    }
+    writeErrorLine(errorMsg);
+    finishWriting();
     setReturnCode(1);
     terminate();
   }

@@ -2859,16 +2859,15 @@ are selected).
 </sect2>
 
 <sect2 id="cli-import">
-<title>Import from file or clipboard</title>
+<title>Import from file</title>
 <cmdsynopsis>
 <command>import</command>
 <arg choice="req"><replaceable>FILE</replaceable></arg>
 <arg choice="req"><replaceable>FORMAT-NAME</replaceable></arg>
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
-<para>Tags are imported from the file <replaceable>FILE</replaceable> (or from
-the clipboard if <userinput>clipboard</userinput> is used for
-<replaceable>FILE</replaceable>) in the format with the name
+<para>Tags are imported from the file <replaceable>FILE</replaceable>
+in the format with the name
 <replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
 unquoted"</userinput>, see <link linkend="import-text">Import</link>).
 </para>
@@ -2911,16 +2910,15 @@ http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen
 </sect2>
 
 <sect2 id="cli-export">
-<title>Export to file or clipboard</title>
+<title>Export to file</title>
 <cmdsynopsis>
 <command>export</command>
 <arg choice="req"><replaceable>FILE</replaceable></arg>
 <arg choice="req"><replaceable>FORMAT-NAME</replaceable></arg>
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
-<para>Tags are exported to file <replaceable>FILE</replaceable> (or to
-the clipboard if <userinput>clipboard</userinput> is used for
-<replaceable>FILE</replaceable>) in the format with the name
+<para>Tags are exported to file <replaceable>FILE</replaceable>
+in the format with the name
 <replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
 unquoted"</userinput>, see <link linkend="export">Export</link>).
 </para>
@@ -3204,6 +3202,40 @@ if __name__ == '__main__':
 ]]>
 </programlisting>
 </sect1>
+
+<sect1 id="kid3-cli-json">
+<title>JSON Format</title>
+<para>
+In order to make it easier to parse results from <command>kid3-cli</command>,
+it is possible to get the output in JSON format. When the request is in JSON
+format, the response will also be JSON. A compact format of the request will
+also give a compact representation of the response. If the request contains an
+"id" field, it is assumed to be a JSON-RPC request and the response will
+contain a "jsonrpc" field and the "id" of the request. The request format uses
+the same commands as the standard CLI, the "method" field contains the command
+and the parameters (if any) are given in the "params" list. The response
+contains a "result" object, which can also be null if the corresponding
+<command>kid3-cli</command> command does not return a result. In case of an
+error, an "error" object is returned with "code" and "message" fields as used
+in JSON-RPC.
+
+<screen width="80">
+<prompt>kid3-cli&gt; </prompt><userinput>{"method":"set","params":["artist","An Artist"]}</userinput>
+<computeroutput>{"result":null}</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"method":"get","params":["artist",2]}</userinput>
+<computeroutput>{"result":"An Artist"}</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"method": "get", "params": ["artist"]}</userinput>
+<computeroutput>{
+    "result": "An Artist"
+}
+</computeroutput>
+<prompt>kid3-cli&gt; </prompt><userinput>{"jsonrpc":"2.0","id":"123","method":"get","params":["artist"]}</userinput>
+<computeroutput>{"id":"123","jsonrpc":"2.0","result":"An Artist"}</computeroutput>
+</screen>
+
+</para>
+</sect1>
+
 </chapter>
 
 <chapter id="credits">

@@ -103,7 +103,5 @@ private:
   QThread* m_conInThread;
   QTextStream m_cout;
   QTextStream m_cerr;
-#ifdef Q_OS_WIN32
   bool m_consoleMode;
-#endif
 };

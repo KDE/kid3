@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Časové omezení"
 
-msgid "Usage:"
-msgstr "Využití:"
-
 msgid "Help"
 msgstr "Nápověda"
 
@@ -116,30 +113,6 @@ msgstr "Zavést automaticky"
 msgid "Profile name"
 msgstr "Název profilu"
 
-msgid "Reading Directory"
-msgstr "Čte se adresář"
-
-msgid "Started"
-msgstr "Spuštěn"
-
-msgid "Querying"
-msgstr "Dotazuje se"
-
-msgid "Fetching"
-msgstr "Natahuje se"
-
-msgid "Data received"
-msgstr "Přijatá data"
-
-msgid "Cover"
-msgstr "Obal"
-
-msgid "Finished"
-msgstr "Hotovo"
-
-msgid "Aborted"
-msgstr "Přerušeno"
-
 msgid "Download album cover artwork"
 msgstr "Procházet kvůli obrázkům obalů"
 
@@ -197,8 +170,11 @@ msgstr "Vložit"
 msgid "Remove"
 msgstr "Odstranit"
 
-msgid "Play"
-msgstr "Přehrát"
+msgid "Unknown command '%1'"
+msgstr "Neznámý příkaz '%1'"
+
+msgid "Usage:"
+msgstr "Využití:"
 
 msgid "Parameter"
 msgstr "Parametr"
@@ -224,6 +200,15 @@ msgstr "Příkaz"
 msgid "Available Commands"
 msgstr "Dostupné příkazy"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Neznámý příkaz '%1', -h pro pomoc."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Neznámý příkaz '%1'. Pro zobrazení nápovědy napište 'help'."
+
+msgid "Tags"
+msgstr "Značky"
+
 msgid "File"
 msgstr "Soubor"
 
@@ -233,14 +218,29 @@ msgstr "Název"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-msgid "Tags"
-msgstr "Značky"
+msgid "Reading Directory"
+msgstr "Čte se adresář"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Neznámý příkaz '%1'. Pro zobrazení nápovědy napište 'help'."
+msgid "Started"
+msgstr "Spuštěn"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Neznámý příkaz '%1', -h pro pomoc."
+msgid "Querying"
+msgstr "Dotazuje se"
+
+msgid "Fetching"
+msgstr "Natahuje se"
+
+msgid "Data received"
+msgstr "Přijatá data"
+
+msgid "Cover"
+msgstr "Obal"
+
+msgid "Finished"
+msgstr "Hotovo"
+
+msgid "Aborted"
+msgstr "Přerušeno"
 
 msgid "Files"
 msgstr "Soubory"
@@ -379,6 +379,9 @@ msgstr "Převést ID3v2.4 na ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Přehrát"
+
+msgid "Play"
+msgstr "Přehrát"
 
 msgid "Show &Picture"
 msgstr "Ukázat &obrázek"

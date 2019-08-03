@@ -24,9 +24,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Aikakatkaisu"
 
-msgid "Usage:"
-msgstr "Käyttö:"
-
 msgid "Help"
 msgstr "Ohje"
 
@@ -117,30 +114,6 @@ msgstr "Tuo automaattisesti"
 msgid "Profile name"
 msgstr "Profiilin nimi"
 
-msgid "Reading Directory"
-msgstr "Luetaan hakemistoa"
-
-msgid "Started"
-msgstr "Aloitettu"
-
-msgid "Querying"
-msgstr "Kysytään"
-
-msgid "Fetching"
-msgstr "Noudetaan"
-
-msgid "Data received"
-msgstr "Vastaanotettu data"
-
-msgid "Cover"
-msgstr "Kansikuvat"
-
-msgid "Finished"
-msgstr "Valmis"
-
-msgid "Aborted"
-msgstr "Keskeytetty"
-
 msgid "Download album cover artwork"
 msgstr "Selaa kansikuvia"
 
@@ -198,8 +171,11 @@ msgstr "Liitä"
 msgid "Remove"
 msgstr "Poista"
 
-msgid "Play"
-msgstr "Soita"
+msgid "Unknown command '%1'"
+msgstr "Tuntematon komento '%1'"
+
+msgid "Usage:"
+msgstr "Käyttö:"
 
 msgid "Parameter"
 msgstr "Parametri"
@@ -225,6 +201,15 @@ msgstr "Komento"
 msgid "Available Commands"
 msgstr "Käytössäolevat komennot"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Tuntematon komento ”%1”, -h näyttää ohjeen."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Tuntematon komento ”%1”. Saat ohjeen kirjoittamalla ”help”."
+
+msgid "Tags"
+msgstr "Tunnisteet"
+
 msgid "File"
 msgstr "Tiedosto"
 
@@ -234,14 +219,29 @@ msgstr "Nimi"
 msgid "Tag %1"
 msgstr "%1-tunniste"
 
-msgid "Tags"
-msgstr "Tunnisteet"
+msgid "Reading Directory"
+msgstr "Luetaan hakemistoa"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Tuntematon komento ”%1”. Saat ohjeen kirjoittamalla ”help”."
+msgid "Started"
+msgstr "Aloitettu"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Tuntematon komento ”%1”, -h näyttää ohjeen."
+msgid "Querying"
+msgstr "Kysytään"
+
+msgid "Fetching"
+msgstr "Noudetaan"
+
+msgid "Data received"
+msgstr "Vastaanotettu data"
+
+msgid "Cover"
+msgstr "Kansikuvat"
+
+msgid "Finished"
+msgstr "Valmis"
+
+msgid "Aborted"
+msgstr "Keskeytetty"
 
 msgid "Files"
 msgstr "Tiedostot"
@@ -380,6 +380,9 @@ msgstr "Muunna ID3v2.4:sta ID3v2.&3:ksi"
 
 msgid "&Play"
 msgstr "&Soita"
+
+msgid "Play"
+msgstr "Soita"
 
 msgid "Show &Picture"
 msgstr "Näytä k&uva"

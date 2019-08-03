@@ -26,6 +26,7 @@
 
 #include "clicommand.h"
 #include <QStringList>
+#include <QStringBuilder>
 #include <QTimer>
 #include <QDir>
 #include <QItemSelectionModel>
@@ -75,6 +76,7 @@ void CliCommand::clear()
     killTimer(m_timerId);
     m_timerId = 0;
   }
+  cli()->finishWriting();
   m_errorMsg.clear();
   m_args.clear();
   m_result = 0;
@@ -175,8 +177,7 @@ Frame::TagVersion CliCommand::getTagMaskParameter(int nr,
  */
 void CliCommand::showUsage()
 {
-  cli()->writeLine(tr("Usage:"));
-  cli()->writeHelp(name());
+  cli()->writeHelp(name(), true);
   setError(QLatin1String("_Usage"));
 }
 
@@ -211,25 +212,28 @@ void TimeoutCommand::startCommand()
     } else if (val == QLatin1String("default")) {
       cliTimeout = 0;
     } else {
+      QString msStr = val;
+      if (msStr.endsWith(QLatin1String("ms"))) {
+        msStr.truncate(msStr.length() - 2);
+      }
       bool ok;
-      int ms = val.toInt(&ok);
+      int ms = msStr.toInt(&ok);
       if (ok && ms > 0) {
         cliTimeout = ms;
       }
     }
     cli()->setTimeout(cliTimeout);
   }
-  QString msg(tr("Timeout"));
-  msg += QLatin1String(": ");
+  QString value;
   if (cliTimeout < 0) {
-    msg += QLatin1String("off");
+    value = QLatin1String("off");
   } else if (cliTimeout == 0) {
-    msg += QLatin1String("default");
+    value = QLatin1String("default");
   } else {
-    msg += QString::number(cliTimeout);
-    msg += QLatin1String(" ms");
+    value = QString::number(cliTimeout);
+    value += QLatin1String(" ms");
   }
-  cli()->writeLine(msg);
+  cli()->writeResult(QVariantMap{{QLatin1String("timeout"), value}});
 }
 
 
@@ -243,8 +247,9 @@ void QuitCommand::startCommand()
 {
   if (cli()->app()->isModified() && !cli()->app()->getDirName().isEmpty()) {
     if (!(args().size() > 1 && args().at(1) == QLatin1String("force"))) {
-      cli()->writeLine(tr("The current directory has been modified."));
-      cli()->writeLine(tr("Type 'exit force' to quit."));
+      cli()->writeResult(tr("The current directory has been modified.") %
+                         QLatin1Char('\n') %
+                         tr("Type 'exit force' to quit."));
       terminate();
       return;
     }
@@ -305,7 +310,7 @@ void PwdCommand::startCommand()
     path = QDir::currentPath();
     cli()->app()->openDirectory({path});
   }
-  cli()->writeLine(path);
+  cli()->writeResult(path);
 }
 
 
@@ -408,7 +413,7 @@ void GetCommand::startCommand()
       QString value = cli()->app()->getFrame(Frame::tagVersionFromNumber(tagNr),
                                              name);
       if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
-        cli()->writeLine(value);
+        cli()->writeResult(value);
         break;
       }
     }
@@ -549,44 +554,44 @@ void BatchImportCommand::disconnectResultSignal()
 
 void BatchImportCommand::onReportImportEvent(int type, const QString& text)
 {
-  QString eventText;
+  QString typeStr;
   switch (type) {
   case BatchImporter::ReadingDirectory:
-    eventText = tr("Reading Directory");
+    typeStr = QLatin1String("readingDirectory");
     break;
   case BatchImporter::Started:
-    eventText = tr("Started");
+    typeStr = QLatin1String("started");
     break;
   case BatchImporter::SourceSelected:
-    eventText = tr("Source");
+    typeStr = QLatin1String("source");
     break;
   case BatchImporter::QueryingAlbumList:
-    eventText = tr("Querying");
+    typeStr = QLatin1String("querying");
     break;
   case BatchImporter::FetchingTrackList:
   case BatchImporter::FetchingCoverArt:
-    eventText = tr("Fetching");
+    typeStr = QLatin1String("fetching");
     break;
   case BatchImporter::TrackListReceived:
-    eventText = tr("Data received");
+    typeStr = QLatin1String("data received");
     break;
   case BatchImporter::CoverArtReceived:
-    eventText = tr("Cover");
+    typeStr = QLatin1String("cover");
     break;
   case BatchImporter::Finished:
-    eventText = tr("Finished");
+    typeStr = QLatin1String("finished");
     break;
   case BatchImporter::Aborted:
-    eventText = tr("Aborted");
+    typeStr = QLatin1String("aborted");
     break;
   case BatchImporter::Error:
-    eventText = tr("Error");
+    typeStr = QLatin1String("error");
   }
+  QVariantMap event{{QLatin1String("type"), typeStr}};
   if (!text.isEmpty()) {
-    eventText += QLatin1String(": ");
-    eventText += text;
+    event.insert(QLatin1String("data"), text);
   }
-  cli()->writeLine(eventText);
+  cli()->writeResult(QVariantMap{{QLatin1String("event"), event}});
 }
 
 
@@ -785,16 +790,18 @@ void RenameDirectoryCommand::disconnectResultSignal()
 
 void RenameDirectoryCommand::onActionScheduled(const QStringList& actionStrs)
 {
-  QString str = actionStrs.at(0);
+  QVariantMap event{{QLatin1String("type"), actionStrs.at(0)}};
+  QVariantMap data;
   if (actionStrs.size() > 1) {
-    str += QLatin1String("  ");
-    str += actionStrs.at(1);
+    data.insert(QLatin1String("source"), actionStrs.at(1));
   }
   if (actionStrs.size() > 2) {
-    str += QLatin1String("\n  ");
-    str += actionStrs.at(2);
+    data.insert(QLatin1String("destination"), actionStrs.at(2));
   }
-  cli()->writeLine(str);
+  if (!data.isEmpty()) {
+    event.insert(QLatin1String("data"), data);
+  }
+  cli()->writeResult(QVariantMap{{QLatin1String("event"), event}});
 }
 
 void RenameDirectoryCommand::onRenameActionsScheduled()
@@ -886,34 +893,42 @@ void FilterCommand::disconnectResultSignal()
 
 void FilterCommand::onFileFiltered(int type, const QString& fileName)
 {
-  QString eventText;
+  QString typeStr;
+  QString data;
   bool finish = false;
   switch (type) {
   case FileFilter::Started:
-    eventText = tr("Started");
+    typeStr = QLatin1String("started");
     break;
   case FileFilter::Directory:
-    eventText = QLatin1String("  ") + fileName;
+    typeStr = QLatin1String("filterEntered");
+    data = fileName;
     break;
   case FileFilter::ParseError:
-    eventText = QLatin1String("parse error");
+    typeStr = QLatin1String("parseError");
     break;
   case FileFilter::FilePassed:
-    eventText = QLatin1String("+ ") + fileName;
+    typeStr = QLatin1String("filterPassed");
+    data = fileName;
     break;
   case FileFilter::FileFilteredOut:
-    eventText = QLatin1String("- ") + fileName;
+    typeStr = QLatin1String("filteredOut");
+    data = fileName;
     break;
   case FileFilter::Finished:
-    eventText = tr("Finished");
+    typeStr = QLatin1String("finished");
     finish = true;
     break;
   case FileFilter::Aborted:
-    eventText = tr("Aborted");
+    typeStr = QLatin1String("aborted");
     finish = true;
     break;
   }
-  cli()->writeLine(eventText);
+  QVariantMap event{{QLatin1String("type"), typeStr}};
+  if (!data.isEmpty()) {
+    event.insert(QLatin1String("data"), data);
+  }
+  cli()->writeResult(QVariantMap{{QLatin1String("event"), event}});
   if (finish) {
     terminate();
   }

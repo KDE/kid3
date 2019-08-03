@@ -23,9 +23,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Zeitüberschreitung"
 
-msgid "Usage:"
-msgstr "Benutzung:"
-
 msgid "Help"
 msgstr "Hilfe"
 
@@ -116,30 +113,6 @@ msgstr "Automatisch importieren"
 msgid "Profile name"
 msgstr "Profilname"
 
-msgid "Reading Directory"
-msgstr "Verzeichnis wird gelesen"
-
-msgid "Started"
-msgstr "Begonnen"
-
-msgid "Querying"
-msgstr "Abfrage läuft"
-
-msgid "Fetching"
-msgstr "Hole"
-
-msgid "Data received"
-msgstr "Daten empfangen"
-
-msgid "Cover"
-msgstr "Cover"
-
-msgid "Finished"
-msgstr "Fertig"
-
-msgid "Aborted"
-msgstr "Abgebrochen"
-
 msgid "Download album cover artwork"
 msgstr "Cover-Bilder herunterladen"
 
@@ -197,8 +170,11 @@ msgstr "Einfügen"
 msgid "Remove"
 msgstr "Entfernen"
 
-msgid "Play"
-msgstr "Wiedergabe"
+msgid "Unknown command '%1'"
+msgstr "Unbekannter Befehl '%1'"
+
+msgid "Usage:"
+msgstr "Benutzung:"
 
 msgid "Parameter"
 msgstr "Parameter"
@@ -224,6 +200,15 @@ msgstr "Befehlsspezifisch"
 msgid "Available Commands"
 msgstr "Verfügbare Befehle"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Unbekannter Befehl '%1', -h für Hilfe."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Unbekannter Befehl '%1'. Geben Sie 'help' ein für Hilfe."
+
+msgid "Tags"
+msgstr "Tags"
+
 msgid "File"
 msgstr "Datei"
 
@@ -233,14 +218,29 @@ msgstr "Name"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "Reading Directory"
+msgstr "Verzeichnis wird gelesen"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Unbekannter Befehl '%1'. Geben Sie 'help' ein für Hilfe."
+msgid "Started"
+msgstr "Begonnen"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Unbekannter Befehl '%1', -h für Hilfe."
+msgid "Querying"
+msgstr "Abfrage läuft"
+
+msgid "Fetching"
+msgstr "Hole"
+
+msgid "Data received"
+msgstr "Daten empfangen"
+
+msgid "Cover"
+msgstr "Cover"
+
+msgid "Finished"
+msgstr "Fertig"
+
+msgid "Aborted"
+msgstr "Abgebrochen"
 
 msgid "Files"
 msgstr "Dateien"
@@ -379,6 +379,9 @@ msgstr "ID3v2.4 nach ID3v2.&3 konvertieren"
 
 msgid "&Play"
 msgstr "&Wiedergabe"
+
+msgid "Play"
+msgstr "Wiedergabe"
 
 msgid "Show &Picture"
 msgstr "&Bild anzeigen"

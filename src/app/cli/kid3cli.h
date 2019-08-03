@@ -37,6 +37,8 @@ class QTimer;
 class Kid3Application;
 class FileProxyModel;
 class CliCommand;
+class AbstractCliFormatter;
+enum class CliError : int;
 
 #ifdef HAVE_READLINE
 class Kid3CliCompleter;
@@ -70,6 +72,29 @@ public:
   virtual void execute() override;
 
   /**
+   * Write a line to standard error.
+   * @param line line to write
+   */
+  virtual void writeErrorLine(const QString& line) override;
+
+  /**
+   * Write result of command.
+   * @param str result as string
+   */
+  void writeResult(const QString& str);
+
+  /**
+   * Write result of command.
+   * @param map result as map
+   */
+  void writeResult(const QVariantMap& map);
+
+  /**
+   * Called when a command is finished.
+   */
+  void finishWriting();
+
+  /**
    * Access to application.
    * @return application.
    */
@@ -92,8 +117,10 @@ public:
   /**
    * Display help about available commands.
    * @param cmdName command name, for all commands if empty
+   * @param usageMessage true if this is a usage error message
    */
-  void writeHelp(const QString& cmdName = QString());
+  void writeHelp(const QString& cmdName = QString(),
+                 bool usageMessage = false);
 
   /**
    * Display information about selected files.
@@ -110,6 +137,19 @@ public:
    * List files.
    */
   void writeFileList();
+
+  /**
+   * Respond with an error message.
+   * @param errorCode error code
+   */
+  void writeErrorCode(CliError errorCode);
+
+  /**
+   * Respond with an error message.
+   * @param msg error message
+   * @param errorCode error code
+   */
+  void writeError(const QString& msg, CliError errorCode);
 
   /**
    * Get currently active tag mask.
@@ -187,8 +227,8 @@ private:
    */
   CliCommand* commandForArgs(const QString& line);
 
-  void printFileProxyModel(const FileProxyModel* model,
-                           const QModelIndex& parent, int indent);
+  QVariantList listFiles(const FileProxyModel* model,
+                           const QModelIndex& parent);
   bool parseOptions();
   void executeNextArgCommand();
 
@@ -197,6 +237,8 @@ private:
 #ifdef HAVE_READLINE
   QScopedPointer<Kid3CliCompleter> m_completer;
 #endif
+  AbstractCliFormatter* m_formatter;
+  QList<AbstractCliFormatter*> m_formatters;
   QList<CliCommand*> m_cmds;
   QStringList m_argCommands;
   QString m_detailInfo;

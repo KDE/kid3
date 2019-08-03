@@ -42,6 +42,9 @@ add_executable(kid3-cli
   kid3cli.cpp
   clicommand.cpp
   standardiohandler.cpp
+  abstractcliformatter.cpp
+  textcliformatter.cpp
+  jsoncliformatter.cpp
 )
 
 if(HAVE_READLINE)
@@ -53,6 +56,8 @@ qt5_wrap_cpp(cli_GEN_MOC_SRCS
   kid3cli.h
   clicommand.h
   standardiohandler.h
+  textcliformatter.h
+  jsoncliformatter.h
   TARGET kid3-cli
 )
 target_sources(kid3-cli PRIVATE ${cli_GEN_MOC_SRCS})

@@ -119,7 +119,7 @@ public:
    * Write a line to standard error.
    * @param line line to write
    */
-  void writeErrorLine(const QString& line);
+  virtual void writeErrorLine(const QString& line);
 
   /**
    * Flush the standard output.

@@ -24,9 +24,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Время ожидания"
 
-msgid "Usage:"
-msgstr "Использование:"
-
 msgid "Help"
 msgstr "Справка"
 
@@ -117,30 +114,6 @@ msgstr "Автоматический импорт"
 msgid "Profile name"
 msgstr "Имя профиля"
 
-msgid "Reading Directory"
-msgstr "Чтение каталога"
-
-msgid "Started"
-msgstr "Запущено"
-
-msgid "Querying"
-msgstr "Запрос"
-
-msgid "Fetching"
-msgstr "Получение"
-
-msgid "Data received"
-msgstr "Полученные данные"
-
-msgid "Cover"
-msgstr "Обложка"
-
-msgid "Finished"
-msgstr "Готово"
-
-msgid "Aborted"
-msgstr "Прервано"
-
 msgid "Download album cover artwork"
 msgstr "Загрузить обложку"
 
@@ -198,8 +171,11 @@ msgstr "Вставить"
 msgid "Remove"
 msgstr "Убрать"
 
-msgid "Play"
-msgstr "Воспроизведение"
+msgid "Unknown command '%1'"
+msgstr "Неизвестная команда '%1'"
+
+msgid "Usage:"
+msgstr "Использование:"
 
 msgid "Parameter"
 msgstr "Параметр"
@@ -225,6 +201,15 @@ msgstr "Зависит от команды"
 msgid "Available Commands"
 msgstr "Доступные команды"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Неизвестная команда «%1», -h для получения справки."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Неизвестная команда «%1». Введите «help» для получения справки."
+
+msgid "Tags"
+msgstr "Теги"
+
 msgid "File"
 msgstr "Файл"
 
@@ -234,14 +219,29 @@ msgstr "Имя"
 msgid "Tag %1"
 msgstr "Тег %1"
 
-msgid "Tags"
-msgstr "Теги"
+msgid "Reading Directory"
+msgstr "Чтение каталога"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Неизвестная команда «%1». Введите «help» для получения справки."
+msgid "Started"
+msgstr "Запущено"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Неизвестная команда «%1», -h для получения справки."
+msgid "Querying"
+msgstr "Запрос"
+
+msgid "Fetching"
+msgstr "Получение"
+
+msgid "Data received"
+msgstr "Полученные данные"
+
+msgid "Cover"
+msgstr "Обложка"
+
+msgid "Finished"
+msgstr "Готово"
+
+msgid "Aborted"
+msgstr "Прервано"
 
 msgid "Files"
 msgstr "Файлы"
@@ -380,6 +380,9 @@ msgstr "Преобразовать ID3v2.4 в ID3v2.&3"
 
 msgid "&Play"
 msgstr "&Воспроизведение"
+
+msgid "Play"
+msgstr "Воспроизведение"
 
 msgid "Show &Picture"
 msgstr "Показывать &изображение"

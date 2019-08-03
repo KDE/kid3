@@ -29,6 +29,8 @@
 #include <QThread>
 #ifdef Q_OS_WIN32
 #include <windows.h>
+#else
+#include <unistd.h>
 #endif
 #ifdef HAVE_READLINE
 #include <cstdio>
@@ -54,6 +56,8 @@ StandardIOHandler::StandardIOHandler(const char* prompt)
 #ifdef Q_OS_WIN32
   DWORD mode;
   m_consoleMode = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
+#else
+  m_consoleMode = ::isatty(::fileno(stdout));
 #endif
 }
 
@@ -109,6 +113,12 @@ void StandardIOHandler::readLine()
  */
 void StandardIOHandler::blockingReadLine()
 {
+  if (!m_consoleMode) {
+    QTextStream stdIn(stdin, QIODevice::ReadOnly);
+    QString line = stdIn.readLine();
+    emit lineReady(line);
+    return;
+  }
 #ifdef HAVE_READLINE
   char* lineRead = ::readline(m_prompt);
   if (!lineRead) {

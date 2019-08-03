@@ -24,9 +24,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Aegumine"
 
-msgid "Usage:"
-msgstr "Kasutamine:"
-
 msgid "Help"
 msgstr "Abi"
 
@@ -117,30 +114,6 @@ msgstr "Automaatimport"
 msgid "Profile name"
 msgstr "Profiili nimi"
 
-msgid "Reading Directory"
-msgstr "Kataloogi lugemine"
-
-msgid "Started"
-msgstr "Käivitatud"
-
-msgid "Querying"
-msgstr "Päring"
-
-msgid "Fetching"
-msgstr "Allalaadimine"
-
-msgid "Data received"
-msgstr "Andmed vastu võetud"
-
-msgid "Cover"
-msgstr "Kaanepilt"
-
-msgid "Finished"
-msgstr "Valmis"
-
-msgid "Aborted"
-msgstr "Katkestatud"
-
 msgid "Download album cover artwork"
 msgstr "Laadib alla albumi kaanepildi"
 
@@ -198,8 +171,11 @@ msgstr "Aseta"
 msgid "Remove"
 msgstr "Eemalda"
 
-msgid "Play"
-msgstr "Esita"
+msgid "Unknown command '%1'"
+msgstr "Käsk '%1' on tundmatu"
+
+msgid "Usage:"
+msgstr "Kasutamine:"
 
 msgid "Parameter"
 msgstr "Parameeter"
@@ -225,6 +201,15 @@ msgstr "käsuspetsiifiline"
 msgid "Available Commands"
 msgstr "Saadaolevad käsud"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Käsk \"%1\" on tundmatu, -h näitab abiinfot."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Käsk \"%1\" on tundmatu, \"help\" näitab abiinfot."
+
+msgid "Tags"
+msgstr "Sildid"
+
 msgid "File"
 msgstr "Fail"
 
@@ -234,14 +219,29 @@ msgstr "Nimi"
 msgid "Tag %1"
 msgstr "Silt %1"
 
-msgid "Tags"
-msgstr "Sildid"
+msgid "Reading Directory"
+msgstr "Kataloogi lugemine"
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Käsk \"%1\" on tundmatu, \"help\" näitab abiinfot."
+msgid "Started"
+msgstr "Käivitatud"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Käsk \"%1\" on tundmatu, -h näitab abiinfot."
+msgid "Querying"
+msgstr "Päring"
+
+msgid "Fetching"
+msgstr "Allalaadimine"
+
+msgid "Data received"
+msgstr "Andmed vastu võetud"
+
+msgid "Cover"
+msgstr "Kaanepilt"
+
+msgid "Finished"
+msgstr "Valmis"
+
+msgid "Aborted"
+msgstr "Katkestatud"
 
 msgid "Files"
 msgstr "Failid"
@@ -380,6 +380,9 @@ msgstr "Teisenda ID3v2.4 ID3v2.&3-ks"
 
 msgid "&Play"
 msgstr "&Esita"
+
+msgid "Play"
+msgstr "Esita"
 
 msgid "Show &Picture"
 msgstr "&Kaanepildi näitamine"

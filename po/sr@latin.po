@@ -22,9 +22,6 @@ msgstr ""
 msgid "Timeout"
 msgstr "Prekovreme"
 
-msgid "Usage:"
-msgstr "Upotreba:"
-
 msgid "Help"
 msgstr "Pomoć"
 
@@ -115,30 +112,6 @@ msgstr "Automatski uvozi"
 msgid "Profile name"
 msgstr "Ime profila"
 
-msgid "Reading Directory"
-msgstr ""
-
-msgid "Started"
-msgstr "Započet"
-
-msgid "Querying"
-msgstr "Zatražujem"
-
-msgid "Fetching"
-msgstr "Dobavljam"
-
-msgid "Data received"
-msgstr "Podaci primljeni"
-
-msgid "Cover"
-msgstr "Omot"
-
-msgid "Finished"
-msgstr "Završeno"
-
-msgid "Aborted"
-msgstr "Obustavljen"
-
 msgid "Download album cover artwork"
 msgstr "Potraži sliku omota albuma"
 
@@ -196,8 +169,11 @@ msgstr "Nalepi"
 msgid "Remove"
 msgstr "Ukloni"
 
-msgid "Play"
-msgstr "Reprodukcija"
+msgid "Unknown command '%1'"
+msgstr "Nepoznata naredba '%1'"
+
+msgid "Usage:"
+msgstr "Upotreba:"
 
 msgid "Parameter"
 msgstr "Parametar"
@@ -223,6 +199,15 @@ msgstr "Naredba"
 msgid "Available Commands"
 msgstr "Naredbe na raspolaganju"
 
+msgid "Unknown command '%1', -h for help."
+msgstr "Nepoznata naredba '%1', -h za pomoć."
+
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Nepoznata naredba '%1'. Ukucajte 'help'."
+
+msgid "Tags"
+msgstr "Oznake"
+
 msgid "File"
 msgstr "Fajl"
 
@@ -232,14 +217,29 @@ msgstr "Ime"
 msgid "Tag %1"
 msgstr "oznaka %1"
 
-msgid "Tags"
-msgstr "Oznake"
+msgid "Reading Directory"
+msgstr ""
 
-msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Nepoznata naredba '%1'. Ukucajte 'help'."
+msgid "Started"
+msgstr "Započet"
 
-msgid "Unknown command '%1', -h for help."
-msgstr "Nepoznata naredba '%1', -h za pomoć."
+msgid "Querying"
+msgstr "Zatražujem"
+
+msgid "Fetching"
+msgstr "Dobavljam"
+
+msgid "Data received"
+msgstr "Podaci primljeni"
+
+msgid "Cover"
+msgstr "Omot"
+
+msgid "Finished"
+msgstr "Završeno"
+
+msgid "Aborted"
+msgstr "Obustavljen"
 
 msgid "Files"
 msgstr "Fajlovi"
@@ -378,6 +378,9 @@ msgstr "Pretvori ID3v2.4 u ID3v2.&3"
 
 msgid "&Play"
 msgstr "Re&produkuj"
+
+msgid "Play"
+msgstr "Reprodukcija"
 
 msgid "Show &Picture"
 msgstr "Prikaži s&liku"
