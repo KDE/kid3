@@ -128,7 +128,7 @@ Dialog {
       parent: ApplicationWindow.overlay
       title: qsTr("Export")
       saveMode: true
-      nameFilters: ["*.jpg", "*.jpeg", "*.png"]
+      nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
       onFinished: {
         if (path) {
           if (script.fileExists(path)) {
@@ -155,7 +155,7 @@ Dialog {
       property variant field
       parent: ApplicationWindow.overlay
       title: qsTr("Import")
-      nameFilters: ["*.jpg", "*.jpeg", "*.png"]
+      nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
       onFinished: {
         if (path) {
           field.value = script.readFile(path)
