@@ -402,6 +402,7 @@ void M4aFile::readTags(bool force)
   bool priorIsTagInformationRead = isTagInformationRead();
   if (force || !m_fileRead) {
     m_metadata.clear();
+    m_pictures.clear();
     markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
     QByteArray fnIn =
@@ -429,14 +430,52 @@ void M4aFile::readTags(bool force)
           key = item.code;
         }
         if (key) {
-          QByteArray ba;
-          if (item.dataList.size > 0 &&
-              item.dataList.elements[0].value &&
-              item.dataList.elements[0].valueSize > 0) {
-            ba = getValueByteArray(key, item.dataList.elements[0].value,
-                item.dataList.elements[0].valueSize);
+          if (std::strcmp(key, "covr") == 0) {
+            if (item.dataList.size > 0) {
+              int i;
+              MP4ItmfData* element;
+              for (i = 0, element = item.dataList.elements;
+                   i < static_cast<int>(item.dataList.size);
+                   ++i, ++element) {
+                QString mimeType, imgFormat;
+                switch (element->typeCode) {
+                case MP4_ITMF_BT_PNG:
+                  mimeType = QLatin1String("image/png");
+                  imgFormat = QLatin1String("PNG");
+                  break;
+                case MP4_ITMF_BT_BMP:
+                  mimeType = QLatin1String("image/bmp");
+                  imgFormat = QLatin1String("BMP");
+                  break;
+                case MP4_ITMF_BT_GIF:
+                  mimeType = QLatin1String("image/gif");
+                  imgFormat = QLatin1String("GIF");
+                  break;
+                case MP4_ITMF_BT_JPEG:
+                default:
+                  mimeType = QLatin1String("image/jpeg");
+                  imgFormat = QLatin1String("JPG");
+                }
+                PictureFrame frame(
+                      getValueByteArray(key, element->value, element->valueSize),
+                      QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
+                      Frame::TE_ISO8859_1, imgFormat);
+                frame.setIndex(i);
+                frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
+                                                          QLatin1String(key)));
+                m_pictures.append(frame);
+              }
+            }
+          } else {
+            QByteArray ba;
+            if (item.dataList.size > 0 &&
+                item.dataList.elements[0].value &&
+                item.dataList.elements[0].valueSize > 0) {
+              ba = getValueByteArray(key, item.dataList.elements[0].value,
+                  item.dataList.elements[0].valueSize);
+            }
+            m_metadata[QString::fromLatin1(key)] = ba;
           }
-          m_metadata[QString::fromLatin1(key)] = ba;
         }
       }
       MP4ItmfItemListFree(list);
@@ -634,12 +673,6 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           } else if (name == QLatin1String("cpil")) {
             uint8_t cpl = str.toUShort();
             MP4TagsSetCompilation(tags, &cpl);
-          } else if (name == QLatin1String("covr")) {
-            MP4TagArtwork artwork;
-            artwork.data = const_cast<char*>(value.data());
-            artwork.size = value.size();
-            artwork.type = MP4_ART_UNDEFINED;
-            MP4TagsAddArtwork(tags, &artwork);
           } else if (name == QLatin1String("\251grp")) {
             MP4TagsSetGrouping(tags, str);
           } else if (name == QLatin1String("aART")) {
@@ -804,11 +837,6 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           } else if (name == QLatin1String("cpil")) {
             uint8_t cpl = str.toUShort();
             setOk = MP4SetMetadataCompilation(handle, cpl);
-          } else if (name == QLatin1String("covr")) {
-            setOk = MP4SetMetadataCoverArt(
-              handle,
-              reinterpret_cast<uint8_t*>(const_cast<char*>(value.data())),
-              value.size());
 // While this works on Debian Etch with libmp4v2-dev 1.5.0.1-0.3 from
 // www.debian-multimedia.org, linking on OpenSUSE 10.3 with
 // libmp4v2-devel-1.5.0.1-6 from packman.links2linux.de fails with
@@ -835,6 +863,33 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             qDebug("MP4SetMetadata %s failed", name.toLatin1().data());
             ok = false;
           }
+#endif
+        }
+      }
+
+      const auto frames = m_pictures;
+      for (const Frame& frame : frames) {
+        QByteArray ba;
+        if (PictureFrame::getData(frame, ba)) {
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+          MP4TagArtwork artwork;
+          artwork.data = ba.data();
+          artwork.size = static_cast<uint32_t>(ba.size());
+          artwork.type = MP4_ART_JPEG;
+          QString mimeType;
+          if (PictureFrame::getMimeType(frame, mimeType)) {
+            if (mimeType == QLatin1String("image/png")) {
+              artwork.type = MP4_ART_PNG;
+            } else if (mimeType == QLatin1String("image/bmp")) {
+              artwork.type = MP4_ART_BMP;
+            } else if (mimeType == QLatin1String("image/gif")) {
+              artwork.type = MP4_ART_GIF;
+            }
+          }
+          MP4TagsAddArtwork(tags, &artwork);
+#else
+          MP4SetMetadataCoverArt(handle, reinterpret_cast<uint8_t*>(ba.data()),
+                                 ba.size());
 #endif
         }
       }
@@ -889,6 +944,7 @@ void M4aFile::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   m_metadata.clear();
+  m_pictures.clear();
   markTagUnchanged(Frame::Tag_2);
   m_fileRead = false;
   notifyModelDataChanged(priorIsTagInformationRead);
@@ -907,6 +963,7 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 
   if (flt.areAllEnabled()) {
     m_metadata.clear();
+    m_pictures.clear();
     markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
   } else {
     bool changed = false;
@@ -919,6 +976,10 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       } else {
         ++it;
       }
+    }
+    if (flt.isEnabled(Frame::FT_Picture) && !m_pictures.isEmpty()) {
+      m_pictures.clear();
+      changed = true;
     }
     if (changed) {
       markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
@@ -1091,6 +1152,21 @@ bool M4aFile::getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) c
 bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Picture) {
+      int idx = frame.getIndex();
+      if (idx >= 0 && idx < m_pictures.size()) {
+        Frame newFrame(frame);
+        if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
+          m_pictures[idx].setValueChanged(false);
+        } else {
+          m_pictures[idx] = newFrame;
+          markTagChanged(tagNr, Frame::FT_Picture);
+        }
+        return true;
+      } else {
+        return false;
+      }
+    }
     QString name(frame.getInternalName());
     auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
@@ -1169,6 +1245,15 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     Frame::Type type = frame.getType();
+    if (type == Frame::FT_Picture) {
+      if (frame.getFieldList().empty()) {
+        PictureFrame::setFields(frame);
+      }
+      frame.setIndex(m_pictures.size());
+      m_pictures.append(frame);
+      markTagChanged(tagNr, Frame::FT_Picture);
+      return true;
+    }
     QString name;
     if (type != Frame::FT_Other) {
       name = getNameForType(type);
@@ -1177,14 +1262,7 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       }
     }
     name = frame.getInternalName();
-    if (type == Frame::FT_Picture) {
-      if (!PictureFrame::getData(frame, m_metadata[name])) {
-        PictureFrame::setFields(frame);
-        m_metadata[name] = QByteArray();
-      }
-    } else {
-      m_metadata[name] = frame.getValue().toUtf8();
-    }
+    m_metadata[name] = frame.getValue().toUtf8();
     markTagChanged(Frame::Tag_2, type);
     return true;
   }
@@ -1202,6 +1280,18 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
+    if (frame.getType() == Frame::FT_Picture) {
+      int idx = frame.getIndex();
+      if (idx >= 0 && idx < m_pictures.size()) {
+        m_pictures.removeAt(idx);
+        while (idx < m_pictures.size()) {
+          m_pictures[idx].setIndex(idx);
+          ++idx;
+        }
+        markTagChanged(tagNr, Frame::FT_Picture);
+        return true;
+      }
+    }
     QString name(frame.getInternalName());
     auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
@@ -1230,14 +1320,11 @@ void M4aFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
     for (auto it = m_metadata.constBegin(); it != m_metadata.constEnd(); ++it) {
       name = it.key();
       Frame::Type type = getTypeForName(name);
-      if (type != Frame::FT_Picture) {
-        value = QString::fromUtf8((*it).data(), (*it).size());
-        frames.insert(Frame(type, value, name, -1));
-      } else {
-        PictureFrame frame(*it);
-        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
-        frames.insert(frame);
-      }
+      value = QString::fromUtf8((*it).data(), (*it).size());
+      frames.insert(Frame(type, value, name, -1));
+    }
+    for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
+      frames.insert(*it);
     }
     frames.addMissingStandardFrames();
     return;

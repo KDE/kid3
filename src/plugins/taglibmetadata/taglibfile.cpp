@@ -972,8 +972,8 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = m_fileRef.tag();
         markTagUnchanged(Frame::Tag_2);
       }
-#if TAGLIB_VERSION >= 0x010b00
       if (!m_pictures.isRead()) {
+#if TAGLIB_VERSION >= 0x010b00
         if (auto xiphComment =
             dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
           const TagLib::List<TagLib::FLAC::Picture*> pics(xiphComment->pictureList());
@@ -985,9 +985,45 @@ void TagLibFile::readTags(bool force)
             m_pictures.append(frame);
           }
           m_pictures.setRead(true);
+        } else if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
+          const TagLib::MP4::CoverArtList pics(mp4Tag->item("covr").toCoverArtList());
+          int i = 0;
+          for (auto it = pics.begin(); it != pics.end(); ++it) {
+            const TagLib::MP4::CoverArt& coverArt = *it;
+            TagLib::ByteVector bv = coverArt.data();
+            QString mimeType, imgFormat;
+            switch (coverArt.format()) {
+            case TagLib::MP4::CoverArt::PNG:
+              mimeType = QLatin1String("image/png");
+              imgFormat = QLatin1String("PNG");
+              break;
+            case TagLib::MP4::CoverArt::BMP:
+              mimeType = QLatin1String("image/bmp");
+              imgFormat = QLatin1String("BMP");
+              break;
+            case TagLib::MP4::CoverArt::GIF:
+              mimeType = QLatin1String("image/gif");
+              imgFormat = QLatin1String("GIF");
+              break;
+            case TagLib::MP4::CoverArt::JPEG:
+            case TagLib::MP4::CoverArt::Unknown:
+            default:
+              mimeType = QLatin1String("image/jpeg");
+              imgFormat = QLatin1String("JPG");
+            }
+            PictureFrame frame(
+                  QByteArray(bv.data(), static_cast<int>(bv.size())),
+                  QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
+                  Frame::TE_ISO8859_1, imgFormat);
+            frame.setIndex(i++);
+            frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
+                                                      QLatin1String("covr")));
+            m_pictures.append(frame);
+          }
+          m_pictures.setRead(true);
         }
-      }
 #endif
+      }
     }
   }
 
@@ -1306,6 +1342,36 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           }
         }
 #endif
+        else if (auto mp4Tag =
+                 dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
+          if (!m_pictures.isEmpty()) {
+            TagLib::MP4::CoverArtList coverArtList;
+            const auto frames = m_pictures;
+            for (const Frame& frame : frames) {
+              QByteArray ba;
+              TagLib::MP4::CoverArt::Format format = TagLib::MP4::CoverArt::JPEG;
+              if (PictureFrame::getData(frame, ba)) {
+                QString mimeType;
+                if (PictureFrame::getMimeType(frame, mimeType)) {
+                  if (mimeType == QLatin1String("image/png")) {
+                    format = TagLib::MP4::CoverArt::PNG;
+                  } else if (mimeType == QLatin1String("image/bmp")) {
+                    format = TagLib::MP4::CoverArt::BMP;
+                  } else if (mimeType == QLatin1String("image/gif")) {
+                    format = TagLib::MP4::CoverArt::GIF;
+                  }
+                }
+              }
+              coverArtList.append(TagLib::MP4::CoverArt(
+                          format,
+                          TagLib::ByteVector(
+                            ba.data(), static_cast<unsigned int>(ba.size()))));
+            }
+            mp4Tag->setItem("covr", coverArtList);
+          } else {
+            mp4Tag->removeItem("covr");
+          }
+        }
         if (needsSave && m_fileRef.save()) {
           fileChanged = true;
           FOR_TAGLIB_TAGS(tagNr) {
@@ -4889,6 +4955,23 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         return true;
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
+        if (frame.getType() == Frame::FT_Picture) {
+          if (m_pictures.isRead()) {
+            int idx = frame.getIndex();
+            if (idx >= 0 && idx < m_pictures.size()) {
+              Frame newFrame(frame);
+              if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
+                m_pictures[idx].setValueChanged(false);
+              } else {
+                m_pictures[idx] = newFrame;
+                markTagChanged(tagNr, Frame::FT_Picture);
+              }
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
         setMp4Frame(frame, mp4Tag);
         return true;
 #endif
@@ -5493,9 +5576,16 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         return true;
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
-        if (frame.getType() == Frame::FT_Picture &&
-            frame.getFieldList().empty()) {
-          PictureFrame::setFields(frame);
+        if (frame.getType() == Frame::FT_Picture) {
+          if (frame.getFieldList().empty()) {
+            PictureFrame::setFields(frame);
+          }
+          if (m_pictures.isRead()) {
+            frame.setIndex(m_pictures.size());
+            m_pictures.append(frame);
+            markTagChanged(tagNr, Frame::FT_Picture);
+            return true;
+          }
         }
         TagLib::String name;
         TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
@@ -5657,6 +5747,20 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         return true;
 #ifdef TAGLIB_WITH_MP4
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
+        if (frame.getType() == Frame::FT_Picture) {
+          if (m_pictures.isRead()) {
+            int idx = frame.getIndex();
+            if (idx >= 0 && idx < m_pictures.size()) {
+              m_pictures.removeAt(idx);
+              while (idx < m_pictures.size()) {
+                m_pictures[idx].setIndex(idx);
+                ++idx;
+              }
+              markTagChanged(tagNr, Frame::FT_Picture);
+              return true;
+            }
+          }
+        }
         TagLib::String name = toTString(frame.getInternalName());
         prefixMp4FreeFormName(name, mp4Tag);
         mp4Tag->itemListMap().erase(name);
@@ -5839,6 +5943,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #ifdef TAGLIB_WITH_MP4
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
           mp4Tag->itemListMap().clear();
+          m_pictures.clear();
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
 #endif
 #ifdef TAGLIB_WITH_ASF
@@ -5919,6 +6024,9 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             } else {
               ++it;
             }
+          }
+          if (flt.isEnabled(Frame::FT_Picture)) {
+            m_pictures.clear();
           }
           markTagChanged(tagNr, Frame::FT_UnknownFrame);
 #endif
@@ -6078,7 +6186,6 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
           Mp4ValueType valueType;
           getMp4TypeForName(name, type, valueType);
           QString value;
-          bool frameAlreadyInserted = false;
           switch (valueType) {
             case MVT_String:
             {
@@ -6103,26 +6210,8 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               break;
             }
             case MVT_CoverArt:
-            {
-              TagLib::MP4::CoverArtList coverArtList = (*it).second.toCoverArtList();
-              if (coverArtList.size() > 0) {
-                const TagLib::MP4::CoverArt& coverArt = coverArtList.front();
-                TagLib::ByteVector bv = coverArt.data();
-                Frame frame(type, QLatin1String(""), toQString(name), i++);
-                QByteArray ba;
-                ba = QByteArray(bv.data(), bv.size());
-                PictureFrame::setFields(
-                  frame, Frame::TE_ISO8859_1,
-                  coverArt.format() == TagLib::MP4::CoverArt::PNG
-                      ? QLatin1String("PNG") : QLatin1String("JPG"),
-                  coverArt.format() == TagLib::MP4::CoverArt::PNG ?
-                  QLatin1String("image/png") : QLatin1String("image/jpeg"),
-                  PictureFrame::PT_CoverFront, QLatin1String(""), ba);
-                frames.insert(frame);
-                frameAlreadyInserted = true;
-              }
+              // handled by m_pictures
               break;
-            }
             case MVT_Byte:
               value.setNum((*it).second.toByte());
               break;
@@ -6137,9 +6226,15 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               // binary data and album art are not handled by TagLib
               value = QLatin1String("");
           }
-          if (!frameAlreadyInserted)
+          if (type != Frame::FT_Picture) {
             frames.insert(
               Frame(type, value, toQString(name), i++));
+          }
+        }
+        if (m_pictures.isRead()) {
+          for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
+            frames.insert(*it);
+          }
         }
 #endif
 #ifdef TAGLIB_WITH_ASF

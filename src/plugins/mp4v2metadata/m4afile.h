@@ -248,4 +248,5 @@ private:
 
   /** Metadata. */
   MetadataMap m_metadata;
+  QList<Frame> m_pictures;
 };
