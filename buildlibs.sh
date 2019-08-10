@@ -1099,6 +1099,69 @@ index 9347ab86..155d0a9d 100644
    const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);
 EOF
 
+test -f taglib_oggbitrate.patch ||
+  cat >taglib_oggbitrate.patch <<"EOF"
+diff --git a/taglib/ogg/opus/opusproperties.cpp b/taglib/ogg/opus/opusproperties.cpp
+index 537ba166..2c099c18 100644
+--- a/taglib/ogg/opus/opusproperties.cpp
++++ b/taglib/ogg/opus/opusproperties.cpp
+@@ -163,8 +163,9 @@ void Opus::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / 48000.0;
++        const long fileLengthWithoutComment = file->length() - file->packet(1).size();
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutComment * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/taglib/ogg/speex/speexproperties.cpp b/taglib/ogg/speex/speexproperties.cpp
+index fbcc5a4b..8c755a8e 100644
+--- a/taglib/ogg/speex/speexproperties.cpp
++++ b/taglib/ogg/speex/speexproperties.cpp
+@@ -182,8 +182,9 @@ void Speex::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
++        const long fileLengthWithoutComment = file->length() - file->packet(1).size();
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutComment * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/taglib/ogg/vorbis/vorbisproperties.cpp b/taglib/ogg/vorbis/vorbisproperties.cpp
+index 981400f0..4f39bdf2 100644
+--- a/taglib/ogg/vorbis/vorbisproperties.cpp
++++ b/taglib/ogg/vorbis/vorbisproperties.cpp
+@@ -186,9 +186,10 @@ void Vorbis::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
++        const long fileLengthWithoutComment = file->length() - file->packet(1).size();
+ 
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutComment * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/tests/test_opus.cpp b/tests/test_opus.cpp
+index 9d14df23..cdf77eae 100644
+--- a/tests/test_opus.cpp
++++ b/tests/test_opus.cpp
+@@ -53,7 +53,7 @@ public:
+     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->length());
+     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->lengthInSeconds());
+     CPPUNIT_ASSERT_EQUAL(7737, f.audioProperties()->lengthInMilliseconds());
+-    CPPUNIT_ASSERT_EQUAL(37, f.audioProperties()->bitrate());
++    CPPUNIT_ASSERT_EQUAL(36, f.audioProperties()->bitrate());
+     CPPUNIT_ASSERT_EQUAL(1, f.audioProperties()->channels());
+     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->sampleRate());
+     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->inputSampleRate());
+EOF
+
 test -f mp4v2_win32.patch ||
   cat >mp4v2_win32.patch <<"EOF"
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
@@ -3027,6 +3090,7 @@ if ! test -d taglib-${taglib_version}; then
     patch -p1 <../source/taglib_ogg_packet_loss.patch
     patch -p1 <../source/taglib_aiff_padding.patch
     patch -p1 <../source/taglib_grp1.patch
+    patch -p1 <../source/taglib_oggbitrate.patch
   fi
   cd ..
 fi
