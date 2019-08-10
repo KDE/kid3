@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2019-03-18</date>
-<releaseinfo>3.7.1</releaseinfo>
+<date>2019-08-24</date>
+<releaseinfo>3.8.0</releaseinfo>
 
 <abstract>
 <para>
@@ -1565,6 +1565,8 @@ die Namen aller Tag Frames verwendet werden.
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
 <listitem><para>%p %{filepath} Pfadname</para></listitem>
+<listitem><para>%{modificationdate} Änderungsdatum</para></listitem>
+<listitem><para>%{creationdate} Erstellungsdatum</para></listitem>
 <listitem><para>%u %{url} URL</para></listitem>
 <listitem><para>%{dirname} Verzeichnisname</para></listitem>
 <listitem><para>%d %{duration} Dauer in Minuten:Sekunden</para></listitem>

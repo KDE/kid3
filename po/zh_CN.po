@@ -4,9 +4,9 @@
 # shlinux <lishaohui.qd@163.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.7.1\n"
+"Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-03-09 15:48+0100\n"
+"POT-Creation-Date: 2019-08-10 16:39+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"

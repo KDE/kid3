@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2019-03-18</date>
-<releaseinfo>3.7.1</releaseinfo>
+<date>2019-08-24</date>
+<releaseinfo>3.8.0</releaseinfo>
 
 <abstract>
 <para>
@@ -1469,6 +1469,8 @@ codes listed below but all tag frame names can be used.
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Path</para></listitem>
+<listitem><para>%{modificationdate} Modification date</para></listitem>
+<listitem><para>%{creationdate} Creation date</para></listitem>
 <listitem><para>%u %{url} URL</para></listitem>
 <listitem><para>%{dirname} Directory name</para></listitem>
 <listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
