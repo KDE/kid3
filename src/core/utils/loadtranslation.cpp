@@ -76,14 +76,13 @@ void Utils::loadTranslation(const QString& lang)
   for (const QString& localeName : localeNames) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
-#if defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID
         (!translationsDir.isNull() &&
          qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                     translationsDir, searchDelimiters)) ||
         qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                    QLatin1String("."), searchDelimiters)
-#else
-        qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
+#if !(defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID)
+        || qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                    QLibraryInfo::location(QLibraryInfo::TranslationsPath),
                    searchDelimiters)
 #endif
