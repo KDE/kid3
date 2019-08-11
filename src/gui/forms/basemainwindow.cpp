@@ -45,6 +45,7 @@
 #include "frametablemodel.h"
 #include "frametable.h"
 #include "importdialog.h"
+#include "tagimportdialog.h"
 #include "batchimportdialog.h"
 #include "browsecoverartdialog.h"
 #include "exportdialog.h"
@@ -677,6 +678,25 @@ void BaseMainWindowImpl::slotImport()
       m_importDialog->showWithSubDialog(action->data().toInt());
     }
   }
+}
+
+/**
+ * Tag import.
+ */
+void BaseMainWindowImpl::slotTagImport()
+{
+  if (!m_tagImportDialog) {
+    m_tagImportDialog.reset(new TagImportDialog(m_w, nullptr));
+    connect(m_tagImportDialog.data(), &TagImportDialog::trackDataUpdated,
+            this, [this]() {
+      m_app->importFromTagsToSelection(
+            m_tagImportDialog->getDestination(),
+            m_tagImportDialog->getSourceFormat(),
+            m_tagImportDialog->getExtractionFormat());
+    });
+  }
+  m_tagImportDialog->clear();
+  m_tagImportDialog->show();
 }
 
 /**

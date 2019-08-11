@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -316,6 +316,12 @@ msgstr "Importeren van %1..."
 
 msgid "Import from %1"
 msgstr "Importeer van %1"
+
+msgid "Import from Tags..."
+msgstr "Importeer van Tags..."
+
+msgid "Import from Tags"
+msgstr "Importeer van Tags"
 
 msgid "Automatic I&mport..."
 msgstr "Automatisch i&mporteren..."
@@ -2149,9 +2155,6 @@ msgstr "Geen resultaat"
 
 msgid "No result selected"
 msgstr "Geen resultaat geselecteerd"
-
-msgid "Import from Tags"
-msgstr "Importeer van Tags"
 
 msgid "Format:"
 msgstr "Structuur:"

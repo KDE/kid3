@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -315,6 +315,12 @@ msgstr "从 %1 导入..."
 
 msgid "Import from %1"
 msgstr "从 %1 导入"
+
+msgid "Import from Tags..."
+msgstr "从标签..."
+
+msgid "Import from Tags"
+msgstr "从标签"
 
 msgid "Automatic I&mport..."
 msgstr "自动导入(&M)..."
@@ -2148,9 +2154,6 @@ msgstr "没有结果"
 
 msgid "No result selected"
 msgstr "没有选择结果"
-
-msgid "Import from Tags"
-msgstr "从标签"
 
 msgid "Format:"
 msgstr "格式："

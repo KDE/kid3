@@ -41,6 +41,7 @@ class Kid3Form;
 class Kid3Application;
 class TaggedFile;
 class ImportDialog;
+class TagImportDialog;
 class BatchImportDialog;
 class ExportDialog;
 class FindReplaceDialog;
@@ -251,6 +252,11 @@ public slots:
    * Import.
    */
   void slotImport();
+
+  /**
+   * Tag import.
+   */
+  void slotTagImport();
 
   /**
    * Batch import.
@@ -550,6 +556,8 @@ private:
   Kid3Application* m_app;
   /** Import dialog */
   QScopedPointer<ImportDialog> m_importDialog;
+  /** Import from Tags dialog */
+  QScopedPointer<TagImportDialog> m_tagImportDialog;
   /** Batch import dialog */
   QScopedPointer<BatchImportDialog> m_batchImportDialog;
   /** Browse cover art dialog */

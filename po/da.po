@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -311,6 +311,12 @@ msgstr "Importér fra %1..."
 
 msgid "Import from %1"
 msgstr "Importér fra %1"
+
+msgid "Import from Tags..."
+msgstr "Importér fra Tags..."
+
+msgid "Import from Tags"
+msgstr "Importér fra Tags"
 
 msgid "Automatic I&mport..."
 msgstr "Automatisk i&mport..."
@@ -2144,9 +2150,6 @@ msgstr "Intet resultat"
 
 msgid "No result selected"
 msgstr "Resultat er ikke valgt"
-
-msgid "Import from Tags"
-msgstr "Importér fra Tags"
 
 msgid "Format:"
 msgstr "Format:"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -318,6 +318,12 @@ msgstr "Импорт из %1..."
 
 msgid "Import from %1"
 msgstr "Импорт из %1"
+
+msgid "Import from Tags..."
+msgstr "Импорт из тегов..."
+
+msgid "Import from Tags"
+msgstr "Импорт из тегов"
 
 msgid "Automatic I&mport..."
 msgstr "Автоматический и&мпорт..."
@@ -2155,9 +2161,6 @@ msgstr "Ничего не найдено"
 
 msgid "No result selected"
 msgstr "Результат поиска не выбран"
-
-msgid "Import from Tags"
-msgstr "Импорт из тегов"
 
 msgid "Format:"
 msgstr "Формат:"

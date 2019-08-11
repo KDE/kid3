@@ -6,6 +6,7 @@ Sat Aug 24 15:57:41 CEST 2019  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + kid3-cli: Support JSON output.
 	  + Format codes %{modificationdate} and %{creationdate}.
 	  + Support ID3v2 GRP1 frame introduced with iTunes 12.5.4.
+	  + Import from Tags function which operates on selected files.
 	  + Explicit frame names can be used by prepending a '!' character.
 
 	* Improved:

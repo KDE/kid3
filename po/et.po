@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -317,6 +317,12 @@ msgstr "Impordi %1-ist..."
 
 msgid "Import from %1"
 msgstr "Impordib %1-ist"
+
+msgid "Import from Tags..."
+msgstr "Import siltidest..."
+
+msgid "Import from Tags"
+msgstr "Import siltidest"
 
 msgid "Automatic I&mport..."
 msgstr "Impordi au&tomaatselt..."
@@ -2148,9 +2154,6 @@ msgstr "Tulemuseta"
 
 msgid "No result selected"
 msgstr "Tulemust pole valitud"
-
-msgid "Import from Tags"
-msgstr "Import siltidest"
 
 msgid "Format:"
 msgstr "Vorming:"

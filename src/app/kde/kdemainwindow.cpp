@@ -239,6 +239,11 @@ void KdeMainWindow::initActions()
     ++importerIdx;
   }
 
+  action = new QAction(tr("Import from Tags..."), this);
+  action->setStatusTip(tr("Import from Tags"));
+  collection->addAction(QLatin1String("import_tags"), action);
+  connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotTagImport);
+
   action = new QAction(tr("Automatic I&mport..."), this);
   action->setStatusTip(tr("Automatic import"));
   collection->addAction(QLatin1String("batch_import"), action);

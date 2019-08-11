@@ -33,6 +33,7 @@
 class ImportTrackDataVector;
 class ImportParser;
 class TrackDataModel;
+class TrackData;
 class FrameCollection;
 
 /**
@@ -75,6 +76,16 @@ public:
     const QString& sourceFormat,
     const QString& extractionFormat,
     ImportTrackDataVector& trackDataVector);
+
+  /**
+   * Import text from tags to other tags.
+   *
+   * @param sourceFormat format to create source text
+   * @param parser import parser which is initialized with extraction format
+   * @param trackData track data to process
+   */
+  static void importFromTags(
+      const QString& sourceFormat, ImportParser& parser, TrackData& trackData);
 
 private:
   Q_DISABLE_COPY(TextImporter)

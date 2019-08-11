@@ -27,6 +27,8 @@
 #include "tagimportdialog.h"
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QFormLayout>
+#include <QComboBox>
 #include "textimporter.h"
 #include "importparser.h"
 #include "trackdatamodel.h"
@@ -38,7 +40,8 @@
  * Constructor.
  *
  * @param parent  parent widget
- * @param trackDataModel track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values,
+ *        nullptr if dialog is used independent from import dialog
  */
 TagImportDialog::TagImportDialog(QWidget* parent,
                                  TrackDataModel* trackDataModel)
@@ -56,6 +59,20 @@ TagImportDialog::TagImportDialog(QWidget* parent,
          ImportParser::getFormatToolTip()},
         this);
   vboxLayout->addWidget(m_formatListEdit);
+
+  if (!trackDataModel) {
+    auto destLayout = new QFormLayout;
+    destLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+    m_destComboBox = new QComboBox;
+    const auto tagVersions = Frame::availableTagVersions();
+    for (auto it = tagVersions.constBegin(); it != tagVersions.constEnd(); ++it) {
+      m_destComboBox->addItem(it->second, it->first);
+    }
+    destLayout->addRow(tr("D&estination:"), m_destComboBox);
+    vboxLayout->addLayout(destLayout);
+  } else {
+    m_destComboBox = nullptr;
+  }
 
   auto buttonLayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(tr("&Help"), this);
@@ -84,6 +101,44 @@ TagImportDialog::TagImportDialog(QWidget* parent,
 void TagImportDialog::clear()
 {
   setFormatFromConfig();
+
+  if (m_destComboBox) {
+    const ImportConfig& importCfg = ImportConfig::instance();
+    Frame::TagVersion importDest = importCfg.importDest();
+    int index = m_destComboBox->findData(importDest);
+    m_destComboBox->setCurrentIndex(index);
+  }
+}
+
+/**
+ * Get import destination.
+ * Is only available if dialog is not opened from import dialog.
+ * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
+ */
+Frame::TagVersion TagImportDialog::getDestination() const
+{
+  return m_destComboBox
+      ? Frame::tagVersionCast(
+          m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt())
+      : ImportConfig::instance().importDest();
+}
+
+/**
+ * Get selected source format.
+ * @return source format.
+ */
+QString TagImportDialog::getSourceFormat() const
+{
+  return m_formatListEdit->getCurrentFormat(1);
+}
+
+/**
+ * Get selected extraction format.
+ * @return extraction format.
+ */
+QString TagImportDialog::getExtractionFormat() const
+{
+  return m_formatListEdit->getCurrentFormat(2);
 }
 
 /**
@@ -91,11 +146,13 @@ void TagImportDialog::clear()
  */
 void TagImportDialog::apply()
 {
-  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  TextImporter::importFromTags(m_formatListEdit->getCurrentFormat(1),
-                               m_formatListEdit->getCurrentFormat(2),
-                               trackDataVector);
-  m_trackDataModel->setTrackData(trackDataVector);
+  if (m_trackDataModel) {
+    ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+    TextImporter::importFromTags(m_formatListEdit->getCurrentFormat(1),
+                                 m_formatListEdit->getCurrentFormat(2),
+                                 trackDataVector);
+    m_trackDataModel->setTrackData(trackDataVector);
+  }
   emit trackDataUpdated();
 }
 
@@ -123,6 +180,11 @@ void TagImportDialog::saveConfig()
   importCfg.setImportTagsNames(formats.at(0));
   importCfg.setImportTagsSources(formats.at(1));
   importCfg.setImportTagsExtractions(formats.at(2));
+
+  if (m_destComboBox) {
+    importCfg.setImportDest(Frame::tagVersionCast(
+      m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
+  }
 
   setFormatFromConfig();
 }

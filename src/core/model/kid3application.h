@@ -451,12 +451,22 @@ public:
    * @param source format to get source text from tags
    * @param extraction regular expression with frame names and captures to
    * extract from source text
-   *
-   * @return true if ok.
    */
   Q_INVOKABLE void importFromTags(Frame::TagVersion tagMask,
                                   const QString& source,
                                   const QString& extraction);
+
+  /**
+   * Import from tags on selected files.
+   *
+   * @param tagMask tag mask
+   * @param source format to get source text from tags
+   * @param extraction regular expression with frame names and captures to
+   * extract from source text
+   */
+  Q_INVOKABLE void importFromTagsToSelection(Frame::TagVersion tagMask,
+                                             const QString& source,
+                                             const QString& extraction);
 
   /**
    * Export.

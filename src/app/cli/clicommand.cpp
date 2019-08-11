@@ -473,11 +473,15 @@ ImportCommand::ImportCommand(Kid3Cli* processor)
 void ImportCommand::startCommand()
 {
   int numArgs = args().size();
-  if (numArgs > 3 && args().at(1) == QLatin1String("tags")) {
+  if (numArgs > 3 && args().at(1).startsWith(QLatin1String("tags"))) {
     const QString& source = args().at(2);
     const QString& extraction = args().at(3);
     Frame::TagVersion tagMask = getTagMaskParameter(4);
-    cli()->app()->importFromTags(tagMask, source, extraction);
+    if (args().at(1).contains(QLatin1String("sel"))) {
+      cli()->app()->importFromTagsToSelection(tagMask, source, extraction);
+    } else {
+      cli()->app()->importFromTags(tagMask, source, extraction);
+    }
   } else if (numArgs > 2) {
     const QString& path = args().at(1);
     const QString& fmtName = args().at(2);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2016-12-23 12:48+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -316,6 +316,12 @@ msgstr "Zavést z %1..."
 
 msgid "Import from %1"
 msgstr "Zavést z %1"
+
+msgid "Import from Tags..."
+msgstr "Zavést ze značek..."
+
+msgid "Import from Tags"
+msgstr "Zavést ze značek"
 
 msgid "Automatic I&mport..."
 msgstr "Automaticky &zavést..."
@@ -2151,9 +2157,6 @@ msgstr "Žádný výsledek"
 
 msgid "No result selected"
 msgstr "Nevybrán žádný výsledek"
-
-msgid "Import from Tags"
-msgstr "Zavést ze značek"
 
 msgid "Format:"
 msgstr "Formát:"

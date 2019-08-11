@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -316,6 +316,12 @@ msgstr "%1'den Al..."
 
 msgid "Import from %1"
 msgstr "%1'den Al"
+
+msgid "Import from Tags..."
+msgstr "Tag'den Al..."
+
+msgid "Import from Tags"
+msgstr "Tag'den Al"
 
 msgid "Automatic I&mport..."
 msgstr "Oto&matik al..."
@@ -2151,9 +2157,6 @@ msgstr "Sonuç yok"
 
 msgid "No result selected"
 msgstr "Hiç sonuç seçilmedi"
-
-msgid "Import from Tags"
-msgstr "Tag'den Al"
 
 msgid "Format:"
 msgstr "Biçim:"

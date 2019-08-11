@@ -1267,6 +1267,13 @@ the tags. Format codes are used before the capturing parentheses to specify
 the tag frame where the captured text shall be stored. It works in the same
 way as for the <link linkend="import-text">import from file/clipboard</link>.
 </para>
+<para>
+<guimenuitem>Import from Tags...</guimenuitem> is also directly available from
+the <guimenu>File</guimenu> menu. The difference between these two functions
+is that the import dialog subdialog operates on all files of the current
+directory whereas the menu function operates on the selected files (which can
+be in different directories).
+</para>
 </listitem>
 </varlistentry>
 
@@ -1338,6 +1345,15 @@ dialog.</para></listitem>
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
 dialog.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from Tags...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Like <link linkend="import-tags">From Tags</link>, but the
+import is applied to the selected files.</para></listitem>
 </varlistentry>
 
 <varlistentry id="batch-import">
@@ -2878,6 +2894,8 @@ unquoted"</userinput>, see <link linkend="import-text">Import</link>).
 <replaceable>FORMAT-NAME</replaceable> parameters
 <replaceable>SOURCE</replaceable> and <replaceable>EXTRACTION</replaceable>
 are required, see <link linkend="import-tags">Import from Tags</link>.
+To apply the import from tags on the selected files, use
+<userinput>tagsel</userinput> instead of <userinput>tags</userinput>.
 </para>
 </sect2>
 

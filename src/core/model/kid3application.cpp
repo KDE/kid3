@@ -67,6 +67,7 @@
 #include "imagedataprovider.h"
 #include "pictureframe.h"
 #include "textimporter.h"
+#include "importparser.h"
 #include "textexporter.h"
 #include "serverimporter.h"
 #include "dirrenamer.h"
@@ -1238,6 +1239,34 @@ void Kid3Application::importFromTags(Frame::TagVersion tagMask,
   TextImporter::importFromTags(source, extraction, trackDataVector);
   getTrackDataModel()->setTrackData(trackDataVector);
   trackDataModelToFiles(tagMask);
+}
+
+/**
+ * Import from tags on selected files.
+ *
+ * @param tagMask tag mask
+ * @param source format to get source text from tags
+ * @param extraction regular expression with frame names and captures to
+ * extract from source text
+ */
+void Kid3Application::importFromTagsToSelection(Frame::TagVersion tagMask,
+                                                const QString& source,
+                                                const QString& extraction)
+{
+  emit fileSelectionUpdateRequested();
+  SelectedTaggedFileIterator it(getRootIndex(),
+                                getFileSelectionModel(),
+                                true);
+  ImportParser parser;
+  parser.setFormat(extraction);
+  while (it.hasNext()) {
+    TaggedFile* taggedFile = it.next();
+    taggedFile = FileProxyModel::readTagsFromTaggedFile(taggedFile);
+    ImportTrackData trackData(*taggedFile, tagMask);
+    TextImporter::importFromTags(source, parser, trackData);
+    taggedFile->setFrames(Frame::tagNumberFromMask(tagMask), trackData);
+  }
+  emit selectedFilesUpdated();
 }
 
 /**

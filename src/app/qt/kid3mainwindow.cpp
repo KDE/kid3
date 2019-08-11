@@ -248,6 +248,15 @@ void Kid3MainWindow::initActions()
     ++importerIdx;
   }
 
+  auto fileTagImport = new QAction(this);
+  fileTagImport->setStatusTip(tr("Import from Tags"));
+  fileTagImport->setText(tr("Import from Tags..."));
+  fileTagImport->setObjectName(QLatin1String("import_tags"));
+  m_shortcutsModel->registerAction(fileTagImport, menuTitle);
+  connect(fileTagImport, &QAction::triggered,
+    impl(), &BaseMainWindowImpl::slotTagImport);
+  fileMenu->addAction(fileTagImport);
+
   auto fileBatchImport = new QAction(this);
   fileBatchImport->setStatusTip(tr("Automatic import"));
   fileBatchImport->setText(tr("Automatic I&mport..."));

@@ -207,3 +207,18 @@ void TextImporter::importFromTags(
     }
   }
 }
+
+/**
+ * Import text from tags to other tags.
+ *
+ * @param sourceFormat format to create source text
+ * @param parser import parser which is initialized with extraction format
+ * @param trackData track data to process
+ */
+void TextImporter::importFromTags(
+    const QString& sourceFormat, ImportParser& parser, TrackData& trackData)
+{
+  QString text(trackData.formatString(sourceFormat));
+  int pos = 0;
+  parser.getNextTags(text, trackData, pos);
+}

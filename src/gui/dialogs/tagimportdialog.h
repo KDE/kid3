@@ -27,7 +27,9 @@
 #pragma once
 
 #include <QDialog>
+#include "frame.h"
 
+class QComboBox;
 class FormatListEdit;
 class TrackDataModel;
 
@@ -42,7 +44,8 @@ public:
    * Constructor.
    *
    * @param parent  parent widget
-   * @param trackDataModel track data to be filled with imported values
+   * @param trackDataModel track data to be filled with imported values,
+   *        nullptr if dialog is used independent from import dialog
    */
   explicit TagImportDialog(QWidget* parent,
                            TrackDataModel* trackDataModel);
@@ -56,6 +59,25 @@ public:
    * Clear dialog data.
    */
   void clear();
+
+  /**
+   * Get import destination.
+   * Is only available if dialog is not opened from import dialog.
+   * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
+   */
+  Frame::TagVersion getDestination() const;
+
+  /**
+   * Get selected source format.
+   * @return source format.
+   */
+  QString getSourceFormat() const;
+
+  /**
+   * Get selected extraction format.
+   * @return extraction format.
+   */
+  QString getExtractionFormat() const;
 
 private slots:
   /**
@@ -87,4 +109,5 @@ private:
 
   FormatListEdit* m_formatListEdit;
   TrackDataModel* m_trackDataModel;
+  QComboBox* m_destComboBox;
 };

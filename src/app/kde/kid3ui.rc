@@ -17,6 +17,7 @@
     <Action name="import_tracktype"/>
     <Action name="import_musicbrainzrelease"/>
     <Action name="import_musicbrainzfingerprint"/>
+    <Action name="import_tags"/>
     <Action name="batch_import"/>
     <Action name="browse_cover_art"/>
     <Separator/>

@@ -1355,6 +1355,14 @@ funktioniert also gleich wie bei den Formaten
 zum <link linkend="import-text">Import von Datei/Zwischenablage
 </link>.
 </para>
+<para>
+<guimenuitem>Import von Tags...</guimenuitem> ist auch direkt im Menü
+<guimenu>Datei</guimenu> verfügbar. Der Unterschied zwischen diesen zwei
+Funktionen ist, dass der Unterdialog dea Import-Dialogs auf allen Dateien des
+aktuellen Verzeichnisses arbeitet, während die Menü-Funktion auf die
+selektierten Dateien angewendet wird (welche in verschiedenen Verzeichnissen
+liegen können).
+</para>
 </listitem>
 </varlistentry>
 
@@ -1423,6 +1431,15 @@ den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
 den <guibutton>Von MusicBrainz Fingerprint</guibutton> Dialog.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Importieren von Tags...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Wie <link linkend="import-tags">Import von Tags</link>, jedoch
+wird der Import auf die selektierten Dateien angewendet.</para></listitem>
 </varlistentry>
 
 <varlistentry id="batch-import">
@@ -3056,6 +3073,9 @@ angegeben wird, so wird aus anderen Tags importiert. Anstelle von
 <replaceable>QUELLE</replaceable> und <replaceable>EXTRAKTION</replaceable>
 als Parameter verlangt, siehe <link linkend="import-tags">Importieren von
 Tags</link>.
+Um das Importieren aus Tags auf die selektierten Dateien anzuwenden, kann
+<userinput>tagsel</userinput> statt <userinput>tags</userinput> verwendet
+werden.
 </para>
 </sect2>
 

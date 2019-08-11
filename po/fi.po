@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-10 16:39+0200\n"
+"POT-Creation-Date: 2019-08-11 19:31+0200\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -317,6 +317,12 @@ msgstr "Tuo %1ista..."
 
 msgid "Import from %1"
 msgstr "Tuo %1ista"
+
+msgid "Import from Tags..."
+msgstr "Tuo tunnisteesta..."
+
+msgid "Import from Tags"
+msgstr "Tuo tunnisteesta"
 
 msgid "Automatic I&mport..."
 msgstr "Tuo auto&maattisesti..."
@@ -2148,9 +2154,6 @@ msgstr "Ei tuloksia"
 
 msgid "No result selected"
 msgstr "Ei valittuja tuloksia"
-
-msgid "Import from Tags"
-msgstr "Tuo tunnisteesta"
 
 msgid "Format:"
 msgstr "Muoto:"
