@@ -445,6 +445,15 @@ endif()
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
+if(APPLE AND CMAKE_STRIP)
+  # Do something against these error messages starting with
+  # strip: symbols referenced by indirect symbol table entries that can't be stripped in
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/strip_silent.sh.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/strip_silent.sh
+                 @ONLY)
+  set(CMAKE_STRIP "${CMAKE_CURRENT_BINARY_DIR}/strip_silent.sh")
+endif()
+
 add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(po)
