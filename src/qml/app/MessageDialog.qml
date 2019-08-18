@@ -32,7 +32,7 @@ Dialog {
   signal no
   signal cancel
 
-  width: 400
+  width: 320
   height: 300
   modal: true
   standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
