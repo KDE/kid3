@@ -3266,7 +3266,7 @@ if test "$compiler" = "cross-android"; then
     cd ..
   fi
 
-  elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
+elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
 
   if ! test -d openssl-${openssl_version}; then
     echo "### Extracting openssl"
@@ -3294,7 +3294,7 @@ if test "$compiler" = "cross-android"; then
   _android_sdk_root=${ANDROID_SDK_ROOT:-/opt/android/sdk}
   _android_ndk_root=${ANDROID_NDK_ROOT:-$_android_sdk_root/ndk-bundle}
   _android_platform=${ANDROID_PLATFORM:-23}
-  _android_ccache=$(which ccache)
+  _android_ccache=$(which ccache || true)
   _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
   _android_toolchain_cmake=$_android_ndk_root/build/cmake/android.toolchain.cmake
   test -f $_android_toolchain_cmake ||

@@ -22,6 +22,8 @@ add_custom_target(android-package
           ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java)
 if(CMAKE_BUILD_TYPE STREQUAL "Release" AND ANDROID_KEYSTORE_PATH AND ANDROID_KEYSTORE_ALIAS)
   set(_keystorePathAlias ${ANDROID_KEYSTORE_PATH} ${ANDROID_KEYSTORE_ALIAS})
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+  set(_keystorePathAlias "UNSIGNED_RELEASE")
 else()
   set(_keystorePathAlias)
 endif()
