@@ -3787,6 +3787,40 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </variablelist>
 </sect2>
 
+<sect2 id="dbus-importFromTagsToSelection">
+<title>Tags aus anderen Tags importieren in ausgewählten Dateien</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>array <function>importFromTagsToSelection</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter></paramdef>
+  <paramdef>string <parameter>source</parameter></paramdef>
+  <paramdef>string <parameter>extraction</parameter></paramdef>
+</funcprototype>
+</funcsynopsis>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>tagMask</replaceable></term>
+    <listitem><para>Tag Bit (1 für Tag 1, 2 für Tag 2)</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>source</replaceable></term>
+    <listitem><para>Format-Spezifikation, um Ausgangstext aus den vorhandenen
+    Tags zu erhalten</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><replaceable>extraction</replaceable></term>
+    <listitem><para>Regulärer Ausdruck mit Elementnamen und Klammergruppen, um
+    Treffer aus dem Ausgangstext zu extrahieren</para></listitem>
+  </varlistentry>
+</variablelist>
+<variablelist>
+  <varlistentry>
+    <term><replaceable>returnValues</replaceable></term>
+    <listitem><para>Extrahierter Wert für "%{__return}(.+)"</para></listitem>
+  </varlistentry>
+</variablelist>
+</sect2>
+
 <sect2 id="dbus-downloadAlbumArt">
 <title>Cover-Bild herunterladen</title>
 <funcsynopsis>
@@ -3852,7 +3886,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <title>Dateien einer Stückliste abfragen</title>
 <funcsynopsis>
 <funcprototype>
-  <funcdef>boolean <function>getPlaylistItems</function></funcdef>
+  <funcdef>array <function>getPlaylistItems</function></funcdef>
   <paramdef>string <parameter>path</parameter></paramdef>
 </funcprototype>
 </funcsynopsis>

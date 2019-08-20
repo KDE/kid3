@@ -115,6 +115,20 @@ public slots:
                       const QString& source, const QString& extraction);
 
   /**
+   * Import from tags on selected files.
+   *
+   * @param tagMask tag mask
+   * @param source format to get source text from tags
+   * @param extraction regular expression with frame names and captures to
+   * extract from source text
+   *
+   * @return extracted values for "%{__return}(.+)", empty if not used.
+   */
+  QStringList importFromTagsToSelection(int tagMask,
+                                        const QString& source,
+                                        const QString& extraction);
+
+  /**
    * Start an automatic batch import.
    *
    * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
