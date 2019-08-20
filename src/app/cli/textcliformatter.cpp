@@ -206,6 +206,17 @@ void TextCliFormatter::writeResult(const QString& str)
   io()->writeLine(str);
 }
 
+/**
+ * Write result message.
+ * @param strs result as string list
+ */
+void TextCliFormatter::writeResult(const QStringList& strs)
+{
+  for (const QString& str : strs) {
+    io()->writeLine(str);
+  }
+}
+
 void TextCliFormatter::writeResult(const QVariantMap& map)
 {
   for (auto it = map.constBegin(); it != map.constEnd(); ++it) {

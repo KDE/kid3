@@ -189,7 +189,9 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
     for (auto it = m_codePos.constBegin(); it != m_codePos.constEnd(); ++it) {
       const QString& name = it.key();
       QString str = match.captured(*it);
-      if (!str.isEmpty() && !name.startsWith(QLatin1String("__"))) {
+      if (name == QLatin1String("__return")) {
+        m_returnValues.append(str);
+      } else if (!str.isEmpty() && !name.startsWith(QLatin1String("__"))) {
         frames.setValue(Frame::ExtendedType(name), str);
       }
     }

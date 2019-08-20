@@ -217,6 +217,11 @@ void JsonCliFormatter::writeResult(const QString& str)
   m_response.insert(QLatin1String("result"), str);
 }
 
+void JsonCliFormatter::writeResult(const QStringList& strs)
+{
+  m_response.insert(QLatin1String("result"), QJsonArray::fromStringList(strs));
+}
+
 void JsonCliFormatter::writeResult(const QVariantMap& map)
 {
   QJsonObject result;

@@ -1361,7 +1361,9 @@ zum <link linkend="import-text">Import von Datei/Zwischenablage
 Funktionen ist, dass der Unterdialog dea Import-Dialogs auf allen Dateien des
 aktuellen Verzeichnisses arbeitet, während die Menü-Funktion auf die
 selektierten Dateien angewendet wird (welche in verschiedenen Verzeichnissen
-liegen können).
+liegen können). Die Menü-Funktion verfügt über einen zusätzlichen Format Code
+"%{__return}" um den extrahierten Wert zurückzugeben, was im CLI und bei der
+QML-Schnittstelle nützlich sein kann.
 </para>
 </listitem>
 </varlistentry>
@@ -3075,7 +3077,8 @@ als Parameter verlangt, siehe <link linkend="import-tags">Importieren von
 Tags</link>.
 Um das Importieren aus Tags auf die selektierten Dateien anzuwenden, kann
 <userinput>tagsel</userinput> statt <userinput>tags</userinput> verwendet
-werden.
+werden. Hiermit kann auch mit einer <replaceable>EXTRAKTION</replaceable> von
+<userinput>%{__return}(.+)</userinput> der extrahierte Wert ausgegeben werden.
 </para>
 </sect2>
 
@@ -4687,6 +4690,7 @@ app.saveDirectory(): Speichern
 app.revertFileModifications(): Zuletzt gespeicherte Fassung
 app.importTags(tag, path, fmtIdx): Datei importieren
 app.importFromTags(tag, source, extraction): Aus Tags importieren
+app.importFromTagsToSelection(tag, source, extraction): Aus Tags der ausgewählten Dateien importieren
 app.downloadImage(url, allFilesInDir): Bild herunterladen
 app.exportTags(tag, path, fmtIdx): Datei exportieren
 app.writePlaylist(): Stückliste erstellen

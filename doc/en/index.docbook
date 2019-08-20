@@ -1272,7 +1272,9 @@ way as for the <link linkend="import-text">import from file/clipboard</link>.
 the <guimenu>File</guimenu> menu. The difference between these two functions
 is that the import dialog subdialog operates on all files of the current
 directory whereas the menu function operates on the selected files (which can
-be in different directories).
+be in different directories). The menu function supports an additional code
+"%{__return}" to return the extracted value, which can be useful with the CLI
+and QML interfaces.
 </para>
 </listitem>
 </varlistentry>
@@ -2896,6 +2898,9 @@ unquoted"</userinput>, see <link linkend="import-text">Import</link>).
 are required, see <link linkend="import-tags">Import from Tags</link>.
 To apply the import from tags on the selected files, use
 <userinput>tagsel</userinput> instead of <userinput>tags</userinput>.
+This function also supports output of the extracted value by using an
+<replaceable>EXTRACTION</replaceable> with the value
+<userinput>%{__return}(.+)</userinput>.
 </para>
 </sect2>
 
@@ -4484,6 +4489,7 @@ app.saveDirectory(): Save directory
 app.revertFileModifications(): Revert
 app.importTags(tag, path, fmtIdx): Import file
 app.importFromTags(tag, source, extraction): Import from tags
+app.importFromTagsToSelection(tag, source, extraction): Import from tags of selected files
 app.downloadImage(url, allFilesInDir): Download image
 app.exportTags(tag, path, fmtIdx): Export file
 app.writePlaylist(): Write playlist

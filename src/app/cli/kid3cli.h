@@ -85,6 +85,12 @@ public:
 
   /**
    * Write result of command.
+   * @param strs result as string list
+   */
+  void writeResult(const QStringList& strs);
+
+  /**
+   * Write result of command.
    * @param map result as map
    */
   void writeResult(const QVariantMap& map);

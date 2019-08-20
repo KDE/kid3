@@ -1248,10 +1248,12 @@ void Kid3Application::importFromTags(Frame::TagVersion tagMask,
  * @param source format to get source text from tags
  * @param extraction regular expression with frame names and captures to
  * extract from source text
+ *
+ * @return extracted values for "%{__return}(.+)", empty if not used.
  */
-void Kid3Application::importFromTagsToSelection(Frame::TagVersion tagMask,
-                                                const QString& source,
-                                                const QString& extraction)
+QStringList Kid3Application::importFromTagsToSelection(Frame::TagVersion tagMask,
+                                                       const QString& source,
+                                                       const QString& extraction)
 {
   emit fileSelectionUpdateRequested();
   SelectedTaggedFileIterator it(getRootIndex(),
@@ -1267,6 +1269,7 @@ void Kid3Application::importFromTagsToSelection(Frame::TagVersion tagMask,
     taggedFile->setFrames(Frame::tagNumberFromMask(tagMask), trackData);
   }
   emit selectedFilesUpdated();
+  return parser.getReturnValues();
 }
 
 /**

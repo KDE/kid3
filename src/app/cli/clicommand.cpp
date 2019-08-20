@@ -478,7 +478,11 @@ void ImportCommand::startCommand()
     const QString& extraction = args().at(3);
     Frame::TagVersion tagMask = getTagMaskParameter(4);
     if (args().at(1).contains(QLatin1String("sel"))) {
-      cli()->app()->importFromTagsToSelection(tagMask, source, extraction);
+      QStringList returnValues =
+          cli()->app()->importFromTagsToSelection(tagMask, source, extraction);
+      if (!returnValues.isEmpty()) {
+        cli()->writeResult(returnValues);
+      }
     } else {
       cli()->app()->importFromTags(tagMask, source, extraction);
     }

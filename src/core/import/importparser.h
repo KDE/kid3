@@ -30,6 +30,7 @@
 #include <QRegularExpression>
 #include <QMap>
 #include <QList>
+#include <QStringList>
 #include "kid3api.h"
 
 class FrameCollection;
@@ -71,6 +72,12 @@ public:
   QList<int> getTrackDurations() const { return m_trackDuration; }
 
   /**
+   * Get list with values accumulated for %{__return}.
+   * @return accumulated return values.
+   */
+  QStringList getReturnValues() const { return m_returnValues; }
+
+  /**
    * Get help text for format codes supported by setFormat().
    *
    * @return help text.
@@ -86,6 +93,7 @@ private:
   int m_trackIncrNr;
   QMap<QString, int> m_codePos;
   QList<int> m_trackDuration;
+  QStringList m_returnValues;
   /** true if automatic track number incrementing is used */
   bool m_trackIncrEnabled;
 };

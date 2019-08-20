@@ -103,6 +103,12 @@ public:
 
   /**
    * Write result message.
+   * @param strs result as string list
+   */
+  virtual void writeResult(const QStringList& strs) override;
+
+  /**
+   * Write result message.
    * @param map result as map
    */
   virtual void writeResult(const QVariantMap& map) override;

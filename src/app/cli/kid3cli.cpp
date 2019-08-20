@@ -618,6 +618,15 @@ void Kid3Cli::writeResult(const QString& str)
 
 /**
  * Write result of command.
+ * @param strs result as string list
+ */
+void Kid3Cli::writeResult(const QStringList& strs)
+{
+  m_formatter->writeResult(strs);
+}
+
+/**
+ * Write result of command.
  * @param map result as map
  */
 void Kid3Cli::writeResult(const QVariantMap& map)
