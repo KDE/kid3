@@ -985,8 +985,14 @@ void TagLibFile::readTags(bool force)
             m_pictures.append(frame);
           }
           m_pictures.setRead(true);
-        } else if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
+        } else
+#endif
+        if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
+#if TAGLIB_VERSION >= 0x010a00
           const TagLib::MP4::CoverArtList pics(mp4Tag->item("covr").toCoverArtList());
+#else
+          const TagLib::MP4::CoverArtList pics(mp4Tag->itemListMap()["covr"].toCoverArtList());
+#endif
           int i = 0;
           for (auto it = pics.begin(); it != pics.end(); ++it) {
             const TagLib::MP4::CoverArt& coverArt = *it;
@@ -1022,7 +1028,6 @@ void TagLibFile::readTags(bool force)
           }
           m_pictures.setRead(true);
         }
-#endif
       }
     }
   }
@@ -1367,9 +1372,17 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
                           TagLib::ByteVector(
                             ba.data(), static_cast<unsigned int>(ba.size()))));
             }
+#if TAGLIB_VERSION >= 0x010a00
             mp4Tag->setItem("covr", coverArtList);
+#else
+            mp4Tag->itemListMap()["covr"] = coverArtList;
+#endif
           } else {
+#if TAGLIB_VERSION >= 0x010a00
             mp4Tag->removeItem("covr");
+#else
+            mp4Tag->itemListMap().erase("covr");
+#endif
           }
         }
         if (needsSave && m_fileRef.save()) {
