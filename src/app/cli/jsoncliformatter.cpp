@@ -184,8 +184,13 @@ void JsonCliFormatter::writeError(CliError errorCode)
 {
   QString msg;
   if (errorCode == CliError::MethodNotFound) {
+#if QT_VERSION >= 0x050600
     msg = tr("Unknown command '%1'")
         .arg(m_args.isEmpty() ? QLatin1String("") : m_args.constFirst());
+#else
+    msg = tr("Unknown command '%1'")
+        .arg(m_args.isEmpty() ? QLatin1String("") : m_args.first());
+#endif
   }
   writeErrorMessage(msg, jsonRpcErrorCode(errorCode));
 }

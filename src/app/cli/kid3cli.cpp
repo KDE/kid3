@@ -180,7 +180,11 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
 {
   m_formatters << new JsonCliFormatter(io)
                << new TextCliFormatter(io);
+#if QT_VERSION >= 0x050600
   m_formatter = m_formatters.constLast();
+#else
+  m_formatter = m_formatters.last();
+#endif
 
   m_cmds << new HelpCommand(this)
          << new TimeoutCommand(this)
@@ -244,7 +248,11 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
     return nullptr;
 
   // Default to the last formatter
+#if QT_VERSION >= 0x050600
   m_formatter = m_formatters.constLast();
+#else
+  m_formatter = m_formatters.last();
+#endif
 
   QStringList args;
   for (auto fmt : m_formatters) {

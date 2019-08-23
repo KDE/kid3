@@ -177,8 +177,13 @@ void TextCliFormatter::writeError(CliError errorCode)
   QString errorMsg;
   switch (errorCode) {
   case CliError::MethodNotFound:
+#if QT_VERSION >= 0x050600
     errorMsg = tr("Unknown command '%1'. Type 'help' for help.")
         .arg(m_args.isEmpty() ? QLatin1String("") : m_args.constFirst());
+#else
+    errorMsg = tr("Unknown command '%1'. Type 'help' for help.")
+        .arg(m_args.isEmpty() ? QLatin1String("") : m_args.first());
+#endif
     break;
   default:
     ;
