@@ -435,9 +435,16 @@ void ScriptUtils::systemAsync(
 {
   QProcess* proc = new QProcess(this);
   auto conn = std::make_shared<QMetaObject::Connection>();
+#if QT_VERSION >= 0x050d00
+  *conn = QObject::connect(
+        proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(
+          &QProcess::finished),
+        this, [proc, conn, callback, this](int exitCode, QProcess::ExitStatus) mutable {
+#else
   *conn = QObject::connect(
         proc, static_cast<void (QProcess::*)(int)>(&QProcess::finished),
-        this, [proc, conn, callback](int exitCode) mutable {
+        this, [proc, conn, callback, this](int exitCode) mutable {
+#endif
     QObject::disconnect(*conn);
     if (!callback.isUndefined()) {
       QVariantList result{
@@ -445,7 +452,7 @@ void ScriptUtils::systemAsync(
         QString::fromLocal8Bit(proc->readAllStandardOutput()),
         QString::fromLocal8Bit(proc->readAllStandardError())
       };
-      callback.call({callback.engine()->toScriptValue(result)});
+      callback.call({qjsEngine(this)->toScriptValue(result)});
     }
   });
   proc->start(program, args);

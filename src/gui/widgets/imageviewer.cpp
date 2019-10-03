@@ -28,7 +28,8 @@
 #include <QImage>
 #include <QLabel>
 #include <QPushButton>
-#include <QApplication>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QDesktopWidget>
 #include <QVBoxLayout>
 
@@ -52,7 +53,7 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img)
   QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_image->setScaledContents(true);
   QSize imageSize(img.size());
-  QSize desktopSize(QApplication::desktop()->availableGeometry().size());
+  QSize desktopSize(QGuiApplication::primaryScreen()->availableGeometry().size());
   desktopSize -= QSize(12, 12 + vlayout->spacing() + closeButton->height() +
                        vlayout->margin());
   QPixmap pm = imageSize.width() > desktopSize.width() ||

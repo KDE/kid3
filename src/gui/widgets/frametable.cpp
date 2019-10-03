@@ -63,7 +63,11 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
       model->removeRow(0);
   }
   // Set width of first column
+#if QT_VERSION >= 0x050b00
+  int width = fontMetrics().horizontalAdvance(tr("WWW Audio Source") + QLatin1String("WW"));
+#else
   int width = fontMetrics().width(tr("WWW Audio Source") + QLatin1String("WW"));
+#endif
   QStyleOptionButton option;
   option.initFrom(this);
   width += style()->subElementRect(

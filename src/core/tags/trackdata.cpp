@@ -116,8 +116,13 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         return QFileInfo(m_trackData.getAbsFilename())
             .lastModified().toString(Qt::ISODate);
       } else if (name == QLatin1String("creationdate")) {
+#if QT_VERSION >= 0x050a00
+        return QFileInfo(m_trackData.getAbsFilename())
+            .birthTime().toString(Qt::ISODate);
+#else
         return QFileInfo(m_trackData.getAbsFilename())
             .created().toString(Qt::ISODate);
+#endif
       } else if (name == QLatin1String("url")) {
         QUrl url;
         url.setPath(m_trackData.getAbsFilename());

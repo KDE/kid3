@@ -197,7 +197,7 @@ void StarPainter::paint(QPainter& painter, const QRect& rect,
 
   painter.save();
 
-  QBrush brush(editable ? palette.highlight() : palette.foreground());
+  QBrush brush(editable ? palette.highlight() : palette.windowText());
   QPen starPen(Qt::NoPen);
   QPen dotPen(brush, 0.2);
   dotPen.setCapStyle(Qt::RoundCap);
@@ -417,7 +417,6 @@ QWidget* FrameItemDelegate::createEditor(
       auto cb = new QComboBox(parent);
       if (!id3v1) {
         cb->setEditable(true);
-        cb->setAutoCompletion(true);
         cb->setDuplicatesEnabled(false);
       }
 
@@ -438,7 +437,6 @@ QWidget* FrameItemDelegate::createEditor(
         values.sort();
         auto cb = new QComboBox(parent);
         cb->setEditable(true);
-        cb->setAutoCompletion(true);
         cb->setDuplicatesEnabled(false);
         cb->addItems(values);
         cb->setEditText(index.data().toString());

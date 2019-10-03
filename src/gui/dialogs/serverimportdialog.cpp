@@ -60,10 +60,8 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_findButton = new QPushButton(tr("&Find"), this);
   m_findButton->setAutoDefault(false);
   m_artistLineEdit->setEditable(true);
-  m_artistLineEdit->setAutoCompletion(true);
   m_artistLineEdit->setDuplicatesEnabled(false);
   m_albumLineEdit->setEditable(true);
-  m_albumLineEdit->setAutoCompletion(true);
   m_albumLineEdit->setDuplicatesEnabled(false);
   m_artistLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   m_albumLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));

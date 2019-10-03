@@ -128,8 +128,13 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   QLabel* accuracyLabel = new QLabel(tr("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
+#if QT_VERSION >= 0x050b00
+  m_accuracyPercentLabel->setMinimumWidth(
+        m_accuracyPercentLabel->fontMetrics().horizontalAdvance(QLatin1String("100%")));
+#else
   m_accuracyPercentLabel->setMinimumWidth(
         m_accuracyPercentLabel->fontMetrics().width(QLatin1String("100%")));
+#endif
   accuracyLayout->addWidget(m_accuracyPercentLabel);
   QLabel* coverArtLabel = new QLabel(tr("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);

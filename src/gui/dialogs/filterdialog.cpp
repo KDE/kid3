@@ -56,7 +56,11 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   auto previewLayout = new QVBoxLayout(m_previewBox);
   m_edit = new QTextEdit;
   m_edit->setReadOnly(true);
+#if QT_VERSION >= 0x050a00
+  m_edit->setTabStopDistance(20);
+#else
   m_edit->setTabStopWidth(20);
+#endif
   m_edit->setAcceptRichText(false);
   previewLayout->addWidget(m_edit);
   vlayout->addWidget(m_previewBox);

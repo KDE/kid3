@@ -267,10 +267,20 @@ void RenDirDialog::clearPreview()
 void RenDirDialog::displayActionPreview(const QStringList& actionStrs)
 {
   QString str = actionStrs.at(0);
+#if QT_VERSION >= 0x050b00
+  int width = fontMetrics().horizontalAdvance(str) + 8;
+#else
   int width = fontMetrics().width(str) + 8;
+#endif
+#if QT_VERSION >= 0x050a00
+  if (m_edit->tabStopDistance() < width) {
+    m_edit->setTabStopDistance(width);
+  }
+#else
   if (m_edit->tabStopWidth() < width) {
     m_edit->setTabStopWidth(width);
   }
+#endif
   if (actionStrs.size() > 1) {
     str += QLatin1Char('\t');
     str += actionStrs.at(1);

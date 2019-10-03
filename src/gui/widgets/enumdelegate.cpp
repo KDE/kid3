@@ -104,8 +104,13 @@ QSize EnumDelegate::sizeHint(const QStyleOptionViewItem& option,
     QFont fnt(qvariant_cast<QFont>(index.data(Qt::FontRole))
               .resolve(option.font));
     QFontMetrics fm(fnt);
+#if QT_VERSION >= 0x050b00
+    int origWidth = fm.horizontalAdvance(QString::number(enumNr));
+    int delegateWidth = fm.horizontalAdvance(getStringForEnum(enumNr));
+#else
     int origWidth = fm.width(QString::number(enumNr));
     int delegateWidth = fm.width(getStringForEnum(enumNr));
+#endif
     size.setWidth(size.width() + delegateWidth - origWidth);
   }
   return size;

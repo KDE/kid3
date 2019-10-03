@@ -90,12 +90,20 @@ void MessageDialog::setInformativeText(const QString& text)
   QFontMetrics fm(m_textEdit->fontMetrics());
   int maxWidth = 0;
   for (const QString& line : lines) {
+#if QT_VERSION >= 0x050b00
+    int lineWidth = fm.horizontalAdvance(line);
+#else
     int lineWidth = fm.width(line);
+#endif
     if (maxWidth < lineWidth) {
       maxWidth = lineWidth;
     }
   }
+#if QT_VERSION >= 0x050b00
+  maxWidth += fm.horizontalAdvance(QLatin1String("WW")); // some space for the borders
+#else
   maxWidth += fm.width(QLatin1String("WW")); // some space for the borders
+#endif
 
   if (maxWidth <= 1000) {
     m_textEdit->setMinimumWidth(maxWidth);
