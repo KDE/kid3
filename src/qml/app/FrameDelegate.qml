@@ -53,6 +53,14 @@ ItemDelegate {
             script.setRoleData(frameModel, index, "value", text)
           }
         }
+        Component.onDestruction: {
+          // When another frame is edited, neither activeFocusChanged() nor
+          // editingFinished() is signaled and the changes are lost.
+          // Use this workaround to call onActiveFocusChanged() in this case.
+          if (activeFocus) {
+            focus = false
+          }
+        }
       }
     }
   }
