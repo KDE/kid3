@@ -65,11 +65,16 @@ Kid3Script {
               imgProps = script.imageProperties(img)
             }
             if ("width" in imgProps) {
-              var picPath = dirName + baseName + "." + format
+              var fileBaseName = baseName
+              if (fileBaseName.indexOf("%") !== -1) {
+                fileBaseName = app.importFromTagsToSelection(
+                      Frame.Tag_2, baseName, "%{__return}(.+)")
+              }
+              var picPath = dirName + fileBaseName + "." + format
               var picNr = 1
               while (script.fileExists(picPath)) {
                 ++picNr
-                picPath = dirName + baseName + picNr + "." + format
+                picPath = dirName + fileBaseName + picNr + "." + format
               }
               if (script.writeFile(picPath, data)) {
                 md5Map[md5] = picPath
