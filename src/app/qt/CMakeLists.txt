@@ -132,7 +132,11 @@ if(LINUX_SELF_CONTAINED)
   # Change RPATH/RUNPATH of executable/library.
   macro(CHANGE_RPATH _rpath _file)
     install(CODE "
-      execute_process(COMMAND chrpath -r ${_rpath} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_file}\")
+      execute_process(COMMAND chrpath -r ${_rpath} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_file}\"
+                      RESULT_VARIABLE ret)
+      if(NOT ret EQUAL 0)
+        message(FATAL_ERROR \"chrpath failed with \${ret}\")
+      endif()
       ")
   endmacro()
 
