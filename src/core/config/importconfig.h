@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QStringList>
-#include <QMap>
 #include "config.h"
 #include "generalconfig.h"
 #include "frame.h"
@@ -243,12 +242,12 @@ public:
   void setBrowseCoverArtWindowGeometry(const QByteArray& browseCoverArtWindowGeometry);
 
   /** Get mapping for picture URL matching. */
-  QMap<QString, QString> matchPictureUrlMap() const {
+  QList<QPair<QString, QString>> matchPictureUrlMap() const {
     return m_matchPictureUrlMap;
   }
 
   /** Set mapping for picture URL matching. */
-  void setMatchPictureUrlMap(const QMap<QString, QString>& matchPictureUrlMap);
+  void setMatchPictureUrlMap(const QList<QPair<QString, QString>>& matchPictureUrlMap);
 
   /** Get mapping for picture URL matching as variant map. */
   QVariantMap matchPictureUrlVariantMap() const;
@@ -330,7 +329,7 @@ signals:
   void browseCoverArtWindowGeometryChanged(const QByteArray& browseCoverArtWindowGeometry);
 
   /** Emitted when @a matchPictureUrlMap changed. */
-  void matchPictureUrlMapChanged(const QMap<QString, QString>& matchPictureUrlMap);
+  void matchPictureUrlMapChanged(const QList<QPair<QString, QString>>& matchPictureUrlMap);
 
   /** Emitted when @a importDir changed. */
   void importDirChanged(const QString& importDir);
@@ -367,7 +366,7 @@ private:
   QStringList m_pictureSourceUrls;
   int m_pictureSourceIdx;
   QByteArray m_browseCoverArtWindowGeometry;
-  QMap<QString, QString> m_matchPictureUrlMap;
+  QList<QPair<QString, QString>> m_matchPictureUrlMap;
 
   QString m_importDir;
 

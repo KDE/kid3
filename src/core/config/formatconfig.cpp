@@ -69,76 +69,78 @@ void FormatConfig::setAsFilenameFormatter()
   m_localeName = QString();
   m_locale.reset();
   m_strRepEnabled = true;
-  m_strRepMap[QLatin1String("/")] = QLatin1Char('-');
-  m_strRepMap[QLatin1String(":")] = QLatin1Char('-');
-  m_strRepMap[QLatin1String(".")] = QLatin1String("");
-  m_strRepMap[QLatin1String("?")] = QLatin1String("");
-  m_strRepMap[QLatin1String("*")] = QLatin1String("");
-  m_strRepMap[QLatin1String("\"")] = QLatin1String("''");
-  m_strRepMap[QLatin1String("<")] = QLatin1Char('-');
-  m_strRepMap[QLatin1String(">")] = QLatin1Char('-');
-  m_strRepMap[QLatin1String("|")] = QLatin1Char('-');
-  m_strRepMap[QChar(0xe4)] = QLatin1String("ae");
-  m_strRepMap[QChar(0xf6)] = QLatin1String("oe");
-  m_strRepMap[QChar(0xfc)] = QLatin1String("ue");
-  m_strRepMap[QChar(0xc4)] = QLatin1String("Ae");
-  m_strRepMap[QChar(0xd6)] = QLatin1String("Oe");
-  m_strRepMap[QChar(0xdc)] = QLatin1String("Ue");
-  m_strRepMap[QChar(0xdf)] = QLatin1String("ss");
-  m_strRepMap[QChar(0xc0)] = QLatin1Char('A');
-  m_strRepMap[QChar(0xc1)] = QLatin1Char('A');
-  m_strRepMap[QChar(0xc2)] = QLatin1Char('A');
-  m_strRepMap[QChar(0xc3)] = QLatin1Char('A');
-  m_strRepMap[QChar(0xc5)] = QLatin1Char('A');
-  m_strRepMap[QChar(0xc6)] = QLatin1String("AE");
-  m_strRepMap[QChar(0xc7)] = QLatin1Char('C');
-  m_strRepMap[QChar(0xc8)] = QLatin1Char('E');
-  m_strRepMap[QChar(0xc9)] = QLatin1Char('E');
-  m_strRepMap[QChar(0xca)] = QLatin1Char('E');
-  m_strRepMap[QChar(0xcb)] = QLatin1Char('E');
-  m_strRepMap[QChar(0xcc)] = QLatin1Char('I');
-  m_strRepMap[QChar(0xcd)] = QLatin1Char('I');
-  m_strRepMap[QChar(0xce)] = QLatin1Char('I');
-  m_strRepMap[QChar(0xcf)] = QLatin1Char('I');
-  m_strRepMap[QChar(0xd0)] = QLatin1Char('D');
-  m_strRepMap[QChar(0xd1)] = QLatin1Char('N');
-  m_strRepMap[QChar(0xd2)] = QLatin1Char('O');
-  m_strRepMap[QChar(0xd3)] = QLatin1Char('O');
-  m_strRepMap[QChar(0xd4)] = QLatin1Char('O');
-  m_strRepMap[QChar(0xd5)] = QLatin1Char('O');
-  m_strRepMap[QChar(0xd7)] = QLatin1Char('x');
-  m_strRepMap[QChar(0xd8)] = QLatin1Char('O');
-  m_strRepMap[QChar(0xd9)] = QLatin1Char('U');
-  m_strRepMap[QChar(0xda)] = QLatin1Char('U');
-  m_strRepMap[QChar(0xdb)] = QLatin1Char('U');
-  m_strRepMap[QChar(0xdd)] = QLatin1Char('Y');
-  m_strRepMap[QChar(0xe0)] = QLatin1Char('a');
-  m_strRepMap[QChar(0xe1)] = QLatin1Char('a');
-  m_strRepMap[QChar(0xe2)] = QLatin1Char('a');
-  m_strRepMap[QChar(0xe3)] = QLatin1Char('a');
-  m_strRepMap[QChar(0xe5)] = QLatin1Char('a');
-  m_strRepMap[QChar(0xe6)] = QLatin1String("ae");
-  m_strRepMap[QChar(0xe7)] = QLatin1Char('c');
-  m_strRepMap[QChar(0xe8)] = QLatin1Char('e');
-  m_strRepMap[QChar(0xe9)] = QLatin1Char('e');
-  m_strRepMap[QChar(0xea)] = QLatin1Char('e');
-  m_strRepMap[QChar(0xeb)] = QLatin1Char('e');
-  m_strRepMap[QChar(0xec)] = QLatin1Char('i');
-  m_strRepMap[QChar(0xed)] = QLatin1Char('i');
-  m_strRepMap[QChar(0xee)] = QLatin1Char('i');
-  m_strRepMap[QChar(0xef)] = QLatin1Char('i');
-  m_strRepMap[QChar(0xf0)] = QLatin1Char('d');
-  m_strRepMap[QChar(0xf1)] = QLatin1Char('n');
-  m_strRepMap[QChar(0xf2)] = QLatin1Char('o');
-  m_strRepMap[QChar(0xf3)] = QLatin1Char('o');
-  m_strRepMap[QChar(0xf4)] = QLatin1Char('o');
-  m_strRepMap[QChar(0xf5)] = QLatin1Char('o');
-  m_strRepMap[QChar(0xf8)] = QLatin1Char('o');
-  m_strRepMap[QChar(0xf9)] = QLatin1Char('u');
-  m_strRepMap[QChar(0xfa)] = QLatin1Char('u');
-  m_strRepMap[QChar(0xfb)] = QLatin1Char('u');
-  m_strRepMap[QChar(0xfd)] = QLatin1Char('y');
-  m_strRepMap[QChar(0xff)] = QLatin1Char('y');
+  m_strRepMap.append({
+    {QLatin1String("/"), QLatin1String("-")},
+    {QLatin1String(":"), QLatin1String("-")},
+    {QLatin1String("."), QLatin1String("")},
+    {QLatin1String("?"), QLatin1String("")},
+    {QLatin1String("*"), QLatin1String("")},
+    {QLatin1String("\""), QLatin1String("''")},
+    {QLatin1String("<"), QLatin1String("-")},
+    {QLatin1String(">"), QLatin1String("-")},
+    {QLatin1String("|"), QLatin1String("-")},
+    {QChar(0xe4), QLatin1String("ae")},
+    {QChar(0xf6), QLatin1String("oe")},
+    {QChar(0xfc), QLatin1String("ue")},
+    {QChar(0xc4), QLatin1String("Ae")},
+    {QChar(0xd6), QLatin1String("Oe")},
+    {QChar(0xdc), QLatin1String("Ue")},
+    {QChar(0xdf), QLatin1String("ss")},
+    {QChar(0xc0), QLatin1String("A")},
+    {QChar(0xc1), QLatin1String("A")},
+    {QChar(0xc2), QLatin1String("A")},
+    {QChar(0xc3), QLatin1String("A")},
+    {QChar(0xc5), QLatin1String("A")},
+    {QChar(0xc6), QLatin1String("AE")},
+    {QChar(0xc7), QLatin1String("C")},
+    {QChar(0xc8), QLatin1String("E")},
+    {QChar(0xc9), QLatin1String("E")},
+    {QChar(0xca), QLatin1String("E")},
+    {QChar(0xcb), QLatin1String("E")},
+    {QChar(0xcc), QLatin1String("I")},
+    {QChar(0xcd), QLatin1String("I")},
+    {QChar(0xce), QLatin1String("I")},
+    {QChar(0xcf), QLatin1String("I")},
+    {QChar(0xd0), QLatin1String("D")},
+    {QChar(0xd1), QLatin1String("N")},
+    {QChar(0xd2), QLatin1String("O")},
+    {QChar(0xd3), QLatin1String("O")},
+    {QChar(0xd4), QLatin1String("O")},
+    {QChar(0xd5), QLatin1String("O")},
+    {QChar(0xd7), QLatin1String("x")},
+    {QChar(0xd8), QLatin1String("O")},
+    {QChar(0xd9), QLatin1String("U")},
+    {QChar(0xda), QLatin1String("U")},
+    {QChar(0xdb), QLatin1String("U")},
+    {QChar(0xdd), QLatin1String("Y")},
+    {QChar(0xe0), QLatin1String("a")},
+    {QChar(0xe1), QLatin1String("a")},
+    {QChar(0xe2), QLatin1String("a")},
+    {QChar(0xe3), QLatin1String("a")},
+    {QChar(0xe5), QLatin1String("a")},
+    {QChar(0xe6), QLatin1String("ae")},
+    {QChar(0xe7), QLatin1String("c")},
+    {QChar(0xe8), QLatin1String("e")},
+    {QChar(0xe9), QLatin1String("e")},
+    {QChar(0xea), QLatin1String("e")},
+    {QChar(0xeb), QLatin1String("e")},
+    {QChar(0xec), QLatin1String("i")},
+    {QChar(0xed), QLatin1String("i")},
+    {QChar(0xee), QLatin1String("i")},
+    {QChar(0xef), QLatin1String("i")},
+    {QChar(0xf0), QLatin1String("d")},
+    {QChar(0xf1), QLatin1String("n")},
+    {QChar(0xf2), QLatin1String("o")},
+    {QChar(0xf3), QLatin1String("o")},
+    {QChar(0xf4), QLatin1String("o")},
+    {QChar(0xf5), QLatin1String("o")},
+    {QChar(0xf8), QLatin1String("o")},
+    {QChar(0xf9), QLatin1String("u")},
+    {QChar(0xfa), QLatin1String("u")},
+    {QChar(0xfb), QLatin1String("u")},
+    {QChar(0xfd), QLatin1String("y")},
+    {QChar(0xff), QLatin1String("y")}
+  });
 }
 
 /**
@@ -217,7 +219,7 @@ void FormatConfig::formatString(QString& str) const
   }
   if (m_strRepEnabled) {
     for (auto it = m_strRepMap.constBegin(); it != m_strRepMap.constEnd(); ++it) {
-      str.replace(it.key(), *it);
+      str.replace(it->first, it->second);
     }
   }
   str = joinFileName(str, ext);
@@ -316,8 +318,13 @@ void FormatConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("EnableValidation"), QVariant(m_enableValidation));
   config->setValue(QLatin1String("EnableMaximumLength"), QVariant(m_enableMaximumLength));
   config->setValue(QLatin1String("MaximumLength"), QVariant(m_maximumLength));
-  config->setValue(QLatin1String("StrRepMapKeys"), QVariant(m_strRepMap.keys()));
-  config->setValue(QLatin1String("StrRepMapValues"), QVariant(m_strRepMap.values()));
+  QStringList keys, values;
+  for (auto it = m_strRepMap.constBegin(); it != m_strRepMap.constEnd(); ++it) {
+    keys.append(it->first);
+    values.append(it->second);
+  }
+  config->setValue(QLatin1String("StrRepMapKeys"), QVariant(keys));
+  config->setValue(QLatin1String("StrRepMapValues"), QVariant(values));
   config->endGroup();
 }
 
@@ -353,7 +360,7 @@ void FormatConfig::readFromConfig(ISettings* config)
     for (auto itk = keys.constBegin(), itv = values.constBegin();
          itk != keys.constEnd() && itv != values.constEnd();
          ++itk, ++itv) {
-      m_strRepMap[*itk] = *itv;
+      m_strRepMap.append({*itk, *itv});
     }
   }
   config->endGroup();
@@ -396,7 +403,7 @@ void FormatConfig::setMaximumLength(int maximumLength)
   }
 }
 
-void FormatConfig::setStrRepMap(const QMap<QString, QString>& strRepMap)
+void FormatConfig::setStrRepMap(const QList<QPair<QString, QString>>& strRepMap)
 {
   if (m_strRepMap != strRepMap) {
     m_strRepMap = strRepMap;
@@ -410,16 +417,16 @@ QVariantMap FormatConfig::strRepVariantMap() const
   for (auto it = m_strRepMap.constBegin();
        it != m_strRepMap.constEnd();
        ++it) {
-    map.insert(it.key(), it.value());
+    map.insert(it->first, it->second);
   }
   return map;
 }
 
 void FormatConfig::setStrRepVariantMap(const QVariantMap& map)
 {
-  QMap<QString, QString> strRepMap;
+  QList<QPair<QString, QString>> strRepMap;
   for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    strRepMap.insert(it.key(), it.value().toString());
+    strRepMap.append({it.key(), it.value().toString()});
   }
   setStrRepMap(strRepMap);
 }

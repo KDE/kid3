@@ -199,32 +199,23 @@ void ConfigTableModel::setLabels(const QStringList& labels)
 /**
  * Set the model from a map.
  *
- * @param map map with keys and values
+ * @param map list with keys and values
  */
-void ConfigTableModel::setMap(const QMap<QString, QString>& map)
+void ConfigTableModel::setMap(const QList<QPair<QString, QString>>& map)
 {
   beginResetModel();
-  m_keyValues.clear();
-  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    m_keyValues.append(qMakePair(it.key(), it.value()));
-  }
+  m_keyValues = map;
   // make sure that at least one line is in the table
   if (m_keyValues.isEmpty())
-    m_keyValues.append(qMakePair(QString(), QString()));
+    m_keyValues.append({QString(), QString()});
   endResetModel();
 }
 
 /**
  * Get map from the model.
- * @return map with keys and values
+ * @return list with keys and values
  */
-QMap<QString, QString> ConfigTableModel::getMap() const
+QList<QPair<QString, QString>> ConfigTableModel::getMap() const
 {
-  QMap<QString, QString> map;
-  for (auto it = m_keyValues.constBegin(); it != m_keyValues.constEnd(); ++it) {
-    if (!it->first.isEmpty()) {
-      map.insert(it->first, it->second);
-    }
-  }
-  return map;
+  return m_keyValues;
 }

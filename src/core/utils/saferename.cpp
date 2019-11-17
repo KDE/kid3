@@ -81,7 +81,7 @@ bool Utils::replaceIllegalFileNameCharacters(
     illegalChars = "/";
 #endif
   }
-  QMap<QString, QString> replaceMap;
+  QMap<QChar, QString> replaceMap;
   bool changed = false;
   for (const char* ic = illegalChars; *ic; ++ic) {
     QChar illegalChar = QLatin1Char(*ic);
@@ -89,7 +89,12 @@ bool Utils::replaceIllegalFileNameCharacters(
       if (!changed) {
         const FormatConfig& fnCfg = FilenameFormatConfig::instance();
         if (fnCfg.strRepEnabled()) {
-          replaceMap = fnCfg.strRepMap();
+          const auto constStrRepMap = fnCfg.strRepMap();
+          for (const auto& keyVal : constStrRepMap) {
+            if (keyVal.first.length() == 1) {
+              replaceMap.insert(keyVal.first.at(0), keyVal.second);
+            }
+          }
         }
         changed = true;
       }

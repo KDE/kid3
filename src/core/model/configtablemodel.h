@@ -142,18 +142,17 @@ public:
    * @param labels column labels
    */
   void setLabels(const QStringList& labels);
-
   /**
    * Set the model from a map.
-   * @param map map with keys and values
+   * @param map list with keys and values
    */
-  void setMap(const QMap<QString, QString>& map);
+  void setMap(const QList<QPair<QString, QString>>& map);
 
   /**
    * Get map from the model.
-   * @return map with keys and values
+   * @return list with keys and values
    */
-  QMap<QString, QString> getMap() const;
+  QList<QPair<QString, QString>> getMap() const;
 
 private:
   QStringList m_labels;

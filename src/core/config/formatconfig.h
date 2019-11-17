@@ -144,10 +144,10 @@ public:
   virtual void readFromConfig(ISettings* config) override;
 
   /** Get mapping for string replacement. */
-  QMap<QString, QString> strRepMap() const { return m_strRepMap; }
+  QList<QPair<QString, QString>> strRepMap() const { return m_strRepMap; }
 
   /** Set mapping for string replacement. */
-  void setStrRepMap(const QMap<QString, QString>& strRepMap);
+  void setStrRepMap(const QList<QPair<QString, QString>>& strRepMap);
 
   /** Get mapping for string replacement as a variant map. */
   QVariantMap strRepVariantMap() const;
@@ -215,7 +215,7 @@ public:
 
 signals:
   /** Emitted when @a strRepMap changed. */
-  void strRepMapChanged(const QMap<QString, QString>& strRepMap);
+  void strRepMapChanged(const QList<QPair<QString, QString>>& strRepMap);
 
   /** Emitted when @a caseConversion changed. */
   void caseConversionChanged(FormatConfig::CaseConversion caseConversion);
@@ -249,7 +249,7 @@ private:
     setCaseConversion(static_cast<CaseConversion>(caseConversion));
   }
 
-  QMap<QString, QString> m_strRepMap;
+  QList<QPair<QString, QString>> m_strRepMap;
   CaseConversion m_caseConversion;
   QString m_localeName;
   /** Locale to use for string conversions */

@@ -95,16 +95,16 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
     return url;
 
   QUrl imgurl;
-  QMap<QString, QString> urlMap =
+  QList<QPair<QString, QString>> urlMap =
       ImportConfig::instance().matchPictureUrlMap();
   for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
-    QRegularExpression re(it.key());
+    QRegularExpression re(it->first);
     QRegularExpressionMatch match = re.match(
           urlStr, 0, QRegularExpression::NormalMatch,
           QRegularExpression::AnchoredMatchOption);
     if (match.hasMatch()) {
       QString newUrl = urlStr;
-      newUrl.replace(re, *it);
+      newUrl.replace(re, it->second);
       if (newUrl.indexOf(QLatin1String("%25")) != -1) {
         // double URL encoded: first decode
         newUrl = QUrl::fromPercentEncoding(newUrl.toUtf8());

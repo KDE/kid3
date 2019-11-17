@@ -262,18 +262,20 @@ ImportConfig::ImportConfig()
   m_pictureSourceNames.append(QLatin1String("Custom Source"));
   m_pictureSourceUrls.append(QLatin1String(""));
 
-  m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
-    QLatin1String("\\1");
-  m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
-    QLatin1String("http%3A%2F%2F\\1");
-  m_matchPictureUrlMap[QLatin1String(
-    "http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*")] =
-    QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
-  m_matchPictureUrlMap[QLatin1String(
-    "http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*")] =
-    QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
-  m_matchPictureUrlMap[QLatin1String("(http://.*4shared.com/img/.*)")] =
-    QLatin1String("\\1.jpg");
+  m_matchPictureUrlMap.append({
+    {QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*"),
+     QLatin1String("\\1")},
+    {QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*"),
+     QLatin1String("http%3A%2F%2F\\1")},
+    {QLatin1String(
+     "http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*"),
+     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg")},
+    {QLatin1String(
+     "http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*"),
+     QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg")},
+    {QLatin1String("(http://.*4shared.com/img/.*)"),
+     QLatin1String("\\1.jpg")}
+  });
 }
 
 /**
@@ -326,10 +328,15 @@ void ImportConfig::writeToConfig(ISettings* config) const
                    QVariant(m_pictureSourceUrls));
   config->setValue(QLatin1String("PictureSourceIdx"),
                    QVariant(m_pictureSourceIdx));
-  config->setValue(QLatin1String("MatchPictureUrlMapKeys"),
-                   QVariant(m_matchPictureUrlMap.keys()));
-  config->setValue(QLatin1String("MatchPictureUrlMapValues"),
-                   QVariant(m_matchPictureUrlMap.values()));
+  QStringList keys, values;
+  for (auto it = m_matchPictureUrlMap.constBegin();
+       it != m_matchPictureUrlMap.constEnd();
+       ++it) {
+    keys.append(it->first);
+    values.append(it->second);
+  }
+  config->setValue(QLatin1String("MatchPictureUrlMapKeys"), QVariant(keys));
+  config->setValue(QLatin1String("MatchPictureUrlMapValues"), QVariant(values));
   config->setValue(QLatin1String("BrowseCoverArtWindowGeometry"),
                    QVariant(m_browseCoverArtWindowGeometry));
 
@@ -400,7 +407,7 @@ void ImportConfig::readFromConfig(ISettings* config)
     for (auto itk = keys.constBegin(), itv = values.constBegin();
          itk != keys.constEnd() && itv != values.constEnd();
          ++itk, ++itv) {
-      m_matchPictureUrlMap[*itk] = *itv;
+      m_matchPictureUrlMap.append({*itk, *itv});
     }
   }
   m_browseCoverArtWindowGeometry = config->value(
@@ -483,32 +490,31 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_pictureSourceUrls.replaceInStrings(
         QLatin1String("http://images.google.com/images?q=%u{artist}%20%u{album}"),
         QLatin1String("http://www.google.com/search?tbm=isch&q=%u{artist}%20%u{album}"));
-  if (m_matchPictureUrlMap.remove(QLatin1String(
-      "http://images.google.com/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
-      QLatin1String("\\1");
+  for (auto it = m_matchPictureUrlMap.begin(); it != m_matchPictureUrlMap.end();) {
+    if (it->first == QLatin1String(
+          "http://images.google.com/.*imgurl=([^&]+)&.*") ||
+        it->first == QLatin1String(
+          "http://www.google.com/.*imgurl=([^&]+)&.*") ||
+        it->first == QLatin1String(
+          "http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")) {
+      *it = {QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*"),
+             QLatin1String("\\1")};
+    } else if (it->first == QLatin1String(
+                 "http://rds.yahoo.com/.*&imgurl=([^&]+)&.*")) {
+      *it = {QLatin1String(
+             "http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*"),
+             QLatin1String("http%3A%2F%2F\\1")};
+    } else if (it->first == QLatin1String(
+                 "http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*") ||
+               it->first == QLatin1String(
+                 R"(http://cdbaby.com/cd/(\w)(\w)(\w+))") ||
+               it->first == QLatin1String(
+                 "http://www.jamendo.com/en/album/(\\d+)")) {
+      it = m_matchPictureUrlMap.erase(it);
+      continue;
+    }
+    ++it;
   }
-  if (m_matchPictureUrlMap.remove(QLatin1String(
-      "http://www.google.com/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
-      QLatin1String("\\1");
-  }
-  if (m_matchPictureUrlMap.remove(QLatin1String(
-      "http://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("https?://www.google.(?:[^/]+)/.*imgurl=([^&]+)&.*")] =
-      QLatin1String("\\1");
-  }
-  if (m_matchPictureUrlMap.remove(QLatin1String(
-      "http://rds.yahoo.com/.*&imgurl=([^&]+)&.*")) != 0) {
-    m_matchPictureUrlMap[QLatin1String("http://images.search.yahoo.com/.*&imgurl=([^&]+)&.*")] =
-      QLatin1String("http%3A%2F%2F\\1");
-  }
-  m_matchPictureUrlMap.remove(QLatin1String(
-      "http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*"));
-  m_matchPictureUrlMap.remove(QLatin1String(
-      R"(http://cdbaby.com/cd/(\w)(\w)(\w+))"));
-  m_matchPictureUrlMap.remove(QLatin1String(
-      "http://www.jamendo.com/en/album/(\\d+)"));
 }
 
 void ImportConfig::setAvailablePlugins(const QStringList& availablePlugins)
@@ -656,7 +662,7 @@ void ImportConfig::setBrowseCoverArtWindowGeometry(const QByteArray& browseCover
   }
 }
 
-void ImportConfig::setMatchPictureUrlMap(const QMap<QString, QString>& matchPictureUrlMap)
+void ImportConfig::setMatchPictureUrlMap(const QList<QPair<QString, QString>>& matchPictureUrlMap)
 {
   if (m_matchPictureUrlMap != matchPictureUrlMap) {
     m_matchPictureUrlMap = matchPictureUrlMap;
@@ -667,18 +673,18 @@ void ImportConfig::setMatchPictureUrlMap(const QMap<QString, QString>& matchPict
 QVariantMap ImportConfig::matchPictureUrlVariantMap() const
 {
   QVariantMap map;
-  QMap<QString, QString> urlMap = matchPictureUrlMap();
+  QList<QPair<QString, QString>> urlMap = matchPictureUrlMap();
   for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
-    map.insert(it.key(), it.value());
+    map.insert(it->first, it->second);
   }
   return map;
 }
 
 void ImportConfig::setMatchPictureUrlVariantMap(const QVariantMap& map)
 {
-  QMap<QString, QString> urlMap;
+  QList<QPair<QString, QString>> urlMap;
   for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    urlMap.insert(it.key(), it.value().toString());
+    urlMap.append({it.key(), it.value().toString()});
   }
   setMatchPictureUrlMap(urlMap);
 }
