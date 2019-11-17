@@ -91,8 +91,8 @@ class KID3_CORE_EXPORT ImportConfig : public StoredConfig<ImportConfig> {
   Q_PROPERTY(QByteArray browseCoverArtWindowGeometry READ browseCoverArtWindowGeometry
              WRITE setBrowseCoverArtWindowGeometry NOTIFY browseCoverArtWindowGeometryChanged)
   /** Mapping for picture URL matching */
-  Q_PROPERTY(QVariantMap matchPictureUrlMap READ matchPictureUrlVariantMap
-             WRITE setMatchPictureUrlVariantMap NOTIFY matchPictureUrlMapChanged)
+  Q_PROPERTY(QStringList matchPictureUrlMap READ matchPictureUrlStringList
+             WRITE setMatchPictureUrlStringList NOTIFY matchPictureUrlMapChanged)
   /** Last directory used for import or export. */
   Q_PROPERTY(QString importDir READ importDir WRITE setImportDir
              NOTIFY importDirChanged)
@@ -249,11 +249,11 @@ public:
   /** Set mapping for picture URL matching. */
   void setMatchPictureUrlMap(const QList<QPair<QString, QString>>& matchPictureUrlMap);
 
-  /** Get mapping for picture URL matching as variant map. */
-  QVariantMap matchPictureUrlVariantMap() const;
+  /** Get mapping for picture URL matching as list with alternating key, values. */
+  QStringList matchPictureUrlStringList() const;
 
-  /** Set mapping for picture URL matching from variant map. */
-  void setMatchPictureUrlVariantMap(const QVariantMap& map);
+  /** Set mapping for picture URL matching from list with alternating key, values. */
+  void setMatchPictureUrlStringList(const QStringList& lst);
 
   /** Get last directory used for import or export. */
   QString importDir() const { return m_importDir; }

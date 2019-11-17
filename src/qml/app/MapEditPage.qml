@@ -46,20 +46,19 @@ StringListEditPage {
 
   function setElements(map) {
     model.clear()
-    for (var key in map) {
-      if (map.hasOwnProperty(key)) {
-        model.append({"name": key + mapSeparator + map[key]})
-      }
+    for (var i = 0, len = map.length; i < len - 1; i += 2) {
+      model.append({"name": map[i] + mapSeparator + map[i + 1]})
     }
   }
 
   function getElements() {
-    var map = {}
+    var map = []
     for (var i = 0; i < model.count; i++) {
       var s = model.get(i).name
       var sepPos = s.indexOf(mapSeparator)
       if (sepPos !== -1) {
-        map[s.substring(0, sepPos)] = s.substring(sepPos + mapSeparator.length)
+        map.push(s.substring(0, sepPos),
+                 s.substring(sepPos + mapSeparator.length))
       }
     }
     return map

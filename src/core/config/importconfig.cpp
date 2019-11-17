@@ -670,21 +670,26 @@ void ImportConfig::setMatchPictureUrlMap(const QList<QPair<QString, QString>>& m
   }
 }
 
-QVariantMap ImportConfig::matchPictureUrlVariantMap() const
+QStringList ImportConfig::matchPictureUrlStringList() const
 {
-  QVariantMap map;
+  QStringList lst;
   QList<QPair<QString, QString>> urlMap = matchPictureUrlMap();
   for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
-    map.insert(it->first, it->second);
+    lst.append(it->first);
+    lst.append(it->second);
   }
-  return map;
+  return lst;
 }
 
-void ImportConfig::setMatchPictureUrlVariantMap(const QVariantMap& map)
+void ImportConfig::setMatchPictureUrlStringList(const QStringList& lst)
 {
   QList<QPair<QString, QString>> urlMap;
-  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    urlMap.append({it.key(), it.value().toString()});
+  auto it = lst.constBegin();
+  while (it != lst.constEnd()) {
+    QString key = *it++;
+    if (it != lst.constEnd()) {
+      urlMap.append({key, *it++});
+    }
   }
   setMatchPictureUrlMap(urlMap);
 }

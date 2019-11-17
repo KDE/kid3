@@ -42,8 +42,8 @@ class FrameCollection;
 class KID3_CORE_EXPORT FormatConfig : public GeneralConfig {
   Q_OBJECT
   /** Mapping for string replacement */
-  Q_PROPERTY(QVariantMap strRepMap READ strRepVariantMap
-             WRITE setStrRepVariantMap NOTIFY strRepMapChanged)
+  Q_PROPERTY(QStringList strRepMap READ strRepStringList
+             WRITE setStrRepStringList NOTIFY strRepMapChanged)
   /** Case conversion option */
   Q_PROPERTY(int caseConversion READ caseConversion WRITE setCaseConversionInt
              NOTIFY caseConversionChanged)
@@ -149,11 +149,11 @@ public:
   /** Set mapping for string replacement. */
   void setStrRepMap(const QList<QPair<QString, QString>>& strRepMap);
 
-  /** Get mapping for string replacement as a variant map. */
-  QVariantMap strRepVariantMap() const;
+  /** Get mapping for string replacement as a list with alternating key, values. */
+  QStringList strRepStringList() const;
 
-  /** Set mapping for string replacement from a variant map. */
-  void setStrRepVariantMap(const QVariantMap& map);
+  /** Set mapping for string replacement from a list with alternating key, values. */
+  void setStrRepStringList(const QStringList& lst);
 
   /** Get case conversion option. */
   CaseConversion caseConversion() const { return m_caseConversion; }

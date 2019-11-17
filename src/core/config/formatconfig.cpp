@@ -411,22 +411,27 @@ void FormatConfig::setStrRepMap(const QList<QPair<QString, QString>>& strRepMap)
   }
 }
 
-QVariantMap FormatConfig::strRepVariantMap() const
+QStringList FormatConfig::strRepStringList() const
 {
-  QVariantMap map;
+  QStringList lst;
   for (auto it = m_strRepMap.constBegin();
        it != m_strRepMap.constEnd();
        ++it) {
-    map.insert(it->first, it->second);
+    lst.append(it->first);
+    lst.append(it->second);
   }
-  return map;
+  return lst;
 }
 
-void FormatConfig::setStrRepVariantMap(const QVariantMap& map)
+void FormatConfig::setStrRepStringList(const QStringList& lst)
 {
   QList<QPair<QString, QString>> strRepMap;
-  for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    strRepMap.append({it.key(), it.value().toString()});
+  auto it = lst.constBegin();
+  while (it != lst.constEnd()) {
+    QString key = *it++;
+    if (it != lst.constEnd()) {
+      strRepMap.append({key, *it++});
+    }
   }
   setStrRepMap(strRepMap);
 }
