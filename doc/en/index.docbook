@@ -2279,7 +2279,11 @@ selected in the combobox below.
 The string replacement list can be set to arbitrary string mappings. To add a
 new mapping, select the <guilabel>From</guilabel> cell of a row and insert the
 text to replace, then go to the <guilabel>To</guilabel> column and enter the
-replacement text. To remove a mapping set the <guilabel>From</guilabel> cell
+replacement text. When the text to replace starts and ends with a slash ("/"),
+a regular expression is used. For regular expressions containing capturing
+groups, occurrences of \1, \2, ... in <guilabel>To</guilabel> are replaced
+with the string captured by the corresponding capturing group.
+To remove a mapping set the <guilabel>From</guilabel> cell
 to an empty value (e.g. by first typing space and then backspace). Inserting
 and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the

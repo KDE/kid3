@@ -2432,7 +2432,11 @@ Die <guilabel>Zeichen ersetzen</guilabel> Liste kann mit beliebigen Zuordnungen
 von Zeichenketten gefüllt werden. Eine neue Zuordnung kann
 hinzugefügt werden, indem in der <guilabel>Von</guilabel> Zelle einer
 Zeile der zu ersetzende Text eingegeben wird und dann in der
-<guilabel>Nach</guilabel> Spalte der Ersetzungstext. Zum Löschen einer
+<guilabel>Nach</guilabel> Spalte der Ersetzungstext.
+Wenn der zu ersetzende Text mit einem Schrägstrich ("/") beginnt und endet, so
+wird ein regulärer Ausdruck verwendet. Enthält der reguläre Ausdruck
+Erfassungsgruppen, so werden \1, \2, ... in <guilabel>Nach</guilabel> mit der
+entsprechend erfassten Zeichenkette ersetzt. Zum Löschen einer
 Zuordnung wird die <guilabel>Von</guilabel> Zelle auf einen leeren Wert
 gesetzt (z.B. indem man zuerst einen Leerschlag eingibt und diesen dann wieder
 löscht). Einfügen und Löschen von Zeilen ist auch über das

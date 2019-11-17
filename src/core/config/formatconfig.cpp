@@ -27,6 +27,7 @@
 #include "formatconfig.h"
 #include "config.h"
 #include <QString>
+#include <QRegularExpression>
 #include <QLocale>
 #include <QCoreApplication>
 #include "generalconfig.h"
@@ -219,7 +220,16 @@ void FormatConfig::formatString(QString& str) const
   }
   if (m_strRepEnabled) {
     for (auto it = m_strRepMap.constBegin(); it != m_strRepMap.constEnd(); ++it) {
-      str.replace(it->first, it->second);
+      QString before = it->first;
+      QString after = it->second;
+      if (before.length() > 1 &&
+          before.startsWith(QLatin1Char('/')) &&
+          before.endsWith(QLatin1Char('/'))) {
+        QRegularExpression re(before.mid(1, before.length() - 2));
+        str.replace(re, after);
+      } else {
+        str.replace(before, after);
+      }
     }
   }
   str = joinFileName(str, ext);
