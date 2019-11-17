@@ -153,6 +153,106 @@ if test "$1" = "makearchive"; then
   exit 0
 fi # makearchive
 
+# Build a docker image to build binary Kid3 packages.
+# The docker image can then be started using "rundocker".
+# You can then build all using cd ~/projects/kid3/src/; ./build-all.sh
+# You need:
+# - Kid3 project checked out in ~/projects/kid3/src/kid3
+# Linux:
+# - Qt 5.9.7 Linux in /opt/qt5/5.9.7/gcc_64/
+# Windows:
+# - MinGW cross compiler packages in ~/Development/MinGW_Packages/
+# - Qt 5.6.3 MinGW in ~/Development/Qt5.6.3-mingw/5.6.3/mingw49_32/
+# Mac:
+# - Mac cross compiler in /opt/osxcross/
+# - Qt 5.9.7 Mac in ~/Development/Qt5.9.7-mac/5.9.7/clang_64/
+# Android:
+# - Android SDK in /opt/android/sdk/
+# - Android NDK in /opt/android/sdk/android-ndk-r19c/
+# - Qt 5.12.4 Android in /opt/qt5/5.12.4/android_armv7/
+# - Sign key and symlink to ~/.gnupg/ufleisch-release-key.keystore
+#   in ~/projects/kid3/src/android_build/
+# - Gradle cache in ~/.gradle/
+if test "$1" = "makedocker"; then
+  if ! test -f $HOME/projects/kid3/src/build-all.sh; then
+    cat >$HOME/projects/kid3/src/build-all.sh <<"EOF"
+#!/bin/bash
+set -e
+(cd linux_build && \
+   COMPILER=gcc-self-contained \
+   QTPREFIX=/opt/qt5/5.9.7/gcc_64 \
+   ../kid3/buildlibs.sh)
+(cd mingw32_build && \
+   COMPILER=cross-mingw \
+   QTPREFIX=$HOME/Development/Qt5.6.3-mingw/5.6.3/mingw49_32 \
+   QTBINARYDIR=/opt/qt5/5.6.3/gcc_64/bin \
+   ../kid3/buildlibs.sh)
+(cd macos_build && \
+   COMPILER=cross-macos \
+   QTPREFIX=$HOME/Development/Qt5.9.7-mac/5.9.7/clang_64 \
+   ../kid3/buildlibs.sh)
+(cd android_build && \
+   COMPILER=cross-android \
+   QTPREFIX=/opt/qt5/5.12.4/android_armv7 \
+   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
+   ANDROID_SDK_ROOT=/opt/android/sdk \
+   ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
+   ../kid3/buildlibs.sh)
+EOF
+    chmod +x $HOME/projects/kid3/src/build-all.sh
+  fi
+  mkdir -p docker_image_context/pkg
+  cd docker_image_context
+  for f in binutils-mingw-w64-x86-64_2.26-3ubuntu1+6.6_amd64.deb \
+           gcc-mingw-w64-base_5.3.1-8ubuntu3+17_amd64.deb \
+           gcc-mingw-w64-dw2-base_4.9.3-13ubuntu2+14.1_amd64.deb \
+           gcc-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
+           gcc-mingw-w64-x86-64_5.3.1-8ubuntu3+17_amd64.deb \
+           g++-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
+           g++-mingw-w64-x86-64_5.3.1-8ubuntu3+17_amd64.deb \
+           mingw-w64-x86-64-dev_4.0.4-2_all.deb \
+           libmpfr4_3.1.6-1_amd64.deb; do
+    test -e pkg/$f || cp -a $HOME/Development/MinGW_Packages/$f pkg/
+  done
+  echo "### Build docker image"
+  docker build -t ufleisch/kid3dev . -f-<<EOF
+FROM ubuntu:18.04
+RUN apt-get update && apt-get install -y --no-install-recommends \
+devscripts build-essential lintian debhelper extra-cmake-modules \
+kio-dev kdoctools-dev qtmultimedia5-dev qtdeclarative5-dev \
+qttools5-dev qttools5-dev-tools qtdeclarative5-dev-tools \
+qml-module-qtquick2 cmake python libid3-3.8.3-dev libflac++-dev \
+libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
+libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
+debian-keyring ppa-purge dput-ng python-distro-info sudo curl \
+g++-4.8 libcloog-isl4 libisl15 \
+binutils-mingw-w64-i686 mingw-w64-i686-dev mingw-w64-common \
+locales ninja-build ccache p7zip-full genisoimage \
+clang libssl1.0.0 openjdk-8-jdk-headless nasm lib32z1 chrpath
+COPY pkg .
+RUN dpkg -i *.deb && rm -f *.deb && \
+adduser --quiet --disabled-password --home $HOME --gecos "User" $USER && \
+echo "$USER:$USER" | chpasswd && usermod -aG sudo $USER && \
+locale-gen en_US.UTF-8 && \
+mkdir -p $HOME/projects/kid3 $HOME/Development
+USER $USER
+CMD bash
+EOF
+  exit 0
+fi
+
+# Run docker image created with "makedocker".
+if test "$1" = "rundocker"; then
+  echo "### Run docker image"
+  docker run --rm -it \
+         -v $HOME/projects/kid3:$HOME/projects/kid3 \
+         -v $HOME/.gradle:$HOME/.gradle \
+         -v $HOME/.gnupg:$HOME/.gnupg:ro \
+         -v $HOME/Development:$HOME/Development:ro \
+         -v /opt:/opt:ro ufleisch/kid3dev
+  exit 0
+fi
+
 # End of subtasks
 
 
@@ -171,7 +271,7 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.6
 libvorbis_patchlevel=2
-ffmpeg_version=3.2.12
+ffmpeg_version=3.2.14
 ffmpeg_patchlevel=1~deb9u1
 #libav_version=11.12
 #libav_patchlevel=1
