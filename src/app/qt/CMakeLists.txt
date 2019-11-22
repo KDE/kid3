@@ -191,6 +191,10 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/platforminputcontexts"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforminputcontexts/libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
     install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
