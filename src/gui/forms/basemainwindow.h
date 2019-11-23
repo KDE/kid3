@@ -37,6 +37,7 @@ class QLabel;
 class QProgressBar;
 class QToolButton;
 class QItemSelection;
+class QTimer;
 class ProgressWidget;
 class Kid3Form;
 class Kid3Application;
@@ -457,6 +458,16 @@ private slots:
   void showOperationProgress(const QString& name, int done, int total,
                              bool* abort);
 
+  /**
+   * Called when the item count of the file proxy model changed.
+   */
+  void onItemCountChanged();
+
+  /**
+   * Called when the item count of the file selection model changed.
+   */
+  void onSelectionCountChanged();
+
 private:
   /**
    * Free allocated resources.
@@ -559,10 +570,17 @@ private:
    */
   void checkProgressMonitoring(int done, int total, const QString& text);
 
+  /**
+   * Update label of status bar with information about the number of files.
+   */
+  void updateStatusLabel();
+
   IPlatformTools* m_platformTools;
   QMainWindow* m_w;
   BaseMainWindow* m_self;
 
+  QTimer* m_deferredItemCountTimer;
+  QTimer* m_deferredSelectionCountTimer;
   /** Label with normal status message */
   QLabel* m_statusLabel;
   /** GUI with controls */
@@ -608,6 +626,9 @@ private:
   QDateTime m_progressStartTime;
   QString m_progressTitle;
   void (BaseMainWindowImpl::*m_progressTerminationHandler)();
+  int m_folderCount;
+  int m_fileCount;
+  int m_selectionCount;
   bool m_progressDisconnected;
   bool m_findReplaceActive;
   bool m_expandNotificationNeeded;

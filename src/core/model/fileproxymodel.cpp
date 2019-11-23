@@ -405,6 +405,33 @@ void FileProxyModel::emitSortingFinished()
 }
 
 /**
+ * Count items in model.
+ * @param rootIndex index of root item
+ * @param folderCount the folder count is returned here
+ * @param fileCount the file count is returned here
+ */
+void FileProxyModel::countItems(const QModelIndex& rootIndex,
+                                int& folderCount, int& fileCount)
+{
+  folderCount = 0;
+  fileCount = 0;
+  QModelIndexList todo;
+  todo.append(rootIndex);
+  while (!todo.isEmpty()) {
+    QModelIndex parent = todo.takeFirst();
+    for (int row = 0, numRows = rowCount(parent); row < numRows; ++row) {
+      QModelIndex idx = index(row, 0, parent);
+      if (!hasChildren(idx)) {
+        ++fileCount;
+      } else {
+        ++folderCount;
+        todo.append(idx);
+      }
+    }
+  }
+}
+
+/**
  * Called when loading the directory starts.
  */
 void FileProxyModel::onStartLoading()

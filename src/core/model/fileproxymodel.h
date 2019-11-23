@@ -234,6 +234,15 @@ public:
   using QSortFilterProxyModel::index;
 
   /**
+   * Count items in model.
+   * @param rootIndex index of root item
+   * @param folderCount the folder count is returned here
+   * @param fileCount the file count is returned here
+   */
+  void countItems(const QModelIndex& rootIndex,
+                  int& folderCount, int& fileCount);
+
+  /**
    * Called from tagged file to notify modification state changes.
    * @param index model index
    * @param modified true if file is modified

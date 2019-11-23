@@ -25,6 +25,7 @@
  */
 
 #include "basemainwindow.h"
+#include <QTimer>
 #include <QDir>
 #include <QCursor>
 #include <QMessageBox>
@@ -97,6 +98,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools,
                                        Kid3Application* app)
   : m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
+    m_deferredItemCountTimer(new QTimer(this)),
+    m_deferredSelectionCountTimer(new QTimer(this)),
     m_statusLabel(nullptr), m_form(nullptr), m_app(app),
     m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
     m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
@@ -104,9 +107,20 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
     m_progressBar(nullptr), m_progressAbortButton(nullptr),
     m_editFrameDialog(nullptr), m_editFrameTaggedFile(nullptr),
     m_editFrameTagNr(Frame::Tag_2),
-    m_progressTerminationHandler(nullptr),  m_progressDisconnected(false),
+    m_progressTerminationHandler(nullptr),
+    m_folderCount(0), m_fileCount(0), m_selectionCount(0),
+    m_progressDisconnected(false),
     m_findReplaceActive(false), m_expandNotificationNeeded(false)
 {
+  m_deferredItemCountTimer->setSingleShot(true);
+  m_deferredItemCountTimer->setInterval(1000);
+  connect(m_deferredItemCountTimer, &QTimer::timeout,
+          this, &BaseMainWindowImpl::onItemCountChanged);
+  m_deferredSelectionCountTimer->setSingleShot(true);
+  m_deferredSelectionCountTimer->setInterval(500);
+  connect(m_deferredSelectionCountTimer, &QTimer::timeout,
+          this, &BaseMainWindowImpl::onSelectionCountChanged);
+
   m_downloadDialog->close();
   ContextHelp::init(m_platformTools);
 
@@ -164,7 +178,7 @@ BaseMainWindowImpl::~BaseMainWindowImpl()
  */
 void BaseMainWindowImpl::init()
 {
-  m_statusLabel = new QLabel(tr("Ready."));
+  m_statusLabel = new QLabel;
   m_w->statusBar()->addWidget(m_statusLabel);
   m_form = new Kid3Form(m_app, this, m_w);
   m_w->setCentralWidget(m_form);
@@ -548,10 +562,93 @@ void BaseMainWindowImpl::slotFileQuit()
  */
 void BaseMainWindowImpl::setStatusBarVisible(bool visible)
 {
+  auto model =
+      qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
+  auto selModel = m_app->getFileSelectionModel();
   if (visible) {
     m_w->statusBar()->show();
+    if (model && selModel) {
+      connect(model, &FileProxyModel::sortingFinished,
+              m_deferredItemCountTimer,
+              static_cast<void (QTimer::*)()>(&QTimer::start),
+              Qt::UniqueConnection);
+      connect(model->sourceModel(), &QAbstractItemModel::dataChanged,
+              m_deferredItemCountTimer,
+              static_cast<void (QTimer::*)()>(&QTimer::start),
+              Qt::UniqueConnection);
+      connect(selModel, &QItemSelectionModel::selectionChanged,
+              m_deferredSelectionCountTimer,
+              static_cast<void (QTimer::*)()>(&QTimer::start),
+              Qt::UniqueConnection);
+    }
+    onItemCountChanged();
+    onSelectionCountChanged();
   } else {
+    m_deferredItemCountTimer->stop();
+    m_deferredSelectionCountTimer->stop();
     m_w->statusBar()->hide();
+    if (model && selModel) {
+      disconnect(model, &FileProxyModel::sortingFinished,
+                 m_deferredItemCountTimer,
+                 static_cast<void (QTimer::*)()>(&QTimer::start));
+      disconnect(model->sourceModel(), &QAbstractItemModel::dataChanged,
+                 m_deferredItemCountTimer,
+                 static_cast<void (QTimer::*)()>(&QTimer::start));
+      disconnect(selModel, &QItemSelectionModel::selectionChanged,
+                 m_deferredSelectionCountTimer,
+                 static_cast<void (QTimer::*)()>(&QTimer::start));
+    }
+    m_folderCount = 0;
+    m_fileCount = 0;
+    m_selectionCount = 0;
+    updateStatusLabel();
+  }
+}
+
+/**
+ * Called when the item count of the file proxy model changed.
+ */
+void BaseMainWindowImpl::onItemCountChanged()
+{
+  if (auto model =
+      qobject_cast<FileProxyModel*>(m_form->getFileList()->model())) {
+    model->countItems(m_app->getRootIndex(), m_folderCount, m_fileCount);
+    updateStatusLabel();
+  }
+}
+
+/**
+ * Called when the item count of the file selection model changed.
+ */
+void BaseMainWindowImpl::onSelectionCountChanged()
+{
+  if (auto selModel = m_app->getFileSelectionModel()) {
+    m_selectionCount = selModel->selectedRows().size();
+    updateStatusLabel();
+  }
+}
+
+/**
+ * Update label of status bar with information about the number of files.
+ */
+void BaseMainWindowImpl::updateStatusLabel()
+{
+  if (m_statusLabel) {
+    QStringList counts;
+    if (m_folderCount != 0) {
+      counts.append(tr("%n folders", "", m_folderCount));
+    }
+    if (m_fileCount != 0) {
+      counts.append(tr("%n files", "", m_fileCount));
+    }
+    if (m_selectionCount != 0) {
+      counts.append(tr("%n selected", "", m_selectionCount));
+    }
+    if (counts.isEmpty()) {
+      m_statusLabel->setText((tr("Ready.")));
+    } else {
+      m_statusLabel->setText(counts.join(QLatin1String(", ")));
+    }
   }
 }
 
