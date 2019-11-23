@@ -33,6 +33,7 @@
 #include "frame.h"
 #include "kid3api.h"
 
+class QLabel;
 class QProgressBar;
 class QToolButton;
 class QItemSelection;
@@ -229,6 +230,12 @@ public slots:
    * @param text message
    */
   void slotStatusMsg(const QString& text);
+
+  /**
+   * Clear status message.
+   * To be called when a message set with slotStatusMsg() is no longer valid.
+   */
+  void slotClearStatusMsg();
 
   /**
    * Show playlist dialog.
@@ -550,6 +557,8 @@ private:
   QMainWindow* m_w;
   BaseMainWindow* m_self;
 
+  /** Label with normal status message */
+  QLabel* m_statusLabel;
   /** GUI with controls */
   Kid3Form* m_form;
   /** Application logic */
@@ -580,6 +589,7 @@ private:
   QMap<QString, PlaylistEditDialog*> m_playlistEditDialogs;
   /** Progress dialog */
   ProgressWidget* m_progressWidget;
+  QLabel* m_progressLabel;
   QProgressBar* m_progressBar;
   QToolButton* m_progressAbortButton;
   /** Edit frame dialog */

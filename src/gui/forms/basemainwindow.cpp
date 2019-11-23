@@ -97,10 +97,10 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools,
                                        Kid3Application* app)
   : m_platformTools(platformTools), m_w(mainWin), m_self(nullptr),
-    m_form(nullptr), m_app(app),
+    m_statusLabel(nullptr), m_form(nullptr), m_app(app),
     m_exportDialog(nullptr), m_findReplaceDialog(nullptr),
     m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
-    m_progressWidget(nullptr),
+    m_progressWidget(nullptr), m_progressLabel(nullptr),
     m_progressBar(nullptr), m_progressAbortButton(nullptr),
     m_editFrameDialog(nullptr), m_editFrameTaggedFile(nullptr),
     m_editFrameTagNr(Frame::Tag_2),
@@ -164,7 +164,8 @@ BaseMainWindowImpl::~BaseMainWindowImpl()
  */
 void BaseMainWindowImpl::init()
 {
-  m_w->statusBar()->showMessage(tr("Ready."));
+  m_statusLabel = new QLabel(tr("Ready."));
+  m_w->statusBar()->addWidget(m_statusLabel);
   m_form = new Kid3Form(m_app, this, m_w);
   m_w->setCentralWidget(m_form);
 
@@ -190,7 +191,7 @@ void BaseMainWindowImpl::confirmedOpenDirectory(const QStringList& paths)
 
   m_app->openDirectory(paths, false);
 
-  slotStatusMsg(tr("Ready."));
+  slotClearStatusMsg();
   QApplication::restoreOverrideCursor();
 }
 
@@ -236,6 +237,9 @@ void BaseMainWindowImpl::showOperationProgress(const QString& name,
 {
   if (done == -1) {
     // Operation started.
+    if (!m_progressLabel) {
+      m_progressLabel = new QLabel;
+    }
     if (!m_progressBar) {
       m_progressBar = new QProgressBar;
     }
@@ -246,15 +250,24 @@ void BaseMainWindowImpl::showOperationProgress(const QString& name,
       m_progressAbortButton->setToolTip(tr("Abort"));
       m_progressAbortButton->setCheckable(true);
     }
-    m_w->statusBar()->addPermanentWidget(m_progressBar);
-    m_w->statusBar()->addPermanentWidget(m_progressAbortButton);
+    if (m_statusLabel) {
+      m_w->statusBar()->removeWidget(m_statusLabel);
+    }
+    m_w->statusBar()->addPermanentWidget(m_progressLabel);
+    m_w->statusBar()->addPermanentWidget(m_progressBar, 1);
+    m_w->statusBar()->addPermanentWidget(m_progressAbortButton, 1);
+    m_progressLabel->setText(name);
     m_progressBar->setMinimum(0);
     m_progressBar->setMaximum(total);
     m_progressBar->setValue(0);
     m_progressAbortButton->setChecked(false);
-    slotStatusMsg(name);
   } else if (done == total && total != 0) {
     // Operation finished.
+    if (m_progressLabel) {
+      m_w->statusBar()->removeWidget(m_progressLabel);
+      delete m_progressLabel;
+      m_progressLabel = nullptr;
+    }
     if (m_progressBar) {
       m_w->statusBar()->removeWidget(m_progressBar);
       delete m_progressBar;
@@ -264,8 +277,12 @@ void BaseMainWindowImpl::showOperationProgress(const QString& name,
       m_w->statusBar()->removeWidget(m_progressAbortButton);
       delete m_progressAbortButton;
       m_progressAbortButton = nullptr;
+      if (m_statusLabel) {
+        m_w->statusBar()->addWidget(m_statusLabel);
+        m_statusLabel->show();
+      }
     }
-    slotStatusMsg(tr("Ready."));
+    slotClearStatusMsg();
   } else if (done < total || (done == 0 && total == 0)) {
     // Operation progress.
     if (m_progressBar) {
@@ -522,6 +539,7 @@ void BaseMainWindowImpl::slotFileQuit()
 {
   slotStatusMsg(tr("Exiting..."));
   m_w->close(); /* this will lead to call of closeEvent(), queryClose() */
+  slotClearStatusMsg();
 }
 
 
@@ -537,6 +555,15 @@ void BaseMainWindowImpl::slotStatusMsg(const QString& text)
   // visible when it is changed back again in the same function,
   // i.e. in the same call from the Qt main event loop.
   qApp->processEvents();
+}
+
+/**
+ * Clear status message.
+ * To be called when a message set with slotStatusMsg() is no longer valid.
+ */
+void BaseMainWindowImpl::slotClearStatusMsg()
+{
+  m_w->statusBar()->clearMessage();
 }
 
 /**
@@ -575,7 +602,7 @@ bool BaseMainWindowImpl::writePlaylist(const PlaylistConfig& cfg)
 
   bool ok = m_app->writePlaylist(cfg);
 
-  slotStatusMsg(tr("Ready."));
+  slotClearStatusMsg();
   QApplication::restoreOverrideCursor();
   return ok;
 }
