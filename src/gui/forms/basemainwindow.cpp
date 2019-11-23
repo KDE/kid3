@@ -542,6 +542,18 @@ void BaseMainWindowImpl::slotFileQuit()
   slotClearStatusMsg();
 }
 
+/**
+ * Change visibility of status bar.
+ * @param visible true to show status bar
+ */
+void BaseMainWindowImpl::setStatusBarVisible(bool visible)
+{
+  if (visible) {
+    m_w->statusBar()->show();
+  } else {
+    m_w->statusBar()->hide();
+  }
+}
 
 /**
  * Change status message.
@@ -1668,13 +1680,12 @@ void BaseMainWindow::slotPlayAudio()
 }
 
 /**
- * Change status message.
- *
- * @param text message
+ * Change visibility of status bar.
+ * @param visible true to show status bar
  */
-void BaseMainWindow::slotStatusMsg(const QString& text)
+void BaseMainWindow::setStatusBarVisible(bool visible)
 {
-  m_impl->slotStatusMsg(text);
+  m_impl->setStatusBarVisible(visible);
 }
 
 /**

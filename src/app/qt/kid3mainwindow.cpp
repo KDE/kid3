@@ -731,8 +731,7 @@ void Kid3MainWindow::addDirectoryToRecentFiles(const QString& dirName)
 void Kid3MainWindow::readConfig()
 {
   const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
-  if (mainWindowConfig.hideStatusBar())
-    statusBar()->hide();
+  setStatusBarVisible(!mainWindowConfig.hideStatusBar());
   m_viewStatusBar->setChecked(!mainWindowConfig.hideStatusBar());
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
@@ -847,14 +846,7 @@ void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
 void Kid3MainWindow::slotViewStatusBar()
 {
   MainWindowConfig::instance().setHideStatusBar(!m_viewStatusBar->isChecked());
-  slotStatusMsg(tr("Toggle the statusbar..."));
-  if (MainWindowConfig::instance().hideStatusBar()) {
-    statusBar()->hide();
-  }
-  else {
-    statusBar()->show();
-  }
-  slotStatusMsg(tr("Ready."));
+  setStatusBarVisible(!MainWindowConfig::instance().hideStatusBar());
 }
 
 /**

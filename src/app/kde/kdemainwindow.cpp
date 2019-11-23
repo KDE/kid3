@@ -60,6 +60,7 @@ KdeMainWindow::KdeMainWindow(IPlatformTools* platformTools,
   : KXmlGuiWindow(parent),
     BaseMainWindow(this, platformTools, app),
     m_platformTools(platformTools), m_fileOpenRecent(nullptr),
+    m_settingsShowStatusbar(nullptr),
     m_settingsAutoHideTags(nullptr), m_settingsShowHidePicture(nullptr)
 {
   init();
@@ -168,6 +169,14 @@ void KdeMainWindow::initActions()
     this, SLOT(slotSettingsToolbars()), collection);
 #endif
   action->setStatusTip(tr("Configure Toolbars"));
+#if KCONFIGWIDGETS_VERSION >= 0x051700
+  m_settingsShowStatusbar = KStandardAction::showStatusbar(
+    this, &KdeMainWindow::slotSettingsShowStatusbar, collection);
+#else
+  m_settingsShowStatusbar = KStandardAction::showStatusbar(
+    this, SLOT(slotSettingsShowStatusbar()), collection);
+#endif
+  m_settingsShowStatusbar->setStatusTip(tr("Enables/disables the statusbar"));
 #if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::preferences(
       this, &KdeMainWindow::slotSettingsConfigure, collection);
@@ -457,7 +466,15 @@ void KdeMainWindow::readConfig()
   setAutoSaveSettings();
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
-  m_fileOpenRecent->loadEntries(KSharedConfig::openConfig()->group("Recent Files"));
+  auto cfg = KSharedConfig::openConfig();
+  m_fileOpenRecent->loadEntries(cfg->group("Recent Files"));
+
+  QString entry = cfg->group("MainWindow").readEntry("StatusBar", "Enabled");
+  bool statusBarVisible = entry != QLatin1String("Disabled");
+  if (m_settingsShowStatusbar) {
+    m_settingsShowStatusbar->setChecked(statusBarVisible);
+  }
+  setStatusBarVisible(statusBarVisible);
 }
 
 /**
@@ -562,6 +579,15 @@ void KdeMainWindow::slotSettingsToolbars()
   if (dlg.exec()) {
     createGUI();
   }
+}
+
+/**
+ * Statusbar configuration.
+ */
+void KdeMainWindow::slotSettingsShowStatusbar()
+{
+  setStatusBarVisible(m_settingsShowStatusbar->isChecked());
+  setSettingsDirty();
 }
 
 /**

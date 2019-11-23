@@ -144,6 +144,12 @@ public:
   void init();
 
   /**
+   * Change visibility of status bar.
+   * @param visible true to show status bar
+   */
+  void setStatusBarVisible(bool visible);
+
+  /**
    * Update modification state before closing.
    * If anything was modified, save after asking user.
    * Save options before closing.
@@ -708,11 +714,10 @@ protected:
   void init();
 
   /**
-   * Change status message.
-   *
-   * @param text message
+   * Change visibility of status bar.
+   * @param visible true to show status bar
    */
-  void slotStatusMsg(const QString& text);
+  void setStatusBarVisible(bool visible);
 
   /**
    * Update modification state before closing.

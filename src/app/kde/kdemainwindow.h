@@ -143,6 +143,11 @@ private slots:
   void slotSettingsToolbars();
 
   /**
+   * Statusbar configuration.
+   */
+  void slotSettingsShowStatusbar();
+
+  /**
    * Preferences.
    */
   void slotSettingsConfigure();
@@ -165,6 +170,7 @@ private:
   IPlatformTools* m_platformTools;
   /** Actions */
   KRecentFilesAction* m_fileOpenRecent;
+  KToggleAction* m_settingsShowStatusbar;
   KToggleAction* m_settingsAutoHideTags;
   KToggleAction* m_settingsShowHidePicture;
 };
