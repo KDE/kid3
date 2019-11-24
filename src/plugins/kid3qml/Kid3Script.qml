@@ -148,6 +148,9 @@ Timer {
     while (params.length > 0) {
       var p = params.shift()
       if (p.substr(-4) === ".qml") {
+        if (params.length > 0 && params[0] === "--") {
+          params.shift()
+        }
         break
       }
     }
