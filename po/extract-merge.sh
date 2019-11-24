@@ -2,7 +2,7 @@
 
 BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
-PROJECTVERSION="3.8.0" # project version
+PROJECTVERSION="3.8.1" # project version
 BUGADDR="http://sourceforge.net/p/kid3/bugs/" # MSGID-Bugs
 WDIR=`pwd` # working dir
 
@@ -33,12 +33,14 @@ echo "Done extracting messages"
 
 
 echo "Merging translations"
-catalogs=`find . -name '*.po'`
-for cat in $catalogs; do
-  echo $cat
-  msgmerge --quiet --update --backup=none $cat ${PROJECT}.pot
-  sed -i "/#, qt-format/ d; /#, kde-format/ d; /^#~ msg/ d" $cat
+CATALOGS=`find . -name '*.po'`
+SEDCMDS="/#, \(fuzzy, \)\?qt-\(plural-\)\?format/ d; /#, kde-format/ d; /^#~ msg/ d"
+for CAT in $CATALOGS; do
+  echo $CAT
+  msgmerge --quiet --update --backup=none $CAT ${PROJECT}.pot
+  sed -i "$SEDCMDS" $CAT
 done
+sed -i "$SEDCMDS" ${PROJECT}.pot
 echo "Done merging translations"
 
 

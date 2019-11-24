@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2019-08-25 21:08+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -286,6 +286,9 @@ msgstr "Nastavit zkratky"
 
 msgid "Configure Toolbars"
 msgstr "Nastavit nástrojové pruhy"
+
+msgid "Enables/disables the statusbar"
+msgstr "Povolí/Zakáže stavový řádek"
 
 msgid "Preferences dialog"
 msgstr "Nastavení"
@@ -586,9 +589,6 @@ msgstr "Povolí/Zakáže nástrojový pruh"
 msgid "Show &Toolbar"
 msgstr "Ukázat nástrojový &pruh"
 
-msgid "Enables/disables the statusbar"
-msgstr "Povolí/Zakáže stavový řádek"
-
 msgid "Show St&atusbar"
 msgstr "Ukázat &stavový řádek"
 
@@ -617,13 +617,7 @@ msgid "About &Qt"
 msgstr "O &Qt"
 
 msgid " [modified]"
-msgstr "[změněno]"
-
-msgid "Toggle the statusbar..."
-msgstr "Přepíná se stavový řádek..."
-
-msgid "Ready."
-msgstr "Připraven."
+msgstr " [změněno]"
 
 msgid "License"
 msgstr "Povolení"
@@ -694,6 +688,9 @@ msgstr "Neplatný soubor"
 msgid "Data received: %1"
 msgstr "Přijatá data: %1"
 
+msgid "Ready."
+msgstr "Připraven."
+
 msgid "Request sent..."
 msgstr "Požadavek odeslán..."
 
@@ -758,9 +755,7 @@ msgid "Rename %1 to %2 failed\n"
 msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
 msgid "%1 already exists\n"
-msgstr ""
-"%1 již existuje\n"
-"\n"
+msgstr "%1 již existuje\n"
 
 msgid "%1 is not a file\n"
 msgstr "%1 není souborem\n"
@@ -1455,7 +1450,7 @@ msgid "Category"
 msgstr "Skupina"
 
 msgid "Catalog ID"
-msgstr "Katalogový identifikátor "
+msgstr "Katalogový identifikátor"
 
 msgid "Genre ID"
 msgstr "Identifikátor žánru"
@@ -2201,6 +2196,24 @@ msgstr ""
 msgid "Exiting..."
 msgstr "Ukončuje se..."
 
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n složka"
+msgstr[1] "%n složky"
+msgstr[2] "%n složek"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n soubor"
+msgstr[1] "%n soubory"
+msgstr[2] "%n souborů"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n soubor"
+msgstr[1] "%n soubory"
+msgstr[2] "%n souborů"
+
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
 
@@ -2268,7 +2281,7 @@ msgid "Execute "
 msgstr "Provést "
 
 msgid "Could not execute "
-msgstr "Nepodařilo se provést"
+msgstr "Nepodařilo se provést "
 
 msgid "Kid3"
 msgstr "Kid3"

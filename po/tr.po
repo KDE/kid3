@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -286,6 +286,9 @@ msgstr "Kısayolları yapılandır"
 
 msgid "Configure Toolbars"
 msgstr "Araç Çubuğunu Yapılandır"
+
+msgid "Enables/disables the statusbar"
+msgstr "Durum çubuğunu açar/kapatır"
 
 msgid "Preferences dialog"
 msgstr "Özellikler Penceresi"
@@ -586,9 +589,6 @@ msgstr "Araç çubuğunu açar/kapatır"
 msgid "Show &Toolbar"
 msgstr "&Araç Çubuğunu Göster"
 
-msgid "Enables/disables the statusbar"
-msgstr "Durum çubuğunu açar/kapatır"
-
 msgid "Show St&atusbar"
 msgstr "&Durum Çubuğunu Göster"
 
@@ -618,12 +618,6 @@ msgstr "&Qt Hakkında"
 
 msgid " [modified]"
 msgstr " [değişti]"
-
-msgid "Toggle the statusbar..."
-msgstr "Durum çubuğu açılı/kapatılıyor..."
-
-msgid "Ready."
-msgstr "Hazır."
 
 msgid "License"
 msgstr "Lisans"
@@ -694,6 +688,9 @@ msgstr "Geçersiz Dosya"
 msgid "Data received: %1"
 msgstr "Alınan veri: %1"
 
+msgid "Ready."
+msgstr "Hazır."
+
 msgid "Request sent..."
 msgstr "İstek gönderildi..."
 
@@ -746,7 +743,7 @@ msgid "Command"
 msgstr "Komut"
 
 msgid "Create directory %1 failed\n"
-msgstr " %1 dizinini yaratma başarısız\n"
+msgstr "%1 dizinini yaratma başarısız\n"
 
 msgid "File %1 already exists\n"
 msgstr "Zaten %1 adında bir dosya var\n"
@@ -1494,9 +1491,8 @@ msgstr "Bölüm Numara"
 msgid "TV Network Name"
 msgstr "Ağ"
 
-#, fuzzy
 msgid "TV Show Name"
-msgstr "Başlık sıralaması"
+msgstr ""
 
 msgid "TV Season"
 msgstr "Sezon"
@@ -1904,7 +1900,6 @@ msgstr "İnternet &Tarayıcısı:"
 msgid "Context &Menu Commands"
 msgstr "Açılır &Menü Komutları"
 
-#, fuzzy
 msgid "&Play on double click"
 msgstr "&Çift tıklayın çal"
 
@@ -2201,6 +2196,18 @@ msgstr ""
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
 
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n dizin"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n dosya"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n seçildi"
+
 msgid "Creating playlist..."
 msgstr "Playlist Yaratılıyor..."
 
@@ -2265,7 +2272,7 @@ msgid "Open Containing &Folder"
 msgstr "&İçeren Klasörü Aç"
 
 msgid "Execute "
-msgstr "Çalıştır"
+msgstr "Çalıştır "
 
 msgid "Could not execute "
 msgstr "Çalıştırılamadı "

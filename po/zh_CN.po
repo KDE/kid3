@@ -4,9 +4,9 @@
 # shlinux <lishaohui.qd@163.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -285,6 +285,9 @@ msgstr "配置快捷键"
 
 msgid "Configure Toolbars"
 msgstr "配置工具栏"
+
+msgid "Enables/disables the statusbar"
+msgstr "打开/关闭 状态栏"
 
 msgid "Preferences dialog"
 msgstr "偏好配置对话框"
@@ -585,9 +588,6 @@ msgstr "打开/关闭 工具栏"
 msgid "Show &Toolbar"
 msgstr "显示工具栏(&T)"
 
-msgid "Enables/disables the statusbar"
-msgstr "打开/关闭 状态栏"
-
 msgid "Show St&atusbar"
 msgstr "显示状态栏(&A)"
 
@@ -616,13 +616,7 @@ msgid "About &Qt"
 msgstr "关于 Qt(&Q)"
 
 msgid " [modified]"
-msgstr "[已修改]"
-
-msgid "Toggle the statusbar..."
-msgstr "切换状态栏..."
-
-msgid "Ready."
-msgstr "已就绪。"
+msgstr " [已修改]"
 
 msgid "License"
 msgstr "许可证"
@@ -692,6 +686,9 @@ msgstr "无效的文件"
 
 msgid "Data received: %1"
 msgstr "已接收的数据：%1"
+
+msgid "Ready."
+msgstr "已就绪。"
 
 msgid "Request sent..."
 msgstr "发出连接请求..."
@@ -952,7 +949,6 @@ msgctxt "Match OS X Finder"
 msgid "Kind"
 msgstr "种类"
 
-#, fuzzy
 msgctxt "All other platforms"
 msgid "Type"
 msgstr "类型"
@@ -1315,7 +1311,7 @@ msgid "Release Time"
 msgstr "发行时间"
 
 msgid "Tagging Time"
-msgstr "标签时间 "
+msgstr "标签时间"
 
 msgid "File Type"
 msgstr "文件类型"
@@ -1330,7 +1326,7 @@ msgid "File Owner"
 msgstr "文件属主"
 
 msgid "Produced Notice"
-msgstr " 生产注意"
+msgstr "生产注意"
 
 msgid "Recording Date"
 msgstr "录制日期"
@@ -1494,9 +1490,8 @@ msgstr ""
 msgid "TV Network Name"
 msgstr "网络"
 
-#, fuzzy
 msgid "TV Show Name"
-msgstr "排序名称"
+msgstr ""
 
 msgid "TV Season"
 msgstr "季"
@@ -2198,6 +2193,18 @@ msgstr ""
 msgid "Exiting..."
 msgstr "退出..."
 
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n 个文件夹"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n 个文件"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n 选中了"
+
 msgid "Creating playlist..."
 msgstr "创建播放列表..."
 
@@ -2214,7 +2221,7 @@ msgid "Retry after closing directories?"
 msgstr ""
 
 msgid " [filtered %1/%2]"
-msgstr "[已过滤 %1/%2]"
+msgstr " [已过滤 %1/%2]"
 
 msgid "Add Frame"
 msgstr "添加帧"
@@ -2262,10 +2269,10 @@ msgid "Open Containing &Folder"
 msgstr "打开包含的文件夹(&F)"
 
 msgid "Execute "
-msgstr "执行"
+msgstr "执行 "
 
 msgid "Could not execute "
-msgstr "无法执行"
+msgstr "无法执行 "
 
 msgid "Kid3"
 msgstr "Kid3"
@@ -2733,7 +2740,7 @@ msgid "TDRL - Release time"
 msgstr "TDRL - 发行时间"
 
 msgid "TDTG - Tagging time"
-msgstr "TDTG - 标签时间 "
+msgstr "TDTG - 标签时间"
 
 msgid "TGID - Podcast identifier"
 msgstr "TGID - 識別碼 Podcast"
@@ -2819,9 +2826,8 @@ msgstr "设置"
 msgid "Quit"
 msgstr "退出"
 
-#, fuzzy, qt-format
 msgid "SD card is only writable in %1"
-msgstr "SD 卡只能在 ％1 中寫入"
+msgstr "SD 卡只能在 %1 中寫入"
 
 msgid "Start number:"
 msgstr "起始编号："

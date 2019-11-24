@@ -4,9 +4,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -15,8 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: en\n"
 
@@ -286,6 +285,9 @@ msgstr "Подеси пречице"
 
 msgid "Configure Toolbars"
 msgstr "Подеси траке алата"
+
+msgid "Enables/disables the statusbar"
+msgstr "Приказује/сакрива траку стања"
 
 msgid "Preferences dialog"
 msgstr "Дијалог подешавања"
@@ -586,9 +588,6 @@ msgstr "Приказује/сакрива траку алата"
 msgid "Show &Toolbar"
 msgstr "Прикажи траку &алата"
 
-msgid "Enables/disables the statusbar"
-msgstr "Приказује/сакрива траку стања"
-
 msgid "Show St&atusbar"
 msgstr "Прикажи траку &стања"
 
@@ -618,12 +617,6 @@ msgstr "О &КјуТ-у"
 
 msgid " [modified]"
 msgstr " [измијењен]"
-
-msgid "Toggle the statusbar..."
-msgstr "Прикажи/сакриј траку стања..."
-
-msgid "Ready."
-msgstr "Спреман."
 
 msgid "License"
 msgstr "Лиценца"
@@ -693,6 +686,9 @@ msgstr "Неисправна датотека"
 
 msgid "Data received: %1"
 msgstr "Подаци примљени: %1"
+
+msgid "Ready."
+msgstr "Спреман."
 
 msgid "Request sent..."
 msgstr "Захтјев послат..."
@@ -1494,9 +1490,8 @@ msgstr "Број епизода"
 msgid "TV Network Name"
 msgstr "Мрежа"
 
-#, fuzzy
 msgid "TV Show Name"
-msgstr "Редослијед сортирања наслова"
+msgstr ""
 
 msgid "TV Season"
 msgstr "Доба"
@@ -1876,10 +1871,10 @@ msgid "Filte&r:"
 msgstr "&Филтер:"
 
 msgid "Inclu&de folders:"
-msgstr "Укључују фасцикли:"
+msgstr "Укљ&учују фасцикли:"
 
 msgid "E&xclude folders:"
-msgstr "Изузми фасцикле:"
+msgstr "И&зузми фасцикле:"
 
 msgid "&Show hidden files"
 msgstr "&Скривени фајлови"
@@ -2197,6 +2192,24 @@ msgstr ""
 
 msgid "Exiting..."
 msgstr "Излазим..."
+
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n мапа"
+msgstr[1] "%n мапе"
+msgstr[2] "%n мапе"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n датотека"
+msgstr[1] "%n датотеке"
+msgstr[2] "%n датотеке"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n изабран"
+msgstr[1] "%n изабрана"
+msgstr[2] "%n изабрано"
 
 msgid "Creating playlist..."
 msgstr "Правим листу нумера..."

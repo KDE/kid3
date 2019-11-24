@@ -129,7 +129,7 @@ if test "$1" = "cleanuppo"; then
   echo "### Clean up .po files"
 
   for f in $srcdir/po/*.po*; do
-    sed -i "/#, qt-format/ d; /#, kde-format/ d; /^#~ msg/ d" $f
+    sed -i "/#, \(fuzzy, \)\?qt-\(plural-\)\?format/ d; /#, kde-format/ d; /^#~ msg/ d" $f
   done
   exit 0
 fi # cleanuppo

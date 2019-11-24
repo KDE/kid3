@@ -5,9 +5,9 @@
 # Toon van Gerwen <toon@vgerwen.nl>, 2012, 2013, 2014, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2017-01-25 21:40+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -286,6 +286,9 @@ msgstr "Sneltoetsen instellen"
 
 msgid "Configure Toolbars"
 msgstr "Werkbalken instellen"
+
+msgid "Enables/disables the statusbar"
+msgstr "Activeert/deactiveert de statusbalk"
 
 msgid "Preferences dialog"
 msgstr "Voorkeuren"
@@ -586,9 +589,6 @@ msgstr "Activeert/deactiveert de werkbalk"
 msgid "Show &Toolbar"
 msgstr "&Werkbalk tonen"
 
-msgid "Enables/disables the statusbar"
-msgstr "Activeert/deactiveert de statusbalk"
-
 msgid "Show St&atusbar"
 msgstr "&Statusbalk tonen"
 
@@ -618,12 +618,6 @@ msgstr "Over &Qt"
 
 msgid " [modified]"
 msgstr " [gewijzigd]"
-
-msgid "Toggle the statusbar..."
-msgstr "De statusbalk omschakelen..."
-
-msgid "Ready."
-msgstr "Gereed."
 
 msgid "License"
 msgstr "Licentie"
@@ -694,6 +688,9 @@ msgstr "Ongeldig bestand"
 msgid "Data received: %1"
 msgstr "Gegevens ontvangen: %1"
 
+msgid "Ready."
+msgstr "Gereed."
+
 msgid "Request sent..."
 msgstr "Verzoek verzonden..."
 
@@ -755,7 +752,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 is geen map\n"
 
 msgid "Rename %1 to %2 failed\n"
-msgstr "Hernoemen %1 naar %2 mislukt \n"
+msgstr "Hernoemen %1 naar %2 mislukt\n"
 
 msgid "%1 already exists\n"
 msgstr "%1 bestaat reeds\n"
@@ -2200,6 +2197,21 @@ msgstr ""
 
 msgid "Exiting..."
 msgstr "Bezig met afsluiten..."
+
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n map"
+msgstr[1] "%n mappen"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n bestand"
+msgstr[1] "%n bestanden"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n geselecteerd"
+msgstr[1] "%n geselecteerd"
 
 msgid "Creating playlist..."
 msgstr "Speellijst Aanmaken..."

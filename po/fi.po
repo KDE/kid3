@@ -6,9 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -287,6 +287,9 @@ msgstr "Aseta pikanäppäimet"
 
 msgid "Configure Toolbars"
 msgstr "Aseta työkalupalkit"
+
+msgid "Enables/disables the statusbar"
+msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
 
 msgid "Preferences dialog"
 msgstr "Asetusikkuna"
@@ -587,9 +590,6 @@ msgstr "Ottaa käyttöön tai poistaa käytöstä työkalupalkin"
 msgid "Show &Toolbar"
 msgstr "Näytä &työkalurivi"
 
-msgid "Enables/disables the statusbar"
-msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
-
 msgid "Show St&atusbar"
 msgstr "Näytä &tilarivi"
 
@@ -619,12 +619,6 @@ msgstr "Tietoja &Qt:stä"
 
 msgid " [modified]"
 msgstr " [muutettu]"
-
-msgid "Toggle the statusbar..."
-msgstr "Näytä/piilota tilarivi..."
-
-msgid "Ready."
-msgstr "Valmis."
 
 msgid "License"
 msgstr "Lisenssi"
@@ -694,6 +688,9 @@ msgstr "Virheellinen tiedosto"
 
 msgid "Data received: %1"
 msgstr "Vastaanotettu data: %1"
+
+msgid "Ready."
+msgstr "Valmis."
 
 msgid "Request sent..."
 msgstr "Pyyntö lähetetty..."
@@ -2200,6 +2197,21 @@ msgstr ""
 msgid "Exiting..."
 msgstr "Poistutaan..."
 
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n kansio"
+msgstr[1] "%n kansiota"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n tiedosto"
+msgstr[1] "%n tiedostoa"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n valittu"
+msgstr[1] "%n valittuna"
+
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
 
@@ -2264,7 +2276,7 @@ msgid "Open Containing &Folder"
 msgstr "A&vaa sisältävä kansio"
 
 msgid "Execute "
-msgstr "Suorita"
+msgstr "Suorita "
 
 msgid "Could not execute "
 msgstr "Ei voitu suorittaa "

@@ -5,9 +5,9 @@
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -286,6 +286,9 @@ msgstr "Kurzbefehle festlegen"
 
 msgid "Configure Toolbars"
 msgstr "Werkzeugleisten einrichten"
+
+msgid "Enables/disables the statusbar"
+msgstr "Statusleiste anzeigen"
 
 msgid "Preferences dialog"
 msgstr "Einstellungen"
@@ -586,9 +589,6 @@ msgstr "Werkzeugleiste anzeigen"
 msgid "Show &Toolbar"
 msgstr "&Werkzeugleiste anzeigen"
 
-msgid "Enables/disables the statusbar"
-msgstr "Statusleiste anzeigen"
-
 msgid "Show St&atusbar"
 msgstr "&Statusleiste anzeigen"
 
@@ -618,12 +618,6 @@ msgstr "Über &Qt"
 
 msgid " [modified]"
 msgstr " [Geändert]"
-
-msgid "Toggle the statusbar..."
-msgstr "Schalte Statusleiste um..."
-
-msgid "Ready."
-msgstr "Bereit."
 
 msgid "License"
 msgstr "Lizenz"
@@ -693,6 +687,9 @@ msgstr "Ungültige Datei"
 
 msgid "Data received: %1"
 msgstr "Daten empfangen: %1"
+
+msgid "Ready."
+msgstr "Bereit."
 
 msgid "Request sent..."
 msgstr "Anfrage gesendet..."
@@ -2200,6 +2197,21 @@ msgstr ""
 
 msgid "Exiting..."
 msgstr "Beende..."
+
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n Ordner"
+msgstr[1] "%n Ordner"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n Datei"
+msgstr[1] "%n Dateien"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n ausgewählt"
+msgstr[1] "%n ausgewählt"
 
 msgid "Creating playlist..."
 msgstr "Erstelle Stückliste..."

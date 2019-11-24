@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -289,6 +289,9 @@ msgstr "設定捷徑"
 
 msgid "Configure Toolbars"
 msgstr "設定工具列"
+
+msgid "Enables/disables the statusbar"
+msgstr "開啟/關閉 狀態列"
 
 msgid "Preferences dialog"
 msgstr "喜好設定對話框"
@@ -589,9 +592,6 @@ msgstr "開啟/關閉 工具列"
 msgid "Show &Toolbar"
 msgstr "顯示工具列(&T)"
 
-msgid "Enables/disables the statusbar"
-msgstr "開啟/關閉 狀態列"
-
 msgid "Show St&atusbar"
 msgstr "顯示狀態列(&A)"
 
@@ -620,13 +620,7 @@ msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
 
 msgid " [modified]"
-msgstr "[已更改]"
-
-msgid "Toggle the statusbar..."
-msgstr "切換狀態列..."
-
-msgid "Ready."
-msgstr "已就緒。"
+msgstr " [已更改]"
 
 msgid "License"
 msgstr "授權"
@@ -697,6 +691,9 @@ msgstr "檔案無效"
 msgid "Data received: %1"
 msgstr "接收 %1 資料中"
 
+msgid "Ready."
+msgstr "已就緒。"
+
 msgid "Request sent..."
 msgstr "送出連線要求..."
 
@@ -752,7 +749,7 @@ msgid "Create directory %1 failed\n"
 msgstr "建立 %1 目錄失敗\n"
 
 msgid "File %1 already exists\n"
-msgstr " %1 檔已經存在\n"
+msgstr "%1 檔已經存在\n"
 
 msgid "%1 is not a directory\n"
 msgstr "%1 不是目錄\n"
@@ -952,12 +949,10 @@ msgstr "%1 KB"
 msgid "%1 bytes"
 msgstr "%1 位元組"
 
-#, fuzzy
 msgctxt "Match OS X Finder"
 msgid "Kind"
 msgstr "種類"
 
-#, fuzzy
 msgctxt "All other platforms"
 msgid "Type"
 msgstr "型態"
@@ -1320,7 +1315,7 @@ msgid "Release Time"
 msgstr "發行時間"
 
 msgid "Tagging Time"
-msgstr "標籤時間 "
+msgstr "標籤時間"
 
 msgid "File Type"
 msgstr "檔案型態"
@@ -1499,9 +1494,8 @@ msgstr "節目數字"
 msgid "TV Network Name"
 msgstr "網路"
 
-#, fuzzy
 msgid "TV Show Name"
-msgstr "標題排序順序"
+msgstr ""
 
 msgid "TV Season"
 msgstr "花牌"
@@ -1907,7 +1901,6 @@ msgstr "網頁瀏覽器(&B):"
 msgid "Context &Menu Commands"
 msgstr "內文選單指令(&M)"
 
-#, fuzzy
 msgid "&Play on double click"
 msgstr "雙擊上播放(&P)"
 
@@ -2204,6 +2197,18 @@ msgstr ""
 msgid "Exiting..."
 msgstr "離開..."
 
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n 個資料夾"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n 個檔案"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n 已選擇"
+
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
@@ -2220,7 +2225,7 @@ msgid "Retry after closing directories?"
 msgstr ""
 
 msgid " [filtered %1/%2]"
-msgstr "[已篩選 %1/%2]"
+msgstr " [已篩選 %1/%2]"
 
 msgid "Add Frame"
 msgstr "新增訊框"
@@ -2268,10 +2273,10 @@ msgid "Open Containing &Folder"
 msgstr "開啟所在資料夾(&F)"
 
 msgid "Execute "
-msgstr "執行"
+msgstr "執行 "
 
 msgid "Could not execute "
-msgstr "無法執行"
+msgstr "無法執行 "
 
 msgid "Kid3"
 msgstr "Kid3"
@@ -2739,7 +2744,7 @@ msgid "TDRL - Release time"
 msgstr "TDRL - 發行時間"
 
 msgid "TDTG - Tagging time"
-msgstr "TDTG - 標籤時間 "
+msgstr "TDTG - 標籤時間"
 
 msgid "TGID - Podcast identifier"
 msgstr "TGID - 说明符 Podcast"
@@ -2825,9 +2830,8 @@ msgstr "設定"
 msgid "Quit"
 msgstr "離開"
 
-#, fuzzy, qt-format
 msgid "SD card is only writable in %1"
-msgstr "SD 卡只能在 ％1 中写入"
+msgstr "SD 卡只能在 %1 中写入"
 
 msgid "Start number:"
 msgstr "起始編號:"

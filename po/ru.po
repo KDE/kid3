@@ -6,9 +6,9 @@
 # Olesya Gerasimenko <gammaray@basealt.ru>, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
 
@@ -288,6 +287,9 @@ msgstr "Настройка комбинаций клавиш"
 
 msgid "Configure Toolbars"
 msgstr "Настройка панелей инструментов"
+
+msgid "Enables/disables the statusbar"
+msgstr "Включить или отключить строку состояния"
 
 msgid "Preferences dialog"
 msgstr "Настройка параметров"
@@ -588,9 +590,6 @@ msgstr "Включить или отключить панель инструме
 msgid "Show &Toolbar"
 msgstr "Показывать панель &инструментов"
 
-msgid "Enables/disables the statusbar"
-msgstr "Включить или отключить строку состояния"
-
 msgid "Show St&atusbar"
 msgstr "Показывать строку &состояния"
 
@@ -620,12 +619,6 @@ msgstr "О &Qt"
 
 msgid " [modified]"
 msgstr " [изменено]"
-
-msgid "Toggle the statusbar..."
-msgstr "Переключение строки состояния..."
-
-msgid "Ready."
-msgstr "Готово."
 
 msgid "License"
 msgstr "Лицензия"
@@ -697,6 +690,9 @@ msgstr "Неверный файл"
 
 msgid "Data received: %1"
 msgstr "Полученные данные: %1"
+
+msgid "Ready."
+msgstr "Готово."
 
 msgid "Request sent..."
 msgstr "Запрос отправлен..."
@@ -2204,6 +2200,24 @@ msgstr ""
 
 msgid "Exiting..."
 msgstr "Выход..."
+
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n папка"
+msgstr[1] "%n папки"
+msgstr[2] "%n папок"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n файл"
+msgstr[1] "%n файла"
+msgstr[2] "%n файлов"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n выбран"
+msgstr[1] "%n выбрано"
+msgstr[2] "%n выбрано"
 
 msgid "Creating playlist..."
 msgstr "Создание списка воспроизведения..."

@@ -13,36 +13,58 @@ def get_po_translations(fn):
     """
     msgid = b''
     msgstr = b''
+    msgstrs = []
     in_msgid = False
     in_msgstr = False
+    in_msgstrs = False
     trans = {}
+
+    def add_trans():
+        if msgid:
+            if in_msgstrs:
+                if msgstr:
+                    msgstrs.append(msgstr)
+                trans[msgid] = msgstrs
+            else:
+                trans[msgid] = msgstr
+
     msgidre = re.compile(br'^msgid "(.*)"$')
     msgstrre = re.compile(br'^msgstr "(.*)"$')
+    msgstrsre = re.compile(br'^msgstr\[\d\] "(.*)"$')
     strcontre = re.compile(br'^"(.+)"$')
     with open(fn, 'rb') as fh:
         for line in fh:
             line = line.replace(b'\r\n', b'\n')
             m = msgidre.match(line)
             if m:
-                if msgid:
-                    trans[msgid] = msgstr
+                add_trans()
                 msgid = m.group(1)
                 msgstr = b''
+                msgstrs = []
                 in_msgid = True
                 in_msgstr = False
+                in_msgstrs = False
             m = msgstrre.match(line)
             if m:
                 msgstr = m.group(1)
                 in_msgid = False
                 in_msgstr = True
+                in_msgstrs = False
+            m = msgstrsre.match(line)
+            if m:
+                if msgstr:
+                    msgstrs.append(msgstr)
+                msgstr = m.group(1)
+                in_msgid = False
+                in_msgstr = True
+                in_msgstrs = True
             m = strcontre.match(line)
             if m:
                 if in_msgid:
                     msgid += m.group(1)
                 elif in_msgstr:
                     msgstr += m.group(1)
-    if msgid:
-        trans[msgid] = msgstr
+    add_trans()
     return trans
 
 
@@ -51,8 +73,27 @@ def set_ts_translations(infn, outfn, trans):
     Set the translations in a .ts file replacing & by &amp;, < by &lt;,
     > by &gt; and ' by &apos;.
     """
+    def decode_entities(s):
+        return s \
+            .replace(b'&amp;', b'&') \
+            .replace(b'&lt;', b'<') \
+            .replace(b'&gt;', b'>') \
+            .replace(b'&apos;', b"'") \
+            .replace(b'&quot;', br'\"') \
+            .replace(b'\n', br'\n')
+
+    def encode_entities(s):
+        return s \
+            .replace(b'&', b'&amp;') \
+            .replace(b'<', b'&lt;') \
+            .replace(b'>', b'&gt;') \
+            .replace(b"'", b'&apos;') \
+            .replace(br'\"', b'&quot;') \
+            .replace(br'\n', b'\n')
+
     source = b''
     in_source = False
+    numerusforms = []
     sourcere = re.compile(br'<source>(.*)</source>')
     sourcebeginre = re.compile(br'<source>(.*)$')
     sourceendre = re.compile(br'^(.*)</source>')
@@ -78,28 +119,28 @@ def set_ts_translations(infn, outfn, trans):
                         else:
                             source += line.strip()
                     elif b'<translation' in line:
-                        source = source \
-                            .replace(b'&amp;', b'&') \
-                            .replace(b'&lt;', b'<') \
-                            .replace(b'&gt;', b'>') \
-                            .replace(b'&apos;', b"'") \
-                            .replace(b'&quot;', br'\"') \
-                            .replace(b'\n', br'\n')
+                        source = decode_entities(source)
                         if source in trans:
-                            translation = trans[source] \
-                                .replace(b'&', b'&amp;') \
-                                .replace(b'<', b'&lt;') \
-                                .replace(b'>', b'&gt;') \
-                                .replace(b"'", b'&apos;') \
-                                .replace(br'\"', b'&quot;') \
-                                .replace(br'\n', b'\n')
-                            line = line \
-                                .replace(b' type="unfinished"', b'') \
-                                .replace(b'</translation>',
-                                         translation + b'</translation>')
+                            translation = trans[source]
+                            line = line.replace(b' type="unfinished"', b'')
+                            if type(translation) == list:
+                                numerusforms = translation
+                            else:
+                                translation = encode_entities(translation)
+                                line = line.replace(b'</translation>',
+                                             translation + b'</translation>')
                         else:
                             print('Could not find translation for "%s"' %
                                   source)
+                    elif b'<numerusform' in line:
+                        if numerusforms:
+                            translation = encode_entities(numerusforms.pop(0))
+                            line = line.replace(b'</numerusform>',
+                                                translation + b'</numerusform>')
+                        else:
+                            print('Could not find translation for "%s"' %
+                                  source)
+
                 outfh.write(line)
 
 

@@ -5,9 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 3.8.0\n"
+"Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-08-11 19:31+0200\n"
+"POT-Creation-Date: 2019-11-23 18:20+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -286,6 +286,9 @@ msgstr "Configura los atajos de teclado"
 
 msgid "Configure Toolbars"
 msgstr "Configurar barras de herramientas"
+
+msgid "Enables/disables the statusbar"
+msgstr "Activa/desactiva la barra de estado"
 
 msgid "Preferences dialog"
 msgstr "Diálogo de preferencias"
@@ -586,9 +589,6 @@ msgstr "Activa/desactiva la barra de herramientas"
 msgid "Show &Toolbar"
 msgstr "Mostrar barra de &herramientas"
 
-msgid "Enables/disables the statusbar"
-msgstr "Activa/desactiva la barra de estado"
-
 msgid "Show St&atusbar"
 msgstr "Mostrar barra de &estado"
 
@@ -618,12 +618,6 @@ msgstr "Acerca de &Qt"
 
 msgid " [modified]"
 msgstr " [modificado]"
-
-msgid "Toggle the statusbar..."
-msgstr "Conmutando la barra de estado..."
-
-msgid "Ready."
-msgstr "Listo."
 
 msgid "License"
 msgstr "Licencia"
@@ -693,6 +687,9 @@ msgstr "Archivo no válido"
 
 msgid "Data received: %1"
 msgstr "Datos recibidos: %1"
+
+msgid "Ready."
+msgstr "Listo."
 
 msgid "Request sent..."
 msgstr "Petición enviada..."
@@ -2199,6 +2196,21 @@ msgstr ""
 
 msgid "Exiting..."
 msgstr "Saliendo..."
+
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n carpeta"
+msgstr[1] "%n carpetas"
+
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n archivo"
+msgstr[1] "%n archivos"
+
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n seleccionado"
+msgstr[1] "%n seleccionados"
 
 msgid "Creating playlist..."
 msgstr "Creando lista de reproducción..."
