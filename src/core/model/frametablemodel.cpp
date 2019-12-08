@@ -26,6 +26,7 @@
 
 #include "frametablemodel.h"
 #include <algorithm>
+#include <QCoreApplication>
 #include "coretaggedfileiconprovider.h"
 #include "fileconfig.h"
 #include "pictureframe.h"
@@ -126,6 +127,18 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
               displayName += QLatin1String(": ");
               displayName += typeName;
             }
+          }
+        }
+      } else if (it->getType() == Frame::FT_Other &&
+                 it->getInternalName().startsWith(QLatin1String("RVA2")) &&
+                 it->getValue() != Frame::differentRepresentation()) {
+        QVariant fieldValue = it->getFieldValue(Frame::ID_Id);
+        if (fieldValue.isValid()) {
+          auto identifier = fieldValue.toString();
+          if (!identifier.isEmpty()) {
+            displayName = QCoreApplication::translate("@default", "Volume");
+            displayName += QLatin1String(": ");
+            displayName += identifier;
           }
         }
       }
