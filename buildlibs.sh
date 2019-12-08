@@ -159,47 +159,54 @@ fi # makearchive
 # You need:
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # Linux:
-# - Qt 5.9.7 Linux in /opt/qt5/5.9.7/gcc_64/
+# - Qt 5.9.7 Linux in ~/Development/Qt5.9.7-linux/5.9.7/gcc_64/
 # Windows:
 # - MinGW cross compiler packages in ~/Development/MinGW_Packages/
 # - Qt 5.6.3 MinGW in ~/Development/Qt5.6.3-mingw/5.6.3/mingw49_32/
+# - Qt 5.9.7 MinGW in ~/Development/Qt5.9.7-mingw64/5.9.7/mingw53_64/
+# - Qt 5.6.3 Linux in ~/Development/Qt5.6.3-linux/5.6.3/gcc_64
 # Mac:
-# - Mac cross compiler in /opt/osxcross/
+# - Mac cross compiler in ~/Development/osxcross/
 # - Qt 5.9.7 Mac in ~/Development/Qt5.9.7-mac/5.9.7/clang_64/
 # Android:
-# - Android SDK in /opt/android/sdk/
-# - Android NDK in /opt/android/sdk/android-ndk-r19c/
-# - Qt 5.12.4 Android in /opt/qt5/5.12.4/android_armv7/
-# - Sign key and symlink to ~/.gnupg/ufleisch-release-key.keystore
-#   in ~/projects/kid3/src/android_build/
+# - Android SDK in ~/Development/android/sdk/
+# - Android NDK in ~/Development/android/sdk/android-ndk-r19c/
+# - Qt 5.12.4 Android in ~/Development/Qt5.12.4-android/5.12.4/android_armv7/
+# - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
-  if ! test -f $HOME/projects/kid3/src/build-all.sh; then
-    cat >$HOME/projects/kid3/src/build-all.sh <<"EOF"
+  if ! test -f build-all.sh; then
+    cat >build-all.sh <<"EOF"
 #!/bin/bash
 set -e
 (cd linux_build && \
    COMPILER=gcc-self-contained \
-   QTPREFIX=/opt/qt5/5.9.7/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt5.9.7-linux/5.9.7/gcc_64 \
    ../kid3/buildlibs.sh)
 (cd mingw32_build && \
    COMPILER=cross-mingw \
    QTPREFIX=$HOME/Development/Qt5.6.3-mingw/5.6.3/mingw49_32 \
-   QTBINARYDIR=/opt/qt5/5.6.3/gcc_64/bin \
+   QTBINARYDIR=$HOME/Development/Qt5.6.3-linux/5.6.3/gcc_64/bin \
+   ../kid3/buildlibs.sh)
+(cd mingw64_build && \
+   COMPILER=cross-mingw \
+   QTPREFIX=$HOME/Development/Qt5.9.7-mingw64/5.9.7/mingw53_64 \
    ../kid3/buildlibs.sh)
 (cd macos_build && \
    COMPILER=cross-macos \
    QTPREFIX=$HOME/Development/Qt5.9.7-mac/5.9.7/clang_64 \
+   OSXPREFIX=$HOME/Development/osxcross/target \
+   LD_LIBRARY_PATH=$OSXPREFIX/lib \
    ../kid3/buildlibs.sh)
 (cd android_build && \
    COMPILER=cross-android \
-   QTPREFIX=/opt/qt5/5.12.4/android_armv7 \
+   QTPREFIX=$HOME/Development/Qt5.12.4-android/5.12.4/android_armv7 \
    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
-   ANDROID_SDK_ROOT=/opt/android/sdk \
+   ANDROID_SDK_ROOT=$HOME/Development/android/sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
    ../kid3/buildlibs.sh)
 EOF
-    chmod +x $HOME/projects/kid3/src/build-all.sh
+    chmod +x build-all.sh
   fi
   mkdir -p docker_image_context/pkg
   cd docker_image_context
@@ -248,8 +255,7 @@ if test "$1" = "rundocker"; then
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \
-         -v $HOME/Development:$HOME/Development:ro \
-         -v /opt:/opt:ro ufleisch/kid3dev
+         -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev
   exit 0
 fi
 
@@ -3490,7 +3496,7 @@ if test "$compiler" = "cross-android"; then
   if ! test -d kid3; then
     echo "### Creating kid3 build directory"
     mkdir kid3
-    test -e ufleisch-release-key.keystore && cp -a ufleisch-release-key.keystore kid3/
+    test -e $HOME/Development/ufleisch-release-key.keystore && cp -s $HOME/Development/ufleisch-release-key.keystore kid3/
     cat >kid3/build.sh <<EOF
 #!/bin/bash
 _java_root=$_java_root
@@ -4095,7 +4101,13 @@ if [[ $target = *"package"* ]]; then
   if test "$compiler" = "cross-mingw"; then
     ninja
     _version=$(grep VERSION config.h | cut -d'"' -f2)
-    _instdir=kid3-$_version-win32
+    if test -z "${cross_host##x86_64*}"; then
+      _gccDll=libgcc_s_seh-1.dll
+      _instdir=kid3-$_version-win32-x64
+    else
+      _gccDll=libgcc_s_dw2-1.dll
+      _instdir=kid3-$_version-win32
+    fi
     test -d $_instdir && rm -rf $_instdir
     mkdir -p $_instdir
     DESTDIR=$(pwd)/$_instdir ninja install/strip
@@ -4113,11 +4125,6 @@ if [[ $target = *"package"* ]]; then
     cp -f po/*.qm doc/*/kid3*.html $_instdir
 
     _qtBinDir=${QTPREFIX}/bin
-    if test -z "${cross_host##x86_64*}"; then
-      _gccDll=libgcc_s_seh-1.dll
-    else
-      _gccDll=libgcc_s_dw2-1.dll
-    fi
     for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
       cp $_qtBinDir/$f $_instdir
     done
