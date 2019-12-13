@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -961,6 +961,12 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
+msgid "Volume"
+msgstr ""
+
+msgid "File ID"
+msgstr ""
+
 msgid "Data"
 msgstr ""
 
@@ -1421,9 +1427,6 @@ msgid "Total Tracks"
 msgstr ""
 
 msgid "Version"
-msgstr ""
-
-msgid "Volume"
 msgstr ""
 
 msgid "MCDI"

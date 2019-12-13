@@ -26,7 +26,6 @@
 
 #include "frametablemodel.h"
 #include <algorithm>
-#include <QCoreApplication>
 #include "coretaggedfileiconprovider.h"
 #include "fileconfig.h"
 #include "pictureframe.h"
@@ -115,30 +114,56 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Enable) {
       QString displayName = Frame::getDisplayName(it->getName());
-      if (it->getType() == Frame::FT_Picture &&
-          it->getValue() != Frame::differentRepresentation()) {
-        QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
-        if (fieldValue.isValid()) {
-          auto pictureType =
-              static_cast<PictureFrame::PictureType>(fieldValue.toInt());
-          if (pictureType != PictureFrame::PT_Other) {
-            QString typeName = PictureFrame::getPictureTypeName(pictureType);
-            if (!typeName.isEmpty()) {
-              displayName += QLatin1String(": ");
-              displayName += typeName;
+      if (it->getValue() != Frame::differentRepresentation()) {
+        if (it->getType() == Frame::FT_Picture) {
+          QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
+          if (fieldValue.isValid()) {
+            auto pictureType =
+                static_cast<PictureFrame::PictureType>(fieldValue.toInt());
+            if (pictureType != PictureFrame::PT_Other) {
+              QString typeName = PictureFrame::getPictureTypeName(pictureType);
+              if (!typeName.isEmpty()) {
+                displayName += QLatin1String(": ");
+                displayName += typeName;
+              }
             }
           }
-        }
-      } else if (it->getType() == Frame::FT_Other &&
-                 it->getInternalName().startsWith(QLatin1String("RVA2")) &&
-                 it->getValue() != Frame::differentRepresentation()) {
-        QVariant fieldValue = it->getFieldValue(Frame::ID_Id);
-        if (fieldValue.isValid()) {
-          auto identifier = fieldValue.toString();
-          if (!identifier.isEmpty()) {
-            displayName = QCoreApplication::translate("@default", "Volume");
-            displayName += QLatin1String(": ");
-            displayName += identifier;
+        } else if (it->getType() == Frame::FT_Other) {
+          if (it->getInternalName().startsWith(QLatin1String("RVA2"))) {
+            QVariant fieldValue = it->getFieldValue(Frame::ID_Id);
+            if (fieldValue.isValid()) {
+              auto identifier = fieldValue.toString();
+              if (!identifier.isEmpty()) {
+                displayName = tr("Volume");
+                displayName += QLatin1String(": ");
+                displayName += identifier;
+              }
+            }
+          } else if (it->getInternalName().startsWith(QLatin1String("UFID"))) {
+            QVariant fieldValue = it->getFieldValue(Frame::ID_Owner);
+            if (fieldValue.isValid()) {
+              auto owner = fieldValue.toString();
+              if (!owner.isEmpty()) {
+                // Shorten the owner so that it is visible in the frame type column.
+                // For example http://musicbrainz.org -> musicbrainz
+                //             http://www.cddb.com/id3/taginfo.html -> taginfo
+                //             http://www.id3.org/dummy/ufid.html -> ufid
+                int endPos = owner.lastIndexOf(QLatin1Char('.'));
+                if (endPos != -1) {
+                  int startPos = owner.lastIndexOf(QLatin1Char('.'), endPos - 1);
+                  int slashPos = owner.lastIndexOf(QLatin1Char('/'), endPos - 1);
+                  if (slashPos != -1 && slashPos > startPos) {
+                    startPos = slashPos;
+                  }
+                  if (startPos != -1) {
+                    owner = owner.mid(startPos + 1, endPos - startPos - 1);
+                  }
+                }
+                displayName = tr("File ID");
+                displayName += QLatin1String(": ");
+                displayName += owner;
+              }
+            }
           }
         }
       }

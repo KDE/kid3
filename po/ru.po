@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2018-09-28 10:34MSK\n"
 "Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -966,6 +966,12 @@ msgstr "Компьютер"
 msgid "Text"
 msgstr "Текст"
 
+msgid "Volume"
+msgstr "Громкость"
+
+msgid "File ID"
+msgstr "Идентификатор файл"
+
 msgid "Data"
 msgstr "Данные"
 
@@ -1427,9 +1433,6 @@ msgstr "Всего дорожек"
 
 msgid "Version"
 msgstr "Версия"
-
-msgid "Volume"
-msgstr "Громкость"
 
 msgid "MCDI"
 msgstr "Идентификатор музыкального компакт-диска (MCDI)"

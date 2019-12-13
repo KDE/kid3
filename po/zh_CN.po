@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2014-08-24 15:11+0800\n"
 "Last-Translator: shlinux <lishaohui.qd@163.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -962,6 +962,12 @@ msgstr "计算机"
 msgid "Text"
 msgstr "文本"
 
+msgid "Volume"
+msgstr "音量"
+
+msgid "File ID"
+msgstr "文件 ID"
+
 msgid "Data"
 msgstr "数据"
 
@@ -1423,9 +1429,6 @@ msgstr "音轨编号"
 
 msgid "Version"
 msgstr "版本"
-
-msgid "Volume"
-msgstr "音量"
 
 msgid "MCDI"
 msgstr "MCDI"

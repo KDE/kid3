@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2014-01-23 22:00+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -964,6 +964,12 @@ msgstr "Arvuti"
 msgid "Text"
 msgstr "Tekst"
 
+msgid "Volume"
+msgstr "Helitugevus"
+
+msgid "File ID"
+msgstr "Fail ID"
+
 msgid "Data"
 msgstr "Andmed"
 
@@ -1425,9 +1431,6 @@ msgstr "Lugude koguarv"
 
 msgid "Version"
 msgstr "Versioon"
-
-msgid "Volume"
-msgstr "Helitugevus"
 
 msgid "MCDI"
 msgstr "MCDI"

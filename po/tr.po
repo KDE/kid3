@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -963,6 +963,12 @@ msgstr "Bilgisayar"
 msgid "Text"
 msgstr "Metin"
 
+msgid "Volume"
+msgstr "Ses"
+
+msgid "File ID"
+msgstr "Dosya Kimlik"
+
 msgid "Data"
 msgstr "Veri"
 
@@ -982,7 +988,7 @@ msgid "Track"
 msgstr "Parça No"
 
 msgid "Absolute path to file"
-msgstr ""
+msgstr "Dosya Kimlik"
 
 msgid "Duration"
 msgstr "Süre"
@@ -1424,9 +1430,6 @@ msgstr "Toplam Parça Sayısı"
 
 msgid "Version"
 msgstr "Sürüm"
-
-msgid "Volume"
-msgstr "Ses"
 
 msgid "MCDI"
 msgstr "MCDI"

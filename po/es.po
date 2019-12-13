@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -963,6 +963,12 @@ msgstr "Ordenador"
 msgid "Text"
 msgstr "Texto"
 
+msgid "Volume"
+msgstr "Volumen"
+
+msgid "File ID"
+msgstr "Archivo ID"
+
 msgid "Data"
 msgstr "Datos"
 
@@ -1424,9 +1430,6 @@ msgstr "Número de pistas"
 
 msgid "Version"
 msgstr "Versión"
-
-msgid "Volume"
-msgstr "Volumen"
 
 msgid "MCDI"
 msgstr "MCDI"

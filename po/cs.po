@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2019-08-25 21:08+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -963,6 +963,12 @@ msgstr "Počítač"
 msgid "Text"
 msgstr "Text"
 
+msgid "Volume"
+msgstr "Hlasitost"
+
+msgid "File ID"
+msgstr "Identifikátor soubor"
+
 msgid "Data"
 msgstr "Data"
 
@@ -1424,9 +1430,6 @@ msgstr "Počet skladeb"
 
 msgid "Version"
 msgstr "Verze"
-
-msgid "Volume"
-msgstr "Hlasitost"
 
 msgid "MCDI"
 msgstr "MCDI"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Frank Steinmetzger <Warp_7@gmx.de>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -963,6 +963,12 @@ msgstr "Computer"
 msgid "Text"
 msgstr "Text"
 
+msgid "Volume"
+msgstr "Lautstärke"
+
+msgid "File ID"
+msgstr "Datei ID"
+
 msgid "Data"
 msgstr "Daten"
 
@@ -1424,9 +1430,6 @@ msgstr "Anzahl Stücke"
 
 msgid "Version"
 msgstr "Version"
-
-msgid "Volume"
-msgstr "Lautstärke"
 
 msgid "MCDI"
 msgstr "MCDI"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -958,6 +958,12 @@ msgstr "Computer"
 msgid "Text"
 msgstr "Tekst"
 
+msgid "Volume"
+msgstr "Lydstyrke"
+
+msgid "File ID"
+msgstr "Fil ID"
+
 msgid "Data"
 msgstr "Data"
 
@@ -1419,9 +1425,6 @@ msgstr "Spor ialt"
 
 msgid "Version"
 msgstr "Version"
-
-msgid "Volume"
-msgstr "Lydstyrke"
 
 msgid "MCDI"
 msgstr "MCDI"

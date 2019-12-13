@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2019-11-23 18:20+0100\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
 "PO-Revision-Date: 2014-01-25 00:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -964,6 +964,12 @@ msgstr "Tietokone"
 msgid "Text"
 msgstr "Teksti"
 
+msgid "Volume"
+msgstr "Äänenvoimakkuus"
+
+msgid "File ID"
+msgstr "Tiedosto ID"
+
 msgid "Data"
 msgstr "Data"
 
@@ -1425,9 +1431,6 @@ msgstr "Kappaleiden lukumäärä"
 
 msgid "Version"
 msgstr "Versio"
-
-msgid "Volume"
-msgstr "Äänenvoimakkuus"
 
 msgid "MCDI"
 msgstr "MCDI"
