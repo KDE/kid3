@@ -2303,7 +2303,7 @@ QString getFieldsFromUfidFrame(
   if (!ba.isEmpty()) {
     QString text(QString::fromLatin1(ba));
     if (ba.size() - text.length() <= 1 &&
-        AttributeData::isHexString(text, 'Z')) {
+        AttributeData::isHexString(text, 'Z', QLatin1String("-"))) {
       return text;
     }
   }
@@ -3282,7 +3282,7 @@ void setValue(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& t
 template <>
 void setValue(TagLib::ID3v2::UniqueFileIdentifierFrame* f, const TagLib::String& text)
 {
-  if (AttributeData::isHexString(toQString(text), 'Z')) {
+  if (AttributeData::isHexString(toQString(text), 'Z', QLatin1String("-"))) {
     TagLib::ByteVector data(text.data(TagLib::String::Latin1));
     data.append('\0');
     f->setIdentifier(data);
@@ -5346,7 +5346,7 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
                   TagLib::ByteVector(" "));
     id3Frame = ufidFrame;
     QByteArray data;
-    if (AttributeData::isHexString(frame.getValue(), 'Z')) {
+    if (AttributeData::isHexString(frame.getValue(), 'Z', QLatin1String("-"))) {
       data = (frame.getValue() + QLatin1Char('\0')).toLatin1();
       ufidFrame->setIdentifier(TagLib::ByteVector(data.constData(),
                                                   data.size()));

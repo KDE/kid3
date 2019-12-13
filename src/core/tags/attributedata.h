@@ -92,7 +92,7 @@ public:
 
   /**
    * Check if a string represents a hexadecimal number, i.e.
-   * contains only characters 0..9, A..F.
+   * contains only characters 0..9, A..F, a..f.
    *
    * @param str string to check
    * @param lastAllowedLetter last allowed character (normally 'F')

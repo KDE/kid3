@@ -1585,7 +1585,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           } else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID &&
                      (fld = id3Frame->GetField(ID3FN_DATA)) != nullptr) {
             QByteArray newData, oldData;
-            if (AttributeData::isHexString(value, 'Z')) {
+            if (AttributeData::isHexString(value, 'Z', QLatin1String("-"))) {
               newData = (value + QLatin1Char('\0')).toLatin1();
               oldData =
                   QByteArray(reinterpret_cast<const char*>(fld->GetRawBinary()),
@@ -1807,7 +1807,7 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
         setString(fld, QLatin1String("http://www.id3.org/dummy/ufid.html"));
       }
       QByteArray data;
-      if (AttributeData::isHexString(frame.getValue(), 'Z')) {
+      if (AttributeData::isHexString(frame.getValue(), 'Z', QLatin1String("-"))) {
         data = (frame.getValue() + QLatin1Char('\0')).toLatin1();
         fld = id3Frame->GetField(ID3FN_DATA);
         if (fld) {
@@ -1989,7 +1989,7 @@ Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
       QByteArray ba(fieldValue.toByteArray());
       QString str(QString::fromLatin1(ba));
       if (ba.size() - str.length() <= 1 &&
-          AttributeData::isHexString(str, 'Z')) {
+          AttributeData::isHexString(str, 'Z', QLatin1String("-"))) {
         frame.setValue(str);
       }
     }
