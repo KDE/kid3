@@ -721,7 +721,8 @@ void BinFieldControl::updateTag()
  */
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-  m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field);
+  m_bos = new BinaryOpenSave(m_platformTools, m_app, parent, m_field,
+                             m_frame.getType() == Frame::FT_Picture);
   m_bos->setLabel(Frame::Field::getFieldIdName(
                     static_cast<Frame::FieldId>(m_field.m_id)));
   if (m_taggedFile) {
@@ -1117,13 +1118,16 @@ QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
  * @param app application context
  * @param parent parent widget
  * @param field  field containing binary data
+ * @param requiresPicture true if data must be picture
  */
 BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
                                Kid3Application* app,
-                               QWidget* parent, const Frame::Field& field)
+                               QWidget* parent, const Frame::Field& field,
+                               bool requiresPicture)
   : QWidget(parent),
     m_platformTools(platformTools), m_app(app),
-    m_byteArray(field.m_value.toByteArray()), m_isChanged(false)
+    m_byteArray(field.m_value.toByteArray()), m_isChanged(false),
+    m_requiresPicture(requiresPicture)
 {
   setObjectName(QLatin1String("BinaryOpenSave"));
   auto layout = new QHBoxLayout(this);
@@ -1162,7 +1166,8 @@ void BinaryOpenSave::setClipButtonState()
 {
   QClipboard* cb = QApplication::clipboard();
   m_clipButton->setEnabled(
-    cb && (cb->mimeData()->hasFormat(QLatin1String("image/jpeg")) ||
+    cb && (!m_requiresPicture ||
+           cb->mimeData()->hasFormat(QLatin1String("image/jpeg")) ||
            cb->mimeData()->hasImage()));
 }
 
@@ -1180,6 +1185,9 @@ void BinaryOpenSave::clipData()
       QBuffer buffer(&m_byteArray);
       buffer.open(QIODevice::WriteOnly);
       cb->image().save(&buffer, "JPG");
+      m_isChanged = true;
+    } else if (!m_requiresPicture && cb->mimeData()->hasText()) {
+      m_byteArray = cb->mimeData()->text().toUtf8();
       m_isChanged = true;
     }
   }

@@ -48,9 +48,11 @@ public:
    * @param app application context
    * @param parent parent widget
    * @param field  field containing binary data
+   * @param requiresPicture true if data must be picture
    */
   BinaryOpenSave(IPlatformTools* platformTools, Kid3Application* app,
-                 QWidget* parent, const Frame::Field& field);
+                 QWidget* parent, const Frame::Field& field,
+                 bool requiresPicture);
 
   /**
    * Set label.
@@ -138,6 +140,8 @@ private:
   QString m_filter;
   /** true if m_byteArray changed */
   bool m_isChanged;
+  /** true if data must be picture */
+  bool m_requiresPicture;
 };
 
 
