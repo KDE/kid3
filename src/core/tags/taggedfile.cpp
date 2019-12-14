@@ -36,6 +36,7 @@
 #endif
 #include <sys/stat.h>
 #include "tagconfig.h"
+#include "formatconfig.h"
 #include "genres.h"
 #include "modeliterator.h"
 #include "saferename.h"
@@ -93,6 +94,19 @@ void TaggedFile::setFilename(const QString& fn)
   m_newFilename = fn;
   m_revertedFilename.clear();
   updateModifiedState();
+}
+
+/**
+ * Set file name and format it if format while editing is switched on.
+ *
+ * @param fn file name
+ */
+void TaggedFile::setFilenameFormattedIfEnabled(QString fn)
+{
+  if (FilenameFormatConfig::instance().formatWhileEditing()) {
+    FilenameFormatConfig::instance().formatString(fn);
+  }
+  setFilename(fn);
 }
 
 /**

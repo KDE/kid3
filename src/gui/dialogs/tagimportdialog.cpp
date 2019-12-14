@@ -29,6 +29,7 @@
 #include <QPushButton>
 #include <QFormLayout>
 #include <QComboBox>
+#include <QCoreApplication>
 #include "textimporter.h"
 #include "importparser.h"
 #include "trackdatamodel.h"
@@ -56,7 +57,7 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   m_formatListEdit = new FormatListEdit(
         {tr("Format:"), tr("Source:"), tr("Extraction:")},
         {QString(), TrackDataFormatReplacer::getToolTip(),
-         ImportParser::getFormatToolTip()},
+         getExtractionToolTip()},
         this);
   vboxLayout->addWidget(m_formatListEdit);
 
@@ -195,4 +196,22 @@ void TagImportDialog::saveConfig()
 void TagImportDialog::showHelp()
 {
   ContextHelp::displayHelp(QLatin1String("import-tags"));
+}
+
+/**
+ * Get help text for format codes supported in extraction field.
+ * @return help text.
+ */
+QString TagImportDialog::getExtractionToolTip()
+{
+  QString str;
+  str += QLatin1String("<table>\n");
+  str += ImportParser::getFormatToolTip(true);
+
+  str += QLatin1String("<tr><td>%f</td><td>%{file}</td><td>");
+  str += QCoreApplication::translate("@default", "Filename");
+  str += QLatin1String("</td></tr>\n");
+
+  str += QLatin1String("</table>\n");
+  return str;
 }

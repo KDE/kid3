@@ -95,6 +95,13 @@ public:
   void setFilename(const QString& fn);
 
   /**
+   * Set file name and format it if format while editing is switched on.
+   *
+   * @param fn file name
+   */
+  void setFilenameFormattedIfEnabled(QString fn);
+
+  /**
    * Get file name.
    *
    * @return file name

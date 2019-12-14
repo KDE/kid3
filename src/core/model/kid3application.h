@@ -684,13 +684,6 @@ public:
   Q_INVOKABLE void setPictureData(const QByteArray& data);
 
   /**
-   * Format a filename if format while editing is switched on.
-   *
-   * @param taggedFile file to modify
-   */
-  void formatFileNameIfEnabled(TaggedFile* taggedFile) const;
-
-  /**
    * Format frames if format while editing is switched on.
    *
    * @param frames frames

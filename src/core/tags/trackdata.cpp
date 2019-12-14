@@ -430,19 +430,29 @@ QString TrackData::formatString(const QString& format) const
 QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
 {
   if (!isDirname) {
-    // first remove directory part from str
-    const int sepPos = str.lastIndexOf(QLatin1Char('/'));
-    if (sepPos >= 0) {
-      str.remove(0, sepPos + 1);
-    }
-    // add extension to str
-    str += getFileExtension(true);
+    transformToFilename(str);
   }
 
   TrackDataFormatReplacer fmt(*this, str);
   fmt.replacePercentCodes(isDirname ?
                           FormatReplacer::FSF_ReplaceSeparators : 0);
   return fmt.getString();
+}
+
+/**
+ * Transform string to file name.
+ * The directory part is removed and a file extension added.
+ * @param str string to transform
+ */
+void TrackData::transformToFilename(QString& str) const
+{
+  // first remove directory part from str
+  const int sepPos = str.lastIndexOf(QLatin1Char('/'));
+  if (sepPos >= 0) {
+    str.remove(0, sepPos + 1);
+  }
+  // add extension to str
+  str += getFileExtension(true);
 }
 
 /**

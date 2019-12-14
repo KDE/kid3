@@ -33,7 +33,7 @@
 #include <QStringList>
 #include "kid3api.h"
 
-class FrameCollection;
+class TrackData;
 
 /**
  * Import parser.
@@ -62,7 +62,7 @@ public:
    *             behind current match (to be used for next call)
    * @return true if tags found (pos is index behind match).
    */
-  bool getNextTags(const QString& text, FrameCollection& frames, int& pos);
+  bool getNextTags(const QString& text, TrackData& frames, int& pos);
 
   /**
    * Get list with track durations.
@@ -80,9 +80,12 @@ public:
   /**
    * Get help text for format codes supported by setFormat().
    *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
    * @return help text.
    */
-  static QString getFormatToolTip();
+  static QString getFormatToolTip(bool onlyRows = false);
 
 private:
   /** track regexp pattern */

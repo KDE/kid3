@@ -137,6 +137,13 @@ public:
   QString formatFilenameFromTags(QString str, bool isDirname = false) const;
 
   /**
+   * Transform string to file name.
+   * The directory part is removed and a file extension added.
+   * @param str string to transform
+   */
+  void transformToFilename(QString& str) const;
+
+  /**
    * Get frames.
    * @return frames.
    */

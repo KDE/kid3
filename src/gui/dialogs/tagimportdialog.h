@@ -107,6 +107,12 @@ private:
    */
   void setFormatFromConfig();
 
+  /**
+   * Get help text for format codes supported in extraction field.
+   * @return help text.
+   */
+  static QString getExtractionToolTip();
+
   FormatListEdit* m_formatListEdit;
   TrackDataModel* m_trackDataModel;
   QComboBox* m_destComboBox;

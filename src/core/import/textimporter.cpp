@@ -57,7 +57,7 @@ TextImporter::~TextImporter()
  *
  * @return true if one or more field were found.
  */
-bool TextImporter::parseHeader(FrameCollection& frames)
+bool TextImporter::parseHeader(TrackData& frames)
 {
   int pos = 0;
   m_headerParser->setFormat(m_headerFormat);
@@ -80,10 +80,10 @@ bool TextImporter::updateTrackData(
   m_headerFormat = headerFormat;
   m_trackFormat = trackFormat;
 
-  FrameCollection framesHdr;
+  TrackData framesHdr;
   (void)parseHeader(framesHdr);
 
-  FrameCollection frames(framesHdr);
+  TrackData frames(framesHdr);
   bool start = true;
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   auto it = trackDataVector.begin();
@@ -157,7 +157,7 @@ bool TextImporter::updateTrackData(
  * @return true if ok (result in st),
  *         false if end of file reached.
  */
-bool TextImporter::getNextTags(FrameCollection& frames, bool start)
+bool TextImporter::getNextTags(TrackData& frames, bool start)
 {
   static int pos = 0;
   if (start || pos == 0) {

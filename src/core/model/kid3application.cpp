@@ -1684,20 +1684,6 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
 }
 
 /**
- * Format a filename if format while editing is switched on.
- *
- * @param taggedFile file to modify
- */
-void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
-{
-  if (FilenameFormatConfig::instance().formatWhileEditing()) {
-    QString fn(taggedFile->getFilename());
-    FilenameFormatConfig::instance().formatString(fn);
-    taggedFile->setFilename(fn);
-  }
-}
-
-/**
  * Format frames if format while editing is switched on.
  *
  * @param frames frames
@@ -1982,9 +1968,8 @@ void Kid3Application::getFilenameFromTags(Frame::TagVersion tagVersion)
     TaggedFile* taggedFile = it.next();
     TrackData trackData(*taggedFile, tagVersion);
     if (!trackData.isEmptyOrInactive()) {
-      taggedFile->setFilename(
+      taggedFile->setFilenameFormattedIfEnabled(
         trackData.formatFilenameFromTags(FileConfig::instance().toFilenameFormat()));
-      formatFileNameIfEnabled(taggedFile);
     }
   }
   emit selectedFilesUpdated();

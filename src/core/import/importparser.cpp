@@ -26,7 +26,7 @@
 
 #include "importparser.h"
 #include <QCoreApplication>
-#include "frame.h"
+#include "trackdata.h"
 #include "genres.h"
 
 /**
@@ -39,12 +39,15 @@ ImportParser::ImportParser() : m_trackIncrNr(0), m_trackIncrEnabled(false)
 /**
  * Get help text for format codes supported by setFormat().
  *
+ * @param onlyRows if true only the tr elements are returned,
+ *                 not the surrounding table
+ *
  * @return help text.
  */
-QString ImportParser::getFormatToolTip()
+QString ImportParser::getFormatToolTip(bool onlyRows)
 {
   QString str;
-  str += QLatin1String("<table>\n");
+  if (!onlyRows) str += QLatin1String("<table>\n");
 
   str += QLatin1String("<tr><td>%s</td><td>%{title}</td><td>");
   str += QCoreApplication::translate("@default", "Title");
@@ -80,7 +83,7 @@ QString ImportParser::getFormatToolTip()
   str += QCoreApplication::translate("@default", lengthStr);
   str += QLatin1String("</td></tr>\n");
 
-  str += QLatin1String("</table>\n");
+  if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }
 
@@ -104,6 +107,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
     { "%t", "%{track number}" },
     { "%g", "%{genre}" },
     { "%d", "%{__duration}" },
+    { "%f", "%{file}" },
     { "%{year}", "%{date}" },
     { "%{track}", "%{track number}" },
     { "%{tracknumber}", "%{track number}" },
@@ -151,7 +155,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
  *             behind current match (to be used for next call)
  * @return true if tags found (pos is index behind match).
  */
-bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int& pos)
+bool ImportParser::getNextTags(const QString& text, TrackData& frames, int& pos)
 {
   QRegularExpressionMatch match;
   int idx, oldpos = pos;
@@ -192,7 +196,14 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
       if (name == QLatin1String("__return")) {
         m_returnValues.append(str);
       } else if (!str.isEmpty() && !name.startsWith(QLatin1String("__"))) {
-        frames.setValue(Frame::ExtendedType(name), str);
+        if (name == QLatin1String("file")) {
+          if (TaggedFile* taggedFile = frames.getTaggedFile()) {
+            frames.transformToFilename(str);
+            taggedFile->setFilenameFormattedIfEnabled(str);
+          }
+        } else {
+          frames.setValue(Frame::ExtendedType(name), str);
+        }
       }
     }
     if (m_trackIncrEnabled) {

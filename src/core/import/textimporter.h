@@ -34,8 +34,6 @@ class ImportTrackDataVector;
 class ImportParser;
 class TrackDataModel;
 class TrackData;
-class FrameCollection;
-
 /**
  * Import tags from text.
  */
@@ -99,7 +97,7 @@ private:
    *
    * @return true if one or more field were found.
    */
-  bool parseHeader(FrameCollection& frames);
+  bool parseHeader(TrackData& frames);
 
   /**
    * Get next line as frames from imported file or clipboard.
@@ -111,7 +109,7 @@ private:
    * @return true if ok (result in st),
    *         false if end of file reached.
    */
-  bool getNextTags(FrameCollection& frames, bool start);
+  bool getNextTags(TrackData& frames, bool start);
 
   /**
    * Get list with track durations.
