@@ -178,6 +178,7 @@ if test "$1" = "makedocker"; then
   if ! test -f build-all.sh; then
     cat >build-all.sh <<"EOF"
 #!/bin/bash
+cd "$(dirname "${BASH_SOURCE[0]}")"
 set -e
 (cd linux_build && \
    COMPILER=gcc-self-contained \
@@ -251,11 +252,12 @@ fi
 # Run docker image created with "makedocker".
 if test "$1" = "rundocker"; then
   echo "### Run docker image"
+  shift
   docker run --rm -it \
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \
-         -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev
+         -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev "$@"
   exit 0
 fi
 
