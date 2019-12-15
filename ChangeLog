@@ -1,3 +1,27 @@
+Mon Dec 23 17:38:53 CET 2019  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.1
+
+	* New:
+	  + Show number of files in status bar.
+	  + Support regular expressions in string replacements.
+
+	* Improved:
+	  + Support format codes in "Filename for cover" in "Extract Album Art"
+	    script.
+	  + The order of string replacements is respected.
+	  + Show RVA2 identifier in frame table.
+	  + Show UFID owner in frame table.
+	  + Support setting file name with "Import from Tags".
+
+	* Fixed:
+	  + Android: Accept changes when focus is lost and Enter not pressed.
+	  + Self-contained Linux package: Correctly change RPATH in plugins.
+	  + Self-contained Linux package: Support composed accented characters.
+	  + QML scripts: Skip "--" argument, which is used when passing
+	    parameters from qml tool.
+	  + Show UFID values in frame table.
+
 Sat Aug 24 15:57:41 CEST 2019  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.0
