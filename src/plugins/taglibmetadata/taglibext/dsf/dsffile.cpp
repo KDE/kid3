@@ -33,6 +33,10 @@
 #include "dsffile.h"
 #include "dsfheader.h"
 
+/** TagLib version in with 8 bits for major, minor and patch version. */
+#define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
+                        ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
+
 //using namespace TagLib;
 
 class DSFFile::FilePrivate
@@ -203,7 +207,12 @@ bool DSFFile::save(int id3v2Version, bool shrink)
     if (shrink) // remove padding 0's
       d->shrinkTag();
 
+#if TAGLIB_VERSION >= 0x010c00
+    TagLib::ByteVector id3v2_v = ID3v2Tag()->render(
+          id3v2Version == 4 ? TagLib::ID3v2::v4 : TagLib::ID3v2::v3);
+#else
     TagLib::ByteVector id3v2_v = ID3v2Tag()->render(id3v2Version);
+#endif
     uint64_t fileSize = d->fileSize + id3v2_v.size() - d->ID3v2OriginalSize;
     TagLib::ByteVector fileSize_v;
 
