@@ -182,7 +182,7 @@ private:
   QNetworkAccessManager* m_netMgr;
   /** network reply if available, else 0 */
   QPointer<QNetworkReply> m_reply;
-  /** content length of entitiy-body, 0 if not available */
+  /** content length of entity-body, 0 if not available */
   unsigned long m_rcvBodyLen;
   /** content type */
   QString m_rcvBodyType;

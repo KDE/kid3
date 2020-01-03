@@ -194,7 +194,7 @@ public:
 
   /**
    * Replace the "ID3 " chunk with a lowercase named "id3 " chunk.
-   * This method has to be called after successully calling save() to use
+   * This method has to be called after successfully calling save() to use
    * lowercase "id3 " chunk names.
    */
   void changeToLowercaseId3Chunk();
@@ -303,7 +303,7 @@ public:
   /**
    * Create a TagLib file for a stream.
    * TagLib::FileRef::create() adapted for IOStream.
-   * @param stream stream with name() of which the extension is used to decduce
+   * @param stream stream with name() of which the extension is used to deduce
    * the file type
    * @return file, 0 if not supported.
    */

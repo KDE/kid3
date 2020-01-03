@@ -114,7 +114,7 @@ AbstractSettingsPage {
           }
         },
         SettingsElement {
-          name: qsTr("Mark if picture larger than maxium size")
+          name: qsTr("Mark if picture larger than maximum size")
           onActivated: function() { value = tagCfg.markOversizedPictures; }
           onDeactivated: function() { tagCfg.markOversizedPictures = value; }
         },

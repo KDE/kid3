@@ -206,7 +206,7 @@ const QRegExp& FrameNotice::isoDateTimeRexExp()
     // This is a simplified regular expression from
     // http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     // relaxed to allow appending any string after a slash, so that ISO 8601
-    // periods of time can by entered while still providing suffient validation.
+    // periods of time can by entered while still providing sufficient validation.
     "(\\d{4})(-((0[1-9]|1[0-2])(-([12]\\d|0[1-9]|3[01]))?)(T((([01]\\d|2[0-3])"
     "(:[0-5]\\d)?|24:00))?(:[0-5]\\d([\\.,]\\d+)?)?"
     "([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?(/.*)?)?"

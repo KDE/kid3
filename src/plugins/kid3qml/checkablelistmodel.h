@@ -40,7 +40,7 @@
  */
 class CheckableListModel : public QAbstractProxyModel {
   Q_OBJECT
-  /** Source model, equivalent to the model propery of VisualDataModel. */
+  /** Source model, equivalent to the model property of VisualDataModel. */
   Q_PROPERTY(QObject* sourceModel
              READ sourceModel WRITE setSourceModelObject
              NOTIFY sourceModelChanged)

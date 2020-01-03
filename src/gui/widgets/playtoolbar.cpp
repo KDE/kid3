@@ -218,7 +218,7 @@ void PlayToolBar::error(QMediaPlayer::Error err)
 
 /**
  * Called when the duration changes.
- * @param duration duration in miliseconds
+ * @param duration duration in milliseconds
  */
 void PlayToolBar::durationChanged(qint64 duration)
 {

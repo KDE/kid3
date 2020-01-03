@@ -196,7 +196,7 @@ namespace TagLib {
       /*!
        * Sets the description of the synchronized lyrics frame to \a s.
        *
-       * \see decription()
+       * \see description()
        */
       void setDescription(const String &s);
 

@@ -97,7 +97,7 @@ private slots:
 
   /**
    * Called when the duration changes.
-   * @param duration duration in miliseconds
+   * @param duration duration in milliseconds
    */
   void durationChanged(qint64 duration);
 

@@ -446,7 +446,7 @@ const char* Genres::getName(int num)
 }
 
 /**
- * Get the index in the alphabethically sorted list from the genre number.
+ * Get the index in the alphabetically sorted list from the genre number.
  *
  * @param num genre number
  *

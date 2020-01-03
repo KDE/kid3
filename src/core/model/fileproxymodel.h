@@ -120,7 +120,7 @@ public:
    *
    * This method will directly call FileSystemModel::sort() on the
    * sourceModel() to take advantage of that specialized behavior. This
-   * will change the order in the souce model.
+   * will change the order in the source model.
    *
    * @param column column to sort
    * @param order ascending or descending order

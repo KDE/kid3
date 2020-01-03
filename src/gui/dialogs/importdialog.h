@@ -241,7 +241,7 @@ private:
   QSpinBox* m_maxDiffSpinBox;
   /** importers for different servers */
   QList<ServerImporter*> m_importers;
-  /** track importers for differen servers */
+  /** track importers for different servers */
   QList<ServerTrackImporter*> m_trackImporters;
   /** Server track import dialog */
   QScopedPointer<ServerTrackImportDialog> m_serverTrackImportDialog;

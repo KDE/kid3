@@ -134,7 +134,7 @@ public:
 
   /**
    * Set number of columns.
-   * @param columns number of colums, default is 1
+   * @param columns number of columns, default is 1
    */
   void setColumnCount(int columns);
 
