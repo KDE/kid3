@@ -41,4 +41,7 @@
   <developer_name>Urs Fleisch</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
+  <releases>
+    <release version="3.8.1" date="2019-12-23"/>
+  </releases>
 </component>
