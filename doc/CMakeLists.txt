@@ -114,4 +114,3 @@ if(UNIX)
 endif()
 
 add_subdirectory(en)
-add_subdirectory(de)
