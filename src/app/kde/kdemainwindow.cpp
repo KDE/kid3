@@ -90,7 +90,7 @@ void KdeMainWindow::initActions()
   m_fileOpenRecent = KStandardAction::openRecent(
       this, SLOT(slotFileOpenRecentUrl(QUrl)), collection);
 #endif
-  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
+  m_fileOpenRecent->setStatusTip(tr("Opens a recently used folder"));
 #if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::revert(
       app(), &Kid3Application::revertFileModifications, collection);
@@ -187,8 +187,8 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Preferences dialog"));
 
   action = new QAction(QIcon::fromTheme(QLatin1String("document-open")),
-                       tr("O&pen Directory..."), this);
-  action->setStatusTip(tr("Opens a directory"));
+                       tr("O&pen Folder..."), this);
+  action->setStatusTip(tr("Opens a folder"));
   action->setShortcut(QKeySequence(QLatin1String("Ctrl+D")));
   collection->addAction(QLatin1String("open_directory"), action);
   connect(action, &QAction::triggered,
@@ -196,7 +196,7 @@ void KdeMainWindow::initActions()
 
   action = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")),
                        tr("Re&load"), this);
-  action->setStatusTip(tr("Reload directory"));
+  action->setStatusTip(tr("Reload folder"));
   action->setShortcut(QKeySequence::Refresh);
   collection->addAction(QLatin1String("reload"), action);
   connect(action, &QAction::triggered,
@@ -284,8 +284,8 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Apply Text Encoding"));
   collection->addAction(QLatin1String("apply_text_encoding"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::applyTextEncoding);
-  action = new QAction(tr("&Rename Directory..."), this);
-  action->setStatusTip(tr("Rename Directory"));
+  action = new QAction(tr("&Rename Folder..."), this);
+  action->setStatusTip(tr("Rename Folder"));
   collection->addAction(QLatin1String("rename_directory"), action);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotRenameDirectory);
   action = new QAction(tr("&Number Tracks..."), this);
@@ -326,8 +326,8 @@ void KdeMainWindow::initActions()
   collection->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
   connect(m_settingsAutoHideTags, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotSettingsAutoHideTags);
-  action = new QAction(tr("Select All in &Directory"), this);
-  action->setStatusTip(tr("Select all files in the current directory"));
+  action = new QAction(tr("Select All in &Folder"), this);
+  action->setStatusTip(tr("Select all files in the current folder"));
   collection->addAction(QLatin1String("select_all_in_directory"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::selectAllInDirectory);
   action = new QAction(QIcon::fromTheme(QLatin1String("go-previous")),
@@ -426,7 +426,7 @@ void KdeMainWindow::initActions()
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::deleteFile);
   collection->addAction(QLatin1String("filelist_delete"), action);
   form()->getFileList()->setDeleteAction(action);
-  action = new QAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"),
+  action = new QAction(tr("Folder List") + QLatin1String(": ") + tr("Focus"),
                        this);
   collection->addAction(QLatin1String("dirlist_focus"), action);
   connect(action, &QAction::triggered, form(), &Kid3Form::setFocusDirList);

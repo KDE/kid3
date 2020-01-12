@@ -36,7 +36,7 @@
     <p>
       The tags of multiple files can be set together. It is possible to
       generate tags from file names or the contents of other tag fields and to
-      generate file names from tags and rename directories from tags. Automatic
+      generate file names from tags and rename folders from tags. Automatic
       case conversion and string replacement help to keep tags consistent.
     </p>
     <p xml:lang="ca">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom dels directoris a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantenir les etiquetes consistents.</p>
@@ -46,7 +46,7 @@
     <p>
       Album data can be imported from gnudb.org, TrackType.org, MusicBrainz,
       Discogs, Amazon; automatic batch import is available for multiple
-      directories. It is also possible to export data and generate play lists.
+      folders. It is also possible to export data and generate play lists.
     </p>
     <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples directoris. També és possible exportar dades i generar llistes de reproducció.</p>
     <p xml:lang="pt">Os dados dos álbuns podem ser importados a partir do gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; está disponível a importação automática em lote para várias pastas. Também é possível exportar os dados e gerar listas de reprodução.</p>

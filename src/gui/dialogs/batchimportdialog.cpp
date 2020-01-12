@@ -474,7 +474,7 @@ void BatchImportDialog::showImportEvent(int type, const QString& text)
   switch (type) {
   case BatchImporter::ReadingDirectory:
     setAbortButton(true);
-    eventText = tr("Reading Directory");
+    eventText = tr("Reading Folder");
     break;
   case BatchImporter::Started:
     setAbortButton(true);

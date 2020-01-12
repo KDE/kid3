@@ -247,7 +247,7 @@ DirRenamer::~DirRenamer()
 }
 
 /** Only defined for generation of translation files */
-#define CREATE_DIR_FAILED_FOR_PO QT_TRANSLATE_NOOP("@default", "Create directory %1 failed\n")
+#define CREATE_DIR_FAILED_FOR_PO QT_TRANSLATE_NOOP("@default", "Create folder %1 failed\n")
 
 /**
  * Create a directory if it does not exist.
@@ -276,7 +276,7 @@ bool DirRenamer::createDirectory(
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(tr("Create directory %1 failed\n").arg(dir));
+      errorMsg->append(tr("Create folder %1 failed\n").arg(dir));
     }
     return false;
   }
@@ -285,7 +285,7 @@ bool DirRenamer::createDirectory(
 /** Only defined for generation of translation files */
 #define FILE_ALREADY_EXISTS_FOR_PO QT_TRANSLATE_NOOP("@default", "File %1 already exists\n")
 /** Only defined for generation of translation files */
-#define IS_NOT_DIR_FOR_PO QT_TRANSLATE_NOOP("@default", "%1 is not a directory\n")
+#define IS_NOT_DIR_FOR_PO QT_TRANSLATE_NOOP("@default", "%1 is not a folder\n")
 /** Only defined for generation of translation files */
 #define RENAME_FAILED_FOR_PO QT_TRANSLATE_NOOP("@default", "Rename %1 to %2 failed\n")
 
@@ -312,7 +312,7 @@ bool DirRenamer::renameDirectory(
   }
   if (!QFileInfo(olddir).isDir()) {
     if (errorMsg) {
-      errorMsg->append(tr("%1 is not a directory\n").arg(olddir));
+      errorMsg->append(tr("%1 is not a folder\n").arg(olddir));
     }
     return false;
   }
@@ -601,7 +601,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           }
         } else {
           // new directory name is too different
-          addAction(RenameAction::ReportError, tr("New directory name is too different\n"));
+          addAction(RenameAction::ReportError, tr("New folder name is too different\n"));
         }
       }
     }
@@ -667,8 +667,8 @@ void DirRenamer::performActions(QString* errorMsg)
 QStringList DirRenamer::describeAction(const RenameAction& action) const
 {
   static const char* const typeStr[] = {
-    QT_TRANSLATE_NOOP("@default", "Create directory"),
-    QT_TRANSLATE_NOOP("@default", "Rename directory"),
+    QT_TRANSLATE_NOOP("@default", "Create folder"),
+    QT_TRANSLATE_NOOP("@default", "Rename folder"),
     QT_TRANSLATE_NOOP("@default", "Rename file"),
     QT_TRANSLATE_NOOP("@default", "Error")
   };

@@ -61,10 +61,10 @@ class QmlPreprocessor(object):
         elif os.path.isdir(inp):
             if not self.process_inline:
                 raise Exception('Please specify -i when trying to preprocess '
-                                'a whole directory recursively.')
+                                'a whole folder recursively.')
             self.preprocess_directory(inp)
         else:
-            raise Exception('Please specify a valid file or directory.')
+            raise Exception('Please specify a valid file or folder.')
 
 
 def usage():

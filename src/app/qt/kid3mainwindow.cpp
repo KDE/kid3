@@ -124,7 +124,7 @@ void Kid3MainWindow::initActions()
   m_fileOpenRecent = new RecentFilesMenu(fileMenu);
   connect(m_fileOpenRecent, &RecentFilesMenu::loadFile,
           this, &Kid3MainWindow::slotFileOpenRecentDirectory);
-  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
+  m_fileOpenRecent->setStatusTip(tr("Opens a recently used folder"));
   m_fileOpenRecent->setTitle(tr("Open &Recent"));
   m_fileOpenRecent->setIcon(QIcon::fromTheme(
       QLatin1String("document-open-recent"),
@@ -132,8 +132,8 @@ void Kid3MainWindow::initActions()
   fileMenu->addMenu(m_fileOpenRecent);
 
   auto fileOpenDirectory = new QAction(this);
-  fileOpenDirectory->setStatusTip(tr("Opens a directory"));
-  fileOpenDirectory->setText(tr("O&pen Directory..."));
+  fileOpenDirectory->setStatusTip(tr("Opens a folder"));
+  fileOpenDirectory->setText(tr("O&pen Folder..."));
   fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
   fileOpenDirectory->setIcon(QIcon::fromTheme(QLatin1String("document-open"),
       QIcon(QLatin1String(":/images/document-open.png"))));
@@ -144,7 +144,7 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileOpenDirectory);
 
   auto fileReload = new QAction(this);
-  fileReload->setStatusTip(tr("Reload directory"));
+  fileReload->setStatusTip(tr("Reload folder"));
   fileReload->setText(tr("Re&load"));
   fileReload->setShortcut(QKeySequence::Refresh);
   fileReload->setIcon(QIcon::fromTheme(QLatin1String("view-refresh"),
@@ -344,8 +344,8 @@ void Kid3MainWindow::initActions()
 
   auto editSelectAllInDir = new QAction(this);
   editSelectAllInDir->setStatusTip(
-        tr("Select all files in the current directory"));
-  editSelectAllInDir->setText(tr("Select All in &Directory"));
+        tr("Select all files in the current folder"));
+  editSelectAllInDir->setText(tr("Select All in &Folder"));
   editSelectAllInDir->setObjectName(QLatin1String("select_all_in_directory"));
   m_shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
   connect(editSelectAllInDir, &QAction::triggered,
@@ -439,8 +439,8 @@ void Kid3MainWindow::initActions()
   toolsMenu->addSeparator();
 
   auto toolsRenameDirectory = new QAction(this);
-  toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
-  toolsRenameDirectory->setText(tr("&Rename Directory..."));
+  toolsRenameDirectory->setStatusTip(tr("Rename Folder"));
+  toolsRenameDirectory->setText(tr("&Rename Folder..."));
   toolsRenameDirectory->setObjectName(QLatin1String("rename_directory"));
   m_shortcutsModel->registerAction(toolsRenameDirectory, menuTitle);
   connect(toolsRenameDirectory, &QAction::triggered,
@@ -694,7 +694,7 @@ void Kid3MainWindow::initFormActions()
   connect(deleteAction, &QAction::triggered, impl(), &BaseMainWindowImpl::deleteFile);
   form()->getFileList()->setDeleteAction(deleteAction);
   m_shortcutsModel->registerAction(deleteAction, ctx);
-  ctx = tr("Directory List");
+  ctx = tr("Folder List");
   connect(addFormAction(tr("Focus"), QLatin1String("dirlist_focus"), ctx),
           &QAction::triggered,
           form(), &Kid3Form::setFocusDirList);

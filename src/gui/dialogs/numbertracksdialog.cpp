@@ -80,7 +80,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
 
   vlayout->addLayout(trackLayout);
 
-  m_resetCounterCheckBox = new QCheckBox(tr("&Reset counter for each directory"),
+  m_resetCounterCheckBox = new QCheckBox(tr("&Reset counter for each folder"),
                                          this);
   m_resetCounterCheckBox->setChecked(cfg.isDirectoryCounterResetEnabled());
   vlayout->addWidget(m_resetCounterCheckBox);

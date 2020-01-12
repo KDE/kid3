@@ -298,7 +298,7 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
       QString type = value.value(QLatin1String("type")).toString();
       QString eventText;
       if (type == QLatin1String("readingDirectory")) {
-        eventText = tr("Reading Directory");
+        eventText = tr("Reading Folder");
       } else if (type == QLatin1String("started")) {
         eventText = tr("Started");
       } else if (type == QLatin1String("source")) {

@@ -247,7 +247,7 @@ void QuitCommand::startCommand()
 {
   if (cli()->app()->isModified() && !cli()->app()->getDirName().isEmpty()) {
     if (!(args().size() > 1 && args().at(1) == QLatin1String("force"))) {
-      cli()->writeResult(tr("The current directory has been modified.") %
+      cli()->writeResult(tr("The current folder has been modified.") %
                          QLatin1Char('\n') %
                          tr("Type 'exit force' to quit."));
       terminate();
@@ -265,7 +265,7 @@ void QuitCommand::connectResultSignal()
 
 
 CdCommand::CdCommand(Kid3Cli* processor)
-  : CliCommand(processor, QLatin1String("cd"), tr("Change directory"),
+  : CliCommand(processor, QLatin1String("cd"), tr("Change folder"),
                QLatin1String("[P]"))
 {
 }
@@ -299,7 +299,7 @@ void CdCommand::disconnectResultSignal()
 
 PwdCommand::PwdCommand(Kid3Cli* processor)
   : CliCommand(processor, QLatin1String("pwd"),
-               tr("Print the filename of the current working directory"))
+               tr("Print the filename of the current folder"))
 {
 }
 
@@ -315,7 +315,7 @@ void PwdCommand::startCommand()
 
 
 LsCommand::LsCommand(Kid3Cli* processor)
-  : CliCommand(processor, QLatin1String("ls"), tr("Directory list"))
+  : CliCommand(processor, QLatin1String("ls"), tr("Folder list"))
 {
   setTimeout(10000);
 }
@@ -735,7 +735,7 @@ void TextEncodingCommand::startCommand()
 
 
 RenameDirectoryCommand::RenameDirectoryCommand(Kid3Cli* processor)
-  : CliCommand(processor, QLatin1String("renamedir"), tr("Rename directory"),
+  : CliCommand(processor, QLatin1String("renamedir"), tr("Rename folder"),
        QLatin1String("[F] [S] [T]\nS = \"create\" | \"rename\" | \"dryrun\"")),
     m_dryRun(false)
 {

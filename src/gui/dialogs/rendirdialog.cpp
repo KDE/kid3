@@ -54,7 +54,7 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer)
 {
   setObjectName(QLatin1String("RenDirDialog"));
   setModal(true);
-  setWindowTitle(tr("Rename Directory"));
+  setWindowTitle(tr("Rename Folder"));
   setSizeGripEnabled(true);
 
   auto mainPage = new QWizardPage;
@@ -92,8 +92,8 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   actionLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
-  m_actionComboBox->insertItem(ActionRename, tr("Rename Directory"));
-  m_actionComboBox->insertItem(ActionCreate, tr("Create Directory"));
+  m_actionComboBox->insertItem(ActionRename, tr("Rename Folder"));
+  m_actionComboBox->insertItem(ActionCreate, tr("Create Folder"));
   actionLayout->addRow(tr("&Action:"), m_actionComboBox);
   connect(m_actionComboBox, static_cast<void (QComboBox::*)(int)>(
             &QComboBox::activated), this, &RenDirDialog::slotUpdateNewDirname);
@@ -310,7 +310,7 @@ void RenDirDialog::pageChanged()
 void RenDirDialog::editFormats()
 {
   setFormats();
-  StringListEditDialog dialog(m_formats, tr("Directory Name from Tag"), this);
+  StringListEditDialog dialog(m_formats, tr("Folder Name from Tag"), this);
   if (dialog.exec() == QDialog::Accepted) {
     m_formats = dialog.stringList();
     setFormats();

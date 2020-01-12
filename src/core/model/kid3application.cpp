@@ -971,7 +971,7 @@ QStringList Kid3Application::saveDirectory()
       ++totalFiles;
     }
   }
-  QString operationName = tr("Saving directory...");
+  QString operationName = tr("Saving folder...");
   bool aborted = false;
   emit longRunningOperationProgress(operationName, -1, totalFiles, &aborted);
 

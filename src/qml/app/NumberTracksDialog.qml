@@ -76,7 +76,7 @@ Dialog {
     Label {
       height: totalRow.height
       verticalAlignment: Text.AlignVCenter
-      text: qsTr("Reset counter for each directory")
+      text: qsTr("Reset counter for each folder")
     }
   }
   Row {
