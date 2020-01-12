@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kid3 '<application>Kid3</application>'>
   <!ENTITY doublehyphen '--'>
   <!ENTITY % addindex "IGNORE">
@@ -19,6 +19,8 @@
 </affiliation>
 <contrib>Software development</contrib>
 </author>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
 <copyright>
@@ -36,7 +38,7 @@
 an efficient way. Also tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD, S3M, IT, XM) are supported.
 It is easy to set tags of multiple files to the same
-values (e.g. album, artist, year and genre in all files of the same album) and
+values (&eg; album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
 </para>
 </abstract>
@@ -179,7 +181,7 @@ application.</para></listitem>
 
 <varlistentry>
 <term><option>&doublehyphen;dbus</option></term>
-<listitem><para>Activate the D-Bus interface.</para></listitem>
+<listitem><para>Activate the &DBus; interface.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -213,11 +215,11 @@ tracker modules (MOD, S3M, IT, XM) are supported too.
 <para>
 &kid3; does not grab nor encode
 MP3 files, but it is targeted to edit the ID3 tags of all files of an album
-in an efficient way, i.e. with as few mouse clicks and key strokes as
+in an efficient way, &ie; with as few mouse clicks and key strokes as
 possible. Where most other programs can edit either ID3v1 or ID3v2 tags,
 &kid3; has full control over both versions, can convert tags between the
 two formats and has access to all ID3v2 tags. Tags of multiple files can be
-set to the same value, e.g. the artist, album, year and genre of all files
+set to the same value, &eg; the artist, album, year and genre of all files
 of an album typically have the same values and can be set together. If the
 information for the tags is contained in the file name, the tags can be
 automatically set from the file name. It is also possible to set the file
@@ -267,7 +269,7 @@ TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
 <ulink url="http://discogs.com">Discogs</ulink>,
 <ulink url="http://www.amazon.com">Amazon</ulink>
 and other data sources</para></listitem>
-<listitem><para>Export as CSV, HTML, playlist, Kover XML and other
+<listitem><para>Export as CSV, &HTML;, playlist, Kover &XML; and other
 formats. Exported CSV files can be imported again.</para></listitem>
 </itemizedlist>
 </sect1>
@@ -320,9 +322,9 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <title>Command Reference</title>
 
 <sect1 id="gui-elements">
-<title>The GUI Elements</title>
+<title>The &GUI; Elements</title>
 <para>
-The &kid3; GUI is separated in six sections: At the left are the file
+The &kid3; &GUI; is separated in six sections: At the left are the file
 and directory listboxes, the right side contains the <guilabel>File</guilabel>,
 <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> and <guilabel>Tag 3
 </guilabel> sections.
@@ -409,14 +411,14 @@ shown. It is possible to open multiple playlists simultaneously.
 New entries can be added by drag and drop from the file list, a file manager or
 another playlist. If an entry is dragged from another playlist, it will be
 moved or copied depending on the system. To invoke the other
-operation, respectively, the <keycap>Shift</keycap>, <keycap>Ctrl</keycap>
-or <keycap>Alt</keycap> (to copy instead of move on macOS)
+operation, respectively, the &Shift;, &Ctrl;
+or &Alt; (to copy instead of move on &macOS;)
 key has to be pressed. Reordering entries within the playlist is also possible
 via drag and drop. Alternatively, entries can be moved using the keyboard shortcuts
-<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up</keycap></keycombo>
+<keycombo>&Ctrl;&Shift;<keycap>Up</keycap></keycombo>
 and
-<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Down</keycap></keycombo>
-(on macOS <keycap>Command</keycap> has to be pressed instead of <keycap>Ctrl</keycap>).
+<keycombo>&Ctrl;&Shift;<keycap>Down</keycap></keycombo>
+(on &macOS; <keycap>Command</keycap> has to be pressed instead of &Ctrl;).
 An entry can be removed using the <keycap>Delete</keycap> key.
 </para>
 <para>
@@ -488,9 +490,9 @@ into the filename:
 <listitem><para>%l %{album} Album</para></listitem>
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
-<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
-<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
+<listitem><para>%t %{track} Track (&eg; 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>   %{ignore} Ignored when generating tags from the file name</para></listitem>
 </itemizedlist>
@@ -547,7 +549,7 @@ clicking the <guibutton>Tag from filename</guibutton> button in the
 Internally, a regular expression is built from the format codes. If advanced
 regular expressions are required, the format to generate the tags from the
 filenames can be given as a complete regular expression with captures which
-are preceded by the format codes, e.g. to extract the track numbers without
+are preceded by the format codes, &eg; to extract the track numbers without
 removal of leading zeros, a format like "/%{track}(\d+) %{title}(.*)" could be
 used.
 </para>
@@ -570,7 +572,7 @@ are tried:
 <listitem><para><filename>Album/Artist - Song</filename></para></listitem>
 <listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
 </itemizedlist>
-If a single file is selected, the GUI controls are filled with the values
+If a single file is selected, the &GUI; controls are filled with the values
 extracted from the filename. If multiple files are selected, the tags of the
 files are directly set according to the filenames.
 </para>
@@ -624,7 +626,7 @@ check boxes are unchecked.
 <para>
 <guibutton>From Tag 2</guibutton>: The tag 1 fields are set from the
 corresponding values in tag 2.
-If a single file is selected, the GUI controls are filled with the values
+If a single file is selected, the &GUI; controls are filled with the values
 from tag 2. If multiple files are selected, the tags of the
 files are directly set.
 </para>
@@ -637,7 +639,7 @@ Only values with checked checkbox will be used in subsequent Paste commands.
 GUI controls.
 </para>
 <para>
-<guibutton>Remove</guibutton>: This will set all GUI controls to their empty
+<guibutton>Remove</guibutton>: This will set all &GUI; controls to their empty
 values which results in removing all values. The saved file will then contain
 no tag 1.
 </para>
@@ -647,7 +649,7 @@ no tag 1.
 <title>Tag 2</title>
 
 <para>
-The GUI controls function in the same way as described for the
+The &GUI; controls function in the same way as described for the
 <guilabel>Tag 1</guilabel> section, but the size of the strings is not limited.
 </para>
 <para>
@@ -715,7 +717,7 @@ tab of the <link linkend="configure-kid3">settings</link>.
 </para></listitem>
 </itemizedlist>
 
-The GUI controls work in the same way as in the <guilabel>Tag 2</guilabel>
+The &GUI; controls work in the same way as in the <guilabel>Tag 2</guilabel>
 section.
 </para>
 
@@ -799,16 +801,16 @@ Remarks concerning the mappings to unified frame names:
 The number of unified frame names is limited by the fact that a sensible
 mapping shall be possible for all supported file formats. Most tags support
 frames with arbitrary names; these will be used if no specific frame is
-available (e.g. the names in uppercase in the column MP4). If no such
+available (&eg; the names in uppercase in the column MP4). If no such
 possibility exists, some frame types may not be supported for the format,
-e.g. Author and Performer for ASF (WMA).
+&eg; Author and Performer for ASF (WMA).
 </para></listitem>
 <listitem><para>
 The mappings are not chosen arbitrarily, they are geared to the usage of the
 frames in other applications and devices. Thus the ID3v2 frame "TPE2 -
 Band/orchestra/accompaniment" does not suggest its usage as Album Artist, but
 this is commonly used. The actual meaning for ID3v2 on the other hand is the
-reason why this frame is used for the orchestra when importing (e.g. from
+reason why this frame is used for the orchestra when importing (&eg; from
 Discogs), although this may seem a bit strange for other tag formats.
 </para></listitem>
 <listitem><para>
@@ -880,7 +882,7 @@ is not invalid, the first row with an invalid time will be used if
 present. This behavior should facilitate adding time stamps if the lyrics text
 is already in the table but the time stamps are missing (which is the case
 when importing unsynchronized lyrics). Note that the invalid time is
-represented as 00:00.00, i.e. the same as the time at the absolute beginning
+represented as 00:00.00, &ie; the same as the time at the absolute beginning
 of the track, which is not invalid. To make a time invalid, press the
 <keysym>Delete</keysym> key, or use <guimenu>Clear</guimenu> from the context
 menu. New rows inserted using <guimenu>Insert row</guimenu> from the context
@@ -932,13 +934,13 @@ the playing position to the time of the selected row.
 <para>
 <emphasis>Recommended procedure to add new synchronized lyrics</emphasis>
 <itemizedlist>
-<listitem><para>Get the unsynchronized lyrics, e.g. using
+<listitem><para>Get the unsynchronized lyrics, &eg; using
 <menuchoice><guimenu>Lyrics</guimenu><guimenuitem>Embed
 Lyrics</guimenuitem></menuchoice> from the file list context
 menu.</para></listitem>
 <listitem><para>Copy the unsynchronized lyrics to the clipboard, just go to
 the <guilabel>Lyrics</guilabel> row in the frame table and press
-<keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>.</para></listitem>
+<keycombo>&Ctrl;<keycap>C</keycap></keycombo>.</para></listitem>
 <listitem><para>Add a synchronized lyrics frame
 (<guibutton>Add...</guibutton>, <guilabel>Synchronized
 Lyrics</guilabel>, <guibutton>OK</guibutton>), click
@@ -951,7 +953,7 @@ beforehand.</para></listitem>
 window.</para></listitem>
 <listitem><para>When the next lyrics line with invalid timestamp comes, click
 <guibutton>Add</guibutton> or press
-<keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>, the timestamp
+<keycombo>&Alt;<keycap>A</keycap></keycombo>, the timestamp
 will be updated.</para></listitem>
 <listitem><para>Continue like this until all timestamps are set. If you missed
 something, stop playback and clear the timestamps using the
@@ -974,7 +976,7 @@ the context menu.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>O</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Open...</guimenuitem>
@@ -995,7 +997,7 @@ and the chosen file is selected.</para></listitem>
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>D</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Open Directory...</guimenuitem>
@@ -1019,7 +1021,7 @@ saved before. Expanded subfolders will be collapsed.</para></listitem>
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>S</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Save</guimenuitem>
@@ -1071,9 +1073,9 @@ A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
 If <guilabel>Standard Tags</guilabel> is marked, the standard information is
-imported, e.g. artist, album, and title.
+imported, &eg; artist, album, and title.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
-imported if available, e.g. performers, arrangers, or the publisher.
+imported if available, &eg; performers, arrangers, or the publisher.
 If <guilabel>Cover Art</guilabel> is marked, cover art will be downloaded if
 available.
 </para>
@@ -1082,7 +1084,7 @@ A search on Amazon can be performed using
 <guibutton>Amazon</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
-imported if available, e.g. performers, arrangers, or the publisher.
+imported if available, &eg; performers, arrangers, or the publisher.
 If <guilabel>Cover Art</guilabel> is marked, cover art will be downloaded if
 available.
 </para>
@@ -1100,7 +1102,7 @@ imported track data. The right column shows the state of the MusicBrainz
 query, which starts with "Pending" when the dialog is opened. Then the
 fingerprint is looked up and if it does not yield a result, another lookup
 using the tags in the file is tried. Thus it can be helpful for a successful
-MusicBrainz query to store known information (e.g. artist and album) in the
+MusicBrainz query to store known information (&eg; artist and album) in the
 tags before the import. If a result was found, the search ends in the state
 "Recognized", otherwise nothing was found or multiple ambiguous results and one
 of them has to be selected by the user.
@@ -1125,8 +1127,8 @@ flexible way.
 </para>
 
 <para>
-The next format, "freedb HTML
-text", can be used to copy information from an HTML page of
+The next format, "freedb &HTML;
+text", can be used to copy information from an &HTML; page of
 <ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
 and if the desired information is displayed in the web browser, copy the
 contents to the clipboard. Then click the <guibutton>From
@@ -1140,22 +1142,22 @@ with a combo box. The files in the current directory should be in the correct
 track order to get their tags assigned. This is the case if they are numbered.
 </para>
 <para>
-The next preconfigured import format, "freedb HTML source", can be used, if
-the data is available as an HTML document. Import is possible using the
+The next preconfigured import format, "freedb &HTML; source", can be used, if
+the data is available as an &HTML; document. Import is possible using the
 <guibutton>From File</guibutton> button, which opens a file selector, or
 copying its contents from an editor and then importing from clipboard. This
-format can be useful for offline import, although the HTML document could also
+format can be useful for offline import, although the &HTML; document could also
 be opened in a browser and then be imported in the first format via the clipboard.
 </para>
 <para>
-More preconfigured formats, e.g. "Track Title Time", are available. An empty
+More preconfigured formats, &eg; "Track Title Time", are available. An empty
 custom format can be created with <guibutton>Add</guibutton> to be set by the
 user. Two lines below the format name can be
 set with a regular expression to capture the fields from the import text. The
 first regular expression will be parsed once per document to gather per-album
 data such as artist, album, year and genre. The second line is tried to match
 from the start of the document to the end to get track data, usually number
-and title. The regular expressions include all the features offered by Qt,
+and title. The regular expressions include all the features offered by &Qt;,
 which is most of the what Perl offers. Bracketing constructs "(..)" create
 capture buffers for the fields to import and are preceded by &kid3; specific
 codes to specify which field to capture. The codes are the same as used for
@@ -1190,7 +1192,7 @@ using <guibutton>Remove</guibutton>.
 <guibutton>Accuracy</guibutton> shows an estimation of how good the
 imported information matches the given tracks. It uses track durations or
 file names to calculate the level of similarity in percent.
-<guibutton>Cover Art</guibutton> shows the URL of the album cover image
+<guibutton>Cover Art</guibutton> shows the &URL; of the album cover image
 which will be downloaded.
 </para>
 <para>
@@ -1208,7 +1210,7 @@ the <guilabel>Match with</guilabel>
 buttons <guibutton>Length</guibutton>, <guibutton>Track</guibutton>,
 and <guibutton>Title</guibutton>, which will reorder the tracks according to
 the corresponding field. To correct the assignments manually, a track can be
-dragged with the left mouse button and the <keycap>Ctrl</keycap> key hold
+dragged with the left mouse button and the &Ctrl; key hold
 down, and then dropped at the new location.
 </para>
 <para>
@@ -1250,7 +1252,7 @@ number. There is also a format to extract a Subtitle from a Title field.
 <para>
 The following example explains how to add a custom format, which sets the
 information from the Subtitle field also in the Comment field. Create a new
-format using <guibutton>Add</guibutton> and set a new name, e.g.
+format using <guibutton>Add</guibutton> and set a new name, &eg;
 "Subtitle to Comment". Then enter "%{subtitle}" in
 <guilabel>Source</guilabel> and "%{comment}(.*)" for
 <guilabel>Extraction</guilabel> and click <guibutton>Save
@@ -1417,14 +1419,14 @@ at the top of the dialog. The process can be aborted with the
 The <action>Browse Cover Art</action> dialog helps to find album cover
 art. <guilabel>Artist/Album</guilabel> is filled from the tags if
 possible. <guilabel>Source</guilabel> offers a variety of websites with album
-cover art. The URL with artist and album as parameters can be found beneath
-the name. URL-encoded values for artist and album can be inserted using
+cover art. The &URL; with artist and album as parameters can be found beneath
+the name. &URL;-encoded values for artist and album can be inserted using
 <userinput>%u{artist}</userinput> and <userinput>%u{album}</userinput>, other
 values from the tags are possible too, as described
 in <link linkend="configure-kid3">Configure Kid3</link>, <guilabel>User
 Actions</guilabel>. More sources can be entered after the entry "Custom
 Source" by replacing "Custom Source" with the source's name, pressing Enter,
-then inserting the URL and finally pressing <guibutton>Save
+then inserting the &URL; and finally pressing <guibutton>Save
 Settings</guibutton>. The resulting browser command is displayed at the top of
 the dialog and can be started by clicking <guibutton>Browse</guibutton>. The
 browser, which can be configured in the settings, is started with the selected
@@ -1433,16 +1435,16 @@ window and will be set in the picture frame of the selected files.
 </para>
 <para>
 Because not all browsers support drag and drop of images and the pictures on
-websites often have a URL, in such cases &kid3; will receive the URL and not
-the picture. If the URL points to a picture, it will be downloaded. However,
-if the URL refers to some other web resource, it has to be translated to the
+websites often have a &URL;, in such cases &kid3; will receive the &URL; and not
+the picture. If the &URL; points to a picture, it will be downloaded. However,
+if the &URL; refers to some other web resource, it has to be translated to the
 corresponding picture. Such mappings are defined in the table <guilabel>URL
 extraction</guilabel>. The left column <guilabel>Match</guilabel> contains a
-regular expression which is compared with the URL. If it matches, the captured
+regular expression which is compared with the &URL;. If it matches, the captured
 expressions in parentheses are inserted into the pattern of the
-right <guilabel>Picture URL</guilabel> column (at the positions marked with \1
-etc.). The replaced regular expression contains the URL of the picture. By
-this means cover art can be imported from Amazon, Google Images, etc. using
+right <guilabel>Picture &URL;</guilabel> column (at the positions marked with \1
+&etc;). The replaced regular expression contains the &URL; of the picture. By
+this means cover art can be imported from Amazon, Google Images, &etc; using
 drag and drop. It is also possible to define your own mappings.
 </para>
 </listitem>
@@ -1462,7 +1464,7 @@ in the current directory according to the configured format.
 </para>
 <para>
 The format settings are similar as in the Import dialog: The topmost field
-contains the title (e.g. "CSV unquoted"), followed by the header, which will
+contains the title (&eg; "CSV unquoted"), followed by the header, which will
 be generated at the begin of the file. The track data follows; it is used for
 every track. Finally, the trailer can be used to generate some finishing
 text.
@@ -1481,15 +1483,15 @@ codes listed below but all tag frame names can be used.
 <listitem><para>%l %{album} Album</para></listitem>
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
-<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
-<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
+<listitem><para>%t %{track} Track (&eg; 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Path</para></listitem>
 <listitem><para>%{modificationdate} Modification date</para></listitem>
 <listitem><para>%{creationdate} Creation date</para></listitem>
-<listitem><para>%u %{url} URL</para></listitem>
+<listitem><para>%u %{url} &URL;</para></listitem>
 <listitem><para>%{dirname} Directory name</para></listitem>
 <listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
 <listitem><para>%D %{seconds} Duration in seconds</para></listitem>
@@ -1505,7 +1507,7 @@ id3lib)</para></listitem>
 <listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
-<listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+<listitem><para>%k %{codec} Codec (&eg; MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
 MPC, APE, ASF, AIFF, WAV)</para></listitem>
 </itemizedlist>
 
@@ -1516,10 +1518,10 @@ format with the same name. "CSV quoted" additionally encloses the fields by
 double quotes, which eases the import into spreadsheet applications. However,
 the fields shall not contain any double quotes when this format is used.
 "Extended M3U" and "Extended PLS" generate playlists with extended attributes
-and absolute path names. "HTML" can be used to generate an HTML page with
-hyperlinks to the tracks. "Kover XML" creates a file which can be imported by
+and absolute path names. "HTML" can be used to generate an &HTML; page with
+hyperlinks to the tracks. "Kover &XML;" creates a file which can be imported by
 the cover printing program Kover. "Technical Details" provides information
-about bit rate, sample rate, channels, etc. Finally, "Custom Format" is left empty for
+about bit rate, sample rate, channels, &etc; Finally, "Custom Format" is left empty for
 definition of a custom format. You can define more formats of your own by
 adding lines in the file <filename>kid3rc</filename> in the configuration
 directory. The other formats can be adapted to your needs.
@@ -1546,7 +1548,7 @@ can be set by various options.</para>
 <para>
 The name of the playlist can be the <guibutton>Same as directory
 name</guibutton> or use a <guibutton>Format</guibutton> with values
-from the tags, e.g. "%{artist} - %{album}" to have the artist and album
+from the tags, &eg; "%{artist} - %{album}" to have the artist and album
 name in the playlist file name. The format codes are the same as for
 <link linkend="export">Export</link>.
 <guibutton>Create new empty playlist</guibutton> will make an empty playlist
@@ -1568,7 +1570,7 @@ listed files, and each playlist contains the files of that directory.
 </para></listitem></varlistentry>
 <varlistentry><term>Top-level directory</term>
 <listitem><para>Only one playlist is created in the top-level
-directory (i.e. the directory of the file list) and it contains the listed
+directory (&ie; the directory of the file list) and it contains the listed
 files of the top-level directory and all of its sub-directories.
 </para></listitem></varlistentry>
 </variablelist>
@@ -1590,7 +1592,7 @@ files are ordered by file name. With <guibutton>Sort by tag field</guibutton>,
 it is possible to sort by a format string with values from tag fields. For
 instance, "%{track.3}" can be used to sort by track number (the ".3" is used
 to get three digits with leading zeros because strings are used for
-sorting). It is also possible to use multiple fields, e.g. "%{genre}%{year}"
+sorting). It is also possible to use multiple fields, &eg; "%{genre}%{year}"
 to sort using a string composed of genre and year.
 </para>
 <para>
@@ -1610,7 +1612,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>Q</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Quit</guimenuitem>
@@ -1631,7 +1633,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>
+<keycombo>&Alt;<keycap>A</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Select All</guimenuitem>
@@ -1642,7 +1644,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></keycombo>
+<keycombo>&Ctrl;&Shift;<keycap>A</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Deselect</guimenuitem>
@@ -1661,7 +1663,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Alt</keycap><keycap>Up</keycap></keycombo>
+<keycombo>&Alt;<keycap>Up</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Previous File</guimenuitem>
@@ -1672,7 +1674,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo>
+<keycombo>&Alt;<keycap>Down</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Next File</guimenuitem>
@@ -1683,7 +1685,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>F</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Find...</guimenuitem>
@@ -1697,7 +1699,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry id="find-replace">
 <term><menuchoice>
 <shortcut>
-<keycombo><keycap>Ctrl</keycap><keycap>R</keycap></keycombo>
+<keycombo>&Ctrl;<keycap>R</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Replace...</guimenuitem>
@@ -1779,11 +1781,11 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%l %{album} Album</para></listitem>
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
-<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
-<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
+<listitem><para>%t %{track} Track (&eg; 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
-<listitem><para>%{dirname} Directory name (e.g. %{year" "}%{dirname}
+<listitem><para>%{dirname} Directory name (&eg; %{year" "}%{dirname}
 will prepend the year to the current directory name)</para></listitem>
 <listitem><para>%{max-year} The maximum year value found for this directory,
 can also be used with other codes than "year"</para></listitem>
@@ -1859,9 +1861,9 @@ name format, import and export.
 <listitem><para>%l %{album} Album</para></listitem>
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
-<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
-<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
+<listitem><para>%t %{track} Track (&eg; 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
 <listitem><para>%p %{filepath} Absolute path to file</para></listitem>
@@ -1876,9 +1878,9 @@ id3lib)</para></listitem>
 <listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
-<listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+<listitem><para>%k %{codec} Codec (&eg; MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
 MPC, APE, ASF, AIFF, WAV)</para></listitem>
-<listitem><para>%w %{marked} Marked, is 1 if the file is marked (e.g. because
+<listitem><para>%w %{marked} Marked, is 1 if the file is marked (&eg; because
 of truncation or standard violation), empty otherwise</para></listitem>
 <listitem><para>%1a %1{artist}, ... Use the prefix 1 to get values of tag 1</para></listitem>
 <listitem><para>%2a %2{artist}, ... Use the prefix 2 to get values of tag 2</para></listitem>
@@ -1891,7 +1893,7 @@ operations:
 </para>
 <itemizedlist>
 <listitem><para>s1 equals s2: true if s1 and s2 are equal.</para></listitem>
-<listitem><para>s1 contains s2: true if s1 contains s2, i.e. s2 is a
+<listitem><para>s1 contains s2: true if s1 contains s2, &ie; s2 is a
 substring of s1.</para></listitem>
 <listitem><para>s matches re: true if s matches the regular expression re.</para></listitem>
 </itemizedlist>
@@ -2159,7 +2161,7 @@ RIFF chunk used to store ID3v2 tags in WAV files will be named "id3 " instead
 of "ID3 ". By default, &kid3; and other applications using TagLib accept both
 the lowercase and the uppercase variant when reading WAV files, but they use
 "ID3 " when writing ID3v2 tags to WAV files. As there exist other applications
-which only accept "id3 " (e.g. JRiver Media Center and foobar2000), this
+which only accept "id3 " (&eg; JRiver Media Center and foobar2000), this
 option can be used to create tags which can be read by such applications.
 </para>
 <para>
@@ -2233,7 +2235,7 @@ which are not accepted by some applications and players. The default value is
 </para>
 <para>
 <guilabel>Custom Genres</guilabel> can be used to define genres which are not
-available in the standard genre list, e.g. "Gothic Metal". Such custom genres
+available in the standard genre list, &eg; "Gothic Metal". Such custom genres
 will appear in the <guilabel>Genre</guilabel> combo box of
 <guilabel>Tag 2</guilabel>. For ID3v1.1 tags, only the predefined genres can
 be used.
@@ -2284,7 +2286,7 @@ a regular expression is used. For regular expressions containing capturing
 groups, occurrences of \1, \2, ... in <guilabel>To</guilabel> are replaced
 with the string captured by the corresponding capturing group.
 To remove a mapping set the <guilabel>From</guilabel> cell
-to an empty value (e.g. by first typing space and then backspace). Inserting
+to an empty value (&eg; by first typing space and then backspace). Inserting
 and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String replacement</guilabel> checkbox is checked.
@@ -2303,7 +2305,7 @@ this table. The key to look up the mapping is the frame name, for example
 "RATING" as used for Vorbis comments or "IRTD" for RIFF INFO. For ID3v2 tags,
 a combined key is used consisting of the frame ID "POPM" of the Popularimeter
 frame and its "Email" field, separated by a dot. Therefore, different keys for
-ID3v2 exist, e.g. "POPM.Windows Media Player 9 Series" for the mapping used by
+ID3v2 exist, &eg; "POPM.Windows Media Player 9 Series" for the mapping used by
 Windows Media Player and Explorer, and simply "POPM" for POPM frames with an
 empty "Email" field. As multiple entries for "POPM" can exist, their order is
 important. When &kid3; adds a new Popularimeter frame, it will use the first
@@ -2318,7 +2320,7 @@ be stored when the corresponding number of stars is given. The other way
 round, the values determine the number of stars which are displayed for the
 value stored in the frame. For instance, the row in the table below contains
 the values 1, 64, 128, 196, 255. The thresholds for the number of stars to be
-displayed lay between these values and are compatible with what the Windows
+displayed lay between these values and are compatible with what the &Windows;
 Explorer uses.
 </para>
 
@@ -2390,17 +2392,17 @@ codes:
 <itemizedlist>
 <listitem><para>%F %{files} File paths (a list if multiple files selected)</para></listitem>
 <listitem><para>%f %{file} File path to single file</para></listitem>
-<listitem><para>%uF %{urls} URLs (a list if multiple files selected)</para></listitem>
-<listitem><para>%uf %{url} URL to single file</para></listitem>
+<listitem><para>%uF %{urls} &URL;s (a list if multiple files selected)</para></listitem>
+<listitem><para>%uf %{url} &URL; to single file</para></listitem>
 <listitem><para>%d %{directory} Directory</para></listitem>
 <listitem><para>%s %{title} Title (Song)</para></listitem>
 <listitem><para>%a %{artist} Artist</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
-<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
-<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
-<listitem><para>%T %{tracknumber} Track (without leading zeros, e.g. 1)</para></listitem>
+<listitem><para>%t %{track} Track (&eg; 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%b %{browser} Command to start the web browser</para></listitem>
 <listitem><para>%q %{qmlpath} Base directory of provided QML files</para></listitem>
@@ -2419,11 +2421,11 @@ command.
 To execute QML scripts, <command>@qml</command> is used as a command name. The
 path to the QML script is passed as a parameter. The provided scripts can be
 found in the folder <filename>%{qmlpath}/script/</filename> (on
-Linux typically <filename>/usr/share/kid3/qml/script/</filename>, on
+&Linux; typically <filename>/usr/share/kid3/qml/script/</filename>, on
 Windows <filename>qml/script/</filename> inside the installation directory,
-and on macOS in the app folder
+and on &macOS; in the app folder
 <filename>kid3.app/Contents/Resources/qml/script/</filename>). Custom scripts
-can be stored in any directory. If the QML code uses GUI components,
+can be stored in any directory. If the QML code uses &GUI; components,
 <command>@qmlview</command> shall be used instead of
 <command>@qml</command>. Additional parameters are passed to the QML script
 where they will be available via the <function>getArguments()</function>
@@ -2441,8 +2443,8 @@ for instance
 </screen>
 will query the lyrics for the current song in
 <ulink url="http://www.lyricwiki.org">LyricWiki</ulink>. The "u" in %u{artist} and %u{title}
-is used to URL-encode the artist %{artist} and song %{title} information. It is easy to
-define your own queries in the same way, e.g. an image search with
+is used to &URL;-encode the artist %{artist} and song %{title} information. It is easy to
+define your own queries in the same way, &eg; an image search with
 <ulink url="http://www.google.com">Google</ulink>:
 <screen width="40">
 <userinput>%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}</userinput>
@@ -2541,7 +2543,7 @@ after a restart of &kid3;.
 </menuchoice></term>
 <listitem><para>Opens a dialog to assign keyboard shortcuts for most of the
 program functions. There are even functions without corresponding menu or
-button available, e.g. next file, previous file, select all.
+button available, &eg; next file, previous file, select all.
 </para>
 <para>
 </para>
@@ -2670,7 +2672,7 @@ file paths are given, change to their common directory and select the files.
 <command>ls</command>
 </cmdsynopsis>
 <para>List the contents of the current directory. This corresponds to the file
-list in the &kid3; GUI. Five characters before the file names show the state
+list in the &kid3; &GUI;. Five characters before the file names show the state
 of the file.
 </para>
 
@@ -2835,7 +2837,7 @@ If <replaceable>FRAME-VALUE</replaceable> is empty, the frame is deleted.
 </para>
 <para>
 To set a specific field of a frame, the field name can be given after a dot,
-e.g. to set the Counter field of a Popularimeter frame, use
+&eg; to set the Counter field of a Popularimeter frame, use
 <screen width="65"><userinput>set POPM.Counter 5</userinput></screen>
 </para>
 <para>
@@ -2858,7 +2860,7 @@ present.
 </para>
 <para>
 To set multiple frames of the same kind, an index can be given in brackets,
-e.g. to set multiple performers in a Vorbis comment, use
+&eg; to set multiple performers in a Vorbis comment, use
 <screen width="65">
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[0] 'Liza don Getti (soprano)'</userinput>
 <prompt>kid3-cli&gt; </prompt><userinput>set performer[1] 'Joe Barr (piano)'</userinput>
@@ -2892,7 +2894,7 @@ are selected).
 </cmdsynopsis>
 <para>Tags are imported from the file <replaceable>FILE</replaceable>
 in the format with the name
-<replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
+<replaceable>FORMAT-NAME</replaceable> (&eg; <userinput>"CSV
 unquoted"</userinput>, see <link linkend="import-text">Import</link>).
 </para>
 <para>If <userinput>tags</userinput> is given for
@@ -2931,7 +2933,7 @@ This function also supports output of the extracted value by using an
 <para>Set the album artwork by downloading a picture from
 <replaceable>URL</replaceable>. The rules defined in the <link
 linkend="browse_pictures">Browse Cover Art</link> dialog are used to transform
-general URLs (e.g. from Amazon) to a picture URL. To set the album cover from
+general &URL;s (&eg; from Amazon) to a picture &URL;. To set the album cover from
 a local picture file, use the <link linkend="cli-set">set</link> command.
 </para>
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>albumart
@@ -2948,7 +2950,7 @@ http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput></screen
 </cmdsynopsis>
 <para>Tags are exported to file <replaceable>FILE</replaceable>
 in the format with the name
-<replaceable>FORMAT-NAME</replaceable> (e.g. <userinput>"CSV
+<replaceable>FORMAT-NAME</replaceable> (&eg; <userinput>"CSV
 unquoted"</userinput>, see <link linkend="export">Export</link>).
 </para>
 </sect2>
@@ -3004,7 +3006,7 @@ linkend="create-playlist">Create Playlist</link>.
 </cmdsynopsis>
 <para>Rename or create directories from the values in the
 tags according to a given <replaceable>FORMAT</replaceable>
-(e.g. <userinput>%{artist} - %{album}</userinput>, see <link
+(&eg; <userinput>%{artist} - %{album}</userinput>, see <link
 linkend="rename-directory">Rename Directory</link>), if no format is given,
 the format defined in the <guilabel>Rename directory</guilabel> dialog is
 used. The default mode is <option>rename</option>; to create directories,
@@ -3037,7 +3039,7 @@ performed immediately, to just see what would be done, use the
 </cmdsynopsis>
 <para>Filter the files so that only the files matching the
 <replaceable>FILTER-FORMAT</replaceable> are visible. The name of a predefined
-filter expression (e.g. <userinput>"Filename Tag Mismatch"</userinput>) can be
+filter expression (&eg; <userinput>"Filename Tag Mismatch"</userinput>) can be
 used instead of a filter expression, see <link linkend="filter">Filter</link>.
 </para>
 
@@ -3087,7 +3089,7 @@ Finished</computeroutput>
 </cmdsynopsis>
 <para>Set the file names of the selected files from values in the tags, for
 example <userinput>fromtag '%{track} - %{title}' 1</userinput>. If no format
-is specified, the format set in the GUI is used.
+is specified, the format set in the &GUI; is used.
 </para>
 </sect2>
 
@@ -3100,7 +3102,7 @@ is specified, the format set in the GUI is used.
 </cmdsynopsis>
 <para>Set the tag frames from the file names, for example <userinput>totag
 '%{albumartist} - %{album}/%{track} %{title}' 2</userinput>. If no format
-is specified, the format set in the GUI is used. If the format
+is specified, the format set in the &GUI; is used. If the format
 of the filename does not match this pattern, a few other commonly used formats
 are tried.
 </para>
@@ -3112,7 +3114,7 @@ are tried.
 <command>syncto</command>
 <arg choice="req"><replaceable>TAG-NUMBER</replaceable></arg>
 </cmdsynopsis>
-<para>Copy the tag frames from one tag to the other tag, e.g. to set the ID3v2
+<para>Copy the tag frames from one tag to the other tag, &eg; to set the ID3v2
 tag from the ID3v1 tag, use <userinput>syncto 2</userinput>.
 </para>
 </sect2>
@@ -3233,20 +3235,20 @@ if __name__ == '__main__':
 </sect1>
 
 <sect1 id="kid3-cli-json">
-<title>JSON Format</title>
+<title>&JSON; Format</title>
 <para>
 In order to make it easier to parse results from <command>kid3-cli</command>,
-it is possible to get the output in JSON format. When the request is in JSON
-format, the response will also be JSON. A compact format of the request will
+it is possible to get the output in &JSON; format. When the request is in &JSON;
+format, the response will also be &JSON;. A compact format of the request will
 also give a compact representation of the response. If the request contains an
-"id" field, it is assumed to be a JSON-RPC request and the response will
+"id" field, it is assumed to be a &JSON;-RPC request and the response will
 contain a "jsonrpc" field and the "id" of the request. The request format uses
 the same commands as the standard CLI, the "method" field contains the command
 and the parameters (if any) are given in the "params" list. The response
 contains a "result" object, which can also be null if the corresponding
 <command>kid3-cli</command> command does not return a result. In case of an
 error, an "error" object is returned with "code" and "message" fields as used
-in JSON-RPC.
+in &JSON;-RPC.
 
 <screen width="80">
 <prompt>kid3-cli&gt; </prompt><userinput>{"method":"set","params":["artist","An Artist"]}</userinput>
@@ -3278,6 +3280,7 @@ in JSON-RPC.
 Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 </para>
 
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
 &underFDL;
 &underGPL;
@@ -3300,11 +3303,11 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <title>Requirements</title>
 
 <para>
-&kid3; needs <ulink url="http://qt-project.org/">Qt</ulink>. <ulink
-url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
-&kid3; can also be compiled as a Qt application. &kid3; can be compiled for
-systems where these libraries are available, e.g. for GNU/Linux, Windows
-and macOS.
+&kid3; needs <ulink url="https://www.qt.io">&Qt;</ulink>. <ulink
+url="http://www.kde.org">&kde;</ulink> is recommended but not necessary, as
+&kid3; can also be compiled as a &Qt; application. &kid3; can be compiled for
+systems where these libraries are available, &eg; for GNU/&Linux;, &Windows;
+and &macOS;.
 
 To tag Ogg/Vorbis
 files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
@@ -3322,7 +3325,7 @@ To import from acoustic fingerprints,
 and <ulink url="http://libav.org/">libav</ulink> are used.
 </para>
 <para>
-&kid3; is available for most Linux distributions, Windows and macOS.
+&kid3; is available for most &Linux; distributions, &Windows; and &macOS;.
 Links can be found on <ulink url="https://kid3.sourceforge.io">
 https://kid3.sourceforge.io</ulink>.
 </para>
@@ -3333,11 +3336,11 @@ https://kid3.sourceforge.io</ulink>.
 <title>Compilation and Installation</title>
 
 <para>
-You can compile &kid3; with or without KDE. Without KDE, &kid3; is a
-simple Qt application and lacks some configuration and session features.
+You can compile &kid3; with or without &kde;. Without &kde;, &kid3; is a
+simple &Qt; application and lacks some configuration and session features.
 </para>
 <para>
-For a KDE version, go into the top directory and type
+For a &kde; version, go into the top directory and type
 <screen width="40">
 <prompt>%</prompt> <userinput>cmake .</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -3345,7 +3348,7 @@ For a KDE version, go into the top directory and type
 </screen>
 </para>
 <para>
-To compile for different versions of Qt or KDE, set the corresponding
+To compile for different versions of &Qt; or &kde;, set the corresponding
 <userinput>cmake</userinput> options.
 </para>
 <para>
@@ -3359,13 +3362,13 @@ libraries are compiled in. The default is
 <userinput>OFF</userinput>.
 </para>
 <para>
-To build &kid3; as a Qt application without KDE, use the
+To build &kid3; as a &Qt; application without &kde;, use the
 <userinput>cmake</userinput> option <userinput>-DWITH_APPS=Qt</userinput>.
-To build both a KDE and a Qt application, set
+To build both a &kde; and a &Qt; application, set
 <userinput>-DWITH_APPS="Qt;KDE"</userinput>.
 </para>
 <para>
-To use a specific Qt installation, set
+To use a specific &Qt; installation, set
 <userinput>-DQT_QMAKE_EXECUTABLE=/path/to/qmake</userinput>.
 </para>
 <para>
@@ -3375,7 +3378,7 @@ the script <filename>build-deb.sh</filename> is available.
 </para>
 
 <para>
-The Qt application can also be compiled for Windows and macOS.
+The &Qt; application can also be compiled for &Windows; and &macOS;.
 The script <filename>buildlibs.sh</filename> can be used to download
 and build all required libraries and create a &kid3; package.
 </para>
@@ -3385,11 +3388,11 @@ and build all required libraries and create a &kid3; package.
 <sect1 id="configuration">
 <title>Configuration</title>
 
-<para>With KDE, the settings are stored in
+<para>With &kde;, the settings are stored in
 <filename>.config/kid3rc</filename>.
-As a Qt application, this file is
-in <filename>.config/Kid3/Kid3.conf</filename>. On Windows,
-the configuration is stored in the registry. on macOS in a plist file.
+As a &Qt; application, this file is
+in <filename>.config/Kid3/Kid3.conf</filename>. On &Windows;,
+the configuration is stored in the registry. on &macOS; in a plist file.
 </para>
 <para>The environment variable <varname>KID3_CONFIG_FILE</varname> can be used
 to set the path of the configuration file.</para>
@@ -3402,12 +3405,12 @@ to set the path of the configuration file.</para>
 <title>D-Bus Interface</title>
 
 <sect1 id="dbus-examples">
-<title>D-Bus Examples</title>
+<title>&DBus; Examples</title>
 
 <para>
-On Linux a D-Bus-interface can be used to control
-&kid3; by scripts. Scripts can be written in any language with D-Bus-bindings
-(e.g. in Python) and can be added to the <guilabel>User Actions</guilabel> to
+On &Linux; a &DBus;-interface can be used to control
+&kid3; by scripts. Scripts can be written in any language with &DBus;-bindings
+(&eg; in Python) and can be added to the <guilabel>User Actions</guilabel> to
 extend the functionality of &kid3;.
 </para>
 
@@ -3425,8 +3428,8 @@ dbus-send --dest=net.sourceforge.kid3 --print-reply=literal \
 string:'One Hit Wonder'
 </programlisting>
 <para>
-or easier with Qt's <command>qdbus</command> (<command>qdbusviewer</command>
-can be used to explore the interface in a GUI):
+or easier with &Qt;'s <command>qdbus</command> (<command>qdbusviewer</command>
+can be used to explore the interface in a &GUI;):
 </para>
 <programlisting>
 qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist \
@@ -3462,7 +3465,7 @@ $kid3->setFrame(2, "Artist", "One Hit Wonder");
 <title>D-Bus API</title>
 
 <para>
-The D-Bus API is specified
+The &DBus; API is specified
 in <filename>net.sourceforge.Kid3.xml</filename>. The Kid3 interface has the
 following methods:
 </para>
@@ -4057,12 +4060,12 @@ saving failed.</para>
   </varlistentry>
   <varlistentry>
     <term><replaceable>name</replaceable></term>
-    <listitem><para>name of frame (e.g. "artist")</para></listitem>
+    <listitem><para>name of frame (&eg; "artist")</para></listitem>
   </varlistentry>
 </variablelist>
 <para>To get binary data like a picture, the name of a file to write can be
-added after the <parameter>name</parameter>, e.g. "Picture:/path/to/file".
-In the same way, synchronized lyrics can be exported, e.g. "SYLT:/path/to/file".
+added after the <parameter>name</parameter>, &eg; "Picture:/path/to/file".
+In the same way, synchronized lyrics can be exported, &eg; "SYLT:/path/to/file".
 </para>
 <para>Returns value of frame.</para>
 </sect2>
@@ -4084,7 +4087,7 @@ In the same way, synchronized lyrics can be exported, e.g. "SYLT:/path/to/file".
   </varlistentry>
   <varlistentry>
     <term><replaceable>name</replaceable></term>
-    <listitem><para>name of frame (e.g. "artist")</para></listitem>
+    <listitem><para>name of frame (&eg; "artist")</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><replaceable>value</replaceable></term>
@@ -4094,7 +4097,7 @@ In the same way, synchronized lyrics can be exported, e.g. "SYLT:/path/to/file".
 <para>For tag 2 (<parameter>tagMask</parameter> 2), if no frame with <parameter>name</parameter> exists, a new frame
 is added, if <parameter>value</parameter> is empty, the frame is deleted.
 To add binary data like a picture, a file can be added after the
-<parameter>name</parameter>, e.g. "Picture:/path/to/file".
+<parameter>name</parameter>, &eg; "Picture:/path/to/file".
 "SYLT:/path/to/file" can be used to import synchronized lyrics.</para>
 <para>Returns true if OK.</para>
 </sect2>
@@ -4281,7 +4284,7 @@ or
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-On Windows and macOS, the import path must be adapted to the
+On &Windows; and &macOS;, the import path must be adapted to the
 <filename>imports</filename> folder inside the installation directory. Scripts
 started outside of &kid3; will use the current directory, so it should be
 changed beforehand.
@@ -4313,7 +4316,7 @@ interface for some time. For longer operations, it should therefore have a
 break from time to time. The alternative implementation below has the work for
 a single file moved out into a function. This function invokes itself with a
 timeout of 1 ms at the end, given that more files have to be processed. This
-will ensure that the GUI remains responsive while the script is running.
+will ensure that the &GUI; remains responsive while the script is running.
 </para>
 
 <programlisting>
@@ -4496,7 +4499,7 @@ command, callback will be called with [exit code, standard output, standard
 error]
 script.getEnv(varName): Get value of environment variable
 script.setEnv(varName, value): Set value of environment variable
-script.getQtVersion(): Qt version string, e.g. "5.4.1"
+script.getQtVersion(): Qt version string, &eg; "5.4.1"
 script.getDataMd5(data): Get hex string of the MD5 hash of data
 script.getDataSize(data): Get size of byte array
 script.dataToImage(data, [format]): Create an image from data bytes
