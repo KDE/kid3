@@ -142,7 +142,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   writeButtonGroup->addButton(m_writeInfoButton);
   vlayout->addWidget(pcGroupBox);
   fnGroupBox->setTitle(tr("Playlist File Name"));
-  m_sameAsDirNameButton->setText(tr("Same as &directory name"));
+  m_sameAsDirNameButton->setText(tr("Same as &folder name"));
   m_sameAsDirNameButton->setChecked(true);
   m_fileNameFormatButton->setText(tr("&Format:"));
   m_fileNameFormatComboBox->setEditable(true);
@@ -166,9 +166,9 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   locationLabel->setText(tr("Cr&eate in:"));
   locationLabel->setBuddy(m_locationComboBox);
   m_locationComboBox->addItems({
-    tr("Current directory"),
-    tr("Every directory"),
-    tr("Top-level directory")
+    tr("Current folder"),
+    tr("Every folder"),
+    tr("Top-level folder")
   });
   pcGroupBox->setTitle(tr("Playlist Content"));
   formatLabel->setText(tr("For&mat:"));

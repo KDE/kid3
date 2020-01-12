@@ -201,7 +201,7 @@ void BaseMainWindowImpl::confirmedOpenDirectory(const QStringList& paths)
     return;
   }
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  slotStatusMsg(tr("Opening directory..."));
+  slotStatusMsg(tr("Opening folder..."));
 
   m_app->openDirectory(paths, false);
 
@@ -399,7 +399,7 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
   {
     int want_save = m_platformTools->warningYesNoCancel(
         m_w,
-        tr("The current directory has been modified.\n"
+        tr("The current folder has been modified.\n"
        "Do you want to save it?"),
         tr("Warning"));
     switch(want_save)
@@ -1493,7 +1493,7 @@ void BaseMainWindowImpl::renameFile()
               0, tr("File Error"),
               tr("Error while renaming:\n") +
               tr("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName) +
-              tr("Retry after closing directories?"),
+              tr("Retry after closing folders?"),
               QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok) {
           m_app->tryRenameAfterReset(absFilename, newPath);
         }
@@ -1573,7 +1573,7 @@ void BaseMainWindowImpl::deleteFile()
       if (!files.isEmpty()) {
         QString txt;
         if (rmdirError)
-          txt += tr("Directory must be empty.\n");
+          txt += tr("Folder must be empty.\n");
         txt += tr("Could not move these files to the Trash");
         m_platformTools->errorList(m_w, txt, files, tr("File Error"));
       }

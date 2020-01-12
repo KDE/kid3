@@ -196,7 +196,7 @@ Page {
             onTriggered: app.writePlaylist()
           }
           MenuItem {
-            text: qsTr("Rename Directory")
+            text: qsTr("Rename Folder")
             onTriggered: page.StackView.view.push(renameDirPage)
 
             RenameDirectoryPage {

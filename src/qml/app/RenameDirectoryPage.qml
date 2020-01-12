@@ -34,7 +34,7 @@ Page {
   property bool create: false
   property variant formats
 
-  title: qsTr("Rename Directory")
+  title: qsTr("Rename Folder")
 
   Connections {
     target: app.dirRenamer
@@ -111,7 +111,7 @@ Page {
     ComboBox {
       id: actionComboBox
       width: parent.valueWidth
-      model: [ qsTr("Rename Directory"), qsTr("Create Directory") ]
+      model: [ qsTr("Rename Folder"), qsTr("Create Folder") ]
       onCurrentIndexChanged: {
         page.create = currentIndex === 1
         page.refreshPreview()
@@ -149,7 +149,7 @@ Page {
 
         StringListEditPage {
           id: editDirFormatsPage
-          title: qsTr("Directory Name from Tag")
+          title: qsTr("Folder Name from Tag")
           visible: false
           StackView.onActivated: {
             setElements(page.formats)

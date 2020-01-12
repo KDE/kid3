@@ -160,7 +160,7 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 
   str += QLatin1String("<tr><td>%d</td><td>%{directory}</td><td>");
   const char* const directoryNameStr =
-      QT_TRANSLATE_NOOP("@default", "Directory name");
+      QT_TRANSLATE_NOOP("@default", "Folder name");
   str += QCoreApplication::translate("@default", directoryNameStr);
   str += QLatin1String("</td></tr>\n");
 
@@ -171,7 +171,7 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 #ifdef CFG_QMLDIR
   str += QLatin1String("<tr><td>%q</td><td>%{qmlpath}</td><td>");
   const char* const qmlBaseDirectoryStr =
-      QT_TRANSLATE_NOOP("@default", "QML base directory");
+      QT_TRANSLATE_NOOP("@default", "QML base folder");
   str += QCoreApplication::translate("@default", qmlBaseDirectoryStr);
   str += QLatin1String("</td></tr>\n");
 #endif

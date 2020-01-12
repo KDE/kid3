@@ -89,7 +89,7 @@ ApplicationWindow {
     y: root.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("Warning")
-    text: qsTr("The current directory has been modified.\nDo you want to save it?")
+    text: qsTr("The current folder has been modified.\nDo you want to save it?")
     onYes: {
       root.saveDirectory(function() {
         completed(true)

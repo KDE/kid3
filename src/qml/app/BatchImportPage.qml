@@ -37,7 +37,7 @@ Page {
       var str
       switch (type) {
       case Kid3.BatchImporter.ReadingDirectory:
-        str = qsTr("Reading Directory")
+        str = qsTr("Reading Folder")
         break
       case Kid3.BatchImporter.Started:
         str = qsTr("Started")

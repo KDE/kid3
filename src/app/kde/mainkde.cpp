@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
   parser.addHelpOption();
   parser.addVersionOption();
   const char* const directoryToOpenStr =
-      QT_TRANSLATE_NOOP("@default", "directory to open");
+      QT_TRANSLATE_NOOP("@default", "folder to open");
   parser.addPositionalArgument(
         QStringLiteral("dir"), QCoreApplication::translate("@default",
         directoryToOpenStr),
