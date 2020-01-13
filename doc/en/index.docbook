@@ -1000,7 +1000,7 @@ and the chosen file is selected.</para></listitem>
 <keycombo>&Ctrl;<keycap>D</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu>
-<guimenuitem>Open Directory...</guimenuitem>
+<guimenuitem>Open Folder...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens a directory.</action> All files matching the selected
 file name filter will be displayed in the file listbox.</para></listitem>
@@ -1546,7 +1546,7 @@ settings.
 <action>Creates a playlist.</action> The format and contents of the playlist
 can be set by various options.</para>
 <para>
-The name of the playlist can be the <guibutton>Same as directory
+The name of the playlist can be the <guibutton>Same as folder
 name</guibutton> or use a <guibutton>Format</guibutton> with values
 from the tags, &eg; "%{artist} - %{album}" to have the artist and album
 name in the playlist file name. The format codes are the same as for
@@ -1559,16 +1559,16 @@ The extension depends on the playlist format.
 The location of the generated playlist is determined by the selection of
 the <guilabel>Create in</guilabel> combo box.
 <variablelist>
-<varlistentry><term>Current directory</term>
+<varlistentry><term>Current folder</term>
 <listitem><para>The playlist is created in the current directory and contains
 only files of the current directory. The current directory is the directory
 where the current file is located. If multiple files are selected, the current
 file is probably the last selected file.</para></listitem></varlistentry>
-<varlistentry><term>Every directory</term>
+<varlistentry><term>Every folder</term>
 <listitem><para>A playlist is created in every directory which contains
 listed files, and each playlist contains the files of that directory.
 </para></listitem></varlistentry>
-<varlistentry><term>Top-level directory</term>
+<varlistentry><term>Top-level folder</term>
 <listitem><para>Only one playlist is created in the top-level
 directory (&ie; the directory of the file list) and it contains the listed
 files of the top-level directory and all of its sub-directories.
@@ -1655,7 +1655,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Edit</guimenu>
-<guimenuitem>Select All in Directory</guimenuitem>
+<guimenuitem>Select All in Folder</guimenuitem>
 </menuchoice></term>
 <listitem><para>Selects all files of the current directory.</para></listitem>
 </varlistentry>
@@ -1765,7 +1765,7 @@ because UTF8 is not supported for this format.</para></listitem>
 <varlistentry id="rename-directory">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Rename Directory...</guimenuitem>
+<guimenuitem>Rename Folder...</guimenuitem>
 </menuchoice></term>
 <listitem><para>This dialog offers the possibility to automatically rename the
 currently open directory according to the tags in the files. Several formats
@@ -1798,8 +1798,8 @@ empty if not unique</para></listitem>
 <para>
 If a directory separator "/" is found in the format, multiple directories are
 created. If you want to create a new directory instead of renaming the current
-directory, select <guilabel>Create Directory</guilabel> instead of
-<guilabel>Rename Directory</guilabel>. The source of the tag information can
+directory, select <guilabel>Create Folder</guilabel> instead of
+<guilabel>Rename Folder</guilabel>. The source of the tag information can
 be chosen between <guilabel>From Tag 1 and Tag 2</guilabel>,
 <guilabel>From Tag 1</guilabel> and <guilabel>From Tag 2</guilabel>.
 A preview for the rename operation performed on the first
@@ -1828,7 +1828,7 @@ of tracks will also be set in the tags.
 It is possible to number the tracks over multiple directories. The folders
 have to be expanded and selected.
 </para><para>
-If <guilabel>Reset counter for each directory</guilabel> is checked, track
+If <guilabel>Reset counter for each folder</guilabel> is checked, track
 numbering is restarted with the given number for each directory when multiple
 folders are selected.
 </para><para>
@@ -2647,7 +2647,7 @@ class="command">force</parameter> parameter is required.
 </sect2>
 
 <sect2 id="cli-cd">
-<title>Change directory</title>
+<title>Change folder</title>
 <cmdsynopsis>
 <command>cd</command>
 <arg><replaceable>DIRECTORY</replaceable></arg>
@@ -2659,7 +2659,7 @@ file paths are given, change to their common directory and select the files.
 </sect2>
 
 <sect2 id="cli-pwd">
-<title>Print the current working directory</title>
+<title>Print the filename of the current folder</title>
 <cmdsynopsis>
 <command>pwd</command>
 </cmdsynopsis>
@@ -2667,7 +2667,7 @@ file paths are given, change to their common directory and select the files.
 </sect2>
 
 <sect2 id="cli-ls">
-<title>Directory list</title>
+<title>Folder list</title>
 <cmdsynopsis>
 <command>ls</command>
 </cmdsynopsis>
@@ -2993,7 +2993,7 @@ linkend="create-playlist">Create Playlist</link>.
 </sect2>
 
 <sect2 id="cli-renamedir">
-<title>Rename directory</title>
+<title>Rename folder</title>
 <cmdsynopsis>
 <command>renamedir</command>
 <arg><replaceable>FORMAT</replaceable></arg>
@@ -3007,8 +3007,8 @@ linkend="create-playlist">Create Playlist</link>.
 <para>Rename or create directories from the values in the
 tags according to a given <replaceable>FORMAT</replaceable>
 (&eg; <userinput>%{artist} - %{album}</userinput>, see <link
-linkend="rename-directory">Rename Directory</link>), if no format is given,
-the format defined in the <guilabel>Rename directory</guilabel> dialog is
+linkend="rename-directory">Rename Folder</link>), if no format is given,
+the format defined in the <guilabel>Rename folder</guilabel> dialog is
 used. The default mode is <option>rename</option>; to create directories,
 <option>create</option> must be given explicitly. The rename actions will be
 performed immediately, to just see what would be done, use the
