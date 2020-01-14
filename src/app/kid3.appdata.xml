@@ -9,6 +9,7 @@
   <name xml:lang="eu">Kid3</name>
   <name xml:lang="nl">Kid3</name>
   <name xml:lang="pt">Kid3</name>
+  <name xml:lang="sk">Kid3</name>
   <name xml:lang="uk">Kid3</name>
   <name xml:lang="x-test">xxKid3xx</name>
   <summary>Edit audio file metadata</summary>
@@ -16,6 +17,7 @@
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
   <summary xml:lang="nl">Metagegevens van audiobestanden bewerken</summary>
   <summary xml:lang="pt">Editar os meta-dados dos ficheiros de áudio</summary>
+  <summary xml:lang="sk">Upraviť metadáta zvukového súboru</summary>
   <summary xml:lang="uk">Редагування метаданих звукових файлів</summary>
   <summary xml:lang="x-test">xxEdit audio file metadataxx</summary>
   <description>
@@ -47,11 +49,21 @@
       generate file names from tags and rename folders from tags. Automatic
       case conversion and string replacement help to keep tags consistent.
     </p>
+    <p xml:lang="ca">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantenir les etiquetes consistents.</p>
+    <p xml:lang="nl">De tags van meerdere bestanden kunnen samen ingesteld worden. Het is mogelijk om tags uit bestandsnamen of de inhoud van andere tagvelden te genereren en om bestandsnamen te genereren uit tags en mappen te hernoemen uit tags. Automatische conversie van hoofd/kleine letters en vervangen van tekenreeksen helpen bij het consistent houden van tags.</p>
+    <p xml:lang="pt">Poderá definir em conjunto as marcas de vários ficheiros. É possível gerar marcas a partir dos nomes dos ficheiros ou do conteúdo de outros campos de marcas, assim como gerar nomes dos ficheiros a partir das marcas e mudar os nomes das pastas a partir das mesmas. A conversão automática de maiúsculas/minúsculas e a substituição de textos ajudam a manter as marcas consistentes.</p>
+    <p xml:lang="uk">Передбачено можливість встановлювати мітки для цілих наборів файлів. Передбачено можливість створювати мітки на основі назв файлів або вмісту інших полів міток і створювати назви файлів на основі міток і перейменовувати теки на основі міток. Автоматичне перетворення регістру символів та заміна рядків допоможуть вам у підтриманні однорідності міток у вашій збірці.</p>
+    <p xml:lang="x-test">xxThe tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.xx</p>
     <p>
       Album data can be imported from gnudb.org, TrackType.org, MusicBrainz,
       Discogs, Amazon; automatic batch import is available for multiple
       folders. It is also possible to export data and generate play lists.
     </p>
+    <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
+    <p xml:lang="nl">Albumgegevens kunnen geïmporteerd worden uit gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatische bulkimport is beschikbaar voor meerdere mappen. Het is ook mogelijk om gegevens te exporteren en afspeellijsten te genereren.</p>
+    <p xml:lang="pt">Os dados dos álbuns podem ser importados a partir do gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; está disponível a importação automática em lote para várias pastas. Também é possível exportar os dados e gerar listas de reprodução.</p>
+    <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
+    <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
@@ -59,7 +71,9 @@
       <caption>Kid3 main window</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
+      <caption xml:lang="nl">Hoofdvenster van Kid3</caption>
       <caption xml:lang="pt">Janela principal do Kid3</caption>
+      <caption xml:lang="sk">Hlavné okno Kid3</caption>
       <caption xml:lang="uk">Головне вікно Kid3</caption>
       <caption xml:lang="x-test">xxKid3 main windowxx</caption>
     </screenshot>
@@ -72,6 +86,7 @@
   <developer_name xml:lang="eu">Urs Fleisch</developer_name>
   <developer_name xml:lang="nl">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt">Urs Fleisch</developer_name>
+  <developer_name xml:lang="sk">Urs Fleisch</developer_name>
   <developer_name xml:lang="uk">Urs Fleisch</developer_name>
   <developer_name xml:lang="x-test">xxUrs Fleischxx</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
