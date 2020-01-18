@@ -1,18 +1,17 @@
 # Create HTML handbook from DocBook file in language directory
-macro(kid3_create_handbook _docbook)
+macro(kid3_create_handbook _docbook _lang)
   get_filename_component(_input ${_docbook} ABSOLUTE)
-  get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-  set(_output ${CMAKE_CURRENT_BINARY_DIR}/kid3_${_lang}.html)
-  set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixdocbook.py)
-  set(_fixhtml_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixhtml.py)
+  set(_output ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/kid3_${_lang}.html)
+  set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/fixdocbook.py)
+  set(_fixhtml_py ${CMAKE_CURRENT_SOURCE_DIR}/fixhtml.py)
   set(_docbook_xsl ${DOCBOOK_XSL_DIR}/html/docbook.xsl)
   if(WIN32)
     # The expressions in pipes do not work for Windows,
     # so temporary files are used.
-    set(_tmp_xml ${CMAKE_CURRENT_BINARY_DIR}/tmp.xml)
-    set(_tmp_html ${CMAKE_CURRENT_BINARY_DIR}/tmp.html)
+    set(_tmp_xml ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/tmp.xml)
+    set(_tmp_html ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/tmp.html)
     add_custom_command(OUTPUT ${_tmp_xml}
-      COMMAND ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} >${_tmp_xml}
+      COMMAND ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} >${_tmp_xml}
       DEPENDS ${_input}
     )
     add_custom_command(OUTPUT ${_tmp_html}
@@ -26,7 +25,7 @@ macro(kid3_create_handbook _docbook)
   else()
     add_custom_command(OUTPUT ${_output}
       COMMAND
-        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} |
+        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} |
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} - |
         ${PYTHON_EXECUTABLE} ${_fixhtml_py} >${_output}
       DEPENDS ${_input}
@@ -38,29 +37,12 @@ endmacro()
 
 # Create handbook for KDE 5.
 # Replace meinproc5 with wrapper to change DTD version, then generate KDE help.
-macro(kf5_create_handbook _docbook)
+macro(kf5_create_handbook _docbook _lang)
   cmake_minimum_required(VERSION 3.3)
   find_package(ECM REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
   include(KDEInstallDirs)
   find_package(KF5 REQUIRED COMPONENTS DocTools)
-  file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
-       CONTENT "#!/usr/bin/env python
-import sys, os, tempfile
-args = sys.argv[1:]
-docbook = args.pop()
-out_fh = tempfile.NamedTemporaryFile(mode='wb')
-with open(docbook, 'rb') as in_fh:
-    for line in in_fh:
-        line = line.replace(
-            b'\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
-            b'\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
-        out_fh.write(line)
-out_fh.flush()
-args.append(out_fh.name)
-os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
-")
-  get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
   set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py)
   kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang} SUBDIR kid3)
 endmacro()
@@ -71,16 +53,16 @@ if(UNIX)
   endif()
 
   # Create man page from DocBook file in language directory
-  macro(kid3_create_manpage _docbook)
+  macro(kid3_create_manpage _docbook _lang)
     get_filename_component(_input ${_docbook} ABSOLUTE)
-    get_filename_component(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-    set(_output ${CMAKE_CURRENT_BINARY_DIR}/kid3.1)
-    set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/../fixmandocbook.py)
+    set(_output ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/kid3.1)
+    set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/fixmandocbook.py)
     set(_docbook_xsl ${DOCBOOK_XSL_DIR}/manpages/docbook.xsl)
     add_custom_command(OUTPUT ${_output}
       COMMAND
-        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} <${_input} |
+        ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} |
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} -
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${_lang}
       DEPENDS ${_input}
     )
     if(WITH_NO_MANCOMPRESS)
@@ -92,7 +74,7 @@ if(UNIX)
       add_custom_command(OUTPUT ${_output_gz}
         COMMAND ${GZIP_EXECUTABLE} -cn ${_output} >${_output_gz}
         DEPENDS ${_output}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${_lang}
       )
     endif()
     add_custom_target("${_lang}-man-handbook" ALL DEPENDS ${_output_gz})
@@ -113,4 +95,45 @@ if(UNIX)
   endmacro()
 endif()
 
-add_subdirectory(en)
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs")
+  if(BUILD_KDE_APP)
+    file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
+         CONTENT "#!/usr/bin/env python
+import sys, os, tempfile
+args = sys.argv[1:]
+docbook = args.pop()
+out_fh = tempfile.NamedTemporaryFile(mode='wb')
+with open(docbook, 'rb') as in_fh:
+    for line in in_fh:
+        line = line.replace(
+            b'\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
+            b'\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
+        out_fh.write(line)
+out_fh.flush()
+args.append(out_fh.name)
+os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
+")
+  endif()
+
+  file(GLOB _languages RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/docs" docs/*)
+  list(APPEND _languages en)
+  foreach(_lang ${_languages})
+    if(_lang STREQUAL "en")
+      set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/en)
+    else()
+      set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/docs/${_lang})
+    endif()
+
+    if(BUILD_KDE_APP)
+      kf5_create_handbook(${_dir}/index.docbook ${_lang})
+    endif()
+
+    if(BUILD_QT_APP)
+      kid3_create_handbook(${_dir}/index.docbook ${_lang})
+    endif()
+
+    if(UNIX)
+      kid3_create_manpage(${_dir}/index.docbook ${_lang})
+    endif()
+  endforeach()
+endif()
