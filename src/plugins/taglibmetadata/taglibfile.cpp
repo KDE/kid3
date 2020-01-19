@@ -6027,8 +6027,9 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #ifdef TAGLIB_WITH_MP4
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
 #if TAGLIB_VERSION >= 0x010b01
-          for (const auto& keyItem : mp4Tag->itemMap()) {
-            mp4Tag->removeItem(keyItem.first);
+          const auto& itemMap = mp4Tag->itemMap();
+          for (auto it = itemMap.begin(); it != itemMap.end();) {
+            mp4Tag->removeItem((*it++).first);
           }
 #else
           mp4Tag->itemListMap().clear();
@@ -6106,14 +6107,17 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #ifdef TAGLIB_WITH_MP4
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
 #if TAGLIB_VERSION >= 0x010b01
-          for (const auto& keyItem : mp4Tag->itemMap()) {
-            TagLib::String name = keyItem.first;
+          const auto& itemMap = mp4Tag->itemMap();
+          for (auto it = itemMap.begin(); it != itemMap.end();) {
+            TagLib::String name = it->first;
             stripMp4FreeFormName(name);
             Frame::Type type;
             Mp4ValueType valueType;
             getMp4TypeForName(name, type, valueType);
             if (flt.isEnabled(type, toQString(name))) {
-              mp4Tag->removeItem(keyItem.first);
+              mp4Tag->removeItem((*it++).first);
+            } else {
+              ++it;
             }
           }
 #else
