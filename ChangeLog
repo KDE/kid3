@@ -1,3 +1,13 @@
+Thu Jan 23 12:18:05 CET 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.2
+
+	* New:
+	  + Catalan, Portuguese and Ukrainian translations.
+
+	* Fixed:
+	  + Crash when removing M4A atoms.
+
 Mon Dec 23 17:38:53 CET 2019  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.1
