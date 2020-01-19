@@ -58,6 +58,7 @@ if(UNIX)
     set(_output ${CMAKE_CURRENT_BINARY_DIR}/${_lang}/kid3.1)
     set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/fixmandocbook.py)
     set(_docbook_xsl ${DOCBOOK_XSL_DIR}/manpages/docbook.xsl)
+    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${_lang})
     add_custom_command(OUTPUT ${_output}
       COMMAND
         ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} |
