@@ -564,6 +564,7 @@ and the first tag or the second tag, respectively.
 First, the format specified in <guilabel>Format</guilabel> is used. If the
 existing filename does not match this format, the following formats
 are tried:
+</para>
 <itemizedlist>
 <listitem><para><filename>Artist - Album/Track Song</filename></para></listitem>
 <listitem><para><filename>Album/Track - Artist - Song</filename></para></listitem>
@@ -572,6 +573,7 @@ are tried:
 <listitem><para><filename>Album/Artist - Song</filename></para></listitem>
 <listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
 </itemizedlist>
+<para>
 If a single file is selected, the &GUI; controls are filled with the values
 extracted from the filename. If multiple files are selected, the tags of the
 files are directly set according to the filenames.
@@ -692,6 +694,7 @@ edited or added by double clicking on this control.
 <para>
 Some files can have more than two tags, and a third tag section is visible.
 The following file types can have such a <guilabel>Tag 3</guilabel> section:
+</para>
 <itemizedlist>
 <listitem><para>
 MP3 files can have an ID3v1.1 tag, an ID3v2 (2.3.0 or 2.4.0) tag and in the
@@ -716,7 +719,7 @@ OggFlacMetadata plugin has to be disabled in the <guilabel>Plugins</guilabel>
 tab of the <link linkend="configure-kid3">settings</link>.
 </para></listitem>
 </itemizedlist>
-
+<para>
 The &GUI; controls work in the same way as in the <guilabel>Tag 2</guilabel>
 section.
 </para>
@@ -2478,7 +2481,7 @@ of the list, it will open most of the files. If you want to use a different
 plugin for a file format, make sure that it is listed before the
 <guilabel>TaglibMetadata</guilabel> plugin. Details about the metadata plugin
 and why you may want to use them instead of TagLib are listed below.
-
+</para>
 <itemizedlist>
 <listitem><para><guilabel>Id3libMetadata</guilabel>:
 Uses <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> for ID3v1.1
@@ -2500,11 +2503,11 @@ by &kid3; to support M4A files. Can be used in case of problems with the M4A
 support of TagLib.
 </para></listitem>
 </itemizedlist>
-
+<para>
 The <guilabel>Available Plugins</guilabel> section lists the remaining
 plugins. Their order is not important, but they can be enabled or disabled
 using the check boxes.
-
+</para>
 <itemizedlist>
 <listitem><para><guilabel>AmazonImport</guilabel>:
 Used for the <guimenuitem>Import from Amazon...</guimenuitem> function.
@@ -2527,7 +2530,6 @@ the <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
 and <ulink url="http://libav.org/">libav</ulink> libraries.
 </para></listitem>
 </itemizedlist>
-</para>
 <para>
 Plugins which are disabled will not be loaded. This can be used to optimize
 resource usage and startup time. The settings on this page take only effect
@@ -2628,7 +2630,7 @@ name is given.
 command specific timeout is expired. This timeout is 10 seconds for
 <command>ls</command> and <command>albumart</command>, 60 seconds for
 <command>autoimport</command> and <command>filter</command>, and 3 seconds for
-all other commands. If a huge number of files has to be processed, this
+all other commands. If a huge number of files has to be processed, these
 timeouts may be too restrictive, thus the timeout for all commands can be set
 to <replaceable>TIME</replaceable> ms, switched off altogether or be left at
 the default values.
