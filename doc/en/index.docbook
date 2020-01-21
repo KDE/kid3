@@ -412,13 +412,13 @@ New entries can be added by drag and drop from the file list, a file manager or
 another playlist. If an entry is dragged from another playlist, it will be
 moved or copied depending on the system. To invoke the other
 operation, respectively, the &Shift;, &Ctrl;
-or &Alt; (to copy instead of move on &macOS;)
+or &Alt; (to copy instead of move on macOS)
 key has to be pressed. Reordering entries within the playlist is also possible
 via drag and drop. Alternatively, entries can be moved using the keyboard shortcuts
 <keycombo>&Ctrl;&Shift;<keycap>Up</keycap></keycombo>
 and
 <keycombo>&Ctrl;&Shift;<keycap>Down</keycap></keycombo>
-(on &macOS; <keycap>Command</keycap> has to be pressed instead of &Ctrl;).
+(on macOS <keycap>Command</keycap> has to be pressed instead of &Ctrl;).
 An entry can be removed using the <keycap>Delete</keycap> key.
 </para>
 <para>
@@ -2426,7 +2426,7 @@ path to the QML script is passed as a parameter. The provided scripts can be
 found in the folder <filename>%{qmlpath}/script/</filename> (on
 &Linux; typically <filename>/usr/share/kid3/qml/script/</filename>, on
 Windows <filename>qml/script/</filename> inside the installation directory,
-and on &macOS; in the app folder
+and on macOS in the app folder
 <filename>kid3.app/Contents/Resources/qml/script/</filename>). Custom scripts
 can be stored in any directory. If the QML code uses &GUI; components,
 <command>@qmlview</command> shall be used instead of
@@ -3237,20 +3237,20 @@ if __name__ == '__main__':
 </sect1>
 
 <sect1 id="kid3-cli-json">
-<title>&JSON; Format</title>
+<title>JSON Format</title>
 <para>
 In order to make it easier to parse results from <command>kid3-cli</command>,
-it is possible to get the output in &JSON; format. When the request is in &JSON;
-format, the response will also be &JSON;. A compact format of the request will
+it is possible to get the output in JSON format. When the request is in JSON
+format, the response will also be JSON. A compact format of the request will
 also give a compact representation of the response. If the request contains an
-"id" field, it is assumed to be a &JSON;-RPC request and the response will
+"id" field, it is assumed to be a JSON-RPC request and the response will
 contain a "jsonrpc" field and the "id" of the request. The request format uses
 the same commands as the standard CLI, the "method" field contains the command
 and the parameters (if any) are given in the "params" list. The response
 contains a "result" object, which can also be null if the corresponding
 <command>kid3-cli</command> command does not return a result. In case of an
 error, an "error" object is returned with "code" and "message" fields as used
-in &JSON;-RPC.
+in JSON-RPC.
 
 <screen width="80">
 <prompt>kid3-cli&gt; </prompt><userinput>{"method":"set","params":["artist","An Artist"]}</userinput>
@@ -3309,7 +3309,7 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 url="http://www.kde.org">&kde;</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a &Qt; application. &kid3; can be compiled for
 systems where these libraries are available, &eg; for GNU/&Linux;, &Windows;
-and &macOS;.
+and macOS.
 
 To tag Ogg/Vorbis
 files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
@@ -3327,7 +3327,7 @@ To import from acoustic fingerprints,
 and <ulink url="http://libav.org/">libav</ulink> are used.
 </para>
 <para>
-&kid3; is available for most &Linux; distributions, &Windows; and &macOS;.
+&kid3; is available for most &Linux; distributions, &Windows; and macOS.
 Links can be found on <ulink url="https://kid3.sourceforge.io">
 https://kid3.sourceforge.io</ulink>.
 </para>
@@ -3380,7 +3380,7 @@ the script <filename>build-deb.sh</filename> is available.
 </para>
 
 <para>
-The &Qt; application can also be compiled for &Windows; and &macOS;.
+The &Qt; application can also be compiled for &Windows; and macOS.
 The script <filename>buildlibs.sh</filename> can be used to download
 and build all required libraries and create a &kid3; package.
 </para>
@@ -3394,7 +3394,7 @@ and build all required libraries and create a &kid3; package.
 <filename>.config/kid3rc</filename>.
 As a &Qt; application, this file is
 in <filename>.config/Kid3/Kid3.conf</filename>. On &Windows;,
-the configuration is stored in the registry. on &macOS; in a plist file.
+the configuration is stored in the registry. on macOS in a plist file.
 </para>
 <para>The environment variable <varname>KID3_CONFIG_FILE</varname> can be used
 to set the path of the configuration file.</para>
@@ -4286,7 +4286,7 @@ or
 <screen width="80">
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
-On &Windows; and &macOS;, the import path must be adapted to the
+On &Windows; and macOS, the import path must be adapted to the
 <filename>imports</filename> folder inside the installation directory. Scripts
 started outside of &kid3; will use the current directory, so it should be
 changed beforehand.
