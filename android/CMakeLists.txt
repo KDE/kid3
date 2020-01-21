@@ -10,15 +10,28 @@ add_custom_command(OUTPUT ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Act
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
           ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
-)               
-add_custom_command(OUTPUT ${_androidPackageDir}/res/drawable/icon.png
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/res/drawable
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/48-apps-kid3.png
-          ${_androidPackageDir}/res/drawable/icon.png
-  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/48-apps-kid3.png
 )
+set(_widths 32 48 64 128)
+set(_densities ldpi mdpi hdpi xhdpi)
+set(_icons)
+list(LENGTH _widths _len)
+math(EXPR _maxnr "${_len} - 1")
+foreach(_nr RANGE ${_maxnr})
+  list(GET _widths ${_nr} _width)
+  list(GET _densities ${_nr} _dens)
+  set(_icondir ${_androidPackageDir}/res/drawable-${_dens})
+  set(_icon ${_icondir}/icon.png)
+  list(APPEND _icons ${_icon})
+  set(_png ${CMAKE_CURRENT_SOURCE_DIR}/../src/app/${_width}-apps-kid3.png)
+  add_custom_command(OUTPUT ${_icon}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_icondir}
+    COMMAND ${CMAKE_COMMAND} -E copy ${_png} ${_icon}
+    DEPENDS ${_png}
+  )
+endforeach()
+
 add_custom_target(android-package
-  DEPENDS ${_androidPackageDir}/res/drawable/icon.png
+  DEPENDS ${_icons}
           ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java)
 if(CMAKE_BUILD_TYPE STREQUAL "Release" AND ANDROID_KEYSTORE_PATH AND ANDROID_KEYSTORE_ALIAS)
   set(_keystorePathAlias ${ANDROID_KEYSTORE_PATH} ${ANDROID_KEYSTORE_ALIAS})
