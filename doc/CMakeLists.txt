@@ -96,10 +96,9 @@ if(UNIX)
   endmacro()
 endif()
 
-if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs")
-  if(BUILD_KDE_APP)
-    file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
-         CONTENT "#!/usr/bin/env python
+if(BUILD_KDE_APP)
+  file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
+       CONTENT "#!/usr/bin/env python
 import sys, os, tempfile
 args = sys.argv[1:]
 docbook = args.pop()
@@ -114,27 +113,30 @@ out_fh.flush()
 args.append(out_fh.name)
 os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
 ")
-  endif()
+endif()
 
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs")
   file(GLOB _languages RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/docs" docs/*)
   list(APPEND _languages en)
-  foreach(_lang ${_languages})
-    if(_lang STREQUAL "en")
-      set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/en)
-    else()
-      set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/docs/${_lang})
-    endif()
-
-    if(BUILD_KDE_APP)
-      kf5_create_handbook(${_dir}/index.docbook ${_lang})
-    endif()
-
-    if(BUILD_QT_APP)
-      kid3_create_handbook(${_dir}/index.docbook ${_lang})
-    endif()
-
-    if(UNIX)
-      kid3_create_manpage(${_dir}/index.docbook ${_lang})
-    endif()
-  endforeach()
+else()
+  set(_languages en)
 endif()
+foreach(_lang ${_languages})
+  if(_lang STREQUAL "en")
+    set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/en)
+  else()
+    set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/docs/${_lang})
+  endif()
+
+  if(BUILD_KDE_APP)
+    kf5_create_handbook(${_dir}/index.docbook ${_lang})
+  endif()
+
+  if(BUILD_QT_APP)
+    kid3_create_handbook(${_dir}/index.docbook ${_lang})
+  endif()
+
+  if(UNIX)
+    kid3_create_manpage(${_dir}/index.docbook ${_lang})
+  endif()
+endforeach()
