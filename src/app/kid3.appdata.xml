@@ -17,7 +17,7 @@
   <name xml:lang="x-test">xxKid3xx</name>
   <name xml:lang="zh-TW">Kid3</name>
   <summary>Edit audio file metadata</summary>
-  <summary xml:lang="ca">Edita les metadades d'un fitxer d'àudio</summary>
+  <summary xml:lang="ca">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
@@ -34,7 +34,7 @@
       DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack,
       WMA, WAV, AIFF and tracker files.
     </p>
-    <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i de seguiment.</p>
+    <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="et">Helifailide siltide redaktor Kid3 võimaldab muuta MP3-, Ogg/Vorbise, DSF-, FLAC-, Opuse, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja tracker-failide silte.</p>
     <p xml:lang="eu">Kid3-rekin, audio etiketa editorea izaki, MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF eta tracker fitxategien etiketak editatu ditzakezu.</p>
     <p xml:lang="nl">Met Kid3, een bewerker voor audiotags kunt u tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF en trackerbestanden bewerken.</p>
@@ -47,7 +47,7 @@
       possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronized
       lyrics can be edited, imported and exported to LRC Karaoke files.
     </p>
-    <p xml:lang="ca">Es poden editar tots els quadres en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronitzada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
+    <p xml:lang="ca">Es poden editar tots els marcs en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronitzada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
     <p xml:lang="et">Kõiki MP3-faili ID3 siltide kaadreid saab muuta ning võimalik on teisendamine ID3v1.1, ID3v2.3 ja ID3v2.4 vahel. Sünkroonitud laulusõnu saab muuta, importida ja eksportida LRC Karaoke failina.</p>
     <p xml:lang="eu">ID3 etiketetako bilbe guztiak editatu daitezke, eta ID3v1.1, ID3v2.3 eta ID3v2.4 arteko bihurketa egin daiteke. Sinkronizatutako hitzak editatu, inportatu eta LRC Karaoke fitxategietara esportatu daitezke.</p>
     <p xml:lang="nl">Alle frames in de ID3 tags van MP3-bestanden kunnen bewerkt worden en het is mogelijk om te converteren tussen ID3v1.1, ID3v2.3 en ID3v2.4. Gesynchroniseerde liedteksten kunnen bewerkt, geïmporteerd en geëxporteerd worden naar LRC Karaoke-bestanden.</p>
