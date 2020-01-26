@@ -128,13 +128,13 @@ end manpage include-->
 <varlistentry>
 <term><option>&doublehyphen;portable</option></term>
 <listitem><para>Store configuration in file <filename>kid3.ini</filename>
-inside application directory.</para></listitem>
+inside application folder.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><replaceable>FILE</replaceable></term>
 <listitem><para>If <filename><replaceable>FILE</replaceable></filename> is the
-path to a directory, it will be opened. If one or more file paths are given,
-their common directory is opened and the files are selected.
+path to a folder, it will be opened. If one or more file paths are given,
+their common folder is opened and the files are selected.
  </para></listitem>
 </varlistentry>
 </variablelist>
@@ -260,7 +260,7 @@ TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate tags from the contents of tag fields</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
-<listitem><para>Generate and change directory names from tags</para></listitem>
+<listitem><para>Generate and change folder names from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
 <listitem><para>Import from <ulink url="http://gnudb.org">gnudb.org</ulink>,
@@ -278,18 +278,18 @@ formats. Exported CSV files can be imported again.</para></listitem>
 <title>Example Usage</title>
 <para>
 This section describes a typical session with &kid3;.
-Let's assume we have a directory containing MP3 files with the tracks from
-the album "Let's Tag" from the band "One Hit Wonder". The directory is
+Let's assume we have a folder containing MP3 files with the tracks from
+the album "Let's Tag" from the band "One Hit Wonder". The folder is
 named in the "artist - album" format, in our case <filename>One Hit Wonder - Let's
-Tag</filename>. The directory contains the tracks in the "track title.mp3"
+Tag</filename>. The folder contains the tracks in the "track title.mp3"
 format, which I think is useful because the filenames are short
 (important when using mobile MP3 players with small displays) and in the
 correct order when sorted alphabetically (important when using hardware MP3
 players which play the tracks in alphabetical order or in the order in
 which they are burnt on CD and that order is alphabetical when using
 <command>mkisofs</command>). Besides this, the artist and album information
-is already in the directory name and does not have to be repeated in the filename.
-But back to our example, the directory listing looks like this:
+is already in the folder name and does not have to be repeated in the filename.
+But back to our example, the folder listing looks like this:
 </para>
 <para><filename>01 Intro.mp3</filename></para>
 <para><filename>02 We Only Got This One.mp3</filename></para>
@@ -297,8 +297,8 @@ But back to our example, the directory listing looks like this:
 <para>
 These files have no tags yet and we want to generate them using &kid3;. We use
 <guimenuitem>Open</guimenuitem> (<guimenu>File</guimenu> menu or toolbar) and
-select one of the files in this directory. All files will be displayed in the
-file listbox. Lazy as we are, we want to use the information in the directory
+select one of the files in this folder. All files will be displayed in the
+file listbox. Lazy as we are, we want to use the information in the folder
 and file names to generate tags. Therefore we select all files, then click the
 <guilabel>To:</guilabel> <guibutton>Tag 1</guibutton> button in the <guilabel>File</guilabel>
 section. This will set the title, artist, album and track values in all files.
@@ -312,7 +312,7 @@ selecting them one by one. When we are satisfied with the tags, we use
 <guimenuitem>Save</guimenuitem> (<guimenu>File</guimenu> menu or toolbar).
 Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <guimenu>File</guimenu> menu will generate a file
-<filename>One Hit Wonder - Let's Tag.m3u</filename> in the directory.
+<filename>One Hit Wonder - Let's Tag.m3u</filename> in the folder.
 </para>
 </sect1>
 
@@ -325,7 +325,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <title>The &GUI; Elements</title>
 <para>
 The &kid3; &GUI; is separated in six sections: At the left are the file
-and directory listboxes, the right side contains the <guilabel>File</guilabel>,
+and folder listboxes, the right side contains the <guilabel>File</guilabel>,
 <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> and <guilabel>Tag 3
 </guilabel> sections.
 </para>
@@ -335,7 +335,7 @@ and directory listboxes, the right side contains the <guilabel>File</guilabel>,
 
 <para>
 The file list contains the names of all the files in the opened
-directory which match the selected file name filter (typically
+folder which match the selected file name filter (typically
 <filename>*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
 *.tta *.wv *.wma *.wav *.aiff *.ape</filename>). A single or multiple files can be selected. To
 select no file, click into the empty area after the listbox entries. The
@@ -356,9 +356,9 @@ file has been modified or information about which tags are present (V1, V2,
 V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
 </para>
 <para>
-Directories are displayed with a folder icon. If a directory is opened, its
+Folders are displayed with a folder icon. If a folder is opened, its
 files are displayed in a hierarchical tree. By selecting files from
-subdirectories, operations can be executed on files in different directories,
+subfolders, operations can be executed on files in different folders,
 which is useful if the music collection is organized with a folder for each
 artist containing folders for albums of this artist.
 </para>
@@ -448,12 +448,12 @@ folder.
 </sect2>
 
 <sect2 id="directory-list">
-<title>Directory List</title>
+<title>Folder List</title>
 
 <para>
-The directory list contains the names of the directories in the opened
-directory, as well as the current (<filename>.</filename>) and the parent
-(<filename>..</filename>) directory. It allows one to quickly change the directory
+The folder list contains the names of the folders in the opened
+folder, as well as the current (<filename>.</filename>) and the parent
+(<filename>..</filename>) folder. It allows one to quickly change the folder
 without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 </para>
 <para>
@@ -478,8 +478,8 @@ be renamed when the Save command is used.
 <para>
 The <guilabel>Format</guilabel> combo box and line edit contains the format
 to be used when the filename is generated from the first or the second tag.
-The filename can contain arbitrary characters, even a directory part separated
-by a slash from the file name, but that directory must already exist for the
+The filename can contain arbitrary characters, even a folder part separated
+by a slash from the file name, but that folder must already exist for the
 renaming to succeed. The following special codes are used to insert tag values
 into the filename:
 </para>
@@ -744,55 +744,55 @@ format specific frames.
        <row><entry>Unified</entry>           <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry>                 <entry>RIFF</entry></row>
      </thead>
      <tbody>
-       <row><entry>Title</entry>             <entry>TIT2</entry>    <entry>TIT2</entry>    <entry>©nam</entry>           <entry>Title</entry>                      <entry>TITLE</entry>                  <entry>INAM</entry></row>
-       <row><entry>Artist</entry>            <entry>TPE1</entry>    <entry>TPE1</entry>    <entry>©ART</entry>           <entry>Author</entry>                     <entry>ARTIST</entry>                 <entry>IART</entry></row>
-       <row><entry>Album</entry>             <entry>TALB</entry>    <entry>TALB</entry>    <entry>©alb</entry>           <entry>WM/AlbumTitle</entry>              <entry>ALBUM</entry>                  <entry>IPRD</entry></row>
-       <row><entry>Comment</entry>           <entry>COMM</entry>    <entry>COMM</entry>    <entry>©cmt</entry>           <entry>Description</entry>                <entry>COMMENT</entry>                <entry>ICMT</entry></row>
-       <row><entry>Date</entry>              <entry>TYER</entry>    <entry>TDRC</entry>    <entry>©day</entry>           <entry>WM/Year</entry>                    <entry>DATE</entry>                   <entry>ICRD</entry></row>
-       <row><entry>Track Number</entry>      <entry>TRCK</entry>    <entry>TRCK</entry>    <entry>trkn</entry>           <entry>WM/TrackNumber</entry>             <entry>TRACKNUMBER</entry>            <entry>IPRT or ITRK</entry></row>
-       <row><entry>Genre</entry>             <entry>TCON</entry>    <entry>TCON</entry>    <entry>©gen</entry>           <entry>WM/Genre</entry>                   <entry>GENRE</entry>                  <entry>IGNR</entry></row>
-       <row><entry>Album Artist</entry>      <entry>TPE2</entry>    <entry>TPE2</entry>    <entry>aART</entry>           <entry>WM/AlbumArtist</entry>             <entry>ALBUMARTIST</entry>            <entry></entry></row>
-       <row><entry>Arranger</entry>          <entry>IPLS</entry>    <entry>TIPL</entry>    <entry>ARRANGER</entry>       <entry>WM/Producer</entry>                <entry>ARRANGER</entry>               <entry>IENG</entry></row>
-       <row><entry>Author</entry>            <entry>TOLY</entry>    <entry>TOLY</entry>    <entry>AUTHOR</entry>         <entry></entry>                           <entry>AUTHOR</entry>                 <entry></entry></row>
-       <row><entry>BPM</entry>               <entry>TBPM</entry>    <entry>TBPM</entry>    <entry>tmpo</entry>           <entry>WM/BeatsPerMinute</entry>          <entry>BPM</entry>                    <entry>IBPM</entry></row>
-       <row><entry>Catalog Number</entry>    <entry>TXXX:CATALOGNUMBER</entry> <entry>TXXX:CATALOGNUMBER</entry>         <entry></entry> <entry></entry>           <entry>CATALOGNUMBER</entry>          <entry></entry></row>
-       <row><entry>Compilation</entry>       <entry>TCMP</entry>    <entry>TCMP</entry>    <entry>cpil</entry>           <entry></entry>                           <entry>COMPILATION</entry>            <entry></entry></row>
-       <row><entry>Composer</entry>          <entry>TCOM</entry>    <entry>TCOM</entry>    <entry>©wrt</entry>           <entry>WM/Composer</entry>                <entry>COMPOSER</entry>               <entry>IMUS</entry></row>
-       <row><entry>Conductor</entry>         <entry>TPE3</entry>    <entry>TPE3</entry>    <entry>CONDUCTOR</entry>      <entry>WM/Conductor</entry>               <entry>CONDUCTOR</entry>              <entry></entry></row>
-       <row><entry>Copyright</entry>         <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry>              <entry>ICOP</entry></row>
-       <row><entry>Description</entry>       <entry>TIT3</entry>    <entry>TIT3</entry>    <entry>desc</entry>           <entry>WM/SubTitleDescription</entry>     <entry>DESCRIPTION</entry>            <entry></entry></row>
-       <row><entry>Disc Number</entry>       <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry>             <entry></entry></row>
-       <row><entry>Encoded-by</entry>        <entry>TENC</entry>    <entry>TENC</entry>    <entry>©enc</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry>             <entry>ITCH</entry></row>
-       <row><entry>Encoder Settings</entry>  <entry>TSSE</entry>    <entry>TSSE</entry>    <entry>©too</entry>           <entry>WM/EncodingSettings</entry>        <entry>ENCODERSETTINGS</entry>        <entry>ISFT</entry></row>
-       <row><entry>Encoding Time</entry>     <entry></entry>        <entry>TDEN</entry>    <entry></entry>               <entry>WM/EncodingTime</entry>            <entry>ENCODINGTIME</entry>           <entry>IDIT</entry></row>
-       <row><entry>Grouping</entry>          <entry>GRP1</entry>    <entry>GRP1</entry>    <entry>©grp</entry>           <entry></entry>                           <entry>GROUPING</entry>               <entry></entry></row>
-       <row><entry>Initial Key</entry>       <entry>TKEY</entry>    <entry>TKEY</entry>    <entry></entry>               <entry>WM/InitialKey</entry>              <entry>INITIALKEY</entry>             <entry></entry></row>
-       <row><entry>ISRC</entry>              <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry>                   <entry>ISRC</entry></row>
-       <row><entry>Language</entry>          <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry>               <entry>ILNG</entry></row>
-       <row><entry>Lyricist</entry>          <entry>TEXT</entry>    <entry>TEXT</entry>    <entry>LYRICIST</entry>       <entry>WM/Writer</entry>                  <entry>LYRICIST</entry>               <entry>IWRI</entry></row>
-       <row><entry>Lyrics</entry>            <entry>USLT</entry>    <entry>USLT</entry>    <entry>©lyr</entry>           <entry>WM/Lyrics</entry>                  <entry>LYRICS</entry>                 <entry></entry></row>
-       <row><entry>Media</entry>             <entry>TMED</entry>    <entry>TMED</entry>    <entry>SOURCEMEDIA</entry>    <entry></entry>                           <entry>SOURCEMEDIA</entry>            <entry>IMED</entry></row>
-       <row><entry>Mood</entry>              <entry></entry>        <entry>TMOO</entry>    <entry></entry>               <entry>WM/Mood</entry>                    <entry>MOOD</entry>                   <entry></entry></row>
-       <row><entry>Original Album</entry>    <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry>          <entry></entry></row>
-       <row><entry>Original Artist</entry>   <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry>         <entry></entry></row>
-       <row><entry>Original Date</entry>     <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry>           <entry></entry></row>
-       <row><entry>Performer</entry>         <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry>              <entry>ISTR</entry></row>
-       <row><entry>Picture</entry>           <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry> <entry></entry></row>
-       <row><entry>Publisher</entry>         <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry>              <entry>IPUB</entry></row>
-       <row><entry>Rating</entry>            <entry>POPM</entry>    <entry>POPM</entry>    <entry>rate</entry>           <entry>WM/SharedUserRating</entry>        <entry>RATING</entry>                 <entry>IRTD</entry></row>
-       <row><entry>Release Country</entry>   <entry>TXXX:RELEASECOUNTRY</entry> <entry>TXXX:RELEASECOUNTRY</entry>       <entry></entry> <entry></entry>           <entry>RELEASECOUNTRY</entry>         <entry>ICNT</entry></row>
-       <row><entry>Release Date</entry>      <entry></entry>        <entry>TDRL</entry>    <entry>RELEASEDATE</entry>    <entry></entry>                           <entry>RELEASEDATE</entry>            <entry></entry></row>
-       <row><entry>Remixer</entry>           <entry>TPE4</entry>    <entry>TPE4</entry>    <entry>REMIXER</entry>        <entry>WM/ModifiedBy</entry>              <entry>REMIXER</entry>                <entry>IEDT</entry></row>
-       <row><entry>Sort Album</entry>        <entry>TSOA</entry>    <entry>TSOA</entry>    <entry>soal</entry>           <entry>WM/AlbumSortOrder</entry>          <entry>ALBUMSORT</entry>              <entry></entry></row>
-       <row><entry>Sort Album Artist</entry> <entry>TSO2</entry>    <entry>TSO2</entry>    <entry>soaa</entry>           <entry></entry>                           <entry>ALBUMARTISTSORT</entry>        <entry></entry></row>
-       <row><entry>Sort Artist</entry>       <entry>TSOP</entry>    <entry>TSOP</entry>    <entry>soar</entry>           <entry>WM/ArtistSortOrder</entry>         <entry>ARTISTSORT</entry>             <entry></entry></row>
-       <row><entry>Sort Composer</entry>     <entry>TSOC</entry>    <entry>TSOC</entry>    <entry>soco</entry>           <entry></entry>                           <entry>COMPOSERSORT</entry>           <entry></entry></row>
-       <row><entry>Sort Name</entry>         <entry>TSOT</entry>    <entry>TSOT</entry>    <entry>sonm</entry>           <entry>WM/TitleSortOrder</entry>          <entry>TITLESORT</entry>              <entry></entry></row>
-       <row><entry>Subtitle</entry>          <entry></entry>        <entry>TSST</entry>    <entry>SUBTITLE</entry>       <entry>WM/SubTitle</entry>                <entry>SUBTITLE</entry>               <entry>PRT1</entry></row>
-       <row><entry>Website</entry>           <entry>WOAR</entry>    <entry>WOAR</entry>    <entry>WEBSITE</entry>        <entry>WM/AuthorURL</entry>               <entry>WEBSITE</entry>                <entry>IBSU</entry></row>
-       <row><entry>Work</entry>              <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©wrk</entry>           <entry>WM/ContentGroupDescription</entry> <entry>WORK</entry>                   <entry></entry></row>
-       <row><entry>WWW Audio File</entry>    <entry>WOAF</entry>    <entry>WOAF</entry>    <entry></entry>               <entry>WM/AudioFileURL</entry>            <entry>WWWAUDIOFILE</entry>           <entry></entry></row>
-       <row><entry>WWW Audio Source</entry>  <entry>WOAS</entry>    <entry>WOAS</entry>    <entry></entry>               <entry>WM/AudioSourceURL</entry>          <entry>WWWAUDIOSOURCE</entry>         <entry></entry></row>
+       <row><entry>Title</entry>             <entry><literal>TIT2</literal></entry>    <entry><literal>TIT2</literal></entry>    <entry><literal>©nam</literal></entry>           <entry><literal>Title</literal></entry>                      <entry><literal>TITLE</literal></entry>                  <entry><literal>INAM</literal></entry></row>
+       <row><entry>Artist</entry>            <entry><literal>TPE1</literal></entry>    <entry><literal>TPE1</literal></entry>    <entry><literal>©ART</literal></entry>           <entry><literal>Author</literal></entry>                     <entry><literal>ARTIST</literal></entry>                 <entry><literal>IART</literal></entry></row>
+       <row><entry>Album</entry>             <entry><literal>TALB</literal></entry>    <entry><literal>TALB</literal></entry>    <entry><literal>©alb</literal></entry>           <entry><literal>WM/AlbumTitle</literal></entry>              <entry><literal>ALBUM</literal></entry>                  <entry><literal>IPRD</literal></entry></row>
+       <row><entry>Comment</entry>           <entry><literal>COMM</literal></entry>    <entry><literal>COMM</literal></entry>    <entry><literal>©cmt</literal></entry>           <entry><literal>Description</literal></entry>                <entry><literal>COMMENT</literal></entry>                <entry><literal>ICMT</literal></entry></row>
+       <row><entry>Date</entry>              <entry><literal>TYER</literal></entry>    <entry><literal>TDRC</literal></entry>    <entry><literal>©day</literal></entry>           <entry><literal>WM/Year</literal></entry>                    <entry><literal>DATE</literal></entry>                   <entry><literal>ICRD</literal></entry></row>
+       <row><entry>Track Number</entry>      <entry><literal>TRCK</literal></entry>    <entry><literal>TRCK</literal></entry>    <entry><literal>trkn</literal></entry>           <entry><literal>WM/TrackNumber</literal></entry>             <entry><literal>TRACKNUMBER</literal></entry>            <entry><literal>IPRT</literal> or <literal>ITRK</literal></entry></row>
+       <row><entry>Genre</entry>             <entry><literal>TCON</literal></entry>    <entry><literal>TCON</literal></entry>    <entry><literal>©gen</literal></entry>           <entry><literal>WM/Genre</literal></entry>                   <entry><literal>GENRE</literal></entry>                  <entry><literal>IGNR</literal></entry></row>
+       <row><entry>Album Artist</entry>      <entry><literal>TPE2</literal></entry>    <entry><literal>TPE2</literal></entry>    <entry><literal>aART</literal></entry>           <entry><literal>WM/AlbumArtist</literal></entry>             <entry><literal>ALBUMARTIST</literal></entry>            <entry></entry></row>
+       <row><entry>Arranger</entry>          <entry><literal>IPLS</literal></entry>    <entry><literal>TIPL</literal></entry>    <entry><literal>ARRANGER</literal></entry>       <entry><literal>WM/Producer</literal></entry>                <entry><literal>ARRANGER</literal></entry>               <entry><literal>IENG</literal></entry></row>
+       <row><entry>Author</entry>            <entry><literal>TOLY</literal></entry>    <entry><literal>TOLY</literal></entry>    <entry><literal>AUTHOR</literal></entry>         <entry></entry>                                              <entry><literal>AUTHOR</literal></entry>                 <entry></entry></row>
+       <row><entry>BPM</entry>               <entry><literal>TBPM</literal></entry>    <entry><literal>TBPM</literal></entry>    <entry><literal>tmpo</literal></entry>           <entry><literal>WM/BeatsPerMinute</literal></entry>          <entry><literal>BPM</literal></entry>                    <entry><literal>IBPM</literal></entry></row>
+       <row><entry>Catalog Number</entry>    <entry><literal>TXXX:CATALOGNUMBER</literal></entry> <entry><literal>TXXX:CATALOGNUMBER</literal></entry>                            <entry></entry> <entry></entry>                              <entry><literal>CATALOGNUMBER</literal></entry>          <entry></entry></row>
+       <row><entry>Compilation</entry>       <entry><literal>TCMP</literal></entry>    <entry><literal>TCMP</literal></entry>    <entry><literal>cpil</literal></entry>           <entry></entry>                                              <entry><literal>COMPILATION</literal></entry>            <entry></entry></row>
+       <row><entry>Composer</entry>          <entry><literal>TCOM</literal></entry>    <entry><literal>TCOM</literal></entry>    <entry><literal>©wrt</literal></entry>           <entry><literal>WM/Composer</literal></entry>                <entry><literal>COMPOSER</literal></entry>               <entry><literal>IMUS</literal></entry></row>
+       <row><entry>Conductor</entry>         <entry><literal>TPE3</literal></entry>    <entry><literal>TPE3</literal></entry>    <entry><literal>CONDUCTOR</literal></entry>      <entry><literal>WM/Conductor</literal></entry>               <entry><literal>CONDUCTOR</literal></entry>              <entry></entry></row>
+       <row><entry>Copyright</entry>         <entry><literal>TCOP</literal></entry>    <entry><literal>TCOP</literal></entry>    <entry><literal>cprt</literal></entry>           <entry><literal>Copyright</literal></entry>                  <entry><literal>COPYRIGHT</literal></entry>              <entry><literal>ICOP</literal></entry></row>
+       <row><entry>Description</entry>       <entry><literal>TIT3</literal></entry>    <entry><literal>TIT3</literal></entry>    <entry><literal>desc</literal></entry>           <entry><literal>WM/SubTitleDescription</literal></entry>     <entry><literal>DESCRIPTION</literal></entry>            <entry></entry></row>
+       <row><entry>Disc Number</entry>       <entry><literal>TPOS</literal></entry>    <entry><literal>TPOS</literal></entry>    <entry><literal>disk</literal></entry>           <entry><literal>WM/PartOfSet</literal></entry>               <entry><literal>DISCNUMBER</literal></entry>             <entry></entry></row>
+       <row><entry>Encoded-by</entry>        <entry><literal>TENC</literal></entry>    <entry><literal>TENC</literal></entry>    <entry><literal>©enc</literal></entry>           <entry><literal>WM/EncodedBy</literal></entry>               <entry><literal>ENCODED-BY</literal></entry>             <entry><literal>ITCH</literal></entry></row>
+       <row><entry>Encoder Settings</entry>  <entry><literal>TSSE</literal></entry>    <entry><literal>TSSE</literal></entry>    <entry><literal>©too</literal></entry>           <entry><literal>WM/EncodingSettings</literal></entry>        <entry><literal>ENCODERSETTINGS</literal></entry>        <entry><literal>ISFT</literal></entry></row>
+       <row><entry>Encoding Time</entry>     <entry></entry>                           <entry><literal>TDEN</literal></entry>    <entry></entry>                                  <entry><literal>WM/EncodingTime</literal></entry>            <entry><literal>ENCODINGTIME</literal></entry>           <entry><literal>IDIT</literal></entry></row>
+       <row><entry>Grouping</entry>          <entry><literal>GRP1</literal></entry>    <entry><literal>GRP1</literal></entry>    <entry><literal>©grp</literal></entry>           <entry></entry>                                              <entry><literal>GROUPING</literal></entry>               <entry></entry></row>
+       <row><entry>Initial Key</entry>       <entry><literal>TKEY</literal></entry>    <entry><literal>TKEY</literal></entry>    <entry></entry>                                  <entry><literal>WM/InitialKey</literal></entry>              <entry><literal>INITIALKEY</literal></entry>             <entry></entry></row>
+       <row><entry>ISRC</entry>              <entry><literal>TSRC</literal></entry>    <entry><literal>TSRC</literal></entry>    <entry><literal>ISRC</literal></entry>           <entry><literal>WM/ISRC</literal></entry>                    <entry><literal>ISRC</literal></entry>                   <entry><literal>ISRC</literal></entry></row>
+       <row><entry>Language</entry>          <entry><literal>TLAN</literal></entry>    <entry><literal>TLAN</literal></entry>    <entry><literal>LANGUAGE</literal></entry>       <entry><literal>WM/Language</literal></entry>                <entry><literal>LANGUAGE</literal></entry>               <entry><literal>ILNG</literal></entry></row>
+       <row><entry>Lyricist</entry>          <entry><literal>TEXT</literal></entry>    <entry><literal>TEXT</literal></entry>    <entry><literal>LYRICIST</literal></entry>       <entry><literal>WM/Writer</literal></entry>                  <entry><literal>LYRICIST</literal></entry>               <entry><literal>IWRI</literal></entry></row>
+       <row><entry>Lyrics</entry>            <entry><literal>USLT</literal></entry>    <entry><literal>USLT</literal></entry>    <entry><literal>©lyr</literal></entry>           <entry><literal>WM/Lyrics</literal></entry>                  <entry><literal>LYRICS</literal></entry>                 <entry></entry></row>
+       <row><entry>Media</entry>             <entry><literal>TMED</literal></entry>    <entry><literal>TMED</literal></entry>    <entry><literal>SOURCEMEDIA</literal></entry>    <entry></entry>                                              <entry><literal>SOURCEMEDIA</literal></entry>            <entry><literal>IMED</literal></entry></row>
+       <row><entry>Mood</entry>              <entry></entry>                           <entry><literal>TMOO</literal></entry>    <entry></entry>                                  <entry><literal>WM/Mood</literal></entry>                    <entry><literal>MOOD</literal></entry>                   <entry></entry></row>
+       <row><entry>Original Album</entry>    <entry><literal>TOAL</literal></entry>    <entry><literal>TOAL</literal></entry>    <entry><literal>ORIGINALALBUM</literal></entry>  <entry><literal>WM/OriginalAlbumTitle</literal></entry>      <entry><literal>ORIGINALALBUM</literal></entry>          <entry></entry></row>
+       <row><entry>Original Artist</entry>   <entry><literal>TOPE</literal></entry>    <entry><literal>TOPE</literal></entry>    <entry><literal>ORIGINALARTIST</literal></entry> <entry><literal>WM/OriginalArtist</literal></entry>          <entry><literal>ORIGINALARTIST</literal></entry>         <entry></entry></row>
+       <row><entry>Original Date</entry>     <entry><literal>TORY</literal></entry>    <entry><literal>TDOR</literal></entry>    <entry><literal>ORIGINALDATE</literal></entry>   <entry><literal>WM/OriginalReleaseYear</literal></entry>     <entry><literal>ORIGINALDATE</literal></entry>           <entry></entry></row>
+       <row><entry>Performer</entry>         <entry><literal>IPLS</literal></entry>    <entry><literal>TMCL</literal></entry>    <entry><literal>PERFORMER</literal></entry>      <entry></entry>                                              <entry><literal>PERFORMER</literal></entry>              <entry><literal>ISTR</literal></entry></row>
+       <row><entry>Picture</entry>           <entry><literal>APIC</literal></entry>    <entry><literal>APIC</literal></entry>    <entry><literal>covr</literal></entry>           <entry><literal>WM/Picture</literal></entry>                 <entry><literal>METADATA_BLOCK_PICTURE</literal></entry> <entry></entry></row>
+       <row><entry>Publisher</entry>         <entry><literal>TPUB</literal></entry>    <entry><literal>TPUB</literal></entry>    <entry><literal>PUBLISHER</literal></entry>      <entry><literal>WM/Publisher</literal></entry>               <entry><literal>PUBLISHER</literal></entry>              <entry><literal>IPUB</literal></entry></row>
+       <row><entry>Rating</entry>            <entry><literal>POPM</literal></entry>    <entry><literal>POPM</literal></entry>    <entry><literal>rate</literal></entry>           <entry><literal>WM/SharedUserRating</literal></entry>        <entry><literal>RATING</literal></entry>                 <entry><literal>IRTD</literal></entry></row>
+       <row><entry>Release Country</entry>   <entry><literal>TXXX:RELEASECOUNTRY</literal></entry> <entry><literal>TXXX:RELEASECOUNTRY</literal></entry>       <entry></entry>    <entry></entry>                                              <entry><literal>RELEASECOUNTRY</literal></entry>         <entry><literal>ICNT</literal></entry></row>
+       <row><entry>Release Date</entry>      <entry></entry>                           <entry><literal>TDRL</literal></entry>    <entry><literal>RELEASEDATE</literal></entry>    <entry></entry>                                              <entry><literal>RELEASEDATE</literal></entry>            <entry></entry></row>
+       <row><entry>Remixer</entry>           <entry><literal>TPE4</literal></entry>    <entry><literal>TPE4</literal></entry>    <entry><literal>REMIXER</literal></entry>        <entry><literal>WM/ModifiedBy</literal></entry>              <entry><literal>REMIXER</literal></entry>                <entry><literal>IEDT</literal></entry></row>
+       <row><entry>Sort Album</entry>        <entry><literal>TSOA</literal></entry>    <entry><literal>TSOA</literal></entry>    <entry><literal>soal</literal></entry>           <entry><literal>WM/AlbumSortOrder</literal></entry>          <entry><literal>ALBUMSORT</literal></entry>              <entry></entry></row>
+       <row><entry>Sort Album Artist</entry> <entry><literal>TSO2</literal></entry>    <entry><literal>TSO2</literal></entry>    <entry><literal>soaa</literal></entry>           <entry></entry>                                              <entry><literal>ALBUMARTISTSORT</literal></entry>        <entry></entry></row>
+       <row><entry>Sort Artist</entry>       <entry><literal>TSOP</literal></entry>    <entry><literal>TSOP</literal></entry>    <entry><literal>soar</literal></entry>           <entry><literal>WM/ArtistSortOrder</literal></entry>         <entry><literal>ARTISTSORT</literal></entry>             <entry></entry></row>
+       <row><entry>Sort Composer</entry>     <entry><literal>TSOC</literal></entry>    <entry><literal>TSOC</literal></entry>    <entry><literal>soco</literal></entry>           <entry></entry>                                              <entry><literal>COMPOSERSORT</literal></entry>           <entry></entry></row>
+       <row><entry>Sort Name</entry>         <entry><literal>TSOT</literal></entry>    <entry><literal>TSOT</literal></entry>    <entry><literal>sonm</literal></entry>           <entry><literal>WM/TitleSortOrder</literal></entry>          <entry><literal>TITLESORT</literal></entry>              <entry></entry></row>
+       <row><entry>Subtitle</entry>          <entry></entry>                           <entry><literal>TSST</literal></entry>    <entry><literal>SUBTITLE</literal></entry>       <entry><literal>WM/SubTitle</literal></entry>                <entry><literal>SUBTITLE</literal></entry>               <entry><literal>PRT1</literal></entry></row>
+       <row><entry>Website</entry>           <entry><literal>WOAR</literal></entry>    <entry><literal>WOAR</literal></entry>    <entry><literal>WEBSITE</literal></entry>        <entry><literal>WM/AuthorURL</literal></entry>               <entry><literal>WEBSITE</literal></entry>                <entry><literal>IBSU</literal></entry></row>
+       <row><entry>Work</entry>              <entry><literal>TIT1</literal></entry>    <entry><literal>TIT1</literal></entry>    <entry><literal>©wrk</literal></entry>           <entry><literal>WM/ContentGroupDescription</literal></entry> <entry><literal>WORK</literal></entry>                   <entry></entry></row>
+       <row><entry>WWW Audio File</entry>    <entry><literal>WOAF</literal></entry>    <entry><literal>WOAF</literal></entry>    <entry></entry>                                  <entry><literal>WM/AudioFileURL</literal></entry>            <entry><literal>WWWAUDIOFILE</literal></entry>           <entry></entry></row>
+       <row><entry>WWW Audio Source</entry>  <entry><literal>WOAS</literal></entry>    <entry><literal>WOAS</literal></entry>    <entry></entry>                                  <entry><literal>WM/AudioSourceURL</literal></entry>          <entry><literal>WWWAUDIOSOURCE</literal></entry>         <entry></entry></row>
      </tbody>
    </tgroup>
  </table>
@@ -984,7 +984,7 @@ the context menu.
 <guimenu>File</guimenu>
 <guimenuitem>Open...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens a directory.</action> All files matching the selected
+<listitem><para><action>Opens a folder.</action> All files matching the selected
 file name filter will be displayed in the file listbox
 and the chosen file is selected.</para></listitem>
 </varlistentry>
@@ -994,7 +994,7 @@ and the chosen file is selected.</para></listitem>
 <guimenu>File</guimenu>
 <guimenuitem>Open Recent</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens a recently opened directory.</action></para></listitem>
+<listitem><para><action>Opens a recently opened folder.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1005,7 +1005,7 @@ and the chosen file is selected.</para></listitem>
 <guimenu>File</guimenu>
 <guimenuitem>Open Folder...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens a directory.</action> All files matching the selected
+<listitem><para><action>Opens a folder.</action> All files matching the selected
 file name filter will be displayed in the file listbox.</para></listitem>
 </varlistentry>
 
@@ -1017,7 +1017,7 @@ file name filter will be displayed in the file listbox.</para></listitem>
 <guimenu>File</guimenu>
 <guimenuitem>Reload</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Reload directory.</action> Modified files have to be
+<listitem><para><action>Reload folder.</action> Modified files have to be
 saved before. Expanded subfolders will be collapsed.</para></listitem>
 </varlistentry>
 
@@ -1029,7 +1029,7 @@ saved before. Expanded subfolders will be collapsed.</para></listitem>
 <guimenu>File</guimenu>
 <guimenuitem>Save</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Saves all changed files in the directory.</action> The
+<listitem><para><action>Saves all changed files in the folder.</action> The
 changed files are marked with a disk symbol in the file listbox. If any file
 names have been changed, those files will be renamed.</para></listitem>
 </varlistentry>
@@ -1138,10 +1138,10 @@ contents to the clipboard. Then click the <guibutton>From
 Clipboard</guibutton> button and the imported tracks will be displayed in the
 preview table at the top of the dialog. If you are satisfied with the imported
 data, terminate the dialog with <guibutton>OK</guibutton>, which will insert
-the data into the tags of the current directory. The destination
+the data into the tags of the current folder. The destination
 (<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> or
 <guilabel>Tag 1 and Tag 2</guilabel>) can be selected
-with a combo box. The files in the current directory should be in the correct
+with a combo box. The files in the current folder should be in the correct
 track order to get their tags assigned. This is the case if they are numbered.
 </para>
 <para>
@@ -1186,7 +1186,7 @@ For example, a track regular expression (second line) to import from an
 .m3u playlist could be "%{track}(\d+)\s+%{title}(\S[^\r\n]*)\.mp3[\r\n]". All formats can
 be changed by editing the regular expressions and the name and then clicking
 <guibutton>Save Settings</guibutton>. They will be stored in the
-<filename>kid3rc</filename> file in the configuration directory. This file can
+<filename>kid3rc</filename> file in the configuration folder. This file can
 be directly edited to have more import formats or it can be deleted to revert
 to the default formats. Formats can be deleted
 using <guibutton>Remove</guibutton>.
@@ -1276,8 +1276,8 @@ way as for the <link linkend="import-text">import from file/clipboard</link>.
 <guimenuitem>Import from Tags...</guimenuitem> is also directly available from
 the <guimenu>File</guimenu> menu. The difference between these two functions
 is that the import dialog subdialog operates on all files of the current
-directory whereas the menu function operates on the selected files (which can
-be in different directories). The menu function supports an additional code
+folder whereas the menu function operates on the selected files (which can
+be in different folders). The menu function supports an additional code
 "%{__return}" to return the extracted value, which can be useful with the CLI
 and QML interfaces.
 </para>
@@ -1370,9 +1370,9 @@ import is applied to the selected files.</para></listitem>
 </menuchoice></term>
 <listitem><para>
 <action>Automatic Import</action> allows one to import information for multiple
-albums from various web services. If directories are selected in the file
-list, track data for the selected directories will be imported. If no
-directory is selected, all directories in the file list will be imported.
+albums from various web services. If folders are selected in the file
+list, track data for the selected folders will be imported. If no
+folder is selected, all folders in the file list will be imported.
 </para>
 <para>
 The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
@@ -1463,7 +1463,7 @@ The <action>Export Dialog</action> is used to store data from the tags in a
 file or the clipboard. The editor at the top shows a preview of the data to
 export. If the export data contain tabulator characters, the export is
 displayed in a table. The data will be generated from the tags
-in the current directory according to the configured format.
+in the current folder according to the configured format.
 </para>
 <para>
 The format settings are similar as in the Import dialog: The topmost field
@@ -1495,7 +1495,7 @@ codes listed below but all tag frame names can be used.
 <listitem><para>%{modificationdate} Modification date</para></listitem>
 <listitem><para>%{creationdate} Creation date</para></listitem>
 <listitem><para>%u %{url} &URL;</para></listitem>
-<listitem><para>%{dirname} Directory name</para></listitem>
+<listitem><para>%{dirname} Folder name</para></listitem>
 <listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
 <listitem><para>%D %{seconds} Duration in seconds</para></listitem>
 <listitem><para>%n %{tracks} Number of tracks of the album</para></listitem>
@@ -1527,7 +1527,7 @@ the cover printing program Kover. "Technical Details" provides information
 about bit rate, sample rate, channels, &etc; Finally, "Custom Format" is left empty for
 definition of a custom format. You can define more formats of your own by
 adding lines in the file <filename>kid3rc</filename> in the configuration
-directory. The other formats can be adapted to your needs.
+folder. The other formats can be adapted to your needs.
 </para>
 <para>
 The source of the tags to generate the export data (<guilabel>Tag 1</guilabel>
@@ -1563,18 +1563,18 @@ The location of the generated playlist is determined by the selection of
 the <guilabel>Create in</guilabel> combo box.
 <variablelist>
 <varlistentry><term>Current folder</term>
-<listitem><para>The playlist is created in the current directory and contains
-only files of the current directory. The current directory is the directory
+<listitem><para>The playlist is created in the current folder and contains
+only files of the current folder. The current folder is the folder
 where the current file is located. If multiple files are selected, the current
 file is probably the last selected file.</para></listitem></varlistentry>
 <varlistentry><term>Every folder</term>
-<listitem><para>A playlist is created in every directory which contains
-listed files, and each playlist contains the files of that directory.
+<listitem><para>A playlist is created in every folder which contains
+listed files, and each playlist contains the files of that folder.
 </para></listitem></varlistentry>
 <varlistentry><term>Top-level folder</term>
 <listitem><para>Only one playlist is created in the top-level
-directory (&ie; the directory of the file list) and it contains the listed
-files of the top-level directory and all of its sub-directories.
+folder (&ie; the folder of the file list) and it contains the listed
+files of the top-level folder and all of its sub-folders.
 </para></listitem></varlistentry>
 </variablelist>
 </para>
@@ -1585,7 +1585,7 @@ be <guilabel>M3U</guilabel>, <guilabel>PLS</guilabel> or
 </para>
 <para>
 If <guibutton>Include only the selected files</guibutton> is checked, only the
-selected files will be included in the playlist. If a directory is selected,
+selected files will be included in the playlist. If a folder is selected,
 all of its files are selected. If this check box is not activated, all audio
 files are included in the playlist.
 </para>
@@ -1660,7 +1660,7 @@ the <guibutton>Write info using</guibutton> control.
 <guimenu>Edit</guimenu>
 <guimenuitem>Select All in Folder</guimenuitem>
 </menuchoice></term>
-<listitem><para>Selects all files of the current directory.</para></listitem>
+<listitem><para>Selects all files of the current folder.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1771,11 +1771,11 @@ because UTF8 is not supported for this format.</para></listitem>
 <guimenuitem>Rename Folder...</guimenuitem>
 </menuchoice></term>
 <listitem><para>This dialog offers the possibility to automatically rename the
-currently open directory according to the tags in the files. Several formats
+currently open folder according to the tags in the files. Several formats
 are preconfigured to include information about artist, album and year in the
-directory name. It is also possible to set a custom format and
+folder name. It is also possible to set a custom format and
 <guibutton>Edit</guibutton> the list of available formats. The following
-special codes are used to insert tag values into the directory name:
+special codes are used to insert tag values into the folder name:
 </para>
 
 <itemizedlist>
@@ -1788,20 +1788,20 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%t %{track.n} Track with field width n (&eg; 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
-<listitem><para>%{dirname} Directory name (&eg; %{year" "}%{dirname}
-will prepend the year to the current directory name)</para></listitem>
-<listitem><para>%{max-year} The maximum year value found for this directory,
+<listitem><para>%{dirname} Folder name (&eg; %{year" "}%{dirname}
+will prepend the year to the current folder name)</para></listitem>
+<listitem><para>%{max-year} The maximum year value found for this folder,
 can also be used with other codes than "year"</para></listitem>
 <listitem><para>%{min-year} The minimum year value found for this
-directory</para></listitem> 
-<listitem><para>%{unq-year} The unique year value found for this directory or
+folder</para></listitem>
+<listitem><para>%{unq-year} The unique year value found for this folder or
 empty if not unique</para></listitem>
 </itemizedlist>
 
 <para>
-If a directory separator "/" is found in the format, multiple directories are
-created. If you want to create a new directory instead of renaming the current
-directory, select <guilabel>Create Folder</guilabel> instead of
+If a folder separator "/" is found in the format, multiple folders are
+created. If you want to create a new folder instead of renaming the current
+folder, select <guilabel>Create Folder</guilabel> instead of
 <guilabel>Rename Folder</guilabel>. The source of the tag information can
 be chosen between <guilabel>From Tag 1 and Tag 2</guilabel>,
 <guilabel>From Tag 1</guilabel> and <guilabel>From Tag 2</guilabel>.
@@ -1810,7 +1810,7 @@ file can be seen in the <guilabel>From</guilabel> and <guilabel>To</guilabel>
 sections of the dialog.
 </para>
 <para>
-Multiple directories can be renamed by selecting them.
+Multiple folders can be renamed by selecting them.
 </para></listitem>
 </varlistentry>
 
@@ -1828,11 +1828,11 @@ tracks have to be numbered, they must be selected.
 When <guilabel>Total number of tracks</guilabel> is checked, the number
 of tracks will also be set in the tags.
 </para><para>
-It is possible to number the tracks over multiple directories. The folders
+It is possible to number the tracks over multiple folders. The folders
 have to be expanded and selected.
 </para><para>
 If <guilabel>Reset counter for each folder</guilabel> is checked, track
-numbering is restarted with the given number for each directory when multiple
+numbering is restarted with the given number for each folder when multiple
 folders are selected.
 </para><para>
 The number tracks dialog can also be used to format existing track numbers
@@ -2086,7 +2086,7 @@ files will be played.
 <guimenuitem>Show Statusbar</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Toggles displaying of the statusbar</action>, which displays
-longer actions such as opening or saving a directory.</para></listitem>
+longer actions such as opening or saving a folder.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -2146,7 +2146,7 @@ set here and the ID3v1 tags can then be copied to ID3v2 which supports Unicode.
 The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
-the directory.
+the folder.
 </para>
 <para>
 When <guilabel>Genre as text instead of numeric string</guilabel> is checked,
@@ -2360,8 +2360,8 @@ a light gray label background.
 The section <guilabel>File List</guilabel> determines which files are
 displayed in the file list. A <guilabel>Filter</guilabel> can be used to
 restrict the items in this list to files with supported extensions. To
-explicitly specify which directories to display in the file list or exclude
-certain directories, the options <guilabel>Include folders</guilabel> and
+explicitly specify which folders to display in the file list or exclude
+certain folders, the options <guilabel>Include folders</guilabel> and
 <guilabel>Exclude folders</guilabel> can be used. They can contain wildcard
 expressions, for instance <filename>*/Music/*</filename> to include only the
 <filename>Music</filename> folder, or <filename>*/iTunes/*</filename> to
@@ -2397,7 +2397,7 @@ codes:
 <listitem><para>%f %{file} File path to single file</para></listitem>
 <listitem><para>%uF %{urls} &URL;s (a list if multiple files selected)</para></listitem>
 <listitem><para>%uf %{url} &URL; to single file</para></listitem>
-<listitem><para>%d %{directory} Directory</para></listitem>
+<listitem><para>%d %{directory} Folder</para></listitem>
 <listitem><para>%s %{title} Title (Song)</para></listitem>
 <listitem><para>%a %{artist} Artist</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
@@ -2408,7 +2408,7 @@ codes:
 <listitem><para>%T %{tracknumber} Track (without leading zeros, &eg; 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%b %{browser} Command to start the web browser</para></listitem>
-<listitem><para>%q %{qmlpath} Base directory of provided QML files</para></listitem>
+<listitem><para>%q %{qmlpath} Base folder of provided QML files</para></listitem>
 </itemizedlist>
 
 <para>
@@ -2425,10 +2425,10 @@ To execute QML scripts, <command>@qml</command> is used as a command name. The
 path to the QML script is passed as a parameter. The provided scripts can be
 found in the folder <filename>%{qmlpath}/script/</filename> (on
 &Linux; typically <filename>/usr/share/kid3/qml/script/</filename>, on
-Windows <filename>qml/script/</filename> inside the installation directory,
+Windows <filename>qml/script/</filename> inside the installation folder,
 and on &macOS; in the app folder
 <filename>kid3.app/Contents/Resources/qml/script/</filename>). Custom scripts
-can be stored in any directory. If the QML code uses &GUI; components,
+can be stored in any folder. If the QML code uses &GUI; components,
 <command>@qmlview</command> shall be used instead of
 <command>@qml</command>. Additional parameters are passed to the QML script
 where they will be available via the <function>getArguments()</function>
@@ -2593,8 +2593,8 @@ button available, &eg; next file, previous file, select all.
 <title>Commands</title>
 <para>
 <command>kid3-cli</command> offers a command-line-interface for &kid3;. If a
-directory path is used, the directory is opened. If one or more file paths are
-given, the common directory is opened and the files are selected. Subsequent
+folder path is used, the folder is opened. If one or more file paths are
+given, the common folder is opened and the files are selected. Subsequent
 commands will then work on these files. Commands are specified using
 <option>-c</option> options. If multiple commands are passed, they are
 executed in the given order. If files are modified by the commands, they will
@@ -2652,11 +2652,11 @@ class="command">force</parameter> parameter is required.
 <title>Change folder</title>
 <cmdsynopsis>
 <command>cd</command>
-<arg><replaceable>DIRECTORY</replaceable></arg>
+<arg><replaceable>FOLDER</replaceable></arg>
 </cmdsynopsis>
-<para>If no <replaceable>DIRECTORY</replaceable> is given, change to the home
-directory. If a directory is given, change into the directory. If one or more
-file paths are given, change to their common directory and select the files.
+<para>If no <replaceable>FOLDER</replaceable> is given, change to the home
+folder. If a folder is given, change into the folder. If one or more
+file paths are given, change to their common folder and select the files.
 </para>
 </sect2>
 
@@ -2665,7 +2665,7 @@ file paths are given, change to their common directory and select the files.
 <cmdsynopsis>
 <command>pwd</command>
 </cmdsynopsis>
-<para>Print the filename of the current working directory.</para>
+<para>Print the filename of the current working folder.</para>
 </sect2>
 
 <sect2 id="cli-ls">
@@ -2673,7 +2673,7 @@ file paths are given, change to their common directory and select the files.
 <cmdsynopsis>
 <command>ls</command>
 </cmdsynopsis>
-<para>List the contents of the current directory. This corresponds to the file
+<para>List the contents of the current folder. This corresponds to the file
 list in the &kid3; &GUI;. Five characters before the file names show the state
 of the file.
 </para>
@@ -2725,12 +2725,12 @@ otherwise '<computeroutput>-</computeroutput>' is displayed.</para></listitem>
 </cmdsynopsis>
 <para>To select all files, enter <userinput>select all</userinput>, to
 deselect all files, enter <userinput>select none</userinput>. To traverse the
-files in the current directory start with <userinput>select first</userinput>,
+files in the current folder start with <userinput>select first</userinput>,
 then go forward using <userinput>select next</userinput> or backward using
 <userinput>select previous</userinput>. Specific files can be added to the
 current selection by giving their file names. Wildcards are possible, so
 <userinput>select *.mp3</userinput> will select all MP3 files in the current
-directory.
+folder.
 </para>
 
 <screen width="65"><prompt>kid3-cli&gt; </prompt><userinput>select first</userinput>
@@ -3006,12 +3006,12 @@ linkend="create-playlist">Create Playlist</link>.
 </group>
 <arg><replaceable>TAG-NUMBERS</replaceable></arg>
 </cmdsynopsis>
-<para>Rename or create directories from the values in the
+<para>Rename or create folders from the values in the
 tags according to a given <replaceable>FORMAT</replaceable>
 (&eg; <userinput>%{artist} - %{album}</userinput>, see <link
 linkend="rename-directory">Rename Folder</link>), if no format is given,
 the format defined in the <guilabel>Rename folder</guilabel> dialog is
-used. The default mode is <option>rename</option>; to create directories,
+used. The default mode is <option>rename</option>; to create folders,
 <option>create</option> must be given explicitly. The rename actions will be
 performed immediately, to just see what would be done, use the
 <option>dryrun</option> option.
@@ -3182,26 +3182,26 @@ Windows Command Prompt, it is important that the outer quoting is done using
 double quotes and inside these quotes, single quotes are used. If the text
 inside the single quotes contains a single quote, it has to be escaped using a
 backslash character, as shown in the following example:</para>
-<screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/dir</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "set title 'I\'ll be there for you'" /path/to/folder</userinput></screen>
 
-<para>Set album cover in all files of a directory using the batch import
+<para>Set album cover in all files of a folder using the batch import
 function:</para>
-<screen width="65"><userinput>kid3-cli -c "autoimport 'Cover Art'" /path/to/dir</userinput></screen>
+<screen width="65"><userinput>kid3-cli -c "autoimport 'Cover Art'" /path/to/folder</userinput></screen>
 
 <para>Remove comment frames and apply the tag format in both tags of all MP3
-files of a directory:</para>
+files of a folder:</para>
 <screen width="65"><userinput>kid3-cli -c "set comment '' 1" -c "set comment '' 2" \
--c "tagformat 1" -c "tagformat 2" /path/to/dir/*.mp3</userinput></screen>
+-c "tagformat 1" -c "tagformat 2" /path/to/folder/*.mp3</userinput></screen>
 
 <para>Automatically import tag 2, synchronize to tag 1, set file names from
 tag 2 and finally create a playlist:</para>
 <screen width="65"><userinput>kid3-cli -c autoimport -c "syncto 1" -c fromtag -c playlist \
-  /path/to/dir/*.mp3</userinput></screen>
+  /path/to/folder/*.mp3</userinput></screen>
 
 <para>For all files with an ID3v2.4.0 tag, convert to ID3v2.3.0 and remove
 the arranger frame:</para>
 <screen width="65"><userinput>kid3-cli -c "filter 'ID3v2.4.0 Tag'" -c "select all" -c to23 \
-  -c "set arranger ''" /path/to/dir</userinput></screen>
+  -c "set arranger ''" /path/to/folder</userinput></screen>
 
 <para>This Python script uses <command>kid3-cli</command> to generate iTunes
 Sound Check iTunNORM frames from replay gain information.</para>
@@ -3342,7 +3342,7 @@ You can compile &kid3; with or without &kde;. Without &kde;, &kid3; is a
 simple &Qt; application and lacks some configuration and session features.
 </para>
 <para>
-For a &kde; version, go into the top directory and type
+For a &kde; version, go into the top folder and type
 <screen width="40">
 <prompt>%</prompt> <userinput>cmake .</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -3473,7 +3473,7 @@ following methods:
 </para>
 
 <sect2 id="dbus-openDirectory">
-<title>Open file or directory</title>
+<title>Open file or folder</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>openDirectory</function></funcdef>
@@ -3483,7 +3483,7 @@ following methods:
 <variablelist>
   <varlistentry>
     <term><replaceable>path</replaceable></term>
-    <listitem><para>path to file or directory</para></listitem>
+    <listitem><para>path to file or folder</para></listitem>
   </varlistentry>
 </variablelist>
 <para>Returns true if OK.</para>
@@ -3657,7 +3657,7 @@ following methods:
   <varlistentry>
     <term><replaceable>allFilesInDir</replaceable></term>
     <listitem><para>true to add the image to all files in the
-    directory</para></listitem>
+    folder</para></listitem>
   </varlistentry>
 </variablelist>
 </sect2>
@@ -3848,16 +3848,16 @@ saving failed.</para>
 </sect2>
 
 <sect2 id="dbus-expandDirectory">
-<title>Expand or collapse the current file item if it is a directory</title>
+<title>Expand or collapse the current file item if it is a folder</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>expandDirectory</function></funcdef>
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>A file list item is a directory if getFileName() returns a name with
+<para>A file list item is a folder if getFileName() returns a name with
       '/' as the last character.</para>
-<para>Returns true if current file item is a directory.</para>
+<para>Returns true if current file item is a folder.</para>
 </sect2>
 
 <sect2 id="dbus-applyFilenameFormat">
@@ -3891,7 +3891,7 @@ saving failed.</para>
 </sect2>
 
 <sect2 id="dbus-setDirNameFromTag">
-<title>Set the directory name from the tags</title>
+<title>Set the folder name from the tags</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>setDirNameFromTag</function></funcdef>
@@ -3907,7 +3907,7 @@ saving failed.</para>
   </varlistentry>
   <varlistentry>
     <term><replaceable>format</replaceable></term>
-    <listitem><para>directory name format</para></listitem>
+    <listitem><para>folder name format</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><replaceable>create</replaceable></term>
@@ -3976,14 +3976,14 @@ saving failed.</para>
 </sect2>
 
 <sect2 id="dbus-getDirectoryName">
-<title>Get path of directory</title>
+<title>Get path of folder</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>string <function>getDirectoryName</function></funcdef>
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Returns absolute path of directory.</para>
+<para>Returns absolute path of folder.</para>
 </sect2>
 
 <sect2 id="dbus-getFileName">
@@ -3994,7 +3994,7 @@ saving failed.</para>
   <void/>
 </funcprototype>
 </funcsynopsis>
-<para>Returns true absolute file name, ends with "/" if it is a directory.</para>
+<para>Returns true absolute file name, ends with "/" if it is a folder.</para>
 </sect2>
 
 <sect2 id="dbus-setFileName">
@@ -4011,7 +4011,7 @@ saving failed.</para>
     <listitem><para>file name</para></listitem>
   </varlistentry>
 </variablelist>
-<para>The file will be renamed when the directory is saved.</para>
+<para>The file will be renamed when the folder is saved.</para>
 </sect2>
 
 <sect2 id="dbus-setFileNameFormat">
@@ -4260,7 +4260,7 @@ import Kid3 1.0
 
 Kid3Script {
   onRun: {
-    console.log("Hello world, directory is", app.dirName)
+    console.log("Hello world, folder is", app.dirName)
     Qt.quit()
   }
 }
@@ -4287,13 +4287,13 @@ or
 qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
 </screen>
 On &Windows; and &macOS;, the import path must be adapted to the
-<filename>imports</filename> folder inside the installation directory. Scripts
-started outside of &kid3; will use the current directory, so it should be
+<filename>imports</filename> folder inside the installation folder. Scripts
+started outside of &kid3; will use the current folder, so it should be
 changed beforehand.
 </para>
 
 <para>
-To list the titles in the tags 2 of all files in the current directory, the
+To list the titles in the tags 2 of all files in the current folder, the
 following script could be used:
 </para>
 
@@ -4313,7 +4313,7 @@ Kid3Script {
 </programlisting>
 
 <para>
-If the directory contains many files, such a script might block the user
+If the folder contains many files, such a script might block the user
 interface for some time. For longer operations, it should therefore have a
 break from time to time. The alternative implementation below has the work for
 a single file moved out into a function. This function invokes itself with a
@@ -4345,7 +4345,7 @@ Kid3Script {
 
 <para>
 When using <command>app.firstFile()</command> with
-<command>app.nextFile()</command>, all files of the current directory will be
+<command>app.nextFile()</command>, all files of the current folder will be
 processed. If only the selected files shall be affected, use
 <command>firstFile()</command> and <command>nextFile()</command> instead,
 these are convenience functions of the <classname>Kid3Script</classname>
@@ -4421,7 +4421,7 @@ Export recursively all tags of all files to a CSV file.
 <listitem><para>
 <guilabel>Export Playlist Folder</guilabel>
 (<filename>ExportPlaylist.qml</filename>):
-Copy all files from a playlist into a directory and rename them according to
+Copy all files from a playlist into a folder and rename them according to
 their position.
 </para></listitem>
 <listitem><para>
@@ -4447,7 +4447,7 @@ example script with a user interface.
 
 <para>
 <classname>Kid3Script</classname> is a regular QML component located inside
-the plugin directory. You could use another QML component just as well. Using
+the plugin folder. You could use another QML component just as well. Using
 <classname>Kid3Script</classname> makes it easy to start the script function
 using the <function>onRun</function> signal handler.
 Moreover it offers some functions:
@@ -4485,15 +4485,15 @@ script.fileExists(filePath): true if file exists
 script.fileIsWritable(filePath): true if file is writable
 script.getFilePermissions(filePath): Get file permission mode bits
 script.setFilePermissions(filePath, modeBits): Set file permission mode bits
-script.classifyFile(filePath): Get class of file (dir "/", symlink "@", exe "*",
+script.classifyFile(filePath): Get class of file (folder "/", symlink "@", exe "*",
   file " ")
 script.renameFile(oldName, newName): Rename file, true if OK
 script.copyFile(source, dest): Copy file, true if OK
-script.makeDir(path): Create directory, true if OK
-script.removeDir(path): Remove directory, true if OK
-script.tempPath(): Path to temporary directory
-script.musicPath(): Path to music directory
-script.listDir(path, [nameFilters], [classify]): List directory entries
+script.makeDir(path): Create folder, true if OK
+script.removeDir(path): Remove folder, true if OK
+script.tempPath(): Path to temporary folder
+script.musicPath(): Path to music folder
+script.listDir(path, [nameFilters], [classify]): List folder entries
 script.system(program, [args], [msecs]): Synchronously start a system command,
   [exit code, standard output, standard error] if not timeout
 script.systemAsync(program, [args], [callback]): Asynchronously start a system
@@ -4525,9 +4525,9 @@ details, refer to the respective notes.
 </para>
 
 <programlisting>
-app.openDirectory(path): Open directory
+app.openDirectory(path): Open folder
 app.unloadAllTags(): Unload all tags
-app.saveDirectory(): Save directory
+app.saveDirectory(): Save folder
 app.revertFileModifications(): Revert
 app.importTags(tag, path, fmtIdx): Import file
 app.importFromTags(tag, source, extraction): Import from tags
@@ -4567,7 +4567,7 @@ app.removeTags(tag): Remove
 app.playAudio(): Play
 app.readConfig(): Read configuration
 app.applyChangedConfiguration(): Apply configuration
-app.dirName: Directory name
+app.dirName: Folder name
 app.selectionInfo.fileName: File name
 app.selectionInfo.filePath: Absolute file path
 app.selectionInfo.detailInfo: Format details
@@ -4576,7 +4576,7 @@ app.selectionInfo.tag(Frame.Tag_2).tagFormat: Tag 2 format
 app.selectionInfo.formatString(tag, format): Substitute codes in format string
 app.selectFileName(caption, dir, filter, saveFile): Open file dialog to
 select a file
-app.selectDirName(caption, dir): Open file dialog to select a directory
+app.selectDirName(caption, dir): Open file dialog to select a folder
 </programlisting>
 
 <para>
