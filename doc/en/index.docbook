@@ -447,7 +447,7 @@ folder.
 </para>
 </sect2>
 
-<sect2 id="folder-list">
+<sect2 id="directory-list">
 <title>Folder List</title>
 
 <para>
@@ -1765,7 +1765,7 @@ selected files. If UTF8 is selected, UTF16 will be used for ID3v2.3.0 tags
 because UTF8 is not supported for this format.</para></listitem>
 </varlistentry>
 
-<varlistentry id="rename-folder">
+<varlistentry id="rename-directory">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Rename Folder...</guimenuitem>
@@ -3009,7 +3009,7 @@ linkend="create-playlist">Create Playlist</link>.
 <para>Rename or create folders from the values in the
 tags according to a given <replaceable>FORMAT</replaceable>
 (&eg; <userinput>%{artist} - %{album}</userinput>, see <link
-linkend="rename-folder">Rename Folder</link>), if no format is given,
+linkend="rename-directory">Rename Folder</link>), if no format is given,
 the format defined in the <guilabel>Rename folder</guilabel> dialog is
 used. The default mode is <option>rename</option>; to create folders,
 <option>create</option> must be given explicitly. The rename actions will be
@@ -3472,7 +3472,7 @@ in <filename>net.sourceforge.Kid3.xml</filename>. The Kid3 interface has the
 following methods:
 </para>
 
-<sect2 id="dbus-openFolder">
+<sect2 id="dbus-openDirectory">
 <title>Open file or folder</title>
 <funcsynopsis>
 <funcprototype>
@@ -3847,7 +3847,7 @@ saving failed.</para>
 <para>Returns true if there is a current file.</para>
 </sect2>
 
-<sect2 id="dbus-expandFolder">
+<sect2 id="dbus-expandDirectory">
 <title>Expand or collapse the current file item if it is a folder</title>
 <funcsynopsis>
 <funcprototype>
@@ -3975,7 +3975,7 @@ saving failed.</para>
 <para>Returns true if OK.</para>
 </sect2>
 
-<sect2 id="dbus-getFolderName">
+<sect2 id="dbus-getDirectoryName">
 <title>Get path of folder</title>
 <funcsynopsis>
 <funcprototype>
