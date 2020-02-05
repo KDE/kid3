@@ -4,17 +4,6 @@
   <!ENTITY doublehyphen '--'>
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
-  <!ENTITY amarok     "<application>Amarok</application>">
-  <!ENTITY CD         "<acronym>CD</acronym>">
-  <!ENTITY Debian     '<acronym><trademark class="registered">Debian</trademark></acronym>'>
-  <!ENTITY javascript "<application>JavaScript</application>">
-  <!ENTITY UNIX       '<trademark class="registered">UNIX</trademark>'>
-  <!ENTITY i18n-Del   "<keycap>Del</keycap>">
-  <!ENTITY i18n-Enter "<keysym>Enter</keysym>">
-  <!ENTITY i18n-RMB   "<mousebutton>right</mousebutton> mouse button">
-  <!ENTITY i18n-LMB   "<mousebutton>left</mousebutton> mouse button">
-  <!ENTITY i18n-Down  "<keysym>Down</keysym>"> <!-- Cursor key-->
-  <!ENTITY i18n-Up    "<keysym>Up</keysym>"> <!-- Cursor key-->
 ]>
 <book lang="&language;" id="kid3-handbook">
 
@@ -239,7 +228,7 @@ name according to the tags found in the file in arbitrary formats.
 <para>
 The editing task is further supported by automatic replacement of characters
 or substrings, for instance to remove illegal characters from
-filenames. Automatic control of upper and lowercase characters makes it easy
+filenames. Automatic control of upper and lower case characters makes it easy
 to use a consistent naming scheme in all tags.
 </para>
 <para>
@@ -307,7 +296,7 @@ But back to our example, the folder listing looks like this:
 <para><filename>03 Outro.mp3</filename></para>
 <para>
 These files have no tags yet and we want to generate them using &kid3;. We use
-<menuchoice><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>
+<menuchoice><guimenu>File</guimenu><guimenuitem>Open</guimenuitem></menuchoice>
 menu item (or toolbar button) and select one of the files in this folder. All
 files will be displayed in the file listbox. Lazy as we are, we want to use the
 information in the folder and file names to generate tags. Therefore we select
@@ -322,7 +311,7 @@ and we see that all tags contain the correct values. The tags of the other files
 can be verified too by selecting them one by one. When we are satisfied with the
 tags, we use <menuchoice><guimenu>File</guimenu><guimenuitem>Save</guimenuitem></menuchoice>
 menu item (or toolbar button). Selecting <menuchoice><guimenu>File</guimenu><guimenuitem>
-Create Playlist...</guimenuitem></menuchoice> menu item (or toolbar button) will
+Create Playlist</guimenuitem></menuchoice> menu item (or toolbar button) will
 generate a file <filename>One Hit Wonder - Let's Tag.m3u</filename> in the folder.
 </para>
 </sect1>
@@ -375,7 +364,7 @@ which is useful if the music collection is organized with a folder for each
 artist containing folders for albums of this artist.
 </para>
 <para>
-Clicking the &i18n-RMB; inside the file list opens a context menu with
+Clicking the <mousebutton>right</mousebutton> mouse button inside the file list opens a context menu with
 the following commands:
 <itemizedlist>
 <listitem><para>
@@ -426,9 +415,9 @@ moved or copied depending on the system. To invoke the other
 operation, respectively, the &Shift;, &Ctrl; or &Alt; (to copy instead of move on
 &macOS;) key has to be pressed. Reordering entries within the playlist is also
 possible via drag and drop. Alternatively, entries can be moved using the keyboard
-shortcuts <keycombo>&Ctrl;&Shift;&i18n-Up;</keycombo> and
-<keycombo>&Ctrl;&Shift;&i18n-Down;</keycombo> (on &macOS; <keycap>Command</keycap> has
-to be pressed instead of &Ctrl;). An entry can be removed using the &i18n-Del; key.
+shortcuts <keycombo>&Ctrl;&Shift;&Up;</keycombo> and
+<keycombo>&Ctrl;&Shift;&Down;</keycombo> (on &macOS; <keycap>Command</keycap> has
+to be pressed instead of &Ctrl;). An entry can be removed using the &Del; key.
 </para>
 <para>
 Please note the following: To drag entries from the file list, they have to be
@@ -463,7 +452,7 @@ folder.
 The folder list contains the names of the folders in the opened
 folder, as well as the current (<filename class="directory">.</filename>) and
 the parent (<filename class="directory">..</filename>) folder. It allows one
-to quickly change the folder without using the <guimenuitem>Open...</guimenuitem>
+to quickly change the folder without using the <guimenuitem>Open</guimenuitem>
 command or drag and drop.
 </para>
 <para>
@@ -481,12 +470,12 @@ Shows information about the encoding
 bit rate, sample rate, channels and the length of the file.
 </para>
 <para>
-The <guilabel>Name:</guilabel> line edit contains the name of the file
+The <guilabel>Name</guilabel> line edit contains the name of the file
 (if only a single file is selected). If this name is changed, the file will
 be renamed when the Save command is used.
 </para>
 <para>
-The <guilabel>Format:</guilabel> combo box and line edit contains the format
+The <guilabel>Format</guilabel> combo box and line edit contains the format
 to be used when the filename is generated from the first or the second tag.
 The filename can contain arbitrary characters, even a folder part separated
 by a slash from the file name, but that folder must already exist for the
@@ -571,7 +560,7 @@ and the first tag or the second tag, respectively.
 <para>
 <guilabel>To:</guilabel> <guibutton>Tag 1</guibutton>,
 <guibutton>Tag 2</guibutton>: The tags are set from the filename.
-First, the format specified in <guilabel>Format:</guilabel> is used. If the
+First, the format specified in <guilabel>Format</guilabel> is used. If the
 existing filename does not match this format, the following formats
 are tried:
 </para>
@@ -594,10 +583,11 @@ files are directly set according to the filenames.
 <title>Tag 1</title>
 
 <para>
-The line edit widgets for <guilabel>Title</guilabel>, <guilabel>Artist</guilabel>,
-<guilabel>Album</guilabel>, <guilabel>Comment</guilabel>, <guilabel>Date</guilabel>,
-<guilabel>Track Number</guilabel>, <guilabel>Genre</guilabel> and
-<guilabel>Encoder</guilabel> are used to edit the corresponding value in the
+The line edit widgets for <guilabel>Title</guilabel>,
+<guilabel>Artist</guilabel>,
+<guilabel>Album</guilabel>, <guilabel>Comment</guilabel>,
+<guilabel>Date</guilabel>, <guilabel>Track Number</guilabel> and
+<guilabel>Genre</guilabel> are used to edit the corresponding value in the
 first tag of the selected files. The value will be changed when the file
 selection is altered or before operations like <guimenuitem>Save</guimenuitem>
 and <guimenuitem>Quit</guimenuitem> and when the corresponding
@@ -898,7 +888,7 @@ is already in the table but the time stamps are missing (which is the case
 when importing unsynchronized lyrics). Note that the invalid time is
 represented as 00:00.00, &ie; the same as the time at the absolute beginning
 of the track, which is not invalid. To make a time invalid, press the
-&i18n-Del; key, or use <guimenu>Clear</guimenu> from the context menu. New rows
+&Del; key, or use <guimenu>Clear</guimenu> from the context menu. New rows
 inserted using <guimenu>Insert row</guimenu> from the context menu or created
 when importing unsynchronized lyrics with <guibutton>From Clipboard</guibutton>
 or <guibutton>Import</guibutton> also contain invalid time stamps. Rows in the
@@ -939,7 +929,7 @@ continuations are used.
 While the track is played, the row associated with the current playing
 position is highlighted, so that the correctness of the synchronization
 information can be verified. If an offset has to be added to one or more time
-stamps, this can be accomplished with the <guimenu>Add offset...</guimenu>
+stamps, this can be accomplished with the <guimenu>Add offset</guimenu>
 context menu. Negative values can be used to reduce the time. Using
 <guimenu>Seek to position</guimenu> in the context menu, it is possible to set
 the playing position to the time of the selected row.
@@ -955,20 +945,21 @@ menu.</para></listitem>
 the <guilabel>Lyrics</guilabel> row in the frame table and press
 <keycombo>&Ctrl;<keycap>C</keycap></keycombo>.</para></listitem>
 <listitem><para>Add a synchronized lyrics frame
-(<guibutton>Add...</guibutton>, <guilabel>Lyrics</guilabel>,
-<guibutton>OK</guibutton>), click <guibutton>From Clipboard</guibutton>.</para></listitem>
+(<guibutton>Add...</guibutton>, <guilabel>Synchronized
+Lyrics</guilabel>, <guibutton>OK</guibutton>), click
+<guibutton>From Clipboard</guibutton>.</para></listitem>
 <listitem><para>Now all lines from the unsynchronized lyrics are in the table,
 all time stamps are invalid (0:0:0.00). You can delete empty entries
 beforehand.</para></listitem>
 <listitem><para>Start playing the song by clicking the play button
-<guibutton>&#9658;</guibutton> in the play toolbar at the top of the main
+<guibutton>&#9658;</guibutton> in the play toolbar at the bottom of the main
 window.</para></listitem>
 <listitem><para>When the next lyrics line with invalid timestamp comes, click
 <guibutton>Add</guibutton> or press
 <keycombo>&Alt;<keycap>A</keycap></keycombo>, the timestamp
 will be updated.</para></listitem>
 <listitem><para>Continue like this until all timestamps are set. If you missed
-something, stop playback and clear the timestamps using the &i18n-Del; key or by
+something, stop playback and clear the timestamps using the &Del; key or by
 selecting them and using <guimenuitem>Clear</guimenuitem> from the context
 menu. To restart playback from a given timestamp, use <guimenuitem>Seek to
 position</guimenuitem> from the context menu.
@@ -1123,7 +1114,7 @@ while since the whole MusicBrainz machinery has to be shut down.
 </para>
 
 <para id="import-text">
-For the import of textual data, <guibutton>From File/Clipboard...</guibutton>
+For the import of textual data, <guibutton>From File/Clipboard</guibutton>
 opens a subdialog, where several preconfigured import formats are
 available. The first two, "CSV unquoted" and "CSV quoted" can be used to
 import data which was exported by the Export dialog. The CSV data can be
@@ -1155,7 +1146,7 @@ track order to get their tags assigned. This is the case if they are numbered.
 <para>
 The next preconfigured import format, "freedb &HTML; source", can be used, if
 the data is available as an &HTML; document. Import is possible using the
-<guibutton>From File...</guibutton> button, which opens a file selector, or
+<guibutton>From File</guibutton> button, which opens a file selector, or
 copying its contents from an editor and then importing from clipboard. This
 format can be useful for offline import, although the &HTML; document could also
 be opened in a browser and then be imported in the first format via the clipboard.
@@ -1200,10 +1191,10 @@ import formats or it can be deleted to revert to the default formats. Formats
 can be deleted using <guibutton>Remove</guibutton>.
 </para>
 <para>
-<guilabel>Accuracy:</guilabel> shows an estimation of how good the
+<guilabel>Accuracy</guilabel> shows an estimation of how good the
 imported information matches the given tracks. It uses track durations or
 file names to calculate the level of similarity in percent.
-<guilabel>Cover Art:</guilabel> shows the &URL; of the album cover image
+<guilabel>Cover Art</guilabel> shows the &URL; of the album cover image
 which will be downloaded.
 </para>
 <para>
@@ -1217,16 +1208,16 @@ is displayed with a red background in the preview table.
 <para>
 If the files are ordered differently than the imported tracks, their assigned
 tracks have to be changed. This task can be facilitated using the <guilabel>Match
-with:</guilabel> option with the buttons <guibutton>Length</guibutton>,
+with</guilabel> option with the buttons <guibutton>Length</guibutton>,
 <guibutton>Track</guibutton>, and <guibutton>Title</guibutton>, which will reorder
 the tracks according to the corresponding field. To correct the assignments
-manually, a track can be dragged with the &i18n-LMB; and the &Ctrl; key hold down,
+manually, a track can be dragged with the <mousebutton>left</mousebutton> mouse button and the &Ctrl; key hold down,
 and then dropped at the new location.
 </para>
 <para>
 When the import dialog is opened, it contains the actual contents of the
 tags. The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
-<guilabel>Destination:</guilabel> combo box. The button on the right of this
+<guilabel>Destination</guilabel> combo box. The button on the right of this
 combo box can be used to revert the table to the current contents of the
 tags. The check boxes in the first table column can be used to select the
 tracks which are imported. This can be useful if a folder contains the tracks
@@ -1237,9 +1228,9 @@ imported.
 To identify the tracks which are imported, it is possible to display the file
 names or the full paths to the files using the context menu of the table
 header. The values in the import table can be edited.  The revert-button to
-the right of the <guilabel>Destination:</guilabel> combo box can be used to
+the right of the <guilabel>Destination</guilabel> combo box can be used to
 restore the contents of the tags, which can also be useful after changing the
-<guilabel>Destination:</guilabel>.
+<guilabel>Destination</guilabel>.
 </para>
 <para>
 Almost all dialogs feature a <guibutton>Save Settings</guibutton> button,
@@ -1248,7 +1239,7 @@ persistently.
 </para>
 
 <para id="import-tags">
-<guibutton>From Tags...</guibutton> leads to a subdialog to set tag frames from
+<guibutton>From Tags</guibutton> leads to a subdialog to set tag frames from
 the contents of other tag frames. This can be used to simply copy information
 between tags or extract a part from one frame and insert it in another.
 </para>
@@ -1264,17 +1255,17 @@ The following example explains how to add a custom format, which sets the
 information from the Subtitle field also in the Comment field. Create a new
 format using <guibutton>Add</guibutton> button and set a new name, &eg;
 "Subtitle to Comment". Then enter "<userinput>%{subtitle}</userinput>" in
-<guilabel>Source:</guilabel> and "<userinput>%{comment}(.*)</userinput>" for
-<guilabel>Extraction:</guilabel> and click <guibutton>Save
+<guilabel>Source</guilabel> and "<userinput>%{comment}(.*)</userinput>" for
+<guilabel>Extraction</guilabel> and click <guibutton>Save
 Settings</guibutton>.
 </para>
 <para>
-The expression in <guilabel>Source:</guilabel> can contain
+The expression in <guilabel>Source</guilabel> can contain
 <link linkend="format-codes">format codes</link> for arbitrary tag frames,
 multiple codes can be used to combine the contents from different frames. For
-each track, a text is generated from its tags using the <guilabel>Source:
+each track, a text is generated from its tags using the <guilabel>Source
 </guilabel> format, and the regular expression from
-<guilabel>Extraction:</guilabel> is applied to this text to set new values for
+<guilabel>Extraction</guilabel> is applied to this text to set new values for
 the tags. Format codes are used before the capturing parentheses to specify
 the tag frame where the captured text shall be stored. It works in the same
 way as for the <link linkend="import-text">import from file/clipboard</link>.
@@ -1383,14 +1374,14 @@ folder is selected, all folders in the file list will be imported.
 </para>
 <para>
 The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
-<guilabel>Destination:</guilabel> combo box.
+<guilabel>Destination</guilabel> combo box.
 </para>
 <para>
 Profiles determine which servers will be contacted to fetch album
 information. Some profiles are predefined (All, MusicBrainz, Discogs,
 Cover Art), custom profiles can be added using the
 <guibutton>Add</guibutton> button at the right of the
-<guilabel>Profile:</guilabel> combo box.
+<guilabel>Profile</guilabel> combo box.
 </para>
 <para>
 The table below shows the servers which will be used when importing album
@@ -1398,7 +1389,7 @@ information using the selected profile. The import process for an album is
 finished if all required information has been found, so the order of the
 rows in the table is important. It can be changed using the
 <guibutton>Move Up</guibutton> and <guibutton>Move Down</guibutton> buttons.
-<guibutton>Edit...</guibutton> can be used to change an existing entry. The
+<guibutton>Edit</guibutton> can be used to change an existing entry. The
 <guibutton>Server</guibutton> selection offers the same servers as can be
 used in the import functions. <guilabel>Standard Tags</guilabel>,
 <guilabel>Additional Tags</guilabel>, <guilabel>Cover Art</guilabel>
@@ -1406,7 +1397,7 @@ determine the information which shall be fetched from the server. Finally,
 <guilabel>Accuracy</guilabel> is the minimum accuracy which must be
 achieved to accept the imported data. If the accuracy is insufficient, the
 next server in the list will be tried. The same dialog containing the server
-properties appears when <guibutton>Add...</guibutton> is clicked to add a new
+properties appears when <guibutton>Add</guibutton> is clicked to add a new
 server entry. Existing entries can be deleted using
 <guibutton>Remove</guibutton>.
 </para>
@@ -1428,14 +1419,14 @@ at the top of the dialog. The process can be aborted with the
 <listitem><para>
 The <action>Browse Cover Art</action> dialog helps to find album cover
 art. <guilabel>Artist/Album</guilabel> is filled from the tags if
-possible. <guilabel>Source:</guilabel> offers a variety of websites with album
+possible. <guilabel>Source</guilabel> offers a variety of websites with album
 cover art. The &URL; with artist and album as parameters can be found beneath
 the name. &URL;-encoded values for artist and album can be inserted using
 "<userinput>%u{artist}</userinput>" and "<userinput>%u{album}</userinput>",
 other values from the tags are possible too, as described in
 <link linkend="configure-kid3">Configure &kid3;</link>, <guilabel>User
 Actions</guilabel>. More sources can be entered after the entry "Custom
-Source" by replacing "Custom Source" with the source's name, pressing &i18n-Enter;,
+Source" by replacing "Custom Source" with the source's name, pressing &Enter;,
 then inserting the &URL; and finally pressing <guibutton>Save
 Settings</guibutton>. The resulting browser command is displayed at the top of
 the dialog and can be started by clicking <guibutton>Browse</guibutton>. The
@@ -1537,9 +1528,9 @@ adding lines in the file <filename>kid3rc</filename> in the configuration
 folder. The other formats can be adapted to your needs.
 </para>
 <para>
-The <guilabel>Source:</guilabel> of the tags to generate the export data
+The <guilabel>Source</guilabel> of the tags to generate the export data
 (<guilabel>Tag 1</guilabel> or <guilabel>Tag 2</guilabel>) can be selected
-with a combo box. Pushing <guibutton>To File...</guibutton> or <guibutton>To
+with a combo box. Pushing <guibutton>To File</guibutton> or <guibutton>To
 Clipboard</guibutton> stores the data in a file or on the clipboard.
 <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close the dialog,
 whereas <guibutton>OK</guibutton> accepts the current dialog settings.
@@ -1556,17 +1547,17 @@ whereas <guibutton>OK</guibutton> accepts the current dialog settings.
 can be set by various options.</para>
 <para>
 The name of the playlist can be the <guibutton>Same as folder name</guibutton>
-or use a <guibutton>Format:</guibutton> with values from the tags, &eg;
+or use a <guibutton>Format</guibutton> with values from the tags, &eg;
 "<userinput>%{artist} - %{album}</userinput>" to have the artist and album
 name in the playlist file name. The format codes are the same as for
 <link linkend="export">Export</link>.
-<guibutton>Create new empty playlist:</guibutton> will make an empty playlist
+<guibutton>Create new empty playlist</guibutton> will make an empty playlist
 with the given name.
 The extension depends on the playlist format.
 </para>
 <para>
 The location of the generated playlist is determined by the selection of
-the <guilabel>Create in:</guilabel> combo box.
+the <guilabel>Create in</guilabel> combo box.
 <variablelist>
 <varlistentry><term>Current folder</term>
 <listitem><para>The playlist is created in the current folder and contains
@@ -1585,7 +1576,7 @@ files of the top-level folder and all of its sub-folders.
 </variablelist>
 </para>
 <para>
-The <guilabel>Format:</guilabel> of the playlist can
+The <guilabel>Format</guilabel> of the playlist can
 be <guilabel>M3U</guilabel>, <guilabel>PLS</guilabel> or
 <guilabel>XSPF</guilabel>.
 </para>
@@ -1673,7 +1664,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo>&Alt;&i18n-Up;</keycombo>
+<keycombo>&Alt;&Up;</keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Previous File</guimenuitem>
@@ -1684,7 +1675,7 @@ the <guibutton>Write info using</guibutton> control.
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo>&Alt;&i18n-Down;</keycombo>
+<keycombo>&Alt;&Down;</keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Next File</guimenuitem>
@@ -1810,13 +1801,13 @@ empty if not unique</para></listitem>
 <para>
 If a folder separator "/" is found in the format, multiple folders are
 created. If you want to create a new folder instead of renaming the current
-folder, into <guilabel>Action:</guilabel> combo box select <guilabel>Create
+folder, in the <guilabel>Action</guilabel> combo box select <guilabel>Create
 Folder</guilabel> instead of <guilabel>Rename Folder</guilabel>. The
-<guilabel>Source:</guilabel> of the tag information can be chosen between
+<guilabel>Source</guilabel> of the tag information can be chosen between
 <guilabel>Tag 1 and Tag 2</guilabel>, <guilabel>Tag 1</guilabel> and
 <guilabel>Tag 2</guilabel>. A preview for the rename operation performed on
-the first file can be seen in the <guilabel>From:</guilabel>
-and <guilabel>To:</guilabel> sections of the dialog.
+the first file can be seen in the <guilabel>From</guilabel>
+and <guilabel>To</guilabel> sections of the dialog.
 </para>
 <para>
 Multiple folders can be renamed by selecting them.
@@ -1834,7 +1825,7 @@ function can <action>number the tracks automatically in ascending
 order</action>. The start number can be set in the dialog. If only part of the
 tracks have to be numbered, they must be selected.
 </para><para>
-When <guilabel>Total number of tracks:</guilabel> is checked, the number
+When <guilabel>Total number of tracks</guilabel> is checked, the number
 of tracks will also be set in the tags.
 </para><para>
 It is possible to number the tracks over multiple folders. The folders
@@ -1846,7 +1837,7 @@ folders are selected.
 </para><para>
 The number tracks dialog can also be used to format existing track numbers
 without changing the values when the check box left to <guilabel>Start
-number:</guilabel> is deactivated. The total number of tracks will be added if
+number</guilabel> is deactivated. The total number of tracks will be added if
 the corresponding check box is active, which can be used to set the total for
 all selected tracks. If only formatting of the existing numbers is desired,
 this check box has to be deactivated too.
@@ -2012,7 +2003,7 @@ standard, are truncated or the picture is too large.</para>
 <para>
 To add your own filter, select this entry. For instance, if you want
 to have a filter for artists starting with "The", replace "Custom Filter"
-with the name "The Bands" and press &i18n-Enter;. Then insert the following
+with the name "The Bands" and press &Enter;. Then insert the following
 expression into the line edit:
 </para>
 <para><userinput>
@@ -2254,7 +2245,7 @@ tags. "<literal>COVERART</literal>" is an earlier unofficial way to include
 pictures in Vorbis comments. It can be used for compatibility with legacy players.
 </para>
 <para>
-If the <guilabel>Mark if larger than (bytes):</guilabel> check box is activated,
+If the <guilabel>Mark if larger than (bytes)</guilabel> check box is activated,
 files containing embedded album cover art exceeding the given size in bytes
 are marked red. This can be used to find files containing oversized pictures
 which are not accepted by some applications and players. The default value is
@@ -2316,7 +2307,7 @@ with the string captured by the corresponding capturing group.
 To remove a mapping set the <guilabel>From</guilabel> cell
 to an empty value (&eg; by first typing space and then backspace). Inserting
 and deleting rows is also possible using a context menu which appears when the
-&i18n-RMB; is clicked.  Replacement is only active, if the <guilabel>String
+<mousebutton>right</mousebutton> mouse button is clicked.  Replacement is only active, if the <guilabel>String
 replacement</guilabel> check box is checked.
 </para>
 
