@@ -1,0 +1,35 @@
+<!-- KDE specific entities needed to generate HTML and man pages, taken from
+https://cgit.kde.org/kdoctools.git/tree/src/customization/entities/general.entities and others -->
+<!ENTITY Alt "<keycap>Alt</keycap>">
+<!ENTITY Ctrl "<keycap>Ctrl</keycap>">
+<!ENTITY Del "<keycap>Delete</keycap>">
+<!ENTITY Down "<keycap>Down</keycap>">
+<!ENTITY Enter "<keycap>Enter</keycap>">
+<!ENTITY Shift "<keycap>Shift</keycap>">
+<!ENTITY Up "<keycap>Up</keycap>">
+<!ENTITY CD "<acronym>CD</acronym>">
+<!ENTITY DBus "<acronym>D-Bus</acronym>">
+<!ENTITY Debian '<acronym><trademark class="registered">Debian</trademark></acronym>'>
+<!ENTITY GUI "<acronym>GUI</acronym>">
+<!ENTITY HTML '<acronym>HTML</acronym>'>
+<!ENTITY JSON "<acronym>JSON</acronym>">
+<!ENTITY Linux '<trademark class="registered">Linux</trademark>'>
+<!ENTITY Qt "<trademark>Qt</trademark>">
+<!ENTITY UNIX '<trademark class="registered">UNIX</trademark>'>
+<!ENTITY URL "<acronym>URL</acronym>">
+<!ENTITY Windows '<trademark class="registered">Windows</trademark>'>
+<!ENTITY XML "<acronym>XML</acronym>">
+<!ENTITY amarok "<application>Amarok</application>">
+<!ENTITY javascript "<application>JavaScript</application>">
+<!ENTITY kde '<orgname class="nonprofit">KDE</orgname>'>
+<!ENTITY macOS '<trademark class="registered">macOS</trademark>'>
+<!ENTITY eg "e.g.">
+<!ENTITY etc "etc.">
+<!ENTITY ie "i.e.">
+<!-- Please avoid entities which have to be translated -->
+<!ENTITY LMB "<mousebutton>left</mousebutton> mouse button">
+<!ENTITY RMB "<mousebutton>right</mousebutton> mouse button">
+<!ENTITY ged.vertaald "ged vertaald">
+<!ENTITY meld.fouten "meld fouten">
+<!ENTITY vertaling.freek " vertaling Freek de Kruijf">
+<!ENTITY Freek.de.Kruijf '<personname><firstname>Freek</firstname><surname>de Kruijf</surname></personname>'>
