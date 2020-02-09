@@ -326,7 +326,7 @@ endif()
 
 ### Check for HTML docbook.xsl
 file(GLOB _versionedStyleSheetDir /usr/share/xml/docbook/xsl-stylesheets-*)
-find_path(DOCBOOK_XSL_DIR html/docbook.xsl
+find_path(DOCBOOK_XSL_DIR xhtml/docbook.xsl
   PATHS ${WITH_DOCBOOKDIR}
         /usr/share/xml/docbook/stylesheet/nwalsh
         /usr/share/xml/docbook/stylesheet/nwalsh/current

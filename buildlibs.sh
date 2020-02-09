@@ -3416,7 +3416,7 @@ test -d bin || mkdir bin
 _chocoInstall=${ChocolateyInstall//\\/\/}
 _chocoInstall=${_chocoInstall/C:/\/c}
 for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
-  if test -e $d/html/docbook.xsl; then
+  if test -e $d/xhtml/docbook.xsl; then
     _docbook_xsl_dir=$d
     break
   fi
