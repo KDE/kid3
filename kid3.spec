@@ -8,8 +8,8 @@ Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
 Version:      3.8.2
 Release:      1%{?dist}
-URL:          http://kid3.sourceforge.net/
-Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
+URL:          https://kid3.kde.org/
+Source0:      https://invent.kde.org/kde/kid3/-/archive/%{version}/kid3-%{version}.tar.gz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  kdelibs4-devel
 # OpenSUSE: BuildRequires:  libkde4-devel

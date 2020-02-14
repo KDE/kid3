@@ -1,6 +1,6 @@
 /usr/bin/kid3
-/usr/share/metainfo/net.sourceforge.kid3.appdata.xml
+/usr/share/metainfo/org.kde.kid3.appdata.xml
 /usr/share/icons/hicolor/*/apps/kid3.*
-/usr/share/applications/net.sourceforge.kid3.desktop
+/usr/share/applications/org.kde.kid3.desktop
 /usr/share/doc/HTML/*/kid3/*
 /usr/share/kxmlgui5/kid3/kid3ui.rc

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net> -->
 <component type="desktop">
-  <id>net.sourceforge.kid3.desktop</id>
+  <id>org.kde.kid3.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kid3</name>
@@ -89,7 +89,7 @@
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
-      <image>http://kid3.sourceforge.net/screen169.png</image>
+      <image>https://kid3.kde.org/assets/img/screen169.png</image>
       <caption>Kid3 main window</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kid3</caption>
@@ -105,9 +105,9 @@
       <caption xml:lang="zh-TW">Kid3 主視窗</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">http://kid3.sourceforge.net/</url>
-  <url type="bugtracker">http://sourceforge.net/p/kid3/bugs/</url>
-  <url type="help">http://sourceforge.net/p/kid3/discussion/</url>
+  <url type="homepage">https://kid3.kde.org/</url>
+  <url type="bugtracker">https://invent.kde.org/kde/kid3/issues</url>
+  <url type="help">https://invent.kde.org/kde/kid3/issues</url>
   <developer_name>Urs Fleisch</developer_name>
   <developer_name xml:lang="ca">Urs Fleisch</developer_name>
   <developer_name xml:lang="ca-valencia">Urs Fleisch</developer_name>

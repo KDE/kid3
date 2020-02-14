@@ -109,4 +109,4 @@ public:
 };
 
 Q_DECLARE_INTERFACE(ITaggedFileFactory,
-                    "net.sourceforge.kid3.ITaggedFileFactory")
+                    "org.kde.kid3.ITaggedFileFactory")

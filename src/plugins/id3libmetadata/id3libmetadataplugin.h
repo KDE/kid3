@@ -35,7 +35,7 @@
 class KID3_PLUGIN_EXPORT Id3libMetadataPlugin
     : public QObject, public ITaggedFileFactory {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.ITaggedFileFactory")
+  Q_PLUGIN_METADATA(IID "org.kde.kid3.ITaggedFileFactory")
   Q_INTERFACES(ITaggedFileFactory)
 public:
   /*!

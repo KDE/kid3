@@ -29,7 +29,7 @@ if(APPLE)
   set(MACOSX_BUNDLE_BUNDLE_EXECUTABLE "kid3")
   set(MACOSX_BUNDLE_ICON_FILE kid3.icns)
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CPACK_PACKAGE_VERSION})
-  set(MACOSX_BUNDLE_GUI_IDENTIFIER "net.sourceforge.kid3")
+  set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.kde.kid3")
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2003-${RELEASE_YEAR} Urs Fleisch")
   set_source_files_properties(kid3.icns
     PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
@@ -60,7 +60,7 @@ if(UNIX AND NOT APPLE)
   add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
     DESTINATION "${WITH_DATAROOTDIR}/applications"
-    RENAME net.sourceforge.kid3-qt.desktop)
+    RENAME org.kde.kid3-qt.desktop)
   add_custom_command(OUTPUT kid3-qt.appdata.xml
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixappdata.py
       ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml >kid3-qt.appdata.xml
@@ -69,7 +69,7 @@ if(UNIX AND NOT APPLE)
   add_custom_target("appdata-file" ALL DEPENDS kid3-qt.appdata.xml)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
     DESTINATION "${WITH_DATAROOTDIR}/metainfo"
-    RENAME net.sourceforge.kid3-qt.appdata.xml)
+    RENAME org.kde.kid3-qt.appdata.xml)
   if(GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../sc-apps-kid3.svgz >kid3-qt.svg

@@ -485,7 +485,7 @@ endif()
 set(CPACK_PACKAGE_CONTACT "ufleisch@users.sourceforge.net")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Audio tag editor")
 set(CPACK_STRIP_FILES ON)
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "http://kid3.sourceforge.net/")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://kid3.kde.org/")
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
 include(CPack)

@@ -206,6 +206,6 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 if(BUILD_KDE_APP)
-  install(FILES model/net.sourceforge.Kid3.xml
+  install(FILES model/org.kde.Kid3.xml
           DESTINATION ${WITH_DBUSDIR})
 endif()

@@ -415,7 +415,7 @@ QDBusObjectPath MprisPlayerInterface::getCurrentTrackId() const {
   if (index < 0) {
     return QDBusObjectPath();
   }
-  return QDBusObjectPath(QLatin1String("/net/sourceforge/kid3/playlist/")
+  return QDBusObjectPath(QLatin1String("/org/kde/kid3/playlist/")
                          + QString::number(index));
 }
 

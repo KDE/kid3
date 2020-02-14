@@ -34,15 +34,15 @@
 class Kid3Application;
 
 /**
- * Adaptor class for interface net.sourceforge.Kid3
- * Create net.sourceforge.Kid3.xml with:
+ * Adaptor class for interface org.kde.Kid3
+ * Create org.kde.Kid3.xml with:
  * echo "#define HAVE_QTDBUS" >config.h
- * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
+ * qdbuscpp2xml scriptinterface.h >org.kde.Kid3.xml
  * rm config.h
  */
 class ScriptInterface : public QDBusAbstractAdaptor {
   Q_OBJECT
-  Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
+  Q_CLASSINFO("D-Bus Interface", "org.kde.Kid3")
 public:
   /**
    * Constructor.
@@ -178,7 +178,7 @@ public slots:
    * be enclosed in parentheses and the files must exist:
    *
    * @code
-   * qdbus net.sourceforge.kid3 /Kid3 setPlaylistItems "/path/to/playlist.m3u"
+   * qdbus org.kde.kid3 /Kid3 setPlaylistItems "/path/to/playlist.m3u"
    *   \( "/path/to/file1" "/path/to/file2" \)
    * @endcode
    *

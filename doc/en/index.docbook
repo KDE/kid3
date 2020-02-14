@@ -3299,7 +3299,7 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 
 <para>
 &kid3; can be found at
-<ulink url="https://kid3.sourceforge.io">https://kid3.sourceforge.io</ulink>.
+<ulink url="https://kid3.kde.org">https://kid3.kde.org</ulink>.
 </para>
 </sect1>
 
@@ -3330,8 +3330,8 @@ and <ulink url="http://libav.org/">libav</ulink> are used.
 </para>
 <para>
 &kid3; is available for most &Linux; distributions, &Windows; and &macOS;.
-Links can be found on <ulink url="https://kid3.sourceforge.io">
-https://kid3.sourceforge.io</ulink>.
+Links can be found on <ulink url="https://kid3.kde.org">
+https://kid3.kde.org</ulink>.
 </para>
 
 </sect1>
@@ -3427,8 +3427,8 @@ with the following code:
 <varlistentry><term>Shell</term>
 <listitem>
 <programlisting>
-dbus-send --dest=net.sourceforge.kid3 --print-reply=literal \
-/Kid3 net.sourceforge.Kid3.setFrame int32:2 string:'Artist' \
+dbus-send --dest=org.kde.kid3 --print-reply=literal \
+/Kid3 org.kde.Kid3.setFrame int32:2 string:'Artist' \
 string:'One Hit Wonder'
 </programlisting>
 <para>
@@ -3436,7 +3436,7 @@ or easier with &Qt;'s <command>qdbus</command> (<command>qdbusviewer</command>
 can be used to explore the interface in a &GUI;):
 </para>
 <programlisting>
-qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist \
+qdbus org.kde.kid3 /Kid3 setFrame 2 Artist \
 'One Hit Wonder'
 </programlisting>
 </listitem>
@@ -3446,7 +3446,7 @@ qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist \
 <programlisting>
 import dbus
 kid3 = dbus.SessionBus().get_object(
-  'net.sourceforge.kid3', '/Kid3')
+  'org.kde.kid3', '/Kid3')
 kid3.setFrame(2, 'Artist', 'One Hit Wonder')
 </programlisting>
 </listitem>
@@ -3456,8 +3456,8 @@ kid3.setFrame(2, 'Artist', 'One Hit Wonder')
 <programlisting>
 use Net::DBus;
 $kid3 = Net::DBus->session->get_service(
-  "net.sourceforge.kid3")->get_object(
-  "/Kid3", "net.sourceforge.Kid3");
+  "org.kde.kid3")->get_object(
+  "/Kid3", "org.kde.Kid3");
 $kid3->setFrame(2, "Artist", "One Hit Wonder");
 </programlisting>
 </listitem>
@@ -3470,7 +3470,7 @@ $kid3->setFrame(2, "Artist", "One Hit Wonder");
 
 <para>
 The &DBus; API is specified
-in <filename>net.sourceforge.Kid3.xml</filename>. The &kid3; interface has the
+in <filename>org.kde.Kid3.xml</filename>. The &kid3; interface has the
 following methods:
 </para>
 

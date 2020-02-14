@@ -65,4 +65,4 @@ public:
 };
 
 Q_DECLARE_INTERFACE(IServerTrackImporterFactory,
-                    "net.sourceforge.kid3.IServerTrackImporterFactory")
+                    "org.kde.kid3.IServerTrackImporterFactory")

@@ -40,7 +40,7 @@ class QQmlError;
 class KID3_PLUGIN_EXPORT QmlCommandPlugin
     : public QObject, public IUserCommandProcessor {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IUserCommandProcessor")
+  Q_PLUGIN_METADATA(IID "org.kde.kid3.IUserCommandProcessor")
   Q_INTERFACES(IUserCommandProcessor)
 public:
   /**

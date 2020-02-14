@@ -328,7 +328,7 @@ void Kid3Application::onApplicationStateChanged(Qt::ApplicationState state)
 void Kid3Application::activateDbusInterface()
 {
   if (QDBusConnection::sessionBus().isConnected()) {
-    QString serviceName(QLatin1String("net.sourceforge.kid3"));
+    QString serviceName(QLatin1String("org.kde.kid3"));
     QDBusConnection::sessionBus().registerService(serviceName);
     // For the case of multiple Kid3 instances running, register also a service
     // with the PID appended. On KDE such a service is already registered but

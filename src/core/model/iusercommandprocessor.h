@@ -87,4 +87,4 @@ public:
 };
 
 Q_DECLARE_INTERFACE(IUserCommandProcessor,
-                    "net.sourceforge.kid3.IUserCommandProcessor")
+                    "org.kde.kid3.IUserCommandProcessor")

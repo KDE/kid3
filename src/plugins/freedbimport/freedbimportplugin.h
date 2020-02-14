@@ -35,7 +35,7 @@
 class KID3_PLUGIN_EXPORT FreedbImportPlugin
     : public QObject, public IServerImporterFactory {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID "net.sourceforge.kid3.IServerImporterFactory")
+  Q_PLUGIN_METADATA(IID "org.kde.kid3.IServerImporterFactory")
   Q_INTERFACES(IServerImporterFactory)
 public:
   /*!
