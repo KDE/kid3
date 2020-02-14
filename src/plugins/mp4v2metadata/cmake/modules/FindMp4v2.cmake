@@ -1,3 +1,5 @@
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 if(MP4V2_INCLUDE_DIR)
   set(MP4V2_FIND_QUIETLY TRUE)
 endif()

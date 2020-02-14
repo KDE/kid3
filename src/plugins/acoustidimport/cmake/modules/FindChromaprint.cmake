@@ -1,3 +1,5 @@
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 include(FindPackageHandleStandardArgs)
 find_package(PkgConfig)
 pkg_check_modules(PKG_LIBCHROMAPRINT libchromaprint)

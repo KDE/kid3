@@ -1,3 +1,5 @@
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 if(WIN32 OR APPLE OR CMAKE_CXX_COMPILER MATCHES "/osxcross/")
   find_library(TAGLIB_LIBRARY NAMES tag)
   find_path(TAGLIB_INCLUDE_DIR taglib/taglib.h)

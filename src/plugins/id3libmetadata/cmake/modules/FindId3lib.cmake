@@ -1,3 +1,5 @@
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 find_path(ID3LIB_INCLUDES id3/tag.h)
 find_library(ID3LIB_LIBRARY NAMES id3 id3lib)
 if(ID3LIB_INCLUDES AND ID3LIB_LIBRARY)
