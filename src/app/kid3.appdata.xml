@@ -12,6 +12,7 @@
   <name xml:lang="eu">Kid3</name>
   <name xml:lang="nl">Kid3</name>
   <name xml:lang="pt">Kid3</name>
+  <name xml:lang="pt-BR">Kid3</name>
   <name xml:lang="sk">Kid3</name>
   <name xml:lang="sv">Kid3</name>
   <name xml:lang="uk">Kid3</name>
@@ -83,6 +84,7 @@
     <p xml:lang="et">Albumi andmeid saab importida järgmistest asukohtadest: gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Automaatne hulgiimport võimaldab täita mitut kataloogi korraga. Samuti saab andmeid eksportida ja luua esitusloendeid.</p>
     <p xml:lang="nl">Albumgegevens kunnen geïmporteerd worden uit gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatische bulkimport is beschikbaar voor meerdere mappen. Het is ook mogelijk om gegevens te exporteren en afspeellijsten te genereren.</p>
     <p xml:lang="pt">Os dados dos álbuns podem ser importados a partir do gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; está disponível a importação automática em lote para várias pastas. Também é possível exportar os dados e gerar listas de reprodução.</p>
+    <p xml:lang="pt-BR">Os dados de álbuns podem ser importados de gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; a importação em lotes está disponível para múltiplas pastas. Também é possível exportar dados e gerar listas de reprodução.</p>
     <p xml:lang="sv">Albumdata kan importeras från gnudb.org, TrackType.org, MusicBrainz, Discogs, eller Amazon. Automatisk import i bakgrunden är tillgänglig för flera kataloger. Det är också möjligt att exportera data och skapa spellistor.</p>
     <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
     <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
@@ -98,6 +100,7 @@
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
       <caption xml:lang="nl">Hoofdvenster van Kid3</caption>
       <caption xml:lang="pt">Janela principal do Kid3</caption>
+      <caption xml:lang="pt-BR">Janela principal do Kid3</caption>
       <caption xml:lang="sk">Hlavné okno Kid3</caption>
       <caption xml:lang="sv">Huvudfönstret i Kid3</caption>
       <caption xml:lang="uk">Головне вікно Kid3</caption>
@@ -116,6 +119,7 @@
   <developer_name xml:lang="eu">Urs Fleisch</developer_name>
   <developer_name xml:lang="nl">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt">Urs Fleisch</developer_name>
+  <developer_name xml:lang="pt-BR">Urs Fleisch</developer_name>
   <developer_name xml:lang="sk">Urs Fleisch</developer_name>
   <developer_name xml:lang="sv">Urs Fleisch</developer_name>
   <developer_name xml:lang="uk">Urs Fleisch</developer_name>
