@@ -1632,7 +1632,8 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       bool ok;
       int nr = Frame::numberWithoutTotal(result, &ok);
       if (ok) {
-        result.sprintf("%0*d", fieldWidth, nr);
+        result = QString(QLatin1String("%1"))
+            .arg(nr, fieldWidth, 10, QLatin1Char('0'));
       }
     }
   }

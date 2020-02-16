@@ -3136,9 +3136,12 @@ void Kid3Application::numberTracks(int nr, int total,
         QString value;
         if (options & NumberTracksEnabled) {
           if (total > 0) {
-            value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
+            value = QString(QLatin1String("%1/%2"))
+                .arg(nr, numDigits, 10, QLatin1Char('0'))
+                .arg(total, numDigits, 10, QLatin1Char('0'));
           } else {
-            value.sprintf("%0*d", numDigits, nr);
+            value = QString(QLatin1String("%1"))
+                .arg(nr, numDigits, 10, QLatin1Char('0'));
           }
           if (frameIt != frames.end()) {
             frame = *frameIt;
@@ -3163,10 +3166,12 @@ void Kid3Application::numberTracks(int nr, int total,
               currentTotal = total;
             }
             if (currentTotal > 0) {
-              value.sprintf("%0*d/%0*d", numDigits, currentNr, numDigits,
-                            currentTotal);
+              value = QString(QLatin1String("%1/%2"))
+                  .arg(currentNr, numDigits, 10, QLatin1Char('0'))
+                  .arg(currentTotal, numDigits, 10, QLatin1Char('0'));
             } else {
-              value.sprintf("%0*d", numDigits, currentNr);
+              value = QString(QLatin1String("%1"))
+                  .arg(currentNr, numDigits, 10, QLatin1Char('0'));
             }
             frame.setValueIfChanged(value);
             if (frame.isValueChanged()) {

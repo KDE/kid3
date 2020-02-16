@@ -501,7 +501,11 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
     }
   }
   QStringList oldExtensions(m_extensions);
+#if QT_VERSION >= 0x050e00
+  m_extensions = QStringList(exts.constBegin(), exts.constEnd());
+#else
   m_extensions = exts.toList();
+#endif
   if (m_extensions != oldExtensions) {
     invalidateFilter();
   }

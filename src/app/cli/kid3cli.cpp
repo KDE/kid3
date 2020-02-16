@@ -557,7 +557,12 @@ QVariantList Kid3Cli::listFiles(const FileProxyModel* model,
     return lst;
 
   m_app->updateCurrentSelection();
+#if QT_VERSION >= 0x050e00
+  const QList<QPersistentModelIndex>& selLst = m_app->getCurrentSelection();
+  QSet<QPersistentModelIndex> selection(selLst.constBegin(), selLst.constEnd());
+#else
   QSet<QPersistentModelIndex> selection = m_app->getCurrentSelection().toSet();
+#endif
   for (int row = 0; row < model->rowCount(parent); ++row) {
     QModelIndex idx(model->index(row, 0, parent));
     QVariantMap map;

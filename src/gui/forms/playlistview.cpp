@@ -186,7 +186,11 @@ QList<int> PlaylistView::getSelectedRows() const
     selRows.insert(idx.row());
   }
 
+#if QT_VERSION >= 0x050e00
+  QList<int> result(selRows.constBegin(), selRows.constEnd());
+#else
   QList<int> result = selRows.toList();
+#endif
   std::sort(result.begin(), result.end());
   return result;
 }

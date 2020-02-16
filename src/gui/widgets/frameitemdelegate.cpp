@@ -433,7 +433,11 @@ QWidget* FrameItemDelegate::createEditor(
             type, index.data(FrameTableModel::InternalNameRole).toString());
       QSet<QString> valueSet = ftModel->getCompletionsForType(extType);
       if (!valueSet.isEmpty()) {
+#if QT_VERSION >= 0x050e00
+        QStringList values(valueSet.constBegin(), valueSet.constEnd());
+#else
         QStringList values = valueSet.toList();
+#endif
         values.sort();
         auto cb = new QComboBox(parent);
         cb->setEditable(true);

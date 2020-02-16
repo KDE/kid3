@@ -600,9 +600,13 @@ QString TaggedFile::formatTime(unsigned seconds)
   seconds %= 60;
   QString timeStr;
   if (hours > 0) {
-    timeStr.sprintf("%u:%02u:%02u", hours, minutes, seconds);
+    timeStr = QString(QLatin1String("%1:%2:%3"))
+        .arg(hours)
+        .arg(minutes, 2, 10, QLatin1Char('0'))
+        .arg(seconds, 2, 10, QLatin1Char('0'));
   } else {
-    timeStr.sprintf("%u:%02u", minutes, seconds);
+    timeStr = QString(QLatin1String("%1:%2"))
+        .arg(minutes).arg(seconds, 2, 10, QLatin1Char('0'));
   }
   return timeStr;
 }
@@ -748,14 +752,16 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
   QString str;
   if (num != 0) {
     if (numDigits > 0) {
-      str.sprintf("%0*d", numDigits, num);
+      str = QString(QLatin1String("%1"))
+          .arg(num, numDigits, 10, QLatin1Char('0'));
     } else {
       str.setNum(num);
     }
     if (numTracks > 0) {
       str += QLatin1Char('/');
       if (numDigits > 0) {
-        str += QString().sprintf("%0*d", numDigits, numTracks);
+        str = QString(QLatin1String("%1"))
+            .arg(numTracks, numDigits, 10, QLatin1Char('0'));
       } else {
         str += QString::number(numTracks);
       }
@@ -783,9 +789,12 @@ void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
     int trackNr = value.toInt(&ok);
     if (ok && trackNr > 0) {
       if (numTracks > 0) {
-        value.sprintf("%0*d/%0*d", numDigits, trackNr, numDigits, numTracks);
+        value = QString(QLatin1String("%1/%2"))
+            .arg(trackNr, numDigits, 10, QLatin1Char('0'))
+            .arg(numTracks, numDigits, 10, QLatin1Char('0'));
       } else {
-        value.sprintf("%0*d", numDigits, trackNr);
+        value = QString(QLatin1String("%1"))
+            .arg(trackNr, numDigits, 10, QLatin1Char('0'));
       }
     }
   }

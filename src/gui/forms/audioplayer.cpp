@@ -93,7 +93,11 @@ int AudioPlayer::getFileCount() const
  */
 QString AudioPlayer::getFileName() const
 {
+#if QT_VERSION >= 0x050e00
+  return m_mediaPlaylist->currentMedia().request().url().toLocalFile();
+#else
   return m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
+#endif
 }
 
 /**
@@ -238,8 +242,13 @@ void AudioPlayer::stop()
 void AudioPlayer::currentIndexChanged(int position)
 {
   if (position >= 0 && position < m_mediaPlaylist->mediaCount()) {
+#if QT_VERSION >= 0x050e00
+    QString filePath =
+        m_mediaPlaylist->currentMedia().request().url().toLocalFile();
+#else
     QString filePath =
         m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
+#endif
     emit aboutToPlay(filePath);
     emit trackChanged(
           filePath,

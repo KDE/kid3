@@ -168,7 +168,11 @@ FileInfoGatherer::FileInfoGatherer(QObject *parent)
 */
 FileInfoGatherer::~FileInfoGatherer()
 {
-    abort.store(true);
+#if QT_VERSION >= 0x050e00
+  abort.storeRelaxed(true);
+#else
+  abort.store(true);
+#endif
     QMutexLocker locker(&mutex);
     condition.wakeAll();
     locker.unlock();
@@ -177,7 +181,7 @@ FileInfoGatherer::~FileInfoGatherer()
 
 void FileInfoGatherer::setResolveSymlinks(bool enable)
 {
-    Q_UNUSED(enable);
+    Q_UNUSED(enable)
 #ifdef Q_OS_WIN
     m_resolveSymlinks = enable;
 #endif
@@ -320,10 +324,17 @@ void FileInfoGatherer::run()
 {
     forever {
         QMutexLocker locker(&mutex);
+#if QT_VERSION >= 0x050e00
+        while (!abort.loadRelaxed() && path.isEmpty())
+            condition.wait(&mutex);
+        if (abort.loadRelaxed())
+            return;
+#else
         while (!abort.load() && path.isEmpty())
             condition.wait(&mutex);
         if (abort.load())
             return;
+#endif
 #if QT_VERSION >= 0x050700
         const QString thisPath = qAsConst(path).front();
 #else
@@ -420,7 +431,12 @@ void FileInfoGatherer::getFileInfos(const QString &path, const QStringList &file
     QStringList allFiles;
     if (files.isEmpty()) {
         QDirIterator dirIt(path, QDir::AllEntries | QDir::System | QDir::Hidden);
-        while (!abort.load() && dirIt.hasNext()) {
+#if QT_VERSION >= 0x050e00
+        while (!abort.loadRelaxed() && dirIt.hasNext())
+#else
+        while (!abort.load() && dirIt.hasNext())
+#endif
+        {
             dirIt.next();
             fileInfo = dirIt.fileInfo();
             allFiles.append(fileInfo.fileName());
@@ -431,7 +447,12 @@ void FileInfoGatherer::getFileInfos(const QString &path, const QStringList &file
         emit newListOfFiles(path, allFiles);
 
     QStringList::const_iterator filesIt = filesToCheck.constBegin();
-    while (!abort.load() && filesIt != filesToCheck.constEnd()) {
+#if QT_VERSION >= 0x050e00
+    while (!abort.loadRelaxed() && filesIt != filesToCheck.constEnd())
+#else
+    while (!abort.load() && filesIt != filesToCheck.constEnd())
+#endif
+    {
         fileInfo.setFile(path + QDir::separator() + *filesIt);
         ++filesIt;
         fetch(fileInfo, base, firstTime, updatedFiles, path);

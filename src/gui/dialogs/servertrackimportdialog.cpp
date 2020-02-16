@@ -368,7 +368,8 @@ void ServerTrackImportDialog::updateFileTrackData(int index)
               tr("No result") : tr("No result selected"));
   stringList.push_back(str);
   for (auto it = trackData.constBegin(); it != trackData.constEnd(); ++it) {
-    str.sprintf("%02d ", (*it).getTrack());
+    str = QString(QLatin1String("%1 "))
+        .arg((*it).getTrack(), 2, 10, QLatin1Char('0'));
     str += (*it).getTitle();
     str += QLatin1Char('/');
     str += (*it).getArtist();

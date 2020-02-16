@@ -217,7 +217,13 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     }
     return result;
   } else if (role == CompletionsRole) {
+#if QT_VERSION >= 0x050e00
+    const QSet<QString> completions =
+        getCompletionsForType(it->getExtendedType());
+    QStringList result(completions.constBegin(), completions.constEnd());
+#else
     QStringList result = getCompletionsForType(it->getExtendedType()).toList();
+#endif
     result.sort();
     return result;
   } else if (role == NoticeRole) {

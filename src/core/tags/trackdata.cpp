@@ -538,7 +538,13 @@ QSet<QString> getLowerCaseWords(const QString& str)
         simplified += QLatin1Char(' ');
       }
     }
+#if QT_VERSION >= 0x050e00
+    const QStringList words =
+        simplified.split(QLatin1Char(' '), QString::SkipEmptyParts);
+    return QSet<QString>(words.constBegin(), words.constEnd());
+#else
     return simplified.split(QLatin1Char(' '), QString::SkipEmptyParts).toSet();
+#endif
   }
   return QSet<QString>();
 }
