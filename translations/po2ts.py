@@ -131,7 +131,7 @@ def set_ts_translations(infn, outfn, trans):
                                              translation + b'</translation>')
                         else:
                             print('Could not find translation for "%s"' %
-                                  source)
+                                  source.decode())
                     elif b'<numerusform' in line:
                         if numerusforms:
                             translation = encode_entities(numerusforms.pop(0))
@@ -139,7 +139,7 @@ def set_ts_translations(infn, outfn, trans):
                                                 translation + b'</numerusform>')
                         else:
                             print('Could not find translation for "%s"' %
-                                  source)
+                                  source.decode())
 
                 outfh.write(line)
 
@@ -163,6 +163,9 @@ def generate_ts(lupdate_cmd, podir, srcdir):
     os.system(lupdate_cmd + ' -recursive -locations none . -ts ' +
               ' '.join([os.path.join(curdir, 'tmp_' + l + '.ts')
                         for l in languages]))
+    if 'en' in languages:
+        os.system(lupdate_cmd + ' -pluralonly -recursive -locations none . -ts ' +
+                  os.path.join(curdir, 'tmp_en.ts'))
     os.chdir(curdir)
     for pofile, lang in zip(pofiles, languages):
         tmptsfn = 'tmp_' + lang + '.ts'

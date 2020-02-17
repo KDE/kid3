@@ -636,12 +636,18 @@ void BaseMainWindowImpl::updateStatusLabel()
   if (m_statusLabel) {
     QStringList counts;
     if (m_folderCount != 0) {
+      //~ singular %n folder
+      //~ plural %n folders
       counts.append(tr("%n folders", "", m_folderCount));
     }
     if (m_fileCount != 0) {
+      //~ singular %n file
+      //~ plural %n files
       counts.append(tr("%n files", "", m_fileCount));
     }
     if (m_selectionCount != 0) {
+      //~ singular %n selected
+      //~ plural %n selected
       counts.append(tr("%n selected", "", m_selectionCount));
     }
     if (counts.isEmpty()) {

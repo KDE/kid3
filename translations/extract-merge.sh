@@ -21,6 +21,10 @@ elif hash extract-messages.sh 2>/dev/null; then
   cd -
   mkdir -p po
   mv ../po/* po
+  if test -f ../enpo/kid3_qt.po; then
+    mkdir -p po/en
+    mv ../enpo/kid3_qt.po po/en/
+  fi
   rmdir ../po ../enpo
 else
   echo "extract-messages.sh not found in path, falling back to custom extraction"
@@ -57,7 +61,9 @@ fi
 echo "Merging translations"
 CATALOGS=`find po -name '*.po'`
 for CAT in $CATALOGS; do
-  echo $CAT
-  msgmerge --quiet --update --backup=none $CAT po/${PROJECT}_qt.pot
+  if test "$CAT" != "po/en/kid3_qt.po"; then
+    echo $CAT
+    msgmerge --quiet --update --backup=none $CAT po/${PROJECT}_qt.pot
+  fi
 done
 echo "Done"

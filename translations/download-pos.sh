@@ -30,3 +30,28 @@ for lang in $(cat $subdirs); do
     echo "Downloaded po/$lang"
   fi
 done
+
+if ! test -f po/en/kid3_qt.po; then
+  echo "Extracting po/en/kid3_qt.po"
+  if hash extract-messages.sh 2>/dev/null; then
+    cd ..
+    mkdir -p po enpo
+    extract-messages.sh
+    cd -
+    rm -rf ../po
+    if test -f ../enpo/kid3_qt.po; then
+      mkdir -p po/en
+      mv ../enpo/kid3_qt.po po/en/
+    else
+      echo "ERROR: ../enpo/kid3_qt.po with English plurals not found."
+      exit 1
+    fi
+    rmdir ../enpo
+  else
+    echo "ERROR: po/en/kid3_qt.po is missing and extract-messages.sh not found in PATH."
+    echo "Get svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/scripts and add it to the PATH!"
+    exit 1
+  fi
+else
+  echo "Using existing po/en/kid3_qt.po"
+fi

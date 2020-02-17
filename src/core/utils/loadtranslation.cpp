@@ -96,12 +96,12 @@ void Utils::loadTranslation(const QString& lang)
   auto kid3Tr = new QTranslator(qApp);
   for (const QString& localeName : localeNames) {
     if (
-        localeName.startsWith(QLatin1String("en")) ||
         (!translationsDir.isNull() &&
          kid3Tr->load(QLatin1String("kid3_") + localeName, translationsDir,
                       searchDelimiters)) ||
         kid3Tr->load(QLatin1String("kid3_") + localeName, QLatin1String("."),
-                     searchDelimiters)
+                     searchDelimiters) ||
+        localeName.startsWith(QLatin1String("en"))
         ) {
       break;
     }
