@@ -60,6 +60,24 @@ void Utils::loadTranslation(const QString& lang)
     languages.prepend(lang);
   }
 
+  // Fix the translations returned from QLocale::uiLanguages() if '_' or '@'
+  // have been replaced by '-'. "zh_CN" is returned as "zh-CN", "sr@latin" as
+  // "sr-latin". Both "sr@ijekavian" and "sr@ijekavianlatin" give "sr-ijekavia",
+  // so this case cannot be fixed.
+  for (auto it = languages.begin(); it != languages.end(); ++it) {
+    const int len = it->length();
+    const int dashPos = it->lastIndexOf(QLatin1Char('-'));
+    if (dashPos > 0 && dashPos < len -1) {
+      (*it)[dashPos] = QLatin1Char(dashPos == len - 3 ? '_' : '@');
+    }
+    // Some more fixes for languages encountered on macOS,
+    // e.g. "sr-Latn_SP", "zh-Hant_TW".
+    it->replace(QLatin1String("@Latn"), QLatin1String("@latin"))
+        .replace(QLatin1String("-Latn"), QLatin1String("@latin"))
+        .remove(QLatin1String("-Hant"))
+        .remove(QLatin1String("-Hans"));
+  }
+
   QString translationsDir;
 #ifdef CFG_TRANSLATIONSDIR
   translationsDir = QLatin1String(CFG_TRANSLATIONSDIR);
