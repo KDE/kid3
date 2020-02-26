@@ -117,8 +117,8 @@
     </screenshot>
   </screenshots>
   <url type="homepage">https://kid3.kde.org/</url>
-  <url type="bugtracker">https://invent.kde.org/kde/kid3/issues</url>
-  <url type="help">https://invent.kde.org/kde/kid3/issues</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kid3</url>
+  <url type="help">https://docs.kde.org/index.php?application=kid3</url>
   <developer_name>Urs Fleisch</developer_name>
   <developer_name xml:lang="ca">Urs Fleisch</developer_name>
   <developer_name xml:lang="ca-valencia">Urs Fleisch</developer_name>

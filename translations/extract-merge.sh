@@ -6,7 +6,7 @@
 BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
 PROJECTVERSION="3.8.2" # project version
-BUGADDR="https://invent.kde.org/kde/kid3/issues" # MSGID-Bugs
+BUGADDR="https://bugs.kde.org" # MSGID-Bugs
 WDIR=`pwd` # working dir
 
 # Use extract-merge.sh if found in the path, its from

@@ -100,8 +100,7 @@ int main(int argc, char* argv[])
                        QStringLiteral("Audio Tag Editor"), KAboutLicense::GPL,
                        QStringLiteral("(c) 2003-" RELEASE_YEAR " Urs Fleisch"),
                        QString(),
-                       QStringLiteral("https://kid3.kde.org"),
-                       QStringLiteral("https://invent.kde.org/kde/kid3/issues"));
+                       QStringLiteral("https://kid3.kde.org"));
   aboutData.setOrganizationDomain(QByteArray("kde.org"));
   aboutData.addAuthor(QStringLiteral("Urs Fleisch"), QString(),
                       QStringLiteral("ufleisch@users.sourceforge.net"));
