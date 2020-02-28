@@ -11,9 +11,11 @@ def get_po_translations(fn):
     Read all translations from a .po file, fill them into an associative
     array.
     """
+    msgctxt = b''
     msgid = b''
     msgstr = b''
     msgstrs = []
+    in_msgctxt = False
     in_msgid = False
     in_msgstr = False
     in_msgstrs = False
@@ -21,13 +23,18 @@ def get_po_translations(fn):
 
     def add_trans():
         if msgid:
+            context = msgctxt
+            pipepos = context.find(b'|')
+            if pipepos != -1:
+                context = context[:pipepos]
             if in_msgstrs:
                 if msgstr:
                     msgstrs.append(msgstr)
-                trans[msgid] = msgstrs
+                trans.setdefault(msgid, {})[context] = msgstrs
             else:
-                trans[msgid] = msgstr
+                trans.setdefault(msgid, {})[context] = msgstr
 
+    msgctxtre = re.compile(br'^msgctxt "(.*)"$')
     msgidre = re.compile(br'^msgid "(.*)"$')
     msgstrre = re.compile(br'^msgstr "(.*)"$')
     msgstrsre = re.compile(br'^msgstr\[\d\] "(.*)"$')
@@ -35,18 +42,29 @@ def get_po_translations(fn):
     with open(fn, 'rb') as fh:
         for line in fh:
             line = line.replace(b'\r\n', b'\n')
+            m = msgctxtre.match(line)
+            if m:
+                add_trans()
+                msgid = b'' # do not add it again in add_trans() call below
+                msgctxt = m.group(1)
+                in_msgctxt = True
+                in_msgid = False
+                in_msgstr = False
+                in_msgstrs = False
             m = msgidre.match(line)
             if m:
                 add_trans()
                 msgid = m.group(1)
                 msgstr = b''
                 msgstrs = []
+                in_msgctxt = False
                 in_msgid = True
                 in_msgstr = False
                 in_msgstrs = False
             m = msgstrre.match(line)
             if m:
                 msgstr = m.group(1)
+                in_msgctxt = False
                 in_msgid = False
                 in_msgstr = True
                 in_msgstrs = False
@@ -55,12 +73,15 @@ def get_po_translations(fn):
                 if msgstr:
                     msgstrs.append(msgstr)
                 msgstr = m.group(1)
+                in_msgctxt = False
                 in_msgid = False
                 in_msgstr = True
                 in_msgstrs = True
             m = strcontre.match(line)
             if m:
-                if in_msgid:
+                if in_msgctxt:
+                    msgctxt += m.group(1)
+                elif in_msgid:
                     msgid += m.group(1)
                 elif in_msgstr:
                     msgstr += m.group(1)
@@ -91,9 +112,11 @@ def set_ts_translations(infn, outfn, trans):
             .replace(br'\"', b'&quot;') \
             .replace(br'\n', b'\n')
 
+    name = b''
     source = b''
     in_source = False
     numerusforms = []
+    namere = re.compile(br'<name>(.*)</name>')
     sourcere = re.compile(br'<source>(.*)</source>')
     sourcebeginre = re.compile(br'<source>(.*)$')
     sourceendre = re.compile(br'^(.*)</source>')
@@ -101,6 +124,9 @@ def set_ts_translations(infn, outfn, trans):
         with open(outfn, 'wb') as outfh:
             for line in infh:
                 line = line.replace(b'\r\n', b'\n')
+                m = namere.search(line)
+                if m:
+                    name = m.group(1)
                 m = sourcere.search(line)
                 if m:
                     source = m.group(1)
@@ -121,7 +147,12 @@ def set_ts_translations(infn, outfn, trans):
                     elif b'<translation' in line:
                         source = decode_entities(source)
                         if source in trans:
-                            translation = trans[source]
+                            translations_for_context = trans[source]
+                            translation = translations_for_context.get(name, b'')
+                            if not translation:
+                                for translation in translations_for_context.values():
+                                    if translation:
+                                        break
                             line = line.replace(b' type="unfinished"', b'')
                             if type(translation) == list:
                                 numerusforms = translation
@@ -130,16 +161,16 @@ def set_ts_translations(infn, outfn, trans):
                                 line = line.replace(b'</translation>',
                                              translation + b'</translation>')
                         else:
-                            print('Could not find translation for "%s"' %
-                                  source.decode())
+                            print('%s: Could not find translation for "%s"' %
+                                  (outfn, source.decode()))
                     elif b'<numerusform' in line:
                         if numerusforms:
                             translation = encode_entities(numerusforms.pop(0))
                             line = line.replace(b'</numerusform>',
                                                 translation + b'</numerusform>')
                         else:
-                            print('Could not find translation for "%s"' %
-                                  source.decode())
+                            print('%s: Could not find translation for "%s"' %
+                                  (outfn, source.decode()))
 
                 outfh.write(line)
 
