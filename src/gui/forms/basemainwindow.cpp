@@ -1486,7 +1486,14 @@ void BaseMainWindowImpl::renameFile()
         TaggedFileIterator::closeFileHandles(index);
       }
       QString newPath = dirName + QLatin1Char('/') + newFileName;
-      if (model->rename(index, newFileName)) {
+      bool ok = model->rename(index, newFileName);
+      if (!ok && !(index.flags() & Qt::ItemIsEditable)) {
+        // The file system model seems to be too restrictive, renaming without
+        // write permission is possible on Linux, so try again without
+        // using the model.
+        ok = QFile::rename(absFilename, newPath);
+      }
+      if (ok) {
         if (taggedFile) {
           taggedFile->updateCurrentFilename();
           if (selItems.size() == 1) {
