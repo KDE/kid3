@@ -13,7 +13,6 @@ Build-Depends: debhelper (>= 9),
  qtdeclarative5-dev-tools,
  qml-module-qtquick2,
  cmake,
- python,
  libid3-3.8.3-dev,
  libflac++-dev,
  libvorbis-dev,
@@ -26,13 +25,13 @@ Build-Depends: debhelper (>= 9),
  libreadline-dev,
  xsltproc
 Standards-Version: 4.2.1
+Rules-Requires-Root: no
 Homepage: https://kid3.kde.org/
 
 Package: kid3-core
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends}
-Recommends: libqt5multimedia5-plugins
 Breaks: kid3 (<< 3.0.2-2)
 Replaces: kid3 (<< 3.0.2-2)
 Description: Audio tag editor core libraries and data
@@ -67,7 +66,8 @@ Package: kid3-qt
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends},
- kid3-core (= ${binary:Version})
+ kid3-core (= ${binary:Version}),
+ libqt5multimedia5-plugins
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files
