@@ -107,7 +107,17 @@ with open(docbook, 'rb') as in_fh:
     for line in in_fh:
         line = line.replace(
             b'\"-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN\" \"dtd/kdex.dtd\"',
-            b'\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"')
+            b'\"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN\" \"dtd/kdedbx45.dtd\"'
+                  ).replace(
+            b'<!ENTITY doublehyphen \\'--\\'>',
+            b'<!ENTITY doublehyphen \\'--\\'>' +
+            b'\\n  <!ENTITY Debian \\'<acronym><trademark class=\"registered\">Debian</trademark></acronym>\\'>' +
+            b'\\n  <!ENTITY macOS \\'<trademark class=\"registered\">macOS</trademark>\\'>' +
+            b'\\n  <!ENTITY JSON \"<acronym>JSON</acronym>\">' +
+            b'\\n  <!ENTITY javascript \"<application>JavaScript</application>\">' +
+            b'\\n  <!ENTITY Del	\"<keycap>Del</keycap>\">' +
+            b'\\n  <!ENTITY Up \"<keysym>Up</keysym>\">'
+            b'\\n  <!ENTITY Down \"<keysym>Down</keysym>\">')
         out_fh.write(line)
 out_fh.flush()
 args.append(out_fh.name)
