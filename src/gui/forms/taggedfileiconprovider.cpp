@@ -38,8 +38,15 @@
  * Constructor.
  */
 TaggedFileIconProvider::TaggedFileIconProvider()
-  : m_requestedSize(16, 16)
+  : m_requestedSize(16, 16), m_markedColor(QBrush(Qt::gray))
 {
+  if (qobject_cast<QGuiApplication*>(QCoreApplication::instance()) != nullptr) {
+    QPalette palette = QGuiApplication::palette();
+    int h1, s1, l1, h2, s2, l2;
+    palette.window().color().getHsl(&h1, &s1, &l1);
+    palette.windowText().color().getHsl(&h2, &s2, &l2);
+    m_markedColor = QColor::fromHsl((h1 + h2) / 2, (s1 + s2) / 2, (l1 + l2) / 2);
+  }
 }
 
 /**
@@ -245,14 +252,11 @@ QVariant TaggedFileIconProvider::backgroundForTaggedFile(
  */
 QVariant TaggedFileIconProvider::colorForContext(ColorContext context) const
 {
-  const bool isGuiApp =
-      qobject_cast<QGuiApplication*>(QCoreApplication::instance()) != nullptr;
   switch (context) {
   case ColorContext::None:
     break;
   case ColorContext::Marked:
-    return isGuiApp ? QGuiApplication::palette().mid()
-                    : QBrush(Qt::gray);
+    return m_markedColor;
   case ColorContext::Error:
     return QBrush(Qt::red);
   }

@@ -69,6 +69,7 @@
 #include "fileproxymodel.h"
 #include "filesystemmodel.h"
 #include "coretaggedfileiconprovider.h"
+#include "icoreplatformtools.h"
 #include "kid3application.h"
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
@@ -670,10 +671,13 @@ void Kid3Form::nameLineEditChanged(const QString& txt)
  */
 void Kid3Form::markChangedFilename(bool en)
 {
-  if (en) {
+  CoreTaggedFileIconProvider* colorProvider;
+  if (en &&
+      (colorProvider = m_app->getPlatformTools()->iconProvider()) != nullptr) {
     QPalette changedPalette(m_nameLabel->palette());
     changedPalette.setBrush(QPalette::Active, QPalette::Window,
-                            changedPalette.mid());
+                            colorProvider->colorForContext(ColorContext::Marked)
+                            .value<QBrush>());
     m_nameLabel->setPalette(changedPalette);
   } else {
     m_nameLabel->setPalette(QPalette());

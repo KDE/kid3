@@ -109,4 +109,5 @@ private:
   QMap<QByteArray, QVariant> m_pixmapMap;
   QSize m_requestedSize;
   QVariant m_modifiedIcon;
+  QVariant m_markedColor;
 };
