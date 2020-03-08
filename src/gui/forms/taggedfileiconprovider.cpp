@@ -124,6 +124,63 @@ void TaggedFileIconProvider::createIcons()
     m_iconMap.insert(it.key(), QIcon(it.value().value<QPixmap>()));
   }
 
+  if (m_modifiedIcon.isNull()) {
+    // Some KDE styles do not provide a QStyle::SP_DriveFDIcon icon.
+    // Create a fallback icon for such cases.
+    static const char* const modifiedXpm[] = {
+      "16 16 33 1",
+      ". c None",
+      "B c None",
+      "A c None",
+      "C c None",
+      "D c None",
+      "E c None",
+      "# c #000000",
+      "b c #006562",
+      "j c #414041",
+      "x c #525552",
+      "f c #529594",
+      "e c #52959c",
+      "w c #5a555a",
+      "v c #626162",
+      "u c #626562",
+      "r c #737173",
+      "p c #737573",
+      "q c #7b757b",
+      "o c #838183",
+      "m c #838583",
+      "z c #8b8d8b",
+      "l c #949194",
+      "k c #9c959c",
+      "i c #a4a1a4",
+      "h c #a4a5a4",
+      "y c #b4b6b4",
+      "g c #bdb6bd",
+      "a c #c5c2c5",
+      "s c #c5c6c5",
+      "c c #cdc6cd",
+      "t c #dedade",
+      "n c #eeeaee",
+      "d c #ffffff",
+      ".......##.......",
+      "......#ab#......",
+      ".....#cbde#.....",
+      "....#abdddf#....",
+      "...#gbddddde#...",
+      "..#hijddddddf#..",
+      ".#kjkljdddddd##.",
+      "#mjnjmojddddjma#",
+      "#jnpnjqrjddjqs#.",
+      "#drtttjuvjjua#..",
+      ".#dasajjwxws#...",
+      "..#dyjzljxa#...A",
+      "...#jrrjws#...AB",
+      "....#cjxa#...ACB",
+      ".....#cs#...ADE.",
+      "......##...ABB.."
+    };
+    m_modifiedIcon = QIcon(QPixmap(modifiedXpm));
+  }
   if (!m_modifiedIcon.isNull()) {
     m_iconMap.insert("modified", m_modifiedIcon);
     m_pixmapMap.insert("modified",
