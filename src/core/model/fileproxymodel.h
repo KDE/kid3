@@ -276,7 +276,7 @@ public:
    * Get icon provider.
    * @return icon provider.
    */
-  CoreTaggedFileIconProvider* getIconProvider() const { return m_iconProvider.data(); }
+  CoreTaggedFileIconProvider* getIconProvider() const { return m_iconProvider; }
 
   /**
    * Access to tagged file factories.
@@ -520,7 +520,7 @@ private:
   QPersistentModelIndex m_exclusiveDraggableIndex;
   QList<QRegExp> m_includeFolderFilters;
   QList<QRegExp> m_excludeFolderFilters;
-  QScopedPointer<CoreTaggedFileIconProvider> m_iconProvider;
+  CoreTaggedFileIconProvider* m_iconProvider;
   FileSystemModel* m_fsModel;
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;

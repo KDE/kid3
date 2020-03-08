@@ -28,6 +28,8 @@
 
 #include <QScopedPointer>
 #include "icoreplatformtools.h"
+#include "isettings.h"
+#include "coretaggedfileiconprovider.h"
 
 class QSettings;
 
@@ -119,4 +121,5 @@ public:
 private:
   QSettings* m_settings;
   QScopedPointer<ISettings> m_config;
+  QScopedPointer<CoreTaggedFileIconProvider> m_iconProvider;
 };

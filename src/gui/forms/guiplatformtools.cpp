@@ -35,12 +35,23 @@
 #endif
 
 /**
+ * Destructor.
+ */
+GuiPlatformTools::~GuiPlatformTools()
+{
+  // Must not be inline because of forwared declared QScopedPointer.
+}
+
+/**
  * Get icon provider for tagged files.
  * @return icon provider.
  */
 CoreTaggedFileIconProvider* GuiPlatformTools::iconProvider()
 {
-  return new TaggedFileIconProvider;
+  if (!m_iconProvider) {
+    m_iconProvider.reset(new TaggedFileIconProvider);
+  }
+  return m_iconProvider.data();
 }
 
 /**

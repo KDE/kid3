@@ -36,7 +36,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GuiPlatformTools() override = default;
+  virtual ~GuiPlatformTools() override;
 
   /**
    * Get icon provider for tagged files.
@@ -65,4 +65,7 @@ public:
    */
   virtual QObject* createAudioPlayer(Kid3Application* app,
                                      bool dbusEnabled) const override;
+
+private:
+  QScopedPointer<CoreTaggedFileIconProvider> m_iconProvider;
 };

@@ -75,7 +75,10 @@ ISettings* CorePlatformTools::applicationSettings()
  */
 CoreTaggedFileIconProvider* CorePlatformTools::iconProvider()
 {
-  return new CoreTaggedFileIconProvider;
+  if (!m_iconProvider) {
+    m_iconProvider.reset(new CoreTaggedFileIconProvider);
+  }
+  return m_iconProvider.data();
 }
 
 /**
