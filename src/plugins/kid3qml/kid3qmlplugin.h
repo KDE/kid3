@@ -70,6 +70,6 @@ public:
 private:
   ICorePlatformTools* m_platformTools;
   Kid3Application* m_kid3App;
-  QScopedPointer<QmlImageProvider> m_imageProvider;
+  QmlImageProvider* m_imageProvider;
   bool m_ownsKid3App;
 };

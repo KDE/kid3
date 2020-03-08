@@ -125,7 +125,8 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
  */
 Kid3QmlPlugin::Kid3QmlPlugin(QObject* parent)
   : QQmlExtensionPlugin(parent),
-    m_platformTools(nullptr), m_kid3App(nullptr), m_ownsKid3App(false)
+    m_platformTools(nullptr), m_kid3App(nullptr), m_imageProvider(nullptr),
+    m_ownsKid3App(false)
 {
 }
 
@@ -222,9 +223,12 @@ void Kid3QmlPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
       m_ownsKid3App = true;
       rootContext->setContextProperty(QLatin1String("app"), m_kid3App);
     }
-    m_imageProvider.reset(new QmlImageProvider(
-          m_kid3App->getFileProxyModel()->getIconProvider()));
-    m_kid3App->setImageProvider(m_imageProvider.data());
-    engine->addImageProvider(QLatin1String("kid3"), m_imageProvider.data());
+    if (!m_imageProvider) {
+      m_imageProvider = new QmlImageProvider(
+            m_kid3App->getFileProxyModel()->getIconProvider());
+    }
+    m_kid3App->setImageProvider(m_imageProvider);
+    // The QQmlEngine takes ownership of m_imageProvider.
+    engine->addImageProvider(QLatin1String("kid3"), m_imageProvider);
   }
 }
