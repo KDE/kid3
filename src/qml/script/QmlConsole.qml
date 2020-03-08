@@ -95,6 +95,7 @@ Rectangle {
 
       TextEdit {
         id: output
+        color: palette.text
         width: flick.width
         height: flick.height
         wrapMode: TextEdit.Wrap
@@ -121,6 +122,7 @@ Rectangle {
 
     TextInput {
       id: input
+      color: palette.text
 
       property variant history: []
       property int historyIndex: 0
