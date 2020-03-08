@@ -61,7 +61,7 @@ QHash<int,QByteArray> getRoleHash()
 FrameTableModel::FrameTableModel(
     bool id3v1, CoreTaggedFileIconProvider* colorProvider, QObject* parent)
   : QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-    m_colorProvider(colorProvider), m_id3v1(id3v1)
+    m_colorProvider(colorProvider), m_id3v1(id3v1), m_emptyHeaders(false)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }
@@ -291,7 +291,7 @@ bool FrameTableModel::setData(const QModelIndex& index,
 QVariant FrameTableModel::headerData(
     int section, Qt::Orientation orientation, int role) const
 {
-  if (role != Qt::DisplayRole)
+  if (role != Qt::DisplayRole || m_emptyHeaders)
     return QVariant();
   if (orientation == Qt::Horizontal) {
     return section == CI_Enable ? tr("Name") : tr("Data");

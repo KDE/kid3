@@ -271,6 +271,14 @@ public:
    */
   QSet<QString> getCompletionsForType(Frame::ExtendedType type) const;
 
+  /**
+   * Set if headerData() shall return empty values.
+   * This can be used to avoid having text fragments visible in the header of
+   * frame table columns.
+   * @param empty true to use empty values, default is false
+   */
+  void setHeadersEmpty(bool empty) { m_emptyHeaders = empty; }
+
 public slots:
   /**
    * Select all frames in the table.
@@ -328,4 +336,5 @@ private:
   QVector<int> m_frameTypeSeqNr;
   CoreTaggedFileIconProvider* m_colorProvider;
   bool m_id3v1;
+  bool m_emptyHeaders;
 };

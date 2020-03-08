@@ -442,8 +442,10 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     rightHalfLayout->addWidget(m_tagWidget[tagNr], 100);
 
     auto idHBoxLayout = new QHBoxLayout(m_tagWidget[tagNr]);
+    FrameTableModel* frameModel = m_app->frameModel(tagNr);
+    frameModel->setHeadersEmpty(true);
     m_frameTable[tagNr] = new FrameTable(
-          m_app->frameModel(tagNr), m_app->genreModel(tagNr), m_tagWidget[tagNr]);
+          frameModel, m_app->genreModel(tagNr), m_tagWidget[tagNr]);
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
     m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
