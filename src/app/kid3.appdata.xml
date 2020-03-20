@@ -7,6 +7,7 @@
   <name>Kid3</name>
   <name xml:lang="ca">Kid3</name>
   <name xml:lang="ca-valencia">Kid3</name>
+  <name xml:lang="cs">Kid3</name>
   <name xml:lang="es">Kid3</name>
   <name xml:lang="et">Kid3</name>
   <name xml:lang="eu">Kid3</name>
@@ -23,6 +24,7 @@
   <summary>Edit audio file metadata</summary>
   <summary xml:lang="ca">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="ca-valencia">Edita les metadades dels fitxers d'àudio</summary>
+  <summary xml:lang="cs">Upravujte metadata souboru hudby</summary>
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
@@ -44,6 +46,7 @@
     </p>
     <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="ca-valencia">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
+    <p xml:lang="cs">Pomocí Kid3, editoru značek hudby, můžete upravovat značky v MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a dalších souborech.</p>
     <p xml:lang="et">Helifailide siltide redaktor Kid3 võimaldab muuta MP3-, Ogg/Vorbise, DSF-, FLAC-, Opuse, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja tracker-failide silte.</p>
     <p xml:lang="eu">Kid3-rekin, audio etiketa editorea izaki, MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF eta tracker fitxategien etiketak editatu ditzakezu.</p>
     <p xml:lang="it">Con Kid3, un editor di tag audio, puoi modificare i tag nei file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e nei tracker.</p>
@@ -111,6 +114,7 @@
       <caption>Kid3 main window</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kid3</caption>
+      <caption xml:lang="cs">Hlavní okno Kid3</caption>
       <caption xml:lang="es">Ventana principal de Kid3</caption>
       <caption xml:lang="et">Kid3 peaaken</caption>
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
@@ -132,6 +136,7 @@
   <developer_name>Urs Fleisch</developer_name>
   <developer_name xml:lang="ca">Urs Fleisch</developer_name>
   <developer_name xml:lang="ca-valencia">Urs Fleisch</developer_name>
+  <developer_name xml:lang="cs">Urs Fleisch</developer_name>
   <developer_name xml:lang="es">Urs Fleisch</developer_name>
   <developer_name xml:lang="et">Urs Fleisch</developer_name>
   <developer_name xml:lang="eu">Urs Fleisch</developer_name>
