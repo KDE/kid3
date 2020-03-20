@@ -2,6 +2,7 @@
 Name=Kid3
 Name[ca]=Kid3
 Name[ca@valencia]=Kid3
+Name[cs]=Kid3
 Name[es]=Kid3
 Name[et]=Kid3
 Name[eu]=Kid3
@@ -23,6 +24,7 @@ MimeType=audio/mpeg;audio/ogg;application/ogg;audio/x-flac;audio/x-flac+ogg;audi
 GenericName=Audio Tagger
 GenericName[ca]=Etiquetador d'àudio
 GenericName[ca@valencia]=Etiquetador d'àudio
+GenericName[cs]=Značkovač hudby
 GenericName[es]=Etiquetador de sonido
 GenericName[et]=Helifailide sildistaja
 GenericName[eu]=Audio etiketatzailea
