@@ -249,6 +249,18 @@ public slots:
   void setFocusTag(Frame::TagNumber tagNr);
 
   /**
+   * Set focus on next tag controls.
+   * @param tagNr current tag, Frame::Tag_NumValues if not on tag
+   */
+  void setFocusNextTag(Frame::TagNumber tagNr);
+
+  /**
+   * Set focus on previous tag controls.
+   * @param tagNr current tag, Frame::Tag_NumValues if not on tag
+   */
+  void setFocusPreviousTag(Frame::TagNumber tagNr);
+
+  /**
    * Set focus on file list.
    */
   void setFocusFileList();

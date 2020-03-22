@@ -42,6 +42,7 @@ qt5_wrap_cpp(gui_GEN_MOC_SRCS
   forms/playlistview.h
   forms/audioplayer.h
   forms/mprisinterface.h
+  forms/sectionactions.h
   TARGET kid3-gui
 )
 
@@ -100,6 +101,7 @@ add_library(kid3-gui
   forms/audioplayer.cpp
   forms/mprisinterface.cpp
   forms/guiplatformtools.cpp
+  forms/sectionactions.cpp
   ${gui_GEN_MOC_SRCS}
 )
 

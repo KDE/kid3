@@ -330,6 +330,45 @@ and folder listboxes, the right side contains the <guilabel>File</guilabel>,
 </guilabel> sections.
 </para>
 
+<para>
+To navigate between the different sections using the keyboard, several keyboard
+shortcuts are supported. In the tag sections, the shortcuts are active while
+not editing text or when being in the first column.
+
+<itemizedlist>
+<listitem><para>
+<keycombo>&Alt;<keycap>Left</keycap></keycombo>: Go to previous section
+(<keycombo><keycap>Command</keycap><keycap>[</keycap></keycombo> on &macOS;)
+</para></listitem>
+<listitem><para>
+<keycombo>&Alt;<keycap>Right</keycap></keycombo>: Go to next section
+(<keycombo><keycap>Command</keycap><keycap>]</keycap></keycombo> on &macOS;)
+</para></listitem>
+<listitem><para>
+<keycombo>&Ctrl;<keycap>Shift</keycap><keycap>V</keycap></keycombo>: From
+other tag
+</para></listitem>
+<listitem><para>
+<keycombo>&Ctrl;<keycap>C</keycap></keycombo>: Copy
+</para></listitem>
+<listitem><para>
+<keycombo>&Ctrl;<keycap>V</keycap></keycombo>: Paste
+</para></listitem>
+<listitem><para>
+<keycombo><keycap>Shift</keycap><keycap>Delete</keycap></keycombo>: Remove
+</para></listitem>
+<listitem><para>
+<keycombo><keycap>F2</keycap></keycombo>: Edit
+</para></listitem>
+<listitem><para>
+<keycombo><keycap>Insert</keycap></keycombo>: Add
+</para></listitem>
+<listitem><para>
+<keycombo><keycap>Delete</keycap></keycombo>: Delete
+</para></listitem>
+</itemizedlist>
+</para>
+
 <sect2 id="file-list">
 <title>File List</title>
 

@@ -71,6 +71,7 @@
 #include "coretaggedfileiconprovider.h"
 #include "icoreplatformtools.h"
 #include "kid3application.h"
+#include "sectionactions.h"
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
@@ -582,6 +583,76 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     setTabOrder(tabWidget, m_frameTable[tagNr]);
     tabWidget = m_frameTable[tagNr];
   }
+
+  auto sectionActions = new SectionActions(SectionActions::Navigation,
+                                           m_fileListBox);
+  connect(sectionActions->previousSectionAction(), &QAction::triggered,
+          this, [this]() { setFocusPreviousTag(Frame::Tag_NumValues); });
+  connect(sectionActions->nextSectionAction(), &QAction::triggered,
+          this, &Kid3Form::setFocusDirList);
+
+  sectionActions = new SectionActions(SectionActions::Navigation, m_dirListBox);
+  connect(sectionActions->previousSectionAction(), &QAction::triggered,
+          this, &Kid3Form::setFocusFileList);
+  connect(sectionActions->nextSectionAction(), &QAction::triggered,
+          this, &Kid3Form::setFocusFilename);
+
+  sectionActions = new SectionActions(SectionActions::Navigation |
+                                      SectionActions::Transfer,
+                                      m_fileWidget);
+  connect(sectionActions->previousSectionAction(), &QAction::triggered,
+          this, &Kid3Form::setFocusDirList);
+  connect(sectionActions->nextSectionAction(), &QAction::triggered,
+          this, [this]() { setFocusNextTag(Frame::Tag_NumValues); });
+  connect(sectionActions->transferAction(), &QAction::triggered,
+    m_app->tag(Frame::Tag_2), &Kid3ApplicationTagContext::getFilenameFromTags);
+
+  FOR_ALL_TAGS(tagNr) {
+    sectionActions = new SectionActions(
+          tagNr == Frame::Tag_1 ? SectionActions::Navigation |
+                                  SectionActions::Transfer |
+                                  SectionActions::EditSection
+                                : SectionActions::Navigation |
+                                  SectionActions::Transfer |
+                                  SectionActions::EditSection |
+                                  SectionActions::EditElement,
+          m_frameTable[tagNr]);
+    connect(sectionActions->previousSectionAction(), &QAction::triggered,
+            this, [this, tagNr]() {
+      setFocusPreviousTag(tagNr);
+    });
+    connect(sectionActions->nextSectionAction(), &QAction::triggered,
+            this, [this, tagNr]() {
+      setFocusNextTag(tagNr);
+    });
+
+    connect(sectionActions->copyAction(), &QAction::triggered,
+            m_app->tag(tagNr), &Kid3ApplicationTagContext::copyTags);
+    connect(sectionActions->pasteAction(), &QAction::triggered,
+            m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
+    connect(sectionActions->removeAction(), &QAction::triggered,
+            this, [this, tagNr]() {
+      m_app->tag(tagNr)->removeTags();
+      setFocusTag(tagNr);
+    });
+
+    QByteArray ba;
+    ba.append(static_cast<char>(tagNr == Frame::Tag_2 ? Frame::Tag_1
+                                                      : Frame::Tag_2));
+    ba.append(static_cast<char>(tagNr));
+    sectionActions->transferAction()->setData(ba);
+    connect(sectionActions->transferAction(), &QAction::triggered,
+            this, &Kid3Form::copyTagsActionData);
+
+    if (tagNr != Frame::Tag_1) {
+      connect(sectionActions->editAction(), &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::editFrame);
+      connect(sectionActions->addAction(), &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::addFrame);
+      connect(sectionActions->deleteAction(), &QAction::triggered,
+              m_app->tag(tagNr), &Kid3ApplicationTagContext::deleteFrame);
+    }
+  }
 }
 
 /**
@@ -901,7 +972,14 @@ void Kid3Form::hidePicture(bool hide)
  */
 void Kid3Form::setFocusFilename()
 {
-  m_nameLineEdit->setFocus();
+  if (m_fileWidget->isHidden()) {
+    hideFile(false);
+  }
+  if (isFilenameEditEnabled()) {
+    m_nameLineEdit->setFocus();
+  } else {
+    m_formatComboBox->setFocus();
+  }
 }
 
 /**
@@ -910,7 +988,53 @@ void Kid3Form::setFocusFilename()
  */
 void Kid3Form::setFocusTag(Frame::TagNumber tagNr)
 {
+  if (m_tagWidget[tagNr]->isHidden()) {
+    hideTag(tagNr, false);
+  }
   m_frameTable[tagNr]->setFocus();
+}
+
+/**
+ * Set focus on next tag controls.
+ * @param tagNr current tag, Frame::Tag_NumValues if not on tag
+ */
+void Kid3Form::setFocusNextTag(Frame::TagNumber tagNr)
+{
+  for (int i = tagNr == Frame::Tag_NumValues ? Frame::Tag_1
+                                             : tagNr + 1; ; ++i) {
+    if (i >= Frame::Tag_NumValues) {
+      setFocusFileList();
+      break;
+    } else if (i >= Frame::Tag_1) {
+      if (m_tagWidget[i]->isEnabled()) {
+        setFocusTag(static_cast<Frame::TagNumber>(i));
+        break;
+      }
+    } else {
+      break;
+    }
+  }
+}
+
+/**
+ * Set focus on previous tag controls.
+ * @param tagNr current tag, Frame::Tag_NumValues if not on tag
+ */
+void Kid3Form::setFocusPreviousTag(Frame::TagNumber tagNr)
+{
+  for (int i = tagNr - 1; ; --i) {
+    if (i < Frame::Tag_1) {
+      setFocusFilename();
+      break;
+    } else if (i < Frame::Tag_NumValues) {
+      if (m_tagWidget[i]->isEnabled()) {
+        setFocusTag(static_cast<Frame::TagNumber>(i));
+        break;
+      }
+    } else {
+      break;
+    }
+  }
 }
 
 /**
