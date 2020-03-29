@@ -760,7 +760,7 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
     if (numTracks > 0) {
       str += QLatin1Char('/');
       if (numDigits > 0) {
-        str = QString(QLatin1String("%1"))
+        str += QString(QLatin1String("%1"))
             .arg(numTracks, numDigits, 10, QLatin1Char('0'));
       } else {
         str += QString::number(numTracks);
