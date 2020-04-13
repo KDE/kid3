@@ -2468,7 +2468,7 @@ bool Kid3Application::nextFile(bool select, bool onlyTaggedFiles)
       while (!next.isValid() && parent.isValid()) {
         // to next sibling or next sibling of parent
         int row = parent.row();
-        if (parent == getRootIndex()) {
+        if (parent == getRootIndex() || !parent.isValid()) {
           // do not move beyond root index
           return false;
         }
@@ -2515,7 +2515,7 @@ bool Kid3Application::previousFile(bool select, bool onlyTaggedFiles)
       // to parent
       previous = current.parent();
     }
-    if (previous == getRootIndex()) {
+    if (previous == getRootIndex() || !previous.isValid()) {
       return false;
     }
   } while (onlyTaggedFiles && !FileProxyModel::getTaggedFileOfIndex(previous));
