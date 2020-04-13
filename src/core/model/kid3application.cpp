@@ -3284,8 +3284,8 @@ void Kid3Application::resetFileFilterIfNotMatching(const QStringList& filePaths)
               FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
   if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
     for (const QString& filePath : filePaths) {
-      if (!QDir::match(nameFilters, filePath) &&
-          !QFileInfo(filePath).isDir()) {
+      QFileInfo fi(filePath);
+      if (!QDir::match(nameFilters, fi.fileName()) && !fi.isDir()) {
         setAllFilesFileFilter();
         break;
       }
