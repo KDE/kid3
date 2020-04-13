@@ -4455,6 +4455,11 @@ Helps to find the encoding of ID3v1 tags by showing the tags of the
 current file in all available character encodings.
 </para></listitem>
 <listitem><para>
+<guilabel>English Title Case</guilabel>
+(<filename>TitleCase.qml</filename>):
+Formats text in the tags to English title case.
+</para></listitem>
+<listitem><para>
 <guilabel>Export CSV</guilabel>
 (<filename>ExportCsv.qml</filename>):
 Export recursively all tags of all files to a CSV file.
