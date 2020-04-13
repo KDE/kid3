@@ -4455,6 +4455,11 @@ Helps to find the encoding of ID3v1 tags by showing the tags of the
 current file in all available character encodings.
 </para></listitem>
 <listitem><para>
+<guilabel>ID3v1 to ASCII</guilabel>
+(<filename>Tag1ToAscii.qml</filename>):
+Transliterate extended latin characters in the ID3v1 tag to ASCII.
+</para></listitem>
+<listitem><para>
 <guilabel>English Title Case</guilabel>
 (<filename>TitleCase.qml</filename>):
 Formats text in the tags to English title case.

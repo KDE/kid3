@@ -248,6 +248,10 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
   if (!upgradeOnly || ConfigStore::getConfigVersion() < 5) {
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(
+            QLatin1String("ID3v1 to ASCII"),
+            QLatin1String("@qml %{qmlpath}/script/Tag1ToAscii.qml")));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(
             QLatin1String("English Title Case"),
             QLatin1String("@qml %{qmlpath}/script/TitleCase.qml")));
   }
