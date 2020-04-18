@@ -14,8 +14,8 @@ podir=$docdir/po
 docsdir=$docdir/docs
 branch=${1:-trunk}
 svn_path_prefix="svn://anonsvn.kde.org/home/kde/$branch/l10n-kf5"
-svn_folder="docmessages/kdereview"
-svn_docs_folder="docs/kdereview/kid3"
+svn_folder="docmessages/extragear-multimedia"
+svn_docs_folder="docs/extragear-multimedia/kid3"
 mkdir -p "$podir"
 svn -q export "$svn_path_prefix/templates/$svn_folder/kid3.pot" "$podir/kid3.pot"
 echo "Downloaded po/kid3.pot"
