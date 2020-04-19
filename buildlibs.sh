@@ -1296,6 +1296,1803 @@ index 9d14df23..cdf77eae 100644
      CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->inputSampleRate());
 EOF
 
+test -f taglib_large_file.patch ||
+  cat >taglib_large_file.patch <<"EOF"
+From 422d3ef95d4aff4975c334800aa9da4cb0c783a8 Mon Sep 17 00:00:00 2001
+From: Urs Fleisch <ufleisch@users.sourceforge.net>
+Date: Sun, 19 Apr 2020 11:13:55 +0200
+Subject: Support large files over 2GB
+
+Backport of 4dcf0b41c687292e7b1263a679921c157ae2c22a
+b01f45e141afa6a89aea319a2783f177e202fa1d
+https://github.com/taglib/taglib/pull/77
+
+diff --git a/taglib/ape/apefile.cpp b/taglib/ape/apefile.cpp
+index 9f298aaf..8c1592eb 100644
+--- a/taglib/ape/apefile.cpp
++++ b/taglib/ape/apefile.cpp
+@@ -69,13 +69,13 @@ public:
+     delete properties;
+   }
+ 
+-  long APELocation;
++  offset_t APELocation;
+   long APESize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   ID3v2::Header *ID3v2Header;
+-  long ID3v2Location;
++  offset_t ID3v2Location;
+   long ID3v2Size;
+ 
+   TagUnion tag;
+@@ -280,7 +280,7 @@ void APE::File::read(bool readProperties)
+ 
+   if(readProperties) {
+ 
+-    long streamLength;
++    offset_t streamLength;
+ 
+     if(d->APELocation >= 0)
+       streamLength = d->APELocation;
+diff --git a/taglib/ape/apeproperties.cpp b/taglib/ape/apeproperties.cpp
+index dee7e8c0..5a43445e 100644
+--- a/taglib/ape/apeproperties.cpp
++++ b/taglib/ape/apeproperties.cpp
+@@ -70,7 +70,7 @@ APE::Properties::Properties(File *, ReadStyle style) :
+   debug("APE::Properties::Properties() -- This constructor is no longer used.");
+ }
+ 
+-APE::Properties::Properties(File *file, long streamLength, ReadStyle style) :
++APE::Properties::Properties(File *file, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+@@ -142,10 +142,10 @@ namespace
+   }
+ }
+ 
+-void APE::Properties::read(File *file, long streamLength)
++void APE::Properties::read(File *file, offset_t streamLength)
+ {
+   // First, we assume that the file pointer is set at the first descriptor.
+-  long offset = file->tell();
++  offset_t offset = file->tell();
+   int version = headerVersion(file->readBlock(6));
+ 
+   // Next, we look for the descriptor.
+diff --git a/taglib/ape/apeproperties.h b/taglib/ape/apeproperties.h
+index 91625483..0e4856db 100644
+--- a/taglib/ape/apeproperties.h
++++ b/taglib/ape/apeproperties.h
+@@ -61,7 +61,7 @@ namespace TagLib {
+        * Create an instance of APE::Properties with the data read from the
+        * APE::File \a file.
+        */
+-      Properties(File *file, long streamLength, ReadStyle style = Average);
++      Properties(File *file, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Destroys this APE::Properties instance.
+@@ -129,7 +129,7 @@ namespace TagLib {
+       Properties(const Properties &);
+       Properties &operator=(const Properties &);
+ 
+-      void read(File *file, long streamLength);
++      void read(File *file, offset_t streamLength);
+ 
+       void analyzeCurrent(File *file);
+       void analyzeOld(File *file);
+diff --git a/taglib/ape/apetag.cpp b/taglib/ape/apetag.cpp
+index 89ef8ff4..805274b1 100644
+--- a/taglib/ape/apetag.cpp
++++ b/taglib/ape/apetag.cpp
+@@ -79,7 +79,7 @@ public:
+     footerLocation(0) {}
+ 
+   File *file;
+-  long footerLocation;
++  offset_t footerLocation;
+ 
+   Footer footer;
+   ItemListMap itemListMap;
+@@ -95,7 +95,7 @@ APE::Tag::Tag() :
+ {
+ }
+ 
+-APE::Tag::Tag(TagLib::File *file, long footerLocation) :
++APE::Tag::Tag(TagLib::File *file, offset_t footerLocation) :
+   TagLib::Tag(),
+   d(new TagPrivate())
+ {
+diff --git a/taglib/ape/apetag.h b/taglib/ape/apetag.h
+index f4d4fba6..b5a2eb87 100644
+--- a/taglib/ape/apetag.h
++++ b/taglib/ape/apetag.h
+@@ -66,7 +66,7 @@ namespace TagLib {
+        * Create an APE tag and parse the data in \a file with APE footer at
+        * \a tagOffset.
+        */
+-      Tag(TagLib::File *file, long footerLocation);
++      Tag(TagLib::File *file, offset_t footerLocation);
+ 
+       /*!
+        * Destroys this Tag instance.
+diff --git a/taglib/flac/flacfile.cpp b/taglib/flac/flacfile.cpp
+index b31cc65e..29e2f613 100644
+--- a/taglib/flac/flacfile.cpp
++++ b/taglib/flac/flacfile.cpp
+@@ -79,10 +79,10 @@ public:
+   }
+ 
+   const ID3v2::FrameFactory *ID3v2FrameFactory;
+-  long ID3v2Location;
++  offset_t ID3v2Location;
+   long ID3v2OriginalSize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   TagUnion tag;
+ 
+@@ -90,8 +90,8 @@ public:
+   ByteVector xiphCommentData;
+   BlockList blocks;
+ 
+-  long flacStart;
+-  long streamStart;
++  offset_t flacStart;
++  offset_t streamStart;
+   bool scanned;
+ };
+ 
+@@ -326,7 +326,7 @@ ByteVector FLAC::File::streamInfoData()
+   return ByteVector();
+ }
+ 
+-long FLAC::File::streamLength()
++offset_t FLAC::File::streamLength()
+ {
+   debug("FLAC::File::streamLength() -- This function is obsolete. Returning zero.");
+   return 0;
+@@ -441,7 +441,7 @@ void FLAC::File::read(bool readProperties)
+ 
+     const ByteVector infoData = d->blocks.front()->render();
+ 
+-    long streamLength;
++    offset_t streamLength;
+ 
+     if(d->ID3v1Location >= 0)
+       streamLength = d->ID3v1Location - d->streamStart;
+@@ -462,7 +462,7 @@ void FLAC::File::scan()
+   if(!isValid())
+     return;
+ 
+-  long nextBlockOffset;
++  offset_t nextBlockOffset;
+ 
+   if(d->ID3v2Location >= 0)
+     nextBlockOffset = find("fLaC", d->ID3v2Location + d->ID3v2OriginalSize);
+diff --git a/taglib/flac/flacfile.h b/taglib/flac/flacfile.h
+index 65d85679..c1464c45 100644
+--- a/taglib/flac/flacfile.h
++++ b/taglib/flac/flacfile.h
+@@ -256,7 +256,7 @@ namespace TagLib {
+        *
+        * \deprecated Always returns zero.
+        */
+-      long streamLength();  // BIC: remove
++      offset_t streamLength();  // BIC: remove
+ 
+       /*!
+        * Returns a list of pictures attached to the FLAC file.
+diff --git a/taglib/flac/flacproperties.cpp b/taglib/flac/flacproperties.cpp
+index b947f039..a798940a 100644
+--- a/taglib/flac/flacproperties.cpp
++++ b/taglib/flac/flacproperties.cpp
+@@ -55,7 +55,7 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-FLAC::Properties::Properties(ByteVector data, long streamLength, ReadStyle style) :
++FLAC::Properties::Properties(ByteVector data, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+@@ -128,7 +128,7 @@ ByteVector FLAC::Properties::signature() const
+ // private members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-void FLAC::Properties::read(const ByteVector &data, long streamLength)
++void FLAC::Properties::read(const ByteVector &data, offset_t streamLength)
+ {
+   if(data.size() < 18) {
+     debug("FLAC::Properties::read() - FLAC properties must contain at least 18 bytes.");
+diff --git a/taglib/flac/flacproperties.h b/taglib/flac/flacproperties.h
+index 6f13ce62..1dd0fc5f 100644
+--- a/taglib/flac/flacproperties.h
++++ b/taglib/flac/flacproperties.h
+@@ -50,7 +50,7 @@ namespace TagLib {
+        * ByteVector \a data.
+        */
+        // BIC: switch to const reference
+-      Properties(ByteVector data, long streamLength, ReadStyle style = Average);
++      Properties(ByteVector data, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Create an instance of FLAC::Properties with the data read from the
+@@ -137,7 +137,7 @@ namespace TagLib {
+       Properties(const Properties &);
+       Properties &operator=(const Properties &);
+ 
+-      void read(const ByteVector &data, long streamLength);
++      void read(const ByteVector &data, offset_t streamLength);
+ 
+       class PropertiesPrivate;
+       PropertiesPrivate *d;
+diff --git a/taglib/mp4/mp4atom.cpp b/taglib/mp4/mp4atom.cpp
+index 6ea0cb62..18dbbed9 100644
+--- a/taglib/mp4/mp4atom.cpp
++++ b/taglib/mp4/mp4atom.cpp
+@@ -155,7 +155,7 @@ MP4::Atoms::Atoms(File *file)
+   atoms.setAutoDelete(true);
+ 
+   file->seek(0, File::End);
+-  long end = file->tell();
++  offset_t end = file->tell();
+   file->seek(0);
+   while(file->tell() + 8 <= end) {
+     MP4::Atom *atom = new MP4::Atom(file);
+diff --git a/taglib/mp4/mp4atom.h b/taglib/mp4/mp4atom.h
+index cbb0d10a..53bc16a6 100644
+--- a/taglib/mp4/mp4atom.h
++++ b/taglib/mp4/mp4atom.h
+@@ -82,8 +82,8 @@ namespace TagLib {
+       Atom *find(const char *name1, const char *name2 = 0, const char *name3 = 0, const char *name4 = 0);
+       bool path(AtomList &path, const char *name1, const char *name2 = 0, const char *name3 = 0);
+       AtomList findall(const char *name, bool recursive = false);
+-      long offset;
+-      long length;
++      offset_t offset;
++      offset_t length;
+       TagLib::ByteVector name;
+       AtomList children;
+     private:
+diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
+index 9cbabbd1..fb871b48 100644
+--- a/taglib/mp4/mp4tag.cpp
++++ b/taglib/mp4/mp4tag.cpp
+@@ -549,7 +549,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
+ }
+ 
+ void
+-MP4::Tag::updateOffsets(long delta, long offset)
++MP4::Tag::updateOffsets(long delta, offset_t offset)
+ {
+   MP4::Atom *moov = d->atoms->find("moov");
+   if(moov) {
+@@ -633,7 +633,7 @@ MP4::Tag::saveNew(ByteVector data)
+     data = renderAtom("udta", data);
+   }
+ 
+-  long offset = path.back()->offset + 8;
++  offset_t offset = path.back()->offset + 8;
+   d->file->insert(data, offset, 0);
+ 
+   updateParents(path, data.size());
+@@ -651,8 +651,8 @@ MP4::Tag::saveExisting(ByteVector data, const AtomList &path)
+   AtomList::ConstIterator it = path.end();
+ 
+   MP4::Atom *ilst = *(--it);
+-  long offset = ilst->offset;
+-  long length = ilst->length;
++  offset_t offset = ilst->offset;
++  offset_t length = ilst->length;
+ 
+   MP4::Atom *meta = *(--it);
+   AtomList::ConstIterator index = meta->children.find(ilst);
+diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
+index bca30217..1b7a3d13 100644
+--- a/taglib/mp4/mp4tag.h
++++ b/taglib/mp4/mp4tag.h
+@@ -141,7 +141,7 @@ namespace TagLib {
+         ByteVector renderCovr(const ByteVector &name, const Item &item) const;
+ 
+         void updateParents(const AtomList &path, long delta, int ignore = 0);
+-        void updateOffsets(long delta, long offset);
++        void updateOffsets(long delta, offset_t offset);
+ 
+         void saveNew(ByteVector data);
+         void saveExisting(ByteVector data, const AtomList &path);
+diff --git a/taglib/mpc/mpcfile.cpp b/taglib/mpc/mpcfile.cpp
+index daf24c8f..0d8a23c8 100644
+--- a/taglib/mpc/mpcfile.cpp
++++ b/taglib/mpc/mpcfile.cpp
+@@ -61,13 +61,13 @@ public:
+     delete properties;
+   }
+ 
+-  long APELocation;
++  offset_t APELocation;
+   long APESize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   ID3v2::Header *ID3v2Header;
+-  long ID3v2Location;
++  offset_t ID3v2Location;
+   long ID3v2Size;
+ 
+   TagUnion tag;
+@@ -297,7 +297,7 @@ void MPC::File::read(bool readProperties)
+ 
+   if(readProperties) {
+ 
+-    long streamLength;
++    offset_t streamLength;
+ 
+     if(d->APELocation >= 0)
+       streamLength = d->APELocation;
+diff --git a/taglib/mpc/mpcproperties.cpp b/taglib/mpc/mpcproperties.cpp
+index b9fbbf13..a7744b10 100644
+--- a/taglib/mpc/mpcproperties.cpp
++++ b/taglib/mpc/mpcproperties.cpp
+@@ -67,14 +67,14 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-MPC::Properties::Properties(const ByteVector &data, long streamLength, ReadStyle style) :
++MPC::Properties::Properties(const ByteVector &data, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+   readSV7(data, streamLength);
+ }
+ 
+-MPC::Properties::Properties(File *file, long streamLength, ReadStyle style) :
++MPC::Properties::Properties(File *file, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+@@ -204,7 +204,7 @@ namespace
+   const unsigned short sftable [8] = { 44100, 48000, 37800, 32000, 0, 0, 0, 0 };
+ }
+ 
+-void MPC::Properties::readSV8(File *file, long streamLength)
++void MPC::Properties::readSV8(File *file, offset_t streamLength)
+ {
+   bool readSH = false, readRG = false;
+ 
+@@ -296,7 +296,7 @@ void MPC::Properties::readSV8(File *file, long streamLength)
+   }
+ }
+ 
+-void MPC::Properties::readSV7(const ByteVector &data, long streamLength)
++void MPC::Properties::readSV7(const ByteVector &data, offset_t streamLength)
+ {
+   if(data.startsWith("MP+")) {
+     d->version = data[3] & 15;
+diff --git a/taglib/mpc/mpcproperties.h b/taglib/mpc/mpcproperties.h
+index d5fdfbb9..4c69d66b 100644
+--- a/taglib/mpc/mpcproperties.h
++++ b/taglib/mpc/mpcproperties.h
+@@ -53,13 +53,13 @@ namespace TagLib {
+        *
+        * This constructor is deprecated. It only works for MPC version up to 7.
+        */
+-      Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
++      Properties(const ByteVector &data, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Create an instance of MPC::Properties with the data read directly
+        * from a MPC::File.
+        */
+-      Properties(File *file, long streamLength, ReadStyle style = Average);
++      Properties(File *file, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Destroys this MPC::Properties instance.
+@@ -146,8 +146,8 @@ namespace TagLib {
+       Properties(const Properties &);
+       Properties &operator=(const Properties &);
+ 
+-      void readSV7(const ByteVector &data, long streamLength);
+-      void readSV8(File *file, long streamLength);
++      void readSV7(const ByteVector &data, offset_t streamLength);
++      void readSV8(File *file, offset_t streamLength);
+ 
+       class PropertiesPrivate;
+       PropertiesPrivate *d;
+diff --git a/taglib/mpeg/id3v1/id3v1tag.cpp b/taglib/mpeg/id3v1/id3v1tag.cpp
+index ca930411..4d26b3a4 100644
+--- a/taglib/mpeg/id3v1/id3v1tag.cpp
++++ b/taglib/mpeg/id3v1/id3v1tag.cpp
+@@ -48,7 +48,7 @@ public:
+     genre(255) {}
+ 
+   File *file;
+-  long tagOffset;
++  offset_t tagOffset;
+ 
+   String title;
+   String artist;
+@@ -90,7 +90,7 @@ ID3v1::Tag::Tag() :
+ {
+ }
+ 
+-ID3v1::Tag::Tag(File *file, long tagOffset) :
++ID3v1::Tag::Tag(File *file, offset_t tagOffset) :
+   TagLib::Tag(),
+   d(new TagPrivate())
+ {
+diff --git a/taglib/mpeg/id3v1/id3v1tag.h b/taglib/mpeg/id3v1/id3v1tag.h
+index b61f06af..55ab63ff 100644
+--- a/taglib/mpeg/id3v1/id3v1tag.h
++++ b/taglib/mpeg/id3v1/id3v1tag.h
+@@ -114,7 +114,7 @@ namespace TagLib {
+        * Create an ID3v1 tag and parse the data in \a file starting at
+        * \a tagOffset.
+        */
+-      Tag(File *file, long tagOffset);
++      Tag(File *file, offset_t tagOffset);
+ 
+       /*!
+        * Destroys this Tag instance.
+diff --git a/taglib/mpeg/id3v2/id3v2tag.cpp b/taglib/mpeg/id3v2/id3v2tag.cpp
+index 4c00ab6f..ba27a123 100644
+--- a/taglib/mpeg/id3v2/id3v2tag.cpp
++++ b/taglib/mpeg/id3v2/id3v2tag.cpp
+@@ -77,7 +77,7 @@ public:
+   const FrameFactory *factory;
+ 
+   File *file;
+-  long tagOffset;
++  offset_t tagOffset;
+ 
+   Header header;
+   ExtendedHeader *extendedHeader;
+@@ -115,7 +115,7 @@ ID3v2::Tag::Tag() :
+   d->factory = FrameFactory::instance();
+ }
+ 
+-ID3v2::Tag::Tag(File *file, long tagOffset, const FrameFactory *factory) :
++ID3v2::Tag::Tag(File *file, offset_t tagOffset, const FrameFactory *factory) :
+   TagLib::Tag(),
+   d(new TagPrivate())
+ {
+diff --git a/taglib/mpeg/id3v2/id3v2tag.h b/taglib/mpeg/id3v2/id3v2tag.h
+index 4367181f..503ad659 100644
+--- a/taglib/mpeg/id3v2/id3v2tag.h
++++ b/taglib/mpeg/id3v2/id3v2tag.h
+@@ -154,7 +154,7 @@ namespace TagLib {
+        *
+        * \see FrameFactory
+        */
+-      Tag(File *file, long tagOffset,
++      Tag(File *file, offset_t tagOffset,
+           const FrameFactory *factory = FrameFactory::instance());
+ 
+       /*!
+diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
+index af7253fa..c512e8e6 100644
+--- a/taglib/mpeg/mpegfile.cpp
++++ b/taglib/mpeg/mpegfile.cpp
+@@ -63,13 +63,13 @@ public:
+ 
+   const ID3v2::FrameFactory *ID3v2FrameFactory;
+ 
+-  long ID3v2Location;
++  offset_t ID3v2Location;
+   long ID3v2OriginalSize;
+ 
+-  long APELocation;
++  offset_t APELocation;
+   long APEOriginalSize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   TagUnion tag;
+ 
+@@ -344,7 +344,7 @@ void MPEG::File::setID3v2FrameFactory(const ID3v2::FrameFactory *factory)
+   d->ID3v2FrameFactory = factory;
+ }
+ 
+-long MPEG::File::nextFrameOffset(long position)
++offset_t MPEG::File::nextFrameOffset(offset_t position)
+ {
+   bool foundLastSyncPattern = false;
+ 
+@@ -370,7 +370,7 @@ long MPEG::File::nextFrameOffset(long position)
+   }
+ }
+ 
+-long MPEG::File::previousFrameOffset(long position)
++offset_t MPEG::File::previousFrameOffset(offset_t position)
+ {
+   bool foundFirstSyncPattern = false;
+   ByteVector buffer;
+@@ -398,7 +398,7 @@ long MPEG::File::previousFrameOffset(long position)
+   return -1;
+ }
+ 
+-long MPEG::File::firstFrameOffset()
++offset_t MPEG::File::firstFrameOffset()
+ {
+   long position = 0;
+ 
+@@ -408,9 +408,9 @@ long MPEG::File::firstFrameOffset()
+   return nextFrameOffset(position);
+ }
+ 
+-long MPEG::File::lastFrameOffset()
++offset_t MPEG::File::lastFrameOffset()
+ {
+-  long position;
++  offset_t position;
+ 
+   if(hasAPETag())
+     position = d->APELocation - 1;
+@@ -478,7 +478,7 @@ void MPEG::File::read(bool readProperties)
+   ID3v1Tag(true);
+ }
+ 
+-long MPEG::File::findID3v2()
++offset_t MPEG::File::findID3v2()
+ {
+   if(!isValid())
+     return -1;
+diff --git a/taglib/mpeg/mpegfile.h b/taglib/mpeg/mpegfile.h
+index e9e97387..a13dc3d6 100644
+--- a/taglib/mpeg/mpegfile.h
++++ b/taglib/mpeg/mpegfile.h
+@@ -330,24 +330,24 @@ namespace TagLib {
+       /*!
+        * Returns the position in the file of the first MPEG frame.
+        */
+-      long firstFrameOffset();
++      offset_t firstFrameOffset();
+ 
+       /*!
+        * Returns the position in the file of the next MPEG frame,
+        * using the current position as start
+        */
+-      long nextFrameOffset(long position);
++      offset_t nextFrameOffset(offset_t position);
+ 
+       /*!
+        * Returns the position in the file of the previous MPEG frame,
+        * using the current position as start
+        */
+-      long previousFrameOffset(long position);
++      offset_t previousFrameOffset(offset_t position);
+ 
+       /*!
+        * Returns the position in the file of the last MPEG frame.
+        */
+-      long lastFrameOffset();
++      offset_t lastFrameOffset();
+ 
+       /*!
+        * Returns whether or not the file on disk actually has an ID3v1 tag.
+@@ -375,7 +375,7 @@ namespace TagLib {
+       File &operator=(const File &);
+ 
+       void read(bool readProperties);
+-      long findID3v2();
++      offset_t findID3v2();
+ 
+       class FilePrivate;
+       FilePrivate *d;
+diff --git a/taglib/mpeg/mpegheader.cpp b/taglib/mpeg/mpegheader.cpp
+index e678f15b..492b471e 100644
+--- a/taglib/mpeg/mpegheader.cpp
++++ b/taglib/mpeg/mpegheader.cpp
+@@ -75,7 +75,7 @@ MPEG::Header::Header(const ByteVector &data) :
+   debug("MPEG::Header::Header() - This constructor is no longer used.");
+ }
+ 
+-MPEG::Header::Header(File *file, long offset, bool checkLength) :
++MPEG::Header::Header(File *file, offset_t offset, bool checkLength) :
+   d(new HeaderPrivate())
+ {
+   parse(file, offset, checkLength);
+@@ -170,7 +170,7 @@ MPEG::Header &MPEG::Header::operator=(const Header &h)
+ // private members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-void MPEG::Header::parse(File *file, long offset, bool checkLength)
++void MPEG::Header::parse(File *file, offset_t offset, bool checkLength)
+ {
+   file->seek(offset);
+   const ByteVector data = file->readBlock(4);
+diff --git a/taglib/mpeg/mpegheader.h b/taglib/mpeg/mpegheader.h
+index 024aa112..ee2cbc6e 100644
+--- a/taglib/mpeg/mpegheader.h
++++ b/taglib/mpeg/mpegheader.h
+@@ -61,7 +61,7 @@ namespace TagLib {
+        * check if the frame length is parsed and calculated correctly.  So it's
+        * suitable for seeking for the first valid frame.
+        */
+-      Header(File *file, long offset, bool checkLength = true);
++      Header(File *file, offset_t offset, bool checkLength = true);
+ 
+       /*!
+        * Does a shallow copy of \a h.
+@@ -167,7 +167,7 @@ namespace TagLib {
+       Header &operator=(const Header &h);
+ 
+     private:
+-      void parse(File *file, long offset, bool checkLength);
++      void parse(File *file, offset_t offset, bool checkLength);
+ 
+       class HeaderPrivate;
+       HeaderPrivate *d;
+diff --git a/taglib/mpeg/mpegproperties.cpp b/taglib/mpeg/mpegproperties.cpp
+index 6e7bb823..effc30f4 100644
+--- a/taglib/mpeg/mpegproperties.cpp
++++ b/taglib/mpeg/mpegproperties.cpp
+@@ -157,7 +157,7 @@ void MPEG::Properties::read(File *file)
+ {
+   // Only the first valid frame is required if we have a VBR header.
+ 
+-  long firstFrameOffset = file->firstFrameOffset();
++  offset_t firstFrameOffset = file->firstFrameOffset();
+   if(firstFrameOffset < 0) {
+     debug("MPEG::Properties::read() -- Could not find an MPEG frame in the stream.");
+     return;
+@@ -207,7 +207,7 @@ void MPEG::Properties::read(File *file)
+ 
+     // Look for the last MPEG audio frame to calculate the stream length.
+ 
+-    long lastFrameOffset = file->lastFrameOffset();
++    offset_t lastFrameOffset = file->lastFrameOffset();
+     if(lastFrameOffset < 0) {
+       debug("MPEG::Properties::read() -- Could not find an MPEG frame in the stream.");
+       return;
+@@ -225,7 +225,7 @@ void MPEG::Properties::read(File *file)
+       lastHeader = Header(file, lastFrameOffset, false);
+     }
+ 
+-    const long streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
++    const offset_t streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
+     if(streamLength > 0)
+       d->length = static_cast<int>(streamLength * 8.0 / d->bitrate + 0.5);
+   }
+diff --git a/taglib/ogg/flac/oggflacfile.cpp b/taglib/ogg/flac/oggflacfile.cpp
+index 19348e6f..16e30b0f 100644
+--- a/taglib/ogg/flac/oggflacfile.cpp
++++ b/taglib/ogg/flac/oggflacfile.cpp
+@@ -57,8 +57,8 @@ public:
+   Properties *properties;
+   ByteVector streamInfoData;
+   ByteVector xiphCommentData;
+-  long streamStart;
+-  long streamLength;
++  offset_t streamStart;
++  offset_t streamLength;
+   bool scanned;
+ 
+   bool hasXiphComment;
+@@ -191,7 +191,7 @@ ByteVector Ogg::FLAC::File::xiphCommentData()
+   return d->xiphCommentData;
+ }
+ 
+-long Ogg::FLAC::File::streamLength()
++offset_t Ogg::FLAC::File::streamLength()
+ {
+   scan();
+   return d->streamLength;
+@@ -208,7 +208,7 @@ void Ogg::FLAC::File::scan()
+     return;
+ 
+   int ipacket = 0;
+-  long overhead = 0;
++  offset_t overhead = 0;
+ 
+   ByteVector metadataHeader = packet(ipacket);
+   if(metadataHeader.isEmpty())
+diff --git a/taglib/ogg/flac/oggflacfile.h b/taglib/ogg/flac/oggflacfile.h
+index 28b3f67f..e4daf370 100644
+--- a/taglib/ogg/flac/oggflacfile.h
++++ b/taglib/ogg/flac/oggflacfile.h
+@@ -137,7 +137,7 @@ namespace TagLib {
+        * Returns the length of the audio-stream, used by FLAC::Properties for
+        * calculating the bitrate.
+        */
+-      long streamLength();
++      offset_t streamLength();
+ 
+       /*!
+        * Returns whether or not the file on disk actually has a XiphComment.
+diff --git a/taglib/ogg/oggfile.cpp b/taglib/ogg/oggfile.cpp
+index c36e4d46..aa284a3b 100644
+--- a/taglib/ogg/oggfile.cpp
++++ b/taglib/ogg/oggfile.cpp
+@@ -130,7 +130,7 @@ void Ogg::File::setPacket(unsigned int i, const ByteVector &p)
+ const Ogg::PageHeader *Ogg::File::firstPageHeader()
+ {
+   if(!d->firstPageHeader) {
+-    const long firstPageHeaderOffset = find("OggS");
++    const offset_t firstPageHeaderOffset = find("OggS");
+     if(firstPageHeaderOffset < 0)
+       return 0;
+ 
+@@ -143,7 +143,7 @@ const Ogg::PageHeader *Ogg::File::firstPageHeader()
+ const Ogg::PageHeader *Ogg::File::lastPageHeader()
+ {
+   if(!d->lastPageHeader) {
+-    const long lastPageHeaderOffset = rfind("OggS");
++    const offset_t lastPageHeaderOffset = rfind("OggS");
+     if(lastPageHeaderOffset < 0)
+       return 0;
+ 
+@@ -193,7 +193,7 @@ bool Ogg::File::readPages(unsigned int i)
+ {
+   while(true) {
+     unsigned int packetIndex;
+-    long offset;
++    offset_t offset;
+ 
+     if(d->pages.isEmpty()) {
+       packetIndex = 0;
+@@ -276,8 +276,8 @@ void Ogg::File::writePacket(unsigned int i, const ByteVector &packet)
+   for(it = pages.begin(); it != pages.end(); ++it)
+     data.append((*it)->render());
+ 
+-  const unsigned long originalOffset = firstPage->fileOffset();
+-  const unsigned long originalLength = lastPage->fileOffset() + lastPage->size() - originalOffset;
++  const offset_t originalOffset = firstPage->fileOffset();
++  const offset_t originalLength = lastPage->fileOffset() + lastPage->size() - originalOffset;
+ 
+   insert(data, originalOffset, originalLength);
+ 
+diff --git a/taglib/ogg/oggpage.cpp b/taglib/ogg/oggpage.cpp
+index 75aea22a..e5fd70d2 100644
+--- a/taglib/ogg/oggpage.cpp
++++ b/taglib/ogg/oggpage.cpp
+@@ -37,14 +37,14 @@ using namespace TagLib;
+ class Ogg::Page::PagePrivate
+ {
+ public:
+-  PagePrivate(File *f = 0, long pageOffset = -1) :
++  PagePrivate(File *f = 0, offset_t pageOffset = -1) :
+     file(f),
+     fileOffset(pageOffset),
+     header(f, pageOffset),
+     firstPacketIndex(-1) {}
+ 
+   File *file;
+-  long fileOffset;
++  offset_t fileOffset;
+   PageHeader header;
+   int firstPacketIndex;
+   ByteVectorList packets;
+@@ -54,7 +54,7 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-Ogg::Page::Page(Ogg::File *file, long pageOffset) :
++Ogg::Page::Page(Ogg::File *file, offset_t pageOffset) :
+   d(new PagePrivate(file, pageOffset))
+ {
+ }
+@@ -64,7 +64,7 @@ Ogg::Page::~Page()
+   delete d;
+ }
+ 
+-long Ogg::Page::fileOffset() const
++offset_t Ogg::Page::fileOffset() const
+ {
+   return d->fileOffset;
+ }
+diff --git a/taglib/ogg/oggpage.h b/taglib/ogg/oggpage.h
+index 13e3e7f9..e5a2f362 100644
+--- a/taglib/ogg/oggpage.h
++++ b/taglib/ogg/oggpage.h
+@@ -55,14 +55,14 @@ namespace TagLib {
+       /*!
+        * Read an Ogg page from the \a file at the position \a pageOffset.
+        */
+-      Page(File *file, long pageOffset);
++      Page(File *file, offset_t pageOffset);
+ 
+       virtual ~Page();
+ 
+       /*!
+        * Returns the page's position within the file (in bytes).
+        */
+-      long fileOffset() const;
++      offset_t fileOffset() const;
+ 
+       /*!
+        * Returns a pointer to the header for this page.  This pointer will become
+diff --git a/taglib/ogg/oggpageheader.cpp b/taglib/ogg/oggpageheader.cpp
+index b867567c..cc645eaf 100644
+--- a/taglib/ogg/oggpageheader.cpp
++++ b/taglib/ogg/oggpageheader.cpp
+@@ -66,7 +66,7 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-Ogg::PageHeader::PageHeader(Ogg::File *file, long pageOffset) :
++Ogg::PageHeader::PageHeader(Ogg::File *file, offset_t pageOffset) :
+   d(new PageHeaderPrivate())
+ {
+   if(file && pageOffset >= 0)
+@@ -225,7 +225,7 @@ ByteVector Ogg::PageHeader::render() const
+ // private members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-void Ogg::PageHeader::read(Ogg::File *file, long pageOffset)
++void Ogg::PageHeader::read(Ogg::File *file, offset_t pageOffset)
+ {
+   file->seek(pageOffset);
+ 
+diff --git a/taglib/ogg/oggpageheader.h b/taglib/ogg/oggpageheader.h
+index 42f67307..000216c1 100644
+--- a/taglib/ogg/oggpageheader.h
++++ b/taglib/ogg/oggpageheader.h
+@@ -52,7 +52,7 @@ namespace TagLib {
+        * create a page with no (and as such, invalid) data that must be set
+        * later.
+        */
+-      PageHeader(File *file = 0, long pageOffset = -1);
++      PageHeader(File *file = 0, offset_t pageOffset = -1);
+ 
+       /*!
+        * Deletes this instance of the PageHeader.
+@@ -219,7 +219,7 @@ namespace TagLib {
+       PageHeader(const PageHeader &);
+       PageHeader &operator=(const PageHeader &);
+ 
+-      void read(Ogg::File *file, long pageOffset);
++      void read(Ogg::File *file, offset_t pageOffset);
+       ByteVector lacingValues() const;
+ 
+       class PageHeaderPrivate;
+diff --git a/taglib/ogg/opus/opusproperties.cpp b/taglib/ogg/opus/opusproperties.cpp
+index b60cc01d..e19ab64d 100644
+--- a/taglib/ogg/opus/opusproperties.cpp
++++ b/taglib/ogg/opus/opusproperties.cpp
+@@ -163,7 +163,7 @@ void Opus::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / 48000.0;
+-        long fileLengthWithoutOverhead = file->length();
++        offset_t fileLengthWithoutOverhead = file->length();
+         // Ignore the two mandatory header packets, see "3. Packet Organization"
+         // in https://tools.ietf.org/html/rfc7845.html
+         for (unsigned int i = 0; i < 2; ++i) {
+diff --git a/taglib/ogg/speex/speexproperties.cpp b/taglib/ogg/speex/speexproperties.cpp
+index b7a11cc6..fae184a0 100644
+--- a/taglib/ogg/speex/speexproperties.cpp
++++ b/taglib/ogg/speex/speexproperties.cpp
+@@ -182,7 +182,7 @@ void Speex::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
+-        long fileLengthWithoutOverhead = file->length();
++        offset_t fileLengthWithoutOverhead = file->length();
+         // Ignore the two header packets, see "Ogg file format" in
+         // https://www.speex.org/docs/manual/speex-manual/node8.html
+         for (unsigned int i = 0; i < 2; ++i) {
+diff --git a/taglib/ogg/vorbis/vorbisproperties.cpp b/taglib/ogg/vorbis/vorbisproperties.cpp
+index 4000c254..6f6c8907 100644
+--- a/taglib/ogg/vorbis/vorbisproperties.cpp
++++ b/taglib/ogg/vorbis/vorbisproperties.cpp
+@@ -186,7 +186,7 @@ void Vorbis::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
+-        long fileLengthWithoutOverhead = file->length();
++        offset_t fileLengthWithoutOverhead = file->length();
+         // Ignore the three initial header packets, see "1.3.1. Decode Setup" in
+         // https://xiph.org/vorbis/doc/Vorbis_I_spec.html
+         for (unsigned int i = 0; i < 3; ++i) {
+diff --git a/taglib/riff/rifffile.cpp b/taglib/riff/rifffile.cpp
+index 930323d6..56f8b7a7 100644
+--- a/taglib/riff/rifffile.cpp
++++ b/taglib/riff/rifffile.cpp
+@@ -38,7 +38,7 @@ using namespace TagLib;
+ struct Chunk
+ {
+   ByteVector   name;
+-  unsigned int offset;
++  offset_t offset;
+   unsigned int size;
+   unsigned int padding;
+ };
+@@ -54,7 +54,7 @@ public:
+   const Endianness endianness;
+ 
+   unsigned int size;
+-  long sizeOffset;
++  offset_t sizeOffset;
+ 
+   std::vector<Chunk> chunks;
+ };
+@@ -108,7 +108,7 @@ unsigned int RIFF::File::chunkDataSize(unsigned int i) const
+   return d->chunks[i].size;
+ }
+ 
+-unsigned int RIFF::File::chunkOffset(unsigned int i) const
++offset_t RIFF::File::chunkOffset(unsigned int i) const
+ {
+   if(i >= d->chunks.size()) {
+     debug("RIFF::File::chunkPadding() - Index out of range. Returning 0.");
+@@ -212,7 +212,7 @@ void RIFF::File::setChunkData(const ByteVector &name, const ByteVector &data, bo
+ 
+   Chunk &last = d->chunks.back();
+ 
+-  long offset = last.offset + last.size + last.padding;
++  offset_t offset = last.offset + last.size + last.padding;
+   if(offset & 1) {
+     if(last.padding == 1) {
+       last.padding = 0; // This should not happen unless the file is corrupted.
+@@ -283,7 +283,7 @@ void RIFF::File::read()
+ {
+   const bool bigEndian = (d->endianness == BigEndian);
+ 
+-  long offset = tell();
++  offset_t offset = tell();
+ 
+   offset += 4;
+   d->sizeOffset = offset;
+@@ -352,7 +352,7 @@ void RIFF::File::read()
+ }
+ 
+ void RIFF::File::writeChunk(const ByteVector &name, const ByteVector &data,
+-                            unsigned long offset, unsigned long replace)
++                            offset_t offset, unsigned long replace)
+ {
+   ByteVector combined;
+ 
+diff --git a/taglib/riff/rifffile.h b/taglib/riff/rifffile.h
+index 5c606b4a..cf821baf 100644
+--- a/taglib/riff/rifffile.h
++++ b/taglib/riff/rifffile.h
+@@ -71,7 +71,7 @@ namespace TagLib {
+       /*!
+        * \return The offset within the file for the selected chunk number.
+        */
+-      unsigned int chunkOffset(unsigned int i) const;
++      offset_t chunkOffset(unsigned int i) const;
+ 
+       /*!
+        * \return The size of the chunk data.
+@@ -145,7 +145,7 @@ namespace TagLib {
+ 
+       void read();
+       void writeChunk(const ByteVector &name, const ByteVector &data,
+-                      unsigned long offset, unsigned long replace = 0);
++                      offset_t offset, unsigned long replace = 0);
+ 
+       /*!
+        * Update the global RIFF size based on the current internal structure.
+diff --git a/taglib/tagutils.cpp b/taglib/tagutils.cpp
+index dc047040..2c556ca7 100644
+--- a/taglib/tagutils.cpp
++++ b/taglib/tagutils.cpp
+@@ -33,13 +33,13 @@
+ 
+ using namespace TagLib;
+ 
+-long Utils::findID3v1(File *file)
++offset_t Utils::findID3v1(File *file)
+ {
+   if(!file->isValid())
+     return -1;
+ 
+   file->seek(-128, File::End);
+-  const long p = file->tell();
++  const offset_t p = file->tell();
+ 
+   if(file->readBlock(3) == ID3v1::Tag::fileIdentifier())
+     return p;
+@@ -47,7 +47,7 @@ long Utils::findID3v1(File *file)
+   return -1;
+ }
+ 
+-long Utils::findID3v2(File *file)
++offset_t Utils::findID3v2(File *file)
+ {
+   if(!file->isValid())
+     return -1;
+@@ -60,7 +60,7 @@ long Utils::findID3v2(File *file)
+   return -1;
+ }
+ 
+-long Utils::findAPE(File *file, long id3v1Location)
++offset_t Utils::findAPE(File *file, offset_t id3v1Location)
+ {
+   if(!file->isValid())
+     return -1;
+@@ -70,7 +70,7 @@ long Utils::findAPE(File *file, long id3v1Location)
+   else
+     file->seek(-32, File::End);
+ 
+-  const long p = file->tell();
++  const offset_t p = file->tell();
+ 
+   if(file->readBlock(8) == APE::Tag::fileIdentifier())
+     return p;
+diff --git a/taglib/tagutils.h b/taglib/tagutils.h
+index fb11d1e0..0001f34b 100644
+--- a/taglib/tagutils.h
++++ b/taglib/tagutils.h
+@@ -36,11 +36,11 @@ namespace TagLib {
+ 
+   namespace Utils {
+ 
+-    long findID3v1(File *file);
++    offset_t findID3v1(File *file);
+ 
+-    long findID3v2(File *file);
++    offset_t findID3v2(File *file);
+ 
+-    long findAPE(File *file, long id3v1Location);
++    offset_t findAPE(File *file, offset_t id3v1Location);
+   }
+ }
+ 
+diff --git a/taglib/toolkit/taglib.h b/taglib/toolkit/taglib.h
+index f2e7a9de..31c1ae59 100644
+--- a/taglib/toolkit/taglib.h
++++ b/taglib/toolkit/taglib.h
+@@ -44,6 +44,8 @@
+ #define TAGLIB_CONSTRUCT_BITSET(x) static_cast<unsigned long>(x)
+ #endif
+ 
++#define TAGLIB_WITH_OFFSET_TYPE
++
+ #include <string>
+ 
+ //! A namespace for all TagLib related classes and functions
+@@ -69,6 +71,14 @@ namespace TagLib {
+   typedef unsigned long      ulong;
+   typedef unsigned long long ulonglong;
+ 
++  // Offset or length type for I/O streams.
++  // In Win32, always 64bit. Otherwise, equivalent to off_t.
++#ifdef _WIN32
++  typedef long long offset_t;
++#else
++  typedef off_t     offset_t;
++#endif
++
+   /*!
+    * Unfortunately std::wstring isn't defined on some systems, (i.e. GCC < 3)
+    * so I'm providing something here that should be constant.
+diff --git a/taglib/toolkit/tbytevectorstream.cpp b/taglib/toolkit/tbytevectorstream.cpp
+index 74b2eced..d773791f 100644
+--- a/taglib/toolkit/tbytevectorstream.cpp
++++ b/taglib/toolkit/tbytevectorstream.cpp
+@@ -40,7 +40,7 @@ public:
+   ByteVectorStreamPrivate(const ByteVector &data);
+ 
+   ByteVector data;
+-  long position;
++  offset_t position;
+ };
+ 
+ ByteVectorStream::ByteVectorStreamPrivate::ByteVectorStreamPrivate(const ByteVector &data) :
+@@ -88,7 +88,7 @@ void ByteVectorStream::writeBlock(const ByteVector &data)
+   d->position += size;
+ }
+ 
+-void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsigned long replace)
++void ByteVectorStream::insert(const ByteVector &data, offset_t start, unsigned long replace)
+ {
+   long sizeDiff = data.size() - replace;
+   if(sizeDiff < 0) {
+@@ -96,18 +96,18 @@ void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsig
+   }
+   else if(sizeDiff > 0) {
+     truncate(length() + sizeDiff);
+-    unsigned long readPosition  = start + replace;
+-    unsigned long writePosition = start + data.size();
++    offset_t readPosition  = start + replace;
++    offset_t writePosition = start + data.size();
+     memmove(d->data.data() + writePosition, d->data.data() + readPosition, length() - sizeDiff - readPosition);
+   }
+   seek(start);
+   writeBlock(data);
+ }
+ 
+-void ByteVectorStream::removeBlock(unsigned long start, unsigned long length)
++void ByteVectorStream::removeBlock(offset_t start, unsigned long length)
+ {
+-  unsigned long readPosition = start + length;
+-  unsigned long writePosition = start;
++  offset_t readPosition = start + length;
++  offset_t writePosition = start;
+   if(readPosition < static_cast<unsigned long>(ByteVectorStream::length())) {
+     unsigned long bytesToMove = ByteVectorStream::length() - readPosition;
+     memmove(d->data.data() + writePosition, d->data.data() + readPosition, bytesToMove);
+@@ -127,7 +127,7 @@ bool ByteVectorStream::isOpen() const
+   return true;
+ }
+ 
+-void ByteVectorStream::seek(long offset, Position p)
++void ByteVectorStream::seek(offset_t offset, Position p)
+ {
+   switch(p) {
+   case Beginning:
+@@ -146,17 +146,17 @@ void ByteVectorStream::clear()
+ {
+ }
+ 
+-long ByteVectorStream::tell() const
++offset_t ByteVectorStream::tell() const
+ {
+   return d->position;
+ }
+ 
+-long ByteVectorStream::length()
++offset_t ByteVectorStream::length()
+ {
+   return d->data.size();
+ }
+ 
+-void ByteVectorStream::truncate(long length)
++void ByteVectorStream::truncate(offset_t length)
+ {
+   d->data.resize(length);
+ }
+diff --git a/taglib/toolkit/tbytevectorstream.h b/taglib/toolkit/tbytevectorstream.h
+index 84327c46..78ebfd4a 100644
+--- a/taglib/toolkit/tbytevectorstream.h
++++ b/taglib/toolkit/tbytevectorstream.h
+@@ -81,7 +81,7 @@ namespace TagLib {
+      * \note This method is slow since it requires rewriting all of the file
+      * after the insertion point.
+      */
+-    void insert(const ByteVector &data, unsigned long start = 0, unsigned long replace = 0);
++    void insert(const ByteVector &data, offset_t start = 0, unsigned long replace = 0);
+ 
+     /*!
+      * Removes a block of the file starting a \a start and continuing for
+@@ -90,7 +90,7 @@ namespace TagLib {
+      * \note This method is slow since it involves rewriting all of the file
+      * after the removed portion.
+      */
+-    void removeBlock(unsigned long start = 0, unsigned long length = 0);
++    void removeBlock(offset_t start = 0, unsigned long length = 0);
+ 
+     /*!
+      * Returns true if the file is read only (or if the file can not be opened).
+@@ -109,7 +109,7 @@ namespace TagLib {
+      *
+      * \see Position
+      */
+-    void seek(long offset, Position p = Beginning);
++    void seek(offset_t offset, Position p = Beginning);
+ 
+     /*!
+      * Reset the end-of-file and error flags on the file.
+@@ -119,17 +119,17 @@ namespace TagLib {
+     /*!
+      * Returns the current offset within the file.
+      */
+-    long tell() const;
++    offset_t tell() const;
+ 
+     /*!
+      * Returns the length of the file.
+      */
+-    long length();
++    offset_t length();
+ 
+     /*!
+      * Truncates the file to a \a length.
+      */
+-    void truncate(long length);
++    void truncate(offset_t length);
+ 
+     ByteVector *data();
+ 
+diff --git a/taglib/toolkit/tfile.cpp b/taglib/toolkit/tfile.cpp
+index c634baa8..93dc8cae 100644
+--- a/taglib/toolkit/tfile.cpp
++++ b/taglib/toolkit/tfile.cpp
+@@ -234,14 +234,14 @@ void File::writeBlock(const ByteVector &data)
+   d->stream->writeBlock(data);
+ }
+ 
+-long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &before)
++offset_t File::find(const ByteVector &pattern, offset_t fromOffset, const ByteVector &before)
+ {
+   if(!d->stream || pattern.size() > bufferSize())
+       return -1;
+ 
+   // The position in the file that the current buffer starts at.
+ 
+-  long bufferOffset = fromOffset;
++  offset_t bufferOffset = fromOffset;
+   ByteVector buffer;
+ 
+   // These variables are used to keep track of a partial match that happens at
+@@ -253,7 +253,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+   // Save the location of the current read pointer.  We will restore the
+   // position using seek() before all returns.
+ 
+-  long originalPosition = tell();
++  offset_t originalPosition = tell();
+ 
+   // Start the search at the offset.
+ 
+@@ -330,7 +330,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+ }
+ 
+ 
+-long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &before)
++offset_t File::rfind(const ByteVector &pattern, offset_t fromOffset, const ByteVector &before)
+ {
+   if(!d->stream || pattern.size() > bufferSize())
+       return -1;
+@@ -350,7 +350,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+   // Save the location of the current read pointer.  We will restore the
+   // position using seek() before all returns.
+ 
+-  long originalPosition = tell();
++  offset_t originalPosition = tell();
+ 
+   // Start the search at the offset.
+ 
+@@ -358,7 +358,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+     fromOffset = length();
+ 
+   long bufferLength = bufferSize();
+-  long bufferOffset = fromOffset + pattern.size();
++  offset_t bufferOffset = fromOffset + pattern.size();
+ 
+   // See the notes in find() for an explanation of this algorithm.
+ 
+@@ -404,12 +404,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+   return -1;
+ }
+ 
+-void File::insert(const ByteVector &data, unsigned long start, unsigned long replace)
++void File::insert(const ByteVector &data, offset_t start, unsigned long replace)
+ {
+   d->stream->insert(data, start, replace);
+ }
+ 
+-void File::removeBlock(unsigned long start, unsigned long length)
++void File::removeBlock(offset_t start, unsigned long length)
+ {
+   d->stream->removeBlock(start, length);
+ }
+@@ -429,12 +429,12 @@ bool File::isValid() const
+   return isOpen() && d->valid;
+ }
+ 
+-void File::seek(long offset, Position p)
++void File::seek(offset_t offset, Position p)
+ {
+   d->stream->seek(offset, IOStream::Position(p));
+ }
+ 
+-void File::truncate(long length)
++void File::truncate(offset_t length)
+ {
+   d->stream->truncate(length);
+ }
+@@ -444,12 +444,12 @@ void File::clear()
+   d->stream->clear();
+ }
+ 
+-long File::tell() const
++offset_t File::tell() const
+ {
+   return d->stream->tell();
+ }
+ 
+-long File::length()
++offset_t File::length()
+ {
+   return d->stream->length();
+ }
+diff --git a/taglib/toolkit/tfile.h b/taglib/toolkit/tfile.h
+index a6dda7ba..0840a123 100644
+--- a/taglib/toolkit/tfile.h
++++ b/taglib/toolkit/tfile.h
+@@ -163,8 +163,8 @@ namespace TagLib {
+      * \note This has the practical limitation that \a pattern can not be longer
+      * than the buffer size used by readBlock().  Currently this is 1024 bytes.
+      */
+-    long find(const ByteVector &pattern,
+-              long fromOffset = 0,
++    offset_t find(const ByteVector &pattern,
++              offset_t fromOffset = 0,
+               const ByteVector &before = ByteVector());
+ 
+     /*!
+@@ -179,8 +179,8 @@ namespace TagLib {
+      * \note This has the practical limitation that \a pattern can not be longer
+      * than the buffer size used by readBlock().  Currently this is 1024 bytes.
+      */
+-    long rfind(const ByteVector &pattern,
+-               long fromOffset = 0,
++    offset_t rfind(const ByteVector &pattern,
++               offset_t fromOffset = 0,
+                const ByteVector &before = ByteVector());
+ 
+     /*!
+@@ -190,7 +190,7 @@ namespace TagLib {
+      * \note This method is slow since it requires rewriting all of the file
+      * after the insertion point.
+      */
+-    void insert(const ByteVector &data, unsigned long start = 0, unsigned long replace = 0);
++    void insert(const ByteVector &data, offset_t start = 0, unsigned long replace = 0);
+ 
+     /*!
+      * Removes a block of the file starting a \a start and continuing for
+@@ -199,7 +199,7 @@ namespace TagLib {
+      * \note This method is slow since it involves rewriting all of the file
+      * after the removed portion.
+      */
+-    void removeBlock(unsigned long start = 0, unsigned long length = 0);
++    void removeBlock(offset_t start = 0, unsigned long length = 0);
+ 
+     /*!
+      * Returns true if the file is read only (or if the file can not be opened).
+@@ -223,7 +223,7 @@ namespace TagLib {
+      *
+      * \see Position
+      */
+-    void seek(long offset, Position p = Beginning);
++    void seek(offset_t offset, Position p = Beginning);
+ 
+     /*!
+      * Reset the end-of-file and error flags on the file.
+@@ -233,12 +233,12 @@ namespace TagLib {
+     /*!
+      * Returns the current offset within the file.
+      */
+-    long tell() const;
++    offset_t tell() const;
+ 
+     /*!
+      * Returns the length of the file.
+      */
+-    long length();
++    offset_t length();
+ 
+     /*!
+      * Returns true if \a file can be opened for reading.  If the file does not
+@@ -286,7 +286,7 @@ namespace TagLib {
+     /*!
+      * Truncates the file to a \a length.
+      */
+-    void truncate(long length);
++    void truncate(offset_t length);
+ 
+     /*!
+      * Returns the buffer size that is used for internal buffering.
+diff --git a/taglib/toolkit/tfilestream.cpp b/taglib/toolkit/tfilestream.cpp
+index 5205bae0..38c5ed83 100644
+--- a/taglib/toolkit/tfilestream.cpp
++++ b/taglib/toolkit/tfilestream.cpp
+@@ -209,7 +209,7 @@ void FileStream::writeBlock(const ByteVector &data)
+   writeFile(d->file, data);
+ }
+ 
+-void FileStream::insert(const ByteVector &data, unsigned long start, unsigned long replace)
++void FileStream::insert(const ByteVector &data, offset_t start, unsigned long replace)
+ {
+   if(!isOpen()) {
+     debug("FileStream::insert() -- invalid file.");
+@@ -243,15 +243,15 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
+   // the *differnce* in the tag sizes.  We want to avoid overwriting parts
+   // that aren't yet in memory, so this is necessary.
+ 
+-  unsigned long bufferLength = bufferSize();
++  size_t bufferLength = bufferSize();
+ 
+   while(data.size() - replace > bufferLength)
+     bufferLength += bufferSize();
+ 
+   // Set where to start the reading and writing.
+ 
+-  long readPosition = start + replace;
+-  long writePosition = start;
++  offset_t readPosition = start + replace;
++  offset_t writePosition = start;
+ 
+   ByteVector buffer = data;
+   ByteVector aboutToOverwrite(static_cast<unsigned int>(bufferLength));
+@@ -291,7 +291,7 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
+   }
+ }
+ 
+-void FileStream::removeBlock(unsigned long start, unsigned long length)
++void FileStream::removeBlock(offset_t start, unsigned long length)
+ {
+   if(!isOpen()) {
+     debug("FileStream::removeBlock() -- invalid file.");
+@@ -300,8 +300,8 @@ void FileStream::removeBlock(unsigned long start, unsigned long length)
+ 
+   unsigned long bufferLength = bufferSize();
+ 
+-  long readPosition = start + length;
+-  long writePosition = start;
++  offset_t readPosition = start + length;
++  offset_t writePosition = start;
+ 
+   ByteVector buffer(static_cast<unsigned int>(bufferLength));
+ 
+@@ -338,7 +338,7 @@ bool FileStream::isOpen() const
+   return (d->file != InvalidFileHandle);
+ }
+ 
+-void FileStream::seek(long offset, Position p)
++void FileStream::seek(offset_t offset, Position p)
+ {
+   if(!isOpen()) {
+     debug("FileStream::seek() -- invalid file.");
+@@ -364,7 +364,9 @@ void FileStream::seek(long offset, Position p)
+   }
+ 
+   SetLastError(NO_ERROR);
+-  SetFilePointer(d->file, offset, NULL, whence);
++  LARGE_INTEGER largeOffset = {};
++  largeOffset.QuadPart = offset;
++  SetFilePointerEx(d->file, largeOffset, NULL, whence);
+ 
+   const int lastError = GetLastError();
+   if(lastError != NO_ERROR && lastError != ERROR_NEGATIVE_SEEK)
+@@ -406,14 +408,16 @@ void FileStream::clear()
+ #endif
+ }
+ 
+-long FileStream::tell() const
++offset_t FileStream::tell() const
+ {
+ #ifdef _WIN32
+ 
+   SetLastError(NO_ERROR);
+-  const DWORD position = SetFilePointer(d->file, 0, NULL, FILE_CURRENT);
++  LARGE_INTEGER largeOffset = {};
++  LARGE_INTEGER newPointer;
++  SetFilePointerEx(d->file, largeOffset, &newPointer, FILE_CURRENT);
+   if(GetLastError() == NO_ERROR) {
+-    return static_cast<long>(position);
++    return newPointer.QuadPart;
+   }
+   else {
+     debug("FileStream::tell() -- Failed to get the file pointer.");
+@@ -427,7 +431,7 @@ long FileStream::tell() const
+ #endif
+ }
+ 
+-long FileStream::length()
++offset_t FileStream::length()
+ {
+   if(!isOpen()) {
+     debug("FileStream::length() -- invalid file.");
+@@ -448,10 +452,10 @@ long FileStream::length()
+ 
+ #else
+ 
+-  const long curpos = tell();
++  const offset_t curpos = tell();
+ 
+   seek(0, End);
+-  const long endpos = tell();
++  const offset_t endpos = tell();
+ 
+   seek(curpos, Beginning);
+ 
+@@ -464,11 +468,11 @@ long FileStream::length()
+ // protected members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-void FileStream::truncate(long length)
++void FileStream::truncate(offset_t length)
+ {
+ #ifdef _WIN32
+ 
+-  const long currentPos = tell();
++  const offset_t currentPos = tell();
+ 
+   seek(length);
+ 
+diff --git a/taglib/toolkit/tfilestream.h b/taglib/toolkit/tfilestream.h
+index 96a476d6..e594b801 100644
+--- a/taglib/toolkit/tfilestream.h
++++ b/taglib/toolkit/tfilestream.h
+@@ -87,7 +87,7 @@ namespace TagLib {
+      * \note This method is slow since it requires rewriting all of the file
+      * after the insertion point.
+      */
+-    void insert(const ByteVector &data, unsigned long start = 0, unsigned long replace = 0);
++    void insert(const ByteVector &data, offset_t start = 0, unsigned long replace = 0);
+ 
+     /*!
+      * Removes a block of the file starting a \a start and continuing for
+@@ -96,7 +96,7 @@ namespace TagLib {
+      * \note This method is slow since it involves rewriting all of the file
+      * after the removed portion.
+      */
+-    void removeBlock(unsigned long start = 0, unsigned long length = 0);
++    void removeBlock(offset_t start = 0, unsigned long length = 0);
+ 
+     /*!
+      * Returns true if the file is read only (or if the file can not be opened).
+@@ -115,7 +115,7 @@ namespace TagLib {
+      *
+      * \see Position
+      */
+-    void seek(long offset, Position p = Beginning);
++    void seek(offset_t offset, Position p = Beginning);
+ 
+     /*!
+      * Reset the end-of-file and error flags on the file.
+@@ -125,17 +125,17 @@ namespace TagLib {
+     /*!
+      * Returns the current offset within the file.
+      */
+-    long tell() const;
++    offset_t tell() const;
+ 
+     /*!
+      * Returns the length of the file.
+      */
+-    long length();
++    offset_t length();
+ 
+     /*!
+      * Truncates the file to a \a length.
+      */
+-    void truncate(long length);
++    void truncate(offset_t length);
+ 
+   protected:
+ 
+diff --git a/taglib/toolkit/tiostream.h b/taglib/toolkit/tiostream.h
+index 11053164..25417fce 100644
+--- a/taglib/toolkit/tiostream.h
++++ b/taglib/toolkit/tiostream.h
+@@ -110,7 +110,7 @@ namespace TagLib {
+      * after the insertion point.
+      */
+     virtual void insert(const ByteVector &data,
+-                        unsigned long start = 0, unsigned long replace = 0) = 0;
++                        offset_t start = 0, unsigned long replace = 0) = 0;
+ 
+     /*!
+      * Removes a block of the file starting a \a start and continuing for
+@@ -119,7 +119,7 @@ namespace TagLib {
+      * \note This method is slow since it involves rewriting all of the file
+      * after the removed portion.
+      */
+-    virtual void removeBlock(unsigned long start = 0, unsigned long length = 0) = 0;
++    virtual void removeBlock(offset_t start = 0, unsigned long length = 0) = 0;
+ 
+     /*!
+      * Returns true if the file is read only (or if the file can not be opened).
+@@ -138,7 +138,7 @@ namespace TagLib {
+      *
+      * \see Position
+      */
+-    virtual void seek(long offset, Position p = Beginning) = 0;
++    virtual void seek(offset_t offset, Position p = Beginning) = 0;
+ 
+     /*!
+      * Reset the end-of-stream and error flags on the stream.
+@@ -148,17 +148,17 @@ namespace TagLib {
+     /*!
+      * Returns the current offset within the stream.
+      */
+-    virtual long tell() const = 0;
++    virtual offset_t tell() const = 0;
+ 
+     /*!
+      * Returns the length of the stream.
+      */
+-    virtual long length() = 0;
++    virtual offset_t length() = 0;
+ 
+     /*!
+      * Truncates the stream to a \a length.
+      */
+-    virtual void truncate(long length) = 0;
++    virtual void truncate(offset_t length) = 0;
+ 
+   private:
+     IOStream(const IOStream &);
+diff --git a/taglib/trueaudio/trueaudiofile.cpp b/taglib/trueaudio/trueaudiofile.cpp
+index fc123ba3..95af5567 100644
+--- a/taglib/trueaudio/trueaudiofile.cpp
++++ b/taglib/trueaudio/trueaudiofile.cpp
+@@ -63,10 +63,10 @@ public:
+   }
+ 
+   const ID3v2::FrameFactory *ID3v2FrameFactory;
+-  long ID3v2Location;
++  offset_t ID3v2Location;
+   long ID3v2OriginalSize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   TagUnion tag;
+ 
+@@ -278,7 +278,7 @@ void TrueAudio::File::read(bool readProperties)
+ 
+   if(readProperties) {
+ 
+-    long streamLength;
++    offset_t streamLength;
+ 
+     if(d->ID3v1Location >= 0)
+       streamLength = d->ID3v1Location;
+diff --git a/taglib/trueaudio/trueaudioproperties.cpp b/taglib/trueaudio/trueaudioproperties.cpp
+index 0aab2419..3a403848 100644
+--- a/taglib/trueaudio/trueaudioproperties.cpp
++++ b/taglib/trueaudio/trueaudioproperties.cpp
+@@ -61,7 +61,7 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-TrueAudio::Properties::Properties(const ByteVector &data, long streamLength, ReadStyle style) :
++TrueAudio::Properties::Properties(const ByteVector &data, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+@@ -122,7 +122,7 @@ int TrueAudio::Properties::ttaVersion() const
+ // private members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-void TrueAudio::Properties::read(const ByteVector &data, long streamLength)
++void TrueAudio::Properties::read(const ByteVector &data, offset_t streamLength)
+ {
+   if(data.size() < 4) {
+     debug("TrueAudio::Properties::read() -- data is too short.");
+diff --git a/taglib/trueaudio/trueaudioproperties.h b/taglib/trueaudio/trueaudioproperties.h
+index 8dfcf375..6539b45c 100644
+--- a/taglib/trueaudio/trueaudioproperties.h
++++ b/taglib/trueaudio/trueaudioproperties.h
+@@ -54,7 +54,7 @@ namespace TagLib {
+        * Create an instance of TrueAudio::Properties with the data read from the
+        * ByteVector \a data.
+        */
+-      Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
++      Properties(const ByteVector &data, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Destroys this TrueAudio::Properties instance.
+@@ -122,7 +122,7 @@ namespace TagLib {
+       Properties(const Properties &);
+       Properties &operator=(const Properties &);
+ 
+-      void read(const ByteVector &data, long streamLength);
++      void read(const ByteVector &data, offset_t streamLength);
+ 
+       class PropertiesPrivate;
+       PropertiesPrivate *d;
+diff --git a/taglib/wavpack/wavpackfile.cpp b/taglib/wavpack/wavpackfile.cpp
+index ef92f4bd..dc708f74 100644
+--- a/taglib/wavpack/wavpackfile.cpp
++++ b/taglib/wavpack/wavpackfile.cpp
+@@ -61,10 +61,10 @@ public:
+     delete properties;
+   }
+ 
+-  long APELocation;
++  offset_t APELocation;
+   long APESize;
+ 
+-  long ID3v1Location;
++  offset_t ID3v1Location;
+ 
+   TagUnion tag;
+ 
+@@ -258,7 +258,7 @@ void WavPack::File::read(bool readProperties)
+ 
+   if(readProperties) {
+ 
+-    long streamLength;
++    offset_t streamLength;
+ 
+     if(d->APELocation >= 0)
+       streamLength = d->APELocation;
+diff --git a/taglib/wavpack/wavpackproperties.cpp b/taglib/wavpack/wavpackproperties.cpp
+index c1d04fd2..81597580 100644
+--- a/taglib/wavpack/wavpackproperties.cpp
++++ b/taglib/wavpack/wavpackproperties.cpp
+@@ -65,14 +65,14 @@ public:
+ // public members
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-WavPack::Properties::Properties(const ByteVector &, long, ReadStyle style) :
++WavPack::Properties::Properties(const ByteVector &, offset_t, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+   debug("WavPack::Properties::Properties() -- This constructor is no longer used.");
+ }
+ 
+-WavPack::Properties::Properties(File *file, long streamLength, ReadStyle style) :
++WavPack::Properties::Properties(File *file, offset_t streamLength, ReadStyle style) :
+   AudioProperties(style),
+   d(new PropertiesPrivate())
+ {
+@@ -160,9 +160,9 @@ namespace
+ 
+ #define FINAL_BLOCK     0x1000
+ 
+-void WavPack::Properties::read(File *file, long streamLength)
++void WavPack::Properties::read(File *file, offset_t streamLength)
+ {
+-  long offset = 0;
++  offset_t offset = 0;
+ 
+   while(true) {
+     file->seek(offset);
+@@ -210,9 +210,9 @@ void WavPack::Properties::read(File *file, long streamLength)
+   }
+ }
+ 
+-unsigned int WavPack::Properties::seekFinalIndex(File *file, long streamLength)
++unsigned int WavPack::Properties::seekFinalIndex(File *file, offset_t streamLength)
+ {
+-  const long offset = file->rfind("wvpk", streamLength);
++  const offset_t offset = file->rfind("wvpk", streamLength);
+   if(offset == -1)
+     return 0;
+ 
+diff --git a/taglib/wavpack/wavpackproperties.h b/taglib/wavpack/wavpackproperties.h
+index 0f5d1dcb..fb3540a4 100644
+--- a/taglib/wavpack/wavpackproperties.h
++++ b/taglib/wavpack/wavpackproperties.h
+@@ -58,13 +58,13 @@ namespace TagLib {
+        * \deprecated This constructor will be dropped in favor of the one below
+        * in a future version.
+        */
+-      Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
++      Properties(const ByteVector &data, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Create an instance of WavPack::Properties.
+        */
+       // BIC: merge with the above constructor
+-      Properties(File *file, long streamLength, ReadStyle style = Average);
++      Properties(File *file, offset_t streamLength, ReadStyle style = Average);
+ 
+       /*!
+        * Destroys this WavPack::Properties instance.
+@@ -137,8 +137,8 @@ namespace TagLib {
+       Properties(const Properties &);
+       Properties &operator=(const Properties &);
+ 
+-      void read(File *file, long streamLength);
+-      unsigned int seekFinalIndex(File *file, long streamLength);
++      void read(File *file, offset_t streamLength);
++      unsigned int seekFinalIndex(File *file, offset_t streamLength);
+ 
+       class PropertiesPrivate;
+       PropertiesPrivate *d;
+diff --git a/taglib/xm/xmfile.cpp b/taglib/xm/xmfile.cpp
+index 9192e9bf..61cfc77c 100644
+--- a/taglib/xm/xmfile.cpp
++++ b/taglib/xm/xmfile.cpp
+@@ -587,7 +587,7 @@ void XM::File::read(bool)
+     READ_ASSERT(count == std::min(instrumentHeaderSize, (unsigned long)instrument.size() + 4));
+ 
+     unsigned long sampleHeaderSize = 0;
+-    long offset = 0;
++    offset_t offset = 0;
+     if(sampleCount > 0) {
+       sumSampleCount += sampleCount;
+       // wouldn't know which header size to assume otherwise:
+EOF
+
 test -f mp4v2_win32.patch ||
   cat >mp4v2_win32.patch <<"EOF"
 diff -ruN mp4v2-2.0.0.orig/GNUmakefile.am mp4v2-2.0.0/GNUmakefile.am
@@ -3225,6 +5022,9 @@ if ! test -d taglib-${taglib_version}; then
     patch -p1 <../source/taglib_aiff_padding.patch
     patch -p1 <../source/taglib_grp1.patch
     patch -p1 <../source/taglib_oggbitrate.patch
+  fi
+  if test "$cross_host" = "x86_64-w64-mingw32"; then
+    patch -p1 <../source/taglib_large_file.patch
   fi
   cd ..
 fi

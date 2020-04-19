@@ -114,6 +114,14 @@
        variable >= Frame::Tag_1; \
        variable = static_cast<Frame::TagNumber>(variable - 1))
 
+#ifdef TAGLIB_WITH_OFFSET_TYPE
+typedef TagLib::offset_t taglib_offset_t;
+typedef TagLib::offset_t taglib_uoffset_t;
+#else
+typedef long taglib_offset_t;
+typedef ulong taglib_uoffset_t;
+#endif
+
 namespace {
 
 /** Convert QString @a s to a TagLib::String. */
@@ -286,23 +294,23 @@ public:
    * bytes of the original content.
    */
   virtual void insert(const TagLib::ByteVector &data,
-              ulong start = 0, ulong replace = 0) override;
+              taglib_uoffset_t start = 0, ulong replace = 0) override;
   /** Remove block starting at @a start for @a length bytes. */
-  virtual void removeBlock(ulong start = 0, ulong length = 0) override;
+  virtual void removeBlock(taglib_uoffset_t start = 0, ulong length = 0) override;
   /** True if the file is read only. */
   virtual bool readOnly() const override;
   /** Check if open in constructor succeeded. */
   virtual bool isOpen() const override;
   /** Move I/O pointer to @a offset in the file from position @a p. */
-  virtual void seek(long offset, Position p = Beginning) override;
+  virtual void seek(taglib_offset_t offset, Position p = Beginning) override;
   /** Reset the end-of-file and error flags on the file. */
   virtual void clear() override;
   /** Current offset within the file. */
-  virtual long tell() const override;
+  virtual taglib_offset_t tell() const override;
   /** Length of the file. */
-  virtual long length() override;
+  virtual taglib_offset_t length() override;
   /** Truncate the file to @a length. */
-  virtual void truncate(long length) override;
+  virtual void truncate(taglib_offset_t length) override;
 
   /**
    * Create a TagLib file for a stream.
@@ -431,14 +439,14 @@ void FileIOStream::writeBlock(const TagLib::ByteVector &data)
 }
 
 void FileIOStream::insert(const TagLib::ByteVector &data,
-                          ulong start, ulong replace)
+                          taglib_uoffset_t start, ulong replace)
 {
   if (openFileHandle()) {
     m_fileStream->insert(data, start, replace);
   }
 }
 
-void FileIOStream::removeBlock(ulong start, ulong length)
+void FileIOStream::removeBlock(taglib_uoffset_t start, ulong length)
 {
   if (openFileHandle()) {
     m_fileStream->removeBlock(start, length);
@@ -461,7 +469,7 @@ bool FileIOStream::isOpen() const
   return true;
 }
 
-void FileIOStream::seek(long offset, Position p)
+void FileIOStream::seek(taglib_offset_t offset, Position p)
 {
   if (openFileHandle()) {
     m_fileStream->seek(offset, p);
@@ -475,7 +483,7 @@ void FileIOStream::clear()
   }
 }
 
-long FileIOStream::tell() const
+taglib_offset_t FileIOStream::tell() const
 {
   if (openFileHandle()) {
     return m_fileStream->tell();
@@ -483,7 +491,7 @@ long FileIOStream::tell() const
   return 0;
 }
 
-long FileIOStream::length()
+taglib_offset_t FileIOStream::length()
 {
   if (openFileHandle()) {
     return m_fileStream->length();
@@ -491,7 +499,7 @@ long FileIOStream::length()
   return 0;
 }
 
-void FileIOStream::truncate(long length)
+void FileIOStream::truncate(taglib_offset_t length)
 {
   if (openFileHandle()) {
     m_fileStream->truncate(length);
