@@ -42,7 +42,7 @@ Dialog {
           "<br/><br/>" +
           "<a href=\"https://kid3.kde.org/\">" +
           "https://kid3.kde.org</a><br/>" + qsTr("License") +
-          ": <a href=\"http://www.gnu.org/licenses/licenses.html#GPL\">" +
+          ": <a href=\"https://www.gnu.org/licenses/licenses.html#GPL\">" +
           "GNU General Public License</a><br/><br/>" + qsTr(
             "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
             ).arg(script.getQtVersion())

@@ -37,7 +37,7 @@ Kid3Script {
       },
       "lyrics.wikia.com": {
         getUrl: function(artist, title) {
-          return "http://lyrics.wikia.com/wiki/" + encodeURIComponent(artist) +
+          return "https://lyrics.wikia.com/wiki/" + encodeURIComponent(artist) +
                    ":" + encodeURIComponent(title)
         },
         parseResponse: function(resp) {

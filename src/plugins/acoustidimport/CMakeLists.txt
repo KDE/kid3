@@ -118,7 +118,7 @@ if(WITH_CHROMAPRINT)
     # To avoid linker error
     # relocation R_X86_64_PC32 against symbol `ff_pw_9' can not be used when
     # making a shared object; recompile with -fPIC
-    # see http://www.ffmpeg.org/platform.html#Advanced-linking-configuration
+    # see https://www.ffmpeg.org/platform.html#Advanced-linking-configuration
     set_target_properties(${plugin_TARGET} PROPERTIES LINK_FLAGS -Wl,-Bsymbolic)
   endif()
 

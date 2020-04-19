@@ -301,11 +301,11 @@ endif()
 if(LINUX_SELF_CONTAINED)
   set(CPACK_INSTALL_PREFIX "")
   # Avoid GLIBC_2.14 not found errors on older systems like Debian Wheezy.
-  # http://stackoverflow.com/questions/8823267/linking-against-older-symbol-version-in-a-so-file
+  # https://stackoverflow.com/questions/8823267/linking-against-older-symbol-version-in-a-so-file
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${CMAKE_CURRENT_SOURCE_DIR}/linux/glibc_version_nightmare.h")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include ${CMAKE_CURRENT_SOURCE_DIR}/linux/glibc_version_nightmare.h")
   # Use RPATH instead of RUNPATH, the RPATH of the loading executable has to be used, see
-  # http://blog.qt.io/blog/2011/10/28/rpath-and-runpath/
+  # https://www.qt.io/blog/2011/10/28/rpath-and-runpath
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--disable-new-dtags")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
 endif()
@@ -350,7 +350,7 @@ if(BUILD_SHARED_LIBS)
   add_definitions(-DKID3_SHARED)
 
   # the RPATH to be used when installing, but only if it's not a system directory
-  # see http://www.cmake.org/Wiki/CMake_RPATH_handling
+  # see https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling
   set(_prefixLibdir "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}")
   list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${_prefixLibdir}" _isSystemDir)
   if("${_isSystemDir}" STREQUAL "-1")

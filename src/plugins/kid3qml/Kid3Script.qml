@@ -216,7 +216,7 @@ Timer {
       start()
     } else {
       // QtQuick 1 cannot restart a timer from a handler, see QTBUG-22004,
-      // http://permalink.gmane.org/gmane.comp.lib.qt.qml/3213
+      // https://bugreports.qt.io/browse/QTBUG-22004
       // This workaround starts it when it is possible again.
       function restartHandler() {
         runningChanged.disconnect(restartHandler)

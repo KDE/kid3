@@ -67,7 +67,6 @@
 #include "formatconfig.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
-#include "filesystemmodel.h"
 #include "coretaggedfileiconprovider.h"
 #include "icoreplatformtools.h"
 #include "kid3application.h"

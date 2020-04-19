@@ -156,7 +156,7 @@ macro(add_qt_android_apk TARGET SOURCE_TARGET)
         endif()
     endif()
 
-    # set the list of dependant libraries
+    # set the list of dependent libraries
     if(ARG_DEPENDS)
         foreach(LIB ${ARG_DEPENDS})
             if(TARGET ${LIB})

@@ -39,8 +39,8 @@ Kid3Script {
      *
      * Adapted for audio tag use case by Urs Fleisch - 12 Apr 2020
      * Ported to JavaScript By John Resig - http://ejohn.org/ - 21 May 2008
-     * Original by John Gruber - http://daringfireball.net/ - 10 May 2008
-     * License: http://www.opensource.org/licenses/mit-license.php
+     * Original by John Gruber - https://daringfireball.net/ - 10 May 2008
+     * License: https://www.opensource.org/licenses/mit-license.php
      */
     function toTitleCase(title) {
       var parts = [], split = /[:.;?!] |(?: |^)["\xab]/g, index = 0;

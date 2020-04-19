@@ -39,8 +39,6 @@
 #if RL_READLINE_VERSION < 0x0600
 #include <cstdlib>
 #endif
-#elif defined Q_OS_WIN32
-#include <windows.h>
 #else
 #include <QTextStream>
 #endif
