@@ -126,7 +126,7 @@ fi # changeversion
 if test "$1" = "cleanuppo"; then
   echo "### Clean up .po files"
 
-  for f in $srcdir/po/*.po*; do
+  for f in $srcdir/translations/po/*/*.po; do
     sed -i "/#, \(fuzzy, \)\?qt-\(plural-\)\?format/ d; /#, kde-format/ d; /^#~ msg/ d" $f
   done
   exit 0
@@ -4122,7 +4122,7 @@ if [[ $target = *"package"* ]]; then
       exit 1
     fi
 
-    cp -f po/*.qm doc/*/kid3*.html $_instdir
+    cp -f translations/*.qm doc/*/kid3*.html $_instdir
 
     _qtBinDir=${QTPREFIX}/bin
     for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
@@ -4130,7 +4130,7 @@ if [[ $target = *"package"* ]]; then
     done
 
     _qtTranslationsDir=${QTPREFIX}/translations
-    for f in po/*.qm; do
+    for f in translations/*.qm; do
       l=${f#*_};
       l=${l%.qm};
       test -f $_qtTranslationsDir/qtbase_$l.qm && cp $_qtTranslationsDir/qtbase_$l.qm $_instdir

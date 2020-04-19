@@ -98,6 +98,10 @@
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
+#if TAGLIB_VERSION >= 0x010c00
+#define TAGLIB_WITH_MP4_SHWM
+#endif
+
 /** for loop through all supported tag number values. */
 #define FOR_TAGLIB_TAGS(variable) \
   for (Frame::TagNumber variable = Frame::Tag_1; \
