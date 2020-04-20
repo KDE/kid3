@@ -548,9 +548,33 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     connect(vHeader, &QHeaderView::sectionMoved,
             this, &ImportDialog::moveTableRow);
   }
+
+  // Allow dragging multiple rows when pressing Ctrl by adding selected rows.
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   auto numTracks = static_cast<int>(trackDataVector.size());
-  if (fromIndex < numTracks && toIndex < numTracks) {
+
+  int diff = toIndex - fromIndex;
+  QList<int> fromList;
+  if (fromIndex >= 0 && fromIndex < numTracks &&
+      toIndex >= 0 && toIndex < numTracks) {
+    fromList.append(fromIndex);
+  }
+  const QModelIndexList selectedRows =
+      m_trackDataTable->selectionModel()->selectedRows();
+  for (const QModelIndex& index : selectedRows) {
+    int from = index.row();
+    int to = from + diff;
+    if (!fromList.contains(from) &&
+        from >= 0 && from < numTracks &&
+        to >= 0 && to < numTracks) {
+      fromList.append(from);
+    }
+  }
+  std::sort(fromList.begin(), fromList.end());
+
+  for (auto it = fromList.constBegin(); it != fromList.constEnd(); ++it) {
+    fromIndex = *it;
+    toIndex = fromIndex + diff;
     // swap elements but keep file durations and names
     ImportTrackData fromData(trackDataVector[fromIndex]);
     ImportTrackData toData(trackDataVector[toIndex]);
@@ -558,6 +582,8 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
     trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
     trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
+  }
+  if (!fromList.isEmpty()) {
     m_trackDataModel->setTrackData(trackDataVector);
     // redisplay the table
     showPreview();
