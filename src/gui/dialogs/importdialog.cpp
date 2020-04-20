@@ -543,7 +543,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
   auto vHeader = qobject_cast<QHeaderView*>(sender());
   if (vHeader) {
     // revert movement, but avoid recursion
-    disconnect(vHeader, &QHeaderView::sectionsMoved, nullptr, nullptr);
+    disconnect(vHeader, &QHeaderView::sectionMoved, nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
     connect(vHeader, &QHeaderView::sectionMoved,
             this, &ImportDialog::moveTableRow);
