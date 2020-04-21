@@ -1,3 +1,28 @@
+Tue Apr 21 20:47:03 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.3
+
+	* New:
+	  + Keyboard shortcuts to navigate between the file and tag sections.
+	  + Script to apply English title capitalization to tags.
+	  + Script to transliterate ID3v1 tags to ASCII.
+
+	* Improved:
+	  + Better compatibility with dark mode and custom themes.
+	  + Support dragging multiple header rows in import table.
+	  + User interface strings follow KDE HIG vocabulary.
+	  + Support renaming read-only files.
+
+	* Fixed:
+	  + File filter reset when file is opened.
+	  + Crash when dragging row in import table.
+	  + Blocking when jumping to vanished previous or next file.
+	  + Support languages with code or modifier.
+	  + Hide text fragments visible in header of frame table columns.
+	  + English plural forms.
+	  + Add missing license files.
+	  + Support large files on Windows (64-bit).
+
 Thu Jan 23 12:18:05 CET 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.2

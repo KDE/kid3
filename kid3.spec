@@ -6,7 +6,7 @@ Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
-Version:      3.8.2
+Version:      3.8.3
 Release:      1%{?dist}
 URL:          https://kid3.kde.org/
 Source0:      https://invent.kde.org/kde/kid3/-/archive/v%{version}/kid3-v%{version}.tar.gz
