@@ -31,6 +31,7 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QComboBox>
+#include <QAction>
 #include <QSpinBox>
 #include <QApplication>
 #include <QFile>
@@ -1323,6 +1324,12 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   m_vlayout->addLayout(hlayout);
   setMinimumWidth(525);
+  // Ctrl-Enter to OK
+  QAction* action = new QAction(okButton);
+  action->setAutoRepeat(false);
+  action->setShortcut(QKeySequence("Ctrl+Return"));
+  connect(action, &QAction::triggered, okButton, &QPushButton::click);
+  okButton->addAction(action);
 }
 
 /**
