@@ -8,6 +8,7 @@
   <name xml:lang="ca">Kid3</name>
   <name xml:lang="ca-valencia">Kid3</name>
   <name xml:lang="cs">Kid3</name>
+  <name xml:lang="da">Kid3</name>
   <name xml:lang="en-GB">Kid3</name>
   <name xml:lang="es">Kid3</name>
   <name xml:lang="et">Kid3</name>
@@ -26,6 +27,7 @@
   <summary xml:lang="ca">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="ca-valencia">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="cs">Upravujte metadata souboru hudby</summary>
+  <summary xml:lang="da">Redigér metadata for lydfiler</summary>
   <summary xml:lang="en-GB">Edit audio file metadata</summary>
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
@@ -125,6 +127,7 @@
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kid3</caption>
       <caption xml:lang="cs">Hlavní okno Kid3</caption>
+      <caption xml:lang="da">Kid3's hovedvindue</caption>
       <caption xml:lang="en-GB">Kid3 main window</caption>
       <caption xml:lang="es">Ventana principal de Kid3</caption>
       <caption xml:lang="et">Kid3 peaaken</caption>
@@ -148,6 +151,7 @@
   <developer_name xml:lang="ca">Urs Fleisch</developer_name>
   <developer_name xml:lang="ca-valencia">Urs Fleisch</developer_name>
   <developer_name xml:lang="cs">Urs Fleisch</developer_name>
+  <developer_name xml:lang="da">Urs Fleisch</developer_name>
   <developer_name xml:lang="en-GB">Urs Fleisch</developer_name>
   <developer_name xml:lang="es">Urs Fleisch</developer_name>
   <developer_name xml:lang="et">Urs Fleisch</developer_name>
