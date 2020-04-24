@@ -52,24 +52,22 @@ endif()
 if(UNIX AND NOT APPLE)
   find_program(GZIP_PROGRAM gzip)
   # install desktop file and icons for Linux
-  add_custom_command(OUTPUT kid3-qt.desktop
+  add_custom_command(OUTPUT org.kde.kid3-qt.desktop
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.py
-      <${CMAKE_CURRENT_SOURCE_DIR}/../kid3.desktop >kid3-qt.desktop
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.desktop
+      <${CMAKE_CURRENT_SOURCE_DIR}/../org.kde.kid3.desktop >org.kde.kid3-qt.desktop
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../org.kde.kid3.desktop
   )
-  add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
-    DESTINATION "${WITH_DATAROOTDIR}/applications"
-    RENAME org.kde.kid3-qt.desktop)
-  add_custom_command(OUTPUT kid3-qt.appdata.xml
+  add_custom_target("desktop-file" ALL DEPENDS org.kde.kid3-qt.desktop)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kid3-qt.desktop
+    DESTINATION "${WITH_DATAROOTDIR}/applications")
+  add_custom_command(OUTPUT org.kde.kid3-qt.appdata.xml
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixappdata.py
-      ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml >kid3-qt.appdata.xml
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../kid3.appdata.xml
+      ${CMAKE_CURRENT_SOURCE_DIR}/../org.kde.kid3.appdata.xml >org.kde.kid3-qt.appdata.xml
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../org.kde.kid3.appdata.xml
   )
-  add_custom_target("appdata-file" ALL DEPENDS kid3-qt.appdata.xml)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.appdata.xml
-    DESTINATION "${WITH_DATAROOTDIR}/metainfo"
-    RENAME org.kde.kid3-qt.appdata.xml)
+  add_custom_target("appdata-file" ALL DEPENDS org.kde.kid3-qt.appdata.xml)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kid3-qt.appdata.xml
+    DESTINATION "${WITH_DATAROOTDIR}/metainfo")
   if(GZIP_PROGRAM)
     add_custom_command(OUTPUT kid3-qt.svg
       COMMAND ${GZIP_PROGRAM} -cdn ${CMAKE_CURRENT_SOURCE_DIR}/../sc-apps-kid3.svgz >kid3-qt.svg
