@@ -118,7 +118,7 @@ ${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\
     NEWCODE=$[ $OLDCODE + 1 ]
     sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
   fi
-  sed -i "s,^  <releases>.*,&\n    <release version=\"${NEWVER}\" date=\"${DATE_F}\"/>," src/app/kid3.appdata.xml
+  sed -i "s,^  <releases>.*,&\n    <release version=\"${NEWVER}\" date=\"${DATE_F}\"/>," src/app/org.kde.kid3.appdata.xml
   cd - >/dev/null
   exit 0
 fi # changeversion
