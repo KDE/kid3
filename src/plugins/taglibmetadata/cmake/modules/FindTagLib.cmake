@@ -35,6 +35,13 @@ else()
         find_library(TAGLIB_LIBRARY NAMES ${CMAKE_MATCH_2}
                                     HINTS ${CMAKE_MATCH_1}
                                     NO_CMAKE_FIND_ROOT_PATH)
+      else()
+        # Maybe TAGLIB_LDFLAGS has the format "-ltag" as on Red Hat
+        string(REGEX MATCH "-l *([^ ]+)" _match ${TAGLIB_LDFLAGS})
+        if(_match)
+          find_library(TAGLIB_LIBRARY NAMES ${CMAKE_MATCH_1}
+                                      NO_CMAKE_FIND_ROOT_PATH)
+       endif()
       endif()
       # Extract include path from TAGLIB_CFLAGS, which has the format
       # "-I/usr/include/taglib"

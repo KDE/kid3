@@ -1,180 +1,132 @@
-#
-# spec file for package kid3
-#
+%global gstversion 1.0
 
-Name:         kid3
-License:      GPL
-Group:        Applications/Multimedia
-Summary:      Efficient ID3 tag editor
-Version:      3.8.3
-Release:      1%{?dist}
-URL:          https://kid3.kde.org/
-Source0:      https://invent.kde.org/kde/kid3/-/archive/v%{version}/kid3-v%{version}.tar.gz
-BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:  kdelibs4-devel
-# OpenSUSE: BuildRequires:  libkde4-devel
+Name:           kid3
+Version:        3.8.3
+Release:        1%{?dist}
+Summary:        Efficient ID3 tag editor
+
+License:        GPLv2+
+URL:            https://kid3.kde.org/
+Source0:        https://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
+BuildRequires:  kf5-kio-devel
+BuildRequires:  kf5-kdoctools-devel
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  extra-cmake-modules
+BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  cmake
 BuildRequires:  id3lib-devel
-# Mandriva: BuildRequires:  libid3lib3.8-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  flac-devel
-# Mandriva: BuildRequires:  libflac++-devel
-BuildRequires:  libchromaprint-devel
 BuildRequires:  libvorbis-devel
+BuildRequires:  libchromaprint-devel
+BuildRequires:  pkgconfig(gstreamer-%{gstversion})
 BuildRequires:  readline-devel
 BuildRequires:  gettext
-Requires:       xdg-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  gcc-c++
+Requires:       %{name}-common = %{version}-%{release}
 
 %description
-With Kid3 you can:
+If you want to easily tag multiple MP3, Ogg/Vorbis, FLAC, MPC,
+MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, and AIFF files
+(e.g. full albums) without typing the same information again and again
+and have control over both ID3v1 and ID3v2 tags, then Kid3 is the
+program you are looking for.
 
-- Edit ID3v1.1 tags
-- Edit all ID3v2.3 and ID3v2.4 frames
-- Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit tags in MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC,
-  MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker
-  modules (MOD, S3M, IT, XM).
-- Edit tags of multiple files, e.g. the artist, album, year and genre
-  of all files of an album typically have the same values and can be
-  set together.
-- Generate tags from filenames
-- Generate tags from the contents of tag fields
-- Generate filenames from tags
-- Generate playlist files
-- Automatic case conversion and string translation
-- Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+%package        common
+Summary:        Efficient command line ID3 tag editor
+Recommends:     xdg-utils
 
-This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
+%description    common
+If you want to easily tag multiple MP3, Ogg/Vorbis, FLAC, MPC,
+MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, and AIFF files
+(e.g. full albums) without typing the same information again and again
+and have control over both ID3v1 and ID3v2 tags, then Kid3 is the
+program you are looking for.  The %{name}-common package provides Kid3
+command line tool and files shared between all Kid3 variants.
 
-Authors: Urs Fleisch
+
+%package        qt
+Summary:        Efficient Qt ID3 tag editor
+Requires:       %{name}-common = %{version}-%{release}
+
+%description    qt
+If you want to easily tag multiple MP3, Ogg/Vorbis, FLAC, MPC,
+MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, and AIFF files
+(e.g. full albums) without typing the same information again and again
+and have control over both ID3v1 and ID3v2 tags, then Kid3 is the
+program you are looking for.  The %{name}-qt package provides Kid3
+built without KDE dependencies.
 
 
 %prep
-[ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
-%setup -q
+%autosetup -p1
+
 
 %build
-mkdir kid3-build
-cd kid3-build; \
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=Release ..; \
-make %{?_smp_mflags}; \
-cd ..
+# lib64 stuff: //bugzilla.redhat.com/show_bug.cgi?id=1425064
+%cmake_kf5 \
+%if "%{?_lib}" == "lib64"
+    %{?_cmake_lib_suffix64} \
+%endif
+    -DWITH_GSTREAMER_VERSION=%{gstversion} \
+    -DWITH_NO_MANCOMPRESS=ON \
+    .
+%make_build
+
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}
-make -C kid3-build install DESTDIR=${RPM_BUILD_ROOT}
 
-test -d $RPM_BUILD_ROOT/usr/bin && strip $RPM_BUILD_ROOT/usr/bin/*
-find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
+%make_install
 
-%clean
-[ -d  ${RPM_BUILD_ROOT} -a "${RPM_BUILD_ROOT}" != "/" ] && rm -rf  ${RPM_BUILD_ROOT}
+install -dm 755 $RPM_BUILD_ROOT%{_pkgdocdir}
+install -pm 644 AUTHORS ChangeLog README $RPM_BUILD_ROOT%{_pkgdocdir}
 
-%files
-%defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING LICENSE README
+%find_lang %{name} --with-man
+# --with-kde doesn't work with kf5 yet
+# https://github.com/rpm-software-management/rpm/pull/112
+mv %{name}.lang %{name}-kde.lang
+%find_lang %{name}-qt --with-man
+%find_lang %{name}-cli --with-man
+%find_lang %{name} --with-qt
+for l in en $(ls doc/docs); do \
+  echo "%%lang($l) %%{_kf5_datadir}/doc/HTML/$l/kid3/" >> %{name}-kde.lang; \
+  echo "%%lang($l) %%{_docdir}/kid3-qt/kid3_$l.html" >> %{name}-qt.lang; \
+done
+cat %{name}.lang >> %{name}-cli.lang
+cat <<EOF >> %{name}-cli.lang
+%%dir %%{_datadir}/kid3/
+%%dir %%{_datadir}/kid3/translations/
+EOF
+
+
+%check
+appstream-util validate-relax --nonet \
+    $RPM_BUILD_ROOT%{_datadir}/metainfo/*.appdata.xml
+
+%files -f %{name}-kde.lang
 %{_bindir}/kid3
-%{_datadir}/applications/kde4/*kid3.desktop
-%{_datadir}/metainfo/*kid3.appdata.xml
+%{_datadir}/metainfo/org.kde.kid3.appdata.xml
 %{_datadir}/icons/hicolor/*x*/apps/kid3.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3.svgz
-%{_datadir}/kde4/apps/kid3/
-%{_datadir}/doc/kde/HTML/en/kid3/
-%{_datadir}/doc/kde/HTML/de/kid3/
+%{_datadir}/applications/org.kde.kid3.desktop
+%{_datadir}/kxmlgui5/%{name}
 
+%files common -f %{name}-cli.lang
+%{_bindir}/kid3-cli
+%{_libdir}/kid3/
+%{_datadir}/dbus-1/interfaces/*.xml
+%{_datadir}/kid3/qml/
+%{_mandir}/man1/kid3.1*
+%{_mandir}/man1/kid3-cli.1*
+%license COPYING LICENSE
+%{_pkgdocdir}/
 
-%package qt
-Group:        Applications/Multimedia
-Summary:      Efficient ID3 tag editor
-
-%description qt
-With Kid3 you can:
-
-- Edit ID3v1.1 tags
-- Edit all ID3v2.3 and ID3v2.4 frames
-- Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-  TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD,
-  S3M, IT, XM).
-- Edit tags of multiple files, e.g. the artist, album, year and genre
-  of all files of an album typically have the same values and can be
-  set together.
-- Generate tags from filenames
-- Generate tags from the contents of tag fields
-- Generate filenames from tags
-- Generate playlist files
-- Automatic case conversion and string translation
-- Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
-
-This package does not use KDE libraries, if you use KDE you should use kid3.
-
-Authors: Urs Fleisch
-
-%files qt
-%defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING LICENSE README
+%files qt -f %{name}-qt.lang
 %{_bindir}/kid3-qt
-%{_datadir}/applications/*kid3-qt.desktop
-%{_datadir}/metainfo/*kid3-qt.appdata.xml
+%{_datadir}/metainfo/org.kde.kid3-qt.appdata.xml
+%{_datadir}/applications/org.kde.kid3-qt.desktop
 %{_datadir}/icons/hicolor/*x*/apps/kid3-qt.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3-qt.svg
-%{_datadir}/doc/kid3-qt/
-%{_mandir}/man1/kid3-qt.1.gz
-%{_mandir}/de/man1/kid3-qt.1.gz
-
-%package core
-Group:        Applications/Multimedia
-Summary:      Audio tag editor core libraries and data
-
-%description core
-This package contains common libraries and data used by both kid3 and kid3-qt.
-
-Authors: Urs Fleisch
-
-%files core
-%defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING LICENSE README
-%{_libdir}/kid3/*
-%{_datadir}/dbus-1/interfaces/*.xml
-%{_datadir}/kid3/translations/
-%{_datadir}/kid3/qml/script/
-%{_mandir}/man1/kid3.1.gz
-%{_mandir}/de/man1/kid3.1.gz
-
-%package cli
-Group:        Applications/Multimedia
-Summary:      Efficient ID3 tag editor
-
-%description cli
-With Kid3 you can:
-
-- Edit ID3v1.1 tags
-- Edit all ID3v2.3 and ID3v2.4 frames
-- Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-  TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD,
-  S3M, IT, XM).
-- Edit tags of multiple files, e.g. the artist, album, year and genre
-  of all files of an album typically have the same values and can be
-  set together.
-- Generate tags from filenames
-- Generate tags from the contents of tag fields
-- Generate filenames from tags
-- Generate playlist files
-- Automatic case conversion and string translation
-- Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
-
-This package contains a command line interface for Kid3, for a GUI you can
-use kid3-qt or kid3.
-
-Authors: Urs Fleisch
-
-%files cli
-%defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING LICENSE README
-%{_bindir}/kid3-cli
-%{_mandir}/man1/kid3-cli.1.gz
-%{_mandir}/de/man1/kid3-cli.1.gz
+%dir %{_docdir}/kid3-qt/
+%{_mandir}/man1/kid3-qt.1*
