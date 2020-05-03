@@ -7,8 +7,16 @@
 # Translation status: https://l10n.kde.org/stats/gui/trunk-kf5/po/kid3_qt.po/
 # To extract the translatable messages, proceed as described in
 # https://techbase.kde.org/Development/Tutorials/Localization/i18n_Build_Systems
+# Use --force-en as a parameter to force extraction of English plurals.
 
 set -e
+
+force_en=false
+if test "$1" = "--force-en"; then
+  force_en=true
+  shift
+fi
+
 podir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/po
 branch=${1:-trunk}
 svn_path_prefix="svn://anonsvn.kde.org/home/kde/$branch/l10n-kf5"
@@ -31,7 +39,7 @@ for lang in $(cat $subdirs); do
   fi
 done
 
-if ! test -f po/en/kid3_qt.po; then
+if ! test -f po/en/kid3_qt.po || $force_en; then
   echo "Extracting po/en/kid3_qt.po"
   if hash extract-messages.sh 2>/dev/null; then
     cd ..

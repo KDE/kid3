@@ -2,8 +2,17 @@
 # You usually should not call this script, it documents the process.
 # Use download-pos.sh instead, it will fetch the translations
 # and the docbooks which are considered to be ready from l10n.kde.org.
+# To extract only a subset of the docbooks, pass their paths as parameters,
+# e.g. ./extract-merge.sh po/pt/kid3.po.
 
+set -e
 _project="kid3"
+
+if test -n "$1"; then
+  _catalogs=$*
+else
+  _catalogs=`find po -name '*.po'`
+fi
 
 if ! test -f po/$_project.pot; then
   echo "Extracting messages"
@@ -14,7 +23,6 @@ else
 fi
 
 echo "Merging translations"
-_catalogs=`find po -name '*.po'`
 for _cat in $_catalogs; do
   echo $_cat
   msgmerge --quiet --update --backup=none $_cat po/${_project}.pot
