@@ -189,7 +189,7 @@ set -e
    ../kid3/buildlibs.sh)
 (cd mingw64_build && \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt5.9.7-mingw64/5.9.7/mingw53_64 \
+   QTPREFIX=$HOME/Development/Qt5.12.8-mingw64/5.12.8/mingw73_64 \
    ../kid3/buildlibs.sh)
 (cd macos_build && \
    COMPILER=cross-macos \
@@ -209,14 +209,9 @@ EOF
   fi
   mkdir -p docker_image_context/pkg
   cd docker_image_context
-  for f in binutils-mingw-w64-x86-64_2.26-3ubuntu1+6.6_amd64.deb \
-           gcc-mingw-w64-base_5.3.1-8ubuntu3+17_amd64.deb \
-           gcc-mingw-w64-dw2-base_4.9.3-13ubuntu2+14.1_amd64.deb \
+  for f in gcc-mingw-w64-dw2-base_4.9.3-13ubuntu2+14.1_amd64.deb \
            gcc-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
-           gcc-mingw-w64-x86-64_5.3.1-8ubuntu3+17_amd64.deb \
            g++-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
-           g++-mingw-w64-x86-64_5.3.1-8ubuntu3+17_amd64.deb \
-           mingw-w64-x86-64-dev_4.0.4-2_all.deb \
            libmpfr4_3.1.6-1_amd64.deb; do
     test -e pkg/$f || cp -a $HOME/Development/MinGW_Packages/$f pkg/
   done
@@ -231,8 +226,7 @@ qml-module-qtquick2 cmake python libid3-3.8.3-dev libflac++-dev \
 libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring ppa-purge dput-ng python-distro-info sudo curl \
-g++-4.8 libcloog-isl4 libisl15 \
-binutils-mingw-w64-i686 mingw-w64-i686-dev mingw-w64-common \
+g++-4.8 libcloog-isl4 libisl15 mingw-w64 \
 locales ninja-build ccache p7zip-full genisoimage \
 clang libssl1.0.0 openjdk-8-jdk-headless nasm lib32z1 chrpath
 COPY pkg .
@@ -543,7 +537,8 @@ if test "$compiler" != "cross-android"; then
 
 fi # !cross-android
 
-if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
+if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
+   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ); then
   # See http://doc.qt.io/qt-5/opensslsupport.html
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
@@ -5200,7 +5195,8 @@ if test "$compiler" = "cross-android"; then
     cd ..
   fi
 
-elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug"; then
+elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
+     || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ); then
 
   if ! test -d openssl-${openssl_version}; then
     echo "### Extracting openssl"
@@ -5408,10 +5404,31 @@ else #  cross-android, msvc
     cd openssl-${openssl_version}
     ./Configure shared enable-ec_nistp_64_gcc_128 linux-x86_64 -Wa,--noexecstack
     make depend || true
-	  make build_libs
+    make build_libs
     mkdir -p inst/usr/local/ssl
     cp --dereference libssl.so libcrypto.so inst/usr/local/ssl/
     strip -s inst/usr/local/ssl/*.so
+    cd inst
+    tar czf ../../bin/openssl-${openssl_version}.tgz usr
+    cd ../..
+    tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
+
+  elif ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ) \
+       && test ! -d openssl-${openssl_version}/inst; then
+    echo "### Building OpenSSL"
+
+    cd openssl-${openssl_version}
+    if test "$cross_host" = "x86_64-w64-mingw32"; then
+      _target=mingw64
+    else
+      _target=mingw
+    fi
+    ./Configure shared enable-ec_nistp_64_gcc_128 mingw64 --cross-compile-prefix=${cross_host}-
+    make depend || true
+    make build_libs
+    mkdir -p inst/usr/local/ssl
+    cp lib{ssl,crypto}*.dll inst/usr/local/ssl/
+    ${cross_host}-strip -s inst/usr/local/ssl/*.dll
     cd inst
     tar czf ../../bin/openssl-${openssl_version}.tgz usr
     cd ../..

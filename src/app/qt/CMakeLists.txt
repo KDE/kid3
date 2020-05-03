@@ -263,7 +263,14 @@ if(WIN32)
   install(DIRECTORY "${_qtBinDir}/icu_reduced/"
           DESTINATION ${WITH_BINDIR} OPTIONAL)
   # Install missing DLLs.
-  file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
+  # Since Qt 5.12.4, OpenSSL 1.1.1 is supported, but the DLLs have different
+  # names (libcrypto-1_1-x64.dll, libssl-1_1-x64.dll for 64-bit) and are not
+  # shipped with Qt.
+  if(Qt5Core_VERSION_STRING VERSION_LESS "5.12.4")
+    file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
+  else()
+    file(GLOB _sslDlls "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/*.dll")
+  endif()
   install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
           DESTINATION ${WITH_BINDIR})
 endif()
