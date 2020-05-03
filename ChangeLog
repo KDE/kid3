@@ -1,4 +1,4 @@
-Tue Apr 21 20:47:03 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Sun May 10 08:47:03 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.3
 
@@ -6,6 +6,8 @@ Tue Apr 21 20:47:03 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Keyboard shortcuts to navigate between the file and tag sections.
 	  + Script to apply English title capitalization to tags.
 	  + Script to transliterate ID3v1 tags to ASCII.
+	  + Korean and Swedish translations.
+	  + Catalan, Dutch, Italian, Swedish and Ukrainian handbooks.
 
 	* Improved:
 	  + Better compatibility with dark mode and custom themes.
