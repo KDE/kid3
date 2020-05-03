@@ -6,23 +6,23 @@ import os
 
 
 def fix_docbook(lang):
-    scriptdir = os.path.dirname(os.path.abspath(__file__))
-    for line in fileinput.input():
+    scriptdir = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
+    for line in fileinput.input(mode='rb'):
         line = line\
-          .replace('"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [',
-                   '"-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [\n' +
-                   "  <!ENTITY % fromkdoctools SYSTEM '" + scriptdir + "/fromkdoctools.ent'>\n" +
-                   "  %fromkdoctools;\n" +
-                   "  <!ENTITY language '" + lang + "'>")\
-          .replace('ufleisch@', 'ufleisch at ')\
-          .replace('&FDLNotice;',
-                   '<para><ulink url="http://www.gnu.org/licenses/licenses.html#FDL">FDL</ulink></para>')\
-          .replace('&underFDL;',
-                   '<para><ulink url="http://www.gnu.org/licenses/licenses.html#FDL">FDL</ulink></para>')\
-          .replace('&underGPL;',
-                   '<para><ulink url="http://www.gnu.org/licenses/licenses.html#GPL">GPL</ulink></para>')\
-          .replace('&documentation.index;', '')
-        sys.stdout.write(line)
+          .replace(b'"-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [',
+                   b'"-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [\n' +
+                   b"  <!ENTITY % fromkdoctools SYSTEM '" + scriptdir.encode() + b"/fromkdoctools.ent'>\n" +
+                   b"  %fromkdoctools;\n" +
+                   b"  <!ENTITY language '" + lang.encode() + b"'>")\
+          .replace(b'ufleisch@', b'ufleisch at ')\
+          .replace(b'&FDLNotice;',
+                   b'<para><ulink url="http://www.gnu.org/licenses/licenses.html#FDL">FDL</ulink></para>')\
+          .replace(b'&underFDL;',
+                   b'<para><ulink url="http://www.gnu.org/licenses/licenses.html#FDL">FDL</ulink></para>')\
+          .replace(b'&underGPL;',
+                   b'<para><ulink url="http://www.gnu.org/licenses/licenses.html#GPL">GPL</ulink></para>')\
+          .replace(b'&documentation.index;', b'')
+        os.write(sys.stdout.fileno(), line)
 
 if __name__ == '__main__':
     lang = 'en'
