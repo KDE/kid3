@@ -9,6 +9,7 @@
   <name xml:lang="ca-valencia">Kid3</name>
   <name xml:lang="cs">Kid3</name>
   <name xml:lang="da">Kid3</name>
+  <name xml:lang="el">Kid3</name>
   <name xml:lang="en-GB">Kid3</name>
   <name xml:lang="es">Kid3</name>
   <name xml:lang="et">Kid3</name>
@@ -30,6 +31,7 @@
   <summary xml:lang="ca-valencia">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="cs">Upravujte metadata souboru hudby</summary>
   <summary xml:lang="da">Redigér metadata for lydfiler</summary>
+  <summary xml:lang="el">Επεξεργασία μεταδεδομένων αρχείου ήχου </summary>
   <summary xml:lang="en-GB">Edit audio file metadata</summary>
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
@@ -55,6 +57,7 @@
     <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="ca-valencia">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="cs">Pomocí Kid3, editoru značek hudby, můžete upravovat značky v MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a dalších souborech.</p>
+    <p xml:lang="el">Με το Kid3, έναν επεξεργαστή ετικετών ήχου, μπορείτε να επεξεργαστείτε ετικέτες σε MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF και σε αρχεία ιχνηλάτησης.</p>
     <p xml:lang="en-GB">With Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and tracker files.</p>
     <p xml:lang="es">Con Kid3, un editor de etiquetas de sonido, puede editar etiquetas en MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF y archivos tracker.</p>
     <p xml:lang="et">Helifailide siltide redaktor Kid3 võimaldab muuta MP3-, Ogg/Vorbise, DSF-, FLAC-, Opuse, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja tracker-failide silte.</p>
@@ -68,6 +71,7 @@
     <p xml:lang="sv">Med Kid3, en editor för ljudtaggar, kan du redigera taggar i MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- och tracker-filer.</p>
     <p xml:lang="uk">За допомогою Kid3, редактора міток звукових файлів, ви можете редагувати мітки у файлах MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF та tracker.</p>
     <p xml:lang="x-test">xxWith Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and tracker files.xx</p>
+    <p xml:lang="zh-TW">使用 Kid3 這個音訊標籤編輯器，即可編輯 MP3、Ogg/Vorbis、DSF、FLAC、Opus、MPC、APE、MP4/AAC、MP2、Speex、TrueAudio、WavPack、WMA、WAV、AIFF 和 tracker 檔案中的標籤。</p>
     <p>
       All frames in the ID3 tags of MP3 files can be edited, and it is
       possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronized
@@ -75,6 +79,7 @@
     </p>
     <p xml:lang="ca">Es poden editar tots els marcs en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronitzada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
     <p xml:lang="ca-valencia">Es poden editar tots els marcs en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronitzada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
+    <p xml:lang="el">Όλα τα καρέ στις ID3 ετικέτες των MP3 αρχείων μπορούν να γίνουν αντικείμενο επεξεργασίας και είναι εφικτή η μετατροπή ανάμεσα σε ID3v1.1, ID3v2.3 και ID3v2.4. Μπορεί να γίνει επεξεργασία, εισαγωγή και εξαγωγή συγχρονισμένων στίχων σε LRC καραόκε αρχεία.</p>
     <p xml:lang="en-GB">All frames in the ID3 tags of MP3 files can be edited, and it is possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronised lyrics can be edited, imported and exported to LRC Karaoke files.</p>
     <p xml:lang="es">Se pueden editar todas las estructuras de etiquetas ID3 de los archivos MP3. Es posible convertir entre ID3v1.1, ID3v2.3 e ID3v2.4. Se pueden editar las letras de las canciones sincronizadas, además de importarlas y exportarlas a archivos de karaoke LRC.</p>
     <p xml:lang="et">Kõiki MP3-faili ID3 siltide kaadreid saab muuta ning võimalik on teisendamine ID3v1.1, ID3v2.3 ja ID3v2.4 vahel. Sünkroonitud laulusõnu saab muuta, importida ja eksportida LRC Karaoke failina.</p>
@@ -96,6 +101,7 @@
     </p>
     <p xml:lang="ca">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantenir les etiquetes consistents.</p>
     <p xml:lang="ca-valencia">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantindre les etiquetes consistents.</p>
+    <p xml:lang="el">Οι ετικέτες πολλών αρχείων μπορούν να ρυθμιστούν μαζί. Είναι δυνατή η παραγωγή ετικετών από ονόματα αρχείων ή από τα περιεχόμενα άλλων πεδίων ετικετών, η παραγωγή ονομάτων αρχείων από ετικέτες και η μετονομασία φακέλων από ετικέτες. Η αυτόματη μετατροπή μεταξύ κεφαλαίων και πεζών και η αντικατάσταση συμβολοσειρών βοηθούν στη διατήρηση των ετικετών σε συμφωνία.</p>
     <p xml:lang="en-GB">The tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.</p>
     <p xml:lang="es">Puede definir de forma conjunta las etiquetas de múltiples archivos. Es posible generar etiquetas a partir de los nombres de los archivos o del contenido de otras etiquetas y generar nombres de archivos a partir de etiquetas, así como cambiar los nombres de las carpetas a partir de etiquetas. La conversión automática a mayúsculas y la sustitución de texto ayudan a mantener etiquetas consistentes.</p>
     <p xml:lang="et">Mitme faili silte saab kokku siduda. Silte on võimalik luua failinime või teiste siltide väljade põhjal ning siltide põhjal saab nii luua failinimesid kui ka muuta kataloogide nime. Siltide ühtlust aitavad tagada automaatne tähesuuruse teisendamine ja stringi asendamine.</p>
@@ -115,6 +121,7 @@
     </p>
     <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
     <p xml:lang="ca-valencia">Les dades de l'àlbum es poden importar des de gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
+    <p xml:lang="el">Δεδομένα για άλμπουμ μπορούν να εισαχθούν από τα gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Αυτόματη εισαγωγή δέσμης είναι διαθέσιμη για πολλούς φακέλους. Είναι επίσης δυνατή η εξαγωγή δεδομένων και η δημιουργία λιστών αναπαραγωγής.</p>
     <p xml:lang="en-GB">Album data can be imported from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.</p>
     <p xml:lang="es">Puede importar datos de álbumes de gnudb.org, TrackType.org, MusicBrainz, Discogs y Amazon. Puede realizar importaciones automáticas por lotes para múltiples carpetas. También puede exportar datos y generar listas de reproducción.</p>
     <p xml:lang="et">Albumi andmeid saab importida järgmistest asukohtadest: gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Automaatne hulgiimport võimaldab täita mitut kataloogi korraga. Samuti saab andmeid eksportida ja luua esitusloendeid.</p>
@@ -136,6 +143,7 @@
       <caption xml:lang="ca-valencia">Finestra principal del Kid3</caption>
       <caption xml:lang="cs">Hlavní okno Kid3</caption>
       <caption xml:lang="da">Kid3's hovedvindue</caption>
+      <caption xml:lang="el">Kid3 κύριο παράθυρο</caption>
       <caption xml:lang="en-GB">Kid3 main window</caption>
       <caption xml:lang="es">Ventana principal de Kid3</caption>
       <caption xml:lang="et">Kid3 peaaken</caption>
@@ -161,6 +169,7 @@
   <developer_name xml:lang="ca-valencia">Urs Fleisch</developer_name>
   <developer_name xml:lang="cs">Urs Fleisch</developer_name>
   <developer_name xml:lang="da">Urs Fleisch</developer_name>
+  <developer_name xml:lang="el">Urs Fleisch</developer_name>
   <developer_name xml:lang="en-GB">Urs Fleisch</developer_name>
   <developer_name xml:lang="es">Urs Fleisch</developer_name>
   <developer_name xml:lang="et">Urs Fleisch</developer_name>
