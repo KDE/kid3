@@ -98,7 +98,7 @@ endif()
 
 if(BUILD_KDE_APP)
   file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py
-       CONTENT "#!/usr/bin/env python
+       CONTENT "#!/usr/bin/env python3
 import sys, os, tempfile
 args = sys.argv[1:]
 docbook = args.pop()

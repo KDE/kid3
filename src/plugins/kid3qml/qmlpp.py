@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # qmlpp - QML and JavaScript preprocessor
 # Based on https://katastrophos.net/andre/blog/2013/09/20/qml-preprocessor-the-qnd-and-kiss-way/
