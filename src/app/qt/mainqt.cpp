@@ -85,12 +85,12 @@ int main(int argc, char* argv[])
                    kid3App, &Kid3Application::openDrop);
   kid3->show();
   if (args.size() > 1) {
-    kid3->confirmedOpenDirectory(args.mid(1));
+    kid3App->openDirectory(args.mid(1));
   } else if ((FileConfig::instance().loadLastOpenedFile() ||
               app.isSessionRestored()) &&
              !FileConfig::instance().lastOpenedFile().isEmpty()) {
-    kid3->confirmedOpenDirectory(QStringList()
-                                 << FileConfig::instance().lastOpenedFile());
+    kid3App->openDirectory(QStringList()
+                           << FileConfig::instance().lastOpenedFile());
   }
   int rc = QApplication::exec();
   delete kid3App;

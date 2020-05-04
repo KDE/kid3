@@ -158,11 +158,11 @@ int main(int argc, char* argv[])
     kid3->show();
 
     if (parser.positionalArguments().count()) {
-      kid3->confirmedOpenDirectory(parser.positionalArguments());
+      kid3App->openDirectory(parser.positionalArguments());
     } else if (FileConfig::instance().loadLastOpenedFile() &&
                !FileConfig::instance().lastOpenedFile().isEmpty()) {
-      kid3->confirmedOpenDirectory(QStringList()
-                                   << FileConfig::instance().lastOpenedFile());
+      kid3App->openDirectory(QStringList()
+                             << FileConfig::instance().lastOpenedFile());
     }
   }
 
