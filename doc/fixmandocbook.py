@@ -38,15 +38,15 @@ def fix_man_docbook(lang):
           .replace(b'</sect2', b'</refsect3')\
           .replace(b'<appendix', b'<refsect1')\
           .replace(b'</appendix', b'</refsect1')
-        line = re.sub(rb'^<!--change manpage(.*)-->.*$', rb'\1', line)
-        line = re.sub(rb'^<!--begin manpage include$',
-                       rb'<!--begin manpage include-->', line)
-        line = re.sub(rb'^end manpage include-->$',
-                   rb'<!--end manpage include-->', line)
-        line = re.sub(rb'^<!--begin manpage ignore-->$',
-                       rb'<!--begin manpage ignore', line)
-        line = re.sub(rb'^<!--end manpage ignore-->$',
-                           rb'end manpage ignore-->', line)
+        line = re.sub(br'^<!--change manpage(.*)-->.*$', br'\1', line)
+        line = re.sub(br'^<!--begin manpage include$',
+                       br'<!--begin manpage include-->', line)
+        line = re.sub(br'^end manpage include-->$',
+                   br'<!--end manpage include-->', line)
+        line = re.sub(br'^<!--begin manpage ignore-->$',
+                       br'<!--begin manpage ignore', line)
+        line = re.sub(br'^<!--end manpage ignore-->$',
+                           br'end manpage ignore-->', line)
         os.write(sys.stdout.fileno(), line)
 
 if __name__ == '__main__':
