@@ -5,6 +5,7 @@ macro(kid3_create_handbook _docbook _lang)
   set(_fixdocbook_py ${CMAKE_CURRENT_SOURCE_DIR}/fixdocbook.py)
   set(_fixhtml_py ${CMAKE_CURRENT_SOURCE_DIR}/fixhtml.py)
   set(_docbook_xsl ${DOCBOOK_XSL_DIR}/xhtml/docbook.xsl)
+  file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${_lang})
   if(WIN32)
     # The expressions in pipes do not work for Windows,
     # so temporary files are used.

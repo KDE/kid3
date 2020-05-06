@@ -12,11 +12,13 @@
 # to build the libraries. Additional dependencies can be installed using
 # Chocolatey, e.g.
 # choco install cmake docbook-bundle ninja python3 Wget xsltproc yasm
+# Install additional packages in the MSYS2 MinGW 64-bit shell:
+# pacman -S git patch make autoconf automake nasm libtool
 # Start the msys shell, add Qt and cmake to the path and start this script.
 #
-# export QTPREFIX=/path/to/Qt/5.6.3/mingw49_32 
+# export QTPREFIX=/c/Qt/5.12.8/mingw73_64
 # test -z "${PATH##$QTPREFIX*}" ||
-# PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw492_32/bin:$QTPREFIX/../../Tools/mingw492_32/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
+# PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw730_64/bin:$QTPREFIX/../../Tools/mingw730_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
 # ../kid3/buildlibs.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
@@ -379,6 +381,7 @@ if test $kernel = "MINGW"; then
     exit 1
   fi
   CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
+  CONFIGURE_OPTIONS+=" --prefix=/usr/local"
 elif test $kernel = "Darwin"; then
   CMAKE_OPTIONS="-G \"Unix Makefiles\""
 fi
@@ -5033,7 +5036,7 @@ if test "$compiler" != "cross-android"; then
       tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
       cd zlib-${zlib_version}/
 
-      unxz -c ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz | tar x || true
+      tar xJf ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz || true
       echo Can be ignored: Cannot create symlink to debian.series
       for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
       cd ..
@@ -5054,7 +5057,7 @@ if test "$compiler" != "cross-android"; then
 
     tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
     cd libvorbis-${libvorbis_version}/
-    unxz -c ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz | tar x
+    tar xJf ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     if test $libvorbis_version = "1.3.5"; then
       patch -p1 <../source/vorbis_alloc_on_heap.patch
@@ -5067,9 +5070,9 @@ if test "$compiler" != "cross-android"; then
   if ! test -d flac-${libflac_version}; then
     echo "### Extracting libflac"
 
-    unxz -c source/flac_${libflac_version}.orig.tar.xz | tar x
+    tar xJf source/flac_${libflac_version}.orig.tar.xz
     cd flac-${libflac_version}/
-    unxz -c ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz | tar x
+    tar xJf ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
     if test $kernel = "Darwin"; then
@@ -5084,7 +5087,7 @@ if test "$compiler" != "cross-android"; then
 
     tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
     cd id3lib-${id3lib_version}/
-    unxz -c ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz | tar x
+    tar xJf ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
     patch -p1 <../source/id3lib-3.8.3_mingw.patch
     patch -p1 <../source/id3lib-3.8.3_wintempfile.patch
@@ -5097,9 +5100,9 @@ if test "$compiler" != "cross-android"; then
     if ! test -d ffmpeg-${ffmpeg_version}; then
       echo "### Extracting ffmpeg"
 
-      unxz -c source/ffmpeg_${ffmpeg_version}.orig.tar.xz | tar x || true
+      tar xJf source/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
       cd ffmpeg-${ffmpeg_version}/
-      unxz -c ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz | tar x
+      tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
       for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
       if test $ffmpeg_version = "3.1.3"; then
         patch -p1 <../source/ffmpeg_mingw.patch
@@ -5129,10 +5132,10 @@ if test "$compiler" != "cross-android"; then
       if ! test -d libav-${libav_version}; then
         echo "### Extracting libav"
 
-        unxz -c source/libav_${libav_version}.orig.tar.xz | tar x || true
+        tar xJf source/libav_${libav_version}.orig.tar.xz || true
         echo Can be ignored: Cannot create symlink to README.md
         cd libav-${libav_version}/
-        unxz -c ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz | tar x
+        tar xJf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
         oldifs=$IFS
         IFS='
 '
@@ -5152,7 +5155,7 @@ if test "$compiler" != "cross-android"; then
 
     tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
     cd chromaprint-${chromaprint_version}/
-    unxz -c ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz | tar x
+    tar xJf ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     cd ..
   fi
@@ -5162,7 +5165,7 @@ if test "$compiler" != "cross-android"; then
 
     tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
     cd mp4v2-${mp4v2_version}/
-    unxz -c ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz | tar x
+    tar xJf ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
       patch -p1 <../source/mp4v2_win32.patch
@@ -5170,9 +5173,7 @@ if test "$compiler" != "cross-android"; then
         sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
       fi
     fi
-    if test $kernel = "Darwin" || test "$compiler" = "cross-macos" || test "$CXX" = "clang++" || test "$compiler" = "cross-mingw"; then
-      patch -p1 <../source/mp4v2_clang6.patch
-    fi
+    patch -p1 <../source/mp4v2_clang6.patch
     cd ..
   fi
 
@@ -5418,17 +5419,22 @@ else #  cross-android, msvc
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
-    if test "$cross_host" = "x86_64-w64-mingw32"; then
+    if test "$cross_host" = "x86_64-w64-mingw32" || [[ $(uname) =~ ^MINGW64 ]]; then
       _target=mingw64
     else
       _target=mingw
     fi
-    ./Configure shared enable-ec_nistp_64_gcc_128 mingw64 --cross-compile-prefix=${cross_host}-
+    if test -n "${cross_host}"; then
+      _crossprefix=${cross_host}-
+    else
+      _crossprefix=
+    fi
+    ./Configure shared enable-ec_nistp_64_gcc_128 $_target --cross-compile-prefix=$_crossprefix
     make depend || true
     make build_libs
     mkdir -p inst/usr/local/ssl
     cp lib{ssl,crypto}*.dll inst/usr/local/ssl/
-    ${cross_host}-strip -s inst/usr/local/ssl/*.dll
+    ${_crossprefix}strip -s inst/usr/local/ssl/*.dll
     cd inst
     tar czf ../../bin/openssl-${openssl_version}.tgz usr
     cd ../..
@@ -5674,7 +5680,9 @@ else #  cross-android, msvc
       elif test $kernel = "MINGW"; then
         # mkstemp is not available when building with mingw from Qt
         sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
-        AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
+        if ! [[ $(uname) =~ ^MINGW64 ]]; then
+          AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
+        fi
         if test $(uname) = "MSYS_NT-6.1"; then
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
         fi
@@ -5853,7 +5861,7 @@ EOF
       _qtToolsMingw=$(realpath $_qtToolsMingw)
       cat >kid3/build.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
       _qtPrefixWin=${QTPREFIX//\//\\}
       _qtPrefixWin=${_qtPrefixWin/\\c/C:}
@@ -5866,7 +5874,7 @@ set INCLUDE=../buildroot/usr/local/include
 set LIB=../buildroot/usr/local/lib
 echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
 if errorlevel 1 (
-  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python37;%PATH%
+  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python38;%PATH%
 )
 cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbookXslDirWin:-%HOME%/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
@@ -5874,7 +5882,7 @@ EOF
 set thisdir=%~dp0
 echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
 if errorlevel 1 (
-  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python36;%HOME%\prg\dumpbin;%PATH%
+  path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python38;%HOME%\prg\dumpbin;%PATH%
 )
 echo ;%PATH%; | find /C /I ";%thisdir%src\core;"
 if errorlevel 1 (
