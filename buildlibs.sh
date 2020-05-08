@@ -277,13 +277,13 @@ ffmpeg_version=3.2.14
 ffmpeg_patchlevel=1~deb9u1
 #libav_version=11.12
 #libav_patchlevel=1
-libflac_version=1.3.2
-libflac_patchlevel=3
+libflac_version=1.3.3
+libflac_patchlevel=1
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
 taglib_version=1.11.1
-chromaprint_version=1.4.3
-chromaprint_patchlevel=3
+chromaprint_version=1.5.0
+chromaprint_patchlevel=1
 mp4v2_version=2.0.0
 mp4v2_patchlevel=5
 
@@ -321,9 +321,9 @@ qt_major=${QTPREFIX##*5.}
 qt_major=${qt_major%%.*}
 if test "$qt_major" -gt 11; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
-  openssl_version=1.1.1c
+  openssl_version=1.1.1g
 else
-  openssl_version=1.0.2n
+  openssl_version=1.0.2u
 fi
 
 if test "$compiler" = "cross-mingw"; then
@@ -541,7 +541,7 @@ if test "$compiler" != "cross-android"; then
 fi # !cross-android
 
 if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
-   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ); then
+   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
   # See http://doc.qt.io/qt-5/opensslsupport.html
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
@@ -5197,7 +5197,7 @@ if test "$compiler" = "cross-android"; then
   fi
 
 elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
-     || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ); then
+     || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
 
   if ! test -d openssl-${openssl_version}; then
     echo "### Extracting openssl"
@@ -5254,7 +5254,7 @@ if test "$compiler" = "cross-android"; then
       sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=llvm/' Setenv-android.sh
     fi
     . ./Setenv-android.sh
-    if test "$openssl_version" = "1.0.2n"; then
+    if test "${openssl_version:0:3}" = "1.0"; then
       ./Configure shared android
     else
       ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-armeabi
@@ -5267,7 +5267,7 @@ if test "$compiler" = "cross-android"; then
       fi
     fi
 
-    if test "$openssl_version" = "1.0.2n"; then
+    if test "${openssl_version:0:3}" = "1.0"; then
       make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
     else
       make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=.so build_libs
@@ -5414,7 +5414,7 @@ else #  cross-android, msvc
     cd ../..
     tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
 
-  elif ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "$openssl_version" != "1.0.2n" ) \
+  elif ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ) \
        && test ! -d openssl-${openssl_version}/inst; then
     echo "### Building OpenSSL"
 
