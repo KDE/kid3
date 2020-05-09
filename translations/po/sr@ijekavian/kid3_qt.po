@@ -1,0 +1,6954 @@
+# Kid3 Serbian Ijekavian Translation.
+# This file is put in the public domain.
+#
+# Mladen Pejaković <pejakm@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3_qt\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
+"PO-Revision-Date: 2011-04-26 23:41+0200\n"
+"Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
+"Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
+"Language: sr@ijekavian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Language: sr@ijekavian\n"
+"X-Source-Language: en\n"
+
+#: src/app/cli/clicommand.cpp:143
+msgctxt "CliCommand|"
+msgid "Timeout"
+msgstr "Прековријеме"
+
+#: src/app/cli/clicommand.cpp:187
+msgctxt "HelpCommand|"
+msgid "Help"
+msgstr "Помоћ"
+
+#: src/app/cli/clicommand.cpp:188
+msgctxt "HelpCommand|"
+msgid "Command name"
+msgstr "Наредба"
+
+#: src/app/cli/clicommand.cpp:199
+msgctxt "TimeoutCommand|"
+msgid "Overwrite timeout"
+msgstr "Прековријеме"
+
+#: src/app/cli/clicommand.cpp:200
+msgctxt "TimeoutCommand|"
+msgid "Time"
+msgstr "Вријеме"
+
+#: src/app/cli/clicommand.cpp:241
+msgctxt "QuitCommand|"
+msgid "Quit application"
+msgstr "Напушта апликацију"
+
+#: src/app/cli/clicommand.cpp:250
+msgctxt "QuitCommand|"
+msgid "The current folder has been modified."
+msgstr "Тренутни директоријум је измијењен."
+
+#: src/app/cli/clicommand.cpp:252
+msgctxt "QuitCommand|"
+msgid "Type 'exit force' to quit."
+msgstr "Унесите 'exit force' за излаз."
+
+#: src/app/cli/clicommand.cpp:268
+msgctxt "CdCommand|"
+msgid "Change folder"
+msgstr ""
+
+#: src/app/cli/clicommand.cpp:282
+#, qt-format
+msgctxt "CdCommand|"
+msgid "%1 does not exist"
+msgstr "%1 не постоји"
+
+#: src/app/cli/clicommand.cpp:302
+msgctxt "PwdCommand|"
+msgid "Print the filename of the current folder"
+msgstr "Штампај пуно име фајла текућег активног директоријума"
+
+#: src/app/cli/clicommand.cpp:318
+msgctxt "LsCommand|"
+msgid "Folder list"
+msgstr "Списак фасцикли"
+
+#: src/app/cli/clicommand.cpp:330
+msgctxt "SaveCommand|"
+msgid "Saves the changed files"
+msgstr "Уписује измјене фајлова"
+
+#: src/app/cli/clicommand.cpp:340
+msgctxt "SaveCommand|"
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+#: src/app/cli/clicommand.cpp:347
+msgctxt "SelectCommand|"
+msgid "Select file"
+msgstr "Изабери фајл"
+
+#: src/app/cli/clicommand.cpp:370
+#, qt-format
+msgctxt "SelectCommand|"
+msgid "%1 not found"
+msgstr "%1 није пронађено"
+
+#: src/app/cli/clicommand.cpp:380
+msgctxt "TagCommand|"
+msgid "Select tag"
+msgstr "Избор ознаке"
+
+#: src/app/cli/clicommand.cpp:397
+msgctxt "GetCommand|"
+msgid "Get tag frame"
+msgstr ""
+
+#: src/app/cli/clicommand.cpp:425
+msgctxt "SetCommand|"
+msgid "Set tag frame"
+msgstr ""
+
+#: src/app/cli/clicommand.cpp:443
+#, qt-format
+msgctxt "SetCommand|"
+msgid "Could not set \"%1\" for %2"
+msgstr "Не могу да поставим \"%1\" за %2"
+
+#: src/app/cli/clicommand.cpp:453
+msgctxt "RevertCommand|"
+msgid "Revert"
+msgstr "Врати"
+
+#: src/app/cli/clicommand.cpp:465
+msgctxt "ImportCommand|"
+msgid "Import from file"
+msgstr "Увези из фајла"
+
+#: src/app/cli/clicommand.cpp:467
+msgctxt "ImportCommand|"
+msgid "File path"
+msgstr "Путања фајла"
+
+#: src/app/cli/clicommand.cpp:467
+msgctxt "ImportCommand|"
+msgid "Format name"
+msgstr "Формат имена"
+
+#: src/app/cli/clicommand.cpp:468
+msgctxt "ImportCommand|"
+msgid "Source"
+msgstr "Извор"
+
+#: src/app/cli/clicommand.cpp:469
+msgctxt "ImportCommand|"
+msgid "Extraction"
+msgstr "Извлачење"
+
+#: src/app/cli/clicommand.cpp:497
+#, qt-format
+msgctxt "ImportCommand|"
+msgid "%1 not found."
+msgstr "%1 није нађен."
+
+#: src/app/cli/clicommand.cpp:499
+msgctxt "ImportCommand|"
+msgid "Available"
+msgstr "Доступно"
+
+#: src/app/cli/clicommand.cpp:510
+msgctxt "ImportCommand|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/app/cli/clicommand.cpp:520
+msgctxt "BatchImportCommand|"
+msgid "Automatic import"
+msgstr "Аутоматски увози"
+
+#: src/app/cli/clicommand.cpp:521
+msgctxt "BatchImportCommand|"
+msgid "Profile name"
+msgstr "Име поставке"
+
+#: src/app/cli/clicommand.cpp:533
+#, qt-format
+msgctxt "BatchImportCommand|"
+msgid "%1 not found."
+msgstr "%1 није нађен."
+
+#: src/app/cli/clicommand.cpp:535
+msgctxt "BatchImportCommand|"
+msgid "Available"
+msgstr "Доступно"
+
+#: src/app/cli/clicommand.cpp:608
+msgctxt "AlbumArtCommand|"
+msgid "Download album cover artwork"
+msgstr "Потражи слику омота албума"
+
+#: src/app/cli/clicommand.cpp:652
+msgctxt "ExportCommand|"
+msgid "Export to file"
+msgstr "Извези у фајл"
+
+#: src/app/cli/clicommand.cpp:653
+msgctxt "ExportCommand|"
+msgid "Format name"
+msgstr "Формат имена"
+
+#: src/app/cli/clicommand.cpp:668
+#, qt-format
+msgctxt "ExportCommand|"
+msgid "%1 not found."
+msgstr "%1 није нађен."
+
+#: src/app/cli/clicommand.cpp:670
+msgctxt "ExportCommand|"
+msgid "Available"
+msgstr "Доступно"
+
+#: src/app/cli/clicommand.cpp:681
+msgctxt "ExportCommand|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/app/cli/clicommand.cpp:690
+msgctxt "PlaylistCommand|"
+msgid "Create playlist"
+msgstr "Направи листу нумера"
+
+#: src/app/cli/clicommand.cpp:697
+msgctxt "PlaylistCommand|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/app/cli/clicommand.cpp:704
+msgctxt "FilenameFormatCommand|"
+msgid "Apply filename format"
+msgstr "Примијени формат назива фајла"
+
+#: src/app/cli/clicommand.cpp:715
+msgctxt "TagFormatCommand|"
+msgid "Apply tag format"
+msgstr "Примијени формат ознаке"
+
+#: src/app/cli/clicommand.cpp:727
+msgctxt "TextEncodingCommand|"
+msgid "Apply text encoding"
+msgstr "Примени кодирање текста"
+
+#: src/app/cli/clicommand.cpp:738
+msgctxt "RenameDirectoryCommand|"
+msgid "Rename folder"
+msgstr "Преименуј директоријум"
+
+#: src/app/cli/clicommand.cpp:830
+msgctxt "NumberTracksCommand|"
+msgid "Number tracks"
+msgstr "Нумериши"
+
+#: src/app/cli/clicommand.cpp:831
+msgctxt "NumberTracksCommand|"
+msgid "Track number"
+msgstr "Број нумере"
+
+#: src/app/cli/clicommand.cpp:855
+msgctxt "FilterCommand|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/app/cli/clicommand.cpp:856
+msgctxt "FilterCommand|"
+msgid "Filter name"
+msgstr "Име фајла"
+
+#: src/app/cli/clicommand.cpp:871
+#, qt-format
+msgctxt "FilterCommand|"
+msgid "%1 not found."
+msgstr "%1 није нађен."
+
+#: src/app/cli/clicommand.cpp:873
+msgctxt "FilterCommand|"
+msgid "Available"
+msgstr "Доступно"
+
+#: src/app/cli/clicommand.cpp:947
+msgctxt "ToId3v24Command|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.4"
+
+#: src/app/cli/clicommand.cpp:958
+msgctxt "ToId3v23Command|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.3"
+
+#: src/app/cli/clicommand.cpp:969
+msgctxt "TagToFilenameCommand|"
+msgid "Filename from tag"
+msgstr "ознаке у име фајла"
+
+#: src/app/cli/clicommand.cpp:999
+msgctxt "FilenameToTagCommand|"
+msgid "Tag from filename"
+msgstr "ознаку из имена фајла"
+
+#: src/app/cli/clicommand.cpp:1029
+msgctxt "TagToOtherTagCommand|"
+msgid "Tag to other tag"
+msgstr ""
+
+#: src/app/cli/clicommand.cpp:1046
+msgctxt "CopyCommand|"
+msgid "Copy"
+msgstr "Копирај"
+
+#: src/app/cli/clicommand.cpp:1059
+msgctxt "PasteCommand|"
+msgid "Paste"
+msgstr "Налијепи"
+
+#: src/app/cli/clicommand.cpp:1072
+msgctxt "RemoveCommand|"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
+#, qt-format
+msgctxt "JsonCliFormatter|"
+msgid "Unknown command '%1'"
+msgstr "Непозната наредба '%1'"
+
+#: src/app/cli/jsoncliformatter.cpp:207
+msgctxt "JsonCliFormatter|"
+msgid "Usage:"
+msgstr "Употреба:"
+
+#: src/app/cli/kid3cli.cpp:297
+msgctxt "Kid3Cli|"
+msgid "Parameter"
+msgstr "Параметар"
+
+#: src/app/cli/kid3cli.cpp:298
+msgctxt "Kid3Cli|"
+msgid "File path"
+msgstr "Путања фајла"
+
+#: src/app/cli/kid3cli.cpp:299
+msgctxt "Kid3Cli|"
+msgid "URL"
+msgstr "УРЛ"
+
+#: src/app/cli/kid3cli.cpp:300
+msgctxt "Kid3Cli|"
+msgid "Tag numbers"
+msgstr "Број нумере"
+
+#: src/app/cli/kid3cli.cpp:302
+msgctxt "Kid3Cli|"
+msgid "Frame name"
+msgstr "Из имена фајла"
+
+#: src/app/cli/kid3cli.cpp:305
+msgctxt "Kid3Cli|"
+msgid "Frame value"
+msgstr ""
+
+#: src/app/cli/kid3cli.cpp:306
+msgctxt "Kid3Cli|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/app/cli/kid3cli.cpp:307
+msgctxt "Kid3Cli|"
+msgid "Command specific"
+msgstr "Наредба"
+
+#: src/app/cli/kid3cli.cpp:308
+msgctxt "Kid3Cli|"
+msgid "Available Commands"
+msgstr "Наредбе на располагању"
+
+#: src/app/cli/kid3cli.cpp:741
+msgctxt "Kid3Cli|"
+msgid "Usage:"
+msgstr "Употреба:"
+
+#: src/app/cli/kid3cli.cpp:759
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "%1 does not exist"
+msgstr "%1 не постоји"
+
+#: src/app/cli/kid3cli.cpp:788
+msgctxt "Kid3Cli|"
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+#: src/app/cli/kid3cli.cpp:806
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "Unknown command '%1', -h for help."
+msgstr "Непозната наредба '%1', -h за помоћ."
+
+#: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Непозната наредба '%1'. Користите 'help' да бисте добили помоћ."
+
+#: src/app/cli/textcliformatter.cpp:204
+msgctxt "TextCliFormatter|"
+msgid "Usage:"
+msgstr "Употреба:"
+
+#: src/app/cli/textcliformatter.cpp:241
+msgctxt "TextCliFormatter|"
+msgid "Tags"
+msgstr "Ознаке"
+
+#: src/app/cli/textcliformatter.cpp:248
+msgctxt "TextCliFormatter|"
+msgid "File"
+msgstr "Фајл"
+
+#: src/app/cli/textcliformatter.cpp:253
+msgctxt "TextCliFormatter|"
+msgid "Name"
+msgstr "Име"
+
+#: src/app/cli/textcliformatter.cpp:274
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/app/cli/textcliformatter.cpp:295
+msgctxt "TextCliFormatter|"
+msgid "Timeout"
+msgstr "Прековријеме"
+
+#: src/app/cli/textcliformatter.cpp:301
+msgctxt "TextCliFormatter|"
+msgid "Reading Folder"
+msgstr "Приликом читања директоријума"
+
+#: src/app/cli/textcliformatter.cpp:303
+msgctxt "TextCliFormatter|"
+msgid "Started"
+msgstr "Започет"
+
+#: src/app/cli/textcliformatter.cpp:305
+msgctxt "TextCliFormatter|"
+msgid "Source"
+msgstr "Извор"
+
+#: src/app/cli/textcliformatter.cpp:307
+msgctxt "TextCliFormatter|"
+msgid "Querying"
+msgstr "Затражујем"
+
+#: src/app/cli/textcliformatter.cpp:309
+msgctxt "TextCliFormatter|"
+msgid "Fetching"
+msgstr "Добављам"
+
+#: src/app/cli/textcliformatter.cpp:311
+msgctxt "TextCliFormatter|"
+msgid "Data received"
+msgstr "Подаци примљени"
+
+#: src/app/cli/textcliformatter.cpp:313
+msgctxt "TextCliFormatter|"
+msgid "Cover"
+msgstr "Омот"
+
+#: src/app/cli/textcliformatter.cpp:315
+msgctxt "TextCliFormatter|"
+msgid "Finished"
+msgstr "Завршено"
+
+#: src/app/cli/textcliformatter.cpp:317
+msgctxt "TextCliFormatter|"
+msgid "Aborted"
+msgstr "Обустављен"
+
+#: src/app/cli/textcliformatter.cpp:319
+msgctxt "TextCliFormatter|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/app/kde/kdeconfigdialog.cpp:51
+msgctxt "KdeConfigDialog|"
+msgid "Tags"
+msgstr "Ознаке"
+
+#: src/app/kde/kdeconfigdialog.cpp:53
+msgctxt "KdeConfigDialog|"
+msgid "Files"
+msgstr "Фајлови"
+
+#: src/app/kde/kdeconfigdialog.cpp:55
+msgctxt "KdeConfigDialog|"
+msgid "User Actions"
+msgstr "Радње корисника"
+
+#: src/app/kde/kdeconfigdialog.cpp:57
+msgctxt "KdeConfigDialog|"
+msgid "Network"
+msgstr "Мрежа"
+
+#: src/app/kde/kdeconfigdialog.cpp:59
+msgctxt "KdeConfigDialog|"
+msgid "Plugins"
+msgstr "Прикључци"
+
+#: src/app/kde/kdemainwindow.cpp:70 src/app/qt/kid3mainwindow.cpp:95
+msgctxt "@default|"
+msgid "Main Toolbar"
+msgstr "Главна трака"
+
+#: src/app/kde/kdemainwindow.cpp:85
+msgctxt "KdeMainWindow|"
+msgid "Open files"
+msgstr "Отвори фајлове"
+
+#: src/app/kde/kdemainwindow.cpp:93
+msgctxt "KdeMainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Отвара недавно коришћен директоријум"
+
+#: src/app/kde/kdemainwindow.cpp:102
+msgctxt "KdeMainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Поништава измјене свих или изабраних фајлова"
+
+#: src/app/kde/kdemainwindow.cpp:112
+msgctxt "KdeMainWindow|"
+msgid "Saves the changed files"
+msgstr "Уписује измјене фајлова"
+
+#: src/app/kde/kdemainwindow.cpp:120
+msgctxt "KdeMainWindow|"
+msgid "Quits the application"
+msgstr "Напушта апликацију"
+
+#: src/app/kde/kdemainwindow.cpp:128
+msgctxt "KdeMainWindow|"
+msgid "Select all files"
+msgstr "Изабери све фајлове"
+
+#: src/app/kde/kdemainwindow.cpp:137
+msgctxt "KdeMainWindow|"
+msgid "Deselect all files"
+msgstr "Поништи избор свих фајлова"
+
+#: src/app/kde/kdemainwindow.cpp:145
+msgctxt "KdeMainWindow|"
+msgid "Find"
+msgstr "Нађи"
+
+#: src/app/kde/kdemainwindow.cpp:153
+msgctxt "KdeMainWindow|"
+msgid "Find and replace"
+msgstr "Нађи и замени"
+
+#: src/app/kde/kdemainwindow.cpp:163
+msgctxt "KdeMainWindow|"
+msgid "Configure Shortcuts"
+msgstr "Подеси пречице"
+
+#: src/app/kde/kdemainwindow.cpp:171
+msgctxt "KdeMainWindow|"
+msgid "Configure Toolbars"
+msgstr "Подеси траке алата"
+
+#: src/app/kde/kdemainwindow.cpp:179
+msgctxt "KdeMainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Приказује/сакрива траку стања"
+
+#: src/app/kde/kdemainwindow.cpp:187
+msgctxt "KdeMainWindow|"
+msgid "Preferences dialog"
+msgstr "Дијалог подешавања"
+
+#: src/app/kde/kdemainwindow.cpp:190
+msgctxt "KdeMainWindow|"
+msgid "O&pen Folder..."
+msgstr "О&твори директоријум..."
+
+#: src/app/kde/kdemainwindow.cpp:191
+msgctxt "KdeMainWindow|"
+msgid "Opens a folder"
+msgstr "Отвара директоријум"
+
+#: src/app/kde/kdemainwindow.cpp:198
+msgctxt "KdeMainWindow|"
+msgid "Re&load"
+msgstr "&Учитај поново"
+
+#: src/app/kde/kdemainwindow.cpp:199
+msgctxt "KdeMainWindow|"
+msgid "Reload folder"
+msgstr "Поново учитај списак"
+
+#: src/app/kde/kdemainwindow.cpp:205
+msgctxt "KdeMainWindow|"
+msgid "Unload"
+msgstr "Унлоад"
+
+#: src/app/kde/kdemainwindow.cpp:210
+msgctxt "KdeMainWindow|"
+msgid "&Import..."
+msgstr "&Увези..."
+
+#: src/app/kde/kdemainwindow.cpp:211
+msgctxt "KdeMainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Увези из фајла или клипборда"
+
+#: src/app/kde/kdemainwindow.cpp:226 src/app/kde/kdemainwindow.cpp:243
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1..."
+msgstr "Увези са %1..."
+
+#: src/app/kde/kdemainwindow.cpp:228 src/app/kde/kdemainwindow.cpp:244
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1"
+msgstr "Увези са %1"
+
+#: src/app/kde/kdemainwindow.cpp:251
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags..."
+msgstr "Увези из ознака..."
+
+#: src/app/kde/kdemainwindow.cpp:252
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags"
+msgstr "Увези из ознака"
+
+#: src/app/kde/kdemainwindow.cpp:256
+msgctxt "KdeMainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Ауто&матски увози..."
+
+#: src/app/kde/kdemainwindow.cpp:257
+msgctxt "KdeMainWindow|"
+msgid "Automatic import"
+msgstr "Аутоматски увози"
+
+#: src/app/kde/kdemainwindow.cpp:261
+msgctxt "KdeMainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "Потражи о&мот албума..."
+
+#: src/app/kde/kdemainwindow.cpp:262
+msgctxt "KdeMainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Потражи слику омота албума"
+
+#: src/app/kde/kdemainwindow.cpp:266
+msgctxt "KdeMainWindow|"
+msgid "&Export..."
+msgstr "Изв&ези..."
+
+#: src/app/kde/kdemainwindow.cpp:267
+msgctxt "KdeMainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Извези у фајл или клипборд"
+
+#: src/app/kde/kdemainwindow.cpp:271
+msgctxt "KdeMainWindow|"
+msgid "&Create Playlist..."
+msgstr "Направи &листу нумера..."
+
+#: src/app/kde/kdemainwindow.cpp:272
+msgctxt "KdeMainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Направи М3У листу нумера"
+
+#: src/app/kde/kdemainwindow.cpp:275
+msgctxt "KdeMainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Примијени формат имена фа&јла"
+
+#: src/app/kde/kdemainwindow.cpp:276
+msgctxt "KdeMainWindow|"
+msgid "Apply Filename Format"
+msgstr "Примијени формат назива фајла"
+
+#: src/app/kde/kdemainwindow.cpp:279
+msgctxt "KdeMainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Примијени формат &ознаке"
+
+#: src/app/kde/kdemainwindow.cpp:280
+msgctxt "KdeMainWindow|"
+msgid "Apply Tag Format"
+msgstr "Примијени формат ознаке"
+
+#: src/app/kde/kdemainwindow.cpp:283
+msgctxt "KdeMainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Примени кодирање т&екста"
+
+#: src/app/kde/kdemainwindow.cpp:284
+msgctxt "KdeMainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+#: src/app/kde/kdemainwindow.cpp:287
+msgctxt "KdeMainWindow|"
+msgid "&Rename Folder..."
+msgstr "Преименуј &директоријум..."
+
+#: src/app/kde/kdemainwindow.cpp:288
+msgctxt "KdeMainWindow|"
+msgid "Rename Folder"
+msgstr "Преименуј директоријум"
+
+#: src/app/kde/kdemainwindow.cpp:291
+msgctxt "KdeMainWindow|"
+msgid "&Number Tracks..."
+msgstr "Ну&мериши..."
+
+#: src/app/kde/kdemainwindow.cpp:292
+msgctxt "KdeMainWindow|"
+msgid "Number Tracks"
+msgstr "Нумериши"
+
+#: src/app/kde/kdemainwindow.cpp:295
+msgctxt "KdeMainWindow|"
+msgid "F&ilter..."
+msgstr "Ф&илтер..."
+
+#: src/app/kde/kdemainwindow.cpp:296
+msgctxt "KdeMainWindow|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/app/kde/kdemainwindow.cpp:301
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.&4"
+
+#: src/app/kde/kdemainwindow.cpp:302
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.4"
+
+#: src/app/kde/kdemainwindow.cpp:306
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.&3"
+
+#: src/app/kde/kdemainwindow.cpp:307
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.3"
+
+#: src/app/kde/kdemainwindow.cpp:313
+msgctxt "KdeMainWindow|"
+msgid "&Play"
+msgstr "Ре&продукуј"
+
+#: src/app/kde/kdemainwindow.cpp:314
+msgctxt "KdeMainWindow|"
+msgid "Play"
+msgstr "Репродукција"
+
+#: src/app/kde/kdemainwindow.cpp:317
+msgctxt "KdeMainWindow|"
+msgid "Show &Picture"
+msgstr "Прикажи с&лику"
+
+#: src/app/kde/kdemainwindow.cpp:318
+msgctxt "KdeMainWindow|"
+msgid "Show Picture"
+msgstr "Прикажи слику"
+
+#: src/app/kde/kdemainwindow.cpp:323
+msgctxt "KdeMainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Аутоматски &сакриј ознаке"
+
+#: src/app/kde/kdemainwindow.cpp:324
+msgctxt "KdeMainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Аутоматски сакриј ознаке"
+
+#: src/app/kde/kdemainwindow.cpp:329
+msgctxt "KdeMainWindow|"
+msgid "Select All in &Folder"
+msgstr "Изабери све фајлове у тренутном &директоријуму"
+
+#: src/app/kde/kdemainwindow.cpp:330
+msgctxt "KdeMainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Изабери све фајлове у тренутном директоријуму"
+
+#: src/app/kde/kdemainwindow.cpp:334
+msgctxt "KdeMainWindow|"
+msgid "&Previous File"
+msgstr "&Претходни фајл"
+
+#: src/app/kde/kdemainwindow.cpp:335
+msgctxt "KdeMainWindow|"
+msgid "Select previous file"
+msgstr "Изабери претходни фајл"
+
+#: src/app/kde/kdemainwindow.cpp:341
+msgctxt "KdeMainWindow|"
+msgid "&Next File"
+msgstr "&Сљедећи фајл"
+
+#: src/app/kde/kdemainwindow.cpp:342
+msgctxt "KdeMainWindow|"
+msgid "Select next file"
+msgstr "Изабери сљедећи фајл"
+
+#: src/app/kde/kdemainwindow.cpp:354
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/app/kde/kdemainwindow.cpp:356 src/app/kde/kdemainwindow.cpp:408
+msgctxt "KdeMainWindow|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/app/kde/kdemainwindow.cpp:357 src/app/kde/kdemainwindow.cpp:368
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "From Tag %1"
+msgstr "Из ознаке %1"
+
+#: src/app/kde/kdemainwindow.cpp:362
+msgctxt "KdeMainWindow|"
+msgid "From Filename"
+msgstr "Из имена фајла"
+
+#: src/app/kde/kdemainwindow.cpp:375
+msgctxt "KdeMainWindow|"
+msgid "Copy"
+msgstr "Копирај"
+
+#: src/app/kde/kdemainwindow.cpp:379
+msgctxt "KdeMainWindow|"
+msgid "Paste"
+msgstr "Налијепи"
+
+#: src/app/kde/kdemainwindow.cpp:383
+msgctxt "KdeMainWindow|"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/app/kde/kdemainwindow.cpp:387 src/app/kde/kdemainwindow.cpp:408
+#: src/app/kde/kdemainwindow.cpp:413 src/app/kde/kdemainwindow.cpp:429
+msgctxt "KdeMainWindow|"
+msgid "Focus"
+msgstr "Фокус"
+
+#: src/app/kde/kdemainwindow.cpp:392
+msgctxt "KdeMainWindow|"
+msgid "Frames:"
+msgstr "Кадрови:"
+
+#: src/app/kde/kdemainwindow.cpp:393
+msgctxt "KdeMainWindow|"
+msgid "Edit"
+msgstr "Уреди"
+
+#: src/app/kde/kdemainwindow.cpp:397
+msgctxt "KdeMainWindow|"
+msgid "Add"
+msgstr "Додај"
+
+#: src/app/kde/kdemainwindow.cpp:401
+msgctxt "KdeMainWindow|"
+msgid "Delete"
+msgstr "Обриши"
+
+#: src/app/kde/kdemainwindow.cpp:413
+msgctxt "KdeMainWindow|"
+msgid "File List"
+msgstr "Списак фајлова"
+
+#: src/app/kde/kdemainwindow.cpp:417
+msgctxt "KdeMainWindow|"
+msgid "&Rename"
+msgstr "П&реименуј"
+
+#: src/app/kde/kdemainwindow.cpp:423
+msgctxt "KdeMainWindow|"
+msgid "&Move to Trash"
+msgstr "Премјести у &смеће"
+
+#: src/app/kde/kdemainwindow.cpp:429
+msgctxt "KdeMainWindow|"
+msgid "Folder List"
+msgstr "Списак фасцикли"
+
+#: src/app/kde/kdemainwindow.cpp:598
+msgctxt "KdeMainWindow|"
+msgid "Configure - Kid3"
+msgstr "Подешавање - Кид3"
+
+#: src/app/kde/mainkde.cpp:121
+msgctxt "@default|"
+msgid "folder to open"
+msgstr "директоријум за отварање"
+
+#: src/app/kde/mainkde.cpp:134
+msgctxt "@default|"
+msgid "Audio Tag Editor"
+msgstr "Обиљеживач"
+
+#: src/app/qt/browserdialog.cpp:91
+msgctxt "BrowserDialog|"
+msgid "&Back"
+msgstr "&Назад"
+
+#: src/app/qt/browserdialog.cpp:98
+msgctxt "BrowserDialog|"
+msgid "&Forward"
+msgstr "На&пријед"
+
+#: src/app/qt/browserdialog.cpp:105
+msgctxt "BrowserDialog|"
+msgid "&Find:"
+msgstr "&Нађи:"
+
+#: src/app/qt/browserdialog.cpp:121
+msgctxt "BrowserDialog|"
+msgid "Find Previous"
+msgstr "Нађи претходно"
+
+#: src/app/qt/browserdialog.cpp:131
+msgctxt "BrowserDialog|"
+msgid "Find Next"
+msgstr "Нађи сљедеће"
+
+#: src/app/qt/browserdialog.cpp:139
+msgctxt "BrowserDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/app/qt/configdialog.cpp:70
+msgctxt "ConfigDialog|"
+msgid "&Tags"
+msgstr "&Ознаке"
+
+#: src/app/qt/configdialog.cpp:71
+msgctxt "ConfigDialog|"
+msgid "&Files"
+msgstr "&Фајлови"
+
+#: src/app/qt/configdialog.cpp:72
+msgctxt "ConfigDialog|"
+msgid "&User Actions"
+msgstr "Радње &корисника"
+
+#: src/app/qt/configdialog.cpp:73
+msgctxt "ConfigDialog|"
+msgid "&Network"
+msgstr "&Мрежа"
+
+#: src/app/qt/configdialog.cpp:74
+msgctxt "ConfigDialog|"
+msgid "&Plugins"
+msgstr "&Прикључци"
+
+#: src/app/qt/configdialog.cpp:86
+msgctxt "ConfigDialog|"
+msgid "&Keyboard Shortcuts"
+msgstr "Пречице &тастатуре"
+
+#: src/app/qt/configdialog.cpp:112
+msgctxt "ConfigDialog|"
+msgid "Use custom app&lication font"
+msgstr "Користи посе&бни фонт за апликацију"
+
+#: src/app/qt/configdialog.cpp:114
+msgctxt "ConfigDialog|"
+msgid "A&pplication Font..."
+msgstr "&Фонт апликације..."
+
+#: src/app/qt/configdialog.cpp:116
+msgctxt "ConfigDialog|"
+msgid "Use custom application &style"
+msgstr "Користи посебни &стил за апликацију"
+
+#: src/app/qt/configdialog.cpp:122 src/app/qt/configdialog.cpp:309
+msgctxt "ConfigDialog|"
+msgid "Unknown"
+msgstr "Непознато"
+
+#: src/app/qt/configdialog.cpp:136
+msgctxt "ConfigDialog|"
+msgid "Use native system file &dialogs"
+msgstr "Користи системске &дијалоге фајлова"
+
+#: src/app/qt/configdialog.cpp:140
+msgctxt "ConfigDialog|"
+msgid "&Appearance"
+msgstr "&Изглед"
+
+#: src/app/qt/configdialog.cpp:149
+msgctxt "ConfigDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/app/qt/configdialog.cpp:150
+msgctxt "ConfigDialog|"
+msgid "Restore Defaults"
+msgstr "Врати подразумијевано"
+
+#: src/app/qt/configdialog.cpp:151
+msgctxt "ConfigDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/app/qt/configdialog.cpp:152
+msgctxt "ConfigDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/app/qt/configdialog.cpp:257
+#, qt-format
+msgctxt "ConfigDialog|"
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Пречица тастатуре '%1' је већ додијељена '%2'."
+
+#: src/app/qt/kid3mainwindow.cpp:108
+msgctxt "Kid3MainWindow|"
+msgid "&File"
+msgstr "&Фајл"
+
+#: src/app/qt/kid3mainwindow.cpp:112
+msgctxt "Kid3MainWindow|"
+msgid "Open files"
+msgstr "Отвори фајлове"
+
+#: src/app/qt/kid3mainwindow.cpp:113
+msgctxt "Kid3MainWindow|"
+msgid "&Open..."
+msgstr "&Отвори..."
+
+#: src/app/qt/kid3mainwindow.cpp:127
+msgctxt "Kid3MainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Отвара недавно коришћен директоријум"
+
+#: src/app/qt/kid3mainwindow.cpp:128
+msgctxt "Kid3MainWindow|"
+msgid "Open &Recent"
+msgstr "Отвори &недавно"
+
+#: src/app/qt/kid3mainwindow.cpp:135
+msgctxt "Kid3MainWindow|"
+msgid "Opens a folder"
+msgstr "Отвара директоријум"
+
+#: src/app/qt/kid3mainwindow.cpp:136
+msgctxt "Kid3MainWindow|"
+msgid "O&pen Folder..."
+msgstr "О&твори директоријум..."
+
+#: src/app/qt/kid3mainwindow.cpp:147
+msgctxt "Kid3MainWindow|"
+msgid "Reload folder"
+msgstr "Поново учитај списак"
+
+#: src/app/qt/kid3mainwindow.cpp:148
+msgctxt "Kid3MainWindow|"
+msgid "Re&load"
+msgstr "&Учитај поново"
+
+#: src/app/qt/kid3mainwindow.cpp:159
+msgctxt "Kid3MainWindow|"
+msgid "Unload"
+msgstr "Унлоад"
+
+#: src/app/qt/kid3mainwindow.cpp:169
+msgctxt "Kid3MainWindow|"
+msgid "Saves the changed files"
+msgstr "Уписује измјене фајлова"
+
+#: src/app/qt/kid3mainwindow.cpp:170
+msgctxt "Kid3MainWindow|"
+msgid "&Save"
+msgstr "&Сачувај"
+
+#: src/app/qt/kid3mainwindow.cpp:183
+msgctxt "Kid3MainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Поништава измјене свих или изабраних фајлова"
+
+#: src/app/qt/kid3mainwindow.cpp:184
+msgctxt "Kid3MainWindow|"
+msgid "Re&vert"
+msgstr "&Врати"
+
+#: src/app/qt/kid3mainwindow.cpp:198
+msgctxt "Kid3MainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Увези из фајла или клипборда"
+
+#: src/app/qt/kid3mainwindow.cpp:199
+msgctxt "Kid3MainWindow|"
+msgid "&Import..."
+msgstr "&Увези..."
+
+#: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:241
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1"
+msgstr "Увези са %1"
+
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1..."
+msgstr "Увези са %1..."
+
+#: src/app/qt/kid3mainwindow.cpp:252
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags"
+msgstr "Увези из ознака"
+
+#: src/app/qt/kid3mainwindow.cpp:253
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags..."
+msgstr "Увези из ознака..."
+
+#: src/app/qt/kid3mainwindow.cpp:261
+msgctxt "Kid3MainWindow|"
+msgid "Automatic import"
+msgstr "Аутоматски увози"
+
+#: src/app/qt/kid3mainwindow.cpp:262
+msgctxt "Kid3MainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Ауто&матски увози..."
+
+#: src/app/qt/kid3mainwindow.cpp:270
+msgctxt "Kid3MainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Потражи слику омота албума"
+
+#: src/app/qt/kid3mainwindow.cpp:271
+msgctxt "Kid3MainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "Потражи о&мот албума..."
+
+#: src/app/qt/kid3mainwindow.cpp:280
+msgctxt "Kid3MainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Извези у фајл или клипборд"
+
+#: src/app/qt/kid3mainwindow.cpp:281
+msgctxt "Kid3MainWindow|"
+msgid "&Export..."
+msgstr "Изв&ези..."
+
+#: src/app/qt/kid3mainwindow.cpp:291
+msgctxt "Kid3MainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Направи М3У листу нумера"
+
+#: src/app/qt/kid3mainwindow.cpp:292
+msgctxt "Kid3MainWindow|"
+msgid "&Create Playlist..."
+msgstr "Направи &листу нумера..."
+
+#: src/app/qt/kid3mainwindow.cpp:305
+msgctxt "Kid3MainWindow|"
+msgid "Quits the application"
+msgstr "Напушта апликацију"
+
+#: src/app/qt/kid3mainwindow.cpp:306
+msgctxt "Kid3MainWindow|"
+msgid "&Quit"
+msgstr "&Напусти"
+
+#: src/app/qt/kid3mainwindow.cpp:317
+msgctxt "Kid3MainWindow|"
+msgid "&Edit"
+msgstr "&Уреди"
+
+#: src/app/qt/kid3mainwindow.cpp:320
+msgctxt "Kid3MainWindow|"
+msgid "Select all files"
+msgstr "Изабери све фајлове"
+
+#: src/app/qt/kid3mainwindow.cpp:321
+msgctxt "Kid3MainWindow|"
+msgid "Select &All"
+msgstr "Изабери с&ве"
+
+#: src/app/qt/kid3mainwindow.cpp:336
+msgctxt "Kid3MainWindow|"
+msgid "Deselect all files"
+msgstr "Поништи избор свих фајлова"
+
+#: src/app/qt/kid3mainwindow.cpp:337
+msgctxt "Kid3MainWindow|"
+msgid "Dese&lect"
+msgstr "По&ништи избор"
+
+#: src/app/qt/kid3mainwindow.cpp:347
+msgctxt "Kid3MainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Изабери све фајлове у тренутном директоријуму"
+
+#: src/app/qt/kid3mainwindow.cpp:348
+msgctxt "Kid3MainWindow|"
+msgid "Select All in &Folder"
+msgstr "Изабери све фајлове у тренутном &директоријуму"
+
+#: src/app/qt/kid3mainwindow.cpp:356
+msgctxt "Kid3MainWindow|"
+msgid "Select previous file"
+msgstr "Изабери претходни фајл"
+
+#: src/app/qt/kid3mainwindow.cpp:357
+msgctxt "Kid3MainWindow|"
+msgid "&Previous File"
+msgstr "&Претходни фајл"
+
+#: src/app/qt/kid3mainwindow.cpp:369
+msgctxt "Kid3MainWindow|"
+msgid "Select next file"
+msgstr "Изабери сљедећи фајл"
+
+#: src/app/qt/kid3mainwindow.cpp:370
+msgctxt "Kid3MainWindow|"
+msgid "&Next File"
+msgstr "&Сљедећи фајл"
+
+#: src/app/qt/kid3mainwindow.cpp:383
+msgctxt "Kid3MainWindow|"
+msgid "Find"
+msgstr "Нађи"
+
+#: src/app/qt/kid3mainwindow.cpp:384
+msgctxt "Kid3MainWindow|"
+msgid "&Find..."
+msgstr "&Нађи..."
+
+#: src/app/qt/kid3mainwindow.cpp:397
+msgctxt "Kid3MainWindow|"
+msgid "Find and replace"
+msgstr "Нађи и замени"
+
+#: src/app/qt/kid3mainwindow.cpp:398
+msgctxt "Kid3MainWindow|"
+msgid "&Replace..."
+msgstr "&Замијени..."
+
+#: src/app/qt/kid3mainwindow.cpp:410
+msgctxt "Kid3MainWindow|"
+msgid "&Tools"
+msgstr "&Алати"
+
+#: src/app/qt/kid3mainwindow.cpp:413
+msgctxt "Kid3MainWindow|"
+msgid "Apply Filename Format"
+msgstr "Примијени формат назива фајла"
+
+#: src/app/qt/kid3mainwindow.cpp:414
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Примијени формат имена фа&јла"
+
+#: src/app/qt/kid3mainwindow.cpp:423
+msgctxt "Kid3MainWindow|"
+msgid "Apply Tag Format"
+msgstr "Примијени формат ознаке"
+
+#: src/app/qt/kid3mainwindow.cpp:424
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Примијени формат &ознаке"
+
+#: src/app/qt/kid3mainwindow.cpp:432
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+#: src/app/qt/kid3mainwindow.cpp:433
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Примени кодирање т&екста"
+
+#: src/app/qt/kid3mainwindow.cpp:442
+msgctxt "Kid3MainWindow|"
+msgid "Rename Folder"
+msgstr "Преименуј директоријум"
+
+#: src/app/qt/kid3mainwindow.cpp:443
+msgctxt "Kid3MainWindow|"
+msgid "&Rename Folder..."
+msgstr "Преименуј &директоријум..."
+
+#: src/app/qt/kid3mainwindow.cpp:451
+msgctxt "Kid3MainWindow|"
+msgid "Number Tracks"
+msgstr "Нумериши"
+
+#: src/app/qt/kid3mainwindow.cpp:452
+msgctxt "Kid3MainWindow|"
+msgid "&Number Tracks..."
+msgstr "Ну&мериши..."
+
+#: src/app/qt/kid3mainwindow.cpp:460
+msgctxt "Kid3MainWindow|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/app/qt/kid3mainwindow.cpp:461
+msgctxt "Kid3MainWindow|"
+msgid "F&ilter..."
+msgstr "Ф&илтер..."
+
+#: src/app/qt/kid3mainwindow.cpp:472
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.4"
+
+#: src/app/qt/kid3mainwindow.cpp:473
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.&4"
+
+#: src/app/qt/kid3mainwindow.cpp:482
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.3"
+
+#: src/app/qt/kid3mainwindow.cpp:483
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.&3"
+
+#: src/app/qt/kid3mainwindow.cpp:494
+msgctxt "Kid3MainWindow|"
+msgid "Play"
+msgstr "Репродукција"
+
+#: src/app/qt/kid3mainwindow.cpp:495
+msgctxt "Kid3MainWindow|"
+msgid "&Play"
+msgstr "Ре&продукуј"
+
+#: src/app/qt/kid3mainwindow.cpp:504
+msgctxt "Kid3MainWindow|"
+msgid "&Settings"
+msgstr "&Подешавање"
+
+#: src/app/qt/kid3mainwindow.cpp:508
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the toolbar"
+msgstr "Приказује/сакрива траку алата"
+
+#: src/app/qt/kid3mainwindow.cpp:509
+msgctxt "Kid3MainWindow|"
+msgid "Show &Toolbar"
+msgstr "Прикажи траку &алата"
+
+#: src/app/qt/kid3mainwindow.cpp:519
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Приказује/сакрива траку стања"
+
+#: src/app/qt/kid3mainwindow.cpp:520
+msgctxt "Kid3MainWindow|"
+msgid "Show St&atusbar"
+msgstr "Прикажи траку &стања"
+
+#: src/app/qt/kid3mainwindow.cpp:529
+msgctxt "Kid3MainWindow|"
+msgid "Show Picture"
+msgstr "Прикажи слику"
+
+#: src/app/qt/kid3mainwindow.cpp:530
+msgctxt "Kid3MainWindow|"
+msgid "Show &Picture"
+msgstr "Прикажи с&лику"
+
+#: src/app/qt/kid3mainwindow.cpp:539
+msgctxt "Kid3MainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Аутоматски сакриј ознаке"
+
+#: src/app/qt/kid3mainwindow.cpp:540
+msgctxt "Kid3MainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Аутоматски &сакриј ознаке"
+
+#: src/app/qt/kid3mainwindow.cpp:549
+msgctxt "Kid3MainWindow|"
+msgid "Configure Kid3"
+msgstr "Подеси Кид3"
+
+#: src/app/qt/kid3mainwindow.cpp:550
+msgctxt "Kid3MainWindow|"
+msgid "&Configure Kid3..."
+msgstr "&Подеси Кид3..."
+
+#: src/app/qt/kid3mainwindow.cpp:564
+msgctxt "Kid3MainWindow|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/app/qt/kid3mainwindow.cpp:567
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 Handbook"
+msgstr "Кид3 приручник"
+
+#: src/app/qt/kid3mainwindow.cpp:568
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 &Handbook"
+msgstr "Кид3 п&риручник"
+
+#: src/app/qt/kid3mainwindow.cpp:579
+msgctxt "Kid3MainWindow|"
+msgid "About Kid3"
+msgstr "О Кид3-у"
+
+#: src/app/qt/kid3mainwindow.cpp:580
+msgctxt "Kid3MainWindow|"
+msgid "&About Kid3"
+msgstr "&О Кид3-у"
+
+#: src/app/qt/kid3mainwindow.cpp:593
+msgctxt "Kid3MainWindow|"
+msgid "About Qt"
+msgstr "О КјуТ-у"
+
+#: src/app/qt/kid3mainwindow.cpp:594
+msgctxt "Kid3MainWindow|"
+msgid "About &Qt"
+msgstr "О &КјуТ-у"
+
+#: src/app/qt/kid3mainwindow.cpp:624
+msgctxt "Kid3MainWindow|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/app/qt/kid3mainwindow.cpp:627 src/app/qt/kid3mainwindow.cpp:650
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "From Tag %1"
+msgstr "Из ознаке %1"
+
+#: src/app/qt/kid3mainwindow.cpp:632 src/app/qt/kid3mainwindow.cpp:675
+#: src/app/qt/kid3mainwindow.cpp:680 src/app/qt/kid3mainwindow.cpp:698
+msgctxt "Kid3MainWindow|"
+msgid "Focus"
+msgstr "Фокус"
+
+#: src/app/qt/kid3mainwindow.cpp:642
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/app/qt/kid3mainwindow.cpp:644
+msgctxt "Kid3MainWindow|"
+msgid "From Filename"
+msgstr "Из имена фајла"
+
+#: src/app/qt/kid3mainwindow.cpp:655
+msgctxt "Kid3MainWindow|"
+msgid "Copy"
+msgstr "Копирај"
+
+#: src/app/qt/kid3mainwindow.cpp:658
+msgctxt "Kid3MainWindow|"
+msgid "Paste"
+msgstr "Налијепи"
+
+#: src/app/qt/kid3mainwindow.cpp:661
+msgctxt "Kid3MainWindow|"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/app/qt/kid3mainwindow.cpp:665
+msgctxt "Kid3MainWindow|"
+msgid "Edit"
+msgstr "Уреди"
+
+#: src/app/qt/kid3mainwindow.cpp:668
+msgctxt "Kid3MainWindow|"
+msgid "Add"
+msgstr "Додај"
+
+#: src/app/qt/kid3mainwindow.cpp:671
+msgctxt "Kid3MainWindow|"
+msgid "Delete"
+msgstr "Обриши"
+
+#: src/app/qt/kid3mainwindow.cpp:679
+msgctxt "Kid3MainWindow|"
+msgid "File List"
+msgstr "Списак фајлова"
+
+#: src/app/qt/kid3mainwindow.cpp:683
+msgctxt "Kid3MainWindow|"
+msgid "&Rename"
+msgstr "П&реименуј"
+
+#: src/app/qt/kid3mainwindow.cpp:690
+msgctxt "Kid3MainWindow|"
+msgid "&Move to Trash"
+msgstr "Премјести у &смеће"
+
+#: src/app/qt/kid3mainwindow.cpp:697
+msgctxt "Kid3MainWindow|"
+msgid "Folder List"
+msgstr "Списак фасцикли"
+
+#: src/app/qt/kid3mainwindow.cpp:774
+msgctxt "Kid3MainWindow|"
+msgid " [modified]"
+msgstr " [измијењен]"
+
+#: src/app/qt/kid3mainwindow.cpp:869
+msgctxt "Kid3MainWindow|"
+msgid "Audio Tag Editor"
+msgstr "Обиљеживач"
+
+#: src/app/qt/kid3mainwindow.cpp:874
+msgctxt "Kid3MainWindow|"
+msgid "License"
+msgstr "Лиценца"
+
+#: src/app/qt/kid3mainwindow.cpp:892
+msgctxt "Kid3MainWindow|"
+msgid "Configure - Kid3"
+msgstr "Подешавање - Кид3"
+
+#: src/app/qt/kid3mainwindow.cpp:935 src/app/qt/kid3mainwindow.cpp:947
+msgctxt "Kid3MainWindow|"
+msgid "User Actions"
+msgstr "Радње корисника"
+
+#: src/app/qt/platformtools.cpp:129
+msgctxt "@default|"
+msgid "Kid3 Handbook"
+msgstr "Кид3 приручник"
+
+#: src/app/qt/recentfilesmenu.cpp:120
+msgctxt "RecentFilesMenu|"
+msgid "&Clear List"
+msgstr "О&чисти списак"
+
+#: src/app/qt/shortcutsdelegate.cpp:190
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Clear"
+msgstr "Очисти"
+
+#: src/app/qt/shortcutsdelegate.cpp:195
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Reset"
+msgstr "Поново постави"
+
+#: src/app/qt/shortcutsmodel.cpp:109
+msgctxt "ShortcutsModel|"
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:181
+msgctxt "ShortcutsModel|"
+msgid "Action"
+msgstr "Радња"
+
+#: src/app/qt/shortcutsmodel.cpp:183
+msgctxt "ShortcutsModel|"
+msgid "Shortcut"
+msgstr "Пречица"
+
+#: src/core/config/batchimportsourcesmodel.cpp:166
+msgctxt "BatchImportSourcesModel|"
+msgid "Server"
+msgstr "Сервер"
+
+#: src/core/config/batchimportsourcesmodel.cpp:168
+msgctxt "BatchImportSourcesModel|"
+msgid "Accuracy"
+msgstr "Прецизност"
+
+#: src/core/config/batchimportsourcesmodel.cpp:170
+msgctxt "BatchImportSourcesModel|"
+msgid "Standard Tags"
+msgstr "Стандардне ознаке"
+
+#: src/core/config/batchimportsourcesmodel.cpp:172
+msgctxt "BatchImportSourcesModel|"
+msgid "Additional Tags"
+msgstr "Додатне ознаке"
+
+#: src/core/config/batchimportsourcesmodel.cpp:174
+msgctxt "BatchImportSourcesModel|"
+msgid "Cover Art"
+msgstr "Омот албума"
+
+#: src/core/config/fileconfig.cpp:177
+msgctxt "Kid3Application|"
+msgid "All Supported Files"
+msgstr "Сви подржани фајлови"
+
+#: src/core/config/formatconfig.cpp:479
+msgctxt "@default|"
+msgid "No changes"
+msgstr "без измјена"
+
+#: src/core/config/formatconfig.cpp:480
+msgctxt "@default|"
+msgid "All lowercase"
+msgstr "све малим"
+
+#: src/core/config/formatconfig.cpp:481
+msgctxt "@default|"
+msgid "All uppercase"
+msgstr "све великим"
+
+#: src/core/config/formatconfig.cpp:482
+msgctxt "@default|"
+msgid "First letter uppercase"
+msgstr "прво слово великим"
+
+#: src/core/config/formatconfig.cpp:483
+msgctxt "@default|"
+msgid "All first letters uppercase"
+msgstr "сва прва слова великим"
+
+#: src/core/config/formatconfig.cpp:498
+msgctxt "FormatConfig|"
+msgid "None"
+msgstr "Никаква"
+
+#: src/core/config/starratingmappingsmodel.cpp:128
+msgctxt "StarRatingMappingsModel|"
+msgid "Name"
+msgstr "Име"
+
+#: src/core/config/tagconfig.cpp:722 src/core/tags/frame.cpp:69
+msgctxt "@default|"
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: src/core/config/tagconfig.cpp:723 src/core/tags/frame.cpp:70
+msgctxt "@default|"
+msgid "UTF16"
+msgstr "UTF-16"
+
+#: src/core/config/tagconfig.cpp:724 src/core/tags/frame.cpp:72
+msgctxt "@default|"
+msgid "UTF8"
+msgstr "UTF-8"
+
+#: src/core/import/batchimporter.cpp:337
+msgctxt "BatchImporter|"
+msgid "Accuracy"
+msgstr "Прецизност"
+
+#: src/core/import/batchimporter.cpp:340
+msgctxt "BatchImporter|"
+msgid "Unknown"
+msgstr "Непознато"
+
+#: src/core/import/batchimporter.cpp:415
+msgctxt "BatchImporter|"
+msgid "Invalid File"
+msgstr "Неисправна датотека"
+
+#: src/core/import/httpclient.cpp:92
+#, qt-format
+msgctxt "@default|"
+msgid "Data received: %1"
+msgstr "Подаци примљени: %1"
+
+#: src/core/import/httpclient.cpp:103
+msgctxt "HttpClient|"
+msgid "Ready."
+msgstr "Спреман."
+
+#: src/core/import/httpclient.cpp:105
+msgctxt "HttpClient|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/core/import/httpclient.cpp:148
+#, qt-format
+msgctxt "HttpClient|"
+msgid "Data received: %1"
+msgstr "Подаци примљени: %1"
+
+#: src/core/import/httpclient.cpp:221
+msgctxt "HttpClient|"
+msgid "Request sent..."
+msgstr "Захтјев послат..."
+
+#: src/core/import/importparser.cpp:53 src/core/tags/frame.cpp:105
+#: src/core/tags/frame.cpp:1658
+msgctxt "@default|"
+msgid "Title"
+msgstr "Наслов"
+
+#: src/core/import/importparser.cpp:57 src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:1662
+msgctxt "@default|"
+msgid "Album"
+msgstr "Албум"
+
+#: src/core/import/importparser.cpp:61 src/core/model/filefilter.cpp:97
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:1666
+msgctxt "@default|"
+msgid "Artist"
+msgstr "Извођач"
+
+#: src/core/import/importparser.cpp:65 src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:266 src/core/tags/frame.cpp:1670
+msgctxt "@default|"
+msgid "Comment"
+msgstr "Коментар"
+
+#: src/core/import/importparser.cpp:69 src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:1674
+msgctxt "@default|"
+msgid "Year"
+msgstr "Година"
+
+#: src/core/import/importparser.cpp:74 src/core/tags/frame.cpp:1679
+msgctxt "@default|"
+msgid "Track"
+msgstr "Нумера"
+
+#: src/core/import/importparser.cpp:78 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:1692
+msgctxt "@default|"
+msgid "Genre"
+msgstr "Жанр"
+
+#: src/core/import/importparser.cpp:82 src/core/tags/frame.cpp:213
+#: src/core/tags/trackdata.cpp:231
+msgctxt "@default|"
+msgid "Length"
+msgstr "Трајање"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:84
+msgctxt "@default|"
+msgid "Drive"
+msgstr "Јединица"
+
+#. %1 is a file name suffix, for example txt
+#: src/core/model/abstractfiledecorationprovider.cpp:90
+#, qt-format
+msgctxt "@default|"
+msgid "%1 File"
+msgstr "%1 фајл"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:93
+msgctxt "@default|"
+msgid "File"
+msgstr "Фајл"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:98
+msgctxt "@default|"
+msgid "Folder"
+msgstr "Фасцикла"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:102
+msgctxt "@default|"
+msgid "Shortcut"
+msgstr "Пречица"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:105
+#: src/core/tags/frame.cpp:260 src/core/tags/frame.cpp:261
+msgctxt "@default|"
+msgid "Unknown"
+msgstr "Непознато"
+
+#: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:46
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+msgctxt "@default|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/core/model/commandformatreplacer.cpp:148
+msgctxt "@default|"
+msgid "Filenames"
+msgstr "Имена фајлова"
+
+#: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:40
+#: src/core/tags/trackdata.cpp:221
+msgctxt "@default|"
+msgid "URL"
+msgstr "УРЛ"
+
+#: src/core/model/commandformatreplacer.cpp:157
+msgctxt "@default|"
+msgid "URLs"
+msgstr "УРЛ-ови"
+
+#: src/core/model/commandformatreplacer.cpp:163
+msgctxt "@default|"
+msgid "Folder name"
+msgstr "Име фајла"
+
+#: src/core/model/commandformatreplacer.cpp:168
+msgctxt "@default|"
+msgid "Browser"
+msgstr "Прегледач"
+
+#: src/core/model/commandformatreplacer.cpp:174
+msgctxt "@default|"
+msgid "QML base folder"
+msgstr "Основна фасцикла QML"
+
+#: src/core/model/commandformatreplacer.cpp:181
+#: src/gui/dialogs/browsecoverartdialog.cpp:61
+msgctxt "@default|"
+msgid "Encode as URL"
+msgstr "Кодирај као УРЛ"
+
+#: src/core/model/commandformatreplacer.cpp:187
+msgctxt "@default|"
+msgid "--- separator ---"
+msgstr "--- раздвајач ---"
+
+#: src/core/model/commandformatreplacer.cpp:193
+msgctxt "@default|"
+msgid "Begin of submenu"
+msgstr "Почетак Подмени"
+
+#: src/core/model/commandformatreplacer.cpp:199
+msgctxt "@default|"
+msgid "End of submenu"
+msgstr "Крај подмени"
+
+#: src/core/model/commandstablemodel.cpp:165
+msgctxt "CommandsTableModel|"
+msgid "Confirm"
+msgstr "Потврди"
+
+#: src/core/model/commandstablemodel.cpp:167
+msgctxt "CommandsTableModel|"
+msgid "Output"
+msgstr "Излаз"
+
+#: src/core/model/commandstablemodel.cpp:169
+msgctxt "CommandsTableModel|"
+msgid "Name"
+msgstr "Име"
+
+#: src/core/model/commandstablemodel.cpp:171
+msgctxt "CommandsTableModel|"
+msgid "Command"
+msgstr "Наредба"
+
+#: src/core/model/dirrenamer.cpp:250
+#, qt-format
+msgctxt "@default|"
+msgid "Create folder %1 failed\n"
+msgstr "Прављење директоријума %1 није успјело\n"
+
+#: src/core/model/dirrenamer.cpp:279
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Create folder %1 failed\n"
+msgstr "Прављење директоријума %1 није успјело\n"
+
+#: src/core/model/dirrenamer.cpp:286
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "Фајл %1 већ постоји\n"
+
+#: src/core/model/dirrenamer.cpp:288
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a folder\n"
+msgstr "%1 није директоријум\n"
+
+#: src/core/model/dirrenamer.cpp:290
+#, qt-format
+msgctxt "@default|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Преименовање %1 у %2 није успјело\n"
+
+#: src/core/model/dirrenamer.cpp:309
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "File %1 already exists\n"
+msgstr "Фајл %1 већ постоји\n"
+
+#: src/core/model/dirrenamer.cpp:315
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a folder\n"
+msgstr "%1 није директоријум\n"
+
+#: src/core/model/dirrenamer.cpp:335 src/core/model/dirrenamer.cpp:383
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Преименовање %1 у %2 није успјело\n"
+
+#: src/core/model/dirrenamer.cpp:342
+#, qt-format
+msgctxt "@default|"
+msgid "%1 already exists\n"
+msgstr "%1 већ постоји\n"
+
+#: src/core/model/dirrenamer.cpp:344
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a file\n"
+msgstr "%1 није фајл\n"
+
+#: src/core/model/dirrenamer.cpp:365
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 already exists\n"
+msgstr "%1 већ постоји\n"
+
+#: src/core/model/dirrenamer.cpp:371
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a file\n"
+msgstr "%1 није фајл\n"
+
+#: src/core/model/dirrenamer.cpp:604
+msgctxt "DirRenamer|"
+msgid "New folder name is too different\n"
+msgstr "Ново име директоријума је превише различито\n"
+
+#: src/core/model/dirrenamer.cpp:670
+msgctxt "@default|"
+msgid "Create folder"
+msgstr "Направи директоријум"
+
+#: src/core/model/dirrenamer.cpp:671
+msgctxt "@default|"
+msgid "Rename folder"
+msgstr "Преименуј директоријум"
+
+#: src/core/model/dirrenamer.cpp:672
+msgctxt "@default|"
+msgid "Rename file"
+msgstr "Преименуј фајл"
+
+#: src/core/model/dirrenamer.cpp:673
+msgctxt "@default|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/core/model/downloadclient.cpp:53
+msgctxt "DownloadClient|"
+msgid "Ready."
+msgstr "Спреман."
+
+#: src/core/model/eventtimingcode.cpp:37
+msgctxt "@default|"
+msgid "padding (has no meaning)"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:38
+msgctxt "@default|"
+msgid "end of initial silence"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:39
+msgctxt "@default|"
+msgid "intro start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:40
+msgctxt "@default|"
+msgid "main part start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:41
+msgctxt "@default|"
+msgid "outro start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:42
+msgctxt "@default|"
+msgid "outro end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:43
+msgctxt "@default|"
+msgid "verse start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:44
+msgctxt "@default|"
+msgid "refrain start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:45
+msgctxt "@default|"
+msgid "interlude start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:46
+msgctxt "@default|"
+msgid "theme start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:47
+msgctxt "@default|"
+msgid "variation start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:48
+msgctxt "@default|"
+msgid "key change"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:49
+msgctxt "@default|"
+msgid "time change"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:50
+msgctxt "@default|"
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:51
+msgctxt "@default|"
+msgid "sustained noise"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:52
+msgctxt "@default|"
+msgid "sustained noise end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:53
+msgctxt "@default|"
+msgid "intro end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:54
+msgctxt "@default|"
+msgid "main part end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:55
+msgctxt "@default|"
+msgid "verse end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:56
+msgctxt "@default|"
+msgid "refrain end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:57
+msgctxt "@default|"
+msgid "theme end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:58
+msgctxt "@default|"
+msgid "profanity"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:59
+msgctxt "@default|"
+msgid "profanity end"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:60
+msgctxt "@default|"
+msgid "not predefined synch 0"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:61
+msgctxt "@default|"
+msgid "not predefined synch 1"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:62
+msgctxt "@default|"
+msgid "not predefined synch 2"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:63
+msgctxt "@default|"
+msgid "not predefined synch 3"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:64
+msgctxt "@default|"
+msgid "not predefined synch 4"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:65
+msgctxt "@default|"
+msgid "not predefined synch 5"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:66
+msgctxt "@default|"
+msgid "not predefined synch 6"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:67
+msgctxt "@default|"
+msgid "not predefined synch 7"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:68
+msgctxt "@default|"
+msgid "not predefined synch 8"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:69
+msgctxt "@default|"
+msgid "not predefined synch 9"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:70
+msgctxt "@default|"
+msgid "not predefined synch A"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:71
+msgctxt "@default|"
+msgid "not predefined synch B"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:72
+msgctxt "@default|"
+msgid "not predefined synch C"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:73
+msgctxt "@default|"
+msgid "not predefined synch D"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:74
+msgctxt "@default|"
+msgid "not predefined synch E"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:75
+msgctxt "@default|"
+msgid "not predefined synch F"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:76
+msgctxt "@default|"
+msgid "audio end (start of silence)"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:77
+msgctxt "@default|"
+msgid "audio file ends"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:111
+#, qt-format
+msgctxt "@default|"
+msgid "reserved for future use %1"
+msgstr ""
+
+#: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
+msgctxt "@default|"
+msgid "Tag 1"
+msgstr "ознака 1"
+
+#: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
+msgctxt "@default|"
+msgid "Tag 2"
+msgstr "ознака 2"
+
+#: src/core/model/filefilter.cpp:108
+msgctxt "@default|"
+msgid "True if strings are equal"
+msgstr "Тачно ако су низови једнаки"
+
+#: src/core/model/filefilter.cpp:114
+msgctxt "@default|"
+msgid "True if string contains substring"
+msgstr "Тачно ако низ садржи подниз"
+
+#: src/core/model/filefilter.cpp:121
+msgctxt "@default|"
+msgid "True if string matches regexp"
+msgstr "Тачно ако се низ поклапа са регизом"
+
+#: src/core/model/filefilter.cpp:127
+msgctxt "@default|"
+msgid "Logical AND"
+msgstr "Логичко И"
+
+#: src/core/model/filefilter.cpp:132
+msgctxt "@default|"
+msgid "Logical OR"
+msgstr "Логичко ИЛИ"
+
+#: src/core/model/filefilter.cpp:138
+msgctxt "@default|"
+msgid "Logical negation"
+msgstr "Логичка негација"
+
+#: src/core/model/fileproxymodel.cpp:37
+msgctxt "QFileSystemModel|"
+msgid "Name"
+msgstr "Име"
+
+#: src/core/model/fileproxymodel.cpp:39
+msgctxt "QFileSystemModel|"
+msgid "Size"
+msgstr "Величина"
+
+#: src/core/model/fileproxymodel.cpp:41
+msgctxt "QFileSystemModel|"
+msgid "Type"
+msgstr "Тип"
+
+#: src/core/model/fileproxymodel.cpp:43
+msgctxt "QFileSystemModel|"
+msgid "Kind"
+msgstr "Врста"
+
+#: src/core/model/fileproxymodel.cpp:46
+msgctxt "QFileSystemModel|"
+msgid "Date Modified"
+msgstr "Датум измене"
+
+#: src/core/model/fileproxymodel.cpp:1031
+msgctxt "FileProxyModel|"
+msgid "All Supported Files"
+msgstr "Сви подржани фајлови"
+
+#: src/core/model/fileproxymodel.cpp:1033
+msgctxt "FileProxyModel|"
+msgid "All Files"
+msgstr "Сви фајлови"
+
+#: src/core/model/filesystemmodel.cpp:817
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 TB"
+msgstr "%1 TB"
+
+#: src/core/model/filesystemmodel.cpp:819
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 GB"
+msgstr "%1 GB"
+
+#: src/core/model/filesystemmodel.cpp:821
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: src/core/model/filesystemmodel.cpp:823
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 KB"
+msgstr "%1 KB"
+
+#: src/core/model/filesystemmodel.cpp:824
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 bytes"
+msgstr "%1 бајтова"
+
+#: src/core/model/filesystemmodel.cpp:979
+msgctxt "FileSystemModel|"
+msgid "Name"
+msgstr "Име"
+
+#: src/core/model/filesystemmodel.cpp:981
+msgctxt "FileSystemModel|"
+msgid "Size"
+msgstr "Величина"
+
+#: src/core/model/filesystemmodel.cpp:985
+msgctxt "FileSystemModel|Match OS X Finder"
+msgid "Kind"
+msgstr "Врста"
+
+#: src/core/model/filesystemmodel.cpp:987
+msgctxt "FileSystemModel|All other platforms"
+msgid "Type"
+msgstr "Тип"
+
+#: src/core/model/filesystemmodel.cpp:994
+msgctxt "FileSystemModel|"
+msgid "Date Modified"
+msgstr "Датум измене"
+
+#: src/core/model/filesystemmodel_p.h:319
+msgctxt "FileSystemModel|"
+msgid "My Computer"
+msgstr "Мој рачунар"
+
+#: src/core/model/filesystemmodel_p.h:321
+msgctxt "FileSystemModel|"
+msgid "Computer"
+msgstr "Рачунар"
+
+#: src/core/model/frameobjectmodel.cpp:178
+msgctxt "FrameFieldObject|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/model/frametablemodel.cpp:137
+msgctxt "FrameTableModel|"
+msgid "Volume"
+msgstr "Јачина"
+
+#: src/core/model/frametablemodel.cpp:162
+msgctxt "FrameTableModel|"
+msgid "File ID"
+msgstr "Фајл ИД"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Name"
+msgstr "Име"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Data"
+msgstr "Подаци"
+
+#: src/core/model/kid3application.cpp:974
+msgctxt "Kid3Application|"
+msgid "Saving folder..."
+msgstr "Уписујем директоријум..."
+
+#: src/core/model/kid3application.cpp:1119
+msgctxt "Kid3Application|"
+msgid "Selection"
+msgstr "Избор"
+
+#: src/core/model/kid3application.cpp:3303
+msgctxt "Kid3Application|"
+msgid "All Files"
+msgstr "Сви фајлови"
+
+#: src/core/model/tagsearcher.cpp:198
+msgctxt "TagSearcher|"
+msgid "Search finished"
+msgstr "Претрага завршена"
+
+#: src/core/model/tagsearcher.cpp:464
+msgctxt "TagSearcher|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/core/model/tagsearcher.cpp:466
+#, qt-format
+msgctxt "TagSearcher|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/core/model/timeeventmodel.cpp:122
+msgctxt "TimeEventModel|"
+msgid "Time"
+msgstr "Вријеме"
+
+#: src/core/model/timeeventmodel.cpp:124
+msgctxt "TimeEventModel|"
+msgid "Event Code"
+msgstr "Кôд"
+
+#: src/core/model/timeeventmodel.cpp:126
+msgctxt "TimeEventModel|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/model/trackdatamodel.cpp:179
+msgctxt "TrackDataModel|"
+msgid "Track"
+msgstr "Нумера"
+
+#: src/core/model/trackdatamodel.cpp:184
+msgctxt "TrackDataModel|"
+msgid "Absolute path to file"
+msgstr "Апсолутна путања до фајла"
+
+#: src/core/model/trackdatamodel.cpp:186
+msgctxt "TrackDataModel|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/core/model/trackdatamodel.cpp:188
+msgctxt "TrackDataModel|"
+msgid "Duration"
+msgstr "Трајање"
+
+#: src/core/model/trackdatamodel.cpp:190
+msgctxt "TrackDataModel|"
+msgid "Length"
+msgstr "Трајање"
+
+#: src/core/tags/frame.cpp:38
+msgctxt "@default|"
+msgid "Text Encoding"
+msgstr "Кодирање текста"
+
+#: src/core/tags/frame.cpp:39
+msgctxt "@default|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/tags/frame.cpp:41
+msgctxt "@default|"
+msgid "Data"
+msgstr "Подаци"
+
+#: src/core/tags/frame.cpp:42 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:234 src/core/tags/frame.cpp:280
+msgctxt "@default|"
+msgid "Description"
+msgstr "Опис"
+
+#: src/core/tags/frame.cpp:43 src/core/tags/frame.cpp:303
+msgctxt "@default|"
+msgid "Owner"
+msgstr "Власник"
+
+#: src/core/tags/frame.cpp:44
+msgctxt "@default|"
+msgid "Email"
+msgstr "Е-адреса"
+
+#: src/core/tags/frame.cpp:45 src/core/tags/frame.cpp:153
+msgctxt "@default|"
+msgid "Rating"
+msgstr "Рејтинг"
+
+#: src/core/tags/frame.cpp:47 src/core/tags/frame.cpp:129
+msgctxt "@default|"
+msgid "Language"
+msgstr "Језик"
+
+#: src/core/tags/frame.cpp:48
+msgctxt "@default|"
+msgid "Picture Type"
+msgstr "Тип слике"
+
+#: src/core/tags/frame.cpp:49
+msgctxt "@default|"
+msgid "Image format"
+msgstr "Формат слике"
+
+#: src/core/tags/frame.cpp:50
+msgctxt "@default|"
+msgid "Mimetype"
+msgstr "Миме"
+
+#: src/core/tags/frame.cpp:51
+msgctxt "@default|"
+msgid "Counter"
+msgstr "Бројач"
+
+#: src/core/tags/frame.cpp:52
+msgctxt "@default|"
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:196
+msgctxt "@default|"
+msgid "Volume Adjustment"
+msgstr "Подешавање јачине"
+
+#: src/core/tags/frame.cpp:54
+msgctxt "@default|"
+msgid "Number of Bits"
+msgstr "Број бита"
+
+#: src/core/tags/frame.cpp:55
+msgctxt "@default|"
+msgid "Volume Change Right"
+msgstr ""
+
+#: src/core/tags/frame.cpp:56
+msgctxt "@default|"
+msgid "Volume Change Left"
+msgstr ""
+
+#: src/core/tags/frame.cpp:57
+msgctxt "@default|"
+msgid "Peak Volume Right"
+msgstr ""
+
+#: src/core/tags/frame.cpp:58
+msgctxt "@default|"
+msgid "Peak Volume Left"
+msgstr ""
+
+#: src/core/tags/frame.cpp:59
+msgctxt "@default|"
+msgid "Timestamp Format"
+msgstr "Формат временске ознаке"
+
+#: src/core/tags/frame.cpp:60
+msgctxt "@default|"
+msgid "Content Type"
+msgstr "Тип садржаја"
+
+#: src/core/tags/frame.cpp:62
+msgctxt "@default|"
+msgid "Price"
+msgstr "Цијена"
+
+#: src/core/tags/frame.cpp:63 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:202
+msgctxt "@default|"
+msgid "Date"
+msgstr "Година"
+
+#: src/core/tags/frame.cpp:64
+msgctxt "@default|"
+msgid "Seller"
+msgstr "Продавац"
+
+#: src/core/tags/frame.cpp:71
+msgctxt "@default|"
+msgid "UTF16BE"
+msgstr "UTF-16BE"
+
+#: src/core/tags/frame.cpp:77 src/core/tags/frame.cpp:84
+#: src/core/tags/pictureframe.cpp:41
+msgctxt "@default|"
+msgid "Other"
+msgstr "Остало"
+
+#: src/core/tags/frame.cpp:78
+msgctxt "@default|"
+msgid "MPEG frames as unit"
+msgstr "Број МПЕГ кадрова као јединица"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Milliseconds as unit"
+msgstr "Милисекунде као јединица"
+
+#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:131
+#: src/gui/widgets/timeeventeditor.cpp:335
+msgctxt "@default|"
+msgid "Lyrics"
+msgstr "Текст"
+
+#: src/core/tags/frame.cpp:86
+msgctxt "@default|"
+msgid "Text transcription"
+msgstr "Транскрипција текста"
+
+#: src/core/tags/frame.cpp:87
+msgctxt "@default|"
+msgid "Movement/part name"
+msgstr ""
+
+#: src/core/tags/frame.cpp:88
+msgctxt "@default|"
+msgid "Events"
+msgstr ""
+
+#: src/core/tags/frame.cpp:89
+msgctxt "@default|"
+msgid "Chord"
+msgstr "Акорд"
+
+#: src/core/tags/frame.cpp:90
+msgctxt "@default|"
+msgid "Trivia/pop up"
+msgstr ""
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Track Number"
+msgstr "Број нумере"
+
+#: src/core/tags/frame.cpp:113 src/core/tags/frame.cpp:231
+msgctxt "@default|"
+msgid "Album Artist"
+msgstr "Извођач албума"
+
+#: src/core/tags/frame.cpp:114
+msgctxt "@default|"
+msgid "Arranger"
+msgstr "Аранжер"
+
+#: src/core/tags/frame.cpp:115
+msgctxt "@default|"
+msgid "Author"
+msgstr "Аутор"
+
+#: src/core/tags/frame.cpp:116
+msgctxt "@default|"
+msgid "BPM"
+msgstr "БПМ"
+
+#: src/core/tags/frame.cpp:117
+msgctxt "@default|"
+msgid "Catalog Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:118
+msgctxt "@default|"
+msgid "Compilation"
+msgstr ""
+
+#: src/core/tags/frame.cpp:119 src/core/tags/pictureframe.cpp:52
+msgctxt "@default|"
+msgid "Composer"
+msgstr "Композитор"
+
+#: src/core/tags/frame.cpp:120 src/core/tags/frame.cpp:279
+#: src/core/tags/pictureframe.cpp:50
+msgctxt "@default|"
+msgid "Conductor"
+msgstr "Диригент"
+
+#: src/core/tags/frame.cpp:121
+msgctxt "@default|"
+msgid "Copyright"
+msgstr "Ауторско право"
+
+#: src/core/tags/frame.cpp:122
+msgctxt "@default|"
+msgid "Disc Number"
+msgstr "Број диска"
+
+#: src/core/tags/frame.cpp:123 src/core/tags/frame.cpp:238
+msgctxt "@default|"
+msgid "Encoded-by"
+msgstr "Кодер"
+
+#: src/core/tags/frame.cpp:124 src/core/tags/frame.cpp:237
+msgctxt "@default|"
+msgid "Encoder Settings"
+msgstr "Кодирање подешавања"
+
+#: src/core/tags/frame.cpp:125 src/core/tags/frame.cpp:203
+msgctxt "@default|"
+msgid "Encoding Time"
+msgstr "Време кодирања"
+
+#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:233
+msgctxt "@default|"
+msgid "Grouping"
+msgstr "Груписање"
+
+#: src/core/tags/frame.cpp:127
+msgctxt "@default|"
+msgid "Initial Key"
+msgstr "Почетни кључ"
+
+#: src/core/tags/frame.cpp:128
+msgctxt "@default|"
+msgid "ISRC"
+msgstr "ИСРЦ"
+
+#: src/core/tags/frame.cpp:130
+msgctxt "@default|"
+msgid "Lyricist"
+msgstr "Текстописац"
+
+#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:47
+msgctxt "@default|"
+msgid "Media"
+msgstr "Медија"
+
+#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:268
+msgctxt "@default|"
+msgid "Mood"
+msgstr "Расположење"
+
+#: src/core/tags/frame.cpp:134
+msgctxt "@default|"
+msgid "Original Album"
+msgstr "Изворни албум"
+
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:250
+msgctxt "@default|"
+msgid "Original Artist"
+msgstr "Изворни извођач"
+
+#: src/core/tags/frame.cpp:136
+msgctxt "@default|"
+msgid "Original Date"
+msgstr "Изворни датум"
+
+#: src/core/tags/frame.cpp:138
+msgctxt "@default|"
+msgid "Performer"
+msgstr "Извођач"
+
+#: src/core/tags/frame.cpp:139
+msgctxt "@default|"
+msgid "Picture"
+msgstr "Слика"
+
+#: src/core/tags/frame.cpp:140
+msgctxt "@default|"
+msgid "Publisher"
+msgstr "Издавач"
+
+#: src/core/tags/frame.cpp:141
+msgctxt "@default|"
+msgid "Release Country"
+msgstr ""
+
+#: src/core/tags/frame.cpp:142 src/core/tags/frame.cpp:256
+msgctxt "@default|"
+msgid "Remixer"
+msgstr "Ремиксер"
+
+#: src/core/tags/frame.cpp:143
+msgctxt "@default|"
+msgid "Sort Album"
+msgstr "Редослед сортирања албума"
+
+#: src/core/tags/frame.cpp:144 src/core/tags/frame.cpp:265
+msgctxt "@default|"
+msgid "Sort Album Artist"
+msgstr "Редослед сортирања аутора албума"
+
+#: src/core/tags/frame.cpp:145
+msgctxt "@default|"
+msgid "Sort Artist"
+msgstr "Редослијед сортирања извођача"
+
+#: src/core/tags/frame.cpp:146
+msgctxt "@default|"
+msgid "Sort Composer"
+msgstr "Редослед сортирања композитора"
+
+#: src/core/tags/frame.cpp:147
+msgctxt "@default|"
+msgid "Sort Name"
+msgstr "Редослијед сортирања наслова"
+
+#: src/core/tags/frame.cpp:148
+msgctxt "@default|"
+msgid "Subtitle"
+msgstr "Поднаслов"
+
+#: src/core/tags/frame.cpp:149
+msgctxt "@default|"
+msgid "Website"
+msgstr "Вебсајт"
+
+#: src/core/tags/frame.cpp:150
+msgctxt "@default|"
+msgid "WWW Audio File"
+msgstr ""
+
+#: src/core/tags/frame.cpp:151
+msgctxt "@default|"
+msgid "WWW Audio Source"
+msgstr ""
+
+#: src/core/tags/frame.cpp:152
+msgctxt "@default|"
+msgid "Release Date"
+msgstr "Датум издања"
+
+#: src/core/tags/frame.cpp:154
+msgctxt "@default|"
+msgid "Work"
+msgstr ""
+
+#: src/core/tags/frame.cpp:171
+msgctxt "@default|"
+msgid "Audio Encryption"
+msgstr "Аудио шифровање"
+
+#: src/core/tags/frame.cpp:172
+msgctxt "@default|"
+msgid "Audio Seek Point"
+msgstr ""
+
+#: src/core/tags/frame.cpp:173
+msgctxt "@default|"
+msgid "Chapter"
+msgstr "Поглавље"
+
+#: src/core/tags/frame.cpp:174
+msgctxt "@default|"
+msgid "Commercial"
+msgstr "Комерцијално"
+
+#: src/core/tags/frame.cpp:175
+msgctxt "@default|"
+msgid "Table of Contents"
+msgstr "Садржај"
+
+#: src/core/tags/frame.cpp:176
+msgctxt "@default|"
+msgid "Encryption Method"
+msgstr "Методе шифровања"
+
+#: src/core/tags/frame.cpp:177 src/core/tags/frame.cpp:178
+msgctxt "@default|"
+msgid "Equalization"
+msgstr "Једначење"
+
+#: src/core/tags/frame.cpp:179
+msgctxt "@default|"
+msgid "Event Timing Codes"
+msgstr ""
+
+#: src/core/tags/frame.cpp:180
+msgctxt "@default|"
+msgid "General Object"
+msgstr "Општи објекат"
+
+#: src/core/tags/frame.cpp:181
+msgctxt "@default|"
+msgid "Group Identification"
+msgstr "Идентификације групе"
+
+#: src/core/tags/frame.cpp:183
+msgctxt "@default|"
+msgid "Linked Information"
+msgstr "Повезана информација"
+
+#: src/core/tags/frame.cpp:184
+msgctxt "@default|"
+msgid "Music CD Identifier"
+msgstr "Идентификатор музичког ЦД-а"
+
+#: src/core/tags/frame.cpp:185
+msgctxt "@default|"
+msgid "MPEG Lookup Table"
+msgstr ""
+
+#: src/core/tags/frame.cpp:186 src/core/tags/frame.cpp:300
+msgctxt "@default|"
+msgid "Movement Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:187 src/core/tags/frame.cpp:299
+msgctxt "@default|"
+msgid "Movement Name"
+msgstr ""
+
+#: src/core/tags/frame.cpp:188
+msgctxt "@default|"
+msgid "Ownership"
+msgstr "Власнички"
+
+#: src/core/tags/frame.cpp:189
+msgctxt "@default|"
+msgid "Play Counter"
+msgstr "Бројач репродукције"
+
+#: src/core/tags/frame.cpp:190 src/core/tags/frame.cpp:285
+msgctxt "@default|"
+msgid "Podcast"
+msgstr "Подемисија"
+
+#: src/core/tags/frame.cpp:191
+msgctxt "@default|"
+msgid "Popularimeter"
+msgstr "Мерач популарности"
+
+#: src/core/tags/frame.cpp:192
+msgctxt "@default|"
+msgid "Position Synchronisation"
+msgstr "Синхронизације позиције"
+
+#: src/core/tags/frame.cpp:193
+msgctxt "@default|"
+msgid "Private"
+msgstr "Приватно"
+
+#: src/core/tags/frame.cpp:194
+msgctxt "@default|"
+msgid "Recommended Buffer Size"
+msgstr "Препоручена величина бафера"
+
+#: src/core/tags/frame.cpp:197
+msgctxt "@default|"
+msgid "Reverb"
+msgstr "Реверберација"
+
+#: src/core/tags/frame.cpp:198
+msgctxt "@default|"
+msgid "Seek"
+msgstr "Тражења"
+
+#: src/core/tags/frame.cpp:199
+msgctxt "@default|"
+msgid "Signature"
+msgstr "Потписа"
+
+#: src/core/tags/frame.cpp:200
+msgctxt "@default|"
+msgid "Synchronized Lyrics"
+msgstr ""
+
+#: src/core/tags/frame.cpp:201
+msgctxt "@default|"
+msgid "Synchronized Tempo Codes"
+msgstr ""
+
+#: src/core/tags/frame.cpp:204
+msgctxt "@default|"
+msgid "Podcast Description"
+msgstr "Опис Podcast"
+
+#: src/core/tags/frame.cpp:205
+msgctxt "@default|"
+msgid "Playlist Delay"
+msgstr "Кашњење листе нумера"
+
+#: src/core/tags/frame.cpp:206
+msgctxt "@default|"
+msgid "Original Release Time"
+msgstr "Вријеме издавања оригинала"
+
+#: src/core/tags/frame.cpp:207
+msgctxt "@default|"
+msgid "Recording Time"
+msgstr "Вријеме снимања"
+
+#: src/core/tags/frame.cpp:208
+msgctxt "@default|"
+msgid "Release Time"
+msgstr "Вријеме издавања"
+
+#: src/core/tags/frame.cpp:209
+msgctxt "@default|"
+msgid "Tagging Time"
+msgstr "Вријеме означавања"
+
+#: src/core/tags/frame.cpp:210
+msgctxt "@default|"
+msgid "File Type"
+msgstr "Тип фајла"
+
+#: src/core/tags/frame.cpp:211
+msgctxt "@default|"
+msgid "Podcast Identifier"
+msgstr "Идентификатор Podcast"
+
+#: src/core/tags/frame.cpp:212
+msgctxt "@default|"
+msgid "Time"
+msgstr "Вријеме"
+
+#: src/core/tags/frame.cpp:214 src/core/tags/frame.cpp:269
+msgctxt "@default|"
+msgid "Original Filename"
+msgstr "Изворно име"
+
+#: src/core/tags/frame.cpp:215
+msgctxt "@default|"
+msgid "File Owner"
+msgstr ""
+
+#: src/core/tags/frame.cpp:216
+msgctxt "@default|"
+msgid "Produced Notice"
+msgstr ""
+
+#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:255
+msgctxt "@default|"
+msgid "Recording Date"
+msgstr "датуми снимања"
+
+#: src/core/tags/frame.cpp:218
+msgctxt "@default|"
+msgid "Radio Station Name"
+msgstr "Име радио станице"
+
+#: src/core/tags/frame.cpp:219
+msgctxt "@default|"
+msgid "Radio Station Owner"
+msgstr "Власник радио станице"
+
+#: src/core/tags/frame.cpp:220
+msgctxt "@default|"
+msgid "Size"
+msgstr "Величина"
+
+#: src/core/tags/frame.cpp:221
+msgctxt "@default|"
+msgid "User-defined Text"
+msgstr "Кориснички дефинисана текстуална информација"
+
+#: src/core/tags/frame.cpp:222
+msgctxt "@default|"
+msgid "Unique File Identifier"
+msgstr "Јединствени идентификатор фајла"
+
+#: src/core/tags/frame.cpp:223
+msgctxt "@default|"
+msgid "Terms of Use"
+msgstr "Услови коришћења"
+
+#: src/core/tags/frame.cpp:224 src/core/tags/frame.cpp:271
+msgctxt "@default|"
+msgid "Commercial URL"
+msgstr "Подаци о комерцијализовању"
+
+#: src/core/tags/frame.cpp:225
+msgctxt "@default|"
+msgid "Copyright URL"
+msgstr "Ауторско право УРЛ"
+
+#: src/core/tags/frame.cpp:226
+msgctxt "@default|"
+msgid "Podcast Feed"
+msgstr "Довод Podcast"
+
+#: src/core/tags/frame.cpp:227
+msgctxt "@default|"
+msgid "Official Radio Station"
+msgstr ""
+
+#: src/core/tags/frame.cpp:228
+msgctxt "@default|"
+msgid "Payment"
+msgstr "Плаћање"
+
+#: src/core/tags/frame.cpp:229
+msgctxt "@default|"
+msgid "Official Publisher"
+msgstr ""
+
+#: src/core/tags/frame.cpp:230 src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:273
+msgctxt "@default|"
+msgid "User-defined URL"
+msgstr "Кориснички дефинисана УРЛ веза"
+
+#: src/core/tags/frame.cpp:232
+msgctxt "@default|"
+msgid "Contact"
+msgstr "Контакт"
+
+#: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:257
+msgctxt "@default|"
+msgid "Total Discs"
+msgstr "Број дискова"
+
+#: src/core/tags/frame.cpp:236
+msgctxt "@default|"
+msgid "Encoder"
+msgstr "Кодер"
+
+#: src/core/tags/frame.cpp:239
+msgctxt "@default|"
+msgid "Encoding"
+msgstr "Кодирање"
+
+#: src/core/tags/frame.cpp:240
+msgctxt "@default|"
+msgid "Engineer"
+msgstr ""
+
+#: src/core/tags/frame.cpp:241
+msgctxt "@default|"
+msgid "Ensemble"
+msgstr ""
+
+#: src/core/tags/frame.cpp:242
+msgctxt "@default|"
+msgid "Guest Artist"
+msgstr ""
+
+#: src/core/tags/frame.cpp:243 src/core/tags/trackdata.cpp:264
+msgctxt "@default|"
+msgid "VBR"
+msgstr "ВБР"
+
+#: src/core/tags/frame.cpp:244 src/core/tags/frame.cpp:286
+msgctxt "@default|"
+msgid "Gapless Playback"
+msgstr "Без паузе између песмама"
+
+#: src/core/tags/frame.cpp:245
+msgctxt "@default|"
+msgid "Label"
+msgstr "Издавача"
+
+#: src/core/tags/frame.cpp:246
+msgctxt "@default|"
+msgid "Label Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:247
+msgctxt "@default|"
+msgid "License"
+msgstr "Лиценца"
+
+#: src/core/tags/frame.cpp:248
+msgctxt "@default|"
+msgid "Location"
+msgstr "Локација"
+
+#: src/core/tags/frame.cpp:249
+msgctxt "@default|"
+msgid "Opus"
+msgstr ""
+
+#: src/core/tags/frame.cpp:251
+msgctxt "@default|"
+msgid "Organization"
+msgstr "Организација"
+
+#: src/core/tags/frame.cpp:252
+msgctxt "@default|"
+msgid "Part Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:253
+msgctxt "@default|"
+msgid "Producer"
+msgstr "Произвођач"
+
+#: src/core/tags/frame.cpp:254
+msgctxt "@default|"
+msgid "Product Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:258 src/core/tags/frame.cpp:259
+msgctxt "@default|"
+msgid "Total Tracks"
+msgstr "Укупно нумера"
+
+#: src/core/tags/frame.cpp:262
+msgctxt "@default|"
+msgid "Version"
+msgstr "Верзија"
+
+#: src/core/tags/frame.cpp:263
+msgctxt "@default|"
+msgid "Volume"
+msgstr "Јачина"
+
+#: src/core/tags/frame.cpp:267
+msgctxt "@default|"
+msgid "MCDI"
+msgstr "MCDI"
+
+#: src/core/tags/frame.cpp:270
+msgctxt "@default|"
+msgid "Original Lyricist"
+msgstr "Изворни текстописац"
+
+#: src/core/tags/frame.cpp:272
+msgctxt "@default|"
+msgid "User Rating"
+msgstr "Оцене корисника"
+
+#: src/core/tags/frame.cpp:274
+msgctxt "@default|"
+msgid "Account Type"
+msgstr "Врста налога"
+
+#: src/core/tags/frame.cpp:275
+msgctxt "@default|"
+msgid "Purchase Account"
+msgstr "Име налога"
+
+#: src/core/tags/frame.cpp:276
+msgctxt "@default|"
+msgid "Artist ID"
+msgstr "Извођач ИД"
+
+#: src/core/tags/frame.cpp:277
+msgctxt "@default|"
+msgid "Category"
+msgstr "Категорија"
+
+#: src/core/tags/frame.cpp:278
+msgctxt "@default|"
+msgid "Catalog ID"
+msgstr "Каталог ИД"
+
+#: src/core/tags/frame.cpp:281
+msgctxt "@default|"
+msgid "Genre ID"
+msgstr "Жанр ИД"
+
+#: src/core/tags/frame.cpp:282
+msgctxt "@default|"
+msgid "HD Video"
+msgstr "HD Видео"
+
+#: src/core/tags/frame.cpp:283
+msgctxt "@default|"
+msgid "Keyword"
+msgstr "Кључна ријеч"
+
+#: src/core/tags/frame.cpp:284
+msgctxt "@default|"
+msgid "Long Description"
+msgstr "Опширан опис"
+
+#: src/core/tags/frame.cpp:287
+msgctxt "@default|"
+msgid "Album ID"
+msgstr "Албум ИД"
+
+#: src/core/tags/frame.cpp:288
+msgctxt "@default|"
+msgid "Purchase Date"
+msgstr ""
+
+#: src/core/tags/frame.cpp:289
+msgctxt "@default|"
+msgid "Rating/Advisory"
+msgstr "Рејтинг/саветовање"
+
+#: src/core/tags/frame.cpp:290
+msgctxt "@default|"
+msgid "Country Code"
+msgstr "Кôд државе"
+
+#: src/core/tags/frame.cpp:291
+msgctxt "@default|"
+msgid "Sort Show"
+msgstr ""
+
+#: src/core/tags/frame.cpp:292
+msgctxt "@default|"
+msgid "Media Type"
+msgstr "Тип медија"
+
+#: src/core/tags/frame.cpp:293
+msgctxt "@default|"
+msgid "TV Episode"
+msgstr "Епизода"
+
+#: src/core/tags/frame.cpp:294
+msgctxt "@default|"
+msgid "TV Episode Number"
+msgstr "Број епизода"
+
+#: src/core/tags/frame.cpp:295
+msgctxt "@default|"
+msgid "TV Network Name"
+msgstr "Мрежа"
+
+#: src/core/tags/frame.cpp:296
+msgctxt "@default|"
+msgid "TV Show Name"
+msgstr ""
+
+#: src/core/tags/frame.cpp:297
+msgctxt "@default|"
+msgid "TV Season"
+msgstr "Доба"
+
+#: src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Movement Count"
+msgstr ""
+
+#: src/core/tags/frame.cpp:302
+msgctxt "@default|"
+msgid "Show Work & Movement"
+msgstr ""
+
+#: src/core/tags/frame.cpp:304
+msgctxt "@default|"
+msgid "Podcast URL"
+msgstr "УРЛ Подемисија"
+
+#: src/core/tags/frame.cpp:305
+msgctxt "@default|"
+msgid "Podcast GUID"
+msgstr "GUID Подемисија"
+
+#: src/core/tags/frame.cpp:306
+msgctxt "@default|"
+msgid "Composer ID"
+msgstr "Композитор ИД"
+
+#: src/core/tags/frame.cpp:307
+msgctxt "@default|"
+msgid "XID"
+msgstr "XID"
+
+#: src/core/tags/frame.cpp:308
+msgctxt "@default|"
+msgid "Archival Location"
+msgstr ""
+
+#: src/core/tags/frame.cpp:309
+msgctxt "@default|"
+msgid "Commissioned"
+msgstr ""
+
+#: src/core/tags/frame.cpp:310
+msgctxt "@default|"
+msgid "Cropped"
+msgstr ""
+
+#: src/core/tags/frame.cpp:311
+msgctxt "@default|"
+msgid "Dimensions"
+msgstr "Димензије"
+
+#: src/core/tags/frame.cpp:312
+msgctxt "@default|"
+msgid "Dots Per Inch"
+msgstr ""
+
+#: src/core/tags/frame.cpp:313
+msgctxt "@default|"
+msgid "Keywords"
+msgstr "Кључне ријечи"
+
+#: src/core/tags/frame.cpp:314
+msgctxt "@default|"
+msgid "Lightness"
+msgstr "Светлина"
+
+#: src/core/tags/frame.cpp:315
+msgctxt "@default|"
+msgid "Number of Colors"
+msgstr "Број боја"
+
+#: src/core/tags/frame.cpp:316
+msgctxt "@default|"
+msgid "Subject"
+msgstr "Тема"
+
+#: src/core/tags/frame.cpp:317
+msgctxt "@default|"
+msgid "Sharpness"
+msgstr "Оштрина"
+
+#: src/core/tags/frame.cpp:318
+msgctxt "@default|"
+msgid "Source Form"
+msgstr ""
+
+#: src/core/tags/frame.cpp:888
+#, qt-format
+msgctxt "@default|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/core/tags/frame.cpp:893
+msgctxt "@default|"
+msgid "Tag 1 and Tag 2"
+msgstr "ознака 1 и ознака 2"
+
+#: src/core/tags/frame.cpp:897
+msgctxt "@default|"
+msgid "All Tags"
+msgstr "Сви ознаке"
+
+#: src/core/tags/frame.cpp:1697
+msgctxt "@default|"
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Припремите t1/аппенд t2 ако није празно"
+
+#: src/core/tags/framenotice.cpp:173
+msgctxt "@default|"
+msgid "Truncated"
+msgstr "Одсјечена"
+
+#: src/core/tags/framenotice.cpp:174
+msgctxt "@default|"
+msgid "Size is too large"
+msgstr "Број бајтова је сувише велики"
+
+#: src/core/tags/framenotice.cpp:175
+msgctxt "@default|"
+msgid "Must be unique"
+msgstr "Морају бити јединствени"
+
+#: src/core/tags/framenotice.cpp:176
+msgctxt "@default|"
+msgid "New line is forbidden"
+msgstr "Нови ред је забрањен"
+
+#: src/core/tags/framenotice.cpp:177
+msgctxt "@default|"
+msgid "Carriage return is forbidden"
+msgstr "Повратак реда је забрањен"
+
+#: src/core/tags/framenotice.cpp:178
+msgctxt "@default|"
+msgid "Owner must be non-empty"
+msgstr "Власник не сме бити празно"
+
+#: src/core/tags/framenotice.cpp:179
+msgctxt "@default|"
+msgid "Must be numeric"
+msgstr "Мора бити бројеван"
+
+#: src/core/tags/framenotice.cpp:180
+msgctxt "@default|"
+msgid "Must be numeric or number/total"
+msgstr "Мора бити нумерички или број/укупан"
+
+#: src/core/tags/framenotice.cpp:181
+msgctxt "@default|"
+msgid "Format is DDMM"
+msgstr "Формат je DDMM"
+
+#: src/core/tags/framenotice.cpp:182
+msgctxt "@default|"
+msgid "Format is HHMM"
+msgstr "Формат je HHMM"
+
+#: src/core/tags/framenotice.cpp:183
+msgctxt "@default|"
+msgid "Format is YYYY"
+msgstr "Формат je YYYY"
+
+#: src/core/tags/framenotice.cpp:184
+msgctxt "@default|"
+msgid "Must begin with a year and a space character"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:185
+msgctxt "@default|"
+msgid "Must be ISO 8601 date/time"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:186
+msgctxt "@default|"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:188
+msgctxt "@default|"
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:189
+msgctxt "@default|"
+msgid "Must be ISRC code, 12 characters"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:190
+msgctxt "@default|"
+msgid "Must be list of strings separated by '|'"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:191
+msgctxt "@default|"
+msgid "Has excess white space"
+msgstr ""
+
+#: src/core/tags/pictureframe.cpp:42
+msgctxt "@default|"
+msgid "32x32 pixels PNG file icon"
+msgstr "ПНГ икона фајла 32x32 пиксела"
+
+#: src/core/tags/pictureframe.cpp:43
+msgctxt "@default|"
+msgid "Other file icon"
+msgstr "Остале иконе фајла"
+
+#: src/core/tags/pictureframe.cpp:44
+msgctxt "@default|"
+msgid "Cover (front)"
+msgstr "Омот (предњи)"
+
+#: src/core/tags/pictureframe.cpp:45
+msgctxt "@default|"
+msgid "Cover (back)"
+msgstr "Омот (задњи)"
+
+#: src/core/tags/pictureframe.cpp:46
+msgctxt "@default|"
+msgid "Leaflet page"
+msgstr ""
+
+#: src/core/tags/pictureframe.cpp:48
+msgctxt "@default|"
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+#: src/core/tags/pictureframe.cpp:49
+msgctxt "@default|"
+msgid "Artist/performer"
+msgstr "Умјетник/извођач"
+
+#: src/core/tags/pictureframe.cpp:51
+msgctxt "@default|"
+msgid "Band/Orchestra"
+msgstr "Бенд/оркестар"
+
+#: src/core/tags/pictureframe.cpp:53
+msgctxt "@default|"
+msgid "Lyricist/text writer"
+msgstr "Пјесник/текстописац"
+
+#: src/core/tags/pictureframe.cpp:54
+msgctxt "@default|"
+msgid "Recording Location"
+msgstr "Мјесто снимања"
+
+#: src/core/tags/pictureframe.cpp:55
+msgctxt "@default|"
+msgid "During recording"
+msgstr "Током снимања"
+
+#: src/core/tags/pictureframe.cpp:56
+msgctxt "@default|"
+msgid "During performance"
+msgstr "Током извођења"
+
+#: src/core/tags/pictureframe.cpp:57
+msgctxt "@default|"
+msgid "Movie/video screen capture"
+msgstr "Снимак екрана филма/видеа"
+
+#: src/core/tags/pictureframe.cpp:58
+msgctxt "@default|"
+msgid "A bright coloured fish"
+msgstr ""
+
+#: src/core/tags/pictureframe.cpp:59
+msgctxt "@default|"
+msgid "Illustration"
+msgstr "Илустрација"
+
+#: src/core/tags/pictureframe.cpp:60
+msgctxt "@default|"
+msgid "Band/artist logotype"
+msgstr "Логотип бенда/извођача"
+
+#: src/core/tags/pictureframe.cpp:61
+msgctxt "@default|"
+msgid "Publisher/Studio logotype"
+msgstr "Логотип издавача/студија"
+
+#: src/core/tags/trackdata.cpp:204
+msgctxt "@default|"
+msgid "Absolute path to file"
+msgstr "Апсолутна путања до фајла"
+
+#: src/core/tags/trackdata.cpp:210
+msgctxt "@default|"
+msgid "Modification date"
+msgstr "Датум измене"
+
+#: src/core/tags/trackdata.cpp:216
+msgctxt "@default|"
+msgid "Creation date"
+msgstr "Датум стварања"
+
+#: src/core/tags/trackdata.cpp:226
+msgctxt "@default|"
+msgid "Directory name"
+msgstr "Име директоријума"
+
+#: src/core/tags/trackdata.cpp:241
+msgctxt "@default|"
+msgid "Number of tracks"
+msgstr "Број нумера"
+
+#: src/core/tags/trackdata.cpp:246
+msgctxt "@default|"
+msgid "Extension"
+msgstr "Екстензија"
+
+#: src/core/tags/trackdata.cpp:259
+msgctxt "@default|"
+msgid "Bitrate"
+msgstr "Битски проток"
+
+#: src/core/tags/trackdata.cpp:269
+msgctxt "@default|"
+msgid "Samplerate"
+msgstr "Узорковање"
+
+#: src/core/tags/trackdata.cpp:276
+msgctxt "@default|"
+msgid "Channels"
+msgstr "Канала"
+
+#: src/core/tags/trackdata.cpp:281
+msgctxt "@default|"
+msgid "Codec"
+msgstr "Кодек"
+
+#: src/core/tags/trackdata.cpp:286
+msgctxt "@default|"
+msgid "Marked"
+msgstr "Обиљежено"
+
+#: src/core/tags/trackdata.cpp:292
+msgctxt "@default|"
+msgid "Escape for HTML"
+msgstr "Escape HTML"
+
+#: src/gui/dialogs/batchimportdialog.cpp:163
+msgctxt "BatchImportDialog|"
+msgid "Automatic Import"
+msgstr "Аутоматски увози"
+
+#: src/gui/dialogs/batchimportdialog.cpp:179
+msgctxt "BatchImportDialog|"
+msgid "D&estination:"
+msgstr "О&дредиште:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:194
+msgctxt "BatchImportDialog|"
+msgid "&Profile:"
+msgstr "&Профил:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:205
+msgctxt "BatchImportDialog|"
+msgid "Add"
+msgstr "Додај"
+
+#: src/gui/dialogs/batchimportdialog.cpp:209
+msgctxt "BatchImportDialog|"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/gui/dialogs/batchimportdialog.cpp:230
+msgctxt "BatchImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/batchimportdialog.cpp:236
+msgctxt "BatchImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/batchimportdialog.cpp:245
+msgctxt "BatchImportDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/batchimportdialog.cpp:285
+msgctxt "BatchImportDialog|"
+msgid "New"
+msgstr "Ново"
+
+#: src/gui/dialogs/batchimportdialog.cpp:477
+msgctxt "BatchImportDialog|"
+msgid "Reading Folder"
+msgstr "Приликом читања директоријума"
+
+#: src/gui/dialogs/batchimportdialog.cpp:481
+msgctxt "BatchImportDialog|"
+msgid "Started"
+msgstr "Започет"
+
+#: src/gui/dialogs/batchimportdialog.cpp:484
+msgctxt "BatchImportDialog|"
+msgid "Source"
+msgstr "Извор"
+
+#: src/gui/dialogs/batchimportdialog.cpp:487
+msgctxt "BatchImportDialog|"
+msgid "Querying"
+msgstr "Затражујем"
+
+#: src/gui/dialogs/batchimportdialog.cpp:491
+msgctxt "BatchImportDialog|"
+msgid "Fetching"
+msgstr "Добављам"
+
+#: src/gui/dialogs/batchimportdialog.cpp:494
+msgctxt "BatchImportDialog|"
+msgid "Data received"
+msgstr "Подаци примљени"
+
+#: src/gui/dialogs/batchimportdialog.cpp:497
+msgctxt "BatchImportDialog|"
+msgid "Cover"
+msgstr "Омот"
+
+#: src/gui/dialogs/batchimportdialog.cpp:501
+msgctxt "BatchImportDialog|"
+msgid "Finished"
+msgstr "Завршено"
+
+#: src/gui/dialogs/batchimportdialog.cpp:505
+msgctxt "BatchImportDialog|"
+msgid "Aborted"
+msgstr "Обустављен"
+
+#: src/gui/dialogs/batchimportdialog.cpp:508
+msgctxt "BatchImportDialog|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "A&bort"
+msgstr "Обуста&ви"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "S&tart"
+msgstr "&Почетак"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+msgctxt "BatchImportSourceDialog|"
+msgid "Import Source"
+msgstr "Извор увоза"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+msgctxt "BatchImportSourceDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+msgctxt "BatchImportSourceDialog|"
+msgid "&Accuracy:"
+msgstr "&Прецизност:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+msgctxt "BatchImportSourceDialog|"
+msgid "&Standard Tags"
+msgstr "&Стандардне ознаке"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+msgctxt "BatchImportSourceDialog|"
+msgid "&Additional Tags"
+msgstr "Дода&тне ознаке"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+msgctxt "BatchImportSourceDialog|"
+msgid "C&over Art"
+msgstr "Омот а&лбума"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:83
+#: src/gui/dialogs/browsecoverartdialog.cpp:263
+msgctxt "BrowseCoverArtDialog|"
+msgid "Browse Cover Art"
+msgstr "Претрага омота албума"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:92
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Artist/Album"
+msgstr "И&звођач/албум"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:105
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Source"
+msgstr "&Извор"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "Source:"
+msgstr "Извор:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "URL:"
+msgstr "УРЛ:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:118
+msgctxt "BrowseCoverArtDialog|"
+msgid "&URL extraction"
+msgstr "Извлачење &УРЛ-а"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Match"
+msgstr "Поклопи"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Picture URL"
+msgstr "УРЛ слике"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:130
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:135
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:144
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Browse"
+msgstr "&Потражи"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:145
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:177
+msgctxt "BrowseCoverArtDialog|"
+msgid "Click Browse to start"
+msgstr "Кликните на „Потражи“ да бисте покренули"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:183
+msgctxt "BrowseCoverArtDialog|"
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "и онда превуците слику са прегледача у Кид3."
+
+#: src/gui/dialogs/configdialogpages.cpp:167
+msgctxt "ConfigDialogPages|"
+msgid "ID3v1"
+msgstr "ИД3в1"
+
+#: src/gui/dialogs/configdialogpages.cpp:170
+msgctxt "ConfigDialogPages|"
+msgid "&Mark truncated fields"
+msgstr "Означи одсјечена &поља"
+
+#: src/gui/dialogs/configdialogpages.cpp:172
+#: src/gui/dialogs/configdialogpages.cpp:201
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding:"
+msgstr "Кодирање &текста:"
+
+#: src/gui/dialogs/configdialogpages.cpp:186
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2"
+msgstr "ИД3в2"
+
+#: src/gui/dialogs/configdialogpages.cpp:189
+msgctxt "ConfigDialogPages|"
+msgid "Use &track/total number of tracks format"
+msgstr "Користи формат &нумера/укупно нумера"
+
+#: src/gui/dialogs/configdialogpages.cpp:192
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "Број &цифара нумере:"
+
+#: src/gui/dialogs/configdialogpages.cpp:196
+msgctxt "ConfigDialogPages|"
+msgid "&Genre as text instead of numeric string"
+msgstr "&Жанр као текст умјесто бројног низа"
+
+#: src/gui/dialogs/configdialogpages.cpp:198
+msgctxt "ConfigDialogPages|"
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV датотеке са малих слова id3 парче"
+
+#: src/gui/dialogs/configdialogpages.cpp:200
+msgctxt "ConfigDialogPages|"
+msgid "Mar&k standard violations"
+msgstr "Мар&к кршења стандарда"
+
+#: src/gui/dialogs/configdialogpages.cpp:219
+msgctxt "ConfigDialogPages|"
+msgid "&Version used for new tags:"
+msgstr "И&здање за нове ознаке:"
+
+#: src/gui/dialogs/configdialogpages.cpp:223
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:225
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:239
+msgctxt "ConfigDialogPages|"
+msgid "Ogg/Vorbis"
+msgstr "Огг/Ворбис"
+
+#: src/gui/dialogs/configdialogpages.cpp:240
+msgctxt "ConfigDialogPages|"
+msgid "Co&mment field name:"
+msgstr "Име поља ко&ментара:"
+
+#: src/gui/dialogs/configdialogpages.cpp:243
+msgctxt "ConfigDialogPages|"
+msgid "&Picture field name:"
+msgstr "Име поља &слике:"
+
+#: src/gui/dialogs/configdialogpages.cpp:265
+msgctxt "ConfigDialogPages|"
+msgid "Picture"
+msgstr "Слика"
+
+#: src/gui/dialogs/configdialogpages.cpp:268
+msgctxt "ConfigDialogPages|"
+msgid "Mark if &larger than (bytes):"
+msgstr "Означи ако &је веће од (бајтова):"
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+msgctxt "ConfigDialogPages|"
+msgid "Custom &Genres"
+msgstr "Посе&бни жанрови"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "&Show only custom genres"
+msgstr "Прик&ажи само посебне жанрове"
+
+#: src/gui/dialogs/configdialogpages.cpp:289
+msgctxt "ConfigDialogPages|"
+msgid "&Quick Access Frames"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:302
+msgctxt "ConfigDialogPages|"
+msgid "Use drag and drop to reorder the items"
+msgstr "Превуците за прерасподеђивање чворова"
+
+#: src/gui/dialogs/configdialogpages.cpp:310
+msgctxt "ConfigDialogPages|"
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+#: src/gui/dialogs/configdialogpages.cpp:311
+msgctxt "ConfigDialogPages|"
+msgid "Track nu&mber field name:"
+msgstr "Име поља број ну&мере:"
+
+#: src/gui/dialogs/configdialogpages.cpp:328
+msgctxt "ConfigDialogPages|"
+msgid "&Tag Format"
+msgstr "&Формат ознаке"
+
+#: src/gui/dialogs/configdialogpages.cpp:330
+msgctxt "ConfigDialogPages|"
+msgid "Rating"
+msgstr "Рејтинг"
+
+#: src/gui/dialogs/configdialogpages.cpp:340
+msgctxt "ConfigDialogPages|"
+msgid "Tag &1"
+msgstr "Ознака &1"
+
+#: src/gui/dialogs/configdialogpages.cpp:342
+msgctxt "ConfigDialogPages|"
+msgid "Tag &2"
+msgstr "Ознака &2"
+
+#: src/gui/dialogs/configdialogpages.cpp:343
+msgctxt "ConfigDialogPages|"
+msgid "Tag &3"
+msgstr "Ознака &3"
+
+#: src/gui/dialogs/configdialogpages.cpp:344
+msgctxt "ConfigDialogPages|"
+msgid "All Ta&gs"
+msgstr "С&ви ознаке"
+
+#: src/gui/dialogs/configdialogpages.cpp:362
+msgctxt "ConfigDialogPages|"
+msgid "Startup"
+msgstr "Покретање"
+
+#: src/gui/dialogs/configdialogpages.cpp:363
+msgctxt "ConfigDialogPages|"
+msgid "&Load last-opened files"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:369
+msgctxt "ConfigDialogPages|"
+msgid "Save"
+msgstr "Сачувај"
+
+#: src/gui/dialogs/configdialogpages.cpp:370
+msgctxt "ConfigDialogPages|"
+msgid "&Preserve file timestamp"
+msgstr "Очувај &временску ознаку фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:372
+msgctxt "ConfigDialogPages|"
+msgid "&Mark changes"
+msgstr "О&значи измјене"
+
+#: src/gui/dialogs/configdialogpages.cpp:382
+msgctxt "ConfigDialogPages|"
+msgid "F&ilename for cover:"
+msgstr "&Име фајла за омот албума:"
+
+#: src/gui/dialogs/configdialogpages.cpp:383
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Кодирање &текста (Извези, листа пуштања):"
+
+#: src/gui/dialogs/configdialogpages.cpp:388
+msgctxt "ConfigDialogPages|"
+msgid "File List"
+msgstr "Списак фајлова"
+
+#: src/gui/dialogs/configdialogpages.cpp:389
+msgctxt "ConfigDialogPages|"
+msgid "Filte&r:"
+msgstr "&Филтер:"
+
+#: src/gui/dialogs/configdialogpages.cpp:399
+msgctxt "ConfigDialogPages|"
+msgid "Inclu&de folders:"
+msgstr "Укљ&учују фасцикли:"
+
+#: src/gui/dialogs/configdialogpages.cpp:403
+msgctxt "ConfigDialogPages|"
+msgid "E&xclude folders:"
+msgstr "И&зузми фасцикле:"
+
+#: src/gui/dialogs/configdialogpages.cpp:407
+msgctxt "ConfigDialogPages|"
+msgid "&Show hidden files"
+msgstr "&Скривени фајлови"
+
+#: src/gui/dialogs/configdialogpages.cpp:419
+msgctxt "ConfigDialogPages|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/gui/dialogs/configdialogpages.cpp:422
+msgctxt "ConfigDialogPages|"
+msgid "Filename from tag"
+msgstr "ознаке у име фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:427
+msgctxt "ConfigDialogPages|"
+msgid "Tag from filename"
+msgstr "ознаку из имена фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:439
+msgctxt "ConfigDialogPages|"
+msgid "&Filename Format"
+msgstr "Формат имена &фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:455
+msgctxt "ConfigDialogPages|"
+msgid "Filename from Tag"
+msgstr "ознаке у име фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:471
+msgctxt "ConfigDialogPages|"
+msgid "Tag from Filename"
+msgstr "ознаку из имена фајла"
+
+#: src/gui/dialogs/configdialogpages.cpp:485
+msgctxt "ConfigDialogPages|"
+msgid "Browser"
+msgstr "Прегледач"
+
+#: src/gui/dialogs/configdialogpages.cpp:486
+msgctxt "ConfigDialogPages|"
+msgid "Web &browser:"
+msgstr "Веб &прегледач:"
+
+#: src/gui/dialogs/configdialogpages.cpp:495
+msgctxt "ConfigDialogPages|"
+msgid "Context &Menu Commands"
+msgstr "Наредбе контекстног ме&нија"
+
+#: src/gui/dialogs/configdialogpages.cpp:498
+msgctxt "ConfigDialogPages|"
+msgid "&Play on double click"
+msgstr "&Репродукуј при двоклику"
+
+#: src/gui/dialogs/configdialogpages.cpp:519
+msgctxt "ConfigDialogPages|"
+msgid "Proxy"
+msgstr "Прокси"
+
+#: src/gui/dialogs/configdialogpages.cpp:520
+msgctxt "ConfigDialogPages|"
+msgid "&Proxy:"
+msgstr "&Прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:523
+msgctxt "ConfigDialogPages|"
+msgid "&Use authentication with proxy"
+msgstr "Користи &аутентификацију за прокси"
+
+#: src/gui/dialogs/configdialogpages.cpp:525
+msgctxt "ConfigDialogPages|"
+msgid "Proxy user &name:"
+msgstr "Корисничко &име за прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:529
+msgctxt "ConfigDialogPages|"
+msgid "Proxy pass&word:"
+msgstr "Л&озинка за прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:563
+msgctxt "ConfigDialogPages|"
+msgid "&Metadata Plugins && Priority"
+msgstr "&Метаподаци прикључци && Приоритет"
+
+#: src/gui/dialogs/configdialogpages.cpp:575
+msgctxt "ConfigDialogPages|"
+msgid "A&vailable Plugins"
+msgstr "&Доступни прикључци"
+
+#: src/gui/dialogs/configdialogpages.cpp:586
+msgctxt "ConfigDialogPages|"
+msgid "Changes take only effect after a restart!"
+msgstr "Неке измене неће бити укључене пре поновног покретања!"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:739
+msgctxt "@default|"
+msgid "Images"
+msgstr "Слике"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:740
+#: src/gui/widgets/timeeventeditor.cpp:336
+msgctxt "@default|"
+msgid "All Files"
+msgstr "Сви фајлови"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1135
+msgctxt "BinaryOpenSave|"
+msgid "From Clip&board"
+msgstr "Из клип&борда"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+msgctxt "BinaryOpenSave|"
+msgid "&To Clipboard"
+msgstr "&У клипборд"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+msgctxt "BinaryOpenSave|"
+msgid "&Import..."
+msgstr "&Увези..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+msgctxt "BinaryOpenSave|"
+msgid "&Export..."
+msgstr "Изв&ези..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+msgctxt "BinaryOpenSave|"
+msgid "&View..."
+msgstr "&Приказ..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1315
+msgctxt "EditFrameFieldsDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+msgctxt "EditFrameFieldsDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/exportdialog.cpp:68
+msgctxt "ExportDialog|"
+msgid "Export"
+msgstr "Извези"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "H&eader:"
+msgstr "За&главље:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Tracks:"
+msgstr "Н&умере:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "F&ooter:"
+msgstr "&Подножје:"
+
+#: src/gui/dialogs/exportdialog.cpp:91
+msgctxt "ExportDialog|"
+msgid "To F&ile..."
+msgstr "У ф&ајл..."
+
+#: src/gui/dialogs/exportdialog.cpp:96
+msgctxt "ExportDialog|"
+msgid "To Clip&board"
+msgstr "У клип&борд"
+
+#: src/gui/dialogs/exportdialog.cpp:105
+msgctxt "ExportDialog|"
+msgid "&Source:"
+msgstr "&Извор:"
+
+#: src/gui/dialogs/exportdialog.cpp:110
+#, qt-format
+msgctxt "ExportDialog|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/gui/dialogs/exportdialog.cpp:122
+msgctxt "ExportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/exportdialog.cpp:127
+msgctxt "ExportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/exportdialog.cpp:136
+msgctxt "ExportDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/exportdialog.cpp:154
+msgctxt "ExportDialog|"
+msgid "File Error"
+msgstr "Грешка фајла"
+
+#: src/gui/dialogs/exportdialog.cpp:155
+msgctxt "ExportDialog|"
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+#: src/gui/dialogs/filterdialog.cpp:49
+msgctxt "FilterDialog|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/gui/dialogs/filterdialog.cpp:53
+msgctxt "FilterDialog|"
+msgid "&Preview"
+msgstr "&Преглед"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Filter:"
+msgstr "&Филтер:"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Expression:"
+msgstr "&Израз:"
+
+#: src/gui/dialogs/filterdialog.cpp:75
+msgctxt "FilterDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/filterdialog.cpp:80
+msgctxt "FilterDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/filterdialog.cpp:91
+msgctxt "FilterDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/filterdialog.cpp:182
+msgctxt "FilterDialog|"
+msgid "Started"
+msgstr "Започет"
+
+#: src/gui/dialogs/filterdialog.cpp:198
+msgctxt "FilterDialog|"
+msgid "Finished"
+msgstr "Завршено"
+
+#: src/gui/dialogs/filterdialog.cpp:202
+msgctxt "FilterDialog|"
+msgid "Aborted"
+msgstr "Обустављен"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "A&bort"
+msgstr "Обуста&ви"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "&Apply"
+msgstr "&Примијени"
+
+#: src/gui/dialogs/findreplacedialog.cpp:54
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find and Replace"
+msgstr "Нађи и замени"
+
+#: src/gui/dialogs/findreplacedialog.cpp:59
+msgctxt "FindReplaceDialog|"
+msgid "F&ind:"
+msgstr "На&ђи:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:66
+msgctxt "FindReplaceDialog|"
+msgid "&Find"
+msgstr "&Нађи"
+
+#: src/gui/dialogs/findreplacedialog.cpp:69
+msgctxt "FindReplaceDialog|"
+msgid "Re&place:"
+msgstr "Замијен&и:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:76
+msgctxt "FindReplaceDialog|"
+msgid "&Replace"
+msgstr "З&амијени"
+
+#: src/gui/dialogs/findreplacedialog.cpp:79
+msgctxt "FindReplaceDialog|"
+msgid "Replace &all"
+msgstr "Замијени с&ве"
+
+#: src/gui/dialogs/findreplacedialog.cpp:94
+msgctxt "FindReplaceDialog|"
+msgid "Options"
+msgstr "Опције"
+
+#: src/gui/dialogs/findreplacedialog.cpp:96
+msgctxt "FindReplaceDialog|"
+msgid "&Match case"
+msgstr "&Поклопи величину"
+
+#: src/gui/dialogs/findreplacedialog.cpp:98
+msgctxt "FindReplaceDialog|"
+msgid "&Backwards"
+msgstr "&Уназад"
+
+#: src/gui/dialogs/findreplacedialog.cpp:100
+msgctxt "FindReplaceDialog|"
+msgid "Regular &expression"
+msgstr "&Регуларни израз"
+
+#: src/gui/dialogs/findreplacedialog.cpp:105
+msgctxt "FindReplaceDialog|"
+msgid "&Tags"
+msgstr "&Ознаке"
+
+#: src/gui/dialogs/findreplacedialog.cpp:107
+msgctxt "FindReplaceDialog|"
+msgid "Select a&ll"
+msgstr "&Изабери све"
+
+#: src/gui/dialogs/findreplacedialog.cpp:117
+msgctxt "FindReplaceDialog|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/gui/dialogs/findreplacedialog.cpp:129
+msgctxt "FindReplaceDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/findreplacedialog.cpp:134
+msgctxt "FindReplaceDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/findreplacedialog.cpp:141
+msgctxt "FindReplaceDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find"
+msgstr "Нађи"
+
+#: src/gui/dialogs/importdialog.cpp:128
+msgctxt "ImportDialog|"
+msgid "Accuracy:"
+msgstr "Прецизност:"
+
+#: src/gui/dialogs/importdialog.cpp:139
+msgctxt "ImportDialog|"
+msgid "Cover Art:"
+msgstr "Омот албума:"
+
+#: src/gui/dialogs/importdialog.cpp:148
+msgctxt "ImportDialog|"
+msgid "From F&ile/Clipboard..."
+msgstr "Из &фајла/клипборда..."
+
+#: src/gui/dialogs/importdialog.cpp:151
+msgctxt "ImportDialog|"
+msgid "From T&ags..."
+msgstr "Из о&знака..."
+
+#: src/gui/dialogs/importdialog.cpp:154
+msgctxt "ImportDialog|"
+msgid "&From Server..."
+msgstr "С&а сервера..."
+
+#: src/gui/dialogs/importdialog.cpp:176
+msgctxt "ImportDialog|"
+msgid "D&estination:"
+msgstr "О&дредиште:"
+
+#: src/gui/dialogs/importdialog.cpp:190
+msgctxt "ImportDialog|"
+msgid "Revert"
+msgstr "Врати"
+
+#: src/gui/dialogs/importdialog.cpp:199
+msgctxt "ImportDialog|"
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Провјери највећу дозвољену &временску разлику (сек):"
+
+#: src/gui/dialogs/importdialog.cpp:207
+msgctxt "ImportDialog|"
+msgid "Match with:"
+msgstr "Поклопи са:"
+
+#: src/gui/dialogs/importdialog.cpp:209
+msgctxt "ImportDialog|"
+msgid "&Length"
+msgstr "тра&јањем"
+
+#: src/gui/dialogs/importdialog.cpp:212
+msgctxt "ImportDialog|"
+msgid "T&rack"
+msgstr "&нумером"
+
+#: src/gui/dialogs/importdialog.cpp:215
+msgctxt "ImportDialog|"
+msgid "&Title"
+msgstr "нас&ловом"
+
+#: src/gui/dialogs/importdialog.cpp:243
+msgctxt "ImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/importdialog.cpp:245
+msgctxt "ImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/importdialog.cpp:247
+msgctxt "ImportDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/gui/dialogs/importdialog.cpp:249
+msgctxt "ImportDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/qml/app/NumberTracksDialog.qml:32
+msgctxt "NumberTracksDialog|"
+msgid "Number Tracks"
+msgstr "Нумериши"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:55
+msgctxt "NumberTracksDialog|"
+msgid "Start &number:"
+msgstr "&Почетни број:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:67
+msgctxt "NumberTracksDialog|"
+msgid "&Destination:"
+msgstr "&Одредиште:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:83
+msgctxt "NumberTracksDialog|"
+msgid "&Reset counter for each folder"
+msgstr "&Рисетовати бројач за сваку фасциклу"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:89
+msgctxt "NumberTracksDialog|"
+msgid "&Total number of tracks:"
+msgstr "&Укупно нумера:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:103
+msgctxt "NumberTracksDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:108
+msgctxt "NumberTracksDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:117
+msgctxt "NumberTracksDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:123
+msgctxt "NumberTracksDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/playlistdialog.cpp:56
+msgctxt "PlaylistDialog|"
+msgid "Create Playlist"
+msgstr "Направи листу нумера"
+
+#: src/gui/dialogs/playlistdialog.cpp:144
+msgctxt "PlaylistDialog|"
+msgid "Playlist File Name"
+msgstr "Име фајла листе нумера"
+
+#: src/gui/dialogs/playlistdialog.cpp:145
+msgctxt "PlaylistDialog|"
+msgid "Same as &folder name"
+msgstr "Исто као име &директоријума"
+
+#: src/gui/dialogs/playlistdialog.cpp:147
+msgctxt "PlaylistDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/playlistdialog.cpp:159
+msgctxt "PlaylistDialog|"
+msgid "Create ne&w empty playlist:"
+msgstr "&Направите нову празну листу:"
+
+#: src/gui/dialogs/playlistdialog.cpp:160
+msgctxt "PlaylistDialog|"
+msgid "New"
+msgstr "Ново"
+
+#: src/gui/dialogs/playlistdialog.cpp:166
+msgctxt "PlaylistDialog|"
+msgid "Cr&eate in:"
+msgstr "Н&аправи у:"
+
+#: src/gui/dialogs/playlistdialog.cpp:169
+msgctxt "PlaylistDialog|"
+msgid "Current folder"
+msgstr "тренутном директоријуму"
+
+#: src/gui/dialogs/playlistdialog.cpp:170
+msgctxt "PlaylistDialog|"
+msgid "Every folder"
+msgstr "свим директоријумима"
+
+#: src/gui/dialogs/playlistdialog.cpp:171
+msgctxt "PlaylistDialog|"
+msgid "Top-level folder"
+msgstr "највишем директоријуму"
+
+#: src/gui/dialogs/playlistdialog.cpp:173
+msgctxt "PlaylistDialog|"
+msgid "Playlist Content"
+msgstr "Садржај листе нумера"
+
+#: src/gui/dialogs/playlistdialog.cpp:174
+msgctxt "PlaylistDialog|"
+msgid "For&mat:"
+msgstr "Фор&мат:"
+
+#: src/gui/dialogs/playlistdialog.cpp:178
+msgctxt "PlaylistDialog|"
+msgid "Incl&ude only the selected files"
+msgstr "Укључи само &означене фајлове"
+
+#: src/gui/dialogs/playlistdialog.cpp:179
+msgctxt "PlaylistDialog|"
+msgid "Sort by file &name"
+msgstr "Сортирај по &имену"
+
+#: src/gui/dialogs/playlistdialog.cpp:181
+msgctxt "PlaylistDialog|"
+msgid "Sort by &tag field"
+msgstr "Сортирај по &пољу ознаке"
+
+#: src/gui/dialogs/playlistdialog.cpp:196
+msgctxt "PlaylistDialog|"
+msgid "Use &relative path for files in playlist"
+msgstr "Користи &релативну путању за фајлове на листи нумера"
+
+#: src/gui/dialogs/playlistdialog.cpp:198
+msgctxt "PlaylistDialog|"
+msgid "Use full p&ath for files in playlist"
+msgstr "Користи пуну пут&ању за фајлове на листи нумера"
+
+#: src/gui/dialogs/playlistdialog.cpp:199
+msgctxt "PlaylistDialog|"
+msgid "Write only &list of files"
+msgstr "Упиши само &списак фајлова"
+
+#: src/gui/dialogs/playlistdialog.cpp:201
+msgctxt "PlaylistDialog|"
+msgid "Write &info using"
+msgstr "Упиши &информације користећи"
+
+#: src/gui/dialogs/playlistdialog.cpp:212
+msgctxt "PlaylistDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/playlistdialog.cpp:216
+msgctxt "PlaylistDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/playlistdialog.cpp:224
+msgctxt "PlaylistDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/gui/dialogs/playlistdialog.cpp:227
+msgctxt "PlaylistDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:114
+msgctxt "PlaylistEditDialog|"
+msgid "Playlist"
+msgstr "Листа нумера"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:120
+msgctxt "PlaylistEditDialog|"
+msgid " [modified]"
+msgstr " [измијењен]"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:130
+msgctxt "PlaylistEditDialog|"
+msgid "Warning"
+msgstr "Упозорење"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:131
+msgctxt "PlaylistEditDialog|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Листа песама је измењена.\n"
+"Желите ли да сачувате измјене?"
+
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+msgctxt "RenDirDialog|"
+msgid "Rename Folder"
+msgstr "Преименуј директоријум"
+
+#: src/gui/dialogs/rendirdialog.cpp:64
+msgctxt "RenDirDialog|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/gui/dialogs/rendirdialog.cpp:69
+msgctxt "RenDirDialog|"
+msgid "Preview"
+msgstr "Преглед"
+
+#: src/gui/dialogs/rendirdialog.cpp:73
+msgctxt "RenDirDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/rendirdialog.cpp:96
+msgctxt "RenDirDialog|"
+msgid "Create Folder"
+msgstr "Направи директоријум"
+
+#: src/gui/dialogs/rendirdialog.cpp:97
+msgctxt "RenDirDialog|"
+msgid "&Action:"
+msgstr "&Радња:"
+
+#: src/gui/dialogs/rendirdialog.cpp:105
+msgctxt "RenDirDialog|"
+msgid "&Source:"
+msgstr "&Извор:"
+
+#: src/gui/dialogs/rendirdialog.cpp:117
+msgctxt "RenDirDialog|"
+msgid "&Edit..."
+msgstr "У&реди..."
+
+#: src/gui/dialogs/rendirdialog.cpp:121
+msgctxt "RenDirDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/rendirdialog.cpp:133
+msgctxt "RenDirDialog|"
+msgid "From:"
+msgstr "Из:"
+
+#: src/gui/dialogs/rendirdialog.cpp:134
+msgctxt "RenDirDialog|"
+msgid "To:"
+msgstr "У:"
+
+#: src/gui/dialogs/rendirdialog.cpp:313
+msgctxt "RenDirDialog|"
+msgid "Folder Name from Tag"
+msgstr "Ознаке у име директоријума"
+
+#: src/gui/dialogs/serverimportdialog.cpp:60
+msgctxt "ServerImportDialog|"
+msgid "&Find"
+msgstr "&Нађи"
+
+#: src/gui/dialogs/serverimportdialog.cpp:75
+msgctxt "ServerImportDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:78
+msgctxt "ServerImportDialog|"
+msgid "C&GI Path:"
+msgstr "Ц&ГИ путања:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:89
+msgctxt "ServerImportDialog|"
+msgid "&Standard Tags"
+msgstr "&Стандардне ознаке"
+
+#: src/gui/dialogs/serverimportdialog.cpp:90
+msgctxt "ServerImportDialog|"
+msgid "&Additional Tags"
+msgstr "Дода&тне ознаке"
+
+#: src/gui/dialogs/serverimportdialog.cpp:91
+msgctxt "ServerImportDialog|"
+msgid "C&over Art"
+msgstr "Омот а&лбума"
+
+#: src/gui/dialogs/serverimportdialog.cpp:105
+msgctxt "ServerImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/serverimportdialog.cpp:107
+msgctxt "ServerImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/serverimportdialog.cpp:109
+msgctxt "ServerImportDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/serverimportdialog.cpp:124
+msgctxt "ServerImportDialog|"
+msgid "Ready."
+msgstr "Спреман."
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:83
+msgctxt "ServerTrackImportDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:106
+msgctxt "ServerTrackImportDialog|"
+msgid "Track Title/Artist - Album"
+msgstr "Нумера/извођач - албум"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:107
+msgctxt "ServerTrackImportDialog|"
+msgid "State"
+msgstr "Стање"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:115
+msgctxt "ServerTrackImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:117
+msgctxt "ServerTrackImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
+msgctxt "ServerTrackImportDialog|"
+msgid "&OK"
+msgstr "&У реду"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
+msgctxt "ServerTrackImportDialog|"
+msgid "&Apply"
+msgstr "&Примијени"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:121
+msgctxt "ServerTrackImportDialog|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result"
+msgstr "Нема резултата"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:247
+msgctxt "ServerTrackImportDialog|"
+msgid "Unknown"
+msgstr "Непознато"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result selected"
+msgstr "Ништа није изабрано"
+
+#: src/gui/dialogs/tagimportdialog.cpp:52
+msgctxt "TagImportDialog|"
+msgid "Import from Tags"
+msgstr "Увези из ознака"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Source:"
+msgstr "Извор:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Extraction:"
+msgstr "Извлачење:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:72
+msgctxt "TagImportDialog|"
+msgid "D&estination:"
+msgstr "О&дредиште:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:79
+msgctxt "TagImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/tagimportdialog.cpp:83
+msgctxt "TagImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/tagimportdialog.cpp:88
+msgctxt "TagImportDialog|"
+msgid "&Apply"
+msgstr "&Примијени"
+
+#: src/gui/dialogs/tagimportdialog.cpp:92
+msgctxt "TagImportDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/dialogs/textimportdialog.cpp:58
+msgctxt "TextImportDialog|"
+msgid "Import from File/Clipboard"
+msgstr "Увези из фајла/клипборда"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Header:"
+msgstr "Заглавље:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Tracks:"
+msgstr "Нумере:"
+
+#: src/gui/dialogs/textimportdialog.cpp:71
+msgctxt "TextImportDialog|"
+msgid "&Help"
+msgstr "По&моћ"
+
+#: src/gui/dialogs/textimportdialog.cpp:75
+msgctxt "TextImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сачувај подешавања"
+
+#: src/gui/dialogs/textimportdialog.cpp:80
+msgctxt "TextImportDialog|"
+msgid "From F&ile..."
+msgstr "Из &фајла..."
+
+#: src/gui/dialogs/textimportdialog.cpp:84
+msgctxt "TextImportDialog|"
+msgid "From Clip&board"
+msgstr "Из клип&борда"
+
+#: src/gui/dialogs/textimportdialog.cpp:88
+msgctxt "TextImportDialog|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/forms/basemainwindow.cpp:105
+msgctxt "BaseMainWindowImpl|"
+msgid "Download"
+msgstr "Преузми"
+
+#: src/gui/forms/basemainwindow.cpp:204
+msgctxt "BaseMainWindowImpl|"
+msgid "Opening folder..."
+msgstr "Отварам директоријум..."
+
+#: src/gui/forms/basemainwindow.cpp:264
+msgctxt "BaseMainWindowImpl|"
+msgid "Abort"
+msgstr "Обустави"
+
+#: src/gui/forms/basemainwindow.cpp:344
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%1 is not writable"
+msgstr "%1 се не може писати"
+
+#: src/gui/forms/basemainwindow.cpp:352
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+#: src/gui/forms/basemainwindow.cpp:354 src/gui/forms/basemainwindow.cpp:360
+#: src/gui/forms/basemainwindow.cpp:1064 src/gui/forms/basemainwindow.cpp:1069
+#: src/gui/forms/basemainwindow.cpp:1499 src/gui/forms/basemainwindow.cpp:1508
+#: src/gui/forms/basemainwindow.cpp:1584
+msgctxt "BaseMainWindowImpl|"
+msgid "File Error"
+msgstr "Грешка фајла"
+
+#: src/gui/forms/basemainwindow.cpp:357
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Грешка приликом уписа фајла. Постављам овлашћења?"
+
+#: src/gui/forms/basemainwindow.cpp:402
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Тренутни директоријум је измијењен.\n"
+"Желите ли да сачувате измјене?"
+
+#: src/gui/forms/basemainwindow.cpp:404 src/gui/forms/basemainwindow.cpp:445
+msgctxt "BaseMainWindowImpl|"
+msgid "Warning"
+msgstr "Упозорење"
+
+#: src/gui/forms/basemainwindow.cpp:443
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Листа песама је измењена.\n"
+"Желите ли да сачувате измјене?"
+
+#: src/gui/forms/basemainwindow.cpp:554
+msgctxt "BaseMainWindowImpl|"
+msgid "Exiting..."
+msgstr "Излазим..."
+
+#: src/gui/forms/basemainwindow.cpp:641
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n мапа"
+msgstr[1] "%n мапе"
+msgstr[2] "%n мапе"
+
+#: src/gui/forms/basemainwindow.cpp:646
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n датотека"
+msgstr[1] "%n датотеке"
+msgstr[2] "%n датотеке"
+
+#: src/gui/forms/basemainwindow.cpp:651
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n изабран"
+msgstr[1] "%n изабрана"
+msgstr[2] "%n изабрано"
+
+#: src/gui/forms/basemainwindow.cpp:654
+msgctxt "BaseMainWindowImpl|"
+msgid "Ready."
+msgstr "Спреман."
+
+#: src/gui/forms/basemainwindow.cpp:716
+msgctxt "BaseMainWindowImpl|"
+msgid "Creating playlist..."
+msgstr "Правим листу нумера..."
+
+#: src/gui/forms/basemainwindow.cpp:764
+msgctxt "BaseMainWindowImpl|"
+msgid "Files not found"
+msgstr "Датотеке нису пронађене"
+
+#: src/gui/forms/basemainwindow.cpp:765
+msgctxt "BaseMainWindowImpl|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/gui/forms/basemainwindow.cpp:791
+msgctxt "BaseMainWindowImpl|"
+msgid "Import"
+msgstr "Увези"
+
+#: src/gui/forms/basemainwindow.cpp:1062 src/gui/forms/basemainwindow.cpp:1068
+#: src/gui/forms/basemainwindow.cpp:1500 src/gui/forms/basemainwindow.cpp:1509
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while renaming:\n"
+msgstr "Грешка приликом преименовања:\n"
+
+#: src/gui/forms/basemainwindow.cpp:1063
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing directories?"
+msgstr ""
+
+#: src/gui/forms/basemainwindow.cpp:1140
+msgctxt "BaseMainWindowImpl|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/gui/forms/basemainwindow.cpp:1209
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid " [filtered %1/%2]"
+msgstr " [филтриран %1/%2]"
+
+#: src/gui/forms/basemainwindow.cpp:1323
+msgctxt "BaseMainWindowImpl|"
+msgid "Add Frame"
+msgstr "Додај оквир"
+
+#: src/gui/forms/basemainwindow.cpp:1324
+msgctxt "BaseMainWindowImpl|"
+msgid "Select the frame ID"
+msgstr "Изаберите ИД оквира"
+
+#: src/gui/forms/basemainwindow.cpp:1470
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename File"
+msgstr "Преименуј фајл"
+
+#: src/gui/forms/basemainwindow.cpp:1471
+msgctxt "BaseMainWindowImpl|"
+msgid "Enter new file name:"
+msgstr "Унесите ново име фајла:"
+
+#: src/gui/forms/basemainwindow.cpp:1501 src/gui/forms/basemainwindow.cpp:1510
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Преименовање %1 у %2 није успјело\n"
+
+#: src/gui/forms/basemainwindow.cpp:1502
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing folders?"
+msgstr ""
+
+#: src/gui/forms/basemainwindow.cpp:1520
+#, qt-format
+msgctxt "@default|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Желите ли заиста да премјестите ових %1 ставки у смеће?"
+
+#: src/gui/forms/basemainwindow.cpp:1549
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Желите ли заиста да премјестите ових %1 ставки у смеће?"
+
+#: src/gui/forms/basemainwindow.cpp:1551
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move this item to the trash?"
+msgstr "Желите ли заиста да премјестите ову ставку у смеће?"
+
+#: src/gui/forms/basemainwindow.cpp:1553
+msgctxt "BaseMainWindowImpl|"
+msgid "Move to Trash"
+msgstr "Премјести у смеће"
+
+#: src/gui/forms/basemainwindow.cpp:1582
+msgctxt "BaseMainWindowImpl|"
+msgid "Folder must be empty.\n"
+msgstr "Директориујм мора бити празан.\n"
+
+#: src/gui/forms/basemainwindow.cpp:1583
+msgctxt "BaseMainWindowImpl|"
+msgid "Could not move these files to the Trash"
+msgstr "Нисам могао да премјестим ове фајлове у смеће"
+
+#: src/gui/forms/basemainwindow.cpp:1616
+msgctxt "BaseMainWindowImpl|"
+msgid "Expand All"
+msgstr "Разгранај све"
+
+#: src/gui/forms/basemainwindow.cpp:1726
+msgctxt "BaseMainWindowImpl|"
+msgid "A&bort"
+msgstr "Обуста&ви"
+
+#: src/gui/forms/filelist.cpp:109
+msgctxt "FileList|"
+msgid "C&lear"
+msgstr "О&чисти"
+
+#: src/gui/forms/filelist.cpp:113
+msgctxt "FileList|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
+msgctxt "FileList|"
+msgid "&Expand all"
+msgstr "Раз&гранај све"
+
+#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
+msgctxt "FileList|"
+msgid "&Collapse all"
+msgstr "&Сакупи све"
+
+#: src/gui/forms/filelist.cpp:372 src/gui/forms/filelist.cpp:374
+msgctxt "FileList|"
+msgid "&Play"
+msgstr "Ре&продукуј"
+
+#: src/gui/forms/filelist.cpp:377
+msgctxt "FileList|"
+msgid "E&dit"
+msgstr "&Уреди"
+
+#: src/gui/forms/filelist.cpp:384 src/gui/forms/filelist.cpp:388
+msgctxt "FileList|"
+msgid "&Open"
+msgstr "&Отвори"
+
+#: src/gui/forms/filelist.cpp:385 src/gui/forms/filelist.cpp:389
+msgctxt "FileList|"
+msgid "Open Containing &Folder"
+msgstr "Отвори &фасциклу"
+
+#: src/gui/forms/filelist.cpp:560
+msgctxt "FileList|"
+msgid "Execute "
+msgstr "Изврши "
+
+#: src/gui/forms/filelist.cpp:569
+msgctxt "FileList|"
+msgid "Could not execute "
+msgstr "Не могу да извршим "
+
+#: src/gui/forms/kid3form.cpp:279
+msgctxt "Kid3Form|"
+msgid "Kid3"
+msgstr "Кид3"
+
+#: src/gui/forms/kid3form.cpp:327 src/gui/forms/kid3form.cpp:1036
+#: src/gui/forms/kid3form.cpp:1037
+msgctxt "Kid3Form|"
+msgid "F&ile"
+msgstr "Ф&ајл"
+
+#: src/gui/forms/kid3form.cpp:338
+msgctxt "Kid3Form|"
+msgid "Name:"
+msgstr "Име:"
+
+#: src/gui/forms/kid3form.cpp:347 src/gui/forms/kid3form.cpp:397
+msgctxt "Kid3Form|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/forms/kid3form.cpp:378
+msgctxt "Kid3Form|"
+msgid "From:"
+msgstr "Из:"
+
+#: src/gui/forms/kid3form.cpp:384 src/gui/forms/kid3form.cpp:410
+#: src/gui/forms/kid3form.cpp:490 src/gui/forms/kid3form.cpp:514
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/gui/forms/kid3form.cpp:386
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Filename from Tag %1"
+msgstr "ознаке %1 у име фајла"
+
+#: src/gui/forms/kid3form.cpp:403
+msgctxt "Kid3Form|"
+msgid "To:"
+msgstr "У:"
+
+#: src/gui/forms/kid3form.cpp:411
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1 from Filename"
+msgstr "ознаку %1 из имена фајла"
+
+#: src/gui/forms/kid3form.cpp:432 src/gui/forms/kid3form.cpp:752
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag &%1"
+msgstr "Ознака &%1"
+
+#: src/gui/forms/kid3form.cpp:459
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "From Tag %1"
+msgstr "Из ознаке %1"
+
+#: src/gui/forms/kid3form.cpp:467 src/gui/forms/kid3form.cpp:523
+msgctxt "Kid3Form|"
+msgid "Copy"
+msgstr "Копирај"
+
+#: src/gui/forms/kid3form.cpp:475 src/gui/forms/kid3form.cpp:499
+msgctxt "Kid3Form|"
+msgid "Paste"
+msgstr "Налијепи"
+
+#: src/gui/forms/kid3form.cpp:482
+msgctxt "Kid3Form|"
+msgid "From"
+msgstr "из"
+
+#: src/gui/forms/kid3form.cpp:484 src/gui/forms/kid3form.cpp:508
+msgctxt "Kid3Form|"
+msgid "Filename"
+msgstr "Име фајла"
+
+#: src/gui/forms/kid3form.cpp:506
+msgctxt "Kid3Form|"
+msgid "To"
+msgstr "у"
+
+#: src/gui/forms/kid3form.cpp:533
+msgctxt "Kid3Form|"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/gui/forms/kid3form.cpp:547
+msgctxt "Kid3Form|"
+msgid "Edit..."
+msgstr "Уреди..."
+
+#: src/gui/forms/kid3form.cpp:553
+msgctxt "Kid3Form|"
+msgid "Add..."
+msgstr "Додај..."
+
+#: src/gui/forms/kid3form.cpp:559
+msgctxt "Kid3Form|"
+msgid "Delete"
+msgstr "Обриши"
+
+#: src/gui/widgets/abstractlistedit.cpp:50
+msgctxt "AbstractListEdit|"
+msgid "&Add..."
+msgstr "&Додај..."
+
+#: src/gui/widgets/abstractlistedit.cpp:51
+msgctxt "AbstractListEdit|"
+msgid "Move &Up"
+msgstr "Помјери &горе"
+
+#: src/gui/widgets/abstractlistedit.cpp:52
+msgctxt "AbstractListEdit|"
+msgid "Move &Down"
+msgstr "Помјери до&ље"
+
+#: src/gui/widgets/abstractlistedit.cpp:53
+msgctxt "AbstractListEdit|"
+msgid "&Edit..."
+msgstr "У&реди..."
+
+#: src/gui/widgets/abstractlistedit.cpp:54
+msgctxt "AbstractListEdit|"
+msgid "&Remove"
+msgstr "У&клони"
+
+#: src/gui/widgets/chaptereditor.cpp:54
+msgctxt "ChapterEditor|"
+msgid "Start time"
+msgstr "Вријеме почетка"
+
+#: src/gui/widgets/chaptereditor.cpp:55
+msgctxt "ChapterEditor|"
+msgid "End time"
+msgstr "Време завршетка"
+
+#: src/gui/widgets/chaptereditor.cpp:56
+msgctxt "ChapterEditor|"
+msgid "Start offset"
+msgstr "Почетни помјерај"
+
+#: src/gui/widgets/chaptereditor.cpp:57
+msgctxt "ChapterEditor|"
+msgid "End offset"
+msgstr "Крајњи помак"
+
+#: src/gui/widgets/configtable.cpp:41
+msgctxt "ConfigTable|"
+msgid "&Add"
+msgstr "&Додај"
+
+#: src/gui/widgets/configtable.cpp:141
+msgctxt "ConfigTable|"
+msgid "&Insert row"
+msgstr "&Убаци ред"
+
+#: src/gui/widgets/configtable.cpp:145
+msgctxt "ConfigTable|"
+msgid "&Delete row"
+msgstr "&Обриши ред"
+
+#: src/gui/widgets/configtable.cpp:149
+msgctxt "ConfigTable|"
+msgid "&Clear row"
+msgstr "О&чисти ред"
+
+#: src/gui/widgets/filenameformatbox.cpp:44
+msgctxt "FilenameFormatBox|"
+msgid "Maximum length:"
+msgstr "Највећа дужина:"
+
+#: src/gui/widgets/formatbox.cpp:48
+msgctxt "FormatBox|"
+msgid "Automatically apply format"
+msgstr "Примијени формат аутоматски"
+
+#: src/gui/widgets/formatbox.cpp:56
+msgctxt "FormatBox|"
+msgid "String replacement:"
+msgstr "Замјена текста:"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "From"
+msgstr "из"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "у"
+
+#: src/gui/widgets/formatbox.cpp:65
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr "Величина слова:"
+
+#: src/gui/widgets/formatbox.cpp:66
+msgctxt "FormatBox|"
+msgid "Locale:"
+msgstr "Локалитет:"
+
+#: src/gui/widgets/formatlistedit.cpp:83
+msgctxt "FormatListEdit|"
+msgid "&Add"
+msgstr "&Додај"
+
+#: src/gui/widgets/formatlistedit.cpp:85
+msgctxt "FormatListEdit|"
+msgid "&Remove"
+msgstr "У&клони"
+
+#: src/gui/widgets/formatlistedit.cpp:247
+msgctxt "FormatListEdit|"
+msgid "New"
+msgstr "Ново"
+
+#: src/gui/widgets/frametable.cpp:67 src/gui/widgets/frametable.cpp:69
+msgctxt "FrameTable|"
+msgid "WWW Audio Source"
+msgstr ""
+
+#: src/gui/widgets/frametable.cpp:160
+msgctxt "FrameTable|"
+msgid "&Select all"
+msgstr "И&забери све"
+
+#: src/gui/widgets/frametable.cpp:162
+msgctxt "FrameTable|"
+msgid "&Deselect all"
+msgstr "По&ништи избор"
+
+#: src/gui/widgets/imageviewer.cpp:47
+msgctxt "ImageViewer|"
+msgid "View Picture"
+msgstr "Погледај слику"
+
+#: src/gui/widgets/imageviewer.cpp:53
+msgctxt "ImageViewer|"
+msgid "&Close"
+msgstr "&Затвори"
+
+#: src/gui/widgets/picturelabel.cpp:92
+msgctxt "@default|"
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Превуци\n"
+"слику албума\n"
+"овдје"
+
+#: src/gui/widgets/playtoolbar.cpp:57
+msgctxt "PlayToolBar|"
+msgid "Play"
+msgstr "Репродукција"
+
+#: src/gui/widgets/playtoolbar.cpp:62
+msgctxt "PlayToolBar|"
+msgid "Play/Pause"
+msgstr "Репродукуј/паузирај"
+
+#: src/gui/widgets/playtoolbar.cpp:64
+msgctxt "PlayToolBar|"
+msgid "Stop playback"
+msgstr "Заустави репродукцију"
+
+#: src/gui/widgets/playtoolbar.cpp:66
+msgctxt "PlayToolBar|"
+msgid "Previous Track"
+msgstr "Претходна нумера"
+
+#: src/gui/widgets/playtoolbar.cpp:68
+msgctxt "PlayToolBar|"
+msgid "Next Track"
+msgstr "Сљедећа нумера"
+
+#: src/gui/widgets/playtoolbar.cpp:70
+msgctxt "PlayToolBar|"
+msgid "Close"
+msgstr "Затвори"
+
+#: src/gui/widgets/playtoolbar.cpp:87
+msgctxt "PlayToolBar|"
+msgid "Mute"
+msgstr "Утишај"
+
+#: src/gui/widgets/playtoolbar.cpp:238
+#, qt-format
+msgctxt "PlayToolBar|"
+msgid "Volume: %1%"
+msgstr "Јачина: %1%"
+
+#: src/gui/widgets/progresswidget.cpp:56
+msgctxt "ProgressWidget|"
+msgid "&Cancel"
+msgstr "&Одустани"
+
+#: src/gui/widgets/stringlistedit.cpp:52
+msgctxt "StringListEdit|"
+msgid "Add Item"
+msgstr "Додај ставку"
+
+#: src/gui/widgets/stringlistedit.cpp:72
+msgctxt "StringListEdit|"
+msgid "Edit Item"
+msgstr "Уреди ставку"
+
+#: src/gui/widgets/subframeseditor.cpp:66
+msgctxt "SubframesEditor|"
+msgid "Edit..."
+msgstr "Уреди..."
+
+#: src/gui/widgets/subframeseditor.cpp:71
+msgctxt "SubframesEditor|"
+msgid "Add..."
+msgstr "Додај..."
+
+#: src/gui/widgets/subframeseditor.cpp:76
+msgctxt "SubframesEditor|"
+msgid "Delete"
+msgstr "Обриши"
+
+#: src/gui/widgets/subframeseditor.cpp:129
+msgctxt "SubframesEditor|"
+msgid "Add Frame"
+msgstr "Додај оквир"
+
+#: src/gui/widgets/subframeseditor.cpp:130
+msgctxt "SubframesEditor|"
+msgid "Select the frame ID"
+msgstr "Изаберите ИД оквира"
+
+#: src/gui/widgets/tablemodeledit.cpp:35
+msgctxt "TableModelEdit|"
+msgid "&Add"
+msgstr "&Додај"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:43
+msgctxt "TableOfContentsEditor|"
+msgid "Top level"
+msgstr "Највиши ниво"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:45
+msgctxt "TableOfContentsEditor|"
+msgid "Ordered"
+msgstr "Уређено"
+
+#: src/gui/widgets/tagformatbox.cpp:43
+msgctxt "TagFormatBox|"
+msgid "Validation"
+msgstr "Овјера"
+
+#: src/gui/widgets/timeeventeditor.cpp:114
+msgctxt "TimeEventEditor|"
+msgid "&Add"
+msgstr "&Додај"
+
+#: src/gui/widgets/timeeventeditor.cpp:116
+msgctxt "TimeEventEditor|"
+msgid "&Delete"
+msgstr "&Обриши"
+
+#: src/gui/widgets/timeeventeditor.cpp:118
+msgctxt "TimeEventEditor|"
+msgid "From Clip&board"
+msgstr "Из клип&борда"
+
+#: src/gui/widgets/timeeventeditor.cpp:120
+msgctxt "TimeEventEditor|"
+msgid "&Import..."
+msgstr "&Увези..."
+
+#: src/gui/widgets/timeeventeditor.cpp:122
+msgctxt "TimeEventEditor|"
+msgid "&Export..."
+msgstr "Изв&ези..."
+
+#: src/gui/widgets/timeeventeditor.cpp:124
+msgctxt "TimeEventEditor|"
+msgid "Help"
+msgstr "Помоћ"
+
+#: src/gui/widgets/timeeventeditor.cpp:182
+msgctxt "TimeEventEditor|"
+msgid "Events"
+msgstr ""
+
+#: src/gui/widgets/timeeventeditor.cpp:188
+msgctxt "TimeEventEditor|"
+msgid "Lyrics"
+msgstr "Текст"
+
+#: src/gui/widgets/timeeventeditor.cpp:409
+msgctxt "TimeEventEditor|"
+msgid "Offset"
+msgstr "Помак"
+
+#: src/gui/widgets/timeeventeditor.cpp:409
+msgctxt "TimeEventEditor|"
+msgid "Milliseconds"
+msgstr "Милисекунди"
+
+#: src/gui/widgets/timeeventeditor.cpp:446
+msgctxt "TimeEventEditor|"
+msgid "&Insert row"
+msgstr "&Убаци ред"
+
+#: src/gui/widgets/timeeventeditor.cpp:450
+msgctxt "TimeEventEditor|"
+msgid "&Delete rows"
+msgstr "&Обриши врсте"
+
+#: src/gui/widgets/timeeventeditor.cpp:452
+msgctxt "TimeEventEditor|"
+msgid "C&lear"
+msgstr "О&чисти"
+
+#: src/gui/widgets/timeeventeditor.cpp:454
+msgctxt "TimeEventEditor|"
+msgid "&Add offset..."
+msgstr "&Додај помак..."
+
+#: src/gui/widgets/timeeventeditor.cpp:456
+msgctxt "TimeEventEditor|"
+msgid "&Seek to position"
+msgstr "&Скочи на позицију"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:207
+msgctxt "@default|"
+msgid "MusicBrainz Fingerprint"
+msgstr "МјузикБрејнз Отисак прста"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:283
+msgctxt "MusicBrainzClient|"
+msgid "Unrecognized"
+msgstr "Није препознато"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:294
+msgctxt "MusicBrainzClient|"
+msgid "Recognized"
+msgstr "Препознато"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:294
+msgctxt "MusicBrainzClient|"
+msgid "User Selection"
+msgstr "Корисников одабир"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:316
+msgctxt "MusicBrainzClient|"
+msgid "ID Lookup"
+msgstr "ИД претрага"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:324
+msgctxt "MusicBrainzClient|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:343
+msgctxt "MusicBrainzClient|"
+msgid "Fingerprint"
+msgstr "Отисак прста"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:353
+msgctxt "MusicBrainzClient|"
+msgid "Metadata Lookup"
+msgstr "Претрага метаподатака"
+
+#: src/plugins/amazonimport/amazonimporter.cpp:51
+msgctxt "@default|"
+msgid "Amazon"
+msgstr "Амазон"
+
+#: src/plugins/discogsimport/discogsimporter.cpp:215
+msgctxt "@default|"
+msgid "Discogs"
+msgstr "Дискогс"
+
+#: src/plugins/freedbimport/freedbimporter.cpp:57
+msgctxt "@default|"
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: src/plugins/freedbimport/tracktypeimporter.cpp:56
+msgctxt "@default|"
+msgid "TrackType.org"
+msgstr "ТрекТајп.орг"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:862
+#: src/plugins/taglibmetadata/taglibfile.cpp:2014
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - аудио шифровање"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:863
+#: src/plugins/taglibmetadata/taglibfile.cpp:2015
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - приложена слика"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:865
+#: src/plugins/taglibmetadata/taglibfile.cpp:2020
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - коментари"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:866
+#: src/plugins/taglibmetadata/taglibfile.cpp:2021
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - комерцијално"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:867
+#: src/plugins/taglibmetadata/taglibfile.cpp:2025
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - регистрација методе шифровања"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:869
+msgctxt "@default|"
+msgid "EQUA - Equalization"
+msgstr "EQUA - једначење"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:870
+#: src/plugins/taglibmetadata/taglibfile.cpp:2027
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:871
+#: src/plugins/taglibmetadata/taglibfile.cpp:2028
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - општи угнијежђени објекат"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:872
+#: src/plugins/taglibmetadata/taglibfile.cpp:2029
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - регистрација идентификације групе"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:873
+msgctxt "@default|"
+msgid "IPLS - Involved people list"
+msgstr "IPLS - списак укључених људи"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:874
+#: src/plugins/taglibmetadata/taglibfile.cpp:2033
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - повезана информација"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:875
+#: src/plugins/taglibmetadata/taglibfile.cpp:2034
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - идентификатор музичког ЦД-а"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:876
+#: src/plugins/taglibmetadata/taglibfile.cpp:2035
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:877
+#: src/plugins/taglibmetadata/taglibfile.cpp:2040
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - власнички оквир"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:878
+#: src/plugins/taglibmetadata/taglibfile.cpp:2041
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - приватни оквир"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:879
+#: src/plugins/taglibmetadata/taglibfile.cpp:2042
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - бројач репродукције"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:880
+#: src/plugins/taglibmetadata/taglibfile.cpp:2046
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - мјерач популарности"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:881
+#: src/plugins/taglibmetadata/taglibfile.cpp:2047
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - кадар синхронизације позиције"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:882
+#: src/plugins/taglibmetadata/taglibfile.cpp:2048
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - препоручена величина бафера"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:884
+msgctxt "@default|"
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - подешавање релативне јачине звука"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:885
+#: src/plugins/taglibmetadata/taglibfile.cpp:2050
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - реверберација"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:888
+#: src/plugins/taglibmetadata/taglibfile.cpp:2053
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:889
+#: src/plugins/taglibmetadata/taglibfile.cpp:2054
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:890
+#: src/plugins/taglibmetadata/taglibfile.cpp:2055
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - наслов албума/филма/емисије"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:891
+#: src/plugins/taglibmetadata/taglibfile.cpp:2056
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - БПМ (откуцаја у минути)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:892
+#: src/plugins/taglibmetadata/taglibfile.cpp:2058
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - композитор"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:893
+#: src/plugins/taglibmetadata/taglibfile.cpp:2059
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - тип садржаја"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:894
+#: src/plugins/taglibmetadata/taglibfile.cpp:2060
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - порука ауторског права"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:895
+msgctxt "@default|"
+msgid "TDAT - Date"
+msgstr "TDAT - датум"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:897
+#: src/plugins/taglibmetadata/taglibfile.cpp:2065
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - кашњење листе нумера"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:903
+#: src/plugins/taglibmetadata/taglibfile.cpp:2070
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - кодер"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:904
+#: src/plugins/taglibmetadata/taglibfile.cpp:2071
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - пјесник/текстописац"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:905
+#: src/plugins/taglibmetadata/taglibfile.cpp:2072
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - тип фајла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:906
+msgctxt "@default|"
+msgid "TIME - Time"
+msgstr "TIME - вријеме"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:907
+#: src/plugins/taglibmetadata/taglibfile.cpp:2077
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - опис групе садржаја"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:908
+#: src/plugins/taglibmetadata/taglibfile.cpp:2078
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - наслов/име пјесме/опис садржаја"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:909
+#: src/plugins/taglibmetadata/taglibfile.cpp:2079
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:910
+#: src/plugins/taglibmetadata/taglibfile.cpp:2080
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - почетни кључ"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:911
+#: src/plugins/taglibmetadata/taglibfile.cpp:2081
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - језик (језици)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:912
+#: src/plugins/taglibmetadata/taglibfile.cpp:2082
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - трајање"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:914
+#: src/plugins/taglibmetadata/taglibfile.cpp:2084
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - тип медија"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2086
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - изворни наслов албума/филма/емисије"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2087
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - изворно име"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:918
+#: src/plugins/taglibmetadata/taglibfile.cpp:2088
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2089
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+msgctxt "@default|"
+msgid "TORY - Original release year"
+msgstr "TORY - изворна година издавања"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2090
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2091
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2092
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2093
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2094
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2095
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2097
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - издавач"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2098
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+msgctxt "@default|"
+msgid "TRDA - Recording dates"
+msgstr "TRDA - датуми снимања"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2099
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - име интернет радио станице"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2100
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - власник интернет радио станице"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+msgctxt "@default|"
+msgid "TSIZ - Size"
+msgstr "TSIZ - величина"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2106
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ИСРЦ (међународни стандардни кôд снимања)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/taglibmetadata/taglibfile.cpp:2107
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:940
+#: src/plugins/taglibmetadata/taglibfile.cpp:2109
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - кориснички дефинисана текстуална информација"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:941
+msgctxt "@default|"
+msgid "TYER - Year"
+msgstr "TYER - година"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2110
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - јединствени идентификатор фајла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2111
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - услови коришћења"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2112
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2113
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - подаци о комерцијализовању"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2114
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - ауторско право/правне информације"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/taglibmetadata/taglibfile.cpp:2118
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2119
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2120
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:950
+#: src/plugins/taglibmetadata/taglibfile.cpp:2121
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:951
+#: src/plugins/taglibmetadata/taglibfile.cpp:2122
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - плаћање"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:952
+#: src/plugins/taglibmetadata/taglibfile.cpp:2123
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr ""
+
+#: src/plugins/id3libmetadata/mp3file.cpp:953
+#: src/plugins/taglibmetadata/taglibfile.cpp:2124
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - кориснички дефинисана УРЛ веза"
+
+#: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:53
+msgctxt "@default|"
+msgid "MusicBrainz Release"
+msgstr "МјузикБрејнз издање"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2016
+msgctxt "@default|"
+msgid "ASPI - Audio seek point index"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2018
+msgctxt "@default|"
+msgid "CHAP - Chapter"
+msgstr "CHAP - Поглавље"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2023
+msgctxt "@default|"
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Садржај"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2026
+msgctxt "@default|"
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - једначење (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2031
+msgctxt "@default|"
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Груписање"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2037
+msgctxt "@default|"
+msgid "MVIN - Movement Number"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2038
+msgctxt "@default|"
+msgid "MVNM - Movement Name"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2044
+msgctxt "@default|"
+msgid "PCST - Podcast"
+msgstr "PCST - Подемисија"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2049
+msgctxt "@default|"
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - подешавање релативне јачине звука (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2051
+msgctxt "@default|"
+msgid "SEEK - Seek frame"
+msgstr "SEEK - кадар тражења"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2052
+msgctxt "@default|"
+msgid "SIGN - Signature frame"
+msgstr "SIGN - кадар потписа"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2057
+msgctxt "@default|"
+msgid "TCMP - iTunes compilation flag"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2061
+msgctxt "@default|"
+msgid "TDEN - Encoding time"
+msgstr "TDEN - вријеме кодирања"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2063
+msgctxt "@default|"
+msgid "TDES - Podcast description"
+msgstr "TDES - Опис Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2066
+msgctxt "@default|"
+msgid "TDOR - Original release time"
+msgstr "TDOR - вријеме издавања оригинала"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2067
+msgctxt "@default|"
+msgid "TDRC - Recording time"
+msgstr "TDRC - вријеме снимања"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2068
+msgctxt "@default|"
+msgid "TDRL - Release time"
+msgstr "TDRL - вријеме издавања"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2069
+msgctxt "@default|"
+msgid "TDTG - Tagging time"
+msgstr "TDTG - вријеме означавања"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2074
+msgctxt "@default|"
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Идентификатор Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2076
+msgctxt "@default|"
+msgid "TIPL - Involved people list"
+msgstr "TIPL - списак укључених људи"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2083
+msgctxt "@default|"
+msgid "TMCL - Musician credits list"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2085
+msgctxt "@default|"
+msgid "TMOO - Mood"
+msgstr "TMOO - расположење"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2096
+msgctxt "@default|"
+msgid "TPRO - Produced notice"
+msgstr ""
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2101
+msgctxt "@default|"
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - редослијед сортирања аутора албума"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2102
+msgctxt "@default|"
+msgid "TSOA - Album sort order"
+msgstr "TSOA - редослијед сортирања албума"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2103
+msgctxt "@default|"
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - редослијед сортирања композитора"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2104
+msgctxt "@default|"
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - редослијед сортирања извођача"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2105
+msgctxt "@default|"
+msgid "TSOT - Title sort order"
+msgstr "TSOT - редослијед сортирања наслова"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2108
+msgctxt "@default|"
+msgid "TSST - Set subtitle"
+msgstr "TSST - постави поднаслов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2116
+msgctxt "@default|"
+msgid "WFED - Podcast feed"
+msgstr "WFED - Довод Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:6379
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Оцене информација"
+
+#: src/qml/app/AboutDialog.qml:29
+msgctxt "AboutDialog|"
+msgid "About Kid3"
+msgstr "О Кид3-у"
+
+#: src/qml/app/AboutDialog.qml:39
+msgctxt "AboutDialog|"
+msgid "Audio Tag Editor"
+msgstr "Обиљеживач"
+
+#: src/qml/app/AboutDialog.qml:44
+msgctxt "AboutDialog|"
+msgid "License"
+msgstr "Лиценца"
+
+#: src/qml/app/AboutDialog.qml:46
+#, qt-format
+msgctxt "AboutDialog|"
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"Овај програм користи издање <a href=\"http://www.qt.io/\">КуТ</a>‑а %1."
+
+#: src/qml/app/BatchImportPage.qml:32
+msgctxt "BatchImportPage|"
+msgid "Automatic Import"
+msgstr "Аутоматски увози"
+
+#: src/qml/app/BatchImportPage.qml:40
+msgctxt "BatchImportPage|"
+msgid "Reading Folder"
+msgstr "Приликом читања директоријума"
+
+#: src/qml/app/BatchImportPage.qml:43
+msgctxt "BatchImportPage|"
+msgid "Started"
+msgstr "Започет"
+
+#: src/qml/app/BatchImportPage.qml:46
+msgctxt "BatchImportPage|"
+msgid "Source"
+msgstr "Извор"
+
+#: src/qml/app/BatchImportPage.qml:49
+msgctxt "BatchImportPage|"
+msgid "Querying"
+msgstr "Затражујем"
+
+#: src/qml/app/BatchImportPage.qml:53
+msgctxt "BatchImportPage|"
+msgid "Fetching"
+msgstr "Добављам"
+
+#: src/qml/app/BatchImportPage.qml:56
+msgctxt "BatchImportPage|"
+msgid "Data received"
+msgstr "Подаци примљени"
+
+#: src/qml/app/BatchImportPage.qml:59
+msgctxt "BatchImportPage|"
+msgid "Cover"
+msgstr "Омот"
+
+#: src/qml/app/BatchImportPage.qml:62
+msgctxt "BatchImportPage|"
+msgid "Finished"
+msgstr "Завршено"
+
+#: src/qml/app/BatchImportPage.qml:65
+msgctxt "BatchImportPage|"
+msgid "Aborted"
+msgstr "Обустављен"
+
+#: src/qml/app/BatchImportPage.qml:68
+msgctxt "BatchImportPage|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/qml/app/BatchImportPage.qml:104
+msgctxt "BatchImportPage|"
+msgid "Start"
+msgstr "Почетак"
+
+#: src/qml/app/BatchImportPage.qml:126
+msgctxt "BatchImportPage|"
+msgid "Destination:"
+msgstr "Одредиште:"
+
+#: src/qml/app/BatchImportPage.qml:135
+msgctxt "BatchImportPage|"
+msgid "Tag 1"
+msgstr "ознака 1"
+
+#: src/qml/app/BatchImportPage.qml:136
+msgctxt "BatchImportPage|"
+msgid "Tag 2"
+msgstr "ознака 2"
+
+#: src/qml/app/BatchImportPage.qml:137
+msgctxt "BatchImportPage|"
+msgid "Tag 1 and Tag 2"
+msgstr "ознака 1 и ознака 2"
+
+#: src/qml/app/BatchImportPage.qml:149
+msgctxt "BatchImportPage|"
+msgid "Profile:"
+msgstr "Профил:"
+
+#: src/qml/app/FileCollapsible.qml:32
+msgctxt "FileCollapsible|"
+msgid "File"
+msgstr "Фајл"
+
+#: src/qml/app/FileSelectDialog.qml:42
+msgctxt "FileSelectDialog|"
+msgid "Open"
+msgstr "Отвори"
+
+#: src/qml/app/FileSelectDialog.qml:98
+msgctxt "FileSelectDialog|"
+msgid "Folder"
+msgstr "Фасцикла"
+
+#: src/qml/app/FileSelectDialog.qml:190
+msgctxt "FileSelectDialog|"
+msgid "File"
+msgstr "Фајл"
+
+#: src/qml/app/FilterPage.qml:31
+msgctxt "FilterPage|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/qml/app/FilterPage.qml:39
+msgctxt "FilterPage|"
+msgid "Started"
+msgstr "Започет"
+
+#: src/qml/app/FilterPage.qml:57
+msgctxt "FilterPage|"
+msgid "Finished"
+msgstr "Завршено"
+
+#: src/qml/app/FilterPage.qml:60
+msgctxt "FilterPage|"
+msgid "Aborted"
+msgstr "Обустављен"
+
+#: src/qml/app/FilterPage.qml:92
+msgctxt "FilterPage|"
+msgid "Start"
+msgstr "Почетак"
+
+#: src/qml/app/FilterPage.qml:118
+msgctxt "FilterPage|"
+msgid "Filter:"
+msgstr "Филтер:"
+
+#: src/qml/app/FilterPage.qml:131
+msgctxt "FilterPage|"
+msgid "Expression:"
+msgstr "Израз:"
+
+#: src/qml/app/FrameEditDialog.qml:117
+msgctxt "FrameEditDialog|"
+msgid "Warning"
+msgstr "Упозорење"
+
+#: src/qml/app/FrameEditDialog.qml:118
+msgctxt "FrameEditDialog|"
+msgid "File already exists. Overwrite?"
+msgstr "Фајл већ постоји. Пребрисати га?"
+
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+msgctxt "FrameEditDialog|"
+msgid "Export"
+msgstr "Извези"
+
+#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+msgctxt "FrameEditDialog|"
+msgid "Import"
+msgstr "Увези"
+
+#: src/qml/app/FrameSelectDialog.qml:38
+msgctxt "FrameSelectDialog|"
+msgid "Add Frame"
+msgstr "Додај оквир"
+
+#: src/qml/app/FrameSelectDialog.qml:47
+msgctxt "FrameSelectDialog|"
+msgid "Select the frame ID"
+msgstr "Изаберите ИД оквира"
+
+#: src/qml/app/ImportProfilesEditPage.qml:34
+msgctxt "ImportProfilesEditPage|"
+msgid "Profiles"
+msgstr "Профили"
+
+#: src/qml/app/ImportProfilesEditPage.qml:42
+msgctxt "ImportProfilesEditPage|"
+msgid "Profile"
+msgstr "Профил"
+
+#: src/qml/app/ImportProfilesEditPage.qml:68
+#: src/qml/app/ImportProfilesEditPage.qml:136
+msgctxt "ImportProfilesEditPage|"
+msgid "Accuracy"
+msgstr "Прецизност"
+
+#: src/qml/app/ImportProfilesEditPage.qml:71
+#: src/qml/app/ImportProfilesEditPage.qml:149
+msgctxt "ImportProfilesEditPage|"
+msgid "Standard Tags"
+msgstr "Стандардне ознаке"
+
+#: src/qml/app/ImportProfilesEditPage.qml:74
+#: src/qml/app/ImportProfilesEditPage.qml:154
+msgctxt "ImportProfilesEditPage|"
+msgid "Additional Tags"
+msgstr "Додатне ознаке"
+
+#: src/qml/app/ImportProfilesEditPage.qml:77
+#: src/qml/app/ImportProfilesEditPage.qml:159
+msgctxt "ImportProfilesEditPage|"
+msgid "Cover Art"
+msgstr "Омот албума"
+
+#: src/qml/app/ImportProfilesEditPage.qml:128
+msgctxt "ImportProfilesEditPage|"
+msgid "Server"
+msgstr "Сервер"
+
+#: src/qml/app/Main.qml:91
+msgctxt "Main|"
+msgid "Warning"
+msgstr "Упозорење"
+
+#: src/qml/app/Main.qml:92
+msgctxt "Main|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Тренутни директоријум је измијењен.\n"
+"Желите ли да сачувате измјене?"
+
+#: src/qml/app/Main.qml:127 src/qml/app/Main.qml:144 src/qml/app/Main.qml:161
+msgctxt "Main|"
+msgid "File Error"
+msgstr "Грешка фајла"
+
+#: src/qml/app/Main.qml:128
+msgctxt "Main|"
+msgid "Error while writing file:\n"
+msgstr "Грешка приликом уписа фајла:\n"
+
+#: src/qml/app/Main.qml:145
+#, qt-format
+msgctxt "Main|"
+msgid "SD card is only writable in %1"
+msgstr "SD картица се може писати само у %1"
+
+#: src/qml/app/Main.qml:162
+msgctxt "Main|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Грешка приликом уписа фајла. Постављам овлашћења?"
+
+#: src/qml/app/Main.qml:256
+#, qt-format
+msgctxt "Main|"
+msgid "%1 is not writable"
+msgstr "%1 се не може писати"
+
+#: src/qml/app/MainPage.qml:45
+msgctxt "MainPage|"
+msgid " [modified]"
+msgstr " [измијењен]"
+
+#: src/qml/app/MainPage.qml:46
+#, qt-format
+msgctxt "MainPage|"
+msgid " [filtered %1/%2]"
+msgstr " [филтриран %1/%2]"
+
+#: src/qml/app/MainPage.qml:92 src/qml/app/MainPage.qml:161
+msgctxt "MainPage|"
+msgid "Open"
+msgstr "Отвори"
+
+#: src/qml/app/MainPage.qml:152
+msgctxt "MainPage|"
+msgid "About"
+msgstr "О програму"
+
+#: src/qml/app/MainPage.qml:168
+msgctxt "MainPage|"
+msgid "Save"
+msgstr "Сачувај"
+
+#: src/qml/app/MainPage.qml:177
+msgctxt "MainPage|"
+msgid "Settings"
+msgstr "Подешавање"
+
+#: src/qml/app/MainPage.qml:186
+msgctxt "MainPage|"
+msgid "Automatic Import"
+msgstr "Аутоматски увози"
+
+#: src/qml/app/MainPage.qml:195
+msgctxt "MainPage|"
+msgid "Create Playlist"
+msgstr "Направи листу нумера"
+
+#: src/qml/app/MainPage.qml:199
+msgctxt "MainPage|"
+msgid "Rename Folder"
+msgstr "Преименуј директоријум"
+
+#: src/qml/app/MainPage.qml:208
+msgctxt "MainPage|"
+msgid "Number Tracks"
+msgstr "Нумериши"
+
+#: src/qml/app/MainPage.qml:217
+msgctxt "MainPage|"
+msgid "Filter"
+msgstr "Филтер"
+
+#: src/qml/app/MainPage.qml:226
+msgctxt "MainPage|"
+msgid "Apply Filename Format"
+msgstr "Примијени формат назива фајла"
+
+#: src/qml/app/MainPage.qml:230
+msgctxt "MainPage|"
+msgid "Apply Tag Format"
+msgstr "Примијени формат ознаке"
+
+#: src/qml/app/MainPage.qml:234
+msgctxt "MainPage|"
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+#: src/qml/app/MainPage.qml:238
+msgctxt "MainPage|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Претвори ИД3в2.3 у ИД3в2.4"
+
+#: src/qml/app/MainPage.qml:242
+msgctxt "MainPage|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Претвори ИД3в2.4 у ИД3в2.3"
+
+#: src/qml/app/MainPage.qml:246
+msgctxt "MainPage|"
+msgid "Revert"
+msgstr "Врати"
+
+#: src/qml/app/MainPage.qml:250
+msgctxt "MainPage|"
+msgid "Quit"
+msgstr "Напусти"
+
+#: src/qml/app/NumberTracksDialog.qml:48
+msgctxt "NumberTracksDialog|"
+msgid "Start number:"
+msgstr "Почетни број:"
+
+#: src/qml/app/NumberTracksDialog.qml:57
+msgctxt "NumberTracksDialog|"
+msgid "Destination:"
+msgstr "Одредиште:"
+
+#: src/qml/app/NumberTracksDialog.qml:63
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1"
+msgstr "ознака 1"
+
+#: src/qml/app/NumberTracksDialog.qml:64
+msgctxt "NumberTracksDialog|"
+msgid "Tag 2"
+msgstr "ознака 2"
+
+#: src/qml/app/NumberTracksDialog.qml:65
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1 and Tag 2"
+msgstr "ознака 1 и ознака 2"
+
+#: src/qml/app/NumberTracksDialog.qml:79
+msgctxt "NumberTracksDialog|"
+msgid "Reset counter for each folder"
+msgstr "Рисетовати бројач за сваку фасциклу"
+
+#: src/qml/app/NumberTracksDialog.qml:92
+msgctxt "NumberTracksDialog|"
+msgid "Total number of tracks"
+msgstr "Укупно нумера"
+
+#: src/qml/app/PictureCollapsible.qml:27
+msgctxt "PictureCollapsible|"
+msgid "Picture"
+msgstr "Слика"
+
+#: src/qml/app/RenameDirectoryPage.qml:37
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Rename Folder"
+msgstr "Преименуј директоријум"
+
+#: src/qml/app/RenameDirectoryPage.qml:77
+msgctxt "RenameDirectoryPage|"
+msgid "Start"
+msgstr "Почетак"
+
+#: src/qml/app/RenameDirectoryPage.qml:81
+msgctxt "RenameDirectoryPage|"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/qml/app/RenameDirectoryPage.qml:109
+msgctxt "RenameDirectoryPage|"
+msgid "Action:"
+msgstr "Радња:"
+
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Create Folder"
+msgstr "Направи директоријум"
+
+#: src/qml/app/RenameDirectoryPage.qml:124
+msgctxt "RenameDirectoryPage|"
+msgid "Source:"
+msgstr "Извор:"
+
+#: src/qml/app/RenameDirectoryPage.qml:129
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2 and Tag 1"
+msgstr "Из ознаке 2 и ознаке 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:130
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 1"
+msgstr "Из ознаке 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:131
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2"
+msgstr "Из ознаке 2"
+
+#: src/qml/app/RenameDirectoryPage.qml:141
+msgctxt "RenameDirectoryPage|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/qml/app/RenameDirectoryPage.qml:152
+msgctxt "RenameDirectoryPage|"
+msgid "Folder Name from Tag"
+msgstr "Ознаке у име директоријума"
+
+#: src/qml/app/RenameDirectoryPage.qml:185
+msgctxt "RenameDirectoryPage|"
+msgid "Preview"
+msgstr "Преглед"
+
+#: src/qml/app/SettingsPage.qml:30
+msgctxt "SettingsPage|"
+msgid "Settings"
+msgstr "Подешавање"
+
+#: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
+msgctxt "SettingsPage|"
+msgid "Tags"
+msgstr "Ознаке"
+
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:183
+msgctxt "SettingsPage|"
+msgid "Files"
+msgstr "Фајлови"
+
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:317
+msgctxt "SettingsPage|"
+msgid "Plugins"
+msgstr "Прикључци"
+
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:375
+msgctxt "SettingsPage|"
+msgid "Appearance"
+msgstr "Изглед"
+
+#: src/qml/app/SettingsPage.qml:48
+msgctxt "SettingsPage|"
+msgid "Mark truncated fields"
+msgstr "Означи одсјечена поља"
+
+#: src/qml/app/SettingsPage.qml:53
+msgctxt "SettingsPage|"
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодирање текста"
+
+#: src/qml/app/SettingsPage.qml:59
+msgctxt "SettingsPage|"
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодирање текста"
+
+#: src/qml/app/SettingsPage.qml:65
+msgctxt "SettingsPage|"
+msgid "Use track/total number of tracks format"
+msgstr "Користи формат нумера/укупно нумера"
+
+#: src/qml/app/SettingsPage.qml:70
+msgctxt "SettingsPage|"
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр као текст умјесто бројног низа"
+
+#: src/qml/app/SettingsPage.qml:75
+msgctxt "SettingsPage|"
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV датотеке са малих слова id3 парче"
+
+#: src/qml/app/SettingsPage.qml:80
+msgctxt "SettingsPage|"
+msgid "Version used for new ID3v2 tags"
+msgstr "Издање за нове ознаке"
+
+#: src/qml/app/SettingsPage.qml:86
+msgctxt "SettingsPage|"
+msgid "Track number digits"
+msgstr "Број цифара нумере"
+
+#: src/qml/app/SettingsPage.qml:91
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis comment field name"
+msgstr "Огг/Ворбис име поља коментара"
+
+#: src/qml/app/SettingsPage.qml:101
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis picture field name"
+msgstr "Огг/Ворбис име поља слике"
+
+#: src/qml/app/SettingsPage.qml:107
+msgctxt "SettingsPage|"
+msgid "RIFF track number field name"
+msgstr "RIFF име поља број нумере"
+
+#: src/qml/app/SettingsPage.qml:117
+msgctxt "SettingsPage|"
+msgid "Mark if picture larger than maximum size"
+msgstr "Означи ако је веће од"
+
+#: src/qml/app/SettingsPage.qml:122
+msgctxt "SettingsPage|"
+msgid "Picture maximum size (bytes)"
+msgstr "Највећа величина (бајтова)"
+
+#: src/qml/app/SettingsPage.qml:127
+msgctxt "SettingsPage|"
+msgid "Show only custom genres"
+msgstr "Прикажи само посебне жанрове"
+
+#: src/qml/app/SettingsPage.qml:131
+msgctxt "SettingsPage|"
+msgid "Custom Genres"
+msgstr "Посебни жанрови"
+
+#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:217
+msgctxt "SettingsPage|"
+msgid "Case conversion"
+msgstr "Величина слова"
+
+#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:223
+msgctxt "SettingsPage|"
+msgid "Locale"
+msgstr "Локалитет"
+
+#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:234
+msgctxt "SettingsPage|"
+msgid "String replacement"
+msgstr "Замјена текста"
+
+#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:238
+msgctxt "SettingsPage|"
+msgid "String Replacement"
+msgstr "Замјена текста"
+
+#: src/qml/app/SettingsPage.qml:187
+msgctxt "SettingsPage|"
+msgid "Load last-opened files"
+msgstr ""
+
+#: src/qml/app/SettingsPage.qml:192
+msgctxt "SettingsPage|"
+msgid "Preserve file timestamp"
+msgstr "Очувај временску ознаку фајла"
+
+#: src/qml/app/SettingsPage.qml:197
+msgctxt "SettingsPage|"
+msgid "Mark changes"
+msgstr "Означи измјене"
+
+#: src/qml/app/SettingsPage.qml:202
+msgctxt "SettingsPage|"
+msgid "Automatically apply format"
+msgstr "Примијени формат аутоматски"
+
+#: src/qml/app/SettingsPage.qml:207
+msgctxt "SettingsPage|"
+msgid "Use maximum length"
+msgstr "Користите највећу дужину"
+
+#: src/qml/app/SettingsPage.qml:212
+msgctxt "SettingsPage|"
+msgid "Maximum length"
+msgstr "Највећа дужина"
+
+#: src/qml/app/SettingsPage.qml:249
+msgctxt "SettingsPage|"
+msgid "Filename for cover"
+msgstr "Име фајла за омот албума"
+
+#: src/qml/app/SettingsPage.qml:254
+msgctxt "SettingsPage|"
+msgid "Playlist text encoding"
+msgstr "Кодирање текста листу нумера"
+
+#: src/qml/app/SettingsPage.qml:260
+msgctxt "SettingsPage|"
+msgid "To filename format"
+msgstr "Формат у имена фајла"
+
+#: src/qml/app/SettingsPage.qml:270
+msgctxt "SettingsPage|"
+msgid "Filename from Tag"
+msgstr "ознаке у име фајла"
+
+#: src/qml/app/SettingsPage.qml:285
+msgctxt "SettingsPage|"
+msgid "From filename format"
+msgstr "Формат из имена фајла"
+
+#: src/qml/app/SettingsPage.qml:295
+msgctxt "SettingsPage|"
+msgid "Tag from Filename"
+msgstr "ознаку из имена фајла"
+
+#: src/qml/app/SettingsPage.qml:379
+msgctxt "SettingsPage|"
+msgid "Theme"
+msgstr "Тема"
+
+#: src/qml/app/StringListEditPage.qml:85
+msgctxt "StringListEditPage|"
+msgid "Edit"
+msgstr "Уреди"
+
+#: src/qml/app/TagCollapsible.qml:40
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "Tag %1"
+msgstr "ознака %1"
+
+#: src/qml/app/TagCollapsible.qml:83
+msgctxt "TagCollapsible|"
+msgid "To Filename"
+msgstr "У имена фајла"
+
+#: src/qml/app/TagCollapsible.qml:87
+msgctxt "TagCollapsible|"
+msgid "From Filename"
+msgstr "Из имена фајла"
+
+#: src/qml/app/TagCollapsible.qml:91
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "To Tag %1"
+msgstr "У ознаке %1"
+
+#: src/qml/app/TagCollapsible.qml:98
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "From Tag %1"
+msgstr "Из ознаке %1"
+
+#: src/qml/app/TagCollapsible.qml:102
+msgctxt "TagCollapsible|"
+msgid "Copy"
+msgstr "Копирај"
+
+#: src/qml/app/TagCollapsible.qml:106
+msgctxt "TagCollapsible|"
+msgid "Paste"
+msgstr "Налијепи"
+
+#: src/qml/app/TagCollapsible.qml:110
+msgctxt "TagCollapsible|"
+msgid "Remove"
+msgstr "Уклони"
