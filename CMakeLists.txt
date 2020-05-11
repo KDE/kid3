@@ -18,6 +18,10 @@
 # make
 # cpack
 
+# These markers are to tell releaseme (used by KDE neon and others) to not inject translations
+# SKIP_PO_INSTALL
+# SKIP_POQML_INSTALL
+
 project(kid3)
 
 cmake_minimum_required(VERSION 3.3)
