@@ -28,11 +28,11 @@
 #include <QtConfig>
 #include <KMessageBox>
 #include <KConfig>
+#include <KIO/CopyJob>
 #include <QUrl>
 #include <QFileDialog>
 #include <QDesktopServices>
 #include "mainwindowconfig.h"
-#include "coreplatformtools.h"
 #include "kdesettings.h"
 
 /**
@@ -112,7 +112,8 @@ QObject* KdePlatformTools::createAudioPlayer(Kid3Application* app,
  */
 bool KdePlatformTools::moveToTrash(const QString& path) const
 {
-  return CorePlatformTools::moveFileToTrash(path);
+  KIO::Job* job = KIO::trash(QUrl::fromLocalFile(path));
+  return job->exec();
 }
 
 /**
