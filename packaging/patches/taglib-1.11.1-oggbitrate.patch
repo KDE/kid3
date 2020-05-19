@@ -1,0 +1,87 @@
+diff --git a/taglib/ogg/opus/opusproperties.cpp b/taglib/ogg/opus/opusproperties.cpp
+index 537ba166..b60cc01d 100644
+--- a/taglib/ogg/opus/opusproperties.cpp
++++ b/taglib/ogg/opus/opusproperties.cpp
+@@ -163,8 +163,14 @@ void Opus::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / 48000.0;
++        long fileLengthWithoutOverhead = file->length();
++        // Ignore the two mandatory header packets, see "3. Packet Organization"
++        // in https://tools.ietf.org/html/rfc7845.html
++        for (unsigned int i = 0; i < 2; ++i) {
++          fileLengthWithoutOverhead -= file->packet(i).size();
++        }
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/taglib/ogg/speex/speexproperties.cpp b/taglib/ogg/speex/speexproperties.cpp
+index fbcc5a4b..b7a11cc6 100644
+--- a/taglib/ogg/speex/speexproperties.cpp
++++ b/taglib/ogg/speex/speexproperties.cpp
+@@ -182,8 +182,14 @@ void Speex::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
++        long fileLengthWithoutOverhead = file->length();
++        // Ignore the two header packets, see "Ogg file format" in
++        // https://www.speex.org/docs/manual/speex-manual/node8.html
++        for (unsigned int i = 0; i < 2; ++i) {
++          fileLengthWithoutOverhead -= file->packet(i).size();
++        }
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/taglib/ogg/vorbis/vorbisproperties.cpp b/taglib/ogg/vorbis/vorbisproperties.cpp
+index 981400f0..4000c254 100644
+--- a/taglib/ogg/vorbis/vorbisproperties.cpp
++++ b/taglib/ogg/vorbis/vorbisproperties.cpp
+@@ -186,9 +186,14 @@ void Vorbis::Properties::read(File *file)
+ 
+       if(frameCount > 0) {
+         const double length = frameCount * 1000.0 / d->sampleRate;
+-
++        long fileLengthWithoutOverhead = file->length();
++        // Ignore the three initial header packets, see "1.3.1. Decode Setup" in
++        // https://xiph.org/vorbis/doc/Vorbis_I_spec.html
++        for (unsigned int i = 0; i < 3; ++i) {
++          fileLengthWithoutOverhead -= file->packet(i).size();
++        }
+         d->length  = static_cast<int>(length + 0.5);
+-        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
++        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
+       }
+     }
+     else {
+diff --git a/tests/test_ogg.cpp b/tests/test_ogg.cpp
+index 5569e59c..ebb865fd 100644
+--- a/tests/test_ogg.cpp
++++ b/tests/test_ogg.cpp
+@@ -191,7 +191,7 @@ public:
+     CPPUNIT_ASSERT_EQUAL(3, f.audioProperties()->length());
+     CPPUNIT_ASSERT_EQUAL(3, f.audioProperties()->lengthInSeconds());
+     CPPUNIT_ASSERT_EQUAL(3685, f.audioProperties()->lengthInMilliseconds());
+-    CPPUNIT_ASSERT_EQUAL(9, f.audioProperties()->bitrate());
++    CPPUNIT_ASSERT_EQUAL(1, f.audioProperties()->bitrate());
+     CPPUNIT_ASSERT_EQUAL(2, f.audioProperties()->channels());
+     CPPUNIT_ASSERT_EQUAL(44100, f.audioProperties()->sampleRate());
+     CPPUNIT_ASSERT_EQUAL(0, f.audioProperties()->vorbisVersion());
+diff --git a/tests/test_opus.cpp b/tests/test_opus.cpp
+index 9d14df23..cdf77eae 100644
+--- a/tests/test_opus.cpp
++++ b/tests/test_opus.cpp
+@@ -53,7 +53,7 @@ public:
+     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->length());
+     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->lengthInSeconds());
+     CPPUNIT_ASSERT_EQUAL(7737, f.audioProperties()->lengthInMilliseconds());
+-    CPPUNIT_ASSERT_EQUAL(37, f.audioProperties()->bitrate());
++    CPPUNIT_ASSERT_EQUAL(36, f.audioProperties()->bitrate());
+     CPPUNIT_ASSERT_EQUAL(1, f.audioProperties()->channels());
+     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->sampleRate());
+     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->inputSampleRate());

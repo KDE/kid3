@@ -1,0 +1,140 @@
+{
+    "id": "org.kde.kid3",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.14",
+    "sdk": "org.kde.Sdk",
+    "command": "kid3",
+    "rename-icon": "kid3",
+
+    "finish-args": [
+        "--socket=wayland",
+        "--socket=fallback-x11",
+        "--socket=pulseaudio",
+        "--share=ipc",
+        "--device=dri",
+        "--share=network",
+        "--filesystem=xdg-download",
+        "--filesystem=xdg-music",
+        "--env=TMPDIR=/var/tmp",
+        "--own-name=org.mpris.MediaPlayer2.kid3"
+    ],
+
+    "cleanup": [
+        "/man",
+        "/share/man",
+        "/include",
+        "/lib/*.a",
+        "/lib/*.la",
+        "/share/**/*-qt.*",
+        "/share/icons/**/**/**/*-qt.*"
+    ],
+
+    "modules": [
+        {
+            "name": "chromaprint",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/acoustid/chromaprint/archive/v1.5.0.tar.gz",
+                    "sha256": "5c8e0d579cb3478900699110aa961c1552a422a18741cf67dd62136b1b877c7b"
+                }
+            ]
+        },
+        {
+            "name": "taglib",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DWITH_MP4=ON",
+                "-DWITH_ASF=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://taglib.org/releases/taglib-1.11.1.tar.gz",
+                    "sha256": "b6d1a5a610aae6ff39d93de5efd0fdc787aa9e9dc1e7026fa4c961b26563526b"
+                },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-mp4shwm.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-CVE-2017-12678.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-cmID-purl-egid.patch.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-CVE-2018-11439.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-ogg-packet-loss.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-aiff-padding.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-grp1.patch" },
+                { "type": "patch", "path": "../patches/taglib-1.11.1-oggbitrate.patch" }
+            ]
+        },
+        {
+            "name": "id3lib",
+            "buildsystem": "autotools",
+            "config-opts": [ "--enable-debug=minimum" ],
+            "cleanup": [ "/bin" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://downloads.sourceforge.net/id3lib/id3lib-3.8.3.tar.gz",
+                    "sha256": "2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079"
+                },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-00-add-libz-to-compilation.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-05-create-m4-directory.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-10-fix-compilation-with-cpp-headers.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-15-fix-headers-of-main-functions.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-30-fix-utf16.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-31-fix-utf16-stringlists.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-40-deal-with-mkstemp.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-50-remove-outdated-check.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-60-add-c-wrapper-functions.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-60-fix_make_check.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-60-id3lib-missing-nullpointer-check.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-60-spelling.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-61-fix_vbr_stack_smash.patch" },
+                { "type": "patch", "path": "../patches/id3lib-3.8.3-62-remove-remote-icons.patch" }
+            ]
+        },
+        {
+            "name": "mp4v2",
+            "buildsystem": "autotools",
+            "config-opts": [],
+            "cleanup": [ "/bin" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2",
+                    "sha256": "0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338"
+                },
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0001-Fix_mp4tags_corruption.patch" },
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0002-Fix_m4_error.patch" },
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0003-Reproducible_build.patch" },
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0004-Pointer_comparison.patch" }
+            ]
+        },
+        {
+            "name": "kid3",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DWITH_APPS=KDE;Qt;CLI",
+                "-DWITH_MP4V2=ON",
+                "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/kid3/3.8.3/kid3-3.8.3.tar.xz",
+                    "sha256": "3556e7a76d65baf8b4258b955f6c93d7467a02a0b588ff7249c8ab96bc128377"
+                },
+                /* Fixed after 3.8.3, commit f7c8735 */
+                { "type": "patch", "path": "../patches/kid3-3.8.3-move-to-trash.patch" }
+            ],
+            "post-install" :[
+                /* Upstream notified: bugs.kde.org 421497 */
+                "sed -i 's|<\/component>|<content_rating type=\"oars-1.1\"\/>\\n<\/component>|g' \/app\/share\/metainfo\/org.kde.kid3.appdata.xml"
+            ]
+        }
+    ]
+}

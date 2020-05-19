@@ -1,0 +1,27 @@
+From: Sebastian Ramacher <sramacher@debian.org>
+Date: Thu, 5 Nov 2015 20:53:13 +0100
+Subject: Fix_m4_error
+
+Fix m4 error while running autoreconf
+
+Origin: upstream, https://code.google.com/p/mp4v2/source/detail?r=496
+Last-Update: 2014-08-30
+
+Signed-off-by: Matteo F. Vescovi <mfv@debian.org>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 7c514eb..83e9dce 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -20,7 +20,7 @@ m4_define([PRJ_version_hex],m4_format([0x%04x%02x%02x],PRJ_version_major,PRJ_ver
+ 
+ m4_define([PRJ_version],ifelse(
+     PRJ_repo_type,[stable],m4_format([%s],PRJ_repo_branch),
+-    m4_format([%s-r%d],PRJ_repo_branch,PRJ_repo_rev)))
++    m4_format([%s-r%s],PRJ_repo_branch,PRJ_repo_rev)))
+ 
+ ###############################################################################
+ # initialization

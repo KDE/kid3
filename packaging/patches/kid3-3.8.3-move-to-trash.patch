@@ -1,0 +1,61 @@
+From f7c87356def85ea96efbb923f402a9e9a8d01973 Mon Sep 17 00:00:00 2001
+From: Urs Fleisch <ufleisch@users.sourceforge.net>
+Date: Thu, 14 May 2020 06:12:10 +0200
+Subject: KDE: Use KIO to move file or directory to trash
+
+The previously used CorePlatformTools::moveFileToTrash() does not work
+from flatpak.
+
+diff --git a/src/app/CMakeLists.txt b/src/app/CMakeLists.txt
+index b14cc28a..164894d9 100644
+--- a/src/app/CMakeLists.txt
++++ b/src/app/CMakeLists.txt
+@@ -22,7 +22,7 @@ if(BUILD_KDE_APP)
+   include(KDECMakeSettings)
+   include(FeatureSummary)
+ 
+-  find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets CoreAddons WidgetsAddons XmlGui)
++  find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets CoreAddons WidgetsAddons XmlGui KIO)
+ 
+   if(BUILD_SHARED_LIBS)
+     # KDECMakeSettings.cmake will overwrite our RPATH if LIB_INSTALL_DIR is
+diff --git a/src/app/kde/CMakeLists.txt b/src/app/kde/CMakeLists.txt
+index 5003e06d..665e7232 100644
+--- a/src/app/kde/CMakeLists.txt
++++ b/src/app/kde/CMakeLists.txt
+@@ -6,7 +6,7 @@ add_executable(kid3
+   kdesettings.cpp
+ )
+ 
+-target_link_libraries(kid3 kid3-gui KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::CoreAddons KF5::WidgetsAddons KF5::XmlGui -lstdc++)
++target_link_libraries(kid3 kid3-gui KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::CoreAddons KF5::WidgetsAddons KF5::XmlGui KF5::KIOCore -lstdc++)
+ 
+ install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
+ install(FILES ../org.kde.kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+diff --git a/src/app/kde/kdeplatformtools.cpp b/src/app/kde/kdeplatformtools.cpp
+index 041fbf6c..0e69d220 100644
+--- a/src/app/kde/kdeplatformtools.cpp
++++ b/src/app/kde/kdeplatformtools.cpp
+@@ -28,11 +28,11 @@
+ #include <QtConfig>
+ #include <KMessageBox>
+ #include <KConfig>
++#include <KIO/CopyJob>
+ #include <QUrl>
+ #include <QFileDialog>
+ #include <QDesktopServices>
+ #include "mainwindowconfig.h"
+-#include "coreplatformtools.h"
+ #include "kdesettings.h"
+ 
+ /**
+@@ -112,7 +112,8 @@ QObject* KdePlatformTools::createAudioPlayer(Kid3Application* app,
+  */
+ bool KdePlatformTools::moveToTrash(const QString& path) const
+ {
+-  return CorePlatformTools::moveFileToTrash(path);
++  KIO::Job* job = KIO::trash(QUrl::fromLocalFile(path));
++  return job->exec();
+ }
+ 
+ /**

@@ -1,0 +1,142 @@
+diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
+index a8e2e7d..0c2e5cb 100644
+--- a/taglib/mp4/mp4tag.cpp
++++ b/taglib/mp4/mp4tag.cpp
+@@ -71,10 +71,10 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
+       parseIntPair(atom);
+     }
+     else if(atom->name == "cpil" || atom->name == "pgap" || atom->name == "pcst" ||
+-            atom->name == "hdvd") {
++            atom->name == "hdvd" || atom->name == "shwm") {
+       parseBool(atom);
+     }
+-    else if(atom->name == "tmpo") {
++    else if(atom->name == "tmpo" || atom->name == "\251mvi" || atom->name == "\251mvc") {
+       parseInt(atom);
+     }
+     else if(atom->name == "tvsn" || atom->name == "tves" || atom->name == "cnID" ||
+@@ -472,10 +472,11 @@ MP4::Tag::save()
+     else if(name == "disk") {
+       data.append(renderIntPairNoTrailing(name.data(String::Latin1), it->second));
+     }
+-    else if(name == "cpil" || name == "pgap" || name == "pcst" || name == "hdvd") {
++    else if(name == "cpil" || name == "pgap" || name == "pcst" || name == "hdvd" ||
++            name == "shwm") {
+       data.append(renderBool(name.data(String::Latin1), it->second));
+     }
+-    else if(name == "tmpo") {
++    else if(name == "tmpo" || name == "\251mvi" || name == "\251mvc") {
+       data.append(renderInt(name.data(String::Latin1), it->second));
+     }
+     else if(name == "tvsn" || name == "tves" || name == "cnID" ||
+@@ -844,6 +845,11 @@ namespace
+     { "sonm", "TITLESORT" },
+     { "soco", "COMPOSERSORT" },
+     { "sosn", "SHOWSORT" },
++    { "shwm", "SHOWWORKMOVEMENT" },
++    { "\251wrk", "WORK" },
++    { "\251mvn", "MOVEMENTNAME" },
++    { "\251mvi", "MOVEMENTNUMBER" },
++    { "\251mvc", "MOVEMENTCOUNT" },
+     { "----:com.apple.iTunes:MusicBrainz Track Id", "MUSICBRAINZ_TRACKID" },
+     { "----:com.apple.iTunes:MusicBrainz Artist Id", "MUSICBRAINZ_ARTISTID" },
+     { "----:com.apple.iTunes:MusicBrainz Album Id", "MUSICBRAINZ_ALBUMID" },
+@@ -897,10 +903,10 @@ PropertyMap MP4::Tag::properties() const
+         }
+         props[key] = value;
+       }
+-      else if(key == "BPM") {
++      else if(key == "BPM" || key == "MOVEMENTNUMBER" || key == "MOVEMENTCOUNT") {
+         props[key] = String::number(it->second.toInt());
+       }
+-      else if(key == "COMPILATION") {
++      else if(key == "COMPILATION" || key == "SHOWWORKMOVEMENT") {
+         props[key] = String::number(it->second.toBool());
+       }
+       else {
+@@ -952,11 +958,11 @@ PropertyMap MP4::Tag::setProperties(const PropertyMap &props)
+           d->items[name] = MP4::Item(first, second);
+         }
+       }
+-      else if(it->first == "BPM" && !it->second.isEmpty()) {
++      else if((it->first == "BPM" || it->first == "MOVEMENTNUMBER" || it->first == "MOVEMENTCOUNT") && !it->second.isEmpty()) {
+         int value = it->second.front().toInt();
+         d->items[name] = MP4::Item(value);
+       }
+-      else if(it->first == "COMPILATION" && !it->second.isEmpty()) {
++      else if((it->first == "COMPILATION" || it->first == "SHOWWORKMOVEMENT") && !it->second.isEmpty()) {
+         bool value = (it->second.front().toInt() != 0);
+         d->items[name] = MP4::Item(value);
+       }
+diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
+index d477a86..bca3021 100644
+--- a/taglib/mp4/mp4tag.h
++++ b/taglib/mp4/mp4tag.h
+@@ -35,6 +35,8 @@
+ #include "mp4atom.h"
+ #include "mp4item.h"
+ 
++#define TAGLIB_WITH_MP4_SHWM 1
++
+ namespace TagLib {
+ 
+   namespace MP4 {
+diff --git a/taglib/mpeg/id3v2/id3v2frame.cpp b/taglib/mpeg/id3v2/id3v2frame.cpp
+index 1f896fa..ec3b931 100644
+--- a/taglib/mpeg/id3v2/id3v2frame.cpp
++++ b/taglib/mpeg/id3v2/id3v2frame.cpp
+@@ -111,8 +111,8 @@ Frame *Frame::createTextualFrame(const String &key, const StringList &values) //
+   // check if the key is contained in the key<=>frameID mapping
+   ByteVector frameID = keyToFrameID(key);
+   if(!frameID.isEmpty()) {
+-    // Apple proprietary WFED (Podcast URL) is in fact a text frame.
+-    if(frameID[0] == 'T' || frameID == "WFED"){ // text frame
++    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
++    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN"){ // text frame
+       TextIdentificationFrame *frame = new TextIdentificationFrame(frameID, String::UTF8);
+       frame->setText(values);
+       return frame;
+@@ -392,6 +392,8 @@ namespace
+     { "TDES", "PODCASTDESC" },
+     { "TGID", "PODCASTID" },
+     { "WFED", "PODCASTURL" },
++    { "MVNM", "MOVEMENTNAME" },
++    { "MVIN", "MOVEMENTNUMBER" },
+   };
+   const size_t frameTranslationSize = sizeof(frameTranslation) / sizeof(frameTranslation[0]);
+ 
+@@ -474,8 +476,8 @@ PropertyMap Frame::asProperties() const
+   // workaround until this function is virtual
+   if(id == "TXXX")
+     return dynamic_cast< const UserTextIdentificationFrame* >(this)->asProperties();
+-  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
+-  else if(id[0] == 'T' || id == "WFED")
++  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
++  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN")
+     return dynamic_cast< const TextIdentificationFrame* >(this)->asProperties();
+   else if(id == "WXXX")
+     return dynamic_cast< const UserUrlLinkFrame* >(this)->asProperties();
+diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+index 0fbb87d..759a9b7 100644
+--- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
++++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+@@ -198,8 +198,8 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
+ 
+   // Text Identification (frames 4.2)
+ 
+-  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
+-  if(frameID.startsWith("T") || frameID == "WFED") {
++  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
++  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN") {
+ 
+     TextIdentificationFrame *f = frameID != "TXXX"
+       ? new TextIdentificationFrame(data, header)
+@@ -456,6 +456,8 @@ namespace
+     { "TDS", "TDES" },
+     { "TID", "TGID" },
+     { "WFD", "WFED" },
++    { "MVN", "MVNM" },
++    { "MVI", "MVIN" },
+   };
+   const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);
+ 

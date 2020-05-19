@@ -1,0 +1,56 @@
+diff --git a/taglib/mpeg/id3v2/id3v2frame.cpp b/taglib/mpeg/id3v2/id3v2frame.cpp
+index 4f88dec1..af4136af 100644
+--- a/taglib/mpeg/id3v2/id3v2frame.cpp
++++ b/taglib/mpeg/id3v2/id3v2frame.cpp
+@@ -111,8 +111,8 @@ Frame *Frame::createTextualFrame(const String &key, const StringList &values) //
+   // check if the key is contained in the key<=>frameID mapping
+   ByteVector frameID = keyToFrameID(key);
+   if(!frameID.isEmpty()) {
+-    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
+-    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN"){ // text frame
++    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
++    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN" || frameID == "GRP1"){ // text frame
+       TextIdentificationFrame *frame = new TextIdentificationFrame(frameID, String::UTF8);
+       frame->setText(values);
+       return frame;
+@@ -394,6 +394,7 @@ namespace
+     { "WFED", "PODCASTURL" },
+     { "MVNM", "MOVEMENTNAME" },
+     { "MVIN", "MOVEMENTNUMBER" },
++    { "GRP1", "GROUPING" },
+   };
+   const size_t frameTranslationSize = sizeof(frameTranslation) / sizeof(frameTranslation[0]);
+ 
+@@ -476,8 +477,8 @@ PropertyMap Frame::asProperties() const
+   // workaround until this function is virtual
+   if(id == "TXXX")
+     return dynamic_cast< const UserTextIdentificationFrame* >(this)->asProperties();
+-  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
+-  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN")
++  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
++  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN" || id == "GRP1")
+     return dynamic_cast< const TextIdentificationFrame* >(this)->asProperties();
+   else if(id == "WXXX")
+     return dynamic_cast< const UserUrlLinkFrame* >(this)->asProperties();
+diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+index 9347ab86..155d0a9d 100644
+--- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
++++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+@@ -198,8 +198,8 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
+ 
+   // Text Identification (frames 4.2)
+ 
+-  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
+-  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN") {
++  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
++  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN" || frameID == "GRP1") {
+ 
+     TextIdentificationFrame *f = frameID != "TXXX"
+       ? new TextIdentificationFrame(data, header)
+@@ -459,6 +459,7 @@ namespace
+     { "WFD", "WFED" },
+     { "MVN", "MVNM" },
+     { "MVI", "MVIN" },
++    { "GP1", "GRP1" },
+   };
+   const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);

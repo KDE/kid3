@@ -1,0 +1,20 @@
+Description: Make the build reproducible
+Author: Chris Lamb <lamby@debian.org>
+Last-Update: 2016-08-12
+
+--- mp4v2-2.0.0~dfsg0.orig/configure.ac
++++ mp4v2-2.0.0~dfsg0/configure.ac
+@@ -137,7 +137,12 @@ PROJECT_repo_uuid="PRJ_repo_uuid"
+ PROJECT_repo_rev="PRJ_repo_rev"
+ PROJECT_repo_date="PRJ_repo_date"
+ PROJECT_repo_type="PRJ_repo_type"
+-PROJECT_build="`date`"
++
++if test -n "$SOURCE_DATE_EPOCH"; then
++	PROJECT_build="`LC_ALL=C date --utc --date="@$SOURCE_DATE_EPOCH"`"
++else
++	PROJECT_build="`date`"
++fi
+ 
+ test -z "$PROJECT_version_hex"   && PROJECT_version_hex="0x0000000000000000LL"
+ test -z "$PROJECT_version_major" && PROJECT_version_major="0"
