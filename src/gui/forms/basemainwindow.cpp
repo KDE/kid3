@@ -40,6 +40,10 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QApplication>
+#ifdef Q_OS_MAC
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
 #include "kid3form.h"
 #include "kid3application.h"
 #include "framelist.h"
@@ -364,6 +368,15 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         TaggedFile* taggedFile;
         const auto filePaths = notWritableFiles;
         for (const QString& filePath : filePaths) {
+#ifdef Q_OS_MAC
+          // On macOS, files may be locked, so try to make them mutable.
+          const auto utf8Path = filePath.toUtf8();
+          struct stat st;
+          if (::stat(utf8Path.constData(), &st) == 0 &&
+              st.st_flags & UF_IMMUTABLE) {
+            ::chflags(utf8Path.constData(), st.st_flags & ~UF_IMMUTABLE);
+          }
+#endif
           QFile::setPermissions(filePath,
               QFile::permissions(filePath) | QFile::WriteUser);
           if (model &&
