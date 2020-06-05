@@ -229,7 +229,7 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**
@@ -248,7 +248,7 @@ QStringList PlatformTools::getOpenFileNames(QWidget* parent,
   return QFileDialog::getOpenFileNames(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**
@@ -266,7 +266,7 @@ QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**

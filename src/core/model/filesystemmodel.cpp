@@ -391,7 +391,11 @@ FileSystemModelPrivate::FileSystemNode *FileSystemModelPrivate::node(const QStri
         absolutePath = QDir(longPath).absolutePath();
 
     // ### TODO can we use bool QAbstractFileEngine::caseSensitive() const?
+#if QT_VERSION >= 0x050e00
+    QStringList pathElements = absolutePath.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+#else
     QStringList pathElements = absolutePath.split(QLatin1Char('/'), QString::SkipEmptyParts);
+#endif
     if ((pathElements.isEmpty())
 #if !defined(Q_OS_WIN)
         && QDir::fromNativeSeparators(longPath) != QLatin1String("/")
@@ -1993,7 +1997,11 @@ void FileSystemModelPrivate::init()
 #endif // !QT_NO_FILESYSTEMWATCHER
     q->connect(&delayedSortTimer, SIGNAL(timeout()), q, SLOT(_q_performDelayedSort()), Qt::QueuedConnection);
 
+#if QT_VERSION >= 0x050f00
+    roleNames.insert(FileSystemModel::FileIconRole, QByteArrayLiteral("fileIcon")); // == Qt::decoration
+#else
     roleNames.insertMulti(FileSystemModel::FileIconRole, QByteArrayLiteral("fileIcon")); // == Qt::decoration
+#endif
     roleNames.insert(FileSystemModel::FilePathRole, QByteArrayLiteral("filePath"));
     roleNames.insert(FileSystemModel::FileNameRole, QByteArrayLiteral("fileName"));
     roleNames.insert(FileSystemModel::FilePermissions, QByteArrayLiteral("filePermissions"));

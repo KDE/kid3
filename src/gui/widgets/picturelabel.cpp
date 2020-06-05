@@ -103,7 +103,11 @@ void PictureLabel::setData(const QByteArray& data)
 {
   if (!data.isEmpty()) {
     uint hash = qHash(data);
+#if QT_VERSION >= 0x050f00
+    if (!m_pictureLabel->pixmap(Qt::ReturnByValue).isNull() && hash == m_pixmapHash)
+#else
     if (m_pictureLabel->pixmap() && hash == m_pixmapHash)
+#endif
       return; // keep existing pixmap
 
     // creating new pixmap

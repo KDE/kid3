@@ -238,7 +238,7 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**
@@ -257,7 +257,7 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
   return QFileDialog::getOpenFileNames(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**
@@ -276,7 +276,7 @@ QString KdePlatformTools::getSaveFileName(QWidget* parent,
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(nullptr));
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
 }
 
 /**

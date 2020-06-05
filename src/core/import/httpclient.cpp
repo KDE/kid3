@@ -123,10 +123,15 @@ void HttpClient::networkReplyFinished()
                   this, &HttpClient::networkReplyFinished);
           connect(reply, &QNetworkReply::downloadProgress,
                   this, &HttpClient::networkReplyProgress);
+#if QT_VERSION >= 0x050f00
+          connect(reply, &QNetworkReply::errorOccurred,
+                  this, &HttpClient::networkReplyError);
+#else
           connect(reply,
                   static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(
                     &QNetworkReply::error),
                   this, &HttpClient::networkReplyError);
+#endif
           return;
         }
       }
@@ -213,10 +218,15 @@ void HttpClient::sendRequest(const QUrl& url, const RawHeaderMap& headers)
           this, &HttpClient::networkReplyFinished);
   connect(reply, &QNetworkReply::downloadProgress,
           this, &HttpClient::networkReplyProgress);
+#if QT_VERSION >= 0x050f00
+  connect(reply, &QNetworkReply::errorOccurred,
+          this, &HttpClient::networkReplyError);
+#else
   connect(reply,
           static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(
             &QNetworkReply::error),
           this, &HttpClient::networkReplyError);
+#endif
   s_lastRequestTime[host] = now;
   emitProgress(tr("Request sent..."), 0, 0);
 }

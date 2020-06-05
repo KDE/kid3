@@ -123,9 +123,14 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
     connect(m_applicationFontButton, &QAbstractButton::clicked,
             this, &ConfigDialog::slotSelectFont);
+#if QT_VERSION >= 0x050f00
+    connect(m_applicationStyleComboBox, &QComboBox::textActivated,
+            this, &ConfigDialog::slotSelectStyle);
+#else
     connect(m_applicationStyleComboBox,
             static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::activated),
             this, &ConfigDialog::slotSelectStyle);
+#endif
     connect(m_useApplicationFontCheckBox, &QAbstractButton::toggled,
             m_applicationFontButton, &QWidget::setEnabled);
     connect(m_useApplicationStyleCheckBox, &QAbstractButton::toggled,

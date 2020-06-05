@@ -592,7 +592,7 @@ public:
    * @param options options for numbering operation
    */
   Q_INVOKABLE void numberTracks(int nr, int total, Frame::TagVersion tagVersion,
-                                Kid3Application::NumberTrackOptions options = nullptr);
+                                Kid3Application::NumberTrackOptions options = {});
 
   /**
    * Set track data with tagged files of directory.
