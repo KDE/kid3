@@ -25,6 +25,7 @@
   <name xml:lang="sv">Kid3</name>
   <name xml:lang="uk">Kid3</name>
   <name xml:lang="x-test">xxKid3xx</name>
+  <name xml:lang="zh-CN">Kid3</name>
   <name xml:lang="zh-TW">Kid3</name>
   <summary>Edit audio file metadata</summary>
   <summary xml:lang="ca">Edita les metadades dels fitxers d'àudio</summary>
@@ -47,6 +48,7 @@
   <summary xml:lang="sv">Redigera metadata i ljudfiler</summary>
   <summary xml:lang="uk">Редагування метаданих звукових файлів</summary>
   <summary xml:lang="x-test">xxEdit audio file metadataxx</summary>
+  <summary xml:lang="zh-CN">编辑音频文件元数据</summary>
   <summary xml:lang="zh-TW">編輯音訊檔案中繼資料</summary>
   <description>
     <p>
@@ -188,6 +190,7 @@
   <developer_name xml:lang="sv">Urs Fleisch</developer_name>
   <developer_name xml:lang="uk">Urs Fleisch</developer_name>
   <developer_name xml:lang="x-test">xxUrs Fleischxx</developer_name>
+  <developer_name xml:lang="zh-CN">Urs Fleisch</developer_name>
   <developer_name xml:lang="zh-TW">Urs Fleisch</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
