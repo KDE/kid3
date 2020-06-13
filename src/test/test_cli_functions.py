@@ -891,7 +891,8 @@ class CliFunctionsJsonTestCase(unittest.TestCase):
                             '\'{"method":"unknown"}\', -h for help.'}}),
         ):
             p = subprocess.Popen([kid3_cli_path(), '-c', cmd],
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            universal_newlines=True)
             stdout, stderr = p.communicate()
             result = json.loads(stdout)
             self.assertEqual(result, rsp)

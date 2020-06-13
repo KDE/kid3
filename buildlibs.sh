@@ -247,7 +247,7 @@ fi
 if test "$1" = "rundocker"; then
   echo "### Run docker image"
   shift
-  docker run --rm -it \
+  docker run --rm -it -e LANG=C.UTF-8 \
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \

@@ -203,6 +203,7 @@ endif()
 set(CFG_QMLSRCDIR "${kid3_SOURCE_DIR}/src/qml")
 
 find_package(Threads)
+set(Python_ADDITIONAL_VERSIONS 3)
 find_package(PythonInterp REQUIRED)
 include (CheckCXXSourceCompiles)
 include (CheckCXXCompilerFlag)
@@ -464,6 +465,15 @@ add_subdirectory(translations)
 
 if(ANDROID)
   add_subdirectory(android)
+endif()
+
+
+enable_testing()
+add_test(NAME test_cli_functions
+         COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/src/test/test_cli_functions.py)
+add_custom_target(check ${CMAKE_CTEST_COMMAND} --output-on-failure)
+if(NOT CMAKE_VERSION VERSION_LESS "3.17")
+  list(APPEND CMAKE_CTEST_ARGUMENTS --output-on-failure)
 endif()
 
 
