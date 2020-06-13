@@ -1787,8 +1787,17 @@ void TagLibFile::readAudioProperties()
     } else if (dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties) !=
                nullptr) {
       m_detailInfo.format = QLatin1String("Ogg Vorbis");
-    } else if (dynamic_cast<TagLib::FLAC::Properties*>(audioProperties) != nullptr) {
+    } else if (TagLib::FLAC::Properties* flacProperties =
+                dynamic_cast<TagLib::FLAC::Properties*>(audioProperties)) {
       m_detailInfo.format = QLatin1String("FLAC");
+#if TAGLIB_VERSION >= 0x010a00
+      int bits = flacProperties->bitsPerSample();
+      if (bits > 0) {
+        m_detailInfo.format += QLatin1Char(' ');
+        m_detailInfo.format += QString::number(bits);
+        m_detailInfo.format += QLatin1String(" bit");
+      }
+#endif
     } else if (dynamic_cast<TagLib::MPC::Properties*>(audioProperties) != nullptr) {
       m_detailInfo.format = QLatin1String("MPC");
     } else if ((speexProperties =
@@ -1809,8 +1818,27 @@ void TagLibFile::readAudioProperties()
       m_detailInfo.format += QString::number(wvProperties->bitsPerSample());
       m_detailInfo.format += QLatin1String(" bit");
 #ifdef TAGLIB_WITH_MP4
-    } else if (dynamic_cast<TagLib::MP4::Properties*>(audioProperties) != nullptr) {
+    } else if (TagLib::MP4::Properties* mp4Properties =
+                dynamic_cast<TagLib::MP4::Properties*>(audioProperties)) {
       m_detailInfo.format = QLatin1String("MP4");
+#if TAGLIB_VERSION >= 0x010a00
+      switch (mp4Properties->codec()) {
+      case TagLib::MP4::Properties::AAC:
+        m_detailInfo.format += QLatin1String(" AAC");
+        break;
+      case TagLib::MP4::Properties::ALAC:
+        m_detailInfo.format += QLatin1String(" ALAC");
+        break;
+      case TagLib::MP4::Properties::Unknown:
+        ;
+      }
+      int bits = mp4Properties->bitsPerSample();
+      if (bits > 0) {
+        m_detailInfo.format += QLatin1Char(' ');
+        m_detailInfo.format += QString::number(bits);
+        m_detailInfo.format += QLatin1String(" bit");
+      }
+#endif
 #endif
 #ifdef TAGLIB_WITH_ASF
     } else if (dynamic_cast<TagLib::ASF::Properties*>(audioProperties) != nullptr) {
