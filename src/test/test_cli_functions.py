@@ -618,7 +618,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             os.remove(importpath)
             os.remove(exportpath)
             expected = (
-                'File: MP4 9 kbps 44100 Hz 2 Channels\n'
+                'File: MP4 AAC 16 bit 9 kbps 44100 Hz 2 Channels\n'
                 '  Name: track00.m4a\n'
                 'Tag 2: MP4\n'
                 '  Title         Wheels Of Fire\n'
