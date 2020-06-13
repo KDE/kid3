@@ -103,7 +103,7 @@ void TestJsonParser::serializeAndDeserializeTypes()
 
   QString str = JsonParser::serialize(map);
   QCOMPARE(str, QString(QLatin1String(
-             "{\"val00\": \"2011-08-18T14:02:07\", \"val01\": -7654321, "
+             "{\"val00\": \"2011-08-18T14:02:07.000\", \"val01\": -7654321, "
              "\"val02\": 1234567890123456789, "
              "\"val03\": false, \"val04\": true, \"val05\": null, \"val06\": "
              "\"String with \\\"'\\\\{}[]\", \"val07\": 3.141592653, "
