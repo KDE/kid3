@@ -129,8 +129,8 @@
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://invent.kde.org/kde/kid3.git"
+                    "type": "dir",
+                    "path": "../.."
                 }
             ]
         }
