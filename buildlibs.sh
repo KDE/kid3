@@ -258,7 +258,7 @@ fi
 # Build flatpak
 if test "$1" = "flatpak"; then
   echo "### Build flatpak"
-  flatpak-builder --force-clean --ccache --repo=repo --subject="Build of org.kde.kid3 $(date --iso-8601=seconds)" app "$srcdir/packaging/flatpak/org.kde.kid3-local.json"
+  flatpak-builder --sandbox --force-clean --ccache --repo=repo --subject="Build of org.kde.kid3 $(date --iso-8601=seconds)" app "$srcdir/packaging/flatpak/org.kde.kid3-local.json"
   exit 0
 fi
 

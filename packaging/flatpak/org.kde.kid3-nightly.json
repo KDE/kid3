@@ -119,8 +119,6 @@
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
-            "run-tests": true,
-            "test-rule": "check",
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",
