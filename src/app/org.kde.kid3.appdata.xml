@@ -24,7 +24,6 @@
   <name xml:lang="sk">Kid3</name>
   <name xml:lang="sv">Kid3</name>
   <name xml:lang="uk">Kid3</name>
-  <name xml:lang="x-test">xxKid3xx</name>
   <name xml:lang="zh-CN">Kid3</name>
   <name xml:lang="zh-TW">Kid3</name>
   <summary>Edit audio file metadata</summary>
@@ -47,7 +46,6 @@
   <summary xml:lang="sk">Upraviť metadáta zvukového súboru</summary>
   <summary xml:lang="sv">Redigera metadata i ljudfiler</summary>
   <summary xml:lang="uk">Редагування метаданих звукових файлів</summary>
-  <summary xml:lang="x-test">xxEdit audio file metadataxx</summary>
   <summary xml:lang="zh-CN">编辑音频文件元数据</summary>
   <summary xml:lang="zh-TW">編輯音訊檔案中繼資料</summary>
   <description>
@@ -73,7 +71,6 @@
     <p xml:lang="sk">S editorom zvukových značiek Kid3 môžete upravovať značky v súboroch MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a sledovacie súbory.</p>
     <p xml:lang="sv">Med Kid3, en editor för ljudtaggar, kan du redigera taggar i MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- och tracker-filer.</p>
     <p xml:lang="uk">За допомогою Kid3, редактора міток звукових файлів, ви можете редагувати мітки у файлах MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF та tracker.</p>
-    <p xml:lang="x-test">xxWith Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and tracker files.xx</p>
     <p xml:lang="zh-TW">使用 Kid3 這個音訊標籤編輯器，即可編輯 MP3、Ogg/Vorbis、DSF、FLAC、Opus、MPC、APE、MP4/AAC、MP2、Speex、TrueAudio、WavPack、WMA、WAV、AIFF 和 tracker 檔案中的標籤。</p>
     <p>
       All frames in the ID3 tags of MP3 files can be edited, and it is
@@ -96,7 +93,6 @@
     <p xml:lang="sk">Všetky polia v ID3 tagoch MP3 súborov je možné editovať a je možné prevádzať medzi ID3v1.1, ID3v2.3 a ID3v2.4. Synchronizované texty je možné editovať, importovať a exportovať do súborov LRC Karaoke.</p>
     <p xml:lang="sv">Alla ramer i ID3-taggarna för MP3-filer kan redigeras, och det är möjligt att konvertera mellan ID3v1.1, ID3v2.3 och ID3v2.4. Synkroniserade sångtexter kan redigeras, importeras och exporteras till LRC Karaoke-filer.</p>
     <p xml:lang="uk">Передбачено можливість редагувати усі кадри у мітках ID3 файлів MP3. Передбачено можливість перетворення між форматами ID3v1.1, ID3v2.3 і ID3v2.4. Синхронізовані тексти пісень можна редагувати, імпортувати та експортувати до файлів караоке LRC.</p>
-    <p xml:lang="x-test">xxAll frames in the ID3 tags of MP3 files can be edited, and it is possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronized lyrics can be edited, imported and exported to LRC Karaoke files.xx</p>
     <p>
       The tags of multiple files can be set together. It is possible to
       generate tags from file names or the contents of other tag fields and to
@@ -118,7 +114,6 @@
     <p xml:lang="sk">Značky viacerých súborov je možné nastaviť naraz. Je možné generovať značky z názvov súborov alebo z obsahu iných polí značiek a generovať názvy súborov zo značiek a premenovať priečinky zo značiek. Automatická konverzia veľkých a malých písmen a nahradenie reťazca pomáhajú udržiavať konzistentnosť značiek.</p>
     <p xml:lang="sv">Taggar för flera filer kan ställas in samtidigt. Det är möjligt att generera taggar från filnamn eller innehållet i andra taggfält, och att generera filnamn från taggar och byta namn på kataloger från taggar. Automatisk skiftlägeskonvertering och strängersättning hjälper till att hålla taggar konsekventa.</p>
     <p xml:lang="uk">Передбачено можливість встановлювати мітки для цілих наборів файлів. Передбачено можливість створювати мітки на основі назв файлів або вмісту інших полів міток і створювати назви файлів на основі міток і перейменовувати теки на основі міток. Автоматичне перетворення регістру символів та заміна рядків допоможуть вам у підтриманні однорідності міток у вашій збірці.</p>
-    <p xml:lang="x-test">xxThe tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.xx</p>
     <p>
       Album data can be imported from gnudb.org, TrackType.org, MusicBrainz,
       Discogs, Amazon; automatic batch import is available for multiple
@@ -139,7 +134,6 @@
     <p xml:lang="sk">Dáta albumu je možné importovať z gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatický dávkový import je k dispozícii pre viac priečinkov.Je tiež možné exportovať údaje a vytvárať zoznamy skladieb.</p>
     <p xml:lang="sv">Albumdata kan importeras från gnudb.org, TrackType.org, MusicBrainz, Discogs, eller Amazon. Automatisk import i bakgrunden är tillgänglig för flera kataloger. Det är också möjligt att exportera data och skapa spellistor.</p>
     <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
-    <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
@@ -163,7 +157,6 @@
       <caption xml:lang="sk">Hlavné okno Kid3</caption>
       <caption xml:lang="sv">Huvudfönstret i Kid3</caption>
       <caption xml:lang="uk">Головне вікно Kid3</caption>
-      <caption xml:lang="x-test">xxKid3 main windowxx</caption>
       <caption xml:lang="zh-TW">Kid3 主視窗</caption>
     </screenshot>
   </screenshots>
@@ -189,7 +182,6 @@
   <developer_name xml:lang="sk">Urs Fleisch</developer_name>
   <developer_name xml:lang="sv">Urs Fleisch</developer_name>
   <developer_name xml:lang="uk">Urs Fleisch</developer_name>
-  <developer_name xml:lang="x-test">xxUrs Fleischxx</developer_name>
   <developer_name xml:lang="zh-CN">Urs Fleisch</developer_name>
   <developer_name xml:lang="zh-TW">Urs Fleisch</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
