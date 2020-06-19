@@ -14,6 +14,7 @@
   <name xml:lang="es">Kid3</name>
   <name xml:lang="et">Kid3</name>
   <name xml:lang="eu">Kid3</name>
+  <name xml:lang="fi">Kid3</name>
   <name xml:lang="fr">Kid3</name>
   <name xml:lang="it">Kid3</name>
   <name xml:lang="ko">Kid3</name>
@@ -37,6 +38,7 @@
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
+  <summary xml:lang="fi">Muokkaa äänitiedostojen metatietoja</summary>
   <summary xml:lang="fr">Éditer les métadonnées de fichiers audio</summary>
   <summary xml:lang="it">Modifica i metadati dei file audio</summary>
   <summary xml:lang="ko">오디오 파일 메타데이터 편집</summary>
@@ -64,6 +66,7 @@
     <p xml:lang="es">Con Kid3, un editor de etiquetas de sonido, puede editar etiquetas en MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF y archivos tracker.</p>
     <p xml:lang="et">Helifailide siltide redaktor Kid3 võimaldab muuta MP3-, Ogg/Vorbise, DSF-, FLAC-, Opuse, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja tracker-failide silte.</p>
     <p xml:lang="eu">Kid3-rekin, audio etiketa editorea izaki, MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF eta tracker fitxategien etiketak editatu ditzakezu.</p>
+    <p xml:lang="fi">Kid3-äänitunnistemuokkaimella voi muokata tunnisteita MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja Tracker-tiedostoissa.</p>
     <p xml:lang="fr">Avec Kid3, un éditeur d'étiquettes de fichiers audio, vous pouvez éditer les étiquettes dans les fichiers de type MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP3/AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF.</p>
     <p xml:lang="it">Con Kid3, un editor di tag audio, puoi modificare i tag nei file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e nei tracker.</p>
     <p xml:lang="ko">오디오 태그 편집기 Kid3을 사용하여 MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, 트래커 파일의 태그를 편집할 수 있습니다.</p>
@@ -87,6 +90,7 @@
     <p xml:lang="es">Se pueden editar todas las estructuras de etiquetas ID3 de los archivos MP3. Es posible convertir entre ID3v1.1, ID3v2.3 e ID3v2.4. Se pueden editar las letras de las canciones sincronizadas, además de importarlas y exportarlas a archivos de karaoke LRC.</p>
     <p xml:lang="et">Kõiki MP3-faili ID3 siltide kaadreid saab muuta ning võimalik on teisendamine ID3v1.1, ID3v2.3 ja ID3v2.4 vahel. Sünkroonitud laulusõnu saab muuta, importida ja eksportida LRC Karaoke failina.</p>
     <p xml:lang="eu">ID3 etiketetako bilbe guztiak editatu daitezke, eta ID3v1.1, ID3v2.3 eta ID3v2.4 arteko bihurketa egin daiteke. Sinkronizatutako hitzak editatu, inportatu eta LRC Karaoke fitxategietara esportatu daitezke.</p>
+    <p xml:lang="fi">Kaikkia MP3-tiedostojen ID3-tunnistekenttiä voi muokata, ja muunnos ID3v1.1:n, ID3v2.3:n ja ID3v2.4:n välillä on mahdollista. Synkronoituja sanoituksia voi muokata, tuoda ja viedä LRC Karaoke -tiedostoiksi.</p>
     <p xml:lang="fr">Tous les champs dans les étiquettes ID3 des fichiers MP3 peuvent être édités, et il est possible de convertir entre les formats ID3v1.1, ID3v2.3 et ID3v2.4. Les paroles synchronisées peuvent être éditées, importées et exportées au format LRC (pour karaoké).</p>
     <p xml:lang="it">Possono essere modificati tutti i frame dei tag ID3 dei file MP3, ed è possibile convertire i tag tra ID3v1.1, ID3v2.3 e ID3v2.4. I testi sincronizzati possono essere modificati, importati ed esportati in file LRC Karaoke.</p>
     <p xml:lang="ko">MP3 파일의 ID3 태그의 모든 프레임을 편집할 수 있으며, ID3v1.1, ID3v2.3, ID3v2.4 사이를 변환할 수 있습니다. 실시간 가사를 편집 및 가져올 수 있으며 LRC 형식 노래방 파일로 내보낼 수 있습니다.</p>
@@ -109,6 +113,7 @@
     <p xml:lang="en-GB">The tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.</p>
     <p xml:lang="es">Puede definir de forma conjunta las etiquetas de múltiples archivos. Es posible generar etiquetas a partir de los nombres de los archivos o del contenido de otras etiquetas y generar nombres de archivos a partir de etiquetas, así como cambiar los nombres de las carpetas a partir de etiquetas. La conversión automática a mayúsculas y la sustitución de texto ayudan a mantener etiquetas consistentes.</p>
     <p xml:lang="et">Mitme faili silte saab kokku siduda. Silte on võimalik luua failinime või teiste siltide väljade põhjal ning siltide põhjal saab nii luua failinimesid kui ka muuta kataloogide nime. Siltide ühtlust aitavad tagada automaatne tähesuuruse teisendamine ja stringi asendamine.</p>
+    <p xml:lang="fi">Tunnisteet voi asettaa usealle tiedostolle yhtä aikaa. Tunnisteet voi kehittää tiedostonimistä tai muiden tunnistekenttien sisällöstä tai päinvastoin tuottaa tiedosto- ja kansionimet tunnisteista. Tunnisteiden yhtenäisenä pitämisen helpottamiseksi voi pien- ja suuraakkostusta muuttaa ja merkkijonoja korvata automaattisesti.</p>
     <p xml:lang="fr">Les étiquettes de plusieurs fichiers peuvent être mises ensemble. Il est aussi possible de générer les étiquettes à partir des noms des fichiers ou des contenus d'autres champs. Les noms des fichiers peuvent aussi être générés à partir des étiquettes et les dossiers peuvent être renommés à partir des étiquettes. La conversion de casse et le remplacement des chaînes automatiques permettent de garder les étiquettes consistantes.</p>
     <p xml:lang="it">Possono essere impostati assieme i tag di più file. È possibile generare tag dai nomi file o dal contenuto di altri campi tag, generare i nomi file dai tag e rinominare cartelle dai tag. La conversione tra maiuscole e minuscole e la sostituzione di stringhe aiutano a mantenere i tag coerenti.</p>
     <p xml:lang="ko">파일 여러 개에 태그를 한 번에 설정할 수 있습니다. 파일 이름이나 다른 태그 필드의 내용에서 태그를 생성할 수 있으며, 태그를 기반으로 파일이나 폴더의 이름을 변경할 수 있습니다. 태그의 일관성을 유지하는 자동 대소문자 변환과 문자열 대체를 지원합니다.</p>
@@ -130,6 +135,7 @@
     <p xml:lang="en-GB">Album data can be imported from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.</p>
     <p xml:lang="es">Puede importar datos de álbumes de gnudb.org, TrackType.org, MusicBrainz, Discogs y Amazon. Puede realizar importaciones automáticas por lotes para múltiples carpetas. También puede exportar datos y generar listas de reproducción.</p>
     <p xml:lang="et">Albumi andmeid saab importida järgmistest asukohtadest: gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon. Automaatne hulgiimport võimaldab täita mitut kataloogi korraga. Samuti saab andmeid eksportida ja luua esitusloendeid.</p>
+    <p xml:lang="fi">Albumin tiedot voi tuoda gnudb.orgista, TrackType.orgista, MusicBrainzistä, Discogsista ja Amazonista. Useamman kansion automaattinen eräajotuonti on mahdollista. Tiedot voi myös viedä ja luoda soittolistan.</p>
     <p xml:lang="fr">Les informations des albums peuvent être importées de gnudb.org, TrackType.org, MusicBrainz, Discogs et Amazon. Un import automatique sur plusieurs dossiers en même temps est disponible. Il est aussi possible d'exporter les données et de générer des playlists.</p>
     <p xml:lang="it">È possibile importare i dati dell'album da gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; è disponibile l'importazione automatica in serie per più cartelle. È inoltre possibile esportare i dati e generare scalette.</p>
     <p xml:lang="ko">gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon에서 앨범 데이터를 가져올 수 있습니다. 여러 폴더에서 자동으로 일괄적 가져오기를 수행할 수 있습니다. 데이터를 내보내고 재생 목록을 생성할 수 있습니다.</p>
@@ -154,6 +160,7 @@
       <caption xml:lang="es">Ventana principal de Kid3</caption>
       <caption xml:lang="et">Kid3 peaaken</caption>
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
+      <caption xml:lang="fi">Kid3:n pääikkuna</caption>
       <caption xml:lang="fr">Fenêtre principale de Kid3</caption>
       <caption xml:lang="it">Finestra principale di Kid3</caption>
       <caption xml:lang="ko">Kid3 주 창</caption>
@@ -180,6 +187,7 @@
   <developer_name xml:lang="es">Urs Fleisch</developer_name>
   <developer_name xml:lang="et">Urs Fleisch</developer_name>
   <developer_name xml:lang="eu">Urs Fleisch</developer_name>
+  <developer_name xml:lang="fi">Urs Fleisch</developer_name>
   <developer_name xml:lang="fr">Urs Fleisch</developer_name>
   <developer_name xml:lang="it">Urs Fleisch</developer_name>
   <developer_name xml:lang="ko">Urs Fleisch</developer_name>
