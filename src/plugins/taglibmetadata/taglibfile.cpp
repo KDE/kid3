@@ -1844,10 +1844,79 @@ void TagLibFile::readAudioProperties()
     } else if (dynamic_cast<TagLib::ASF::Properties*>(audioProperties) != nullptr) {
       m_detailInfo.format = QLatin1String("ASF");
 #endif
-    } else if (dynamic_cast<TagLib::RIFF::AIFF::Properties*>(audioProperties) != nullptr) {
+    } else if (TagLib::RIFF::AIFF::Properties* aiffProperties =
+               dynamic_cast<TagLib::RIFF::AIFF::Properties*>(audioProperties)) {
       m_detailInfo.format = QLatin1String("AIFF");
-    } else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != nullptr) {
+#if TAGLIB_VERSION >= 0x010a00
+      int bits = aiffProperties->bitsPerSample();
+      if (bits > 0) {
+        m_detailInfo.format += QLatin1Char(' ');
+        m_detailInfo.format += QString::number(bits);
+        m_detailInfo.format += QLatin1String(" bit");
+      }
+#endif
+    } else if (TagLib::RIFF::WAV::Properties* wavProperties =
+               dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties)) {
       m_detailInfo.format = QLatin1String("WAV");
+#if TAGLIB_VERSION >= 0x010a00
+      int format = wavProperties->format();
+      if (format > 0) {
+        // https://tools.ietf.org/html/rfc2361#appendix-A
+        static const struct {
+          int code;
+          const char* name;
+        } codeToName[] = {
+        {0x0001, "PCM"}, {0x0002, "ADPCM"}, {0x003, "IEEE Float"},
+        {0x0004, "VSELP"}, {0x0005, "IBM CVSD"}, {0x0006, "ALAW"},
+        {0x0007, "MULAW"}, {0x0010, "OKI ADPCM"}, {0x0011, "DVI ADPCM"},
+        {0x0012, "MediaSpace ADPCM"}, {0x0013, "Sierra ADPCM"},
+        {0x0014, "G.723 ADPCM"}, {0x0015, "DIGISTD"}, {0x0016, "DIGIFIX"},
+        {0x0017, "OKI ADPCM"}, {0x0018, "MediaVision ADPCM"}, {0x0019, "CU"},
+        {0x0020, "Yamaha ADPCM"}, {0x0021, "Sonarc"}, {0x0022, "True Speech"},
+        {0x0023, "EchoSC1"}, {0x0024, "AF36"}, {0x0025, "APTX"},
+        {0x0026, "AF10"}, {0x0027, "Prosody 1612"}, {0x0028, "LRC"},
+        {0x0030, "Dolby AC2"}, {0x0031, "GSM610"}, {0x0032, "MSNAudio"},
+        {0x0033, "Antex ADPCME"}, {0x0034, "Control Res VQLPC"}, {0x0035, "Digireal"},
+        {0x0036, "DigiADPCM"}, {0x0037, "Control Res CR10"}, {0x0038, "NMS VBXADPCM"},
+        {0x0039, "Roland RDAC"}, {0x003a, "EchoSC3"}, {0x003b, "Rockwell ADPCM"},
+        {0x003c, "Rockwell DIGITALK"}, {0x003d, "Xebec"}, {0x0040, "G.721 ADPCM"},
+        {0x0041, "G.728 CELP"}, {0x0042, "MSG723"}, {0x0050, "MPEG"},
+        {0x0052, "RT24"}, {0x0053, "PAC"}, {0x0055, "MPEG Layer 3"},
+        {0x0059, "Lucent G.723"}, {0x0060, "Cirrus"}, {0x0061, "ESPCM"},
+        {0x0062, "Voxware"}, {0x0063, "Canopus Atrac"}, {0x0064, "G.726 ADPCM"},
+        {0x0065, "G.722 ADPCM"}, {0x0066, "DSAT"}, {0x0067, "DSAT Display"},
+        {0x0069, "Voxware Byte Aligned"}, {0x0070, "Voxware AC8"}, {0x0071, "Voxware AC10"},
+        {0x0072, "Voxware AC16"}, {0x0073, "Voxware AC20"}, {0x0074, "Voxware MetaVoice"},
+        {0x0075, "Voxware MetaSound"}, {0x0076, "Voxware RT29HW"}, {0x0077, "Voxware VR12"},
+        {0x0078, "Voxware VR18"}, {0x0079, "Voxware TQ40"}, {0x0080, "Softsound"},
+        {0x0081, "Voxware TQ60"}, {0x0082, "MSRT24"}, {0x0083, "G.729A"},
+        {0x0084, "MVI MV12"}, {0x0085, "DF G.726"}, {0x0086, "DF GSM610"},
+        {0x0088, "ISIAudio"}, {0x0089, "Onlive"}, {0x0091, "SBC24"},
+        {0x0092, "Dolby AC3 SPDIF"}, {0x0097, "ZyXEL ADPCM"}, {0x0098, "Philips LPCBB"},
+        {0x0099, "Packed"}, {0x0100, "Rhetorex ADPCM"}, {0x0101, "IRAT"},
+        {0x0111, "Vivo G.723"}, {0x0112, "Vivo Siren"}, {0x0123, "Digital G.723"},
+        {0x0200, "Creative ADPCM"}, {0x0202, "Creative FastSpeech8"}, {0x0203, "Creative FastSpeech10"},
+        {0x0220, "Quarterdeck"}, {0x0300, "FM Towns Snd"}, {0x0400, "BTV Digital"},
+        {0x0680, "VME VMPCM"}, {0x1000, "OLIGSM"}, {0x1001, "OLIADPCM"},
+        {0x1002, "OLICELP"}, {0x1003, "OLISBC"}, {0x1004, "OLIOPR"},
+        {0x1100, "LH Codec"}, {0x1400, "Norris"}, {0x1401, "ISIAudio"},
+        {0x1500, "Soundspace Music Compression"}, {0x2000, "DVM"}
+        };
+        for (const auto& c2n : codeToName) {
+          if (format == c2n.code) {
+            m_detailInfo.format += QLatin1Char(' ');
+            m_detailInfo.format += QString::fromLatin1(c2n.name);
+            break;
+          }
+        }
+      }
+      int bits = wavProperties->bitsPerSample();
+      if (bits > 0) {
+        m_detailInfo.format += QLatin1Char(' ');
+        m_detailInfo.format += QString::number(bits);
+        m_detailInfo.format += QLatin1String(" bit");
+      }
+#endif
     } else if ((apeProperties =
                 dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("APE %1.%2 %3 bit"))
