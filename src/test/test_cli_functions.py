@@ -523,7 +523,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get title 3',
                  '-c', 'get all 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'set artist "An Artist" 3',
@@ -535,7 +535,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set bpm "120" 3',
                  '-c', 'set comment "A Comment" 3',
                  '-c', 'get all 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -556,9 +556,9 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'set comment "" 3',
                  '-c', 'get all 3',
                  '-c', 'remove 3', wavpath]),
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -568,7 +568,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Track Number  2\n'
                 '* Genre         Heavy Metal\n'
                 '* BPM           120\n'
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -578,7 +578,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '* Track Number  6\n'
                 '* Genre         Heavy Metal\n'
                 '* BPM           120\n'
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: test.wav\n'
                 'Tag 3: RIFF INFO\n'
                 '* Artist        An Artist\n'
@@ -677,7 +677,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  6\n'
                 '  Genre         Metal\n'
-                'File: WAV 44100 Hz 2 Channels\n'
+                'File: WAV 1411 kbps 44100 Hz 2 Channels\n'
                 '  Name: track05.wav\n'
                 'Tag 2: ID3v2.3.0\n'
                 '  Title         Hail And Kill\n'
@@ -695,7 +695,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  9\n'
                 '  Genre         Metal\n'
-                'File: AIFF 44100 Hz 2 Channels\n'
+                'File: AIFF 1449 kbps 44100 Hz 2 Channels\n'
                 '  Name: track07.aif\n'
                 'Tag 2: ID3v2.4.0\n'
                 '  Title         Blood Of The Kings\n'

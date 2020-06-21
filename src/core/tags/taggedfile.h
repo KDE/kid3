@@ -63,7 +63,7 @@ public:
     ChannelMode channelMode; /**< channel mode */
     unsigned channels;       /**< number of channels > 0 */
     unsigned sampleRate;     /**< sample rate in Hz > 0 */
-    unsigned bitrate;        /**< 0 < bitrate in kbps < 999 */
+    unsigned bitrate;        /**< 0 < bitrate in kbps < 16384 */
     unsigned long duration;  /**< duration in seconds > 0 */
     bool valid;              /**< true if information valid */
     bool vbr;                /**< true if variable bitrate */

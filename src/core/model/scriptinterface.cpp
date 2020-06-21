@@ -574,7 +574,7 @@ QStringList ScriptInterface::getInformation()
     taggedFile->getDetailInfo(info);
     if (info.valid) {
       lst << QLatin1String("Format") << info.format;
-      if (info.bitrate > 0 && info.bitrate < 999) {
+      if (info.bitrate > 0 && info.bitrate < 16384) {
         lst << QLatin1String("Bitrate") << QString::number(info.bitrate);
       }
       if (info.sampleRate > 0) {

@@ -1151,7 +1151,7 @@ QString TaggedFile::DetailInfo::toString() const
   if (valid) {
     str = format;
     str += QLatin1Char(' ');
-    if (bitrate > 0 && bitrate < 999) {
+    if (bitrate > 0 && bitrate < 16384) {
       if (vbr) str += QLatin1String("VBR ");
       str += QString::number(bitrate);
       str += QLatin1String(" kbps ");
