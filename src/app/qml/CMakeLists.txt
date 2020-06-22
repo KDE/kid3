@@ -21,7 +21,7 @@ if(HAVE_TRANSLATIONSDIR_IN_QRC)
     COMMAND ${CMAKE_COMMAND} -P
       ${CMAKE_CURRENT_SOURCE_DIR}/gentranslationsqrc.cmake
       ${CMAKE_CURRENT_BINARY_DIR}/translations.qrc
-      ${CMAKE_CURRENT_BINARY_DIR}/../../../po ${_qrcPrefix}
+      ${CMAKE_CURRENT_BINARY_DIR}/../../../translations ${_qrcPrefix}
     DEPENDS translations
   )
   qt5_add_resources(
