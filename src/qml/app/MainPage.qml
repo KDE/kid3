@@ -130,14 +130,14 @@ Page {
         color: titleLabel.color
         visible: body.state != "narrow" || drawer.position === 0.0
         width: height
-        onClicked: app.previousFile()
+        onClicked: app.previousFile(true, true)
       }
       IconButton {
         iconName: "go-next"
         color: titleLabel.color
         visible: previousButton.visible
         width: height
-        onClicked: app.nextFile()
+        onClicked: app.nextFile(true, true)
       }
       IconButton {
         id: menuButton
