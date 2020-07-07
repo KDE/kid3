@@ -105,6 +105,13 @@ ItemDelegate {
             editText = value;
           }
         }
+        Component.onDestruction: {
+          // When another frame is edited, currentTextChanged() is not signaled
+          // and the changes are lost.
+          if (editable && editText && editText !== currentText) {
+            script.setRoleData(frameModel, index, "value", editText)
+          }
+        }
       }
     }
   }
