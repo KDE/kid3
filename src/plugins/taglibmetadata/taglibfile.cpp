@@ -31,6 +31,7 @@
 #include <QByteArray>
 #include <QVarLengthArray>
 #include <QScopedPointer>
+#include <QMimeDatabase>
 #include "genres.h"
 #include "attributedata.h"
 #include "pictureframe.h"
@@ -330,6 +331,30 @@ private:
   bool openFileHandle() const;
 
   /**
+   * Create a TagLib file for a stream.
+   * @param stream stream with name() of which the extension is used to deduce
+   * the file type
+   * @return file, 0 if not supported.
+   */
+  static TagLib::File* createFromExtension(IOStream* stream);
+
+  /**
+   * Create a TagLib file for a stream.
+   * @param stream stream
+   * @param ext uppercase extension used to deduce the file type
+   * @return file, 0 if not supported.
+   */
+  static TagLib::File* createFromExtension(TagLib::IOStream* stream,
+                                           const TagLib::String& ext);
+
+  /**
+   * Create a TagLib file for a stream.
+   * @param stream stream where the contents are used to deduce the file type
+   * @return file, 0 if not supported.
+   */
+  static TagLib::File* createFromContents(IOStream* stream);
+
+  /**
    * Register open files, so that the number of open files can be limited.
    * If the number of open files exceeds a limit, files are closed.
    *
@@ -508,70 +533,133 @@ void FileIOStream::truncate(taglib_offset_t length)
 
 TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
 {
+  TagLib::File* file = createFromExtension(stream);
+  if (!file || !file->isValid()) {
+    file = createFromContents(stream);
+  }
+  return file;
+}
+
+TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream)
+{
 #ifdef Q_OS_WIN32
   TagLib::String fn = stream->name().toString();
 #else
   TagLib::String fn = stream->name();
 #endif
   const int extPos = fn.rfind(".");
-  if (extPos != -1) {
-    TagLib::String ext = fn.substr(extPos + 1).upper();
-    if (ext == "MP3" || ext == "MP2" || ext == "AAC")
-      return new TagLib::MPEG::File(stream,
-                                    TagLib::ID3v2::FrameFactory::instance());
-    if (ext == "OGG") {
-      TagLib::File* file = new TagLib::Vorbis::File(stream);
-      if (!file->isValid()) {
-        delete file;
-        file = new TagLib::Ogg::FLAC::File(stream);
-      }
-      return file;
+  return extPos != -1
+      ? createFromExtension(stream, fn.substr(extPos + 1).upper())
+      : nullptr;
+}
+
+TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
+                                                const TagLib::String& ext)
+{
+  if (ext == "MP3" || ext == "MP2" || ext == "AAC")
+    return new TagLib::MPEG::File(stream,
+                                  TagLib::ID3v2::FrameFactory::instance());
+  if (ext == "OGG") {
+    TagLib::File* file = new TagLib::Vorbis::File(stream);
+    if (!file->isValid()) {
+      delete file;
+      file = new TagLib::Ogg::FLAC::File(stream);
     }
-    if (ext == "OGA") {
-      TagLib::File* file = new TagLib::Ogg::FLAC::File(stream);
-      if (!file->isValid()) {
-        delete file;
-        file = new TagLib::Vorbis::File(stream);
-      }
-      return file;
+    return file;
+  }
+  if (ext == "OGA") {
+    TagLib::File* file = new TagLib::Ogg::FLAC::File(stream);
+    if (!file->isValid()) {
+      delete file;
+      file = new TagLib::Vorbis::File(stream);
     }
-    if (ext == "FLAC")
-      return new TagLib::FLAC::File(stream,
-                                    TagLib::ID3v2::FrameFactory::instance());
-    if (ext == "MPC")
-      return new TagLib::MPC::File(stream);
-    if (ext == "WV")
-      return new TagLib::WavPack::File(stream);
-    if (ext == "SPX")
-      return new TagLib::Ogg::Speex::File(stream);
-    if (ext == "OPUS")
-      return new TagLib::Ogg::Opus::File(stream);
-    if (ext == "TTA")
-      return new TagLib::TrueAudio::File(stream);
-    if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
-        ext == "M4R" || ext == "MP4" || ext == "3G2" || ext == "M4V" ||
-        ext == "MP4V")
-      return new TagLib::MP4::File(stream);
-    if (ext == "WMA" || ext == "ASF" || ext == "WMV")
-      return new TagLib::ASF::File(stream);
-    if (ext == "AIF" || ext == "AIFF")
-      return new TagLib::RIFF::AIFF::File(stream);
-    if (ext == "WAV")
-      return new WavFile(stream);
-    if (ext == "APE")
-      return new TagLib::APE::File(stream);
-    if (ext == "MOD" || ext == "MODULE" || ext == "NST" || ext == "WOW")
-      return new TagLib::Mod::File(stream);
-    if (ext == "S3M")
-      return new TagLib::S3M::File(stream);
-    if (ext == "IT")
-      return new TagLib::IT::File(stream);
+    return file;
+  }
+  if (ext == "FLAC")
+    return new TagLib::FLAC::File(stream,
+                                  TagLib::ID3v2::FrameFactory::instance());
+  if (ext == "MPC")
+    return new TagLib::MPC::File(stream);
+  if (ext == "WV")
+    return new TagLib::WavPack::File(stream);
+  if (ext == "SPX")
+    return new TagLib::Ogg::Speex::File(stream);
+  if (ext == "OPUS")
+    return new TagLib::Ogg::Opus::File(stream);
+  if (ext == "TTA")
+    return new TagLib::TrueAudio::File(stream);
+  if (ext == "M4A" || ext == "M4R" || ext == "M4B" || ext == "M4P" ||
+      ext == "M4R" || ext == "MP4" || ext == "3G2" || ext == "M4V" ||
+      ext == "MP4V")
+    return new TagLib::MP4::File(stream);
+  if (ext == "WMA" || ext == "ASF" || ext == "WMV")
+    return new TagLib::ASF::File(stream);
+  if (ext == "AIF" || ext == "AIFF")
+    return new TagLib::RIFF::AIFF::File(stream);
+  if (ext == "WAV")
+    return new WavFile(stream);
+  if (ext == "APE")
+    return new TagLib::APE::File(stream);
+  if (ext == "MOD" || ext == "MODULE" || ext == "NST" || ext == "WOW")
+    return new TagLib::Mod::File(stream);
+  if (ext == "S3M")
+    return new TagLib::S3M::File(stream);
+  if (ext == "IT")
+    return new TagLib::IT::File(stream);
 #ifdef HAVE_TAGLIB_XM_SUPPORT
-    if (ext == "XM")
-      return new TagLib::XM::File(stream);
+  if (ext == "XM")
+    return new TagLib::XM::File(stream);
 #endif
-    if (ext == "DSF")
-      return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
+  if (ext == "DSF")
+    return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
+  return nullptr;
+}
+
+TagLib::File* FileIOStream::createFromContents(TagLib::IOStream* stream)
+{
+  static const struct ExtensionForMimeType {
+    const char* mime;
+    const char* ext;
+  } extensionForMimeType[] = {
+    { "application/ogg", "OGG" },
+    { "application/vnd.ms-asf", "WMA" },
+    { "audio/aac", "AAC" },
+    { "audio/flac", "FLAC" },
+    { "audio/mp4", "MP4" },
+    { "audio/mpeg", "MP3" },
+    { "audio/x-aiff", "AIFF" },
+    { "audio/x-ape", "APE" },
+    { "audio/x-flac+ogg", "OGG" },
+    { "audio/x-it", "IT" },
+    { "audio/x-musepack", "MPC" },
+    { "audio/x-opus+ogg", "OPUS" },
+    { "audio/x-s3m", "S3M" },
+    { "audio/x-speex+ogg", "SPX" },
+    { "audio/x-tta", "TTA" },
+    { "audio/x-vorbis+ogg", "OGG" },
+    { "audio/x-wav", "WAV" },
+    { "audio/x-wavpack", "WV" },
+    { "audio/x-xm", "XM" },
+    { "video/mp4", "MP4" }
+};
+
+  static QMap<QString, TagLib::String> mimeExtMap;
+  if (mimeExtMap.empty()) {
+    // first time initialization
+    for (const auto& efm : extensionForMimeType) {
+      mimeExtMap.insert(QString::fromLatin1(efm.mime), efm.ext);
+    }
+  }
+
+  stream->seek(0);
+  TagLib::ByteVector bv = stream->readBlock(4096);
+  stream->seek(0);
+  QMimeDatabase mimeDb;
+  auto mimeType =
+      mimeDb.mimeTypeForData(QByteArray(bv.data(), static_cast<int>(bv.size())));
+  TagLib::String ext = mimeExtMap.value(mimeType.name());
+  if (!ext.isEmpty()) {
+    return createFromExtension(stream, ext);
   }
   return nullptr;
 }
