@@ -240,7 +240,12 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
   QRegExp idTitleRe(QLatin1String(
       "<a href=\"/artist/[^>]+>([^<]+)</a>[^-]*-"
       "\\s*<a class=\"search_result_title[ \"]+href=\"/([^/]*/?release)/"
-      "([0-9]+)\"[^>]*>([^<]+)</a>"));
+      "([0-9]+)\"[^>]*>([^<]+)</a>(.*card_actions)"));
+  idTitleRe.setMinimal(true);
+
+  QRegExp yearRe(QLatin1String("<span class=\"card_release_year\">([^<]+)</span>"));
+  QRegExp formatRe(QLatin1String("<span class=\"card_release_format\">([^<]+)</span>"));
+
   m_albumListModel->clear();
   int pos = 0;
   while ((pos = idTitleRe.indexIn(str, pos)) != -1) {
@@ -248,8 +253,19 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
     QString artist = fixUpArtist(idTitleRe.cap(1).trimmed());
     QString title = removeHtml(idTitleRe.cap(4).trimmed());
     if (!title.isEmpty()) {
+      QString result(artist + QLatin1String(" - ") + title);
+
+      QString metadata = idTitleRe.cap(5);
+      if (yearRe.indexIn(metadata)) {
+          result.append(QLatin1String(" (") + yearRe.cap(1).trimmed() + QLatin1Char(')'));
+      }
+
+      if (formatRe.indexIn(metadata)) {
+          result.append(QLatin1String(" [") + formatRe.cap(1).trimmed() + QLatin1Char(']'));
+      }
+
       m_albumListModel->appendItem(
-        artist + QLatin1String(" - ") + title,
+        result,
         idTitleRe.cap(2),
         idTitleRe.cap(3));
     }

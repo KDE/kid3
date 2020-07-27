@@ -42,7 +42,7 @@ void TestDiscogsImporter::testQueryAlbums()
   QVERIFY(albumModel->rowCount() > 0);
   QString text, category, id;
   albumModel->getItem(0, text, category, id);
-  QCOMPARE(text, QString(QLatin1String("Wizard - Odin")));
+  QCOMPARE(text, QString(QLatin1String("Wizard - Odin (2003) [CD, Album, Enh, Ltd, Dig]")));
   QCOMPARE(category, QString(QLatin1String("Wizard-Odin/release")));
   QVERIFY(!id.isEmpty());
 }
