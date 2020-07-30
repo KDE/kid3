@@ -1,0 +1,25 @@
+.*\.sym
+.*\.debug
+bin/(?!(kid3)).*
+etc/.*
+lib/charset.alias
+lib/gettext/.*
+lib/icu/.*
+lib/metatypes/.*
+lib/xml2Conf.sh
+#lib/.*Qt5(?!(Core|DBus|Gui|Multimedia|MultimediaWidgets|Network|OpenGL|Qml|Quick|Widgets|lib/.*Qt5(?!(Core|Gui|Multimedia|MultimediaWidgets|Network|OpenGL|Qml|Quick|Widgets|XcbQpa|Xml)\.).*
+libexec/.*
+sbin/.*
+share/(?!(applications|icons|kid3|metainfo)).*
+
+# Mac: Avoid 'how to merge folder ... into file ...' packaging errors
+plugins/imageformats/libqjpeg.dylib
+plugins/mediaservice/libqavfmediaplayer.dylib
+lib/.*\.dylib
+lib/Qt.*framework.*
+
+# Windows: Unneeded stuff added by packager
+lib/mecab/.*
+lib/plugin/.*
+plugins/(?!imports)[^/]+/.*\.dll
+qml/QtMultimedia/.*
