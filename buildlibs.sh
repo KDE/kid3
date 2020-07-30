@@ -280,8 +280,10 @@ libogg_version=1.3.2
 libogg_patchlevel=1
 libvorbis_version=1.3.6
 libvorbis_patchlevel=2
-ffmpeg_version=3.2.14
-ffmpeg_patchlevel=1~deb9u1
+ffmpeg3_version=3.2.14
+ffmpeg3_patchlevel=1~deb9u1
+ffmpeg_version=4.1.6
+ffmpeg_patchlevel=1~deb10u1
 #libav_version=11.12
 #libav_patchlevel=1
 libflac_version=1.3.3
@@ -324,7 +326,7 @@ if test -n "$QTPREFIX"; then
 fi
 echo "."
 
-qt_major=${QTPREFIX##*5.}
+qt_major=${QTPREFIX##*/5.}
 qt_major=${qt_major%%.*}
 if test "$qt_major" -gt 11; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
@@ -338,6 +340,9 @@ if test "$compiler" = "cross-mingw"; then
     cross_host="x86_64-w64-mingw32"
   else
     cross_host="i686-w64-mingw32"
+    # FFmpeg > 3 is not compatible with Windows XP
+    ffmpeg_version=$ffmpeg3_version
+    ffmpeg_patchlevel=$ffmpeg3_patchlevel
   fi
 elif test "$compiler" = "cross-macos"; then
   cross_host="x86_64-apple-darwin17"
@@ -5109,7 +5114,7 @@ if test "$compiler" != "cross-android"; then
 
       tar xJf source/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
       cd ffmpeg-${ffmpeg_version}/
-      tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
+      tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
       for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
       if test $ffmpeg_version = "3.1.3"; then
         patch -p1 <../source/ffmpeg_mingw.patch
@@ -5683,12 +5688,16 @@ else #  cross-android, msvc
         AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
         if test -n "${cross_host##x86_64*}"; then
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
+        else
+          AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-ldflags=-lbcrypt"
         fi
       elif test $kernel = "MINGW"; then
         # mkstemp is not available when building with mingw from Qt
         sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
         if ! [[ $(uname) =~ ^MINGW64 ]]; then
           AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
+        else
+          AV_CONFIGURE_OPTIONS="--extra-ldflags=-lbcrypt"
         fi
         if test $(uname) = "MSYS_NT-6.1"; then
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
