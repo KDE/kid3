@@ -141,20 +141,30 @@ if(LINUX_SELF_CONTAINED)
   set_target_properties(${KID3_EXECUTABLE} PROPERTIES INSTALL_RPATH "\$ORIGIN")
 endif()
 
+if(WIN32)
+  # CMAKE_INSTALL_PREFIX usually contains a drive letter which cannot be
+  # prepended with some other prefix. Our build scripts set CMAKE_INSTALL_PREFIX
+  # to an empty value, but this is overwritten by KDE craft.
+  string(REGEX REPLACE "^[A-Za-z]:" "" destdir_prefix "${CMAKE_INSTALL_PREFIX}")
+  set(destdir_prefix "\$ENV{DESTDIR}${destdir_prefix}")
+else()
+  set(destdir_prefix "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}")
+endif()
+
 if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
   # Put Qt libraries and plugins into installation package to create a
   # standalone bundle on Mac OS X and Windows
   set(plugin_dest_dir ${WITH_BINDIR})
   set(bundle_app
-   "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
+   "${destdir_prefix}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
   if(APPLE)
     set(plugin_dest_dir kid3.app/Contents/PlugIns)
-    set(bundle_app "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app")
+    set(bundle_app "${destdir_prefix}/kid3.app")
   endif()
   if(WIN32)
     set(bundle_app
-      "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/kid3.exe")
+      "${destdir_prefix}/${WITH_BINDIR}/kid3.exe")
   endif()
   string(REPLACE "/./" "/" bundle_app ${bundle_app})
 
@@ -237,18 +247,18 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   # On Mac OS X only keep the i386 code in the Qt libraries and plugins.
   install(CODE "
     file(GLOB_RECURSE QTPLUGINS
-      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+      \"${destdir_prefix}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
     if(APPLE)
       file(GLOB_RECURSE QTPLATFORMPLUGINS
-        \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app/Contents/MacOS/platforms/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+        \"${destdir_prefix}/kid3.app/Contents/MacOS/platforms/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
       set(QTPLUGINS \"\${QTPLUGINS};\${QTPLATFORMPLUGINS}\")
     endif()
     file(GLOB_RECURSE KID3PLUGINS
-      \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_PLUGINSDIR}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+      \"${destdir_prefix}/${WITH_PLUGINSDIR}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
     include(BundleUtilities)
     set(bundle_libs \"\${QTPLUGINS};\${KID3PLUGINS}\")
     if(APPLE AND BUILD_CLI_APP)
-      set(bundle_libs \"\${bundle_libs};\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}/kid3-cli\")
+      set(bundle_libs \"\${bundle_libs};${destdir_prefix}/${WITH_LIBDIR}/kid3-cli\")
     endif()
     fixup_bundle(\"${bundle_app}\" \"\${bundle_libs}\" \"${QT_LIBRARY_DIR}\")
     ")
@@ -283,7 +293,7 @@ if(LINUX_SELF_CONTAINED)
   string(REPLACE "/bin" "/lib" _qtLibDir "${_qtBinDir}")
   install(CODE "
     if(EXISTS \"${_qtLibDir}/icu_reduced\")
-      file(GLOB _iculibs \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/libicu*\")
+      file(GLOB _iculibs \"${destdir_prefix}/${WITH_BINDIR}/libicu*\")
       if(_iculibs)
         file(REMOVE \${_iculibs})
       endif()
