@@ -70,7 +70,7 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
   QStyleOptionButton option;
   option.initFrom(this);
   width += style()->subElementRect(
-    QStyle::SE_ViewItemCheckIndicator, &option, this).width();
+    QStyle::SE_ItemViewItemCheckIndicator, &option, this).width();
   setColumnWidth(FrameTableModel::CI_Enable, width);
 
   horizontalHeader()->setSectionResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);

@@ -38,8 +38,8 @@ TagLib::File *MP2FileTypeResolver::createFile(TagLib::FileName fileName,
     const char* str = static_cast<const char*>(fileName);
     const wchar_t* wext;
     const char* ext;
-    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !wcsicmp(wext, L".mp2")) ||
-        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !stricmp(ext, ".mp2")))
+    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !_wcsicmp(wext, L".mp2")) ||
+        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !_stricmp(ext, ".mp2")))
     {
         return new TagLib::MPEG::File(fileName, readProperties, propertiesStyle);
     }

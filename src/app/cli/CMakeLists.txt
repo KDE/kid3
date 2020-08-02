@@ -64,7 +64,10 @@ target_sources(kid3-cli PRIVATE ${cli_GEN_MOC_SRCS})
 
 target_include_directories(kid3-cli PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${READLINE_INCLUDE_DIR})
 
-target_link_libraries(kid3-cli kid3-core ${READLINE_LIBRARIES} -lstdc++)
+target_link_libraries(kid3-cli kid3-core ${READLINE_LIBRARIES})
+if(NOT MSVC)
+  target_link_libraries(kid3-cli -lstdc++)
+endif()
 
 if(APPLE)
   set(cli_BINDIR ${WITH_LIBDIR})

@@ -29,4 +29,7 @@ if(HAVE_TRANSLATIONSDIR_IN_QRC)
   target_sources(kid3-qml PRIVATE ${translations_GEN_RCS})
 endif()
 
-target_link_libraries(kid3-qml kid3-gui Qt5::QuickControls2 -lstdc++)
+target_link_libraries(kid3-qml kid3-gui Qt5::QuickControls2)
+if(NOT MSVC)
+  target_link_libraries(kid3-qml -lstdc++)
+endif()

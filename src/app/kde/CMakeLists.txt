@@ -6,7 +6,10 @@ add_executable(kid3
   kdesettings.cpp
 )
 
-target_link_libraries(kid3 kid3-gui KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::CoreAddons KF5::WidgetsAddons KF5::XmlGui KF5::KIOCore -lstdc++)
+target_link_libraries(kid3 kid3-gui KF5::ConfigCore KF5::ConfigGui KF5::ConfigWidgets KF5::CoreAddons KF5::WidgetsAddons KF5::XmlGui KF5::KIOCore)
+if(NOT MSVC)
+  target_link_libraries(kid3 -lstdc++)
+endif()
 
 install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
 install(FILES ../org.kde.kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})

@@ -484,7 +484,7 @@ void Kid3Cli::writeFileInformation(int tagMask)
           ft->index(row, FrameTableModel::CI_Value).data().toString();
       if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
         QVariant background = ft->index(row, FrameTableModel::CI_Enable)
-            .data(Qt::BackgroundColorRole);
+            .data(Qt::BackgroundRole);
         CoreTaggedFileIconProvider* colorProvider =
             m_app->getPlatformTools()->iconProvider();
         bool changed = colorProvider &&
@@ -504,7 +504,7 @@ void Kid3Cli::writeFileInformation(int tagMask)
                  });
     }
   }
-  writeResult(QVariantMap{{"taggedFile", map}});
+  writeResult(QVariantMap{{QLatin1String("taggedFile"), map}});
 }
 
 /**
@@ -517,7 +517,7 @@ void Kid3Cli::writeTagMask()
   FOR_TAGS_IN_MASK(tagNr, m_tagMask) {
     tags.append(tagNr + 1);
   }
-  writeResult(QVariantMap{{"tags", tags}});
+  writeResult(QVariantMap{{QLatin1String("tags"), tags}});
 }
 
 /**

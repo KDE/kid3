@@ -44,8 +44,8 @@ TagLib::File *DSFFileTypeResolver::createFile(TagLib::FileName fileName,
     const char* str = static_cast<const char*>(fileName);
     const wchar_t* wext;
     const char* ext;
-    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !wcsicmp(wext, L".dsf")) ||
-        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !stricmp(ext, ".dsf")))
+    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !_wcsicmp(wext, L".dsf")) ||
+        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !_stricmp(ext, ".dsf")))
     {
         return new DSFFile(fileName, readProperties, propertiesStyle);
     }

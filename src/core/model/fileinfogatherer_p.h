@@ -108,7 +108,7 @@ public:
     QFile::Permissions permissions() const {
 #ifdef Q_OS_WIN
         if (isInvalidDrive(mFileInfo.filePath())) {
-            return 0;
+            return {};
         }
 #endif
         return mFileInfo.permissions();

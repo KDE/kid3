@@ -73,7 +73,7 @@ QVariant TimeEventModel::data(const QModelIndex& index, int role) const
       return timeEvent.time;
     else
       return timeEvent.data;
-  } else if (role == Qt::BackgroundColorRole && index.column() == CI_Data &&
+  } else if (role == Qt::BackgroundRole && index.column() == CI_Data &&
              m_colorProvider) {
     return m_colorProvider->colorForContext(index.row() == m_markedRow
         ? ColorContext::Marked : ColorContext::None);

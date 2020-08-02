@@ -44,8 +44,8 @@ TagLib::File *AACFileTypeResolver::createFile(TagLib::FileName fileName,
     const char* str = static_cast<const char*>(fileName);
     const wchar_t* wext;
     const char* ext;
-    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !wcsicmp(wext, L".aac")) ||
-        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !stricmp(ext, ".aac")))
+    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !_wcsicmp(wext, L".aac")) ||
+        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !_stricmp(ext, ".aac")))
     {
         return new TagLib::MPEG::File(fileName, readProperties, propertiesStyle);
     }

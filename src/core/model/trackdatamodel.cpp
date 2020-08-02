@@ -107,7 +107,7 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
     }
   } else if (role == FrameTableModel::FrameTypeRole) {
     return m_frameTypes.at(index.column()).getType();
-  } else if (role == Qt::BackgroundColorRole) {
+  } else if (role == Qt::BackgroundRole) {
     if (index.column() == 0 && m_diffCheckEnabled) {
       const ImportTrackData& trackData = m_trackDataVector.at(index.row());
       int diff = trackData.getTimeDifference();

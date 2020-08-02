@@ -17,4 +17,7 @@ add_executable(kid3-test
   maintest.cpp
   ${test_GEN_MOC_SRCS}
 )
-target_link_libraries(kid3-test kid3-core Qt5::Test -lstdc++)
+target_link_libraries(kid3-test kid3-core Qt5::Test)
+if(NOT MSVC)
+  target_link_libraries(kid3-test -lstdc++)
+endif()

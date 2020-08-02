@@ -98,14 +98,14 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return QVariant();
   auto it = frameAt(index.row());
   bool isModified = false, isTruncated = false;
-  if ((role == Qt::BackgroundColorRole && index.column() == CI_Enable) ||
+  if ((role == Qt::BackgroundRole && index.column() == CI_Enable) ||
       role == ModifiedRole) {
     isModified = FileConfig::instance().markChanges() &&
       (it->isValueChanged() ||
       (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
        (m_changedFrames & (1ULL << (*it).getType())) != 0));
   }
-  if (((role == Qt::BackgroundColorRole || role == Qt::ToolTipRole) &&
+  if (((role == Qt::BackgroundRole || role == Qt::ToolTipRole) &&
        index.column() == CI_Value) ||
       (role == TruncatedRole || role == NoticeRole)) {
     isTruncated = (static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
@@ -172,7 +172,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       return it->getValue();
   } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
-  } else if (role == Qt::BackgroundColorRole) {
+  } else if (role == Qt::BackgroundRole) {
     if (m_colorProvider) {
       if (index.column() == CI_Enable) {
         return m_colorProvider->colorForContext(
@@ -307,7 +307,7 @@ QVariant FrameTableModel::headerData(
  */
 int FrameTableModel::rowCount(const QModelIndex& parent) const
 {
-  return parent.isValid() ? 0 : frames().size();
+  return parent.isValid() ? 0 : static_cast<int>(frames().size());
 }
 
 /**
@@ -428,7 +428,7 @@ void FrameTableModel::markRows(quint64 rowMask)
        static_cast<unsigned>(row) < sizeof(changedBits) * 8;
        mask <<= 1, ++row) {
     if ((changedBits & mask) != 0) {
-      // Include both the columns for Qt::BackgroundColorRole and TruncatedRole.
+      // Include both the columns for Qt::BackgroundRole and TruncatedRole.
       emit dataChanged(index(row, 0), index(row, 1));
     }
   }
@@ -562,7 +562,7 @@ FrameCollection FrameTableModel::getEnabledFrames() const
  */
 void FrameTableModel::clearFrames()
 {
-  const int numFrames = m_frames.size();
+  const int numFrames = static_cast<int>(m_frames.size());
   if (numFrames > 0) {
     beginRemoveRows(QModelIndex(), 0, numFrames - 1);
     m_frames.clear();
@@ -578,8 +578,8 @@ void FrameTableModel::clearFrames()
  */
 void FrameTableModel::transferFrames(FrameCollection& src)
 {
-  int oldNumFrames = m_frames.size();
-  int newNumFrames = src.size();
+  int oldNumFrames = static_cast<int>(m_frames.size());
+  int newNumFrames = static_cast<int>(src.size());
   int numRowsChanged = qMin(oldNumFrames, newNumFrames);
   if (newNumFrames < oldNumFrames)
     beginRemoveRows(QModelIndex(), newNumFrames, oldNumFrames - 1);
@@ -632,7 +632,7 @@ QSet<QString> FrameTableModel::getCompletionsForType(
  */
 void FrameTableModel::filterDifferent(FrameCollection& others)
 {
-  int oldNumFrames = m_frames.size();
+  int oldNumFrames = static_cast<int>(m_frames.size());
 
   m_frames.filterDifferent(others, &m_differentValues);
   updateFrameRowMapping();
@@ -640,7 +640,7 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
 
   if (oldNumFrames > 0)
     emit dataChanged(index(0, 0), index(oldNumFrames - 1, CI_NumColumns - 1));
-  int newNumFrames = m_frames.size();
+  int newNumFrames = static_cast<int>(m_frames.size());
   if (newNumFrames > oldNumFrames) {
     beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
     endInsertRows();
@@ -699,7 +699,7 @@ void FrameTableModel::resizeFrameSelected()
 {
   // If all bits are set, set also the new bits.
   int oldSize = m_frameSelected.size();
-  int newSize = frames().size();
+  int newSize = static_cast<int>(frames().size());
   bool setNewBits = newSize > oldSize && oldSize > 0 &&
       m_frameSelected.count(true) == oldSize;
 
@@ -718,7 +718,7 @@ void FrameTableModel::resizeFrameSelected()
 void FrameTableModel::updateFrameRowMapping()
 {
   const FrameCollection& frameCollection = frames();
-  m_frameOfRow.resize(frameCollection.size());
+  m_frameOfRow.resize(static_cast<int>(frameCollection.size()));
   auto frameIt = frameCollection.cbegin();
   auto rowIt = m_frameOfRow.begin(); // clazy:exclude=detaching-member
   for (; frameIt != frameCollection.cend(); ++frameIt, ++rowIt) {

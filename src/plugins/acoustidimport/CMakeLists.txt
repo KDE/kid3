@@ -92,7 +92,7 @@ if(WITH_CHROMAPRINT)
     if(WIN32 OR APPLE)
       target_link_libraries(${plugin_TARGET} PRIVATE ${ZLIB_LIBRARIES})
     endif()
-    if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND NOT MSVC)
       # With MinGW64, FFmpeg 4 is used, which requires bcrypt
       target_link_libraries(${plugin_TARGET} PRIVATE "-lbcrypt")
     endif()

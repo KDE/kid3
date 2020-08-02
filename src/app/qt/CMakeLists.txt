@@ -107,7 +107,10 @@ target_sources(${KID3_EXECUTABLE} PRIVATE
   ${qt_GEN_RCS}
 )
 
-target_link_libraries(${KID3_EXECUTABLE} kid3-gui -lstdc++)
+target_link_libraries(${KID3_EXECUTABLE} kid3-gui)
+if(NOT MSVC)
+  target_link_libraries(${KID3_EXECUTABLE} -lstdc++)
+endif()
 
 if(APPLE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../macosx/Info.plist.in
