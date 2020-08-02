@@ -6,7 +6,6 @@ from Package.CMakePackageBase import *
 class subinfo(info.infoclass):
     def setTargets(self):
         self.svnTargets['master'] = 'https://invent.kde.org/multimedia/kid3.git'
-        self.svnTargets['devel'] = 'https://invent.kde.org/ufleisch/kid3.git|devel'
 
         for ver in ['3.8.3']:
             self.targets[ver] = f'https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz'
@@ -17,10 +16,7 @@ class subinfo(info.infoclass):
         self.webpage = 'https://kid3.kde.org'
         self.displayName = 'Kid3'
 
-        #self.defaultTarget = '3.8.3'
-        #self.defaultTarget = 'master'
-        # ${craftRoot}/download/git/extragear/kid3 must be deleted when changing the repository
-        self.defaultTarget = 'devel'
+        self.defaultTarget = 'master'
 
     def setDependencies(self):
         self.buildDependencies['kde/frameworks/extra-cmake-modules'] = None

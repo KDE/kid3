@@ -56,7 +56,7 @@ if(LINUX_SELF_CONTAINED)
     ${plugin_TARGET} PROPERTIES INSTALL_RPATH "\$ORIGIN/../../..")
 endif()
 
-if(WIN32)
+if(WIN32 AND NOT MSVC)
   set(_qmldirPluginName libkid3qml)
 else()
   set(_qmldirPluginName kid3qml)

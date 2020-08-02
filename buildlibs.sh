@@ -818,24 +818,6 @@ diff -ru id3lib-3.8.3.orig/src/tag_file.cpp id3lib-3.8.3/src/tag_file.cpp
      createFile(sTempFile, tmpOut);
 EOF
 
-test -f taglib-msvc.patch ||
-cat >taglib-msvc.patch <<"EOF"
-diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
---- taglib-1.8.orig/CMakeLists.txt	Thu Sep  6 20:03:15 2012
-+++ taglib-1.8/CMakeLists.txt	Fri Feb 22 06:41:36 2013
-@@ -31,6 +31,10 @@
- set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
- set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "The subdirectory to the header prefix" FORCE)
- 
-+if(MSVC)
-+  add_definitions(/Zc:wchar_t-)
-+endif(MSVC)
-+
- if(APPLE)
- 	option(BUILD_FRAMEWORK "Build an OS X framework" OFF)
- 	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
-EOF
-
 test -f taglib_bvreplace.patch ||
   cat >taglib_bvreplace.patch <<"EOF"
 --- taglib-1.9.1/taglib/toolkit/tbytevector.cpp.orig	2013-10-08 17:50:01.000000000 +0200
@@ -5009,9 +4991,7 @@ if ! test -d taglib-${taglib_version}; then
   else
     taglib_nr=${taglib_nr/./0}
   fi
-  if test $taglib_nr -ge 108; then
-    patch -p1 <../source/taglib-msvc.patch
-  else
+  if ! test $taglib_nr -ge 108; then
     sed -i 's/^ADD_SUBDIRECTORY(bindings)/#ADD_SUBDIRECTORY(bindings)/' ./CMakeLists.txt
     sed -i 's/^ADD_LIBRARY(tag SHARED/ADD_LIBRARY(tag STATIC/' ./taglib/CMakeLists.txt
   fi
