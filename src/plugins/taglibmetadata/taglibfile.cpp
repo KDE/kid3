@@ -5151,28 +5151,31 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
         if (fieldListMap.contains(key) && fieldListMap[key].size() > 1) {
           int i = 0;
-#if TAGLIB_VERSION >= 0x010b01
-          TagLib::String oldValue;
-#else
-          TagLib::String oldValue(TagLib::String::null);
-#endif
+          bool found = false;
           for (auto it = fieldListMap.begin();
                it != fieldListMap.end();
                ++it) {
-            const TagLib::StringList stringList = (*it).second;
+            TagLib::StringList stringList = (*it).second;
             for (auto slit = stringList.begin(); slit != stringList.end(); ++slit) {
               if (i++ == index) {
-                oldValue = *slit;
+                *slit = value;
+                found = true;
                 break;
               }
             }
-          }
+            if (found) {
+              // Replace all fields with this key to preserve the order.
 #if TAGLIB_VERSION >= 0x010b01
-          oggTag->removeFields(key, oldValue);
+              oggTag->removeFields(key);
 #else
-          oggTag->removeField(key, oldValue);
+              oggTag->removeField(key);
 #endif
-          oggTag->addField(key, value, false);
+              for (auto slit = stringList.begin(); slit != stringList.end(); ++slit) {
+                oggTag->addField(key, *slit, false);
+              }
+              break;
+            }
+          }
         } else {
           oggTag->addField(key, value, true);
         }
