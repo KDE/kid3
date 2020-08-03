@@ -335,12 +335,12 @@ class CliFunctionsTestCase(unittest.TestCase):
             create_test_file(jpgpath)
             with open(jpgpath, 'rb') as jpgfh:
                 jpg_bytes = jpgfh.read()
-            self.assertEqual(call_kid3_cli(
+            self.assertRegex(call_kid3_cli(
                 ['-c', 'get title 2',
                  '-c', 'get all 2', flacpath]),
-                'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
-                '  Name: test.flac\n')
-            self.assertEqual(call_kid3_cli(
+                'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                '  Name: test\\.flac\n')
+            self.assertRegex(call_kid3_cli(
                 ['-c', 'set artist "A first artist"',
                  '-c', 'set artist[1] "A second artist"',
                  '-c', 'set album "Album Name"',
@@ -360,24 +360,24 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get', flacpath]),
                  'Comment 2\n'
                  'Comment 1\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test.flac\n'
+                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                 '  Name: test\\.flac\n'
                  'Tag 2: Vorbis\n'
-                 '* Artist                  A first artist\n'
-                 '* Artist                  A second artist\n'
-                 '* Album                   Album Name\n'
-                 '* Comment                 Comment 1\n'
-                 '* Comment                 Comment 2\n'
-                 '* Comment                 Comment 3\n'
-                 '* Date                    2017\n'
-                 '* Track Number            4\n'
-                 '* Genre                   Heavy Metal\n'
-                 '* Disc Number             1\n'
-                 '* Lyricist                A Lyricist\n'
-                 '* Picture: Cover (front)  Picture Description\n'
-                 '* Total Discs             2\n'
-                 '* Total Tracks            12\n')
-            self.assertEqual(call_kid3_cli(
+                 '\\* Artist                  A first artist\n'
+                 '\\* Artist                  A second artist\n'
+                 '\\* Album                   Album Name\n'
+                 '\\* Comment                 Comment 1\n'
+                 '\\* Comment                 Comment 2\n'
+                 '\\* Comment                 Comment 3\n'
+                 '\\* Date                    2017\n'
+                 '\\* Track Number            4\n'
+                 '\\* Genre                   Heavy Metal\n'
+                 '\\* Disc Number             1\n'
+                 '\\* Lyricist                A Lyricist\n'
+                 '\\* Picture: Cover \\(front\\)  Picture Description\n'
+                 '\\* Total Discs             2\n'
+                 '\\* Total Tracks            12\n')
+            self.assertRegex(call_kid3_cli(
                 ['-c', 'set artist[1] ""',
                  '-c', 'set comment[1] "Comment B"',
                  '-c', 'set comment[0] "Comment A"',
@@ -391,24 +391,24 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'remove',
                  '-c', 'get', flacpath]),
                  'Back Cover\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test.flac\n'
+                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                 '  Name: test\\.flac\n'
                  'Tag 2: Vorbis\n'
-                 '* Artist                  A first artist\n'
+                 '\\* Artist                  A first artist\n'
                  '  Album                   Album Name\n'
-                 '* Comment                 Comment A\n'
-                 '* Comment                 Comment B\n'
-                 '* Comment                 Comment C\n'
+                 '\\* Comment                 Comment A\n'
+                 '\\* Comment                 Comment B\n'
+                 '\\* Comment                 Comment C\n'
                  '  Date                    2017\n'
                  '  Track Number            4\n'
                  '  Genre                   Heavy Metal\n'
                  '  Disc Number             1\n'
-                 '* Picture: Cover (front)  Front Cover\n'
-                 '* Picture: Cover (back)   Back Cover\n'
+                 '\\* Picture: Cover \\(front\\)  Front Cover\n'
+                 '\\* Picture: Cover \\(back\\)   Back Cover\n'
                  '  Total Discs             2\n'
                  '  Total Tracks            12\n'
-                 'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test.flac\n')
+                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                 '  Name: test\\.flac\n')
             with open(picpath, 'rb') as jpgfh:
                 ba = jpgfh.read()
                 self.assertEqual(ba, jpg_bytes)
@@ -619,7 +619,7 @@ class CliFunctionsTestCase(unittest.TestCase):
             os.remove(exportpath)
             expected = (
                 'File: MP4 AAC 16 bit 9 kbps 44100 Hz 2 Channels\n'
-                '  Name: track00.m4a\n'
+                '  Name: track00\\.m4a\n'
                 'Tag 2: MP4\n'
                 '  Title         Wheels Of Fire\n'
                 '  Artist        Manowar\n'
@@ -627,8 +627,15 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  1\n'
                 '  Genre         Metal\n'
-                'File: FLAC 705 kbps 44100 Hz 1 Channels\n'
-                '  Name: track01.flac\n'
+                'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                '  Name: track01\\.flac\n'
+                '(?:Tag 1: ID3v1\\.1\n'
+                '  Title         Kings Of Metal\n'
+                '  Artist        Manowar\n'
+                '  Album         Kings Of Metal\n'
+                '  Date          1988\n'
+                '  Track Number  2\n'
+                '  Genre         Metal\n)?'                
                 'Tag 2: Vorbis\n'
                 '  Title         Kings Of Metal\n'
                 '  Artist        Manowar\n'
@@ -637,7 +644,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  2\n'
                 '  Genre         Metal\n'
                 'File: Speex 1 44100 Hz 1 Channels\n'
-                '  Name: track02.spx\n'
+                '  Name: track02\\.spx\n'
                 'Tag 2: Vorbis\n'
                 '  Title         Heart Of Steel\n'
                 '  Artist        Manowar\n'
@@ -647,23 +654,23 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Genre         Metal\n'
                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: track03.mp3\n'
-                'Tag 1: ID3v1.1\n'
-                '  Title         The Crown And The Ring (Lament\n'
+                'Tag 1: ID3v1\\.1\n'
+                '  Title         The Crown And The Ring \\(Lament\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
                 '  Date          1988\n'
                 '  Track Number  5\n'
                 '  Genre         Metal\n'
-                'Tag 2: ID3v2.3.0\n'
-                '  Title         The Crown And The Ring (Lament Of The Kings)\n'
+                'Tag 2: ID3v2\\.3\\.0\n'
+                '  Title         The Crown And The Ring \\(Lament Of The Kings\\)\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
                 '  Date          1988\n'
                 '  Track Number  5\n'
                 '  Genre         Metal\n'
-                'File: APE 3.990 16 bit 44100 Hz 1 Channels\n'
-                '  Name: track04.ape\n'
-                'Tag 1: ID3v1.1\n'
+                'File: APE 3\\.990 16 bit 44100 Hz 1 Channels\n'
+                '  Name: track04\\.ape\n'
+                'Tag 1: ID3v1\\.1\n'
                 '  Title         Kingdom Come\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
@@ -678,8 +685,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  6\n'
                 '  Genre         Metal\n'
                 'File: WAV PCM 16 bit 1411 kbps 44100 Hz 2 Channels\n'
-                '  Name: track05.wav\n'
-                'Tag 2: ID3v2.3.0\n'
+                '  Name: track05\\.wav\n'
+                'Tag 2: ID3v2\\.3\\.0\n'
                 '  Title         Hail And Kill\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
@@ -687,7 +694,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  8\n'
                 '  Genre         Metal\n'
                 'File: Opus 1 48000 Hz 1 Channels\n'
-                '  Name: track06.opus\n'
+                '  Name: track06\\.opus\n'
                 'Tag 2: Vorbis\n'
                 '  Title         The Warriors Prayer\n'
                 '  Artist        Manowar\n'
@@ -696,8 +703,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  9\n'
                 '  Genre         Metal\n'
                 'File: AIFF 16 bit 1449 kbps 44100 Hz 2 Channels\n'
-                '  Name: track07.aif\n'
-                'Tag 2: ID3v2.4.0\n'
+                '  Name: track07\\.aif\n'
+                'Tag 2: ID3v2\\.4\\.0\n'
                 '  Title         Blood Of The Kings\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
@@ -719,8 +726,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  ≠\n'
                 '  Genre         Metal\n')
             if sys.platform == 'win32':
-                expected = expected.replace('≠', '?')
-            self.assertEqual(call_kid3_cli(
+                expected = expected.replace('≠', '\\?')
+            self.assertRegex(call_kid3_cli(
                 ['-c', 'select first',
                  '-c', 'get',
                  '-c', 'select next',
@@ -741,12 +748,12 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get', tmpdir]),
                 expected)
             call_kid3_cli(['-c', 'fromtag "%{track} %{title}" 2', os.path.join(tmpdir, '*.*')])
-            self.assertEqual(call_kid3_cli(
+            self.assertRegex(call_kid3_cli(
                 ['-c', 'ls', tmpdir]),
                 '  -2- 01 Wheels Of Fire.m4a\n'
-                '  -2- 02 Kings Of Metal.flac\n'
+                '  [-1]2- 02 Kings Of Metal.flac\n'
                 '  -2- 03 Heart Of Steel.spx\n'
-                '  12- 05 The Crown And The Ring (Lament Of The Kings).mp3\n'
+                '  12- 05 The Crown And The Ring \\(Lament Of The Kings\\).mp3\n'
                 '  12- 06 Kingdom Come.ape\n'
                 '  -2- 08 Hail And Kill.wav\n'
                 '  -2- 09 The Warriors Prayer.opus\n'

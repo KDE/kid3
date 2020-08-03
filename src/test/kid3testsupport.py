@@ -1,5 +1,7 @@
 import os
 import sys
+import re
+import locale
 import subprocess
 
 
@@ -17,6 +19,8 @@ def kid3_cli_path():
             cli_path = os.path.join(curdir, 'src', 'app', 'cli', cli_exe)
             if os.path.isfile(cli_path):
                 _kid3_cli_path = cli_path
+                if sys.platform == 'win32':
+                    setup_run_environment()
                 break
             else:
                 cli_path = os.path.join(curdir, cli_exe)
@@ -33,12 +37,31 @@ def kid3_cli_path():
 def call_kid3_cli(args):
     if isinstance(args, str):
         args = [args]
+    if sys.platform == 'win32':
+        args.insert(0, '--portable')
     out = subprocess.check_output([kid3_cli_path()] + args)
     try:
         s = out.decode()
     except UnicodeDecodeError:
-        s = out.decode(sys.getfilesystemencoding())
+        s = out.decode(locale.getpreferredencoding())
     return s.replace('\r\n', '\n')
+
+
+def setup_run_environment():
+    from pathlib import Path
+    cache_path = Path(_kid3_cli_path).parents[3] / 'CMakeCache.txt'
+    if cache_path.exists():
+        qmake_re = re.compile(r'^QT_QMAKE_EXECUTABLE[^=]*=(.*)qmake')
+        with open(cache_path, 'r') as fh:
+            for line in fh:
+                m = qmake_re.match(line)
+                if m:
+                    qt_bin_path = Path(m.group(1))
+                    qt_plugin_path = qt_bin_path.parent / 'plugins'
+                    os.environ['PATH'] += ';' + str(qt_bin_path) + ';' + \
+                        str(Path('src/core')) + ';' + str(Path('src/gui'))
+                    os.environ['QT_PLUGIN_PATH'] = str(qt_plugin_path)
+                    return
 
 
 def create_test_file(filename):
