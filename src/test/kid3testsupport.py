@@ -11,6 +11,14 @@ _kid3_cli_path = ''
 def kid3_cli_path():
     global _kid3_cli_path
     if not _kid3_cli_path:
+        if sys.platform == 'win32':
+            craft_root = os.getenv('CRAFTROOT')
+            if craft_root:
+                from pathlib import Path
+                cli_path = Path(craft_root).parent / 'kid3-cli.exe'
+                if cli_path.exists():
+                    _kid3_cli_path = str(cli_path)
+                    return _kid3_cli_path
         curdir = os.getcwd()
         cli_exe = 'kid3-cli'
         if sys.platform == 'win32':
