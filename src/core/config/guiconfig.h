@@ -44,6 +44,14 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   /** visible columns in file list */
   Q_PROPERTY(QList<int> fileListVisibleColumns READ fileListVisibleColumns
              WRITE setFileListVisibleColumns NOTIFY fileListVisibleColumnsChanged)
+  /** true to enable custom column widths in file list */
+  Q_PROPERTY(bool fileListCustomColumnWidthsEnabled
+             READ fileListCustomColumnWidthsEnabled
+             WRITE setFileListCustomColumnWidthsEnabled
+             NOTIFY fileListCustomColumnWidthsEnabledChanged)
+  /** column widths in file list */
+  Q_PROPERTY(QList<int> fileListColumnWidths READ fileListColumnWidths
+             WRITE setFileListColumnWidths NOTIFY fileListColumnWidthsChanged)
   /** sorted column in directory list */
   Q_PROPERTY(int dirListSortColumn READ dirListSortColumn
              WRITE setDirListSortColumn NOTIFY dirListSortColumnChanged)
@@ -53,6 +61,14 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   /** visible columns in directory list */
   Q_PROPERTY(QList<int> dirListVisibleColumns READ dirListVisibleColumns
              WRITE setDirListVisibleColumns NOTIFY dirListVisibleColumnsChanged)
+  /** true to enable custom column widths in directory list */
+  Q_PROPERTY(bool dirListCustomColumnWidthsEnabled
+             READ dirListCustomColumnWidthsEnabled
+             WRITE setDirListCustomColumnWidthsEnabled
+             NOTIFY dirListCustomColumnWidthsEnabledChanged)
+  /** column widths in directory list */
+  Q_PROPERTY(QList<int> dirListColumnWidths READ dirListColumnWidths
+             WRITE setDirListColumnWidths NOTIFY dirListColumnWidthsChanged)
   /** size of splitter in main window */
   Q_PROPERTY(QList<int> splitterSizes READ splitterSizes
              WRITE setSplitterSizes NOTIFY splitterSizesChanged)
@@ -118,6 +134,20 @@ public:
   /** Set visible columns in file list. */
   void setFileListVisibleColumns(const QList<int>& fileListVisibleColumns);
 
+  /** Check if custom column widths are enabled in file list. */
+  bool fileListCustomColumnWidthsEnabled() const {
+    return m_fileListCustomColumnWidthsEnabled;
+  }
+
+  /** Set if custom column widths are enabled in file list. */
+  void setFileListCustomColumnWidthsEnabled(bool enable);
+
+  /** Get column widths in file list. */
+  QList<int> fileListColumnWidths() const { return m_fileListColumnWidths; }
+
+  /** Set column widths in file list. */
+  void setFileListColumnWidths(const QList<int>& fileListColumnWidths);
+
   /** Get sorted column in directory list. */
   int dirListSortColumn() const { return m_dirListSortColumn; }
 
@@ -135,6 +165,20 @@ public:
 
   /** Set visible columns in directory list. */
   void setDirListVisibleColumns(const QList<int>& dirListVisibleColumns);
+
+  /** Check if custom column widths are enabled in directory list. */
+  bool dirListCustomColumnWidthsEnabled() const {
+    return m_dirListCustomColumnWidthsEnabled;
+  }
+
+  /** Set if custom column widths are enabled in directory list. */
+  void setDirListCustomColumnWidthsEnabled(bool enable);
+
+  /** Get column widths in directory list. */
+  QList<int> dirListColumnWidths() const { return m_dirListColumnWidths; }
+
+  /** Set column widths in directory list. */
+  void setDirListColumnWidths(const QList<int>& dirListColumnWidths);
 
   /** Get size of splitter in main window. */
   QList<int> splitterSizes() const { return m_splitterSizes; }
@@ -194,6 +238,12 @@ signals:
   /** Emitted when @a fileListVisibleColumns changed. */
   void fileListVisibleColumnsChanged(const QList<int>& fileListVisibleColumns);
 
+  /** Emitted when @a fileListCustomColumnWidthsEnabled changed. */
+  void fileListCustomColumnWidthsEnabledChanged(bool fileListCustomColumnWidthsEnabled);
+
+  /** Emitted when @a fileListColumnWidths changed. */
+  void fileListColumnWidthsChanged(const QList<int>& fileListColumnWidths);
+
   /** Emitted when @a dirListSortColumn changed. */
   void dirListSortColumnChanged(int dirListSortColumn);
 
@@ -202,6 +252,12 @@ signals:
 
   /** Emitted when @a dirListVisibleColumns changed. */
   void dirListVisibleColumnsChanged(const QList<int>& dirListVisibleColumns);
+
+  /** Emitted when @a dirListCustomColumnWidthsEnabled changed. */
+  void dirListCustomColumnWidthsEnabledChanged(bool dirListCustomColumnWidthsEnabled);
+
+  /** Emitted when @a dirListColumnWidths changed. */
+  void dirListColumnWidthsChanged(const QList<int>& dirListColumnWidths);
 
   /** Emitted when @a splitterSizes changed. */
   void splitterSizesChanged(const QList<int>& splitterSizes);
@@ -233,9 +289,11 @@ private:
   int m_fileListSortColumn;
   Qt::SortOrder m_fileListSortOrder;
   QList<int> m_fileListVisibleColumns;
+  QList<int> m_fileListColumnWidths;
   int m_dirListSortColumn;
   Qt::SortOrder m_dirListSortOrder;
   QList<int> m_dirListVisibleColumns;
+  QList<int> m_dirListColumnWidths;
   QList<int> m_splitterSizes;
   QList<int> m_vSplitterSizes;
   QByteArray m_configWindowGeometry;
@@ -244,6 +302,8 @@ private:
   bool m_hideTag[Frame::Tag_NumValues];
   bool m_hidePicture;
   bool m_playOnDoubleClick;
+  bool m_fileListCustomColumnWidthsEnabled;
+  bool m_dirListCustomColumnWidthsEnabled;
 
   /** Index in configuration storage */
   static int s_index;

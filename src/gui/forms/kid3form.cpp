@@ -921,32 +921,13 @@ void Kid3Form::onFirstDirectoryOpened()
   const GuiConfig& guiCfg = GuiConfig::instance();
   m_app->getFileProxyModel()->sort(guiCfg.fileListSortColumn(),
                                    guiCfg.fileListSortOrder());
-  int firstFileSectionSize = 0;
-  const QHeaderView* fileHeader = m_fileListBox->header();
-  const auto columns = guiCfg.fileListVisibleColumns();
-  for (int column : columns) {
-    m_fileListBox->resizeColumnToContents(column);
-    if (firstFileSectionSize <= 0 && fileHeader) {
-      firstFileSectionSize = fileHeader->sectionSize(column);
-    }
-  }
+  int firstFileSectionSize =
+      m_fileListBox->initializeColumnWidthsFromContents(-1);
   m_fileListBox->scrollTo(m_fileListBox->currentIndex());
-
-  int firstDirSectionSize = 0;
-  QHeaderView* dirHeader = m_dirListBox->header();
-  const auto dirColumns = guiCfg.dirListVisibleColumns();
-  for (int column : dirColumns) {
-    m_dirListBox->resizeColumnToContents(column);
-    if (firstDirSectionSize <= 0 && dirHeader) {
-      firstDirSectionSize = dirHeader->sectionSize(column);
-      if (firstDirSectionSize < firstFileSectionSize) {
-        // The directory column often only contains "." and "..", which results
-        // in a small size. Make it at least as wide as the corresponding
-        // file list column.
-        dirHeader->resizeSection(column, firstFileSectionSize);
-      }
-    }
-  }
+  // The directory column often only contains "." and "..", which results
+  // in a small size. Make it at least as wide as the corresponding
+  // file list column.
+  m_dirListBox->initializeColumnWidthsFromContents(firstFileSectionSize);
 }
 
 /**
@@ -1077,10 +1058,20 @@ void Kid3Form::saveConfig()
   guiCfg.setFileListSortColumn(column);
   guiCfg.setFileListSortOrder(order);
   guiCfg.setFileListVisibleColumns(m_fileListBox->getVisibleColumns());
+  bool customColumWidthsEnabled = m_fileListBox->areCustomColumnWidthsEnabled();
+  guiCfg.setFileListCustomColumnWidthsEnabled(customColumWidthsEnabled);
+  if (customColumWidthsEnabled) {
+    guiCfg.setFileListColumnWidths(m_fileListBox->getColumnWidths());
+  }
   m_dirListBox->getSortByColumn(column, order);
   guiCfg.setDirListSortColumn(column);
   guiCfg.setDirListSortOrder(order);
   guiCfg.setDirListVisibleColumns(m_dirListBox->getVisibleColumns());
+  customColumWidthsEnabled = m_dirListBox->areCustomColumnWidthsEnabled();
+  guiCfg.setDirListCustomColumnWidthsEnabled(customColumWidthsEnabled);
+  if (customColumWidthsEnabled) {
+    guiCfg.setDirListColumnWidths(m_dirListBox->getColumnWidths());
+  }
 }
 
 /**
@@ -1118,9 +1109,15 @@ void Kid3Form::readConfig()
   m_fileListBox->sortByColumn(guiCfg.fileListSortColumn(),
                               guiCfg.fileListSortOrder());
   m_fileListBox->setVisibleColumns(guiCfg.fileListVisibleColumns());
+  m_fileListBox->setColumnWidths(guiCfg.fileListColumnWidths());
+  m_fileListBox->setCustomColumnWidthsEnabled(
+        guiCfg.fileListCustomColumnWidthsEnabled());
   m_dirListBox->sortByColumn(guiCfg.dirListSortColumn(),
                              guiCfg.dirListSortOrder());
   m_dirListBox->setVisibleColumns(guiCfg.dirListVisibleColumns());
+  m_dirListBox->setColumnWidths(guiCfg.dirListColumnWidths());
+  m_dirListBox->setCustomColumnWidthsEnabled(
+        guiCfg.dirListCustomColumnWidthsEnabled());
 }
 
 /**

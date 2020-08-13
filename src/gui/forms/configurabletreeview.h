@@ -28,6 +28,8 @@
 
 #include <QTreeView>
 
+class QActionGroup;
+
 /**
  * QTreeView with configurable visibility, order and sort column.
  */
@@ -56,6 +58,38 @@ public:
    * @return logical indexes of visible columns.
    */
   QList<int> getVisibleColumns() const;
+
+  /**
+   * Set if custom column widths are enabled.
+   * @param enable true to enable custom column widths, false for automatic
+   * column widths
+   */
+  void setCustomColumnWidthsEnabled(bool enable);
+
+  /**
+   * Check if custom column widths are enabled.
+   * @return true if custom column widths are enabled.
+   */
+  bool areCustomColumnWidthsEnabled() const;
+
+  /**
+   * Initialize custom column widths from contents if not yet valid.
+   * @param minimumWidth minimum width for column, -1 if not used
+   * @return size of first section, -1 when initialization not necessary.
+   */
+  int initializeColumnWidthsFromContents(int minimumWidth);
+
+  /**
+   * Set column widths.
+   * @param columnWidths column widths
+   */
+  void setColumnWidths(const QList<int>& columnWidths);
+
+  /**
+   * Get column widths.
+   * @return column widths.
+   */
+  QList<int> getColumnWidths() const;
 
   /**
    * Get sort column and order.
@@ -92,10 +126,20 @@ private slots:
   void toggleColumnVisibility(bool visible);
 
 private:
+  /**
+   * Set column widths to custom column widths set with setColumnWidths().
+   * @return true if custom column widths settings could be applied.
+   */
+  bool resizeColumnWidths();
+
   quint32 m_columnVisibility;
 
   /** State stored by disconnectModel() and restored by reconnectModel() */
   QAbstractItemModel* m_oldModel;
   QItemSelectionModel* m_oldSelectionModel;
   QPersistentModelIndex m_oldRootIndex;
+  QList<int> m_columnWidths;
+  QActionGroup* m_columnActionGroup;
+  QAction* m_autoColumnAction;
+  QAction* m_customColumnAction;
 };

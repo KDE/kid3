@@ -42,7 +42,9 @@ GuiConfig::GuiConfig()
     m_autoHideTags(true),
     m_hideFile(false),
     m_hidePicture(false),
-    m_playOnDoubleClick(false)
+    m_playOnDoubleClick(false),
+    m_fileListCustomColumnWidthsEnabled(true),
+    m_dirListCustomColumnWidthsEnabled(true)
 {
   FOR_ALL_TAGS(tagNr) {
     m_hideTag[tagNr] = false;
@@ -72,12 +74,20 @@ void GuiConfig::writeToConfig(ISettings* config) const
                    QVariant(m_fileListSortOrder));
   config->setValue(QLatin1String("FileListVisibleColumns"),
                    QVariant(intListToStringList(m_fileListVisibleColumns)));
+  config->setValue(QLatin1String("FileListCustomColumnWidthsEnabled"),
+                   QVariant(m_fileListCustomColumnWidthsEnabled));
+  config->setValue(QLatin1String("FileListColumnWidths"),
+                   QVariant(intListToStringList(m_fileListColumnWidths)));
   config->setValue(QLatin1String("DirListSortColumn"),
                    QVariant(m_dirListSortColumn));
   config->setValue(QLatin1String("DirListSortOrder"),
                    QVariant(m_dirListSortOrder));
   config->setValue(QLatin1String("DirListVisibleColumns"),
                    QVariant(intListToStringList(m_dirListVisibleColumns)));
+  config->setValue(QLatin1String("DirListCustomColumnWidthsEnabled"),
+                   QVariant(m_dirListCustomColumnWidthsEnabled));
+  config->setValue(QLatin1String("DirListColumnWidths"),
+                   QVariant(intListToStringList(m_dirListColumnWidths)));
 
   auto it = m_splitterSizes.constBegin();
   int i = 0;
@@ -129,6 +139,12 @@ void GuiConfig::readFromConfig(ISettings* config)
     // Uninitialized, otherwise there is at least the value 0 in the list.
     m_fileListVisibleColumns << 0 << 1 << 3;
   }
+  m_fileListCustomColumnWidthsEnabled =
+      config->value(QLatin1String("FileListCustomColumnWidthsEnabled"),
+                    m_fileListCustomColumnWidthsEnabled).toBool();
+  m_fileListColumnWidths = stringListToIntList(
+        config->value(QLatin1String("FileListColumnWidths"), QStringList())
+        .toStringList());
   m_dirListSortColumn = config->value(QLatin1String("DirListSortColumn"),
                                        m_dirListSortColumn).toInt();
   m_dirListSortOrder = static_cast<Qt::SortOrder>(
@@ -141,6 +157,12 @@ void GuiConfig::readFromConfig(ISettings* config)
     // Uninitialized, otherwise there is at least the value 0 in the list.
     m_dirListVisibleColumns << 0 << 3;
   }
+  m_dirListCustomColumnWidthsEnabled =
+      config->value(QLatin1String("DirListCustomColumnWidthsEnabled"),
+                    m_dirListCustomColumnWidthsEnabled).toBool();
+  m_dirListColumnWidths = stringListToIntList(
+        config->value(QLatin1String("DirListColumnWidths"), QStringList())
+        .toStringList());
 
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {
@@ -191,6 +213,23 @@ void GuiConfig::setFileListVisibleColumns(const QList<int>& fileListVisibleColum
   }
 }
 
+void GuiConfig::setFileListCustomColumnWidthsEnabled(bool enable)
+{
+  if (m_fileListCustomColumnWidthsEnabled != enable) {
+    m_fileListCustomColumnWidthsEnabled = enable;
+    emit fileListCustomColumnWidthsEnabledChanged(
+          m_fileListCustomColumnWidthsEnabled);
+  }
+}
+
+void GuiConfig::setFileListColumnWidths(const QList<int>& fileListColumnWidths)
+{
+  if (m_fileListColumnWidths != fileListColumnWidths) {
+    m_fileListColumnWidths = fileListColumnWidths;
+    emit fileListColumnWidthsChanged(m_fileListColumnWidths);
+  }
+}
+
 void GuiConfig::setDirListSortColumn(int dirListSortColumn)
 {
   if (m_dirListSortColumn != dirListSortColumn) {
@@ -212,6 +251,23 @@ void GuiConfig::setDirListVisibleColumns(const QList<int>& dirListVisibleColumns
   if (m_dirListVisibleColumns != dirListVisibleColumns) {
     m_dirListVisibleColumns = dirListVisibleColumns;
     emit dirListVisibleColumnsChanged(m_dirListVisibleColumns);
+  }
+}
+
+void GuiConfig::setDirListCustomColumnWidthsEnabled(bool enable)
+{
+  if (m_dirListCustomColumnWidthsEnabled != enable) {
+    m_dirListCustomColumnWidthsEnabled = enable;
+    emit dirListCustomColumnWidthsEnabledChanged(
+          m_dirListCustomColumnWidthsEnabled);
+  }
+}
+
+void GuiConfig::setDirListColumnWidths(const QList<int>& dirListColumnWidths)
+{
+  if (m_dirListColumnWidths != dirListColumnWidths) {
+    m_dirListColumnWidths = dirListColumnWidths;
+    emit dirListColumnWidthsChanged(m_dirListColumnWidths);
   }
 }
 

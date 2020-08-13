@@ -41,6 +41,23 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
   headerView->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(header(), &QWidget::customContextMenuRequested,
           this, &ConfigurableTreeView::showHeaderContextMenu);
+
+  m_columnActionGroup = new QActionGroup(this);
+  m_autoColumnAction = new QAction(m_columnActionGroup);
+  m_autoColumnAction->setText(tr("Automatic Column Widths"));
+  m_autoColumnAction->setCheckable(true);
+  connect(m_autoColumnAction, &QAction::triggered,
+          this, [this](bool checked){
+    setCustomColumnWidthsEnabled(!checked);
+  });
+  m_customColumnAction = new QAction(m_columnActionGroup);
+  m_customColumnAction->setText(tr("Custom Column Widths"));
+  m_customColumnAction->setCheckable(true);
+  connect(m_customColumnAction, &QAction::triggered,
+          this, [this](bool checked) {
+    setCustomColumnWidthsEnabled(checked);
+  });
+  setCustomColumnWidthsEnabled(false);
 }
 
 /**
@@ -62,6 +79,10 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
             this, &ConfigurableTreeView::toggleColumnVisibility);
     menu.addAction(action);
   }
+  menu.addSeparator();
+  menu.addAction(m_autoColumnAction);
+  menu.addAction(m_customColumnAction);
+
   menu.setMouseTracking(true);
   menu.exec(headerView->mapToGlobal(pos));
 }
@@ -126,6 +147,111 @@ QList<int> ConfigurableTreeView::getVisibleColumns() const
     }
   }
   return columns;
+}
+
+/**
+ * Set if custom column widths are enabled.
+ * @param enable true to enable custom column widths, false for automatic
+ * column widths
+ */
+void ConfigurableTreeView::setCustomColumnWidthsEnabled(bool enable)
+{
+  m_customColumnAction->setChecked(enable);
+  m_autoColumnAction->setChecked(!enable);
+  if (QHeaderView* hdr = header()) {
+    hdr->setSectionResizeMode(
+          enable ? QHeaderView::Interactive : QHeaderView::ResizeToContents);
+  }
+  if (enable) {
+    resizeColumnWidths();
+  }
+}
+
+/**
+ * Check if custom column widths are enabled.
+ * @return true if custom column widths are enabled.
+ */
+bool ConfigurableTreeView::areCustomColumnWidthsEnabled() const
+{
+  return m_customColumnAction->isChecked();
+}
+
+/**
+ * Set column widths to custom column widths set with setColumnWidths().
+ * @return true if custom column widths settings could be applied.
+ */
+bool ConfigurableTreeView::resizeColumnWidths()
+{
+  if (QHeaderView* hdr = header()) {
+    if (m_columnWidths.size() == hdr->count()) {
+      int logicalIdx = 0;
+      for (auto it = m_columnWidths.constBegin();
+           it != m_columnWidths.constEnd();
+           ++it, ++logicalIdx) {
+        int width = *it;
+        hdr->resizeSection(logicalIdx, width);
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Initialize custom column widths from contents if not yet valid.
+ * @param minimumWidth minimum width for column, -1 if not used
+ * @return size of first section, -1 when initialization not necessary.
+ */
+int ConfigurableTreeView::initializeColumnWidthsFromContents(int minimumWidth)
+{
+  if (QHeaderView* hdr = header()) {
+    if (areCustomColumnWidthsEnabled() &&
+        m_columnWidths.size() != hdr->count()) {
+      int firstSectionSize = 0;
+      for (int logicalIdx = 0; logicalIdx < hdr->count(); ++logicalIdx) {
+        if (!hdr->isSectionHidden(logicalIdx)) {
+          resizeColumnToContents(logicalIdx);
+          if (firstSectionSize <= 0) {
+            firstSectionSize = hdr->sectionSize(logicalIdx);
+            if (firstSectionSize < minimumWidth) {
+              hdr->resizeSection(logicalIdx, minimumWidth);
+            }
+          }
+        }
+      }
+      m_columnWidths = getColumnWidths();
+      return firstSectionSize;
+    }
+  }
+  return -1;
+}
+
+/**
+ * Set column widths.
+ * @param columnWidths column widths
+ */
+void ConfigurableTreeView::setColumnWidths(const QList<int>& columnWidths)
+{
+  m_columnWidths = columnWidths;
+  if (areCustomColumnWidthsEnabled()) {
+    resizeColumnWidths();
+  }
+}
+
+/**
+ * Get column widths.
+ * @return column widths.
+ */
+QList<int> ConfigurableTreeView::getColumnWidths() const
+{
+  QList<int> columnWidths;
+  if (QHeaderView* hdr = header()) {
+    columnWidths.reserve(hdr->count());
+    for (int logicalIndex = 0; logicalIndex < hdr->count(); ++logicalIndex) {
+      columnWidths.append(hdr->sectionSize(logicalIndex));
+    }
+  }
+  return columnWidths;
 }
 
 /**
