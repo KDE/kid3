@@ -80,6 +80,7 @@
     <p xml:lang="sv">Med Kid3, en editor för ljudtaggar, kan du redigera taggar i MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- och tracker-filer.</p>
     <p xml:lang="uk">За допомогою Kid3, редактора міток звукових файлів, ви можете редагувати мітки у файлах MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF та tracker.</p>
     <p xml:lang="x-test">xxWith Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and tracker files.xx</p>
+    <p xml:lang="zh-CN">Kid3 是一个音频标签编辑器，您可以使用它编辑 MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIF 和 Tracker 文件。</p>
     <p xml:lang="zh-TW">使用 Kid3 這個音訊標籤編輯器，即可編輯 MP3、Ogg/Vorbis、DSF、FLAC、Opus、MPC、APE、MP4/AAC、MP2、Speex、TrueAudio、WavPack、WMA、WAV、AIFF 和 tracker 檔案中的標籤。</p>
     <p>
       All frames in the ID3 tags of MP3 files can be edited, and it is
