@@ -112,6 +112,15 @@ public:
    */
   void reconnectModel();
 
+#ifdef Q_OS_MAC
+protected:
+  /**
+   * Reimplemented to make Return/Enter send activated() also on the Mac.
+   * @param event key event
+   */
+  virtual void keyPressEvent(QKeyEvent* event) override;
+#endif
+
 private slots:
   /**
    * Show context menu for header.

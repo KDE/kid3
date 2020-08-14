@@ -28,6 +28,9 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QAction>
+#ifdef Q_OS_MAC
+#include <QKeyEvent>
+#endif
 
 /**
  * Constructor.
@@ -59,6 +62,29 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
   });
   setCustomColumnWidthsEnabled(false);
 }
+
+#ifdef Q_OS_MAC
+/**
+ * Reimplemented to make Return/Enter send activated() also on the Mac.
+ * @param event key event
+ */
+void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
+{
+  switch (event->key()) {
+  case Qt::Key_Enter:
+  case Qt::Key_Return:
+    if (state() != EditingState || hasFocus()) {
+      QModelIndex idx = currentIndex();
+      if (idx.isValid()) {
+        emit activated(idx);
+      }
+      event->ignore();
+    }
+    break;
+  }
+  QTreeView::keyPressEvent(event);
+}
+#endif
 
 /**
  * Show context menu for header.
