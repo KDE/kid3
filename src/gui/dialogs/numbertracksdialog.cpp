@@ -126,6 +126,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);
+
+  QByteArray geometry = cfg.windowGeometry();
+  if (!geometry.isEmpty()) {
+    restoreGeometry(geometry);
+  }
 }
 
 /**
@@ -157,6 +162,8 @@ void NumberTracksDialog::saveConfig()
   cfg.setNumberTracksStart(m_trackSpinBox->value());
   cfg.setTrackNumberingEnabled(isTrackNumberingEnabled());
   cfg.setDirectoryCounterResetEnabled(isDirectoryCounterResetEnabled());
+  QByteArray geometry = saveGeometry();
+  cfg.setWindowGeometry(geometry);
 }
 
 /**

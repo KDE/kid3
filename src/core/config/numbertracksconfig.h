@@ -48,6 +48,9 @@ class KID3_CORE_EXPORT NumberTracksConfig
   /** reset of counter for each directory */
   Q_PROPERTY(bool directoryCounterResetEnabled READ isDirectoryCounterResetEnabled
              WRITE setDirectoryCounterResetEnabled NOTIFY directoryCounterResetEnabledChanged)
+  /** window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
 public:
   /**
    * Constructor.
@@ -111,6 +114,18 @@ public:
    */
   void setDirectoryCounterResetEnabled(bool enable);
 
+  /**
+   * Get window geometry.
+   * @return window geometry.
+   */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /**
+   * Set window geometry.
+   * @param windowGeometry geometry
+   */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
 signals:
   /** Emitted when @a numberTracksDst changed. */
   void numberTracksDestinationChanged(Frame::TagVersion numberTracksDestination);
@@ -124,6 +139,9 @@ signals:
   /** Emitted when @a directoryCounterResetEnabled changed. */
   void directoryCounterResetEnabledChanged(bool directoryCounterResetEnabled);
 
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
 private:
   friend NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance();
 
@@ -131,6 +149,7 @@ private:
     setNumberTracksDestination(Frame::tagVersionCast(numberTracksDst));
   }
 
+  QByteArray m_windowGeometry;
   Frame::TagVersion m_numberTracksDst;
   int m_numberTracksStart;
   bool m_trackNumberingEnabled;
