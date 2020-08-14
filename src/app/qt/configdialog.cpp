@@ -258,9 +258,12 @@ void ConfigDialog::slotHelp()
 void ConfigDialog::warnAboutAlreadyUsedShortcut(
     const QString& key, const QString& context, const QAction* action)
 {
+  QKeySequence keySequence =
+      QKeySequence::fromString(key, QKeySequence::PortableText);
   m_shortcutAlreadyUsedLabel->setText(
         tr("The keyboard shortcut '%1' is already assigned to '%2'.")
-        .arg(key, context + QLatin1Char('/') +
+        .arg(keySequence.toString(QKeySequence::NativeText),
+             context + QLatin1Char('/') +
             (action ? action->text().remove(QLatin1Char('&'))
                     : QLatin1String("?"))));
 }

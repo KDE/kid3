@@ -104,7 +104,9 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
             }
           } else if (index.column() == ShortcutColumn) {
             if (role == Qt::DisplayRole || role == Qt::EditRole) {
-              return shortcutItem.activeShortcut();
+              QKeySequence keySequence = QKeySequence::fromString(
+                    shortcutItem.activeShortcut(), QKeySequence::PortableText);
+              return keySequence.toString(QKeySequence::NativeText);
             } else if (role == Qt::ToolTipRole) {
               return tr("Press F2 or double click to edit cell contents.");
             }
@@ -139,7 +141,10 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
           const_cast<ShortcutGroup*>(shortcutGroupForIndex(parentIndex))) {
         if (index.row() >= 0 && index.row() < group->size()) {
           ShortcutItem si((*group)[index.row()]);
-          si.setCustomShortcut(value.toString());
+          const QString valueString = !value.isNull()
+              ? value.value<QKeySequence>().toString(QKeySequence::PortableText)
+              : QString();
+          si.setCustomShortcut(valueString);
           QString keyString(si.activeShortcut());
           if (!keyString.isEmpty()) {
             const auto gs = m_shortcutGroups;
@@ -153,7 +158,7 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
               }
             }
           }
-          (*group)[index.row()].setCustomShortcut(value.toString());
+          (*group)[index.row()].setCustomShortcut(valueString);
           emit dataChanged(index.sibling(index.row(), ActionColumn), index);
           emit shortcutSet(keyString, group->context(), si.action());
           return true;
@@ -389,6 +394,19 @@ void ShortcutsModel::readFromConfig(ISettings* config)
                                        : QLatin1String(""));
       if (!actionName.isEmpty() && config->contains(actionName)) {
         QString keyStr(config->value(actionName, QString()).toString());
+        // Previous versions stored native text, check if it is such a
+        // string and try to convert it.
+        if (QKeySequence::fromString(keyStr, QKeySequence::PortableText)
+            .toString(QKeySequence::PortableText) != keyStr) {
+          QKeySequence nativeKeySequence =
+              QKeySequence::fromString(keyStr, QKeySequence::NativeText);
+          if (nativeKeySequence.toString(QKeySequence::NativeText) == keyStr) {
+            QString nativeKeyStr = keyStr;
+            keyStr = nativeKeySequence.toString(QKeySequence::PortableText);
+            qWarning("Converting shortcut '%s' to '%s'",
+                     qPrintable(nativeKeyStr), qPrintable(keyStr));
+          }
+        }
         iit->setCustomShortcut(keyStr);
         iit->assignCustomShortcut();
       }
