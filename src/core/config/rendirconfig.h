@@ -44,6 +44,9 @@ class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig> {
   /** rename directory from tags 1, tags 2, or both */
   Q_PROPERTY(int renDirSource READ renDirSource WRITE setRenDirSrcInt
              NOTIFY renDirSourceChanged)
+  /** window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
 
 public:
   /**
@@ -88,6 +91,18 @@ public:
   /** Set tag source when renaming directory. */
   void setRenDirSource(Frame::TagVersion renDirSource);
 
+  /**
+   * Get window geometry.
+   * @return window geometry.
+   */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /**
+   * Set window geometry.
+   * @param windowGeometry geometry
+   */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
 signals:
   /** Emitted when @a dirFormatText changed. */
   void dirFormatChanged(const QString& dirFormat);
@@ -97,6 +112,9 @@ signals:
 
   /** Emitted when @a renDirSrc changed. */
   void renDirSourceChanged(Frame::TagVersion renDirSource);
+
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
 
 private:
   friend RenDirConfig& StoredConfig<RenDirConfig>::instance();
@@ -108,6 +126,7 @@ private:
   QString m_dirFormatText;
   QStringList m_dirFormatItems;
   Frame::TagVersion m_renDirSrc;
+  QByteArray m_windowGeometry;
 
   static const char** s_defaultDirFmtList;
 

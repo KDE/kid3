@@ -95,6 +95,7 @@ void RenDirConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("DirFormatText"), QVariant(m_dirFormatText));
   config->setValue(QLatin1String("RenameDirectorySource"),
                    QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
+  config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
 
@@ -114,6 +115,8 @@ void RenDirConfig::readFromConfig(ISettings* config)
   m_dirFormatText =
       config->value(QLatin1String("DirFormatText"),
                     QString::fromLatin1(s_defaultDirFmtList[0])).toString();
+  m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
+                                   m_windowGeometry).toByteArray();
   config->endGroup();
 
   if (m_dirFormatItems.size() <= 1) {
@@ -145,5 +148,13 @@ void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSrc)
   if (m_renDirSrc != renDirSrc) {
     m_renDirSrc = renDirSrc;
     emit renDirSourceChanged(m_renDirSrc);
+  }
+}
+
+void RenDirConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
   }
 }

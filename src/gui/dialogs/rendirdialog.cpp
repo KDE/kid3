@@ -134,6 +134,11 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   actionLayout->addRow(tr("To:"), m_newDirLabel);
 
   vlayout->addLayout(actionLayout);
+
+  QByteArray geometry = renDirCfg.windowGeometry();
+  if (!geometry.isEmpty()) {
+    restoreGeometry(geometry);
+  }
 }
 
 /**
@@ -226,6 +231,9 @@ void RenDirDialog::saveConfig()
   renDirCfg.setDirFormat(m_format);
   renDirCfg.setRenDirSource(Frame::tagVersionCast(
     m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
+  QByteArray geometry = saveGeometry();
+  renDirCfg.setWindowGeometry(geometry);
+  restoreGeometry(geometry); // Keep geometry when dialog is reopened
 }
 
 /**
