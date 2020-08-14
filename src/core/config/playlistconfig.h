@@ -64,6 +64,9 @@ class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
   /** Write info format, else only list of files */
   Q_PROPERTY(bool writeInfo READ writeInfo WRITE setWriteInfo
              NOTIFY writeInfoChanged)
+  /** window geometry */
+  Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
+             WRITE setWindowGeometry NOTIFY windowGeometryChanged)
   Q_ENUMS(PlaylistFormat)
   Q_ENUMS(PlaylistLocation)
 public:
@@ -197,6 +200,18 @@ public:
   static PlaylistFormat formatFromFileExtension(const QString& path,
                                                 bool* ok = nullptr);
 
+  /**
+   * Get window geometry.
+   * @return window geometry.
+   */
+  QByteArray windowGeometry() const { return m_windowGeometry; }
+
+  /**
+   * Set window geometry.
+   * @param windowGeometry geometry
+   */
+  void setWindowGeometry(const QByteArray& windowGeometry);
+
 signals:
   /** Emitted when @a location changed. */
   void locationChanged(PlaylistConfig::PlaylistLocation location);
@@ -228,6 +243,9 @@ signals:
   /** Emitted when @a writeInfo changed. */
   void writeInfoChanged(bool writeInfo);
 
+  /** Emitted when @a windowGeometry changed. */
+  void windowGeometryChanged(const QByteArray& windowGeometry);
+
 private:
   friend PlaylistConfig& StoredConfig<PlaylistConfig>::instance();
 
@@ -244,6 +262,7 @@ private:
   QString m_fileNameFormat;
   QString m_sortTagField;
   QString m_infoFormat;
+  QByteArray m_windowGeometry;
   bool m_useFileNameFormat;
   bool m_onlySelectedFiles;
   bool m_useSortTagField;

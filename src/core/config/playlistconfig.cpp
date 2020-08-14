@@ -109,6 +109,7 @@ void PlaylistConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("FileNameFormat"), QVariant(m_fileNameFormat));
   config->setValue(QLatin1String("SortTagField"), QVariant(m_sortTagField));
   config->setValue(QLatin1String("InfoFormat"), QVariant(m_infoFormat));
+  config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
 
@@ -140,6 +141,8 @@ void PlaylistConfig::readFromConfig(ISettings* config)
                                  m_sortTagField).toString();
   m_infoFormat = config->value(QLatin1String("InfoFormat"),
                                m_infoFormat).toString();
+  m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
+                                   m_windowGeometry).toByteArray();
   config->endGroup();
 }
 
@@ -220,6 +223,14 @@ void PlaylistConfig::setWriteInfo(bool writeInfo)
   if (m_writeInfo != writeInfo) {
     m_writeInfo = writeInfo;
     emit writeInfoChanged(m_writeInfo);
+  }
+}
+
+void PlaylistConfig::setWindowGeometry(const QByteArray& windowGeometry)
+{
+  if (m_windowGeometry != windowGeometry) {
+    m_windowGeometry = windowGeometry;
+    emit windowGeometryChanged(m_windowGeometry);
   }
 }
 

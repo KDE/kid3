@@ -254,6 +254,11 @@ void PlaylistDialog::readConfig()
     playlistCfg.fileNameFormat());
   m_sortTagFieldComboBox->setEditText(playlistCfg.sortTagField());
   m_writeInfoComboBox->setEditText(playlistCfg.infoFormat());
+
+  QByteArray geometry = playlistCfg.windowGeometry();
+  if (!geometry.isEmpty()) {
+    restoreGeometry(geometry);
+  }
 }
 
 /**
@@ -275,6 +280,8 @@ void PlaylistDialog::getCurrentConfig(PlaylistConfig& cfg) const
   cfg.setFileNameFormat(m_fileNameFormatComboBox->currentText());
   cfg.setSortTagField(m_sortTagFieldComboBox->currentText());
   cfg.setInfoFormat(m_writeInfoComboBox->currentText());
+  QByteArray geometry = saveGeometry();
+  cfg.setWindowGeometry(geometry);
 }
 
 /**
