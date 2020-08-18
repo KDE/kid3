@@ -20,7 +20,7 @@ fi
 podir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/po
 branch=${1:-trunk}
 svn_path_prefix="svn://anonsvn.kde.org/home/kde/$branch/l10n-kf5"
-svn_folder="messages/extragear-multimedia"
+svn_folder="messages/kid3"
 mkdir -p "$podir"
 svn -q export "$svn_path_prefix/templates/$svn_folder/kid3_qt.pot" "$podir/kid3_qt.pot"
 echo "Downloaded po/kid3_qt.pot"
