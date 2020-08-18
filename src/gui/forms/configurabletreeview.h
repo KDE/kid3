@@ -112,14 +112,13 @@ public:
    */
   void reconnectModel();
 
-#ifdef Q_OS_MAC
 protected:
   /**
-   * Reimplemented to make Return/Enter send activated() also on the Mac.
+   * Reimplemented to go to parent item with Left key and
+   * make Return/Enter send activated() also on the Mac.
    * @param event key event
    */
   virtual void keyPressEvent(QKeyEvent* event) override;
-#endif
 
 private slots:
   /**

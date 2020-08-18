@@ -28,9 +28,7 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QAction>
-#ifdef Q_OS_MAC
 #include <QKeyEvent>
-#endif
 
 /**
  * Constructor.
@@ -63,14 +61,33 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
   setCustomColumnWidthsEnabled(false);
 }
 
-#ifdef Q_OS_MAC
 /**
- * Reimplemented to make Return/Enter send activated() also on the Mac.
+ * Reimplemented to go to parent item with Left key and
+ * make Return/Enter send activated() also on the Mac.
  * @param event key event
  */
 void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
 {
   switch (event->key()) {
+  // When the left arrow key is pressed on an item without children,
+  // go to its parent item.
+  case Qt::Key_Left:
+    if (state() != EditingState || hasFocus()) {
+      QPersistentModelIndex oldCurrent = currentIndex();
+      QAbstractItemModel* mdl = model();
+      QItemSelectionModel* selMdl = selectionModel();
+      if (mdl && selMdl && oldCurrent.isValid() &&
+          mdl->rowCount(oldCurrent) == 0) {
+        QPersistentModelIndex newCurrent = mdl->parent(oldCurrent);
+        if (newCurrent.isValid() && newCurrent != rootIndex()) {
+          setCurrentIndex(newCurrent);
+          event->accept();
+          return;
+        }
+      }
+    }
+    break;
+#ifdef Q_OS_MAC
   case Qt::Key_Enter:
   case Qt::Key_Return:
     if (state() != EditingState || hasFocus()) {
@@ -81,10 +98,10 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       event->ignore();
     }
     break;
+#endif
   }
   QTreeView::keyPressEvent(event);
 }
-#endif
 
 /**
  * Show context menu for header.
