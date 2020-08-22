@@ -1048,7 +1048,8 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
               if (myIt->getValue() != it->getValue() ||
                   (!myIt->getFieldList().isEmpty() &&
                    !it->getFieldList().isEmpty() &&
-                   myIt->getFieldList() != it->getFieldList())) {
+                   !Frame::Field::fuzzyCompareFieldLists(myIt->getFieldList(),
+                                                         it->getFieldList()))) {
                 Frame myFrame(*it);
                 myFrame.setIndex(myIndex);
                 setFrame(tagNr, myFrame);

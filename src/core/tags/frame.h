@@ -373,6 +373,18 @@ public:
      */
     static const char* const* getContentTypeNames();
 
+    /**
+     * Compare two field lists in a tolerant way.
+     * This function can be used instead of the standard QList equality
+     * operator if the field lists can be from different tag formats, which
+     * may not all support the same field types.
+     * @param fl1 first field list
+     * @param fl2 second field list
+     * @return true if they are similar enough.
+     */
+    static bool fuzzyCompareFieldLists(const QList<Field>& fl1,
+                                       const QList<Field>& fl2);
+
   };
 
   /** list of fields. */

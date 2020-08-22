@@ -327,6 +327,24 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
   return idStrMap;
 }
 
+/**
+ * Get a reduced field list without fields which are only supported by a
+ * specific tag format.
+ * @param fieldList original field list
+ * @return reduced field list.
+ */
+Frame::FieldList reducedFieldList(const Frame::FieldList& fieldList)
+{
+  Frame::FieldList reduced;
+  for (const Frame::Field& fld : fieldList) {
+    if (fld.m_id != Frame::ID_ImageFormat &&
+        fld.m_id != Frame::ID_ImageProperties) {
+      reduced.append(fld);
+    }
+  }
+  return reduced;
+}
+
 }
 
 Frame::ExtendedType::ExtendedType(const QString& name) :
@@ -875,6 +893,21 @@ QString Frame::Field::getContentTypeName(int type)
 const char* const* Frame::Field::getContentTypeNames()
 {
   return contentTypeNames;
+}
+
+/**
+ * Compare two field lists in a tolerant way.
+ * This function can be used instead of the standard QList equality
+ * operator if the field lists can be from different tag formats, which
+ * may not all support the same field types.
+ * @param fl1 first field list
+ * @param fl2 second field list
+ * @return true if they are similar enough.
+ */
+bool Frame::Field::fuzzyCompareFieldLists(const QList<Field>& fl1,
+                                          const QList<Field>& fl2)
+{
+  return reducedFieldList(fl1) == reducedFieldList(fl2);
 }
 
 /**
