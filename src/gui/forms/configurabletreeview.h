@@ -112,6 +112,15 @@ public:
    */
   void reconnectModel();
 
+signals:
+  /**
+   * Emitted when the parent shall be activated.
+   * This is emitted when Command + Up is pressed to mimic the shortcut of the
+   * macOS Finder.
+   * @param index root index of item view
+   */
+  void parentActivated(const QModelIndex& index);
+
 protected:
   /**
    * Reimplemented to go to parent item with Left key and

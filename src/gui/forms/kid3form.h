@@ -238,6 +238,20 @@ public slots:
   void dirSelected(const QModelIndex& index);
 
   /**
+   * File list box item activated.
+   *
+   * @param index selected item
+   */
+  void fileActivated(const QModelIndex& index);
+
+  /**
+   * Open the parent directory of a model index.
+   *
+   * @param index current root index of item view
+   */
+  void openParentDirectory(const QModelIndex& index);
+
+  /**
    * Set focus on filename controls.
    */
   void setFocusFilename();

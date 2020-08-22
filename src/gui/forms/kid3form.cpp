@@ -301,8 +301,14 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setRootIsDecorated(false);
   m_dirListBox->setModel(m_app->getDirProxyModel());
   m_dirListBox->setSelectionModel(m_app->getDirSelectionModel());
+  connect(m_fileListBox, &QAbstractItemView::activated,
+          this, &Kid3Form::fileActivated);
   connect(m_dirListBox, &QAbstractItemView::activated, this,
       &Kid3Form::dirSelected);
+  connect(m_fileListBox, &ConfigurableTreeView::parentActivated,
+          this, &Kid3Form::openParentDirectory);
+  connect(m_dirListBox, &ConfigurableTreeView::parentActivated,
+          this, &Kid3Form::openParentDirectory);
 
   connect(m_app, &Kid3Application::fileRootIndexChanged,
           this, &Kid3Form::setFileRootIndex);
@@ -789,6 +795,45 @@ void Kid3Form::dirSelected(const QModelIndex& index)
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
     m_mainWin->updateCurrentSelection();
     m_mainWin->confirmedOpenDirectory({dirPath});
+  }
+}
+
+/**
+ * File list box item activated.
+ *
+ * @param index selected item
+ */
+void Kid3Form::fileActivated(const QModelIndex& index)
+{
+  if (const FileProxyModel* fileProxyModel =
+      qobject_cast<const FileProxyModel*>(index.model())) {
+    if (fileProxyModel->isDir(index)) {
+      QString dirPath = fileProxyModel->filePath(index);
+      if (!dirPath.isEmpty()) {
+        m_mainWin->updateCurrentSelection();
+        m_mainWin->confirmedOpenDirectory({dirPath});
+      }
+    }
+  }
+}
+
+/**
+ * Open the parent directory of a model index.
+ *
+ * @param index current root index of item view
+ */
+void Kid3Form::openParentDirectory(const QModelIndex& index)
+{
+  if (index.isValid()) {
+    QDir dir(index.data(FileSystemModel::FilePathRole).toString());
+    if (dir.cdUp()) {
+      QString dirPath = dir.absolutePath();
+      if (m_dirListBox && index.model() == m_dirListBox->model()) {
+        m_app->setDirUpIndex(index);
+      }
+      m_mainWin->updateCurrentSelection();
+      m_mainWin->confirmedOpenDirectory({dirPath});
+    }
   }
 }
 

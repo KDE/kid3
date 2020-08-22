@@ -87,6 +87,32 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       }
     }
     break;
+  case Qt::Key_Down:
+    if ((event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier |
+                               Qt::AltModifier | Qt::MetaModifier)) ==
+        Qt::ControlModifier &&
+        (state() != EditingState || hasFocus())) {
+      QModelIndex idx = currentIndex();
+      if (idx.isValid()) {
+        emit activated(idx);
+      }
+      event->ignore();
+      return;
+    }
+    break;
+  case Qt::Key_Up:
+    if ((event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier |
+                               Qt::AltModifier | Qt::MetaModifier)) ==
+        Qt::ControlModifier &&
+        (state() != EditingState || hasFocus())) {
+      QModelIndex idx = rootIndex();
+      if (idx.isValid()) {
+        emit parentActivated(idx);
+      }
+      event->ignore();
+      return;
+    }
+    break;
 #ifdef Q_OS_MAC
   case Qt::Key_Enter:
   case Qt::Key_Return:
