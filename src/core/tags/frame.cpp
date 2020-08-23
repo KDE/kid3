@@ -1016,6 +1016,7 @@ void FrameCollection::filterDifferent(
     FrameCollection& others,
     QHash<Frame::ExtendedType, QSet<QString>>* differentValues)
 {
+  const int ALREADY_HANDLED_INDEX = INT_MIN;
   QByteArray frameData, othersData;
   auto it = begin();
   while (it != end()) {
@@ -1047,7 +1048,7 @@ void FrameCollection::filterDifferent(
           const_cast<Frame&>(*it).setDifferent();
         }
         // Mark as already handled.
-        const_cast<Frame&>(*othersIt).setIndex(-2);
+        const_cast<Frame&>(*othersIt).setIndex(ALREADY_HANDLED_INDEX);
         ++it;
         ++othersIt;
       }
@@ -1055,11 +1056,11 @@ void FrameCollection::filterDifferent(
   }
 
   // Insert frames which are in others but not in this (not marked as already
-  // handled by index -2) as different frames.
+  // handled by index ALREADY_HANDLED_INDEX) as different frames.
   for (auto othersIt = others.begin();
        othersIt != others.end();
        ++othersIt) {
-    if (othersIt->getIndex() != -2) {
+    if (othersIt->getIndex() != ALREADY_HANDLED_INDEX) {
       auto& frame = const_cast<Frame&>(*othersIt);
       frame.setIndex(-1);
       frame.setDifferent();

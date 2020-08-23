@@ -460,7 +460,7 @@ void M4aFile::readTags(bool force)
                       getValueByteArray(key, element->value, element->valueSize),
                       QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
                       Frame::TE_ISO8859_1, imgFormat);
-                frame.setIndex(i);
+                frame.setIndex(Frame::toNegativeIndex(i));
                 frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                           QLatin1String(key)));
                 m_pictures.append(frame);
@@ -1153,7 +1153,7 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     if (frame.getType() == Frame::FT_Picture) {
-      int idx = frame.getIndex();
+      int idx = Frame::fromNegativeIndex(frame.getIndex());
       if (idx >= 0 && idx < m_pictures.size()) {
         Frame newFrame(frame);
         if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
@@ -1249,7 +1249,7 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(frame);
       }
-      frame.setIndex(m_pictures.size());
+      frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
       m_pictures.append(frame);
       markTagChanged(tagNr, Frame::FT_Picture);
       return true;
@@ -1281,11 +1281,11 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     if (frame.getType() == Frame::FT_Picture) {
-      int idx = frame.getIndex();
+      int idx = Frame::fromNegativeIndex(frame.getIndex());
       if (idx >= 0 && idx < m_pictures.size()) {
         m_pictures.removeAt(idx);
         while (idx < m_pictures.size()) {
-          m_pictures[idx].setIndex(idx);
+          m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
           ++idx;
         }
         markTagChanged(tagNr, Frame::FT_Picture);
@@ -1317,11 +1317,12 @@ void M4aFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
     frames.clear();
     QString name;
     QString value;
+    int i = 0;
     for (auto it = m_metadata.constBegin(); it != m_metadata.constEnd(); ++it) {
       name = it.key();
       Frame::Type type = getTypeForName(name);
       value = QString::fromUtf8((*it).data(), (*it).size());
-      frames.insert(Frame(type, value, name, -1));
+      frames.insert(Frame(type, value, name, i++));
     }
     for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
       frames.insert(*it);

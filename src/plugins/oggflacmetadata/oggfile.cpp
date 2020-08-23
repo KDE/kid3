@@ -668,7 +668,7 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 
     // If the frame has an index, change that specific frame
     int index = frame.getIndex();
-    if (index != -1 && index < static_cast<int>(m_comments.size())) {
+    if (index >= 0 && index < static_cast<int>(m_comments.size())) {
       QString value = frame.getValue();
       if (frame.getType() == Frame::FT_Picture) {
         Frame newFrame(frame);
@@ -770,7 +770,7 @@ bool OggFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
   if (tagNr == Frame::Tag_2) {
     // If the frame has an index, delete that specific frame
     int index = frame.getIndex();
-    if (index != -1 && index < static_cast<int>(m_comments.size())) {
+    if (index >= 0 && index < static_cast<int>(m_comments.size())) {
       m_comments.removeAt(index);
       markTagChanged(Frame::Tag_2, frame.getType());
       return true;

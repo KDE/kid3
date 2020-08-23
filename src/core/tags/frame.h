@@ -811,6 +811,25 @@ public:
    */
   static QString getNameForTranslatedFrameName(const QString& name);
 
+  /**
+   * Convert frame index to a negative index used for a second collection.
+   * This can be a collection containing picture frames, the mapping is
+   * -1 -> -1, 0 -> -2, 1 -> -3, 2 -> -4, ...
+   * @param index positive index, -1 is the unknown index
+   * @return negative index <= -1.
+   */
+  static int toNegativeIndex(int index) { return -2 - index; }
+
+  /**
+   * Convert negative index used for a second collection to a frame index.
+   * This can be used to get the index of a collection containing picture
+   * frames, the mapping is
+   * -1 -> -1, -2 -> 0, -3 -> 1, -4 -> 2, ...
+   * @param negativeIndex negative index, -1 is the unknown index
+   * @return frame negative >= -1.
+   */
+  static int fromNegativeIndex(int negativeIndex) { return -2 - negativeIndex; }
+
 private:
   friend class TaggedFile;
 

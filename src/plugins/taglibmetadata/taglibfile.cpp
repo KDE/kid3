@@ -949,7 +949,7 @@ void TagLibFile::readTags(bool force)
         for (auto it = pics.begin(); it != pics.end(); ++it) {
           PictureFrame frame;
           flacPictureToFrame(*it, frame);
-          frame.setIndex(i++);
+          frame.setIndex(Frame::toNegativeIndex(i++));
           m_pictures.append(frame);
         }
         m_pictures.setRead(true);
@@ -1081,7 +1081,7 @@ void TagLibFile::readTags(bool force)
           for (auto it = pics.begin(); it != pics.end(); ++it) {
             PictureFrame frame;
             flacPictureToFrame(*it, frame);
-            frame.setIndex(i++);
+            frame.setIndex(Frame::toNegativeIndex(i++));
             m_pictures.append(frame);
           }
           m_pictures.setRead(true);
@@ -1121,7 +1121,7 @@ void TagLibFile::readTags(bool force)
                   QByteArray(bv.data(), static_cast<int>(bv.size())),
                   QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
                   Frame::TE_ISO8859_1, imgFormat);
-            frame.setIndex(i++);
+            frame.setIndex(Frame::toNegativeIndex(i++));
             frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                       QLatin1String("covr")));
             m_pictures.append(frame);
@@ -5108,7 +5108,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != nullptr) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-        if (index < static_cast<int>(frameList.size())) {
+        if (index >= 0 && index < static_cast<int>(frameList.size())) {
           // This is a hack. The frameList should not be modified directly.
           // However when removing the old frame and adding a new frame,
           // the indices of all frames get invalid.
@@ -5120,7 +5120,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         QString frameValue(frame.getValue());
         if (frame.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
-            int idx = frame.getIndex();
+            int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
               Frame newFrame(frame);
               PictureFrame::setDescription(newFrame, frameValue);
@@ -5209,7 +5209,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
-            int idx = frame.getIndex();
+            int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
               Frame newFrame(frame);
               if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
@@ -5762,7 +5762,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           }
           if (m_pictures.isRead()) {
             PictureFrame::setDescription(frame, value);
-            frame.setIndex(m_pictures.size());
+            frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
             m_pictures.append(frame);
             markTagChanged(tagNr, Frame::FT_Picture);
             return true;
@@ -5848,7 +5848,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
             PictureFrame::setFields(frame);
           }
           if (m_pictures.isRead()) {
-            frame.setIndex(m_pictures.size());
+            frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
             m_pictures.append(frame);
             markTagChanged(tagNr, Frame::FT_Picture);
             return true;
@@ -5984,7 +5984,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 #endif
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != nullptr) {
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-        if (index < static_cast<int>(frameList.size())) {
+        if (index >= 0 && index < static_cast<int>(frameList.size())) {
           id3v2Tag->removeFrame(frameList[index]);
           markTagChanged(tagNr, frame.getType());
           return true;
@@ -5993,11 +5993,11 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         QString frameValue(frame.getValue());
         if (frame.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
-            int idx = frame.getIndex();
+            int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
               m_pictures.removeAt(idx);
               while (idx < m_pictures.size()) {
-                m_pictures[idx].setIndex(idx);
+                m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
               markTagChanged(tagNr, Frame::FT_Picture);
@@ -6025,11 +6025,11 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
-            int idx = frame.getIndex();
+            int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
               m_pictures.removeAt(idx);
               while (idx < m_pictures.size()) {
-                m_pictures[idx].setIndex(idx);
+                m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
               markTagChanged(tagNr, Frame::FT_Picture);

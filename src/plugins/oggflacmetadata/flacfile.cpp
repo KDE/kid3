@@ -208,7 +208,8 @@ void FlacFile::readTags(bool force)
               auto pic =
                 dynamic_cast<FLAC::Metadata::Picture*>(proto);
               if (pic) {
-                Frame frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), pictureNr++);
+                Frame frame(Frame::FT_Picture, QLatin1String(""),
+                            QLatin1String(""), Frame::toNegativeIndex(pictureNr++));
                 getPicture(frame, pic);
                 m_pictures.push_back(frame);
               }
@@ -427,8 +428,8 @@ bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     if (frame.getType() == Frame::FT_Picture) {
-      int index = frame.getIndex();
-      if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+      int index = Frame::fromNegativeIndex(frame.getIndex());
+      if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
         auto it = m_pictures.begin() + index;
         if (it != m_pictures.end()) {
           Frame newFrame(frame);
@@ -466,7 +467,7 @@ bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
               QLatin1String(""), QByteArray());
       }
       PictureFrame::setDescription(frame, frame.getValue());
-      frame.setIndex(m_pictures.size());
+      frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
       m_pictures.push_back(frame);
       markTagChanged(Frame::Tag_2, Frame::FT_Picture);
       return true;
@@ -487,8 +488,8 @@ bool FlacFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     if (frame.getType() == Frame::FT_Picture) {
-      int index = frame.getIndex();
-      if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+      int index = Frame::fromNegativeIndex(frame.getIndex());
+      if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
         m_pictures.removeAt(index);
         markTagChanged(Frame::Tag_2, Frame::FT_Picture);
         return true;
@@ -528,7 +529,7 @@ void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
   if (tagNr == Frame::Tag_2) {
     int i = 0;
     for (auto it = m_pictures.begin(); it != m_pictures.end(); ++it) { // clazy:exclude=detaching-member
-      (*it).setIndex(i++);
+      (*it).setIndex(Frame::toNegativeIndex(i++));
       frames.insert(*it);
     }
     updateMarkedState(tagNr, frames);
