@@ -192,6 +192,7 @@ void BaseMainWindowImpl::init()
   m_w->resize(m_w->sizeHint());
 
   readOptions();
+  applyChangedShortcuts();
 }
 
 /**
@@ -961,6 +962,15 @@ void BaseMainWindowImpl::applyChangedConfiguration()
   if (!FileConfig::instance().markChanges()) {
     m_form->markChangedFilename(false);
   }
+}
+
+/**
+ * Apply keyboard shortcut changes.
+ */
+void BaseMainWindowImpl::applyChangedShortcuts()
+{
+  auto shortcuts = m_self->shortcutsMap();
+  m_form->setSectionActionShortcuts(shortcuts);
 }
 
 /**

@@ -175,6 +175,11 @@ public:
   void applyChangedConfiguration();
 
   /**
+   * Apply keyboard shortcut changes.
+   */
+  void applyChangedShortcuts();
+
+  /**
    * Access to application.
    * @return application.
    */
@@ -666,6 +671,12 @@ public:
    * Init menu and toolbar actions.
    */
   virtual void initActions() = 0;
+
+  /**
+   * Get keyboard shortcuts.
+   * @return mapping of action names to key sequences.
+   */
+  virtual QMap<QString, QKeySequence> shortcutsMap() const = 0;
 
   /**
    * Add directory to recent files list.

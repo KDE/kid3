@@ -591,12 +591,14 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
   auto sectionActions = new SectionActions(SectionActions::Navigation,
                                            m_fileListBox);
+  m_sectionActions.append(sectionActions);
   connect(sectionActions->previousSectionAction(), &QAction::triggered,
           this, [this]() { setFocusPreviousTag(Frame::Tag_NumValues); });
   connect(sectionActions->nextSectionAction(), &QAction::triggered,
           this, &Kid3Form::setFocusDirList);
 
   sectionActions = new SectionActions(SectionActions::Navigation, m_dirListBox);
+  m_sectionActions.append(sectionActions);
   connect(sectionActions->previousSectionAction(), &QAction::triggered,
           this, &Kid3Form::setFocusFileList);
   connect(sectionActions->nextSectionAction(), &QAction::triggered,
@@ -605,6 +607,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   sectionActions = new SectionActions(SectionActions::Navigation |
                                       SectionActions::Transfer,
                                       m_fileWidget);
+  m_sectionActions.append(sectionActions);
   connect(sectionActions->previousSectionAction(), &QAction::triggered,
           this, &Kid3Form::setFocusDirList);
   connect(sectionActions->nextSectionAction(), &QAction::triggered,
@@ -622,6 +625,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
                                   SectionActions::EditSection |
                                   SectionActions::EditElement,
           m_frameTable[tagNr]);
+    m_sectionActions.append(sectionActions);
     connect(sectionActions->previousSectionAction(), &QAction::triggered,
             this, [this, tagNr]() {
       setFocusPreviousTag(tagNr);
@@ -666,6 +670,19 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 Kid3Form::~Kid3Form()
 {
   m_app->removeFrameEditor(m_mainWin);
+}
+
+/**
+ * Set keyboard shortcuts for section actions.
+ * @param map map of action names to key sequences
+ */
+void Kid3Form::setSectionActionShortcuts(const QMap<QString, QKeySequence>& map)
+{
+  for (SectionActions* sectionActions : m_sectionActions) {
+    sectionActions->setShortcuts(map);
+  }
+  m_fileListBox->setShortcuts(map);
+  m_dirListBox->setShortcuts(map);
 }
 
 /**

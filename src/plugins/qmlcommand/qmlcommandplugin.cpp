@@ -26,7 +26,7 @@
 
 #include "qmlcommandplugin.h"
 #include <QDir>
-#ifndef NDEBUG
+#if !defined NDEBUG && !defined QT_QML_DEBUG
 #define QT_QML_DEBUG
 #endif
 #include <QQuickView>

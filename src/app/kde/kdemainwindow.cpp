@@ -40,6 +40,7 @@
 #include "config.h"
 #include "kid3form.h"
 #include "filelist.h"
+#include "sectionactions.h"
 #include "kid3application.h"
 #include "kdeconfigdialog.h"
 #include "guiconfig.h"
@@ -418,13 +419,16 @@ void KdeMainWindow::initActions()
   action->setShortcut(QKeySequence(Qt::Key_F2));
   action->setShortcutContext(Qt::WidgetShortcut);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::renameFile);
-  collection->addAction(QLatin1String("filelist_rename"), action);
+  // This action is not made configurable because its shortcut F2 conflicts
+  // with a section shortcut and there seems to be no way to avoid it with
+  // KShortcutsDialog. The same applies to the shortcut with the Delete key.
+  // collection->addAction(QLatin1String("filelist_rename"), action);
   form()->getFileList()->setRenameAction(action);
   action = new QAction(tr("&Move to Trash"), this);
   action->setShortcut(QKeySequence::Delete);
   action->setShortcutContext(Qt::WidgetShortcut);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::deleteFile);
-  collection->addAction(QLatin1String("filelist_delete"), action);
+  // collection->addAction(QLatin1String("filelist_delete"), action);
   form()->getFileList()->setDeleteAction(action);
   action = new QAction(tr("Folder List") + QLatin1String(": ") + tr("Focus"),
                        this);
@@ -443,7 +447,43 @@ void KdeMainWindow::initActions()
   connect(&userActionsCfg, &UserActionsConfig::contextMenuCommandsChanged,
           fileList, &FileList::initUserActions);
 
+  const auto sectionShortcuts = SectionActions::defaultShortcuts();
+  QString actionPrefix = tr("Section") + QLatin1String(": ");
+  for (auto it = sectionShortcuts.constBegin();
+       it != sectionShortcuts.constEnd();
+       ++it) {
+    const auto& tpl = *it;
+    action = new QAction(actionPrefix + std::get<1>(tpl), this);
+    action->setShortcutContext(Qt::WidgetShortcut);
+    // The action is only used to configure the shortcuts. Disabling it will
+    // also avoid "that want to use the same shortcut" error dialogs.
+    action->setEnabled(false);
+    collection->setDefaultShortcut(action, std::get<2>(tpl));
+    collection->addAction(std::get<0>(tpl), action);
+  }
+
   createGUI();
+}
+
+/**
+ * Get keyboard shortcuts.
+ * @return mapping of action names to key sequences.
+ */
+QMap<QString, QKeySequence> KdeMainWindow::shortcutsMap() const
+{
+  QMap<QString, QKeySequence> map;
+  if (KActionCollection* collection = actionCollection()) {
+    const auto actions = collection->actions();
+    for (QAction* action : actions) {
+      if (action) {
+        QString name = action->objectName();
+        if (!name.isEmpty()) {
+          map.insert(name, action->shortcut());
+        }
+      }
+    }
+  }
+  return map;
 }
 
 /**
@@ -565,9 +605,12 @@ void KdeMainWindow::slotFileOpenRecentUrl(const QUrl& url)
  */
 void KdeMainWindow::slotSettingsShortcuts()
 {
-  KShortcutsDialog::configure(
-    actionCollection(),
-    KShortcutsEditor::LetterShortcutsDisallowed, this);
+  if (KShortcutsDialog::configure(
+        actionCollection(),
+        KShortcutsEditor::LetterShortcutsAllowed, this) ==
+      QDialog::Accepted) {
+    impl()->applyChangedShortcuts();
+  }
 }
 
 /**

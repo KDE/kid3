@@ -151,7 +151,9 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
             for (const ShortcutGroup& g : gs) {
               for (const ShortcutItem& i : g) {
                 if (i.activeShortcut() == keyString &&
-                    si.action() != i.action()) {
+                    si.action() != i.action() &&
+                    (si.action()->shortcutContext() != Qt::WidgetShortcut ||
+                     i.action()->shortcutContext() != Qt::WidgetShortcut)) {
                   emit shortcutAlreadyUsed(keyString, g.context(), i.action());
                   return false;
                 }
@@ -305,6 +307,28 @@ void ShortcutsModel::unregisterAction(QAction* action, const QString& context)
       break;
     }
   }
+}
+
+/**
+ * Get mapping of shortcut names to key sequences.
+ * @return shortcut map.
+ */
+QMap<QString, QKeySequence> ShortcutsModel::shortcutsMap() const
+{
+  QMap<QString, QKeySequence> map;
+  for (auto git = m_shortcutGroups.constBegin();
+       git != m_shortcutGroups.constEnd();
+       ++git) {
+    for (auto iit = git->constBegin(); iit != git->constEnd(); ++iit) {
+      if (const QAction* action = iit->action()) {
+        QString name = action->objectName();
+        if (!name.isEmpty()) {
+          map.insert(name, action->shortcut());
+        }
+      }
+    }
+  }
+  return map;
 }
 
 /**

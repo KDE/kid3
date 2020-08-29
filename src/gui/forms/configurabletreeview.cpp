@@ -68,6 +68,51 @@ ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
  */
 void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
 {
+  if ((state() != EditingState || hasFocus()) &&
+      (!m_openParentKey.isEmpty() || !m_openCurrentKey.isEmpty())) {
+    // First create a key sequence from the key event and modifiers.
+    int keyCode = event->key();
+    Qt::Key key = static_cast<Qt::Key>(keyCode);
+    if (key != Qt::Key_unknown && key != Qt::Key_Control &&
+        key != Qt::Key_Shift && key != Qt::Key_Alt && key != Qt::Key_Meta) {
+      Qt::KeyboardModifiers modifiers = event->modifiers();
+      if (modifiers & Qt::ShiftModifier) {
+        keyCode += Qt::SHIFT;
+      }
+      if (modifiers & Qt::ControlModifier) {
+        keyCode += Qt::CTRL;
+      }
+      if (modifiers & Qt::AltModifier) {
+        keyCode += Qt::ALT;
+      }
+      if (modifiers & Qt::MetaModifier) {
+        keyCode += Qt::META;
+      }
+      QKeySequence keySequence(keyCode);
+
+      // Open the parent folder if the "open_parent" key
+      // (Ctrl+Up by default) is pressed.
+      if (keySequence.matches(m_openParentKey) == QKeySequence::ExactMatch) {
+        QModelIndex idx = rootIndex();
+        if (idx.isValid()) {
+          emit parentActivated(idx);
+        }
+        event->ignore();
+        return;
+      }
+      // Open the current folder if the "open_current" key
+      // (Ctrl+Down by default) is pressed.
+      if (keySequence.matches(m_openCurrentKey) == QKeySequence::ExactMatch) {
+        QModelIndex idx = currentIndex();
+        if (idx.isValid()) {
+          emit activated(idx);
+        }
+        event->ignore();
+        return;
+      }
+    }
+  }
+
   switch (event->key()) {
   // When the left arrow key is pressed on an item without children,
   // go to its parent item.
@@ -87,32 +132,6 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       }
     }
     break;
-  case Qt::Key_Down:
-    if ((event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier |
-                               Qt::AltModifier | Qt::MetaModifier)) ==
-        Qt::ControlModifier &&
-        (state() != EditingState || hasFocus())) {
-      QModelIndex idx = currentIndex();
-      if (idx.isValid()) {
-        emit activated(idx);
-      }
-      event->ignore();
-      return;
-    }
-    break;
-  case Qt::Key_Up:
-    if ((event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier |
-                               Qt::AltModifier | Qt::MetaModifier)) ==
-        Qt::ControlModifier &&
-        (state() != EditingState || hasFocus())) {
-      QModelIndex idx = rootIndex();
-      if (idx.isValid()) {
-        emit parentActivated(idx);
-      }
-      event->ignore();
-      return;
-    }
-    break;
 #ifdef Q_OS_MAC
   case Qt::Key_Enter:
   case Qt::Key_Return:
@@ -127,6 +146,22 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
 #endif
   }
   QTreeView::keyPressEvent(event);
+}
+
+/**
+ * Set keyboard shortcuts for the open parent and open current actions.
+ * @param map map of action names to key sequences
+ */
+void ConfigurableTreeView::setShortcuts(const QMap<QString, QKeySequence>& map)
+{
+  auto it = map.constFind(QLatin1String("open_parent"));
+  if (it != map.constEnd()) {
+    m_openParentKey = *it;
+  }
+  it = map.constFind(QLatin1String("open_current"));
+  if (it != map.constEnd()) {
+    m_openCurrentKey = *it;
+  }
 }
 
 /**

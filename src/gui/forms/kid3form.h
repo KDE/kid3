@@ -50,6 +50,7 @@ class PictureLabel;
 class BaseMainWindowImpl;
 class Kid3FormTagContext;
 class AbstractFileDecorationProvider;
+class SectionActions;
 
 /**
  * Main widget.
@@ -71,6 +72,12 @@ public:
    * Destructor.
    */
   virtual ~Kid3Form() override;
+
+  /**
+   * Set keyboard shortcuts for section actions.
+   * @param map map of action names to key sequences
+   */
+  void setSectionActionShortcuts(const QMap<QString, QKeySequence>& map);
 
   /**
    * Get context for tag.
@@ -458,6 +465,7 @@ private:
   Kid3Application* m_app;
   BaseMainWindowImpl* m_mainWin;
   QScopedPointer<AbstractFileDecorationProvider> m_iconProvider;
+  QList<SectionActions*> m_sectionActions;
 
   /** Collapse pixmap, will be allocated in constructor */
   static QPixmap* s_collapsePixmap;

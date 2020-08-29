@@ -26,7 +26,9 @@
 
 #pragma once
 
+#include <tuple>
 #include <QObject>
+#include "kid3api.h"
 
 class QWidget;
 class QAction;
@@ -37,7 +39,7 @@ class QAction;
  * and edit. The keyboard shortcuts are only active when the section has the
  * focus.
  */
-class SectionActions : public QObject {
+class KID3_GUI_EXPORT SectionActions : public QObject {
   Q_OBJECT
 public:
   /** Which actions to include */
@@ -55,6 +57,12 @@ public:
    * @param widget widget to which actions are added
    */
   SectionActions(ActionGroups groups, QWidget* widget);
+
+  /**
+   * Set keyboard shortcuts for section actions.
+   * @param map map of action names to key sequences
+   */
+  void setShortcuts(const QMap<QString, QKeySequence>& map);
 
   /** Get action for previous section. */
   QAction* previousSectionAction() const {
@@ -100,6 +108,12 @@ public:
   QAction* deleteAction() const {
     return m_deleteAction;
   }
+
+  /**
+   * Get section action default shortcut information.
+   * @return list with name, display name, shortcut for all section actions.
+   */
+  static QList<std::tuple<QString, QString, QKeySequence>> defaultShortcuts();
 
 private:
   QWidget* m_widget;

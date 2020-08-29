@@ -42,6 +42,7 @@
 #include "mainwindowconfig.h"
 #include "kid3form.h"
 #include "filelist.h"
+#include "sectionactions.h"
 #include "kid3application.h"
 #include "configdialog.h"
 #include "guiconfig.h"
@@ -617,6 +618,18 @@ void Kid3MainWindow::initActions()
 }
 
 /**
+ * Get keyboard shortcuts.
+ * @return mapping of action names to key sequences.
+ */
+QMap<QString, QKeySequence> Kid3MainWindow::shortcutsMap() const
+{
+  if (m_shortcutsModel) {
+    return m_shortcutsModel->shortcutsMap();
+  }
+  return {};
+}
+
+/**
  * Init actions of form.
  */
 void Kid3MainWindow::initFormActions()
@@ -698,6 +711,20 @@ void Kid3MainWindow::initFormActions()
   connect(addFormAction(tr("Focus"), QLatin1String("dirlist_focus"), ctx),
           &QAction::triggered,
           form(), &Kid3Form::setFocusDirList);
+
+  const auto sectionShortcuts = SectionActions::defaultShortcuts();
+  ctx = tr("Section");
+  for (auto it = sectionShortcuts.constBegin();
+       it != sectionShortcuts.constEnd();
+       ++it) {
+    const auto& tpl = *it;
+    QAction* action = new QAction(std::get<1>(tpl), this);
+    action->setObjectName(std::get<0>(tpl));
+    action->setShortcut(std::get<2>(tpl));
+    action->setShortcutContext(Qt::WidgetShortcut);
+    action->setEnabled(false);
+    m_shortcutsModel->registerAction(action, ctx);
+  }
 }
 
 /**
@@ -896,6 +923,7 @@ void Kid3MainWindow::slotSettingsConfigure()
   if (dialog->exec() == QDialog::Accepted) {
     dialog->getConfig();
     impl()->applyChangedConfiguration();
+    impl()->applyChangedShortcuts();
   }
 }
 

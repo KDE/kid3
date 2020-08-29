@@ -62,6 +62,12 @@ public:
   virtual void initActions() override;
 
   /**
+   * Get keyboard shortcuts.
+   * @return mapping of action names to key sequences.
+   */
+  virtual QMap<QString, QKeySequence> shortcutsMap() const override;
+
+  /**
    * Add directory to recent files list.
    *
    * @param dirName path to directory

@@ -148,6 +148,12 @@ public:
   void unregisterAction(QAction* action, const QString& context);
 
   /**
+   * Get mapping of shortcut names to key sequences.
+   * @return shortcut map.
+   */
+  QMap<QString, QKeySequence> shortcutsMap() const;
+
+  /**
    * Assign the shortcuts which have been changed to their actions.
    *
    * @return true if there was at least one shortcut changed

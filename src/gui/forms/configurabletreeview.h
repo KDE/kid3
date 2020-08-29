@@ -27,6 +27,7 @@
 #pragma once
 
 #include <QTreeView>
+#include <QKeySequence>
 
 class QActionGroup;
 
@@ -112,6 +113,12 @@ public:
    */
   void reconnectModel();
 
+  /**
+   * Set keyboard shortcuts for the open parent and open current actions.
+   * @param map map of action names to key sequences
+   */
+  void setShortcuts(const QMap<QString, QKeySequence>& map);
+
 signals:
   /**
    * Emitted when the parent shall be activated.
@@ -159,4 +166,6 @@ private:
   QActionGroup* m_columnActionGroup;
   QAction* m_autoColumnAction;
   QAction* m_customColumnAction;
+  QKeySequence m_openParentKey;
+  QKeySequence m_openCurrentKey;
 };
