@@ -198,7 +198,12 @@ void KdeMainWindow::initActions()
   action = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")),
                        tr("Re&load"), this);
   action->setStatusTip(tr("Reload folder"));
-  action->setShortcut(QKeySequence::Refresh);
+  // When using the KDE version on GNOME, a dialog appears "There are two
+  // actions (Replace..., Reload) that want to use the same shortcut (Ctrl+R)".
+  // Avoid this by assigning Qt::Key_F5 instead of QKeySequence::Refresh.
+  // The section "Standard Shortcuts" in the QKeySequence documentation lists
+  // F5 as a key for "Refresh" on all platforms.
+  action->setShortcut(Qt::Key_F5);
   collection->addAction(QLatin1String("reload"), action);
   connect(action, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotFileReload);
