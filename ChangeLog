@@ -1,3 +1,33 @@
+Sat Sep 26 16:36:24 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.4
+
+	* New:
+	  + Section and file list shortcuts can be customized.
+	  + Activate parent/current folder with Ctrl-Up/Down (Command-Up/Down).
+	  + Go to parent item in file list when left arrow key is pressed.
+	  + Header context menu options for custom or automatic column widths.
+	  + Add flatpak support.
+
+	* Improved:
+	  + Support detection of tagged file types from contents when matching by
+	    extension does not succeed.
+	  + Show more details (type, bits, bitrate) for M4A, FLAC, AIFF, WAV.
+	  + Discogs import: Show year and format in album list.
+	  + Dialogs: Store window position and size in settings.
+	  + Mac: Enter key can activate entries in directory list.
+	  + Android: Only navigate between tagged files with [<], [>] buttons.
+
+	* Fixed:
+	  + Do not duplicate pictures when pasting tags.
+	  + Discogs import: Get year when language is not English.
+	  + Keyboard shortcuts settings: Display correctly depending on language
+	    and operating system.
+	  + Android: Accept genre changes when focus lost and Enter not pressed.
+	  + Android: Fix translation.
+	  + Mac: Unlock files when changing permissions.
+	  + Flatpak: Move to trash works in KDE version.
+
 Sun May 10 08:47:03 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.3

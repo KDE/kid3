@@ -1,8 +1,23 @@
-kid3 (3.8.3-0) unstable; urgency=low
+kid3 (3.8.4-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 10 May 2020 20:47:03 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 26 Sep 2020 16:36:24 +0200
+
+kid3 (3.8.3-2) unstable; urgency=high
+
+  * Fix FTBFS by reverting: Remove build path from plugins.qmltypes.
+    Closes: 964683
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 10 Jul 2020 15:37:33 +0200
+
+kid3 (3.8.3-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Adjust install files.
+  * Bump compat level to 13.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 15 May 2020 12:27:59 +0200
 
 kid3 (3.8.2-2) unstable; urgency=medium
 

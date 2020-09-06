@@ -1,3 +1,3 @@
 kid3 source: upstream-metadata-file-is-missing
 kid3 source: testsuite-autopkgtest-missing
-kid3 source: inconsistent-appstream-metadata-license src/app/kid3.appdata.xml (cc0-1.0 != gpl-2+)
+kid3 source: inconsistent-appstream-metadata-license src/app/org.kde.kid3.appdata.xml (cc0-1.0 != gpl-2+)
