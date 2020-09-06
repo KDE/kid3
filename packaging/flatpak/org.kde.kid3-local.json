@@ -2,7 +2,7 @@
     "id": "org.kde.kid3",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.14",
+    "runtime-version": "5.15",
     "sdk": "org.kde.Sdk",
     "command": "kid3",
     "rename-icon": "kid3",
