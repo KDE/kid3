@@ -113,7 +113,8 @@
                 { "type": "patch", "path": "../patches/mp4v2-1.0.0-0001-Fix_mp4tags_corruption.patch" },
                 { "type": "patch", "path": "../patches/mp4v2-1.0.0-0002-Fix_m4_error.patch" },
                 { "type": "patch", "path": "../patches/mp4v2-1.0.0-0003-Reproducible_build.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0004-Pointer_comparison.patch" }
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0004-Pointer_comparison.patch" },
+                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0005-Cxx11_compiler.patch" }
             ]
         },
         {
