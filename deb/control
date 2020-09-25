@@ -23,7 +23,8 @@ Build-Depends: debhelper (>= 9),
  docbook-xsl,
  pkg-config,
  libreadline-dev,
- xsltproc
+ xsltproc,
+ python3
 Standards-Version: 4.2.1
 Rules-Requires-Root: no
 Homepage: https://kid3.kde.org/

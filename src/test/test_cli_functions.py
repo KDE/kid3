@@ -55,19 +55,6 @@ class CliFunctionsTestCase(unittest.TestCase):
     def test_exit(self):
         self.assertEqual(call_kid3_cli(['-c', 'exit']), '')
 
-    def test_cd_pwd(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            curdir = os.getcwd()
-            lines = call_kid3_cli(
-                ['-c', 'pwd',
-                 '-c', 'cd "' + tmpdir + '"', '-c', 'pwd',
-                 '-c', 'cd ', '-c', 'pwd',
-                 '-c', 'cd "' + curdir + '"', '-c', 'pwd']).splitlines()
-            self.assertTrue(os.path.samefile(lines[0], curdir))
-            self.assertTrue(os.path.samefile(lines[1], tmpdir))
-            self.assertTrue(os.path.samefile(lines[2], os.path.expanduser('~')))
-            self.assertTrue(os.path.samefile(lines[3], curdir))
-
     def test_ls(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             self.assertEqual(call_kid3_cli(['-c', 'ls', tmpdir]), '')
@@ -635,7 +622,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Album         Kings Of Metal\n'
                 '  Date          1988\n'
                 '  Track Number  2\n'
-                '  Genre         Metal\n)?'                
+                '  Genre         Metal\n)?'
                 'Tag 2: Vorbis\n'
                 '  Title         Kings Of Metal\n'
                 '  Artist        Manowar\n'

@@ -117,6 +117,7 @@
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
+            "make-install-args": [ "check" ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",
@@ -126,15 +127,9 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/kid3/3.8.3/kid3-3.8.3.tar.xz",
-                    "sha256": "3556e7a76d65baf8b4258b955f6c93d7467a02a0b588ff7249c8ab96bc128377"
-                },
-                /* Fixed after 3.8.3, commit f7c8735 */
-                { "type": "patch", "path": "../patches/kid3-3.8.3-move-to-trash.patch" }
-            ],
-            "post-install" :[
-                /* Upstream notified: bugs.kde.org 421497 */
-                "sed -i 's|<\/component>|<content_rating type=\"oars-1.1\"\/>\\n<\/component>|g' \/app\/share\/metainfo\/org.kde.kid3.appdata.xml"
+                    "url": "https://download.kde.org/stable/kid3/3.8.4/kid3-3.8.4.tar.xz"
+                    /* , "sha256": "" */
+                }
             ]
         }
     ]

@@ -8,6 +8,7 @@ Sat Sep 26 16:36:24 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Go to parent item in file list when left arrow key is pressed.
 	  + Header context menu options for custom or automatic column widths.
 	  + Add flatpak support.
+	  + Brazilian Portuguese translation.
 
 	* Improved:
 	  + Support detection of tagged file types from contents when matching by
