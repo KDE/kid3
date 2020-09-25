@@ -1,0 +1,7045 @@
+# Kid3 Estonian Translation.
+# This file is put in the public domain.
+#
+# Mihkel Tõnnov <mihhkel@gmail.com>, 2007–2010, 2014.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
+# Marek Laane <qiilaq69@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: Kid3 3.8.1\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
+"PO-Revision-Date: 2020-04-20 12:03+0300\n"
+"Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
+"Language-Team: Estonian <kde-et@lists.linux.ee>\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Estonian\n"
+"X-Generator: Lokalize 19.12.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Language: et\n"
+"X-Source-Language: en\n"
+"X-Qt-Contexts: true\n"
+
+#: src/app/cli/clicommand.cpp:143
+msgctxt "CliCommand|"
+msgid "Timeout"
+msgstr "Ajaületus"
+
+#: src/app/cli/clicommand.cpp:187
+msgctxt "HelpCommand|"
+msgid "Help"
+msgstr "Abi"
+
+#: src/app/cli/clicommand.cpp:188
+msgctxt "HelpCommand|"
+msgid "Command name"
+msgstr "Käsu nimi"
+
+#: src/app/cli/clicommand.cpp:199
+msgctxt "TimeoutCommand|"
+msgid "Overwrite timeout"
+msgstr ""
+
+#: src/app/cli/clicommand.cpp:200
+msgctxt "TimeoutCommand|"
+msgid "Time"
+msgstr "Aeg"
+
+#: src/app/cli/clicommand.cpp:241
+msgctxt "QuitCommand|"
+msgid "Quit application"
+msgstr "Rakendusest väljumine"
+
+#: src/app/cli/clicommand.cpp:250
+msgctxt "QuitCommand|"
+msgid "The current folder has been modified."
+msgstr "Aktiivset kataloogi on muudetud."
+
+#: src/app/cli/clicommand.cpp:252
+msgctxt "QuitCommand|"
+msgid "Type 'exit force' to quit."
+msgstr "Väljumiseks kirjuta \"exit force\"."
+
+#: src/app/cli/clicommand.cpp:268
+msgctxt "CdCommand|"
+msgid "Change folder"
+msgstr "Kataloogi vahetamine"
+
+#: src/app/cli/clicommand.cpp:282
+#, qt-format
+msgctxt "CdCommand|"
+msgid "%1 does not exist"
+msgstr "%1 ei ole olemas"
+
+#: src/app/cli/clicommand.cpp:302
+msgctxt "PwdCommand|"
+msgid "Print the filename of the current folder"
+msgstr "Aktiivse kataloogi failinime näitamine"
+
+#: src/app/cli/clicommand.cpp:318
+msgctxt "LsCommand|"
+msgid "Folder list"
+msgstr "Kataloogide loend"
+
+#: src/app/cli/clicommand.cpp:330
+msgctxt "SaveCommand|"
+msgid "Saves the changed files"
+msgstr "Muudetud failide salvestamine"
+
+#: src/app/cli/clicommand.cpp:340
+msgctxt "SaveCommand|"
+msgid "Error while writing file:\n"
+msgstr "Tõrge faili kirjutamisel:\n"
+
+#: src/app/cli/clicommand.cpp:347
+msgctxt "SelectCommand|"
+msgid "Select file"
+msgstr "Faili valimine"
+
+#: src/app/cli/clicommand.cpp:370
+#, qt-format
+msgctxt "SelectCommand|"
+msgid "%1 not found"
+msgstr "%1 ei leitud"
+
+#: src/app/cli/clicommand.cpp:380
+msgctxt "TagCommand|"
+msgid "Select tag"
+msgstr "Sildi valimine"
+
+#: src/app/cli/clicommand.cpp:397
+msgctxt "GetCommand|"
+msgid "Get tag frame"
+msgstr "Sildi raami hankimine"
+
+#: src/app/cli/clicommand.cpp:425
+msgctxt "SetCommand|"
+msgid "Set tag frame"
+msgstr "Sildi raami määramine"
+
+#: src/app/cli/clicommand.cpp:443
+#, qt-format
+msgctxt "SetCommand|"
+msgid "Could not set \"%1\" for %2"
+msgstr "\"%1\" määramine raami \"%2\" väärtuseks nurjus"
+
+#: src/app/cli/clicommand.cpp:453
+msgctxt "RevertCommand|"
+msgid "Revert"
+msgstr "Lähtestamine"
+
+#: src/app/cli/clicommand.cpp:465
+msgctxt "ImportCommand|"
+msgid "Import from file"
+msgstr "Import failist"
+
+#: src/app/cli/clicommand.cpp:467
+msgctxt "ImportCommand|"
+msgid "File path"
+msgstr "Faili asukoht"
+
+#: src/app/cli/clicommand.cpp:467
+msgctxt "ImportCommand|"
+msgid "Format name"
+msgstr "Vormingu nimi"
+
+#: src/app/cli/clicommand.cpp:468
+msgctxt "ImportCommand|"
+msgid "Source"
+msgstr "Allikas"
+
+#: src/app/cli/clicommand.cpp:469
+msgctxt "ImportCommand|"
+msgid "Extraction"
+msgstr "Lahtipakkimine"
+
+#: src/app/cli/clicommand.cpp:497
+#, qt-format
+msgctxt "ImportCommand|"
+msgid "%1 not found."
+msgstr "%1 ei leitud."
+
+#: src/app/cli/clicommand.cpp:499
+msgctxt "ImportCommand|"
+msgid "Available"
+msgstr "Saadaval"
+
+#: src/app/cli/clicommand.cpp:510
+msgctxt "ImportCommand|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/app/cli/clicommand.cpp:520
+msgctxt "BatchImportCommand|"
+msgid "Automatic import"
+msgstr "Automaatne import"
+
+#: src/app/cli/clicommand.cpp:521
+msgctxt "BatchImportCommand|"
+msgid "Profile name"
+msgstr "Profiili nimi"
+
+#: src/app/cli/clicommand.cpp:533
+#, qt-format
+msgctxt "BatchImportCommand|"
+msgid "%1 not found."
+msgstr "%1 ei leitud."
+
+#: src/app/cli/clicommand.cpp:535
+msgctxt "BatchImportCommand|"
+msgid "Available"
+msgstr "Saadaval"
+
+#: src/app/cli/clicommand.cpp:608
+msgctxt "AlbumArtCommand|"
+msgid "Download album cover artwork"
+msgstr "Albumi kaanepildi allalaadimine"
+
+#: src/app/cli/clicommand.cpp:652
+msgctxt "ExportCommand|"
+msgid "Export to file"
+msgstr "Eksport failina"
+
+#: src/app/cli/clicommand.cpp:653
+msgctxt "ExportCommand|"
+msgid "Format name"
+msgstr "Vormingu nimi"
+
+#: src/app/cli/clicommand.cpp:668
+#, qt-format
+msgctxt "ExportCommand|"
+msgid "%1 not found."
+msgstr "%1 ei leitud."
+
+#: src/app/cli/clicommand.cpp:670
+msgctxt "ExportCommand|"
+msgid "Available"
+msgstr "Saadaval"
+
+#: src/app/cli/clicommand.cpp:681
+msgctxt "ExportCommand|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/app/cli/clicommand.cpp:690
+msgctxt "PlaylistCommand|"
+msgid "Create playlist"
+msgstr "Esitusloendi loomine"
+
+#: src/app/cli/clicommand.cpp:697
+msgctxt "PlaylistCommand|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/app/cli/clicommand.cpp:704
+msgctxt "FilenameFormatCommand|"
+msgid "Apply filename format"
+msgstr "Failinimevormingu rakendamine"
+
+#: src/app/cli/clicommand.cpp:715
+msgctxt "TagFormatCommand|"
+msgid "Apply tag format"
+msgstr "Sildivormingu rakendamine"
+
+#: src/app/cli/clicommand.cpp:727
+msgctxt "TextEncodingCommand|"
+msgid "Apply text encoding"
+msgstr "Tekstikodeeringu rakendamine"
+
+#: src/app/cli/clicommand.cpp:738
+msgctxt "RenameDirectoryCommand|"
+msgid "Rename folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/app/cli/clicommand.cpp:830
+msgctxt "NumberTracksCommand|"
+msgid "Number tracks"
+msgstr "Palade nummerdamine"
+
+#: src/app/cli/clicommand.cpp:831
+msgctxt "NumberTracksCommand|"
+msgid "Track number"
+msgstr "Pala number"
+
+#: src/app/cli/clicommand.cpp:855
+msgctxt "FilterCommand|"
+msgid "Filter"
+msgstr "Filtreerimine"
+
+#: src/app/cli/clicommand.cpp:856
+msgctxt "FilterCommand|"
+msgid "Filter name"
+msgstr "Filtri nimi"
+
+#: src/app/cli/clicommand.cpp:871
+#, qt-format
+msgctxt "FilterCommand|"
+msgid "%1 not found."
+msgstr "%1 ei leitud."
+
+#: src/app/cli/clicommand.cpp:873
+msgctxt "FilterCommand|"
+msgid "Available"
+msgstr "Saadaval"
+
+#: src/app/cli/clicommand.cpp:947
+msgctxt "ToId3v24Command|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 teisendamine ID3v2.4-ks"
+
+#: src/app/cli/clicommand.cpp:958
+msgctxt "ToId3v23Command|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 teisendamine ID3v2.3-ks"
+
+#: src/app/cli/clicommand.cpp:969
+msgctxt "TagToFilenameCommand|"
+msgid "Filename from tag"
+msgstr "Failinimi sildi põhjal"
+
+#: src/app/cli/clicommand.cpp:999
+msgctxt "FilenameToTagCommand|"
+msgid "Tag from filename"
+msgstr "Silt failinime põhjal"
+
+#: src/app/cli/clicommand.cpp:1029
+msgctxt "TagToOtherTagCommand|"
+msgid "Tag to other tag"
+msgstr "Sildist teise silti"
+
+#: src/app/cli/clicommand.cpp:1046
+msgctxt "CopyCommand|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/app/cli/clicommand.cpp:1059
+msgctxt "PasteCommand|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/app/cli/clicommand.cpp:1072
+msgctxt "RemoveCommand|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
+#, qt-format
+msgctxt "JsonCliFormatter|"
+msgid "Unknown command '%1'"
+msgstr "Tundmatu käsk '%1'"
+
+#: src/app/cli/jsoncliformatter.cpp:207
+msgctxt "JsonCliFormatter|"
+msgid "Usage:"
+msgstr "Kasutamine:"
+
+#: src/app/cli/kid3cli.cpp:297
+msgctxt "Kid3Cli|"
+msgid "Parameter"
+msgstr "Parameeter"
+
+#: src/app/cli/kid3cli.cpp:298
+msgctxt "Kid3Cli|"
+msgid "File path"
+msgstr "Faili asukoht"
+
+#: src/app/cli/kid3cli.cpp:299
+msgctxt "Kid3Cli|"
+msgid "URL"
+msgstr "URL"
+
+#: src/app/cli/kid3cli.cpp:300
+msgctxt "Kid3Cli|"
+msgid "Tag numbers"
+msgstr "Sildinumbrid"
+
+#: src/app/cli/kid3cli.cpp:302
+msgctxt "Kid3Cli|"
+msgid "Frame name"
+msgstr "raami nimi"
+
+#: src/app/cli/kid3cli.cpp:305
+msgctxt "Kid3Cli|"
+msgid "Frame value"
+msgstr "raami väärtus"
+
+#: src/app/cli/kid3cli.cpp:306
+msgctxt "Kid3Cli|"
+msgid "Format"
+msgstr "Vorming"
+
+#: src/app/cli/kid3cli.cpp:307
+msgctxt "Kid3Cli|"
+msgid "Command specific"
+msgstr "Käsuspetsiifiline"
+
+#: src/app/cli/kid3cli.cpp:308
+msgctxt "Kid3Cli|"
+msgid "Available Commands"
+msgstr "Saadaolevad käsud"
+
+#: src/app/cli/kid3cli.cpp:741
+msgctxt "Kid3Cli|"
+msgid "Usage:"
+msgstr "Kasutamine:"
+
+#: src/app/cli/kid3cli.cpp:759
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "%1 does not exist"
+msgstr "%1 ei ole olemas"
+
+#: src/app/cli/kid3cli.cpp:788
+msgctxt "Kid3Cli|"
+msgid "Error while writing file:\n"
+msgstr "Tõrge faili kirjutamisel:\n"
+
+#: src/app/cli/kid3cli.cpp:806
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "Unknown command '%1', -h for help."
+msgstr "Käsk \"%1\" on tundmatu, -h näitab abiinfot."
+
+#: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Käsk \"%1\" on tundmatu, \"help\" näitab abiinfot."
+
+#: src/app/cli/textcliformatter.cpp:204
+msgctxt "TextCliFormatter|"
+msgid "Usage:"
+msgstr "Kasutamine:"
+
+#: src/app/cli/textcliformatter.cpp:241
+msgctxt "TextCliFormatter|"
+msgid "Tags"
+msgstr "Sildid"
+
+#: src/app/cli/textcliformatter.cpp:248
+msgctxt "TextCliFormatter|"
+msgid "File"
+msgstr "Fail"
+
+#: src/app/cli/textcliformatter.cpp:253
+msgctxt "TextCliFormatter|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/app/cli/textcliformatter.cpp:274
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/app/cli/textcliformatter.cpp:295
+msgctxt "TextCliFormatter|"
+msgid "Timeout"
+msgstr "Ajaületus"
+
+#: src/app/cli/textcliformatter.cpp:301
+msgctxt "TextCliFormatter|"
+msgid "Reading Folder"
+msgstr "Kataloogi lugemine"
+
+#: src/app/cli/textcliformatter.cpp:303
+msgctxt "TextCliFormatter|"
+msgid "Started"
+msgstr "Käivitatud"
+
+#: src/app/cli/textcliformatter.cpp:305
+msgctxt "TextCliFormatter|"
+msgid "Source"
+msgstr "Allikas"
+
+#: src/app/cli/textcliformatter.cpp:307
+msgctxt "TextCliFormatter|"
+msgid "Querying"
+msgstr "Päring"
+
+#: src/app/cli/textcliformatter.cpp:309
+msgctxt "TextCliFormatter|"
+msgid "Fetching"
+msgstr "Tõmbamine"
+
+#: src/app/cli/textcliformatter.cpp:311
+msgctxt "TextCliFormatter|"
+msgid "Data received"
+msgstr "Andmed vastu võetud"
+
+#: src/app/cli/textcliformatter.cpp:313
+msgctxt "TextCliFormatter|"
+msgid "Cover"
+msgstr "Kaanepilt"
+
+#: src/app/cli/textcliformatter.cpp:315
+msgctxt "TextCliFormatter|"
+msgid "Finished"
+msgstr "Valmis"
+
+#: src/app/cli/textcliformatter.cpp:317
+msgctxt "TextCliFormatter|"
+msgid "Aborted"
+msgstr "Katkestatud"
+
+#: src/app/cli/textcliformatter.cpp:319
+msgctxt "TextCliFormatter|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/app/kde/kdeconfigdialog.cpp:51
+msgctxt "KdeConfigDialog|"
+msgid "Tags"
+msgstr "Sildid"
+
+#: src/app/kde/kdeconfigdialog.cpp:53
+msgctxt "KdeConfigDialog|"
+msgid "Files"
+msgstr "Failid"
+
+#: src/app/kde/kdeconfigdialog.cpp:55
+msgctxt "KdeConfigDialog|"
+msgid "User Actions"
+msgstr "Kasutaja toimingud"
+
+#: src/app/kde/kdeconfigdialog.cpp:57
+msgctxt "KdeConfigDialog|"
+msgid "Network"
+msgstr "Võrk"
+
+#: src/app/kde/kdeconfigdialog.cpp:59
+msgctxt "KdeConfigDialog|"
+msgid "Plugins"
+msgstr "Pluginad"
+
+#: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
+msgctxt "@default|"
+msgid "Main Toolbar"
+msgstr "Peamine tööriistariba"
+
+#: src/app/kde/kdemainwindow.cpp:86
+msgctxt "KdeMainWindow|"
+msgid "Open files"
+msgstr "Failide avamine"
+
+#: src/app/kde/kdemainwindow.cpp:94
+msgctxt "KdeMainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Viimati kasutatud kataloogi avamine"
+
+#: src/app/kde/kdemainwindow.cpp:103
+msgctxt "KdeMainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Kõigi või valitud failide muudatuste tühistamine"
+
+#: src/app/kde/kdemainwindow.cpp:113
+msgctxt "KdeMainWindow|"
+msgid "Saves the changed files"
+msgstr "Muudetud failide salvestamine"
+
+#: src/app/kde/kdemainwindow.cpp:121
+msgctxt "KdeMainWindow|"
+msgid "Quits the application"
+msgstr "Rakendusest väljumine"
+
+#: src/app/kde/kdemainwindow.cpp:129
+msgctxt "KdeMainWindow|"
+msgid "Select all files"
+msgstr "Kõigi failide valimine"
+
+#: src/app/kde/kdemainwindow.cpp:138
+msgctxt "KdeMainWindow|"
+msgid "Deselect all files"
+msgstr "Kõigi failide valimise tühistamine"
+
+#: src/app/kde/kdemainwindow.cpp:146
+msgctxt "KdeMainWindow|"
+msgid "Find"
+msgstr "Otsimine"
+
+#: src/app/kde/kdemainwindow.cpp:154
+msgctxt "KdeMainWindow|"
+msgid "Find and replace"
+msgstr "Otsimine ja asendamine"
+
+#: src/app/kde/kdemainwindow.cpp:164
+msgctxt "KdeMainWindow|"
+msgid "Configure Shortcuts"
+msgstr "Kiirklahvide seadistamine"
+
+#: src/app/kde/kdemainwindow.cpp:172
+msgctxt "KdeMainWindow|"
+msgid "Configure Toolbars"
+msgstr "Tööriistaribade seadistamine"
+
+#: src/app/kde/kdemainwindow.cpp:180
+msgctxt "KdeMainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Olekuriba lubamine/keelamine"
+
+#: src/app/kde/kdemainwindow.cpp:188
+msgctxt "KdeMainWindow|"
+msgid "Preferences dialog"
+msgstr "Seadistusdialoog"
+
+#: src/app/kde/kdemainwindow.cpp:191
+msgctxt "KdeMainWindow|"
+msgid "O&pen Folder..."
+msgstr "Ava &kataloog..."
+
+#: src/app/kde/kdemainwindow.cpp:192
+msgctxt "KdeMainWindow|"
+msgid "Opens a folder"
+msgstr "Kataloogi avamine"
+
+#: src/app/kde/kdemainwindow.cpp:199
+msgctxt "KdeMainWindow|"
+msgid "Re&load"
+msgstr "Laadi &uuesti"
+
+#: src/app/kde/kdemainwindow.cpp:200
+msgctxt "KdeMainWindow|"
+msgid "Reload folder"
+msgstr "Kataloogi laadimine uuesti"
+
+#: src/app/kde/kdemainwindow.cpp:211
+msgctxt "KdeMainWindow|"
+msgid "Unload"
+msgstr "Eemalda"
+
+#: src/app/kde/kdemainwindow.cpp:216
+msgctxt "KdeMainWindow|"
+msgid "&Import..."
+msgstr "&Impordi..."
+
+#: src/app/kde/kdemainwindow.cpp:217
+msgctxt "KdeMainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Failist või lõikepuhvrist importimine"
+
+#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1..."
+msgstr "Impordi serverist %1 ..."
+
+#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1"
+msgstr "Importimine serverist %1"
+
+#: src/app/kde/kdemainwindow.cpp:257
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags..."
+msgstr "Impordi siltidest ..."
+
+#: src/app/kde/kdemainwindow.cpp:258
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags"
+msgstr "Importimine siltidest"
+
+#: src/app/kde/kdemainwindow.cpp:262
+msgctxt "KdeMainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Automaatne i&mport ..."
+
+#: src/app/kde/kdemainwindow.cpp:263
+msgctxt "KdeMainWindow|"
+msgid "Automatic import"
+msgstr "Automaatne import"
+
+#: src/app/kde/kdemainwindow.cpp:267
+msgctxt "KdeMainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "Sirvi kaane&pilte ..."
+
+#: src/app/kde/kdemainwindow.cpp:268
+msgctxt "KdeMainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Albumi kaanepiltide sirvimine"
+
+#: src/app/kde/kdemainwindow.cpp:272
+msgctxt "KdeMainWindow|"
+msgid "&Export..."
+msgstr "&Ekspordi..."
+
+#: src/app/kde/kdemainwindow.cpp:273
+msgctxt "KdeMainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Failina või lõikepuhvrisse eksportimine"
+
+#: src/app/kde/kdemainwindow.cpp:277
+msgctxt "KdeMainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Loo esitusloend..."
+
+#: src/app/kde/kdemainwindow.cpp:278
+msgctxt "KdeMainWindow|"
+msgid "Create M3U Playlist"
+msgstr "M3U-esitusloendi loomine"
+
+#: src/app/kde/kdemainwindow.cpp:281
+msgctxt "KdeMainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Rakenda &failinimevorming"
+
+#: src/app/kde/kdemainwindow.cpp:282
+msgctxt "KdeMainWindow|"
+msgid "Apply Filename Format"
+msgstr "Failinimevormingu rakendamine"
+
+#: src/app/kde/kdemainwindow.cpp:285
+msgctxt "KdeMainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Rakenda &sildivorming"
+
+#: src/app/kde/kdemainwindow.cpp:286
+msgctxt "KdeMainWindow|"
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
+#: src/app/kde/kdemainwindow.cpp:289
+msgctxt "KdeMainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Rakenda t&ekstikodeering"
+
+#: src/app/kde/kdemainwindow.cpp:290
+msgctxt "KdeMainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Tekstikodeeringu rakendamine"
+
+#: src/app/kde/kdemainwindow.cpp:293
+msgctxt "KdeMainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Muuda kataloogi nime ..."
+
+#: src/app/kde/kdemainwindow.cpp:294
+msgctxt "KdeMainWindow|"
+msgid "Rename Folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/app/kde/kdemainwindow.cpp:297
+msgctxt "KdeMainWindow|"
+msgid "&Number Tracks..."
+msgstr "&Nummerda palad ..."
+
+#: src/app/kde/kdemainwindow.cpp:298
+msgctxt "KdeMainWindow|"
+msgid "Number Tracks"
+msgstr "Palade nummerdamine"
+
+#: src/app/kde/kdemainwindow.cpp:301
+msgctxt "KdeMainWindow|"
+msgid "F&ilter..."
+msgstr "F&iltreeri ..."
+
+#: src/app/kde/kdemainwindow.cpp:302
+msgctxt "KdeMainWindow|"
+msgid "Filter"
+msgstr "Filtreerimine"
+
+#: src/app/kde/kdemainwindow.cpp:307
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Teisenda ID3v2.3 ID3v2.&4-ks"
+
+#: src/app/kde/kdemainwindow.cpp:308
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 teisendamine ID3v2.4-ks"
+
+#: src/app/kde/kdemainwindow.cpp:312
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Teisenda ID3v2.4 ID3v2.&3-ks"
+
+#: src/app/kde/kdemainwindow.cpp:313
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 teisendamine ID3v2.3-ks"
+
+#: src/app/kde/kdemainwindow.cpp:319
+msgctxt "KdeMainWindow|"
+msgid "&Play"
+msgstr "&Esita"
+
+#: src/app/kde/kdemainwindow.cpp:320
+msgctxt "KdeMainWindow|"
+msgid "Play"
+msgstr "Esita"
+
+#: src/app/kde/kdemainwindow.cpp:323
+msgctxt "KdeMainWindow|"
+msgid "Show &Picture"
+msgstr "Näita &pilti"
+
+#: src/app/kde/kdemainwindow.cpp:324
+msgctxt "KdeMainWindow|"
+msgid "Show Picture"
+msgstr "Pildi näitamine"
+
+#: src/app/kde/kdemainwindow.cpp:329
+msgctxt "KdeMainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Peida sildid &automaatselt"
+
+#: src/app/kde/kdemainwindow.cpp:330
+msgctxt "KdeMainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Siltide automaatne peitmine"
+
+#: src/app/kde/kdemainwindow.cpp:335
+msgctxt "KdeMainWindow|"
+msgid "Select All in &Folder"
+msgstr "V&ali kõik kataloogis"
+
+#: src/app/kde/kdemainwindow.cpp:336
+msgctxt "KdeMainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Kõigi failide valimine aktiivses kataloogis"
+
+#: src/app/kde/kdemainwindow.cpp:340
+msgctxt "KdeMainWindow|"
+msgid "&Previous File"
+msgstr "&Eelmine fail"
+
+#: src/app/kde/kdemainwindow.cpp:341
+msgctxt "KdeMainWindow|"
+msgid "Select previous file"
+msgstr "Eelmise faili valimine"
+
+#: src/app/kde/kdemainwindow.cpp:347
+msgctxt "KdeMainWindow|"
+msgid "&Next File"
+msgstr "&Järgmine fail"
+
+#: src/app/kde/kdemainwindow.cpp:348
+msgctxt "KdeMainWindow|"
+msgid "Select next file"
+msgstr "Järgmise faili valimine"
+
+#: src/app/kde/kdemainwindow.cpp:360
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/app/kde/kdemainwindow.cpp:362 src/app/kde/kdemainwindow.cpp:414
+msgctxt "KdeMainWindow|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/app/kde/kdemainwindow.cpp:363 src/app/kde/kdemainwindow.cpp:374
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "From Tag %1"
+msgstr "Sildi %1 põhjal"
+
+#: src/app/kde/kdemainwindow.cpp:368
+msgctxt "KdeMainWindow|"
+msgid "From Filename"
+msgstr "Failinime põhjal"
+
+#: src/app/kde/kdemainwindow.cpp:381
+msgctxt "KdeMainWindow|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/app/kde/kdemainwindow.cpp:385
+msgctxt "KdeMainWindow|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/app/kde/kdemainwindow.cpp:389
+msgctxt "KdeMainWindow|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/app/kde/kdemainwindow.cpp:393 src/app/kde/kdemainwindow.cpp:414
+#: src/app/kde/kdemainwindow.cpp:419 src/app/kde/kdemainwindow.cpp:438
+msgctxt "KdeMainWindow|"
+msgid "Focus"
+msgstr "Fookus"
+
+#: src/app/kde/kdemainwindow.cpp:398
+msgctxt "KdeMainWindow|"
+msgid "Frames:"
+msgstr "Raamid:"
+
+#: src/app/kde/kdemainwindow.cpp:399
+msgctxt "KdeMainWindow|"
+msgid "Edit"
+msgstr "Muuda"
+
+#: src/app/kde/kdemainwindow.cpp:403
+msgctxt "KdeMainWindow|"
+msgid "Add"
+msgstr "Lisa"
+
+#: src/app/kde/kdemainwindow.cpp:407
+msgctxt "KdeMainWindow|"
+msgid "Delete"
+msgstr "Kustuta"
+
+#: src/app/kde/kdemainwindow.cpp:419
+msgctxt "KdeMainWindow|"
+msgid "File List"
+msgstr "Faililoend"
+
+#: src/app/kde/kdemainwindow.cpp:423
+msgctxt "KdeMainWindow|"
+msgid "&Rename"
+msgstr "&Muuda nime"
+
+#: src/app/kde/kdemainwindow.cpp:432
+msgctxt "KdeMainWindow|"
+msgid "&Move to Trash"
+msgstr "&Viska prügikasti"
+
+#: src/app/kde/kdemainwindow.cpp:438
+msgctxt "KdeMainWindow|"
+msgid "Folder List"
+msgstr "Kataloogiloend"
+
+#: src/app/kde/kdemainwindow.cpp:456
+msgctxt "KdeMainWindow|"
+msgid "Section"
+msgstr "Sektsioon"
+
+#: src/app/kde/kdemainwindow.cpp:646
+msgctxt "KdeMainWindow|"
+msgid "Configure - Kid3"
+msgstr "Seadistamine - Kid3"
+
+#: src/app/kde/mainkde.cpp:121
+msgctxt "@default|"
+msgid "folder to open"
+msgstr "avatav kataloog"
+
+#: src/app/kde/mainkde.cpp:134
+msgctxt "@default|"
+msgid "Audio Tag Editor"
+msgstr "Helisiltide redaktor"
+
+#: src/app/qt/browserdialog.cpp:91
+msgctxt "BrowserDialog|"
+msgid "&Back"
+msgstr "&Tagasi"
+
+#: src/app/qt/browserdialog.cpp:98
+msgctxt "BrowserDialog|"
+msgid "&Forward"
+msgstr "&Edasi"
+
+#: src/app/qt/browserdialog.cpp:105
+msgctxt "BrowserDialog|"
+msgid "&Find:"
+msgstr "&Otsing:"
+
+#: src/app/qt/browserdialog.cpp:121
+msgctxt "BrowserDialog|"
+msgid "Find Previous"
+msgstr "Leia eelmine"
+
+#: src/app/qt/browserdialog.cpp:131
+msgctxt "BrowserDialog|"
+msgid "Find Next"
+msgstr "Leia järgmine"
+
+#: src/app/qt/browserdialog.cpp:139
+msgctxt "BrowserDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/app/qt/configdialog.cpp:70
+msgctxt "ConfigDialog|"
+msgid "&Tags"
+msgstr "&Sildid"
+
+#: src/app/qt/configdialog.cpp:71
+msgctxt "ConfigDialog|"
+msgid "&Files"
+msgstr "&Failid"
+
+#: src/app/qt/configdialog.cpp:72
+msgctxt "ConfigDialog|"
+msgid "&User Actions"
+msgstr "&Kasutaja toimingud"
+
+#: src/app/qt/configdialog.cpp:73
+msgctxt "ConfigDialog|"
+msgid "&Network"
+msgstr "&Võrk"
+
+#: src/app/qt/configdialog.cpp:74
+msgctxt "ConfigDialog|"
+msgid "&Plugins"
+msgstr "&Pluginad"
+
+#: src/app/qt/configdialog.cpp:86
+msgctxt "ConfigDialog|"
+msgid "&Keyboard Shortcuts"
+msgstr "&Kiirklahvid"
+
+#: src/app/qt/configdialog.cpp:112
+msgctxt "ConfigDialog|"
+msgid "Use custom app&lication font"
+msgstr "Kohandatud &fondi kasutamine rakenduses"
+
+#: src/app/qt/configdialog.cpp:114
+msgctxt "ConfigDialog|"
+msgid "A&pplication Font..."
+msgstr "&Rakenduse font ..."
+
+#: src/app/qt/configdialog.cpp:116
+msgctxt "ConfigDialog|"
+msgid "Use custom application &style"
+msgstr "Kohandatud &stiili kasutamine rakenduses"
+
+#: src/app/qt/configdialog.cpp:122 src/app/qt/configdialog.cpp:317
+msgctxt "ConfigDialog|"
+msgid "Unknown"
+msgstr "Teadmata"
+
+#: src/app/qt/configdialog.cpp:141
+msgctxt "ConfigDialog|"
+msgid "Use native system file &dialogs"
+msgstr "Süsteemiomaste faili&dialoogide kasutamine"
+
+#: src/app/qt/configdialog.cpp:145
+msgctxt "ConfigDialog|"
+msgid "&Appearance"
+msgstr "Väl&imus"
+
+#: src/app/qt/configdialog.cpp:154
+msgctxt "ConfigDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/app/qt/configdialog.cpp:155
+msgctxt "ConfigDialog|"
+msgid "Restore Defaults"
+msgstr "Vaikeväärtused"
+
+#: src/app/qt/configdialog.cpp:156
+msgctxt "ConfigDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/app/qt/configdialog.cpp:157
+msgctxt "ConfigDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/app/qt/configdialog.cpp:264
+#, qt-format
+msgctxt "ConfigDialog|"
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Kiirklahv \"%1\" on juba omistatud toimingule \"%2\"."
+
+#: src/app/qt/kid3mainwindow.cpp:109
+msgctxt "Kid3MainWindow|"
+msgid "&File"
+msgstr "&Fail"
+
+#: src/app/qt/kid3mainwindow.cpp:113
+msgctxt "Kid3MainWindow|"
+msgid "Open files"
+msgstr "Failide avamine"
+
+#: src/app/qt/kid3mainwindow.cpp:114
+msgctxt "Kid3MainWindow|"
+msgid "&Open..."
+msgstr "&Ava ..."
+
+#: src/app/qt/kid3mainwindow.cpp:128
+msgctxt "Kid3MainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Viimati kasutatud kataloogi avamine"
+
+#: src/app/qt/kid3mainwindow.cpp:129
+msgctxt "Kid3MainWindow|"
+msgid "Open &Recent"
+msgstr "Viimaste a&vamine"
+
+#: src/app/qt/kid3mainwindow.cpp:136
+msgctxt "Kid3MainWindow|"
+msgid "Opens a folder"
+msgstr "Kataloogi avamine"
+
+#: src/app/qt/kid3mainwindow.cpp:137
+msgctxt "Kid3MainWindow|"
+msgid "O&pen Folder..."
+msgstr "Ava &kataloog ..."
+
+#: src/app/qt/kid3mainwindow.cpp:148
+msgctxt "Kid3MainWindow|"
+msgid "Reload folder"
+msgstr "Kataloogi laadimine uuesti"
+
+#: src/app/qt/kid3mainwindow.cpp:149
+msgctxt "Kid3MainWindow|"
+msgid "Re&load"
+msgstr "Laadi &uuesti"
+
+#: src/app/qt/kid3mainwindow.cpp:160
+msgctxt "Kid3MainWindow|"
+msgid "Unload"
+msgstr "Eemalda"
+
+#: src/app/qt/kid3mainwindow.cpp:170
+msgctxt "Kid3MainWindow|"
+msgid "Saves the changed files"
+msgstr "Muudetud failide salvestamine"
+
+#: src/app/qt/kid3mainwindow.cpp:171
+msgctxt "Kid3MainWindow|"
+msgid "&Save"
+msgstr "&Salvesta"
+
+#: src/app/qt/kid3mainwindow.cpp:184
+msgctxt "Kid3MainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Kõigi või valitud failide muudatuste tühistamine"
+
+#: src/app/qt/kid3mainwindow.cpp:185
+msgctxt "Kid3MainWindow|"
+msgid "Re&vert"
+msgstr "Tü&hista"
+
+#: src/app/qt/kid3mainwindow.cpp:199
+msgctxt "Kid3MainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Failist või lõikepuhvrist importimine"
+
+#: src/app/qt/kid3mainwindow.cpp:200
+msgctxt "Kid3MainWindow|"
+msgid "&Import..."
+msgstr "&Impordi ..."
+
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1"
+msgstr "Importimine serverist %1"
+
+#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1..."
+msgstr "Impordi serverist %1 ..."
+
+#: src/app/qt/kid3mainwindow.cpp:253
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags"
+msgstr "Importimine siltidest"
+
+#: src/app/qt/kid3mainwindow.cpp:254
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags..."
+msgstr "Impordi siltidest ..."
+
+#: src/app/qt/kid3mainwindow.cpp:262
+msgctxt "Kid3MainWindow|"
+msgid "Automatic import"
+msgstr "Automaatne import"
+
+#: src/app/qt/kid3mainwindow.cpp:263
+msgctxt "Kid3MainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Automaatne i&mport ..."
+
+#: src/app/qt/kid3mainwindow.cpp:271
+msgctxt "Kid3MainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Albumi kaanepiltide sirvimine"
+
+#: src/app/qt/kid3mainwindow.cpp:272
+msgctxt "Kid3MainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "Sirvi kaane&pilte ..."
+
+#: src/app/qt/kid3mainwindow.cpp:281
+msgctxt "Kid3MainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Failina või lõikepuhvrisse eksportimine"
+
+#: src/app/qt/kid3mainwindow.cpp:282
+msgctxt "Kid3MainWindow|"
+msgid "&Export..."
+msgstr "&Ekspordi ..."
+
+#: src/app/qt/kid3mainwindow.cpp:292
+msgctxt "Kid3MainWindow|"
+msgid "Create M3U Playlist"
+msgstr "M3U-esitusloendi loomine"
+
+#: src/app/qt/kid3mainwindow.cpp:293
+msgctxt "Kid3MainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Loo esitusloend ..."
+
+#: src/app/qt/kid3mainwindow.cpp:306
+msgctxt "Kid3MainWindow|"
+msgid "Quits the application"
+msgstr "Rakendusest väljumine"
+
+#: src/app/qt/kid3mainwindow.cpp:307
+msgctxt "Kid3MainWindow|"
+msgid "&Quit"
+msgstr "&Välju"
+
+#: src/app/qt/kid3mainwindow.cpp:318
+msgctxt "Kid3MainWindow|"
+msgid "&Edit"
+msgstr "&Redigeerimine"
+
+#: src/app/qt/kid3mainwindow.cpp:321
+msgctxt "Kid3MainWindow|"
+msgid "Select all files"
+msgstr "Kõigi failide valimine"
+
+#: src/app/qt/kid3mainwindow.cpp:322
+msgctxt "Kid3MainWindow|"
+msgid "Select &All"
+msgstr "V&ali kõik"
+
+#: src/app/qt/kid3mainwindow.cpp:337
+msgctxt "Kid3MainWindow|"
+msgid "Deselect all files"
+msgstr "Kõigi failide valimise tühistamine"
+
+#: src/app/qt/kid3mainwindow.cpp:338
+msgctxt "Kid3MainWindow|"
+msgid "Dese&lect"
+msgstr "&Tühista valik"
+
+#: src/app/qt/kid3mainwindow.cpp:348
+msgctxt "Kid3MainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Kõigi failide valimine aktiivses kataloogis"
+
+#: src/app/qt/kid3mainwindow.cpp:349
+msgctxt "Kid3MainWindow|"
+msgid "Select All in &Folder"
+msgstr "Vali kõik kataloo&gis"
+
+#: src/app/qt/kid3mainwindow.cpp:357
+msgctxt "Kid3MainWindow|"
+msgid "Select previous file"
+msgstr "Eelmise faili valimine"
+
+#: src/app/qt/kid3mainwindow.cpp:358
+msgctxt "Kid3MainWindow|"
+msgid "&Previous File"
+msgstr "&Eelmine fail"
+
+#: src/app/qt/kid3mainwindow.cpp:370
+msgctxt "Kid3MainWindow|"
+msgid "Select next file"
+msgstr "Järgmise faili valimine"
+
+#: src/app/qt/kid3mainwindow.cpp:371
+msgctxt "Kid3MainWindow|"
+msgid "&Next File"
+msgstr "&Järgmine fail"
+
+#: src/app/qt/kid3mainwindow.cpp:384
+msgctxt "Kid3MainWindow|"
+msgid "Find"
+msgstr "Otsing"
+
+#: src/app/qt/kid3mainwindow.cpp:385
+msgctxt "Kid3MainWindow|"
+msgid "&Find..."
+msgstr "&Otsi ..."
+
+#: src/app/qt/kid3mainwindow.cpp:398
+msgctxt "Kid3MainWindow|"
+msgid "Find and replace"
+msgstr "Otsimine ja asendamine"
+
+#: src/app/qt/kid3mainwindow.cpp:399
+msgctxt "Kid3MainWindow|"
+msgid "&Replace..."
+msgstr "Ase&nda ..."
+
+#: src/app/qt/kid3mainwindow.cpp:411
+msgctxt "Kid3MainWindow|"
+msgid "&Tools"
+msgstr "&Tööriistad"
+
+#: src/app/qt/kid3mainwindow.cpp:414
+msgctxt "Kid3MainWindow|"
+msgid "Apply Filename Format"
+msgstr "Failinimevormingu rakendamine"
+
+#: src/app/qt/kid3mainwindow.cpp:415
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Rakenda &failinimevorming"
+
+#: src/app/qt/kid3mainwindow.cpp:424
+msgctxt "Kid3MainWindow|"
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
+#: src/app/qt/kid3mainwindow.cpp:425
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Rakenda &sildivorming"
+
+#: src/app/qt/kid3mainwindow.cpp:433
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Tekstikodeeringu rakendamine"
+
+#: src/app/qt/kid3mainwindow.cpp:434
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Rakenda t&ekstikodeering"
+
+#: src/app/qt/kid3mainwindow.cpp:443
+msgctxt "Kid3MainWindow|"
+msgid "Rename Folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/app/qt/kid3mainwindow.cpp:444
+msgctxt "Kid3MainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Muuda kataloogi nime ..."
+
+#: src/app/qt/kid3mainwindow.cpp:452
+msgctxt "Kid3MainWindow|"
+msgid "Number Tracks"
+msgstr "Palade nummerdamine"
+
+#: src/app/qt/kid3mainwindow.cpp:453
+msgctxt "Kid3MainWindow|"
+msgid "&Number Tracks..."
+msgstr "&Nummerda palad ..."
+
+#: src/app/qt/kid3mainwindow.cpp:461
+msgctxt "Kid3MainWindow|"
+msgid "Filter"
+msgstr "Filtreererimine"
+
+#: src/app/qt/kid3mainwindow.cpp:462
+msgctxt "Kid3MainWindow|"
+msgid "F&ilter..."
+msgstr "F&iltreeri ..."
+
+#: src/app/qt/kid3mainwindow.cpp:473
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 teisendamine ID3v2.4-ks"
+
+#: src/app/qt/kid3mainwindow.cpp:474
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Teisenda ID3v2.3 ID3v2.&4-ks"
+
+#: src/app/qt/kid3mainwindow.cpp:483
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 teisendamine ID3v2.3-ks"
+
+#: src/app/qt/kid3mainwindow.cpp:484
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Teisenda ID3v2.4 ID3v2.&3-ks"
+
+#: src/app/qt/kid3mainwindow.cpp:495
+msgctxt "Kid3MainWindow|"
+msgid "Play"
+msgstr "Esitamine"
+
+#: src/app/qt/kid3mainwindow.cpp:496
+msgctxt "Kid3MainWindow|"
+msgid "&Play"
+msgstr "&Esita"
+
+#: src/app/qt/kid3mainwindow.cpp:505
+msgctxt "Kid3MainWindow|"
+msgid "&Settings"
+msgstr "&Seadistused"
+
+#: src/app/qt/kid3mainwindow.cpp:509
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the toolbar"
+msgstr "Tööriistariba näitamise lubamine/keelamine"
+
+#: src/app/qt/kid3mainwindow.cpp:510
+msgctxt "Kid3MainWindow|"
+msgid "Show &Toolbar"
+msgstr "&Tööriistariba näitamine"
+
+#: src/app/qt/kid3mainwindow.cpp:520
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Olekuriba lubamine/keelamine"
+
+#: src/app/qt/kid3mainwindow.cpp:521
+msgctxt "Kid3MainWindow|"
+msgid "Show St&atusbar"
+msgstr "&Olekuriba näitamine"
+
+#: src/app/qt/kid3mainwindow.cpp:530
+msgctxt "Kid3MainWindow|"
+msgid "Show Picture"
+msgstr "Pildi näitamine"
+
+#: src/app/qt/kid3mainwindow.cpp:531
+msgctxt "Kid3MainWindow|"
+msgid "Show &Picture"
+msgstr "&Pildi näitamine"
+
+#: src/app/qt/kid3mainwindow.cpp:540
+msgctxt "Kid3MainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Siltide automaatne peitmine"
+
+#: src/app/qt/kid3mainwindow.cpp:541
+msgctxt "Kid3MainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Siltide &automaatne peitmine"
+
+#: src/app/qt/kid3mainwindow.cpp:550
+msgctxt "Kid3MainWindow|"
+msgid "Configure Kid3"
+msgstr "Kid3 seadistamine"
+
+#: src/app/qt/kid3mainwindow.cpp:551
+msgctxt "Kid3MainWindow|"
+msgid "&Configure Kid3..."
+msgstr "Kid3 &seadistamine ..."
+
+#: src/app/qt/kid3mainwindow.cpp:565
+msgctxt "Kid3MainWindow|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/app/qt/kid3mainwindow.cpp:568
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 Handbook"
+msgstr "Kid3 käsiraamat"
+
+#: src/app/qt/kid3mainwindow.cpp:569
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 &Handbook"
+msgstr "Kid&3 käsiraamat"
+
+#: src/app/qt/kid3mainwindow.cpp:580
+msgctxt "Kid3MainWindow|"
+msgid "About Kid3"
+msgstr "Kid3 teave"
+
+#: src/app/qt/kid3mainwindow.cpp:581
+msgctxt "Kid3MainWindow|"
+msgid "&About Kid3"
+msgstr "Kid3 t&eave"
+
+#: src/app/qt/kid3mainwindow.cpp:594
+msgctxt "Kid3MainWindow|"
+msgid "About Qt"
+msgstr "Qt teave"
+
+#: src/app/qt/kid3mainwindow.cpp:595
+msgctxt "Kid3MainWindow|"
+msgid "About &Qt"
+msgstr "&Qt teave"
+
+#: src/app/qt/kid3mainwindow.cpp:637
+msgctxt "Kid3MainWindow|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/app/qt/kid3mainwindow.cpp:640 src/app/qt/kid3mainwindow.cpp:663
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "From Tag %1"
+msgstr "Sildi %1 põhjal"
+
+#: src/app/qt/kid3mainwindow.cpp:645 src/app/qt/kid3mainwindow.cpp:688
+#: src/app/qt/kid3mainwindow.cpp:693 src/app/qt/kid3mainwindow.cpp:711
+msgctxt "Kid3MainWindow|"
+msgid "Focus"
+msgstr "Fookus"
+
+#: src/app/qt/kid3mainwindow.cpp:655
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/app/qt/kid3mainwindow.cpp:657
+msgctxt "Kid3MainWindow|"
+msgid "From Filename"
+msgstr "Failinime põhjal"
+
+#: src/app/qt/kid3mainwindow.cpp:668
+msgctxt "Kid3MainWindow|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/app/qt/kid3mainwindow.cpp:671
+msgctxt "Kid3MainWindow|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/app/qt/kid3mainwindow.cpp:674
+msgctxt "Kid3MainWindow|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/app/qt/kid3mainwindow.cpp:678
+msgctxt "Kid3MainWindow|"
+msgid "Edit"
+msgstr "Muuda"
+
+#: src/app/qt/kid3mainwindow.cpp:681
+msgctxt "Kid3MainWindow|"
+msgid "Add"
+msgstr "Lisa"
+
+#: src/app/qt/kid3mainwindow.cpp:684
+msgctxt "Kid3MainWindow|"
+msgid "Delete"
+msgstr "Kustuta"
+
+#: src/app/qt/kid3mainwindow.cpp:692
+msgctxt "Kid3MainWindow|"
+msgid "File List"
+msgstr "Faililoend"
+
+#: src/app/qt/kid3mainwindow.cpp:696
+msgctxt "Kid3MainWindow|"
+msgid "&Rename"
+msgstr "&Muuda nime"
+
+#: src/app/qt/kid3mainwindow.cpp:703
+msgctxt "Kid3MainWindow|"
+msgid "&Move to Trash"
+msgstr "&Viska prügikasti"
+
+#: src/app/qt/kid3mainwindow.cpp:710
+msgctxt "Kid3MainWindow|"
+msgid "Folder List"
+msgstr "Kataloogiloend"
+
+#: src/app/qt/kid3mainwindow.cpp:716
+msgctxt "Kid3MainWindow|"
+msgid "Section"
+msgstr "Sektsioon"
+
+#: src/app/qt/kid3mainwindow.cpp:801
+msgctxt "Kid3MainWindow|"
+msgid " [modified]"
+msgstr " [muudetud]"
+
+#: src/app/qt/kid3mainwindow.cpp:896
+msgctxt "Kid3MainWindow|"
+msgid "Audio Tag Editor"
+msgstr "Helisiltide redaktor"
+
+#: src/app/qt/kid3mainwindow.cpp:901
+msgctxt "Kid3MainWindow|"
+msgid "License"
+msgstr "Litsents"
+
+#: src/app/qt/kid3mainwindow.cpp:919
+msgctxt "Kid3MainWindow|"
+msgid "Configure - Kid3"
+msgstr "Seadistamine - Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:963 src/app/qt/kid3mainwindow.cpp:975
+msgctxt "Kid3MainWindow|"
+msgid "User Actions"
+msgstr "Kasutaja toimingud"
+
+#: src/app/qt/platformtools.cpp:129
+msgctxt "@default|"
+msgid "Kid3 Handbook"
+msgstr "Kid3 käsiraamat"
+
+#: src/app/qt/recentfilesmenu.cpp:120
+msgctxt "RecentFilesMenu|"
+msgid "&Clear List"
+msgstr "&Puhasta loend"
+
+#: src/app/qt/shortcutsdelegate.cpp:190
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Clear"
+msgstr "Puhasta"
+
+#: src/app/qt/shortcutsdelegate.cpp:195
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Reset"
+msgstr "Lähtesta"
+
+#: src/app/qt/shortcutsmodel.cpp:111
+msgctxt "ShortcutsModel|"
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Lahtri sisu muutmiseks vajuta F2 või tee topeltklõps."
+
+#: src/app/qt/shortcutsmodel.cpp:188
+msgctxt "ShortcutsModel|"
+msgid "Action"
+msgstr "Toiming"
+
+#: src/app/qt/shortcutsmodel.cpp:190
+msgctxt "ShortcutsModel|"
+msgid "Shortcut"
+msgstr "Kiirklahv"
+
+#: src/core/config/batchimportsourcesmodel.cpp:166
+msgctxt "BatchImportSourcesModel|"
+msgid "Server"
+msgstr "Server"
+
+#: src/core/config/batchimportsourcesmodel.cpp:168
+msgctxt "BatchImportSourcesModel|"
+msgid "Accuracy"
+msgstr "Täpsus"
+
+#: src/core/config/batchimportsourcesmodel.cpp:170
+msgctxt "BatchImportSourcesModel|"
+msgid "Standard Tags"
+msgstr "Standardsildid"
+
+#: src/core/config/batchimportsourcesmodel.cpp:172
+msgctxt "BatchImportSourcesModel|"
+msgid "Additional Tags"
+msgstr "Lisasildid"
+
+#: src/core/config/batchimportsourcesmodel.cpp:174
+msgctxt "BatchImportSourcesModel|"
+msgid "Cover Art"
+msgstr "Kaanepilt"
+
+#: src/core/config/fileconfig.cpp:177
+msgctxt "Kid3Application|"
+msgid "All Supported Files"
+msgstr "Kõik toetatud failid"
+
+#: src/core/config/formatconfig.cpp:479
+msgctxt "@default|"
+msgid "No changes"
+msgstr "Jäetakse muutmata"
+
+#: src/core/config/formatconfig.cpp:480
+msgctxt "@default|"
+msgid "All lowercase"
+msgstr "Kõik väiketähelisena"
+
+#: src/core/config/formatconfig.cpp:481
+msgctxt "@default|"
+msgid "All uppercase"
+msgstr "Kõik suurtähelisena"
+
+#: src/core/config/formatconfig.cpp:482
+msgctxt "@default|"
+msgid "First letter uppercase"
+msgstr "Esimene täht suurtähena"
+
+#: src/core/config/formatconfig.cpp:483
+msgctxt "@default|"
+msgid "All first letters uppercase"
+msgstr "Iga sõna esimene täht suurtähena"
+
+#: src/core/config/formatconfig.cpp:498
+msgctxt "FormatConfig|"
+msgid "None"
+msgstr "Puudub"
+
+#: src/core/config/starratingmappingsmodel.cpp:128
+msgctxt "StarRatingMappingsModel|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/core/config/tagconfig.cpp:722 src/core/tags/frame.cpp:69
+msgctxt "@default|"
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: src/core/config/tagconfig.cpp:723 src/core/tags/frame.cpp:70
+msgctxt "@default|"
+msgid "UTF16"
+msgstr "UTF16"
+
+#: src/core/config/tagconfig.cpp:724 src/core/tags/frame.cpp:72
+msgctxt "@default|"
+msgid "UTF8"
+msgstr "UTF8"
+
+#: src/core/import/batchimporter.cpp:337
+msgctxt "BatchImporter|"
+msgid "Accuracy"
+msgstr "Täpsus"
+
+#: src/core/import/batchimporter.cpp:340
+msgctxt "BatchImporter|"
+msgid "Unknown"
+msgstr "Teadmata"
+
+#: src/core/import/batchimporter.cpp:415
+msgctxt "BatchImporter|"
+msgid "Invalid File"
+msgstr "Vigane fail"
+
+#: src/core/import/httpclient.cpp:92
+#, qt-format
+msgctxt "@default|"
+msgid "Data received: %1"
+msgstr "Vastuvõetud andmed: %1"
+
+#: src/core/import/httpclient.cpp:103
+msgctxt "HttpClient|"
+msgid "Ready."
+msgstr "Valmis."
+
+#: src/core/import/httpclient.cpp:105
+msgctxt "HttpClient|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/core/import/httpclient.cpp:153
+#, qt-format
+msgctxt "HttpClient|"
+msgid "Data received: %1"
+msgstr "Vastuvõetud andmed: %1"
+
+#: src/core/import/httpclient.cpp:231
+msgctxt "HttpClient|"
+msgid "Request sent..."
+msgstr "Taotlus saadetud ..."
+
+#: src/core/import/importparser.cpp:53 src/core/tags/frame.cpp:105
+#: src/core/tags/frame.cpp:1692
+msgctxt "@default|"
+msgid "Title"
+msgstr "Pealkiri"
+
+#: src/core/import/importparser.cpp:57 src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:1696
+msgctxt "@default|"
+msgid "Album"
+msgstr "Album"
+
+#: src/core/import/importparser.cpp:61 src/core/model/filefilter.cpp:97
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:1700
+msgctxt "@default|"
+msgid "Artist"
+msgstr "Esitaja"
+
+#: src/core/import/importparser.cpp:65 src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:266 src/core/tags/frame.cpp:1704
+msgctxt "@default|"
+msgid "Comment"
+msgstr "Kommentaar"
+
+#: src/core/import/importparser.cpp:69 src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:1708
+msgctxt "@default|"
+msgid "Year"
+msgstr "Aasta"
+
+#: src/core/import/importparser.cpp:74 src/core/tags/frame.cpp:1713
+msgctxt "@default|"
+msgid "Track"
+msgstr "Pala"
+
+#: src/core/import/importparser.cpp:78 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:1726
+msgctxt "@default|"
+msgid "Genre"
+msgstr "Žanr"
+
+#: src/core/import/importparser.cpp:82 src/core/tags/frame.cpp:213
+#: src/core/tags/trackdata.cpp:231
+msgctxt "@default|"
+msgid "Length"
+msgstr "Pikkus"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:84
+msgctxt "@default|"
+msgid "Drive"
+msgstr "Ketas"
+
+#. %1 is a file name suffix, for example txt
+#: src/core/model/abstractfiledecorationprovider.cpp:90
+#, qt-format
+msgctxt "@default|"
+msgid "%1 File"
+msgstr "%1 fail"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:93
+msgctxt "@default|"
+msgid "File"
+msgstr "Fail"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:98
+msgctxt "@default|"
+msgid "Folder"
+msgstr "Kataloog"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:102
+msgctxt "@default|"
+msgid "Shortcut"
+msgstr "Kiirklahv"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:105
+#: src/core/tags/frame.cpp:260 src/core/tags/frame.cpp:261
+msgctxt "@default|"
+msgid "Unknown"
+msgstr "Teadmata"
+
+#: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:46
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+msgctxt "@default|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/core/model/commandformatreplacer.cpp:148
+msgctxt "@default|"
+msgid "Filenames"
+msgstr "Failinimed"
+
+#: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:40
+#: src/core/tags/trackdata.cpp:221
+msgctxt "@default|"
+msgid "URL"
+msgstr "URL"
+
+#: src/core/model/commandformatreplacer.cpp:157
+msgctxt "@default|"
+msgid "URLs"
+msgstr "URL-id"
+
+#: src/core/model/commandformatreplacer.cpp:163
+msgctxt "@default|"
+msgid "Folder name"
+msgstr "Kataloogi nimi"
+
+#: src/core/model/commandformatreplacer.cpp:168
+msgctxt "@default|"
+msgid "Browser"
+msgstr "Brauser"
+
+#: src/core/model/commandformatreplacer.cpp:174
+msgctxt "@default|"
+msgid "QML base folder"
+msgstr "QML baaskataloog"
+
+#: src/core/model/commandformatreplacer.cpp:181
+#: src/gui/dialogs/browsecoverartdialog.cpp:61
+msgctxt "@default|"
+msgid "Encode as URL"
+msgstr "Kodeerimine URL-ina"
+
+#: src/core/model/commandformatreplacer.cpp:187
+msgctxt "@default|"
+msgid "--- separator ---"
+msgstr "--- eraldaja ---"
+
+#: src/core/model/commandformatreplacer.cpp:193
+msgctxt "@default|"
+msgid "Begin of submenu"
+msgstr "Alammenüü algus"
+
+#: src/core/model/commandformatreplacer.cpp:199
+msgctxt "@default|"
+msgid "End of submenu"
+msgstr "Alammenüü lõpp"
+
+#: src/core/model/commandstablemodel.cpp:165
+msgctxt "CommandsTableModel|"
+msgid "Confirm"
+msgstr "Kinnitus"
+
+#: src/core/model/commandstablemodel.cpp:167
+msgctxt "CommandsTableModel|"
+msgid "Output"
+msgstr "Väljund"
+
+#: src/core/model/commandstablemodel.cpp:169
+msgctxt "CommandsTableModel|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/core/model/commandstablemodel.cpp:171
+msgctxt "CommandsTableModel|"
+msgid "Command"
+msgstr "Käsk"
+
+#: src/core/model/dirrenamer.cpp:250
+#, qt-format
+msgctxt "@default|"
+msgid "Create folder %1 failed\n"
+msgstr "Kataloogi %1 loomine nurjus\n"
+
+#: src/core/model/dirrenamer.cpp:279
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Create folder %1 failed\n"
+msgstr "Kataloogi %1 loomine nurjus\n"
+
+#: src/core/model/dirrenamer.cpp:286
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "Fail %1 on juba olemas\n"
+
+#: src/core/model/dirrenamer.cpp:288
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a folder\n"
+msgstr "%1 ei ole kataloog\n"
+
+#: src/core/model/dirrenamer.cpp:290
+#, qt-format
+msgctxt "@default|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Elemendile %1 nime %2 andmine nurjus\n"
+
+#: src/core/model/dirrenamer.cpp:309
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "File %1 already exists\n"
+msgstr "Fail %1 on juba olemas\n"
+
+#: src/core/model/dirrenamer.cpp:315
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a folder\n"
+msgstr "%1 ei ole kataloog\n"
+
+#: src/core/model/dirrenamer.cpp:335 src/core/model/dirrenamer.cpp:383
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Elemendile %1 nime %2 andmine nurjus\n"
+
+#: src/core/model/dirrenamer.cpp:342
+#, qt-format
+msgctxt "@default|"
+msgid "%1 already exists\n"
+msgstr "%1 on juba olemas\n"
+
+#: src/core/model/dirrenamer.cpp:344
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a file\n"
+msgstr "%1 ei ole fail\n"
+
+#: src/core/model/dirrenamer.cpp:365
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 already exists\n"
+msgstr "%1 on juba olemas\n"
+
+#: src/core/model/dirrenamer.cpp:371
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a file\n"
+msgstr "%1 ei ole fail\n"
+
+#: src/core/model/dirrenamer.cpp:604
+msgctxt "DirRenamer|"
+msgid "New folder name is too different\n"
+msgstr "Uue kataloogi nimi on liiga erinev\n"
+
+#: src/core/model/dirrenamer.cpp:670
+msgctxt "@default|"
+msgid "Create folder"
+msgstr "Kataloogi loomine"
+
+#: src/core/model/dirrenamer.cpp:671
+msgctxt "@default|"
+msgid "Rename folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/core/model/dirrenamer.cpp:672
+msgctxt "@default|"
+msgid "Rename file"
+msgstr "Faili nime muutmine"
+
+#: src/core/model/dirrenamer.cpp:673
+msgctxt "@default|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/core/model/downloadclient.cpp:53
+msgctxt "DownloadClient|"
+msgid "Ready."
+msgstr "Valmis."
+
+#: src/core/model/eventtimingcode.cpp:37
+msgctxt "@default|"
+msgid "padding (has no meaning)"
+msgstr "polsterdus (tähenduseta)"
+
+#: src/core/model/eventtimingcode.cpp:38
+msgctxt "@default|"
+msgid "end of initial silence"
+msgstr "algvaikuse lõpp"
+
+#: src/core/model/eventtimingcode.cpp:39
+msgctxt "@default|"
+msgid "intro start"
+msgstr "sissejuhatuse algus"
+
+#: src/core/model/eventtimingcode.cpp:40
+msgctxt "@default|"
+msgid "main part start"
+msgstr "põhiosa algus"
+
+#: src/core/model/eventtimingcode.cpp:41
+msgctxt "@default|"
+msgid "outro start"
+msgstr "väljajuhatuse algus"
+
+#: src/core/model/eventtimingcode.cpp:42
+msgctxt "@default|"
+msgid "outro end"
+msgstr "väljajuhatuse lõpp"
+
+#: src/core/model/eventtimingcode.cpp:43
+msgctxt "@default|"
+msgid "verse start"
+msgstr "värsi algus"
+
+#: src/core/model/eventtimingcode.cpp:44
+msgctxt "@default|"
+msgid "refrain start"
+msgstr "refrääni algus"
+
+#: src/core/model/eventtimingcode.cpp:45
+msgctxt "@default|"
+msgid "interlude start"
+msgstr "vahepala algus"
+
+#: src/core/model/eventtimingcode.cpp:46
+msgctxt "@default|"
+msgid "theme start"
+msgstr "teema algus"
+
+#: src/core/model/eventtimingcode.cpp:47
+msgctxt "@default|"
+msgid "variation start"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:48
+msgctxt "@default|"
+msgid "key change"
+msgstr ""
+
+#: src/core/model/eventtimingcode.cpp:49
+msgctxt "@default|"
+msgid "time change"
+msgstr "aja muutus"
+
+#: src/core/model/eventtimingcode.cpp:50
+msgctxt "@default|"
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "hetkeline soovimatut müra (krõpsatus, naksatus, krabin)"
+
+#: src/core/model/eventtimingcode.cpp:51
+msgctxt "@default|"
+msgid "sustained noise"
+msgstr "püsiv müra"
+
+#: src/core/model/eventtimingcode.cpp:52
+msgctxt "@default|"
+msgid "sustained noise end"
+msgstr "püsiva müra lõpp"
+
+#: src/core/model/eventtimingcode.cpp:53
+msgctxt "@default|"
+msgid "intro end"
+msgstr "sissejuhatuse lõpp"
+
+#: src/core/model/eventtimingcode.cpp:54
+msgctxt "@default|"
+msgid "main part end"
+msgstr "põhiosa lõpp"
+
+#: src/core/model/eventtimingcode.cpp:55
+msgctxt "@default|"
+msgid "verse end"
+msgstr "värsi lõpp"
+
+#: src/core/model/eventtimingcode.cpp:56
+msgctxt "@default|"
+msgid "refrain end"
+msgstr "refrääni lõpp"
+
+#: src/core/model/eventtimingcode.cpp:57
+msgctxt "@default|"
+msgid "theme end"
+msgstr "teema lõpp"
+
+#: src/core/model/eventtimingcode.cpp:58
+msgctxt "@default|"
+msgid "profanity"
+msgstr "ropendamine"
+
+#: src/core/model/eventtimingcode.cpp:59
+msgctxt "@default|"
+msgid "profanity end"
+msgstr "ropensamise lõpp"
+
+#: src/core/model/eventtimingcode.cpp:60
+msgctxt "@default|"
+msgid "not predefined synch 0"
+msgstr "eelnevalt määratlemata sünkro 0"
+
+#: src/core/model/eventtimingcode.cpp:61
+msgctxt "@default|"
+msgid "not predefined synch 1"
+msgstr "eelnevalt määratlemata sünkro 1"
+
+#: src/core/model/eventtimingcode.cpp:62
+msgctxt "@default|"
+msgid "not predefined synch 2"
+msgstr "eelnevalt määratlemata sünkro 2"
+
+#: src/core/model/eventtimingcode.cpp:63
+msgctxt "@default|"
+msgid "not predefined synch 3"
+msgstr "eelnevalt määratlemata sünkro 3"
+
+#: src/core/model/eventtimingcode.cpp:64
+msgctxt "@default|"
+msgid "not predefined synch 4"
+msgstr "eelnevalt määratlemata sünkro 4"
+
+#: src/core/model/eventtimingcode.cpp:65
+msgctxt "@default|"
+msgid "not predefined synch 5"
+msgstr "eelnevalt määratlemata sünkro 5"
+
+#: src/core/model/eventtimingcode.cpp:66
+msgctxt "@default|"
+msgid "not predefined synch 6"
+msgstr "eelnevalt määratlemata sünkro 6"
+
+#: src/core/model/eventtimingcode.cpp:67
+msgctxt "@default|"
+msgid "not predefined synch 7"
+msgstr "eelnevalt määratlemata sünkro 7"
+
+#: src/core/model/eventtimingcode.cpp:68
+msgctxt "@default|"
+msgid "not predefined synch 8"
+msgstr "eelnevalt määratlemata sünkro 8"
+
+#: src/core/model/eventtimingcode.cpp:69
+msgctxt "@default|"
+msgid "not predefined synch 9"
+msgstr "eelnevalt määratlemata sünkro 9"
+
+#: src/core/model/eventtimingcode.cpp:70
+msgctxt "@default|"
+msgid "not predefined synch A"
+msgstr "eelnevalt määratlemata sünkro A"
+
+#: src/core/model/eventtimingcode.cpp:71
+msgctxt "@default|"
+msgid "not predefined synch B"
+msgstr "eelnevalt määratlemata sünkro B"
+
+#: src/core/model/eventtimingcode.cpp:72
+msgctxt "@default|"
+msgid "not predefined synch C"
+msgstr "eelnevalt määratlemata sünkro C"
+
+#: src/core/model/eventtimingcode.cpp:73
+msgctxt "@default|"
+msgid "not predefined synch D"
+msgstr "eelnevalt määratlemata sünkro D"
+
+#: src/core/model/eventtimingcode.cpp:74
+msgctxt "@default|"
+msgid "not predefined synch E"
+msgstr "eelnevalt määratlemata sünkro E"
+
+#: src/core/model/eventtimingcode.cpp:75
+msgctxt "@default|"
+msgid "not predefined synch F"
+msgstr "eelnevalt määratlemata sünkro F"
+
+#: src/core/model/eventtimingcode.cpp:76
+msgctxt "@default|"
+msgid "audio end (start of silence)"
+msgstr "heli lõpp (vaikuse algus)"
+
+#: src/core/model/eventtimingcode.cpp:77
+msgctxt "@default|"
+msgid "audio file ends"
+msgstr "helifaili lõpp"
+
+#: src/core/model/eventtimingcode.cpp:111
+#, qt-format
+msgctxt "@default|"
+msgid "reserved for future use %1"
+msgstr "reserveeritud edaspidiseks kasutuseks %1"
+
+#: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
+msgctxt "@default|"
+msgid "Tag 1"
+msgstr "Silt 1"
+
+#: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
+msgctxt "@default|"
+msgid "Tag 2"
+msgstr "Silt 2"
+
+#: src/core/model/filefilter.cpp:108
+msgctxt "@default|"
+msgid "True if strings are equal"
+msgstr "Tõene, kui stringid on võrdsed"
+
+#: src/core/model/filefilter.cpp:114
+msgctxt "@default|"
+msgid "True if string contains substring"
+msgstr "Tõene, kui string sisaldab alamstringi"
+
+#: src/core/model/filefilter.cpp:121
+msgctxt "@default|"
+msgid "True if string matches regexp"
+msgstr "Tõene, kui string vastab regulaaravaldisele"
+
+#: src/core/model/filefilter.cpp:127
+msgctxt "@default|"
+msgid "Logical AND"
+msgstr "Loogiline JA"
+
+#: src/core/model/filefilter.cpp:132
+msgctxt "@default|"
+msgid "Logical OR"
+msgstr "Loogiline VÕI"
+
+#: src/core/model/filefilter.cpp:138
+msgctxt "@default|"
+msgid "Logical negation"
+msgstr "Loogiline EI"
+
+#: src/core/model/fileproxymodel.cpp:37
+msgctxt "QFileSystemModel|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/core/model/fileproxymodel.cpp:39
+msgctxt "QFileSystemModel|"
+msgid "Size"
+msgstr "Suurus"
+
+#: src/core/model/fileproxymodel.cpp:41
+msgctxt "QFileSystemModel|"
+msgid "Type"
+msgstr "Tüüp"
+
+#: src/core/model/fileproxymodel.cpp:43
+msgctxt "QFileSystemModel|"
+msgid "Kind"
+msgstr "Liik"
+
+#: src/core/model/fileproxymodel.cpp:46
+msgctxt "QFileSystemModel|"
+msgid "Date Modified"
+msgstr "Muutmise kuupäev"
+
+#: src/core/model/fileproxymodel.cpp:1031
+msgctxt "FileProxyModel|"
+msgid "All Supported Files"
+msgstr "Kõik toetatud failid"
+
+#: src/core/model/fileproxymodel.cpp:1033
+msgctxt "FileProxyModel|"
+msgid "All Files"
+msgstr "Kõik failid"
+
+#: src/core/model/filesystemmodel.cpp:821
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 TB"
+msgstr "%1 TB"
+
+#: src/core/model/filesystemmodel.cpp:823
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 GB"
+msgstr "%1 GB"
+
+#: src/core/model/filesystemmodel.cpp:825
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: src/core/model/filesystemmodel.cpp:827
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 KB"
+msgstr "%1 KB"
+
+#: src/core/model/filesystemmodel.cpp:828
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+#: src/core/model/filesystemmodel.cpp:983
+msgctxt "FileSystemModel|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/core/model/filesystemmodel.cpp:985
+msgctxt "FileSystemModel|"
+msgid "Size"
+msgstr "Suurus"
+
+#: src/core/model/filesystemmodel.cpp:989
+msgctxt "FileSystemModel|Match OS X Finder"
+msgid "Kind"
+msgstr "Liik"
+
+#: src/core/model/filesystemmodel.cpp:991
+msgctxt "FileSystemModel|All other platforms"
+msgid "Type"
+msgstr "Tüüp"
+
+#: src/core/model/filesystemmodel.cpp:998
+msgctxt "FileSystemModel|"
+msgid "Date Modified"
+msgstr "Muutmise kuupäev"
+
+#: src/core/model/filesystemmodel_p.h:319
+msgctxt "FileSystemModel|"
+msgid "My Computer"
+msgstr "Minu arvuti"
+
+#: src/core/model/filesystemmodel_p.h:321
+msgctxt "FileSystemModel|"
+msgid "Computer"
+msgstr "Arvuti"
+
+#: src/core/model/frameobjectmodel.cpp:178
+msgctxt "FrameFieldObject|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/model/frametablemodel.cpp:137
+msgctxt "FrameTableModel|"
+msgid "Volume"
+msgstr "Helitugevus"
+
+#: src/core/model/frametablemodel.cpp:162
+msgctxt "FrameTableModel|"
+msgid "File ID"
+msgstr "Faili ID"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Name"
+msgstr "Nimi"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Data"
+msgstr "Andmed"
+
+#: src/core/model/kid3application.cpp:974
+msgctxt "Kid3Application|"
+msgid "Saving folder..."
+msgstr "Kataloogi salvestamine ..."
+
+#: src/core/model/kid3application.cpp:1119
+msgctxt "Kid3Application|"
+msgid "Selection"
+msgstr "Valik"
+
+#: src/core/model/kid3application.cpp:3303
+msgctxt "Kid3Application|"
+msgid "All Files"
+msgstr "Kõik failid"
+
+#: src/core/model/tagsearcher.cpp:198
+msgctxt "TagSearcher|"
+msgid "Search finished"
+msgstr "Otsimine lõpetatud"
+
+#: src/core/model/tagsearcher.cpp:464
+msgctxt "TagSearcher|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/core/model/tagsearcher.cpp:466
+#, qt-format
+msgctxt "TagSearcher|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/core/model/timeeventmodel.cpp:122
+msgctxt "TimeEventModel|"
+msgid "Time"
+msgstr "Aeg"
+
+#: src/core/model/timeeventmodel.cpp:124
+msgctxt "TimeEventModel|"
+msgid "Event Code"
+msgstr "Sündmuse kood"
+
+#: src/core/model/timeeventmodel.cpp:126
+msgctxt "TimeEventModel|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/model/trackdatamodel.cpp:179
+msgctxt "TrackDataModel|"
+msgid "Track"
+msgstr "Pala"
+
+#: src/core/model/trackdatamodel.cpp:184
+msgctxt "TrackDataModel|"
+msgid "Absolute path to file"
+msgstr "Faili absoluutne asukoht"
+
+#: src/core/model/trackdatamodel.cpp:186
+msgctxt "TrackDataModel|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/core/model/trackdatamodel.cpp:188
+msgctxt "TrackDataModel|"
+msgid "Duration"
+msgstr "Kestus"
+
+#: src/core/model/trackdatamodel.cpp:190
+msgctxt "TrackDataModel|"
+msgid "Length"
+msgstr "Pikkus"
+
+#: src/core/tags/frame.cpp:38
+msgctxt "@default|"
+msgid "Text Encoding"
+msgstr "Teksti kodeering"
+
+#: src/core/tags/frame.cpp:39
+msgctxt "@default|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/tags/frame.cpp:41
+msgctxt "@default|"
+msgid "Data"
+msgstr "Andmed"
+
+#: src/core/tags/frame.cpp:42 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:234 src/core/tags/frame.cpp:280
+msgctxt "@default|"
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: src/core/tags/frame.cpp:43 src/core/tags/frame.cpp:303
+msgctxt "@default|"
+msgid "Owner"
+msgstr "Omanik"
+
+#: src/core/tags/frame.cpp:44
+msgctxt "@default|"
+msgid "Email"
+msgstr "E-post"
+
+#: src/core/tags/frame.cpp:45 src/core/tags/frame.cpp:153
+msgctxt "@default|"
+msgid "Rating"
+msgstr "Hinnang"
+
+#: src/core/tags/frame.cpp:47 src/core/tags/frame.cpp:129
+msgctxt "@default|"
+msgid "Language"
+msgstr "Keel"
+
+#: src/core/tags/frame.cpp:48
+msgctxt "@default|"
+msgid "Picture Type"
+msgstr "Pildi tüüp"
+
+#: src/core/tags/frame.cpp:49
+msgctxt "@default|"
+msgid "Image format"
+msgstr "Pildivorming"
+
+#: src/core/tags/frame.cpp:50
+msgctxt "@default|"
+msgid "Mimetype"
+msgstr "MIME tüüp"
+
+#: src/core/tags/frame.cpp:51
+msgctxt "@default|"
+msgid "Counter"
+msgstr "Loendur"
+
+#: src/core/tags/frame.cpp:52
+msgctxt "@default|"
+msgid "Identifier"
+msgstr "Identifikaator"
+
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:196
+msgctxt "@default|"
+msgid "Volume Adjustment"
+msgstr "Helitugevuse korrigeerimine"
+
+#: src/core/tags/frame.cpp:54
+msgctxt "@default|"
+msgid "Number of Bits"
+msgstr "Bittide arv"
+
+#: src/core/tags/frame.cpp:55
+msgctxt "@default|"
+msgid "Volume Change Right"
+msgstr "Helitugevuse muutus paremal"
+
+#: src/core/tags/frame.cpp:56
+msgctxt "@default|"
+msgid "Volume Change Left"
+msgstr "Helitugevuse muutus vasakul"
+
+#: src/core/tags/frame.cpp:57
+msgctxt "@default|"
+msgid "Peak Volume Right"
+msgstr "Helitugevuse tipp paremal"
+
+#: src/core/tags/frame.cpp:58
+msgctxt "@default|"
+msgid "Peak Volume Left"
+msgstr "Helitugevuse tipp vasakul"
+
+#: src/core/tags/frame.cpp:59
+msgctxt "@default|"
+msgid "Timestamp Format"
+msgstr "Ajatempli vorming"
+
+#: src/core/tags/frame.cpp:60
+msgctxt "@default|"
+msgid "Content Type"
+msgstr "Sisu tüüp"
+
+#: src/core/tags/frame.cpp:62
+msgctxt "@default|"
+msgid "Price"
+msgstr "Hind"
+
+#: src/core/tags/frame.cpp:63 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:202
+msgctxt "@default|"
+msgid "Date"
+msgstr "Aasta"
+
+#: src/core/tags/frame.cpp:64
+msgctxt "@default|"
+msgid "Seller"
+msgstr "Müüja"
+
+#: src/core/tags/frame.cpp:71
+msgctxt "@default|"
+msgid "UTF16BE"
+msgstr "UTF-16-BE"
+
+#: src/core/tags/frame.cpp:77 src/core/tags/frame.cpp:84
+#: src/core/tags/pictureframe.cpp:41
+msgctxt "@default|"
+msgid "Other"
+msgstr "Muu"
+
+#: src/core/tags/frame.cpp:78
+msgctxt "@default|"
+msgid "MPEG frames as unit"
+msgstr "Ühikutena MPEG-kaadrid"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Milliseconds as unit"
+msgstr "Ühikutena millisekundid"
+
+#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:131
+#: src/gui/widgets/timeeventeditor.cpp:335
+msgctxt "@default|"
+msgid "Lyrics"
+msgstr "Sõnad"
+
+#: src/core/tags/frame.cpp:86
+msgctxt "@default|"
+msgid "Text transcription"
+msgstr "Teksti transkriptsioon"
+
+#: src/core/tags/frame.cpp:87
+msgctxt "@default|"
+msgid "Movement/part name"
+msgstr "Liikumise/osa nimi"
+
+#: src/core/tags/frame.cpp:88
+msgctxt "@default|"
+msgid "Events"
+msgstr "Sündmused"
+
+#: src/core/tags/frame.cpp:89
+msgctxt "@default|"
+msgid "Chord"
+msgstr "Akord"
+
+#: src/core/tags/frame.cpp:90
+msgctxt "@default|"
+msgid "Trivia/pop up"
+msgstr "Trivia/hüpik"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Track Number"
+msgstr "Pala number"
+
+#: src/core/tags/frame.cpp:113 src/core/tags/frame.cpp:231
+msgctxt "@default|"
+msgid "Album Artist"
+msgstr "Albumi esitaja"
+
+#: src/core/tags/frame.cpp:114
+msgctxt "@default|"
+msgid "Arranger"
+msgstr "Arranžeeerija"
+
+#: src/core/tags/frame.cpp:115
+msgctxt "@default|"
+msgid "Author"
+msgstr "Autor"
+
+#: src/core/tags/frame.cpp:116
+msgctxt "@default|"
+msgid "BPM"
+msgstr "Lööki/min"
+
+#: src/core/tags/frame.cpp:117
+msgctxt "@default|"
+msgid "Catalog Number"
+msgstr "Katalooginumber"
+
+#: src/core/tags/frame.cpp:118
+msgctxt "@default|"
+msgid "Compilation"
+msgstr "Kogumik"
+
+#: src/core/tags/frame.cpp:119 src/core/tags/pictureframe.cpp:52
+msgctxt "@default|"
+msgid "Composer"
+msgstr "Helilooja"
+
+#: src/core/tags/frame.cpp:120 src/core/tags/frame.cpp:279
+#: src/core/tags/pictureframe.cpp:50
+msgctxt "@default|"
+msgid "Conductor"
+msgstr "Dirigent"
+
+#: src/core/tags/frame.cpp:121
+msgctxt "@default|"
+msgid "Copyright"
+msgstr "Autoriõigus"
+
+#: src/core/tags/frame.cpp:122
+msgctxt "@default|"
+msgid "Disc Number"
+msgstr "Plaadi number"
+
+#: src/core/tags/frame.cpp:123 src/core/tags/frame.cpp:238
+msgctxt "@default|"
+msgid "Encoded-by"
+msgstr "Kodeerija"
+
+#: src/core/tags/frame.cpp:124 src/core/tags/frame.cpp:237
+msgctxt "@default|"
+msgid "Encoder Settings"
+msgstr "Kodeerija seadistused"
+
+#: src/core/tags/frame.cpp:125 src/core/tags/frame.cpp:203
+msgctxt "@default|"
+msgid "Encoding Time"
+msgstr "Kodeerimise aeg"
+
+#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:233
+msgctxt "@default|"
+msgid "Grouping"
+msgstr "Rühmitamine"
+
+#: src/core/tags/frame.cpp:127
+msgctxt "@default|"
+msgid "Initial Key"
+msgstr "Esialgne võti"
+
+#: src/core/tags/frame.cpp:128
+msgctxt "@default|"
+msgid "ISRC"
+msgstr "ISRC"
+
+#: src/core/tags/frame.cpp:130
+msgctxt "@default|"
+msgid "Lyricist"
+msgstr "Sõnade autor"
+
+#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:47
+msgctxt "@default|"
+msgid "Media"
+msgstr "Andmekandja"
+
+#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:268
+msgctxt "@default|"
+msgid "Mood"
+msgstr "Meeleolu"
+
+#: src/core/tags/frame.cpp:134
+msgctxt "@default|"
+msgid "Original Album"
+msgstr "Originaalalbum"
+
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:250
+msgctxt "@default|"
+msgid "Original Artist"
+msgstr "Originaalesitaja"
+
+#: src/core/tags/frame.cpp:136
+msgctxt "@default|"
+msgid "Original Date"
+msgstr "Originaali aasta"
+
+#: src/core/tags/frame.cpp:138
+msgctxt "@default|"
+msgid "Performer"
+msgstr "Ettekandja"
+
+#: src/core/tags/frame.cpp:139
+msgctxt "@default|"
+msgid "Picture"
+msgstr "Pilt"
+
+#: src/core/tags/frame.cpp:140
+msgctxt "@default|"
+msgid "Publisher"
+msgstr "Väljaandja"
+
+#: src/core/tags/frame.cpp:141
+msgctxt "@default|"
+msgid "Release Country"
+msgstr "Väljalaskeriik"
+
+#: src/core/tags/frame.cpp:142 src/core/tags/frame.cpp:256
+msgctxt "@default|"
+msgid "Remixer"
+msgstr "Remiksija"
+
+#: src/core/tags/frame.cpp:143
+msgctxt "@default|"
+msgid "Sort Album"
+msgstr "Sortimine albumi järgi"
+
+#: src/core/tags/frame.cpp:144 src/core/tags/frame.cpp:265
+msgctxt "@default|"
+msgid "Sort Album Artist"
+msgstr "Sortimine albumi esitaja järgi"
+
+#: src/core/tags/frame.cpp:145
+msgctxt "@default|"
+msgid "Sort Artist"
+msgstr "Sortimine esitaja järgi"
+
+#: src/core/tags/frame.cpp:146
+msgctxt "@default|"
+msgid "Sort Composer"
+msgstr "Sortimine helilooja järgi"
+
+#: src/core/tags/frame.cpp:147
+msgctxt "@default|"
+msgid "Sort Name"
+msgstr "Sortimine nime järgi"
+
+#: src/core/tags/frame.cpp:148
+msgctxt "@default|"
+msgid "Subtitle"
+msgstr "Subtiitrid"
+
+#: src/core/tags/frame.cpp:149
+msgctxt "@default|"
+msgid "Website"
+msgstr "Veebilehekülg"
+
+#: src/core/tags/frame.cpp:150
+msgctxt "@default|"
+msgid "WWW Audio File"
+msgstr "WWW-audiofail"
+
+#: src/core/tags/frame.cpp:151
+msgctxt "@default|"
+msgid "WWW Audio Source"
+msgstr "WWW-audioallikas"
+
+#: src/core/tags/frame.cpp:152
+msgctxt "@default|"
+msgid "Release Date"
+msgstr "Väljalaske kuupäev"
+
+#: src/core/tags/frame.cpp:154
+msgctxt "@default|"
+msgid "Work"
+msgstr "Teose pealkiri"
+
+#: src/core/tags/frame.cpp:171
+msgctxt "@default|"
+msgid "Audio Encryption"
+msgstr "Audiokrüpteering"
+
+#: src/core/tags/frame.cpp:172
+msgctxt "@default|"
+msgid "Audio Seek Point"
+msgstr "Audio otsingupunkti"
+
+#: src/core/tags/frame.cpp:173
+msgctxt "@default|"
+msgid "Chapter"
+msgstr "Peatükk"
+
+#: src/core/tags/frame.cpp:174
+msgctxt "@default|"
+msgid "Commercial"
+msgstr "Kommertsteave"
+
+#: src/core/tags/frame.cpp:175
+msgctxt "@default|"
+msgid "Table of Contents"
+msgstr "Sisukord"
+
+#: src/core/tags/frame.cpp:176
+msgctxt "@default|"
+msgid "Encryption Method"
+msgstr "Krüptomeetod"
+
+#: src/core/tags/frame.cpp:177 src/core/tags/frame.cpp:178
+msgctxt "@default|"
+msgid "Equalization"
+msgstr "Ekvalaisimine"
+
+#: src/core/tags/frame.cpp:179
+msgctxt "@default|"
+msgid "Event Timing Codes"
+msgstr "Sündmuse ajastamise koodid"
+
+#: src/core/tags/frame.cpp:180
+msgctxt "@default|"
+msgid "General Object"
+msgstr "Üldine objekt"
+
+#: src/core/tags/frame.cpp:181
+msgctxt "@default|"
+msgid "Group Identification"
+msgstr "Grupi identifitseerimine"
+
+#: src/core/tags/frame.cpp:183
+msgctxt "@default|"
+msgid "Linked Information"
+msgstr "Lingitud teave"
+
+#: src/core/tags/frame.cpp:184
+msgctxt "@default|"
+msgid "Music CD Identifier"
+msgstr "Muusika-CD identifikaator"
+
+#: src/core/tags/frame.cpp:185
+msgctxt "@default|"
+msgid "MPEG Lookup Table"
+msgstr "MPEG asukohaotsingutabel"
+
+#: src/core/tags/frame.cpp:186 src/core/tags/frame.cpp:300
+msgctxt "@default|"
+msgid "Movement Number"
+msgstr "Liikumise number"
+
+#: src/core/tags/frame.cpp:187 src/core/tags/frame.cpp:299
+msgctxt "@default|"
+msgid "Movement Name"
+msgstr "Liikumise nimi"
+
+#: src/core/tags/frame.cpp:188
+msgctxt "@default|"
+msgid "Ownership"
+msgstr "Omandus"
+
+#: src/core/tags/frame.cpp:189
+msgctxt "@default|"
+msgid "Play Counter"
+msgstr "Esitusloendur"
+
+#: src/core/tags/frame.cpp:190 src/core/tags/frame.cpp:285
+msgctxt "@default|"
+msgid "Podcast"
+msgstr "Podcast"
+
+#: src/core/tags/frame.cpp:191
+msgctxt "@default|"
+msgid "Popularimeter"
+msgstr "Popularimeeter"
+
+#: src/core/tags/frame.cpp:192
+msgctxt "@default|"
+msgid "Position Synchronisation"
+msgstr "Asukoha sünkroonimine"
+
+#: src/core/tags/frame.cpp:193
+msgctxt "@default|"
+msgid "Private"
+msgstr "Privaatne"
+
+#: src/core/tags/frame.cpp:194
+msgctxt "@default|"
+msgid "Recommended Buffer Size"
+msgstr "Soovituslik puhvrisuurus"
+
+#: src/core/tags/frame.cpp:197
+msgctxt "@default|"
+msgid "Reverb"
+msgstr "Ruumikaja"
+
+#: src/core/tags/frame.cpp:198
+msgctxt "@default|"
+msgid "Seek"
+msgstr "Otsimine"
+
+#: src/core/tags/frame.cpp:199
+msgctxt "@default|"
+msgid "Signature"
+msgstr "Signatuur"
+
+#: src/core/tags/frame.cpp:200
+msgctxt "@default|"
+msgid "Synchronized Lyrics"
+msgstr "Sünkroonitud laulusõnad"
+
+#: src/core/tags/frame.cpp:201
+msgctxt "@default|"
+msgid "Synchronized Tempo Codes"
+msgstr "Sünkroonitud tempokoodid"
+
+#: src/core/tags/frame.cpp:204
+msgctxt "@default|"
+msgid "Podcast Description"
+msgstr "Podcasti kirjeldus"
+
+#: src/core/tags/frame.cpp:205
+msgctxt "@default|"
+msgid "Playlist Delay"
+msgstr "Esitusloendi viivitus"
+
+#: src/core/tags/frame.cpp:206
+msgctxt "@default|"
+msgid "Original Release Time"
+msgstr "Originaali väljalaske aeg"
+
+#: src/core/tags/frame.cpp:207
+msgctxt "@default|"
+msgid "Recording Time"
+msgstr "Salvestamise aeg"
+
+#: src/core/tags/frame.cpp:208
+msgctxt "@default|"
+msgid "Release Time"
+msgstr "Väljalaske aeg"
+
+#: src/core/tags/frame.cpp:209
+msgctxt "@default|"
+msgid "Tagging Time"
+msgstr "Sildistamise aeg"
+
+#: src/core/tags/frame.cpp:210
+msgctxt "@default|"
+msgid "File Type"
+msgstr "Faili tüüp"
+
+#: src/core/tags/frame.cpp:211
+msgctxt "@default|"
+msgid "Podcast Identifier"
+msgstr "Podcasti identifikaator"
+
+#: src/core/tags/frame.cpp:212
+msgctxt "@default|"
+msgid "Time"
+msgstr "Aeg"
+
+#: src/core/tags/frame.cpp:214 src/core/tags/frame.cpp:269
+msgctxt "@default|"
+msgid "Original Filename"
+msgstr "Originaalfailinimi"
+
+#: src/core/tags/frame.cpp:215
+msgctxt "@default|"
+msgid "File Owner"
+msgstr "Faili omanik"
+
+#: src/core/tags/frame.cpp:216
+msgctxt "@default|"
+msgid "Produced Notice"
+msgstr "Tootmismärkus"
+
+#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:255
+msgctxt "@default|"
+msgid "Recording Date"
+msgstr "Salvestamise kuupäev"
+
+#: src/core/tags/frame.cpp:218
+msgctxt "@default|"
+msgid "Radio Station Name"
+msgstr "Raadiojaama nimi"
+
+#: src/core/tags/frame.cpp:219
+msgctxt "@default|"
+msgid "Radio Station Owner"
+msgstr "Raadiojaama omanik"
+
+#: src/core/tags/frame.cpp:220
+msgctxt "@default|"
+msgid "Size"
+msgstr "Suurus"
+
+#: src/core/tags/frame.cpp:221
+msgctxt "@default|"
+msgid "User-defined Text"
+msgstr "Kasutaja määratud tekst"
+
+#: src/core/tags/frame.cpp:222
+msgctxt "@default|"
+msgid "Unique File Identifier"
+msgstr "Unikaalne faili identifikaator"
+
+#: src/core/tags/frame.cpp:223
+msgctxt "@default|"
+msgid "Terms of Use"
+msgstr "Kasutustingimused"
+
+#: src/core/tags/frame.cpp:224 src/core/tags/frame.cpp:271
+msgctxt "@default|"
+msgid "Commercial URL"
+msgstr "Kommertsinfo URL"
+
+#: src/core/tags/frame.cpp:225
+msgctxt "@default|"
+msgid "Copyright URL"
+msgstr "Autoriõiguse URL"
+
+#: src/core/tags/frame.cpp:226
+msgctxt "@default|"
+msgid "Podcast Feed"
+msgstr "Podcasti voog"
+
+#: src/core/tags/frame.cpp:227
+msgctxt "@default|"
+msgid "Official Radio Station"
+msgstr "Ametlik raadiojaam"
+
+#: src/core/tags/frame.cpp:228
+msgctxt "@default|"
+msgid "Payment"
+msgstr "Makse"
+
+#: src/core/tags/frame.cpp:229
+msgctxt "@default|"
+msgid "Official Publisher"
+msgstr "Ametlik väljaandja"
+
+#: src/core/tags/frame.cpp:230 src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:273
+msgctxt "@default|"
+msgid "User-defined URL"
+msgstr "Kasutaja määratud URL"
+
+#: src/core/tags/frame.cpp:232
+msgctxt "@default|"
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:257
+msgctxt "@default|"
+msgid "Total Discs"
+msgstr "Plaate kokku"
+
+#: src/core/tags/frame.cpp:236
+msgctxt "@default|"
+msgid "Encoder"
+msgstr "Kodeerija"
+
+#: src/core/tags/frame.cpp:239
+msgctxt "@default|"
+msgid "Encoding"
+msgstr "Kodeering"
+
+#: src/core/tags/frame.cpp:240
+msgctxt "@default|"
+msgid "Engineer"
+msgstr "Insener"
+
+#: src/core/tags/frame.cpp:241
+msgctxt "@default|"
+msgid "Ensemble"
+msgstr "Ansambel"
+
+#: src/core/tags/frame.cpp:242
+msgctxt "@default|"
+msgid "Guest Artist"
+msgstr "Külalisesineja"
+
+#: src/core/tags/frame.cpp:243 src/core/tags/trackdata.cpp:264
+msgctxt "@default|"
+msgid "VBR"
+msgstr "VBR"
+
+#: src/core/tags/frame.cpp:244 src/core/tags/frame.cpp:286
+msgctxt "@default|"
+msgid "Gapless Playback"
+msgstr "Katkematu esitus"
+
+#: src/core/tags/frame.cpp:245
+msgctxt "@default|"
+msgid "Label"
+msgstr "Plaadifirma"
+
+#: src/core/tags/frame.cpp:246
+msgctxt "@default|"
+msgid "Label Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:247
+msgctxt "@default|"
+msgid "License"
+msgstr "Litsents"
+
+#: src/core/tags/frame.cpp:248
+msgctxt "@default|"
+msgid "Location"
+msgstr "Asukoht"
+
+#: src/core/tags/frame.cpp:249
+msgctxt "@default|"
+msgid "Opus"
+msgstr ""
+
+#: src/core/tags/frame.cpp:251
+msgctxt "@default|"
+msgid "Organization"
+msgstr "Organisatsioon"
+
+#: src/core/tags/frame.cpp:252
+msgctxt "@default|"
+msgid "Part Number"
+msgstr ""
+
+#: src/core/tags/frame.cpp:253
+msgctxt "@default|"
+msgid "Producer"
+msgstr "Produtsent"
+
+#: src/core/tags/frame.cpp:254
+msgctxt "@default|"
+msgid "Product Number"
+msgstr "Toote number"
+
+#: src/core/tags/frame.cpp:258 src/core/tags/frame.cpp:259
+msgctxt "@default|"
+msgid "Total Tracks"
+msgstr "Palasid kokku"
+
+#: src/core/tags/frame.cpp:262
+msgctxt "@default|"
+msgid "Version"
+msgstr "Versioon"
+
+#: src/core/tags/frame.cpp:263
+msgctxt "@default|"
+msgid "Volume"
+msgstr "Helitugevus"
+
+#: src/core/tags/frame.cpp:267
+msgctxt "@default|"
+msgid "MCDI"
+msgstr "MCDI"
+
+#: src/core/tags/frame.cpp:270
+msgctxt "@default|"
+msgid "Original Lyricist"
+msgstr "Sõnade algne autor"
+
+#: src/core/tags/frame.cpp:272
+msgctxt "@default|"
+msgid "User Rating"
+msgstr "Kasutaja hinnang"
+
+#: src/core/tags/frame.cpp:274
+msgctxt "@default|"
+msgid "Account Type"
+msgstr "Konto tüüp"
+
+#: src/core/tags/frame.cpp:275
+msgctxt "@default|"
+msgid "Purchase Account"
+msgstr "Konto nimi"
+
+#: src/core/tags/frame.cpp:276
+msgctxt "@default|"
+msgid "Artist ID"
+msgstr "Esitaja ID"
+
+#: src/core/tags/frame.cpp:277
+msgctxt "@default|"
+msgid "Category"
+msgstr "Kategooria"
+
+#: src/core/tags/frame.cpp:278
+msgctxt "@default|"
+msgid "Catalog ID"
+msgstr "Kataloogi ID"
+
+#: src/core/tags/frame.cpp:281
+msgctxt "@default|"
+msgid "Genre ID"
+msgstr "Žanri ID"
+
+#: src/core/tags/frame.cpp:282
+msgctxt "@default|"
+msgid "HD Video"
+msgstr "HD Video"
+
+#: src/core/tags/frame.cpp:283
+msgctxt "@default|"
+msgid "Keyword"
+msgstr "Võtmesõna"
+
+#: src/core/tags/frame.cpp:284
+msgctxt "@default|"
+msgid "Long Description"
+msgstr "Pikk kirjeldus"
+
+#: src/core/tags/frame.cpp:287
+msgctxt "@default|"
+msgid "Album ID"
+msgstr "Albumi ID"
+
+#: src/core/tags/frame.cpp:288
+msgctxt "@default|"
+msgid "Purchase Date"
+msgstr "Ostukuupäev"
+
+#: src/core/tags/frame.cpp:289
+msgctxt "@default|"
+msgid "Rating/Advisory"
+msgstr "Hinnang/Soovitus"
+
+#: src/core/tags/frame.cpp:290
+msgctxt "@default|"
+msgid "Country Code"
+msgstr "Riigikood"
+
+#: src/core/tags/frame.cpp:291
+msgctxt "@default|"
+msgid "Sort Show"
+msgstr "Sorteerimine saate järgi"
+
+#: src/core/tags/frame.cpp:292
+msgctxt "@default|"
+msgid "Media Type"
+msgstr "Meediatüüp"
+
+#: src/core/tags/frame.cpp:293
+msgctxt "@default|"
+msgid "TV Episode"
+msgstr "Telesarja osa"
+
+#: src/core/tags/frame.cpp:294
+msgctxt "@default|"
+msgid "TV Episode Number"
+msgstr "Telesarja osa number"
+
+#: src/core/tags/frame.cpp:295
+msgctxt "@default|"
+msgid "TV Network Name"
+msgstr "Televõrgu nimi"
+
+#: src/core/tags/frame.cpp:296
+msgctxt "@default|"
+msgid "TV Show Name"
+msgstr "Telesaate nimi"
+
+#: src/core/tags/frame.cpp:297
+msgctxt "@default|"
+msgid "TV Season"
+msgstr "Telesarja hooaeg"
+
+#: src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Movement Count"
+msgstr "Liikumise loendamine"
+
+#: src/core/tags/frame.cpp:302
+msgctxt "@default|"
+msgid "Show Work & Movement"
+msgstr "Tegevuse ja liikumise näitamine"
+
+#: src/core/tags/frame.cpp:304
+msgctxt "@default|"
+msgid "Podcast URL"
+msgstr "Podcasti URL"
+
+#: src/core/tags/frame.cpp:305
+msgctxt "@default|"
+msgid "Podcast GUID"
+msgstr "Podcasti GUID"
+
+#: src/core/tags/frame.cpp:306
+msgctxt "@default|"
+msgid "Composer ID"
+msgstr "Helilooja ID"
+
+#: src/core/tags/frame.cpp:307
+msgctxt "@default|"
+msgid "XID"
+msgstr "XID"
+
+#: src/core/tags/frame.cpp:308
+msgctxt "@default|"
+msgid "Archival Location"
+msgstr ""
+
+#: src/core/tags/frame.cpp:309
+msgctxt "@default|"
+msgid "Commissioned"
+msgstr ""
+
+#: src/core/tags/frame.cpp:310
+msgctxt "@default|"
+msgid "Cropped"
+msgstr "Kärbitud"
+
+#: src/core/tags/frame.cpp:311
+msgctxt "@default|"
+msgid "Dimensions"
+msgstr "Mõõtmed"
+
+#: src/core/tags/frame.cpp:312
+msgctxt "@default|"
+msgid "Dots Per Inch"
+msgstr "Punkti tolli kohta"
+
+#: src/core/tags/frame.cpp:313
+msgctxt "@default|"
+msgid "Keywords"
+msgstr "Võtmesõnad"
+
+#: src/core/tags/frame.cpp:314
+msgctxt "@default|"
+msgid "Lightness"
+msgstr "Heledus"
+
+#: src/core/tags/frame.cpp:315
+msgctxt "@default|"
+msgid "Number of Colors"
+msgstr "Värvide arv"
+
+#: src/core/tags/frame.cpp:316
+msgctxt "@default|"
+msgid "Subject"
+msgstr "Teema"
+
+#: src/core/tags/frame.cpp:317
+msgctxt "@default|"
+msgid "Sharpness"
+msgstr "Teravus"
+
+#: src/core/tags/frame.cpp:318
+msgctxt "@default|"
+msgid "Source Form"
+msgstr ""
+
+#: src/core/tags/frame.cpp:921
+#, qt-format
+msgctxt "@default|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/core/tags/frame.cpp:926
+msgctxt "@default|"
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
+
+#: src/core/tags/frame.cpp:930
+msgctxt "@default|"
+msgid "All Tags"
+msgstr "Kõik sildid"
+
+#: src/core/tags/frame.cpp:1731
+msgctxt "@default|"
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Sisestage t1/lisa t2, kui see pole tühi"
+
+#: src/core/tags/framenotice.cpp:173
+msgctxt "@default|"
+msgid "Truncated"
+msgstr "Lühikeseks"
+
+#: src/core/tags/framenotice.cpp:174
+msgctxt "@default|"
+msgid "Size is too large"
+msgstr "Suurus on liiga suur"
+
+#: src/core/tags/framenotice.cpp:175
+msgctxt "@default|"
+msgid "Must be unique"
+msgstr "Peab olema unikaalne"
+
+#: src/core/tags/framenotice.cpp:176
+msgctxt "@default|"
+msgid "New line is forbidden"
+msgstr "Reavahetus on keelatud"
+
+#: src/core/tags/framenotice.cpp:177
+msgctxt "@default|"
+msgid "Carriage return is forbidden"
+msgstr "Kelgutagastus on keelatud"
+
+#: src/core/tags/framenotice.cpp:178
+msgctxt "@default|"
+msgid "Owner must be non-empty"
+msgstr "Omanik peab olema antud"
+
+#: src/core/tags/framenotice.cpp:179
+msgctxt "@default|"
+msgid "Must be numeric"
+msgstr "Peab olema arv"
+
+#: src/core/tags/framenotice.cpp:180
+msgctxt "@default|"
+msgid "Must be numeric or number/total"
+msgstr "Peab olema arv või arv/kokku"
+
+#: src/core/tags/framenotice.cpp:181
+msgctxt "@default|"
+msgid "Format is DDMM"
+msgstr "Vorming on DDMM"
+
+#: src/core/tags/framenotice.cpp:182
+msgctxt "@default|"
+msgid "Format is HHMM"
+msgstr "Vorming on HHMM"
+
+#: src/core/tags/framenotice.cpp:183
+msgctxt "@default|"
+msgid "Format is YYYY"
+msgstr "Vorming on YYYY"
+
+#: src/core/tags/framenotice.cpp:184
+msgctxt "@default|"
+msgid "Must begin with a year and a space character"
+msgstr "Peab algama aasta ja tühimärgiga"
+
+#: src/core/tags/framenotice.cpp:185
+msgctxt "@default|"
+msgid "Must be ISO 8601 date/time"
+msgstr "Peab olema ISO 8601 kuupäev/kellaaeg"
+
+#: src/core/tags/framenotice.cpp:186
+msgctxt "@default|"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+
+#: src/core/tags/framenotice.cpp:188
+msgctxt "@default|"
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Peab olema ISO 639-2 keelekood, 3 väiketähte"
+
+#: src/core/tags/framenotice.cpp:189
+msgctxt "@default|"
+msgid "Must be ISRC code, 12 characters"
+msgstr "Peab olema ISRC kood, 12 märki"
+
+#: src/core/tags/framenotice.cpp:190
+msgctxt "@default|"
+msgid "Must be list of strings separated by '|'"
+msgstr "Peab olema stringide loend, eraldajaks '|'"
+
+#: src/core/tags/framenotice.cpp:191
+msgctxt "@default|"
+msgid "Has excess white space"
+msgstr "Liiga palju tühiruumi"
+
+#: src/core/tags/pictureframe.cpp:42
+msgctxt "@default|"
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 px PNG-vormingus faili ikoon"
+
+#: src/core/tags/pictureframe.cpp:43
+msgctxt "@default|"
+msgid "Other file icon"
+msgstr "Muus vormingus faili ikoon"
+
+#: src/core/tags/pictureframe.cpp:44
+msgctxt "@default|"
+msgid "Cover (front)"
+msgstr "Kaas (esikülg)"
+
+#: src/core/tags/pictureframe.cpp:45
+msgctxt "@default|"
+msgid "Cover (back)"
+msgstr "Kaas (tagakülg)"
+
+#: src/core/tags/pictureframe.cpp:46
+msgctxt "@default|"
+msgid "Leaflet page"
+msgstr "Voldiku lehekülg"
+
+#: src/core/tags/pictureframe.cpp:48
+msgctxt "@default|"
+msgid "Lead artist/lead performer/soloist"
+msgstr "Juhtiv esitaja/ettekandja /solist"
+
+#: src/core/tags/pictureframe.cpp:49
+msgctxt "@default|"
+msgid "Artist/performer"
+msgstr "Esitaja/ettekandja"
+
+#: src/core/tags/pictureframe.cpp:51
+msgctxt "@default|"
+msgid "Band/Orchestra"
+msgstr "Bänd/orkester"
+
+#: src/core/tags/pictureframe.cpp:53
+msgctxt "@default|"
+msgid "Lyricist/text writer"
+msgstr "Sõnade/teksti autor"
+
+#: src/core/tags/pictureframe.cpp:54
+msgctxt "@default|"
+msgid "Recording Location"
+msgstr "Salvestamiskoht"
+
+#: src/core/tags/pictureframe.cpp:55
+msgctxt "@default|"
+msgid "During recording"
+msgstr "Salvestamise ajal"
+
+#: src/core/tags/pictureframe.cpp:56
+msgctxt "@default|"
+msgid "During performance"
+msgstr "Esitamise ajal"
+
+#: src/core/tags/pictureframe.cpp:57
+msgctxt "@default|"
+msgid "Movie/video screen capture"
+msgstr "Kaader filmist/videost"
+
+#: src/core/tags/pictureframe.cpp:58
+msgctxt "@default|"
+msgid "A bright coloured fish"
+msgstr "Värvikirev kala"
+
+#: src/core/tags/pictureframe.cpp:59
+msgctxt "@default|"
+msgid "Illustration"
+msgstr "Illustratsioon"
+
+#: src/core/tags/pictureframe.cpp:60
+msgctxt "@default|"
+msgid "Band/artist logotype"
+msgstr "Bändi/esitaja logo"
+
+#: src/core/tags/pictureframe.cpp:61
+msgctxt "@default|"
+msgid "Publisher/Studio logotype"
+msgstr "Väljaandja/stuudio logo"
+
+#: src/core/tags/trackdata.cpp:204
+msgctxt "@default|"
+msgid "Absolute path to file"
+msgstr "Faili absoluutne asukoht"
+
+#: src/core/tags/trackdata.cpp:210
+msgctxt "@default|"
+msgid "Modification date"
+msgstr "Muutmise kuupäev"
+
+#: src/core/tags/trackdata.cpp:216
+msgctxt "@default|"
+msgid "Creation date"
+msgstr "Loomise kuupäev"
+
+#: src/core/tags/trackdata.cpp:226
+msgctxt "@default|"
+msgid "Directory name"
+msgstr "Kataloogi nimi"
+
+#: src/core/tags/trackdata.cpp:241
+msgctxt "@default|"
+msgid "Number of tracks"
+msgstr "Palade arv"
+
+#: src/core/tags/trackdata.cpp:246
+msgctxt "@default|"
+msgid "Extension"
+msgstr "Laiend"
+
+#: src/core/tags/trackdata.cpp:259
+msgctxt "@default|"
+msgid "Bitrate"
+msgstr "Bitikiirus"
+
+#: src/core/tags/trackdata.cpp:269
+msgctxt "@default|"
+msgid "Samplerate"
+msgstr "Diskreetimissagedus"
+
+#: src/core/tags/trackdata.cpp:276
+msgctxt "@default|"
+msgid "Channels"
+msgstr "Kanaleid"
+
+#: src/core/tags/trackdata.cpp:281
+msgctxt "@default|"
+msgid "Codec"
+msgstr "Koodek"
+
+#: src/core/tags/trackdata.cpp:286
+msgctxt "@default|"
+msgid "Marked"
+msgstr "Märgitud"
+
+#: src/core/tags/trackdata.cpp:292
+msgctxt "@default|"
+msgid "Escape for HTML"
+msgstr "HTML-i paojada"
+
+#: src/gui/dialogs/batchimportdialog.cpp:163
+msgctxt "BatchImportDialog|"
+msgid "Automatic Import"
+msgstr "Automaatne import"
+
+#: src/gui/dialogs/batchimportdialog.cpp:179
+msgctxt "BatchImportDialog|"
+msgid "D&estination:"
+msgstr "&Sihtkoht:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:194
+msgctxt "BatchImportDialog|"
+msgid "&Profile:"
+msgstr "&Profiil:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:205
+msgctxt "BatchImportDialog|"
+msgid "Add"
+msgstr "Lisa"
+
+#: src/gui/dialogs/batchimportdialog.cpp:209
+msgctxt "BatchImportDialog|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/gui/dialogs/batchimportdialog.cpp:230
+msgctxt "BatchImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/batchimportdialog.cpp:236
+msgctxt "BatchImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/batchimportdialog.cpp:245
+msgctxt "BatchImportDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/batchimportdialog.cpp:285
+msgctxt "BatchImportDialog|"
+msgid "New"
+msgstr "Uus"
+
+#: src/gui/dialogs/batchimportdialog.cpp:477
+msgctxt "BatchImportDialog|"
+msgid "Reading Folder"
+msgstr "Kataloogi lugemine"
+
+#: src/gui/dialogs/batchimportdialog.cpp:481
+msgctxt "BatchImportDialog|"
+msgid "Started"
+msgstr "Käivitatud"
+
+#: src/gui/dialogs/batchimportdialog.cpp:484
+msgctxt "BatchImportDialog|"
+msgid "Source"
+msgstr "Allikas"
+
+#: src/gui/dialogs/batchimportdialog.cpp:487
+msgctxt "BatchImportDialog|"
+msgid "Querying"
+msgstr "Päring"
+
+#: src/gui/dialogs/batchimportdialog.cpp:491
+msgctxt "BatchImportDialog|"
+msgid "Fetching"
+msgstr "Tõmbamine"
+
+#: src/gui/dialogs/batchimportdialog.cpp:494
+msgctxt "BatchImportDialog|"
+msgid "Data received"
+msgstr "Andmed vastu võetud"
+
+#: src/gui/dialogs/batchimportdialog.cpp:497
+msgctxt "BatchImportDialog|"
+msgid "Cover"
+msgstr "Kaanepilt"
+
+#: src/gui/dialogs/batchimportdialog.cpp:501
+msgctxt "BatchImportDialog|"
+msgid "Finished"
+msgstr "Valmis"
+
+#: src/gui/dialogs/batchimportdialog.cpp:505
+msgctxt "BatchImportDialog|"
+msgid "Aborted"
+msgstr "Katkestatud"
+
+#: src/gui/dialogs/batchimportdialog.cpp:508
+msgctxt "BatchImportDialog|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "A&bort"
+msgstr "&Katkesta"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "S&tart"
+msgstr "&Alusta"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+msgctxt "BatchImportSourceDialog|"
+msgid "Import Source"
+msgstr "Impordi allikas"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+msgctxt "BatchImportSourceDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+msgctxt "BatchImportSourceDialog|"
+msgid "&Accuracy:"
+msgstr "T&äpsus:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+msgctxt "BatchImportSourceDialog|"
+msgid "&Standard Tags"
+msgstr "&Standardsildid"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+msgctxt "BatchImportSourceDialog|"
+msgid "&Additional Tags"
+msgstr "&Lisasildid"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+msgctxt "BatchImportSourceDialog|"
+msgid "C&over Art"
+msgstr "&Kaanepilt"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:83
+#: src/gui/dialogs/browsecoverartdialog.cpp:263
+msgctxt "BrowseCoverArtDialog|"
+msgid "Browse Cover Art"
+msgstr "Kaanepildi otsimine"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:92
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Artist/Album"
+msgstr "&Esitaja / Album"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:105
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Source"
+msgstr "&Allikas"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "Source:"
+msgstr "Allikas:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "URL:"
+msgstr "URL:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:118
+msgctxt "BrowseCoverArtDialog|"
+msgid "&URL extraction"
+msgstr "&URL-i tuvastamine"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Match"
+msgstr "Tulemus"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Picture URL"
+msgstr "Pildi URL"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:130
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:135
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:144
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Browse"
+msgstr "S&irvi"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:145
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:177
+msgctxt "BrowseCoverArtDialog|"
+msgid "Click Browse to start"
+msgstr "Alustamiseks klõpsa Sirvi"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:183
+msgctxt "BrowseCoverArtDialog|"
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "Seejärel lohista pilt brauserist Kid3 aknasse."
+
+#: src/gui/dialogs/configdialogpages.cpp:167
+msgctxt "ConfigDialogPages|"
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: src/gui/dialogs/configdialogpages.cpp:170
+msgctxt "ConfigDialogPages|"
+msgid "&Mark truncated fields"
+msgstr "Kärbitud väljade &märkimine"
+
+#: src/gui/dialogs/configdialogpages.cpp:172
+#: src/gui/dialogs/configdialogpages.cpp:201
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding:"
+msgstr "Teksti ko&deering:"
+
+#: src/gui/dialogs/configdialogpages.cpp:186
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: src/gui/dialogs/configdialogpages.cpp:189
+msgctxt "ConfigDialogPages|"
+msgid "Use &track/total number of tracks format"
+msgstr "Vormin&gu \"pala number/palade koguarv\" kasutamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:192
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "Tüvekohti pala num&bris:"
+
+#: src/gui/dialogs/configdialogpages.cpp:196
+msgctxt "ConfigDialogPages|"
+msgid "&Genre as text instead of numeric string"
+msgstr "&Žanr numberkoodi asemel tekstina"
+
+#: src/gui/dialogs/configdialogpages.cpp:198
+msgctxt "ConfigDialogPages|"
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV-failid väiketähelise id3 tükiga"
+
+#: src/gui/dialogs/configdialogpages.cpp:200
+msgctxt "ConfigDialogPages|"
+msgid "Mar&k standard violations"
+msgstr "Standardri&kkumiste märkimine"
+
+#: src/gui/dialogs/configdialogpages.cpp:219
+msgctxt "ConfigDialogPages|"
+msgid "&Version used for new tags:"
+msgstr "Uutes siltides kasutatav &versioon:"
+
+#: src/gui/dialogs/configdialogpages.cpp:223
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:225
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:239
+msgctxt "ConfigDialogPages|"
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: src/gui/dialogs/configdialogpages.cpp:240
+msgctxt "ConfigDialogPages|"
+msgid "Co&mment field name:"
+msgstr "&Kommentaarivälja nimi:"
+
+#: src/gui/dialogs/configdialogpages.cpp:243
+msgctxt "ConfigDialogPages|"
+msgid "&Picture field name:"
+msgstr "&Pildivälja nimi:"
+
+#: src/gui/dialogs/configdialogpages.cpp:265
+msgctxt "ConfigDialogPages|"
+msgid "Picture"
+msgstr "Pilt"
+
+#: src/gui/dialogs/configdialogpages.cpp:268
+msgctxt "ConfigDialogPages|"
+msgid "Mark if &larger than (bytes):"
+msgstr "Märkimine, k&ui suurus ületab (baiti):"
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+msgctxt "ConfigDialogPages|"
+msgid "Custom &Genres"
+msgstr "Ko&handatud žanrid"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "&Show only custom genres"
+msgstr "Ainult ko&handatud žanride näitamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:289
+msgctxt "ConfigDialogPages|"
+msgid "&Quick Access Frames"
+msgstr "Raa&mide kiirloend"
+
+#: src/gui/dialogs/configdialogpages.cpp:302
+msgctxt "ConfigDialogPages|"
+msgid "Use drag and drop to reorder the items"
+msgstr "Järjekorda saab muuta elemente lohistades"
+
+#: src/gui/dialogs/configdialogpages.cpp:310
+msgctxt "ConfigDialogPages|"
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+#: src/gui/dialogs/configdialogpages.cpp:311
+msgctxt "ConfigDialogPages|"
+msgid "Track nu&mber field name:"
+msgstr "Pala nu&mbri välja nimi:"
+
+#: src/gui/dialogs/configdialogpages.cpp:328
+msgctxt "ConfigDialogPages|"
+msgid "&Tag Format"
+msgstr "&Sildivorming"
+
+#: src/gui/dialogs/configdialogpages.cpp:330
+msgctxt "ConfigDialogPages|"
+msgid "Rating"
+msgstr "Hinnang"
+
+#: src/gui/dialogs/configdialogpages.cpp:340
+msgctxt "ConfigDialogPages|"
+msgid "Tag &1"
+msgstr "Silt &1"
+
+#: src/gui/dialogs/configdialogpages.cpp:342
+msgctxt "ConfigDialogPages|"
+msgid "Tag &2"
+msgstr "Silt &2"
+
+#: src/gui/dialogs/configdialogpages.cpp:343
+msgctxt "ConfigDialogPages|"
+msgid "Tag &3"
+msgstr "Silt &3"
+
+#: src/gui/dialogs/configdialogpages.cpp:344
+msgctxt "ConfigDialogPages|"
+msgid "All Ta&gs"
+msgstr "K&õik sildid"
+
+#: src/gui/dialogs/configdialogpages.cpp:362
+msgctxt "ConfigDialogPages|"
+msgid "Startup"
+msgstr "Käivitamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:363
+msgctxt "ConfigDialogPages|"
+msgid "&Load last-opened files"
+msgstr "Viimati avatud failide &laadimine"
+
+#: src/gui/dialogs/configdialogpages.cpp:369
+msgctxt "ConfigDialogPages|"
+msgid "Save"
+msgstr "Salvestamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:370
+msgctxt "ConfigDialogPages|"
+msgid "&Preserve file timestamp"
+msgstr "Failide aja&templite säilitamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:372
+msgctxt "ConfigDialogPages|"
+msgid "&Mark changes"
+msgstr "&Muudatuste märkimine"
+
+#: src/gui/dialogs/configdialogpages.cpp:382
+msgctxt "ConfigDialogPages|"
+msgid "F&ilename for cover:"
+msgstr "Kaanepildi &failinimi:"
+
+#: src/gui/dialogs/configdialogpages.cpp:383
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Teksti ko&deering (ekspordil, esitusloendis):"
+
+#: src/gui/dialogs/configdialogpages.cpp:388
+msgctxt "ConfigDialogPages|"
+msgid "File List"
+msgstr "Faililoend"
+
+#: src/gui/dialogs/configdialogpages.cpp:389
+msgctxt "ConfigDialogPages|"
+msgid "Filte&r:"
+msgstr "F&ilter:"
+
+#: src/gui/dialogs/configdialogpages.cpp:399
+msgctxt "ConfigDialogPages|"
+msgid "Inclu&de folders:"
+msgstr "Kaa&satavad kataloogid:"
+
+#: src/gui/dialogs/configdialogpages.cpp:403
+msgctxt "ConfigDialogPages|"
+msgid "E&xclude folders:"
+msgstr "Väl&jajäetavad kataloogid:"
+
+#: src/gui/dialogs/configdialogpages.cpp:407
+msgctxt "ConfigDialogPages|"
+msgid "&Show hidden files"
+msgstr "P&eidetud failide näitamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:419
+msgctxt "ConfigDialogPages|"
+msgid "Format"
+msgstr "Vorming"
+
+#: src/gui/dialogs/configdialogpages.cpp:422
+msgctxt "ConfigDialogPages|"
+msgid "Filename from tag"
+msgstr "Failinimi sildi põhjal"
+
+#: src/gui/dialogs/configdialogpages.cpp:427
+msgctxt "ConfigDialogPages|"
+msgid "Tag from filename"
+msgstr "Silt failinime põhjal"
+
+#: src/gui/dialogs/configdialogpages.cpp:439
+msgctxt "ConfigDialogPages|"
+msgid "&Filename Format"
+msgstr "&Failinime vorming"
+
+#: src/gui/dialogs/configdialogpages.cpp:455
+msgctxt "ConfigDialogPages|"
+msgid "Filename from Tag"
+msgstr "Failinimi sildi põhjal"
+
+#: src/gui/dialogs/configdialogpages.cpp:471
+msgctxt "ConfigDialogPages|"
+msgid "Tag from Filename"
+msgstr "Silt failinime põhjal"
+
+#: src/gui/dialogs/configdialogpages.cpp:485
+msgctxt "ConfigDialogPages|"
+msgid "Browser"
+msgstr "Brauser"
+
+#: src/gui/dialogs/configdialogpages.cpp:486
+msgctxt "ConfigDialogPages|"
+msgid "Web &browser:"
+msgstr "&Veebilehitseja:"
+
+#: src/gui/dialogs/configdialogpages.cpp:495
+msgctxt "ConfigDialogPages|"
+msgid "Context &Menu Commands"
+msgstr "Konteksti&menüü käsud"
+
+#: src/gui/dialogs/configdialogpages.cpp:498
+msgctxt "ConfigDialogPages|"
+msgid "&Play on double click"
+msgstr "Esitamine &topeltklõpsu peale"
+
+#: src/gui/dialogs/configdialogpages.cpp:519
+msgctxt "ConfigDialogPages|"
+msgid "Proxy"
+msgstr "Puhverserver"
+
+#: src/gui/dialogs/configdialogpages.cpp:520
+msgctxt "ConfigDialogPages|"
+msgid "&Proxy:"
+msgstr "&Puhverserver:"
+
+#: src/gui/dialogs/configdialogpages.cpp:523
+msgctxt "ConfigDialogPages|"
+msgid "&Use authentication with proxy"
+msgstr "Puhverserveris &autentimise kasutamine"
+
+#: src/gui/dialogs/configdialogpages.cpp:525
+msgctxt "ConfigDialogPages|"
+msgid "Proxy user &name:"
+msgstr "Puhverserveri &kasutajanimi:"
+
+#: src/gui/dialogs/configdialogpages.cpp:529
+msgctxt "ConfigDialogPages|"
+msgid "Proxy pass&word:"
+msgstr "Puhverserveri &parool:"
+
+#: src/gui/dialogs/configdialogpages.cpp:563
+msgctxt "ConfigDialogPages|"
+msgid "&Metadata Plugins && Priority"
+msgstr "&Metaandmete pluginad ja prioriteet"
+
+#: src/gui/dialogs/configdialogpages.cpp:575
+msgctxt "ConfigDialogPages|"
+msgid "A&vailable Plugins"
+msgstr "S&aadaolevad pluginad"
+
+#: src/gui/dialogs/configdialogpages.cpp:586
+msgctxt "ConfigDialogPages|"
+msgid "Changes take only effect after a restart!"
+msgstr "Muudatused jõustuvad alles pärast taaskäivitamist!"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:739
+msgctxt "@default|"
+msgid "Images"
+msgstr "Pildid"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:740
+#: src/gui/widgets/timeeventeditor.cpp:336
+msgctxt "@default|"
+msgid "All Files"
+msgstr "Kõik failid"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1135
+msgctxt "BinaryOpenSave|"
+msgid "From Clip&board"
+msgstr "&Lõikepuhvrist"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+msgctxt "BinaryOpenSave|"
+msgid "&To Clipboard"
+msgstr "Lõi&kepuhvrisse"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+msgctxt "BinaryOpenSave|"
+msgid "&Import..."
+msgstr "&Impordi ..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+msgctxt "BinaryOpenSave|"
+msgid "&Export..."
+msgstr "&Ekspordi ..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+msgctxt "BinaryOpenSave|"
+msgid "&View..."
+msgstr "&Näita ..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1315
+msgctxt "EditFrameFieldsDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+msgctxt "EditFrameFieldsDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/exportdialog.cpp:68
+msgctxt "ExportDialog|"
+msgid "Export"
+msgstr "Eksport"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Format:"
+msgstr "&Vorming:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "H&eader:"
+msgstr "&Päis:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Tracks:"
+msgstr "Pa&lad:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "F&ooter:"
+msgstr "&Jalus:"
+
+#: src/gui/dialogs/exportdialog.cpp:91
+msgctxt "ExportDialog|"
+msgid "To F&ile..."
+msgstr "&Failina ..."
+
+#: src/gui/dialogs/exportdialog.cpp:96
+msgctxt "ExportDialog|"
+msgid "To Clip&board"
+msgstr "&Lõikepuhvrisse"
+
+#: src/gui/dialogs/exportdialog.cpp:105
+msgctxt "ExportDialog|"
+msgid "&Source:"
+msgstr "&Allikas:"
+
+#: src/gui/dialogs/exportdialog.cpp:110
+#, qt-format
+msgctxt "ExportDialog|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/gui/dialogs/exportdialog.cpp:122
+msgctxt "ExportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/exportdialog.cpp:127
+msgctxt "ExportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/exportdialog.cpp:136
+msgctxt "ExportDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/exportdialog.cpp:154
+msgctxt "ExportDialog|"
+msgid "File Error"
+msgstr "Failitõrge"
+
+#: src/gui/dialogs/exportdialog.cpp:155
+msgctxt "ExportDialog|"
+msgid "Error while writing file:\n"
+msgstr "Tõrge faili kirjutamisel:\n"
+
+#: src/gui/dialogs/filterdialog.cpp:49
+msgctxt "FilterDialog|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/gui/dialogs/filterdialog.cpp:53
+msgctxt "FilterDialog|"
+msgid "&Preview"
+msgstr "&Eelvaatlus"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Filter:"
+msgstr "&Filter:"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Expression:"
+msgstr "&Avaldis:"
+
+#: src/gui/dialogs/filterdialog.cpp:75
+msgctxt "FilterDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/filterdialog.cpp:80
+msgctxt "FilterDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/filterdialog.cpp:91
+msgctxt "FilterDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/filterdialog.cpp:182
+msgctxt "FilterDialog|"
+msgid "Started"
+msgstr "Käivitatud"
+
+#: src/gui/dialogs/filterdialog.cpp:198
+msgctxt "FilterDialog|"
+msgid "Finished"
+msgstr "Valmis"
+
+#: src/gui/dialogs/filterdialog.cpp:202
+msgctxt "FilterDialog|"
+msgid "Aborted"
+msgstr "Katkestatud"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "A&bort"
+msgstr "&Katkesta"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "&Apply"
+msgstr "&Rakenda"
+
+#: src/gui/dialogs/findreplacedialog.cpp:54
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find and Replace"
+msgstr "Otsimine ja asendamine"
+
+#: src/gui/dialogs/findreplacedialog.cpp:59
+msgctxt "FindReplaceDialog|"
+msgid "F&ind:"
+msgstr "Ots&ing:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:66
+msgctxt "FindReplaceDialog|"
+msgid "&Find"
+msgstr "&Otsi"
+
+#: src/gui/dialogs/findreplacedialog.cpp:69
+msgctxt "FindReplaceDialog|"
+msgid "Re&place:"
+msgstr "Ase&ndus:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:76
+msgctxt "FindReplaceDialog|"
+msgid "&Replace"
+msgstr "As&enda"
+
+#: src/gui/dialogs/findreplacedialog.cpp:79
+msgctxt "FindReplaceDialog|"
+msgid "Replace &all"
+msgstr "Asenda &kõik"
+
+#: src/gui/dialogs/findreplacedialog.cpp:94
+msgctxt "FindReplaceDialog|"
+msgid "Options"
+msgstr "Valikud"
+
+#: src/gui/dialogs/findreplacedialog.cpp:96
+msgctxt "FindReplaceDialog|"
+msgid "&Match case"
+msgstr "&Tõstutundlik"
+
+#: src/gui/dialogs/findreplacedialog.cpp:98
+msgctxt "FindReplaceDialog|"
+msgid "&Backwards"
+msgstr "Ta&gasisuunas"
+
+#: src/gui/dialogs/findreplacedialog.cpp:100
+msgctxt "FindReplaceDialog|"
+msgid "Regular &expression"
+msgstr "&Regulaaravaldis"
+
+#: src/gui/dialogs/findreplacedialog.cpp:105
+msgctxt "FindReplaceDialog|"
+msgid "&Tags"
+msgstr "&Sildid"
+
+#: src/gui/dialogs/findreplacedialog.cpp:107
+msgctxt "FindReplaceDialog|"
+msgid "Select a&ll"
+msgstr "&Vali kõik"
+
+#: src/gui/dialogs/findreplacedialog.cpp:117
+msgctxt "FindReplaceDialog|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/gui/dialogs/findreplacedialog.cpp:129
+msgctxt "FindReplaceDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/findreplacedialog.cpp:134
+msgctxt "FindReplaceDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/findreplacedialog.cpp:141
+msgctxt "FindReplaceDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find"
+msgstr "Otsimine"
+
+#: src/gui/dialogs/importdialog.cpp:128
+msgctxt "ImportDialog|"
+msgid "Accuracy:"
+msgstr "Täpsus:"
+
+#: src/gui/dialogs/importdialog.cpp:139
+msgctxt "ImportDialog|"
+msgid "Cover Art:"
+msgstr "Kaanepilt:"
+
+#: src/gui/dialogs/importdialog.cpp:148
+msgctxt "ImportDialog|"
+msgid "From F&ile/Clipboard..."
+msgstr "Failist/&lõikepuhvrist ..."
+
+#: src/gui/dialogs/importdialog.cpp:151
+msgctxt "ImportDialog|"
+msgid "From T&ags..."
+msgstr "S&iltidest ..."
+
+#: src/gui/dialogs/importdialog.cpp:154
+msgctxt "ImportDialog|"
+msgid "&From Server..."
+msgstr "&Serverist ..."
+
+#: src/gui/dialogs/importdialog.cpp:176
+msgctxt "ImportDialog|"
+msgid "D&estination:"
+msgstr "&Sihtkoht:"
+
+#: src/gui/dialogs/importdialog.cpp:190
+msgctxt "ImportDialog|"
+msgid "Revert"
+msgstr "Ennistab muudatused"
+
+#: src/gui/dialogs/importdialog.cpp:199
+msgctxt "ImportDialog|"
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "S&uurim lubatav ajaline erinevus (s):"
+
+#: src/gui/dialogs/importdialog.cpp:207
+msgctxt "ImportDialog|"
+msgid "Match with:"
+msgstr "Sobivus:"
+
+#: src/gui/dialogs/importdialog.cpp:209
+msgctxt "ImportDialog|"
+msgid "&Length"
+msgstr "&Pikkus"
+
+#: src/gui/dialogs/importdialog.cpp:212
+msgctxt "ImportDialog|"
+msgid "T&rack"
+msgstr "Pa&la"
+
+#: src/gui/dialogs/importdialog.cpp:215
+msgctxt "ImportDialog|"
+msgid "&Title"
+msgstr "&Pealkiri"
+
+#: src/gui/dialogs/importdialog.cpp:243
+msgctxt "ImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/importdialog.cpp:245
+msgctxt "ImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/importdialog.cpp:247
+msgctxt "ImportDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/importdialog.cpp:249
+msgctxt "ImportDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/qml/app/NumberTracksDialog.qml:32
+msgctxt "NumberTracksDialog|"
+msgid "Number Tracks"
+msgstr "Palade nummerdamine"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:55
+msgctxt "NumberTracksDialog|"
+msgid "Start &number:"
+msgstr "&Algusnumber:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:67
+msgctxt "NumberTracksDialog|"
+msgid "&Destination:"
+msgstr "&Sihtkoht:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:83
+msgctxt "NumberTracksDialog|"
+msgid "&Reset counter for each folder"
+msgstr "&Nullimine iga kataloogi järel"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:89
+msgctxt "NumberTracksDialog|"
+msgid "&Total number of tracks:"
+msgstr "Palade kog&uarv:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:103
+msgctxt "NumberTracksDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:108
+msgctxt "NumberTracksDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:117
+msgctxt "NumberTracksDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:123
+msgctxt "NumberTracksDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/playlistdialog.cpp:56
+msgctxt "PlaylistDialog|"
+msgid "Create Playlist"
+msgstr "Esitusloendi loomine"
+
+#: src/gui/dialogs/playlistdialog.cpp:144
+msgctxt "PlaylistDialog|"
+msgid "Playlist File Name"
+msgstr "Esitusloendi failinimi"
+
+#: src/gui/dialogs/playlistdialog.cpp:145
+msgctxt "PlaylistDialog|"
+msgid "Same as &folder name"
+msgstr "Sama mis &kataloogil"
+
+#: src/gui/dialogs/playlistdialog.cpp:147
+msgctxt "PlaylistDialog|"
+msgid "&Format:"
+msgstr "&Vorming:"
+
+#: src/gui/dialogs/playlistdialog.cpp:159
+msgctxt "PlaylistDialog|"
+msgid "Create ne&w empty playlist:"
+msgstr "&Uus tühi esitusloend:"
+
+#: src/gui/dialogs/playlistdialog.cpp:160
+msgctxt "PlaylistDialog|"
+msgid "New"
+msgstr "Uus"
+
+#: src/gui/dialogs/playlistdialog.cpp:166
+msgctxt "PlaylistDialog|"
+msgid "Cr&eate in:"
+msgstr "Loomis&koht:"
+
+#: src/gui/dialogs/playlistdialog.cpp:169
+msgctxt "PlaylistDialog|"
+msgid "Current folder"
+msgstr "Aktiivne kataloog"
+
+#: src/gui/dialogs/playlistdialog.cpp:170
+msgctxt "PlaylistDialog|"
+msgid "Every folder"
+msgstr "Iga kataloog"
+
+#: src/gui/dialogs/playlistdialog.cpp:171
+msgctxt "PlaylistDialog|"
+msgid "Top-level folder"
+msgstr "Tipptaseme kataloog"
+
+#: src/gui/dialogs/playlistdialog.cpp:173
+msgctxt "PlaylistDialog|"
+msgid "Playlist Content"
+msgstr "Esitusloendi sisu"
+
+#: src/gui/dialogs/playlistdialog.cpp:174
+msgctxt "PlaylistDialog|"
+msgid "For&mat:"
+msgstr "Vor&ming:"
+
+#: src/gui/dialogs/playlistdialog.cpp:178
+msgctxt "PlaylistDialog|"
+msgid "Incl&ude only the selected files"
+msgstr "&Ainult valitud failide kaasamine"
+
+#: src/gui/dialogs/playlistdialog.cpp:179
+msgctxt "PlaylistDialog|"
+msgid "Sort by file &name"
+msgstr "Sortimine &failinime järgi"
+
+#: src/gui/dialogs/playlistdialog.cpp:181
+msgctxt "PlaylistDialog|"
+msgid "Sort by &tag field"
+msgstr "Sortimine sildi &välja järgi"
+
+#: src/gui/dialogs/playlistdialog.cpp:196
+msgctxt "PlaylistDialog|"
+msgid "Use &relative path for files in playlist"
+msgstr "Esitusloendi faili&de suhteliste asukohtade kasutamine"
+
+#: src/gui/dialogs/playlistdialog.cpp:198
+msgctxt "PlaylistDialog|"
+msgid "Use full p&ath for files in playlist"
+msgstr "Esitusloendi failid&e täielike asukohtade kasutamine"
+
+#: src/gui/dialogs/playlistdialog.cpp:199
+msgctxt "PlaylistDialog|"
+msgid "Write only &list of files"
+msgstr "Ain&ult faililoendi kirjutamine"
+
+#: src/gui/dialogs/playlistdialog.cpp:201
+msgctxt "PlaylistDialog|"
+msgid "Write &info using"
+msgstr "Kirjutatakse &info"
+
+#: src/gui/dialogs/playlistdialog.cpp:212
+msgctxt "PlaylistDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/playlistdialog.cpp:216
+msgctxt "PlaylistDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/playlistdialog.cpp:224
+msgctxt "PlaylistDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/playlistdialog.cpp:227
+msgctxt "PlaylistDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:114
+msgctxt "PlaylistEditDialog|"
+msgid "Playlist"
+msgstr "Esitusnimekiri"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:120
+msgctxt "PlaylistEditDialog|"
+msgid " [modified]"
+msgstr " [muudetud]"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:130
+msgctxt "PlaylistEditDialog|"
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:131
+msgctxt "PlaylistEditDialog|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Esitusloendit on muudetud.\n"
+"Kas salvestada see?"
+
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+msgctxt "RenDirDialog|"
+msgid "Rename Folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/gui/dialogs/rendirdialog.cpp:64
+msgctxt "RenDirDialog|"
+msgid "Format"
+msgstr "Vorming"
+
+#: src/gui/dialogs/rendirdialog.cpp:69
+msgctxt "RenDirDialog|"
+msgid "Preview"
+msgstr "Eelvaatlus"
+
+#: src/gui/dialogs/rendirdialog.cpp:73
+msgctxt "RenDirDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/rendirdialog.cpp:96
+msgctxt "RenDirDialog|"
+msgid "Create Folder"
+msgstr "Kataloogi loomine"
+
+#: src/gui/dialogs/rendirdialog.cpp:97
+msgctxt "RenDirDialog|"
+msgid "&Action:"
+msgstr "&Toiming:"
+
+#: src/gui/dialogs/rendirdialog.cpp:105
+msgctxt "RenDirDialog|"
+msgid "&Source:"
+msgstr "&Allikas:"
+
+#: src/gui/dialogs/rendirdialog.cpp:117
+msgctxt "RenDirDialog|"
+msgid "&Edit..."
+msgstr "&Muuda ..."
+
+#: src/gui/dialogs/rendirdialog.cpp:121
+msgctxt "RenDirDialog|"
+msgid "&Format:"
+msgstr "&Vorming:"
+
+#: src/gui/dialogs/rendirdialog.cpp:133
+msgctxt "RenDirDialog|"
+msgid "From:"
+msgstr "Faili nimest:"
+
+#: src/gui/dialogs/rendirdialog.cpp:134
+msgctxt "RenDirDialog|"
+msgid "To:"
+msgstr "Faili nimeks:"
+
+#: src/gui/dialogs/rendirdialog.cpp:321
+msgctxt "RenDirDialog|"
+msgid "Folder Name from Tag"
+msgstr "Kataloogi nimi sildi põhjal"
+
+#: src/gui/dialogs/serverimportdialog.cpp:60
+msgctxt "ServerImportDialog|"
+msgid "&Find"
+msgstr "&Otsi"
+
+#: src/gui/dialogs/serverimportdialog.cpp:75
+msgctxt "ServerImportDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:78
+msgctxt "ServerImportDialog|"
+msgid "C&GI Path:"
+msgstr "C&GI asukoht:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:89
+msgctxt "ServerImportDialog|"
+msgid "&Standard Tags"
+msgstr "&Standardsildid"
+
+#: src/gui/dialogs/serverimportdialog.cpp:90
+msgctxt "ServerImportDialog|"
+msgid "&Additional Tags"
+msgstr "&Lisasildid"
+
+#: src/gui/dialogs/serverimportdialog.cpp:91
+msgctxt "ServerImportDialog|"
+msgid "C&over Art"
+msgstr "&Kaanepilt"
+
+#: src/gui/dialogs/serverimportdialog.cpp:105
+msgctxt "ServerImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/serverimportdialog.cpp:107
+msgctxt "ServerImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/serverimportdialog.cpp:109
+msgctxt "ServerImportDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/serverimportdialog.cpp:124
+msgctxt "ServerImportDialog|"
+msgid "Ready."
+msgstr "Valmis."
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:83
+msgctxt "ServerTrackImportDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:106
+msgctxt "ServerTrackImportDialog|"
+msgid "Track Title/Artist - Album"
+msgstr "Pala pealkiri/Esitaja - Album"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:107
+msgctxt "ServerTrackImportDialog|"
+msgid "State"
+msgstr "Olek"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:115
+msgctxt "ServerTrackImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:117
+msgctxt "ServerTrackImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
+msgctxt "ServerTrackImportDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
+msgctxt "ServerTrackImportDialog|"
+msgid "&Apply"
+msgstr "&Rakenda"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:121
+msgctxt "ServerTrackImportDialog|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result"
+msgstr "Tulemuseta"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:247
+msgctxt "ServerTrackImportDialog|"
+msgid "Unknown"
+msgstr "Teadmata"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result selected"
+msgstr "Tulemust pole valitud"
+
+#: src/gui/dialogs/tagimportdialog.cpp:52
+msgctxt "TagImportDialog|"
+msgid "Import from Tags"
+msgstr "Importimine siltidest"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Format:"
+msgstr "Vorming:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Source:"
+msgstr "Allikas:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Extraction:"
+msgstr "Lahtipakkimine:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:72
+msgctxt "TagImportDialog|"
+msgid "D&estination:"
+msgstr "&Sihtkoht:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:79
+msgctxt "TagImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/tagimportdialog.cpp:83
+msgctxt "TagImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/tagimportdialog.cpp:88
+msgctxt "TagImportDialog|"
+msgid "&Apply"
+msgstr "&Rakenda"
+
+#: src/gui/dialogs/tagimportdialog.cpp:92
+msgctxt "TagImportDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/dialogs/textimportdialog.cpp:58
+msgctxt "TextImportDialog|"
+msgid "Import from File/Clipboard"
+msgstr "Import failist/lõikepuhvrist"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Format:"
+msgstr "Vorming:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Header:"
+msgstr "Päis:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Tracks:"
+msgstr "Palad:"
+
+#: src/gui/dialogs/textimportdialog.cpp:71
+msgctxt "TextImportDialog|"
+msgid "&Help"
+msgstr "&Abi"
+
+#: src/gui/dialogs/textimportdialog.cpp:75
+msgctxt "TextImportDialog|"
+msgid "&Save Settings"
+msgstr "&Salvesta seadistused"
+
+#: src/gui/dialogs/textimportdialog.cpp:80
+msgctxt "TextImportDialog|"
+msgid "From F&ile..."
+msgstr "&Failist ..."
+
+#: src/gui/dialogs/textimportdialog.cpp:84
+msgctxt "TextImportDialog|"
+msgid "From Clip&board"
+msgstr "&Lõikepuhvrist"
+
+#: src/gui/dialogs/textimportdialog.cpp:88
+msgctxt "TextImportDialog|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/forms/basemainwindow.cpp:109
+msgctxt "BaseMainWindowImpl|"
+msgid "Download"
+msgstr "Allalaadimine"
+
+#: src/gui/forms/basemainwindow.cpp:209
+msgctxt "BaseMainWindowImpl|"
+msgid "Opening folder..."
+msgstr "Kataloogi avamine ..."
+
+#: src/gui/forms/basemainwindow.cpp:269
+msgctxt "BaseMainWindowImpl|"
+msgid "Abort"
+msgstr "Katkesta"
+
+#: src/gui/forms/basemainwindow.cpp:349
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%1 is not writable"
+msgstr "%1 ei ole kirjutatav"
+
+#: src/gui/forms/basemainwindow.cpp:357
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file:\n"
+msgstr "Tõrge faili kirjutamisel:\n"
+
+#: src/gui/forms/basemainwindow.cpp:359 src/gui/forms/basemainwindow.cpp:365
+#: src/gui/forms/basemainwindow.cpp:1087 src/gui/forms/basemainwindow.cpp:1092
+#: src/gui/forms/basemainwindow.cpp:1529 src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1614
+msgctxt "BaseMainWindowImpl|"
+msgid "File Error"
+msgstr "Failitõrge"
+
+#: src/gui/forms/basemainwindow.cpp:362
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Tõrge faili kirjutamisel. Kas muuta õigusi?"
+
+#: src/gui/forms/basemainwindow.cpp:416
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Aktiivset kataloogi on muudetud.\n"
+"Kas salvestada see?"
+
+#: src/gui/forms/basemainwindow.cpp:418 src/gui/forms/basemainwindow.cpp:459
+msgctxt "BaseMainWindowImpl|"
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: src/gui/forms/basemainwindow.cpp:457
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Esitusloendit on muudetud.\n"
+"Kas salvestada see?"
+
+#: src/gui/forms/basemainwindow.cpp:568
+msgctxt "BaseMainWindowImpl|"
+msgid "Exiting..."
+msgstr "Väljumine ..."
+
+#: src/gui/forms/basemainwindow.cpp:655
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n kataloog"
+msgstr[1] "%n kataloogi"
+
+#: src/gui/forms/basemainwindow.cpp:660
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n fail"
+msgstr[1] "%n faili"
+
+#: src/gui/forms/basemainwindow.cpp:665
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n valitud"
+msgstr[1] "%n valitud"
+
+#: src/gui/forms/basemainwindow.cpp:668
+msgctxt "BaseMainWindowImpl|"
+msgid "Ready."
+msgstr "Valmis."
+
+#: src/gui/forms/basemainwindow.cpp:730
+msgctxt "BaseMainWindowImpl|"
+msgid "Creating playlist..."
+msgstr "Esitusloendi loomine ..."
+
+#: src/gui/forms/basemainwindow.cpp:778
+msgctxt "BaseMainWindowImpl|"
+msgid "Files not found"
+msgstr "Faile ei leitud"
+
+#: src/gui/forms/basemainwindow.cpp:779
+msgctxt "BaseMainWindowImpl|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/gui/forms/basemainwindow.cpp:805
+msgctxt "BaseMainWindowImpl|"
+msgid "Import"
+msgstr "Import"
+
+#: src/gui/forms/basemainwindow.cpp:1085 src/gui/forms/basemainwindow.cpp:1091
+#: src/gui/forms/basemainwindow.cpp:1530 src/gui/forms/basemainwindow.cpp:1539
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while renaming:\n"
+msgstr "Tõrge nime muutmisel:\n"
+
+#: src/gui/forms/basemainwindow.cpp:1086
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing directories?"
+msgstr "Kas proovida kataloogide sulgemise järel uuesti?"
+
+#: src/gui/forms/basemainwindow.cpp:1163
+msgctxt "BaseMainWindowImpl|"
+msgid "Filter"
+msgstr "Filtreerimine"
+
+#: src/gui/forms/basemainwindow.cpp:1232
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid " [filtered %1/%2]"
+msgstr " [filtreeritud %1/%2]"
+
+#: src/gui/forms/basemainwindow.cpp:1346
+msgctxt "BaseMainWindowImpl|"
+msgid "Add Frame"
+msgstr "Raami lisamine"
+
+#: src/gui/forms/basemainwindow.cpp:1347
+msgctxt "BaseMainWindowImpl|"
+msgid "Select the frame ID"
+msgstr "Raami ID"
+
+#: src/gui/forms/basemainwindow.cpp:1493
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename File"
+msgstr "Faili nime muutmine"
+
+#: src/gui/forms/basemainwindow.cpp:1494
+msgctxt "BaseMainWindowImpl|"
+msgid "Enter new file name:"
+msgstr "Faili uus nimi:"
+
+#: src/gui/forms/basemainwindow.cpp:1531 src/gui/forms/basemainwindow.cpp:1540
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Elemendile %1 nime %2 andmine nurjus\n"
+
+#: src/gui/forms/basemainwindow.cpp:1532
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing folders?"
+msgstr "Kas proovida kataloogide sulgemise järel uuesti?"
+
+#: src/gui/forms/basemainwindow.cpp:1550
+#, qt-format
+msgctxt "@default|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Kas tõesti visata need %1 elementi prügikasti?"
+
+#: src/gui/forms/basemainwindow.cpp:1579
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Kas tõesti visata need %1 elementi prügikasti?"
+
+#: src/gui/forms/basemainwindow.cpp:1581
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move this item to the trash?"
+msgstr "Kas tõesti visata see element prügikasti?"
+
+#: src/gui/forms/basemainwindow.cpp:1583
+msgctxt "BaseMainWindowImpl|"
+msgid "Move to Trash"
+msgstr "Prügikasti viskamine"
+
+#: src/gui/forms/basemainwindow.cpp:1612
+msgctxt "BaseMainWindowImpl|"
+msgid "Folder must be empty.\n"
+msgstr "Kataloog peab olema tühi.\n"
+
+#: src/gui/forms/basemainwindow.cpp:1613
+msgctxt "BaseMainWindowImpl|"
+msgid "Could not move these files to the Trash"
+msgstr "Nende failide prügikasti viskamine nurjus"
+
+#: src/gui/forms/basemainwindow.cpp:1646
+msgctxt "BaseMainWindowImpl|"
+msgid "Expand All"
+msgstr "Keri kõik lahti"
+
+#: src/gui/forms/basemainwindow.cpp:1756
+msgctxt "BaseMainWindowImpl|"
+msgid "A&bort"
+msgstr "&Katkesta"
+
+#: src/gui/forms/configurabletreeview.cpp:48
+msgctxt "ConfigurableTreeView|"
+msgid "Automatic Column Widths"
+msgstr "Automaatne veergude laius"
+
+#: src/gui/forms/configurabletreeview.cpp:55
+msgctxt "ConfigurableTreeView|"
+msgid "Custom Column Widths"
+msgstr "Kohandatud veergude laius"
+
+#: src/gui/forms/filelist.cpp:109
+msgctxt "FileList|"
+msgid "C&lear"
+msgstr "P&uhasta"
+
+#: src/gui/forms/filelist.cpp:113
+msgctxt "FileList|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
+msgctxt "FileList|"
+msgid "&Expand all"
+msgstr "K&eri kõik lahti"
+
+#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
+msgctxt "FileList|"
+msgid "&Collapse all"
+msgstr "Ke&ri kõik kokku"
+
+#: src/gui/forms/filelist.cpp:372 src/gui/forms/filelist.cpp:374
+msgctxt "FileList|"
+msgid "&Play"
+msgstr "&Esita"
+
+#: src/gui/forms/filelist.cpp:377
+msgctxt "FileList|"
+msgid "E&dit"
+msgstr "Muu&da"
+
+#: src/gui/forms/filelist.cpp:384 src/gui/forms/filelist.cpp:388
+msgctxt "FileList|"
+msgid "&Open"
+msgstr "&Ava"
+
+#: src/gui/forms/filelist.cpp:385 src/gui/forms/filelist.cpp:389
+msgctxt "FileList|"
+msgid "Open Containing &Folder"
+msgstr "A&va sisaldav kataloog"
+
+#: src/gui/forms/filelist.cpp:560
+msgctxt "FileList|"
+msgid "Execute "
+msgstr "Käivita "
+
+#: src/gui/forms/filelist.cpp:569
+msgctxt "FileList|"
+msgid "Could not execute "
+msgstr "Käivitamine nurjus "
+
+#: src/gui/forms/kid3form.cpp:280
+msgctxt "Kid3Form|"
+msgid "Kid3"
+msgstr "Kid3"
+
+#: src/gui/forms/kid3form.cpp:334 src/gui/forms/kid3form.cpp:1224
+#: src/gui/forms/kid3form.cpp:1225
+msgctxt "Kid3Form|"
+msgid "F&ile"
+msgstr "Fa&il"
+
+#: src/gui/forms/kid3form.cpp:345
+msgctxt "Kid3Form|"
+msgid "Name:"
+msgstr "Nimi:"
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:404
+msgctxt "Kid3Form|"
+msgid "Format:"
+msgstr "Vorming:"
+
+#: src/gui/forms/kid3form.cpp:385
+msgctxt "Kid3Form|"
+msgid "From:"
+msgstr "Faili nimest:"
+
+#: src/gui/forms/kid3form.cpp:391 src/gui/forms/kid3form.cpp:417
+#: src/gui/forms/kid3form.cpp:499 src/gui/forms/kid3form.cpp:523
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/gui/forms/kid3form.cpp:393
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Filename from Tag %1"
+msgstr "Failinimi sildi %1 põhjal"
+
+#: src/gui/forms/kid3form.cpp:410
+msgctxt "Kid3Form|"
+msgid "To:"
+msgstr "Faili nimeks:"
+
+#: src/gui/forms/kid3form.cpp:418
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1 from Filename"
+msgstr "Silt %1 failinime põhjal"
+
+#: src/gui/forms/kid3form.cpp:439 src/gui/forms/kid3form.cpp:890
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag &%1"
+msgstr "Silt &%1"
+
+#: src/gui/forms/kid3form.cpp:468
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "From Tag %1"
+msgstr "Sildi %1 põhjal"
+
+#: src/gui/forms/kid3form.cpp:476 src/gui/forms/kid3form.cpp:532
+msgctxt "Kid3Form|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/gui/forms/kid3form.cpp:484 src/gui/forms/kid3form.cpp:508
+msgctxt "Kid3Form|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/gui/forms/kid3form.cpp:491
+msgctxt "Kid3Form|"
+msgid "From"
+msgstr "Asendatav"
+
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+msgctxt "Kid3Form|"
+msgid "Filename"
+msgstr "Failinimi"
+
+#: src/gui/forms/kid3form.cpp:515
+msgctxt "Kid3Form|"
+msgid "To"
+msgstr "Asendaja"
+
+#: src/gui/forms/kid3form.cpp:542
+msgctxt "Kid3Form|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/gui/forms/kid3form.cpp:556
+msgctxt "Kid3Form|"
+msgid "Edit..."
+msgstr "Muuda ..."
+
+#: src/gui/forms/kid3form.cpp:562
+msgctxt "Kid3Form|"
+msgid "Add..."
+msgstr "Lisa..."
+
+#: src/gui/forms/kid3form.cpp:568
+msgctxt "Kid3Form|"
+msgid "Delete"
+msgstr "Kustuta"
+
+#: src/gui/forms/sectionactions.cpp:147
+msgctxt "SectionActions|"
+msgid "Previous"
+msgstr "Eelmine"
+
+#: src/gui/forms/sectionactions.cpp:149
+msgctxt "SectionActions|"
+msgid "Next"
+msgstr "Järgmine"
+
+#: src/gui/forms/sectionactions.cpp:151
+msgctxt "SectionActions|"
+msgid "Transfer"
+msgstr "Kanna üle"
+
+#: src/gui/forms/sectionactions.cpp:154
+#, fuzzy
+#| msgctxt "CopyCommand|"
+#| msgid "Copy"
+msgctxt "SectionActions|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/gui/forms/sectionactions.cpp:156
+msgctxt "SectionActions|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/gui/forms/sectionactions.cpp:158
+msgctxt "SectionActions|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#: src/gui/forms/sectionactions.cpp:161
+msgctxt "SectionActions|"
+msgid "Edit"
+msgstr "Muuda"
+
+#: src/gui/forms/sectionactions.cpp:163
+msgctxt "SectionActions|"
+msgid "Add"
+msgstr "Lisa"
+
+#: src/gui/forms/sectionactions.cpp:165
+msgctxt "SectionActions|"
+msgid "Delete"
+msgstr "Kustuta"
+
+#: src/gui/forms/sectionactions.cpp:168
+msgctxt "SectionActions|"
+msgid "Open Parent Folder"
+msgstr "Ava emakataloog"
+
+#: src/gui/forms/sectionactions.cpp:171
+msgctxt "SectionActions|"
+msgid "Open Current Folder"
+msgstr "Ava aktiivne kasut failihaldur"
+
+#: src/gui/widgets/abstractlistedit.cpp:50
+msgctxt "AbstractListEdit|"
+msgid "&Add..."
+msgstr "L&isa ..."
+
+#: src/gui/widgets/abstractlistedit.cpp:51
+msgctxt "AbstractListEdit|"
+msgid "Move &Up"
+msgstr "Liiguta &üles"
+
+#: src/gui/widgets/abstractlistedit.cpp:52
+msgctxt "AbstractListEdit|"
+msgid "Move &Down"
+msgstr "Lii&guta alla"
+
+#: src/gui/widgets/abstractlistedit.cpp:53
+msgctxt "AbstractListEdit|"
+msgid "&Edit..."
+msgstr "&Muuda ..."
+
+#: src/gui/widgets/abstractlistedit.cpp:54
+msgctxt "AbstractListEdit|"
+msgid "&Remove"
+msgstr "&Eemalda"
+
+#: src/gui/widgets/chaptereditor.cpp:54
+msgctxt "ChapterEditor|"
+msgid "Start time"
+msgstr "Algusaeg"
+
+#: src/gui/widgets/chaptereditor.cpp:55
+msgctxt "ChapterEditor|"
+msgid "End time"
+msgstr "Lõpuaeg"
+
+#: src/gui/widgets/chaptereditor.cpp:56
+msgctxt "ChapterEditor|"
+msgid "Start offset"
+msgstr "Alguse nihe"
+
+#: src/gui/widgets/chaptereditor.cpp:57
+msgctxt "ChapterEditor|"
+msgid "End offset"
+msgstr "Lõpu nihe"
+
+#: src/gui/widgets/configtable.cpp:41
+msgctxt "ConfigTable|"
+msgid "&Add"
+msgstr "&Lisa"
+
+#: src/gui/widgets/configtable.cpp:141
+msgctxt "ConfigTable|"
+msgid "&Insert row"
+msgstr "Li&sa rida"
+
+#: src/gui/widgets/configtable.cpp:145
+msgctxt "ConfigTable|"
+msgid "&Delete row"
+msgstr "&Kustuta rida"
+
+#: src/gui/widgets/configtable.cpp:149
+msgctxt "ConfigTable|"
+msgid "&Clear row"
+msgstr "&Puhasta rida"
+
+#: src/gui/widgets/filenameformatbox.cpp:44
+msgctxt "FilenameFormatBox|"
+msgid "Maximum length:"
+msgstr "Suurim pikkus:"
+
+#: src/gui/widgets/formatbox.cpp:48
+msgctxt "FormatBox|"
+msgid "Automatically apply format"
+msgstr "Vormingu automaatne rakendamine"
+
+#: src/gui/widgets/formatbox.cpp:56
+msgctxt "FormatBox|"
+msgid "String replacement:"
+msgstr "Stringiasendus:"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "From"
+msgstr "Asendatav"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "Asendaja"
+
+#: src/gui/widgets/formatbox.cpp:65
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr "Tõstu muutmine:"
+
+#: src/gui/widgets/formatbox.cpp:66
+msgctxt "FormatBox|"
+msgid "Locale:"
+msgstr "Lokaat:"
+
+#: src/gui/widgets/formatlistedit.cpp:83
+msgctxt "FormatListEdit|"
+msgid "&Add"
+msgstr "&Lisa"
+
+#: src/gui/widgets/formatlistedit.cpp:85
+msgctxt "FormatListEdit|"
+msgid "&Remove"
+msgstr "&Eemalda"
+
+#: src/gui/widgets/formatlistedit.cpp:247
+msgctxt "FormatListEdit|"
+msgid "New"
+msgstr "Uus"
+
+#: src/gui/widgets/frametable.cpp:66 src/gui/widgets/frametable.cpp:68
+msgctxt "FrameTable|"
+msgid "WWW Audio Source"
+msgstr "WWW-audioallikas"
+
+#: src/gui/widgets/frametable.cpp:159
+msgctxt "FrameTable|"
+msgid "&Select all"
+msgstr "&Vali kõik"
+
+#: src/gui/widgets/frametable.cpp:161
+msgctxt "FrameTable|"
+msgid "&Deselect all"
+msgstr "&Tühista kõigi valimine"
+
+#: src/gui/widgets/imageviewer.cpp:47
+msgctxt "ImageViewer|"
+msgid "View Picture"
+msgstr "Pildi näitamine"
+
+#: src/gui/widgets/imageviewer.cpp:53
+msgctxt "ImageViewer|"
+msgid "&Close"
+msgstr "&Sulge"
+
+#: src/gui/widgets/picturelabel.cpp:92
+msgctxt "@default|"
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Lohista albumi\n"
+"kaanepilt\n"
+"siia"
+
+#: src/gui/widgets/playtoolbar.cpp:57
+msgctxt "PlayToolBar|"
+msgid "Play"
+msgstr "Esita"
+
+#: src/gui/widgets/playtoolbar.cpp:62
+msgctxt "PlayToolBar|"
+msgid "Play/Pause"
+msgstr "Esitus/paus"
+
+#: src/gui/widgets/playtoolbar.cpp:64
+msgctxt "PlayToolBar|"
+msgid "Stop playback"
+msgstr "Peata esitus"
+
+#: src/gui/widgets/playtoolbar.cpp:66
+msgctxt "PlayToolBar|"
+msgid "Previous Track"
+msgstr "Eelmine pala"
+
+#: src/gui/widgets/playtoolbar.cpp:68
+msgctxt "PlayToolBar|"
+msgid "Next Track"
+msgstr "Järgmine pala"
+
+#: src/gui/widgets/playtoolbar.cpp:70
+msgctxt "PlayToolBar|"
+msgid "Close"
+msgstr "Sulge"
+
+#: src/gui/widgets/playtoolbar.cpp:87
+msgctxt "PlayToolBar|"
+msgid "Mute"
+msgstr "Heli maha"
+
+#: src/gui/widgets/playtoolbar.cpp:238
+#, qt-format
+msgctxt "PlayToolBar|"
+msgid "Volume: %1%"
+msgstr "Helitugevus: %1%"
+
+#: src/gui/widgets/progresswidget.cpp:56
+msgctxt "ProgressWidget|"
+msgid "&Cancel"
+msgstr "&Loobu"
+
+#: src/gui/widgets/stringlistedit.cpp:52
+msgctxt "StringListEdit|"
+msgid "Add Item"
+msgstr "Elemendi lisamine"
+
+#: src/gui/widgets/stringlistedit.cpp:72
+msgctxt "StringListEdit|"
+msgid "Edit Item"
+msgstr "Elemendi muutmine"
+
+#: src/gui/widgets/subframeseditor.cpp:66
+msgctxt "SubframesEditor|"
+msgid "Edit..."
+msgstr "Muuda ..."
+
+#: src/gui/widgets/subframeseditor.cpp:71
+msgctxt "SubframesEditor|"
+msgid "Add..."
+msgstr "Lisa ..."
+
+#: src/gui/widgets/subframeseditor.cpp:76
+msgctxt "SubframesEditor|"
+msgid "Delete"
+msgstr "Kustuta"
+
+#: src/gui/widgets/subframeseditor.cpp:129
+msgctxt "SubframesEditor|"
+msgid "Add Frame"
+msgstr "Raami lisamine"
+
+#: src/gui/widgets/subframeseditor.cpp:130
+msgctxt "SubframesEditor|"
+msgid "Select the frame ID"
+msgstr "Raami ID"
+
+#: src/gui/widgets/tablemodeledit.cpp:35
+msgctxt "TableModelEdit|"
+msgid "&Add"
+msgstr "&Lisa"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:43
+msgctxt "TableOfContentsEditor|"
+msgid "Top level"
+msgstr "Tipptase"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:45
+msgctxt "TableOfContentsEditor|"
+msgid "Ordered"
+msgstr "Järjekorras"
+
+#: src/gui/widgets/tagformatbox.cpp:43
+msgctxt "TagFormatBox|"
+msgid "Validation"
+msgstr "Kontrollimine"
+
+#: src/gui/widgets/timeeventeditor.cpp:114
+msgctxt "TimeEventEditor|"
+msgid "&Add"
+msgstr "&Lisa"
+
+#: src/gui/widgets/timeeventeditor.cpp:116
+msgctxt "TimeEventEditor|"
+msgid "&Delete"
+msgstr "&Kustuta"
+
+#: src/gui/widgets/timeeventeditor.cpp:118
+msgctxt "TimeEventEditor|"
+msgid "From Clip&board"
+msgstr "&Lõikepuhvrist"
+
+#: src/gui/widgets/timeeventeditor.cpp:120
+msgctxt "TimeEventEditor|"
+msgid "&Import..."
+msgstr "&Impordi ..."
+
+#: src/gui/widgets/timeeventeditor.cpp:122
+msgctxt "TimeEventEditor|"
+msgid "&Export..."
+msgstr "&Ekspordi ..."
+
+#: src/gui/widgets/timeeventeditor.cpp:124
+msgctxt "TimeEventEditor|"
+msgid "Help"
+msgstr "Abi"
+
+#: src/gui/widgets/timeeventeditor.cpp:182
+msgctxt "TimeEventEditor|"
+msgid "Events"
+msgstr "Sündmused"
+
+#: src/gui/widgets/timeeventeditor.cpp:188
+msgctxt "TimeEventEditor|"
+msgid "Lyrics"
+msgstr "Sõnad"
+
+#: src/gui/widgets/timeeventeditor.cpp:409
+msgctxt "TimeEventEditor|"
+msgid "Offset"
+msgstr "Nihe"
+
+#: src/gui/widgets/timeeventeditor.cpp:409
+msgctxt "TimeEventEditor|"
+msgid "Milliseconds"
+msgstr "millisekundit"
+
+#: src/gui/widgets/timeeventeditor.cpp:446
+msgctxt "TimeEventEditor|"
+msgid "&Insert row"
+msgstr "Li&sa rida"
+
+#: src/gui/widgets/timeeventeditor.cpp:450
+msgctxt "TimeEventEditor|"
+msgid "&Delete rows"
+msgstr "&Kustuta read"
+
+#: src/gui/widgets/timeeventeditor.cpp:452
+msgctxt "TimeEventEditor|"
+msgid "C&lear"
+msgstr "P&uhasta"
+
+#: src/gui/widgets/timeeventeditor.cpp:454
+msgctxt "TimeEventEditor|"
+msgid "&Add offset..."
+msgstr "L&isa nihe ..."
+
+#: src/gui/widgets/timeeventeditor.cpp:456
+msgctxt "TimeEventEditor|"
+msgid "&Seek to position"
+msgstr "&Liigu asukohta"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:207
+msgctxt "@default|"
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainzi sõrmejälg"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:283
+msgctxt "MusicBrainzClient|"
+msgid "Unrecognized"
+msgstr "Tundmatu"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:294
+msgctxt "MusicBrainzClient|"
+msgid "Recognized"
+msgstr "Tuvastatud"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:294
+msgctxt "MusicBrainzClient|"
+msgid "User Selection"
+msgstr "Kasutaja valik"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:316
+msgctxt "MusicBrainzClient|"
+msgid "ID Lookup"
+msgstr "ID otsimine"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:324
+msgctxt "MusicBrainzClient|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:343
+msgctxt "MusicBrainzClient|"
+msgid "Fingerprint"
+msgstr "Sõrmejälg"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:353
+msgctxt "MusicBrainzClient|"
+msgid "Metadata Lookup"
+msgstr "Metaandmete otsimine"
+
+#: src/plugins/amazonimport/amazonimporter.cpp:51
+msgctxt "@default|"
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/plugins/discogsimport/discogsimporter.cpp:216
+msgctxt "@default|"
+msgid "Discogs"
+msgstr "Discogs"
+
+#: src/plugins/freedbimport/freedbimporter.cpp:57
+msgctxt "@default|"
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: src/plugins/freedbimport/tracktypeimporter.cpp:56
+msgctxt "@default|"
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:862
+#: src/plugins/taglibmetadata/taglibfile.cpp:2211
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - audiokrüpteering"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:863
+#: src/plugins/taglibmetadata/taglibfile.cpp:2212
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - lisatud pilt"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:865
+#: src/plugins/taglibmetadata/taglibfile.cpp:2217
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - kommentaarid"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:866
+#: src/plugins/taglibmetadata/taglibfile.cpp:2218
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - kommertsteave"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:867
+#: src/plugins/taglibmetadata/taglibfile.cpp:2222
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - krüptomeetodi registreerimine"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:869
+msgctxt "@default|"
+msgid "EQUA - Equalization"
+msgstr "EQUA - ekvalaisimine"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:870
+#: src/plugins/taglibmetadata/taglibfile.cpp:2224
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - sündmuse ajastamise koodid"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:871
+#: src/plugins/taglibmetadata/taglibfile.cpp:2225
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - üldine kapseldatud objekt"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:872
+#: src/plugins/taglibmetadata/taglibfile.cpp:2226
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - grupi identifitseerimise registreerimine"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:873
+msgctxt "@default|"
+msgid "IPLS - Involved people list"
+msgstr "IPLS - seotud inimeste nimekiri"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:874
+#: src/plugins/taglibmetadata/taglibfile.cpp:2230
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - lingitud teave"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:875
+#: src/plugins/taglibmetadata/taglibfile.cpp:2231
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - muusika-CD identifikaator"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:876
+#: src/plugins/taglibmetadata/taglibfile.cpp:2232
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG asukohaotsingutabel"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:877
+#: src/plugins/taglibmetadata/taglibfile.cpp:2237
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - omandus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:878
+#: src/plugins/taglibmetadata/taglibfile.cpp:2238
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - privaatne"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:879
+#: src/plugins/taglibmetadata/taglibfile.cpp:2239
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - esitusloendur"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:880
+#: src/plugins/taglibmetadata/taglibfile.cpp:2243
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - popularimeeter"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:881
+#: src/plugins/taglibmetadata/taglibfile.cpp:2244
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - asukoha sünkroonimine"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:882
+#: src/plugins/taglibmetadata/taglibfile.cpp:2245
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - soovituslik puhvrisuurus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:884
+msgctxt "@default|"
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - suhteline helitugevuse reguleerimine"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:885
+#: src/plugins/taglibmetadata/taglibfile.cpp:2247
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - ruumikaja"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:888
+#: src/plugins/taglibmetadata/taglibfile.cpp:2250
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - sünkroonitud laulusõnad/tekst"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:889
+#: src/plugins/taglibmetadata/taglibfile.cpp:2251
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - sünkroonitud tempokoodid"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:890
+#: src/plugins/taglibmetadata/taglibfile.cpp:2252
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - albumi/filmi/etenduse pealkiri"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:891
+#: src/plugins/taglibmetadata/taglibfile.cpp:2253
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (lööki minutis)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:892
+#: src/plugins/taglibmetadata/taglibfile.cpp:2255
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - helilooja"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:893
+#: src/plugins/taglibmetadata/taglibfile.cpp:2256
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - sisu tüüp"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:894
+#: src/plugins/taglibmetadata/taglibfile.cpp:2257
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - autoriõiguse sõnum"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:895
+msgctxt "@default|"
+msgid "TDAT - Date"
+msgstr "TDAT - kuupäev"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:897
+#: src/plugins/taglibmetadata/taglibfile.cpp:2262
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - esitusloendi viivitus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:903
+#: src/plugins/taglibmetadata/taglibfile.cpp:2267
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - kodeerija"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:904
+#: src/plugins/taglibmetadata/taglibfile.cpp:2268
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - sõnade/teksti autor"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:905
+#: src/plugins/taglibmetadata/taglibfile.cpp:2269
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - failitüüp"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:906
+msgctxt "@default|"
+msgid "TIME - Time"
+msgstr "TIME - aeg"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:907
+#: src/plugins/taglibmetadata/taglibfile.cpp:2274
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - sisu grupi kirjeldus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:908
+#: src/plugins/taglibmetadata/taglibfile.cpp:2275
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - pealkiri / laulu nimi / sisu kirjeldus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:909
+#: src/plugins/taglibmetadata/taglibfile.cpp:2276
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - alapealkiri / kirjelduse täpsustus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:910
+#: src/plugins/taglibmetadata/taglibfile.cpp:2277
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - esialgne võti"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:911
+#: src/plugins/taglibmetadata/taglibfile.cpp:2278
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - keel(ed)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:912
+#: src/plugins/taglibmetadata/taglibfile.cpp:2279
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - pikkus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:914
+#: src/plugins/taglibmetadata/taglibfile.cpp:2281
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - meediatüüp"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2283
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - originaalalbumi/-filmi/-etenduse pealkiri"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2284
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - originaalfailinimi"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:918
+#: src/plugins/taglibmetadata/taglibfile.cpp:2285
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - originaalsõnade/-teksti autor"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2286
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - originaalesitaja(d)/-ettekandja(d)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+msgctxt "@default|"
+msgid "TORY - Original release year"
+msgstr "TORY - originaali väljalaske aasta"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2287
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - faili omanik/litsenseeritu"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2288
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - juhtiv(ad) ettekandja(d) / solist(id)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2289
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - bänd/orkester/saateansambel"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2290
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - dirigent / esineja täpsustus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2291
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - tõlgendaja, remiksija või muul moel muutja"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2292
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS - osa komplektist"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2294
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - väljaandja"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2295
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - pala nr / asukoht komplektis"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+msgctxt "@default|"
+msgid "TRDA - Recording dates"
+msgstr "TRDA - salvestamiskuupäevad"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2296
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - interneti-raadiojaama nimi"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2297
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - interneti-raadiojaama omanik"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+msgctxt "@default|"
+msgid "TSIZ - Size"
+msgstr "TSIZ - suurus"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2303
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (rahvusvaheline standardsalvestuskood)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/taglibmetadata/taglibfile.cpp:2304
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - kodeerimiseks kasutatud tarkvara/riistvara ja sätted"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:940
+#: src/plugins/taglibmetadata/taglibfile.cpp:2306
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - kasutaja määratud tekstiline info"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:941
+msgctxt "@default|"
+msgid "TYER - Year"
+msgstr "TYER - aasta"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2307
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - unikaalne faili-identifikaator"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2308
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - kasutustingimused"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2309
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - sünkroonimata laulusõnad/teksti transkriptsioon"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2310
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - kommertsinfo URL"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2311
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - autoriõigus / juriidiline teave"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/taglibmetadata/taglibfile.cpp:2315
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - audiofaili ametlik veebileht"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2316
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - esitaja/ettekandja ametlik veebileht"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2317
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - audioallika ametlik veebileht"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:950
+#: src/plugins/taglibmetadata/taglibfile.cpp:2318
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - interneti-raadiojaama ametlik koduleht"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:951
+#: src/plugins/taglibmetadata/taglibfile.cpp:2319
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - makse"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:952
+#: src/plugins/taglibmetadata/taglibfile.cpp:2320
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - väljaandja ametlik veebileht"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:953
+#: src/plugins/taglibmetadata/taglibfile.cpp:2321
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - kasutaja määratud URL"
+
+#: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:53
+msgctxt "@default|"
+msgid "MusicBrainz Release"
+msgstr "MusicBrainzi väljalase"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2213
+msgctxt "@default|"
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - audio otsingupunktiindeks"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2215
+msgctxt "@default|"
+msgid "CHAP - Chapter"
+msgstr "CHAP - peatükk"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2220
+msgctxt "@default|"
+msgid "CTOC - Table of contents"
+msgstr "CTOC - sisukord"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2223
+msgctxt "@default|"
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - ekvalaisimine (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2228
+msgctxt "@default|"
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - rühmitamine"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2234
+msgctxt "@default|"
+msgid "MVIN - Movement Number"
+msgstr "MVIN - liikumise number"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2235
+msgctxt "@default|"
+msgid "MVNM - Movement Name"
+msgstr "MVNM - liikumise nimi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2241
+msgctxt "@default|"
+msgid "PCST - Podcast"
+msgstr "PCST - podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2246
+msgctxt "@default|"
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - suhteline helitugevuse reguleerimine (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2248
+msgctxt "@default|"
+msgid "SEEK - Seek frame"
+msgstr "SEEK - otsimine"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2249
+msgctxt "@default|"
+msgid "SIGN - Signature frame"
+msgstr "SIGN - signatuur"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2254
+msgctxt "@default|"
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunesi kogumikumärge"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2258
+msgctxt "@default|"
+msgid "TDEN - Encoding time"
+msgstr "TDEN - kodeerimise aeg"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2260
+msgctxt "@default|"
+msgid "TDES - Podcast description"
+msgstr "TDES - podcasti kirjeldus"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2263
+msgctxt "@default|"
+msgid "TDOR - Original release time"
+msgstr "TDOR - originaali väljalaskeaeg"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2264
+msgctxt "@default|"
+msgid "TDRC - Recording time"
+msgstr "TDRC - salvestamise aeg"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2265
+msgctxt "@default|"
+msgid "TDRL - Release time"
+msgstr "TDRL - väljalaskeaeg"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2266
+msgctxt "@default|"
+msgid "TDTG - Tagging time"
+msgstr "TDTG - sildistamise aeg"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2271
+msgctxt "@default|"
+msgid "TGID - Podcast identifier"
+msgstr "TGID - podcasti identifikaator"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2273
+msgctxt "@default|"
+msgid "TIPL - Involved people list"
+msgstr "TIPL -  seotud inimeste nimekiri"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2280
+msgctxt "@default|"
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - muusikute tänunimekiri"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2282
+msgctxt "@default|"
+msgid "TMOO - Mood"
+msgstr "TMOO - meeleolu"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2293
+msgctxt "@default|"
+msgid "TPRO - Produced notice"
+msgstr "TPRO - tootmismärkus"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2298
+msgctxt "@default|"
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - sortimine algumi esitaja järgi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2299
+msgctxt "@default|"
+msgid "TSOA - Album sort order"
+msgstr "TSOA - sortimine albumi järgi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2300
+msgctxt "@default|"
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - sortimine helilooja järgi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2301
+msgctxt "@default|"
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - sortimine ettekandja järgi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2302
+msgctxt "@default|"
+msgid "TSOT - Title sort order"
+msgstr "TSOT - sortimine pealkirja järgi"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2305
+msgctxt "@default|"
+msgid "TSST - Set subtitle"
+msgstr "TSST - komplekti alapealkiri"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2313
+msgctxt "@default|"
+msgid "WFED - Podcast feed"
+msgstr "WFED - podcasti voog"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:6579
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Hinnanguteave"
+
+#: src/qml/app/AboutDialog.qml:29
+msgctxt "AboutDialog|"
+msgid "About Kid3"
+msgstr "Kid3 teave"
+
+#: src/qml/app/AboutDialog.qml:39
+msgctxt "AboutDialog|"
+msgid "Audio Tag Editor"
+msgstr "Helisiltide redaktor"
+
+#: src/qml/app/AboutDialog.qml:44
+msgctxt "AboutDialog|"
+msgid "License"
+msgstr "Litsents"
+
+#: src/qml/app/AboutDialog.qml:46
+#, qt-format
+msgctxt "AboutDialog|"
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"See programm kasutab <a href=\"http://www.qt.io/\">Qt</a> versiooni %1."
+
+#: src/qml/app/BatchImportPage.qml:32
+msgctxt "BatchImportPage|"
+msgid "Automatic Import"
+msgstr "Automaatne import"
+
+#: src/qml/app/BatchImportPage.qml:40
+msgctxt "BatchImportPage|"
+msgid "Reading Folder"
+msgstr "Kataloogi lugemine"
+
+#: src/qml/app/BatchImportPage.qml:43
+msgctxt "BatchImportPage|"
+msgid "Started"
+msgstr "Käivitatud"
+
+#: src/qml/app/BatchImportPage.qml:46
+msgctxt "BatchImportPage|"
+msgid "Source"
+msgstr "Allikas"
+
+#: src/qml/app/BatchImportPage.qml:49
+msgctxt "BatchImportPage|"
+msgid "Querying"
+msgstr "Päring"
+
+#: src/qml/app/BatchImportPage.qml:53
+msgctxt "BatchImportPage|"
+msgid "Fetching"
+msgstr "Tõmbamine"
+
+#: src/qml/app/BatchImportPage.qml:56
+msgctxt "BatchImportPage|"
+msgid "Data received"
+msgstr "Andmed vastu võetud"
+
+#: src/qml/app/BatchImportPage.qml:59
+msgctxt "BatchImportPage|"
+msgid "Cover"
+msgstr "Kaanepilt"
+
+#: src/qml/app/BatchImportPage.qml:62
+msgctxt "BatchImportPage|"
+msgid "Finished"
+msgstr "Lõpetatud"
+
+#: src/qml/app/BatchImportPage.qml:65
+msgctxt "BatchImportPage|"
+msgid "Aborted"
+msgstr "Katkestatud"
+
+#: src/qml/app/BatchImportPage.qml:68
+msgctxt "BatchImportPage|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/qml/app/BatchImportPage.qml:104
+msgctxt "BatchImportPage|"
+msgid "Start"
+msgstr "Alusta"
+
+#: src/qml/app/BatchImportPage.qml:126
+msgctxt "BatchImportPage|"
+msgid "Destination:"
+msgstr "Sihtkoht:"
+
+#: src/qml/app/BatchImportPage.qml:135
+msgctxt "BatchImportPage|"
+msgid "Tag 1"
+msgstr "Silt 1"
+
+#: src/qml/app/BatchImportPage.qml:136
+msgctxt "BatchImportPage|"
+msgid "Tag 2"
+msgstr "Silt 2"
+
+#: src/qml/app/BatchImportPage.qml:137
+msgctxt "BatchImportPage|"
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
+
+#: src/qml/app/BatchImportPage.qml:149
+msgctxt "BatchImportPage|"
+msgid "Profile:"
+msgstr "Profiil:"
+
+#: src/qml/app/FileCollapsible.qml:32
+msgctxt "FileCollapsible|"
+msgid "File"
+msgstr "Fail"
+
+#: src/qml/app/FileSelectDialog.qml:42
+msgctxt "FileSelectDialog|"
+msgid "Open"
+msgstr "Avamine"
+
+#: src/qml/app/FileSelectDialog.qml:98
+msgctxt "FileSelectDialog|"
+msgid "Folder"
+msgstr "Kataloog"
+
+#: src/qml/app/FileSelectDialog.qml:190
+msgctxt "FileSelectDialog|"
+msgid "File"
+msgstr "Fail"
+
+#: src/qml/app/FilterPage.qml:31
+msgctxt "FilterPage|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/qml/app/FilterPage.qml:39
+msgctxt "FilterPage|"
+msgid "Started"
+msgstr "Käivitatud"
+
+#: src/qml/app/FilterPage.qml:57
+msgctxt "FilterPage|"
+msgid "Finished"
+msgstr "Valmis"
+
+#: src/qml/app/FilterPage.qml:60
+msgctxt "FilterPage|"
+msgid "Aborted"
+msgstr "Katkestatud"
+
+#: src/qml/app/FilterPage.qml:92
+msgctxt "FilterPage|"
+msgid "Start"
+msgstr "Alusta"
+
+#: src/qml/app/FilterPage.qml:118
+msgctxt "FilterPage|"
+msgid "Filter:"
+msgstr "Filter:"
+
+#: src/qml/app/FilterPage.qml:131
+msgctxt "FilterPage|"
+msgid "Expression:"
+msgstr "Avaldis:"
+
+#: src/qml/app/FrameEditDialog.qml:117
+msgctxt "FrameEditDialog|"
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: src/qml/app/FrameEditDialog.qml:118
+msgctxt "FrameEditDialog|"
+msgid "File already exists. Overwrite?"
+msgstr "Fail on juba olemas. Kas kirjutada see üle?"
+
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+msgctxt "FrameEditDialog|"
+msgid "Export"
+msgstr "Eksport"
+
+#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+msgctxt "FrameEditDialog|"
+msgid "Import"
+msgstr "Import"
+
+#: src/qml/app/FrameSelectDialog.qml:38
+msgctxt "FrameSelectDialog|"
+msgid "Add Frame"
+msgstr "Raami lisamine"
+
+#: src/qml/app/FrameSelectDialog.qml:47
+msgctxt "FrameSelectDialog|"
+msgid "Select the frame ID"
+msgstr "Raami ID"
+
+#: src/qml/app/ImportProfilesEditPage.qml:34
+msgctxt "ImportProfilesEditPage|"
+msgid "Profiles"
+msgstr "Profiilid"
+
+#: src/qml/app/ImportProfilesEditPage.qml:42
+msgctxt "ImportProfilesEditPage|"
+msgid "Profile"
+msgstr "Profiil"
+
+#: src/qml/app/ImportProfilesEditPage.qml:68
+#: src/qml/app/ImportProfilesEditPage.qml:136
+msgctxt "ImportProfilesEditPage|"
+msgid "Accuracy"
+msgstr "Täpsus"
+
+#: src/qml/app/ImportProfilesEditPage.qml:71
+#: src/qml/app/ImportProfilesEditPage.qml:149
+msgctxt "ImportProfilesEditPage|"
+msgid "Standard Tags"
+msgstr "Standardsildid"
+
+#: src/qml/app/ImportProfilesEditPage.qml:74
+#: src/qml/app/ImportProfilesEditPage.qml:154
+msgctxt "ImportProfilesEditPage|"
+msgid "Additional Tags"
+msgstr "Lisasildid"
+
+#: src/qml/app/ImportProfilesEditPage.qml:77
+#: src/qml/app/ImportProfilesEditPage.qml:159
+msgctxt "ImportProfilesEditPage|"
+msgid "Cover Art"
+msgstr "Kaanepilt"
+
+#: src/qml/app/ImportProfilesEditPage.qml:128
+msgctxt "ImportProfilesEditPage|"
+msgid "Server"
+msgstr "Server"
+
+#: src/qml/app/Main.qml:91
+msgctxt "Main|"
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: src/qml/app/Main.qml:92
+msgctxt "Main|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Aktiivset kataloogi on muudetud.\n"
+"Kas salvestada see?"
+
+#: src/qml/app/Main.qml:127 src/qml/app/Main.qml:144 src/qml/app/Main.qml:161
+msgctxt "Main|"
+msgid "File Error"
+msgstr "Failitõrge"
+
+#: src/qml/app/Main.qml:128
+msgctxt "Main|"
+msgid "Error while writing file:\n"
+msgstr "Tõrge faili kirjutamisel:\n"
+
+#: src/qml/app/Main.qml:145
+#, qt-format
+msgctxt "Main|"
+msgid "SD card is only writable in %1"
+msgstr "SD-kaardile saab kirjutada asunult asukohas %1"
+
+#: src/qml/app/Main.qml:162
+msgctxt "Main|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Tõrge faili kirjutamisel. Kas muuta õigusi?"
+
+#: src/qml/app/Main.qml:256
+#, qt-format
+msgctxt "Main|"
+msgid "%1 is not writable"
+msgstr "%1 ei ole kirjutatav"
+
+#: src/qml/app/MainPage.qml:45
+msgctxt "MainPage|"
+msgid " [modified]"
+msgstr " [muudetud]"
+
+#: src/qml/app/MainPage.qml:46
+#, qt-format
+msgctxt "MainPage|"
+msgid " [filtered %1/%2]"
+msgstr " [filtreeritud %1/%2]"
+
+#: src/qml/app/MainPage.qml:92 src/qml/app/MainPage.qml:161
+msgctxt "MainPage|"
+msgid "Open"
+msgstr "Avamine"
+
+#: src/qml/app/MainPage.qml:152
+msgctxt "MainPage|"
+msgid "About"
+msgstr "Teave"
+
+#: src/qml/app/MainPage.qml:168
+msgctxt "MainPage|"
+msgid "Save"
+msgstr "Salvesta"
+
+#: src/qml/app/MainPage.qml:177
+msgctxt "MainPage|"
+msgid "Settings"
+msgstr "Seadistused"
+
+#: src/qml/app/MainPage.qml:186
+msgctxt "MainPage|"
+msgid "Automatic Import"
+msgstr "Automaatne import"
+
+#: src/qml/app/MainPage.qml:195
+msgctxt "MainPage|"
+msgid "Create Playlist"
+msgstr "Esitusloendi loomine"
+
+#: src/qml/app/MainPage.qml:199
+msgctxt "MainPage|"
+msgid "Rename Folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/qml/app/MainPage.qml:208
+msgctxt "MainPage|"
+msgid "Number Tracks"
+msgstr "Palade nummerdamine"
+
+#: src/qml/app/MainPage.qml:217
+msgctxt "MainPage|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/qml/app/MainPage.qml:226
+msgctxt "MainPage|"
+msgid "Apply Filename Format"
+msgstr "Failinimevormingu rakendamine"
+
+#: src/qml/app/MainPage.qml:230
+msgctxt "MainPage|"
+msgid "Apply Tag Format"
+msgstr "Sildivormingu rakendamine"
+
+#: src/qml/app/MainPage.qml:234
+msgctxt "MainPage|"
+msgid "Apply Text Encoding"
+msgstr "Tekstikodeeringu rakendamine"
+
+#: src/qml/app/MainPage.qml:238
+msgctxt "MainPage|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 teisendamine ID3v2.4-ks"
+
+#: src/qml/app/MainPage.qml:242
+msgctxt "MainPage|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 teisendamine ID3v2.3-ks"
+
+#: src/qml/app/MainPage.qml:246
+msgctxt "MainPage|"
+msgid "Revert"
+msgstr "Ennistab muudatused"
+
+#: src/qml/app/MainPage.qml:250
+msgctxt "MainPage|"
+msgid "Quit"
+msgstr "Välju"
+
+#: src/qml/app/NumberTracksDialog.qml:48
+msgctxt "NumberTracksDialog|"
+msgid "Start number:"
+msgstr "Algusnumber:"
+
+#: src/qml/app/NumberTracksDialog.qml:57
+msgctxt "NumberTracksDialog|"
+msgid "Destination:"
+msgstr "Sihtkoht:"
+
+#: src/qml/app/NumberTracksDialog.qml:63
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1"
+msgstr "Silt 1"
+
+#: src/qml/app/NumberTracksDialog.qml:64
+msgctxt "NumberTracksDialog|"
+msgid "Tag 2"
+msgstr "Silt 2"
+
+#: src/qml/app/NumberTracksDialog.qml:65
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1 and Tag 2"
+msgstr "Silt 1 ja silt 2"
+
+#: src/qml/app/NumberTracksDialog.qml:79
+msgctxt "NumberTracksDialog|"
+msgid "Reset counter for each folder"
+msgstr "Nullimine iga kataloogi järel"
+
+#: src/qml/app/NumberTracksDialog.qml:92
+msgctxt "NumberTracksDialog|"
+msgid "Total number of tracks"
+msgstr "Palade koguarv"
+
+#: src/qml/app/PictureCollapsible.qml:27
+msgctxt "PictureCollapsible|"
+msgid "Picture"
+msgstr "Pilt"
+
+#: src/qml/app/RenameDirectoryPage.qml:37
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Rename Folder"
+msgstr "Kataloogi nime muutmine"
+
+#: src/qml/app/RenameDirectoryPage.qml:77
+msgctxt "RenameDirectoryPage|"
+msgid "Start"
+msgstr "Alusta"
+
+#: src/qml/app/RenameDirectoryPage.qml:81
+msgctxt "RenameDirectoryPage|"
+msgid "Error"
+msgstr "Tõrge"
+
+#: src/qml/app/RenameDirectoryPage.qml:109
+msgctxt "RenameDirectoryPage|"
+msgid "Action:"
+msgstr "Toiming:"
+
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Create Folder"
+msgstr "Kataloogi loomine"
+
+#: src/qml/app/RenameDirectoryPage.qml:124
+msgctxt "RenameDirectoryPage|"
+msgid "Source:"
+msgstr "Allikas:"
+
+#: src/qml/app/RenameDirectoryPage.qml:129
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2 and Tag 1"
+msgstr "Siltide 1 ja 2 põhjal"
+
+#: src/qml/app/RenameDirectoryPage.qml:130
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 1"
+msgstr "Sildi 1 põhjal"
+
+#: src/qml/app/RenameDirectoryPage.qml:131
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2"
+msgstr "Sildi 2 põhjal"
+
+#: src/qml/app/RenameDirectoryPage.qml:141
+msgctxt "RenameDirectoryPage|"
+msgid "Format:"
+msgstr "Vorming:"
+
+#: src/qml/app/RenameDirectoryPage.qml:152
+msgctxt "RenameDirectoryPage|"
+msgid "Folder Name from Tag"
+msgstr "Kataloogi nimi sildi põhjal"
+
+#: src/qml/app/RenameDirectoryPage.qml:185
+msgctxt "RenameDirectoryPage|"
+msgid "Preview"
+msgstr "Eelvaatlus"
+
+#: src/qml/app/SettingsPage.qml:30
+msgctxt "SettingsPage|"
+msgid "Settings"
+msgstr "Seadistused"
+
+#: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
+msgctxt "SettingsPage|"
+msgid "Tags"
+msgstr "Sildid"
+
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:183
+msgctxt "SettingsPage|"
+msgid "Files"
+msgstr "Failid"
+
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:317
+msgctxt "SettingsPage|"
+msgid "Plugins"
+msgstr "Pluginad"
+
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:375
+msgctxt "SettingsPage|"
+msgid "Appearance"
+msgstr "Välimus"
+
+#: src/qml/app/SettingsPage.qml:48
+msgctxt "SettingsPage|"
+msgid "Mark truncated fields"
+msgstr "Kärbitud väljade märkimine"
+
+#: src/qml/app/SettingsPage.qml:53
+msgctxt "SettingsPage|"
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 teksti kodeering"
+
+#: src/qml/app/SettingsPage.qml:59
+msgctxt "SettingsPage|"
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 teksti kodeering"
+
+#: src/qml/app/SettingsPage.qml:65
+msgctxt "SettingsPage|"
+msgid "Use track/total number of tracks format"
+msgstr "Vormingu \"pala number/palade koguarv\" kasutamine"
+
+#: src/qml/app/SettingsPage.qml:70
+msgctxt "SettingsPage|"
+msgid "Genre as text instead of numeric string"
+msgstr "Žanr numberkoodi asemel tekstina"
+
+#: src/qml/app/SettingsPage.qml:75
+msgctxt "SettingsPage|"
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV-failid väiketähelise id3 tükiga"
+
+#: src/qml/app/SettingsPage.qml:80
+msgctxt "SettingsPage|"
+msgid "Version used for new ID3v2 tags"
+msgstr "Uute ID3v2 siltide versioon"
+
+#: src/qml/app/SettingsPage.qml:86
+msgctxt "SettingsPage|"
+msgid "Track number digits"
+msgstr "Tüvekohti pala numbris"
+
+#: src/qml/app/SettingsPage.qml:91
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbise kommentaarivälja nimi"
+
+#: src/qml/app/SettingsPage.qml:101
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbise pildivälja nimi"
+
+#: src/qml/app/SettingsPage.qml:107
+msgctxt "SettingsPage|"
+msgid "RIFF track number field name"
+msgstr "RIFF pala numbri välja nimi"
+
+#: src/qml/app/SettingsPage.qml:117
+msgctxt "SettingsPage|"
+msgid "Mark if picture larger than maximum size"
+msgstr "Märkimine, kui suurus ületab"
+
+#: src/qml/app/SettingsPage.qml:122
+msgctxt "SettingsPage|"
+msgid "Picture maximum size (bytes)"
+msgstr "Pildi maks. suurus (baiti)"
+
+#: src/qml/app/SettingsPage.qml:127
+msgctxt "SettingsPage|"
+msgid "Show only custom genres"
+msgstr "Ainult kohandatud žanride näitamine"
+
+#: src/qml/app/SettingsPage.qml:131
+msgctxt "SettingsPage|"
+msgid "Custom Genres"
+msgstr "Kohandatud žanrid"
+
+#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:217
+msgctxt "SettingsPage|"
+msgid "Case conversion"
+msgstr "Tõstu muutmine"
+
+#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:223
+msgctxt "SettingsPage|"
+msgid "Locale"
+msgstr "Lokaat"
+
+#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:234
+msgctxt "SettingsPage|"
+msgid "String replacement"
+msgstr "Stringiasendus"
+
+#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:238
+msgctxt "SettingsPage|"
+msgid "String Replacement"
+msgstr "Stringiasendus"
+
+#: src/qml/app/SettingsPage.qml:187
+msgctxt "SettingsPage|"
+msgid "Load last-opened files"
+msgstr "Viimati avatud failide laadimine"
+
+#: src/qml/app/SettingsPage.qml:192
+msgctxt "SettingsPage|"
+msgid "Preserve file timestamp"
+msgstr "Failide ajatemplite säilitamine"
+
+#: src/qml/app/SettingsPage.qml:197
+msgctxt "SettingsPage|"
+msgid "Mark changes"
+msgstr "Muudatuste märkimine"
+
+#: src/qml/app/SettingsPage.qml:202
+msgctxt "SettingsPage|"
+msgid "Automatically apply format"
+msgstr "Vormingu automaatne rakendamine"
+
+#: src/qml/app/SettingsPage.qml:207
+msgctxt "SettingsPage|"
+msgid "Use maximum length"
+msgstr "Maks. pikkuse kasutamine"
+
+#: src/qml/app/SettingsPage.qml:212
+msgctxt "SettingsPage|"
+msgid "Maximum length"
+msgstr "Suurim pikkus"
+
+#: src/qml/app/SettingsPage.qml:249
+msgctxt "SettingsPage|"
+msgid "Filename for cover"
+msgstr "Kaanepildi failinimi"
+
+#: src/qml/app/SettingsPage.qml:254
+msgctxt "SettingsPage|"
+msgid "Playlist text encoding"
+msgstr "Esitusloendi tekstikodeering"
+
+#: src/qml/app/SettingsPage.qml:260
+msgctxt "SettingsPage|"
+msgid "To filename format"
+msgstr "Esitada failinime vorming"
+
+#: src/qml/app/SettingsPage.qml:270
+msgctxt "SettingsPage|"
+msgid "Filename from Tag"
+msgstr "Failinimi sildi põhjal"
+
+#: src/qml/app/SettingsPage.qml:285
+msgctxt "SettingsPage|"
+msgid "From filename format"
+msgstr "Failinime põhjal vorming"
+
+#: src/qml/app/SettingsPage.qml:295
+msgctxt "SettingsPage|"
+msgid "Tag from Filename"
+msgstr "Silt failinime põhjal"
+
+#: src/qml/app/SettingsPage.qml:379
+msgctxt "SettingsPage|"
+msgid "Theme"
+msgstr "Teema"
+
+#: src/qml/app/StringListEditPage.qml:85
+msgctxt "StringListEditPage|"
+msgid "Edit"
+msgstr "Muutmine"
+
+#: src/qml/app/TagCollapsible.qml:40
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "Tag %1"
+msgstr "Silt %1"
+
+#: src/qml/app/TagCollapsible.qml:83
+msgctxt "TagCollapsible|"
+msgid "To Filename"
+msgstr "Esitada failinime"
+
+#: src/qml/app/TagCollapsible.qml:87
+msgctxt "TagCollapsible|"
+msgid "From Filename"
+msgstr "Failinime põhjal"
+
+#: src/qml/app/TagCollapsible.qml:91
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "To Tag %1"
+msgstr "Esitada silt %1"
+
+#: src/qml/app/TagCollapsible.qml:98
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "From Tag %1"
+msgstr "Sildi %1 põhjal"
+
+#: src/qml/app/TagCollapsible.qml:102
+msgctxt "TagCollapsible|"
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: src/qml/app/TagCollapsible.qml:106
+msgctxt "TagCollapsible|"
+msgid "Paste"
+msgstr "Aseta"
+
+#: src/qml/app/TagCollapsible.qml:110
+msgctxt "TagCollapsible|"
+msgid "Remove"
+msgstr "Eemalda"
+
+#~ msgid "Your names"
+#~ msgstr "Mihkel Tõnnov"
+
+#~ msgid "Your emails"
+#~ msgstr "mihhkel@gmail.com"
+
+#~ msgctxt "Match OS X Finder"
+#~ msgid "Kind"
+#~ msgstr "Liik"
+
+#~ msgctxt "All other platforms"
+#~ msgid "Type"
+#~ msgstr "Tüüp"
