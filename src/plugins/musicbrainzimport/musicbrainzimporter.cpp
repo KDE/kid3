@@ -30,6 +30,7 @@
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "musicbrainzconfig.h"
+#include "genres.h"
 
 /**
  * Constructor.
@@ -237,6 +238,64 @@ bool parseCredits(const QDomElement& relationList, FrameCollection& frames)
   return result;
 }
 
+/**
+ * Transform the lower case genres returned by MusicBrainz to match the
+ * standard genre names.
+ * @param genre lower case genre
+ * @return capitalized canonical genre.
+ */
+QString fixUpGenre(QString genre)
+{
+  if (genre.isEmpty()) {
+    return genre;
+  }
+  for (int i = 0; i < genre.length(); ++i) {
+    if (i == 0 || genre.at(i - 1) == '-' || genre.at(i - 1) == ' ' ||
+        genre.at(i - 1) == '&') {
+      genre[i] = genre[i].toUpper();
+    }
+  }
+  genre.replace(QLatin1String(" And "), QLatin1String(" & "))
+       .replace(QLatin1String("Ebm"), QLatin1String("EBM"))
+       .replace(QLatin1String("Edm"), QLatin1String("EDM"))
+       .replace(QLatin1String("Idm"), QLatin1String("IDM"))
+       .replace(QLatin1String("Uk"), QLatin1String("UK"));
+  return genre;
+}
+
+/**
+ * Get genres from an XML node with a genre-list.
+ * @param element XML node which could have a genre-list
+ * @return genres separated by frame string list separator, null if not found.
+ */
+QString parseGenres(const QDomElement& element)
+{
+  QDomNode genreList =
+      element.namedItem(QLatin1String("genre-list"));
+  if (!genreList.isNull()) {
+    QStringList genres, customGenres;
+    for (QDomNode genreNode = genreList.namedItem(QLatin1String("genre"));
+         !genreNode.isNull();
+         genreNode = genreNode.nextSibling()) {
+      if (!genreNode.isNull()) {
+        QString genre = fixUpGenre(genreNode.toElement()
+            .namedItem(QLatin1String("name")).toElement().text());
+        if (!genre.isEmpty()) {
+          int genreNum = Genres::getNumber(genre);
+          if (genreNum != 255) {
+            genres.append(QString::fromLatin1(Genres::getName(genreNum)));
+          } else {
+            customGenres.append(genre);
+          }
+        }
+      }
+    }
+    genres.append(customGenres);
+    return genres.join(Frame::stringListSeparator());
+  }
+  return QString();
+}
+
 }
 
 /**
@@ -285,11 +344,16 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     if (standardTags) {
       framesHdr.setAlbum(release.namedItem(QLatin1String("title")).toElement()
                          .text());
-      framesHdr.setArtist(release.namedItem(QLatin1String("artist-credit"))
-                          .toElement().namedItem(QLatin1String("name-credit"))
-                          .toElement().namedItem(QLatin1String("artist"))
-                          .toElement().namedItem(QLatin1String("name"))
+      QDomElement artist = release.namedItem(QLatin1String("artist-credit"))
+          .toElement().namedItem(QLatin1String("name-credit"))
+          .toElement().namedItem(QLatin1String("artist"))
+          .toElement();
+      framesHdr.setArtist(artist.namedItem(QLatin1String("name"))
                           .toElement().text());
+      QString genre = parseGenres(artist);
+      if (!genre.isEmpty()) {
+        framesHdr.setGenre(genre);
+      }
       QString date(release.namedItem(QLatin1String("date")).toElement().text());
       if (!date.isEmpty()) {
         QRegExp dateRe(QLatin1String(R"((\d{4})(?:-\d{2})?(?:-\d{2})?)"));
@@ -443,10 +507,11 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
           QDomNode artistNode =
               recording.namedItem(QLatin1String("artist-credit"));
           if (!artistNode.isNull()) {
-            QString artist(artistNode.toElement()
+            QDomElement artistElement = artistNode.toElement()
                 .namedItem(QLatin1String("name-credit")).toElement()
-                .namedItem(QLatin1String("artist")).toElement()
-                .namedItem(QLatin1String("name")).toElement().text());
+                .namedItem(QLatin1String("artist")).toElement();
+            QString artist = artistElement
+                .namedItem(QLatin1String("name")).toElement().text();
             if (!artist.isEmpty()) {
               // use the artist in the header as the album artist
               // and the artist in the track as the artist
@@ -457,6 +522,14 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                 frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
               }
             }
+            QString genre = parseGenres(artistElement);
+            if (!genre.isEmpty()) {
+              frames.setGenre(genre);
+            }
+          }
+          QString genre = parseGenres(recording);
+          if (!genre.isEmpty()) {
+            frames.setGenre(genre);
           }
           if (additionalTags) {
             QDomNode relationListNode(recording.firstChild());
@@ -585,10 +658,10 @@ void MusicBrainzImporter::sendTrackListQuery(
   path += id;
   path += QLatin1String("?inc=");
   if (cfg->additionalTags()) {
-    path += QLatin1String("artist-credits+labels+recordings+media+isrcs+"
+    path += QLatin1String("artist-credits+labels+recordings+genres+media+isrcs+"
                 "discids+artist-rels+label-rels+recording-rels+release-rels");
   } else {
-    path += QLatin1String("artists+recordings");
+    path += QLatin1String("artists+recordings+genres");
   }
   if (cfg->coverArt()) {
     path += QLatin1String("+url-rels");
