@@ -366,17 +366,19 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         }
       }
     }
-    int genreNum = 255;
-    for (auto it = genreList.constBegin(); it != genreList.constEnd(); ++it) {
-      genreNum = Genres::getNumber(*it);
+    QStringList genres;
+    for (auto it = genreList.begin(); it != genreList.end();) {
+      int genreNum = Genres::getNumber(*it);
       if (genreNum != 255) {
-        break;
+        genres.append(QString::fromLatin1(Genres::getName(genreNum)));
+        it = genreList.erase(it);
+      } else {
+        ++it;
       }
     }
-    if (genreNum != 255) {
-      framesHdr.setGenre(QString::fromLatin1(Genres::getName(genreNum)));
-    } else if (!genreList.empty()) {
-      framesHdr.setGenre(genreList.front());
+    genres.append(genreList);
+    if (!genres.isEmpty()) {
+      framesHdr.setGenre(genres.join(Frame::stringListSeparator()));
     }
   }
 
