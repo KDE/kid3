@@ -67,6 +67,13 @@ void ServerImporterConfig::writeToConfig(ISettings* config) const
     config->setValue(QLatin1String("AdditionalTags"), QVariant(m_additionalTags));
     config->setValue(QLatin1String("CoverArt"), QVariant(m_coverArt));
   }
+  QStringList propertiesKv;
+  const QList<QByteArray> propertyNames = dynamicPropertyNames();
+  for (const QByteArray& propertyName : propertyNames) {
+    propertiesKv.append(QString::fromLatin1(propertyName));
+    propertiesKv.append(property(propertyName).toString());
+  }
+  config->setValue(QLatin1String("Properties"), QVariant(propertiesKv));
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -88,6 +95,17 @@ void ServerImporterConfig::readFromConfig(ISettings* config)
     m_additionalTags = config->value(QLatin1String("AdditionalTags"),
                                      m_additionalTags).toBool();
     m_coverArt = config->value(QLatin1String("CoverArt"), m_coverArt).toBool();
+  }
+  QStringList propertiesKv =
+      config->value(QLatin1String("Properties"), QStringList()).toStringList();
+  for (auto it = propertiesKv.constBegin();
+       it != propertiesKv.constEnd();
+       ++it) {
+    QString key = *it;
+    if (++it == propertiesKv.constEnd()) {
+      break;
+    }
+    setProperty(key.toLatin1(), *it);
   }
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
