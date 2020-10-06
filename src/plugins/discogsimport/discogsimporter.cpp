@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2020  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,6 +26,9 @@
 
 #include "discogsimporter.h"
 #include <QUrl>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "discogsconfig.h"
@@ -33,8 +36,6 @@
 #include "genres.h"
 
 namespace {
-
-const char discogsServer[] = "www.discogs.com";
 
 /**
  * Remove trailing stars and numbers like (2) from a string.
@@ -58,6 +59,32 @@ QString fixUpArtist(QString str)
   return ServerImporter::removeHtml(str);
 }
 
+/**
+ * Create a string with artists contained in an artist list.
+ * @param artists list containing artist maps
+ * @return string with artists joined appropriately.
+ */
+QString getArtistString(const QJsonArray& artists)
+{
+  QString artist;
+  if (!artists.isEmpty()) {
+    QString join;
+    for (const auto& val : artists) {
+      auto map = val.toObject();
+      if (!artist.isEmpty()) {
+        artist += join;
+      }
+      artist += fixUpArtist(map.value(QLatin1String("name")).toString());
+      join = map.value(QLatin1String("join")).toString();
+      if (join.isEmpty() || join == QLatin1String(",")) {
+        join = QLatin1String(", ");
+      } else {
+        join = QLatin1Char(' ') + join + QLatin1Char(' ');
+      }
+    }
+  }
+  return artist;
+}
 
 /**
  * Add involved people to a frame.
@@ -82,6 +109,74 @@ void addInvolvedPeople(
   value += Frame::stringListSeparator();
   value += involvee;
   frames.setValue(type, value);
+}
+
+/**
+ * Get frame for a role.
+ * @param role role or credit of involved people, can be adapted to canonical
+ * value
+ * @return suitable frame type, Frame::FT_UnknownFrame if not found.
+ */
+Frame::Type frameTypeForRole(QString& role)
+{
+  static const struct {
+    const char* credit;
+    Frame::Type type;
+  } creditToType[] = {
+    { "Composed By", Frame::FT_Composer },
+    { "Conductor", Frame::FT_Conductor },
+    { "Orchestra", Frame::FT_AlbumArtist },
+    { "Lyrics By", Frame::FT_Lyricist },
+    { "Written-By", Frame::FT_Author },
+    { "Written By", Frame::FT_Author },
+    { "Remix", Frame::FT_Remixer },
+    { "Music By", Frame::FT_Composer },
+    { "Songwriter", Frame::FT_Composer }
+  };
+  for (const auto& c2t : creditToType) {
+    if (role.contains(QString::fromLatin1(c2t.credit))) {
+      return c2t.type;
+    }
+  }
+
+  static const struct {
+    const char* credit;
+    const char* arrangement;
+  } creditToArrangement[] = {
+    { "Arranged By", "Arranger" },
+    { "Mixed By", "Mixer" },
+    { "DJ Mix", "DJMixer" },
+    { "Dj Mix", "DJMixer" },
+    { "Engineer", "Engineer" },
+    { "Mastered By", "Engineer" },
+    { "Producer", "Producer" },
+    { "Co-producer", "Producer" },
+    { "Executive Producer", "Producer" }
+  };
+  for (const auto& c2a : creditToArrangement) {
+    if (role.contains(
+          QString::fromLatin1(c2a.credit))) {
+      role = QString::fromLatin1(c2a.arrangement);
+      return Frame::FT_Arranger;
+    }
+  }
+
+  static const char* const instruments[] = {
+    "Performer", "Vocals", "Voice", "Featuring", "Choir", "Chorus",
+    "Baritone", "Tenor", "Rap", "Scratches", "Drums", "Percussion",
+    "Keyboards", "Cello", "Piano", "Organ", "Synthesizer", "Keys",
+    "Wurlitzer", "Rhodes", "Harmonica", "Xylophone", "Guitar", "Bass",
+    "Strings", "Violin", "Viola", "Banjo", "Harp", "Mandolin",
+    "Clarinet", "Horn", "Cornet", "Flute", "Oboe", "Saxophone",
+    "Trumpet", "Tuba", "Trombone"
+  };
+  for (auto instrument : instruments) {
+    if (role.contains(QString::fromLatin1(instrument))) {
+      return Frame::FT_Performer;
+    }
+  }
+
+  return Frame::FT_UnknownFrame;
 }
 
 /**
@@ -110,76 +205,14 @@ bool parseCredits(const QString& str, FrameCollection& frames)
       }
       QStringList credits = (*it).left(nameStart).split(QLatin1String(", "));
       for (auto cit = credits.constBegin(); cit != credits.constEnd(); ++cit) {
-        static const struct {
-          const char* credit;
-          Frame::Type type;
-        } creditToType[] = {
-          { "Composed By", Frame::FT_Composer },
-          { "Conductor", Frame::FT_Conductor },
-          { "Orchestra", Frame::FT_AlbumArtist },
-          { "Lyrics By", Frame::FT_Lyricist },
-          { "Written-By", Frame::FT_Author },
-          { "Written By", Frame::FT_Author },
-          { "Remix", Frame::FT_Remixer },
-          { "Music By", Frame::FT_Composer },
-          { "Songwriter", Frame::FT_Composer }
-        };
-        bool found = false;
-        for (const auto& c2t : creditToType) {
-          if (*cit == QString::fromLatin1(c2t.credit)) {
-            frames.setValue(c2t.type, name);
-            found = true;
-            break;
-          }
-        }
-        if (found) {
+        QString role = *cit;
+        Frame::Type frameType = frameTypeForRole(role);
+        if (frameType == Frame::FT_Arranger ||
+            frameType == Frame::FT_Performer) {
+          addInvolvedPeople(frames, frameType, role, name);
           result = true;
-        } else {
-          static const struct {
-            const char* credit;
-            const char* arrangement;
-          } creditToArrangement[] = {
-            { "Arranged By", "Arranger" },
-            { "Mixed By", "Mixer" },
-            { "DJ Mix", "DJMixer" },
-            { "Dj Mix", "DJMixer" },
-            { "Engineer", "Engineer" },
-            { "Mastered By", "Engineer" },
-            { "Producer", "Producer" },
-            { "Co-producer", "Producer" },
-            { "Executive Producer", "Producer" }
-          };
-          for (const auto& c2a : creditToArrangement) {
-            if ((*cit).startsWith(
-                  QString::fromLatin1(c2a.credit))) {
-              addInvolvedPeople(frames, Frame::FT_Arranger,
-                QString::fromLatin1(c2a.arrangement), name);
-              found = true;
-              break;
-            }
-          }
-        }
-        if (found) {
-          result = true;
-        } else {
-          static const char* const instruments[] = {
-            "Performer", "Vocals", "Voice", "Featuring", "Choir", "Chorus",
-            "Baritone", "Tenor", "Rap", "Scratches", "Drums", "Percussion",
-            "Keyboards", "Cello", "Piano", "Organ", "Synthesizer", "Keys",
-            "Wurlitzer", "Rhodes", "Harmonica", "Xylophone", "Guitar", "Bass",
-            "Strings", "Violin", "Viola", "Banjo", "Harp", "Mandolin",
-            "Clarinet", "Horn", "Cornet", "Flute", "Oboe", "Saxophone",
-            "Trumpet", "Tuba", "Trombone"
-          };
-          for (auto instrument : instruments) {
-            if ((*cit).contains(QString::fromLatin1(instrument))) {
-              addInvolvedPeople(frames, Frame::FT_Performer, *cit, name);
-              found = true;
-              break;
-            }
-          }
-        }
-        if (found) {
+        } else if (frameType != Frame::FT_UnknownFrame) {
+          frames.setValue(frameType, name);
           result = true;
         }
       }
@@ -188,19 +221,153 @@ bool parseCredits(const QString& str, FrameCollection& frames)
   return result;
 }
 
+/**
+ * Add name to frame with credits.
+ * @param frames frame collection
+ * @param type   type of frame
+ * @param name   name of person to credit
+ */
+void addCredit(FrameCollection& frames, Frame::Type type, const QString& name)
+{
+  QString value = frames.getValue(type);
+  if (!value.isEmpty()) value += QLatin1String(", ");
+  value += name;
+  frames.setValue(type, value);
 }
 
 /**
- * Constructor.
- *
- * @param netMgr network access manager
- * @param trackDataModel track data to be filled with imported values
+ * Stores information about extra artists.
+ * The information can be used to add frames to the appropriate tracks.
  */
-DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
-                                 TrackDataModel* trackDataModel)
-  : ServerImporter(netMgr, trackDataModel)
+class ExtraArtist {
+public:
+  /**
+   * Constructor.
+   * @param obj JSON object containing extra artist information
+   */
+  explicit ExtraArtist(const QJsonObject& varMap);
+
+  /**
+   * Add extra artist information to frames.
+   * @param frames   frame collection
+   * @param trackPos optional position, the extra artist information will
+   *                 only be added if this track position is listed in the
+   *                 track restrictions or is empty
+   */
+  void addToFrames(FrameCollection& frames,
+                   const QString& trackPos = QString()) const;
+
+  /**
+   * Check if extra artist information is only valid for a subset of the tracks.
+   * @return true if extra artist has track restriction.
+   */
+  bool hasTrackRestriction() const { return !m_tracks.isEmpty(); }
+
+private:
+  QString m_name;
+  QString m_role;
+  QStringList m_tracks;
+};
+
+/**
+ * Constructor.
+ * @param obj JSON object containing extra artist information
+ */
+ExtraArtist::ExtraArtist(const QJsonObject& obj) :
+  m_name(fixUpArtist(obj.value(QLatin1String("name")).toString())),
+  m_role(obj.value(QLatin1String("role")).toString().trimmed())
 {
-  setObjectName(QLatin1String("DiscogsImporter"));
+  static const QRegExp tracksSepRe(QLatin1String(",\\s*"));
+  QString tracks = obj.value(QLatin1String("tracks")).toString();
+  if (!tracks.isEmpty()) {
+    m_tracks = tracks.split(tracksSepRe);
+  }
+}
+
+/**
+ * Add extra artist information to frames.
+ * @param frames   frame collection
+ * @param trackPos optional position, the extra artist information will
+ *                 only be added if this track position is listed in the
+ *                 track restrictions or is empty
+ */
+void ExtraArtist::addToFrames(FrameCollection& frames,
+                              const QString& trackPos) const
+{
+  if (!trackPos.isEmpty() && !m_tracks.contains(trackPos))
+    return;
+
+  QString role = m_role;
+  Frame::Type frameType = frameTypeForRole(role);
+  if (frameType == Frame::FT_Arranger ||
+      frameType == Frame::FT_Performer) {
+    addInvolvedPeople(frames, frameType, role, m_name);
+  } else if (frameType != Frame::FT_UnknownFrame) {
+    addCredit(frames, frameType, m_name);
+  }
+}
+
+}
+
+
+/**
+ * Abstract base class for Discogs importer implementations.
+ */
+class DiscogsImporter::BaseImpl {
+public:
+  BaseImpl(DiscogsImporter* importer, const char* url);
+  virtual ~BaseImpl();
+
+  virtual void parseFindResults(const QByteArray& searchStr) = 0;
+  virtual void parseAlbumResults(const QByteArray& albumStr) = 0;
+  virtual void sendFindQuery(
+      const ServerImporterConfig* cfg,
+      const QString& artist, const QString& album) = 0;
+  virtual void sendTrackListQuery(
+      const ServerImporterConfig* cfg,
+      const QString& cat, const QString& id) = 0;
+
+  AlbumListModel* albumListModel() { return m_importer->m_albumListModel; }
+  TrackDataModel* trackDataModel() { return m_importer->m_trackDataModel; }
+  QMap<QByteArray, QByteArray>& headers() { return m_discogsHeaders; }
+
+protected:
+  QMap<QByteArray, QByteArray> m_discogsHeaders;
+  DiscogsImporter* m_importer;
+  const char* const m_discogsServer;
+};
+
+DiscogsImporter::BaseImpl::BaseImpl(DiscogsImporter* importer, const char* url)
+  : m_importer(importer), m_discogsServer(url)
+{
+}
+
+DiscogsImporter::BaseImpl::~BaseImpl()
+{
+}
+
+
+/**
+ * Importer implementation to import HTML data from the Discogs web site.
+ */
+class DiscogsImporter::HtmlImpl : public DiscogsImporter::BaseImpl {
+public:
+  explicit HtmlImpl(DiscogsImporter* importer);
+  virtual ~HtmlImpl() override;
+
+  virtual void parseFindResults(const QByteArray& searchStr) override;
+  virtual void parseAlbumResults(const QByteArray& albumStr) override;
+  virtual void sendFindQuery(
+      const ServerImporterConfig* cfg,
+      const QString& artist, const QString& album) override;
+  virtual void sendTrackListQuery(
+      const ServerImporterConfig* cfg,
+      const QString& cat, const QString& id) override;
+};
+
+DiscogsImporter::HtmlImpl::HtmlImpl(DiscogsImporter* importer)
+  : BaseImpl(importer, "www.discogs.com")
+{
   m_discogsHeaders["User-Agent"] =
       "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) "
       "AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 "
@@ -208,31 +375,11 @@ DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
   m_discogsHeaders["Cookie"] = "language2=en";
 }
 
-/**
- * Name of import source.
- * @return name.
- */
-const char* DiscogsImporter::name() const {
-  return QT_TRANSLATE_NOOP("@default", "Discogs");
+DiscogsImporter::HtmlImpl::~HtmlImpl()
+{
 }
 
-/** anchor to online help, 0 to disable */
-const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
-
-/** configuration, 0 if not used */
-ServerImporterConfig* DiscogsImporter::config() const {
-  return &DiscogsConfig::instance();
-}
-
-/** additional tags option, false if not used */
-bool DiscogsImporter::additionalTags() const { return true; }
-
-/**
- * Process finished findCddbAlbum request.
- *
- * @param searchStr search data received
- */
-void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
+void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
 {
   // releases have the format:
   // <a href="/artist/256076-Amon-Amarth">Amon Amarth</a>         </span> -
@@ -247,7 +394,7 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
   QRegExp yearRe(QLatin1String("<span class=\"card_release_year\">([^<]+)</span>"));
   QRegExp formatRe(QLatin1String("<span class=\"card_release_format\">([^<]+)</span>"));
 
-  m_albumListModel->clear();
+  albumListModel()->clear();
   int pos = 0;
   while ((pos = idTitleRe.indexIn(str, pos)) != -1) {
     int len = idTitleRe.matchedLength();
@@ -265,7 +412,7 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
           result.append(QLatin1String(" [") + formatRe.cap(1).trimmed() + QLatin1Char(']'));
       }
 
-      m_albumListModel->appendItem(
+      albumListModel()->appendItem(
         result,
         idTitleRe.cap(2),
         idTitleRe.cap(3));
@@ -274,12 +421,7 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
   }
 }
 
-/**
- * Parse result of album request and populate m_trackDataModel with results.
- *
- * @param albumStr album data received
- */
-void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
+void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
 {
   QRegExp nlSpaceRe(QLatin1String("[\r\n]+\\s*"));
   QRegExp atDiscogsRe(QLatin1String("\\s*\\([^)]+\\) (?:at|\\|) Discogs\n?$"));
@@ -287,7 +429,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 
   FrameCollection framesHdr;
   int start, end;
-  const bool standardTags = getStandardTags();
+  const bool standardTags = m_importer->getStandardTags();
   if (standardTags) {
     /*
      * artist and album can be found in the title:
@@ -382,7 +524,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
-  const bool additionalTags = getAdditionalTags();
+  const bool additionalTags = m_importer->getAdditionalTags();
   if (additionalTags) {
     /*
      * publisher can be found in "Label:"
@@ -463,9 +605,9 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
-  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  ImportTrackDataVector trackDataVector(trackDataModel()->getTrackData());
   trackDataVector.setCoverArtUrl(QUrl());
-  if (getCoverArt()) {
+  if (m_importer->getCoverArt()) {
     /*
      * cover art can be found in image source
      */
@@ -660,7 +802,432 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
   }
-  m_trackDataModel->setTrackData(trackDataVector);
+  trackDataModel()->setTrackData(trackDataVector);
+}
+
+void DiscogsImporter::HtmlImpl::sendFindQuery(
+  const ServerImporterConfig*,
+  const QString& artist, const QString& album)
+{
+  /*
+   * Query looks like this:
+   * http://www.discogs.com/search/?q=amon+amarth+avenger&type=release&layout=sm
+   */
+  m_importer->sendRequest(QString::fromLatin1(m_discogsServer),
+              QString(QLatin1String("/search/?q=")) +
+              encodeUrlQuery(artist + QLatin1Char(' ') + album) +
+              QLatin1String("&type=release&layout=sm"), QLatin1String("https"),
+              m_discogsHeaders);
+}
+
+void DiscogsImporter::HtmlImpl::sendTrackListQuery(
+  const ServerImporterConfig*, const QString& cat, const QString& id)
+{
+  /*
+   * Query looks like this:
+   * http://www.discogs.com/release/761529
+   */
+  m_importer->sendRequest(QString::fromLatin1(m_discogsServer), QLatin1Char('/') +
+              QString::fromLatin1(QUrl::toPercentEncoding(cat)) +
+              QLatin1Char('/') + id, QLatin1String("https"), m_discogsHeaders);
+}
+
+
+/**
+ * Importer implementation to import JSON data via the Discogs API.
+ * A token is required to get data from the Discogs API.
+ */
+class DiscogsImporter::JsonImpl : public DiscogsImporter::BaseImpl {
+public:
+  explicit JsonImpl(DiscogsImporter* importer);
+  virtual ~JsonImpl() override;
+
+  virtual void parseFindResults(const QByteArray& searchStr) override;
+  virtual void parseAlbumResults(const QByteArray& albumStr) override;
+  virtual void sendFindQuery(
+      const ServerImporterConfig* cfg,
+      const QString& artist, const QString& album) override;
+  virtual void sendTrackListQuery(
+      const ServerImporterConfig* cfg,
+      const QString& cat, const QString& id) override;
+};
+
+DiscogsImporter::JsonImpl::JsonImpl(DiscogsImporter* importer)
+  : BaseImpl(importer, "api.discogs.com")
+{
+  m_discogsHeaders["User-Agent"] = "Kid3/" VERSION
+      " +https://kid3.kde.org";
+}
+
+DiscogsImporter::JsonImpl::~JsonImpl()
+{
+}
+
+void DiscogsImporter::JsonImpl::parseFindResults(const QByteArray& searchStr)
+{
+  // search results have the format (JSON, simplified):
+  // {"results": [{"style": ["Heavy Metal"], "title": "Wizard (23) - Odin",
+  //               "type": "release", "id": 2487778}]}
+  albumListModel()->clear();
+  auto doc = QJsonDocument::fromJson(searchStr);
+  if (!doc.isNull()) {
+    auto obj = doc.object();
+    const auto results = obj.value(QLatin1String("results")).toArray();
+    for (const auto& val : results) {
+      auto result = val.toObject();
+      QString title =
+          fixUpArtist(result.value(QLatin1String("title")).toString());
+      if (!title.isEmpty()) {
+        QString year = result.value(QLatin1String("year")).toString().trimmed();
+        if (!year.isEmpty()) {
+          title += QLatin1String(" (") + year + QLatin1Char(')');
+        }
+        const auto fmts = result.value(QLatin1String("format")).toArray();
+        if (!fmts.isEmpty()) {
+          QStringList formats;
+          for (const auto& fmt : fmts) {
+            QString format = fmt.toString().trimmed();
+            if (!format.isEmpty()) {
+              formats.append(format);
+            }
+          }
+          if (!formats.isEmpty()) {
+            title += QLatin1String(" [") +
+                formats.join(QLatin1String(", ")) +
+                QLatin1Char(']');
+          }
+        }
+        albumListModel()->appendItem(
+          title,
+          QLatin1String("releases"),
+          QString::number(result.value(QLatin1String("id")).toInt()));
+      }
+    }
+  }
+}
+
+void DiscogsImporter::JsonImpl::parseAlbumResults(const QByteArray& albumStr)
+{
+  // releases have the format (JSON, simplified):
+  // { "styles": ["Heavy Metal"],
+  //   "labels": [{"name": "LMP"}],
+  //   "year": 2003,
+  //   "artists": [{"name": "Wizard (23)"}],
+  //   "images": [
+  //   { "uri": "http://api.discogs.com/image/R-2487778-1293847958.jpeg",
+  //     "type": "primary" },
+  //   { "uri": "http://api.discogs.com/image/R-2487778-1293847967.jpeg",
+  //     "type": "secondary" }],
+  //   "id": 2487778,
+  //   "genres": ["Rock"],
+  //   "thumb": "http://api.discogs.com/image/R-150-2487778-1293847958.jpeg",
+  //   "extraartists": [],
+  //   "title": "Odin",
+  //   "tracklist": [
+  //     {"duration": "5:19", "position": "1", "title": "The Prophecy"},
+  //     {"duration": "", "position": "Video", "title": "Betrayer"}
+  //   ],
+  //   "released": "2003",
+  //   "formats": [{"name": "CD"}]
+  // }
+  auto doc = QJsonDocument::fromJson(albumStr);
+  if (doc.isNull()) {
+    return;
+  }
+  auto map = doc.object();
+  if (map.isEmpty()) {
+    return;
+  }
+
+  QRegExp discTrackPosRe(QLatin1String("(\\d+)-(\\d+)"));
+  QRegExp yearRe(QLatin1String("^\\d{4}-\\d{2}"));
+  QList<ExtraArtist> trackExtraArtists;
+  ImportTrackDataVector trackDataVector(trackDataModel()->getTrackData());
+  FrameCollection framesHdr;
+  const bool standardTags = m_importer->getStandardTags();
+  if (standardTags) {
+    framesHdr.setAlbum(map.value(QLatin1String("title")).toString().trimmed());
+    framesHdr.setArtist(getArtistString(map.value(QLatin1String("artists"))
+                                        .toArray()));
+
+    // The year can be found in "released".
+    QString released(map.value(QLatin1String("released")).toString());
+    if (yearRe.indexIn(released) == 0) {
+      released.truncate(4);
+    }
+    framesHdr.setYear(released.toInt());
+
+    // The genre can be found in "genre" or "style".
+    // All genres found are checked for an ID3v1 number, starting with those
+    // in the style field.
+    const auto genreList = map.value(QLatin1String("styles")).toArray() +
+        map.value(QLatin1String("genres")).toArray();
+    QStringList genres, customGenres;
+    for (const auto& val : genreList) {
+      QString genre = val.toString().trimmed();
+      if (!genre.isEmpty()) {
+        int genreNum = Genres::getNumber(genre);
+        if (genreNum != 255) {
+          genres.append(QString::fromLatin1(Genres::getName(genreNum)));
+        } else {
+          customGenres.append(genre);
+        }
+      }
+    }
+    genres.append(customGenres);
+    if (!genres.isEmpty()) {
+      framesHdr.setGenre(genres.join(Frame::stringListSeparator()));
+    }
+  }
+
+  trackDataVector.setCoverArtUrl(QUrl());
+  const bool coverArt = m_importer->getCoverArt();
+  if (coverArt) {
+    // Cover art can be found in "images"
+    auto images = map.value(QLatin1String("images")).toArray();
+    if (!images.isEmpty()) {
+      trackDataVector.setCoverArtUrl(
+            QUrl(images.first().toObject().value(QLatin1String("uri"))
+                 .toString()));
+    }
+  }
+
+  const bool additionalTags = m_importer->getAdditionalTags();
+  if (additionalTags) {
+    // Publisher can be found in "label"
+    auto labels = map.value(QLatin1String("labels")).toArray();
+    if (!labels.isEmpty()) {
+      auto firstLabelMap = labels.first().toObject();
+      framesHdr.setValue(Frame::FT_Publisher,
+          fixUpArtist(firstLabelMap.value(QLatin1String("name")).toString()));
+      QString catNo = firstLabelMap.value(QLatin1String("catno"))
+          .toString().trimmed();
+      if (!catNo.isEmpty() && catNo.toLower() != QLatin1String("none")) {
+        framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
+      }
+    }
+    // Media can be found in "formats"
+    auto formats = map.value(QLatin1String("formats")).toArray();
+    if (!formats.isEmpty()) {
+      framesHdr.setValue(Frame::FT_Media,
+                         formats.first().toObject().value(QLatin1String("name"))
+                         .toString().trimmed());
+    }
+    // Credits can be found in "extraartists"
+    const auto extraartists = map.value(QLatin1String("extraartists")).toArray();
+    if (!extraartists.isEmpty()) {
+      for (const auto& val : extraartists) {
+        ExtraArtist extraArtist(val.toObject());
+        if (extraArtist.hasTrackRestriction()) {
+          trackExtraArtists.append(extraArtist);
+        } else {
+          extraArtist.addToFrames(framesHdr);
+        }
+      }
+    }
+    // Release country can be found in "country"
+    QString country(map.value(QLatin1String("country")).toString().trimmed());
+    if (!country.isEmpty()) {
+      framesHdr.setValue(Frame::FT_ReleaseCountry, country);
+    }
+  }
+
+  FrameCollection frames(framesHdr);
+  ImportTrackDataVector::iterator it = trackDataVector.begin();
+  bool atTrackDataListEnd = (it == trackDataVector.end());
+  int trackNr = 1;
+  const auto trackList = map.value(QLatin1String("tracklist")).toArray();
+
+  // Check if all positions are empty.
+  bool allPositionsEmpty = true;
+  for (const auto& val : trackList) {
+    if (!val.toObject().value(QLatin1String("position")).toString().isEmpty()) {
+      allPositionsEmpty = false;
+      break;
+    }
+  }
+
+  for (const auto& val : trackList) {
+    auto track = val.toObject();
+
+    QString position(track.value(QLatin1String("position")).toString());
+    bool ok;
+    int pos = position.toInt(&ok);
+    if (!ok) {
+      if (discTrackPosRe.exactMatch(position)) {
+        if (additionalTags) {
+          frames.setValue(Frame::FT_Disc, discTrackPosRe.cap(1));
+        }
+        pos = discTrackPosRe.cap(2).toInt();
+      } else {
+        pos = trackNr;
+      }
+    }
+    QString title(track.value(QLatin1String("title")).toString().trimmed());
+
+    const QStringList durationHms = track.value(QLatin1String("duration"))
+        .toString().split(QLatin1Char(':'));
+    int duration = 0;
+    for (const auto& val : durationHms) {
+      duration *= 60;
+      duration += val.toInt();
+    }
+    if (!allPositionsEmpty && position.isEmpty()) {
+      if (additionalTags) {
+        framesHdr.setValue(Frame::FT_Subtitle, title);
+      }
+    } else if (!title.isEmpty() || duration != 0) {
+      if (standardTags) {
+        frames.setTrack(pos);
+        frames.setTitle(title);
+      }
+      const auto artists(track.value(QLatin1String("artists")).toArray());
+      if (!artists.isEmpty()) {
+        if (standardTags) {
+          frames.setArtist(getArtistString(artists));
+        }
+        if (additionalTags) {
+          frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+        }
+      }
+      if (additionalTags) {
+        const auto extraartists(track.value(QLatin1String("extraartists")).toArray());
+        if (!extraartists.isEmpty()) {
+          for (const auto& val : extraartists) {
+            ExtraArtist extraArtist(val.toObject());
+            extraArtist.addToFrames(frames);
+          }
+        }
+      }
+      for (const auto& extraArtist : trackExtraArtists) {
+        extraArtist.addToFrames(frames, position);
+      }
+
+      if (atTrackDataListEnd) {
+        ImportTrackData trackData;
+        trackData.setFrameCollection(frames);
+        trackData.setImportDuration(duration);
+        trackDataVector.append(trackData);
+      } else {
+        while (!atTrackDataListEnd && !it->isEnabled()) {
+          ++it;
+          atTrackDataListEnd = (it == trackDataVector.end());
+        }
+        if (!atTrackDataListEnd) {
+          (*it).setFrameCollection(frames);
+          (*it).setImportDuration(duration);
+          ++it;
+          atTrackDataListEnd = (it == trackDataVector.end());
+        }
+      }
+      ++trackNr;
+    }
+    frames = framesHdr;
+  }
+  // handle redundant tracks
+  frames.clear();
+  while (!atTrackDataListEnd) {
+    if (it->isEnabled()) {
+      if ((*it).getFileDuration() == 0) {
+        it = trackDataVector.erase(it);
+      } else {
+        (*it).setFrameCollection(frames);
+        (*it).setImportDuration(0);
+        ++it;
+      }
+    } else {
+      ++it;
+    }
+    atTrackDataListEnd = (it == trackDataVector.end());
+  }
+  trackDataModel()->setTrackData(trackDataVector);
+}
+
+void DiscogsImporter::JsonImpl::sendFindQuery(
+  const ServerImporterConfig*,
+  const QString& artist, const QString& album)
+{
+  // Query looks like this:
+  // http://api.discogs.com//database/search?type=release&title&q=amon+amarth+avenger
+  m_importer->sendRequest(QString::fromLatin1(m_discogsServer),
+              QLatin1String("/database/search?type=release&title&q=") +
+              encodeUrlQuery(artist + QLatin1Char(' ') + album), QLatin1String("https"),
+              m_discogsHeaders);
+}
+
+void DiscogsImporter::JsonImpl::sendTrackListQuery(
+  const ServerImporterConfig*, const QString& cat, const QString& id)
+{
+  // Query looks like this:
+  // http://api.discogs.com/releases/761529
+  m_importer->sendRequest(QString::fromLatin1(m_discogsServer), QLatin1Char('/') +
+              QString::fromLatin1(QUrl::toPercentEncoding(cat)) +
+              QLatin1Char('/') + id, QLatin1String("https"), m_discogsHeaders);
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param netMgr network access manager
+ * @param trackDataModel track data to be filled with imported values
+ */
+DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
+                                 TrackDataModel* trackDataModel)
+  : ServerImporter(netMgr, trackDataModel),
+    m_htmlImpl(new HtmlImpl(this)), m_jsonImpl(new JsonImpl(this)),
+    m_impl(m_htmlImpl)
+{
+  setObjectName(QLatin1String("DiscogsImporter"));
+}
+
+/**
+ * Destructor.
+ */
+DiscogsImporter::~DiscogsImporter()
+{
+  m_impl = nullptr;
+  delete m_jsonImpl;
+  delete m_htmlImpl;
+}
+
+/**
+ * Name of import source.
+ * @return name.
+ */
+const char* DiscogsImporter::name() const {
+  return QT_TRANSLATE_NOOP("@default", "Discogs");
+}
+
+/** anchor to online help, 0 to disable */
+const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
+
+/** configuration, 0 if not used */
+ServerImporterConfig* DiscogsImporter::config() const {
+  return &DiscogsConfig::instance();
+}
+
+/** additional tags option, false if not used */
+bool DiscogsImporter::additionalTags() const { return true; }
+
+/**
+ * Process finished findCddbAlbum request.
+ *
+ * @param searchStr search data received
+ */
+void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
+{
+  m_impl->parseFindResults(searchStr);
+}
+
+/**
+ * Parse result of album request and populate m_trackDataModel with results.
+ *
+ * @param albumStr album data received
+ */
+void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
+{
+  m_impl->parseAlbumResults(albumStr);
 }
 
 /**
@@ -671,18 +1238,11 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
  * @param album    album to search
  */
 void DiscogsImporter::sendFindQuery(
-  const ServerImporterConfig*,
+  const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
-  /*
-   * Query looks like this:
-   * http://www.discogs.com/search/?q=amon+amarth+avenger&type=release&layout=sm
-   */
-  sendRequest(QString::fromLatin1(discogsServer),
-              QString(QLatin1String("/search/?q=")) +
-              encodeUrlQuery(artist + QLatin1Char(' ') + album) +
-              QLatin1String("&type=release&layout=sm"), QLatin1String("https"),
-              m_discogsHeaders);
+  m_impl = selectImpl(cfg);
+  m_impl->sendFindQuery(cfg, artist, album);
 }
 
 /**
@@ -694,13 +1254,30 @@ void DiscogsImporter::sendFindQuery(
  * @param id       ID
  */
 void DiscogsImporter::sendTrackListQuery(
-  const ServerImporterConfig*, const QString& cat, const QString& id)
+  const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
-  /*
-   * Query looks like this:
-   * http://www.discogs.com/release/761529
-   */
-  sendRequest(QString::fromLatin1(discogsServer), QLatin1Char('/') +
-              QString::fromLatin1(QUrl::toPercentEncoding(cat)) +
-              QLatin1Char('/') + id, QLatin1String("https"), m_discogsHeaders);
+  m_impl = selectImpl(cfg);
+  m_impl->sendTrackListQuery(cfg, cat, id);
+}
+
+/**
+ * Set token to access Discogs API.
+ * You have to create an account on Discogs and then generate a token
+ * (Settings/Developers, Generate new token). The token can then be used for
+ * the "Discogs Auth Flow" in the header "Authorization: Discogs token=value"
+ * If a token is found in the configuration, the importer using the Discogs
+ * API is used, else the HTML importer.
+ * @param cfg configuration which can contain token
+ */
+DiscogsImporter::BaseImpl* DiscogsImporter::selectImpl(
+    const ServerImporterConfig* cfg) const
+{
+  if (cfg) {
+    QByteArray token = cfg->property("token").toByteArray();
+    if (!token.isEmpty()) {
+      m_jsonImpl->headers()["Authorization"] = "Discogs token=" + token;
+      return m_jsonImpl;
+    }
+  }
+  return m_htmlImpl;
 }

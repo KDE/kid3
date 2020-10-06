@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2020  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DiscogsImporter() override = default;
+  virtual ~DiscogsImporter() override;
 
   /**
    * Name of import source.
@@ -99,5 +99,13 @@ public:
     const ServerImporterConfig* cfg, const QString& cat, const QString& id) override;
 
 private:
-  QMap<QByteArray, QByteArray> m_discogsHeaders;
+  class BaseImpl;
+  class HtmlImpl;
+  class JsonImpl;
+
+  BaseImpl* selectImpl(const ServerImporterConfig* cfg) const;
+
+  BaseImpl* const m_htmlImpl;
+  BaseImpl* const m_jsonImpl;
+  BaseImpl* m_impl;
 };
