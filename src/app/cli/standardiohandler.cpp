@@ -55,7 +55,7 @@ StandardIOHandler::StandardIOHandler(const char* prompt)
   DWORD mode;
   m_consoleMode = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
 #else
-  m_consoleMode = ::isatty(::fileno(stdout));
+  m_consoleMode = isatty(fileno(stdout));
 #endif
 }
 
