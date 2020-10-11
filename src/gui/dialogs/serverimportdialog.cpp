@@ -47,8 +47,9 @@
  * @param parent  parent widget
  */
 ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
-    m_serverComboBox(nullptr), m_cgiLineEdit(nullptr), m_standardTagsCheckBox(nullptr),
-    m_additionalTagsCheckBox(nullptr), m_coverArtCheckBox(nullptr), m_source(nullptr)
+    m_serverComboBox(nullptr), m_cgiLineEdit(nullptr), m_tokenLineEdit(nullptr),
+    m_standardTagsCheckBox(nullptr), m_additionalTagsCheckBox(nullptr),
+    m_coverArtCheckBox(nullptr), m_source(nullptr)
 {
   setObjectName(QLatin1String("ServerImportDialog"));
 
@@ -84,6 +85,14 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   serverLayout->addWidget(m_cgiLineEdit);
   m_cgiLabel->setBuddy(m_cgiLineEdit);
   vlayout->addLayout(serverLayout);
+
+  auto tokenLayout = new QHBoxLayout;
+  m_tokenLabel = new QLabel(tr("&Token:"), this);
+  m_tokenLineEdit = new QLineEdit(this);
+  tokenLayout->addWidget(m_tokenLabel);
+  tokenLayout->addWidget(m_tokenLineEdit);
+  m_tokenLabel->setBuddy(m_tokenLineEdit);
+  vlayout->addLayout(tokenLayout);
 
   auto hlayout = new QHBoxLayout;
   m_standardTagsCheckBox = new QCheckBox(tr("&Standard Tags"), this);
@@ -173,6 +182,13 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       m_serverComboBox->hide();
       m_cgiLabel->hide();
       m_cgiLineEdit->hide();
+    }
+    if (qstrcmp(m_source->name(), "Discogs") == 0) {
+      m_tokenLabel->show();
+      m_tokenLineEdit->show();
+    } else {
+      m_tokenLabel->hide();
+      m_tokenLineEdit->hide();
     }
     if (m_source->additionalTags()) {
       m_standardTagsCheckBox->show();
@@ -276,6 +292,26 @@ void ServerImportDialog::setCgiPath(const QString& cgi)
 }
 
 /**
+ * Get token to access API server.
+ * @return token.
+ */
+QString ServerImportDialog::getToken() const
+{
+  return m_tokenLineEdit ? m_tokenLineEdit->text() : QString();
+}
+
+/**
+ * Set token to access API server.
+ * @param token access token
+ */
+void ServerImportDialog::setToken(const QString& token)
+{
+  if (m_tokenLineEdit) {
+    m_tokenLineEdit->setText(token);
+  }
+}
+
+/**
  * Get standard tags option.
  *
  * @return true if standard tags are enabled.
@@ -363,6 +399,11 @@ void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
   cfg->setAdditionalTags(getAdditionalTags());
   cfg->setCoverArt(getCoverArt());
   cfg->setWindowGeometry(saveGeometry());
+
+  QString token = getToken();
+  if (!token.isEmpty() || cfg->property("token").isValid()) {
+    cfg->setProperty("token", token);
+  }
 }
 
 /**
@@ -393,6 +434,8 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
     if (!cf->windowGeometry().isEmpty()) {
       restoreGeometry(cf->windowGeometry());
     }
+
+    setToken(cf->property("token").toString());
   }
 
   if (!(artist.isEmpty() && album.isEmpty())) {

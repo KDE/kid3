@@ -94,6 +94,18 @@ public:
   void setCgiPath(const QString& cgi);
 
   /**
+   * Get token to access API server.
+   * @return token.
+   */
+  QString getToken() const;
+
+  /**
+   * Set token to access API server.
+   * @param token access token
+   */
+  void setToken(const QString& token);
+
+  /**
    * Get standard tags option.
    *
    * @return true if standard tags are enabled.
@@ -219,6 +231,8 @@ private:
   QComboBox* m_serverComboBox;
   QLabel* m_cgiLabel;
   QLineEdit* m_cgiLineEdit;
+  QLabel* m_tokenLabel;
+  QLineEdit* m_tokenLineEdit;
   QCheckBox* m_standardTagsCheckBox;
   QCheckBox* m_additionalTagsCheckBox;
   QCheckBox* m_coverArtCheckBox;
