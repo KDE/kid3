@@ -3706,10 +3706,15 @@ void setData(TagLib::ID3v2::ChapterFrame* f,
   }
   // The embedded frames are deleted here because frames without subframes
   // do not have an ID_Subframe field and setSubframes() is not called.
-  const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
-  for (auto it = l.begin(); it != l.end(); ++it) {
-    f->removeEmbeddedFrame(*it, true);
+  while (!f->embeddedFrameList().isEmpty()) {
+    f->removeEmbeddedFrame(f->embeddedFrameList()[0]);
   }
+  // f->removeEmbeddedFrame() calls erase() thereby invalidating an iterator
+  // on f->embeddedFrameList(). The uncommented code below will therefore crash.
+  // const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
+  // for (auto it = l.begin(); it != l.end(); ++it) {
+  //   f->removeEmbeddedFrame(*it, true);
+  // }
 }
 
 template <>
@@ -3732,10 +3737,15 @@ void setData(TagLib::ID3v2::TableOfContentsFrame* f,
   }
   // The embedded frames are deleted here because frames without subframes
   // do not have an ID_Subframe field and setSubframes() is not called.
-  const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
-  for (auto it = l.begin(); it != l.end(); ++it) {
-    f->removeEmbeddedFrame(*it, true);
+  while (!f->embeddedFrameList().isEmpty()) {
+    f->removeEmbeddedFrame(f->embeddedFrameList()[0]);
   }
+  // f->removeEmbeddedFrame() calls erase() thereby invalidating an iterator
+  // on f->embeddedFrameList(). The uncommented code below will therefore crash.
+  // const TagLib::ID3v2::FrameList l = f->embeddedFrameList();
+  // for (auto it = l.begin(); it != l.end(); ++it) {
+  //   f->removeEmbeddedFrame(*it, true);
+  // }
 }
 
 template <class T>

@@ -59,6 +59,7 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
   auto layout = new QHBoxLayout(this);
   m_frameTableModel = new FrameTableModel(
         false, platformTools->iconProvider(), this);
+  m_frameTableModel->setHeadersEmpty(true);
   m_frameTable = new FrameTable(m_frameTableModel, new GenreModel(false, this),
                                 this);
   layout->addWidget(m_frameTable);
