@@ -1118,6 +1118,11 @@ public slots:
   void selectAllInDirectory();
 
   /**
+   * Invert current selection.
+   */
+  void invertSelection();
+
+  /**
    * Set a specific file as the current file.
    *
    * @param filePath path to file

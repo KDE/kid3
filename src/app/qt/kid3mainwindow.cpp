@@ -353,6 +353,14 @@ void Kid3MainWindow::initActions()
     app(), &Kid3Application::selectAllInDirectory);
   editMenu->addAction(editSelectAllInDir);
 
+  auto editInvertSelection = new QAction(this);
+  editInvertSelection->setText(tr("&Invert Selection"));
+  editInvertSelection->setObjectName(QLatin1String("invert_selection"));
+  m_shortcutsModel->registerAction(editInvertSelection, menuTitle);
+  connect(editInvertSelection, &QAction::triggered,
+    app(), &Kid3Application::invertSelection);
+  editMenu->addAction(editInvertSelection);
+
   auto editPreviousFile = new QAction(this);
   editPreviousFile->setStatusTip(tr("Select previous file"));
   editPreviousFile->setText(tr("&Previous File"));

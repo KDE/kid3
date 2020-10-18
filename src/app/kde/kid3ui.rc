@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kid3" version="17">
+<kpartgui name="kid3" version="18">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_open"/>
@@ -30,6 +30,7 @@
     <Action name="edit_select_all"/>
     <Action name="edit_deselect"/>
     <Action name="select_all_in_directory"/>
+    <Action name="invert_selection"/>
     <Action name="previous_file"/>
     <Action name="next_file"/>
     <Separator/>

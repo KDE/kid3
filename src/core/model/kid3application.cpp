@@ -2591,6 +2591,35 @@ void Kid3Application::selectAllInDirectory()
 }
 
 /**
+ * Invert current selection.
+ */
+void Kid3Application::invertSelection()
+{
+  QModelIndexList todo;
+  todo.append(m_fileProxyModelRootIndex);
+  while (!todo.isEmpty()) {
+    QModelIndex parent = todo.takeFirst();
+    QModelIndex first, last;
+    for (int row = 0, numRows = m_fileProxyModel->rowCount(parent);
+         row < numRows;
+         ++row) {
+      QModelIndex idx = m_fileProxyModel->index(row, 0, parent);
+      if (row == 0) {
+        first = idx;
+      } else if (row == numRows - 1) {
+        last = idx;
+      }
+      if (m_fileProxyModel->hasChildren(idx)) {
+        todo.append(idx);
+      }
+    }
+    m_fileSelectionModel->select(
+          QItemSelection(first, last),
+          QItemSelectionModel::Toggle | QItemSelectionModel::Rows);
+  }
+}
+
+/**
  * Set a specific file as the current file.
  *
  * @param filePath path to file

@@ -336,6 +336,9 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Select all files in the current folder"));
   collection->addAction(QLatin1String("select_all_in_directory"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::selectAllInDirectory);
+  action = new QAction(tr("&Invert Selection"), this);
+  collection->addAction(QLatin1String("invert_selection"), action);
+  connect(action, &QAction::triggered, app(), &Kid3Application::invertSelection);
   action = new QAction(QIcon::fromTheme(QLatin1String("go-previous")),
                        tr("&Previous File"), this);
   action->setStatusTip(tr("Select previous file"));
