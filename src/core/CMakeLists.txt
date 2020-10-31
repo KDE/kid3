@@ -175,7 +175,6 @@ target_compile_definitions(kid3-core
   PUBLIC QT_ASCII_CAST_WARNINGS QT_NO_CAST_TO_ASCII QT_NO_URL_CAST_FROM_STRING QT_STRICT_ITERATORS QT_NO_EXCEPTIONS QT_NO_STL
 )
 
-set_target_properties(kid3-core PROPERTIES VERSION ${KID3_VERSION})
 if(CMAKE_VERSION VERSION_GREATER "3.8")
   target_compile_features(kid3-core PUBLIC cxx_std_11)
 else()

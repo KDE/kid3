@@ -109,7 +109,6 @@ target_include_directories(kid3-gui PRIVATE widgets PUBLIC dialogs forms)
 
 target_compile_definitions(kid3-gui PRIVATE KID3_BUILD_GUI_LIB)
 
-set_target_properties(kid3-gui PROPERTIES VERSION ${KID3_VERSION})
 target_link_libraries(kid3-gui kid3-core Qt5::Widgets Qt5::Multimedia)
 
 if(BUILD_SHARED_LIBS)
