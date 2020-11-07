@@ -40,6 +40,9 @@ class KID3_CORE_EXPORT MainWindowConfig : public StoredConfig<MainWindowConfig> 
   /** mainwindow state */
   Q_PROPERTY(QByteArray windowState READ windowState WRITE setWindowState
              NOTIFY windowStateChanged)
+  /** application language */
+  Q_PROPERTY(QString language READ language WRITE setLanguage
+             NOTIFY languageChanged)
   /** custom application font family */
   Q_PROPERTY(QString fontFamily READ fontFamily WRITE setFontFamily
              NOTIFY fontFamilyChanged)
@@ -100,6 +103,12 @@ public:
   /** Set mainwindow state. */
   void setWindowState(const QByteArray& windowState);
 
+  /** Get application language. */
+  QString language() const { return m_language; }
+
+  /** Set application language. */
+  void setLanguage(const QString& language);
+
   /** Get custom application font family. */
   QString fontFamily() const { return m_fontFamily; }
 
@@ -153,12 +162,20 @@ public:
    */
   Q_INVOKABLE static QStringList getQtQuickStyleNames();
 
+  /**
+   * List of available languages.
+   */
+  Q_INVOKABLE static QStringList availableLanguages();
+
 signals:
   /** Emitted when @a geometry changed. */
   void geometryChanged(const QByteArray& geometry);
 
   /** Emitted when @a windowState changed. */
   void windowStateChanged(const QByteArray& windowState);
+
+  /** Emitted when @a language changed. */
+  void languageChanged(const QString& language);
 
   /** Emitted when @a fontFamily changed. */
   void fontFamilyChanged(const QString& fontFamily);
@@ -189,6 +206,7 @@ private:
 
   QByteArray m_geometry;
   QByteArray m_windowState;
+  QString m_language;
   QString m_fontFamily;
   int m_fontSize;
   QString m_style;

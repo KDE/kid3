@@ -376,6 +376,18 @@ AbstractSettingsPage {
       visible: false
       model: [
         SettingsElement {
+          name: qsTr("Language")
+          dropDownModel: [qsTr("System")]
+            .concat(configs.mainWindowConfig().availableLanguages())
+          onActivated: function() {
+            value = mainWindowCfg.language
+                ? dropDownModel.indexOf(mainWindowCfg.language) : 0
+          }
+          onDeactivated: function() {
+            mainWindowCfg.language = value > 0 ? dropDownModel[value] : ""
+          }
+        },
+        SettingsElement {
           name: qsTr("Theme")
           dropDownModel: configs.mainWindowConfig().getQtQuickStyleNames()
           onActivated: function() {

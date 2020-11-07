@@ -30,6 +30,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
+#include <QSettings>
 #include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kid3mainwindow.h"
@@ -58,8 +59,6 @@ int main(int argc, char* argv[])
   Kid3QtApplication app(argc, argv);
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
 
-  Utils::loadTranslation();
-
 #ifdef Q_OS_MAC
   QDir dir(QApplication::applicationDirPath());
   dir.cdUp();
@@ -73,6 +72,18 @@ int main(int argc, char* argv[])
     qputenv("KID3_CONFIG_FILE",
             QCoreApplication::applicationDirPath().toLatin1() + "/kid3.ini");
   }
+
+  // The Language setting has to be read bypassing the regular
+  // configuration object because the language must be set before
+  // the application is created.
+  QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
+  auto configuredLanguage = configPath.isNull()
+      ? QSettings(QSettings::UserScope, QLatin1String("Kid3"),
+                  QLatin1String("Kid3"))
+        .value(QLatin1String("MainWindow/Language")).toString()
+      : QSettings(QFile::decodeName(configPath), QSettings::IniFormat)
+        .value(QLatin1String("MainWindow/Language")).toString();
+  Utils::loadTranslation(configuredLanguage);
 
   IPlatformTools* platformTools = new PlatformTools;
   auto kid3App = new Kid3Application(platformTools);

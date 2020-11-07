@@ -31,6 +31,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QFileInfo>
+#include <QDir>
 #include "config.h"
 
 namespace {
@@ -143,4 +144,25 @@ void Utils::prependApplicationDirPathIfRelative(QString& path)
       path.prepend(appDir);
     }
   }
+}
+
+/**
+ * Load list of available translations.
+ * @return language codes of installed translations, e.g. {"de", "en", ...}.
+ */
+QStringList Utils::availableTranslations()
+{
+  QString translationsDir;
+#ifdef CFG_TRANSLATIONSDIR
+  translationsDir = QLatin1String(CFG_TRANSLATIONSDIR);
+  prependApplicationDirPathIfRelative(translationsDir);
+#endif
+  QDir dir(translationsDir);
+  const QStringList fileNames = dir.entryList({QLatin1String("kid3_*.qm")},
+                                              QDir::Files, QDir::Name);
+  QStringList languages;
+  for (const auto& fileName : fileNames) {
+    languages.append(fileName.mid(5, fileName.length() - 8));
+  }
+  return languages;
 }

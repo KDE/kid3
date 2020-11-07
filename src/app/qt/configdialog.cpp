@@ -108,6 +108,16 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     auto vlayout = new QVBoxLayout(appearancePage);
     auto fontStyleLayout = new QGridLayout;
 
+    QLabel* languageLabel = new QLabel(tr("&Language"), appearancePage);
+    m_languageComboBox = new QComboBox(appearancePage);
+    m_languageComboBox->addItem(tr("System"));
+    const auto languages = MainWindowConfig::instance().availableLanguages();
+    for (const auto& language : languages) {
+      m_languageComboBox->addItem(language);
+    }
+    languageLabel->setBuddy(m_languageComboBox);
+    fontStyleLayout->addWidget(languageLabel, 0, 0);
+    fontStyleLayout->addWidget(m_languageComboBox, 0, 1);
     m_useApplicationFontCheckBox =
         new QCheckBox(tr("Use custom app&lication font"), appearancePage);
     m_applicationFontButton =
@@ -115,10 +125,10 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_useApplicationStyleCheckBox =
         new QCheckBox(tr("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
-    fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
-    fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
-    fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 1, 0);
-    fontStyleLayout->addWidget(m_applicationStyleComboBox, 1, 1);
+    fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 1, 0);
+    fontStyleLayout->addWidget(m_applicationFontButton, 1, 1);
+    fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 2, 0);
+    fontStyleLayout->addWidget(m_applicationStyleComboBox, 2, 1);
     m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
     connect(m_applicationFontButton, &QAbstractButton::clicked,
@@ -189,6 +199,9 @@ void ConfigDialog::setConfig()
  */
 void ConfigDialog::setConfigs(const MainWindowConfig& mainWindowConfig)
 {
+  const QString language = mainWindowConfig.language();
+  m_languageComboBox->setCurrentText(
+        language.isEmpty() ? tr("System") : language);
   m_useApplicationFontCheckBox->setChecked(mainWindowConfig.useFont());
   m_applicationFontButton->setEnabled(mainWindowConfig.useFont());
   if (mainWindowConfig.style().isEmpty()) {
@@ -222,6 +235,8 @@ void ConfigDialog::getConfig() const
 
   MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
   m_shortcutsModel->assignChangedShortcuts();
+  const QString language = m_languageComboBox->currentText();
+  mainWindowConfig.setLanguage(language != tr("System") ? language : QString());
   if (m_useApplicationFontCheckBox->isChecked()) {
     QFont font = QApplication::font();
     mainWindowConfig.setFontFamily(font.family());

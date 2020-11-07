@@ -124,6 +124,9 @@ int main(int argc, char* argv[])
   auto style = QSettings(QSettings::UserScope, QLatin1String("Kid3"),
                          QLatin1String("Kid3"))
       .value(QLatin1String("MainWindow/QtQuickStyle")).toByteArray();
+  auto configuredLanguage = QSettings(
+        QSettings::UserScope, QLatin1String("Kid3"), QLatin1String("Kid3"))
+      .value(QLatin1String("MainWindow/Language")).toString();
   if (style.isEmpty()) {
 #ifdef Q_OS_ANDROID
     style = "Material/Light";
@@ -142,7 +145,7 @@ int main(int argc, char* argv[])
   }
 
   Kid3QtApplication app(argc, argv);
-  Utils::loadTranslation();
+  Utils::loadTranslation(configuredLanguage);
 #ifdef Q_OS_MAC
   QDir dir(QCoreApplication::applicationDirPath());
   dir.cdUp();

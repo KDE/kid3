@@ -46,4 +46,10 @@ void KID3_CORE_EXPORT loadTranslation(const QString& lang = QString());
  */
 void KID3_CORE_EXPORT prependApplicationDirPathIfRelative(QString& path);
 
+/**
+ * Load list of available translations.
+ * @return language codes of installed translations, e.g. {"de", "en", ...}.
+ */
+QStringList KID3_CORE_EXPORT availableTranslations();
+
 }

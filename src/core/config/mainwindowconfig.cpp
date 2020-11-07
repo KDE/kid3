@@ -26,6 +26,7 @@
 
 #include "mainwindowconfig.h"
 #include "isettings.h"
+#include "loadtranslation.h"
 
 int MainWindowConfig::s_index = -1;
 
@@ -60,6 +61,7 @@ void MainWindowConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("HideStatusBar"), QVariant(m_hideStatusBar));
   config->setValue(QLatin1String("Geometry"), m_geometry);
   config->setValue(QLatin1String("WindowState"), m_windowState);
+  config->setValue(QLatin1String("Language"), QVariant(m_language));
   config->setValue(QLatin1String("UseFont"), QVariant(m_useFont));
   config->setValue(QLatin1String("FontFamily"), QVariant(m_fontFamily));
   config->setValue(QLatin1String("FontSize"), QVariant(m_fontSize));
@@ -81,6 +83,7 @@ void MainWindowConfig::readFromConfig(ISettings* config)
   m_hideStatusBar = config->value(QLatin1String("HideStatusBar"), m_hideStatusBar).toBool();
   m_geometry = config->value(QLatin1String("Geometry"), m_geometry).toByteArray();
   m_windowState = config->value(QLatin1String("WindowState"), m_windowState).toByteArray();
+  m_language = config->value(QLatin1String("Language"), m_language).toString();
   m_useFont = config->value(QLatin1String("UseFont"), m_useFont).toBool();
   m_fontFamily = config->value(QLatin1String("FontFamily"), m_fontFamily).toString();
   m_fontSize = config->value(QLatin1String("FontSize"), -1).toInt();
@@ -104,6 +107,14 @@ void MainWindowConfig::setWindowState(const QByteArray& windowState)
   if (m_windowState != windowState) {
     m_windowState = windowState;
     emit windowStateChanged(m_windowState);
+  }
+}
+
+void MainWindowConfig::setLanguage(const QString& language)
+{
+  if (m_language != language) {
+    m_language = language;
+    emit languageChanged(m_language);
   }
 }
 
@@ -178,4 +189,17 @@ QStringList MainWindowConfig::getQtQuickStyleNames()
     QLatin1String("Material/Dark"),
     QLatin1String("Material/System")
   };
+}
+
+QStringList MainWindowConfig::availableLanguages()
+{
+  static QStringList languages;
+  if (languages.isEmpty()) {
+    // first time initialization
+    languages = Utils::availableTranslations();
+    if (!languages.contains(QLatin1String("en"))) {
+      languages.prepend(QLatin1String("en"));
+    }
+  }
+  return languages;
 }

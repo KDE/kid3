@@ -125,6 +125,7 @@ private:
   QPushButton* m_applicationFontButton;
   QCheckBox* m_useApplicationStyleCheckBox;
   QComboBox* m_applicationStyleComboBox;
+  QComboBox* m_languageComboBox;
   QCheckBox* m_useNativeDialogsCheckBox;
   QFont m_font;
   QString m_style;
