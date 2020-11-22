@@ -164,8 +164,16 @@ bool QmlCommandPlugin::startUserCommand(
 void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
 {
   QDir pluginsDir;
+#ifdef Q_OS_MAC
+  // Folders containing a dot (like QtQuick.2) will cause Apple's code signing
+  // to fail. On macOS, the QML plugins are therefore in Resorces/qml/imports.
+  const QString qmlImportsRelativeToPlugins =
+      QLatin1String("../Resources/qml/imports");
+#else
+  const QString qmlImportsRelativeToPlugins = QLatin1String("imports");
+#endif
   if (Kid3Application::findPluginsDirectory(pluginsDir) &&
-      pluginsDir.cd(QLatin1String("imports"))) {
+      pluginsDir.cd(qmlImportsRelativeToPlugins)) {
     engine->addImportPath(pluginsDir.absolutePath());
   }
   engine->rootContext()->setContextProperty(QLatin1String("app"), m_app);
