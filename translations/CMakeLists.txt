@@ -1,10 +1,22 @@
+set(_languages ca ca@valencia cs da de el en en_GB es et fi fr it ko nl pl pt pt_BR ru sr sr@ijekavian sr@ijekavianlatin sr@latin sv tr uk zh_CN zh_TW)
+
+# If no po directory is present, download the translations directly from SVN.
+if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+  execute_process(COMMAND ${CMAKE_COMMAND}
+    -P "${CMAKE_CURRENT_SOURCE_DIR}/download-pos.cmake" "${_languages}"
+    RESULT_VARIABLE result
+    ERROR_QUIET)
+  if(NOT "${result}" STREQUAL "0")
+    message(WARNING "Failed to download po files, result='${result}'")
+    file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/po")
+  endif()
+endif()
+
 if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
   # Using ecm_install_po_files_as_qm() from ECMPoQmTools does not work
   # because the generated ts files do not have context information,
   # just one single context with an empty name.
 
-  file(GLOB _languages RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/po" po/*)
-  list(REMOVE_ITEM _languages kid3_qt.pot)
   set(_poFiles)
   set(_tsFiles)
 

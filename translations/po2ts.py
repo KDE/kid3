@@ -181,7 +181,7 @@ def generate_ts(lupdate_cmd, podir, srcdir):
     parameters: path to lupdate command, directory with po-files,
     directory with source files
     """
-    pofiles = glob.glob(os.path.join(podir, '*/*.po'))
+    pofiles = glob.glob(os.path.join(podir, '*/kid3_qt.po'))
     pofnre = re.compile(r'^.*[\\/]([\w@]+)[\\/][^\\/]+\.po$')
     languages = [pofnre.sub(r'\1', f) for f in pofiles]
     curdir = os.getcwd()

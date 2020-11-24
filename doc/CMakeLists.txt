@@ -1,3 +1,17 @@
+set(_languages ca de it nl pt sv uk)
+
+# If no po directory is present, download the translations directly from SVN.
+if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+  execute_process(COMMAND ${CMAKE_COMMAND}
+    -P "${CMAKE_CURRENT_SOURCE_DIR}/download-pos.cmake" "${_languages}"
+    RESULT_VARIABLE result
+    ERROR_QUIET)
+  if(NOT "${result}" STREQUAL "0")
+    message(WARNING "Failed to download po files, result='${result}'")
+    file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/po")
+  endif()
+endif()
+
 # Create HTML handbook from DocBook file in language directory
 macro(kid3_create_handbook _docbook _lang)
   get_filename_component(_input ${_docbook} ABSOLUTE)
@@ -127,7 +141,6 @@ os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
 endif()
 
 if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs")
-  file(GLOB _languages RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/docs" docs/*)
   list(APPEND _languages en)
 else()
   set(_languages en)
