@@ -4,11 +4,11 @@ set(_languages ca de it nl pt sv uk)
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
   execute_process(COMMAND ${CMAKE_COMMAND}
     -P "${CMAKE_CURRENT_SOURCE_DIR}/download-pos.cmake" "${_languages}"
-    RESULT_VARIABLE result
-    ERROR_QUIET)
+    RESULT_VARIABLE result)
   if(NOT "${result}" STREQUAL "0")
-    message(WARNING "Failed to download po files, result='${result}'")
+    message(STATUS "Download failed, removing po, docs")
     file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/docs")
   endif()
 endif()
 
