@@ -41,7 +41,7 @@ macro(kid3_create_handbook _docbook _lang)
     add_custom_command(OUTPUT ${_output}
       COMMAND
         ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} |
-        ${XSLTPROC} --novalid --nonet ${_docbook_xsl} - |
+        ${XSLTPROC} --maxdepth 20000 --novalid --nonet ${_docbook_xsl} - |
         ${PYTHON_EXECUTABLE} ${_fixhtml_py} >${_output}
       DEPENDS ${_input}
     )
