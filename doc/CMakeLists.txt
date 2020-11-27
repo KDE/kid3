@@ -77,7 +77,7 @@ if(UNIX)
     add_custom_command(OUTPUT ${_output}
       COMMAND
         ${PYTHON_EXECUTABLE} ${_fixdocbook_py} ${_input} |
-        ${XSLTPROC} --novalid --nonet ${_docbook_xsl} -
+        ${XSLTPROC} --maxdepth 20000 --novalid --nonet ${_docbook_xsl} -
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${_lang}
       DEPENDS ${_input}
     )
