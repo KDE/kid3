@@ -137,6 +137,8 @@ QStringList JsonCliFormatter::parseArguments(const QString& line)
                 if (argInt != INT_MIN) {
                   arg = QString::number(argInt);
                 }
+              } else if (param.isBool()) {
+                arg = QLatin1String(param.toBool() ? "true" : "false");
               }
             }
             m_args.append(arg);
@@ -238,6 +240,11 @@ void JsonCliFormatter::writeResult(const QVariantMap& map)
   } else {
     result = QJsonObject::fromVariantMap(map);
   }
+  m_response.insert(QLatin1String("result"), result);
+}
+
+void JsonCliFormatter::writeResult(bool result)
+{
   m_response.insert(QLatin1String("result"), result);
 }
 

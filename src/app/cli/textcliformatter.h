@@ -114,6 +114,12 @@ public:
   virtual void writeResult(const QVariantMap& map) override;
 
   /**
+   * Write result message.
+   * @param result result as boolean
+   */
+  virtual void writeResult(bool result) override;
+
+  /**
    * Called when a command is finished.
    */
   virtual void finishWriting() override;

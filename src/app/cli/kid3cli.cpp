@@ -649,6 +649,15 @@ void Kid3Cli::writeResult(const QVariantMap& map)
 }
 
 /**
+ * Write result of command.
+ * @param result result as boolean
+ */
+void Kid3Cli::writeResult(bool result)
+{
+  m_formatter->writeResult(result);
+}
+
+/**
  * Called when a command is finished.
  */
 void Kid3Cli::finishWriting()

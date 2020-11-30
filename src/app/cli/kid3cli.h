@@ -96,6 +96,12 @@ public:
   void writeResult(const QVariantMap& map);
 
   /**
+   * Write result of command.
+   * @param map result as boolean
+   */
+  void writeResult(bool result);
+
+  /**
    * Called when a command is finished.
    */
   void finishWriting();

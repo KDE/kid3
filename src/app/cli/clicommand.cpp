@@ -1368,6 +1368,8 @@ void ConfigCommand::startCommand()
       } else if (value.type() == QVariant::Int) {
         value = configIntToEnumName(group, option, value);
         cli()->writeResult(value.toString());
+      } else if (value.type() == QVariant::Bool) {
+        cli()->writeResult(value.toBool());
       } else {
         cli()->writeResult(value.toString());
       }

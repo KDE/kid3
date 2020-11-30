@@ -118,6 +118,12 @@ public:
   virtual void writeResult(const QVariantMap& map) = 0;
 
   /**
+   * Write result message.
+   * @param result result as boolean
+   */
+  virtual void writeResult(bool result) = 0;
+
+  /**
    * Called when a command is finished.
    */
   virtual void finishWriting() = 0;

@@ -222,6 +222,11 @@ void TextCliFormatter::writeResult(const QStringList& strs)
   }
 }
 
+void TextCliFormatter::writeResult(bool result)
+{
+  io()->writeLine(QLatin1String(result ? "true" : "false"));
+}
+
 void TextCliFormatter::writeResult(const QVariantMap& map)
 {
   for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
