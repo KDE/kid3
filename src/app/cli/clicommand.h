@@ -593,3 +593,14 @@ public:
 protected:
   virtual void startCommand() override;
 };
+
+/** Get or set configuration options. */
+class ConfigCommand : public CliCommand {
+  Q_OBJECT
+public:
+  /** Constructor. */
+  explicit ConfigCommand(Kid3Cli* processor);
+
+protected:
+  virtual void startCommand() override;
+};

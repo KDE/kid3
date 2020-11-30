@@ -25,11 +25,13 @@
  */
 
 #include "clicommand.h"
+#include <functional>
 #include <QStringList>
 #include <QStringBuilder>
 #include <QTimer>
 #include <QDir>
 #include <QItemSelectionModel>
+#include <QMetaProperty>
 #include "kid3cli.h"
 #include "kid3application.h"
 #include "fileproxymodel.h"
@@ -41,6 +43,11 @@
 #include "fileconfig.h"
 #include "rendirconfig.h"
 #include "batchimportconfig.h"
+#include "formatconfig.h"
+#include "networkconfig.h"
+#include "numbertracksconfig.h"
+#include "playlistconfig.h"
+#include "tagconfig.h"
 #include "batchimporter.h"
 #include "downloadclient.h"
 #include "dirrenamer.h"
@@ -49,6 +56,206 @@ namespace {
 
 /** Default command timeout in milliseconds. */
 const int DEFAULT_TIMEOUT_MS = 3000;
+
+/**
+ * Available names for groups in config command.
+ * If this list is modified, adapt also the cfgFuncs in getConfig().
+ */
+const QStringList configNames{
+  QLatin1String("BatchImport"),
+  QLatin1String("Export"),
+  QLatin1String("File"),
+  QLatin1String("FilenameFormat"),
+  QLatin1String("Filter"),
+  QLatin1String("Import"),
+  QLatin1String("Network"),
+  QLatin1String("NumberTracks"),
+  QLatin1String("Playlist"),
+  QLatin1String("RenameFolder"),
+  QLatin1String("Tag"),
+  QLatin1String("TagFormat")
+};
+
+/** Properties which shall not be displayed as config options. */
+const QStringList excludedConfigPropertyNames{
+  QLatin1String("objectName"),
+  QLatin1String("windowGeometry"),
+  QLatin1String("exportWindowGeometry"),
+  QLatin1String("importServer"),
+  QLatin1String("importVisibleColumns"),
+  QLatin1String("importWindowGeometry"),
+  QLatin1String("browseCoverArtWindowGeometry"),
+  QLatin1String("quickAccessFrames"),
+  QLatin1String("quickAccessFrameOrder"),
+  QLatin1String("taggedFileFeatures")
+};
+
+/**
+ * Get a configuration object for a given group name.
+ * @param name group name
+ * @return QObject with configuration options as properties.
+ */
+GeneralConfig* getConfig(const QString& name)
+{
+  int idx = configNames.indexOf(name);
+  if (idx == -1) {
+    return nullptr;
+  }
+
+  // Change this list together with configNames.
+  static const std::function<GeneralConfig*(void)> cfgFuncs[] = {
+    []() { return &BatchImportConfig::instance(); },
+    []() { return &ExportConfig::instance(); },
+    []() { return &FileConfig::instance(); },
+    []() { return &FilenameFormatConfig::instance(); },
+    []() { return &FilterConfig::instance(); },
+    []() { return &ImportConfig::instance(); },
+    []() { return &NetworkConfig::instance(); },
+    []() { return &NumberTracksConfig::instance(); },
+    []() { return &PlaylistConfig::instance(); },
+    []() { return &RenDirConfig::instance(); },
+    []() { return &TagConfig::instance(); },
+    []() { return &TagFormatConfig::instance(); }
+  };
+  return cfgFuncs[idx]();
+}
+
+/**
+ * Convert an integer value to the corresponding enum name string.
+ * @param group config group
+ * @param option config option
+ * @param value enum value as integer
+ * @return enum value as string, original int value if invalid.
+ */
+QVariant configIntToEnumName(const QString& group, const QString& option,
+                             const QVariant& value)
+{
+  const int enumVal = value.toInt();
+  if (option == QLatin1String("importDest") ||
+      option == QLatin1String("exportSource") ||
+      option == QLatin1String("numberTracksDestination")) {
+    QString tagMaskStr;
+    for (Frame::TagNumber tagNr :
+         Frame::tagNumbersFromMask(Frame::tagVersionCast(enumVal))) {
+      tagMaskStr += Frame::tagNumberToString(tagNr);
+    }
+    return tagMaskStr;
+  } else if (option == QLatin1String("caseConversion")) {
+    const QMetaObject metaObj = FormatConfig::staticMetaObject;
+    const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("CaseConversion")).valueToKey(enumVal);
+    if (key) {
+      return QString::fromLatin1(key);
+    }
+  } else if (group == QLatin1String("Playlist") &&
+             option == QLatin1String("location")) {
+    const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
+    const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("PlaylistLocation")).valueToKey(enumVal);
+    if (key) {
+      return QString::fromLatin1(key);
+    }
+  } else if (group == QLatin1String("Playlist") &&
+             option == QLatin1String("format")) {
+    const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
+    const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("PlaylistFormat")).valueToKey(enumVal);
+    if (key) {
+      return QString::fromLatin1(key);
+    }
+  } else if (group == QLatin1String("Tag") &&
+             option == QLatin1String("id3v2Version")) {
+    const QMetaObject metaObj = TagConfig::staticMetaObject;
+    const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("Id3v2Version")).valueToKey(enumVal);
+    if (key) {
+      return QString::fromLatin1(key);
+    }
+  } else if (group == QLatin1String("Tag") &&
+             option == QLatin1String("textEncoding")) {
+    const QMetaObject metaObj = TagConfig::staticMetaObject;
+    const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("TextEncoding")).valueToKey(enumVal);
+    if (key) {
+      return QString::fromLatin1(key);
+    }
+  }
+  return value;
+}
+
+/**
+ * Convert an enum value name to the corresponding integer value.
+ * @param group config group
+ * @param option config option
+ * @param enumName enum value as string
+ * @return enum value as integer, original string value if invalid.
+ */
+QVariant configIntFromEnumName(const QString& group, const QString& option,
+                               const QVariant& value)
+{
+  const QString enumName = value.toString();
+  int val;
+  bool ok;
+  if (option == QLatin1String("importDest") ||
+      option == QLatin1String("exportSource") ||
+      option == QLatin1String("numberTracksDestination")) {
+    val = 0;
+    if (!enumName.isEmpty() && enumName.at(0).isDigit()) {
+      FOR_ALL_TAGS(tagNr) {
+        if (enumName.contains(Frame::tagNumberToString(tagNr))) {
+          val |= Frame::tagVersionFromNumber(tagNr);
+        }
+      }
+      if (val != 0) {
+        return val;
+      }
+    }
+  } else if (option == QLatin1String("caseConversion")) {
+    const QMetaObject metaObj = FormatConfig::staticMetaObject;
+    val = metaObj.enumerator(metaObj.indexOfEnumerator("CaseConversion"))
+        .keyToValue(enumName.toLatin1(), &ok);
+    if (ok) {
+      return val;
+    }
+  } else if (group == QLatin1String("Playlist") &&
+             option == QLatin1String("location")) {
+    const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
+    val = metaObj.enumerator(metaObj.indexOfEnumerator("PlaylistLocation"))
+        .keyToValue(enumName.toLatin1(), &ok);
+    if (ok) {
+      return val;
+    }
+  } else if (group == QLatin1String("Playlist") &&
+             option == QLatin1String("format")) {
+    const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
+    val = metaObj.enumerator(metaObj.indexOfEnumerator("PlaylistFormat"))
+        .keyToValue(enumName.toLatin1(), &ok);
+    if (ok) {
+      return val;
+    }
+  } else if (group == QLatin1String("Tag") &&
+             option == QLatin1String("id3v2Version")) {
+    const QMetaObject metaObj = TagConfig::staticMetaObject;
+    val = metaObj.enumerator(metaObj.indexOfEnumerator("Id3v2Version"))
+        .keyToValue(enumName.toLatin1(), &ok);
+    if (ok) {
+      return val;
+    }
+  } else if (group == QLatin1String("Tag") &&
+             option == QLatin1String("textEncoding")) {
+    const QMetaObject metaObj = TagConfig::staticMetaObject;
+    val = metaObj.enumerator(metaObj.indexOfEnumerator("TextEncoding"))
+        .keyToValue(enumName.toLatin1(), &ok);
+    if (ok) {
+      return val;
+    }
+  }
+  val = enumName.toInt(&ok);
+  if (ok) {
+    return val;
+  }
+  return QVariant();
+}
 
 }
 
@@ -1078,4 +1285,94 @@ void RemoveCommand::startCommand()
 {
   Frame::TagVersion tagMask = getTagMaskParameter(1);
   cli()->app()->removeTags(tagMask);
+}
+
+
+ConfigCommand::ConfigCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("config"), tr("Configure Kid3"),
+               QLatin1String("[S]\nS = Group.Option Value"))
+{
+}
+
+void ConfigCommand::startCommand()
+{
+  int numArgs = args().size();
+  QString group, option;
+  GeneralConfig* cfg = nullptr;
+  QVariant value;
+  if (numArgs > 1) {
+    const QString& groupOption = args().at(1);
+    int dotPos = groupOption.indexOf(QLatin1Char('.'));
+    if (dotPos > 0) {
+      group = groupOption.left(dotPos);
+      option = groupOption.mid(dotPos + 1);
+    } else {
+      group = groupOption;
+    }
+    cfg = getConfig(group);
+    if (!cfg) {
+      setError(tr("%1 does not exist").arg(group));
+      return;
+    }
+    if (!option.isNull()) {
+      value = cfg->property(option.toLatin1());
+      if (!value.isValid()) {
+        setError(tr("%1 does not exist").arg(option));
+        return;
+      }
+    }
+  }
+  if (numArgs > 2) {
+    const QMetaObject* metaObj = nullptr;
+    int propIdx = -1;
+    if (!option.isNull() && (metaObj = cfg->metaObject()) != nullptr &&
+        (propIdx = metaObj->indexOfProperty(option.toLatin1())) >= 0) {
+      QVariant::Type propType = metaObj->property(propIdx).type();
+      if (propType == QVariant::StringList) {
+        value = QVariant(args().mid(2));
+      } else if (propType == QVariant::Int) {
+        value = configIntFromEnumName(group, option, args().at(2));
+      } else if (propType == QVariant::Bool) {
+        value = QVariant(args().at(2)).toBool();
+      } else {
+        value = args().at(2);
+      }
+      if (value.type() == propType) {
+        cfg->setProperty(option.toLatin1(), value);
+        cli()->app()->applyChangedConfiguration();
+        // The value is read back and will be displayed.
+        value = cfg->property(option.toLatin1());
+      } else {
+        setError(tr("Invalid value %1").arg(value.toString()));
+        return;
+      }
+    }
+  }
+  if (numArgs > 1) {
+    if (option.isNull()) {
+      if (auto metaObj = cfg->metaObject()) {
+        QStringList propertyNames;
+        for (int i = 0; i < metaObj->propertyCount(); ++i) {
+          QString propertyName = QString::fromLatin1(metaObj->property(i).name());
+          if (!excludedConfigPropertyNames.contains(propertyName)) {
+            propertyNames.append(propertyName);
+          }
+        }
+        cli()->writeResult(propertyNames);
+      }
+    } else {
+      if (value.type() == QVariant::StringList) {
+        cli()->writeResult(value.toStringList());
+      } else if (value.type() == QVariant::Map) {
+        cli()->writeResult(value.toMap());
+      } else if (value.type() == QVariant::Int) {
+        value = configIntToEnumName(group, option, value);
+        cli()->writeResult(value.toString());
+      } else {
+        cli()->writeResult(value.toString());
+      }
+    }
+  } else {
+    cli()->writeResult(configNames);
+  }
 }

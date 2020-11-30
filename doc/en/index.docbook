@@ -3210,6 +3210,30 @@ command</link>.
 </para>
 </sect2>
 
+<sect2 id="cli-config">
+<title>Configure Kid3</title>
+<cmdsynopsis>
+<command>config</command>
+<arg><replaceable>OPTION</replaceable></arg>
+<arg><replaceable>VALUE</replaceable></arg>
+</cmdsynopsis>
+<para>Query or set a configuration option.
+</para>
+<para>The <replaceable>OPTION</replaceable> consists of a group name and a
+property name separated by a dot. When no <replaceable>OPTION</replaceable> is
+given, all available groups are displayed. If only a group name is given, all
+available properties of the group are displayed. For a given group and property,
+the currently configured value is displayed. To change the setting, the new
+value can be passed as a second argument.
+</para>
+<para>If the value of a setting is a list, all list elements have to be given
+as arguments. This means that to append an element to an existing list of
+elements, all existing elements have to be passed followed by the new element.
+In such a situation, it is easier to use the JSON mode, where the current
+list can be copied with the new element appended.
+</para>
+</sect2>
+
 </sect1>
 
 <sect1 id="kid3-cli-examples">
