@@ -1,7 +1,7 @@
 set(_languages ca de it nl pt sv uk)
 
-# If no po directory is present, download the translations directly from SVN.
-if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+# Use -DDOWNLOAD_POS=ON to download the translations directly from SVN.
+if(DOWNLOAD_POS)
   execute_process(COMMAND ${CMAKE_COMMAND}
     -P "${CMAKE_CURRENT_SOURCE_DIR}/download-pos.cmake" "${_languages}"
     RESULT_VARIABLE result)
