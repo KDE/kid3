@@ -48,6 +48,7 @@ QString fixUpArtist(QString str)
 {
   str.replace(QRegExp(QLatin1String(",(\\S)")), QLatin1String(", \\1"));
   str.replace(QLatin1String("* / "), QLatin1String(" / "));
+  str.replace(QLatin1String("* - "), QLatin1String(" - "));
   str.replace(QLatin1String("*,"), QLatin1String(","));
   str.remove(QRegExp(QLatin1String("\\*$")));
   str.remove(QRegExp(QLatin1String(R"([*\s]*\(\d+\)\(tracks:[^)]+\))")));
