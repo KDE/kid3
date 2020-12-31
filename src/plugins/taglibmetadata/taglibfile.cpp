@@ -2200,6 +2200,44 @@ QString TagLibFile::getTagFormat(Frame::TagNumber tagNr) const
 }
 
 
+namespace TagLibFileInternal {
+
+/**
+ * Fix up the format of the value if needed for an ID3v2 frame.
+ *
+ * @param self this TagLibFile instance
+ * @param frameType type of frame
+ * @param value the value to be set for frame, will be modified if needed
+ */
+void fixUpTagLibFrameValue(const TagLibFile* self,
+                           Frame::Type frameType, QString& value)
+{
+  if (frameType == Frame::FT_Genre) {
+    const bool useId3v23 = self->m_id3v2Version == 3;
+    if (!TagConfig::instance().genreNotNumeric() ||
+        (useId3v23 && value.contains(Frame::stringListSeparator()))) {
+      value = Genres::getNumberString(value, useId3v23);
+    }
+  } else if (frameType == Frame::FT_Track) {
+    self->formatTrackNumberIfEnabled(value, true);
+  } else if ((frameType == Frame::FT_Arranger ||
+              frameType == Frame::FT_Performer) &&
+             !value.isEmpty() &&
+             !value.contains(Frame::stringListSeparator())) {
+    // When using TIPL or TMCL and writing an ID3v2.3.0 tag, TagLib
+    // needs in ID3v2::Tag::downgradeFrames() a string list with at
+    // least two elements, otherwise it will not take the value over
+    // to an IPLS frame. If there is a single value in such a case,
+    // add a second element.
+    value += Frame::stringListSeparator();
+  }
+}
+
+}
+
+
+using namespace TagLibFileInternal;
+
 namespace {
 
 /** Types and descriptions for id3lib frame IDs */
@@ -3776,35 +3814,6 @@ void setSubframes(const TagLibFile* self, TagLib::ID3v2::TableOfContentsFrame* f
 #endif
 
 //! @endcond
-
-/**
- * Fix up the format of the value if needed for an ID3v2 frame.
- *
- * @param self this TagLibFile instance
- * @param frameType type of frame
- * @param value the value to be set for frame, will be modified if needed
- */
-void fixUpTagLibFrameValue(const TagLibFile* self,
-                           Frame::Type frameType, QString& value)
-{
-  if (frameType == Frame::FT_Genre) {
-    if (!TagConfig::instance().genreNotNumeric()) {
-      value = Genres::getNumberString(value, false);
-    }
-  } else if (frameType == Frame::FT_Track) {
-    self->formatTrackNumberIfEnabled(value, true);
-  } else if ((frameType == Frame::FT_Arranger ||
-              frameType == Frame::FT_Performer) &&
-             !value.isEmpty() &&
-             !value.contains(Frame::stringListSeparator())) {
-    // When using TIPL or TMCL and writing an ID3v2.3.0 tag, TagLib
-    // needs in ID3v2::Tag::downgradeFrames() a string list with at
-    // least two elements, otherwise it will not take the value over
-    // to an IPLS frame. If there is a single value in such a case,
-    // add a second element.
-    value += Frame::stringListSeparator();
-  }
-}
 
 /**
  * Set the fields in a TagLib ID3v2 frame.

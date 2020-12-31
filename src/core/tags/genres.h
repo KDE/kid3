@@ -65,17 +65,28 @@ public:
    * Get a name string from a string with a number or a name.
    * ID3v2 genres can be stored as "9", "(9)", "(9)Metal" or "Metal".
    *
-   * @param str genre string.
+   * @param str genre string, it can also reference multiple ID3v1 genres
+   * and have a refinement such as "(9)(138)Viking Metal".
+   * Multiple genres can be separated by Frame::stringListSeparator().
+   *
+   * @return genre name or multiple genre names separated by
+   * Frame::stringListSeparator().
    */
   static QString getNameString(const QString& str);
 
   /**
    * Get a number representation of a genre name if possible.
    *
-   * @param str         string with genre name
-   * @param parentheses true to put the number in parentheses
+   * @param str string with genre name, can also contain multiple genres
+   * separated by Frame::stringListSeparator()
+   * @param parentheses true to put the numbers in parentheses, this will
+   * result in an ID3v2.3.0 genre string, which can containing multiple
+   * references to ID3v1 genres and optionally a refinement as a genre text
    *
-   * @return genre string.
+   * @return genre string using numbers where possible. If @a parentheses
+   * is true, an ID3v2.3.0 genre string such as "(9)(138)Viking Metal" is
+   * returned, else if @a str contains multiple genres, they are returned
+   * as numbers (where possible) separated by Frame::stringListSeparator().
    */
   static QString getNumberString(const QString& str, bool parentheses);
 

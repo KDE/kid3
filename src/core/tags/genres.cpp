@@ -25,7 +25,9 @@
  */
 
 #include "genres.h"
+#include "frame.h"
 #include <QString>
+#include <QVector>
 #include <QMap>
 
 /**
@@ -490,21 +492,56 @@ int Genres::getNumber(const QString& str)
  * Get a name string from a string with a number or a name.
  * ID3v2 genres can be stored as "9", "(9)", "(9)Metal" or "Metal".
  *
- * @param str genre string.
+ * @param str genre string, it can also reference multiple ID3v1 genres
+ * and have a refinement such as "(9)(138)Viking Metal".
+ * Multiple genres can be separated by Frame::stringListSeparator().
+ *
+ * @return genre name or multiple genre names separated by
+ * Frame::stringListSeparator().
  */
 QString Genres::getNameString(const QString& str)
 {
   if (!str.isEmpty()) {
-    int cpPos, n;
-    bool ok;
-    if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
-      n = str.midRef(1, cpPos - 1).toInt(&ok);
-      if (ok && n <= 0xff) {
-        return QString::fromLatin1(getName(n));
+    QStringList genres;
+    const auto parts = str.splitRef(Frame::stringListSeparator());
+    for (const auto& part : parts) {
+      auto s = part.trimmed();
+      // First extract all genre codes which are in parentheses
+      int offset = 0;
+      int end = 0;
+      while (s.length() > offset && s.at(offset) == QLatin1Char('(') &&
+            (end = s.indexOf(QLatin1Char(')'), offset + 1)) > offset) {
+        const auto genreCode = s.mid(offset + 1, end - 1);
+        s = s.mid(end + 1);
+        bool ok;
+        int n = genreCode.toInt(&ok);
+        if (genreCode == QLatin1String("RX") ||
+            genreCode == QLatin1String("CR")) {
+          genres.append(genreCode.toString());
+        } else if (ok && n >= 0 && n <= 0xff) {
+          QString genreText = QString::fromLatin1(getName(n));
+          if (!genreText.isEmpty()) {
+            genres.append(genreText);
+          }
+        }
       }
-    } else if ((n = str.toInt(&ok)) >= 0 && n <= 0xff && ok) {
-      return QString::fromLatin1(getName(n));
+      // Process the rest as a genre code or text
+      s = s.trimmed();
+      if (!s.isEmpty()) {
+        bool ok;
+        int n = s.toInt(&ok);
+        if (ok && n >= 0 && n <= 0xff) {
+          QString genreText = QString::fromLatin1(getName(n));
+          if (!genreText.isEmpty()) {
+            genres.append(genreText);
+          }
+        } else {
+          genres.append(s.toString());
+        }
+      }
     }
+    genres.removeDuplicates();
+    return genres.join(Frame::stringListSeparator());
   }
   return str;
 }
@@ -512,23 +549,46 @@ QString Genres::getNameString(const QString& str)
 /**
  * Get a number representation of a genre name if possible.
  *
- * @param str         string with genre name
- * @param parentheses true to put the number in parentheses
+ * @param str string with genre name, can also contain multiple genres
+ * separated by Frame::stringListSeparator()
+ * @param parentheses true to put the numbers in parentheses, this will
+ * result in an ID3v2.3.0 genre string, which can containing multiple
+ * references to ID3v1 genres and optionally a refinement as a genre text
  *
- * @return genre string.
+ * @return genre string using numbers where possible. If @a parentheses
+ * is true, an ID3v2.3.0 genre string such as "(9)(138)Viking Metal" is
+ * returned, else if @a str contains multiple genres, they are returned
+ * as numbers (where possible) separated by Frame::stringListSeparator().
  */
 QString Genres::getNumberString(const QString& str, bool parentheses)
 {
-  int n = getNumber(str);
-  if (n < 0xff) {
-    if (parentheses) {
-      QString s(QLatin1String("("));
-      s += QString::number(n);
-      s += QLatin1Char(')');
-      return s;
-    } else {
-      return QString::number(n);
+  QStringList genres;
+  QString genreText;
+
+  const auto parts = str.split(Frame::stringListSeparator());
+  for (const auto& part : parts) {
+    auto s = part.trimmed();
+    bool ok;
+    int n = s.toInt(&ok);
+    if (s == QLatin1String("RX") || s == QLatin1String("CR")) {
+      genres.append(s);
+    } else if ((ok && n >= 0 && n <= 255) ||
+               (n = getNumber(s)) < 0xff) {
+      genres.append(QString::number(n));
+    } else if (!parentheses) {
+      genres.append(s);
+    } else if (genreText.isEmpty()) {
+      // For ID3v2.3.0, we can append only one genre text as a refinement
+      genreText = s;
     }
   }
-  return str;
+  if (!parentheses) {
+    return genres.join(Frame::stringListSeparator());
+  } else {
+    if (!genres.isEmpty()) {
+      genreText.prepend(QLatin1Char('(') + genres.join(QLatin1String(")(")) +
+                        QLatin1Char(')'));
+    }
+    return genreText;
+  }
 }

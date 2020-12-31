@@ -49,6 +49,15 @@ class FileIOStream;
   }
 #endif
 
+class TagLibFile;
+
+namespace TagLibFileInternal {
+
+void fixUpTagLibFrameValue(const TagLibFile* self,
+                           Frame::Type frameType, QString& value);
+
+}
+
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
 public:
@@ -293,6 +302,9 @@ public:
   static void notifyConfigurationChange();
 
 private:
+  friend void TagLibFileInternal::fixUpTagLibFrameValue(
+      const TagLibFile* self, Frame::Type frameType, QString& value);
+
   /** Tag type for cached information. */
   enum TagType {
     TT_Unknown,

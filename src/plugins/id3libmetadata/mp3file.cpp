@@ -1351,7 +1351,8 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         }
         QString value(fld.m_value.toString());
         if (id3Id == ID3FID_CONTENTTYPE) {
-          if (!TagConfig::instance().genreNotNumeric()) {
+          if (!TagConfig::instance().genreNotNumeric() ||
+              value.contains(Frame::stringListSeparator())) {
             value = Genres::getNumberString(value, true);
           }
         } else if (id3Id == ID3FID_TRACKNUM) {
@@ -1509,7 +1510,8 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != nullptr) {
             ID3_FrameID id = id3Frame->GetID();
             if (id == ID3FID_CONTENTTYPE) {
-              if (!TagConfig::instance().genreNotNumeric()) {
+              if (!TagConfig::instance().genreNotNumeric() ||
+                  value.contains(Frame::stringListSeparator())) {
                 value = Genres::getNumberString(value, true);
               }
             } else if (id == ID3FID_TRACKNUM) {
@@ -1679,7 +1681,9 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     } else {
       if (!str.isNull()) {
         int num = 0xff;
-        if (!TagConfig::instance().genreNotNumeric()) {
+        if (str.contains(Frame::stringListSeparator())) {
+          str = Genres::getNumberString(str, true);
+        } else if (!TagConfig::instance().genreNotNumeric()) {
           num = Genres::getNumber(str);
         }
         if (num >= 0 && num != 0xff) {
