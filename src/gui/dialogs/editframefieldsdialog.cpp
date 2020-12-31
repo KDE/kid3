@@ -1327,7 +1327,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   // Ctrl-Enter to OK
   QAction* action = new QAction(okButton);
   action->setAutoRepeat(false);
-  action->setShortcut(QKeySequence("Ctrl+Return"));
+  action->setShortcut(Qt::CTRL + Qt::Key_Return);
   connect(action, &QAction::triggered, okButton, &QPushButton::click);
   okButton->addAction(action);
 }
