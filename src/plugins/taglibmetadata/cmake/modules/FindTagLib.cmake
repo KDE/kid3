@@ -49,6 +49,12 @@ else()
       if(_match)
         set(TAGLIB_INCLUDE_DIR ${CMAKE_MATCH_1})
       endif()
+      # Since version 1.12.0, two include directories are returned
+      # "-I/usr/include -I/usr/include/taglib"
+      string(REGEX MATCH "-I *([^ ]+) +-I *([^ ]+)" _match ${TAGLIB_CFLAGS})
+      if(_match)
+        set(TAGLIB_INCLUDE_DIR ${CMAKE_MATCH_1} ${CMAKE_MATCH_2})
+      endif()
       if(TAGLIB_LIBRARY AND TAGLIB_INCLUDE_DIR)
         message(STATUS "TagLib found: ${TAGLIB_LIBRARY}")
         set(HAVE_TAGLIB 1)

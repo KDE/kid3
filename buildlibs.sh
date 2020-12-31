@@ -5012,9 +5012,9 @@ if ! test -d taglib-${taglib_version}; then
     patch -p1 <../source/taglib_aiff_padding.patch
     patch -p1 <../source/taglib_grp1.patch
     patch -p1 <../source/taglib_oggbitrate.patch
-  fi
-  if test "$cross_host" = "x86_64-w64-mingw32"; then
-    patch -p1 <../source/taglib_large_file.patch
+    if test "$cross_host" = "x86_64-w64-mingw32"; then
+      patch -p1 <../source/taglib_large_file.patch
+    fi
   fi
   cd ..
 fi
