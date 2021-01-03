@@ -2289,6 +2289,9 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "SYTC - Synchronized tempo codes"), Frame::FT_Other, false },
   { QT_TRANSLATE_NOOP("@default", "TALB - Album/Movie/Show title"), Frame::FT_Album, true },
   { QT_TRANSLATE_NOOP("@default", "TBPM - BPM (beats per minute)"),  Frame::FT_Bpm, true },
+#if TAGLIB_VERSION >= 0x010b00
+  { QT_TRANSLATE_NOOP("@default", "TCAT - Podcast category"), Frame::FT_Other, true },
+#endif
   { QT_TRANSLATE_NOOP("@default", "TCMP - iTunes compilation flag"), Frame::FT_Compilation, true },
   { QT_TRANSLATE_NOOP("@default", "TCOM - Composer"), Frame::FT_Composer, true },
   { QT_TRANSLATE_NOOP("@default", "TCON - Content type"), Frame::FT_Genre, true },
@@ -2313,6 +2316,9 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "TIT2 - Title/songname/content description"), Frame::FT_Title, true },
   { QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement"), Frame::FT_Description, true },
   { QT_TRANSLATE_NOOP("@default", "TKEY - Initial key"), Frame::FT_InitialKey, true },
+#if TAGLIB_VERSION >= 0x010b00
+  { QT_TRANSLATE_NOOP("@default", "TKWD - Podcast keywords"), Frame::FT_Other, true },
+#endif
   { QT_TRANSLATE_NOOP("@default", "TLAN - Language(s)"), Frame::FT_Language, true },
   { QT_TRANSLATE_NOOP("@default", "TLEN - Length"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "TMCL - Musician credits list"), Frame::FT_Performer, true },
