@@ -4507,7 +4507,9 @@ TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& name)
   getMp4TypeForFrame(frame, name, valueType);
   switch (valueType) {
     case MVT_String:
-      return TagLib::MP4::Item(toTString(frame.getValue()));
+      return TagLib::MP4::Item(
+            TagLib::StringList::split(toTString(frame.getValue()),
+                                      Frame::stringListSeparator().toLatin1()));
     case MVT_Bool:
       return TagLib::MP4::Item(frame.getValue().toInt() != 0);
     case MVT_Int:
@@ -6530,7 +6532,10 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             case MVT_String:
             {
               TagLib::StringList strings = (*it).second.toStringList();
-              value = strings.size() > 0 ? toQString(strings.front()) : QLatin1String("");
+              value = strings.size() > 0
+                  ? toQString(strings.toString(
+                                Frame::stringListSeparator().toLatin1()))
+                  : QLatin1String("");
               break;
             }
             case MVT_Bool:
