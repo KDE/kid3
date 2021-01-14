@@ -278,6 +278,7 @@ public:
    * @param empty true to use empty values, default is false
    */
   void setHeadersEmpty(bool empty) { m_emptyHeaders = empty; }
+  bool headersEmpty() const { return m_emptyHeaders; }
 
 public slots:
   /**

@@ -51,7 +51,9 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
   horizontalHeader()->setSectionResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
   // Set a small height instead of hiding the header, so that the column
   // widths can still be resized by the user.
-  horizontalHeader()->setFixedHeight(2);
+  if (model->headersEmpty()) {
+    horizontalHeader()->setFixedHeight(2);
+  }
   verticalHeader()->hide();
   if (model->isId3v1()) {
     bool insertTemporaryRow = model->rowCount() < 1;
