@@ -287,10 +287,10 @@ ffmpeg_patchlevel=1~deb10u1
 #libav_version=11.12
 #libav_patchlevel=1
 libflac_version=1.3.3
-libflac_patchlevel=1
+libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=16.2
-taglib_version=1.11.1
+taglib_version=v1.12-beta-2
 chromaprint_version=1.5.0
 chromaprint_patchlevel=1
 mp4v2_version=2.0.0
@@ -487,8 +487,17 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f taglib-${taglib_version}.tar.gz ||
-  $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
+if test -n "${taglib_version##v*}"; then
+  test -f taglib-${taglib_version}.tar.gz ||
+    $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
+else
+  # Download an archive for a git tag
+  if ! test -f taglib-${taglib_version##v}.tar.gz; then
+    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_version}.tar.gz
+    mv ${taglib_version}.tar.gz taglib-${taglib_version##v}.tar.gz
+  fi
+  taglib_version=${taglib_version##v}
+fi
 
 if test "$compiler" != "cross-android"; then
 
@@ -818,479 +827,9 @@ diff -ru id3lib-3.8.3.orig/src/tag_file.cpp id3lib-3.8.3/src/tag_file.cpp
      createFile(sTempFile, tmpOut);
 EOF
 
-test -f taglib_bvreplace.patch ||
-  cat >taglib_bvreplace.patch <<"EOF"
---- taglib-1.9.1/taglib/toolkit/tbytevector.cpp.orig	2013-10-08 17:50:01.000000000 +0200
-+++ taglib-1.9.1/taglib/toolkit/tbytevector.cpp	2015-03-17 13:03:45.267093248 +0100
-@@ -31,6 +31,7 @@
- #include <iostream>
- #include <cstdio>
- #include <cstring>
-+#include <cstddef>
- 
- #include <tstring.h>
- #include <tdebug.h>
-@@ -508,62 +509,40 @@
-   if(pattern.size() == 0 || pattern.size() > size())
-     return *this;
- 
--  const uint withSize = with.size();
--  const uint patternSize = pattern.size();
--  int offset = 0;
-+  const size_t withSize    = with.size();
-+  const size_t patternSize = pattern.size();
-+  const ptrdiff_t diff = withSize - patternSize;
-+
-+  size_t offset = 0;
-+  while (true)
-+  {
-+    offset = find(pattern, offset);
-+    if(offset == static_cast<size_t>(-1)) // Use npos in taglib2.
-+      break;
- 
--  if(withSize == patternSize) {
--    // I think this case might be common enough to optimize it
-     detach();
--    offset = find(pattern);
--    while(offset >= 0) {
--      ::memcpy(data() + offset, with.data(), withSize);
--      offset = find(pattern, offset + withSize);
--    }
--    return *this;
--  }
- 
--  // calculate new size:
--  uint newSize = 0;
--  for(;;) {
--    int next = find(pattern, offset);
--    if(next < 0) {
--      if(offset == 0)
--        // pattern not found, do nothing:
--        return *this;
--      newSize += size() - offset;
--      break;
-+    if(diff < 0) {
-+      ::memmove(
-+        data() + offset + withSize,
-+        data() + offset + patternSize,
-+        size() - offset - patternSize);
-+      resize(size() + diff);
-     }
--    newSize += (next - offset) + withSize;
--    offset = next + patternSize;
--  }
--
--  // new private data of appropriate size:
--  ByteVectorPrivate *newData = new ByteVectorPrivate(newSize, 0);
--  char *target = DATA(newData);
--  const char *source = data();
--
--  // copy modified data into new private data:
--  offset = 0;
--  for(;;) {
--    int next = find(pattern, offset);
--    if(next < 0) {
--      ::memcpy(target, source + offset, size() - offset);
--      break;
-+    else if(diff > 0) {
-+      resize(size() + diff);
-+      ::memmove(
-+        data() + offset + withSize,
-+        data() + offset + patternSize,
-+        size() - diff - offset - patternSize);
-     }
--    int chunkSize = next - offset;
--    ::memcpy(target, source + offset, chunkSize);
--    target += chunkSize;
--    ::memcpy(target, with.data(), withSize);
--    target += withSize;
--    offset += chunkSize + patternSize;
--  }
- 
--  // replace private data:
--  if(d->deref())
--    delete d;
-+    ::memcpy(data() + offset, with.data(), with.size());
- 
--  d = newData;
-+    offset += withSize;
-+    if(offset > size() - patternSize)
-+      break;
-+  }
- 
-   return *this;
- }
-EOF
-
-test -f taglib_mp4shwm.patch ||
-  cat >taglib_mp4shwm.patch <<"EOF"
-diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
-index a8e2e7d..0c2e5cb 100644
---- a/taglib/mp4/mp4tag.cpp
-+++ b/taglib/mp4/mp4tag.cpp
-@@ -71,10 +71,10 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
-       parseIntPair(atom);
-     }
-     else if(atom->name == "cpil" || atom->name == "pgap" || atom->name == "pcst" ||
--            atom->name == "hdvd") {
-+            atom->name == "hdvd" || atom->name == "shwm") {
-       parseBool(atom);
-     }
--    else if(atom->name == "tmpo") {
-+    else if(atom->name == "tmpo" || atom->name == "\251mvi" || atom->name == "\251mvc") {
-       parseInt(atom);
-     }
-     else if(atom->name == "tvsn" || atom->name == "tves" || atom->name == "cnID" ||
-@@ -472,10 +472,11 @@ MP4::Tag::save()
-     else if(name == "disk") {
-       data.append(renderIntPairNoTrailing(name.data(String::Latin1), it->second));
-     }
--    else if(name == "cpil" || name == "pgap" || name == "pcst" || name == "hdvd") {
-+    else if(name == "cpil" || name == "pgap" || name == "pcst" || name == "hdvd" ||
-+            name == "shwm") {
-       data.append(renderBool(name.data(String::Latin1), it->second));
-     }
--    else if(name == "tmpo") {
-+    else if(name == "tmpo" || name == "\251mvi" || name == "\251mvc") {
-       data.append(renderInt(name.data(String::Latin1), it->second));
-     }
-     else if(name == "tvsn" || name == "tves" || name == "cnID" ||
-@@ -844,6 +845,11 @@ namespace
-     { "sonm", "TITLESORT" },
-     { "soco", "COMPOSERSORT" },
-     { "sosn", "SHOWSORT" },
-+    { "shwm", "SHOWWORKMOVEMENT" },
-+    { "\251wrk", "WORK" },
-+    { "\251mvn", "MOVEMENTNAME" },
-+    { "\251mvi", "MOVEMENTNUMBER" },
-+    { "\251mvc", "MOVEMENTCOUNT" },
-     { "----:com.apple.iTunes:MusicBrainz Track Id", "MUSICBRAINZ_TRACKID" },
-     { "----:com.apple.iTunes:MusicBrainz Artist Id", "MUSICBRAINZ_ARTISTID" },
-     { "----:com.apple.iTunes:MusicBrainz Album Id", "MUSICBRAINZ_ALBUMID" },
-@@ -897,10 +903,10 @@ PropertyMap MP4::Tag::properties() const
-         }
-         props[key] = value;
-       }
--      else if(key == "BPM") {
-+      else if(key == "BPM" || key == "MOVEMENTNUMBER" || key == "MOVEMENTCOUNT") {
-         props[key] = String::number(it->second.toInt());
-       }
--      else if(key == "COMPILATION") {
-+      else if(key == "COMPILATION" || key == "SHOWWORKMOVEMENT") {
-         props[key] = String::number(it->second.toBool());
-       }
-       else {
-@@ -952,11 +958,11 @@ PropertyMap MP4::Tag::setProperties(const PropertyMap &props)
-           d->items[name] = MP4::Item(first, second);
-         }
-       }
--      else if(it->first == "BPM" && !it->second.isEmpty()) {
-+      else if((it->first == "BPM" || it->first == "MOVEMENTNUMBER" || it->first == "MOVEMENTCOUNT") && !it->second.isEmpty()) {
-         int value = it->second.front().toInt();
-         d->items[name] = MP4::Item(value);
-       }
--      else if(it->first == "COMPILATION" && !it->second.isEmpty()) {
-+      else if((it->first == "COMPILATION" || it->first == "SHOWWORKMOVEMENT") && !it->second.isEmpty()) {
-         bool value = (it->second.front().toInt() != 0);
-         d->items[name] = MP4::Item(value);
-       }
-diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
-index d477a86..bca3021 100644
---- a/taglib/mp4/mp4tag.h
-+++ b/taglib/mp4/mp4tag.h
-@@ -35,6 +35,8 @@
- #include "mp4atom.h"
- #include "mp4item.h"
- 
-+#define TAGLIB_WITH_MP4_SHWM 1
-+
- namespace TagLib {
- 
-   namespace MP4 {
-diff --git a/taglib/mpeg/id3v2/id3v2frame.cpp b/taglib/mpeg/id3v2/id3v2frame.cpp
-index 1f896fa..ec3b931 100644
---- a/taglib/mpeg/id3v2/id3v2frame.cpp
-+++ b/taglib/mpeg/id3v2/id3v2frame.cpp
-@@ -111,8 +111,8 @@ Frame *Frame::createTextualFrame(const String &key, const StringList &values) //
-   // check if the key is contained in the key<=>frameID mapping
-   ByteVector frameID = keyToFrameID(key);
-   if(!frameID.isEmpty()) {
--    // Apple proprietary WFED (Podcast URL) is in fact a text frame.
--    if(frameID[0] == 'T' || frameID == "WFED"){ // text frame
-+    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
-+    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN"){ // text frame
-       TextIdentificationFrame *frame = new TextIdentificationFrame(frameID, String::UTF8);
-       frame->setText(values);
-       return frame;
-@@ -392,6 +392,8 @@ namespace
-     { "TDES", "PODCASTDESC" },
-     { "TGID", "PODCASTID" },
-     { "WFED", "PODCASTURL" },
-+    { "MVNM", "MOVEMENTNAME" },
-+    { "MVIN", "MOVEMENTNUMBER" },
-   };
-   const size_t frameTranslationSize = sizeof(frameTranslation) / sizeof(frameTranslation[0]);
- 
-@@ -474,8 +476,8 @@ PropertyMap Frame::asProperties() const
-   // workaround until this function is virtual
-   if(id == "TXXX")
-     return dynamic_cast< const UserTextIdentificationFrame* >(this)->asProperties();
--  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
--  else if(id[0] == 'T' || id == "WFED")
-+  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
-+  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN")
-     return dynamic_cast< const TextIdentificationFrame* >(this)->asProperties();
-   else if(id == "WXXX")
-     return dynamic_cast< const UserUrlLinkFrame* >(this)->asProperties();
-diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-index 0fbb87d..759a9b7 100644
---- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
-+++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-@@ -198,8 +198,8 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
- 
-   // Text Identification (frames 4.2)
- 
--  // Apple proprietary WFED (Podcast URL) is in fact a text frame.
--  if(frameID.startsWith("T") || frameID == "WFED") {
-+  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
-+  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN") {
- 
-     TextIdentificationFrame *f = frameID != "TXXX"
-       ? new TextIdentificationFrame(data, header)
-@@ -456,6 +456,8 @@ namespace
-     { "TDS", "TDES" },
-     { "TID", "TGID" },
-     { "WFD", "WFED" },
-+    { "MVN", "MVNM" },
-+    { "MVI", "MVIN" },
-   };
-   const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);
- 
-EOF
-
-test -f taglib_CVE-2017-12678.patch ||
-  cat >taglib_CVE-2017-12678.patch <<"EOF"
-Index: b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-===================================================================
---- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
-+++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-@@ -334,10 +334,11 @@ void FrameFactory::rebuildAggregateFrame
-      tag->frameList("TDAT").size() == 1)
-   {
-     TextIdentificationFrame *tdrc =
--      static_cast<TextIdentificationFrame *>(tag->frameList("TDRC").front());
-+      dynamic_cast<TextIdentificationFrame *>(tag->frameList("TDRC").front());
-     UnknownFrame *tdat = static_cast<UnknownFrame *>(tag->frameList("TDAT").front());
- 
--    if(tdrc->fieldList().size() == 1 &&
-+    if(tdrc &&
-+       tdrc->fieldList().size() == 1 &&
-        tdrc->fieldList().front().size() == 4 &&
-        tdat->data().size() >= 5)
-     {
-EOF
-
-test -f taglib_cmID_purl_egid.patch.patch ||
-  cat >taglib_cmID_purl_egid.patch.patch <<"EOF"
-index 11d3cc51..a3636a9d 100644
---- a/taglib/mp4/mp4tag.cpp
-+++ b/taglib/mp4/mp4tag.cpp
-@@ -78,7 +78,8 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
-       parseInt(atom);
-     }
-     else if(atom->name == "tvsn" || atom->name == "tves" || atom->name == "cnID" ||
--            atom->name == "sfID" || atom->name == "atID" || atom->name == "geID") {
-+            atom->name == "sfID" || atom->name == "atID" || atom->name == "geID" ||
-+            atom->name == "cmID") {
-       parseUInt(atom);
-     }
-     else if(atom->name == "plID") {
-@@ -93,6 +94,9 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms) :
-     else if(atom->name == "covr") {
-       parseCovr(atom);
-     }
-+    else if(atom->name == "purl" || atom->name == "egid") {
-+      parseText(atom, -1);
-+    }
-     else {
-       parseText(atom);
-     }
-@@ -480,7 +484,8 @@ MP4::Tag::save()
-       data.append(renderInt(name.data(String::Latin1), it->second));
-     }
-     else if(name == "tvsn" || name == "tves" || name == "cnID" ||
--            name == "sfID" || name == "atID" || name == "geID") {
-+            name == "sfID" || name == "atID" || name == "geID" ||
-+            name == "cmID") {
-       data.append(renderUInt(name.data(String::Latin1), it->second));
-     }
-     else if(name == "plID") {
-@@ -492,6 +497,9 @@ MP4::Tag::save()
-     else if(name == "covr") {
-       data.append(renderCovr(name.data(String::Latin1), it->second));
-     }
-+    else if(name == "purl" || name == "egid") {
-+      data.append(renderText(name.data(String::Latin1), it->second, TypeImplicit));
-+    }
-     else if(name.size() == 4){
-       data.append(renderText(name.data(String::Latin1), it->second));
-     }
-EOF
-
-test -f taglib_grp1.patch ||
-  cat >taglib_grp1.patch <<"EOF"
-diff --git a/taglib/mpeg/id3v2/id3v2frame.cpp b/taglib/mpeg/id3v2/id3v2frame.cpp
-index 4f88dec1..af4136af 100644
---- a/taglib/mpeg/id3v2/id3v2frame.cpp
-+++ b/taglib/mpeg/id3v2/id3v2frame.cpp
-@@ -111,8 +111,8 @@ Frame *Frame::createTextualFrame(const String &key, const StringList &values) //
-   // check if the key is contained in the key<=>frameID mapping
-   ByteVector frameID = keyToFrameID(key);
-   if(!frameID.isEmpty()) {
--    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
--    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN"){ // text frame
-+    // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
-+    if(frameID[0] == 'T' || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN" || frameID == "GRP1"){ // text frame
-       TextIdentificationFrame *frame = new TextIdentificationFrame(frameID, String::UTF8);
-       frame->setText(values);
-       return frame;
-@@ -394,6 +394,7 @@ namespace
-     { "WFED", "PODCASTURL" },
-     { "MVNM", "MOVEMENTNAME" },
-     { "MVIN", "MOVEMENTNUMBER" },
-+    { "GRP1", "GROUPING" },
-   };
-   const size_t frameTranslationSize = sizeof(frameTranslation) / sizeof(frameTranslation[0]);
- 
-@@ -476,8 +477,8 @@ PropertyMap Frame::asProperties() const
-   // workaround until this function is virtual
-   if(id == "TXXX")
-     return dynamic_cast< const UserTextIdentificationFrame* >(this)->asProperties();
--  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
--  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN")
-+  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
-+  else if(id[0] == 'T' || id == "WFED" || id == "MVNM" || id == "MVIN" || id == "GRP1")
-     return dynamic_cast< const TextIdentificationFrame* >(this)->asProperties();
-   else if(id == "WXXX")
-     return dynamic_cast< const UserUrlLinkFrame* >(this)->asProperties();
-diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-index 9347ab86..155d0a9d 100644
---- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
-+++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-@@ -198,8 +198,8 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader)
- 
-   // Text Identification (frames 4.2)
- 
--  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number) are in fact text frames.
--  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN") {
-+  // Apple proprietary WFED (Podcast URL), MVNM (Movement Name), MVIN (Movement Number), GRP1 (Grouping) are in fact text frames.
-+  if(frameID.startsWith("T") || frameID == "WFED" || frameID == "MVNM" || frameID == "MVIN" || frameID == "GRP1") {
- 
-     TextIdentificationFrame *f = frameID != "TXXX"
-       ? new TextIdentificationFrame(data, header)
-@@ -459,6 +459,7 @@ namespace
-     { "WFD", "WFED" },
-     { "MVN", "MVNM" },
-     { "MVI", "MVIN" },
-+    { "GP1", "GRP1" },
-   };
-   const size_t frameConversion2Size = sizeof(frameConversion2) / sizeof(frameConversion2[0]);
-EOF
-
-test -f taglib_oggbitrate.patch ||
-  cat >taglib_oggbitrate.patch <<"EOF"
-diff --git a/taglib/ogg/opus/opusproperties.cpp b/taglib/ogg/opus/opusproperties.cpp
-index 537ba166..b60cc01d 100644
---- a/taglib/ogg/opus/opusproperties.cpp
-+++ b/taglib/ogg/opus/opusproperties.cpp
-@@ -163,8 +163,14 @@ void Opus::Properties::read(File *file)
- 
-       if(frameCount > 0) {
-         const double length = frameCount * 1000.0 / 48000.0;
-+        long fileLengthWithoutOverhead = file->length();
-+        // Ignore the two mandatory header packets, see "3. Packet Organization"
-+        // in https://tools.ietf.org/html/rfc7845.html
-+        for (unsigned int i = 0; i < 2; ++i) {
-+          fileLengthWithoutOverhead -= file->packet(i).size();
-+        }
-         d->length  = static_cast<int>(length + 0.5);
--        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
-+        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
-       }
-     }
-     else {
-diff --git a/taglib/ogg/speex/speexproperties.cpp b/taglib/ogg/speex/speexproperties.cpp
-index fbcc5a4b..b7a11cc6 100644
---- a/taglib/ogg/speex/speexproperties.cpp
-+++ b/taglib/ogg/speex/speexproperties.cpp
-@@ -182,8 +182,14 @@ void Speex::Properties::read(File *file)
- 
-       if(frameCount > 0) {
-         const double length = frameCount * 1000.0 / d->sampleRate;
-+        long fileLengthWithoutOverhead = file->length();
-+        // Ignore the two header packets, see "Ogg file format" in
-+        // https://www.speex.org/docs/manual/speex-manual/node8.html
-+        for (unsigned int i = 0; i < 2; ++i) {
-+          fileLengthWithoutOverhead -= file->packet(i).size();
-+        }
-         d->length  = static_cast<int>(length + 0.5);
--        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
-+        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
-       }
-     }
-     else {
-diff --git a/taglib/ogg/vorbis/vorbisproperties.cpp b/taglib/ogg/vorbis/vorbisproperties.cpp
-index 981400f0..4000c254 100644
---- a/taglib/ogg/vorbis/vorbisproperties.cpp
-+++ b/taglib/ogg/vorbis/vorbisproperties.cpp
-@@ -186,9 +186,14 @@ void Vorbis::Properties::read(File *file)
- 
-       if(frameCount > 0) {
-         const double length = frameCount * 1000.0 / d->sampleRate;
--
-+        long fileLengthWithoutOverhead = file->length();
-+        // Ignore the three initial header packets, see "1.3.1. Decode Setup" in
-+        // https://xiph.org/vorbis/doc/Vorbis_I_spec.html
-+        for (unsigned int i = 0; i < 3; ++i) {
-+          fileLengthWithoutOverhead -= file->packet(i).size();
-+        }
-         d->length  = static_cast<int>(length + 0.5);
--        d->bitrate = static_cast<int>(file->length() * 8.0 / length + 0.5);
-+        d->bitrate = static_cast<int>(fileLengthWithoutOverhead * 8.0 / length + 0.5);
-       }
-     }
-     else {
-diff --git a/tests/test_ogg.cpp b/tests/test_ogg.cpp
-index 5569e59c..ebb865fd 100644
---- a/tests/test_ogg.cpp
-+++ b/tests/test_ogg.cpp
-@@ -191,7 +191,7 @@ public:
-     CPPUNIT_ASSERT_EQUAL(3, f.audioProperties()->length());
-     CPPUNIT_ASSERT_EQUAL(3, f.audioProperties()->lengthInSeconds());
-     CPPUNIT_ASSERT_EQUAL(3685, f.audioProperties()->lengthInMilliseconds());
--    CPPUNIT_ASSERT_EQUAL(9, f.audioProperties()->bitrate());
-+    CPPUNIT_ASSERT_EQUAL(1, f.audioProperties()->bitrate());
-     CPPUNIT_ASSERT_EQUAL(2, f.audioProperties()->channels());
-     CPPUNIT_ASSERT_EQUAL(44100, f.audioProperties()->sampleRate());
-     CPPUNIT_ASSERT_EQUAL(0, f.audioProperties()->vorbisVersion());
-diff --git a/tests/test_opus.cpp b/tests/test_opus.cpp
-index 9d14df23..cdf77eae 100644
---- a/tests/test_opus.cpp
-+++ b/tests/test_opus.cpp
-@@ -53,7 +53,7 @@ public:
-     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->length());
-     CPPUNIT_ASSERT_EQUAL(7, f.audioProperties()->lengthInSeconds());
-     CPPUNIT_ASSERT_EQUAL(7737, f.audioProperties()->lengthInMilliseconds());
--    CPPUNIT_ASSERT_EQUAL(37, f.audioProperties()->bitrate());
-+    CPPUNIT_ASSERT_EQUAL(36, f.audioProperties()->bitrate());
-     CPPUNIT_ASSERT_EQUAL(1, f.audioProperties()->channels());
-     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->sampleRate());
-     CPPUNIT_ASSERT_EQUAL(48000, f.audioProperties()->inputSampleRate());
-EOF
-
-test -f taglib_large_file.patch ||
-  cat >taglib_large_file.patch <<"EOF"
-From 422d3ef95d4aff4975c334800aa9da4cb0c783a8 Mon Sep 17 00:00:00 2001
+test -f taglib-1.12_large_file.patch ||
+  cat >taglib-1.12_large_file.patch <<"EOF"
+From 078f997f8fd7ddba46780961af0c92820b25a4e3 Mon Sep 17 00:00:00 2001
 From: Urs Fleisch <ufleisch@users.sourceforge.net>
 Date: Sun, 19 Apr 2020 11:13:55 +0200
 Subject: Support large files over 2GB
@@ -1300,7 +839,7 @@ b01f45e141afa6a89aea319a2783f177e202fa1d
 https://github.com/taglib/taglib/pull/77
 
 diff --git a/taglib/ape/apefile.cpp b/taglib/ape/apefile.cpp
-index 9f298aaf..8c1592eb 100644
+index a10c1f64..290836bd 100644
 --- a/taglib/ape/apefile.cpp
 +++ b/taglib/ape/apefile.cpp
 @@ -69,13 +69,13 @@ public:
@@ -1320,7 +859,7 @@ index 9f298aaf..8c1592eb 100644
    long ID3v2Size;
  
    TagUnion tag;
-@@ -280,7 +280,7 @@ void APE::File::read(bool readProperties)
+@@ -292,7 +292,7 @@ void APE::File::read(bool readProperties)
  
    if(readProperties) {
  
@@ -1356,7 +895,7 @@ index dee7e8c0..5a43445e 100644
  
    // Next, we look for the descriptor.
 diff --git a/taglib/ape/apeproperties.h b/taglib/ape/apeproperties.h
-index 91625483..0e4856db 100644
+index ebbf949b..d527815f 100644
 --- a/taglib/ape/apeproperties.h
 +++ b/taglib/ape/apeproperties.h
 @@ -61,7 +61,7 @@ namespace TagLib {
@@ -1378,10 +917,10 @@ index 91625483..0e4856db 100644
        void analyzeCurrent(File *file);
        void analyzeOld(File *file);
 diff --git a/taglib/ape/apetag.cpp b/taglib/ape/apetag.cpp
-index 89ef8ff4..805274b1 100644
+index 79e1d5cc..15a9c4ea 100644
 --- a/taglib/ape/apetag.cpp
 +++ b/taglib/ape/apetag.cpp
-@@ -79,7 +79,7 @@ public:
+@@ -80,7 +80,7 @@ public:
      footerLocation(0) {}
  
    File *file;
@@ -1390,7 +929,7 @@ index 89ef8ff4..805274b1 100644
  
    Footer footer;
    ItemListMap itemListMap;
-@@ -95,7 +95,7 @@ APE::Tag::Tag() :
+@@ -96,7 +96,7 @@ APE::Tag::Tag() :
  {
  }
  
@@ -1413,7 +952,7 @@ index f4d4fba6..b5a2eb87 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/flac/flacfile.cpp b/taglib/flac/flacfile.cpp
-index b31cc65e..29e2f613 100644
+index ada215db..3f4accab 100644
 --- a/taglib/flac/flacfile.cpp
 +++ b/taglib/flac/flacfile.cpp
 @@ -79,10 +79,10 @@ public:
@@ -1440,7 +979,7 @@ index b31cc65e..29e2f613 100644
    bool scanned;
  };
  
-@@ -326,7 +326,7 @@ ByteVector FLAC::File::streamInfoData()
+@@ -341,7 +341,7 @@ ByteVector FLAC::File::streamInfoData()
    return ByteVector();
  }
  
@@ -1449,7 +988,7 @@ index b31cc65e..29e2f613 100644
  {
    debug("FLAC::File::streamLength() -- This function is obsolete. Returning zero.");
    return 0;
-@@ -441,7 +441,7 @@ void FLAC::File::read(bool readProperties)
+@@ -456,7 +456,7 @@ void FLAC::File::read(bool readProperties)
  
      const ByteVector infoData = d->blocks.front()->render();
  
@@ -1458,7 +997,7 @@ index b31cc65e..29e2f613 100644
  
      if(d->ID3v1Location >= 0)
        streamLength = d->ID3v1Location - d->streamStart;
-@@ -462,7 +462,7 @@ void FLAC::File::scan()
+@@ -477,7 +477,7 @@ void FLAC::File::scan()
    if(!isValid())
      return;
  
@@ -1468,15 +1007,15 @@ index b31cc65e..29e2f613 100644
    if(d->ID3v2Location >= 0)
      nextBlockOffset = find("fLaC", d->ID3v2Location + d->ID3v2OriginalSize);
 diff --git a/taglib/flac/flacfile.h b/taglib/flac/flacfile.h
-index 65d85679..c1464c45 100644
+index 1b8654eb..9a2422f2 100644
 --- a/taglib/flac/flacfile.h
 +++ b/taglib/flac/flacfile.h
 @@ -256,7 +256,7 @@ namespace TagLib {
         *
         * \deprecated Always returns zero.
         */
--      long streamLength();  // BIC: remove
-+      offset_t streamLength();  // BIC: remove
+-      TAGLIB_DEPRECATED long streamLength();  // BIC: remove
++      TAGLIB_DEPRECATED offset_t streamLength();  // BIC: remove
  
        /*!
         * Returns a list of pictures attached to the FLAC file.
@@ -1503,7 +1042,7 @@ index b947f039..a798940a 100644
    if(data.size() < 18) {
      debug("FLAC::Properties::read() - FLAC properties must contain at least 18 bytes.");
 diff --git a/taglib/flac/flacproperties.h b/taglib/flac/flacproperties.h
-index 6f13ce62..1dd0fc5f 100644
+index 743e5872..75e8ecb4 100644
 --- a/taglib/flac/flacproperties.h
 +++ b/taglib/flac/flacproperties.h
 @@ -50,7 +50,7 @@ namespace TagLib {
@@ -1525,10 +1064,10 @@ index 6f13ce62..1dd0fc5f 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/mp4/mp4atom.cpp b/taglib/mp4/mp4atom.cpp
-index 6ea0cb62..18dbbed9 100644
+index 20709212..bff3ab46 100644
 --- a/taglib/mp4/mp4atom.cpp
 +++ b/taglib/mp4/mp4atom.cpp
-@@ -155,7 +155,7 @@ MP4::Atoms::Atoms(File *file)
+@@ -156,7 +156,7 @@ MP4::Atoms::Atoms(File *file)
    atoms.setAutoDelete(true);
  
    file->seek(0, File::End);
@@ -1553,10 +1092,10 @@ index cbb0d10a..53bc16a6 100644
        AtomList children;
      private:
 diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
-index 9cbabbd1..fb871b48 100644
+index 87ac1852..3d5b2113 100644
 --- a/taglib/mp4/mp4tag.cpp
 +++ b/taglib/mp4/mp4tag.cpp
-@@ -549,7 +549,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
+@@ -570,7 +570,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
  }
  
  void
@@ -1565,7 +1104,7 @@ index 9cbabbd1..fb871b48 100644
  {
    MP4::Atom *moov = d->atoms->find("moov");
    if(moov) {
-@@ -633,7 +633,7 @@ MP4::Tag::saveNew(ByteVector data)
+@@ -654,7 +654,7 @@ MP4::Tag::saveNew(ByteVector data)
      data = renderAtom("udta", data);
    }
  
@@ -1574,7 +1113,7 @@ index 9cbabbd1..fb871b48 100644
    d->file->insert(data, offset, 0);
  
    updateParents(path, data.size());
-@@ -651,8 +651,8 @@ MP4::Tag::saveExisting(ByteVector data, const AtomList &path)
+@@ -672,8 +672,8 @@ MP4::Tag::saveExisting(ByteVector data, const AtomList &path)
    AtomList::ConstIterator it = path.end();
  
    MP4::Atom *ilst = *(--it);
@@ -1586,10 +1125,10 @@ index 9cbabbd1..fb871b48 100644
    MP4::Atom *meta = *(--it);
    AtomList::ConstIterator index = meta->children.find(ilst);
 diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
-index bca30217..1b7a3d13 100644
+index ccee8e06..026dd743 100644
 --- a/taglib/mp4/mp4tag.h
 +++ b/taglib/mp4/mp4tag.h
-@@ -141,7 +141,7 @@ namespace TagLib {
+@@ -146,7 +146,7 @@ namespace TagLib {
          ByteVector renderCovr(const ByteVector &name, const Item &item) const;
  
          void updateParents(const AtomList &path, long delta, int ignore = 0);
@@ -1599,7 +1138,7 @@ index bca30217..1b7a3d13 100644
          void saveNew(ByteVector data);
          void saveExisting(ByteVector data, const AtomList &path);
 diff --git a/taglib/mpc/mpcfile.cpp b/taglib/mpc/mpcfile.cpp
-index daf24c8f..0d8a23c8 100644
+index 0ffaf893..0e36a1f8 100644
 --- a/taglib/mpc/mpcfile.cpp
 +++ b/taglib/mpc/mpcfile.cpp
 @@ -61,13 +61,13 @@ public:
@@ -1619,7 +1158,7 @@ index daf24c8f..0d8a23c8 100644
    long ID3v2Size;
  
    TagUnion tag;
-@@ -297,7 +297,7 @@ void MPC::File::read(bool readProperties)
+@@ -310,7 +310,7 @@ void MPC::File::read(bool readProperties)
  
    if(readProperties) {
  
@@ -1629,10 +1168,10 @@ index daf24c8f..0d8a23c8 100644
      if(d->APELocation >= 0)
        streamLength = d->APELocation;
 diff --git a/taglib/mpc/mpcproperties.cpp b/taglib/mpc/mpcproperties.cpp
-index b9fbbf13..a7744b10 100644
+index 21de6d49..809165d9 100644
 --- a/taglib/mpc/mpcproperties.cpp
 +++ b/taglib/mpc/mpcproperties.cpp
-@@ -67,14 +67,14 @@ public:
+@@ -66,14 +66,14 @@ public:
  // public members
  ////////////////////////////////////////////////////////////////////////////////
  
@@ -1649,7 +1188,7 @@ index b9fbbf13..a7744b10 100644
    AudioProperties(style),
    d(new PropertiesPrivate())
  {
-@@ -204,7 +204,7 @@ namespace
+@@ -203,7 +203,7 @@ namespace
    const unsigned short sftable [8] = { 44100, 48000, 37800, 32000, 0, 0, 0, 0 };
  }
  
@@ -1658,7 +1197,7 @@ index b9fbbf13..a7744b10 100644
  {
    bool readSH = false, readRG = false;
  
-@@ -296,7 +296,7 @@ void MPC::Properties::readSV8(File *file, long streamLength)
+@@ -295,7 +295,7 @@ void MPC::Properties::readSV8(File *file, long streamLength)
    }
  }
  
@@ -1668,7 +1207,7 @@ index b9fbbf13..a7744b10 100644
    if(data.startsWith("MP+")) {
      d->version = data[3] & 15;
 diff --git a/taglib/mpc/mpcproperties.h b/taglib/mpc/mpcproperties.h
-index d5fdfbb9..4c69d66b 100644
+index 9a902dc9..439de74e 100644
 --- a/taglib/mpc/mpcproperties.h
 +++ b/taglib/mpc/mpcproperties.h
 @@ -53,13 +53,13 @@ namespace TagLib {
@@ -1734,10 +1273,10 @@ index b61f06af..55ab63ff 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/mpeg/id3v2/id3v2tag.cpp b/taglib/mpeg/id3v2/id3v2tag.cpp
-index 4c00ab6f..ba27a123 100644
+index 54dddf72..cec886b9 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.cpp
 +++ b/taglib/mpeg/id3v2/id3v2tag.cpp
-@@ -77,7 +77,7 @@ public:
+@@ -88,7 +88,7 @@ public:
    const FrameFactory *factory;
  
    File *file;
@@ -1746,7 +1285,7 @@ index 4c00ab6f..ba27a123 100644
  
    Header header;
    ExtendedHeader *extendedHeader;
-@@ -115,7 +115,7 @@ ID3v2::Tag::Tag() :
+@@ -126,7 +126,7 @@ ID3v2::Tag::Tag() :
    d->factory = FrameFactory::instance();
  }
  
@@ -1756,10 +1295,10 @@ index 4c00ab6f..ba27a123 100644
    d(new TagPrivate())
  {
 diff --git a/taglib/mpeg/id3v2/id3v2tag.h b/taglib/mpeg/id3v2/id3v2tag.h
-index 4367181f..503ad659 100644
+index 74d1df1e..60b5c2e8 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.h
 +++ b/taglib/mpeg/id3v2/id3v2tag.h
-@@ -154,7 +154,7 @@ namespace TagLib {
+@@ -146,7 +146,7 @@ namespace TagLib {
         *
         * \see FrameFactory
         */
@@ -1769,7 +1308,7 @@ index 4367181f..503ad659 100644
  
        /*!
 diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
-index af7253fa..c512e8e6 100644
+index a2ce02a7..5212760d 100644
 --- a/taglib/mpeg/mpegfile.cpp
 +++ b/taglib/mpeg/mpegfile.cpp
 @@ -63,13 +63,13 @@ public:
@@ -1789,25 +1328,41 @@ index af7253fa..c512e8e6 100644
  
    TagUnion tag;
  
-@@ -344,7 +344,7 @@ void MPEG::File::setID3v2FrameFactory(const ID3v2::FrameFactory *factory)
+@@ -105,13 +105,13 @@ bool MPEG::File::isSupported(IOStream *stream)
+   // MPEG frame headers are really confusing with irrelevant binary data.
+   // So we check if a frame header is really valid.
+ 
+-  long headerOffset;
++  offset_t headerOffset;
+   const ByteVector buffer = Utils::readHeader(stream, bufferSize(), true, &headerOffset);
+ 
+   if(buffer.isEmpty())
+       return false;
+ 
+-  const long originalPosition = stream->tell();
++  const offset_t originalPosition = stream->tell();
+   AdapterFile file(stream);
+ 
+   for(unsigned int i = 0; i < buffer.size() - 1; ++i) {
+@@ -406,7 +406,7 @@ void MPEG::File::setID3v2FrameFactory(const ID3v2::FrameFactory *factory)
    d->ID3v2FrameFactory = factory;
  }
  
 -long MPEG::File::nextFrameOffset(long position)
 +offset_t MPEG::File::nextFrameOffset(offset_t position)
  {
-   bool foundLastSyncPattern = false;
+   ByteVector frameSyncBytes(2, '\0');
  
-@@ -370,7 +370,7 @@ long MPEG::File::nextFrameOffset(long position)
+@@ -430,7 +430,7 @@ long MPEG::File::nextFrameOffset(long position)
    }
  }
  
 -long MPEG::File::previousFrameOffset(long position)
 +offset_t MPEG::File::previousFrameOffset(offset_t position)
  {
-   bool foundFirstSyncPattern = false;
-   ByteVector buffer;
-@@ -398,7 +398,7 @@ long MPEG::File::previousFrameOffset(long position)
+   ByteVector frameSyncBytes(2, '\0');
+ 
+@@ -455,7 +455,7 @@ long MPEG::File::previousFrameOffset(long position)
    return -1;
  }
  
@@ -1816,7 +1371,7 @@ index af7253fa..c512e8e6 100644
  {
    long position = 0;
  
-@@ -408,9 +408,9 @@ long MPEG::File::firstFrameOffset()
+@@ -465,9 +465,9 @@ long MPEG::File::firstFrameOffset()
    return nextFrameOffset(position);
  }
  
@@ -1828,7 +1383,7 @@ index af7253fa..c512e8e6 100644
  
    if(hasAPETag())
      position = d->APELocation - 1;
-@@ -478,7 +478,7 @@ void MPEG::File::read(bool readProperties)
+@@ -535,7 +535,7 @@ void MPEG::File::read(bool readProperties)
    ID3v1Tag(true);
  }
  
@@ -1838,10 +1393,10 @@ index af7253fa..c512e8e6 100644
    if(!isValid())
      return -1;
 diff --git a/taglib/mpeg/mpegfile.h b/taglib/mpeg/mpegfile.h
-index e9e97387..a13dc3d6 100644
+index 3fcb7272..685f5054 100644
 --- a/taglib/mpeg/mpegfile.h
 +++ b/taglib/mpeg/mpegfile.h
-@@ -330,24 +330,24 @@ namespace TagLib {
+@@ -322,24 +322,24 @@ namespace TagLib {
        /*!
         * Returns the position in the file of the first MPEG frame.
         */
@@ -1870,7 +1425,7 @@ index e9e97387..a13dc3d6 100644
  
        /*!
         * Returns whether or not the file on disk actually has an ID3v1 tag.
-@@ -375,7 +375,7 @@ namespace TagLib {
+@@ -376,7 +376,7 @@ namespace TagLib {
        File &operator=(const File &);
  
        void read(bool readProperties);
@@ -1880,7 +1435,7 @@ index e9e97387..a13dc3d6 100644
        class FilePrivate;
        FilePrivate *d;
 diff --git a/taglib/mpeg/mpegheader.cpp b/taglib/mpeg/mpegheader.cpp
-index e678f15b..492b471e 100644
+index 5a5015d6..b9405008 100644
 --- a/taglib/mpeg/mpegheader.cpp
 +++ b/taglib/mpeg/mpegheader.cpp
 @@ -75,7 +75,7 @@ MPEG::Header::Header(const ByteVector &data) :
@@ -1902,7 +1457,7 @@ index e678f15b..492b471e 100644
    file->seek(offset);
    const ByteVector data = file->readBlock(4);
 diff --git a/taglib/mpeg/mpegheader.h b/taglib/mpeg/mpegheader.h
-index 024aa112..ee2cbc6e 100644
+index ca51184c..3fb214e5 100644
 --- a/taglib/mpeg/mpegheader.h
 +++ b/taglib/mpeg/mpegheader.h
 @@ -61,7 +61,7 @@ namespace TagLib {
@@ -1924,41 +1479,40 @@ index 024aa112..ee2cbc6e 100644
        class HeaderPrivate;
        HeaderPrivate *d;
 diff --git a/taglib/mpeg/mpegproperties.cpp b/taglib/mpeg/mpegproperties.cpp
-index 6e7bb823..effc30f4 100644
+index 5eec84f7..d66f8ab1 100644
 --- a/taglib/mpeg/mpegproperties.cpp
 +++ b/taglib/mpeg/mpegproperties.cpp
 @@ -157,7 +157,7 @@ void MPEG::Properties::read(File *file)
  {
    // Only the first valid frame is required if we have a VBR header.
  
--  long firstFrameOffset = file->firstFrameOffset();
-+  offset_t firstFrameOffset = file->firstFrameOffset();
+-  const long firstFrameOffset = file->firstFrameOffset();
++  const offset_t firstFrameOffset = file->firstFrameOffset();
    if(firstFrameOffset < 0) {
      debug("MPEG::Properties::read() -- Could not find an MPEG frame in the stream.");
      return;
-@@ -207,7 +207,7 @@ void MPEG::Properties::read(File *file)
+@@ -197,14 +197,14 @@ void MPEG::Properties::read(File *file)
  
      // Look for the last MPEG audio frame to calculate the stream length.
  
--    long lastFrameOffset = file->lastFrameOffset();
-+    offset_t lastFrameOffset = file->lastFrameOffset();
+-    const long lastFrameOffset = file->lastFrameOffset();
++    const offset_t lastFrameOffset = file->lastFrameOffset();
      if(lastFrameOffset < 0) {
        debug("MPEG::Properties::read() -- Could not find an MPEG frame in the stream.");
-       return;
-@@ -225,7 +225,7 @@ void MPEG::Properties::read(File *file)
-       lastHeader = Header(file, lastFrameOffset, false);
      }
- 
--    const long streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
-+    const offset_t streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
-     if(streamLength > 0)
-       d->length = static_cast<int>(streamLength * 8.0 / d->bitrate + 0.5);
-   }
+     else
+     {
+       const Header lastHeader(file, lastFrameOffset, false);
+-      const long streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
++      const offset_t streamLength = lastFrameOffset - firstFrameOffset + lastHeader.frameLength();
+       if (streamLength > 0)
+         d->length = static_cast<int>(streamLength * 8.0 / d->bitrate + 0.5);
+     }
 diff --git a/taglib/ogg/flac/oggflacfile.cpp b/taglib/ogg/flac/oggflacfile.cpp
-index 19348e6f..16e30b0f 100644
+index 07ea9dcc..5c2f95c6 100644
 --- a/taglib/ogg/flac/oggflacfile.cpp
 +++ b/taglib/ogg/flac/oggflacfile.cpp
-@@ -57,8 +57,8 @@ public:
+@@ -58,8 +58,8 @@ public:
    Properties *properties;
    ByteVector streamInfoData;
    ByteVector xiphCommentData;
@@ -1969,7 +1523,7 @@ index 19348e6f..16e30b0f 100644
    bool scanned;
  
    bool hasXiphComment;
-@@ -191,7 +191,7 @@ ByteVector Ogg::FLAC::File::xiphCommentData()
+@@ -206,7 +206,7 @@ ByteVector Ogg::FLAC::File::xiphCommentData()
    return d->xiphCommentData;
  }
  
@@ -1978,7 +1532,7 @@ index 19348e6f..16e30b0f 100644
  {
    scan();
    return d->streamLength;
-@@ -208,7 +208,7 @@ void Ogg::FLAC::File::scan()
+@@ -223,7 +223,7 @@ void Ogg::FLAC::File::scan()
      return;
  
    int ipacket = 0;
@@ -1988,10 +1542,10 @@ index 19348e6f..16e30b0f 100644
    ByteVector metadataHeader = packet(ipacket);
    if(metadataHeader.isEmpty())
 diff --git a/taglib/ogg/flac/oggflacfile.h b/taglib/ogg/flac/oggflacfile.h
-index 28b3f67f..e4daf370 100644
+index b2686e45..0e5e1ac4 100644
 --- a/taglib/ogg/flac/oggflacfile.h
 +++ b/taglib/ogg/flac/oggflacfile.h
-@@ -137,7 +137,7 @@ namespace TagLib {
+@@ -134,7 +134,7 @@ namespace TagLib {
         * Returns the length of the audio-stream, used by FLAC::Properties for
         * calculating the bitrate.
         */
@@ -2043,7 +1597,7 @@ index c36e4d46..aa284a3b 100644
    insert(data, originalOffset, originalLength);
  
 diff --git a/taglib/ogg/oggpage.cpp b/taglib/ogg/oggpage.cpp
-index 75aea22a..e5fd70d2 100644
+index 414d3d53..12186062 100644
 --- a/taglib/ogg/oggpage.cpp
 +++ b/taglib/ogg/oggpage.cpp
 @@ -37,14 +37,14 @@ using namespace TagLib;
@@ -2082,7 +1636,7 @@ index 75aea22a..e5fd70d2 100644
    return d->fileOffset;
  }
 diff --git a/taglib/ogg/oggpage.h b/taglib/ogg/oggpage.h
-index 13e3e7f9..e5a2f362 100644
+index af3fe2c9..3df200e8 100644
 --- a/taglib/ogg/oggpage.h
 +++ b/taglib/ogg/oggpage.h
 @@ -55,14 +55,14 @@ namespace TagLib {
@@ -2125,7 +1679,7 @@ index b867567c..cc645eaf 100644
    file->seek(pageOffset);
  
 diff --git a/taglib/ogg/oggpageheader.h b/taglib/ogg/oggpageheader.h
-index 42f67307..000216c1 100644
+index 571155fc..d6c714c1 100644
 --- a/taglib/ogg/oggpageheader.h
 +++ b/taglib/ogg/oggpageheader.h
 @@ -52,7 +52,7 @@ namespace TagLib {
@@ -2186,7 +1740,7 @@ index 4000c254..6f6c8907 100644
          // https://xiph.org/vorbis/doc/Vorbis_I_spec.html
          for (unsigned int i = 0; i < 3; ++i) {
 diff --git a/taglib/riff/rifffile.cpp b/taglib/riff/rifffile.cpp
-index 930323d6..56f8b7a7 100644
+index 005551f4..87ce7240 100644
 --- a/taglib/riff/rifffile.cpp
 +++ b/taglib/riff/rifffile.cpp
 @@ -38,7 +38,7 @@ using namespace TagLib;
@@ -2215,7 +1769,7 @@ index 930323d6..56f8b7a7 100644
 +offset_t RIFF::File::chunkOffset(unsigned int i) const
  {
    if(i >= d->chunks.size()) {
-     debug("RIFF::File::chunkPadding() - Index out of range. Returning 0.");
+     debug("RIFF::File::chunkOffset() - Index out of range. Returning 0.");
 @@ -212,7 +212,7 @@ void RIFF::File::setChunkData(const ByteVector &name, const ByteVector &data, bo
  
    Chunk &last = d->chunks.back();
@@ -2234,7 +1788,7 @@ index 930323d6..56f8b7a7 100644
  
    offset += 4;
    d->sizeOffset = offset;
-@@ -352,7 +352,7 @@ void RIFF::File::read()
+@@ -345,7 +345,7 @@ void RIFF::File::read()
  }
  
  void RIFF::File::writeChunk(const ByteVector &name, const ByteVector &data,
@@ -2266,7 +1820,7 @@ index 5c606b4a..cf821baf 100644
        /*!
         * Update the global RIFF size based on the current internal structure.
 diff --git a/taglib/tagutils.cpp b/taglib/tagutils.cpp
-index dc047040..2c556ca7 100644
+index d6d92406..82dc2fa2 100644
 --- a/taglib/tagutils.cpp
 +++ b/taglib/tagutils.cpp
 @@ -33,13 +33,13 @@
@@ -2312,11 +1866,28 @@ index dc047040..2c556ca7 100644
  
    if(file->readBlock(8) == APE::Tag::fileIdentifier())
      return p;
+@@ -79,13 +79,13 @@ long Utils::findAPE(File *file, long id3v1Location)
+ }
+ 
+ ByteVector TagLib::Utils::readHeader(IOStream *stream, unsigned int length,
+-                                     bool skipID3v2, long *headerOffset)
++                                     bool skipID3v2, offset_t *headerOffset)
+ {
+   if(!stream || !stream->isOpen())
+     return ByteVector();
+ 
+-  const long originalPosition = stream->tell();
+-  long bufferOffset = 0;
++  const offset_t originalPosition = stream->tell();
++  offset_t bufferOffset = 0;
+ 
+   if(skipID3v2) {
+     stream->seek(0);
 diff --git a/taglib/tagutils.h b/taglib/tagutils.h
-index fb11d1e0..0001f34b 100644
+index 4488a32b..47d77246 100644
 --- a/taglib/tagutils.h
 +++ b/taglib/tagutils.h
-@@ -36,11 +36,11 @@ namespace TagLib {
+@@ -39,14 +39,14 @@ namespace TagLib {
  
    namespace Utils {
  
@@ -2328,23 +1899,30 @@ index fb11d1e0..0001f34b 100644
  
 -    long findAPE(File *file, long id3v1Location);
 +    offset_t findAPE(File *file, offset_t id3v1Location);
+ 
+     ByteVector readHeader(IOStream *stream, unsigned int length, bool skipID3v2,
+-                          long *headerOffset = 0);
++                          offset_t *headerOffset = 0);
    }
  }
  
 diff --git a/taglib/toolkit/taglib.h b/taglib/toolkit/taglib.h
-index f2e7a9de..31c1ae59 100644
+index ffce61f7..c7125d3e 100644
 --- a/taglib/toolkit/taglib.h
 +++ b/taglib/toolkit/taglib.h
-@@ -44,6 +44,8 @@
- #define TAGLIB_CONSTRUCT_BITSET(x) static_cast<unsigned long>(x)
+@@ -54,6 +54,11 @@
+ #define TAGLIB_DEPRECATED
  #endif
  
 +#define TAGLIB_WITH_OFFSET_TYPE
++#ifndef _WIN32
++#include <sys/types.h>
++#endif
 +
  #include <string>
  
  //! A namespace for all TagLib related classes and functions
-@@ -69,6 +71,14 @@ namespace TagLib {
+@@ -79,6 +84,14 @@ namespace TagLib {
    typedef unsigned long      ulong;
    typedef unsigned long long ulonglong;
  
@@ -2360,7 +1938,7 @@ index f2e7a9de..31c1ae59 100644
     * Unfortunately std::wstring isn't defined on some systems, (i.e. GCC < 3)
     * so I'm providing something here that should be constant.
 diff --git a/taglib/toolkit/tbytevectorstream.cpp b/taglib/toolkit/tbytevectorstream.cpp
-index 74b2eced..d773791f 100644
+index 333f528c..978fb23f 100644
 --- a/taglib/toolkit/tbytevectorstream.cpp
 +++ b/taglib/toolkit/tbytevectorstream.cpp
 @@ -40,7 +40,7 @@ public:
@@ -2381,7 +1959,7 @@ index 74b2eced..d773791f 100644
  {
    long sizeDiff = data.size() - replace;
    if(sizeDiff < 0) {
-@@ -96,18 +96,18 @@ void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsig
+@@ -96,19 +96,19 @@ void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsig
    }
    else if(sizeDiff > 0) {
      truncate(length() + sizeDiff);
@@ -2400,11 +1978,13 @@ index 74b2eced..d773791f 100644
  {
 -  unsigned long readPosition = start + length;
 -  unsigned long writePosition = start;
+-  if(readPosition < static_cast<unsigned long>(ByteVectorStream::length())) {
 +  offset_t readPosition = start + length;
 +  offset_t writePosition = start;
-   if(readPosition < static_cast<unsigned long>(ByteVectorStream::length())) {
++  if(readPosition < ByteVectorStream::length()) {
      unsigned long bytesToMove = ByteVectorStream::length() - readPosition;
      memmove(d->data.data() + writePosition, d->data.data() + readPosition, bytesToMove);
+     writePosition += bytesToMove;
 @@ -127,7 +127,7 @@ bool ByteVectorStream::isOpen() const
    return true;
  }
@@ -2488,10 +2068,10 @@ index 84327c46..78ebfd4a 100644
      ByteVector *data();
  
 diff --git a/taglib/toolkit/tfile.cpp b/taglib/toolkit/tfile.cpp
-index c634baa8..93dc8cae 100644
+index aff1684d..3985885c 100644
 --- a/taglib/toolkit/tfile.cpp
 +++ b/taglib/toolkit/tfile.cpp
-@@ -234,14 +234,14 @@ void File::writeBlock(const ByteVector &data)
+@@ -233,14 +233,14 @@ void File::writeBlock(const ByteVector &data)
    d->stream->writeBlock(data);
  }
  
@@ -2508,7 +2088,7 @@ index c634baa8..93dc8cae 100644
    ByteVector buffer;
  
    // These variables are used to keep track of a partial match that happens at
-@@ -253,7 +253,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -252,7 +252,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -2517,7 +2097,7 @@ index c634baa8..93dc8cae 100644
  
    // Start the search at the offset.
  
-@@ -330,7 +330,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -329,7 +329,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
  }
  
  
@@ -2526,7 +2106,7 @@ index c634baa8..93dc8cae 100644
  {
    if(!d->stream || pattern.size() > bufferSize())
        return -1;
-@@ -350,7 +350,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -349,7 +349,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -2535,7 +2115,7 @@ index c634baa8..93dc8cae 100644
  
    // Start the search at the offset.
  
-@@ -358,7 +358,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -357,7 +357,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
      fromOffset = length();
  
    long bufferLength = bufferSize();
@@ -2544,7 +2124,7 @@ index c634baa8..93dc8cae 100644
  
    // See the notes in find() for an explanation of this algorithm.
  
-@@ -404,12 +404,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -403,12 +403,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    return -1;
  }
  
@@ -2559,7 +2139,7 @@ index c634baa8..93dc8cae 100644
  {
    d->stream->removeBlock(start, length);
  }
-@@ -429,12 +429,12 @@ bool File::isValid() const
+@@ -428,12 +428,12 @@ bool File::isValid() const
    return isOpen() && d->valid;
  }
  
@@ -2574,7 +2154,7 @@ index c634baa8..93dc8cae 100644
  {
    d->stream->truncate(length);
  }
-@@ -444,12 +444,12 @@ void File::clear()
+@@ -443,12 +443,12 @@ void File::clear()
    d->stream->clear();
  }
  
@@ -2590,10 +2170,10 @@ index c634baa8..93dc8cae 100644
    return d->stream->length();
  }
 diff --git a/taglib/toolkit/tfile.h b/taglib/toolkit/tfile.h
-index a6dda7ba..0840a123 100644
+index bdc4f124..4c87fb36 100644
 --- a/taglib/toolkit/tfile.h
 +++ b/taglib/toolkit/tfile.h
-@@ -163,8 +163,8 @@ namespace TagLib {
+@@ -180,8 +180,8 @@ namespace TagLib {
       * \note This has the practical limitation that \a pattern can not be longer
       * than the buffer size used by readBlock().  Currently this is 1024 bytes.
       */
@@ -2604,7 +2184,7 @@ index a6dda7ba..0840a123 100644
                const ByteVector &before = ByteVector());
  
      /*!
-@@ -179,8 +179,8 @@ namespace TagLib {
+@@ -196,8 +196,8 @@ namespace TagLib {
       * \note This has the practical limitation that \a pattern can not be longer
       * than the buffer size used by readBlock().  Currently this is 1024 bytes.
       */
@@ -2615,7 +2195,7 @@ index a6dda7ba..0840a123 100644
                 const ByteVector &before = ByteVector());
  
      /*!
-@@ -190,7 +190,7 @@ namespace TagLib {
+@@ -207,7 +207,7 @@ namespace TagLib {
       * \note This method is slow since it requires rewriting all of the file
       * after the insertion point.
       */
@@ -2624,7 +2204,7 @@ index a6dda7ba..0840a123 100644
  
      /*!
       * Removes a block of the file starting a \a start and continuing for
-@@ -199,7 +199,7 @@ namespace TagLib {
+@@ -216,7 +216,7 @@ namespace TagLib {
       * \note This method is slow since it involves rewriting all of the file
       * after the removed portion.
       */
@@ -2633,7 +2213,7 @@ index a6dda7ba..0840a123 100644
  
      /*!
       * Returns true if the file is read only (or if the file can not be opened).
-@@ -223,7 +223,7 @@ namespace TagLib {
+@@ -240,7 +240,7 @@ namespace TagLib {
       *
       * \see Position
       */
@@ -2642,7 +2222,7 @@ index a6dda7ba..0840a123 100644
  
      /*!
       * Reset the end-of-file and error flags on the file.
-@@ -233,12 +233,12 @@ namespace TagLib {
+@@ -250,12 +250,12 @@ namespace TagLib {
      /*!
       * Returns the current offset within the file.
       */
@@ -2657,7 +2237,7 @@ index a6dda7ba..0840a123 100644
  
      /*!
       * Returns true if \a file can be opened for reading.  If the file does not
-@@ -286,7 +286,7 @@ namespace TagLib {
+@@ -303,7 +303,7 @@ namespace TagLib {
      /*!
       * Truncates the file to a \a length.
       */
@@ -2667,10 +2247,10 @@ index a6dda7ba..0840a123 100644
      /*!
       * Returns the buffer size that is used for internal buffering.
 diff --git a/taglib/toolkit/tfilestream.cpp b/taglib/toolkit/tfilestream.cpp
-index 5205bae0..38c5ed83 100644
+index 0ea3be5b..81cadace 100644
 --- a/taglib/toolkit/tfilestream.cpp
 +++ b/taglib/toolkit/tfilestream.cpp
-@@ -209,7 +209,7 @@ void FileStream::writeBlock(const ByteVector &data)
+@@ -233,7 +233,7 @@ void FileStream::writeBlock(const ByteVector &data)
    writeFile(d->file, data);
  }
  
@@ -2679,8 +2259,8 @@ index 5205bae0..38c5ed83 100644
  {
    if(!isOpen()) {
      debug("FileStream::insert() -- invalid file.");
-@@ -243,15 +243,15 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
-   // the *differnce* in the tag sizes.  We want to avoid overwriting parts
+@@ -267,15 +267,15 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
+   // the *difference* in the tag sizes.  We want to avoid overwriting parts
    // that aren't yet in memory, so this is necessary.
  
 -  unsigned long bufferLength = bufferSize();
@@ -2698,7 +2278,7 @@ index 5205bae0..38c5ed83 100644
  
    ByteVector buffer = data;
    ByteVector aboutToOverwrite(static_cast<unsigned int>(bufferLength));
-@@ -291,7 +291,7 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
+@@ -314,7 +314,7 @@ void FileStream::insert(const ByteVector &data, unsigned long start, unsigned lo
    }
  }
  
@@ -2707,7 +2287,7 @@ index 5205bae0..38c5ed83 100644
  {
    if(!isOpen()) {
      debug("FileStream::removeBlock() -- invalid file.");
-@@ -300,8 +300,8 @@ void FileStream::removeBlock(unsigned long start, unsigned long length)
+@@ -323,8 +323,8 @@ void FileStream::removeBlock(unsigned long start, unsigned long length)
  
    unsigned long bufferLength = bufferSize();
  
@@ -2718,7 +2298,7 @@ index 5205bae0..38c5ed83 100644
  
    ByteVector buffer(static_cast<unsigned int>(bufferLength));
  
-@@ -338,7 +338,7 @@ bool FileStream::isOpen() const
+@@ -360,7 +360,7 @@ bool FileStream::isOpen() const
    return (d->file != InvalidFileHandle);
  }
  
@@ -2727,18 +2307,7 @@ index 5205bae0..38c5ed83 100644
  {
    if(!isOpen()) {
      debug("FileStream::seek() -- invalid file.");
-@@ -364,7 +364,9 @@ void FileStream::seek(long offset, Position p)
-   }
- 
-   SetLastError(NO_ERROR);
--  SetFilePointer(d->file, offset, NULL, whence);
-+  LARGE_INTEGER largeOffset = {};
-+  largeOffset.QuadPart = offset;
-+  SetFilePointerEx(d->file, largeOffset, NULL, whence);
- 
-   const int lastError = GetLastError();
-   if(lastError != NO_ERROR && lastError != ERROR_NEGATIVE_SEEK)
-@@ -406,14 +408,16 @@ void FileStream::clear()
+@@ -417,16 +417,15 @@ void FileStream::clear()
  #endif
  }
  
@@ -2747,18 +2316,18 @@ index 5205bae0..38c5ed83 100644
  {
  #ifdef _WIN32
  
-   SetLastError(NO_ERROR);
--  const DWORD position = SetFilePointer(d->file, 0, NULL, FILE_CURRENT);
-+  LARGE_INTEGER largeOffset = {};
-+  LARGE_INTEGER newPointer;
-+  SetFilePointerEx(d->file, largeOffset, &newPointer, FILE_CURRENT);
-   if(GetLastError() == NO_ERROR) {
--    return static_cast<long>(position);
-+    return newPointer.QuadPart;
+   const LARGE_INTEGER zero = {};
+   LARGE_INTEGER position;
+ 
+-  if(SetFilePointerEx(d->file, zero, &position, FILE_CURRENT) &&
+-     position.QuadPart <= LONG_MAX) {
+-    return static_cast<long>(position.QuadPart);
++  if(SetFilePointerEx(d->file, zero, &position, FILE_CURRENT)) {
++    return position.QuadPart;
    }
    else {
      debug("FileStream::tell() -- Failed to get the file pointer.");
-@@ -427,7 +431,7 @@ long FileStream::tell() const
+@@ -440,7 +439,7 @@ long FileStream::tell() const
  #endif
  }
  
@@ -2767,7 +2336,7 @@ index 5205bae0..38c5ed83 100644
  {
    if(!isOpen()) {
      debug("FileStream::length() -- invalid file.");
-@@ -448,10 +452,10 @@ long FileStream::length()
+@@ -461,10 +460,10 @@ long FileStream::length()
  
  #else
  
@@ -2780,7 +2349,7 @@ index 5205bae0..38c5ed83 100644
  
    seek(curpos, Beginning);
  
-@@ -464,11 +468,11 @@ long FileStream::length()
+@@ -477,11 +476,11 @@ long FileStream::length()
  // protected members
  ////////////////////////////////////////////////////////////////////////////////
  
@@ -2795,10 +2364,10 @@ index 5205bae0..38c5ed83 100644
    seek(length);
  
 diff --git a/taglib/toolkit/tfilestream.h b/taglib/toolkit/tfilestream.h
-index 96a476d6..e594b801 100644
+index aa4d71b3..4f47b26e 100644
 --- a/taglib/toolkit/tfilestream.h
 +++ b/taglib/toolkit/tfilestream.h
-@@ -87,7 +87,7 @@ namespace TagLib {
+@@ -92,7 +92,7 @@ namespace TagLib {
       * \note This method is slow since it requires rewriting all of the file
       * after the insertion point.
       */
@@ -2807,7 +2376,7 @@ index 96a476d6..e594b801 100644
  
      /*!
       * Removes a block of the file starting a \a start and continuing for
-@@ -96,7 +96,7 @@ namespace TagLib {
+@@ -101,7 +101,7 @@ namespace TagLib {
       * \note This method is slow since it involves rewriting all of the file
       * after the removed portion.
       */
@@ -2816,7 +2385,7 @@ index 96a476d6..e594b801 100644
  
      /*!
       * Returns true if the file is read only (or if the file can not be opened).
-@@ -115,7 +115,7 @@ namespace TagLib {
+@@ -120,7 +120,7 @@ namespace TagLib {
       *
       * \see Position
       */
@@ -2825,7 +2394,7 @@ index 96a476d6..e594b801 100644
  
      /*!
       * Reset the end-of-file and error flags on the file.
-@@ -125,17 +125,17 @@ namespace TagLib {
+@@ -130,17 +130,17 @@ namespace TagLib {
      /*!
       * Returns the current offset within the file.
       */
@@ -2899,7 +2468,7 @@ index 11053164..25417fce 100644
    private:
      IOStream(const IOStream &);
 diff --git a/taglib/trueaudio/trueaudiofile.cpp b/taglib/trueaudio/trueaudiofile.cpp
-index fc123ba3..95af5567 100644
+index e4de436e..6afd8a5d 100644
 --- a/taglib/trueaudio/trueaudiofile.cpp
 +++ b/taglib/trueaudio/trueaudiofile.cpp
 @@ -63,10 +63,10 @@ public:
@@ -2915,7 +2484,7 @@ index fc123ba3..95af5567 100644
  
    TagUnion tag;
  
-@@ -278,7 +278,7 @@ void TrueAudio::File::read(bool readProperties)
+@@ -290,7 +290,7 @@ void TrueAudio::File::read(bool readProperties)
  
    if(readProperties) {
  
@@ -2947,7 +2516,7 @@ index 0aab2419..3a403848 100644
    if(data.size() < 4) {
      debug("TrueAudio::Properties::read() -- data is too short.");
 diff --git a/taglib/trueaudio/trueaudioproperties.h b/taglib/trueaudio/trueaudioproperties.h
-index 8dfcf375..6539b45c 100644
+index d25c7a77..fbf1ee75 100644
 --- a/taglib/trueaudio/trueaudioproperties.h
 +++ b/taglib/trueaudio/trueaudioproperties.h
 @@ -54,7 +54,7 @@ namespace TagLib {
@@ -2969,7 +2538,7 @@ index 8dfcf375..6539b45c 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/wavpack/wavpackfile.cpp b/taglib/wavpack/wavpackfile.cpp
-index ef92f4bd..dc708f74 100644
+index 56b99393..af63c491 100644
 --- a/taglib/wavpack/wavpackfile.cpp
 +++ b/taglib/wavpack/wavpackfile.cpp
 @@ -61,10 +61,10 @@ public:
@@ -2985,7 +2554,7 @@ index ef92f4bd..dc708f74 100644
  
    TagUnion tag;
  
-@@ -258,7 +258,7 @@ void WavPack::File::read(bool readProperties)
+@@ -270,7 +270,7 @@ void WavPack::File::read(bool readProperties)
  
    if(readProperties) {
  
@@ -2995,10 +2564,10 @@ index ef92f4bd..dc708f74 100644
      if(d->APELocation >= 0)
        streamLength = d->APELocation;
 diff --git a/taglib/wavpack/wavpackproperties.cpp b/taglib/wavpack/wavpackproperties.cpp
-index c1d04fd2..81597580 100644
+index d5808be5..5cc061e2 100644
 --- a/taglib/wavpack/wavpackproperties.cpp
 +++ b/taglib/wavpack/wavpackproperties.cpp
-@@ -65,14 +65,14 @@ public:
+@@ -66,14 +66,14 @@ public:
  // public members
  ////////////////////////////////////////////////////////////////////////////////
  
@@ -3015,9 +2584,9 @@ index c1d04fd2..81597580 100644
    AudioProperties(style),
    d(new PropertiesPrivate())
  {
-@@ -160,9 +160,9 @@ namespace
+@@ -257,9 +257,9 @@ namespace
  
- #define FINAL_BLOCK     0x1000
+ }
  
 -void WavPack::Properties::read(File *file, long streamLength)
 +void WavPack::Properties::read(File *file, offset_t streamLength)
@@ -3027,33 +2596,33 @@ index c1d04fd2..81597580 100644
  
    while(true) {
      file->seek(offset);
-@@ -210,9 +210,9 @@ void WavPack::Properties::read(File *file, long streamLength)
+@@ -339,9 +339,9 @@ void WavPack::Properties::read(File *file, long streamLength)
    }
  }
  
 -unsigned int WavPack::Properties::seekFinalIndex(File *file, long streamLength)
 +unsigned int WavPack::Properties::seekFinalIndex(File *file, offset_t streamLength)
  {
--  const long offset = file->rfind("wvpk", streamLength);
-+  const offset_t offset = file->rfind("wvpk", streamLength);
-   if(offset == -1)
-     return 0;
+-  long offset = streamLength;
++  offset_t offset = streamLength;
  
+   while (offset >= 32) {
+     offset = file->rfind("wvpk", offset - 4);
 diff --git a/taglib/wavpack/wavpackproperties.h b/taglib/wavpack/wavpackproperties.h
-index 0f5d1dcb..fb3540a4 100644
+index e6acdcc3..e169c5e4 100644
 --- a/taglib/wavpack/wavpackproperties.h
 +++ b/taglib/wavpack/wavpackproperties.h
 @@ -58,13 +58,13 @@ namespace TagLib {
         * \deprecated This constructor will be dropped in favor of the one below
         * in a future version.
         */
--      Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
-+      Properties(const ByteVector &data, offset_t streamLength, ReadStyle style = Average);
+-      TAGLIB_DEPRECATED Properties(const ByteVector &data, long streamLength,
++      TAGLIB_DEPRECATED Properties(const ByteVector &data, offset_t streamLength,
+                                    ReadStyle style = Average);
  
        /*!
         * Create an instance of WavPack::Properties.
         */
-       // BIC: merge with the above constructor
 -      Properties(File *file, long streamLength, ReadStyle style = Average);
 +      Properties(File *file, offset_t streamLength, ReadStyle style = Average);
  
@@ -3071,18 +2640,18 @@ index 0f5d1dcb..fb3540a4 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/xm/xmfile.cpp b/taglib/xm/xmfile.cpp
-index 9192e9bf..61cfc77c 100644
+index 0455338d..09948166 100644
 --- a/taglib/xm/xmfile.cpp
 +++ b/taglib/xm/xmfile.cpp
-@@ -587,7 +587,7 @@ void XM::File::read(bool)
+@@ -586,7 +586,7 @@ void XM::File::read(bool)
+     unsigned int count = 4 + instrument.read(*this, instrumentHeaderSize - 4U);
      READ_ASSERT(count == std::min(instrumentHeaderSize, (unsigned long)instrument.size() + 4));
  
-     unsigned long sampleHeaderSize = 0;
 -    long offset = 0;
 +    offset_t offset = 0;
      if(sampleCount > 0) {
+       unsigned long sampleHeaderSize = 0;
        sumSampleCount += sampleCount;
-       // wouldn't know which header size to assume otherwise:
 EOF
 
 test -f mp4v2_win32.patch ||
@@ -4991,29 +4560,9 @@ if ! test -d taglib-${taglib_version}; then
   else
     taglib_nr=${taglib_nr/./0}
   fi
-  if ! test $taglib_nr -ge 108; then
-    sed -i 's/^ADD_SUBDIRECTORY(bindings)/#ADD_SUBDIRECTORY(bindings)/' ./CMakeLists.txt
-    sed -i 's/^ADD_LIBRARY(tag SHARED/ADD_LIBRARY(tag STATIC/' ./taglib/CMakeLists.txt
-  fi
-  if test $taglib_nr -ge 111; then
-    taglib_static_option=-DBUILD_SHARED_LIBS=OFF
-  else
-    taglib_static_option=-DENABLE_STATIC=ON
-  fi
-  if test "${taglib_version}" = "1.9.1"; then
-    patch -p1 <../source/taglib_bvreplace.patch
-  fi
-  if test "${taglib_version}" = "1.11.1"; then
-    patch -p1 <../source/taglib_mp4shwm.patch
-    patch -p1 <../source/taglib_CVE-2017-12678.patch
-    patch -p1 <../source/taglib_cmID_purl_egid.patch.patch
-    patch -p1 <../source/taglib_CVE-2018-11439.patch
-    patch -p1 <../source/taglib_ogg_packet_loss.patch
-    patch -p1 <../source/taglib_aiff_padding.patch
-    patch -p1 <../source/taglib_grp1.patch
-    patch -p1 <../source/taglib_oggbitrate.patch
+  if test "$taglib_nr" = "112"; then
     if test "$cross_host" = "x86_64-w64-mingw32"; then
-      patch -p1 <../source/taglib_large_file.patch
+      patch -p1 <../source/taglib-1.12_large_file.patch
     fi
   fi
   cd ..
@@ -5277,7 +4826,7 @@ if test "$compiler" = "cross-android"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
+    cmake -DWITH_ASF=ON -DWITH_MP4=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
     make install
     cd ..
   fi
@@ -5363,7 +4912,7 @@ elif test "$compiler" = "msvc"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON $taglib_static_option -DCMAKE_INSTALL_PREFIX=
+    test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=
     mkdir -p instd
     DESTDIR=instd cmake --build . --config Debug --target install
     mkdir -p inst
@@ -5535,7 +5084,7 @@ else #  cross-android, msvc
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib $taglib_static_option $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
