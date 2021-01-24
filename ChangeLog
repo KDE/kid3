@@ -1,3 +1,24 @@
+Sun Jan 31 08:55:52 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.5
+
+	* New:
+	  + Language can be configured in "Appearance" tab of settings.
+	  + New action "Edit/Invert Selection".
+	  + kid3-cli: Command "config" to query and set configuration options.
+
+	* Improved:
+	  + Import multiple genres from Discogs and MusicBrainz.
+	  + Support import from Discogs JSON API when token is provided.
+	  + Snapshot builds can download the current translations.
+	  + Mac: Allow code signing.
+
+	* Fixed:
+	  + Crash when adding Chapter frame.
+	  + Support ID3v2 Podcast Category (TCAT) and Podcast Keywords (TKWD).
+	  + Support for multiple genres with ID3v2.3.0.
+	  + Support MP4 values with multiple strings with TagLib.
+
 Sat Sep 26 16:36:24 CEST 2020  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.4

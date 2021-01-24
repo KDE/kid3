@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: 2003-2020, Urs Fleisch
+Copyright: 2003-2021, Urs Fleisch
 License: GPL-2+
 
 Files: src/core/model/expressionparser.cpp

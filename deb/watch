@@ -1,3 +1,3 @@
 version=3
-opts=pgpsigurlmangle=s/$/.asc/ \
+opts=pgpsigurlmangle=s/$/.sig/ \
 http://sf.net/kid3/kid3-([\d.]*)\.tar\.gz

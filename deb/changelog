@@ -1,8 +1,25 @@
-kid3 (3.8.4-0) unstable; urgency=low
+kid3 (3.8.5-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 26 Sep 2020 16:36:24 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 31 Jan 2021 08:55:52 +0100
+
+kid3 (3.8.4-2) unstable; urgency=medium
+
+  * Bump Standards-Version to 4.5.1.
+  * Update debian/watch file standard to version 4.
+  * Overwrite lintian warning file-references-package-build-path. Patches are
+    welcome!
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 19 Nov 2020 14:57:28 +0100
+
+kid3 (3.8.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Adjust lintian overrides.
+  * Signature file has been renamed from asc to sig.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 09 Oct 2020 14:45:27 +0200
 
 kid3 (3.8.3-2) unstable; urgency=high
 

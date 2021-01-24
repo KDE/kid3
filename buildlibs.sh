@@ -121,6 +121,8 @@ ${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\
     sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
   fi
   sed -i "s,^  <releases>.*,&\n    <release version=\"${NEWVER}\" date=\"${DATE_F}\"/>," src/app/org.kde.kid3.appdata.xml
+  sed -i -r "s/(for ver in \['${OLDVER}')\]:/\1, '${NEWVER}']/" packaging/craft/extragear/kid3/kid3.py
+  sed -i "s,https://download.kde.org/stable/kid3/${OLDVER}/kid3-${OLDVER}.tar.xz,https://download.kde.org/stable/kid3/${NEWVER}/kid3-${NEWVER}.tar.xz," packaging/flatpak/org.kde.kid3-stable.json
   cd - >/dev/null
   exit 0
 fi # changeversion
