@@ -255,6 +255,12 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
             QLatin1String("English Title Case"),
             QLatin1String("@qml %{qmlpath}/script/TitleCase.qml")));
   }
+  if (!upgradeOnly || ConfigStore::getConfigVersion() < 6) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(
+            QLatin1String("Rewrite Tags"),
+            QLatin1String("@qml %{qmlpath}/script/RewriteTags.qml")));
+  }
 #endif
 }
 

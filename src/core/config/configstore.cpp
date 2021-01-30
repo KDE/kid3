@@ -38,8 +38,9 @@ namespace {
  * 3: 3.3
  * 4: 3.7
  * 5: 3.8.3
+ * 6: 3.8.5
  */
-const int CONFIG_VERSION = 5;
+const int CONFIG_VERSION = 6;
 
 }
 

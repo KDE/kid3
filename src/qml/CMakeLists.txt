@@ -30,6 +30,7 @@ if(NOT HAVE_QMLDIR_IN_QRC)
     script/ExportPlaylist.qml
     script/TitleCase.qml
     script/Tag1ToAscii.qml
+    script/RewriteTags.qml
   )
   if(BUILD_QML_APP)
     # Only used to add the QML sources to the project.
