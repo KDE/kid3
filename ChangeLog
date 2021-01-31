@@ -6,6 +6,7 @@ Sun Jan 31 08:55:52 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Language can be configured in "Appearance" tab of settings.
 	  + New action "Edit/Invert Selection".
 	  + kid3-cli: Command "config" to query and set configuration options.
+	  + Script to rewrite all tags of the selected files.
 
 	* Improved:
 	  + Import multiple genres from Discogs and MusicBrainz.
