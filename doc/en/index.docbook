@@ -4489,6 +4489,11 @@ Transliterate extended latin characters in the ID3v1 tag to ASCII.
 Formats text in the tags to English title case.
 </para></listitem>
 <listitem><para>
+<guilabel>Rewrite Tags</guilabel>
+(<filename>RewriteTags.qml</filename>):
+Rewrite all tags in the selected files.
+</para></listitem>
+<listitem><para>
 <guilabel>Export CSV</guilabel>
 (<filename>ExportCsv.qml</filename>):
 Export recursively all tags of all files to a CSV file.
