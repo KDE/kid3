@@ -92,7 +92,9 @@ else()
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
 endif()
 if(NOT WIN32 AND NOT ANDROID AND NOT APPLE)
-  get_target_property(_qmakeLocation Qt5::qmake LOCATION)
+  if(TARGET Qt5::qmake)
+    get_target_property(_qmakeLocation Qt5::qmake LOCATION)
+  endif()
   execute_process(COMMAND "${_qmakeLocation}" -query QT_INSTALL_BINS
     OUTPUT_VARIABLE _qtInstallBins OUTPUT_STRIP_TRAILING_WHITESPACE)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runqmlplugindump.cmake.in
