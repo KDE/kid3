@@ -408,7 +408,7 @@ int TagSearcher::findInString(const QString& str, int& idx) const
                       ? Qt::CaseSensitive : Qt::CaseInsensitive);
     return idx != -1 ? m_params.getSearchText().length() : -1;
   } else {
-    QRegularExpressionMatch match = m_regExp.match(str, idx);
+    auto match = m_regExp.match(str, idx);
     idx = match.capturedStart();
     return match.hasMatch() ? match.capturedLength() : -1;
   }

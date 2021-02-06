@@ -518,8 +518,8 @@ private:
   QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;
   QPersistentModelIndex m_exclusiveDraggableIndex;
-  QList<QRegExp> m_includeFolderFilters;
-  QList<QRegExp> m_excludeFolderFilters;
+  QList<QRegularExpression> m_includeFolderFilters;
+  QList<QRegularExpression> m_excludeFolderFilters;
   CoreTaggedFileIconProvider* m_iconProvider;
   FileSystemModel* m_fsModel;
   QTimer* m_loadTimer;

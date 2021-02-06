@@ -26,6 +26,7 @@
 
 #include "fileproxymodel.h"
 #include <QTimer>
+#include <QRegularExpression>
 #include "filesystemmodel.h"
 #include "coretaggedfileiconprovider.h"
 #include "itaggedfilefactory.h"
@@ -490,14 +491,15 @@ void FileProxyModel::sort(int column, Qt::SortOrder order)
  */
 void FileProxyModel::setNameFilters(const QStringList& filters)
 {
-  QRegExp wildcardRe(QLatin1String("\\.\\w+"));
+  QRegularExpression wildcardRe(QLatin1String("\\.\\w+"));
   QSet<QString> exts;
   for (const QString& filter : filters) {
-    int pos = 0;
-    while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
-      int len = wildcardRe.matchedLength();
+    auto it = wildcardRe.globalMatch(filter);
+    while (it.hasNext()) {
+      auto match = it.next();
+      int pos = match.capturedStart();
+      int len = match.capturedLength();
       exts.insert(filter.mid(pos, len).toLower());
-      pos += len;
     }
   }
   QStringList oldExtensions(m_extensions);
@@ -569,19 +571,29 @@ void FileProxyModel::applyFilteringOutIndexes()
 void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
                                       const QStringList& excludeFolders)
 {
-  QList<QRegExp> oldIncludeFolderFilters, oldExcludeFolderFilters;
+  QList<QRegularExpression> oldIncludeFolderFilters, oldExcludeFolderFilters;
   m_includeFolderFilters.swap(oldIncludeFolderFilters);
   m_excludeFolderFilters.swap(oldExcludeFolderFilters);
   for (QString filter : includeFolders) {
     filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+#if QT_VERSION >= 0x050f00
+    filter = QRegularExpression::wildcardToRegularExpression(filter);
+#else
+    filter = FileSystemModel::wildcardToRegularExpression(filter);
+#endif
     m_includeFolderFilters.append(
-          QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
+          QRegularExpression(filter, QRegularExpression::CaseInsensitiveOption));
   }
 
   for (QString filter : excludeFolders) {
     filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+#if QT_VERSION >= 0x050f00
+    filter = QRegularExpression::wildcardToRegularExpression(filter);
+#else
+    filter = FileSystemModel::wildcardToRegularExpression(filter);
+#endif
     m_excludeFolderFilters.append(
-          QRegExp(filter, Qt::CaseInsensitive, QRegExp::Wildcard));
+          QRegularExpression(filter, QRegularExpression::CaseInsensitiveOption));
   }
 
   if (m_includeFolderFilters != oldIncludeFolderFilters ||
@@ -602,7 +614,7 @@ bool FileProxyModel::passesIncludeFolderFilters(const QString& dirPath) const
     for (auto it = m_includeFolderFilters.constBegin();
          it != m_includeFolderFilters.constEnd();
          ++it) {
-      if (it->exactMatch(dirPath)) {
+      if (it->match(dirPath).hasMatch()) {
         included = true;
         break;
       }
@@ -626,7 +638,7 @@ bool FileProxyModel::passesExcludeFolderFilters(const QString& dirPath) const
     for (auto it = m_excludeFolderFilters.constBegin();
          it != m_excludeFolderFilters.constEnd();
          ++it) {
-      if (it->exactMatch(dirPath)) {
+      if (it->match(dirPath).hasMatch()) {
         return false;
       }
     }

@@ -29,6 +29,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QRegularExpression>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "discogsconfig.h"
@@ -46,17 +47,17 @@ namespace {
  */
 QString fixUpArtist(QString str)
 {
-  str.replace(QRegExp(QLatin1String(",(\\S)")), QLatin1String(", \\1"));
+  str.replace(QRegularExpression(QLatin1String(",(\\S)")), QLatin1String(", \\1"));
   str.replace(QLatin1String("* / "), QLatin1String(" / "));
   str.replace(QLatin1String("* - "), QLatin1String(" - "));
   str.replace(QLatin1String("*,"), QLatin1String(","));
-  str.remove(QRegExp(QLatin1String("\\*$")));
-  str.remove(QRegExp(QLatin1String(R"([*\s]*\(\d+\)\(tracks:[^)]+\))")));
-  str.replace(QRegExp(
+  str.remove(QRegularExpression(QLatin1String("\\*$")));
+  str.remove(QRegularExpression(QLatin1String(R"([*\s]*\(\d+\)\(tracks:[^)]+\))")));
+  str.replace(QRegularExpression(
     QLatin1String("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)(\\s*/\\s*,|\\s*&amp;|"
                   "\\s*And|\\s*and)")),
     QLatin1String("\\1"));
-  str.remove(QRegExp(QLatin1String(R"([*\s]*\((?:\d+|tracks:[^)]+)\)$)")));
+  str.remove(QRegularExpression(QLatin1String(R"([*\s]*\((?:\d+|tracks:[^)]+)\)$)")));
   return ServerImporter::removeHtml(str);
 }
 
@@ -278,7 +279,7 @@ ExtraArtist::ExtraArtist(const QJsonObject& obj) :
   m_name(fixUpArtist(obj.value(QLatin1String("name")).toString())),
   m_role(obj.value(QLatin1String("role")).toString().trimmed())
 {
-  static const QRegExp tracksSepRe(QLatin1String(",\\s*"));
+  static const QRegularExpression tracksSepRe(QLatin1String(",\\s*"));
   QString tracks = obj.value(QLatin1String("tracks")).toString();
   if (!tracks.isEmpty()) {
     m_tracks = tracks.split(tracksSepRe);
@@ -386,46 +387,46 @@ void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
   // <a href="/artist/256076-Amon-Amarth">Amon Amarth</a>         </span> -
   // <a class="search_result_title " href="/Amon-Amarth-The-Avenger/release/398878" data-followable="true">The Avenger</a>
   QString str = QString::fromUtf8(searchStr);
-  QRegExp idTitleRe(QLatin1String(
-      "<a href=\"/artist/[^>]+>([^<]+)</a>[^-]*-"
-      "\\s*<a class=\"search_result_title[ \"]+href=\"/([^/]*/?release)/"
-      "([0-9]+)\"[^>]*>([^<]+)</a>(.*card_actions)"));
-  idTitleRe.setMinimal(true);
+  QRegularExpression idTitleRe(QLatin1String(
+      "<a href=\"/artist/[^>]+?>([^<]+?)</a>[^-]*?-"
+      "\\s*?<a class=\"search_result_title[ \"]+?href=\"/([^/]*?/?release)/"
+      "([0-9]+?)\"[^>]*?>([^<]+?)</a>(.*?card_actions)"));
 
-  QRegExp yearRe(QLatin1String("<span class=\"card_release_year\">([^<]+)</span>"));
-  QRegExp formatRe(QLatin1String("<span class=\"card_release_format\">([^<]+)</span>"));
+  QRegularExpression yearRe(QLatin1String("<span class=\"card_release_year\">([^<]+)</span>"));
+  QRegularExpression formatRe(QLatin1String("<span class=\"card_release_format\">([^<]+)</span>"));
 
   albumListModel()->clear();
-  int pos = 0;
-  while ((pos = idTitleRe.indexIn(str, pos)) != -1) {
-    int len = idTitleRe.matchedLength();
-    QString artist = fixUpArtist(idTitleRe.cap(1).trimmed());
-    QString title = removeHtml(idTitleRe.cap(4).trimmed());
+  auto it = idTitleRe.globalMatch(str);
+  while (it.hasNext()) {
+    auto idTitleMatch = it.next();
+    QString artist = fixUpArtist(idTitleMatch.captured(1).trimmed());
+    QString title = removeHtml(idTitleMatch.captured(4).trimmed());
     if (!title.isEmpty()) {
       QString result(artist + QLatin1String(" - ") + title);
 
-      QString metadata = idTitleRe.cap(5);
-      if (yearRe.indexIn(metadata)) {
-          result.append(QLatin1String(" (") + yearRe.cap(1).trimmed() + QLatin1Char(')'));
+      QString metadata = idTitleMatch.captured(5);
+      auto yearMatch = yearRe.match(metadata);
+      if (yearMatch.hasMatch()) {
+          result.append(QLatin1String(" (") + yearMatch.captured(1).trimmed() + QLatin1Char(')'));
       }
 
-      if (formatRe.indexIn(metadata)) {
-          result.append(QLatin1String(" [") + formatRe.cap(1).trimmed() + QLatin1Char(']'));
+      auto formatMatch = formatRe.match(metadata);
+      if (formatMatch.hasMatch()) {
+          result.append(QLatin1String(" [") + formatMatch.captured(1).trimmed() + QLatin1Char(']'));
       }
 
       albumListModel()->appendItem(
         result,
-        idTitleRe.cap(2),
-        idTitleRe.cap(3));
+        idTitleMatch.captured(2),
+        idTitleMatch.captured(3));
     }
-    pos += len;
   }
 }
 
 void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
 {
-  QRegExp nlSpaceRe(QLatin1String("[\r\n]+\\s*"));
-  QRegExp atDiscogsRe(QLatin1String("\\s*\\([^)]+\\) (?:at|\\|) Discogs\n?$"));
+  QRegularExpression nlSpaceRe(QLatin1String("[\r\n]+\\s*"));
+  QRegularExpression atDiscogsRe(QLatin1String("\\s*\\([^)]+\\) (?:at|\\|) Discogs\n?$"));
   QString str = QString::fromUtf8(albumStr);
 
   FrameCollection framesHdr;
@@ -468,9 +469,10 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
         yearStr.replace(nlSpaceRe, QLatin1String(""));
         yearStr = removeHtml(yearStr); // strip HTML tags and entities
         // this should skip day and month numbers
-        QRegExp yearRe(QLatin1String("(\\d{4})"));
-        if (yearRe.indexIn(yearStr) >= 0) {
-          framesHdr.setYear(yearRe.cap(1).toInt());
+        QRegularExpression yearRe(QLatin1String("(\\d{4})"));
+        auto match = yearRe.match(yearStr);
+        if (match.hasMatch()) {
+          framesHdr.setYear(match.captured(1).toInt());
         }
       }
     }
@@ -500,7 +502,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
           genreStr.replace(nlSpaceRe, QLatin1String(""));
           genreStr = removeHtml(genreStr); // strip HTML tags and entities
           if (genreStr.indexOf(QLatin1Char(',')) >= 0) {
-            genreList += genreStr.split(QRegExp(QLatin1String(",\\s*")));
+            genreList += genreStr.split(QRegularExpression(QLatin1String(",\\s*")));
           } else {
             if (!genreStr.isEmpty()) {
               genreList += genreStr;
@@ -539,10 +541,11 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
         // strip new lines and space after them
         labelStr.replace(nlSpaceRe, QLatin1String(""));
         labelStr = fixUpArtist(labelStr);
-        QRegExp catNoRe(QLatin1String(" \\s*(?:&lrm;)?- +(\\S[^,]*[^, ])"));
-        int catNoPos = catNoRe.indexIn(labelStr);
-        if (catNoPos != -1) {
-          QString catNo = catNoRe.cap(1);
+        QRegularExpression catNoRe(QLatin1String(" \\s*(?:&lrm;)?- +(\\S[^,]*[^, ])"));
+        auto match = catNoRe.match(labelStr);
+        if (match.hasMatch()) {
+          int catNoPos = match.capturedStart();
+          QString catNo = match.captured(1);
           labelStr.truncate(catNoPos);
           if (!catNo.isEmpty()) {
             framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
@@ -660,55 +663,60 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
       str.replace(nlSpaceRe, QLatin1String(""));
 
       FrameCollection frames(framesHdr);
-      QRegExp posRe(QLatin1String(
+      QRegularExpression posRe(QLatin1String(
         R"(<td [^>]*class="tracklist_track_pos">(\d+)</td>)"));
-      QRegExp artistsRe(QLatin1String(
+      QRegularExpression artistsRe(QLatin1String(
         "class=\"tracklist_content_multi_artist_dash\">&ndash;</span>"
         "<a href=\"/artist/[^>]+>([^<]+)</a>"));
-      QRegExp moreArtistsRe(QLatin1String(
+      QRegularExpression moreArtistsRe(QLatin1String(
         "^([^<>]+)<a href=\"/artist/[^>]+>([^<]+)</a>"));
-      QRegExp titleRe(QLatin1String(
+      QRegularExpression titleRe(QLatin1String(
         "class=\"tracklist_track_title\"[^>]*>([^<]+)<"));
-      QRegExp durationRe(QLatin1String(
+      QRegularExpression durationRe(QLatin1String(
         "<td [^>]*class=\"tracklist_track_duration\"[^>]*>(?:<meta[^>]*>)?"
         "(?:<span>)?(\\d+):(\\d+)</"));
-      QRegExp indexRe(QLatin1String("<td class=\"track_index\">([^<]+)$"));
-      QRegExp rowEndRe(QLatin1String(R"(</td>[\s\r\n]*</tr>)"));
+      QRegularExpression indexRe(QLatin1String("<td class=\"track_index\">([^<]+)$"));
+      QRegularExpression rowEndRe(QLatin1String(R"(</td>[\s\r\n]*</tr>)"));
       auto it = trackDataVector.begin();
       bool atTrackDataListEnd = (it == trackDataVector.end());
       int trackNr = 1;
       start = 0;
-      while ((end = rowEndRe.indexIn(str, start)) > start) {
+      auto rowEndIt = rowEndRe.globalMatch(str);
+      while (rowEndIt.hasNext()) {
+        auto rowEndMatch = rowEndIt.next();
+        end = rowEndMatch.capturedStart();
         QString trackDataStr = str.mid(start, end - start);
         QString title;
         int duration = 0;
         int pos = trackNr;
-        if (titleRe.indexIn(trackDataStr) >= 0) {
-          title = removeHtml(titleRe.cap(1));
+        auto match = titleRe.match(trackDataStr);
+        if (match.hasMatch()) {
+          title = removeHtml(match.captured(1));
         }
-        if (durationRe.indexIn(trackDataStr) >= 0) {
-          duration = durationRe.cap(1).toInt() * 60 +
-            durationRe.cap(2).toInt();
+        match = durationRe.match(trackDataStr);
+        if (match.hasMatch()) {
+          duration = match.captured(1).toInt() * 60 +
+            match.captured(2).toInt();
         }
-        if (posRe.indexIn(trackDataStr) >= 0) {
-          pos = posRe.cap(1).toInt();
+        match = posRe.match(trackDataStr);
+        if (match.hasMatch()) {
+          pos = match.captured(1).toInt();
         }
         if (additionalTags) {
-          if (artistsRe.indexIn(trackDataStr) >= 0) {
+          match = artistsRe.match(trackDataStr);
+          if (match.hasMatch()) {
             // use the artist in the header as the album artist
             // and the artist in the track as the artist
-            QString artist(fixUpArtist(artistsRe.cap(1)));
+            QString artist(fixUpArtist(match.captured(1)));
             // Look if there are more artists
-            int artistEndPos = artistsRe.pos() + artistsRe.matchedLength();
-            while (moreArtistsRe.indexIn(
-                     trackDataStr, artistEndPos, QRegExp::CaretAtOffset) >=
-                   artistEndPos) {
-              artist += moreArtistsRe.cap(1);
-              artist += fixUpArtist(moreArtistsRe.cap(2));
-              int endPos = moreArtistsRe.pos() + moreArtistsRe.matchedLength();
-              if (endPos <= artistEndPos) // must be true for regexp
-                break;
-              artistEndPos = endPos;
+            int artistEndPos = match.capturedEnd();
+            auto moreArtistsIt = moreArtistsRe.globalMatch(
+                  trackDataStr, artistEndPos, QRegularExpression::NormalMatch,
+                  QRegularExpression::AnchoredMatchOption);
+            while (moreArtistsIt.hasNext()) {
+              match = moreArtistsIt.next();
+              artist += match.captured(1);
+              artist += fixUpArtist(match.captured(2));
             }
             if (standardTags) {
               frames.setArtist(artist);
@@ -717,9 +725,10 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
           }
         }
         start = end + 10; // skip </td></tr>
-        if (indexRe.indexIn(trackDataStr) >= 0) {
+        match = indexRe.match(trackDataStr);
+        if (match.hasMatch()) {
           if (additionalTags) {
-            QString subtitle(removeHtml(indexRe.cap(1)));
+            QString subtitle(removeHtml(match.captured(1)));
             framesHdr.setValue(Frame::FT_Description, subtitle);
             frames.setValue(Frame::FT_Description, subtitle);
           }
@@ -940,8 +949,8 @@ void DiscogsImporter::JsonImpl::parseAlbumResults(const QByteArray& albumStr)
     return;
   }
 
-  QRegExp discTrackPosRe(QLatin1String("(\\d+)-(\\d+)"));
-  QRegExp yearRe(QLatin1String("^\\d{4}-\\d{2}"));
+  QRegularExpression discTrackPosRe(QLatin1String("^(\\d+)-(\\d+)$"));
+  QRegularExpression yearRe(QLatin1String("^\\d{4}-\\d{2}"));
   QList<ExtraArtist> trackExtraArtists;
   ImportTrackDataVector trackDataVector(trackDataModel()->getTrackData());
   FrameCollection framesHdr;
@@ -953,7 +962,8 @@ void DiscogsImporter::JsonImpl::parseAlbumResults(const QByteArray& albumStr)
 
     // The year can be found in "released".
     QString released(map.value(QLatin1String("released")).toString());
-    if (yearRe.indexIn(released) == 0) {
+    auto match = yearRe.match(released);
+    if (match.hasMatch()) {
       released.truncate(4);
     }
     framesHdr.setYear(released.toInt());
@@ -1055,11 +1065,12 @@ void DiscogsImporter::JsonImpl::parseAlbumResults(const QByteArray& albumStr)
     bool ok;
     int pos = position.toInt(&ok);
     if (!ok) {
-      if (discTrackPosRe.exactMatch(position)) {
+      auto match = discTrackPosRe.match(position);
+      if (match.hasMatch()) {
         if (additionalTags) {
-          frames.setValue(Frame::FT_Disc, discTrackPosRe.cap(1));
+          frames.setValue(Frame::FT_Disc, match.captured(1));
         }
-        pos = discTrackPosRe.cap(2).toInt();
+        pos = match.captured(2).toInt();
       } else {
         pos = trackNr;
       }

@@ -99,7 +99,7 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
       ImportConfig::instance().matchPictureUrlMap();
   for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
     QRegularExpression re(it->first);
-    QRegularExpressionMatch match = re.match(
+    auto match = re.match(
           urlStr, 0, QRegularExpression::NormalMatch,
           QRegularExpression::AnchoredMatchOption);
     if (match.hasMatch()) {

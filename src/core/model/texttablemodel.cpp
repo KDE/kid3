@@ -25,7 +25,7 @@
  */
 
 #include "texttablemodel.h"
-#include <QRegExp>
+#include <QRegularExpression>
 
 /**
  * Constructor.
@@ -126,7 +126,7 @@ bool TextTableModel::setText(const QString& text, bool hasHeaderLine)
   beginResetModel();
   m_hasHeaderLine = hasHeaderLine;
   m_cells.clear();
-  QStringList lines = text.split(QRegExp(QLatin1String("[\\r\\n]+")));
+  QStringList lines = text.split(QRegularExpression(QLatin1String("[\\r\\n]+")));
   if (lines.isEmpty() || lines.first().indexOf(QLatin1Char('\t')) == -1) {
     endResetModel();
     return false;

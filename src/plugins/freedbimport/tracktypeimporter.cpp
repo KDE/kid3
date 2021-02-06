@@ -25,6 +25,7 @@
  */
 
 #include "tracktypeimporter.h"
+#include <QRegularExpression>
 #include "serverimporterconfig.h"
 #include "freedbconfig.h"
 #include "config.h"
@@ -92,8 +93,8 @@ theoretically, but never seen
 200 categ discid dtitle
 */
   QString str = QString::fromUtf8(searchStr);
-  QRegExp catIdTitleRe(QLatin1String("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)"));
-  QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
+  QRegularExpression catIdTitleRe(QLatin1String("^([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)$"));
+  QStringList lines = str.split(QRegularExpression(QLatin1String("[\\r\\n]+")));
   bool inEntries = false;
   m_albumListModel->clear();
   for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
@@ -101,21 +102,23 @@ theoretically, but never seen
       break;
     }
     if (inEntries) {
-      if (catIdTitleRe.exactMatch(*it)) {
+      auto match = catIdTitleRe.match(*it);
+      if (match.hasMatch()) {
         m_albumListModel->appendItem(
-          catIdTitleRe.cap(3),
-          catIdTitleRe.cap(1),
-          catIdTitleRe.cap(2));
+          match.captured(3),
+          match.captured(1),
+          match.captured(2));
       }
     } else {
       if ((*it).startsWith(QLatin1String("21")) && (*it).indexOf(QLatin1String(" match")) != -1) {
         inEntries = true;
       } else if ((*it).startsWith(QLatin1String("200 "))) {
-        if (catIdTitleRe.exactMatch((*it).mid(4))) {
+        auto match = catIdTitleRe.match((*it).mid(4));
+        if (match.hasMatch()) {
           m_albumListModel->appendItem(
-            catIdTitleRe.cap(3),
-            catIdTitleRe.cap(1),
-            catIdTitleRe.cap(2));
+            match.captured(3),
+            match.captured(1),
+            match.captured(2));
         }
       }
     }

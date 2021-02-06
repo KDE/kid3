@@ -25,7 +25,7 @@
  */
 
 #include "importclient.h"
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QUrl>
 
 #include "serverimporterconfig.h"
@@ -102,7 +102,7 @@ void ImportClient::getTrackList(const ServerImporterConfig* cfg,
 QString ImportClient::encodeUrlQuery(const QString& query)
 {
   QString result(query);
-  result.replace(QRegExp(QLatin1String(" +")), QLatin1String(" ")); // collapse spaces
+  result.replace(QRegularExpression(QLatin1String(" +")), QLatin1String(" ")); // collapse spaces
   result = QString::fromLatin1(QUrl::toPercentEncoding(result));
   result.replace(QLatin1String("%20"), QLatin1String("+")); // replace spaces by '+'
   return result;

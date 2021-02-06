@@ -25,6 +25,7 @@
  */
 
 #include "freedbimporter.h"
+#include <QRegularExpression>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "freedbconfig.h"
@@ -113,22 +114,24 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
   }
   QString str = isUtf8 ? QString::fromUtf8(searchStr)
                        : QString::fromLatin1(searchStr);
-  QRegExp titleRe(QLatin1String(R"(<a href="[^"]+/cd/[^"]+"><b>([^<]+)</b></a>)"));
-  QRegExp catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
-  QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
+  QRegularExpression titleRe(QLatin1String(R"(<a href="[^"]+/cd/[^"]+"><b>([^<]+)</b></a>)"));
+  QRegularExpression catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
+  QStringList lines = str.split(QRegularExpression(QLatin1String("[\\r\\n]+")));
   QString title;
   bool inEntries = false;
   m_albumListModel->clear();
   for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
     if (inEntries) {
-      if (titleRe.indexIn(*it) != -1) {
-        title = titleRe.cap(1);
+      auto match = titleRe.match(*it);
+      if (match.hasMatch()) {
+        title = match.captured(1);
       }
-      if (catIdRe.indexIn(*it) != -1) {
+      match = catIdRe.match(*it);
+      if (match.hasMatch()) {
         m_albumListModel->appendItem(
           title,
-          catIdRe.cap(1),
-          catIdRe.cap(2));
+          match.captured(1),
+          match.captured(2));
       }
     } else if ((*it).indexOf(QLatin1String(" albums found:")) != -1) {
       inEntries = true;
@@ -165,19 +168,25 @@ void parseFreedbTrackDurations(
    # Disc length: 3114 seconds
 */
   trackDuration.clear();
-  QRegExp discLenRe(QLatin1String("Disc length:\\s*\\d+"));
-  int discLenPos = discLenRe.indexIn(text, 0);
-  if (discLenPos != -1) {
-    int len = discLenRe.matchedLength();
+  QRegularExpression discLenRe(QLatin1String("Disc length:\\s*\\d+"));
+  auto match = discLenRe.match(text);
+  if (match.hasMatch()) {
+    int discLenPos = match.capturedStart();
+    int len = match.capturedLength();
     discLenPos += 12;
     int discLen = text.midRef(discLenPos, len - 12).toInt();
     int trackOffsetPos = text.indexOf(QLatin1String("Track frame offsets"), 0);
     if (trackOffsetPos != -1) {
-      QRegExp re(QLatin1String("#\\s*\\d+"));
       int lastOffset = -1;
-      while ((trackOffsetPos = re.indexIn(text, trackOffsetPos)) != -1 &&
-             trackOffsetPos < discLenPos) {
-        len = re.matchedLength();
+      QRegularExpression re(QLatin1String("#\\s*\\d+"));
+      auto it = re.globalMatch(text);
+      while (it.hasNext()) {
+        auto match = it.next();
+        trackOffsetPos = match.capturedStart();
+        if (trackOffsetPos >= discLenPos) {
+          break;
+        }
+        len = match.capturedLength();
         trackOffsetPos += 1;
         int trackOffset = text.midRef(trackOffsetPos, len - 1).toInt();
         if (lastOffset != -1) {
@@ -202,18 +211,21 @@ void parseFreedbTrackDurations(
  */
 void parseFreedbAlbumData(const QString& text, FrameCollection& frames)
 {
-  QRegExp fdre(QLatin1String(R"(DTITLE=\s*(\S[^\r\n]*\S)\s*/\s*(\S[^\r\n]*\S)[\r\n])"));
-  if (fdre.indexIn(text) != -1) {
-    frames.setArtist(fdre.cap(1));
-    frames.setAlbum(fdre.cap(2));
+  QRegularExpression fdre(QLatin1String(R"(DTITLE=\s*(\S[^\r\n]*\S)\s*/\s*(\S[^\r\n]*\S)[\r\n])"));
+  auto match = fdre.match(text);
+  if (match.hasMatch()) {
+    frames.setArtist(match.captured(1));
+    frames.setAlbum(match.captured(2));
   }
   fdre.setPattern(QLatin1String(R"(EXTD=[^\r\n]*YEAR:\s*(\d+)\D)"));
-  if (fdre.indexIn(text) != -1) {
-    frames.setYear(fdre.cap(1).toInt());
+  match = fdre.match(text);
+  if (match.hasMatch()) {
+    frames.setYear(match.captured(1).toInt());
   }
   fdre.setPattern(QLatin1String(R"(EXTD=[^\r\n]*ID3G:\s*(\d+)\D)"));
-  if (fdre.indexIn(text) != -1) {
-    frames.setGenre(QString::fromLatin1(Genres::getName(fdre.cap(1).toInt())));
+  match = fdre.match(text);
+  if (match.hasMatch()) {
+    frames.setGenre(QString::fromLatin1(Genres::getName(match.captured(1).toInt())));
   }
 }
 
@@ -238,18 +250,16 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   auto it = trackDataVector.begin();
   auto tdit = trackDuration.constBegin();
   bool atTrackDataListEnd = (it == trackDataVector.end());
-  int pos = 0;
-  int oldpos = pos;
   int tracknr = 0;
   for (;;) {
-    QRegExp fdre(QString(QLatin1String(R"(TTITLE%1=([^\r\n]+)[\r\n])")).arg(tracknr));
+    QRegularExpression fdre(QString(QLatin1String(R"(TTITLE%1=([^\r\n]+)[\r\n])")).arg(tracknr));
     QString title;
-    int idx;
-    while ((idx = fdre.indexIn(text, pos)) != -1) {
-      title += fdre.cap(1);
-      pos = idx + fdre.matchedLength();
+    auto fdIt = fdre.globalMatch(text);
+    while (fdIt.hasNext()) {
+      auto match = fdIt.next();
+      title += match.captured(1);
     }
-    if (pos > oldpos) {
+    if (!title.isNull()) {
       frames.setTrack(tracknr + 1);
       frames.setTitle(title);
     } else {
@@ -275,7 +285,6 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     frames = framesHdr;
-    oldpos = pos;
     ++tracknr;
   }
   frames.clear();

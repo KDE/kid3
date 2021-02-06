@@ -158,6 +158,10 @@ public:
     QFileInfo fileInfo(const QModelIndex &index) const;
     bool remove(const QModelIndex &index);
 
+#if QT_VERSION < 0x050f00
+    static QString wildcardToRegularExpression(const QString &pattern);
+#endif
+
 protected:
     FileSystemModel(FileSystemModelPrivate &, QObject *parent = Q_NULLPTR);
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;

@@ -154,7 +154,7 @@ void OutputViewer::append(const QString& text)
   while (startPos < txtLen) {
     QChar ch;
     int len;
-    int crLfPos = txt.indexOf(QRegExp(QLatin1String("[\\r\\n]")), startPos);
+    int crLfPos = txt.indexOf(QRegularExpression(QLatin1String("[\\r\\n]")), startPos);
     if (crLfPos >= startPos) {
       ch = txt.at(crLfPos);
       len = crLfPos - startPos;

@@ -57,6 +57,7 @@
 #include <qdebug.h>
 #include <qcoreevent.h>
 #include <QtCore/qcollator.h>
+#include <QRegularExpression>
 
 #include <algorithm>
 
@@ -1634,11 +1635,7 @@ void FileSystemModel::setNameFilters(const QStringList &filters)
         }
     }
 
-    d->nameFilters.clear();
-    const Qt::CaseSensitivity caseSensitive =
-        (filter() & QDir::CaseSensitive) ? Qt::CaseSensitive : Qt::CaseInsensitive;
-    for (const auto &filter : filters)
-        d->nameFilters << QRegExp(filter, caseSensitive, QRegExp::Wildcard);
+    d->nameFilters = filters;
     d->forceSort = true;
     d->delayedSort();
 #endif
@@ -1649,16 +1646,12 @@ void FileSystemModel::setNameFilters(const QStringList &filters)
 */
 QStringList FileSystemModel::nameFilters() const
 {
-    Q_D(const FileSystemModel);
-    QStringList filters;
 #ifndef QT_NO_REGEXP
-    const int numNameFilters = d->nameFilters.size();
-    filters.reserve(numNameFilters);
-    for (int i = 0; i < numNameFilters; ++i) {
-         filters << d->nameFilters.at(i).pattern();
-    }
+    Q_D(const FileSystemModel);
+    return d->nameFilters;
+#else
+    return QStringList();
 #endif
-    return filters;
 }
 
 /*!
@@ -2015,6 +2008,86 @@ QHash<int, QByteArray> FileSystemModel::roleNames() const
 }
 #endif
 
+#if QT_VERSION < 0x050f00
+QString FileSystemModel::wildcardToRegularExpression(const QString &pattern)
+{
+    const int wclen = pattern.size();
+    QString rx;
+    rx.reserve(wclen + wclen / 16);
+    int i = 0;
+    const QChar *wc = pattern.data();
+
+#ifdef Q_OS_WIN
+    const QLatin1Char nativePathSeparator('\\');
+    const QLatin1String starEscape("[^/\\\\]*");
+    const QLatin1String questionMarkEscape("[^/\\\\]");
+#else
+    const QLatin1Char nativePathSeparator('/');
+    const QLatin1String starEscape("[^/]*");
+    const QLatin1String questionMarkEscape("[^/]");
+#endif
+
+    while (i < wclen) {
+        const QChar c = wc[i++];
+        switch (c.unicode()) {
+        case '*':
+            rx += starEscape;
+            break;
+        case '?':
+            rx += questionMarkEscape;
+            break;
+        case '\\':
+#ifdef Q_OS_WIN
+        case '/':
+            rx += QLatin1String("[/\\\\]");
+            break;
+#endif
+        case '$':
+        case '(':
+        case ')':
+        case '+':
+        case '.':
+        case '^':
+        case '{':
+        case '|':
+        case '}':
+            rx += QLatin1Char('\\');
+            rx += c;
+            break;
+        case '[':
+            rx += c;
+            // Support for the [!abc] or [!a-c] syntax
+            if (i < wclen) {
+                if (wc[i] == QLatin1Char('!')) {
+                    rx += QLatin1Char('^');
+                    ++i;
+                }
+
+                if (i < wclen && wc[i] == QLatin1Char(']'))
+                    rx += wc[i++];
+
+                while (i < wclen && wc[i] != QLatin1Char(']')) {
+                    // The '/' appearing in a character class invalidates the
+                    // regular expression parsing. It also concerns '\\' on
+                    // Windows OS types.
+                    if (wc[i] == QLatin1Char('/') || wc[i] == nativePathSeparator)
+                        return rx;
+                    if (wc[i] == QLatin1Char('\\'))
+                        rx += QLatin1Char('\\');
+                    rx += wc[i++];
+                }
+            }
+            break;
+        default:
+            rx += c;
+            break;
+        }
+    }
+
+    return rx;
+}
+#endif
+
 /*!
     \internal
 
@@ -2077,9 +2150,21 @@ bool FileSystemModelPrivate::passNameFilters(const FileSystemNode *node) const
 
     // Check the name regularexpression filters
     if (!(node->isDir() && (filters & QDir::AllDirs))) {
+        auto reOptions = (filters & QDir::CaseSensitive)
+            ? QRegularExpression::NoPatternOption
+            : QRegularExpression::CaseInsensitiveOption;
         for (const auto &nameFilter : nameFilters) {
-            QRegExp copy = nameFilter;
-            if (copy.exactMatch(node->fileName))
+#if QT_VERSION >= 0x050f00
+            auto rx = QRegularExpression(
+                  QRegularExpression::wildcardToRegularExpression(nameFilter),
+                  reOptions);
+#else
+            auto rx = QRegularExpression(
+                  FileSystemModel::wildcardToRegularExpression(nameFilter),
+                  reOptions);
+#endif
+            auto match = rx.match(node->fileName);
+            if (match.hasMatch())
                 return true;
         }
         return false;

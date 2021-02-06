@@ -25,6 +25,7 @@
  */
 
 #include "serverimporter.h"
+#include <QRegularExpression>
 #include "serverimporterconfig.h"
 #include "importclient.h"
 #include "trackdata.h"
@@ -88,12 +89,12 @@ QString ServerImporter::replaceHtmlEntities(QString str)
   str.replace(QLatin1String("&times;"), QString(QChar(0xd7)));
   str.replace(QLatin1String("&ndash;"), QLatin1String("-"));
 
-  QRegExp numEntityRe(QLatin1String("&#(\\d+);"));
-  int pos = 0;
-  while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
-    str.replace(pos, numEntityRe.matchedLength(),
-                QChar(numEntityRe.cap(1).toInt()));
-    ++pos;
+  QRegularExpression numEntityRe(QLatin1String("&#(\\d+);"));
+  auto it = numEntityRe.globalMatch(str);
+  while (it.hasNext()) {
+    auto match = it.next();
+    str.replace(match.capturedStart(), match.capturedLength(),
+                QChar(match.captured(1).toInt()));
   }
   return str;
 }
@@ -107,7 +108,7 @@ QString ServerImporter::replaceHtmlEntities(QString str)
  */
 QString ServerImporter::removeHtml(QString str)
 {
-  QRegExp htmlTagRe(QLatin1String("<[^>]+>"));
+  QRegularExpression htmlTagRe(QLatin1String("<[^>]+>"));
   return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }
 

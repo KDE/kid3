@@ -26,6 +26,7 @@
 
 #include "importparser.h"
 #include <QCoreApplication>
+#include <QRegularExpression>
 #include "trackdata.h"
 #include "genres.h"
 
@@ -172,16 +173,17 @@ bool ImportParser::getNextTags(const QString& text, TrackData& frames, int& pos)
     while ((idx = (match = m_re.match(text, dsp)).capturedStart()) != -1) {
       QString durationStr = match.captured(m_codePos.value(QLatin1String("__duration")));
       int duration;
-      QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
-      if (durationRe.indexIn(durationStr) != -1) {
-        duration = durationRe.cap(1).toInt() * 60 +
-          durationRe.cap(2).toInt();
+      QRegularExpression durationRe(QLatin1String("(\\d+):(\\d+)"));
+      auto durationMatch = durationRe.match(durationStr);
+      if (durationMatch.hasMatch()) {
+        duration = durationMatch.captured(1).toInt() * 60 +
+            durationMatch.captured(2).toInt();
       } else {
         duration = durationStr.toInt();
       }
       m_trackDuration.append(duration);
 
-      dsp = idx + match.capturedLength();
+      dsp = idx + durationMatch.capturedLength();
       if (dsp > lastDsp) { /* avoid endless loop */
         lastDsp = dsp;
       } else {

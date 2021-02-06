@@ -109,7 +109,7 @@ public:
 private:
   Q_DISABLE_COPY(DateTimeValidator)
 
-  const QRegExp m_re;
+  const QRegularExpression m_re;
   mutable QString m_lastValidInput;
 };
 
@@ -120,12 +120,13 @@ DateTimeValidator::DateTimeValidator(QObject* parent)
 
 QValidator::State DateTimeValidator::validate(QString& input, int& pos) const
 {
-  QRegExp dateTimeRe = m_re;
-  if (dateTimeRe.exactMatch(input)) {
+  auto dateTimeMatch = m_re.match(input, 0,
+      QRegularExpression::PartialPreferCompleteMatch);
+  if (dateTimeMatch.hasMatch()) {
     m_lastValidInput = input;
     return Acceptable;
   } else {
-    const int len = dateTimeRe.matchedLength();
+    const int len = dateTimeMatch.capturedLength();
     if (len == input.size()) {
       return Intermediate;
     } else if (len > 0 && m_lastValidInput.endsWith(input.midRef(len))) {

@@ -27,7 +27,7 @@
 #include "frame.h"
 #include <QMap>
 #include <QStringList>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QCoreApplication>
 #include "pictureframe.h"
 
@@ -1658,8 +1658,9 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
     }
 
     if (lcName == QLatin1String("year")) {
-      QRegExp yearRe(QLatin1String("^\\d{4}-\\d{2}"));
-      if (yearRe.indexIn(result) == 0) {
+      QRegularExpression yearRe(QLatin1String("^\\d{4}-\\d{2}"));
+      auto match = yearRe.match(result);
+      if (match.hasMatch()) {
         result.truncate(4);
       }
     }

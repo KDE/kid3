@@ -27,7 +27,7 @@
 #include "framenotice.h"
 #include <QCoreApplication>
 #include <QSet>
-#include <QRegExp>
+#include <QRegularExpression>
 #include "frame.h"
 
 namespace {
@@ -109,7 +109,7 @@ bool isIsrc(const QString& str)
 
 bool isIsoDateTime(const QString& str)
 {
-  return FrameNotice::isoDateTimeRexExp().exactMatch(str);
+  return FrameNotice::isoDateTimeRexExp().match(str).hasMatch();
 }
 
 bool isMusicalKey(const QString& str)
@@ -200,16 +200,16 @@ QString FrameNotice::getDescription() const
  * Get regular expression to validate an ISO 8601 date/time.
  * @return regular expression matching ISO date/time and periods.
  */
-const QRegExp& FrameNotice::isoDateTimeRexExp()
+const QRegularExpression& FrameNotice::isoDateTimeRexExp()
 {
-  static const QRegExp isoDateRe(QLatin1String(
+  static const QRegularExpression isoDateRe(QLatin1String(
     // This is a simplified regular expression from
     // http://www.pelagodesign.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     // relaxed to allow appending any string after a slash, so that ISO 8601
     // periods of time can by entered while still providing sufficient validation.
-    "(\\d{4})(-((0[1-9]|1[0-2])(-([12]\\d|0[1-9]|3[01]))?)(T((([01]\\d|2[0-3])"
+    "^(\\d{4})(-((0[1-9]|1[0-2])(-([12]\\d|0[1-9]|3[01]))?)(T((([01]\\d|2[0-3])"
     "(:[0-5]\\d)?|24:00))?(:[0-5]\\d([\\.,]\\d+)?)?"
-    "([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?(/.*)?)?"
+    "([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?(/.*)?)?$"
   ));
   return isoDateRe;
 }

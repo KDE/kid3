@@ -25,7 +25,7 @@
  */
 
 #include "amazonimporter.h"
-#include <QRegExp>
+#include <QRegularExpression>
 #include "trackdatamodel.h"
 #include "amazonconfig.h"
 
@@ -87,32 +87,34 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 (..)>by </span>(..)<a class="a-link-normal a-text-normal" href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1426338609&sr=1-1">Amon Amarth</a>
    */
   QString str = QString::fromUtf8(searchStr);
-  QRegExp catIdTitleRe(QLatin1String(
+  QRegularExpression catIdTitleRe(QLatin1String(
     "<a class=\"[^\"]*s-access-detail-page[^\"]*\"[^>]+title=\"([^\"]+)\"[^>]+"
     "href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"));
-  QRegExp nextElementRe(QLatin1String(">([^<]+)<"));
+  QRegularExpression nextElementRe(QLatin1String(">([^<]+)<"));
 
   str.remove(QLatin1Char('\r'));
   m_albumListModel->clear();
   int end = 0;
   for (;;) {
-    int start = catIdTitleRe.indexIn(str, end);
-    if (start == -1)
+    auto catIdTitleMatch = catIdTitleRe.match(str, end);
+    if (!catIdTitleMatch.hasMatch())
       break;
-    end = start + catIdTitleRe.matchedLength();
+    int start = catIdTitleMatch.capturedStart();
+    end = start + catIdTitleMatch.capturedLength();
     start = str.indexOf(QLatin1String(">by <"), end);
     if (start == -1)
       break;
     end = start + 5;
-    start = nextElementRe.indexIn(str, end);
-    if (start == -1)
+    auto nextElementMatch = nextElementRe.match(str, end);
+    if (!nextElementMatch.hasMatch())
       break;
-    end = start + nextElementRe.matchedLength();
+    start = nextElementMatch.capturedStart();
+    end = start + nextElementMatch.capturedLength();
     m_albumListModel->appendItem(
-      nextElementRe.cap(1) + QLatin1String(" - ") +
-      catIdTitleRe.cap(1),
-      catIdTitleRe.cap(2),
-      catIdTitleRe.cap(3));
+      nextElementMatch.captured(1) + QLatin1String(" - ") +
+      catIdTitleMatch.captured(1),
+      catIdTitleMatch.captured(2),
+      catIdTitleMatch.captured(3));
   }
 }
 
@@ -207,10 +209,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     if (detailStart >= 0 && standardTags) {
       int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 10);
       if (detailEnd > detailStart + 10) {
-        QRegExp yearRe(QLatin1String("(\\d{4})"));
-        if (yearRe.indexIn(
-              str.mid(detailStart + 10, detailEnd - detailStart - 11)) >= 0) {
-          framesHdr.setYear(yearRe.cap(1).toInt());
+        QRegularExpression yearRe(QLatin1String("(\\d{4})"));
+        auto match = yearRe.match(
+              str.mid(detailStart + 10, detailEnd - detailStart - 11));
+        if (match.hasMatch()) {
+          framesHdr.setYear(match.captured(1).toInt());
         }
       }
     }
@@ -219,10 +222,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
       if (detailStart > 0) {
         int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 8);
         if (detailEnd > detailStart + 8) {
-          QRegExp labelRe(QLatin1String(">\\s*([^<]+)<"));
-          if (labelRe.indexIn(
-                str.mid(detailStart + 8, detailEnd - detailStart - 9)) >= 0) {
-            framesHdr.setValue(Frame::FT_Publisher, removeHtml(labelRe.cap(1)));
+          QRegularExpression labelRe(QLatin1String(">\\s*([^<]+)<"));
+          auto match = labelRe.match(
+                str.mid(detailStart + 8, detailEnd - detailStart - 9));
+          if (match.hasMatch()) {
+            framesHdr.setValue(Frame::FT_Publisher, removeHtml(match.captured(1)));
           }
         }
       }
@@ -296,8 +300,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     start = str.indexOf(QLatin1String("id=\"a-popover-trackTitlePopover"));
   }
   if (start >= 0) {
-    QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
-    QRegExp nrTitleRe(QLatin1String(R"(\s*\d+\.\s+(.*\S))"));
+    QRegularExpression durationRe(QLatin1String("(\\d+):(\\d+)"));
+    QRegularExpression nrTitleRe(QLatin1String(R"(\s*\d+\.\s+(.*\S))"));
     FrameCollection frames(framesHdr);
     auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
@@ -348,11 +352,12 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
                   if (runtimeStart >= 0) {
                     int runtimeEnd = line.indexOf(QLatin1Char('<'), runtimeStart);
                     if (runtimeEnd > runtimeStart) {
-                      if (durationRe.indexIn(
+                      auto match = durationRe.match(
                             line.mid(runtimeStart + 1,
-                                     runtimeEnd - runtimeStart - 1)) >= 0) {
-                        duration = durationRe.cap(1).toInt() * 60 +
-                          durationRe.cap(2).toInt();
+                                     runtimeEnd - runtimeStart - 1));
+                      if (match.hasMatch()) {
+                        duration = match.captured(1).toInt() * 60 +
+                          match.captured(2).toInt();
                       }
                     }
                   }
@@ -369,9 +374,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
         start = str.indexOf(QLatin1String("<td>"), start);
         if (start >= 0) {
           end = str.indexOf(QLatin1String("</td>"), start);
+          QRegularExpressionMatch match;
           if (end > start &&
-              nrTitleRe.indexIn(str.mid(start + 4, end - start - 4)) >= 0) {
-            title = nrTitleRe.cap(1);
+              (match = nrTitleRe.match(
+                 str.mid(start + 4, end - start - 4))).hasMatch()) {
+            title = match.captured(1);
             start = str.indexOf(QLatin1String("class=\"listRow"), end);
           } else {
             start = -1;
@@ -391,13 +398,14 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
               if (runtimeStart >= 0) {
                 int runtimeEnd = str.indexOf(QLatin1String("</td>"),
                                              runtimeStart);
+                QRegularExpressionMatch match;
                 if (runtimeEnd > runtimeStart &&
-                    durationRe.indexIn(
-                      str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1)
-                      .remove(QLatin1Char('\n')).remove(QLatin1Char('\r')))
-                    >= 0) {
-                  duration = durationRe.cap(1).toInt() * 60 +
-                      durationRe.cap(2).toInt();
+                    (match = durationRe.match(
+                       str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1)
+                       .remove(QLatin1Char('\n')).remove(QLatin1Char('\r'))))
+                    .hasMatch()) {
+                  duration = match.captured(1).toInt() * 60 +
+                      match.captured(2).toInt();
                 }
               }
               start = str.indexOf(

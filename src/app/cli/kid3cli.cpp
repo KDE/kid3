@@ -377,7 +377,7 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
   QStringList expandedPaths;
   for (const QString& path : paths) {
     QStringList expandedPath;
-    int wcIdx = path.indexOf(QRegExp(QLatin1String("[?*]")));
+    int wcIdx = path.indexOf(QRegularExpression(QLatin1String("[?*]")));
     if (wcIdx != -1) {
       QString partBefore, partAfter;
       int beforeIdx = path.lastIndexOf(QDir::separator(), wcIdx);

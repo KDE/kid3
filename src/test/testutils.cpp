@@ -26,7 +26,7 @@
 
 #include "testutils.h"
 #include <QTest>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <cstdio>
 
 /**
@@ -44,7 +44,7 @@
 int TestUtils::runTestSuite(const QObject& testSuite, QStringList& args)
 {
   bool listTestCases = false;
-  QRegExp testCaseRe;
+  QRegularExpression testCaseRe;
   for (int i = 1; i < args.size(); ++i) {
     if (args.at(i) == QLatin1String("-help")) {
       std::printf(" -testcases : Returns a list of current testcases\n"
@@ -69,7 +69,7 @@ int TestUtils::runTestSuite(const QObject& testSuite, QStringList& args)
     QString tcName(QString::fromLatin1(tc->metaObject()->className()));
     if (listTestCases) {
       std::printf("%s\n", qPrintable(tcName));
-    } else if (testCaseRe.isEmpty() || testCaseRe.exactMatch(tcName)) {
+    } else if (testCaseRe.pattern().isEmpty() || testCaseRe.match(tcName).hasMatch()) {
       int rc = QTest::qExec(tc, args);
       testsFailed += rc;
       if (rc == 0) {

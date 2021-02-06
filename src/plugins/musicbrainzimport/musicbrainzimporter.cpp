@@ -27,6 +27,7 @@
 #include "musicbrainzimporter.h"
 #include <QDomDocument>
 #include <QUrl>
+#include <QRegularExpression>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "musicbrainzconfig.h"
@@ -356,10 +357,11 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
       }
       QString date(release.namedItem(QLatin1String("date")).toElement().text());
       if (!date.isEmpty()) {
-        QRegExp dateRe(QLatin1String(R"((\d{4})(?:-\d{2})?(?:-\d{2})?)"));
+        QRegularExpression dateRe(QLatin1String(R"(^(\d{4})(?:-\d{2})?(?:-\d{2})?$)"));
         int year = 0;
-        if (dateRe.exactMatch(date)) {
-          year = dateRe.cap(1).toInt();
+        auto match = dateRe.match(date);
+        if (match.hasMatch()) {
+          year = match.captured(1).toInt();
         } else {
           year = date.toInt();
         }
@@ -436,7 +438,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                         // https://www.amazon.de/gp/product/ does not work,
                         // fix such links.
                         coverArtUrl.replace(
-                            QRegExp(QLatin1String(
+                            QRegularExpression(QLatin1String(
                                   "https://www\\.amazon\\.[^/]+/gp/product/")),
                             QLatin1String("http://images.amazon.com/images/P/"));
                         if (!coverArtUrl.endsWith(QLatin1String(".jpg"))) {

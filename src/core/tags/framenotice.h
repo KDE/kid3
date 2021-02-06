@@ -93,7 +93,7 @@ public:
    * Get regular expression to validate an ISO 8601 date/time.
    * @return regular expression matching ISO date/time and periods.
    */
-  static const QRegExp& isoDateTimeRexExp();
+  static const QRegularExpression& isoDateTimeRexExp();
 
   /**
    * Check if a picture frame exceeds a given size.

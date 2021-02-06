@@ -370,7 +370,7 @@ public:
     bool disableRecursiveSort;
     bool sortIgnoringPunctuation;
 #ifndef QT_NO_REGEXP
-    QList<QRegExp> nameFilters;
+    QStringList nameFilters;
 #endif
     QHash<QString, QString> resolvedSymLinks;
 

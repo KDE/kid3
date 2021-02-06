@@ -27,6 +27,7 @@
 #include "musicbrainzclient.h"
 #include <QByteArray>
 #include <QDomDocument>
+#include <QRegularExpression>
 #include "httpclient.h"
 #include "trackdatamodel.h"
 #include "fingerprintcalculator.h"
@@ -57,13 +58,13 @@ QStringList parseAcoustidIds(const QByteArray& bytes)
       startPos += 15;
       int endPos = bytes.indexOf(']', startPos);
       if (endPos > startPos) {
-        QRegExp idRe(QLatin1String("\"id\":\\s*\"([^\"]+)\""));
+        QRegularExpression idRe(QLatin1String("\"id\":\\s*\"([^\"]+)\""));
         QString recordings(QString::fromLatin1(bytes.mid(startPos,
                                                          endPos - startPos)));
-        int pos = 0;
-        while ((pos = idRe.indexIn(recordings, pos)) != -1) {
-          ids.append(idRe.cap(1));
-          pos += idRe.matchedLength();
+        auto it = idRe.globalMatch(recordings);
+        while (it.hasNext()) {
+          auto match = it.next();
+          ids.append(match.captured(1));
         }
       }
     }
@@ -147,10 +148,11 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
         QString date(releaseNode.namedItem(QLatin1String("date")).toElement()
                      .text());
         if (!date.isEmpty()) {
-          QRegExp dateRe(QLatin1String(R"((\d{4})(?:-\d{2})?(?:-\d{2})?)"));
+          QRegularExpression dateRe(QLatin1String(R"(^(\d{4})(?:-\d{2})?(?:-\d{2})?$)"));
+          auto match = dateRe.match(date);
           int year = 0;
-          if (dateRe.exactMatch(date)) {
-            year = dateRe.cap(1).toInt();
+          if (match.hasMatch()) {
+            year = match.captured(1).toInt();
           } else {
             year = date.toInt();
           }

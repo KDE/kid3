@@ -26,6 +26,7 @@
 
 #include "timeeventmodel.h"
 #include <QTextStream>
+#include <QRegularExpression>
 #include "coretaggedfileiconprovider.h"
 #include "eventtimingcode.h"
 
@@ -459,7 +460,7 @@ void TimeEventModel::clearMarkedRow()
  */
 void TimeEventModel::fromLrcFile(QTextStream& stream)
 {
-  QRegExp timeStampRe(QLatin1String(
+  QRegularExpression timeStampRe(QLatin1String(
                         R"(([[<])(\d\d):(\d\d)(?:\.(\d{1,3}))?([\]>]))"));
   QList<TimeEvent> timeEvents;
   bool isFirstLine = true;
@@ -485,10 +486,11 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
 
     QList<QTime> emptyEvents;
     char firstChar = '\0';
-    int pos = timeStampRe.indexIn(line, 0);
-    while (pos != -1) {
-      bool newLine = timeStampRe.cap(1) == QLatin1String("[");
-      QString millisecondsStr = timeStampRe.cap(4);
+    auto it = timeStampRe.globalMatch(line);
+    while (it.hasNext()) {
+      auto match = it.next();
+      bool newLine = match.captured(1) == QLatin1String("[");
+      QString millisecondsStr = match.captured(4);
       int milliseconds = millisecondsStr.toInt();
       if (millisecondsStr.length() == 2) {
         milliseconds *= 10;
@@ -496,13 +498,18 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
         milliseconds *= 100;
       }
       QTime timeStamp(0,
-                      timeStampRe.cap(2).toInt(),
-                      timeStampRe.cap(3).toInt(),
+                      match.captured(2).toInt(),
+                      match.captured(3).toInt(),
                       milliseconds);
-      int textBegin = pos + timeStampRe.matchedLength();
-
-      pos = timeStampRe.indexIn(line, textBegin);
-      int textLen = pos != -1 ? pos - textBegin : -1;
+      int pos = match.capturedStart();
+      int textBegin = pos + match.capturedLength();
+      int textLen = -1;
+      pos = -1;
+      if (it.hasNext()) {
+        match = it.peekNext();
+        pos = match.capturedStart();
+        textLen = pos - textBegin;
+      }
       QString str = line.mid(textBegin, textLen);
       if (m_type == EventTimingCodes) {
         EventTimeCode etc =
@@ -526,7 +533,7 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
           str.prepend(QLatin1Char('_'));
         }
         if (pos != -1) {
-          if (timeStampRe.cap(1) == QLatin1String("<")) {
+          if (match.captured(1) == QLatin1String("<")) {
             if (str.endsWith(QLatin1Char(' ')) ||
                 str.endsWith(QLatin1Char('-'))) {
               firstChar = str.at(str.length() - 1).toLatin1();
