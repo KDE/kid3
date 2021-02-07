@@ -88,8 +88,11 @@
 #include "dirrenamer.h"
 #include "iplatformtools.h"
 #include "saferename.h"
+#include "config.h"
+#ifdef HAVE_QTMULTIMEDIA
 #include "audioplayer.h"
 #include "playtoolbar.h"
+#endif
 
 /**
  * Constructor.
@@ -109,7 +112,8 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
     m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
     m_progressWidget(nullptr), m_progressLabel(nullptr),
     m_progressBar(nullptr), m_progressAbortButton(nullptr),
-    m_editFrameDialog(nullptr), m_editFrameTaggedFile(nullptr),
+    m_editFrameDialog(nullptr), m_playToolBar(nullptr),
+    m_editFrameTaggedFile(nullptr),
     m_editFrameTagNr(Frame::Tag_2),
     m_progressTerminationHandler(nullptr),
     m_folderCount(0), m_fileCount(0), m_selectionCount(0),
@@ -174,6 +178,9 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
 BaseMainWindowImpl::~BaseMainWindowImpl()
 {
   qDeleteAll(m_playlistEditDialogs);
+#ifdef HAVE_QTMULTIMEDIA
+  delete m_playToolBar;
+#endif
 }
 
 /**
@@ -328,12 +335,13 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   }
 
-#ifdef Q_OS_WIN32
+#if defined Q_OS_WIN32 && defined HAVE_QTMULTIMEDIA
   // Close player on Windows because it holds file handles which prevent
   // files from being saved.
   if (m_playToolBar) {
     m_playToolBar->close();
-    m_playToolBar.reset();
+    delete m_playToolBar;
+    m_playToolBar = nullptr;
   }
   m_app->deleteAudioPlayer();
 #endif
@@ -1196,26 +1204,28 @@ void BaseMainWindowImpl::slotPlayAudio()
  */
 void BaseMainWindowImpl::showPlayToolBar()
 {
+#ifdef HAVE_QTMULTIMEDIA
   if (!m_playToolBar) {
     if (AudioPlayer* player =
         qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-      m_playToolBar.reset(new PlayToolBar(player, m_w));
+      m_playToolBar = new PlayToolBar(player, m_w);
       m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
-      m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar.data());
-      connect(m_playToolBar.data(), &PlayToolBar::errorMessage,
+      m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
+      connect(m_playToolBar, &PlayToolBar::errorMessage,
               this, &BaseMainWindowImpl::slotStatusMsg);
 #ifdef HAVE_QTDBUS
-      connect(m_playToolBar.data(), &PlayToolBar::closed,
+      connect(m_playToolBar, &PlayToolBar::closed,
               m_app, &Kid3Application::deactivateMprisInterface);
 #endif
 #ifdef Q_OS_WIN32
       // Phonon on Windows cannot play if the file is open.
-      connect(m_playToolBar.data(), &PlayToolBar::aboutToPlay,
+      connect(m_playToolBar, &PlayToolBar::aboutToPlay,
               m_app, &Kid3Application::closeFileHandle);
 #endif
     }
   }
   m_playToolBar->show();
+#endif
 }
 
 /**

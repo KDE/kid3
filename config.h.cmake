@@ -7,6 +7,9 @@
 /* Define if you have QtDBus installed */
 #cmakedefine HAVE_QTDBUS 1
 
+/* Define if you have Qt Multimedia installed */
+#cmakedefine HAVE_QTMULTIMEDIA 1
+
 /* Define if QML is enabled */
 #cmakedefine HAVE_QML 1
 

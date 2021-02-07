@@ -29,9 +29,11 @@
 #include <QClipboard>
 #include "taggedfileiconprovider.h"
 #include "config.h"
+#ifdef HAVE_QTMULTIMEDIA
 #include "audioplayer.h"
 #ifdef HAVE_QTDBUS
 #include "mprisinterface.h"
+#endif
 #endif
 
 /**
@@ -87,6 +89,7 @@ QString GuiPlatformTools::readFromClipboard() const
 QObject* GuiPlatformTools::createAudioPlayer(Kid3Application* app,
                                              bool dbusEnabled) const
 {
+#ifdef HAVE_QTMULTIMEDIA
   AudioPlayer* player = new AudioPlayer(app);
 #ifdef HAVE_QTDBUS
   if (dbusEnabled) {
@@ -97,4 +100,7 @@ QObject* GuiPlatformTools::createAudioPlayer(Kid3Application* app,
   Q_UNUSED(dbusEnabled)
 #endif
   return player;
+#else
+  return nullptr;
+#endif
 }

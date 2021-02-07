@@ -50,7 +50,9 @@
 #include "batchimporter.h"
 #include "downloadclient.h"
 #include "config.h"
+#ifdef HAVE_QTMULTIMEDIA
 #include "audioplayer.h"
+#endif
 
 Q_DECLARE_METATYPE(Kid3Application*)
 Q_DECLARE_METATYPE(QAbstractItemModel*)
@@ -75,7 +77,9 @@ Q_DECLARE_METATYPE(DirRenamer*)
 Q_DECLARE_METATYPE(BatchImporter*)
 Q_DECLARE_METATYPE(DownloadClient*)
 Q_DECLARE_METATYPE(Kid3ApplicationTagContext*)
+#ifdef HAVE_QTMULTIMEDIA
 Q_DECLARE_METATYPE(AudioPlayer*)
+#endif
 
 namespace {
 
@@ -199,8 +203,10 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<Kid3ApplicationTagContext>(uri, 1, 0,
         "Kid3ApplicationTagContext",
         QLatin1String("Retrieve it using app.tag()"));
+#ifdef HAVE_QTMULTIMEDIA
     qmlRegisterUncreatableType<AudioPlayer>(uri, 1, 0, "AudioPlayer",
         QLatin1String("Retrieve it using app.getAudioPlayer()"));
+#endif
   }
 }
 

@@ -498,6 +498,7 @@ void Kid3MainWindow::initActions()
     }
   }
 
+#ifdef HAVE_QTMULTIMEDIA
   toolsMenu->addSeparator();
   auto toolsPlay = new QAction(this);
   toolsPlay->setStatusTip(tr("Play"));
@@ -509,6 +510,7 @@ void Kid3MainWindow::initActions()
     app(), &Kid3Application::playAudio);
   toolsMenu->addAction(toolsPlay);
   toolBar->addAction(toolsPlay);
+#endif
 
   menuTitle = tr("&Settings");
   QMenu* settingsMenu = menubar->addMenu(menuTitle);

@@ -315,11 +315,13 @@ void KdeMainWindow::initActions()
       connect(action, &QAction::triggered, app(), &Kid3Application::convertToId3v23);
     }
   }
+#ifdef HAVE_QTMULTIMEDIA
   action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")),
                        tr("&Play"), this);
   action->setStatusTip(tr("Play"));
   collection->addAction(QLatin1String("play"), action);
   connect(action, &QAction::triggered, app(), &Kid3Application::playAudio);
+#endif
   m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
   m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
   m_settingsShowHidePicture->setCheckable(true);

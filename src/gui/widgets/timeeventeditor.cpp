@@ -48,7 +48,9 @@
 #include "timestampdelegate.h"
 #include "eventcodedelegate.h"
 #include "kid3application.h"
+#ifdef HAVE_QTMULTIMEDIA
 #include "audioplayer.h"
+#endif
 #include "contexthelp.h"
 #include "iplatformtools.h"
 
@@ -196,6 +198,7 @@ void TimeEventEditor::setModel(TimeEventModel* model)
  */
 void TimeEventEditor::preparePlayer()
 {
+#ifdef HAVE_QTMULTIMEDIA
   m_app->showAudioPlayer();
   if (AudioPlayer* player =
       qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
@@ -209,6 +212,7 @@ void TimeEventEditor::preparePlayer()
     connect(player, &AudioPlayer::positionChanged,
             this, &TimeEventEditor::onPositionChanged, Qt::UniqueConnection);
   }
+#endif
 }
 
 /**
@@ -216,6 +220,7 @@ void TimeEventEditor::preparePlayer()
  */
 void TimeEventEditor::addItem()
 {
+#ifdef HAVE_QTMULTIMEDIA
   QTime timeStamp;
   preparePlayer();
   if (AudioPlayer* player =
@@ -250,6 +255,7 @@ void TimeEventEditor::addItem()
       m_tableView->scrollTo(index);
     }
   }
+#endif
 }
 
 /**
@@ -422,6 +428,7 @@ void TimeEventEditor::addOffset()
  */
 void TimeEventEditor::seekPosition()
 {
+#ifdef HAVE_QTMULTIMEDIA
   QModelIndex index = m_tableView->currentIndex();
   if (index.isValid() && m_fileIsPlayed) {
     QTime timeStamp =
@@ -433,6 +440,7 @@ void TimeEventEditor::seekPosition()
       }
     }
   }
+#endif
 }
 
 /**

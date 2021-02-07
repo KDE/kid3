@@ -7,7 +7,6 @@ qt5_wrap_cpp(gui_GEN_MOC_SRCS
   widgets/formatlistedit.h
   widgets/frametable.h
   widgets/imageviewer.h
-  widgets/playtoolbar.h
   widgets/stringlistedit.h
   widgets/timeeventeditor.h
   widgets/timestampdelegate.h
@@ -40,11 +39,17 @@ qt5_wrap_cpp(gui_GEN_MOC_SRCS
   forms/kid3form.h
   forms/basemainwindow.h
   forms/playlistview.h
-  forms/audioplayer.h
-  forms/mprisinterface.h
   forms/sectionactions.h
   TARGET kid3-gui
 )
+if(HAVE_QTMULTIMEDIA)
+  qt5_wrap_cpp(qtmultimedia_GEN_MOC_SRCS
+    widgets/playtoolbar.h
+    forms/audioplayer.h
+    forms/mprisinterface.h
+    TARGET kid3-gui
+  )
+endif()
 
 add_library(kid3-gui
   widgets/abstractlistedit.cpp
@@ -57,7 +62,6 @@ add_library(kid3-gui
   widgets/frametable.cpp
   widgets/imageviewer.cpp
   widgets/picturelabel.cpp
-  widgets/playtoolbar.cpp
   widgets/stringlistedit.cpp
   widgets/timeeventeditor.cpp
   widgets/enumdelegate.cpp
@@ -98,18 +102,29 @@ add_library(kid3-gui
   forms/playlistview.cpp
   forms/pixmapprovider.cpp
   forms/taggedfileiconprovider.cpp
-  forms/audioplayer.cpp
-  forms/mprisinterface.cpp
   forms/guiplatformtools.cpp
   forms/sectionactions.cpp
-  ${gui_GEN_MOC_SRCS}
 )
+if(HAVE_QTMULTIMEDIA)
+  target_sources(kid3-gui PRIVATE
+    widgets/playtoolbar.cpp
+    forms/audioplayer.cpp
+    forms/mprisinterface.cpp
+  )
+endif()
+target_sources(kid3-gui PRIVATE ${gui_GEN_MOC_SRCS})
+if(HAVE_QTMULTIMEDIA)
+  target_sources(kid3-gui PRIVATE ${qtmultimedia_GEN_MOC_SRCS})
+endif()
 
 target_include_directories(kid3-gui PRIVATE widgets PUBLIC dialogs forms)
 
 target_compile_definitions(kid3-gui PRIVATE KID3_BUILD_GUI_LIB)
 
-target_link_libraries(kid3-gui kid3-core Qt5::Widgets Qt5::Multimedia)
+target_link_libraries(kid3-gui kid3-core Qt5::Widgets)
+if(HAVE_QTMULTIMEDIA)
+  target_link_libraries(kid3-gui Qt5::Multimedia)
+endif()
 
 if(BUILD_SHARED_LIBS)
   install(TARGETS kid3-gui

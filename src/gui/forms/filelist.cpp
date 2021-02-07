@@ -49,6 +49,7 @@
 #include "playlistconfig.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
+#include "config.h"
 
 namespace {
 
@@ -368,10 +369,12 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     if (m_deleteAction) {
       menu.addAction(m_deleteAction);
     }
+#ifdef HAVE_QTMULTIMEDIA
 #if QT_VERSION >= 0x050600
     menu.addAction(tr("&Play"), m_mainWin, &BaseMainWindowImpl::slotPlayAudio);
 #else
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+#endif
 #endif
     if (isPlaylist) {
       QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);

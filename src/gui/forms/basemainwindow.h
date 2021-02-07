@@ -624,7 +624,7 @@ private:
   /** Edit frame dialog */
   EditFrameFieldsDialog* m_editFrameDialog;
   /** Play toolbar */
-  QScopedPointer<PlayToolBar> m_playToolBar;
+  PlayToolBar* m_playToolBar;
   Frame m_editFrame;
   TaggedFile* m_editFrameTaggedFile;
   Frame::TagNumber m_editFrameTagNr;
