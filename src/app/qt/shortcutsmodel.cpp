@@ -27,6 +27,7 @@
 #include "shortcutsmodel.h"
 #include "isettings.h"
 #include <QAction>
+#include <QFont>
 
 namespace {
 

@@ -200,7 +200,11 @@ void FormatConfig::formatString(QString& str) const
                 ++j;
               }
               if (j > i) {
+#if QT_VERSION >= 0x060000
+                newstr.append(str.mid(i, j - i));
+#else
                 newstr.append(str.midRef(i, j - i));
+#endif
                 i = j - 1;
                 continue;
               }

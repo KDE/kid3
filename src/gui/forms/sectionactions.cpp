@@ -59,7 +59,7 @@ SectionActions::SectionActions(ActionGroups groups, QWidget* widget)
   if (groups & Transfer) {
     m_transferAction = new QAction(m_widget);
     m_transferAction->setObjectName(QLatin1String("transfer_section"));
-    m_transferAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_V);
+    m_transferAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_V);
     m_transferAction->setShortcutContext(shortcutContext);
     m_widget->addAction(m_transferAction);
   }
@@ -78,7 +78,7 @@ SectionActions::SectionActions(ActionGroups groups, QWidget* widget)
 
     m_removeAction = new QAction(m_widget);
     m_removeAction->setObjectName(QLatin1String("remove_section"));
-    m_removeAction->setShortcut(Qt::SHIFT + Qt::Key_Delete);
+    m_removeAction->setShortcut(Qt::SHIFT | Qt::Key_Delete);
     m_removeAction->setShortcutContext(shortcutContext);
     m_widget->addAction(m_removeAction);
   }
@@ -149,14 +149,14 @@ SectionActions::defaultShortcuts()
       QLatin1String("next_section"), tr("Next"), QKeySequence::Forward},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("transfer_section"), tr("Transfer"),
-          Qt::CTRL + Qt::SHIFT + Qt::Key_V},
+          Qt::CTRL | Qt::SHIFT | Qt::Key_V},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("copy_section"), tr("Copy"), QKeySequence::Copy},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("paste_section"), tr("Paste"), QKeySequence::Paste},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("remove_section"), tr("Remove"),
-          Qt::SHIFT + Qt::Key_Delete},
+          Qt::SHIFT | Qt::Key_Delete},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("edit_section_element"), tr("Edit"), Qt::Key_F2},
     std::tuple<QString, QString, QKeySequence>{
@@ -166,9 +166,9 @@ SectionActions::defaultShortcuts()
           QKeySequence::Delete},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("open_parent"), tr("Open Parent Folder"),
-          Qt::CTRL + Qt::Key_Up},
+          Qt::CTRL | Qt::Key_Up},
     std::tuple<QString, QString, QKeySequence>{
       QLatin1String("open_current"), tr("Open Current Folder"),
-          Qt::CTRL + Qt::Key_Down}
+          Qt::CTRL | Qt::Key_Down}
   };
 }

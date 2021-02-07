@@ -30,7 +30,9 @@
 #include <QPushButton>
 #include <QGuiApplication>
 #include <QScreen>
+#if QT_VERSION < 0x060000
 #include <QDesktopWidget>
+#endif
 #include <QVBoxLayout>
 
 /**
@@ -54,8 +56,13 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img)
   m_image->setScaledContents(true);
   QSize imageSize(img.size());
   QSize desktopSize(QGuiApplication::primaryScreen()->availableGeometry().size());
+#if QT_VERSION >= 0x060000
+  desktopSize -= QSize(12, 12 + vlayout->spacing() + closeButton->height() +
+                       vlayout->contentsMargins().bottom());
+#else
   desktopSize -= QSize(12, 12 + vlayout->spacing() + closeButton->height() +
                        vlayout->margin());
+#endif
   QPixmap pm = imageSize.width() > desktopSize.width() ||
                imageSize.height() > desktopSize.height()
       ? QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio))

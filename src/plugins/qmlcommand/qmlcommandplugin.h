@@ -27,12 +27,12 @@
 #pragma once
 
 #include <QObject>
+#include <QQmlError>
 #include "iusercommandprocessor.h"
 
 class Kid3Application;
 class QQuickView;
 class QQmlEngine;
-class QQmlError;
 
 /**
  * Starter for QML scripts.

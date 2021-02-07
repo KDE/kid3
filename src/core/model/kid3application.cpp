@@ -25,8 +25,11 @@
  */
 
 #include "kid3application.h"
-#include <QItemSelectionModel>
+#if QT_VERSION >= 0x060000
+#include <QStringConverter>
+#else
 #include <QTextCodec>
+#endif
 #include <QTextStream>
 #include <QNetworkAccessManager>
 #include <QTimer>
@@ -50,18 +53,11 @@
 #endif
 #include "filesystemmodel.h"
 #include "icoreplatformtools.h"
-#include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
 #include "filefilter.h"
-#include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "trackdatamodel.h"
-#include "genremodel.h"
-#include "frametablemodel.h"
-#include "taggedfileselection.h"
 #include "timeeventmodel.h"
-#include "framelist.h"
-#include "frameeditorobject.h"
 #include "frameobjectmodel.h"
 #include "playlistmodel.h"
 #include "imagedataprovider.h"
@@ -70,7 +66,6 @@
 #include "importparser.h"
 #include "textexporter.h"
 #include "serverimporter.h"
-#include "dirrenamer.h"
 #include "saferename.h"
 #include "configstore.h"
 #include "formatconfig.h"
@@ -81,10 +76,8 @@
 #include "playlistconfig.h"
 #include "isettings.h"
 #include "playlistcreator.h"
-#include "downloadclient.h"
 #include "iframeeditor.h"
 #include "batchimportprofile.h"
-#include "batchimporter.h"
 #include "batchimportconfig.h"
 #include "iserverimporterfactory.h"
 #include "iservertrackimporterfactory.h"
@@ -172,8 +165,13 @@ void extractFileFieldIndex(
         frameName.indexOf(QLatin1Char(']'), bracketIndex + 1);
     if (closingBracketIndex > bracketIndex) {
       bool ok;
+#if QT_VERSION >= 0x060000
+      index = frameName.mid(
+          bracketIndex + 1, closingBracketIndex - bracketIndex - 1).toInt(&ok);
+#else
       index = frameName.midRef(
           bracketIndex + 1, closingBracketIndex - bracketIndex - 1).toInt(&ok);
+#endif
       if (ok) {
         frameName.remove(bracketIndex, closingBracketIndex - bracketIndex + 1);
       }
@@ -3493,7 +3491,13 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
           QTextStream stream(&file);
           QString codecName = FileConfig::instance().textEncoding();
           if (codecName != QLatin1String("System")) {
+#if QT_VERSION >= 0x060000
+            if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
+              stream.setEncoding(encoding.value());
+            }
+#else
             stream.setCodec(codecName.toLatin1());
+#endif
           }
           timeEventModel.toLrcFile(stream, frames.getTitle(),
                                    frames.getArtist(), frames.getAlbum());
@@ -3548,7 +3552,11 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
       // probably "TXXX - User defined text information\nDescription" or
       // "WXXX - User defined URL link\nDescription"
       name = name.mid(nlPos + 1);
+#if QT_VERSION >= 0x060000
+    } else if (name.mid(4, 3) == QLatin1String(" - ")) {
+#else
     } else if (name.midRef(4, 3) == QLatin1String(" - ")) {
+#endif
       // probably "ID3-ID - Description"
       name = name.left(4);
     }

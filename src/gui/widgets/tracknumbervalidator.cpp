@@ -68,10 +68,17 @@ QValidator::State TrackNumberValidator::validate(QString& input, int&) const
       return Intermediate;
     }
 
+#if QT_VERSION >= 0x060000
+    input.left(slashPos).toULongLong(&ok);
+    if (ok) {
+      input.mid(slashPos + 1).toULongLong(&ok);
+    }
+#else
     input.leftRef(slashPos).toULongLong(&ok);
     if (ok) {
       input.midRef(slashPos + 1).toULongLong(&ok);
     }
+#endif
   }
   return ok ? Acceptable : Invalid;
 }

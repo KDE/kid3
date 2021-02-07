@@ -27,7 +27,11 @@
 #include "taglibfile.h"
 #include <QDir>
 #include <QString>
+#if QT_VERSION >= 0x060000
+#include <QStringConverter>
+#else
 #include <QTextCodec>
+#endif
 #include <QByteArray>
 #include <QVarLengthArray>
 #include <QScopedPointer>
@@ -725,17 +729,43 @@ public:
    */
   virtual TagLib::ByteVector render(const TagLib::String& s) const override;
 
+#if QT_VERSION >= 0x060000
+  /**
+   * Set string decoder.
+   * @param encodingName encoding, empty for default behavior (ISO 8859-1)
+   */
+  static void setStringDecoder(const QString& encodingName) {
+    if (auto encoding = QStringConverter::encodingForName(encodingName.toLatin1())) {
+      s_encoder = QStringEncoder(encoding.value());
+      s_decoder = QStringDecoder(encoding.value());
+    } else {
+      s_encoder = QStringEncoder();
+      s_decoder = QStringDecoder();
+    }
+  }
+#else
   /**
    * Set text codec.
    * @param codec text codec, 0 for default behavior (ISO 8859-1)
    */
   static void setTextCodec(const QTextCodec* codec) { s_codec = codec; }
+#endif
 
 private:
+#if QT_VERSION >= 0x060000
+  static QStringDecoder s_decoder;
+  static QStringEncoder s_encoder;
+#else
   static const QTextCodec* s_codec;
+#endif
 };
 
+#if QT_VERSION >= 0x060000
+QStringDecoder TextCodecStringHandler::s_decoder;
+QStringEncoder TextCodecStringHandler::s_encoder;
+#else
 const QTextCodec* TextCodecStringHandler::s_codec = nullptr;
+#endif
 
 /**
  * Decode a string from data.
@@ -744,9 +774,15 @@ const QTextCodec* TextCodecStringHandler::s_codec = nullptr;
  */
 TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) const
 {
+#if QT_VERSION >= 0x060000
+  return s_decoder.isValid()
+      ? toTString(s_decoder(QByteArray(data.data(), data.size()))).stripWhiteSpace()
+      : TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
+#else
   return s_codec
       ? toTString(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace()
       : TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
+#endif
 }
 
 /**
@@ -756,12 +792,21 @@ TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) con
  */
 TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 {
+#if QT_VERSION >= 0x060000
+  if (s_encoder.isValid()) {
+    QByteArray ba = s_encoder(toQString(s));
+    return TagLib::ByteVector(ba.data(), ba.size());
+  } else {
+    return s.data(TagLib::String::Latin1);
+  }
+#else
   if (s_codec) {
     QByteArray ba(s_codec->fromUnicode(toQString(s)));
     return TagLib::ByteVector(ba.data(), ba.size());
   } else {
     return s.data(TagLib::String::Latin1);
   }
+#endif
 }
 
 }
@@ -1569,7 +1614,11 @@ QString getGenreString(const TagLib::String& str)
   int cpPos = 0, n = 0xff;
   bool ok = false;
   if (qs[0] == QLatin1Char('(') && (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
+#if QT_VERSION >= 0x060000
+    n = qs.mid(1, cpPos - 1).toInt(&ok);
+#else
     n = qs.midRef(1, cpPos - 1).toInt(&ok);
+#endif
     if (!ok || n > 0xff) {
       n = 0xff;
     }
@@ -6846,13 +6895,18 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
 }
 
 /**
- * Set the text codec to be used for tag 1.
+ * Set the encoding to be used for tag 1.
  *
- * @param codec text codec, 0 to use default (ISO 8859-1)
+ * @param name of encoding, default is ISO 8859-1
  */
-void TagLibFile::setTextCodecV1(const QTextCodec* codec)
+void TagLibFile::setTextEncodingV1(const QString& name)
 {
-  TextCodecStringHandler::setTextCodec(codec);
+#if QT_VERSION >= 0x060000
+  TextCodecStringHandler::setStringDecoder(name);
+#else
+  TextCodecStringHandler::setTextCodec(name != QLatin1String("ISO-8859-1")
+      ? QTextCodec::codecForName(name.toLatin1().data()) : nullptr);
+#endif
 }
 
 /**
@@ -6884,12 +6938,9 @@ void TagLibFile::setDefaultTextEncoding(TagConfig::TextEncoding textEnc)
  */
 void TagLibFile::notifyConfigurationChange()
 {
-  const QTextCodec* id3v1TextCodec =
-    TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : nullptr;
   setDefaultTextEncoding(
     static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
-  setTextCodecV1(id3v1TextCodec);
+  setTextEncodingV1(TagConfig::instance().textEncodingV1());
 }
 
 namespace {

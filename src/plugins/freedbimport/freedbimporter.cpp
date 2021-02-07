@@ -174,7 +174,11 @@ void parseFreedbTrackDurations(
     int discLenPos = match.capturedStart();
     int len = match.capturedLength();
     discLenPos += 12;
+#if QT_VERSION >= 0x060000
+    int discLen = text.mid(discLenPos, len - 12).toInt();
+#else
     int discLen = text.midRef(discLenPos, len - 12).toInt();
+#endif
     int trackOffsetPos = text.indexOf(QLatin1String("Track frame offsets"), 0);
     if (trackOffsetPos != -1) {
       int lastOffset = -1;
@@ -188,7 +192,11 @@ void parseFreedbTrackDurations(
         }
         len = match.capturedLength();
         trackOffsetPos += 1;
+#if QT_VERSION >= 0x060000
+        int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
+#else
         int trackOffset = text.midRef(trackOffsetPos, len - 1).toInt();
+#endif
         if (lastOffset != -1) {
           int duration = (trackOffset - lastOffset) / 75;
           trackDuration.append(duration);

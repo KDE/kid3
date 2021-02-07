@@ -406,11 +406,11 @@ private:
   static QString getTagFormat(const TagLib::Tag* tag, TagType& type);
 
   /**
-   * Set the text codec to be used for tag 1.
+   * Set the encoding to be used for tag 1.
    *
-   * @param codec text codec, 0 to use default (ISO 8859-1)
+   * @param name of encoding, default is ISO 8859-1
    */
-  static void setTextCodecV1(const QTextCodec* codec);
+  static void setTextEncodingV1(const QString& name);
 
   /**
    * Set the default text encoding.

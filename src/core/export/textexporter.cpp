@@ -117,7 +117,13 @@ bool TextExporter::exportToFile(const QString& fn)
       QTextStream stream(&file);
       QString codecName = FileConfig::instance().textEncoding();
       if (codecName != QLatin1String("System")) {
+#if QT_VERSION >= 0x060000
+        if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
+          stream.setEncoding(encoding.value());
+        }
+#else
         stream.setCodec(codecName.toLatin1());
+#endif
       }
       stream << m_text;
       file.close();

@@ -28,6 +28,7 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QAction>
+#include <QActionGroup>
 #include <QKeyEvent>
 
 /**

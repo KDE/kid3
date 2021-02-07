@@ -702,9 +702,15 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
   if (slashPos == -1)
     return str.toInt();
 
+#if QT_VERSION >= 0x060000
+  if (total)
+    *total = str.mid(slashPos + 1).toInt();
+  return str.left(slashPos).toInt();
+#else
   if (total)
     *total = str.midRef(slashPos + 1).toInt();
   return str.leftRef(slashPos).toInt();
+#endif
 }
 
 /**

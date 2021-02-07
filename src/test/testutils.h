@@ -26,8 +26,9 @@
 
 #pragma once
 
+#include <QStringList>
+
 class QObject;
-class QStringList;
 
 namespace TestUtils {
 

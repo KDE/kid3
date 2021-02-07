@@ -26,9 +26,9 @@
 
 #pragma once
 
+#include <QStringList>
 #include "icoreplatformtools.h"
 
-class QStringList;
 class QWidget;
 class QIcon;
 

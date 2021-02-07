@@ -52,8 +52,13 @@ bool isDayMonth(const QString& str)
   if (str.length() != 4)
     return false;
 
+#if QT_VERSION >= 0x060000
+  int day = str.left(2).toInt();
+  int month = str.mid(2).toInt();
+#else
   int day = str.leftRef(2).toInt();
   int month = str.midRef(2).toInt();
+#endif
   return !(day < 1 || day > 31 || month < 1 || month > 12);
 }
 
@@ -62,8 +67,13 @@ bool isHourMinute(const QString& str)
   if (str.length() != 4)
     return false;
 
+#if QT_VERSION >= 0x060000
+  int hour = str.left(2).toInt();
+  int minute = str.mid(2).toInt();
+#else
   int hour = str.leftRef(2).toInt();
   int minute = str.midRef(2).toInt();
+#endif
   return !(hour < 0 || hour > 23 || minute < 0 || minute > 59);
 }
 
@@ -123,7 +133,11 @@ bool isMusicalKey(const QString& str)
   const QChar lastChar = str.at(len - 1);
   if (lastChar == QLatin1Char('A') || lastChar == QLatin1Char('B')) {
     bool ok;
+#if QT_VERSION >= 0x060000
+    int nr = str.left(len - 1).toInt(&ok);
+#else
     int nr = str.leftRef(len - 1).toInt(&ok);
+#endif
     if (ok && nr >= 1 && nr <= 12) {
       return true;
     }

@@ -477,9 +477,11 @@ void Frame::setFieldListFromValue()
 int Frame::numberWithoutTotal(const QString& str, bool* ok)
 {
   int slashPos = str.indexOf(QLatin1Char('/'));
-  return slashPos == -1
-      ? str.toInt(ok)
-      : str.leftRef(slashPos).toInt(ok);
+#if QT_VERSION >= 0x060000
+  return slashPos == -1 ? str.toInt(ok) : str.left(slashPos).toInt(ok);
+#else
+  return slashPos == -1 ? str.toInt(ok) : str.leftRef(slashPos).toInt(ok);
+#endif
 }
 
 /**
@@ -1201,11 +1203,21 @@ FrameCollection::const_iterator FrameCollection::searchByName(
     const QStringList names{it->getName(), it->getInternalName()};
     for (const QString& frameName : names) {
       QString ucFrameName(frameName.toUpper().remove(QLatin1Char('/')));
-      if (ucName == ucFrameName.leftRef(len)) {
+#if QT_VERSION >= 0x060000
+      if (ucName == ucFrameName.left(len))
+#else
+      if (ucName == ucFrameName.leftRef(len))
+#endif
+      {
         return it;
       }
       int nlPos = ucFrameName.indexOf(QLatin1Char('\n'));
-      if (nlPos > 0 && ucName == ucFrameName.midRef(nlPos + 1, len)) {
+#if QT_VERSION >= 0x060000
+      if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len))
+#else
+      if (nlPos > 0 && ucName == ucFrameName.midRef(nlPos + 1, len))
+#endif
+      {
         // Description in TXXX, WXXX, COMM, PRIV matches
         return it;
       }

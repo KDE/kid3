@@ -27,11 +27,11 @@
 #pragma once
 
 #include <QObject>
+#include <QStringList>
 #include "kid3api.h"
 
 class QMediaPlayer;
 class QMediaPlaylist;
-class QStringList;
 class Kid3Application;
 class TaggedFile;
 

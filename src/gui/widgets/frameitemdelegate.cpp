@@ -129,7 +129,11 @@ QValidator::State DateTimeValidator::validate(QString& input, int& pos) const
     const int len = dateTimeMatch.capturedLength();
     if (len == input.size()) {
       return Intermediate;
+#if QT_VERSION >= 0x060000
+    } else if (len > 0 && m_lastValidInput.endsWith(input.mid(len))) {
+#else
     } else if (len > 0 && m_lastValidInput.endsWith(input.midRef(len))) {
+#endif
       return Intermediate;
     } else {
       pos = input.size();

@@ -27,10 +27,9 @@
 #pragma once
 
 #include <QtPlugin>
+#include <QStringList>
 #include "kid3api.h"
 
-class QString;
-class QStringList;
 class QPersistentModelIndex;
 class TaggedFile;
 

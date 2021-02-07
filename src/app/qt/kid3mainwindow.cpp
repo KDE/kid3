@@ -135,7 +135,7 @@ void Kid3MainWindow::initActions()
   auto fileOpenDirectory = new QAction(this);
   fileOpenDirectory->setStatusTip(tr("Opens a folder"));
   fileOpenDirectory->setText(tr("O&pen Folder..."));
-  fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
+  fileOpenDirectory->setShortcut(Qt::CTRL | Qt::Key_D);
   fileOpenDirectory->setIcon(QIcon::fromTheme(QLatin1String("document-open"),
       QIcon(QLatin1String(":/images/document-open.png"))));
   fileOpenDirectory->setObjectName(QLatin1String("open_directory"));
@@ -305,7 +305,7 @@ void Kid3MainWindow::initActions()
   auto fileQuit = new QAction(this);
   fileQuit->setStatusTip(tr("Quits the application"));
   fileQuit->setText(tr("&Quit"));
-  fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
+  fileQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
   fileQuit->setIcon(QIcon::fromTheme(QLatin1String("application-exit"),
       QIcon(QLatin1String(":/images/application-exit.png"))));
   fileQuit->setMenuRole(QAction::QuitRole);
@@ -320,7 +320,7 @@ void Kid3MainWindow::initActions()
   auto editSelectAll = new QAction(this);
   editSelectAll->setStatusTip(tr("Select all files"));
   editSelectAll->setText(tr("Select &All"));
-  editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
+  editSelectAll->setShortcut(Qt::ALT | Qt::Key_A);
   editSelectAll->setIcon(QIcon::fromTheme(QLatin1String("edit-select-all"),
       QIcon(QLatin1String(":/images/edit-select-all.png"))));
 #if defined Q_OS_MAC && QT_VERSION == 0x050400
@@ -336,7 +336,7 @@ void Kid3MainWindow::initActions()
   auto editDeselect = new QAction(this);
   editDeselect->setStatusTip(tr("Deselect all files"));
   editDeselect->setText(tr("Dese&lect"));
-  editDeselect->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_A);
+  editDeselect->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_A);
   editDeselect->setObjectName(QLatin1String("edit_deselect"));
   m_shortcutsModel->registerAction(editDeselect, menuTitle);
   connect(editDeselect, &QAction::triggered,
@@ -364,7 +364,7 @@ void Kid3MainWindow::initActions()
   auto editPreviousFile = new QAction(this);
   editPreviousFile->setStatusTip(tr("Select previous file"));
   editPreviousFile->setText(tr("&Previous File"));
-  editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
+  editPreviousFile->setShortcut(Qt::ALT | Qt::Key_Up);
   editPreviousFile->setIcon(QIcon::fromTheme(QLatin1String("go-previous"),
       QIcon(QLatin1String(":/images/go-previous.png"))));
   editPreviousFile->setObjectName(QLatin1String("previous_file"));
@@ -377,7 +377,7 @@ void Kid3MainWindow::initActions()
   auto editNextFile = new QAction(this);
   editNextFile->setStatusTip(tr("Select next file"));
   editNextFile->setText(tr("&Next File"));
-  editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
+  editNextFile->setShortcut(Qt::ALT | Qt::Key_Down);
   editNextFile->setIcon(QIcon::fromTheme(QLatin1String("go-next"),
       QIcon(QLatin1String(":/images/go-next.png"))));
   editNextFile->setObjectName(QLatin1String("next_file"));

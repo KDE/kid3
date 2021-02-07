@@ -27,6 +27,7 @@
 #include "standardiohandler.h"
 #include "cliconfig.h"
 #include <QThread>
+#include <QIODevice>
 #ifdef Q_OS_WIN32
 #include <windows.h>
 #else

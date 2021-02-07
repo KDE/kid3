@@ -46,14 +46,14 @@ PlaylistView::PlaylistView(QWidget* parent)
   addAction(deleteAction);
 
   auto moveUpAction = new QAction(this);
-  moveUpAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Up);
+  moveUpAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Up);
   moveUpAction->setShortcutContext(Qt::WidgetShortcut);
   connect(moveUpAction, &QAction::triggered,
           this, &PlaylistView::moveUpCurrentRow);
   addAction(moveUpAction);
 
   auto moveDownAction = new QAction(this);
-  moveDownAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Down);
+  moveDownAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Down);
   moveDownAction->setShortcutContext(Qt::WidgetShortcut);
   connect(moveDownAction, &QAction::triggered,
           this, &PlaylistView::moveDownCurrentRow);

@@ -29,6 +29,9 @@
 #include <QUrl>
 #include <QFile>
 #include <QTextStream>
+#if QT_VERSION >= 0x060000
+#include <QStringConverter>
+#endif
 #include "fileconfig.h"
 #include "formatconfig.h"
 #include "taggedfile.h"
@@ -121,7 +124,13 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
     QTextStream stream(&file);
     QString codecName = FileConfig::instance().textEncoding();
     if (codecName != QLatin1String("System")) {
+#if QT_VERSION >= 0x060000
+      if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
+        stream.setEncoding(encoding.value());
+      }
+#else
       stream.setCodec(codecName.toLatin1());
+#endif
     }
 
     switch (m_cfg.format()) {
@@ -239,7 +248,13 @@ bool PlaylistCreator::read(
     QTextStream stream(&file);
     QString codecName = FileConfig::instance().textEncoding();
     if (codecName != QLatin1String("System")) {
+#if QT_VERSION >= 0x060000
+      if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
+        stream.setEncoding(encoding.value());
+      }
+#else
       stream.setCodec(codecName.toLatin1());
+#endif
     }
 
     filePaths.clear();

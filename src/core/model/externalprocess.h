@@ -27,11 +27,10 @@
 #pragma once
 
 #include <QObject>
+#include <QStringList>
 #include "kid3api.h"
 
 class QProcess;
-class QString;
-class QStringList;
 class Kid3Application;
 
 /**

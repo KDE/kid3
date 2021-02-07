@@ -1301,7 +1301,7 @@ QString FileSystemModel::filePath(const QModelIndex &index) const
         && d->resolvedSymLinks.contains(fullPath)
         && dirNode->isDir()) {
         QFileInfo resolvedInfo(fullPath);
-        resolvedInfo = resolvedInfo.canonicalFilePath();
+        resolvedInfo = QFileInfo(resolvedInfo.canonicalFilePath());
         if (resolvedInfo.exists())
             return resolvedInfo.filePath();
     }
