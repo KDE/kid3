@@ -425,6 +425,11 @@ elseif(Qt6Core_FOUND)
     set("${outfiles}" "${${outfiles}}" PARENT_SCOPE)
   endfunction()
 
+  function(qt5_add_translation _qm_files)
+    qt6_add_translation("${_qm_files}" ${ARGN})
+    set("${_qm_files}" "${${_qm_files}}" PARENT_SCOPE)
+  endfunction()
+
   add_library(Qt5::Core ALIAS Qt6::Core)
   add_library(Qt5::Gui ALIAS Qt6::Gui)
   add_library(Qt5::Widgets ALIAS Qt6::Widgets)
