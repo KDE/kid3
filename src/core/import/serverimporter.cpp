@@ -89,12 +89,14 @@ QString ServerImporter::replaceHtmlEntities(QString str)
   str.replace(QLatin1String("&times;"), QString(QChar(0xd7)));
   str.replace(QLatin1String("&ndash;"), QLatin1String("-"));
 
-  QRegularExpression numEntityRe(QLatin1String("&#(\\d+);"));
+  QRegularExpression numEntityRe(QLatin1String("&#(x?\\d+);"));
   auto it = numEntityRe.globalMatch(str);
   while (it.hasNext()) {
     auto match = it.next();
-    str.replace(match.capturedStart(), match.capturedLength(),
-                QChar(match.captured(1).toInt()));
+    QString codeStr = match.captured(1);
+    int code = codeStr.startsWith(QLatin1Char('x'))
+        ? codeStr.mid(1).toInt(nullptr, 16) : codeStr.toInt();
+    str.replace(match.capturedStart(), match.capturedLength(), QChar(code));
   }
   return str;
 }

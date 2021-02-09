@@ -82,14 +82,24 @@ void TestDiscogsImporter::testQueryTracks()
              QString(QLatin1String("Odin")));
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
     QCOMPARE(m_trackDataModel->index(row, 8).data().toString(),
-             QString(QLatin1String("Heavy Metal")));
+             QString(QLatin1String("Heavy Metal|Power Metal|Speed Metal")));
+    QCOMPARE(m_trackDataModel->index(row, 9).data().toString(),
+             QString(QLatin1String("")));
     QCOMPARE(m_trackDataModel->index(row, 10).data().toString(),
-             QString(QLatin1String("LMP 0303-054 Ltd. CD")));
+             QString(QLatin1String("Producer|Peter Fundeis|Producer|"
+                                   "Simon Cleary|Mixer|Piet Sielck")));
     QCOMPARE(m_trackDataModel->index(row, 11).data().toString(),
-             QString(QLatin1String("CD, Album, Limited Edition, Enhanced, Digipak")));
+             QString(QLatin1String("Wizard")));
     QCOMPARE(m_trackDataModel->index(row, 12).data().toString(),
-             QString(QLatin1String("LMP")));
+             QString(QLatin1String("LMP 0303-054 Ltd. CD")));
     QCOMPARE(m_trackDataModel->index(row, 13).data().toString(),
+             QString(QLatin1String("CD")));
+    QCOMPARE(m_trackDataModel->index(row, 14).data().toString(),
+             QString::fromUtf8("Bass|Volker Leson|Drums|S\u00F6ren Van Heek|"
+                               "Guitar|Michael Maa\u00DF|Vocals|Sven D'Anna"));
+    QCOMPARE(m_trackDataModel->index(row, 15).data().toString(),
+             QString(QLatin1String("LMP")));
+    QCOMPARE(m_trackDataModel->index(row, 16).data().toString(),
              QString(QLatin1String("Germany")));
   }
 }
