@@ -26,12 +26,10 @@
 
 #include "freedbimportplugin.h"
 #include "freedbimporter.h"
-#include "tracktypeimporter.h"
 
 namespace {
 
 const QLatin1String FREEDB_IMPORTER_NAME("FreedbImport");
-const QLatin1String TRACKTYPE_IMPORTER_NAME("TrackTypeImport");
 
 }
 
@@ -50,7 +48,7 @@ FreedbImportPlugin::FreedbImportPlugin(QObject* parent) : QObject(parent)
  */
 QStringList FreedbImportPlugin::serverImporterKeys() const
 {
-  return {FREEDB_IMPORTER_NAME, TRACKTYPE_IMPORTER_NAME};
+  return {FREEDB_IMPORTER_NAME};
 }
 
 /**
@@ -67,8 +65,6 @@ ServerImporter* FreedbImportPlugin::createServerImporter(
 {
   if (key == FREEDB_IMPORTER_NAME) {
     return new FreedbImporter(netMgr, trackDataModel);
-  } else if (key == TRACKTYPE_IMPORTER_NAME) {
-    return new TrackTypeImporter(netMgr, trackDataModel);
   }
   return nullptr;
 }

@@ -17,6 +17,6 @@ With Kid3 you can:
 - Generate playlist files
 - Automatic case conversion and string translation
 - Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+- Import from gnudb.org, MusicBrainz, Discogs, Amazon
 
 Kid3 uses Qt and runs under GNU/Linux (KDE or only Qt) and Windows.

@@ -59,7 +59,7 @@ Description: KDE audio tag editor
   * Generate playlist files
   * Automatic case conversion and string translation
   * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+  * Import from gnudb.org, MusicBrainz, Discogs, Amazon
  .
  This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
 
@@ -85,7 +85,7 @@ Description: Audio tag editor
   * Generate playlist files
   * Automatic case conversion and string translation
   * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+  * Import from gnudb.org, MusicBrainz, Discogs, Amazon
  .
  This package does not use KDE libraries, if you use KDE you should use kid3.
 
@@ -112,7 +112,7 @@ Description: Command line audio tag editor
   * Generate playlist files
   * Automatic case conversion and string translation
   * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
+  * Import from gnudb.org, MusicBrainz, Discogs, Amazon
  .
  This package contains a command line interface for Kid3, for a GUI you can
  use kid3-qt or kid3.

@@ -234,7 +234,6 @@ to use a consistent naming scheme in all tags.
 <para>
 The tag information for full albums can be taken from
 <ulink url="http://gnudb.org">gnudb.org</ulink>, <ulink
-url="http://tracktype.org">TrackType.org</ulink>, <ulink
 url="http://musicbrainz.org">MusicBrainz</ulink>,  <ulink
 url="http://discogs.com">Discogs</ulink>, <ulink
 url="http://www.amazon.com">Amazon</ulink> or other sources of
@@ -264,7 +263,6 @@ TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
 <listitem><para>Import from <ulink url="http://gnudb.org">gnudb.org</ulink>,
-<ulink url="http://tracktype.org">TrackType.org</ulink>,
 <ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
 <ulink url="http://discogs.com">Discogs</ulink>,
 <ulink url="http://www.amazon.com">Amazon</ulink>
@@ -1095,7 +1093,7 @@ Discogs, Amazon or other sources of album track lists in textual format.
 <para id="import-freedb">
 Import from a freedb.org server is possible using a dialog which appears when
 <guibutton>From Server:</guibutton>
-<guibutton>gnudb.org</guibutton> or <guibutton>TrackType.org</guibutton>
+<guibutton>gnudb.org</guibutton>
 is selected. The artist and album name
 to search for can be entered in the two topmost fields,
 the albums which match the
@@ -1330,17 +1328,6 @@ useful with the CLI and QML interfaces.
 using gnudb.org album search.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>gnudb.org</guibutton>
-dialog.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Import from TrackType.org...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Import from the TrackType.org server.</action> This menu
-item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
-opens directly the <guibutton>TrackType.org</guibutton>
 dialog.</para></listitem>
 </varlistentry>
 
@@ -2572,7 +2559,7 @@ Used for the <guimenuitem>Import from Discogs...</guimenuitem> function.
 </para></listitem>
 <listitem><para><guilabel>FreedbImport</guilabel>:
 Used for the <guimenuitem>Import from gnudb.org...</guimenuitem>
-and <guimenuitem>Import from TrackType.org...</guimenuitem> functions.
+function.
 </para></listitem>
 <listitem><para><guilabel>MusicBrainzImport</guilabel>:
 Used for the <guimenuitem>Import from MusicBrainz Release...</guimenuitem>

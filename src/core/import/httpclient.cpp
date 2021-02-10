@@ -57,7 +57,6 @@ static struct MinimumRequestIntervalInitializer {
     HttpClient::s_minimumRequestInterval[QLatin1String("images.amazon.com")] = 1000;
     HttpClient::s_minimumRequestInterval[QLatin1String("www.gnudb.org")] = 1000;
     HttpClient::s_minimumRequestInterval[QLatin1String("gnudb.gnudb.org")] = 1000;
-    HttpClient::s_minimumRequestInterval[QLatin1String("tracktype.org")] = 1000;
     HttpClient::s_minimumRequestInterval[QLatin1String("api.acoustid.org")] = 1000;
   }
 } minimumRequestIntervalInitializer;

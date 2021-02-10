@@ -10,7 +10,6 @@ qt5_wrap_cpp(plugin_GEN_MOC_SRCS
 add_library(${plugin_TARGET}
   freedbimportplugin.cpp
   freedbimporter.cpp
-  tracktypeimporter.cpp
   freedbconfig.cpp
   ${plugin_GEN_MOC_SRCS}
 )

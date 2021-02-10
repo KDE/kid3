@@ -53,27 +53,3 @@ void FreedbConfig::readFromConfig(ISettings* config)
     setServer(QLatin1String("www.gnudb.org:80")); // replace old default
   }
 }
-
-
-int TrackTypeConfig::s_index = -1;
-
-/**
- * Constructor.
- */
-TrackTypeConfig::TrackTypeConfig()
-  : StoredConfig<TrackTypeConfig, FreedbConfig>(QLatin1String("TrackType"))
-{
-}
-
-/**
- * Read persisted configuration.
- *
- * @param config KDE configuration
- */
-void TrackTypeConfig::readFromConfig(ISettings* config)
-{
-  ServerImporterConfig::readFromConfig(config); // clazy:exclude=skipped-base-method
-  if (server() == QLatin1String("gnudb.gnudb.org:80")) {
-    setServer(QLatin1String("tracktype.org:80")); // replace default
-  }
-}

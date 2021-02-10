@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kid3" version="18">
+<kpartgui name="kid3" version="19">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_open"/>
@@ -14,7 +14,6 @@
     <Action name="import_amazon"/>
     <Action name="import_discogs"/>
     <Action name="import_gnudb"/>
-    <Action name="import_tracktype"/>
     <Action name="import_musicbrainzrelease"/>
     <Action name="import_musicbrainzfingerprint"/>
     <Action name="import_tags"/>

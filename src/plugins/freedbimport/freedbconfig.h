@@ -60,34 +60,3 @@ private:
   /** Index in configuration storage */
   static int s_index;
 };
-
-
-/**
- * FreedbConfig subclass for stored TrackType configuration instance.
- */
-class TrackTypeConfig : public StoredConfig<TrackTypeConfig, FreedbConfig> {
-public:
-  /**
-   * Constructor.
-   */
-  TrackTypeConfig();
-
-  /**
-   * Destructor.
-   */
-  virtual ~TrackTypeConfig() override = default;
-
-  /**
-   * Read persisted configuration.
-   *
-   * @param config KDE configuration
-   */
-  virtual void readFromConfig(ISettings* config) override;
-
-private:
-  friend TrackTypeConfig&
-  StoredConfig<TrackTypeConfig, FreedbConfig>::instance();
-
-  /** Index in configuration storage */
-  static int s_index;
-};

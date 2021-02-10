@@ -50,7 +50,7 @@ BatchImportConfig::BatchImportConfig()
     QLatin1String("Custom Profile");
   m_profileSources <<
     QLatin1String("MusicBrainz Release:75:SAC;Discogs:75:SAC;Amazon:75:SAC;"
-                  "gnudb.org:75:S;TrackType.org:75:S") <<
+                  "gnudb.org:75:S") <<
     QLatin1String("MusicBrainz Release:75:SAC") <<
     QLatin1String("Discogs:75:SAC") <<
     QLatin1String("Amazon:75:C;Discogs:75:C;MusicBrainz Release:75:C") <<
