@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2021  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,6 +28,24 @@
 #include <QRegularExpression>
 #include "trackdatamodel.h"
 #include "amazonconfig.h"
+
+namespace {
+
+/**
+ * Remove " [Explicit]" suffix from end of string.
+ * @param str string to modify
+ * @return modified string.
+ */
+QString removeExplicit(QString str)
+{
+  if (str.endsWith(QLatin1String(" [Explicit]"))) {
+    str.truncate(str.length() - 11);
+  }
+  return str;
+}
+
+}
+
 
 /**
  * Constructor.
@@ -87,34 +105,24 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 (..)>by </span>(..)<a class="a-link-normal a-text-normal" href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1426338609&sr=1-1">Amon Amarth</a>
    */
   QString str = QString::fromUtf8(searchStr);
-  QRegularExpression catIdTitleRe(QLatin1String(
-    "<a class=\"[^\"]*s-access-detail-page[^\"]*\"[^>]+title=\"([^\"]+)\"[^>]+"
-    "href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"));
+  QRegularExpression catIdTitleRe(
+        QLatin1String(R"(href="[^"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+))"
+            R"([^"]+">[\s\n]*<span[^>]*>([^<]+)</span>)"
+            R"((?:[\s\n]*(?:</a>|</h2>|<div[^>]*>|<span[^>]*>))*by </span>)"
+            R"([\s\n]*<(?:a|span)[^>]*>([^<]+)</)"));
   QRegularExpression nextElementRe(QLatin1String(">([^<]+)<"));
 
   str.remove(QLatin1Char('\r'));
   m_albumListModel->clear();
-  int end = 0;
-  for (;;) {
-    auto catIdTitleMatch = catIdTitleRe.match(str, end);
-    if (!catIdTitleMatch.hasMatch())
-      break;
-    int start = catIdTitleMatch.capturedStart();
-    end = start + catIdTitleMatch.capturedLength();
-    start = str.indexOf(QLatin1String(">by <"), end);
-    if (start == -1)
-      break;
-    end = start + 5;
-    auto nextElementMatch = nextElementRe.match(str, end);
-    if (!nextElementMatch.hasMatch())
-      break;
-    start = nextElementMatch.capturedStart();
-    end = start + nextElementMatch.capturedLength();
-    m_albumListModel->appendItem(
-      nextElementMatch.captured(1) + QLatin1String(" - ") +
-      catIdTitleMatch.captured(1),
-      catIdTitleMatch.captured(2),
-      catIdTitleMatch.captured(3));
+  auto it = catIdTitleRe.globalMatch(str);
+  while (it.hasNext()) {
+    auto match = it.next();
+    QString category = match.captured(1);
+    QString id = match.captured(2);
+    QString artistTitle = replaceHtmlEntities(
+          match.captured(4).trimmed() + QLatin1String(" - ") +
+          removeExplicit(match.captured(3).trimmed()));
+    m_albumListModel->appendItem(artistTitle, category, id);
   }
 }
 
@@ -158,11 +166,12 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   QString str = QString::fromUtf8(albumStr);
   FrameCollection framesHdr;
   const bool standardTags = getStandardTags();
-  // search for 'id="productTitle"', text after '>' until ' [' or '<' => album
+  // search for 'dmusicProductTitle', next element after '>' until ' [' or '<' => album
   int end = 0;
-  int start = str.indexOf(QLatin1String("id=\"productTitle\""));
+  int start = str.indexOf(
+      QLatin1String("data-feature-name=\"dmusicProductTitle\""));
   if (start >= 0 && standardTags) {
-    start = str.indexOf(QLatin1Char('>'), start);
+    start = str.indexOf(QLatin1Char('>'), start + 39);
     if (start >= 0) {
       end = str.indexOf(QLatin1Char('<'), start);
       if (end > start) {
@@ -171,9 +180,10 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           end = bracketPos;
         }
         framesHdr.setAlbum(
-              replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
-        // next 'class="author'
-        start = str.indexOf(QLatin1String("class=\"author"), end);
+              replaceHtmlEntities(str.mid(start + 1, end - start - 1)
+                                  .trimmed()));
+        // next 'ArtistLinkSection'
+        start = str.indexOf(QLatin1String("id=\"ArtistLinkSection"), end);
         if (start >= 0) {
           end = str.indexOf(QLatin1Char('>'), start);
           if (end > start) {
@@ -186,7 +196,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
                 end = str.indexOf(QLatin1Char('<'), start);
                 if (end > start) {
                   framesHdr.setArtist(
-                      replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
+                      replaceHtmlEntities(str.mid(start + 1, end - start - 1)
+                                          .trimmed()));
                 }
               }
             }
@@ -200,70 +211,24 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   // search for >Product Details<, >Original Release Date:<, >Label:<
   const bool additionalTags = getAdditionalTags();
   QString albumArtist;
-  start = str.indexOf(QLatin1String(">Product Details<"));
+  start = str.indexOf(QLatin1String(">Product details<"));
   if (start >= 0) {
-    int detailStart = str.indexOf(QLatin1String(">Original Release Date:<"), start);
-    if (detailStart < 0) {
-      detailStart  = str.indexOf(QLatin1String(">Audio CD<"), start);
-    }
-    if (detailStart >= 0 && standardTags) {
-      int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 10);
-      if (detailEnd > detailStart + 10) {
-        QRegularExpression yearRe(QLatin1String("(\\d{4})"));
-        auto match = yearRe.match(
-              str.mid(detailStart + 10, detailEnd - detailStart - 11));
-        if (match.hasMatch()) {
-          framesHdr.setYear(match.captured(1).toInt());
-        }
-      }
-    }
+    QRegularExpression yearRe(
+          QLatin1String(R"(>Date First Available\s*:.*?)"
+                        R"(<span>[^<]*(\d{4})[^<]*</span>)"),
+          QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression labelRe(
+          QLatin1String(R"(>Manufacturer\s*:.*?<span>([^<]+)</span>)"),
+          QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch match;
     if (additionalTags) {
-      detailStart = str.indexOf(QLatin1String(">Label:<"), start);
-      if (detailStart > 0) {
-        int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 8);
-        if (detailEnd > detailStart + 8) {
-          QRegularExpression labelRe(QLatin1String(">\\s*([^<]+)<"));
-          auto match = labelRe.match(
-                str.mid(detailStart + 8, detailEnd - detailStart - 9));
-          if (match.hasMatch()) {
-            framesHdr.setValue(Frame::FT_Publisher, removeHtml(match.captured(1)));
-          }
-        }
+      match = yearRe.match(str, start);
+      if (match.hasMatch()) {
+        framesHdr.setYear(match.captured(1).toInt());
       }
-      detailStart = str.indexOf(QLatin1String(">Performer:<"), start);
-      if (detailStart > 0) {
-        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
-        if (detailEnd > detailStart + 12) {
-          framesHdr.setValue(
-            Frame::FT_Performer,
-            removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
-        }
-      }
-      detailStart = str.indexOf(QLatin1String(">Orchestra:<"), start);
-      if (detailStart > 0) {
-        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
-        if (detailEnd > detailStart + 12) {
-          albumArtist =
-            removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11));
-        }
-      }
-      detailStart = str.indexOf(QLatin1String(">Conductor:<"), start);
-      if (detailStart > 0) {
-        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
-        if (detailEnd > detailStart + 12) {
-          framesHdr.setValue(
-            Frame::FT_Conductor,
-            removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
-        }
-      }
-      detailStart = str.indexOf(QLatin1String(">Composer:<"), start);
-      if (detailStart > 0) {
-        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 11);
-        if (detailEnd > detailStart + 11) {
-          framesHdr.setValue(
-            Frame::FT_Composer,
-            removeHtml(str.mid(detailStart + 10, detailEnd - detailStart - 10)));
-        }
+      match = labelRe.match(str, start);
+      if (match.hasMatch()) {
+        framesHdr.setValue(Frame::FT_Publisher, removeHtml(match.captured(1)));
       }
     }
   }
@@ -271,181 +236,91 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   trackDataVector.setCoverArtUrl(QUrl());
   if (getCoverArt()) {
-    // <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
-    start = str.indexOf(QLatin1String("id=\"ASIN\""));
-    if (start > 0) {
-      start = str.indexOf(QLatin1String("value=\""), start);
-      if (start > 0) {
-        end = str.indexOf(QLatin1Char('"'), start + 7);
-        if (end > start) {
-          trackDataVector.setCoverArtUrl(
-            QUrl(QLatin1String("http://www.amazon.com/dp/") +
-            str.mid(start + 7, end - start - 7)));
-        }
-      }
+    QRegularExpression imgSrcRe(
+          QLatin1String("data-feature-name=\"digitalMusicProductImage\">\\s*"
+                        "<img[^>]*src=\"([^\"]+)\""),
+          QRegularExpression::DotMatchesEverythingOption);
+    auto match = imgSrcRe.match(str);
+    if (match.hasMatch()) {
+      trackDataVector.setCoverArtUrl(QUrl(match.captured(1)));
     }
   }
 
-  bool hasTitleCol = false, hasListRow = false;
-  bool hasArtist = str.indexOf(QLatin1String("<td>Song Title</td><td>Artist</td>")) != -1;
-  // search 'class="titleCol"', next '<a href=', text after '>' until '<'
-  // => title
-  // if not found: alternatively look for 'class="listRow'
-  start = str.indexOf(QLatin1String("class=\"titleCol\""));
+  start = str.indexOf(QLatin1String("id=\"dmusic_tracklist"));
   if (start >= 0) {
-    hasTitleCol = true;
-  } else if ((start = str.indexOf(QLatin1String("class=\"listRow"))) >= 0) {
-    hasListRow = true;
-  } else {
-    start = str.indexOf(QLatin1String("id=\"a-popover-trackTitlePopover"));
-  }
-  if (start >= 0) {
-    QRegularExpression durationRe(QLatin1String("(\\d+):(\\d+)"));
-    QRegularExpression nrTitleRe(QLatin1String(R"(\s*\d+\.\s+(.*\S))"));
+    QRegularExpression trackNumberRe(
+          QLatin1String(R"(id="trackNumber.*?>(\d+)</div>)"),
+          QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression titleRe(
+          QLatin1String(R"(id="dmusic_tracklist_track_title.*?>([^<]+)</a>)"),
+          QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression durationRe(
+          QLatin1String(R"(id="dmusic_tracklist_duration.*?>(\d+):(\d+)</span>)"),
+          QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpression artistRe(
+          QLatin1String(R"(>\s*by\s*</span>[^>]+>([^<]+)</)"));
     FrameCollection frames(framesHdr);
     auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
-    int trackNr = 1;
     while (start >= 0) {
-      QString title;
-      QString artist;
-      int duration = 0;
-      if (hasTitleCol) {
-        end = str.indexOf(QLatin1Char('\n'), start);
+      start = str.indexOf(QLatin1String("<tr id=\"dmusic_tracklist_player_row"),
+                          start);
+      if (start >= 0) {
+        end = str.indexOf(QLatin1String("</tr>"), start);
         if (end > start) {
-          QString line = str.mid(start, end - start);
-          int titleStart = line.indexOf(QLatin1String("<a href="));
-          if (titleStart >= 0) {
-            titleStart = line.indexOf(QLatin1Char('>'), titleStart);
-            if (titleStart >= 0) {
-              int titleEnd = line.indexOf(QLatin1Char('<'), titleStart);
-              if (titleEnd > titleStart) {
-                title = line.mid(titleStart + 1, titleEnd - titleStart - 1);
-                // if there was an Artist title,
-                // search for artist in a second titleCol
-                if (hasArtist) {
-                  int artistStart =
-                    line.indexOf(QLatin1String("class=\"titleCol\""), titleEnd);
-                  if (artistStart >= 0) {
-                    artistStart = line.indexOf(QLatin1String("<a href="), artistStart);
-                    if (artistStart >= 0) {
-                      artistStart = line.indexOf(QLatin1Char('>'), artistStart);
-                      if (artistStart >= 0) {
-                        int artistEnd = line.indexOf(QLatin1Char('<'), artistStart);
-                        if (artistEnd > artistStart) {
-                          artist = line.mid(
-                            artistStart + 1, artistEnd - artistStart - 1);
-                          if (albumArtist.isEmpty()) {
-                            albumArtist = frames.getArtist();
-                          }
-                        }
-                      }
-                    }
-                  }
+          QString trackRow = str.mid(start, end - start);
+          start = end + 5;
+          QString title, artist;
+          int trackNr = 0;
+          int duration = 0;
+          auto match = trackNumberRe.match(trackRow);
+          if (match.hasMatch()) {
+            trackNr = match.captured(1).toInt();
+          }
+          match = titleRe.match(trackRow);
+          if (match.hasMatch()) {
+            title = match.captured(1).trimmed();
+          }
+          match = durationRe.match(trackRow);
+          if (match.hasMatch()) {
+            duration = match.captured(1).toInt() * 60 +
+              match.captured(2).toInt();
+          }
+          match = artistRe.match(trackRow);
+          if (match.hasMatch()) {
+            artist = match.captured(1).trimmed();
+          }
+          if (!title.isEmpty()) {
+            if (standardTags) {
+              frames.setTitle(removeExplicit(replaceHtmlEntities(title)));
+              frames.setTrack(trackNr);
+              if (!artist.isEmpty()) {
+                frames.setArtist(replaceHtmlEntities(artist));
+                if (additionalTags) {
+                  frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
                 }
-                // search for next 'class="', if it is 'class="runtimeCol"',
-                // text after '>' until '<' => duration
-                int runtimeStart =
-                  line.indexOf(QLatin1String("class=\"runtimeCol\""), titleEnd);
-                if (runtimeStart >= 0) {
-                  runtimeStart = line.indexOf(QLatin1Char('>'), runtimeStart + 18);
-                  if (runtimeStart >= 0) {
-                    int runtimeEnd = line.indexOf(QLatin1Char('<'), runtimeStart);
-                    if (runtimeEnd > runtimeStart) {
-                      auto match = durationRe.match(
-                            line.mid(runtimeStart + 1,
-                                     runtimeEnd - runtimeStart - 1));
-                      if (match.hasMatch()) {
-                        duration = match.captured(1).toInt() * 60 +
-                          match.captured(2).toInt();
-                      }
-                    }
-                  }
-                }
-                start = str.indexOf(QLatin1String("class=\"titleCol\""), end);
-              } else {
-                start = -1;
               }
             }
-          }
-        }
-      } else if (hasListRow) {
-        // 'class="listRow' found
-        start = str.indexOf(QLatin1String("<td>"), start);
-        if (start >= 0) {
-          end = str.indexOf(QLatin1String("</td>"), start);
-          QRegularExpressionMatch match;
-          if (end > start &&
-              (match = nrTitleRe.match(
-                 str.mid(start + 4, end - start - 4))).hasMatch()) {
-            title = match.captured(1);
-            start = str.indexOf(QLatin1String("class=\"listRow"), end);
-          } else {
-            start = -1;
-          }
-        }
-      } else {
-        // a-popover-trackTitlePopover id found
-        start = str.indexOf(QLatin1String("<a"), start);
-        if (start >= 0) {
-          start = str.indexOf(QLatin1Char('>'), start);
-          if (start >= 0) {
-            end = str.indexOf(QLatin1Char('<'), start);
-            if (end >= start) {
-              title = str.mid(start + 1, end - start - 1);
-              int runtimeStart = str.indexOf(
-                    QLatin1String("<td id=\"dmusic_tracklist_duration"), end);
-              if (runtimeStart >= 0) {
-                int runtimeEnd = str.indexOf(QLatin1String("</td>"),
-                                             runtimeStart);
-                QRegularExpressionMatch match;
-                if (runtimeEnd > runtimeStart &&
-                    (match = durationRe.match(
-                       str.mid(runtimeStart + 1, runtimeEnd - runtimeStart - 1)
-                       .remove(QLatin1Char('\n')).remove(QLatin1Char('\r'))))
-                    .hasMatch()) {
-                  duration = match.captured(1).toInt() * 60 +
-                      match.captured(2).toInt();
-                }
-              }
-              start = str.indexOf(
-                    QLatin1String("id=\"a-popover-trackTitlePopover"), end);
+            if (atTrackDataListEnd) {
+              ImportTrackData trackData;
+              trackData.setFrameCollection(frames);
+              trackData.setImportDuration(duration);
+              trackDataVector.push_back(trackData);
             } else {
-              start = -1;
+              while (!atTrackDataListEnd && !it->isEnabled()) {
+                ++it;
+                atTrackDataListEnd = (it == trackDataVector.end());
+              }
+              if (!atTrackDataListEnd) {
+                (*it).setFrameCollection(frames);
+                (*it).setImportDuration(duration);
+                ++it;
+                atTrackDataListEnd = (it == trackDataVector.end());
+              }
             }
+            frames = framesHdr;
           }
         }
-      }
-      if (!title.isEmpty()) {
-        if (standardTags) {
-          frames.setTitle(replaceHtmlEntities(title));
-          if (!artist.isEmpty()) {
-            frames.setArtist(replaceHtmlEntities(artist));
-          }
-          frames.setTrack(trackNr);
-        }
-        if (!albumArtist.isEmpty() && additionalTags) {
-          frames.setValue(Frame::FT_AlbumArtist, albumArtist);
-        }
-        if (atTrackDataListEnd) {
-          ImportTrackData trackData;
-          trackData.setFrameCollection(frames);
-          trackData.setImportDuration(duration);
-          trackDataVector.push_back(trackData);
-        } else {
-          while (!atTrackDataListEnd && !it->isEnabled()) {
-            ++it;
-            atTrackDataListEnd = (it == trackDataVector.end());
-          }
-          if (!atTrackDataListEnd) {
-            (*it).setFrameCollection(frames);
-            (*it).setImportDuration(duration);
-            ++it;
-            atTrackDataListEnd = (it == trackDataVector.end());
-          }
-        }
-        ++trackNr;
-        frames = framesHdr;
       }
     }
 
@@ -492,10 +367,9 @@ void AmazonImporter::sendFindQuery(
    * http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&field-artist=amon+amarth&field-title=the+avenger
    */
   sendRequest(cfg->server(),
-              QLatin1String("/gp/search/ref=sr_adv_m_pop/"
-                      "?search-alias=popular&field-artist=") +
-              encodeUrlQuery(artist) + QLatin1String("&field-title=") +
-              encodeUrlQuery(album), QLatin1String("https"));
+              QLatin1String("/s?i=digital-music&k=") +
+              encodeUrlQuery(artist + QLatin1Char(' ') + album),
+              QLatin1String("https"));
 }
 
 /**
