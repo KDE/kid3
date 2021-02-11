@@ -158,7 +158,7 @@ Dialog {
 
           function setupEntries() {
             while (menu.itemAt(0)) {
-              removeItem(0)
+              menu.removeItem(menu.itemAt(0))
             }
             menu.addEntry("Music", script.musicPath())
             var vols = getMountedVolumes();
