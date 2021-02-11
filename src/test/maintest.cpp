@@ -29,7 +29,6 @@
 #include <QCoreApplication>
 #include <QStringList>
 #include "testutils.h"
-#include "testjsonparser.h"
 #include "testmusicbrainzreleaseimportparser.h"
 #include "testmusicbrainzreleaseimporter.h"
 #include "testdiscogsimporter.h"
@@ -48,7 +47,6 @@ int main(int argc, char *argv[])
   QStringList args = app.arguments();
 
   static QObject* const testCases[] = {
-    new TestJsonParser,
     new TestMusicBrainzReleaseImportParser,
     new TestMusicBrainzReleaseImporter,
     new TestDiscogsImporter,

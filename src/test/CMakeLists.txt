@@ -1,5 +1,4 @@
 qt5_wrap_cpp(test_GEN_MOC_SRCS
-  testjsonparser.h
   testserverimporterbase.h
   testmusicbrainzreleaseimporter.h
   testmusicbrainzreleaseimportparser.h
@@ -9,7 +8,6 @@ qt5_wrap_cpp(test_GEN_MOC_SRCS
 add_executable(kid3-test
   dummysettings.cpp
   testutils.cpp
-  testjsonparser.cpp
   testserverimporterbase.cpp
   testmusicbrainzreleaseimporter.cpp
   testmusicbrainzreleaseimportparser.cpp

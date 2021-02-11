@@ -112,7 +112,6 @@ add_library(kid3-core
   import/importparser.cpp
   import/iserverimporterfactory.cpp
   import/iservertrackimporterfactory.cpp
-  import/jsonparser.cpp
   import/serverimporter.cpp
   import/servertrackimporter.cpp
   import/textimporter.cpp
