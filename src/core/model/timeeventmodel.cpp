@@ -223,7 +223,11 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
+#if QT_VERSION >= 0x060000
+    } else if (fld.m_value.typeId() == QMetaType::QVariantList) {
+#else
     } else if (fld.m_value.type() == QVariant::List) {
+#endif
       synchedData = fld.m_value.toList();
     }
   }
@@ -286,7 +290,11 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
   for (auto it = fields.begin(); it != fields.end(); ++it) {
     if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
+#if QT_VERSION >= 0x060000
+    } else if (it->m_value.typeId() == QMetaType::QVariantList) {
+#else
     } else if (it->m_value.type() == QVariant::List) {
+#endif
       dataIt = it;
     }
   }
@@ -308,7 +316,11 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
       }
 
       quint32 milliseconds;
+#if QT_VERSION >= 0x060000
+      if (timeEvent.time.typeId() == QMetaType::QTime) {
+#else
       if (timeEvent.time.type() == QVariant::Time) {
+#endif
         hasMsTimeStamps = true;
         milliseconds = QTime(0, 0).msecsTo(timeEvent.time.toTime());
       } else {
@@ -339,7 +351,11 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
     const Frame::Field& fld = *it;
     if (fld.m_id == Frame::ID_TimestampFormat) {
       unitIsFrames = fld.m_value.toInt() == 1;
+#if QT_VERSION >= 0x060000
+    } else if (fld.m_value.typeId() == QMetaType::QVariantList) {
+#else
     } else if (fld.m_value.type() == QVariant::List) {
+#endif
       synchedData = fld.m_value.toList();
     }
   }
@@ -371,7 +387,11 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
   for (auto it = fields.begin(); it != fields.end(); ++it) {
     if (it->m_id == Frame::ID_TimestampFormat) {
       timeStampFormatIt = it;
+#if QT_VERSION >= 0x060000
+    } else if (it->m_value.typeId() == QMetaType::QVariantList) {
+#else
     } else if (it->m_value.type() == QVariant::List) {
+#endif
       dataIt = it;
     }
   }
@@ -384,7 +404,11 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
       int code = timeEvent.data.toInt();
 
       quint32 milliseconds;
+#if QT_VERSION >= 0x060000
+      if (timeEvent.time.typeId() == QMetaType::QTime) {
+#else
       if (timeEvent.time.type() == QVariant::Time) {
+#endif
         hasMsTimeStamps = true;
         milliseconds = QTime(0, 0).msecsTo(timeEvent.time.toTime());
       } else {

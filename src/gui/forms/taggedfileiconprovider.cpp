@@ -270,7 +270,11 @@ QVariant TaggedFileIconProvider::colorForContext(ColorContext context) const
  */
 ColorContext TaggedFileIconProvider::contextForColor(const QVariant& color) const
 {
+#if QT_VERSION >= 0x060000
+  if (color.typeId() == QMetaType::QBrush) {
+#else
   if (color.type() == QVariant::Brush) {
+#endif
     QBrush brush = color.value<QBrush>();
     if (brush == Qt::red) {
       return ColorContext::Error;

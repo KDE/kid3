@@ -47,6 +47,117 @@ void ISettings::migrateOldSettings()
   endGroup();
   if (isOld) {
     bool migrated = false;
+#if QT_VERSION >= 0x060000
+    static const struct {
+      const char* oldKey;
+      const char* newKey;
+      QMetaType::Type type;
+    } mappings[] = {
+      { "Id3Format/FormatWhileEditing", "TagFormat/FormatWhileEditing", QMetaType::Bool },
+      { "Id3Format/CaseConversion", "TagFormat/CaseConversion", QMetaType::Int },
+      { "Id3Format/LocaleName", "TagFormat/LocaleName", QMetaType::QString },
+      { "Id3Format/StrRepEnabled", "TagFormat/StrRepEnabled", QMetaType::Bool },
+      { "Id3Format/StrRepMapKeys", "TagFormat/StrRepMapKeys", QMetaType::QStringList },
+      { "Id3Format/StrRepMapValues", "TagFormat/StrRepMapValues", QMetaType::QStringList },
+      { "General Options/HideToolBar", "MainWindow/HideToolBar", QMetaType::Bool },
+      { "General Options/HideStatusBar", "MainWindow/HideStatusBar", QMetaType::Bool },
+      { "General Options/Geometry", "MainWindow/Geometry", QMetaType::QByteArray },
+      { "General Options/WindowState", "MainWindow/WindowState", QMetaType::QByteArray },
+      { "General Options/UseFont", "MainWindow/UseFont", QMetaType::Bool },
+      { "General Options/FontFamily", "MainWindow/FontFamily", QMetaType::QString },
+      { "General Options/FontSize", "MainWindow/FontSize", QMetaType::Int },
+      { "General Options/Style", "MainWindow/Style", QMetaType::QString },
+      { "General Options/DontUseNativeDialogs", "MainWindow/DontUseNativeDialogs", QMetaType::Bool },
+      { "General Options/MarkTruncations", "Tags/MarkTruncations", QMetaType::Bool },
+      { "General Options/EnableTotalNumberOfTracks", "Tags/EnableTotalNumberOfTracks", QMetaType::Bool },
+      { "General Options/GenreNotNumeric", "Tags/GenreNotNumeric", QMetaType::Bool },
+      { "General Options/CommentName", "Tags/CommentName", QMetaType::QString },
+      { "General Options/PictureNameItem", "Tags/PictureNameItem", QMetaType::Int },
+      { "General Options/CustomGenres", "Tags/CustomGenres", QMetaType::QStringList },
+      { "General Options/ID3v2Version", "Tags/ID3v2Version", QMetaType::Int },
+      { "General Options/TextEncodingV1", "Tags/TextEncodingV1", QMetaType::QString },
+      { "General Options/TextEncoding", "Tags/TextEncoding", QMetaType::Int },
+      { "General Options/QuickAccessFrames", "Tags/QuickAccessFrames", QMetaType::UInt },
+      { "General Options/TrackNumberDigits", "Tags/TrackNumberDigits", QMetaType::Int },
+      { "General Options/OnlyCustomGenres", "Tags/OnlyCustomGenres", QMetaType::Bool },
+      { "General Options/NameFilter3", "Files/NameFilter", QMetaType::QString },
+      { "General Options/FormatItem", "Files/FormatItem", QMetaType::Int },
+      { "General Options/FormatItems", "Files/FormatItems", QMetaType::QStringList },
+      { "General Options/FormatText2", "Files/FormatText", QMetaType::QString },
+      { "General Options/FormatFromFilenameItem", "Files/FormatFromFilenameItem", QMetaType::Int },
+      { "General Options/FormatFromFilenameItems", "Files/FormatFromFilenameItems", QMetaType::QStringList },
+      { "General Options/FormatFromFilenameText", "Files/FormatFromFilenameText", QMetaType::QString },
+      { "General Options/PreserveTime", "Files/PreserveTime", QMetaType::Bool },
+      { "General Options/MarkChanges", "Files/MarkChanges", QMetaType::Bool },
+      { "General Options/LoadLastOpenedFile", "Files/LoadLastOpenedFile", QMetaType::Bool },
+      { "General Options/LastOpenedFile", "Files/LastOpenedFile", QMetaType::QString },
+      { "General Options/DefaultCoverFileName", "Files/DefaultCoverFileName", QMetaType::QString },
+      { "General Options/DirFormatItem", "RenameDirectory/DirFormatItem", QMetaType::Int },
+      { "General Options/DirFormatText", "RenameDirectory/DirFormatText", QMetaType::QString },
+      { "General Options/RenameDirectorySource", "RenameDirectory/RenameDirectorySource", QMetaType::Int },
+      { "General Options/NumberTracksDestination", "NumberTracks/NumberTracksDestination", QMetaType::Int },
+      { "General Options/NumberTracksStartNumber", "NumberTracks/NumberTracksStartNumber", QMetaType::Int },
+      { "General Options/AutoHideTags", "GUI/AutoHideTags", QMetaType::Bool },
+      { "General Options/HideFile", "GUI/HideFile", QMetaType::Bool },
+      { "General Options/HideV1", "GUI/HideV1", QMetaType::Bool },
+      { "General Options/HideV2", "GUI/HideV2", QMetaType::Bool },
+      { "General Options/HidePicture", "GUI/HidePicture", QMetaType::Bool },
+      { "General Options/PlayOnDoubleClick", "GUI/PlayOnDoubleClick", QMetaType::Bool },
+      { "General Options/SplitterSize0", "GUI/SplitterSize0", QMetaType::Int },
+      { "General Options/SplitterSize1", "GUI/SplitterSize1", QMetaType::Int },
+      { "General Options/VSplitterSize0", "GUI/VSplitterSize0", QMetaType::Int },
+      { "General Options/VSplitterSize1", "GUI/VSplitterSize1", QMetaType::Int },
+      { "General Options/UseProxy", "Network/UseProxy", QMetaType::Bool },
+      { "General Options/Proxy", "Network/Proxy", QMetaType::QString },
+      { "General Options/UseProxyAuthentication", "Network/UseProxyAuthentication", QMetaType::Bool },
+      { "General Options/ProxyUserName", "Network/ProxyUserName", QMetaType::QString },
+      { "General Options/ProxyPassword", "Network/ProxyPassword", QMetaType::QString },
+      { "General Options/Browser", "Network/Browser", QMetaType::QString },
+      { "General Options/ImportServer", "Import/ImportServer", QMetaType::Int },
+      { "General Options/ImportDestination", "Import/ImportDestination", QMetaType::Int },
+      { "General Options/ImportFormatNames", "Import/ImportFormatNames", QMetaType::QStringList },
+      { "General Options/ImportFormatHeaders", "Import/ImportFormatHeaders", QMetaType::QStringList },
+      { "General Options/ImportFormatTracks", "Import/ImportFormatTracks", QMetaType::QStringList },
+      { "General Options/ImportFormatIdx", "Import/ImportFormatIdx", QMetaType::Int },
+      { "General Options/EnableTimeDifferenceCheck", "Import/EnableTimeDifferenceCheck", QMetaType::Bool },
+      { "General Options/MaxTimeDifference", "Import/MaxTimeDifference", QMetaType::Int },
+      { "General Options/ImportVisibleColumns", "Import/ImportVisibleColumns", QMetaType::ULongLong },
+      { "General Options/ImportWindowGeometry", "Import/ImportWindowGeometry", QMetaType::QByteArray },
+      { "General Options/ImportTagsNames", "Import/ImportTagsNames", QMetaType::QStringList },
+      { "General Options/ImportTagsSources", "Import/ImportTagsSources", QMetaType::QStringList },
+      { "General Options/ImportTagsExtractions", "Import/ImportTagsExtractions", QMetaType::QStringList },
+      { "General Options/ImportTagsIdx", "Import/ImportTagsIdx", QMetaType::Int },
+      { "General Options/PictureSourceNames", "Import/PictureSourceNames", QMetaType::QStringList },
+      { "General Options/PictureSourceUrls", "Import/PictureSourceUrls", QMetaType::QStringList },
+      { "General Options/PictureSourceIdx", "Import/PictureSourceIdx", QMetaType::Int },
+      { "General Options/MatchPictureUrlMapKeys", "Import/MatchPictureUrlMapKeys", QMetaType::QStringList },
+      { "General Options/MatchPictureUrlMapValues", "Import/MatchPictureUrlMapValues", QMetaType::QStringList },
+      { "General Options/BrowseCoverArtWindowGeometry", "Import/BrowseCoverArtWindowGeometry", QMetaType::QByteArray },
+      { "General Options/ExportSourceV1", "Export/ExportSourceV1", QMetaType::Bool },
+      { "General Options/ExportFormatNames", "Export/ExportFormatNames", QMetaType::QStringList },
+      { "General Options/ExportFormatHeaders", "Export/ExportFormatHeaders", QMetaType::QStringList },
+      { "General Options/ExportFormatTracks", "Export/ExportFormatTracks", QMetaType::QStringList },
+      { "General Options/ExportFormatTrailers", "Export/ExportFormatTrailers", QMetaType::QStringList },
+      { "General Options/ExportFormatIdx", "Export/ExportFormatIdx", QMetaType::Int },
+      { "General Options/ExportWindowGeometry", "Export/ExportWindowGeometry", QMetaType::QByteArray }
+    };
+    for (const auto& mapping : mappings) {
+      QStringList groupKey = QString::fromLatin1(mapping.oldKey)
+          .split(QLatin1Char('/'));
+      beginGroup(groupKey.at(0));
+      if (contains(groupKey.at(1))) {
+        QVariant val = value(groupKey.at(1), QVariant(QMetaType(mapping.type)));
+        remove(groupKey.at(1));
+        endGroup();
+        groupKey = QString::fromLatin1(mapping.newKey)
+            .split(QLatin1Char('/'));
+        beginGroup(groupKey.at(0));
+        setValue(groupKey.at(1), val);
+        migrated = true;
+      }
+      endGroup();
+    }
+#else
     static const struct {
       const char* oldKey;
       const char* newKey;
@@ -156,6 +267,7 @@ void ISettings::migrateOldSettings()
       }
       endGroup();
     }
+#endif
     if (migrated) {
       qDebug("Migrated old settings");
     }

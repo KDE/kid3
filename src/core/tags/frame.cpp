@@ -972,7 +972,11 @@ namespace {
  */
 QString variantToString(const QVariant& val)
 {
+#if QT_VERSION >= 0x060000
+  if (val.typeId() == QMetaType::QByteArray) {
+#else
   if (val.type() == QVariant::ByteArray) {
+#endif
     return QString(QLatin1String("ByteArray of %1 bytes"))
         .arg(val.toByteArray().size());
   } else {

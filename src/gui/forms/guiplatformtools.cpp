@@ -101,6 +101,8 @@ QObject* GuiPlatformTools::createAudioPlayer(Kid3Application* app,
 #endif
   return player;
 #else
+  Q_UNUSED(app)
+  Q_UNUSED(dbusEnabled)
   return nullptr;
 #endif
 }

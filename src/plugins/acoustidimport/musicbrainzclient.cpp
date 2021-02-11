@@ -238,7 +238,7 @@ bool MusicBrainzClient::verifyIdIndex()
 {
   if (m_currentIndex < 0 || m_currentIndex >= m_idsOfTrack.size()) {
     qWarning("Invalid index %d for IDs (size %d)",
-             m_currentIndex, m_idsOfTrack.size());
+             m_currentIndex, static_cast<int>(m_idsOfTrack.size()));
     stop();
     return false;
   }
@@ -253,7 +253,7 @@ bool MusicBrainzClient::verifyTrackIndex()
 {
   if (m_currentIndex < 0 || m_currentIndex >= m_filenameOfTrack.size()) {
     qWarning("Invalid index %d for track (size %d)",
-             m_currentIndex, m_filenameOfTrack.size());
+             m_currentIndex, static_cast<int>(m_filenameOfTrack.size()));
     stop();
     return false;
   }

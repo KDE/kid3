@@ -99,9 +99,15 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
       ImportConfig::instance().matchPictureUrlMap();
   for (auto it = urlMap.constBegin(); it != urlMap.constEnd(); ++it) {
     QRegularExpression re(it->first);
+#if QT_VERSION >= 0x060000
+    auto match = re.match(
+          urlStr, 0, QRegularExpression::NormalMatch,
+          QRegularExpression::AnchorAtOffsetMatchOption);
+#else
     auto match = re.match(
           urlStr, 0, QRegularExpression::NormalMatch,
           QRegularExpression::AnchoredMatchOption);
+#endif
     if (match.hasMatch()) {
       QString newUrl = urlStr;
       newUrl.replace(re, it->second);

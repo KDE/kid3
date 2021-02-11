@@ -1043,9 +1043,15 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
             QString artist(fixUpArtist(match.captured(1)));
             // Look if there are more artists
             int artistEndPos = match.capturedEnd();
+#if QT_VERSION >= 0x060000
+            auto moreArtistsIt = moreArtistsRe.globalMatch(
+                  trackDataStr, artistEndPos, QRegularExpression::NormalMatch,
+                  QRegularExpression::AnchorAtOffsetMatchOption);
+#else
             auto moreArtistsIt = moreArtistsRe.globalMatch(
                   trackDataStr, artistEndPos, QRegularExpression::NormalMatch,
                   QRegularExpression::AnchoredMatchOption);
+#endif
             while (moreArtistsIt.hasNext()) {
               match = moreArtistsIt.next();
               artist += match.captured(1);

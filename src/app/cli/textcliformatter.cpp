@@ -328,7 +328,11 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
         eventText = type;
       }
       QVariant data = value.value(QLatin1String("data"));
+#if QT_VERSION >= 0x060000
+      if (data.typeId() == QMetaType::QString) {
+#else
       if (data.type() == QVariant::String) {
+#endif
         QString text = data.toString();
         if (!text.isEmpty()) {
           if (type == QLatin1String("filterEntered")) {
@@ -342,7 +346,11 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
             eventText += text;
           }
         }
+#if QT_VERSION >= 0x060000
+      } else if (data.typeId() == QMetaType::QVariantMap) {
+#else
       } else if (data.type() == QVariant::Map) {
+#endif
         // Event maps with source and destination are used with
         // rename directory events.
         QVariantMap dataMap = data.toMap();

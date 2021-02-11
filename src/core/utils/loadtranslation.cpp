@@ -102,7 +102,11 @@ void Utils::loadTranslation(const QString& lang)
                    QLatin1String("."), searchDelimiters)
 #if !(defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID)
         || qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
+#if QT_VERSION >= 0x060000
+                   QLibraryInfo::path(QLibraryInfo::TranslationsPath),
+#else
                    QLibraryInfo::location(QLibraryInfo::TranslationsPath),
+#endif
                    searchDelimiters)
 #endif
         ) {

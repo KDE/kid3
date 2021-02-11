@@ -116,7 +116,9 @@ int main(int argc, char* argv[])
 #endif
 
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
+#if QT_VERSION < 0x060000
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 
   // The QtQuickStyle setting has to be read bypassing the regular
   // configuration object because the style environment variable

@@ -1327,6 +1327,27 @@ void ConfigCommand::startCommand()
     int propIdx = -1;
     if (!option.isNull() && (metaObj = cfg->metaObject()) != nullptr &&
         (propIdx = metaObj->indexOfProperty(option.toLatin1())) >= 0) {
+#if QT_VERSION >= 0x060000
+      auto propType = metaObj->property(propIdx).typeId();
+      if (propType == QMetaType::QStringList) {
+        value = QVariant(args().mid(2));
+      } else if (propType == QMetaType::Int) {
+        value = configIntFromEnumName(group, option, args().at(2));
+      } else if (propType == QMetaType::Bool) {
+        value = QVariant(args().at(2)).toBool();
+      } else {
+        value = args().at(2);
+      }
+      if (value.typeId() == propType) {
+        cfg->setProperty(option.toLatin1(), value);
+        cli()->app()->applyChangedConfiguration();
+        // The value is read back and will be displayed.
+        value = cfg->property(option.toLatin1());
+      } else {
+        setError(tr("Invalid value %1").arg(value.toString()));
+        return;
+      }
+#else
       QVariant::Type propType = metaObj->property(propIdx).type();
       if (propType == QVariant::StringList) {
         value = QVariant(args().mid(2));
@@ -1346,6 +1367,7 @@ void ConfigCommand::startCommand()
         setError(tr("Invalid value %1").arg(value.toString()));
         return;
       }
+#endif
     }
   }
   if (numArgs > 1) {
@@ -1361,6 +1383,20 @@ void ConfigCommand::startCommand()
         cli()->writeResult(propertyNames);
       }
     } else {
+#if QT_VERSION >= 0x060000
+      if (value.typeId() == QMetaType::QStringList) {
+        cli()->writeResult(value.toStringList());
+      } else if (value.typeId() == QMetaType::QVariantMap) {
+        cli()->writeResult(value.toMap());
+      } else if (value.typeId() == QMetaType::Int) {
+        value = configIntToEnumName(group, option, value);
+        cli()->writeResult(value.toString());
+      } else if (value.typeId() == QMetaType::Bool) {
+        cli()->writeResult(value.toBool());
+      } else {
+        cli()->writeResult(value.toString());
+      }
+#else
       if (value.type() == QVariant::StringList) {
         cli()->writeResult(value.toStringList());
       } else if (value.type() == QVariant::Map) {
@@ -1373,6 +1409,7 @@ void ConfigCommand::startCommand()
       } else {
         cli()->writeResult(value.toString());
       }
+#endif
     }
   } else {
     cli()->writeResult(configNames);

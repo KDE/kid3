@@ -79,7 +79,11 @@ void TimeEventTableView::keyPressEvent(QKeyEvent* event)
     QModelIndex idx = currentIndex();
     QAbstractItemModel* mdl = model();
     if (mdl && idx.isValid()) {
+#if QT_VERSION >= 0x060000
+      mdl->setData(idx, QVariant(idx.data().metaType()));
+#else
       mdl->setData(idx, QVariant(idx.data().type()));
+#endif
       return;
     }
   }
@@ -398,9 +402,15 @@ void TimeEventEditor::clearCells()
   if (!m_model)
     return;
 
+#if QT_VERSION >= 0x060000
+  QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
+                     ? QMetaType(QMetaType::Int) : QMetaType(QMetaType::QString));
+  QVariant emptyTime(QMetaType(QMetaType::QTime));
+#else
   QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
                      ? QVariant::Int : QVariant::String);
   QVariant emptyTime(QVariant::Time);
+#endif
   if (QItemSelectionModel* selModel = m_tableView->selectionModel()) {
     const auto indexes = selModel->selectedIndexes();
     for (const QModelIndex& index : indexes) {

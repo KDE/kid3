@@ -996,8 +996,8 @@ QStringList Kid3Application::saveDirectory()
           ext = baseName.mid(dotPos);
           baseName.truncate(dotPos);
         }
-        baseName.append('(');
-        ext.prepend(')');
+        baseName.append(QLatin1Char('('));
+        ext.prepend(QLatin1Char(')'));
         bool ok = false;
         for (int nr = 1; nr < 100; ++nr) {
           QString newName = baseName + QString::number(nr) + ext;
@@ -3718,7 +3718,11 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           field.m_value = value;
           fields.append(field);
           field.m_id = Frame::ID_Data;
+#if QT_VERSION >= 0x060000
+          field.m_value = QVariant(QMetaType(QMetaType::QVariantList));
+#else
           field.m_value = QVariant(QVariant::List);
+#endif
           fields.append(field);
           QTextStream stream(&file);
           TimeEventModel timeEventModel;

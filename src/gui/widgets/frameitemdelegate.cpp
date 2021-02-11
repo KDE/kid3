@@ -271,7 +271,11 @@ void StarEditor::paintEvent(QPaintEvent*)
 
 void StarEditor::mouseMoveEvent(QMouseEvent* event)
 {
+#if QT_VERSION >= 0x060000
+  int starNr = starAtPosition(qRound(event->position().x()));
+#else
   int starNr = starAtPosition(event->x());
+#endif
 
   if (starNr != m_paintedStarCount && starNr != -1) {
     m_paintedStarCount = starNr;

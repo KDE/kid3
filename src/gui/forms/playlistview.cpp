@@ -104,19 +104,33 @@ bool PlaylistView::dropOn(
 
   QModelIndex index;
   QModelIndex root = rootIndex();
+#if QT_VERSION >= 0x060000
+  if (viewport()->rect().contains(event->position().toPoint())) {
+    index = indexAt(event->position().toPoint());
+    if (!index.isValid() || !visualRect(index).contains(event->position().toPoint())) {
+      index = root;
+    }
+  }
+#else
   if (viewport()->rect().contains(event->pos())) {
     index = indexAt(event->pos());
     if (!index.isValid() || !visualRect(index).contains(event->pos())) {
       index = root;
     }
   }
+#endif
 
   if (model()->supportedDropActions() & event->dropAction()) {
     int row = -1;
     int col = -1;
     if (index != root) {
+#if QT_VERSION >= 0x060000
+      DropIndicatorPosition dropIndicatorPosition =
+          position(event->position().toPoint(), visualRect(index), index);
+#else
       DropIndicatorPosition dropIndicatorPosition =
           position(event->pos(), visualRect(index), index);
+#endif
       switch (dropIndicatorPosition) {
       case QAbstractItemView::AboveItem:
         row = index.row();

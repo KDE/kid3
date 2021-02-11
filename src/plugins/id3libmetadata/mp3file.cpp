@@ -1119,7 +1119,11 @@ QVariantList syltBytesToList(const QByteArray& bytes, ID3_TextEnc enc)
       // starting with FEFF BOM
       // fallthrough
     case ID3TE_UTF16:
+#if QT_VERSION >= 0x060000
+      str = QString::fromUtf16(reinterpret_cast<const char16_t*>(text.constData()));
+#else
       str = QString::fromUtf16(reinterpret_cast<const ushort*>(text.constData()));
+#endif
       break;
     case ID3TE_UTF8:
       str = QString::fromUtf8(text.constData());
@@ -1385,9 +1389,15 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
       break;
     }
     const Frame::Field& fld = *fldIt;
+#if QT_VERSION >= 0x060000
+    switch (fld.m_value.typeId()) {
+      case QMetaType::Int:
+      case QMetaType::UInt:
+#else
     switch (fld.m_value.type()) {
       case QVariant::Int:
       case QVariant::UInt:
+#endif
       {
         int intVal = fld.m_value.toInt();
         if (fld.m_id == ID3FN_TEXTENC) {
@@ -1398,7 +1408,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         break;
       }
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QString:
+#else
       case QVariant::String:
+#endif
       {
         if (enc != ID3TE_NONE) {
           id3Field->SetEncoding(enc);
@@ -1416,7 +1430,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         break;
       }
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QByteArray:
+#else
       case QVariant::ByteArray:
+#endif
       {
         const QByteArray& ba = fld.m_value.toByteArray();
         id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
@@ -1424,7 +1442,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         break;
       }
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QVariantList:
+#else
       case QVariant::List:
+#endif
       {
         if (id3Id == ID3FID_SYNCEDLYRICS) {
           QByteArray ba = syltListToBytes(fld.m_value.toList(), enc);
@@ -1444,7 +1466,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
       }
 
       default:
+#if QT_VERSION >= 0x060000
+        qDebug("Unknown type %d in field %d", fld.m_value.typeId(), fld.m_id);
+#else
         qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
+#endif
     }
   }
 #ifdef Q_OS_WIN32

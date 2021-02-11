@@ -49,7 +49,11 @@ QWidget* ComboBoxDelegate::createEditor(
   const QModelIndex& index) const
 {
   QVariant itemsData(index.data(Qt::UserRole));
+#if QT_VERSION >= 0x060000
+  if (itemsData.isValid() && itemsData.typeId() == QMetaType::QStringList) {
+#else
   if (itemsData.isValid() && itemsData.type() == QVariant::StringList) {
+#endif
     QStringList items(itemsData.toStringList());
     int itemIndex = items.indexOf(index.data(Qt::EditRole).toString());
     auto cb = new QComboBox(parent);

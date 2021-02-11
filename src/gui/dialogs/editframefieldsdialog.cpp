@@ -1380,9 +1380,15 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       break;
     }
 
+#if QT_VERSION >= 0x060000
+    switch (fld.m_value.typeId()) {
+      case QMetaType::Int:
+      case QMetaType::UInt:
+#else
     switch (fld.m_value.type()) {
       case QVariant::Int:
       case QVariant::UInt:
+#endif
         if (fld.m_id == Frame::ID_TextEnc) {
           auto cbox = new IntComboBoxControl(
                 fld, Frame::Field::getTextEncodingNames());
@@ -1409,7 +1415,11 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
         }
         break;
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QString:
+#else
       case QVariant::String:
+#endif
         if (fld.m_id == Frame::ID_Text) {
           // Large textedit for text fields
           auto textctl = new TextFieldControl(fld);
@@ -1421,7 +1431,11 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
         }
         break;
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QByteArray:
+#else
       case QVariant::ByteArray:
+#endif
       {
         auto binctl = new BinFieldControl(
               m_platformTools, m_app, fld, frame, taggedFile, tagNr);
@@ -1429,7 +1443,11 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
         break;
       }
 
+#if QT_VERSION >= 0x060000
+      case QMetaType::QVariantList:
+#else
       case QVariant::List:
+#endif
       {
         QString frameName = frame.getName();
         if (frameName.startsWith(QLatin1String("SYLT"))) {
@@ -1458,7 +1476,11 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       }
 
       default:
+#if QT_VERSION >= 0x060000
+        qDebug("Unknown type %d in field %d", fld.m_value.typeId(), fld.m_id);
+#else
         qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
+#endif
     }
   }
 

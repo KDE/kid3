@@ -251,8 +251,9 @@ QString fixUpGenre(QString genre)
     return genre;
   }
   for (int i = 0; i < genre.length(); ++i) {
-    if (i == 0 || genre.at(i - 1) == '-' || genre.at(i - 1) == ' ' ||
-        genre.at(i - 1) == '&') {
+    if (i == 0 || genre.at(i - 1) == QLatin1Char('-') ||
+        genre.at(i - 1) == QLatin1Char(' ') ||
+        genre.at(i - 1) == QLatin1Char('&')) {
       genre[i] = genre[i].toUpper();
     }
   }
