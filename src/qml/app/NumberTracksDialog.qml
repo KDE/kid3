@@ -32,8 +32,8 @@ Dialog {
   title: qsTr("Number Tracks")
   standardButtons: Dialog.Ok | Dialog.Cancel
   modal: true
-  x: (root.width - width) / 2
-  y: root.height / 6
+  x: (parent.width - width) / 2
+  y: parent.height / 6
 
   ColumnLayout {
   Row {

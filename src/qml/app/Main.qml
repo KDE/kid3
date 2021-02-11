@@ -59,6 +59,7 @@ ApplicationWindow {
 
   FrameSelectDialog {
     id: frameSelectDialog
+    parent: ApplicationWindow.overlay
 
     onFrameSelected: frameEditor.onFrameSelectionFinished(name)
 
@@ -85,13 +86,13 @@ ApplicationWindow {
     signal completed(bool ok)
 
     id: saveModifiedDialog
-    x: (root.width - width) / 2
-    y: root.height / 6
+    x: (parent.width - width) / 2
+    y: parent.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("Warning")
     text: qsTr("The current folder has been modified.\nDo you want to save it?")
     onYes: {
-      root.saveDirectory(function() {
+      saveDirectory(function() {
         completed(true)
       })
     }
@@ -121,8 +122,8 @@ ApplicationWindow {
     signal completed()
 
     id: writeErrorDialog
-    x: (root.width - width) / 2
-    y: root.height / 6
+    x: (parent.width - width) / 2
+    y: parent.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("File Error")
     text: qsTr("Error while writing file:\n") + errorMsgs.join("\n")
@@ -138,8 +139,8 @@ ApplicationWindow {
     signal completed()
 
     id: sdCardErrorDialog
-    x: (root.width - width) / 2
-    y: root.height / 6
+    x: (parent.width - width) / 2
+    y: parent.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("File Error")
     text: qsTr("SD card is only writable in %1").arg(externalFilesDir)
@@ -155,8 +156,8 @@ ApplicationWindow {
     signal completed(bool ok)
 
     id: changePermissionsDialog
-    x: (root.width - width) / 2
-    y: root.height / 6
+    x: (parent.width - width) / 2
+    y: parent.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("File Error")
     text: qsTr("Error while writing file. Do you want to change the permissions?")
@@ -186,6 +187,8 @@ ApplicationWindow {
     MainPage {
       id: mainPage
       visible: false
+      onConfirmedOpenRequested: confirmedOpenDirectory(path)
+      onSaveRequested: saveDirectory(onCompleted)
     }
   }
 

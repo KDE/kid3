@@ -31,8 +31,8 @@ Dialog {
   signal frameSelected(string name);
 
   modal: true
-  x: (root.width - width) / 2
-  y: root.height / 6
+  x: (parent.width - width) / 2
+  y: parent.height / 6
   standardButtons: Dialog.Ok | Dialog.Cancel
 
   title: qsTr("Add Frame")
@@ -51,7 +51,7 @@ Dialog {
       id: frameSelectList
       width: constants.gu(30)
       height: Math.min(constants.gu(35),
-                    root.height - 3 * constants.rowHeight - 4 * constants.margins)
+                    page.parent.height - 3 * constants.rowHeight - 4 * constants.margins)
 
       clip: true
       delegate: Standard {

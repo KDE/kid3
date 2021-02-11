@@ -27,6 +27,9 @@ import QtQuick.Controls 2.4
 Page {
   id: page
 
+  signal confirmedOpenRequested(string path)
+  signal saveRequested(variant onCompleted)
+
   function updateCurrentSelection() {
     collapsibleV1.acceptEdit()
     collapsibleV2.acceptEdit()
@@ -90,7 +93,7 @@ Page {
           id: openDialog
           parent: ApplicationWindow.overlay
           title: qsTr("Open")
-          onFinished: if (path) root.confirmedOpenDirectory(path)
+          onFinished: if (path) confirmedOpenRequested(path)
         }
       }
     }
@@ -168,7 +171,7 @@ Page {
             text: qsTr("Save")
             onTriggered: {
               app.frameModelsToTags()
-              root.saveDirectory(function() {
+              saveRequested(function() {
                 app.tagsToFrameModels()
               })
             }

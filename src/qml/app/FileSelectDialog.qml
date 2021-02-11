@@ -41,10 +41,10 @@ Dialog {
 
   title: qsTr("Open")
   modal: true
-  x: (root.width - width) / 2
-  y: (root.height - height) / 2
-  width: Math.min(root.width, constants.gu(65))
-  height: Math.min(root.height, constants.gu(80))
+  x: (parent.width - width) / 2
+  y: (parent.height - height) / 2
+  width: Math.min(parent.width, constants.gu(65))
+  height: Math.min(parent.height, constants.gu(80))
   standardButtons: Dialog.Ok | Dialog.Cancel
   onAccepted: page.finished(getCurrentFilePath())
   onRejected: page.finished(null)

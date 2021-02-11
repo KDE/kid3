@@ -28,9 +28,9 @@ Dialog {
   id: page
   title: qsTr("About Kid3")
   modal: true
-  x: (root.width - width) / 2
-  y: root.height / 6
-  width: Math.min(root.width, constants.gu(40))
+  x: (parent.width - width) / 2
+  y: parent.height / 6
+  width: Math.min(parent.width, constants.gu(40))
 
   Label {
     id: textLabel

@@ -98,8 +98,8 @@ Page {
     }
 
     modal: true
-    width: Math.min(root.width, constants.gu(70))
-    x: (root.width - width) / 2
+    width: Math.min(parent.width, constants.gu(70))
+    x: (parent.width - width) / 2
     y: 0
     standardButtons: Dialog.Ok | Dialog.Cancel
 

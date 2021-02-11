@@ -33,8 +33,8 @@ Dialog {
   signal frameEdited(variant frame)
 
   modal: true
-  width: Math.min(root.width, constants.gu(70))
-  x: (root.width - width) / 2
+  width: Math.min(parent.width, constants.gu(70))
+  x: (parent.width - width) / 2
   y: 0
   standardButtons: Dialog.Ok | Dialog.Cancel
 
@@ -110,9 +110,9 @@ Dialog {
     signal completed(bool ok)
 
     id: confirmOverwriteDialog
-    width: Math.min(root.width, constants.gu(70))
-    x: (root.width - width) / 2
-    y: root.height / 6
+    width: Math.min(parent.width, constants.gu(70))
+    x: (parent.width - width) / 2
+    y: parent.height / 6
     parent: ApplicationWindow.overlay
     title: qsTr("Warning")
     text: qsTr("File already exists. Overwrite?")
@@ -232,7 +232,7 @@ Dialog {
     function updateHeight() {
       /// TODO: Calculate button height instead of 145.
       page.height = Math.min(contentHeight + 145,
-                        root.height -
+                        page.parent.height -
                         3 * constants.rowHeight -
                         3 * constants.margins)
     }
