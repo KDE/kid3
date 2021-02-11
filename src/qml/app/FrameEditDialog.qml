@@ -113,7 +113,7 @@ Dialog {
     width: Math.min(parent.width, constants.gu(70))
     x: (parent.width - width) / 2
     y: parent.height / 6
-    parent: ApplicationWindow.overlay
+    parent: Overlay.overlay
     title: qsTr("Warning")
     text: qsTr("File already exists. Overwrite?")
     standardButtons: Dialog.Yes | Dialog.No
@@ -125,7 +125,7 @@ Dialog {
     id: exportFileSelectDialog
     FileSelectDialog {
       property variant field
-      parent: ApplicationWindow.overlay
+      parent: Overlay.overlay
       title: qsTr("Export")
       saveMode: true
       nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
@@ -153,7 +153,7 @@ Dialog {
     id: importFileSelectDialog
     FileSelectDialog {
       property variant field
-      parent: ApplicationWindow.overlay
+      parent: Overlay.overlay
       title: qsTr("Import")
       nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
       onFinished: {
