@@ -255,7 +255,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           QLatin1String(R"(id="dmusic_tracklist_track_title.*?>([^<]+)</a>)"),
           QRegularExpression::DotMatchesEverythingOption);
     QRegularExpression durationRe(
-          QLatin1String(R"(id="dmusic_tracklist_duration.*?>(\d+):(\d+)</span>)"),
+          QLatin1String(R"(id="dmusic_tracklist_duration.*?>\s*(\d+):(\d+)\s*</span>)"),
           QRegularExpression::DotMatchesEverythingOption);
     QRegularExpression artistRe(
           QLatin1String(R"(>\s*by\s*</span>[^>]+>([^<]+)</)"));

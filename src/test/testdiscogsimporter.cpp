@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2021  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,7 +72,7 @@ void TestDiscogsImporter::testQueryTracks()
           << QLatin1String("3:53") << QLatin1String("4:52")
           << QLatin1String("5:05") << QLatin1String("");
   QCOMPARE(m_trackDataModel->rowCount(), 14);
-  for (int row = 0; row < 11; ++row) {
+  for (int row = 0; row < 14; ++row) {
     QCOMPARE(m_trackDataModel->index(row, 0).data().toString(), lengths.at(row));
     QCOMPARE(m_trackDataModel->index(row, 3).data().toInt(), row + 1);
     QCOMPARE(m_trackDataModel->index(row, 4).data().toString(), titles.at(row));

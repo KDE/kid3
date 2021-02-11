@@ -3,6 +3,7 @@ qt5_wrap_cpp(test_GEN_MOC_SRCS
   testmusicbrainzreleaseimporter.h
   testmusicbrainzreleaseimportparser.h
   testdiscogsimporter.h
+  testamazonimporter.h
   TARGET kid3-test
 )
 add_executable(kid3-test
@@ -12,6 +13,7 @@ add_executable(kid3-test
   testmusicbrainzreleaseimporter.cpp
   testmusicbrainzreleaseimportparser.cpp
   testdiscogsimporter.cpp
+  testamazonimporter.cpp
   maintest.cpp
   ${test_GEN_MOC_SRCS}
 )

@@ -8,7 +8,7 @@
  * \author Urs Fleisch
  * \date 07 Oct 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2021  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,6 +32,7 @@
 #include "testmusicbrainzreleaseimportparser.h"
 #include "testmusicbrainzreleaseimporter.h"
 #include "testdiscogsimporter.h"
+#include "testamazonimporter.h"
 
 /**
  * Main routine for test runner.
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
     new TestMusicBrainzReleaseImportParser,
     new TestMusicBrainzReleaseImporter,
     new TestDiscogsImporter,
+    new TestAmazonImporter,
     nullptr
   };
 
