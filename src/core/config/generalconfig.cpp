@@ -30,7 +30,11 @@
 namespace {
 
 /** Index of latin-1 entry in getTextCodecNames(). */
+#if QT_VERSION >= 0x060000
+enum { TextEncodingLatin1Index = 7 };
+#else
 enum { TextEncodingLatin1Index = 13 };
+#endif
 
 }
 
@@ -81,6 +85,21 @@ QStringList GeneralConfig::getTextCodecNames()
 {
   static QStringList textEncodingList;
   if (textEncodingList.isEmpty()) {
+#if QT_VERSION >= 0x060000
+    static const char* const codecs[] = {
+      "UTF-8",
+      "UTF-16",
+      "UTF-16LE",
+      "UTF-16BE",
+      "UTF-32",
+      "UTF-32LE",
+      "UTF-32BE",
+      "ISO-8859-1",
+      "Locale",
+      nullptr
+    };
+    Q_ASSERT(qstrcmp(codecs[TextEncodingLatin1Index], "ISO-8859-1") == 0);
+#else
     static const char* const codecs[] = {
       "Apple Roman (macintosh)",
       "Big5",
@@ -142,6 +161,7 @@ QStringList GeneralConfig::getTextCodecNames()
       nullptr
     };
     Q_ASSERT(qstrcmp(codecs[TextEncodingLatin1Index], "ISO-8859-1 (latin1)") == 0);
+#endif
     const char* const* str = codecs;
     while (*str) {
       textEncodingList += QString::fromLatin1(*str++);

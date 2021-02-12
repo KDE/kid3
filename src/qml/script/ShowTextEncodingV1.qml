@@ -33,6 +33,7 @@ Kid3Script {
       tagCfg.textEncodingV1Index = encNr
       app.applyChangedConfiguration()
       app.selectCurrentFile(false)
+      app.unloadAllTags()
       app.selectCurrentFile(true)
     }
 
