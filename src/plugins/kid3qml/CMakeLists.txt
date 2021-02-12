@@ -114,7 +114,11 @@ endif()
 
 if(WIN32 OR APPLE OR LINUX_SELF_CONTAINED)
   # Install essential QML modules.
-  get_target_property(QT_QML_DIR Qt5::qmake LOCATION)
+  if(TARGET Qt5::qmake)
+    get_target_property(QT_QML_DIR Qt5::qmake LOCATION)
+  else()
+    set(QT_QML_DIR ${_qmakeLocation})
+  endif()
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   set(QT_QML_DIR ${QT_QML_DIR}/qml)

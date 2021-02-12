@@ -22,6 +22,7 @@
  */
 
 import QtQuick 2.2
+import QtQml 2.2
 import Kid3 1.0
 
 Rectangle {

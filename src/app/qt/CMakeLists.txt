@@ -136,7 +136,7 @@ if(LINUX_SELF_CONTAINED)
       execute_process(COMMAND chrpath -r ${_rpath} \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${_file}\"
                       RESULT_VARIABLE ret)
       if(NOT ret EQUAL 0)
-        message(FATAL_ERROR \"chrpath failed with \${ret}\")
+        message(FATAL_ERROR \"CHANGE_RPATH(${_rpath} ${_file}) failed with \${ret}\")
       endif()
       ")
   endmacro()
@@ -186,17 +186,21 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION kid3.app/Contents/MacOS
       FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
                      PATTERN "*.dSYM" EXCLUDE)
-    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-      DESTINATION ${plugin_dest_dir}
-      FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                     PATTERN "*.dSYM" EXCLUDE)
+    if(HAVE_QTMULTIMEDIA)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                       PATTERN "*.dSYM" EXCLUDE)
+    endif()
   elseif(WIN32)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-      DESTINATION ${plugin_dest_dir}
-      FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    if(HAVE_QTMULTIMEDIA)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif()
   elseif(LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
@@ -206,10 +210,12 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforminputcontexts/libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-      DESTINATION ${plugin_dest_dir}
-      FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    if(HAVE_QTMULTIMEDIA)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif()
     install(DIRECTORY "${QT_PLUGINS_DIR}/xcbglintegrations"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqxcb-glx-integration${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -291,7 +297,11 @@ endif()
 if(LINUX_SELF_CONTAINED)
   # Use reduced size ICU libraries.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
-  get_target_property(_qtBinDir Qt5::qmake LOCATION)
+  if(TARGET Qt5::qmake)
+    get_target_property(_qtBinDir Qt5::qmake LOCATION)
+  else()
+    set(_qtBinDir ${_qmakeLocation})
+  endif()
   get_filename_component(_qtBinDir ${_qtBinDir} PATH)
   string(REPLACE "/bin" "/lib" _qtLibDir "${_qtBinDir}")
   install(CODE "

@@ -328,13 +328,28 @@ if test -n "$QTPREFIX"; then
 fi
 echo "."
 
-qt_major=${QTPREFIX##*/5.}
-qt_major=${qt_major%%.*}
-if test "$qt_major" -gt 11; then
+if [[ "$QTPREFIX" =~ /([0-9]+)\.([0-9]+)\.([0-9]+)/ ]]; then
+  qt_nr=$(printf "%d%02d%02d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
+else
+  echo "Could not extract Qt version from $QTPREFIX"
+  exit 1
+fi
+
+if test "$qt_nr" -ge 51204; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
   openssl_version=1.1.1g
 else
   openssl_version=1.0.2u
+fi
+
+if test "$compiler" = "gcc-self-contained"; then
+  if test "$qt_nr" -lt 60000; then
+    gcc_self_contained_cc="gcc-4.8"
+    gcc_self_contained_cxx="g++-4.8"
+  else
+    gcc_self_contained_cc="gcc"
+    gcc_self_contained_cxx="g++"
+  fi
 fi
 
 if test "$compiler" = "cross-mingw"; then
@@ -361,8 +376,8 @@ if test "$compiler" = "gcc-debug"; then
   AV_BUILD_OPTION="--enable-debug=3 --enable-pic --extra-ldexeflags=-pie"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
 elif test "$compiler" = "gcc-self-contained"; then
-  export CC="gcc-4.8"
-  export CXX="g++-4.8"
+  export CC=$gcc_self_contained_cc
+  export CXX=$gcc_self_contained_cxx
   export CFLAGS="-O2 -fPIC"
   export CXXFLAGS="-O2 -fPIC"
   FLAC_BUILD_OPTION="--enable-debug"
@@ -5395,7 +5410,7 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_C_COMPILER=gcc-4.8 -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
     elif test $kernel = "Darwin"; then
       _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
