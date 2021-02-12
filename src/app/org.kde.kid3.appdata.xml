@@ -143,6 +143,14 @@
       Discogs, Amazon; automatic batch import is available for multiple
       folders. It is also possible to export data and generate play lists.
     </p>
+    <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
+    <p xml:lang="ca-valencia">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
+    <p xml:lang="es">Puede importar datos de álbumes de gnudb.org, MusicBrainz, Discogs y Amazon. Puede realizar importaciones automáticas por lotes para múltiples carpetas. También puede exportar datos y generar listas de reproducción.</p>
+    <p xml:lang="nl">Albumgegevens kunnen geïmporteerd worden uit gnudb.org, MusicBrainz, Discogs, Amazon; automatische bulkimport is beschikbaar voor meerdere mappen. Het is ook mogelijk gegevens te exporteren en afspeellijsten te genereren.</p>
+    <p xml:lang="sl">Podatke o albumu lahko uvozite iz gnudb.org, MusicBrainz, Discogs, Amazon; samodejni uvoz paketov je na voljo za več map. Možen je tudi izvoz podatkov in ustvarjanje seznamov predvajanja.</p>
+    <p xml:lang="sv">Albumdata kan importeras från gnudb.org, MusicBrainz, Discogs, eller Amazon. Automatisk import i bakgrunden är tillgänglig för flera kataloger. Det är också möjligt att exportera data och skapa spellistor.</p>
+    <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
+    <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
