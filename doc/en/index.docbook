@@ -1111,6 +1111,13 @@ can be imported by terminating the import dialog with
 A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
+A <guilabel>Token</guilabel> can be entered to use the RESTful Discogs API
+instead of their web interface, which is often changed, thereby breaking the
+import parser. You have to register for an account on
+<ulink url="https://www.discogs.com/">Discogs</ulink> and then generate a token
+on their web site (Settings/Developers, Generate new token). Don't forget to
+<guibutton>Save Settings</guibutton> after entering the token in order to use
+it in subsequent requests too.
 If <guilabel>Standard Tags</guilabel> is marked, the standard information is
 imported, <abbrev>e.g.</abbrev> artist, album, and title.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
