@@ -291,10 +291,10 @@ ffmpeg_patchlevel=1~deb10u1
 libflac_version=1.3.3
 libflac_patchlevel=2
 id3lib_version=3.8.3
-id3lib_patchlevel=16.2
-taglib_version=v1.12-beta-2
+id3lib_patchlevel=16.3
+taglib_version=1.12
 chromaprint_version=1.5.0
-chromaprint_patchlevel=1
+chromaprint_patchlevel=2
 mp4v2_version=2.0.0
 mp4v2_patchlevel=5
 
