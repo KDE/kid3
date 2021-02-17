@@ -1,8 +1,14 @@
-kid3 (3.8.5-0) unstable; urgency=low
+kid3 (3.8.6-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 31 Jan 2021 08:55:52 +0100
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 18 Mar 2021 08:21:47 +0100
+
+kid3 (3.8.5-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 01 Feb 2021 11:31:48 +0100
 
 kid3 (3.8.4-2) unstable; urgency=medium
 
