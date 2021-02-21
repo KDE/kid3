@@ -42,18 +42,18 @@ else()
 endif()
 
 set(_deploymentDepends
-    lib/libQt5Core.so lib/libQt5Xml.so lib/libQt5Network.so lib/libQt5Gui.so
+    lib/libQt${QT_VERSION_MAJOR}Core.so lib/libQt${QT_VERSION_MAJOR}Xml.so lib/libQt${QT_VERSION_MAJOR}Network.so lib/libQt${QT_VERSION_MAJOR}Gui.so
     plugins/bearer/libqandroidbearer.so plugins/platforms/android/libqtforandroid.so plugins/iconengines/libqsvgicon.so
 #    plugins/imageformats/libqdds.so plugins/imageformats/libqgif.so plugins/imageformats/libqicns.so plugins/imageformats/libqico.so plugins/imageformats/libqjp2.so
     plugins/imageformats/libqjpeg.so
 #    plugins/imageformats/libqmng.so
     plugins/imageformats/libqsvg.so
 #    plugins/imageformats/libqtga.so plugins/imageformats/libqtiff.so plugins/imageformats/libqwbmp.so plugins/imageformats/libqwebp.so
-    lib/libQt5Multimedia.so lib/libQt5Qml.so
+    lib/libQt${QT_VERSION_MAJOR}Multimedia.so lib/libQt${QT_VERSION_MAJOR}Qml.so
 #    plugins/qmltooling/libqmldbg_qtquick2.so plugins/qmltooling/libqmldbg_tcp.so
-    lib/libQt5Quick.so lib/libQt5Widgets.so lib/libQt5Svg.so
-    lib/libQt5QuickControls2.so lib/libQt5QuickTemplates2.so lib/libQt5AndroidExtras.so
-#    lib/libQt5MultimediaQuick_p.so plugins/mediaservice/libqtmedia_android.so plugins/audio/libqtaudio_opensles.so plugins/video/videonode/libqtsgvideonode_android.so plugins/playlistformats/libqtmultimedia_m3u.so
+    lib/libQt${QT_VERSION_MAJOR}Quick.so lib/libQt${QT_VERSION_MAJOR}Widgets.so lib/libQt${QT_VERSION_MAJOR}Svg.so
+    lib/libQt${QT_VERSION_MAJOR}QuickControls2.so lib/libQt${QT_VERSION_MAJOR}QuickTemplates2.so lib/libQt${QT_VERSION_MAJOR}AndroidExtras.so
+#    lib/libQt${QT_VERSION_MAJOR}MultimediaQuick_p.so plugins/mediaservice/libqtmedia_android.so plugins/audio/libqtaudio_opensles.so plugins/video/videonode/libqtsgvideonode_android.so plugins/playlistformats/libqtmultimedia_m3u.so
 #    qml/Enginio/libenginioplugin.so qml/Enginio/plugins.qmltypes qml/Enginio/qmldir
     qml/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so qml/Qt/labs/folderlistmodel/plugins.qmltypes qml/Qt/labs/folderlistmodel/qmldir
 #    qml/Qt/labs/settings/libqmlsettingsplugin.so qml/Qt/labs/settings/plugins.qmltypes qml/Qt/labs/settings/qmldir
@@ -90,7 +90,7 @@ set(_deploymentDepends
 #    qml/QtQuick/Controls.2/Universal/libqtquickcontrols2universalstyleplugin.so qml/QtQuick/Controls.2/Universal/plugins.qmltypes qml/QtQuick/Controls.2/Universal/qmldir
 #    qml/QtQuick/Controls.2/Universal/ApplicationWindow.qml qml/QtQuick/Controls.2/Universal/BusyIndicator.qml qml/QtQuick/Controls.2/Universal/Button.qml qml/QtQuick/Controls.2/Universal/CheckBox.qml qml/QtQuick/Controls.2/Universal/CheckDelegate.qml qml/QtQuick/Controls.2/Universal/CheckIndicator.qml qml/QtQuick/Controls.2/Universal/ComboBox.qml qml/QtQuick/Controls.2/Universal/DelayButton.qml qml/QtQuick/Controls.2/Universal/Dial.qml qml/QtQuick/Controls.2/Universal/Dialog.qml qml/QtQuick/Controls.2/Universal/DialogButtonBox.qml qml/QtQuick/Controls.2/Universal/Drawer.qml qml/QtQuick/Controls.2/Universal/Frame.qml qml/QtQuick/Controls.2/Universal/GroupBox.qml qml/QtQuick/Controls.2/Universal/ItemDelegate.qml qml/QtQuick/Controls.2/Universal/Label.qml qml/QtQuick/Controls.2/Universal/Menu.qml qml/QtQuick/Controls.2/Universal/MenuItem.qml qml/QtQuick/Controls.2/Universal/MenuSeparator.qml qml/QtQuick/Controls.2/Universal/Page.qml qml/QtQuick/Controls.2/Universal/PageIndicator.qml qml/QtQuick/Controls.2/Universal/Pane.qml qml/QtQuick/Controls.2/Universal/Popup.qml qml/QtQuick/Controls.2/Universal/ProgressBar.qml qml/QtQuick/Controls.2/Universal/RadioButton.qml qml/QtQuick/Controls.2/Universal/RadioDelegate.qml qml/QtQuick/Controls.2/Universal/RadioIndicator.qml qml/QtQuick/Controls.2/Universal/RangeSlider.qml qml/QtQuick/Controls.2/Universal/RoundButton.qml qml/QtQuick/Controls.2/Universal/ScrollBar.qml qml/QtQuick/Controls.2/Universal/ScrollIndicator.qml qml/QtQuick/Controls.2/Universal/Slider.qml qml/QtQuick/Controls.2/Universal/SpinBox.qml qml/QtQuick/Controls.2/Universal/StackView.qml qml/QtQuick/Controls.2/Universal/SwipeDelegate.qml qml/QtQuick/Controls.2/Universal/Switch.qml qml/QtQuick/Controls.2/Universal/SwitchDelegate.qml qml/QtQuick/Controls.2/Universal/SwitchIndicator.qml qml/QtQuick/Controls.2/Universal/TabBar.qml qml/QtQuick/Controls.2/Universal/TabButton.qml qml/QtQuick/Controls.2/Universal/TextArea.qml qml/QtQuick/Controls.2/Universal/TextField.qml qml/QtQuick/Controls.2/Universal/ToolBar.qml qml/QtQuick/Controls.2/Universal/ToolButton.qml qml/QtQuick/Controls.2/Universal/ToolSeparator.qml qml/QtQuick/Controls.2/Universal/ToolTip.qml qml/QtQuick/Controls.2/Universal/Tumbler.qml
 #    qml/QtQuick/Controls.2/designer/AbstractButtonSection.qml qml/QtQuick/Controls.2/designer/BusyIndicatorSpecifics.qml qml/QtQuick/Controls.2/designer/ButtonSection.qml qml/QtQuick/Controls.2/designer/ButtonSpecifics.qml qml/QtQuick/Controls.2/designer/CheckBoxSpecifics.qml qml/QtQuick/Controls.2/designer/CheckDelegateSpecifics.qml qml/QtQuick/Controls.2/designer/CheckSection.qml qml/QtQuick/Controls.2/designer/ComboBoxSpecifics.qml qml/QtQuick/Controls.2/designer/ContainerSection.qml qml/QtQuick/Controls.2/designer/ControlSection.qml qml/QtQuick/Controls.2/designer/ControlSpecifics.qml qml/QtQuick/Controls.2/designer/DelayButtonSpecifics.qml qml/QtQuick/Controls.2/designer/DialSpecifics.qml qml/QtQuick/Controls.2/designer/FrameSpecifics.qml qml/QtQuick/Controls.2/designer/GroupBoxSpecifics.qml qml/QtQuick/Controls.2/designer/ItemDelegateSection.qml qml/QtQuick/Controls.2/designer/ItemDelegateSpecifics.qml qml/QtQuick/Controls.2/designer/LabelSpecifics.qml qml/QtQuick/Controls.2/designer/PaddingSection.qml qml/QtQuick/Controls.2/designer/PageIndicatorSpecifics.qml qml/QtQuick/Controls.2/designer/PageSpecifics.qml qml/QtQuick/Controls.2/designer/PaneSection.qml qml/QtQuick/Controls.2/designer/PaneSpecifics.qml qml/QtQuick/Controls.2/designer/ProgressBarSpecifics.qml qml/QtQuick/Controls.2/designer/RadioButtonSpecifics.qml qml/QtQuick/Controls.2/designer/RadioDelegateSpecifics.qml qml/QtQuick/Controls.2/designer/RangeSliderSpecifics.qml qml/QtQuick/Controls.2/designer/RoundButtonSpecifics.qml qml/QtQuick/Controls.2/designer/ScrollViewSpecifics.qml qml/QtQuick/Controls.2/designer/SliderSpecifics.qml qml/QtQuick/Controls.2/designer/SpinBoxSpecifics.qml qml/QtQuick/Controls.2/designer/StackViewSpecifics.qml qml/QtQuick/Controls.2/designer/SwipeDelegateSpecifics.qml qml/QtQuick/Controls.2/designer/SwipeViewSpecifics.qml qml/QtQuick/Controls.2/designer/SwitchDelegateSpecifics.qml qml/QtQuick/Controls.2/designer/SwitchSpecifics.qml qml/QtQuick/Controls.2/designer/TabBarSpecifics.qml qml/QtQuick/Controls.2/designer/TabButtonSpecifics.qml qml/QtQuick/Controls.2/designer/TextAreaSpecifics.qml qml/QtQuick/Controls.2/designer/TextFieldSpecifics.qml qml/QtQuick/Controls.2/designer/ToolBarSpecifics.qml qml/QtQuick/Controls.2/designer/ToolButtonSpecifics.qml qml/QtQuick/Controls.2/designer/ToolSeparatorSpecifics.qml qml/QtQuick/Controls.2/designer/TumblerSpecifics.qml
-#    lib/libQt5QuickParticles.so
+#    lib/libQt${QT_VERSION_MAJOR}QuickParticles.so
 )
 if(EXISTS "${QT_ANDROID_QT_ROOT}/jar/QtAndroid-bundled.jar")
   set(_deploymentDepends jar/QtAndroid-bundled.jar jar/QtAndroidBearer-bundled.jar jar/QtMultimedia-bundled.jar ${_deploymentDepends})
@@ -108,7 +108,7 @@ add_qt_android_apk(apk kid3-qml
   PACKAGE_NAME "net.sourceforge.kid3"
   DEPENDS kid3-core kid3-gui
           musicbrainzimport discogsimport freedbimport amazonimport
-          taglibmetadata kid3qml Qt5::Svg
+          taglibmetadata kid3qml Qt${QT_VERSION_MAJOR}::Svg
           ${ANDROID_EXTRA_LIBS_DIR}/libssl.so ${ANDROID_EXTRA_LIBS_DIR}/libcrypto.so
   DEPLOYMENT_DEPENDS ${_deploymentDepends}
   PACKAGE_SOURCES ${_androidPackageDir}

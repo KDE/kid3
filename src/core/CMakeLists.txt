@@ -1,6 +1,6 @@
 option(WITH_QT_PRIVATE_HEADERS "Use private Qt headers" OFF)
 
-qt5_wrap_cpp(core_GEN_MOC_SRCS
+qt_wrap_cpp(core_GEN_MOC_SRCS
   utils/debugutils.h
   config/batchimportsourcesmodel.h
   config/batchimportconfig.h
@@ -54,13 +54,13 @@ qt5_wrap_cpp(core_GEN_MOC_SRCS
   TARGET kid3-core
 )
 if(HAVE_QTDBUS)
-  qt5_wrap_cpp(qtdbus_GEN_MOC_SRCS
+  qt_wrap_cpp(qtdbus_GEN_MOC_SRCS
     model/scriptinterface.h
     TARGET kid3-core
   )
 endif()
 if(ANDROID)
-  qt5_wrap_cpp(android_GEN_MOC_SRCS
+  qt_wrap_cpp(android_GEN_MOC_SRCS
     utils/androidutils.h
     TARGET kid3-core
   )
@@ -179,13 +179,13 @@ if(CMAKE_VERSION VERSION_GREATER "3.8")
 else()
   target_compile_features(kid3-core PUBLIC cxx_auto_type cxx_nullptr cxx_override)
 endif()
-target_link_libraries(kid3-core PUBLIC Qt5::Core Qt5::Network Qt5::Xml)
+target_link_libraries(kid3-core PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Xml)
 if(WITH_QT_PRIVATE_HEADERS)
   target_compile_definitions(kid3-core PRIVATE USE_QT_PRIVATE_HEADERS)
-  target_link_libraries(kid3-core PRIVATE Qt5::CorePrivate)
+  target_link_libraries(kid3-core PRIVATE Qt${QT_VERSION_MAJOR}::CorePrivate)
 endif()
 if(WITH_DBUS)
-  target_link_libraries(kid3-core PUBLIC Qt5::DBus)
+  target_link_libraries(kid3-core PUBLIC Qt${QT_VERSION_MAJOR}::DBus)
 endif()
 if(PLUGIN_LIBRARIES)
   target_link_libraries(kid3-core PUBLIC ${PLUGIN_LIBRARIES})
@@ -194,7 +194,7 @@ if(APPLE)
   target_link_libraries(kid3-core PUBLIC "-framework CoreServices")
 endif()
 if(ANDROID)
-  target_link_libraries(kid3-core PUBLIC Qt5::AndroidExtras)
+  target_link_libraries(kid3-core PUBLIC Qt${QT_VERSION_MAJOR}::AndroidExtras)
 endif()
 
 if(BUILD_SHARED_LIBS)

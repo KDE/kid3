@@ -51,7 +51,7 @@ if(HAVE_READLINE)
   target_sources(kid3-cli PRIVATE readlinecompleter.cpp)
 endif()
 
-qt5_wrap_cpp(cli_GEN_MOC_SRCS
+qt_wrap_cpp(cli_GEN_MOC_SRCS
   abstractcli.h
   kid3cli.h
   clicommand.h

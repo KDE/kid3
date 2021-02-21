@@ -1,6 +1,6 @@
 if(NOT HAVE_QMLDIR_IN_QRC)
   # Before starting Qt Creator, export the environment variable
-  # QML_IMPORT_PATH=<qt5dir>/qml:<qt5dir>/imports
+  # QML_IMPORT_PATH=<qtdir>/qml:<qtdir>/imports
   # so that the editor supports the QML types.
   # On Linux, this can be done in ~/.xsessionrc.
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/script
@@ -66,5 +66,5 @@ if(NOT HAVE_QMLDIR_IN_QRC)
       app/MapEditPage.qml
       app/ImportProfilesEditPage.qml
     )
-  endif()  
+  endif()
 endif()

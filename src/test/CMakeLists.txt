@@ -1,4 +1,4 @@
-qt5_wrap_cpp(test_GEN_MOC_SRCS
+qt_wrap_cpp(test_GEN_MOC_SRCS
   testserverimporterbase.h
   testmusicbrainzreleaseimporter.h
   testmusicbrainzreleaseimportparser.h
@@ -17,7 +17,7 @@ add_executable(kid3-test
   maintest.cpp
   ${test_GEN_MOC_SRCS}
 )
-target_link_libraries(kid3-test kid3-core Qt5::Test)
+target_link_libraries(kid3-test kid3-core Qt${QT_VERSION_MAJOR}::Test)
 if(NOT MSVC)
   target_link_libraries(kid3-test -lstdc++)
 endif()

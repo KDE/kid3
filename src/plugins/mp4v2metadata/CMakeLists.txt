@@ -9,7 +9,7 @@ if(WITH_MP4V2)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+  qt_wrap_cpp(plugin_GEN_MOC_SRCS
     mp4v2metadataplugin.h
     TARGET ${plugin_TARGET}
   )

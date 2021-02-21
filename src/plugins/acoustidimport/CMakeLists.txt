@@ -52,7 +52,7 @@ if(WITH_CHROMAPRINT)
     target_sources(${plugin_TARGET} PRIVATE qtfingerprintdecoder.cpp)
   endif()
 
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+  qt_wrap_cpp(plugin_GEN_MOC_SRCS
     abstractfingerprintdecoder.h
     fingerprintcalculator.h
     musicbrainzclient.h
@@ -62,7 +62,7 @@ if(WITH_CHROMAPRINT)
   target_sources(${plugin_TARGET} PRIVATE ${plugin_GEN_MOC_SRCS})
 
   if(NOT HAVE_GSTREAMER AND NOT HAVE_FFMPEG)
-    qt5_wrap_cpp(qtfp_GEN_MOC_SRCS qtfingerprintdecoder.h TARGET ${plugin_TARGET})
+    qt_wrap_cpp(qtfp_GEN_MOC_SRCS qtfingerprintdecoder.h TARGET ${plugin_TARGET})
     target_sources(${plugin_TARGET} PRIVATE ${qtfp_GEN_MOC_SRCS})
   endif()
 
@@ -97,7 +97,7 @@ if(WITH_CHROMAPRINT)
       target_link_libraries(${plugin_TARGET} PRIVATE "-lbcrypt")
     endif()
   else()
-    target_link_libraries(${plugin_TARGET} PRIVATE Qt5::Multimedia)
+    target_link_libraries(${plugin_TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)
   endif()
 
   if(APPLE)

@@ -9,7 +9,7 @@ else()
   add_library(${plugin_TARGET} MODULE kid3qmlplugin.cpp)
 endif()
 
-qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+qt_wrap_cpp(plugin_GEN_MOC_SRCS
   kid3qmlplugin.h
   scriptutils.h
   configobjects.h
@@ -27,7 +27,7 @@ target_sources(${plugin_TARGET} PRIVATE
   "${kid3_plugins_BINARY_DIR}/imports/Kid3/Kid3Script.qml"
 )
 
-target_link_libraries(${plugin_TARGET} kid3-core kid3-gui Qt5::Quick Kid3Plugin)
+target_link_libraries(${plugin_TARGET} kid3-core kid3-gui Qt${QT_VERSION_MAJOR}::Quick Kid3Plugin)
 
 if(NOT HAVE_QMLDIR_IN_QRC)
   if(APPLE)
@@ -92,8 +92,8 @@ else()
           DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
 endif()
 if(NOT WIN32 AND NOT ANDROID AND NOT APPLE)
-  if(TARGET Qt5::qmake)
-    get_target_property(_qmakeLocation Qt5::qmake LOCATION)
+  if(TARGET Qt${QT_VERSION_MAJOR}::qmake)
+    get_target_property(_qmakeLocation Qt${QT_VERSION_MAJOR}::qmake LOCATION)
   endif()
   execute_process(COMMAND "${_qmakeLocation}" -query QT_INSTALL_BINS
     OUTPUT_VARIABLE _qtInstallBins OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -114,10 +114,8 @@ endif()
 
 if(WIN32 OR APPLE OR LINUX_SELF_CONTAINED)
   # Install essential QML modules.
-  if(TARGET Qt5::qmake)
-    get_target_property(QT_QML_DIR Qt5::qmake LOCATION)
-  else()
-    set(QT_QML_DIR ${_qmakeLocation})
+  if(TARGET Qt${QT_VERSION_MAJOR}::qmake)
+    get_target_property(QT_QML_DIR Qt${QT_VERSION_MAJOR}::qmake LOCATION)
   endif()
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)

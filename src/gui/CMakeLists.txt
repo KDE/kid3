@@ -1,4 +1,4 @@
-qt5_wrap_cpp(gui_GEN_MOC_SRCS
+qt_wrap_cpp(gui_GEN_MOC_SRCS
   widgets/abstractlistedit.h
   widgets/configtable.h
   widgets/formatbox.h
@@ -43,7 +43,7 @@ qt5_wrap_cpp(gui_GEN_MOC_SRCS
   TARGET kid3-gui
 )
 if(HAVE_QTMULTIMEDIA)
-  qt5_wrap_cpp(qtmultimedia_GEN_MOC_SRCS
+  qt_wrap_cpp(qtmultimedia_GEN_MOC_SRCS
     widgets/playtoolbar.h
     forms/audioplayer.h
     forms/mprisinterface.h
@@ -121,9 +121,9 @@ target_include_directories(kid3-gui PRIVATE widgets PUBLIC dialogs forms)
 
 target_compile_definitions(kid3-gui PRIVATE KID3_BUILD_GUI_LIB)
 
-target_link_libraries(kid3-gui kid3-core Qt5::Widgets)
+target_link_libraries(kid3-gui kid3-core Qt${QT_VERSION_MAJOR}::Widgets)
 if(HAVE_QTMULTIMEDIA)
-  target_link_libraries(kid3-gui Qt5::Multimedia)
+  target_link_libraries(kid3-gui Qt${QT_VERSION_MAJOR}::Multimedia)
 endif()
 
 if(BUILD_SHARED_LIBS)

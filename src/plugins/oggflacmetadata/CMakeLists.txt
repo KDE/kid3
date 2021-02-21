@@ -20,7 +20,7 @@ if(WITH_VORBIS)
       flacfile.cpp
     )
   endif()
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+  qt_wrap_cpp(plugin_GEN_MOC_SRCS
     oggflacmetadataplugin.h
     TARGET ${plugin_TARGET}
   )

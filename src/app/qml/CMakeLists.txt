@@ -10,7 +10,7 @@ else()
 endif()
 
 if(HAVE_QMLDIR_IN_QRC)
-  qt5_add_resources(qmlapp_GEN_RCS qmlapp.qrc)
+  qt_add_resources(qmlapp_GEN_RCS qmlapp.qrc)
   target_sources(kid3-qml PRIVATE ${qmlapp_GEN_RCS})
 endif()
 
@@ -24,12 +24,12 @@ if(HAVE_TRANSLATIONSDIR_IN_QRC)
       ${CMAKE_CURRENT_BINARY_DIR}/../../../translations ${_qrcPrefix}
     DEPENDS translations
   )
-  qt5_add_resources(
+  qt_add_resources(
     translations_GEN_RCS ${CMAKE_CURRENT_BINARY_DIR}/translations.qrc)
   target_sources(kid3-qml PRIVATE ${translations_GEN_RCS})
 endif()
 
-target_link_libraries(kid3-qml kid3-gui Qt5::QuickControls2)
+target_link_libraries(kid3-qml kid3-gui Qt${QT_VERSION_MAJOR}::QuickControls2)
 if(NOT MSVC)
   target_link_libraries(kid3-qml -lstdc++)
 endif()

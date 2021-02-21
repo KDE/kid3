@@ -21,10 +21,10 @@ if(NOT ANDROID)
 endif()
 
 # find the Qt root directory
-if(NOT Qt5Core_DIR)
-    find_package(Qt5Core REQUIRED)
+if(NOT Qt${QT_VERSION_MAJOR}Core_DIR)
+    find_package(Qt${QT_VERSION_MAJOR}Core REQUIRED)
 endif()
-get_filename_component(QT_ANDROID_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
+get_filename_component(QT_ANDROID_QT_ROOT "${Qt${QT_VERSION_MAJOR}Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Android: ${QT_ANDROID_QT_ROOT}")
 
 # find the Android SDK
@@ -70,7 +70,7 @@ include(CMakeParseArguments)
 #     DEPENDS a_linked_target "path/to/a_linked_library.so" ...
 #     INSTALL
 #)
-# 
+#
 macro(add_qt_android_apk TARGET SOURCE_TARGET)
 
     # parse the macro arguments

@@ -2,7 +2,7 @@ set(plugin_NAME AmazonImport)
 
 string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+qt_wrap_cpp(plugin_GEN_MOC_SRCS
   amazonimportplugin.h
   TARGET ${plugin_TARGET}
 )

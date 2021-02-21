@@ -24,7 +24,7 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
       taglibext/eventtimingcodesframe.cpp
     )
   endif()
-  qt5_wrap_cpp(plugin_GEN_MOC_SRCS
+  qt_wrap_cpp(plugin_GEN_MOC_SRCS
     taglibmetadataplugin.h
     TARGET ${plugin_TARGET}
   )

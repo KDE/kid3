@@ -10,7 +10,7 @@ add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
   shortcutsmodel.cpp
   shortcutsdelegate.cpp
 )
-qt5_wrap_cpp(qt_GEN_MOC_SRCS
+qt_wrap_cpp(qt_GEN_MOC_SRCS
   kid3mainwindow.h
   kid3qtapplication.h
   recentfilesmenu.h
@@ -102,7 +102,7 @@ elseif(APPLE)
           RENAME kid3.png)
 endif()
 
-qt5_add_resources(qt_GEN_RCS kid3.qrc)
+qt_add_resources(qt_GEN_RCS kid3.qrc)
 target_sources(${KID3_EXECUTABLE} PRIVATE
   ${qt_GEN_RCS}
 )
@@ -277,7 +277,7 @@ endif()
 if(WIN32)
   # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
-  get_target_property(_qtBinDir Qt5::Core LOCATION)
+  get_target_property(_qtBinDir Qt${QT_VERSION_MAJOR}::Core LOCATION)
   get_filename_component(_qtBinDir ${_qtBinDir} PATH)
   install(DIRECTORY "${_qtBinDir}/icu_reduced/"
           DESTINATION ${WITH_BINDIR} OPTIONAL)
@@ -285,22 +285,20 @@ if(WIN32)
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported, but the DLLs have different
   # names (libcrypto-1_1-x64.dll, libssl-1_1-x64.dll for 64-bit) and are not
   # shipped with Qt.
-  if(Qt5Core_VERSION_STRING VERSION_LESS "5.12.4")
+  if(Qt${QT_VERSION_MAJOR}Core_VERSION_STRING VERSION_LESS "5.12.4")
     file(GLOB _sslDlls "${_qtBinDir}/../../../Tools/mingw*/opt/bin/*eay32.dll")
   else()
     file(GLOB _sslDlls "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/*.dll")
   endif()
-  install(FILES "${_qtBinDir}/Qt5Xml.dll" ${_sslDlls}
+  install(FILES "${_qtBinDir}/Qt${QT_VERSION_MAJOR}Xml.dll" ${_sslDlls}
           DESTINATION ${WITH_BINDIR})
 endif()
 
 if(LINUX_SELF_CONTAINED)
   # Use reduced size ICU libraries.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
-  if(TARGET Qt5::qmake)
-    get_target_property(_qtBinDir Qt5::qmake LOCATION)
-  else()
-    set(_qtBinDir ${_qmakeLocation})
+  if(TARGET Qt${QT_VERSION_MAJOR}::qmake)
+    get_target_property(_qtBinDir Qt${QT_VERSION_MAJOR}::qmake LOCATION)
   endif()
   get_filename_component(_qtBinDir ${_qtBinDir} PATH)
   string(REPLACE "/bin" "/lib" _qtLibDir "${_qtBinDir}")
