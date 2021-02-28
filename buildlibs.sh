@@ -418,6 +418,11 @@ fi
 if test "$compiler" = "cross-mingw"; then
   CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake"
   CONFIGURE_OPTIONS="--host=${cross_host}"
+  # Qt uses posix threads, but x86_64-w64-mingw32-gcc uses win32 thread model.
+  if test "$cross_host" = "x86_64-w64-mingw32"; then
+    export CC=${cross_host}-gcc-posix
+    export CXX=${cross_host}-g++-posix
+  fi
 elif test "$compiler" = "cross-macos"; then
   CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
   CONFIGURE_OPTIONS="--host=${cross_host}"
@@ -621,12 +626,17 @@ if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
   fi
 fi # cross-mingw || cross-macos
 if test "$compiler" = "cross-mingw"; then
+  if test "$cross_host" = "x86_64-w64-mingw32"; then
+    _thread_suffix=-posix
+  else
+    _thread_suffix=
+  fi
   cat >$thisdir/mingw.cmake <<EOF
 set(QT_PREFIX ${_qt_prefix})
 
 set(CMAKE_SYSTEM_NAME Windows)
-set(CMAKE_C_COMPILER ${cross_host}-gcc)
-set(CMAKE_CXX_COMPILER ${cross_host}-g++)
+set(CMAKE_C_COMPILER ${cross_host}-gcc${_thread_suffix})
+set(CMAKE_CXX_COMPILER ${cross_host}-g++${_thread_suffix})
 set(CMAKE_RC_COMPILER ${cross_host}-windres)
 set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/$ffmpeg_dir/inst/usr/local)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -4987,9 +4997,16 @@ else #  cross-android, msvc
     else
       _crossprefix=
     fi
+    if test "$cross_host" = "x86_64-w64-mingw32"; then
+      _cctmp=$CC
+      CC=gcc-posix
+    fi
     ./Configure shared enable-ec_nistp_64_gcc_128 $_target --cross-compile-prefix=$_crossprefix
     make depend || true
     make build_libs
+    if test "$cross_host" = "x86_64-w64-mingw32"; then
+      CC=$_cctmp
+    fi
     mkdir -p inst/usr/local/ssl
     cp lib{ssl,crypto}*.dll inst/usr/local/ssl/
     ${_crossprefix}strip -s inst/usr/local/ssl/*.dll
@@ -5237,6 +5254,8 @@ else #  cross-android, msvc
         else
           AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-ldflags=-lbcrypt"
         fi
+        test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
+        test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
       elif test $kernel = "MINGW"; then
         # mkstemp is not available when building with mingw from Qt
         sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
