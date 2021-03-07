@@ -286,8 +286,6 @@ ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
 ffmpeg_version=4.1.6
 ffmpeg_patchlevel=1~deb10u1
-#libav_version=11.12
-#libav_patchlevel=1
 libflac_version=1.3.3
 libflac_patchlevel=2
 id3lib_version=3.8.3
@@ -550,26 +548,10 @@ if test "$compiler" != "cross-android"; then
       $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
   fi
 
-  if test -n "${ffmpeg_version}"; then
-    test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
-    test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
-    ffmpeg_dir=ffmpeg-${ffmpeg_version}
-  else
-    if test "${libav_version%.*}" = "0.8"; then
-      test -f libav_${libav_version}.orig.tar.gz ||
-        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.gz
-      test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.gz ||
-        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
-    else
-      test -f libav_${libav_version}.orig.tar.xz ||
-        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}.orig.tar.xz
-      test -f libav_${libav_version}-${libav_patchlevel}.debian.tar.xz ||
-        $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
-      ffmpeg_dir=libav-${libav_version}
-    fi
-  fi
+  test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
+  test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
 
   test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
@@ -638,7 +620,7 @@ set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${cross_host}-gcc${_thread_suffix})
 set(CMAKE_CXX_COMPILER ${cross_host}-g++${_thread_suffix})
 set(CMAKE_RC_COMPILER ${cross_host}-windres)
-set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/$ffmpeg_dir/inst/usr/local)
+set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -4503,31 +4485,6 @@ index e447a0c..b8f25ee 100644
  
 EOF
 
-test -f ffmpeg_mingw.patch ||
-  cat >ffmpeg_mingw.patch <<"EOF"
-From a64839189622f2a4cc3c62168ae5037b6aab6992 Mon Sep 17 00:00:00 2001
-From: Tobias Rapp <t.rapp@noa-archive.com>
-Date: Mon, 29 Aug 2016 15:25:58 +0200
-Subject: cmdutils: fix implicit declaration of SetDllDirectory function
-
-Signed-off-by: Tobias Rapp <t.rapp@noa-archive.com>
-Signed-off-by: James Almer <jamrial@gmail.com>
-
-diff --git a/cmdutils.c b/cmdutils.c
-index 6960f8c..44f44cd 100644
---- a/cmdutils.c
-+++ b/cmdutils.c
-@@ -61,6 +61,9 @@
- #include <sys/time.h>
- #include <sys/resource.h>
- #endif
-+#ifdef _WIN32
-+#include <windows.h>
-+#endif
- 
- static int init_report(const char *env);
-EOF
-
 if test "$compiler" = "cross-android"; then
   test -f openssl_android.patch ||
     cat >openssl_android.patch <<"EOF"
@@ -4664,58 +4621,14 @@ if test "$compiler" != "cross-android"; then
     cd ..
   fi
 
-  if test -n "${ffmpeg_version}"; then
-    if ! test -d ffmpeg-${ffmpeg_version}; then
-      echo "### Extracting ffmpeg"
+  if ! test -d ffmpeg-${ffmpeg_version}; then
+    echo "### Extracting ffmpeg"
 
-      tar xJf source/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
-      cd ffmpeg-${ffmpeg_version}/
-      tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
-      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-      if test $ffmpeg_version = "3.1.3"; then
-        patch -p1 <../source/ffmpeg_mingw.patch
-      fi
-      cd ..
-    fi
-  else
-    if test "${libav_version%.*}" = "0.8"; then
-      if ! test -d libav-${libav_version}; then
-        echo "### Extracting libav"
-
-        tar xzf source/libav_${libav_version}.orig.tar.gz
-        cd libav-${libav_version}/
-        tar xzf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.gz
-        oldifs=$IFS
-        IFS='
-'
-        for f in $(cat debian/patches/series); do
-          if test "${f:0:1}" != "#"; then
-            patch -p1 <debian/patches/$f
-          fi
-        done
-        IFS=$oldifs
-        cd ..
-      fi
-    else
-      if ! test -d libav-${libav_version}; then
-        echo "### Extracting libav"
-
-        tar xJf source/libav_${libav_version}.orig.tar.xz || true
-        echo Can be ignored: Cannot create symlink to README.md
-        cd libav-${libav_version}/
-        tar xJf ../source/libav_${libav_version}-${libav_patchlevel}.debian.tar.xz
-        oldifs=$IFS
-        IFS='
-'
-        for f in $(cat debian/patches/series); do
-          if test "${f:0:1}" != "#"; then
-            patch -p1 <debian/patches/$f
-          fi
-        done
-        IFS=$oldifs
-        cd ..
-      fi
-    fi
+    tar xJf source/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
+    cd ffmpeg-${ffmpeg_version}/
+    tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
+    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    cd ..
   fi
 
   if ! test -d chromaprint-${chromaprint_version}; then
@@ -4961,7 +4874,7 @@ else #  cross-android, msvc
     for d in zlib-${zlib_version} libogg-${libogg_version} \
              libvorbis-${libvorbis_version} flac-${libflac_version} \
              id3lib-${id3lib_version} taglib-${taglib_version} \
-             ${ffmpeg_dir} chromaprint-${chromaprint_version} \
+             ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
              mp4v2-${mp4v2_version}; do
       test -d $d/inst && rm -rf $d/inst
     done
@@ -5129,241 +5042,139 @@ else #  cross-android, msvc
     tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
   fi
 
-  if test ! -d ${ffmpeg_dir}/inst; then
+  if test ! -d ffmpeg-${ffmpeg_version}/inst; then
     echo "### Building ffmpeg"
 
-    if test "${libav_version%.*}" = "0.8"; then
-      cd ${ffmpeg_dir}
-      # configure needs yasm and pr
-      # On msys, make >= 3.81 is needed.
-      # Most options taken from
-      # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
-      # Disable-sse avoids a SEGFAULT under MinGW.
-      # Later versions (tested with libav-HEAD-5d2be71) do not have
-      # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
-      # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
-      if test "$compiler" = "cross-mingw"; then
-        sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
-        AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
+    cd ffmpeg-${ffmpeg_version}
+    # configure needs yasm and pr
+    # On msys, make >= 3.81 is needed.
+    # Most options taken from
+    # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
+    # Disable-sse avoids a SEGFAULT under MinGW.
+    # Later versions (tested with libav-HEAD-5d2be71) do not have
+    # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
+    # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
+    # The --extra-cflags=-march=i486 is to avoid error "Threading is enabled, but
+    # there is no implementation of atomic operations available", libav bug 471.
+    if test "$compiler" = "cross-mingw"; then
+      # mkstemp is not available when building on Windows
+      sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
+      sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
+      AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
+      if test -n "${cross_host##x86_64*}"; then
+        AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
+      else
+        AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-ldflags=-lbcrypt"
       fi
-      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
-      ./configure \
-	      --enable-memalign-hack \
-	      --disable-shared \
-	      --enable-static \
-	      --disable-avdevice \
-	      --disable-avfilter \
-	      --disable-pthreads \
-	      --disable-swscale \
-	      --enable-ffmpeg \
-	      --disable-network \
-	      --disable-muxers \
-	      --disable-demuxers \
-	      --disable-sse \
-	      --disable-doc \
-	      --enable-rdft \
-	      --enable-demuxer=aac \
-	      --enable-demuxer=ac3 \
-	      --enable-demuxer=ape \
-	      --enable-demuxer=asf \
-	      --enable-demuxer=flac \
-	      --enable-demuxer=matroska_audio \
-	      --enable-demuxer=mp3 \
-	      --enable-demuxer=mpc \
-	      --enable-demuxer=mov \
-	      --enable-demuxer=mpc8 \
-	      --enable-demuxer=ogg \
-	      --enable-demuxer=tta \
-	      --enable-demuxer=wav \
-	      --enable-demuxer=wv \
-	      --disable-bsfs \
-	      --disable-filters \
-	      --disable-parsers \
-	      --enable-parser=aac \
-	      --enable-parser=ac3 \
-	      --enable-parser=mpegaudio \
-	      --disable-protocols \
-	      --enable-protocol=file \
-	      --disable-indevs \
-	      --disable-outdevs \
-	      --disable-encoders \
-	      --disable-decoders \
-	      --enable-decoder=aac \
-	      --enable-decoder=ac3 \
-	      --enable-decoder=alac \
-	      --enable-decoder=ape \
-	      --enable-decoder=flac \
-	      --enable-decoder=mp1 \
-	      --enable-decoder=mp2 \
-	      --enable-decoder=mp3 \
-	      --enable-decoder=mpc7 \
-	      --enable-decoder=mpc8 \
-	      --enable-decoder=tta \
-	      --enable-decoder=vorbis \
-	      --enable-decoder=wavpack \
-	      --enable-decoder=wmav1 \
-	      --enable-decoder=wmav2 \
-	      --enable-decoder=pcm_alaw \
-	      --enable-decoder=pcm_dvd \
-	      --enable-decoder=pcm_f32be \
-	      --enable-decoder=pcm_f32le \
-	      --enable-decoder=pcm_f64be \
-	      --enable-decoder=pcm_f64le \
-	      --enable-decoder=pcm_s16be \
-	      --enable-decoder=pcm_s16le \
-	      --enable-decoder=pcm_s16le_planar \
-	      --enable-decoder=pcm_s24be \
-	      --enable-decoder=pcm_daud \
-	      --enable-decoder=pcm_s24le \
-	      --enable-decoder=pcm_s32be \
-	      --enable-decoder=pcm_s32le \
-	      --enable-decoder=pcm_s8 \
-	      --enable-decoder=pcm_u16be \
-	      --enable-decoder=pcm_u16le \
-	      --enable-decoder=pcm_u24be \
-	      --enable-decoder=pcm_u24le \
-	      --enable-decoder=rawvideo \
-	      --disable-hwaccel=h264_dxva2 \
-	      --disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
-      make
-      mkdir -p inst
-      make install DESTDIR=`pwd`/inst
-      cd inst
-      tar czf ../../bin/${ffmpeg_dir}.tgz usr
-      cd ../..
-      tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
-    else
-      cd ${ffmpeg_dir}
-      # configure needs yasm and pr
-      # On msys, make >= 3.81 is needed.
-      # Most options taken from
-      # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
-      # Disable-sse avoids a SEGFAULT under MinGW.
-      # Later versions (tested with libav-HEAD-5d2be71) do not have
-      # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
-      # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
-      # The --extra-cflags=-march=i486 is to avoid error "Threading is enabled, but
-      # there is no implementation of atomic operations available", libav bug 471.
-      if test "$compiler" = "cross-mingw"; then
-        # mkstemp is not available when building on Windows
-        sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
-        sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
-        AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
-        if test -n "${cross_host##x86_64*}"; then
-          AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
-        else
-          AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-ldflags=-lbcrypt"
-        fi
-        test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
-        test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
-      elif test $kernel = "MINGW"; then
-        # mkstemp is not available when building with mingw from Qt
-        sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
-        if ! [[ $(uname) =~ ^MINGW64 ]]; then
-          AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
-        else
-          AV_CONFIGURE_OPTIONS="--extra-ldflags=-lbcrypt"
-        fi
-        if test $(uname) = "MSYS_NT-6.1"; then
-          AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
-        fi
-      elif test "$compiler" = "cross-macos"; then
-        AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${cross_host}- --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
-      elif test "$compiler" = "gcc-debug" || test "$compiler" = "gcc-self-contained"; then
-        test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
-        test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
+      test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
+      test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
+    elif test $kernel = "MINGW"; then
+      # mkstemp is not available when building with mingw from Qt
+      sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
+      if ! [[ $(uname) =~ ^MINGW64 ]]; then
+        AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
+      else
+        AV_CONFIGURE_OPTIONS="--extra-ldflags=-lbcrypt"
       fi
-      if ( test $kernel = "Darwin" || test $kernel = "MINGW" ) && test -n "${ffmpeg_version}"; then
-        AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
+      if test $(uname) = "MSYS_NT-6.1"; then
+        AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
       fi
-      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
-      ./configure \
-	      --disable-shared \
-	      --enable-static \
-	      --disable-avdevice \
-	      --disable-avfilter \
-	      --disable-pthreads \
-	      --disable-swscale \
-	      --disable-network \
-	      --disable-muxers \
-	      --disable-demuxers \
-	      --disable-sse \
-	      --disable-doc \
-	      --enable-rdft \
-	      --enable-demuxer=aac \
-	      --enable-demuxer=ac3 \
-	      --enable-demuxer=ape \
-	      --enable-demuxer=asf \
-	      --enable-demuxer=flac \
-	      --enable-demuxer=matroska_audio \
-	      --enable-demuxer=mp3 \
-	      --enable-demuxer=mpc \
-	      --enable-demuxer=mov \
-	      --enable-demuxer=mpc8 \
-	      --enable-demuxer=ogg \
-	      --enable-demuxer=tta \
-	      --enable-demuxer=wav \
-	      --enable-demuxer=wv \
-	      --disable-bsfs \
-	      --disable-filters \
-	      --disable-parsers \
-	      --enable-parser=aac \
-	      --enable-parser=ac3 \
-	      --enable-parser=mpegaudio \
-	      --disable-protocols \
-	      --enable-protocol=file \
-	      --disable-indevs \
-	      --disable-outdevs \
-	      --disable-encoders \
-	      --disable-decoders \
-	      --enable-decoder=aac \
-	      --enable-decoder=ac3 \
-	      --enable-decoder=alac \
-	      --enable-decoder=ape \
-	      --enable-decoder=flac \
-	      --enable-decoder=mp1 \
-	      --enable-decoder=mp2 \
-	      --enable-decoder=mp3 \
-	      --enable-decoder=mpc7 \
-	      --enable-decoder=mpc8 \
-	      --enable-decoder=tta \
-	      --enable-decoder=vorbis \
-	      --enable-decoder=wavpack \
-	      --enable-decoder=wmav1 \
-	      --enable-decoder=wmav2 \
-	      --enable-decoder=pcm_alaw \
-	      --enable-decoder=pcm_dvd \
-	      --enable-decoder=pcm_f32be \
-	      --enable-decoder=pcm_f32le \
-	      --enable-decoder=pcm_f64be \
-	      --enable-decoder=pcm_f64le \
-	      --enable-decoder=pcm_s16be \
-	      --enable-decoder=pcm_s16le \
-	      --enable-decoder=pcm_s16le_planar \
-	      --enable-decoder=pcm_s24be \
-	      --enable-decoder=pcm_daud \
-	      --enable-decoder=pcm_s24le \
-	      --enable-decoder=pcm_s32be \
-	      --enable-decoder=pcm_s32le \
-	      --enable-decoder=pcm_s8 \
-	      --enable-decoder=pcm_u16be \
-	      --enable-decoder=pcm_u16le \
-	      --enable-decoder=pcm_u24be \
-	      --enable-decoder=pcm_u24le \
-	      --enable-decoder=rawvideo \
-	      --disable-videotoolbox \
-	      --disable-vaapi \
-	      --disable-vdpau \
-	      --disable-hwaccel=h264_dxva2 \
-	      --disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
-      make V=1
-      mkdir -p inst
-      make install DESTDIR=`pwd`/inst
-      cd inst
-      tar czf ../../bin/${ffmpeg_dir}.tgz usr
-      cd ../..
-      tar xmzf bin/${ffmpeg_dir}.tgz -C $BUILDROOT
+    elif test "$compiler" = "cross-macos"; then
+      AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${cross_host}- --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
+    elif test "$compiler" = "gcc-debug" || test "$compiler" = "gcc-self-contained"; then
+      test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
+      test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
     fi
+    if test $kernel = "Darwin" || test $kernel = "MINGW"; then
+      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
+    fi
+    AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
+    ./configure \
+      --disable-shared \
+      --enable-static \
+      --disable-avdevice \
+      --disable-avfilter \
+      --disable-pthreads \
+      --disable-swscale \
+      --disable-network \
+      --disable-muxers \
+      --disable-demuxers \
+      --disable-sse \
+      --disable-doc \
+      --enable-rdft \
+      --enable-demuxer=aac \
+      --enable-demuxer=ac3 \
+      --enable-demuxer=ape \
+      --enable-demuxer=asf \
+      --enable-demuxer=flac \
+      --enable-demuxer=matroska_audio \
+      --enable-demuxer=mp3 \
+      --enable-demuxer=mpc \
+      --enable-demuxer=mov \
+      --enable-demuxer=mpc8 \
+      --enable-demuxer=ogg \
+      --enable-demuxer=tta \
+      --enable-demuxer=wav \
+      --enable-demuxer=wv \
+      --disable-bsfs \
+      --disable-filters \
+      --disable-parsers \
+      --enable-parser=aac \
+      --enable-parser=ac3 \
+      --enable-parser=mpegaudio \
+      --disable-protocols \
+      --enable-protocol=file \
+      --disable-indevs \
+      --disable-outdevs \
+      --disable-encoders \
+      --disable-decoders \
+      --enable-decoder=aac \
+      --enable-decoder=ac3 \
+      --enable-decoder=alac \
+      --enable-decoder=ape \
+      --enable-decoder=flac \
+      --enable-decoder=mp1 \
+      --enable-decoder=mp2 \
+      --enable-decoder=mp3 \
+      --enable-decoder=mpc7 \
+      --enable-decoder=mpc8 \
+      --enable-decoder=tta \
+      --enable-decoder=vorbis \
+      --enable-decoder=wavpack \
+      --enable-decoder=wmav1 \
+      --enable-decoder=wmav2 \
+      --enable-decoder=pcm_alaw \
+      --enable-decoder=pcm_dvd \
+      --enable-decoder=pcm_f32be \
+      --enable-decoder=pcm_f32le \
+      --enable-decoder=pcm_f64be \
+      --enable-decoder=pcm_f64le \
+      --enable-decoder=pcm_s16be \
+      --enable-decoder=pcm_s16le \
+      --enable-decoder=pcm_s16le_planar \
+      --enable-decoder=pcm_s24be \
+      --enable-decoder=pcm_daud \
+      --enable-decoder=pcm_s24le \
+      --enable-decoder=pcm_s32be \
+      --enable-decoder=pcm_s32le \
+      --enable-decoder=pcm_s8 \
+      --enable-decoder=pcm_u16be \
+      --enable-decoder=pcm_u16le \
+      --enable-decoder=pcm_u24be \
+      --enable-decoder=pcm_u24le \
+      --enable-decoder=rawvideo \
+      --disable-videotoolbox \
+      --disable-vaapi \
+      --disable-vdpau \
+      --disable-hwaccel=h264_dxva2 \
+      --disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
+    make V=1
+    mkdir -p inst
+    make install DESTDIR=`pwd`/inst
+    cd inst
+    tar czf ../../bin/ffmpeg-${ffmpeg_version}.tgz usr
+    cd ../..
+    tar xmzf bin/ffmpeg-${ffmpeg_version}.tgz -C $BUILDROOT
   fi
 
   if test ! -d chromaprint-${chromaprint_version}/inst; then
@@ -5371,7 +5182,7 @@ else #  cross-android, msvc
 
     # The zlib library path was added for MinGW-builds GCC 4.7.2.
     cd chromaprint-${chromaprint_version}/
-    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/$ffmpeg_dir/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
