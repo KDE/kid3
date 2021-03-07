@@ -2,7 +2,6 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
   find_package(TagLib REQUIRED)
-  configure_file(taglibconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/taglibconfig.h)
 
   set(plugin_NAME TaglibMetadata)
 

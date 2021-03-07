@@ -76,9 +76,7 @@
 #include <s3mfile.h>
 #include <itfile.h>
 #include <tfilestream.h>
-#ifdef HAVE_TAGLIB_XM_SUPPORT
 #include <xmfile.h>
-#endif
 #include <opusfile.h>
 #include "taglibext/dsf/dsffiletyperesolver.h"
 #include "taglibext/dsf/dsffile.h"
@@ -98,10 +96,6 @@
 #endif
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
-
-#if TAGLIB_VERSION >= 0x010c00
-#define TAGLIB_WITH_MP4_SHWM
-#endif
 
 /** for loop through all supported tag number values. */
 #define FOR_TAGLIB_TAGS(variable) \
@@ -606,10 +600,8 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
     return new TagLib::S3M::File(stream);
   if (ext == "IT")
     return new TagLib::IT::File(stream);
-#ifdef HAVE_TAGLIB_XM_SUPPORT
   if (ext == "XM")
     return new TagLib::XM::File(stream);
-#endif
   if (ext == "DSF")
     return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
   return nullptr;
@@ -1096,10 +1088,8 @@ void TagLibFile::readTags(bool force)
         m_fileExtension = QLatin1String(".s3m");
       } else if (dynamic_cast<TagLib::IT::File*>(file) != nullptr) {
         m_fileExtension = QLatin1String(".it");
-#ifdef HAVE_TAGLIB_XM_SUPPORT
       } else if (dynamic_cast<TagLib::XM::File*>(file) != nullptr) {
         m_fileExtension = QLatin1String(".xm");
-#endif
       } else if (dynamic_cast<TagLib::Ogg::Opus::File*>(file) != nullptr) {
         m_fileExtension = QLatin1String(".opus");
       }
@@ -1869,9 +1859,7 @@ void TagLibFile::readAudioProperties()
     TagLib::Mod::Properties* modProperties;
     TagLib::S3M::Properties* s3mProperties;
     TagLib::IT::Properties* itProperties;
-#ifdef HAVE_TAGLIB_XM_SUPPORT
     TagLib::XM::Properties* xmProperties;
-#endif
     TagLib::Ogg::Opus::Properties* opusProperties;
     DSFProperties* dsfProperties;
     m_detailInfo.valid = true;
@@ -2069,14 +2057,12 @@ void TagLibFile::readAudioProperties()
           .arg(itProperties->instrumentCount());
       m_detailInfo.channelMode = itProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
-#ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
                 dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("XM %1 V%2 %3 Instruments"))
           .arg(getTrackerName())
           .arg(xmProperties->version(), 0, 16)
           .arg(xmProperties->instrumentCount());
-#endif
     } else if ((opusProperties =
           dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("Opus %1"))
@@ -2295,13 +2281,13 @@ const struct TypeStrOfId {
   { QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "GEOB - General encapsulated object"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "GRID - Group identification registration"), Frame::FT_Other, false },
-#ifdef TAGLIB_WITH_MP4_SHWM
+#if TAGLIB_VERSION >= 0x010c00
   { QT_TRANSLATE_NOOP("@default", "GRP1 - Grouping"), Frame::FT_Other, true },
 #endif
   { QT_TRANSLATE_NOOP("@default", "LINK - Linked information"), Frame::FT_Other, false },
   { QT_TRANSLATE_NOOP("@default", "MCDI - Music CD identifier"), Frame::FT_Other, false },
   { QT_TRANSLATE_NOOP("@default", "MLLT - MPEG location lookup table"), Frame::FT_Other, false },
-#ifdef TAGLIB_WITH_MP4_SHWM
+#if TAGLIB_VERSION >= 0x010c00
   { QT_TRANSLATE_NOOP("@default", "MVIN - Movement Number"), Frame::FT_Other, true },
   { QT_TRANSLATE_NOOP("@default", "MVNM - Movement Name"), Frame::FT_Other, true },
 #endif
@@ -4318,14 +4304,14 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "plID", Frame::FT_Other, MVT_LongLong },
   { "geID", Frame::FT_Other, MVT_UInt },
   { "ownr", Frame::FT_Other, MVT_String },
-#ifdef TAGLIB_WITH_MP4_SHWM
+#if TAGLIB_VERSION >= 0x010c00
   { "purl", Frame::FT_Other, MVT_String },
   { "egid", Frame::FT_Other, MVT_String },
   { "cmID", Frame::FT_Other, MVT_UInt },
 #endif
   { "xid ", Frame::FT_Other, MVT_String },
   { "covr", Frame::FT_Picture, MVT_CoverArt },
-#ifdef TAGLIB_WITH_MP4_SHWM
+#if TAGLIB_VERSION >= 0x010c00
   { "\251wrk", Frame::FT_Work, MVT_String },
   { "\251mvn", Frame::FT_Other, MVT_String },
   { "\251mvi", Frame::FT_Other, MVT_Int },
@@ -5607,7 +5593,7 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
 #if TAGLIB_VERSION >= 0x010b00
       || frameId == QLatin1String("WFED")
 #endif
-#ifdef TAGLIB_WITH_MP4_SHWM
+#if TAGLIB_VERSION >= 0x010c00
       || frameId == QLatin1String("MVIN") || frameId == QLatin1String("MVNM")
       || frameId == QLatin1String("GRP1")
 #endif

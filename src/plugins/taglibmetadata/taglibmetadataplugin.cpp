@@ -125,9 +125,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext == QLatin1String(".wav") || ext == QLatin1String(".ape")
         || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m")
         || ext2 == QLatin1String(".it")
-#ifdef HAVE_TAGLIB_XM_SUPPORT
         || ext2 == QLatin1String(".xm")
-#endif
         || ext == QLatin1String("opus")
         || ext == QLatin1String(".dsf")
         || ext2 == QLatin1String(".wv"))
@@ -158,9 +156,7 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
       QLatin1String(".aif"), QLatin1String(".aiff"), QLatin1String(".wav"),
       QLatin1String(".ape"),
       QLatin1String(".mod"), QLatin1String(".s3m"), QLatin1String(".it"),
-#ifdef HAVE_TAGLIB_XM_SUPPORT
       QLatin1String(".xm"),
-#endif
       QLatin1String(".opus"),
       QLatin1String(".dsf"),
       QLatin1String(".wv")
