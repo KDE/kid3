@@ -52,15 +52,13 @@
             "buildsystem": "cmake-ninja",
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
-                "-DBUILD_SHARED_LIBS=ON",
-                "-DWITH_MP4=ON",
-                "-DWITH_ASF=ON"
+                "-DBUILD_SHARED_LIBS=ON"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/taglib/taglib/archive/v1.12-beta-2.tar.gz",
-                    "sha256": "e273e9d97592cebd4e84e71313e91e9df0fc4a8e00c35daea62325e8bebb87d9"
+                    "url": "https://taglib.org/releases/taglib-1.12.tar.gz",
+                    "sha256": "7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703"
                 }
             ]
         },
