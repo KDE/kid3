@@ -115,16 +115,12 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga")
         || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
         || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
-#ifdef TAGLIB_WITH_MP4
         || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b")
         || ext == QLatin1String(".m4p") || ext == QLatin1String(".m4r")
         || ext == QLatin1String(".mp4") || ext == QLatin1String(".m4v")
         || ext == QLatin1String("mp4v")
-#endif
-#ifdef TAGLIB_WITH_ASF
         || ext == QLatin1String(".wma") || ext == QLatin1String(".asf")
         || ext == QLatin1String(".wmv")
-#endif
         || ext == QLatin1String(".aif") || ext == QLatin1String("aiff")
         || ext == QLatin1String(".wav") || ext == QLatin1String(".ape")
         || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m")
@@ -155,14 +151,10 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
       QLatin1String(".flac"), QLatin1String(".mp3"), QLatin1String(".mpc"),
       QLatin1String(".oga"), QLatin1String(".ogg"), QLatin1String(".spx"),
       QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
-#ifdef TAGLIB_WITH_MP4
       QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
       QLatin1String(".m4r"), QLatin1String(".mp4"), QLatin1String(".m4v"),
       QLatin1String(".mp4v"),
-#endif
-#ifdef TAGLIB_WITH_ASF
       QLatin1String(".wma"), QLatin1String(".asf"), QLatin1String(".wmv"),
-#endif
       QLatin1String(".aif"), QLatin1String(".aiff"), QLatin1String(".wav"),
       QLatin1String(".ape"),
       QLatin1String(".mod"), QLatin1String(".s3m"), QLatin1String(".it"),

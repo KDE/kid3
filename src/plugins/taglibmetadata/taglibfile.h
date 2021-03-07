@@ -41,13 +41,11 @@
 class QTextCodec;
 class FileIOStream;
 
-#ifdef TAGLIB_WITH_MP4
   namespace TagLib {
     namespace MP4 {
       class Tag;
     }
   }
-#endif
 
 class TagLibFile;
 
@@ -384,14 +382,12 @@ private:
    */
   QString getVorbisName(const Frame& frame) const;
 
-#ifdef TAGLIB_WITH_MP4
   /**
    * Set a frame in an MP4 tag.
    * @param frame frame to set
    * @param mp4Tag MP4 tag
    */
   void setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag);
-#endif
 
   /**
    * Get the format of a tag.

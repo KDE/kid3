@@ -4853,7 +4853,7 @@ if test "$compiler" = "cross-android"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DWITH_ASF=ON -DWITH_MP4=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
+    cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
     make install
     cd ..
   fi
@@ -4939,7 +4939,7 @@ elif test "$compiler" = "msvc"; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f taglib.sln || cmake -G "Visual Studio 11" -DWITH_ASF=ON -DWITH_MP4=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=
+    test -f taglib.sln || cmake -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=
     mkdir -p instd
     DESTDIR=instd cmake --build . --config Debug --target install
     mkdir -p inst
@@ -5118,7 +5118,7 @@ else #  cross-android, msvc
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f Makefile || eval cmake -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
