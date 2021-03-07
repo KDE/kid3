@@ -196,6 +196,9 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/styles"
+      DESTINATION ${plugin_dest_dir} OPTIONAL
+      FILES_MATCHING PATTERN "qwindowsvistastyle${CMAKE_SHARED_LIBRARY_SUFFIX}")
     if(HAVE_QTMULTIMEDIA)
       install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
         DESTINATION ${plugin_dest_dir}
