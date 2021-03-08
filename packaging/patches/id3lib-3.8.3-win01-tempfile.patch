@@ -1,0 +1,12 @@
+diff -ru id3lib-3.8.3.orig/src/tag_file.cpp id3lib-3.8.3/src/tag_file.cpp
+--- id3lib-3.8.3.orig/src/tag_file.cpp	2016-06-09 20:54:44.395068889 +0200
++++ id3lib-3.8.3/src/tag_file.cpp	2016-06-09 21:39:35.044411098 +0200
+@@ -242,7 +242,7 @@
+     strcpy(sTempFile, filename.c_str());
+     strcat(sTempFile, sTmpSuffix.c_str());
+ 
+-#if !defined(HAVE_MKSTEMP)
++#if !defined(HAVE_MKSTEMP) || defined WIN32
+     // This section is for Windows folk
+     fstream tmpOut;
+     createFile(sTempFile, tmpOut);

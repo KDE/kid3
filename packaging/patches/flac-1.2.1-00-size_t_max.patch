@@ -1,0 +1,14 @@
+diff -ru flac-1.2.1.orig/include/share/alloc.h flac-1.2.1/include/share/alloc.h
+--- flac-1.2.1.orig/include/share/alloc.h	Wed Sep 12 06:32:22 2007
++++ flac-1.2.1/include/share/alloc.h	Mon Mar  3 18:57:14 2008
+@@ -33,6 +33,10 @@
+ #endif
+ #include <stdlib.h> /* for size_t, malloc(), etc */
+ 
++#if defined __MINGW32__ && !defined SIZE_T_MAX
++# define SIZE_T_MAX UINT_MAX
++#endif
++
+ #ifndef SIZE_MAX
+ # ifndef SIZE_T_MAX
+ #  ifdef _MSC_VER

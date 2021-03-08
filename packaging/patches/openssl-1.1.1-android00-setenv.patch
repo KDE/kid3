@@ -1,0 +1,36 @@
+--- Setenv-android.sh	2018-02-10 13:37:18.181017337 +0100
++++ Setenv-android.sh.new	2018-02-10 13:33:11.661974672 +0100
+@@ -102,7 +102,7 @@
+ # https://android.googlesource.com/platform/ndk/+/ics-mr0/docs/STANDALONE-TOOLCHAIN.html
+ 
+ ANDROID_TOOLCHAIN=""
+-for host in "linux-x86_64" "linux-x86" "darwin-x86_64" "darwin-x86"
++for host in "linux-x86_64" "linux-x86" "darwin-x86_64" "darwin-x86" "windows-x86" "windows-x86_64"
+ do
+   if [ -d "$ANDROID_NDK_ROOT/toolchains/$_ANDROID_EABI/prebuilt/$host/bin" ]; then
+     ANDROID_TOOLCHAIN="$ANDROID_NDK_ROOT/toolchains/$_ANDROID_EABI/prebuilt/$host/bin"
+@@ -124,6 +124,9 @@
+ 	arch-x86)	  
+       ANDROID_TOOLS="i686-linux-android-gcc i686-linux-android-ranlib i686-linux-android-ld"
+ 	  ;;	  
++	arch-arm64)
++      ANDROID_TOOLS="aarch64-linux-android-gcc aarch64-linux-android-ranlib aarch64-linux-android-ld"
++	  ;;
+ 	*)
+ 	  echo "ERROR ERROR ERROR"
+ 	  ;;
+@@ -206,6 +209,14 @@
+ 	export CROSS_COMPILE="i686-linux-android-"
+ fi
+ 
++if [ "$_ANDROID_ARCH" == "arch-arm64" ]; then
++	export MACHINE=armv8
++	export RELEASE=2.6.37
++	export SYSTEM=android64
++	export ARCH=arm
++	export CROSS_COMPILE="aarch64-linux-android-"
++fi
++
+ # For the Android toolchain
+ # https://android.googlesource.com/platform/ndk/+/ics-mr0/docs/STANDALONE-TOOLCHAIN.html
+ export ANDROID_SYSROOT="$ANDROID_NDK_ROOT/platforms/$_ANDROID_API/$_ANDROID_ARCH"

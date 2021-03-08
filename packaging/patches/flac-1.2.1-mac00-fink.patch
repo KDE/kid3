@@ -1,0 +1,75 @@
+diff -ruN flac-1.2.1/patches/fixrpath.sh flac-1.2.1.new/patches/fixrpath.sh
+--- flac-1.2.1/patches/fixrpath.sh	1969-12-31 19:00:00.000000000 -0500
++++ flac-1.2.1.new/patches/fixrpath.sh	2008-02-18 10:51:07.000000000 -0500
+@@ -0,0 +1,28 @@
++#!/bin/sh
++# $Id: fixrpath,v 1.1 2004/05/27 10:48:25 kobras Exp $
++# libtool -rpath workaround based on a suggestion by Yann Dirson
++# <dirson@debian.org>
++#
++# It is supposed to be inserted in configure.in, but I didn't want
++# to re-run autoconf (since that bloats the Debian diff unnecessarily),
++# so I just patch libtool after running configure.  -- Richard Braakman
++# <dark@xs4all.nl>
++#
++# The version of libtool included with LessTif unfortunately insists on
++# linking with -rpath, i.e. hardwiring locations. This is not desirable.
++#
++# The dummy define is improbable enough not to conflict with anything; it is
++# just here to fool libtool by making it believe it gave some useful info to
++# gcc.
++#
++# This will also patch the generated libtool to explicitly
++# link libraries against the libraries they depend on.  (particularly libc)
++
++for i in libtool libtool-disable-static; do
++sed < $i > $i-2 \
++	-e 's/^hardcode_libdir_flag_spec.*$/hardcode_libdir_flag_spec=" -D__LIBTOOL_IS_A_FOOL__ "/' \
++	-e '/^archive_cmds="/s/"$/ \$deplibs"/'
++mv $i-2 $i
++chmod 755 $i
++done
++
+diff -ruN flac-1.2.1/patches/ltmain.sh.patch flac-1.2.1.new/patches/ltmain.sh.patch
+--- flac-1.2.1/patches/ltmain.sh.patch	1969-12-31 19:00:00.000000000 -0500
++++ flac-1.2.1.new/patches/ltmain.sh.patch	2008-02-18 10:48:01.000000000 -0500
+@@ -0,0 +1,11 @@
++--- ltmain.sh.orig	Fri Feb  4 21:22:19 2005
+++++ ltmain.sh	Wed Feb 23 19:09:37 2005
++@@ -2280,7 +2280,7 @@
++ 	   { test "$prefer_static_libs" = no || test -z "$old_library"; }; then
++ 	  if test "$installed" = no; then
++ 	    notinst_deplibs="$notinst_deplibs $lib"
++-	    need_relink=yes
+++	    need_relink=no
++ 	  fi
++ 	  # This is a shared library
++ 
+diff -ruN flac-1.2.1/patches/nasm.h.patch flac-1.2.1.new/patches/nasm.h.patch
+--- flac-1.2.1/patches/nasm.h.patch	1969-12-31 19:00:00.000000000 -0500
++++ flac-1.2.1.new/patches/nasm.h.patch	2007-01-25 21:34:54.000000000 -0500
+@@ -0,0 +1,14 @@
++--- src/libFLAC/ia32/nasm.h~	2005-01-25 13:14:22.000000000 +0900
+++++ src/libFLAC/ia32/nasm.h	2006-03-15 18:07:23.000000000 +0900
++@@ -49,6 +49,11 @@
++ 	%idefine code_section section .text align=16
++ 	%idefine data_section section .data align=32
++ 	%idefine bss_section  section .bss  align=32
+++%elifdef OBJ_FORMAT_macho
+++	%define FLAC__PUBLIC_NEEDS_UNDERSCORE
+++	%idefine code_section section .text
+++	%idefine data_section section .data
+++	%idefine bss_section  section .bss
++ %else
++ 	%error unsupported object format!
++ %endif
+diff -ru flac-1.3.0/src/plugin_xmms/Makefile.in flac-1.3.0.new/src/plugin_xmms/Makefile.in
+--- flac-1.3.0/src/plugin_xmms/Makefile.in	2013-05-27 10:11:57.000000000 +0200
++++ flac-1.3.0.new/src/plugin_xmms/Makefile.in	2013-10-16 13:30:02.000000000 +0200
+@@ -361,7 +361,6 @@
+ 	$(top_builddir)/src/share/replaygain_synthesis/libreplaygain_synthesis.la \
+ 	$(top_builddir)/src/share/utf8/libutf8.la \
+ 	$(top_builddir)/src/libFLAC/libFLAC.la \
+-	-L$(top_builddir)/src/libFLAC/.libs \
+ 	@XMMS_LIBS@ \
+ 	@LIBICONV@
