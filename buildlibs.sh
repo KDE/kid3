@@ -308,8 +308,6 @@ if test -z "$COMPILER"; then
     COMPILER=cross-android
     test -f kid3/CMakeCache.txt &&
       QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
-  elif test -f taglib-${taglib_version}/taglib.sln; then
-    COMPILER=msvc
   elif grep -q "CMAKE_CXX_COMPILER.*g++-4\.8" kid3/CMakeCache.txt 2>/dev/null; then
     COMPILER=gcc-self-contained
     QTPREFIX=$(sed -ne 's/^QT_QMAKE_EXECUTABLE[^=]*=\(.*\)\/bin\/qmake$/\1/p' kid3/CMakeCache.txt)
@@ -4797,78 +4795,7 @@ EOF
     chmod +x kid3/build.sh
   fi
 
-elif test "$compiler" = "msvc"; then
-
-  if test ! -d libogg-${libogg_version}/inst; then
-    echo "### Building libogg"
-
-    cd libogg-${libogg_version}/
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\libogg_static.sln /p:Configuration=Release;Platform=Win32"
-    mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
-    cp win32/VS2010/Win32/Debug/libogg_static.lib inst/lib/Debug/
-    cp win32/VS2010/Win32/Release/libogg_static.lib inst/lib/Release/
-    cp include/ogg/*.h inst/include/ogg/
-    cd inst
-    tar czf ../../bin/libogg-${libogg_version}.tgz include lib
-    cd ../..
-    tar xmzf bin/libogg-${libogg_version}.tgz $BUILDROOT
-  fi
-
-  if test ! -d libvorbis-${libvorbis_version}/inst; then
-    echo "### Building libvorbis"
-
-    cd libvorbis-${libvorbis_version}/
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2010\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
-    mkdir -p inst/include/vorbis inst/lib/Debug inst/lib/Release
-    cp win32/VS2010/Win32/Debug/*.lib inst/lib/Debug/
-    cp win32/VS2010/Win32/Release/*.lib inst/lib/Release/
-    cp include/vorbis/*.h inst/include/vorbis/
-    cd inst
-    tar czf ../../bin/libvorbis-${libvorbis_version}.tgz include lib
-    cd ../..
-    tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
-  fi
-
-  if test ! -d id3lib-${id3lib_version}/inst; then
-    echo "### Building id3lib"
-
-    cd id3lib-${id3lib_version}/
-    test -f config.h || sed 's/^#define CXX_HAS_BUGGY_FOR_LOOPS 1/\/\/#define CXX_HAS_BUGGY_FOR_LOOPS 1/' config.h.win32 >config.h
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
-    $COMSPEC /c "\"\"%VS110COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
-    mkdir -p inst/include inst/lib/Debug inst/lib/Release
-    cp -a include/id3* inst/include
-    cp id3libd.lib inst/lib/Debug/id3lib.lib
-    cp id3lib.lib inst/lib/Release/
-    cd inst
-    tar czf ../../bin/id3lib-${id3lib_version}.tgz include lib
-    cd ../..
-    tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
-  fi
-
-  if test ! -d taglib-${taglib_version}/inst; then
-    echo "### Building taglib"
-
-    cd taglib-${taglib_version}/
-    test -f taglib.sln || cmake -G "Visual Studio 11" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=
-    mkdir -p instd
-    DESTDIR=instd cmake --build . --config Debug --target install
-    mkdir -p inst
-    DESTDIR=inst cmake --build . --config Release --target install
-    mv inst/lib inst/Release
-    mv instd/lib inst/Debug
-    mkdir -p inst/lib
-    mv inst/Debug inst/Release inst/lib/
-    rm -rf instd
-    cd inst
-    tar czf ../../bin/taglib-${taglib_version}.tgz include lib
-    cd ../..
-    tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
-  fi
-
-else #  cross-android, msvc
+else #  cross-android
 
   if test "$1" = "clean"; then
     for d in zlib-${zlib_version} libogg-${libogg_version} \
@@ -5305,7 +5232,7 @@ EOF
     chmod +x kid3/build.sh
   fi
 
-fi # cross-android, msvc, else
+fi # cross-android, else
 fi # libs
 
 if [[ $target = *"package"* ]]; then
