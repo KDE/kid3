@@ -20,6 +20,7 @@
   <name xml:lang="it">Kid3</name>
   <name xml:lang="ko">Kid3</name>
   <name xml:lang="nl">Kid3</name>
+  <name xml:lang="pl">Kid3</name>
   <name xml:lang="pt">Kid3</name>
   <name xml:lang="pt-BR">Kid3</name>
   <name xml:lang="ru">Kid3</name>
@@ -46,6 +47,7 @@
   <summary xml:lang="it">Modifica i metadati dei file audio</summary>
   <summary xml:lang="ko">오디오 파일 메타데이터 편집</summary>
   <summary xml:lang="nl">Metagegevens van audiobestanden bewerken</summary>
+  <summary xml:lang="pl">Edytuj metadane pliku dźwiękowego</summary>
   <summary xml:lang="pt">Editar os meta-dados dos ficheiros de áudio</summary>
   <summary xml:lang="pt-BR">Edita metadados de arquivos de áudio</summary>
   <summary xml:lang="ru">Редактирование метаданных звуковых файлов</summary>
@@ -77,6 +79,7 @@
     <p xml:lang="it">Con Kid3, un editor di tag audio, puoi modificare i tag nei file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e nei tracker.</p>
     <p xml:lang="ko">오디오 태그 편집기 Kid3을 사용하여 MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, 트래커 파일의 태그를 편집할 수 있습니다.</p>
     <p xml:lang="nl">Met Kid3, een audiotagbewerker, kunt u tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF en trackerbestanden bewerken.</p>
+    <p xml:lang="pl">Dzięki Kid3, edytorowi znaczników plików dźwiękowych, możesz edytować znaczniki w plikach MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF oraz plikach serwerów śledzących.</p>
     <p xml:lang="pt">Com o Kid3, um editor de marcas de áudio, poderá editar as marcas dos ficheiros MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e Tracker.</p>
     <p xml:lang="pt-BR">Com o Kid3, um editor de etiquetas de áudio, você pode editar as etiquetas no MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e arquivos tracker.</p>
     <p xml:lang="sk">S editorom zvukových značiek Kid3 môžete upravovať značky v súboroch MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a sledovacie súbory.</p>
@@ -105,6 +108,7 @@
     <p xml:lang="it">Possono essere modificati tutti i frame dei tag ID3 dei file MP3, ed è possibile convertire i tag tra ID3v1.1, ID3v2.3 e ID3v2.4. I testi sincronizzati possono essere modificati, importati ed esportati in file LRC Karaoke.</p>
     <p xml:lang="ko">MP3 파일의 ID3 태그의 모든 프레임을 편집할 수 있으며, ID3v1.1, ID3v2.3, ID3v2.4 사이를 변환할 수 있습니다. 실시간 가사를 편집 및 가져올 수 있으며 LRC 형식 노래방 파일로 내보낼 수 있습니다.</p>
     <p xml:lang="nl">Alle frames in de ID3-tags van MP3 bestanden kunnen bewerkt worden en het is mogelijk te converteren tussen ID3v1.1, ID3v2.3 en ID3v2.4 te converteren. Gesynchroniseerde liedteksten kunnen bewerkt, geïmporteerd en geëxporteerd worden naar LRC Karaoke bestanden.</p>
+    <p xml:lang="pl">Można edytować wszystkie klatki w znacznikach ID3 plików MP3. Możliwe jest przekształcanie pomiędzy ID3v1.1, ID3v2.3 oraz ID3v2.4. Można edytować zsynchronizowane słowa, zaimportowane i wyeksportowane pliki do LRC Karaoke.</p>
     <p xml:lang="pt">Todos os dados nas marcas ID3 dos ficheiros MP3 poderão ser editados, sendo possível converter entre os formatos ID3v1.1, ID3v2.3 e ID3v2.4. Poderá editar de forma sincronizada as letras musicais, podendo importar e exportar para ficheiros de Karaoke LRC.</p>
     <p xml:lang="pt-BR">Todos os quadros nas etiquetas ID3 de arquivos MP3 podem ser editados e é possível converter entre ID3v1.1, ID3v2.3 e ID3v2.4. Letras sincronizadas podem ser editadas, importadas e exportadas para arquivos de karaokê LRC.</p>
     <p xml:lang="sk">Všetky polia v ID3 tagoch MP3 súborov je možné editovať a je možné prevádzať medzi ID3v1.1, ID3v2.3 a ID3v2.4. Synchronizované texty je možné editovať, importovať a exportovať do súborov LRC Karaoke.</p>
@@ -131,6 +135,7 @@
     <p xml:lang="it">Possono essere impostati assieme i tag di più file. È possibile generare tag dai nomi file o dal contenuto di altri campi tag, generare i nomi file dai tag e rinominare cartelle dai tag. La conversione tra maiuscole e minuscole e la sostituzione di stringhe aiutano a mantenere i tag coerenti.</p>
     <p xml:lang="ko">파일 여러 개에 태그를 한 번에 설정할 수 있습니다. 파일 이름이나 다른 태그 필드의 내용에서 태그를 생성할 수 있으며, 태그를 기반으로 파일이나 폴더의 이름을 변경할 수 있습니다. 태그의 일관성을 유지하는 자동 대소문자 변환과 문자열 대체를 지원합니다.</p>
     <p xml:lang="nl">De tags van meerdere bestanden kunnen samen ingesteld worden. Het is mogelijk tags te genereren uit bestandsnamen of de inhoud van andere tagvelden en bestandsnamen te genereren uit tags en mappen te hernoemen uit tags. Automatisch conversie van hoofd- kleine letter en vervangen van tekenreeksen helpen om tags consistent te houden.</p>
+    <p xml:lang="pl">Można na raz ustawić jeden znacznik dla wielu plików. Możliwe jest tworzenie znaczników z nazw plików lub treści innego znacznika lub tworzenie nazw plików ze znaczników oraz zmiana nazw katalogów ze znaczników. Zamiana wielkości liter oraz ciągów znaków pomaga w zachowaniu spójności w znacznikach.</p>
     <p xml:lang="pt">Poderá definir em conjunto as marcas de vários ficheiros. É possível gerar marcas a partir dos nomes dos ficheiros ou do conteúdo de outros campos de marcas, assim como gerar nomes dos ficheiros a partir das marcas e mudar os nomes das pastas a partir das mesmas. A conversão automática de maiúsculas/minúsculas e a substituição de textos ajudam a manter as marcas consistentes.</p>
     <p xml:lang="pt-BR">As etiquetas de múltiplos arquivos pode ser definidas em conjunto. É possível gerar etiquetas a partir do nome do arquivo ou conteúdo de outros campos da etiqueta e gerar nomes de arquivos e renomear pastas a partir das etiquetas. A conversão automática de maiúsculas e substituição de texto ajudam a manter as etiquetas consistentes.</p>
     <p xml:lang="sk">Značky viacerých súborov je možné nastaviť naraz. Je možné generovať značky z názvov súborov alebo z obsahu iných polí značiek a generovať názvy súborov zo značiek a premenovať priečinky zo značiek. Automatická konverzia veľkých a malých písmen a nahradenie reťazca pomáhajú udržiavať konzistentnosť značiek.</p>
@@ -151,6 +156,7 @@
     <p xml:lang="id">Data album bisa diimpor dari gnudb.org, MusicBrainz, Discogs, Amazon; impor batch otomatis telah tersedia untuk multipel folder. Yang juga memungkinkan untuk mengekspor data dan menghasilkan daftar playlist.</p>
     <p xml:lang="it">È possibile importare i dati dell'album da gnudb.org, MusicBrainz, Discogs, Amazon; è disponibile l'importazione automatica in serie per più cartelle. È inoltre possibile esportare i dati e generare scalette.</p>
     <p xml:lang="nl">Albumgegevens kunnen geïmporteerd worden uit gnudb.org, MusicBrainz, Discogs, Amazon; automatische bulkimport is beschikbaar voor meerdere mappen. Het is ook mogelijk gegevens te exporteren en afspeellijsten te genereren.</p>
+    <p xml:lang="pl">Dane albumu można zaimportować z gnudb.org, MusicBrainz, Discogs, Amazon; importowanie wsadowe jest możliwe dla wielu katalogów. Możliwe jest także eksportowanie danych i tworzenie list odtwarzania.</p>
     <p xml:lang="pt">Os dados dos álbuns podem ser importados a partir do gnudb.org, MusicBrainz, Discogs, Amazon; está disponível a importação automática em lote para várias pastas. Também é possível exportar os dados e gerar listas de reprodução.</p>
     <p xml:lang="pt-BR">Os dados de álbuns podem ser importados de gnudb.org, MusicBrainz, Discogs, Amazon; a importação em lotes está disponível para múltiplas pastas. Também é possível exportar dados e gerar listas de reprodução.</p>
     <p xml:lang="sl">Podatke o albumu lahko uvozite iz gnudb.org, MusicBrainz, Discogs, Amazon; samodejni uvoz paketov je na voljo za več map. Možen je tudi izvoz podatkov in ustvarjanje seznamov predvajanja.</p>
@@ -177,6 +183,7 @@
       <caption xml:lang="it">Finestra principale di Kid3</caption>
       <caption xml:lang="ko">Kid3 주 창</caption>
       <caption xml:lang="nl">Hoofdvenster van Kid3</caption>
+      <caption xml:lang="pl">Główne okno Kid3</caption>
       <caption xml:lang="pt">Janela principal do Kid3</caption>
       <caption xml:lang="pt-BR">Janela principal do Kid3</caption>
       <caption xml:lang="sk">Hlavné okno Kid3</caption>
@@ -206,6 +213,7 @@
   <developer_name xml:lang="it">Urs Fleisch</developer_name>
   <developer_name xml:lang="ko">Urs Fleisch</developer_name>
   <developer_name xml:lang="nl">Urs Fleisch</developer_name>
+  <developer_name xml:lang="pl">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt-BR">Urs Fleisch</developer_name>
   <developer_name xml:lang="sk">Urs Fleisch</developer_name>
