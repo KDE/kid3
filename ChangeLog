@@ -4,8 +4,10 @@ Thu Mar 18 08:21:47 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Improved:
 	  + Support Qt 6.
+	  + Windows: Provide nicer default style.
 
 	* Fixed:
+	  + Windows 64-bit binary: Crash when using id3lib.
 	  + Discogs import.
 	  + Amazon import.
 	  + Removed TrackType.org import.
