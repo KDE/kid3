@@ -1,0 +1,7118 @@
+# Kid3 Dutch Translation.
+# This file is put in the public domain.
+#
+# Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
+# Toon van Gerwen <toon@vgerwen.nl>, 2012, 2013, 2014, 2017.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: Kid3 3.8.1\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
+"PO-Revision-Date: 2021-01-04 11:22+0100\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.12.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Language: nl\n"
+"X-Source-Language: en\n"
+"X-Qt-Contexts: true\n"
+
+#: src/app/cli/clicommand.cpp:350
+msgctxt "CliCommand|"
+msgid "Timeout"
+msgstr "Tijdslimiet"
+
+#: src/app/cli/clicommand.cpp:394
+msgctxt "HelpCommand|"
+msgid "Help"
+msgstr "Help"
+
+#: src/app/cli/clicommand.cpp:395
+msgctxt "HelpCommand|"
+msgid "Command name"
+msgstr "Commandonaam"
+
+#: src/app/cli/clicommand.cpp:406
+msgctxt "TimeoutCommand|"
+msgid "Overwrite timeout"
+msgstr "Tijdslimiet overschrijven"
+
+#: src/app/cli/clicommand.cpp:407
+msgctxt "TimeoutCommand|"
+msgid "Time"
+msgstr "Tijd"
+
+#: src/app/cli/clicommand.cpp:448
+msgctxt "QuitCommand|"
+msgid "Quit application"
+msgstr "Toepassing afsluiten"
+
+#: src/app/cli/clicommand.cpp:457
+msgctxt "QuitCommand|"
+msgid "The current folder has been modified."
+msgstr "De huidige map is gewijzigd."
+
+#: src/app/cli/clicommand.cpp:459
+msgctxt "QuitCommand|"
+msgid "Type 'exit force' to quit."
+msgstr "Typ 'exit force' om af te sluiten."
+
+#: src/app/cli/clicommand.cpp:475
+msgctxt "CdCommand|"
+msgid "Change folder"
+msgstr "Map wijzigen"
+
+#: src/app/cli/clicommand.cpp:489
+#, qt-format
+msgctxt "CdCommand|"
+msgid "%1 does not exist"
+msgstr "%1 bestaat niet"
+
+#: src/app/cli/clicommand.cpp:509
+msgctxt "PwdCommand|"
+msgid "Print the filename of the current folder"
+msgstr "Toon de bestandsnaam van de huidige map"
+
+#: src/app/cli/clicommand.cpp:525
+msgctxt "LsCommand|"
+msgid "Folder list"
+msgstr "Mappenlijst"
+
+#: src/app/cli/clicommand.cpp:537
+msgctxt "SaveCommand|"
+msgid "Saves the changed files"
+msgstr "De gewijzigde bestanden opslaan"
+
+#: src/app/cli/clicommand.cpp:547
+msgctxt "SaveCommand|"
+msgid "Error while writing file:\n"
+msgstr "Fout bij schrijven van bestand:\n"
+
+#: src/app/cli/clicommand.cpp:554
+msgctxt "SelectCommand|"
+msgid "Select file"
+msgstr "Bestand selecteren"
+
+#: src/app/cli/clicommand.cpp:577
+#, qt-format
+msgctxt "SelectCommand|"
+msgid "%1 not found"
+msgstr "%1 niet gevonden"
+
+#: src/app/cli/clicommand.cpp:587
+msgctxt "TagCommand|"
+msgid "Select tag"
+msgstr "Tag selecteren"
+
+#: src/app/cli/clicommand.cpp:604
+msgctxt "GetCommand|"
+msgid "Get tag frame"
+msgstr "Tagframe ophalen"
+
+#: src/app/cli/clicommand.cpp:632
+msgctxt "SetCommand|"
+msgid "Set tag frame"
+msgstr "Tagframe instellen"
+
+#: src/app/cli/clicommand.cpp:650
+#, qt-format
+msgctxt "SetCommand|"
+msgid "Could not set \"%1\" for %2"
+msgstr "Kon \"%1\" niet instellen voor %2"
+
+#: src/app/cli/clicommand.cpp:660
+msgctxt "RevertCommand|"
+msgid "Revert"
+msgstr "Terugdraaien"
+
+#: src/app/cli/clicommand.cpp:672
+msgctxt "ImportCommand|"
+msgid "Import from file"
+msgstr "Uit bestand importeren"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "File path"
+msgstr "Bestandspad"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "Format name"
+msgstr "Naam van formaat"
+
+#: src/app/cli/clicommand.cpp:675
+msgctxt "ImportCommand|"
+msgid "Source"
+msgstr "Bron"
+
+#: src/app/cli/clicommand.cpp:676
+msgctxt "ImportCommand|"
+msgid "Extraction"
+msgstr "Uitpakken"
+
+#: src/app/cli/clicommand.cpp:704
+#, qt-format
+msgctxt "ImportCommand|"
+msgid "%1 not found."
+msgstr "%1 niet gevonden."
+
+#: src/app/cli/clicommand.cpp:706
+msgctxt "ImportCommand|"
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: src/app/cli/clicommand.cpp:717
+msgctxt "ImportCommand|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/app/cli/clicommand.cpp:727
+msgctxt "BatchImportCommand|"
+msgid "Automatic import"
+msgstr "Automatisch importeren"
+
+#: src/app/cli/clicommand.cpp:728
+msgctxt "BatchImportCommand|"
+msgid "Profile name"
+msgstr "Profielnaam"
+
+#: src/app/cli/clicommand.cpp:740
+#, qt-format
+msgctxt "BatchImportCommand|"
+msgid "%1 not found."
+msgstr "%1 niet gevonden."
+
+#: src/app/cli/clicommand.cpp:742
+msgctxt "BatchImportCommand|"
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: src/app/cli/clicommand.cpp:815
+msgctxt "AlbumArtCommand|"
+msgid "Download album cover artwork"
+msgstr "Hoesillustratie van album downloaden"
+
+#: src/app/cli/clicommand.cpp:859
+msgctxt "ExportCommand|"
+msgid "Export to file"
+msgstr "Naar bestand exporteren"
+
+#: src/app/cli/clicommand.cpp:860
+msgctxt "ExportCommand|"
+msgid "Format name"
+msgstr "Naam van formaat"
+
+#: src/app/cli/clicommand.cpp:875
+#, qt-format
+msgctxt "ExportCommand|"
+msgid "%1 not found."
+msgstr "%1 niet gevonden."
+
+#: src/app/cli/clicommand.cpp:877
+msgctxt "ExportCommand|"
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: src/app/cli/clicommand.cpp:888
+msgctxt "ExportCommand|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/app/cli/clicommand.cpp:897
+msgctxt "PlaylistCommand|"
+msgid "Create playlist"
+msgstr "Afspeellijst aanmaken"
+
+#: src/app/cli/clicommand.cpp:904
+msgctxt "PlaylistCommand|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/app/cli/clicommand.cpp:911
+msgctxt "FilenameFormatCommand|"
+msgid "Apply filename format"
+msgstr "Bestandsnaamformaat toepassen"
+
+#: src/app/cli/clicommand.cpp:922
+msgctxt "TagFormatCommand|"
+msgid "Apply tag format"
+msgstr "Tagformaat toepassen"
+
+#: src/app/cli/clicommand.cpp:934
+msgctxt "TextEncodingCommand|"
+msgid "Apply text encoding"
+msgstr "Tekst-codering toepassen"
+
+#: src/app/cli/clicommand.cpp:945
+msgctxt "RenameDirectoryCommand|"
+msgid "Rename folder"
+msgstr "Hernoem map"
+
+#: src/app/cli/clicommand.cpp:1037
+msgctxt "NumberTracksCommand|"
+msgid "Number tracks"
+msgstr "Aantal tracks"
+
+#: src/app/cli/clicommand.cpp:1038
+msgctxt "NumberTracksCommand|"
+msgid "Track number"
+msgstr "Tracknummer"
+
+#: src/app/cli/clicommand.cpp:1062
+msgctxt "FilterCommand|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/app/cli/clicommand.cpp:1063
+msgctxt "FilterCommand|"
+msgid "Filter name"
+msgstr "Filternaam"
+
+#: src/app/cli/clicommand.cpp:1078
+#, qt-format
+msgctxt "FilterCommand|"
+msgid "%1 not found."
+msgstr "%1 niet gevonden."
+
+#: src/app/cli/clicommand.cpp:1080
+msgctxt "FilterCommand|"
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: src/app/cli/clicommand.cpp:1154
+msgctxt "ToId3v24Command|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 converteren"
+
+#: src/app/cli/clicommand.cpp:1165
+msgctxt "ToId3v23Command|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 converteren"
+
+#: src/app/cli/clicommand.cpp:1176
+msgctxt "TagToFilenameCommand|"
+msgid "Filename from tag"
+msgstr "Bestandsnaam uit tag"
+
+#: src/app/cli/clicommand.cpp:1206
+msgctxt "FilenameToTagCommand|"
+msgid "Tag from filename"
+msgstr "Tag uit bestandsnaam"
+
+#: src/app/cli/clicommand.cpp:1236
+msgctxt "TagToOtherTagCommand|"
+msgid "Tag to other tag"
+msgstr "Tag naar andere tag"
+
+#: src/app/cli/clicommand.cpp:1253
+msgctxt "CopyCommand|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/app/cli/clicommand.cpp:1266
+msgctxt "PasteCommand|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/app/cli/clicommand.cpp:1279
+msgctxt "RemoveCommand|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/app/cli/clicommand.cpp:1292
+msgctxt "ConfigCommand|"
+msgid "Configure Kid3"
+msgstr "Kid3 configureren"
+
+#: src/app/cli/clicommand.cpp:1314 src/app/cli/clicommand.cpp:1320
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "%1 does not exist"
+msgstr "%1 bestaat niet"
+
+#: src/app/cli/clicommand.cpp:1347 src/app/cli/clicommand.cpp:1367
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "Invalid value %1"
+msgstr "Ongeldige waarde %1"
+
+#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#, qt-format
+msgctxt "JsonCliFormatter|"
+msgid "Unknown command '%1'"
+msgstr "Onbekend commando '%1'"
+
+#: src/app/cli/jsoncliformatter.cpp:209
+msgctxt "JsonCliFormatter|"
+msgid "Usage:"
+msgstr "Gebruik:"
+
+#: src/app/cli/kid3cli.cpp:298
+msgctxt "Kid3Cli|"
+msgid "Parameter"
+msgstr "Parameter"
+
+#: src/app/cli/kid3cli.cpp:299
+msgctxt "Kid3Cli|"
+msgid "File path"
+msgstr "Bestandspad"
+
+#: src/app/cli/kid3cli.cpp:300
+msgctxt "Kid3Cli|"
+msgid "URL"
+msgstr "URL"
+
+#: src/app/cli/kid3cli.cpp:301
+msgctxt "Kid3Cli|"
+msgid "Tag numbers"
+msgstr "Tagnummers"
+
+#: src/app/cli/kid3cli.cpp:303
+msgctxt "Kid3Cli|"
+msgid "Frame name"
+msgstr "Framenaam"
+
+#: src/app/cli/kid3cli.cpp:306
+msgctxt "Kid3Cli|"
+msgid "Frame value"
+msgstr "Framewaarde"
+
+#: src/app/cli/kid3cli.cpp:307
+msgctxt "Kid3Cli|"
+msgid "Format"
+msgstr "Formaat"
+
+#: src/app/cli/kid3cli.cpp:308
+msgctxt "Kid3Cli|"
+msgid "Command specific"
+msgstr "Commandospecifieke"
+
+#: src/app/cli/kid3cli.cpp:309
+msgctxt "Kid3Cli|"
+msgid "Available Commands"
+msgstr "Beschikbare commando's"
+
+#: src/app/cli/kid3cli.cpp:751
+msgctxt "Kid3Cli|"
+msgid "Usage:"
+msgstr "Gebruik:"
+
+#: src/app/cli/kid3cli.cpp:769
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "%1 does not exist"
+msgstr "%1 bestaat niet"
+
+#: src/app/cli/kid3cli.cpp:798
+msgctxt "Kid3Cli|"
+msgid "Error while writing file:\n"
+msgstr "Fout bij schrijven van bestand:\n"
+
+#: src/app/cli/kid3cli.cpp:816
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "Unknown command '%1', -h for help."
+msgstr "Onbekend commando '%1', -h voor help."
+
+#: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Onbekend commando '%1'. Typ 'help' voor help."
+
+#: src/app/cli/textcliformatter.cpp:204
+msgctxt "TextCliFormatter|"
+msgid "Usage:"
+msgstr "Gebruik:"
+
+#: src/app/cli/textcliformatter.cpp:246
+msgctxt "TextCliFormatter|"
+msgid "Tags"
+msgstr "Tags"
+
+#: src/app/cli/textcliformatter.cpp:253
+msgctxt "TextCliFormatter|"
+msgid "File"
+msgstr "Bestand"
+
+#: src/app/cli/textcliformatter.cpp:258
+msgctxt "TextCliFormatter|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/app/cli/textcliformatter.cpp:279
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/app/cli/textcliformatter.cpp:300
+msgctxt "TextCliFormatter|"
+msgid "Timeout"
+msgstr "Tijdslimiet"
+
+#: src/app/cli/textcliformatter.cpp:306
+msgctxt "TextCliFormatter|"
+msgid "Reading Folder"
+msgstr "Map wordt gelezen"
+
+#: src/app/cli/textcliformatter.cpp:308
+msgctxt "TextCliFormatter|"
+msgid "Started"
+msgstr "Gestart"
+
+#: src/app/cli/textcliformatter.cpp:310
+msgctxt "TextCliFormatter|"
+msgid "Source"
+msgstr "Bron"
+
+#: src/app/cli/textcliformatter.cpp:312
+msgctxt "TextCliFormatter|"
+msgid "Querying"
+msgstr "Opvragen"
+
+#: src/app/cli/textcliformatter.cpp:314
+msgctxt "TextCliFormatter|"
+msgid "Fetching"
+msgstr "Ophalen"
+
+#: src/app/cli/textcliformatter.cpp:316
+msgctxt "TextCliFormatter|"
+msgid "Data received"
+msgstr "Gegevens ontvangen"
+
+#: src/app/cli/textcliformatter.cpp:318
+msgctxt "TextCliFormatter|"
+msgid "Cover"
+msgstr "Hoes"
+
+#: src/app/cli/textcliformatter.cpp:320
+msgctxt "TextCliFormatter|"
+msgid "Finished"
+msgstr "Beëindigd"
+
+#: src/app/cli/textcliformatter.cpp:322
+msgctxt "TextCliFormatter|"
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: src/app/cli/textcliformatter.cpp:324
+msgctxt "TextCliFormatter|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/app/kde/kdeconfigdialog.cpp:51
+msgctxt "KdeConfigDialog|"
+msgid "Tags"
+msgstr "Tags"
+
+#: src/app/kde/kdeconfigdialog.cpp:53
+msgctxt "KdeConfigDialog|"
+msgid "Files"
+msgstr "Bestanden"
+
+#: src/app/kde/kdeconfigdialog.cpp:55
+msgctxt "KdeConfigDialog|"
+msgid "User Actions"
+msgstr "Gebruikersacties"
+
+#: src/app/kde/kdeconfigdialog.cpp:57
+msgctxt "KdeConfigDialog|"
+msgid "Network"
+msgstr "Netwerk"
+
+#: src/app/kde/kdeconfigdialog.cpp:59
+msgctxt "KdeConfigDialog|"
+msgid "Plugins"
+msgstr "Plug-ins"
+
+#: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
+msgctxt "@default|"
+msgid "Main Toolbar"
+msgstr "Hoofdwerkbalk"
+
+#: src/app/kde/kdemainwindow.cpp:86
+msgctxt "KdeMainWindow|"
+msgid "Open files"
+msgstr "Bestanden openen"
+
+#: src/app/kde/kdemainwindow.cpp:94
+msgctxt "KdeMainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Een recent gebruikte map opent"
+
+#: src/app/kde/kdemainwindow.cpp:103
+msgctxt "KdeMainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Maakt de wijzigingen van alle of de geselecteerde bestanden ongedaan"
+
+#: src/app/kde/kdemainwindow.cpp:113
+msgctxt "KdeMainWindow|"
+msgid "Saves the changed files"
+msgstr "De gewijzigde bestanden opslaan"
+
+#: src/app/kde/kdemainwindow.cpp:121
+msgctxt "KdeMainWindow|"
+msgid "Quits the application"
+msgstr "Sluit de toepassing af"
+
+#: src/app/kde/kdemainwindow.cpp:129
+msgctxt "KdeMainWindow|"
+msgid "Select all files"
+msgstr "Alle bestanden selecteren"
+
+#: src/app/kde/kdemainwindow.cpp:138
+msgctxt "KdeMainWindow|"
+msgid "Deselect all files"
+msgstr "Selectie van alle bestanden ongedaan maken"
+
+#: src/app/kde/kdemainwindow.cpp:146
+msgctxt "KdeMainWindow|"
+msgid "Find"
+msgstr "Zoeken"
+
+#: src/app/kde/kdemainwindow.cpp:154
+msgctxt "KdeMainWindow|"
+msgid "Find and replace"
+msgstr "Zoeken en vervangen"
+
+#: src/app/kde/kdemainwindow.cpp:164
+msgctxt "KdeMainWindow|"
+msgid "Configure Shortcuts"
+msgstr "Sneltoetsen configureren"
+
+#: src/app/kde/kdemainwindow.cpp:172
+msgctxt "KdeMainWindow|"
+msgid "Configure Toolbars"
+msgstr "Werkbalken instellen"
+
+#: src/app/kde/kdemainwindow.cpp:180
+msgctxt "KdeMainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Activeert/deactiveert de statusbalk"
+
+#: src/app/kde/kdemainwindow.cpp:188
+msgctxt "KdeMainWindow|"
+msgid "Preferences dialog"
+msgstr "Dialoog voor voorkeuren"
+
+#: src/app/kde/kdemainwindow.cpp:191
+msgctxt "KdeMainWindow|"
+msgid "O&pen Folder..."
+msgstr "Map o&penen..."
+
+#: src/app/kde/kdemainwindow.cpp:192
+msgctxt "KdeMainWindow|"
+msgid "Opens a folder"
+msgstr "Opent een map"
+
+#: src/app/kde/kdemainwindow.cpp:199
+msgctxt "KdeMainWindow|"
+msgid "Re&load"
+msgstr "Her&laden"
+
+#: src/app/kde/kdemainwindow.cpp:200
+msgctxt "KdeMainWindow|"
+msgid "Reload folder"
+msgstr "Map herladen"
+
+#: src/app/kde/kdemainwindow.cpp:211
+msgctxt "KdeMainWindow|"
+msgid "Unload"
+msgstr "Verwijderen"
+
+#: src/app/kde/kdemainwindow.cpp:216
+msgctxt "KdeMainWindow|"
+msgid "&Import..."
+msgstr "&Importeren..."
+
+#: src/app/kde/kdemainwindow.cpp:217
+msgctxt "KdeMainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Importeer uit bestand of klembord"
+
+#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1..."
+msgstr "Importeren uit %1..."
+
+#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1"
+msgstr "Importeren uit %1"
+
+#: src/app/kde/kdemainwindow.cpp:257
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags..."
+msgstr "Importeren uit tags..."
+
+#: src/app/kde/kdemainwindow.cpp:258
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags"
+msgstr "Importeren uit tags"
+
+#: src/app/kde/kdemainwindow.cpp:262
+msgctxt "KdeMainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Automatische i&mporter..."
+
+#: src/app/kde/kdemainwindow.cpp:263
+msgctxt "KdeMainWindow|"
+msgid "Automatic import"
+msgstr "Automatisch importeren"
+
+#: src/app/kde/kdemainwindow.cpp:267
+msgctxt "KdeMainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "&Bladeren in hoesillustraties..."
+
+#: src/app/kde/kdemainwindow.cpp:268
+msgctxt "KdeMainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Bladeren in hoesillustratie van album"
+
+#: src/app/kde/kdemainwindow.cpp:272
+msgctxt "KdeMainWindow|"
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+#: src/app/kde/kdemainwindow.cpp:273
+msgctxt "KdeMainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Naar bestand of klembord exporteren"
+
+#: src/app/kde/kdemainwindow.cpp:277
+msgctxt "KdeMainWindow|"
+msgid "&Create Playlist..."
+msgstr "A&fspeellijst aanmaken..."
+
+#: src/app/kde/kdemainwindow.cpp:278
+msgctxt "KdeMainWindow|"
+msgid "Create M3U Playlist"
+msgstr "M3U-afspeellijst aanmaken"
+
+#: src/app/kde/kdemainwindow.cpp:281
+msgctxt "KdeMainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Bestandsnaam&formaat toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:282
+msgctxt "KdeMainWindow|"
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamformaat toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:285
+msgctxt "KdeMainWindow|"
+msgid "Apply &Tag Format"
+msgstr "&Tagformaat toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:286
+msgctxt "KdeMainWindow|"
+msgid "Apply Tag Format"
+msgstr "Tagformaat toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:289
+msgctxt "KdeMainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "T&ekst-codering toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:290
+msgctxt "KdeMainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+#: src/app/kde/kdemainwindow.cpp:293
+msgctxt "KdeMainWindow|"
+msgid "&Rename Folder..."
+msgstr "Map he&rnoemen..."
+
+#: src/app/kde/kdemainwindow.cpp:294
+msgctxt "KdeMainWindow|"
+msgid "Rename Folder"
+msgstr "Map hernoemen"
+
+#: src/app/kde/kdemainwindow.cpp:297
+msgctxt "KdeMainWindow|"
+msgid "&Number Tracks..."
+msgstr "Aa&ntal tracks..."
+
+#: src/app/kde/kdemainwindow.cpp:298
+msgctxt "KdeMainWindow|"
+msgid "Number Tracks"
+msgstr "Aantal tracks"
+
+#: src/app/kde/kdemainwindow.cpp:301
+msgctxt "KdeMainWindow|"
+msgid "F&ilter..."
+msgstr "F&ilter..."
+
+#: src/app/kde/kdemainwindow.cpp:302
+msgctxt "KdeMainWindow|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/app/kde/kdemainwindow.cpp:307
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "ID3v2.3 naar ID3v2.&4 converteren"
+
+#: src/app/kde/kdemainwindow.cpp:308
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 converteren"
+
+#: src/app/kde/kdemainwindow.cpp:312
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "ID3v2.4 naar ID3v2.&3 converteren"
+
+#: src/app/kde/kdemainwindow.cpp:313
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 converteren"
+
+#: src/app/kde/kdemainwindow.cpp:320
+msgctxt "KdeMainWindow|"
+msgid "&Play"
+msgstr "Afs&pelen"
+
+#: src/app/kde/kdemainwindow.cpp:321
+msgctxt "KdeMainWindow|"
+msgid "Play"
+msgstr "Afspelen"
+
+#: src/app/kde/kdemainwindow.cpp:325
+msgctxt "KdeMainWindow|"
+msgid "Show &Picture"
+msgstr "&Afbeelding tonen"
+
+#: src/app/kde/kdemainwindow.cpp:326
+msgctxt "KdeMainWindow|"
+msgid "Show Picture"
+msgstr "Afbeelding tonen"
+
+#: src/app/kde/kdemainwindow.cpp:331
+msgctxt "KdeMainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Automatisch tags &verbergen"
+
+#: src/app/kde/kdemainwindow.cpp:332
+msgctxt "KdeMainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Automatisch tags verbergen"
+
+#: src/app/kde/kdemainwindow.cpp:337
+msgctxt "KdeMainWindow|"
+msgid "Select All in &Folder"
+msgstr "Alles in &map selecteren"
+
+#: src/app/kde/kdemainwindow.cpp:338
+msgctxt "KdeMainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Selecteer alle bestanden in de huidige map"
+
+#: src/app/kde/kdemainwindow.cpp:341
+msgctxt "KdeMainWindow|"
+msgid "&Invert Selection"
+msgstr "Selectie &omkeren"
+
+#: src/app/kde/kdemainwindow.cpp:345
+msgctxt "KdeMainWindow|"
+msgid "&Previous File"
+msgstr "Vo&rig bestand"
+
+#: src/app/kde/kdemainwindow.cpp:346
+msgctxt "KdeMainWindow|"
+msgid "Select previous file"
+msgstr "Vorig bestand selecteren"
+
+#: src/app/kde/kdemainwindow.cpp:352
+msgctxt "KdeMainWindow|"
+msgid "&Next File"
+msgstr "Volgend b&estand"
+
+#: src/app/kde/kdemainwindow.cpp:353
+msgctxt "KdeMainWindow|"
+msgid "Select next file"
+msgstr "Volgend bestand selecteren"
+
+#: src/app/kde/kdemainwindow.cpp:365
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+msgctxt "KdeMainWindow|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "From Tag %1"
+msgstr "Uit tag %1"
+
+#: src/app/kde/kdemainwindow.cpp:373
+msgctxt "KdeMainWindow|"
+msgid "From Filename"
+msgstr "Van bestandsnaam"
+
+#: src/app/kde/kdemainwindow.cpp:386
+msgctxt "KdeMainWindow|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/app/kde/kdemainwindow.cpp:390
+msgctxt "KdeMainWindow|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/app/kde/kdemainwindow.cpp:394
+msgctxt "KdeMainWindow|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Focus"
+msgstr "Focus"
+
+#: src/app/kde/kdemainwindow.cpp:403
+msgctxt "KdeMainWindow|"
+msgid "Frames:"
+msgstr "Frames:"
+
+#: src/app/kde/kdemainwindow.cpp:404
+msgctxt "KdeMainWindow|"
+msgid "Edit"
+msgstr "Bewerken"
+
+#: src/app/kde/kdemainwindow.cpp:408
+msgctxt "KdeMainWindow|"
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/app/kde/kdemainwindow.cpp:412
+msgctxt "KdeMainWindow|"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/app/kde/kdemainwindow.cpp:424
+msgctxt "KdeMainWindow|"
+msgid "File List"
+msgstr "Bestandslijst"
+
+#: src/app/kde/kdemainwindow.cpp:428
+msgctxt "KdeMainWindow|"
+msgid "&Rename"
+msgstr "He&rnoemen"
+
+#: src/app/kde/kdemainwindow.cpp:437
+msgctxt "KdeMainWindow|"
+msgid "&Move to Trash"
+msgstr "&Naar prullenbak verplaatsen"
+
+#: src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Folder List"
+msgstr "Mappenlijst"
+
+#: src/app/kde/kdemainwindow.cpp:461
+msgctxt "KdeMainWindow|"
+msgid "Section"
+msgstr "Sectie"
+
+#: src/app/kde/kdemainwindow.cpp:651
+msgctxt "KdeMainWindow|"
+msgid "Configure - Kid3"
+msgstr "Configureren - Kid3"
+
+#: src/app/kde/mainkde.cpp:121
+msgctxt "@default|"
+msgid "folder to open"
+msgstr "te openen map"
+
+#: src/app/kde/mainkde.cpp:134
+msgctxt "@default|"
+msgid "Audio Tag Editor"
+msgstr "Bewerker van audiotag"
+
+#: src/app/qt/browserdialog.cpp:91
+msgctxt "BrowserDialog|"
+msgid "&Back"
+msgstr "&Terug"
+
+#: src/app/qt/browserdialog.cpp:98
+msgctxt "BrowserDialog|"
+msgid "&Forward"
+msgstr "&Vooruit"
+
+#: src/app/qt/browserdialog.cpp:105
+msgctxt "BrowserDialog|"
+msgid "&Find:"
+msgstr "&Zoeken:"
+
+#: src/app/qt/browserdialog.cpp:121
+msgctxt "BrowserDialog|"
+msgid "Find Previous"
+msgstr "Vorige zoeken"
+
+#: src/app/qt/browserdialog.cpp:131
+msgctxt "BrowserDialog|"
+msgid "Find Next"
+msgstr "Volgende zoeken"
+
+#: src/app/qt/browserdialog.cpp:139
+msgctxt "BrowserDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/app/qt/configdialog.cpp:70
+msgctxt "ConfigDialog|"
+msgid "&Tags"
+msgstr "&Tags"
+
+#: src/app/qt/configdialog.cpp:71
+msgctxt "ConfigDialog|"
+msgid "&Files"
+msgstr "&Bestanden"
+
+#: src/app/qt/configdialog.cpp:72
+msgctxt "ConfigDialog|"
+msgid "&User Actions"
+msgstr "Gebr&uikersacties"
+
+#: src/app/qt/configdialog.cpp:73
+msgctxt "ConfigDialog|"
+msgid "&Network"
+msgstr "&Netwerk"
+
+#: src/app/qt/configdialog.cpp:74
+msgctxt "ConfigDialog|"
+msgid "&Plugins"
+msgstr "&Plugins"
+
+#: src/app/qt/configdialog.cpp:86
+msgctxt "ConfigDialog|"
+msgid "&Keyboard Shortcuts"
+msgstr "&Sneltoetsen"
+
+#: src/app/qt/configdialog.cpp:111
+msgctxt "ConfigDialog|"
+msgid "&Language"
+msgstr "Taa&l"
+
+#: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
+#: src/app/qt/configdialog.cpp:239
+msgctxt "ConfigDialog|"
+msgid "System"
+msgstr "Systeem"
+
+#: src/app/qt/configdialog.cpp:122
+msgctxt "ConfigDialog|"
+msgid "Use custom app&lication font"
+msgstr "Aangepast &lettertype van toepassing gebruiken"
+
+#: src/app/qt/configdialog.cpp:124
+msgctxt "ConfigDialog|"
+msgid "A&pplication Font..."
+msgstr "Lettertype van toe&passing..."
+
+#: src/app/qt/configdialog.cpp:126
+msgctxt "ConfigDialog|"
+msgid "Use custom application &style"
+msgstr "Aangepaste &stijl van toepassing gebruiken"
+
+#: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
+msgctxt "ConfigDialog|"
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: src/app/qt/configdialog.cpp:151
+msgctxt "ConfigDialog|"
+msgid "Use native system file &dialogs"
+msgstr "Eigen systeembestands&dialogen gebruiken"
+
+#: src/app/qt/configdialog.cpp:155
+msgctxt "ConfigDialog|"
+msgid "&Appearance"
+msgstr "&Uiterlijk"
+
+#: src/app/qt/configdialog.cpp:164
+msgctxt "ConfigDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/app/qt/configdialog.cpp:165
+msgctxt "ConfigDialog|"
+msgid "Restore Defaults"
+msgstr "Standaarden herstellen"
+
+#: src/app/qt/configdialog.cpp:166
+msgctxt "ConfigDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/app/qt/configdialog.cpp:167
+msgctxt "ConfigDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/app/qt/configdialog.cpp:279
+#, qt-format
+msgctxt "ConfigDialog|"
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "De sneltoets ‘%1’ is al toegekend aan '%2'."
+
+#: src/app/qt/kid3mainwindow.cpp:109
+msgctxt "Kid3MainWindow|"
+msgid "&File"
+msgstr "&Bestand"
+
+#: src/app/qt/kid3mainwindow.cpp:113
+msgctxt "Kid3MainWindow|"
+msgid "Open files"
+msgstr "Bestanden openen"
+
+#: src/app/qt/kid3mainwindow.cpp:114
+msgctxt "Kid3MainWindow|"
+msgid "&Open..."
+msgstr "&Openen..."
+
+#: src/app/qt/kid3mainwindow.cpp:128
+msgctxt "Kid3MainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Een recent gebruikte map opent"
+
+#: src/app/qt/kid3mainwindow.cpp:129
+msgctxt "Kid3MainWindow|"
+msgid "Open &Recent"
+msgstr "&Recent geopend"
+
+#: src/app/qt/kid3mainwindow.cpp:136
+msgctxt "Kid3MainWindow|"
+msgid "Opens a folder"
+msgstr "Opent een map"
+
+#: src/app/qt/kid3mainwindow.cpp:137
+msgctxt "Kid3MainWindow|"
+msgid "O&pen Folder..."
+msgstr "Map o&penen..."
+
+#: src/app/qt/kid3mainwindow.cpp:148
+msgctxt "Kid3MainWindow|"
+msgid "Reload folder"
+msgstr "Map herladen"
+
+#: src/app/qt/kid3mainwindow.cpp:149
+msgctxt "Kid3MainWindow|"
+msgid "Re&load"
+msgstr "Her&laden"
+
+#: src/app/qt/kid3mainwindow.cpp:160
+msgctxt "Kid3MainWindow|"
+msgid "Unload"
+msgstr "Verwijderen"
+
+#: src/app/qt/kid3mainwindow.cpp:170
+msgctxt "Kid3MainWindow|"
+msgid "Saves the changed files"
+msgstr "De gewijzigde bestanden opslaan"
+
+#: src/app/qt/kid3mainwindow.cpp:171
+msgctxt "Kid3MainWindow|"
+msgid "&Save"
+msgstr "Op&slaan"
+
+#: src/app/qt/kid3mainwindow.cpp:184
+msgctxt "Kid3MainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Maakt de wijzigingen van alle of de geselecteerde bestanden ongedaan"
+
+#: src/app/qt/kid3mainwindow.cpp:185
+msgctxt "Kid3MainWindow|"
+msgid "Re&vert"
+msgstr "Beginwaar&de"
+
+#: src/app/qt/kid3mainwindow.cpp:199
+msgctxt "Kid3MainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Importeer uit bestand of klembord"
+
+#: src/app/qt/kid3mainwindow.cpp:200
+msgctxt "Kid3MainWindow|"
+msgid "&Import..."
+msgstr "&Importeren..."
+
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1"
+msgstr "Importeren uit %1"
+
+#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1..."
+msgstr "Importeren uit %1..."
+
+#: src/app/qt/kid3mainwindow.cpp:253
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags"
+msgstr "Importeren uit tags"
+
+#: src/app/qt/kid3mainwindow.cpp:254
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags..."
+msgstr "Importeren uit tags..."
+
+#: src/app/qt/kid3mainwindow.cpp:262
+msgctxt "Kid3MainWindow|"
+msgid "Automatic import"
+msgstr "Automatisch importeren"
+
+#: src/app/qt/kid3mainwindow.cpp:263
+msgctxt "Kid3MainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Automatische i&mporter..."
+
+#: src/app/qt/kid3mainwindow.cpp:271
+msgctxt "Kid3MainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Bladeren in hoesillustratie van album"
+
+#: src/app/qt/kid3mainwindow.cpp:272
+msgctxt "Kid3MainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "&Bladeren in hoesillustraties..."
+
+#: src/app/qt/kid3mainwindow.cpp:281
+msgctxt "Kid3MainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Naar bestand of klembord exporteren"
+
+#: src/app/qt/kid3mainwindow.cpp:282
+msgctxt "Kid3MainWindow|"
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+#: src/app/qt/kid3mainwindow.cpp:292
+msgctxt "Kid3MainWindow|"
+msgid "Create M3U Playlist"
+msgstr "M3U-afspeellijst aanmaken"
+
+#: src/app/qt/kid3mainwindow.cpp:293
+msgctxt "Kid3MainWindow|"
+msgid "&Create Playlist..."
+msgstr "A&fspeellijst aanmaken..."
+
+#: src/app/qt/kid3mainwindow.cpp:306
+msgctxt "Kid3MainWindow|"
+msgid "Quits the application"
+msgstr "Beëindigt het programma"
+
+#: src/app/qt/kid3mainwindow.cpp:307
+msgctxt "Kid3MainWindow|"
+msgid "&Quit"
+msgstr "A&fsluiten"
+
+#: src/app/qt/kid3mainwindow.cpp:318
+msgctxt "Kid3MainWindow|"
+msgid "&Edit"
+msgstr "B&ewerken"
+
+#: src/app/qt/kid3mainwindow.cpp:321
+msgctxt "Kid3MainWindow|"
+msgid "Select all files"
+msgstr "Alle bestanden selecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:322
+msgctxt "Kid3MainWindow|"
+msgid "Select &All"
+msgstr "&Alles selecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:337
+msgctxt "Kid3MainWindow|"
+msgid "Deselect all files"
+msgstr "Selectie van alle bestanden ongedaan maken"
+
+#: src/app/qt/kid3mainwindow.cpp:338
+msgctxt "Kid3MainWindow|"
+msgid "Dese&lect"
+msgstr "Dese&lecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:348
+msgctxt "Kid3MainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Selecteer alle bestanden in de huidige map"
+
+#: src/app/qt/kid3mainwindow.cpp:349
+msgctxt "Kid3MainWindow|"
+msgid "Select All in &Folder"
+msgstr "Alles in &map selecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:357
+msgctxt "Kid3MainWindow|"
+msgid "&Invert Selection"
+msgstr "Selectie &omkeren"
+
+#: src/app/qt/kid3mainwindow.cpp:365
+msgctxt "Kid3MainWindow|"
+msgid "Select previous file"
+msgstr "Vorig bestand selecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:366
+msgctxt "Kid3MainWindow|"
+msgid "&Previous File"
+msgstr "Vo&rig bestand"
+
+#: src/app/qt/kid3mainwindow.cpp:378
+msgctxt "Kid3MainWindow|"
+msgid "Select next file"
+msgstr "Volgend bestand selecteren"
+
+#: src/app/qt/kid3mainwindow.cpp:379
+msgctxt "Kid3MainWindow|"
+msgid "&Next File"
+msgstr "Volgend b&estand"
+
+#: src/app/qt/kid3mainwindow.cpp:392
+msgctxt "Kid3MainWindow|"
+msgid "Find"
+msgstr "Zoeken"
+
+#: src/app/qt/kid3mainwindow.cpp:393
+msgctxt "Kid3MainWindow|"
+msgid "&Find..."
+msgstr "&Zoeken..."
+
+#: src/app/qt/kid3mainwindow.cpp:406
+msgctxt "Kid3MainWindow|"
+msgid "Find and replace"
+msgstr "Zoeken en vervangen"
+
+#: src/app/qt/kid3mainwindow.cpp:407
+msgctxt "Kid3MainWindow|"
+msgid "&Replace..."
+msgstr "&Vervangen..."
+
+#: src/app/qt/kid3mainwindow.cpp:419
+msgctxt "Kid3MainWindow|"
+msgid "&Tools"
+msgstr "H&ulpmiddelen"
+
+#: src/app/qt/kid3mainwindow.cpp:422
+msgctxt "Kid3MainWindow|"
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamformaat toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:423
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Bestandsnaam&formaat toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:432
+msgctxt "Kid3MainWindow|"
+msgid "Apply Tag Format"
+msgstr "Tagformaat toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:433
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Tag Format"
+msgstr "&Tagformaat toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:441
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:442
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "T&ekst-codering toepassen"
+
+#: src/app/qt/kid3mainwindow.cpp:451
+msgctxt "Kid3MainWindow|"
+msgid "Rename Folder"
+msgstr "Map hernoemen"
+
+#: src/app/qt/kid3mainwindow.cpp:452
+msgctxt "Kid3MainWindow|"
+msgid "&Rename Folder..."
+msgstr "Map he&rnoemen..."
+
+#: src/app/qt/kid3mainwindow.cpp:460
+msgctxt "Kid3MainWindow|"
+msgid "Number Tracks"
+msgstr "Aantal tracks"
+
+#: src/app/qt/kid3mainwindow.cpp:461
+msgctxt "Kid3MainWindow|"
+msgid "&Number Tracks..."
+msgstr "Aa&ntal tracks..."
+
+#: src/app/qt/kid3mainwindow.cpp:469
+msgctxt "Kid3MainWindow|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/app/qt/kid3mainwindow.cpp:470
+msgctxt "Kid3MainWindow|"
+msgid "F&ilter..."
+msgstr "F&ilter..."
+
+#: src/app/qt/kid3mainwindow.cpp:481
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 converteren"
+
+#: src/app/qt/kid3mainwindow.cpp:482
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "ID3v2.3 naar ID3v2.&4 converteren"
+
+#: src/app/qt/kid3mainwindow.cpp:491
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 converteren"
+
+#: src/app/qt/kid3mainwindow.cpp:492
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "ID3v2.4 naar ID3v2.&3 converteren"
+
+#: src/app/qt/kid3mainwindow.cpp:504
+msgctxt "Kid3MainWindow|"
+msgid "Play"
+msgstr "Afspelen"
+
+#: src/app/qt/kid3mainwindow.cpp:505
+msgctxt "Kid3MainWindow|"
+msgid "&Play"
+msgstr "Afs&pelen"
+
+#: src/app/qt/kid3mainwindow.cpp:515
+msgctxt "Kid3MainWindow|"
+msgid "&Settings"
+msgstr "In&stellingen"
+
+#: src/app/qt/kid3mainwindow.cpp:519
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the toolbar"
+msgstr "Activeert/deactiveert de werkbalk"
+
+#: src/app/qt/kid3mainwindow.cpp:520
+msgctxt "Kid3MainWindow|"
+msgid "Show &Toolbar"
+msgstr "&Werkbalk tonen"
+
+#: src/app/qt/kid3mainwindow.cpp:530
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Activeert/deactiveert de statusbalk"
+
+#: src/app/qt/kid3mainwindow.cpp:531
+msgctxt "Kid3MainWindow|"
+msgid "Show St&atusbar"
+msgstr "St&atusbalk tonen"
+
+#: src/app/qt/kid3mainwindow.cpp:540
+msgctxt "Kid3MainWindow|"
+msgid "Show Picture"
+msgstr "Afbeelding tonen"
+
+#: src/app/qt/kid3mainwindow.cpp:541
+msgctxt "Kid3MainWindow|"
+msgid "Show &Picture"
+msgstr "&Afbeelding tonen"
+
+#: src/app/qt/kid3mainwindow.cpp:550
+msgctxt "Kid3MainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Automatisch tags verbergen"
+
+#: src/app/qt/kid3mainwindow.cpp:551
+msgctxt "Kid3MainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Automatisch tags &verbergen"
+
+#: src/app/qt/kid3mainwindow.cpp:560
+msgctxt "Kid3MainWindow|"
+msgid "Configure Kid3"
+msgstr "Kid3 configureren"
+
+#: src/app/qt/kid3mainwindow.cpp:561
+msgctxt "Kid3MainWindow|"
+msgid "&Configure Kid3..."
+msgstr "Kid3 &configureren..."
+
+#: src/app/qt/kid3mainwindow.cpp:575
+msgctxt "Kid3MainWindow|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/app/qt/kid3mainwindow.cpp:578
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 Handbook"
+msgstr "Handboek van Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:579
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 &Handbook"
+msgstr "&Handboek van Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:590
+msgctxt "Kid3MainWindow|"
+msgid "About Kid3"
+msgstr "Over Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:591
+msgctxt "Kid3MainWindow|"
+msgid "&About Kid3"
+msgstr "&Over Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:604
+msgctxt "Kid3MainWindow|"
+msgid "About Qt"
+msgstr "Info over Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:605
+msgctxt "Kid3MainWindow|"
+msgid "About &Qt"
+msgstr "Over &Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:647
+msgctxt "Kid3MainWindow|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/app/qt/kid3mainwindow.cpp:650 src/app/qt/kid3mainwindow.cpp:673
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "From Tag %1"
+msgstr "Uit tag %1"
+
+#: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
+#: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
+msgctxt "Kid3MainWindow|"
+msgid "Focus"
+msgstr "Focus"
+
+#: src/app/qt/kid3mainwindow.cpp:665
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/app/qt/kid3mainwindow.cpp:667
+msgctxt "Kid3MainWindow|"
+msgid "From Filename"
+msgstr "Van bestandsnaam"
+
+#: src/app/qt/kid3mainwindow.cpp:678
+msgctxt "Kid3MainWindow|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/app/qt/kid3mainwindow.cpp:681
+msgctxt "Kid3MainWindow|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/app/qt/kid3mainwindow.cpp:684
+msgctxt "Kid3MainWindow|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/app/qt/kid3mainwindow.cpp:688
+msgctxt "Kid3MainWindow|"
+msgid "Edit"
+msgstr "Bewerken"
+
+#: src/app/qt/kid3mainwindow.cpp:691
+msgctxt "Kid3MainWindow|"
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/app/qt/kid3mainwindow.cpp:694
+msgctxt "Kid3MainWindow|"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/app/qt/kid3mainwindow.cpp:702
+msgctxt "Kid3MainWindow|"
+msgid "File List"
+msgstr "Bestandslijst"
+
+#: src/app/qt/kid3mainwindow.cpp:706
+msgctxt "Kid3MainWindow|"
+msgid "&Rename"
+msgstr "He&rnoemen"
+
+#: src/app/qt/kid3mainwindow.cpp:713
+msgctxt "Kid3MainWindow|"
+msgid "&Move to Trash"
+msgstr "&Naar prullenbak verplaatsen"
+
+#: src/app/qt/kid3mainwindow.cpp:720
+msgctxt "Kid3MainWindow|"
+msgid "Folder List"
+msgstr "Mappenlijst"
+
+#: src/app/qt/kid3mainwindow.cpp:726
+msgctxt "Kid3MainWindow|"
+msgid "Section"
+msgstr "Sectie"
+
+#: src/app/qt/kid3mainwindow.cpp:811
+msgctxt "Kid3MainWindow|"
+msgid " [modified]"
+msgstr " [gewijzigd]"
+
+#: src/app/qt/kid3mainwindow.cpp:906
+msgctxt "Kid3MainWindow|"
+msgid "Audio Tag Editor"
+msgstr "Bewerker van audiotag"
+
+#: src/app/qt/kid3mainwindow.cpp:911
+msgctxt "Kid3MainWindow|"
+msgid "License"
+msgstr "Licentie"
+
+#: src/app/qt/kid3mainwindow.cpp:929
+msgctxt "Kid3MainWindow|"
+msgid "Configure - Kid3"
+msgstr "Configureren - Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
+msgctxt "Kid3MainWindow|"
+msgid "User Actions"
+msgstr "Gebruikersacties"
+
+#: src/app/qt/platformtools.cpp:129
+msgctxt "@default|"
+msgid "Kid3 Handbook"
+msgstr "Handboek van Kid3"
+
+#: src/app/qt/recentfilesmenu.cpp:120
+msgctxt "RecentFilesMenu|"
+msgid "&Clear List"
+msgstr "Lijst &wissen"
+
+#: src/app/qt/shortcutsdelegate.cpp:190
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Clear"
+msgstr "Wissen"
+
+#: src/app/qt/shortcutsdelegate.cpp:195
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Reset"
+msgstr "Reset"
+
+#: src/app/qt/shortcutsmodel.cpp:112
+msgctxt "ShortcutsModel|"
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Druk op F2 of dubbelklik om de inhoud van de cel te bewerken."
+
+#: src/app/qt/shortcutsmodel.cpp:189
+msgctxt "ShortcutsModel|"
+msgid "Action"
+msgstr "Actie"
+
+#: src/app/qt/shortcutsmodel.cpp:191
+msgctxt "ShortcutsModel|"
+msgid "Shortcut"
+msgstr "Sneltoets"
+
+#: src/core/config/batchimportsourcesmodel.cpp:166
+msgctxt "BatchImportSourcesModel|"
+msgid "Server"
+msgstr "Server"
+
+#: src/core/config/batchimportsourcesmodel.cpp:168
+msgctxt "BatchImportSourcesModel|"
+msgid "Accuracy"
+msgstr "Nauwkeurigheid"
+
+#: src/core/config/batchimportsourcesmodel.cpp:170
+msgctxt "BatchImportSourcesModel|"
+msgid "Standard Tags"
+msgstr "Standaard tags"
+
+#: src/core/config/batchimportsourcesmodel.cpp:172
+msgctxt "BatchImportSourcesModel|"
+msgid "Additional Tags"
+msgstr "Additionele tags"
+
+#: src/core/config/batchimportsourcesmodel.cpp:174
+msgctxt "BatchImportSourcesModel|"
+msgid "Cover Art"
+msgstr "Hoesillustratie"
+
+#: src/core/config/fileconfig.cpp:177
+msgctxt "Kid3Application|"
+msgid "All Supported Files"
+msgstr "Alle ondersteunde bestanden"
+
+#: src/core/config/formatconfig.cpp:483
+msgctxt "@default|"
+msgid "No changes"
+msgstr "Geen wijzigingen"
+
+#: src/core/config/formatconfig.cpp:484
+msgctxt "@default|"
+msgid "All lowercase"
+msgstr "Alles kleine letters"
+
+#: src/core/config/formatconfig.cpp:485
+msgctxt "@default|"
+msgid "All uppercase"
+msgstr "Alles hoofdletters"
+
+#: src/core/config/formatconfig.cpp:486
+msgctxt "@default|"
+msgid "First letter uppercase"
+msgstr "Met hoofdletter beginnen"
+
+#: src/core/config/formatconfig.cpp:487
+msgctxt "@default|"
+msgid "All first letters uppercase"
+msgstr "Alle eerste tekens met hoofdletter"
+
+#: src/core/config/formatconfig.cpp:502
+msgctxt "FormatConfig|"
+msgid "None"
+msgstr "Geen"
+
+#: src/core/config/starratingmappingsmodel.cpp:128
+msgctxt "StarRatingMappingsModel|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/core/config/tagconfig.cpp:722 src/core/tags/frame.cpp:69
+msgctxt "@default|"
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: src/core/config/tagconfig.cpp:723 src/core/tags/frame.cpp:70
+msgctxt "@default|"
+msgid "UTF16"
+msgstr "UTF16"
+
+#: src/core/config/tagconfig.cpp:724 src/core/tags/frame.cpp:72
+msgctxt "@default|"
+msgid "UTF8"
+msgstr "UTF8"
+
+#: src/core/import/batchimporter.cpp:337
+msgctxt "BatchImporter|"
+msgid "Accuracy"
+msgstr "Nauwkeurigheid"
+
+#: src/core/import/batchimporter.cpp:340
+msgctxt "BatchImporter|"
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: src/core/import/batchimporter.cpp:415
+msgctxt "BatchImporter|"
+msgid "Invalid File"
+msgstr "Ongeldig bestand"
+
+#: src/core/import/httpclient.cpp:91
+#, qt-format
+msgctxt "@default|"
+msgid "Data received: %1"
+msgstr "Gegevens ontvangen: %1"
+
+#: src/core/import/httpclient.cpp:102
+msgctxt "HttpClient|"
+msgid "Ready."
+msgstr "Gereed."
+
+#: src/core/import/httpclient.cpp:104
+msgctxt "HttpClient|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/core/import/httpclient.cpp:152
+#, qt-format
+msgctxt "HttpClient|"
+msgid "Data received: %1"
+msgstr "Gegevens ontvangen: %1"
+
+#: src/core/import/httpclient.cpp:230
+msgctxt "HttpClient|"
+msgid "Request sent..."
+msgstr "Verzoek verzonden..."
+
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:105
+#: src/core/tags/frame.cpp:1711
+msgctxt "@default|"
+msgid "Title"
+msgstr "Titel"
+
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:1715
+msgctxt "@default|"
+msgid "Album"
+msgstr "Album"
+
+#: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:1719
+msgctxt "@default|"
+msgid "Artist"
+msgstr "Artiest"
+
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:1723
+msgctxt "@default|"
+msgid "Comment"
+msgstr "Commentaar"
+
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:1727
+msgctxt "@default|"
+msgid "Year"
+msgstr "Jaar"
+
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:1732
+msgctxt "@default|"
+msgid "Track"
+msgstr "Track"
+
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:1745
+msgctxt "@default|"
+msgid "Genre"
+msgstr "Genre"
+
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:215
+#: src/core/tags/trackdata.cpp:231
+msgctxt "@default|"
+msgid "Length"
+msgstr "Lengte"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:84
+msgctxt "@default|"
+msgid "Drive"
+msgstr "Station"
+
+#. %1 is a file name suffix, for example txt
+#: src/core/model/abstractfiledecorationprovider.cpp:90
+#, qt-format
+msgctxt "@default|"
+msgid "%1 File"
+msgstr "%1 bestand"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:93
+msgctxt "@default|"
+msgid "File"
+msgstr "Bestand"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:98
+msgctxt "@default|"
+msgid "Folder"
+msgstr "Map"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:102
+msgctxt "@default|"
+msgid "Shortcut"
+msgstr "Sneltoets"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:105
+#: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:263
+msgctxt "@default|"
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:46
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+msgctxt "@default|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/core/model/commandformatreplacer.cpp:148
+msgctxt "@default|"
+msgid "Filenames"
+msgstr "Bestandsnamen"
+
+#: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:40
+#: src/core/tags/trackdata.cpp:221
+msgctxt "@default|"
+msgid "URL"
+msgstr "URL"
+
+#: src/core/model/commandformatreplacer.cpp:157
+msgctxt "@default|"
+msgid "URLs"
+msgstr "URL's"
+
+#: src/core/model/commandformatreplacer.cpp:163
+msgctxt "@default|"
+msgid "Folder name"
+msgstr "Mapnaam"
+
+#: src/core/model/commandformatreplacer.cpp:168
+msgctxt "@default|"
+msgid "Browser"
+msgstr "Browser"
+
+#: src/core/model/commandformatreplacer.cpp:174
+msgctxt "@default|"
+msgid "QML base folder"
+msgstr "QML basismap"
+
+#: src/core/model/commandformatreplacer.cpp:181
+#: src/gui/dialogs/browsecoverartdialog.cpp:61
+msgctxt "@default|"
+msgid "Encode as URL"
+msgstr "Als URL-adres coderen"
+
+#: src/core/model/commandformatreplacer.cpp:187
+msgctxt "@default|"
+msgid "--- separator ---"
+msgstr "--- scheiding ---"
+
+#: src/core/model/commandformatreplacer.cpp:193
+msgctxt "@default|"
+msgid "Begin of submenu"
+msgstr "Begin van submenu"
+
+#: src/core/model/commandformatreplacer.cpp:199
+msgctxt "@default|"
+msgid "End of submenu"
+msgstr "Einde van submenu"
+
+#: src/core/model/commandstablemodel.cpp:165
+msgctxt "CommandsTableModel|"
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: src/core/model/commandstablemodel.cpp:167
+msgctxt "CommandsTableModel|"
+msgid "Output"
+msgstr "Uitvoer"
+
+#: src/core/model/commandstablemodel.cpp:169
+msgctxt "CommandsTableModel|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/core/model/commandstablemodel.cpp:171
+msgctxt "CommandsTableModel|"
+msgid "Command"
+msgstr "Commando"
+
+#: src/core/model/dirrenamer.cpp:250
+#, qt-format
+msgctxt "@default|"
+msgid "Create folder %1 failed\n"
+msgstr "Aanmaken map %1 is mislukt\n"
+
+#: src/core/model/dirrenamer.cpp:279
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Create folder %1 failed\n"
+msgstr "Aanmaken map %1 is mislukt\n"
+
+#: src/core/model/dirrenamer.cpp:286
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "Bestand %1 bestaat reeds\n"
+
+#: src/core/model/dirrenamer.cpp:288
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a folder\n"
+msgstr "%1 is geen map\n"
+
+#: src/core/model/dirrenamer.cpp:290
+#, qt-format
+msgctxt "@default|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Hernoemen %1 naar %2 mislukt\n"
+
+#: src/core/model/dirrenamer.cpp:309
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "File %1 already exists\n"
+msgstr "Bestand %1 bestaat reeds\n"
+
+#: src/core/model/dirrenamer.cpp:315
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a folder\n"
+msgstr "%1 is geen map\n"
+
+#: src/core/model/dirrenamer.cpp:335 src/core/model/dirrenamer.cpp:383
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Hernoemen %1 naar %2 mislukt\n"
+
+#: src/core/model/dirrenamer.cpp:342
+#, qt-format
+msgctxt "@default|"
+msgid "%1 already exists\n"
+msgstr "%1 bestaat reeds\n"
+
+#: src/core/model/dirrenamer.cpp:344
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a file\n"
+msgstr "%1 is geen bestand\n"
+
+#: src/core/model/dirrenamer.cpp:365
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 already exists\n"
+msgstr "%1 bestaat reeds\n"
+
+#: src/core/model/dirrenamer.cpp:371
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a file\n"
+msgstr "%1 is geen bestand\n"
+
+#: src/core/model/dirrenamer.cpp:604
+msgctxt "DirRenamer|"
+msgid "New folder name is too different\n"
+msgstr "De nieuwe mapnaam is te verschillend\n"
+
+#: src/core/model/dirrenamer.cpp:670
+msgctxt "@default|"
+msgid "Create folder"
+msgstr "Map aanmaken"
+
+#: src/core/model/dirrenamer.cpp:671
+msgctxt "@default|"
+msgid "Rename folder"
+msgstr "Hernoem map"
+
+#: src/core/model/dirrenamer.cpp:672
+msgctxt "@default|"
+msgid "Rename file"
+msgstr "Bestand hernoemen"
+
+#: src/core/model/dirrenamer.cpp:673
+msgctxt "@default|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/core/model/downloadclient.cpp:53
+msgctxt "DownloadClient|"
+msgid "Ready."
+msgstr "Gereed."
+
+#: src/core/model/eventtimingcode.cpp:37
+msgctxt "@default|"
+msgid "padding (has no meaning)"
+msgstr "opvulling (heeft geen betekenis)"
+
+#: src/core/model/eventtimingcode.cpp:38
+msgctxt "@default|"
+msgid "end of initial silence"
+msgstr "einde van initiële stilte"
+
+#: src/core/model/eventtimingcode.cpp:39
+msgctxt "@default|"
+msgid "intro start"
+msgstr "intro start"
+
+#: src/core/model/eventtimingcode.cpp:40
+msgctxt "@default|"
+msgid "main part start"
+msgstr "hoofddeel start"
+
+#: src/core/model/eventtimingcode.cpp:41
+msgctxt "@default|"
+msgid "outro start"
+msgstr "outro start"
+
+#: src/core/model/eventtimingcode.cpp:42
+msgctxt "@default|"
+msgid "outro end"
+msgstr "outro eind"
+
+#: src/core/model/eventtimingcode.cpp:43
+msgctxt "@default|"
+msgid "verse start"
+msgstr "couplet start"
+
+#: src/core/model/eventtimingcode.cpp:44
+msgctxt "@default|"
+msgid "refrain start"
+msgstr "refrein start"
+
+#: src/core/model/eventtimingcode.cpp:45
+msgctxt "@default|"
+msgid "interlude start"
+msgstr "intermezzo start"
+
+#: src/core/model/eventtimingcode.cpp:46
+msgctxt "@default|"
+msgid "theme start"
+msgstr "thema start"
+
+#: src/core/model/eventtimingcode.cpp:47
+msgctxt "@default|"
+msgid "variation start"
+msgstr "variatie start"
+
+#: src/core/model/eventtimingcode.cpp:48
+msgctxt "@default|"
+msgid "key change"
+msgstr "sleutel verandering"
+
+#: src/core/model/eventtimingcode.cpp:49
+msgctxt "@default|"
+msgid "time change"
+msgstr "tijd verandering"
+
+#: src/core/model/eventtimingcode.cpp:50
+msgctxt "@default|"
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "kortstondige ongewenste ruis (Snap, Crackle & Pop)"
+
+#: src/core/model/eventtimingcode.cpp:51
+msgctxt "@default|"
+msgid "sustained noise"
+msgstr "aanhoudende ruis"
+
+#: src/core/model/eventtimingcode.cpp:52
+msgctxt "@default|"
+msgid "sustained noise end"
+msgstr "eind aanhoudende ruis"
+
+#: src/core/model/eventtimingcode.cpp:53
+msgctxt "@default|"
+msgid "intro end"
+msgstr "intro eind"
+
+#: src/core/model/eventtimingcode.cpp:54
+msgctxt "@default|"
+msgid "main part end"
+msgstr "hoofd deel eind"
+
+#: src/core/model/eventtimingcode.cpp:55
+msgctxt "@default|"
+msgid "verse end"
+msgstr "couplet eind"
+
+#: src/core/model/eventtimingcode.cpp:56
+msgctxt "@default|"
+msgid "refrain end"
+msgstr "refrein eind"
+
+#: src/core/model/eventtimingcode.cpp:57
+msgctxt "@default|"
+msgid "theme end"
+msgstr "thema eind"
+
+#: src/core/model/eventtimingcode.cpp:58
+msgctxt "@default|"
+msgid "profanity"
+msgstr "heiligschennis"
+
+#: src/core/model/eventtimingcode.cpp:59
+msgctxt "@default|"
+msgid "profanity end"
+msgstr "heiligschennis eind"
+
+#: src/core/model/eventtimingcode.cpp:60
+msgctxt "@default|"
+msgid "not predefined synch 0"
+msgstr "niet vooraf sync 0"
+
+#: src/core/model/eventtimingcode.cpp:61
+msgctxt "@default|"
+msgid "not predefined synch 1"
+msgstr "niet vooraf sync 1"
+
+#: src/core/model/eventtimingcode.cpp:62
+msgctxt "@default|"
+msgid "not predefined synch 2"
+msgstr "niet vooraf sync 2"
+
+#: src/core/model/eventtimingcode.cpp:63
+msgctxt "@default|"
+msgid "not predefined synch 3"
+msgstr "niet vooraf sync 3"
+
+#: src/core/model/eventtimingcode.cpp:64
+msgctxt "@default|"
+msgid "not predefined synch 4"
+msgstr "niet vooraf sync 4"
+
+#: src/core/model/eventtimingcode.cpp:65
+msgctxt "@default|"
+msgid "not predefined synch 5"
+msgstr "niet vooraf sync 5"
+
+#: src/core/model/eventtimingcode.cpp:66
+msgctxt "@default|"
+msgid "not predefined synch 6"
+msgstr "niet vooraf sync 6"
+
+#: src/core/model/eventtimingcode.cpp:67
+msgctxt "@default|"
+msgid "not predefined synch 7"
+msgstr "niet vooraf sync 7"
+
+#: src/core/model/eventtimingcode.cpp:68
+msgctxt "@default|"
+msgid "not predefined synch 8"
+msgstr "niet vooraf sync 8"
+
+#: src/core/model/eventtimingcode.cpp:69
+msgctxt "@default|"
+msgid "not predefined synch 9"
+msgstr "niet vooraf sync 9"
+
+#: src/core/model/eventtimingcode.cpp:70
+msgctxt "@default|"
+msgid "not predefined synch A"
+msgstr "niet vooraf sync A"
+
+#: src/core/model/eventtimingcode.cpp:71
+msgctxt "@default|"
+msgid "not predefined synch B"
+msgstr "niet vooraf sync B"
+
+#: src/core/model/eventtimingcode.cpp:72
+msgctxt "@default|"
+msgid "not predefined synch C"
+msgstr "niet vooraf sync C"
+
+#: src/core/model/eventtimingcode.cpp:73
+msgctxt "@default|"
+msgid "not predefined synch D"
+msgstr "niet vooraf sync D"
+
+#: src/core/model/eventtimingcode.cpp:74
+msgctxt "@default|"
+msgid "not predefined synch E"
+msgstr "niet vooraf sync E"
+
+#: src/core/model/eventtimingcode.cpp:75
+msgctxt "@default|"
+msgid "not predefined synch F"
+msgstr "niet vooraf sync F"
+
+#: src/core/model/eventtimingcode.cpp:76
+msgctxt "@default|"
+msgid "audio end (start of silence)"
+msgstr "audio eind (start bij stilte)"
+
+#: src/core/model/eventtimingcode.cpp:77
+msgctxt "@default|"
+msgid "audio file ends"
+msgstr "audio bestand eindigt"
+
+#: src/core/model/eventtimingcode.cpp:111
+#, qt-format
+msgctxt "@default|"
+msgid "reserved for future use %1"
+msgstr "bewaard voor toekomstig gebruik %1"
+
+#: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
+msgctxt "@default|"
+msgid "Tag 1"
+msgstr "Tag 1"
+
+#: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
+msgctxt "@default|"
+msgid "Tag 2"
+msgstr "Tag 2"
+
+#: src/core/model/filefilter.cpp:108
+msgctxt "@default|"
+msgid "True if strings are equal"
+msgstr "Waar als tekenreeksen gelijk zijn"
+
+#: src/core/model/filefilter.cpp:114
+msgctxt "@default|"
+msgid "True if string contains substring"
+msgstr "Waar als tekenreeks subtekenreeks bevat"
+
+#: src/core/model/filefilter.cpp:121
+msgctxt "@default|"
+msgid "True if string matches regexp"
+msgstr "Waar als tekenreeks overeenstemt met regexp"
+
+#: src/core/model/filefilter.cpp:127
+msgctxt "@default|"
+msgid "Logical AND"
+msgstr "Logische EN (AND)"
+
+#: src/core/model/filefilter.cpp:132
+msgctxt "@default|"
+msgid "Logical OR"
+msgstr "Booleaanse OF"
+
+#: src/core/model/filefilter.cpp:138
+msgctxt "@default|"
+msgid "Logical negation"
+msgstr "Booleaanse negatie"
+
+#: src/core/model/fileproxymodel.cpp:38
+msgctxt "QFileSystemModel|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/core/model/fileproxymodel.cpp:40
+msgctxt "QFileSystemModel|"
+msgid "Size"
+msgstr "Grootte"
+
+#: src/core/model/fileproxymodel.cpp:42
+msgctxt "QFileSystemModel|"
+msgid "Type"
+msgstr "Type"
+
+#: src/core/model/fileproxymodel.cpp:44
+msgctxt "QFileSystemModel|"
+msgid "Kind"
+msgstr "Soort"
+
+#: src/core/model/fileproxymodel.cpp:47
+msgctxt "QFileSystemModel|"
+msgid "Date Modified"
+msgstr "Datum gewijzigd"
+
+#: src/core/model/fileproxymodel.cpp:1043
+msgctxt "FileProxyModel|"
+msgid "All Supported Files"
+msgstr "Alle ondersteunde bestanden"
+
+#: src/core/model/fileproxymodel.cpp:1045
+msgctxt "FileProxyModel|"
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: src/core/model/filesystemmodel.cpp:822
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 TB"
+msgstr "%1 TB"
+
+#: src/core/model/filesystemmodel.cpp:824
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 GB"
+msgstr "%1 GB"
+
+#: src/core/model/filesystemmodel.cpp:826
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: src/core/model/filesystemmodel.cpp:828
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 KB"
+msgstr "%1 KB"
+
+#: src/core/model/filesystemmodel.cpp:829
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+#: src/core/model/filesystemmodel.cpp:984
+msgctxt "FileSystemModel|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/core/model/filesystemmodel.cpp:986
+msgctxt "FileSystemModel|"
+msgid "Size"
+msgstr "Grootte"
+
+#: src/core/model/filesystemmodel.cpp:990
+msgctxt "FileSystemModel|Match OS X Finder"
+msgid "Kind"
+msgstr "Soort"
+
+#: src/core/model/filesystemmodel.cpp:992
+msgctxt "FileSystemModel|All other platforms"
+msgid "Type"
+msgstr "Type"
+
+#: src/core/model/filesystemmodel.cpp:999
+msgctxt "FileSystemModel|"
+msgid "Date Modified"
+msgstr "Datum gewijzigd"
+
+#: src/core/model/filesystemmodel_p.h:319
+msgctxt "FileSystemModel|"
+msgid "My Computer"
+msgstr "Mijn computer"
+
+#: src/core/model/filesystemmodel_p.h:321
+msgctxt "FileSystemModel|"
+msgid "Computer"
+msgstr "Computer"
+
+#: src/core/model/frameobjectmodel.cpp:178
+msgctxt "FrameFieldObject|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/model/frametablemodel.cpp:137
+msgctxt "FrameTableModel|"
+msgid "Volume"
+msgstr "Volume"
+
+#: src/core/model/frametablemodel.cpp:162
+msgctxt "FrameTableModel|"
+msgid "File ID"
+msgstr "Bestand-ID"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Name"
+msgstr "Naam"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Data"
+msgstr "Gegevens"
+
+#: src/core/model/kid3application.cpp:972
+msgctxt "Kid3Application|"
+msgid "Saving folder..."
+msgstr "Map wordt opgeslagen..."
+
+#: src/core/model/kid3application.cpp:1117
+msgctxt "Kid3Application|"
+msgid "Selection"
+msgstr "Selectie"
+
+#: src/core/model/kid3application.cpp:3330
+msgctxt "Kid3Application|"
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: src/core/model/tagsearcher.cpp:198
+msgctxt "TagSearcher|"
+msgid "Search finished"
+msgstr "Zoekopdracht voltooid"
+
+#: src/core/model/tagsearcher.cpp:464
+msgctxt "TagSearcher|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/core/model/tagsearcher.cpp:466
+#, qt-format
+msgctxt "TagSearcher|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/core/model/timeeventmodel.cpp:123
+msgctxt "TimeEventModel|"
+msgid "Time"
+msgstr "Tijd"
+
+#: src/core/model/timeeventmodel.cpp:125
+msgctxt "TimeEventModel|"
+msgid "Event Code"
+msgstr "Gebeurteniscode"
+
+#: src/core/model/timeeventmodel.cpp:127
+msgctxt "TimeEventModel|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/model/trackdatamodel.cpp:179
+msgctxt "TrackDataModel|"
+msgid "Track"
+msgstr "Track"
+
+#: src/core/model/trackdatamodel.cpp:184
+msgctxt "TrackDataModel|"
+msgid "Absolute path to file"
+msgstr "Absoluut pad naar bestand"
+
+#: src/core/model/trackdatamodel.cpp:186
+msgctxt "TrackDataModel|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/core/model/trackdatamodel.cpp:188
+msgctxt "TrackDataModel|"
+msgid "Duration"
+msgstr "Duur"
+
+#: src/core/model/trackdatamodel.cpp:190
+msgctxt "TrackDataModel|"
+msgid "Length"
+msgstr "Lengte"
+
+#: src/core/tags/frame.cpp:38
+msgctxt "@default|"
+msgid "Text Encoding"
+msgstr "Tekstcodering"
+
+#: src/core/tags/frame.cpp:39
+msgctxt "@default|"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/core/tags/frame.cpp:41
+msgctxt "@default|"
+msgid "Data"
+msgstr "Gegevens"
+
+#: src/core/tags/frame.cpp:42 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:236 src/core/tags/frame.cpp:282
+msgctxt "@default|"
+msgid "Description"
+msgstr "Beschrijving"
+
+#: src/core/tags/frame.cpp:43 src/core/tags/frame.cpp:305
+msgctxt "@default|"
+msgid "Owner"
+msgstr "Eigenaar"
+
+#: src/core/tags/frame.cpp:44
+msgctxt "@default|"
+msgid "Email"
+msgstr "E-mail"
+
+#: src/core/tags/frame.cpp:45 src/core/tags/frame.cpp:153
+msgctxt "@default|"
+msgid "Rating"
+msgstr "Waardering"
+
+#: src/core/tags/frame.cpp:47 src/core/tags/frame.cpp:129
+msgctxt "@default|"
+msgid "Language"
+msgstr "Taal"
+
+#: src/core/tags/frame.cpp:48
+msgctxt "@default|"
+msgid "Picture Type"
+msgstr "Afbeeldingstype"
+
+#: src/core/tags/frame.cpp:49
+msgctxt "@default|"
+msgid "Image format"
+msgstr "Formaat van afbeelding"
+
+#: src/core/tags/frame.cpp:50
+msgctxt "@default|"
+msgid "Mimetype"
+msgstr "Mimetype"
+
+#: src/core/tags/frame.cpp:51
+msgctxt "@default|"
+msgid "Counter"
+msgstr "Teller"
+
+#: src/core/tags/frame.cpp:52
+msgctxt "@default|"
+msgid "Identifier"
+msgstr "Identifier"
+
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:196
+msgctxt "@default|"
+msgid "Volume Adjustment"
+msgstr "Volume-aanpassing"
+
+#: src/core/tags/frame.cpp:54
+msgctxt "@default|"
+msgid "Number of Bits"
+msgstr "Aantal bits"
+
+#: src/core/tags/frame.cpp:55
+msgctxt "@default|"
+msgid "Volume Change Right"
+msgstr "Volumewijziging rechts"
+
+#: src/core/tags/frame.cpp:56
+msgctxt "@default|"
+msgid "Volume Change Left"
+msgstr "Volumewijziging links"
+
+#: src/core/tags/frame.cpp:57
+msgctxt "@default|"
+msgid "Peak Volume Right"
+msgstr "Piekvolume rechts"
+
+#: src/core/tags/frame.cpp:58
+msgctxt "@default|"
+msgid "Peak Volume Left"
+msgstr "Piekvolume links"
+
+#: src/core/tags/frame.cpp:59
+msgctxt "@default|"
+msgid "Timestamp Format"
+msgstr "Opmaak tijdsaanduiding"
+
+#: src/core/tags/frame.cpp:60
+msgctxt "@default|"
+msgid "Content Type"
+msgstr "Type inhoud"
+
+#: src/core/tags/frame.cpp:62
+msgctxt "@default|"
+msgid "Price"
+msgstr "Prijs"
+
+#: src/core/tags/frame.cpp:63 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:203
+msgctxt "@default|"
+msgid "Date"
+msgstr "Datum"
+
+#: src/core/tags/frame.cpp:64
+msgctxt "@default|"
+msgid "Seller"
+msgstr "Verkoper"
+
+#: src/core/tags/frame.cpp:71
+msgctxt "@default|"
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: src/core/tags/frame.cpp:77 src/core/tags/frame.cpp:84
+#: src/core/tags/pictureframe.cpp:41
+msgctxt "@default|"
+msgid "Other"
+msgstr "Overig"
+
+#: src/core/tags/frame.cpp:78
+msgctxt "@default|"
+msgid "MPEG frames as unit"
+msgstr "MPEG-frames als eenheid"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Milliseconds as unit"
+msgstr "Milliseconden als eenheid"
+
+#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:131
+#: src/gui/widgets/timeeventeditor.cpp:351
+msgctxt "@default|"
+msgid "Lyrics"
+msgstr "Liedtekst"
+
+#: src/core/tags/frame.cpp:86
+msgctxt "@default|"
+msgid "Text transcription"
+msgstr "Transcriptie van tekst"
+
+#: src/core/tags/frame.cpp:87
+msgctxt "@default|"
+msgid "Movement/part name"
+msgstr "Verplaatsing/naam onderdeel"
+
+#: src/core/tags/frame.cpp:88
+msgctxt "@default|"
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+#: src/core/tags/frame.cpp:89
+msgctxt "@default|"
+msgid "Chord"
+msgstr "Koorde"
+
+#: src/core/tags/frame.cpp:90
+msgctxt "@default|"
+msgid "Trivia/pop up"
+msgstr "Trivia/pop-up"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Track Number"
+msgstr "Tracknummer"
+
+#: src/core/tags/frame.cpp:113 src/core/tags/frame.cpp:233
+msgctxt "@default|"
+msgid "Album Artist"
+msgstr "Albumartiest"
+
+#: src/core/tags/frame.cpp:114
+msgctxt "@default|"
+msgid "Arranger"
+msgstr "Arrangeur"
+
+#: src/core/tags/frame.cpp:115
+msgctxt "@default|"
+msgid "Author"
+msgstr "Auteur"
+
+#: src/core/tags/frame.cpp:116
+msgctxt "@default|"
+msgid "BPM"
+msgstr "BPM"
+
+#: src/core/tags/frame.cpp:117
+msgctxt "@default|"
+msgid "Catalog Number"
+msgstr "Catalogusnummer"
+
+#: src/core/tags/frame.cpp:118
+msgctxt "@default|"
+msgid "Compilation"
+msgstr "Compilatie"
+
+#: src/core/tags/frame.cpp:119 src/core/tags/pictureframe.cpp:52
+msgctxt "@default|"
+msgid "Composer"
+msgstr "Componist"
+
+#: src/core/tags/frame.cpp:120 src/core/tags/frame.cpp:281
+#: src/core/tags/pictureframe.cpp:50
+msgctxt "@default|"
+msgid "Conductor"
+msgstr "Dirigent"
+
+#: src/core/tags/frame.cpp:121
+msgctxt "@default|"
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/core/tags/frame.cpp:122
+msgctxt "@default|"
+msgid "Disc Number"
+msgstr "Schijfnummer"
+
+#: src/core/tags/frame.cpp:123 src/core/tags/frame.cpp:240
+msgctxt "@default|"
+msgid "Encoded-by"
+msgstr "Gecodeerd door"
+
+#: src/core/tags/frame.cpp:124 src/core/tags/frame.cpp:239
+msgctxt "@default|"
+msgid "Encoder Settings"
+msgstr "Instellingen voor codering"
+
+#: src/core/tags/frame.cpp:125 src/core/tags/frame.cpp:204
+msgctxt "@default|"
+msgid "Encoding Time"
+msgstr "Tijd van codering"
+
+#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:235
+msgctxt "@default|"
+msgid "Grouping"
+msgstr "Groepering"
+
+#: src/core/tags/frame.cpp:127
+msgctxt "@default|"
+msgid "Initial Key"
+msgstr "Initiële sleutel"
+
+#: src/core/tags/frame.cpp:128
+msgctxt "@default|"
+msgid "ISRC"
+msgstr "ISRC"
+
+#: src/core/tags/frame.cpp:130
+msgctxt "@default|"
+msgid "Lyricist"
+msgstr "Maker liedtekst"
+
+#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:47
+msgctxt "@default|"
+msgid "Media"
+msgstr "Media"
+
+#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:270
+msgctxt "@default|"
+msgid "Mood"
+msgstr "Stemming"
+
+#: src/core/tags/frame.cpp:134
+msgctxt "@default|"
+msgid "Original Album"
+msgstr "Originele album"
+
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:252
+msgctxt "@default|"
+msgid "Original Artist"
+msgstr "Originele artiest"
+
+#: src/core/tags/frame.cpp:136
+msgctxt "@default|"
+msgid "Original Date"
+msgstr "Oorspronkelijke datum"
+
+#: src/core/tags/frame.cpp:138
+msgctxt "@default|"
+msgid "Performer"
+msgstr "Uitvoerder"
+
+#: src/core/tags/frame.cpp:139
+msgctxt "@default|"
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: src/core/tags/frame.cpp:140
+msgctxt "@default|"
+msgid "Publisher"
+msgstr "Uitgever"
+
+#: src/core/tags/frame.cpp:141
+msgctxt "@default|"
+msgid "Release Country"
+msgstr "Land van uitgave"
+
+#: src/core/tags/frame.cpp:142 src/core/tags/frame.cpp:258
+msgctxt "@default|"
+msgid "Remixer"
+msgstr "Remixer"
+
+#: src/core/tags/frame.cpp:143
+msgctxt "@default|"
+msgid "Sort Album"
+msgstr "Sorteervolgorde album"
+
+#: src/core/tags/frame.cpp:144 src/core/tags/frame.cpp:267
+msgctxt "@default|"
+msgid "Sort Album Artist"
+msgstr "Sorteervolgorde albumartiest"
+
+#: src/core/tags/frame.cpp:145
+msgctxt "@default|"
+msgid "Sort Artist"
+msgstr "Sorteervolgorde artiest"
+
+#: src/core/tags/frame.cpp:146
+msgctxt "@default|"
+msgid "Sort Composer"
+msgstr "Sorteervolgorde componist"
+
+#: src/core/tags/frame.cpp:147
+msgctxt "@default|"
+msgid "Sort Name"
+msgstr "Op naam sorteren"
+
+#: src/core/tags/frame.cpp:148
+msgctxt "@default|"
+msgid "Subtitle"
+msgstr "Ondertitel"
+
+#: src/core/tags/frame.cpp:149
+msgctxt "@default|"
+msgid "Website"
+msgstr "Website"
+
+#: src/core/tags/frame.cpp:150
+msgctxt "@default|"
+msgid "WWW Audio File"
+msgstr "WWW van audiobestand"
+
+#: src/core/tags/frame.cpp:151
+msgctxt "@default|"
+msgid "WWW Audio Source"
+msgstr "WWW van audiobron"
+
+#: src/core/tags/frame.cpp:152
+msgctxt "@default|"
+msgid "Release Date"
+msgstr "Uitgiftedatum"
+
+#: src/core/tags/frame.cpp:154
+msgctxt "@default|"
+msgid "Work"
+msgstr "Werk"
+
+#: src/core/tags/frame.cpp:171
+msgctxt "@default|"
+msgid "Audio Encryption"
+msgstr "Audio-versleuteling"
+
+#: src/core/tags/frame.cpp:172
+msgctxt "@default|"
+msgid "Audio Seek Point"
+msgstr "Audio-zoekpunt"
+
+#: src/core/tags/frame.cpp:173
+msgctxt "@default|"
+msgid "Chapter"
+msgstr "Hoofdstuk"
+
+#: src/core/tags/frame.cpp:174
+msgctxt "@default|"
+msgid "Commercial"
+msgstr "Commercieel"
+
+#: src/core/tags/frame.cpp:175
+msgctxt "@default|"
+msgid "Table of Contents"
+msgstr "Inhoudsopgave"
+
+#: src/core/tags/frame.cpp:176
+msgctxt "@default|"
+msgid "Encryption Method"
+msgstr "Versleutelingsmethode"
+
+#: src/core/tags/frame.cpp:177 src/core/tags/frame.cpp:178
+msgctxt "@default|"
+msgid "Equalization"
+msgstr "Egalisatie"
+
+#: src/core/tags/frame.cpp:179
+msgctxt "@default|"
+msgid "Event Timing Codes"
+msgstr "Gebeurtenis timing-codes"
+
+#: src/core/tags/frame.cpp:180
+msgctxt "@default|"
+msgid "General Object"
+msgstr "Algemeen object"
+
+#: src/core/tags/frame.cpp:181
+msgctxt "@default|"
+msgid "Group Identification"
+msgstr "Groepsidentificatie"
+
+#: src/core/tags/frame.cpp:183
+msgctxt "@default|"
+msgid "Linked Information"
+msgstr "Gekoppelde informatie"
+
+#: src/core/tags/frame.cpp:184
+msgctxt "@default|"
+msgid "Music CD Identifier"
+msgstr "Muziek-cd identificatie"
+
+#: src/core/tags/frame.cpp:185
+msgctxt "@default|"
+msgid "MPEG Lookup Table"
+msgstr "Opzoektabel van MPEG"
+
+#: src/core/tags/frame.cpp:186 src/core/tags/frame.cpp:302
+msgctxt "@default|"
+msgid "Movement Number"
+msgstr "Nummer van deel"
+
+#: src/core/tags/frame.cpp:187 src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Movement Name"
+msgstr "Naam van deel"
+
+#: src/core/tags/frame.cpp:188
+msgctxt "@default|"
+msgid "Ownership"
+msgstr "Eigenaarschap"
+
+#: src/core/tags/frame.cpp:189
+msgctxt "@default|"
+msgid "Play Counter"
+msgstr "Afspeelteller"
+
+#: src/core/tags/frame.cpp:190 src/core/tags/frame.cpp:287
+msgctxt "@default|"
+msgid "Podcast"
+msgstr "Podcast"
+
+#: src/core/tags/frame.cpp:191
+msgctxt "@default|"
+msgid "Popularimeter"
+msgstr "Populariteitsmeter"
+
+#: src/core/tags/frame.cpp:192
+msgctxt "@default|"
+msgid "Position Synchronisation"
+msgstr "Positie synchronisatie"
+
+#: src/core/tags/frame.cpp:193
+msgctxt "@default|"
+msgid "Private"
+msgstr "Privé"
+
+#: src/core/tags/frame.cpp:194
+msgctxt "@default|"
+msgid "Recommended Buffer Size"
+msgstr "Aanbevolen buffergrootte"
+
+#: src/core/tags/frame.cpp:197
+msgctxt "@default|"
+msgid "Reverb"
+msgstr "Nagalm"
+
+#: src/core/tags/frame.cpp:198
+msgctxt "@default|"
+msgid "Seek"
+msgstr "Zoeken"
+
+#: src/core/tags/frame.cpp:199
+msgctxt "@default|"
+msgid "Signature"
+msgstr "Ondertekening"
+
+#: src/core/tags/frame.cpp:200
+msgctxt "@default|"
+msgid "Synchronized Lyrics"
+msgstr "Gesynchroniseerde liedtekst"
+
+#: src/core/tags/frame.cpp:201
+msgctxt "@default|"
+msgid "Synchronized Tempo Codes"
+msgstr "Gesynchroniseerde tempocodes"
+
+#: src/core/tags/frame.cpp:202
+msgctxt "@default|"
+msgid "Podcast Category"
+msgstr "Podcast-categorie"
+
+#: src/core/tags/frame.cpp:205
+msgctxt "@default|"
+msgid "Podcast Description"
+msgstr "Beschrijving podcast"
+
+#: src/core/tags/frame.cpp:206
+msgctxt "@default|"
+msgid "Playlist Delay"
+msgstr "Afspeellijst vertraging"
+
+#: src/core/tags/frame.cpp:207
+msgctxt "@default|"
+msgid "Original Release Time"
+msgstr "Originele uitgavetijd"
+
+#: src/core/tags/frame.cpp:208
+msgctxt "@default|"
+msgid "Recording Time"
+msgstr "Opnametijd"
+
+#: src/core/tags/frame.cpp:209
+msgctxt "@default|"
+msgid "Release Time"
+msgstr "Uitgavetijd"
+
+#: src/core/tags/frame.cpp:210
+msgctxt "@default|"
+msgid "Tagging Time"
+msgstr "Tijd van taggen"
+
+#: src/core/tags/frame.cpp:211
+msgctxt "@default|"
+msgid "File Type"
+msgstr "Bestandstype"
+
+#: src/core/tags/frame.cpp:212
+msgctxt "@default|"
+msgid "Podcast Identifier"
+msgstr "Identifier van podcast"
+
+#: src/core/tags/frame.cpp:213
+msgctxt "@default|"
+msgid "Time"
+msgstr "Tijd"
+
+#: src/core/tags/frame.cpp:214
+msgctxt "@default|"
+msgid "Podcast Keywords"
+msgstr "Podcast-trefwoorden"
+
+#: src/core/tags/frame.cpp:216 src/core/tags/frame.cpp:271
+msgctxt "@default|"
+msgid "Original Filename"
+msgstr "Originele bestandsnaam"
+
+#: src/core/tags/frame.cpp:217
+msgctxt "@default|"
+msgid "File Owner"
+msgstr "Eigenaar van bestand"
+
+#: src/core/tags/frame.cpp:218
+msgctxt "@default|"
+msgid "Produced Notice"
+msgstr "Bericht geproduceerd"
+
+#: src/core/tags/frame.cpp:219 src/core/tags/frame.cpp:257
+msgctxt "@default|"
+msgid "Recording Date"
+msgstr "Opnamedatum"
+
+#: src/core/tags/frame.cpp:220
+msgctxt "@default|"
+msgid "Radio Station Name"
+msgstr "Naam van radiostation"
+
+#: src/core/tags/frame.cpp:221
+msgctxt "@default|"
+msgid "Radio Station Owner"
+msgstr "Eigenaar van radiostation"
+
+#: src/core/tags/frame.cpp:222
+msgctxt "@default|"
+msgid "Size"
+msgstr "Grootte"
+
+#: src/core/tags/frame.cpp:223
+msgctxt "@default|"
+msgid "User-defined Text"
+msgstr "Gebruikergedefinieerde tekst"
+
+#: src/core/tags/frame.cpp:224
+msgctxt "@default|"
+msgid "Unique File Identifier"
+msgstr "Unieke bestandsidentificatie"
+
+#: src/core/tags/frame.cpp:225
+msgctxt "@default|"
+msgid "Terms of Use"
+msgstr "Voorwaarden voor het gebruik"
+
+#: src/core/tags/frame.cpp:226 src/core/tags/frame.cpp:273
+msgctxt "@default|"
+msgid "Commercial URL"
+msgstr "Commerciële URL"
+
+#: src/core/tags/frame.cpp:227
+msgctxt "@default|"
+msgid "Copyright URL"
+msgstr "Copyright URL"
+
+#: src/core/tags/frame.cpp:228
+msgctxt "@default|"
+msgid "Podcast Feed"
+msgstr "Podcastfeed"
+
+#: src/core/tags/frame.cpp:229
+msgctxt "@default|"
+msgid "Official Radio Station"
+msgstr "Officieel radiostation"
+
+#: src/core/tags/frame.cpp:230
+msgctxt "@default|"
+msgid "Payment"
+msgstr "Betaling"
+
+#: src/core/tags/frame.cpp:231
+msgctxt "@default|"
+msgid "Official Publisher"
+msgstr "Officiële uitgever"
+
+#: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:275
+msgctxt "@default|"
+msgid "User-defined URL"
+msgstr "Gebruikergedefinieerde URL"
+
+#: src/core/tags/frame.cpp:234
+msgctxt "@default|"
+msgid "Contact"
+msgstr "Contactpersoon"
+
+#: src/core/tags/frame.cpp:237 src/core/tags/frame.cpp:259
+msgctxt "@default|"
+msgid "Total Discs"
+msgstr "Totaal aantal discs"
+
+#: src/core/tags/frame.cpp:238
+msgctxt "@default|"
+msgid "Encoder"
+msgstr "Codeerder"
+
+#: src/core/tags/frame.cpp:241
+msgctxt "@default|"
+msgid "Encoding"
+msgstr "Codering"
+
+#: src/core/tags/frame.cpp:242
+msgctxt "@default|"
+msgid "Engineer"
+msgstr "Technicus"
+
+#: src/core/tags/frame.cpp:243
+msgctxt "@default|"
+msgid "Ensemble"
+msgstr "Ensemble"
+
+#: src/core/tags/frame.cpp:244
+msgctxt "@default|"
+msgid "Guest Artist"
+msgstr "Gastartiest"
+
+#: src/core/tags/frame.cpp:245 src/core/tags/trackdata.cpp:264
+msgctxt "@default|"
+msgid "VBR"
+msgstr "VBR"
+
+#: src/core/tags/frame.cpp:246 src/core/tags/frame.cpp:288
+msgctxt "@default|"
+msgid "Gapless Playback"
+msgstr "Afspelen zonder tussenpauze"
+
+#: src/core/tags/frame.cpp:247
+msgctxt "@default|"
+msgid "Label"
+msgstr "Label"
+
+#: src/core/tags/frame.cpp:248
+msgctxt "@default|"
+msgid "Label Number"
+msgstr "Labelnummer"
+
+#: src/core/tags/frame.cpp:249
+msgctxt "@default|"
+msgid "License"
+msgstr "Licentie"
+
+#: src/core/tags/frame.cpp:250
+msgctxt "@default|"
+msgid "Location"
+msgstr "Locatie"
+
+#: src/core/tags/frame.cpp:251
+msgctxt "@default|"
+msgid "Opus"
+msgstr "Opus"
+
+#: src/core/tags/frame.cpp:253
+msgctxt "@default|"
+msgid "Organization"
+msgstr "Organisatie"
+
+#: src/core/tags/frame.cpp:254
+msgctxt "@default|"
+msgid "Part Number"
+msgstr "Nummer van onderdeel"
+
+#: src/core/tags/frame.cpp:255
+msgctxt "@default|"
+msgid "Producer"
+msgstr "Producer"
+
+#: src/core/tags/frame.cpp:256
+msgctxt "@default|"
+msgid "Product Number"
+msgstr "Productnummer"
+
+#: src/core/tags/frame.cpp:260 src/core/tags/frame.cpp:261
+msgctxt "@default|"
+msgid "Total Tracks"
+msgstr "Totaal aantal tracks"
+
+#: src/core/tags/frame.cpp:264
+msgctxt "@default|"
+msgid "Version"
+msgstr "Versie"
+
+#: src/core/tags/frame.cpp:265
+msgctxt "@default|"
+msgid "Volume"
+msgstr "Volume"
+
+#: src/core/tags/frame.cpp:269
+msgctxt "@default|"
+msgid "MCDI"
+msgstr "MCDI"
+
+#: src/core/tags/frame.cpp:272
+msgctxt "@default|"
+msgid "Original Lyricist"
+msgstr "Originele tekstschrijver"
+
+#: src/core/tags/frame.cpp:274
+msgctxt "@default|"
+msgid "User Rating"
+msgstr "Gebruikerswaardering"
+
+#: src/core/tags/frame.cpp:276
+msgctxt "@default|"
+msgid "Account Type"
+msgstr "Accounttype"
+
+#: src/core/tags/frame.cpp:277
+msgctxt "@default|"
+msgid "Purchase Account"
+msgstr "Account voor aankoop"
+
+#: src/core/tags/frame.cpp:278
+msgctxt "@default|"
+msgid "Artist ID"
+msgstr "Artiest-ID"
+
+#: src/core/tags/frame.cpp:279
+msgctxt "@default|"
+msgid "Category"
+msgstr "Categorie"
+
+#: src/core/tags/frame.cpp:280
+msgctxt "@default|"
+msgid "Catalog ID"
+msgstr "Catalogus-ID"
+
+#: src/core/tags/frame.cpp:283
+msgctxt "@default|"
+msgid "Genre ID"
+msgstr "Genre-ID"
+
+#: src/core/tags/frame.cpp:284
+msgctxt "@default|"
+msgid "HD Video"
+msgstr "HD-video"
+
+#: src/core/tags/frame.cpp:285
+msgctxt "@default|"
+msgid "Keyword"
+msgstr "Trefwoord"
+
+#: src/core/tags/frame.cpp:286
+msgctxt "@default|"
+msgid "Long Description"
+msgstr "Lange beschrijving"
+
+#: src/core/tags/frame.cpp:289
+msgctxt "@default|"
+msgid "Album ID"
+msgstr "Album-ID"
+
+#: src/core/tags/frame.cpp:290
+msgctxt "@default|"
+msgid "Purchase Date"
+msgstr "Aankoopdatum"
+
+#: src/core/tags/frame.cpp:291
+msgctxt "@default|"
+msgid "Rating/Advisory"
+msgstr "Waardering/advies"
+
+#: src/core/tags/frame.cpp:292
+msgctxt "@default|"
+msgid "Country Code"
+msgstr "Landcode"
+
+#: src/core/tags/frame.cpp:293
+msgctxt "@default|"
+msgid "Sort Show"
+msgstr "Sorteervolgorde tonen"
+
+#: src/core/tags/frame.cpp:294
+msgctxt "@default|"
+msgid "Media Type"
+msgstr "Mediatype"
+
+#: src/core/tags/frame.cpp:295
+msgctxt "@default|"
+msgid "TV Episode"
+msgstr "TV-episode"
+
+#: src/core/tags/frame.cpp:296
+msgctxt "@default|"
+msgid "TV Episode Number"
+msgstr "TV-episodenummer"
+
+#: src/core/tags/frame.cpp:297
+msgctxt "@default|"
+msgid "TV Network Name"
+msgstr "Naam in TV-netwerk"
+
+#: src/core/tags/frame.cpp:298
+msgctxt "@default|"
+msgid "TV Show Name"
+msgstr "TV-shownaam"
+
+#: src/core/tags/frame.cpp:299
+msgctxt "@default|"
+msgid "TV Season"
+msgstr "TV-seizoen"
+
+#: src/core/tags/frame.cpp:303
+msgctxt "@default|"
+msgid "Movement Count"
+msgstr "Aantal delen"
+
+#: src/core/tags/frame.cpp:304
+msgctxt "@default|"
+msgid "Show Work & Movement"
+msgstr "Werk & deel tonen"
+
+#: src/core/tags/frame.cpp:306
+msgctxt "@default|"
+msgid "Podcast URL"
+msgstr "Podcast-URL"
+
+#: src/core/tags/frame.cpp:307
+msgctxt "@default|"
+msgid "Podcast GUID"
+msgstr "Podcast-GUID"
+
+#: src/core/tags/frame.cpp:308
+msgctxt "@default|"
+msgid "Composer ID"
+msgstr "Componist-ID"
+
+#: src/core/tags/frame.cpp:309
+msgctxt "@default|"
+msgid "XID"
+msgstr "XID"
+
+#: src/core/tags/frame.cpp:310
+msgctxt "@default|"
+msgid "Archival Location"
+msgstr "Locatie van archief"
+
+#: src/core/tags/frame.cpp:311
+msgctxt "@default|"
+msgid "Commissioned"
+msgstr "Ingesteld"
+
+#: src/core/tags/frame.cpp:312
+msgctxt "@default|"
+msgid "Cropped"
+msgstr "Bijgesneden"
+
+#: src/core/tags/frame.cpp:313
+msgctxt "@default|"
+msgid "Dimensions"
+msgstr "Afmetingen"
+
+#: src/core/tags/frame.cpp:314
+msgctxt "@default|"
+msgid "Dots Per Inch"
+msgstr "Punten per inch"
+
+#: src/core/tags/frame.cpp:315
+msgctxt "@default|"
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+#: src/core/tags/frame.cpp:316
+msgctxt "@default|"
+msgid "Lightness"
+msgstr "Lichtheid"
+
+#: src/core/tags/frame.cpp:317
+msgctxt "@default|"
+msgid "Number of Colors"
+msgstr "Aantal kleuren"
+
+#: src/core/tags/frame.cpp:318
+msgctxt "@default|"
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: src/core/tags/frame.cpp:319
+msgctxt "@default|"
+msgid "Sharpness"
+msgstr "Scherpte"
+
+#: src/core/tags/frame.cpp:320
+msgctxt "@default|"
+msgid "Source Form"
+msgstr "Vorm van bron"
+
+#: src/core/tags/frame.cpp:925
+#, qt-format
+msgctxt "@default|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/core/tags/frame.cpp:930
+msgctxt "@default|"
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 en tag 2"
+
+#: src/core/tags/frame.cpp:934
+msgctxt "@default|"
+msgid "All Tags"
+msgstr "Alle tags"
+
+#: src/core/tags/frame.cpp:1750
+msgctxt "@default|"
+msgid "Prepend t1/append t2 if not empty"
+msgstr "t1 voorvoegen/t2 achtervoegen als deze niet leeg is"
+
+#: src/core/tags/framenotice.cpp:187
+msgctxt "@default|"
+msgid "Truncated"
+msgstr "Afgekapt"
+
+#: src/core/tags/framenotice.cpp:188
+msgctxt "@default|"
+msgid "Size is too large"
+msgstr "Afmeting is te groot"
+
+#: src/core/tags/framenotice.cpp:189
+msgctxt "@default|"
+msgid "Must be unique"
+msgstr "Moet uniek zijn"
+
+#: src/core/tags/framenotice.cpp:190
+msgctxt "@default|"
+msgid "New line is forbidden"
+msgstr "Nieuwe regel is verboden"
+
+#: src/core/tags/framenotice.cpp:191
+msgctxt "@default|"
+msgid "Carriage return is forbidden"
+msgstr "Regeleinde is verboden"
+
+#: src/core/tags/framenotice.cpp:192
+msgctxt "@default|"
+msgid "Owner must be non-empty"
+msgstr "Eigenaar mag niet leeg zijn"
+
+#: src/core/tags/framenotice.cpp:193
+msgctxt "@default|"
+msgid "Must be numeric"
+msgstr "Moet numeriek zijn"
+
+#: src/core/tags/framenotice.cpp:194
+msgctxt "@default|"
+msgid "Must be numeric or number/total"
+msgstr "Moet numeriek of nummer/totaal zijn"
+
+#: src/core/tags/framenotice.cpp:195
+msgctxt "@default|"
+msgid "Format is DDMM"
+msgstr "Formaat is DDMM"
+
+#: src/core/tags/framenotice.cpp:196
+msgctxt "@default|"
+msgid "Format is HHMM"
+msgstr "Formaat is HHMM"
+
+#: src/core/tags/framenotice.cpp:197
+msgctxt "@default|"
+msgid "Format is YYYY"
+msgstr "Formaat is YYYY"
+
+#: src/core/tags/framenotice.cpp:198
+msgctxt "@default|"
+msgid "Must begin with a year and a space character"
+msgstr "Moet beginnen met een jaar en een spatie"
+
+#: src/core/tags/framenotice.cpp:199
+msgctxt "@default|"
+msgid "Must be ISO 8601 date/time"
+msgstr "Moet ISO 8601 datum/tijd zijn"
+
+#: src/core/tags/framenotice.cpp:200
+msgctxt "@default|"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Moet muziektoets zijn, 3 tekens, A-G, B, #, m, o\n"
+"of Camelot wiel-waarde 1A-12A, 1B-12B"
+
+#: src/core/tags/framenotice.cpp:202
+msgctxt "@default|"
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Moet ISO 639-2 taalcode hebben, 3 kleine letters"
+
+#: src/core/tags/framenotice.cpp:203
+msgctxt "@default|"
+msgid "Must be ISRC code, 12 characters"
+msgstr "Moet ISRC-code zijn, 12 tekens"
+
+#: src/core/tags/framenotice.cpp:204
+msgctxt "@default|"
+msgid "Must be list of strings separated by '|'"
+msgstr "Moet een lijst zijn met tekenreeksen gescheiden door '|'"
+
+#: src/core/tags/framenotice.cpp:205
+msgctxt "@default|"
+msgid "Has excess white space"
+msgstr "Heeft overvloedige witruimte"
+
+#: src/core/tags/pictureframe.cpp:42
+msgctxt "@default|"
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 pixels PNG bestandspictogram"
+
+#: src/core/tags/pictureframe.cpp:43
+msgctxt "@default|"
+msgid "Other file icon"
+msgstr "Ander bestandspictogram"
+
+#: src/core/tags/pictureframe.cpp:44
+msgctxt "@default|"
+msgid "Cover (front)"
+msgstr "Hoes (voorkant)"
+
+#: src/core/tags/pictureframe.cpp:45
+msgctxt "@default|"
+msgid "Cover (back)"
+msgstr "Hoes (achterkant)"
+
+#: src/core/tags/pictureframe.cpp:46
+msgctxt "@default|"
+msgid "Leaflet page"
+msgstr "Folderpagina"
+
+#: src/core/tags/pictureframe.cpp:48
+msgctxt "@default|"
+msgid "Lead artist/lead performer/soloist"
+msgstr "Hoofd artiest/hoofd uitvoerende/solist"
+
+#: src/core/tags/pictureframe.cpp:49
+msgctxt "@default|"
+msgid "Artist/performer"
+msgstr "Artiest/uitvoerende"
+
+#: src/core/tags/pictureframe.cpp:51
+msgctxt "@default|"
+msgid "Band/Orchestra"
+msgstr "Band/orkest"
+
+#: src/core/tags/pictureframe.cpp:53
+msgctxt "@default|"
+msgid "Lyricist/text writer"
+msgstr "Liedtekst maker/tekstschrijver"
+
+#: src/core/tags/pictureframe.cpp:54
+msgctxt "@default|"
+msgid "Recording Location"
+msgstr "Opnamelocatie"
+
+#: src/core/tags/pictureframe.cpp:55
+msgctxt "@default|"
+msgid "During recording"
+msgstr "Tijdens opname"
+
+#: src/core/tags/pictureframe.cpp:56
+msgctxt "@default|"
+msgid "During performance"
+msgstr "Tijdens uitvoering"
+
+#: src/core/tags/pictureframe.cpp:57
+msgctxt "@default|"
+msgid "Movie/video screen capture"
+msgstr "Film/videoschermafdruk"
+
+#: src/core/tags/pictureframe.cpp:58
+msgctxt "@default|"
+msgid "A bright coloured fish"
+msgstr "Een helder gekleurde vis"
+
+#: src/core/tags/pictureframe.cpp:59
+msgctxt "@default|"
+msgid "Illustration"
+msgstr "Illustratie"
+
+#: src/core/tags/pictureframe.cpp:60
+msgctxt "@default|"
+msgid "Band/artist logotype"
+msgstr "Band/artiest logotype"
+
+#: src/core/tags/pictureframe.cpp:61
+msgctxt "@default|"
+msgid "Publisher/Studio logotype"
+msgstr "Uitgever/studio logotype"
+
+#: src/core/tags/trackdata.cpp:204
+msgctxt "@default|"
+msgid "Absolute path to file"
+msgstr "Absoluut pad naar bestand"
+
+#: src/core/tags/trackdata.cpp:210
+msgctxt "@default|"
+msgid "Modification date"
+msgstr "Wijzigingsdatum"
+
+#: src/core/tags/trackdata.cpp:216
+msgctxt "@default|"
+msgid "Creation date"
+msgstr "Aanmaakdatum"
+
+#: src/core/tags/trackdata.cpp:226
+msgctxt "@default|"
+msgid "Directory name"
+msgstr "Mapnaam"
+
+#: src/core/tags/trackdata.cpp:241
+msgctxt "@default|"
+msgid "Number of tracks"
+msgstr "Aantal tracks"
+
+#: src/core/tags/trackdata.cpp:246
+msgctxt "@default|"
+msgid "Extension"
+msgstr "Extensie"
+
+#: src/core/tags/trackdata.cpp:259
+msgctxt "@default|"
+msgid "Bitrate"
+msgstr "Bitsnelheid"
+
+#: src/core/tags/trackdata.cpp:269
+msgctxt "@default|"
+msgid "Samplerate"
+msgstr "Samplerate"
+
+#: src/core/tags/trackdata.cpp:276
+msgctxt "@default|"
+msgid "Channels"
+msgstr "Kanalen"
+
+#: src/core/tags/trackdata.cpp:281
+msgctxt "@default|"
+msgid "Codec"
+msgstr "Codec"
+
+#: src/core/tags/trackdata.cpp:286
+msgctxt "@default|"
+msgid "Marked"
+msgstr "Gemarkeerd"
+
+#: src/core/tags/trackdata.cpp:292
+msgctxt "@default|"
+msgid "Escape for HTML"
+msgstr "Escape voor HTML"
+
+#: src/gui/dialogs/batchimportdialog.cpp:163
+msgctxt "BatchImportDialog|"
+msgid "Automatic Import"
+msgstr "Automatisch importeren"
+
+#: src/gui/dialogs/batchimportdialog.cpp:179
+msgctxt "BatchImportDialog|"
+msgid "D&estination:"
+msgstr "B&estemming:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:194
+msgctxt "BatchImportDialog|"
+msgid "&Profile:"
+msgstr "&Profiel:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:205
+msgctxt "BatchImportDialog|"
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:209
+msgctxt "BatchImportDialog|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:230
+msgctxt "BatchImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/batchimportdialog.cpp:236
+msgctxt "BatchImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/batchimportdialog.cpp:245
+msgctxt "BatchImportDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/batchimportdialog.cpp:285
+msgctxt "BatchImportDialog|"
+msgid "New"
+msgstr "Nieuw"
+
+#: src/gui/dialogs/batchimportdialog.cpp:477
+msgctxt "BatchImportDialog|"
+msgid "Reading Folder"
+msgstr "Map wordt gelezen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:481
+msgctxt "BatchImportDialog|"
+msgid "Started"
+msgstr "Gestart"
+
+#: src/gui/dialogs/batchimportdialog.cpp:484
+msgctxt "BatchImportDialog|"
+msgid "Source"
+msgstr "Bron"
+
+#: src/gui/dialogs/batchimportdialog.cpp:487
+msgctxt "BatchImportDialog|"
+msgid "Querying"
+msgstr "Opvragen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:491
+msgctxt "BatchImportDialog|"
+msgid "Fetching"
+msgstr "Ophalen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:494
+msgctxt "BatchImportDialog|"
+msgid "Data received"
+msgstr "Gegevens ontvangen"
+
+#: src/gui/dialogs/batchimportdialog.cpp:497
+msgctxt "BatchImportDialog|"
+msgid "Cover"
+msgstr "Hoes"
+
+#: src/gui/dialogs/batchimportdialog.cpp:501
+msgctxt "BatchImportDialog|"
+msgid "Finished"
+msgstr "Beëindigd"
+
+#: src/gui/dialogs/batchimportdialog.cpp:505
+msgctxt "BatchImportDialog|"
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: src/gui/dialogs/batchimportdialog.cpp:508
+msgctxt "BatchImportDialog|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "A&bort"
+msgstr "Af&breken"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "S&tart"
+msgstr "S&tarten"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+msgctxt "BatchImportSourceDialog|"
+msgid "Import Source"
+msgstr "Bron importeren"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+msgctxt "BatchImportSourceDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+msgctxt "BatchImportSourceDialog|"
+msgid "&Accuracy:"
+msgstr "&Nauwkeurigheid:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+msgctxt "BatchImportSourceDialog|"
+msgid "&Standard Tags"
+msgstr "&Standaard tags"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+msgctxt "BatchImportSourceDialog|"
+msgid "&Additional Tags"
+msgstr "&Additionele tags"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+msgctxt "BatchImportSourceDialog|"
+msgid "C&over Art"
+msgstr "H&oesillustratie"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:83
+#: src/gui/dialogs/browsecoverartdialog.cpp:263
+msgctxt "BrowseCoverArtDialog|"
+msgid "Browse Cover Art"
+msgstr "Bladeren in hoesillustraties"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:92
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Artist/Album"
+msgstr "&Artiest/album"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:105
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Source"
+msgstr "&Bron"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "Source:"
+msgstr "Bron:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "URL:"
+msgstr "URL-adres:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:118
+msgctxt "BrowseCoverArtDialog|"
+msgid "&URL extraction"
+msgstr "&URL uitpakken"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Match"
+msgstr "Overeenkomst"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Picture URL"
+msgstr "URL van afbeelding"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:130
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:135
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:144
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Browse"
+msgstr "&Bladeren"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:145
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:177
+msgctxt "BrowseCoverArtDialog|"
+msgid "Click Browse to start"
+msgstr "Klik op de knop Browser om te starten"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:183
+msgctxt "BrowseCoverArtDialog|"
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "Sleep daarna de afbeelding van de browser naar Kid3."
+
+#: src/gui/dialogs/configdialogpages.cpp:167
+msgctxt "ConfigDialogPages|"
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: src/gui/dialogs/configdialogpages.cpp:170
+msgctxt "ConfigDialogPages|"
+msgid "&Mark truncated fields"
+msgstr "&Markeer afgekapte velden"
+
+#: src/gui/dialogs/configdialogpages.cpp:172
+#: src/gui/dialogs/configdialogpages.cpp:201
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding:"
+msgstr "Tekens&et:"
+
+#: src/gui/dialogs/configdialogpages.cpp:186
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: src/gui/dialogs/configdialogpages.cpp:189
+msgctxt "ConfigDialogPages|"
+msgid "Use &track/total number of tracks format"
+msgstr "Formaat &track/totaal aantal tracks gebruiken"
+
+#: src/gui/dialogs/configdialogpages.cpp:192
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "Tracknummer aantal &cijfers:"
+
+#: src/gui/dialogs/configdialogpages.cpp:196
+msgctxt "ConfigDialogPages|"
+msgid "&Genre as text instead of numeric string"
+msgstr "&Genre als tekst in plaats van numeriek"
+
+#: src/gui/dialogs/configdialogpages.cpp:198
+msgctxt "ConfigDialogPages|"
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&WAV-bestanden met kleine letters id3 chunk"
+
+#: src/gui/dialogs/configdialogpages.cpp:200
+msgctxt "ConfigDialogPages|"
+msgid "Mar&k standard violations"
+msgstr "Mar&keer schendingen van de standaard"
+
+#: src/gui/dialogs/configdialogpages.cpp:219
+msgctxt "ConfigDialogPages|"
+msgid "&Version used for new tags:"
+msgstr "Gebruikte &versie voor nieuwe tags:"
+
+#: src/gui/dialogs/configdialogpages.cpp:223
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:225
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:239
+msgctxt "ConfigDialogPages|"
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: src/gui/dialogs/configdialogpages.cpp:240
+msgctxt "ConfigDialogPages|"
+msgid "Co&mment field name:"
+msgstr "Naam &commentaarveld:"
+
+#: src/gui/dialogs/configdialogpages.cpp:243
+msgctxt "ConfigDialogPages|"
+msgid "&Picture field name:"
+msgstr "Naam &afbeeldingsveld:"
+
+#: src/gui/dialogs/configdialogpages.cpp:265
+msgctxt "ConfigDialogPages|"
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: src/gui/dialogs/configdialogpages.cpp:268
+msgctxt "ConfigDialogPages|"
+msgid "Mark if &larger than (bytes):"
+msgstr "Markeer indien &groter dan (bytes):"
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+msgctxt "ConfigDialogPages|"
+msgid "Custom &Genres"
+msgstr "Aangepaste &genres"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "&Show only custom genres"
+msgstr "Alleen aangepaste genres &tonen"
+
+#: src/gui/dialogs/configdialogpages.cpp:289
+msgctxt "ConfigDialogPages|"
+msgid "&Quick Access Frames"
+msgstr "Frames met s&nelle toegang"
+
+#: src/gui/dialogs/configdialogpages.cpp:302
+msgctxt "ConfigDialogPages|"
+msgid "Use drag and drop to reorder the items"
+msgstr "Slepen en loslaten om de volgorde van items te veranderen"
+
+#: src/gui/dialogs/configdialogpages.cpp:310
+msgctxt "ConfigDialogPages|"
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+#: src/gui/dialogs/configdialogpages.cpp:311
+msgctxt "ConfigDialogPages|"
+msgid "Track nu&mber field name:"
+msgstr "Veldnaam van tracknu&mmer:"
+
+#: src/gui/dialogs/configdialogpages.cpp:328
+msgctxt "ConfigDialogPages|"
+msgid "&Tag Format"
+msgstr "&Tagstructuur"
+
+#: src/gui/dialogs/configdialogpages.cpp:330
+msgctxt "ConfigDialogPages|"
+msgid "Rating"
+msgstr "Waardering"
+
+#: src/gui/dialogs/configdialogpages.cpp:340
+msgctxt "ConfigDialogPages|"
+msgid "Tag &1"
+msgstr "Tag &1"
+
+#: src/gui/dialogs/configdialogpages.cpp:342
+msgctxt "ConfigDialogPages|"
+msgid "Tag &2"
+msgstr "Tag &2"
+
+#: src/gui/dialogs/configdialogpages.cpp:343
+msgctxt "ConfigDialogPages|"
+msgid "Tag &3"
+msgstr "Tag &3"
+
+#: src/gui/dialogs/configdialogpages.cpp:344
+msgctxt "ConfigDialogPages|"
+msgid "All Ta&gs"
+msgstr "Alle ta&gs"
+
+#: src/gui/dialogs/configdialogpages.cpp:362
+msgctxt "ConfigDialogPages|"
+msgid "Startup"
+msgstr "Opstarten"
+
+#: src/gui/dialogs/configdialogpages.cpp:363
+msgctxt "ConfigDialogPages|"
+msgid "&Load last-opened files"
+msgstr "&Laatstgeopende bestanden laden"
+
+#: src/gui/dialogs/configdialogpages.cpp:369
+msgctxt "ConfigDialogPages|"
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/gui/dialogs/configdialogpages.cpp:370
+msgctxt "ConfigDialogPages|"
+msgid "&Preserve file timestamp"
+msgstr "Tij&dstempel van bestand behouden"
+
+#: src/gui/dialogs/configdialogpages.cpp:372
+msgctxt "ConfigDialogPages|"
+msgid "&Mark changes"
+msgstr "Wijzigingen &markeren"
+
+#: src/gui/dialogs/configdialogpages.cpp:382
+msgctxt "ConfigDialogPages|"
+msgid "F&ilename for cover:"
+msgstr "B&estandsnaam voor hoes:"
+
+#: src/gui/dialogs/configdialogpages.cpp:383
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Tekstcod&ering (exporteren, afspeellijst):"
+
+#: src/gui/dialogs/configdialogpages.cpp:388
+msgctxt "ConfigDialogPages|"
+msgid "File List"
+msgstr "Bestandslijst"
+
+#: src/gui/dialogs/configdialogpages.cpp:389
+msgctxt "ConfigDialogPages|"
+msgid "Filte&r:"
+msgstr "Filte&r:"
+
+#: src/gui/dialogs/configdialogpages.cpp:399
+msgctxt "ConfigDialogPages|"
+msgid "Inclu&de folders:"
+msgstr "Mappen om in te &voegen:"
+
+#: src/gui/dialogs/configdialogpages.cpp:403
+msgctxt "ConfigDialogPages|"
+msgid "E&xclude folders:"
+msgstr "Mappen om uit te sluiten:"
+
+#: src/gui/dialogs/configdialogpages.cpp:407
+msgctxt "ConfigDialogPages|"
+msgid "&Show hidden files"
+msgstr "Verborgen bestanden &tonen"
+
+#: src/gui/dialogs/configdialogpages.cpp:419
+msgctxt "ConfigDialogPages|"
+msgid "Format"
+msgstr "Formaat"
+
+#: src/gui/dialogs/configdialogpages.cpp:422
+msgctxt "ConfigDialogPages|"
+msgid "Filename from tag"
+msgstr "Bestandsnaam uit tag"
+
+#: src/gui/dialogs/configdialogpages.cpp:427
+msgctxt "ConfigDialogPages|"
+msgid "Tag from filename"
+msgstr "Tag uit bestandsnaam"
+
+#: src/gui/dialogs/configdialogpages.cpp:439
+msgctxt "ConfigDialogPages|"
+msgid "&Filename Format"
+msgstr "&Bestandsnaamstructuur"
+
+#: src/gui/dialogs/configdialogpages.cpp:455
+msgctxt "ConfigDialogPages|"
+msgid "Filename from Tag"
+msgstr "Bestandsnaam uit tag"
+
+#: src/gui/dialogs/configdialogpages.cpp:471
+msgctxt "ConfigDialogPages|"
+msgid "Tag from Filename"
+msgstr "Tag uit bestandsnaam"
+
+#: src/gui/dialogs/configdialogpages.cpp:485
+msgctxt "ConfigDialogPages|"
+msgid "Browser"
+msgstr "Browser"
+
+#: src/gui/dialogs/configdialogpages.cpp:486
+msgctxt "ConfigDialogPages|"
+msgid "Web &browser:"
+msgstr "Web&browser:"
+
+#: src/gui/dialogs/configdialogpages.cpp:495
+msgctxt "ConfigDialogPages|"
+msgid "Context &Menu Commands"
+msgstr "Commando's in context&menu"
+
+#: src/gui/dialogs/configdialogpages.cpp:498
+msgctxt "ConfigDialogPages|"
+msgid "&Play on double click"
+msgstr "Afs&pelen bij dubbelklikken"
+
+#: src/gui/dialogs/configdialogpages.cpp:519
+msgctxt "ConfigDialogPages|"
+msgid "Proxy"
+msgstr "Proxy"
+
+#: src/gui/dialogs/configdialogpages.cpp:520
+msgctxt "ConfigDialogPages|"
+msgid "&Proxy:"
+msgstr "&Proxy:"
+
+#: src/gui/dialogs/configdialogpages.cpp:523
+msgctxt "ConfigDialogPages|"
+msgid "&Use authentication with proxy"
+msgstr "Authenticatie met proxy gebr&uiken"
+
+#: src/gui/dialogs/configdialogpages.cpp:525
+msgctxt "ConfigDialogPages|"
+msgid "Proxy user &name:"
+msgstr "Proxygebruikers&naam:"
+
+#: src/gui/dialogs/configdialogpages.cpp:529
+msgctxt "ConfigDialogPages|"
+msgid "Proxy pass&word:"
+msgstr "&Wachtwoord bij proxy:"
+
+#: src/gui/dialogs/configdialogpages.cpp:563
+msgctxt "ConfigDialogPages|"
+msgid "&Metadata Plugins && Priority"
+msgstr "&Metagegevensplug-ins && prioriteit"
+
+#: src/gui/dialogs/configdialogpages.cpp:575
+msgctxt "ConfigDialogPages|"
+msgid "A&vailable Plugins"
+msgstr "&Beschikbare plug-ins"
+
+#: src/gui/dialogs/configdialogpages.cpp:586
+msgctxt "ConfigDialogPages|"
+msgid "Changes take only effect after a restart!"
+msgstr "Wijzigingen worden pas doorgevoerd na een herstart!"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:740
+msgctxt "@default|"
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:741
+#: src/gui/widgets/timeeventeditor.cpp:352
+msgctxt "@default|"
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+msgctxt "BinaryOpenSave|"
+msgid "From Clip&board"
+msgstr "Van klem&bord"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+msgctxt "BinaryOpenSave|"
+msgid "&To Clipboard"
+msgstr "&Naar klembord"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+msgctxt "BinaryOpenSave|"
+msgid "&Import..."
+msgstr "&Importeren..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+msgctxt "BinaryOpenSave|"
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+msgctxt "BinaryOpenSave|"
+msgid "&View..."
+msgstr "&Beeld..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+msgctxt "EditFrameFieldsDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+msgctxt "EditFrameFieldsDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/exportdialog.cpp:68
+msgctxt "ExportDialog|"
+msgid "Export"
+msgstr "Exporteren"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Format:"
+msgstr "&Formaat:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "H&eader:"
+msgstr "&Kop:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Tracks:"
+msgstr "&Tracks:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "F&ooter:"
+msgstr "V&oettekst:"
+
+#: src/gui/dialogs/exportdialog.cpp:91
+msgctxt "ExportDialog|"
+msgid "To F&ile..."
+msgstr "Naar &Bestand..."
+
+#: src/gui/dialogs/exportdialog.cpp:96
+msgctxt "ExportDialog|"
+msgid "To Clip&board"
+msgstr "Naar klem&bord"
+
+#: src/gui/dialogs/exportdialog.cpp:105
+msgctxt "ExportDialog|"
+msgid "&Source:"
+msgstr "&Bron:"
+
+#: src/gui/dialogs/exportdialog.cpp:110
+#, qt-format
+msgctxt "ExportDialog|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/gui/dialogs/exportdialog.cpp:122
+msgctxt "ExportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/exportdialog.cpp:127
+msgctxt "ExportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/exportdialog.cpp:136
+msgctxt "ExportDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/exportdialog.cpp:154
+msgctxt "ExportDialog|"
+msgid "File Error"
+msgstr "Bestandsfout"
+
+#: src/gui/dialogs/exportdialog.cpp:155
+msgctxt "ExportDialog|"
+msgid "Error while writing file:\n"
+msgstr "Fout bij schrijven van bestand:\n"
+
+#: src/gui/dialogs/filterdialog.cpp:49
+msgctxt "FilterDialog|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/gui/dialogs/filterdialog.cpp:53
+msgctxt "FilterDialog|"
+msgid "&Preview"
+msgstr "&Voorbeeld"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Filter:"
+msgstr "&Filter:"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Expression:"
+msgstr "&Expressie:"
+
+#: src/gui/dialogs/filterdialog.cpp:75
+msgctxt "FilterDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/filterdialog.cpp:80
+msgctxt "FilterDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/filterdialog.cpp:91
+msgctxt "FilterDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/filterdialog.cpp:182
+msgctxt "FilterDialog|"
+msgid "Started"
+msgstr "Gestart"
+
+#: src/gui/dialogs/filterdialog.cpp:198
+msgctxt "FilterDialog|"
+msgid "Finished"
+msgstr "Beëindigd"
+
+#: src/gui/dialogs/filterdialog.cpp:202
+msgctxt "FilterDialog|"
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "A&bort"
+msgstr "Af&breken"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "&Apply"
+msgstr "&Toepassen"
+
+#: src/gui/dialogs/findreplacedialog.cpp:54
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find and Replace"
+msgstr "Zoeken en vervangen"
+
+#: src/gui/dialogs/findreplacedialog.cpp:59
+msgctxt "FindReplaceDialog|"
+msgid "F&ind:"
+msgstr "Zo&eken:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:66
+msgctxt "FindReplaceDialog|"
+msgid "&Find"
+msgstr "&Zoeken"
+
+#: src/gui/dialogs/findreplacedialog.cpp:69
+msgctxt "FindReplaceDialog|"
+msgid "Re&place:"
+msgstr "&Vervangen:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:76
+msgctxt "FindReplaceDialog|"
+msgid "&Replace"
+msgstr "Ve&rvangen"
+
+#: src/gui/dialogs/findreplacedialog.cpp:79
+msgctxt "FindReplaceDialog|"
+msgid "Replace &all"
+msgstr "&Alles vervangen"
+
+#: src/gui/dialogs/findreplacedialog.cpp:94
+msgctxt "FindReplaceDialog|"
+msgid "Options"
+msgstr "Opties"
+
+#: src/gui/dialogs/findreplacedialog.cpp:96
+msgctxt "FindReplaceDialog|"
+msgid "&Match case"
+msgstr "&Hoofdlettergevoelig"
+
+#: src/gui/dialogs/findreplacedialog.cpp:98
+msgctxt "FindReplaceDialog|"
+msgid "&Backwards"
+msgstr "&Achterwaarts"
+
+#: src/gui/dialogs/findreplacedialog.cpp:100
+msgctxt "FindReplaceDialog|"
+msgid "Regular &expression"
+msgstr "Reguliere &expressie"
+
+#: src/gui/dialogs/findreplacedialog.cpp:105
+msgctxt "FindReplaceDialog|"
+msgid "&Tags"
+msgstr "&Tags"
+
+#: src/gui/dialogs/findreplacedialog.cpp:107
+msgctxt "FindReplaceDialog|"
+msgid "Select a&ll"
+msgstr "A&lles selecteren"
+
+#: src/gui/dialogs/findreplacedialog.cpp:117
+msgctxt "FindReplaceDialog|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/gui/dialogs/findreplacedialog.cpp:129
+msgctxt "FindReplaceDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/findreplacedialog.cpp:134
+msgctxt "FindReplaceDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/findreplacedialog.cpp:141
+msgctxt "FindReplaceDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find"
+msgstr "Zoeken"
+
+#: src/gui/dialogs/importdialog.cpp:128
+msgctxt "ImportDialog|"
+msgid "Accuracy:"
+msgstr "Nauwkeurigheid:"
+
+#: src/gui/dialogs/importdialog.cpp:139
+msgctxt "ImportDialog|"
+msgid "Cover Art:"
+msgstr "Hoesillustratie:"
+
+#: src/gui/dialogs/importdialog.cpp:148
+msgctxt "ImportDialog|"
+msgid "From F&ile/Clipboard..."
+msgstr "Uit &bestand/klembord..."
+
+#: src/gui/dialogs/importdialog.cpp:151
+msgctxt "ImportDialog|"
+msgid "From T&ags..."
+msgstr "Uit t&ags..."
+
+#: src/gui/dialogs/importdialog.cpp:154
+msgctxt "ImportDialog|"
+msgid "&From Server..."
+msgstr "&Van server..."
+
+#: src/gui/dialogs/importdialog.cpp:176
+msgctxt "ImportDialog|"
+msgid "D&estination:"
+msgstr "B&estemming:"
+
+#: src/gui/dialogs/importdialog.cpp:190
+msgctxt "ImportDialog|"
+msgid "Revert"
+msgstr "Terugdraaien"
+
+#: src/gui/dialogs/importdialog.cpp:199
+msgctxt "ImportDialog|"
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Maximaal toegestaan tij&dverschil activeren (sec):"
+
+#: src/gui/dialogs/importdialog.cpp:207
+msgctxt "ImportDialog|"
+msgid "Match with:"
+msgstr "Overeenkomt met:"
+
+#: src/gui/dialogs/importdialog.cpp:209
+msgctxt "ImportDialog|"
+msgid "&Length"
+msgstr "&Lengte"
+
+#: src/gui/dialogs/importdialog.cpp:212
+msgctxt "ImportDialog|"
+msgid "T&rack"
+msgstr "T&rack"
+
+#: src/gui/dialogs/importdialog.cpp:215
+msgctxt "ImportDialog|"
+msgid "&Title"
+msgstr "&Titel"
+
+#: src/gui/dialogs/importdialog.cpp:243
+msgctxt "ImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/importdialog.cpp:245
+msgctxt "ImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/importdialog.cpp:247
+msgctxt "ImportDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/importdialog.cpp:249
+msgctxt "ImportDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/qml/app/NumberTracksDialog.qml:32
+msgctxt "NumberTracksDialog|"
+msgid "Number Tracks"
+msgstr "Aantal tracks"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:55
+msgctxt "NumberTracksDialog|"
+msgid "Start &number:"
+msgstr "Start&nummer:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:67
+msgctxt "NumberTracksDialog|"
+msgid "&Destination:"
+msgstr "&Bestemming:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:83
+msgctxt "NumberTracksDialog|"
+msgid "&Reset counter for each folder"
+msgstr "Teller &resetten voor elke map"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:89
+msgctxt "NumberTracksDialog|"
+msgid "&Total number of tracks:"
+msgstr "&Totaal aantal tracks:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:103
+msgctxt "NumberTracksDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:108
+msgctxt "NumberTracksDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:117
+msgctxt "NumberTracksDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:123
+msgctxt "NumberTracksDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/playlistdialog.cpp:56
+msgctxt "PlaylistDialog|"
+msgid "Create Playlist"
+msgstr "Afspeellijst aanmaken"
+
+#: src/gui/dialogs/playlistdialog.cpp:144
+msgctxt "PlaylistDialog|"
+msgid "Playlist File Name"
+msgstr "Bestandsnaam van afspeellijst"
+
+#: src/gui/dialogs/playlistdialog.cpp:145
+msgctxt "PlaylistDialog|"
+msgid "Same as &folder name"
+msgstr "Hetzelfde als &mapnaam"
+
+#: src/gui/dialogs/playlistdialog.cpp:147
+msgctxt "PlaylistDialog|"
+msgid "&Format:"
+msgstr "&Formaat:"
+
+#: src/gui/dialogs/playlistdialog.cpp:159
+msgctxt "PlaylistDialog|"
+msgid "Create ne&w empty playlist:"
+msgstr "Nie&uwe lege afspeellijst aanmaken:"
+
+#: src/gui/dialogs/playlistdialog.cpp:160
+msgctxt "PlaylistDialog|"
+msgid "New"
+msgstr "Nieuw"
+
+#: src/gui/dialogs/playlistdialog.cpp:166
+msgctxt "PlaylistDialog|"
+msgid "Cr&eate in:"
+msgstr "Aanmak&en in:"
+
+#: src/gui/dialogs/playlistdialog.cpp:169
+msgctxt "PlaylistDialog|"
+msgid "Current folder"
+msgstr "Huidige map"
+
+#: src/gui/dialogs/playlistdialog.cpp:170
+msgctxt "PlaylistDialog|"
+msgid "Every folder"
+msgstr "Elke map"
+
+#: src/gui/dialogs/playlistdialog.cpp:171
+msgctxt "PlaylistDialog|"
+msgid "Top-level folder"
+msgstr "Hoogste niveau map"
+
+#: src/gui/dialogs/playlistdialog.cpp:173
+msgctxt "PlaylistDialog|"
+msgid "Playlist Content"
+msgstr "Inhoud van  afspeellijst"
+
+#: src/gui/dialogs/playlistdialog.cpp:174
+msgctxt "PlaylistDialog|"
+msgid "For&mat:"
+msgstr "For&maat:"
+
+#: src/gui/dialogs/playlistdialog.cpp:178
+msgctxt "PlaylistDialog|"
+msgid "Incl&ude only the selected files"
+msgstr "Alleen geselecteerde bestanden &meenemen"
+
+#: src/gui/dialogs/playlistdialog.cpp:179
+msgctxt "PlaylistDialog|"
+msgid "Sort by file &name"
+msgstr "Op bestands&naam sorteren"
+
+#: src/gui/dialogs/playlistdialog.cpp:181
+msgctxt "PlaylistDialog|"
+msgid "Sort by &tag field"
+msgstr "Op &tagveld sorteren"
+
+#: src/gui/dialogs/playlistdialog.cpp:196
+msgctxt "PlaylistDialog|"
+msgid "Use &relative path for files in playlist"
+msgstr "Gebruik &relatief pad voor bestanden in afspeellijst"
+
+#: src/gui/dialogs/playlistdialog.cpp:198
+msgctxt "PlaylistDialog|"
+msgid "Use full p&ath for files in playlist"
+msgstr "Volledig p&ad voor bestanden in afspeellijst"
+
+#: src/gui/dialogs/playlistdialog.cpp:199
+msgctxt "PlaylistDialog|"
+msgid "Write only &list of files"
+msgstr "Alleen-schrijven &lijst van bestanden"
+
+#: src/gui/dialogs/playlistdialog.cpp:201
+msgctxt "PlaylistDialog|"
+msgid "Write &info using"
+msgstr "&Info schrijven met"
+
+#: src/gui/dialogs/playlistdialog.cpp:212
+msgctxt "PlaylistDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/playlistdialog.cpp:216
+msgctxt "PlaylistDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/playlistdialog.cpp:224
+msgctxt "PlaylistDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/playlistdialog.cpp:227
+msgctxt "PlaylistDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:114
+msgctxt "PlaylistEditDialog|"
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:120
+msgctxt "PlaylistEditDialog|"
+msgid " [modified]"
+msgstr " [gewijzigd]"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:130
+msgctxt "PlaylistEditDialog|"
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:131
+msgctxt "PlaylistEditDialog|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Een afspeellijst is gewijzigd.\n"
+"Wenst u de wijzigingen op te slaan?"
+
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+msgctxt "RenDirDialog|"
+msgid "Rename Folder"
+msgstr "Map hernoemen"
+
+#: src/gui/dialogs/rendirdialog.cpp:64
+msgctxt "RenDirDialog|"
+msgid "Format"
+msgstr "Formaat"
+
+#: src/gui/dialogs/rendirdialog.cpp:69
+msgctxt "RenDirDialog|"
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: src/gui/dialogs/rendirdialog.cpp:73
+msgctxt "RenDirDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/rendirdialog.cpp:96
+msgctxt "RenDirDialog|"
+msgid "Create Folder"
+msgstr "Map aanmaken"
+
+#: src/gui/dialogs/rendirdialog.cpp:97
+msgctxt "RenDirDialog|"
+msgid "&Action:"
+msgstr "&Actie:"
+
+#: src/gui/dialogs/rendirdialog.cpp:105
+msgctxt "RenDirDialog|"
+msgid "&Source:"
+msgstr "&Bron:"
+
+#: src/gui/dialogs/rendirdialog.cpp:117
+msgctxt "RenDirDialog|"
+msgid "&Edit..."
+msgstr "B&ewerken..."
+
+#: src/gui/dialogs/rendirdialog.cpp:121
+msgctxt "RenDirDialog|"
+msgid "&Format:"
+msgstr "&Formaat:"
+
+#: src/gui/dialogs/rendirdialog.cpp:133
+msgctxt "RenDirDialog|"
+msgid "From:"
+msgstr "Van:"
+
+#: src/gui/dialogs/rendirdialog.cpp:134
+msgctxt "RenDirDialog|"
+msgid "To:"
+msgstr "Naar:"
+
+#: src/gui/dialogs/rendirdialog.cpp:321
+msgctxt "RenDirDialog|"
+msgid "Folder Name from Tag"
+msgstr "Mapnaam uit tag"
+
+#: src/gui/dialogs/serverimportdialog.cpp:61
+msgctxt "ServerImportDialog|"
+msgid "&Find"
+msgstr "&Zoeken"
+
+#: src/gui/dialogs/serverimportdialog.cpp:76
+msgctxt "ServerImportDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:79
+msgctxt "ServerImportDialog|"
+msgid "C&GI Path:"
+msgstr "C&GI pad:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:90
+msgctxt "ServerImportDialog|"
+msgid "&Token:"
+msgstr "&Token:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:98
+msgctxt "ServerImportDialog|"
+msgid "&Standard Tags"
+msgstr "&Standaard tags"
+
+#: src/gui/dialogs/serverimportdialog.cpp:99
+msgctxt "ServerImportDialog|"
+msgid "&Additional Tags"
+msgstr "&Additionele tags"
+
+#: src/gui/dialogs/serverimportdialog.cpp:100
+msgctxt "ServerImportDialog|"
+msgid "C&over Art"
+msgstr "H&oesillustratie"
+
+#: src/gui/dialogs/serverimportdialog.cpp:114
+msgctxt "ServerImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/serverimportdialog.cpp:116
+msgctxt "ServerImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/serverimportdialog.cpp:118
+msgctxt "ServerImportDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/serverimportdialog.cpp:133
+msgctxt "ServerImportDialog|"
+msgid "Ready."
+msgstr "Gereed."
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:83
+msgctxt "ServerTrackImportDialog|"
+msgid "&Server:"
+msgstr "&Server:"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:106
+msgctxt "ServerTrackImportDialog|"
+msgid "Track Title/Artist - Album"
+msgstr "Tracktitel/artiest - album"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:107
+msgctxt "ServerTrackImportDialog|"
+msgid "State"
+msgstr "Status"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:115
+msgctxt "ServerTrackImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:117
+msgctxt "ServerTrackImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
+msgctxt "ServerTrackImportDialog|"
+msgid "&OK"
+msgstr "&OK"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
+msgctxt "ServerTrackImportDialog|"
+msgid "&Apply"
+msgstr "&Toepassen"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:121
+msgctxt "ServerTrackImportDialog|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result"
+msgstr "Geen resultaat"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:247
+msgctxt "ServerTrackImportDialog|"
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result selected"
+msgstr "Geen resultaat geselecteerd"
+
+#: src/gui/dialogs/tagimportdialog.cpp:52
+msgctxt "TagImportDialog|"
+msgid "Import from Tags"
+msgstr "Importeren uit tags"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Format:"
+msgstr "Formaat:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Source:"
+msgstr "Bron:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Extraction:"
+msgstr "Uitpakken:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:72
+msgctxt "TagImportDialog|"
+msgid "D&estination:"
+msgstr "B&estemming:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:79
+msgctxt "TagImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/tagimportdialog.cpp:83
+msgctxt "TagImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/tagimportdialog.cpp:88
+msgctxt "TagImportDialog|"
+msgid "&Apply"
+msgstr "&Toepassen"
+
+#: src/gui/dialogs/tagimportdialog.cpp:92
+msgctxt "TagImportDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/dialogs/textimportdialog.cpp:58
+msgctxt "TextImportDialog|"
+msgid "Import from File/Clipboard"
+msgstr "Importeer uit bestand/klembord"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Format:"
+msgstr "Formaat:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Header:"
+msgstr "Kop:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Tracks:"
+msgstr "Tracks:"
+
+#: src/gui/dialogs/textimportdialog.cpp:71
+msgctxt "TextImportDialog|"
+msgid "&Help"
+msgstr "&Help"
+
+#: src/gui/dialogs/textimportdialog.cpp:75
+msgctxt "TextImportDialog|"
+msgid "&Save Settings"
+msgstr "Instellingen ops&laan"
+
+#: src/gui/dialogs/textimportdialog.cpp:80
+msgctxt "TextImportDialog|"
+msgid "From F&ile..."
+msgstr "U&it bestand..."
+
+#: src/gui/dialogs/textimportdialog.cpp:84
+msgctxt "TextImportDialog|"
+msgid "From Clip&board"
+msgstr "Uit klem&bord"
+
+#: src/gui/dialogs/textimportdialog.cpp:88
+msgctxt "TextImportDialog|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/forms/basemainwindow.cpp:112
+msgctxt "BaseMainWindowImpl|"
+msgid "Download"
+msgstr "Downloaden"
+
+#: src/gui/forms/basemainwindow.cpp:216
+msgctxt "BaseMainWindowImpl|"
+msgid "Opening folder..."
+msgstr "Map wordt geopend..."
+
+#: src/gui/forms/basemainwindow.cpp:276
+msgctxt "BaseMainWindowImpl|"
+msgid "Abort"
+msgstr "Afbreken"
+
+#: src/gui/forms/basemainwindow.cpp:357
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%1 is not writable"
+msgstr "%1 is niet beschrijfbaar"
+
+#: src/gui/forms/basemainwindow.cpp:365
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file:\n"
+msgstr "Fout bij schrijven van bestand:\n"
+
+#: src/gui/forms/basemainwindow.cpp:367 src/gui/forms/basemainwindow.cpp:373
+#: src/gui/forms/basemainwindow.cpp:1095 src/gui/forms/basemainwindow.cpp:1100
+#: src/gui/forms/basemainwindow.cpp:1539 src/gui/forms/basemainwindow.cpp:1548
+#: src/gui/forms/basemainwindow.cpp:1624
+msgctxt "BaseMainWindowImpl|"
+msgid "File Error"
+msgstr "Bestandsfout"
+
+#: src/gui/forms/basemainwindow.cpp:370
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr ""
+"Er is een fout opgetreden tijdens het opslaan van het bestand. Wilt u "
+"rechten wijzigen?"
+
+#: src/gui/forms/basemainwindow.cpp:424
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"De huidige map is gewijzigd.\n"
+"Wilt u ze opslaan?"
+
+#: src/gui/forms/basemainwindow.cpp:426 src/gui/forms/basemainwindow.cpp:467
+msgctxt "BaseMainWindowImpl|"
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: src/gui/forms/basemainwindow.cpp:465
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Een afspeellijst is gewijzigd.\n"
+"Wilt u ze opslaan?"
+
+#: src/gui/forms/basemainwindow.cpp:576
+msgctxt "BaseMainWindowImpl|"
+msgid "Exiting..."
+msgstr "Bezig met beëindigen..."
+
+#: src/gui/forms/basemainwindow.cpp:663
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n map"
+msgstr[1] "%n mappen"
+
+#: src/gui/forms/basemainwindow.cpp:668
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n bestand"
+msgstr[1] "%n bestanden"
+
+#: src/gui/forms/basemainwindow.cpp:673
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n geselecteerd"
+msgstr[1] "%n geselecteerd"
+
+#: src/gui/forms/basemainwindow.cpp:676
+msgctxt "BaseMainWindowImpl|"
+msgid "Ready."
+msgstr "Gereed."
+
+#: src/gui/forms/basemainwindow.cpp:738
+msgctxt "BaseMainWindowImpl|"
+msgid "Creating playlist..."
+msgstr "Afspeellijst wordt aangemaakt..."
+
+#: src/gui/forms/basemainwindow.cpp:786
+msgctxt "BaseMainWindowImpl|"
+msgid "Files not found"
+msgstr "Bestanden niet gevonden"
+
+#: src/gui/forms/basemainwindow.cpp:787
+msgctxt "BaseMainWindowImpl|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/gui/forms/basemainwindow.cpp:813
+msgctxt "BaseMainWindowImpl|"
+msgid "Import"
+msgstr "Importeren"
+
+#: src/gui/forms/basemainwindow.cpp:1093 src/gui/forms/basemainwindow.cpp:1099
+#: src/gui/forms/basemainwindow.cpp:1540 src/gui/forms/basemainwindow.cpp:1549
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while renaming:\n"
+msgstr "Fout tijdens hernoemen:\n"
+
+#: src/gui/forms/basemainwindow.cpp:1094
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing directories?"
+msgstr "Opnieuw proberen na sluiten van mappen?"
+
+#: src/gui/forms/basemainwindow.cpp:1171
+msgctxt "BaseMainWindowImpl|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/gui/forms/basemainwindow.cpp:1242
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid " [filtered %1/%2]"
+msgstr " [gefilterd %1/%2]"
+
+#: src/gui/forms/basemainwindow.cpp:1356
+msgctxt "BaseMainWindowImpl|"
+msgid "Add Frame"
+msgstr "Frame toevoegen"
+
+#: src/gui/forms/basemainwindow.cpp:1357
+msgctxt "BaseMainWindowImpl|"
+msgid "Select the frame ID"
+msgstr "Selecteer de frame-ID"
+
+#: src/gui/forms/basemainwindow.cpp:1503
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename File"
+msgstr "Bestand hernoemen"
+
+#: src/gui/forms/basemainwindow.cpp:1504
+msgctxt "BaseMainWindowImpl|"
+msgid "Enter new file name:"
+msgstr "Voer nieuwe bestandsnaam in:"
+
+#: src/gui/forms/basemainwindow.cpp:1541 src/gui/forms/basemainwindow.cpp:1550
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Hernoemen %1 naar %2 mislukt\n"
+
+#: src/gui/forms/basemainwindow.cpp:1542
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing folders?"
+msgstr "Opnieuw proberen na sluiten van mappen?"
+
+#: src/gui/forms/basemainwindow.cpp:1560
+#, qt-format
+msgctxt "@default|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Wilt u deze %1 items naar de prullenbak verplaatsen?"
+
+#: src/gui/forms/basemainwindow.cpp:1589
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Wilt u deze %1 items naar de prullenbak verplaatsen?"
+
+#: src/gui/forms/basemainwindow.cpp:1591
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move this item to the trash?"
+msgstr "Wilt u dit item naar de prullenbak verplaatsen?"
+
+#: src/gui/forms/basemainwindow.cpp:1593
+msgctxt "BaseMainWindowImpl|"
+msgid "Move to Trash"
+msgstr "Naar prullenbak verplaatsen"
+
+#: src/gui/forms/basemainwindow.cpp:1622
+msgctxt "BaseMainWindowImpl|"
+msgid "Folder must be empty.\n"
+msgstr "Map moet leeg zijn.\n"
+
+#: src/gui/forms/basemainwindow.cpp:1623
+msgctxt "BaseMainWindowImpl|"
+msgid "Could not move these files to the Trash"
+msgstr "Deze bestanden konden niet naar de prullenbak worden verplaatst"
+
+#: src/gui/forms/basemainwindow.cpp:1656
+msgctxt "BaseMainWindowImpl|"
+msgid "Expand All"
+msgstr "Alles uitvouwen"
+
+#: src/gui/forms/basemainwindow.cpp:1766
+msgctxt "BaseMainWindowImpl|"
+msgid "A&bort"
+msgstr "Af&breken"
+
+#: src/gui/forms/configurabletreeview.cpp:49
+msgctxt "ConfigurableTreeView|"
+msgid "Automatic Column Widths"
+msgstr "Automatische kolombreedten"
+
+#: src/gui/forms/configurabletreeview.cpp:56
+msgctxt "ConfigurableTreeView|"
+msgid "Custom Column Widths"
+msgstr "Aangepaste kolombreedten"
+
+#: src/gui/forms/filelist.cpp:110
+msgctxt "FileList|"
+msgid "C&lear"
+msgstr "W&issen"
+
+#: src/gui/forms/filelist.cpp:114
+msgctxt "FileList|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+msgctxt "FileList|"
+msgid "&Expand all"
+msgstr "All&es uitvouwen"
+
+#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+msgctxt "FileList|"
+msgid "&Collapse all"
+msgstr "Alles &invouwen"
+
+#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+msgctxt "FileList|"
+msgid "&Play"
+msgstr "Afs&pelen"
+
+#: src/gui/forms/filelist.cpp:380
+msgctxt "FileList|"
+msgid "E&dit"
+msgstr "&Bewerken"
+
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+msgctxt "FileList|"
+msgid "&Open"
+msgstr "&Openen"
+
+#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+msgctxt "FileList|"
+msgid "Open Containing &Folder"
+msgstr "&Map openen waarin het zich bevindt"
+
+#: src/gui/forms/filelist.cpp:563
+msgctxt "FileList|"
+msgid "Execute "
+msgstr "Uitvoeren "
+
+#: src/gui/forms/filelist.cpp:572
+msgctxt "FileList|"
+msgid "Could not execute "
+msgstr "Kon niet uitvoeren "
+
+#: src/gui/forms/kid3form.cpp:280
+msgctxt "Kid3Form|"
+msgid "Kid3"
+msgstr "Kid3"
+
+#: src/gui/forms/kid3form.cpp:334 src/gui/forms/kid3form.cpp:1224
+#: src/gui/forms/kid3form.cpp:1225
+msgctxt "Kid3Form|"
+msgid "F&ile"
+msgstr "&Bestand"
+
+#: src/gui/forms/kid3form.cpp:345
+msgctxt "Kid3Form|"
+msgid "Name:"
+msgstr "Naam:"
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:404
+msgctxt "Kid3Form|"
+msgid "Format:"
+msgstr "Formaat:"
+
+#: src/gui/forms/kid3form.cpp:385
+msgctxt "Kid3Form|"
+msgid "From:"
+msgstr "Van:"
+
+#: src/gui/forms/kid3form.cpp:391 src/gui/forms/kid3form.cpp:417
+#: src/gui/forms/kid3form.cpp:499 src/gui/forms/kid3form.cpp:523
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/gui/forms/kid3form.cpp:393
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Filename from Tag %1"
+msgstr "Bestandsnaam uit tag %1"
+
+#: src/gui/forms/kid3form.cpp:410
+msgctxt "Kid3Form|"
+msgid "To:"
+msgstr "Naar:"
+
+#: src/gui/forms/kid3form.cpp:418
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1 from Filename"
+msgstr "Tag %1 uit bestandsnaam"
+
+#: src/gui/forms/kid3form.cpp:439 src/gui/forms/kid3form.cpp:890
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag &%1"
+msgstr "Tag &%1"
+
+#: src/gui/forms/kid3form.cpp:468
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "From Tag %1"
+msgstr "Uit tag %1"
+
+#: src/gui/forms/kid3form.cpp:476 src/gui/forms/kid3form.cpp:532
+msgctxt "Kid3Form|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/gui/forms/kid3form.cpp:484 src/gui/forms/kid3form.cpp:508
+msgctxt "Kid3Form|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/gui/forms/kid3form.cpp:491
+msgctxt "Kid3Form|"
+msgid "From"
+msgstr "Van"
+
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+msgctxt "Kid3Form|"
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/gui/forms/kid3form.cpp:515
+msgctxt "Kid3Form|"
+msgid "To"
+msgstr "Naar"
+
+#: src/gui/forms/kid3form.cpp:542
+msgctxt "Kid3Form|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/gui/forms/kid3form.cpp:556
+msgctxt "Kid3Form|"
+msgid "Edit..."
+msgstr "Bewerken..."
+
+#: src/gui/forms/kid3form.cpp:562
+msgctxt "Kid3Form|"
+msgid "Add..."
+msgstr "Toevoegen..."
+
+#: src/gui/forms/kid3form.cpp:568
+msgctxt "Kid3Form|"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/gui/forms/sectionactions.cpp:147
+msgctxt "SectionActions|"
+msgid "Previous"
+msgstr "Vorige"
+
+#: src/gui/forms/sectionactions.cpp:149
+msgctxt "SectionActions|"
+msgid "Next"
+msgstr "Volgende"
+
+#: src/gui/forms/sectionactions.cpp:151
+msgctxt "SectionActions|"
+msgid "Transfer"
+msgstr "Overdracht"
+
+#: src/gui/forms/sectionactions.cpp:154
+msgctxt "SectionActions|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/gui/forms/sectionactions.cpp:156
+msgctxt "SectionActions|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/gui/forms/sectionactions.cpp:158
+msgctxt "SectionActions|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/gui/forms/sectionactions.cpp:161
+msgctxt "SectionActions|"
+msgid "Edit"
+msgstr "Bewerken"
+
+#: src/gui/forms/sectionactions.cpp:163
+msgctxt "SectionActions|"
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/gui/forms/sectionactions.cpp:165
+msgctxt "SectionActions|"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/gui/forms/sectionactions.cpp:168
+msgctxt "SectionActions|"
+msgid "Open Parent Folder"
+msgstr "Bovenliggende map openen"
+
+#: src/gui/forms/sectionactions.cpp:171
+msgctxt "SectionActions|"
+msgid "Open Current Folder"
+msgstr "Huidige map openen"
+
+#: src/gui/widgets/abstractlistedit.cpp:50
+msgctxt "AbstractListEdit|"
+msgid "&Add..."
+msgstr "&Toevoegen..."
+
+#: src/gui/widgets/abstractlistedit.cpp:51
+msgctxt "AbstractListEdit|"
+msgid "Move &Up"
+msgstr "Om&hoog verplaatsen"
+
+#: src/gui/widgets/abstractlistedit.cpp:52
+msgctxt "AbstractListEdit|"
+msgid "Move &Down"
+msgstr "Om&laag verplaatsen"
+
+#: src/gui/widgets/abstractlistedit.cpp:53
+msgctxt "AbstractListEdit|"
+msgid "&Edit..."
+msgstr "B&ewerken..."
+
+#: src/gui/widgets/abstractlistedit.cpp:54
+msgctxt "AbstractListEdit|"
+msgid "&Remove"
+msgstr "Ve&rwijderen"
+
+#: src/gui/widgets/chaptereditor.cpp:54
+msgctxt "ChapterEditor|"
+msgid "Start time"
+msgstr "Begintijd"
+
+#: src/gui/widgets/chaptereditor.cpp:55
+msgctxt "ChapterEditor|"
+msgid "End time"
+msgstr "Eindtijd"
+
+#: src/gui/widgets/chaptereditor.cpp:56
+msgctxt "ChapterEditor|"
+msgid "Start offset"
+msgstr "Beginoffset"
+
+#: src/gui/widgets/chaptereditor.cpp:57
+msgctxt "ChapterEditor|"
+msgid "End offset"
+msgstr "Eindoffset"
+
+#: src/gui/widgets/configtable.cpp:41
+msgctxt "ConfigTable|"
+msgid "&Add"
+msgstr "&Toevoegen"
+
+#: src/gui/widgets/configtable.cpp:141
+msgctxt "ConfigTable|"
+msgid "&Insert row"
+msgstr "Rij &invoegen"
+
+#: src/gui/widgets/configtable.cpp:145
+msgctxt "ConfigTable|"
+msgid "&Delete row"
+msgstr "Rij &verwijderen"
+
+#: src/gui/widgets/configtable.cpp:149
+msgctxt "ConfigTable|"
+msgid "&Clear row"
+msgstr "Rij &wissen"
+
+#: src/gui/widgets/filenameformatbox.cpp:44
+msgctxt "FilenameFormatBox|"
+msgid "Maximum length:"
+msgstr "Maximale lengte:"
+
+#: src/gui/widgets/formatbox.cpp:48
+msgctxt "FormatBox|"
+msgid "Automatically apply format"
+msgstr "Formaat automatisch toepassen"
+
+#: src/gui/widgets/formatbox.cpp:56
+msgctxt "FormatBox|"
+msgid "String replacement:"
+msgstr "Vervanging van tekenreeks:"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "From"
+msgstr "Van"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "Naar"
+
+#: src/gui/widgets/formatbox.cpp:65
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr "Hoofd-/kleine letter conversie:"
+
+#: src/gui/widgets/formatbox.cpp:66
+msgctxt "FormatBox|"
+msgid "Locale:"
+msgstr "Taalregio:"
+
+#: src/gui/widgets/formatlistedit.cpp:83
+msgctxt "FormatListEdit|"
+msgid "&Add"
+msgstr "&Toevoegen"
+
+#: src/gui/widgets/formatlistedit.cpp:85
+msgctxt "FormatListEdit|"
+msgid "&Remove"
+msgstr "Ve&rwijderen"
+
+#: src/gui/widgets/formatlistedit.cpp:247
+msgctxt "FormatListEdit|"
+msgid "New"
+msgstr "Nieuw"
+
+#: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
+msgctxt "FrameTable|"
+msgid "WWW Audio Source"
+msgstr "WWW van audiobron"
+
+#: src/gui/widgets/frametable.cpp:161
+msgctxt "FrameTable|"
+msgid "&Select all"
+msgstr "Alles &selecteren"
+
+#: src/gui/widgets/frametable.cpp:163
+msgctxt "FrameTable|"
+msgid "&Deselect all"
+msgstr "Alles &deselecteren"
+
+#: src/gui/widgets/imageviewer.cpp:49
+msgctxt "ImageViewer|"
+msgid "View Picture"
+msgstr "Afbeelding bekijken"
+
+#: src/gui/widgets/imageviewer.cpp:55
+msgctxt "ImageViewer|"
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: src/gui/widgets/picturelabel.cpp:92
+msgctxt "@default|"
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Sleep album\n"
+"illustraties\n"
+"hier"
+
+#: src/gui/widgets/playtoolbar.cpp:57
+msgctxt "PlayToolBar|"
+msgid "Play"
+msgstr "Afspelen"
+
+#: src/gui/widgets/playtoolbar.cpp:62
+msgctxt "PlayToolBar|"
+msgid "Play/Pause"
+msgstr "Afspelen/Pauze"
+
+#: src/gui/widgets/playtoolbar.cpp:64
+msgctxt "PlayToolBar|"
+msgid "Stop playback"
+msgstr "Afspelen stoppen"
+
+#: src/gui/widgets/playtoolbar.cpp:66
+msgctxt "PlayToolBar|"
+msgid "Previous Track"
+msgstr "Vorige track"
+
+#: src/gui/widgets/playtoolbar.cpp:68
+msgctxt "PlayToolBar|"
+msgid "Next Track"
+msgstr "Volgende track"
+
+#: src/gui/widgets/playtoolbar.cpp:70
+msgctxt "PlayToolBar|"
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/gui/widgets/playtoolbar.cpp:87
+msgctxt "PlayToolBar|"
+msgid "Mute"
+msgstr "Dempen"
+
+#: src/gui/widgets/playtoolbar.cpp:238
+#, qt-format
+msgctxt "PlayToolBar|"
+msgid "Volume: %1%"
+msgstr "Volume: %1%"
+
+#: src/gui/widgets/progresswidget.cpp:56
+msgctxt "ProgressWidget|"
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: src/gui/widgets/stringlistedit.cpp:52
+msgctxt "StringListEdit|"
+msgid "Add Item"
+msgstr "Item toevoegen"
+
+#: src/gui/widgets/stringlistedit.cpp:72
+msgctxt "StringListEdit|"
+msgid "Edit Item"
+msgstr "Item bewerken"
+
+#: src/gui/widgets/subframeseditor.cpp:66
+msgctxt "SubframesEditor|"
+msgid "Edit..."
+msgstr "Bewerken..."
+
+#: src/gui/widgets/subframeseditor.cpp:71
+msgctxt "SubframesEditor|"
+msgid "Add..."
+msgstr "Toevoegen..."
+
+#: src/gui/widgets/subframeseditor.cpp:76
+msgctxt "SubframesEditor|"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/gui/widgets/subframeseditor.cpp:129
+msgctxt "SubframesEditor|"
+msgid "Add Frame"
+msgstr "Frame toevoegen"
+
+#: src/gui/widgets/subframeseditor.cpp:130
+msgctxt "SubframesEditor|"
+msgid "Select the frame ID"
+msgstr "Selecteer de frame-ID"
+
+#: src/gui/widgets/tablemodeledit.cpp:35
+msgctxt "TableModelEdit|"
+msgid "&Add"
+msgstr "&Toevoegen"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:43
+msgctxt "TableOfContentsEditor|"
+msgid "Top level"
+msgstr "Hoogste niveau"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:45
+msgctxt "TableOfContentsEditor|"
+msgid "Ordered"
+msgstr "Geordend"
+
+#: src/gui/widgets/tagformatbox.cpp:43
+msgctxt "TagFormatBox|"
+msgid "Validation"
+msgstr "Validatie"
+
+#: src/gui/widgets/timeeventeditor.cpp:120
+msgctxt "TimeEventEditor|"
+msgid "&Add"
+msgstr "&Toevoegen"
+
+#: src/gui/widgets/timeeventeditor.cpp:122
+msgctxt "TimeEventEditor|"
+msgid "&Delete"
+msgstr "Verwij&deren"
+
+#: src/gui/widgets/timeeventeditor.cpp:124
+msgctxt "TimeEventEditor|"
+msgid "From Clip&board"
+msgstr "Uit klem&bord"
+
+#: src/gui/widgets/timeeventeditor.cpp:126
+msgctxt "TimeEventEditor|"
+msgid "&Import..."
+msgstr "&Importeren..."
+
+#: src/gui/widgets/timeeventeditor.cpp:128
+msgctxt "TimeEventEditor|"
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+#: src/gui/widgets/timeeventeditor.cpp:130
+msgctxt "TimeEventEditor|"
+msgid "Help"
+msgstr "Help"
+
+#: src/gui/widgets/timeeventeditor.cpp:188
+msgctxt "TimeEventEditor|"
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+#: src/gui/widgets/timeeventeditor.cpp:194
+msgctxt "TimeEventEditor|"
+msgid "Lyrics"
+msgstr "Liedtekst"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Offset"
+msgstr "Offset"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Milliseconds"
+msgstr "Milliseconden"
+
+#: src/gui/widgets/timeeventeditor.cpp:470
+msgctxt "TimeEventEditor|"
+msgid "&Insert row"
+msgstr "Rij &invoegen"
+
+#: src/gui/widgets/timeeventeditor.cpp:474
+msgctxt "TimeEventEditor|"
+msgid "&Delete rows"
+msgstr "Rijen &verwijderen"
+
+#: src/gui/widgets/timeeventeditor.cpp:476
+msgctxt "TimeEventEditor|"
+msgid "C&lear"
+msgstr "W&issen"
+
+#: src/gui/widgets/timeeventeditor.cpp:478
+msgctxt "TimeEventEditor|"
+msgid "&Add offset..."
+msgstr "Offset &toevoegen..."
+
+#: src/gui/widgets/timeeventeditor.cpp:480
+msgctxt "TimeEventEditor|"
+msgid "&Seek to position"
+msgstr "Naar positie &spoelen"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+msgctxt "@default|"
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz vingerafdruk"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+msgctxt "MusicBrainzClient|"
+msgid "Unrecognized"
+msgstr "Niet herkend"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "Recognized"
+msgstr "Herkend"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "User Selection"
+msgstr "Gebruikersselectie"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+msgctxt "MusicBrainzClient|"
+msgid "ID Lookup"
+msgstr "ID-zoekactie"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+msgctxt "MusicBrainzClient|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+msgctxt "MusicBrainzClient|"
+msgid "Fingerprint"
+msgstr "Vingerafdruk"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+msgctxt "MusicBrainzClient|"
+msgid "Metadata Lookup"
+msgstr "Metagegevens zoekactie"
+
+#: src/plugins/amazonimport/amazonimporter.cpp:69
+msgctxt "@default|"
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/plugins/discogsimport/discogsimporter.cpp:1325
+msgctxt "@default|"
+msgid "Discogs"
+msgstr "Discogs"
+
+#: src/plugins/freedbimport/freedbimporter.cpp:58
+msgctxt "@default|"
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2268
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - Audio versleuteling"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2269
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - Bijgevoegde afbeelding"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2274
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - Toelichting"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2275
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - Commercieel"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2279
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Registratie van encryptie methode"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+msgctxt "@default|"
+msgid "EQUA - Equalization"
+msgstr "EQUA - Egalisatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2281
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Gebeurtenis timing codes"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2282
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Algemeen ingekapselde object"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2283
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - Registratie van groepsidentificatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+msgctxt "@default|"
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Betrokken personenlijst"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2287
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - Gekoppelde informatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2288
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Muziek-cd identificatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2289
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - Opzoektabel van MPEG locatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2294
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Eigendomsframe"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2295
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - Privé frame"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2296
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - Afspeelteller"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2300
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - Populariteitsmeter"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2301
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Positie synchronisatie frame"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2302
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Aanbevolen buffergrootte"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+msgctxt "@default|"
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relatieve volume aanpassing"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2304
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - Galm"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2307
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Gesynchroniseerde liedtekst/tekst"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2308
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Gesynchroniseerde tempocodes"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2309
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/film/show-titel"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2310
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (slagen per minuut)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2315
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - Componist"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/taglibmetadata/taglibfile.cpp:2316
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - Type inhoud"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2317
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Copyrightmelding"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+msgctxt "@default|"
+msgid "TDAT - Date"
+msgstr "TDAT - Datum"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:951
+#: src/plugins/taglibmetadata/taglibfile.cpp:2322
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Speellijst vertraging"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2327
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - Gecodeerd door"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/taglibmetadata/taglibfile.cpp:2328
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Liedtekst/tekstschrijver"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2329
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - Type bestand"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:960
+msgctxt "@default|"
+msgid "TIME - Time"
+msgstr "TIME - Tijd"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2334
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Inhoud van groepsbeschrijving"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2335
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Titel/naam song/inhoudsbeschrijving"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2336
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Verfijning van ondertitel/beschrijving"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2337
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - Initiële sleutel"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:965
+#: src/plugins/taglibmetadata/taglibfile.cpp:2341
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Ta(a)l(en)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2342
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - Lengte"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2344
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - Type media"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2346
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Titel van originele album/film/show"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2347
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - Originele bestandsnaam"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/taglibmetadata/taglibfile.cpp:2348
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Originele liedtekstschrijver(s)/tekstschrijver(s)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2349
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Originele artiest(en)/uitvoerende(n)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+msgctxt "@default|"
+msgid "TORY - Original release year"
+msgstr "TORY - Originele jaar van uitgave"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:975
+#: src/plugins/taglibmetadata/taglibfile.cpp:2350
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Eigenaar/licentiehouder van bestand"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2351
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Hoofd uitvoerende(n)/Solist(en)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2352
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Begeleidende band/orkest"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:978
+#: src/plugins/taglibmetadata/taglibfile.cpp:2353
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Dirigent/uitvoerende verfijning"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:979
+#: src/plugins/taglibmetadata/taglibfile.cpp:2354
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Geïnterpreteerd, geremixt of op andere wijze gewijzigd door"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:980
+#: src/plugins/taglibmetadata/taglibfile.cpp:2355
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Deel van een set"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2357
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - Uitgever"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2358
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Tracknummer/positie in een set"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:984
+msgctxt "@default|"
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Opnamedatums"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2359
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Naam van internet radiostation"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:986
+#: src/plugins/taglibmetadata/taglibfile.cpp:2360
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Eigenaar van internet radiostation"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+msgctxt "@default|"
+msgid "TSIZ - Size"
+msgstr "TSIZ - Grootte"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2366
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (internationale standaard opnamecode)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2367
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/hardware instellingen gebruikt voor coderen"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2369
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Gebruikergedefinieerde tekstinformatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+msgctxt "@default|"
+msgid "TYER - Year"
+msgstr "TYER - Jaar"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2370
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unieke bestandsidentificatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2371
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - Voorwaarden voor het gebruik"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2372
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Ongesynchroniseerde liedtekst/tekstvertaling"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:999
+#: src/plugins/taglibmetadata/taglibfile.cpp:2373
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Commerciële informatie"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1000
+#: src/plugins/taglibmetadata/taglibfile.cpp:2374
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Copyright/juridische information"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1001
+#: src/plugins/taglibmetadata/taglibfile.cpp:2378
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Officiële website van audiobestand"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1002
+#: src/plugins/taglibmetadata/taglibfile.cpp:2379
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Officiële website van artiest/uitvoerende"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1003
+#: src/plugins/taglibmetadata/taglibfile.cpp:2380
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Officiële website van audiobron"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1004
+#: src/plugins/taglibmetadata/taglibfile.cpp:2381
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Officiële website van internet radiostation"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1005
+#: src/plugins/taglibmetadata/taglibfile.cpp:2382
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - Betaling"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1006
+#: src/plugins/taglibmetadata/taglibfile.cpp:2383
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Officiële website van uitgever"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1007
+#: src/plugins/taglibmetadata/taglibfile.cpp:2384
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Gebruikergedefinieerde URL-koppeling"
+
+#: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
+msgctxt "@default|"
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz uitgave"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2270
+msgctxt "@default|"
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Audio zoekpunt-index"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2272
+msgctxt "@default|"
+msgid "CHAP - Chapter"
+msgstr "CHAP - Hoofdstuk"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2277
+msgctxt "@default|"
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Inhoudsopgave"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2280
+msgctxt "@default|"
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Egalisatie (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2285
+msgctxt "@default|"
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Groepering"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2291
+msgctxt "@default|"
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Nummer van deel"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2292
+msgctxt "@default|"
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Naam van deel"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2298
+msgctxt "@default|"
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2303
+msgctxt "@default|"
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Aanpassing van relatief volume (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2305
+msgctxt "@default|"
+msgid "SEEK - Seek frame"
+msgstr "SEEK - zoek frame"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2306
+msgctxt "@default|"
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Handtekening frame"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2312
+msgctxt "@default|"
+msgid "TCAT - Podcast category"
+msgstr "TCAT - Podcast-categorie"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2314
+msgctxt "@default|"
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes compilatievlag"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2318
+msgctxt "@default|"
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Tijd codering"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2320
+msgctxt "@default|"
+msgid "TDES - Podcast description"
+msgstr "TDES - Beschrijving Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2323
+msgctxt "@default|"
+msgid "TDOR - Original release time"
+msgstr "TDOR - Originele uitgavetijd"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2324
+msgctxt "@default|"
+msgid "TDRC - Recording time"
+msgstr "TDRC - Opnametijd"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2325
+msgctxt "@default|"
+msgid "TDRL - Release time"
+msgstr "TDRL - Uitgavetijd"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2326
+msgctxt "@default|"
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Tijd van taggen"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2331
+msgctxt "@default|"
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Podcast-identifier"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2333
+msgctxt "@default|"
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Lijst met betrokkenen personen"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2339
+msgctxt "@default|"
+msgid "TKWD - Podcast keywords"
+msgstr "TKWD - Podcast-trefwoorden"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2343
+msgctxt "@default|"
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Lijst met dankbetuigingen muzikant"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2345
+msgctxt "@default|"
+msgid "TMOO - Mood"
+msgstr "TMOO - Stemming"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2356
+msgctxt "@default|"
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Bericht producent"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2361
+msgctxt "@default|"
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - Sorteervolgorde albumartiest"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2362
+msgctxt "@default|"
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Sorteervolgorde album"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2363
+msgctxt "@default|"
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - Sorteervolgorde componist"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2364
+msgctxt "@default|"
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Sorteervolgorde uitvoerende"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2365
+msgctxt "@default|"
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Sorteervolgorde titel"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2368
+msgctxt "@default|"
+msgid "TSST - Set subtitle"
+msgstr "TSST - Ingestelde ondertitel"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2376
+msgctxt "@default|"
+msgid "WFED - Podcast feed"
+msgstr "WFED - Podcast-feed"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:6575
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Waarderingsinformatie"
+
+#: src/qml/app/AboutDialog.qml:29
+msgctxt "AboutDialog|"
+msgid "About Kid3"
+msgstr "Over Kid3"
+
+#: src/qml/app/AboutDialog.qml:39
+msgctxt "AboutDialog|"
+msgid "Audio Tag Editor"
+msgstr "Bewerker van audiotag"
+
+#: src/qml/app/AboutDialog.qml:44
+msgctxt "AboutDialog|"
+msgid "License"
+msgstr "Licentie"
+
+#: src/qml/app/AboutDialog.qml:46
+#, qt-format
+msgctxt "AboutDialog|"
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "Dit programma gebruikt <a href=\"http://www.qt.io/\">Qt</a>-versie %1."
+
+#: src/qml/app/BatchImportPage.qml:32
+msgctxt "BatchImportPage|"
+msgid "Automatic Import"
+msgstr "Automatisch importeren"
+
+#: src/qml/app/BatchImportPage.qml:40
+msgctxt "BatchImportPage|"
+msgid "Reading Folder"
+msgstr "Map wordt gelezen"
+
+#: src/qml/app/BatchImportPage.qml:43
+msgctxt "BatchImportPage|"
+msgid "Started"
+msgstr "Gestart"
+
+#: src/qml/app/BatchImportPage.qml:46
+msgctxt "BatchImportPage|"
+msgid "Source"
+msgstr "Bron"
+
+#: src/qml/app/BatchImportPage.qml:49
+msgctxt "BatchImportPage|"
+msgid "Querying"
+msgstr "Opvragen"
+
+#: src/qml/app/BatchImportPage.qml:53
+msgctxt "BatchImportPage|"
+msgid "Fetching"
+msgstr "Ophalen"
+
+#: src/qml/app/BatchImportPage.qml:56
+msgctxt "BatchImportPage|"
+msgid "Data received"
+msgstr "Gegevens ontvangen"
+
+#: src/qml/app/BatchImportPage.qml:59
+msgctxt "BatchImportPage|"
+msgid "Cover"
+msgstr "Hoes"
+
+#: src/qml/app/BatchImportPage.qml:62
+msgctxt "BatchImportPage|"
+msgid "Finished"
+msgstr "Beëindigd"
+
+#: src/qml/app/BatchImportPage.qml:65
+msgctxt "BatchImportPage|"
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: src/qml/app/BatchImportPage.qml:68
+msgctxt "BatchImportPage|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/qml/app/BatchImportPage.qml:104
+msgctxt "BatchImportPage|"
+msgid "Start"
+msgstr "Begin"
+
+#: src/qml/app/BatchImportPage.qml:126
+msgctxt "BatchImportPage|"
+msgid "Destination:"
+msgstr "Bestemming:"
+
+#: src/qml/app/BatchImportPage.qml:135
+msgctxt "BatchImportPage|"
+msgid "Tag 1"
+msgstr "Tag 1"
+
+#: src/qml/app/BatchImportPage.qml:136
+msgctxt "BatchImportPage|"
+msgid "Tag 2"
+msgstr "Tag 2"
+
+#: src/qml/app/BatchImportPage.qml:137
+msgctxt "BatchImportPage|"
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 en Tag 2"
+
+#: src/qml/app/BatchImportPage.qml:149
+msgctxt "BatchImportPage|"
+msgid "Profile:"
+msgstr "Profiel:"
+
+#: src/qml/app/FileCollapsible.qml:32
+msgctxt "FileCollapsible|"
+msgid "File"
+msgstr "Bestand"
+
+#: src/qml/app/FileSelectDialog.qml:42
+msgctxt "FileSelectDialog|"
+msgid "Open"
+msgstr "Openen"
+
+#: src/qml/app/FileSelectDialog.qml:98
+msgctxt "FileSelectDialog|"
+msgid "Folder"
+msgstr "Map"
+
+#: src/qml/app/FileSelectDialog.qml:190
+msgctxt "FileSelectDialog|"
+msgid "File"
+msgstr "Bestand"
+
+#: src/qml/app/FilterPage.qml:31
+msgctxt "FilterPage|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/qml/app/FilterPage.qml:39
+msgctxt "FilterPage|"
+msgid "Started"
+msgstr "Gestart"
+
+#: src/qml/app/FilterPage.qml:57
+msgctxt "FilterPage|"
+msgid "Finished"
+msgstr "Beëindigd"
+
+#: src/qml/app/FilterPage.qml:60
+msgctxt "FilterPage|"
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: src/qml/app/FilterPage.qml:92
+msgctxt "FilterPage|"
+msgid "Start"
+msgstr "Begin"
+
+#: src/qml/app/FilterPage.qml:118
+msgctxt "FilterPage|"
+msgid "Filter:"
+msgstr "Filter:"
+
+#: src/qml/app/FilterPage.qml:131
+msgctxt "FilterPage|"
+msgid "Expression:"
+msgstr "Expressie:"
+
+#: src/qml/app/FrameEditDialog.qml:117
+msgctxt "FrameEditDialog|"
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: src/qml/app/FrameEditDialog.qml:118
+msgctxt "FrameEditDialog|"
+msgid "File already exists. Overwrite?"
+msgstr "Bestand bestaat reeds. Overschrijven?"
+
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+msgctxt "FrameEditDialog|"
+msgid "Export"
+msgstr "Exporteren"
+
+#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+msgctxt "FrameEditDialog|"
+msgid "Import"
+msgstr "Importeren"
+
+#: src/qml/app/FrameSelectDialog.qml:38
+msgctxt "FrameSelectDialog|"
+msgid "Add Frame"
+msgstr "Frame toevoegen"
+
+#: src/qml/app/FrameSelectDialog.qml:47
+msgctxt "FrameSelectDialog|"
+msgid "Select the frame ID"
+msgstr "Het frame-ID selecteren"
+
+#: src/qml/app/ImportProfilesEditPage.qml:34
+msgctxt "ImportProfilesEditPage|"
+msgid "Profiles"
+msgstr "Profielen"
+
+#: src/qml/app/ImportProfilesEditPage.qml:42
+msgctxt "ImportProfilesEditPage|"
+msgid "Profile"
+msgstr "Profiel"
+
+#: src/qml/app/ImportProfilesEditPage.qml:68
+#: src/qml/app/ImportProfilesEditPage.qml:136
+msgctxt "ImportProfilesEditPage|"
+msgid "Accuracy"
+msgstr "Nauwkeurigheid"
+
+#: src/qml/app/ImportProfilesEditPage.qml:71
+#: src/qml/app/ImportProfilesEditPage.qml:149
+msgctxt "ImportProfilesEditPage|"
+msgid "Standard Tags"
+msgstr "Standaard tags"
+
+#: src/qml/app/ImportProfilesEditPage.qml:74
+#: src/qml/app/ImportProfilesEditPage.qml:154
+msgctxt "ImportProfilesEditPage|"
+msgid "Additional Tags"
+msgstr "Additionele tags"
+
+#: src/qml/app/ImportProfilesEditPage.qml:77
+#: src/qml/app/ImportProfilesEditPage.qml:159
+msgctxt "ImportProfilesEditPage|"
+msgid "Cover Art"
+msgstr "Hoesillustratie"
+
+#: src/qml/app/ImportProfilesEditPage.qml:128
+msgctxt "ImportProfilesEditPage|"
+msgid "Server"
+msgstr "Server"
+
+#: src/qml/app/Main.qml:92
+msgctxt "Main|"
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: src/qml/app/Main.qml:93
+msgctxt "Main|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"De huidige map is gewijzigd.\n"
+"Wenst u het opslaan?"
+
+#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+msgctxt "Main|"
+msgid "File Error"
+msgstr "Bestandsfout"
+
+#: src/qml/app/Main.qml:129
+msgctxt "Main|"
+msgid "Error while writing file:\n"
+msgstr "Fout bij schrijven van bestand:\n"
+
+#: src/qml/app/Main.qml:146
+#, qt-format
+msgctxt "Main|"
+msgid "SD card is only writable in %1"
+msgstr "SD-kaart is alleen beschrijfbaar in %1"
+
+#: src/qml/app/Main.qml:163
+msgctxt "Main|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr ""
+"Er is een fout opgetreden tijdens het opslaan van het bestand. Rechten "
+"automatisch corrigeren?"
+
+#: src/qml/app/Main.qml:259
+#, qt-format
+msgctxt "Main|"
+msgid "%1 is not writable"
+msgstr "%1 is niet beschrijfbaar"
+
+#: src/qml/app/MainPage.qml:48
+msgctxt "MainPage|"
+msgid " [modified]"
+msgstr " [gewijzigd]"
+
+#: src/qml/app/MainPage.qml:49
+#, qt-format
+msgctxt "MainPage|"
+msgid " [filtered %1/%2]"
+msgstr " [gefilterd %1/%2]"
+
+#: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
+msgctxt "MainPage|"
+msgid "Open"
+msgstr "Openen"
+
+#: src/qml/app/MainPage.qml:155
+msgctxt "MainPage|"
+msgid "About"
+msgstr "Info over"
+
+#: src/qml/app/MainPage.qml:171
+msgctxt "MainPage|"
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/qml/app/MainPage.qml:180
+msgctxt "MainPage|"
+msgid "Settings"
+msgstr "Instellingen"
+
+#: src/qml/app/MainPage.qml:189
+msgctxt "MainPage|"
+msgid "Automatic Import"
+msgstr "Automatisch importeren"
+
+#: src/qml/app/MainPage.qml:198
+msgctxt "MainPage|"
+msgid "Create Playlist"
+msgstr "Afspeellijst aanmaken"
+
+#: src/qml/app/MainPage.qml:202
+msgctxt "MainPage|"
+msgid "Rename Folder"
+msgstr "Map hernoemen"
+
+#: src/qml/app/MainPage.qml:211
+msgctxt "MainPage|"
+msgid "Number Tracks"
+msgstr "Aantal tracks"
+
+#: src/qml/app/MainPage.qml:220
+msgctxt "MainPage|"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/qml/app/MainPage.qml:229
+msgctxt "MainPage|"
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamformaat toepassen"
+
+#: src/qml/app/MainPage.qml:233
+msgctxt "MainPage|"
+msgid "Apply Tag Format"
+msgstr "Tagformaat toepassen"
+
+#: src/qml/app/MainPage.qml:237
+msgctxt "MainPage|"
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+#: src/qml/app/MainPage.qml:241
+msgctxt "MainPage|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 converteren"
+
+#: src/qml/app/MainPage.qml:245
+msgctxt "MainPage|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 converteren"
+
+#: src/qml/app/MainPage.qml:249
+msgctxt "MainPage|"
+msgid "Revert"
+msgstr "Terugdraaien"
+
+#: src/qml/app/MainPage.qml:253
+msgctxt "MainPage|"
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: src/qml/app/NumberTracksDialog.qml:48
+msgctxt "NumberTracksDialog|"
+msgid "Start number:"
+msgstr "Startnummer:"
+
+#: src/qml/app/NumberTracksDialog.qml:57
+msgctxt "NumberTracksDialog|"
+msgid "Destination:"
+msgstr "Bestemming:"
+
+#: src/qml/app/NumberTracksDialog.qml:63
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1"
+msgstr "Tag 1"
+
+#: src/qml/app/NumberTracksDialog.qml:64
+msgctxt "NumberTracksDialog|"
+msgid "Tag 2"
+msgstr "Tag 2"
+
+#: src/qml/app/NumberTracksDialog.qml:65
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 en Tag 2"
+
+#: src/qml/app/NumberTracksDialog.qml:79
+msgctxt "NumberTracksDialog|"
+msgid "Reset counter for each folder"
+msgstr "Teller resetten voor elke map"
+
+#: src/qml/app/NumberTracksDialog.qml:92
+msgctxt "NumberTracksDialog|"
+msgid "Total number of tracks"
+msgstr "Totaal aantal tracks"
+
+#: src/qml/app/PictureCollapsible.qml:27
+msgctxt "PictureCollapsible|"
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: src/qml/app/RenameDirectoryPage.qml:37
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Rename Folder"
+msgstr "Map hernoemen"
+
+#: src/qml/app/RenameDirectoryPage.qml:77
+msgctxt "RenameDirectoryPage|"
+msgid "Start"
+msgstr "Begin"
+
+#: src/qml/app/RenameDirectoryPage.qml:81
+msgctxt "RenameDirectoryPage|"
+msgid "Error"
+msgstr "Fout"
+
+#: src/qml/app/RenameDirectoryPage.qml:109
+msgctxt "RenameDirectoryPage|"
+msgid "Action:"
+msgstr "Actie:"
+
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Create Folder"
+msgstr "Map aanmaken"
+
+#: src/qml/app/RenameDirectoryPage.qml:124
+msgctxt "RenameDirectoryPage|"
+msgid "Source:"
+msgstr "Bron:"
+
+#: src/qml/app/RenameDirectoryPage.qml:129
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2 and Tag 1"
+msgstr "Van Tag 2 en Tag 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:130
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 1"
+msgstr "Uit tag 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:131
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2"
+msgstr "Uit tag 2"
+
+#: src/qml/app/RenameDirectoryPage.qml:141
+msgctxt "RenameDirectoryPage|"
+msgid "Format:"
+msgstr "Formaat:"
+
+#: src/qml/app/RenameDirectoryPage.qml:152
+msgctxt "RenameDirectoryPage|"
+msgid "Folder Name from Tag"
+msgstr "Mapnaam van Tag"
+
+#: src/qml/app/RenameDirectoryPage.qml:185
+msgctxt "RenameDirectoryPage|"
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: src/qml/app/SettingsPage.qml:30
+msgctxt "SettingsPage|"
+msgid "Settings"
+msgstr "Instellingen"
+
+#: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
+msgctxt "SettingsPage|"
+msgid "Tags"
+msgstr "Tags"
+
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:183
+msgctxt "SettingsPage|"
+msgid "Files"
+msgstr "Bestanden"
+
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:317
+msgctxt "SettingsPage|"
+msgid "Plugins"
+msgstr "Plug-ins"
+
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:375
+msgctxt "SettingsPage|"
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: src/qml/app/SettingsPage.qml:48
+msgctxt "SettingsPage|"
+msgid "Mark truncated fields"
+msgstr "Afgebroken velden markeren"
+
+#: src/qml/app/SettingsPage.qml:53
+msgctxt "SettingsPage|"
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 tekst-codering"
+
+#: src/qml/app/SettingsPage.qml:59
+msgctxt "SettingsPage|"
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 tekst-codering"
+
+#: src/qml/app/SettingsPage.qml:65
+msgctxt "SettingsPage|"
+msgid "Use track/total number of tracks format"
+msgstr "Tracksformaat track/totaal aantal gebruiken"
+
+#: src/qml/app/SettingsPage.qml:70
+msgctxt "SettingsPage|"
+msgid "Genre as text instead of numeric string"
+msgstr "Genre als tekst in plaats van numerieke tekenreeks"
+
+#: src/qml/app/SettingsPage.qml:75
+msgctxt "SettingsPage|"
+msgid "WAV files with lowercase id3 chunk"
+msgstr "WAV-bestanden met kleine letters id3-chunk"
+
+#: src/qml/app/SettingsPage.qml:80
+msgctxt "SettingsPage|"
+msgid "Version used for new ID3v2 tags"
+msgstr "Gebruikte versie voor nieuwe ID3v2 tags"
+
+#: src/qml/app/SettingsPage.qml:86
+msgctxt "SettingsPage|"
+msgid "Track number digits"
+msgstr "Tracknummercijfers"
+
+#: src/qml/app/SettingsPage.qml:91
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis comment field name"
+msgstr "Ogg/Vorbis naam commentaarveld"
+
+#: src/qml/app/SettingsPage.qml:101
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis picture field name"
+msgstr "Ogg/Vorbis naam afbeeldingsveld"
+
+#: src/qml/app/SettingsPage.qml:107
+msgctxt "SettingsPage|"
+msgid "RIFF track number field name"
+msgstr "RIFF naam tracknummerveld"
+
+#: src/qml/app/SettingsPage.qml:117
+msgctxt "SettingsPage|"
+msgid "Mark if picture larger than maximum size"
+msgstr "Markeer indien afbeelding groter dan de maximale grootte"
+
+#: src/qml/app/SettingsPage.qml:122
+msgctxt "SettingsPage|"
+msgid "Picture maximum size (bytes)"
+msgstr "Maximum grootte afbeelding (bytes)"
+
+#: src/qml/app/SettingsPage.qml:127
+msgctxt "SettingsPage|"
+msgid "Show only custom genres"
+msgstr "Alleen aangepaste genres tonen"
+
+#: src/qml/app/SettingsPage.qml:131
+msgctxt "SettingsPage|"
+msgid "Custom Genres"
+msgstr "Aangepaste Genres"
+
+#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:217
+msgctxt "SettingsPage|"
+msgid "Case conversion"
+msgstr "Conversie van hoofd-/kleine letter"
+
+#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:223
+msgctxt "SettingsPage|"
+msgid "Locale"
+msgstr "Taalregio"
+
+#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:234
+msgctxt "SettingsPage|"
+msgid "String replacement"
+msgstr "Vervanging van tekenreeks"
+
+#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:238
+msgctxt "SettingsPage|"
+msgid "String Replacement"
+msgstr "Vervanging van tekenreeks"
+
+#: src/qml/app/SettingsPage.qml:187
+msgctxt "SettingsPage|"
+msgid "Load last-opened files"
+msgstr "Laatstgeopende bestanden laden"
+
+#: src/qml/app/SettingsPage.qml:192
+msgctxt "SettingsPage|"
+msgid "Preserve file timestamp"
+msgstr "Tijdstempel van bestanden behouden"
+
+#: src/qml/app/SettingsPage.qml:197
+msgctxt "SettingsPage|"
+msgid "Mark changes"
+msgstr "Wijzigingen markeren"
+
+#: src/qml/app/SettingsPage.qml:202
+msgctxt "SettingsPage|"
+msgid "Automatically apply format"
+msgstr "Formaat automatisch toepassen"
+
+#: src/qml/app/SettingsPage.qml:207
+msgctxt "SettingsPage|"
+msgid "Use maximum length"
+msgstr "Maximale lengte gebruiken"
+
+#: src/qml/app/SettingsPage.qml:212
+msgctxt "SettingsPage|"
+msgid "Maximum length"
+msgstr "Maximale lengte"
+
+#: src/qml/app/SettingsPage.qml:249
+msgctxt "SettingsPage|"
+msgid "Filename for cover"
+msgstr "Bestandsnaam voor de hoes"
+
+#: src/qml/app/SettingsPage.qml:254
+msgctxt "SettingsPage|"
+msgid "Playlist text encoding"
+msgstr "Tekst-codering van speellijst"
+
+#: src/qml/app/SettingsPage.qml:260
+msgctxt "SettingsPage|"
+msgid "To filename format"
+msgstr "Naar bestandsnaamformaat"
+
+#: src/qml/app/SettingsPage.qml:270
+msgctxt "SettingsPage|"
+msgid "Filename from Tag"
+msgstr "Bestandsnaam uit tag"
+
+#: src/qml/app/SettingsPage.qml:285
+msgctxt "SettingsPage|"
+msgid "From filename format"
+msgstr "Uit bestandsnaamformaat"
+
+#: src/qml/app/SettingsPage.qml:295
+msgctxt "SettingsPage|"
+msgid "Tag from Filename"
+msgstr "Tag uit bestandsnaam"
+
+#: src/qml/app/SettingsPage.qml:379
+msgctxt "SettingsPage|"
+msgid "Language"
+msgstr "Taal"
+
+#: src/qml/app/SettingsPage.qml:380
+msgctxt "SettingsPage|"
+msgid "System"
+msgstr "Systeem"
+
+#: src/qml/app/SettingsPage.qml:391
+msgctxt "SettingsPage|"
+msgid "Theme"
+msgstr "Thema"
+
+#: src/qml/app/StringListEditPage.qml:85
+msgctxt "StringListEditPage|"
+msgid "Edit"
+msgstr "Bewerken"
+
+#: src/qml/app/TagCollapsible.qml:40
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "Tag %1"
+msgstr "Tag %1"
+
+#: src/qml/app/TagCollapsible.qml:83
+msgctxt "TagCollapsible|"
+msgid "To Filename"
+msgstr "Naar bestandsnaam"
+
+#: src/qml/app/TagCollapsible.qml:87
+msgctxt "TagCollapsible|"
+msgid "From Filename"
+msgstr "Van bestandsnaam"
+
+#: src/qml/app/TagCollapsible.qml:91
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "To Tag %1"
+msgstr "Naar tag %1"
+
+#: src/qml/app/TagCollapsible.qml:98
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "From Tag %1"
+msgstr "Uit tag %1"
+
+#: src/qml/app/TagCollapsible.qml:102
+msgctxt "TagCollapsible|"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/qml/app/TagCollapsible.qml:106
+msgctxt "TagCollapsible|"
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/qml/app/TagCollapsible.qml:110
+msgctxt "TagCollapsible|"
+msgid "Remove"
+msgstr "Verwijderen"
+
+#~ msgctxt "@default|"
+#~ msgid "TrackType.org"
+#~ msgstr "TrackType.org"
+
+#~ msgid "Your names"
+#~ msgstr "Kenny Verstraete, Toon van Gerwen"
+
+#~ msgid "Your emails"
+#~ msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
+
+#~ msgctxt "Match OS X Finder"
+#~ msgid "Kind"
+#~ msgstr "Type"
+
+#~ msgctxt "All other platforms"
+#~ msgid "Type"
+#~ msgstr "Type"

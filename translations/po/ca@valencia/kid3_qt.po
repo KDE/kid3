@@ -1,0 +1,7109 @@
+# Translation of kid3_qt.po to Catalan (Valencian)
+# Copyright (C) 2020-2021 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2020, 2021.
+# Josep Ma. Ferrer <txemaq@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3\n"
+"PO-Revision-Date: 2021-01-04 16:09+0100\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca@valencia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 20.08.2\n"
+
+#: src/app/cli/clicommand.cpp:350
+msgctxt "CliCommand|"
+msgid "Timeout"
+msgstr "Temps d'espera"
+
+#: src/app/cli/clicommand.cpp:394
+msgctxt "HelpCommand|"
+msgid "Help"
+msgstr "Ajuda"
+
+#: src/app/cli/clicommand.cpp:395
+msgctxt "HelpCommand|"
+msgid "Command name"
+msgstr "Nom de l'ordre"
+
+#: src/app/cli/clicommand.cpp:406
+msgctxt "TimeoutCommand|"
+msgid "Overwrite timeout"
+msgstr "Sobreescriu el temps d'espera"
+
+#: src/app/cli/clicommand.cpp:407
+msgctxt "TimeoutCommand|"
+msgid "Time"
+msgstr "Temps"
+
+#: src/app/cli/clicommand.cpp:448
+msgctxt "QuitCommand|"
+msgid "Quit application"
+msgstr "Ix de l'aplicació"
+
+#: src/app/cli/clicommand.cpp:457
+msgctxt "QuitCommand|"
+msgid "The current folder has been modified."
+msgstr "S'ha modificat la carpeta actual."
+
+#: src/app/cli/clicommand.cpp:459
+msgctxt "QuitCommand|"
+msgid "Type 'exit force' to quit."
+msgstr "Escriviu «exit force» per a eixir."
+
+#: src/app/cli/clicommand.cpp:475
+msgctxt "CdCommand|"
+msgid "Change folder"
+msgstr "Canvia de carpeta"
+
+#: src/app/cli/clicommand.cpp:489
+#, qt-format
+msgctxt "CdCommand|"
+msgid "%1 does not exist"
+msgstr "%1 no existeix"
+
+#: src/app/cli/clicommand.cpp:509
+msgctxt "PwdCommand|"
+msgid "Print the filename of the current folder"
+msgstr "Imprimeix el nom de fitxer de la carpeta actual de treball"
+
+#: src/app/cli/clicommand.cpp:525
+msgctxt "LsCommand|"
+msgid "Folder list"
+msgstr "Llista de carpetes"
+
+#: src/app/cli/clicommand.cpp:537
+msgctxt "SaveCommand|"
+msgid "Saves the changed files"
+msgstr "Guarda els fitxers canviats"
+
+#: src/app/cli/clicommand.cpp:547
+msgctxt "SaveCommand|"
+msgid "Error while writing file:\n"
+msgstr "Error en escriure el fitxer:\n"
+
+#: src/app/cli/clicommand.cpp:554
+msgctxt "SelectCommand|"
+msgid "Select file"
+msgstr "Selecciona el fitxer"
+
+#: src/app/cli/clicommand.cpp:577
+#, qt-format
+msgctxt "SelectCommand|"
+msgid "%1 not found"
+msgstr "%1 no trobades"
+
+#: src/app/cli/clicommand.cpp:587
+msgctxt "TagCommand|"
+msgid "Select tag"
+msgstr "Selecciona una etiqueta"
+
+#: src/app/cli/clicommand.cpp:604
+msgctxt "GetCommand|"
+msgid "Get tag frame"
+msgstr "Obtén un marc d'etiqueta"
+
+#: src/app/cli/clicommand.cpp:632
+msgctxt "SetCommand|"
+msgid "Set tag frame"
+msgstr "Estableix un marc d'etiqueta"
+
+#: src/app/cli/clicommand.cpp:650
+#, qt-format
+msgctxt "SetCommand|"
+msgid "Could not set \"%1\" for %2"
+msgstr "No s'ha pogut establir «%1» per a %2"
+
+#: src/app/cli/clicommand.cpp:660
+msgctxt "RevertCommand|"
+msgid "Revert"
+msgstr "Reverteix"
+
+#: src/app/cli/clicommand.cpp:672
+msgctxt "ImportCommand|"
+msgid "Import from file"
+msgstr "Importa des d'un fitxer"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "File path"
+msgstr "Camí al fitxer"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "Format name"
+msgstr "Nom del format"
+
+#: src/app/cli/clicommand.cpp:675
+msgctxt "ImportCommand|"
+msgid "Source"
+msgstr "Font"
+
+#: src/app/cli/clicommand.cpp:676
+msgctxt "ImportCommand|"
+msgid "Extraction"
+msgstr "Extracció"
+
+#: src/app/cli/clicommand.cpp:704
+#, qt-format
+msgctxt "ImportCommand|"
+msgid "%1 not found."
+msgstr "No s'ha trobat %1."
+
+#: src/app/cli/clicommand.cpp:706
+msgctxt "ImportCommand|"
+msgid "Available"
+msgstr "Disponible"
+
+#: src/app/cli/clicommand.cpp:717
+msgctxt "ImportCommand|"
+msgid "Error"
+msgstr "Error"
+
+#: src/app/cli/clicommand.cpp:727
+msgctxt "BatchImportCommand|"
+msgid "Automatic import"
+msgstr "Importa automàticament"
+
+#: src/app/cli/clicommand.cpp:728
+msgctxt "BatchImportCommand|"
+msgid "Profile name"
+msgstr "Nom del perfil"
+
+#: src/app/cli/clicommand.cpp:740
+#, qt-format
+msgctxt "BatchImportCommand|"
+msgid "%1 not found."
+msgstr "No s'ha trobat %1."
+
+#: src/app/cli/clicommand.cpp:742
+msgctxt "BatchImportCommand|"
+msgid "Available"
+msgstr "Disponible"
+
+#: src/app/cli/clicommand.cpp:815
+msgctxt "AlbumArtCommand|"
+msgid "Download album cover artwork"
+msgstr "Descarrega el treball artístic per a la caràtula de l'àlbum"
+
+#: src/app/cli/clicommand.cpp:859
+msgctxt "ExportCommand|"
+msgid "Export to file"
+msgstr "Exporta a un fitxer"
+
+#: src/app/cli/clicommand.cpp:860
+msgctxt "ExportCommand|"
+msgid "Format name"
+msgstr "Nom del format"
+
+#: src/app/cli/clicommand.cpp:875
+#, qt-format
+msgctxt "ExportCommand|"
+msgid "%1 not found."
+msgstr "No s'ha trobat %1."
+
+#: src/app/cli/clicommand.cpp:877
+msgctxt "ExportCommand|"
+msgid "Available"
+msgstr "Disponible"
+
+#: src/app/cli/clicommand.cpp:888
+msgctxt "ExportCommand|"
+msgid "Error"
+msgstr "Error"
+
+#: src/app/cli/clicommand.cpp:897
+msgctxt "PlaylistCommand|"
+msgid "Create playlist"
+msgstr "Crea una llista de reproducció"
+
+#: src/app/cli/clicommand.cpp:904
+msgctxt "PlaylistCommand|"
+msgid "Error"
+msgstr "Error"
+
+#: src/app/cli/clicommand.cpp:911
+msgctxt "FilenameFormatCommand|"
+msgid "Apply filename format"
+msgstr "Aplica el format del nom de fitxer"
+
+#: src/app/cli/clicommand.cpp:922
+msgctxt "TagFormatCommand|"
+msgid "Apply tag format"
+msgstr "Aplica el format de l'etiqueta"
+
+#: src/app/cli/clicommand.cpp:934
+msgctxt "TextEncodingCommand|"
+msgid "Apply text encoding"
+msgstr "Aplica la codificació del text"
+
+#: src/app/cli/clicommand.cpp:945
+msgctxt "RenameDirectoryCommand|"
+msgid "Rename folder"
+msgstr "Reanomena la carpeta"
+
+#: src/app/cli/clicommand.cpp:1037
+msgctxt "NumberTracksCommand|"
+msgid "Number tracks"
+msgstr "Nombre de peces"
+
+#: src/app/cli/clicommand.cpp:1038
+msgctxt "NumberTracksCommand|"
+msgid "Track number"
+msgstr "Número de la peça"
+
+#: src/app/cli/clicommand.cpp:1062
+msgctxt "FilterCommand|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/app/cli/clicommand.cpp:1063
+msgctxt "FilterCommand|"
+msgid "Filter name"
+msgstr "Nom del filtre"
+
+#: src/app/cli/clicommand.cpp:1078
+#, qt-format
+msgctxt "FilterCommand|"
+msgid "%1 not found."
+msgstr "No s'ha trobat %1."
+
+#: src/app/cli/clicommand.cpp:1080
+msgctxt "FilterCommand|"
+msgid "Available"
+msgstr "Disponible"
+
+#: src/app/cli/clicommand.cpp:1154
+msgctxt "ToId3v24Command|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converteix ID3 versió 2.3 a 2.4"
+
+#: src/app/cli/clicommand.cpp:1165
+msgctxt "ToId3v23Command|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converteix ID3 versió 2.4 a 2.3"
+
+#: src/app/cli/clicommand.cpp:1176
+msgctxt "TagToFilenameCommand|"
+msgid "Filename from tag"
+msgstr "Nom del fitxer des de l'etiqueta"
+
+#: src/app/cli/clicommand.cpp:1206
+msgctxt "FilenameToTagCommand|"
+msgid "Tag from filename"
+msgstr "Etiqueta des del nom de fitxer"
+
+#: src/app/cli/clicommand.cpp:1236
+msgctxt "TagToOtherTagCommand|"
+msgid "Tag to other tag"
+msgstr "Etiqueta a una altra etiqueta"
+
+#: src/app/cli/clicommand.cpp:1253
+msgctxt "CopyCommand|"
+msgid "Copy"
+msgstr "Copia"
+
+#: src/app/cli/clicommand.cpp:1266
+msgctxt "PasteCommand|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/app/cli/clicommand.cpp:1279
+msgctxt "RemoveCommand|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/app/cli/clicommand.cpp:1292
+msgctxt "ConfigCommand|"
+msgid "Configure Kid3"
+msgstr "Configura el Kid3"
+
+#: src/app/cli/clicommand.cpp:1314 src/app/cli/clicommand.cpp:1320
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "%1 does not exist"
+msgstr "%1 no existeix"
+
+#: src/app/cli/clicommand.cpp:1347 src/app/cli/clicommand.cpp:1367
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "Invalid value %1"
+msgstr "valor no vàlid %1"
+
+#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#, qt-format
+msgctxt "JsonCliFormatter|"
+msgid "Unknown command '%1'"
+msgstr "Ordre desconeguda «%1»"
+
+#: src/app/cli/jsoncliformatter.cpp:209
+msgctxt "JsonCliFormatter|"
+msgid "Usage:"
+msgstr "Ús:"
+
+#: src/app/cli/kid3cli.cpp:298
+msgctxt "Kid3Cli|"
+msgid "Parameter"
+msgstr "Paràmetre"
+
+#: src/app/cli/kid3cli.cpp:299
+msgctxt "Kid3Cli|"
+msgid "File path"
+msgstr "Camí al fitxer"
+
+#: src/app/cli/kid3cli.cpp:300
+msgctxt "Kid3Cli|"
+msgid "URL"
+msgstr "URL"
+
+#: src/app/cli/kid3cli.cpp:301
+msgctxt "Kid3Cli|"
+msgid "Tag numbers"
+msgstr "Números de les etiquetes"
+
+#: src/app/cli/kid3cli.cpp:303
+msgctxt "Kid3Cli|"
+msgid "Frame name"
+msgstr "Nom del marc"
+
+#: src/app/cli/kid3cli.cpp:306
+msgctxt "Kid3Cli|"
+msgid "Frame value"
+msgstr "Valor del marc"
+
+#: src/app/cli/kid3cli.cpp:307
+msgctxt "Kid3Cli|"
+msgid "Format"
+msgstr "Format"
+
+#: src/app/cli/kid3cli.cpp:308
+msgctxt "Kid3Cli|"
+msgid "Command specific"
+msgstr "Ordre específica"
+
+#: src/app/cli/kid3cli.cpp:309
+msgctxt "Kid3Cli|"
+msgid "Available Commands"
+msgstr "Ordres disponibles"
+
+#: src/app/cli/kid3cli.cpp:751
+msgctxt "Kid3Cli|"
+msgid "Usage:"
+msgstr "Ús:"
+
+#: src/app/cli/kid3cli.cpp:769
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "%1 does not exist"
+msgstr "%1 no existeix"
+
+#: src/app/cli/kid3cli.cpp:798
+msgctxt "Kid3Cli|"
+msgid "Error while writing file:\n"
+msgstr "Error en escriure el fitxer:\n"
+
+#: src/app/cli/kid3cli.cpp:816
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "Unknown command '%1', -h for help."
+msgstr "Ordre desconeguda «%1», -h per a l'ajuda."
+
+#: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Ordre desconeguda «%1». Per a l'ajuda escriviu «help»."
+
+#: src/app/cli/textcliformatter.cpp:204
+msgctxt "TextCliFormatter|"
+msgid "Usage:"
+msgstr "Ús:"
+
+#: src/app/cli/textcliformatter.cpp:246
+msgctxt "TextCliFormatter|"
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: src/app/cli/textcliformatter.cpp:253
+msgctxt "TextCliFormatter|"
+msgid "File"
+msgstr "Fitxer"
+
+#: src/app/cli/textcliformatter.cpp:258
+msgctxt "TextCliFormatter|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/app/cli/textcliformatter.cpp:279
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/app/cli/textcliformatter.cpp:300
+msgctxt "TextCliFormatter|"
+msgid "Timeout"
+msgstr "Temps d'espera"
+
+#: src/app/cli/textcliformatter.cpp:306
+msgctxt "TextCliFormatter|"
+msgid "Reading Folder"
+msgstr "S'està llegint la carpeta"
+
+#: src/app/cli/textcliformatter.cpp:308
+msgctxt "TextCliFormatter|"
+msgid "Started"
+msgstr "Iniciada"
+
+#: src/app/cli/textcliformatter.cpp:310
+msgctxt "TextCliFormatter|"
+msgid "Source"
+msgstr "Font"
+
+#: src/app/cli/textcliformatter.cpp:312
+msgctxt "TextCliFormatter|"
+msgid "Querying"
+msgstr "S'està consultant"
+
+#: src/app/cli/textcliformatter.cpp:314
+msgctxt "TextCliFormatter|"
+msgid "Fetching"
+msgstr "S'està obtenint"
+
+#: src/app/cli/textcliformatter.cpp:316
+msgctxt "TextCliFormatter|"
+msgid "Data received"
+msgstr "Dades rebudes"
+
+#: src/app/cli/textcliformatter.cpp:318
+msgctxt "TextCliFormatter|"
+msgid "Cover"
+msgstr "Caràtula"
+
+#: src/app/cli/textcliformatter.cpp:320
+msgctxt "TextCliFormatter|"
+msgid "Finished"
+msgstr "Finalitzada"
+
+#: src/app/cli/textcliformatter.cpp:322
+msgctxt "TextCliFormatter|"
+msgid "Aborted"
+msgstr "Interrompuda"
+
+#: src/app/cli/textcliformatter.cpp:324
+msgctxt "TextCliFormatter|"
+msgid "Error"
+msgstr "Error"
+
+#: src/app/kde/kdeconfigdialog.cpp:51
+msgctxt "KdeConfigDialog|"
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: src/app/kde/kdeconfigdialog.cpp:53
+msgctxt "KdeConfigDialog|"
+msgid "Files"
+msgstr "Fitxers"
+
+#: src/app/kde/kdeconfigdialog.cpp:55
+msgctxt "KdeConfigDialog|"
+msgid "User Actions"
+msgstr "Accions d'usuari"
+
+#: src/app/kde/kdeconfigdialog.cpp:57
+msgctxt "KdeConfigDialog|"
+msgid "Network"
+msgstr "Xarxa"
+
+#: src/app/kde/kdeconfigdialog.cpp:59
+msgctxt "KdeConfigDialog|"
+msgid "Plugins"
+msgstr "Connectors"
+
+#: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
+msgctxt "@default|"
+msgid "Main Toolbar"
+msgstr "Barra d'eines principal"
+
+#: src/app/kde/kdemainwindow.cpp:86
+msgctxt "KdeMainWindow|"
+msgid "Open files"
+msgstr "Obri alguns fitxers"
+
+#: src/app/kde/kdemainwindow.cpp:94
+msgctxt "KdeMainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Obri una carpeta usada recentment"
+
+#: src/app/kde/kdemainwindow.cpp:103
+msgctxt "KdeMainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Reverteix els canvis de tots o dels fitxers seleccionats"
+
+#: src/app/kde/kdemainwindow.cpp:113
+msgctxt "KdeMainWindow|"
+msgid "Saves the changed files"
+msgstr "Guarda els fitxers canviats"
+
+#: src/app/kde/kdemainwindow.cpp:121
+msgctxt "KdeMainWindow|"
+msgid "Quits the application"
+msgstr "Ix de l'aplicació"
+
+#: src/app/kde/kdemainwindow.cpp:129
+msgctxt "KdeMainWindow|"
+msgid "Select all files"
+msgstr "Selecciona tots els fitxers"
+
+#: src/app/kde/kdemainwindow.cpp:138
+msgctxt "KdeMainWindow|"
+msgid "Deselect all files"
+msgstr "Desselecciona tots els fitxers"
+
+#: src/app/kde/kdemainwindow.cpp:146
+msgctxt "KdeMainWindow|"
+msgid "Find"
+msgstr "Cerca"
+
+#: src/app/kde/kdemainwindow.cpp:154
+msgctxt "KdeMainWindow|"
+msgid "Find and replace"
+msgstr "Cerca i substitueix"
+
+#: src/app/kde/kdemainwindow.cpp:164
+msgctxt "KdeMainWindow|"
+msgid "Configure Shortcuts"
+msgstr "Configura les dreceres"
+
+#: src/app/kde/kdemainwindow.cpp:172
+msgctxt "KdeMainWindow|"
+msgid "Configure Toolbars"
+msgstr "Configura les barres d'eines"
+
+#: src/app/kde/kdemainwindow.cpp:180
+msgctxt "KdeMainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Activa/desactiva la barra d'estat"
+
+#: src/app/kde/kdemainwindow.cpp:188
+msgctxt "KdeMainWindow|"
+msgid "Preferences dialog"
+msgstr "Diàleg de preferències"
+
+#: src/app/kde/kdemainwindow.cpp:191
+msgctxt "KdeMainWindow|"
+msgid "O&pen Folder..."
+msgstr "O&bre una carpeta..."
+
+#: src/app/kde/kdemainwindow.cpp:192
+msgctxt "KdeMainWindow|"
+msgid "Opens a folder"
+msgstr "Obri una carpeta"
+
+#: src/app/kde/kdemainwindow.cpp:199
+msgctxt "KdeMainWindow|"
+msgid "Re&load"
+msgstr "&Torna a carregar"
+
+#: src/app/kde/kdemainwindow.cpp:200
+msgctxt "KdeMainWindow|"
+msgid "Reload folder"
+msgstr "Torna a carregar la carpeta"
+
+#: src/app/kde/kdemainwindow.cpp:211
+msgctxt "KdeMainWindow|"
+msgid "Unload"
+msgstr "Descarrega"
+
+#: src/app/kde/kdemainwindow.cpp:216
+msgctxt "KdeMainWindow|"
+msgid "&Import..."
+msgstr "&Importa..."
+
+#: src/app/kde/kdemainwindow.cpp:217
+msgctxt "KdeMainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Importa des del fitxer o porta-retalls"
+
+#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1..."
+msgstr "Importa des de %1..."
+
+#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1"
+msgstr "Importa des de %1"
+
+#: src/app/kde/kdemainwindow.cpp:257
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags..."
+msgstr "Importa des de les etiquetes..."
+
+#: src/app/kde/kdemainwindow.cpp:258
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags"
+msgstr "Importa des de les etiquetes"
+
+#: src/app/kde/kdemainwindow.cpp:262
+msgctxt "KdeMainWindow|"
+msgid "Automatic I&mport..."
+msgstr "I&mporta automàticament..."
+
+#: src/app/kde/kdemainwindow.cpp:263
+msgctxt "KdeMainWindow|"
+msgid "Automatic import"
+msgstr "Importa automàticament"
+
+#: src/app/kde/kdemainwindow.cpp:267
+msgctxt "KdeMainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "E&xplora les caràtules..."
+
+#: src/app/kde/kdemainwindow.cpp:268
+msgctxt "KdeMainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Explora el treball artístic per a la caràtula de l'àlbum"
+
+#: src/app/kde/kdemainwindow.cpp:272
+msgctxt "KdeMainWindow|"
+msgid "&Export..."
+msgstr "&Exporta..."
+
+#: src/app/kde/kdemainwindow.cpp:273
+msgctxt "KdeMainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Exporta a un fitxer o al porta-retalls"
+
+#: src/app/kde/kdemainwindow.cpp:277
+msgctxt "KdeMainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Crea una llista de reproducció..."
+
+#: src/app/kde/kdemainwindow.cpp:278
+msgctxt "KdeMainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Crea una llista de reproducció M3U"
+
+#: src/app/kde/kdemainwindow.cpp:281
+msgctxt "KdeMainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Aplica el format del nom de &fitxer"
+
+#: src/app/kde/kdemainwindow.cpp:282
+msgctxt "KdeMainWindow|"
+msgid "Apply Filename Format"
+msgstr "Aplica el format del nom de fitxer"
+
+# skip-rule: t-e_sola
+#: src/app/kde/kdemainwindow.cpp:285
+msgctxt "KdeMainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Aplica el format de l'e&tiqueta"
+
+#: src/app/kde/kdemainwindow.cpp:286
+msgctxt "KdeMainWindow|"
+msgid "Apply Tag Format"
+msgstr "Aplica el format de l'etiqueta"
+
+#: src/app/kde/kdemainwindow.cpp:289
+msgctxt "KdeMainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Aplica la codificació del t&ext"
+
+#: src/app/kde/kdemainwindow.cpp:290
+msgctxt "KdeMainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Aplica la codificació del text"
+
+#: src/app/kde/kdemainwindow.cpp:293
+msgctxt "KdeMainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Reanomena la carpeta..."
+
+#: src/app/kde/kdemainwindow.cpp:294
+msgctxt "KdeMainWindow|"
+msgid "Rename Folder"
+msgstr "Reanomena la carpeta"
+
+#: src/app/kde/kdemainwindow.cpp:297
+msgctxt "KdeMainWindow|"
+msgid "&Number Tracks..."
+msgstr "&Número de les peces..."
+
+#: src/app/kde/kdemainwindow.cpp:298
+msgctxt "KdeMainWindow|"
+msgid "Number Tracks"
+msgstr "Número de les peces"
+
+#: src/app/kde/kdemainwindow.cpp:301
+msgctxt "KdeMainWindow|"
+msgid "F&ilter..."
+msgstr "F&iltre..."
+
+#: src/app/kde/kdemainwindow.cpp:302
+msgctxt "KdeMainWindow|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/app/kde/kdemainwindow.cpp:307
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Converteix ID3 versió 2.3 a 2.&4"
+
+#: src/app/kde/kdemainwindow.cpp:308
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converteix ID3 versió 2.3 a 2.4"
+
+#: src/app/kde/kdemainwindow.cpp:312
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Converteix ID3 versió 2.4 a 2.&3"
+
+#: src/app/kde/kdemainwindow.cpp:313
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converteix ID3 versió 2.4 a 2.&3"
+
+#: src/app/kde/kdemainwindow.cpp:320
+msgctxt "KdeMainWindow|"
+msgid "&Play"
+msgstr "Re&produeix"
+
+#: src/app/kde/kdemainwindow.cpp:321
+msgctxt "KdeMainWindow|"
+msgid "Play"
+msgstr "Reprodueix"
+
+#: src/app/kde/kdemainwindow.cpp:325
+msgctxt "KdeMainWindow|"
+msgid "Show &Picture"
+msgstr "Mostra la imat&ge"
+
+#: src/app/kde/kdemainwindow.cpp:326
+msgctxt "KdeMainWindow|"
+msgid "Show Picture"
+msgstr "Mostra la imatge"
+
+#: src/app/kde/kdemainwindow.cpp:331
+msgctxt "KdeMainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "O&culta automàticament les etiquetes"
+
+#: src/app/kde/kdemainwindow.cpp:332
+msgctxt "KdeMainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Oculta automàticament les etiquetes"
+
+#: src/app/kde/kdemainwindow.cpp:337
+msgctxt "KdeMainWindow|"
+msgid "Select All in &Folder"
+msgstr "Selecciona-ho tot a la &carpeta"
+
+#: src/app/kde/kdemainwindow.cpp:338
+msgctxt "KdeMainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Selecciona tots els fitxers a la carpeta actual"
+
+#: src/app/kde/kdemainwindow.cpp:341
+msgctxt "KdeMainWindow|"
+msgid "&Invert Selection"
+msgstr "&Inverteix la selecció"
+
+#: src/app/kde/kdemainwindow.cpp:345
+msgctxt "KdeMainWindow|"
+msgid "&Previous File"
+msgstr "Fitxer a&nterior"
+
+#: src/app/kde/kdemainwindow.cpp:346
+msgctxt "KdeMainWindow|"
+msgid "Select previous file"
+msgstr "Selecciona el fitxer anterior"
+
+#: src/app/kde/kdemainwindow.cpp:352
+msgctxt "KdeMainWindow|"
+msgid "&Next File"
+msgstr "Fitxer s&egüent"
+
+#: src/app/kde/kdemainwindow.cpp:353
+msgctxt "KdeMainWindow|"
+msgid "Select next file"
+msgstr "Selecciona el següent fitxer"
+
+#: src/app/kde/kdemainwindow.cpp:365
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+msgctxt "KdeMainWindow|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "From Tag %1"
+msgstr "Des de l'etiqueta %1"
+
+#: src/app/kde/kdemainwindow.cpp:373
+msgctxt "KdeMainWindow|"
+msgid "From Filename"
+msgstr "Des del nom de fitxer"
+
+#: src/app/kde/kdemainwindow.cpp:386
+msgctxt "KdeMainWindow|"
+msgid "Copy"
+msgstr "Copia"
+
+#: src/app/kde/kdemainwindow.cpp:390
+msgctxt "KdeMainWindow|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/app/kde/kdemainwindow.cpp:394
+msgctxt "KdeMainWindow|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Focus"
+msgstr "Enfoca"
+
+#: src/app/kde/kdemainwindow.cpp:403
+msgctxt "KdeMainWindow|"
+msgid "Frames:"
+msgstr "Marcs:"
+
+#: src/app/kde/kdemainwindow.cpp:404
+msgctxt "KdeMainWindow|"
+msgid "Edit"
+msgstr "Edita"
+
+#: src/app/kde/kdemainwindow.cpp:408
+msgctxt "KdeMainWindow|"
+msgid "Add"
+msgstr "Afig"
+
+#: src/app/kde/kdemainwindow.cpp:412
+msgctxt "KdeMainWindow|"
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/app/kde/kdemainwindow.cpp:424
+msgctxt "KdeMainWindow|"
+msgid "File List"
+msgstr "Llista de fitxers"
+
+#: src/app/kde/kdemainwindow.cpp:428
+msgctxt "KdeMainWindow|"
+msgid "&Rename"
+msgstr "&Reanomena"
+
+#: src/app/kde/kdemainwindow.cpp:437
+msgctxt "KdeMainWindow|"
+msgid "&Move to Trash"
+msgstr "&Mou a la paperera"
+
+#: src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Folder List"
+msgstr "Llista de carpetes"
+
+#: src/app/kde/kdemainwindow.cpp:461
+msgctxt "KdeMainWindow|"
+msgid "Section"
+msgstr "Secció"
+
+#: src/app/kde/kdemainwindow.cpp:651
+msgctxt "KdeMainWindow|"
+msgid "Configure - Kid3"
+msgstr "Configuració - Kid3"
+
+#: src/app/kde/mainkde.cpp:121
+msgctxt "@default|"
+msgid "folder to open"
+msgstr "carpeta a obrir"
+
+#: src/app/kde/mainkde.cpp:134
+msgctxt "@default|"
+msgid "Audio Tag Editor"
+msgstr "Editor per a les etiquetes d'àudio"
+
+#: src/app/qt/browserdialog.cpp:91
+msgctxt "BrowserDialog|"
+msgid "&Back"
+msgstr "A&rrere"
+
+#: src/app/qt/browserdialog.cpp:98
+msgctxt "BrowserDialog|"
+msgid "&Forward"
+msgstr "Avan&t"
+
+#: src/app/qt/browserdialog.cpp:105
+msgctxt "BrowserDialog|"
+msgid "&Find:"
+msgstr "&Cerca:"
+
+#: src/app/qt/browserdialog.cpp:121
+msgctxt "BrowserDialog|"
+msgid "Find Previous"
+msgstr "Cerca l'anterior"
+
+#: src/app/qt/browserdialog.cpp:131
+msgctxt "BrowserDialog|"
+msgid "Find Next"
+msgstr "Cerca la següent"
+
+#: src/app/qt/browserdialog.cpp:139
+msgctxt "BrowserDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/app/qt/configdialog.cpp:70
+msgctxt "ConfigDialog|"
+msgid "&Tags"
+msgstr "E&tiquetes"
+
+#: src/app/qt/configdialog.cpp:71
+msgctxt "ConfigDialog|"
+msgid "&Files"
+msgstr "&Fitxers"
+
+#: src/app/qt/configdialog.cpp:72
+msgctxt "ConfigDialog|"
+msgid "&User Actions"
+msgstr "Accions d'&usuari"
+
+#: src/app/qt/configdialog.cpp:73
+msgctxt "ConfigDialog|"
+msgid "&Network"
+msgstr "&Xarxa"
+
+#: src/app/qt/configdialog.cpp:74
+msgctxt "ConfigDialog|"
+msgid "&Plugins"
+msgstr "&Connectors"
+
+#: src/app/qt/configdialog.cpp:86
+msgctxt "ConfigDialog|"
+msgid "&Keyboard Shortcuts"
+msgstr "Dreceres de &teclat"
+
+#: src/app/qt/configdialog.cpp:111
+msgctxt "ConfigDialog|"
+msgid "&Language"
+msgstr "&Idioma"
+
+#: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
+#: src/app/qt/configdialog.cpp:239
+msgctxt "ConfigDialog|"
+msgid "System"
+msgstr "Sistema"
+
+#: src/app/qt/configdialog.cpp:122
+msgctxt "ConfigDialog|"
+msgid "Use custom app&lication font"
+msgstr "Empra el tipus de lletra personalitzat de l'ap&licació"
+
+#: src/app/qt/configdialog.cpp:124
+msgctxt "ConfigDialog|"
+msgid "A&pplication Font..."
+msgstr "Tipus de lletra de l'a&plicació..."
+
+# skip-rule: t-e_sola
+#: src/app/qt/configdialog.cpp:126
+msgctxt "ConfigDialog|"
+msgid "Use custom application &style"
+msgstr "Empra l'e&stil personalitzat de l'aplicació"
+
+#: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
+msgctxt "ConfigDialog|"
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: src/app/qt/configdialog.cpp:151
+msgctxt "ConfigDialog|"
+msgid "Use native system file &dialogs"
+msgstr "Empra els &diàlegs de fitxer natius del sistema"
+
+#: src/app/qt/configdialog.cpp:155
+msgctxt "ConfigDialog|"
+msgid "&Appearance"
+msgstr "&Aparença"
+
+#: src/app/qt/configdialog.cpp:164
+msgctxt "ConfigDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/app/qt/configdialog.cpp:165
+msgctxt "ConfigDialog|"
+msgid "Restore Defaults"
+msgstr "Restaura als valors predeterminats"
+
+#: src/app/qt/configdialog.cpp:166
+msgctxt "ConfigDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/app/qt/configdialog.cpp:167
+msgctxt "ConfigDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/app/qt/configdialog.cpp:279
+#, qt-format
+msgctxt "ConfigDialog|"
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "La drecera «%1» ja està assignada a «%2»."
+
+#: src/app/qt/kid3mainwindow.cpp:109
+msgctxt "Kid3MainWindow|"
+msgid "&File"
+msgstr "&Fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:113
+msgctxt "Kid3MainWindow|"
+msgid "Open files"
+msgstr "Obri alguns fitxers"
+
+#: src/app/qt/kid3mainwindow.cpp:114
+msgctxt "Kid3MainWindow|"
+msgid "&Open..."
+msgstr "&Obri..."
+
+#: src/app/qt/kid3mainwindow.cpp:128
+msgctxt "Kid3MainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Obri una carpeta usada recentment"
+
+#: src/app/qt/kid3mainwindow.cpp:129
+msgctxt "Kid3MainWindow|"
+msgid "Open &Recent"
+msgstr "Obri'n un/a &recent"
+
+#: src/app/qt/kid3mainwindow.cpp:136
+msgctxt "Kid3MainWindow|"
+msgid "Opens a folder"
+msgstr "Obri una carpeta"
+
+#: src/app/qt/kid3mainwindow.cpp:137
+msgctxt "Kid3MainWindow|"
+msgid "O&pen Folder..."
+msgstr "O&bre una carpeta..."
+
+#: src/app/qt/kid3mainwindow.cpp:148
+msgctxt "Kid3MainWindow|"
+msgid "Reload folder"
+msgstr "Torna a carregar la carpeta"
+
+#: src/app/qt/kid3mainwindow.cpp:149
+msgctxt "Kid3MainWindow|"
+msgid "Re&load"
+msgstr "&Torna a carregar"
+
+#: src/app/qt/kid3mainwindow.cpp:160
+msgctxt "Kid3MainWindow|"
+msgid "Unload"
+msgstr "Descarrega"
+
+#: src/app/qt/kid3mainwindow.cpp:170
+msgctxt "Kid3MainWindow|"
+msgid "Saves the changed files"
+msgstr "Guarda els fitxers canviats"
+
+#: src/app/qt/kid3mainwindow.cpp:171
+msgctxt "Kid3MainWindow|"
+msgid "&Save"
+msgstr "Guar&da"
+
+#: src/app/qt/kid3mainwindow.cpp:184
+msgctxt "Kid3MainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Reverteix els canvis de tots o dels fitxers seleccionats"
+
+#: src/app/qt/kid3mainwindow.cpp:185
+msgctxt "Kid3MainWindow|"
+msgid "Re&vert"
+msgstr "Re&verteix"
+
+#: src/app/qt/kid3mainwindow.cpp:199
+msgctxt "Kid3MainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Importa des del fitxer o porta-retalls"
+
+#: src/app/qt/kid3mainwindow.cpp:200
+msgctxt "Kid3MainWindow|"
+msgid "&Import..."
+msgstr "&Importa..."
+
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1"
+msgstr "Importa des de %1"
+
+#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1..."
+msgstr "Importa des de %1..."
+
+#: src/app/qt/kid3mainwindow.cpp:253
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags"
+msgstr "Importa des de les etiquetes"
+
+#: src/app/qt/kid3mainwindow.cpp:254
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags..."
+msgstr "Importa des de les etiquetes..."
+
+#: src/app/qt/kid3mainwindow.cpp:262
+msgctxt "Kid3MainWindow|"
+msgid "Automatic import"
+msgstr "Importa automàticament"
+
+#: src/app/qt/kid3mainwindow.cpp:263
+msgctxt "Kid3MainWindow|"
+msgid "Automatic I&mport..."
+msgstr "I&mporta automàticament..."
+
+#: src/app/qt/kid3mainwindow.cpp:271
+msgctxt "Kid3MainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Explora el treball artístic per a la caràtula de l'àlbum"
+
+#: src/app/qt/kid3mainwindow.cpp:272
+msgctxt "Kid3MainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "E&xplora les caràtules..."
+
+#: src/app/qt/kid3mainwindow.cpp:281
+msgctxt "Kid3MainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Exporta a un fitxer o al porta-retalls"
+
+#: src/app/qt/kid3mainwindow.cpp:282
+msgctxt "Kid3MainWindow|"
+msgid "&Export..."
+msgstr "&Exporta..."
+
+#: src/app/qt/kid3mainwindow.cpp:292
+msgctxt "Kid3MainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Crea una llista de reproducció M3U"
+
+#: src/app/qt/kid3mainwindow.cpp:293
+msgctxt "Kid3MainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Crea una llista de reproducció..."
+
+#: src/app/qt/kid3mainwindow.cpp:306
+msgctxt "Kid3MainWindow|"
+msgid "Quits the application"
+msgstr "Ix de l'aplicació"
+
+#: src/app/qt/kid3mainwindow.cpp:307
+msgctxt "Kid3MainWindow|"
+msgid "&Quit"
+msgstr "&Surt"
+
+#: src/app/qt/kid3mainwindow.cpp:318
+msgctxt "Kid3MainWindow|"
+msgid "&Edit"
+msgstr "&Edita"
+
+#: src/app/qt/kid3mainwindow.cpp:321
+msgctxt "Kid3MainWindow|"
+msgid "Select all files"
+msgstr "Selecciona tots els fitxers"
+
+#: src/app/qt/kid3mainwindow.cpp:322
+msgctxt "Kid3MainWindow|"
+msgid "Select &All"
+msgstr "Seleccion&a-ho tot"
+
+#: src/app/qt/kid3mainwindow.cpp:337
+msgctxt "Kid3MainWindow|"
+msgid "Deselect all files"
+msgstr "Desselecciona tots els fitxers"
+
+#: src/app/qt/kid3mainwindow.cpp:338
+msgctxt "Kid3MainWindow|"
+msgid "Dese&lect"
+msgstr "Desse&lecciona"
+
+#: src/app/qt/kid3mainwindow.cpp:348
+msgctxt "Kid3MainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Selecciona tots els fitxers a la carpeta actual"
+
+#: src/app/qt/kid3mainwindow.cpp:349
+msgctxt "Kid3MainWindow|"
+msgid "Select All in &Folder"
+msgstr "Selecciona-ho tot a la &carpeta"
+
+#: src/app/qt/kid3mainwindow.cpp:357
+msgctxt "Kid3MainWindow|"
+msgid "&Invert Selection"
+msgstr "&Inverteix la selecció"
+
+#: src/app/qt/kid3mainwindow.cpp:365
+msgctxt "Kid3MainWindow|"
+msgid "Select previous file"
+msgstr "Selecciona el fitxer anterior"
+
+#: src/app/qt/kid3mainwindow.cpp:366
+msgctxt "Kid3MainWindow|"
+msgid "&Previous File"
+msgstr "Fitxer a&nterior"
+
+#: src/app/qt/kid3mainwindow.cpp:378
+msgctxt "Kid3MainWindow|"
+msgid "Select next file"
+msgstr "Selecciona el següent fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:379
+msgctxt "Kid3MainWindow|"
+msgid "&Next File"
+msgstr "Fitxer s&egüent"
+
+#: src/app/qt/kid3mainwindow.cpp:392
+msgctxt "Kid3MainWindow|"
+msgid "Find"
+msgstr "Cerca"
+
+#: src/app/qt/kid3mainwindow.cpp:393
+msgctxt "Kid3MainWindow|"
+msgid "&Find..."
+msgstr "&Cerca..."
+
+#: src/app/qt/kid3mainwindow.cpp:406
+msgctxt "Kid3MainWindow|"
+msgid "Find and replace"
+msgstr "Cerca i substitueix"
+
+#: src/app/qt/kid3mainwindow.cpp:407
+msgctxt "Kid3MainWindow|"
+msgid "&Replace..."
+msgstr "&Substitueix..."
+
+#: src/app/qt/kid3mainwindow.cpp:419
+msgctxt "Kid3MainWindow|"
+msgid "&Tools"
+msgstr "&Eines"
+
+#: src/app/qt/kid3mainwindow.cpp:422
+msgctxt "Kid3MainWindow|"
+msgid "Apply Filename Format"
+msgstr "Aplica el format del nom de fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:423
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Aplica el format del nom de &fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:432
+msgctxt "Kid3MainWindow|"
+msgid "Apply Tag Format"
+msgstr "Aplica el format de l'etiqueta"
+
+# skip-rule: t-e_sola
+#: src/app/qt/kid3mainwindow.cpp:433
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Aplica el format de l'e&tiqueta"
+
+#: src/app/qt/kid3mainwindow.cpp:441
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Aplica la codificació del text"
+
+#: src/app/qt/kid3mainwindow.cpp:442
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Aplica la codificació del t&ext"
+
+#: src/app/qt/kid3mainwindow.cpp:451
+msgctxt "Kid3MainWindow|"
+msgid "Rename Folder"
+msgstr "Reanomena la carpeta"
+
+#: src/app/qt/kid3mainwindow.cpp:452
+msgctxt "Kid3MainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Reanomena la carpeta..."
+
+#: src/app/qt/kid3mainwindow.cpp:460
+msgctxt "Kid3MainWindow|"
+msgid "Number Tracks"
+msgstr "Nombre de peces"
+
+#: src/app/qt/kid3mainwindow.cpp:461
+msgctxt "Kid3MainWindow|"
+msgid "&Number Tracks..."
+msgstr "&Nombre de peces..."
+
+#: src/app/qt/kid3mainwindow.cpp:469
+msgctxt "Kid3MainWindow|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/app/qt/kid3mainwindow.cpp:470
+msgctxt "Kid3MainWindow|"
+msgid "F&ilter..."
+msgstr "F&iltre..."
+
+#: src/app/qt/kid3mainwindow.cpp:481
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converteix ID3 versió 2.3 a 2.4"
+
+#: src/app/qt/kid3mainwindow.cpp:482
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Converteix ID3 versió 2.3 a 2.&4"
+
+#: src/app/qt/kid3mainwindow.cpp:491
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converteix ID3 versió 2.4 a 2.3"
+
+#: src/app/qt/kid3mainwindow.cpp:492
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Converteix ID3 versió 2.4 a 2.&3"
+
+#: src/app/qt/kid3mainwindow.cpp:504
+msgctxt "Kid3MainWindow|"
+msgid "Play"
+msgstr "Reprodueix"
+
+#: src/app/qt/kid3mainwindow.cpp:505
+msgctxt "Kid3MainWindow|"
+msgid "&Play"
+msgstr "Re&produeix"
+
+#: src/app/qt/kid3mainwindow.cpp:515
+msgctxt "Kid3MainWindow|"
+msgid "&Settings"
+msgstr "A&rranjament"
+
+#: src/app/qt/kid3mainwindow.cpp:519
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the toolbar"
+msgstr "Activa/desactiva la barra d'eines"
+
+#: src/app/qt/kid3mainwindow.cpp:520
+msgctxt "Kid3MainWindow|"
+msgid "Show &Toolbar"
+msgstr "Mostra la barra d'&eines"
+
+#: src/app/qt/kid3mainwindow.cpp:530
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Activa/desactiva la barra d'estat"
+
+#: src/app/qt/kid3mainwindow.cpp:531
+msgctxt "Kid3MainWindow|"
+msgid "Show St&atusbar"
+msgstr "Mostra la barra d'est&at"
+
+#: src/app/qt/kid3mainwindow.cpp:540
+msgctxt "Kid3MainWindow|"
+msgid "Show Picture"
+msgstr "Mostra la imatge"
+
+#: src/app/qt/kid3mainwindow.cpp:541
+msgctxt "Kid3MainWindow|"
+msgid "Show &Picture"
+msgstr "Mostra la imat&ge"
+
+#: src/app/qt/kid3mainwindow.cpp:550
+msgctxt "Kid3MainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Oculta automàticament les etiquetes"
+
+#: src/app/qt/kid3mainwindow.cpp:551
+msgctxt "Kid3MainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "O&culta automàticament les etiquetes"
+
+#: src/app/qt/kid3mainwindow.cpp:560
+msgctxt "Kid3MainWindow|"
+msgid "Configure Kid3"
+msgstr "Configura el Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:561
+msgctxt "Kid3MainWindow|"
+msgid "&Configure Kid3..."
+msgstr "&Configura el Kid3..."
+
+#: src/app/qt/kid3mainwindow.cpp:575
+msgctxt "Kid3MainWindow|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/app/qt/kid3mainwindow.cpp:578
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 Handbook"
+msgstr "Manual del Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:579
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 &Handbook"
+msgstr "&Manual del Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:590
+msgctxt "Kid3MainWindow|"
+msgid "About Kid3"
+msgstr "Quant al Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:591
+msgctxt "Kid3MainWindow|"
+msgid "&About Kid3"
+msgstr "Qu&ant al Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:604
+msgctxt "Kid3MainWindow|"
+msgid "About Qt"
+msgstr "Quant a les Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:605
+msgctxt "Kid3MainWindow|"
+msgid "About &Qt"
+msgstr "Quant a les &Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:647
+msgctxt "Kid3MainWindow|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:650 src/app/qt/kid3mainwindow.cpp:673
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "From Tag %1"
+msgstr "Des de l'etiqueta %1"
+
+#: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
+#: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
+msgctxt "Kid3MainWindow|"
+msgid "Focus"
+msgstr "Enfoca"
+
+#: src/app/qt/kid3mainwindow.cpp:665
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/app/qt/kid3mainwindow.cpp:667
+msgctxt "Kid3MainWindow|"
+msgid "From Filename"
+msgstr "Des del nom de fitxer"
+
+#: src/app/qt/kid3mainwindow.cpp:678
+msgctxt "Kid3MainWindow|"
+msgid "Copy"
+msgstr "Copia"
+
+#: src/app/qt/kid3mainwindow.cpp:681
+msgctxt "Kid3MainWindow|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/app/qt/kid3mainwindow.cpp:684
+msgctxt "Kid3MainWindow|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/app/qt/kid3mainwindow.cpp:688
+msgctxt "Kid3MainWindow|"
+msgid "Edit"
+msgstr "Edita"
+
+#: src/app/qt/kid3mainwindow.cpp:691
+msgctxt "Kid3MainWindow|"
+msgid "Add"
+msgstr "Afig"
+
+#: src/app/qt/kid3mainwindow.cpp:694
+msgctxt "Kid3MainWindow|"
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/app/qt/kid3mainwindow.cpp:702
+msgctxt "Kid3MainWindow|"
+msgid "File List"
+msgstr "Llista de fitxers"
+
+#: src/app/qt/kid3mainwindow.cpp:706
+msgctxt "Kid3MainWindow|"
+msgid "&Rename"
+msgstr "&Reanomena"
+
+#: src/app/qt/kid3mainwindow.cpp:713
+msgctxt "Kid3MainWindow|"
+msgid "&Move to Trash"
+msgstr "&Mou a la paperera"
+
+#: src/app/qt/kid3mainwindow.cpp:720
+msgctxt "Kid3MainWindow|"
+msgid "Folder List"
+msgstr "Llista de carpetes"
+
+#: src/app/qt/kid3mainwindow.cpp:726
+msgctxt "Kid3MainWindow|"
+msgid "Section"
+msgstr "Secció"
+
+#: src/app/qt/kid3mainwindow.cpp:811
+msgctxt "Kid3MainWindow|"
+msgid " [modified]"
+msgstr " [modificada]"
+
+#: src/app/qt/kid3mainwindow.cpp:906
+msgctxt "Kid3MainWindow|"
+msgid "Audio Tag Editor"
+msgstr "Editor per a les etiquetes d'àudio"
+
+#: src/app/qt/kid3mainwindow.cpp:911
+msgctxt "Kid3MainWindow|"
+msgid "License"
+msgstr "Llicència"
+
+#: src/app/qt/kid3mainwindow.cpp:929
+msgctxt "Kid3MainWindow|"
+msgid "Configure - Kid3"
+msgstr "Configuració - Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
+msgctxt "Kid3MainWindow|"
+msgid "User Actions"
+msgstr "Accions d'usuari"
+
+#: src/app/qt/platformtools.cpp:129
+msgctxt "@default|"
+msgid "Kid3 Handbook"
+msgstr "Manual del Kid3"
+
+#: src/app/qt/recentfilesmenu.cpp:120
+msgctxt "RecentFilesMenu|"
+msgid "&Clear List"
+msgstr "&Neteja la llista"
+
+#: src/app/qt/shortcutsdelegate.cpp:190
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Clear"
+msgstr "Neteja"
+
+#: src/app/qt/shortcutsdelegate.cpp:195
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Reset"
+msgstr "Inicialitza"
+
+#: src/app/qt/shortcutsmodel.cpp:112
+msgctxt "ShortcutsModel|"
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Premeu F2 o feu-hi doble clic per a editar el contingut de la cel·la."
+
+#: src/app/qt/shortcutsmodel.cpp:189
+msgctxt "ShortcutsModel|"
+msgid "Action"
+msgstr "Acció"
+
+#: src/app/qt/shortcutsmodel.cpp:191
+msgctxt "ShortcutsModel|"
+msgid "Shortcut"
+msgstr "Drecera"
+
+#: src/core/config/batchimportsourcesmodel.cpp:166
+msgctxt "BatchImportSourcesModel|"
+msgid "Server"
+msgstr "Servidor"
+
+#: src/core/config/batchimportsourcesmodel.cpp:168
+msgctxt "BatchImportSourcesModel|"
+msgid "Accuracy"
+msgstr "Precisió"
+
+#: src/core/config/batchimportsourcesmodel.cpp:170
+msgctxt "BatchImportSourcesModel|"
+msgid "Standard Tags"
+msgstr "Etiquetes estàndard"
+
+#: src/core/config/batchimportsourcesmodel.cpp:172
+msgctxt "BatchImportSourcesModel|"
+msgid "Additional Tags"
+msgstr "Etiquetes addicionals"
+
+#: src/core/config/batchimportsourcesmodel.cpp:174
+msgctxt "BatchImportSourcesModel|"
+msgid "Cover Art"
+msgstr "Caràtula"
+
+#: src/core/config/fileconfig.cpp:177
+msgctxt "Kid3Application|"
+msgid "All Supported Files"
+msgstr "Tots els fitxers admesos"
+
+#: src/core/config/formatconfig.cpp:483
+msgctxt "@default|"
+msgid "No changes"
+msgstr "Sense canvis"
+
+#: src/core/config/formatconfig.cpp:484
+msgctxt "@default|"
+msgid "All lowercase"
+msgstr "Tot en minúscula"
+
+#: src/core/config/formatconfig.cpp:485
+msgctxt "@default|"
+msgid "All uppercase"
+msgstr "Tot en majúscula"
+
+#: src/core/config/formatconfig.cpp:486
+msgctxt "@default|"
+msgid "First letter uppercase"
+msgstr "Primera lletra en majúscula"
+
+#: src/core/config/formatconfig.cpp:487
+msgctxt "@default|"
+msgid "All first letters uppercase"
+msgstr "Totes les primeres lletres en majúscula"
+
+#: src/core/config/formatconfig.cpp:502
+msgctxt "FormatConfig|"
+msgid "None"
+msgstr "Cap"
+
+#: src/core/config/starratingmappingsmodel.cpp:128
+msgctxt "StarRatingMappingsModel|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/core/config/tagconfig.cpp:722 src/core/tags/frame.cpp:69
+msgctxt "@default|"
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: src/core/config/tagconfig.cpp:723 src/core/tags/frame.cpp:70
+msgctxt "@default|"
+msgid "UTF16"
+msgstr "UTF16"
+
+#: src/core/config/tagconfig.cpp:724 src/core/tags/frame.cpp:72
+msgctxt "@default|"
+msgid "UTF8"
+msgstr "UTF8"
+
+#: src/core/import/batchimporter.cpp:337
+msgctxt "BatchImporter|"
+msgid "Accuracy"
+msgstr "Precisió"
+
+#: src/core/import/batchimporter.cpp:340
+msgctxt "BatchImporter|"
+msgid "Unknown"
+msgstr "Desconeguda"
+
+#: src/core/import/batchimporter.cpp:415
+msgctxt "BatchImporter|"
+msgid "Invalid File"
+msgstr "Fitxer no vàlid"
+
+#: src/core/import/httpclient.cpp:91
+#, qt-format
+msgctxt "@default|"
+msgid "Data received: %1"
+msgstr "Dades rebudes: %1"
+
+#: src/core/import/httpclient.cpp:102
+msgctxt "HttpClient|"
+msgid "Ready."
+msgstr "Llest."
+
+#: src/core/import/httpclient.cpp:104
+msgctxt "HttpClient|"
+msgid "Error"
+msgstr "Error"
+
+#: src/core/import/httpclient.cpp:152
+#, qt-format
+msgctxt "HttpClient|"
+msgid "Data received: %1"
+msgstr "Dades rebudes: %1"
+
+#: src/core/import/httpclient.cpp:230
+msgctxt "HttpClient|"
+msgid "Request sent..."
+msgstr "S'ha enviat la sol·licitud..."
+
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:105
+#: src/core/tags/frame.cpp:1711
+msgctxt "@default|"
+msgid "Title"
+msgstr "Títol"
+
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:1715
+msgctxt "@default|"
+msgid "Album"
+msgstr "Àlbum"
+
+#: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:1719
+msgctxt "@default|"
+msgid "Artist"
+msgstr "Artista"
+
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:1723
+msgctxt "@default|"
+msgid "Comment"
+msgstr "Comentari"
+
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:1727
+msgctxt "@default|"
+msgid "Year"
+msgstr "Any"
+
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:1732
+msgctxt "@default|"
+msgid "Track"
+msgstr "Peça"
+
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:1745
+msgctxt "@default|"
+msgid "Genre"
+msgstr "Gènere"
+
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:215
+#: src/core/tags/trackdata.cpp:231
+msgctxt "@default|"
+msgid "Length"
+msgstr "Durada"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:84
+msgctxt "@default|"
+msgid "Drive"
+msgstr "Unitat"
+
+#. %1 is a file name suffix, for example txt
+#: src/core/model/abstractfiledecorationprovider.cpp:90
+#, qt-format
+msgctxt "@default|"
+msgid "%1 File"
+msgstr "Fitxer %1"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:93
+msgctxt "@default|"
+msgid "File"
+msgstr "Fitxer"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:98
+msgctxt "@default|"
+msgid "Folder"
+msgstr "Carpeta"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:102
+msgctxt "@default|"
+msgid "Shortcut"
+msgstr "Drecera"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:105
+#: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:263
+msgctxt "@default|"
+msgid "Unknown"
+msgstr "Desconeguda"
+
+#: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:46
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+msgctxt "@default|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/core/model/commandformatreplacer.cpp:148
+msgctxt "@default|"
+msgid "Filenames"
+msgstr "Noms de fitxer"
+
+#: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:40
+#: src/core/tags/trackdata.cpp:221
+msgctxt "@default|"
+msgid "URL"
+msgstr "L'URL"
+
+#: src/core/model/commandformatreplacer.cpp:157
+msgctxt "@default|"
+msgid "URLs"
+msgstr "Els URL"
+
+#: src/core/model/commandformatreplacer.cpp:163
+msgctxt "@default|"
+msgid "Folder name"
+msgstr "Nom de la carpeta"
+
+#: src/core/model/commandformatreplacer.cpp:168
+msgctxt "@default|"
+msgid "Browser"
+msgstr "Navegador"
+
+#: src/core/model/commandformatreplacer.cpp:174
+msgctxt "@default|"
+msgid "QML base folder"
+msgstr "Carpeta base del QML"
+
+#: src/core/model/commandformatreplacer.cpp:181
+#: src/gui/dialogs/browsecoverartdialog.cpp:61
+msgctxt "@default|"
+msgid "Encode as URL"
+msgstr "Codifica com un URL"
+
+#: src/core/model/commandformatreplacer.cpp:187
+msgctxt "@default|"
+msgid "--- separator ---"
+msgstr "--- separador ---"
+
+#: src/core/model/commandformatreplacer.cpp:193
+msgctxt "@default|"
+msgid "Begin of submenu"
+msgstr "Començament del submenú"
+
+#: src/core/model/commandformatreplacer.cpp:199
+msgctxt "@default|"
+msgid "End of submenu"
+msgstr "Fi del submenú"
+
+#: src/core/model/commandstablemodel.cpp:165
+msgctxt "CommandsTableModel|"
+msgid "Confirm"
+msgstr "Confirma"
+
+#: src/core/model/commandstablemodel.cpp:167
+msgctxt "CommandsTableModel|"
+msgid "Output"
+msgstr "Eixida"
+
+#: src/core/model/commandstablemodel.cpp:169
+msgctxt "CommandsTableModel|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/core/model/commandstablemodel.cpp:171
+msgctxt "CommandsTableModel|"
+msgid "Command"
+msgstr "Ordre"
+
+#: src/core/model/dirrenamer.cpp:250
+#, qt-format
+msgctxt "@default|"
+msgid "Create folder %1 failed\n"
+msgstr "Ha fallat en crear la carpeta %1\n"
+
+#: src/core/model/dirrenamer.cpp:279
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Create folder %1 failed\n"
+msgstr "Ha fallat en crear la carpeta %1\n"
+
+#: src/core/model/dirrenamer.cpp:286
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "El fitxer %1 ja existeix\n"
+
+#: src/core/model/dirrenamer.cpp:288
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a folder\n"
+msgstr "%1 no és una carpeta\n"
+
+#: src/core/model/dirrenamer.cpp:290
+#, qt-format
+msgctxt "@default|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Ha fallat el canvi de nom de %1 a %2\n"
+
+#: src/core/model/dirrenamer.cpp:309
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "File %1 already exists\n"
+msgstr "El fitxer %1 ja existeix\n"
+
+#: src/core/model/dirrenamer.cpp:315
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a folder\n"
+msgstr "%1 no és una carpeta\n"
+
+#: src/core/model/dirrenamer.cpp:335 src/core/model/dirrenamer.cpp:383
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Ha fallat el canvi de nom de %1 a %2\n"
+
+#: src/core/model/dirrenamer.cpp:342
+#, qt-format
+msgctxt "@default|"
+msgid "%1 already exists\n"
+msgstr "%1 ja existeix\n"
+
+#: src/core/model/dirrenamer.cpp:344
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a file\n"
+msgstr "%1 no és un fitxer\n"
+
+#: src/core/model/dirrenamer.cpp:365
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 already exists\n"
+msgstr "%1 ja existeix\n"
+
+#: src/core/model/dirrenamer.cpp:371
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a file\n"
+msgstr "%1 no és un fitxer\n"
+
+#: src/core/model/dirrenamer.cpp:604
+msgctxt "DirRenamer|"
+msgid "New folder name is too different\n"
+msgstr "El nom nou de la carpeta és massa diferent\n"
+
+#: src/core/model/dirrenamer.cpp:670
+msgctxt "@default|"
+msgid "Create folder"
+msgstr "Crea una carpeta"
+
+#: src/core/model/dirrenamer.cpp:671
+msgctxt "@default|"
+msgid "Rename folder"
+msgstr "Reanomena la carpeta"
+
+#: src/core/model/dirrenamer.cpp:672
+msgctxt "@default|"
+msgid "Rename file"
+msgstr "Reanomena el fitxer"
+
+#: src/core/model/dirrenamer.cpp:673
+msgctxt "@default|"
+msgid "Error"
+msgstr "Error"
+
+#: src/core/model/downloadclient.cpp:53
+msgctxt "DownloadClient|"
+msgid "Ready."
+msgstr "Llest."
+
+#: src/core/model/eventtimingcode.cpp:37
+msgctxt "@default|"
+msgid "padding (has no meaning)"
+msgstr "ompliment (no té sentit)"
+
+#: src/core/model/eventtimingcode.cpp:38
+msgctxt "@default|"
+msgid "end of initial silence"
+msgstr "final del silenci inicial"
+
+#: src/core/model/eventtimingcode.cpp:39
+msgctxt "@default|"
+msgid "intro start"
+msgstr "començament de la introducció"
+
+#: src/core/model/eventtimingcode.cpp:40
+msgctxt "@default|"
+msgid "main part start"
+msgstr "començament de la part principal"
+
+#: src/core/model/eventtimingcode.cpp:41
+msgctxt "@default|"
+msgid "outro start"
+msgstr "començament de l'eixida"
+
+#: src/core/model/eventtimingcode.cpp:42
+msgctxt "@default|"
+msgid "outro end"
+msgstr "final de l'eixida"
+
+#: src/core/model/eventtimingcode.cpp:43
+msgctxt "@default|"
+msgid "verse start"
+msgstr "començament del vers"
+
+#: src/core/model/eventtimingcode.cpp:44
+msgctxt "@default|"
+msgid "refrain start"
+msgstr "començament de la tornada"
+
+#: src/core/model/eventtimingcode.cpp:45
+msgctxt "@default|"
+msgid "interlude start"
+msgstr "començament de l'interludi"
+
+#: src/core/model/eventtimingcode.cpp:46
+msgctxt "@default|"
+msgid "theme start"
+msgstr "començament del tema"
+
+#: src/core/model/eventtimingcode.cpp:47
+msgctxt "@default|"
+msgid "variation start"
+msgstr "començament de la variació"
+
+#: src/core/model/eventtimingcode.cpp:48
+msgctxt "@default|"
+msgid "key change"
+msgstr "canvi de la clau"
+
+#: src/core/model/eventtimingcode.cpp:49
+msgctxt "@default|"
+msgid "time change"
+msgstr "canvi del temps"
+
+#: src/core/model/eventtimingcode.cpp:50
+msgctxt "@default|"
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "soroll momentani no desitjat (Snap, Crackle i Pop)"
+
+#: src/core/model/eventtimingcode.cpp:51
+msgctxt "@default|"
+msgid "sustained noise"
+msgstr "soroll sostingut"
+
+#: src/core/model/eventtimingcode.cpp:52
+msgctxt "@default|"
+msgid "sustained noise end"
+msgstr "final del soroll sostingut"
+
+#: src/core/model/eventtimingcode.cpp:53
+msgctxt "@default|"
+msgid "intro end"
+msgstr "final de la introducció"
+
+#: src/core/model/eventtimingcode.cpp:54
+msgctxt "@default|"
+msgid "main part end"
+msgstr "final de la part principal"
+
+#: src/core/model/eventtimingcode.cpp:55
+msgctxt "@default|"
+msgid "verse end"
+msgstr "final del vers"
+
+#: src/core/model/eventtimingcode.cpp:56
+msgctxt "@default|"
+msgid "refrain end"
+msgstr "final de la tornada"
+
+#: src/core/model/eventtimingcode.cpp:57
+msgctxt "@default|"
+msgid "theme end"
+msgstr "final del tema"
+
+#: src/core/model/eventtimingcode.cpp:58
+msgctxt "@default|"
+msgid "profanity"
+msgstr "profanitat"
+
+#: src/core/model/eventtimingcode.cpp:59
+msgctxt "@default|"
+msgid "profanity end"
+msgstr "final de la profanitat"
+
+#: src/core/model/eventtimingcode.cpp:60
+msgctxt "@default|"
+msgid "not predefined synch 0"
+msgstr "sincronització no predefinida 0"
+
+#: src/core/model/eventtimingcode.cpp:61
+msgctxt "@default|"
+msgid "not predefined synch 1"
+msgstr "sincronització no predefinida 1"
+
+#: src/core/model/eventtimingcode.cpp:62
+msgctxt "@default|"
+msgid "not predefined synch 2"
+msgstr "sincronització no predefinida 2"
+
+#: src/core/model/eventtimingcode.cpp:63
+msgctxt "@default|"
+msgid "not predefined synch 3"
+msgstr "sincronització no predefinida 3"
+
+#: src/core/model/eventtimingcode.cpp:64
+msgctxt "@default|"
+msgid "not predefined synch 4"
+msgstr "sincronització no predefinida 4"
+
+#: src/core/model/eventtimingcode.cpp:65
+msgctxt "@default|"
+msgid "not predefined synch 5"
+msgstr "sincronització no predefinida 5"
+
+#: src/core/model/eventtimingcode.cpp:66
+msgctxt "@default|"
+msgid "not predefined synch 6"
+msgstr "sincronització no predefinida 6"
+
+#: src/core/model/eventtimingcode.cpp:67
+msgctxt "@default|"
+msgid "not predefined synch 7"
+msgstr "sincronització no predefinida 7"
+
+#: src/core/model/eventtimingcode.cpp:68
+msgctxt "@default|"
+msgid "not predefined synch 8"
+msgstr "sincronització no predefinida 8"
+
+#: src/core/model/eventtimingcode.cpp:69
+msgctxt "@default|"
+msgid "not predefined synch 9"
+msgstr "sincronització no predefinida 9"
+
+#: src/core/model/eventtimingcode.cpp:70
+msgctxt "@default|"
+msgid "not predefined synch A"
+msgstr "sincronització no predefinida A"
+
+#: src/core/model/eventtimingcode.cpp:71
+msgctxt "@default|"
+msgid "not predefined synch B"
+msgstr "sincronització no predefinida B"
+
+#: src/core/model/eventtimingcode.cpp:72
+msgctxt "@default|"
+msgid "not predefined synch C"
+msgstr "sincronització no predefinida C"
+
+#: src/core/model/eventtimingcode.cpp:73
+msgctxt "@default|"
+msgid "not predefined synch D"
+msgstr "sincronització no predefinida D"
+
+#: src/core/model/eventtimingcode.cpp:74
+msgctxt "@default|"
+msgid "not predefined synch E"
+msgstr "sincronització no predefinida E"
+
+#: src/core/model/eventtimingcode.cpp:75
+msgctxt "@default|"
+msgid "not predefined synch F"
+msgstr "sincronització no predefinida F"
+
+#: src/core/model/eventtimingcode.cpp:76
+msgctxt "@default|"
+msgid "audio end (start of silence)"
+msgstr "final de l'àudio (començament del silenci)"
+
+#: src/core/model/eventtimingcode.cpp:77
+msgctxt "@default|"
+msgid "audio file ends"
+msgstr "final del fitxer d'àudio"
+
+#: src/core/model/eventtimingcode.cpp:111
+#, qt-format
+msgctxt "@default|"
+msgid "reserved for future use %1"
+msgstr "reservat per a un ús futur %1"
+
+#: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
+msgctxt "@default|"
+msgid "Tag 1"
+msgstr "Etiqueta 1"
+
+#: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
+msgctxt "@default|"
+msgid "Tag 2"
+msgstr "Etiqueta 2"
+
+#: src/core/model/filefilter.cpp:108
+msgctxt "@default|"
+msgid "True if strings are equal"
+msgstr "Cert si les cadenes són iguals"
+
+#: src/core/model/filefilter.cpp:114
+msgctxt "@default|"
+msgid "True if string contains substring"
+msgstr "Cert si la cadena conté una subcadena"
+
+#: src/core/model/filefilter.cpp:121
+msgctxt "@default|"
+msgid "True if string matches regexp"
+msgstr "Cert si la cadena coincideix amb l'expressió regular"
+
+#: src/core/model/filefilter.cpp:127
+msgctxt "@default|"
+msgid "Logical AND"
+msgstr "«AND» lògic"
+
+#: src/core/model/filefilter.cpp:132
+msgctxt "@default|"
+msgid "Logical OR"
+msgstr "«OR» lògic"
+
+#: src/core/model/filefilter.cpp:138
+msgctxt "@default|"
+msgid "Logical negation"
+msgstr "Negació lògica"
+
+#: src/core/model/fileproxymodel.cpp:38
+msgctxt "QFileSystemModel|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/core/model/fileproxymodel.cpp:40
+msgctxt "QFileSystemModel|"
+msgid "Size"
+msgstr "Mida"
+
+#: src/core/model/fileproxymodel.cpp:42
+msgctxt "QFileSystemModel|"
+msgid "Type"
+msgstr "Tipus"
+
+#: src/core/model/fileproxymodel.cpp:44
+msgctxt "QFileSystemModel|"
+msgid "Kind"
+msgstr "Classe"
+
+#: src/core/model/fileproxymodel.cpp:47
+msgctxt "QFileSystemModel|"
+msgid "Date Modified"
+msgstr "Data de modificació"
+
+#: src/core/model/fileproxymodel.cpp:1043
+msgctxt "FileProxyModel|"
+msgid "All Supported Files"
+msgstr "Tots els fitxers admesos"
+
+#: src/core/model/fileproxymodel.cpp:1045
+msgctxt "FileProxyModel|"
+msgid "All Files"
+msgstr "Tots els fitxers"
+
+#: src/core/model/filesystemmodel.cpp:822
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 TB"
+msgstr "%1 TB"
+
+#: src/core/model/filesystemmodel.cpp:824
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 GB"
+msgstr "%1 GB"
+
+#: src/core/model/filesystemmodel.cpp:826
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 MB"
+msgstr "%1 MB"
+
+#: src/core/model/filesystemmodel.cpp:828
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 KB"
+msgstr "%1 KB"
+
+#: src/core/model/filesystemmodel.cpp:829
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 bytes"
+msgstr "%1 bytes"
+
+#: src/core/model/filesystemmodel.cpp:984
+msgctxt "FileSystemModel|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/core/model/filesystemmodel.cpp:986
+msgctxt "FileSystemModel|"
+msgid "Size"
+msgstr "Mida"
+
+#: src/core/model/filesystemmodel.cpp:990
+msgctxt "FileSystemModel|Match OS X Finder"
+msgid "Kind"
+msgstr "Classe"
+
+#: src/core/model/filesystemmodel.cpp:992
+msgctxt "FileSystemModel|All other platforms"
+msgid "Type"
+msgstr "Tipus"
+
+#: src/core/model/filesystemmodel.cpp:999
+msgctxt "FileSystemModel|"
+msgid "Date Modified"
+msgstr "Data de modificació"
+
+#: src/core/model/filesystemmodel_p.h:319
+msgctxt "FileSystemModel|"
+msgid "My Computer"
+msgstr "El meu ordinador"
+
+#: src/core/model/filesystemmodel_p.h:321
+msgctxt "FileSystemModel|"
+msgid "Computer"
+msgstr "Ordinador"
+
+#: src/core/model/frameobjectmodel.cpp:178
+msgctxt "FrameFieldObject|"
+msgid "Text"
+msgstr "Text"
+
+#: src/core/model/frametablemodel.cpp:137
+msgctxt "FrameTableModel|"
+msgid "Volume"
+msgstr "Volum"
+
+#: src/core/model/frametablemodel.cpp:162
+msgctxt "FrameTableModel|"
+msgid "File ID"
+msgstr "ID del fitxer"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Name"
+msgstr "Nom"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Data"
+msgstr "Dades"
+
+#: src/core/model/kid3application.cpp:972
+msgctxt "Kid3Application|"
+msgid "Saving folder..."
+msgstr "S'està desant la carpeta..."
+
+#: src/core/model/kid3application.cpp:1117
+msgctxt "Kid3Application|"
+msgid "Selection"
+msgstr "Selecciona"
+
+#: src/core/model/kid3application.cpp:3330
+msgctxt "Kid3Application|"
+msgid "All Files"
+msgstr "Tots els fitxers"
+
+#: src/core/model/tagsearcher.cpp:198
+msgctxt "TagSearcher|"
+msgid "Search finished"
+msgstr "Ha finalitzat la cerca"
+
+#: src/core/model/tagsearcher.cpp:464
+msgctxt "TagSearcher|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/core/model/tagsearcher.cpp:466
+#, qt-format
+msgctxt "TagSearcher|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/core/model/timeeventmodel.cpp:123
+msgctxt "TimeEventModel|"
+msgid "Time"
+msgstr "Temps"
+
+#: src/core/model/timeeventmodel.cpp:125
+msgctxt "TimeEventModel|"
+msgid "Event Code"
+msgstr "Codi de l'esdeveniment"
+
+#: src/core/model/timeeventmodel.cpp:127
+msgctxt "TimeEventModel|"
+msgid "Text"
+msgstr "Text"
+
+#: src/core/model/trackdatamodel.cpp:179
+msgctxt "TrackDataModel|"
+msgid "Track"
+msgstr "Peça"
+
+#: src/core/model/trackdatamodel.cpp:184
+msgctxt "TrackDataModel|"
+msgid "Absolute path to file"
+msgstr "Camí absolut cap al fitxer"
+
+#: src/core/model/trackdatamodel.cpp:186
+msgctxt "TrackDataModel|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/core/model/trackdatamodel.cpp:188
+msgctxt "TrackDataModel|"
+msgid "Duration"
+msgstr "Durada"
+
+#: src/core/model/trackdatamodel.cpp:190
+msgctxt "TrackDataModel|"
+msgid "Length"
+msgstr "Longitud"
+
+#: src/core/tags/frame.cpp:38
+msgctxt "@default|"
+msgid "Text Encoding"
+msgstr "Codificació del text"
+
+#: src/core/tags/frame.cpp:39
+msgctxt "@default|"
+msgid "Text"
+msgstr "Text"
+
+#: src/core/tags/frame.cpp:41
+msgctxt "@default|"
+msgid "Data"
+msgstr "Dades"
+
+#: src/core/tags/frame.cpp:42 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:236 src/core/tags/frame.cpp:282
+msgctxt "@default|"
+msgid "Description"
+msgstr "Descripció"
+
+#: src/core/tags/frame.cpp:43 src/core/tags/frame.cpp:305
+msgctxt "@default|"
+msgid "Owner"
+msgstr "Propietari"
+
+#: src/core/tags/frame.cpp:44
+msgctxt "@default|"
+msgid "Email"
+msgstr "Correu electrònic"
+
+#: src/core/tags/frame.cpp:45 src/core/tags/frame.cpp:153
+msgctxt "@default|"
+msgid "Rating"
+msgstr "Puntuació"
+
+#: src/core/tags/frame.cpp:47 src/core/tags/frame.cpp:129
+msgctxt "@default|"
+msgid "Language"
+msgstr "Idioma"
+
+#: src/core/tags/frame.cpp:48
+msgctxt "@default|"
+msgid "Picture Type"
+msgstr "Tipus de la imatge"
+
+#: src/core/tags/frame.cpp:49
+msgctxt "@default|"
+msgid "Image format"
+msgstr "Format de la imatge"
+
+#: src/core/tags/frame.cpp:50
+msgctxt "@default|"
+msgid "Mimetype"
+msgstr "Tipus MIME"
+
+#: src/core/tags/frame.cpp:51
+msgctxt "@default|"
+msgid "Counter"
+msgstr "Comptador"
+
+#: src/core/tags/frame.cpp:52
+msgctxt "@default|"
+msgid "Identifier"
+msgstr "Identificador"
+
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:196
+msgctxt "@default|"
+msgid "Volume Adjustment"
+msgstr "Ajust del volum"
+
+#: src/core/tags/frame.cpp:54
+msgctxt "@default|"
+msgid "Number of Bits"
+msgstr "Nombre de bits"
+
+#: src/core/tags/frame.cpp:55
+msgctxt "@default|"
+msgid "Volume Change Right"
+msgstr "Canvi de volum del canal dret"
+
+#: src/core/tags/frame.cpp:56
+msgctxt "@default|"
+msgid "Volume Change Left"
+msgstr "Canvi de volum del canal esquerre"
+
+#: src/core/tags/frame.cpp:57
+msgctxt "@default|"
+msgid "Peak Volume Right"
+msgstr "Pic de volum del canal dret"
+
+#: src/core/tags/frame.cpp:58
+msgctxt "@default|"
+msgid "Peak Volume Left"
+msgstr "Pic de volum del canal esquerre"
+
+#: src/core/tags/frame.cpp:59
+msgctxt "@default|"
+msgid "Timestamp Format"
+msgstr "Format de la marca de temps"
+
+#: src/core/tags/frame.cpp:60
+msgctxt "@default|"
+msgid "Content Type"
+msgstr "Tipus de contingut"
+
+#: src/core/tags/frame.cpp:62
+msgctxt "@default|"
+msgid "Price"
+msgstr "Preu"
+
+#: src/core/tags/frame.cpp:63 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:203
+msgctxt "@default|"
+msgid "Date"
+msgstr "Data"
+
+#: src/core/tags/frame.cpp:64
+msgctxt "@default|"
+msgid "Seller"
+msgstr "Segell"
+
+# skip-rule: da-be
+#: src/core/tags/frame.cpp:71
+msgctxt "@default|"
+msgid "UTF16BE"
+msgstr "UTF16-BE"
+
+#: src/core/tags/frame.cpp:77 src/core/tags/frame.cpp:84
+#: src/core/tags/pictureframe.cpp:41
+msgctxt "@default|"
+msgid "Other"
+msgstr "Altres"
+
+#: src/core/tags/frame.cpp:78
+msgctxt "@default|"
+msgid "MPEG frames as unit"
+msgstr "Fotogrames MPEG com a una unitat"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Milliseconds as unit"
+msgstr "Mil·lisegons com a una unitat"
+
+#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:131
+#: src/gui/widgets/timeeventeditor.cpp:351
+msgctxt "@default|"
+msgid "Lyrics"
+msgstr "Lletra"
+
+#: src/core/tags/frame.cpp:86
+msgctxt "@default|"
+msgid "Text transcription"
+msgstr "Transcripció del text"
+
+#: src/core/tags/frame.cpp:87
+msgctxt "@default|"
+msgid "Movement/part name"
+msgstr "Nom del moviment/part"
+
+#: src/core/tags/frame.cpp:88
+msgctxt "@default|"
+msgid "Events"
+msgstr "Esdeveniments"
+
+#: src/core/tags/frame.cpp:89
+msgctxt "@default|"
+msgid "Chord"
+msgstr "Acord"
+
+#: src/core/tags/frame.cpp:90
+msgctxt "@default|"
+msgid "Trivia/pop up"
+msgstr "Trivial/imprevisible"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Track Number"
+msgstr "Número de la peça"
+
+#: src/core/tags/frame.cpp:113 src/core/tags/frame.cpp:233
+msgctxt "@default|"
+msgid "Album Artist"
+msgstr "Artista de l'àlbum"
+
+#: src/core/tags/frame.cpp:114
+msgctxt "@default|"
+msgid "Arranger"
+msgstr "Arranjaments"
+
+#: src/core/tags/frame.cpp:115
+msgctxt "@default|"
+msgid "Author"
+msgstr "Autor"
+
+#: src/core/tags/frame.cpp:116
+msgctxt "@default|"
+msgid "BPM"
+msgstr "PPM"
+
+#: src/core/tags/frame.cpp:117
+msgctxt "@default|"
+msgid "Catalog Number"
+msgstr "Número del catàleg"
+
+#: src/core/tags/frame.cpp:118
+msgctxt "@default|"
+msgid "Compilation"
+msgstr "Compilació"
+
+#: src/core/tags/frame.cpp:119 src/core/tags/pictureframe.cpp:52
+msgctxt "@default|"
+msgid "Composer"
+msgstr "Compositor"
+
+#: src/core/tags/frame.cpp:120 src/core/tags/frame.cpp:281
+#: src/core/tags/pictureframe.cpp:50
+msgctxt "@default|"
+msgid "Conductor"
+msgstr "Director"
+
+#: src/core/tags/frame.cpp:121
+msgctxt "@default|"
+msgid "Copyright"
+msgstr "Drets d'autor"
+
+#: src/core/tags/frame.cpp:122
+msgctxt "@default|"
+msgid "Disc Number"
+msgstr "Número del disc"
+
+#: src/core/tags/frame.cpp:123 src/core/tags/frame.cpp:240
+msgctxt "@default|"
+msgid "Encoded-by"
+msgstr "Codificat per"
+
+#: src/core/tags/frame.cpp:124 src/core/tags/frame.cpp:239
+msgctxt "@default|"
+msgid "Encoder Settings"
+msgstr "Configuració del codificador"
+
+#: src/core/tags/frame.cpp:125 src/core/tags/frame.cpp:204
+msgctxt "@default|"
+msgid "Encoding Time"
+msgstr "Temps de la codificació"
+
+#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:235
+msgctxt "@default|"
+msgid "Grouping"
+msgstr "Agrupament"
+
+#: src/core/tags/frame.cpp:127
+msgctxt "@default|"
+msgid "Initial Key"
+msgstr "Clau inicial"
+
+#: src/core/tags/frame.cpp:128
+msgctxt "@default|"
+msgid "ISRC"
+msgstr "ISRC"
+
+#: src/core/tags/frame.cpp:130
+msgctxt "@default|"
+msgid "Lyricist"
+msgstr "Lletrista"
+
+#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:47
+msgctxt "@default|"
+msgid "Media"
+msgstr "Suport"
+
+#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:270
+msgctxt "@default|"
+msgid "Mood"
+msgstr "Estat d'ànim"
+
+#: src/core/tags/frame.cpp:134
+msgctxt "@default|"
+msgid "Original Album"
+msgstr "Àlbum original"
+
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:252
+msgctxt "@default|"
+msgid "Original Artist"
+msgstr "Artista original"
+
+#: src/core/tags/frame.cpp:136
+msgctxt "@default|"
+msgid "Original Date"
+msgstr "Data original"
+
+#: src/core/tags/frame.cpp:138
+msgctxt "@default|"
+msgid "Performer"
+msgstr "Intèrpret"
+
+#: src/core/tags/frame.cpp:139
+msgctxt "@default|"
+msgid "Picture"
+msgstr "Imatge"
+
+#: src/core/tags/frame.cpp:140
+msgctxt "@default|"
+msgid "Publisher"
+msgstr "Editor"
+
+#: src/core/tags/frame.cpp:141
+msgctxt "@default|"
+msgid "Release Country"
+msgstr "País de llançament"
+
+#: src/core/tags/frame.cpp:142 src/core/tags/frame.cpp:258
+msgctxt "@default|"
+msgid "Remixer"
+msgstr "Remesclador"
+
+#: src/core/tags/frame.cpp:143
+msgctxt "@default|"
+msgid "Sort Album"
+msgstr "Ordena per àlbum"
+
+#: src/core/tags/frame.cpp:144 src/core/tags/frame.cpp:267
+msgctxt "@default|"
+msgid "Sort Album Artist"
+msgstr "Ordena per artista de l'àlbum"
+
+#: src/core/tags/frame.cpp:145
+msgctxt "@default|"
+msgid "Sort Artist"
+msgstr "Ordena per artista"
+
+#: src/core/tags/frame.cpp:146
+msgctxt "@default|"
+msgid "Sort Composer"
+msgstr "Ordena per compositor"
+
+#: src/core/tags/frame.cpp:147
+msgctxt "@default|"
+msgid "Sort Name"
+msgstr "Ordena per nom"
+
+#: src/core/tags/frame.cpp:148
+msgctxt "@default|"
+msgid "Subtitle"
+msgstr "Subtítol"
+
+#: src/core/tags/frame.cpp:149
+msgctxt "@default|"
+msgid "Website"
+msgstr "Lloc web"
+
+#: src/core/tags/frame.cpp:150
+msgctxt "@default|"
+msgid "WWW Audio File"
+msgstr "Fitxer d'àudio WWW"
+
+#: src/core/tags/frame.cpp:151
+msgctxt "@default|"
+msgid "WWW Audio Source"
+msgstr "Font d'àudio WWW"
+
+#: src/core/tags/frame.cpp:152
+msgctxt "@default|"
+msgid "Release Date"
+msgstr "Data de llançament"
+
+#: src/core/tags/frame.cpp:154
+msgctxt "@default|"
+msgid "Work"
+msgstr "Treball"
+
+#: src/core/tags/frame.cpp:171
+msgctxt "@default|"
+msgid "Audio Encryption"
+msgstr "Encriptatge de l'àudio"
+
+#: src/core/tags/frame.cpp:172
+msgctxt "@default|"
+msgid "Audio Seek Point"
+msgstr "Punt de cerca de l'àudio"
+
+#: src/core/tags/frame.cpp:173
+msgctxt "@default|"
+msgid "Chapter"
+msgstr "Capítol"
+
+#: src/core/tags/frame.cpp:174
+msgctxt "@default|"
+msgid "Commercial"
+msgstr "Comercial"
+
+#: src/core/tags/frame.cpp:175
+msgctxt "@default|"
+msgid "Table of Contents"
+msgstr "Taula de contingut"
+
+#: src/core/tags/frame.cpp:176
+msgctxt "@default|"
+msgid "Encryption Method"
+msgstr "Mètode d'encriptatge"
+
+#: src/core/tags/frame.cpp:177 src/core/tags/frame.cpp:178
+msgctxt "@default|"
+msgid "Equalization"
+msgstr "Equalització"
+
+#: src/core/tags/frame.cpp:179
+msgctxt "@default|"
+msgid "Event Timing Codes"
+msgstr "Codis de temps dels esdeveniments"
+
+#: src/core/tags/frame.cpp:180
+msgctxt "@default|"
+msgid "General Object"
+msgstr "Objecte general"
+
+#: src/core/tags/frame.cpp:181
+msgctxt "@default|"
+msgid "Group Identification"
+msgstr "Identificació del grup"
+
+#: src/core/tags/frame.cpp:183
+msgctxt "@default|"
+msgid "Linked Information"
+msgstr "Informació enllaçada"
+
+#: src/core/tags/frame.cpp:184
+msgctxt "@default|"
+msgid "Music CD Identifier"
+msgstr "Identificador del CD de música"
+
+#: src/core/tags/frame.cpp:185
+msgctxt "@default|"
+msgid "MPEG Lookup Table"
+msgstr "Taula de cerca MPEG"
+
+#: src/core/tags/frame.cpp:186 src/core/tags/frame.cpp:302
+msgctxt "@default|"
+msgid "Movement Number"
+msgstr "Número del moviment"
+
+#: src/core/tags/frame.cpp:187 src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Movement Name"
+msgstr "Nom del moviment"
+
+#: src/core/tags/frame.cpp:188
+msgctxt "@default|"
+msgid "Ownership"
+msgstr "Propietari"
+
+#: src/core/tags/frame.cpp:189
+msgctxt "@default|"
+msgid "Play Counter"
+msgstr "Comptador de la reproducció"
+
+#: src/core/tags/frame.cpp:190 src/core/tags/frame.cpp:287
+msgctxt "@default|"
+msgid "Podcast"
+msgstr "Podcast"
+
+#: src/core/tags/frame.cpp:191
+msgctxt "@default|"
+msgid "Popularimeter"
+msgstr "Mesurador de la popularitat"
+
+#: src/core/tags/frame.cpp:192
+msgctxt "@default|"
+msgid "Position Synchronisation"
+msgstr "Posició de la sincronització"
+
+#: src/core/tags/frame.cpp:193
+msgctxt "@default|"
+msgid "Private"
+msgstr "Privada"
+
+#: src/core/tags/frame.cpp:194
+msgctxt "@default|"
+msgid "Recommended Buffer Size"
+msgstr "Mida recomanada de la memòria intermèdia"
+
+#: src/core/tags/frame.cpp:197
+msgctxt "@default|"
+msgid "Reverb"
+msgstr "Reverberació"
+
+#: src/core/tags/frame.cpp:198
+msgctxt "@default|"
+msgid "Seek"
+msgstr "Cerca"
+
+#: src/core/tags/frame.cpp:199
+msgctxt "@default|"
+msgid "Signature"
+msgstr "Signatura"
+
+#: src/core/tags/frame.cpp:200
+msgctxt "@default|"
+msgid "Synchronized Lyrics"
+msgstr "Lletra sincronitzada"
+
+#: src/core/tags/frame.cpp:201
+msgctxt "@default|"
+msgid "Synchronized Tempo Codes"
+msgstr "Codis del ritme sincronitzat"
+
+#: src/core/tags/frame.cpp:202
+msgctxt "@default|"
+msgid "Podcast Category"
+msgstr "Categoria podcast"
+
+#: src/core/tags/frame.cpp:205
+msgctxt "@default|"
+msgid "Podcast Description"
+msgstr "Descripció del podcast"
+
+#: src/core/tags/frame.cpp:206
+msgctxt "@default|"
+msgid "Playlist Delay"
+msgstr "Retard de la llista de reproducció"
+
+#: src/core/tags/frame.cpp:207
+msgctxt "@default|"
+msgid "Original Release Time"
+msgstr "Temps del llançament original"
+
+#: src/core/tags/frame.cpp:208
+msgctxt "@default|"
+msgid "Recording Time"
+msgstr "Temps de l'enregistrament"
+
+#: src/core/tags/frame.cpp:209
+msgctxt "@default|"
+msgid "Release Time"
+msgstr "Temps del llançament"
+
+#: src/core/tags/frame.cpp:210
+msgctxt "@default|"
+msgid "Tagging Time"
+msgstr "Temps de l'etiquetatge"
+
+#: src/core/tags/frame.cpp:211
+msgctxt "@default|"
+msgid "File Type"
+msgstr "Tipus de fitxer"
+
+#: src/core/tags/frame.cpp:212
+msgctxt "@default|"
+msgid "Podcast Identifier"
+msgstr "Identificador del podcast"
+
+#: src/core/tags/frame.cpp:213
+msgctxt "@default|"
+msgid "Time"
+msgstr "Temps"
+
+#: src/core/tags/frame.cpp:214
+msgctxt "@default|"
+msgid "Podcast Keywords"
+msgstr "Paraules clau del podcast"
+
+#: src/core/tags/frame.cpp:216 src/core/tags/frame.cpp:271
+msgctxt "@default|"
+msgid "Original Filename"
+msgstr "Nom del fitxer original"
+
+#: src/core/tags/frame.cpp:217
+msgctxt "@default|"
+msgid "File Owner"
+msgstr "Propietari del fitxer"
+
+#: src/core/tags/frame.cpp:218
+msgctxt "@default|"
+msgid "Produced Notice"
+msgstr "Anotació de producció"
+
+#: src/core/tags/frame.cpp:219 src/core/tags/frame.cpp:257
+msgctxt "@default|"
+msgid "Recording Date"
+msgstr "Data de l'enregistrament"
+
+#: src/core/tags/frame.cpp:220
+msgctxt "@default|"
+msgid "Radio Station Name"
+msgstr "Nom de l'emissora de ràdio"
+
+#: src/core/tags/frame.cpp:221
+msgctxt "@default|"
+msgid "Radio Station Owner"
+msgstr "Propietari de l'emissora de ràdio"
+
+#: src/core/tags/frame.cpp:222
+msgctxt "@default|"
+msgid "Size"
+msgstr "Mida"
+
+#: src/core/tags/frame.cpp:223
+msgctxt "@default|"
+msgid "User-defined Text"
+msgstr "Text definit per l'usuari"
+
+#: src/core/tags/frame.cpp:224
+msgctxt "@default|"
+msgid "Unique File Identifier"
+msgstr "Identificador únic del fitxer"
+
+#: src/core/tags/frame.cpp:225
+msgctxt "@default|"
+msgid "Terms of Use"
+msgstr "Termes d'ús"
+
+#: src/core/tags/frame.cpp:226 src/core/tags/frame.cpp:273
+msgctxt "@default|"
+msgid "Commercial URL"
+msgstr "URL comercial"
+
+#: src/core/tags/frame.cpp:227
+msgctxt "@default|"
+msgid "Copyright URL"
+msgstr "URL dels drets d'autor"
+
+#: src/core/tags/frame.cpp:228
+msgctxt "@default|"
+msgid "Podcast Feed"
+msgstr "Canal de podcast"
+
+#: src/core/tags/frame.cpp:229
+msgctxt "@default|"
+msgid "Official Radio Station"
+msgstr "Emissora oficial de ràdio"
+
+#: src/core/tags/frame.cpp:230
+msgctxt "@default|"
+msgid "Payment"
+msgstr "Pagament"
+
+#: src/core/tags/frame.cpp:231
+msgctxt "@default|"
+msgid "Official Publisher"
+msgstr "Editorial oficial"
+
+#: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:275
+msgctxt "@default|"
+msgid "User-defined URL"
+msgstr "URL definit per l'usuari"
+
+#: src/core/tags/frame.cpp:234
+msgctxt "@default|"
+msgid "Contact"
+msgstr "Contacte"
+
+#: src/core/tags/frame.cpp:237 src/core/tags/frame.cpp:259
+msgctxt "@default|"
+msgid "Total Discs"
+msgstr "Total de discs"
+
+#: src/core/tags/frame.cpp:238
+msgctxt "@default|"
+msgid "Encoder"
+msgstr "Codificador"
+
+#: src/core/tags/frame.cpp:241
+msgctxt "@default|"
+msgid "Encoding"
+msgstr "Codificació"
+
+#: src/core/tags/frame.cpp:242
+msgctxt "@default|"
+msgid "Engineer"
+msgstr "Enginyer"
+
+#: src/core/tags/frame.cpp:243
+msgctxt "@default|"
+msgid "Ensemble"
+msgstr "Conjunt"
+
+#: src/core/tags/frame.cpp:244
+msgctxt "@default|"
+msgid "Guest Artist"
+msgstr "Artista convidat"
+
+#: src/core/tags/frame.cpp:245 src/core/tags/trackdata.cpp:264
+msgctxt "@default|"
+msgid "VBR"
+msgstr "VBR"
+
+#: src/core/tags/frame.cpp:246 src/core/tags/frame.cpp:288
+msgctxt "@default|"
+msgid "Gapless Playback"
+msgstr "Reproducció sense pauses"
+
+#: src/core/tags/frame.cpp:247
+msgctxt "@default|"
+msgid "Label"
+msgstr "Etiqueta"
+
+#: src/core/tags/frame.cpp:248
+msgctxt "@default|"
+msgid "Label Number"
+msgstr "Número de l'etiqueta"
+
+#: src/core/tags/frame.cpp:249
+msgctxt "@default|"
+msgid "License"
+msgstr "Llicència"
+
+#: src/core/tags/frame.cpp:250
+msgctxt "@default|"
+msgid "Location"
+msgstr "Ubicació"
+
+#: src/core/tags/frame.cpp:251
+msgctxt "@default|"
+msgid "Opus"
+msgstr "Opus"
+
+#: src/core/tags/frame.cpp:253
+msgctxt "@default|"
+msgid "Organization"
+msgstr "Organització"
+
+#: src/core/tags/frame.cpp:254
+msgctxt "@default|"
+msgid "Part Number"
+msgstr "Número de la part"
+
+#: src/core/tags/frame.cpp:255
+msgctxt "@default|"
+msgid "Producer"
+msgstr "Productor"
+
+#: src/core/tags/frame.cpp:256
+msgctxt "@default|"
+msgid "Product Number"
+msgstr "Número del productor"
+
+#: src/core/tags/frame.cpp:260 src/core/tags/frame.cpp:261
+msgctxt "@default|"
+msgid "Total Tracks"
+msgstr "Total de peces"
+
+#: src/core/tags/frame.cpp:264
+msgctxt "@default|"
+msgid "Version"
+msgstr "Versió"
+
+#: src/core/tags/frame.cpp:265
+msgctxt "@default|"
+msgid "Volume"
+msgstr "Volum"
+
+#: src/core/tags/frame.cpp:269
+msgctxt "@default|"
+msgid "MCDI"
+msgstr "MCDI"
+
+#: src/core/tags/frame.cpp:272
+msgctxt "@default|"
+msgid "Original Lyricist"
+msgstr "Lletrista original"
+
+#: src/core/tags/frame.cpp:274
+msgctxt "@default|"
+msgid "User Rating"
+msgstr "Puntuació de l'usuari"
+
+#: src/core/tags/frame.cpp:276
+msgctxt "@default|"
+msgid "Account Type"
+msgstr "Tipus de compte"
+
+#: src/core/tags/frame.cpp:277
+msgctxt "@default|"
+msgid "Purchase Account"
+msgstr "Compte de compra"
+
+#: src/core/tags/frame.cpp:278
+msgctxt "@default|"
+msgid "Artist ID"
+msgstr "ID de l'artista"
+
+#: src/core/tags/frame.cpp:279
+msgctxt "@default|"
+msgid "Category"
+msgstr "Categoria"
+
+#: src/core/tags/frame.cpp:280
+msgctxt "@default|"
+msgid "Catalog ID"
+msgstr "ID del catàleg"
+
+#: src/core/tags/frame.cpp:283
+msgctxt "@default|"
+msgid "Genre ID"
+msgstr "ID del gènere"
+
+#: src/core/tags/frame.cpp:284
+msgctxt "@default|"
+msgid "HD Video"
+msgstr "Vídeo en HD"
+
+#: src/core/tags/frame.cpp:285
+msgctxt "@default|"
+msgid "Keyword"
+msgstr "Paraula clau"
+
+#: src/core/tags/frame.cpp:286
+msgctxt "@default|"
+msgid "Long Description"
+msgstr "Descripció llarga"
+
+#: src/core/tags/frame.cpp:289
+msgctxt "@default|"
+msgid "Album ID"
+msgstr "ID de l'àlbum"
+
+#: src/core/tags/frame.cpp:290
+msgctxt "@default|"
+msgid "Purchase Date"
+msgstr "Data de compra"
+
+#: src/core/tags/frame.cpp:291
+msgctxt "@default|"
+msgid "Rating/Advisory"
+msgstr "Qualificació d'edat"
+
+#: src/core/tags/frame.cpp:292
+msgctxt "@default|"
+msgid "Country Code"
+msgstr "Codi de país"
+
+#: src/core/tags/frame.cpp:293
+msgctxt "@default|"
+msgid "Sort Show"
+msgstr "Ordenació dels programes"
+
+#: src/core/tags/frame.cpp:294
+msgctxt "@default|"
+msgid "Media Type"
+msgstr "Tipus de suport"
+
+#: src/core/tags/frame.cpp:295
+msgctxt "@default|"
+msgid "TV Episode"
+msgstr "Episodi de la TV"
+
+#: src/core/tags/frame.cpp:296
+msgctxt "@default|"
+msgid "TV Episode Number"
+msgstr "Número de l'episodi de la TV"
+
+#: src/core/tags/frame.cpp:297
+msgctxt "@default|"
+msgid "TV Network Name"
+msgstr "Nom de la xarxa de la TV"
+
+#: src/core/tags/frame.cpp:298
+msgctxt "@default|"
+msgid "TV Show Name"
+msgstr "Nom del programa de la TV"
+
+#: src/core/tags/frame.cpp:299
+msgctxt "@default|"
+msgid "TV Season"
+msgstr "Temporada de la TV"
+
+#: src/core/tags/frame.cpp:303
+msgctxt "@default|"
+msgid "Movement Count"
+msgstr "Comptador del moviment"
+
+#: src/core/tags/frame.cpp:304
+msgctxt "@default|"
+msgid "Show Work & Movement"
+msgstr "Mostra l'obra i el moviment"
+
+#: src/core/tags/frame.cpp:306
+msgctxt "@default|"
+msgid "Podcast URL"
+msgstr "URL del podcast"
+
+#: src/core/tags/frame.cpp:307
+msgctxt "@default|"
+msgid "Podcast GUID"
+msgstr "GUID del podcast"
+
+#: src/core/tags/frame.cpp:308
+msgctxt "@default|"
+msgid "Composer ID"
+msgstr "ID del compositor"
+
+#: src/core/tags/frame.cpp:309
+msgctxt "@default|"
+msgid "XID"
+msgstr "XID"
+
+#: src/core/tags/frame.cpp:310
+msgctxt "@default|"
+msgid "Archival Location"
+msgstr "Ubicació de l'arxiu"
+
+#: src/core/tags/frame.cpp:311
+msgctxt "@default|"
+msgid "Commissioned"
+msgstr "Per encàrrec de"
+
+#: src/core/tags/frame.cpp:312
+msgctxt "@default|"
+msgid "Cropped"
+msgstr "Escapçat"
+
+#: src/core/tags/frame.cpp:313
+msgctxt "@default|"
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: src/core/tags/frame.cpp:314
+msgctxt "@default|"
+msgid "Dots Per Inch"
+msgstr "Punts per polzada"
+
+#: src/core/tags/frame.cpp:315
+msgctxt "@default|"
+msgid "Keywords"
+msgstr "Paraules clau"
+
+#: src/core/tags/frame.cpp:316
+msgctxt "@default|"
+msgid "Lightness"
+msgstr "Claredat"
+
+#: src/core/tags/frame.cpp:317
+msgctxt "@default|"
+msgid "Number of Colors"
+msgstr "Nombre de colors"
+
+#: src/core/tags/frame.cpp:318
+msgctxt "@default|"
+msgid "Subject"
+msgstr "Assumpte"
+
+#: src/core/tags/frame.cpp:319
+msgctxt "@default|"
+msgid "Sharpness"
+msgstr "Agudesa"
+
+#: src/core/tags/frame.cpp:320
+msgctxt "@default|"
+msgid "Source Form"
+msgstr "Format de la font"
+
+#: src/core/tags/frame.cpp:925
+#, qt-format
+msgctxt "@default|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/core/tags/frame.cpp:930
+msgctxt "@default|"
+msgid "Tag 1 and Tag 2"
+msgstr "Etiqueta 1 i etiqueta 2"
+
+#: src/core/tags/frame.cpp:934
+msgctxt "@default|"
+msgid "All Tags"
+msgstr "Totes les etiquetes"
+
+#: src/core/tags/frame.cpp:1750
+msgctxt "@default|"
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Anteposa t1/annexa t2 si no està buida"
+
+#: src/core/tags/framenotice.cpp:187
+msgctxt "@default|"
+msgid "Truncated"
+msgstr "Truncada"
+
+#: src/core/tags/framenotice.cpp:188
+msgctxt "@default|"
+msgid "Size is too large"
+msgstr "La mida és massa gran"
+
+#: src/core/tags/framenotice.cpp:189
+msgctxt "@default|"
+msgid "Must be unique"
+msgstr "Cal que siga única"
+
+#: src/core/tags/framenotice.cpp:190
+msgctxt "@default|"
+msgid "New line is forbidden"
+msgstr "La línia nova està prohibida"
+
+#: src/core/tags/framenotice.cpp:191
+msgctxt "@default|"
+msgid "Carriage return is forbidden"
+msgstr "El retorn de carro està prohibit"
+
+#: src/core/tags/framenotice.cpp:192
+msgctxt "@default|"
+msgid "Owner must be non-empty"
+msgstr "El propietari no pot estar buit"
+
+#: src/core/tags/framenotice.cpp:193
+msgctxt "@default|"
+msgid "Must be numeric"
+msgstr "Ha de ser numèrica"
+
+#: src/core/tags/framenotice.cpp:194
+msgctxt "@default|"
+msgid "Must be numeric or number/total"
+msgstr "Ha de ser numèrica o número/total"
+
+#: src/core/tags/framenotice.cpp:195
+msgctxt "@default|"
+msgid "Format is DDMM"
+msgstr "El format és DDMM"
+
+#: src/core/tags/framenotice.cpp:196
+msgctxt "@default|"
+msgid "Format is HHMM"
+msgstr "El format és HHMM"
+
+#: src/core/tags/framenotice.cpp:197
+msgctxt "@default|"
+msgid "Format is YYYY"
+msgstr "El format és AAAA"
+
+#: src/core/tags/framenotice.cpp:198
+msgctxt "@default|"
+msgid "Must begin with a year and a space character"
+msgstr "Ha de començar amb un any i un caràcter espacial"
+
+#: src/core/tags/framenotice.cpp:199
+msgctxt "@default|"
+msgid "Must be ISO 8601 date/time"
+msgstr "Ha de ser la data/hora en l'ISO 8601"
+
+#: src/core/tags/framenotice.cpp:200
+msgctxt "@default|"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Ha de ser clau musical, de 3 caràcters, «A-G», «b», «#», «m»,\n"
+"«o» o el valor de la roda de Camelot «1A-12A», «1B-12B»"
+
+#: src/core/tags/framenotice.cpp:202
+msgctxt "@default|"
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr "Ha de tindre un codi d'idioma en l'ISO 639-2, 3 caràcters en minúscula"
+
+#: src/core/tags/framenotice.cpp:203
+msgctxt "@default|"
+msgid "Must be ISRC code, 12 characters"
+msgstr "Ha de ser un codi ISRC, 12 caràcters en minúscula"
+
+#: src/core/tags/framenotice.cpp:204
+msgctxt "@default|"
+msgid "Must be list of strings separated by '|'"
+msgstr "S'han de llistar les cadenes separades per «|»"
+
+#: src/core/tags/framenotice.cpp:205
+msgctxt "@default|"
+msgid "Has excess white space"
+msgstr "Hi ha excés en l'espai en blanc"
+
+#: src/core/tags/pictureframe.cpp:42
+msgctxt "@default|"
+msgid "32x32 pixels PNG file icon"
+msgstr "Icona de fitxer PNG de 32x32 píxels"
+
+#: src/core/tags/pictureframe.cpp:43
+msgctxt "@default|"
+msgid "Other file icon"
+msgstr "Una altra icona de fitxer"
+
+#: src/core/tags/pictureframe.cpp:44
+msgctxt "@default|"
+msgid "Cover (front)"
+msgstr "Caràtula (frontal)"
+
+#: src/core/tags/pictureframe.cpp:45
+msgctxt "@default|"
+msgid "Cover (back)"
+msgstr "Caràtula (posterior)"
+
+#: src/core/tags/pictureframe.cpp:46
+msgctxt "@default|"
+msgid "Leaflet page"
+msgstr "Pàgina del fullet"
+
+#: src/core/tags/pictureframe.cpp:48
+msgctxt "@default|"
+msgid "Lead artist/lead performer/soloist"
+msgstr "Artista principal/intèrpret principal/solista"
+
+#: src/core/tags/pictureframe.cpp:49
+msgctxt "@default|"
+msgid "Artist/performer"
+msgstr "Artista/intèrpret"
+
+#: src/core/tags/pictureframe.cpp:51
+msgctxt "@default|"
+msgid "Band/Orchestra"
+msgstr "Banda/Orquesta"
+
+#: src/core/tags/pictureframe.cpp:53
+msgctxt "@default|"
+msgid "Lyricist/text writer"
+msgstr "Lletrista/escriptor del text"
+
+#: src/core/tags/pictureframe.cpp:54
+msgctxt "@default|"
+msgid "Recording Location"
+msgstr "Ubicació de l'enregistrament"
+
+#: src/core/tags/pictureframe.cpp:55
+msgctxt "@default|"
+msgid "During recording"
+msgstr "Durada de l'enregistrament"
+
+#: src/core/tags/pictureframe.cpp:56
+msgctxt "@default|"
+msgid "During performance"
+msgstr "Durada de la interpretació"
+
+#: src/core/tags/pictureframe.cpp:57
+msgctxt "@default|"
+msgid "Movie/video screen capture"
+msgstr "Captura de pantalla de la pel·lícula/video"
+
+#: src/core/tags/pictureframe.cpp:58
+msgctxt "@default|"
+msgid "A bright coloured fish"
+msgstr "Un peix amb colors vius"
+
+#: src/core/tags/pictureframe.cpp:59
+msgctxt "@default|"
+msgid "Illustration"
+msgstr "Il·lustració"
+
+#: src/core/tags/pictureframe.cpp:60
+msgctxt "@default|"
+msgid "Band/artist logotype"
+msgstr "Logotip de la banda/artista"
+
+#: src/core/tags/pictureframe.cpp:61
+msgctxt "@default|"
+msgid "Publisher/Studio logotype"
+msgstr "Logotip de l'editor/estudi"
+
+#: src/core/tags/trackdata.cpp:204
+msgctxt "@default|"
+msgid "Absolute path to file"
+msgstr "Camí absolut cap al fitxer"
+
+#: src/core/tags/trackdata.cpp:210
+msgctxt "@default|"
+msgid "Modification date"
+msgstr "Data de modificació"
+
+#: src/core/tags/trackdata.cpp:216
+msgctxt "@default|"
+msgid "Creation date"
+msgstr "Data de creació"
+
+#: src/core/tags/trackdata.cpp:226
+msgctxt "@default|"
+msgid "Directory name"
+msgstr "Nom de la carpeta"
+
+#: src/core/tags/trackdata.cpp:241
+msgctxt "@default|"
+msgid "Number of tracks"
+msgstr "Nombre de peces"
+
+#: src/core/tags/trackdata.cpp:246
+msgctxt "@default|"
+msgid "Extension"
+msgstr "Extensió"
+
+#: src/core/tags/trackdata.cpp:259
+msgctxt "@default|"
+msgid "Bitrate"
+msgstr "Taxa de bits"
+
+#: src/core/tags/trackdata.cpp:269
+msgctxt "@default|"
+msgid "Samplerate"
+msgstr "Freqüència de mostreig"
+
+#: src/core/tags/trackdata.cpp:276
+msgctxt "@default|"
+msgid "Channels"
+msgstr "Canals"
+
+#: src/core/tags/trackdata.cpp:281
+msgctxt "@default|"
+msgid "Codec"
+msgstr "Còdec"
+
+#: src/core/tags/trackdata.cpp:286
+msgctxt "@default|"
+msgid "Marked"
+msgstr "Marcada"
+
+#: src/core/tags/trackdata.cpp:292
+msgctxt "@default|"
+msgid "Escape for HTML"
+msgstr "Escapa l'HTML"
+
+#: src/gui/dialogs/batchimportdialog.cpp:163
+msgctxt "BatchImportDialog|"
+msgid "Automatic Import"
+msgstr "Importa automàticament"
+
+#: src/gui/dialogs/batchimportdialog.cpp:179
+msgctxt "BatchImportDialog|"
+msgid "D&estination:"
+msgstr "D&estinació:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:194
+msgctxt "BatchImportDialog|"
+msgid "&Profile:"
+msgstr "&Perfil:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:205
+msgctxt "BatchImportDialog|"
+msgid "Add"
+msgstr "Afig"
+
+#: src/gui/dialogs/batchimportdialog.cpp:209
+msgctxt "BatchImportDialog|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/gui/dialogs/batchimportdialog.cpp:230
+msgctxt "BatchImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/batchimportdialog.cpp:236
+msgctxt "BatchImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/batchimportdialog.cpp:245
+msgctxt "BatchImportDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/batchimportdialog.cpp:285
+msgctxt "BatchImportDialog|"
+msgid "New"
+msgstr "Nou"
+
+#: src/gui/dialogs/batchimportdialog.cpp:477
+msgctxt "BatchImportDialog|"
+msgid "Reading Folder"
+msgstr "S'està llegint la carpeta"
+
+#: src/gui/dialogs/batchimportdialog.cpp:481
+msgctxt "BatchImportDialog|"
+msgid "Started"
+msgstr "Iniciada"
+
+#: src/gui/dialogs/batchimportdialog.cpp:484
+msgctxt "BatchImportDialog|"
+msgid "Source"
+msgstr "Font"
+
+#: src/gui/dialogs/batchimportdialog.cpp:487
+msgctxt "BatchImportDialog|"
+msgid "Querying"
+msgstr "S'està consultant"
+
+#: src/gui/dialogs/batchimportdialog.cpp:491
+msgctxt "BatchImportDialog|"
+msgid "Fetching"
+msgstr "S'està recuperant"
+
+#: src/gui/dialogs/batchimportdialog.cpp:494
+msgctxt "BatchImportDialog|"
+msgid "Data received"
+msgstr "Dades rebudes"
+
+#: src/gui/dialogs/batchimportdialog.cpp:497
+msgctxt "BatchImportDialog|"
+msgid "Cover"
+msgstr "Caràtula"
+
+#: src/gui/dialogs/batchimportdialog.cpp:501
+msgctxt "BatchImportDialog|"
+msgid "Finished"
+msgstr "Finalitzada"
+
+#: src/gui/dialogs/batchimportdialog.cpp:505
+msgctxt "BatchImportDialog|"
+msgid "Aborted"
+msgstr "Interrompuda"
+
+#: src/gui/dialogs/batchimportdialog.cpp:508
+msgctxt "BatchImportDialog|"
+msgid "Error"
+msgstr "Error"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "A&bort"
+msgstr "In&terromp"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "S&tart"
+msgstr "&Inicia"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+msgctxt "BatchImportSourceDialog|"
+msgid "Import Source"
+msgstr "Importa la font"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+msgctxt "BatchImportSourceDialog|"
+msgid "&Server:"
+msgstr "&Servidor:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+msgctxt "BatchImportSourceDialog|"
+msgid "&Accuracy:"
+msgstr "&Precisió:"
+
+# skip-rule: t-e_sola
+#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+msgctxt "BatchImportSourceDialog|"
+msgid "&Standard Tags"
+msgstr "Etiquetes e&stàndard"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+msgctxt "BatchImportSourceDialog|"
+msgid "&Additional Tags"
+msgstr "Etiquetes &addicionals"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+msgctxt "BatchImportSourceDialog|"
+msgid "C&over Art"
+msgstr "Ca&ràtula"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:83
+#: src/gui/dialogs/browsecoverartdialog.cpp:263
+msgctxt "BrowseCoverArtDialog|"
+msgid "Browse Cover Art"
+msgstr "Explora les caràtules"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:92
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Artist/Album"
+msgstr "&Artista / Àlbum"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:105
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Source"
+msgstr "&Font"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "Source:"
+msgstr "Font:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "URL:"
+msgstr "URL:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:118
+msgctxt "BrowseCoverArtDialog|"
+msgid "&URL extraction"
+msgstr "Extracció de l'&URL"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Match"
+msgstr "Coincidència"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Picture URL"
+msgstr "URL de la imatge"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:130
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:135
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:144
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Browse"
+msgstr "Ex&plora"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:145
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:177
+msgctxt "BrowseCoverArtDialog|"
+msgid "Click Browse to start"
+msgstr "Feu clic a Explora per a començar"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:183
+msgctxt "BrowseCoverArtDialog|"
+msgid "Then drag the picture from the browser to Kid3."
+msgstr ""
+"Llavors arrossegueu la imatge des del navegador cap a dins de la finestra "
+"del Kid3."
+
+#: src/gui/dialogs/configdialogpages.cpp:167
+msgctxt "ConfigDialogPages|"
+msgid "ID3v1"
+msgstr "ID3 versió 1"
+
+#: src/gui/dialogs/configdialogpages.cpp:170
+msgctxt "ConfigDialogPages|"
+msgid "&Mark truncated fields"
+msgstr "&Marca els camps truncats"
+
+#: src/gui/dialogs/configdialogpages.cpp:172
+#: src/gui/dialogs/configdialogpages.cpp:201
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding:"
+msgstr "Codificació del t&ext:"
+
+#: src/gui/dialogs/configdialogpages.cpp:186
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2"
+msgstr "ID3 versió 2"
+
+#: src/gui/dialogs/configdialogpages.cpp:189
+msgctxt "ConfigDialogPages|"
+msgid "Use &track/total number of tracks format"
+msgstr "Empra el nombre de peces/&total del format de les peces"
+
+#: src/gui/dialogs/configdialogpages.cpp:192
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "&Dígits del número de la peça:"
+
+#: src/gui/dialogs/configdialogpages.cpp:196
+msgctxt "ConfigDialogPages|"
+msgid "&Genre as text instead of numeric string"
+msgstr "&Genera com a text en lloc d'una cadena numèrica"
+
+#: src/gui/dialogs/configdialogpages.cpp:198
+msgctxt "ConfigDialogPages|"
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "Fitxers &WAV amb el bloc id3 en minúscules"
+
+#: src/gui/dialogs/configdialogpages.cpp:200
+msgctxt "ConfigDialogPages|"
+msgid "Mar&k standard violations"
+msgstr "Mar&ca les infraccions de l'estàndard"
+
+#: src/gui/dialogs/configdialogpages.cpp:219
+msgctxt "ConfigDialogPages|"
+msgid "&Version used for new tags:"
+msgstr "&Versió per a les etiquetes noves:"
+
+#: src/gui/dialogs/configdialogpages.cpp:223
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.3.0"
+msgstr "ID3 versió 2.3.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:225
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.4.0"
+msgstr "ID3 versió 2.4.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:239
+msgctxt "ConfigDialogPages|"
+msgid "Ogg/Vorbis"
+msgstr "Ogg Vorbis"
+
+#: src/gui/dialogs/configdialogpages.cpp:240
+msgctxt "ConfigDialogPages|"
+msgid "Co&mment field name:"
+msgstr "Nom del camp de co&mentari:"
+
+#: src/gui/dialogs/configdialogpages.cpp:243
+msgctxt "ConfigDialogPages|"
+msgid "&Picture field name:"
+msgstr "Nom del camp de la imat&ge:"
+
+#: src/gui/dialogs/configdialogpages.cpp:265
+msgctxt "ConfigDialogPages|"
+msgid "Picture"
+msgstr "Imatge"
+
+#: src/gui/dialogs/configdialogpages.cpp:268
+msgctxt "ConfigDialogPages|"
+msgid "Mark if &larger than (bytes):"
+msgstr "Marca si és més &gran que (bytes):"
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+msgctxt "ConfigDialogPages|"
+msgid "Custom &Genres"
+msgstr "&Gèneres personalitzats"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "&Show only custom genres"
+msgstr "Mo&stra només els gèneres personalitzats"
+
+#: src/gui/dialogs/configdialogpages.cpp:289
+msgctxt "ConfigDialogPages|"
+msgid "&Quick Access Frames"
+msgstr "Marcs d'accés &ràpid"
+
+#: src/gui/dialogs/configdialogpages.cpp:302
+msgctxt "ConfigDialogPages|"
+msgid "Use drag and drop to reorder the items"
+msgstr "Empreu arrossega i deixa per a reordenar els elements"
+
+#: src/gui/dialogs/configdialogpages.cpp:310
+msgctxt "ConfigDialogPages|"
+msgid "RIFF INFO"
+msgstr "INFORMACIÓ RIFF"
+
+#: src/gui/dialogs/configdialogpages.cpp:311
+msgctxt "ConfigDialogPages|"
+msgid "Track nu&mber field name:"
+msgstr "Nom de camp del nú&mero de la peça:"
+
+# skip-rule: t-e_sola
+#: src/gui/dialogs/configdialogpages.cpp:328
+msgctxt "ConfigDialogPages|"
+msgid "&Tag Format"
+msgstr "Format de l'e&tiqueta"
+
+#: src/gui/dialogs/configdialogpages.cpp:330
+msgctxt "ConfigDialogPages|"
+msgid "Rating"
+msgstr "Puntuació"
+
+#: src/gui/dialogs/configdialogpages.cpp:340
+msgctxt "ConfigDialogPages|"
+msgid "Tag &1"
+msgstr "Etiqueta &1"
+
+#: src/gui/dialogs/configdialogpages.cpp:342
+msgctxt "ConfigDialogPages|"
+msgid "Tag &2"
+msgstr "Etiqueta &2"
+
+#: src/gui/dialogs/configdialogpages.cpp:343
+msgctxt "ConfigDialogPages|"
+msgid "Tag &3"
+msgstr "Etiqueta &3"
+
+#: src/gui/dialogs/configdialogpages.cpp:344
+msgctxt "ConfigDialogPages|"
+msgid "All Ta&gs"
+msgstr "Totes les eti&quetes"
+
+#: src/gui/dialogs/configdialogpages.cpp:362
+msgctxt "ConfigDialogPages|"
+msgid "Startup"
+msgstr "Inici"
+
+#: src/gui/dialogs/configdialogpages.cpp:363
+msgctxt "ConfigDialogPages|"
+msgid "&Load last-opened files"
+msgstr "Ca&rrega els últims fitxers oberts"
+
+#: src/gui/dialogs/configdialogpages.cpp:369
+msgctxt "ConfigDialogPages|"
+msgid "Save"
+msgstr "Guarda"
+
+#: src/gui/dialogs/configdialogpages.cpp:370
+msgctxt "ConfigDialogPages|"
+msgid "&Preserve file timestamp"
+msgstr "&Conserva la marca de temps del fitxer"
+
+#: src/gui/dialogs/configdialogpages.cpp:372
+msgctxt "ConfigDialogPages|"
+msgid "&Mark changes"
+msgstr "&Marca els canvis"
+
+#: src/gui/dialogs/configdialogpages.cpp:382
+msgctxt "ConfigDialogPages|"
+msgid "F&ilename for cover:"
+msgstr "Nom de f&itxer per a la caràtula:"
+
+#: src/gui/dialogs/configdialogpages.cpp:383
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Codificació del t&ext (Exporta, Llista de reproducció):"
+
+#: src/gui/dialogs/configdialogpages.cpp:388
+msgctxt "ConfigDialogPages|"
+msgid "File List"
+msgstr "Llista de fitxers"
+
+#: src/gui/dialogs/configdialogpages.cpp:389
+msgctxt "ConfigDialogPages|"
+msgid "Filte&r:"
+msgstr "Filt&re:"
+
+#: src/gui/dialogs/configdialogpages.cpp:399
+msgctxt "ConfigDialogPages|"
+msgid "Inclu&de folders:"
+msgstr "Carpetes a incl&oure:"
+
+# skip-rule: t-e_sola
+#: src/gui/dialogs/configdialogpages.cpp:403
+msgctxt "ConfigDialogPages|"
+msgid "E&xclude folders:"
+msgstr "Carpetes a e&xcloure:"
+
+#: src/gui/dialogs/configdialogpages.cpp:407
+msgctxt "ConfigDialogPages|"
+msgid "&Show hidden files"
+msgstr "Mostra els fitxers &ocults"
+
+#: src/gui/dialogs/configdialogpages.cpp:419
+msgctxt "ConfigDialogPages|"
+msgid "Format"
+msgstr "Format"
+
+#: src/gui/dialogs/configdialogpages.cpp:422
+msgctxt "ConfigDialogPages|"
+msgid "Filename from tag"
+msgstr "Nom del fitxer des de l'etiqueta"
+
+#: src/gui/dialogs/configdialogpages.cpp:427
+msgctxt "ConfigDialogPages|"
+msgid "Tag from filename"
+msgstr "Etiqueta des del nom de fitxer"
+
+#: src/gui/dialogs/configdialogpages.cpp:439
+msgctxt "ConfigDialogPages|"
+msgid "&Filename Format"
+msgstr "&Format del nom de fitxer"
+
+#: src/gui/dialogs/configdialogpages.cpp:455
+msgctxt "ConfigDialogPages|"
+msgid "Filename from Tag"
+msgstr "Nom del fitxer des de l'etiqueta"
+
+#: src/gui/dialogs/configdialogpages.cpp:471
+msgctxt "ConfigDialogPages|"
+msgid "Tag from Filename"
+msgstr "Etiqueta des del nom de fitxer"
+
+#: src/gui/dialogs/configdialogpages.cpp:485
+msgctxt "ConfigDialogPages|"
+msgid "Browser"
+msgstr "Navegador"
+
+#: src/gui/dialogs/configdialogpages.cpp:486
+msgctxt "ConfigDialogPages|"
+msgid "Web &browser:"
+msgstr "Na&vegador web:"
+
+#: src/gui/dialogs/configdialogpages.cpp:495
+msgctxt "ConfigDialogPages|"
+msgid "Context &Menu Commands"
+msgstr "Ordres del &menú contextual"
+
+#: src/gui/dialogs/configdialogpages.cpp:498
+msgctxt "ConfigDialogPages|"
+msgid "&Play on double click"
+msgstr "Re&produeix en fer doble clic"
+
+#: src/gui/dialogs/configdialogpages.cpp:519
+msgctxt "ConfigDialogPages|"
+msgid "Proxy"
+msgstr "Intermediari"
+
+#: src/gui/dialogs/configdialogpages.cpp:520
+msgctxt "ConfigDialogPages|"
+msgid "&Proxy:"
+msgstr "&Servidor intermediari:"
+
+#: src/gui/dialogs/configdialogpages.cpp:523
+msgctxt "ConfigDialogPages|"
+msgid "&Use authentication with proxy"
+msgstr "&Usa autenticació amb el servidor intermediari"
+
+#: src/gui/dialogs/configdialogpages.cpp:525
+msgctxt "ConfigDialogPages|"
+msgid "Proxy user &name:"
+msgstr "&Nom d'usuari al servidor intermediari:"
+
+#: src/gui/dialogs/configdialogpages.cpp:529
+msgctxt "ConfigDialogPages|"
+msgid "Proxy pass&word:"
+msgstr "Contrasen&ya al servidor intermediari:"
+
+#: src/gui/dialogs/configdialogpages.cpp:563
+msgctxt "ConfigDialogPages|"
+msgid "&Metadata Plugins && Priority"
+msgstr "Co&nnectors de metadades i prioritat"
+
+#: src/gui/dialogs/configdialogpages.cpp:575
+msgctxt "ConfigDialogPages|"
+msgid "A&vailable Plugins"
+msgstr "Connectors dispo&nibles"
+
+#: src/gui/dialogs/configdialogpages.cpp:586
+msgctxt "ConfigDialogPages|"
+msgid "Changes take only effect after a restart!"
+msgstr "Els canvis només tindran efecte en el següent reinici!"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:740
+msgctxt "@default|"
+msgid "Images"
+msgstr "Imatges"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:741
+#: src/gui/widgets/timeeventeditor.cpp:352
+msgctxt "@default|"
+msgid "All Files"
+msgstr "Tots els fitxers"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+msgctxt "BinaryOpenSave|"
+msgid "From Clip&board"
+msgstr "&Des del porta-retalls"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+msgctxt "BinaryOpenSave|"
+msgid "&To Clipboard"
+msgstr "Al &porta-retalls"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+msgctxt "BinaryOpenSave|"
+msgid "&Import..."
+msgstr "&Importa..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+msgctxt "BinaryOpenSave|"
+msgid "&Export..."
+msgstr "&Exporta..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+msgctxt "BinaryOpenSave|"
+msgid "&View..."
+msgstr "&Visualitza..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+msgctxt "EditFrameFieldsDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+msgctxt "EditFrameFieldsDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/exportdialog.cpp:68
+msgctxt "ExportDialog|"
+msgid "Export"
+msgstr "Exporta"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Format:"
+msgstr "&Format:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "H&eader:"
+msgstr "Ca&pçalera:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Tracks:"
+msgstr "Pe&ces:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "F&ooter:"
+msgstr "P&eu de pàgina:"
+
+#: src/gui/dialogs/exportdialog.cpp:91
+msgctxt "ExportDialog|"
+msgid "To F&ile..."
+msgstr "A un f&itxer..."
+
+#: src/gui/dialogs/exportdialog.cpp:96
+msgctxt "ExportDialog|"
+msgid "To Clip&board"
+msgstr "Al &porta-retalls"
+
+#: src/gui/dialogs/exportdialog.cpp:105
+msgctxt "ExportDialog|"
+msgid "&Source:"
+msgstr "&Font:"
+
+#: src/gui/dialogs/exportdialog.cpp:110
+#, qt-format
+msgctxt "ExportDialog|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/gui/dialogs/exportdialog.cpp:122
+msgctxt "ExportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/exportdialog.cpp:127
+msgctxt "ExportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/exportdialog.cpp:136
+msgctxt "ExportDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/exportdialog.cpp:154
+msgctxt "ExportDialog|"
+msgid "File Error"
+msgstr "Error en el fitxer"
+
+#: src/gui/dialogs/exportdialog.cpp:155
+msgctxt "ExportDialog|"
+msgid "Error while writing file:\n"
+msgstr "Error en escriure el fitxer:\n"
+
+#: src/gui/dialogs/filterdialog.cpp:49
+msgctxt "FilterDialog|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/gui/dialogs/filterdialog.cpp:53
+msgctxt "FilterDialog|"
+msgid "&Preview"
+msgstr "Vista &prèvia"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Filter:"
+msgstr "&Filtre:"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Expression:"
+msgstr "&Expressió:"
+
+#: src/gui/dialogs/filterdialog.cpp:75
+msgctxt "FilterDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/filterdialog.cpp:80
+msgctxt "FilterDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/filterdialog.cpp:91
+msgctxt "FilterDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/filterdialog.cpp:182
+msgctxt "FilterDialog|"
+msgid "Started"
+msgstr "Iniciada"
+
+#: src/gui/dialogs/filterdialog.cpp:198
+msgctxt "FilterDialog|"
+msgid "Finished"
+msgstr "Finalitzada"
+
+#: src/gui/dialogs/filterdialog.cpp:202
+msgctxt "FilterDialog|"
+msgid "Aborted"
+msgstr "Interrompuda"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "A&bort"
+msgstr "In&terromp"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "&Apply"
+msgstr "&Aplica"
+
+#: src/gui/dialogs/findreplacedialog.cpp:54
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find and Replace"
+msgstr "Cerca i substitueix"
+
+#: src/gui/dialogs/findreplacedialog.cpp:59
+msgctxt "FindReplaceDialog|"
+msgid "F&ind:"
+msgstr "C&erca:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:66
+msgctxt "FindReplaceDialog|"
+msgid "&Find"
+msgstr "&Cerca"
+
+#: src/gui/dialogs/findreplacedialog.cpp:69
+msgctxt "FindReplaceDialog|"
+msgid "Re&place:"
+msgstr "&Substitueix:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:76
+msgctxt "FindReplaceDialog|"
+msgid "&Replace"
+msgstr "&Substitueix"
+
+#: src/gui/dialogs/findreplacedialog.cpp:79
+msgctxt "FindReplaceDialog|"
+msgid "Replace &all"
+msgstr "Substitueix-ho &tot"
+
+#: src/gui/dialogs/findreplacedialog.cpp:94
+msgctxt "FindReplaceDialog|"
+msgid "Options"
+msgstr "Opcions"
+
+#: src/gui/dialogs/findreplacedialog.cpp:96
+msgctxt "FindReplaceDialog|"
+msgid "&Match case"
+msgstr "Fes concordar les &majúscules"
+
+#: src/gui/dialogs/findreplacedialog.cpp:98
+msgctxt "FindReplaceDialog|"
+msgid "&Backwards"
+msgstr "E&nrere"
+
+#: src/gui/dialogs/findreplacedialog.cpp:100
+msgctxt "FindReplaceDialog|"
+msgid "Regular &expression"
+msgstr "&Expressió regular"
+
+#: src/gui/dialogs/findreplacedialog.cpp:105
+msgctxt "FindReplaceDialog|"
+msgid "&Tags"
+msgstr "E&tiquetes"
+
+#: src/gui/dialogs/findreplacedialog.cpp:107
+msgctxt "FindReplaceDialog|"
+msgid "Select a&ll"
+msgstr "Seleccion&a-ho tot"
+
+#: src/gui/dialogs/findreplacedialog.cpp:117
+msgctxt "FindReplaceDialog|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/gui/dialogs/findreplacedialog.cpp:129
+msgctxt "FindReplaceDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/findreplacedialog.cpp:134
+msgctxt "FindReplaceDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/findreplacedialog.cpp:141
+msgctxt "FindReplaceDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find"
+msgstr "Cerca"
+
+#: src/gui/dialogs/importdialog.cpp:128
+msgctxt "ImportDialog|"
+msgid "Accuracy:"
+msgstr "Precisió:"
+
+#: src/gui/dialogs/importdialog.cpp:139
+msgctxt "ImportDialog|"
+msgid "Cover Art:"
+msgstr "Caràtula:"
+
+#: src/gui/dialogs/importdialog.cpp:148
+msgctxt "ImportDialog|"
+msgid "From F&ile/Clipboard..."
+msgstr "Des del f&itxer/porta-retalls..."
+
+#: src/gui/dialogs/importdialog.cpp:151
+msgctxt "ImportDialog|"
+msgid "From T&ags..."
+msgstr "Des de les &etiquetes..."
+
+#: src/gui/dialogs/importdialog.cpp:154
+msgctxt "ImportDialog|"
+msgid "&From Server..."
+msgstr "Des del se&rvidor..."
+
+#: src/gui/dialogs/importdialog.cpp:176
+msgctxt "ImportDialog|"
+msgid "D&estination:"
+msgstr "D&estinació:"
+
+#: src/gui/dialogs/importdialog.cpp:190
+msgctxt "ImportDialog|"
+msgid "Revert"
+msgstr "Reverteix"
+
+#: src/gui/dialogs/importdialog.cpp:199
+msgctxt "ImportDialog|"
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Comprova la diferència màxima de temps permesa (seg):"
+
+#: src/gui/dialogs/importdialog.cpp:207
+msgctxt "ImportDialog|"
+msgid "Match with:"
+msgstr "Coincideix amb:"
+
+#: src/gui/dialogs/importdialog.cpp:209
+msgctxt "ImportDialog|"
+msgid "&Length"
+msgstr "&Durada"
+
+#: src/gui/dialogs/importdialog.cpp:212
+msgctxt "ImportDialog|"
+msgid "T&rack"
+msgstr "&Peça"
+
+#: src/gui/dialogs/importdialog.cpp:215
+msgctxt "ImportDialog|"
+msgid "&Title"
+msgstr "&Títol"
+
+#: src/gui/dialogs/importdialog.cpp:243
+msgctxt "ImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/importdialog.cpp:245
+msgctxt "ImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/importdialog.cpp:247
+msgctxt "ImportDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/gui/dialogs/importdialog.cpp:249
+msgctxt "ImportDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/qml/app/NumberTracksDialog.qml:32
+msgctxt "NumberTracksDialog|"
+msgid "Number Tracks"
+msgstr "Nombre de peces"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:55
+msgctxt "NumberTracksDialog|"
+msgid "Start &number:"
+msgstr "&Número d'inici:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:67
+msgctxt "NumberTracksDialog|"
+msgid "&Destination:"
+msgstr "&Destinació:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:83
+msgctxt "NumberTracksDialog|"
+msgid "&Reset counter for each folder"
+msgstr "&Restableix el comptador en cada carpeta"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:89
+msgctxt "NumberTracksDialog|"
+msgid "&Total number of tracks:"
+msgstr "Nombre &total de peces:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:103
+msgctxt "NumberTracksDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:108
+msgctxt "NumberTracksDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:117
+msgctxt "NumberTracksDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:123
+msgctxt "NumberTracksDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/playlistdialog.cpp:56
+msgctxt "PlaylistDialog|"
+msgid "Create Playlist"
+msgstr "Creació d'una llista de reproducció"
+
+#: src/gui/dialogs/playlistdialog.cpp:144
+msgctxt "PlaylistDialog|"
+msgid "Playlist File Name"
+msgstr "Nom del fitxer de la llista de reproducció"
+
+#: src/gui/dialogs/playlistdialog.cpp:145
+msgctxt "PlaylistDialog|"
+msgid "Same as &folder name"
+msgstr "El mateix, com el nom de la &carpeta"
+
+#: src/gui/dialogs/playlistdialog.cpp:147
+msgctxt "PlaylistDialog|"
+msgid "&Format:"
+msgstr "&Format:"
+
+#: src/gui/dialogs/playlistdialog.cpp:159
+msgctxt "PlaylistDialog|"
+msgid "Create ne&w empty playlist:"
+msgstr "Crea una no&va llista de reproducció buida:"
+
+#: src/gui/dialogs/playlistdialog.cpp:160
+msgctxt "PlaylistDialog|"
+msgid "New"
+msgstr "Nova"
+
+#: src/gui/dialogs/playlistdialog.cpp:166
+msgctxt "PlaylistDialog|"
+msgid "Cr&eate in:"
+msgstr "Cr&ea dins:"
+
+#: src/gui/dialogs/playlistdialog.cpp:169
+msgctxt "PlaylistDialog|"
+msgid "Current folder"
+msgstr "Carpeta actual"
+
+#: src/gui/dialogs/playlistdialog.cpp:170
+msgctxt "PlaylistDialog|"
+msgid "Every folder"
+msgstr "Cada carpeta"
+
+#: src/gui/dialogs/playlistdialog.cpp:171
+msgctxt "PlaylistDialog|"
+msgid "Top-level folder"
+msgstr "Carpeta de nivell superior"
+
+#: src/gui/dialogs/playlistdialog.cpp:173
+msgctxt "PlaylistDialog|"
+msgid "Playlist Content"
+msgstr "Contingut de la llista de reproducció"
+
+#: src/gui/dialogs/playlistdialog.cpp:174
+msgctxt "PlaylistDialog|"
+msgid "For&mat:"
+msgstr "Fo&rmat:"
+
+#: src/gui/dialogs/playlistdialog.cpp:178
+msgctxt "PlaylistDialog|"
+msgid "Incl&ude only the selected files"
+msgstr "Inclo&u només els fitxers seleccionats"
+
+#: src/gui/dialogs/playlistdialog.cpp:179
+msgctxt "PlaylistDialog|"
+msgid "Sort by file &name"
+msgstr "Ordena per &nom de fitxer"
+
+# skip-rule: t-e_sola
+#: src/gui/dialogs/playlistdialog.cpp:181
+msgctxt "PlaylistDialog|"
+msgid "Sort by &tag field"
+msgstr "Ordena pel camp de l'e&tiqueta"
+
+#: src/gui/dialogs/playlistdialog.cpp:196
+msgctxt "PlaylistDialog|"
+msgid "Use &relative path for files in playlist"
+msgstr "Empra un camí &relatiu per als fitxers a la llista de reproducció"
+
+#: src/gui/dialogs/playlistdialog.cpp:198
+msgctxt "PlaylistDialog|"
+msgid "Use full p&ath for files in playlist"
+msgstr "Empra un c&amí absolut per als fitxers a la llista de reproducció"
+
+#: src/gui/dialogs/playlistdialog.cpp:199
+msgctxt "PlaylistDialog|"
+msgid "Write only &list of files"
+msgstr "Escriu només la &llista de fitxers"
+
+#: src/gui/dialogs/playlistdialog.cpp:201
+msgctxt "PlaylistDialog|"
+msgid "Write &info using"
+msgstr "Escriu la &informació usant"
+
+#: src/gui/dialogs/playlistdialog.cpp:212
+msgctxt "PlaylistDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/playlistdialog.cpp:216
+msgctxt "PlaylistDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/playlistdialog.cpp:224
+msgctxt "PlaylistDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/gui/dialogs/playlistdialog.cpp:227
+msgctxt "PlaylistDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:114
+msgctxt "PlaylistEditDialog|"
+msgid "Playlist"
+msgstr "Llista de reproducció"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:120
+msgctxt "PlaylistEditDialog|"
+msgid " [modified]"
+msgstr " [modificada]"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:130
+msgctxt "PlaylistEditDialog|"
+msgid "Warning"
+msgstr "Avís"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:131
+msgctxt "PlaylistEditDialog|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"S'ha modificat una llista de reproducció.\n"
+"Voleu guardar-la?"
+
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+msgctxt "RenDirDialog|"
+msgid "Rename Folder"
+msgstr "Reanomena la carpeta"
+
+#: src/gui/dialogs/rendirdialog.cpp:64
+msgctxt "RenDirDialog|"
+msgid "Format"
+msgstr "Format"
+
+#: src/gui/dialogs/rendirdialog.cpp:69
+msgctxt "RenDirDialog|"
+msgid "Preview"
+msgstr "Vista prèvia"
+
+#: src/gui/dialogs/rendirdialog.cpp:73
+msgctxt "RenDirDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/rendirdialog.cpp:96
+msgctxt "RenDirDialog|"
+msgid "Create Folder"
+msgstr "Crea una carpeta"
+
+#: src/gui/dialogs/rendirdialog.cpp:97
+msgctxt "RenDirDialog|"
+msgid "&Action:"
+msgstr "&Acció:"
+
+#: src/gui/dialogs/rendirdialog.cpp:105
+msgctxt "RenDirDialog|"
+msgid "&Source:"
+msgstr "&Font:"
+
+#: src/gui/dialogs/rendirdialog.cpp:117
+msgctxt "RenDirDialog|"
+msgid "&Edit..."
+msgstr "&Edita..."
+
+#: src/gui/dialogs/rendirdialog.cpp:121
+msgctxt "RenDirDialog|"
+msgid "&Format:"
+msgstr "&Format:"
+
+#: src/gui/dialogs/rendirdialog.cpp:133
+msgctxt "RenDirDialog|"
+msgid "From:"
+msgstr "Des de:"
+
+#: src/gui/dialogs/rendirdialog.cpp:134
+msgctxt "RenDirDialog|"
+msgid "To:"
+msgstr "A:"
+
+#: src/gui/dialogs/rendirdialog.cpp:321
+msgctxt "RenDirDialog|"
+msgid "Folder Name from Tag"
+msgstr "Nom de la carpeta des de l'etiqueta"
+
+#: src/gui/dialogs/serverimportdialog.cpp:61
+msgctxt "ServerImportDialog|"
+msgid "&Find"
+msgstr "&Cerca"
+
+#: src/gui/dialogs/serverimportdialog.cpp:76
+msgctxt "ServerImportDialog|"
+msgid "&Server:"
+msgstr "&Servidor:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:79
+msgctxt "ServerImportDialog|"
+msgid "C&GI Path:"
+msgstr "Camí del C&GI:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:90
+msgctxt "ServerImportDialog|"
+msgid "&Token:"
+msgstr "&Testimoni:"
+
+# skip-rule: t-e_sola
+#: src/gui/dialogs/serverimportdialog.cpp:98
+msgctxt "ServerImportDialog|"
+msgid "&Standard Tags"
+msgstr "Etiquetes e&stàndard"
+
+#: src/gui/dialogs/serverimportdialog.cpp:99
+msgctxt "ServerImportDialog|"
+msgid "&Additional Tags"
+msgstr "Etiquetes &addicionals"
+
+#: src/gui/dialogs/serverimportdialog.cpp:100
+msgctxt "ServerImportDialog|"
+msgid "C&over Art"
+msgstr "Ca&ràtula"
+
+#: src/gui/dialogs/serverimportdialog.cpp:114
+msgctxt "ServerImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/serverimportdialog.cpp:116
+msgctxt "ServerImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/serverimportdialog.cpp:118
+msgctxt "ServerImportDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/serverimportdialog.cpp:133
+msgctxt "ServerImportDialog|"
+msgid "Ready."
+msgstr "Llest."
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:83
+msgctxt "ServerTrackImportDialog|"
+msgid "&Server:"
+msgstr "&Servidor:"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:106
+msgctxt "ServerTrackImportDialog|"
+msgid "Track Title/Artist - Album"
+msgstr "Títol/Artista de la peça - Àlbum"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:107
+msgctxt "ServerTrackImportDialog|"
+msgid "State"
+msgstr "Estat"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:115
+msgctxt "ServerTrackImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:117
+msgctxt "ServerTrackImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
+msgctxt "ServerTrackImportDialog|"
+msgid "&OK"
+msgstr "D'ac&ord"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
+msgctxt "ServerTrackImportDialog|"
+msgid "&Apply"
+msgstr "&Aplica"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:121
+msgctxt "ServerTrackImportDialog|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result"
+msgstr "Sense resultat"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:247
+msgctxt "ServerTrackImportDialog|"
+msgid "Unknown"
+msgstr "Desconeguda"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result selected"
+msgstr "No s'ha seleccionat cap resultat"
+
+#: src/gui/dialogs/tagimportdialog.cpp:52
+msgctxt "TagImportDialog|"
+msgid "Import from Tags"
+msgstr "Importa des de les etiquetes"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Format:"
+msgstr "Format:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Source:"
+msgstr "Font:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Extraction:"
+msgstr "Extracció:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:72
+msgctxt "TagImportDialog|"
+msgid "D&estination:"
+msgstr "D&estinació:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:79
+msgctxt "TagImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/tagimportdialog.cpp:83
+msgctxt "TagImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/tagimportdialog.cpp:88
+msgctxt "TagImportDialog|"
+msgid "&Apply"
+msgstr "&Aplica"
+
+#: src/gui/dialogs/tagimportdialog.cpp:92
+msgctxt "TagImportDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/dialogs/textimportdialog.cpp:58
+msgctxt "TextImportDialog|"
+msgid "Import from File/Clipboard"
+msgstr "Importa des del fitxer/porta-retalls"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Format:"
+msgstr "Format:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Header:"
+msgstr "Capçalera:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Tracks:"
+msgstr "Peces:"
+
+#: src/gui/dialogs/textimportdialog.cpp:71
+msgctxt "TextImportDialog|"
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/gui/dialogs/textimportdialog.cpp:75
+msgctxt "TextImportDialog|"
+msgid "&Save Settings"
+msgstr "Guar&da la configuració"
+
+#: src/gui/dialogs/textimportdialog.cpp:80
+msgctxt "TextImportDialog|"
+msgid "From F&ile..."
+msgstr "Des del f&itxer..."
+
+#: src/gui/dialogs/textimportdialog.cpp:84
+msgctxt "TextImportDialog|"
+msgid "From Clip&board"
+msgstr "Des del &porta-retalls"
+
+#: src/gui/dialogs/textimportdialog.cpp:88
+msgctxt "TextImportDialog|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/forms/basemainwindow.cpp:112
+msgctxt "BaseMainWindowImpl|"
+msgid "Download"
+msgstr "Baixa"
+
+#: src/gui/forms/basemainwindow.cpp:216
+msgctxt "BaseMainWindowImpl|"
+msgid "Opening folder..."
+msgstr "S'està obrint la carpeta..."
+
+#: src/gui/forms/basemainwindow.cpp:276
+msgctxt "BaseMainWindowImpl|"
+msgid "Abort"
+msgstr "Interromp"
+
+#: src/gui/forms/basemainwindow.cpp:357
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%1 is not writable"
+msgstr "%1 no és d'escriptura"
+
+#: src/gui/forms/basemainwindow.cpp:365
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file:\n"
+msgstr "Error en escriure el fitxer:\n"
+
+#: src/gui/forms/basemainwindow.cpp:367 src/gui/forms/basemainwindow.cpp:373
+#: src/gui/forms/basemainwindow.cpp:1095 src/gui/forms/basemainwindow.cpp:1100
+#: src/gui/forms/basemainwindow.cpp:1539 src/gui/forms/basemainwindow.cpp:1548
+#: src/gui/forms/basemainwindow.cpp:1624
+msgctxt "BaseMainWindowImpl|"
+msgid "File Error"
+msgstr "Error en el fitxer"
+
+#: src/gui/forms/basemainwindow.cpp:370
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Error en escriure el fitxer. Voleu canviar els permisos?"
+
+#: src/gui/forms/basemainwindow.cpp:424
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"S'ha modificat la carpeta actual.\n"
+"Voleu guardar-la?"
+
+#: src/gui/forms/basemainwindow.cpp:426 src/gui/forms/basemainwindow.cpp:467
+msgctxt "BaseMainWindowImpl|"
+msgid "Warning"
+msgstr "Avís"
+
+#: src/gui/forms/basemainwindow.cpp:465
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"S'ha modificat una llista de reproducció.\n"
+"Voleu guardar-la?"
+
+#: src/gui/forms/basemainwindow.cpp:576
+msgctxt "BaseMainWindowImpl|"
+msgid "Exiting..."
+msgstr "S'està eixint..."
+
+#: src/gui/forms/basemainwindow.cpp:663
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n carpeta"
+msgstr[1] "%n carpetes"
+
+#: src/gui/forms/basemainwindow.cpp:668
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n fitxer"
+msgstr[1] "%n fitxers"
+
+#: src/gui/forms/basemainwindow.cpp:673
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n seleccionada"
+msgstr[1] "%n seleccionades"
+
+#: src/gui/forms/basemainwindow.cpp:676
+msgctxt "BaseMainWindowImpl|"
+msgid "Ready."
+msgstr "Llest."
+
+#: src/gui/forms/basemainwindow.cpp:738
+msgctxt "BaseMainWindowImpl|"
+msgid "Creating playlist..."
+msgstr "S'està creant una llista de reproducció..."
+
+#: src/gui/forms/basemainwindow.cpp:786
+msgctxt "BaseMainWindowImpl|"
+msgid "Files not found"
+msgstr "No s'ha trobat cap fitxer"
+
+#: src/gui/forms/basemainwindow.cpp:787
+msgctxt "BaseMainWindowImpl|"
+msgid "Error"
+msgstr "Error"
+
+#: src/gui/forms/basemainwindow.cpp:813
+msgctxt "BaseMainWindowImpl|"
+msgid "Import"
+msgstr "Importa"
+
+#: src/gui/forms/basemainwindow.cpp:1093 src/gui/forms/basemainwindow.cpp:1099
+#: src/gui/forms/basemainwindow.cpp:1540 src/gui/forms/basemainwindow.cpp:1549
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while renaming:\n"
+msgstr "Error en reanomenar:\n"
+
+#: src/gui/forms/basemainwindow.cpp:1094
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing directories?"
+msgstr "Voleu intentar-ho després de tancar les carpetes?"
+
+#: src/gui/forms/basemainwindow.cpp:1171
+msgctxt "BaseMainWindowImpl|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/gui/forms/basemainwindow.cpp:1242
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid " [filtered %1/%2]"
+msgstr " [filtrades %1/%2]"
+
+#: src/gui/forms/basemainwindow.cpp:1356
+msgctxt "BaseMainWindowImpl|"
+msgid "Add Frame"
+msgstr "Afig un marc"
+
+#: src/gui/forms/basemainwindow.cpp:1357
+msgctxt "BaseMainWindowImpl|"
+msgid "Select the frame ID"
+msgstr "Seleccioneu l'ID del marc"
+
+#: src/gui/forms/basemainwindow.cpp:1503
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename File"
+msgstr "Reanomena el fitxer"
+
+#: src/gui/forms/basemainwindow.cpp:1504
+msgctxt "BaseMainWindowImpl|"
+msgid "Enter new file name:"
+msgstr "Introduïu el nom nou de fitxer:"
+
+#: src/gui/forms/basemainwindow.cpp:1541 src/gui/forms/basemainwindow.cpp:1550
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Ha fallat el canvi de nom de %1 a %2\n"
+
+#: src/gui/forms/basemainwindow.cpp:1542
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing folders?"
+msgstr "Voleu intentar-ho després de tancar les carpetes?"
+
+#: src/gui/forms/basemainwindow.cpp:1560
+#, qt-format
+msgctxt "@default|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Realment voleu moure aquest %1 element a la paperera?"
+
+#: src/gui/forms/basemainwindow.cpp:1589
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Realment voleu moure aquests %1 elements a la paperera?"
+
+#: src/gui/forms/basemainwindow.cpp:1591
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move this item to the trash?"
+msgstr "Realment voleu moure aquest element a la paperera?"
+
+#: src/gui/forms/basemainwindow.cpp:1593
+msgctxt "BaseMainWindowImpl|"
+msgid "Move to Trash"
+msgstr "Mou a la paperera"
+
+#: src/gui/forms/basemainwindow.cpp:1622
+msgctxt "BaseMainWindowImpl|"
+msgid "Folder must be empty.\n"
+msgstr "La carpeta no pot estar buida.\n"
+
+#: src/gui/forms/basemainwindow.cpp:1623
+msgctxt "BaseMainWindowImpl|"
+msgid "Could not move these files to the Trash"
+msgstr "No s'han pogut moure aquests fitxers a la paperera"
+
+#: src/gui/forms/basemainwindow.cpp:1656
+msgctxt "BaseMainWindowImpl|"
+msgid "Expand All"
+msgstr "Expandeix-ho tot"
+
+#: src/gui/forms/basemainwindow.cpp:1766
+msgctxt "BaseMainWindowImpl|"
+msgid "A&bort"
+msgstr "In&terromp"
+
+#: src/gui/forms/configurabletreeview.cpp:49
+msgctxt "ConfigurableTreeView|"
+msgid "Automatic Column Widths"
+msgstr "Amplària automàtica de les columnes"
+
+#: src/gui/forms/configurabletreeview.cpp:56
+msgctxt "ConfigurableTreeView|"
+msgid "Custom Column Widths"
+msgstr "Amplària personalitzada de les columnes"
+
+#: src/gui/forms/filelist.cpp:110
+msgctxt "FileList|"
+msgid "C&lear"
+msgstr "&Neteja"
+
+#: src/gui/forms/filelist.cpp:114
+msgctxt "FileList|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+msgctxt "FileList|"
+msgid "&Expand all"
+msgstr "&Expandeix-ho tot"
+
+#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+msgctxt "FileList|"
+msgid "&Collapse all"
+msgstr "&Redueix-ho tot"
+
+#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+msgctxt "FileList|"
+msgid "&Play"
+msgstr "Re&produeix"
+
+#: src/gui/forms/filelist.cpp:380
+msgctxt "FileList|"
+msgid "E&dit"
+msgstr "E&dita"
+
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+msgctxt "FileList|"
+msgid "&Open"
+msgstr "&Obri"
+
+#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+msgctxt "FileList|"
+msgid "Open Containing &Folder"
+msgstr "Obri la &carpeta contenidora"
+
+#: src/gui/forms/filelist.cpp:563
+msgctxt "FileList|"
+msgid "Execute "
+msgstr "Executa"
+
+#: src/gui/forms/filelist.cpp:572
+msgctxt "FileList|"
+msgid "Could not execute "
+msgstr "No s'ha pogut executar "
+
+#: src/gui/forms/kid3form.cpp:280
+msgctxt "Kid3Form|"
+msgid "Kid3"
+msgstr "Kid3"
+
+#: src/gui/forms/kid3form.cpp:334 src/gui/forms/kid3form.cpp:1224
+#: src/gui/forms/kid3form.cpp:1225
+msgctxt "Kid3Form|"
+msgid "F&ile"
+msgstr "&Fitxer"
+
+#: src/gui/forms/kid3form.cpp:345
+msgctxt "Kid3Form|"
+msgid "Name:"
+msgstr "Nom:"
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:404
+msgctxt "Kid3Form|"
+msgid "Format:"
+msgstr "Format:"
+
+#: src/gui/forms/kid3form.cpp:385
+msgctxt "Kid3Form|"
+msgid "From:"
+msgstr "Des de:"
+
+#: src/gui/forms/kid3form.cpp:391 src/gui/forms/kid3form.cpp:417
+#: src/gui/forms/kid3form.cpp:499 src/gui/forms/kid3form.cpp:523
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/gui/forms/kid3form.cpp:393
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Filename from Tag %1"
+msgstr "Nom del fitxer des de l'etiqueta %1"
+
+#: src/gui/forms/kid3form.cpp:410
+msgctxt "Kid3Form|"
+msgid "To:"
+msgstr "A:"
+
+#: src/gui/forms/kid3form.cpp:418
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1 from Filename"
+msgstr "Etiqueta %1 des del nom de fitxer"
+
+#: src/gui/forms/kid3form.cpp:439 src/gui/forms/kid3form.cpp:890
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag &%1"
+msgstr "Etiqueta &%1"
+
+#: src/gui/forms/kid3form.cpp:468
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "From Tag %1"
+msgstr "Des de l'etiqueta %1"
+
+#: src/gui/forms/kid3form.cpp:476 src/gui/forms/kid3form.cpp:532
+msgctxt "Kid3Form|"
+msgid "Copy"
+msgstr "Copia"
+
+#: src/gui/forms/kid3form.cpp:484 src/gui/forms/kid3form.cpp:508
+msgctxt "Kid3Form|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/gui/forms/kid3form.cpp:491
+msgctxt "Kid3Form|"
+msgid "From"
+msgstr "Des de"
+
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+msgctxt "Kid3Form|"
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/gui/forms/kid3form.cpp:515
+msgctxt "Kid3Form|"
+msgid "To"
+msgstr "A"
+
+#: src/gui/forms/kid3form.cpp:542
+msgctxt "Kid3Form|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/gui/forms/kid3form.cpp:556
+msgctxt "Kid3Form|"
+msgid "Edit..."
+msgstr "Edita..."
+
+#: src/gui/forms/kid3form.cpp:562
+msgctxt "Kid3Form|"
+msgid "Add..."
+msgstr "Afig..."
+
+#: src/gui/forms/kid3form.cpp:568
+msgctxt "Kid3Form|"
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/gui/forms/sectionactions.cpp:147
+msgctxt "SectionActions|"
+msgid "Previous"
+msgstr "Anterior"
+
+#: src/gui/forms/sectionactions.cpp:149
+msgctxt "SectionActions|"
+msgid "Next"
+msgstr "Següent"
+
+#: src/gui/forms/sectionactions.cpp:151
+msgctxt "SectionActions|"
+msgid "Transfer"
+msgstr "Transfereix"
+
+#: src/gui/forms/sectionactions.cpp:154
+msgctxt "SectionActions|"
+msgid "Copy"
+msgstr "Còpia"
+
+#: src/gui/forms/sectionactions.cpp:156
+msgctxt "SectionActions|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/gui/forms/sectionactions.cpp:158
+msgctxt "SectionActions|"
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/gui/forms/sectionactions.cpp:161
+msgctxt "SectionActions|"
+msgid "Edit"
+msgstr "Edita"
+
+#: src/gui/forms/sectionactions.cpp:163
+msgctxt "SectionActions|"
+msgid "Add"
+msgstr "Afig"
+
+#: src/gui/forms/sectionactions.cpp:165
+msgctxt "SectionActions|"
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/gui/forms/sectionactions.cpp:168
+msgctxt "SectionActions|"
+msgid "Open Parent Folder"
+msgstr "Obri la carpeta superior"
+
+#: src/gui/forms/sectionactions.cpp:171
+msgctxt "SectionActions|"
+msgid "Open Current Folder"
+msgstr "Obri la carpeta actual"
+
+#: src/gui/widgets/abstractlistedit.cpp:50
+msgctxt "AbstractListEdit|"
+msgid "&Add..."
+msgstr "&Afig..."
+
+#: src/gui/widgets/abstractlistedit.cpp:51
+msgctxt "AbstractListEdit|"
+msgid "Move &Up"
+msgstr "A&munt"
+
+#: src/gui/widgets/abstractlistedit.cpp:52
+msgctxt "AbstractListEdit|"
+msgid "Move &Down"
+msgstr "A&vall"
+
+#: src/gui/widgets/abstractlistedit.cpp:53
+msgctxt "AbstractListEdit|"
+msgid "&Edit..."
+msgstr "&Edita..."
+
+#: src/gui/widgets/abstractlistedit.cpp:54
+msgctxt "AbstractListEdit|"
+msgid "&Remove"
+msgstr "&Elimina"
+
+#: src/gui/widgets/chaptereditor.cpp:54
+msgctxt "ChapterEditor|"
+msgid "Start time"
+msgstr "Temps d'inici"
+
+#: src/gui/widgets/chaptereditor.cpp:55
+msgctxt "ChapterEditor|"
+msgid "End time"
+msgstr "Temps de finalització"
+
+#: src/gui/widgets/chaptereditor.cpp:56
+msgctxt "ChapterEditor|"
+msgid "Start offset"
+msgstr "Desplaçament inicial"
+
+#: src/gui/widgets/chaptereditor.cpp:57
+msgctxt "ChapterEditor|"
+msgid "End offset"
+msgstr "Desplaçament final"
+
+#: src/gui/widgets/configtable.cpp:41
+msgctxt "ConfigTable|"
+msgid "&Add"
+msgstr "&Afig"
+
+#: src/gui/widgets/configtable.cpp:141
+msgctxt "ConfigTable|"
+msgid "&Insert row"
+msgstr "&Insereix una fila"
+
+#: src/gui/widgets/configtable.cpp:145
+msgctxt "ConfigTable|"
+msgid "&Delete row"
+msgstr "S&uprimeix la fila"
+
+#: src/gui/widgets/configtable.cpp:149
+msgctxt "ConfigTable|"
+msgid "&Clear row"
+msgstr "&Neteja la fila"
+
+#: src/gui/widgets/filenameformatbox.cpp:44
+msgctxt "FilenameFormatBox|"
+msgid "Maximum length:"
+msgstr "Longitud màxima:"
+
+#: src/gui/widgets/formatbox.cpp:48
+msgctxt "FormatBox|"
+msgid "Automatically apply format"
+msgstr "Aplica automàticament el format"
+
+#: src/gui/widgets/formatbox.cpp:56
+msgctxt "FormatBox|"
+msgid "String replacement:"
+msgstr "Cadena de substitució:"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "From"
+msgstr "Des de"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "A"
+
+#: src/gui/widgets/formatbox.cpp:65
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr "Conversió entre majúscules i minúscules:"
+
+#: src/gui/widgets/formatbox.cpp:66
+msgctxt "FormatBox|"
+msgid "Locale:"
+msgstr "Configuració regional:"
+
+#: src/gui/widgets/formatlistedit.cpp:83
+msgctxt "FormatListEdit|"
+msgid "&Add"
+msgstr "&Afig"
+
+#: src/gui/widgets/formatlistedit.cpp:85
+msgctxt "FormatListEdit|"
+msgid "&Remove"
+msgstr "&Elimina"
+
+#: src/gui/widgets/formatlistedit.cpp:247
+msgctxt "FormatListEdit|"
+msgid "New"
+msgstr "Nou"
+
+#: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
+msgctxt "FrameTable|"
+msgid "WWW Audio Source"
+msgstr "Font d'àudio WWW"
+
+#: src/gui/widgets/frametable.cpp:161
+msgctxt "FrameTable|"
+msgid "&Select all"
+msgstr "&Selecciona-ho tot"
+
+#: src/gui/widgets/frametable.cpp:163
+msgctxt "FrameTable|"
+msgid "&Deselect all"
+msgstr "&Desselecciona-ho tot"
+
+#: src/gui/widgets/imageviewer.cpp:49
+msgctxt "ImageViewer|"
+msgid "View Picture"
+msgstr "Visualitza la imatge"
+
+#: src/gui/widgets/imageviewer.cpp:55
+msgctxt "ImageViewer|"
+msgid "&Close"
+msgstr "Tan&ca"
+
+#: src/gui/widgets/picturelabel.cpp:92
+msgctxt "@default|"
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Arrossegueu\n"
+"ací la\n"
+"caràtula"
+
+#: src/gui/widgets/playtoolbar.cpp:57
+msgctxt "PlayToolBar|"
+msgid "Play"
+msgstr "Reprodueix"
+
+#: src/gui/widgets/playtoolbar.cpp:62
+msgctxt "PlayToolBar|"
+msgid "Play/Pause"
+msgstr "Reproduir/Pausa"
+
+#: src/gui/widgets/playtoolbar.cpp:64
+msgctxt "PlayToolBar|"
+msgid "Stop playback"
+msgstr "Atura la reproducció"
+
+#: src/gui/widgets/playtoolbar.cpp:66
+msgctxt "PlayToolBar|"
+msgid "Previous Track"
+msgstr "Peça anterior"
+
+#: src/gui/widgets/playtoolbar.cpp:68
+msgctxt "PlayToolBar|"
+msgid "Next Track"
+msgstr "Peça següent"
+
+#: src/gui/widgets/playtoolbar.cpp:70
+msgctxt "PlayToolBar|"
+msgid "Close"
+msgstr "Tanca"
+
+#: src/gui/widgets/playtoolbar.cpp:87
+msgctxt "PlayToolBar|"
+msgid "Mute"
+msgstr "Silencia"
+
+#: src/gui/widgets/playtoolbar.cpp:238
+#, qt-format
+msgctxt "PlayToolBar|"
+msgid "Volume: %1%"
+msgstr "Volum: %1%"
+
+#: src/gui/widgets/progresswidget.cpp:56
+msgctxt "ProgressWidget|"
+msgid "&Cancel"
+msgstr "&Cancel·la"
+
+#: src/gui/widgets/stringlistedit.cpp:52
+msgctxt "StringListEdit|"
+msgid "Add Item"
+msgstr "Afig un element"
+
+#: src/gui/widgets/stringlistedit.cpp:72
+msgctxt "StringListEdit|"
+msgid "Edit Item"
+msgstr "Edita l'element"
+
+#: src/gui/widgets/subframeseditor.cpp:66
+msgctxt "SubframesEditor|"
+msgid "Edit..."
+msgstr "Edita..."
+
+#: src/gui/widgets/subframeseditor.cpp:71
+msgctxt "SubframesEditor|"
+msgid "Add..."
+msgstr "Afig..."
+
+#: src/gui/widgets/subframeseditor.cpp:76
+msgctxt "SubframesEditor|"
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: src/gui/widgets/subframeseditor.cpp:129
+msgctxt "SubframesEditor|"
+msgid "Add Frame"
+msgstr "Afig un marc"
+
+#: src/gui/widgets/subframeseditor.cpp:130
+msgctxt "SubframesEditor|"
+msgid "Select the frame ID"
+msgstr "Seleccioneu l'ID del marc"
+
+#: src/gui/widgets/tablemodeledit.cpp:35
+msgctxt "TableModelEdit|"
+msgid "&Add"
+msgstr "&Afig"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:43
+msgctxt "TableOfContentsEditor|"
+msgid "Top level"
+msgstr "Nivell superior"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:45
+msgctxt "TableOfContentsEditor|"
+msgid "Ordered"
+msgstr "Ordenada"
+
+#: src/gui/widgets/tagformatbox.cpp:43
+msgctxt "TagFormatBox|"
+msgid "Validation"
+msgstr "Validació"
+
+#: src/gui/widgets/timeeventeditor.cpp:120
+msgctxt "TimeEventEditor|"
+msgid "&Add"
+msgstr "&Afig"
+
+#: src/gui/widgets/timeeventeditor.cpp:122
+msgctxt "TimeEventEditor|"
+msgid "&Delete"
+msgstr "Su&primeix"
+
+#: src/gui/widgets/timeeventeditor.cpp:124
+msgctxt "TimeEventEditor|"
+msgid "From Clip&board"
+msgstr "&Des del porta-retalls"
+
+#: src/gui/widgets/timeeventeditor.cpp:126
+msgctxt "TimeEventEditor|"
+msgid "&Import..."
+msgstr "&Importa..."
+
+#: src/gui/widgets/timeeventeditor.cpp:128
+msgctxt "TimeEventEditor|"
+msgid "&Export..."
+msgstr "&Exporta..."
+
+#: src/gui/widgets/timeeventeditor.cpp:130
+msgctxt "TimeEventEditor|"
+msgid "Help"
+msgstr "Ajuda"
+
+#: src/gui/widgets/timeeventeditor.cpp:188
+msgctxt "TimeEventEditor|"
+msgid "Events"
+msgstr "Esdeveniments"
+
+#: src/gui/widgets/timeeventeditor.cpp:194
+msgctxt "TimeEventEditor|"
+msgid "Lyrics"
+msgstr "Lletra"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Offset"
+msgstr "Desplaçament"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Milliseconds"
+msgstr "Mil·lisegons"
+
+#: src/gui/widgets/timeeventeditor.cpp:470
+msgctxt "TimeEventEditor|"
+msgid "&Insert row"
+msgstr "&Insereix una fila"
+
+#: src/gui/widgets/timeeventeditor.cpp:474
+msgctxt "TimeEventEditor|"
+msgid "&Delete rows"
+msgstr "&Suprimeix les files"
+
+#: src/gui/widgets/timeeventeditor.cpp:476
+msgctxt "TimeEventEditor|"
+msgid "C&lear"
+msgstr "&Neteja"
+
+#: src/gui/widgets/timeeventeditor.cpp:478
+msgctxt "TimeEventEditor|"
+msgid "&Add offset..."
+msgstr "&Afig un desplaçament..."
+
+#: src/gui/widgets/timeeventeditor.cpp:480
+msgctxt "TimeEventEditor|"
+msgid "&Seek to position"
+msgstr "Vé&s a la posició"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+msgctxt "@default|"
+msgid "MusicBrainz Fingerprint"
+msgstr "Empremta digital de MusicBrainz"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+msgctxt "MusicBrainzClient|"
+msgid "Unrecognized"
+msgstr "No reconegut"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "Recognized"
+msgstr "Reconegut"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "User Selection"
+msgstr "Selecció de l'usuari"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+msgctxt "MusicBrainzClient|"
+msgid "ID Lookup"
+msgstr "Cerca per l'ID"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+msgctxt "MusicBrainzClient|"
+msgid "Error"
+msgstr "Error"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+msgctxt "MusicBrainzClient|"
+msgid "Fingerprint"
+msgstr "Empremta digital"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+msgctxt "MusicBrainzClient|"
+msgid "Metadata Lookup"
+msgstr "Cerca per les metadades"
+
+#: src/plugins/amazonimport/amazonimporter.cpp:69
+msgctxt "@default|"
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/plugins/discogsimport/discogsimporter.cpp:1325
+msgctxt "@default|"
+msgid "Discogs"
+msgstr "Discogs"
+
+#: src/plugins/freedbimport/freedbimporter.cpp:58
+msgctxt "@default|"
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2268
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - Encriptatge de l'àudio"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2269
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - Imatge adjunta"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2274
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - Comentaris"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2275
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - Comercial"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2279
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Registre del mètode d'encriptatge"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+msgctxt "@default|"
+msgid "EQUA - Equalization"
+msgstr "EQUA - Equalització"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2281
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Codis de temps dels esdeveniments"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2282
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Objecte general encapsulat"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2283
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - Registre de la identificació del grup"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+msgctxt "@default|"
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Llista de les persones implicades"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2287
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - Informació enllaçada"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2288
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Identificador del CD de música"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2289
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - Taula de cerca de la ubicació en el MPEG"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2294
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Marc propietari"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2295
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - Marc privat"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2296
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - Comptador de la reproducció"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2300
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - Mesurador de la popularitat"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2301
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Marc per a la sincronització de la posició"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2302
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Mida recomanada de la memòria intermèdia"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+msgctxt "@default|"
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Ajust relatiu del volum"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2304
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - Reverberació"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2307
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Lletra/text sincronitzat"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2308
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Codis del ritme sincronitzat"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2309
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Títol de l'àlbum/pel·lícula/programa"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2310
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - PPM (pulsacions per minut)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2315
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - Compositor"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/taglibmetadata/taglibfile.cpp:2316
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - Tipus de contingut"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2317
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Missatge dels drets d'autor"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+msgctxt "@default|"
+msgid "TDAT - Date"
+msgstr "TDAT - Data"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:951
+#: src/plugins/taglibmetadata/taglibfile.cpp:2322
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Retard de la llista de reproducció"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2327
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - Codificat per"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/taglibmetadata/taglibfile.cpp:2328
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Lletrista/escriptor del text"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2329
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - Tipus de fitxer"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:960
+msgctxt "@default|"
+msgid "TIME - Time"
+msgstr "TIME - Temps"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2334
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Descripció del grup del contingut"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2335
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Títol/nom de la cançó/descripció del contingut"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2336
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Millora del subtítol/descripció"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2337
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - Clau inicial"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:965
+#: src/plugins/taglibmetadata/taglibfile.cpp:2341
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Idioma/es"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2342
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - Longitud"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2344
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - Tipus de suport"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2346
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Títol de l'àlbum/pel·lícula/programa"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2347
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - Nom del fitxer original"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/taglibmetadata/taglibfile.cpp:2348
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Lletrista/es / escriptor/s original/s del text"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2349
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Artista/es / intèrpret/s original/s"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+msgctxt "@default|"
+msgid "TORY - Original release year"
+msgstr "TORY - Any del llançament original"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:975
+#: src/plugins/taglibmetadata/taglibfile.cpp:2350
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Propietari/llicència del fitxer"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2351
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Intèrpret/s / solista/es principal/s"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2352
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Banda/orquesta/acompanyament"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:978
+#: src/plugins/taglibmetadata/taglibfile.cpp:2353
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Clarificació del director/intèrpret"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:979
+#: src/plugins/taglibmetadata/taglibfile.cpp:2354
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Interpretat, remesclat o modificat d'alguna forma per"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:980
+#: src/plugins/taglibmetadata/taglibfile.cpp:2355
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Part d'un conjunt"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2357
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - Editor"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2358
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Número de la peça/Posició en el conjunt"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:984
+msgctxt "@default|"
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Dates de l'enregistrament"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2359
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Nom de l'emissora de ràdio per Internet"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:986
+#: src/plugins/taglibmetadata/taglibfile.cpp:2360
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Propietari de l'emissora de ràdio per Internet"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+msgctxt "@default|"
+msgid "TSIZ - Size"
+msgstr "TSIZ - Mida"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2366
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (codi d'enregistrament estàndard internacional)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2367
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Programari/maquinari i la configuració emprada per a codificar"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2369
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Informació del text definit per l'usuari"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+msgctxt "@default|"
+msgid "TYER - Year"
+msgstr "TYER - Any"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2370
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Identificador únic del fitxer"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2371
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - Termes d'ús"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2372
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Transcripció del text/lletra sense sincronitzar"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:999
+#: src/plugins/taglibmetadata/taglibfile.cpp:2373
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Informació comercial"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1000
+#: src/plugins/taglibmetadata/taglibfile.cpp:2374
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Informació sobre els drets d'autor i legal"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1001
+#: src/plugins/taglibmetadata/taglibfile.cpp:2378
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Pàgina web oficial del fitxer d'àudio"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1002
+#: src/plugins/taglibmetadata/taglibfile.cpp:2379
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Pàgina web oficial de l'artista/intèrpret"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1003
+#: src/plugins/taglibmetadata/taglibfile.cpp:2380
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Pàgina web oficial de la font de l'àudio"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1004
+#: src/plugins/taglibmetadata/taglibfile.cpp:2381
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Pàgina web oficial de l'emissora de ràdio per Internet"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1005
+#: src/plugins/taglibmetadata/taglibfile.cpp:2382
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - Pagament"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1006
+#: src/plugins/taglibmetadata/taglibfile.cpp:2383
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Pàgina web oficial de l'editorial"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1007
+#: src/plugins/taglibmetadata/taglibfile.cpp:2384
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Enllaç URL definit per l'usuari"
+
+#: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
+msgctxt "@default|"
+msgid "MusicBrainz Release"
+msgstr "Llançament de MusicBrainz"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2270
+msgctxt "@default|"
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Índex dels punts de cerca de l'àudio"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2272
+msgctxt "@default|"
+msgid "CHAP - Chapter"
+msgstr "CHAP - Capítol"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2277
+msgctxt "@default|"
+msgid "CTOC - Table of contents"
+msgstr "CTOC - Taula de contingut"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2280
+msgctxt "@default|"
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Equalització (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2285
+msgctxt "@default|"
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Agrupament"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2291
+msgctxt "@default|"
+msgid "MVIN - Movement Number"
+msgstr "MVIN - Número del moviment"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2292
+msgctxt "@default|"
+msgid "MVNM - Movement Name"
+msgstr "MVNM - Nom del moviment"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2298
+msgctxt "@default|"
+msgid "PCST - Podcast"
+msgstr "PCST - Podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2303
+msgctxt "@default|"
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Ajust relatiu del volum (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2305
+msgctxt "@default|"
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Marc de cerca"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2306
+msgctxt "@default|"
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Marc de signatura"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2312
+msgctxt "@default|"
+msgid "TCAT - Podcast category"
+msgstr "TCAT - Categoria podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2314
+msgctxt "@default|"
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - Etiqueta de compilació de l'iTunes"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2318
+msgctxt "@default|"
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Temps de la codificació"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2320
+msgctxt "@default|"
+msgid "TDES - Podcast description"
+msgstr "TDES - Descripció del podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2323
+msgctxt "@default|"
+msgid "TDOR - Original release time"
+msgstr "TDOR - Temps del llançament original"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2324
+msgctxt "@default|"
+msgid "TDRC - Recording time"
+msgstr "TDRC - Temps de l'enregistrament"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2325
+msgctxt "@default|"
+msgid "TDRL - Release time"
+msgstr "TDRL - Temps del llançament"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2326
+msgctxt "@default|"
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Temps de l'etiquetatge"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2331
+msgctxt "@default|"
+msgid "TGID - Podcast identifier"
+msgstr "TGID - Identificador del podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2333
+msgctxt "@default|"
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Llista de les persones implicades"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2339
+msgctxt "@default|"
+msgid "TKWD - Podcast keywords"
+msgstr "TKWD - Paraules clau del podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2343
+msgctxt "@default|"
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Llista de crèdits dels músics"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2345
+msgctxt "@default|"
+msgid "TMOO - Mood"
+msgstr "TMOO - Estat d'ànim"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2356
+msgctxt "@default|"
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Anotació de producció"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2361
+msgctxt "@default|"
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - Criteri d'ordenació a l'àlbum dels artistes"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2362
+msgctxt "@default|"
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Criteri d'ordenació de l'àlbum"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2363
+msgctxt "@default|"
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - Criteri d'ordenació de l'editor"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2364
+msgctxt "@default|"
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Criteri d'ordenació de l'intèrpret"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2365
+msgctxt "@default|"
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Criteri d'ordenació del títol"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2368
+msgctxt "@default|"
+msgid "TSST - Set subtitle"
+msgstr "TSST - Estableix el subtítol"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2376
+msgctxt "@default|"
+msgid "WFED - Podcast feed"
+msgstr "WFED - Canal de podcast"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:6575
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Informació de la puntuació"
+
+#: src/qml/app/AboutDialog.qml:29
+msgctxt "AboutDialog|"
+msgid "About Kid3"
+msgstr "Quant al Kid3"
+
+#: src/qml/app/AboutDialog.qml:39
+msgctxt "AboutDialog|"
+msgid "Audio Tag Editor"
+msgstr "Editor per a les etiquetes d'àudio"
+
+#: src/qml/app/AboutDialog.qml:44
+msgctxt "AboutDialog|"
+msgid "License"
+msgstr "Llicència"
+
+#: src/qml/app/AboutDialog.qml:46
+#, qt-format
+msgctxt "AboutDialog|"
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr ""
+"Aquest programa empra les <a href=\"https://www.qt.io/\">Qt</a> versió %1."
+
+#: src/qml/app/BatchImportPage.qml:32
+msgctxt "BatchImportPage|"
+msgid "Automatic Import"
+msgstr "Importa automàticament"
+
+#: src/qml/app/BatchImportPage.qml:40
+msgctxt "BatchImportPage|"
+msgid "Reading Folder"
+msgstr "S'està llegint la carpeta"
+
+#: src/qml/app/BatchImportPage.qml:43
+msgctxt "BatchImportPage|"
+msgid "Started"
+msgstr "Iniciada"
+
+#: src/qml/app/BatchImportPage.qml:46
+msgctxt "BatchImportPage|"
+msgid "Source"
+msgstr "Font"
+
+#: src/qml/app/BatchImportPage.qml:49
+msgctxt "BatchImportPage|"
+msgid "Querying"
+msgstr "S'està consultant"
+
+#: src/qml/app/BatchImportPage.qml:53
+msgctxt "BatchImportPage|"
+msgid "Fetching"
+msgstr "S'està recuperant"
+
+#: src/qml/app/BatchImportPage.qml:56
+msgctxt "BatchImportPage|"
+msgid "Data received"
+msgstr "Dades rebudes"
+
+#: src/qml/app/BatchImportPage.qml:59
+msgctxt "BatchImportPage|"
+msgid "Cover"
+msgstr "Caràtula"
+
+#: src/qml/app/BatchImportPage.qml:62
+msgctxt "BatchImportPage|"
+msgid "Finished"
+msgstr "Finalitzada"
+
+#: src/qml/app/BatchImportPage.qml:65
+msgctxt "BatchImportPage|"
+msgid "Aborted"
+msgstr "Interrompuda"
+
+#: src/qml/app/BatchImportPage.qml:68
+msgctxt "BatchImportPage|"
+msgid "Error"
+msgstr "Error"
+
+#: src/qml/app/BatchImportPage.qml:104
+msgctxt "BatchImportPage|"
+msgid "Start"
+msgstr "Inicia"
+
+#: src/qml/app/BatchImportPage.qml:126
+msgctxt "BatchImportPage|"
+msgid "Destination:"
+msgstr "Destinació:"
+
+#: src/qml/app/BatchImportPage.qml:135
+msgctxt "BatchImportPage|"
+msgid "Tag 1"
+msgstr "Etiqueta 1"
+
+#: src/qml/app/BatchImportPage.qml:136
+msgctxt "BatchImportPage|"
+msgid "Tag 2"
+msgstr "Etiqueta 2"
+
+#: src/qml/app/BatchImportPage.qml:137
+msgctxt "BatchImportPage|"
+msgid "Tag 1 and Tag 2"
+msgstr "Etiqueta 1 i etiqueta 2"
+
+#: src/qml/app/BatchImportPage.qml:149
+msgctxt "BatchImportPage|"
+msgid "Profile:"
+msgstr "Perfil:"
+
+#: src/qml/app/FileCollapsible.qml:32
+msgctxt "FileCollapsible|"
+msgid "File"
+msgstr "Fitxer"
+
+#: src/qml/app/FileSelectDialog.qml:42
+msgctxt "FileSelectDialog|"
+msgid "Open"
+msgstr "Obri"
+
+#: src/qml/app/FileSelectDialog.qml:98
+msgctxt "FileSelectDialog|"
+msgid "Folder"
+msgstr "Carpeta"
+
+#: src/qml/app/FileSelectDialog.qml:190
+msgctxt "FileSelectDialog|"
+msgid "File"
+msgstr "Fitxer"
+
+#: src/qml/app/FilterPage.qml:31
+msgctxt "FilterPage|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/qml/app/FilterPage.qml:39
+msgctxt "FilterPage|"
+msgid "Started"
+msgstr "Iniciat"
+
+#: src/qml/app/FilterPage.qml:57
+msgctxt "FilterPage|"
+msgid "Finished"
+msgstr "Finalitzat"
+
+#: src/qml/app/FilterPage.qml:60
+msgctxt "FilterPage|"
+msgid "Aborted"
+msgstr "Interromput"
+
+#: src/qml/app/FilterPage.qml:92
+msgctxt "FilterPage|"
+msgid "Start"
+msgstr "Inicia"
+
+#: src/qml/app/FilterPage.qml:118
+msgctxt "FilterPage|"
+msgid "Filter:"
+msgstr "Filtre:"
+
+#: src/qml/app/FilterPage.qml:131
+msgctxt "FilterPage|"
+msgid "Expression:"
+msgstr "Expressió:"
+
+#: src/qml/app/FrameEditDialog.qml:117
+msgctxt "FrameEditDialog|"
+msgid "Warning"
+msgstr "Avís"
+
+#: src/qml/app/FrameEditDialog.qml:118
+msgctxt "FrameEditDialog|"
+msgid "File already exists. Overwrite?"
+msgstr "El fitxer ja existeix. S'ha de sobreescriure?"
+
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+msgctxt "FrameEditDialog|"
+msgid "Export"
+msgstr "Exporta"
+
+#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+msgctxt "FrameEditDialog|"
+msgid "Import"
+msgstr "Importa"
+
+#: src/qml/app/FrameSelectDialog.qml:38
+msgctxt "FrameSelectDialog|"
+msgid "Add Frame"
+msgstr "Afig un marc"
+
+#: src/qml/app/FrameSelectDialog.qml:47
+msgctxt "FrameSelectDialog|"
+msgid "Select the frame ID"
+msgstr "Seleccioneu l'ID del marc"
+
+#: src/qml/app/ImportProfilesEditPage.qml:34
+msgctxt "ImportProfilesEditPage|"
+msgid "Profiles"
+msgstr "Perfils"
+
+#: src/qml/app/ImportProfilesEditPage.qml:42
+msgctxt "ImportProfilesEditPage|"
+msgid "Profile"
+msgstr "Perfil"
+
+#: src/qml/app/ImportProfilesEditPage.qml:68
+#: src/qml/app/ImportProfilesEditPage.qml:136
+msgctxt "ImportProfilesEditPage|"
+msgid "Accuracy"
+msgstr "Precisió"
+
+#: src/qml/app/ImportProfilesEditPage.qml:71
+#: src/qml/app/ImportProfilesEditPage.qml:149
+msgctxt "ImportProfilesEditPage|"
+msgid "Standard Tags"
+msgstr "Etiquetes estàndard"
+
+#: src/qml/app/ImportProfilesEditPage.qml:74
+#: src/qml/app/ImportProfilesEditPage.qml:154
+msgctxt "ImportProfilesEditPage|"
+msgid "Additional Tags"
+msgstr "Etiquetes addicionals"
+
+#: src/qml/app/ImportProfilesEditPage.qml:77
+#: src/qml/app/ImportProfilesEditPage.qml:159
+msgctxt "ImportProfilesEditPage|"
+msgid "Cover Art"
+msgstr "Caràtula"
+
+#: src/qml/app/ImportProfilesEditPage.qml:128
+msgctxt "ImportProfilesEditPage|"
+msgid "Server"
+msgstr "Servidor"
+
+#: src/qml/app/Main.qml:92
+msgctxt "Main|"
+msgid "Warning"
+msgstr "Avís"
+
+#: src/qml/app/Main.qml:93
+msgctxt "Main|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"S'ha modificat la carpeta actual.\n"
+"Voleu guardar-la?"
+
+#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+msgctxt "Main|"
+msgid "File Error"
+msgstr "Error en el fitxer"
+
+#: src/qml/app/Main.qml:129
+msgctxt "Main|"
+msgid "Error while writing file:\n"
+msgstr "Error en escriure el fitxer:\n"
+
+#: src/qml/app/Main.qml:146
+#, qt-format
+msgctxt "Main|"
+msgid "SD card is only writable in %1"
+msgstr "La targeta SD només es pot escriure a %1"
+
+#: src/qml/app/Main.qml:163
+msgctxt "Main|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Error en escriure el fitxer. Voleu canviar els permisos?"
+
+#: src/qml/app/Main.qml:259
+#, qt-format
+msgctxt "Main|"
+msgid "%1 is not writable"
+msgstr "%1 no és d'escriptura"
+
+#: src/qml/app/MainPage.qml:48
+msgctxt "MainPage|"
+msgid " [modified]"
+msgstr " [modificada]"
+
+#: src/qml/app/MainPage.qml:49
+#, qt-format
+msgctxt "MainPage|"
+msgid " [filtered %1/%2]"
+msgstr " [filtrades %1/%2]"
+
+#: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
+msgctxt "MainPage|"
+msgid "Open"
+msgstr "Obri"
+
+#: src/qml/app/MainPage.qml:155
+msgctxt "MainPage|"
+msgid "About"
+msgstr "Quant a"
+
+#: src/qml/app/MainPage.qml:171
+msgctxt "MainPage|"
+msgid "Save"
+msgstr "Guarda"
+
+#: src/qml/app/MainPage.qml:180
+msgctxt "MainPage|"
+msgid "Settings"
+msgstr "Configuració"
+
+#: src/qml/app/MainPage.qml:189
+msgctxt "MainPage|"
+msgid "Automatic Import"
+msgstr "Importa automàticament"
+
+#: src/qml/app/MainPage.qml:198
+msgctxt "MainPage|"
+msgid "Create Playlist"
+msgstr "Crea una llista de reproducció"
+
+#: src/qml/app/MainPage.qml:202
+msgctxt "MainPage|"
+msgid "Rename Folder"
+msgstr "Reanomena la carpeta"
+
+#: src/qml/app/MainPage.qml:211
+msgctxt "MainPage|"
+msgid "Number Tracks"
+msgstr "Nombre de peces"
+
+#: src/qml/app/MainPage.qml:220
+msgctxt "MainPage|"
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/qml/app/MainPage.qml:229
+msgctxt "MainPage|"
+msgid "Apply Filename Format"
+msgstr "Aplica el format del nom de fitxer"
+
+#: src/qml/app/MainPage.qml:233
+msgctxt "MainPage|"
+msgid "Apply Tag Format"
+msgstr "Aplica el format de l'etiqueta"
+
+#: src/qml/app/MainPage.qml:237
+msgctxt "MainPage|"
+msgid "Apply Text Encoding"
+msgstr "Aplica la codificació del text"
+
+#: src/qml/app/MainPage.qml:241
+msgctxt "MainPage|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converteix ID3 versió 2.3 a 2.4"
+
+#: src/qml/app/MainPage.qml:245
+msgctxt "MainPage|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converteix ID3 versió 2.4 a 2.3"
+
+#: src/qml/app/MainPage.qml:249
+msgctxt "MainPage|"
+msgid "Revert"
+msgstr "Reverteix"
+
+#: src/qml/app/MainPage.qml:253
+msgctxt "MainPage|"
+msgid "Quit"
+msgstr "Ix"
+
+#: src/qml/app/NumberTracksDialog.qml:48
+msgctxt "NumberTracksDialog|"
+msgid "Start number:"
+msgstr "Número d'inici:"
+
+#: src/qml/app/NumberTracksDialog.qml:57
+msgctxt "NumberTracksDialog|"
+msgid "Destination:"
+msgstr "Destinació:"
+
+#: src/qml/app/NumberTracksDialog.qml:63
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1"
+msgstr "Etiqueta 1"
+
+#: src/qml/app/NumberTracksDialog.qml:64
+msgctxt "NumberTracksDialog|"
+msgid "Tag 2"
+msgstr "Etiqueta 2"
+
+#: src/qml/app/NumberTracksDialog.qml:65
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1 and Tag 2"
+msgstr "Etiqueta 1 i etiqueta 2"
+
+#: src/qml/app/NumberTracksDialog.qml:79
+msgctxt "NumberTracksDialog|"
+msgid "Reset counter for each folder"
+msgstr "Restableix el comptador en cada carpeta"
+
+#: src/qml/app/NumberTracksDialog.qml:92
+msgctxt "NumberTracksDialog|"
+msgid "Total number of tracks"
+msgstr "Nombre total de peces"
+
+#: src/qml/app/PictureCollapsible.qml:27
+msgctxt "PictureCollapsible|"
+msgid "Picture"
+msgstr "Imatge"
+
+#: src/qml/app/RenameDirectoryPage.qml:37
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Rename Folder"
+msgstr "Reanomena la carpeta"
+
+#: src/qml/app/RenameDirectoryPage.qml:77
+msgctxt "RenameDirectoryPage|"
+msgid "Start"
+msgstr "Inicia"
+
+#: src/qml/app/RenameDirectoryPage.qml:81
+msgctxt "RenameDirectoryPage|"
+msgid "Error"
+msgstr "Error"
+
+#: src/qml/app/RenameDirectoryPage.qml:109
+msgctxt "RenameDirectoryPage|"
+msgid "Action:"
+msgstr "Acció:"
+
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Create Folder"
+msgstr "Crea una carpeta"
+
+#: src/qml/app/RenameDirectoryPage.qml:124
+msgctxt "RenameDirectoryPage|"
+msgid "Source:"
+msgstr "Font:"
+
+#: src/qml/app/RenameDirectoryPage.qml:129
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2 and Tag 1"
+msgstr "Des de l'etiqueta 2 i etiqueta 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:130
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 1"
+msgstr "Des de l'etiqueta 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:131
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2"
+msgstr "Des de l'etiqueta 2"
+
+#: src/qml/app/RenameDirectoryPage.qml:141
+msgctxt "RenameDirectoryPage|"
+msgid "Format:"
+msgstr "Format:"
+
+#: src/qml/app/RenameDirectoryPage.qml:152
+msgctxt "RenameDirectoryPage|"
+msgid "Folder Name from Tag"
+msgstr "Nom de la carpeta des de l'etiqueta"
+
+#: src/qml/app/RenameDirectoryPage.qml:185
+msgctxt "RenameDirectoryPage|"
+msgid "Preview"
+msgstr "Vista prèvia"
+
+#: src/qml/app/SettingsPage.qml:30
+msgctxt "SettingsPage|"
+msgid "Settings"
+msgstr "Configuració"
+
+#: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
+msgctxt "SettingsPage|"
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:183
+msgctxt "SettingsPage|"
+msgid "Files"
+msgstr "Fitxers"
+
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:317
+msgctxt "SettingsPage|"
+msgid "Plugins"
+msgstr "Connectors"
+
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:375
+msgctxt "SettingsPage|"
+msgid "Appearance"
+msgstr "Aparença"
+
+#: src/qml/app/SettingsPage.qml:48
+msgctxt "SettingsPage|"
+msgid "Mark truncated fields"
+msgstr "Marca els camps truncats"
+
+#: src/qml/app/SettingsPage.qml:53
+msgctxt "SettingsPage|"
+msgid "ID3v1 text encoding"
+msgstr "Codificació del text en ID3 versió 1"
+
+#: src/qml/app/SettingsPage.qml:59
+msgctxt "SettingsPage|"
+msgid "ID3v2 text encoding"
+msgstr "Codificació del text en ID3 versió 2"
+
+#: src/qml/app/SettingsPage.qml:65
+msgctxt "SettingsPage|"
+msgid "Use track/total number of tracks format"
+msgstr "Empra el nombre de peces/total del format de les peces"
+
+#: src/qml/app/SettingsPage.qml:70
+msgctxt "SettingsPage|"
+msgid "Genre as text instead of numeric string"
+msgstr "Genera com a text en lloc d'una cadena numèrica"
+
+#: src/qml/app/SettingsPage.qml:75
+msgctxt "SettingsPage|"
+msgid "WAV files with lowercase id3 chunk"
+msgstr "Fitxers WAV amb el bloc id3 en minúscules"
+
+#: src/qml/app/SettingsPage.qml:80
+msgctxt "SettingsPage|"
+msgid "Version used for new ID3v2 tags"
+msgstr "Versió usada per a les etiquetes noves ID3 versió 2"
+
+#: src/qml/app/SettingsPage.qml:86
+msgctxt "SettingsPage|"
+msgid "Track number digits"
+msgstr "Dígits del número de la peça"
+
+#: src/qml/app/SettingsPage.qml:91
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis comment field name"
+msgstr "Nom del camp de comentari a Ogg/Vorbis"
+
+#: src/qml/app/SettingsPage.qml:101
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis picture field name"
+msgstr "Nom del camp de la imatge a Ogg/Vorbis"
+
+#: src/qml/app/SettingsPage.qml:107
+msgctxt "SettingsPage|"
+msgid "RIFF track number field name"
+msgstr "Nom de camp del número de la peça RIFF"
+
+#: src/qml/app/SettingsPage.qml:117
+msgctxt "SettingsPage|"
+msgid "Mark if picture larger than maximum size"
+msgstr "Marca si la imatge és més gran que la mida màxima"
+
+#: src/qml/app/SettingsPage.qml:122
+msgctxt "SettingsPage|"
+msgid "Picture maximum size (bytes)"
+msgstr "Mida màxima de la imatge (bytes)"
+
+#: src/qml/app/SettingsPage.qml:127
+msgctxt "SettingsPage|"
+msgid "Show only custom genres"
+msgstr "Mostra només els gèneres personalitzats"
+
+#: src/qml/app/SettingsPage.qml:131
+msgctxt "SettingsPage|"
+msgid "Custom Genres"
+msgstr "Gèneres personalitzats"
+
+#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:217
+msgctxt "SettingsPage|"
+msgid "Case conversion"
+msgstr "Conversió entre majúscules i minúscules"
+
+#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:223
+msgctxt "SettingsPage|"
+msgid "Locale"
+msgstr "Configuració regional"
+
+#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:234
+msgctxt "SettingsPage|"
+msgid "String replacement"
+msgstr "Cadena de substitució"
+
+#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:238
+msgctxt "SettingsPage|"
+msgid "String Replacement"
+msgstr "Cadena de substitució"
+
+#: src/qml/app/SettingsPage.qml:187
+msgctxt "SettingsPage|"
+msgid "Load last-opened files"
+msgstr "Carrega els últims fitxers oberts"
+
+#: src/qml/app/SettingsPage.qml:192
+msgctxt "SettingsPage|"
+msgid "Preserve file timestamp"
+msgstr "Conserva la marca de temps del fitxer"
+
+#: src/qml/app/SettingsPage.qml:197
+msgctxt "SettingsPage|"
+msgid "Mark changes"
+msgstr "Marca els canvis"
+
+#: src/qml/app/SettingsPage.qml:202
+msgctxt "SettingsPage|"
+msgid "Automatically apply format"
+msgstr "Aplica automàticament el format"
+
+#: src/qml/app/SettingsPage.qml:207
+msgctxt "SettingsPage|"
+msgid "Use maximum length"
+msgstr "Empra la longitud màxima"
+
+#: src/qml/app/SettingsPage.qml:212
+msgctxt "SettingsPage|"
+msgid "Maximum length"
+msgstr "Longitud màxima"
+
+#: src/qml/app/SettingsPage.qml:249
+msgctxt "SettingsPage|"
+msgid "Filename for cover"
+msgstr "Nom de fitxer per a la caràtula"
+
+#: src/qml/app/SettingsPage.qml:254
+msgctxt "SettingsPage|"
+msgid "Playlist text encoding"
+msgstr "Codificació del text a la llista de reproducció"
+
+#: src/qml/app/SettingsPage.qml:260
+msgctxt "SettingsPage|"
+msgid "To filename format"
+msgstr "Al format del nom de fitxer"
+
+#: src/qml/app/SettingsPage.qml:270
+msgctxt "SettingsPage|"
+msgid "Filename from Tag"
+msgstr "Nom del fitxer des de l'etiqueta"
+
+#: src/qml/app/SettingsPage.qml:285
+msgctxt "SettingsPage|"
+msgid "From filename format"
+msgstr "Des del format del nom de fitxer"
+
+#: src/qml/app/SettingsPage.qml:295
+msgctxt "SettingsPage|"
+msgid "Tag from Filename"
+msgstr "Etiqueta des del nom de fitxer"
+
+#: src/qml/app/SettingsPage.qml:379
+msgctxt "SettingsPage|"
+msgid "Language"
+msgstr "Idioma"
+
+#: src/qml/app/SettingsPage.qml:380
+msgctxt "SettingsPage|"
+msgid "System"
+msgstr "Sistema"
+
+#: src/qml/app/SettingsPage.qml:391
+msgctxt "SettingsPage|"
+msgid "Theme"
+msgstr "Tema"
+
+#: src/qml/app/StringListEditPage.qml:85
+msgctxt "StringListEditPage|"
+msgid "Edit"
+msgstr "Edita"
+
+#: src/qml/app/TagCollapsible.qml:40
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "Tag %1"
+msgstr "Etiqueta %1"
+
+#: src/qml/app/TagCollapsible.qml:83
+msgctxt "TagCollapsible|"
+msgid "To Filename"
+msgstr "Al nom de fitxer"
+
+#: src/qml/app/TagCollapsible.qml:87
+msgctxt "TagCollapsible|"
+msgid "From Filename"
+msgstr "Des del nom de fitxer"
+
+#: src/qml/app/TagCollapsible.qml:91
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "To Tag %1"
+msgstr "A l'etiqueta %1"
+
+#: src/qml/app/TagCollapsible.qml:98
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "From Tag %1"
+msgstr "Des de l'etiqueta %1"
+
+#: src/qml/app/TagCollapsible.qml:102
+msgctxt "TagCollapsible|"
+msgid "Copy"
+msgstr "Copia"
+
+#: src/qml/app/TagCollapsible.qml:106
+msgctxt "TagCollapsible|"
+msgid "Paste"
+msgstr "Enganxa"
+
+#: src/qml/app/TagCollapsible.qml:110
+msgctxt "TagCollapsible|"
+msgid "Remove"
+msgstr "Elimina"
+
+#~ msgctxt "@default|"
+#~ msgid "TrackType.org"
+#~ msgstr "TrackType.org"
