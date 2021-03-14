@@ -362,7 +362,7 @@ Page {
       },
       State {
         name: "narrow"
-        when: body.rightSideSpace < constants.gu(50)
+        when: body.rightSideSpace < constants.gu(45)
         PropertyChanges {
           target: drawer
           interactive: page.StackView.view.depth === 1
