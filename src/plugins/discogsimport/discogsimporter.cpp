@@ -322,6 +322,86 @@ void ExtraArtist::addToFrames(FrameCollection& frames,
   }
 }
 
+
+/**
+ * Stores information about a track.
+ */
+class TrackInfo {
+public:
+  /**
+   * Constructor.
+   * @param track JSON object containing track information
+   */
+  explicit TrackInfo(const QJsonObject& track);
+
+  void addToFrames(FrameCollection& frames,
+                   const QList<ExtraArtist>& trackExtraArtists,
+                   bool standardTags, bool additionalTags) const;
+
+  QString title() const { return m_title; }
+  QString disc() const { return m_disc; }
+  QString position() const { return m_position; }
+  int pos() const { return m_pos; }
+  int duration() const { return m_duration; }
+
+private:
+  QString m_title;
+  QString m_disc;
+  QString m_position;
+  int m_pos;
+  int m_duration;
+};
+
+/**
+ * Constructor.
+ * @param obj JSON object containing extra artist information
+ */
+TrackInfo::TrackInfo(const QJsonObject& track)
+  : m_pos(0), m_duration(0)
+{
+  QRegularExpression discTrackPosRe(QLatin1String("^(\\d+)-(\\d+)$"));
+  m_position = track.value(QLatin1String("position")).toString();
+  bool ok;
+  m_pos = m_position.toInt(&ok);
+  if (!ok) {
+    auto match = discTrackPosRe.match(m_position);
+    if (match.hasMatch()) {
+      m_disc = match.captured(1);
+      m_pos = match.captured(2).toInt();
+    }
+  }
+  m_title = track.value(QLatin1String("title")).toString().trimmed();
+
+  m_duration = 0;
+  if (track.contains(QLatin1String("duration"))) {
+    const QStringList durationHms = track.value(QLatin1String("duration"))
+        .toString().split(QLatin1Char(':'));
+    for (const auto& val : durationHms) {
+      m_duration *= 60;
+      m_duration += val.toInt();
+    }
+  } else {
+    m_duration = track.value(QLatin1String("durationInSeconds")).toInt();
+  }
+}
+
+void TrackInfo::addToFrames(FrameCollection& frames,
+                            const QList<ExtraArtist>& trackExtraArtists,
+                            bool standardTags, bool additionalTags) const
+{
+  if (standardTags) {
+    frames.setTrack(m_pos);
+    frames.setTitle(m_title);
+  }
+  if (additionalTags && !m_disc.isNull()) {
+    frames.setValue(Frame::FT_Disc, m_disc);
+  }
+  for (const auto& extraArtist : trackExtraArtists) {
+    extraArtist.addToFrames(frames, m_position);
+  }
+}
+
+
 /**
  * Parse album results from a JSON object.
  * @param map JSON object, returned object from API import, "Release..."
@@ -463,8 +543,39 @@ bool parseJsonAlbumResults(const QJsonObject& map,
 
   FrameCollection frames(framesHdr);
   ImportTrackDataVector::iterator it = trackDataVector.begin();
-  bool atTrackDataListEnd = (it == trackDataVector.end());
   int trackNr = 1;
+  bool atTrackDataListEnd = (it == trackDataVector.end());
+  bool titleFound = false;
+
+  auto addFramesToTrackData =
+      [&atTrackDataListEnd, &trackDataVector, &it, &trackNr, &titleFound](
+      FrameCollection& frames, int duration) {
+    if (!frames.getTitle().isEmpty()) {
+      titleFound = true;
+    }
+    if (frames.getTrack() == 0) {
+      frames.setTrack(trackNr);
+    }
+    if (atTrackDataListEnd) {
+      ImportTrackData trackData;
+      trackData.setFrameCollection(frames);
+      trackData.setImportDuration(duration);
+      trackDataVector.append(trackData);
+    } else {
+      while (!atTrackDataListEnd && !it->isEnabled()) {
+        ++it;
+        atTrackDataListEnd = (it == trackDataVector.end());
+      }
+      if (!atTrackDataListEnd) {
+        (*it).setFrameCollection(frames);
+        (*it).setImportDuration(duration);
+        ++it;
+        atTrackDataListEnd = (it == trackDataVector.end());
+      }
+    }
+    ++trackNr;
+  };
+
   const auto trackList = map.value(map.contains(QLatin1String("tracklist"))
                                    ? QLatin1String("tracklist")
                                    : QLatin1String("tracks")).toArray();
@@ -478,96 +589,55 @@ bool parseJsonAlbumResults(const QJsonObject& map,
     }
   }
 
-  bool titleFound = false;
   for (const auto& val : trackList) {
     auto track = val.toObject();
 
-    QString position(track.value(QLatin1String("position")).toString());
-    bool ok;
-    int pos = position.toInt(&ok);
-    if (!ok) {
-      auto match = discTrackPosRe.match(position);
-      if (match.hasMatch()) {
-        if (additionalTags) {
-          frames.setValue(Frame::FT_Disc, match.captured(1));
-        }
-        pos = match.captured(2).toInt();
-      } else {
-        pos = trackNr;
-      }
-    }
-    QString title(track.value(QLatin1String("title")).toString().trimmed());
-    if (!title.isEmpty()) {
-      titleFound = true;
-    }
+    TrackInfo trackInfo(track);
 
-    int duration = 0;
-    if (track.contains(QLatin1String("duration"))) {
-      const QStringList durationHms = track.value(QLatin1String("duration"))
-          .toString().split(QLatin1Char(':'));
-      for (const auto& val : durationHms) {
-        duration *= 60;
-        duration += val.toInt();
-      }
-    } else {
-      duration = track.value(QLatin1String("durationInSeconds")).toInt();
-    }
-    if (!allPositionsEmpty && position.isEmpty()) {
-      if (additionalTags) {
-        framesHdr.setValue(Frame::FT_Subtitle, title);
-        frames.setValue(Frame::FT_Subtitle, title);
-      }
-    } else if (!title.isEmpty() || duration != 0) {
+    const auto artists((track.contains(QLatin1String("artists"))
+                        ? track.value(QLatin1String("artists"))
+                        : track.value(QLatin1String("primaryArtists")))
+                       .toArray());
+    if (!artists.isEmpty()) {
       if (standardTags) {
-        frames.setTrack(pos);
-        frames.setTitle(title);
-      }
-      const auto artists((track.contains(QLatin1String("artists"))
-                          ? track.value(QLatin1String("artists"))
-                          : track.value(QLatin1String("primaryArtists")))
-                         .toArray());
-      if (!artists.isEmpty()) {
-        if (standardTags) {
-          frames.setArtist(getArtistString(artists));
-        }
-        if (additionalTags) {
-          frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
-        }
+        frames.setArtist(getArtistString(artists));
       }
       if (additionalTags) {
-        const auto extraartists((track.contains(QLatin1String("extraartists"))
-                                 ? track.value(QLatin1String("extraartists"))
-                                 : track.value(QLatin1String("trackCredits")))
-                                .toArray());
-        if (!extraartists.isEmpty()) {
-          for (const auto& val : extraartists) {
-            ExtraArtist extraArtist(val.toObject());
-            extraArtist.addToFrames(frames);
-          }
+        frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+      }
+    }
+    if (additionalTags) {
+      const auto extraartists((track.contains(QLatin1String("extraartists"))
+                               ? track.value(QLatin1String("extraartists"))
+                               : track.value(QLatin1String("trackCredits")))
+                              .toArray());
+      if (!extraartists.isEmpty()) {
+        for (const auto& val : extraartists) {
+          ExtraArtist extraArtist(val.toObject());
+          extraArtist.addToFrames(frames);
         }
       }
-      for (const auto& extraArtist : trackExtraArtists) {
-        extraArtist.addToFrames(frames, position);
-      }
-
-      if (atTrackDataListEnd) {
-        ImportTrackData trackData;
-        trackData.setFrameCollection(frames);
-        trackData.setImportDuration(duration);
-        trackDataVector.append(trackData);
-      } else {
-        while (!atTrackDataListEnd && !it->isEnabled()) {
-          ++it;
-          atTrackDataListEnd = (it == trackDataVector.end());
+    }
+    if (!allPositionsEmpty && trackInfo.position().isEmpty()) {
+      const auto subTracks((track.contains(QLatin1String("sub_tracks"))
+                               ? track.value(QLatin1String("sub_tracks"))
+                               : track.value(QLatin1String("subTracks")))
+                              .toArray());
+      if (!subTracks.isEmpty()) {
+        if (additionalTags) {
+          frames.setValue(Frame::FT_Subtitle, trackInfo.title());
         }
-        if (!atTrackDataListEnd) {
-          (*it).setFrameCollection(frames);
-          (*it).setImportDuration(duration);
-          ++it;
-          atTrackDataListEnd = (it == trackDataVector.end());
+        for (const auto& val : subTracks) {
+          TrackInfo subTrackInfo(val.toObject());
+          subTrackInfo.addToFrames(frames, trackExtraArtists,
+                                   standardTags, additionalTags);
+          addFramesToTrackData(frames, subTrackInfo.duration());
         }
       }
-      ++trackNr;
+    } else if (!trackInfo.title().isEmpty() || trackInfo.duration() != 0) {
+      trackInfo.addToFrames(frames, trackExtraArtists,
+                            standardTags, additionalTags);
+      addFramesToTrackData(frames, trackInfo.duration());
     }
     frames = framesHdr;
   }
