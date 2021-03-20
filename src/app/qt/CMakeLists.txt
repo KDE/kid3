@@ -186,6 +186,9 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION kid3.app/Contents/MacOS
       FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}"
                      PATTERN "*.dSYM" EXCLUDE)
+    install(DIRECTORY "${QT_PLUGINS_DIR}/styles"
+      DESTINATION ${plugin_dest_dir} OPTIONAL
+      FILES_MATCHING PATTERN "libqmacstyle${CMAKE_SHARED_LIBRARY_SUFFIX}")
     if(HAVE_QTMULTIMEDIA)
       install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
         DESTINATION ${plugin_dest_dir}
