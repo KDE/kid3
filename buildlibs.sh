@@ -220,7 +220,12 @@ EOF
     test -e pkg/$f || cp -a $HOME/Development/MinGW_Packages/$f pkg/
   done
   echo "### Build docker image"
-  docker build -t ufleisch/kid3dev . -f-<<EOF
+  if hash podman 2>/dev/null; then
+    DOCKER=podman
+  else
+    DOCKER=docker
+  fi
+  $DOCKER build -t ufleisch/kid3dev . -f-<<EOF
 FROM ubuntu:18.04
 RUN apt-get update && apt-get install -y --no-install-recommends \
 devscripts build-essential lintian debhelper extra-cmake-modules \
@@ -249,7 +254,14 @@ fi
 if test "$1" = "rundocker"; then
   echo "### Run docker image"
   shift
-  docker run --rm -it -e LANG=C.UTF-8 \
+  if hash podman 2>/dev/null; then
+    DOCKER=podman
+    USERNSARG=--userns=keep-id
+  else
+    DOCKER=docker
+    USERNSARG=
+  fi
+  $DOCKER run $USERNSARG --rm -it -e LANG=C.UTF-8 \
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \
