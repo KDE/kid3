@@ -152,6 +152,7 @@
     </p>
     <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
     <p xml:lang="ca-valencia">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
+    <p xml:lang="de">Albumdaten können von gnudb.org, MusicBrainz, Discogs, Amazon importiert werden. Ein automatischer Stapelverarbeitungsmodus ist für mehrere Ordner verfügbar. Daten können exportiert und Wiedergabelisten können erstellt werden.</p>
     <p xml:lang="en-GB">Album data can be imported from gnudb.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.</p>
     <p xml:lang="es">Puede importar datos de álbumes de gnudb.org, MusicBrainz, Discogs y Amazon. Puede realizar importaciones automáticas por lotes para múltiples carpetas. También puede exportar datos y generar listas de reproducción.</p>
     <p xml:lang="fi">Albumin tiedot voi tuoda gnudb.orgista, MusicBrainzistä, Discogsista ja Amazonista. Useamman kansion automaattinen eräajotuonti on mahdollista. Tiedot voi myös viedä ja luoda soittolistan.</p>
