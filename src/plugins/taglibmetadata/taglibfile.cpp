@@ -528,7 +528,11 @@ void FileIOStream::truncate(taglib_offset_t length)
 TagLib::File* FileIOStream::create(TagLib::IOStream* stream)
 {
   TagLib::File* file = createFromExtension(stream);
-  if (!file || !file->isValid()) {
+  if (file && !file->isValid()) {
+    delete file;
+    file = nullptr;
+  }
+  if (!file) {
     file = createFromContents(stream);
   }
   return file;
