@@ -15,6 +15,7 @@ share/(?!(applications|icons|kid3|metainfo)).*
 # Mac: Avoid 'how to merge folder ... into file ...' packaging errors
 plugins/imageformats/libqjpeg.dylib
 plugins/mediaservice/libqavfmediaplayer.dylib
+plugins/styles/libqmacstyle.dylib
 lib/.*\.dylib
 lib/Qt.*framework.*
 
