@@ -49,6 +49,7 @@
 #include <flacfile.h>
 #include <mpcfile.h>
 #include <id3v1tag.h>
+#include <id3v1genres.h>
 #include <id3v2tag.h>
 #include <id3v2header.h>
 #include <apetag.h>
@@ -5512,6 +5513,39 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             break;
           case Frame::FT_Genre:
             if (tagNr == Frame::Tag_Id3v1) {
+              if (TagLib::ID3v1::genreIndex(tstr) == 255) {
+                static const struct {
+                  const char* newName;
+                  const char* oldName;
+                } alternativeGenreNames[] = {
+                  { "Avant-Garde", "Avantgarde" },
+                  { "Beat Music", "Beat" },
+                  { "Bebop", "Bebob" },
+                  { "Britpop", "BritPop" },
+                  { "Dancehall", "Dance Hall" },
+                  { "Dark Wave", "Darkwave" },
+                  { "Euro House", "Euro-House" },
+                  { "Eurotechno", "Euro-Techno" },
+                  { "Fast Fusion", "Fusion" },
+                  { "Folk Rock", "Folk/Rock" },
+                  { "Hip Hop", "Hip-Hop" },
+                  { "Jazz-Funk", "Jazz+Funk" },
+                  { "Pop-Funk", "Pop/Funk" },
+                  { "Synth-Pop", "Synthpop" },
+                  { "Worldbeat", "Negerpunk" }
+                };
+                static TagLib::Map<TagLib::String, TagLib::String> genreNameMap;
+                if (genreNameMap.isEmpty()) {
+                  // first time initialization
+                  for (const auto& agn : alternativeGenreNames) {
+                    genreNameMap.insert(agn.newName, agn.oldName);
+                  }
+                }
+                auto it = genreNameMap.find(tstr);
+                if (it != genreNameMap.end()) {
+                  tstr = it->second;
+                }
+              }
               tag->setGenre(tstr);
               // if the string cannot be converted to a number, set the truncation flag
               checkTruncation(tagNr, !str.isEmpty() && Genres::getNumber(str) == 0xff
