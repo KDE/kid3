@@ -463,7 +463,7 @@ if test $kernel = "Darwin"; then
   else
     ARCH_FLAG="-Xarch_x86_64"
   fi
-  if [[ $(sw_vers -productVersion) = 10.1* ]]; then
+  if [[ $(sw_vers -productVersion) = 10.1* || $(sw_vers -productVersion) = 11.* ]]; then
     CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
     export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
     export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
