@@ -608,7 +608,55 @@ bool Frame::setField(Frame& frame, const QString& fieldName,
                      const QVariant& value)
 {
   const FieldId id = Field::getFieldId(fieldName);
-  return id != ID_NoField && setField(frame, id, value);
+  if (id != ID_NoField) {
+#if QT_VERSION >= 0x060000
+    QMetaType valueType = value.metaType();
+    QMetaType fieldType;
+#else
+    QVariant::Type valueType = value.type();
+    QVariant::Type fieldType;
+#endif
+    switch (id) {
+    case ID_TextEnc:
+    case ID_PictureType:
+    case ID_Counter:
+    case ID_VolumeAdj:
+    case ID_NumBits:
+    case ID_VolChgRight:
+    case ID_VolChgLeft:
+    case ID_PeakVolRight:
+    case ID_PeakVolLeft:
+    case ID_TimestampFormat:
+    case ID_ContentType:
+#if QT_VERSION >= 0x060000
+      fieldType = QMetaType(QMetaType::Int);
+#else
+      fieldType = QVariant::Int;
+#endif
+      break;
+    case ID_Data:
+#if QT_VERSION >= 0x060000
+      fieldType = QMetaType(QMetaType::QByteArray);
+#else
+      fieldType = QVariant::ByteArray;
+#endif
+      break;
+    default:
+#if QT_VERSION >= 0x060000
+      fieldType = QMetaType(QMetaType::QString);
+#else
+      fieldType = QVariant::String;
+#endif
+    }
+    if (valueType != fieldType && value.canConvert(fieldType)) {
+      QVariant converted(value);
+      if (converted.convert(fieldType)) {
+        return setField(frame, id, converted);
+      }
+    }
+    return setField(frame, id, value);
+  }
+  return false;
 }
 
 /**
