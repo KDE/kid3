@@ -582,33 +582,40 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
     return;
   }
 
-  AVPacket packet, packetTemp;
-  ::av_init_packet(&packet);
-  ::av_init_packet(&packetTemp);
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(58, 133, 100)
+  AVPacket avpacket, avpacketTemp;
+  AVPacket* packet = &avpacket;
+  AVPacket* packetTemp = &avpacketTemp;
+  ::av_init_packet(packet);
+  ::av_init_packet(packetTemp);
+#else
+  AVPacket* packet = ::av_packet_alloc();
+  AVPacket* packetTemp = ::av_packet_alloc();
+#endif
 
   const int MAX_LENGTH = 120;
   int remaining = MAX_LENGTH * codec.channels() * codec.sampleRate();
   emit started(codec.sampleRate(), codec.channels());
 
-  while (remaining > 0) {
-    Packet pkt(&packet);
+  while (remaining > 0 && err == FingerprintCalculator::Ok) {
+    Packet pkt(packet);
     if (!format.readFrame(pkt))
       break;
 
     if (pkt.streamIndex() == format.streamIndex()) {
-      packetTemp.data = packet.data;
-      packetTemp.size = packet.size;
+      packetTemp->data = packet->data;
+      packetTemp->size = packet->size;
 
-      while (packetTemp.size > 0) {
+      while (packetTemp->size > 0) {
         int bufferSize = BUFFER_SIZE;
-        int consumed = codec.decode(m_buffer1, &bufferSize, &packetTemp);
+        int consumed = codec.decode(m_buffer1, &bufferSize, packetTemp);
 
         if (consumed < 0) {
           break;
         }
 
-        packetTemp.data += consumed;
-        packetTemp.size -= consumed;
+        packetTemp->data += consumed;
+        packetTemp->size -= consumed;
 
         if (bufferSize <= 0 || bufferSize > BUFFER_SIZE) {
           continue;
@@ -622,8 +629,7 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
         emit bufferReady(QByteArray(reinterpret_cast<char*>(buffer), length * 2));
         if (isStopped()) {
           err = FingerprintCalculator::FingerprintCalculationFailed;
-          emit error(err);
-          return;
+          break;
         }
 
         remaining -= length;
@@ -633,7 +639,15 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
       }
     }
   }
-  emit finished(duration);
+#if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(58, 133, 100)
+  ::av_packet_free(&packet);
+  ::av_packet_free(&packetTemp);
+#endif
+  if (err != FingerprintCalculator::Ok) {
+    emit error(err);
+  } else {
+    emit finished(duration);
+  }
 }
 
 
