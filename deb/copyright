@@ -22,74 +22,12 @@ Files: src/plugins/taglibmetadata/taglibext/dsf/dsffiletyperesolver.cpp
 Copyright: : 2006,Martin Aumueller
 License: LGPL-2.1
 
-Files: src/plugins/taglibmetadata/taglibext/generalencapsulatedobjectframe.cpp
-Copyright: : 2004,Scott Wheeler / : 2006,Aaron VonderHaar
-License: LGPL-2.1
-
 Files: src/plugins/taglibmetadata/taglibext/mp2/*
 Copyright: no-info-found
 License: LGPL-2.1
 
-Files: src/plugins/taglibmetadata/taglibext/speex/*
-Copyright: : 2002,Scott Wheeler / : 2006,Lukáš Lalinský
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/speex/speexproperties.h
-Copyright: : 2006,Lukáš Lalinský / : 2002,Scott Wheeler
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/speex/taglib_speexfiletyperesolver.cpp
-  src/plugins/taglibmetadata/taglibext/speex/taglib_speexfiletyperesolver.h
-Copyright: : 2006,Martin Aumueller
-License: LGPL-2.1
-
 Files: src/plugins/taglibmetadata/taglibext/tdebug.h
 Copyright: : 2002, 2003Scott Wheeler
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/trueaudio/*
-Copyright: : 2004,Allan Sandfeld Jensen / : 2006,Lukáš Lalinský
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/trueaudio/combinedtag.h
-Copyright: : 2004,Allan Sandfeld Jensen
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/trueaudio/taglib_trueaudiofiletyperesolver.cpp
-  src/plugins/taglibmetadata/taglibext/trueaudio/taglib_trueaudiofiletyperesolver.h
-Copyright: : 2006,Martin Aumueller
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/trueaudio/ttafile.cpp
-  src/plugins/taglibmetadata/taglibext/trueaudio/ttaproperties.cpp
-Copyright: : 2006,Lukáš Lalinský / : 2004,Allan Sandfeld Jensen
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/unsynchronizedlyricsframe.cpp
-  src/plugins/taglibmetadata/taglibext/unsynchronizedlyricsframe.h
-  src/plugins/taglibmetadata/taglibext/urllinkframe.cpp
-Copyright: : 2002, 2003Scott Wheeler / : 2006,Urs Fleisch
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/urllinkframe.h
-Copyright: : 2006,Urs Fleisch / : 2002, 2003Scott Wheeler
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/wavpack/*
-Copyright: : 2006,Lukáš Lalinský / : 2004,Allan Sandfeld Jensen
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/wavpack/combinedtag.h
-Copyright: : 2004,Allan Sandfeld Jensen
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/wavpack/taglib_wavpackfiletyperesolver.cpp
-  src/plugins/taglibmetadata/taglibext/wavpack/taglib_wavpackfiletyperesolver.h
-Copyright: : 2006,Martin Aumueller
-License: LGPL-2.1
-
-Files: src/plugins/taglibmetadata/taglibext/wavpack/wvproperties.h
-Copyright: : 2004,Allan Sandfeld Jensen / : 2006,Lukáš Lalinský
 License: LGPL-2.1
 
 Files: src/plugins/taglibmetadata/taglibfile.h

@@ -33,8 +33,12 @@ Package: kid3-core
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends}
-Breaks: kid3 (<< 3.0.2-2)
-Replaces: kid3 (<< 3.0.2-2)
+Breaks: kid3 (<< 3.8.7-0),
+ kid3-cli (<< 3.8.7-0),
+ kid3-qt (<< 3.8.7-0)
+Replaces: kid3 (<< 3.8.7-0),
+ kid3-cli (<< 3.8.7-0),
+ kid3-qt (<< 3.8.7-0)
 Description: Audio tag editor core libraries and data
  This package contains common libraries and data used by both kid3 and kid3-qt.
 

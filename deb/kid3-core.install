@@ -1,4 +1,10 @@
-/usr/lib/kid3/*
-/usr/share/dbus-1/interfaces/org.kde.Kid3.xml
-/usr/share/kid3/translations/*
-/usr/share/kid3/qml/script/*
+usr/lib/kid3/*
+usr/share/dbus-1/interfaces/org.kde.Kid3.xml
+usr/share/kid3/translations/*
+usr/share/kid3/qml/script/*
+usr/share/man/*/man1/kid3-cli.1.gz
+usr/share/man/*/man1/kid3-qt.1.gz
+usr/share/man/*/man1/kid3.1.gz
+usr/share/man/man1/kid3-cli.1.gz
+usr/share/man/man1/kid3-qt.1.gz
+usr/share/man/man1/kid3.1.gz

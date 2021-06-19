@@ -1,8 +1,28 @@
+kid3 (3.8.7-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 20 Jun 2021 11:14:31 +0200
+
 kid3 (3.8.6-0) unstable; urgency=low
 
   * New upstream release.
 
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 18 Mar 2021 08:21:47 +0100
+
+kid3 (3.8.5-3) unstable; urgency=medium
+
+  * Add missing breaks and replaces from the last upload.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Sat, 19 Jun 2021 13:17:06 +0200
+
+kid3 (3.8.5-2) unstable; urgency=medium
+
+  * Cleanup manpage installing. The old method is obsolet and buggy. All
+    manpages are now installed to the kid3-core package.
+    Closes: #990018
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 18 Jun 2021 15:56:17 +0200
 
 kid3 (3.8.5-1) unstable; urgency=medium
 
