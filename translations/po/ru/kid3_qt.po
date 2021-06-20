@@ -1,0 +1,7124 @@
+# Kid3 Russian Translation.
+# This file is put in the public domain.
+#
+# "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
+# Olesya Gerasimenko <gammaray@basealt.ru>, 2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3_qt\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2019-12-14 08:42+0100\n"
+"PO-Revision-Date: 2018-09-28 10:34MSK\n"
+"Last-Translator: Olesya Gerasimenko <gammaray@basealt.ru>\n"
+"Language-Team: Russian <kde-i18n-doc@kde.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Language: ru\n"
+"X-Source-Language: en\n"
+
+#: src/app/cli/clicommand.cpp:350
+msgctxt "CliCommand|"
+msgid "Timeout"
+msgstr "Время ожидания"
+
+#: src/app/cli/clicommand.cpp:394
+msgctxt "HelpCommand|"
+msgid "Help"
+msgstr "Справка"
+
+#: src/app/cli/clicommand.cpp:395
+msgctxt "HelpCommand|"
+msgid "Command name"
+msgstr "Имя команды"
+
+#: src/app/cli/clicommand.cpp:406
+msgctxt "TimeoutCommand|"
+msgid "Overwrite timeout"
+msgstr "Время ожидания перезаписи"
+
+#: src/app/cli/clicommand.cpp:407
+msgctxt "TimeoutCommand|"
+msgid "Time"
+msgstr "Время"
+
+#: src/app/cli/clicommand.cpp:448
+msgctxt "QuitCommand|"
+msgid "Quit application"
+msgstr "Завершить приложение"
+
+#: src/app/cli/clicommand.cpp:457
+msgctxt "QuitCommand|"
+msgid "The current folder has been modified."
+msgstr "Текущий каталог был изменён."
+
+#: src/app/cli/clicommand.cpp:459
+msgctxt "QuitCommand|"
+msgid "Type 'exit force' to quit."
+msgstr "Для выхода введите «exit force»."
+
+#: src/app/cli/clicommand.cpp:475
+msgctxt "CdCommand|"
+msgid "Change folder"
+msgstr "Сменить каталог"
+
+#: src/app/cli/clicommand.cpp:489
+#, qt-format
+msgctxt "CdCommand|"
+msgid "%1 does not exist"
+msgstr "%1 — не существует"
+
+#: src/app/cli/clicommand.cpp:509
+msgctxt "PwdCommand|"
+msgid "Print the filename of the current folder"
+msgstr "Показать полное имя текущего рабочего каталога"
+
+#: src/app/cli/clicommand.cpp:525
+msgctxt "LsCommand|"
+msgid "Folder list"
+msgstr "Список каталогов"
+
+#: src/app/cli/clicommand.cpp:537
+msgctxt "SaveCommand|"
+msgid "Saves the changed files"
+msgstr "Сохранить изменённые файлы"
+
+#: src/app/cli/clicommand.cpp:547
+msgctxt "SaveCommand|"
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: src/app/cli/clicommand.cpp:554
+msgctxt "SelectCommand|"
+msgid "Select file"
+msgstr "Выбрать файл"
+
+#: src/app/cli/clicommand.cpp:577
+#, qt-format
+msgctxt "SelectCommand|"
+msgid "%1 not found"
+msgstr "%1 — не найден"
+
+#: src/app/cli/clicommand.cpp:587
+msgctxt "TagCommand|"
+msgid "Select tag"
+msgstr "Выбрать тег"
+
+#: src/app/cli/clicommand.cpp:604
+msgctxt "GetCommand|"
+msgid "Get tag frame"
+msgstr "Получить фрейм тега"
+
+#: src/app/cli/clicommand.cpp:632
+msgctxt "SetCommand|"
+msgid "Set tag frame"
+msgstr "Указать фрейм тега"
+
+#: src/app/cli/clicommand.cpp:650
+#, qt-format
+msgctxt "SetCommand|"
+msgid "Could not set \"%1\" for %2"
+msgstr "Не удалось установить «%1» для «%2»"
+
+#: src/app/cli/clicommand.cpp:660
+msgctxt "RevertCommand|"
+msgid "Revert"
+msgstr "Отменить изменения"
+
+#: src/app/cli/clicommand.cpp:672
+msgctxt "ImportCommand|"
+msgid "Import from file"
+msgstr "Импорт из файла"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "File path"
+msgstr "Путь к файлу"
+
+#: src/app/cli/clicommand.cpp:674
+msgctxt "ImportCommand|"
+msgid "Format name"
+msgstr "Имя формата"
+
+#: src/app/cli/clicommand.cpp:675
+msgctxt "ImportCommand|"
+msgid "Source"
+msgstr "Источник"
+
+#: src/app/cli/clicommand.cpp:676
+msgctxt "ImportCommand|"
+msgid "Extraction"
+msgstr "Извлечение"
+
+#: src/app/cli/clicommand.cpp:704
+#, qt-format
+msgctxt "ImportCommand|"
+msgid "%1 not found."
+msgstr "%1 не найден."
+
+#: src/app/cli/clicommand.cpp:706
+msgctxt "ImportCommand|"
+msgid "Available"
+msgstr "Доступные"
+
+#: src/app/cli/clicommand.cpp:717
+msgctxt "ImportCommand|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/app/cli/clicommand.cpp:727
+msgctxt "BatchImportCommand|"
+msgid "Automatic import"
+msgstr "Автоматический импорт"
+
+#: src/app/cli/clicommand.cpp:728
+msgctxt "BatchImportCommand|"
+msgid "Profile name"
+msgstr "Имя профиля"
+
+#: src/app/cli/clicommand.cpp:740
+#, qt-format
+msgctxt "BatchImportCommand|"
+msgid "%1 not found."
+msgstr "%1 не найден."
+
+#: src/app/cli/clicommand.cpp:742
+msgctxt "BatchImportCommand|"
+msgid "Available"
+msgstr "Доступные"
+
+#: src/app/cli/clicommand.cpp:815
+msgctxt "AlbumArtCommand|"
+msgid "Download album cover artwork"
+msgstr "Загрузить обложку"
+
+#: src/app/cli/clicommand.cpp:859
+msgctxt "ExportCommand|"
+msgid "Export to file"
+msgstr "Экспорт в файл"
+
+#: src/app/cli/clicommand.cpp:860
+msgctxt "ExportCommand|"
+msgid "Format name"
+msgstr "Имя формата"
+
+#: src/app/cli/clicommand.cpp:875
+#, qt-format
+msgctxt "ExportCommand|"
+msgid "%1 not found."
+msgstr "%1 не найден."
+
+#: src/app/cli/clicommand.cpp:877
+msgctxt "ExportCommand|"
+msgid "Available"
+msgstr "Доступные"
+
+#: src/app/cli/clicommand.cpp:888
+msgctxt "ExportCommand|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/app/cli/clicommand.cpp:897
+msgctxt "PlaylistCommand|"
+msgid "Create playlist"
+msgstr "Создать список воспроизведения"
+
+#: src/app/cli/clicommand.cpp:904
+msgctxt "PlaylistCommand|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/app/cli/clicommand.cpp:911
+msgctxt "FilenameFormatCommand|"
+msgid "Apply filename format"
+msgstr "Применить формат имени файла"
+
+#: src/app/cli/clicommand.cpp:922
+msgctxt "TagFormatCommand|"
+msgid "Apply tag format"
+msgstr "Применить формат тега"
+
+#: src/app/cli/clicommand.cpp:934
+msgctxt "TextEncodingCommand|"
+msgid "Apply text encoding"
+msgstr "Применить кодировку текста"
+
+#: src/app/cli/clicommand.cpp:945
+msgctxt "RenameDirectoryCommand|"
+msgid "Rename folder"
+msgstr "Переименовать каталог"
+
+#: src/app/cli/clicommand.cpp:1037
+msgctxt "NumberTracksCommand|"
+msgid "Number tracks"
+msgstr "Пронумеровать дорожки"
+
+#: src/app/cli/clicommand.cpp:1038
+msgctxt "NumberTracksCommand|"
+msgid "Track number"
+msgstr "Номер дорожки"
+
+#: src/app/cli/clicommand.cpp:1062
+msgctxt "FilterCommand|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/app/cli/clicommand.cpp:1063
+msgctxt "FilterCommand|"
+msgid "Filter name"
+msgstr "Имя фильтра"
+
+#: src/app/cli/clicommand.cpp:1078
+#, qt-format
+msgctxt "FilterCommand|"
+msgid "%1 not found."
+msgstr "%1 не найден."
+
+#: src/app/cli/clicommand.cpp:1080
+msgctxt "FilterCommand|"
+msgid "Available"
+msgstr "Доступные"
+
+#: src/app/cli/clicommand.cpp:1154
+msgctxt "ToId3v24Command|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.4"
+
+#: src/app/cli/clicommand.cpp:1165
+msgctxt "ToId3v23Command|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.3"
+
+#: src/app/cli/clicommand.cpp:1176
+msgctxt "TagToFilenameCommand|"
+msgid "Filename from tag"
+msgstr "Имя файла из тега"
+
+#: src/app/cli/clicommand.cpp:1206
+msgctxt "FilenameToTagCommand|"
+msgid "Tag from filename"
+msgstr "Тег из имени файла"
+
+#: src/app/cli/clicommand.cpp:1236
+msgctxt "TagToOtherTagCommand|"
+msgid "Tag to other tag"
+msgstr "Тег в другой тег"
+
+#: src/app/cli/clicommand.cpp:1253
+msgctxt "CopyCommand|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/app/cli/clicommand.cpp:1266
+msgctxt "PasteCommand|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/app/cli/clicommand.cpp:1279
+msgctxt "RemoveCommand|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/app/cli/clicommand.cpp:1292
+msgctxt "ConfigCommand|"
+msgid "Configure Kid3"
+msgstr "Настроить Kid3"
+
+#: src/app/cli/clicommand.cpp:1314 src/app/cli/clicommand.cpp:1320
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "%1 does not exist"
+msgstr "%1 — не существует"
+
+#: src/app/cli/clicommand.cpp:1347 src/app/cli/clicommand.cpp:1367
+#, qt-format
+msgctxt "ConfigCommand|"
+msgid "Invalid value %1"
+msgstr "Некорректное значение %1"
+
+#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#, qt-format
+msgctxt "JsonCliFormatter|"
+msgid "Unknown command '%1'"
+msgstr "Неизвестная команда '%1'"
+
+#: src/app/cli/jsoncliformatter.cpp:209
+msgctxt "JsonCliFormatter|"
+msgid "Usage:"
+msgstr "Использование:"
+
+#: src/app/cli/kid3cli.cpp:298
+msgctxt "Kid3Cli|"
+msgid "Parameter"
+msgstr "Параметр"
+
+#: src/app/cli/kid3cli.cpp:299
+msgctxt "Kid3Cli|"
+msgid "File path"
+msgstr "Путь к файлу"
+
+#: src/app/cli/kid3cli.cpp:300
+msgctxt "Kid3Cli|"
+msgid "URL"
+msgstr "URL-адрес"
+
+#: src/app/cli/kid3cli.cpp:301
+msgctxt "Kid3Cli|"
+msgid "Tag numbers"
+msgstr "Номера тегов"
+
+#: src/app/cli/kid3cli.cpp:303
+msgctxt "Kid3Cli|"
+msgid "Frame name"
+msgstr "Имя фрейма"
+
+#: src/app/cli/kid3cli.cpp:306
+msgctxt "Kid3Cli|"
+msgid "Frame value"
+msgstr "Значение фрейма"
+
+#: src/app/cli/kid3cli.cpp:307
+msgctxt "Kid3Cli|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/app/cli/kid3cli.cpp:308
+msgctxt "Kid3Cli|"
+msgid "Command specific"
+msgstr "Зависит от команды"
+
+#: src/app/cli/kid3cli.cpp:309
+msgctxt "Kid3Cli|"
+msgid "Available Commands"
+msgstr "Доступные команды"
+
+#: src/app/cli/kid3cli.cpp:751
+msgctxt "Kid3Cli|"
+msgid "Usage:"
+msgstr "Использование:"
+
+#: src/app/cli/kid3cli.cpp:769
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "%1 does not exist"
+msgstr "%1 — не существует"
+
+#: src/app/cli/kid3cli.cpp:798
+msgctxt "Kid3Cli|"
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: src/app/cli/kid3cli.cpp:816
+#, qt-format
+msgctxt "Kid3Cli|"
+msgid "Unknown command '%1', -h for help."
+msgstr "Неизвестная команда «%1», -h для получения справки."
+
+#: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Unknown command '%1'. Type 'help' for help."
+msgstr "Неизвестная команда «%1». Введите «help» для получения справки."
+
+#: src/app/cli/textcliformatter.cpp:204
+msgctxt "TextCliFormatter|"
+msgid "Usage:"
+msgstr "Использование:"
+
+#: src/app/cli/textcliformatter.cpp:246
+msgctxt "TextCliFormatter|"
+msgid "Tags"
+msgstr "Теги"
+
+#: src/app/cli/textcliformatter.cpp:253
+msgctxt "TextCliFormatter|"
+msgid "File"
+msgstr "Файл"
+
+#: src/app/cli/textcliformatter.cpp:258
+msgctxt "TextCliFormatter|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/app/cli/textcliformatter.cpp:279
+#, qt-format
+msgctxt "TextCliFormatter|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/app/cli/textcliformatter.cpp:300
+msgctxt "TextCliFormatter|"
+msgid "Timeout"
+msgstr "Время ожидания"
+
+#: src/app/cli/textcliformatter.cpp:306
+msgctxt "TextCliFormatter|"
+msgid "Reading Folder"
+msgstr "Чтение каталога"
+
+#: src/app/cli/textcliformatter.cpp:308
+msgctxt "TextCliFormatter|"
+msgid "Started"
+msgstr "Запущено"
+
+#: src/app/cli/textcliformatter.cpp:310
+msgctxt "TextCliFormatter|"
+msgid "Source"
+msgstr "Источник"
+
+#: src/app/cli/textcliformatter.cpp:312
+msgctxt "TextCliFormatter|"
+msgid "Querying"
+msgstr "Запрос"
+
+#: src/app/cli/textcliformatter.cpp:314
+msgctxt "TextCliFormatter|"
+msgid "Fetching"
+msgstr "Получение"
+
+#: src/app/cli/textcliformatter.cpp:316
+msgctxt "TextCliFormatter|"
+msgid "Data received"
+msgstr "Полученные данные"
+
+#: src/app/cli/textcliformatter.cpp:318
+msgctxt "TextCliFormatter|"
+msgid "Cover"
+msgstr "Обложка"
+
+#: src/app/cli/textcliformatter.cpp:320
+msgctxt "TextCliFormatter|"
+msgid "Finished"
+msgstr "Готово"
+
+#: src/app/cli/textcliformatter.cpp:322
+msgctxt "TextCliFormatter|"
+msgid "Aborted"
+msgstr "Прервано"
+
+#: src/app/cli/textcliformatter.cpp:324
+msgctxt "TextCliFormatter|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/app/kde/kdeconfigdialog.cpp:51
+msgctxt "KdeConfigDialog|"
+msgid "Tags"
+msgstr "Теги"
+
+#: src/app/kde/kdeconfigdialog.cpp:53
+msgctxt "KdeConfigDialog|"
+msgid "Files"
+msgstr "Файлы"
+
+#: src/app/kde/kdeconfigdialog.cpp:55
+msgctxt "KdeConfigDialog|"
+msgid "User Actions"
+msgstr "Команды пользователя"
+
+#: src/app/kde/kdeconfigdialog.cpp:57
+msgctxt "KdeConfigDialog|"
+msgid "Network"
+msgstr "Сеть"
+
+#: src/app/kde/kdeconfigdialog.cpp:59
+msgctxt "KdeConfigDialog|"
+msgid "Plugins"
+msgstr "Модули"
+
+#: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
+msgctxt "@default|"
+msgid "Main Toolbar"
+msgstr "Основная панель инструментов"
+
+#: src/app/kde/kdemainwindow.cpp:86
+msgctxt "KdeMainWindow|"
+msgid "Open files"
+msgstr "Открыть файлы"
+
+#: src/app/kde/kdemainwindow.cpp:94
+msgctxt "KdeMainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Открыть последний использовавшийся каталог"
+
+#: src/app/kde/kdemainwindow.cpp:103
+msgctxt "KdeMainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Отменить изменения всех файлов или выбранных файлов"
+
+#: src/app/kde/kdemainwindow.cpp:113
+msgctxt "KdeMainWindow|"
+msgid "Saves the changed files"
+msgstr "Сохранить изменённые файлы"
+
+#: src/app/kde/kdemainwindow.cpp:121
+msgctxt "KdeMainWindow|"
+msgid "Quits the application"
+msgstr "Завершить приложение"
+
+#: src/app/kde/kdemainwindow.cpp:129
+msgctxt "KdeMainWindow|"
+msgid "Select all files"
+msgstr "Выбрать все файлы"
+
+#: src/app/kde/kdemainwindow.cpp:138
+msgctxt "KdeMainWindow|"
+msgid "Deselect all files"
+msgstr "Отменить выбор всех файлов"
+
+#: src/app/kde/kdemainwindow.cpp:146
+msgctxt "KdeMainWindow|"
+msgid "Find"
+msgstr "Найти"
+
+#: src/app/kde/kdemainwindow.cpp:154
+msgctxt "KdeMainWindow|"
+msgid "Find and replace"
+msgstr "Найти и заменить"
+
+#: src/app/kde/kdemainwindow.cpp:164
+msgctxt "KdeMainWindow|"
+msgid "Configure Shortcuts"
+msgstr "Настройка комбинаций клавиш"
+
+#: src/app/kde/kdemainwindow.cpp:172
+msgctxt "KdeMainWindow|"
+msgid "Configure Toolbars"
+msgstr "Настройка панелей инструментов"
+
+#: src/app/kde/kdemainwindow.cpp:180
+msgctxt "KdeMainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Включить или отключить строку состояния"
+
+#: src/app/kde/kdemainwindow.cpp:188
+msgctxt "KdeMainWindow|"
+msgid "Preferences dialog"
+msgstr "Настройка параметров"
+
+#: src/app/kde/kdemainwindow.cpp:191
+msgctxt "KdeMainWindow|"
+msgid "O&pen Folder..."
+msgstr "Открыть &каталог..."
+
+#: src/app/kde/kdemainwindow.cpp:192
+msgctxt "KdeMainWindow|"
+msgid "Opens a folder"
+msgstr "Открыть каталог"
+
+#: src/app/kde/kdemainwindow.cpp:199
+msgctxt "KdeMainWindow|"
+msgid "Re&load"
+msgstr "О&бновить"
+
+#: src/app/kde/kdemainwindow.cpp:200
+msgctxt "KdeMainWindow|"
+msgid "Reload folder"
+msgstr "Обновить каталог"
+
+#: src/app/kde/kdemainwindow.cpp:211
+msgctxt "KdeMainWindow|"
+msgid "Unload"
+msgstr "Выгрузить"
+
+#: src/app/kde/kdemainwindow.cpp:216
+msgctxt "KdeMainWindow|"
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: src/app/kde/kdemainwindow.cpp:217
+msgctxt "KdeMainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Импорт из файла или буфера обмена"
+
+#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1..."
+msgstr "Импорт из %1..."
+
+#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Import from %1"
+msgstr "Импорт из %1"
+
+#: src/app/kde/kdemainwindow.cpp:257
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags..."
+msgstr "Импорт из тегов..."
+
+#: src/app/kde/kdemainwindow.cpp:258
+msgctxt "KdeMainWindow|"
+msgid "Import from Tags"
+msgstr "Импорт из тегов"
+
+#: src/app/kde/kdemainwindow.cpp:262
+msgctxt "KdeMainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Автоматический и&мпорт..."
+
+#: src/app/kde/kdemainwindow.cpp:263
+msgctxt "KdeMainWindow|"
+msgid "Automatic import"
+msgstr "Автоматический импорт"
+
+#: src/app/kde/kdemainwindow.cpp:267
+msgctxt "KdeMainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "&Найти обложки..."
+
+#: src/app/kde/kdemainwindow.cpp:268
+msgctxt "KdeMainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Найти обложки"
+
+#: src/app/kde/kdemainwindow.cpp:272
+msgctxt "KdeMainWindow|"
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+#: src/app/kde/kdemainwindow.cpp:273
+msgctxt "KdeMainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или буфер обмена"
+
+#: src/app/kde/kdemainwindow.cpp:277
+msgctxt "KdeMainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Cоздать список воспроизведения..."
+
+#: src/app/kde/kdemainwindow.cpp:278
+msgctxt "KdeMainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Создать список воспроизведения M3U"
+
+#: src/app/kde/kdemainwindow.cpp:281
+msgctxt "KdeMainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Применить формат имени &файла"
+
+#: src/app/kde/kdemainwindow.cpp:282
+msgctxt "KdeMainWindow|"
+msgid "Apply Filename Format"
+msgstr "Применить формат имени файла"
+
+#: src/app/kde/kdemainwindow.cpp:285
+msgctxt "KdeMainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Применить формат &тега"
+
+#: src/app/kde/kdemainwindow.cpp:286
+msgctxt "KdeMainWindow|"
+msgid "Apply Tag Format"
+msgstr "Применить формат тега"
+
+#: src/app/kde/kdemainwindow.cpp:289
+msgctxt "KdeMainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Применить кодировку &текста"
+
+#: src/app/kde/kdemainwindow.cpp:290
+msgctxt "KdeMainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Применить кодировку текста"
+
+#: src/app/kde/kdemainwindow.cpp:293
+msgctxt "KdeMainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Переименовать каталог..."
+
+#: src/app/kde/kdemainwindow.cpp:294
+msgctxt "KdeMainWindow|"
+msgid "Rename Folder"
+msgstr "Переименовать каталог"
+
+#: src/app/kde/kdemainwindow.cpp:297
+msgctxt "KdeMainWindow|"
+msgid "&Number Tracks..."
+msgstr "Пронумеровать &дорожки..."
+
+#: src/app/kde/kdemainwindow.cpp:298
+msgctxt "KdeMainWindow|"
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки"
+
+#: src/app/kde/kdemainwindow.cpp:301
+msgctxt "KdeMainWindow|"
+msgid "F&ilter..."
+msgstr "Ф&ильтр..."
+
+#: src/app/kde/kdemainwindow.cpp:302
+msgctxt "KdeMainWindow|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/app/kde/kdemainwindow.cpp:307
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.&4"
+
+#: src/app/kde/kdemainwindow.cpp:308
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.4"
+
+#: src/app/kde/kdemainwindow.cpp:312
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.&3"
+
+#: src/app/kde/kdemainwindow.cpp:313
+msgctxt "KdeMainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.3"
+
+#: src/app/kde/kdemainwindow.cpp:320
+msgctxt "KdeMainWindow|"
+msgid "&Play"
+msgstr "&Воспроизведение"
+
+#: src/app/kde/kdemainwindow.cpp:321
+msgctxt "KdeMainWindow|"
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: src/app/kde/kdemainwindow.cpp:325
+msgctxt "KdeMainWindow|"
+msgid "Show &Picture"
+msgstr "Показывать &изображение"
+
+#: src/app/kde/kdemainwindow.cpp:326
+msgctxt "KdeMainWindow|"
+msgid "Show Picture"
+msgstr "Показывать изображение"
+
+#: src/app/kde/kdemainwindow.cpp:331
+msgctxt "KdeMainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Автоматически &скрывать теги"
+
+#: src/app/kde/kdemainwindow.cpp:332
+msgctxt "KdeMainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Автоматически скрывать теги"
+
+#: src/app/kde/kdemainwindow.cpp:337
+msgctxt "KdeMainWindow|"
+msgid "Select All in &Folder"
+msgstr "Выбрать все файлы в &каталоге"
+
+#: src/app/kde/kdemainwindow.cpp:338
+msgctxt "KdeMainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Выбрать все файлы в текущем каталоге"
+
+#: src/app/kde/kdemainwindow.cpp:341
+msgctxt "KdeMainWindow|"
+msgid "&Invert Selection"
+msgstr "&Обратить выделение"
+
+#: src/app/kde/kdemainwindow.cpp:345
+msgctxt "KdeMainWindow|"
+msgid "&Previous File"
+msgstr "&Предыдущий файл"
+
+#: src/app/kde/kdemainwindow.cpp:346
+msgctxt "KdeMainWindow|"
+msgid "Select previous file"
+msgstr "Выбрать предыдущий файл"
+
+#: src/app/kde/kdemainwindow.cpp:352
+msgctxt "KdeMainWindow|"
+msgid "&Next File"
+msgstr "&Следующий файл"
+
+#: src/app/kde/kdemainwindow.cpp:353
+msgctxt "KdeMainWindow|"
+msgid "Select next file"
+msgstr "Выбрать следующий файл"
+
+#: src/app/kde/kdemainwindow.cpp:365
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+msgctxt "KdeMainWindow|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#, qt-format
+msgctxt "KdeMainWindow|"
+msgid "From Tag %1"
+msgstr "Из тега %1"
+
+#: src/app/kde/kdemainwindow.cpp:373
+msgctxt "KdeMainWindow|"
+msgid "From Filename"
+msgstr "Из имени файла"
+
+#: src/app/kde/kdemainwindow.cpp:386
+msgctxt "KdeMainWindow|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/app/kde/kdemainwindow.cpp:390
+msgctxt "KdeMainWindow|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/app/kde/kdemainwindow.cpp:394
+msgctxt "KdeMainWindow|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Focus"
+msgstr "Фокус"
+
+#: src/app/kde/kdemainwindow.cpp:403
+msgctxt "KdeMainWindow|"
+msgid "Frames:"
+msgstr "Фреймы:"
+
+#: src/app/kde/kdemainwindow.cpp:404
+msgctxt "KdeMainWindow|"
+msgid "Edit"
+msgstr "Правка"
+
+#: src/app/kde/kdemainwindow.cpp:408
+msgctxt "KdeMainWindow|"
+msgid "Add"
+msgstr "Добавить"
+
+#: src/app/kde/kdemainwindow.cpp:412
+msgctxt "KdeMainWindow|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/app/kde/kdemainwindow.cpp:424
+msgctxt "KdeMainWindow|"
+msgid "File List"
+msgstr "Список файлов"
+
+#: src/app/kde/kdemainwindow.cpp:428
+msgctxt "KdeMainWindow|"
+msgid "&Rename"
+msgstr "&Переименовать"
+
+#: src/app/kde/kdemainwindow.cpp:437
+msgctxt "KdeMainWindow|"
+msgid "&Move to Trash"
+msgstr "&Переместить в корзину"
+
+#: src/app/kde/kdemainwindow.cpp:443
+msgctxt "KdeMainWindow|"
+msgid "Folder List"
+msgstr "Список каталогов"
+
+#: src/app/kde/kdemainwindow.cpp:461
+msgctxt "KdeMainWindow|"
+msgid "Section"
+msgstr "Раздел"
+
+#: src/app/kde/kdemainwindow.cpp:651
+msgctxt "KdeMainWindow|"
+msgid "Configure - Kid3"
+msgstr "Настройка — Kid3"
+
+#: src/app/kde/mainkde.cpp:121
+msgctxt "@default|"
+msgid "folder to open"
+msgstr "каталог для открытия"
+
+#: src/app/kde/mainkde.cpp:134
+msgctxt "@default|"
+msgid "Audio Tag Editor"
+msgstr "Редактор аудио-тегов"
+
+#: src/app/qt/browserdialog.cpp:91
+msgctxt "BrowserDialog|"
+msgid "&Back"
+msgstr "&Назад"
+
+#: src/app/qt/browserdialog.cpp:98
+msgctxt "BrowserDialog|"
+msgid "&Forward"
+msgstr "&Вперёд"
+
+#: src/app/qt/browserdialog.cpp:105
+msgctxt "BrowserDialog|"
+msgid "&Find:"
+msgstr "&Найти:"
+
+#: src/app/qt/browserdialog.cpp:121
+msgctxt "BrowserDialog|"
+msgid "Find Previous"
+msgstr "Найти предыдущее"
+
+#: src/app/qt/browserdialog.cpp:131
+msgctxt "BrowserDialog|"
+msgid "Find Next"
+msgstr "Найти следующее"
+
+#: src/app/qt/browserdialog.cpp:139
+msgctxt "BrowserDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/app/qt/configdialog.cpp:70
+msgctxt "ConfigDialog|"
+msgid "&Tags"
+msgstr "&Теги"
+
+#: src/app/qt/configdialog.cpp:71
+msgctxt "ConfigDialog|"
+msgid "&Files"
+msgstr "&Файлы"
+
+#: src/app/qt/configdialog.cpp:72
+msgctxt "ConfigDialog|"
+msgid "&User Actions"
+msgstr "&Команды пользователя"
+
+#: src/app/qt/configdialog.cpp:73
+msgctxt "ConfigDialog|"
+msgid "&Network"
+msgstr "&Сеть"
+
+#: src/app/qt/configdialog.cpp:74
+msgctxt "ConfigDialog|"
+msgid "&Plugins"
+msgstr "&Модули"
+
+#: src/app/qt/configdialog.cpp:86
+msgctxt "ConfigDialog|"
+msgid "&Keyboard Shortcuts"
+msgstr "&Комбинации клавиш"
+
+#: src/app/qt/configdialog.cpp:111
+msgctxt "ConfigDialog|"
+msgid "&Language"
+msgstr "Язык"
+
+#: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
+#: src/app/qt/configdialog.cpp:239
+msgctxt "ConfigDialog|"
+msgid "System"
+msgstr "Система"
+
+#: src/app/qt/configdialog.cpp:122
+msgctxt "ConfigDialog|"
+msgid "Use custom app&lication font"
+msgstr "Использовать настраиваемый &шрифт приложения"
+
+#: src/app/qt/configdialog.cpp:124
+msgctxt "ConfigDialog|"
+msgid "A&pplication Font..."
+msgstr "Шрифт &приложения..."
+
+#: src/app/qt/configdialog.cpp:126
+msgctxt "ConfigDialog|"
+msgid "Use custom application &style"
+msgstr "Использовать настраиваемый &стиль приложения"
+
+#: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
+msgctxt "ConfigDialog|"
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/app/qt/configdialog.cpp:151
+msgctxt "ConfigDialog|"
+msgid "Use native system file &dialogs"
+msgstr "Использовать встроенные файловые &диалоги"
+
+#: src/app/qt/configdialog.cpp:155
+msgctxt "ConfigDialog|"
+msgid "&Appearance"
+msgstr "&Внешний вид"
+
+#: src/app/qt/configdialog.cpp:164
+msgctxt "ConfigDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/app/qt/configdialog.cpp:165
+msgctxt "ConfigDialog|"
+msgid "Restore Defaults"
+msgstr "Восстановить значения по умолчанию"
+
+#: src/app/qt/configdialog.cpp:166
+msgctxt "ConfigDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/app/qt/configdialog.cpp:167
+msgctxt "ConfigDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/app/qt/configdialog.cpp:279
+#, qt-format
+msgctxt "ConfigDialog|"
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Комбинация клавиш «%1» уже назначена действию «%2»."
+
+#: src/app/qt/kid3mainwindow.cpp:109
+msgctxt "Kid3MainWindow|"
+msgid "&File"
+msgstr "&Файл"
+
+#: src/app/qt/kid3mainwindow.cpp:113
+msgctxt "Kid3MainWindow|"
+msgid "Open files"
+msgstr "Открыть файлы"
+
+#: src/app/qt/kid3mainwindow.cpp:114
+msgctxt "Kid3MainWindow|"
+msgid "&Open..."
+msgstr "&Открыть..."
+
+#: src/app/qt/kid3mainwindow.cpp:128
+msgctxt "Kid3MainWindow|"
+msgid "Opens a recently used folder"
+msgstr "Открыть последний использовавшийся каталог"
+
+#: src/app/qt/kid3mainwindow.cpp:129
+msgctxt "Kid3MainWindow|"
+msgid "Open &Recent"
+msgstr "Открыть &последние"
+
+#: src/app/qt/kid3mainwindow.cpp:136
+msgctxt "Kid3MainWindow|"
+msgid "Opens a folder"
+msgstr "Открыть каталог"
+
+#: src/app/qt/kid3mainwindow.cpp:137
+msgctxt "Kid3MainWindow|"
+msgid "O&pen Folder..."
+msgstr "Открыть &каталог..."
+
+#: src/app/qt/kid3mainwindow.cpp:148
+msgctxt "Kid3MainWindow|"
+msgid "Reload folder"
+msgstr "Обновить каталог"
+
+#: src/app/qt/kid3mainwindow.cpp:149
+msgctxt "Kid3MainWindow|"
+msgid "Re&load"
+msgstr "О&бновить"
+
+#: src/app/qt/kid3mainwindow.cpp:160
+msgctxt "Kid3MainWindow|"
+msgid "Unload"
+msgstr "Выгрузить"
+
+#: src/app/qt/kid3mainwindow.cpp:170
+msgctxt "Kid3MainWindow|"
+msgid "Saves the changed files"
+msgstr "Сохранить изменённые файлы"
+
+#: src/app/qt/kid3mainwindow.cpp:171
+msgctxt "Kid3MainWindow|"
+msgid "&Save"
+msgstr "&Сохранить"
+
+#: src/app/qt/kid3mainwindow.cpp:184
+msgctxt "Kid3MainWindow|"
+msgid "Reverts the changes of all or the selected files"
+msgstr "Отменить изменения всех файлов или выбранных файлов"
+
+#: src/app/qt/kid3mainwindow.cpp:185
+msgctxt "Kid3MainWindow|"
+msgid "Re&vert"
+msgstr "&Отменить изменения"
+
+#: src/app/qt/kid3mainwindow.cpp:199
+msgctxt "Kid3MainWindow|"
+msgid "Import from file or clipboard"
+msgstr "Импорт из файла или буфера обмена"
+
+#: src/app/qt/kid3mainwindow.cpp:200
+msgctxt "Kid3MainWindow|"
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1"
+msgstr "Импорт из %1"
+
+#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Import from %1..."
+msgstr "Импорт из %1..."
+
+#: src/app/qt/kid3mainwindow.cpp:253
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags"
+msgstr "Импорт из тегов"
+
+#: src/app/qt/kid3mainwindow.cpp:254
+msgctxt "Kid3MainWindow|"
+msgid "Import from Tags..."
+msgstr "Импорт из тегов..."
+
+#: src/app/qt/kid3mainwindow.cpp:262
+msgctxt "Kid3MainWindow|"
+msgid "Automatic import"
+msgstr "Автоматический импорт"
+
+#: src/app/qt/kid3mainwindow.cpp:263
+msgctxt "Kid3MainWindow|"
+msgid "Automatic I&mport..."
+msgstr "Автоматический и&мпорт..."
+
+#: src/app/qt/kid3mainwindow.cpp:271
+msgctxt "Kid3MainWindow|"
+msgid "Browse album cover artwork"
+msgstr "Найти обложки"
+
+#: src/app/qt/kid3mainwindow.cpp:272
+msgctxt "Kid3MainWindow|"
+msgid "&Browse Cover Art..."
+msgstr "&Найти обложки..."
+
+#: src/app/qt/kid3mainwindow.cpp:281
+msgctxt "Kid3MainWindow|"
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или буфер обмена"
+
+#: src/app/qt/kid3mainwindow.cpp:282
+msgctxt "Kid3MainWindow|"
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+#: src/app/qt/kid3mainwindow.cpp:292
+msgctxt "Kid3MainWindow|"
+msgid "Create M3U Playlist"
+msgstr "Создать список воспроизведения M3U"
+
+#: src/app/qt/kid3mainwindow.cpp:293
+msgctxt "Kid3MainWindow|"
+msgid "&Create Playlist..."
+msgstr "&Cоздать список воспроизведения..."
+
+#: src/app/qt/kid3mainwindow.cpp:306
+msgctxt "Kid3MainWindow|"
+msgid "Quits the application"
+msgstr "Завершить приложение"
+
+#: src/app/qt/kid3mainwindow.cpp:307
+msgctxt "Kid3MainWindow|"
+msgid "&Quit"
+msgstr "В&ыход"
+
+#: src/app/qt/kid3mainwindow.cpp:318
+msgctxt "Kid3MainWindow|"
+msgid "&Edit"
+msgstr "&Правка"
+
+#: src/app/qt/kid3mainwindow.cpp:321
+msgctxt "Kid3MainWindow|"
+msgid "Select all files"
+msgstr "Выбрать все файлы"
+
+#: src/app/qt/kid3mainwindow.cpp:322
+msgctxt "Kid3MainWindow|"
+msgid "Select &All"
+msgstr "Выбрать &все"
+
+#: src/app/qt/kid3mainwindow.cpp:337
+msgctxt "Kid3MainWindow|"
+msgid "Deselect all files"
+msgstr "Отменить выбор всех файлов"
+
+#: src/app/qt/kid3mainwindow.cpp:338
+msgctxt "Kid3MainWindow|"
+msgid "Dese&lect"
+msgstr "Отме&нить выбор"
+
+#: src/app/qt/kid3mainwindow.cpp:348
+msgctxt "Kid3MainWindow|"
+msgid "Select all files in the current folder"
+msgstr "Выбрать все файлы в текущем каталоге"
+
+#: src/app/qt/kid3mainwindow.cpp:349
+msgctxt "Kid3MainWindow|"
+msgid "Select All in &Folder"
+msgstr "Выбрать все файлы в &каталоге"
+
+#: src/app/qt/kid3mainwindow.cpp:357
+msgctxt "Kid3MainWindow|"
+msgid "&Invert Selection"
+msgstr "&Обратить выделение"
+
+#: src/app/qt/kid3mainwindow.cpp:365
+msgctxt "Kid3MainWindow|"
+msgid "Select previous file"
+msgstr "Выбрать предыдущий файл"
+
+#: src/app/qt/kid3mainwindow.cpp:366
+msgctxt "Kid3MainWindow|"
+msgid "&Previous File"
+msgstr "&Предыдущий файл"
+
+#: src/app/qt/kid3mainwindow.cpp:378
+msgctxt "Kid3MainWindow|"
+msgid "Select next file"
+msgstr "Выбрать следующий файл"
+
+#: src/app/qt/kid3mainwindow.cpp:379
+msgctxt "Kid3MainWindow|"
+msgid "&Next File"
+msgstr "&Следующий файл"
+
+#: src/app/qt/kid3mainwindow.cpp:392
+msgctxt "Kid3MainWindow|"
+msgid "Find"
+msgstr "Найти"
+
+#: src/app/qt/kid3mainwindow.cpp:393
+msgctxt "Kid3MainWindow|"
+msgid "&Find..."
+msgstr "&Найти..."
+
+#: src/app/qt/kid3mainwindow.cpp:406
+msgctxt "Kid3MainWindow|"
+msgid "Find and replace"
+msgstr "Найти и заменить"
+
+#: src/app/qt/kid3mainwindow.cpp:407
+msgctxt "Kid3MainWindow|"
+msgid "&Replace..."
+msgstr "&Заменить..."
+
+#: src/app/qt/kid3mainwindow.cpp:419
+msgctxt "Kid3MainWindow|"
+msgid "&Tools"
+msgstr "&Сервис"
+
+#: src/app/qt/kid3mainwindow.cpp:422
+msgctxt "Kid3MainWindow|"
+msgid "Apply Filename Format"
+msgstr "Применить формат имени файла"
+
+#: src/app/qt/kid3mainwindow.cpp:423
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Filename Format"
+msgstr "Применить формат имени &файла"
+
+#: src/app/qt/kid3mainwindow.cpp:432
+msgctxt "Kid3MainWindow|"
+msgid "Apply Tag Format"
+msgstr "Применить формат тега"
+
+#: src/app/qt/kid3mainwindow.cpp:433
+msgctxt "Kid3MainWindow|"
+msgid "Apply &Tag Format"
+msgstr "Применить формат &тега"
+
+#: src/app/qt/kid3mainwindow.cpp:441
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text Encoding"
+msgstr "Применить кодировку текста"
+
+#: src/app/qt/kid3mainwindow.cpp:442
+msgctxt "Kid3MainWindow|"
+msgid "Apply Text &Encoding"
+msgstr "Применить кодировку &текста"
+
+#: src/app/qt/kid3mainwindow.cpp:451
+msgctxt "Kid3MainWindow|"
+msgid "Rename Folder"
+msgstr "Переименовать каталог"
+
+#: src/app/qt/kid3mainwindow.cpp:452
+msgctxt "Kid3MainWindow|"
+msgid "&Rename Folder..."
+msgstr "&Переименовать каталог..."
+
+#: src/app/qt/kid3mainwindow.cpp:460
+msgctxt "Kid3MainWindow|"
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки"
+
+#: src/app/qt/kid3mainwindow.cpp:461
+msgctxt "Kid3MainWindow|"
+msgid "&Number Tracks..."
+msgstr "Пронумеровать &дорожки..."
+
+#: src/app/qt/kid3mainwindow.cpp:469
+msgctxt "Kid3MainWindow|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/app/qt/kid3mainwindow.cpp:470
+msgctxt "Kid3MainWindow|"
+msgid "F&ilter..."
+msgstr "Ф&ильтр..."
+
+#: src/app/qt/kid3mainwindow.cpp:481
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.4"
+
+#: src/app/qt/kid3mainwindow.cpp:482
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.&4"
+
+#: src/app/qt/kid3mainwindow.cpp:491
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.3"
+
+#: src/app/qt/kid3mainwindow.cpp:492
+msgctxt "Kid3MainWindow|"
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.&3"
+
+#: src/app/qt/kid3mainwindow.cpp:504
+msgctxt "Kid3MainWindow|"
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: src/app/qt/kid3mainwindow.cpp:505
+msgctxt "Kid3MainWindow|"
+msgid "&Play"
+msgstr "&Воспроизведение"
+
+#: src/app/qt/kid3mainwindow.cpp:515
+msgctxt "Kid3MainWindow|"
+msgid "&Settings"
+msgstr "&Настройка"
+
+#: src/app/qt/kid3mainwindow.cpp:519
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the toolbar"
+msgstr "Включить или отключить панель инструментов"
+
+#: src/app/qt/kid3mainwindow.cpp:520
+msgctxt "Kid3MainWindow|"
+msgid "Show &Toolbar"
+msgstr "Показывать панель &инструментов"
+
+#: src/app/qt/kid3mainwindow.cpp:530
+msgctxt "Kid3MainWindow|"
+msgid "Enables/disables the statusbar"
+msgstr "Включить или отключить строку состояния"
+
+#: src/app/qt/kid3mainwindow.cpp:531
+msgctxt "Kid3MainWindow|"
+msgid "Show St&atusbar"
+msgstr "Показывать строку &состояния"
+
+#: src/app/qt/kid3mainwindow.cpp:540
+msgctxt "Kid3MainWindow|"
+msgid "Show Picture"
+msgstr "Показывать изображение"
+
+#: src/app/qt/kid3mainwindow.cpp:541
+msgctxt "Kid3MainWindow|"
+msgid "Show &Picture"
+msgstr "Показывать &изображение"
+
+#: src/app/qt/kid3mainwindow.cpp:550
+msgctxt "Kid3MainWindow|"
+msgid "Auto Hide Tags"
+msgstr "Автоматически скрывать теги"
+
+#: src/app/qt/kid3mainwindow.cpp:551
+msgctxt "Kid3MainWindow|"
+msgid "Auto &Hide Tags"
+msgstr "Автоматически &скрывать теги"
+
+#: src/app/qt/kid3mainwindow.cpp:560
+msgctxt "Kid3MainWindow|"
+msgid "Configure Kid3"
+msgstr "Настроить Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:561
+msgctxt "Kid3MainWindow|"
+msgid "&Configure Kid3..."
+msgstr "&Настроить Kid3..."
+
+#: src/app/qt/kid3mainwindow.cpp:575
+msgctxt "Kid3MainWindow|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/app/qt/kid3mainwindow.cpp:578
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 Handbook"
+msgstr "Руководство пользователя Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:579
+msgctxt "Kid3MainWindow|"
+msgid "Kid3 &Handbook"
+msgstr "&Руководство пользователя Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:590
+msgctxt "Kid3MainWindow|"
+msgid "About Kid3"
+msgstr "О Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:591
+msgctxt "Kid3MainWindow|"
+msgid "&About Kid3"
+msgstr "&О Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:604
+msgctxt "Kid3MainWindow|"
+msgid "About Qt"
+msgstr "О Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:605
+msgctxt "Kid3MainWindow|"
+msgid "About &Qt"
+msgstr "О &Qt"
+
+#: src/app/qt/kid3mainwindow.cpp:647
+msgctxt "Kid3MainWindow|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/app/qt/kid3mainwindow.cpp:650 src/app/qt/kid3mainwindow.cpp:673
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "From Tag %1"
+msgstr "Из тега %1"
+
+#: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
+#: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
+msgctxt "Kid3MainWindow|"
+msgid "Focus"
+msgstr "Фокус"
+
+#: src/app/qt/kid3mainwindow.cpp:665
+#, qt-format
+msgctxt "Kid3MainWindow|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/app/qt/kid3mainwindow.cpp:667
+msgctxt "Kid3MainWindow|"
+msgid "From Filename"
+msgstr "Из имени файла"
+
+#: src/app/qt/kid3mainwindow.cpp:678
+msgctxt "Kid3MainWindow|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/app/qt/kid3mainwindow.cpp:681
+msgctxt "Kid3MainWindow|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/app/qt/kid3mainwindow.cpp:684
+msgctxt "Kid3MainWindow|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/app/qt/kid3mainwindow.cpp:688
+msgctxt "Kid3MainWindow|"
+msgid "Edit"
+msgstr "Правка"
+
+#: src/app/qt/kid3mainwindow.cpp:691
+msgctxt "Kid3MainWindow|"
+msgid "Add"
+msgstr "Добавить"
+
+#: src/app/qt/kid3mainwindow.cpp:694
+msgctxt "Kid3MainWindow|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/app/qt/kid3mainwindow.cpp:702
+msgctxt "Kid3MainWindow|"
+msgid "File List"
+msgstr "Список файлов"
+
+#: src/app/qt/kid3mainwindow.cpp:706
+msgctxt "Kid3MainWindow|"
+msgid "&Rename"
+msgstr "&Переименовать"
+
+#: src/app/qt/kid3mainwindow.cpp:713
+msgctxt "Kid3MainWindow|"
+msgid "&Move to Trash"
+msgstr "&Переместить в корзину"
+
+#: src/app/qt/kid3mainwindow.cpp:720
+msgctxt "Kid3MainWindow|"
+msgid "Folder List"
+msgstr "Список каталогов"
+
+#: src/app/qt/kid3mainwindow.cpp:726
+msgctxt "Kid3MainWindow|"
+msgid "Section"
+msgstr "Раздел"
+
+#: src/app/qt/kid3mainwindow.cpp:811
+msgctxt "Kid3MainWindow|"
+msgid " [modified]"
+msgstr " [изменено]"
+
+#: src/app/qt/kid3mainwindow.cpp:906
+msgctxt "Kid3MainWindow|"
+msgid "Audio Tag Editor"
+msgstr "Редактор аудио-тегов"
+
+#: src/app/qt/kid3mainwindow.cpp:911
+msgctxt "Kid3MainWindow|"
+msgid "License"
+msgstr "Лицензия"
+
+#: src/app/qt/kid3mainwindow.cpp:929
+msgctxt "Kid3MainWindow|"
+msgid "Configure - Kid3"
+msgstr "Настройка — Kid3"
+
+#: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
+msgctxt "Kid3MainWindow|"
+msgid "User Actions"
+msgstr "Команды пользователя"
+
+#: src/app/qt/platformtools.cpp:129
+msgctxt "@default|"
+msgid "Kid3 Handbook"
+msgstr "Руководство пользователя Kid3"
+
+#: src/app/qt/recentfilesmenu.cpp:120
+msgctxt "RecentFilesMenu|"
+msgid "&Clear List"
+msgstr "&Очистить список"
+
+#: src/app/qt/shortcutsdelegate.cpp:190
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Clear"
+msgstr "Очистить"
+
+#: src/app/qt/shortcutsdelegate.cpp:195
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Reset"
+msgstr "Сброс"
+
+#: src/app/qt/shortcutsmodel.cpp:112
+msgctxt "ShortcutsModel|"
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+"Нажмите клавишу F2 или дважды щёлкните по ячейке для изменения её "
+"содержимого."
+
+#: src/app/qt/shortcutsmodel.cpp:189
+msgctxt "ShortcutsModel|"
+msgid "Action"
+msgstr "Действие"
+
+#: src/app/qt/shortcutsmodel.cpp:191
+msgctxt "ShortcutsModel|"
+msgid "Shortcut"
+msgstr "Комбинация клавиш"
+
+#: src/core/config/batchimportsourcesmodel.cpp:166
+msgctxt "BatchImportSourcesModel|"
+msgid "Server"
+msgstr "Сервер"
+
+#: src/core/config/batchimportsourcesmodel.cpp:168
+msgctxt "BatchImportSourcesModel|"
+msgid "Accuracy"
+msgstr "Точность"
+
+#: src/core/config/batchimportsourcesmodel.cpp:170
+msgctxt "BatchImportSourcesModel|"
+msgid "Standard Tags"
+msgstr "Стандартные теги"
+
+#: src/core/config/batchimportsourcesmodel.cpp:172
+msgctxt "BatchImportSourcesModel|"
+msgid "Additional Tags"
+msgstr "Дополнительные теги"
+
+#: src/core/config/batchimportsourcesmodel.cpp:174
+msgctxt "BatchImportSourcesModel|"
+msgid "Cover Art"
+msgstr "Обложки"
+
+#: src/core/config/fileconfig.cpp:177
+msgctxt "Kid3Application|"
+msgid "All Supported Files"
+msgstr "Все поддерживаемые файлы"
+
+#: src/core/config/formatconfig.cpp:483
+msgctxt "@default|"
+msgid "No changes"
+msgstr "Нет изменений"
+
+#: src/core/config/formatconfig.cpp:484
+msgctxt "@default|"
+msgid "All lowercase"
+msgstr "Все строчные"
+
+#: src/core/config/formatconfig.cpp:485
+msgctxt "@default|"
+msgid "All uppercase"
+msgstr "Все прописные"
+
+#: src/core/config/formatconfig.cpp:486
+msgctxt "@default|"
+msgid "First letter uppercase"
+msgstr "Первая буква — прописная"
+
+#: src/core/config/formatconfig.cpp:487
+msgctxt "@default|"
+msgid "All first letters uppercase"
+msgstr "Все первые буквы — прописные"
+
+#: src/core/config/formatconfig.cpp:502
+msgctxt "FormatConfig|"
+msgid "None"
+msgstr "Нет"
+
+#: src/core/config/starratingmappingsmodel.cpp:128
+msgctxt "StarRatingMappingsModel|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/core/config/tagconfig.cpp:722 src/core/tags/frame.cpp:69
+msgctxt "@default|"
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: src/core/config/tagconfig.cpp:723 src/core/tags/frame.cpp:70
+msgctxt "@default|"
+msgid "UTF16"
+msgstr "UTF16"
+
+#: src/core/config/tagconfig.cpp:724 src/core/tags/frame.cpp:72
+msgctxt "@default|"
+msgid "UTF8"
+msgstr "UTF8"
+
+#: src/core/import/batchimporter.cpp:337
+msgctxt "BatchImporter|"
+msgid "Accuracy"
+msgstr "Точность"
+
+#: src/core/import/batchimporter.cpp:340
+msgctxt "BatchImporter|"
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/core/import/batchimporter.cpp:415
+msgctxt "BatchImporter|"
+msgid "Invalid File"
+msgstr "Неверный файл"
+
+#: src/core/import/httpclient.cpp:91
+#, qt-format
+msgctxt "@default|"
+msgid "Data received: %1"
+msgstr "Полученные данные: %1"
+
+#: src/core/import/httpclient.cpp:102
+msgctxt "HttpClient|"
+msgid "Ready."
+msgstr "Готово."
+
+#: src/core/import/httpclient.cpp:104
+msgctxt "HttpClient|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/core/import/httpclient.cpp:152
+#, qt-format
+msgctxt "HttpClient|"
+msgid "Data received: %1"
+msgstr "Полученные данные: %1"
+
+#: src/core/import/httpclient.cpp:230
+msgctxt "HttpClient|"
+msgid "Request sent..."
+msgstr "Запрос отправлен..."
+
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:105
+#: src/core/tags/frame.cpp:1759
+msgctxt "@default|"
+msgid "Title"
+msgstr "Название"
+
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:1763
+msgctxt "@default|"
+msgid "Album"
+msgstr "Альбом"
+
+#: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:1767
+msgctxt "@default|"
+msgid "Artist"
+msgstr "Исполнитель"
+
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:1771
+msgctxt "@default|"
+msgid "Comment"
+msgstr "Комментарий"
+
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:1775
+msgctxt "@default|"
+msgid "Year"
+msgstr "Год"
+
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:1780
+msgctxt "@default|"
+msgid "Track"
+msgstr "Дорожка"
+
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:1793
+msgctxt "@default|"
+msgid "Genre"
+msgstr "Жанр"
+
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:215
+#: src/core/tags/trackdata.cpp:231
+msgctxt "@default|"
+msgid "Length"
+msgstr "Длительность"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:84
+msgctxt "@default|"
+msgid "Drive"
+msgstr "Диск"
+
+#. %1 is a file name suffix, for example txt
+#: src/core/model/abstractfiledecorationprovider.cpp:90
+#, qt-format
+msgctxt "@default|"
+msgid "%1 File"
+msgstr "%1 файл"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:93
+msgctxt "@default|"
+msgid "File"
+msgstr "Файл"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:98
+msgctxt "@default|"
+msgid "Folder"
+msgstr "Папка"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:102
+msgctxt "@default|"
+msgid "Shortcut"
+msgstr "Комбинация клавиш"
+
+#: src/core/model/abstractfiledecorationprovider.cpp:105
+#: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:263
+msgctxt "@default|"
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:46
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+msgctxt "@default|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/core/model/commandformatreplacer.cpp:148
+msgctxt "@default|"
+msgid "Filenames"
+msgstr "Имена файлов"
+
+#: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:40
+#: src/core/tags/trackdata.cpp:221
+msgctxt "@default|"
+msgid "URL"
+msgstr "URL-адрес"
+
+#: src/core/model/commandformatreplacer.cpp:157
+msgctxt "@default|"
+msgid "URLs"
+msgstr "URL-адреса"
+
+#: src/core/model/commandformatreplacer.cpp:163
+msgctxt "@default|"
+msgid "Folder name"
+msgstr "Имя каталога"
+
+#: src/core/model/commandformatreplacer.cpp:168
+msgctxt "@default|"
+msgid "Browser"
+msgstr "Браузер"
+
+#: src/core/model/commandformatreplacer.cpp:174
+msgctxt "@default|"
+msgid "QML base folder"
+msgstr "Основной каталог QML"
+
+#: src/core/model/commandformatreplacer.cpp:181
+#: src/gui/dialogs/browsecoverartdialog.cpp:61
+msgctxt "@default|"
+msgid "Encode as URL"
+msgstr "Кодировать как URL-адрес"
+
+#: src/core/model/commandformatreplacer.cpp:187
+msgctxt "@default|"
+msgid "--- separator ---"
+msgstr "--- разделитель ---"
+
+#: src/core/model/commandformatreplacer.cpp:193
+msgctxt "@default|"
+msgid "Begin of submenu"
+msgstr "Начало вложенного меню"
+
+#: src/core/model/commandformatreplacer.cpp:199
+msgctxt "@default|"
+msgid "End of submenu"
+msgstr "Конец вложенного меню"
+
+#: src/core/model/commandstablemodel.cpp:165
+msgctxt "CommandsTableModel|"
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: src/core/model/commandstablemodel.cpp:167
+msgctxt "CommandsTableModel|"
+msgid "Output"
+msgstr "Вывод"
+
+#: src/core/model/commandstablemodel.cpp:169
+msgctxt "CommandsTableModel|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/core/model/commandstablemodel.cpp:171
+msgctxt "CommandsTableModel|"
+msgid "Command"
+msgstr "Команда"
+
+#: src/core/model/dirrenamer.cpp:250
+#, qt-format
+msgctxt "@default|"
+msgid "Create folder %1 failed\n"
+msgstr "Не удалось создать каталог %1\n"
+
+#: src/core/model/dirrenamer.cpp:279
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Create folder %1 failed\n"
+msgstr "Не удалось создать каталог %1\n"
+
+#: src/core/model/dirrenamer.cpp:286
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "Файл %1 уже существует\n"
+
+#: src/core/model/dirrenamer.cpp:288
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a folder\n"
+msgstr "%1 — не является каталогом\n"
+
+#: src/core/model/dirrenamer.cpp:290
+#, qt-format
+msgctxt "@default|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Не удалось переименовать %1 в %2\n"
+
+#: src/core/model/dirrenamer.cpp:309
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "File %1 already exists\n"
+msgstr "Файл %1 уже существует\n"
+
+#: src/core/model/dirrenamer.cpp:315
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a folder\n"
+msgstr "%1 — не является каталогом\n"
+
+#: src/core/model/dirrenamer.cpp:335 src/core/model/dirrenamer.cpp:383
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Не удалось переименовать %1 в %2\n"
+
+#: src/core/model/dirrenamer.cpp:342
+#, qt-format
+msgctxt "@default|"
+msgid "%1 already exists\n"
+msgstr "%1 — уже существует\n"
+
+#: src/core/model/dirrenamer.cpp:344
+#, qt-format
+msgctxt "@default|"
+msgid "%1 is not a file\n"
+msgstr "%1 — не является файлом\n"
+
+#: src/core/model/dirrenamer.cpp:365
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 already exists\n"
+msgstr "%1 — уже существует\n"
+
+#: src/core/model/dirrenamer.cpp:371
+#, qt-format
+msgctxt "DirRenamer|"
+msgid "%1 is not a file\n"
+msgstr "%1 — не является файлом\n"
+
+#: src/core/model/dirrenamer.cpp:604
+msgctxt "DirRenamer|"
+msgid "New folder name is too different\n"
+msgstr "Новое имя каталога слишком отлично\n"
+
+#: src/core/model/dirrenamer.cpp:670
+msgctxt "@default|"
+msgid "Create folder"
+msgstr "Создать каталог"
+
+#: src/core/model/dirrenamer.cpp:671
+msgctxt "@default|"
+msgid "Rename folder"
+msgstr "Переименовать каталог"
+
+#: src/core/model/dirrenamer.cpp:672
+msgctxt "@default|"
+msgid "Rename file"
+msgstr "Переименовать файл"
+
+#: src/core/model/dirrenamer.cpp:673
+msgctxt "@default|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/core/model/downloadclient.cpp:53
+msgctxt "DownloadClient|"
+msgid "Ready."
+msgstr "Готово."
+
+#: src/core/model/eventtimingcode.cpp:37
+msgctxt "@default|"
+msgid "padding (has no meaning)"
+msgstr "заполнение (не имеет значения)"
+
+#: src/core/model/eventtimingcode.cpp:38
+msgctxt "@default|"
+msgid "end of initial silence"
+msgstr "конец начальной тишины"
+
+#: src/core/model/eventtimingcode.cpp:39
+msgctxt "@default|"
+msgid "intro start"
+msgstr "начало введения (интро)"
+
+#: src/core/model/eventtimingcode.cpp:40
+msgctxt "@default|"
+msgid "main part start"
+msgstr "начало основной части"
+
+#: src/core/model/eventtimingcode.cpp:41
+msgctxt "@default|"
+msgid "outro start"
+msgstr "начало заключения (аутро)"
+
+#: src/core/model/eventtimingcode.cpp:42
+msgctxt "@default|"
+msgid "outro end"
+msgstr "конец заключения (аутро)"
+
+#: src/core/model/eventtimingcode.cpp:43
+msgctxt "@default|"
+msgid "verse start"
+msgstr "начало куплета"
+
+#: src/core/model/eventtimingcode.cpp:44
+msgctxt "@default|"
+msgid "refrain start"
+msgstr "начало припева"
+
+#: src/core/model/eventtimingcode.cpp:45
+msgctxt "@default|"
+msgid "interlude start"
+msgstr "начало интерлюдии"
+
+#: src/core/model/eventtimingcode.cpp:46
+msgctxt "@default|"
+msgid "theme start"
+msgstr "начало темы"
+
+#: src/core/model/eventtimingcode.cpp:47
+msgctxt "@default|"
+msgid "variation start"
+msgstr "начало вариации"
+
+#: src/core/model/eventtimingcode.cpp:48
+msgctxt "@default|"
+msgid "key change"
+msgstr "смена тональности"
+
+#: src/core/model/eventtimingcode.cpp:49
+msgctxt "@default|"
+msgid "time change"
+msgstr "смена времени"
+
+#: src/core/model/eventtimingcode.cpp:50
+msgctxt "@default|"
+msgid "momentary unwanted noise (Snap, Crackle & Pop)"
+msgstr "кратковременный нежелательный шум (щелчок, треск, хлопок)"
+
+#: src/core/model/eventtimingcode.cpp:51
+msgctxt "@default|"
+msgid "sustained noise"
+msgstr "продолжительный шум"
+
+#: src/core/model/eventtimingcode.cpp:52
+msgctxt "@default|"
+msgid "sustained noise end"
+msgstr "конец продолжительного шума"
+
+#: src/core/model/eventtimingcode.cpp:53
+msgctxt "@default|"
+msgid "intro end"
+msgstr "конец введения (интро)"
+
+#: src/core/model/eventtimingcode.cpp:54
+msgctxt "@default|"
+msgid "main part end"
+msgstr "конец основной части"
+
+#: src/core/model/eventtimingcode.cpp:55
+msgctxt "@default|"
+msgid "verse end"
+msgstr "конец куплета"
+
+#: src/core/model/eventtimingcode.cpp:56
+msgctxt "@default|"
+msgid "refrain end"
+msgstr "конец припева"
+
+#: src/core/model/eventtimingcode.cpp:57
+msgctxt "@default|"
+msgid "theme end"
+msgstr "конец темы"
+
+#: src/core/model/eventtimingcode.cpp:58
+msgctxt "@default|"
+msgid "profanity"
+msgstr "ненормативная лексика"
+
+#: src/core/model/eventtimingcode.cpp:59
+msgctxt "@default|"
+msgid "profanity end"
+msgstr "конец ненормативной лексики"
+
+#: src/core/model/eventtimingcode.cpp:60
+msgctxt "@default|"
+msgid "not predefined synch 0"
+msgstr "пользовательская синхронизация 0"
+
+#: src/core/model/eventtimingcode.cpp:61
+msgctxt "@default|"
+msgid "not predefined synch 1"
+msgstr "пользовательская синхронизация 1"
+
+#: src/core/model/eventtimingcode.cpp:62
+msgctxt "@default|"
+msgid "not predefined synch 2"
+msgstr "пользовательская синхронизация 2"
+
+#: src/core/model/eventtimingcode.cpp:63
+msgctxt "@default|"
+msgid "not predefined synch 3"
+msgstr "пользовательская синхронизация 3"
+
+#: src/core/model/eventtimingcode.cpp:64
+msgctxt "@default|"
+msgid "not predefined synch 4"
+msgstr "пользовательская синхронизация 4"
+
+#: src/core/model/eventtimingcode.cpp:65
+msgctxt "@default|"
+msgid "not predefined synch 5"
+msgstr "пользовательская синхронизация 5"
+
+#: src/core/model/eventtimingcode.cpp:66
+msgctxt "@default|"
+msgid "not predefined synch 6"
+msgstr "пользовательская синхронизация 6"
+
+#: src/core/model/eventtimingcode.cpp:67
+msgctxt "@default|"
+msgid "not predefined synch 7"
+msgstr "пользовательская синхронизация 7"
+
+#: src/core/model/eventtimingcode.cpp:68
+msgctxt "@default|"
+msgid "not predefined synch 8"
+msgstr "пользовательская синхронизация 8"
+
+#: src/core/model/eventtimingcode.cpp:69
+msgctxt "@default|"
+msgid "not predefined synch 9"
+msgstr "пользовательская синхронизация 9"
+
+#: src/core/model/eventtimingcode.cpp:70
+msgctxt "@default|"
+msgid "not predefined synch A"
+msgstr "пользовательская синхронизация A"
+
+#: src/core/model/eventtimingcode.cpp:71
+msgctxt "@default|"
+msgid "not predefined synch B"
+msgstr "пользовательская синхронизация B"
+
+#: src/core/model/eventtimingcode.cpp:72
+msgctxt "@default|"
+msgid "not predefined synch C"
+msgstr "пользовательская синхронизация C"
+
+#: src/core/model/eventtimingcode.cpp:73
+msgctxt "@default|"
+msgid "not predefined synch D"
+msgstr "пользовательская синхронизация D"
+
+#: src/core/model/eventtimingcode.cpp:74
+msgctxt "@default|"
+msgid "not predefined synch E"
+msgstr "пользовательская синхронизация E"
+
+#: src/core/model/eventtimingcode.cpp:75
+msgctxt "@default|"
+msgid "not predefined synch F"
+msgstr "пользовательская синхронизация F"
+
+#: src/core/model/eventtimingcode.cpp:76
+msgctxt "@default|"
+msgid "audio end (start of silence)"
+msgstr "конец аудио (начало тишины)"
+
+#: src/core/model/eventtimingcode.cpp:77
+msgctxt "@default|"
+msgid "audio file ends"
+msgstr "конец аудиофайла"
+
+#: src/core/model/eventtimingcode.cpp:111
+#, qt-format
+msgctxt "@default|"
+msgid "reserved for future use %1"
+msgstr "зарезервировано для использования в будущем %1"
+
+#: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
+msgctxt "@default|"
+msgid "Tag 1"
+msgstr "Тег 1"
+
+#: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
+msgctxt "@default|"
+msgid "Tag 2"
+msgstr "Тег 2"
+
+#: src/core/model/filefilter.cpp:108
+msgctxt "@default|"
+msgid "True if strings are equal"
+msgstr "Значение «True», если строки идентичны"
+
+#: src/core/model/filefilter.cpp:114
+msgctxt "@default|"
+msgid "True if string contains substring"
+msgstr "Значение «True», если строка содержит вложенную строку"
+
+#: src/core/model/filefilter.cpp:121
+msgctxt "@default|"
+msgid "True if string matches regexp"
+msgstr "Значение «True», если строка соответствует регулярному выражению"
+
+#: src/core/model/filefilter.cpp:127
+msgctxt "@default|"
+msgid "Logical AND"
+msgstr "Логическое И"
+
+#: src/core/model/filefilter.cpp:132
+msgctxt "@default|"
+msgid "Logical OR"
+msgstr "Логическое ИЛИ"
+
+#: src/core/model/filefilter.cpp:138
+msgctxt "@default|"
+msgid "Logical negation"
+msgstr "Логическое отрицание"
+
+#: src/core/model/fileproxymodel.cpp:38
+msgctxt "QFileSystemModel|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/core/model/fileproxymodel.cpp:40
+msgctxt "QFileSystemModel|"
+msgid "Size"
+msgstr "Размер"
+
+#: src/core/model/fileproxymodel.cpp:42
+msgctxt "QFileSystemModel|"
+msgid "Type"
+msgstr "Тип"
+
+#: src/core/model/fileproxymodel.cpp:44
+msgctxt "QFileSystemModel|"
+msgid "Kind"
+msgstr "Вид"
+
+#: src/core/model/fileproxymodel.cpp:47
+msgctxt "QFileSystemModel|"
+msgid "Date Modified"
+msgstr "Дата изменения"
+
+#: src/core/model/fileproxymodel.cpp:1043
+msgctxt "FileProxyModel|"
+msgid "All Supported Files"
+msgstr "Все поддерживаемые файлы"
+
+#: src/core/model/fileproxymodel.cpp:1045
+msgctxt "FileProxyModel|"
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src/core/model/filesystemmodel.cpp:822
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 TB"
+msgstr "%1 ТБ"
+
+#: src/core/model/filesystemmodel.cpp:824
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 GB"
+msgstr "%1 Гб"
+
+#: src/core/model/filesystemmodel.cpp:826
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 MB"
+msgstr "%1 Мб"
+
+#: src/core/model/filesystemmodel.cpp:828
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 KB"
+msgstr "%1 КБ"
+
+#: src/core/model/filesystemmodel.cpp:829
+#, qt-format
+msgctxt "FileSystemModel|"
+msgid "%1 bytes"
+msgstr "%1 байт"
+
+#: src/core/model/filesystemmodel.cpp:984
+msgctxt "FileSystemModel|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/core/model/filesystemmodel.cpp:986
+msgctxt "FileSystemModel|"
+msgid "Size"
+msgstr "Размер"
+
+#: src/core/model/filesystemmodel.cpp:990
+msgctxt "FileSystemModel|Match OS X Finder"
+msgid "Kind"
+msgstr "Вид"
+
+#: src/core/model/filesystemmodel.cpp:992
+msgctxt "FileSystemModel|All other platforms"
+msgid "Type"
+msgstr "Тип"
+
+#: src/core/model/filesystemmodel.cpp:999
+msgctxt "FileSystemModel|"
+msgid "Date Modified"
+msgstr "Дата изменения"
+
+#: src/core/model/filesystemmodel_p.h:319
+msgctxt "FileSystemModel|"
+msgid "My Computer"
+msgstr "Мой компьютер"
+
+#: src/core/model/filesystemmodel_p.h:321
+msgctxt "FileSystemModel|"
+msgid "Computer"
+msgstr "Компьютер"
+
+#: src/core/model/frameobjectmodel.cpp:178
+msgctxt "FrameFieldObject|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/model/frametablemodel.cpp:137
+msgctxt "FrameTableModel|"
+msgid "Volume"
+msgstr "Громкость"
+
+#: src/core/model/frametablemodel.cpp:162
+msgctxt "FrameTableModel|"
+msgid "File ID"
+msgstr "Идентификатор файл"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Name"
+msgstr "Имя"
+
+#: src/core/model/frametablemodel.cpp:297
+msgctxt "FrameTableModel|"
+msgid "Data"
+msgstr "Данные"
+
+#: src/core/model/kid3application.cpp:972
+msgctxt "Kid3Application|"
+msgid "Saving folder..."
+msgstr "Сохранение каталога..."
+
+#: src/core/model/kid3application.cpp:1117
+msgctxt "Kid3Application|"
+msgid "Selection"
+msgstr "Выбор"
+
+#: src/core/model/kid3application.cpp:3330
+msgctxt "Kid3Application|"
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src/core/model/tagsearcher.cpp:198
+msgctxt "TagSearcher|"
+msgid "Search finished"
+msgstr "Поиск завершён"
+
+#: src/core/model/tagsearcher.cpp:464
+msgctxt "TagSearcher|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/core/model/tagsearcher.cpp:466
+#, qt-format
+msgctxt "TagSearcher|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/core/model/timeeventmodel.cpp:123
+msgctxt "TimeEventModel|"
+msgid "Time"
+msgstr "Время"
+
+#: src/core/model/timeeventmodel.cpp:125
+msgctxt "TimeEventModel|"
+msgid "Event Code"
+msgstr "Код события"
+
+#: src/core/model/timeeventmodel.cpp:127
+msgctxt "TimeEventModel|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/model/trackdatamodel.cpp:179
+msgctxt "TrackDataModel|"
+msgid "Track"
+msgstr "Дорожка"
+
+#: src/core/model/trackdatamodel.cpp:184
+msgctxt "TrackDataModel|"
+msgid "Absolute path to file"
+msgstr "Абсолютный путь к файлу"
+
+#: src/core/model/trackdatamodel.cpp:186
+msgctxt "TrackDataModel|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/core/model/trackdatamodel.cpp:188
+msgctxt "TrackDataModel|"
+msgid "Duration"
+msgstr "Длительность"
+
+#: src/core/model/trackdatamodel.cpp:190
+msgctxt "TrackDataModel|"
+msgid "Length"
+msgstr "Длительность"
+
+#: src/core/tags/frame.cpp:38
+msgctxt "@default|"
+msgid "Text Encoding"
+msgstr "Кодировка текста"
+
+#: src/core/tags/frame.cpp:39
+msgctxt "@default|"
+msgid "Text"
+msgstr "Текст"
+
+#: src/core/tags/frame.cpp:41
+msgctxt "@default|"
+msgid "Data"
+msgstr "Данные"
+
+#: src/core/tags/frame.cpp:42 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:236 src/core/tags/frame.cpp:282
+msgctxt "@default|"
+msgid "Description"
+msgstr "Описание"
+
+#: src/core/tags/frame.cpp:43 src/core/tags/frame.cpp:305
+msgctxt "@default|"
+msgid "Owner"
+msgstr "Владелец"
+
+#: src/core/tags/frame.cpp:44
+msgctxt "@default|"
+msgid "Email"
+msgstr "Адрес эл. почты"
+
+#: src/core/tags/frame.cpp:45 src/core/tags/frame.cpp:153
+msgctxt "@default|"
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: src/core/tags/frame.cpp:47 src/core/tags/frame.cpp:129
+msgctxt "@default|"
+msgid "Language"
+msgstr "Язык"
+
+#: src/core/tags/frame.cpp:48
+msgctxt "@default|"
+msgid "Picture Type"
+msgstr "Тип изображения"
+
+#: src/core/tags/frame.cpp:49
+msgctxt "@default|"
+msgid "Image format"
+msgstr "Формат изображения"
+
+#: src/core/tags/frame.cpp:50
+msgctxt "@default|"
+msgid "Mimetype"
+msgstr "Тип MIME"
+
+#: src/core/tags/frame.cpp:51
+msgctxt "@default|"
+msgid "Counter"
+msgstr "Счётчик"
+
+#: src/core/tags/frame.cpp:52
+msgctxt "@default|"
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:196
+msgctxt "@default|"
+msgid "Volume Adjustment"
+msgstr "Настройка громкости"
+
+#: src/core/tags/frame.cpp:54
+msgctxt "@default|"
+msgid "Number of Bits"
+msgstr "Количество бит"
+
+#: src/core/tags/frame.cpp:55
+msgctxt "@default|"
+msgid "Volume Change Right"
+msgstr "Изменить громкость (справа)"
+
+#: src/core/tags/frame.cpp:56
+msgctxt "@default|"
+msgid "Volume Change Left"
+msgstr "Изменить громкость (слева)"
+
+#: src/core/tags/frame.cpp:57
+msgctxt "@default|"
+msgid "Peak Volume Right"
+msgstr "Максимальная громкость (справа)"
+
+#: src/core/tags/frame.cpp:58
+msgctxt "@default|"
+msgid "Peak Volume Left"
+msgstr "Максимальная громкость (слева)"
+
+#: src/core/tags/frame.cpp:59
+msgctxt "@default|"
+msgid "Timestamp Format"
+msgstr "Формат метки времени изменения"
+
+#: src/core/tags/frame.cpp:60
+msgctxt "@default|"
+msgid "Content Type"
+msgstr "Тип содержимого"
+
+#: src/core/tags/frame.cpp:62
+msgctxt "@default|"
+msgid "Price"
+msgstr "Цена"
+
+#: src/core/tags/frame.cpp:63 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:203
+msgctxt "@default|"
+msgid "Date"
+msgstr "Дата"
+
+#: src/core/tags/frame.cpp:64
+msgctxt "@default|"
+msgid "Seller"
+msgstr "Продавец"
+
+#: src/core/tags/frame.cpp:71
+msgctxt "@default|"
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: src/core/tags/frame.cpp:77 src/core/tags/frame.cpp:84
+#: src/core/tags/pictureframe.cpp:41
+msgctxt "@default|"
+msgid "Other"
+msgstr "Другое"
+
+#: src/core/tags/frame.cpp:78
+msgctxt "@default|"
+msgid "MPEG frames as unit"
+msgstr "Измерять в MPEG-кадрах"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Milliseconds as unit"
+msgstr "Измерять в миллисекундах"
+
+#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:131
+#: src/gui/widgets/timeeventeditor.cpp:351
+msgctxt "@default|"
+msgid "Lyrics"
+msgstr "Текст"
+
+#: src/core/tags/frame.cpp:86
+msgctxt "@default|"
+msgid "Text transcription"
+msgstr "Транскрипция текста"
+
+#: src/core/tags/frame.cpp:87
+msgctxt "@default|"
+msgid "Movement/part name"
+msgstr "Название части произведения"
+
+#: src/core/tags/frame.cpp:88
+msgctxt "@default|"
+msgid "Events"
+msgstr "События"
+
+#: src/core/tags/frame.cpp:89
+msgctxt "@default|"
+msgid "Chord"
+msgstr "Аккорд"
+
+#: src/core/tags/frame.cpp:90
+msgctxt "@default|"
+msgid "Trivia/pop up"
+msgstr "Интересные факты"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Track Number"
+msgstr "Номер дорожки"
+
+#: src/core/tags/frame.cpp:113 src/core/tags/frame.cpp:233
+msgctxt "@default|"
+msgid "Album Artist"
+msgstr "Исполнитель альбома"
+
+#: src/core/tags/frame.cpp:114
+msgctxt "@default|"
+msgid "Arranger"
+msgstr "Аранжировщик"
+
+#: src/core/tags/frame.cpp:115
+msgctxt "@default|"
+msgid "Author"
+msgstr "Автор"
+
+#: src/core/tags/frame.cpp:116
+msgctxt "@default|"
+msgid "BPM"
+msgstr "BPM (количество ударов в минуту)"
+
+#: src/core/tags/frame.cpp:117
+msgctxt "@default|"
+msgid "Catalog Number"
+msgstr "Номер по каталогу"
+
+#: src/core/tags/frame.cpp:118
+msgctxt "@default|"
+msgid "Compilation"
+msgstr "Сборник"
+
+#: src/core/tags/frame.cpp:119 src/core/tags/pictureframe.cpp:52
+msgctxt "@default|"
+msgid "Composer"
+msgstr "Композитор"
+
+#: src/core/tags/frame.cpp:120 src/core/tags/frame.cpp:281
+#: src/core/tags/pictureframe.cpp:50
+msgctxt "@default|"
+msgid "Conductor"
+msgstr "Дирижёр"
+
+#: src/core/tags/frame.cpp:121
+msgctxt "@default|"
+msgid "Copyright"
+msgstr "Авторское право"
+
+#: src/core/tags/frame.cpp:122
+msgctxt "@default|"
+msgid "Disc Number"
+msgstr "Номер диска"
+
+#: src/core/tags/frame.cpp:123 src/core/tags/frame.cpp:240
+msgctxt "@default|"
+msgid "Encoded-by"
+msgstr "Кодировщик"
+
+#: src/core/tags/frame.cpp:124 src/core/tags/frame.cpp:239
+msgctxt "@default|"
+msgid "Encoder Settings"
+msgstr "Параметры кодировщика"
+
+#: src/core/tags/frame.cpp:125 src/core/tags/frame.cpp:204
+msgctxt "@default|"
+msgid "Encoding Time"
+msgstr "Время кодирования"
+
+#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:235
+msgctxt "@default|"
+msgid "Grouping"
+msgstr "Группировка"
+
+#: src/core/tags/frame.cpp:127
+msgctxt "@default|"
+msgid "Initial Key"
+msgstr "Начальная тональность"
+
+#: src/core/tags/frame.cpp:128
+msgctxt "@default|"
+msgid "ISRC"
+msgstr "ISRC — международный стандартный код записи"
+
+#: src/core/tags/frame.cpp:130
+msgctxt "@default|"
+msgid "Lyricist"
+msgstr "Автор текста"
+
+#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:47
+msgctxt "@default|"
+msgid "Media"
+msgstr "Носитель"
+
+#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:270
+msgctxt "@default|"
+msgid "Mood"
+msgstr "Настроение"
+
+#: src/core/tags/frame.cpp:134
+msgctxt "@default|"
+msgid "Original Album"
+msgstr "Исходный альбом"
+
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:252
+msgctxt "@default|"
+msgid "Original Artist"
+msgstr "Исходный исполнитель"
+
+#: src/core/tags/frame.cpp:136
+msgctxt "@default|"
+msgid "Original Date"
+msgstr "Исходная дата"
+
+#: src/core/tags/frame.cpp:138
+msgctxt "@default|"
+msgid "Performer"
+msgstr "Исполнитель"
+
+#: src/core/tags/frame.cpp:139
+msgctxt "@default|"
+msgid "Picture"
+msgstr "Изображение"
+
+#: src/core/tags/frame.cpp:140
+msgctxt "@default|"
+msgid "Publisher"
+msgstr "Издатель"
+
+#: src/core/tags/frame.cpp:141
+msgctxt "@default|"
+msgid "Release Country"
+msgstr "Страна выпуска"
+
+#: src/core/tags/frame.cpp:142 src/core/tags/frame.cpp:258
+msgctxt "@default|"
+msgid "Remixer"
+msgstr "Ремиксер"
+
+#: src/core/tags/frame.cpp:143
+msgctxt "@default|"
+msgid "Sort Album"
+msgstr "Упорядочить по альбомам"
+
+#: src/core/tags/frame.cpp:144 src/core/tags/frame.cpp:267
+msgctxt "@default|"
+msgid "Sort Album Artist"
+msgstr "Упорядочить по исполнителям альбомов"
+
+#: src/core/tags/frame.cpp:145
+msgctxt "@default|"
+msgid "Sort Artist"
+msgstr "Упорядочить по исполнителям"
+
+#: src/core/tags/frame.cpp:146
+msgctxt "@default|"
+msgid "Sort Composer"
+msgstr "Упорядочить по композиторам"
+
+#: src/core/tags/frame.cpp:147
+msgctxt "@default|"
+msgid "Sort Name"
+msgstr "Упорядочить по именам"
+
+#: src/core/tags/frame.cpp:148
+msgctxt "@default|"
+msgid "Subtitle"
+msgstr "Подзаголовок"
+
+#: src/core/tags/frame.cpp:149
+msgctxt "@default|"
+msgid "Website"
+msgstr "Веб-сайт"
+
+#: src/core/tags/frame.cpp:150
+msgctxt "@default|"
+msgid "WWW Audio File"
+msgstr "Веб-страница аудиофайла"
+
+#: src/core/tags/frame.cpp:151
+msgctxt "@default|"
+msgid "WWW Audio Source"
+msgstr "Веб-страница источника аудио"
+
+#: src/core/tags/frame.cpp:152
+msgctxt "@default|"
+msgid "Release Date"
+msgstr "Дата выпуска"
+
+#: src/core/tags/frame.cpp:154
+msgctxt "@default|"
+msgid "Work"
+msgstr "Название произведения"
+
+#: src/core/tags/frame.cpp:171
+msgctxt "@default|"
+msgid "Audio Encryption"
+msgstr "Шифрование аудио"
+
+#: src/core/tags/frame.cpp:172
+msgctxt "@default|"
+msgid "Audio Seek Point"
+msgstr "Точка поиска аудио"
+
+#: src/core/tags/frame.cpp:173
+msgctxt "@default|"
+msgid "Chapter"
+msgstr "Глава"
+
+#: src/core/tags/frame.cpp:174
+msgctxt "@default|"
+msgid "Commercial"
+msgstr "Реклама"
+
+#: src/core/tags/frame.cpp:175
+msgctxt "@default|"
+msgid "Table of Contents"
+msgstr "Содержание"
+
+#: src/core/tags/frame.cpp:176
+msgctxt "@default|"
+msgid "Encryption Method"
+msgstr "Метод шифрования"
+
+#: src/core/tags/frame.cpp:177 src/core/tags/frame.cpp:178
+msgctxt "@default|"
+msgid "Equalization"
+msgstr "Частотная коррекция"
+
+#: src/core/tags/frame.cpp:179
+msgctxt "@default|"
+msgid "Event Timing Codes"
+msgstr "Коды привязки ко времени событий"
+
+#: src/core/tags/frame.cpp:180
+msgctxt "@default|"
+msgid "General Object"
+msgstr "Общий объект"
+
+#: src/core/tags/frame.cpp:181
+msgctxt "@default|"
+msgid "Group Identification"
+msgstr "Идентификация по группе"
+
+#: src/core/tags/frame.cpp:183
+msgctxt "@default|"
+msgid "Linked Information"
+msgstr "Связанная информация"
+
+#: src/core/tags/frame.cpp:184
+msgctxt "@default|"
+msgid "Music CD Identifier"
+msgstr "Идентификатор музыкального компакт-диска"
+
+#: src/core/tags/frame.cpp:185
+msgctxt "@default|"
+msgid "MPEG Lookup Table"
+msgstr "Таблица поиска MPEG"
+
+#: src/core/tags/frame.cpp:186 src/core/tags/frame.cpp:302
+msgctxt "@default|"
+msgid "Movement Number"
+msgstr "Номер части"
+
+#: src/core/tags/frame.cpp:187 src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Movement Name"
+msgstr "Имя части"
+
+#: src/core/tags/frame.cpp:188
+msgctxt "@default|"
+msgid "Ownership"
+msgstr "Владелец"
+
+#: src/core/tags/frame.cpp:189
+msgctxt "@default|"
+msgid "Play Counter"
+msgstr "Счётчик воспроизведения"
+
+#: src/core/tags/frame.cpp:190 src/core/tags/frame.cpp:287
+msgctxt "@default|"
+msgid "Podcast"
+msgstr "Подкаст"
+
+#: src/core/tags/frame.cpp:191
+msgctxt "@default|"
+msgid "Popularimeter"
+msgstr "Измеритель популярности"
+
+#: src/core/tags/frame.cpp:192
+msgctxt "@default|"
+msgid "Position Synchronisation"
+msgstr "Синхронизация положения"
+
+#: src/core/tags/frame.cpp:193
+msgctxt "@default|"
+msgid "Private"
+msgstr "Частная информация"
+
+#: src/core/tags/frame.cpp:194
+msgctxt "@default|"
+msgid "Recommended Buffer Size"
+msgstr "Рекомендуемый размер буфера"
+
+#: src/core/tags/frame.cpp:197
+msgctxt "@default|"
+msgid "Reverb"
+msgstr "Реверберация"
+
+#: src/core/tags/frame.cpp:198
+msgctxt "@default|"
+msgid "Seek"
+msgstr "Прокрутить"
+
+#: src/core/tags/frame.cpp:199
+msgctxt "@default|"
+msgid "Signature"
+msgstr "Подпись"
+
+#: src/core/tags/frame.cpp:200
+msgctxt "@default|"
+msgid "Synchronized Lyrics"
+msgstr "Синхронизированный текст"
+
+#: src/core/tags/frame.cpp:201
+msgctxt "@default|"
+msgid "Synchronized Tempo Codes"
+msgstr "Синхронизированные коды темпа"
+
+#: src/core/tags/frame.cpp:202
+msgctxt "@default|"
+msgid "Podcast Category"
+msgstr "Категория подкаста"
+
+#: src/core/tags/frame.cpp:205
+msgctxt "@default|"
+msgid "Podcast Description"
+msgstr "Описание подкаста"
+
+#: src/core/tags/frame.cpp:206
+msgctxt "@default|"
+msgid "Playlist Delay"
+msgstr "Задержка списка воспроизведения"
+
+#: src/core/tags/frame.cpp:207
+msgctxt "@default|"
+msgid "Original Release Time"
+msgstr "Время исходного выпуска"
+
+#: src/core/tags/frame.cpp:208
+msgctxt "@default|"
+msgid "Recording Time"
+msgstr "Время записи"
+
+#: src/core/tags/frame.cpp:209
+msgctxt "@default|"
+msgid "Release Time"
+msgstr "Время выпуска"
+
+#: src/core/tags/frame.cpp:210
+msgctxt "@default|"
+msgid "Tagging Time"
+msgstr "Время проставления тегов"
+
+#: src/core/tags/frame.cpp:211
+msgctxt "@default|"
+msgid "File Type"
+msgstr "Тип файла"
+
+#: src/core/tags/frame.cpp:212
+msgctxt "@default|"
+msgid "Podcast Identifier"
+msgstr "Идентификатор подкаста"
+
+#: src/core/tags/frame.cpp:213
+msgctxt "@default|"
+msgid "Time"
+msgstr "Время"
+
+#: src/core/tags/frame.cpp:214
+msgctxt "@default|"
+msgid "Podcast Keywords"
+msgstr "Кључне речи подкастов"
+
+#: src/core/tags/frame.cpp:216 src/core/tags/frame.cpp:271
+msgctxt "@default|"
+msgid "Original Filename"
+msgstr "Исходное имя файла"
+
+#: src/core/tags/frame.cpp:217
+msgctxt "@default|"
+msgid "File Owner"
+msgstr "Владелец файла"
+
+#: src/core/tags/frame.cpp:218
+msgctxt "@default|"
+msgid "Produced Notice"
+msgstr "Правообладатель исходного звука"
+
+#: src/core/tags/frame.cpp:219 src/core/tags/frame.cpp:257
+msgctxt "@default|"
+msgid "Recording Date"
+msgstr "Дата записи"
+
+#: src/core/tags/frame.cpp:220
+msgctxt "@default|"
+msgid "Radio Station Name"
+msgstr "Название радиостанции"
+
+#: src/core/tags/frame.cpp:221
+msgctxt "@default|"
+msgid "Radio Station Owner"
+msgstr "Владелец радиостанции"
+
+#: src/core/tags/frame.cpp:222
+msgctxt "@default|"
+msgid "Size"
+msgstr "Размер"
+
+#: src/core/tags/frame.cpp:223
+msgctxt "@default|"
+msgid "User-defined Text"
+msgstr "Определённый пользователем текст"
+
+#: src/core/tags/frame.cpp:224
+msgctxt "@default|"
+msgid "Unique File Identifier"
+msgstr "Уникальный идентификатор файла"
+
+#: src/core/tags/frame.cpp:225
+msgctxt "@default|"
+msgid "Terms of Use"
+msgstr "Условия использования"
+
+#: src/core/tags/frame.cpp:226 src/core/tags/frame.cpp:273
+msgctxt "@default|"
+msgid "Commercial URL"
+msgstr "URL-адрес рекламы"
+
+#: src/core/tags/frame.cpp:227
+msgctxt "@default|"
+msgid "Copyright URL"
+msgstr "URL-cсылка на авторские права"
+
+#: src/core/tags/frame.cpp:228
+msgctxt "@default|"
+msgid "Podcast Feed"
+msgstr "Канал подкастов"
+
+#: src/core/tags/frame.cpp:229
+msgctxt "@default|"
+msgid "Official Radio Station"
+msgstr "Официальная радиостанция"
+
+#: src/core/tags/frame.cpp:230
+msgctxt "@default|"
+msgid "Payment"
+msgstr "Платёж"
+
+#: src/core/tags/frame.cpp:231
+msgctxt "@default|"
+msgid "Official Publisher"
+msgstr "Официальный издатель"
+
+#: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:275
+msgctxt "@default|"
+msgid "User-defined URL"
+msgstr "Определённый пользователем URL-адрес"
+
+#: src/core/tags/frame.cpp:234
+msgctxt "@default|"
+msgid "Contact"
+msgstr "Контакт"
+
+#: src/core/tags/frame.cpp:237 src/core/tags/frame.cpp:259
+msgctxt "@default|"
+msgid "Total Discs"
+msgstr "Всего дисков"
+
+#: src/core/tags/frame.cpp:238
+msgctxt "@default|"
+msgid "Encoder"
+msgstr "Кодировщик"
+
+#: src/core/tags/frame.cpp:241
+msgctxt "@default|"
+msgid "Encoding"
+msgstr "Кодировка"
+
+#: src/core/tags/frame.cpp:242
+msgctxt "@default|"
+msgid "Engineer"
+msgstr "Звукооператор"
+
+#: src/core/tags/frame.cpp:243
+msgctxt "@default|"
+msgid "Ensemble"
+msgstr "Ансамбль"
+
+#: src/core/tags/frame.cpp:244
+msgctxt "@default|"
+msgid "Guest Artist"
+msgstr "Приглашённый исполнитель"
+
+#: src/core/tags/frame.cpp:245 src/core/tags/trackdata.cpp:264
+msgctxt "@default|"
+msgid "VBR"
+msgstr "Переменная скорость (VBR)"
+
+#: src/core/tags/frame.cpp:246 src/core/tags/frame.cpp:288
+msgctxt "@default|"
+msgid "Gapless Playback"
+msgstr "Непрерывное воспроизведение"
+
+#: src/core/tags/frame.cpp:247
+msgctxt "@default|"
+msgid "Label"
+msgstr "Звукозаписывающий лейбл"
+
+#: src/core/tags/frame.cpp:248
+msgctxt "@default|"
+msgid "Label Number"
+msgstr "Номер лейбла"
+
+#: src/core/tags/frame.cpp:249
+msgctxt "@default|"
+msgid "License"
+msgstr "Лицензия"
+
+#: src/core/tags/frame.cpp:250
+msgctxt "@default|"
+msgid "Location"
+msgstr "Путь"
+
+#: src/core/tags/frame.cpp:251
+msgctxt "@default|"
+msgid "Opus"
+msgstr "Opus"
+
+#: src/core/tags/frame.cpp:253
+msgctxt "@default|"
+msgid "Organization"
+msgstr "Организация"
+
+#: src/core/tags/frame.cpp:254
+msgctxt "@default|"
+msgid "Part Number"
+msgstr "Номер части"
+
+#: src/core/tags/frame.cpp:255
+msgctxt "@default|"
+msgid "Producer"
+msgstr "Продюсер"
+
+#: src/core/tags/frame.cpp:256
+msgctxt "@default|"
+msgid "Product Number"
+msgstr "Номер продукта"
+
+#: src/core/tags/frame.cpp:260 src/core/tags/frame.cpp:261
+msgctxt "@default|"
+msgid "Total Tracks"
+msgstr "Всего дорожек"
+
+#: src/core/tags/frame.cpp:264
+msgctxt "@default|"
+msgid "Version"
+msgstr "Версия"
+
+#: src/core/tags/frame.cpp:265
+msgctxt "@default|"
+msgid "Volume"
+msgstr "Громкость"
+
+#: src/core/tags/frame.cpp:269
+msgctxt "@default|"
+msgid "MCDI"
+msgstr "Идентификатор музыкального компакт-диска (MCDI)"
+
+#: src/core/tags/frame.cpp:272
+msgctxt "@default|"
+msgid "Original Lyricist"
+msgstr "Исходный автор текста"
+
+#: src/core/tags/frame.cpp:274
+msgctxt "@default|"
+msgid "User Rating"
+msgstr "Пользовательский рейтинг"
+
+#: src/core/tags/frame.cpp:276
+msgctxt "@default|"
+msgid "Account Type"
+msgstr "Тип учётной записи"
+
+#: src/core/tags/frame.cpp:277
+msgctxt "@default|"
+msgid "Purchase Account"
+msgstr "Учётная запись покупки"
+
+#: src/core/tags/frame.cpp:278
+msgctxt "@default|"
+msgid "Artist ID"
+msgstr "Идентификатор исполнителя"
+
+#: src/core/tags/frame.cpp:279
+msgctxt "@default|"
+msgid "Category"
+msgstr "Категория"
+
+#: src/core/tags/frame.cpp:280
+msgctxt "@default|"
+msgid "Catalog ID"
+msgstr "Идентификатор каталога"
+
+#: src/core/tags/frame.cpp:283
+msgctxt "@default|"
+msgid "Genre ID"
+msgstr "Идентификатор жанра"
+
+#: src/core/tags/frame.cpp:284
+msgctxt "@default|"
+msgid "HD Video"
+msgstr "HD-видео"
+
+#: src/core/tags/frame.cpp:285
+msgctxt "@default|"
+msgid "Keyword"
+msgstr "Ключевое слово"
+
+#: src/core/tags/frame.cpp:286
+msgctxt "@default|"
+msgid "Long Description"
+msgstr "Подробное описание"
+
+#: src/core/tags/frame.cpp:289
+msgctxt "@default|"
+msgid "Album ID"
+msgstr "Идентификатор альбома"
+
+#: src/core/tags/frame.cpp:290
+msgctxt "@default|"
+msgid "Purchase Date"
+msgstr "Дата приобретения"
+
+#: src/core/tags/frame.cpp:291
+msgctxt "@default|"
+msgid "Rating/Advisory"
+msgstr "Рейтинг или предупреждение"
+
+#: src/core/tags/frame.cpp:292
+msgctxt "@default|"
+msgid "Country Code"
+msgstr "Код страны"
+
+#: src/core/tags/frame.cpp:293
+msgctxt "@default|"
+msgid "Sort Show"
+msgstr "Упорядочить по телепередачам"
+
+#: src/core/tags/frame.cpp:294
+msgctxt "@default|"
+msgid "Media Type"
+msgstr "Тип носителя"
+
+#: src/core/tags/frame.cpp:295
+msgctxt "@default|"
+msgid "TV Episode"
+msgstr "Серия телепередачи"
+
+#: src/core/tags/frame.cpp:296
+msgctxt "@default|"
+msgid "TV Episode Number"
+msgstr "Номер серии телепередачи"
+
+#: src/core/tags/frame.cpp:297
+msgctxt "@default|"
+msgid "TV Network Name"
+msgstr "Название ТВ-компании"
+
+#: src/core/tags/frame.cpp:298
+msgctxt "@default|"
+msgid "TV Show Name"
+msgstr "Название телепередачи"
+
+#: src/core/tags/frame.cpp:299
+msgctxt "@default|"
+msgid "TV Season"
+msgstr "Телевизионный сезон"
+
+#: src/core/tags/frame.cpp:303
+msgctxt "@default|"
+msgid "Movement Count"
+msgstr "Количество частей"
+
+#: src/core/tags/frame.cpp:304
+msgctxt "@default|"
+msgid "Show Work & Movement"
+msgstr "Показывать произведение и часть"
+
+#: src/core/tags/frame.cpp:306
+msgctxt "@default|"
+msgid "Podcast URL"
+msgstr "URL-адрес подкаста"
+
+#: src/core/tags/frame.cpp:307
+msgctxt "@default|"
+msgid "Podcast GUID"
+msgstr "GUID подкаста"
+
+#: src/core/tags/frame.cpp:308
+msgctxt "@default|"
+msgid "Composer ID"
+msgstr "Идентификатор композитора"
+
+#: src/core/tags/frame.cpp:309
+msgctxt "@default|"
+msgid "XID"
+msgstr "XID"
+
+#: src/core/tags/frame.cpp:310
+msgctxt "@default|"
+msgid "Archival Location"
+msgstr "Место архивного хранения документа"
+
+#: src/core/tags/frame.cpp:311
+msgctxt "@default|"
+msgid "Commissioned"
+msgstr "Заказчик"
+
+#: src/core/tags/frame.cpp:312
+msgctxt "@default|"
+msgid "Cropped"
+msgstr "Обрезанные"
+
+#: src/core/tags/frame.cpp:313
+msgctxt "@default|"
+msgid "Dimensions"
+msgstr "Размеры"
+
+#: src/core/tags/frame.cpp:314
+msgctxt "@default|"
+msgid "Dots Per Inch"
+msgstr "Точек на дюйм"
+
+#: src/core/tags/frame.cpp:315
+msgctxt "@default|"
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: src/core/tags/frame.cpp:316
+msgctxt "@default|"
+msgid "Lightness"
+msgstr "Освещённость"
+
+#: src/core/tags/frame.cpp:317
+msgctxt "@default|"
+msgid "Number of Colors"
+msgstr "Количество цветов"
+
+#: src/core/tags/frame.cpp:318
+msgctxt "@default|"
+msgid "Subject"
+msgstr "Тема"
+
+#: src/core/tags/frame.cpp:319
+msgctxt "@default|"
+msgid "Sharpness"
+msgstr "Резкость"
+
+#: src/core/tags/frame.cpp:320
+msgctxt "@default|"
+msgid "Source Form"
+msgstr "Исходная форма"
+
+#: src/core/tags/frame.cpp:973
+#, qt-format
+msgctxt "@default|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/core/tags/frame.cpp:978
+msgctxt "@default|"
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+#: src/core/tags/frame.cpp:982
+msgctxt "@default|"
+msgid "All Tags"
+msgstr "Все теги"
+
+#: src/core/tags/frame.cpp:1798
+msgctxt "@default|"
+msgid "Prepend t1/append t2 if not empty"
+msgstr "Добавить к началу t1 / добавить к концу t2, если не является пустым"
+
+#: src/core/tags/framenotice.cpp:187
+msgctxt "@default|"
+msgid "Truncated"
+msgstr "Усечённые"
+
+#: src/core/tags/framenotice.cpp:188
+msgctxt "@default|"
+msgid "Size is too large"
+msgstr "Размер слишком велик"
+
+#: src/core/tags/framenotice.cpp:189
+msgctxt "@default|"
+msgid "Must be unique"
+msgstr "Должно быть уникальным"
+
+#: src/core/tags/framenotice.cpp:190
+msgctxt "@default|"
+msgid "New line is forbidden"
+msgstr "Перевод строки запрещён"
+
+#: src/core/tags/framenotice.cpp:191
+msgctxt "@default|"
+msgid "Carriage return is forbidden"
+msgstr "Возврат каретки запрещён"
+
+#: src/core/tags/framenotice.cpp:192
+msgctxt "@default|"
+msgid "Owner must be non-empty"
+msgstr "Необходимо ввести сведения о владельце"
+
+#: src/core/tags/framenotice.cpp:193
+msgctxt "@default|"
+msgid "Must be numeric"
+msgstr "Должно быть в числовом формате"
+
+#: src/core/tags/framenotice.cpp:194
+msgctxt "@default|"
+msgid "Must be numeric or number/total"
+msgstr "Должно быть в числовом формате или формате «номер / общее количество»"
+
+#: src/core/tags/framenotice.cpp:195
+msgctxt "@default|"
+msgid "Format is DDMM"
+msgstr "Формат — ДДММ"
+
+#: src/core/tags/framenotice.cpp:196
+msgctxt "@default|"
+msgid "Format is HHMM"
+msgstr "Формат — ЧЧММ"
+
+#: src/core/tags/framenotice.cpp:197
+msgctxt "@default|"
+msgid "Format is YYYY"
+msgstr "Формат — ГГГГ"
+
+#: src/core/tags/framenotice.cpp:198
+msgctxt "@default|"
+msgid "Must begin with a year and a space character"
+msgstr "Должно начинаться с года и пробела"
+
+#: src/core/tags/framenotice.cpp:199
+msgctxt "@default|"
+msgid "Must be ISO 8601 date/time"
+msgstr "Формат даты и времени должен соответствовать стандарту ISO 8601"
+
+#: src/core/tags/framenotice.cpp:200
+msgctxt "@default|"
+msgid ""
+"Must be musical key, 3 characters, A-G, b, #, m, o\n"
+"or Camelot wheel value 1A-12A, 1B-12B"
+msgstr ""
+"Должно быть музыкальным ключом, 3 символа, A-G, b, #, m, o,\n"
+"или значением колеса Камелот (Camelot wheel) 1A-12A, 1B-12B"
+
+#: src/core/tags/framenotice.cpp:202
+msgctxt "@default|"
+msgid "Must have ISO 639-2 language code, 3 lowercase characters"
+msgstr ""
+"Код языка должен соответствовать стандарту ISO 639-2, 3 символа в нижнем "
+"регистре"
+
+#: src/core/tags/framenotice.cpp:203
+msgctxt "@default|"
+msgid "Must be ISRC code, 12 characters"
+msgstr "Должно быть кодом ISRC, 12 символов"
+
+#: src/core/tags/framenotice.cpp:204
+msgctxt "@default|"
+msgid "Must be list of strings separated by '|'"
+msgstr "Должно быть списком строк, разделённых «|»"
+
+#: src/core/tags/framenotice.cpp:205
+msgctxt "@default|"
+msgid "Has excess white space"
+msgstr "Имеется лишний пробел"
+
+#: src/core/tags/pictureframe.cpp:42
+msgctxt "@default|"
+msgid "32x32 pixels PNG file icon"
+msgstr "Значок PNG-файла, 32x32 точки"
+
+#: src/core/tags/pictureframe.cpp:43
+msgctxt "@default|"
+msgid "Other file icon"
+msgstr "Другой значок файла"
+
+#: src/core/tags/pictureframe.cpp:44
+msgctxt "@default|"
+msgid "Cover (front)"
+msgstr "Обложка (лицевая сторона)"
+
+#: src/core/tags/pictureframe.cpp:45
+msgctxt "@default|"
+msgid "Cover (back)"
+msgstr "Обложка (обратная сторона)"
+
+#: src/core/tags/pictureframe.cpp:46
+msgctxt "@default|"
+msgid "Leaflet page"
+msgstr "Страница буклета"
+
+#: src/core/tags/pictureframe.cpp:48
+msgctxt "@default|"
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ведущий исполнитель или солист"
+
+#: src/core/tags/pictureframe.cpp:49
+msgctxt "@default|"
+msgid "Artist/performer"
+msgstr "Исполнитель"
+
+#: src/core/tags/pictureframe.cpp:51
+msgctxt "@default|"
+msgid "Band/Orchestra"
+msgstr "Группа или оркестр"
+
+#: src/core/tags/pictureframe.cpp:53
+msgctxt "@default|"
+msgid "Lyricist/text writer"
+msgstr "Автор текста"
+
+#: src/core/tags/pictureframe.cpp:54
+msgctxt "@default|"
+msgid "Recording Location"
+msgstr "Место записи"
+
+#: src/core/tags/pictureframe.cpp:55
+msgctxt "@default|"
+msgid "During recording"
+msgstr "Во время записи"
+
+#: src/core/tags/pictureframe.cpp:56
+msgctxt "@default|"
+msgid "During performance"
+msgstr "Во время исполнения"
+
+#: src/core/tags/pictureframe.cpp:57
+msgctxt "@default|"
+msgid "Movie/video screen capture"
+msgstr "Снимок экрана фильма или видео"
+
+#: src/core/tags/pictureframe.cpp:58
+msgctxt "@default|"
+msgid "A bright coloured fish"
+msgstr "Яркая рыба (логотип OGG Vorbis)"
+
+#: src/core/tags/pictureframe.cpp:59
+msgctxt "@default|"
+msgid "Illustration"
+msgstr "Иллюстрация"
+
+#: src/core/tags/pictureframe.cpp:60
+msgctxt "@default|"
+msgid "Band/artist logotype"
+msgstr "Логотип группы или исполнителя"
+
+#: src/core/tags/pictureframe.cpp:61
+msgctxt "@default|"
+msgid "Publisher/Studio logotype"
+msgstr "Логотип издателя или студии"
+
+#: src/core/tags/trackdata.cpp:204
+msgctxt "@default|"
+msgid "Absolute path to file"
+msgstr "Абсолютный путь к файлу"
+
+#: src/core/tags/trackdata.cpp:210
+msgctxt "@default|"
+msgid "Modification date"
+msgstr "Дата изменения"
+
+#: src/core/tags/trackdata.cpp:216
+msgctxt "@default|"
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: src/core/tags/trackdata.cpp:226
+msgctxt "@default|"
+msgid "Directory name"
+msgstr "Имя каталога"
+
+#: src/core/tags/trackdata.cpp:241
+msgctxt "@default|"
+msgid "Number of tracks"
+msgstr "Количество дорожек"
+
+#: src/core/tags/trackdata.cpp:246
+msgctxt "@default|"
+msgid "Extension"
+msgstr "Расширение"
+
+#: src/core/tags/trackdata.cpp:259
+msgctxt "@default|"
+msgid "Bitrate"
+msgstr "Скорость передачи (битрейт)"
+
+#: src/core/tags/trackdata.cpp:269
+msgctxt "@default|"
+msgid "Samplerate"
+msgstr "Частота дискретизации"
+
+#: src/core/tags/trackdata.cpp:276
+msgctxt "@default|"
+msgid "Channels"
+msgstr "Каналы"
+
+#: src/core/tags/trackdata.cpp:281
+msgctxt "@default|"
+msgid "Codec"
+msgstr "Кодек"
+
+#: src/core/tags/trackdata.cpp:286
+msgctxt "@default|"
+msgid "Marked"
+msgstr "Отмеченные"
+
+#: src/core/tags/trackdata.cpp:292
+msgctxt "@default|"
+msgid "Escape for HTML"
+msgstr "Escape для HTML"
+
+#: src/gui/dialogs/batchimportdialog.cpp:163
+msgctxt "BatchImportDialog|"
+msgid "Automatic Import"
+msgstr "Автоматический импорт"
+
+#: src/gui/dialogs/batchimportdialog.cpp:179
+msgctxt "BatchImportDialog|"
+msgid "D&estination:"
+msgstr "М&есто назначения:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:194
+msgctxt "BatchImportDialog|"
+msgid "&Profile:"
+msgstr "&Профиль:"
+
+#: src/gui/dialogs/batchimportdialog.cpp:205
+msgctxt "BatchImportDialog|"
+msgid "Add"
+msgstr "Добавить"
+
+#: src/gui/dialogs/batchimportdialog.cpp:209
+msgctxt "BatchImportDialog|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/gui/dialogs/batchimportdialog.cpp:230
+msgctxt "BatchImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/batchimportdialog.cpp:236
+msgctxt "BatchImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/batchimportdialog.cpp:245
+msgctxt "BatchImportDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/batchimportdialog.cpp:285
+msgctxt "BatchImportDialog|"
+msgid "New"
+msgstr "Создать"
+
+#: src/gui/dialogs/batchimportdialog.cpp:477
+msgctxt "BatchImportDialog|"
+msgid "Reading Folder"
+msgstr "Чтение каталога"
+
+#: src/gui/dialogs/batchimportdialog.cpp:481
+msgctxt "BatchImportDialog|"
+msgid "Started"
+msgstr "Запущено"
+
+#: src/gui/dialogs/batchimportdialog.cpp:484
+msgctxt "BatchImportDialog|"
+msgid "Source"
+msgstr "Источник"
+
+#: src/gui/dialogs/batchimportdialog.cpp:487
+msgctxt "BatchImportDialog|"
+msgid "Querying"
+msgstr "Запрос"
+
+#: src/gui/dialogs/batchimportdialog.cpp:491
+msgctxt "BatchImportDialog|"
+msgid "Fetching"
+msgstr "Получение"
+
+#: src/gui/dialogs/batchimportdialog.cpp:494
+msgctxt "BatchImportDialog|"
+msgid "Data received"
+msgstr "Полученные данные"
+
+#: src/gui/dialogs/batchimportdialog.cpp:497
+msgctxt "BatchImportDialog|"
+msgid "Cover"
+msgstr "Обложка"
+
+#: src/gui/dialogs/batchimportdialog.cpp:501
+msgctxt "BatchImportDialog|"
+msgid "Finished"
+msgstr "Готово"
+
+#: src/gui/dialogs/batchimportdialog.cpp:505
+msgctxt "BatchImportDialog|"
+msgid "Aborted"
+msgstr "Прервано"
+
+#: src/gui/dialogs/batchimportdialog.cpp:508
+msgctxt "BatchImportDialog|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "A&bort"
+msgstr "Прер&вать"
+
+#: src/gui/dialogs/batchimportdialog.cpp:524
+msgctxt "BatchImportDialog|"
+msgid "S&tart"
+msgstr "На&чать"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+msgctxt "BatchImportSourceDialog|"
+msgid "Import Source"
+msgstr "Источник импорта"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+msgctxt "BatchImportSourceDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+msgctxt "BatchImportSourceDialog|"
+msgid "&Accuracy:"
+msgstr "&Точность:"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+msgctxt "BatchImportSourceDialog|"
+msgid "&Standard Tags"
+msgstr "&Стандартные теги"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+msgctxt "BatchImportSourceDialog|"
+msgid "&Additional Tags"
+msgstr "&Дополнительные теги"
+
+#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+msgctxt "BatchImportSourceDialog|"
+msgid "C&over Art"
+msgstr "&Обложки"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:83
+#: src/gui/dialogs/browsecoverartdialog.cpp:263
+msgctxt "BrowseCoverArtDialog|"
+msgid "Browse Cover Art"
+msgstr "Найти обложки"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:92
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Artist/Album"
+msgstr "Исполнитель и &альбом"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:105
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Source"
+msgstr "&Источник"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "Source:"
+msgstr "Источник:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:107
+msgctxt "BrowseCoverArtDialog|"
+msgid "URL:"
+msgstr "URL-адрес:"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:118
+msgctxt "BrowseCoverArtDialog|"
+msgid "&URL extraction"
+msgstr "Извлечение &URL-адреса"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Match"
+msgstr "Соответствие"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:120
+msgctxt "BrowseCoverArtDialog|"
+msgid "Picture URL"
+msgstr "URL-адрес изображения"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:130
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:135
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:144
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Browse"
+msgstr "&Браузер"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:145
+msgctxt "BrowseCoverArtDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:177
+msgctxt "BrowseCoverArtDialog|"
+msgid "Click Browse to start"
+msgstr "Нажмите кнопку «Браузер» для начала поиска"
+
+#: src/gui/dialogs/browsecoverartdialog.cpp:183
+msgctxt "BrowseCoverArtDialog|"
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "Затем перетащите изображение из браузера в Kid3."
+
+#: src/gui/dialogs/configdialogpages.cpp:167
+msgctxt "ConfigDialogPages|"
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: src/gui/dialogs/configdialogpages.cpp:170
+msgctxt "ConfigDialogPages|"
+msgid "&Mark truncated fields"
+msgstr "&Отмечать усечённые поля"
+
+#: src/gui/dialogs/configdialogpages.cpp:172
+#: src/gui/dialogs/configdialogpages.cpp:201
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding:"
+msgstr "Кодировка т&екста:"
+
+#: src/gui/dialogs/configdialogpages.cpp:186
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: src/gui/dialogs/configdialogpages.cpp:189
+msgctxt "ConfigDialogPages|"
+msgid "Use &track/total number of tracks format"
+msgstr "Использовать &формат «номер дорожки / всего дорожек»"
+
+#: src/gui/dialogs/configdialogpages.cpp:192
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "Количество &цифр в номере дорожки:"
+
+#: src/gui/dialogs/configdialogpages.cpp:196
+msgctxt "ConfigDialogPages|"
+msgid "&Genre as text instead of numeric string"
+msgstr "&Жанр как текст (вместо числовой строки)"
+
+#: src/gui/dialogs/configdialogpages.cpp:198
+msgctxt "ConfigDialogPages|"
+msgid "&WAV files with lowercase id3 chunk"
+msgstr "&Файлы WAV с блоком id3 в нижнем регистре"
+
+#: src/gui/dialogs/configdialogpages.cpp:200
+msgctxt "ConfigDialogPages|"
+msgid "Mar&k standard violations"
+msgstr "&Отмечать нарушения стандарта"
+
+#: src/gui/dialogs/configdialogpages.cpp:219
+msgctxt "ConfigDialogPages|"
+msgid "&Version used for new tags:"
+msgstr "&Версия, используемая для новых тегов:"
+
+#: src/gui/dialogs/configdialogpages.cpp:223
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.3.0"
+msgstr "ID3v2.3.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:225
+msgctxt "ConfigDialogPages|"
+msgid "ID3v2.4.0"
+msgstr "ID3v2.4.0"
+
+#: src/gui/dialogs/configdialogpages.cpp:239
+msgctxt "ConfigDialogPages|"
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: src/gui/dialogs/configdialogpages.cpp:240
+msgctxt "ConfigDialogPages|"
+msgid "Co&mment field name:"
+msgstr "Имя поля ко&мментария:"
+
+#: src/gui/dialogs/configdialogpages.cpp:243
+msgctxt "ConfigDialogPages|"
+msgid "&Picture field name:"
+msgstr "Имя поля &изображения:"
+
+#: src/gui/dialogs/configdialogpages.cpp:265
+msgctxt "ConfigDialogPages|"
+msgid "Picture"
+msgstr "Изображение"
+
+#: src/gui/dialogs/configdialogpages.cpp:268
+msgctxt "ConfigDialogPages|"
+msgid "Mark if &larger than (bytes):"
+msgstr "Отмечать, &если размер больше, чем (в байтах):"
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+msgctxt "ConfigDialogPages|"
+msgid "Custom &Genres"
+msgstr "Пользовательские &жанры"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "&Show only custom genres"
+msgstr "&Показывать только пользовательские жанры"
+
+#: src/gui/dialogs/configdialogpages.cpp:289
+msgctxt "ConfigDialogPages|"
+msgid "&Quick Access Frames"
+msgstr "Фреймы быстро&го доступа"
+
+#: src/gui/dialogs/configdialogpages.cpp:302
+msgctxt "ConfigDialogPages|"
+msgid "Use drag and drop to reorder the items"
+msgstr "Используйте перетаскивание для переупорядочивания пунктов"
+
+#: src/gui/dialogs/configdialogpages.cpp:310
+msgctxt "ConfigDialogPages|"
+msgid "RIFF INFO"
+msgstr "RIFF INFO"
+
+#: src/gui/dialogs/configdialogpages.cpp:311
+msgctxt "ConfigDialogPages|"
+msgid "Track nu&mber field name:"
+msgstr "Имя поля но&мера дорожки:"
+
+#: src/gui/dialogs/configdialogpages.cpp:328
+msgctxt "ConfigDialogPages|"
+msgid "&Tag Format"
+msgstr "&Формат тега"
+
+#: src/gui/dialogs/configdialogpages.cpp:330
+msgctxt "ConfigDialogPages|"
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: src/gui/dialogs/configdialogpages.cpp:340
+msgctxt "ConfigDialogPages|"
+msgid "Tag &1"
+msgstr "Тег &1"
+
+#: src/gui/dialogs/configdialogpages.cpp:342
+msgctxt "ConfigDialogPages|"
+msgid "Tag &2"
+msgstr "Тег &2"
+
+#: src/gui/dialogs/configdialogpages.cpp:343
+msgctxt "ConfigDialogPages|"
+msgid "Tag &3"
+msgstr "Тег &3"
+
+#: src/gui/dialogs/configdialogpages.cpp:344
+msgctxt "ConfigDialogPages|"
+msgid "All Ta&gs"
+msgstr "&Все теги"
+
+#: src/gui/dialogs/configdialogpages.cpp:362
+msgctxt "ConfigDialogPages|"
+msgid "Startup"
+msgstr "Запуск программы"
+
+#: src/gui/dialogs/configdialogpages.cpp:363
+msgctxt "ConfigDialogPages|"
+msgid "&Load last-opened files"
+msgstr "&Загружать при запуске файлы, открытые при последнем выходе"
+
+#: src/gui/dialogs/configdialogpages.cpp:369
+msgctxt "ConfigDialogPages|"
+msgid "Save"
+msgstr "Сохранение"
+
+#: src/gui/dialogs/configdialogpages.cpp:370
+msgctxt "ConfigDialogPages|"
+msgid "&Preserve file timestamp"
+msgstr "&Сохранять метки времени изменения файлов"
+
+#: src/gui/dialogs/configdialogpages.cpp:372
+msgctxt "ConfigDialogPages|"
+msgid "&Mark changes"
+msgstr "&Отмечать изменения"
+
+#: src/gui/dialogs/configdialogpages.cpp:382
+msgctxt "ConfigDialogPages|"
+msgid "F&ilename for cover:"
+msgstr "Имя фа&йла обложки:"
+
+#: src/gui/dialogs/configdialogpages.cpp:383
+msgctxt "ConfigDialogPages|"
+msgid "Text &encoding (Export, Playlist):"
+msgstr "Кодировка т&екста (экспорт, список воспроизведения):"
+
+#: src/gui/dialogs/configdialogpages.cpp:388
+msgctxt "ConfigDialogPages|"
+msgid "File List"
+msgstr "Список файлов"
+
+#: src/gui/dialogs/configdialogpages.cpp:389
+msgctxt "ConfigDialogPages|"
+msgid "Filte&r:"
+msgstr "&Фильтр:"
+
+#: src/gui/dialogs/configdialogpages.cpp:399
+msgctxt "ConfigDialogPages|"
+msgid "Inclu&de folders:"
+msgstr "Вкл&ючить папки:"
+
+#: src/gui/dialogs/configdialogpages.cpp:403
+msgctxt "ConfigDialogPages|"
+msgid "E&xclude folders:"
+msgstr "И&сключить папки:"
+
+#: src/gui/dialogs/configdialogpages.cpp:407
+msgctxt "ConfigDialogPages|"
+msgid "&Show hidden files"
+msgstr "Показывать &скрытые файлы"
+
+#: src/gui/dialogs/configdialogpages.cpp:419
+msgctxt "ConfigDialogPages|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/gui/dialogs/configdialogpages.cpp:422
+msgctxt "ConfigDialogPages|"
+msgid "Filename from tag"
+msgstr "Имя файла из тега"
+
+#: src/gui/dialogs/configdialogpages.cpp:427
+msgctxt "ConfigDialogPages|"
+msgid "Tag from filename"
+msgstr "Тег из имени файла"
+
+#: src/gui/dialogs/configdialogpages.cpp:439
+msgctxt "ConfigDialogPages|"
+msgid "&Filename Format"
+msgstr "&Формат имени файла"
+
+#: src/gui/dialogs/configdialogpages.cpp:455
+msgctxt "ConfigDialogPages|"
+msgid "Filename from Tag"
+msgstr "Имя файла из тега"
+
+#: src/gui/dialogs/configdialogpages.cpp:471
+msgctxt "ConfigDialogPages|"
+msgid "Tag from Filename"
+msgstr "Тег из имени файла"
+
+#: src/gui/dialogs/configdialogpages.cpp:485
+msgctxt "ConfigDialogPages|"
+msgid "Browser"
+msgstr "Браузер"
+
+#: src/gui/dialogs/configdialogpages.cpp:486
+msgctxt "ConfigDialogPages|"
+msgid "Web &browser:"
+msgstr "Веб-&браузер:"
+
+#: src/gui/dialogs/configdialogpages.cpp:495
+msgctxt "ConfigDialogPages|"
+msgid "Context &Menu Commands"
+msgstr "Команды контекстного &меню"
+
+#: src/gui/dialogs/configdialogpages.cpp:498
+msgctxt "ConfigDialogPages|"
+msgid "&Play on double click"
+msgstr "&Воспроизведение по двойному щелчку"
+
+#: src/gui/dialogs/configdialogpages.cpp:519
+msgctxt "ConfigDialogPages|"
+msgid "Proxy"
+msgstr "Прокси"
+
+#: src/gui/dialogs/configdialogpages.cpp:520
+msgctxt "ConfigDialogPages|"
+msgid "&Proxy:"
+msgstr "&Прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:523
+msgctxt "ConfigDialogPages|"
+msgid "&Use authentication with proxy"
+msgstr "&Использовать авторизацию на прокси"
+
+#: src/gui/dialogs/configdialogpages.cpp:525
+msgctxt "ConfigDialogPages|"
+msgid "Proxy user &name:"
+msgstr "&Имя пользователя прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:529
+msgctxt "ConfigDialogPages|"
+msgid "Proxy pass&word:"
+msgstr "П&ароль прокси:"
+
+#: src/gui/dialogs/configdialogpages.cpp:563
+msgctxt "ConfigDialogPages|"
+msgid "&Metadata Plugins && Priority"
+msgstr "&Модули для работы с метаданными и приоритет"
+
+#: src/gui/dialogs/configdialogpages.cpp:575
+msgctxt "ConfigDialogPages|"
+msgid "A&vailable Plugins"
+msgstr "&Доступные модули"
+
+#: src/gui/dialogs/configdialogpages.cpp:586
+msgctxt "ConfigDialogPages|"
+msgid "Changes take only effect after a restart!"
+msgstr "Изменения вступят в силу только после следующего запуска!"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:740
+msgctxt "@default|"
+msgid "Images"
+msgstr "Изображения"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:741
+#: src/gui/widgets/timeeventeditor.cpp:352
+msgctxt "@default|"
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+msgctxt "BinaryOpenSave|"
+msgid "From Clip&board"
+msgstr "Из &буфера обмена"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+msgctxt "BinaryOpenSave|"
+msgid "&To Clipboard"
+msgstr "&В буфер обмена"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+msgctxt "BinaryOpenSave|"
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+msgctxt "BinaryOpenSave|"
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+msgctxt "BinaryOpenSave|"
+msgid "&View..."
+msgstr "&Вид..."
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+msgctxt "EditFrameFieldsDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+msgctxt "EditFrameFieldsDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/exportdialog.cpp:68
+msgctxt "ExportDialog|"
+msgid "Export"
+msgstr "Экспорт"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "H&eader:"
+msgstr "З&аголовок:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "&Tracks:"
+msgstr "Д&орожки:"
+
+#: src/gui/dialogs/exportdialog.cpp:83
+msgctxt "ExportDialog|"
+msgid "F&ooter:"
+msgstr "С&носка:"
+
+#: src/gui/dialogs/exportdialog.cpp:91
+msgctxt "ExportDialog|"
+msgid "To F&ile..."
+msgstr "В фа&йл..."
+
+#: src/gui/dialogs/exportdialog.cpp:96
+msgctxt "ExportDialog|"
+msgid "To Clip&board"
+msgstr "В &буфер обмена"
+
+#: src/gui/dialogs/exportdialog.cpp:105
+msgctxt "ExportDialog|"
+msgid "&Source:"
+msgstr "&Источник:"
+
+#: src/gui/dialogs/exportdialog.cpp:110
+#, qt-format
+msgctxt "ExportDialog|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/gui/dialogs/exportdialog.cpp:122
+msgctxt "ExportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/exportdialog.cpp:127
+msgctxt "ExportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/exportdialog.cpp:136
+msgctxt "ExportDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/exportdialog.cpp:154
+msgctxt "ExportDialog|"
+msgid "File Error"
+msgstr "Ошибка файла"
+
+#: src/gui/dialogs/exportdialog.cpp:155
+msgctxt "ExportDialog|"
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: src/gui/dialogs/filterdialog.cpp:49
+msgctxt "FilterDialog|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/gui/dialogs/filterdialog.cpp:53
+msgctxt "FilterDialog|"
+msgid "&Preview"
+msgstr "&Просмотр"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Filter:"
+msgstr "&Фильтр:"
+
+#: src/gui/dialogs/filterdialog.cpp:69
+msgctxt "FilterDialog|"
+msgid "&Expression:"
+msgstr "&Выражение:"
+
+#: src/gui/dialogs/filterdialog.cpp:75
+msgctxt "FilterDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/filterdialog.cpp:80
+msgctxt "FilterDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/filterdialog.cpp:91
+msgctxt "FilterDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/filterdialog.cpp:182
+msgctxt "FilterDialog|"
+msgid "Started"
+msgstr "Запущено"
+
+#: src/gui/dialogs/filterdialog.cpp:198
+msgctxt "FilterDialog|"
+msgid "Finished"
+msgstr "Готово"
+
+#: src/gui/dialogs/filterdialog.cpp:202
+msgctxt "FilterDialog|"
+msgid "Aborted"
+msgstr "Прервано"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "A&bort"
+msgstr "Прер&вать"
+
+#: src/gui/dialogs/filterdialog.cpp:215
+msgctxt "FilterDialog|"
+msgid "&Apply"
+msgstr "П&рименить"
+
+#: src/gui/dialogs/findreplacedialog.cpp:54
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find and Replace"
+msgstr "Поиск и замена"
+
+#: src/gui/dialogs/findreplacedialog.cpp:59
+msgctxt "FindReplaceDialog|"
+msgid "F&ind:"
+msgstr "На&йти:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:66
+msgctxt "FindReplaceDialog|"
+msgid "&Find"
+msgstr "&Найти"
+
+#: src/gui/dialogs/findreplacedialog.cpp:69
+msgctxt "FindReplaceDialog|"
+msgid "Re&place:"
+msgstr "За&менить:"
+
+#: src/gui/dialogs/findreplacedialog.cpp:76
+msgctxt "FindReplaceDialog|"
+msgid "&Replace"
+msgstr "З&аменить"
+
+#: src/gui/dialogs/findreplacedialog.cpp:79
+msgctxt "FindReplaceDialog|"
+msgid "Replace &all"
+msgstr "Заменить &все"
+
+#: src/gui/dialogs/findreplacedialog.cpp:94
+msgctxt "FindReplaceDialog|"
+msgid "Options"
+msgstr "Параметры"
+
+#: src/gui/dialogs/findreplacedialog.cpp:96
+msgctxt "FindReplaceDialog|"
+msgid "&Match case"
+msgstr "Учитывать &регистр"
+
+#: src/gui/dialogs/findreplacedialog.cpp:98
+msgctxt "FindReplaceDialog|"
+msgid "&Backwards"
+msgstr "Наза&д"
+
+#: src/gui/dialogs/findreplacedialog.cpp:100
+msgctxt "FindReplaceDialog|"
+msgid "Regular &expression"
+msgstr "Регулярное выра&жение"
+
+#: src/gui/dialogs/findreplacedialog.cpp:105
+msgctxt "FindReplaceDialog|"
+msgid "&Tags"
+msgstr "&Теги"
+
+#: src/gui/dialogs/findreplacedialog.cpp:107
+msgctxt "FindReplaceDialog|"
+msgid "Select a&ll"
+msgstr "Вы&брать все"
+
+#: src/gui/dialogs/findreplacedialog.cpp:117
+msgctxt "FindReplaceDialog|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/gui/dialogs/findreplacedialog.cpp:129
+msgctxt "FindReplaceDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/findreplacedialog.cpp:134
+msgctxt "FindReplaceDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/findreplacedialog.cpp:141
+msgctxt "FindReplaceDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/findreplacedialog.cpp:167
+msgctxt "FindReplaceDialog|"
+msgid "Find"
+msgstr "Найти"
+
+#: src/gui/dialogs/importdialog.cpp:128
+msgctxt "ImportDialog|"
+msgid "Accuracy:"
+msgstr "Точность:"
+
+#: src/gui/dialogs/importdialog.cpp:139
+msgctxt "ImportDialog|"
+msgid "Cover Art:"
+msgstr "Обложки:"
+
+#: src/gui/dialogs/importdialog.cpp:148
+msgctxt "ImportDialog|"
+msgid "From F&ile/Clipboard..."
+msgstr "Из файла или &буфера обмена..."
+
+#: src/gui/dialogs/importdialog.cpp:151
+msgctxt "ImportDialog|"
+msgid "From T&ags..."
+msgstr "Из т&егов..."
+
+#: src/gui/dialogs/importdialog.cpp:154
+msgctxt "ImportDialog|"
+msgid "&From Server..."
+msgstr "&С сервера..."
+
+#: src/gui/dialogs/importdialog.cpp:176
+msgctxt "ImportDialog|"
+msgid "D&estination:"
+msgstr "М&есто назначения:"
+
+#: src/gui/dialogs/importdialog.cpp:190
+msgctxt "ImportDialog|"
+msgid "Revert"
+msgstr "Отменить изменения"
+
+#: src/gui/dialogs/importdialog.cpp:199
+msgctxt "ImportDialog|"
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Проверять максимальную допустимую &разницу во времени (в секундах):"
+
+#: src/gui/dialogs/importdialog.cpp:207
+msgctxt "ImportDialog|"
+msgid "Match with:"
+msgstr "Сопоставлять с:"
+
+#: src/gui/dialogs/importdialog.cpp:209
+msgctxt "ImportDialog|"
+msgid "&Length"
+msgstr "&Длительность"
+
+#: src/gui/dialogs/importdialog.cpp:212
+msgctxt "ImportDialog|"
+msgid "T&rack"
+msgstr "&Дорожка"
+
+#: src/gui/dialogs/importdialog.cpp:215
+msgctxt "ImportDialog|"
+msgid "&Title"
+msgstr "&Название"
+
+#: src/gui/dialogs/importdialog.cpp:243
+msgctxt "ImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/importdialog.cpp:245
+msgctxt "ImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/importdialog.cpp:247
+msgctxt "ImportDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/gui/dialogs/importdialog.cpp:249
+msgctxt "ImportDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/qml/app/NumberTracksDialog.qml:32
+msgctxt "NumberTracksDialog|"
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:55
+msgctxt "NumberTracksDialog|"
+msgid "Start &number:"
+msgstr "&Начальный номер:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:67
+msgctxt "NumberTracksDialog|"
+msgid "&Destination:"
+msgstr "М&есто назначения:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:83
+msgctxt "NumberTracksDialog|"
+msgid "&Reset counter for each folder"
+msgstr "&Начинать заново в каждой папке"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:89
+msgctxt "NumberTracksDialog|"
+msgid "&Total number of tracks:"
+msgstr "&Всего дорожек:"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:103
+msgctxt "NumberTracksDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:108
+msgctxt "NumberTracksDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:117
+msgctxt "NumberTracksDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/gui/dialogs/numbertracksdialog.cpp:123
+msgctxt "NumberTracksDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/playlistdialog.cpp:56
+msgctxt "PlaylistDialog|"
+msgid "Create Playlist"
+msgstr "Создать список воспроизведения"
+
+#: src/gui/dialogs/playlistdialog.cpp:144
+msgctxt "PlaylistDialog|"
+msgid "Playlist File Name"
+msgstr "Имя файла cписка воспроизведения"
+
+#: src/gui/dialogs/playlistdialog.cpp:145
+msgctxt "PlaylistDialog|"
+msgid "Same as &folder name"
+msgstr "Совпадает с именем &каталога"
+
+#: src/gui/dialogs/playlistdialog.cpp:147
+msgctxt "PlaylistDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/playlistdialog.cpp:159
+msgctxt "PlaylistDialog|"
+msgid "Create ne&w empty playlist:"
+msgstr "&Создать список воспроизведения:"
+
+#: src/gui/dialogs/playlistdialog.cpp:160
+msgctxt "PlaylistDialog|"
+msgid "New"
+msgstr "Создать"
+
+#: src/gui/dialogs/playlistdialog.cpp:166
+msgctxt "PlaylistDialog|"
+msgid "Cr&eate in:"
+msgstr "Создать &в:"
+
+#: src/gui/dialogs/playlistdialog.cpp:169
+msgctxt "PlaylistDialog|"
+msgid "Current folder"
+msgstr "Текущем каталоге"
+
+#: src/gui/dialogs/playlistdialog.cpp:170
+msgctxt "PlaylistDialog|"
+msgid "Every folder"
+msgstr "Каждом каталоге"
+
+#: src/gui/dialogs/playlistdialog.cpp:171
+msgctxt "PlaylistDialog|"
+msgid "Top-level folder"
+msgstr "Каталоге верхнего уровня"
+
+#: src/gui/dialogs/playlistdialog.cpp:173
+msgctxt "PlaylistDialog|"
+msgid "Playlist Content"
+msgstr "Содержимое списка воспроизведения"
+
+#: src/gui/dialogs/playlistdialog.cpp:174
+msgctxt "PlaylistDialog|"
+msgid "For&mat:"
+msgstr "Фо&рмат:"
+
+#: src/gui/dialogs/playlistdialog.cpp:178
+msgctxt "PlaylistDialog|"
+msgid "Incl&ude only the selected files"
+msgstr "Вклю&чать только выбранные файлы"
+
+#: src/gui/dialogs/playlistdialog.cpp:179
+msgctxt "PlaylistDialog|"
+msgid "Sort by file &name"
+msgstr "Упорядочить по &имени файла"
+
+#: src/gui/dialogs/playlistdialog.cpp:181
+msgctxt "PlaylistDialog|"
+msgid "Sort by &tag field"
+msgstr "Упорядочить по полю &тега"
+
+#: src/gui/dialogs/playlistdialog.cpp:196
+msgctxt "PlaylistDialog|"
+msgid "Use &relative path for files in playlist"
+msgstr "Использовать &относительный путь для файлов в списке воспроизведения"
+
+#: src/gui/dialogs/playlistdialog.cpp:198
+msgctxt "PlaylistDialog|"
+msgid "Use full p&ath for files in playlist"
+msgstr "Использовать &абсолютный путь для файлов в списке воспроизведения"
+
+#: src/gui/dialogs/playlistdialog.cpp:199
+msgctxt "PlaylistDialog|"
+msgid "Write only &list of files"
+msgstr "Записать только &список файлов"
+
+#: src/gui/dialogs/playlistdialog.cpp:201
+msgctxt "PlaylistDialog|"
+msgid "Write &info using"
+msgstr "Записать &информацию, используя"
+
+#: src/gui/dialogs/playlistdialog.cpp:212
+msgctxt "PlaylistDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/playlistdialog.cpp:216
+msgctxt "PlaylistDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/playlistdialog.cpp:224
+msgctxt "PlaylistDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/gui/dialogs/playlistdialog.cpp:227
+msgctxt "PlaylistDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:114
+msgctxt "PlaylistEditDialog|"
+msgid "Playlist"
+msgstr "Задержка списка воспроизведения"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:120
+msgctxt "PlaylistEditDialog|"
+msgid " [modified]"
+msgstr " [изменено]"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:130
+msgctxt "PlaylistEditDialog|"
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/gui/dialogs/playlisteditdialog.cpp:131
+msgctxt "PlaylistEditDialog|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменён.\n"
+"Сохранить его?"
+
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+msgctxt "RenDirDialog|"
+msgid "Rename Folder"
+msgstr "Переименовать каталог"
+
+#: src/gui/dialogs/rendirdialog.cpp:64
+msgctxt "RenDirDialog|"
+msgid "Format"
+msgstr "Формат"
+
+#: src/gui/dialogs/rendirdialog.cpp:69
+msgctxt "RenDirDialog|"
+msgid "Preview"
+msgstr "Просмотр"
+
+#: src/gui/dialogs/rendirdialog.cpp:73
+msgctxt "RenDirDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/rendirdialog.cpp:96
+msgctxt "RenDirDialog|"
+msgid "Create Folder"
+msgstr "Создать каталог"
+
+#: src/gui/dialogs/rendirdialog.cpp:97
+msgctxt "RenDirDialog|"
+msgid "&Action:"
+msgstr "Д&ействие:"
+
+#: src/gui/dialogs/rendirdialog.cpp:105
+msgctxt "RenDirDialog|"
+msgid "&Source:"
+msgstr "&Источник:"
+
+#: src/gui/dialogs/rendirdialog.cpp:117
+msgctxt "RenDirDialog|"
+msgid "&Edit..."
+msgstr "&Изменить..."
+
+#: src/gui/dialogs/rendirdialog.cpp:121
+msgctxt "RenDirDialog|"
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: src/gui/dialogs/rendirdialog.cpp:133
+msgctxt "RenDirDialog|"
+msgid "From:"
+msgstr "Из:"
+
+#: src/gui/dialogs/rendirdialog.cpp:134
+msgctxt "RenDirDialog|"
+msgid "To:"
+msgstr "В:"
+
+#: src/gui/dialogs/rendirdialog.cpp:321
+msgctxt "RenDirDialog|"
+msgid "Folder Name from Tag"
+msgstr "Имя каталога из тега"
+
+#: src/gui/dialogs/serverimportdialog.cpp:61
+msgctxt "ServerImportDialog|"
+msgid "&Find"
+msgstr "&Найти"
+
+#: src/gui/dialogs/serverimportdialog.cpp:76
+msgctxt "ServerImportDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:79
+msgctxt "ServerImportDialog|"
+msgid "C&GI Path:"
+msgstr "Путь к C&GI:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:90
+msgctxt "ServerImportDialog|"
+msgid "&Token:"
+msgstr "&Ключевая строка:"
+
+#: src/gui/dialogs/serverimportdialog.cpp:98
+msgctxt "ServerImportDialog|"
+msgid "&Standard Tags"
+msgstr "&Стандартные теги"
+
+#: src/gui/dialogs/serverimportdialog.cpp:99
+msgctxt "ServerImportDialog|"
+msgid "&Additional Tags"
+msgstr "&Дополнительные теги"
+
+#: src/gui/dialogs/serverimportdialog.cpp:100
+msgctxt "ServerImportDialog|"
+msgid "C&over Art"
+msgstr "&Обложки"
+
+#: src/gui/dialogs/serverimportdialog.cpp:114
+msgctxt "ServerImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/serverimportdialog.cpp:116
+msgctxt "ServerImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/serverimportdialog.cpp:118
+msgctxt "ServerImportDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/serverimportdialog.cpp:133
+msgctxt "ServerImportDialog|"
+msgid "Ready."
+msgstr "Готово."
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:83
+msgctxt "ServerTrackImportDialog|"
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:106
+msgctxt "ServerTrackImportDialog|"
+msgid "Track Title/Artist - Album"
+msgstr "Название дорожки и исполнитель — альбом"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:107
+msgctxt "ServerTrackImportDialog|"
+msgid "State"
+msgstr "Состояние"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:115
+msgctxt "ServerTrackImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:117
+msgctxt "ServerTrackImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
+msgctxt "ServerTrackImportDialog|"
+msgid "&OK"
+msgstr "&ОК"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
+msgctxt "ServerTrackImportDialog|"
+msgid "&Apply"
+msgstr "П&рименить"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:121
+msgctxt "ServerTrackImportDialog|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result"
+msgstr "Ничего не найдено"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:229
+#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:247
+msgctxt "ServerTrackImportDialog|"
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: src/gui/dialogs/servertrackimportdialog.cpp:368
+msgctxt "ServerTrackImportDialog|"
+msgid "No result selected"
+msgstr "Результат поиска не выбран"
+
+#: src/gui/dialogs/tagimportdialog.cpp:52
+msgctxt "TagImportDialog|"
+msgid "Import from Tags"
+msgstr "Импорт из тегов"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Source:"
+msgstr "Источник:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:58
+msgctxt "TagImportDialog|"
+msgid "Extraction:"
+msgstr "Извлечение:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:72
+msgctxt "TagImportDialog|"
+msgid "D&estination:"
+msgstr "М&есто назначения:"
+
+#: src/gui/dialogs/tagimportdialog.cpp:79
+msgctxt "TagImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/tagimportdialog.cpp:83
+msgctxt "TagImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/tagimportdialog.cpp:88
+msgctxt "TagImportDialog|"
+msgid "&Apply"
+msgstr "П&рименить"
+
+#: src/gui/dialogs/tagimportdialog.cpp:92
+msgctxt "TagImportDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/dialogs/textimportdialog.cpp:58
+msgctxt "TextImportDialog|"
+msgid "Import from File/Clipboard"
+msgstr "Импорт из файла или буфера обмена"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Header:"
+msgstr "Заголовок:"
+
+#: src/gui/dialogs/textimportdialog.cpp:65
+msgctxt "TextImportDialog|"
+msgid "Tracks:"
+msgstr "Дорожки:"
+
+#: src/gui/dialogs/textimportdialog.cpp:71
+msgctxt "TextImportDialog|"
+msgid "&Help"
+msgstr "&Справка"
+
+#: src/gui/dialogs/textimportdialog.cpp:75
+msgctxt "TextImportDialog|"
+msgid "&Save Settings"
+msgstr "&Сохранить параметры"
+
+#: src/gui/dialogs/textimportdialog.cpp:80
+msgctxt "TextImportDialog|"
+msgid "From F&ile..."
+msgstr "Из фа&йла..."
+
+#: src/gui/dialogs/textimportdialog.cpp:84
+msgctxt "TextImportDialog|"
+msgid "From Clip&board"
+msgstr "Из &буфера обмена"
+
+#: src/gui/dialogs/textimportdialog.cpp:88
+msgctxt "TextImportDialog|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/forms/basemainwindow.cpp:112
+msgctxt "BaseMainWindowImpl|"
+msgid "Download"
+msgstr "Загрузить"
+
+#: src/gui/forms/basemainwindow.cpp:216
+msgctxt "BaseMainWindowImpl|"
+msgid "Opening folder..."
+msgstr "Открытие каталога..."
+
+#: src/gui/forms/basemainwindow.cpp:276
+msgctxt "BaseMainWindowImpl|"
+msgid "Abort"
+msgstr "Прервать"
+
+#: src/gui/forms/basemainwindow.cpp:357
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%1 is not writable"
+msgstr "%1 — запись невозможна"
+
+#: src/gui/forms/basemainwindow.cpp:365
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: src/gui/forms/basemainwindow.cpp:367 src/gui/forms/basemainwindow.cpp:373
+#: src/gui/forms/basemainwindow.cpp:1095 src/gui/forms/basemainwindow.cpp:1100
+#: src/gui/forms/basemainwindow.cpp:1539 src/gui/forms/basemainwindow.cpp:1548
+#: src/gui/forms/basemainwindow.cpp:1624
+msgctxt "BaseMainWindowImpl|"
+msgid "File Error"
+msgstr "Ошибка файла"
+
+#: src/gui/forms/basemainwindow.cpp:370
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Ошибка при записи файла. Изменить разрешения?"
+
+#: src/gui/forms/basemainwindow.cpp:424
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменён.\n"
+"Сохранить его?"
+
+#: src/gui/forms/basemainwindow.cpp:426 src/gui/forms/basemainwindow.cpp:467
+msgctxt "BaseMainWindowImpl|"
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/gui/forms/basemainwindow.cpp:465
+msgctxt "BaseMainWindowImpl|"
+msgid ""
+"A playlist has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменён.\n"
+"Сохранить его?"
+
+#: src/gui/forms/basemainwindow.cpp:576
+msgctxt "BaseMainWindowImpl|"
+msgid "Exiting..."
+msgstr "Выход..."
+
+#: src/gui/forms/basemainwindow.cpp:663
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n folders"
+msgid_plural "%n folders"
+msgstr[0] "%n папка"
+msgstr[1] "%n папки"
+msgstr[2] "%n папок"
+
+#: src/gui/forms/basemainwindow.cpp:668
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n files"
+msgid_plural "%n files"
+msgstr[0] "%n файл"
+msgstr[1] "%n файла"
+msgstr[2] "%n файлов"
+
+#: src/gui/forms/basemainwindow.cpp:673
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "%n selected"
+msgid_plural "%n selected"
+msgstr[0] "%n выбран"
+msgstr[1] "%n выбрано"
+msgstr[2] "%n выбрано"
+
+#: src/gui/forms/basemainwindow.cpp:676
+msgctxt "BaseMainWindowImpl|"
+msgid "Ready."
+msgstr "Готово."
+
+#: src/gui/forms/basemainwindow.cpp:738
+msgctxt "BaseMainWindowImpl|"
+msgid "Creating playlist..."
+msgstr "Создание списка воспроизведения..."
+
+#: src/gui/forms/basemainwindow.cpp:786
+msgctxt "BaseMainWindowImpl|"
+msgid "Files not found"
+msgstr "Файлы не найдены"
+
+#: src/gui/forms/basemainwindow.cpp:787
+msgctxt "BaseMainWindowImpl|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/gui/forms/basemainwindow.cpp:813
+msgctxt "BaseMainWindowImpl|"
+msgid "Import"
+msgstr "Импорт"
+
+#: src/gui/forms/basemainwindow.cpp:1093 src/gui/forms/basemainwindow.cpp:1099
+#: src/gui/forms/basemainwindow.cpp:1540 src/gui/forms/basemainwindow.cpp:1549
+msgctxt "BaseMainWindowImpl|"
+msgid "Error while renaming:\n"
+msgstr "Ошибка при переименовании:\n"
+
+#: src/gui/forms/basemainwindow.cpp:1094
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing directories?"
+msgstr "Повторить после закрытия каталогов?"
+
+#: src/gui/forms/basemainwindow.cpp:1171
+msgctxt "BaseMainWindowImpl|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/gui/forms/basemainwindow.cpp:1242
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid " [filtered %1/%2]"
+msgstr " [фильтровано %1/%2]"
+
+#: src/gui/forms/basemainwindow.cpp:1356
+msgctxt "BaseMainWindowImpl|"
+msgid "Add Frame"
+msgstr "Добавить фрейм"
+
+#: src/gui/forms/basemainwindow.cpp:1357
+msgctxt "BaseMainWindowImpl|"
+msgid "Select the frame ID"
+msgstr "Выберите идентификатор фрейма"
+
+#: src/gui/forms/basemainwindow.cpp:1503
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename File"
+msgstr "Переименовать файл"
+
+#: src/gui/forms/basemainwindow.cpp:1504
+msgctxt "BaseMainWindowImpl|"
+msgid "Enter new file name:"
+msgstr "Введите новое имя файла:"
+
+#: src/gui/forms/basemainwindow.cpp:1541 src/gui/forms/basemainwindow.cpp:1550
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Rename %1 to %2 failed\n"
+msgstr "Не удалось переименовать %1 в %2\n"
+
+#: src/gui/forms/basemainwindow.cpp:1542
+msgctxt "BaseMainWindowImpl|"
+msgid "Retry after closing folders?"
+msgstr "Повторить после закрытия каталогов?"
+
+#: src/gui/forms/basemainwindow.cpp:1560
+#, qt-format
+msgctxt "@default|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Переместить эти элементы (%1) в корзину?"
+
+#: src/gui/forms/basemainwindow.cpp:1589
+#, qt-format
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Переместить эти элементы (%1) в корзину?"
+
+#: src/gui/forms/basemainwindow.cpp:1591
+msgctxt "BaseMainWindowImpl|"
+msgid "Do you really want to move this item to the trash?"
+msgstr "Переместить этот элемент в корзину?"
+
+#: src/gui/forms/basemainwindow.cpp:1593
+msgctxt "BaseMainWindowImpl|"
+msgid "Move to Trash"
+msgstr "Переместить в корзину"
+
+#: src/gui/forms/basemainwindow.cpp:1622
+msgctxt "BaseMainWindowImpl|"
+msgid "Folder must be empty.\n"
+msgstr "Каталог должен быть пуст.\n"
+
+#: src/gui/forms/basemainwindow.cpp:1623
+msgctxt "BaseMainWindowImpl|"
+msgid "Could not move these files to the Trash"
+msgstr "Не удалось переместить элементы в корзину"
+
+#: src/gui/forms/basemainwindow.cpp:1656
+msgctxt "BaseMainWindowImpl|"
+msgid "Expand All"
+msgstr "Развернуть все"
+
+#: src/gui/forms/basemainwindow.cpp:1766
+msgctxt "BaseMainWindowImpl|"
+msgid "A&bort"
+msgstr "Прер&вать"
+
+#: src/gui/forms/configurabletreeview.cpp:49
+msgctxt "ConfigurableTreeView|"
+msgid "Automatic Column Widths"
+msgstr "Автоматическая ширина столбцов"
+
+#: src/gui/forms/configurabletreeview.cpp:56
+msgctxt "ConfigurableTreeView|"
+msgid "Custom Column Widths"
+msgstr "Выборочная ширина столбцов"
+
+#: src/gui/forms/filelist.cpp:110
+msgctxt "FileList|"
+msgid "C&lear"
+msgstr "О&чистить"
+
+#: src/gui/forms/filelist.cpp:114
+msgctxt "FileList|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+msgctxt "FileList|"
+msgid "&Expand all"
+msgstr "&Развернуть все"
+
+#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+msgctxt "FileList|"
+msgid "&Collapse all"
+msgstr "&Свернуть все"
+
+#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+msgctxt "FileList|"
+msgid "&Play"
+msgstr "&Воспроизведение"
+
+#: src/gui/forms/filelist.cpp:380
+msgctxt "FileList|"
+msgid "E&dit"
+msgstr "&Правка"
+
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+msgctxt "FileList|"
+msgid "&Open"
+msgstr "&Открыть"
+
+#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+msgctxt "FileList|"
+msgid "Open Containing &Folder"
+msgstr "О&ткрыть содержащую папку"
+
+#: src/gui/forms/filelist.cpp:563
+msgctxt "FileList|"
+msgid "Execute "
+msgstr "Выполнить "
+
+#: src/gui/forms/filelist.cpp:572
+msgctxt "FileList|"
+msgid "Could not execute "
+msgstr "Не удалось выполнить "
+
+#: src/gui/forms/kid3form.cpp:280
+msgctxt "Kid3Form|"
+msgid "Kid3"
+msgstr "Kid3"
+
+#: src/gui/forms/kid3form.cpp:334 src/gui/forms/kid3form.cpp:1224
+#: src/gui/forms/kid3form.cpp:1225
+msgctxt "Kid3Form|"
+msgid "F&ile"
+msgstr "Ф&айл"
+
+#: src/gui/forms/kid3form.cpp:345
+msgctxt "Kid3Form|"
+msgid "Name:"
+msgstr "Имя:"
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:404
+msgctxt "Kid3Form|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/forms/kid3form.cpp:385
+msgctxt "Kid3Form|"
+msgid "From:"
+msgstr "Из:"
+
+#: src/gui/forms/kid3form.cpp:391 src/gui/forms/kid3form.cpp:417
+#: src/gui/forms/kid3form.cpp:499 src/gui/forms/kid3form.cpp:523
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/gui/forms/kid3form.cpp:393
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Filename from Tag %1"
+msgstr "Имя файла из тега %1"
+
+#: src/gui/forms/kid3form.cpp:410
+msgctxt "Kid3Form|"
+msgid "To:"
+msgstr "В:"
+
+#: src/gui/forms/kid3form.cpp:418
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag %1 from Filename"
+msgstr "Тег %1 из имени файла"
+
+#: src/gui/forms/kid3form.cpp:439 src/gui/forms/kid3form.cpp:890
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Tag &%1"
+msgstr "Тег &%1"
+
+#: src/gui/forms/kid3form.cpp:468
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "From Tag %1"
+msgstr "Из тега %1"
+
+#: src/gui/forms/kid3form.cpp:476 src/gui/forms/kid3form.cpp:532
+msgctxt "Kid3Form|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/gui/forms/kid3form.cpp:484 src/gui/forms/kid3form.cpp:508
+msgctxt "Kid3Form|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/gui/forms/kid3form.cpp:491
+msgctxt "Kid3Form|"
+msgid "From"
+msgstr "Из"
+
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+msgctxt "Kid3Form|"
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/gui/forms/kid3form.cpp:515
+msgctxt "Kid3Form|"
+msgid "To"
+msgstr "В"
+
+#: src/gui/forms/kid3form.cpp:542
+msgctxt "Kid3Form|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/gui/forms/kid3form.cpp:556
+msgctxt "Kid3Form|"
+msgid "Edit..."
+msgstr "Изменить..."
+
+#: src/gui/forms/kid3form.cpp:562
+msgctxt "Kid3Form|"
+msgid "Add..."
+msgstr "Добавить..."
+
+#: src/gui/forms/kid3form.cpp:568
+msgctxt "Kid3Form|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/gui/forms/sectionactions.cpp:147
+msgctxt "SectionActions|"
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: src/gui/forms/sectionactions.cpp:149
+msgctxt "SectionActions|"
+msgid "Next"
+msgstr "Следующий"
+
+#: src/gui/forms/sectionactions.cpp:151
+msgctxt "SectionActions|"
+msgid "Transfer"
+msgstr "Передача"
+
+#: src/gui/forms/sectionactions.cpp:154
+msgctxt "SectionActions|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/gui/forms/sectionactions.cpp:156
+msgctxt "SectionActions|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/gui/forms/sectionactions.cpp:158
+msgctxt "SectionActions|"
+msgid "Remove"
+msgstr "Убрать"
+
+#: src/gui/forms/sectionactions.cpp:161
+msgctxt "SectionActions|"
+msgid "Edit"
+msgstr "Правка"
+
+#: src/gui/forms/sectionactions.cpp:163
+msgctxt "SectionActions|"
+msgid "Add"
+msgstr "Добавить"
+
+#: src/gui/forms/sectionactions.cpp:165
+msgctxt "SectionActions|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/gui/forms/sectionactions.cpp:168
+msgctxt "SectionActions|"
+msgid "Open Parent Folder"
+msgstr "Открыть родительский каталог"
+
+#: src/gui/forms/sectionactions.cpp:171
+msgctxt "SectionActions|"
+msgid "Open Current Folder"
+msgstr "Открыть текущую папку"
+
+#: src/gui/widgets/abstractlistedit.cpp:50
+msgctxt "AbstractListEdit|"
+msgid "&Add..."
+msgstr "&Добавить..."
+
+#: src/gui/widgets/abstractlistedit.cpp:51
+msgctxt "AbstractListEdit|"
+msgid "Move &Up"
+msgstr "Переместить вв&ерх"
+
+#: src/gui/widgets/abstractlistedit.cpp:52
+msgctxt "AbstractListEdit|"
+msgid "Move &Down"
+msgstr "Переместить &вниз"
+
+#: src/gui/widgets/abstractlistedit.cpp:53
+msgctxt "AbstractListEdit|"
+msgid "&Edit..."
+msgstr "&Изменить..."
+
+#: src/gui/widgets/abstractlistedit.cpp:54
+msgctxt "AbstractListEdit|"
+msgid "&Remove"
+msgstr "&Убрать"
+
+#: src/gui/widgets/chaptereditor.cpp:54
+msgctxt "ChapterEditor|"
+msgid "Start time"
+msgstr "Время начала"
+
+#: src/gui/widgets/chaptereditor.cpp:55
+msgctxt "ChapterEditor|"
+msgid "End time"
+msgstr "Время завершения"
+
+#: src/gui/widgets/chaptereditor.cpp:56
+msgctxt "ChapterEditor|"
+msgid "Start offset"
+msgstr "Начальное смещение"
+
+#: src/gui/widgets/chaptereditor.cpp:57
+msgctxt "ChapterEditor|"
+msgid "End offset"
+msgstr "Конечное смещение"
+
+#: src/gui/widgets/configtable.cpp:41
+msgctxt "ConfigTable|"
+msgid "&Add"
+msgstr "&Добавить"
+
+#: src/gui/widgets/configtable.cpp:141
+msgctxt "ConfigTable|"
+msgid "&Insert row"
+msgstr "&Вставить строку"
+
+#: src/gui/widgets/configtable.cpp:145
+msgctxt "ConfigTable|"
+msgid "&Delete row"
+msgstr "&Удалить строку"
+
+#: src/gui/widgets/configtable.cpp:149
+msgctxt "ConfigTable|"
+msgid "&Clear row"
+msgstr "&Очистить строку"
+
+#: src/gui/widgets/filenameformatbox.cpp:44
+msgctxt "FilenameFormatBox|"
+msgid "Maximum length:"
+msgstr "Максимальная длина:"
+
+#: src/gui/widgets/formatbox.cpp:48
+msgctxt "FormatBox|"
+msgid "Automatically apply format"
+msgstr "Автоматически применять формат"
+
+#: src/gui/widgets/formatbox.cpp:56
+msgctxt "FormatBox|"
+msgid "String replacement:"
+msgstr "Замена строк:"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "From"
+msgstr "Из"
+
+#: src/gui/widgets/formatbox.cpp:58
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "В"
+
+#: src/gui/widgets/formatbox.cpp:65
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr "Преобразование регистра:"
+
+#: src/gui/widgets/formatbox.cpp:66
+msgctxt "FormatBox|"
+msgid "Locale:"
+msgstr "Локаль:"
+
+#: src/gui/widgets/formatlistedit.cpp:83
+msgctxt "FormatListEdit|"
+msgid "&Add"
+msgstr "&Добавить"
+
+#: src/gui/widgets/formatlistedit.cpp:85
+msgctxt "FormatListEdit|"
+msgid "&Remove"
+msgstr "&Убрать"
+
+#: src/gui/widgets/formatlistedit.cpp:247
+msgctxt "FormatListEdit|"
+msgid "New"
+msgstr "Создать"
+
+#: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
+msgctxt "FrameTable|"
+msgid "WWW Audio Source"
+msgstr "Веб-страница источника аудио"
+
+#: src/gui/widgets/frametable.cpp:161
+msgctxt "FrameTable|"
+msgid "&Select all"
+msgstr "Выбрать в&се"
+
+#: src/gui/widgets/frametable.cpp:163
+msgctxt "FrameTable|"
+msgid "&Deselect all"
+msgstr "Отменить вы&бор"
+
+#: src/gui/widgets/imageviewer.cpp:49
+msgctxt "ImageViewer|"
+msgid "View Picture"
+msgstr "Просмотр изображения"
+
+#: src/gui/widgets/imageviewer.cpp:55
+msgctxt "ImageViewer|"
+msgid "&Close"
+msgstr "&Закрыть"
+
+#: src/gui/widgets/picturelabel.cpp:92
+msgctxt "@default|"
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Перетащите\n"
+"сюда обложку\n"
+"альбома"
+
+#: src/gui/widgets/playtoolbar.cpp:57
+msgctxt "PlayToolBar|"
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: src/gui/widgets/playtoolbar.cpp:62
+msgctxt "PlayToolBar|"
+msgid "Play/Pause"
+msgstr "Воспроизвести или приостановить"
+
+#: src/gui/widgets/playtoolbar.cpp:64
+msgctxt "PlayToolBar|"
+msgid "Stop playback"
+msgstr "Остановить воспроизведение"
+
+#: src/gui/widgets/playtoolbar.cpp:66
+msgctxt "PlayToolBar|"
+msgid "Previous Track"
+msgstr "Предыдущая дорожка"
+
+#: src/gui/widgets/playtoolbar.cpp:68
+msgctxt "PlayToolBar|"
+msgid "Next Track"
+msgstr "Следующая дорожка"
+
+#: src/gui/widgets/playtoolbar.cpp:70
+msgctxt "PlayToolBar|"
+msgid "Close"
+msgstr "Закрыть"
+
+#: src/gui/widgets/playtoolbar.cpp:87
+msgctxt "PlayToolBar|"
+msgid "Mute"
+msgstr "Отключить звук"
+
+#: src/gui/widgets/playtoolbar.cpp:238
+#, qt-format
+msgctxt "PlayToolBar|"
+msgid "Volume: %1%"
+msgstr "Громкость: %1%"
+
+#: src/gui/widgets/progresswidget.cpp:56
+msgctxt "ProgressWidget|"
+msgid "&Cancel"
+msgstr "О&тмена"
+
+#: src/gui/widgets/stringlistedit.cpp:52
+msgctxt "StringListEdit|"
+msgid "Add Item"
+msgstr "Добавить элемент"
+
+#: src/gui/widgets/stringlistedit.cpp:72
+msgctxt "StringListEdit|"
+msgid "Edit Item"
+msgstr "Изменить элемент"
+
+#: src/gui/widgets/subframeseditor.cpp:66
+msgctxt "SubframesEditor|"
+msgid "Edit..."
+msgstr "Изменить..."
+
+#: src/gui/widgets/subframeseditor.cpp:71
+msgctxt "SubframesEditor|"
+msgid "Add..."
+msgstr "Добавить..."
+
+#: src/gui/widgets/subframeseditor.cpp:76
+msgctxt "SubframesEditor|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/gui/widgets/subframeseditor.cpp:129
+msgctxt "SubframesEditor|"
+msgid "Add Frame"
+msgstr "Добавить фрейм"
+
+#: src/gui/widgets/subframeseditor.cpp:130
+msgctxt "SubframesEditor|"
+msgid "Select the frame ID"
+msgstr "Выберите идентификатор фрейма"
+
+#: src/gui/widgets/tablemodeledit.cpp:35
+msgctxt "TableModelEdit|"
+msgid "&Add"
+msgstr "&Добавить"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:43
+msgctxt "TableOfContentsEditor|"
+msgid "Top level"
+msgstr "Верхний уровень"
+
+#: src/gui/widgets/tableofcontentseditor.cpp:45
+msgctxt "TableOfContentsEditor|"
+msgid "Ordered"
+msgstr "Упорядоченные"
+
+#: src/gui/widgets/tagformatbox.cpp:43
+msgctxt "TagFormatBox|"
+msgid "Validation"
+msgstr "Проверка"
+
+#: src/gui/widgets/timeeventeditor.cpp:120
+msgctxt "TimeEventEditor|"
+msgid "&Add"
+msgstr "&Добавить"
+
+#: src/gui/widgets/timeeventeditor.cpp:122
+msgctxt "TimeEventEditor|"
+msgid "&Delete"
+msgstr "&Удалить"
+
+#: src/gui/widgets/timeeventeditor.cpp:124
+msgctxt "TimeEventEditor|"
+msgid "From Clip&board"
+msgstr "Из &буфера обмена"
+
+#: src/gui/widgets/timeeventeditor.cpp:126
+msgctxt "TimeEventEditor|"
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: src/gui/widgets/timeeventeditor.cpp:128
+msgctxt "TimeEventEditor|"
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+#: src/gui/widgets/timeeventeditor.cpp:130
+msgctxt "TimeEventEditor|"
+msgid "Help"
+msgstr "Справка"
+
+#: src/gui/widgets/timeeventeditor.cpp:188
+msgctxt "TimeEventEditor|"
+msgid "Events"
+msgstr "События"
+
+#: src/gui/widgets/timeeventeditor.cpp:194
+msgctxt "TimeEventEditor|"
+msgid "Lyrics"
+msgstr "Текст"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Offset"
+msgstr "Смещение"
+
+#: src/gui/widgets/timeeventeditor.cpp:431
+msgctxt "TimeEventEditor|"
+msgid "Milliseconds"
+msgstr "Миллисекунды"
+
+#: src/gui/widgets/timeeventeditor.cpp:470
+msgctxt "TimeEventEditor|"
+msgid "&Insert row"
+msgstr "&Вставить строку"
+
+#: src/gui/widgets/timeeventeditor.cpp:474
+msgctxt "TimeEventEditor|"
+msgid "&Delete rows"
+msgstr "&Удалить строки"
+
+#: src/gui/widgets/timeeventeditor.cpp:476
+msgctxt "TimeEventEditor|"
+msgid "C&lear"
+msgstr "О&чистить"
+
+#: src/gui/widgets/timeeventeditor.cpp:478
+msgctxt "TimeEventEditor|"
+msgid "&Add offset..."
+msgstr "&Добавить смещение..."
+
+#: src/gui/widgets/timeeventeditor.cpp:480
+msgctxt "TimeEventEditor|"
+msgid "&Seek to position"
+msgstr "&Прокрутка до положения"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+msgctxt "@default|"
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz (отпечаток)"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+msgctxt "MusicBrainzClient|"
+msgid "Unrecognized"
+msgstr "Нераспознанный"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "Recognized"
+msgstr "Распознанный"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+msgctxt "MusicBrainzClient|"
+msgid "User Selection"
+msgstr "Выбор"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+msgctxt "MusicBrainzClient|"
+msgid "ID Lookup"
+msgstr "Поиск идентификатора"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+msgctxt "MusicBrainzClient|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+msgctxt "MusicBrainzClient|"
+msgid "Fingerprint"
+msgstr "Отпечаток"
+
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+msgctxt "MusicBrainzClient|"
+msgid "Metadata Lookup"
+msgstr "Поиск метаданных"
+
+#: src/plugins/amazonimport/amazonimporter.cpp:69
+msgctxt "@default|"
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/plugins/discogsimport/discogsimporter.cpp:1395
+msgctxt "@default|"
+msgid "Discogs"
+msgstr "Discogs"
+
+#: src/plugins/freedbimport/freedbimporter.cpp:58
+msgctxt "@default|"
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2273
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC — шифрование аудио"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2274
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC — прикреплённое изображение"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2279
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM — комментарии"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2280
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR — реклама"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2284
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR — регистрация метода шифрования"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+msgctxt "@default|"
+msgid "EQUA - Equalization"
+msgstr "EQUA — частотная коррекция"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2286
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO — коды времени событий"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2287
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB — общий инкапсулированный объект"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2288
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID — регистрация идентификатора группы"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+msgctxt "@default|"
+msgid "IPLS - Involved people list"
+msgstr "IPLS — список функциональных ролей и имён соответствующих людей"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2292
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK — связанная информация"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2293
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI — идентификатор музыкального компакт-диска"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2294
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT — таблица поиска расположений MPEG"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2299
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE — фрейм владения"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2300
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV — фрейм частной информации"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2301
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT — счётчик воспроизведения"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2305
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM — измеритель популярности"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2306
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS — фрейм синхронизации положения"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2307
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF — рекомендуемый размер буфера"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+msgctxt "@default|"
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD — настройка относительной громкости"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2309
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB — реверберация"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2312
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT — синхронизированный текст"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2313
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC — синхронизированные коды темпа"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2314
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB — название альбома / фильма / телепередачи"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2315
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM — BPM (количество ударов в минуту)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2320
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM — композитор"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/taglibmetadata/taglibfile.cpp:2321
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON — тип содержимого"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2322
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP — сообщение об авторских правах"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+msgctxt "@default|"
+msgid "TDAT - Date"
+msgstr "TDAT — дата"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:951
+#: src/plugins/taglibmetadata/taglibfile.cpp:2327
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY — задержка списка воспроизведения"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2332
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC — кодировщик"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/taglibmetadata/taglibfile.cpp:2333
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT — автор текста"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2334
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT — тип файла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:960
+msgctxt "@default|"
+msgid "TIME - Time"
+msgstr "TIME — время"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2339
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 — описание группы содержимого"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2340
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 — описание названия или содержимого"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2341
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 — уточняющий подзаголовок или описание"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2342
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY — начальная тональность"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:965
+#: src/plugins/taglibmetadata/taglibfile.cpp:2346
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN — язык(и)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2347
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN — длина"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2349
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED — тип носителя"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2351
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL — исходное название альбома / фильма / телепередачи"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2352
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN — исходное имя файла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/taglibmetadata/taglibfile.cpp:2353
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY — исходный автор текста"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2354
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE — исходный исполнитель"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+msgctxt "@default|"
+msgid "TORY - Original release year"
+msgstr "TORY — год исходного выпуска"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:975
+#: src/plugins/taglibmetadata/taglibfile.cpp:2355
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN — владелец файла или получатель лицензии"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2356
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 — ведущий исполнитель или солист"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2357
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 — группа / оркестр / аккомпанемент"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:978
+#: src/plugins/taglibmetadata/taglibfile.cpp:2358
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 — дирижёр"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:979
+#: src/plugins/taglibmetadata/taglibfile.cpp:2359
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 — автор интерпретации, ремикса или другого изменения"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:980
+#: src/plugins/taglibmetadata/taglibfile.cpp:2360
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS — часть сета"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2362
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB — издатель"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2363
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK — порядковый номер дорожки на компакт-диске или в сете"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:984
+msgctxt "@default|"
+msgid "TRDA - Recording dates"
+msgstr "TRDA — даты записи"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2364
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN — название Интернет-радиостанции"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:986
+#: src/plugins/taglibmetadata/taglibfile.cpp:2365
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO — владелец Интернет-радиостанции"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+msgctxt "@default|"
+msgid "TSIZ - Size"
+msgstr "TSIZ — размер"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2371
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC — ISRC (международный стандартный код записи)"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2372
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr ""
+"TSSE — программное / аппаратное обеспечение и параметры, использованные для "
+"кодирования"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2374
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX — определённая пользователем текстовая информация"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+msgctxt "@default|"
+msgid "TYER - Year"
+msgstr "TYER — год"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2375
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID — уникальный идентификатор файла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2376
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER — условия использования"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2377
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT — несинхронизированная транскрипция текста"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:999
+#: src/plugins/taglibmetadata/taglibfile.cpp:2378
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM — рекламная информация"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1000
+#: src/plugins/taglibmetadata/taglibfile.cpp:2379
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP — информация об авторских правах / юридическая информация"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1001
+#: src/plugins/taglibmetadata/taglibfile.cpp:2383
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF — официальная веб-страница аудиофайла"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1002
+#: src/plugins/taglibmetadata/taglibfile.cpp:2384
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR — официальная веб-страница исполнителя"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1003
+#: src/plugins/taglibmetadata/taglibfile.cpp:2385
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS — официальная веб-страница источника аудио"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1004
+#: src/plugins/taglibmetadata/taglibfile.cpp:2386
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS — официальная домашняя страница Интернет-радиостанции"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1005
+#: src/plugins/taglibmetadata/taglibfile.cpp:2387
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY — платёж"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1006
+#: src/plugins/taglibmetadata/taglibfile.cpp:2388
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB — официальная веб-страница издателя"
+
+#: src/plugins/id3libmetadata/mp3file.cpp:1007
+#: src/plugins/taglibmetadata/taglibfile.cpp:2389
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX — определённая пользователем URL-ссылка"
+
+#: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
+msgctxt "@default|"
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz (релиз)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2275
+msgctxt "@default|"
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI — список точек поиска аудио"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2277
+msgctxt "@default|"
+msgid "CHAP - Chapter"
+msgstr "CHAP — глава"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2282
+msgctxt "@default|"
+msgid "CTOC - Table of contents"
+msgstr "CTOC — содержание"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2285
+msgctxt "@default|"
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 — частотная коррекция (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2290
+msgctxt "@default|"
+msgid "GRP1 - Grouping"
+msgstr "GRP1 - Группировка"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2296
+msgctxt "@default|"
+msgid "MVIN - Movement Number"
+msgstr "MVIN — номер части"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2297
+msgctxt "@default|"
+msgid "MVNM - Movement Name"
+msgstr "MVNM — название части произведения"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2303
+msgctxt "@default|"
+msgid "PCST - Podcast"
+msgstr "PCST — подкаст"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2308
+msgctxt "@default|"
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 — настройка относительной громкости (2)"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2310
+msgctxt "@default|"
+msgid "SEEK - Seek frame"
+msgstr "SEEK — фрейм поиска"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2311
+msgctxt "@default|"
+msgid "SIGN - Signature frame"
+msgstr "SIGN — фрейм подписи"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2317
+msgctxt "@default|"
+msgid "TCAT - Podcast category"
+msgstr "TCAT — Категория подкаста"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2319
+msgctxt "@default|"
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP — сборник iTunes"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2323
+msgctxt "@default|"
+msgid "TDEN - Encoding time"
+msgstr "TDEN — время кодирования"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2325
+msgctxt "@default|"
+msgid "TDES - Podcast description"
+msgstr "TDES — описание подкаста"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2328
+msgctxt "@default|"
+msgid "TDOR - Original release time"
+msgstr "TDOR — время исходного выпуска"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2329
+msgctxt "@default|"
+msgid "TDRC - Recording time"
+msgstr "TDRC — время записи"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2330
+msgctxt "@default|"
+msgid "TDRL - Release time"
+msgstr "TDRL — время выпуска"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2331
+msgctxt "@default|"
+msgid "TDTG - Tagging time"
+msgstr "TDTG — время проставления тегов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2336
+msgctxt "@default|"
+msgid "TGID - Podcast identifier"
+msgstr "TGID — идентификатор подкаста"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2338
+msgctxt "@default|"
+msgid "TIPL - Involved people list"
+msgstr "TIPL — список функциональных ролей и имён соответствующих людей"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2344
+msgctxt "@default|"
+msgid "TKWD - Podcast keywords"
+msgstr "TKWD — Кључне речи подкастов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2348
+msgctxt "@default|"
+msgid "TMCL - Musician credits list"
+msgstr "TMCL — список инструментов и имён соответствующих музыкантов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2350
+msgctxt "@default|"
+msgid "TMOO - Mood"
+msgstr "TMOO — настроение"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2361
+msgctxt "@default|"
+msgid "TPRO - Produced notice"
+msgstr "TPRO — правообладатель исходного звука"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2366
+msgctxt "@default|"
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 — порядок сортировки по исполнителям альбомов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2367
+msgctxt "@default|"
+msgid "TSOA - Album sort order"
+msgstr "TSOA — порядок сортировки по альбомам"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2368
+msgctxt "@default|"
+msgid "TSOC - Composer sort order"
+msgstr "TSOC — порядок сортировки по композиторам"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2369
+msgctxt "@default|"
+msgid "TSOP - Performer sort order"
+msgstr "TSOP — порядок сортировки по исполнителям"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2370
+msgctxt "@default|"
+msgid "TSOT - Title sort order"
+msgstr "TSOT — порядок сортировки по названиям"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2373
+msgctxt "@default|"
+msgid "TSST - Set subtitle"
+msgstr "TSST — подзаголовок сета"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:2381
+msgctxt "@default|"
+msgid "WFED - Podcast feed"
+msgstr "WFED — канал подкастов"
+
+#: src/plugins/taglibmetadata/taglibfile.cpp:6613
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Информация о рейтинге"
+
+#: src/qml/app/AboutDialog.qml:29
+msgctxt "AboutDialog|"
+msgid "About Kid3"
+msgstr "О Kid3"
+
+#: src/qml/app/AboutDialog.qml:39
+msgctxt "AboutDialog|"
+msgid "Audio Tag Editor"
+msgstr "Редактор аудио-тегов"
+
+#: src/qml/app/AboutDialog.qml:44
+msgctxt "AboutDialog|"
+msgid "License"
+msgstr "Лицензия"
+
+#: src/qml/app/AboutDialog.qml:46
+#, qt-format
+msgctxt "AboutDialog|"
+msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
+msgstr "Эта программа использует <a href=\"http://www.qt.io/\">Qt</a> %1."
+
+#: src/qml/app/BatchImportPage.qml:32
+msgctxt "BatchImportPage|"
+msgid "Automatic Import"
+msgstr "Автоматический импорт"
+
+#: src/qml/app/BatchImportPage.qml:40
+msgctxt "BatchImportPage|"
+msgid "Reading Folder"
+msgstr "Чтение каталога"
+
+#: src/qml/app/BatchImportPage.qml:43
+msgctxt "BatchImportPage|"
+msgid "Started"
+msgstr "Запущено"
+
+#: src/qml/app/BatchImportPage.qml:46
+msgctxt "BatchImportPage|"
+msgid "Source"
+msgstr "Источник"
+
+#: src/qml/app/BatchImportPage.qml:49
+msgctxt "BatchImportPage|"
+msgid "Querying"
+msgstr "Запрос"
+
+#: src/qml/app/BatchImportPage.qml:53
+msgctxt "BatchImportPage|"
+msgid "Fetching"
+msgstr "Получение"
+
+#: src/qml/app/BatchImportPage.qml:56
+msgctxt "BatchImportPage|"
+msgid "Data received"
+msgstr "Полученные данные"
+
+#: src/qml/app/BatchImportPage.qml:59
+msgctxt "BatchImportPage|"
+msgid "Cover"
+msgstr "Обложка"
+
+#: src/qml/app/BatchImportPage.qml:62
+msgctxt "BatchImportPage|"
+msgid "Finished"
+msgstr "Готово"
+
+#: src/qml/app/BatchImportPage.qml:65
+msgctxt "BatchImportPage|"
+msgid "Aborted"
+msgstr "Прервано"
+
+#: src/qml/app/BatchImportPage.qml:68
+msgctxt "BatchImportPage|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/qml/app/BatchImportPage.qml:104
+msgctxt "BatchImportPage|"
+msgid "Start"
+msgstr "Начать"
+
+#: src/qml/app/BatchImportPage.qml:126
+msgctxt "BatchImportPage|"
+msgid "Destination:"
+msgstr "Место назначения:"
+
+#: src/qml/app/BatchImportPage.qml:135
+msgctxt "BatchImportPage|"
+msgid "Tag 1"
+msgstr "Тег 1"
+
+#: src/qml/app/BatchImportPage.qml:136
+msgctxt "BatchImportPage|"
+msgid "Tag 2"
+msgstr "Тег 2"
+
+#: src/qml/app/BatchImportPage.qml:137
+msgctxt "BatchImportPage|"
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+#: src/qml/app/BatchImportPage.qml:149
+msgctxt "BatchImportPage|"
+msgid "Profile:"
+msgstr "Профиль:"
+
+#: src/qml/app/FileCollapsible.qml:32
+msgctxt "FileCollapsible|"
+msgid "File"
+msgstr "Файл"
+
+#: src/qml/app/FileSelectDialog.qml:42
+msgctxt "FileSelectDialog|"
+msgid "Open"
+msgstr "Открыть"
+
+#: src/qml/app/FileSelectDialog.qml:98
+msgctxt "FileSelectDialog|"
+msgid "Folder"
+msgstr "Папка"
+
+#: src/qml/app/FileSelectDialog.qml:190
+msgctxt "FileSelectDialog|"
+msgid "File"
+msgstr "Файл"
+
+#: src/qml/app/FilterPage.qml:31
+msgctxt "FilterPage|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/qml/app/FilterPage.qml:39
+msgctxt "FilterPage|"
+msgid "Started"
+msgstr "Запущено"
+
+#: src/qml/app/FilterPage.qml:57
+msgctxt "FilterPage|"
+msgid "Finished"
+msgstr "Готово"
+
+#: src/qml/app/FilterPage.qml:60
+msgctxt "FilterPage|"
+msgid "Aborted"
+msgstr "Прервано"
+
+#: src/qml/app/FilterPage.qml:92
+msgctxt "FilterPage|"
+msgid "Start"
+msgstr "Начать"
+
+#: src/qml/app/FilterPage.qml:118
+msgctxt "FilterPage|"
+msgid "Filter:"
+msgstr "Фильтр:"
+
+#: src/qml/app/FilterPage.qml:131
+msgctxt "FilterPage|"
+msgid "Expression:"
+msgstr "Выражение:"
+
+#: src/qml/app/FrameEditDialog.qml:117
+msgctxt "FrameEditDialog|"
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/qml/app/FrameEditDialog.qml:118
+msgctxt "FrameEditDialog|"
+msgid "File already exists. Overwrite?"
+msgstr "Файл уже существует. Перезаписать?"
+
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+msgctxt "FrameEditDialog|"
+msgid "Export"
+msgstr "Экспорт"
+
+#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+msgctxt "FrameEditDialog|"
+msgid "Import"
+msgstr "Импорт"
+
+#: src/qml/app/FrameSelectDialog.qml:38
+msgctxt "FrameSelectDialog|"
+msgid "Add Frame"
+msgstr "Добавить фрейм"
+
+#: src/qml/app/FrameSelectDialog.qml:47
+msgctxt "FrameSelectDialog|"
+msgid "Select the frame ID"
+msgstr "Выберите идентификатор фрейма"
+
+#: src/qml/app/ImportProfilesEditPage.qml:34
+msgctxt "ImportProfilesEditPage|"
+msgid "Profiles"
+msgstr "Профили"
+
+#: src/qml/app/ImportProfilesEditPage.qml:42
+msgctxt "ImportProfilesEditPage|"
+msgid "Profile"
+msgstr "Профиль"
+
+#: src/qml/app/ImportProfilesEditPage.qml:68
+#: src/qml/app/ImportProfilesEditPage.qml:136
+msgctxt "ImportProfilesEditPage|"
+msgid "Accuracy"
+msgstr "Точность"
+
+#: src/qml/app/ImportProfilesEditPage.qml:71
+#: src/qml/app/ImportProfilesEditPage.qml:149
+msgctxt "ImportProfilesEditPage|"
+msgid "Standard Tags"
+msgstr "Стандартные теги"
+
+#: src/qml/app/ImportProfilesEditPage.qml:74
+#: src/qml/app/ImportProfilesEditPage.qml:154
+msgctxt "ImportProfilesEditPage|"
+msgid "Additional Tags"
+msgstr "Дополнительные теги"
+
+#: src/qml/app/ImportProfilesEditPage.qml:77
+#: src/qml/app/ImportProfilesEditPage.qml:159
+msgctxt "ImportProfilesEditPage|"
+msgid "Cover Art"
+msgstr "Обложки"
+
+#: src/qml/app/ImportProfilesEditPage.qml:128
+msgctxt "ImportProfilesEditPage|"
+msgid "Server"
+msgstr "Сервер"
+
+#: src/qml/app/Main.qml:92
+msgctxt "Main|"
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/qml/app/Main.qml:93
+msgctxt "Main|"
+msgid ""
+"The current folder has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменён.\n"
+"Сохранить его?"
+
+#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+msgctxt "Main|"
+msgid "File Error"
+msgstr "Ошибка файла"
+
+#: src/qml/app/Main.qml:129
+msgctxt "Main|"
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: src/qml/app/Main.qml:146
+#, qt-format
+msgctxt "Main|"
+msgid "SD card is only writable in %1"
+msgstr "SD-карта доступна для записи только в %1"
+
+#: src/qml/app/Main.qml:163
+msgctxt "Main|"
+msgid "Error while writing file. Do you want to change the permissions?"
+msgstr "Ошибка при записи файла. Изменить разрешения?"
+
+#: src/qml/app/Main.qml:259
+#, qt-format
+msgctxt "Main|"
+msgid "%1 is not writable"
+msgstr "%1 — запись невозможна"
+
+#: src/qml/app/MainPage.qml:48
+msgctxt "MainPage|"
+msgid " [modified]"
+msgstr " [изменено]"
+
+#: src/qml/app/MainPage.qml:49
+#, qt-format
+msgctxt "MainPage|"
+msgid " [filtered %1/%2]"
+msgstr " [фильтровано %1/%2]"
+
+#: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
+msgctxt "MainPage|"
+msgid "Open"
+msgstr "Открыть"
+
+#: src/qml/app/MainPage.qml:155
+msgctxt "MainPage|"
+msgid "About"
+msgstr "О программе"
+
+#: src/qml/app/MainPage.qml:171
+msgctxt "MainPage|"
+msgid "Save"
+msgstr "Сохранение"
+
+#: src/qml/app/MainPage.qml:180
+msgctxt "MainPage|"
+msgid "Settings"
+msgstr "Настройка"
+
+#: src/qml/app/MainPage.qml:189
+msgctxt "MainPage|"
+msgid "Automatic Import"
+msgstr "Автоматический импорт"
+
+#: src/qml/app/MainPage.qml:198
+msgctxt "MainPage|"
+msgid "Create Playlist"
+msgstr "Создать список воспроизведения"
+
+#: src/qml/app/MainPage.qml:202
+msgctxt "MainPage|"
+msgid "Rename Folder"
+msgstr "Переименовать каталог"
+
+#: src/qml/app/MainPage.qml:211
+msgctxt "MainPage|"
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки"
+
+#: src/qml/app/MainPage.qml:220
+msgctxt "MainPage|"
+msgid "Filter"
+msgstr "Фильтр"
+
+#: src/qml/app/MainPage.qml:229
+msgctxt "MainPage|"
+msgid "Apply Filename Format"
+msgstr "Применить формат имени файла"
+
+#: src/qml/app/MainPage.qml:233
+msgctxt "MainPage|"
+msgid "Apply Tag Format"
+msgstr "Применить формат тега"
+
+#: src/qml/app/MainPage.qml:237
+msgctxt "MainPage|"
+msgid "Apply Text Encoding"
+msgstr "Применить кодировку текста"
+
+#: src/qml/app/MainPage.qml:241
+msgctxt "MainPage|"
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразовать ID3v2.3 в ID3v2.4"
+
+#: src/qml/app/MainPage.qml:245
+msgctxt "MainPage|"
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразовать ID3v2.4 в ID3v2.3"
+
+#: src/qml/app/MainPage.qml:249
+msgctxt "MainPage|"
+msgid "Revert"
+msgstr "Отменить изменения"
+
+#: src/qml/app/MainPage.qml:253
+msgctxt "MainPage|"
+msgid "Quit"
+msgstr "Выход"
+
+#: src/qml/app/NumberTracksDialog.qml:48
+msgctxt "NumberTracksDialog|"
+msgid "Start number:"
+msgstr "Начальный номер:"
+
+#: src/qml/app/NumberTracksDialog.qml:57
+msgctxt "NumberTracksDialog|"
+msgid "Destination:"
+msgstr "Место назначения:"
+
+#: src/qml/app/NumberTracksDialog.qml:63
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1"
+msgstr "Тег 1"
+
+#: src/qml/app/NumberTracksDialog.qml:64
+msgctxt "NumberTracksDialog|"
+msgid "Tag 2"
+msgstr "Тег 2"
+
+#: src/qml/app/NumberTracksDialog.qml:65
+msgctxt "NumberTracksDialog|"
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+#: src/qml/app/NumberTracksDialog.qml:79
+msgctxt "NumberTracksDialog|"
+msgid "Reset counter for each folder"
+msgstr "Начинать заново в каждой папке"
+
+#: src/qml/app/NumberTracksDialog.qml:92
+msgctxt "NumberTracksDialog|"
+msgid "Total number of tracks"
+msgstr "Всего дорожек"
+
+#: src/qml/app/PictureCollapsible.qml:27
+msgctxt "PictureCollapsible|"
+msgid "Picture"
+msgstr "Изображение"
+
+#: src/qml/app/RenameDirectoryPage.qml:37
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Rename Folder"
+msgstr "Переименовать каталог"
+
+#: src/qml/app/RenameDirectoryPage.qml:77
+msgctxt "RenameDirectoryPage|"
+msgid "Start"
+msgstr "Начать"
+
+#: src/qml/app/RenameDirectoryPage.qml:81
+msgctxt "RenameDirectoryPage|"
+msgid "Error"
+msgstr "Ошибка"
+
+#: src/qml/app/RenameDirectoryPage.qml:109
+msgctxt "RenameDirectoryPage|"
+msgid "Action:"
+msgstr "Действие:"
+
+#: src/qml/app/RenameDirectoryPage.qml:114
+msgctxt "RenameDirectoryPage|"
+msgid "Create Folder"
+msgstr "Создать каталог"
+
+#: src/qml/app/RenameDirectoryPage.qml:124
+msgctxt "RenameDirectoryPage|"
+msgid "Source:"
+msgstr "Источник:"
+
+#: src/qml/app/RenameDirectoryPage.qml:129
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2 and Tag 1"
+msgstr "Из тега 2 и тега 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:130
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 1"
+msgstr "Из тега 1"
+
+#: src/qml/app/RenameDirectoryPage.qml:131
+msgctxt "RenameDirectoryPage|"
+msgid "From Tag 2"
+msgstr "Из тега 2"
+
+#: src/qml/app/RenameDirectoryPage.qml:141
+msgctxt "RenameDirectoryPage|"
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/qml/app/RenameDirectoryPage.qml:152
+msgctxt "RenameDirectoryPage|"
+msgid "Folder Name from Tag"
+msgstr "Имя каталога из тега"
+
+#: src/qml/app/RenameDirectoryPage.qml:185
+msgctxt "RenameDirectoryPage|"
+msgid "Preview"
+msgstr "Просмотр"
+
+#: src/qml/app/SettingsPage.qml:30
+msgctxt "SettingsPage|"
+msgid "Settings"
+msgstr "Настройка"
+
+#: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
+msgctxt "SettingsPage|"
+msgid "Tags"
+msgstr "Теги"
+
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:183
+msgctxt "SettingsPage|"
+msgid "Files"
+msgstr "Файлы"
+
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:317
+msgctxt "SettingsPage|"
+msgid "Plugins"
+msgstr "Модули"
+
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:375
+msgctxt "SettingsPage|"
+msgid "Appearance"
+msgstr "Внешний вид"
+
+#: src/qml/app/SettingsPage.qml:48
+msgctxt "SettingsPage|"
+msgid "Mark truncated fields"
+msgstr "Отмечать усечённые поля"
+
+#: src/qml/app/SettingsPage.qml:53
+msgctxt "SettingsPage|"
+msgid "ID3v1 text encoding"
+msgstr "ID3v1 кодировка текста"
+
+#: src/qml/app/SettingsPage.qml:59
+msgctxt "SettingsPage|"
+msgid "ID3v2 text encoding"
+msgstr "ID3v2 кодировка текста"
+
+#: src/qml/app/SettingsPage.qml:65
+msgctxt "SettingsPage|"
+msgid "Use track/total number of tracks format"
+msgstr "Использовать формат «номер дорожки / всего дорожек»"
+
+#: src/qml/app/SettingsPage.qml:70
+msgctxt "SettingsPage|"
+msgid "Genre as text instead of numeric string"
+msgstr "Жанр как текст (вместо числовой строки)"
+
+#: src/qml/app/SettingsPage.qml:75
+msgctxt "SettingsPage|"
+msgid "WAV files with lowercase id3 chunk"
+msgstr "Файлы WAV с блоком id3 в нижнем регистре"
+
+#: src/qml/app/SettingsPage.qml:80
+msgctxt "SettingsPage|"
+msgid "Version used for new ID3v2 tags"
+msgstr "Версия, используемая для новых тегов ID3v2"
+
+#: src/qml/app/SettingsPage.qml:86
+msgctxt "SettingsPage|"
+msgid "Track number digits"
+msgstr "Количество цифр в номере дорожки"
+
+#: src/qml/app/SettingsPage.qml:91
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis comment field name"
+msgstr "Имя поля комментария Ogg/Vorbis"
+
+#: src/qml/app/SettingsPage.qml:101
+msgctxt "SettingsPage|"
+msgid "Ogg/Vorbis picture field name"
+msgstr "Имя поля изображения Ogg/Vorbis"
+
+#: src/qml/app/SettingsPage.qml:107
+msgctxt "SettingsPage|"
+msgid "RIFF track number field name"
+msgstr "Имя поля номера дорожки RIFF"
+
+#: src/qml/app/SettingsPage.qml:117
+msgctxt "SettingsPage|"
+msgid "Mark if picture larger than maximum size"
+msgstr "Отмечать, если размер изображения превышает максимальный"
+
+#: src/qml/app/SettingsPage.qml:122
+msgctxt "SettingsPage|"
+msgid "Picture maximum size (bytes)"
+msgstr "Максимальный размер изображения (в байтах)"
+
+#: src/qml/app/SettingsPage.qml:127
+msgctxt "SettingsPage|"
+msgid "Show only custom genres"
+msgstr "Показывать только пользовательские жанры"
+
+#: src/qml/app/SettingsPage.qml:131
+msgctxt "SettingsPage|"
+msgid "Custom Genres"
+msgstr "Пользовательские жанры"
+
+#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:217
+msgctxt "SettingsPage|"
+msgid "Case conversion"
+msgstr "Преобразование регистра"
+
+#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:223
+msgctxt "SettingsPage|"
+msgid "Locale"
+msgstr "Локаль"
+
+#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:234
+msgctxt "SettingsPage|"
+msgid "String replacement"
+msgstr "Замена строк"
+
+#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:238
+msgctxt "SettingsPage|"
+msgid "String Replacement"
+msgstr "Замена строк"
+
+#: src/qml/app/SettingsPage.qml:187
+msgctxt "SettingsPage|"
+msgid "Load last-opened files"
+msgstr "Загружать при запуске файлы, открытые при последнем выходе"
+
+#: src/qml/app/SettingsPage.qml:192
+msgctxt "SettingsPage|"
+msgid "Preserve file timestamp"
+msgstr "Сохранять метки времени изменения файлов"
+
+#: src/qml/app/SettingsPage.qml:197
+msgctxt "SettingsPage|"
+msgid "Mark changes"
+msgstr "Отмечать изменения"
+
+#: src/qml/app/SettingsPage.qml:202
+msgctxt "SettingsPage|"
+msgid "Automatically apply format"
+msgstr "Автоматически применять формат"
+
+#: src/qml/app/SettingsPage.qml:207
+msgctxt "SettingsPage|"
+msgid "Use maximum length"
+msgstr "Использовать максимальную длину"
+
+#: src/qml/app/SettingsPage.qml:212
+msgctxt "SettingsPage|"
+msgid "Maximum length"
+msgstr "Максимальная длина"
+
+#: src/qml/app/SettingsPage.qml:249
+msgctxt "SettingsPage|"
+msgid "Filename for cover"
+msgstr "Имя файла обложки"
+
+#: src/qml/app/SettingsPage.qml:254
+msgctxt "SettingsPage|"
+msgid "Playlist text encoding"
+msgstr "Кодировка текста списка воспроизведения"
+
+#: src/qml/app/SettingsPage.qml:260
+msgctxt "SettingsPage|"
+msgid "To filename format"
+msgstr "В формат имени файла"
+
+#: src/qml/app/SettingsPage.qml:270
+msgctxt "SettingsPage|"
+msgid "Filename from Tag"
+msgstr "Имя файла из тега"
+
+#: src/qml/app/SettingsPage.qml:285
+msgctxt "SettingsPage|"
+msgid "From filename format"
+msgstr "Из формата имени файла"
+
+#: src/qml/app/SettingsPage.qml:295
+msgctxt "SettingsPage|"
+msgid "Tag from Filename"
+msgstr "Тег из имени файла"
+
+#: src/qml/app/SettingsPage.qml:379
+msgctxt "SettingsPage|"
+msgid "Language"
+msgstr "Язык"
+
+#: src/qml/app/SettingsPage.qml:380
+msgctxt "SettingsPage|"
+msgid "System"
+msgstr "Система"
+
+#: src/qml/app/SettingsPage.qml:391
+msgctxt "SettingsPage|"
+msgid "Theme"
+msgstr "Тема"
+
+#: src/qml/app/StringListEditPage.qml:85
+msgctxt "StringListEditPage|"
+msgid "Edit"
+msgstr "Правка"
+
+#: src/qml/app/TagCollapsible.qml:40
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "Tag %1"
+msgstr "Тег %1"
+
+#: src/qml/app/TagCollapsible.qml:83
+msgctxt "TagCollapsible|"
+msgid "To Filename"
+msgstr "В имя файла"
+
+#: src/qml/app/TagCollapsible.qml:87
+msgctxt "TagCollapsible|"
+msgid "From Filename"
+msgstr "Из имени файла"
+
+#: src/qml/app/TagCollapsible.qml:91
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "To Tag %1"
+msgstr "В тег %1"
+
+#: src/qml/app/TagCollapsible.qml:98
+#, qt-format
+msgctxt "TagCollapsible|"
+msgid "From Tag %1"
+msgstr "Из тега %1"
+
+#: src/qml/app/TagCollapsible.qml:102
+msgctxt "TagCollapsible|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/qml/app/TagCollapsible.qml:106
+msgctxt "TagCollapsible|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/qml/app/TagCollapsible.qml:110
+msgctxt "TagCollapsible|"
+msgid "Remove"
+msgstr "Убрать"
+
+#~ msgctxt "@default|"
+#~ msgid "TrackType.org"
+#~ msgstr "TrackType.org"
+
+#~ msgid "Your names"
+#~ msgstr "Егор С. Орлов,Олеся Герасименко"
+
+#~ msgid "Your emails"
+#~ msgstr "Egor.Orlov@avalon.ru,gammaray@basealt.ru"
+
+#~ msgctxt "Match OS X Finder"
+#~ msgid "Kind"
+#~ msgstr "Вид"
+
+#~ msgctxt "All other platforms"
+#~ msgid "Type"
+#~ msgstr "Тип"
