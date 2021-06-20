@@ -1,3 +1,22 @@
+Sun Jun 20 11:18:51 CEST 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.8.7
+
+	* New:
+	  + Russian handbook.
+
+	* Fixed:
+	  + ID3v2: Wrong numeric strings for genres Fast Fusion, Fok, Folk Rock,
+	    Folklore, Funk, Fusion.
+	  + ID3v1: Genres Avant-Garde, Beat Music, Bebop, Britpop, Dancehall,
+	    Dark Wave, Euro House, Eurotechno, Fast Fusion, Folk Rock, Hip Hop,
+	    Jazz-Funk, Pop-Funk, Synth-Pop, Worldbeat cannot be set with TagLib
+	    version < 1.12.
+	  + Memory leak in the rare case where the file type is detected not by
+	    the extension but by the contents.
+	  + kid3-cli: Fields (sub-elements of a frame) with a non-string value
+	    cannot be set with id3lib.
+
 Thu Mar 18 08:21:47 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.6
