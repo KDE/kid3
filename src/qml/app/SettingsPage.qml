@@ -204,6 +204,11 @@ AbstractSettingsPage {
           onDeactivated: function() { fmtCfg.formatWhileEditing = value; }
         },
         SettingsElement {
+          name: qsTr("Use for playlist and folder names")
+          onActivated: function() { value = fmtCfg.useForOtherFileNames; }
+          onDeactivated: function() { fmtCfg.useForOtherFileNames = value; }
+        },
+        SettingsElement {
           name: qsTr("Use maximum length")
           onActivated: function() { value = fmtCfg.enableMaximumLength; }
           onDeactivated: function() { fmtCfg.enableMaximumLength = value; }

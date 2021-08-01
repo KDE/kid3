@@ -41,6 +41,7 @@ FormatConfig::FormatConfig(const QString& grp)
   : GeneralConfig(grp),
     m_caseConversion(AllFirstLettersUppercase),
     m_maximumLength(255),
+    m_useForOtherFileNames(true),
     m_enableMaximumLength(false),
     m_filenameFormatter(false),
     m_formatWhileEditing(false),
@@ -330,6 +331,7 @@ void FormatConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("LocaleName"), QVariant(m_localeName));
   config->setValue(QLatin1String("StrRepEnabled"), QVariant(m_strRepEnabled));
   config->setValue(QLatin1String("EnableValidation"), QVariant(m_enableValidation));
+  config->setValue(QLatin1String("UseForOtherFileNames"), QVariant(m_useForOtherFileNames));
   config->setValue(QLatin1String("EnableMaximumLength"), QVariant(m_enableMaximumLength));
   config->setValue(QLatin1String("MaximumLength"), QVariant(m_maximumLength));
   QStringList keys, values;
@@ -361,6 +363,8 @@ void FormatConfig::readFromConfig(ISettings* config)
                                   m_strRepEnabled).toBool();
   m_enableValidation = config->value(QLatin1String("EnableValidation"),
                                      m_enableValidation).toBool();
+  m_useForOtherFileNames = config->value(QLatin1String("UseForOtherFileNames"),
+                                        m_useForOtherFileNames).toBool();
   m_enableMaximumLength = config->value(QLatin1String("EnableMaximumLength"),
                                         m_enableMaximumLength).toBool();
   m_maximumLength = config->value(QLatin1String("MaximumLength"),
@@ -398,6 +402,14 @@ void FormatConfig::setEnableValidation(bool enableValidation)
   if (m_enableValidation != enableValidation) {
     m_enableValidation = enableValidation;
     emit enableValidationChanged(m_enableValidation);
+  }
+}
+
+void FormatConfig::setUseForOtherFileNames(bool useForOtherFileNames)
+{
+  if (m_useForOtherFileNames != useForOtherFileNames) {
+    m_useForOtherFileNames = useForOtherFileNames;
+    emit useForOtherFileNamesChanged(m_useForOtherFileNames);
   }
 }
 

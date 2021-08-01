@@ -419,6 +419,10 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     DirNameFormatReplacer fmt(*m_fmtContext, trackData, m_format);
     fmt.replacePercentCodes(FormatReplacer::FSF_ReplaceSeparators);
     QString baseName = fmt.getString();
+    const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+    if (fnCfg.useForOtherFileNames()) {
+      fnCfg.formatString(baseName);
+    }
     m_fmtContext->putDirName(baseName);
     newdir.append(
           FilenameFormatConfig::instance().joinFileName(baseName, QString()));

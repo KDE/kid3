@@ -64,6 +64,7 @@ public:
   virtual void toFormatConfig(FormatConfig& cfg) const override;
 
 private:
+  QCheckBox* m_useForOtherFileNamesCheckBox;
   QCheckBox* m_maximumLengthCheckBox;
   QSpinBox* m_maximumLengthSpinBox;
 };

@@ -423,7 +423,11 @@ bool PlaylistCreator::Item::add()
       m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.fileNameFormat());
       Utils::replaceIllegalFileNameCharacters(m_ctr.m_playlistFileName);
     }
-    m_ctr.m_playlistFileName = FilenameFormatConfig::instance().joinFileName(
+    const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+    if (fnCfg.useForOtherFileNames()) {
+      fnCfg.formatString(m_ctr.m_playlistFileName);
+    }
+    m_ctr.m_playlistFileName = fnCfg.joinFileName(
           m_ctr.m_playlistFileName, m_ctr.m_cfg.fileExtensionForFormat());
   }
   QString filePath = m_dirName + m_taggedFile->getFilename();

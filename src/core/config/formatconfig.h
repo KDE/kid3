@@ -65,6 +65,9 @@ class KID3_CORE_EXPORT FormatConfig : public GeneralConfig {
   /** true to enable data validation */
   Q_PROPERTY(bool enableValidation READ enableValidation
              WRITE setEnableValidation NOTIFY enableValidationChanged)
+  /** true to use format for playlist and folder names */
+  Q_PROPERTY(bool useForOtherFileNames READ useForOtherFileNames
+             WRITE setUseForOtherFileNames NOTIFY useForOtherFileNamesChanged)
   Q_ENUMS(CaseConversion)
 public:
   /** Case conversion options. */
@@ -191,6 +194,12 @@ public:
   /** Set if data validation is enabled. */
   void setEnableValidation(bool enableValidation);
 
+  /** Check if format shall be used for playlist and folder names. */
+  bool useForOtherFileNames() const { return m_useForOtherFileNames; }
+
+  /** Set if format shall be used for playlist and folder names. */
+  void setUseForOtherFileNames(bool useForOtherFileNames);
+
   /** Check if length restriction is enabled. */
   bool enableMaximumLength() const { return m_enableMaximumLength; }
 
@@ -232,6 +241,9 @@ signals:
   /** Emitted when @a enableValidation changed. */
   void enableValidationChanged(bool enableValidation);
 
+  /** Emitted when @a useForOtherFileNames changed. */
+  void useForOtherFileNamesChanged(bool useForOtherFileNames);
+
   /** Emitted when @a enableMaximumLength changed. */
   void enableMaximumLengthChanged(bool enableMaximumLength);
 
@@ -255,6 +267,7 @@ private:
   /** Locale to use for string conversions */
   QScopedPointer<const QLocale> m_locale;
   int m_maximumLength;
+  bool m_useForOtherFileNames;
   bool m_enableMaximumLength;
   /** true if it is a file formatter */
   bool m_filenameFormatter;

@@ -38,15 +38,19 @@
  */
 FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
   : FormatBox(title, parent),
+    m_useForOtherFileNamesCheckBox(nullptr),
     m_maximumLengthCheckBox(nullptr), m_maximumLengthSpinBox(nullptr)
 {
   if (auto formLayout = qobject_cast<QFormLayout*>(layout())) {
+    m_useForOtherFileNamesCheckBox =
+        new QCheckBox(tr("Use for playlist and folder names"));
     m_maximumLengthCheckBox = new QCheckBox(tr("Maximum length:"));
     m_maximumLengthSpinBox = new QSpinBox;
     m_maximumLengthSpinBox->setMinimum(10);
     m_maximumLengthSpinBox->setMaximum(255);
+    formLayout->insertRow(1, m_useForOtherFileNamesCheckBox);
     formLayout->setLabelAlignment(Qt::AlignLeft);
-    formLayout->insertRow(1, m_maximumLengthCheckBox, m_maximumLengthSpinBox);
+    formLayout->insertRow(2, m_maximumLengthCheckBox, m_maximumLengthSpinBox);
     connect(m_maximumLengthCheckBox, &QAbstractButton::toggled,
             m_maximumLengthSpinBox, &QWidget::setEnabled);
   }
@@ -60,6 +64,9 @@ FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
 void FilenameFormatBox::fromFormatConfig(const FormatConfig& cfg)
 {
   FormatBox::fromFormatConfig(cfg);
+  if (m_useForOtherFileNamesCheckBox) {
+    m_useForOtherFileNamesCheckBox->setChecked(cfg.useForOtherFileNames());
+  }
   if (m_maximumLengthCheckBox) {
     m_maximumLengthCheckBox->setChecked(cfg.enableMaximumLength());
   }
@@ -77,6 +84,9 @@ void FilenameFormatBox::fromFormatConfig(const FormatConfig& cfg)
 void FilenameFormatBox::toFormatConfig(FormatConfig& cfg) const
 {
   FormatBox::toFormatConfig(cfg);
+  if (m_useForOtherFileNamesCheckBox) {
+    cfg.setUseForOtherFileNames(m_useForOtherFileNamesCheckBox->isChecked());
+  }
   if (m_maximumLengthCheckBox) {
     cfg.setEnableMaximumLength(m_maximumLengthCheckBox->isChecked());
   }
