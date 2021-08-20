@@ -1600,7 +1600,8 @@ QString getGenreString(const TagLib::String& str)
   QString qs = toQString(str);
   int cpPos = 0, n = 0xff;
   bool ok = false;
-  if (qs[0] == QLatin1Char('(') && (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
+  if (!qs.isEmpty() && qs[0] == QLatin1Char('(') &&
+      (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
 #if QT_VERSION >= 0x060000
     n = qs.mid(1, cpPos - 1).toInt(&ok);
 #else
