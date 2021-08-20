@@ -145,6 +145,16 @@ public:
   void readConfig();
 
   /**
+   * Save file and directory list columns to the configuration.
+   */
+  void saveFileAndDirListConfig();
+
+  /**
+   * Set file and directory list columns from the configuration.
+   */
+  void readFileAndDirListConfig();
+
+  /**
    * Get filename.
    */
   QString getFilename() const { return m_nameLineEdit->text(); }

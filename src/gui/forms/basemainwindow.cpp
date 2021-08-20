@@ -1716,6 +1716,7 @@ void BaseMainWindowImpl::startProgressMonitoring(
   m_progressTerminationHandler = terminationHandler;
   m_progressDisconnected = disconnectModel;
   m_progressStartTime = QDateTime::currentDateTime();
+  m_form->saveFileAndDirListConfig();
 }
 
 /**
@@ -1729,6 +1730,7 @@ void BaseMainWindowImpl::stopProgressMonitoring()
     if (m_progressDisconnected) {
       m_form->getDirList()->reconnectModel();
       m_form->getFileList()->reconnectModel();
+      m_form->readFileAndDirListConfig();
       m_form->getFileList()->expandAll();
     }
   }

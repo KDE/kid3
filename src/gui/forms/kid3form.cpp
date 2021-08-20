@@ -1114,26 +1114,7 @@ void Kid3Form::saveConfig()
       guiCfg.setHideTag(tagNr, m_tagWidget[tagNr]->isHidden());
     }
   }
-  int column;
-  Qt::SortOrder order;
-  m_fileListBox->getSortByColumn(column, order);
-  guiCfg.setFileListSortColumn(column);
-  guiCfg.setFileListSortOrder(order);
-  guiCfg.setFileListVisibleColumns(m_fileListBox->getVisibleColumns());
-  bool customColumWidthsEnabled = m_fileListBox->areCustomColumnWidthsEnabled();
-  guiCfg.setFileListCustomColumnWidthsEnabled(customColumWidthsEnabled);
-  if (customColumWidthsEnabled) {
-    guiCfg.setFileListColumnWidths(m_fileListBox->getColumnWidths());
-  }
-  m_dirListBox->getSortByColumn(column, order);
-  guiCfg.setDirListSortColumn(column);
-  guiCfg.setDirListSortOrder(order);
-  guiCfg.setDirListVisibleColumns(m_dirListBox->getVisibleColumns());
-  customColumWidthsEnabled = m_dirListBox->areCustomColumnWidthsEnabled();
-  guiCfg.setDirListCustomColumnWidthsEnabled(customColumWidthsEnabled);
-  if (customColumWidthsEnabled) {
-    guiCfg.setDirListColumnWidths(m_dirListBox->getColumnWidths());
-  }
+  saveFileAndDirListConfig();
 }
 
 /**
@@ -1168,6 +1149,43 @@ void Kid3Form::readConfig()
     }
   }
   hidePicture(guiCfg.hidePicture());
+  readFileAndDirListConfig();
+}
+
+/**
+ * Save file and directory list columns to the configuration.
+ */
+void Kid3Form::saveFileAndDirListConfig()
+{
+  GuiConfig& guiCfg = GuiConfig::instance();
+  int column;
+  Qt::SortOrder order;
+  m_fileListBox->getSortByColumn(column, order);
+  guiCfg.setFileListSortColumn(column);
+  guiCfg.setFileListSortOrder(order);
+  guiCfg.setFileListVisibleColumns(m_fileListBox->getVisibleColumns());
+  bool customColumWidthsEnabled = m_fileListBox->areCustomColumnWidthsEnabled();
+  guiCfg.setFileListCustomColumnWidthsEnabled(customColumWidthsEnabled);
+  if (customColumWidthsEnabled) {
+    guiCfg.setFileListColumnWidths(m_fileListBox->getColumnWidths());
+  }
+  m_dirListBox->getSortByColumn(column, order);
+  guiCfg.setDirListSortColumn(column);
+  guiCfg.setDirListSortOrder(order);
+  guiCfg.setDirListVisibleColumns(m_dirListBox->getVisibleColumns());
+  customColumWidthsEnabled = m_dirListBox->areCustomColumnWidthsEnabled();
+  guiCfg.setDirListCustomColumnWidthsEnabled(customColumWidthsEnabled);
+  if (customColumWidthsEnabled) {
+    guiCfg.setDirListColumnWidths(m_dirListBox->getColumnWidths());
+  }
+}
+
+/**
+ * Set file and directory list columns from the configuration.
+ */
+void Kid3Form::readFileAndDirListConfig()
+{
+  const GuiConfig& guiCfg = GuiConfig::instance();
   m_fileListBox->sortByColumn(guiCfg.fileListSortColumn(),
                               guiCfg.fileListSortOrder());
   m_fileListBox->setVisibleColumns(guiCfg.fileListVisibleColumns());
